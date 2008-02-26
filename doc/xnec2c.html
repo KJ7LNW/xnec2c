@@ -1,0 +1,763 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="Bluefish 1.0.7">
+<meta name="generator" content="Bluefish 1.0.7">
+<meta name="generator" content="Bluefish 1.0.7">
+<meta name="generator" content="Bluefish 1.0.7">
+<title>Xnec2c User Manual</title>
+<meta name="author" content="root">
+<meta name="copyright" content="GPL v2.0 or higher">
+<meta name="keywords" content="xnec2c GTK2 graphical nec2c NEC2 C">
+<meta name="description" content=
+"xnec2c: GTK+v2-based GUI version of nec2c">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content=
+"application/xhtml+xml; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+</head>
+<body>
+<div align="center">
+<h2>Xnec2c User Manual</h2>
+</div>
+<div align="center">
+<h4>Xnec2c is a GTK2-based Graphical version of nec2c, the C
+translation of NEC2</h4>
+</div>
+<ol>
+<li><b><a href="#Introduction">Introduction</a></b></li>
+<li><b><a href="#Features">Features</a></b>
+<ul>
+<li><b><a href="#Interactive">Interactive Operation</a></b></li>
+<li><b><a href="#NoOutFile">No Output File</a></b></li>
+<li><b><a href="#Windows">Windows</a></b></li>
+<li><b><a href="#Color">Color Coding</a></b></li>
+<li><b><a href="#OnDemand">On-demand Calculation</a></b></li>
+<li><b><a href="#Multithread">Multi-threaded operation on SMP
+machines</a></b></li>
+<li><b><a href="#Nec2Edit">Built-in NEC2 input file
+editor</a></b></li>
+</ul>
+</li>
+<li><b><a href="#Limitations">Limitations</a></b></li>
+<li><b><a href="#Compilation">Compilation and
+Installation</a></b></li>
+<li><b><a href="#Operation">Operation</a></b>
+<ul>
+<li><b><a href="#CommandLine">Command Line Options</a></b></li>
+<li><b><a href="#MainWindow">The Main Window</a></b></li>
+<li><b><a href="#RadiationWindow">The Radiation Pattern
+Window</a></b></li>
+<li><b><a href="#FrequencyWindow">Frequency Data Plots</a></b></li>
+<li><b><a href="#Nec2Treeview">NEC2 Input File Editor</a></b></li>
+</ul>
+</li>
+<li><b><a href="#InputFile">Input File Considerations</a></b></li>
+<li><b><a href="#OutputFile">Output File
+Considerations</a></b></li>
+<li><b><a href="#Version">Version History</a></b></li>
+<li><b><a href="#Bugs">Bugs and Inadequacies</a></b></li>
+<li><b><a href="#Acknowledgement">Acknowledgement</a></b></li>
+</ol>
+<b><a name="Introduction" id="Introduction">1.
+Introduction:</a></b><br>
+<p>Xnec2c is a GTK2-based Graphical version of nec2c, my
+translation to the C language of NEC2, the FORTRAN Numerical
+Electromagnetics Code commonly used for antenna simulation and
+analysis. The original nec2c is a non-interactive command-line
+application that reads standard NEC2 input files and produces an
+output file with data requested by "commands" in the input file. In
+contrast xnec2c is a GUI interactive application that (in its
+current form) reads NEC2 input files but presents output data in
+graphical form, e.g. as wire frame drawings of the radiation
+pattern or near E/H field, graphs of maximum gain, input impedance,
+vswr etc against frequency and simple rendering of the antenna
+structure, including color code representation of currents or
+charge densities. These results are only calculated and drawn on
+user demand via menu items or buttons, e.g. xnec2c is interactive
+and does not execute NEC2 "commands" in batch style as the original
+does. Printing of results to an output file has been removed
+starting from version 1.0, since xnec2c works in a way that does
+not allow printing compatible with the NEC2 format. If printing to
+file is needed then it is better to use the original NEC2 program,
+to avoid bugs that may still be lurking in the C translation.</p>
+<p>Xnec2c now has a built-in editor for NEC2 input files which can
+be used to edit geometry or command "card" data. This basic editor
+displays comment, geometry and command cards in tree views where
+individual rows, each representing a card, can have their cells
+edited directly for "raw" entry of data. More useful are pop-up
+"editor" windows that open when appropriate buttons are clicked or
+when a selected row is right-clicked with the mouse. These editors
+allow easier, more convenient entry and editing of individual rows,
+with no need for detailed knowledge of "card" formats. When editing
+is completed, the contents of the nec2 editor can be saved in a
+NEC2-compatible input file which can then be re-loaded by xnec2c
+for execution.</p>
+<b><a name="Features" id="Features">2. Features:</a></b><br>
+<ul>
+<li>
+<p><b><a name="Interactive" id="Interactive">Interactive
+Operation:</a></b><br>
+Xnec2c is interactive in its operation, e.g. when started it just
+shows its Main window in a "blank" state, indicating that no valid
+input data has been read in yet. The NEC2-type input file can be
+specified at start-up in the command line with the <b>-i option</b>
+or it can be opened from the file selection dialog that appears via
+the <b>File-&gt;Open menu</b> of the <a href="#MainWindow">Main
+window</a>. Once a valid input file is opened, all the normal
+widgets in the <a href="#MainWindow">Main window</a> appear so as
+to allow proper operation. The NEC2 "commands" in the input file
+are read in but not executed, until a request is issued by the user
+via buttons or menus in the appropriate windows.</p>
+</li>
+<li>
+<p><b><a name="NoOutFile" id="NoOutFile">No Output
+File:</a></b><br>
+Printing of results to an output file has been removed starting
+from version 1.0, since xnec2c works in a way that does not allow
+printing compatible with the NEC2 format. If printing to file is
+needed then it is better to use the original NEC2 program, to avoid
+bugs that may still be lurking in the C translation.</p>
+</li>
+<li><b><a name="Windows" id="Windows">Windows:</a></b><br>
+In its current form, xnec2c has three windows for the graphical
+display of output data: When started without an input file
+specified by the -i &lt;input-file&gt; option, the <a href=
+"#MainWindow">Main window</a> opens with most of the button and
+menu widgets hidden. When a valid input file is opened, all the
+hidden widgets are shown and the structure is drawn in the <a href=
+"#MainWindow">Main window's</a> drawing area widget. From the
+<b>View</b> menu, the <a href="#RadiationWindow">Radiation
+Pattern</a> and <a href="#FrequencyWindow">Frequency Related
+data</a> display windows can be opened, to draw either the Gain
+pattern or the Near E/H fields or Frequency-related Data like Input
+Impedance, VSWR, Max gain, F/B Ratio, Gain in the Viewer's
+direction etc. Both the <a href="#MainWindow">Main window</a> and
+the <a href="#RadiationWindow">Radiation Pattern window</a> have
+buttons to select fixed viewing angles of the structure or the
+radiation pattern, as well as spin buttons to input specific
+viewing angles.</li>
+<li>
+<p><b><a name="Color" id="Color">Color Coding:</a></b><br>
+Xnec2c uses color coding to visualize the Current or Charge
+distribution in the Structure's segments or patches as well as the
+Gain pattern or the Near E/H field pattern. Color coding is also
+used to clarify the Graphs of Frequency-related data. A color code
+strip is shown in the <a href="#MainWindow">Main</a> and <a href=
+"#RadiationWindow">Radiation Pattern</a> windows.</p>
+</li>
+<li>
+<p><b><a name="OnDemand" id="OnDemand">On-demand
+Calculation:</a></b><br>
+Since xnec2c collects data to be displayed in buffers directly from
+the functions that produce them, there is no need to produce and
+parse an output file and no need to re-run the program when certain
+input data (currently the frequency) is changed or when different
+output data (gain, near-fields, input impedance etc) is required.
+The frequency can be changed either from spin buttons in the
+<a href="#MainWindow">Main</a> and <a href=
+"#RadiationWindow">Radiation Pattern</a> windows or by clicking on
+the <a href="#FrequencyWindow">Frequency Data</a> window's graph
+drawing area. The frequency corresponding to the pointer position
+will then be used to re-calculate whatever data is on display.</p>
+</li>
+<li>
+<p><b><a name="Multithread" id="Multithread">Multi-threading
+operation on SMP machines:</a></b><br>
+Since version 1.0, xnec2c can run multi-threaded (by forking) on
+SMP machines, when executing a frequency loop. Multi-threading is
+enabled by using the -j&lt;n&gt; option, where n is the number of
+processors in a SMP machine. xnec2c will spawn n child processes,
+to which it will delegate calculation of frequency-dependent data
+for each frequency step. Thus data related to n frequency steps
+will be calculated concurrently and passed on the the parent
+process by pipes, to be further processed for graphical display.
+Child processes are spawned before GTK is initialized and started
+so that only the parent process is tied to the GUI interface. Thus
+there are n+1 processes running when the -j option is used and
+execution is faster by slightly less than n times. <b>Please
+note</b> that its pointless and counter-productive to specify a
+value of n greater than the number of steps in the frequency
+loop.</p>
+<p><b><a name="Nec2Edit" id="Nec2Edit">Built-in NEC2 input file
+editor:</a></b><br>
+Xnec2c has a built-in editor for NEC2 input files. Data in NEC2
+"cards" can be entered or edited either directly in the main editor
+window (tree view) or in more convenient dedicated editors for each
+type of card. Edited data can be saved to a NEC2 input file and
+reloaded for execution so that the edit-execute-display cycle is
+quicker and more convenient.</p>
+</li>
+</ul>
+<b><a name="Limitations" id="Limitations">3.
+Limitations:</a></b><br>
+<p>Since xnec2c is interactive, it cannot operate in the same way
+as NEC2 or nec2c. Specifically, commands that cause execution in
+NEC2/nec2c (XQ, RP etc), are only read in but not acted upon unless
+the user requests the display of relevant data. For example, if an
+RP command line is included in the input file, xnec2c reads the
+relevant data from that line but does not calculate/render the
+radiation pattern, until the user requests this by opening the
+<a href="#RadiationWindow">Radiation Pattern window</a> and
+clicking on the <b>Gain</b> button. In addition, the NX and WG/GF
+commands are not recognized since only one structure at a time can
+be input and evaluated, and the Numerical Green's function is not
+needed or implemented. Also, some options of certain commands (e.g.
+the surface wave option I1=1 of the RP command) are not implemented
+and they must not be used since they will disrupt or even crash
+xnec2c.</p>
+<p>There are advantages deriving from the interactive operation: it
+is possible, for example, to specify both the NE and NH commands in
+combination with a multiple-frequency FR card, although only the
+relevant data of the last command will be used.</p>
+<p><b><a name="Compilation" id="Compilation">4. Compilation and
+Installation:</a></b><br>
+Please note that I use <a href="http://www.archlinux.org">Arch
+Linux AMD64</a> which is a "bleeding edge" type distribution, so
+there may be compilation and/or run time difficulties if you are
+using a relatively old distro. This is mostly true of the basic
+dependencies like GTK+ 2 and Glade-2, and there can also be sound
+card incompatibility problems at run time.</p>
+<p>To compile the package the first time, run the "autogen.sh"
+script in the package's top directory. The "configure" script as
+produced by Glade-2 specifies the gcc flags as "-g -O2", but if you
+want to specify different flags, you will have to run "configure"
+with the CFLAGS option, e.g. ./configure CFLAGS="-Wall -O2
+-march=i686" or whatever flags of your choice.</p>
+<p>Run "make" to produce the executable binary "xnec2c" in src/.
+This can then be copied to a suitable location, usually
+/usr/local/bin or /usr/bin. You can of course run "make install"
+which will install the binary into /usr/local/bin by default. You
+can change this to a different location, e.g. /usr/bin, by
+including the --prefix=/usr option when running "configure". To
+recompile the package, you must run "make distclean" in the top
+directory to clean up the package and then run the "configure"
+script and "make install".</p>
+<p>No configuration files are needed and the sample input files
+that were used during development are in the xnec2c/examples
+directory. Please also read the <b>xnec2c/doc/nec2c.txt</b> file
+that describes the nec2c application that is used as the basis for
+xnec2c.</p>
+<b><a name="Operation" id="Operation">5. Operation:</a></b><br>
+<p><a name="CommandLine" id="CommandLine"><b>Command Line
+Options:</b></a><br>
+Xnec2c has the following command line options:<br></p>
+<p><b>-i &lt;input-file-name&gt;</b>: Specify a NEC2 input file to
+be opened at start-up.</p>
+<p><b>-j &lt;number of child processes to spawn&gt;</b>: Since
+version 1.0 xnec2c can run multi-threaded on SMP machines. This
+option specifies the number of child processes to spawn by forking,
+so that the total number of processes running will be n+1. n should
+be equal to the number of processors in a SMP machine. <b>Please
+note</b> that its pointless and counter-productive to specify a
+value of n greater than the number of steps in the frequency
+loop.<br></p>
+<p><b>-h:</b> Print usage information and exit.<br></p>
+<p><b>-v:</b> Print version information and exit.</p>
+<p><b><a name="MainWindow" id="MainWindow">The Main
+Window:</a></b><br>
+<img src="images/currents.png" width="636" height="742" border="0"
+hspace="10" vspace="10" alt="Main Window" align="left"> When
+starting xnec2c from a terminal or from a file manager (by OLE),
+the -i option can be used to specify a NEC2 input file: <b>xnec2c
+-i ~/nec2/turnstile.nec</b>. Otherwise an input file can be opened
+from the Main window's <b>File-&gt;Open</b> menu item. If the input
+file is valid, xnec2c will render the structure specified in the
+Geometry section of the file in the Main window's drawing area. The
+background color is black and the structure is rendered in blue.
+The excitation points (segments) are rendered in red, the x, y, z
+axis in white, loaded segments in yellow, transmission lines in
+cyan and two-port networks in magenta. These colors are hard-coded
+in the source code and at this stage of development there is no
+option to change them.</p>
+<p>Once an input file is opened, the structure display can be
+rotated around the Z axis and tilted about a horizontal axis
+through the origin. This can be done either by pressing button 1
+and dragging the structure with the mouse pointer, clicking the
+<b>X, Y, Z</b> or the right-arrow <b>Default</b> view button (45
+deg rotation and tilt). The actual value of rotation and tilt is
+shown in two spin button widgets which can also be used to change
+the viewing angle.</p>
+<p>The current distribution or charge density in the structure can
+be displayed by clicking the <b>Cur</b> or <b>Chg</b> toggle
+buttons at the top right of the Main window. The distribution of
+current or charges is rendered by a color code, red for the maximum
+value and magenta for zero. The Frequency Loop control buttons can
+be used to Start, Pause or Reset the loop. There is a <b>Color
+Code</b> bar at the left of the second row of widgets in the Main
+window, indicating the color coding and the maximum value of the
+displayed quantity (at its right).</p>
+<p>The title in the border of the drawing area widget shows the
+user-selected function of the display, while the text entry widget
+at the right of the color code bar shows antenna gain in the Viewer
+direction, e.g. perpendicular to the Screen. To the right of this
+the <b>Frequency Spin Button</b> shows the current frequency in MHz
+for which the current/charge distribution and Viewer gain are
+calculated and displayed. If the <b>Redo Check box</b> is active,
+each time the frequency is changed in the spin button, all relevant
+data on display will be recalculated. If not, clicking the Redo
+button will initiate recalculation.</p>
+<p>Printing of results to an output file has been removed starting
+from version 1.0, since xnec2c works in a way that does not allow
+printing compatible with the NEC2 format. If printing to file is
+needed then it is better to use the original NEC2 program, to avoid
+bugs that may still be lurking in the C translation. Otherwise, it
+is possible to save the structure drawing to a PNG file by using
+the <b>Save</b> or <b>Save As</b> items in the File menu.</p>
+<p>The View menu allows opening of other output data display
+windows and selection of various options:<br>
+The <b>Radiation Pattern</b> menu item opens the <a href=
+"#RadiationWindow">Radiation Pattern window</a> so that the Gain
+pattern or the Near E/H fields can be calculated and displayed.<br>
+The <b>Frequency Data</b> item opens the <a href=
+"#FrequencyWindow">Frequency Data Plots window</a> which allows the
+plotting of various frequency-related data against the frequency
+range specified in the FR command. It also allows quick selection
+of the current frequency and recalculation of data by clicking on
+the plots drawing area.<br>
+The <b>Polarization</b> sub menu allows the selection of different
+polarizations for which many data items are calculated (e.g. gain,
+F/B ratio etc). The selection is global, e.g. it effects all
+relevant data that are drawn or displayed in other windows.<br>
+The <b>Common Projection</b> item couples the projection (viewing
+angle) parameters of the Structure display in the Main window and
+the Gain or E/H field display in the <a href=
+"#RadiationWindow">Radiation pattern</a> window so that both move
+in step. Similarly, the <b>Common Frequency</b> menu item couples
+the Frequency entry/display spin buttons in the same windows so
+that displayed data are for the same frequency.</p>
+<p><b><a name="RadiationWindow" id="RadiationWindow">The Radiation
+Pattern window:</a></b><br>
+<img src="images/radiation.png" width="624" height="742" border="0"
+hspace="10" vspace="10" alt="Radiation Pattern" align="left"> On
+the top row of widgets, this window has the same Viewer angle
+selection buttons and spin button displays as the <a href=
+"#MainWindow">Main window</a>. The two buttons at the middle right
+(<b>Gain</b> and <b>E/H</b>) select either the Gain or the Near
+Electric/Magnetic Field pattern display. Provided there are at
+least two steps in the theta and one in the phi angle as specified
+in the Radiation Pattern (RP) command, the Gain pattern will be
+calculated and drawn. The E/H field will be properly drawn if there
+are at least two points specified in the NE or NH commands. The
+Frequency Loop control buttons at the far right can be used to
+Start, Pause and Reset the loop.</p>
+<p>The <b>View</b> menu, in addition to the <b>Common
+Projection</b> and <b>Common Frequency</b> check buttons, provides
+sub-menus for selecting <b>Polarization</b> type, <b>Gain
+Scaling</b> and the <b>Near Field</b> data to be drawn. The
+selection of polarization type affects the Gain pattern, the
+displayed Viewer gain and the value of max and min gain as shown to
+the left and right of the color code bar. The selection of gain
+scaling only affects the form of the Gain pattern drawing:
+<b>Linear Power</b> is the most realistic, since the distance from
+the origin of each point in the gain pattern is proportional to the
+radiated power density, as is the color code (red for max gain and
+magenta for min gain). A disadvantage of this scaling is the
+inadequate representation of side lobes since they are usually
+significantly weaker than the main beam. <b>Linear Voltage</b> is
+better in this respect since the position of points in the gain
+pattern is proportional to Electric field strength and hence
+follows a square root law. <b>ARRL Style</b> follows a form of
+logarithmic scaling suggested by the American Radio Relay League,
+e.g. exp(0.058267 * gain) where gain is in dB10. Finally
+<b>Logarithmic</b> follows a logarithmic scale with a median of
+40dB.</p>
+<p>When a Near Field (<b>NE</b> or <b>NH</b>) command is included
+in the input file, clicking the <b>E/H</b> button produces a
+drawing of the near Electric and/or Magnetic fields. By selecting
+the <b>Near Field-&gt;Poynting Vector</b> menu item the Poynting
+vector is also drawn. These fields are depicted by lines of fixed
+length in the direction of the relevant (E/H/Poynting) vector at
+each point in the drawing. The field strength is depicted by the
+color of the lines as using the line length for this purpose makes
+most lines too small to be useful. The drawing of the Near E or H
+Fields can be enabled or disabled by the <b>Near Field-&gt;Near E
+Field</b> and <b>Near Field-&gt;Near H Field</b> menu items.</p>
+<p>The <b>Near Field-&gt;Animate Dialog</b> menu item opens a
+dialog box for setting the parameters and starting an Animation of
+the near field pattern. The <b>Steps/Cycle</b> spin button allows
+the setting of the number of angular steps around a cycle of the
+excitation input. The default is 36 and it results in angular steps
+of 10 degrees. The <b>Animate Frequency</b> spin button specifies a
+fictitious (slowed down) excitation frequency for which the
+animation is performed. The default is 1.0 Hz. Clicking the
+<b>Apply</b> button starts an animation of the near fields using
+the specified parameters. The <b>OK</b> button does like wise but
+it closes the animation dialog, while <b>Cancel</b> stops the
+animation.</p>
+<p>The <b>Total Field</b> sub-menu allows the selection of drawing
+either the <b>Peak</b> value or a "time-frozen" <b>Snapshot</b> of
+the instantaneous value of the total Near Field E/H vectors. The
+Snapshot values are calculated as the vector sum of the X, Y, Z
+components of the E/H field and the Peak values are calculated
+using the formula NEC4 uses to print the Peak field values.</p>
+<p>The <b>Overlay Structure</b> menu item enables the drawing of
+the structure in the radiation pattern drawing area when the Near
+Field pattern is selected for drawing. This makes it easier to
+understand the scale and extend of the Near Field patterns around
+the structure. The color scheme for the structure becomes white
+when Overlay is enabled, unless it is overridden by either the
+Current or Charge distribution being enabled by the relevant
+buttons in the <a href="#MainWindow">Main window.</a></p>
+<p>In the second row of widgets, the <b>Color Code</b> bar shows
+either the max and min values of Gain in the radiation pattern or
+the maximum value of the field strength in the near E/H field
+pattern. (Of course only one value can be shown, the precedence
+being E field, H field or Poynting field strength, depending on
+which of these is enabled in the <b>View-&gt;Near Field</b> sub
+menu). The <b>Text Entry</b> widget at the right of the color bar
+shows gain in the direction of the viewer (perpendicular to
+screen), while the <b>Frequency Spin button</b> following it shows
+the current frequency in MHz for which data is displayed. It can
+also be used to enter a new frequency in the same manner as in the
+<a href="#MainWindow">Main window.</a> The <b>Redo Check box</b>
+enables re-calculation and display of data when the frequency value
+changes, while the button to its right causes same when clicked by
+the user, but only if a new frequency has been entered.</p>
+<p>Currently the Gain pattern is drawn as a transparent wire frame,
+with each line segment colored according to the average value of
+gain associated with the two points it joins. The pattern can be
+"dragged" with the mouse pointer to rotate or tilt it and it can
+also be positioned using either the <b>X, Y, Z or Default</b>
+(right arrow) buttons. The <b>Rotate</b> and <b>Incline</b> spin
+buttons can also be used to accurately position the Gain pattern in
+the window. The <b>label</b> in the drawing area's frame gives
+information on what is on display and also the type of polarization
+or gain scaling.</p>
+<p>Both the Gain and Near Field patterns can be saved as PNG image
+files by using the <b>File-&gt;Save</b> or <b>File-&gt;Save As</b>
+menu items. The Save option will save the drawings with a suitable
+default file name which includes a serial number, so that
+consecutive Saves do not overwrite files, but please note that when
+xnec2c is restarted the serial numbers are reset so that
+overwriting will occur if the same input file is opened.</p>
+<p><b><a name="FrequencyWindow" id="FrequencyWindow">Frequency Data
+Plots window:</a></b><br>
+<img src="images/freq_plots.png" width="636" height="736" border=
+"0" hspace="10" vspace="10" alt="Frequency Plots" align="left">The
+Frequency Data Plots window is the main display of frequency
+related data such as maximum gain, VSWR, input impedance etc. Most
+data can be plotted against frequency and some are displayed in
+text entry widgets. It is also a convenient way to quickly enter a
+new current frequency by clicking on the graph drawing area.</p>
+<p>The following applies to all graphs plotted in this window: When
+a graph of two quantities against frequency is plotted (e.g real
+and imaginary parts of input impedance), then one quantity is
+plotted in magenta color and its scale is at the left vertical side
+of the bounding box. The second quantity is plotted in cyan color
+and its scale is at the right side while a short descriptive title
+is printed in yellow at the top horizontal side. The graph bounding
+box is in white and the scale grid lines are in light grey. When
+only a single quantity is plotted against frequency, it is plotted
+in magenta color and the scale is at the left side of the bounding
+box.</p>
+<p>Once graph plotting is complete (e.g. the frequency loop is
+done), clicking on the graph drawing area with button 1 (left mouse
+button) will produce a vertical green line in the graph bounding
+box, marking the new current frequency and triggering a
+re-calculation of all frequency-related data. Also, displays and
+drawings in all open windows (assuming the Redo check boxes are
+ticked active) will be refreshed to present the new data. Clicking
+on the drawing area with button 3 (right button) sets the frequency
+to the nearest frequency loop step value, as marked by the little
+boxes or diamonds on the graphs. However, all the displayed
+frequency-related data are still recalculated and refreshed e.g.
+buffered values are not used. Clicking with button 2 (middle
+button) cancels the green frequency-marking line.</p>
+<p>The top row of widgets in this window has at its right buttons
+to select data to be plotted against frequency. These are:<br>
+<b>Max Gain:</b> Maximum gain and front-to-back ratio at each
+frequency step.<br>
+<b>Dir:</b> The direction of maximum gain, e.g. the radiation angle
+relative to the xy plane (90-theta) and the phi angle as defined in
+NEC2.<br>
+<b>Viewer:</b> The gain in the viewer's direction, e.g.
+perpendicular to the screen.<br>
+<b>VSWR @ Zo:</b> The VSWR for the Zo value in the <b>Impedance
+Spin button</b> (default 50 Ohm).<br>
+<b>Zr/Zi:</b> The real and imaginary parts of the input
+impedance.<br>
+<b>Zm/Zph:</b> The scalar magnitude and phase of the input
+impedance.<br>
+The Frequency Loop control buttons at the top right can be use to
+Start, Pause or Reset the loop. As the loop progresses, more data
+will be presented in the graphs and in the text entry widgets above
+the graph drawing area. These widgets display the current frequency
+in MHz, the maximum gain in the radiation pattern for that
+frequency, the VSWR for the Zo value in the spin button above and
+the real and imaginary parts of the input impedance.</p>
+<p>The <b>File-&gt;Save</b> and <b>File-&gt;Save As</b> menu items
+can be used to save the graphs in the drawing area as PNG image
+files, with a default file name or one of the user's choice
+respectively. The <b>View-&gt;Polarization</b> sub-menu can be used
+to select the wave polarization type for which data is calculated
+and presented. When Viewer gain plotting is enabled, the graph will
+be re-drawn when the structure projection is changed by the various
+means described earlier (dragging by mouse pointer, Rotate/Incline
+spin buttons etc).</p>
+<p><b><a name="Nec2Treeview" id="Nec2Treeview">NEC2 Input File
+Editor:</a></b><br>
+<img src="images/nec2_edit.png" width="648" height="901" border="0"
+hspace="10" vspace="10" alt="Nec2 Editor" align="left"> Xnec2c has
+a built-in NEC2 input file editor to make the edit/save/execute
+cycle easier and quicker. The main editor window opens from either
+the File-&gt;New or File-&gt;Edit menu items of the <a href=
+"#MainWindow">Main window</a>. The File-&gt;New menu item opens the
+editor with some default rows ("cards") that amount to a free space
+vertical dipole which serves as a simple example. The File-&gt;Edit
+menu is used to edit a NEC2 input file that is already open in
+xnec2c.</p>
+<p>The main NEC2 input file editor can be used to directly edit
+rows if desired and indeed this is the only method available for
+editing Comments. The editor though has several dedicated
+sub-editors for each of the type of card that is indicated in the
+Buttons above the Geometry and Commands Tree Views. The dedicated
+editor windows open when these buttons are clicked (to add a new
+row) or when a selected row is right-clicked by the user with the
+mouse.</p>
+<p><b>Main Editor Description:</b><br>
+The Main NEC2 Editor window is divided into three Tree View areas,
+one for editing Comments, one for editing Geometry and one for
+Control Commands. Each tree view has editable rows divided into
+cells that correspond to NEC2 input file's card columns e.g. Card
+Name (CM) - Comment Text or Card Name (GW) - Wire Data (I1 I2 F1 F2
+F3 F4 F5 F6 F7) etc. Each row can be edited by selecting it with a
+mouse click and then clicking on a cell. This requires detailed
+knowledge of the format of each of the NEC2 input file "cards" and
+so this method is only useful for editing comments.</p>
+<p>The main editor is controlled by the top row of buttons: The Add
+button inserts a new blank row in whatever tree view has been
+selected by a mouse click. The Remove button deletes a row that was
+selected by a mouse click and the Clear button deletes all rows in
+a selected tree view and clears it. The Save As button opens a file
+selector dialog for saving the data in the Editor to a NEC2 input
+file. The Save button writes data in the Editor to an already open
+input file. The Apply check button, when checked, signals xnec2c to
+reload the edited input file for execution. Due to the complex file
+opening process followed by NEC2 (many data sanity checks and
+initializations etc) reloading the input file results in all open
+windows (radiation pattern, frequency plots) to be closed and in
+xnec2c to reset also. Finally the Revert button reloads the last
+saved state of the editor from the input file, to reduce the effort
+needed to recover from a big mistake like clearing a tree view
+accidentally!</p>
+<p><b>Sample Dedicated Geometry Editor Description:</b><br>
+<img src="images/wire.png" width="546" height="372" border="0"
+hspace="10" vspace="10" alt="Wire Editor" align="left"><b>Wire
+Geometry Editor:</b> This is one of the dedicated "card" or row
+editors, for creating or editing wire geometry. It will appear when
+the "Wire" button in the "Edit Geometry Data" frame is clicked or
+when a selected Wire row is right-clicked with the mouse. In the
+former case, a blank "GW" row will be added to the Geometry tree
+view which can then be filled by entering wire geometry data in the
+Editor and clicking Apply or OK. (in the latter case the editor is
+closed). The "Tapered Wire" check button in the upper left corner
+opens an additional frame for entering wire taper data and adds a
+blank "GC" row to the tree view.</p>
+<p>To make things easier, the Wire editor has spin buttons to
+specify Length Taper and Diameter Taper separately to hide the need
+for calculating the actual beginning and end diameters. Also the
+"Segs % lambda" spin button indicates the wire segment length as a
+percentage of smallest wavelength and can be use to set the needed
+number of segments for each wire to maintain a uniform relative
+segment length for all wires. <b>Please note</b> that this function
+will only work if the Frequency (FR) card is specified in the
+Commands tree view <i>and</i> all the data is saved to file and
+read by xnec2c, so that frequency data is valid in xnec2c's
+buffers. <b>Please also note</b> that all dedicated editors require
+wire diameter to be specified but then convert this to radius when
+entering to the Main editor and saving to file (NEC2 requires wire
+radius to be specified).</p>
+<p>Three geometry Editors (wire, helix, arc) have a spin button to
+specify wire conductivity in Siemens/meter. When the spin button
+value is greater than zero, the Editor will enter an LD card in the
+Commands tree view to specify a type 5 (wire conductivity) loading.
+This will result in all segments with tag number equal to that in
+the Editor to be loaded with the specified resistivity. Please note
+that Cancelling the row in the Geometry tree view will not remove
+the loading row.</p>
+<p>All editors (except for the "GE" card) have the following
+buttons along the bottom of the window: "New" inserts a new blank
+row in the tree view after entering edited data into the current
+row. "Cancel" removes the current row and closes the editor window.
+"Apply" enters edited data into the current row. "OK" enters edited
+data into the current row and closes the editor window. <b>Please
+note</b> that the "GE" row is entered automatically by the first
+editor used, if the tree view is cleared, and there is no button
+for it in the Geometry frame. But there is a dedicated editor for
+it which opens with a right-click on the (selected) GE row and
+<i>it should be used</i> to specify the presence of Ground (GN
+command etc).</p>
+<p><b>Sample Dedicated Control Editor:</b><br>
+<img src="images/excitation.png" width="626" height="412" border=
+"0" hspace="10" vspace="10" alt="Excitation Editor" align=
+"left"><b>Excitation Command Editor:</b> The Excitation Command
+Editor opens when the "Excitation" button in the "Edit Control
+Commands" frame is clicked or when a selected "EX" row is
+right-clicked with the mouse. The excitation type is selected by
+activating the appropriate radio button whereby some labels over
+the data input spin buttons will change to indicate their purpose.
+The print control check buttons specify additional data to be
+printed to the output file but please remember that xnec2c does not
+produce an output file. The buttons in the bottom row of the
+Command Editors function in the same way as the Wire editor
+described above.</p>
+<p><b><a name="InputFile" id="InputFile">6. Input File
+Considerations:</a></b><br>
+Since xnec2c is interactive, it will not initiate calculations
+without a prompt from the user. For this reason certain NEC2
+commands that normally cause execution (e.g. RP, XQ etc) are read
+in but not acted upon. Any data in the lines of these commands are
+saved for use when the user requests output data calculation and
+display, via buttons and menu items in the GUI. Also, since xnec2c
+was designed to visualize output data graphically, certain types of
+output data requests are not supported (e.g. the surface wave
+pattern option (I1=1) of the RP command etc). An error message
+dialog will hopefully appear to inform the user of unsupported
+commands or options. Here is a list of commands or command options
+not supported by xnec2c:</p>
+<p><b>GF:</b> Read Numerical Green's Function: Relevant code has
+been removed in nec2c since this type of solution is obsolete.<br>
+<b>WG:</b> Write Numerical Green's Function: Relevant code has been
+removed in nec2c since this type of solution is obsolete.<br>
+<b>NX:</b> Next Structure Data: Relevant code has been removed
+since xnec2c cannot operate in batch mode.<br>
+<b>PQ, PT, CP:</b> These commands affect printed output and have no
+effect on data presented by xnec2c in graphical form. Since version
+1.0 xnec2c does not print results to file.<br>
+<b>SOMNEC:</b> The separate SOMNEC code has been incorporated in
+nec2c and hence in xnec2c also.<br>
+<b>EX:</b> Only voltage source excitation is supported (I1=0 or
+5).<br>
+<b>RP:</b> The surface wave option (I1=1) is not supported.</p>
+<p><b><a name="OutputFile" id="OutputFile">7. Output File
+Considerations:</a></b><br>
+Printing of results to an output file has been removed starting
+from version 1.0, since xnec2c works in a way that does not allow
+printing compatible with the NEC2 format. If printing to file is
+needed then it is better to use the original NEC2 program, to avoid
+bugs that may still be lurking in the C translation.</p>
+<p><b><a name="Version" id="Version">8. Version
+History:</a></b></p>
+<p><b>Version 0.1:</b> First version with ability to draw a
+color-coded wire frame Radiation Pattern (Near and Far Field),
+Graphs of various Frequency dependent data (Gain, VSWR, Impedance
+etc) and the Structure (Wires/Patches), including a color coded
+Current or Charge distribution.</p>
+<p><b>Version 0.2:</b> Incorporated some changes to the GUI (the
+Glade-generated design) since after upgrading to GTK+ 2.8.9, the
+geometry of the windows (the position and extend of buttons/entry
+widgets) changed a little. Also fixed some bugs in the GUI code to
+handle unusual sequences of user actions correctly.</p>
+<p><b>Version 0.3:</b> Added the ability to stop the frequency loop
+by clicking on the frequency display spin buttons and to restart it
+by toggling the "Gain" or "E/H" buttons in the Radiation Pattern
+window.</p>
+<p><b>Version 0.4b:</b> Added a NEC2 input file editor that makes
+the edit/save/reload/execute cycle easier and quicker.</p>
+<p><b>Version 0.5b:</b>Fixed a bug that caused segmentation faults
+when only one wire segment was present in the structure. This is
+not a case that will normally exist but the seg fault had to be
+fixed.</p>
+<p><b>Version 0.6b:</b> Fixed a bug inherited from NEC2: If no
+geometry cards are present (only a GE card) then there is division
+by zero in conect(). NEC2 seems to accept the lack of geometry
+cards, this is now an error condition in xnec2c. Reduced the max
+value specification of the Capacitance spin button in the Loading
+card editor, from 1.0e+12 to 1.0e+9 (pF) since the higher value is
+beyond the range of the "long" type in 32 bit systems. Modified the
+behavior of some card Editors to make them more user friendly.</p>
+<p><b>Version 0.7b:</b> Fixed a bug in the co-ordinate translation
+(Move) editor and edited the code in the GW card editor so that the
+wire diameter does not change when the New button is clicked.</p>
+<p><b>Version 0.8b:</b> Fixed a serious bug that caused
+segmentation faults and crashes in structures that have a wire in
+contact with a patch. The subph() routine divides this patch into 3
+or 4 sub-patches so the total number of patches increases. There
+was no provision to reallocate and initialize buffers used in
+rendering patches in the structure display window. Other minor bugs
+were also fixed and the example NEC2 files were also checked and
+edited when needed.</p>
+<p><b>Version 0.9b:</b> Fixed a few bugs mainly in the NEC2 editor
+code and also changed the code of all individual Geometry and
+Command editors, so that edited data are set in the main NEC2
+editor's tree views when another Geometry or Command card (tree
+view row) is selected for editing.</p>
+<p>Implemented a work round around a serious bug which I could not
+trace, since it now seems to be outside my code: When the zint() or
+fbar() functions are called, they seem to corrupt xnec2c's memory
+allocation when they return. This corruption manifests itself as
+NAN values appearing in calculations so I modified these functions
+to return their computed value via a pointer in the argument list.
+I also changed the function declaration from complex long double to
+void as it seems this bug is related to functions of the former
+type declaration, returning a value.</p>
+<p><b>Version 1.0b:</b> In this version xnec2c has been re-worked
+extensively to make it multi-threading and to streamline its
+operation to some extend. Many bugs created by these changes, and
+others that already existed have been fixed, and the user interface
+has also changed somewhat. The example input files have also been
+checked and some mistakes in them have been corrected. This is now
+the first version 1.0 beta release for public testing.</p>
+<p><b>Version 1.0b3:</b> Added setlocale(LC_NUMERIC, "C"); to the
+main() function, so that in locales where commas are used in
+decimal numbers xnec2c can read data correctly (suggested by Joop
+Stakenborg). Some minor changes to the user interface were also
+made to allow the NEC2 editor window to fit in displays with
+shorter heights.</p>
+<p><b>Version 1.0b4:</b> After a bug report from Juha Vierinen I
+changed some "sprintf" commands to "snprintf" to avoid buffer
+overruns.</p>
+<p><b>Version 1.0b5:</b> Following on the above changes, I revised
+all similar situations in xnec2c's source and modified all
+"sprintf" commands to "snprintf" just in case, as I could not
+replicate the bug so could not test for other similar problems. I
+also fixed a bug in the "save" and "save as" handler, to avoid
+false attempts by xnec2c to save structure and radiation
+pattern/frequency plots pixmaps when a save of the NEC2 editor data
+failed for some reason.</p>
+<p><b><a name="Bugs" id="Bugs">9. Bugs and
+Inadequacies:</a></b><br>
+Xnec2c is based on nec2c, my translation to C of the original
+FORTRAN NEC2 code. Any bugs discovered in nec2c will affect xnec2c
+as well and they will have to be fixed. In addition, changing the
+flow logic of nec2c, from a non-interactive batch-processing
+command line tool to a GUI-based interactive application, was
+rather complex and introduced many bugs that were fixed, but it is
+always possible that a combination of some input file with an
+untested sequence of user actions may trigger a hidden bug. Such a
+case in fact did appear and it was traced to a bug in the original
+NEC2 code. This has been fixed by G. Burke and the fix has been
+incorporated in nec2c and xnec2c. See the NEC2-bug.txt file for
+details.</p>
+<p>When xnec2c was made multi-threading, a lot of bugs appeared and
+were fixed but again there may be some that have not showed up. One
+condition that did appear a couple of times was xnec2c getting
+blocked in a select() call, waiting for a child to write to a pipe.
+This apparently happened because I was testing a very minimal input
+file and the child processes seemed to write to the pipes before
+the parent process dropped into select(). If this seems to happen,
+do not enable multi-threading (don't use the -j option) for very
+simple jobs.</p>
+<p>A known inadequacy of xnec2c is the slowness of the animation of
+displayed drawings, e.g. the structure itself, the radiation
+pattern, near fields pattern etc. Specifically, dragging these
+drawings with the mouse to rotate or incline them seems very heavy
+on processor loading, and with most structures the movement is
+jerky. This is my first attempt at animated wire frame drawings and
+I lack experience with GTK2 in this field, so I probably went about
+this the wrong way. I am open to any suggestions that may solve
+this problem! -;)</p>
+<p><b><a name="Acknowledgement" id="Acknowledgement">10.
+Acknowledgement:</a></b><br>
+Some of the code in xnec2c is based on Pieter-Tjerk de Boer's
+"xnecview" application, which visualizes NEC2's input and output
+files. The general 'look and feel" of xnec2c was also influenced by
+the same application.</p>
+<p><b>Author:</b> Neoklis Kyriazis (Ham Radio call: 5B4AZ)<br>
+<br>
+September 20 2005</p>
+</body>
+</html>

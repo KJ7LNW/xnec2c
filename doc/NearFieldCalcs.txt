@@ -1,0 +1,71 @@
+In this document I try to work out the formula for calculating the
+peak value of the total Near Electric or Magnetic field vector.
+-------------------------------------------------------------------
+Total Field Strength^2 = Sum of Real parts of each Component^2 e.g.
+1. Etot^2 = Ex^2 * cos(W*t + Fx)^2 + Ey^2 * cos(W*t + Fy)^2 + Ez^2 * cos(W*t + Fz)^2
+where Etot = Total Field Strength (vector sum) of components,
+Ex, Ey, Ez = Magnitude of Field components in X, Y, Z directions, eg EX, EY, EZ of NEC2
+Fx, Fy, Fz = Phase (in time) of above components, as calculated by NEC2
+W = 2 * pi * Freq (omega, angular freq) and t = time
+(Formula 1. is used by xnecview to animate the near field pattern)
+
+To calculate the maximum value of the total field vector, then the right
+side of eq. 1. must be maximized, e.g. its differential/time must be zero.
+
+To make calculations easier, cos(a)^2 is replaced by the equivalent (cos(2a)+1)/2
+Etot^2 = 0.5*[Ex^2*(cos(2W*t+2Fx)+1) + Ey^2*(cos(2W*t+2Fy)+1) + Ez^2*(cos(2W*t+2Fz)+1)]
+Etot^2 = 0.5*(Ex^2 + Ey^2 + Ez^2) +
+         0.5*[Ex^2*(cos(2W*t+2Fx) + Ey^2*(cos(2W*t+2Fy) + Ez^2*(cos(2W*t+2Fz)+1)]
+
+Now we use the equivalence cos(a+b) = cos(a)*cos(b)-sin(a)*sin(b) on cos(2W*t+2Fx) etc
+
+Etot^2 = 0.5*(Ex^2 + Ey^2 + Ez^2) +
+         0.5*[Ex^2*cos(2W*t)*cos(2Fx) + Ey^2*cos(2W*t)*cos(2Fy) + Ez^2*cos(2W*t)*cos(2Fz)] -
+         0.5*[Ex^2*sin(2W*t)*sin(2Fx) + Ey^2*sin(2W*t)*sin(2Fy) + Ez^2*sin(2W*t)*sin(2Fz)]
+
+2. Etot^2 = 0.5*(Ex^2 + Ey^2 + Ez^2) +
+            0.5*cos(2W*t)*[Ex^2*cos(2Fx) + Ey^2*cos(2Fy) + Ez^2*cos(2Fz)] -
+            0.5*sin(2W*t)*[Ex^2*sin(2Fx) + Ey^2*sin(2Fy) + Ez^2*sin(2Fz)]
+
+To make things easier, we give abbreviations to constant terms:
+A = Ex^2*cos(2Fx) + Ey^2*cos(2Fy) + Ez^2*cos(2Fz)
+B = Ex^2*sin(2Fx) + Ey^2*sin(2Fy) + Ez^2*sin(2Fz)
+
+3. Etot^2 = 0.5*[(Ex^2 + Ey^2 + Ez^2) + cos(2W*t)*A - sin(2W*t)*B]
+
+The time differential of the right side is: -W*[A*sin(2W*t) + B*cos(2W*t)]
+To maximize 3. then:
+4. A*sin(2W*t) + B*cos(2W*t) = 0
+
+From this we have: sin(2W*t) = -B/A*cos(2W*t) = -B/A*[1-sin(2W*t)^2]^0.5
+Hence sin(2W*t)^2 = (B/A)^2 - (B/A)^2 * sin(2W*t)^2
+      sin(2W*t)^2 * [1+(B/A)^2] = (B/A)^2
+      sin(2W*t)^2 = [(B/A)^2]/[1+(B/A)^2] = B^2/(A^2 + B^2)
+
+5. sin(2W*t) = +/- B/(A^2 + B^2)^0.5     cos(2W*t) = +/- A/(A^2 + B^2)^0.5
+
+To satisfy eq. 4., we must choose +/- pairs from the above four
+solutions to 4., to be substituted in 3., hence:
+
+Etot^2 = 0.5*[(Ex^2 + Ey^2 + Ez^2) +/- (A^2 + B^2)/(A^2 + B^2)^0.5] and
+Etot^2 = 0.5*[(Ex^2 + Ey^2 + Ez^2) +/- (A^2 + B^2)^0.5]
+From the above, the maximum (absolute) value of the total field strength vector is:
+
+6. Etot = sqrt( 0.5*[(Ex^2 + Ey^2 + Ez^2) +/- sqrt(C)] )   where
+      A = Ex^2 * cos(2Fx) + Ey^2 * cos(2Fy) + Ez^2 * cos(2Fz)
+      B = Ex^2 * sin(2Fx) + Ey^2 * sin(2Fy) + Ez^2 * sin(2Fz)
+      C = A^2 + B^2
+
+While incorporating these formulae in my "xnec2c" GUI for nec2c (my C
+translation of NEC2) I found that the best results are obtained when
+I use sin(2W*t) = - B/(A^2 + B^2)^0.5 and cos(2W*t) = + A/(A^2 + B^2)^0.5
+and Etot = sqrt( 0.5*[(Ex^2 + Ey^2 + Ez^2) + sqrt(C)] ). In order to
+find the direction of the total vector I need to calculate the component
+parts in x,y,z and for this I need to calculate Wt. I found that only
+the C function atan2 with arguments -B and +A as from 6. gives correct
+results for Wt.
+
+P.S. A, B and C are same as CP, SP and TP in:
+    "An Orientation to NEC Near Fields
+     Part 2. Some Refinements and NEC-4 Additions" 
+     by L. B. Cebik, W4RNL

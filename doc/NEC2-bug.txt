@@ -1,0 +1,114 @@
+You are right, there is a bug in NEC-2 when the extended thin-wire 
+kernel is used with wires connected to patches.  This has escaped 
+detection for over 20 years.  I did not catch it yesterday, because I 
+had MAXSEG=10000, and ICON1 and ICON2 are dimensioned to 2*MAXSEG, so 
+10000 did not exceed the bound.
+
+The problem can be fixed as shown below.  In addition to subroutine 
+CMWW, where you encountered the problem, the same changes need to be 
+made in subroutines NEFLD and QDSRC.  With this change the extended 
+kernel is not used at a wire end connected to a patch surface, but 
+would be used on the rest of the wire if it is straight .
+
+The extended thin-wire kernel is only used on thick, straight wires, 
+so is not very useful.  The code turns it off at junctions, bends and 
+changes in radius.  Also, the connection of a wire to a patch surface 
+is not good in NEC-2 or 4.  It works fairly well for something like a 
+monopole on a surface, but not for a half loop connected to the 
+surface.  A wire grid surface provides a better connection for a wire 
+antenna.
+
+NEC-4 does not have the extended kernel, but instead puts the current 
+on the wire surface with match points on the axis, and has an 
+approximation for wire end caps that reduces the instability when the 
+segment length to radius ratio  is small.  So NEC-4 would not have 
+this problem.
+
+Thanks for finding this bug.
+
+Jerry Burke
+LLNL
+
+
+
+
+To fix the extended thin-wire kernel with patches in NEC-2:
+
+       SUBROUTINE CMWW (J,I1,I2,CM,NR,CW,NW,ITRP)
+       .
+       .
+C     DECIDE WETHER EXT. T.W. APPROX. CAN BE USED
+       IPR=ICON1(J)
+       IF(IPR.GT.10000)GO TO 5      !<---NEW
+       IF (IPR) 1,6,2
+1     IPR=-IPR
+       IF (-ICON1(IPR).NE.J) GO TO 7
+       GO TO 4
+2     IF (IPR.NE.J) GO TO 3
+       IF (CABJ*CABJ+SABJ*SABJ.GT.1.D-8) GO TO 7
+       GO TO 5
+3     IF (ICON2(IPR).NE.J) GO TO 7
+4     XI=ABS(CABJ*CAB(IPR)+SABJ*SAB(IPR)+SALPJ*SALP(IPR))
+       IF (XI.LT.0.999999D+0) GO TO 7
+       IF (ABS(BI(IPR)/B-1.).GT.1.D-6) GO TO 7
+5     IND1=0
+       GO TO 8
+6     IND1=1
+       GO TO 8
+7     IND1=2
+8     IPR=ICON2(J)
+       IF(IPR.GT.10000)GO TO 15     !<---NEW
+       IF (IPR) 9,14,10
+
+
+       SUBROUTINE NEFLD (XOB,YOB,ZOB,EX,EY,EZ)
+       .
+       .
+       IPR=ICON1(I)
+       IF(IPR.GT.10000)GO TO 9      !<---NEW
+       IF (IPR) 3,8,4
+3     IPR=-IPR
+       IF (-ICON1(IPR).NE.I) GO TO 9
+       GO TO 6
+4     IF (IPR.NE.I) GO TO 5
+       IF (CABJ*CABJ+SABJ*SABJ.GT.1.D-8) GO TO 9
+       GO TO 7
+5     IF (ICON2(IPR).NE.I) GO TO 9
+6     XI=ABS(CABJ*CAB(IPR)+SABJ*SAB(IPR)+SALPJ*SALP(IPR))
+       IF (XI.LT.0.999999D+0) GO TO 9
+       IF (ABS(BI(IPR)/B-1.).GT.1.D-6) GO TO 9
+7     IND1=0
+       GO TO 10
+8     IND1=1
+       GO TO 10
+9     IND1=2
+10    IPR=ICON2(I)
+       IF(IPR.GT.10000)GO TO 17    !<---NEW
+       IF (IPR) 11,16,12
+
+
+       SUBROUTINE QDSRC (IS,V,E)
+       .
+       .
+       IPR=ICON1(J)
+       IF(IPR.GT.10000)GO TO 7     !<---NEW
+       IF (IPR) 1,6,2
+1     IPR=-IPR
+       IF (-ICON1(IPR).NE.J) GO TO 7
+       GO TO 4
+2     IF (IPR.NE.J) GO TO 3
+       IF (CABJ*CABJ+SABJ*SABJ.GT.1.D-8) GO TO 7
+       GO TO 5
+3     IF (ICON2(IPR).NE.J) GO TO 7
+4     XI=ABS(CABJ*CAB(IPR)+SABJ*SAB(IPR)+SALPJ*SALP(IPR))
+       IF (XI.LT.0.999999D+0) GO TO 7
+       IF (ABS(BI(IPR)/B-1.).GT.1.D-6) GO TO 7
+5     IND1=0
+       GO TO 8
+6     IND1=1
+       GO TO 8
+7     IND1=2
+8     IPR=ICON2(J)
+       IF(IPR.GT.10000)GO TO 15      !<---NEW
+       IF (IPR) 9,14,10
+
