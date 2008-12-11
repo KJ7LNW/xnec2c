@@ -105,7 +105,7 @@ Read_Comments( void )
 
   /* read a line from input file */
   if( load_line(line_buf, input_fp) == EOF )
-	stop( "Error reading input file:\n"
+	stop( "Error reading input file\n"
 		  "Unexpected EOF (End of File)", 1 );
 
   /* separate card's id mnemonic */
@@ -121,7 +121,7 @@ Read_Comments( void )
 	{
 	  /* read a line from input file */
 	  if( load_line(line_buf, input_fp) == EOF )
-		stop( "Error reading input file:\n"
+		stop( "Error reading input file\n"
 			  "Unexpected EOF (End of File)", 1 );
 
 	  /* separate card's id mnemonic */
@@ -313,7 +313,7 @@ Read_Commands( void )
 		continue;
 
 	  case 1: /* "cp" card ignored, maximum coupling between antennas */
-		stop( "CP card is ignored.\n"
+		stop( "CP card is ignored\n"
 			"Coupling calculation not implemented", 0 );
 		continue; /* continue card input loop */
 
@@ -559,10 +559,10 @@ Read_Commands( void )
 		  if( itmp4 < itmp3 )
 		  {
 			fprintf( stderr,
-				"xnec2c: data fault on loading card no: %d:\n"
-				"itag step1: %d is greater than itag step2: %d\n",
+				"xnec2c: data fault on loading card no %d\n"
+				"itag step1 %d is greater than itag step2 %d\n",
 				zload.nload, itmp3, itmp4 );
-			stop( "Data fault on loading card:\n"
+			stop( "Data fault on loading card\n"
 				"itag step1 is greater than itag step2", 1 );
 		  }
 
@@ -852,10 +852,10 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
   {
 	gm[0] = '\0';
 	fprintf( stderr,
-		"xnec2c: command data card error:\n"
+		"xnec2c: command data card error\n"
 		"card's mnemonic code too short or missing\n" );
-	stop( "Command data card error:\n"
-		"Mnemonic code too short or missing.", err );
+	stop( "Command data card error\n"
+		"Mnemonic code too short or missing", err );
   }
 
   /* extract card's mnemonic code */
@@ -919,10 +919,10 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
 	  {
 		gm[0] = '\0';
 		fprintf( stderr,
-			"xnec2c: command data card \"%s\" error:\n"
-			"non-numerical char: '%c' in integer field at char: %d\n",
+			"xnec2c: command data card \"%s\" error\n"
+			"non-numerical char '%c' in integer field at char %d\n",
 			gm, line_buf[line_idx], (line_idx+1) );
-		stop( "Command data card error:\n"
+		stop( "Command data card error\n"
 			"Non-numerical character in integer field", err );
 	  }
 
@@ -992,10 +992,10 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
 	  {
 		gm[0] = '\0';
 		fprintf( stderr,
-			"xnec2c: command data card \"%s\" error:\n"
-			"non-numerical char: '%c' in float field at char: %d\n",
+			"xnec2c: command data card \"%s\" error\n"
+			"non-numerical char '%c' in float field at char %d\n",
 			gm, line_buf[line_idx], (line_idx+1) );
-		stop( "Command data card error:\n"
+		stop( "Command data card error\n"
 			"Non-numerical character in float field", err );
 	  }
 
@@ -1058,9 +1058,9 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
   {
 	gm[0] = '\0';
 	fprintf( stderr,
-		"xnec2c: geometry data card error:\n"
+		"xnec2c: geometry data card error\n"
 		"card's mnemonic code too short or missing\n" );
-	stop( "Geometry data card error:\n"
+	stop( "Geometry data card error\n"
 		"Card's mnemonic code too short or missing", err );
   }
 
@@ -1120,10 +1120,10 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
 	  {
 		gm[0] = '\0';
 		fprintf( stderr,
-			"xnec2c: geometry data card \"%s\" error:\n"
-			"non-numerical char: '%c' in integer field at char: %d\n",
+			"xnec2c: geometry data card \"%s\" error\n"
+			"non-numerical char '%c' in integer field at char %d\n",
 			gm, line_buf[line_idx], (line_idx+1)  );
-		stop( "Geometry data card error:\n"
+		stop( "Geometry data card error\n"
 			"Non-numerical character in integer field", err );
 	  }
 
@@ -1193,10 +1193,10 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
 	  {
 		gm[0] = '\0';
 		fprintf( stderr,
-			"xnec2c: geometry data card \"%s\" error:\n"
-			"Non-numerical char: '%c' in float field at char: %d.\n",
+			"xnec2c: geometry data card \"%s\" error\n"
+			"Non-numerical char '%c' in float field at char %d\n",
 			gm, line_buf[line_idx], (line_idx+1) );
-		stop( "Geometry data card error:\n"
+		stop( "Geometry data card error\n"
 			"Non-numerical character in float field", err );
 	  }
 
@@ -1298,9 +1298,9 @@ datagn( void )
 		  if( strcmp(gm, "GC" ) != 0 )
 		  {
 			fprintf( stderr,
-				"xnec2c: geometry data card error: "
+				"xnec2c: geometry data card error "
 				"no GC card for tapered wire\n" );
-			stop( "Geometry data error:\n"
+			stop( "Geometry data error\n"
 				"No GC card for tapered wire", 1 );
 		  }
 
@@ -1656,9 +1656,9 @@ Tag_Seg_Error( int tag, int segs )
   if( tag <= 0 )
   {
 	fprintf( stderr,
-		"xnec2c: geometry data card error: "
+		"xnec2c: geometry data card error\n"
 		"tag number is less than 1\n" );
-	stop( "Geometry data error:\n"
+	stop( "Geometry data error\n"
 		"Tag number is less than 1", 1 );
 	retv = TRUE;
   }
@@ -1666,9 +1666,9 @@ Tag_Seg_Error( int tag, int segs )
   if( segs <= 0 )
   {
 	fprintf( stderr,
-		"xnec2c: geometry data card error: "
+		"xnec2c: geometry data card error\n"
 		"number of segments is less than 1\n" );
-	stop( "Geometry data error:\n"
+	stop( "Geometry data error\n"
 		"Number of segments is less than 1", 1 );
 	retv = TRUE;
   }

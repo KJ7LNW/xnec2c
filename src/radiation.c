@@ -693,7 +693,7 @@ void rdpat()
 	  {
 		if( rdpattern_window != NULL )
 		  gtk_widget_destroy( rdpattern_window );
-		stop( "Theta > 90 deg. with ground specified.\n"
+		stop( "Theta > 90 deg. with ground specified\n"
 			"Please check RP card data and correct", 1 );
 	  }
 

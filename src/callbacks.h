@@ -1240,3 +1240,7 @@ void
 on_aboutdialog_response                (GtkDialog       *dialog,
                                         gint             response_id,
                                         gpointer         user_data);
+
+void
+on_net_gain_activate                   (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);

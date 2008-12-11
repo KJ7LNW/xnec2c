@@ -108,6 +108,12 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 	mem_alloc( (void *)&vsrc, vsorc.nsant *
 		sizeof(complex long double), "in network.c");
   }
+  else
+	if( netcx.masym != 0)
+	{
+	  mreq = j * sizeof(int);
+	  mem_alloc( (void *)&ipnt,  mreq, "in network.c");
+	}
 
   /* Signal new and valid current data */
   crnt.newer = crnt.valid = 1;
@@ -586,36 +592,23 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 
   } /* if( vsorc.nsant != 0) */
 
-  if( vsorc.nvqd == 0)
-  {
-	/* Free network buffers */
-	free_ptr( (void *)&ipnt );
-	free_ptr( (void *)&nteqa );
-	free_ptr( (void *)&ntsca );
-	free_ptr( (void *)&vsrc );
-	free_ptr( (void *)&rhs );
-	free_ptr( (void *)&cmn );
-	free_ptr( (void *)&rhnt );
-	free_ptr( (void *)&rhnx );
-	return;
-  }
-
-  for( i = 0; i < vsorc.nvqd; i++ )
-  {
-	isc1= vsorc.ivqd[i]-1;
-	vlt= vsorc.vqd[i];
-	cux= cmplx( crnt.air[isc1], crnt.aii[isc1]);
-	ymit= cmplx( crnt.bir[isc1], crnt.bii[isc1]);
-	netcx.zped= cmplx( crnt.cir[isc1], crnt.cii[isc1]);
-	pwr= data.si[isc1]* TP*.5l;
-	cux=( cux- ymit* sinl( pwr) +
-		netcx.zped* cosl( pwr))* data.wlam;
-	ymit= cux/ vlt;
-	netcx.zped= vlt/ cux;
-	pwr=.5l* creall( vlt* conjl( cux));
-	netcx.pin= netcx.pin+ pwr;
-	irow2= data.itag[isc1];
-  } /* for( i = 0; i < vsorc.nvqd; i++ ) */
+  if( vsorc.nvqd != 0)
+	for( i = 0; i < vsorc.nvqd; i++ )
+	{
+	  isc1= vsorc.ivqd[i]-1;
+	  vlt= vsorc.vqd[i];
+	  cux= cmplx( crnt.air[isc1], crnt.aii[isc1]);
+	  ymit= cmplx( crnt.bir[isc1], crnt.bii[isc1]);
+	  netcx.zped= cmplx( crnt.cir[isc1], crnt.cii[isc1]);
+	  pwr= data.si[isc1]* TP*.5l;
+	  cux=( cux- ymit* sinl( pwr) +
+		  netcx.zped* cosl( pwr))* data.wlam;
+	  ymit= cux/ vlt;
+	  netcx.zped= vlt/ cux;
+	  pwr=.5l* creall( vlt* conjl( cux));
+	  netcx.pin= netcx.pin+ pwr;
+	  irow2= data.itag[isc1];
+	} /* for( i = 0; i < vsorc.nvqd; i++ ) */
 
   /* Free network buffers */
   free_ptr( (void *)&ipnt );
@@ -780,7 +773,7 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 	  fprintf( stderr,
 		  "xnec2c: loading data card error,"
 		  " no segment has an itag = %d\n", ldtags );
-	  stop( "Loading data card:\n"
+	  stop( "Loading data card\n"
 		  "Tag number mismatch error", 1 );
 	}
 

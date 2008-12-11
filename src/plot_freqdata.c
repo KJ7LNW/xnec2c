@@ -23,6 +23,17 @@
  * data (VSWR, impedance, gain etc)
  */
 
+/*
+ * Net gain added by Mark Whitis http://www.freelabs.com/~whitis/
+ * References:
+ *   http://www.digitalhome.ca/forum/showpost.php?p=744018&postcount=47
+ *      NetGain = RawGain+10*log(Feed-pointGain)
+ *      where Feed-point Gain = 4*Zr*Zo/((Zr+Zo)^2+Zi^2)
+ *   http://www.avsforum.com/avs-vb/showthread.php?p=14086104#post14086104
+ *      NetGain = RawGain+10*log(4*Zr*Zo/((Zr+Zo)^2+Zi^2)    
+ *   Where log is log10.
+ */
+
 #include "xnec2c.h"
 #include "support.h"
 
@@ -88,11 +99,15 @@ Plot_Frequency_Data( void )
 
   static double
 	*gmax     = NULL, /* Max gain buffer */
+	*netgmax  = NULL, /* Net Max gain buffer */
 	*vgain    = NULL, /* Viewer direction gain buffer */
+	*netgain = NULL, /* Viewer direction net gain buffer */
 	*gdir_tht = NULL, /* Direction in theta of gain */
 	*gdir_phi = NULL, /* Direction in phi of gain */
-	*fbrat    = NULL; /* Front to back ratio */
+	*fbratio  = NULL; /* Front to back ratio */
 
+  /* Used to calculate net gain */
+  double Zr, Zo, Zi;
 
   /* Abort plotting if main window is to be closed
    * or when plots drawing area not available */
@@ -155,13 +170,18 @@ Plot_Frequency_Data( void )
 		fstep * sizeof(double), "in plot_freqdata.c" );
 	mem_realloc( (void *)&gdir_phi,
 		fstep * sizeof(double), "in plot_freqdata.c" );
-	mem_realloc( (void *)&fbrat,
+	mem_realloc( (void *)&fbratio,
 		fstep * sizeof(double), "in plot_freqdata.c" );
+
+	if( isFlagSet(PLOT_NETGAIN) )
+	  mem_realloc( (void *)&netgain,
+		  fstep * sizeof(double), "in plot_freqdata.c" );
 
 	/* Find max gain and direction, F/B ratio */
 	no_fbr = FALSE;
 
 	/* When freq loop is done, calcs are done for all freq steps */
+	Zo = calc_data.zo;
 	for( idx = 0; idx < fstep; idx++ )
 	{
 	  double fbdir;
@@ -178,21 +198,31 @@ Plot_Frequency_Data( void )
 	  gmax[idx] = rad_pattern[idx].gtot[mgidx] +
 		10.0 * log10( Polarization_Factor(pol, idx, mgidx) );
 
+	  /* Net gain if selected */
+	  if( isFlagSet(PLOT_NETGAIN) )
+	  {
+		Zr = impedance_data.zreal[idx];
+		Zi = impedance_data.zimag[idx];
+		netgain[idx] = gmax[idx] +
+		  10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
+	  }
+
 	  /* Radiation angle/phi where max gain occurs */
 	  gdir_tht[idx] = 90.0 - rad_pattern[idx].max_gain_tht[pol];
 	  gdir_phi[idx] = rad_pattern[idx].max_gain_phi[pol];
 
-	  /* Find F/B ratio if possible */
-	  if( no_fbr )
+	  /* Find F/B ratio if possible or net gain not required */
+	  if( no_fbr || isFlagSet(PLOT_NETGAIN) )
 		continue;
 
 	  /* Find F/B direction in theta */
 	  fbdir = 180.0 - rad_pattern[idx].max_gain_tht[pol];
-	  if( fpat.dth == 0.0 )	nth = 0;
+	  if( fpat.dth == 0.0 )
+		nth = 0;
 	  else
 		nth = (int)( fbdir/fpat.dth + 0.5 );
 
-	  /* No F/B calc. possible if no phi step at +180 from max gain */
+	  /* No F/B calc. possible if no theta step at +180 from max gain */
 	  if( (nth >= fpat.nth) || (nth < 0) )
 	  {
 		no_fbr = TRUE;
@@ -204,7 +234,7 @@ Plot_Frequency_Data( void )
 	  if( fbdir >= 360.0 ) fbdir -= 180.0;
 	  nph = (int)( fbdir/fpat.dph + 0.5 );
 
-	  /* No F/B calc. possible if no theta step at +180 from max gain */
+	  /* No F/B calc. possible if no phi step at +180 from max gain */
 	  if( (nph >= fpat.nph) || (nph < 0) )
 	  {
 		no_fbr = TRUE;
@@ -215,33 +245,44 @@ Plot_Frequency_Data( void )
 	  fbidx = nth + nph*fpat.nth;
 
 	  /* Front to back ratio */
-	  fbrat[idx]  = pow( 10.0, gmax[idx] / 10.0 );
-	  fbrat[idx] /= pow( 10.0,
+	  fbratio[idx]  = pow( 10.0, gmax[idx] / 10.0 );
+	  fbratio[idx] /= pow( 10.0,
 		  rad_pattern[idx].gtot[fbidx] / 10.0 +
 		  log10(Polarization_Factor(pol, idx, fbidx)) );
-	  fbrat[idx] = 10.0 * log10( fbrat[idx] );
+	  fbratio[idx] = 10.0 * log10( fbratio[idx] );
 
 	} /* for( idx = 0; idx < fstep; idx++ ) */
 
 	/*** Plot gain and f/b ratio (if possible) graph(s) */
-	if( no_fbr )
+	if( no_fbr || isFlagSet(PLOT_NETGAIN) )
 	{
 	  /* Plotting frame titles */
-	  titles[0] = "Gain dbi";
-	  titles[1] = "Max Gain & F/B Ratio vs Frequency";
-	  titles[2] = "No F/B Ratio";
-	  if( fstep > 1 )
-		Plot_Graph( gmax, save.freq, fstep,
-			titles, calc_data.ngraph, ++posn );
+	  titles[0] = "Raw Gain dbi";
+	  if( isFlagSet(PLOT_NETGAIN) )
+	  {
+		titles[1] = "Max Gain & Net Gain vs Frequency";
+		titles[2] = "Net Gain dbi";
+		if( fstep > 1 )
+		  Plot_Graph2( gmax, netgain, save.freq, fstep,
+			  titles, calc_data.ngraph, ++posn );
+	  }
+	  else
+	  {
+		titles[1] = "Max Gain & F/B Ratio vs Frequency";
+		titles[2] = "        ";
+		if( fstep > 1 )
+		  Plot_Graph( gmax, save.freq, fstep,
+			  titles, calc_data.ngraph, ++posn );
+	  }
 	}
 	else
 	{
 	  /* Plotting frame titles */
-	  titles[0] = "Gain dbi";
+	  titles[0] = "Raw Gain dbi";
 	  titles[1] = "Max Gain & F/B Ratio vs Frequency";
 	  titles[2] = "F/B Ratio db";
 	  if( fstep > 1 )
-		Plot_Graph2( gmax, fbrat, save.freq, fstep,
+		Plot_Graph2( gmax, fbratio, save.freq, fstep,
 			titles, calc_data.ngraph, ++posn );
 	}
 
@@ -262,7 +303,11 @@ Plot_Frequency_Data( void )
   /* Plot gain in direction of viewer vs freq, if possible */
   if( isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) )
   {
-	/* Allocate max gmax and directions */
+	/* Plotting frame titles */
+	titles[0] = "Raw Gain dbi";
+	titles[1] = "Gain in Viewer Direction vs Frequency";
+
+	/* Allocate viewer gain buffer */
 	mem_realloc( (void *)&vgain,
 		fstep * sizeof(double), "in plot_freqdata.c" );
 
@@ -270,15 +315,35 @@ Plot_Frequency_Data( void )
 	for( idx = 0; idx < fstep; idx++ )
 	  vgain[idx] = Viewer_Gain( structure_proj_params, idx );
 
-	/* Plotting frame titles */
-	titles[0] = "Gain dbi";
-	titles[1] = "Gain in Viewer Direction vs Frequency";
-	titles[2] = "        ";
-	if( fstep > 1 )
-	  Plot_Graph( vgain, save.freq, fstep,
-		  titles, calc_data.ngraph, ++posn );
+	/* Plot net gain if selected */
+	if( isFlagSet(PLOT_NETGAIN) )
+	{
+	  mem_realloc( (void *)&netgain,
+		  fstep * sizeof(double), "in plot_freqdata.c" );
 
-  } /* if( isFlagSet(PLOT_VIEWER) ) */
+	  Zo = calc_data.zo;
+	  for( idx = 0; idx < fstep; idx++ )
+	  {
+		Zr = impedance_data.zreal[idx];
+		Zi = impedance_data.zimag[idx];
+		netgain[idx] = vgain[idx] +
+		  10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
+	  }
+
+	  /* Plot net gain if selected */
+	  titles[2] = "Net gain dbi";
+	  if( fstep > 1 )
+		Plot_Graph2( vgain, netgain, save.freq, fstep,
+			titles, calc_data.ngraph, ++posn );
+	} /* if( isFlagSet(PLOT_NETGAIN) ) */
+	else
+	{
+	  titles[2] = "        ";
+	  if( fstep > 1 )
+		Plot_Graph( vgain, save.freq, fstep,
+			titles, calc_data.ngraph, ++posn );
+	}
+  } /* isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) */
 
   /* Plot VSWR vs freq */
   if( isFlagSet(PLOT_VSWR) )
@@ -286,8 +351,11 @@ Plot_Frequency_Data( void )
 	double vswr[calc_data.nfrq], gamma;
 	double zrpro2, zrmro2, zimag2;
 
+	/* Plotting frame titles */
+	titles[0] = "VSWR";
+	titles[1] = "VSWR vs Frequency";
+
 	/* Calculate VSWR */
-	/* When freq loop is done, calcs are done for all freq steps */
 	for(idx = 0; idx < fstep; idx++ )
 	{
 	  zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
@@ -297,18 +365,42 @@ Plot_Frequency_Data( void )
 	  zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
 	  gamma = sqrt( (zrmro2 + zimag2)/(zrpro2 + zimag2) );
 	  vswr[idx] = (1+gamma)/(1-gamma);
-	  if( vswr[idx] > 10.0 )
-		vswr[idx] = 10.0;
+	  if( vswr[idx] > 10.0 ) vswr[idx] = 10.0;
 	}
 
-	/* Plotting frame titles */
-	titles[0] = "VSWR";
-	titles[1] = "VSWR vs Frequency";
-	titles[2] = "    ";
-	if( fstep > 1 )
-	  Plot_Graph( vswr, save.freq, fstep,
-		  titles, calc_data.ngraph, ++posn );
+	/* Plot net gain if selected */
+	if( isFlagSet(PLOT_NETGAIN) )
+	{
+	  int mgidx, pol;
+	  double max_gain;
 
+	  mem_realloc( (void *)&netgmax,
+		  fstep * sizeof(double), "in plot_freqdata.c" );
+
+	  Zo = calc_data.zo;
+	  for(idx = 0; idx < fstep; idx++ )
+	  {
+		Zr = impedance_data.zreal[idx];
+		Zi = impedance_data.zimag[idx];
+		pol = calc_data.pol_type;
+		mgidx = rad_pattern[idx].max_gain_idx[pol];
+		/* Max gain for given polarization type */
+		max_gain = rad_pattern[idx].gtot[mgidx] +
+		  10.0 * log10( Polarization_Factor(pol, idx, mgidx) );
+		netgmax[idx] = max_gain + 10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
+	  }
+
+	  titles[2] = "Net Gain dbi";
+	  Plot_Graph2( vswr, netgmax, save.freq, fstep,
+		  titles, calc_data.ngraph, ++posn );
+	} /* if( isFlagSet(PLOT_NETGAIN) ) */
+	else
+	{
+	  titles[2] = "        ";
+	  if( fstep > 1 )
+		Plot_Graph( vswr, save.freq, fstep,
+			titles, calc_data.ngraph, ++posn );
+	}
   } /* if( isFlagSet(PLOT_VSWR) ) */
 
   /* Plot z-real and z-imag */

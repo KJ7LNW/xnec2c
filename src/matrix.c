@@ -1292,7 +1292,7 @@ fblock( int nrow, int ncol, int imax, int ipsym )
   {
 	fprintf( stderr,
 		"xnec2c: symmetry error - nrow:%d ncol:%d\n",nrow, ncol );
-	stop( "fblock(): symmetry error:", 1 );
+	stop( "fblock(): symmetry error", 1 );
   }
 
   /* set up smat.ssx matrix for rotational symmetry. */
@@ -1346,7 +1346,7 @@ fblock( int nrow, int ncol, int imax, int ipsym )
 /* subroutine to solve the matrix equation lu*x=b where l is a unit */
 /* lower triangular matrix and u is an upper triangular matrix both */
 /* of which are stored in a.  the rhs vector b is input and the */
-/* solution is returned through vector b.   (matrix transposed. */
+/* solution is returned through vector b.   (matrix transposed) */
 void solve( int n, complex long double *a, int *ip,
 	complex long double *b, int ndim )
 {

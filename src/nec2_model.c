@@ -81,7 +81,7 @@ Nec2_Input_File_Treeview( int action )
   /* float data from cards */
   long double fv[7];
 
-  /* For sprintf */
+  /* For snprintf */
   char si[4][7], sf[7][13];
 
   int idx;
@@ -305,7 +305,7 @@ Nec2_Input_File_Treeview( int action )
 	/*** Read comments ***/
 	/* Read a line from input file */
 	if( load_line(line_buf, input_fp) == EOF )
-	  stop( "Error reading input file:\n"
+	  stop( "Error reading input file\n"
 		  "Unexpected EOF (End of File)", 1 );
 
 	/* Separate card's id mnemonic */
@@ -340,7 +340,7 @@ Nec2_Input_File_Treeview( int action )
 
 	  /* Read a line from input file */
 	  if( load_line(line_buf, input_fp) == EOF )
-		stop( "Error reading input file:\n"
+		stop( "Error reading input file\n"
 			"Unexpected EOF (End of File)", 1 );
 
 	  /* Separate card's id mnemonic */

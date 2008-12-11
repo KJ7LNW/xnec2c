@@ -2731,7 +2731,7 @@ Set_Command_Data(
 	GtkTreeIter *iter,
 	int *iv, double *fv )
 {
-  gchar sf[13];
+  gchar str[13];
   gint idx;
 
   /* Format and set editor data to treeview (I1-I4 & F1-F6) */
@@ -2739,18 +2739,18 @@ Set_Command_Data(
   {
 	for( idx = CMND_COL_I1; idx <= CMND_COL_I4; idx++ )
 	{
-	  snprintf( sf, 6, "%5d", iv[idx-CMND_COL_I1] );
-	  gtk_list_store_set( store, iter, idx, sf, -1 );
+	  snprintf( str, 6, "%5d", iv[idx-CMND_COL_I1] );
+	  gtk_list_store_set( store, iter, idx, str, -1 );
 	}
 
 	for( idx = CMND_COL_F1; idx <= CMND_COL_F6; idx++ )
 	{
-	  snprintf( sf, 13, "%12.5E", fv[idx-CMND_COL_F1] );
-	  gtk_list_store_set( store, iter, idx, sf, -1 );
+	  snprintf( str, 13, "%12.5E", fv[idx-CMND_COL_F1] );
+	  gtk_list_store_set( store, iter, idx, str, -1 );
 	}
   }
   else
-	stop( "Error writing row data:\n"
+	stop( "Error writing row data\n"
 		"Please re-select row", 0 );
 
   SetFlag( NEC2_EDIT_SAVE );

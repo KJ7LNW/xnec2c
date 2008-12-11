@@ -194,9 +194,9 @@ conect( int ignd )
 		if( zi1 <= -slen)
 		{
 		  fprintf( stderr,
-			  "xnec2c: geometry data error:\n"
+			  "xnec2c: geometry data error\n"
 			  "segment %d extends below ground\n", iz );
-		  stop( "Geometry data error:\n"
+		  stop( "Geometry data error\n"
 			  "Segment extends below ground", 1 );
 		}
 
@@ -245,9 +245,9 @@ conect( int ignd )
 		if( zi2 <= -slen)
 		{
 		  fprintf( stderr,
-			  "xnec2c: geometry data error:\n"
+			  "xnec2c: geometry data error\n"
 			  "segment %d extends below ground\n", iz );
-		  stop( "Geometry data error:\n"
+		  stop( "Geometry data error\n"
 			  "Segment extends below ground", 1 );
 		}
 
@@ -256,9 +256,9 @@ conect( int ignd )
 		  if( data.icon1[i] == iz )
 		  {
 			fprintf( stderr,
-				"xnec2c: geometry data error:\n"
+				"xnec2c: geometry data error\n"
 				"segment %d lies in ground plane\n", iz );
-			stop( "Geometry data error:\n"
+			stop( "Geometry data error\n"
 				"Segment lies in ground plane", 1 );
 		  }
 
@@ -1213,9 +1213,9 @@ reflc( int ix, int iy, int iz, int itx, int nop )
 		  if( (fabsl(e1)+fabsl(e2) <= 1.0e-5l) || (e1*e2 < -1.0e-6l) )
 		  {
 			fprintf( stderr,
-				"xnec2c: geometry data error:\n"
+				"xnec2c: geometry data error\n"
 				"segment %d lies in plane of symmetry\n", i+1 );
-			stop( "Geometry data error:\n"
+			stop( "Geometry data error\n"
 				"Segment lies in plane of symmetry", 1 );
 		  }
 
@@ -1263,9 +1263,9 @@ reflc( int ix, int iy, int iz, int itx, int nop )
 		  if( fabsl(data.pz[i]) <= 1.0e-10l)
 		  {
 			fprintf( stderr,
-				"xnec2c: geometry data error:\n"
+				"xnec2c: geometry data error\n"
 				"patch %d lies in plane of symmetry\n", i+1 );
-			stop( "Geometry data error:\n"
+			stop( "Geometry data error\n"
 				"Patch lies in plane of symmetry", 1 );
 		  }
 
@@ -1315,9 +1315,9 @@ reflc( int ix, int iy, int iz, int itx, int nop )
 		  if( (fabsl(e1)+fabsl(e2) <= 1.0e-5l) || (e1*e2 < -1.0e-6l) )
 		  {
 			fprintf( stderr,
-				"xnec2c: geometry data error:\n"
+				"xnec2c: geometry data error\n"
 				"segment %d lies in plane of symmetry\n", i+1 );
-			stop( "Geometry data error:\n"
+			stop( "Geometry data error\n"
 				"Segment lies in plane of symmetry", 1 );
 		  }
 
@@ -1365,9 +1365,9 @@ reflc( int ix, int iy, int iz, int itx, int nop )
 		  if( fabsl( data.py[i]) <= 1.0e-10l)
 		  {
 			fprintf( stderr,
-				"xnec2c: geometry data error:\n"
+				"xnec2c: geometry data error\n"
 				"patch %d lies in plane of symmetry\n", i+1 );
-			stop( "Geometry data error:\n"
+			stop( "Geometry data error\n"
 				"Patch lies in plane of symmetry", 1 );
 		  }
 
@@ -1420,9 +1420,9 @@ reflc( int ix, int iy, int iz, int itx, int nop )
 		if( (fabsl(e1)+fabsl(e2) <= 1.0e-5l) || (e1*e2 < -1.0e-6l) )
 		{
 		  fprintf( stderr,
-			  "xnec2c: geometry data error:\n"
+			  "xnec2c: geometry data error\n"
 			  "segment %d lies in plane of symmetry\n", i+1 );
-		  stop( "Geometry data error:\n"
+		  stop( "Geometry data error\n"
 			  "Segment lies in plane of symmetry", 1 );
 		}
 
@@ -1469,9 +1469,9 @@ reflc( int ix, int iy, int iz, int itx, int nop )
 	  if( fabsl( data.px[i]) <= 1.0e-10l)
 	  {
 		fprintf( stderr,
-			"xnec2c: geometry data error:\n"
+			"xnec2c: geometry data error\n"
 			"patch %d lies in plane of symmetry\n", i+1 );
-		stop( "Geometry data error:\n"
+		stop( "Geometry data error\n"
 			"Patch lies in plane of symmetry", 1 );
 	  }
 

@@ -300,7 +300,7 @@ create_main_window (void)
   gtk_widget_show (image50);
   gtk_box_pack_start (GTK_BOX (main_hbox1), image50, TRUE, TRUE, 0);
 
-  main_rotate_spinbutton_adj = gtk_adjustment_new (0, -360, 360, 1, 10, 10);
+  main_rotate_spinbutton_adj = gtk_adjustment_new (0, -360, 360, 1, 10, 0);
   main_rotate_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (main_rotate_spinbutton_adj), 1, 0);
   gtk_widget_show (main_rotate_spinbutton);
   gtk_box_pack_start (GTK_BOX (main_hbox1), main_rotate_spinbutton, FALSE, FALSE, 0);
@@ -311,7 +311,7 @@ create_main_window (void)
   gtk_widget_show (image51);
   gtk_box_pack_start (GTK_BOX (main_hbox1), image51, TRUE, TRUE, 0);
 
-  main_incline_spinbutton_adj = gtk_adjustment_new (0, -180, 180, 1, 10, 10);
+  main_incline_spinbutton_adj = gtk_adjustment_new (0, -180, 180, 1, 10, 0);
   main_incline_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (main_incline_spinbutton_adj), 1, 0);
   gtk_widget_show (main_incline_spinbutton);
   gtk_box_pack_start (GTK_BOX (main_hbox1), main_incline_spinbutton, FALSE, FALSE, 0);
@@ -411,7 +411,7 @@ create_main_window (void)
   gtk_widget_show (label10);
   gtk_box_pack_start (GTK_BOX (main_hbox2), label10, FALSE, FALSE, 1);
 
-  main_freq_spinbutton_adj = gtk_adjustment_new (0.0010000000475, 0.0010000000475, 9999, 0.00999999977648, 10, 10);
+  main_freq_spinbutton_adj = gtk_adjustment_new (0.0010000000475, 0.0010000000475, 9999, 0.00999999977648, 10, 0);
   main_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (main_freq_spinbutton_adj), 0.00999999977648, 3);
   gtk_widget_show (main_freq_spinbutton);
   gtk_box_pack_start (GTK_BOX (main_hbox2), main_freq_spinbutton, FALSE, FALSE, 1);
@@ -664,7 +664,9 @@ create_filechooserdialog (void)
 
   filechooserdialog = gtk_file_chooser_dialog_new (_("xnec2c"), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL, NULL);
   gtk_container_set_border_width (GTK_CONTAINER (filechooserdialog), 5);
-  g_object_set (filechooserdialog, "show-hidden", TRUE, NULL);
+  g_object_set (filechooserdialog,
+                "show-hidden", TRUE,
+                NULL);
   gtk_window_set_position (GTK_WINDOW (filechooserdialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_type_hint (GTK_WINDOW (filechooserdialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
@@ -765,6 +767,7 @@ create_freqplots_window (void)
   GtkWidget *rdpattern_vertical;
   GtkWidget *rdpattern_right_hand;
   GtkWidget *rdpattern_left_hand;
+  GtkWidget *net_gain;
   GtkWidget *menuitem8;
   GtkWidget *hbox10;
   GtkWidget *freqplots_gmax_togglebutton;
@@ -901,6 +904,11 @@ create_freqplots_window (void)
   gtk_container_add (GTK_CONTAINER (freqplots_pol_menu_menu), rdpattern_left_hand);
   gtk_tooltips_set_tip (tooltips, rdpattern_left_hand, _("Plot gain in lhcp"), NULL);
 
+  net_gain = gtk_check_menu_item_new_with_mnemonic (_("Net Gain"));
+  gtk_widget_show (net_gain);
+  gtk_container_add (GTK_CONTAINER (view_menuitem_menu), net_gain);
+  gtk_tooltips_set_tip (tooltips, net_gain, _("Display Net Gain towards Viewer"), NULL);
+
   menuitem8 = gtk_menu_item_new_with_mnemonic (_("_Help"));
   gtk_widget_show (menuitem8);
   gtk_container_add (GTK_CONTAINER (menubar2), menuitem8);
@@ -1027,7 +1035,7 @@ create_freqplots_window (void)
   gtk_widget_show (label212);
   gtk_box_pack_start (GTK_BOX (hbox15), label212, FALSE, FALSE, 0);
 
-  freqplots_zo_spinbutton_adj = gtk_adjustment_new (50, 1, 999, 0.10000000149, 10, 10);
+  freqplots_zo_spinbutton_adj = gtk_adjustment_new (50, 1, 999, 0.10000000149, 10, 0);
   freqplots_zo_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (freqplots_zo_spinbutton_adj), 0.20000000298, 1);
   gtk_widget_show (freqplots_zo_spinbutton);
   gtk_box_pack_start (GTK_BOX (hbox15), freqplots_zo_spinbutton, FALSE, FALSE, 4);
@@ -1095,6 +1103,9 @@ create_freqplots_window (void)
   g_signal_connect ((gpointer) rdpattern_left_hand, "activate",
                     G_CALLBACK (on_rdpattern_left_hand_activate),
                     NULL);
+  g_signal_connect ((gpointer) net_gain, "activate",
+                    G_CALLBACK (on_net_gain_activate),
+                    NULL);
   g_signal_connect ((gpointer) freqplots_gmax_togglebutton, "toggled",
                     G_CALLBACK (on_freqplots_gmax_togglebutton_toggled),
                     NULL);
@@ -1157,6 +1168,7 @@ create_freqplots_window (void)
   GLADE_HOOKUP_OBJECT (freqplots_window, rdpattern_vertical, "rdpattern_vertical");
   GLADE_HOOKUP_OBJECT (freqplots_window, rdpattern_right_hand, "rdpattern_right_hand");
   GLADE_HOOKUP_OBJECT (freqplots_window, rdpattern_left_hand, "rdpattern_left_hand");
+  GLADE_HOOKUP_OBJECT (freqplots_window, net_gain, "net_gain");
   GLADE_HOOKUP_OBJECT (freqplots_window, menuitem8, "menuitem8");
   GLADE_HOOKUP_OBJECT (freqplots_window, hbox10, "hbox10");
   GLADE_HOOKUP_OBJECT (freqplots_window, freqplots_gmax_togglebutton, "freqplots_gmax_togglebutton");
@@ -1529,7 +1541,7 @@ create_rdpattern_window (void)
   gtk_widget_show (image55);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), image55, FALSE, FALSE, 0);
 
-  rdpattern_rotate_spinbutton_adj = gtk_adjustment_new (45, -360, 360, 1, 10, 10);
+  rdpattern_rotate_spinbutton_adj = gtk_adjustment_new (45, -360, 360, 1, 10, 0);
   rdpattern_rotate_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (rdpattern_rotate_spinbutton_adj), 1, 0);
   gtk_widget_show (rdpattern_rotate_spinbutton);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_rotate_spinbutton, FALSE, FALSE, 0);
@@ -1540,7 +1552,7 @@ create_rdpattern_window (void)
   gtk_widget_show (image56);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), image56, TRUE, TRUE, 0);
 
-  rdpattern_incline_spinbutton_adj = gtk_adjustment_new (45, -180, 180, 1, 10, 10);
+  rdpattern_incline_spinbutton_adj = gtk_adjustment_new (45, -180, 180, 1, 10, 0);
   rdpattern_incline_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (rdpattern_incline_spinbutton_adj), 1, 0);
   gtk_widget_show (rdpattern_incline_spinbutton);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_incline_spinbutton, FALSE, FALSE, 0);
@@ -1627,7 +1639,7 @@ create_rdpattern_window (void)
   gtk_widget_show (label11);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox2), label11, FALSE, FALSE, 1);
 
-  rdpattern_freq_spinbutton_adj = gtk_adjustment_new (0.0010000000475, 0.0010000000475, 9999, 0.00999999977648, 10, 10);
+  rdpattern_freq_spinbutton_adj = gtk_adjustment_new (0.0010000000475, 0.0010000000475, 9999, 0.00999999977648, 10, 0);
   rdpattern_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (rdpattern_freq_spinbutton_adj), 0.00999999977648, 3);
   gtk_widget_show (rdpattern_freq_spinbutton);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox2), rdpattern_freq_spinbutton, FALSE, FALSE, 1);
@@ -2057,7 +2069,7 @@ create_error_dialog (void)
   GtkWidget *error_stopbutton;
 
   error_dialog = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (error_dialog), _("Error!"));
+  gtk_window_set_title (GTK_WINDOW (error_dialog), _("Error"));
   gtk_window_set_position (GTK_WINDOW (error_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_modal (GTK_WINDOW (error_dialog), TRUE);
   gtk_window_set_type_hint (GTK_WINDOW (error_dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
@@ -2176,7 +2188,7 @@ create_animate_dialog (void)
   gtk_misc_set_alignment (GTK_MISC (label18), 0, 0.5);
   gtk_misc_set_padding (GTK_MISC (label18), 2, 2);
 
-  animate_steps_spinbutton_adj = gtk_adjustment_new (36, 12, 360, 1, 10, 10);
+  animate_steps_spinbutton_adj = gtk_adjustment_new (36, 12, 360, 1, 10, 0);
   animate_steps_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (animate_steps_spinbutton_adj), 1, 0);
   gtk_widget_show (animate_steps_spinbutton);
   gtk_table_attach (GTK_TABLE (table1), animate_steps_spinbutton, 0, 1, 1, 2,
@@ -2185,7 +2197,7 @@ create_animate_dialog (void)
   gtk_tooltips_set_tip (tooltips, animate_steps_spinbutton, _("Steps per Cycle of Excitation"), NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (animate_steps_spinbutton), TRUE);
 
-  animate_freq_spinbutton_adj = gtk_adjustment_new (1, 0.10000000149, 10, 0.10000000149, 10, 10);
+  animate_freq_spinbutton_adj = gtk_adjustment_new (1, 0.10000000149, 10, 0.10000000149, 10, 0);
   animate_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (animate_freq_spinbutton_adj), 1, 1);
   gtk_widget_show (animate_freq_spinbutton);
   gtk_table_attach (GTK_TABLE (table1), animate_freq_spinbutton, 1, 2, 1, 2,
@@ -2624,7 +2636,7 @@ create_nec2_editor (void)
   gd = gtk_button_new_with_mnemonic (_("Ground (GD)"));
   gtk_widget_show (gd);
   gtk_table_attach (GTK_TABLE (table4), gd, 2, 3, 1, 2,
-                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_container_set_border_width (GTK_CONTAINER (gd), 2);
 
@@ -2884,6 +2896,10 @@ create_wire_editor (void)
   GtkWidget *hbox21;
   GtkWidget *wire_new_button;
   GtkWidget *wire_cancel_button;
+  GtkWidget *alignment50;
+  GtkWidget *hbox48;
+  GtkWidget *image70;
+  GtkWidget *label222;
   GtkWidget *wire_apply_button;
   GtkWidget *wire_ok_button;
 
@@ -2971,7 +2987,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label38), 0.1, 0.5);
 
-  wire_tagnum_spinbutton_adj = gtk_adjustment_new (1, 1, 100000, 1, 10, 10);
+  wire_tagnum_spinbutton_adj = gtk_adjustment_new (1, 1, 100000, 1, 10, 0);
   wire_tagnum_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_tagnum_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (wire_tagnum_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_tagnum_spinbutton, 0, 1, 1, 2,
@@ -2979,7 +2995,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_tagnum_spinbutton), TRUE);
 
-  wire_numseg_spinbutton_adj = gtk_adjustment_new (15, 1, 100000, 1, 10, 10);
+  wire_numseg_spinbutton_adj = gtk_adjustment_new (15, 1, 100000, 1, 10, 0);
   wire_numseg_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_numseg_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (wire_numseg_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_numseg_spinbutton, 1, 2, 1, 2,
@@ -2987,7 +3003,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_numseg_spinbutton), TRUE);
 
-  wire_pcl_spinbutton_adj = gtk_adjustment_new (5, 0.0010000000475, 30, 9.99999974738e-06, 10, 10);
+  wire_pcl_spinbutton_adj = gtk_adjustment_new (5, 0.0010000000475, 30, 9.99999974738e-06, 10, 0);
   wire_pcl_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_pcl_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_pcl_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_pcl_spinbutton, 2, 3, 1, 2,
@@ -2995,7 +3011,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_pcl_spinbutton), TRUE);
 
-  wire_x1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  wire_x1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   wire_x1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_x1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_x1_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_x1_spinbutton, 0, 1, 3, 4,
@@ -3003,7 +3019,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_x1_spinbutton), TRUE);
 
-  wire_y1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  wire_y1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   wire_y1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_y1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_y1_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_y1_spinbutton, 1, 2, 3, 4,
@@ -3011,7 +3027,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_y1_spinbutton), TRUE);
 
-  wire_z1_spinbutton_adj = gtk_adjustment_new (-1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  wire_z1_spinbutton_adj = gtk_adjustment_new (-1, -10000, 10000, 9.99999974738e-06, 10, 0);
   wire_z1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_z1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_z1_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_z1_spinbutton, 2, 3, 3, 4,
@@ -3019,7 +3035,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_z1_spinbutton), TRUE);
 
-  wire_z2_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  wire_z2_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   wire_z2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_z2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_z2_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_z2_spinbutton, 2, 3, 5, 6,
@@ -3027,7 +3043,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_z2_spinbutton), TRUE);
 
-  wire_y2_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  wire_y2_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   wire_y2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_y2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_y2_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_y2_spinbutton, 1, 2, 5, 6,
@@ -3035,7 +3051,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_y2_spinbutton), TRUE);
 
-  wire_x2_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  wire_x2_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   wire_x2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_x2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_x2_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_x2_spinbutton, 0, 1, 5, 6,
@@ -3050,7 +3066,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label28), 0.1, 0.5);
 
-  wire_dia_spinbutton_adj = gtk_adjustment_new (0.00300000002608, 0, 100, 9.99999974738e-06, 10, 10);
+  wire_dia_spinbutton_adj = gtk_adjustment_new (0.00300000002608, 0, 100, 9.99999974738e-06, 10, 0);
   wire_dia_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_dia_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_dia_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_dia_spinbutton, 3, 4, 1, 2,
@@ -3072,7 +3088,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label39), 0.1, 0.5);
 
-  wire_len_spinbutton_adj = gtk_adjustment_new (2, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  wire_len_spinbutton_adj = gtk_adjustment_new (2, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   wire_len_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_len_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_len_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_len_spinbutton, 3, 4, 3, 4,
@@ -3087,7 +3103,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label44), 0.1, 0.5);
 
-  wire_res_spinbutton_adj = gtk_adjustment_new (0, 0, 1000000000, 9.99999974738e-06, 10, 10);
+  wire_res_spinbutton_adj = gtk_adjustment_new (0, 0, 1000000000, 9.99999974738e-06, 10, 0);
   wire_res_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_res_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_res_spinbutton);
   gtk_table_attach (GTK_TABLE (table2), wire_res_spinbutton, 3, 4, 5, 6,
@@ -3144,7 +3160,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label43), 0.1, 0.5);
 
-  wire_rdia_spinbutton_adj = gtk_adjustment_new (0.920000016689, 0.5, 2, 9.99999974738e-06, 10, 10);
+  wire_rdia_spinbutton_adj = gtk_adjustment_new (0.920000016689, 0.5, 2, 9.99999974738e-06, 10, 0);
   wire_rdia_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_rdia_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_rdia_spinbutton);
   gtk_table_attach (GTK_TABLE (table3), wire_rdia_spinbutton, 3, 4, 1, 2,
@@ -3152,7 +3168,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_rdia_spinbutton), TRUE);
 
-  wire_dian_spinbutton_adj = gtk_adjustment_new (0.0179999992251, 9.99999974738e-06, 100, 9.99999974738e-06, 10, 10);
+  wire_dian_spinbutton_adj = gtk_adjustment_new (0.0179999992251, 9.99999974738e-06, 100, 9.99999974738e-06, 10, 0);
   wire_dian_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_dian_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_dian_spinbutton);
   gtk_table_attach (GTK_TABLE (table3), wire_dian_spinbutton, 2, 3, 1, 2,
@@ -3160,7 +3176,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_dian_spinbutton), TRUE);
 
-  wire_dia1_spinbutton_adj = gtk_adjustment_new (0.0309999994934, 9.99999974738e-06, 100, 9.99999974738e-06, 10, 10);
+  wire_dia1_spinbutton_adj = gtk_adjustment_new (0.0309999994934, 9.99999974738e-06, 100, 9.99999974738e-06, 10, 0);
   wire_dia1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_dia1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_dia1_spinbutton);
   gtk_table_attach (GTK_TABLE (table3), wire_dia1_spinbutton, 1, 2, 1, 2,
@@ -3168,7 +3184,7 @@ create_wire_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (wire_dia1_spinbutton), TRUE);
 
-  wire_rlen_spinbutton_adj = gtk_adjustment_new (0.920000016689, 0.5, 2, 9.99999974738e-06, 10, 10);
+  wire_rlen_spinbutton_adj = gtk_adjustment_new (0.920000016689, 0.5, 2, 9.99999974738e-06, 10, 0);
   wire_rlen_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (wire_rlen_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (wire_rlen_spinbutton);
   gtk_table_attach (GTK_TABLE (table3), wire_rlen_spinbutton, 0, 1, 1, 2,
@@ -3191,11 +3207,27 @@ create_wire_editor (void)
   gtk_container_set_border_width (GTK_CONTAINER (wire_new_button), 2);
   GTK_WIDGET_SET_FLAGS (wire_new_button, GTK_CAN_DEFAULT);
 
-  wire_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  wire_cancel_button = gtk_button_new ();
   gtk_widget_show (wire_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox21), wire_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (wire_cancel_button), 2);
   GTK_WIDGET_SET_FLAGS (wire_cancel_button, GTK_CAN_DEFAULT);
+
+  alignment50 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment50);
+  gtk_container_add (GTK_CONTAINER (wire_cancel_button), alignment50);
+
+  hbox48 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox48);
+  gtk_container_add (GTK_CONTAINER (alignment50), hbox48);
+
+  image70 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image70);
+  gtk_box_pack_start (GTK_BOX (hbox48), image70, FALSE, FALSE, 0);
+
+  label222 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label222);
+  gtk_box_pack_start (GTK_BOX (hbox48), label222, FALSE, FALSE, 0);
 
   wire_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (wire_apply_button);
@@ -3322,6 +3354,10 @@ create_wire_editor (void)
   GLADE_HOOKUP_OBJECT (wire_editor, hbox21, "hbox21");
   GLADE_HOOKUP_OBJECT (wire_editor, wire_new_button, "wire_new_button");
   GLADE_HOOKUP_OBJECT (wire_editor, wire_cancel_button, "wire_cancel_button");
+  GLADE_HOOKUP_OBJECT (wire_editor, alignment50, "alignment50");
+  GLADE_HOOKUP_OBJECT (wire_editor, hbox48, "hbox48");
+  GLADE_HOOKUP_OBJECT (wire_editor, image70, "image70");
+  GLADE_HOOKUP_OBJECT (wire_editor, label222, "label222");
   GLADE_HOOKUP_OBJECT (wire_editor, wire_apply_button, "wire_apply_button");
   GLADE_HOOKUP_OBJECT (wire_editor, wire_ok_button, "wire_ok_button");
 
@@ -3402,6 +3438,10 @@ create_patch_editor (void)
   GtkWidget *hbox23;
   GtkWidget *patch_new_button;
   GtkWidget *patch_cancel_button;
+  GtkWidget *alignment51;
+  GtkWidget *hbox49;
+  GtkWidget *image71;
+  GtkWidget *label223;
   GtkWidget *patch_apply_button;
   GtkWidget *patch_ok_button;
 
@@ -3429,7 +3469,7 @@ create_patch_editor (void)
 
   patch_arbitary_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Arbitary"));
   gtk_widget_show (patch_arbitary_radiobutton);
-  gtk_box_pack_start (GTK_BOX (hbox22), patch_arbitary_radiobutton, TRUE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox22), patch_arbitary_radiobutton, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_arbitary_radiobutton), 2);
   gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_arbitary_radiobutton), patch_arbitary_radiobutton_group);
   patch_arbitary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_arbitary_radiobutton));
@@ -3437,28 +3477,28 @@ create_patch_editor (void)
 
   patch_rectangular_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Rectangle"));
   gtk_widget_show (patch_rectangular_radiobutton);
-  gtk_box_pack_start (GTK_BOX (hbox22), patch_rectangular_radiobutton, TRUE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox22), patch_rectangular_radiobutton, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_rectangular_radiobutton), 2);
   gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_rectangular_radiobutton), patch_arbitary_radiobutton_group);
   patch_arbitary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_rectangular_radiobutton));
 
   patch_triangular_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Triangle"));
   gtk_widget_show (patch_triangular_radiobutton);
-  gtk_box_pack_start (GTK_BOX (hbox22), patch_triangular_radiobutton, TRUE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox22), patch_triangular_radiobutton, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_triangular_radiobutton), 2);
   gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_triangular_radiobutton), patch_arbitary_radiobutton_group);
   patch_arbitary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_triangular_radiobutton));
 
   patch_quadrilateral_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Quadrilateral"));
   gtk_widget_show (patch_quadrilateral_radiobutton);
-  gtk_box_pack_start (GTK_BOX (hbox22), patch_quadrilateral_radiobutton, TRUE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox22), patch_quadrilateral_radiobutton, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_quadrilateral_radiobutton), 2);
   gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_quadrilateral_radiobutton), patch_arbitary_radiobutton_group);
   patch_arbitary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_quadrilateral_radiobutton));
 
   patch_surface_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Surface"));
   gtk_widget_show (patch_surface_radiobutton);
-  gtk_box_pack_start (GTK_BOX (hbox22), patch_surface_radiobutton, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox22), patch_surface_radiobutton, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_surface_radiobutton), 2);
   gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_surface_radiobutton), patch_arbitary_radiobutton_group);
   patch_arbitary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_surface_radiobutton));
@@ -3496,7 +3536,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label88), 0.1, 0.5);
 
-  patch_nx_spinbutton_adj = gtk_adjustment_new (8, 1, 10000, 1, 10, 10);
+  patch_nx_spinbutton_adj = gtk_adjustment_new (8, 1, 10000, 1, 10, 0);
   patch_nx_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_nx_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (patch_nx_spinbutton);
   gtk_table_attach (GTK_TABLE (table10), patch_nx_spinbutton, 0, 1, 1, 2,
@@ -3504,7 +3544,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (patch_nx_spinbutton), TRUE);
 
-  patch_ny_spinbutton_adj = gtk_adjustment_new (8, 1, 10000, 1, 10, 10);
+  patch_ny_spinbutton_adj = gtk_adjustment_new (8, 1, 10000, 1, 10, 0);
   patch_ny_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_ny_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (patch_ny_spinbutton);
   gtk_table_attach (GTK_TABLE (table10), patch_ny_spinbutton, 1, 2, 1, 2,
@@ -3554,7 +3594,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (patch_z1_label), 0.1, 0.5);
 
-  patch_x1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_x1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_x1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_x1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_x1_spinbutton);
   gtk_table_attach (GTK_TABLE (table5), patch_x1_spinbutton, 0, 1, 1, 2,
@@ -3562,7 +3602,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (patch_x1_spinbutton), TRUE);
 
-  patch_y1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_y1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_y1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_y1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_y1_spinbutton);
   gtk_table_attach (GTK_TABLE (table5), patch_y1_spinbutton, 1, 2, 1, 2,
@@ -3570,7 +3610,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (patch_y1_spinbutton), TRUE);
 
-  patch_z1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_z1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_z1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_z1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_z1_spinbutton);
   gtk_table_attach (GTK_TABLE (table5), patch_z1_spinbutton, 2, 3, 1, 2,
@@ -3578,7 +3618,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (patch_z1_spinbutton), TRUE);
 
-  patch_x2_spinbutton_adj = gtk_adjustment_new (45, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_x2_spinbutton_adj = gtk_adjustment_new (45, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_x2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_x2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_x2_spinbutton);
   gtk_table_attach (GTK_TABLE (table5), patch_x2_spinbutton, 0, 1, 3, 4,
@@ -3586,7 +3626,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (patch_x2_spinbutton), TRUE);
 
-  patch_y2_spinbutton_adj = gtk_adjustment_new (45, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_y2_spinbutton_adj = gtk_adjustment_new (45, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_y2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_y2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_y2_spinbutton);
   gtk_table_attach (GTK_TABLE (table5), patch_y2_spinbutton, 1, 2, 3, 4,
@@ -3594,7 +3634,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (patch_y2_spinbutton), TRUE);
 
-  patch_z2_spinbutton_adj = gtk_adjustment_new (0.10000000149, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_z2_spinbutton_adj = gtk_adjustment_new (0.10000000149, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_z2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_z2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_z2_spinbutton);
   gtk_table_attach (GTK_TABLE (table5), patch_z2_spinbutton, 2, 3, 3, 4,
@@ -3648,7 +3688,7 @@ create_patch_editor (void)
   gtk_table_set_row_spacings (GTK_TABLE (table6), 2);
   gtk_table_set_col_spacings (GTK_TABLE (table6), 2);
 
-  patch_x3_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_x3_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_x3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_x3_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_x3_spinbutton);
   gtk_table_attach (GTK_TABLE (table6), patch_x3_spinbutton, 0, 1, 1, 2,
@@ -3656,7 +3696,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (patch_x3_spinbutton), TRUE);
 
-  patch_y3_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_y3_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_y3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_y3_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_y3_spinbutton);
   gtk_table_attach (GTK_TABLE (table6), patch_y3_spinbutton, 1, 2, 1, 2,
@@ -3664,7 +3704,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (patch_y3_spinbutton), TRUE);
 
-  patch_z3_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_z3_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_z3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_z3_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_z3_spinbutton);
   gtk_table_attach (GTK_TABLE (table6), patch_z3_spinbutton, 2, 3, 1, 2,
@@ -3699,7 +3739,7 @@ create_patch_editor (void)
   gtk_table_set_row_spacings (GTK_TABLE (patch_sc_table), 2);
   gtk_table_set_col_spacings (GTK_TABLE (patch_sc_table), 2);
 
-  patch_x4_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_x4_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_x4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_x4_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_x4_spinbutton);
   gtk_table_attach (GTK_TABLE (patch_sc_table), patch_x4_spinbutton, 0, 1, 1, 2,
@@ -3707,7 +3747,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (patch_x4_spinbutton), TRUE);
 
-  patch_y4_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_y4_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_y4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_y4_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_y4_spinbutton);
   gtk_table_attach (GTK_TABLE (patch_sc_table), patch_y4_spinbutton, 1, 2, 1, 2,
@@ -3715,7 +3755,7 @@ create_patch_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (patch_y4_spinbutton), TRUE);
 
-  patch_z4_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  patch_z4_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   patch_z4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (patch_z4_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (patch_z4_spinbutton);
   gtk_table_attach (GTK_TABLE (patch_sc_table), patch_z4_spinbutton, 2, 3, 1, 2,
@@ -3758,10 +3798,26 @@ create_patch_editor (void)
   gtk_box_pack_start (GTK_BOX (hbox23), patch_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_new_button), 2);
 
-  patch_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  patch_cancel_button = gtk_button_new ();
   gtk_widget_show (patch_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox23), patch_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_cancel_button), 2);
+
+  alignment51 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment51);
+  gtk_container_add (GTK_CONTAINER (patch_cancel_button), alignment51);
+
+  hbox49 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox49);
+  gtk_container_add (GTK_CONTAINER (alignment51), hbox49);
+
+  image71 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image71);
+  gtk_box_pack_start (GTK_BOX (hbox49), image71, FALSE, FALSE, 0);
+
+  label223 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label223);
+  gtk_box_pack_start (GTK_BOX (hbox49), label223, FALSE, FALSE, 0);
 
   patch_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (patch_apply_button);
@@ -3903,6 +3959,10 @@ create_patch_editor (void)
   GLADE_HOOKUP_OBJECT (patch_editor, hbox23, "hbox23");
   GLADE_HOOKUP_OBJECT (patch_editor, patch_new_button, "patch_new_button");
   GLADE_HOOKUP_OBJECT (patch_editor, patch_cancel_button, "patch_cancel_button");
+  GLADE_HOOKUP_OBJECT (patch_editor, alignment51, "alignment51");
+  GLADE_HOOKUP_OBJECT (patch_editor, hbox49, "hbox49");
+  GLADE_HOOKUP_OBJECT (patch_editor, image71, "image71");
+  GLADE_HOOKUP_OBJECT (patch_editor, label223, "label223");
   GLADE_HOOKUP_OBJECT (patch_editor, patch_apply_button, "patch_apply_button");
   GLADE_HOOKUP_OBJECT (patch_editor, patch_ok_button, "patch_ok_button");
 
@@ -3945,6 +4005,10 @@ create_arc_editor (void)
   GtkWidget *hbox24;
   GtkWidget *arc_new_button;
   GtkWidget *arc_cancel_button;
+  GtkWidget *alignment52;
+  GtkWidget *hbox50;
+  GtkWidget *image72;
+  GtkWidget *label224;
   GtkWidget *arc_apply_button;
   GtkWidget *arc_ok_buttonbutton;
 
@@ -3987,7 +4051,7 @@ create_arc_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label67), 0.1, 0.5);
 
-  arc_end1_spinbutton_adj = gtk_adjustment_new (45, -360, 360, 9.99999974738e-06, 10, 10);
+  arc_end1_spinbutton_adj = gtk_adjustment_new (45, -360, 360, 9.99999974738e-06, 10, 0);
   arc_end1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (arc_end1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (arc_end1_spinbutton);
   gtk_table_attach (GTK_TABLE (table7), arc_end1_spinbutton, 1, 2, 3, 4,
@@ -3995,7 +4059,7 @@ create_arc_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (arc_end1_spinbutton), TRUE);
 
-  arc_end2_spinbutton_adj = gtk_adjustment_new (135, -360, 360, 9.99999974738e-06, 10, 10);
+  arc_end2_spinbutton_adj = gtk_adjustment_new (135, -360, 360, 9.99999974738e-06, 10, 0);
   arc_end2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (arc_end2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (arc_end2_spinbutton);
   gtk_table_attach (GTK_TABLE (table7), arc_end2_spinbutton, 2, 3, 3, 4,
@@ -4003,7 +4067,7 @@ create_arc_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (arc_end2_spinbutton), TRUE);
 
-  arc_tagnum_spinbutton_adj = gtk_adjustment_new (1, 1, 100000, 1, 10, 10);
+  arc_tagnum_spinbutton_adj = gtk_adjustment_new (1, 1, 100000, 1, 10, 0);
   arc_tagnum_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (arc_tagnum_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (arc_tagnum_spinbutton);
   gtk_table_attach (GTK_TABLE (table7), arc_tagnum_spinbutton, 0, 1, 1, 2,
@@ -4011,7 +4075,7 @@ create_arc_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (arc_tagnum_spinbutton), TRUE);
 
-  arc_numseg_spinbutton_adj = gtk_adjustment_new (15, 1, 100000, 1, 10, 10);
+  arc_numseg_spinbutton_adj = gtk_adjustment_new (15, 1, 100000, 1, 10, 0);
   arc_numseg_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (arc_numseg_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (arc_numseg_spinbutton);
   gtk_table_attach (GTK_TABLE (table7), arc_numseg_spinbutton, 1, 2, 1, 2,
@@ -4040,7 +4104,7 @@ create_arc_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label65), 0.1, 0.5);
 
-  arc_rad_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  arc_rad_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   arc_rad_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (arc_rad_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (arc_rad_spinbutton);
   gtk_table_attach (GTK_TABLE (table7), arc_rad_spinbutton, 0, 1, 3, 4,
@@ -4055,7 +4119,7 @@ create_arc_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label69), 0.1, 0.5);
 
-  arc_pcl_spinbutton_adj = gtk_adjustment_new (5, 0.0010000000475, 30, 9.99999974738e-06, 10, 10);
+  arc_pcl_spinbutton_adj = gtk_adjustment_new (5, 0.0010000000475, 30, 9.99999974738e-06, 10, 0);
   arc_pcl_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (arc_pcl_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (arc_pcl_spinbutton);
   gtk_table_attach (GTK_TABLE (table7), arc_pcl_spinbutton, 2, 3, 1, 2,
@@ -4063,7 +4127,7 @@ create_arc_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (arc_pcl_spinbutton), TRUE);
 
-  arc_res_spinbutton_adj = gtk_adjustment_new (0, 0, 1000000000, 9.99999974738e-06, 10, 10);
+  arc_res_spinbutton_adj = gtk_adjustment_new (0, 0, 1000000000, 9.99999974738e-06, 10, 0);
   arc_res_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (arc_res_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (arc_res_spinbutton);
   gtk_table_attach (GTK_TABLE (table7), arc_res_spinbutton, 3, 4, 3, 4,
@@ -4085,7 +4149,7 @@ create_arc_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label68), 0.1, 0.5);
 
-  arc_dia_spinbutton_adj = gtk_adjustment_new (0.00300000002608, 9.99999974738e-06, 100, 9.99999974738e-06, 10, 10);
+  arc_dia_spinbutton_adj = gtk_adjustment_new (0.00300000002608, 9.99999974738e-06, 100, 9.99999974738e-06, 10, 0);
   arc_dia_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (arc_dia_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (arc_dia_spinbutton);
   gtk_table_attach (GTK_TABLE (table7), arc_dia_spinbutton, 3, 4, 1, 2,
@@ -4107,10 +4171,26 @@ create_arc_editor (void)
   gtk_box_pack_start (GTK_BOX (hbox24), arc_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (arc_new_button), 2);
 
-  arc_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  arc_cancel_button = gtk_button_new ();
   gtk_widget_show (arc_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox24), arc_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (arc_cancel_button), 2);
+
+  alignment52 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment52);
+  gtk_container_add (GTK_CONTAINER (arc_cancel_button), alignment52);
+
+  hbox50 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox50);
+  gtk_container_add (GTK_CONTAINER (alignment52), hbox50);
+
+  image72 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image72);
+  gtk_box_pack_start (GTK_BOX (hbox50), image72, FALSE, FALSE, 0);
+
+  label224 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label224);
+  gtk_box_pack_start (GTK_BOX (hbox50), label224, FALSE, FALSE, 0);
 
   arc_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (arc_apply_button);
@@ -4188,6 +4268,10 @@ create_arc_editor (void)
   GLADE_HOOKUP_OBJECT (arc_editor, hbox24, "hbox24");
   GLADE_HOOKUP_OBJECT (arc_editor, arc_new_button, "arc_new_button");
   GLADE_HOOKUP_OBJECT (arc_editor, arc_cancel_button, "arc_cancel_button");
+  GLADE_HOOKUP_OBJECT (arc_editor, alignment52, "alignment52");
+  GLADE_HOOKUP_OBJECT (arc_editor, hbox50, "hbox50");
+  GLADE_HOOKUP_OBJECT (arc_editor, image72, "image72");
+  GLADE_HOOKUP_OBJECT (arc_editor, label224, "label224");
   GLADE_HOOKUP_OBJECT (arc_editor, arc_apply_button, "arc_apply_button");
   GLADE_HOOKUP_OBJECT (arc_editor, arc_ok_buttonbutton, "arc_ok_buttonbutton");
 
@@ -4233,6 +4317,10 @@ create_transform_editor (void)
   GtkWidget *hbox25;
   GtkWidget *transform_new_button;
   GtkWidget *transform_cancel_button;
+  GtkWidget *alignment53;
+  GtkWidget *hbox51;
+  GtkWidget *image73;
+  GtkWidget *label225;
   GtkWidget *transform_apply_button;
   GtkWidget *transform_ok_button;
 
@@ -4323,7 +4411,7 @@ create_transform_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label105), 0.1, 0.5);
 
-  transform_my_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  transform_my_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   transform_my_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (transform_my_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (transform_my_spinbutton);
   gtk_table_attach (GTK_TABLE (table8), transform_my_spinbutton, 1, 2, 5, 6,
@@ -4331,7 +4419,7 @@ create_transform_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (transform_my_spinbutton), TRUE);
 
-  transform_mx_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  transform_mx_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   transform_mx_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (transform_mx_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (transform_mx_spinbutton);
   gtk_table_attach (GTK_TABLE (table8), transform_mx_spinbutton, 0, 1, 5, 6,
@@ -4339,7 +4427,7 @@ create_transform_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (transform_mx_spinbutton), TRUE);
 
-  transform_mz_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  transform_mz_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   transform_mz_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (transform_mz_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (transform_mz_spinbutton);
   gtk_table_attach (GTK_TABLE (table8), transform_mz_spinbutton, 2, 3, 5, 6,
@@ -4347,7 +4435,7 @@ create_transform_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (transform_mz_spinbutton), TRUE);
 
-  transform_rx_spinbutton_adj = gtk_adjustment_new (0, -360, 360, 9.99999974738e-06, 10, 10);
+  transform_rx_spinbutton_adj = gtk_adjustment_new (0, -360, 360, 9.99999974738e-06, 10, 0);
   transform_rx_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (transform_rx_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (transform_rx_spinbutton);
   gtk_table_attach (GTK_TABLE (table8), transform_rx_spinbutton, 0, 1, 3, 4,
@@ -4355,7 +4443,7 @@ create_transform_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (transform_rx_spinbutton), TRUE);
 
-  transform_taginc_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 10);
+  transform_taginc_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 0);
   transform_taginc_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (transform_taginc_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (transform_taginc_spinbutton);
   gtk_table_attach (GTK_TABLE (table8), transform_taginc_spinbutton, 0, 1, 1, 2,
@@ -4363,7 +4451,7 @@ create_transform_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (transform_taginc_spinbutton), TRUE);
 
-  transform_new_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 10);
+  transform_new_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 0);
   transform_new_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (transform_new_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (transform_new_spinbutton);
   gtk_table_attach (GTK_TABLE (table8), transform_new_spinbutton, 1, 2, 1, 2,
@@ -4371,7 +4459,7 @@ create_transform_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (transform_new_spinbutton), TRUE);
 
-  transform_start_spinbutton_adj = gtk_adjustment_new (0, 0, 10000, 1, 10, 10);
+  transform_start_spinbutton_adj = gtk_adjustment_new (0, 0, 10000, 1, 10, 0);
   transform_start_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (transform_start_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (transform_start_spinbutton);
   gtk_table_attach (GTK_TABLE (table8), transform_start_spinbutton, 2, 3, 1, 2,
@@ -4379,7 +4467,7 @@ create_transform_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (transform_start_spinbutton), TRUE);
 
-  transform_ry_spinbutton_adj = gtk_adjustment_new (0, -360, 360, 9.99999974738e-06, 10, 10);
+  transform_ry_spinbutton_adj = gtk_adjustment_new (0, -360, 360, 9.99999974738e-06, 10, 0);
   transform_ry_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (transform_ry_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (transform_ry_spinbutton);
   gtk_table_attach (GTK_TABLE (table8), transform_ry_spinbutton, 1, 2, 3, 4,
@@ -4387,7 +4475,7 @@ create_transform_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (transform_ry_spinbutton), TRUE);
 
-  transform_rz_spinbutton_adj = gtk_adjustment_new (0, -360, 360, 9.99999974738e-06, 10, 10);
+  transform_rz_spinbutton_adj = gtk_adjustment_new (0, -360, 360, 9.99999974738e-06, 10, 0);
   transform_rz_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (transform_rz_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (transform_rz_spinbutton);
   gtk_table_attach (GTK_TABLE (table8), transform_rz_spinbutton, 2, 3, 3, 4,
@@ -4409,10 +4497,26 @@ create_transform_editor (void)
   gtk_box_pack_start (GTK_BOX (hbox25), transform_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (transform_new_button), 2);
 
-  transform_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  transform_cancel_button = gtk_button_new ();
   gtk_widget_show (transform_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox25), transform_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (transform_cancel_button), 2);
+
+  alignment53 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment53);
+  gtk_container_add (GTK_CONTAINER (transform_cancel_button), alignment53);
+
+  hbox51 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox51);
+  gtk_container_add (GTK_CONTAINER (alignment53), hbox51);
+
+  image73 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image73);
+  gtk_box_pack_start (GTK_BOX (hbox51), image73, FALSE, FALSE, 0);
+
+  label225 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label225);
+  gtk_box_pack_start (GTK_BOX (hbox51), label225, FALSE, FALSE, 0);
 
   transform_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (transform_apply_button);
@@ -4495,6 +4599,10 @@ create_transform_editor (void)
   GLADE_HOOKUP_OBJECT (transform_editor, hbox25, "hbox25");
   GLADE_HOOKUP_OBJECT (transform_editor, transform_new_button, "transform_new_button");
   GLADE_HOOKUP_OBJECT (transform_editor, transform_cancel_button, "transform_cancel_button");
+  GLADE_HOOKUP_OBJECT (transform_editor, alignment53, "alignment53");
+  GLADE_HOOKUP_OBJECT (transform_editor, hbox51, "hbox51");
+  GLADE_HOOKUP_OBJECT (transform_editor, image73, "image73");
+  GLADE_HOOKUP_OBJECT (transform_editor, label225, "label225");
   GLADE_HOOKUP_OBJECT (transform_editor, transform_apply_button, "transform_apply_button");
   GLADE_HOOKUP_OBJECT (transform_editor, transform_ok_button, "transform_ok_button");
 
@@ -4544,15 +4652,19 @@ create_helix_editor (void)
   GtkWidget *label84;
   GtkObject *helix_res_spinbutton_adj;
   GtkWidget *helix_res_spinbutton;
-  GtkWidget *helix_linkall_radiobutton;
-  GSList *helix_linkall_radiobutton_group = NULL;
   GtkWidget *helix_linkzo_radiobutton;
+  GSList *helix_linkzo_radiobutton_group = NULL;
   GtkWidget *helix_linkzhl_radiobutton;
+  GtkWidget *helix_linkall_radiobutton;
   GtkWidget *helix_lh_checkbutton;
   GtkWidget *label85;
   GtkWidget *hbox26;
   GtkWidget *helix_new_button;
   GtkWidget *helix_cancel_button;
+  GtkWidget *alignment54;
+  GtkWidget *hbox52;
+  GtkWidget *image74;
+  GtkWidget *label226;
   GtkWidget *helix_apply_button;
   GtkWidget *helix_ok_button;
 
@@ -4633,7 +4745,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label80), 0.1, 0.5);
 
-  helix_tagnum_spinbutton_adj = gtk_adjustment_new (1, 1, 100000, 1, 10, 10);
+  helix_tagnum_spinbutton_adj = gtk_adjustment_new (1, 1, 100000, 1, 10, 0);
   helix_tagnum_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_tagnum_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (helix_tagnum_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_tagnum_spinbutton, 0, 1, 2, 3,
@@ -4641,7 +4753,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_tagnum_spinbutton), TRUE);
 
-  helix_numseg_spinbutton_adj = gtk_adjustment_new (8, 1, 100000, 1, 10, 10);
+  helix_numseg_spinbutton_adj = gtk_adjustment_new (8, 1, 100000, 1, 10, 0);
   helix_numseg_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_numseg_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (helix_numseg_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_numseg_spinbutton, 1, 2, 2, 3,
@@ -4649,7 +4761,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_numseg_spinbutton), TRUE);
 
-  helix_pcl_spinbutton_adj = gtk_adjustment_new (5, 0.0010000000475, 30, 9.99999974738e-06, 10, 10);
+  helix_pcl_spinbutton_adj = gtk_adjustment_new (5, 0.0010000000475, 30, 9.99999974738e-06, 10, 0);
   helix_pcl_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_pcl_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (helix_pcl_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_pcl_spinbutton, 2, 3, 2, 3,
@@ -4657,7 +4769,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_pcl_spinbutton), TRUE);
 
-  helix_tspace_spinbutton_adj = gtk_adjustment_new (1, 0, 10000, 9.99999974738e-06, 10, 10);
+  helix_tspace_spinbutton_adj = gtk_adjustment_new (1, 0, 10000, 9.99999974738e-06, 10, 0);
   helix_tspace_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_tspace_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (helix_tspace_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_tspace_spinbutton, 0, 1, 4, 5,
@@ -4665,7 +4777,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_tspace_spinbutton), TRUE);
 
-  helix_len_spinbutton_adj = gtk_adjustment_new (5, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  helix_len_spinbutton_adj = gtk_adjustment_new (5, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   helix_len_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_len_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (helix_len_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_len_spinbutton, 1, 2, 4, 5,
@@ -4673,7 +4785,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_len_spinbutton), TRUE);
 
-  helix_radxzo_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  helix_radxzo_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   helix_radxzo_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radxzo_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (helix_radxzo_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_radxzo_spinbutton, 2, 3, 4, 5,
@@ -4681,7 +4793,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_radxzo_spinbutton), TRUE);
 
-  helix_dia_spinbutton_adj = gtk_adjustment_new (0.00300000002608, 9.99999974738e-06, 100, 9.99999974738e-06, 10, 10);
+  helix_dia_spinbutton_adj = gtk_adjustment_new (0.00300000002608, 9.99999974738e-06, 100, 9.99999974738e-06, 10, 0);
   helix_dia_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_dia_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (helix_dia_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_dia_spinbutton, 2, 3, 6, 7,
@@ -4689,7 +4801,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_dia_spinbutton), TRUE);
 
-  helix_radyzhl_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  helix_radyzhl_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   helix_radyzhl_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radyzhl_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (helix_radyzhl_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_radyzhl_spinbutton, 1, 2, 6, 7,
@@ -4697,7 +4809,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_radyzhl_spinbutton), TRUE);
 
-  helix_radxzhl_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  helix_radxzhl_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   helix_radxzhl_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radxzhl_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (helix_radxzhl_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_radxzhl_spinbutton, 0, 1, 6, 7,
@@ -4712,7 +4824,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label81), 0.1, 0.5);
 
-  helix_nturns_spinbutton_adj = gtk_adjustment_new (8, 0.10000000149, 10000, 9.99999974738e-06, 10, 10);
+  helix_nturns_spinbutton_adj = gtk_adjustment_new (8, 0.10000000149, 10000, 9.99999974738e-06, 10, 0);
   helix_nturns_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_nturns_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (helix_nturns_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_nturns_spinbutton, 3, 4, 2, 3,
@@ -4734,7 +4846,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label83), 0.1, 0.5);
 
-  helix_radyzo_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  helix_radyzo_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   helix_radyzo_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radyzo_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (helix_radyzo_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_radyzo_spinbutton, 3, 4, 4, 5,
@@ -4749,7 +4861,7 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label84), 0.1, 0.5);
 
-  helix_res_spinbutton_adj = gtk_adjustment_new (0, 0, 1000000000, 9.99999974738e-06, 10, 10);
+  helix_res_spinbutton_adj = gtk_adjustment_new (0, 0, 1000000000, 9.99999974738e-06, 10, 0);
   helix_res_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_res_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (helix_res_spinbutton);
   gtk_table_attach (GTK_TABLE (table9), helix_res_spinbutton, 3, 4, 6, 7,
@@ -4757,24 +4869,14 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_res_spinbutton), TRUE);
 
-  helix_linkall_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Link all Radii"));
-  gtk_widget_show (helix_linkall_radiobutton);
-  gtk_table_attach (GTK_TABLE (table9), helix_linkall_radiobutton, 1, 2, 0, 1,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (helix_linkall_radiobutton), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (helix_linkall_radiobutton), helix_linkall_radiobutton_group);
-  helix_linkall_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (helix_linkall_radiobutton));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (helix_linkall_radiobutton), TRUE);
-
   helix_linkzo_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Link @ Z=0"));
   gtk_widget_show (helix_linkzo_radiobutton);
   gtk_table_attach (GTK_TABLE (table9), helix_linkzo_radiobutton, 2, 3, 0, 1,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_container_set_border_width (GTK_CONTAINER (helix_linkzo_radiobutton), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (helix_linkzo_radiobutton), helix_linkall_radiobutton_group);
-  helix_linkall_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (helix_linkzo_radiobutton));
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (helix_linkzo_radiobutton), helix_linkzo_radiobutton_group);
+  helix_linkzo_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (helix_linkzo_radiobutton));
 
   helix_linkzhl_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Link @ Z=HL"));
   gtk_widget_show (helix_linkzhl_radiobutton);
@@ -4782,8 +4884,18 @@ create_helix_editor (void)
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_container_set_border_width (GTK_CONTAINER (helix_linkzhl_radiobutton), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (helix_linkzhl_radiobutton), helix_linkall_radiobutton_group);
-  helix_linkall_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (helix_linkzhl_radiobutton));
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (helix_linkzhl_radiobutton), helix_linkzo_radiobutton_group);
+  helix_linkzo_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (helix_linkzhl_radiobutton));
+
+  helix_linkall_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Link all Radii"));
+  gtk_widget_show (helix_linkall_radiobutton);
+  gtk_table_attach (GTK_TABLE (table9), helix_linkall_radiobutton, 1, 2, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (helix_linkall_radiobutton), 2);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (helix_linkall_radiobutton), helix_linkzo_radiobutton_group);
+  helix_linkzo_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (helix_linkall_radiobutton));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (helix_linkall_radiobutton), TRUE);
 
   helix_lh_checkbutton = gtk_check_button_new_with_mnemonic (_("Left Hand"));
   gtk_widget_show (helix_lh_checkbutton);
@@ -4807,11 +4919,27 @@ create_helix_editor (void)
   gtk_container_set_border_width (GTK_CONTAINER (helix_new_button), 2);
   GTK_WIDGET_SET_FLAGS (helix_new_button, GTK_CAN_DEFAULT);
 
-  helix_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  helix_cancel_button = gtk_button_new ();
   gtk_widget_show (helix_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox26), helix_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (helix_cancel_button), 2);
   GTK_WIDGET_SET_FLAGS (helix_cancel_button, GTK_CAN_DEFAULT);
+
+  alignment54 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment54);
+  gtk_container_add (GTK_CONTAINER (helix_cancel_button), alignment54);
+
+  hbox52 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox52);
+  gtk_container_add (GTK_CONTAINER (alignment54), hbox52);
+
+  image74 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image74);
+  gtk_box_pack_start (GTK_BOX (hbox52), image74, FALSE, FALSE, 0);
+
+  label226 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label226);
+  gtk_box_pack_start (GTK_BOX (hbox52), label226, FALSE, FALSE, 0);
 
   helix_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (helix_apply_button);
@@ -4864,14 +4992,14 @@ create_helix_editor (void)
   g_signal_connect ((gpointer) helix_res_spinbutton, "value_changed",
                     G_CALLBACK (on_helix_res_spinbutton_value_changed),
                     NULL);
-  g_signal_connect ((gpointer) helix_linkall_radiobutton, "toggled",
-                    G_CALLBACK (on_helix_linkall_radiobutton_toggled),
-                    NULL);
   g_signal_connect ((gpointer) helix_linkzo_radiobutton, "toggled",
                     G_CALLBACK (on_helix_linkzo_radiobutton_toggled),
                     NULL);
   g_signal_connect ((gpointer) helix_linkzhl_radiobutton, "toggled",
                     G_CALLBACK (on_helix_linkzhl_radiobutton_toggled),
+                    NULL);
+  g_signal_connect ((gpointer) helix_linkall_radiobutton, "toggled",
+                    G_CALLBACK (on_helix_linkall_radiobutton_toggled),
                     NULL);
   g_signal_connect ((gpointer) helix_lh_checkbutton, "toggled",
                     G_CALLBACK (on_helix_lh_checkbutton_toggled),
@@ -4918,14 +5046,18 @@ create_helix_editor (void)
   GLADE_HOOKUP_OBJECT (helix_editor, helix_radyzo_spinbutton, "helix_radyzo_spinbutton");
   GLADE_HOOKUP_OBJECT (helix_editor, label84, "label84");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_res_spinbutton, "helix_res_spinbutton");
-  GLADE_HOOKUP_OBJECT (helix_editor, helix_linkall_radiobutton, "helix_linkall_radiobutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_linkzo_radiobutton, "helix_linkzo_radiobutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_linkzhl_radiobutton, "helix_linkzhl_radiobutton");
+  GLADE_HOOKUP_OBJECT (helix_editor, helix_linkall_radiobutton, "helix_linkall_radiobutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_lh_checkbutton, "helix_lh_checkbutton");
   GLADE_HOOKUP_OBJECT (helix_editor, label85, "label85");
   GLADE_HOOKUP_OBJECT (helix_editor, hbox26, "hbox26");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_new_button, "helix_new_button");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_cancel_button, "helix_cancel_button");
+  GLADE_HOOKUP_OBJECT (helix_editor, alignment54, "alignment54");
+  GLADE_HOOKUP_OBJECT (helix_editor, hbox52, "hbox52");
+  GLADE_HOOKUP_OBJECT (helix_editor, image74, "image74");
+  GLADE_HOOKUP_OBJECT (helix_editor, label226, "label226");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_apply_button, "helix_apply_button");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_ok_button, "helix_ok_button");
 
@@ -4950,6 +5082,10 @@ create_reflect_editor (void)
   GtkWidget *hbox27;
   GtkWidget *reflect_new_button;
   GtkWidget *reflect_cancel_button;
+  GtkWidget *alignment55;
+  GtkWidget *hbox53;
+  GtkWidget *image75;
+  GtkWidget *label227;
   GtkWidget *reflect_apply_button;
   GtkWidget *reflect_ok_button;
 
@@ -4984,7 +5120,7 @@ create_reflect_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_container_set_border_width (GTK_CONTAINER (reflect_y_checkbutton), 2);
 
-  reflect_taginc_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 10);
+  reflect_taginc_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 0);
   reflect_taginc_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (reflect_taginc_spinbutton_adj), 1, 0);
   gtk_widget_show (reflect_taginc_spinbutton);
   gtk_table_attach (GTK_TABLE (table11), reflect_taginc_spinbutton, 0, 1, 1, 2,
@@ -5027,10 +5163,26 @@ create_reflect_editor (void)
   gtk_box_pack_start (GTK_BOX (hbox27), reflect_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (reflect_new_button), 2);
 
-  reflect_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  reflect_cancel_button = gtk_button_new ();
   gtk_widget_show (reflect_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox27), reflect_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (reflect_cancel_button), 2);
+
+  alignment55 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment55);
+  gtk_container_add (GTK_CONTAINER (reflect_cancel_button), alignment55);
+
+  hbox53 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox53);
+  gtk_container_add (GTK_CONTAINER (alignment55), hbox53);
+
+  image75 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image75);
+  gtk_box_pack_start (GTK_BOX (hbox53), image75, FALSE, FALSE, 0);
+
+  label227 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label227);
+  gtk_box_pack_start (GTK_BOX (hbox53), label227, FALSE, FALSE, 0);
 
   reflect_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (reflect_apply_button);
@@ -5085,6 +5237,10 @@ create_reflect_editor (void)
   GLADE_HOOKUP_OBJECT (reflect_editor, hbox27, "hbox27");
   GLADE_HOOKUP_OBJECT (reflect_editor, reflect_new_button, "reflect_new_button");
   GLADE_HOOKUP_OBJECT (reflect_editor, reflect_cancel_button, "reflect_cancel_button");
+  GLADE_HOOKUP_OBJECT (reflect_editor, alignment55, "alignment55");
+  GLADE_HOOKUP_OBJECT (reflect_editor, hbox53, "hbox53");
+  GLADE_HOOKUP_OBJECT (reflect_editor, image75, "image75");
+  GLADE_HOOKUP_OBJECT (reflect_editor, label227, "label227");
   GLADE_HOOKUP_OBJECT (reflect_editor, reflect_apply_button, "reflect_apply_button");
   GLADE_HOOKUP_OBJECT (reflect_editor, reflect_ok_button, "reflect_ok_button");
 
@@ -5112,6 +5268,10 @@ create_scale_editor (void)
   GtkWidget *hbox28;
   GtkWidget *scale_new_button;
   GtkWidget *scale_cancel_button;
+  GtkWidget *alignment56;
+  GtkWidget *hbox54;
+  GtkWidget *image76;
+  GtkWidget *label228;
   GtkWidget *scale_apply_button;
   GtkWidget *scale_ok_button;
 
@@ -5157,7 +5317,7 @@ create_scale_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label221), 0.1, 0.5);
 
-  scale_from_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 10);
+  scale_from_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 0);
   scale_from_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (scale_from_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (scale_from_spinbutton);
   gtk_table_attach (GTK_TABLE (table35), scale_from_spinbutton, 0, 1, 2, 3,
@@ -5165,7 +5325,7 @@ create_scale_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (scale_from_spinbutton), TRUE);
 
-  scale_to_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 10);
+  scale_to_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 0);
   scale_to_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (scale_to_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (scale_to_spinbutton);
   gtk_table_attach (GTK_TABLE (table35), scale_to_spinbutton, 1, 2, 2, 3,
@@ -5173,7 +5333,7 @@ create_scale_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (scale_to_spinbutton), TRUE);
 
-  scale_factor_spinbutton_adj = gtk_adjustment_new (1, 0, 100000, 9.99999974738e-06, 10, 10);
+  scale_factor_spinbutton_adj = gtk_adjustment_new (1, 0, 100000, 9.99999974738e-06, 10, 0);
   scale_factor_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (scale_factor_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (scale_factor_spinbutton);
   gtk_table_attach (GTK_TABLE (table35), scale_factor_spinbutton, 1, 2, 0, 1,
@@ -5195,10 +5355,26 @@ create_scale_editor (void)
   gtk_box_pack_start (GTK_BOX (hbox28), scale_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (scale_new_button), 2);
 
-  scale_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  scale_cancel_button = gtk_button_new ();
   gtk_widget_show (scale_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox28), scale_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (scale_cancel_button), 2);
+
+  alignment56 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment56);
+  gtk_container_add (GTK_CONTAINER (scale_cancel_button), alignment56);
+
+  hbox54 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox54);
+  gtk_container_add (GTK_CONTAINER (alignment56), hbox54);
+
+  image76 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image76);
+  gtk_box_pack_start (GTK_BOX (hbox54), image76, FALSE, FALSE, 0);
+
+  label228 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label228);
+  gtk_box_pack_start (GTK_BOX (hbox54), label228, FALSE, FALSE, 0);
 
   scale_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (scale_apply_button);
@@ -5251,6 +5427,10 @@ create_scale_editor (void)
   GLADE_HOOKUP_OBJECT (scale_editor, hbox28, "hbox28");
   GLADE_HOOKUP_OBJECT (scale_editor, scale_new_button, "scale_new_button");
   GLADE_HOOKUP_OBJECT (scale_editor, scale_cancel_button, "scale_cancel_button");
+  GLADE_HOOKUP_OBJECT (scale_editor, alignment56, "alignment56");
+  GLADE_HOOKUP_OBJECT (scale_editor, hbox54, "hbox54");
+  GLADE_HOOKUP_OBJECT (scale_editor, image76, "image76");
+  GLADE_HOOKUP_OBJECT (scale_editor, label228, "label228");
   GLADE_HOOKUP_OBJECT (scale_editor, scale_apply_button, "scale_apply_button");
   GLADE_HOOKUP_OBJECT (scale_editor, scale_ok_button, "scale_ok_button");
 
@@ -5275,6 +5455,10 @@ create_cylinder_editor (void)
   GtkWidget *hbox30;
   GtkWidget *cylinder_new_button;
   GtkWidget *cylinder_cancel_button;
+  GtkWidget *alignment57;
+  GtkWidget *hbox55;
+  GtkWidget *image77;
+  GtkWidget *label229;
   GtkWidget *cylinder_apply_button;
   GtkWidget *cylinder_ok_button;
 
@@ -5316,7 +5500,7 @@ create_cylinder_editor (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label97), 0.1, 0.5);
 
-  cylinder_taginc_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 10);
+  cylinder_taginc_spinbutton_adj = gtk_adjustment_new (0, 0, 100000, 1, 10, 0);
   cylinder_taginc_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (cylinder_taginc_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (cylinder_taginc_spinbutton);
   gtk_table_attach (GTK_TABLE (table12), cylinder_taginc_spinbutton, 0, 1, 1, 2,
@@ -5324,7 +5508,7 @@ create_cylinder_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (cylinder_taginc_spinbutton), TRUE);
 
-  cylinder_total_spinbutton_adj = gtk_adjustment_new (4, 1, 100000, 1, 10, 10);
+  cylinder_total_spinbutton_adj = gtk_adjustment_new (4, 1, 100000, 1, 10, 0);
   cylinder_total_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (cylinder_total_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (cylinder_total_spinbutton);
   gtk_table_attach (GTK_TABLE (table12), cylinder_total_spinbutton, 1, 2, 1, 2,
@@ -5346,10 +5530,26 @@ create_cylinder_editor (void)
   gtk_box_pack_start (GTK_BOX (hbox30), cylinder_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (cylinder_new_button), 2);
 
-  cylinder_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  cylinder_cancel_button = gtk_button_new ();
   gtk_widget_show (cylinder_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox30), cylinder_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (cylinder_cancel_button), 2);
+
+  alignment57 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment57);
+  gtk_container_add (GTK_CONTAINER (cylinder_cancel_button), alignment57);
+
+  hbox55 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox55);
+  gtk_container_add (GTK_CONTAINER (alignment57), hbox55);
+
+  image77 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image77);
+  gtk_box_pack_start (GTK_BOX (hbox55), image77, FALSE, FALSE, 0);
+
+  label229 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label229);
+  gtk_box_pack_start (GTK_BOX (hbox55), label229, FALSE, FALSE, 0);
 
   cylinder_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (cylinder_apply_button);
@@ -5397,6 +5597,10 @@ create_cylinder_editor (void)
   GLADE_HOOKUP_OBJECT (cylinder_editor, hbox30, "hbox30");
   GLADE_HOOKUP_OBJECT (cylinder_editor, cylinder_new_button, "cylinder_new_button");
   GLADE_HOOKUP_OBJECT (cylinder_editor, cylinder_cancel_button, "cylinder_cancel_button");
+  GLADE_HOOKUP_OBJECT (cylinder_editor, alignment57, "alignment57");
+  GLADE_HOOKUP_OBJECT (cylinder_editor, hbox55, "hbox55");
+  GLADE_HOOKUP_OBJECT (cylinder_editor, image77, "image77");
+  GLADE_HOOKUP_OBJECT (cylinder_editor, label229, "label229");
   GLADE_HOOKUP_OBJECT (cylinder_editor, cylinder_apply_button, "cylinder_apply_button");
   GLADE_HOOKUP_OBJECT (cylinder_editor, cylinder_ok_button, "cylinder_ok_button");
 
@@ -5415,6 +5619,10 @@ create_kernel_command (void)
   GtkWidget *hbox31;
   GtkWidget *kernel_new_button;
   GtkWidget *kernel_cancel_button;
+  GtkWidget *alignment58;
+  GtkWidget *hbox56;
+  GtkWidget *image78;
+  GtkWidget *label230;
   GtkWidget *kernel_apply_button;
   GtkWidget *kernel_ok_button;
 
@@ -5456,10 +5664,26 @@ create_kernel_command (void)
   gtk_box_pack_start (GTK_BOX (hbox31), kernel_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (kernel_new_button), 2);
 
-  kernel_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  kernel_cancel_button = gtk_button_new ();
   gtk_widget_show (kernel_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox31), kernel_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (kernel_cancel_button), 2);
+
+  alignment58 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment58);
+  gtk_container_add (GTK_CONTAINER (kernel_cancel_button), alignment58);
+
+  hbox56 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox56);
+  gtk_container_add (GTK_CONTAINER (alignment58), hbox56);
+
+  image78 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image78);
+  gtk_box_pack_start (GTK_BOX (hbox56), image78, FALSE, FALSE, 0);
+
+  label230 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label230);
+  gtk_box_pack_start (GTK_BOX (hbox56), label230, FALSE, FALSE, 0);
 
   kernel_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (kernel_apply_button);
@@ -5500,6 +5724,10 @@ create_kernel_command (void)
   GLADE_HOOKUP_OBJECT (kernel_command, hbox31, "hbox31");
   GLADE_HOOKUP_OBJECT (kernel_command, kernel_new_button, "kernel_new_button");
   GLADE_HOOKUP_OBJECT (kernel_command, kernel_cancel_button, "kernel_cancel_button");
+  GLADE_HOOKUP_OBJECT (kernel_command, alignment58, "alignment58");
+  GLADE_HOOKUP_OBJECT (kernel_command, hbox56, "hbox56");
+  GLADE_HOOKUP_OBJECT (kernel_command, image78, "image78");
+  GLADE_HOOKUP_OBJECT (kernel_command, label230, "label230");
   GLADE_HOOKUP_OBJECT (kernel_command, kernel_apply_button, "kernel_apply_button");
   GLADE_HOOKUP_OBJECT (kernel_command, kernel_ok_button, "kernel_ok_button");
 
@@ -5523,6 +5751,10 @@ create_execute_command (void)
   GtkWidget *hbox32;
   GtkWidget *execute_new_button;
   GtkWidget *execute_cancel_button;
+  GtkWidget *alignment59;
+  GtkWidget *hbox57;
+  GtkWidget *image79;
+  GtkWidget *label231;
   GtkWidget *execute_apply_button;
   GtkWidget *execute_ok_button;
 
@@ -5601,10 +5833,26 @@ create_execute_command (void)
   gtk_box_pack_start (GTK_BOX (hbox32), execute_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (execute_new_button), 2);
 
-  execute_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  execute_cancel_button = gtk_button_new ();
   gtk_widget_show (execute_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox32), execute_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (execute_cancel_button), 2);
+
+  alignment59 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment59);
+  gtk_container_add (GTK_CONTAINER (execute_cancel_button), alignment59);
+
+  hbox57 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox57);
+  gtk_container_add (GTK_CONTAINER (alignment59), hbox57);
+
+  image79 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image79);
+  gtk_box_pack_start (GTK_BOX (hbox57), image79, FALSE, FALSE, 0);
+
+  label231 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label231);
+  gtk_box_pack_start (GTK_BOX (hbox57), label231, FALSE, FALSE, 0);
 
   execute_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (execute_apply_button);
@@ -5658,6 +5906,10 @@ create_execute_command (void)
   GLADE_HOOKUP_OBJECT (execute_command, hbox32, "hbox32");
   GLADE_HOOKUP_OBJECT (execute_command, execute_new_button, "execute_new_button");
   GLADE_HOOKUP_OBJECT (execute_command, execute_cancel_button, "execute_cancel_button");
+  GLADE_HOOKUP_OBJECT (execute_command, alignment59, "alignment59");
+  GLADE_HOOKUP_OBJECT (execute_command, hbox57, "hbox57");
+  GLADE_HOOKUP_OBJECT (execute_command, image79, "image79");
+  GLADE_HOOKUP_OBJECT (execute_command, label231, "label231");
   GLADE_HOOKUP_OBJECT (execute_command, execute_apply_button, "execute_apply_button");
   GLADE_HOOKUP_OBJECT (execute_command, execute_ok_button, "execute_ok_button");
 
@@ -5679,6 +5931,10 @@ create_intrange_command (void)
   GtkWidget *hbox33;
   GtkWidget *intrange_new_button;
   GtkWidget *intrange_cancel_button;
+  GtkWidget *alignment60;
+  GtkWidget *hbox58;
+  GtkWidget *image80;
+  GtkWidget *label232;
   GtkWidget *intrange_apply_button;
   GtkWidget *intrange_ok_button;
 
@@ -5708,7 +5964,7 @@ create_intrange_command (void)
   gtk_widget_show (label109);
   gtk_box_pack_start (GTK_BOX (hbox34), label109, FALSE, FALSE, 0);
 
-  intrange_wlen_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  intrange_wlen_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   intrange_wlen_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (intrange_wlen_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (intrange_wlen_spinbutton);
   gtk_box_pack_start (GTK_BOX (hbox34), intrange_wlen_spinbutton, TRUE, TRUE, 4);
@@ -5728,10 +5984,26 @@ create_intrange_command (void)
   gtk_box_pack_start (GTK_BOX (hbox33), intrange_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (intrange_new_button), 2);
 
-  intrange_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  intrange_cancel_button = gtk_button_new ();
   gtk_widget_show (intrange_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox33), intrange_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (intrange_cancel_button), 2);
+
+  alignment60 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment60);
+  gtk_container_add (GTK_CONTAINER (intrange_cancel_button), alignment60);
+
+  hbox58 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox58);
+  gtk_container_add (GTK_CONTAINER (alignment60), hbox58);
+
+  image80 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image80);
+  gtk_box_pack_start (GTK_BOX (hbox58), image80, FALSE, FALSE, 0);
+
+  label232 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label232);
+  gtk_box_pack_start (GTK_BOX (hbox58), label232, FALSE, FALSE, 0);
 
   intrange_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (intrange_apply_button);
@@ -5774,6 +6046,10 @@ create_intrange_command (void)
   GLADE_HOOKUP_OBJECT (intrange_command, hbox33, "hbox33");
   GLADE_HOOKUP_OBJECT (intrange_command, intrange_new_button, "intrange_new_button");
   GLADE_HOOKUP_OBJECT (intrange_command, intrange_cancel_button, "intrange_cancel_button");
+  GLADE_HOOKUP_OBJECT (intrange_command, alignment60, "alignment60");
+  GLADE_HOOKUP_OBJECT (intrange_command, hbox58, "hbox58");
+  GLADE_HOOKUP_OBJECT (intrange_command, image80, "image80");
+  GLADE_HOOKUP_OBJECT (intrange_command, label232, "label232");
   GLADE_HOOKUP_OBJECT (intrange_command, intrange_apply_button, "intrange_apply_button");
   GLADE_HOOKUP_OBJECT (intrange_command, intrange_ok_button, "intrange_ok_button");
 
@@ -5838,6 +6114,10 @@ create_ground_command (void)
   GtkWidget *hbox35;
   GtkWidget *ground_new_button;
   GtkWidget *ground_cancel_button;
+  GtkWidget *alignment61;
+  GtkWidget *hbox59;
+  GtkWidget *image81;
+  GtkWidget *label233;
   GtkWidget *ground_apply_button;
   GtkWidget *ground_ok_button;
 
@@ -5936,7 +6216,7 @@ create_ground_command (void)
   gtk_table_set_row_spacings (GTK_TABLE (table16), 2);
   gtk_table_set_col_spacings (GTK_TABLE (table16), 2);
 
-  ground_diel1_spinbutton_adj = gtk_adjustment_new (12, 0, 10000, 9.99999974738e-06, 10, 10);
+  ground_diel1_spinbutton_adj = gtk_adjustment_new (12, 0, 10000, 9.99999974738e-06, 10, 0);
   ground_diel1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground_diel1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground_diel1_spinbutton);
   gtk_table_attach (GTK_TABLE (table16), ground_diel1_spinbutton, 0, 1, 1, 2,
@@ -5944,7 +6224,7 @@ create_ground_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (ground_diel1_spinbutton), TRUE);
 
-  ground_res1_spinbutton_adj = gtk_adjustment_new (0.005, 0, 10000, 9.99999974738e-06, 10, 10);
+  ground_res1_spinbutton_adj = gtk_adjustment_new (0.005, 0, 10000, 9.99999974738e-06, 10, 0);
   ground_res1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground_res1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground_res1_spinbutton);
   gtk_table_attach (GTK_TABLE (table16), ground_res1_spinbutton, 1, 2, 1, 2,
@@ -6014,7 +6294,7 @@ create_ground_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label125), 0, 0.5);
 
-  ground_diel2_spinbutton_adj = gtk_adjustment_new (12, 0, 10000, 9.99999974738e-06, 10, 10);
+  ground_diel2_spinbutton_adj = gtk_adjustment_new (12, 0, 10000, 9.99999974738e-06, 10, 0);
   ground_diel2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground_diel2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground_diel2_spinbutton);
   gtk_table_attach (GTK_TABLE (table18), ground_diel2_spinbutton, 0, 1, 1, 2,
@@ -6022,7 +6302,7 @@ create_ground_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (ground_diel2_spinbutton), TRUE);
 
-  ground_res2_spinbutton_adj = gtk_adjustment_new (0.005, 0, 10000, 9.99999974738e-06, 10, 10);
+  ground_res2_spinbutton_adj = gtk_adjustment_new (0.005, 0, 10000, 9.99999974738e-06, 10, 0);
   ground_res2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground_res2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground_res2_spinbutton);
   gtk_table_attach (GTK_TABLE (table18), ground_res2_spinbutton, 1, 2, 1, 2,
@@ -6030,7 +6310,7 @@ create_ground_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (ground_res2_spinbutton), TRUE);
 
-  ground_below_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  ground_below_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   ground_below_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground_below_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground_below_spinbutton);
   gtk_table_attach (GTK_TABLE (table18), ground_below_spinbutton, 1, 2, 3, 4,
@@ -6038,7 +6318,7 @@ create_ground_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (ground_below_spinbutton), TRUE);
 
-  ground_dist2_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  ground_dist2_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   ground_dist2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground_dist2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground_dist2_spinbutton);
   gtk_table_attach (GTK_TABLE (table18), ground_dist2_spinbutton, 0, 1, 3, 4,
@@ -6087,7 +6367,7 @@ create_ground_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label128), 0, 0.5);
 
-  ground_nrad_spinbutton_adj = gtk_adjustment_new (4, 1, 1000, 1, 10, 10);
+  ground_nrad_spinbutton_adj = gtk_adjustment_new (4, 1, 1000, 1, 10, 0);
   ground_nrad_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground_nrad_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (ground_nrad_spinbutton);
   gtk_table_attach (GTK_TABLE (table17), ground_nrad_spinbutton, 1, 2, 0, 1,
@@ -6095,7 +6375,7 @@ create_ground_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (ground_nrad_spinbutton), TRUE);
 
-  ground_diam_spinbutton_adj = gtk_adjustment_new (0.00499999988824, 9.99999974738e-06, 10, 9.99999974738e-06, 10, 10);
+  ground_diam_spinbutton_adj = gtk_adjustment_new (0.00499999988824, 9.99999974738e-06, 10, 9.99999974738e-06, 10, 0);
   ground_diam_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground_diam_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground_diam_spinbutton);
   gtk_table_attach (GTK_TABLE (table17), ground_diam_spinbutton, 1, 2, 2, 3,
@@ -6103,7 +6383,7 @@ create_ground_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (ground_diam_spinbutton), TRUE);
 
-  ground_scrnrd_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  ground_scrnrd_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   ground_scrnrd_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground_scrnrd_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground_scrnrd_spinbutton);
   gtk_table_attach (GTK_TABLE (table17), ground_scrnrd_spinbutton, 0, 1, 2, 3,
@@ -6125,10 +6405,26 @@ create_ground_command (void)
   gtk_box_pack_start (GTK_BOX (hbox35), ground_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (ground_new_button), 2);
 
-  ground_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  ground_cancel_button = gtk_button_new ();
   gtk_widget_show (ground_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox35), ground_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (ground_cancel_button), 2);
+
+  alignment61 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment61);
+  gtk_container_add (GTK_CONTAINER (ground_cancel_button), alignment61);
+
+  hbox59 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox59);
+  gtk_container_add (GTK_CONTAINER (alignment61), hbox59);
+
+  image81 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image81);
+  gtk_box_pack_start (GTK_BOX (hbox59), image81, FALSE, FALSE, 0);
+
+  label233 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label233);
+  gtk_box_pack_start (GTK_BOX (hbox59), label233, FALSE, FALSE, 0);
 
   ground_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (ground_apply_button);
@@ -6247,6 +6543,10 @@ create_ground_command (void)
   GLADE_HOOKUP_OBJECT (ground_command, hbox35, "hbox35");
   GLADE_HOOKUP_OBJECT (ground_command, ground_new_button, "ground_new_button");
   GLADE_HOOKUP_OBJECT (ground_command, ground_cancel_button, "ground_cancel_button");
+  GLADE_HOOKUP_OBJECT (ground_command, alignment61, "alignment61");
+  GLADE_HOOKUP_OBJECT (ground_command, hbox59, "hbox59");
+  GLADE_HOOKUP_OBJECT (ground_command, image81, "image81");
+  GLADE_HOOKUP_OBJECT (ground_command, label233, "label233");
   GLADE_HOOKUP_OBJECT (ground_command, ground_apply_button, "ground_apply_button");
   GLADE_HOOKUP_OBJECT (ground_command, ground_ok_button, "ground_ok_button");
 
@@ -6301,6 +6601,10 @@ create_nearfield_command (void)
   GtkWidget *hbox36;
   GtkWidget *nearfield_new_button;
   GtkWidget *nearfield_cancel_button;
+  GtkWidget *alignment62;
+  GtkWidget *hbox60;
+  GtkWidget *image82;
+  GtkWidget *label234;
   GtkWidget *nearfield_apply_button;
   GtkWidget *nearfield_ok_button;
 
@@ -6442,7 +6746,7 @@ create_nearfield_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (nearfield_f6_label), 0.1, 0.5);
 
-  nearfield_nx_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 10);
+  nearfield_nx_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 0);
   nearfield_nx_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (nearfield_nx_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (nearfield_nx_spinbutton);
   gtk_table_attach (GTK_TABLE (table19), nearfield_nx_spinbutton, 0, 1, 1, 2,
@@ -6450,7 +6754,7 @@ create_nearfield_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (nearfield_nx_spinbutton), TRUE);
 
-  nearfield_ny_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 10);
+  nearfield_ny_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 0);
   nearfield_ny_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (nearfield_ny_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (nearfield_ny_spinbutton);
   gtk_table_attach (GTK_TABLE (table19), nearfield_ny_spinbutton, 1, 2, 1, 2,
@@ -6458,7 +6762,7 @@ create_nearfield_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (nearfield_ny_spinbutton), TRUE);
 
-  nearfield_nz_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 10);
+  nearfield_nz_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 0);
   nearfield_nz_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (nearfield_nz_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (nearfield_nz_spinbutton);
   gtk_table_attach (GTK_TABLE (table19), nearfield_nz_spinbutton, 2, 3, 1, 2,
@@ -6466,7 +6770,7 @@ create_nearfield_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (nearfield_nz_spinbutton), TRUE);
 
-  nearfield_f1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  nearfield_f1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   nearfield_f1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (nearfield_f1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (nearfield_f1_spinbutton);
   gtk_table_attach (GTK_TABLE (table19), nearfield_f1_spinbutton, 0, 1, 3, 4,
@@ -6474,7 +6778,7 @@ create_nearfield_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (nearfield_f1_spinbutton), TRUE);
 
-  nearfield_f2_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  nearfield_f2_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   nearfield_f2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (nearfield_f2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (nearfield_f2_spinbutton);
   gtk_table_attach (GTK_TABLE (table19), nearfield_f2_spinbutton, 1, 2, 3, 4,
@@ -6482,7 +6786,7 @@ create_nearfield_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (nearfield_f2_spinbutton), TRUE);
 
-  nearfield_f3_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  nearfield_f3_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   nearfield_f3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (nearfield_f3_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (nearfield_f3_spinbutton);
   gtk_table_attach (GTK_TABLE (table19), nearfield_f3_spinbutton, 2, 3, 3, 4,
@@ -6490,7 +6794,7 @@ create_nearfield_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (nearfield_f3_spinbutton), TRUE);
 
-  nearfield_f4_spinbutton_adj = gtk_adjustment_new (1, -1000, 1000, 9.99999974738e-06, 10, 10);
+  nearfield_f4_spinbutton_adj = gtk_adjustment_new (1, -1000, 1000, 9.99999974738e-06, 10, 0);
   nearfield_f4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (nearfield_f4_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (nearfield_f4_spinbutton);
   gtk_table_attach (GTK_TABLE (table19), nearfield_f4_spinbutton, 0, 1, 5, 6,
@@ -6498,7 +6802,7 @@ create_nearfield_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (nearfield_f4_spinbutton), TRUE);
 
-  nearfield_f5_spinbutton_adj = gtk_adjustment_new (1, -1000, 1000, 9.99999974738e-06, 10, 10);
+  nearfield_f5_spinbutton_adj = gtk_adjustment_new (1, -1000, 1000, 9.99999974738e-06, 10, 0);
   nearfield_f5_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (nearfield_f5_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (nearfield_f5_spinbutton);
   gtk_table_attach (GTK_TABLE (table19), nearfield_f5_spinbutton, 1, 2, 5, 6,
@@ -6506,7 +6810,7 @@ create_nearfield_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (nearfield_f5_spinbutton), TRUE);
 
-  nearfield_f6_spinbutton_adj = gtk_adjustment_new (1, -1000, 1000, 9.99999974738e-06, 10, 10);
+  nearfield_f6_spinbutton_adj = gtk_adjustment_new (1, -1000, 1000, 9.99999974738e-06, 10, 0);
   nearfield_f6_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (nearfield_f6_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (nearfield_f6_spinbutton);
   gtk_table_attach (GTK_TABLE (table19), nearfield_f6_spinbutton, 2, 3, 5, 6,
@@ -6528,10 +6832,26 @@ create_nearfield_command (void)
   gtk_box_pack_start (GTK_BOX (hbox36), nearfield_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (nearfield_new_button), 2);
 
-  nearfield_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  nearfield_cancel_button = gtk_button_new ();
   gtk_widget_show (nearfield_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox36), nearfield_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (nearfield_cancel_button), 2);
+
+  alignment62 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment62);
+  gtk_container_add (GTK_CONTAINER (nearfield_cancel_button), alignment62);
+
+  hbox60 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox60);
+  gtk_container_add (GTK_CONTAINER (alignment62), hbox60);
+
+  image82 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image82);
+  gtk_box_pack_start (GTK_BOX (hbox60), image82, FALSE, FALSE, 0);
+
+  label234 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label234);
+  gtk_box_pack_start (GTK_BOX (hbox60), label234, FALSE, FALSE, 0);
 
   nearfield_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (nearfield_apply_button);
@@ -6634,6 +6954,10 @@ create_nearfield_command (void)
   GLADE_HOOKUP_OBJECT (nearfield_command, hbox36, "hbox36");
   GLADE_HOOKUP_OBJECT (nearfield_command, nearfield_new_button, "nearfield_new_button");
   GLADE_HOOKUP_OBJECT (nearfield_command, nearfield_cancel_button, "nearfield_cancel_button");
+  GLADE_HOOKUP_OBJECT (nearfield_command, alignment62, "alignment62");
+  GLADE_HOOKUP_OBJECT (nearfield_command, hbox60, "hbox60");
+  GLADE_HOOKUP_OBJECT (nearfield_command, image82, "image82");
+  GLADE_HOOKUP_OBJECT (nearfield_command, label234, "label234");
   GLADE_HOOKUP_OBJECT (nearfield_command, nearfield_apply_button, "nearfield_apply_button");
   GLADE_HOOKUP_OBJECT (nearfield_command, nearfield_ok_button, "nearfield_ok_button");
 
@@ -6717,6 +7041,10 @@ create_radiation_command (void)
   GtkWidget *hbox37;
   GtkWidget *radiation_new_button;
   GtkWidget *radiation_cancel_button;
+  GtkWidget *alignment63;
+  GtkWidget *hbox61;
+  GtkWidget *image83;
+  GtkWidget *label235;
   GtkWidget *radiation_apply_button;
   GtkWidget *radiation_ok_button;
 
@@ -7037,7 +7365,7 @@ create_radiation_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (radiation_f6_label), 0.1, 0.5);
 
-  radiation_f1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  radiation_f1_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   radiation_f1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (radiation_f1_spinbutton);
   gtk_table_attach (GTK_TABLE (table23), radiation_f1_spinbutton, 0, 1, 3, 4,
@@ -7045,7 +7373,7 @@ create_radiation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f1_spinbutton), TRUE);
 
-  radiation_f2_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  radiation_f2_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   radiation_f2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (radiation_f2_spinbutton);
   gtk_table_attach (GTK_TABLE (table23), radiation_f2_spinbutton, 1, 2, 3, 4,
@@ -7053,7 +7381,7 @@ create_radiation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f2_spinbutton), TRUE);
 
-  radiation_f3_spinbutton_adj = gtk_adjustment_new (5, -1000, 1000, 9.99999974738e-06, 10, 10);
+  radiation_f3_spinbutton_adj = gtk_adjustment_new (5, -1000, 1000, 9.99999974738e-06, 10, 0);
   radiation_f3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f3_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (radiation_f3_spinbutton);
   gtk_table_attach (GTK_TABLE (table23), radiation_f3_spinbutton, 2, 3, 3, 4,
@@ -7061,7 +7389,7 @@ create_radiation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f3_spinbutton), TRUE);
 
-  radiation_f4_spinbutton_adj = gtk_adjustment_new (5, -1000, 1000, 9.99999974738e-06, 10, 10);
+  radiation_f4_spinbutton_adj = gtk_adjustment_new (5, -1000, 1000, 9.99999974738e-06, 10, 0);
   radiation_f4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f4_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (radiation_f4_spinbutton);
   gtk_table_attach (GTK_TABLE (table23), radiation_f4_spinbutton, 0, 1, 5, 6,
@@ -7069,7 +7397,7 @@ create_radiation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f4_spinbutton), TRUE);
 
-  radiation_f5_spinbutton_adj = gtk_adjustment_new (0, -1000, 1000, 9.99999974738e-06, 10, 10);
+  radiation_f5_spinbutton_adj = gtk_adjustment_new (0, -1000, 1000, 9.99999974738e-06, 10, 0);
   radiation_f5_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f5_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (radiation_f5_spinbutton);
   gtk_table_attach (GTK_TABLE (table23), radiation_f5_spinbutton, 1, 2, 5, 6,
@@ -7077,7 +7405,7 @@ create_radiation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f5_spinbutton), TRUE);
 
-  radiation_f6_spinbutton_adj = gtk_adjustment_new (0, -1000, 1000, 9.99999974738e-06, 10, 10);
+  radiation_f6_spinbutton_adj = gtk_adjustment_new (0, -1000, 1000, 9.99999974738e-06, 10, 0);
   radiation_f6_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f6_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (radiation_f6_spinbutton);
   gtk_table_attach (GTK_TABLE (table23), radiation_f6_spinbutton, 2, 3, 5, 6,
@@ -7106,7 +7434,7 @@ create_radiation_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (radiation_f3_label), 0.1, 0.5);
 
-  radiation_i3_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 10);
+  radiation_i3_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 0);
   radiation_i3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_i3_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (radiation_i3_spinbutton);
   gtk_table_attach (GTK_TABLE (table23), radiation_i3_spinbutton, 1, 2, 1, 2,
@@ -7114,7 +7442,7 @@ create_radiation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_i3_spinbutton), TRUE);
 
-  radiation_i2_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 10);
+  radiation_i2_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 0);
   radiation_i2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_i2_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (radiation_i2_spinbutton);
   gtk_table_attach (GTK_TABLE (table23), radiation_i2_spinbutton, 0, 1, 1, 2,
@@ -7150,10 +7478,26 @@ create_radiation_command (void)
   gtk_box_pack_start (GTK_BOX (hbox37), radiation_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (radiation_new_button), 2);
 
-  radiation_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  radiation_cancel_button = gtk_button_new ();
   gtk_widget_show (radiation_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox37), radiation_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (radiation_cancel_button), 2);
+
+  alignment63 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment63);
+  gtk_container_add (GTK_CONTAINER (radiation_cancel_button), alignment63);
+
+  hbox61 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox61);
+  gtk_container_add (GTK_CONTAINER (alignment63), hbox61);
+
+  image83 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image83);
+  gtk_box_pack_start (GTK_BOX (hbox61), image83, FALSE, FALSE, 0);
+
+  label235 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label235);
+  gtk_box_pack_start (GTK_BOX (hbox61), label235, FALSE, FALSE, 0);
 
   radiation_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (radiation_apply_button);
@@ -7327,6 +7671,10 @@ create_radiation_command (void)
   GLADE_HOOKUP_OBJECT (radiation_command, hbox37, "hbox37");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_new_button, "radiation_new_button");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_cancel_button, "radiation_cancel_button");
+  GLADE_HOOKUP_OBJECT (radiation_command, alignment63, "alignment63");
+  GLADE_HOOKUP_OBJECT (radiation_command, hbox61, "hbox61");
+  GLADE_HOOKUP_OBJECT (radiation_command, image83, "image83");
+  GLADE_HOOKUP_OBJECT (radiation_command, label235, "label235");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_apply_button, "radiation_apply_button");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_ok_button, "radiation_ok_button");
 
@@ -7386,6 +7734,10 @@ create_excitation_command (void)
   GtkWidget *hbox38;
   GtkWidget *excitation_new_button;
   GtkWidget *excitation_cancel_button;
+  GtkWidget *alignment64;
+  GtkWidget *hbox62;
+  GtkWidget *image84;
+  GtkWidget *label236;
   GtkWidget *excitation_apply_button;
   GtkWidget *excitation_ok_button;
 
@@ -7570,7 +7922,7 @@ create_excitation_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (excitation_f6_label), 0.1, 0.5);
 
-  excitation_i2_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 10);
+  excitation_i2_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 0);
   excitation_i2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (excitation_i2_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (excitation_i2_spinbutton);
   gtk_table_attach (GTK_TABLE (table25), excitation_i2_spinbutton, 0, 1, 1, 2,
@@ -7578,7 +7930,7 @@ create_excitation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (excitation_i2_spinbutton), TRUE);
 
-  excitation_i3_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 10);
+  excitation_i3_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 0);
   excitation_i3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (excitation_i3_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (excitation_i3_spinbutton);
   gtk_table_attach (GTK_TABLE (table25), excitation_i3_spinbutton, 1, 2, 1, 2,
@@ -7586,7 +7938,7 @@ create_excitation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (excitation_i3_spinbutton), TRUE);
 
-  excitation_f2_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  excitation_f2_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   excitation_f2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (excitation_f2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (excitation_f2_spinbutton);
   gtk_table_attach (GTK_TABLE (table25), excitation_f2_spinbutton, 1, 2, 3, 4,
@@ -7594,7 +7946,7 @@ create_excitation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (excitation_f2_spinbutton), TRUE);
 
-  excitation_f3_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  excitation_f3_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   excitation_f3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (excitation_f3_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (excitation_f3_spinbutton);
   gtk_table_attach (GTK_TABLE (table25), excitation_f3_spinbutton, 2, 3, 3, 4,
@@ -7602,7 +7954,7 @@ create_excitation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (excitation_f3_spinbutton), TRUE);
 
-  excitation_f4_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  excitation_f4_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   excitation_f4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (excitation_f4_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (excitation_f4_spinbutton);
   gtk_table_attach (GTK_TABLE (table25), excitation_f4_spinbutton, 0, 1, 5, 6,
@@ -7610,7 +7962,7 @@ create_excitation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (excitation_f4_spinbutton), TRUE);
 
-  excitation_f5_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  excitation_f5_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   excitation_f5_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (excitation_f5_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (excitation_f5_spinbutton);
   gtk_table_attach (GTK_TABLE (table25), excitation_f5_spinbutton, 1, 2, 5, 6,
@@ -7618,7 +7970,7 @@ create_excitation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (excitation_f5_spinbutton), TRUE);
 
-  excitation_f6_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 10);
+  excitation_f6_spinbutton_adj = gtk_adjustment_new (0, -10000, 10000, 9.99999974738e-06, 10, 0);
   excitation_f6_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (excitation_f6_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (excitation_f6_spinbutton);
   gtk_table_attach (GTK_TABLE (table25), excitation_f6_spinbutton, 2, 3, 5, 6,
@@ -7626,7 +7978,7 @@ create_excitation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (excitation_f6_spinbutton), TRUE);
 
-  excitation_f1_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  excitation_f1_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   excitation_f1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (excitation_f1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (excitation_f1_spinbutton);
   gtk_table_attach (GTK_TABLE (table25), excitation_f1_spinbutton, 0, 1, 3, 4,
@@ -7648,10 +8000,26 @@ create_excitation_command (void)
   gtk_box_pack_start (GTK_BOX (hbox38), excitation_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (excitation_new_button), 2);
 
-  excitation_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  excitation_cancel_button = gtk_button_new ();
   gtk_widget_show (excitation_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox38), excitation_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (excitation_cancel_button), 2);
+
+  alignment64 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment64);
+  gtk_container_add (GTK_CONTAINER (excitation_cancel_button), alignment64);
+
+  hbox62 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox62);
+  gtk_container_add (GTK_CONTAINER (alignment64), hbox62);
+
+  image84 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image84);
+  gtk_box_pack_start (GTK_BOX (hbox62), image84, FALSE, FALSE, 0);
+
+  label236 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label236);
+  gtk_box_pack_start (GTK_BOX (hbox62), label236, FALSE, FALSE, 0);
 
   excitation_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (excitation_apply_button);
@@ -7769,6 +8137,10 @@ create_excitation_command (void)
   GLADE_HOOKUP_OBJECT (excitation_command, hbox38, "hbox38");
   GLADE_HOOKUP_OBJECT (excitation_command, excitation_new_button, "excitation_new_button");
   GLADE_HOOKUP_OBJECT (excitation_command, excitation_cancel_button, "excitation_cancel_button");
+  GLADE_HOOKUP_OBJECT (excitation_command, alignment64, "alignment64");
+  GLADE_HOOKUP_OBJECT (excitation_command, hbox62, "hbox62");
+  GLADE_HOOKUP_OBJECT (excitation_command, image84, "image84");
+  GLADE_HOOKUP_OBJECT (excitation_command, label236, "label236");
   GLADE_HOOKUP_OBJECT (excitation_command, excitation_apply_button, "excitation_apply_button");
   GLADE_HOOKUP_OBJECT (excitation_command, excitation_ok_button, "excitation_ok_button");
 
@@ -7806,6 +8178,10 @@ create_frequency_command (void)
   GtkWidget *hbox40;
   GtkWidget *frequency_new_button;
   GtkWidget *frequency_cancel_button;
+  GtkWidget *alignment65;
+  GtkWidget *hbox63;
+  GtkWidget *image85;
+  GtkWidget *label237;
   GtkWidget *frequency_apply_button;
   GtkWidget *frequency_ok_button;
 
@@ -7877,7 +8253,7 @@ create_frequency_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label168), 0.1, 0.5);
 
-  frequency_num_spinbutton_adj = gtk_adjustment_new (11, 1, 10000, 1, 10, 10);
+  frequency_num_spinbutton_adj = gtk_adjustment_new (11, 1, 10000, 1, 10, 0);
   frequency_num_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (frequency_num_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (frequency_num_spinbutton);
   gtk_table_attach (GTK_TABLE (table26), frequency_num_spinbutton, 0, 1, 1, 2,
@@ -7885,7 +8261,7 @@ create_frequency_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (frequency_num_spinbutton), TRUE);
 
-  frequency_step_spinbutton_adj = gtk_adjustment_new (0.10000000149, -1000, 1000, 9.99999974738e-06, 10, 10);
+  frequency_step_spinbutton_adj = gtk_adjustment_new (0.10000000149, -1000, 1000, 9.99999974738e-06, 10, 0);
   frequency_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (frequency_step_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (frequency_step_spinbutton);
   gtk_table_attach (GTK_TABLE (table26), frequency_step_spinbutton, 1, 2, 1, 2,
@@ -7907,7 +8283,7 @@ create_frequency_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label171), 0.1, 0.5);
 
-  frequency_start_spinbutton_adj = gtk_adjustment_new (50, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  frequency_start_spinbutton_adj = gtk_adjustment_new (50, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   frequency_start_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (frequency_start_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (frequency_start_spinbutton);
   gtk_table_attach (GTK_TABLE (table26), frequency_start_spinbutton, 0, 1, 3, 4,
@@ -7915,7 +8291,7 @@ create_frequency_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (frequency_start_spinbutton), TRUE);
 
-  frequency_end_spinbutton_adj = gtk_adjustment_new (100, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  frequency_end_spinbutton_adj = gtk_adjustment_new (100, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   frequency_end_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (frequency_end_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (frequency_end_spinbutton);
   gtk_table_attach (GTK_TABLE (table26), frequency_end_spinbutton, 1, 2, 3, 4,
@@ -7937,10 +8313,26 @@ create_frequency_command (void)
   gtk_box_pack_start (GTK_BOX (hbox40), frequency_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frequency_new_button), 2);
 
-  frequency_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  frequency_cancel_button = gtk_button_new ();
   gtk_widget_show (frequency_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox40), frequency_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frequency_cancel_button), 2);
+
+  alignment65 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment65);
+  gtk_container_add (GTK_CONTAINER (frequency_cancel_button), alignment65);
+
+  hbox63 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox63);
+  gtk_container_add (GTK_CONTAINER (alignment65), hbox63);
+
+  image85 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image85);
+  gtk_box_pack_start (GTK_BOX (hbox63), image85, FALSE, FALSE, 0);
+
+  label237 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label237);
+  gtk_box_pack_start (GTK_BOX (hbox63), label237, FALSE, FALSE, 0);
 
   frequency_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (frequency_apply_button);
@@ -8010,6 +8402,10 @@ create_frequency_command (void)
   GLADE_HOOKUP_OBJECT (frequency_command, hbox40, "hbox40");
   GLADE_HOOKUP_OBJECT (frequency_command, frequency_new_button, "frequency_new_button");
   GLADE_HOOKUP_OBJECT (frequency_command, frequency_cancel_button, "frequency_cancel_button");
+  GLADE_HOOKUP_OBJECT (frequency_command, alignment65, "alignment65");
+  GLADE_HOOKUP_OBJECT (frequency_command, hbox63, "hbox63");
+  GLADE_HOOKUP_OBJECT (frequency_command, image85, "image85");
+  GLADE_HOOKUP_OBJECT (frequency_command, label237, "label237");
   GLADE_HOOKUP_OBJECT (frequency_command, frequency_apply_button, "frequency_apply_button");
   GLADE_HOOKUP_OBJECT (frequency_command, frequency_ok_button, "frequency_ok_button");
 
@@ -8058,6 +8454,10 @@ create_loading_command (void)
   GtkWidget *hbox42;
   GtkWidget *loading_new_button;
   GtkWidget *loading_cancel_button;
+  GtkWidget *alignment66;
+  GtkWidget *hbox64;
+  GtkWidget *image86;
+  GtkWidget *label238;
   GtkWidget *loading_apply_button;
   GtkWidget *loading_ok_button;
 
@@ -8208,7 +8608,7 @@ create_loading_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (loading_f3_label), 0.1, 0.5);
 
-  loading_f1_spinbutton_adj = gtk_adjustment_new (1, 0, 1000000000, 9.99999974738e-06, 10, 10);
+  loading_f1_spinbutton_adj = gtk_adjustment_new (1, 0, 1000000000, 9.99999974738e-06, 10, 0);
   loading_f1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (loading_f1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (loading_f1_spinbutton);
   gtk_table_attach (GTK_TABLE (table28), loading_f1_spinbutton, 0, 1, 3, 4,
@@ -8216,7 +8616,7 @@ create_loading_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (loading_f1_spinbutton), TRUE);
 
-  loading_i2_spinbutton_adj = gtk_adjustment_new (1, 0, 10000, 1, 10, 10);
+  loading_i2_spinbutton_adj = gtk_adjustment_new (1, 0, 10000, 1, 10, 0);
   loading_i2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (loading_i2_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (loading_i2_spinbutton);
   gtk_table_attach (GTK_TABLE (table28), loading_i2_spinbutton, 0, 1, 1, 2,
@@ -8224,7 +8624,7 @@ create_loading_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (loading_i2_spinbutton), TRUE);
 
-  loading_i3_spinbutton_adj = gtk_adjustment_new (2, 0, 10000, 1, 10, 10);
+  loading_i3_spinbutton_adj = gtk_adjustment_new (2, 0, 10000, 1, 10, 0);
   loading_i3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (loading_i3_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (loading_i3_spinbutton);
   gtk_table_attach (GTK_TABLE (table28), loading_i3_spinbutton, 1, 2, 1, 2,
@@ -8232,7 +8632,7 @@ create_loading_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (loading_i3_spinbutton), TRUE);
 
-  loading_i4_spinbutton_adj = gtk_adjustment_new (3, 0, 10000, 1, 10, 10);
+  loading_i4_spinbutton_adj = gtk_adjustment_new (3, 0, 10000, 1, 10, 0);
   loading_i4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (loading_i4_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (loading_i4_spinbutton);
   gtk_table_attach (GTK_TABLE (table28), loading_i4_spinbutton, 2, 3, 1, 2,
@@ -8240,7 +8640,7 @@ create_loading_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (loading_i4_spinbutton), TRUE);
 
-  loading_f2_spinbutton_adj = gtk_adjustment_new (1, -1000000, 1000000, 9.99999974738e-06, 10, 10);
+  loading_f2_spinbutton_adj = gtk_adjustment_new (1, -1000000, 1000000, 9.99999974738e-06, 10, 0);
   loading_f2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (loading_f2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (loading_f2_spinbutton);
   gtk_table_attach (GTK_TABLE (table28), loading_f2_spinbutton, 1, 2, 3, 4,
@@ -8248,7 +8648,7 @@ create_loading_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (loading_f2_spinbutton), TRUE);
 
-  loading_f3_spinbutton_adj = gtk_adjustment_new (1, 0, 1000000000, 9.99999974738e-06, 10, 10);
+  loading_f3_spinbutton_adj = gtk_adjustment_new (1, 0, 1000000000, 9.99999974738e-06, 10, 0);
   loading_f3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (loading_f3_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (loading_f3_spinbutton);
   gtk_table_attach (GTK_TABLE (table28), loading_f3_spinbutton, 2, 3, 3, 4,
@@ -8270,10 +8670,26 @@ create_loading_command (void)
   gtk_box_pack_start (GTK_BOX (hbox42), loading_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (loading_new_button), 2);
 
-  loading_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  loading_cancel_button = gtk_button_new ();
   gtk_widget_show (loading_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox42), loading_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (loading_cancel_button), 2);
+
+  alignment66 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment66);
+  gtk_container_add (GTK_CONTAINER (loading_cancel_button), alignment66);
+
+  hbox64 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox64);
+  gtk_container_add (GTK_CONTAINER (alignment66), hbox64);
+
+  image86 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image86);
+  gtk_box_pack_start (GTK_BOX (hbox64), image86, FALSE, FALSE, 0);
+
+  label238 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label238);
+  gtk_box_pack_start (GTK_BOX (hbox64), label238, FALSE, FALSE, 0);
 
   loading_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (loading_apply_button);
@@ -8373,6 +8789,10 @@ create_loading_command (void)
   GLADE_HOOKUP_OBJECT (loading_command, hbox42, "hbox42");
   GLADE_HOOKUP_OBJECT (loading_command, loading_new_button, "loading_new_button");
   GLADE_HOOKUP_OBJECT (loading_command, loading_cancel_button, "loading_cancel_button");
+  GLADE_HOOKUP_OBJECT (loading_command, alignment66, "alignment66");
+  GLADE_HOOKUP_OBJECT (loading_command, hbox64, "hbox64");
+  GLADE_HOOKUP_OBJECT (loading_command, image86, "image86");
+  GLADE_HOOKUP_OBJECT (loading_command, label238, "label238");
   GLADE_HOOKUP_OBJECT (loading_command, loading_apply_button, "loading_apply_button");
   GLADE_HOOKUP_OBJECT (loading_command, loading_ok_button, "loading_ok_button");
 
@@ -8425,6 +8845,10 @@ create_network_command (void)
   GtkWidget *hbox43;
   GtkWidget *network_new_button;
   GtkWidget *network_cancel_button;
+  GtkWidget *alignment67;
+  GtkWidget *hbox65;
+  GtkWidget *image87;
+  GtkWidget *label239;
   GtkWidget *network_apply_button;
   GtkWidget *network_ok_button;
 
@@ -8456,7 +8880,7 @@ create_network_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label184), 0.1, 0.5);
 
-  network_i4_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 10);
+  network_i4_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 0);
   network_i4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (network_i4_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (network_i4_spinbutton);
   gtk_table_attach (GTK_TABLE (table29), network_i4_spinbutton, 1, 2, 3, 4,
@@ -8464,7 +8888,7 @@ create_network_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (network_i4_spinbutton), TRUE);
 
-  network_i1_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 10);
+  network_i1_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 0);
   network_i1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (network_i1_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (network_i1_spinbutton);
   gtk_table_attach (GTK_TABLE (table29), network_i1_spinbutton, 0, 1, 1, 2,
@@ -8472,7 +8896,7 @@ create_network_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (network_i1_spinbutton), TRUE);
 
-  network_i2_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 10);
+  network_i2_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 0);
   network_i2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (network_i2_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (network_i2_spinbutton);
   gtk_table_attach (GTK_TABLE (table29), network_i2_spinbutton, 1, 2, 1, 2,
@@ -8501,7 +8925,7 @@ create_network_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label185), 0.1, 0.5);
 
-  network_i3_spinbutton_adj = gtk_adjustment_new (2, 1, 10000, 1, 10, 10);
+  network_i3_spinbutton_adj = gtk_adjustment_new (2, 1, 10000, 1, 10, 0);
   network_i3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (network_i3_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (network_i3_spinbutton);
   gtk_table_attach (GTK_TABLE (table29), network_i3_spinbutton, 0, 1, 3, 4,
@@ -8555,7 +8979,7 @@ create_network_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label190), 0.1, 0.5);
 
-  network_f3_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  network_f3_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   network_f3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (network_f3_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (network_f3_spinbutton);
   gtk_table_attach (GTK_TABLE (table30), network_f3_spinbutton, 0, 1, 3, 4,
@@ -8563,7 +8987,7 @@ create_network_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (network_f3_spinbutton), TRUE);
 
-  network_f4_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  network_f4_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   network_f4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (network_f4_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (network_f4_spinbutton);
   gtk_table_attach (GTK_TABLE (table30), network_f4_spinbutton, 1, 2, 3, 4,
@@ -8585,7 +9009,7 @@ create_network_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label192), 0.1, 0.5);
 
-  network_f1_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  network_f1_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   network_f1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (network_f1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (network_f1_spinbutton);
   gtk_table_attach (GTK_TABLE (table30), network_f1_spinbutton, 0, 1, 1, 2,
@@ -8593,7 +9017,7 @@ create_network_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (network_f1_spinbutton), TRUE);
 
-  network_f2_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  network_f2_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   network_f2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (network_f2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (network_f2_spinbutton);
   gtk_table_attach (GTK_TABLE (table30), network_f2_spinbutton, 1, 2, 1, 2,
@@ -8601,7 +9025,7 @@ create_network_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (network_f2_spinbutton), TRUE);
 
-  network_f6_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  network_f6_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   network_f6_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (network_f6_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (network_f6_spinbutton);
   gtk_table_attach (GTK_TABLE (table30), network_f6_spinbutton, 1, 2, 5, 6,
@@ -8609,7 +9033,7 @@ create_network_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (network_f6_spinbutton), TRUE);
 
-  network_f5_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  network_f5_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   network_f5_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (network_f5_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (network_f5_spinbutton);
   gtk_table_attach (GTK_TABLE (table30), network_f5_spinbutton, 0, 1, 5, 6,
@@ -8631,10 +9055,26 @@ create_network_command (void)
   gtk_box_pack_start (GTK_BOX (hbox43), network_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (network_new_button), 2);
 
-  network_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  network_cancel_button = gtk_button_new ();
   gtk_widget_show (network_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox43), network_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (network_cancel_button), 2);
+
+  alignment67 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment67);
+  gtk_container_add (GTK_CONTAINER (network_cancel_button), alignment67);
+
+  hbox65 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox65);
+  gtk_container_add (GTK_CONTAINER (alignment67), hbox65);
+
+  image87 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image87);
+  gtk_box_pack_start (GTK_BOX (hbox65), image87, FALSE, FALSE, 0);
+
+  label239 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label239);
+  gtk_box_pack_start (GTK_BOX (hbox65), label239, FALSE, FALSE, 0);
 
   network_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (network_apply_button);
@@ -8726,6 +9166,10 @@ create_network_command (void)
   GLADE_HOOKUP_OBJECT (network_command, hbox43, "hbox43");
   GLADE_HOOKUP_OBJECT (network_command, network_new_button, "network_new_button");
   GLADE_HOOKUP_OBJECT (network_command, network_cancel_button, "network_cancel_button");
+  GLADE_HOOKUP_OBJECT (network_command, alignment67, "alignment67");
+  GLADE_HOOKUP_OBJECT (network_command, hbox65, "hbox65");
+  GLADE_HOOKUP_OBJECT (network_command, image87, "image87");
+  GLADE_HOOKUP_OBJECT (network_command, label239, "label239");
   GLADE_HOOKUP_OBJECT (network_command, network_apply_button, "network_apply_button");
   GLADE_HOOKUP_OBJECT (network_command, network_ok_button, "network_ok_button");
 
@@ -8778,6 +9222,10 @@ create_txline_command (void)
   GtkWidget *hbox44;
   GtkWidget *txline_new_button;
   GtkWidget *txline_cancel_button;
+  GtkWidget *alignment68;
+  GtkWidget *hbox66;
+  GtkWidget *image88;
+  GtkWidget *label240;
   GtkWidget *txline_apply_button;
   GtkWidget *txline_ok_button;
 
@@ -8802,7 +9250,7 @@ create_txline_command (void)
   gtk_widget_show (table31);
   gtk_container_add (GTK_CONTAINER (alignment45), table31);
 
-  txline_i4_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 10);
+  txline_i4_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 0);
   txline_i4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (txline_i4_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (txline_i4_spinbutton);
   gtk_table_attach (GTK_TABLE (table31), txline_i4_spinbutton, 1, 2, 3, 4,
@@ -8810,7 +9258,7 @@ create_txline_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (txline_i4_spinbutton), TRUE);
 
-  txline_i1_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 10);
+  txline_i1_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 0);
   txline_i1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (txline_i1_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (txline_i1_spinbutton);
   gtk_table_attach (GTK_TABLE (table31), txline_i1_spinbutton, 0, 1, 1, 2,
@@ -8818,7 +9266,7 @@ create_txline_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (txline_i1_spinbutton), TRUE);
 
-  txline_i2_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 10);
+  txline_i2_spinbutton_adj = gtk_adjustment_new (1, 1, 10000, 1, 10, 0);
   txline_i2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (txline_i2_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (txline_i2_spinbutton);
   gtk_table_attach (GTK_TABLE (table31), txline_i2_spinbutton, 1, 2, 1, 2,
@@ -8847,7 +9295,7 @@ create_txline_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label196), 0.1, 0.5);
 
-  txline_i3_spinbutton_adj = gtk_adjustment_new (2, 1, 10000, 1, 10, 10);
+  txline_i3_spinbutton_adj = gtk_adjustment_new (2, 1, 10000, 1, 10, 0);
   txline_i3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (txline_i3_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (txline_i3_spinbutton);
   gtk_table_attach (GTK_TABLE (table31), txline_i3_spinbutton, 0, 1, 3, 4,
@@ -8910,7 +9358,7 @@ create_txline_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label201), 0.1, 0.5);
 
-  txline_f3_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  txline_f3_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   txline_f3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (txline_f3_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (txline_f3_spinbutton);
   gtk_table_attach (GTK_TABLE (table32), txline_f3_spinbutton, 0, 1, 3, 4,
@@ -8918,7 +9366,7 @@ create_txline_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (txline_f3_spinbutton), TRUE);
 
-  txline_f4_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  txline_f4_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   txline_f4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (txline_f4_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (txline_f4_spinbutton);
   gtk_table_attach (GTK_TABLE (table32), txline_f4_spinbutton, 1, 2, 3, 4,
@@ -8940,7 +9388,7 @@ create_txline_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label203), 0.1, 0.5);
 
-  txline_f1_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  txline_f1_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   txline_f1_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (txline_f1_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (txline_f1_spinbutton);
   gtk_table_attach (GTK_TABLE (table32), txline_f1_spinbutton, 0, 1, 1, 2,
@@ -8948,7 +9396,7 @@ create_txline_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (txline_f1_spinbutton), TRUE);
 
-  txline_f2_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  txline_f2_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   txline_f2_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (txline_f2_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (txline_f2_spinbutton);
   gtk_table_attach (GTK_TABLE (table32), txline_f2_spinbutton, 1, 2, 1, 2,
@@ -8956,7 +9404,7 @@ create_txline_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (txline_f2_spinbutton), TRUE);
 
-  txline_f6_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  txline_f6_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   txline_f6_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (txline_f6_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (txline_f6_spinbutton);
   gtk_table_attach (GTK_TABLE (table32), txline_f6_spinbutton, 1, 2, 5, 6,
@@ -8964,7 +9412,7 @@ create_txline_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (txline_f6_spinbutton), TRUE);
 
-  txline_f5_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 10);
+  txline_f5_spinbutton_adj = gtk_adjustment_new (1, -10000, 10000, 9.99999974738e-06, 10, 0);
   txline_f5_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (txline_f5_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (txline_f5_spinbutton);
   gtk_table_attach (GTK_TABLE (table32), txline_f5_spinbutton, 0, 1, 5, 6,
@@ -8986,10 +9434,26 @@ create_txline_command (void)
   gtk_box_pack_start (GTK_BOX (hbox44), txline_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (txline_new_button), 2);
 
-  txline_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  txline_cancel_button = gtk_button_new ();
   gtk_widget_show (txline_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox44), txline_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (txline_cancel_button), 2);
+
+  alignment68 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment68);
+  gtk_container_add (GTK_CONTAINER (txline_cancel_button), alignment68);
+
+  hbox66 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox66);
+  gtk_container_add (GTK_CONTAINER (alignment68), hbox66);
+
+  image88 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image88);
+  gtk_box_pack_start (GTK_BOX (hbox66), image88, FALSE, FALSE, 0);
+
+  label240 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label240);
+  gtk_box_pack_start (GTK_BOX (hbox66), label240, FALSE, FALSE, 0);
 
   txline_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (txline_apply_button);
@@ -9084,6 +9548,10 @@ create_txline_command (void)
   GLADE_HOOKUP_OBJECT (txline_command, hbox44, "hbox44");
   GLADE_HOOKUP_OBJECT (txline_command, txline_new_button, "txline_new_button");
   GLADE_HOOKUP_OBJECT (txline_command, txline_cancel_button, "txline_cancel_button");
+  GLADE_HOOKUP_OBJECT (txline_command, alignment68, "alignment68");
+  GLADE_HOOKUP_OBJECT (txline_command, hbox66, "hbox66");
+  GLADE_HOOKUP_OBJECT (txline_command, image88, "image88");
+  GLADE_HOOKUP_OBJECT (txline_command, label240, "label240");
   GLADE_HOOKUP_OBJECT (txline_command, txline_apply_button, "txline_apply_button");
   GLADE_HOOKUP_OBJECT (txline_command, txline_ok_button, "txline_ok_button");
 
@@ -9114,6 +9582,10 @@ create_ground2_command (void)
   GtkWidget *hbox45;
   GtkWidget *ground2_new_button;
   GtkWidget *ground2_cancel_button;
+  GtkWidget *alignment69;
+  GtkWidget *hbox67;
+  GtkWidget *image89;
+  GtkWidget *label241;
   GtkWidget *ground2_apply_button;
   GtkWidget *ground2_ok_button;
 
@@ -9169,7 +9641,7 @@ create_ground2_command (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label207), 0, 0.5);
 
-  ground2_diel_spinbutton_adj = gtk_adjustment_new (12, 0, 10000, 9.99999974738e-06, 10, 10);
+  ground2_diel_spinbutton_adj = gtk_adjustment_new (12, 0, 10000, 9.99999974738e-06, 10, 0);
   ground2_diel_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground2_diel_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground2_diel_spinbutton);
   gtk_table_attach (GTK_TABLE (table33), ground2_diel_spinbutton, 0, 1, 1, 2,
@@ -9177,7 +9649,7 @@ create_ground2_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (ground2_diel_spinbutton), TRUE);
 
-  ground2_res_spinbutton_adj = gtk_adjustment_new (0.005, 0, 10000, 9.99999974738e-06, 10, 10);
+  ground2_res_spinbutton_adj = gtk_adjustment_new (0.005, 0, 10000, 9.99999974738e-06, 10, 0);
   ground2_res_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground2_res_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground2_res_spinbutton);
   gtk_table_attach (GTK_TABLE (table33), ground2_res_spinbutton, 1, 2, 1, 2,
@@ -9185,7 +9657,7 @@ create_ground2_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (ground2_res_spinbutton), TRUE);
 
-  ground2_below_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  ground2_below_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   ground2_below_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground2_below_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground2_below_spinbutton);
   gtk_table_attach (GTK_TABLE (table33), ground2_below_spinbutton, 1, 2, 3, 4,
@@ -9193,7 +9665,7 @@ create_ground2_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (ground2_below_spinbutton), TRUE);
 
-  ground2_dist_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 10);
+  ground2_dist_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
   ground2_dist_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (ground2_dist_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (ground2_dist_spinbutton);
   gtk_table_attach (GTK_TABLE (table33), ground2_dist_spinbutton, 0, 1, 3, 4,
@@ -9215,10 +9687,26 @@ create_ground2_command (void)
   gtk_box_pack_start (GTK_BOX (hbox45), ground2_new_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (ground2_new_button), 2);
 
-  ground2_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  ground2_cancel_button = gtk_button_new ();
   gtk_widget_show (ground2_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox45), ground2_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (ground2_cancel_button), 2);
+
+  alignment69 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment69);
+  gtk_container_add (GTK_CONTAINER (ground2_cancel_button), alignment69);
+
+  hbox67 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox67);
+  gtk_container_add (GTK_CONTAINER (alignment69), hbox67);
+
+  image89 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image89);
+  gtk_box_pack_start (GTK_BOX (hbox67), image89, FALSE, FALSE, 0);
+
+  label241 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label241);
+  gtk_box_pack_start (GTK_BOX (hbox67), label241, FALSE, FALSE, 0);
 
   ground2_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (ground2_apply_button);
@@ -9276,6 +9764,10 @@ create_ground2_command (void)
   GLADE_HOOKUP_OBJECT (ground2_command, hbox45, "hbox45");
   GLADE_HOOKUP_OBJECT (ground2_command, ground2_new_button, "ground2_new_button");
   GLADE_HOOKUP_OBJECT (ground2_command, ground2_cancel_button, "ground2_cancel_button");
+  GLADE_HOOKUP_OBJECT (ground2_command, alignment69, "alignment69");
+  GLADE_HOOKUP_OBJECT (ground2_command, hbox67, "hbox67");
+  GLADE_HOOKUP_OBJECT (ground2_command, image89, "image89");
+  GLADE_HOOKUP_OBJECT (ground2_command, label241, "label241");
   GLADE_HOOKUP_OBJECT (ground2_command, ground2_apply_button, "ground2_apply_button");
   GLADE_HOOKUP_OBJECT (ground2_command, ground2_ok_button, "ground2_ok_button");
 
@@ -9297,6 +9789,10 @@ create_gend_editor (void)
   GtkWidget *label211;
   GtkWidget *hbox46;
   GtkWidget *gend_cancel_button;
+  GtkWidget *alignment70;
+  GtkWidget *hbox68;
+  GtkWidget *image90;
+  GtkWidget *label242;
   GtkWidget *gend_apply_button;
   GtkWidget *gend_ok_button;
 
@@ -9353,10 +9849,26 @@ create_gend_editor (void)
   gtk_widget_show (hbox46);
   gtk_box_pack_start (GTK_BOX (vbox26), hbox46, FALSE, FALSE, 0);
 
-  gend_cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+  gend_cancel_button = gtk_button_new ();
   gtk_widget_show (gend_cancel_button);
   gtk_box_pack_start (GTK_BOX (hbox46), gend_cancel_button, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (gend_cancel_button), 2);
+
+  alignment70 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment70);
+  gtk_container_add (GTK_CONTAINER (gend_cancel_button), alignment70);
+
+  hbox68 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox68);
+  gtk_container_add (GTK_CONTAINER (alignment70), hbox68);
+
+  image90 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image90);
+  gtk_box_pack_start (GTK_BOX (hbox68), image90, FALSE, FALSE, 0);
+
+  label242 = gtk_label_new_with_mnemonic ("Delete Card");
+  gtk_widget_show (label242);
+  gtk_box_pack_start (GTK_BOX (hbox68), label242, FALSE, FALSE, 0);
 
   gend_apply_button = gtk_button_new_from_stock ("gtk-apply");
   gtk_widget_show (gend_apply_button);
@@ -9402,6 +9914,10 @@ create_gend_editor (void)
   GLADE_HOOKUP_OBJECT (gend_editor, label211, "label211");
   GLADE_HOOKUP_OBJECT (gend_editor, hbox46, "hbox46");
   GLADE_HOOKUP_OBJECT (gend_editor, gend_cancel_button, "gend_cancel_button");
+  GLADE_HOOKUP_OBJECT (gend_editor, alignment70, "alignment70");
+  GLADE_HOOKUP_OBJECT (gend_editor, hbox68, "hbox68");
+  GLADE_HOOKUP_OBJECT (gend_editor, image90, "image90");
+  GLADE_HOOKUP_OBJECT (gend_editor, label242, "label242");
   GLADE_HOOKUP_OBJECT (gend_editor, gend_apply_button, "gend_apply_button");
   GLADE_HOOKUP_OBJECT (gend_editor, gend_ok_button, "gend_ok_button");
 

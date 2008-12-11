@@ -45,7 +45,7 @@ GtkWidget *error_dialog = NULL;
 void usage(void)
 {
   fprintf( stderr,
-	  "usage: xnec2c [-i <input-file-name>]\n"
+	  "Usage: xnec2c [-i <input-file-name>]\n"
 	  "              [-j <number of processors in SMP machine>]\n"
 	  "              [-h: print this usage information and exit]\n"
 	  "              [-v: print nec2c version number and exit]\n" );
@@ -193,7 +193,7 @@ void mem_alloc( void **ptr, int req, gchar *str )
 	stop( mesg, 1 );
   }
 
-} /* End of void mem_alloc() */
+} /* End of mem_alloc() */
 
 /*------------------------------------------------------------------------*/
 
@@ -209,7 +209,7 @@ void mem_realloc( void **ptr, int req, gchar *str )
 	stop( mesg, 1 );
   }
 
-} /* End of void mem_realloc() */
+} /* End of mem_realloc() */
 
 /*------------------------------------------------------------------------*/
 
@@ -219,7 +219,7 @@ void free_ptr( void **ptr )
 	free( *ptr );
   *ptr = NULL;
 
-} /* End of void free_ptr() */
+} /* End of free_ptr() */
 
 /*------------------------------------------------------------------------*/
 

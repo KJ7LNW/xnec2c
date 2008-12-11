@@ -3756,7 +3756,7 @@ on_aboutdialog_close                   (GtkDialog       *dialog,
   aboutdialog = NULL;
 }
 
-  
+
 void
 on_aboutdialog_response                (GtkDialog       *dialog,
                                         gint             response_id,
@@ -3764,5 +3764,20 @@ on_aboutdialog_response                (GtkDialog       *dialog,
 {
   gtk_widget_destroy( aboutdialog );
   aboutdialog = NULL;
+}
+
+
+void
+on_net_gain_activate                   (GtkMenuItem     *menuitem,
+	gpointer         user_data)
+{
+  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
+	SetFlag( PLOT_NETGAIN );
+  else
+	ClearFlag( PLOT_NETGAIN );
+
+  /* Trigger a redraw of frequency plots drawingarea */
+  if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
+	Plot_Frequency_Data();
 }
 

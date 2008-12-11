@@ -221,7 +221,7 @@ Ground_Parameters( void )
 		if( cabsl(( ggrid.epscf - epsc) / epsc) >= 1.0e-3l )
 		{
 		  fprintf( stderr,
-			  "xnec2c: error in ground parameters:\n"
+			  "xnec2c: error in ground parameters\n"
 			  "complex dielectric constant from file: %12.5LE%+12.5LEj\n"
 			  "                            requested: %12.5LE%+12.5LEj\n",
 			  creall(ggrid.epscf), cimagl(ggrid.epscf),

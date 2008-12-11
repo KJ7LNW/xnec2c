@@ -1,27 +1,27 @@
-You are right, there is a bug in NEC-2 when the extended thin-wire 
-kernel is used with wires connected to patches.  This has escaped 
-detection for over 20 years.  I did not catch it yesterday, because I 
-had MAXSEG=10000, and ICON1 and ICON2 are dimensioned to 2*MAXSEG, so 
+You are right, there is a bug in NEC-2 when the extended thin-wire
+kernel is used with wires connected to patches.  This has escaped
+detection for over 20 years.  I did not catch it yesterday, because I
+had MAXSEG=10000, and ICON1 and ICON2 are dimensioned to 2*MAXSEG, so
 10000 did not exceed the bound.
 
-The problem can be fixed as shown below.  In addition to subroutine 
-CMWW, where you encountered the problem, the same changes need to be 
-made in subroutines NEFLD and QDSRC.  With this change the extended 
-kernel is not used at a wire end connected to a patch surface, but 
+The problem can be fixed as shown below.  In addition to subroutine
+CMWW, where you encountered the problem, the same changes need to be
+made in subroutines NEFLD and QDSRC.  With this change the extended
+kernel is not used at a wire end connected to a patch surface, but
 would be used on the rest of the wire if it is straight .
 
-The extended thin-wire kernel is only used on thick, straight wires, 
-so is not very useful.  The code turns it off at junctions, bends and 
-changes in radius.  Also, the connection of a wire to a patch surface 
-is not good in NEC-2 or 4.  It works fairly well for something like a 
-monopole on a surface, but not for a half loop connected to the 
-surface.  A wire grid surface provides a better connection for a wire 
+The extended thin-wire kernel is only used on thick, straight wires,
+so is not very useful.  The code turns it off at junctions, bends and
+changes in radius.  Also, the connection of a wire to a patch surface
+is not good in NEC-2 or 4.  It works fairly well for something like a
+monopole on a surface, but not for a half loop connected to the
+surface.  A wire grid surface provides a better connection for a wire
 antenna.
 
-NEC-4 does not have the extended kernel, but instead puts the current 
-on the wire surface with match points on the axis, and has an 
-approximation for wire end caps that reduces the instability when the 
-segment length to radius ratio  is small.  So NEC-4 would not have 
+NEC-4 does not have the extended kernel, but instead puts the current
+on the wire surface with match points on the axis, and has an
+approximation for wire end caps that reduces the instability when the
+segment length to radius ratio  is small.  So NEC-4 would not have
 this problem.
 
 Thanks for finding this bug.

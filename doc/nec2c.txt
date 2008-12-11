@@ -31,7 +31,7 @@
   relating to this activity and also the NGF form of solution have been
   removed from the program.
 
-  * When a Sommerfeld finite ground solution is requested, since the 
+  * When a Sommerfeld finite ground solution is requested, since the
   SOMNEC program has been incorporated in nec2c there is no need to store
   the ground grid data in a file and read it when running nec2c. Instead,
   ground grid data are calculated as needed and for each new frequency if
@@ -72,7 +72,7 @@
   The nec2c package is very simple at this time and compilation basically
   only requires a Linux platform with development tools installed (gcc,
   make and optionally gdb and "valgrind" for debugging). To compile the
-  source code just type "make nec2c" in the nec2c directory and if all is 
+  source code just type "make nec2c" in the nec2c directory and if all is
   well an executable binary (nec2c) should be produced. If gdb is not
   installed, remove the -g option from the line in Makefile the reads:
   CC = gcc -Wall -O3 -g
@@ -125,7 +125,7 @@
 
   Version 0.3: I have split nec2c.c into a number of smaller files to
   make it easier to work on during bug-fixing or development.
-  
+
   Version 0.4: Fixed a bug in conect that caused segmentation faults
   when only one wire segment exists in the structure. this is a case that
   will probably never exist in practice but the seg fault had to be
@@ -146,6 +146,6 @@
   8. AUTHOR:
 
   Neoklis Kyriazis
-  
+
   January 27 2004
-  
+

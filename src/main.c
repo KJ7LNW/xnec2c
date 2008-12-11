@@ -284,6 +284,7 @@ main (int argc, char *argv[])
 
 static void sig_handler( int signal )
 {
+  fprintf( stderr, "\n" );
   switch( signal )
   {
 	case SIGINT:
@@ -335,7 +336,7 @@ static void sig_handler( int signal )
 
 /* Functions for testing and setting/clearing flow control flags
  *
- *  See xfhell.h for definition of flow control flags
+ *  See xnec2c.h for definition of flow control flags
  */
 
 /* An int variable holding the single-bit flags */

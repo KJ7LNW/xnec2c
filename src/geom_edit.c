@@ -2051,7 +2051,7 @@ Set_Geometry_Data(
 	GtkTreeIter *iter,
 	int *iv, double *fv )
 {
-  gchar sf[13];
+  gchar str[13];
   gint idx;
 
   /* Format and set editor data to treeview (I1, I2 & F1-F7) */
@@ -2059,18 +2059,18 @@ Set_Geometry_Data(
   {
 	for( idx = GEOM_COL_I1; idx <= GEOM_COL_I2; idx++ )
 	{
-	  snprintf( sf, 6, "%5d", iv[idx-GEOM_COL_I1] );
-	  gtk_list_store_set( store, iter, idx, sf, -1 );
+	  snprintf( str, 6, "%5d", iv[idx-GEOM_COL_I1] );
+	  gtk_list_store_set( store, iter, idx, str, -1 );
 	}
 
 	for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
 	{
-	  snprintf( sf, 13, "%12.5E", fv[idx-GEOM_COL_F1] );
-	  gtk_list_store_set( store, iter, idx, sf, -1 );
+	  snprintf( str, 13, "%12.5E", fv[idx-GEOM_COL_F1] );
+	  gtk_list_store_set( store, iter, idx, str, -1 );
 	}
   }
   else
-	stop( "Error writing row data:\n"
+	stop( "Error writing row data\n"
 		"Please re-select row", 0 );
 
   SetFlag( NEC2_EDIT_SAVE );
@@ -2087,7 +2087,7 @@ Set_Geometry_Data(
   void
 Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
 {
-  gchar sf[6];
+  gchar str[6];
   gint idx;
 
   /* Format and set editor data to treeview (I1, I2) */
@@ -2095,8 +2095,8 @@ Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
   {
 	for( idx = GEOM_COL_I1; idx <= GEOM_COL_I2; idx++ )
 	{
-	  snprintf( sf, 6, "%5d", iv[idx-GEOM_COL_I1] );
-	  gtk_list_store_set( store, iter, idx, sf, -1 );
+	  snprintf( str, 6, "%5d", iv[idx-GEOM_COL_I1] );
+	  gtk_list_store_set( store, iter, idx, str, -1 );
 	}
 
 	/* Clear unused float columns */
@@ -2104,7 +2104,7 @@ Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
 	  gtk_list_store_set( store, iter, idx, "0.0", -1 );
   }
   else
-	stop( "Error writing row data:\n"
+	stop( "Error writing row data\n"
 		"Please re-select row", 0 );
 
   SetFlag( NEC2_EDIT_SAVE );

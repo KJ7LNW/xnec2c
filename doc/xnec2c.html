@@ -3,11 +3,8 @@
 <html>
 <head>
 <meta name="generator" content="Bluefish 1.0.7">
-<meta name="generator" content="Bluefish 1.0.7">
-<meta name="generator" content="Bluefish 1.0.7">
-<meta name="generator" content="Bluefish 1.0.7">
 <title>Xnec2c User Manual</title>
-<meta name="author" content="root">
+<meta name="author" content="Neoklis">
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK2 graphical nec2c NEC2 C">
 <meta name="description" content=
@@ -258,7 +255,7 @@ loop.<br></p>
 <p><b>-v:</b> Print version information and exit.</p>
 <p><b><a name="MainWindow" id="MainWindow">The Main
 Window:</a></b><br>
-<img src="images/currents.png" width="636" height="742" border="0"
+<img src="images/currents.png" width="679" height="738" border="0"
 hspace="10" vspace="10" alt="Main Window" align="left"> When
 starting xnec2c from a terminal or from a file manager (by OLE),
 the -i option can be used to specify a NEC2 input file: <b>xnec2c
@@ -330,7 +327,7 @@ the Frequency entry/display spin buttons in the same windows so
 that displayed data are for the same frequency.</p>
 <p><b><a name="RadiationWindow" id="RadiationWindow">The Radiation
 Pattern window:</a></b><br>
-<img src="images/radiation.png" width="624" height="742" border="0"
+<img src="images/radiation.png" width="681" height="738" border="0"
 hspace="10" vspace="10" alt="Radiation Pattern" align="left"> On
 the top row of widgets, this window has the same Viewer angle
 selection buttons and spin button displays as the <a href=
@@ -435,7 +432,7 @@ xnec2c is restarted the serial numbers are reset so that
 overwriting will occur if the same input file is opened.</p>
 <p><b><a name="FrequencyWindow" id="FrequencyWindow">Frequency Data
 Plots window:</a></b><br>
-<img src="images/freq_plots.png" width="636" height="736" border=
+<img src="images/freq_plots.png" width="623" height="734" border=
 "0" hspace="10" vspace="10" alt="Frequency Plots" align="left">The
 Frequency Data Plots window is the main display of frequency
 related data such as maximum gain, VSWR, input impedance etc. Most
@@ -481,13 +478,16 @@ Spin button</b> (default 50 Ohm).<br>
 impedance.<br>
 <b>Zm/Zph:</b> The scalar magnitude and phase of the input
 impedance.<br>
-The Frequency Loop control buttons at the top right can be use to
-Start, Pause or Reset the loop. As the loop progresses, more data
-will be presented in the graphs and in the text entry widgets above
-the graph drawing area. These widgets display the current frequency
-in MHz, the maximum gain in the radiation pattern for that
-frequency, the VSWR for the Zo value in the spin button above and
-the real and imaginary parts of the input impedance.</p>
+<b>The View-&gt;Net Gain</b> menu item changes the second plotted
+quantity to the Net Gain of the array. This was added after a
+feature request for xnec2c.</p>
+<p>The Frequency Loop control buttons at the top right can be use
+to Start, Pause or Reset the loop. As the loop progresses, more
+data will be presented in the graphs and in the text entry widgets
+above the graph drawing area. These widgets display the current
+frequency in MHz, the maximum gain in the radiation pattern for
+that frequency, the VSWR for the Zo value in the spin button above
+and the real and imaginary parts of the input impedance.</p>
 <p>The <b>File-&gt;Save</b> and <b>File-&gt;Save As</b> menu items
 can be used to save the graphs in the drawing area as PNG image
 files, with a default file name or one of the user's choice
@@ -499,7 +499,7 @@ means described earlier (dragging by mouse pointer, Rotate/Incline
 spin buttons etc).</p>
 <p><b><a name="Nec2Treeview" id="Nec2Treeview">NEC2 Input File
 Editor:</a></b><br>
-<img src="images/nec2_edit.png" width="648" height="901" border="0"
+<img src="images/nec2_edit.png" width="664" height="739" border="0"
 hspace="10" vspace="10" alt="Nec2 Editor" align="left"> Xnec2c has
 a built-in NEC2 input file editor to make the edit/save/execute
 cycle easier and quicker. The main editor window opens from either
@@ -544,7 +544,7 @@ saved state of the editor from the input file, to reduce the effort
 needed to recover from a big mistake like clearing a tree view
 accidentally!</p>
 <p><b>Sample Dedicated Geometry Editor Description:</b><br>
-<img src="images/wire.png" width="546" height="372" border="0"
+<img src="images/wire.png" width="558" height="280" border="0"
 hspace="10" vspace="10" alt="Wire Editor" align="left"><b>Wire
 Geometry Editor:</b> This is one of the dedicated "card" or row
 editors, for creating or editing wire geometry. It will appear when
@@ -576,22 +576,22 @@ value is greater than zero, the Editor will enter an LD card in the
 Commands tree view to specify a type 5 (wire conductivity) loading.
 This will result in all segments with tag number equal to that in
 the Editor to be loaded with the specified resistivity. Please note
-that Cancelling the row in the Geometry tree view will not remove
-the loading row.</p>
+that Deleting the row in the Geometry tree view will not remove the
+loading row.</p>
 <p>All editors (except for the "GE" card) have the following
 buttons along the bottom of the window: "New" inserts a new blank
 row in the tree view after entering edited data into the current
-row. "Cancel" removes the current row and closes the editor window.
-"Apply" enters edited data into the current row. "OK" enters edited
-data into the current row and closes the editor window. <b>Please
-note</b> that the "GE" row is entered automatically by the first
-editor used, if the tree view is cleared, and there is no button
-for it in the Geometry frame. But there is a dedicated editor for
-it which opens with a right-click on the (selected) GE row and
-<i>it should be used</i> to specify the presence of Ground (GN
-command etc).</p>
+row. "Delete Card" removes the current row (card) and closes the
+editor window. "Apply" enters edited data into the current row.
+"OK" enters edited data into the current row and closes the editor
+window. <b>Please note</b> that the "GE" row is entered
+automatically by the first editor used, if the tree view is
+cleared, and there is no button for it in the Geometry frame. But
+there is a dedicated editor for it which opens with a right-click
+on the (selected) GE row and <i>it should be used</i> to specify
+the presence of Ground (GN command etc).</p>
 <p><b>Sample Dedicated Control Editor:</b><br>
-<img src="images/excitation.png" width="626" height="412" border=
+<img src="images/excitation.png" width="687" height="412" border=
 "0" hspace="10" vspace="10" alt="Excitation Editor" align=
 "left"><b>Excitation Command Editor:</b> The Excitation Command
 Editor opens when the "Excitation" button in the "Edit Control
@@ -718,6 +718,24 @@ also fixed a bug in the "save" and "save as" handler, to avoid
 false attempts by xnec2c to save structure and radiation
 pattern/frequency plots pixmaps when a save of the NEC2 editor data
 failed for some reason.</p>
+<p><b>Version 1.0:</b> After several months with no bug reports or
+feature requests, I am sticking my neck out and releasing xnec2c as
+version 1.0. This version incorporates the last two feature request
+I received from users:<br>
+The "Cancel" button on card editors has been replaces with a
+"Delete Card" button, which deletes the selected "card" (row in the
+NEC2 editor window).<br>
+A "Net Gain" menu item has been added to the View menu of the
+Frequency Plots window to replace the second plotted quantity with
+the Net Gain of the antenna.</p>
+<p><b>Version 1.1:</b> I spoke too soon! A segfault bug has been
+reported that occurs when Maximum Admittance Matrix Asymmetry
+printing is requested in the EX card. Although this is not
+supported in xnec2c, it still produces a segmentation fault because
+the "ipnt" buffer is not allocated in the netwk() function in
+network.c</p>
+<p><b>Version 1.2:</b> Made the page size of spin buttons 0 to make
+setting of spin button values compatible with GTK 2.4</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and
 Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original

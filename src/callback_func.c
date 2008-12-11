@@ -260,12 +260,12 @@ Delete_Event( gchar *message )
 	if( isFlagSet(MAIN_QUIT) )
 	  gtk_label_set_text( GTK_LABEL(lookup_widget(
 			  quit_dialog, "quit_label")),
-		  "The frequency loop is running.\n"
+		  "The frequency loop is running\n"
 		  "Really end operation?" );
 	else
 	  gtk_label_set_text( GTK_LABEL(lookup_widget(
 			  quit_dialog, "quit_label")),
-		  "The frequency loop is running.\n"
+		  "The frequency loop is running\n"
 		  "Really close this window?" );
   }
   else
