@@ -411,12 +411,13 @@ create_main_window (void)
   gtk_widget_show (label10);
   gtk_box_pack_start (GTK_BOX (main_hbox2), label10, FALSE, FALSE, 1);
 
-  main_freq_spinbutton_adj = gtk_adjustment_new (0.0010000000475, 0.0010000000475, 9999, 0.00999999977648, 10, 0);
+  main_freq_spinbutton_adj = gtk_adjustment_new (0.00999999977648, 0.00999999977648, 9999, 0.00999999977648, 10, 0);
   main_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (main_freq_spinbutton_adj), 0.00999999977648, 3);
   gtk_widget_show (main_freq_spinbutton);
   gtk_box_pack_start (GTK_BOX (main_hbox2), main_freq_spinbutton, FALSE, FALSE, 1);
   gtk_tooltips_set_tip (tooltips, main_freq_spinbutton, _("Enter frequency in MHz"), NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (main_freq_spinbutton), TRUE);
+  gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (main_freq_spinbutton), GTK_UPDATE_IF_VALID);
 
   main_freq_label = gtk_label_new (_("MHz"));
   gtk_widget_show (main_freq_label);
@@ -664,9 +665,7 @@ create_filechooserdialog (void)
 
   filechooserdialog = gtk_file_chooser_dialog_new (_("xnec2c"), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL, NULL);
   gtk_container_set_border_width (GTK_CONTAINER (filechooserdialog), 5);
-  g_object_set (filechooserdialog,
-                "show-hidden", TRUE,
-                NULL);
+  g_object_set (filechooserdialog, "show-hidden", TRUE, NULL);
   gtk_window_set_position (GTK_WINDOW (filechooserdialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_type_hint (GTK_WINDOW (filechooserdialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
@@ -2335,11 +2334,11 @@ create_nec2_editor (void)
 
   hbox16 = gtk_hbox_new (FALSE, 0);
   gtk_widget_show (hbox16);
-  gtk_box_pack_start (GTK_BOX (vbox4), hbox16, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox4), hbox16, FALSE, TRUE, 0);
 
   frame8 = gtk_frame_new (NULL);
   gtk_widget_show (frame8);
-  gtk_box_pack_start (GTK_BOX (hbox16), frame8, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox16), frame8, FALSE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame8), 2);
 
   alignment8 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -2373,7 +2372,7 @@ create_nec2_editor (void)
 
   frame7 = gtk_frame_new (NULL);
   gtk_widget_show (frame7);
-  gtk_box_pack_start (GTK_BOX (hbox16), frame7, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox16), frame7, FALSE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame7), 2);
 
   alignment7 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -2442,7 +2441,7 @@ create_nec2_editor (void)
 
   frame9 = gtk_frame_new (NULL);
   gtk_widget_show (frame9);
-  gtk_box_pack_start (GTK_BOX (vbox4), frame9, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox4), frame9, FALSE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame9), 2);
 
   alignment9 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -2544,7 +2543,7 @@ create_nec2_editor (void)
 
   frame10 = gtk_frame_new (NULL);
   gtk_widget_show (frame10);
-  gtk_box_pack_start (GTK_BOX (vbox4), frame10, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox4), frame10, FALSE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame10), 2);
 
   alignment10 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -7013,30 +7012,30 @@ create_radiation_command (void)
   GtkWidget *frame31;
   GtkWidget *alignment33;
   GtkWidget *table23;
-  GtkWidget *label150;
-  GtkWidget *radiation_f5_label;
   GtkWidget *radiation_f6_label;
   GtkObject *radiation_f1_spinbutton_adj;
   GtkWidget *radiation_f1_spinbutton;
   GtkObject *radiation_f2_spinbutton_adj;
   GtkWidget *radiation_f2_spinbutton;
-  GtkObject *radiation_f3_spinbutton_adj;
-  GtkWidget *radiation_f3_spinbutton;
-  GtkObject *radiation_f4_spinbutton_adj;
-  GtkWidget *radiation_f4_spinbutton;
-  GtkObject *radiation_f5_spinbutton_adj;
-  GtkWidget *radiation_f5_spinbutton;
   GtkObject *radiation_f6_spinbutton_adj;
   GtkWidget *radiation_f6_spinbutton;
   GtkWidget *radiation_f1_label;
   GtkWidget *label148;
-  GtkWidget *radiation_f3_label;
   GtkObject *radiation_i3_spinbutton_adj;
   GtkWidget *radiation_i3_spinbutton;
   GtkObject *radiation_i2_spinbutton_adj;
   GtkWidget *radiation_i2_spinbutton;
   GtkWidget *radiation_i1_label;
   GtkWidget *label210;
+  GtkWidget *radiation_f3_label;
+  GtkObject *radiation_f3_spinbutton_adj;
+  GtkWidget *radiation_f3_spinbutton;
+  GtkWidget *radiation_f5_label;
+  GtkObject *radiation_f5_spinbutton_adj;
+  GtkWidget *radiation_f5_spinbutton;
+  GtkWidget *label150;
+  GtkObject *radiation_f4_spinbutton_adj;
+  GtkWidget *radiation_f4_spinbutton;
   GtkWidget *label142;
   GtkWidget *hbox37;
   GtkWidget *radiation_new_button;
@@ -7344,20 +7343,6 @@ create_radiation_command (void)
   gtk_widget_show (table23);
   gtk_container_add (GTK_CONTAINER (alignment33), table23);
 
-  label150 = gtk_label_new (_("Increment in Phi"));
-  gtk_widget_show (label150);
-  gtk_table_attach (GTK_TABLE (table23), label150, 0, 1, 4, 5,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label150), 0.1, 0.5);
-
-  radiation_f5_label = gtk_label_new (_("Field Point Distance"));
-  gtk_widget_show (radiation_f5_label);
-  gtk_table_attach (GTK_TABLE (table23), radiation_f5_label, 1, 2, 4, 5,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (radiation_f5_label), 0.1, 0.5);
-
   radiation_f6_label = gtk_label_new (_("Gain Normalization"));
   gtk_widget_show (radiation_f6_label);
   gtk_table_attach (GTK_TABLE (table23), radiation_f6_label, 2, 3, 4, 5,
@@ -7381,30 +7366,6 @@ create_radiation_command (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f2_spinbutton), TRUE);
 
-  radiation_f3_spinbutton_adj = gtk_adjustment_new (5, -1000, 1000, 9.99999974738e-06, 10, 0);
-  radiation_f3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f3_spinbutton_adj), 0.00999999977648, 5);
-  gtk_widget_show (radiation_f3_spinbutton);
-  gtk_table_attach (GTK_TABLE (table23), radiation_f3_spinbutton, 2, 3, 3, 4,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 2, 4);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f3_spinbutton), TRUE);
-
-  radiation_f4_spinbutton_adj = gtk_adjustment_new (5, -1000, 1000, 9.99999974738e-06, 10, 0);
-  radiation_f4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f4_spinbutton_adj), 0.00999999977648, 5);
-  gtk_widget_show (radiation_f4_spinbutton);
-  gtk_table_attach (GTK_TABLE (table23), radiation_f4_spinbutton, 0, 1, 5, 6,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 2, 4);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f4_spinbutton), TRUE);
-
-  radiation_f5_spinbutton_adj = gtk_adjustment_new (0, -1000, 1000, 9.99999974738e-06, 10, 0);
-  radiation_f5_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f5_spinbutton_adj), 0.00999999977648, 5);
-  gtk_widget_show (radiation_f5_spinbutton);
-  gtk_table_attach (GTK_TABLE (table23), radiation_f5_spinbutton, 1, 2, 5, 6,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 2, 4);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f5_spinbutton), TRUE);
-
   radiation_f6_spinbutton_adj = gtk_adjustment_new (0, -1000, 1000, 9.99999974738e-06, 10, 0);
   radiation_f6_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f6_spinbutton_adj), 0.00999999977648, 5);
   gtk_widget_show (radiation_f6_spinbutton);
@@ -7426,13 +7387,6 @@ create_radiation_command (void)
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label148), 0.1, 0.5);
-
-  radiation_f3_label = gtk_label_new (_("Increment in Theta"));
-  gtk_widget_show (radiation_f3_label);
-  gtk_table_attach (GTK_TABLE (table23), radiation_f3_label, 2, 3, 2, 3,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (radiation_f3_label), 0.1, 0.5);
 
   radiation_i3_spinbutton_adj = gtk_adjustment_new (4, 1, 10000, 1, 10, 0);
   radiation_i3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_i3_spinbutton_adj), 0.00999999977648, 0);
@@ -7463,6 +7417,51 @@ create_radiation_command (void)
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label210), 0.1, 0.5);
+
+  radiation_f3_label = gtk_label_new (_("Increment in Theta"));
+  gtk_widget_show (radiation_f3_label);
+  gtk_table_attach (GTK_TABLE (table23), radiation_f3_label, 0, 1, 4, 5,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (radiation_f3_label), 0.1, 0.5);
+
+  radiation_f3_spinbutton_adj = gtk_adjustment_new (5, -1000, 1000, 9.99999974738e-06, 10, 0);
+  radiation_f3_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f3_spinbutton_adj), 0.00999999977648, 5);
+  gtk_widget_show (radiation_f3_spinbutton);
+  gtk_table_attach (GTK_TABLE (table23), radiation_f3_spinbutton, 0, 1, 5, 6,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 2, 4);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f3_spinbutton), TRUE);
+
+  radiation_f5_label = gtk_label_new (_("Field Point Distance"));
+  gtk_widget_show (radiation_f5_label);
+  gtk_table_attach (GTK_TABLE (table23), radiation_f5_label, 2, 3, 2, 3,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (radiation_f5_label), 0.1, 0.5);
+
+  radiation_f5_spinbutton_adj = gtk_adjustment_new (0, -1000, 1000, 9.99999974738e-06, 10, 0);
+  radiation_f5_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f5_spinbutton_adj), 0.00999999977648, 5);
+  gtk_widget_show (radiation_f5_spinbutton);
+  gtk_table_attach (GTK_TABLE (table23), radiation_f5_spinbutton, 2, 3, 3, 4,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 2, 4);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f5_spinbutton), TRUE);
+
+  label150 = gtk_label_new (_("Increment in Phi"));
+  gtk_widget_show (label150);
+  gtk_table_attach (GTK_TABLE (table23), label150, 1, 2, 4, 5,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label150), 0.1, 0.5);
+
+  radiation_f4_spinbutton_adj = gtk_adjustment_new (5, -1000, 1000, 9.99999974738e-06, 10, 0);
+  radiation_f4_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (radiation_f4_spinbutton_adj), 0.00999999977648, 5);
+  gtk_widget_show (radiation_f4_spinbutton);
+  gtk_table_attach (GTK_TABLE (table23), radiation_f4_spinbutton, 1, 2, 5, 6,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 2, 4);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (radiation_f4_spinbutton), TRUE);
 
   label142 = gtk_label_new (_("Radiation Pattern Parameters"));
   gtk_widget_show (label142);
@@ -7578,15 +7577,6 @@ create_radiation_command (void)
   g_signal_connect ((gpointer) radiation_f2_spinbutton, "value_changed",
                     G_CALLBACK (on_radiation_spinbutton_value_changed),
                     NULL);
-  g_signal_connect ((gpointer) radiation_f3_spinbutton, "value_changed",
-                    G_CALLBACK (on_radiation_spinbutton_value_changed),
-                    NULL);
-  g_signal_connect ((gpointer) radiation_f4_spinbutton, "value_changed",
-                    G_CALLBACK (on_radiation_spinbutton_value_changed),
-                    NULL);
-  g_signal_connect ((gpointer) radiation_f5_spinbutton, "value_changed",
-                    G_CALLBACK (on_radiation_spinbutton_value_changed),
-                    NULL);
   g_signal_connect ((gpointer) radiation_f6_spinbutton, "value_changed",
                     G_CALLBACK (on_radiation_spinbutton_value_changed),
                     NULL);
@@ -7594,6 +7584,15 @@ create_radiation_command (void)
                     G_CALLBACK (on_radiation_spinbutton_value_changed),
                     NULL);
   g_signal_connect ((gpointer) radiation_i2_spinbutton, "value_changed",
+                    G_CALLBACK (on_radiation_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) radiation_f3_spinbutton, "value_changed",
+                    G_CALLBACK (on_radiation_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) radiation_f5_spinbutton, "value_changed",
+                    G_CALLBACK (on_radiation_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) radiation_f4_spinbutton, "value_changed",
                     G_CALLBACK (on_radiation_spinbutton_value_changed),
                     NULL);
   g_signal_connect ((gpointer) radiation_new_button, "clicked",
@@ -7651,22 +7650,22 @@ create_radiation_command (void)
   GLADE_HOOKUP_OBJECT (radiation_command, frame31, "frame31");
   GLADE_HOOKUP_OBJECT (radiation_command, alignment33, "alignment33");
   GLADE_HOOKUP_OBJECT (radiation_command, table23, "table23");
-  GLADE_HOOKUP_OBJECT (radiation_command, label150, "label150");
-  GLADE_HOOKUP_OBJECT (radiation_command, radiation_f5_label, "radiation_f5_label");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_f6_label, "radiation_f6_label");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_f1_spinbutton, "radiation_f1_spinbutton");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_f2_spinbutton, "radiation_f2_spinbutton");
-  GLADE_HOOKUP_OBJECT (radiation_command, radiation_f3_spinbutton, "radiation_f3_spinbutton");
-  GLADE_HOOKUP_OBJECT (radiation_command, radiation_f4_spinbutton, "radiation_f4_spinbutton");
-  GLADE_HOOKUP_OBJECT (radiation_command, radiation_f5_spinbutton, "radiation_f5_spinbutton");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_f6_spinbutton, "radiation_f6_spinbutton");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_f1_label, "radiation_f1_label");
   GLADE_HOOKUP_OBJECT (radiation_command, label148, "label148");
-  GLADE_HOOKUP_OBJECT (radiation_command, radiation_f3_label, "radiation_f3_label");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_i3_spinbutton, "radiation_i3_spinbutton");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_i2_spinbutton, "radiation_i2_spinbutton");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_i1_label, "radiation_i1_label");
   GLADE_HOOKUP_OBJECT (radiation_command, label210, "label210");
+  GLADE_HOOKUP_OBJECT (radiation_command, radiation_f3_label, "radiation_f3_label");
+  GLADE_HOOKUP_OBJECT (radiation_command, radiation_f3_spinbutton, "radiation_f3_spinbutton");
+  GLADE_HOOKUP_OBJECT (radiation_command, radiation_f5_label, "radiation_f5_label");
+  GLADE_HOOKUP_OBJECT (radiation_command, radiation_f5_spinbutton, "radiation_f5_spinbutton");
+  GLADE_HOOKUP_OBJECT (radiation_command, label150, "label150");
+  GLADE_HOOKUP_OBJECT (radiation_command, radiation_f4_spinbutton, "radiation_f4_spinbutton");
   GLADE_HOOKUP_OBJECT (radiation_command, label142, "label142");
   GLADE_HOOKUP_OBJECT (radiation_command, hbox37, "hbox37");
   GLADE_HOOKUP_OBJECT (radiation_command, radiation_new_button, "radiation_new_button");

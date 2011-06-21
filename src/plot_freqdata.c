@@ -1,6 +1,6 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2006 N. Kyriazis <neoklis<at>mailspeed.net>
+ *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* frqdata_plots.c
+/* plot_freqdata.c
  *
  * Code for plotting graphs of structure
  * data (VSWR, impedance, gain etc)
@@ -30,7 +30,7 @@
  *      NetGain = RawGain+10*log(Feed-pointGain)
  *      where Feed-point Gain = 4*Zr*Zo/((Zr+Zo)^2+Zi^2)
  *   http://www.avsforum.com/avs-vb/showthread.php?p=14086104#post14086104
- *      NetGain = RawGain+10*log(4*Zr*Zo/((Zr+Zo)^2+Zi^2)    
+ *      NetGain = RawGain+10*log(4*Zr*Zo/((Zr+Zo)^2+Zi^2)
  *   Where log is log10.
  */
 
@@ -101,7 +101,7 @@ Plot_Frequency_Data( void )
 	*gmax     = NULL, /* Max gain buffer */
 	*netgmax  = NULL, /* Net Max gain buffer */
 	*vgain    = NULL, /* Viewer direction gain buffer */
-	*netgain = NULL, /* Viewer direction net gain buffer */
+	*netgain  = NULL, /* Viewer direction net gain buffer */
 	*gdir_tht = NULL, /* Direction in theta of gain */
 	*gdir_phi = NULL, /* Direction in phi of gain */
 	*fbratio  = NULL; /* Front to back ratio */

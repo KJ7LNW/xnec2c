@@ -1,6 +1,6 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2006 N. Kyriazis <neoklis<at>mailspeed.net>
+ *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -394,18 +394,31 @@ on_main_freqplots_activate             (GtkMenuItem     *menuitem,
   /* Open window for plotting frequency related data (gain, vswr etc) */
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
   {
-	freqplots_window = create_freqplots_window();
-	gtk_widget_show( freqplots_window );
-	freqplots_drawingarea = lookup_widget(
-		freqplots_window, "freqplots_drawingarea" );
+	if( (fpat.ixtyp != 0) && (fpat.ixtyp != 5) )
+	{
+	  stop(
+		  "Not available for Incident Field or\n"
+		  "Elementary Current Source Excitation.\n"
+		  "(Excitation Types 1 to 4)", 0 );
+	  gtk_check_menu_item_set_active(
+		  GTK_CHECK_MENU_ITEM(menuitem), FALSE );
+	  return;
+	}
+	else
+	{
+	  freqplots_window = create_freqplots_window();
+	  gtk_widget_show( freqplots_window );
+	  freqplots_drawingarea = lookup_widget(
+		  freqplots_window, "freqplots_drawingarea" );
 
-	calc_data.ngraph = 0;
-	calc_data.zo = 50.0;
-	Set_Window_Labels();
+	  calc_data.ngraph = 0;
+	  calc_data.zo = 50.0;
+	  Set_Window_Labels();
 
-	/* Enable freq data graph plotting */
-	SetFlag( PLOT_ENABLED );
-  }
+	  /* Enable freq data graph plotting */
+	  SetFlag( PLOT_ENABLED );
+	}
+  } /* if( gtk_check_menu_item_get_active() */
   else
 	if( isFlagSet(PLOT_ENABLED) )
 	  gtk_widget_destroy( freqplots_window );

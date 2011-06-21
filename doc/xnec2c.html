@@ -2,18 +2,17 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta name="generator" content="Bluefish 1.0.7">
+<meta name="generator" content="Bluefish 2.0.0" >
+<meta name="generator" content="Bluefish 2.0.0" >
 <title>Xnec2c User Manual</title>
-<meta name="author" content="Neoklis">
+<meta name="author" content="Neoklis" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK2 graphical nec2c NEC2 C">
 <meta name="description" content=
 "xnec2c: GTK+v2-based GUI version of nec2c">
 <meta name="ROBOTS" content="INDEX, FOLLOW">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-Type" content=
-"application/xhtml+xml; charset=utf-8">
-<meta http-equiv="Content-Style-Type" content="text/css">
+"text/html; charset=us-ascii">
 </head>
 <body>
 <div align="center">
@@ -629,8 +628,13 @@ effect on data presented by xnec2c in graphical form. Since version
 1.0 xnec2c does not print results to file.<br>
 <b>SOMNEC:</b> The separate SOMNEC code has been incorporated in
 nec2c and hence in xnec2c also.<br>
-<b>EX:</b> Only voltage source excitation is supported (I1=0 or
-5).<br>
+<b>EX:</b> When Incident Wave or Elementary Current Source
+Excitation is specified, xnec2c can only calculate and render the
+re-radiated field, produced by the current induced onto the
+structure. Only the initial values of the theta and phi angles are
+used and no stepping of these angles is performed. Therefore it is
+better to specify only one step for theta and phi in the EX
+card.<br>
 <b>RP:</b> The surface wave option (I1=1) is not supported.</p>
 <p><b><a name="OutputFile" id="OutputFile">7. Output File
 Considerations:</a></b><br>
@@ -736,6 +740,18 @@ the "ipnt" buffer is not allocated in the netwk() function in
 network.c</p>
 <p><b>Version 1.2:</b> Made the page size of spin buttons 0 to make
 setting of spin button values compatible with GTK 2.4</p>
+<p><b>Version 1.3:</b> After an enquiry about using incident field
+excitation, which was not implemented in previous versions, I
+removed the restrictions in excitation to allow plotting the
+re-radiated pattern from a structure excited by incident field or
+elementary current source. However, the calculations are carried
+out only for one set of angle-of-incidence angles, e.g. there is no
+stepping of the theta and phi angles. This would require much more
+complex changes to xnec2c and I am not currently able to do
+this.</p>
+<p><b>Version 1.4:</b> Applied a patch supplied by Tom Beierlein,
+DL1JBE, to fix crashing of xnec2c 1.3 on long input file names
+(&gt; 80 characters).</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and
 Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original

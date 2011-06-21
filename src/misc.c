@@ -1,6 +1,6 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2006 N. Kyriazis <neoklis<at>mailspeed.net>
+ *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,7 +17,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*
+/* misc.c
+ *
  * Miscellaneous support functions for xnec2c.c
  */
 
@@ -74,10 +75,8 @@ int stop( char *mesg, int err )
   /* Stop operation */
   Stop_Frequency_Loop();
   error_dialog = create_error_dialog();
-  gtk_widget_show( error_dialog );
   gtk_label_set_text( GTK_LABEL(
 		lookup_widget(error_dialog, "error_label")), mesg );
-  SetFlag( ERROR_CONDX );
 
   /* Hide ok/stop buttons according to error */
   if( err == 1 )
@@ -86,9 +85,11 @@ int stop( char *mesg, int err )
   else
 	gtk_widget_hide( lookup_widget(
 		  error_dialog, "error_stopbutton") );
+  gtk_widget_show( error_dialog );
 
-  /* Loop over usleep till users decides what to do */
-  /* Could not think of another way to do this :-(  */
+  /* Loop over usleep till user decides what to do */
+  /* Could not think of another way to do this :-( */
+  SetFlag( ERROR_CONDX );
   while( isFlagSet(ERROR_CONDX) )
   {
 	if( isFlagSet(MAIN_QUIT) ) exit(-1);
@@ -179,7 +180,6 @@ int load_line( char *buff, FILE *pfile )
 /*------------------------------------------------------------------------*/
 
 /***  Memory allocation/freeing utils ***/
-
 void mem_alloc( void **ptr, int req, gchar *str )
 {
   gchar mesg[100];
@@ -234,8 +234,8 @@ Open_File( FILE **fp, char *fname, const char *mode )
   Close_File( fp );
   if( (*fp = fopen(fname, mode)) == NULL )
   {
-	char mesg[88] = "xnec2c: ";
-	strcat( mesg, fname );
+	char mesg[110] = "xnec2c: ";
+	strncat( mesg, fname, 80 );
 	perror( mesg );
 	strcat( mesg, ": Failed to open file" );
 	stop( mesg, 1 );

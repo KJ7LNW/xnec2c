@@ -1,6 +1,6 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2006 N. Kyriazis <neoklis<at>mailspeed.net>
+ *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -15,6 +15,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
+/* fork.c
+ *
+ * Functions for forking xnec2c in multiprocessor systems
  */
 
 #include "xnec2c.h"
@@ -212,7 +217,8 @@ Fork_Command( const char *cdstr )
   int
 Read_Pipe( int idx, char *str, size_t len, gboolean err )
 {
-  int retval, pipefd;
+  ssize_t retval;
+  int pipefd;
 
   if(CHILD)
 	pipefd = forkpc[idx]->p2ch_pipe[READ];
@@ -229,7 +235,7 @@ Read_Pipe( int idx, char *str, size_t len, gboolean err )
   retval = read( pipefd, str, len );
   if( (retval == -1) || ((retval != len) && err ) )
   {
-	perror( "xnec2c: read()" );
+	perror( "xnec2c: Read_Pipe(): read()" );
 	_exit(0);
   }
   return( retval );
@@ -245,7 +251,8 @@ Read_Pipe( int idx, char *str, size_t len, gboolean err )
   int
 Write_Pipe( int idx, char *str, size_t len, gboolean err )
 {
-  int retval, pipefd;
+  ssize_t retval;
+  int pipefd;
 
   if( CHILD )
 	pipefd = forkpc[idx]->ch2p_pipe[WRITE];
@@ -280,12 +287,12 @@ Write_Pipe( int idx, char *str, size_t len, gboolean err )
   int
 PRead_Pipe( int idx, char *str, size_t len, gboolean err )
 {
-  int retval;
+  ssize_t retval;
 
   retval = read( forkpc[idx]->ch2p_pipe[READ], str, len );
   if( (retval == -1) || ((retval != len) && err ) )
   {
-	perror( "xnec2c: read()" );
+	perror( "xnec2c: PRead_Pipe(): read()" );
 	_exit(0);
   }
   return( retval );

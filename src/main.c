@@ -1,6 +1,6 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2006 N. Kyriazis <neoklis<at>mailspeed.net>
+ *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -113,7 +113,7 @@ main (int argc, char *argv[])
   extern int optind, opterr, optopt;
   int option, idx;
 
-  /*** signal handler related code ***/
+  /*** Signal handler related code ***/
   /* new and old actions for sigaction() */
   struct sigaction sa_new, sa_old;
 
@@ -130,7 +130,7 @@ main (int argc, char *argv[])
   sigaction( SIGABRT, &sa_new, 0 );
   sigaction( SIGCHLD, &sa_new, 0 );
 
-  /* process command line options */
+  /* Process command line options */
   calc_data.nfork = 1;
   while( (option = getopt(argc, argv, "i:j:hv") ) != -1 )
   {
@@ -138,7 +138,10 @@ main (int argc, char *argv[])
 	{
 	  case 'i' : /* specify input file name */
 		if( strlen(optarg) > 80 )
-		  stop( "Input file name too long", 1 );
+		{
+		  fprintf ( stderr, "Input file name too long\n" );
+		  exit(1);
+		}
 		strcpy( infile, optarg );
 		break;
 

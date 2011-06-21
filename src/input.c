@@ -1,6 +1,6 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2006 N. Kyriazis <neoklis<at>mailspeed.net>
+ *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -328,10 +328,6 @@ Read_Commands( void )
 		break;
 
 	  case 4: /* "ex" card, excitation parameters */
-		if( (itmp1 != 0) && (itmp1 != 5) )
-		  stop( "Only voltage source excitation\n"
-			  "(EX I1=0 or I1=5) currently supported", 1 );
-
 		netcx.masym = itmp4/10;
 		fpat.ixtyp  = itmp1;
 

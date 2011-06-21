@@ -1,6 +1,6 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2006 N. Kyriazis <neoklis<at>mailspeed.net>
+ *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 
 /* xnec2c.h
  *
- * Header file for xnec2c
+ * Common header file for xnec2c
  */
 
 #ifndef	NEC2C_H
@@ -727,7 +727,7 @@ typedef struct
   int fstep;		/* Frequency step assigned to child */
 
   /* File descriptor sets for select() */
-  fd_set read_fds;	
+  fd_set read_fds;
   fd_set write_fds;
 
 } forkpc_t;
