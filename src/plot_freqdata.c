@@ -222,12 +222,23 @@ Plot_Frequency_Data( void )
 	  else
 		nth = (int)( fbdir/fpat.dth + 0.5 );
 
-	  /* No F/B calc. possible if no theta step at +180 from max gain */
+	  /* If the antenna is modelled over ground, then use the same
+	   * theta as the max gain direction, relying on phi alone to
+	   * take us to the back. Patch supplied by Rik van Riel AB1KW
+	   */
 	  if( (nth >= fpat.nth) || (nth < 0) )
 	  {
-		no_fbr = TRUE;
-		continue;
+		fbdir = rad_pattern[idx].max_gain_tht[pol];
+		if( fpat.dth == 0.0 )
+		  nth = 0;
+		else
+		  nth = (int)( fbdir/fpat.dth + 0.5 );
 	  }
+
+	  /* Find F/B direction in phi */
+	  fbdir = gdir_phi[idx] + 180.0;
+	  if( fbdir >= 360.0 ) fbdir -= 360.0;
+	  nph = (int)( fbdir/fpat.dph + 0.5 );
 
 	  /* Find F/B direction in phi */
 	  fbdir = gdir_phi[idx] + 180.0;

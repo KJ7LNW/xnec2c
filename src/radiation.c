@@ -610,7 +610,7 @@ void rdpat()
   int i, kth, kph, isens;
   long double exrm=0.0l, exra=0.0l, prad, gcon, gcop;
   long double gmax, pint, tmp1, tmp2, phi, pha, thet;
-  long double tha, erdm=0.0l, erda=0.0l, ethm2, ethm;
+  long double tha, ethm2, ethm;
   long double etha, ephm2, ephm, epha, tilta, emajr2, eminr2;
   long double dfaz, axrat, dfaz2, cdfaz, tstor1=0.0l, tstor2;
   long double gnmn, stilta, gnmj, gnv, gnh, gtot, tmp3, tmp4, da;
@@ -704,8 +704,6 @@ void rdpat()
 	  {
 		gfld( fpat.rfld/data.wlam, pha, thet/data.wlam,
 			&eth, &eph, &erd, gnd.zrati, gnd.ksymp);
-		erdm= cabs( erd);
-		erda= cang( erd);
 	  }
 
 	  ethm2= creal( eth* conjl( eth));

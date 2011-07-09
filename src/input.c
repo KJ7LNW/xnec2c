@@ -1244,7 +1244,7 @@ datagn( void )
     "SP", "SM", "GA", "SC", "GH", "GF"
   };
 
-  int nwire, isct, i1, i2, itg, iy, iz, mreq;
+  int nwire, isct, itg, iy, iz, mreq;
   int ix, i, ns, gm_num; /* geometry card id as a number */
   long double rad, xs1, xs2, ys1, ys2, zs1, zs2;
   long double x3=0, y3=0, z3=0, x4=0, y4=0, z4=0;
@@ -1278,8 +1278,6 @@ datagn( void )
 	  case 0: /* "gw" card, generate segment data for straight wire. */
 		Tag_Seg_Error( itg, ns );
 		nwire++;
-		i1= data.n+1;
-		i2= data.n+ ns;
 
 		if( rad != 0.0)
 		{
@@ -1480,7 +1478,6 @@ datagn( void )
 		continue;
 
 	  case 6: /* "sp" card, generate single new patch */
-		i1= data.m+1;
 		ns++;
 
 		if( itg != 0)
@@ -1522,7 +1519,6 @@ datagn( void )
 		continue;
 
 	  case 7: /* "sm" card, generate multiple-patch surface */
-		i1= data.m+1;
 		if( (itg < 1) || (ns < 1) )
 		{
 		  fprintf( stderr, "xnec2c: patch card data error\n" );
@@ -1552,9 +1548,6 @@ datagn( void )
 	  case 8: /* "ga" card, generate segment data for wire arc */
 		Tag_Seg_Error( itg, ns );
 		nwire++;
-		i1= data.n+1;
-		i2= data.n+ ns;
-
 		arc( itg, ns, xw1, yw1, zw1, xw2);
 		continue;
 
@@ -1565,7 +1558,6 @@ datagn( void )
 		  stop( "Patch data card error", 1 );
 		}
 
-		i1= data.m+1;
 		ns++;
 
 		if( (itg != 0) || ((ns != 2) && (ns != 4)) )
@@ -1612,9 +1604,6 @@ datagn( void )
 	  case 10: /* "gh" card, generate helix */
 		Tag_Seg_Error( itg, ns );
 		nwire++;
-		i1= data.n+1;
-		i2= data.n+ ns;
-
 		helix( xw1, yw1, zw1, xw2, yw2, zw2, rad, ns, itg);
 		continue;
 

@@ -76,7 +76,7 @@ extern FILE *input_fp;
 /* cmset sets up the complex structure matrix in the array cm */
 void cmset( int nrow, complex long double *cm, long double rkhx, int iexkx )
 {
-  int mp2, neq, npeq, iout, it, i, j, i1, i2, in2, im1;
+  int mp2, neq, npeq, it, i, j, i1, i2, in2, im1;
   int im2, ist, ij, ipr, jss, jm1, jm2, jst, k, ka, kk;
   complex long double zaj, deter, *scm = NULL;
 
@@ -87,7 +87,6 @@ void cmset( int nrow, complex long double *cm, long double rkhx, int iexkx )
 
   dataj.rkh= rkhx;
   dataj.iexk= iexkx;
-  iout=2* matpar.npblk* nrow;
   it= matpar.nlast;
 
   for( i = 0; i < nrow; i++ )
@@ -336,7 +335,7 @@ void cmss( int j1, int j2, int im1, int im2,
 void cmsw( int j1, int j2, int i1, int i2, complex long double *cm,
 	complex long double *cw, int ncw, int nrow, int itrp )
 {
-  int neqs, k, icgo, i, ipch, jl, j, js, il, ip;
+  int k, icgo, i, ipch, jl, j, js, il, ip;
   int jsnox; /* -1 offset to "jsno" for array indexing */
   long double xi, yi, zi, cabi, sabi, salpi, fsign=1.0l, pyl, pxl;
   static complex long double *emel = NULL;
@@ -344,7 +343,6 @@ void cmsw( int j1, int j2, int i1, int i2, complex long double *cm,
   mem_alloc( (void *)&emel,
 	  9*sizeof(complex long double), "in matrix.c");
 
-  neqs= data.np2m;
   jsnox = segj.jsno-1;
 
   if( itrp >= 0)

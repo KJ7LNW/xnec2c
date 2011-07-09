@@ -2,8 +2,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta name="generator" content="Bluefish 2.0.0" >
-<meta name="generator" content="Bluefish 2.0.0" >
+<meta name="generator" content="Bluefish 2.0.3" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
 <meta name="copyright" content="GPL v2.0 or higher">
@@ -15,6 +14,7 @@
 "text/html; charset=us-ascii">
 </head>
 <body>
+&lt;
 <div align="center">
 <h2>Xnec2c User Manual</h2>
 </div>
@@ -241,7 +241,9 @@ xnec2c.</p>
 Options:</b></a><br>
 Xnec2c has the following command line options:<br></p>
 <p><b>-i &lt;input-file-name&gt;</b>: Specify a NEC2 input file to
-be opened at start-up.</p>
+be opened at start-up. If the -i option is omitted, xnec2c will
+take the last argument to be the input file path name, but will
+only open it if it has the .nec extension.</p>
 <p><b>-j &lt;number of child processes to spawn&gt;</b>: Since
 version 1.0 xnec2c can run multi-threaded on SMP machines. This
 option specifies the number of child processes to spawn by forking,
@@ -752,6 +754,16 @@ this.</p>
 <p><b>Version 1.4:</b> Applied a patch supplied by Tom Beierlein,
 DL1JBE, to fix crashing of xnec2c 1.3 on long input file names
 (&gt; 80 characters).</p>
+<p><b>Version 1.5:</b> Changed the handling of command line
+arguments so that the input file name may be specified without the
+use of the -i option. In this case xnec2c will take the last
+argument to be the input file name, but only if it has the .nec
+extension.<br clear="all">
+Got rid of some variables that were set but not used, according to
+warnings given by gcc.<br clear="all">
+Applied a patch supplied by Rik van Riel to allow the calculation
+of front to back ratios when the antenna is modelled over
+ground.</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and
 Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original

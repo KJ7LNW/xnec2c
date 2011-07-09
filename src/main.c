@@ -139,8 +139,8 @@ main (int argc, char *argv[])
 	  case 'i' : /* specify input file name */
 		if( strlen(optarg) > 80 )
 		{
-		  fprintf ( stderr, "Input file name too long\n" );
-		  exit(1);
+		  fprintf ( stderr, "xnec2c: Input file name too long (>80 char)\n" );
+		  exit(-1);
 		}
 		strcpy( infile, optarg );
 		break;
@@ -160,6 +160,17 @@ main (int argc, char *argv[])
 	} /* end of switch( option ) */
 
   } /* while( (option = getopt(argc, argv, "i:o:hv") ) != -1 ) */
+
+  /* Read input file path name if not supplied by -i option */
+  if( (strlen(infile) == 0) && strstr(argv[argc - 1], ".nec") )
+  {
+	if( strlen(argv[argc - 1]) > 80 )
+	{
+	  fprintf ( stderr, "xnec2c: Input file path name too long (>80 char)\n" );
+	  exit(-1);
+	}
+	strcpy( infile, argv[argc - 1] );
+  }
 
   /* When forking is useful, e.g. if more than 1 processor is
    * available, the parent process handles the GUI and delegates

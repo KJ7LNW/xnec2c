@@ -133,7 +133,7 @@ arc( int itg, int ns, long double rada,
   int
 conect( int ignd )
 {
-  int i, iz, ic, j, jx, ix, ixx, iseg, iend, jend, nsflg, jump;
+  int i, iz, ic, j, jx, ix, ixx, iseg, iend, jend, jump;
   long double sep=0.0l, xi1, yi1, zi1, xi2, yi2, zi2;
   long double slen, xa, ya, za, xs, ys, zs;
 
@@ -392,8 +392,6 @@ conect( int ignd )
 	{
 	  if( (ix != 0) && (ix != (j+1)) && (ix <= PCHCON) )
 	  {
-		nsflg=0;
-
 		do
 		{
 		  if( ix == 0 )
@@ -429,9 +427,6 @@ conect( int ignd )
 				segj.maxcon * sizeof(int), "in geometry.c" );
 		  }
 		  segj.jco[ic-1]= ix* jend;
-
-		  if( ix > 0)
-			nsflg=1;
 
 		  ixx = ix-1;
 		  if( jend != 1)

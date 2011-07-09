@@ -631,7 +631,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 	long double *zlr, long double *zli, long double *zlc )
 {
-  int i, iwarn, istep, istepx, l1, l2, ldtags, jump, ichk;
+  int i, istep, istepx, l1, l2, ldtags, jump, ichk;
   complex long double zt=CPLX_00, tpcj;
 
   tpcj = (0.0l+1.883698955e+9lj);
@@ -641,7 +641,6 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
   for( i = 0; i < data.n; i++ )
 	zload.zarray[i]=CPLX_00;
 
-  iwarn=FALSE;
   istep=0;
 
   /* cycle over loading cards */
@@ -761,9 +760,6 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 
 	  } /* switch( jump ) */
 
-	  if( (fabsl(creall(zload.zarray[i])) +
-			fabsl(cimagl(zload.zarray[i]))) > 1.0e-20l)
-		iwarn=TRUE;
 	  zload.zarray[i] += zt;
 
 	} /* for( i = l1-1; i < l2; i++ ) */
