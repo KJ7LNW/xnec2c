@@ -83,32 +83,6 @@ on_about_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
-on_main_x_axis_clicked                 (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_main_y_axis_clicked                 (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_main_z_axis_clicked                 (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_main_default_view_clicked           (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_main_rotate_spinbutton_value_changed
-                                        (GtkSpinButton   *spinbutton,
-                                        gpointer         user_data);
-
-void
-on_main_incline_spinbutton_value_changed
-                                        (GtkSpinButton   *spinbutton,
-                                        gpointer         user_data);
-
-void
 on_main_currents_togglebutton_toggled  (GtkToggleButton *togglebutton,
                                         gpointer         user_data);
 
@@ -153,14 +127,62 @@ on_structure_drawingarea_configure_event
                                         gpointer         user_data);
 
 gboolean
-on_structure_drawingarea_motion_notify_event
-                                        (GtkWidget       *widget,
-                                        GdkEventMotion  *event,
+on_structure_drawingarea_expose_event  (GtkWidget       *widget,
+                                        GdkEventExpose  *event,
                                         gpointer         user_data);
 
 gboolean
-on_structure_drawingarea_expose_event  (GtkWidget       *widget,
-                                        GdkEventExpose  *event,
+on_structure_drawingarea_button_press_event
+                                        (GtkWidget       *widget,
+                                        GdkEventButton  *event,
+                                        gpointer         user_data);
+
+gboolean
+on_structure_drawingarea_motion_notify_event( GtkWidget       *widget,
+                                              GdkEventMotion  *event,
+                                              gpointer         user_data);
+
+void
+on_main_x_axis_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_main_y_axis_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_main_z_axis_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_main_default_view_clicked           (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_main_rotate_spinbutton_value_changed
+                                        (GtkSpinButton   *spinbutton,
+                                        gpointer         user_data);
+
+void
+on_main_incline_spinbutton_value_changed
+                                        (GtkSpinButton   *spinbutton,
+                                        gpointer         user_data);
+
+void
+on_structure_zoom_spinbutton_value_changed
+                                        (GtkSpinButton   *spinbutton,
+                                        gpointer         user_data);
+
+void
+on_structure_plus_button_clicked       (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_structure_minus_button_clicked      (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_structure_one_button_clicked        (GtkButton       *button,
                                         gpointer         user_data);
 
 void
@@ -200,6 +222,10 @@ on_freqplots_save_as_activate          (GtkMenuItem     *menuitem,
 
 void
 freqplots_pol_menu_activate            (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_net_gain_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
@@ -317,36 +343,6 @@ on_near_snapshot_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
-on_rdpattern_overlay_struct_activate   (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_rdpattern_x_axis_clicked            (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_rdpattern_y_axis_clicked            (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_rdpattern_z_axis_clicked            (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_rdpattern_default_view_clicked      (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_rdpattern_rotate_spinbutton_value_changed
-                                        (GtkSpinButton   *spinbutton,
-                                        gpointer         user_data);
-
-void
-on_rdpattern_incline_spinbutton_value_changed
-                                        (GtkSpinButton   *spinbutton,
-                                        gpointer         user_data);
-
-void
 on_rdpattern_gain_togglebutton_toggled (GtkToggleButton *togglebutton,
                                         gpointer         user_data);
 
@@ -381,9 +377,57 @@ on_rdpattern_drawingarea_expose_event  (GtkWidget       *widget,
                                         gpointer         user_data);
 
 gboolean
-on_rdpattern_drawingarea_motion_notify_event
+on_rdpattern_drawingarea_button_press_event
                                         (GtkWidget       *widget,
-                                        GdkEventMotion  *event,
+                                        GdkEventButton  *event,
+                                        gpointer         user_data);
+
+gboolean
+on_rdpattern_drawingarea_motion_notify_event( GtkWidget       *widget,
+                                              GdkEventMotion  *event,
+                                              gpointer         user_data);
+
+void
+on_rdpattern_x_axis_clicked            (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_rdpattern_y_axis_clicked            (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_rdpattern_z_axis_clicked            (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_rdpattern_default_view_clicked      (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_rdpattern_rotate_spinbutton_value_changed
+                                        (GtkSpinButton   *spinbutton,
+                                        gpointer         user_data);
+
+void
+on_rdpattern_incline_spinbutton_value_changed
+                                        (GtkSpinButton   *spinbutton,
+                                        gpointer         user_data);
+
+void
+on_rdpattern_zoom_spinbutton_value_changed
+                                        (GtkSpinButton   *spinbutton,
+                                        gpointer         user_data);
+
+void
+on_rdpattern_plus_button_clicked       (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_rdpattern_minus_button_clicked      (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_rdpattern_one_button_clicked        (GtkButton       *button,
                                         gpointer         user_data);
 
 void
@@ -396,18 +440,6 @@ on_quit_cancelbutton_clicked           (GtkButton       *button,
 
 void
 on_quit_okbutton_clicked               (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_open_dialog_destroy                 (GtkObject       *object,
-                                        gpointer         user_data);
-
-void
-on_open_cancelbutton_clicked           (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_open_okbutton_clicked               (GtkButton       *button,
                                         gpointer         user_data);
 
 gboolean
@@ -761,15 +793,15 @@ on_helix_res_spinbutton_value_changed  (GtkSpinButton   *spinbutton,
                                         gpointer         user_data);
 
 void
-on_helix_linkall_radiobutton_toggled   (GtkToggleButton *togglebutton,
-                                        gpointer         user_data);
-
-void
 on_helix_linkzo_radiobutton_toggled    (GtkToggleButton *togglebutton,
                                         gpointer         user_data);
 
 void
 on_helix_linkzhl_radiobutton_toggled   (GtkToggleButton *togglebutton,
+                                        gpointer         user_data);
+
+void
+on_helix_linkall_radiobutton_toggled   (GtkToggleButton *togglebutton,
                                         gpointer         user_data);
 
 void
@@ -1241,6 +1273,29 @@ on_aboutdialog_response                (GtkDialog       *dialog,
                                         gint             response_id,
                                         gpointer         user_data);
 
+gboolean
+on_structure_drawingarea_scroll_event  (GtkWidget       *widget,
+                                        GdkEvent        *event,
+                                        gpointer         user_data);
+
+gboolean
+on_rdpattern_drawingarea_scroll_event  (GtkWidget       *widget,
+                                        GdkEvent        *event,
+                                        gpointer         user_data);
+
 void
-on_net_gain_activate                   (GtkMenuItem     *menuitem,
+on_rdpattern_overlay_structure_activate
+                                        (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_rdpattern_save_as_gnuplot_activate  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_freqplots_save_as_gnuplot_activate  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_struct_save_as_gnuplot_activate     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);

@@ -42,7 +42,7 @@
 
  ***********************************************************************/
 
-#include "xnec2c.h"
+#include "radiation.h"
 
 /* common  /crnt/ */
 extern crnt_t crnt;
@@ -99,14 +99,14 @@ void ffld( long double thet, long double phi,
   complex long double tix, tiy, tiz, zscrn, ex=CPLX_00;
   complex long double ey=CPLX_00, ez=CPLX_00, gx, gy, gz;
 
-  phx=- sinl( phi);
+  phx= -sinl( phi);
   phy= cosl( phi);
   roz= cosl( thet);
   rozs= roz;
   thx= roz* phy;
-  thy=- roz* phx;
-  thz=- sinl( thet);
-  rox=- thz* phy;
+  thy= -roz* phx;
+  thz= -sinl( thet);
+  rox= -thz* phy;
   roy= thz* phx;
 
   jump = FALSE;
@@ -133,7 +133,7 @@ void ffld( long double thet, long double phi,
 
 		} /* if( gnd.iperf == 1) */
 
-		/* for the cliff problem, two reflction coefficients calculated */
+		/* for the cliff problem, two reflection coefficients calculated */
 		if( gnd.ifar > 1)
 		{
 		  rrv1= rrv;
@@ -145,11 +145,11 @@ void ffld( long double thet, long double phi,
 			zrsin= csqrtl(1.0l- gnd.zrati2* gnd.zrati2* thz* thz);
 			rrv2=-( roz- gnd.zrati2* zrsin)/( roz+ gnd.zrati2* zrsin);
 			rrh2=( gnd.zrati2* roz- zrsin)/( gnd.zrati2* roz+ zrsin);
-			darg=- TP*2.0l* gnd.ch* roz;
+			darg= -TP*2.0l* gnd.ch* roz;
 		  }
 		} /* if( gnd.ifar > 1) */
 
-		roz=- roz;
+		roz= -roz;
 		ccx= cix;
 		ccy= ciy;
 		ccz= ciz;
@@ -340,7 +340,7 @@ void ffld( long double thet, long double phi,
   rfl=-1.0l;
   for( ip = 0; ip < gnd.ksymp; ip++ )
   {
-	rfl=- rfl;
+	rfl= -rfl;
 	rrz= roz* rfl;
 	fflds( rox, roy, rrz, &crnt.cur[data.n], &gx, &gy, &gz);
 
@@ -354,9 +354,9 @@ void ffld( long double thet, long double phi,
 
 	if( gnd.iperf == 1)
 	{
-	  gx=- gx;
-	  gy=- gy;
-	  gz=- gz;
+	  gx= -gx;
+	  gy= -gy;
+	  gz= -gz;
 	}
 	else
 	{
@@ -456,7 +456,7 @@ void gfld( long double rho, long double phi, long double rz,
 	  thet= PI*.5l;
 
 	ffld( thet, phi, eth, epi);
-	arg=- TP* r;
+	arg= -TP* r;
 	exa= cmplx( cosl( arg), sinl( arg))/ r;
 	*eth= *eth* exa;
 	*epi= *epi* exa;
@@ -467,10 +467,10 @@ void gfld( long double rho, long double phi, long double rz,
   /* computation of space and ground waves. */
   gwav.u= ux;
   gwav.u2= gwav.u* gwav.u;
-  phx=- sinl( phi);
+  phx= -sinl( phi);
   phy= cosl( phi);
   rx= rho* phy;
-  ry=- rho* phx;
+  ry= -rho* phx;
   cix=CPLX_00;
   ciy=CPLX_00;
   ciz=CPLX_00;
@@ -520,7 +520,7 @@ void gfld( long double rho, long double phi, long double rz,
 	 * sine, and cosine current distributions */
 	for( k = 0; k < 2; k++ )
 	{
-	  rfl=- rfl;
+	  rfl= -rfl;
 	  riz= rz- data.z[i]* rfl;
 	  rxyz= sqrtl( rix* rix+ riy* riy+ riz* riz);
 	  rnx= rix/ rxyz;
@@ -584,7 +584,7 @@ void gfld( long double rho, long double phi, long double rz,
 
   } /* for( i = 0; i < n; i++ ) */
 
-  arg=- TP* r;
+  arg= -TP* r;
   exa= cmplx( cosl( arg), sinl( arg));
   cix= cix* exa;
   ciy= ciy* exa;
@@ -593,8 +593,8 @@ void gfld( long double rho, long double phi, long double rz,
   rny= ry/ r;
   rnz= rz/ r;
   thx= rnz* phy;
-  thy=- rnz* phx;
-  thz=- rho/ r;
+  thy= -rnz* phx;
+  thz= -rho/ r;
   *eth= cix* thx+ ciy* thy+ ciz* thz;
   *epi= cix* phx+ ciy* phy;
   *erd= cix* rnx+ ciy* rny+ ciz* rnz;
@@ -605,15 +605,15 @@ void gfld( long double rho, long double phi, long double rz,
 /*-----------------------------------------------------------------------*/
 
 /* compute radiation pattern, gain, normalized gain */
-void rdpat()
+void rdpat(void)
 {
-  int i, kth, kph, isens;
-  long double exrm=0.0l, exra=0.0l, prad, gcon, gcop;
-  long double gmax, pint, tmp1, tmp2, phi, pha, thet;
+  int kth, kph, isens;
+  long double  prad, gcon, gcop;
+  long double phi, pha, thet;
   long double tha, ethm2, ethm;
   long double etha, ephm2, ephm, epha, tilta, emajr2, eminr2;
   long double dfaz, axrat, dfaz2, cdfaz, tstor1=0.0l, tstor2;
-  long double gnmn, stilta, gnmj, gnv, gnh, gtot, tmp3, tmp4, da;
+  long double gnmn, stilta, gnmj, gnv, gnh, gtot;
   complex long double eth, eph, erd;
   int idx, pol; /* Gain buffer and pol type index */
   double gain;
@@ -652,16 +652,9 @@ void rdpat()
 	else
 	  /*** Incident field source ***/
 	{
-	  prad=0.0l;
 	  gcon=4.0l* PI/(1.0l+ calc_data.xpr6* calc_data.xpr6);
-	  gcop= gcon;
 	}
 
-  i = 0;
-  gmax = -1.0E+10l;
-  pint = 0.0l;
-  tmp1 = fpat.dph* TA;
-  tmp2 = .5l* fpat.dth* TA;
   phi  = fpat.phis - fpat.dph;
 
   /*** Save radiation pattern data ***/
@@ -675,7 +668,7 @@ void rdpat()
   }
 
   /* Signal new rad pattern data */
-  SetFlag( DRAW_NEWRDPAT );
+  SetFlag( DRAW_NEW_RDPAT );
 
   /* Step over theta and phi angles */
   idx = 0;
@@ -693,8 +686,10 @@ void rdpat()
 	  {
 		if( rdpattern_window != NULL )
 		  gtk_widget_destroy( rdpattern_window );
-		stop( "Theta > 90 deg. with ground specified\n"
-			"Please check RP card data and correct", 1 );
+		fprintf( stderr, "xnec2c: rdpat(): Theta > 90 deg with ground specified\n"
+			"Please check RP card data and correct\n" );
+		stop( "rdpat(): Theta > 90 deg with ground specified\n"
+			"Please check RP card data and correct", ERR_STOP );
 	  }
 
 	  tha= thet* TA;
@@ -742,7 +737,7 @@ void rdpat()
 		  stilta= sinl( tilta);
 		  tstor1= tstor1* stilta* stilta;
 		  tstor2= tstor2* stilta* cosl( tilta);
-		  emajr2=- tstor1+ tstor2+ ethm2;
+		  emajr2= -tstor1+ tstor2+ ethm2;
 		  eminr2= tstor1- tstor2+ ephm2;
 		  if( eminr2 < 0.0l)
 			eminr2=0.0l;
@@ -765,71 +760,34 @@ void rdpat()
 		gnh = db10( gcon* ephm2);
 		gtot= db10( gcon* (ethm2+ ephm2) );
 
-		if( fpat.inor > 0)
+		switch( fpat.inor )
 		{
-		  switch( fpat.inor )
-		  {
-			case 1:
-			  tstor1= gnmj;
-			  break;
+		  case 0:
+			tstor1= gtot;
+			break;
 
-			case 2:
-			  tstor1= gnmn;
-			  break;
+		  case 1:
+			tstor1= gnmj;
+			break;
 
-			case 3:
-			  tstor1= gnv;
-			  break;
+		  case 2:
+			tstor1= gnmn;
+			break;
 
-			case 4:
-			  tstor1= gnh;
-			  break;
+		  case 3:
+			tstor1= gnv;
+			break;
 
-			case 5:
-			  tstor1= gtot;
-		  }
+		  case 4:
+			tstor1= gnh;
+			break;
 
-		  rad_pattern[calc_data.fstep].gtot[i]= (double)tstor1;
-		  if( tstor1 > gmax) gmax= tstor1;
-		  i++;
-
-		} /* if( fpat.inor > 0) */
-
-		if( fpat.iavp != 0)
-		{
-		  tstor1= gcop*( ethm2+ ephm2);
-		  tmp3= tha- tmp2;
-		  tmp4= tha+ tmp2;
-
-		  if( kth == 1)
-			tmp3= tha;
-		  else
-			if( kth == fpat.nth)
-			  tmp4= tha;
-
-		  da= fabsl( tmp1*( cosl( tmp3)- cosl( tmp4)));
-		  if( (kph == 1) || (kph == fpat.nph) )
-			da *=.5l;
-		  pint += tstor1* da;
-
-		  if( fpat.iavp == 2)
-			continue;
-
-		} /* if( fpat.iavp != 0) */
-
-		ethm= ethm* data.wlam;
-		ephm= ephm* data.wlam;
-
-		if( fpat.rfld >= 1.0e-20l )
-		{
-		  ethm= ethm* exrm;
-		  etha= etha+ exra;
-		  ephm= ephm* exrm;
-		  epha= epha+ exra;
+		  case 5:
+			tstor1= gtot;
 		}
 
 		/* Save rad pattern gains */
-		rad_pattern[calc_data.fstep].gtot[idx] = (double)gtot;
+		rad_pattern[calc_data.fstep].gtot[idx] = (double)tstor1;
 
 		/* Save axial ratio, tilt and pol sense */
 		if( isens == 2 )
@@ -842,8 +800,8 @@ void rdpat()
 		/* Find and save max value of gain and direction */
 		for( pol = 0; pol < NUM_POL; pol++ )
 		{
-		  gain = (double)gtot + 10.0 * log10(
-			  Polarization_Factor( pol, calc_data.fstep, idx) );
+		  gain = (double)rad_pattern[calc_data.fstep].gtot[idx] + 10.0 *
+			log10( Polarization_Factor( pol, calc_data.fstep, idx) );
 
 		  /* Find and save max value of gain and direction */
 		  if( rad_pattern[calc_data.fstep].max_gain[pol] < gain )
@@ -865,11 +823,9 @@ void rdpat()
 
 		idx++;
 		continue;
-
 	  } /* if( gnd.ifar != 1) */
 
 	} /* for( kth = 1; kth <= fpat.nth; kth++ ) */
-
   } /* for( kph = 1; kph <= fpat.nph; kph++ ) */
 
   return;

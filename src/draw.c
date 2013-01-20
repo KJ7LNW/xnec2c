@@ -23,24 +23,10 @@
  *  Drawing routines for xnec2c
  */
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
-
-#include <gtk/gtk.h>
-#include <gdk/gdk.h>
-
-#include "xnec2c.h"
-#include "support.h"
+#include "draw.h"
 
 /* Structure drawingarea */
 extern GtkWidget *structure_drawingarea;
-
-/* Some graphics contexts */
-extern GdkGC
-  *white_gc,
-  *black_gc,
-  *plot_gc;
 
 /*-----------------------------------------------------------------------*/
 
@@ -52,23 +38,23 @@ extern GdkGC
 void
 Set_Gdk_Segment(
 	GdkSegment *segm,
-	projection_parameters_t *param,
+	projection_parameters_t *params,
 	double x1, double y1, double z1,
 	double x2, double y2, double z2 )
 {
   double x, y;
 
   /* Project end 1 of seg in xyz frame to screen frame */
-  Project_on_Screen( param, x1, y1, z1, &x, &y );
-  segm->x1 = (gint)(param->x_center + x*param->xy_scale);
-  segm->y1 = param->pixmap_height -
-	(gint)(param->y_center + y*param->xy_scale);
+  Project_on_Screen( params, x1, y1, z1, &x, &y );
+  segm->x1 = (gint)(params->x_center + x*params->xy_scale);
+  segm->y1 = params->pixmap_height -
+	(gint)(params->y_center + y*params->xy_scale);
 
   /* Project end 2 of seg in xyz frame to screen frame */
-  Project_on_Screen( param, x2, y2, z2, &x, &y );
-  segm->x2 = (gint)(param->x_center + x*param->xy_scale);
-  segm->y2 = param->pixmap_height -
-	(gint)(param->y_center + y*param->xy_scale);
+  Project_on_Screen( params, x2, y2, z2, &x, &y );
+  segm->x2 = (gint)(params->x_center + x*params->xy_scale);
+  segm->y2 = params->pixmap_height -
+	(gint)(params->y_center + y*params->xy_scale);
 
 } /* Set_Gdk_Segment() */
 
@@ -81,13 +67,13 @@ Set_Gdk_Segment(
  */
 void
 Project_on_Screen(
-	projection_parameters_t *param,
+	projection_parameters_t *params,
 	double x, double y, double z,
 	double *xs, double *ys )
 {
-  *xs = y*param->cos_wr - x*param->sin_wr;
-  *ys = z*param->cos_wi - param->sin_wi *
-	(x*param->cos_wr + y*param->sin_wr);
+  *xs = y*params->cos_wr - x*params->sin_wr;
+  *ys = z*params->cos_wi - params->sin_wi *
+	(x*params->cos_wr + y*params->sin_wr);
 
 } /* Project_on_Screen() */
 
@@ -100,43 +86,52 @@ Project_on_Screen(
 void
 Project_XYZ_Axes(
 	GdkPixmap *pixmap,
-	projection_parameters_t *param,
-	GdkSegment *segm )
+	projection_parameters_t *params,
+	GdkSegment *segment )
 {
   double x, y;
   PangoLayout *layout;
+  GdkSegment *segm = segment;
+
+  /* cairo context */
+  cairo_t *cr = gdk_cairo_create( pixmap );
+  cairo_set_source_rgb( cr, WHITE );
 
   layout = gtk_widget_create_pango_layout(
 	  structure_drawingarea, "x" );
 
-  segm->x1 = (gint)param->x_center;
-  segm->y1 = param->pixmap_height - (gint)param->y_center;
-  Project_on_Screen( param, param->r_max, 0.0, 0.0, &x, &y );
-  segm->x2 = (gint)(param->x_center + x*param->xy_scale);
-  segm->y2 = param->pixmap_height -
-	(gint)(param->y_center + y*param->xy_scale);
-  gdk_draw_layout( pixmap, white_gc, segm->x2, segm->y2, layout );
+  segm->x1 = (gint)params->x_center;
+  segm->y1 = params->pixmap_height - (gint)(params->y_center);
+  Project_on_Screen( params, params->r_max, 0.0, 0.0, &x, &y );
+  segm->x2 = (gint)(params->x_center + x*params->xy_scale);
+  segm->y2 = params->pixmap_height -
+	(gint)(params->y_center + y*params->xy_scale);
+  cairo_move_to( cr, (double)segm->x2, (double)segm->y2 );
+  pango_cairo_show_layout( cr, layout );
 
-  (segm+1)->x1 = (gint)param->x_center;
-  (segm+1)->y1 = param->pixmap_height - (gint)param->y_center;
-  Project_on_Screen( param, 0.0, param->r_max, 0.0, &x, &y );
-  (segm+1)->x2 = (gint)(param->x_center + x*param->xy_scale);
-  (segm+1)->y2 = param->pixmap_height -
-	(gint)(param->y_center + y*param->xy_scale);
+  segm++;
+  segm->x1 = (gint)params->x_center;
+  segm->y1 = params->pixmap_height - (gint)params->y_center;
+  Project_on_Screen( params, 0.0, params->r_max, 0.0, &x, &y );
+  segm->x2 = (gint)(params->x_center + x*params->xy_scale);
+  segm->y2 = params->pixmap_height -
+	(gint)(params->y_center + y*params->xy_scale);
   pango_layout_set_text( layout, "y", -1 );
-  gdk_draw_layout( pixmap, white_gc,
-	  (segm+1)->x2, (segm+1)->y2, layout );
+  cairo_move_to( cr, (double)segm->x2, (double)segm->y2 );
+  pango_cairo_show_layout( cr, layout );
 
-  (segm+2)->x1 = (gint)param->x_center;
-  (segm+2)->y1 = param->pixmap_height - (gint)param->y_center;
-  Project_on_Screen( param, 0.0, 0.0, param->r_max, &x, &y );
-  (segm+2)->x2 = (gint)(param->x_center + x*param->xy_scale);
-  (segm+2)->y2 = param->pixmap_height -
-	(gint)(param->y_center + y*param->xy_scale);
-  pango_layout_set_text( layout, "z", -1 );
-  gdk_draw_layout( pixmap, white_gc,
-	  (segm+2)->x2+2, (segm+2)->y2, layout );
+  segm++;
+  segm->x1 = (gint)params->x_center;
+  segm->y1 = params->pixmap_height - (gint)params->y_center;
+  Project_on_Screen( params, 0.0, 0.0, params->r_max, &x, &y );
+  segm->x2 = (gint)(params->x_center + x*params->xy_scale);
+  segm->y2 = params->pixmap_height -
+	(gint)(params->y_center + y*params->xy_scale);
+  pango_layout_set_text( layout, " z", -1 );
+  cairo_move_to( cr, (double)segm->x2, (double)segm->y2 );
+  pango_cairo_show_layout( cr, layout );
 
+  cairo_destroy( cr );
 } /* Project_XYZ_Axes() */
 
 /*-----------------------------------------------------------------------*/
@@ -149,13 +144,16 @@ Project_XYZ_Axes(
 Draw_XYZ_Axes( GdkPixmap *pixmap, projection_parameters_t params )
 {
   static GdkSegment seg[3];
+  cairo_t *cr = gdk_cairo_create( pixmap );
+  cairo_set_source_rgb( cr, WHITE );
 
   /* Calcualte Screen co-ordinates of xyz axes */
   Project_XYZ_Axes( pixmap, &params, seg );
 
   /* Draw xyz axes */
-  gdk_draw_segments( pixmap, white_gc, seg, 3 );
+  Cairo_Draw_Segments( cr, seg, 3 );
 
+  cairo_destroy( cr );
 } /* Draw_XYZ_Axes() */
 
 /*-----------------------------------------------------------------------*/
@@ -169,7 +167,7 @@ Draw_XYZ_Axes( GdkPixmap *pixmap, projection_parameters_t params )
 void
 New_Projection_Parameters(
 	int width, int height,
-	projection_parameters_t *param )
+	projection_parameters_t *params )
 {
   double size2;
 
@@ -178,52 +176,25 @@ New_Projection_Parameters(
   else
 	size2 = (double)height/2.0;
 
-  param->x_center = param->y_center = size2;
-  if( param->r_max == 0.0 )
-	param->xy_scale = 1.0;
+  /* This defines the center of the drawing areas. For the x co-ordinate
+   * half the size of the drawing area is right (for widths of odd number
+   * of pixels, so that there are even and equal number of pixels either
+   * side of center). But for the y co-ordinate we need to round up as
+   * y is from the top down and the y co-ordinate of center is calculated
+   * from height - y_center and this leads to a 1-pixel error */
+  params->x_center = size2;
+  params->y_center = size2 + 0.5;
+
+  if( params->r_max == 0.0 )
+	params->xy_scale1 = 1.0;
   else
-	param->xy_scale = size2 / param->r_max;
-  param->pixmap_width  = width;
-  param->pixmap_height = height;
+	params->xy_scale1 = size2 / params->r_max;
+  params->xy_scale = params->xy_scale1 * params->xy_zoom;
+
+  params->pixmap_width  = width;
+  params->pixmap_height = height;
 
 } /* New_Projection_Parameters() */
-
-/*-----------------------------------------------------------------------*/
-
-/*  Set_GC_Attributes()
- *
- *  Sets new attributes for a GdkGc
- */
-void
-Set_GC_Attributes(
-	GdkGC *gc,
-	int red, int green, int blue,
-	gint line_width,
-	GtkWidget *widget )
-{
-  static GdkColor *color;
-  static char flag = 1;
-
-  if( flag )
-  {
-	color = (GdkColor *)malloc(sizeof(GdkColor));
-	flag = 0;
-  }
-
-  color->red   = (red  *65535)/255;
-  color->green = (green*65535)/255;
-  color->blue  = (blue *65535)/255;
-
-  gdk_colormap_alloc_color(
-	  gtk_widget_get_colormap(widget), color, FALSE, TRUE );
-  gdk_gc_set_foreground(gc, color);
-  gdk_gc_set_line_attributes(
-	  gc, line_width,
-	  GDK_LINE_SOLID,
-	  GDK_CAP_NOT_LAST,
-	  GDK_JOIN_MITER);
-
-} /* Set_GC_Attributes() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -233,7 +204,7 @@ Set_GC_Attributes(
  * input value relative to a maximum value
  */
   void
-Value_to_Color( int *red, int *grn, int *blu, double val, double max )
+Value_to_Color( double *red, double *grn, double *blu, double val, double max )
 {
   int ival;
 
@@ -241,40 +212,113 @@ Value_to_Color( int *red, int *grn, int *blu, double val, double max )
   ival = (int)(1279.0l * val / max);
 
   /* Color hue according to imag value */
-  switch( ival / 256 )
+  switch( ival/256 )
   {
 	case 0: /* 0-255 : magenta to blue */
-	  *red = 255 - ival;
-	  *grn = 0;
-	  *blu = 255;
+	  *red = 255.0 - (double)ival;
+	  *grn = 0.0;
+	  *blu = 255.0;
 	  break;
 
 	case 1: /* 256-511 : blue to cyan */
-	  *red = 0;
-	  *grn = ival - 256;
-	  *blu = 255;
+	  *red = 0.0;
+	  *grn = (double)ival - 256.0;
+	  *blu = 255.0;
 	  break;
 
 	case 2: /* 512-767 : cyan to green */
-	  *red = 0;
-	  *grn = 255;
-	  *blu = 767 - ival;
+	  *red = 0.0;
+	  *grn = 255.0;
+	  *blu = 767.0 - (double)ival;
 	  break;
 
 	case 3: /* 768-1023 : green to yellow */
-	  *red = ival - 768;
-	  *grn = 255;
-	  *blu = 0;
+	  *red = (double)ival - 768.0;
+	  *grn = 255.0;
+	  *blu = 0.0;
 	  break;
 
 	case 4: /* 1024-1279 : yellow to red */
-	  *red = 255;
-	  *grn = 1279 - ival;
-	  *blu = 0;
+	  *red = 255.0;
+	  *grn = 1279.0 - (double)ival;
+	  *blu = 0.0;
 
   } /* switch( imag / 256 ) */
 
+  /* Scale values between 0.0-1.0 */
+  *red /= 255.0;
+  *grn /= 255.0;
+  *blu /= 255.0;
+
 } /* Value_to_Color() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Cairo_Draw_Polygon()
+ *
+ * Draws a polygon, given a number of points
+ */
+  void
+Cairo_Draw_Polygon( cairo_t* cr, GdkPoint *points, int npoints )
+{
+  int idx;
+
+  cairo_move_to( cr, (double)points[0].x, (double)points[0].y );
+  for( idx = 1; idx < npoints; idx++ )
+	cairo_line_to( cr, (double)points[idx].x, (double)points[idx].y );
+  cairo_close_path( cr );
+
+} /* Cairo_Draw_Polygon() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Cairo_Draw_Segments()
+ *
+ * Draws a number of line segments
+ */
+  void
+Cairo_Draw_Segments( cairo_t *cr, GdkSegment *segm, int nseg )
+{
+  int idx;
+
+  for( idx = 0; idx < nseg; idx++ )
+  {
+	cairo_move_to( cr, (double)segm[idx].x1, (double)segm[idx].y1 );
+	cairo_line_to( cr, (double)segm[idx].x2, (double)segm[idx].y2 );
+  }
+  cairo_stroke( cr );
+} /* Cairo_Draw_Segments() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Cairo_Draw_Line()
+ *
+ * Draws a line between to x,y co-ordinates
+ */
+  void
+Cairo_Draw_Line( cairo_t *cr, int x1, int y1, int x2, int y2 )
+{
+  cairo_move_to( cr, (double)x1, (double)y1 );
+  cairo_line_to( cr, (double)x2, (double)y2 );
+  cairo_stroke( cr );
+} /* Cairo_Draw_Line() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Cairo_Draw_Lines()
+ *
+ * Draws lines between points
+ */
+  void
+Cairo_Draw_Lines( cairo_t *cr, GdkPoint *points, int npoints )
+{
+  int idx;
+
+  cairo_move_to( cr, (double)points[0].x, (double)points[0].y );
+  for( idx = 1; idx < npoints; idx++ )
+	cairo_line_to( cr, (double)points[idx].x, (double)points[idx].y );
+  cairo_stroke( cr );
+} /* Cairo_Draw_Line() */
 
 /*-----------------------------------------------------------------------*/
 

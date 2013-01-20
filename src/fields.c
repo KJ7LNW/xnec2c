@@ -42,7 +42,7 @@
 
  **********************************************************************/
 
-#include "xnec2c.h"
+#include "fields.h"
 
 /* common  /crnt/ */
 extern crnt_t crnt;
@@ -84,26 +84,26 @@ extern near_field_t near_field;
 void efld( long double xi, long double yi,
 	long double zi, long double ai, int ij )
 {
-#define	txk	egnd[0]
-#define	tyk	egnd[1]
-#define	tzk	egnd[2]
-#define	txs	egnd[3]
-#define	tys	egnd[4]
-#define	tzs	egnd[5]
-#define	txc	egnd[6]
-#define	tyc	egnd[7]
-#define	tzc	egnd[8]
+  #define	txk	egnd[0]
+  #define	tyk	egnd[1]
+  #define	tzk	egnd[2]
+  #define	txs	egnd[3]
+  #define	tys	egnd[4]
+  #define	tzs	egnd[5]
+  #define	txc	egnd[6]
+  #define	tyc	egnd[7]
+  #define	tzc	egnd[8]
 
   int ip;
   long double xij, yij, ijx, rfl, salpr, zij, zp, rhox;
   long double rhoy, rhoz, rh, r, rmag, cth, px, py;
-  long double xymag, xspec, yspec, rhospc, dmin, shaf;
+  long double xymag, xspec, yspec, rhospc, dmin;
   complex long double epx, epy, refs, refps, zrsin, zratx, zscrn;
   complex long double tezs, ters, tezc, terc, tezk, terk;
   static complex long double *egnd = NULL;
 
-  mem_alloc( (void *)&egnd,
-	  9*sizeof(complex long double), "in draw_radiation.c");
+  size_t mreq = 9 * sizeof(complex long double);
+  mem_alloc( (void *)&egnd, mreq, "in fields.c");
 
   xij= xi- dataj.xj;
   yij= yi- dataj.yj;
@@ -114,7 +114,7 @@ void efld( long double xi, long double yi,
   {
 	if( ip == 1)
 	  ijx=1;
-	rfl=- rfl;
+	rfl= -rfl;
 	salpr= dataj.salpj* rfl;
 	zij= zi- rfl* dataj.zj;
 	zp= xij* dataj.cabj+ yij* dataj.sabj+ zij* salpr;
@@ -216,7 +216,7 @@ void efld( long double xi, long double yi,
 		}
 		else
 		{
-		  px=- yij/ xymag;
+		  px= -yij/ xymag;
 		  py= xij/ xymag;
 		  cth= zij/ rmag;
 		  zrsin= csqrtl(1.0l - zratx*zratx*(1.0l - cth*cth) );
@@ -291,7 +291,7 @@ void efld( long double xi, long double yi,
 
   /* displace observation point for thin wire approximation */
   zij= zi+ dataj.zj;
-  salpr=- dataj.salpj;
+  salpr= -dataj.salpj;
   rhox= dataj.sabj* zij- salpr* yij;
   rhoy= salpr* xij- dataj.cabj* zij;
   rhoz= dataj.cabj* yij- dataj.sabj* xij;
@@ -307,7 +307,7 @@ void efld( long double xi, long double yi,
   {
 	rh= ai/ sqrtl( rh);
 	if( rhoz < 0.0l)
-	  rh=- rh;
+	  rh= -rh;
 	incom.xo= xi+ rh* rhox;
 	incom.yo= yi+ rh* rhoy;
 	incom.zo= zi+ rh* rhoz;
@@ -317,6 +317,8 @@ void efld( long double xi, long double yi,
   r= xij* xij+ yij* yij+ zij* zij;
   if( r <= .95l)
   {
+	long double shaf;
+
 	/* field from interpolation is integrated over segment */
 	incom.isnor=1;
 	dmin=
@@ -405,18 +407,18 @@ void eksc( long double s, long double z, long double rh,
   gzp1= gp1* z1a;
   gzp2= gp2* z2a;
   *ezs=  CONST1*(( gz2- gz1)* cs* xk-( gzp2+ gzp1)* ss);
-  *ezc=- CONST1*(( gz2+ gz1)* ss* xk+( gzp2- gzp1)* cs);
+  *ezc= -CONST1*(( gz2+ gz1)* ss* xk+( gzp2- gzp1)* cs);
   *erk= CONST1*( gp2- gp1)* rh;
   intx(- shk, shk, rhk, ij, &cint, &sint);
-  *ezk=- CONST1*( gzp2- gzp1+ xk* xk* cmplx( cint,- sint));
+  *ezk= -CONST1*( gzp2- gzp1+ xk* xk* cmplx( cint,- sint));
   gzp1= gzp1* z1a;
   gzp2= gzp2* z2a;
 
   if( rh >= 1.0e-10l)
   {
-	*ers=- CONST1*(( gzp2+ gzp1+ gz2+ gz1)*
+	*ers= -CONST1*(( gzp2+ gzp1+ gz2+ gz1)*
 		ss-( z2a* gz2- z1a* gz1)* cs*xk)/ rh;
-	*erc=- CONST1*(( gzp2- gzp1+ gz2- gz1)*
+	*erc= -CONST1*(( gzp2- gzp1+ gz2- gz1)*
 		cs+( z2a* gz2+ z1a* gz1)* ss*xk)/ rh;
 	return;
   }
@@ -495,16 +497,16 @@ void ekscx( long double bx, long double s, long double z,
   }
 
   *ezs= CONST1*(( gz2- gz1)* cs* xk-( gzp2+ gzp1)* ss);
-  *ezc=- CONST1*(( gz2+ gz1)* ss* xk+( gzp2- gzp1)* cs);
-  *ers=- CONST1*(( z2a* grp2+ z1a* grp1+ gr2+ gr1)*ss
+  *ezc= -CONST1*(( gz2+ gz1)* ss* xk+( gzp2- gzp1)* cs);
+  *ers= -CONST1*(( z2a* grp2+ z1a* grp1+ gr2+ gr1)*ss
 	  -( z2a* gr2- z1a* gr1)* cs* xk);
-  *erc=- CONST1*(( z2a* grp2- z1a* grp1+ gr2- gr1)*cs
+  *erc= -CONST1*(( z2a* grp2- z1a* grp1+ gr2- gr1)*cs
 	  +( z2a* gr2+ z1a* gr1)* ss* xk);
   *erk= CONST1*( grk2- grk1);
   intx(- shk, shk, rhk, ij, &cint, &sint);
   bk= b* xk;
   bk2= bk* bk*.25l;
-  *ezk=- CONST1*( gzp2- gzp1+ xk* xk*(1.0l- bk2)*
+  *ezk= -CONST1*( gzp2- gzp1+ xk* xk*(1.0l- bk2)*
 	  cmplx( cint,- sint)-bk2*( gzz2- gzz1));
 
   return;
@@ -590,8 +592,8 @@ void gwave( complex long double *erv, complex long double *ezv,
 	cpp2=1.0e-20l;
 
   cpp= sqrtl( cpp2);
-  rk1=- TPJ* gwav.r1;
-  rk2=- TPJ* gwav.r2;
+  rk1= -TPJ* gwav.r1;
+  rk2= -TPJ* gwav.r2;
   t1=1.0l -gwav.u2* cpp2;
   t2= csqrtl( t1);
   t3=(1.0l -1.0l/ rk1)/ rk1;
@@ -658,7 +660,7 @@ void gx( long double zz, long double rh, long double xk,
   r= sqrtl( r2);
   rkz= xk* r;
   *gz= cmplx( cosl( rkz),- sinl( rkz))/ r;
-  *gzp=- cmplx(1.0l, rkz)* *gz/ r2;
+  *gzp= -cmplx(1.0l, rkz)* *gz/ r2;
 
   return;
 }
@@ -698,7 +700,7 @@ void gxx( long double zz, long double rh, long double a,
   if( ira != 1)
   {
 	*g3=( *g3+ *gzp)* rh;
-	*gzp=- zz* c1* gz;
+	*gzp= -zz* c1* gz;
 
 	if( rh <= 1.0e-10l)
 	{
@@ -714,11 +716,11 @@ void gxx( long double zz, long double rh, long double a,
   } /* if( ira != 1) */
 
   t2=.5l* a;
-  *g2=- t2* c1* gz;
+  *g2= -t2* c1* gz;
   *g2p= t2* gz* c2/ r2;
   *g3= rh2* *g2p- a* gz* c1;
   *g2p= *g2p* zz;
-  *gzp=- zz* c1* gz;
+  *gzp= -zz* c1* gz;
 
   return;
 }
@@ -898,7 +900,7 @@ void hintg( long double xi, long double yi, long double zi )
 
   for( ip = 1; ip <= gnd.ksymp; ip++ )
   {
-	rfl=- rfl;
+	rfl= -rfl;
 	rz= zi- dataj.zj* rfl;
 	rsq= rx* rx+ ry* ry+ rz* rz;
 
@@ -926,12 +928,12 @@ void hintg( long double xi, long double yi, long double zi )
 	{
 	  if( gnd.iperf == 1)
 	  {
-		f1x=- f1x;
-		f1y=- f1y;
-		f1z=- f1z;
-		f2x=- f2x;
-		f2y=- f2y;
-		f2z=- f2z;
+		f1x= -f1x;
+		f1y= -f1y;
+		f1z= -f1z;
+		f2x= -f2x;
+		f2y= -f2y;
+		f2z= -f2z;
 	  }
 	  else
 	  {
@@ -945,7 +947,7 @@ void hintg( long double xi, long double yi, long double zi )
 		}
 		else
 		{
-		  pxx=- ry/ xymag;
+		  pxx= -ry/ xymag;
 		  pyy= rx/ xymag;
 		  cth= rz/ r;
 		  rrv= csqrtl(1.0l- gnd.zrati* gnd.zrati*(1.0l- cth* cth));
@@ -1000,7 +1002,7 @@ void hsfld( long double xi, long double yi,
 
   for( ip = 0; ip < gnd.ksymp; ip++ )
   {
-	rfl=- rfl;
+	rfl= -rfl;
 	salpr= dataj.salpj* rfl;
 	zij= zi- rfl* dataj.zj;
 	zp= xij* dataj.cabj+ yij* dataj.sabj+ zij* salpr;
@@ -1065,7 +1067,7 @@ void hsfld( long double xi, long double yi,
 		}
 		else
 		{
-		  px=- yij/ xymag;
+		  px= -yij/ xymag;
 		  py= xij/ xymag;
 		  cth= zij/ rmag;
 		  rrv= csqrtl(1.0l- zratx* zratx*(1.0l- cth* cth));
@@ -1127,13 +1129,14 @@ void hsflx( long double s, long double rh, long double zpx,
 	complex long double *hpk, complex long double *hps,
 	complex long double *hpc )
 {
-  long double r1, r2, zp, z2a, hss, dh, z1;
-  long double rhz, dk, cdk, sdk, hkr, hki, rh2;
   complex long double fjk, ekr1, ekr2, t1, t2, cons;
 
   fjk = -TPJ;
   if( rh >= 1.0e-10l)
   {
+	long double zp, z2a, hss, dh, z1;
+	long double rhz, dk, cdk, sdk, hkr, hki;
+
 	if( zpx >= 0.0l)
 	{
 	  zp= zpx;
@@ -1141,7 +1144,7 @@ void hsflx( long double s, long double rh, long double zpx,
 	}
 	else
 	{
-	  zp=- zpx;
+	  zp= -zpx;
 	  hss=-1.0l;
 	}
 
@@ -1161,6 +1164,8 @@ void hsflx( long double s, long double rh, long double zpx,
 
 	if( rhz >= 1.0e-3l)
 	{
+	  long double rh2, r1, r2;
+
 	  rh2= rh* rh;
 	  r1= sqrtl( rh2+ z1* z1);
 	  r2= sqrtl( rh2+ z2a* z2a);
@@ -1169,8 +1174,8 @@ void hsflx( long double s, long double rh, long double zpx,
 	  t1= z1* ekr1/ r1;
 	  t2= z2a* ekr2/ r2;
 	  *hps=( cdk*( ekr2- ekr1)- CPLX_01* sdk*( t2+ t1))* hss;
-	  *hpc=- sdk*( ekr2+ ekr1)- CPLX_01* cdk*( t2- t1);
-	  cons=- CPLX_01/(2.0l* TP* rh);
+	  *hpc= -sdk*( ekr2+ ekr1)- CPLX_01* cdk*( t2- t1);
+	  cons= -CPLX_01/(2.0l* TP* rh);
 	  *hps= cons* *hps;
 	  *hpc= cons* *hpc;
 	  return;
@@ -1180,7 +1185,7 @@ void hsflx( long double s, long double rh, long double zpx,
 	ekr1= cmplx( cdk, sdk)/( z2a* z2a);
 	ekr2= cmplx( cdk,- sdk)/( z1* z1);
 	t1= TP*(1.0l/ z1-1.0l/ z2a);
-	t2= cexp( fjk* zp)* rh/ PI8;
+	t2= cexp( fjk* zp)* rh/PI8;
 	*hps= t2*( t1+( ekr1+ ekr2)* sdk)* hss;
 	*hpc= t2*(- CPLX_01* t1+( ekr1- ekr2)* cdk);
 	return;
@@ -1527,6 +1532,9 @@ void nfpat( int nfeh )
   /* Signal new valid near field data */
   near_field.newer = near_field.valid = 1;
 
+  /* Signal new E/H pattern data */
+  SetFlag( DRAW_NEW_EHFIELD );
+
   return;
 }
 
@@ -1738,9 +1746,9 @@ void unere( long double xob, long double yob, long double zob )
 
   if( dataj.ipgnd == 2)
   {
-	zr=- zr;
-	t1zr=- t1zr;
-	t2zr=- t2zr;
+	zr= -zr;
+	t1zr= -t1zr;
+	t2zr= -t2zr;
   }
 
   rx= xob- dataj.xj;
@@ -1760,7 +1768,7 @@ void unere( long double xob, long double yob, long double zob )
   }
 
   r= sqrtl( r2);
-  tt1=- TP* r;
+  tt1= -TP* r;
   tt2= tt1* tt1;
   rt= r2* r;
   er= cmplx( sinl( tt1),- cosl( tt1))*( CONST2* dataj.s);
@@ -1780,12 +1788,12 @@ void unere( long double xob, long double yob, long double zob )
 
   if( gnd.iperf == 1)
   {
-	dataj.exk=- dataj.exk;
-	dataj.eyk=- dataj.eyk;
-	dataj.ezk=- dataj.ezk;
-	dataj.exs=- dataj.exs;
-	dataj.eys=- dataj.eys;
-	dataj.ezs=- dataj.ezs;
+	dataj.exk= -dataj.exk;
+	dataj.eyk= -dataj.eyk;
+	dataj.ezk= -dataj.ezk;
+	dataj.exs= -dataj.exs;
+	dataj.eys= -dataj.eys;
+	dataj.ezs= -dataj.ezs;
 	return;
   }
 
@@ -1799,7 +1807,7 @@ void unere( long double xob, long double yob, long double zob )
   }
   else
   {
-	px=- ry/ xymag;
+	px= -ry/ xymag;
 	py= rx/ xymag;
 	cth= rz/ sqrtl( xymag* xymag+ rz* rz);
 	rrv= csqrtl(1.0l- gnd.zrati* gnd.zrati*(1.0l- cth* cth));

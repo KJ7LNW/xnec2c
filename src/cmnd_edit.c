@@ -22,10 +22,7 @@
  * NEC2 command editing functions for xnec2c
  */
 
-#include "xnec2c.h"
-#include "interface.h"
-#include "support.h"
-#include "editors.h"
+#include "cmnd_edit.h"
 
 /* Tree list stores */
 extern GtkListStore
@@ -71,7 +68,7 @@ Excitation_Command( int action )
   GtkToggleButton *toggle;
 
   /* Spinbutton labels */
-#define EX_LABELS 8
+  #define EX_LABELS 8
   static gchar *labels[EX_LABELS] =
   {
 	"excitation_i2_label",
@@ -96,9 +93,10 @@ Excitation_Command( int action )
   static gdouble fv[6] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
   /* Command radio buttons */
-#define EX_TYPRDBTN 6
+  #define EX_TYPRDBTN 6
+
   /* Excitation type */
-  static gchar *typrdbtn[6] =
+  static gchar *typrdbtn[EX_TYPRDBTN] =
   {
 	"excitation_i10_radiobutton",
 	"excitation_i11_radiobutton",
@@ -574,7 +572,7 @@ Ground_Command( int action )
   static gdouble fv[12];
 
   /* Command radio buttons */
-#define GN_RDBTN 4
+  #define GN_RDBTN 4
   static gchar *rdbutton[GN_RDBTN] =
   {
 	"ground_null_radiobutton",
@@ -1117,7 +1115,7 @@ Radiation_Command( int action )
   static gdouble fv[6];
 
   /* Wave/ground type radio buttons */
-#define RP_WRDBTN 7
+  #define RP_WRDBTN 7
   static gchar *wrdbtn[RP_WRDBTN] =
   {
 	"radiation_i10_radiobutton",
@@ -1130,14 +1128,14 @@ Radiation_Command( int action )
   };
 
   /* XNDA radio buttons */
-#define RP_XRDBTN 2
+  #define RP_XRDBTN 2
   static gchar *xrdbtn[RP_XRDBTN] =
   {
 	"radiation_x0_radiobutton",
 	"radiation_x1_radiobutton"
   };
 
-#define RP_NRDBTN 6
+  #define RP_NRDBTN 6
   static gchar *nrdbtn[RP_NRDBTN] =
   {
 	"radiation_n0_radiobutton",
@@ -1148,14 +1146,14 @@ Radiation_Command( int action )
 	"radiation_n5_radiobutton"
   };
 
-#define RP_DRDBTN 2
+  #define RP_DRDBTN 2
   static gchar *drdbtn[RP_DRDBTN] =
   {
 	"radiation_d0_radiobutton",
 	"radiation_d1_radiobutton"
   };
 
-#define RP_ARDBTN 3
+  #define RP_ARDBTN 3
   static gchar *ardbtn[RP_ARDBTN] =
   {
 	"radiation_a0_radiobutton",
@@ -1181,7 +1179,7 @@ Radiation_Command( int action )
   };
 
   /* Labels for I1, F1-F3 & F5 spinuttons */
-#define RP_LABELS 4
+  #define RP_LABELS 4
   static gchar *labels[RP_LABELS] =
   {
 	"radiation_i1_label",
@@ -2713,8 +2711,8 @@ Get_Command_Data(
 	}
   }
   else
-	stop( "Error reading row data\n"
-		"Invalid list iterator", 0 );
+	stop( "Get_Command_Data(): Error reading\n"
+		  "row data: Invalid list iterator", ERR_OK );
 
 } /* Get_Command_Data() */
 
@@ -2750,8 +2748,8 @@ Set_Command_Data(
 	}
   }
   else
-	stop( "Error writing row data\n"
-		"Please re-select row", 0 );
+	stop( "Set_Command_Data(): Error writing row data\n"
+		  "Please re-select row", ERR_OK );
 
   SetFlag( NEC2_EDIT_SAVE );
 

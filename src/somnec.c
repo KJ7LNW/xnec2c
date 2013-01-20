@@ -36,7 +36,7 @@
    parameter 0.0l --> 0.0d0 in calling of routine test
    status of output files set to 'unknown' */
 
-#include "xnec2c.h"
+#include "somnec.h"
 
 /* common /evlcom/ */
 static int jh;
@@ -65,24 +65,22 @@ void somnec( long double epr, long double sig, long double fmhz )
 	first_call = FALSE;
 
 	/* Allocate some buffers */
-	mem_alloc( (void *)&ggrid.ar1,
-		sizeof(complex long double)*11*10*4, "in somnec.c");
-	mem_alloc( (void *)&ggrid.ar2,
-		sizeof(complex long double)*17*5*4, "in somnec.c");
-	mem_alloc( (void *)&ggrid.ar3,
-		sizeof(complex long double)*9*8*4, "in somnec.c");
-	mem_alloc( (void *)&ggrid.nxa,
-		sizeof(int)*3, "in somnec.c");
-	mem_alloc( (void *)&ggrid.nya,
-		sizeof(int)*3, "in somnec.c");
-	mem_alloc( (void *)&ggrid.dxa,
-		sizeof(long double)*3, "in somnec.c");
-	mem_alloc( (void *)&ggrid.dya,
-		sizeof(long double)*3, "in somnec.c");
-	mem_alloc( (void *)&ggrid.xsa,
-		sizeof(long double)*3, "in somnec.c");
-	mem_alloc( (void *)&ggrid.ysa,
-		sizeof(long double)*3, "in somnec.c");
+	size_t mreq = sizeof(complex long double) * 11 * 10 * 4;
+	mem_alloc( (void *)&ggrid.ar1, mreq, "in somnec.c");
+	mreq = sizeof(complex long double) * 17 * 5 * 4;
+	mem_alloc( (void *)&ggrid.ar2, mreq, "in somnec.c");
+	mreq = sizeof(complex long double) * 9 * 8 * 4;
+	mem_alloc( (void *)&ggrid.ar3, mreq, "in somnec.c");
+
+	mreq = sizeof(int) * 3;
+	mem_alloc( (void *)&ggrid.nxa, mreq, "in somnec.c");
+	mem_alloc( (void *)&ggrid.nya, mreq, "in somnec.c");
+
+	mreq = sizeof(long double) * 3;
+	mem_alloc( (void *)&ggrid.dxa, mreq, "in somnec.c");
+	mem_alloc( (void *)&ggrid.dya, mreq, "in somnec.c");
+	mem_alloc( (void *)&ggrid.xsa, mreq, "in somnec.c");
+	mem_alloc( (void *)&ggrid.ysa, mreq, "in somnec.c");
 
 	/* Initialize ground grid parameters for somnec */
 	ggrid.nxa[0] = 11;
@@ -249,22 +247,22 @@ void somnec( long double epr, long double sig, long double fmhz )
 void bessel( complex long double z,
 	complex long double *j0, complex long double *j0p )
 {
-  int k, i, ib, iz, miz;
+  int k, ib;
   static int *m = NULL, init = FALSE;
   static long double *a1 = NULL, *a2 = NULL;
-  long double tst, zms;
+  long double zms;
   complex long double p0z, p1z, q0z, q1z, zi, zi2, zk, cz, sz;
   complex long double j0x=CPLX_00, j0px=CPLX_00;
 
   /* initialization of constants */
   if( !init )
   {
-	mem_alloc( (void *)&m,
-		101*sizeof(long double), "in somnec.c");
-	mem_alloc( (void *)&a1,
-		101*sizeof(long double), "in somnec.c");
-	mem_alloc( (void *)&a2,
-		101*sizeof(long double), "in somnec.c");
+	int i;
+
+	size_t mreq = 101 * sizeof(long double);
+	mem_alloc( (void *)&m, mreq, "in somnec.c");
+	mem_alloc( (void *)&a1, mreq, "in somnec.c");
+	mem_alloc( (void *)&a2, mreq, "in somnec.c");
 
 	for( k = 1; k <= 25; k++ )
 	{
@@ -275,7 +273,7 @@ void bessel( complex long double z,
 
 	for( i = 1; i <= 101; i++ )
 	{
-	  tst=1.0l;
+	  long double tst=1.0l;
 	  for( k = 0; k < 24; k++ )
 	  {
 		init = k;
@@ -301,6 +299,8 @@ void bessel( complex long double z,
   ib=0;
   if(zms <= 37.21l)
   {
+	int iz, miz;
+
 	if(zms > 36.0l)
 	  ib=1;
 
@@ -356,7 +356,8 @@ void bessel( complex long double z,
 
 /* evlua controls the integration contour in the complex */
 /* lambda plane for evaluation of the sommerfeld integrals */
-void evlua( complex long double *erv, complex long double *ezv,
+  void
+evlua( complex long double *erv, complex long double *ezv,
 	complex long double *erh, complex long double *eph )
 {
   int i, jump;
@@ -368,10 +369,9 @@ void evlua( complex long double *erv, complex long double *ezv,
   if( first_call )
   {
 	first_call = FALSE;
-	mem_alloc( (void *)&sum,
-		6*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&ans,
-		6*sizeof(complex long double), "in somnec.c");
+	size_t mreq = 6 * sizeof(complex long double);
+	mem_alloc( (void *)&sum, mreq, "in somnec.c");
+	mem_alloc( (void *)&ans, mreq, "in somnec.c");
   }
 
   del=zph;
@@ -412,7 +412,6 @@ void evlua( complex long double *erv, complex long double *ezv,
 	*eph=-conj(ck2sq*(ans[3]+ans[5]));
 
 	return;
-
   } /* if(zph >= 2.0l*rho) */
 
   /* hankel function form of sommerfeld integrals */
@@ -507,7 +506,8 @@ void evlua( complex long double *erv, complex long double *ezv,
 /*-----------------------------------------------------------------------*/
 
 /* fbar is sommerfeld attenuation function for numerical distance p */
-void fbar( complex long double p, complex long double *fbar )
+  void
+fbar( complex long double p, complex long double *fbar )
 {
   int i, minus;
   long double tms, sms;
@@ -523,7 +523,7 @@ void fbar( complex long double p, complex long double *fbar )
 
 	for( i = 1; i <= 100; i++ )
 	{
-	  pow=- pow* zs/ (long double)i;
+	  pow= -pow* zs/ (long double)i;
 	  term= pow/(2.0l* i+1.0l);
 	  sum= sum+ term;
 	  tms= creal( term* conj( term));
@@ -540,7 +540,7 @@ void fbar( complex long double p, complex long double *fbar )
   if( creal( z) < 0.0l)
   {
 	minus=1;
-	z=- z;
+	z= -z;
   }
   else
 	minus=0;
@@ -551,13 +551,13 @@ void fbar( complex long double p, complex long double *fbar )
 
   for( i = 1; i <= 6; i++ )
   {
-	term =- term*(2.0l*i -1.0l)* zs;
+	term = -term*(2.0l*i -1.0l)* zs;
 	sum += term;
   }
 
   if( minus == 1)
 	sum -= 2.0l* SP* z* cexp( z* z);
-  *fbar=- sum;
+  *fbar= -sum;
 
 }
 
@@ -568,7 +568,7 @@ void fbar( complex long double p, complex long double *fbar )
 /* the step increment may be changed from dela to delb.  shank's */
 /* algorithm to accelerate convergence of a slowly converging series */
 /* is used */
-  int
+  void
 gshank( complex long double start, complex long double dela,
 	complex long double *sum, int nans, complex long double *seed,
 	int ibk, complex long double bk, complex long double delb )
@@ -583,14 +583,12 @@ gshank( complex long double start, complex long double dela,
   if( first_call )
   {
 	first_call = FALSE;
-	mem_alloc( (void *)&q1,
-		6*20*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&q2,
-		6*20*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&ans1,
-		6*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&ans2,
-		6*sizeof(complex long double), "in somnec.c");
+	size_t mreq = 6 * 20 * sizeof(complex long double);
+	mem_alloc( (void *)&q1, mreq, "in somnec.c");
+	mem_alloc( (void *)&q2, mreq, "in somnec.c");
+	mreq = 6 * sizeof(complex long double);
+	mem_alloc( (void *)&ans1, mreq, "in somnec.c");
+	mem_alloc( (void *)&ans2, mreq, "in somnec.c");
   }
 
   rbk=creal(bk);
@@ -747,25 +745,26 @@ gshank( complex long double start, complex long double dela,
 		idx = i + 6*inx;
 		sum[i]=0.5l*(q1[idx]+q2[idx]);
 	  }
-	  return(0);
+	  return;
 	}
 
   } /* for( intx = 1; intx <= maxh; intx++ ) */
 
   /* No convergence */
-  stop( "gshank(): No convergence", 1 );
-  return(1);
+  fprintf( stderr, "xnec2c: gshank(): No convergence\n" );
+  stop( "gshank(): No convergencn", ERR_STOP );
+  return;
 }
 
 /*-----------------------------------------------------------------------*/
 
 /* hankel evaluates hankel function of the first kind,   */
 /* order zero, and its derivative for complex argument z */
-  int
+  void
 hankel( complex long double z,
 	complex long double *h0, complex long double *h0p )
 {
-  int i, k, ib, iz, miz;
+  int k, ib;
   static int *m = NULL, init = FALSE;
   static long double *a1 = NULL, *a2 = NULL, *a3 = NULL;
   static long double *a4, psi, tst, zms;
@@ -776,21 +775,20 @@ hankel( complex long double z,
   if( first_call )
   {
 	first_call = FALSE;
-	mem_alloc( (void *)&m,
-		101*sizeof(int), "in somnec.c");
-	mem_alloc( (void *)&a1,
-		25*sizeof(long double), "in somnec.c");
-	mem_alloc( (void *)&a2,
-		25*sizeof(long double), "in somnec.c");
-	mem_alloc( (void *)&a3,
-		25*sizeof(long double), "in somnec.c");
-	mem_alloc( (void *)&a4,
-		25*sizeof(long double), "in somnec.c");
+	size_t mreq = 101 * sizeof(int);
+	mem_alloc( (void *)&m, mreq, "in somnec.c");
+	mreq = 25 * sizeof(long double);
+	mem_alloc( (void *)&a1, mreq, "in somnec.c");
+	mem_alloc( (void *)&a2, mreq, "in somnec.c");
+	mem_alloc( (void *)&a3, mreq, "in somnec.c");
+	mem_alloc( (void *)&a4, mreq, "in somnec.c");
   }
 
   /* initialization of constants */
   if( ! init )
   {
+	int i;
+
 	psi=-GAMMA;
 	for( k = 1; k <= 25; k++ )
 	{
@@ -821,11 +819,16 @@ hankel( complex long double z,
 
   zms=z*conj(z);
   if(zms == 0.0l)
-	stop( "Hankel not valid for z = 0", 1 );
+  {
+  fprintf( stderr, "xnec2c: hankel(): Hankel not valid for z = 0\n" );
+	stop( "hankel(): Hankel not valid for z = 0", ERR_STOP );
+  }
 
   ib=0;
   if(zms <= 16.81l)
   {
+	int iz, miz;
+
 	if(zms > 16.0l)
 	  ib=1;
 
@@ -855,12 +858,10 @@ hankel( complex long double z,
 	*h0=j0+CPLX_01*y0;
 	*h0p=j0p+CPLX_01*y0p;
 
-	if(ib == 0)
-	  return(0);
+	if(ib == 0) return;
 
 	y0=*h0;
 	y0p=*h0p;
-
   } /* if(zms <= 16.81l) */
 
   /* asymptotic expansion */
@@ -874,14 +875,13 @@ hankel( complex long double z,
   *h0=zk*(p0z+CPLX_01*q0z);
   *h0p=CPLX_01*zk*(p1z+CPLX_01*q1z);
 
-  if(ib == 0)
-	return(0);
+  if(ib == 0) return;
 
   zms=cosl((sqrtl(zms)-4.0l)*31.41592654l);
   *h0=0.5l*(y0*(1.0l+zms)+ *h0*(1.0l-zms));
   *h0p=0.5l*(y0p*(1.0l+zms)+ *h0p*(1.0l-zms));
 
-  return(0);
+  return;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -913,22 +913,15 @@ void rom1( int n, complex long double *sum, int nx )
   if( first_call )
   {
 	first_call = FALSE;
-	mem_alloc( (void *)&g1,
-		6*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&g2,
-		6*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&g3,
-		6*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&g4,
-		6*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&g5,
-		6*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&t01,
-		6*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&t10,
-		6*sizeof(complex long double), "in somnec.c");
-	mem_alloc( (void *)&t20,
-		6*sizeof(complex long double), "in somnec.c");
+	size_t mreq = 6 * sizeof(complex long double);
+	mem_alloc( (void *)&g1, mreq, "in somnec.c");
+	mem_alloc( (void *)&g2, mreq, "in somnec.c");
+	mem_alloc( (void *)&g3, mreq, "in somnec.c");
+	mem_alloc( (void *)&g4, mreq, "in somnec.c");
+	mem_alloc( (void *)&g5, mreq, "in somnec.c");
+	mem_alloc( (void *)&t01, mreq, "in somnec.c");
+	mem_alloc( (void *)&t10, mreq, "in somnec.c");
+	mem_alloc( (void *)&t20, mreq, "in somnec.c");
   }
 
   lstep=0;
@@ -952,8 +945,7 @@ void rom1( int n, complex long double *sum, int nx )
 	  if( (z+dz) > ze )
 	  {
 		dz=ze-z;
-		if( dz <= ep )
-		  return;
+		if( dz <= ep ) return;
 	  }
 
 	  dzot=dz*.5l;
@@ -983,8 +975,7 @@ void rom1( int n, complex long double *sum, int nx )
 
 	  nt += 2;
 	  z += dz;
-	  if(z > zend)
-		return;
+	  if(z > zend) return;
 
 	  for( i = 0; i < n; i++ )
 		g1[i]=g5[i];
@@ -1023,8 +1014,7 @@ void rom1( int n, complex long double *sum, int nx )
 
 	  nt++;
 	  z += dz;
-	  if(z > zend)
-		return;
+	  if(z > zend) return;
 
 	  for( i = 0; i < n; i++ )
 		g1[i]=g5[i];
@@ -1069,8 +1059,7 @@ void rom1( int n, complex long double *sum, int nx )
 
 	nt++;
 	z += dz;
-	if(z > zend)
-	  return;
+	if(z > zend) return;
 
 	for( i = 0; i < n; i++ )
 	  g1[i]=g5[i];
@@ -1093,7 +1082,7 @@ void rom1( int n, complex long double *sum, int nx )
 /* integrals for source and observer above ground */
 void saoa( long double t, complex long double *ans)
 {
-  long double xlr, sign;
+  long double xlr;
   static complex long double xl, dxl, cgam1, cgam2, b0;
   static complex long double b0p, com, dgam, den1, den2;
 
@@ -1128,6 +1117,7 @@ void saoa( long double t, complex long double *ans)
   xlr=xl*conj(xl);
   if(xlr >= tsmag)
   {
+	long double sign;
 	if(cimag(xl) >= 0.0l)
 	{
 	  xlr=creal(xl);

@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta name="generator" content="Bluefish 2.0.3" >
+<meta name="generator" content="Bluefish 2.2.2" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
 <meta name="copyright" content="GPL v2.0 or higher">
@@ -14,7 +14,6 @@
 "text/html; charset=us-ascii">
 </head>
 <body>
-&lt;
 <div align="center">
 <h2>Xnec2c User Manual</h2>
 </div>
@@ -55,7 +54,7 @@ Window</a></b></li>
 Considerations</a></b></li>
 <li><b><a href="#Version">Version History</a></b></li>
 <li><b><a href="#Bugs">Bugs and Inadequacies</a></b></li>
-<li><b><a href="#Acknowledgement">Acknowledgement</a></b></li>
+<li><b><a href="#Acknowledgement">Acknowledgment</a></b></li>
 </ol>
 <b><a name="Introduction" id="Introduction">1.
 Introduction:</a></b><br>
@@ -99,14 +98,14 @@ Operation:</a></b><br>
 Xnec2c is interactive in its operation, e.g. when started it just
 shows its Main window in a "blank" state, indicating that no valid
 input data has been read in yet. The NEC2-type input file can be
-specified at start-up in the command line with the <b>-i option</b>
-or it can be opened from the file selection dialog that appears via
-the <b>File-&gt;Open menu</b> of the <a href="#MainWindow">Main
-window</a>. Once a valid input file is opened, all the normal
-widgets in the <a href="#MainWindow">Main window</a> appear so as
-to allow proper operation. The NEC2 "commands" in the input file
-are read in but not executed, until a request is issued by the user
-via buttons or menus in the appropriate windows.</p>
+specified at start-up in the command line optionally with the <b>-i
+option</b> or it can be opened from the file selection dialog that
+appears via the <b>File-&gt;Open menu</b> of the <a href=
+"#MainWindow">Main window</a>. Once a valid input file is opened,
+all the normal widgets in the <a href="#MainWindow">Main window</a>
+appear so as to allow proper operation. The NEC2 "commands" in the
+input file are read in but not executed, until a request is issued
+by the user via buttons or menus in the appropriate windows.</p>
 </li>
 <li>
 <p><b><a name="NoOutFile" id="NoOutFile">No Output
@@ -120,9 +119,9 @@ bugs that may still be lurking in the C translation.</p>
 <li><b><a name="Windows" id="Windows">Windows:</a></b><br>
 In its current form, xnec2c has three windows for the graphical
 display of output data: When started without an input file
-specified by the -i &lt;input-file&gt; option, the <a href=
-"#MainWindow">Main window</a> opens with most of the button and
-menu widgets hidden. When a valid input file is opened, all the
+specified optionally by the -i &lt;input-file&gt; option, the
+<a href="#MainWindow">Main window</a> opens with most of the button
+and menu widgets hidden. When a valid input file is opened, all the
 hidden widgets are shown and the structure is drawn in the <a href=
 "#MainWindow">Main window's</a> drawing area widget. From the
 <b>View</b> menu, the <a href="#RadiationWindow">Radiation
@@ -278,6 +277,10 @@ and dragging the structure with the mouse pointer, clicking the
 deg rotation and tilt). The actual value of rotation and tilt is
 shown in two spin button widgets which can also be used to change
 the viewing angle.</p>
+<p>Starting with version 2.1, the structure display can be zoomed
+in or out by using the mouse wheel or the Zoom controls (Zoom %
+spinwheel and the +/-/1 buttons) and it can also be moved around by
+dragging with the right mouse button 2.</p>
 <p>The current distribution or charge density in the structure can
 be displayed by clicking the <b>Cur</b> or <b>Chg</b> toggle
 buttons at the top right of the Main window. The distribution of
@@ -304,8 +307,17 @@ needed then it is better to use the original NEC2 program, to avoid
 bugs that may still be lurking in the C translation. Otherwise, it
 is possible to save the structure drawing to a PNG file by using
 the <b>Save</b> or <b>Save As</b> items in the File menu.</p>
+<p>Starting with version 2.1, xnec2c can save the structure display
+as a data file for the "gnuplot" plotting program. This is done by
+using the <b>File-&gt;Save As gnuplot</b> menu item, to open a
+filechooser dialog. If only the stem of the filename is given,
+xnec2c will automatically add the .gplot extension. Plotting in
+gnuplot is done with the "splot &lt;filename&gt; with lines"
+command, although the plot can be enhanced with some of the style
+etc commands available in gnuplot.</p>
 <p>The View menu allows opening of other output data display
 windows and selection of various options:<br>
+<br clear="all">
 The <b>Radiation Pattern</b> menu item opens the <a href=
 "#RadiationWindow">Radiation Pattern window</a> so that the Gain
 pattern or the Near E/H fields can be calculated and displayed.<br>
@@ -424,6 +436,10 @@ buttons can also be used to accurately position the Gain pattern in
 the window. The <b>label</b> in the drawing area's frame gives
 information on what is on display and also the type of polarization
 or gain scaling.</p>
+<p>Starting with version 2.1, the radiation pattern display can be
+zoomed in or out by using the mouse wheel or the Zoom controls
+(Zoom % spinwheel and the +/-/1 buttons) and it can also be moved
+around by dragging with the right mouse button 2.</p>
 <p>Both the Gain and Near Field patterns can be saved as PNG image
 files by using the <b>File-&gt;Save</b> or <b>File-&gt;Save As</b>
 menu items. The Save option will save the drawings with a suitable
@@ -431,6 +447,16 @@ default file name which includes a serial number, so that
 consecutive Saves do not overwrite files, but please note that when
 xnec2c is restarted the serial numbers are reset so that
 overwriting will occur if the same input file is opened.</p>
+<p>Starting with version 2.1, xnec2c can save the radiation pattern
+and near E/H field display as a data file for the "gnuplot"
+plotting program. This is done by using the <b>File-&gt;Save As
+gnuplot</b> menu item, to open a filechooser dialog. If only the
+stem of the filename is given, xnec2c will automatically add the
+.gplot extension. Plotting in gnuplot is done with the "splot
+&lt;filename&gt; with lines" command, although the plot can be
+enhanced with some of the style etc commands available in
+gnuplot.</p>
+<br clear="all">
 <p><b><a name="FrequencyWindow" id="FrequencyWindow">Frequency Data
 Plots window:</a></b><br>
 <img src="images/freq_plots.png" width="623" height="734" border=
@@ -447,7 +473,7 @@ plotted in magenta color and its scale is at the left vertical side
 of the bounding box. The second quantity is plotted in cyan color
 and its scale is at the right side while a short descriptive title
 is printed in yellow at the top horizontal side. The graph bounding
-box is in white and the scale grid lines are in light grey. When
+box is in white and the scale grid lines are in light gray. When
 only a single quantity is plotted against frequency, it is plotted
 in magenta color and the scale is at the left side of the bounding
 box.</p>
@@ -498,6 +524,16 @@ and presented. When Viewer gain plotting is enabled, the graph will
 be re-drawn when the structure projection is changed by the various
 means described earlier (dragging by mouse pointer, Rotate/Incline
 spin buttons etc).</p>
+<p>Starting with version 2.1, xnec2c can save the frequency
+dependent functions as a data file for the "gnuplot" plotting
+program. This is done by using the <b>File-&gt;Save As gnuplot</b>
+menu item, to open a filechooser dialog. If only the stem of the
+filename is given, xnec2c will automatically add the .gplot
+extension. Plotting in gnuplot is done with the "plot
+&lt;filename&gt; with lines" command, although the plot can be
+enhanced with some of the style etc commands available in
+gnuplot.</p>
+<br clear="all">
 <p><b><a name="Nec2Treeview" id="Nec2Treeview">NEC2 Input File
 Editor:</a></b><br>
 <img src="images/nec2_edit.png" width="664" height="739" border="0"
@@ -536,14 +572,24 @@ a selected tree view and clears it. The Save As button opens a file
 selector dialog for saving the data in the Editor to a NEC2 input
 file. The Save button writes data in the Editor to an already open
 input file. The Apply check button, when checked, signals xnec2c to
-reload the edited input file for execution. Due to the complex file
-opening process followed by NEC2 (many data sanity checks and
-initializations etc) reloading the input file results in all open
-windows (radiation pattern, frequency plots) to be closed and in
-xnec2c to reset also. Finally the Revert button reloads the last
-saved state of the editor from the input file, to reduce the effort
-needed to recover from a big mistake like clearing a tree view
-accidentally!</p>
+reload the edited input file for execution.</p>
+<p>Note: In xnec2c versions earlier than version 2.0-beta, due to
+the complex file opening process followed by NEC2 (many data sanity
+checks and initializations etc), reloading the input file resulted
+in all open windows (radiation pattern, frequency plots) to be
+closed. This was always an awkward situation and slowed down work
+in the NEC2 input file editor. As of xnec2c version 2.0-beta, the
+user interface as well as a fair amount of code in xnec2c, have
+been modified so that as far as possible, when an edited NEC2 file
+is saved and reloaded, or another NEC2 file is opened, xnec2c will
+not close open Radiation Pattern or Frequency Plot windows and will
+not completely reset internally. This allows the user to edit a
+NEC2 file in the Editor window and, after saving, to be presented
+with the new calculations on the structure being modeled.</p>
+<p>Finally the Revert button reloads the last saved state of the
+editor from the input file, to reduce the effort needed to recover
+from a big mistake like clearing a tree view accidentally!</p>
+<br clear="all">
 <p><b>Sample Dedicated Geometry Editor Description:</b><br>
 <img src="images/wire.png" width="558" height="280" border="0"
 hspace="10" vspace="10" alt="Wire Editor" align="left"><b>Wire
@@ -591,6 +637,7 @@ cleared, and there is no button for it in the Geometry frame. But
 there is a dedicated editor for it which opens with a right-click
 on the (selected) GE row and <i>it should be used</i> to specify
 the presence of Ground (GN command etc).</p>
+<br clear="all">
 <p><b>Sample Dedicated Control Editor:</b><br>
 <img src="images/excitation.png" width="687" height="412" border=
 "0" hspace="10" vspace="10" alt="Excitation Editor" align=
@@ -742,7 +789,7 @@ the "ipnt" buffer is not allocated in the netwk() function in
 network.c</p>
 <p><b>Version 1.2:</b> Made the page size of spin buttons 0 to make
 setting of spin button values compatible with GTK 2.4</p>
-<p><b>Version 1.3:</b> After an enquiry about using incident field
+<p><b>Version 1.3:</b> After an inquiry about using incident field
 excitation, which was not implemented in previous versions, I
 removed the restrictions in excitation to allow plotting the
 re-radiated pattern from a structure excited by incident field or
@@ -762,8 +809,43 @@ extension.<br clear="all">
 Got rid of some variables that were set but not used, according to
 warnings given by gcc.<br clear="all">
 Applied a patch supplied by Rik van Riel to allow the calculation
-of front to back ratios when the antenna is modelled over
+of front to back ratios when the antenna is modeled over
 ground.</p>
+<p><b>Version 1.6:</b> I received another bug report from Rik van
+Riel: The patch applied above did not help, as somehow the buggy
+code got duplicated below the bug fix, reproducing the same error
+in the calculation of front-to-back ratio! Hopefully fixed this
+time.</p>
+<p><b>Version 2.0-beta:</b> I received a bug report from David
+Binderman regarding an array bounds violation, which he found by
+compiling xnec2c with the -D_FORTIFY_SOURCE gcc flag. I fixed this
+bug and also tested xnec2c source code using cppcheck.<br clear=
+"all">
+I decided it was about time I modify the xnec2c user interface so
+that it will, as far as possible, allow the user to save and
+re-open NEC2 files in the Editor window, without closing the
+Radiation Pattern and/or the Frequency Plots windows. This will
+significantly speed up work on editing NEC2 files and also make
+xnec2c usage less awkward. However, many bugs were introduced and
+fixed during this re-write of xnec2c, so users are advised to be
+watchful of possible bugs that got away and to report them for
+fixing.</p>
+<p><b>Version 2.1-beta:</b> I have introduced many changes in this
+version, so I am releasing it again as a public beta version for
+testing and bug reports:<br clear="all">
+After a bug report by David J. Singer, I changed all declarations
+of variables that are used in memory allocations, from int to
+size_t. This error was in the nec2c code from the beginning but
+apparently it only showed up when extremely large memory
+allocations are requested in nec2c and xnec2c.<br clear="all">
+I have replaced all the (deprecated) GDK drawing primitives with
+equivalent Cairo graphics equivalents (e.g. replaced
+gdk_draw_line() with cairo_line_to()) since Cairo provides for
+nicer anti-aliased drawing.<br clear="all">
+After a feature request by David J. Singer and friend Richard, I
+have added code to save data of the structure display, radiation
+patterns and frequency plots into file, in a format suitable for
+the "gnuplot" plotting program.</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and
 Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original
@@ -797,7 +879,7 @@ I lack experience with GTK2 in this field, so I probably went about
 this the wrong way. I am open to any suggestions that may solve
 this problem! -;)</p>
 <p><b><a name="Acknowledgement" id="Acknowledgement">10.
-Acknowledgement:</a></b><br>
+Acknowledgment:</a></b><br>
 Some of the code in xnec2c is based on Pieter-Tjerk de Boer's
 "xnecview" application, which visualizes NEC2's input and output
 files. The general 'look and feel" of xnec2c was also influenced by

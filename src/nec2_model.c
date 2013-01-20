@@ -22,10 +22,6 @@
  * Structure modelling functions for xnec2c
  */
 
-#include "xnec2c.h"
-#include "interface.h"
-#include "support.h"
-#include "editors.h"
 #include "nec2_model.h"
 
 /* Tree list stores */
@@ -44,7 +40,7 @@ extern char infile[];
 
 extern GtkWidget *error_dialog;
 extern GtkWidget *nec2_edit_window;	/* NEC2 editor window */
-extern GtkWidget *wire_editor;	/* Wire design window */
+extern GtkWidget *wire_editor;		/* Wire design window */
 
 /* Various data used by NEC2, stored in this struct */
 extern calc_data_t calc_data;
@@ -55,8 +51,61 @@ extern calc_data_t calc_data;
  *
  * Reads a NEC2 input file and renders it in a tree view
  */
-  int
+  void
 Nec2_Input_File_Treeview( int action )
+{
+  /* Abort if editor window is not opened */
+  if( nec2_edit_window == NULL ) return;
+
+  /* Signal save of edited file */
+  SetFlag( NEC2_EDIT_SAVE );
+
+  /* Implement user action */
+  switch( action )
+  {
+	case NEC2_EDITOR_REVERT: /* Revert editor to file contents */
+	  /* Clear all tree view list stores */
+	  gtk_list_store_clear( cmnt_store );
+	  gtk_list_store_clear( geom_store );
+	  gtk_list_store_clear( cmnd_store );
+	  break;
+
+	case NEC2_EDITOR_NEW: /* Create new default input file */
+	  /* If tree view stores are already
+	   * created, just make the new file */
+	  Create_List_Stores(); /* Only done if needed */
+	  Create_Default_File();
+	  return;
+
+	case NEC2_EDITOR_RELOAD: /* Just reload input file */
+	  Create_List_Stores();  /* Only done if needed */
+	  break;
+
+  } /* switch( action ) */
+
+  /* Rewind NEC2 input file */
+  rewind( input_fp );
+
+  /*** List Comment cards ***/
+  List_Comments();
+
+  /*** List Geometry cards ***/
+  List_Geometry();
+
+  /*** Read Command cards ***/
+  List_Commands();
+
+  return;
+} /* Nec2_Input_File_Treeview() */
+
+/*------------------------------------------------------------------------*/
+
+/* Create_List_Stores()
+ *
+ * Create stores needed for the treeview
+ */
+  void
+Create_List_Stores( void )
 {
   /* Comments column names */
   char *cmnt_col_name[CMNT_NUM_COLS] =
@@ -70,10 +119,288 @@ Nec2_Input_File_Treeview( int action )
   char *cmnd_col_name[CMND_NUM_COLS] =
   { "Card", "I1", "I2", "I3", "I4", "F1", "F2", "F3", "F4", "F5", "F6" };
 
+
+  /* Create list stores only if needed */
+  if( cmnt_store != NULL ) return;
+
+  /* Create comments list store */
+  cmnt_store = gtk_list_store_new(
+	  CMNT_NUM_COLS, G_TYPE_STRING, G_TYPE_STRING );
+
+  /* Create geometry data list store */
+  geom_store = gtk_list_store_new(
+	  GEOM_NUM_COLS, G_TYPE_STRING,
+	  G_TYPE_STRING, G_TYPE_STRING,
+	  G_TYPE_STRING, G_TYPE_STRING,
+	  G_TYPE_STRING, G_TYPE_STRING,
+	  G_TYPE_STRING, G_TYPE_STRING,
+	  G_TYPE_STRING );
+
+  /* Create control commands data list store */
+  cmnd_store = gtk_list_store_new(
+	  CMND_NUM_COLS, G_TYPE_STRING,
+	  G_TYPE_STRING, G_TYPE_STRING,
+	  G_TYPE_STRING, G_TYPE_STRING,
+	  G_TYPE_STRING, G_TYPE_STRING,
+	  G_TYPE_STRING, G_TYPE_STRING,
+	  G_TYPE_STRING, G_TYPE_STRING );
+
+  /* Insert comment columns */
+  Insert_Columns(
+	  nec2_edit_window, "nec2_cmnt_treeview",
+	  cmnt_store, CMNT_NUM_COLS, cmnt_col_name );
+
+  /* Insert geometry columns */
+  Insert_Columns(
+	  nec2_edit_window, "nec2_geom_treeview",
+	  geom_store, GEOM_NUM_COLS, geom_col_name );
+
+  /* Insert command columns */
+  Insert_Columns(
+	  nec2_edit_window, "nec2_cmnd_treeview",
+	  cmnd_store, CMND_NUM_COLS, cmnd_col_name );
+
+  /* Set models to treviews */
+  gtk_tree_view_set_model(
+	  GTK_TREE_VIEW(lookup_widget(
+		  nec2_edit_window, "nec2_cmnt_treeview")),
+	  GTK_TREE_MODEL(cmnt_store) );
+  gtk_tree_view_set_model(
+	  GTK_TREE_VIEW(lookup_widget(
+		  nec2_edit_window, "nec2_geom_treeview")),
+	  GTK_TREE_MODEL(geom_store) );
+  gtk_tree_view_set_model(
+	  GTK_TREE_VIEW(lookup_widget(
+		  nec2_edit_window, "nec2_cmnd_treeview")),
+	  GTK_TREE_MODEL(cmnd_store) );
+
+} /* Create_List_Stores() */
+
+/*------------------------------------------------------------------------*/
+
+/* Create_Default_File()
+ *
+ * Creates a default NEC2 file if needed
+ */
+  void
+Create_Default_File( void )
+{
   GtkTreeIter iter;
+  int idx;
+  char str[55];
+
+
+  /* Clear all tree views */
+  gtk_list_store_clear( cmnt_store );
+  gtk_list_store_clear( geom_store );
+  gtk_list_store_clear( cmnd_store );
+
+  /* Append a default comment row */
+  strcpy( str, "--- NEC2 Input File created by " );
+  strcat( str, PACKAGE"-"VERSION);
+  strcat( str, " ---" );
+  gtk_list_store_append( cmnt_store, &iter );
+  gtk_list_store_set(
+	  cmnt_store, &iter,
+	  CMNT_COL_NAME, "CM",
+	  CMNT_COL_COMMENT, str, -1 );
+
+  /* Append a default CE card */
+  gtk_list_store_append( cmnt_store, &iter );
+  gtk_list_store_set(
+	  cmnt_store, &iter,
+	  CMNT_COL_NAME, "CE",
+	  CMNT_COL_COMMENT,
+	  "--- End Comments ---",
+	  -1 );
+
+  /* Append a dipole wire (GW) card */
+  gtk_list_store_append( geom_store, &iter );
+  gtk_list_store_set( geom_store, &iter,
+	  GEOM_COL_NAME, "GW",
+	  GEOM_COL_I1, "1",
+	  GEOM_COL_I2, "15",
+	  GEOM_COL_F1, "0.0",
+	  GEOM_COL_F2, "0.0",
+	  GEOM_COL_F3, "-1.0",
+	  GEOM_COL_F4, "0.0",
+	  GEOM_COL_F5, "0.0",
+	  GEOM_COL_F6, "1.0",
+	  GEOM_COL_F7, "0.015",
+	  -1 );
+
+  /* Append a geometry end (GE) card */
+  gtk_list_store_append( geom_store, &iter );
+  gtk_list_store_set( geom_store,
+	  &iter, GEOM_COL_NAME, "GE", -1 );
+  for( idx = GEOM_COL_I1; idx < GEOM_NUM_COLS; idx++ )
+	gtk_list_store_set( geom_store, &iter, idx, "0", -1 );
+
+  /* Append an excitation (EX) card */
+  gtk_list_store_append( cmnd_store, &iter );
+  gtk_list_store_set( cmnd_store, &iter,
+	  CMND_COL_NAME, "EX",
+	  CMND_COL_I1, "0",
+	  CMND_COL_I2, "1",
+	  CMND_COL_I3, "8",
+	  CMND_COL_I4, "0",
+	  CMND_COL_F1, "1.0",
+	  CMND_COL_F2, "0.0",
+	  CMND_COL_F3, "0.0",
+	  CMND_COL_F4, "0.0",
+	  CMND_COL_F5, "0.0",
+	  CMND_COL_F6, "0.0",
+	  -1 );
+
+  /* Append a frequency (FR) card */
+  gtk_list_store_append( cmnd_store, &iter );
+  gtk_list_store_set( cmnd_store, &iter,
+	  CMND_COL_NAME, "FR",
+	  CMND_COL_I1, "0",
+	  CMND_COL_I2, "11",
+	  CMND_COL_I3, "0",
+	  CMND_COL_I4, "0",
+	  CMND_COL_F1, "50.0",
+	  CMND_COL_F2, "5.0",
+	  CMND_COL_F3, "0.0",
+	  CMND_COL_F4, "0.0",
+	  CMND_COL_F5, "0.0",
+	  CMND_COL_F6, "0.0",
+	  -1 );
+
+  /* Append a near H field (NH) card */
+  gtk_list_store_append( cmnd_store, &iter );
+  gtk_list_store_set( cmnd_store, &iter,
+	  CMND_COL_NAME, "NH",
+	  CMND_COL_I1, "0",
+	  CMND_COL_I2, "0",
+	  CMND_COL_I3, "0",
+	  CMND_COL_I4, "0",
+	  CMND_COL_F1, "0.0",
+	  CMND_COL_F2, "0.0",
+	  CMND_COL_F3, "0.0",
+	  CMND_COL_F4, "0.0",
+	  CMND_COL_F5, "0.0",
+	  CMND_COL_F6, "0.0",
+	  -1 );
+
+  /* Append a near E field (NE) card */
+  gtk_list_store_append( cmnd_store, &iter );
+  gtk_list_store_set( cmnd_store, &iter,
+	  CMND_COL_NAME, "NE",
+	  CMND_COL_I1, "0",
+	  CMND_COL_I2, "10",
+	  CMND_COL_I3, "1",
+	  CMND_COL_I4, "10",
+	  CMND_COL_F1, "-1.35",
+	  CMND_COL_F2, "0.0",
+	  CMND_COL_F3, "-1.35",
+	  CMND_COL_F4, "0.3",
+	  CMND_COL_F5, "0.0",
+	  CMND_COL_F6, "0.3",
+	  -1 );
+
+  /* Append a radiation pattern (RP) card */
+  gtk_list_store_append( cmnd_store, &iter );
+  gtk_list_store_set( cmnd_store, &iter,
+	  CMND_COL_NAME, "RP",
+	  CMND_COL_I1, "0",
+	  CMND_COL_I2, "19",
+	  CMND_COL_I3, "37",
+	  CMND_COL_I4, "0",
+	  CMND_COL_F1, "0.0",
+	  CMND_COL_F2, "0.0",
+	  CMND_COL_F3, "10.0",
+	  CMND_COL_F4, "10.0",
+	  CMND_COL_F5, "0.0",
+	  CMND_COL_F6, "0.0",
+	  -1 );
+
+  /* Append a file end (EN) card */
+  gtk_list_store_append( cmnd_store, &iter );
+  gtk_list_store_set( cmnd_store,
+	  &iter, CMND_COL_NAME, "EN", -1 );
+  for( idx = CMND_COL_I1; idx < CMND_NUM_COLS; idx++ )
+	gtk_list_store_set( cmnd_store, &iter, idx, "0", -1 );
+
+} /* Create_Default_File() */
+
+/*------------------------------------------------------------------------*/
+
+/* List_Comments()
+ *
+ * Reads comments from file and lists in tree view
+ */
+  void
+List_Comments( void )
+{
+  GtkTreeIter iter;
+  gboolean ret;
 
   /* "Card" mnemonic and line buffer */
   char ain[3], line_buf[LINE_LEN];
+
+  /* Check that store is empty */
+  ret = gtk_tree_model_get_iter_first(
+	  GTK_TREE_MODEL(cmnt_store), &iter );
+
+  /* Keep reading till the CE card */
+  do
+  {
+	/* Read a line from input file */
+	if( load_line(line_buf, input_fp) == EOF )
+	  stop( "List_Comments():\n"
+		  "Error reading input file\n"
+		  "Unexpected EOF (End of File)", ERR_OK );
+
+	/* Check for short or missing CM or CE and fix */
+	if( strlen(line_buf) < 2 )
+	{
+	  stop( "List_Comments():\n"
+		  "Error reading input file\n"
+		  "Comment mnemonic short or missing", ERR_OK );
+	  strcpy( line_buf, "XX " );
+	}
+
+	/* If only mnemonic in card,
+	 * "cut" the rest of line buffer */
+	if( strlen(line_buf) == 2 ) line_buf[3] = '\0';
+
+	/* Separate card's id mnemonic */
+	strncpy( ain, line_buf, 2 );
+	ain[2] = '\0';
+
+	/* Append a comment row and fill in text if opening call */
+	if( !ret )
+	  gtk_list_store_append( cmnt_store, &iter );
+	gtk_list_store_set(
+		cmnt_store, &iter,
+		CMNT_COL_NAME, ain,
+		CMNT_COL_COMMENT,
+		&line_buf[3], -1 );
+
+	/* Get new row if available */
+	ret = gtk_tree_model_iter_next(
+		GTK_TREE_MODEL(cmnt_store), &iter);
+
+  } /* do */
+  while( strcmp(ain, "CE") != 0 );
+
+} /* List_Comments() */
+
+/*------------------------------------------------------------------------*/
+
+/* List_Geometry()
+ *
+ * Reads geometry cards from file and lists in tree view
+ */
+  void
+List_Geometry( void )
+{
+  GtkTreeIter iter;
+
+  /* "Card" mnemonic */
+  char ain[3];
 
   /* int data from cards */
   int iv[4];
@@ -87,395 +414,124 @@ Nec2_Input_File_Treeview( int action )
   int idx;
   gboolean ret;
 
-
-  SetFlag( NEC2_EDIT_SAVE );
-
-  /* Implement user action */
-  switch( action )
+  /* Check that store is empty */
+  ret = gtk_tree_model_get_iter_first(
+	  GTK_TREE_MODEL(geom_store), &iter );
+  do
   {
-	case NEC2_EDITOR_REVERT: /* Revert editor to file contents */
-	  /* Clear all tree views */
-	  gtk_list_store_clear( cmnt_store );
-	  gtk_list_store_clear( geom_store );
-	  gtk_list_store_clear( cmnd_store );
-	  break;
+	/* Read a geometry card. Errors are handled in readgm() */
+	readgm( ain, &iv[0], &iv[1],
+		&fv[0], &fv[1], &fv[2], &fv[3],
+		&fv[4], &fv[5], &fv[6] );
 
-	case NEC2_EDITOR_NEW: /* Create new input file */
-	  /* Create comments list store */
-	  cmnt_store = gtk_list_store_new(
-		  CMNT_NUM_COLS, G_TYPE_STRING,
-		  G_TYPE_STRING );
+	/* Ignore in-data (NEC4 style) comments */
+	if( strcmp(ain, "CM") == 0 ) continue;
 
-	  /* Create geometry data list store */
-	  geom_store = gtk_list_store_new(
-		  GEOM_NUM_COLS, G_TYPE_STRING,
-		  G_TYPE_STRING, G_TYPE_STRING,
-		  G_TYPE_STRING, G_TYPE_STRING,
-		  G_TYPE_STRING, G_TYPE_STRING,
-		  G_TYPE_STRING, G_TYPE_STRING,
-		  G_TYPE_STRING );
+	/* Format card data and print to string */
+	snprintf( si[0], 6, "%5d",  iv[0] );
+	snprintf( si[1], 6, "%5d ", iv[1] );
+	for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
+	  snprintf( sf[idx-GEOM_COL_F1], 13,
+		  "%12.5E", (double)fv[idx-GEOM_COL_F1] );
 
-	  /* Create control commands data list store */
-	  cmnd_store = gtk_list_store_new(
-		  CMND_NUM_COLS, G_TYPE_STRING,
-		  G_TYPE_STRING, G_TYPE_STRING,
-		  G_TYPE_STRING, G_TYPE_STRING,
-		  G_TYPE_STRING, G_TYPE_STRING,
-		  G_TYPE_STRING, G_TYPE_STRING,
-		  G_TYPE_STRING, G_TYPE_STRING );
+	/* Append a comment row and fill in text if opening call */
+	if( !ret )
+	  gtk_list_store_append( geom_store, &iter );
 
-	  /* Insert comment columns */
-	  Insert_Columns(
-		  nec2_edit_window, "nec2_cmnt_treeview",
-		  cmnt_store, CMNT_NUM_COLS, cmnt_col_name );
-
-	  /* Insert geometry columns */
-	  Insert_Columns(
-		  nec2_edit_window, "nec2_geom_treeview",
-		  geom_store, GEOM_NUM_COLS, geom_col_name );
-
-	  /* Insert command columns */
-	  Insert_Columns(
-		  nec2_edit_window, "nec2_cmnd_treeview",
-		  cmnd_store, CMND_NUM_COLS, cmnd_col_name );
-
-	  /* Set models to treviews */
-	  gtk_tree_view_set_model(
-		  GTK_TREE_VIEW(lookup_widget(
-			  nec2_edit_window, "nec2_cmnt_treeview")),
-		  GTK_TREE_MODEL(cmnt_store) );
-	  gtk_tree_view_set_model(
-		  GTK_TREE_VIEW(lookup_widget(
-			  nec2_edit_window, "nec2_geom_treeview")),
-		  GTK_TREE_MODEL(geom_store) );
-	  gtk_tree_view_set_model(
-		  GTK_TREE_VIEW(lookup_widget(
-			  nec2_edit_window, "nec2_cmnd_treeview")),
-		  GTK_TREE_MODEL(cmnd_store) );
-	  break;
-
-  } /* switch( action ) */
-
-  /* If no already-open input file (File->New menu item activated), */
-  /* then create default NEC2 input "cards" when opening editor window */
-  if( input_fp == NULL )
-  {
-	char str[55];
-
-	/* Append a default comment row */
-	strcpy( str, "--- NEC2 Input File created by " );
-	strcat( str, PACKAGE"-"VERSION);
-	strcat( str, " ---" );
-	gtk_list_store_append( cmnt_store, &iter );
+	/* Set data to list store */
 	gtk_list_store_set(
-		cmnt_store, &iter,
-		CMNT_COL_NAME, "CM",
-		CMNT_COL_COMMENT, str, -1 );
+		geom_store, &iter, GEOM_COL_NAME, ain, -1 );
+	for( idx = GEOM_COL_I1; idx <= GEOM_COL_I2; idx++ )
+	  gtk_list_store_set(
+		  geom_store, &iter, idx, si[idx-GEOM_COL_I1], -1 );
+	for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
+	  gtk_list_store_set(
+		  geom_store, &iter, idx, sf[idx-GEOM_COL_F1], -1 );
 
-	/* Append a default CE card */
-	gtk_list_store_append( cmnt_store, &iter );
-	gtk_list_store_set(
-		cmnt_store, &iter,
-		CMNT_COL_NAME, "CE",
-		CMNT_COL_COMMENT,
-		"--- End Comments ---",
-		-1 );
+	/* Get new row if available */
+	ret = gtk_tree_model_iter_next(
+		GTK_TREE_MODEL(geom_store), &iter);
+  }
+  while( strcmp(ain, "GE") != 0 );
 
-	/* Append a dipole wire (GW) card */
-	gtk_list_store_append( geom_store, &iter );
-	gtk_list_store_set( geom_store, &iter,
-		GEOM_COL_NAME, "GW",
-		GEOM_COL_I1, "1",
-		GEOM_COL_I2, "15",
-		GEOM_COL_F1, "0.0",
-		GEOM_COL_F2, "0.0",
-		GEOM_COL_F3, "-1.0",
-		GEOM_COL_F4, "0.0",
-		GEOM_COL_F5, "0.0",
-		GEOM_COL_F6, "1.0",
-		GEOM_COL_F7, "0.015",
-		-1 );
+} /* List_Geometry() */
 
-	/* Append a geometry end (GE) card */
-	gtk_list_store_append( geom_store, &iter );
-	gtk_list_store_set( geom_store,
-		&iter, GEOM_COL_NAME, "GE", -1 );
-	for( idx = GEOM_COL_I1; idx < GEOM_NUM_COLS; idx++ )
-	  gtk_list_store_set( geom_store, &iter, idx, "0", -1 );
+/*------------------------------------------------------------------------*/
 
-	/* Append an excitation (EX) card */
-	gtk_list_store_append( cmnd_store, &iter );
-	gtk_list_store_set( cmnd_store, &iter,
-		CMND_COL_NAME, "EX",
-		CMND_COL_I1, "0",
-		CMND_COL_I2, "1",
-		CMND_COL_I3, "8",
-		CMND_COL_I4, "0",
-		CMND_COL_F1, "1.0",
-		CMND_COL_F2, "0.0",
-		CMND_COL_F3, "0.0",
-		CMND_COL_F4, "0.0",
-		CMND_COL_F5, "0.0",
-		CMND_COL_F6, "0.0",
-		-1 );
+/* List_Commands()
+ *
+ * Reads command cards from file and lists in tree view
+ */
+  void
+List_Commands( void )
+{
+  GtkTreeIter iter;
 
-	/* Append a frequency (FR) card */
-	gtk_list_store_append( cmnd_store, &iter );
-	gtk_list_store_set( cmnd_store, &iter,
-		CMND_COL_NAME, "FR",
-		CMND_COL_I1, "0",
-		CMND_COL_I2, "11",
-		CMND_COL_I3, "0",
-		CMND_COL_I4, "0",
-		CMND_COL_F1, "50.0",
-		CMND_COL_F2, "5.0",
-		CMND_COL_F3, "0.0",
-		CMND_COL_F4, "0.0",
-		CMND_COL_F5, "0.0",
-		CMND_COL_F6, "0.0",
-		-1 );
+  /* "Card" mnemonic and line buffer */
+  char ain[3];
 
-	/* Append a near H field (NH) card */
-	gtk_list_store_append( cmnd_store, &iter );
-	gtk_list_store_set( cmnd_store, &iter,
-		CMND_COL_NAME, "NH",
-		CMND_COL_I1, "0",
-		CMND_COL_I2, "0",
-		CMND_COL_I3, "0",
-		CMND_COL_I4, "0",
-		CMND_COL_F1, "0.0",
-		CMND_COL_F2, "0.0",
-		CMND_COL_F3, "0.0",
-		CMND_COL_F4, "0.0",
-		CMND_COL_F5, "0.0",
-		CMND_COL_F6, "0.0",
-		-1 );
+  /* int data from cards */
+  int iv[4];
 
-	/* Append a near E field (NE) card */
-	gtk_list_store_append( cmnd_store, &iter );
-	gtk_list_store_set( cmnd_store, &iter,
-		CMND_COL_NAME, "NE",
-		CMND_COL_I1, "0",
-		CMND_COL_I2, "10",
-		CMND_COL_I3, "1",
-		CMND_COL_I4, "10",
-		CMND_COL_F1, "-1.35",
-		CMND_COL_F2, "0.0",
-		CMND_COL_F3, "-1.35",
-		CMND_COL_F4, "0.3",
-		CMND_COL_F5, "0.0",
-		CMND_COL_F6, "0.3",
-		-1 );
+  /* float data from cards */
+  long double fv[7];
 
-	/* Append a radiation pattern (RP) card */
-	gtk_list_store_append( cmnd_store, &iter );
-	gtk_list_store_set( cmnd_store, &iter,
-		CMND_COL_NAME, "RP",
-		CMND_COL_I1, "0",
-		CMND_COL_I2, "19",
-		CMND_COL_I3, "37",
-		CMND_COL_I4, "0",
-		CMND_COL_F1, "0.0",
-		CMND_COL_F2, "0.0",
-		CMND_COL_F3, "10.0",
-		CMND_COL_F4, "10.0",
-		CMND_COL_F5, "0.0",
-		CMND_COL_F6, "0.0",
-		-1 );
+  /* For snprintf */
+  char si[4][7], sf[7][13];
 
-	/* Append a file end (EN) card */
-	gtk_list_store_append( cmnd_store, &iter );
-	gtk_list_store_set( cmnd_store,
-		&iter, CMND_COL_NAME, "EN", -1 );
-	for( idx = CMND_COL_I1; idx < CMND_NUM_COLS; idx++ )
-	  gtk_list_store_set( cmnd_store, &iter, idx, "0", -1 );
+  int idx;
+  gboolean ret;
 
-  } /* if( input_fp == NULL ) */
-  else
+  /* Check that store is empty */
+  ret = gtk_tree_model_get_iter_first(
+	  GTK_TREE_MODEL(cmnd_store), &iter );
+  do
   {
-	/*** Read NEC2 input file and show in Treeviews ***/
-	/* Rewind NEC2 input file */
-	rewind( input_fp );
+	/* Read a command card. Errors are handled in readmn() */
+	readmn(
+		ain, &iv[0], &iv[1], &iv[2], &iv[3], &fv[0],
+		&fv[1], &fv[2], &fv[3], &fv[4], &fv[5] );
 
-	/* Clear all tree views */
-	gtk_list_store_clear( cmnt_store );
-	gtk_list_store_clear( geom_store );
-	gtk_list_store_clear( cmnd_store );
+	/* Ignore in-data (NEC4 style) comments */
+	if( strcmp(ain, "CM") == 0 ) continue;
 
-	/*** Read comments ***/
-	/* Read a line from input file */
-	if( load_line(line_buf, input_fp) == EOF )
-	  stop( "Error reading input file\n"
-		  "Unexpected EOF (End of File)", 1 );
+	/* Format card data and print to string */
+	for( idx = CMND_COL_I1; idx < CMND_COL_I4; idx++ )
+	  snprintf( si[idx-CMND_COL_I1], 6, "%5d", iv[idx-CMND_COL_I1] );
 
-	/* Separate card's id mnemonic */
-	strncpy( ain, line_buf, 2 );
-	ain[2] = '\0';
+	/* For alignment of data printed to NEC2 file */
+	snprintf( si[idx-CMND_COL_I1], 7, " %5d", iv[idx-CMND_COL_I1] );
+	for( idx = CMND_COL_F1; idx <= CMND_COL_F6; idx++ )
+	  snprintf( sf[idx-CMND_COL_F1], 13,
+		  "%12.5E", (double)fv[idx-CMND_COL_F1] );
 
-	/* Check that store is empty */
-	ret = gtk_tree_model_get_iter_first(
-		GTK_TREE_MODEL(cmnt_store), &iter );
+	/* Append a command row and fill in text if opening call */
+	if( !ret )
+	  gtk_list_store_append( cmnd_store, &iter );
 
-	/* Keep reading till a non "CM" card */
-	while( (strcmp(ain, "CM") == 0) ||
-		(strcmp(ain, "CE") == 0)  )
-	{
-	  /* Append a comment row and fill in text if opening call */
-	  if( !ret )
-		gtk_list_store_append( cmnt_store, &iter );
-
-	  /* If space missing (after blank CE) */
-	  if( line_buf[2] == '\0' )
-		line_buf[3] = '\0';
+	/* Set data to list store */
+	gtk_list_store_set(
+		cmnd_store, &iter, CMND_COL_NAME, ain, -1 );
+	for( idx = CMND_COL_I1; idx <= CMND_COL_I4; idx++ )
 	  gtk_list_store_set(
-		  cmnt_store, &iter,
-		  CMNT_COL_NAME, ain,
-		  CMNT_COL_COMMENT,
-		  &line_buf[3],
-		  -1 );
-
-	  /* Stop after CE card */
-	  if( strcmp(ain, "CE") == 0 )
-		break;
-
-	  /* Read a line from input file */
-	  if( load_line(line_buf, input_fp) == EOF )
-		stop( "Error reading input file\n"
-			"Unexpected EOF (End of File)", 1 );
-
-	  /* Separate card's id mnemonic */
-	  strncpy( ain, line_buf, 2 );
-	  ain[2] = '\0';
-
-	  /* Get new row if available */
-	  ret = gtk_tree_model_iter_next(
-		  GTK_TREE_MODEL(cmnt_store), &iter);
-
-	} /* while( strcmp(ain, "CM") == 0 ) */
-
-	/* No "ce" card at end of comments */
-	if( strcmp(ain, "CE") != 0 )
-	{
-	  stop( "No CE card at end of Comments\n"
-		  "Appending a default CE card", 0 );
-
-	  /* Append a default CE card */
-	  gtk_list_store_append( cmnt_store, &iter );
+		  cmnd_store, &iter, idx, si[idx-CMND_COL_I1], -1 );
+	for( idx = CMND_COL_F1; idx <= CMND_COL_F6; idx++ )
 	  gtk_list_store_set(
-		  cmnt_store, &iter,
-		  CMNT_COL_NAME, "CE",
-		  CMNT_COL_COMMENT,
-		  "End Comments", -1 );
+		  cmnd_store, &iter, idx, sf[idx-CMND_COL_F1], -1 );
 
-	  /* Return to start of last line */
-	  fseek( input_fp, (long)(-strlen(line_buf)-1), SEEK_CUR );
+	/* Get new row if available */
+	ret = gtk_tree_model_iter_next(
+		GTK_TREE_MODEL(cmnd_store), &iter);
+  }
+  while( strcmp(ain, "EN") != 0 );
 
-	} /* if( strcmp(ain, "CE") != 0 ) */
-
-	/*** Read geometry ***/
-	/* Check that store is empty */
-	ret = gtk_tree_model_get_iter_first(
-		GTK_TREE_MODEL(geom_store), &iter );
-	do
-	{
-	  /* Read a geometry card */
-	  readgm(
-		  ain, &iv[0], &iv[1],
-		  &fv[0], &fv[1], &fv[2], &fv[3],
-		  &fv[4], &fv[5], &fv[6], 0 );
-
-	  /* Abort if mnemonic invalid */
-	  if( strlen(ain) < 2 ) return(0);
-
-	  /* Ignore in-data (NEC4 style) comments */
-	  if( strcmp(ain, "CM") == 0 ) continue;
-
-	  /* Format card data and print to string */
-	  snprintf( si[0], 6, "%5d",  iv[0] );
-	  snprintf( si[1], 6, "%5d ", iv[1] );
-	  for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
-		snprintf( sf[idx-GEOM_COL_F1], 13,
-			"%12.5E", (double)fv[idx-GEOM_COL_F1] );
-
-	  /* Append a comment row and fill in text if opening call */
-	  if( !ret )
-		gtk_list_store_append( geom_store, &iter );
-
-	  /* Set data to list store */
-	  gtk_list_store_set(
-		  geom_store, &iter, GEOM_COL_NAME, ain, -1 );
-	  for( idx = GEOM_COL_I1; idx <= GEOM_COL_I2; idx++ )
-		gtk_list_store_set(
-			geom_store, &iter, idx, si[idx-GEOM_COL_I1], -1 );
-	  for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
-		gtk_list_store_set(
-			geom_store, &iter, idx, sf[idx-GEOM_COL_F1], -1 );
-
-	  /* Get new row if available */
-	  ret = gtk_tree_model_iter_next(
-		  GTK_TREE_MODEL(geom_store), &iter);
-	}
-	while( strcmp(ain, "GE") != 0 );
-
-	/*** Read Commands ***/
-	/* Check that store is empty */
-	ret = gtk_tree_model_get_iter_first(
-		GTK_TREE_MODEL(cmnd_store), &iter );
-	do
-	{
-	  /* Read a command card */
-	  readmn(
-		  ain, &iv[0], &iv[1], &iv[2], &iv[3], &fv[0],
-		  &fv[1], &fv[2], &fv[3], &fv[4], &fv[5], 0 );
-
-	  /* Abort if command mnemonic invalid */
-	  if( strlen(ain) < 2 ) return(0);
-
-	  /* Ignore in-data (NEC4 style) comments */
-	  if( strcmp(ain, "CM") == 0 ) continue;
-
-	  /* Format card data and print to string */
-	  for( idx = CMND_COL_I1; idx < CMND_COL_I4; idx++ )
-		snprintf( si[idx-CMND_COL_I1], 6, "%5d", iv[idx-CMND_COL_I1] );
-	  /* For alignment of data printed to NEC2 file */
-	  snprintf( si[idx-CMND_COL_I1], 7, " %5d", iv[idx-CMND_COL_I1] );
-	  for( idx = CMND_COL_F1; idx <= CMND_COL_F6; idx++ )
-		snprintf( sf[idx-CMND_COL_F1], 13,
-			"%12.5E", (double)fv[idx-CMND_COL_F1] );
-
-	  /* Append a command row and fill in text if opening call */
-	  if( !ret )
-		gtk_list_store_append( cmnd_store, &iter );
-
-	  /* Set data to list store */
-	  gtk_list_store_set(
-		  cmnd_store, &iter, CMND_COL_NAME, ain, -1 );
-	  for( idx = CMND_COL_I1; idx <= CMND_COL_I4; idx++ )
-		gtk_list_store_set(
-			cmnd_store, &iter, idx, si[idx-CMND_COL_I1], -1 );
-	  for( idx = CMND_COL_F1; idx <= CMND_COL_F6; idx++ )
-		gtk_list_store_set(
-			cmnd_store, &iter, idx, sf[idx-CMND_COL_F1], -1 );
-
-	  /* Get new row if available */
-	  ret = gtk_tree_model_iter_next(
-		  GTK_TREE_MODEL(cmnd_store), &iter);
-	}
-	while( strcmp(ain, "EN") != 0 );
-
-  } /* End else of if( input_fp == NULL ) */
-
-  SetFlag( NEC2_SAVE );
-  return(0);
-
-} /* Nec2_Input_File_Treeview() */
+} /* List_Commands() */
 
 /*------------------------------------------------------------------------*/
 
 /* Inserts columns in a list store */
-void
-Insert_Columns(
-	GtkWidget *window, gchar *treeview,
+  void
+Insert_Columns(	GtkWidget *window, gchar *treeview,
 	GtkListStore* store, int ncols, char *colname[] )
 {
   int idx;
@@ -508,7 +564,7 @@ Insert_Columns(
  *
  * Text cell edited callback
  */
-void
+  void
 cell_edited_callback(
 	GtkCellRendererText *cell,
 	gchar               *path_string,
@@ -560,8 +616,11 @@ Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
   GtkTreeView *tree_view;
 
 
+  /* Abort if editor window is not opened */
+  if( nec2_edit_window == NULL ) return;
+
   /* Open NEC2 input file for writing */
-  Open_File( &nec2_fp, nec2_file, "w" );
+  if( !Open_File(&nec2_fp, nec2_file, "w") ) return;
 
   /* Save comments to file */
   tree_view = GTK_TREE_VIEW( lookup_widget(
@@ -578,6 +637,7 @@ Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
 		treeview_window, "nec2_cmnd_treeview") );
   Save_Treeview_Data( tree_view, CMND_NUM_COLS, nec2_fp );
 
+  /* Re-open file in read mode */
   Close_File( &nec2_fp );
 
 } /* Save_Nec2_Input_File() */
@@ -596,6 +656,13 @@ Save_Treeview_Data( GtkTreeView *tree_view, int ncols, FILE *nec2_fp )
   gboolean valid;
   int idx;
 
+  /* Abort if no open file to sane to */
+  if( nec2_fp == NULL )
+  {
+	stop( "Cannot save treeview data\n"
+		"Please use the Save button\n"
+		"to specify a file path", ERR_STOP );
+  }
 
   /* Get the first iter in the list */
   list_store = GTK_TREE_MODEL( gtk_tree_view_get_model(tree_view) );
@@ -618,7 +685,7 @@ Save_Treeview_Data( GtkTreeView *tree_view, int ncols, FILE *nec2_fp )
 	fprintf( nec2_fp, "\n" );
 
 	valid = gtk_tree_model_iter_next( list_store, &iter );
-  }
+  } /* while( valid ) */
 
 } /* Save_Treeview_Data() */
 

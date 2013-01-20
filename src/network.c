@@ -42,7 +42,7 @@
 
  ***********************************************************************/
 
-#include "xnec2c.h"
+#include "network.h"
 
 /* common  /crnt/ */
 crnt_t crnt;
@@ -73,16 +73,12 @@ extern FILE *input_fp;
 void netwk( complex long double *cm, int *ip, complex long double *einc )
 {
   int *ipnt = NULL, *nteqa = NULL, *ntsca = NULL;
-  int jump1, jump2, nteq=0, ntsc=0, nseg2, irow2=0, j, ndimn;
-  int neqz2, neqt, irow1=0, i, nseg1, isc1=0, isc2=0;
-  long double asmx, pwr, y11r, y11i, y12r, y12i, y22r, y22i;
+  int nteq=0, ntsc=0, j, ndimn;
+  int neqt, irow1=0, i, isc1=0;
+  long double pwr;
   complex long double *vsrc = NULL, *rhs = NULL, *cmn = NULL;
   complex long double *rhnt = NULL, *rhnx = NULL, ymit, vlt, cux;
   size_t mreq;
-
-  neqz2= netcx.neq2;
-  if( neqz2 == 0)
-	neqz2=1;
 
   netcx.pin=0.0l;
   netcx.pnls=0.0l;
@@ -92,8 +88,8 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
   /* Allocate network buffers */
   if( netcx.nonet > 0 )
   {
-	mem_alloc( (void *)&rhs, data.np3m *
-		sizeof(complex long double), "in network.c");
+	mreq = data.np3m * sizeof(complex long double);
+	mem_alloc( (void *)&rhs, mreq, "in network.c");
 
 	mreq = j * sizeof(complex long double);
 	mem_alloc( (void *)&rhnt, mreq, "in network.c");
@@ -105,8 +101,8 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 	mem_alloc( (void *)&nteqa, mreq, "in network.c");
 	mem_alloc( (void *)&ipnt,  mreq, "in network.c");
 
-	mem_alloc( (void *)&vsrc, vsorc.nsant *
-		sizeof(complex long double), "in network.c");
+	mreq = vsorc.nsant * sizeof(complex long double);
+	mem_alloc( (void *)&vsrc, mreq, "in network.c");
   }
   else
 	if( netcx.masym != 0)
@@ -120,6 +116,8 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 
   if( netcx.ntsol == 0)
   {
+	int nseg1;
+
 	/* compute relative matrix asymmetry */
 	if( netcx.masym != 0)
 	{
@@ -185,6 +183,8 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 
 	  if( irow1 >= 2)
 	  {
+		long double asmx;
+
 		for( i = 0; i < irow1; i++ )
 		{
 		  isc1= ipnt[i]-1;
@@ -248,6 +248,9 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 
 	  for( j = 0; j < netcx.nonet; j++ )
 	  {
+		int  jump1, jump2, nseg2, isc2, irow2;
+		long double y11r, y11i, y12r, y12i, y22r, y22i;
+
 		nseg1= netcx.iseg1[j];
 		nseg2= netcx.iseg2[j];
 
@@ -266,15 +269,15 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 		  y12r=0.0l;
 		  y12i=1.0l/( netcx.x11r[j]* sinl( y22r));
 		  y11r= netcx.x12r[j];
-		  y11i=- y12i* cosl( y22r);
+		  y11i= -y12i* cosl( y22r);
 		  y22r= netcx.x22r[j];
 		  y22i= y11i+ netcx.x22i[j];
 		  y11i= y11i+ netcx.x12i[j];
 
 		  if( netcx.ntyp[j] != 2)
 		  {
-			y12r=- y12r;
-			y12i=- y12i;
+			y12r= -y12r;
+			y12i= -y12i;
 		  }
 
 		} /* if( netcx.ntyp[j] <= 1) */
@@ -505,9 +508,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 	  irow1= nteqa[i]-1;
 	  vlt= rhnt[i]* data.si[irow1]* data.wlam;
 	  cux= einc[irow1]* data.wlam;
-	  ymit= cux/ vlt;
 	  netcx.zped= vlt/ cux;
-	  irow2= data.itag[irow1];
 	  pwr=.5l* creall( vlt* conjl( cux));
 	  netcx.pnls= netcx.pnls- pwr;
 	}
@@ -519,9 +520,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 		irow1= ntsca[i]-1;
 		vlt= vsrc[i];
 		cux= einc[irow1]* data.wlam;
-		ymit= cux/ vlt;
 		netcx.zped= vlt/ cux;
-		irow2= data.itag[irow1];
 		pwr=.5l* creall( vlt* conjl( cux));
 		netcx.pnls= netcx.pnls- pwr;
 	  } /* for( i = 0; i < ntsc; i++ ) */
@@ -579,15 +578,12 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 
 	  } /* if( ntsc == 0) */
 
-	  ymit= cux/ vlt;
 	  netcx.zped= vlt/ cux;
 	  pwr=.5l* creall( vlt* conjl( cux));
 	  netcx.pin= netcx.pin+ pwr;
 
 	  if( irow1 != 0)
 		netcx.pnls= netcx.pnls+ pwr;
-
-	  irow2= data.itag[isc1];
 	} /* for( i = 0; i < vsorc.nsant; i++ ) */
 
   } /* if( vsorc.nsant != 0) */
@@ -603,11 +599,9 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 	  pwr= data.si[isc1]* TP*.5l;
 	  cux=( cux- ymit* sinl( pwr) +
 		  netcx.zped* cosl( pwr))* data.wlam;
-	  ymit= cux/ vlt;
 	  netcx.zped= vlt/ cux;
 	  pwr=.5l* creall( vlt* conjl( cux));
 	  netcx.pin= netcx.pin+ pwr;
-	  irow2= data.itag[isc1];
 	} /* for( i = 0; i < vsorc.nvqd; i++ ) */
 
   /* Free network buffers */
@@ -627,7 +621,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 
 /* load calculates the impedance of specified */
 /* segments for various types of loading */
-  int
+  void
 load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 	long double *zlr, long double *zli, long double *zlc )
 {
@@ -652,13 +646,12 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 	if( istep > zload.nload)
 	{
 	  smat.nop = data.n/data.np;
-	  if( smat.nop == 1)
-		return(0);
+	  if( smat.nop == 1) return;
 
 	  for( i = 0; i < data.np; i++ )
 	  {
-		zt= zload.zarray[i];
-		l1= i;
+		zt = zload.zarray[i];
+		l1 = i;
 
 		for( l2 = 1; l2 < smat.nop; l2++ )
 		{
@@ -666,16 +659,16 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 		  zload.zarray[l1]= zt;
 		}
 	  }
-	  return(0);
 
+	  return;
 	} /* if( istep > zload.nload) */
 
 	if( ldtyp[istepx] > 5 )
 	{
 	  fprintf( stderr,
-		  "xnec2c: improper load type chosen,"
+		  "xnec2c: load(): improper load type chosen,"
 		  " requested type is %d\n", ldtyp[istepx] );
-	  stop( "Improper load type chosen", 1 );
+	  stop( "load(): Improper load type chose", ERR_STOP );
 	}
 
 	/* search segments for proper itags */
@@ -761,21 +754,20 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 	  } /* switch( jump ) */
 
 	  zload.zarray[i] += zt;
-
 	} /* for( i = l1-1; i < l2; i++ ) */
 
 	if( ichk == 0 )
 	{
 	  fprintf( stderr,
-		  "xnec2c: loading data card error,"
+		  "xnec2c: load(): loading data card error,"
 		  " no segment has an itag = %d\n", ldtags );
-	  stop( "Loading data card\n"
-		  "Tag number mismatch error", 1 );
+	  stop( "load(): Loading data card\n"
+			"Tag number mismatch error", ERR_STOP );
 	}
 
   } /* while( TRUE ) */
 
-  return(0);
+  return;
 }
 
 /*-----------------------------------------------------------------------*/

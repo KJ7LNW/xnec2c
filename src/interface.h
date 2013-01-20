@@ -8,7 +8,6 @@ GtkWidget* create_fileselection (void);
 GtkWidget* create_freqplots_window (void);
 GtkWidget* create_rdpattern_window (void);
 GtkWidget* create_quit_dialog (void);
-GtkWidget* create_open_dialog (void);
 GtkWidget* create_error_dialog (void);
 GtkWidget* create_animate_dialog (void);
 GtkWidget* create_nec2_editor (void);

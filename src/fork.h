@@ -17,11 +17,16 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifndef	FORK_H
+#define	FORK_H		1
+
+#include "common.h"
+
 /* Parent/child commands */
 #define FORK_CMNDS { "inpfile", "frqdata", "nearehf" }
 
 /* Indices for parent/child commands */
-enum
+enum P2CH_COMND
 {
   INFILE = 0,
   FRQDATA,
@@ -29,3 +34,10 @@ enum
   NUM_FKCMNDS
 };
 
+/* Near Field select flags */
+#define E_HFIELD	0x01
+#define SNAPSHOT	0x02
+#define EFIELD		0x04
+#define HFIELD		0x08
+
+#endif

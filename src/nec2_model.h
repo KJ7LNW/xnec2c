@@ -18,13 +18,19 @@
  */
 
 #ifndef	NEC2_MODEL_H
-#define	NEC2_MODEL_H 1
+#define	NEC2_MODEL_H	1
 
-enum
+#include "common.h"
+#include "interface.h"
+#include "support.h"
+#include "editors.h"
+
+/* Commands for the NEC2 file editor */
+enum NEC2_CMND
 {
   NEC2_EDITOR_NEW = 0,
   NEC2_EDITOR_REVERT,
-  NEC2_EDITOR_SAVE
+  NEC2_EDITOR_RELOAD
 };
 
 #endif

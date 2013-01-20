@@ -22,10 +22,7 @@
  * Structure/Geometry editor functions for xnec2c
  */
 
-#include "xnec2c.h"
-#include "interface.h"
-#include "support.h"
-#include "editors.h"
+#include "geom_edit.h"
 
 /* Global tag number for geometry editors */
 gint gbl_tag_num = 0;
@@ -223,11 +220,11 @@ Wire_Editor( int action )
 		  /* Warn user if wire radius not 0 */
 		  if( fv[WIRE_DIA] != 0.0 )
 			stop( "GC card preceded by GW card\n"
-				"with non-zero wire radius", 0 );
+				  "with non-zero wire radius", ERR_OK );
 
 		} /* if( strcmp(name, "GC") == 0 ) */
 		else
-		  stop( "No GW card before GC card", 0 );
+		  stop( "No GW card before GC card", ERR_OK );
 	  }
 	  else /*** Editing a GW card ***/
 	  {
@@ -251,13 +248,13 @@ Wire_Editor( int action )
 		  }
 		  else
 			stop( "No GC card after a GW card\n"
-				"with a zero wire radius", 0 );
+				  "with a zero wire radius", ERR_OK );
 
 		} /* if( fv[WIRE_DIA] == 0.0 ) */
 		else /* If radius != 0, next card should not be GC */
 		  if( Check_Card_Name(geom_store, &iter_gc, NEXT, "GC") )
 			stop( "GC card follows a GW card\n"
-				"with non-zero wire radius", 0 );
+				  "with non-zero wire radius", ERR_OK );
 
 	  } /* if( strcmp(name, "GC") == 0 ) */
 	  break;
@@ -620,7 +617,7 @@ Patch_Editor( int action )
 		   * patch is followed by an SC card */
 		  if( ptype == PATCH_ARBT )
 			stop( "SC card preceded by SP card\n"
-				"with arbitary patch type", 0 );
+				  "with arbitary patch type", ERR_OK );
 
 		} /* if( Check_Card_Name(geom_store, &iter_sp, PREVIOUS, "SP") ) */
 		else /* Look for a previous SM card */
@@ -632,7 +629,7 @@ Patch_Editor( int action )
 			ptype = PATCH_SURF;
 		  }
 		  else
-			stop( "No SP or SM card before SC card", 0 );
+			stop( "No SP or SM card before SC card", ERR_OK );
 		}
 	  } /* if( strcmp(name, "SC") == 0 ) */
 	  else
@@ -654,14 +651,14 @@ Patch_Editor( int action )
 			{
 			  ptype = PATCH_ARBT;
 			  stop( "No SC card after an SP card\n"
-				  "with non-arbitary patch type", 0 );
+					"with non-arbitary patch type", ERR_OK );
 			}
 
 		  } /* if( ptype != PATCH_ARBT ) */
 		  else /* If patch type arbitary, no SC card should follow */
 			if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
 			  stop( "SC card follows an SP card\n"
-				  "with arbitary patch type", 0 );
+					"with arbitary patch type", ERR_OK );
 		} /* if( strcmp(name, "SP") == 0 ) */
 		else /* SM card */
 		{
@@ -674,7 +671,7 @@ Patch_Editor( int action )
 			Get_Geometry_Data( geom_store, &iter_sc,
 				&iv[SPIN_COL_I3], &fv[PATCH_X3] );
 		  else
-			stop( "No SC card after an SM card", 0 );
+			stop( "No SC card after an SM card", ERR_OK );
 
 		} /* if( strcmp(name, "SP") == 0 ) */
 
@@ -1555,7 +1552,7 @@ Scale_Editor( int action )
 	  }
 	  else
 		stop( "Error reading row data\n"
-			"Invalid list iterator", 0 );
+			  "Invalid list iterator", ERR_OK );
 
 	  /* Enter tag from-to data to scale editor */
 	  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
@@ -1914,7 +1911,7 @@ Gend_Editor( int action )
 	  }
 	  else
 		stop( "Error reading row data\n"
-			"Invalid list iterator", 0 );
+			  "Invalid list iterator", ERR_OK );
 	  break;
 
 	case EDITOR_CANCEL: /* Cancel transform editor */
@@ -2004,7 +2001,7 @@ Get_Geometry_Data(
   }
   else
 	stop( "Error reading row data\n"
-		"Invalid list iterator", 0 );
+		  "Invalid list iterator", ERR_OK );
 
 } /* Get_Geometry_Data() */
 
@@ -2034,7 +2031,7 @@ Get_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
   }
   else
 	stop( "Error reading row data\n"
-		"Invalid list iterator", 0 );
+		  "Invalid list iterator", ERR_OK );
 
 } /* Get_Geometry_Int_Data() */
 
@@ -2071,7 +2068,7 @@ Set_Geometry_Data(
   }
   else
 	stop( "Error writing row data\n"
-		"Please re-select row", 0 );
+		  "Please re-select row", ERR_OK );
 
   SetFlag( NEC2_EDIT_SAVE );
 
@@ -2105,7 +2102,7 @@ Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
   }
   else
 	stop( "Error writing row data\n"
-		"Please re-select row", 0 );
+		  "Please re-select row", ERR_OK );
 
   SetFlag( NEC2_EDIT_SAVE );
 
@@ -2174,7 +2171,7 @@ Give_Up( int *busy, GtkWidget *widget )
   /* Abort if NEC2 editor window is closed */
   if( nec2_edit_window == NULL )
   {
-	stop( "NEC2 editor window not open", 0 );
+	stop( "NEC2 editor window not open", ERR_OK );
 	gtk_widget_destroy( widget );
 	*busy = FALSE;
 	return( TRUE );

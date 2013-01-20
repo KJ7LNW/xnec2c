@@ -38,9 +38,10 @@ create_main_window (void)
   GtkWidget *main_new;
   GtkWidget *main_open_input;
   GtkWidget *nec2_edit;
-  GtkWidget *image68;
   GtkWidget *main_save;
   GtkWidget *main_save_as;
+  GtkWidget *struct_save_as_gnuplot;
+  GtkWidget *image102;
   GtkWidget *separator1;
   GtkWidget *main_quit;
   GtkWidget *main_view_menuitem;
@@ -60,23 +61,12 @@ create_main_window (void)
   GtkWidget *menuitem4;
   GtkWidget *menuitem4_menu;
   GtkWidget *about;
-  GtkWidget *image69;
+  GtkWidget *image103;
   GtkWidget *main_hbox1;
-  GtkWidget *main_x_axis;
-  GtkWidget *main_y_axis;
-  GtkWidget *main_z_axis;
-  GtkWidget *main_default_view;
-  GtkWidget *image32;
-  GtkWidget *vseparator1;
-  GtkWidget *image50;
-  GtkObject *main_rotate_spinbutton_adj;
-  GtkWidget *main_rotate_spinbutton;
-  GtkWidget *image51;
-  GtkObject *main_incline_spinbutton_adj;
-  GtkWidget *main_incline_spinbutton;
   GtkWidget *vseparator2;
   GtkWidget *main_currents_togglebutton;
   GtkWidget *main_charges_togglebutton;
+  GtkWidget *vseparator7;
   GtkWidget *label214;
   GtkWidget *main_loop_start;
   GtkWidget *alignment49;
@@ -87,6 +77,8 @@ create_main_window (void)
   GtkWidget *image54;
   GtkWidget *main_loop_reset;
   GtkWidget *image53;
+  GtkWidget *label244;
+  GtkWidget *structure_fstep_entry;
   GtkWidget *hseparator1;
   GtkWidget *main_hbox2;
   GtkWidget *main_colorcode_zerolabel;
@@ -100,10 +92,33 @@ create_main_window (void)
   GtkWidget *main_freq_checkbutton;
   GtkWidget *main_new_freq_button;
   GtkWidget *image46;
+  GtkWidget *hseparator11;
   GtkWidget *frame1;
   GtkWidget *alignment1;
   GtkWidget *structure_drawingarea;
+  GtkWidget *main_hbox3;
   GtkWidget *struct_label;
+  GtkWidget *main_x_axis;
+  GtkWidget *main_y_axis;
+  GtkWidget *main_z_axis;
+  GtkWidget *main_default_view;
+  GtkWidget *image32;
+  GtkWidget *vseparator1;
+  GtkWidget *image50;
+  GtkObject *main_rotate_spinbutton_adj;
+  GtkWidget *main_rotate_spinbutton;
+  GtkWidget *image51;
+  GtkObject *main_incline_spinbutton_adj;
+  GtkWidget *main_incline_spinbutton;
+  GtkWidget *label245;
+  GtkObject *structure_zoom_spinbutton_adj;
+  GtkWidget *structure_zoom_spinbutton;
+  GtkWidget *structure_plus_button;
+  GtkWidget *image94;
+  GtkWidget *structure_minus_button;
+  GtkWidget *image95;
+  GtkWidget *structure_one_button;
+  GtkWidget *image96;
   GtkAccelGroup *accel_group;
   GtkTooltips *tooltips;
 
@@ -143,17 +158,10 @@ create_main_window (void)
   gtk_widget_show (main_open_input);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), main_open_input);
 
-  nec2_edit = gtk_image_menu_item_new_with_mnemonic (_("Edit"));
+  nec2_edit = gtk_image_menu_item_new_from_stock ("gtk-edit", accel_group);
   gtk_widget_show (nec2_edit);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), nec2_edit);
   gtk_tooltips_set_tip (tooltips, nec2_edit, _("Edit NEC2 Input File"), NULL);
-  gtk_widget_add_accelerator (nec2_edit, "activate", accel_group,
-                              GDK_E, (GdkModifierType) GDK_CONTROL_MASK,
-                              GTK_ACCEL_VISIBLE);
-
-  image68 = gtk_image_new_from_stock ("gtk-edit", GTK_ICON_SIZE_MENU);
-  gtk_widget_show (image68);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (nec2_edit), image68);
 
   main_save = gtk_image_menu_item_new_from_stock ("gtk-save", accel_group);
   gtk_widget_show (main_save);
@@ -162,6 +170,14 @@ create_main_window (void)
   main_save_as = gtk_image_menu_item_new_from_stock ("gtk-save-as", accel_group);
   gtk_widget_show (main_save_as);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), main_save_as);
+
+  struct_save_as_gnuplot = gtk_image_menu_item_new_with_mnemonic (_("Save As gnuplot"));
+  gtk_widget_show (struct_save_as_gnuplot);
+  gtk_container_add (GTK_CONTAINER (menuitem1_menu), struct_save_as_gnuplot);
+
+  image102 = gtk_image_new_from_stock ("gtk-save-as", GTK_ICON_SIZE_MENU);
+  gtk_widget_show (image102);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (struct_save_as_gnuplot), image102);
 
   separator1 = gtk_separator_menu_item_new ();
   gtk_widget_show (separator1);
@@ -251,90 +267,36 @@ create_main_window (void)
   gtk_widget_show (about);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), about);
 
-  image69 = gtk_image_new_from_stock ("gtk-about", GTK_ICON_SIZE_MENU);
-  gtk_widget_show (image69);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about), image69);
+  image103 = gtk_image_new_from_stock ("gtk-about", GTK_ICON_SIZE_MENU);
+  gtk_widget_show (image103);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about), image103);
 
   main_hbox1 = gtk_hbox_new (FALSE, 0);
   gtk_widget_show (main_hbox1);
   gtk_box_pack_start (GTK_BOX (hbox8), main_hbox1, FALSE, FALSE, 0);
 
-  main_x_axis = gtk_button_new_with_mnemonic (_("X"));
-  gtk_widget_show (main_x_axis);
-  gtk_box_pack_start (GTK_BOX (main_hbox1), main_x_axis, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, main_x_axis, _("View structure along X-axis"), NULL);
-  gtk_widget_add_accelerator (main_x_axis, "clicked", accel_group,
-                              GDK_X, (GdkModifierType) 0,
-                              GTK_ACCEL_VISIBLE);
-
-  main_y_axis = gtk_button_new_with_mnemonic (_("Y"));
-  gtk_widget_show (main_y_axis);
-  gtk_box_pack_start (GTK_BOX (main_hbox1), main_y_axis, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, main_y_axis, _("View structure along Y-axis"), NULL);
-  gtk_widget_add_accelerator (main_y_axis, "clicked", accel_group,
-                              GDK_Y, (GdkModifierType) 0,
-                              GTK_ACCEL_VISIBLE);
-
-  main_z_axis = gtk_button_new_with_mnemonic (_("Z"));
-  gtk_widget_show (main_z_axis);
-  gtk_box_pack_start (GTK_BOX (main_hbox1), main_z_axis, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, main_z_axis, _("View strucure along Z-axis"), NULL);
-  gtk_widget_add_accelerator (main_z_axis, "clicked", accel_group,
-                              GDK_Z, (GdkModifierType) 0,
-                              GTK_ACCEL_VISIBLE);
-
-  main_default_view = gtk_button_new ();
-  gtk_widget_show (main_default_view);
-  gtk_box_pack_start (GTK_BOX (main_hbox1), main_default_view, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, main_default_view, _("View strucure in default projection"), NULL);
-
-  image32 = gtk_image_new_from_stock ("gtk-redo", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image32);
-  gtk_container_add (GTK_CONTAINER (main_default_view), image32);
-
-  vseparator1 = gtk_vseparator_new ();
-  gtk_widget_show (vseparator1);
-  gtk_box_pack_start (GTK_BOX (main_hbox1), vseparator1, TRUE, TRUE, 4);
-
-  image50 = gtk_image_new_from_stock ("gtk-refresh", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image50);
-  gtk_box_pack_start (GTK_BOX (main_hbox1), image50, TRUE, TRUE, 0);
-
-  main_rotate_spinbutton_adj = gtk_adjustment_new (0, -360, 360, 1, 10, 0);
-  main_rotate_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (main_rotate_spinbutton_adj), 1, 0);
-  gtk_widget_show (main_rotate_spinbutton);
-  gtk_box_pack_start (GTK_BOX (main_hbox1), main_rotate_spinbutton, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, main_rotate_spinbutton, _("Rotate structure around Z-axis"), NULL);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (main_rotate_spinbutton), TRUE);
-
-  image51 = gtk_image_new_from_stock ("gtk-go-down", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image51);
-  gtk_box_pack_start (GTK_BOX (main_hbox1), image51, TRUE, TRUE, 0);
-
-  main_incline_spinbutton_adj = gtk_adjustment_new (0, -180, 180, 1, 10, 0);
-  main_incline_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (main_incline_spinbutton_adj), 1, 0);
-  gtk_widget_show (main_incline_spinbutton);
-  gtk_box_pack_start (GTK_BOX (main_hbox1), main_incline_spinbutton, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, main_incline_spinbutton, _("Incline structure to plane of screen"), NULL);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (main_incline_spinbutton), TRUE);
-
   vseparator2 = gtk_vseparator_new ();
   gtk_widget_show (vseparator2);
-  gtk_box_pack_start (GTK_BOX (main_hbox1), vseparator2, TRUE, TRUE, 4);
+  gtk_box_pack_start (GTK_BOX (main_hbox1), vseparator2, FALSE, FALSE, 4);
 
-  main_currents_togglebutton = gtk_toggle_button_new_with_mnemonic (_("Cur"));
+  main_currents_togglebutton = gtk_toggle_button_new_with_mnemonic (_("Currents"));
   gtk_widget_show (main_currents_togglebutton);
   gtk_box_pack_start (GTK_BOX (main_hbox1), main_currents_togglebutton, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, main_currents_togglebutton, _("Calculate and display structure currents"), NULL);
+  gtk_tooltips_set_tip (tooltips, main_currents_togglebutton, _("Calculate and Display\nStructure Currents"), NULL);
 
-  main_charges_togglebutton = gtk_toggle_button_new_with_mnemonic (_("Chg"));
+  main_charges_togglebutton = gtk_toggle_button_new_with_mnemonic (_("Charges"));
   gtk_widget_show (main_charges_togglebutton);
   gtk_box_pack_start (GTK_BOX (main_hbox1), main_charges_togglebutton, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, main_charges_togglebutton, _("Calculate and display charge densities"), NULL);
+  gtk_tooltips_set_tip (tooltips, main_charges_togglebutton, _("Calculate and Display\nCharge Densities"), NULL);
 
-  label214 = gtk_label_new (_("  Loop "));
+  vseparator7 = gtk_vseparator_new ();
+  gtk_widget_show (vseparator7);
+  gtk_box_pack_start (GTK_BOX (main_hbox1), vseparator7, TRUE, TRUE, 4);
+
+  label214 = gtk_label_new (_("Frequency Loop "));
   gtk_widget_show (label214);
   gtk_box_pack_start (GTK_BOX (main_hbox1), label214, FALSE, FALSE, 0);
+  gtk_label_set_single_line_mode (GTK_LABEL (label214), TRUE);
 
   main_loop_start = gtk_button_new ();
   gtk_widget_show (main_loop_start);
@@ -361,6 +323,9 @@ create_main_window (void)
   gtk_widget_show (main_loop_pause);
   gtk_box_pack_start (GTK_BOX (main_hbox1), main_loop_pause, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, main_loop_pause, _("Pause Frequency Loop"), NULL);
+  gtk_widget_add_accelerator (main_loop_pause, "clicked", accel_group,
+                              GDK_h, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
 
   image54 = gtk_image_new_from_stock ("gtk-media-pause", GTK_ICON_SIZE_BUTTON);
   gtk_widget_show (image54);
@@ -370,10 +335,28 @@ create_main_window (void)
   gtk_widget_show (main_loop_reset);
   gtk_box_pack_start (GTK_BOX (main_hbox1), main_loop_reset, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, main_loop_reset, _("Reset Frequency Loop"), NULL);
+  gtk_widget_add_accelerator (main_loop_reset, "clicked", accel_group,
+                              GDK_r, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
 
   image53 = gtk_image_new_from_stock ("gtk-media-rewind", GTK_ICON_SIZE_BUTTON);
   gtk_widget_show (image53);
   gtk_container_add (GTK_CONTAINER (main_loop_reset), image53);
+
+  label244 = gtk_label_new (_(" Step "));
+  gtk_widget_show (label244);
+  gtk_box_pack_start (GTK_BOX (main_hbox1), label244, FALSE, FALSE, 0);
+  gtk_label_set_single_line_mode (GTK_LABEL (label244), TRUE);
+
+  structure_fstep_entry = gtk_entry_new ();
+  gtk_widget_show (structure_fstep_entry);
+  gtk_box_pack_start (GTK_BOX (main_hbox1), structure_fstep_entry, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, structure_fstep_entry, _("Current Frequency Step"), NULL);
+  gtk_entry_set_max_length (GTK_ENTRY (structure_fstep_entry), 3);
+  gtk_editable_set_editable (GTK_EDITABLE (structure_fstep_entry), FALSE);
+  gtk_entry_set_text (GTK_ENTRY (structure_fstep_entry), _("1"));
+  gtk_entry_set_invisible_char (GTK_ENTRY (structure_fstep_entry), 9679);
+  gtk_entry_set_width_chars (GTK_ENTRY (structure_fstep_entry), 3);
 
   hseparator1 = gtk_hseparator_new ();
   gtk_widget_show (hseparator1);
@@ -382,62 +365,71 @@ create_main_window (void)
   main_hbox2 = gtk_hbox_new (FALSE, 0);
   gtk_widget_show (main_hbox2);
   gtk_box_pack_start (GTK_BOX (vbox1), main_hbox2, FALSE, FALSE, 0);
+  gtk_widget_set_size_request (main_hbox2, -1, 30);
 
   main_colorcode_zerolabel = gtk_label_new (_("0"));
   gtk_widget_show (main_colorcode_zerolabel);
   gtk_box_pack_start (GTK_BOX (main_hbox2), main_colorcode_zerolabel, FALSE, FALSE, 2);
-  gtk_misc_set_padding (GTK_MISC (main_colorcode_zerolabel), 2, 0);
+  gtk_label_set_width_chars (GTK_LABEL (main_colorcode_zerolabel), 1);
 
   main_colorcode_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (main_colorcode_drawingarea);
-  gtk_box_pack_start (GTK_BOX (main_hbox2), main_colorcode_drawingarea, FALSE, FALSE, 1);
-  gtk_widget_set_size_request (main_colorcode_drawingarea, 160, 28);
-  gtk_tooltips_set_tip (tooltips, main_colorcode_drawingarea, _("Color code for Structure Current or Charge Density values"), NULL);
+  gtk_box_pack_start (GTK_BOX (main_hbox2), main_colorcode_drawingarea, FALSE, FALSE, 0);
+  gtk_widget_set_size_request (main_colorcode_drawingarea, 160, -1);
+  gtk_tooltips_set_tip (tooltips, main_colorcode_drawingarea, _("Color Code for Structure's\nCurrent or Charge Values"), NULL);
 
   main_colorcode_maxlabel = gtk_label_new (_("0.00"));
   gtk_widget_show (main_colorcode_maxlabel);
-  gtk_box_pack_start (GTK_BOX (main_hbox2), main_colorcode_maxlabel, FALSE, FALSE, 1);
+  gtk_box_pack_start (GTK_BOX (main_hbox2), main_colorcode_maxlabel, FALSE, FALSE, 0);
   gtk_misc_set_alignment (GTK_MISC (main_colorcode_maxlabel), 0, 0.5);
-  gtk_misc_set_padding (GTK_MISC (main_colorcode_maxlabel), 2, 0);
   gtk_label_set_width_chars (GTK_LABEL (main_colorcode_maxlabel), 11);
 
   main_gain_entry = gtk_entry_new ();
   gtk_widget_show (main_gain_entry);
-  gtk_box_pack_start (GTK_BOX (main_hbox2), main_gain_entry, FALSE, FALSE, 1);
-  gtk_tooltips_set_tip (tooltips, main_gain_entry, _("Gain in direction of Viewer\n(perpenticular to screen)"), NULL);
+  gtk_box_pack_start (GTK_BOX (main_hbox2), main_gain_entry, FALSE, FALSE, 2);
+  gtk_tooltips_set_tip (tooltips, main_gain_entry, _("Gain in Direction of Viewer\n(Perpenticular to Screen)"), NULL);
+  gtk_entry_set_text (GTK_ENTRY (main_gain_entry), _(" - - - - -"));
   gtk_entry_set_width_chars (GTK_ENTRY (main_gain_entry), 6);
 
-  label10 = gtk_label_new (_("dB"));
+  label10 = gtk_label_new (_("dB "));
   gtk_widget_show (label10);
-  gtk_box_pack_start (GTK_BOX (main_hbox2), label10, FALSE, FALSE, 1);
+  gtk_box_pack_start (GTK_BOX (main_hbox2), label10, FALSE, FALSE, 0);
+  gtk_label_set_single_line_mode (GTK_LABEL (label10), TRUE);
 
   main_freq_spinbutton_adj = gtk_adjustment_new (0.00999999977648, 0.00999999977648, 9999, 0.00999999977648, 10, 0);
-  main_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (main_freq_spinbutton_adj), 0.00999999977648, 3);
+  main_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (main_freq_spinbutton_adj), 0.0010000000475, 3);
   gtk_widget_show (main_freq_spinbutton);
-  gtk_box_pack_start (GTK_BOX (main_hbox2), main_freq_spinbutton, FALSE, FALSE, 1);
-  gtk_tooltips_set_tip (tooltips, main_freq_spinbutton, _("Enter frequency in MHz"), NULL);
+  gtk_box_pack_start (GTK_BOX (main_hbox2), main_freq_spinbutton, FALSE, FALSE, 2);
+  gtk_tooltips_set_tip (tooltips, main_freq_spinbutton, _("Enter Frequency in MHz"), NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (main_freq_spinbutton), TRUE);
-  gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (main_freq_spinbutton), GTK_UPDATE_IF_VALID);
 
-  main_freq_label = gtk_label_new (_("MHz"));
+  main_freq_label = gtk_label_new (_("MHz "));
   gtk_widget_show (main_freq_label);
-  gtk_box_pack_start (GTK_BOX (main_hbox2), main_freq_label, FALSE, FALSE, 1);
-  gtk_misc_set_padding (GTK_MISC (main_freq_label), 4, 0);
+  gtk_box_pack_start (GTK_BOX (main_hbox2), main_freq_label, FALSE, FALSE, 0);
+  gtk_label_set_single_line_mode (GTK_LABEL (main_freq_label), TRUE);
 
   main_freq_checkbutton = gtk_check_button_new_with_mnemonic (_("Apply"));
   gtk_widget_show (main_freq_checkbutton);
   gtk_box_pack_start (GTK_BOX (main_hbox2), main_freq_checkbutton, FALSE, FALSE, 2);
-  gtk_tooltips_set_tip (tooltips, main_freq_checkbutton, _("Enable data calculation on frequency change"), NULL);
+  gtk_tooltips_set_tip (tooltips, main_freq_checkbutton, _("Enable Data Calculation\non Frequency Change"), NULL);
+  gtk_button_set_focus_on_click (GTK_BUTTON (main_freq_checkbutton), FALSE);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (main_freq_checkbutton), TRUE);
 
   main_new_freq_button = gtk_button_new ();
   gtk_widget_show (main_new_freq_button);
-  gtk_box_pack_start (GTK_BOX (main_hbox2), main_new_freq_button, FALSE, FALSE, 2);
-  gtk_tooltips_set_tip (tooltips, main_new_freq_button, _("Calculate data for new frequency"), NULL);
+  gtk_box_pack_start (GTK_BOX (main_hbox2), main_new_freq_button, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, main_new_freq_button, _("Calculate Data\nfor New Frequency"), NULL);
+  gtk_widget_add_accelerator (main_new_freq_button, "clicked", accel_group,
+                              GDK_a, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
 
   image46 = gtk_image_new_from_stock ("gtk-apply", GTK_ICON_SIZE_BUTTON);
   gtk_widget_show (image46);
   gtk_container_add (GTK_CONTAINER (main_new_freq_button), image46);
+
+  hseparator11 = gtk_hseparator_new ();
+  gtk_widget_show (hseparator11);
+  gtk_box_pack_start (GTK_BOX (vbox1), hseparator11, FALSE, FALSE, 4);
 
   frame1 = gtk_frame_new (NULL);
   gtk_widget_show (frame1);
@@ -452,13 +444,121 @@ create_main_window (void)
   structure_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (structure_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment1), structure_drawingarea);
-  gtk_widget_set_size_request (structure_drawingarea, 600, 600);
+  gtk_widget_set_size_request (structure_drawingarea, 681, 681);
   GTK_WIDGET_SET_FLAGS (structure_drawingarea, GTK_CAN_FOCUS);
 
-  struct_label = gtk_label_new (_("Structure Geometry"));
+  main_hbox3 = gtk_hbox_new (FALSE, 0);
+  gtk_widget_show (main_hbox3);
+  gtk_frame_set_label_widget (GTK_FRAME (frame1), main_hbox3);
+
+  struct_label = gtk_label_new (_("View Geometry"));
   gtk_widget_show (struct_label);
-  gtk_frame_set_label_widget (GTK_FRAME (frame1), struct_label);
-  gtk_misc_set_padding (GTK_MISC (struct_label), 4, 0);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), struct_label, FALSE, FALSE, 0);
+  gtk_label_set_width_chars (GTK_LABEL (struct_label), 14);
+  gtk_label_set_single_line_mode (GTK_LABEL (struct_label), TRUE);
+
+  main_x_axis = gtk_button_new_with_mnemonic (_("X"));
+  gtk_widget_show (main_x_axis);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), main_x_axis, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, main_x_axis, _("View Structure along X-axis"), NULL);
+  gtk_widget_add_accelerator (main_x_axis, "clicked", accel_group,
+                              GDK_x, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
+
+  main_y_axis = gtk_button_new_with_mnemonic (_("Y"));
+  gtk_widget_show (main_y_axis);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), main_y_axis, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, main_y_axis, _("View Structure along Y-axis"), NULL);
+  gtk_widget_add_accelerator (main_y_axis, "clicked", accel_group,
+                              GDK_y, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
+
+  main_z_axis = gtk_button_new_with_mnemonic (_("Z"));
+  gtk_widget_show (main_z_axis);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), main_z_axis, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, main_z_axis, _("View Strucure along Z-axis"), NULL);
+  gtk_widget_add_accelerator (main_z_axis, "clicked", accel_group,
+                              GDK_z, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
+
+  main_default_view = gtk_button_new ();
+  gtk_widget_show (main_default_view);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), main_default_view, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, main_default_view, _("View Strucure\nin Default Projection"), NULL);
+  gtk_widget_add_accelerator (main_default_view, "clicked", accel_group,
+                              GDK_r, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
+
+  image32 = gtk_image_new_from_stock ("gtk-redo", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image32);
+  gtk_container_add (GTK_CONTAINER (main_default_view), image32);
+
+  vseparator1 = gtk_vseparator_new ();
+  gtk_widget_show (vseparator1);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), vseparator1, TRUE, TRUE, 0);
+
+  image50 = gtk_image_new_from_stock ("gtk-refresh", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image50);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), image50, TRUE, TRUE, 0);
+
+  main_rotate_spinbutton_adj = gtk_adjustment_new (45, -360, 360, 1, 10, 0);
+  main_rotate_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (main_rotate_spinbutton_adj), 1, 0);
+  gtk_widget_show (main_rotate_spinbutton);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), main_rotate_spinbutton, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, main_rotate_spinbutton, _("Rotate Structure\n around Z-axis"), NULL);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (main_rotate_spinbutton), TRUE);
+
+  image51 = gtk_image_new_from_stock ("gtk-go-down", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image51);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), image51, TRUE, TRUE, 0);
+
+  main_incline_spinbutton_adj = gtk_adjustment_new (45, -180, 180, 1, 10, 0);
+  main_incline_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (main_incline_spinbutton_adj), 1, 0);
+  gtk_widget_show (main_incline_spinbutton);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), main_incline_spinbutton, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, main_incline_spinbutton, _("Incline Structure\nto Plane of Screen"), NULL);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (main_incline_spinbutton), TRUE);
+
+  label245 = gtk_label_new (_(" Zoom % "));
+  gtk_widget_show (label245);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), label245, FALSE, FALSE, 0);
+  gtk_label_set_single_line_mode (GTK_LABEL (label245), TRUE);
+
+  structure_zoom_spinbutton_adj = gtk_adjustment_new (100, 10, 999, 1, 10, 0);
+  structure_zoom_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (structure_zoom_spinbutton_adj), 1, 0);
+  gtk_widget_show (structure_zoom_spinbutton);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), structure_zoom_spinbutton, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, structure_zoom_spinbutton, _("Zoom Structure Display"), NULL);
+
+  structure_plus_button = gtk_button_new ();
+  gtk_widget_show (structure_plus_button);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), structure_plus_button, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, structure_plus_button, _("Zoom In"), NULL);
+
+  image94 = gtk_image_new_from_stock ("gtk-zoom-in", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image94);
+  gtk_container_add (GTK_CONTAINER (structure_plus_button), image94);
+
+  structure_minus_button = gtk_button_new ();
+  gtk_widget_show (structure_minus_button);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), structure_minus_button, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, structure_minus_button, _("Zoom Out"), NULL);
+
+  image95 = gtk_image_new_from_stock ("gtk-zoom-out", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image95);
+  gtk_container_add (GTK_CONTAINER (structure_minus_button), image95);
+
+  structure_one_button = gtk_button_new ();
+  gtk_widget_show (structure_one_button);
+  gtk_box_pack_start (GTK_BOX (main_hbox3), structure_one_button, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, structure_one_button, _("Zoom to Default 1:1"), NULL);
+  gtk_widget_add_accelerator (structure_one_button, "clicked", accel_group,
+                              GDK_1, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
+
+  image96 = gtk_image_new_from_stock ("gtk-zoom-100", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image96);
+  gtk_container_add (GTK_CONTAINER (structure_one_button), image96);
 
   g_signal_connect ((gpointer) main_window, "destroy",
                     G_CALLBACK (on_main_window_destroy),
@@ -480,6 +580,9 @@ create_main_window (void)
                     NULL);
   g_signal_connect ((gpointer) main_save_as, "activate",
                     G_CALLBACK (on_main_save_as_activate),
+                    NULL);
+  g_signal_connect ((gpointer) struct_save_as_gnuplot, "activate",
+                    G_CALLBACK (on_struct_save_as_gnuplot_activate),
                     NULL);
   g_signal_connect ((gpointer) main_quit, "activate",
                     G_CALLBACK (on_quit_activate),
@@ -520,24 +623,6 @@ create_main_window (void)
   g_signal_connect ((gpointer) about, "activate",
                     G_CALLBACK (on_about_activate),
                     NULL);
-  g_signal_connect ((gpointer) main_x_axis, "clicked",
-                    G_CALLBACK (on_main_x_axis_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) main_y_axis, "clicked",
-                    G_CALLBACK (on_main_y_axis_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) main_z_axis, "clicked",
-                    G_CALLBACK (on_main_z_axis_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) main_default_view, "clicked",
-                    G_CALLBACK (on_main_default_view_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) main_rotate_spinbutton, "value_changed",
-                    G_CALLBACK (on_main_rotate_spinbutton_value_changed),
-                    NULL);
-  g_signal_connect ((gpointer) main_incline_spinbutton, "value_changed",
-                    G_CALLBACK (on_main_incline_spinbutton_value_changed),
-                    NULL);
   g_signal_connect ((gpointer) main_currents_togglebutton, "toggled",
                     G_CALLBACK (on_main_currents_togglebutton_toggled),
                     NULL);
@@ -568,11 +653,44 @@ create_main_window (void)
   g_signal_connect ((gpointer) structure_drawingarea, "configure_event",
                     G_CALLBACK (on_structure_drawingarea_configure_event),
                     NULL);
-  g_signal_connect ((gpointer) structure_drawingarea, "motion_notify_event",
-                    G_CALLBACK (on_structure_drawingarea_motion_notify_event),
-                    NULL);
   g_signal_connect ((gpointer) structure_drawingarea, "expose_event",
                     G_CALLBACK (on_structure_drawingarea_expose_event),
+                    NULL);
+  g_signal_connect ((gpointer) structure_drawingarea, "button_press_event",
+                    G_CALLBACK (on_structure_drawingarea_button_press_event),
+                    NULL);
+  g_signal_connect ((gpointer) structure_drawingarea, "scroll_event",
+                    G_CALLBACK (on_structure_drawingarea_scroll_event),
+                    NULL);
+  g_signal_connect ((gpointer) main_x_axis, "clicked",
+                    G_CALLBACK (on_main_x_axis_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) main_y_axis, "clicked",
+                    G_CALLBACK (on_main_y_axis_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) main_z_axis, "clicked",
+                    G_CALLBACK (on_main_z_axis_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) main_default_view, "clicked",
+                    G_CALLBACK (on_main_default_view_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) main_rotate_spinbutton, "value_changed",
+                    G_CALLBACK (on_main_rotate_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) main_incline_spinbutton, "value_changed",
+                    G_CALLBACK (on_main_incline_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) structure_zoom_spinbutton, "value_changed",
+                    G_CALLBACK (on_structure_zoom_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) structure_plus_button, "clicked",
+                    G_CALLBACK (on_structure_plus_button_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) structure_minus_button, "clicked",
+                    G_CALLBACK (on_structure_minus_button_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) structure_one_button, "clicked",
+                    G_CALLBACK (on_structure_one_button_clicked),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
@@ -585,9 +703,10 @@ create_main_window (void)
   GLADE_HOOKUP_OBJECT (main_window, main_new, "main_new");
   GLADE_HOOKUP_OBJECT (main_window, main_open_input, "main_open_input");
   GLADE_HOOKUP_OBJECT (main_window, nec2_edit, "nec2_edit");
-  GLADE_HOOKUP_OBJECT (main_window, image68, "image68");
   GLADE_HOOKUP_OBJECT (main_window, main_save, "main_save");
   GLADE_HOOKUP_OBJECT (main_window, main_save_as, "main_save_as");
+  GLADE_HOOKUP_OBJECT (main_window, struct_save_as_gnuplot, "struct_save_as_gnuplot");
+  GLADE_HOOKUP_OBJECT (main_window, image102, "image102");
   GLADE_HOOKUP_OBJECT (main_window, separator1, "separator1");
   GLADE_HOOKUP_OBJECT (main_window, main_quit, "main_quit");
   GLADE_HOOKUP_OBJECT (main_window, main_view_menuitem, "main_view_menuitem");
@@ -606,21 +725,12 @@ create_main_window (void)
   GLADE_HOOKUP_OBJECT (main_window, menuitem4, "menuitem4");
   GLADE_HOOKUP_OBJECT (main_window, menuitem4_menu, "menuitem4_menu");
   GLADE_HOOKUP_OBJECT (main_window, about, "about");
-  GLADE_HOOKUP_OBJECT (main_window, image69, "image69");
+  GLADE_HOOKUP_OBJECT (main_window, image103, "image103");
   GLADE_HOOKUP_OBJECT (main_window, main_hbox1, "main_hbox1");
-  GLADE_HOOKUP_OBJECT (main_window, main_x_axis, "main_x_axis");
-  GLADE_HOOKUP_OBJECT (main_window, main_y_axis, "main_y_axis");
-  GLADE_HOOKUP_OBJECT (main_window, main_z_axis, "main_z_axis");
-  GLADE_HOOKUP_OBJECT (main_window, main_default_view, "main_default_view");
-  GLADE_HOOKUP_OBJECT (main_window, image32, "image32");
-  GLADE_HOOKUP_OBJECT (main_window, vseparator1, "vseparator1");
-  GLADE_HOOKUP_OBJECT (main_window, image50, "image50");
-  GLADE_HOOKUP_OBJECT (main_window, main_rotate_spinbutton, "main_rotate_spinbutton");
-  GLADE_HOOKUP_OBJECT (main_window, image51, "image51");
-  GLADE_HOOKUP_OBJECT (main_window, main_incline_spinbutton, "main_incline_spinbutton");
   GLADE_HOOKUP_OBJECT (main_window, vseparator2, "vseparator2");
   GLADE_HOOKUP_OBJECT (main_window, main_currents_togglebutton, "main_currents_togglebutton");
   GLADE_HOOKUP_OBJECT (main_window, main_charges_togglebutton, "main_charges_togglebutton");
+  GLADE_HOOKUP_OBJECT (main_window, vseparator7, "vseparator7");
   GLADE_HOOKUP_OBJECT (main_window, label214, "label214");
   GLADE_HOOKUP_OBJECT (main_window, main_loop_start, "main_loop_start");
   GLADE_HOOKUP_OBJECT (main_window, alignment49, "alignment49");
@@ -631,6 +741,8 @@ create_main_window (void)
   GLADE_HOOKUP_OBJECT (main_window, image54, "image54");
   GLADE_HOOKUP_OBJECT (main_window, main_loop_reset, "main_loop_reset");
   GLADE_HOOKUP_OBJECT (main_window, image53, "image53");
+  GLADE_HOOKUP_OBJECT (main_window, label244, "label244");
+  GLADE_HOOKUP_OBJECT (main_window, structure_fstep_entry, "structure_fstep_entry");
   GLADE_HOOKUP_OBJECT (main_window, hseparator1, "hseparator1");
   GLADE_HOOKUP_OBJECT (main_window, main_hbox2, "main_hbox2");
   GLADE_HOOKUP_OBJECT (main_window, main_colorcode_zerolabel, "main_colorcode_zerolabel");
@@ -643,10 +755,30 @@ create_main_window (void)
   GLADE_HOOKUP_OBJECT (main_window, main_freq_checkbutton, "main_freq_checkbutton");
   GLADE_HOOKUP_OBJECT (main_window, main_new_freq_button, "main_new_freq_button");
   GLADE_HOOKUP_OBJECT (main_window, image46, "image46");
+  GLADE_HOOKUP_OBJECT (main_window, hseparator11, "hseparator11");
   GLADE_HOOKUP_OBJECT (main_window, frame1, "frame1");
   GLADE_HOOKUP_OBJECT (main_window, alignment1, "alignment1");
   GLADE_HOOKUP_OBJECT (main_window, structure_drawingarea, "structure_drawingarea");
+  GLADE_HOOKUP_OBJECT (main_window, main_hbox3, "main_hbox3");
   GLADE_HOOKUP_OBJECT (main_window, struct_label, "struct_label");
+  GLADE_HOOKUP_OBJECT (main_window, main_x_axis, "main_x_axis");
+  GLADE_HOOKUP_OBJECT (main_window, main_y_axis, "main_y_axis");
+  GLADE_HOOKUP_OBJECT (main_window, main_z_axis, "main_z_axis");
+  GLADE_HOOKUP_OBJECT (main_window, main_default_view, "main_default_view");
+  GLADE_HOOKUP_OBJECT (main_window, image32, "image32");
+  GLADE_HOOKUP_OBJECT (main_window, vseparator1, "vseparator1");
+  GLADE_HOOKUP_OBJECT (main_window, image50, "image50");
+  GLADE_HOOKUP_OBJECT (main_window, main_rotate_spinbutton, "main_rotate_spinbutton");
+  GLADE_HOOKUP_OBJECT (main_window, image51, "image51");
+  GLADE_HOOKUP_OBJECT (main_window, main_incline_spinbutton, "main_incline_spinbutton");
+  GLADE_HOOKUP_OBJECT (main_window, label245, "label245");
+  GLADE_HOOKUP_OBJECT (main_window, structure_zoom_spinbutton, "structure_zoom_spinbutton");
+  GLADE_HOOKUP_OBJECT (main_window, structure_plus_button, "structure_plus_button");
+  GLADE_HOOKUP_OBJECT (main_window, image94, "image94");
+  GLADE_HOOKUP_OBJECT (main_window, structure_minus_button, "structure_minus_button");
+  GLADE_HOOKUP_OBJECT (main_window, image95, "image95");
+  GLADE_HOOKUP_OBJECT (main_window, structure_one_button, "structure_one_button");
+  GLADE_HOOKUP_OBJECT (main_window, image96, "image96");
   GLADE_HOOKUP_OBJECT_NO_REF (main_window, tooltips, "tooltips");
 
   gtk_window_add_accel_group (GTK_WINDOW (main_window), accel_group);
@@ -665,7 +797,9 @@ create_filechooserdialog (void)
 
   filechooserdialog = gtk_file_chooser_dialog_new (_("xnec2c"), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL, NULL);
   gtk_container_set_border_width (GTK_CONTAINER (filechooserdialog), 5);
-  g_object_set (filechooserdialog, "show-hidden", TRUE, NULL);
+  g_object_set (filechooserdialog,
+                "show-hidden", TRUE,
+                NULL);
   gtk_window_set_position (GTK_WINDOW (filechooserdialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_type_hint (GTK_WINDOW (filechooserdialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
@@ -754,6 +888,7 @@ create_freqplots_window (void)
   GtkWidget *freqplots_open_input;
   GtkWidget *freqplots_save;
   GtkWidget *freqplots_save_as;
+  GtkWidget *freqplots_save_as_gnuplot;
   GtkWidget *separatormenuitem2;
   GtkWidget *freqplots_quit;
   GtkWidget *view_menuitem;
@@ -767,7 +902,6 @@ create_freqplots_window (void)
   GtkWidget *rdpattern_right_hand;
   GtkWidget *rdpattern_left_hand;
   GtkWidget *net_gain;
-  GtkWidget *menuitem8;
   GtkWidget *hbox10;
   GtkWidget *freqplots_gmax_togglebutton;
   GtkWidget *freqplots_gdir_togglebutton;
@@ -848,6 +982,10 @@ create_freqplots_window (void)
   gtk_widget_show (freqplots_save_as);
   gtk_container_add (GTK_CONTAINER (menuitem5_menu), freqplots_save_as);
 
+  freqplots_save_as_gnuplot = gtk_menu_item_new_with_mnemonic (_("Save As gnuplot"));
+  gtk_widget_show (freqplots_save_as_gnuplot);
+  gtk_container_add (GTK_CONTAINER (menuitem5_menu), freqplots_save_as_gnuplot);
+
   separatormenuitem2 = gtk_separator_menu_item_new ();
   gtk_widget_show (separatormenuitem2);
   gtk_container_add (GTK_CONTAINER (menuitem5_menu), separatormenuitem2);
@@ -908,10 +1046,6 @@ create_freqplots_window (void)
   gtk_container_add (GTK_CONTAINER (view_menuitem_menu), net_gain);
   gtk_tooltips_set_tip (tooltips, net_gain, _("Display Net Gain towards Viewer"), NULL);
 
-  menuitem8 = gtk_menu_item_new_with_mnemonic (_("_Help"));
-  gtk_widget_show (menuitem8);
-  gtk_container_add (GTK_CONTAINER (menubar2), menuitem8);
-
   hbox10 = gtk_hbox_new (FALSE, 0);
   gtk_widget_show (hbox10);
   gtk_box_pack_start (GTK_BOX (freqplots_hbox1), hbox10, FALSE, FALSE, 0);
@@ -946,7 +1080,7 @@ create_freqplots_window (void)
   gtk_box_pack_start (GTK_BOX (hbox10), freqplots_zmgzph_togglebutton, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, freqplots_zmgzph_togglebutton, _("Plot magnitude and phase of input impedance"), NULL);
 
-  label215 = gtk_label_new (_("  Loop "));
+  label215 = gtk_label_new (_("  Freq Loop "));
   gtk_widget_show (label215);
   gtk_box_pack_start (GTK_BOX (hbox10), label215, FALSE, FALSE, 0);
 
@@ -984,6 +1118,7 @@ create_freqplots_window (void)
   hbox15 = gtk_hbox_new (FALSE, 0);
   gtk_widget_show (hbox15);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox15, FALSE, FALSE, 0);
+  gtk_widget_set_size_request (hbox15, -1, 30);
 
   label16 = gtk_label_new (_("F MHz"));
   gtk_widget_show (label16);
@@ -992,6 +1127,7 @@ create_freqplots_window (void)
   freqplots_fmhz_entry = gtk_entry_new ();
   gtk_widget_show (freqplots_fmhz_entry);
   gtk_box_pack_start (GTK_BOX (hbox15), freqplots_fmhz_entry, FALSE, FALSE, 0);
+  gtk_entry_set_text (GTK_ENTRY (freqplots_fmhz_entry), _(" - - - - - - -"));
   gtk_entry_set_width_chars (GTK_ENTRY (freqplots_fmhz_entry), 8);
 
   label12 = gtk_label_new (_(" Max Gain"));
@@ -1001,7 +1137,8 @@ create_freqplots_window (void)
   freqplots_maxgain_entry = gtk_entry_new ();
   gtk_widget_show (freqplots_maxgain_entry);
   gtk_box_pack_start (GTK_BOX (hbox15), freqplots_maxgain_entry, FALSE, FALSE, 0);
-  gtk_entry_set_width_chars (GTK_ENTRY (freqplots_maxgain_entry), 5);
+  gtk_entry_set_text (GTK_ENTRY (freqplots_maxgain_entry), _(" - - - - -"));
+  gtk_entry_set_width_chars (GTK_ENTRY (freqplots_maxgain_entry), 6);
 
   label13 = gtk_label_new (_(" VSWR"));
   gtk_widget_show (label13);
@@ -1010,6 +1147,7 @@ create_freqplots_window (void)
   freqplots_vswr_entry = gtk_entry_new ();
   gtk_widget_show (freqplots_vswr_entry);
   gtk_box_pack_start (GTK_BOX (hbox15), freqplots_vswr_entry, FALSE, FALSE, 0);
+  gtk_entry_set_text (GTK_ENTRY (freqplots_vswr_entry), _(" - - - -"));
   gtk_entry_set_width_chars (GTK_ENTRY (freqplots_vswr_entry), 5);
 
   label14 = gtk_label_new (_(" Zreal"));
@@ -1019,6 +1157,7 @@ create_freqplots_window (void)
   freqplots_zreal_entry = gtk_entry_new ();
   gtk_widget_show (freqplots_zreal_entry);
   gtk_box_pack_start (GTK_BOX (hbox15), freqplots_zreal_entry, FALSE, FALSE, 0);
+  gtk_entry_set_text (GTK_ENTRY (freqplots_zreal_entry), _(" - - - -"));
   gtk_entry_set_width_chars (GTK_ENTRY (freqplots_zreal_entry), 5);
 
   label15 = gtk_label_new (_(" Zim"));
@@ -1028,6 +1167,7 @@ create_freqplots_window (void)
   freqplots_zimag_entry = gtk_entry_new ();
   gtk_widget_show (freqplots_zimag_entry);
   gtk_box_pack_start (GTK_BOX (hbox15), freqplots_zimag_entry, FALSE, FALSE, 0);
+  gtk_entry_set_text (GTK_ENTRY (freqplots_zimag_entry), _(" - - - -"));
   gtk_entry_set_width_chars (GTK_ENTRY (freqplots_zimag_entry), 5);
 
   label212 = gtk_label_new (_(" Zo"));
@@ -1054,7 +1194,7 @@ create_freqplots_window (void)
   freqplots_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (freqplots_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment2), freqplots_drawingarea);
-  gtk_widget_set_size_request (freqplots_drawingarea, 600, 600);
+  gtk_widget_set_size_request (freqplots_drawingarea, 681, 681);
   GTK_WIDGET_SET_FLAGS (freqplots_drawingarea, GTK_CAN_FOCUS);
   gtk_widget_set_events (freqplots_drawingarea, GDK_BUTTON_PRESS_MASK);
 
@@ -1080,6 +1220,9 @@ create_freqplots_window (void)
                     NULL);
   g_signal_connect ((gpointer) freqplots_save_as, "activate",
                     G_CALLBACK (on_freqplots_save_as_activate),
+                    NULL);
+  g_signal_connect ((gpointer) freqplots_save_as_gnuplot, "activate",
+                    G_CALLBACK (on_freqplots_save_as_gnuplot_activate),
                     NULL);
   g_signal_connect ((gpointer) freqplots_quit, "activate",
                     G_CALLBACK (on_quit_activate),
@@ -1156,6 +1299,7 @@ create_freqplots_window (void)
   GLADE_HOOKUP_OBJECT (freqplots_window, freqplots_open_input, "freqplots_open_input");
   GLADE_HOOKUP_OBJECT (freqplots_window, freqplots_save, "freqplots_save");
   GLADE_HOOKUP_OBJECT (freqplots_window, freqplots_save_as, "freqplots_save_as");
+  GLADE_HOOKUP_OBJECT (freqplots_window, freqplots_save_as_gnuplot, "freqplots_save_as_gnuplot");
   GLADE_HOOKUP_OBJECT (freqplots_window, separatormenuitem2, "separatormenuitem2");
   GLADE_HOOKUP_OBJECT (freqplots_window, freqplots_quit, "freqplots_quit");
   GLADE_HOOKUP_OBJECT (freqplots_window, view_menuitem, "view_menuitem");
@@ -1168,7 +1312,6 @@ create_freqplots_window (void)
   GLADE_HOOKUP_OBJECT (freqplots_window, rdpattern_right_hand, "rdpattern_right_hand");
   GLADE_HOOKUP_OBJECT (freqplots_window, rdpattern_left_hand, "rdpattern_left_hand");
   GLADE_HOOKUP_OBJECT (freqplots_window, net_gain, "net_gain");
-  GLADE_HOOKUP_OBJECT (freqplots_window, menuitem8, "menuitem8");
   GLADE_HOOKUP_OBJECT (freqplots_window, hbox10, "hbox10");
   GLADE_HOOKUP_OBJECT (freqplots_window, freqplots_gmax_togglebutton, "freqplots_gmax_togglebutton");
   GLADE_HOOKUP_OBJECT (freqplots_window, freqplots_gdir_togglebutton, "freqplots_gdir_togglebutton");
@@ -1221,6 +1364,8 @@ create_rdpattern_window (void)
   GtkWidget *rdpattern_open;
   GtkWidget *rdpattern_save;
   GtkWidget *rdpattern_save_as;
+  GtkWidget *rdpattern_save_as_gnuplot;
+  GtkWidget *image101;
   GtkWidget *separatormenuitem3;
   GtkWidget *rdpattern_quit;
   GtkWidget *rdpattern_view_menuitem;
@@ -1251,26 +1396,14 @@ create_rdpattern_window (void)
   GSList *near_peak_value_group = NULL;
   GtkWidget *near_peak_value;
   GtkWidget *near_snapshot;
-  GtkWidget *rdpattern_overlay_struct;
   GtkWidget *common_projection;
   GtkWidget *common_freq;
-  GtkWidget *menuitem12;
+  GtkWidget *rdpattern_overlay_structure;
+  GtkWidget *vseparator8;
   GtkWidget *rdpattern_hbox1;
-  GtkWidget *rdpattern_x_axis;
-  GtkWidget *rdpattern_y_axis;
-  GtkWidget *rdpattern_z_axis;
-  GtkWidget *rdpattern_default_view;
-  GtkWidget *image34;
-  GtkWidget *vseparator4;
-  GtkWidget *image55;
-  GtkObject *rdpattern_rotate_spinbutton_adj;
-  GtkWidget *rdpattern_rotate_spinbutton;
-  GtkWidget *image56;
-  GtkObject *rdpattern_incline_spinbutton_adj;
-  GtkWidget *rdpattern_incline_spinbutton;
-  GtkWidget *vseparator5;
   GtkWidget *rdpattern_gain_togglebutton;
   GtkWidget *rdpattern_eh_togglebutton;
+  GtkWidget *vseparator9;
   GtkWidget *label216;
   GtkWidget *rdpatttern_loop_start;
   GtkWidget *image59;
@@ -1278,6 +1411,8 @@ create_rdpattern_window (void)
   GtkWidget *image60;
   GtkWidget *rdpattern_loop_reset;
   GtkWidget *image58;
+  GtkWidget *label246;
+  GtkWidget *rdpattern_fstep_entry;
   GtkWidget *hseparator3;
   GtkWidget *rdpattern_hbox2;
   GtkWidget *rdpattern_colorcode_minlabel;
@@ -1291,10 +1426,33 @@ create_rdpattern_window (void)
   GtkWidget *rdpattern_freq_checkbutton;
   GtkWidget *rdpattern_new_freq_button;
   GtkWidget *image49;
+  GtkWidget *hseparator12;
+  GtkWidget *rdpattern_label;
   GtkWidget *frame3;
   GtkWidget *alignment3;
   GtkWidget *rdpattern_drawingarea;
-  GtkWidget *rdpattern_label;
+  GtkWidget *rdpattern_hbox3;
+  GtkWidget *label248;
+  GtkWidget *rdpattern_x_axis;
+  GtkWidget *rdpattern_y_axis;
+  GtkWidget *rdpattern_z_axis;
+  GtkWidget *rdpattern_default_view;
+  GtkWidget *image34;
+  GtkWidget *image55;
+  GtkObject *rdpattern_rotate_spinbutton_adj;
+  GtkWidget *rdpattern_rotate_spinbutton;
+  GtkWidget *image56;
+  GtkObject *rdpattern_incline_spinbutton_adj;
+  GtkWidget *rdpattern_incline_spinbutton;
+  GtkWidget *label247;
+  GtkObject *rdpattern_zoom_spinbutton_adj;
+  GtkWidget *rdpattern_zoom_spinbutton;
+  GtkWidget *rdpattern_plus_button;
+  GtkWidget *image98;
+  GtkWidget *rdpattern_minus_button;
+  GtkWidget *image99;
+  GtkWidget *rdpattern_one_button;
+  GtkWidget *image100;
   GtkAccelGroup *accel_group;
   GtkTooltips *tooltips;
 
@@ -1341,6 +1499,14 @@ create_rdpattern_window (void)
   rdpattern_save_as = gtk_image_menu_item_new_from_stock ("gtk-save-as", accel_group);
   gtk_widget_show (rdpattern_save_as);
   gtk_container_add (GTK_CONTAINER (menuitem9_menu), rdpattern_save_as);
+
+  rdpattern_save_as_gnuplot = gtk_image_menu_item_new_with_mnemonic (_("Save As gnuplot"));
+  gtk_widget_show (rdpattern_save_as_gnuplot);
+  gtk_container_add (GTK_CONTAINER (menuitem9_menu), rdpattern_save_as_gnuplot);
+
+  image101 = gtk_image_new_from_stock ("gtk-save-as", GTK_ICON_SIZE_MENU);
+  gtk_widget_show (image101);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rdpattern_save_as_gnuplot), image101);
 
   separatormenuitem3 = gtk_separator_menu_item_new ();
   gtk_widget_show (separatormenuitem3);
@@ -1441,16 +1607,19 @@ create_rdpattern_window (void)
   gtk_widget_show (rdpattern_e_field);
   gtk_container_add (GTK_CONTAINER (near_field_menu), rdpattern_e_field);
   gtk_tooltips_set_tip (tooltips, rdpattern_e_field, _("Display near E field"), NULL);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (rdpattern_e_field), TRUE);
 
   rdpattern_h_field = gtk_check_menu_item_new_with_mnemonic (_("Near H Field"));
   gtk_widget_show (rdpattern_h_field);
   gtk_container_add (GTK_CONTAINER (near_field_menu), rdpattern_h_field);
   gtk_tooltips_set_tip (tooltips, rdpattern_h_field, _("Display near H field"), NULL);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (rdpattern_h_field), TRUE);
 
   rdpattern_poynting_vector = gtk_check_menu_item_new_with_mnemonic (_("Poynting Vector"));
   gtk_widget_show (rdpattern_poynting_vector);
   gtk_container_add (GTK_CONTAINER (near_field_menu), rdpattern_poynting_vector);
   gtk_tooltips_set_tip (tooltips, rdpattern_poynting_vector, _("Display Poynting vector"), NULL);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (rdpattern_poynting_vector), TRUE);
 
   rdpattern_animate = gtk_menu_item_new_with_mnemonic (_("Animate Dialog"));
   gtk_widget_show (rdpattern_animate);
@@ -1474,11 +1643,6 @@ create_rdpattern_window (void)
   gtk_widget_show (near_snapshot);
   gtk_container_add (GTK_CONTAINER (total_field_menu), near_snapshot);
 
-  rdpattern_overlay_struct = gtk_check_menu_item_new_with_mnemonic (_("Overlay Structure"));
-  gtk_widget_show (rdpattern_overlay_struct);
-  gtk_container_add (GTK_CONTAINER (near_field_menu), rdpattern_overlay_struct);
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (rdpattern_overlay_struct), TRUE);
-
   common_projection = gtk_check_menu_item_new_with_mnemonic (_("Common Projection"));
   gtk_widget_show (common_projection);
   gtk_container_add (GTK_CONTAINER (rdpattern_view_menuitem_menu), common_projection);
@@ -1491,94 +1655,40 @@ create_rdpattern_window (void)
   gtk_tooltips_set_tip (tooltips, common_freq, _("Synchronize frequency selection in different windows"), NULL);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (common_freq), TRUE);
 
-  menuitem12 = gtk_menu_item_new_with_mnemonic (_("_Help"));
-  gtk_widget_show (menuitem12);
-  gtk_container_add (GTK_CONTAINER (menubar3), menuitem12);
+  rdpattern_overlay_structure = gtk_check_menu_item_new_with_mnemonic (_("Overlay Structure"));
+  gtk_widget_show (rdpattern_overlay_structure);
+  gtk_container_add (GTK_CONTAINER (rdpattern_view_menuitem_menu), rdpattern_overlay_structure);
+
+  vseparator8 = gtk_vseparator_new ();
+  gtk_widget_show (vseparator8);
+  gtk_box_pack_start (GTK_BOX (hbox11), vseparator8, FALSE, FALSE, 4);
 
   rdpattern_hbox1 = gtk_hbox_new (FALSE, 0);
   gtk_widget_show (rdpattern_hbox1);
   gtk_box_pack_start (GTK_BOX (hbox11), rdpattern_hbox1, FALSE, FALSE, 0);
 
-  rdpattern_x_axis = gtk_button_new_with_mnemonic (_("X"));
-  gtk_widget_show (rdpattern_x_axis);
-  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_x_axis, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, rdpattern_x_axis, _("View radiation pattern along X-axis"), NULL);
-  gtk_widget_add_accelerator (rdpattern_x_axis, "clicked", accel_group,
-                              GDK_X, (GdkModifierType) 0,
-                              GTK_ACCEL_VISIBLE);
-
-  rdpattern_y_axis = gtk_button_new_with_mnemonic (_("Y"));
-  gtk_widget_show (rdpattern_y_axis);
-  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_y_axis, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, rdpattern_y_axis, _("View radiation pattern along Y-axis"), NULL);
-  gtk_widget_add_accelerator (rdpattern_y_axis, "clicked", accel_group,
-                              GDK_Y, (GdkModifierType) 0,
-                              GTK_ACCEL_VISIBLE);
-
-  rdpattern_z_axis = gtk_button_new_with_mnemonic (_("Z"));
-  gtk_widget_show (rdpattern_z_axis);
-  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_z_axis, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, rdpattern_z_axis, _("View radiation pattern along Z-axis"), NULL);
-  gtk_widget_add_accelerator (rdpattern_z_axis, "clicked", accel_group,
-                              GDK_Z, (GdkModifierType) 0,
-                              GTK_ACCEL_VISIBLE);
-
-  rdpattern_default_view = gtk_button_new ();
-  gtk_widget_show (rdpattern_default_view);
-  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_default_view, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, rdpattern_default_view, _("View radiation pattern in default projection"), NULL);
-
-  image34 = gtk_image_new_from_stock ("gtk-redo", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image34);
-  gtk_container_add (GTK_CONTAINER (rdpattern_default_view), image34);
-
-  vseparator4 = gtk_vseparator_new ();
-  gtk_widget_show (vseparator4);
-  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), vseparator4, TRUE, TRUE, 4);
-
-  image55 = gtk_image_new_from_stock ("gtk-refresh", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image55);
-  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), image55, FALSE, FALSE, 0);
-
-  rdpattern_rotate_spinbutton_adj = gtk_adjustment_new (45, -360, 360, 1, 10, 0);
-  rdpattern_rotate_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (rdpattern_rotate_spinbutton_adj), 1, 0);
-  gtk_widget_show (rdpattern_rotate_spinbutton);
-  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_rotate_spinbutton, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, rdpattern_rotate_spinbutton, _("Rotate radiation pattern around Z-axis"), NULL);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (rdpattern_rotate_spinbutton), TRUE);
-
-  image56 = gtk_image_new_from_stock ("gtk-go-down", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image56);
-  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), image56, TRUE, TRUE, 0);
-
-  rdpattern_incline_spinbutton_adj = gtk_adjustment_new (45, -180, 180, 1, 10, 0);
-  rdpattern_incline_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (rdpattern_incline_spinbutton_adj), 1, 0);
-  gtk_widget_show (rdpattern_incline_spinbutton);
-  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_incline_spinbutton, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, rdpattern_incline_spinbutton, _("Incline radiation pattern to plane of screen"), NULL);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (rdpattern_incline_spinbutton), TRUE);
-
-  vseparator5 = gtk_vseparator_new ();
-  gtk_widget_show (vseparator5);
-  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), vseparator5, TRUE, TRUE, 4);
-
-  rdpattern_gain_togglebutton = gtk_toggle_button_new_with_mnemonic (_("Gain"));
+  rdpattern_gain_togglebutton = gtk_toggle_button_new_with_mnemonic (_("Gain Pattern"));
   gtk_widget_show (rdpattern_gain_togglebutton);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_gain_togglebutton, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, rdpattern_gain_togglebutton, _("Calculate and display radiation pattern"), NULL);
 
-  rdpattern_eh_togglebutton = gtk_toggle_button_new_with_mnemonic (_("E/H"));
+  rdpattern_eh_togglebutton = gtk_toggle_button_new_with_mnemonic (_("E/H Fields"));
   gtk_widget_show (rdpattern_eh_togglebutton);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_eh_togglebutton, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, rdpattern_eh_togglebutton, _("Calculate and display the near E/H fields"), NULL);
 
-  label216 = gtk_label_new (_("  Loop "));
+  vseparator9 = gtk_vseparator_new ();
+  gtk_widget_show (vseparator9);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), vseparator9, FALSE, FALSE, 4);
+
+  label216 = gtk_label_new (_("Frequency Loop "));
   gtk_widget_show (label216);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), label216, FALSE, FALSE, 0);
+  gtk_label_set_single_line_mode (GTK_LABEL (label216), TRUE);
 
   rdpatttern_loop_start = gtk_button_new ();
   gtk_widget_show (rdpatttern_loop_start);
-  gtk_box_pack_start (GTK_BOX (hbox11), rdpatttern_loop_start, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpatttern_loop_start, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, rdpatttern_loop_start, _("Start Frequency Loop"), NULL);
 
   image59 = gtk_image_new_from_stock ("gtk-media-play", GTK_ICON_SIZE_BUTTON);
@@ -1587,7 +1697,7 @@ create_rdpattern_window (void)
 
   rdpattern_loop_pause = gtk_button_new ();
   gtk_widget_show (rdpattern_loop_pause);
-  gtk_box_pack_start (GTK_BOX (hbox11), rdpattern_loop_pause, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_loop_pause, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, rdpattern_loop_pause, _("Pause Frequency Loop"), NULL);
 
   image60 = gtk_image_new_from_stock ("gtk-media-pause", GTK_ICON_SIZE_BUTTON);
@@ -1596,12 +1706,27 @@ create_rdpattern_window (void)
 
   rdpattern_loop_reset = gtk_button_new ();
   gtk_widget_show (rdpattern_loop_reset);
-  gtk_box_pack_start (GTK_BOX (hbox11), rdpattern_loop_reset, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_loop_reset, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, rdpattern_loop_reset, _("Reset Frequency Loop"), NULL);
 
   image58 = gtk_image_new_from_stock ("gtk-media-rewind", GTK_ICON_SIZE_BUTTON);
   gtk_widget_show (image58);
   gtk_container_add (GTK_CONTAINER (rdpattern_loop_reset), image58);
+
+  label246 = gtk_label_new (_(" Step "));
+  gtk_widget_show (label246);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), label246, FALSE, FALSE, 0);
+  gtk_label_set_single_line_mode (GTK_LABEL (label246), TRUE);
+
+  rdpattern_fstep_entry = gtk_entry_new ();
+  gtk_widget_show (rdpattern_fstep_entry);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox1), rdpattern_fstep_entry, TRUE, TRUE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_fstep_entry, _("Current Frequency Step"), NULL);
+  gtk_entry_set_max_length (GTK_ENTRY (rdpattern_fstep_entry), 3);
+  gtk_editable_set_editable (GTK_EDITABLE (rdpattern_fstep_entry), FALSE);
+  gtk_entry_set_text (GTK_ENTRY (rdpattern_fstep_entry), _("1"));
+  gtk_entry_set_invisible_char (GTK_ENTRY (rdpattern_fstep_entry), 9679);
+  gtk_entry_set_width_chars (GTK_ENTRY (rdpattern_fstep_entry), 3);
 
   hseparator3 = gtk_hseparator_new ();
   gtk_widget_show (hseparator3);
@@ -1610,8 +1735,9 @@ create_rdpattern_window (void)
   rdpattern_hbox2 = gtk_hbox_new (FALSE, 0);
   gtk_widget_show (rdpattern_hbox2);
   gtk_box_pack_start (GTK_BOX (vbox3), rdpattern_hbox2, FALSE, FALSE, 0);
+  gtk_widget_set_size_request (rdpattern_hbox2, -1, 30);
 
-  rdpattern_colorcode_minlabel = gtk_label_new ("");
+  rdpattern_colorcode_minlabel = gtk_label_new (_("0.0"));
   gtk_widget_show (rdpattern_colorcode_minlabel);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox2), rdpattern_colorcode_minlabel, FALSE, FALSE, 1);
   gtk_label_set_width_chars (GTK_LABEL (rdpattern_colorcode_minlabel), 5);
@@ -1619,10 +1745,10 @@ create_rdpattern_window (void)
   rdpattern_colorcode_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (rdpattern_colorcode_drawingarea);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox2), rdpattern_colorcode_drawingarea, FALSE, FALSE, 1);
-  gtk_widget_set_size_request (rdpattern_colorcode_drawingarea, 160, 28);
+  gtk_widget_set_size_request (rdpattern_colorcode_drawingarea, 160, -1);
   gtk_tooltips_set_tip (tooltips, rdpattern_colorcode_drawingarea, _("Color code for Gain or E/H field values"), NULL);
 
-  rdpattern_colorcode_maxlabel = gtk_label_new ("");
+  rdpattern_colorcode_maxlabel = gtk_label_new (_("0.00"));
   gtk_widget_show (rdpattern_colorcode_maxlabel);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox2), rdpattern_colorcode_maxlabel, FALSE, FALSE, 1);
   gtk_misc_set_alignment (GTK_MISC (rdpattern_colorcode_maxlabel), 0, 0.5);
@@ -1632,14 +1758,16 @@ create_rdpattern_window (void)
   gtk_widget_show (rdpattern_viewer_gain);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox2), rdpattern_viewer_gain, FALSE, FALSE, 1);
   gtk_tooltips_set_tip (tooltips, rdpattern_viewer_gain, _("Gain in direction of viewer\n(perpenticular to screen)"), NULL);
-  gtk_entry_set_width_chars (GTK_ENTRY (rdpattern_viewer_gain), 5);
+  gtk_entry_set_text (GTK_ENTRY (rdpattern_viewer_gain), _(" - - - - -"));
+  gtk_entry_set_width_chars (GTK_ENTRY (rdpattern_viewer_gain), 6);
 
   label11 = gtk_label_new (_("dB"));
   gtk_widget_show (label11);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox2), label11, FALSE, FALSE, 1);
+  gtk_label_set_single_line_mode (GTK_LABEL (label11), TRUE);
 
-  rdpattern_freq_spinbutton_adj = gtk_adjustment_new (0.0010000000475, 0.0010000000475, 9999, 0.00999999977648, 10, 0);
-  rdpattern_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (rdpattern_freq_spinbutton_adj), 0.00999999977648, 3);
+  rdpattern_freq_spinbutton_adj = gtk_adjustment_new (0.00999999977648, 0.00999999977648, 9999, 0.00999999977648, 10, 0);
+  rdpattern_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (rdpattern_freq_spinbutton_adj), 0.0010000000475, 3);
   gtk_widget_show (rdpattern_freq_spinbutton);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox2), rdpattern_freq_spinbutton, FALSE, FALSE, 1);
   gtk_tooltips_set_tip (tooltips, rdpattern_freq_spinbutton, _("Enter frequency in MHz"), NULL);
@@ -1649,6 +1777,7 @@ create_rdpattern_window (void)
   gtk_widget_show (rdpattern_freq_label);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox2), rdpattern_freq_label, FALSE, FALSE, 1);
   gtk_misc_set_padding (GTK_MISC (rdpattern_freq_label), 4, 0);
+  gtk_label_set_single_line_mode (GTK_LABEL (rdpattern_freq_label), TRUE);
 
   rdpattern_freq_checkbutton = gtk_check_button_new_with_mnemonic (_("Apply"));
   gtk_widget_show (rdpattern_freq_checkbutton);
@@ -1665,6 +1794,16 @@ create_rdpattern_window (void)
   gtk_widget_show (image49);
   gtk_container_add (GTK_CONTAINER (rdpattern_new_freq_button), image49);
 
+  hseparator12 = gtk_hseparator_new ();
+  gtk_widget_show (hseparator12);
+  gtk_box_pack_start (GTK_BOX (vbox3), hseparator12, FALSE, FALSE, 4);
+
+  rdpattern_label = gtk_label_new (_("Radiation Patterns"));
+  gtk_widget_show (rdpattern_label);
+  gtk_box_pack_start (GTK_BOX (vbox3), rdpattern_label, FALSE, FALSE, 0);
+  gtk_label_set_width_chars (GTK_LABEL (rdpattern_label), 14);
+  gtk_label_set_single_line_mode (GTK_LABEL (rdpattern_label), TRUE);
+
   frame3 = gtk_frame_new (NULL);
   gtk_widget_show (frame3);
   gtk_box_pack_start (GTK_BOX (vbox3), frame3, TRUE, TRUE, 0);
@@ -1678,13 +1817,113 @@ create_rdpattern_window (void)
   rdpattern_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (rdpattern_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment3), rdpattern_drawingarea);
-  gtk_widget_set_size_request (rdpattern_drawingarea, 600, 600);
+  gtk_widget_set_size_request (rdpattern_drawingarea, 681, 681);
   GTK_WIDGET_SET_FLAGS (rdpattern_drawingarea, GTK_CAN_FOCUS);
 
-  rdpattern_label = gtk_label_new (_("Radiation Patterns"));
-  gtk_widget_show (rdpattern_label);
-  gtk_frame_set_label_widget (GTK_FRAME (frame3), rdpattern_label);
-  gtk_misc_set_padding (GTK_MISC (rdpattern_label), 4, 0);
+  rdpattern_hbox3 = gtk_hbox_new (FALSE, 0);
+  gtk_widget_show (rdpattern_hbox3);
+  gtk_frame_set_label_widget (GTK_FRAME (frame3), rdpattern_hbox3);
+
+  label248 = gtk_label_new (_("View Radiation"));
+  gtk_widget_show (label248);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), label248, FALSE, FALSE, 0);
+  gtk_label_set_width_chars (GTK_LABEL (label248), 14);
+
+  rdpattern_x_axis = gtk_button_new_with_mnemonic (_("X"));
+  gtk_widget_show (rdpattern_x_axis);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_x_axis, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_x_axis, _("View radiation pattern along X-axis"), NULL);
+  gtk_widget_add_accelerator (rdpattern_x_axis, "clicked", accel_group,
+                              GDK_X, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
+
+  rdpattern_y_axis = gtk_button_new_with_mnemonic (_("Y"));
+  gtk_widget_show (rdpattern_y_axis);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_y_axis, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_y_axis, _("View radiation pattern along Y-axis"), NULL);
+  gtk_widget_add_accelerator (rdpattern_y_axis, "clicked", accel_group,
+                              GDK_Y, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
+
+  rdpattern_z_axis = gtk_button_new_with_mnemonic (_("Z"));
+  gtk_widget_show (rdpattern_z_axis);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_z_axis, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_z_axis, _("View radiation pattern along Z-axis"), NULL);
+  gtk_widget_add_accelerator (rdpattern_z_axis, "clicked", accel_group,
+                              GDK_Z, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
+
+  rdpattern_default_view = gtk_button_new ();
+  gtk_widget_show (rdpattern_default_view);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_default_view, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_default_view, _("View radiation pattern in default projection"), NULL);
+
+  image34 = gtk_image_new_from_stock ("gtk-redo", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image34);
+  gtk_container_add (GTK_CONTAINER (rdpattern_default_view), image34);
+
+  image55 = gtk_image_new_from_stock ("gtk-refresh", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image55);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), image55, TRUE, TRUE, 0);
+
+  rdpattern_rotate_spinbutton_adj = gtk_adjustment_new (45, -360, 360, 1, 10, 0);
+  rdpattern_rotate_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (rdpattern_rotate_spinbutton_adj), 1, 0);
+  gtk_widget_show (rdpattern_rotate_spinbutton);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_rotate_spinbutton, TRUE, TRUE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_rotate_spinbutton, _("Rotate radiation pattern around Z-axis"), NULL);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (rdpattern_rotate_spinbutton), TRUE);
+
+  image56 = gtk_image_new_from_stock ("gtk-go-down", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image56);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), image56, TRUE, TRUE, 0);
+
+  rdpattern_incline_spinbutton_adj = gtk_adjustment_new (45, -180, 180, 1, 10, 0);
+  rdpattern_incline_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (rdpattern_incline_spinbutton_adj), 1, 0);
+  gtk_widget_show (rdpattern_incline_spinbutton);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_incline_spinbutton, TRUE, TRUE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_incline_spinbutton, _("Incline radiation pattern to plane of screen"), NULL);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (rdpattern_incline_spinbutton), TRUE);
+
+  label247 = gtk_label_new (_(" Zoom % "));
+  gtk_widget_show (label247);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), label247, FALSE, FALSE, 0);
+  gtk_label_set_single_line_mode (GTK_LABEL (label247), TRUE);
+
+  rdpattern_zoom_spinbutton_adj = gtk_adjustment_new (100, 10, 999, 1, 10, 0);
+  rdpattern_zoom_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (rdpattern_zoom_spinbutton_adj), 1, 0);
+  gtk_widget_show (rdpattern_zoom_spinbutton);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_zoom_spinbutton, TRUE, TRUE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_zoom_spinbutton, _("Zoom Structure Display"), NULL);
+
+  rdpattern_plus_button = gtk_button_new ();
+  gtk_widget_show (rdpattern_plus_button);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_plus_button, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_plus_button, _("Zoom In"), NULL);
+
+  image98 = gtk_image_new_from_stock ("gtk-zoom-in", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image98);
+  gtk_container_add (GTK_CONTAINER (rdpattern_plus_button), image98);
+
+  rdpattern_minus_button = gtk_button_new ();
+  gtk_widget_show (rdpattern_minus_button);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_minus_button, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_minus_button, _("Zoom Out"), NULL);
+
+  image99 = gtk_image_new_from_stock ("gtk-zoom-out", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image99);
+  gtk_container_add (GTK_CONTAINER (rdpattern_minus_button), image99);
+
+  rdpattern_one_button = gtk_button_new ();
+  gtk_widget_show (rdpattern_one_button);
+  gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_one_button, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, rdpattern_one_button, _("Zoom to Default 1:1"), NULL);
+  gtk_widget_add_accelerator (rdpattern_one_button, "clicked", accel_group,
+                              GDK_1, (GdkModifierType) 0,
+                              GTK_ACCEL_VISIBLE);
+
+  image100 = gtk_image_new_from_stock ("gtk-zoom-100", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image100);
+  gtk_container_add (GTK_CONTAINER (rdpattern_one_button), image100);
 
   g_signal_connect ((gpointer) rdpattern_window, "delete_event",
                     G_CALLBACK (on_rdpattern_window_delete_event),
@@ -1703,6 +1942,9 @@ create_rdpattern_window (void)
                     NULL);
   g_signal_connect ((gpointer) rdpattern_save_as, "activate",
                     G_CALLBACK (on_rdpattern_save_as_activate),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_save_as_gnuplot, "activate",
+                    G_CALLBACK (on_rdpattern_save_as_gnuplot_activate),
                     NULL);
   g_signal_connect ((gpointer) rdpattern_quit, "activate",
                     G_CALLBACK (on_quit_activate),
@@ -1758,32 +2000,14 @@ create_rdpattern_window (void)
   g_signal_connect ((gpointer) near_snapshot, "activate",
                     G_CALLBACK (on_near_snapshot_activate),
                     NULL);
-  g_signal_connect ((gpointer) rdpattern_overlay_struct, "activate",
-                    G_CALLBACK (on_rdpattern_overlay_struct_activate),
-                    NULL);
   g_signal_connect ((gpointer) common_projection, "activate",
                     G_CALLBACK (on_common_projection_activate),
                     NULL);
   g_signal_connect ((gpointer) common_freq, "activate",
                     G_CALLBACK (on_common_freq_activate),
                     NULL);
-  g_signal_connect ((gpointer) rdpattern_x_axis, "clicked",
-                    G_CALLBACK (on_rdpattern_x_axis_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) rdpattern_y_axis, "clicked",
-                    G_CALLBACK (on_rdpattern_y_axis_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) rdpattern_z_axis, "clicked",
-                    G_CALLBACK (on_rdpattern_z_axis_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) rdpattern_default_view, "clicked",
-                    G_CALLBACK (on_rdpattern_default_view_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) rdpattern_rotate_spinbutton, "value_changed",
-                    G_CALLBACK (on_rdpattern_rotate_spinbutton_value_changed),
-                    NULL);
-  g_signal_connect ((gpointer) rdpattern_incline_spinbutton, "value_changed",
-                    G_CALLBACK (on_rdpattern_incline_spinbutton_value_changed),
+  g_signal_connect ((gpointer) rdpattern_overlay_structure, "activate",
+                    G_CALLBACK (on_rdpattern_overlay_structure_activate),
                     NULL);
   g_signal_connect ((gpointer) rdpattern_gain_togglebutton, "toggled",
                     G_CALLBACK (on_rdpattern_gain_togglebutton_toggled),
@@ -1815,8 +2039,41 @@ create_rdpattern_window (void)
   g_signal_connect ((gpointer) rdpattern_drawingarea, "expose_event",
                     G_CALLBACK (on_rdpattern_drawingarea_expose_event),
                     NULL);
-  g_signal_connect ((gpointer) rdpattern_drawingarea, "motion_notify_event",
-                    G_CALLBACK (on_rdpattern_drawingarea_motion_notify_event),
+  g_signal_connect ((gpointer) rdpattern_drawingarea, "button_press_event",
+                    G_CALLBACK (on_rdpattern_drawingarea_button_press_event),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_drawingarea, "scroll_event",
+                    G_CALLBACK (on_rdpattern_drawingarea_scroll_event),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_x_axis, "clicked",
+                    G_CALLBACK (on_rdpattern_x_axis_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_y_axis, "clicked",
+                    G_CALLBACK (on_rdpattern_y_axis_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_z_axis, "clicked",
+                    G_CALLBACK (on_rdpattern_z_axis_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_default_view, "clicked",
+                    G_CALLBACK (on_rdpattern_default_view_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_rotate_spinbutton, "value_changed",
+                    G_CALLBACK (on_rdpattern_rotate_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_incline_spinbutton, "value_changed",
+                    G_CALLBACK (on_rdpattern_incline_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_zoom_spinbutton, "value_changed",
+                    G_CALLBACK (on_rdpattern_zoom_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_plus_button, "clicked",
+                    G_CALLBACK (on_rdpattern_plus_button_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_minus_button, "clicked",
+                    G_CALLBACK (on_rdpattern_minus_button_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) rdpattern_one_button, "clicked",
+                    G_CALLBACK (on_rdpattern_one_button_clicked),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
@@ -1830,6 +2087,8 @@ create_rdpattern_window (void)
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_open, "rdpattern_open");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_save, "rdpattern_save");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_save_as, "rdpattern_save_as");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_save_as_gnuplot, "rdpattern_save_as_gnuplot");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, image101, "image101");
   GLADE_HOOKUP_OBJECT (rdpattern_window, separatormenuitem3, "separatormenuitem3");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_quit, "rdpattern_quit");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_view_menuitem, "rdpattern_view_menuitem");
@@ -1857,24 +2116,14 @@ create_rdpattern_window (void)
   GLADE_HOOKUP_OBJECT (rdpattern_window, total_field_menu, "total_field_menu");
   GLADE_HOOKUP_OBJECT (rdpattern_window, near_peak_value, "near_peak_value");
   GLADE_HOOKUP_OBJECT (rdpattern_window, near_snapshot, "near_snapshot");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_overlay_struct, "rdpattern_overlay_struct");
   GLADE_HOOKUP_OBJECT (rdpattern_window, common_projection, "common_projection");
   GLADE_HOOKUP_OBJECT (rdpattern_window, common_freq, "common_freq");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, menuitem12, "menuitem12");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_overlay_structure, "rdpattern_overlay_structure");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, vseparator8, "vseparator8");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_hbox1, "rdpattern_hbox1");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_x_axis, "rdpattern_x_axis");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_y_axis, "rdpattern_y_axis");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_z_axis, "rdpattern_z_axis");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_default_view, "rdpattern_default_view");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, image34, "image34");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, vseparator4, "vseparator4");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, image55, "image55");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_rotate_spinbutton, "rdpattern_rotate_spinbutton");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, image56, "image56");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_incline_spinbutton, "rdpattern_incline_spinbutton");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, vseparator5, "vseparator5");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_gain_togglebutton, "rdpattern_gain_togglebutton");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_eh_togglebutton, "rdpattern_eh_togglebutton");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, vseparator9, "vseparator9");
   GLADE_HOOKUP_OBJECT (rdpattern_window, label216, "label216");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpatttern_loop_start, "rdpatttern_loop_start");
   GLADE_HOOKUP_OBJECT (rdpattern_window, image59, "image59");
@@ -1882,6 +2131,8 @@ create_rdpattern_window (void)
   GLADE_HOOKUP_OBJECT (rdpattern_window, image60, "image60");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_loop_reset, "rdpattern_loop_reset");
   GLADE_HOOKUP_OBJECT (rdpattern_window, image58, "image58");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, label246, "label246");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_fstep_entry, "rdpattern_fstep_entry");
   GLADE_HOOKUP_OBJECT (rdpattern_window, hseparator3, "hseparator3");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_hbox2, "rdpattern_hbox2");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_colorcode_minlabel, "rdpattern_colorcode_minlabel");
@@ -1894,10 +2145,30 @@ create_rdpattern_window (void)
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_freq_checkbutton, "rdpattern_freq_checkbutton");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_new_freq_button, "rdpattern_new_freq_button");
   GLADE_HOOKUP_OBJECT (rdpattern_window, image49, "image49");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, hseparator12, "hseparator12");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_label, "rdpattern_label");
   GLADE_HOOKUP_OBJECT (rdpattern_window, frame3, "frame3");
   GLADE_HOOKUP_OBJECT (rdpattern_window, alignment3, "alignment3");
   GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_drawingarea, "rdpattern_drawingarea");
-  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_label, "rdpattern_label");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_hbox3, "rdpattern_hbox3");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, label248, "label248");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_x_axis, "rdpattern_x_axis");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_y_axis, "rdpattern_y_axis");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_z_axis, "rdpattern_z_axis");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_default_view, "rdpattern_default_view");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, image34, "image34");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, image55, "image55");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_rotate_spinbutton, "rdpattern_rotate_spinbutton");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, image56, "image56");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_incline_spinbutton, "rdpattern_incline_spinbutton");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, label247, "label247");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_zoom_spinbutton, "rdpattern_zoom_spinbutton");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_plus_button, "rdpattern_plus_button");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, image98, "image98");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_minus_button, "rdpattern_minus_button");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, image99, "image99");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, rdpattern_one_button, "rdpattern_one_button");
+  GLADE_HOOKUP_OBJECT (rdpattern_window, image100, "image100");
   GLADE_HOOKUP_OBJECT_NO_REF (rdpattern_window, tooltips, "tooltips");
 
   gtk_window_add_accel_group (GTK_WINDOW (rdpattern_window), accel_group);
@@ -1978,80 +2249,6 @@ create_quit_dialog (void)
   GLADE_HOOKUP_OBJECT (quit_dialog, quit_okbutton, "quit_okbutton");
 
   return quit_dialog;
-}
-
-GtkWidget*
-create_open_dialog (void)
-{
-  GtkWidget *open_dialog;
-  GtkWidget *dialog_vbox3;
-  GtkWidget *hbox13;
-  GtkWidget *image37;
-  GtkWidget *open_label;
-  GtkWidget *dialog_action_area3;
-  GtkWidget *open_cancelbutton;
-  GtkWidget *open_okbutton;
-
-  open_dialog = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (open_dialog), _("Open input file?"));
-  gtk_window_set_position (GTK_WINDOW (open_dialog), GTK_WIN_POS_MOUSE);
-  gtk_window_set_modal (GTK_WINDOW (open_dialog), TRUE);
-  gtk_window_set_type_hint (GTK_WINDOW (open_dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
-
-  dialog_vbox3 = GTK_DIALOG (open_dialog)->vbox;
-  gtk_widget_show (dialog_vbox3);
-
-  hbox13 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_show (hbox13);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox3), hbox13, TRUE, TRUE, 0);
-
-  image37 = gtk_image_new_from_stock ("gtk-dialog-question", GTK_ICON_SIZE_DIALOG);
-  gtk_widget_show (image37);
-  gtk_box_pack_start (GTK_BOX (hbox13), image37, TRUE, TRUE, 0);
-  gtk_misc_set_padding (GTK_MISC (image37), 4, 4);
-
-  open_label = gtk_label_new (_("Open a new input file?\nThis will stop operation\nand close some windows."));
-  gtk_widget_show (open_label);
-  gtk_box_pack_start (GTK_BOX (hbox13), open_label, FALSE, FALSE, 0);
-  gtk_misc_set_padding (GTK_MISC (open_label), 4, 0);
-
-  dialog_action_area3 = GTK_DIALOG (open_dialog)->action_area;
-  gtk_widget_show (dialog_action_area3);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area3), GTK_BUTTONBOX_END);
-
-  open_cancelbutton = gtk_button_new_from_stock ("gtk-cancel");
-  gtk_widget_show (open_cancelbutton);
-  gtk_dialog_add_action_widget (GTK_DIALOG (open_dialog), open_cancelbutton, GTK_RESPONSE_CANCEL);
-  gtk_container_set_border_width (GTK_CONTAINER (open_cancelbutton), 2);
-  GTK_WIDGET_SET_FLAGS (open_cancelbutton, GTK_CAN_DEFAULT);
-
-  open_okbutton = gtk_button_new_from_stock ("gtk-ok");
-  gtk_widget_show (open_okbutton);
-  gtk_dialog_add_action_widget (GTK_DIALOG (open_dialog), open_okbutton, GTK_RESPONSE_OK);
-  gtk_container_set_border_width (GTK_CONTAINER (open_okbutton), 2);
-  GTK_WIDGET_SET_FLAGS (open_okbutton, GTK_CAN_DEFAULT);
-
-  g_signal_connect ((gpointer) open_dialog, "destroy",
-                    G_CALLBACK (on_open_dialog_destroy),
-                    NULL);
-  g_signal_connect ((gpointer) open_cancelbutton, "clicked",
-                    G_CALLBACK (on_open_cancelbutton_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) open_okbutton, "clicked",
-                    G_CALLBACK (on_open_okbutton_clicked),
-                    NULL);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (open_dialog, open_dialog, "open_dialog");
-  GLADE_HOOKUP_OBJECT_NO_REF (open_dialog, dialog_vbox3, "dialog_vbox3");
-  GLADE_HOOKUP_OBJECT (open_dialog, hbox13, "hbox13");
-  GLADE_HOOKUP_OBJECT (open_dialog, image37, "image37");
-  GLADE_HOOKUP_OBJECT (open_dialog, open_label, "open_label");
-  GLADE_HOOKUP_OBJECT_NO_REF (open_dialog, dialog_action_area3, "dialog_action_area3");
-  GLADE_HOOKUP_OBJECT (open_dialog, open_cancelbutton, "open_cancelbutton");
-  GLADE_HOOKUP_OBJECT (open_dialog, open_okbutton, "open_okbutton");
-
-  return open_dialog;
 }
 
 GtkWidget*
@@ -2430,7 +2627,7 @@ create_nec2_editor (void)
   nec2_cmnt_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_cmnt_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow5), nec2_cmnt_treeview);
-  gtk_widget_set_size_request (nec2_cmnt_treeview, -1, 104);
+  gtk_widget_set_size_request (nec2_cmnt_treeview, -1, 138);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_cmnt_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_cmnt_treeview), TRUE);
 
@@ -2532,7 +2729,7 @@ create_nec2_editor (void)
   nec2_geom_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_geom_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow4), nec2_geom_treeview);
-  gtk_widget_set_size_request (nec2_geom_treeview, -1, 128);
+  gtk_widget_set_size_request (nec2_geom_treeview, -1, 148);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_geom_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_geom_treeview), TRUE);
 
@@ -2662,7 +2859,7 @@ create_nec2_editor (void)
   nec2_cmnd_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_cmnd_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow3), nec2_cmnd_treeview);
-  gtk_widget_set_size_request (nec2_cmnd_treeview, -1, 128);
+  gtk_widget_set_size_request (nec2_cmnd_treeview, -1, 148);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_cmnd_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_cmnd_treeview), TRUE);
 
@@ -9930,7 +10127,7 @@ create_aboutdialog (void)
   const gchar *authors[] = {
     "Neoklis Kyriazis",
     "Ham Radio Call: 5B4AZ",
-    "http://5b4az.chronos.org.uk/",
+    "http://www.qsl.net/5b4az",
     NULL
   };
   const gchar *documenters[] = {
@@ -9947,7 +10144,7 @@ create_aboutdialog (void)
   gtk_about_dialog_set_copyright (GTK_ABOUT_DIALOG (aboutdialog), _("(C) 2007-2010 Neoklis Kyriazis"));
   gtk_about_dialog_set_comments (GTK_ABOUT_DIALOG (aboutdialog), _("xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n\nxnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n\nxnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n\nPLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"));
   gtk_about_dialog_set_license (GTK_ABOUT_DIALOG (aboutdialog), _("GPL v2 or higher"));
-  gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (aboutdialog), "http://5b4az.chronos.org.uk/");
+  gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (aboutdialog), "http://www.qsl.net/5b4az");
   gtk_about_dialog_set_authors (GTK_ABOUT_DIALOG (aboutdialog), authors);
   gtk_about_dialog_set_documenters (GTK_ABOUT_DIALOG (aboutdialog), documenters);
   gtk_about_dialog_set_translator_credits (GTK_ABOUT_DIALOG (aboutdialog), translators);

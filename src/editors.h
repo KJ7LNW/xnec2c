@@ -18,7 +18,9 @@
  */
 
 #ifndef	EDITORS_H
-#define	EDITORS_H 1
+#define	EDITORS_H		1
+
+#include "common.h"
 
 #define CMND_NUM_FCOLS 6
 #define CMND_NUM_ICOLS 4
@@ -29,7 +31,7 @@
 #define PREVIOUS	FALSE
 
 /* Editor actions that imply saving */
-enum
+enum SAVE_ACTION
 {
   EDITOR_SAVE = 64,
   EDITOR_NEW,
@@ -37,7 +39,7 @@ enum
   EDITOR_APPLY
 };
 
-enum
+enum EDITOR_FUNC
 {
   /* General editor function actions */
   EDITOR_DATA = 0,
@@ -86,7 +88,7 @@ enum
 };
 
 /* Comment "card" columns */
-enum
+enum CARDS
 {
   CMNT_COL_NAME = 0,
   CMNT_COL_COMMENT,
@@ -94,7 +96,7 @@ enum
 };
 
 /* Editor spinbuttons corresponding to int list columns */
-enum
+enum SPIN_COL_I
 {
   SPIN_COL_I1 = 0,
   SPIN_COL_I2,
@@ -103,7 +105,7 @@ enum
 };
 
 /* Editor spinbuttons corresponding to float list columns */
-enum
+enum SPIN_COL_F
 {
   SPIN_COL_F1 = 0,
   SPIN_COL_F2,
@@ -115,7 +117,7 @@ enum
 };
 
 /* Geometry data "card" columns */
-enum
+enum GEOM_CARD
 {
   GEOM_COL_NAME = 0,
   GEOM_COL_I1,
@@ -131,7 +133,7 @@ enum
 };
 
 /* Control/Command "card" columns */
-enum
+enum CMND_CARD
 {
   CMND_COL_NAME = 0,
   CMND_COL_I1,
@@ -148,7 +150,7 @@ enum
 };
 
 /* F1-F7 columns of GW & GC cards */
-enum
+enum GW_COLS
 {
   WIRE_X1 = 0,
   WIRE_Y1,
@@ -167,7 +169,7 @@ enum
 };
 
 /* Patch types */
-enum
+enum PATCH_TYPE
 {
   PATCH_ARBT = 0,
   PATCH_RECT,
@@ -177,7 +179,7 @@ enum
 };
 
 /* F1-F6 columns of SP & SC cards */
-enum
+enum SP_COLS
 {
   PATCH_X1 = 0,
   PATCH_Y1,
@@ -196,7 +198,7 @@ enum
 };
 
 /* GA card float data */
-enum
+enum GA_CARD
 {
   ARC_RAD = 0,
   ARC_END1,
@@ -207,7 +209,7 @@ enum
 };
 
 /* GH card float data */
-enum
+enum GH_CARD
 {
   HELIX_TSPACE = 0,
   HELIX_LEN,

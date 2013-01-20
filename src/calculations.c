@@ -42,7 +42,7 @@
  *
  ***********************************************************************/
 
-#include "xnec2c.h"
+#include "calculations.h"
 
 /* common  /crnt/ */
 extern crnt_t crnt;
@@ -107,7 +107,7 @@ void qdsrc( int is, complex long double v, complex long double *e )
 	  if (ipr > PCHCON) dataj.ind1=2;
 	  else if( ipr < 0 )
 	  {
-		ipr=- ipr;
+		ipr= -ipr;
 		ipr--;
 		if( -data.icon1[ipr-1] != jp1 )
 		  dataj.ind1=2;
@@ -391,7 +391,7 @@ void intrp( long double x, long double y, complex long double *f1,
   static int ix, iy, ixs=-10, iys=-10, igrs=-10, ixeg=0, iyeg=0;
   static int nxm2, nym2, nxms, nyms, nd, ndp;
   static int *nda = NULL, *ndpa = NULL;
-  int igr, iadd, iadz, i, k, jump;
+  int jump;
   static long double dx = 1.0l, dy = 1.0l, xs = 0.0l, ys = 0.0l, xz, yz;
   long double xx, yy;
   static complex long double a[4][4], b[4][4], c[4][4], d[4][4];
@@ -402,8 +402,9 @@ void intrp( long double x, long double y, complex long double *f1,
   if( first_call )
   {
 	first_call = FALSE;
-	mem_alloc( (void *)&nda,  3*sizeof(int), "in calculations.c");
-	mem_alloc( (void *)&ndpa, 3*sizeof(int), "in calculations.c");
+	size_t mreq = 3*sizeof(int);
+	mem_alloc( (void *)&nda,  mreq, "in calculations.c");
+	mem_alloc( (void *)&ndpa, mreq, "in calculations.c");
 	nda[0] = 11; nda[1] = 17; nda[2] = 9;
 	ndpa[0] = 110; ndpa[1] = 85; ndpa[2] = 72;
   }
@@ -425,6 +426,8 @@ void intrp( long double x, long double y, complex long double *f1,
 	  (abs(iy- iys) >= 2) ||
 	  jump )
   {
+	int igr, iadd, iadz, i, k;
+
 	/* determine correct grid and grid region */
 	if( x <= ggrid.xsa[1])
 	  igr=0;
@@ -781,7 +784,7 @@ void test( long double f1r, long double f2r, long double *tr,
 /*-----------------------------------------------------------------------*/
 
 /* compute component of basis function i on segment is. */
-  int
+  void
 sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 {
   int ix, jsno, june, jcox, jcoxx, jend, iend, njun1=0, njun2;
@@ -799,7 +802,6 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
   jcox= data.icon1[ix];
   if( jcox > PCHCON)
 	jcox= i;
-  jcoxx = jcox-1;
 
   jend=-1;
   iend=-1;
@@ -810,11 +812,11 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 	if( jcox != 0 )
 	{
 	  if( jcox < 0 )
-		jcox=- jcox;
+		jcox= -jcox;
 	  else
 	  {
-		sig=- sig;
-		jend=- jend;
+		sig= -sig;
+		jend= -jend;
 	  }
 
 	  jcoxx = jcox-1;
@@ -839,7 +841,7 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 	  {
 		*aa= aj/ sd* sig;
 		*bb= aj/(2.0l* cdh);
-		*cc=- aj/(2.0l* sdh)* sig;
+		*cc= -aj/(2.0l* sdh)* sig;
 		june= iend;
 	  }
 
@@ -855,25 +857,21 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 		  if( jcox == 0 )
 		  {
 			fprintf( stderr,
-				"xnec2c: sbf() - segment connection"
-				" error for segment %d\n", i );
-			stop( "Segment connection error", 1 );
+				"xnec2c: sbf(): segment connection error for segment %d\n", i );
+			stop( "Segment connection error in sbf()", ERR_STOP );
 		  }
-		  else
-			continue;
+		  else continue;
 		}
 
 	  } /* if( jcox != i ) */
-	  else
-		if( jcox == is)
-		  *bb=- *bb;
+	  else if( jcox == is)
+		  *bb= -*bb;
 
-	  if( iend == 1)
-		break;
+	  if( iend == 1) break;
 
 	} /* if( jcox != 0 ) */
 
-	pm=- pp;
+	pm= -pp;
 	pp=0.0l;
 	njun1= jsno;
 
@@ -915,7 +913,7 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 	  xxi= qp* qp;
 	  xxi= qp*(1.0l-.5l* xxi)/(1.0l- xxi);
 	  *cc=1.0l/( cdh- xxi* sdh);
-	  return(0);
+	  return;
 	}
 
 	qp= PI* data.bi[ix];
@@ -925,18 +923,18 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 
 	if( june == 1)
 	{
-	  *aa=- *aa* qp;
+	  *aa= -*aa* qp;
 	  *bb=  *bb* qp;
-	  *cc=- *cc* qp;
+	  *cc= -*cc* qp;
 	  if( i != is)
-		return(0);
+		return;
 	}
 
 	*aa -= 1.0l;
 	d = cd - xxi * sd;
 	*bb += (sdh + ap * qp * (cdh - xxi * sdh)) / d;
 	*cc += (cdh + ap * qp * (sdh + xxi * cdh)) / d;
-	return(0);
+	return;
 
   } /* if( njun1 == 0) */
 
@@ -953,14 +951,14 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 	  *bb= *bb* qm;
 	  *cc= *cc* qm;
 	  if( i != is)
-		return(0);
+		return;
 	}
 
 	*aa -= 1.0l;
 	d= cd- xxi* sd;
 	*bb += ( aj* qm*( cdh- xxi* sdh)- sdh)/ d;
 	*cc += ( cdh- aj* qm*( sdh+ xxi* cdh))/ d;
-	return(0);
+	return;
 
   } /* if( njun2 == 0) */
 
@@ -978,13 +976,13 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 	}
 	else
 	{
-	  *aa=- *aa* qp;
+	  *aa= -*aa* qp;
 	  *bb= *bb* qp;
-	  *cc=- *cc* qp;
+	  *cc= -*cc* qp;
 	}
 
 	if( i != is)
-	  return(0);
+	  return;
 
   } /* if( june != 0 ) */
 
@@ -992,13 +990,13 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
   *bb += ( aj* qm+ ap* qp)* sdh/ sd;
   *cc += ( aj* qm- ap* qp)* cdh/ sd;
 
-  return(0);
+  return;
 }
 
 /*-----------------------------------------------------------------------*/
 
 /* compute basis function i */
-  int
+  void
 tbf( int i, int icap )
 {
   int ix, jcox, jcoxx, jend, iend, njun1=0, njun2, jsnop, jsnox;
@@ -1022,11 +1020,11 @@ tbf( int i, int icap )
 	if( jcox != 0 )
 	{
 	  if( jcox < 0 )
-		jcox=- jcox;
+		jcox= -jcox;
 	  else
 	  {
-		sig=- sig;
-		jend=- jend;
+		sig= -sig;
+		jend= -jend;
 	  }
 
 	  jcoxx = jcox-1;
@@ -1050,7 +1048,7 @@ tbf( int i, int icap )
 	  pp= pp- omc/ sd* aj;
 	  segj.ax[jsnox]= aj/ sd* sig;
 	  segj.bx[jsnox]= aj/(2.0l* cdh);
-	  segj.cx[jsnox]=- aj/(2.0l* sdh)* sig;
+	  segj.cx[jsnox]= -aj/(2.0l* sdh)* sig;
 
 	  if( jcox != i)
 	  {
@@ -1066,22 +1064,21 @@ tbf( int i, int icap )
 		  else
 		  {
 			fprintf( stderr,
-				"xnec2c: tbf() - segment connection"
-				" error for segment %5d\n", i );
-			stop( "Segment connection error", 1 );
+				"xnec2c: tbf(): segment connection error for segment %5d\n", i );
+			stop( "Segment connection error in tbf()", ERR_STOP );
 		  }
 		}
 
 	  } /* if( jcox != i) */
 	  else
-		segj.bx[jsnox] =- segj.bx[jsnox];
+		segj.bx[jsnox] = -segj.bx[jsnox];
 
 	  if( iend == 1)
 		break;
 
 	} /* if( jcox != 0 ) */
 
-	pm=- pp;
+	pm= -pp;
 	pp=0.0l;
 	njun1= segj.jsno;
 
@@ -1134,7 +1131,7 @@ tbf( int i, int icap )
 	  segj.cx[jsnop]=1.0l/( cdh- xxi* sdh);
 	  segj.jsno= jsnop+1;
 	  segj.ax[jsnop]=-1.0l;
-	  return(0);
+	  return;
 
 	} /* if( njun2 == 0) */
 
@@ -1154,14 +1151,14 @@ tbf( int i, int icap )
 
 	for( iend = 0; iend < njun2; iend++ )
 	{
-	  segj.ax[iend]=- segj.ax[iend]* qp;
+	  segj.ax[iend]= -segj.ax[iend]* qp;
 	  segj.bx[iend]= segj.bx[iend]* qp;
-	  segj.cx[iend]=- segj.cx[iend]* qp;
+	  segj.cx[iend]= -segj.cx[iend]* qp;
 	}
 
 	segj.jsno= jsnop+1;
 	segj.ax[jsnop]=-1.0l;
-	return(0);
+	return;
 
   } /* if( njun1 == 0) */
 
@@ -1190,7 +1187,7 @@ tbf( int i, int icap )
 
 	segj.jsno= jsnop+1;
 	segj.ax[jsnop]=-1.0l;
-	return(0);
+	return;
 
   } /* if( njun2 == 0) */
 
@@ -1210,21 +1207,21 @@ tbf( int i, int icap )
   jend= njun1;
   for( iend = jend; iend < segj.jsno; iend++ )
   {
-	segj.ax[iend]=- segj.ax[iend]* qp;
+	segj.ax[iend]= -segj.ax[iend]* qp;
 	segj.bx[iend]= segj.bx[iend]* qp;
-	segj.cx[iend]=- segj.cx[iend]* qp;
+	segj.cx[iend]= -segj.cx[iend]* qp;
   }
 
   segj.jsno= jsnop+1;
   segj.ax[jsnop]=-1.0l;
 
-  return(0);
+  return;
 }
 
 /*-----------------------------------------------------------------------*/
 
 /* compute the components of all basis functions on segment j */
-  int
+  void
 trio( int j )
 {
   int jcox, jcoxx, jsnox, jx, jend=0, iend=0;
@@ -1232,7 +1229,6 @@ trio( int j )
   segj.jsno=0;
   jx = j-1;
   jcox= data.icon1[jx];
-  jcoxx = jcox-1;
 
   if( jcox <= PCHCON)
   {
@@ -1243,7 +1239,6 @@ trio( int j )
   if( (jcox == 0) || (jcox > PCHCON) )
   {
 	jcox= data.icon2[jx];
-	jcoxx = jcox-1;
 
 	if( jcox <= PCHCON)
 	{
@@ -1260,19 +1255,17 @@ trio( int j )
 	  if( segj.jsno >= segj.maxcon )
 	  {
 		segj.maxcon = segj.jsno +1;
-		mem_realloc( (void *)&segj.jco,
-			segj.maxcon * sizeof(int), "in calculations.c" );
-		mem_realloc( (void *) &segj.ax,
-			segj.maxcon * sizeof(long double), "in calculations.c" );
-		mem_realloc( (void *) &segj.bx,
-			segj.maxcon * sizeof(long double), "in calculations.c" );
-		mem_realloc( (void *) &segj.cx,
-			segj.maxcon * sizeof(long double), "in calculations.c" );
+		size_t mreq = segj.maxcon * sizeof(int);
+		mem_realloc( (void *)&segj.jco, mreq, "in calculations.c" );
+		mreq = segj.maxcon * sizeof(long double);
+		mem_realloc( (void *) &segj.ax, mreq, "in calculations.c" );
+		mem_realloc( (void *) &segj.bx, mreq, "in calculations.c" );
+		mem_realloc( (void *) &segj.cx, mreq, "in calculations.c" );
 	  }
 
 	  sbf( j, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
 	  segj.jco[jsnox]= j;
-	  return(0);
+	  return;
 	}
 
   } /* if( (jcox == 0) || (jcox > PCHCON) ) */
@@ -1280,9 +1273,9 @@ trio( int j )
   do
   {
 	if( jcox < 0 )
-	  jcox=- jcox;
+	  jcox= -jcox;
 	else
-	  jend=- jend;
+	  jend= -jend;
 	jcoxx = jcox-1;
 
 	if( jcox != j)
@@ -1294,14 +1287,12 @@ trio( int j )
 	  if( segj.jsno >= segj.maxcon )
 	  {
 		segj.maxcon = segj.jsno +1;
-		mem_realloc( (void *)&segj.jco,
-			segj.maxcon * sizeof(int), "in calculations.c" );
-		mem_realloc( (void *) &segj.ax,
-			segj.maxcon * sizeof(long double), "in calculations.c" );
-		mem_realloc( (void *) &segj.bx,
-			segj.maxcon * sizeof(long double), "in calculations.c" );
-		mem_realloc( (void *) &segj.cx,
-			segj.maxcon * sizeof(long double), "in calculations.c" );
+		size_t mreq = segj.maxcon * sizeof(int);
+		mem_realloc( (void *)&segj.jco, mreq, "in calculations.c" );
+		mreq = segj.maxcon * sizeof(long double);
+		mem_realloc( (void *) &segj.ax, mreq, "in calculations.c" );
+		mem_realloc( (void *) &segj.bx, mreq, "in calculations.c" );
+		mem_realloc( (void *) &segj.cx, mreq, "in calculations.c" );
 	  }
 
 	  sbf( jcox, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
@@ -1315,12 +1306,10 @@ trio( int j )
 	  if( jcox == 0 )
 	  {
 		fprintf( stderr,
-			"xnec2c: trio() - segment connention"
-			" error for segment %5d\n", j );
-		stop( "Segment connention error", 1 );
+			"xnec2c: trio(): segment connention error for segment %5d\n", j );
+		stop( "Segment connention error in trio()", ERR_STOP );
 	  }
-	  else
-		continue;
+	  else continue;
 
 	} /* if( jcox != j) */
 
@@ -1345,21 +1334,18 @@ trio( int j )
   if( segj.jsno >= segj.maxcon )
   {
 	segj.maxcon = segj.jsno +1;
-	mem_realloc( (void *)&segj.jco,
-		segj.maxcon * sizeof(int), "in calculations.c" );
-	mem_realloc( (void *) &segj.ax,
-		segj.maxcon * sizeof(long double), "in calculations.c" );
-	mem_realloc( (void *) &segj.bx,
-		segj.maxcon * sizeof(long double), "in calculations.c" );
-	mem_realloc( (void *) &segj.cx,
-		segj.maxcon * sizeof(long double), "in calculations.c" );
+	size_t mreq = segj.maxcon * sizeof(int);
+	mem_realloc( (void *)&segj.jco, mreq, "in calculations.c" );
+	mreq = segj.maxcon * sizeof(long double);
+	mem_realloc( (void *) &segj.ax, mreq, "in calculations.c" );
+	mem_realloc( (void *) &segj.bx, mreq, "in calculations.c" );
+	mem_realloc( (void *) &segj.cx, mreq, "in calculations.c" );
   }
 
   sbf( j, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
   segj.jco[jsnox]= j;
 
-  return(0);
-
+  return;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -1397,7 +1383,7 @@ zint( long double sigl, long double rolam, complex long double *zint )
 #define f(d)  ( csqrtl(POT/(d))*cexpl(-cn*(d)+th(-8.0l/x)) )
 #define g(d)  ( cexpl(cn*(d)+th(8.0l/x))/csqrtl(TP*(d)) )
 
-  long double x, y, s, ber, bei;
+  long double x;
   long double tpcmu = 2.368705e+3l;
   long double cmotp = 60.0l;
   complex long double br1, br2;
@@ -1407,6 +1393,8 @@ zint( long double sigl, long double rolam, complex long double *zint )
   {
 	if( x <= 8.0l)
 	{
+	  long double y, s, ber, bei;
+
 	  y= x/8.0l;
 	  y= y* y;
 	  s= y* y;

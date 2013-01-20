@@ -23,15 +23,7 @@
  *  Structure drawing routines for xnec2c
  */
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
-
-#include <gtk/gtk.h>
-#include <gdk/gdk.h>
-
-#include "xnec2c.h"
-#include "support.h"
+#include "draw_structure.h"
 
 /* Current data */
 extern crnt_t crnt;
@@ -68,6 +60,9 @@ extern GtkWidget *main_window;
 extern GdkPixmap *structure_pixmap;
 extern int structure_pixmap_width, structure_pixmap_height;
 
+/* Frequency step entry widget */
+extern GtkEntry *structure_fstep_entry;
+
 /* Parameters for projecting structure and rad pattern to Screen */
 extern projection_parameters_t structure_proj_params;
 extern projection_parameters_t rdpattern_proj_params;
@@ -83,17 +78,14 @@ extern int freqplots_pixmap_width, freqplots_pixmap_height;
 extern GdkPixmap *rdpattern_pixmap;
 extern int rdpattern_pixmap_width, rdpattern_pixmap_height;
 
-/* Some graphics contexts */
-extern GdkGC
-  *white_gc,
-  *black_gc,
-  *plot_gc;
-
 /* Segments for drawing structure */
 GdkSegment *structure_segs = NULL;
 
 /* Magnitude of seg/patch current/charge */
 double *cmag = NULL, *ct1m = NULL, *ct2m = NULL;
+
+/* Motion event handler id */
+extern gulong structure_motion_handler;
 
 /*-----------------------------------------------------------------------*/
 
@@ -102,26 +94,32 @@ double *cmag = NULL, *ct1m = NULL, *ct2m = NULL;
  *  Draws xyz axes, wire segments and patches
  */
   void
-Draw_Structure( GtkWidget *drawingarea, GdkGC *gc )
+Draw_Structure( GtkWidget *drawingarea )
 {
+  /* Block motion events */
+  g_signal_handler_block( (gpointer)drawingarea, structure_motion_handler );
+
   /* Abort if xnec2c may be quit by user */
   if( isFlagSet(MAIN_QUIT) )
 	return;
 
+  /* Cairo context */
+  cairo_t *cr = gdk_cairo_create( structure_pixmap );
+
   /* Clear pixmap */
-  gdk_draw_rectangle(
-	  structure_pixmap,
-	  black_gc,
-	  TRUE, 0, 0,
-	  structure_proj_params.pixmap_width,
-	  structure_proj_params.pixmap_height);
+  cairo_set_source_rgb( cr, BLACK );
+  cairo_rectangle(
+	  cr, 0.0, 0.0,
+	  (double)structure_proj_params.pixmap_width,
+	  (double)structure_proj_params.pixmap_height);
+  cairo_fill( cr );
 
   /* Process and draw geometry if available, else clear screen */
   Process_Wire_Segments();
   Process_Surface_Patches();
   Draw_XYZ_Axes( structure_pixmap, structure_proj_params );
-  Draw_Surface_Patches( drawingarea, gc, structure_segs+data.n, data.m );
-  Draw_Wire_Segments( drawingarea, gc, structure_segs, data.n );
+  Draw_Surface_Patches( drawingarea, structure_segs+data.n, data.m );
+  Draw_Wire_Segments( drawingarea, structure_segs, data.n );
 
   /* Show gain in direction of viewer */
   Show_Viewer_Gain( main_window, "main_gain_entry", structure_proj_params );
@@ -133,8 +131,16 @@ Draw_Structure( GtkWidget *drawingarea, GdkGC *gc )
   /* Reset "new current data" flag */
   crnt.newer = 0;
 
+  /* Display frequency step */
+  Display_Fstep( structure_fstep_entry, calc_data.fstep );
+
   /* Wait for GTK to complete its tasks */
   while( g_main_context_iteration(NULL, FALSE) );
+
+  cairo_destroy( cr );
+
+  /* Unblock motion events */
+  g_signal_handler_unblock( (gpointer)drawingarea, structure_motion_handler );
 
 } /* Draw_Structure() */
 
@@ -148,15 +154,14 @@ Draw_Structure( GtkWidget *drawingarea, GdkGC *gc )
   void
 New_Wire_Data( void )
 {
+  /* Abort if no wire data */
+  if( data.n == 0 )	return;
+
   double
 	r,	   /* Distance of a point from XYZ origin */
 	r_max; /* Maximum value of above */
 
   int idx;
-
-
-  /* Abort if no wire data */
-  if( data.n == 0 )	return;
 
   /* Find segment end furthest from xyz axes origin */
   r_max = 0.0;
@@ -200,18 +205,17 @@ New_Wire_Data( void )
   void
 New_Patch_Data( void )
 {
+  /* Abort if no patch data */
+  if( data.m == 0 )	return;
+
   double
-	s,		/* Side/2 of a square that will represent a patch  */
+	s,			/* Side/2 of a square that will represent a patch  */
 	sx, sy, sz, /* Length of components of s in the X, Y, Z axes */
-	r,		/* Distance of points in patch from XYZ co-ordinates */
-	r_max;	/* Maximum value of above */
+	r,			/* Distance of points in patch from XYZ co-ordinates */
+	r_max;		/* Maximum value of above */
 
   int idx, i;
   size_t mreq;
-
-
-  /* Abort if no patch data */
-  if( data.m == 0 )	return;
 
   /* Allocate memory for patch line segments */
   mreq = 2 * data.m * sizeof(double);
@@ -372,15 +376,17 @@ Process_Surface_Patches( void )
 void
 Draw_Wire_Segments(
 	GtkWidget *drawingarea,
-	GdkGC *gc,
 	GdkSegment *segm,
 	gint nseg )
 {
-  int idx, i;
-
   /* Abort if no wire segs or new input pending */
   if( !nseg || isFlagSet(INPUT_PENDING) )
 	return;
+
+  int idx, i;
+
+  /* Cairo context */
+  cairo_t *cr = gdk_cairo_create( structure_pixmap );
 
   /* Draw networks */
   for( idx = 0; idx < netcx.nonet; idx++ )
@@ -396,9 +402,6 @@ Draw_Wire_Segments(
 		{
 		  GdkPoint points[4];
 
-		  /* Set gc attributes for networks */
-		  Set_GC_Attributes( gc, MAGENTA, 0, drawingarea );
-
 		  /* Draw a box between segs to represent two-port network */
 		  points[0].x = segm[i1].x1 + (segm[i2].x1 - segm[i1].x1)/3;
 		  points[0].y = segm[i1].y1 + (segm[i2].y1 - segm[i1].y1)/3;
@@ -408,59 +411,43 @@ Draw_Wire_Segments(
 		  points[2].y = segm[i2].y2 + (segm[i1].y2 - segm[i2].y2)/3;
 		  points[3].x = segm[i1].x2 + (segm[i2].x2 - segm[i1].x2)/3;
 		  points[3].y = segm[i1].y2 + (segm[i2].y2 - segm[i1].y2)/3;
-		  gdk_draw_polygon( structure_pixmap, gc, TRUE, points, 4  );
 
-		  /* Draw connecting lines */
-		  gdk_draw_line(
-			  structure_pixmap, gc,
-			  segm[i1].x1,
-			  segm[i1].y1,
-			  segm[i2].x1,
-			  segm[i2].y1 );
+		  cairo_set_source_rgb( cr, MAGENTA );
+		  Cairo_Draw_Polygon( cr, points, 4 );
+		  cairo_fill( cr );
 
-		  gdk_draw_line(
-			  structure_pixmap, gc,
-			  segm[i1].x2,
-			  segm[i1].y2,
-			  segm[i2].x2,
-			  segm[i2].y2 );
-		  break;
+			/* Draw connecting lines */
+		  Cairo_Draw_Line( cr,
+			  segm[i1].x1, segm[i1].y1,
+			  segm[i2].x1, segm[i2].y1 );
+		  Cairo_Draw_Line( cr,
+			  segm[i1].x2, segm[i1].y2,
+			  segm[i2].x2, segm[i2].y2 );
 		}
+		break;
 
 	  case 2: /* Straight transmission line */
-		/* Set gc attributes for networks */
-		Set_GC_Attributes( gc, CYAN, 0, drawingarea );
-		gdk_draw_line(
-			structure_pixmap, gc,
-			segm[i1].x1,
-			segm[i1].y1,
-			segm[i2].x1,
-			segm[i2].y1 );
+		/* Set cr attributes for transmission line */
+		cairo_set_source_rgb( cr, CYAN );
 
-		gdk_draw_line(
-			structure_pixmap, gc,
-			segm[i1].x2,
-			segm[i1].y2,
-			segm[i2].x2,
-			segm[i2].y2 );
+		Cairo_Draw_Line( cr,
+			segm[i1].x1, segm[i1].y1,
+			segm[i2].x1, segm[i2].y1 );
+		Cairo_Draw_Line( cr,
+			segm[i1].x2, segm[i1].y2,
+			segm[i2].x2, segm[i2].y2 );
 		break;
 
 	  case 3: /* Crossed transmisson line */
-		/* Set gc attributes for networks */
-		Set_GC_Attributes( gc, CYAN, 0, drawingarea );
-		gdk_draw_line(
-			structure_pixmap, gc,
-			segm[i1].x1,
-			segm[i1].y1,
-			segm[i2].x2,
-			segm[i2].y2 );
+		/* Set cr attributes for transmission line */
+		cairo_set_source_rgb( cr, CYAN );
 
-		gdk_draw_line(
-			structure_pixmap, gc,
-			segm[i1].x2,
-			segm[i1].y2,
-			segm[i2].x1,
-			segm[i2].y1 );
+		Cairo_Draw_Line( cr,
+			segm[i1].x1, segm[i1].y1,
+			segm[i2].x2, segm[i2].y2 );
+		Cairo_Draw_Line( cr,
+			segm[i1].x2, segm[i1].y2,
+			segm[i2].x1, segm[i2].y1 );
 
 	} /* switch( netcx.ntyp ) */
 
@@ -475,7 +462,7 @@ Draw_Wire_Segments(
 	  crnt.valid )
   {
 	static double cmax; /* Max of seg current/charge */
-	int red, grn, blu;  /* To color structure segs   */
+	double red, grn, blu;  /* To color structure segs   */
 	char label[11];
 
 	/* Loop over all wire segs, find max current/charge */
@@ -513,80 +500,84 @@ Draw_Wire_Segments(
 	  /* Calculate RGB value for seg current */
 	  Value_to_Color( &red, &grn, &blu, cmag[idx], cmax );
 
-	  /* Set gc attributes for segment */
-	  Set_GC_Attributes( gc, red, grn, blu, 2, drawingarea );
+	  /* Set cr attributes for segment */
+	  cairo_set_source_rgb( cr, red, grn, blu );
 
 	  /* Draw segment */
-	  gdk_draw_line(
-		  structure_pixmap, gc,
-		  segm[idx].x1,
-		  segm[idx].y1,
-		  segm[idx].x2,
-		  segm[idx].y2 );
-
+	  Cairo_Draw_Line( cr,
+		  segm[idx].x1, segm[idx].y1,
+		  segm[idx].x2, segm[idx].y2 );
 	} /* for( idx = 0; idx < nseg; idx++ ) */
 
+	cairo_destroy( cr );
 	return;
-
   } /* if( isFlagSet(DRAW_CURRENTS) || isFlagSet(DRAW_CHARGES) ) */
 
   /* Draw segs if not all loaded */
+  cairo_set_line_width( cr, 2.0 );
   if( zload.nldseg != nseg )
   {
 	/* Set gc attributes for segments */
-	if( isFlagSet(OVERLAY_STRUCT) && isFlagSet(DRAW_EHFIELD) )
-	  Set_GC_Attributes( gc, WHITE, 2, drawingarea );
+	if( isFlagSet(OVERLAY_STRUCT) &&
+		(structure_proj_params.type == RDPATTERN_DRAWINGAREA) )
+	  cairo_set_source_rgb( cr, WHITE );
 	else
-	  Set_GC_Attributes( gc, BLUE, 2, drawingarea );
+	  cairo_set_source_rgb( cr, BLUE );
 
 	/* Draw wire segments */
-	gdk_draw_segments( structure_pixmap, gc, segm, nseg );
+	Cairo_Draw_Segments( cr, segm, nseg );
   }
 
-  /* Draw loaded segments */
+  /* Draw lumped loaded segments */
+  cairo_set_source_rgb( cr, YELLOW );
+  cairo_set_line_width( cr, 9.0 );
   for( idx = 0; idx < zload.nldseg; idx++ )
   {
-	/* Set gc attributes for loaded segs */
-	if( zload.ldtype[idx] == 5 ) /* Finite wire resistivity */
-	  Set_GC_Attributes( gc, YELLOW, 2, drawingarea );
-	else /* Lumped loads */
-	  Set_GC_Attributes( gc, YELLOW, 4, drawingarea );
-
-	i = zload.ldsegn[idx]-1;
-	gdk_draw_line(
-		structure_pixmap, gc,
-		segm[i].x1,
-		segm[i].y1,
-		segm[i].x2,
-		segm[i].y2 );
+	if( zload.ldtype[idx] != 5 )
+	{
+	  i = zload.ldsegn[idx]-1;
+	  Cairo_Draw_Line( cr,
+		  segm[i].x1, segm[i].y1,
+		  segm[i].x2, segm[i].y2 );
+	}
   }
 
   /* Set gc attributes for excitation */
-  Set_GC_Attributes( gc, RED, 2, drawingarea );
+  cairo_set_source_rgb( cr, RED );
+  cairo_set_line_width( cr, 5.0 );
 
   /* Draw excitation sources */
   for( idx = 0; idx < vsorc.nsant; idx++ )
   {
 	i = vsorc.isant[idx]-1;
-	gdk_draw_line(
-		structure_pixmap, gc,
-		segm[i].x1,
-		segm[i].y1,
-		segm[i].x2,
-		segm[i].y2 );
+	Cairo_Draw_Line( cr,
+		segm[i].x1, segm[i].y1,
+		segm[i].x2, segm[i].y2 );
   }
 
   for( idx = 0; idx < vsorc.nvqd; idx++ )
   {
 	i = vsorc.ivqd[idx]-1;
-	gdk_draw_line(
-		structure_pixmap, gc,
-		segm[i].x1,
-		segm[i].y1,
-		segm[i].x2,
-		segm[i].y2 );
+	Cairo_Draw_Line( cr,
+		segm[i].x1, segm[i].y1,
+		segm[i].x2, segm[i].y2 );
   }
 
+  /* Draw resistivity loaded segments */
+  cairo_set_source_rgb( cr, YELLOW );
+  cairo_set_line_width( cr, 2.0 );
+  for( idx = 0; idx < zload.nldseg; idx++ )
+  {
+	if( zload.ldtype[idx] == 5 )
+	{
+	  i = zload.ldsegn[idx]-1;
+	  Cairo_Draw_Line( cr,
+		  segm[i].x1, segm[i].y1,
+		  segm[i].x2, segm[i].y2 );
+	}
+  }
+
+  cairo_destroy( cr );
 } /* Draw_Wire_Segments() */
 
 /*-----------------------------------------------------------------------*/
@@ -598,13 +589,15 @@ Draw_Wire_Segments(
 void
 Draw_Surface_Patches(
 	GtkWidget *drawingarea,
-	GdkGC *gc,
 	GdkSegment *segm,
 	gint npatch )
 {
   /* Abort if no patches */
   if( ! npatch )
 	return;
+
+  /* Cairo context */
+  cairo_t *cr = gdk_cairo_create( structure_pixmap );
 
   /* Draw currents if enabled, return */
   if( isFlagSet(DRAW_CURRENTS) && crnt.valid )
@@ -615,7 +608,9 @@ Draw_Surface_Patches(
 	/* Current along x,y,z and t1,t2 vector directions */
 	complex double cx, cy, cz, ct1, ct2;
 
-	int red, grn, blu, i, j;
+	double red, grn, blu;
+
+	int i, j;
 
 	/* Find max value of patch current magnitude */
 	if( crnt.newer )
@@ -660,47 +655,51 @@ Draw_Surface_Patches(
 	  /* Calculate RGB value for patch t1 current */
 	  Value_to_Color( &red, &grn, &blu, ct1m[i], cmax );
 
-	  /* Set gc attributes for patch t1 */
-	  Set_GC_Attributes( gc, red, grn, blu, 2, drawingarea );
+	  /* Set cr attributes for patch t1 */
+	  cairo_set_source_rgb( cr, red, grn, blu );
 
 	  /* Draw patch t1 */
-	  gdk_draw_line(
-		  structure_pixmap, gc,
-		  segm[j].x1,
-		  segm[j].y1,
-		  segm[j].x2,
-		  segm[j].y2 );
+	  Cairo_Draw_Line( cr,
+		  segm[j].x1, segm[j].y1,
+		  segm[j].x2, segm[j].y2 );
 
 	  /* Calculate RGB value for patch t2 current */
 	  Value_to_Color( &red, &grn, &blu, ct2m[i], cmax );
 
-	  /* Set gc attributes for patch t2 */
-	  Set_GC_Attributes( gc, red, grn, blu, 2, drawingarea );
+	  /* Set cr attributes for patch t2 */
+	  cairo_set_source_rgb( cr, red, grn, blu );
 
 	  /* Draw patch t2 */
 	  j++;
-	  gdk_draw_line(
-		  structure_pixmap, gc,
-		  segm[j].x1,
-		  segm[j].y1,
-		  segm[j].x2,
-		  segm[j].y2 );
+	  Cairo_Draw_Line( cr,
+		  segm[j].x1, segm[j].y1,
+		  segm[j].x2, segm[j].y2 );
 
 	} /* for( idx = 0; idx < npatch; idx++ ) */
 
   } /* if( isFlagSet(DRAW_CURRENTS) ) */
   else
   {
+	int idx;
+
 	/* Set gc attributes for patches */
-	if( isFlagSet(OVERLAY_STRUCT) && isFlagSet(DRAW_EHFIELD) )
-	  Set_GC_Attributes( gc, WHITE, 2, drawingarea );
+	if( isFlagSet(OVERLAY_STRUCT) &&
+		(structure_proj_params.type == RDPATTERN_DRAWINGAREA) )
+	  cairo_set_source_rgb( cr, WHITE );
 	else
-	  Set_GC_Attributes( gc, BLUE, 2, drawingarea );
+	  cairo_set_source_rgb( cr, BLUE );
 
 	/* Draw patch segments */
-	gdk_draw_segments( structure_pixmap, gc, segm, 2*npatch );
+	int nsg = 2 * npatch;
+	for( idx = 0; idx < nsg; idx++ )
+	{
+	  Cairo_Draw_Line( cr,
+		  segm[idx].x1, segm[idx].y1,
+		  segm[idx].x2, segm[idx].y2 );
+	}
   }
 
+  cairo_destroy( cr );
 } /* Draw_Surface_Patches() */
 
 /*-----------------------------------------------------------------------*/
@@ -729,10 +728,9 @@ Redo_Currents( gpointer userdata )
   /* Redraw structure on screen */
   if( (structure_drawingarea != NULL) &&
 	  (isFlagSet(DRAW_CURRENTS) || isFlagSet(DRAW_CHARGES)) )
-	Draw_Structure( structure_drawingarea, plot_gc );
+	Draw_Structure( structure_drawingarea );
 
   return FALSE;
-
 } /* Redo_Currents() */
 
 /*-----------------------------------------------------------------------*/
@@ -752,7 +750,7 @@ New_Structure_Projection_Angle(void)
   structure_proj_params.cos_wi = cos(structure_proj_params.Wi/TD);
 
   /* Trigger a redraw of structure drawingarea */
-  Draw_Structure( structure_drawingarea, plot_gc );
+  Draw_Structure( structure_drawingarea );
 
   /* Trigger a redraw of plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(PLOT_GVIEWER) )
@@ -770,8 +768,8 @@ New_Structure_Projection_Angle(void)
 Init_Struct_Drawing( void )
 {
   /* We need n segs for wires + 2m for patces */
-  mem_realloc( (void *)&structure_segs,
-	  (data.n+2*data.m) * sizeof(GdkSegment), "in draw_structure.c" );
+  size_t mreq = (data.n + 2*data.m) * sizeof(GdkSegment);
+  mem_realloc( (void *)&structure_segs, mreq, "in draw_structure.c" );
   New_Wire_Data();
   New_Patch_Data();
 }
@@ -782,25 +780,26 @@ Init_Struct_Drawing( void )
  *
  * Shows gain in direction of viewer
  */
-void
+  void
 Show_Viewer_Gain(
 	GtkWidget *window,
 	const char *widget,
 	projection_parameters_t proj_params )
 {
-  if( isFlagSet(DRAW_CURRENTS) ||
-	  isFlagSet(DRAW_CHARGES)  ||
-	  isFlagSet(DRAW_GAIN) )
+  if( isFlagSet(DRAW_CURRENTS)	||
+	  isFlagSet(DRAW_CHARGES)	||
+	  isFlagSet(DRAW_GAIN)		||
+	  isFlagSet(FREQ_LOOP_RUNNING) )
   {
 	char txt[8];
 
 	if( isFlagSet(ENABLE_RDPAT) && (calc_data.fstep >=0) )
+	{
 	  snprintf( txt, 8, "%7.2f",
 		  Viewer_Gain(proj_params, calc_data.fstep) );
-	else
-	  strcpy( txt, "   -----" );
-
-	gtk_entry_set_text( GTK_ENTRY(lookup_widget(window, widget)), txt );
+	  txt[7] = '\0';
+	  gtk_entry_set_text( GTK_ENTRY(lookup_widget(window, widget)), txt );
+	}
   }
 
 } /* Show_Viewer_Gain() */

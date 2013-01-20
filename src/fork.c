@@ -22,7 +22,6 @@
  * Functions for forking xnec2c in multiprocessor systems
  */
 
-#include "xnec2c.h"
 #include "fork.h"
 
 /* Pointers to input/output files */
@@ -57,13 +56,13 @@ extern rad_pattern_t *rad_pattern;
 extern save_t save;
 
 /* Forked process data */
-extern forkpc_t **forkpc;
+extern forked_proc_data_t **forked_proc_data;
 
 /* Number of child process */
-extern int nchild;
+extern int num_child_procs;
 
 /* Commands between parent and child processes */
-extern char *comnd[];
+extern char *fork_commands[];
 
 /*-----------------------------------------------------------------------*/
 
@@ -73,7 +72,7 @@ extern char *comnd[];
  * transfers between parent and children via pipes
  */
   void
-Child_Process( void )
+Child_Process( int num_child )
 {
   int retval;	/* Return from select()/read() etc */
   char cmnd[8];	/* Command string received from parent */
@@ -81,24 +80,30 @@ Child_Process( void )
   size_t cnt;	/* Size of data buffers for read()/write() */
 
   /* Close unwanted pipe ends */
-  close( forkpc[nchild]->p2ch_pipe[WRITE] );
-  close( forkpc[nchild]->ch2p_pipe[READ] );
+  close( forked_proc_data[num_child]->pnt2child_pipe[WRITE] );
+  close( forked_proc_data[num_child]->child2pnt_pipe[READ] );
 
   /* Watch read/write pipe for i/o */
-  FD_ZERO( &forkpc[nchild]->read_fds );
-  FD_SET( forkpc[nchild]->p2ch_pipe[READ], &forkpc[nchild]->read_fds );
-  FD_ZERO( &forkpc[nchild]->write_fds );
-  FD_SET( forkpc[nchild]->ch2p_pipe[WRITE], &forkpc[nchild]->write_fds );
+  FD_ZERO( &forked_proc_data[num_child]->read_fds );
 
-  /* Loop around select() waiting for commands/data */
+  FD_SET( forked_proc_data[num_child]->pnt2child_pipe[READ],
+	  &forked_proc_data[num_child]->read_fds );
+
+  FD_ZERO( &forked_proc_data[num_child]->write_fds );
+
+  FD_SET( forked_proc_data[num_child]->child2pnt_pipe[WRITE],
+	  &forked_proc_data[num_child]->write_fds );
+
+  /* Loop around select() in Read_Pipe() waiting for commands/data */
   while( TRUE )
   {
-	retval = Read_Pipe( nchild, cmnd, 7, TRUE );
+	retval = Read_Pipe( num_child, cmnd, 7, TRUE );
 	cmnd[retval]='\0';
+
 	switch( Fork_Command(cmnd) )
 	{
 	  case INFILE: /* Read input file */
-		retval = Read_Pipe( nchild, infile, 80, FALSE );
+		retval = Read_Pipe( num_child, infile, 80, FALSE );
 		infile[retval] = '\0';
 		Child_Input_File();
 		break;
@@ -107,7 +112,7 @@ Child_Process( void )
 		/* Get new frequency */
 		buff = (char *)&calc_data.fmhz;
 		cnt = sizeof( long double );
-		Read_Pipe( nchild, buff, cnt, TRUE );
+		Read_Pipe( num_child, buff, cnt, TRUE );
 
 		/* Frequency buffers in children
 		 * are for current frequency only */
@@ -131,24 +136,24 @@ Child_Process( void )
 
 		  /* Set near field flags */
 		  cnt = sizeof( flag );
-		  Read_Pipe( nchild, &flag, cnt, TRUE );
+		  Read_Pipe( num_child, &flag, cnt, TRUE );
 
-		  if( flag & 0x01 )
+		  if( flag & E_HFIELD )
 			SetFlag( DRAW_EHFIELD );
 		  else
 			ClearFlag( DRAW_EHFIELD );
 
-		  if( flag & 0x02 )
+		  if( flag & SNAPSHOT )
 			SetFlag( NEAREH_SNAPSHOT );
 		  else
 			ClearFlag( NEAREH_SNAPSHOT );
 
-		  if( flag & 0x04 )
+		  if( flag & EFIELD )
 			SetFlag( DRAW_EFIELD );
 		  else
 			ClearFlag( DRAW_EFIELD );
 
-		  if( flag & 0x08 )
+		  if( flag & HFIELD )
 			SetFlag( DRAW_HFIELD );
 		  else
 			ClearFlag( DRAW_HFIELD );
@@ -160,17 +165,17 @@ Child_Process( void )
 
 } /* Child_Process() */
 
-  /*-----------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------*/
 
-  /* Child_Input_File()
-   *
-   * Opens NEC2 input file for child processes
-   */
+/* Child_Input_File()
+ *
+ * Opens NEC2 input file for child processes
+ */
   void
-	Child_Input_File( void )
-	{
-	  /* Close open files if any */
-	  Close_File( &input_fp );
+Child_Input_File( void )
+{
+  /* Close open files if any */
+  Close_File( &input_fp );
 
   /* Open NEC2 input file */
   Open_File( &input_fp, infile, "r" );
@@ -201,7 +206,7 @@ Fork_Command( const char *cdstr )
   int idx;
 
   for( idx = 0; idx < NUM_FKCMNDS; idx++ )
-	if( strcmp(comnd[idx], cdstr) == 0 )
+	if( strcmp(fork_commands[idx], cdstr) == 0 )
 	  break;
 
   return( idx );
@@ -221,11 +226,11 @@ Read_Pipe( int idx, char *str, size_t len, gboolean err )
   int pipefd;
 
   if(CHILD)
-	pipefd = forkpc[idx]->p2ch_pipe[READ];
+	pipefd = forked_proc_data[idx]->pnt2child_pipe[READ];
   else
-	pipefd = forkpc[idx]->ch2p_pipe[READ];
+	pipefd = forked_proc_data[idx]->child2pnt_pipe[READ];
 
-  retval = select( 1024, &forkpc[idx]->read_fds, NULL, NULL, NULL );
+  retval = select( 1024, &forked_proc_data[idx]->read_fds, NULL, NULL, NULL );
   if( retval == -1 )
   {
 	perror( "xnec2c: select()" );
@@ -236,6 +241,8 @@ Read_Pipe( int idx, char *str, size_t len, gboolean err )
   if( (retval == -1) || ((retval != len) && err ) )
   {
 	perror( "xnec2c: Read_Pipe(): read()" );
+	fprintf( stderr, "xnec2c: Read_Pipe(): child %d  length %d  return %d\n",
+		idx, (int)len, (int)retval );
 	_exit(0);
   }
   return( retval );
@@ -255,11 +262,11 @@ Write_Pipe( int idx, char *str, size_t len, gboolean err )
   int pipefd;
 
   if( CHILD )
-	pipefd = forkpc[idx]->ch2p_pipe[WRITE];
+	pipefd = forked_proc_data[idx]->child2pnt_pipe[WRITE];
   else
-	pipefd = forkpc[idx]->p2ch_pipe[WRITE];
+	pipefd = forked_proc_data[idx]->pnt2child_pipe[WRITE];
 
-  retval = select( 1024, NULL, &forkpc[idx]->write_fds, NULL, NULL );
+  retval = select( 1024, NULL, &forked_proc_data[idx]->write_fds, NULL, NULL );
   if( retval == -1 )
   {
 	perror( "xnec2c: select()" );
@@ -289,7 +296,7 @@ PRead_Pipe( int idx, char *str, size_t len, gboolean err )
 {
   ssize_t retval;
 
-  retval = read( forkpc[idx]->ch2p_pipe[READ], str, len );
+  retval = read( forked_proc_data[idx]->child2pnt_pipe[READ], str, len );
   if( (retval == -1) || ((retval != len) && err ) )
   {
 	perror( "xnec2c: PRead_Pipe(): read()" );
@@ -310,11 +317,11 @@ PRead_Pipe( int idx, char *str, size_t len, gboolean err )
 Pass_Freq_Data( void )
 {
   char *buff = NULL, flag;
-  size_t cnt, bsize;
+  size_t cnt, buff_size;
 
   /*** Total of bytes to read/write thru pipe ***/
-  bsize =
-	/* Current & charge data (a, b, c ir & ii) */
+  buff_size =
+	/* Current & charge data (a, b, c, ir & ii) */
 	6 * data.npm * sizeof( long double ) +
 	/* Complex current (crnt.cur) */
 	data.np3m * sizeof( complex long double ) +
@@ -328,7 +335,7 @@ Pass_Freq_Data( void )
   /* Radiation pattern data if enabled */
   if( isFlagSet(ENABLE_RDPAT) )
   {
-	bsize +=
+	buff_size +=
 	  /* Gain total, tilt, axial ratio */
 	  3 * fpat.nph * fpat.nth * sizeof(double) +
 	  /* max & min gain, tht & phi angles */
@@ -345,28 +352,28 @@ Pass_Freq_Data( void )
   if( isFlagSet(DRAW_EHFIELD) )
   {
 	/* Notify parent to read near field data */
-	Write_Pipe( nchild, "nfeh", 4, TRUE );
+	Write_Pipe( num_child_procs, "nfeh", 4, TRUE );
 
 	/* Near E field data */
 	if( fpat.nfeh & NEAR_EFIELD )
-	  bsize +=
+	  buff_size +=
 		( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
 	/* Near H field data */
 	if( fpat.nfeh & NEAR_HFIELD )
-	  bsize +=
+	  buff_size +=
 		( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
 	/* Co-ordinates of field points */
-	bsize +=
+	buff_size +=
 	  ( 3 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double) +
 	  /* newer & valid flags */
 	  2 * sizeof(char);
   }
   else
 	/* Notify parent not to read near field data */
-	Write_Pipe( nchild, "noeh", 4, TRUE );
+	Write_Pipe( num_child_procs, "noeh", 4, TRUE );
 
   /* Allocate data buffers */
-  mem_alloc( (void *)&buff, bsize, "in fork.c" );
+  mem_alloc( (void *)&buff, buff_size, "in fork.c" );
 
   /* Clear buffer index in this function */
   Mem_Copy( buff, buff, 0, WRITE );
@@ -419,7 +426,7 @@ Pass_Freq_Data( void )
 	cnt = fpat.nph * fpat.nth * sizeof(int);
 	Mem_Copy( buff, (char *)rad_pattern[0].sens, cnt, WRITE );
 
-	if( isFlagSet(DRAW_NEWRDPAT) )
+	if( isFlagSet(DRAW_NEW_RDPAT) )
 	  flag = 1;
 	else
 	  flag = 0;
@@ -481,7 +488,7 @@ Pass_Freq_Data( void )
   } /* if( isFlagSet(DRAW_EHFIELD) ) */
 
   /* Pass data accumulated in buffer if child */
-  Write_Pipe( nchild, buff, bsize, TRUE );
+  Write_Pipe( num_child_procs, buff, buff_size, TRUE );
 
   free_ptr( (void *)&buff );
 
@@ -499,10 +506,10 @@ Get_Freq_Data( int idx, int fstep )
 {
   char *buff = NULL, flag;
   char nfeh[5];
-  size_t cnt, bsize;
+  size_t cnt, buff_size;
 
   /*** Total of bytes to read/write thru pipe ***/
-  bsize =
+  buff_size =
 	/* Current & charge data (a, b, c ir & ii) */
 	6 * data.npm * sizeof( long double ) +
 	/* Complex current (crnt.cur) */
@@ -517,7 +524,7 @@ Get_Freq_Data( int idx, int fstep )
   /* Radiation pattern data if enabled */
   if( isFlagSet(ENABLE_RDPAT) )
   {
-	bsize +=
+	buff_size +=
 	  /* Gain total, tilt, axial ratio */
 	  3 * fpat.nph * fpat.nth * sizeof(double) +
 	  /* max & min gain, tht & phi angles */
@@ -539,27 +546,27 @@ Get_Freq_Data( int idx, int fstep )
   {
 	/* Near E field data */
 	if( fpat.nfeh & NEAR_EFIELD )
-	  bsize +=
+	  buff_size +=
 		( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
 	/* Near H field data */
 	if( fpat.nfeh & NEAR_HFIELD )
-	  bsize +=
+	  buff_size +=
 		( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
 	/* Co-ordinates of field points */
-	bsize +=
+	buff_size +=
 	  ( 3 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double) +
 	  /* newer & valid flags */
 	  2 * sizeof(char);
   }
 
   /* Allocate data buffer */
-  mem_alloc( (void *)&buff, bsize, "in fork.c" );
+  mem_alloc( (void *)&buff, buff_size, "in fork.c" );
 
   /* Clear buffer index in this function */
   Mem_Copy( buff, buff, 0, READ );
 
   /* Get data accumulated in buffer if child */
-  PRead_Pipe( idx, buff, bsize, TRUE );
+  PRead_Pipe( idx, buff, buff_size, TRUE );
 
   /* Get current and charge data */
   cnt =  data.npm * sizeof( long double );
@@ -610,7 +617,7 @@ Get_Freq_Data( int idx, int fstep )
 	Mem_Copy( buff, (char *)rad_pattern[fstep].sens, cnt, READ );
 
 	Mem_Copy( buff, &flag, sizeof(flag), READ );
-	if( flag ) SetFlag( DRAW_NEWRDPAT );
+	if( flag ) SetFlag( DRAW_NEW_RDPAT );
   }
 
   /* Get near field data if signaled by child */

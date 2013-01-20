@@ -25,9 +25,6 @@
  */
 
 #include "xnec2c.h"
-#include "fork.h"
-#include "support.h"
-#include <wait.h>
 
 /* pointers to input */
 extern FILE *input_fp;
@@ -85,6 +82,7 @@ extern GtkWidget *freqplots_drawingarea;
 extern int freqplots_pixmap_width, freqplots_pixmap_height;
 
 /* Radiation top window & main window */
+extern GtkWidget *freqplots_window;
 extern GtkWidget *rdpattern_window;
 extern GtkWidget *main_window;
 
@@ -110,10 +108,10 @@ extern GtkSpinButton *rdpattern_frequency;
 extern GtkSpinButton *mainwin_frequency;
 
 /* Forked process data */
-extern forkpc_t **forkpc;
+extern forked_proc_data_t **forked_proc_data;
 extern gboolean FORKED;
-extern int nchild;
-extern char *comnd[];
+extern int num_child_procs;
+extern char *fork_commands[];
 
 /*-----------------------------------------------------------------------*/
 
@@ -124,7 +122,7 @@ extern char *comnd[];
   void
 Frequency_Scale_Geometry()
 {
-  long double fr, fr2;
+  long double fr;
   int idx;
 
   /* Calculate wavelength */
@@ -146,7 +144,7 @@ Frequency_Scale_Geometry()
 
   if( data.m != 0)
   {
-	fr2= fr* fr;
+	long double fr2= fr* fr;
 	for( idx = 0; idx < data.m; idx++ )
 	{
 	  int j;
@@ -186,7 +184,7 @@ Structure_Impedance_Loading( void )
  *
  * Calculates ground parameters (antenna environment)
  */
-  int
+  void
 Ground_Parameters( void )
 {
   complex long double epsc;
@@ -221,19 +219,19 @@ Ground_Parameters( void )
 		if( cabsl(( ggrid.epscf - epsc) / epsc) >= 1.0e-3l )
 		{
 		  fprintf( stderr,
-			  "xnec2c: error in ground parameters\n"
+			  "xnec2c: Ground_Parameters(): error in ground parameters\n"
 			  "complex dielectric constant from file: %12.5LE%+12.5LEj\n"
 			  "                            requested: %12.5LE%+12.5LEj\n",
 			  creall(ggrid.epscf), cimagl(ggrid.epscf),
 			  creall(epsc), cimagl(epsc) );
-		  stop( "Error in ground parameters", 1 );
+		  stop( "Ground_Parameters():"
+			  "Error in ground parameters", ERR_STOP );
 		}
 	  } /* if( gnd.iperf != 2) */
 	} /* if( gnd.iperf != 1) */
   } /* if( gnd.ksymp != 1) */
 
-  return(0);
-
+  return;
 } /* Ground_Parameters() */
 
 /*-----------------------------------------------------------------------*/
@@ -245,16 +243,13 @@ Ground_Parameters( void )
   void
 Set_Interaction_Matrix( void )
 {
-  size_t iresrv;
-
   /* Memory allocation for symmetry array */
   smat.nop = netcx.neq/netcx.npeq;
-  iresrv = smat.nop * smat.nop;
-  mem_realloc( (void *)&smat.ssx,
-	  iresrv * sizeof( complex long double), "in xnec2c.c" );
+  size_t mreq = smat.nop * smat.nop * sizeof( complex long double);
+  mem_realloc( (void *)&smat.ssx, mreq, "in xnec2c.c" );
 
   /* irngf is not used (NGF function not implemented) */
-  iresrv = data.np2m * (data.np+2*data.mp);
+  int iresrv = data.np2m * (data.np + 2 * data.mp);
   if( matpar.imat == 0)
 	fblock( netcx.npeq, netcx.neq, iresrv, data.ipsym);
 
@@ -309,14 +304,12 @@ Set_Excitation( void )
   void
 Set_Network_Data( void )
 {
-  int i, j, itmp1, itmp2, itmp3;
-
-
   if( netcx.nonet != 0 )
   {
+	int i, j, itmp1, itmp2, itmp3;
+
 	itmp3=0;
 	itmp1= netcx.ntyp[0];
-
 	for( i = 0; i < 2; i++ )
 	{
 	  if( itmp1 == 3) itmp1=2;
@@ -456,8 +449,7 @@ New_Frequency( void )
 {
   /* Abort if freq has not really changed, as when changing
    * between current or charge density structure coloring */
-  if( (save.last_freq == calc_data.fmhz) ||
-	  isFlagClear(ENABLE_EXCITN) )
+  if( (save.last_freq == calc_data.fmhz) || isFlagClear(ENABLE_EXCITN) )
 	return;
   save.last_freq = calc_data.fmhz;
 
@@ -509,10 +501,10 @@ Frequency_Loop( gpointer user_data )
 
   /* Current freq step, saved steps
    * index, num of busy processes */
-  static int fstep, nbusy;
+  static int fstep, num_busy_procs;
 
-  int idx, nch = 0;
-  size_t cnt;
+  int idx, job_num = 0;
+  size_t len;
   char *buff;				/* Used to pass on structure poiners */
   fd_set read_fds;			/* Read file descriptors for select() */
 
@@ -542,7 +534,7 @@ Frequency_Loop( gpointer user_data )
 	save.last_freq = 0.0l;
 
 	/* Zero num of busy processes */
-	nbusy = 0;
+	num_busy_procs = 0;
 
 	/* Signal global freq step "illegal" */
 	calc_data.fstep = -1;
@@ -558,8 +550,10 @@ Frequency_Loop( gpointer user_data )
   } /* isFlagSet(INIT_FREQ_LOOP) */
 
   /* Repeat freq stepping over number of child processes
-   * if forked. calc_data.nfork = 1 for non-forked runs */
-  for( idx = 0; idx < calc_data.nfork; idx++ )
+   * if forked. calc_data.num_jobs = 1 for non-forked runs.
+   * If not forked (no multi-threading), following block will
+   * execute only once, since only one instance is running */
+  for( idx = 0; idx < calc_data.num_jobs; idx++ )
   {
 	/* Up frequency step count */
 	fstep++;
@@ -599,28 +593,28 @@ Frequency_Loop( gpointer user_data )
 	if( FORKED )
 	{
 	  /* Look for an idle process */
-	  for( nch = 0; nch < calc_data.nfork; nch++ )
+	  for( job_num = 0; job_num < calc_data.num_jobs; job_num++ )
 	  {
 		/* If an idle process is found, give it a job and
 		 * then step the frequency loop by breaking out */
-		if( ! forkpc[nch]->busy )
+		if( ! forked_proc_data[job_num]->busy )
 		{
 		  /* Signal and count busy processes */
-		  forkpc[nch]->busy  = 1;
-		  forkpc[nch]->fstep = fstep;
-		  nbusy++;
+		  forked_proc_data[job_num]->busy  = TRUE;
+		  forked_proc_data[job_num]->fstep = fstep;
+		  num_busy_procs++;
 
 		  /* Tell process to calculate freq dependent data */
-		  cnt = strlen( comnd[FRQDATA] );
-		  Write_Pipe( nch, comnd[FRQDATA], cnt, TRUE );
+		  len = strlen( fork_commands[FRQDATA] );
+		  Write_Pipe( job_num, fork_commands[FRQDATA], len, TRUE );
 
 		  /* When it responds, give it next frequency */
 		  buff = (char *)&freq;
-		  cnt = sizeof( long double );
-		  Write_Pipe( nch, buff, cnt, TRUE );
+		  len = sizeof( long double );
+		  Write_Pipe( job_num, buff, len, TRUE );
 		  break;
 		}
-	  } /* for( nch = 0; nch < calc_data.nfork; nch++ ) */
+	  } /* for( job_num = 0; job_num < calc_data.num_jobs; job_num++ ) */
 
 	} /* if( FORKED ) */
 	else /* Calculate freq dependent data (no fork) */
@@ -633,59 +627,61 @@ Frequency_Loop( gpointer user_data )
 	}
 
 	/* All idle processes are given a job */
-	if( nbusy >= calc_data.nfork ) break;
+	if( num_busy_procs >= calc_data.num_jobs )
+	  break;
 
-  } /* for( idx = 0; idx < calc_data.nfork; idx++ ) */
+  } /* for( idx = 0; idx < calc_data.num_jobs; idx++ ) */
 
   /* Receive results from forked children */
-  if( FORKED ) do
-  {
-	int n = 0;
-
-	/* Set read fd's to watch for child writes */
-	FD_ZERO( &read_fds );
-	for( idx = 0; idx < calc_data.nfork; idx++ )
+  if( FORKED && num_busy_procs )
+	do
 	{
-	  FD_SET( forkpc[idx]->ch2p_pipe[READ], &read_fds );
-	  if( n < forkpc[idx]->ch2p_pipe[READ] )
-		n = forkpc[idx]->ch2p_pipe[READ];
-	}
+	  int n = 0;
 
-	/* Wait for data from finished child processes */
-	if( select( n+1, &read_fds, NULL, NULL, NULL ) == -1 )
-	{
-	  perror( "xnec2c: select()" );
-	  exit(0);
-	}
-
-	/* Check for finished child processes */
-	for( idx = 0; idx < nchild; idx++ )
-	{
-	  if( FD_ISSET(forkpc[idx]->ch2p_pipe[READ], &read_fds) )
+	  /* Set read fd's to watch for child writes */
+	  FD_ZERO( &read_fds );
+	  for( idx = 0; idx < calc_data.num_jobs; idx++ )
 	  {
-		 /* Read data from finished child process */
-		Get_Freq_Data( idx, forkpc[idx]->fstep );
-
-		/* Mark freq step in list of processed steps */
-		save.fstep[forkpc[idx]->fstep] = 1;
-
-		/* Mark finished child process as ready for next job */
-		forkpc[idx]->busy = 0;
-
-		/* Count down number of busy processes */
-		nbusy--;
+		FD_SET( forked_proc_data[idx]->child2pnt_pipe[READ], &read_fds );
+		if( n < forked_proc_data[idx]->child2pnt_pipe[READ] )
+		  n = forked_proc_data[idx]->child2pnt_pipe[READ];
 	  }
-	} /* for( idx = 0; idx < nchild; idx++ ) */
 
-	/* Find highest freq step that has no steps below it
-	 * that have not been processed by a child process */
-	for( idx = 0; idx < calc_data.nfrq; idx++ )
-	  if( save.fstep[idx] )
-		calc_data.fstep = idx;
-	  else
-		break;
-  }
-  while( !retval && nbusy ); /* Loop terminated and busy children */
+	  /* Wait for data from finished child processes */
+	  if( select( n+1, &read_fds, NULL, NULL, NULL ) == -1 )
+	  {
+		perror( "xnec2c: select()" );
+		_exit(0);
+	  }
+
+	  /* Check for finished child processes */
+	  for( idx = 0; idx < num_child_procs; idx++ )
+	  {
+		if( FD_ISSET(forked_proc_data[idx]->child2pnt_pipe[READ], &read_fds) )
+		{
+		  /* Read data from finished child process */
+		  Get_Freq_Data( idx, forked_proc_data[idx]->fstep );
+
+		  /* Mark freq step in list of processed steps */
+		  save.fstep[forked_proc_data[idx]->fstep] = 1;
+
+		  /* Mark finished child process as ready for next job */
+		  forked_proc_data[idx]->busy = FALSE;
+
+		  /* Count down number of busy processes */
+		  num_busy_procs--;
+		}
+	  } /* for( idx = 0; idx < num_child_procs; idx++ ) */
+
+	  /* Find highest freq step that has no steps below it
+	   * that have not been processed by a child process */
+	  for( idx = 0; idx < calc_data.nfrq; idx++ )
+		if( save.fstep[idx] ) calc_data.fstep = idx;
+		else break;
+
+	} /* do */
+	/* Loop terminated and busy children */
+	while( !retval && num_busy_procs );
 
   /* Return if freq step 0 not ready yet */
   if( calc_data.fstep < 0 ) return( retval );
@@ -700,12 +696,22 @@ Frequency_Loop( gpointer user_data )
   /* Set frequency spinbuttons */
   gtk_spin_button_set_value(
 	  mainwin_frequency, (gdouble)calc_data.fmhz );
+
   if( isFlagSet(DRAW_ENABLED) )
 	gtk_spin_button_set_value(
 		rdpattern_frequency, (gdouble)calc_data.fmhz );
 
+  if( isFlagSet(PLOT_ENABLED) )
+  {
+	char txt[10];
+	snprintf( txt, 10, "%10.3f", (gdouble)calc_data.fmhz );
+	txt[9] = '\0';
+	gtk_entry_set_text( GTK_ENTRY(
+		  lookup_widget(freqplots_window, "freqplots_fmhz_entry")), txt );
+  }
+
   /* Change flags at exit if loop is done */
-  if( !retval && !nbusy )
+  if( !retval && !num_busy_procs )
   {
 	ClearFlag( FREQ_LOOP_RUNNING );
 	SetFlag( FREQ_LOOP_DONE );

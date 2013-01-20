@@ -42,7 +42,7 @@
 
  ***********************************************************************/
 
-#include "xnec2c.h"
+#include "ground.h"
 
 /* pointers to input/output files */
 extern FILE *input_fp;
@@ -68,7 +68,7 @@ extern incom_t incom;;
 /* variable interval width romberg integration is used.  there are 9 */
 /* field components - the x, y, and z components due to constant, */
 /* sine, and cosine current distributions. */
-  int
+  void
 rom2( long double a, long double b,
 	complex long double *sum, long double dmin )
 {
@@ -87,22 +87,15 @@ rom2( long double a, long double b,
   if( first_call )
   {
 	first_call = FALSE;
-	mem_alloc( (void *)&g1,
-		9*sizeof(complex long double), "in ground.c");
-	mem_alloc( (void *)&g2,
-		9*sizeof(complex long double), "in ground.c");
-	mem_alloc( (void *)&g3,
-		9*sizeof(complex long double), "in ground.c");
-	mem_alloc( (void *)&g4,
-		9*sizeof(complex long double), "in ground.c");
-	mem_alloc( (void *)&g5,
-		9*sizeof(complex long double), "in ground.c");
-	mem_alloc( (void *)&t01,
-		9*sizeof(complex long double), "in ground.c");
-	mem_alloc( (void *)&t10,
-		9*sizeof(complex long double), "in ground.c");
-	mem_alloc( (void *)&t20,
-		9*sizeof(complex long double), "in ground.c");
+	size_t mreq = 9 * sizeof(complex long double);
+	mem_alloc( (void *)&g1, mreq, "in ground.c");
+	mem_alloc( (void *)&g2, mreq, "in ground.c");
+	mem_alloc( (void *)&g3, mreq, "in ground.c");
+	mem_alloc( (void *)&g4, mreq, "in ground.c");
+	mem_alloc( (void *)&g5, mreq, "in ground.c");
+	mem_alloc( (void *)&t01, mreq, "in ground.c");
+	mem_alloc( (void *)&t10, mreq, "in ground.c");
+	mem_alloc( (void *)&t20, mreq, "in ground.c");
   }
 
   z= a;
@@ -111,8 +104,8 @@ rom2( long double a, long double b,
 
   if( s < 0.0l)
   {
-	fprintf( stderr, "xnec2c: error - b less than a in rom2\n" );
-	stop( "rom2(): b less than a", 1 );
+	fprintf( stderr, "xnec2c: b less than a in rom2\n" );
+	stop( "rom2(): b less than a", ERR_STOP );
   }
 
   ep= s/(1.0e4l* data.npm);
@@ -133,8 +126,7 @@ rom2( long double a, long double b,
 	  if( z+ dz > ze)
 	  {
 		dz= ze- z;
-		if( dz <= ep)
-		  return(0);
+		if( dz <= ep) return;
 	  }
 
 	  dzot= dz*.5l;
@@ -176,7 +168,7 @@ rom2( long double a, long double b,
 
 	  z += dz;
 	  if( z > zend)
-		return(0);
+		return;
 
 	  for( i = 0; i < n; i++ )
 		g1[i]= g5[i];
@@ -249,7 +241,7 @@ rom2( long double a, long double b,
 
 	z= z+ dz;
 	if( z > zend)
-	  return(0);
+	  return;
 
 	for( i = 0; i < n; i++ )
 	  g1[i]= g5[i];
@@ -269,7 +261,8 @@ rom2( long double a, long double b,
 
 /* sfldx returns the field due to ground for a current element on */
 /* the source segment at t relative to the segment center. */
-void sflds( long double t, complex long double *e )
+  void
+sflds( long double t, complex long double *e )
 {
   long double xt, yt, zt, rhx, rhy, rhs, rho, phx, phy;
   long double cph, sph, zphs, r2s, rk, sfac, thet;
@@ -295,7 +288,7 @@ void sflds( long double t, complex long double *e )
   {
 	rhx= rhx/ rho;
 	rhy= rhy/ rho;
-	phx=- rhy;
+	phx= -rhy;
 	phy= rhx;
   }
 

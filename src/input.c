@@ -29,7 +29,7 @@
   422-5936)
   file created 4/11/80
 
- ***********Notice**********
+ *********** Notice **********
  This computer code material was prepared as an account of work
  sponsored by the United States government.  Neither the United
  States nor the United States Department Of Energy, nor any of
@@ -42,7 +42,7 @@
 
  ***********************************************************************/
 
-#include "xnec2c.h"
+#include "input.h"
 
 /* Data need for execution and calculations */
 extern calc_data_t calc_data;
@@ -98,52 +98,52 @@ extern double *cmag, *ct1m, *ct2m;
  *
  * Reads CM comment cards from input file
  */
-  int
+  gboolean
 Read_Comments( void )
 {
   char ain[3], line_buf[LINE_LEN];
 
-  /* read a line from input file */
-  if( load_line(line_buf, input_fp) == EOF )
-	stop( "Error reading input file\n"
-		  "Unexpected EOF (End of File)", 1 );
 
-  /* separate card's id mnemonic */
-  strncpy( ain, line_buf, 2 );
-  ain[2] = '\0';
-
-  /* if its a "cm" or "ce" card start reading comments */
-  if( (strcmp(ain, "CM") == 0) ||
-	  (strcmp(ain, "CE") == 0) )
+  /* Look for CM or CE card */
+  do
   {
-	/* Keep reading till a non "CM" card */
-	while( strcmp(ain, "CM") == 0 )
+	/* read a line from input file */
+	if( load_line(line_buf, input_fp) == EOF )
 	{
-	  /* read a line from input file */
-	  if( load_line(line_buf, input_fp) == EOF )
-		stop( "Error reading input file\n"
-			  "Unexpected EOF (End of File)", 1 );
-
-	  /* separate card's id mnemonic */
-	  strncpy( ain, line_buf, 2 );
-	  ain[2] = '\0';
-
-	} /* while( strcmp(ain, "CM") == 0 ) */
-
-	/* no "ce" card at end of comments */
-	if( strcmp(ain, "CE") != 0 )
-	{
-	  stop( "No CE card at end of Comments", 0 );
-	  fseek( input_fp, (long)(-strlen(line_buf)-1), SEEK_CUR );
-	  return(0);
+	  fprintf( stderr, "xnec2c: Read_Comments():"
+		  "unexpected EOF (End of File)\n" );
+	  stop( "Read_Comments(): Error reading Comments\n"
+		  "Unexpected EOF (End of File)", ERR_OK );
+	  return( FALSE );
 	}
 
-  } /* if( strcmp(ain, "CM") == 0 ... */
-  else
-	rewind( input_fp );
+	/* Check that comment line is not short */
+	if( strlen(line_buf) < 2 )
+	{
+	  fprintf( stderr, "xnec2c: Read_Comments():"
+		  "error reading Comments: "
+		  "Comment mnemonic short or missing\n" );
+	  stop( "Read_Comments(): Error reading Comments\n"
+		  "Comment mnemonic short or missing", ERR_OK );
+	  return( FALSE );
+	}
 
-  return(0);
+	/* separate card's id mnemonic */
+	strncpy( ain, line_buf, 2 );
+	ain[2] = '\0';
 
+	/* Check for incorrect mnemonic */
+	if( (strcmp(ain, "CM") != 0) && (strcmp(ain, "CE") != 0) )
+	{
+	  stop( "Read_Comments():\n"
+		  "Error reading input file\n"
+		  "Comment mnemonic incorrect", ERR_OK );
+	  return( FALSE );
+	}
+  }
+  while( (strcmp(ain, "CE") != 0) );
+
+  return( TRUE );
 } /* Read_Comments() */
 
 /*-----------------------------------------------------------------------*/
@@ -152,7 +152,7 @@ Read_Comments( void )
  *
  * Reads geometry data from input file
  */
-  int
+  gboolean
 Read_Geometry( void )
 {
   int idx;
@@ -161,7 +161,7 @@ Read_Geometry( void )
   /* Moved here from Read_Commands() */
   matpar.imat=0;
   data.n = data.m = 0;
-  datagn();
+  if( !datagn() ) return( FALSE );
 
   /* Memory allocation for temporary buffers */
   mreq = data.npm * sizeof(long double);
@@ -176,8 +176,7 @@ Read_Geometry( void )
   }
 
   /* Memory allocation for primary interacton matrix. */
-  mreq = data.np2m * (data.np+2*data.mp);
-  mreq *= sizeof(complex long double);
+  mreq = (data.np2m * (data.np + 2 * data.mp)) * sizeof(complex long double);
   mem_realloc( (void *)&cm, mreq, "in input.c" );
 
   /* Memory allocation for current buffers */
@@ -192,8 +191,8 @@ Read_Geometry( void )
   mem_realloc( (void *)&crnt.cur, mreq, "in input.c" );
 
   /* Memory allocation for loading buffers */
-  mem_realloc( (void *)&zload.zarray,
-	  data.npm * sizeof(complex long double), "in input.c" );
+  mreq = data.npm * sizeof(complex long double);
+  mem_realloc( (void *)&zload.zarray, mreq, "in input.c" );
 
   /* Save segment and patch data for freq scaling */
   if( data.n > 0 )
@@ -218,8 +217,7 @@ Read_Geometry( void )
 	  save.bitemp[j] = data.pbi[idx];
 	}
 
-  return(0);
-
+  return( TRUE );
 } /* Read_Geometry() */
 
 /*------------------------------------------------------------------------*/
@@ -229,10 +227,9 @@ Read_Geometry( void )
  * Reads commands from input file and stores
  * them for later execution by user command
  */
-  int
+  gboolean
 Read_Commands( void )
 {
-#define NUM_CMNDS  19
   /* input card mnemonic list */
   char *atst[NUM_CMNDS] =
   {
@@ -264,21 +261,34 @@ Read_Commands( void )
   calc_data.iexk = 0;
   calc_data.iped = 0;
   calc_data.nfrq = 1;
-  calc_data.fmhz = save.fmhz = CVEL;
+  calc_data.fmhz = CVEL;
+  save.fmhz = CVEL;
   calc_data.mxfrq = 0.0;
+  fpat.dth   = 0.0l;
+  fpat.thets = 0.0l;
   fpat.ixtyp = 0;
-  fpat.nfeh = fpat.nrx = fpat.nry = 0;
-  fpat.nry = fpat.nth = fpat.nph = 0;
+  fpat.nfeh  = 0;
+  fpat.nrx   = 0;
+  fpat.nry   = 0;
+  fpat.nry   = 0;
+  fpat.nth   = 0;
+  fpat.nph   = 0;
   fpat.near = -1;
-  gnd.ifar = -1;
+  gnd.ifar  = -1;
   gnd.zrati = CPLX_10;
   gnd.ksymp = 1;
-  gnd.nradl = gnd.iperf = 0;
-  netcx.nonet = netcx.ntsol = netcx.masym = 0;
+  gnd.nradl = 0;
+  gnd.iperf = 0;
+  netcx.nonet = 0;
+  netcx.ntsol = 0;
+  netcx.masym = 0;
   netcx.npeq = data.np+2*data.mp;
 
   /* My additions */
-  vsorc.nvqd = vsorc.nsant = zload.nldseg = zload.nload = 0;
+  vsorc.nvqd   = 0;
+  vsorc.nsant  = 0;
+  zload.nldseg = 0;
+  zload.nload  = 0;
 
   /* Allocate some buffers */
   mreq = data.np2m * sizeof(int);
@@ -286,9 +296,8 @@ Read_Commands( void )
 
   /* Memory allocation for symmetry array */
   smat.nop = netcx.neq/netcx.npeq;
-  mreq = smat.nop * smat.nop;
-  mem_realloc( (void *)&smat.ssx,
-	  mreq * sizeof( complex long double), "in input.c" );
+  mreq = smat.nop * smat.nop * sizeof( complex long double);
+  mem_realloc( (void *)&smat.ssx, mreq, "in input.c" );
 
   /* main input section, exits at various points */
   /* depending on error conditions or end of job */
@@ -296,9 +305,11 @@ Read_Commands( void )
   {
 	/* Main input section - standard read statement - jumps */
 	/* to appropriate section for specific parameter set up */
-	readmn(
-		ain, &itmp1, &itmp2, &itmp3, &itmp4,
-		&tmp1, &tmp2, &tmp3, &tmp4, &tmp5, &tmp6, 1 );
+	if( !readmn(
+		  ain, &itmp1, &itmp2, &itmp3, &itmp4,
+		  &tmp1, &tmp2, &tmp3, &tmp4, &tmp5, &tmp6) )
+	  return( FALSE );
+
 	mpcnt++;
 
 	/* identify command card id mnemonic */
@@ -309,25 +320,27 @@ Read_Commands( void )
 	/* take action according to card id mnemonic */
 	switch( ain_num )
 	{
-	  case 0: /* "cm" card ignored, comments in data cards as in NEC4 */
+	  case CM: /* "cm" card ignored, comments in data cards as in NEC4 */
+		fprintf( stderr, "xnec2c: Read_Commands(): ignoring CM card in commands\n" );
+		stop( "Read_Commands(): Ignoring CM card in commands", ERR_OK );
 		continue;
 
-	  case 1: /* "cp" card ignored, maximum coupling between antennas */
-		stop( "CP card is ignored\n"
-			"Coupling calculation not implemented", 0 );
+	  case CP: /* "cp" card ignored, maximum coupling between antennas */
+		stop( "Read_Commands(): CP card is ignored\n"
+			  "Coupling calculation not implemented", ERR_OK );
 		continue; /* continue card input loop */
 
-	  case 2: /* "ek" card,  extended thin wire kernel option */
+	  case EK: /* "ek" card,  extended thin wire kernel option */
 		if( itmp1 == -1)
 		  calc_data.iexk = 0;
 		else
 		  calc_data.iexk = 1;
 		continue; /* continue card input loop */
 
-	  case 3: /* "en" card, end data input, no action */
+	  case EN: /* "en" card, end data input, no action */
 		break;
 
-	  case 4: /* "ex" card, excitation parameters */
+	  case EX: /* "ex" card, excitation parameters */
 		netcx.masym = itmp4/10;
 		fpat.ixtyp  = itmp1;
 
@@ -340,20 +353,17 @@ Read_Commands( void )
 		  if( fpat.ixtyp == 5 )
 		  {
 			vsorc.nvqd++;
-			mem_realloc( (void *)&vsorc.ivqd,
-				vsorc.nvqd * sizeof(int), "in input.c" );
-			mem_realloc( (void *)&vsorc.iqds,
-				vsorc.nvqd * sizeof(int), "in input.c" );
-			mem_realloc( (void *)&vsorc.vqd,
-				vsorc.nvqd * sizeof(complex long double),
-				"in input.c" );
-			mem_realloc( (void *)&vsorc.vqds,
-				vsorc.nvqd * sizeof(complex long double),
-				"in input.c" );
+			mreq = vsorc.nvqd * sizeof(int);
+			mem_realloc( (void *)&vsorc.ivqd, mreq, "in input.c" );
+			mem_realloc( (void *)&vsorc.iqds, mreq, "in input.c" );
+			mreq = vsorc.nvqd * sizeof(complex long double);
+			mem_realloc( (void *)&vsorc.vqd, mreq, "in input.c" );
+			mem_realloc( (void *)&vsorc.vqds, mreq, "in input.c" );
 			{
 			  int indx = vsorc.nvqd-1;
 
-			  vsorc.ivqd[indx]= isegno( itmp2, itmp3);
+			  if( (vsorc.ivqd[indx] = isegno(itmp2, itmp3)) < 0 )
+				return( FALSE ); /* my addition, error */
 			  vsorc.vqd[indx]= cmplx( tmp1, tmp2);
 			  if( cabsl( vsorc.vqd[indx]) < 1.0e-20l)
 				vsorc.vqd[indx] = CPLX_10;
@@ -367,15 +377,15 @@ Read_Commands( void )
 		  {
 			/* Else, applied E field */
 			vsorc.nsant++;
-			mem_realloc( (void *)&vsorc.isant,
-				vsorc.nsant * sizeof(int), "in input.c" );
-			mem_realloc( (void *)&vsorc.vsant,
-				vsorc.nsant * sizeof(complex long double),
-				"in input.c" );
+			mreq = vsorc.nsant * sizeof(int);
+			mem_realloc( (void *)&vsorc.isant, mreq, "in input.c" );
+			mreq = vsorc.nsant * sizeof(complex long double);
+			mem_realloc( (void *)&vsorc.vsant, mreq, "in input.c" );
 			{
 			  int indx = vsorc.nsant-1;
 
-			  vsorc.isant[indx]= isegno( itmp2, itmp3);
+			  if( (vsorc.isant[indx] = isegno(itmp2, itmp3)) < 0 )
+				  return( FALSE ); /* my addition, error condition */
 			  vsorc.vsant[indx]= cmplx( tmp1, tmp2);
 			  if( cabsl( vsorc.vsant[indx]) < 1.0e-20l)
 				vsorc.vsant[indx] = CPLX_10;
@@ -409,7 +419,7 @@ Read_Commands( void )
 		SetFlag( ENABLE_EXCITN );
 		continue; /* continue card input loop */
 
-	  case 5: /* "fr" card, frequency parameters */
+	  case FR: /* "fr" card, frequency parameters */
 		if( !CHILD )
 		{
 		  calc_data.nfrq = itmp2;
@@ -421,19 +431,14 @@ Read_Commands( void )
 
 		/* Allocate normalization buffer */
 		{
-		  size_t mreq = calc_data.nfrq * sizeof(double);
-		  mem_realloc( (void *)&impedance_data.zreal,
-			  mreq, "in input.c" );
-		  mem_realloc( (void *)&impedance_data.zimag,
-			  mreq, "in input.c" );
-		  mem_realloc( (void *)&impedance_data.zmagn,
-			  mreq, "in input.c" );
-		  mem_realloc( (void *)&impedance_data.zphase,
-			  mreq, "in input.c" );
-		  mem_realloc( (void *)&save.freq,
-			  mreq, "in input.c" );
-		  mem_realloc( (void *)&save.fstep,
-			  calc_data.nfrq * sizeof(char), "in input.c" );
+		  mreq = calc_data.nfrq * sizeof(double);
+		  mem_realloc( (void *)&impedance_data.zreal, mreq, "in input.c" );
+		  mem_realloc( (void *)&impedance_data.zimag, mreq, "in input.c" );
+		  mem_realloc( (void *)&impedance_data.zmagn, mreq, "in input.c" );
+		  mem_realloc( (void *)&impedance_data.zphase, mreq, "in input.c" );
+		  mem_realloc( (void *)&save.freq, mreq, "in input.c" );
+		  mreq = calc_data.nfrq * sizeof(char);
+		  mem_realloc( (void *)&save.fstep, mreq, "in input.c" );
 		}
 
 		if( CHILD ) continue;
@@ -480,29 +485,41 @@ Read_Commands( void )
 		  calc_data.zpnorm = 0.0l;
 		continue; /* continue card input loop */
 
-	  case 6: /* "gd" card, ground representation */
+	  case GD: /* "gd" card, ground representation */
 		fpat.epsr2 = tmp1;
 		fpat.sig2  = tmp2;
 		fpat.clt   = tmp3;
 		fpat.cht   = tmp4;
 		continue; /* continue card input loop */
 
-	  case 7: /* "gn" card, ground parameters under the antenna */
+	  case GN: /* "gn" card, ground parameters under the antenna */
 		gnd.iperf = itmp1;
 		gnd.nradl = itmp2;
 		gnd.ksymp = 2;
 		save.epsr = tmp1;
 		save.sig  = tmp2;
 
+		/* Theta must be less than 90 if ground present */
+		tmp1 = (long double)(fpat.nth - 1) * fpat.dth + fpat.thets;
+		if( (gnd.ksymp == 2) && (gnd.ifar != 1) && (tmp1 > 90.0l) )
+		{
+		  fprintf( stderr,
+			  "xnec2c: Read_Commands(): theta > 90 deg. with ground specified\n" );
+		  stop( "Read_Commands(): Theta > 90 deg with ground specified\n"
+			  "Please check RP card data and correct", ERR_OK );
+		  return( FALSE );
+		}
+
 		if( gnd.nradl != 0)
 		{
 		  if( gnd.iperf == 2)
 		  {
 			fprintf( stderr,
-				"xnec2c: radial wire g.s. approximation may\n"
-				"not be used with Sommerfeld ground option\n" );
-			stop( "Radial wire g.s. approximation may not\n"
-				"be used with Sommerfeld ground option", 1 );
+				"xnec2c: Read_Commands(): radial wire g.s. approximation\n"
+				"may not be used with Sommerfeld ground option\n" );
+			stop( "Read_Commands(): radial wire g.s. approximation\n"
+				  "may not be used with Sommerfeld ground option", ERR_OK );
+			return( FALSE );
 		  }
 
 		  save.scrwlt = tmp3;
@@ -516,34 +533,26 @@ Read_Commands( void )
 		fpat.cht   = tmp6;
 		continue; /* continue card input loop */
 
-	  case 8: /* "kh" card, matrix integration limit */
+	  case KH: /* "kh" card, matrix integration limit */
 		calc_data.rkh = tmp1;
 		continue; /* continue card input loop */
 
-	  case 9: /* "ld" card, loading parameters */
+	  case LD: /* "ld" card, loading parameters */
 		{
 		  int idx, nseg;
-		  size_t mreq;
 
 		  /* Reallocate loading buffers */
 		  zload.nload++;
 		  mreq = zload.nload * sizeof(int);
-		  mem_realloc( (void *)&calc_data.ldtyp,
-			  mreq, "in input.c" );
-		  mem_realloc( (void *)&calc_data.ldtag,
-			  mreq, "in input.c" );
-		  mem_realloc( (void *)&calc_data.ldtagf,
-			  mreq, "in input.c" );
-		  mem_realloc( (void *)&calc_data.ldtagt,
-			  mreq, "in input.c" );
+		  mem_realloc( (void *)&calc_data.ldtyp,  mreq, "in input.c" );
+		  mem_realloc( (void *)&calc_data.ldtag,  mreq, "in input.c" );
+		  mem_realloc( (void *)&calc_data.ldtagf, mreq, "in input.c" );
+		  mem_realloc( (void *)&calc_data.ldtagt, mreq, "in input.c" );
 
 		  mreq = zload.nload * sizeof(long double);
-		  mem_realloc( (void *)&calc_data.zlr,
-			  mreq, "in input.c" );
-		  mem_realloc( (void *)&calc_data.zli,
-			  mreq, "in input.c" );
-		  mem_realloc( (void *)&calc_data.zlc,
-			  mreq, "in input.c" );
+		  mem_realloc( (void *)&calc_data.zlr, mreq, "in input.c" );
+		  mem_realloc( (void *)&calc_data.zli, mreq, "in input.c" );
+		  mem_realloc( (void *)&calc_data.zlc, mreq, "in input.c" );
 
 		  idx = zload.nload-1;
 		  calc_data.ldtyp[idx]= itmp1;
@@ -555,11 +564,12 @@ Read_Commands( void )
 		  if( itmp4 < itmp3 )
 		  {
 			fprintf( stderr,
-				"xnec2c: data fault on loading card no %d\n"
+				"xnec2c: Read_Commands(): data fault on loading card no %d\n"
 				"itag step1 %d is greater than itag step2 %d\n",
 				zload.nload, itmp3, itmp4 );
-			stop( "Data fault on loading card\n"
-				"itag step1 is greater than itag step2", 1 );
+			stop( "Read_Commands(): Data fault on loading card\n"
+				  "itag step1 is greater than itag step2", ERR_OK );
+			return( FALSE );
 		  }
 
 		  calc_data.zlr[idx]= tmp1;
@@ -576,10 +586,9 @@ Read_Commands( void )
 			  if( itmp3 == 0 ) /* All segs loaded */
 			  {
 				nseg = data.n;
-				mem_realloc( (void *)&zload.ldsegn,
-					(nseg+zload.nldseg)*sizeof(int), "in input.c" );
-				mem_realloc( (void *)&zload.ldtype,
-					(nseg+zload.nldseg)*sizeof(int), "in input.c" );
+				mreq = (nseg + zload.nldseg) * sizeof(int);
+				mem_realloc( (void *)&zload.ldsegn, mreq, "in input.c" );
+				mem_realloc( (void *)&zload.ldtype, mreq, "in input.c" );
 				for( idx = 0; idx < nseg; idx++ )
 				{
 				  zload.ldtype[zload.nldseg]   = itmp1;
@@ -590,10 +599,9 @@ Read_Commands( void )
 			  {
 				nseg = itmp4 - itmp3 + 1;
 				if( nseg <= 0 ) nseg = 1;
-				mem_realloc( (void *)&zload.ldsegn,
-					(zload.nldseg+nseg)*sizeof(int), "in input.c" );
-				mem_realloc( (void *)&zload.ldtype,
-					(zload.nldseg+nseg)*sizeof(int), "in input.c" );
+				mreq = (nseg + zload.nldseg) * sizeof(int);
+				mem_realloc( (void *)&zload.ldsegn, mreq, "in input.c" );
+				mem_realloc( (void *)&zload.ldtype, mreq, "in input.c" );
 				for( idx = 0; idx < nseg; idx++ )
 				{
 				  zload.ldtype[zload.nldseg]   = itmp1;
@@ -609,10 +617,9 @@ Read_Commands( void )
 				for( idx = 0; idx < data.n; idx++ )
 				  if( data.itag[idx] == itmp2 )
 				  {
-					mem_realloc( (void *)&zload.ldsegn,
-						(zload.nldseg+1)*sizeof(int), "in input.c" );
-					mem_realloc( (void *)&zload.ldtype,
-						(zload.nldseg+1)*sizeof(int), "in input.c" );
+					mreq = (zload.nldseg + 1) * sizeof(int);
+					mem_realloc( (void *)&zload.ldsegn, mreq, "in input.c" );
+					mem_realloc( (void *)&zload.ldtype, mreq, "in input.c" );
 					zload.ldtype[zload.nldseg]   = itmp1;
 					zload.ldsegn[zload.nldseg++] = idx+1;
 				  }
@@ -620,24 +627,23 @@ Read_Commands( void )
 			  else /* A range of segs of tag loaded */
 			  {
 				nseg = itmp4 - itmp3 + 1;
-				if( nseg <= 0 ) /* Just one seg of tag (=itmp3) */
-				  nseg = 1;
-				mem_realloc( (void *)&zload.ldsegn,
-					(zload.nldseg+nseg)*sizeof(int), "in input.c" );
-				mem_realloc( (void *)&zload.ldtype,
-					(zload.nldseg+nseg)*sizeof(int), "in input.c" );
+				if( nseg <= 0 ) nseg = 1; /* Just one seg of tag (=itmp3) */
+				mreq = (zload.nldseg + nseg) * sizeof(int);
+				mem_realloc( (void *)&zload.ldsegn, mreq, "in input.c" );
+				mem_realloc( (void *)&zload.ldtype, mreq, "in input.c" );
 				for( idx = 0; idx < nseg; idx++ )
 				{
-				  zload.ldtype[zload.nldseg]   = itmp1;
-				  zload.ldsegn[zload.nldseg++] =
-					isegno( itmp2, itmp3+idx );
+				  zload.ldtype[zload.nldseg] = itmp1;
+				  if( (zload.ldsegn[zload.nldseg++] =
+						isegno(itmp2, itmp3+idx)) < 0 )
+					return( FALSE );
 				}
 			  }
 			}
 		} /* case 8: */
 		continue; /* continue card input loop */
 
-	  case 10: case 11:  /* "ne"/"nh" cards, near field calculation parameters */
+	  case NE: case NH:  /* "ne"/"nh" cards, near field calculation parameters */
 		if( ain_num == 11 )
 		  fpat.nfeh |= NEAR_HFIELD;
 		else
@@ -668,11 +674,10 @@ Read_Commands( void )
 		 * execution is not triggered by any card */
 		continue; /* continue card input loop */
 
-	  case 12: case 17: /* "nt" & "tl" cards, network parameters */
+	  case NT: case TL: /* "nt" & "tl" cards, network parameters */
 		{
 		  int idx;
-		  size_t mreq;
-
+		  
 		  /* Re-allocate network buffers */
 		  netcx.nonet++;
 		  mreq = netcx.nonet * sizeof(int);
@@ -695,12 +700,25 @@ Read_Commands( void )
 		  {
 			netcx.ntyp[idx] = 2;
 			if( tmp1 == 0.0l )
-			  stop( "Transmission Line impedance = 0\n"
-				  "is not valid. Please correct", 1 );
+			{
+			  fprintf( stderr,
+				  "xnec2c: Read_Commands(): Transmission Line impedance = 0\n"
+				  "is not valid. Please correct NT or TL card\n" );
+			  stop( "Read_Commands(): Transmission Line impedance = 0\n"
+				  "is not valid. Please correct NT or TL card", ERR_OK );
+			  return( FALSE );
+			}
 		  }
 
-		  netcx.iseg1[idx] = isegno( itmp1, itmp2);
-		  netcx.iseg2[idx] = isegno( itmp3, itmp4);
+		  if( ((netcx.iseg1[idx] = isegno(itmp1, itmp2)) < 0) ||
+			  ((netcx.iseg2[idx] = isegno(itmp3, itmp4)) < 0) )
+		  {
+			fprintf( stderr,
+				"xnec2c: Read_Commands(): Segment number error in TL or NT card\n" );
+			stop( "Read_Commands(): Segment number\n"
+				"error in NT or TL card", ERR_OK );
+			return( FALSE );
+		  }
 		  netcx.x11r[idx]  = tmp1;
 		  netcx.x11i[idx]  = tmp2;
 		  netcx.x12r[idx]  = tmp3;
@@ -717,15 +735,24 @@ Read_Commands( void )
 
 		} /* case 12: case 17: */
 
-	  case 13: case 14: /* "pq" and "pt" cards ignored, no printing */
-		stop( "PQ and PT cards are ignored\n"
-			"Printing to file not implemented", 0);
+	  case PQ: case PT: /* "pq" and "pt" cards ignored, no printing */
+		fprintf( stderr,
+			"xnec2c: Read_Commands(): PQ and PT cards are ignored\n"
+			"Printing to file not implemented\n" );
+		stop( "Read_Commands(): PQ and PT cards are ignored\n"
+			"Printing to file not implemented", ERR_OK );
 		continue; /* continue card input loop */
 
-	  case 15: /* "rp" card, standard observation angle parameters */
+	  case RP: /* "rp" card, standard observation angle parameters */
 		if( itmp1 == 1 )
-		  stop( "Surface wave option (I1=1)\n"
-			  "of RP command not implemented", 1 );
+		{
+		  fprintf( stderr,
+			  "xnec2c: Read_Commands(): Surface wave option (I1=1)\n"
+			  "of RP command not implemented\n" );
+		  stop( "Read_Commands(): Surface wave option (I1=1)\n"
+			  "of RP command not implemented", ERR_OK );
+		  return( FALSE );
+		}
 
 		gnd.ifar = itmp1;
 		fpat.nth = itmp2;
@@ -744,15 +771,18 @@ Read_Commands( void )
 		fpat.inor = fpat.inor - fpat.iax*10;
 
 		if( fpat.iavp )
-		  stop( "Gain averaging (XNDA ***1 or ***2)\n"
-			  "of RP command not supported", 1 );
+		{
+		  fprintf( stderr,
+			  "xnec2c: Read_Commands(): Gain averaging (XNDA ***1 or ***2)\n"
+			  "of RP command not implemented\n" );
+		  stop( "Read_Commands(): Gain averaging (XNDA ***1 or ***2)\n"
+			  "of RP command not supported", ERR_OK );
+		  return( FALSE );
+		}
 		if( fpat.iax != 0) fpat.iax = 1;
 		if( fpat.ipd != 0) fpat.ipd = 1;
 		if( (fpat.nth < 2) || (fpat.nph < 1) || (gnd.ifar == 1) )
-		{
-		  fpat.iavp = 0;
 		  ClearFlag( ENABLE_RDPAT );
-		}
 		else
 		  SetFlag( ENABLE_RDPAT );
 
@@ -763,14 +793,27 @@ Read_Commands( void )
 		fpat.rfld  = tmp5;
 		fpat.gnor  = tmp6;
 
+		/* Theta must be less than 90 if ground present */
+		tmp1 = (long double)(fpat.nth - 1) * fpat.dth + fpat.thets;
+		if( (gnd.ksymp == 2) && (gnd.ifar != 1) && (tmp1 > 90.0l) )
+		{
+		  fprintf( stderr,
+			  "xnec2c: Read_Commands(): Theta > 90 deg. with ground specified\n"
+			  "Please check RP card data and correct\n" );
+		  stop( "Read_Commands(): Theta > 90 deg. with ground specified\n"
+				"Please check RP card data and correct", ERR_OK );
+		  return( FALSE );
+		}
+
 		/* Because of the interactive GUI, program
 		 * execution is not triggered by any card */
 		continue; /* continue card input loop */
 
-	  case 16: /* "sy" TODO Compatibility with 4nec2 */
+	  case SY: /* "sy" TODO Compatibility with 4nec2.
+				  Too difficult, may never happen :-( */
 		continue;
 
-	  case 18: /* "xq" execute card */
+	  case XQ: /* "xq" execute card */
 		/* Because of the interactive GUI, program
 		 * execution is not triggered by any card.
 		 * XQ now is the same as EN because of above */
@@ -809,67 +852,80 @@ Read_Commands( void )
 
 	  default:
 		fprintf( stderr,
-			"xnec2c: faulty data card label after geometry section\n" );
-		stop( "Faulty data card label\n"
-			"after geometry section", 1 );
+			"xnec2c: Read_Commands(): faulty data "
+			"card label after geometry section\n" );
+		stop( "Read_Commands(): Faulty data card\n"
+			  "label after geometry section", ERR_OK );
+		return( FALSE );
 	} /* switch( ain_num ) */
 
 	/* Allocate radiation pattern buffers */
 	if( isFlagSet(ENABLE_RDPAT) )
 	  Alloc_Rdpattern_Buffers( calc_data.nfrq+1, fpat.nth, fpat.nph );
 
-  return(0);
-
+	return( TRUE );
   } /* while( TRUE ) */
 
 } /* Read_Commands() */
 
 /*-----------------------------------------------------------------------*/
 
-  int
-readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
+  gboolean
+readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
 	long double *f1, long double *f2, long double *f3,
-	long double *f4, long double *f5, long double *f6, int err )
+	long double *f4, long double *f5, long double *f6 )
 {
   char line_buf[LINE_LEN];
-  int nlin, i, line_idx;
+  int len, i, line_idx;
   int nint = 4, nflt = 6;
   int iarr[4] = { 0, 0, 0, 0 };
   long double rarr[6] = { 0.0l, 0.0l, 0.0l, 0.0l, 0.0l, 0.0l };
+  int eof; /* EOF error flag */
+
+
+  /* Clear return values */
+  *i1 = *i2 = *i3 = *i4 = 0;
+  *f1 = *f2 = *f3 = *f4 = *f5 = *f6 = 0.0l;
 
   /* read a line from input file */
-  load_line( line_buf, input_fp );
+  eof = load_line( line_buf, input_fp );
+  if( eof == EOF )
+  {
+	strcpy( mn, "EN" );
+	fprintf( stderr,
+		"xnec2c: readmn(): command data card error\n"
+		"Unexpected EOF while reading input file - appending EN card\n" );
+	stop( "readmn(): Command data card error\n"
+		  "Unexpected EOF while reading input file\n"
+		  "Uppending a default EN card", ERR_OK );
+	return( FALSE );
+  }
 
   /* get line length */
-  nlin= strlen( line_buf );
+  len = strlen( line_buf );
 
   /* abort if card's mnemonic too short or missing */
-  if( nlin < 2 )
+  if( len < 2 )
   {
-	gm[0] = '\0';
+	strcpy( mn, "XX" );
 	fprintf( stderr,
-		"xnec2c: command data card error\n"
+		"xnec2c: readmn(): command data card error\n"
 		"card's mnemonic code too short or missing\n" );
-	stop( "Command data card error\n"
-		"Mnemonic code too short or missing", err );
+	stop( "readmn(): Command data card error\n"
+		  "Mnemonic code too short or missing", ERR_OK );
+	return( FALSE );
   }
 
   /* extract card's mnemonic code */
-  strncpy( gm, line_buf, 2 );
-  gm[2] = '\0';
+  strncpy( mn, line_buf, 2 );
+  mn[2] = '\0';
 
   /* Return if only mnemonic on card */
-  if( nlin == 2 )
-  {
-	*i1 = *i2 = *i3 = *i4 = 0;
-	*f1 = *f2 = *f3 = *f4 = *f5 = *f6 = 0.0l;
-	return(0);
-  }
+  if( len == 2 ) return( TRUE );
 
   /* Compatibility with NEC4,
    * comments between data cards */
-  if( strncmp(gm, "CM", 2) == 0 )
-	return(0);
+  if( strncmp(mn, "CM", 2) == 0 ) return( TRUE );
 
   /* read integers from line */
   line_idx = 1;
@@ -879,9 +935,9 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
 	while(
 		((line_buf[++line_idx] <  '0')  ||
 		 (line_buf[  line_idx] >  '9')) &&
-		(line_buf[  line_idx] != '+')   &&
-		(line_buf[  line_idx] != '-') )
-	  if( (line_buf[line_idx] == '\0') )
+		 (line_buf[  line_idx] != '+')  &&
+		 (line_buf[  line_idx] != '-') )
+	  if( line_buf[line_idx] == '\0' )
 	  {
 		*i1= iarr[0];
 		*i2= iarr[1];
@@ -893,13 +949,13 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
 		*f4= rarr[3];
 		*f5= rarr[4];
 		*f6= rarr[5];
-		return(0);
+		return( TRUE );
 	  }
 
 	/* read an integer from line */
 	iarr[i] = atoi( &line_buf[line_idx] );
 
-	/* traverse numerical field to next ' ' or ',' or '\0' */
+	/* traverse numerical field to next ' ', tab, ',' or '\0' */
 	line_idx--;
 	while(
 		(line_buf[++line_idx] != ' ') &&
@@ -913,13 +969,13 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
 		   (line_buf[line_idx] != '+')  &&
 		   (line_buf[line_idx] != '-') )
 	  {
-		gm[0] = '\0';
 		fprintf( stderr,
-			"xnec2c: command data card \"%s\" error\n"
+			"xnec2c: readmn(): command data card \"%s\" error\n"
 			"non-numerical char '%c' in integer field at char %d\n",
-			gm, line_buf[line_idx], (line_idx+1) );
-		stop( "Command data card error\n"
-			"Non-numerical character in integer field", err );
+			mn, line_buf[line_idx], (line_idx+1) );
+		stop( "readmn(): Command data card error\n"
+			  "Non-numerical character in integer field", ERR_OK );
+		return( FALSE );
 	  }
 
 	} /* while( (line_buff[++line_idx] ... */
@@ -937,7 +993,7 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
 	  *f4= rarr[3];
 	  *f5= rarr[4];
 	  *f6= rarr[5];
-	  return(0);
+	  return( TRUE );
 	}
 
   } /* for( i = 0; i < nint; i++ ) */
@@ -951,7 +1007,7 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
 		  (line_buf[  line_idx] != '+')  &&
 		  (line_buf[  line_idx] != '-')  &&
 		  (line_buf[  line_idx] != '.') )
-	  if( (line_buf[line_idx] == '\0') )
+	  if( line_buf[line_idx] == '\0' )
 	  {
 		*i1= iarr[0];
 		*i2= iarr[1];
@@ -963,13 +1019,13 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
 		*f4= rarr[3];
 		*f5= rarr[4];
 		*f6= rarr[5];
-		return(0);
+		return( TRUE );
 	  }
 
 	/* read a long double from line */
 	rarr[i] = atof( &line_buf[line_idx] );
 
-	/* traverse numerical field to next ' ' or ',' or '\0'*/
+	/* traverse numerical field to next ' ', tab, ',' or '\0'*/
 	line_idx--;
 	while(
 		(line_buf[++line_idx] != ' ') &&
@@ -986,13 +1042,13 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
 		   (line_buf[line_idx] != 'E')  &&
 		   (line_buf[line_idx] != 'e') )
 	  {
-		gm[0] = '\0';
 		fprintf( stderr,
-			"xnec2c: command data card \"%s\" error\n"
+			"xnec2c: readmn(): command data card \"%s\" error\n"
 			"non-numerical char '%c' in float field at char %d\n",
-			gm, line_buf[line_idx], (line_idx+1) );
-		stop( "Command data card error\n"
-			"Non-numerical character in float field", err );
+			mn, line_buf[line_idx], (line_idx+1) );
+		stop( "readmn(): Command data card error\n"
+			  "Non-numerical character in float field", ERR_OK );
+		return( FALSE );
 	  }
 
 	} /* while( (line_buff[++line_idx] ... */
@@ -1010,7 +1066,7 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
 	  *f4= rarr[3];
 	  *f5= rarr[4];
 	  *f6= rarr[5];
-	  return(0);
+	  return( TRUE );
 	}
 
   } /* for( i = 0; i < nflt; i++ ) */
@@ -1026,38 +1082,55 @@ readmn( char *gm, int *i1, int *i2, int *i3, int *i4,
   *f5= rarr[4];
   *f6= rarr[5];
 
-  return(0);
+  return( TRUE );
 }
 
 /*-----------------------------------------------------------------------*/
 
-  int
+  gboolean
 readgm( char *gm, int *i1, int *i2, long double *x1,
 	long double *y1, long double *z1, long double *x2,
-	long double *y2, long double *z2, long double *rad, int err )
+	long double *y2, long double *z2, long double *rad )
 {
   char line_buf[LINE_LEN];
-  int nlin, i, line_idx;
+  int len, i, line_idx;
   int nint = 2, nflt = 7;
   int iarr[2] = { 0, 0 };
   long double rarr[7] = { 0.0l, 0.0l, 0.0l, 0.0l, 0.0l, 0.0l, 0.0l };
+  int eof; /* EOF error flag */
 
+
+  /* Clear return values */
+  *i1 = *i2 = 0;
+  *x1 = *y1 = *z1 = *x2 = *y2 = *z2 = *rad = 0.0l;
 
   /* read a line from input file */
-  load_line( line_buf, input_fp );
+  eof = load_line( line_buf, input_fp );
+  if( eof == EOF )
+  {
+	strcpy( gm, "GE" );
+	fprintf( stderr,
+		"xnec2c: readgm(): geometry data card error\n"
+		"Unexpected EOF while reading input file - appending GE card\n" );
+	stop( "readgm(): Geometry data card error\n"
+		  "Unexpected EOF while reading input file\n"
+		  "Uppending a default GE card", ERR_OK );
+	return( FALSE );
+  }
 
   /* get line length */
-  nlin= strlen( line_buf );
+  len = strlen( line_buf );
 
   /* abort if card's mnemonic too short or missing */
-  if( nlin < 2 )
+  if( len < 2 )
   {
-	gm[0] = '\0';
+	strcpy( gm, "XX" );
 	fprintf( stderr,
-		"xnec2c: geometry data card error\n"
+		"xnec2c: readgm(): geometry data card error\n"
 		"card's mnemonic code too short or missing\n" );
-	stop( "Geometry data card error\n"
-		"Card's mnemonic code too short or missing", err );
+	stop( "readgm(): Geometry data card error\n"
+		  "Card's mnemonic code too short or missing", ERR_OK );
+	return( FALSE );
   }
 
   /* extract card's mnemonic code */
@@ -1065,12 +1138,11 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
   gm[2] = '\0';
 
   /* Return if only mnemonic on card */
-  if( nlin == 2 )
-  {
-	*i1 = *i2 = 0;
-	*x1 = *y1 = *z1 = *x2 = *y2 = *z2 = *rad = 0.0l;
-	return(0);
-  }
+  if( len == 2 ) return( TRUE );
+
+  /* Compatibility with NEC4,
+   * comments between data cards */
+  if( strcmp(gm, "CM") == 0 ) return( TRUE );
 
   /* read integers from line */
   line_idx = 1;
@@ -1082,7 +1154,7 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
 		 (line_buf[  line_idx] >  '9')) &&
 		 (line_buf[  line_idx] != '+')  &&
 		 (line_buf[  line_idx] != '-') )
-	  if( (line_buf[line_idx] == '\0') )
+	  if( line_buf[line_idx] == '\0' )
 	  {
 		*i1 = iarr[0];
 		*i2 = iarr[1];
@@ -1093,13 +1165,13 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
 		*y2 = rarr[4];
 		*z2 = rarr[5];
 		*rad= rarr[6];
-		return(0);
+		return( TRUE );
 	  }
 
 	/* read an integer from line */
 	iarr[i] = atoi( &line_buf[line_idx] );
 
-	/* traverse numerical field to next ' ' or ',' or '\0' */
+	/* traverse numerical field to next ' ', tab, ',' or '\0' */
 	line_idx--;
 	while(
 		(line_buf[++line_idx] != ' ') &&
@@ -1114,13 +1186,13 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
 		   (line_buf[line_idx] != '+')  &&
 		   (line_buf[line_idx] != '-') )
 	  {
-		gm[0] = '\0';
 		fprintf( stderr,
-			"xnec2c: geometry data card \"%s\" error\n"
+			"xnec2c: readgm(): geometry data card \"%s\" error\n"
 			"non-numerical char '%c' in integer field at char %d\n",
 			gm, line_buf[line_idx], (line_idx+1)  );
-		stop( "Geometry data card error\n"
-			"Non-numerical character in integer field", err );
+		stop( "readgm(): Geometry data card error\n"
+			  "Non-numerical character in integer field", ERR_OK );
+		return( FALSE );
 	  }
 
 	} /* while( (line_buff[++line_idx] ... */
@@ -1137,7 +1209,7 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
 	  *y2 = rarr[4];
 	  *z2 = rarr[5];
 	  *rad= rarr[6];
-	  return(0);
+	  return( TRUE );
 	}
 
   } /* for( i = 0; i < nint; i++ ) */
@@ -1152,7 +1224,7 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
 		(line_buf[  line_idx] != '+')  &&
 		(line_buf[  line_idx] != '-')  &&
 		(line_buf[  line_idx] != '.') )
-	  if( (line_buf[line_idx] == '\0') )
+	  if( line_buf[line_idx] == '\0' )
 	  {
 		*i1 = iarr[0];
 		*i2 = iarr[1];
@@ -1163,7 +1235,7 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
 		*y2 = rarr[4];
 		*z2 = rarr[5];
 		*rad= rarr[6];
-		return(0);
+		return( TRUE );
 	  }
 
 	/* read a long double from line */
@@ -1187,13 +1259,13 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
 		   (line_buf[line_idx] != 'E')  &&
 		   (line_buf[line_idx] != 'e') )
 	  {
-		gm[0] = '\0';
 		fprintf( stderr,
-			"xnec2c: geometry data card \"%s\" error\n"
+			"xnec2c: readgm(): geometry data card \"%s\" error\n"
 			"Non-numerical char '%c' in float field at char %d\n",
 			gm, line_buf[line_idx], (line_idx+1) );
-		stop( "Geometry data card error\n"
-			"Non-numerical character in float field", err );
+		stop( "readgm(): Geometry data card error\n"
+			  "Non-numerical character in float field", ERR_OK );
+		return( FALSE );
 	  }
 
 	} /* while( (line_buff[++line_idx] ... */
@@ -1210,7 +1282,7 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
 	  *y2 = rarr[4];
 	  *z2 = rarr[5];
 	  *rad= rarr[6];
-	  return(0);
+	  return( TRUE );
 	}
 
   } /* for( i = 0; i < nflt; i++ ) */
@@ -1225,26 +1297,26 @@ readgm( char *gm, int *i1, int *i2, long double *x1,
   *z2  = rarr[5];
   *rad = rarr[6];
 
-  return(0);
+  return( TRUE );
 }
 
 /*-----------------------------------------------------------------------*/
 
 /* datagn is the main routine for input of geometry data. */
-  int
+  gboolean
 datagn( void )
 {
   char gm[3];
 
   /* input card mnemonic list */
-#define GM_NUM  12
-  char *atst[GM_NUM] =
+  char *atst[NUM_GEOMN] =
   {
-	"GW", "GX", "GR", "GS", "GE", "GM", \
-    "SP", "SM", "GA", "SC", "GH", "GF"
+	"CM", "GW", "GX", "GR", "GS", "GE", \
+	"GM", "SP", "SM", "GA", "SC", "GH", "GF"
   };
 
-  int nwire, isct, itg, iy, iz, mreq;
+  int nwire, isct, itg, iy, iz;
+  size_t mreq;
   int ix, i, ns, gm_num; /* geometry card id as a number */
   long double rad, xs1, xs2, ys1, ys2, zs1, zs2;
   long double x3=0, y3=0, z3=0, x4=0, y4=0, z4=0;
@@ -1264,10 +1336,11 @@ datagn( void )
   /* section for operation requested */
   do
   {
-	readgm( gm, &itg, &ns, &xw1, &yw1, &zw1, &xw2, &yw2, &zw2, &rad, 1 );
+	if( !readgm(gm, &itg, &ns, &xw1, &yw1, &zw1, &xw2, &yw2, &zw2, &rad) )
+	  return( FALSE );
 
 	/* identify card id mnemonic */
-	for( gm_num = 0; gm_num < GM_NUM; gm_num++ )
+	for( gm_num = 0; gm_num < NUM_GEOMN; gm_num++ )
 	  if( strncmp( gm, atst[gm_num], 2) == 0 )
 		break;
 
@@ -1275,8 +1348,8 @@ datagn( void )
 
 	switch( gm_num )
 	{
-	  case 0: /* "gw" card, generate segment data for straight wire. */
-		Tag_Seg_Error( itg, ns );
+	  case GW: /* "gw" card, generate segment data for straight wire. */
+		if( Tag_Seg_Error(itg, ns) ) return( FALSE );
 		nwire++;
 
 		if( rad != 0.0)
@@ -1286,22 +1359,25 @@ datagn( void )
 		}
 		else
 		{
-		  readgm( gm, &ix, &iy, &xs1, &ys1, &zs1,
-			  &dummy, &dummy, &dummy, &dummy, 1 );
+		  if( !readgm(gm, &ix, &iy, &xs1, &ys1, &zs1,
+			  &dummy, &dummy, &dummy, &dummy) )
+			  return( FALSE );
 
 		  if( strcmp(gm, "GC" ) != 0 )
 		  {
 			fprintf( stderr,
-				"xnec2c: geometry data card error "
+				"xnec2c: datagn(): geometry data card error "
 				"no GC card for tapered wire\n" );
-			stop( "Geometry data error\n"
-				"No GC card for tapered wire", 1 );
+			stop( "datagn(): Geometry data error\n"
+				  "No GC card for tapered wire", ERR_OK );
+			return( FALSE );
 		  }
 
 		  if( (ys1 == 0) || (zs1 == 0) )
 		  {
-			fprintf( stderr, "xnec2c: geometry GC data card error\n" );
-			stop( "Geometry GC data card error", 1 );
+			fprintf( stderr, "xnec2c: datagn(): geometry GC data card error\n" );
+			stop( "datagn(): Geometry GC data card error", ERR_OK );
+			return( FALSE );
 		  }
 
 		  rad= ys1;
@@ -1313,11 +1389,12 @@ datagn( void )
 
 		/* reflect structure along x,y, or z */
 		/* axes or rotate to form cylinder.  */
-	  case 1: /* "gx" card */
+	  case GX: /* "gx" card */
 		if( (ns < 0) || (itg < 0) )
 		{
-		  fprintf( stderr, "xnec2c: geometry GX data card error\n" );
-		  stop( "Geometry GX data card error", 1 );
+		  fprintf( stderr, "xnec2c: datagn(): geometry GX data card error\n" );
+		  stop( "datagn(): Geometry GX data card error", ERR_OK );
+		  return( FALSE );
 		}
 
 		iy= ns/10;
@@ -1332,22 +1409,25 @@ datagn( void )
 		if( iz != 0)
 		  iz=1;
 
-		reflc( ix, iy, iz, itg, ns);
+		if( !reflc(ix, iy, iz, itg, ns) )
+		  return( FALSE );
 		continue;
 
-	  case 2: /* "gr" card */
+	  case GR: /* "gr" card */
 		if( (ns < 0) || (itg < 0) )
 		{
-		  fprintf( stderr, "xnec2c: geometry GR data card error\n" );
-		  stop( "Geometry GR data card error", 1 );
+		  fprintf( stderr, "xnec2c: datagn(): geometry GR data card error\n" );
+		  stop( "datagn(): Geometry GR data card error", ERR_OK );
+		  return( FALSE );
 		}
 
 		ix=-1;
 		iz = 0;
-		reflc( ix, iy, iz, itg, ns);
+		if( !reflc(ix, iy, iz, itg, ns) )
+		  return( FALSE );
 		continue;
 
-	  case 3: /* "gs" card, scale structure dimensions by factor xw1 */
+	  case GS: /* "gs" card, scale structure dimensions by factor xw1 */
 
 		if( (itg > 0) && (ns > 0) && (ns >= itg) )
 		  for( i = 0; i < data.n; i++ )
@@ -1385,25 +1465,29 @@ datagn( void )
 		}
 		continue;
 
-	  case 4: /* "ge" card, terminate structure geometry input. */
+	  case GE: /* "ge" card, terminate structure geometry input. */
 		/* My addition, for drawing */
 		if( ((data.n > 0) || (data.m > 0)) && !CHILD )
 		  Init_Struct_Drawing();
 		else if( (data.n == 0) && (data.m == 0) )
-		  stop( "No geometry data cards", 1 );
+		{
+		  stop( "No geometry data cards", ERR_OK );
+		  return( FALSE );
+		}
 
-		conect(itg);
+		if( !conect(itg) ) return( FALSE );
+
 		if( data.n != 0)
 		{
 		  /* Allocate wire buffers */
 		  mreq = data.n * sizeof(long double);
-		  mem_realloc( (void *)&data.si,   mreq, "in geometry.c" );
-		  mem_realloc( (void *)&data.sab,  mreq, "in geometry.c" );
-		  mem_realloc( (void *)&data.cab,  mreq, "in geometry.c" );
-		  mem_realloc( (void *)&data.salp, mreq, "in geometry.c" );
-		  mem_realloc( (void *)&data.x, mreq, "in geometry.c" );
-		  mem_realloc( (void *)&data.y, mreq, "in geometry.c" );
-		  mem_realloc( (void *)&data.z, mreq, "in geometry.c" );
+		  mem_realloc( (void *)&data.si,   mreq, "in input.c" );
+		  mem_realloc( (void *)&data.sab,  mreq, "in input.c" );
+		  mem_realloc( (void *)&data.cab,  mreq, "in input.c" );
+		  mem_realloc( (void *)&data.salp, mreq, "in input.c" );
+		  mem_realloc( (void *)&data.x, mreq, "in input.c" );
+		  mem_realloc( (void *)&data.y, mreq, "in input.c" );
+		  mem_realloc( (void *)&data.z, mreq, "in input.c" );
 
 		  for( i = 0; i < data.n; i++ )
 		  {
@@ -1432,8 +1516,9 @@ datagn( void )
 
 			if( (data.si[i] <= 1.0e-20l) || (data.bi[i] <= 0.0l) )
 			{
-			  fprintf( stderr, "xnec2c: segment data error\n" );
-			  stop( "Segment data error", 1 );
+			  fprintf( stderr, "xnec2c: datagn(): segment data error\n" );
+			  stop( "datagn(): Segment data error", ERR_OK );
+			  return( FALSE );
 			}
 
 		  } /* for( i = 0; i < data.n; i++ ) */
@@ -1458,32 +1543,35 @@ datagn( void )
 		data.np2m = data.n+2*data.m;
 		data.np3m = data.n+3*data.m;
 
-		return(0);
+		return( TRUE );
 
 		/* "gm" card, move structure or reproduce */
 		/* original structure in new positions.   */
-	  case 5:
+	  case GM:
 		{
 		  int tgf = (int)(rad + 0.5l);
 		  if( (tgf < 0) || (ns < 0) || (rad < 0.0l) )
 		  {
-			fprintf( stderr, "xnec2c: move GM data card error\n" );
-			stop( "Move GM data card error", 1 );
+			fprintf( stderr, "xnec2c: datagn(): move GM data card error\n" );
+			stop( "datagn(): Move GM data card error", ERR_OK );
+			return( FALSE );
 		  }
 		  xw1= xw1* TA;
 		  yw1= yw1* TA;
 		  zw1= zw1* TA;
-		  move( xw1, yw1, zw1, xw2, yw2, zw2, (int)(rad+.5l), ns, itg);
+		  if( !move(xw1, yw1, zw1, xw2, yw2, zw2, (int)(rad+.5l), ns, itg) )
+			return( FALSE );
 		}
 		continue;
 
-	  case 6: /* "sp" card, generate single new patch */
+	  case SP: /* "sp" card, generate single new patch */
 		ns++;
 
 		if( itg != 0)
 		{
-		  fprintf( stderr, "xnec2c: patch data card error\n" );
-		  stop( "Patch data card error", 1 );
+		  fprintf( stderr, "xnec2c: datagn(): patch data card error\n" );
+		  stop( "datagn(): Patch data card error", ERR_OK );
+		  return( FALSE );
 		}
 
 		if( (ns == 2) || (ns == 4) )
@@ -1491,8 +1579,9 @@ datagn( void )
 
 		if( ns > 1)
 		{
-		  readgm( gm, &ix, &iy, &x3, &y3,
-			  &z3, &x4, &y4, &z4, &dummy, 1 );
+		  if( !readgm(gm, &ix, &iy, &x3, &y3,
+				&z3, &x4, &y4, &z4, &dummy) )
+			return( FALSE );
 
 		  if( (ns == 2) || (itg > 0) )
 		  {
@@ -1503,8 +1592,9 @@ datagn( void )
 
 		  if( strcmp(gm, "SC") != 0 )
 		  {
-			fprintf( stderr, "xnec2c: patch data error\n" );
-			stop( "Patch data error", 1 );
+			fprintf( stderr, "xnec2c: datagn(): patch data error\n" );
+			stop( "datagn(): Patch data error", ERR_OK );
+			return( FALSE );
 		  }
 
 		} /* if( ns > 1) */
@@ -1514,19 +1604,22 @@ datagn( void )
 		  yw2= yw2* TA;
 		}
 
-		patch( itg, ns, xw1, yw1, zw1, xw2,
-			yw2, zw2, x3, y3, z3, x4, y4, z4);
+		if( !patch( itg, ns, xw1, yw1, zw1, xw2,
+			yw2, zw2, x3, y3, z3, x4, y4, z4) )
+			return( FALSE );
 		continue;
 
-	  case 7: /* "sm" card, generate multiple-patch surface */
+	  case SM: /* "sm" card, generate multiple-patch surface */
 		if( (itg < 1) || (ns < 1) )
 		{
-		  fprintf( stderr, "xnec2c: patch card data error\n" );
-		  stop( "Patch data card error", 1 );
+		  fprintf( stderr, "datagn(): xnec2c: patch card data error\n" );
+		  stop( "datagn(): Patch data card error", ERR_OK );
+		  return( FALSE );
 		}
 
-		readgm( gm, &ix, &iy, &x3, &y3,
-			&z3, &x4, &y4, &z4, &dummy, 1 );
+		if( !readgm(gm, &ix, &iy, &x3, &y3,
+			  &z3, &x4, &y4, &z4, &dummy) )
+		  return( FALSE );
 
 		if( (ns == 2) || (itg > 0) )
 		{
@@ -1537,33 +1630,37 @@ datagn( void )
 
 		if( strcmp(gm, "SC" ) != 0 )
 		{
-		  fprintf( stderr, "xnec2c: patch card data error\n" );
-		  stop( "Patch data card error", 1 );
+		  fprintf( stderr, "xnec2c: datagn(): patch card data error\n" );
+		  stop( "datagn(): Patch data card error", ERR_OK );
+		  return( FALSE );
 		}
 
-		patch( itg, ns, xw1, yw1, zw1, xw2,
-			yw2, zw2, x3, y3, z3, x4, y4, z4);
+		if( !patch(itg, ns, xw1, yw1, zw1, xw2,
+			yw2, zw2, x3, y3, z3, x4, y4, z4) )
+		  return( FALSE );
 		continue;
 
-	  case 8: /* "ga" card, generate segment data for wire arc */
-		Tag_Seg_Error( itg, ns );
+	  case GA: /* "ga" card, generate segment data for wire arc */
+		if( Tag_Seg_Error(itg, ns) ) return( FALSE );
 		nwire++;
-		arc( itg, ns, xw1, yw1, zw1, xw2);
+		if( !arc(itg, ns, xw1, yw1, zw1, xw2) ) return( FALSE );
 		continue;
 
-	  case 9: /* "sc" card */
+	  case SC: /* "sc" card */
 		if( isct == 0)
 		{
-		  fprintf( stderr, "xnec2c: patch data card error\n" );
-		  stop( "Patch data card error", 1 );
+		  fprintf( stderr, "xnec2c: datagn(): patch data card error\n" );
+		  stop( "datagn(): Patch data card error", ERR_OK );
+		  return( FALSE );
 		}
 
 		ns++;
 
 		if( (itg != 0) || ((ns != 2) && (ns != 4)) )
 		{
-		  fprintf( stderr, "xnec2c: patch data card error\n" );
-		  stop( "Patch data card error", 1 );
+		  fprintf( stderr, "xnec2c: datagn(): patch data card error\n" );
+		  stop( "datagn(): Patch data card error", ERR_OK );
+		  return( FALSE );
 		}
 
 		xs1= x4;
@@ -1597,28 +1694,38 @@ datagn( void )
 		  z4= zw1+ z3- zw2;
 		}
 
-		patch( itg, ns, xw1, yw1, zw1, xw2,
-			yw2, zw2, x3, y3, z3, x4, y4, z4);
+		if( !patch(itg, ns, xw1, yw1, zw1, xw2,
+			yw2, zw2, x3, y3, z3, x4, y4, z4) )
+		  return( FALSE );
 		continue;
 
-	  case 10: /* "gh" card, generate helix */
-		Tag_Seg_Error( itg, ns );
+	  case GH: /* "gh" card, generate helix */
+		if( Tag_Seg_Error(itg, ns) ) return( FALSE );
 		nwire++;
 		helix( xw1, yw1, zw1, xw2, yw2, zw2, rad, ns, itg);
 		continue;
 
-	  case 11: /* "gf" card, not supported */
-		stop( "\"GF\" card (NGF solution)\n"
-			"is not supported", 1 );
+	  case GF: /* "gf" card, not supported */
+		fprintf( stderr, "xnec2c: datagn(): \"GF\" card (NGF solution) "
+				"is not supported\n" );
+		stop( "datagn(): \"GF\" card (NGF solution)\n"
+			  "is not supported", ERR_OK );
+		return( FALSE );
+
+	  case CM: /* Ignore in-data comments (NEC4 compatibility) */
+		fprintf( stderr, "xnec2c: datagn(): ignoring CM card in geometry\n" );
+		stop( "datagn(): Ignoring CM card in geometry", ERR_OK );
+		continue;
 
 	  default: /* error message */
-		fprintf( stderr, "xnec2c: geometry data card error\n" );
+		fprintf( stderr, "xnec2c: datagn(): geometry data card error\n" );
 		fprintf( stderr,
 			"%2s %3d %5d %10.5LF %10.5LF %10.5LF"
 			" %10.5LF %10.5LF %10.5LF %10.5LF\n",
 			gm, itg, ns, xw1, yw1, zw1, xw2, yw2, zw2, rad );
 
-		stop( "Geometry data card error", 1 );
+		stop( "datagn(): Geometry data card error", ERR_OK );
+		return( FALSE );
 
 	} /* switch( gm_num ) */
 
@@ -1641,23 +1748,25 @@ Tag_Seg_Error( int tag, int segs )
   if( tag <= 0 )
   {
 	fprintf( stderr,
-		"xnec2c: geometry data card error\n"
+		"xnec2c: Tag_Seg_Error(): geometry data card error -"
 		"tag number is less than 1\n" );
-	stop( "Geometry data error\n"
-		"Tag number is less than 1", 1 );
+	stop( "Tag_Seg_Error(): Geometry data error\n"
+		  "Tag number is less than 1", ERR_OK );
 	retv = TRUE;
   }
 
   if( segs <= 0 )
   {
 	fprintf( stderr,
-		"xnec2c: geometry data card error\n"
+		"xnec2c: Tag_Seg_Error(): geometry data card error - "
 		"number of segments is less than 1\n" );
-	stop( "Geometry data error\n"
-		"Number of segments is less than 1", 1 );
+	stop( "Tag_Seg_Error(): Geometry data error\n"
+		  "Number of segments is less than 1", ERR_OK );
 	retv = TRUE;
   }
 
   return( retv );
 }
+
+/*-----------------------------------------------------------------------*/
 

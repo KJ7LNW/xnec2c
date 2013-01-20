@@ -8,30 +8,31 @@ INCLUDES = \
 bin_PROGRAMS = xnec2c
 
 xnec2c_SOURCES = \
-	main.c		 	xnec2c.h	\
+	main.c		 	main.h	\
 	support.c	 	support.h	\
 	interface.c	 	interface.h	\
 	callbacks.c	 	callbacks.h	\
-	callback_func.c	xnec2c.h	\
-	calculations.c	xnec2c.h	\
-	cmnd_edit.c		xnec2c.h	\
-	geom_edit.c	 	xnec2c.h	\
-	draw.c		 	xnec2c.h	\
-	draw_structure.c xnec2c.h	\
-	draw_radiation.c xnec2c.h	\
-	fields.c	 	xnec2c.h	\
-	fork.c	 		xnec2c.h	\
-	geometry.c	 	xnec2c.h	\
-	ground.c	 	xnec2c.h	\
+	callback_func.c	callback_func.h	\
+	calculations.c	calculations.h	\
+	cmnd_edit.c		cmnd_edit.h	\
+	geom_edit.c	 	geom_edit.h	\
+	gnuplot.c	 	gnuplot.h	\
+	draw.c		 	draw.h	\
+	draw_structure.c draw_structure.h	\
+	draw_radiation.c draw_radiation.h	\
+	fields.c	 	fields.h	\
+	fork.c	 		fork.h		\
+	geometry.c	 	geometry.h	\
+	ground.c	 	ground.h	\
 	xnec2c.c	 	xnec2c.h	\
-	input.c		 	xnec2c.h	\
-	matrix.c	 	xnec2c.h	\
-	misc.c		 	xnec2c.h	\
-	nec2_model.c 	xnec2c.h	\
-	network.c	 	xnec2c.h	\
-	plot_freqdata.c	xnec2c.h	\
-	radiation.c	 	xnec2c.h	\
-	somnec.c	 	xnec2c.h
+	input.c		 	input.h		\
+	matrix.c	 	matrix.h	\
+	misc.c		 	misc.h		\
+	nec2_model.c 	nec2_model.h	\
+	network.c	 	network.h	\
+	plot_freqdata.c	plot_freqdata.h	\
+	radiation.c	 	radiation.h	\
+	somnec.c	 	somnec.h
 
 xnec2c_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 

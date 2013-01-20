@@ -22,9 +22,7 @@
  * Miscellaneous support functions for xnec2c.c
  */
 
-#include "xnec2c.h"
-#include "interface.h"
-#include "support.h"
+#include "misc.h"
 
 /* Pointer to input file */
 extern FILE *input_fp;
@@ -32,7 +30,7 @@ extern FILE *input_fp;
 extern char infile[];
 
 /* Forked process number */
-extern int nchild;
+extern int num_child_procs;
 
 GtkWidget *error_dialog = NULL;
 
@@ -46,17 +44,19 @@ GtkWidget *error_dialog = NULL;
 void usage(void)
 {
   fprintf( stderr,
-	  "Usage: xnec2c [-i <input-file-name>]\n"
+	  "Usage: xnec2c <input-file-name>\n"
+	  "              [-i <input-file-name>]\n"
 	  "              [-j <number of processors in SMP machine>]\n"
 	  "              [-h: print this usage information and exit]\n"
-	  "              [-v: print nec2c version number and exit]\n" );
+	  "              [-v: print xnec2c version number and exit]\n" );
 
 } /* end of usage() */
 
 /*------------------------------------------------------------------------*/
 
 /* Does the STOP function of fortran but with a warning dialog */
-int stop( char *mesg, int err )
+  int
+stop( char *mesg, int err )
 {
   /* For child processes */
   if( CHILD )
@@ -65,10 +65,11 @@ int stop( char *mesg, int err )
 	if( err )
 	{
 	  fprintf( stderr,
-		  "xnec2c: Fatal: child process %d exiting\n", nchild );
+		  "xnec2c: Fatal: child process %d exiting\n", num_child_procs );
 	  _exit(-1);
 	}
-	else return( err );
+	else
+	  return( err );
 
   } /* if( CHILD ) */
 
@@ -78,13 +79,10 @@ int stop( char *mesg, int err )
   gtk_label_set_text( GTK_LABEL(
 		lookup_widget(error_dialog, "error_label")), mesg );
 
-  /* Hide ok/stop buttons according to error */
-  if( err == 1 )
+  /* Hide ok button according to error */
+  if( err == TRUE )
 	gtk_widget_hide( lookup_widget(
 		  error_dialog, "error_okbutton") );
-  else
-	gtk_widget_hide( lookup_widget(
-		  error_dialog, "error_stopbutton") );
   gtk_widget_show( error_dialog );
 
   /* Loop over usleep till user decides what to do */
@@ -93,14 +91,46 @@ int stop( char *mesg, int err )
   while( isFlagSet(ERROR_CONDX) )
   {
 	if( isFlagSet(MAIN_QUIT) ) exit(-1);
+
 	/* Wait for GTK to complete its tasks */
 	while( g_main_context_iteration(NULL, FALSE) );
 	usleep(100000);
   }
 
   return( err );
-
 } /* stop */
+
+/*------------------------------------------------------------------*/
+
+  gboolean
+Nec2_Save_Warn( const gchar *mesg )
+{
+  if( isFlagSet(FREQ_LOOP_RUNNING) )
+  {
+	error_dialog = create_error_dialog();
+	gtk_label_set_text( GTK_LABEL(
+		  lookup_widget(error_dialog, "error_label")), mesg );
+	gtk_widget_hide( lookup_widget(
+		  error_dialog, "error_stopbutton") );
+	gtk_widget_show( error_dialog );
+
+	/* Loop over usleep till user decides what to do */
+	/* Could not think of another way to do this :-( */
+	SetFlag( ERROR_CONDX );
+	while( isFlagSet(ERROR_CONDX) )
+	{
+	  if( isFlagSet(MAIN_QUIT) ) exit(-1);
+
+	  /* Wait for GTK to complete its tasks */
+	  while( g_main_context_iteration(NULL, FALSE) );
+	  usleep(100000);
+	}
+
+	return( FALSE );
+  }
+
+  return( TRUE );
+} /* Nec2_Save_Warn() */
 
 /*------------------------------------------------------------------*/
 
@@ -115,10 +145,11 @@ int load_line( char *buff, FILE *pfile )
 {
   int
 	num_chr, /* number of characters read, excluding lf/cr */
-	eof = 0, /* EOF flag */
+	eof,	 /* EOF flag */
 	chr;     /* character read by getc */
 
   num_chr = 0;
+  eof     = 0;
 
   /* clear buffer at start */
   buff[0] = '\0';
@@ -130,7 +161,6 @@ int load_line( char *buff, FILE *pfile )
   while(
 	  (chr == '#')	||
 	  (chr == '\'') ||
-	  (chr == ' ')  ||
 	  (chr == CR )  ||
 	  (chr == LF ) )
   {
@@ -174,39 +204,43 @@ int load_line( char *buff, FILE *pfile )
   buff[num_chr] = '\0';
 
   return( eof );
-
 } /* end of load_line() */
 
 /*------------------------------------------------------------------------*/
 
 /***  Memory allocation/freeing utils ***/
-void mem_alloc( void **ptr, int req, gchar *str )
+static size_t cnt = 0; /* Total allocation */
+void mem_alloc( void **ptr, size_t req, gchar *str )
 {
   gchar mesg[100];
 
   free_ptr( ptr );
   *ptr = malloc( req );
+  cnt += req;
   if( *ptr == NULL )
   {
-	strcpy( mesg, "Memory allocation denied " );
-	strcat( mesg, str );
-	stop( mesg, 1 );
+	snprintf( mesg, 99, "Memory allocation denied %s\n", str );
+	mesg[99] = '\0';
+	fprintf( stderr, "%s: Total memory request %ld\n", mesg, cnt );
+	stop( mesg, ERR_STOP );
   }
 
 } /* End of mem_alloc() */
 
 /*------------------------------------------------------------------------*/
 
-void mem_realloc( void **ptr, int req, gchar *str )
+void mem_realloc( void **ptr, size_t req, gchar *str )
 {
   gchar mesg[100];
 
   *ptr = realloc( *ptr, req );
+  cnt += req;
   if( *ptr == NULL )
   {
-	strcpy( mesg, "Memory re-allocation denied " );
-	strcat( mesg, str );
-	stop( mesg, 1 );
+	snprintf( mesg, 99, "Memory re-allocation denied %s\n", str );
+	mesg[99] = '\0';
+	fprintf( stderr, "%s: Total memory request %ld\n", mesg, cnt );
+	stop( mesg, ERR_STOP );
   }
 
 } /* End of mem_realloc() */
@@ -230,20 +264,21 @@ void free_ptr( void **ptr )
   gboolean
 Open_File( FILE **fp, char *fname, const char *mode )
 {
+  /* Abort if file name is blank */
+  if( strlen(infile) == 0 ) return( TRUE );
+
   /* Close file path if open */
   Close_File( fp );
   if( (*fp = fopen(fname, mode)) == NULL )
   {
-	char mesg[110] = "xnec2c: ";
-	strncat( mesg, fname, 80 );
-	perror( mesg );
-	strcat( mesg, ": Failed to open file" );
-	stop( mesg, 1 );
+	char mesg[110];
+	snprintf( mesg, 109, "xnec2c: %s: Failed to open file\n", fname );
+	mesg[109] = '\0';
+	stop( mesg, ERR_STOP );
 	return( FALSE );
   }
 
   return(TRUE);
-
 } /* Open_File() */
 
 /*------------------------------------------------------------------------*/
@@ -260,6 +295,68 @@ Close_File( FILE **fp )
   *fp = NULL;
 
 } /* Close_File() */
+
+/*------------------------------------------------------------------------*/
+
+/* Display_Fstep()
+ *
+ * Displays the current frequency step number
+ */
+  void
+Display_Fstep( GtkEntry *entry, int fstep )
+{
+  char str[4];
+
+  snprintf( str, 4, "%3d", fstep );
+  str[3] = '\0';
+  gtk_entry_set_text( entry, str );
+}
+
+/*------------------------------------------------------------------------*/
+
+/* Functions for testing and setting/clearing flow control flags
+ *
+ *  See xnec2c.h for definition of flow control flags
+ */
+
+/* An int variable holding the single-bit flags */
+static unsigned long long int Flags = 0;
+
+  int
+isFlagSet( unsigned long long int flag )
+{
+  return( (Flags & flag) == flag );
+}
+
+  int
+isFlagClear( unsigned long long int flag )
+{
+  return( (~Flags & flag) == flag );
+}
+
+  void
+SetFlag( unsigned long long int flag )
+{
+  Flags |= flag;
+}
+
+  void
+ClearFlag( unsigned long long int flag )
+{
+  Flags &= ~flag;
+}
+
+  void
+ToggleFlag( unsigned long long int flag )
+{
+  Flags ^= flag;
+}
+
+  void
+SaveFlag( unsigned long long int *flag, unsigned long long int mask )
+{
+  *flag |= (Flags & mask);
+}
 
 /*------------------------------------------------------------------------*/
 
