@@ -24,24 +24,7 @@
  */
 
 #include "gnuplot.h"
-
-/* Data for various calculations */
-extern data_t data;
-extern save_t save;
-extern impedance_data_t impedance_data;
-extern calc_data_t calc_data;
-
-/* Radiation pattern data */
-extern rad_pattern_t *rad_pattern;
-
-/* common /fpat/ */
-extern fpat_t fpat;
-
-/* Radiation pattern data */
-extern near_field_t near_field;
-
-/* Segments for drawing structure */
-extern GdkSegment *structure_segs;
+#include "shared.h"
 
 /*-----------------------------------------------------------------------*/
 
@@ -85,7 +68,7 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
 	Zo = calc_data.zo;
 
 	/* Save data for all frequency steps that were used */
-	fprintf( fp, "# Gain and F/B Ratio vs Frequency\n" );
+	fprintf( fp, _("# Gain and F/B Ratio vs Frequency\n") );
 	for( idx = 0; idx <= calc_data.lastf; idx++ )
 	{
 	  double fbdir;
@@ -161,7 +144,7 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
 	if( isFlagSet(PLOT_GAIN_DIR) )
 	{
 	  fprintf( fp, "\n\n" );
-	  fprintf( fp, "# Direction of gain in theta and phi\n" );
+	  fprintf( fp, _("# Direction of gain in theta and phi\n") );
 	  for( idx = 0; idx < calc_data.lastf; idx++ )
 	  {
 		double gdir_tht; /* Direction in theta of gain */
@@ -184,7 +167,7 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
 	double zrpro2, zrmro2, zimag2;
 
 	/* Calculate VSWR */
-	fprintf( fp, "# VSWR vs Frequency\n" );
+	fprintf( fp, _("# VSWR vs Frequency\n") );
 	for(idx = 0; idx <= calc_data.lastf; idx++ )
 	{
 	  zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
@@ -205,7 +188,7 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
   if( isFlagSet(PLOT_ZREAL_ZIMAG) )
   {
 	int idx;
-	fprintf( fp, "# Z real & Z imaginary vs Frequency\n" );
+	fprintf( fp, _("# Z real & Z imaginary vs Frequency\n") );
 	for(idx = 0; idx <= calc_data.lastf; idx++ )
 	  fprintf( fp, "%13.6E %10.3E %10.3E\n",
 		  save.freq[idx], impedance_data.zreal[idx], impedance_data.zimag[idx] );
@@ -217,7 +200,7 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
   if( isFlagSet(PLOT_ZMAG_ZPHASE) )
   {
 	int idx;
-	fprintf( fp, "# Z magnitude & Z phase vs Frequency\n" );
+	fprintf( fp, _("# Z magnitude & Z phase vs Frequency\n") );
 	for(idx = 0; idx <= calc_data.lastf; idx++ )
 	  fprintf( fp, "%13.6E %10.3E %10.3E\n",
 		  save.freq[idx], impedance_data.zmagn[idx], impedance_data.zphase[idx] );
@@ -268,7 +251,7 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 	/*** Draw Near E Field ***/
 	if( isFlagSet(DRAW_EFIELD) && (fpat.nfeh & NEAR_EFIELD) )
 	{
-	  fprintf( fp, "# Near E field\n" );
+	  fprintf( fp, _("# Near E field\n") );
 	  /* Write e-field out to file [DJS] */
 	  for( idx = 0; idx < npts; idx++ )
 	  {
@@ -291,7 +274,7 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 	/*** Draw Near H Field ***/
 	if( isFlagSet(DRAW_HFIELD) && (fpat.nfeh & NEAR_HFIELD) )
 	{
-	  fprintf( fp, "# Near H field\n" );
+	  fprintf( fp, _("# Near H field\n") );
 	  /* Write h-field out to file [DJS] */
 	  for( idx = 0; idx < npts; idx++ )
 	  {
@@ -328,9 +311,9 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 	  static double pov_max = 0;
 
 	  /* Allocate on new near field matrix size */
-	  if( mreq != npts * sizeof( double ) )
+	  if( mreq != (size_t)npts * sizeof( double ) )
 	  {
-		mreq = npts * sizeof( double );
+		mreq = (size_t)npts * sizeof( double );
 		mem_realloc( (void *)&pov_x, mreq, "in draw_radiation.c" );
 		mem_realloc( (void *)&pov_y, mreq, "in draw_radiation.c" );
 		mem_realloc( (void *)&pov_z, mreq, "in draw_radiation.c" );
@@ -338,7 +321,7 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 	  }
 
 	  /* Calculate Poynting vector and its max and min */
-	  fprintf( fp, "# Poynting Vector\n" );
+	  fprintf( fp, _("# Poynting Vector\n") );
 	  for( idx = 0; idx < npts; idx++ )
 	  {
 		pov_max = 0;
@@ -390,7 +373,6 @@ Save_RadPattern_Gnuplot_Data( char *filename )
   if( isFlagSet(ENABLE_RDPAT) && (calc_data.fstep >= 0) )
   {
 	int
-	  idx,
 	  nth,	/* Theta step count */
 	  nph;	/* Phi step count   */
 
@@ -402,23 +384,24 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 	double theta, phi, r;
 
 	/* theta and phi step in rads */
-	double dth = fpat.dth * TA, dph = fpat.dph * TA;
+	double dth = (double)fpat.dth * (double)TA;
+	double dph = (double)fpat.dph * (double)TA;
 
 	/* Open gplot file, abort on error */
 	if( !Open_File(&fp, filename, "w") )
 	  return;
-	fprintf( fp, "# Radiation Pattern" );
+	fprintf( fp, _("# Radiation Pattern") );
 
 	/* Distance of rdpattern point nearest to xyz origin */
 	/*** Convert radiation pattern values
 	 * to points in 3d space in x,y,z axis ***/
-	phi = fpat.phis * TA; /* In rads */
+	phi = (double)fpat.phis * (double)TA; /* In rads */
 
 	/* Step phi angle */
 	idx = 0;
 	for( nph = 0; nph < fpat.nph; nph++ )
 	{
-	  theta = fpat.thets * TA; /* In rads */
+	  theta = (double)fpat.thets * (double)TA; /* In rads */
 
 	  /* Step theta angle */
 	  for( nth = 0; nth < fpat.nth; nth++ )
@@ -474,7 +457,7 @@ Save_Struct_Gnuplot_Data( char *filename )
 	int idx, m2;
 
 	/* Output segments data */
-	fprintf( fp, "# structure patch segmenets\n" );
+	fprintf( fp, _("# structure patch segmenets\n") );
 
 	/* Output first segment outside loop to enable separation of wires */
 	fprintf( fp, "%10.3E %10.3E %10.3E\n%10.3E %10.3E %10.3E\n",
@@ -499,7 +482,7 @@ Save_Struct_Gnuplot_Data( char *filename )
 	int idx;
 
 	/* Output segments data */
-	fprintf( fp, "# structure wire segmenets\n" );
+	fprintf( fp, _("# structure wire segmenets\n") );
 
 	/* Output first segment outside loop to enable separation of wires */
 	fprintf( fp, "%10.3E %10.3E %10.3E\n%10.3E %10.3E %10.3E\n",

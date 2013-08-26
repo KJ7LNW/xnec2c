@@ -23,35 +23,7 @@
  */
 
 #include "cmnd_edit.h"
-
-/* Tree list stores */
-extern GtkListStore
-  *cmnt_store,
-  *geom_store,
-  *cmnd_store;
-
-/* Commands tree view */
-extern GtkTreeView *cmnd_treeview;
-
-/* Scrolled winodws adjustments */
-extern GtkAdjustment
-  *geom_adjustment,
-  *cmnd_adjustment;
-
-extern GtkWidget
-  *excitation_command,	/* Ecitation command editor */
-  *frequency_command,	/* Frequency command editor */
-  *ground_command,		/* Ground command editor (GN) */
-  *ground2_command,		/* Ground command editor (GD) */
-  *loading_command,		/* Loading command editor 	*/
-  *network_command,		/* Network command editor	*/
-  *txline_command,		/* Tran Line command editor */
-  *radiation_command,	/* Rad Pattern command editor */
-  *nearfield_command,	/* Near Fields command editor */
-  *kernel_command,		/* Thin-wire Kernel command editor  */
-  *intrange_command,	/* Interaction Range command editor */
-  *execute_command,		/* Execute (EX card) command editor */
-  *nec2_edit_window;	/* NEC2 editor's main window */
+#include "shared.h"
 
 /*------------------------------------------------------------------------*/
 
@@ -210,7 +182,7 @@ Excitation_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel excitation editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_ex );
+	  Remove_Row( cmnd_store, &iter_ex );
 	  save = busy = FALSE;
 	  return;
 
@@ -278,14 +250,14 @@ Excitation_Command( int action )
 		{
 		  gchar *text[EX_LABELS] =
 		  {
-			"Tag Number",
-			"Segment Number",
-			"Voltage Real Part",
-			"Voltage Imaginary Part",
-			"Normalization Factor",
-			"  ** NOT USED **",
-			"  ** NOT USED **",
-			"  ** NOT USED **",
+			_("Tag Number"),
+			_("Segment Number"),
+			_("Voltage Real Part"),
+			_("Voltage Imaginary Part"),
+			_("Normalization Factor"),
+			_("  ** NOT USED **"),
+			_("  ** NOT USED **"),
+			_("  ** NOT USED **"),
 		  };
 
 		  /* Clear unused spin buttons */
@@ -303,14 +275,14 @@ Excitation_Command( int action )
 		{
 		  gchar *text[EX_LABELS] =
 		  {
-			"Num of Theta Angles",
-			"Num of Phi Angles",
-			"Theta Angle (deg)",
-			"Phi Angle (deg)",
-			"Eta Angle (deg)",
-			"Theta Increment (deg)",
-			"Phi Increment (deg)",
-			"Minor/Major Axis"
+			_("Num of Theta Angles"),
+			_("Num of Phi Angles"),
+			_("Theta Angle (deg)"),
+			_("Phi Angle (deg)"),
+			_("Eta Angle (deg)"),
+			_("Theta Increment (deg)"),
+			_("Phi Increment (deg)"),
+			_("Minor/Major Axis")
 		  };
 
 		  Set_Labels( excitation_command, labels, text, EX_LABELS );
@@ -321,14 +293,14 @@ Excitation_Command( int action )
 		{
 		  gchar *text[EX_LABELS] =
 		  {
-			"  ** NOT USED **",
-			"  ** NOT USED **",
-			"X Position (m)",
-			"Y Position (m)",
-			"Z Position (m)",
-			"alpha Angle (deg)",
-			"beta Angle (deg)",
-			"Current Moment (A.m)"
+			_("  ** NOT USED **"),
+			_("  ** NOT USED **"),
+			_("X Position (m)"),
+			_("Y Position (m)"),
+			_("Z Position (m)"),
+			_("alpha Angle (deg)"),
+			_("beta Angle (deg)"),
+			_("Current Moment (A.m)")
 		  };
 
 		  /* Clear unused spin buttons */
@@ -483,7 +455,7 @@ Frequency_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel frequency editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_fr );
+	  Remove_Row( cmnd_store, &iter_fr );
 	  save = busy = FALSE;
 	  return;
 
@@ -744,9 +716,9 @@ Ground_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel ground editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_gn );
+	  Remove_Row( cmnd_store, &iter_gn );
 	  if( both )
-		Remove_Row( cmnd_treeview, cmnd_store, &iter_gd );
+		Remove_Row( cmnd_store, &iter_gd );
 	  save = busy = FALSE;
 	  return;
 
@@ -764,7 +736,7 @@ Ground_Command( int action )
 	  /* Remove GD card if it exists for perfect or null ground */
 	  if( ((iv[SPIN_COL_I1] == 1) || (iv[SPIN_COL_I1] == -1)) && both )
 	  {
-		Remove_Row( cmnd_treeview, cmnd_store, &iter_gd );
+		Remove_Row( cmnd_store, &iter_gd );
 		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
 			  ground_command, "ground_radl_checkbutton") );
 		gtk_toggle_button_set_active( toggle, FALSE );
@@ -807,7 +779,7 @@ Ground_Command( int action )
 	  else
 	  {
 		if( both )
-		  Remove_Row( cmnd_treeview, cmnd_store, &iter_gd );
+		  Remove_Row( cmnd_store, &iter_gd );
 		both = FALSE;
 	  }
 
@@ -1067,7 +1039,7 @@ Ground2_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel rad pattern editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_gd );
+	  Remove_Row( cmnd_store, &iter_gd );
 	  save = busy = FALSE;
 	  return;
 
@@ -1286,7 +1258,7 @@ Radiation_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel rad pattern editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_rp );
+	  Remove_Row( cmnd_store, &iter_rp );
 	  save = busy = FALSE;
 	  return;
 
@@ -1381,10 +1353,10 @@ Radiation_Command( int action )
 	{
 	  gchar *text[RP_LABELS] =
 	  {
-		"Points in Z",
-		"Initial Z (m)",
-		"Increment in Z",
-		"Field Point R (m)"
+		_("Points in Z"),
+		_("Initial Z (m)"),
+		_("Increment in Z"),
+		_("Field Point R (m)")
 	  };
 	  Set_Labels( radiation_command, labels, text, RP_LABELS );
 	}
@@ -1392,10 +1364,10 @@ Radiation_Command( int action )
 	{
 	  gchar *text[RP_LABELS] =
 	  {
-		"Points in Phi",
-		"Initial Theta (deg)",
-		"Increment in Theta",
-		"R (m) (Optional)"
+		_("Points in Phi"),
+		_("Initial Theta (deg)"),
+		_("Increment in Theta"),
+		_("R (m) (Optional)")
 	  };
 	  Set_Labels( radiation_command, labels, text, RP_LABELS );
 	}
@@ -1403,10 +1375,10 @@ Radiation_Command( int action )
 	/* Set normalization factor label */
 	if( norm )
 	  gtk_label_set_text( GTK_LABEL(lookup_widget(radiation_command,
-			  "radiation_f6_label")), "Normalization Factor" );
+			  "radiation_f6_label")), _("Normalization Factor") );
 	else
 	  gtk_label_set_text( GTK_LABEL(lookup_widget(radiation_command,
-			  "radiation_f6_label")), "** NOT USED **" );
+			  "radiation_f6_label")), _("** NOT USED **") );
 
 	label = FALSE;
   } /* if( label ) */
@@ -1562,7 +1534,7 @@ Loading_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel loading editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_ld );
+	  Remove_Row( cmnd_store, &iter_ld );
 	  save = busy = FALSE;
 	  return;
 
@@ -1603,9 +1575,9 @@ Loading_Command( int action )
 		{
 		  gchar *text[LD_LABELS] =
 		  {
-			"Resistance Ohm",
-			"Inductance uH",
-			"Capacitance pF"
+			_("Resistance Ohm"),
+			_("Inductance uH"),
+			_("Capacitance pF")
 		  };
 		  Set_Labels( loading_command, labels, text, LD_LABELS );
 		}
@@ -1615,9 +1587,9 @@ Loading_Command( int action )
 		{
 		  gchar *text[LD_LABELS] =
 		  {
-			"Resistance Ohm/m",
-			"Inductance uH/m",
-			"Capacitance pF/m"
+			_("Resistance Ohm/m"),
+			_("Inductance uH/m"),
+			_("Capacitance pF/m")
 		  };
 		  Set_Labels( loading_command, labels, text, LD_LABELS );
 		}
@@ -1627,9 +1599,9 @@ Loading_Command( int action )
 		{
 		  gchar *text[LD_LABELS] =
 		  {
-			"Resistance Ohm",
-			"Reactance Ohm",
-			"  ** NOT USED **"
+			_("Resistance Ohm"),
+			_("Reactance Ohm"),
+			_("  ** NOT USED **")
 		  };
 		  Set_Labels( loading_command, labels, text, LD_LABELS );
 		}
@@ -1639,9 +1611,9 @@ Loading_Command( int action )
 		{
 		  gchar *text[LD_LABELS] =
 		  {
-			"Conductivity S/m",
-			"  ** NOT USED **",
-			"  ** NOT USED **"
+			_("Conductivity S/m"),
+			_("  ** NOT USED **"),
+			_("  ** NOT USED **")
 		  };
 		  Set_Labels( loading_command, labels, text, LD_LABELS );
 		}
@@ -1802,7 +1774,7 @@ Network_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel Network editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_nt );
+	  Remove_Row( cmnd_store, &iter_nt );
 	  save = busy = FALSE;
 	  return;
 
@@ -1954,7 +1926,7 @@ Txline_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel transmission line editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_tl );
+	  Remove_Row( cmnd_store, &iter_tl );
 	  save = busy = FALSE;
 	  return;
 
@@ -2168,9 +2140,9 @@ Nearfield_Command( int action )
 	case EDITOR_CANCEL: /* Cancel near field editor */
 	  /* Remove card(s) */
 	  if( nref )
-		Remove_Row( cmnd_treeview, cmnd_store, &iter_ne );
+		Remove_Row( cmnd_store, &iter_ne );
 	  if( nrhf )
-		Remove_Row( cmnd_treeview, cmnd_store, &iter_nh );
+		Remove_Row( cmnd_store, &iter_nh );
 	  save = busy = FALSE;
 	  return;
 
@@ -2187,7 +2159,7 @@ Nearfield_Command( int action )
 	  else
 	  {
 		nref = FALSE;
-		Remove_Row( cmnd_treeview, cmnd_store, &iter_ne );
+		Remove_Row( cmnd_store, &iter_ne );
 	  }
 
 	  /* Scroll tree view to bottom */
@@ -2209,7 +2181,7 @@ Nearfield_Command( int action )
 	  else
 	  {
 		nrhf = FALSE;
-		Remove_Row( cmnd_treeview, cmnd_store, &iter_nh );
+		Remove_Row( cmnd_store, &iter_nh );
 	  }
 
 	  /* Scroll tree view to bottom */
@@ -2241,15 +2213,15 @@ Nearfield_Command( int action )
 	{
 	  gchar *text[NF_LABELS] =
 	  {
-		"Points in X-axis",
-		"Points in Y-axis",
-		"Points in Z-axis",
-		"First Point X (m)",
-		"First Point Y (m)",
-		"First Point Z (m)",
-		"Increment in X (m)",
-		"Increment in Y (m)",
-		"Increment in Z (m)"
+		_("Points in X-axis"),
+		_("Points in Y-axis"),
+		_("Points in Z-axis"),
+		_("First Point X (m)"),
+		_("First Point Y (m)"),
+		_("First Point Z (m)"),
+		_("Increment in X (m)"),
+		_("Increment in Y (m)"),
+		_("Increment in Z (m)")
 	  };
 	  Set_Labels( nearfield_command, labels, text, NF_LABELS );
 	}
@@ -2257,15 +2229,15 @@ Nearfield_Command( int action )
 	{
 	  gchar *text[NF_LABELS] =
 	  {
-		"Points along R",
-		"Points along Phi",
-		"Points along Theta",
-		"First Point R (m)",
-		"First Point Phi",
-		"First Point Theta",
-		"Increment in R (m)",
-		"Increment in Phi",
-		"Increment in Theta"
+		_("Points along R"),
+		_("Points along Phi"),
+		_("Points along Theta"),
+		_("First Point R (m)"),
+		_("First Point Phi"),
+		_("First Point Theta"),
+		_("Increment in R (m)"),
+		_("Increment in Phi"),
+		_("Increment in Theta")
 	  };
 	  Set_Labels( nearfield_command, labels, text, NF_LABELS );
 	  label = FALSE;
@@ -2394,7 +2366,7 @@ Kernel_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel kernel editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_ek );
+	  Remove_Row( cmnd_store, &iter_ek );
 	  save = busy = FALSE;
 	  return;
 
@@ -2507,7 +2479,7 @@ Intrange_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel inter range editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_kh );
+	  Remove_Row( cmnd_store, &iter_kh );
 	  save = busy = FALSE;
 	  return;
 
@@ -2630,7 +2602,7 @@ Execute_Command( int action )
 
 	case EDITOR_CANCEL: /* Cancel execute editor */
 	  /* Remove card(s) */
-	  Remove_Row( cmnd_treeview, cmnd_store, &iter_xq );
+	  Remove_Row( cmnd_store, &iter_xq );
 	  save = busy = FALSE;
 	  return;
 
@@ -2711,8 +2683,8 @@ Get_Command_Data(
 	}
   }
   else
-	stop( "Get_Command_Data(): Error reading\n"
-		  "row data: Invalid list iterator", ERR_OK );
+	stop( _("Get_Command_Data(): Error reading\n"\
+		  "row data: Invalid list iterator"), ERR_OK );
 
 } /* Get_Command_Data() */
 
@@ -2748,8 +2720,8 @@ Set_Command_Data(
 	}
   }
   else
-	stop( "Set_Command_Data(): Error writing row data\n"
-		  "Please re-select row", ERR_OK );
+	stop( _("Set_Command_Data(): Error writing row data\n"\
+		  "Please re-select row"), ERR_OK );
 
   SetFlag( NEC2_EDIT_SAVE );
 

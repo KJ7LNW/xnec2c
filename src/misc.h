@@ -23,6 +23,7 @@
 #include "common.h"
 #include "interface.h"
 #include "support.h"
+#include <ctype.h>
 
 /* Carriage return and line feed */
 #define	CR	0x0d

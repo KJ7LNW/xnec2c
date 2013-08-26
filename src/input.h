@@ -21,6 +21,7 @@
 #define	INPUT_H		1
 
 #include "common.h"
+#include "support.h"
 
 /* Command Mnemonics */
 enum CMDN_MNM

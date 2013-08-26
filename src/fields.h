@@ -22,17 +22,17 @@
 
 #include "common.h"
 
-#define	TPJ		(0.0l+6.283185308lj)
-#define PI8		25.13274123l
-#define	FPI		12.56637062l
-#define	CONST2	4.771341188l
+#define	TPJ		(0.0+I*6.283185308)
+#define PI8		25.13274123
+#define	FPI		12.56637062
+#define	CONST2	4.771341188
 
 /* common  /tmi/ */
 typedef struct
 {
   int ij;
 
-  long double
+  double
     zpk,
     rkb2;
 
@@ -41,7 +41,7 @@ typedef struct
 /*common  /tmh/ */
 typedef struct
 {
-  long double
+  double
     zpka,
     rhks;
 

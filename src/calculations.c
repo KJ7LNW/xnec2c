@@ -43,46 +43,26 @@
  ***********************************************************************/
 
 #include "calculations.h"
-
-/* common  /crnt/ */
-extern crnt_t crnt;
-
-/* common  /data/ */
-extern data_t data;
-
-/* common  /dataj/ */
-extern dataj_t dataj;
-
-/*common  /ggrid/ */
-extern ggrid_t ggrid;
-
-/* common  /segj/ */
-extern segj_t segj;
-
-/* common  /vsorc/ */
-extern vsorc_t vsorc;
-
-/* common  /zload/ */
-extern zload_t zload;
+#include "shared.h"
 
 /*-------------------------------------------------------------------*/
 
 /* fill incident field array for charge discontinuity voltage source */
-void qdsrc( int is, complex long double v, complex long double *e )
+void qdsrc( int is, complex double v, complex double *e )
 {
   int i, jx, j, jp1, ipr, ij, i1;
-  long double xi, yi, zi, ai, cabi, sabi, salpi, tx, ty, tz;
-  complex long double curd, etk, ets, etc;
+  double xi, yi, zi, ai, cabi, sabi, salpi, tx, ty, tz;
+  complex double curd, etk, ets, etc;
 
   is--;
   i= data.icon1[is];
   data.icon1[is]=0;
   tbf( is+1,0);
   data.icon1[is]= i;
-  dataj.s= data.si[is]*.5l;
-  curd= CCJ* v/(( logl(2.0l * dataj.s/ data.bi[is])-1.0l) *
-	  ( segj.bx[segj.jsno-1] * cosl( TP* dataj.s) +
-		segj.cx[segj.jsno-1] * sinl( TP* dataj.s))* data.wlam);
+  dataj.s= data.si[is]*.5;
+  curd= CCJ* v/(( log(2.0 * dataj.s/ data.bi[is])-1.0) *
+	  ( segj.bx[segj.jsno-1] * cos( TP* dataj.s) +
+		segj.cx[segj.jsno-1] * sin( TP* dataj.s))* data.wlam);
   vsorc.vqds[vsorc.nqds]= v;
   vsorc.iqds[vsorc.nqds]= is+1;
   vsorc.nqds++;
@@ -113,10 +93,10 @@ void qdsrc( int is, complex long double v, complex long double *e )
 		  dataj.ind1=2;
 		else
 		{
-		  xi= fabsl( dataj.cabj* data.cab[ipr]+ dataj.sabj*
+		  xi= fabs( dataj.cabj* data.cab[ipr]+ dataj.sabj*
 			  data.sab[ipr]+ dataj.salpj* data.salp[ipr]);
-		  if( (xi < 0.999999l) ||
-			  (fabsl(data.bi[ipr]/dataj.b-1.0l) > 1.0e-6l) )
+		  if( (xi < 0.999999) ||
+			  (fabs(data.bi[ipr]/dataj.b-1.0) > 1.0e-6) )
 			dataj.ind1=2;
 		  else
 			dataj.ind1=0;
@@ -134,10 +114,10 @@ void qdsrc( int is, complex long double v, complex long double *e )
 			  dataj.ind1=2;
 			else
 			{
-			  xi= fabsl( dataj.cabj* data.cab[ipr]+ dataj.sabj*
+			  xi= fabs( dataj.cabj* data.cab[ipr]+ dataj.sabj*
 				  data.sab[ipr]+ dataj.salpj* data.salp[ipr]);
-			  if( (xi < 0.999999l) ||
-				  (fabsl(data.bi[ipr]/dataj.b-1.0l) > 1.0e-6l) )
+			  if( (xi < 0.999999) ||
+				  (fabs(data.bi[ipr]/dataj.b-1.0) > 1.0e-6) )
 				dataj.ind1=2;
 			  else
 				dataj.ind1=0;
@@ -145,7 +125,7 @@ void qdsrc( int is, complex long double v, complex long double *e )
 		  } /* if( ipr != j ) */
 		  else
 		  {
-			if( (dataj.cabj*dataj.cabj + dataj.sabj*dataj.sabj) > 1.0e-8l)
+			if( (dataj.cabj*dataj.cabj + dataj.sabj*dataj.sabj) > 1.0e-8)
 			  dataj.ind1=2;
 			else
 			  dataj.ind1=0;
@@ -162,10 +142,10 @@ void qdsrc( int is, complex long double v, complex long double *e )
 		  dataj.ind1=2;
 		else
 		{
-		  xi= fabsl( dataj.cabj* data.cab[ipr]+ dataj.sabj *
+		  xi= fabs( dataj.cabj* data.cab[ipr]+ dataj.sabj *
 			  data.sab[ipr]+ dataj.salpj* data.salp[ipr]);
-		  if( (xi < 0.999999l) ||
-			  (fabsl(data.bi[ipr]/dataj.b-1.0l) > 1.0e-6l) )
+		  if( (xi < 0.999999) ||
+			  (fabs(data.bi[ipr]/dataj.b-1.0) > 1.0e-6) )
 			dataj.ind1=2;
 		  else
 			dataj.ind1=0;
@@ -183,10 +163,10 @@ void qdsrc( int is, complex long double v, complex long double *e )
 			  dataj.ind2=2;
 			else
 			{
-			  xi= fabsl( dataj.cabj* data.cab[ipr]+ dataj.sabj*
+			  xi= fabs( dataj.cabj* data.cab[ipr]+ dataj.sabj*
 				  data.sab[ipr]+ dataj.salpj* data.salp[ipr]);
-			  if( (xi < 0.9999990l) ||
-				  (fabsl(data.bi[ipr]/dataj.b-1.0l) > 1.0e-6l) )
+			  if( (xi < 0.9999990) ||
+				  (fabs(data.bi[ipr]/dataj.b-1.0) > 1.0e-6) )
 				dataj.ind2=2;
 			  else
 				dataj.ind2=0;
@@ -194,7 +174,7 @@ void qdsrc( int is, complex long double v, complex long double *e )
 		  } /* if( ipr != j )*/
 		  else
 		  {
-			if( (dataj.cabj* dataj.cabj + dataj.sabj* dataj.sabj) > 1.0e-8l)
+			if( (dataj.cabj* dataj.cabj + dataj.sabj* dataj.sabj) > 1.0e-8)
 			  dataj.ind1=2;
 			else
 			  dataj.ind1=0;
@@ -229,7 +209,7 @@ void qdsrc( int is, complex long double v, complex long double *e )
 		xi= data.px[i];
 		yi= data.py[i];
 		zi= data.pz[i];
-		hsfld( xi, yi, zi, 0.0l);
+		hsfld( xi, yi, zi, 0.0);
 		i1++;
 		tx= data.t2x[i];
 		ty= data.t2y[i];
@@ -265,28 +245,28 @@ void qdsrc( int is, complex long double v, complex long double *e )
 /* cabc computes coefficients of the constant (a), sine (b), and */
 /* cosine (c) terms in the current interpolation functions for the */
 /* current vector cur. */
-void cabc( complex long double *curx)
+void cabc( complex double *curx)
 {
   int i, is, j, jx, jco1, jco2;
-  long double ar, ai, sh;
-  complex long double curd, cs1, cs2;
+  double ar, ai, sh;
+  complex double curd, cs1, cs2;
 
   if( data.n != 0)
   {
 	for( i = 0; i < data.n; i++ )
 	{
-	  crnt.air[i]=0.0l;
-	  crnt.aii[i]=0.0l;
-	  crnt.bir[i]=0.0l;
-	  crnt.bii[i]=0.0l;
-	  crnt.cir[i]=0.0l;
-	  crnt.cii[i]=0.0l;
+	  crnt.air[i]=0.0;
+	  crnt.aii[i]=0.0;
+	  crnt.bir[i]=0.0;
+	  crnt.bii[i]=0.0;
+	  crnt.cir[i]=0.0;
+	  crnt.cii[i]=0.0;
 	}
 
 	for( i = 0; i < data.n; i++ )
 	{
-	  ar= creall( curx[i]);
-	  ai= cimagl( curx[i]);
+	  ar= creal( curx[i]);
+	  ai= cimag( curx[i]);
 	  tbf( i+1, 1 );
 
 	  for( jx = 0; jx < segj.jsno; jx++ )
@@ -311,12 +291,12 @@ void cabc( complex long double *curx)
 		data.icon1[i]=0;
 		tbf(i+1,0);
 		data.icon1[i]= jx;
-		sh= data.si[i]*.5l;
-		curd= CCJ* vsorc.vqds[is]/( (logl(2.0l* sh/ data.bi[i])-1.0l) *
-			(segj.bx[segj.jsno-1]* cosl(TP* sh)+ segj.cx[segj.jsno-1] *
-			 sinl(TP* sh))* data.wlam );
-		ar= creall( curd);
-		ai= cimagl( curd);
+		sh= data.si[i]*.5;
+		curd= CCJ* vsorc.vqds[is]/( (log(2.0* sh/ data.bi[i])-1.0) *
+			(segj.bx[segj.jsno-1]* cos(TP* sh)+ segj.cx[segj.jsno-1] *
+			 sin(TP* sh))* data.wlam );
+		ar= creal( curd);
+		ai= cimag( curd);
 
 		for( jx = 0; jx < segj.jsno; jx++ )
 		{
@@ -362,41 +342,41 @@ void cabc( complex long double *curx)
 /*-----------------------------------------------------------------------*/
 
 /* function db10 returns db for magnitude (field) */
-long double db10( long double x )
+double db10( double x )
 {
-  if( x < 1.0e-20l )
-	return( -999.99l );
+  if( x < 1.0e-20 )
+	return( -999.99 );
 
-  return( 10.0l * log10l(x) );
+  return( 10.0 * log10(x) );
 }
 
 /*-----------------------------------------------------------------------*/
 
 /* function db20 returns db for mag**2 (power) i */
-long double db20( long double x )
+double db20( double x )
 {
-  if( x < 1.0e-20l )
-	return( -999.99l );
+  if( x < 1.0e-20 )
+	return( -999.99 );
 
-  return( 20.0l * log10l(x) );
+  return( 20.0 * log10(x) );
 }
 
 /*-----------------------------------------------------------------------*/
 
 /* intrp uses bivariate cubic interpolation to obtain */
 /* the values of 4 functions at the point (x,y). */
-void intrp( long double x, long double y, complex long double *f1,
-	complex long double *f2, complex long double *f3, complex long double *f4 )
+void intrp( double x, double y, complex double *f1,
+	complex double *f2, complex double *f3, complex double *f4 )
 {
   static int ix, iy, ixs=-10, iys=-10, igrs=-10, ixeg=0, iyeg=0;
   static int nxm2, nym2, nxms, nyms, nd, ndp;
   static int *nda = NULL, *ndpa = NULL;
   int jump;
-  static long double dx = 1.0l, dy = 1.0l, xs = 0.0l, ys = 0.0l, xz, yz;
-  long double xx, yy;
-  static complex long double a[4][4], b[4][4], c[4][4], d[4][4];
-  complex long double p1=CPLX_00, p2=CPLX_00, p3=CPLX_00, p4=CPLX_00;
-  complex long double fx1, fx2, fx3, fx4;
+  static double dx = 1.0, dy = 1.0, xs = 0.0, ys = 0.0, xz, yz;
+  double xx, yy;
+  static complex double a[4][4], b[4][4], c[4][4], d[4][4];
+  complex double p1=CPLX_00, p2=CPLX_00, p3=CPLX_00, p4=CPLX_00;
+  complex double fx1, fx2, fx3, fx4;
   static gboolean first_call = TRUE;
 
   if( first_call )
@@ -515,9 +495,9 @@ void intrp( long double x, long double y, complex long double *f1,
 
 		} /* switch( igrs ) */
 
-		a[i][k]=( p4- p1+3.0l*( p2- p3))*.1666666667l;
-		b[i][k]=( p1-2.0l* p2+ p3)*.5;
-		c[i][k]= p3-(2.0l* p1+3.0l* p2+ p4)*.1666666667l;
+		a[i][k]=( p4- p1+3.0*( p2- p3))*.1666666667;
+		b[i][k]=( p1-2.0* p2+ p3)*.5;
+		c[i][k]= p3-(2.0* p1+3.0* p2+ p4)*.1666666667;
 		d[i][k]= p2;
 
 	  } /* for( i = 0; i < 4; i++ ) */
@@ -537,34 +517,34 @@ void intrp( long double x, long double y, complex long double *f1,
   fx2=(( a[1][0]* xx+ b[1][0])* xx+ c[1][0])* xx+ d[1][0];
   fx3=(( a[2][0]* xx+ b[2][0])* xx+ c[2][0])* xx+ d[2][0];
   fx4=(( a[3][0]* xx+ b[3][0])* xx+ c[3][0])* xx+ d[3][0];
-  p1= fx4- fx1+3.0l*( fx2- fx3);
-  p2=3.0l*( fx1-2.0l* fx2+ fx3);
-  p3=6.0l* fx3-2.0l* fx1-3.0l* fx2- fx4;
-  *f1=(( p1* yy+ p2)* yy+ p3)* yy*.1666666667l+ fx2;
+  p1= fx4- fx1+3.0*( fx2- fx3);
+  p2=3.0*( fx1-2.0* fx2+ fx3);
+  p3=6.0* fx3-2.0* fx1-3.0* fx2- fx4;
+  *f1=(( p1* yy+ p2)* yy+ p3)* yy*.1666666667+ fx2;
   fx1=(( a[0][1]* xx+ b[0][1])* xx+ c[0][1])* xx+ d[0][1];
   fx2=(( a[1][1]* xx+ b[1][1])* xx+ c[1][1])* xx+ d[1][1];
   fx3=(( a[2][1]* xx+ b[2][1])* xx+ c[2][1])* xx+ d[2][1];
   fx4=(( a[3][1]* xx+ b[3][1])* xx+ c[3][1])* xx+ d[3][1];
-  p1= fx4- fx1+3.0l*( fx2- fx3);
-  p2=3.0l*( fx1-2.0l* fx2+ fx3);
-  p3=6.0l* fx3-2.0l* fx1-3.0l* fx2- fx4;
-  *f2=(( p1* yy+ p2)* yy+ p3)* yy*.1666666667l+ fx2;
+  p1= fx4- fx1+3.0*( fx2- fx3);
+  p2=3.0*( fx1-2.0* fx2+ fx3);
+  p3=6.0* fx3-2.0* fx1-3.0* fx2- fx4;
+  *f2=(( p1* yy+ p2)* yy+ p3)* yy*.1666666667+ fx2;
   fx1=(( a[0][2]* xx+ b[0][2])* xx+ c[0][2])* xx+ d[0][2];
   fx2=(( a[1][2]* xx+ b[1][2])* xx+ c[1][2])* xx+ d[1][2];
   fx3=(( a[2][2]* xx+ b[2][2])* xx+ c[2][2])* xx+ d[2][2];
   fx4=(( a[3][2]* xx+ b[3][2])* xx+ c[3][2])* xx+ d[3][2];
-  p1= fx4- fx1+3.0l*( fx2- fx3);
-  p2=3.0l*( fx1-2.0l* fx2+ fx3);
-  p3=6.0l* fx3-2.0l* fx1-3.0l* fx2- fx4;
-  *f3=(( p1* yy+ p2)* yy+ p3)* yy*.1666666667l+ fx2;
+  p1= fx4- fx1+3.0*( fx2- fx3);
+  p2=3.0*( fx1-2.0* fx2+ fx3);
+  p3=6.0* fx3-2.0* fx1-3.0* fx2- fx4;
+  *f3=(( p1* yy+ p2)* yy+ p3)* yy*.1666666667+ fx2;
   fx1=(( a[0][3]* xx+ b[0][3])* xx+ c[0][3])* xx+ d[0][3];
   fx2=(( a[1][3]* xx+ b[1][3])* xx+ c[1][3])* xx+ d[1][3];
   fx3=(( a[2][3]* xx+ b[2][3])* xx+ c[2][3])* xx+ d[2][3];
   fx4=(( a[3][3]* xx+ b[3][3])* xx+ c[3][3])* xx+ d[3][3];
-  p1= fx4- fx1+3.0l*( fx2- fx3);
-  p2=3.0l*( fx1-2.0l* fx2+ fx3);
-  p3=6.0l* fx3-2.0l* fx1-3.0l* fx2- fx4;
-  *f4=(( p1* yy+ p2)* yy+ p3)* yy*.1666666667l+ fx2;
+  p1= fx4- fx1+3.0*( fx2- fx3);
+  p2=3.0*( fx1-2.0* fx2+ fx3);
+  p3=6.0* fx3-2.0* fx1-3.0* fx2- fx4;
+  *f4=(( p1* yy+ p2)* yy+ p3)* yy*.1666666667+ fx2;
 
   return;
 }
@@ -574,28 +554,28 @@ void intrp( long double x, long double y, complex long double *f1,
 /* intx performs numerical integration of exp(jkr)/r by the method of */
 /* variable interval width romberg integration.  the integrand value */
 /* is supplied by subroutine gf. */
-void intx( long double el1, long double el2, long double b,
-	int ij, long double *sgr, long double *sgi )
+void intx( double el1, double el2, double b,
+	int ij, double *sgr, double *sgi )
 {
   int ns, nt;
   int nx = 1, nma = 65536, nts = 4;
   int flag = TRUE;
-  long double z, s, ze, fnm, ep, zend, fns, dz=0.0l, zp;
-  long double t00r, g1r, g5r, t00i, g1i, g5i, t01r, g3r;
-  long double t01i, g3i, t10r, t10i, te1i, te1r, t02r;
-  long double g2r, g4r, t02i, g2i, g4i, t11r, t11i, t20r;
-  long double  t20i, te2i, te2r, rx = 1.0e-4l, dzot=0.0l;
+  double z, s, ze, fnm, ep, zend, fns, dz=0.0, zp;
+  double t00r, g1r, g5r=0.0, t00i, g1i, g5i=0.0, t01r, g3r=0.0;
+  double t01i, g3i=0.0, t10r, t10i, te1i, te1r, t02r;
+  double g2r, g4r, t02i, g2i, g4i, t11r, t11i, t20r;
+  double  t20i, te2i, te2r, rx = 1.0e-4, dzot=0.0;
 
   z= el1;
   ze= el2;
   if( ij == 0)
-	ze=0.0l;
+	ze=0.0;
   s= ze- z;
   fnm= nma;
-  ep= s/(10.0l* fnm);
+  ep= s/(10.0* fnm);
   zend= ze- ep;
-  *sgr=0.0l;
-  *sgi=0.0l;
+  *sgr=0.0;
+  *sgi=0.0;
   ns= nx;
   nt=0;
   gf( z, &g1r, &g1i);
@@ -611,20 +591,20 @@ void intx( long double el1, long double el2, long double b,
 	  if( zp > ze)
 	  {
 		dz= ze- z;
-		if( fabsl(dz) <= ep)
+		if( fabs(dz) <= ep)
 		{
 		  /* add contribution of near singularity for diagonal term */
 		  if(ij == 0)
 		  {
-			*sgr=2.0l*( *sgr+ logl(( sqrtl( b* b+ s* s)+ s)/ b));
-			*sgi=2.0l* *sgi;
+			*sgr=2.0*( *sgr+ log(( sqrt( b* b+ s* s)+ s)/ b));
+			*sgi=2.0* *sgi;
 		  }
 		  return;
 		}
 
 	  } /* if( zp > ze) */
 
-	  dzot= dz*.5l;
+	  dzot= dz*.5;
 	  zp= z+ dzot;
 	  gf( zp, &g3r, &g3i);
 	  zp= z+ dz;
@@ -634,13 +614,13 @@ void intx( long double el1, long double el2, long double b,
 
 	t00r=( g1r+ g5r)* dzot;
 	t00i=( g1i+ g5i)* dzot;
-	t01r=( t00r+ dz* g3r)*0.5l;
-	t01i=( t00i+ dz* g3i)*0.5l;
-	t10r=(4.0l* t01r- t00r)/3.0l;
-	t10i=(4.0l* t01i- t00i)/3.0l;
+	t01r=( t00r+ dz* g3r)*0.5;
+	t01i=( t00i+ dz* g3i)*0.5;
+	t10r=(4.0* t01r- t00r)/3.0;
+	t10i=(4.0* t01i- t00i)/3.0;
 
 	/* test convergence of 3 point romberg result. */
-	test( t01r, t10r, &te1r, t01i, t10i, &te1i, 0.0l);
+	test( t01r, t10r, &te1r, t01i, t10i, &te1i, 0.0);
 	if( (te1i <= rx) && (te1r <= rx) )
 	{
 	  *sgr= *sgr+ t10r;
@@ -653,8 +633,8 @@ void intx( long double el1, long double el2, long double b,
 		/* add contribution of near singularity for diagonal term */
 		if(ij == 0)
 		{
-		  *sgr=2.0l*( *sgr+ logl(( sqrtl( b* b+ s* s)+ s)/ b));
-		  *sgi=2.0l* *sgi;
+		  *sgr=2.0*( *sgr+ log(( sqrt( b* b+ s* s)+ s)/ b));
+		  *sgi=2.0* *sgi;
 		}
 		return;
 	  }
@@ -673,32 +653,32 @@ void intx( long double el1, long double el2, long double b,
 
 	} /* if( (te1i <= rx) && (te1r <= rx) ) */
 
-	zp= z+ dz*0.25l;
+	zp= z+ dz*0.25;
 	gf( zp, &g2r, &g2i);
-	zp= z+ dz*0.75l;
+	zp= z+ dz*0.75;
 	gf( zp, &g4r, &g4i);
-	t02r=( t01r+ dzot*( g2r+ g4r))*0.5l;
-	t02i=( t01i+ dzot*( g2i+ g4i))*0.5l;
-	t11r=(4.0l* t02r- t01r)/3.0l;
-	t11i=(4.0l* t02i- t01i)/3.0l;
-	t20r=(16.0l* t11r- t10r)/15.0l;
-	t20i=(16.0l* t11i- t10i)/15.0l;
+	t02r=( t01r+ dzot*( g2r+ g4r))*0.5;
+	t02i=( t01i+ dzot*( g2i+ g4i))*0.5;
+	t11r=(4.0* t02r- t01r)/3.0;
+	t11i=(4.0* t02i- t01i)/3.0;
+	t20r=(16.0* t11r- t10r)/15.0;
+	t20i=(16.0* t11i- t10i)/15.0;
 
 	/* test convergence of 5 point romberg result. */
-	test( t11r, t20r, &te2r, t11i, t20i, &te2i, 0.0l);
+	test( t11r, t20r, &te2r, t11i, t20i, &te2i, 0.0);
 	if( (te2i > rx) || (te2r > rx) )
 	{
 	  nt=0;
 	  if( ns >= nma)
 		fprintf( stderr,
-			"xnec2c: step size limited at z= %10.5LF\n", z );
+			"xnec2c: step size limited at z= %10.5f\n", z );
 	  else
 	  {
 		/* halve step size */
 		ns= ns*2;
 		fns= ns;
 		dz= s/ fns;
-		dzot= dz*0.5l;
+		dzot= dz*0.5;
 		g5r= g3r;
 		g5i= g3i;
 		g3r= g2r;
@@ -720,8 +700,8 @@ void intx( long double el1, long double el2, long double b,
 	  /* add contribution of near singularity for diagonal term */
 	  if(ij == 0)
 	  {
-		*sgr=2.0l*( *sgr+ logl(( sqrtl( b* b+ s* s)+ s)/ b));
-		*sgi=2.0l* *sgi;
+		*sgr=2.0*( *sgr+ log(( sqrt( b* b+ s* s)+ s)/ b));
+		*sgi=2.0* *sgi;
 	  }
 	  return;
 	}
@@ -755,28 +735,28 @@ int min( int a, int b )
 /*-----------------------------------------------------------------------*/
 
 /* test for convergence in numerical integration */
-void test( long double f1r, long double f2r, long double *tr,
-	long double f1i, long double f2i, long double *ti, long double dmin )
+void test( double f1r, double f2r, double *tr,
+	double f1i, double f2i, double *ti, double dmin )
 {
-  long double den;
+  double den;
 
-  den= fabsl( f2r);
-  *tr= fabsl( f2i);
+  den= fabs( f2r);
+  *tr= fabs( f2i);
 
   if( den < *tr)
 	den= *tr;
   if( den < dmin)
 	den= dmin;
 
-  if( den < 1.0e-37l)
+  if( den < 1.0e-37)
   {
-	*tr=0.0l;
-	*ti=0.0l;
+	*tr=0.0;
+	*ti=0.0;
 	return;
   }
 
-  *tr= fabsl(( f1r- f2r)/ den);
-  *ti= fabsl(( f1i- f2i)/ den);
+  *tr= fabs(( f1r- f2r)/ den);
+  *ti= fabs(( f1i- f2i)/ den);
 
   return;
 }
@@ -785,18 +765,18 @@ void test( long double f1r, long double f2r, long double *tr,
 
 /* compute component of basis function i on segment is. */
   void
-sbf( int i, int is, long double *aa, long double *bb, long double *cc )
+sbf( int i, int is, double *aa, double *bb, double *cc )
 {
   int ix, jsno, june, jcox, jcoxx, jend, iend, njun1=0, njun2;
-  long double d, sig, pp, sdh, cdh, sd, omc;
-  long double aj, pm=0, cd, ap, qp, qm, xxi;
+  double d, sig, pp, sdh, cdh, sd, omc;
+  double aj, pm=0, cd, ap, qp, qm, xxi;
 
-  *aa=0.0l;
-  *bb=0.0l;
-  *cc=0.0l;
+  *aa=0.0;
+  *bb=0.0;
+  *cc=0.0;
   june=0;
   jsno=0;
-  pp=0.0l;
+  pp=0.0;
   ix=i-1;
 
   jcox= data.icon1[ix];
@@ -805,7 +785,7 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 
   jend=-1;
   iend=-1;
-  sig=-1.0l;
+  sig=-1.0;
 
   do
   {
@@ -822,26 +802,26 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 	  jcoxx = jcox-1;
 	  jsno++;
 	  d= PI* data.si[jcoxx];
-	  sdh= sinl( d);
-	  cdh= cosl( d);
-	  sd=2.0l* sdh* cdh;
+	  sdh= sin( d);
+	  cdh= cos( d);
+	  sd=2.0* sdh* cdh;
 
-	  if( d <= 0.015l)
+	  if( d <= 0.015)
 	  {
-		omc=4.0l* d* d;
-		omc=((1.3888889e-3l* omc -4.1666666667e-2l)* omc +.5l)* omc;
+		omc=4.0* d* d;
+		omc=((1.3888889e-3* omc -4.1666666667e-2)* omc +.5)* omc;
 	  }
 	  else
-		omc=1.0l- cdh* cdh+ sdh* sdh;
+		omc=1.0- cdh* cdh+ sdh* sdh;
 
-	  aj=1.0l/( logl(1.0l/( PI* data.bi[jcoxx]))-.577215664l);
+	  aj=1.0/( log(1.0/( PI* data.bi[jcoxx]))-.577215664);
 	  pp -= omc/ sd* aj;
 
 	  if( jcox == is)
 	  {
 		*aa= aj/ sd* sig;
-		*bb= aj/(2.0l* cdh);
-		*cc= -aj/(2.0l* sdh)* sig;
+		*bb= aj/(2.0* cdh);
+		*cc= -aj/(2.0* sdh)* sig;
 		june= iend;
 	  }
 
@@ -858,7 +838,7 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 		  {
 			fprintf( stderr,
 				"xnec2c: sbf(): segment connection error for segment %d\n", i );
-			stop( "Segment connection error in sbf()", ERR_STOP );
+			stop( _("Segment connection error in sbf()"), ERR_STOP );
 		  }
 		  else continue;
 		}
@@ -872,7 +852,7 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 	} /* if( jcox != 0 ) */
 
 	pm= -pp;
-	pp=0.0l;
+	pp=0.0;
 	njun1= jsno;
 
 	jcox= data.icon2[ix];
@@ -881,44 +861,44 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 
 	jend=1;
 	iend=1;
-	sig=-1.0l;
+	sig=-1.0;
 
   } /* do */
   while( jcox != 0 );
 
   njun2= jsno- njun1;
   d= PI* data.si[ix];
-  sdh= sinl( d);
-  cdh= cosl( d);
-  sd=2.0l* sdh* cdh;
+  sdh= sin( d);
+  cdh= cos( d);
+  sd=2.0* sdh* cdh;
   cd= cdh* cdh- sdh* sdh;
 
-  if( d <= 0.015l)
+  if( d <= 0.015)
   {
-	omc=4.0l* d* d;
-	omc=((1.3888889e-3l* omc -4.1666666667e-2l)* omc +.5l)* omc;
+	omc=4.0* d* d;
+	omc=((1.3888889e-3* omc -4.1666666667e-2)* omc +.5)* omc;
   }
   else
-	omc=1.0l- cd;
+	omc=1.0- cd;
 
-  ap=1.0l/( logl(1.0l/( PI* data.bi[ix])) -.577215664l);
+  ap=1.0/( log(1.0/( PI* data.bi[ix])) -.577215664);
   aj= ap;
 
   if( njun1 == 0)
   {
 	if( njun2 == 0)
 	{
-	  *aa =-1.0l;
+	  *aa =-1.0;
 	  qp= PI* data.bi[ix];
 	  xxi= qp* qp;
-	  xxi= qp*(1.0l-.5l* xxi)/(1.0l- xxi);
-	  *cc=1.0l/( cdh- xxi* sdh);
+	  xxi= qp*(1.0-.5* xxi)/(1.0- xxi);
+	  *cc=1.0/( cdh- xxi* sdh);
 	  return;
 	}
 
 	qp= PI* data.bi[ix];
 	xxi= qp* qp;
-	xxi= qp*(1.0l-.5l* xxi)/(1.0l- xxi);
+	xxi= qp*(1.0-.5* xxi)/(1.0- xxi);
 	qp=-( omc+ xxi* sd)/( sd*( ap+ xxi* pp)+ cd*( xxi* ap- pp));
 
 	if( june == 1)
@@ -930,7 +910,7 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 		return;
 	}
 
-	*aa -= 1.0l;
+	*aa -= 1.0;
 	d = cd - xxi * sd;
 	*bb += (sdh + ap * qp * (cdh - xxi * sdh)) / d;
 	*cc += (cdh + ap * qp * (sdh + xxi * cdh)) / d;
@@ -942,7 +922,7 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
   {
 	qm= PI* data.bi[ix];
 	xxi= qm* qm;
-	xxi= qm*(1.0l-.5l* xxi)/(1.0l- xxi);
+	xxi= qm*(1.0-.5* xxi)/(1.0- xxi);
 	qm=( omc+ xxi* sd)/( sd*( aj- xxi* pm)+ cd*( pm+ xxi* aj));
 
 	if( june == -1)
@@ -954,7 +934,7 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 		return;
 	}
 
-	*aa -= 1.0l;
+	*aa -= 1.0;
 	d= cd- xxi* sd;
 	*bb += ( aj* qm*( cdh- xxi* sdh)- sdh)/ d;
 	*cc += ( cdh- aj* qm*( sdh+ xxi* cdh))/ d;
@@ -986,7 +966,7 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 
   } /* if( june != 0 ) */
 
-  *aa -= 1.0l;
+  *aa -= 1.0;
   *bb += ( aj* qm+ ap* qp)* sdh/ sd;
   *cc += ( aj* qm- ap* qp)* cdh/ sd;
 
@@ -1000,11 +980,11 @@ sbf( int i, int is, long double *aa, long double *bb, long double *cc )
 tbf( int i, int icap )
 {
   int ix, jcox, jcoxx, jend, iend, njun1=0, njun2, jsnop, jsnox;
-  long double pp, sdh, cdh, sd, omc, aj, pm=0, cd, ap, qp, qm, xxi;
-  long double d, sig; /*** also global ***/
+  double pp, sdh, cdh, sd, omc, aj, pm=0, cd, ap, qp, qm, xxi;
+  double d, sig; /*** also global ***/
 
   segj.jsno=0;
-  pp=0.0l;
+  pp=0.0;
   ix = i-1;
   jcox= data.icon1[ix];
 
@@ -1013,7 +993,7 @@ tbf( int i, int icap )
 
   jend=-1;
   iend=-1;
-  sig=-1.0l;
+  sig=-1.0;
 
   do
   {
@@ -1032,23 +1012,23 @@ tbf( int i, int icap )
 	  jsnox = segj.jsno-1;
 	  segj.jco[jsnox]= jcox;
 	  d= PI* data.si[jcoxx];
-	  sdh= sinl( d);
-	  cdh= cosl( d);
-	  sd=2.0l* sdh* cdh;
+	  sdh= sin( d);
+	  cdh= cos( d);
+	  sd=2.0* sdh* cdh;
 
-	  if( d <= 0.015l)
+	  if( d <= 0.015)
 	  {
-		omc=4.0l* d* d;
-		omc=((1.3888889e-3l* omc-4.1666666667e-2l)* omc+.5l)* omc;
+		omc=4.0* d* d;
+		omc=((1.3888889e-3* omc-4.1666666667e-2)* omc+.5)* omc;
 	  }
 	  else
-		omc=1.0l- cdh* cdh+ sdh* sdh;
+		omc=1.0- cdh* cdh+ sdh* sdh;
 
-	  aj=1.0l/( logl(1.0l/( PI* data.bi[jcoxx]))-.577215664l);
+	  aj=1.0/( log(1.0/( PI* data.bi[jcoxx]))-.577215664);
 	  pp= pp- omc/ sd* aj;
 	  segj.ax[jsnox]= aj/ sd* sig;
-	  segj.bx[jsnox]= aj/(2.0l* cdh);
-	  segj.cx[jsnox]= -aj/(2.0l* sdh)* sig;
+	  segj.bx[jsnox]= aj/(2.0* cdh);
+	  segj.cx[jsnox]= -aj/(2.0* sdh)* sig;
 
 	  if( jcox != i)
 	  {
@@ -1065,7 +1045,7 @@ tbf( int i, int icap )
 		  {
 			fprintf( stderr,
 				"xnec2c: tbf(): segment connection error for segment %5d\n", i );
-			stop( "Segment connection error in tbf()", ERR_STOP );
+			stop( _("Segment connection error in tbf()"), ERR_STOP );
 		  }
 		}
 
@@ -1079,7 +1059,7 @@ tbf( int i, int icap )
 	} /* if( jcox != 0 ) */
 
 	pm= -pp;
-	pp=0.0l;
+	pp=0.0;
 	njun1= segj.jsno;
 
 	jcox= data.icon2[ix];
@@ -1088,7 +1068,7 @@ tbf( int i, int icap )
 
 	jend=1;
 	iend=1;
-	sig=-1.0l;
+	sig=-1.0;
 
   } /* do */
   while( jcox != 0 );
@@ -1097,51 +1077,51 @@ tbf( int i, int icap )
   jsnop= segj.jsno;
   segj.jco[jsnop]= i;
   d= PI* data.si[ix];
-  sdh= sinl( d);
-  cdh= cosl( d);
-  sd=2.0l* sdh* cdh;
+  sdh= sin( d);
+  cdh= cos( d);
+  sd=2.0* sdh* cdh;
   cd= cdh* cdh- sdh* sdh;
 
-  if( d <= 0.015l)
+  if( d <= 0.015)
   {
-	omc=4.0l* d* d;
-	omc=((1.3888889e-3l* omc-4.1666666667e-2l)* omc+.5l)* omc;
+	omc=4.0* d* d;
+	omc=((1.3888889e-3* omc-4.1666666667e-2)* omc+.5)* omc;
   }
   else
-	omc=1.0l- cd;
+	omc=1.0- cd;
 
-  ap=1.0l/( logl(1.0l/( PI* data.bi[ix]))-.577215664l);
+  ap=1.0/( log(1.0/( PI* data.bi[ix]))-.577215664);
   aj= ap;
 
   if( njun1 == 0)
   {
 	if( njun2 == 0)
 	{
-	  segj.bx[jsnop]=0.0l;
+	  segj.bx[jsnop]=0.0;
 
 	  if( icap == 0)
-		xxi=0.0l;
+		xxi=0.0;
 	  else
 	  {
 		qp= PI* data.bi[ix];
 		xxi= qp* qp;
-		xxi= qp*(1.0l-.5l* xxi)/(1.0l- xxi);
+		xxi= qp*(1.0-.5* xxi)/(1.0- xxi);
 	  }
 
-	  segj.cx[jsnop]=1.0l/( cdh- xxi* sdh);
+	  segj.cx[jsnop]=1.0/( cdh- xxi* sdh);
 	  segj.jsno= jsnop+1;
-	  segj.ax[jsnop]=-1.0l;
+	  segj.ax[jsnop]=-1.0;
 	  return;
 
 	} /* if( njun2 == 0) */
 
 	if( icap == 0)
-	  xxi=0.0l;
+	  xxi=0.0;
 	else
 	{
 	  qp= PI* data.bi[ix];
 	  xxi= qp* qp;
-	  xxi= qp*(1.0l-.5l* xxi)/(1.0l- xxi);
+	  xxi= qp*(1.0-.5* xxi)/(1.0- xxi);
 	}
 
 	qp=-( omc+ xxi* sd)/( sd*( ap+ xxi* pp)+ cd*( xxi* ap- pp));
@@ -1157,7 +1137,7 @@ tbf( int i, int icap )
 	}
 
 	segj.jsno= jsnop+1;
-	segj.ax[jsnop]=-1.0l;
+	segj.ax[jsnop]=-1.0;
 	return;
 
   } /* if( njun1 == 0) */
@@ -1165,12 +1145,12 @@ tbf( int i, int icap )
   if( njun2 == 0)
   {
 	if( icap == 0)
-	  xxi=0.0l;
+	  xxi=0.0;
 	else
 	{
 	  qm= PI* data.bi[ix];
 	  xxi= qm* qm;
-	  xxi= qm*(1.0l-.5l* xxi)/(1.0l- xxi);
+	  xxi= qm*(1.0-.5* xxi)/(1.0- xxi);
 	}
 
 	qm=( omc+ xxi* sd)/( sd*( aj- xxi* pm)+ cd*( pm+ xxi* aj));
@@ -1186,7 +1166,7 @@ tbf( int i, int icap )
 	}
 
 	segj.jsno= jsnop+1;
-	segj.ax[jsnop]=-1.0l;
+	segj.ax[jsnop]=-1.0;
 	return;
 
   } /* if( njun2 == 0) */
@@ -1213,7 +1193,7 @@ tbf( int i, int icap )
   }
 
   segj.jsno= jsnop+1;
-  segj.ax[jsnop]=-1.0l;
+  segj.ax[jsnop]=-1.0;
 
   return;
 }
@@ -1255,9 +1235,9 @@ trio( int j )
 	  if( segj.jsno >= segj.maxcon )
 	  {
 		segj.maxcon = segj.jsno +1;
-		size_t mreq = segj.maxcon * sizeof(int);
+		size_t mreq = (size_t)segj.maxcon * sizeof(int);
 		mem_realloc( (void *)&segj.jco, mreq, "in calculations.c" );
-		mreq = segj.maxcon * sizeof(long double);
+		mreq = (size_t)segj.maxcon * sizeof(double);
 		mem_realloc( (void *) &segj.ax, mreq, "in calculations.c" );
 		mem_realloc( (void *) &segj.bx, mreq, "in calculations.c" );
 		mem_realloc( (void *) &segj.cx, mreq, "in calculations.c" );
@@ -1287,9 +1267,9 @@ trio( int j )
 	  if( segj.jsno >= segj.maxcon )
 	  {
 		segj.maxcon = segj.jsno +1;
-		size_t mreq = segj.maxcon * sizeof(int);
+		size_t mreq = (size_t)segj.maxcon * sizeof(int);
 		mem_realloc( (void *)&segj.jco, mreq, "in calculations.c" );
-		mreq = segj.maxcon * sizeof(long double);
+		mreq = (size_t)segj.maxcon * sizeof(double);
 		mem_realloc( (void *) &segj.ax, mreq, "in calculations.c" );
 		mem_realloc( (void *) &segj.bx, mreq, "in calculations.c" );
 		mem_realloc( (void *) &segj.cx, mreq, "in calculations.c" );
@@ -1307,7 +1287,7 @@ trio( int j )
 	  {
 		fprintf( stderr,
 			"xnec2c: trio(): segment connention error for segment %5d\n", j );
-		stop( "Segment connention error in trio()", ERR_STOP );
+		stop( _("Segment connention error in trio()"), ERR_STOP );
 	  }
 	  else continue;
 
@@ -1334,9 +1314,9 @@ trio( int j )
   if( segj.jsno >= segj.maxcon )
   {
 	segj.maxcon = segj.jsno +1;
-	size_t mreq = segj.maxcon * sizeof(int);
+	size_t mreq = (size_t)segj.maxcon * sizeof(int);
 	mem_realloc( (void *)&segj.jco, mreq, "in calculations.c" );
-	mreq = segj.maxcon * sizeof(long double);
+	mreq = (size_t)segj.maxcon * sizeof(double);
 	mem_realloc( (void *) &segj.ax, mreq, "in calculations.c" );
 	mem_realloc( (void *) &segj.bx, mreq, "in calculations.c" );
 	mem_realloc( (void *) &segj.cx, mreq, "in calculations.c" );
@@ -1351,87 +1331,87 @@ trio( int j )
 /*-----------------------------------------------------------------------*/
 
 /* cang returns the phase angle of a complex number in degrees. */
-long double cang( complex long double z )
+double cang( complex double z )
 {
-  return( cargl(z)*TD );
+  return( carg(z)*TD );
 }
 
 /*-----------------------------------------------------------------------*/
 
 /* zint computes the internal impedance of a circular wire */
   void
-zint( long double sigl, long double rolam, complex long double *zint )
+zint( double sigl, double rolam, complex double *zint )
 {
-#define cc1	 ( 6.0e-7l     + 1.9e-6lj)
-#define cc2	 (-3.4e-6l     + 5.1e-6lj)
-#define cc3	 (-2.52e-5l    + 0.0lj)
-#define cc4	 (-9.06e-5l    - 9.01e-5lj)
-#define cc5	 ( 0.0l        - 9.765e-4lj)
-#define cc6	 (.0110486l    - .0110485lj)
-#define cc7	 ( 0.0l        - .3926991lj)
-#define cc8	 ( 1.6e-6l     - 3.2e-6lj)
-#define cc9	 ( 1.17e-5l    - 2.4e-6lj)
-#define cc10 ( 3.46e-5l    + 3.38e-5lj)
-#define cc11 ( 5.0e-7l     + 2.452e-4lj)
-#define cc12 (-1.3813e-3l  + 1.3811e-3lj)
-#define cc13 (-6.25001e-2l - 1.0e-7lj)
-#define cc14 (.7071068l    + .7071068lj)
+#define cc1	 ( 6.0e-7     + I*1.9e-6)
+#define cc2	 (-3.4e-6     + I*5.1e-6)
+#define cc3	 (-2.52e-5    + I*0.0)
+#define cc4	 (-9.06e-5    - I*9.01e-5)
+#define cc5	 ( 0.0        - I*9.765e-4)
+#define cc6	 (.0110486    - I*0.0110485)
+#define cc7	 ( 0.0        - I*0.3926991)
+#define cc8	 ( 1.6e-6     - I*3.2e-6)
+#define cc9	 ( 1.17e-5    - I*2.4e-6)
+#define cc10 ( 3.46e-5    + I*3.38e-5)
+#define cc11 ( 5.0e-7     + I*2.452e-4)
+#define cc12 (-1.3813e-3  + I*1.3811e-3)
+#define cc13 (-6.25001e-2 - I*1.0e-7)
+#define cc14 (.7071068    + I*0.7071068)
 #define cn	cc14
 
 #define th(d) ( (((((cc1*(d)+cc2)*(d)+cc3)*(d)+cc4)*(d)+cc5)*(d)+cc6)*(d) + cc7 )
 #define ph(d) ( (((((cc8*(d)+cc9)*(d)+cc10)*(d)+cc11)*(d)+cc12)*(d)+cc13)*(d)+cc14 )
-#define f(d)  ( csqrtl(POT/(d))*cexpl(-cn*(d)+th(-8.0l/x)) )
-#define g(d)  ( cexpl(cn*(d)+th(8.0l/x))/csqrtl(TP*(d)) )
+#define f(d)  ( csqrt(POT/(d))*cexp(-cn*(d)+th(-8.0/x)) )
+#define g(d)  ( cexp(cn*(d)+th(8.0/x))/csqrt(TP*(d)) )
 
-  long double x;
-  long double tpcmu = 2.368705e+3l;
-  long double cmotp = 60.0l;
-  complex long double br1, br2;
+  double x;
+  double tpcmu = 2.368705e+3;
+  double cmotp = 60.0;
+  complex double br1, br2;
 
-  x= sqrtl( tpcmu* sigl)* rolam;
-  if( x <= 110.0l)
+  x= sqrt( tpcmu* sigl)* rolam;
+  if( x <= 110.0)
   {
-	if( x <= 8.0l)
+	if( x <= 8.0)
 	{
-	  long double y, s, ber, bei;
+	  double y, s, ber, bei;
 
-	  y= x/8.0l;
+	  y= x/8.0;
 	  y= y* y;
 	  s= y* y;
 
-	  ber=((((((-9.01e-6l* s+1.22552e-3l)* s-.08349609l)* s+ 2.6419140l)*
-			  s-32.363456l)* s+113.77778l)* s-64.0l)* s+1.0l;
+	  ber=((((((-9.01e-6* s+1.22552e-3)* s-.08349609)* s+ 2.6419140)*
+			  s-32.363456)* s+113.77778)* s-64.0)* s+1.0;
 
-	  bei=((((((1.1346e-4l* s-.01103667l)* s+.52185615l)* s-10.567658l)*
-			  s+72.817777l)* s-113.77778l)* s+16.0l)* y;
+	  bei=((((((1.1346e-4* s-.01103667)* s+.52185615)* s-10.567658)*
+			  s+72.817777)* s-113.77778)* s+16.0)* y;
 
 	  br1= cmplx( ber, bei);
 
-	  ber=(((((((-3.94e-6l* s+4.5957e-4l)* s-.02609253l)* s+ .66047849l)*
-				s-6.0681481l)* s+14.222222l)* s-4.0l)* y)* x;
+	  ber=(((((((-3.94e-6* s+4.5957e-4)* s-.02609253)* s+ .66047849)*
+				s-6.0681481)* s+14.222222)* s-4.0)* y)* x;
 
-	  bei=((((((4.609e-5l* s-3.79386e-3l)* s+.14677204l)* s- 2.3116751l)*
-			  s+11.377778l)* s-10.666667l)* s+.5l)* x;
+	  bei=((((((4.609e-5* s-3.79386e-3)* s+.14677204)* s- 2.3116751)*
+			  s+11.377778)* s-10.666667)* s+.5)* x;
 
 	  br2= cmplx( ber, bei);
 	  br1= br1/ br2;
-	  *zint= CPLX_01* sqrtl( cmotp/sigl )* br1/ rolam;
+	  *zint= CPLX_01* sqrt( cmotp/sigl )* br1/ rolam;
 
-	} /* if( x <= 8.0l) */
+	} /* if( x <= 8.0) */
 	else
 	{
 	  br2= CPLX_01* f(x)/ PI;
 	  br1= g( x)+ br2;
-	  br2= g( x)* ph(8.0l/ x)- br2* ph(-8.0l/ x);
+	  br2= g( x)* ph(8.0/ x)- br2* ph(-8.0/ x);
 	  br1= br1/ br2;
-	  *zint= CPLX_01* sqrtl( cmotp/ sigl)* br1/ rolam;
+	  *zint= CPLX_01* sqrt( cmotp/ sigl)* br1/ rolam;
 	}
 
-  } /* if( x <= 110.0l) */
+  } /* if( x <= 110.0) */
   else
   {
-	br1= cmplx(.70710678l,-.70710678l);
-	*zint= CPLX_01* sqrtl( cmotp/ sigl)* br1/ rolam;
+	br1= cmplx(.70710678,-.70710678);
+	*zint= CPLX_01* sqrt( cmotp/ sigl)* br1/ rolam;
   }
 }
 

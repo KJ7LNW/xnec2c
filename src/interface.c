@@ -552,9 +552,6 @@ create_main_window (void)
   gtk_widget_show (structure_one_button);
   gtk_box_pack_start (GTK_BOX (main_hbox3), structure_one_button, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, structure_one_button, _("Zoom to Default 1:1"), NULL);
-  gtk_widget_add_accelerator (structure_one_button, "clicked", accel_group,
-                              GDK_1, (GdkModifierType) 0,
-                              GTK_ACCEL_VISIBLE);
 
   image96 = gtk_image_new_from_stock ("gtk-zoom-100", GTK_ICON_SIZE_BUTTON);
   gtk_widget_show (image96);
@@ -801,6 +798,7 @@ create_filechooserdialog (void)
                 "show-hidden", TRUE,
                 NULL);
   gtk_window_set_position (GTK_WINDOW (filechooserdialog), GTK_WIN_POS_MOUSE);
+  gtk_window_set_role (GTK_WINDOW (filechooserdialog), "GtkFileChooserDialog");
   gtk_window_set_type_hint (GTK_WINDOW (filechooserdialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
   dialog_vbox1 = GTK_DIALOG (filechooserdialog)->vbox;
@@ -1917,9 +1915,6 @@ create_rdpattern_window (void)
   gtk_widget_show (rdpattern_one_button);
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_one_button, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, rdpattern_one_button, _("Zoom to Default 1:1"), NULL);
-  gtk_widget_add_accelerator (rdpattern_one_button, "clicked", accel_group,
-                              GDK_1, (GdkModifierType) 0,
-                              GTK_ACCEL_VISIBLE);
 
   image100 = gtk_image_new_from_stock ("gtk-zoom-100", GTK_ICON_SIZE_BUTTON);
   gtk_widget_show (image100);
@@ -3123,7 +3118,7 @@ create_wire_editor (void)
   gtk_table_attach (GTK_TABLE (table2), label29, 1, 2, 0, 1,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label29), 0.1, 0.5);
+  gtk_misc_set_alignment (GTK_MISC(label29), 0.1, 0.5);
 
   label30 = gtk_label_new (_("Segs % lambda"));
   gtk_widget_show (label30);

@@ -23,83 +23,7 @@
  */
 
 #include "callback_func.h"
-
-/* Data for various calculations */
-extern data_t data;
-extern calc_data_t calc_data;
-
-/* Radiation pattern data */
-extern rad_pattern_t *rad_pattern;
-
-/* Window widgets */
-extern GtkWidget
-  *main_window,
-  *freqplots_window,
-  *rdpattern_window,
-  *nec2_edit_window;
-
-/* Drawing area widgets */
-extern GtkWidget
-  *structure_drawingarea,
-  *freqplots_drawingarea,
-  *rdpattern_drawingarea;
-
-/* Radiation pattern rotation and freq spin buttons */
-extern GtkSpinButton *rotate_rdpattern;
-extern GtkSpinButton *incline_rdpattern;
-extern GtkSpinButton *rdpattern_frequency;
-
-/* USed in input (cards) editor */
-extern GtkTreeView
-  *selected_treeview, /* Tree view clicked on by user */
-  *geom_treeview,
-  *cmnd_treeview;
-
-/* Scroll adjustments of geometry
- * and command treeview windows */
-extern GtkAdjustment
-  *geom_adjustment,
-  *cmnd_adjustment;
-
-/* Parameters for projecting structure and rad patterns to Screen */
-extern projection_parameters_t structure_proj_params;
-extern projection_parameters_t rdpattern_proj_params;
-
-/* Radiation pattern data */
-extern near_field_t near_field;
-
-/* Quit dialog widget */
-extern GtkWidget *quit_dialog;
-
-/* Used to kill window deleted by user */
-extern GtkWidget *kill_window;
-
-/* Frequency loop idle function tag */
-extern gint floop_tag;
-
-/* Commands between parent and child processes */
-extern char *fork_commands[];
-
-/* common /fpat/ */
-extern fpat_t fpat;
-
-/* Program forked flag */
-extern gboolean FORKED;
-
-/* Number of forked child processes */
-extern int num_child_procs;
-
-/* pointers to input/output files */
-extern FILE *input_fp;
-
-/* Forked process data */
-extern forked_proc_data_t **forked_proc_data;
-
-/* Magnitude of seg/patch current/charge */
-extern double *cmag, *ct1m, *ct2m;
-
-/* Segment/patch currents structure */
-extern crnt_t crnt;
+#include "shared.h"
 
 /*-----------------------------------------------------------------------*/
 
@@ -240,7 +164,7 @@ Motion_Event(
  * Sets up plotting of requested freq data
  */
   void
-Plot_Select( GtkToggleButton *togglebutton, int flag )
+Plot_Select( GtkToggleButton *togglebutton, unsigned long long int flag )
 {
   if( gtk_toggle_button_get_active(togglebutton) )
   {
@@ -276,13 +200,13 @@ Delete_Event( gchar *message )
 	if( isFlagSet(MAIN_QUIT) )
 	  gtk_label_set_text( GTK_LABEL(lookup_widget(
 			  quit_dialog, "quit_label")),
-		  "The frequency loop is running\n"
-		  "Really end operation?" );
+		  _("The frequency loop is running\n"\
+			"Really end operation?") );
 	else
 	  gtk_label_set_text( GTK_LABEL(lookup_widget(
 			  quit_dialog, "quit_label")),
-		  "The frequency loop is running\n"
-		  "Really close this window?" );
+		  _("The frequency loop is running\n"\
+			"Really close this window?") );
   }
   else
 	gtk_label_set_text( GTK_LABEL(lookup_widget(
@@ -387,8 +311,8 @@ Open_Editor( GtkTreeView *view )
 			  return( TRUE );
 
   /* Send a "clicked" signal to the appropriate editor button */
-  card[0] = tolower(card[0]);
-  card[1] = tolower(card[1]);
+  card[0] = (gchar)tolower((int)card[0]);
+  card[1] = (gchar)tolower((int)card[1]);
   button = lookup_widget( GTK_WIDGET(view), card );
   g_free(card);
   if( button != NULL )
@@ -411,7 +335,7 @@ Main_Rdpattern_Activate( gboolean from_menu )
    * allows the value of the spinbutton to change
    * when the freq loop re-writes the frequency */
   gtk_spin_button_set_value( rdpattern_frequency,
-	  (gdouble)(calc_data.fmhz + 0.0000001l) );
+	  (gdouble)(calc_data.fmhz + 0.0000001) );
 
   /* Set E field check menu item */
   if( fpat.nfeh & NEAR_EFIELD )
@@ -502,9 +426,9 @@ Main_Freqplots_Activate( void )
    * Elementary Current Source Excitation */
   if( (fpat.ixtyp != 0) && (fpat.ixtyp != 5) )
   {
-	stop( "Not available for Incident Field or\n"
-		  "Elementary Current Source Excitation.\n"
-		  "(Excitation Types 1 to 4)", ERR_OK );
+	stop( _("Not available for Incident Field or\n"\
+		  "Elementary Current Source Excitation.\n"\
+		  "(Excitation Types 1 to 4)"), ERR_OK );
 	return( FALSE );
   }
 
@@ -639,7 +563,7 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
 			"main_charges_togglebutton")), FALSE );
 	gtk_label_set_text(
 		GTK_LABEL(lookup_widget(main_window, "struct_label")),
-		"View Currents" );
+		_("View Currents") );
 
 	if( !crnt.valid && isFlagClear(FREQ_LOOP_RUNNING) )
 	  Redo_Currents( NULL );
@@ -657,7 +581,7 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
 	  /* Redraw structure on screen if frequency loop is not running */
 	  gtk_label_set_text(
 		  GTK_LABEL(lookup_widget(main_window, "struct_label")),
-		  "View Geometry" );
+		  _("View Geometry") );
 	  if( isFlagClear(FREQ_LOOP_RUNNING) )
 		Draw_Structure( structure_drawingarea );
 	  Free_Crnt_Buffs();
@@ -688,7 +612,7 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
 			"main_currents_togglebutton")), FALSE );
 	gtk_label_set_text(
 		GTK_LABEL(lookup_widget(main_window, "struct_label")),
-		"View Charges" );
+		_("View Charges") );
 
 	if( !crnt.valid && isFlagClear(FREQ_LOOP_RUNNING) )
 	  Redo_Currents( NULL );
@@ -706,7 +630,7 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
 	  /* Redraw structure on screen if frequency loop is not running */
 	  gtk_label_set_text(
 		  GTK_LABEL(lookup_widget(main_window, "struct_label")),
-		  "View Geometry" );
+		  _("View Geometry") );
 	  if( isFlagClear(FREQ_LOOP_RUNNING) )
 		Draw_Structure( structure_drawingarea );
 	  Free_Crnt_Buffs();
@@ -782,7 +706,7 @@ Gtk_Quit( void )
 	}
 
   /* Kill possibly nested loops */
-  k = gtk_main_level();
+  k = (int)gtk_main_level();
   for( i = 0; i < k; i++ )
 	gtk_main_quit();
 
@@ -807,7 +731,7 @@ Pass_EH_Flags( void )
   /* Tell child process to calculate near field data */
   cnt = strlen( fork_commands[EHFIELD] );
   for( idx = 0; idx < calc_data.num_jobs; idx++ )
-	Write_Pipe( idx, fork_commands[EHFIELD], cnt, TRUE );
+	Write_Pipe( idx, fork_commands[EHFIELD], (ssize_t)cnt, TRUE );
 
   /* Tell child to set near field flags */
   flag = 0;
@@ -818,7 +742,7 @@ Pass_EH_Flags( void )
 
   cnt = sizeof( flag );
   for( idx = 0; idx < calc_data.num_jobs; idx++ )
-	Write_Pipe( idx, &flag, cnt, TRUE );
+	Write_Pipe( idx, &flag, (ssize_t)cnt, TRUE );
 
 } /* Pass_EH_Flags */
 
@@ -834,7 +758,7 @@ Alloc_Crnt_Buffs( void )
   /* Patch currents buffer */
   if( data.m > 0 )
   {
-	size_t mreq = data.m * sizeof( double );
+	size_t mreq = (size_t)data.m * sizeof( double );
 	mem_realloc( (void *)&ct1m, mreq, "in callback_func.c" );
 	mem_realloc( (void *)&ct2m, mreq, "in callback_func.c" );
   }
@@ -842,7 +766,7 @@ Alloc_Crnt_Buffs( void )
   /* Segment currents buffer */
   if( data.n > 0 )
   {
-	size_t mreq = data.n * sizeof( double );
+	size_t mreq = (size_t)data.n * sizeof( double );
 	mem_realloc( (void *)&cmag, mreq, "in callback_func.c" );
   }
 

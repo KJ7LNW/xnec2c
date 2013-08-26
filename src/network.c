@@ -43,71 +43,51 @@
  ***********************************************************************/
 
 #include "network.h"
-
-/* common  /crnt/ */
-crnt_t crnt;
-
-/* common  /netcx/ */
-netcx_t netcx;
-
-/* common  /vsorc/ */
-vsorc_t vsorc;
-
-/* common  /data/ */
-extern data_t data;
-
-/* common  /smat/ */
-extern smat_t smat;
-
-/* common  /zload/ */
-zload_t zload;
-
-/* pointers to input */
-extern FILE *input_fp;
+#include "shared.h"
 
 /*-------------------------------------------------------------------*/
 
 /* subroutine netwk solves for structure currents for a given */
 /* excitation including the effect of non-radiating networks if */
 /* present. */
-void netwk( complex long double *cm, int *ip, complex long double *einc )
+void netwk( complex double *cmx, int *ip, complex double *einc )
 {
   int *ipnt = NULL, *nteqa = NULL, *ntsca = NULL;
   int nteq=0, ntsc=0, j, ndimn;
   int neqt, irow1=0, i, isc1=0;
-  long double pwr;
-  complex long double *vsrc = NULL, *rhs = NULL, *cmn = NULL;
-  complex long double *rhnt = NULL, *rhnx = NULL, ymit, vlt, cux;
+  double pwr;
+  complex double *vsrc = NULL, *rhs = NULL, *cmn = NULL;
+  complex double *rhnt = NULL, *rhnx = NULL, ymit, vlt, cux;
   size_t mreq;
 
-  netcx.pin=0.0l;
-  netcx.pnls=0.0l;
+  netcx.pin=0.0;
+  netcx.pnls=0.0;
   neqt= netcx.neq+ netcx.neq2;
   ndimn = j = (2*netcx.nonet + vsorc.nsant);
 
   /* Allocate network buffers */
   if( netcx.nonet > 0 )
   {
-	mreq = data.np3m * sizeof(complex long double);
+	mreq = (size_t)data.np3m * sizeof(complex double);
 	mem_alloc( (void *)&rhs, mreq, "in network.c");
 
-	mreq = j * sizeof(complex long double);
+	mreq = (size_t)j * sizeof(complex double);
 	mem_alloc( (void *)&rhnt, mreq, "in network.c");
 	mem_alloc( (void *)&rhnx, mreq, "in network.c");
-	mem_alloc( (void *)&cmn,  mreq * j, "in network.c");
+	mem_alloc( (void *)&cmn,  mreq * (size_t)j, "in network.c");
 
-	mreq = j * sizeof(int);
+	mreq = (size_t)j * sizeof(int);
 	mem_alloc( (void *)&ntsca, mreq, "in network.c");
 	mem_alloc( (void *)&nteqa, mreq, "in network.c");
 	mem_alloc( (void *)&ipnt,  mreq, "in network.c");
 
-	mreq = vsorc.nsant * sizeof(complex long double);
+	mreq = (size_t)vsorc.nsant * sizeof(complex double);
 	mem_alloc( (void *)&vsrc, mreq, "in network.c");
   }
   else
 	if( netcx.masym != 0)
 	{
-	  mreq = j * sizeof(int);
+	  mreq = (size_t)j * sizeof(int);
 	  mem_alloc( (void *)&ipnt,  mreq, "in network.c");
 	}
 
@@ -183,7 +163,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 
 	  if( irow1 >= 2)
 	  {
-		long double asmx;
+		double asmx;
 
 		for( i = 0; i < irow1; i++ )
 		{
@@ -194,7 +174,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 			rhs[j] = CPLX_00;
 
 		  rhs[isc1] = CPLX_10;
-		  solves( cm, ip, rhs, netcx.neq, 1,
+		  solves( cmx, ip, rhs, netcx.neq, 1,
 			  data.np, data.n, data.mp, data.m);
 		  cabc( rhs);
 
@@ -206,7 +186,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 
 		} /* for( i = 0; i < irow1; i++ ) */
 
-		asmx=0.0l;
+		asmx=0.0;
 
 		for( i = 1; i < irow1; i++ )
 		{
@@ -214,7 +194,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 		  for( j = 0; j < isc1; j++ )
 		  {
 			cux= cmn[i+j*ndimn];
-			pwr= cabsl(( cux- cmn[j+i*ndimn])/ cux);
+			pwr= cabs(( cux- cmn[j+i*ndimn])/ cux);
 
 			if( pwr < asmx)
 			  continue;
@@ -248,8 +228,8 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 
 	  for( j = 0; j < netcx.nonet; j++ )
 	  {
-		int  jump1, jump2, nseg2, isc2, irow2;
-		long double y11r, y11i, y12r, y12i, y22r, y22i;
+		int  jump1, jump2, nseg2, isc2=0, irow2=0;
+		double y11r, y11i, y12r, y12i, y22r, y22i;
 
 		nseg1= netcx.iseg1[j];
 		nseg2= netcx.iseg2[j];
@@ -266,10 +246,10 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 		else
 		{
 		  y22r= TP* netcx.x11i[j]/ data.wlam;
-		  y12r=0.0l;
-		  y12i=1.0l/( netcx.x11r[j]* sinl( y22r));
+		  y12r=0.0;
+		  y12i=1.0/( netcx.x11r[j]* sin( y22r));
 		  y11r= netcx.x12r[j];
-		  y11i= -y12i* cosl( y22r);
+		  y11i= -y12i* cos( y22r);
 		  y22r= netcx.x22r[j];
 		  y22i= y11i+ netcx.x22i[j];
 		  y11i= y11i+ netcx.x12i[j];
@@ -452,7 +432,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 
 		irow1= nteqa[i]-1;
 		rhs[irow1]=CPLX_10;
-		solves( cm, ip, rhs, netcx.neq, 1,
+		solves( cmx, ip, rhs, netcx.neq, 1,
 			data.np, data.n, data.mp, data.m);
 		cabc( rhs);
 
@@ -478,7 +458,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 	for( i = 0; i < neqt; i++ )
 	  rhs[i]= einc[i];
 
-	solves( cm, ip, rhs, netcx.neq, 1,
+	solves( cmx, ip, rhs, netcx.neq, 1,
 		data.np, data.n, data.mp, data.m);
 	cabc( rhs);
 
@@ -499,7 +479,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 	  einc[irow1] -= rhnt[i];
 	}
 
-	solves( cm, ip, einc, netcx.neq, 1,
+	solves( cmx, ip, einc, netcx.neq, 1,
 		data.np, data.n, data.mp, data.m);
 	cabc( einc);
 
@@ -509,7 +489,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 	  vlt= rhnt[i]* data.si[irow1]* data.wlam;
 	  cux= einc[irow1]* data.wlam;
 	  netcx.zped= vlt/ cux;
-	  pwr=.5l* creall( vlt* conjl( cux));
+	  pwr=.5* creal( vlt* conj( cux));
 	  netcx.pnls= netcx.pnls- pwr;
 	}
 
@@ -521,7 +501,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 		vlt= vsrc[i];
 		cux= einc[irow1]* data.wlam;
 		netcx.zped= vlt/ cux;
-		pwr=.5l* creall( vlt* conjl( cux));
+		pwr=.5* creal( vlt* conj( cux));
 		netcx.pnls= netcx.pnls- pwr;
 	  } /* for( i = 0; i < ntsc; i++ ) */
 
@@ -531,7 +511,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
   else
   {
 	/* solve for currents when no networks are present */
-	solves( cm, ip, einc, netcx.neq, 1,
+	solves( cmx, ip, einc, netcx.neq, 1,
 		data.np, data.n, data.mp, data.m);
 	cabc( einc);
 	ntsc=0;
@@ -579,7 +559,7 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 	  } /* if( ntsc == 0) */
 
 	  netcx.zped= vlt/ cux;
-	  pwr=.5l* creall( vlt* conjl( cux));
+	  pwr=.5* creal( vlt* conj( cux));
 	  netcx.pin= netcx.pin+ pwr;
 
 	  if( irow1 != 0)
@@ -596,11 +576,11 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 	  cux= cmplx( crnt.air[isc1], crnt.aii[isc1]);
 	  ymit= cmplx( crnt.bir[isc1], crnt.bii[isc1]);
 	  netcx.zped= cmplx( crnt.cir[isc1], crnt.cii[isc1]);
-	  pwr= data.si[isc1]* TP*.5l;
-	  cux=( cux- ymit* sinl( pwr) +
-		  netcx.zped* cosl( pwr))* data.wlam;
+	  pwr= data.si[isc1]* TP*.5;
+	  cux=( cux- ymit* sin( pwr) +
+		  netcx.zped* cos( pwr))* data.wlam;
 	  netcx.zped= vlt/ cux;
-	  pwr=.5l* creall( vlt* conjl( cux));
+	  pwr=.5* creal( vlt* conj( cux));
 	  netcx.pin= netcx.pin+ pwr;
 	} /* for( i = 0; i < vsorc.nvqd; i++ ) */
 
@@ -623,12 +603,12 @@ void netwk( complex long double *cm, int *ip, complex long double *einc )
 /* segments for various types of loading */
   void
 load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
-	long double *zlr, long double *zli, long double *zlc )
+	double *zlr, double *zli, double *zlc )
 {
   int i, istep, istepx, l1, l2, ldtags, jump, ichk;
-  complex long double zt=CPLX_00, tpcj;
+  complex double zt=CPLX_00, tpcj;
 
-  tpcj = (0.0l+1.883698955e+9lj);
+  tpcj = (0.0+I*1.883698955e+9);
 
   /* initialize d array, used for temporary */
   /* storage of loading information. */
@@ -668,7 +648,7 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 	  fprintf( stderr,
 		  "xnec2c: load(): improper load type chosen,"
 		  " requested type is %d\n", ldtyp[istepx] );
-	  stop( "load(): Improper load type chose", ERR_STOP );
+	  stop( _("load(): Improper load type chose"), ERR_STOP );
 	}
 
 	/* search segments for proper itags */
@@ -716,32 +696,32 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 		case 1:
 		  zt= zlr[istepx]/ data.si[i] +
 			tpcj* zli[istepx]/( data.si[i]* data.wlam);
-		  if( fabsl( zlc[istepx]) > 1.0e-20l)
+		  if( fabs( zlc[istepx]) > 1.0e-20)
 			zt += data.wlam/( tpcj* data.si[i]* zlc[istepx]);
 		  break;
 
 		case 2:
 		  zt= tpcj* data.si[i]* zlc[istepx]/ data.wlam;
-		  if( fabsl( zli[istepx]) > 1.0e-20l)
+		  if( fabs( zli[istepx]) > 1.0e-20)
 			zt += data.si[i]* data.wlam/( tpcj* zli[istepx]);
-		  if( fabsl( zlr[istepx]) > 1.0e-20l)
+		  if( fabs( zlr[istepx]) > 1.0e-20)
 			zt += data.si[i]/ zlr[istepx];
-		  zt=1.0l/ zt;
+		  zt=1.0/ zt;
 		  break;
 
 		case 3:
 		  zt= zlr[istepx]* data.wlam+ tpcj* zli[istepx];
-		  if( fabsl( zlc[istepx]) > 1.0e-20l)
-			zt += 1.0l/( tpcj* data.si[i]* data.si[i]* zlc[istepx]);
+		  if( fabs( zlc[istepx]) > 1.0e-20)
+			zt += 1.0/( tpcj* data.si[i]* data.si[i]* zlc[istepx]);
 		  break;
 
 		case 4:
 		  zt= tpcj* data.si[i]* data.si[i]* zlc[istepx];
-		  if( fabsl( zli[istepx]) > 1.0e-20l)
-			zt += 1.0l/( tpcj* zli[istepx]);
-		  if( fabsl( zlr[istepx]) > 1.0e-20l)
-			zt += 1.0l/( zlr[istepx]* data.wlam);
-		  zt=1.0l/ zt;
+		  if( fabs( zli[istepx]) > 1.0e-20)
+			zt += 1.0/( tpcj* zli[istepx]);
+		  if( fabs( zlr[istepx]) > 1.0e-20)
+			zt += 1.0/( zlr[istepx]* data.wlam);
+		  zt=1.0/ zt;
 		  break;
 
 		case 5:
@@ -761,13 +741,12 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 	  fprintf( stderr,
 		  "xnec2c: load(): loading data card error,"
 		  " no segment has an itag = %d\n", ldtags );
-	  stop( "load(): Loading data card\n"
-			"Tag number mismatch error", ERR_STOP );
+	  stop( _("load(): Loading data card\n"\
+			"Tag number mismatch error"), ERR_STOP );
 	}
 
   } /* while( TRUE ) */
 
-  return;
 }
 
 /*-----------------------------------------------------------------------*/

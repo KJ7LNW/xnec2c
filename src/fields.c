@@ -43,27 +43,7 @@
  **********************************************************************/
 
 #include "fields.h"
-
-/* common  /crnt/ */
-extern crnt_t crnt;
-
-/* common  /data/ */
-extern data_t data;
-
-/* common  /dataj/ */
-dataj_t dataj;
-
-/* common  /fpat/ */
-extern fpat_t fpat;
-
-/* common  /gnd/ */
-extern gnd_t gnd;
-
-/* common  /gwav/ */
-extern gwav_t gwav;
-
-/* common  /incom/ */
-incom_t incom;
+#include "shared.h"
 
 /* common  /tmi/ */
 static tmi_t tmi;
@@ -71,18 +51,12 @@ static tmi_t tmi;
 /*common  /tmh/ */
 static tmh_t tmh;
 
-/* pointers to input/output files */
-extern FILE *input_fp;
-
-/* Near E/H field data */
-extern near_field_t near_field;
-
 /*-------------------------------------------------------------------*/
 
 /* compute near e fields of a segment with sine, cosine, and */
 /* constant currents.  ground effect included. */
-void efld( long double xi, long double yi,
-	long double zi, long double ai, int ij )
+void efld( double xi, double yi,
+	double zi, double ai, int ij )
 {
   #define	txk	egnd[0]
   #define	tyk	egnd[1]
@@ -94,21 +68,21 @@ void efld( long double xi, long double yi,
   #define	tyc	egnd[7]
   #define	tzc	egnd[8]
 
-  int ip;
-  long double xij, yij, ijx, rfl, salpr, zij, zp, rhox;
-  long double rhoy, rhoz, rh, r, rmag, cth, px, py;
-  long double xymag, xspec, yspec, rhospc, dmin;
-  complex long double epx, epy, refs, refps, zrsin, zratx, zscrn;
-  complex long double tezs, ters, tezc, terc, tezk, terk;
-  static complex long double *egnd = NULL;
+  int ip, ijx;
+  double xij, yij, rfl, salpr, zij, zp, rhox;
+  double rhoy, rhoz, rh, r, rmag, cth, px, py;
+  double xymag, xspec, yspec, rhospc, dmin;
+  complex double epx, epy, refs, refps, zrsin, zratx, zscrn;
+  complex double tezs, ters, tezc=0.0, terc=0.0, tezk=0.0, terk=0.0;
+  static complex double *egnd = NULL;
 
-  size_t mreq = 9 * sizeof(complex long double);
+  size_t mreq = 9 * sizeof(complex double);
   mem_alloc( (void *)&egnd, mreq, "in fields.c");
 
   xij= xi- dataj.xj;
   yij= yi- dataj.yj;
   ijx= ij;
-  rfl=-1.0l;
+  rfl=-1.0;
 
   for( ip = 0; ip < gnd.ksymp; ip++ )
   {
@@ -122,12 +96,12 @@ void efld( long double xi, long double yi,
 	rhoy= yij- dataj.sabj* zp;
 	rhoz= zij- salpr* zp;
 
-	rh= sqrtl( rhox* rhox+ rhoy* rhoy+ rhoz* rhoz+ ai* ai);
-	if( rh <= 1.0e-10l)
+	rh= sqrt( rhox* rhox+ rhoy* rhoy+ rhoz* rhoz+ ai* ai);
+	if( rh <= 1.0e-10)
 	{
-	  rhox=0.0l;
-	  rhoy=0.0l;
-	  rhoz=0.0l;
+	  rhox=0.0;
+	  rhoy=0.0;
+	  rhoz=0.0;
 	}
 	else
 	{
@@ -137,19 +111,19 @@ void efld( long double xi, long double yi,
 	}
 
 	/* lumped current element approx. for large separations */
-	r= sqrtl( zp* zp+ rh* rh);
+	r= sqrt( zp* zp+ rh* rh);
 	if( r >= dataj.rkh)
 	{
 	  rmag= TP* r;
 	  cth= zp/ r;
 	  px= rh/ r;
-	  txk= cmplx( cosl( rmag),- sinl( rmag));
+	  txk= cmplx( cos( rmag),- sin( rmag));
 	  py= TP* r* r;
-	  tyk= ETA* cth* txk* cmplx(1.0l,-1.0l/ rmag)/ py;
-	  tzk= ETA* px* txk* cmplx(1.0l, rmag-1.0l/ rmag)/(2.0l* py);
+	  tyk= ETA* cth* txk* cmplx(1.0,-1.0/ rmag)/ py;
+	  tzk= ETA* px* txk* cmplx(1.0, rmag-1.0/ rmag)/(2.0* py);
 	  tezk= tyk* cth- tzk* px;
 	  terk= tyk* px+ tzk* cth;
-	  rmag= sinl( PI* dataj.s)/ PI;
+	  rmag= sin( PI* dataj.s)/ PI;
 	  tezc= tezk* rmag;
 	  terc= terk* rmag;
 	  tezk= tezk* dataj.s;
@@ -164,7 +138,7 @@ void efld( long double xi, long double yi,
 	{
 	  /* eksc for thin wire approx. or ekscx for extended t.w. approx. */
 	  if( dataj.iexk != 1)
-		eksc( dataj.s, zp, rh, TP, ijx, &tezs, &ters,
+	   eksc( dataj.s, zp, rh, TP, ijx, &tezs, &ters,
 			&tezc, &terc, &tezk, &terk );
 	  else
 		ekscx( dataj.b, dataj.s, zp, rh, TP, ijx, dataj.ind1,
@@ -189,29 +163,29 @@ void efld( long double xi, long double yi,
 	  {
 		zratx= gnd.zrati;
 		rmag= r;
-		xymag= sqrtl( xij* xij+ yij* yij);
+		xymag= sqrt( xij* xij+ yij* yij);
 
 		/* set parameters for radial wire ground screen. */
 		if( gnd.nradl != 0)
 		{
 		  xspec=( xi* dataj.zj+ zi* dataj.xj)/( zi+ dataj.zj);
 		  yspec=( yi* dataj.zj+ zi* dataj.yj)/( zi+ dataj.zj);
-		  rhospc= sqrtl( xspec* xspec+ yspec* yspec+ gnd.t2* gnd.t2);
+		  rhospc= sqrt( xspec* xspec+ yspec* yspec+ gnd.t2* gnd.t2);
 
 		  if( rhospc <= gnd.scrwl)
 		  {
-			zscrn= gnd.t1* rhospc* logl( rhospc/ gnd.t2);
+			zscrn= gnd.t1* rhospc* log( rhospc/ gnd.t2);
 			zratx=( zscrn* gnd.zrati)/( ETA* gnd.zrati+ zscrn);
 		  }
 		} /* if( gnd.nradl != 0) */
 
 		/* calculation of reflection coefficients
 		 * when ground is specified. */
-		if( xymag <= 1.0e-6l)
+		if( xymag <= 1.0e-6)
 		{
-		  px=0.0l;
-		  py=0.0l;
-		  cth=1.0l;
+		  px=0.0;
+		  py=0.0;
+		  cth=1.0;
 		  zrsin=CPLX_10;
 		}
 		else
@@ -219,7 +193,7 @@ void efld( long double xi, long double yi,
 		  px= -yij/ xymag;
 		  py= xij/ xymag;
 		  cth= zij/ rmag;
-		  zrsin= csqrtl(1.0l - zratx*zratx*(1.0l - cth*cth) );
+		  zrsin= csqrt(1.0 - zratx*zratx*(1.0 - cth*cth) );
 
 		} /* if( xymag <= 1.0e-6) */
 
@@ -276,17 +250,17 @@ void efld( long double xi, long double yi,
 	return;
 
   /* field due to ground using sommerfeld/norton */
-  incom.sn= sqrtl( dataj.cabj* dataj.cabj+ dataj.sabj* dataj.sabj);
-  if( incom.sn >= 1.0e-5l)
+  incom.sn= sqrt( dataj.cabj* dataj.cabj+ dataj.sabj* dataj.sabj);
+  if( incom.sn >= 1.0e-5)
   {
 	incom.xsn= dataj.cabj/ incom.sn;
 	incom.ysn= dataj.sabj/ incom.sn;
   }
   else
   {
-	incom.sn=0.0l;
-	incom.xsn=1.0l;
-	incom.ysn=0.0l;
+	incom.sn=0.0;
+	incom.xsn=1.0;
+	incom.ysn=0.0;
   }
 
   /* displace observation point for thin wire approximation */
@@ -297,7 +271,7 @@ void efld( long double xi, long double yi,
   rhoz= dataj.cabj* yij- dataj.sabj* xij;
   rh= rhox* rhox+ rhoy* rhoy+ rhoz* rhoz;
 
-  if( rh <= 1.0e-10l)
+  if( rh <= 1.0e-10)
   {
 	incom.xo= xi- ai* incom.ysn;
 	incom.yo= yi+ ai* incom.xsn;
@@ -305,28 +279,28 @@ void efld( long double xi, long double yi,
   }
   else
   {
-	rh= ai/ sqrtl( rh);
-	if( rhoz < 0.0l)
+	rh= ai/ sqrt( rh);
+	if( rhoz < 0.0)
 	  rh= -rh;
 	incom.xo= xi+ rh* rhox;
 	incom.yo= yi+ rh* rhoy;
 	incom.zo= zi+ rh* rhoz;
 
-  } /* if( rh <= 1.0e-10l) */
+  } /* if( rh <= 1.0e-10) */
 
   r= xij* xij+ yij* yij+ zij* zij;
-  if( r <= .95l)
+  if( r <= .95)
   {
-	long double shaf;
+	double shaf;
 
 	/* field from interpolation is integrated over segment */
 	incom.isnor=1;
 	dmin=
-	  dataj.exk* conjl( dataj.exk) +
-	  dataj.eyk* conjl( dataj.eyk) +
-	  dataj.ezk* conjl( dataj.ezk);
-	dmin=.01l* sqrtl( dmin);
-	shaf=.5l* dataj.s;
+	  creal(dataj.exk*conj(dataj.exk)) +
+	  creal(dataj.eyk*conj(dataj.eyk)) +
+	  creal(dataj.ezk*conj(dataj.ezk));
+	dmin=.01* sqrt( dmin);
+	shaf=.5* dataj.s;
 	rom2(- shaf, shaf, egnd, dmin);
   }
   else
@@ -334,21 +308,21 @@ void efld( long double xi, long double yi,
 	/* norton field equations and lumped
 	 * current element approximation */
 	incom.isnor=2;
-	sflds(0.0l, egnd);
-  } /* if( r <= .95l) */
+	sflds(0.0, egnd);
+  } /* if( r <= .95) */
 
-  if( r > .95l)
+  if( r > .95)
   {
 	zp= xij* dataj.cabj+ yij* dataj.sabj+ zij* salpr;
 	rh= r- zp* zp;
-	if( rh <= 1.0e-10l)
-	  dmin=0.0l;
+	if( rh <= 1.0e-10)
+	  dmin=0.0;
 	else
-	  dmin= sqrtl( rh/( rh+ ai* ai));
+	  dmin= sqrt( rh/( rh+ ai* ai));
 
-	if( dmin <= .95l)
+	if( dmin <= .95)
 	{
-	  px=1.0l- dmin;
+	  px=1.0- dmin;
 	  terk=( txk* dataj.cabj+ tyk* dataj.sabj+ tzk* salpr)* px;
 	  txk= dmin* txk+ terk* dataj.cabj;
 	  tyk= dmin* tyk+ terk* dataj.sabj;
@@ -362,9 +336,9 @@ void efld( long double xi, long double yi,
 	  tyc= dmin* tyc+ terc* dataj.sabj;
 	  tzc= dmin* tzc+ terc* salpr;
 
-	} /* if( dmin <= .95l) */
+	} /* if( dmin <= .95) */
 
-  } /* if( r > .95l) */
+  } /* if( r > .95) */
 
   dataj.exk= dataj.exk+ txk;
   dataj.eyk= dataj.eyk+ tyk;
@@ -383,23 +357,23 @@ void efld( long double xi, long double yi,
 
 /* compute e field of sine, cosine, and constant */
 /* current filaments by thin wire approximation. */
-void eksc( long double s, long double z, long double rh,
-	long double xk, int ij,	complex long double *ezs,
-	complex long double *ers, complex long double *ezc,
-	complex long double *erc, complex long double *ezk,
-	complex long double *erk )
+void eksc( double s, double z, double rh,
+	double xk, int ij,	complex double *ezs,
+	complex double *ers, complex double *ezc,
+	complex double *erc, complex double *ezk,
+	complex double *erk )
 {
-  long double rhk, sh, shk, ss, cs, z1a, z2a, cint, sint;
-  complex long double gz1, gz2, gp1, gp2, gzp1, gzp2;
+  double rhk, sh, shk, ss, cs, z1a, z2a, cint, sint;
+  complex double gz1, gz2, gp1, gp2, gzp1, gzp2;
 
   tmi.ij= ij;
   tmi.zpk= xk* z;
   rhk= xk* rh;
   tmi.rkb2= rhk* rhk;
-  sh=.5l* s;
+  sh=.5* s;
   shk= xk* sh;
-  ss= sinl( shk);
-  cs= cosl( shk);
+  ss= sin( shk);
+  cs= cos( shk);
   z2a= sh- z;
   z1a=-( sh+ z);
   gx( z1a, rh, xk, &gz1, &gp1);
@@ -414,7 +388,7 @@ void eksc( long double s, long double z, long double rh,
   gzp1= gzp1* z1a;
   gzp2= gzp2* z2a;
 
-  if( rh >= 1.0e-10l)
+  if( rh >= 1.0e-10)
   {
 	*ers= -CONST1*(( gzp2+ gzp1+ gz2+ gz1)*
 		ss-( z2a* gz2- z1a* gz1)* cs*xk)/ rh;
@@ -433,17 +407,17 @@ void eksc( long double s, long double z, long double rh,
 
 /* compute e field of sine, cosine, and constant current */
 /* filaments by extended thin wire approximation. */
-void ekscx( long double bx, long double s, long double z,
-	long double rhx, long double xk, int ij, int inx1,
-	int inx2, complex long double *ezs, complex long double *ers,
-	complex long double *ezc, complex long double *erc,
-	complex long double *ezk, complex long double *erk )
+void ekscx( double bx, double s, double z,
+	double rhx, double xk, int ij, int inx1,
+	int inx2, complex double *ezs, complex double *ers,
+	complex double *ezc, complex double *erc,
+	complex double *ezk, complex double *erk )
 {
   int ira;
-  long double b, rh, sh, rhk, shk, ss, cs, z1a;
-  long double z2a, a2, bk, bk2, cint, sint;
-  complex long double gz1, gz2, gzp1, gzp2, gr1, gr2;
-  complex long double grp1, grp2, grk1, grk2, gzz1, gzz2;
+  double b, rh, sh, rhk, shk, ss, cs, z1a;
+  double z2a, a2, bk, bk2, cint, sint;
+  complex double gz1, gz2, gzp1, gzp2, gr1, gr2;
+  complex double grp1, grp2, grk1, grk2, gzz1, gzz2;
 
   if( rhx >= bx)
   {
@@ -458,14 +432,14 @@ void ekscx( long double bx, long double s, long double z,
 	ira=1;
   }
 
-  sh=.5l* s;
+  sh=.5* s;
   tmi.ij= ij;
   tmi.zpk= xk* z;
   rhk= xk* rh;
   tmi.rkb2= rhk* rhk;
   shk= xk* sh;
-  ss= sinl( shk);
-  cs= cosl( shk);
+  ss= sin( shk);
+  cs= cos( shk);
   z2a= sh- z;
   z1a=-( sh+ z);
   a2= b* b;
@@ -505,8 +479,8 @@ void ekscx( long double bx, long double s, long double z,
   *erk= CONST1*( grk2- grk1);
   intx(- shk, shk, rhk, ij, &cint, &sint);
   bk= b* xk;
-  bk2= bk* bk*.25l;
-  *ezk= -CONST1*( gzp2- gzp1+ xk* xk*(1.0l- bk2)*
+  bk2= bk* bk*.25;
+  *ezk= -CONST1*( gzp2- gzp1+ xk* xk*(1.0- bk2)*
 	  cmplx( cint,- sint)-bk2*( gzz2- gzz1));
 
   return;
@@ -515,28 +489,28 @@ void ekscx( long double bx, long double s, long double z,
 /*-----------------------------------------------------------------------*/
 
 /* gf computes the integrand exp(jkr)/(kr) for numerical integration. */
-void gf( long double zk, long double *co, long double *si )
+void gf( double zk, double *co, double *si )
 {
-  long double zdk, rk, rks;
+  double zdk, rk, rks;
 
   zdk= zk- tmi.zpk;
-  rk= sqrtl( tmi.rkb2+ zdk* zdk);
-  *si= sinl( rk)/ rk;
+  rk= sqrt( tmi.rkb2+ zdk* zdk);
+  *si= sin( rk)/ rk;
 
   if( tmi.ij != 0 )
   {
-	*co= cosl( rk)/ rk;
+	*co= cos( rk)/ rk;
 	return;
   }
 
   if( rk >= .2l)
   {
-	*co=( cosl( rk)-1.0l)/ rk;
+	*co=( cos( rk)-1.0)/ rk;
 	return;
   }
 
   rks= rk* rk;
-  *co=((-1.38888889e-3l* rks+4.16666667e-2l)* rks-.5l)* rk;
+  *co=((-1.38888889e-3* rks+4.16666667e-2)* rks-.5)* rk;
 
   return;
 }
@@ -544,16 +518,16 @@ void gf( long double zk, long double *co, long double *si )
 /*-----------------------------------------------------------------------*/
 
 /* integrand for h field of a wire */
-void gh( long double zk, long double *hr, long double *hi)
+void gh( double zk, double *hr, double *hi)
 {
-  long double rs, r, ckr, skr, rr2, rr3;
+  double rs, r, ckr, skr, rr2, rr3;
 
   rs= zk- tmh.zpka;
   rs= tmh.rhks+ rs* rs;
-  r= sqrtl( rs);
-  ckr= cosl( r);
-  skr= sinl( r);
-  rr2=1.0l/ rs;
+  r= sqrt( rs);
+  ckr= cos( r);
+  skr= sin( r);
+  rr2=1.0/ rs;
   rr3= rr2/ r;
   *hr= skr* rr2+ ckr* rr3;
   *hi= ckr* rr2- skr* rr3;
@@ -567,82 +541,82 @@ void gh( long double zk, long double *hr, long double *hi)
 /* current element over a ground plane using formulas of k.a. norton */
 /* (proc. ire, sept., 1937, pp.1203,1236) */
 
-void gwave( complex long double *erv, complex long double *ezv,
-	complex long double *erh, complex long double *ezh,
-	complex long double *eph )
+void gwave( complex double *erv, complex double *ezv,
+	complex double *erh, complex double *ezh,
+	complex double *eph )
 {
-  long double sppp, sppp2, cppp2, cppp, spp, spp2, cpp2, cpp;
-  complex long double rk1, rk2, t1, t2, t3, t4, p1, rv;
-  complex long double omr, w, f, q1, rh, v, g, xr1, xr2;
-  complex long double x1, x2, x3, x4, x5, x6, x7;
+  double sppp, sppp2, cppp2, cppp, spp, spp2, cpp2, cpp;
+  complex double rk1, rk2, t1, t2, t3, t4, p1, rv;
+  complex double omr, w, f, q1, rh, v, g, xr1, xr2;
+  complex double x1, x2, x3, x4, x5, x6, x7;
 
   sppp= gwav.zmh/ gwav.r1;
   sppp2= sppp* sppp;
-  cppp2=1.0l- sppp2;
+  cppp2=1.0- sppp2;
 
-  if( cppp2 < 1.0e-20l)
-	cppp2=1.0e-20l;
+  if( cppp2 < 1.0e-20)
+	cppp2=1.0e-20;
 
-  cppp= sqrtl( cppp2);
+  cppp= sqrt( cppp2);
   spp= gwav.zph/ gwav.r2;
   spp2= spp* spp;
-  cpp2=1.0l- spp2;
+  cpp2=1.0- spp2;
 
-  if( cpp2 < 1.0e-20l)
-	cpp2=1.0e-20l;
+  if( cpp2 < 1.0e-20)
+	cpp2=1.0e-20;
 
-  cpp= sqrtl( cpp2);
+  cpp= sqrt( cpp2);
   rk1= -TPJ* gwav.r1;
   rk2= -TPJ* gwav.r2;
-  t1=1.0l -gwav.u2* cpp2;
-  t2= csqrtl( t1);
-  t3=(1.0l -1.0l/ rk1)/ rk1;
-  t4=(1.0l -1.0l/ rk2)/ rk2;
-  p1= rk2* gwav.u2* t1/(2.0l* cpp2);
+  t1=1.0 -gwav.u2* cpp2;
+  t2= csqrt( t1);
+  t3=(1.0 -1.0/ rk1)/ rk1;
+  t4=(1.0 -1.0/ rk2)/ rk2;
+  p1= rk2* gwav.u2* t1/(2.0* cpp2);
   rv=( spp- gwav.u* t2)/( spp+ gwav.u* t2);
-  omr=1.0l- rv;
-  w=1.0l/ omr;
-  w=(4.0l + 0.0lj)* p1* w* w;
+  omr=1.0- rv;
+  w=1.0/ omr;
+  w=(4.0 + I*0.0)* p1* w* w;
   fbar( w, &f );
-  q1= rk2* t1/(2.0l* gwav.u2* cpp2);
+  q1= rk2* t1/(2.0* gwav.u2* cpp2);
   rh=( t2- gwav.u* spp)/( t2+ gwav.u* spp);
-  v=1.0l/(1.0l+ rh);
-  v=(4.0l + 0.0lj)* q1* v* v;
+  v=1.0/(1.0+ rh);
+  v=(4.0 + I*0.0)* q1* v* v;
   fbar( v, &g );
   xr1= gwav.xx1/ gwav.r1;
   xr2= gwav.xx2/ gwav.r2;
   x1= cppp2* xr1;
   x2= rv* cpp2* xr2;
   x3= omr* cpp2* f* xr2;
-  x4= gwav.u* t2* spp*2.0l* xr2/ rk2;
-  x5= xr1* t3*(1.0l-3.0l* sppp2);
-  x6= xr2* t4*(1.0l-3.0l* spp2);
+  x4= gwav.u* t2* spp*2.0* xr2/ rk2;
+  x5= xr1* t3*(1.0-3.0* sppp2);
+  x6= xr2* t4*(1.0-3.0* spp2);
   *ezv=( x1+ x2+ x3- x4- x5- x6)* (-CONST4);
   x1= sppp* cppp* xr1;
   x2= rv* spp* cpp* xr2;
   x3= cpp* omr* gwav.u* t2* f* xr2;
   x4= spp* cpp* omr* xr2/ rk2;
-  x5=3.0l* sppp* cppp* t3* xr1;
-  x6= cpp* gwav.u* t2* omr* xr2/ rk2*.50l;
-  x7=3.0l* spp* cpp* t4* xr2;
+  x5=3.0* sppp* cppp* t3* xr1;
+  x6= cpp* gwav.u* t2* omr* xr2/ rk2*.50;
+  x7=3.0* spp* cpp* t4* xr2;
   *erv=-( x1+ x2- x3+ x4- x5+ x6- x7)* (-CONST4);
   *ezh=-( x1- x2+ x3- x4- x5- x6+ x7)* (-CONST4);
   x1= sppp2* xr1;
   x2= rv* spp2* xr2;
   x4= gwav.u2* t1* omr* f* xr2;
-  x5= t3*(1.0l-3.0l* cppp2)* xr1;
-  x6= t4*(1.0l-3.0l* cpp2)*(1.0l- gwav.u2*(1.0l+ rv )-
+  x5= t3*(1.0-3.0* cppp2)* xr1;
+  x6= t4*(1.0-3.0* cpp2)*(1.0- gwav.u2*(1.0+ rv )-
 	  gwav.u2* omr* f)* xr2;
-  x7= gwav.u2* cpp2* omr*(1.0l-1.0l/ rk2)*( f*( gwav.u2* t1 -
-		spp2-1.0l/ rk2)+1.0l/rk2)* xr2;
+  x7= gwav.u2* cpp2* omr*(1.0-1.0/ rk2)*( f*( gwav.u2* t1 -
+		spp2-1.0/ rk2)+1.0/rk2)* xr2;
   *erh=( x1- x2- x4- x5+ x6+ x7)* (-CONST4);
   x1= xr1;
   x2= rh* xr2;
-  x3=( rh+1.0l)* g* xr2;
+  x3=( rh+1.0)* g* xr2;
   x4= t3* xr1;
-  x5= t4*(1.0l- gwav.u2*(1.0l+ rv)- gwav.u2* omr* f)* xr2;
-  x6=.5l* gwav.u2* omr*( f*( gwav.u2* t1- spp2-1.0l/ rk2) +
-	  1.0l/ rk2)* xr2/ rk2;
+  x5= t4*(1.0- gwav.u2*(1.0+ rv)- gwav.u2* omr* f)* xr2;
+  x6=.5* gwav.u2* omr*( f*( gwav.u2* t1- spp2-1.0/ rk2) +
+	  1.0/ rk2)* xr2/ rk2;
   *eph=-( x1- x2+ x3- x4+ x5+ x6)* (-CONST4);
 
   return;
@@ -651,16 +625,16 @@ void gwave( complex long double *erv, complex long double *ezv,
 /*-----------------------------------------------------------------------*/
 
 /* segment end contributions for thin wire approx. */
-void gx( long double zz, long double rh, long double xk,
-	complex long double *gz, complex long double *gzp)
+void gx( double zz, double rh, double xk,
+	complex double *gz, complex double *gzp)
 {
-  long double r, r2, rkz;
+  double r, r2, rkz;
 
   r2= zz* zz+ rh* rh;
-  r= sqrtl( r2);
+  r= sqrt( r2);
   rkz= xk* r;
-  *gz= cmplx( cosl( rkz),- sinl( rkz))/ r;
-  *gzp= -cmplx(1.0l, rkz)* *gz/ r2;
+  *gz= cmplx( cos( rkz),- sin( rkz))/ r;
+  *gzp= -cmplx(1.0, rkz)* *gz/ r2;
 
   return;
 }
@@ -668,28 +642,28 @@ void gx( long double zz, long double rh, long double xk,
 /*-----------------------------------------------------------------------*/
 
 /* segment end contributions for ext. thin wire approx. */
-void gxx( long double zz, long double rh, long double a,
-	long double a2, long double xk, int ira, complex long double *g1,
-	complex long double *g1p, complex long double *g2,
-	complex long double *g2p, complex long double *g3,
-	complex long double *gzp )
+void gxx( double zz, double rh, double a,
+	double a2, double xk, int ira, complex double *g1,
+	complex double *g1p, complex double *g2,
+	complex double *g2p, complex double *g3,
+	complex double *gzp )
 {
-  long double r, r2, r4, rk, rk2, rh2, t1, t2;
-  complex long double  gz, c1, c2, c3;
+  double r, r2, r4, rk, rk2, rh2, t1, t2;
+  complex double  gz, c1, c2, c3;
 
   r2= zz* zz+ rh* rh;
-  r= sqrtl( r2);
+  r= sqrt( r2);
   r4= r2* r2;
   rk= xk* r;
   rk2= rk* rk;
   rh2= rh* rh;
-  t1=.25l* a2* rh2/ r4;
-  t2=.5l* a2/ r2;
-  c1= cmplx(1.0l, rk);
-  c2=3.0l* c1- rk2;
-  c3= cmplx(6.0l, rk)* rk2-15.0l* c1;
-  gz= cmplx( cosl( rk),- sinl( rk))/ r;
-  *g2= gz*(1.0l+ t1* c2);
+  t1=.25* a2* rh2/ r4;
+  t2=.5* a2/ r2;
+  c1= cmplx(1.0, rk);
+  c2=3.0* c1- rk2;
+  c3= cmplx(6.0, rk)* rk2-15.0* c1;
+  gz= cmplx( cos( rk),- sin( rk))/ r;
+  *g2= gz*(1.0+ t1* c2);
   *g1= *g2- t2* c1* gz;
   gz= gz/ r2;
   *g2p= gz*( t1* c3- c1);
@@ -702,10 +676,10 @@ void gxx( long double zz, long double rh, long double a,
 	*g3=( *g3+ *gzp)* rh;
 	*gzp= -zz* c1* gz;
 
-	if( rh <= 1.0e-10l)
+	if( rh <= 1.0e-10)
 	{
-	  *g2=0.0l;
-	  *g2p=0.0l;
+	  *g2=0.0;
+	  *g2p=0.0;
 	  return;
 	}
 
@@ -715,7 +689,7 @@ void gxx( long double zz, long double rh, long double a,
 
   } /* if( ira != 1) */
 
-  t2=.5l* a;
+  t2=.5* a;
   *g2= -t2* c1* gz;
   *g2p= t2* gz* c2/ r2;
   *g3= rh2* *g2p- a* gz* c1;
@@ -729,28 +703,28 @@ void gxx( long double zz, long double rh, long double a,
 
 /* hfk computes the h field of a uniform current */
 /* filament by numerical integration */
-void hfk( long double el1, long double el2, long double rhk,
-	long double zpkx, long double *sgr, long double *sgi )
+void hfk( double el1, double el2, double rhk,
+	double zpkx, double *sgr, double *sgi )
 {
   int nx = 1, nma = 65536, nts = 4;
   int ns, nt;
   int flag = TRUE;
-  long double rx = 1.0e-4l;
-  long double z, ze, s, ep, zend, dz=0.0l, zp, dzot=0.0l;
-  long double t00r, g1r, g5r=0.0l, t00i, g1i, g5i=0.0l, t01r;
-  long double g3r=0.0l, t01i, g3i=0.0l, t10r, t10i, te1i;
-  long double te1r, g2r, g4r, t02i, g2i, g4i, t11r, t11i;
-  long double t20r, t20i, te2i, te2r, t02r;
+  double rx = 1.0e-4;
+  double z, ze, s, ep, zend, dz=0.0, zp, dzot=0.0;
+  double t00r, g1r, g5r=0.0, t00i, g1i, g5i=0.0, t01r;
+  double g3r=0.0, t01i, g3i=0.0, t10r, t10i, te1i;
+  double te1r, g2r, g4r, t02i, g2i, g4i, t11r, t11i;
+  double t20r, t20i, te2i, te2r, t02r;
 
   tmh.zpka= zpkx;
   tmh.rhks= rhk* rhk;
   z= el1;
   ze= el2;
   s= ze- z;
-  ep= s/(10.0l* nma);
+  ep= s/(10.0* nma);
   zend= ze- ep;
-  *sgr=0.0l;
-  *sgi=0.0l;
+  *sgr=0.0;
+  *sgi=0.0;
   ns= nx;
   nt=0;
   gh( z, &g1r, &g1i);
@@ -765,15 +739,15 @@ void hfk( long double el1, long double el2, long double rhk,
 	  if( zp > ze )
 	  {
 		dz= ze- z;
-		if( fabsl(dz) <= ep )
+		if( fabs(dz) <= ep )
 		{
-		  *sgr= *sgr* rhk*.5l;
-		  *sgi= *sgi* rhk*.5l;
+		  *sgr= *sgr* rhk*.5;
+		  *sgi= *sgi* rhk*.5;
 		  return;
 		}
 	  }
 
-	  dzot= dz*.5l;
+	  dzot= dz*.5;
 	  zp= z+ dzot;
 	  gh( zp, &g3r, &g3i);
 	  zp= z+ dz;
@@ -783,12 +757,12 @@ void hfk( long double el1, long double el2, long double rhk,
 
 	t00r=( g1r+ g5r)* dzot;
 	t00i=( g1i+ g5i)* dzot;
-	t01r=( t00r+ dz* g3r)*0.5l;
-	t01i=( t00i+ dz* g3i)*0.5l;
-	t10r=(4.0l* t01r- t00r)/3.0l;
-	t10i=(4.0l* t01i- t00i)/3.0l;
+	t01r=( t00r+ dz* g3r)*0.5;
+	t01i=( t00i+ dz* g3i)*0.5;
+	t10r=(4.0* t01r- t00r)/3.0;
+	t10i=(4.0* t01i- t00i)/3.0;
 
-	test( t01r, t10r, &te1r, t01i, t10i, &te1i, 0.0l);
+	test( t01r, t10r, &te1r, t01i, t10i, &te1i, 0.0);
 	if( (te1i <= rx) && (te1r <= rx) )
 	{
 	  *sgr= *sgr+ t10r;
@@ -798,8 +772,8 @@ void hfk( long double el1, long double el2, long double rhk,
 	  z += dz;
 	  if( z >= zend)
 	  {
-		*sgr= *sgr* rhk*.5l;
-		*sgi= *sgi* rhk*.5l;
+		*sgr= *sgr* rhk*.5;
+		*sgi= *sgi* rhk*.5;
 		return;
 	  }
 
@@ -816,31 +790,31 @@ void hfk( long double el1, long double el2, long double rhk,
 
 	} /* if( (te1i <= rx) && (te1r <= rx) ) */
 
-	zp= z+ dz*0.25l;
+	zp= z+ dz*0.25;
 	gh( zp, &g2r, &g2i);
-	zp= z+ dz*0.75l;
+	zp= z+ dz*0.75;
 	gh( zp, &g4r, &g4i);
-	t02r=( t01r+ dzot*( g2r+ g4r))*0.5l;
-	t02i=( t01i+ dzot*( g2i+ g4i))*0.5l;
-	t11r=(4.0l* t02r- t01r)/3.0l;
-	t11i=(4.0l* t02i- t01i)/3.0l;
-	t20r=(16.0l* t11r- t10r)/15.0l;
-	t20i=(16.0l* t11i- t10i)/15.0l;
+	t02r=( t01r+ dzot*( g2r+ g4r))*0.5;
+	t02i=( t01i+ dzot*( g2i+ g4i))*0.5;
+	t11r=(4.0* t02r- t01r)/3.0;
+	t11i=(4.0* t02i- t01i)/3.0;
+	t20r=(16.0* t11r- t10r)/15.0;
+	t20i=(16.0* t11i- t10i)/15.0;
 
-	test( t11r, t20r, &te2r, t11i, t20i, &te2i, 0.0l);
+	test( t11r, t20r, &te2r, t11i, t20i, &te2i, 0.0);
 	if( (te2i > rx) || (te2r > rx) )
 	{
 	  nt=0;
 	  if( ns >= nma)
 	  {
 		fprintf( stderr,
-			"\nxnec2c: step size limited at z= %10.5LF", z );
+			"\nxnec2c: step size limited at z= %10.5f", z );
 	  }
 	  else
 	  {
 		ns= ns*2;
 		dz= s/ ns;
-		dzot= dz*0.5l;
+		dzot= dz*0.5;
 		g5r= g3r;
 		g5i= g3i;
 		g3r= g2r;
@@ -859,8 +833,8 @@ void hfk( long double el1, long double el2, long double rhk,
 	z += dz;
 	if( z >= zend)
 	{
-	  *sgr= *sgr* rhk*.5l;
-	  *sgi= *sgi* rhk*.5l;
+	  *sgr= *sgr* rhk*.5;
+	  *sgi= *sgi* rhk*.5;
 	  return;
 	}
 
@@ -881,16 +855,16 @@ void hfk( long double el1, long double el2, long double rhk,
 /*-----------------------------------------------------------------------*/
 
 /* hintg computes the h field of a patch current */
-void hintg( long double xi, long double yi, long double zi )
+void hintg( double xi, double yi, double zi )
 {
   int ip;
-  long double rx, ry, rfl, xymag, pxx, pyy, cth;
-  long double rz, rsq, r, rk, cr, sr, t1zr, t2zr;
-  complex long double  gam, f1x, f1y, f1z, f2x, f2y, f2z, rrv, rrh;
+  double rx, ry, rfl, xymag, pxx, pyy, cth;
+  double rz, rsq, r, rk, cr, sr, t1zr, t2zr;
+  complex double  gam, f1x, f1y, f1z, f2x, f2y, f2z, rrv, rrh;
 
   rx= xi- dataj.xj;
   ry= yi- dataj.yj;
-  rfl=-1.0l;
+  rfl=-1.0;
   dataj.exk=CPLX_00;
   dataj.eyk=CPLX_00;
   dataj.ezk=CPLX_00;
@@ -904,13 +878,13 @@ void hintg( long double xi, long double yi, long double zi )
 	rz= zi- dataj.zj* rfl;
 	rsq= rx* rx+ ry* ry+ rz* rz;
 
-	if( rsq < 1.0e-20l)
+	if( rsq < 1.0e-20)
 	  continue;
 
-	r = sqrtl( rsq );
+	r = sqrt( rsq );
 	rk= TP* r;
-	cr= cosl( rk);
-	sr= sinl( rk);
+	cr= cos( rk);
+	sr= sin( rk);
 	gam=-( cmplx(cr,-sr)+rk*cmplx(sr,cr) )/( FPI*rsq*r )* dataj.s;
 	dataj.exc= gam* rx;
 	dataj.eyc= gam* ry;
@@ -937,12 +911,12 @@ void hintg( long double xi, long double yi, long double zi )
 	  }
 	  else
 	  {
-		xymag= sqrtl( rx* rx+ ry* ry);
-		if( xymag <= 1.0e-6l)
+		xymag= sqrt( rx* rx+ ry* ry);
+		if( xymag <= 1.0e-6)
 		{
-		  pxx=0.0l;
-		  pyy=0.0l;
-		  cth=1.0l;
+		  pxx=0.0;
+		  pyy=0.0;
+		  cth=1.0;
 		  rrv=CPLX_10;
 		}
 		else
@@ -950,9 +924,9 @@ void hintg( long double xi, long double yi, long double zi )
 		  pxx= -ry/ xymag;
 		  pyy= rx/ xymag;
 		  cth= rz/ r;
-		  rrv= csqrtl(1.0l- gnd.zrati* gnd.zrati*(1.0l- cth* cth));
+		  rrv= csqrt(1.0- gnd.zrati* gnd.zrati*(1.0- cth* cth));
 
-		} /* if( xymag <= 1.0e-6l) */
+		} /* if( xymag <= 1.0e-6) */
 
 		rrh= gnd.zrati* cth;
 		rrh=( rrh- rrv)/( rrh+ rrv);
@@ -987,18 +961,18 @@ void hintg( long double xi, long double yi, long double zi )
 
 /* hsfld computes the h field for constant, sine, and */
 /* cosine current on a segment including ground effects. */
-void hsfld( long double xi, long double yi,
-	long double zi, long double ai )
+void hsfld( double xi, double yi,
+	double zi, double ai )
 {
   int ip;
-  long double xij, yij, rfl, salpr, zij, zp, rhox;
-  long double rhoy, rhoz, rh, phx, phy, phz, rmag;
-  long double xymag, xspec, yspec, rhospc, px, py, cth;
-  complex long double hpk, hps, hpc, qx, qy, qz, rrv, rrh, zratx;
+  double xij, yij, rfl, salpr, zij, zp, rhox;
+  double rhoy, rhoz, rh, phx, phy, phz, rmag;
+  double xymag, xspec, yspec, rhospc, px, py, cth;
+  complex double hpk, hps, hpc, qx, qy, qz, rrv, rrh, zratx;
 
   xij= xi- dataj.xj;
   yij= yi- dataj.yj;
-  rfl=-1.0l;
+  rfl=-1.0;
 
   for( ip = 0; ip < gnd.ksymp; ip++ )
   {
@@ -1009,19 +983,19 @@ void hsfld( long double xi, long double yi,
 	rhox= xij- dataj.cabj* zp;
 	rhoy= yij- dataj.sabj* zp;
 	rhoz= zij- salpr* zp;
-	rh= sqrtl( rhox* rhox+ rhoy* rhoy+ rhoz* rhoz+ ai* ai);
+	rh= sqrt( rhox* rhox+ rhoy* rhoy+ rhoz* rhoz+ ai* ai);
 
-	if( rh <= 1.0e-10l)
+	if( rh <= 1.0e-10)
 	{
-	  dataj.exk=0.0l;
-	  dataj.eyk=0.0l;
-	  dataj.ezk=0.0l;
-	  dataj.exs=0.0l;
-	  dataj.eys=0.0l;
-	  dataj.ezs=0.0l;
-	  dataj.exc=0.0l;
-	  dataj.eyc=0.0l;
-	  dataj.ezc=0.0l;
+	  dataj.exk=0.0;
+	  dataj.eyk=0.0;
+	  dataj.ezk=0.0;
+	  dataj.exs=0.0;
+	  dataj.eys=0.0;
+	  dataj.ezs=0.0;
+	  dataj.exc=0.0;
+	  dataj.eyc=0.0;
+	  dataj.ezc=0.0;
 	  continue;
 	}
 
@@ -1039,30 +1013,30 @@ void hsfld( long double xi, long double yi,
 	  if( gnd.iperf != 1 )
 	  {
 		zratx= gnd.zrati;
-		rmag= sqrtl( zp* zp+ rh* rh);
-		xymag= sqrtl( xij* xij+ yij* yij);
+		rmag= sqrt( zp* zp+ rh* rh);
+		xymag= sqrt( xij* xij+ yij* yij);
 
 		/* set parameters for radial wire ground screen. */
 		if( gnd.nradl != 0)
 		{
 		  xspec=( xi* dataj.zj+ zi* dataj.xj)/( zi+ dataj.zj);
 		  yspec=( yi* dataj.zj+ zi* dataj.yj)/( zi+ dataj.zj);
-		  rhospc= sqrtl( xspec* xspec+ yspec* yspec+ gnd.t2* gnd.t2);
+		  rhospc= sqrt( xspec* xspec+ yspec* yspec+ gnd.t2* gnd.t2);
 
 		  if( rhospc <= gnd.scrwl)
 		  {
-			rrv= gnd.t1* rhospc* logl( rhospc/ gnd.t2);
+			rrv= gnd.t1* rhospc* log( rhospc/ gnd.t2);
 			zratx=( rrv* gnd.zrati)/( ETA* gnd.zrati+ rrv);
 		  }
 		}
 
 		/* calculation of reflection coefficients
 		 * when ground is specified. */
-		if( xymag <= 1.0e-6l)
+		if( xymag <= 1.0e-6)
 		{
-		  px=0.0l;
-		  py=0.0l;
-		  cth=1.0l;
+		  px=0.0;
+		  py=0.0;
+		  cth=1.0;
 		  rrv=CPLX_10;
 		}
 		else
@@ -1070,7 +1044,7 @@ void hsfld( long double xi, long double yi,
 		  px= -yij/ xymag;
 		  py= xij/ xymag;
 		  cth= zij/ rmag;
-		  rrv= csqrtl(1.0l- zratx* zratx*(1.0l- cth* cth));
+		  rrv= csqrt(1.0- zratx* zratx*(1.0- cth* cth));
 		}
 
 		rrh= zratx* cth;
@@ -1125,72 +1099,72 @@ void hsfld( long double xi, long double yi,
 /*-----------------------------------------------------------------------*/
 
 /* calculates h field of sine cosine, and constant current of segment */
-void hsflx( long double s, long double rh, long double zpx,
-	complex long double *hpk, complex long double *hps,
-	complex long double *hpc )
+void hsflx( double s, double rh, double zpx,
+	complex double *hpk, complex double *hps,
+	complex double *hpc )
 {
-  complex long double fjk, ekr1, ekr2, t1, t2, cons;
+  complex double fjk, ekr1, ekr2, t1, t2, cons;
 
   fjk = -TPJ;
-  if( rh >= 1.0e-10l)
+  if( rh >= 1.0e-10)
   {
-	long double zp, z2a, hss, dh, z1;
-	long double rhz, dk, cdk, sdk, hkr, hki;
+	double zp, z2a, hss, dh, z1;
+	double rhz, dk, cdk, sdk, hkr, hki;
 
-	if( zpx >= 0.0l)
+	if( zpx >= 0.0)
 	{
 	  zp= zpx;
-	  hss=1.0l;
+	  hss=1.0;
 	}
 	else
 	{
 	  zp= -zpx;
-	  hss=-1.0l;
+	  hss=-1.0;
 	}
 
-	dh=.5l* s;
+	dh=.5* s;
 	z1= zp+ dh;
 	z2a= zp- dh;
-	if( z2a >= 1.0e-7l)
+	if( z2a >= 1.0e-7)
 	  rhz= rh/ z2a;
 	else
-	  rhz=1.0l;
+	  rhz=1.0;
 
 	dk= TP* dh;
-	cdk= cosl( dk);
-	sdk= sinl( dk);
+	cdk= cos( dk);
+	sdk= sin( dk);
 	hfk(- dk, dk, rh* TP, zp* TP, &hkr, &hki);
 	*hpk= cmplx( hkr, hki);
 
-	if( rhz >= 1.0e-3l)
+	if( rhz >= 1.0e-3)
 	{
-	  long double rh2, r1, r2;
+	  double rh2, r1, r2;
 
 	  rh2= rh* rh;
-	  r1= sqrtl( rh2+ z1* z1);
-	  r2= sqrtl( rh2+ z2a* z2a);
+	  r1= sqrt( rh2+ z1* z1);
+	  r2= sqrt( rh2+ z2a* z2a);
 	  ekr1= cexp( fjk* r1);
 	  ekr2= cexp( fjk* r2);
 	  t1= z1* ekr1/ r1;
 	  t2= z2a* ekr2/ r2;
 	  *hps=( cdk*( ekr2- ekr1)- CPLX_01* sdk*( t2+ t1))* hss;
 	  *hpc= -sdk*( ekr2+ ekr1)- CPLX_01* cdk*( t2- t1);
-	  cons= -CPLX_01/(2.0l* TP* rh);
+	  cons= -CPLX_01/(2.0* TP* rh);
 	  *hps= cons* *hps;
 	  *hpc= cons* *hpc;
 	  return;
 
-	} /* if( rhz >= 1.0e-3l) */
+	} /* if( rhz >= 1.0e-3) */
 
 	ekr1= cmplx( cdk, sdk)/( z2a* z2a);
 	ekr2= cmplx( cdk,- sdk)/( z1* z1);
-	t1= TP*(1.0l/ z1-1.0l/ z2a);
+	t1= TP*(1.0/ z1-1.0/ z2a);
 	t2= cexp( fjk* zp)* rh/PI8;
 	*hps= t2*( t1+( ekr1+ ekr2)* sdk)* hss;
 	*hpc= t2*(- CPLX_01* t1+( ekr1- ekr2)* cdk);
 	return;
 
-  } /* if( rh >= 1.0e-10l) */
+  } /* if( rh >= 1.0e-10) */
 
   *hps=CPLX_00;
   *hpc=CPLX_00;
@@ -1203,18 +1177,18 @@ void hsflx( long double s, long double rh, long double zpx,
 
 /* nefld computes the near field at specified points in space after */
 /* the structure currents have been computed. */
-void nefld( long double xob, long double yob,
-	long double zob, complex long double *ex,
-	complex long double *ey, complex long double *ez )
+void nefld( double xob, double yob,
+	double zob, complex double *ex,
+	complex double *ey, complex double *ez )
 {
   int i, ix, ipr, iprx, jc, ipa;
-  long double zp, xi, ax;
-  complex long double acx, bcx, ccx;
+  double zp, xi, ax;
+  complex double acx, bcx, ccx;
 
   *ex=CPLX_00;
   *ey=CPLX_00;
   *ez=CPLX_00;
-  ax=0.0l;
+  ax=0.0;
 
   if( data.n != 0)
   {
@@ -1226,14 +1200,14 @@ void nefld( long double xob, long double yob,
 	  zp= data.cab[i]* dataj.xj+ data.sab[i] *
 		dataj.yj+ data.salp[i]* dataj.zj;
 
-	  if( fabsl( zp) > 0.5001l* data.si[i])
+	  if( fabs( zp) > 0.5001* data.si[i])
 		continue;
 
 	  zp= dataj.xj* dataj.xj+ dataj.yj* dataj.yj +
 		dataj.zj* dataj.zj- zp* zp;
 	  dataj.xj= data.bi[i];
 
-	  if( zp > 0.9l* dataj.xj* dataj.xj)
+	  if( zp > 0.9* dataj.xj* dataj.xj)
 		continue;
 
 	  ax= dataj.xj;
@@ -1267,10 +1241,10 @@ void nefld( long double xob, long double yob,
 			dataj.ind1=2;
 		  else
 		  {
-			xi= fabsl( dataj.cabj* data.cab[iprx]+ dataj.sabj*
+			xi= fabs( dataj.cabj* data.cab[iprx]+ dataj.sabj*
 				data.sab[iprx]+ dataj.salpj* data.salp[iprx]);
-			if( (xi < 0.999999l) ||
-				(fabsl(data.bi[iprx]/dataj.b-1.0l) > 1.0e-6l) )
+			if( (xi < 0.999999) ||
+				(fabs(data.bi[iprx]/dataj.b-1.0) > 1.0e-6) )
 			  dataj.ind1=2;
 			else
 			  dataj.ind1=0;
@@ -1289,10 +1263,10 @@ void nefld( long double xob, long double yob,
 				dataj.ind1=2;
 			  else
 			  {
-				xi= fabsl( dataj.cabj* data.cab[iprx]+ dataj.sabj*
+				xi= fabs( dataj.cabj* data.cab[iprx]+ dataj.sabj*
 					data.sab[iprx]+ dataj.salpj* data.salp[iprx]);
-				if( (xi < 0.999999l) ||
-					(fabsl(data.bi[iprx]/dataj.b-1.0l) > 1.0e-6l) )
+				if( (xi < 0.999999) ||
+					(fabs(data.bi[iprx]/dataj.b-1.0) > 1.0e-6) )
 				  dataj.ind1=2;
 				else
 				  dataj.ind1=0;
@@ -1301,7 +1275,7 @@ void nefld( long double xob, long double yob,
 			else
 			{
 			  if( dataj.cabj* dataj.cabj +
-				  dataj.sabj* dataj.sabj > 1.0e-8l)
+				  dataj.sabj* dataj.sabj > 1.0e-8)
 				dataj.ind1=2;
 			  else
 				dataj.ind1=0;
@@ -1320,10 +1294,10 @@ void nefld( long double xob, long double yob,
 			dataj.ind1=2;
 		  else
 		  {
-			xi= fabsl( dataj.cabj* data.cab[iprx]+ dataj.sabj*
+			xi= fabs( dataj.cabj* data.cab[iprx]+ dataj.sabj*
 				data.sab[iprx]+ dataj.salpj* data.salp[iprx]);
-			if( (xi < 0.999999l) ||
-				(fabsl(data.bi[iprx]/dataj.b-1.0l) > 1.0e-6l) )
+			if( (xi < 0.999999) ||
+				(fabs(data.bi[iprx]/dataj.b-1.0) > 1.0e-6) )
 			  dataj.ind1=2;
 			else
 			  dataj.ind1=0;
@@ -1342,10 +1316,10 @@ void nefld( long double xob, long double yob,
 				dataj.ind2=2;
 			  else
 			  {
-				xi= fabsl( dataj.cabj* data.cab[iprx]+ dataj.sabj*
+				xi= fabs( dataj.cabj* data.cab[iprx]+ dataj.sabj*
 					data.sab[iprx]+ dataj.salpj* data.salp[iprx]);
-				if( (xi < 0.999999l) ||
-					(fabsl(data.bi[iprx]/dataj.b-1.0l) > 1.0e-6l) )
+				if( (xi < 0.999999) ||
+					(fabs(data.bi[iprx]/dataj.b-1.0) > 1.0e-6) )
 				  dataj.ind2=2;
 				else
 				  dataj.ind2=0;
@@ -1354,7 +1328,7 @@ void nefld( long double xob, long double yob,
 			else
 			{
 			  if( dataj.cabj* dataj.cabj +
-				  dataj.sabj* dataj.sabj > 1.0e-8l)
+				  dataj.sabj* dataj.sabj > 1.0e-8)
 				dataj.ind1=2;
 			  else
 				dataj.ind1=0;
@@ -1418,19 +1392,19 @@ void nefld( long double xob, long double yob,
 void nfpat( int nfeh )
 {
   int i, j, kk, idx;
-  long double znrt, cth=0.0l, sth=0.0l, ynrt, cph=0.0l, sph=0.0l, yob;
-  long double xnrt, xob,zob, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
-  complex long double ex, ey, ez;
+  double znrt, cth=0.0, sth=0.0, ynrt, cph=0.0, sph=0.0, yob;
+  double xnrt, xob,zob, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
+  complex double ex, ey, ez;
   double r; /* Distance of field point from xyz origin */
 
   Alloc_Nearfield_Buffers( fpat.nrx, fpat.nry, fpat.nrz );
 
   /* Initialize according to E/H flag */
   if( nfeh == 1 )
-	near_field.max_hr = 0.0l;
+	near_field.max_hr = 0.0;
   else
-	near_field.max_er = 0.0l;
-  near_field.r_max = 0.0l;
+	near_field.max_er = 0.0;
+  near_field.r_max = 0.0;
 
   idx = 0;
   znrt= fpat.znr- fpat.dznr;
@@ -1439,8 +1413,8 @@ void nfpat( int nfeh )
 	znrt += fpat.dznr;
 	if( fpat.near != 0)
 	{
-	  cth= cosl( TA* znrt);
-	  sth= sinl( TA* znrt);
+	  cth= cos( TA* znrt);
+	  sth= sin( TA* znrt);
 	}
 
 	ynrt= fpat.ynr- fpat.dynr;
@@ -1449,8 +1423,8 @@ void nfpat( int nfeh )
 	  ynrt += fpat.dynr;
 	  if( fpat.near != 0)
 	  {
-		cph= cosl( TA* ynrt);
-		sph= sinl( TA* ynrt);
+		cph= cos( TA* ynrt);
+		sph= sin( TA* ynrt);
 	  }
 
 	  xnrt= fpat.xnr- fpat.dxnr;
@@ -1495,11 +1469,11 @@ void nfpat( int nfeh )
 		if( near_field.r_max < r )
 		  near_field.r_max = r;
 
-		tmp1= cabsl(ex);
+		tmp1= cabs(ex);
 		tmp2= cang (ex);
-		tmp3= cabsl(ey);
+		tmp3= cabs(ey);
 		tmp4= cang (ey);
-		tmp5= cabsl(ez);
+		tmp5= cabs(ez);
 		tmp6= cang (ez);
 
 		if( nfeh == 1 ) /* Magnetic field */
@@ -1543,18 +1517,18 @@ void nfpat( int nfeh )
 /* nhfld computes the near field at specified points in space after */
 /* the structure currents have been computed. */
 
-void nhfld( long double xob, long double yob,
-	long double zob, complex long double *hx,
-	complex long double *hy, complex long double *hz )
+void nhfld( double xob, double yob,
+	double zob, complex double *hx,
+	complex double *hy, complex double *hz )
 {
   int i, jc;
-  long double ax, zp;
-  complex long double acx, bcx, ccx;
+  double ax, zp;
+  complex double acx, bcx, ccx;
 
   *hx=CPLX_00;
   *hy=CPLX_00;
   *hz=CPLX_00;
-  ax=0.0l;
+  ax=0.0;
 
   if( data.n != 0)
   {
@@ -1566,14 +1540,14 @@ void nhfld( long double xob, long double yob,
 	  zp= data.cab[i]* dataj.xj+ data.sab[i] *
 		dataj.yj+ data.salp[i]* dataj.zj;
 
-	  if( fabsl( zp) > 0.5001l* data.si[i])
+	  if( fabs( zp) > 0.5001* data.si[i])
 		continue;
 
 	  zp= dataj.xj* dataj.xj+ dataj.yj* dataj.yj +
 		dataj.zj* dataj.zj- zp* zp;
 	  dataj.xj= data.bi[i];
 
-	  if( zp > 0.9l* dataj.xj* dataj.xj)
+	  if( zp > 0.9* dataj.xj* dataj.xj)
 		continue;
 
 	  ax= dataj.xj;
@@ -1634,27 +1608,27 @@ void nhfld( long double xob, long double yob,
 /*-----------------------------------------------------------------------*/
 
 /* integrate over patches at wire connection point */
-void pcint( long double xi, long double yi, long double zi,
-	long double cabi, long double sabi, long double salpi,
-	complex long double *e )
+void pcint( double xi, double yi, double zi,
+	double cabi, double sabi, double salpi,
+	complex double *e )
 {
   int nint, i1, i2;
-  long double d, ds, da, gcon, fcon, xxj, xyj, xzj, xs, s1;
-  long double xss, yss, zss, s2x, s2, g1, g2, g3, g4, f2, f1;
-  complex long double e1, e2, e3, e4, e5, e6, e7, e8, e9;
+  double d, ds, da, gcon, fcon, xxj, xyj, xzj, xs, s1;
+  double xss, yss, zss, s2x, s2, g1, g2, g3, g4, f2, f1;
+  complex double e1, e2, e3, e4, e5, e6, e7, e8, e9;
 
   nint = 10;
-  d= sqrtl( dataj.s)*.5l;
-  ds=4.0l* d/ (long double) nint;
+  d= sqrt( dataj.s)*.5;
+  ds=4.0* d/ (double) nint;
   da= ds* ds;
-  gcon=1.0l/ dataj.s;
-  fcon=1.0l/(2.0l* TP* d);
+  gcon=1.0/ dataj.s;
+  fcon=1.0/(2.0* TP* d);
   xxj= dataj.xj;
   xyj= dataj.yj;
   xzj= dataj.zj;
   xs= dataj.s;
   dataj.s= da;
-  s1= d+ ds*.5l;
+  s1= d+ ds*.5;
   xss= dataj.xj+ s1*( dataj.t1xj+ dataj.t2xj);
   yss= dataj.yj+ s1*( dataj.t1yj+ dataj.t2yj);
   zss= dataj.zj+ s1*( dataj.t1zj+ dataj.t2zj);
@@ -1734,11 +1708,11 @@ void pcint( long double xi, long double yi, long double zi,
 
 /* calculates the electric field due to unit current */
 /* in the t1 and t2 directions on a patch */
-void unere( long double xob, long double yob, long double zob )
+void unere( double xob, double yob, double zob )
 {
-  long double zr, t1zr, t2zr, rx, ry, rz, r, tt1;
-  long double tt2, rt, xymag, px, py, cth, r2;
-  complex long double er, q1, q2, rrv, rrh, edp;
+  double zr, t1zr, t2zr, rx, ry, rz, r, tt1;
+  double tt2, rt, xymag, px, py, cth, r2;
+  complex double er, q1, q2, rrv, rrh, edp;
 
   zr= dataj.zj;
   t1zr= dataj.t1zj;
@@ -1756,7 +1730,7 @@ void unere( long double xob, long double yob, long double zob )
   rz= zob- zr;
   r2= rx* rx+ ry* ry+ rz* rz;
 
-  if( r2 <= 1.0e-20l)
+  if( r2 <= 1.0e-20)
   {
 	dataj.exk=CPLX_00;
 	dataj.eyk=CPLX_00;
@@ -1767,13 +1741,13 @@ void unere( long double xob, long double yob, long double zob )
 	return;
   }
 
-  r= sqrtl( r2);
+  r= sqrt( r2);
   tt1= -TP* r;
   tt2= tt1* tt1;
   rt= r2* r;
-  er= cmplx( sinl( tt1),- cosl( tt1))*( CONST2* dataj.s);
-  q1= cmplx( tt2-1.0l, tt1)* er/ rt;
-  q2= cmplx(3.0l- tt2,-3.0l* tt1)* er/( rt* r2);
+  er= cmplx( sin( tt1),- cos( tt1))*( CONST2* dataj.s);
+  q1= cmplx( tt2-1.0, tt1)* er/ rt;
+  q2= cmplx(3.0- tt2,-3.0* tt1)* er/( rt* r2);
   er = q2*( dataj.t1xj* rx+ dataj.t1yj* ry+ t1zr* rz);
   dataj.exk= q1* dataj.t1xj+ er* rx;
   dataj.eyk= q1* dataj.t1yj+ er* ry;
@@ -1797,20 +1771,20 @@ void unere( long double xob, long double yob, long double zob )
 	return;
   }
 
-  xymag= sqrtl( rx* rx+ ry* ry);
-  if( xymag <= 1.0e-6l)
+  xymag= sqrt( rx* rx+ ry* ry);
+  if( xymag <= 1.0e-6)
   {
-	px=0.0l;
-	py=0.0l;
-	cth=1.0l;
+	px=0.0;
+	py=0.0;
+	cth=1.0;
 	rrv=CPLX_10;
   }
   else
   {
 	px= -ry/ xymag;
 	py= rx/ xymag;
-	cth= rz/ sqrtl( xymag* xymag+ rz* rz);
-	rrv= csqrtl(1.0l- gnd.zrati* gnd.zrati*(1.0l- cth* cth));
+	cth= rz/ sqrt( xymag* xymag+ rz* rz);
+	rrv= csqrt(1.0- gnd.zrati* gnd.zrati*(1.0- cth* cth));
   }
 
   rrh= gnd.zrati* cth;
@@ -1837,9 +1811,9 @@ void unere( long double xob, long double yob, long double zob )
  */
 void
 Near_Field_Total(
-	complex long double ex,
-	complex long double ey,
-	complex long double ez,
+	complex double ex,
+	complex double ey,
+	complex double ez,
 	int nfeh, int idx )
 {
   /* Display a time-frozen "snapshot" of near field */
@@ -1848,9 +1822,9 @@ Near_Field_Total(
 	if( nfeh == 1 ) /* Magnetic field */
 	{
 	  /* Near magnetic field components */
-	  near_field.hrx[idx] = (double)creall(ex);
-	  near_field.hry[idx] = (double)creall(ey);
-	  near_field.hrz[idx] = (double)creall(ez);
+	  near_field.hrx[idx] = (double)creal(ex);
+	  near_field.hry[idx] = (double)creal(ey);
+	  near_field.hrz[idx] = (double)creal(ez);
 
 	  /* Near total magnetic field vector*/
 	  near_field.hr[idx]  = sqrt(
@@ -1864,9 +1838,9 @@ Near_Field_Total(
 	{
 	  /* Near electric field components */
 	  /* Near electric field components */
-	  near_field.erx[idx] = (double)creall(ex);
-	  near_field.ery[idx] = (double)creall(ey);
-	  near_field.erz[idx] = (double)creall(ez);
+	  near_field.erx[idx] = (double)creal(ex);
+	  near_field.ery[idx] = (double)creal(ey);
+	  near_field.erz[idx] = (double)creal(ez);
 
 	  /* Near total electric field vector */
 	  near_field.er[idx]  = sqrt(
@@ -1887,13 +1861,13 @@ Near_Field_Total(
 	  fx2, fy2, fz2,	/* Time phase of near field vectors*2 */
 	  cp, sp, tp, wt;	/* Some values needed in calculations */
 
-	exm = (double)cabsl(ex);
-	eym = (double)cabsl(ey);
-	ezm = (double)cabsl(ez);
+	exm = (double)cabs(ex);
+	eym = (double)cabs(ey);
+	ezm = (double)cabs(ez);
 	/* Near total electric field vector */
-	fx  = (double)cang(ex)/TD;
-	fy  = (double)cang(ey)/TD;
-	fz  = (double)cang(ez)/TD;
+	fx  = (double)cang(ex)/(double)TD;
+	fy  = (double)cang(ey)/(double)TD;
+	fz  = (double)cang(ez)/(double)TD;
 
 	fx2 = fx * 2.0;
 	fy2 = fy * 2.0;

@@ -23,38 +23,7 @@
  */
 
 #include "geom_edit.h"
-
-/* Global tag number for geometry editors */
-gint gbl_tag_num = 0;
-
-/* Tree list stores */
-extern GtkListStore
-  *cmnt_store,
-  *geom_store,
-  *cmnd_store;
-
-/* Geometry tree view */
-extern GtkTreeView *geom_treeview;
-
-/* Scrolled winodws adjustments */
-extern GtkAdjustment
-  *geom_adjustment,
-  *cmnd_adjustment;
-
-extern GtkWidget
-  *wire_editor,	 	 /* Wire designer window  */
-  *arc_editor,	 	 /* Arc designer window   */
-  *helix_editor, 	 /* Helix designer window */
-  *patch_editor,	 /* Patch designer window */
-  *reflect_editor,	 /* Reflect design window */
-  *scale_editor,	 /* Scale designer window */
-  *cylinder_editor,	 /* Cylinder designer window  */
-  *transform_editor, /* Transform designer window */
-  *gend_editor,		 /* Geom End designer window  */
-  *nec2_edit_window; /* NEC2 file editor's window */
-
-/* Various data used by NEC2, stored in this struct */
-extern calc_data_t calc_data;
+#include "shared.h"
 
 /*------------------------------------------------------------------------*/
 
@@ -80,12 +49,12 @@ Wire_Editor( int action )
 
   static gboolean
 	load   = FALSE, /* Enable wire loading (conductivity specified) */
-	taper  = FALSE, /* Editing a tapered wire */
-	save   = FALSE, /* Enable saving of editor data */
-	busy   = FALSE, /* Block callbacks. Must be a better way to do this? */
-	newpcl = TRUE,  /* New percent-of-lambda value */
-	newrdm = TRUE,  /* New diameter ratio value */
-	newwln = TRUE;  /* New wire length value */
+		   taper  = FALSE, /* Editing a tapered wire */
+		   save   = FALSE, /* Enable saving of editor data */
+		   busy   = FALSE, /* Block callbacks. Must be a better way to do this? */
+		   newpcl = TRUE,  /* New percent-of-lambda value */
+		   newrdm = TRUE,  /* New diameter ratio value */
+		   newwln = TRUE;  /* New wire length value */
 
   /* Float type data, wire conductivity */
   static gdouble fv[14], s = 0.0;
@@ -219,12 +188,12 @@ Wire_Editor( int action )
 
 		  /* Warn user if wire radius not 0 */
 		  if( fv[WIRE_DIA] != 0.0 )
-			stop( "GC card preceded by GW card\n"
-				  "with non-zero wire radius", ERR_OK );
+			stop( _("GC card preceded by GW card\n"\
+				  "with non-zero wire radius"), ERR_OK );
 
 		} /* if( strcmp(name, "GC") == 0 ) */
 		else
-		  stop( "No GW card before GC card", ERR_OK );
+		  stop( _("No GW card before GC card"), ERR_OK );
 	  }
 	  else /*** Editing a GW card ***/
 	  {
@@ -247,14 +216,14 @@ Wire_Editor( int action )
 			fv[WIRE_RDIA] = fv[WIRE_RLEN];
 		  }
 		  else
-			stop( "No GC card after a GW card\n"
-				  "with a zero wire radius", ERR_OK );
+			stop( _("No GC card after a GW card\n"\
+				  "with a zero wire radius"), ERR_OK );
 
 		} /* if( fv[WIRE_DIA] == 0.0 ) */
 		else /* If radius != 0, next card should not be GC */
 		  if( Check_Card_Name(geom_store, &iter_gc, NEXT, "GC") )
-			stop( "GC card follows a GW card\n"
-				  "with non-zero wire radius", ERR_OK );
+			stop( _("GC card follows a GW card\n"\
+				  "with non-zero wire radius"), ERR_OK );
 
 	  } /* if( strcmp(name, "GC") == 0 ) */
 	  break;
@@ -284,7 +253,7 @@ Wire_Editor( int action )
 		  fv[WIRE_DIA] = diam;
 
 		  /* Remove GC card if valid */
-		  Remove_Row( geom_treeview, geom_store, &iter_gc );
+		  Remove_Row( geom_store, &iter_gc );
 		} /* if( taper ) */
 	  }
 	  save = TRUE;
@@ -292,9 +261,9 @@ Wire_Editor( int action )
 
 	case EDITOR_CANCEL: /* Cancel wire editor */
 	  /* Remove cards */
-	  Remove_Row( geom_treeview, geom_store, &iter_gw );
+	  Remove_Row( geom_store, &iter_gw );
 	  if( taper )
-		Remove_Row( geom_treeview, geom_store, &iter_gc );
+		Remove_Row( geom_store, &iter_gc );
 	  save = busy = FALSE;
 	  return;
 
@@ -323,11 +292,17 @@ Wire_Editor( int action )
 		{
 		  double cnt = 1.0 / (fv[WIRE_PCL]/100.0) * (1.0-fv[WIRE_RLEN]);
 		  if( cnt < 1.0 )
-			iv[SPIN_COL_I2] = ceil( log(1.0-cnt) / log(fv[WIRE_RLEN]) );
+		  {
+			double i = ceil( log(1.0-cnt) / log(fv[WIRE_RLEN]) );
+			iv[SPIN_COL_I2] = (gint)i;
+		  }
 		}
 		else
-		  iv[SPIN_COL_I2] = ceil( 100.0 * (fv[WIRE_LEN]/fv[WIRE_PCL]) /
-			  (CVEL/calc_data.mxfrq) );
+		{
+		  double i = ceil( 100.0 * (fv[WIRE_LEN]/fv[WIRE_PCL]) /
+			  ((double)CVEL/calc_data.mxfrq) );
+		  iv[SPIN_COL_I2] = (gint)i;
+		}
 	  }
 	  newpcl = FALSE;
 	  save = TRUE;
@@ -410,11 +385,11 @@ Wire_Editor( int action )
 	if( taper && (fv[WIRE_RLEN] != 1.0) )
 	  fv[WIRE_PCL] =
 		100.0 * fv[WIRE_LEN] * (1.0-fv[WIRE_RLEN]) /
-		(1.0-pow(fv[WIRE_RLEN], (double)iv[SPIN_COL_I2])) /
-		(CVEL/calc_data.mxfrq);
+		(1.0-(gdouble)pow(fv[WIRE_RLEN], (gdouble)iv[SPIN_COL_I2])) /
+		((gdouble)CVEL/calc_data.mxfrq);
 	else
 	  fv[WIRE_PCL] = 100.0 * (fv[WIRE_LEN] /
-		  (double)iv[SPIN_COL_I2]) / (CVEL/calc_data.mxfrq);
+		  (gdouble)iv[SPIN_COL_I2]) / ((gdouble)CVEL/calc_data.mxfrq);
   }
   else
 	newpcl = TRUE;
@@ -516,8 +491,8 @@ Patch_Editor( int action )
 
   static gboolean
 	save  = FALSE,	/* Enable saving of editor data */
-	busy  = FALSE,	/* Block callbacks. Must be a better way to do this? */
-	ptset = FALSE;	/* Set patch type radio buttons */
+		  busy  = FALSE,	/* Block callbacks. Must be a better way to do this? */
+		  ptset = FALSE;	/* Set patch type radio buttons */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -553,7 +528,8 @@ Patch_Editor( int action )
 	{
 	  spin = GTK_SPIN_BUTTON(
 		  lookup_widget(patch_editor, ispin[idx]) );
-	  iv[idx] = gtk_spin_button_get_value( spin );
+	  double i = gtk_spin_button_get_value( spin );
+	  iv[idx] = (gint)i;
 	}
 
   /* Read float data from the patch editor */
@@ -616,8 +592,8 @@ Patch_Editor( int action )
 		  /* Warn user if SP card with arbitary
 		   * patch is followed by an SC card */
 		  if( ptype == PATCH_ARBT )
-			stop( "SC card preceded by SP card\n"
-				  "with arbitary patch type", ERR_OK );
+			stop( _("SC card preceded by SP card\n"\
+				  "with arbitary patch type"), ERR_OK );
 
 		} /* if( Check_Card_Name(geom_store, &iter_sp, PREVIOUS, "SP") ) */
 		else /* Look for a previous SM card */
@@ -629,7 +605,7 @@ Patch_Editor( int action )
 			ptype = PATCH_SURF;
 		  }
 		  else
-			stop( "No SP or SM card before SC card", ERR_OK );
+			stop( _("No SP or SM card before SC card"), ERR_OK );
 		}
 	  } /* if( strcmp(name, "SC") == 0 ) */
 	  else
@@ -650,15 +626,15 @@ Patch_Editor( int action )
 			else
 			{
 			  ptype = PATCH_ARBT;
-			  stop( "No SC card after an SP card\n"
-					"with non-arbitary patch type", ERR_OK );
+			  stop( _("No SC card after an SP card\n"\
+					"with non-arbitary patch type"), ERR_OK );
 			}
 
 		  } /* if( ptype != PATCH_ARBT ) */
 		  else /* If patch type arbitary, no SC card should follow */
 			if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
-			  stop( "SC card follows an SP card\n"
-					"with arbitary patch type", ERR_OK );
+			  stop( _("SC card follows an SP card\n"\
+					"with arbitary patch type"), ERR_OK );
 		} /* if( strcmp(name, "SP") == 0 ) */
 		else /* SM card */
 		{
@@ -671,7 +647,7 @@ Patch_Editor( int action )
 			Get_Geometry_Data( geom_store, &iter_sc,
 				&iv[SPIN_COL_I3], &fv[PATCH_X3] );
 		  else
-			stop( "No SC card after an SM card", ERR_OK );
+			stop( _("No SC card after an SM card"), ERR_OK );
 
 		} /* if( strcmp(name, "SP") == 0 ) */
 
@@ -680,9 +656,9 @@ Patch_Editor( int action )
 
 	case EDITOR_CANCEL: /* Cancel patch editor */
 	  /* Remove cards */
-	  Remove_Row( geom_treeview, geom_store, &iter_sp );
+	  Remove_Row( geom_store, &iter_sp );
 	  if( ptype != PATCH_ARBT )
-		Remove_Row( geom_treeview, geom_store, &iter_sc );
+		Remove_Row( geom_store, &iter_sc );
 	  save = busy = FALSE;
 	  return;
 
@@ -698,7 +674,7 @@ Patch_Editor( int action )
 		fv[idx] = 0.0;
 
 	  /* Remove SC card */
-	  Remove_Row( geom_treeview, geom_store, &iter_sc );
+	  Remove_Row( geom_store, &iter_sc );
 	  break;
 
 	case PATCH_EDITOR_RECT: /* Rectangular patch */
@@ -741,32 +717,32 @@ Patch_Editor( int action )
   if( ptype == PATCH_ARBT )
   {
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_x1_label")), "Center - X" );
+		  lookup_widget(patch_editor, "patch_x1_label")), _("Center - X") );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_y1_label")), "Center - Y" );
+		  lookup_widget(patch_editor, "patch_y1_label")), _("Center - Y") );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_z1_label")), "Center - Z" );
+		  lookup_widget(patch_editor, "patch_z1_label")), _("Center - Z") );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_x2_label")), "Normal - Elev." );
+		  lookup_widget(patch_editor, "patch_x2_label")), _("Normal - Elev.") );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_y2_label")), "Normal - Azim." );
+		  lookup_widget(patch_editor, "patch_y2_label")), _("Normal - Azim.") );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_z2_label")), "Patch Area" );
+		  lookup_widget(patch_editor, "patch_z2_label")), _("Patch Area") );
   }
   else
   {
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_x1_label")), "Corner 1 - X" );
+		  lookup_widget(patch_editor, "patch_x1_label")), _("Corner 1 - X") );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_y1_label")), "Corner 1 - Y" );
+		  lookup_widget(patch_editor, "patch_y1_label")), _("Corner 1 - Y") );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_z1_label")), "Corner 1 - Z" );
+		  lookup_widget(patch_editor, "patch_z1_label")), _("Corner 1 - Z") );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_x2_label")), "Corner 2 - X" );
+		  lookup_widget(patch_editor, "patch_x2_label")), _("Corner 2 - X") );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_y2_label")), "Corner 2 - Y" );
+		  lookup_widget(patch_editor, "patch_y2_label")), _("Corner 2 - Y") );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_z2_label")), "Corner 2 - Z" );
+		  lookup_widget(patch_editor, "patch_z2_label")), _("Corner 2 - Z") );
   }
 
   /* Hide/Show parts of window as needed */
@@ -866,9 +842,9 @@ Arc_Editor( int action )
 
   static gboolean
 	load   = FALSE, /* Enable wire loading (conductivity specified) */
-	newpcl = TRUE,  /* New percent-of-lambda value  */
-	save   = FALSE, /* Enable saving of editor data */
-	busy   = FALSE; /* Block callbacks. Must be a better way to do this? */
+		   newpcl = TRUE,  /* New percent-of-lambda value  */
+		   save   = FALSE, /* Enable saving of editor data */
+		   busy   = FALSE; /* Block callbacks. Must be a better way to do this? */
 
   /* Float type data */
   static gdouble fv[7] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
@@ -965,7 +941,7 @@ Arc_Editor( int action )
 
 	case EDITOR_CANCEL: /* Cancel arc editor */
 	  /* Remove cards */
-	  Remove_Row( geom_treeview, geom_store, &iter_ga );
+	  Remove_Row( geom_store, &iter_ga );
 	  save = busy = FALSE;
 	  return;
 
@@ -991,9 +967,10 @@ Arc_Editor( int action )
 	  if( calc_data.mxfrq != 0.0 )
 	  {
 		gdouble len = fv[ARC_RAD] *
-		  fabs( fv[ARC_END1]-fv[ARC_END2] )/TD;
-		iv[SPIN_COL_I2] = ceil(100.0 / fv[ARC_PCL] *
-			len /(CVEL/calc_data.mxfrq));
+		  (gdouble)fabs( fv[ARC_END1]-fv[ARC_END2] )/(gdouble)TD;
+		double i = ceil(100.0 / fv[ARC_PCL] *
+			len /((gdouble)CVEL/(gdouble)calc_data.mxfrq));
+		iv[SPIN_COL_I2] = (gint)i;
 	  }
 	  newpcl = FALSE;
 	  save = TRUE;
@@ -1004,9 +981,9 @@ Arc_Editor( int action )
   if( (calc_data.mxfrq != 0.0) && newpcl )
   {
 	gdouble len = fv[ARC_RAD] *
-	  fabs( fv[ARC_END1]-fv[ARC_END2] )/TD;
+	  (gdouble)fabs( fv[ARC_END1]-fv[ARC_END2] )/(gdouble)TD;
 	fv[ARC_PCL] = 100.0 * (len/(gdouble)iv[SPIN_COL_I2]) /
-	  (CVEL/calc_data.mxfrq);
+	  ((gdouble)CVEL/(gdouble)calc_data.mxfrq);
   }
   else
 	newpcl = TRUE;
@@ -1056,14 +1033,14 @@ Helix_Editor( int action )
 
   static gboolean
 	load    = FALSE, /* Enable wire loading (conductivity specified) */
-	linkall = TRUE,  /* Link all radius spinbuttons  */
-	linkzo  = FALSE, /* Link X, Y @ Z=0 spinbuttons  */
-	linkzhl = FALSE, /* Link X, Y @ Z=HL spinbuttons */
-	helixlh = FALSE, /* Specify a left hand helix */
-	newpcl  = TRUE,  /* New percent-of-lambda value  */
-	newspc  = TRUE,  /* New percent-of-lambda value  */
-	save    = FALSE, /* Enable saving of editor data */
-	busy    = FALSE; /* Block callbacks. Must be a better way to do this? */
+			linkall = TRUE,  /* Link all radius spinbuttons  */
+			linkzo  = FALSE, /* Link X, Y @ Z=0 spinbuttons  */
+			linkzhl = FALSE, /* Link X, Y @ Z=HL spinbuttons */
+			helixlh = FALSE, /* Specify a left hand helix */
+			newpcl  = TRUE,  /* New percent-of-lambda value  */
+			newspc  = TRUE,  /* New percent-of-lambda value  */
+			save    = FALSE, /* Enable saving of editor data */
+			busy    = FALSE; /* Block callbacks. Must be a better way to do this? */
 
   /* Float type data, wire conductivity */
   static gdouble fv[9], s = 0.0;
@@ -1104,8 +1081,8 @@ Helix_Editor( int action )
   {
 	/* Change seg/turn to total number of segs */
 	gint tmp = iv[SPIN_COL_I2];
-	iv[SPIN_COL_I2] = ceil(
-		(gdouble)iv[SPIN_COL_I2] * fv[HELIX_NTURN] );
+	double i = ceil( (gdouble)iv[SPIN_COL_I2] * fv[HELIX_NTURN] );
+	iv[SPIN_COL_I2] = (gint)i;
 
 	/* Change to left hand helix */
 	if( helixlh )
@@ -1204,7 +1181,7 @@ Helix_Editor( int action )
 
 	case EDITOR_CANCEL: /* Cancel helix editor */
 	  /* Remove cards */
-	  Remove_Row( geom_treeview, geom_store, &iter_gh );
+	  Remove_Row( geom_store, &iter_gh );
 	  save = busy = FALSE;
 	  return;
 
@@ -1263,14 +1240,15 @@ Helix_Editor( int action )
 		gdouble len, f;
 
 		/* Pitch angle of helix, assumes untapered helix */
-		f = asin( fv[HELIX_TSPACE] / TP / fv[HELIX_RXZO] );
+		f = asin( fv[HELIX_TSPACE] / (gdouble)TP / fv[HELIX_RXZO] );
 
 		/* Helix turn length */
-		len = TP * fv[HELIX_RXZO] / cos( f );
+		len = (gdouble)TP * fv[HELIX_RXZO] / (gdouble)cos( f );
 
 		/* New number of segments */
-		iv[SPIN_COL_I2] = ceil(100.0 / fv[HELIX_PCL]*len /
-			(CVEL / calc_data.mxfrq) );
+		double i = ceil(100.0 / fv[HELIX_PCL]*len /
+			((gdouble)CVEL / (gdouble)calc_data.mxfrq) );
+		iv[SPIN_COL_I2] = (gint)i;
 	  }
 	  newpcl = FALSE;
 	  save = TRUE;
@@ -1283,13 +1261,13 @@ Helix_Editor( int action )
 	gdouble len, f;
 
 	/* Pitch angle of helix, assumes untapered helix */
-	f = asin( fv[HELIX_TSPACE]/TP/fv[HELIX_RXZO] );
+	f = asin( fv[HELIX_TSPACE]/(gdouble)TP/fv[HELIX_RXZO] );
 
 	/* Helix turn length */
-	len = TP * fv[HELIX_RXZO] / cos( f );
+	len = (gdouble)TP * fv[HELIX_RXZO] / (gdouble)cos( f );
 
 	fv[HELIX_PCL] = 100.0 * (len/(gdouble)iv[SPIN_COL_I2]) /
-	  (CVEL/calc_data.mxfrq);
+	  ((gdouble)CVEL / (gdouble)calc_data.mxfrq);
   }
   else
 	newpcl = TRUE;
@@ -1359,7 +1337,7 @@ Reflect_Editor( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1399,7 +1377,7 @@ Reflect_Editor( int action )
 
 	  /* Set reflection axes check buttons */
 	  {
-		gint ck = iv[SPIN_COL_I2];
+		ck = iv[SPIN_COL_I2];
 
 		for( idx = 0; idx < 3; idx++ )
 		{
@@ -1421,7 +1399,7 @@ Reflect_Editor( int action )
 
 	case EDITOR_CANCEL: /* Cancel reflect editor */
 	  /* Remove cards */
-	  Remove_Row( geom_treeview, geom_store, &iter_gx );
+	  Remove_Row( geom_store, &iter_gx );
 	  save = busy = FALSE;
 	  return;
 
@@ -1492,7 +1470,7 @@ Scale_Editor( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1551,8 +1529,8 @@ Scale_Editor( int action )
 		g_free( str );
 	  }
 	  else
-		stop( "Error reading row data\n"
-			  "Invalid list iterator", ERR_OK );
+		stop( _("Error reading row data\n"\
+			  "Invalid list iterator"), ERR_OK );
 
 	  /* Enter tag from-to data to scale editor */
 	  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
@@ -1570,7 +1548,7 @@ Scale_Editor( int action )
 
 	case EDITOR_CANCEL: /* Cancel scale editor */
 	  /* Remove cards */
-	  Remove_Row( geom_treeview, geom_store, &iter_gs );
+	  Remove_Row( geom_store, &iter_gs );
 	  save = busy = FALSE;
 	  return;
 
@@ -1629,7 +1607,7 @@ Cylinder_Editor( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1679,7 +1657,7 @@ Cylinder_Editor( int action )
 
 	case EDITOR_CANCEL: /* Cancel cylinder editor */
 	  /* Remove cards */
-	  Remove_Row( geom_treeview, geom_store, &iter_gr );
+	  Remove_Row( geom_store, &iter_gr );
 	  save = busy = FALSE;
 	  return;
 
@@ -1749,7 +1727,7 @@ Transform_Editor( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1805,7 +1783,7 @@ Transform_Editor( int action )
 
 	case EDITOR_CANCEL: /* Cancel transform editor */
 	  /* Remove cards */
-	  Remove_Row( geom_treeview, geom_store, &iter_gm );
+	  Remove_Row( geom_store, &iter_gm );
 	  save = busy = FALSE;
 	  return;
 
@@ -1869,7 +1847,7 @@ Gend_Editor( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1910,13 +1888,13 @@ Gend_Editor( int action )
 		gtk_toggle_button_set_active( toggle, TRUE );
 	  }
 	  else
-		stop( "Error reading row data\n"
-			  "Invalid list iterator", ERR_OK );
+		stop( _("Error reading row data\n"\
+			  "Invalid list iterator"), ERR_OK );
 	  break;
 
 	case EDITOR_CANCEL: /* Cancel transform editor */
 	  /* Remove card */
-	  Remove_Row( geom_treeview, geom_store, &iter_ge );
+	  Remove_Row( geom_store, &iter_ge );
 	  save = busy = FALSE;
 	  return;
 
@@ -1972,7 +1950,7 @@ Insert_GE_Card( GtkListStore *store, GtkTreeIter *iter )
  * Gets geometry data from a treeview row
  */
 
-void
+  void
 Get_Geometry_Data(
 	GtkListStore *store,
 	GtkTreeIter *iter,
@@ -2000,8 +1978,8 @@ Get_Geometry_Data(
 	}
   }
   else
-	stop( "Error reading row data\n"
-		  "Invalid list iterator", ERR_OK );
+	stop( _("Error reading row data\n"\
+		  "Invalid list iterator"), ERR_OK );
 
 } /* Get_Geometry_Data() */
 
@@ -2030,8 +2008,8 @@ Get_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
 	}
   }
   else
-	stop( "Error reading row data\n"
-		  "Invalid list iterator", ERR_OK );
+	stop( _("Error reading row data\n"\
+		  "Invalid list iterator"), ERR_OK );
 
 } /* Get_Geometry_Int_Data() */
 
@@ -2042,7 +2020,7 @@ Get_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
  * Sets data into a geometry row
  */
 
-void
+  void
 Set_Geometry_Data(
 	GtkListStore *store,
 	GtkTreeIter *iter,
@@ -2067,8 +2045,8 @@ Set_Geometry_Data(
 	}
   }
   else
-	stop( "Error writing row data\n"
-		  "Please re-select row", ERR_OK );
+	stop( _("Error writing row data\n"\
+		  "Please re-select row"), ERR_OK );
 
   SetFlag( NEC2_EDIT_SAVE );
 
@@ -2101,8 +2079,8 @@ Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
 	  gtk_list_store_set( store, iter, idx, "0.0", -1 );
   }
   else
-	stop( "Error writing row data\n"
-		  "Please re-select row", ERR_OK );
+	stop( _("Error writing row data\n"\
+		  "Please re-select row"), ERR_OK );
 
   SetFlag( NEC2_EDIT_SAVE );
 
@@ -2115,7 +2093,7 @@ Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
  * Checks previous or next card's name, returns TRUE on match
  */
 
-gboolean
+  gboolean
 Check_Card_Name(
 	GtkListStore *store,
 	GtkTreeIter *iter,
@@ -2171,7 +2149,7 @@ Give_Up( int *busy, GtkWidget *widget )
   /* Abort if NEC2 editor window is closed */
   if( nec2_edit_window == NULL )
   {
-	stop( "NEC2 editor window not open", ERR_OK );
+	stop( _("NEC2 editor window not open"), ERR_OK );
 	gtk_widget_destroy( widget );
 	*busy = FALSE;
 	return( TRUE );
@@ -2188,7 +2166,7 @@ Give_Up( int *busy, GtkWidget *widget )
  * Inserts a blank row in a tree view with only its name (GW ... )
  */
 
-void
+  void
 Insert_Blank_Geometry_Row(
 	GtkTreeView *view, GtkListStore *store,
 	GtkTreeIter *iter, const gchar *name )
@@ -2242,9 +2220,8 @@ Insert_Blank_Geometry_Row(
  * Removes a row and selects previous or next row
  */
 
-void
-Remove_Row(
-	GtkTreeView *view, GtkListStore *store,	GtkTreeIter *iter )
+  void
+Remove_Row( GtkListStore *store, GtkTreeIter *iter )
 {
   if( gtk_list_store_iter_is_valid(store, iter) )
 	gtk_list_store_remove( store, iter );
@@ -2258,7 +2235,7 @@ Remove_Row(
  * Gets the selected row in a tree view
  */
 
-gboolean
+  gboolean
 Get_Selected_Row(
 	GtkTreeView *view,
 	GtkListStore *store,

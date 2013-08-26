@@ -23,27 +23,7 @@
  */
 
 #include "nec2_model.h"
-
-/* Tree list stores */
-GtkListStore
-  *cmnt_store = NULL,
-  *geom_store = NULL,
-  *cmnd_store = NULL;
-
-/* NEC2 editor's window */
-extern GtkWidget *nec2_edit_window;
-
-/* Pointer to input file */
-extern FILE *input_fp;
-/* Input file name */
-extern char infile[];
-
-extern GtkWidget *error_dialog;
-extern GtkWidget *nec2_edit_window;	/* NEC2 editor window */
-extern GtkWidget *wire_editor;		/* Wire design window */
-
-/* Various data used by NEC2, stored in this struct */
-extern calc_data_t calc_data;
+#include "shared.h"
 
 /*------------------------------------------------------------------------*/
 
@@ -109,15 +89,15 @@ Create_List_Stores( void )
 {
   /* Comments column names */
   char *cmnt_col_name[CMNT_NUM_COLS] =
-  { "Card", "Comments" };
+  { _("Card"), _("Comments") };
 
   /* Geometry column names */
   char *geom_col_name[GEOM_NUM_COLS] =
-  { "Card", "I1", "I2", "F1", "F2", "F3", "F4", "F5", "F6", "F7" };
+  { _("Card"), "I1", "I2", "F1", "F2", "F3", "F4", "F5", "F6", "F7" };
 
   /* Command column names */
   char *cmnd_col_name[CMND_NUM_COLS] =
-  { "Card", "I1", "I2", "I3", "I4", "F1", "F2", "F3", "F4", "F5", "F6" };
+  { _("Card"), "I1", "I2", "I3", "I4", "F1", "F2", "F3", "F4", "F5", "F6" };
 
 
   /* Create list stores only if needed */
@@ -196,8 +176,8 @@ Create_Default_File( void )
   gtk_list_store_clear( cmnd_store );
 
   /* Append a default comment row */
-  strcpy( str, "--- NEC2 Input File created by " );
-  strcat( str, PACKAGE"-"VERSION);
+  strcpy( str, _("--- NEC2 Input File created by ") );
+  strcat( str, PACKAGE_STRING);
   strcat( str, " ---" );
   gtk_list_store_append( cmnt_store, &iter );
   gtk_list_store_set(
@@ -211,7 +191,7 @@ Create_Default_File( void )
 	  cmnt_store, &iter,
 	  CMNT_COL_NAME, "CE",
 	  CMNT_COL_COMMENT,
-	  "--- End Comments ---",
+	  _("--- End Comments ---"),
 	  -1 );
 
   /* Append a dipole wire (GW) card */
@@ -349,16 +329,16 @@ List_Comments( void )
   {
 	/* Read a line from input file */
 	if( load_line(line_buf, input_fp) == EOF )
-	  stop( "List_Comments():\n"
-		  "Error reading input file\n"
-		  "Unexpected EOF (End of File)", ERR_OK );
+	  stop( _("List_Comments():\n"\
+			"Error reading input file\n"\
+			"Unexpected EOF (End of File)"), ERR_OK );
 
 	/* Check for short or missing CM or CE and fix */
 	if( strlen(line_buf) < 2 )
 	{
-	  stop( "List_Comments():\n"
-		  "Error reading input file\n"
-		  "Comment mnemonic short or missing", ERR_OK );
+	  stop( _("List_Comments():\n"\
+			"Error reading input file\n"\
+			"Comment mnemonic short or missing"), ERR_OK );
 	  strcpy( line_buf, "XX " );
 	}
 
@@ -406,7 +386,7 @@ List_Geometry( void )
   int iv[4];
 
   /* float data from cards */
-  long double fv[7];
+  double fv[7];
 
   /* For snprintf */
   char si[4][7], sf[7][13];
@@ -474,7 +454,7 @@ List_Commands( void )
   int iv[4];
 
   /* float data from cards */
-  long double fv[7];
+  double fv[7];
 
   /* For snprintf */
   char si[4][7], sf[7][13];
@@ -538,13 +518,14 @@ Insert_Columns(	GtkWidget *window, gchar *treeview,
   GtkTreeModel *model;
   GtkCellRenderer *renderer;
 
-  GtkWidget *view = lookup_widget( window, treeview );
+  static GtkWidget *view;
+  view = lookup_widget( window, treeview );
   for( idx = 0; idx < ncols; idx++ )
   {
 	renderer = gtk_cell_renderer_text_new();
 	g_object_set(renderer, "editable", TRUE, NULL);
-	g_signal_connect( renderer, "edited"
-		, (GCallback) cell_edited_callback, view );
+	g_signal_connect( renderer, "edited",
+		(GCallback)cell_edited_callback, view );
 	g_object_set_data( G_OBJECT(renderer),
 		"column", GUINT_TO_POINTER(idx) );
 	gtk_tree_view_insert_column_with_attributes(
@@ -553,7 +534,8 @@ Insert_Columns(	GtkWidget *window, gchar *treeview,
   }
   model = GTK_TREE_MODEL(store);
   gtk_tree_view_set_model( GTK_TREE_VIEW (view), model );
-  /* destroy model automatically with view */
+
+  /* Destroy model automatically with view */
   g_object_unref( model );
 
 } /* Insert_Columns() */
@@ -567,7 +549,7 @@ Insert_Columns(	GtkWidget *window, gchar *treeview,
   void
 cell_edited_callback(
 	GtkCellRendererText *cell,
-	gchar               *path_string,
+	gchar				*path,
 	gchar               *new_text,
 	gpointer             user_data )
 {
@@ -591,7 +573,7 @@ cell_edited_callback(
 	gtk_tree_model_get( model, &iter, 0, &name, -1 );
 	if( strcmp(name, "CE") == 0 )
 	  gtk_list_store_set( GTK_LIST_STORE(model),
-		  &iter, column, "End Comments", -1 );
+		  &iter, column, _("End Comments"), -1 );
 	else
 	  gtk_list_store_set( GTK_LIST_STORE(model),
 		  &iter, column, "0", -1 );
@@ -659,9 +641,9 @@ Save_Treeview_Data( GtkTreeView *tree_view, int ncols, FILE *nec2_fp )
   /* Abort if no open file to sane to */
   if( nec2_fp == NULL )
   {
-	stop( "Cannot save treeview data\n"
-		"Please use the Save button\n"
-		"to specify a file path", ERR_STOP );
+	stop( _("Cannot save treeview data\n"\
+		  "Please use the Save button\n"\
+		  "to specify a file path"), ERR_STOP );
   }
 
   /* Get the first iter in the list */

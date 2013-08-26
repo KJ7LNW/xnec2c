@@ -31,84 +31,12 @@
 #include <locale.h>
 
 #include "main.h"
-
-/* Main (structure) window */
-GtkWidget *main_window = NULL;
-
-/* Main window freq spinbutton */
-GtkSpinButton *mainwin_frequency;
-
-/* Pointers to input/output files */
-FILE *input_fp  = NULL;
-char infile[81] = "";
-
-/* Parameters for projecting structure to Screen */
-projection_parameters_t structure_proj_params;
-
-/* Parameters for projecting radiation patterns to Screen */
-projection_parameters_t rdpattern_proj_params;
-
-/* Strucrure current data */
-extern crnt_t crnt;
-
-/* Some graphics contexts */
-GdkGC
-  *white_gc = NULL,
-  *black_gc = NULL,
-  *plot_gc  = NULL;
-
-/* Drawing area widgets */
-extern GtkWidget *structure_drawingarea;
-extern GtkWidget *plots_drawingarea;
-extern GtkWidget *rdpattern_drawingarea;
-extern GtkWidget *freqplots_window;
-extern GtkWidget *rdpattern_window;
-extern GtkWidget *nec2_edit_window;
-
-/* Motion event handler id */
-gulong structure_motion_handler;
-
-/* Structure rotation spin buttons */
-GtkSpinButton *rotate_structure  = NULL;
-GtkSpinButton *incline_structure = NULL;
-
-/* Zoom spin button */
-GtkSpinButton *structure_zoom_spinbutton = NULL;
-
-/* Frequency step entry widget */
-GtkEntry *structure_fstep_entry = NULL;
-
-/* Structure drawing pixmap */
-extern GdkPixmap *structure_pixmap;
-
-/* Data needed during prog execution */
-extern calc_data_t calc_data;
-
-/* Saved data buffer */
-extern save_t save;
-
-/* Near field data */
-extern near_field_t near_field;
-
-/* Frequency loop idle function tag */
-extern gint floop_tag;
+#include "shared.h"
 
 static void sig_handler(int signal);
 
 /* Child process pid returned by fork() */
-pid_t child_pid = (pid_t)(-1);
-
-/* Number of forked child processes */
-int num_child_procs = 0;
-
-/* Forked process data */
-forked_proc_data_t **forked_proc_data = NULL;
-
-/* Program forked flag */
-gboolean FORKED = FALSE;
-
-/* Commands between parent and child processes */
-char *fork_commands[] = FORK_CMNDS;
+static pid_t child_pid = (pid_t)(-1);
 
 /*------------------------------------------------------------------------*/
 
@@ -130,11 +58,11 @@ main (int argc, char *argv[])
 
   /* register function to handle signals */
   sigaction( SIGINT,  &sa_new, &sa_old );
-  sigaction( SIGSEGV, &sa_new, 0 );
-  sigaction( SIGFPE,  &sa_new, 0 );
-  sigaction( SIGTERM, &sa_new, 0 );
-  sigaction( SIGABRT, &sa_new, 0 );
-  sigaction( SIGCHLD, &sa_new, 0 );
+  sigaction( SIGSEGV, &sa_new, NULL );
+  sigaction( SIGFPE,  &sa_new, NULL );
+  sigaction( SIGTERM, &sa_new, NULL );
+  sigaction( SIGABRT, &sa_new, NULL );
+  sigaction( SIGCHLD, &sa_new, NULL );
 
   /* Process command line options */
   calc_data.num_jobs = 1;
@@ -145,7 +73,8 @@ main (int argc, char *argv[])
 	  case 'i': /* specify input file name */
 		if( strlen(optarg) > 80 )
 		{
-		  fprintf ( stderr, "xnec2c: Input file name too long (>80 char)\n" );
+		  fprintf ( stderr,
+			  _("xnec2c: input file name too long (>80 char)\n") );
 		  exit(-1);
 		}
 		strcpy( infile, optarg );
@@ -160,7 +89,7 @@ main (int argc, char *argv[])
 		exit(0);
 
 	  case 'v': /* print xnec2c version */
-		printf( "%s %s\n", PACKAGE, VERSION );
+		puts( PACKAGE_STRING );
 		exit(0);
 
 	  default:
@@ -172,11 +101,13 @@ main (int argc, char *argv[])
   } /* while( (option = getopt(argc, argv, "i:o:hv") ) != -1 ) */
 
   /* Read input file path name if not supplied by -i option */
-  if( (strlen(infile) == 0) && strstr(argv[argc - 1], ".nec") )
+  if( (strlen(infile) == 0) &&
+	  (strstr(argv[argc - 1], ".nec") || strstr(argv[argc - 1], ".NEC")) )
   {
 	if( strlen(argv[argc - 1]) > 80 )
 	{
-	  fprintf ( stderr, "xnec2c: Input file path name too long (>80 char)\n" );
+	  fprintf ( stderr,
+		  _("xnec2c: input file path name too long (>80 char)\n") );
 	  exit(-1);
 	}
 	strcpy( infile, argv[argc - 1] );
@@ -190,7 +121,7 @@ main (int argc, char *argv[])
   /* Allocate buffers for fork data */
   if( calc_data.num_jobs > 1 )
   {
-	size_t mreq = calc_data.num_jobs * sizeof(forked_proc_data_t *);
+	size_t mreq = (size_t)calc_data.num_jobs * sizeof(forked_proc_data_t *);
 	mem_alloc( (void *)&forked_proc_data, mreq, "in main.c" );
 	for( idx = 0; idx < calc_data.num_jobs; idx++ )
 	{
@@ -207,7 +138,7 @@ main (int argc, char *argv[])
 	  if( err )
 	  {
 		perror( "xnec2c: pipe()" );
-		puts( "xnec2c: Exiting after fatal error (pipe() failed)" );
+		puts( _("xnec2c: exiting after fatal error (pipe() failed)") );
 		exit(-1);
 	  }
 
@@ -215,7 +146,7 @@ main (int argc, char *argv[])
 	  if( err )
 	  {
 		perror( "xnec2c: pipe()" );
-		puts( "xnec2c: Exiting after fatal error (pipe() failed)" );
+		puts( _("xnec2c: exiting after fatal error (pipe() failed)") );
 		exit(-1);
 	  }
 
@@ -224,7 +155,7 @@ main (int argc, char *argv[])
 	  if( forked_proc_data[idx]->child_pid == -1 )
 	  {
 		perror( "xnec2c: fork()" );
-		puts( "xnec2c: Exiting after fatal error (fork() failed)" );
+		puts( _("xnec2c: exiting after fatal error (fork() failed)") );
 		exit(-1);
 	  }
 	  else
@@ -267,6 +198,7 @@ main (int argc, char *argv[])
    * the project. Delete any components that you don't want shown initially.
    */
   main_window = create_main_window ();
+  gtk_window_set_title( GTK_WINDOW(main_window), PACKAGE_STRING );
   gtk_widget_show (main_window);
   mainwin_frequency = GTK_SPIN_BUTTON(lookup_widget(
 		main_window, "main_freq_spinbutton") );
@@ -292,11 +224,6 @@ main (int argc, char *argv[])
 	  "motion_notify_event",
 	  G_CALLBACK (on_structure_drawingarea_motion_notify_event),
 	  NULL);
-
-  /* Make some graphics contexts */
-  white_gc = main_window->style->white_gc;
-  black_gc = main_window->style->black_gc;
-  plot_gc  = gdk_gc_new( structure_drawingarea->window );
 
   /* Initialize structure projection angles */
   rotate_structure  = GTK_SPIN_BUTTON(lookup_widget(
@@ -340,7 +267,7 @@ main (int argc, char *argv[])
  */
 
   gboolean
-Open_Input_File( gpointer data )
+Open_Input_File( gpointer udata )
 {
   gboolean ok, new;
 
@@ -389,14 +316,15 @@ Open_Input_File( gpointer data )
   /* Ask child processes to read input file */
   if( FORKED )
   {
-	int idx, lenc, leni;
+	int idx;
+	size_t lenc, leni;
 
 	lenc = strlen( fork_commands[INFILE] );
 	leni = strlen( infile );
 	for( idx = 0; idx < num_child_procs; idx++ )
 	{
-	  Write_Pipe( idx, fork_commands[INFILE], lenc, TRUE );
-	  Write_Pipe( idx, infile, leni, TRUE );
+	  Write_Pipe( idx, fork_commands[INFILE], (ssize_t)lenc, TRUE );
+	  Write_Pipe( idx, infile, (ssize_t)leni, TRUE );
 	}
   } /* if( FORKED ) */
 
@@ -409,7 +337,7 @@ Open_Input_File( gpointer data )
   SetFlag( MAIN_NEW_FREQ );
   SetFlag( FREQ_LOOP_INIT );
   floop_tag = 0;
-  save.last_freq = 0.0l;
+  save.last_freq = 0.0;
   crnt.newer = 0;
   crnt.valid = 0;
   near_field.newer = 0;
@@ -446,7 +374,7 @@ Open_Input_File( gpointer data )
 
   /* Set input file to NEC2 editor. It will only
    * happen if the NEC2 editor window is open */
-  new = *(gboolean *)data;
+  new = *(gboolean *)udata;
   if( new )
 	Nec2_Input_File_Treeview( NEC2_EDITOR_REVERT );
   else
@@ -491,33 +419,33 @@ static void sig_handler( int signal )
   switch( signal )
   {
 	case SIGINT:
-	  fprintf( stderr, "xnec2c: exiting via user interrupt\n" );
+	  fprintf( stderr, _("xnec2c: exiting via user interrupt\n") );
 	  break;
 
 	case SIGSEGV:
-	  fprintf( stderr, "xnec2c: segmentation fault, exiting\n" );
+	  fprintf( stderr, _("xnec2c: segmentation fault, exiting\n") );
 	  break;
 
 	case SIGFPE:
-	  fprintf( stderr, "xnec2c: floating point exception, exiting\n" );
+	  fprintf( stderr, _("xnec2c: floating point exception, exiting\n") );
 	  break;
 
 	case SIGABRT:
-	  fprintf( stderr, "xnec2c: abort signal received, exiting\n" );
+	  fprintf( stderr, _("xnec2c: abort signal received, exiting\n") );
 	  break;
 
 	case SIGTERM:
-	  fprintf( stderr, "xnec2c: termination request received, exiting\n" );
+	  fprintf( stderr, _("xnec2c: termination request received, exiting\n") );
 	  break;
 
-	case SIGCHLD:
+	case SIGCHLD:return;//FIXME
 	  if( !FORKED )
 	  {
-		fprintf( stderr, "xnec2c: no child processes, ignoring SIGCHLD\n" );
+		fprintf( stderr,
+			_("xnec2c: no child processes, ignoring SIGCHLD from pid %d\n"), getpid() );
 		return;
 	  }
-	  fprintf( stderr, "xnec2c: child process exited\n" );
-	  wait(NULL);
+	  fprintf( stderr, _("xnec2c: child process pid %d exited\n"), getpid() );
 	  if( isFlagSet(MAIN_QUIT) ) return;
 
   } /* switch( signal ) */

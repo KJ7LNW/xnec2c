@@ -25,93 +25,10 @@
  */
 
 #include "xnec2c.h"
-
-/* pointers to input */
-extern FILE *input_fp;
-
-/* common  /cmb/ */
-complex long double *cm = NULL;
-
-/* common  /crnt/ */
-extern crnt_t crnt;
-
-/* Geometry data (common /data/) */
-data_t data;
-
-/* common  /gwav/ */
-extern gwav_t gwav;
-
-/* common  /segj/ */
-extern segj_t segj;
-
-/* common  /vsorc/ */
-extern vsorc_t vsorc;
-
-/* common  /zload/ */
-extern zload_t zload;
-
-/* common  /save/ */
-save_t save;
-
-/* common  /smat/ */
-extern smat_t smat;
-
-/* common  /matpar/ */
-extern matpar_t matpar;
-
-/* common  /netcx/ */
-extern netcx_t netcx;
-
-/* common  /fpat/ */
-extern fpat_t fpat;
-
-/* common  /gnd/ */
-extern gnd_t gnd;
-
-/*common  /ggrid/ */
-extern ggrid_t ggrid;
-
-/* Input and output file name */
-extern char infile[];
-
-/* Data needed for execution and calculations */
-calc_data_t calc_data;
-
-/* Plots drawingarea */
-extern GtkWidget *freqplots_drawingarea;
-extern int freqplots_pixmap_width, freqplots_pixmap_height;
-
-/* Radiation top window & main window */
-extern GtkWidget *freqplots_window;
-extern GtkWidget *rdpattern_window;
-extern GtkWidget *main_window;
+#include "shared.h"
 
 /* Left-overs from fortran code :-( */
-long double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
-
-/* Radiation pattern data buffer */
-extern rad_pattern_t *rad_pattern;
-
-/* Near E/H field data */
-extern near_field_t near_field;
-
-/* Impeadance data */
-extern impedance_data_t impedance_data;
-
-/* Freq loop idle callback tag */
-extern int floop_tag;
-
-/* Radiation pattern freq spinbutton */
-extern GtkSpinButton *rdpattern_frequency;
-
-/* Main window freq spinbutton */
-extern GtkSpinButton *mainwin_frequency;
-
-/* Forked process data */
-extern forked_proc_data_t **forked_proc_data;
-extern gboolean FORKED;
-extern int num_child_procs;
-extern char *fork_commands[];
+static double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
 
 /*-----------------------------------------------------------------------*/
 
@@ -122,7 +39,7 @@ extern char *fork_commands[];
   void
 Frequency_Scale_Geometry()
 {
-  long double fr;
+  double fr;
   int idx;
 
   /* Calculate wavelength */
@@ -144,7 +61,7 @@ Frequency_Scale_Geometry()
 
   if( data.m != 0)
   {
-	long double fr2= fr* fr;
+	double fr2= fr* fr;
 	for( idx = 0; idx < data.m; idx++ )
 	{
 	  int j;
@@ -187,7 +104,7 @@ Structure_Impedance_Loading( void )
   void
 Ground_Parameters( void )
 {
-  complex long double epsc;
+  complex double epsc;
 
   if( gnd.ksymp != 1)
   {
@@ -195,11 +112,11 @@ Ground_Parameters( void )
 
 	if( gnd.iperf != 1)
 	{
-	  if( save.sig < 0.0l )
-		save.sig = -save.sig / (59.96l * data.wlam);
+	  if( save.sig < 0.0 )
+		save.sig = -save.sig / (59.96 * data.wlam);
 
-	  epsc = cmplx( save.epsr, -save.sig * data.wlam * 59.96l );
-	  gnd.zrati = 1.0l / csqrtl( epsc);
+	  epsc = cmplx( save.epsr, -save.sig * data.wlam * 59.96 );
+	  gnd.zrati = 1.0 / csqrt( epsc);
 	  gwav.u = gnd.zrati;
 	  gwav.u2 = gwav.u * gwav.u;
 
@@ -207,25 +124,25 @@ Ground_Parameters( void )
 	  {
 		gnd.scrwl = save.scrwlt / data.wlam;
 		gnd.scrwr = save.scrwrt / data.wlam;
-		gnd.t1 = CPLX_01 * 2367.067l/ (long double)gnd.nradl;
-		gnd.t2 = gnd.scrwr * (long double)gnd.nradl;
+		gnd.t1 = CPLX_01 * 2367.067/ (double)gnd.nradl;
+		gnd.t2 = gnd.scrwr * (double)gnd.nradl;
 
 	  } /* if( gnd.nradl > 0 ) */
 
 	  if( gnd.iperf == 2)
 	  {
 		somnec( save.epsr, save.sig, calc_data.fmhz );
-		gnd.frati =( epsc - 1.0l) / ( epsc + 1.0l);
-		if( cabsl(( ggrid.epscf - epsc) / epsc) >= 1.0e-3l )
+		gnd.frati =( epsc - 1.0) / ( epsc + 1.0);
+		if( cabs(( ggrid.epscf - epsc) / epsc) >= 1.0e-3 )
 		{
 		  fprintf( stderr,
 			  "xnec2c: Ground_Parameters(): error in ground parameters\n"
-			  "complex dielectric constant from file: %12.5LE%+12.5LEj\n"
-			  "                            requested: %12.5LE%+12.5LEj\n",
-			  creall(ggrid.epscf), cimagl(ggrid.epscf),
-			  creall(epsc), cimagl(epsc) );
-		  stop( "Ground_Parameters():"
-			  "Error in ground parameters", ERR_STOP );
+			  "complex dielectric constant from file: %12.5E%+12.5Ej\n"
+			  "                            requested: %12.5E%+12.5Ej\n",
+			  creal(ggrid.epscf), cimag(ggrid.epscf),
+			  creal(epsc), cimag(epsc) );
+		  stop( _("Ground_Parameters():"\
+				"Error in ground parameters"), ERR_STOP );
 		}
 	  } /* if( gnd.iperf != 2) */
 	} /* if( gnd.iperf != 1) */
@@ -245,7 +162,7 @@ Set_Interaction_Matrix( void )
 {
   /* Memory allocation for symmetry array */
   smat.nop = netcx.neq/netcx.npeq;
-  size_t mreq = smat.nop * smat.nop * sizeof( complex long double);
+  size_t mreq = (size_t)(smat.nop * smat.nop) * sizeof( complex double);
   mem_realloc( (void *)&smat.ssx, mreq, "in xnec2c.c" );
 
   /* irngf is not used (NGF function not implemented) */
@@ -320,9 +237,9 @@ Set_Network_Data( void )
 
 		if( (itmp2/itmp1) != 1 ) itmp3 = itmp2;
 		else
-		  if( (itmp2 >= 2) && (netcx.x11i[j] <= 0.0l) )
+		  if( (itmp2 >= 2) && (netcx.x11i[j] <= 0.0) )
 		  {
-			long double xx, yy, zz;
+			double xx, yy, zz;
 			int idx4, idx5;
 
 			idx4 = netcx.iseg1[j]-1;
@@ -330,7 +247,7 @@ Set_Network_Data( void )
 			xx = data.x[idx5]- data.x[idx4];
 			yy = data.y[idx5]- data.y[idx4];
 			zz = data.z[idx5]- data.z[idx4];
-			netcx.x11i[j] = data.wlam* sqrtl( xx*xx + yy*yy + zz*zz );
+			netcx.x11i[j] = data.wlam* sqrt( xx*xx + yy*yy + zz*zz );
 		  }
 
 	  } /* for( j = 0; j < netcx.nonet; j++) */
@@ -350,16 +267,16 @@ Set_Network_Data( void )
   /* Save impedance data for normalization */
   if( ((calc_data.nfrq > 1) && isFlagSet(FREQ_LOOP_RUNNING)) || CHILD )
   {
-	impedance_data.zreal[calc_data.fstep] = (double)creall( netcx.zped);
-	impedance_data.zimag[calc_data.fstep] = (double)cimagl( netcx.zped);
-	impedance_data.zmagn[calc_data.fstep] = (double)cabsl( netcx.zped);
+	impedance_data.zreal[calc_data.fstep] = (double)creal( netcx.zped);
+	impedance_data.zimag[calc_data.fstep] = (double)cimag( netcx.zped);
+	impedance_data.zmagn[calc_data.fstep] = (double)cabs( netcx.zped);
 	impedance_data.zphase[calc_data.fstep]= (double)cang( netcx.zped);
 
 	if( (calc_data.iped == 1) &&
-		((long double)impedance_data.zmagn[calc_data.fstep] >
+		((double)impedance_data.zmagn[calc_data.fstep] >
 		 calc_data.zpnorm) )
 	  calc_data.zpnorm =
-		(long double)impedance_data.zmagn[calc_data.fstep];
+		(double)impedance_data.zmagn[calc_data.fstep];
   }
 
 } /* Set_Network_Data() */
@@ -374,25 +291,25 @@ Set_Network_Data( void )
 Power_Loss( void )
 {
   int i;
-  long double cmg;
-  complex long double curi;
+  double cmg;
+  complex double curi;
 
 
   /* No wire/segments in structure */
   if( data.n == 0) return;
 
-  fpat.ploss = 0.0l;
+  fpat.ploss = 0.0;
   /* Loop over all wire segs */
   for( i = 0; i < data.n; i++ )
   {
 	/* Calculate segment current (mag/phase) */
 	curi= crnt.cur[i]* data.wlam;
-	cmg= cabsl( curi);
+	cmg= cabs( curi);
 
 	/* Calculate power loss in segment */
 	if( (zload.nload != 0) &&
-		(fabsl(creall(zload.zarray[i])) >= 1.0e-20l) )
-	  fpat.ploss += 0.5l* cmg* cmg* creall( zload.zarray[i])* data.si[i];
+		(fabs(creal(zload.zarray[i])) >= 1.0e-20) )
+	  fpat.ploss += 0.5* cmg* cmg* creal( zload.zarray[i])* data.si[i];
 
   } /* for( i = 0; i < n; i++ ) */
 
@@ -494,10 +411,11 @@ static gboolean retval;	/* Function's return value */
  * requested, dividing the job between child processes if forked
  */
   gboolean
-Frequency_Loop( gpointer user_data )
+Frequency_Loop( gpointer udata )
 {
+  udata = NULL;
   /* Value of frequency and step num in the loop */
-  static long double freq;
+  static double freq;
 
   /* Current freq step, saved steps
    * index, num of busy processes */
@@ -531,7 +449,7 @@ Frequency_Loop( gpointer user_data )
 	  save.fstep[idx] = 0;
 
 	/* Clear "last-used-frequency" buffer */
-	save.last_freq = 0.0l;
+	save.last_freq = 0.0;
 
 	/* Zero num of busy processes */
 	num_busy_procs = 0;
@@ -540,7 +458,7 @@ Frequency_Loop( gpointer user_data )
 	calc_data.fstep = -1;
 
 	/* Inherited from NEC2 */
-	if( calc_data.zpnorm > 0.0l )
+	if( calc_data.zpnorm > 0.0 )
 	  calc_data.iped = 2;
 
 	/* Continue gtk_main idle callbacks */
@@ -606,12 +524,12 @@ Frequency_Loop( gpointer user_data )
 
 		  /* Tell process to calculate freq dependent data */
 		  len = strlen( fork_commands[FRQDATA] );
-		  Write_Pipe( job_num, fork_commands[FRQDATA], len, TRUE );
+		  Write_Pipe( job_num, fork_commands[FRQDATA], (ssize_t)len, TRUE );
 
 		  /* When it responds, give it next frequency */
 		  buff = (char *)&freq;
-		  len = sizeof( long double );
-		  Write_Pipe( job_num, buff, len, TRUE );
+		  len = sizeof( double );
+		  Write_Pipe( job_num, buff, (ssize_t)len, TRUE );
 		  break;
 		}
 	  } /* for( job_num = 0; job_num < calc_data.num_jobs; job_num++ ) */
@@ -688,7 +606,7 @@ Frequency_Loop( gpointer user_data )
 
   /* Set frequency and step to global variables */
   calc_data.lastf = calc_data.fstep;
-  calc_data.fmhz = (long double)save.freq[calc_data.fstep];
+  calc_data.fmhz = (double)save.freq[calc_data.fstep];
 
   /* Trigger a redraw of plots drawingarea */
   Plot_Frequency_Data();

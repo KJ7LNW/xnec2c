@@ -21,7 +21,8 @@
 #define CALCULATIONS_H		1
 
 #include "common.h"
+#include "support.h"
 
-#define	CCJ		(0.0l-0.01666666667lj)
+#define	CCJ		(0.0-I*0.01666666667)
 
 #endif

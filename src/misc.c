@@ -23,16 +23,7 @@
  */
 
 #include "misc.h"
-
-/* Pointer to input file */
-extern FILE *input_fp;
-/* Input file name */
-extern char infile[];
-
-/* Forked process number */
-extern int num_child_procs;
-
-GtkWidget *error_dialog = NULL;
+#include "shared.h"
 
 /*------------------------------------------------------------------------*/
 
@@ -44,11 +35,11 @@ GtkWidget *error_dialog = NULL;
 void usage(void)
 {
   fprintf( stderr,
-	  "Usage: xnec2c <input-file-name>\n"
-	  "              [-i <input-file-name>]\n"
-	  "              [-j <number of processors in SMP machine>]\n"
-	  "              [-h: print this usage information and exit]\n"
-	  "              [-v: print xnec2c version number and exit]\n" );
+	  _("Usage: xnec2c <input-file-name>\n"\
+		"              [-i <input-file-name>]\n"\
+		"              [-j <number of processors in SMP machine>]\n"\
+		"              [-h: print this usage information and exit]\n"\
+		"              [-v: print xnec2c version number and exit]\n") );
 
 } /* end of usage() */
 
@@ -65,7 +56,8 @@ stop( char *mesg, int err )
 	if( err )
 	{
 	  fprintf( stderr,
-		  "xnec2c: Fatal: child process %d exiting\n", num_child_procs );
+		  _("xnec2c: fatal: child process %d exiting\n"),
+		  num_child_procs );
 	  _exit(-1);
 	}
 	else
@@ -183,7 +175,7 @@ int load_line( char *buff, FILE *pfile )
 	  break;
 
 	/* enter new char to buffer */
-	buff[num_chr++] = chr;
+	buff[num_chr++] = (char)chr;
 
 	/* terminate buffer as a string on EOF */
 	if( (chr = fgetc(pfile)) == EOF )
@@ -196,9 +188,9 @@ int load_line( char *buff, FILE *pfile )
 
   /* Capitalize first two characters (mnemonics) */
   if( (buff[0] > 0x60) && (buff[0] < 0x79) )
-	buff[0] -= 0x20;
+	buff[0] = (char)toupper( (int)buff[1] );
   if( (buff[1] > 0x60) && (buff[1] < 0x79) )
-	buff[1] -= 0x20;
+	buff[1] = (char)toupper( (int)buff[1] );
 
   /* terminate buffer as a string */
   buff[num_chr] = '\0';
@@ -219,7 +211,7 @@ void mem_alloc( void **ptr, size_t req, gchar *str )
   cnt += req;
   if( *ptr == NULL )
   {
-	snprintf( mesg, 99, "Memory allocation denied %s\n", str );
+	snprintf( mesg, 99, _("Memory allocation denied %s\n"), str );
 	mesg[99] = '\0';
 	fprintf( stderr, "%s: Total memory request %ld\n", mesg, cnt );
 	stop( mesg, ERR_STOP );
@@ -237,7 +229,7 @@ void mem_realloc( void **ptr, size_t req, gchar *str )
   cnt += req;
   if( *ptr == NULL )
   {
-	snprintf( mesg, 99, "Memory re-allocation denied %s\n", str );
+	snprintf( mesg, 99, _("Memory re-allocation denied %s\n"), str );
 	mesg[99] = '\0';
 	fprintf( stderr, "%s: Total memory request %ld\n", mesg, cnt );
 	stop( mesg, ERR_STOP );
@@ -272,7 +264,8 @@ Open_File( FILE **fp, char *fname, const char *mode )
   if( (*fp = fopen(fname, mode)) == NULL )
   {
 	char mesg[110];
-	snprintf( mesg, 109, "xnec2c: %s: Failed to open file\n", fname );
+	snprintf( mesg, 109,
+		_("xnec2c: %s: Failed to open file\n"), fname );
 	mesg[109] = '\0';
 	stop( mesg, ERR_STOP );
 	return( FALSE );

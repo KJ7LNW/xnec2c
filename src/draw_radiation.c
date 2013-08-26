@@ -23,38 +23,7 @@
  */
 
 #include "draw_radiation.h"
-
-/* Radiation pattern, structure and
- * plots drawingarea and windows */
-extern GtkWidget *rdpattern_drawingarea;
-extern GtkWidget *structure_drawingarea;
-
-/* Frequency step entry */
-extern GtkEntry *rdpattern_fstep_entry;
-
-extern GtkWidget *main_window;
-extern GtkWidget *rdpattern_window;
-extern GtkWidget *freqplots_window;
-
-/* Pixmap for drawing radiation patterns */
-extern GdkPixmap *rdpattern_pixmap;
-extern int rdpattern_pixmap_width, rdpattern_pixmap_height;
-
-/* Pixmap for drawing structure */
-extern GdkPixmap *structure_pixmap;
-
-/* Plots and structure pixmap size */
-extern int freqplots_pixmap_width, freqplots_pixmap_height;
-extern int structure_pixmap_width, structure_pixmap_height;
-
-/* Parameters for projecting radiation
- * patterns and structure to Screen */
-extern projection_parameters_t rdpattern_proj_params;
-extern projection_parameters_t structure_proj_params;
-
-extern GtkWidget *animate_dialog;
-/* Animation timeout callback tag */
-extern gint anim_tag;
+#include "shared.h"
 
 /* For coloring rad pattern */
 static double *red = NULL, *grn = NULL, *blu = NULL;
@@ -62,30 +31,6 @@ static double *red = NULL, *grn = NULL, *blu = NULL;
 /* Buffered points in 3d (xyz) space
  * forming the radiation pattern */
 static point_3d_t *point_3d = NULL;
-
-/* Segments for drawing structure */
-extern GdkSegment *structure_segs;
-
-/* Common block "data" */
-extern data_t data;
-
-/* Common block gnd */
-gnd_t gnd;
-
-/* Radiation pattern data */
-rad_pattern_t *rad_pattern = NULL;
-
-/* Near E/H field data */
-near_field_t near_field;
-
-/* Field pattern data */
-extern fpat_t fpat;
-
-/* Data needed in various calculations */
-calc_data_t calc_data;
-
-/* Motion event handler id */
-extern gulong rdpattern_motion_handler;
 
 /*-----------------------------------------------------------------------*/
 
@@ -116,9 +61,9 @@ Draw_Radiation( GtkWidget *drawingarea )
 
   /* Draw rad pattern or E/H fields */
   if( isFlagSet(DRAW_GAIN) )
-	Draw_Radiation_Pattern( drawingarea );
+	Draw_Radiation_Pattern();
   else if( isFlagSet(DRAW_EHFIELD) )
-	  Draw_Near_Field( drawingarea );
+	  Draw_Near_Field();
 
   /* Render pixmap to screen */
   gdk_window_set_back_pixmap( drawingarea->window,
@@ -147,7 +92,7 @@ Draw_Radiation( GtkWidget *drawingarea )
  * co-ordinates theta, phi and r = gain(theta, phi)
  */
   void
-Draw_Radiation_Pattern( GtkWidget *drawingarea )
+Draw_Radiation_Pattern( void )
 {
   /* Abort if rad pattern cannot be drawn */
   if( isFlagClear(ENABLE_RDPAT) || (calc_data.fstep < 0) )
@@ -171,7 +116,8 @@ Draw_Radiation_Pattern( GtkWidget *drawingarea )
   double theta, phi, r, r_min, r_range;
 
   /* theta and phi step in rads */
-  double dth = fpat.dth * TA, dph = fpat.dph * TA;
+  double dth = (double)fpat.dth * (double)TA;
+  double dph = (double)fpat.dph * (double)TA;
 
   /* Used to set text in labels */
   gchar txt[7];
@@ -185,9 +131,9 @@ Draw_Radiation_Pattern( GtkWidget *drawingarea )
   /* Change drawing if newer rad pattern data */
   if( isFlagSet(DRAW_NEW_RDPAT) )
   {
-	size_t mreq = fpat.nth * fpat.nph * sizeof(point_3d_t);
+	size_t mreq = ((size_t)(fpat.nth * fpat.nph)) * sizeof(point_3d_t);
 	mem_realloc( (void *)&point_3d, mreq, "in draw_radiation.c" );
-	mreq = (fpat.nth-1) * fpat.nph + (fpat.nph-1) * fpat.nth;
+	mreq = (size_t)((fpat.nth-1) * fpat.nph + (fpat.nph-1) * fpat.nth);
 	mreq *= sizeof(double);
 	mem_realloc( (void *)&red, mreq, "in draw_radiation.c" );
 	mem_realloc( (void *)&grn, mreq, "in draw_radiation.c" );
@@ -217,12 +163,12 @@ Draw_Radiation_Pattern( GtkWidget *drawingarea )
 	/*** Convert radiation pattern values
 	 * to points in 3d space in x,y,z axis ***/
 	pts_idx = 0;
-	phi = fpat.phis * TA; /* In rads */
+	phi = (double)(fpat.phis * TA); /* In rads */
 
 	/* Step phi angle */
 	for( nph = 0; nph < fpat.nph; nph++ )
 	{
-	  theta = fpat.thets * TA; /* In rads */
+	  theta = (double)(fpat.thets * TA); /* In rads */
 
 	  /* Step theta angle */
 	  for( nth = 0; nth < fpat.nth; nth++ )
@@ -330,10 +276,8 @@ Draw_Radiation_Pattern( GtkWidget *drawingarea )
 	/* Process and draw geometry if enabled */
 	Process_Wire_Segments();
 	Process_Surface_Patches();
-	Draw_Surface_Patches(
-		rdpattern_drawingarea, structure_segs+data.n, data.m );
-	Draw_Wire_Segments(
-		rdpattern_drawingarea, structure_segs, data.n );
+	Draw_Surface_Patches( structure_segs+data.n, data.m );
+	Draw_Wire_Segments( structure_segs, data.n );
 
 	/* Restore structure pixmap and params */
 	structure_pixmap = pixmap;
@@ -412,7 +356,7 @@ Draw_Radiation_Pattern( GtkWidget *drawingarea )
  * Draws near E/H fields and Poynting vector
  */
   void
-Draw_Near_Field( GtkWidget *drawingarea )
+Draw_Near_Field( void )
 {
   int idx, npts; /* Number of points to plot */
   double
@@ -437,7 +381,7 @@ Draw_Near_Field( GtkWidget *drawingarea )
   GdkSegment segm;
 
   /* For coloring field lines */
-  double red, grn, blu;
+  double rd, gn, bl;
 
   /* Abort if drawing a near field pattern is not possible */
   if( isFlagClear(ENABLE_NEAREH) || !near_field.valid )
@@ -488,10 +432,8 @@ Draw_Near_Field( GtkWidget *drawingarea )
 	/* Process and draw geometry if enabled */
 	Process_Wire_Segments();
 	Process_Surface_Patches();
-	Draw_Surface_Patches(
-		rdpattern_drawingarea, structure_segs+data.n, data.m );
-	Draw_Wire_Segments(
-		rdpattern_drawingarea, structure_segs, data.n );
+	Draw_Surface_Patches( structure_segs+data.n, data.m );
+	Draw_Wire_Segments( structure_segs, data.n );
 
 	/* Restore structure pixmap and params */
 	structure_pixmap = pixmap;
@@ -506,7 +448,7 @@ Draw_Near_Field( GtkWidget *drawingarea )
 	if( isFlagSet(DRAW_EFIELD) && (fpat.nfeh & NEAR_EFIELD) )
 	{
 	  /* Set gc attributes for segment */
-	  Value_to_Color( &red, &grn, &blu,
+	  Value_to_Color( &rd, &gn, &bl,
 		  near_field.er[idx], near_field.max_er );
 
 	  /* Scale factor for each field point, to make
@@ -528,7 +470,7 @@ Draw_Near_Field( GtkWidget *drawingarea )
 		  fx, fy, fz );
 
 	  /* Draw segment */
-	  cairo_set_source_rgb( cr, red, grn, blu );
+	  cairo_set_source_rgb( cr, rd, gn, bl );
 	  Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
 
 	} /* if( isFlagSet(DRAW_EFIELD) && (fpat.nfeh & NEAR_EFIELD) ) */
@@ -537,7 +479,7 @@ Draw_Near_Field( GtkWidget *drawingarea )
 	if( isFlagSet(DRAW_HFIELD) && (fpat.nfeh & NEAR_HFIELD) )
 	{
 	  /* Set gc attributes for segment */
-	  Value_to_Color( &red, &grn, &blu,
+	  Value_to_Color( &rd, &gn, &bl,
 		  near_field.hr[idx], near_field.max_hr );
 
 	  /* Scale factor for each field point, to make
@@ -559,7 +501,7 @@ Draw_Near_Field( GtkWidget *drawingarea )
 		  fx, fy, fz );
 
 	  /* Draw segment */
-	  cairo_set_source_rgb( cr, red, grn, blu );
+	  cairo_set_source_rgb( cr, rd, gn, bl );
 	  Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
 
 	} /* if( isFlagSet(DRAW_HFIELD) && (fpat.nfeh & NEAR_HFIELD) ) */
@@ -574,7 +516,7 @@ Draw_Near_Field( GtkWidget *drawingarea )
 	  /* Allocate on new near field matrix size */
 	  if( isFlagSet(ALLOC_PNTING_BUFF) )
 	  {
-		size_t mreq = npts * sizeof( double );
+		size_t mreq = (size_t)npts * sizeof( double );
 		mem_realloc( (void *)&pov_x, mreq, "in draw_radiation.c" );
 		mem_realloc( (void *)&pov_y, mreq, "in draw_radiation.c" );
 		mem_realloc( (void *)&pov_z, mreq, "in draw_radiation.c" );
@@ -604,7 +546,7 @@ Draw_Near_Field( GtkWidget *drawingarea )
 	  } /* for( ipv = 0; ipv < npts; ipv++ ) */
 
 	  /* Set gc attributes for segment */
-	  Value_to_Color( &red, &grn, &blu, pov_r[idx], pov_max );
+	  Value_to_Color( &rd, &gn, &bl, pov_r[idx], pov_max );
 
 	  /* Scale factor for each field point, to make
 	   * near field direction lines equal-sized */
@@ -626,7 +568,7 @@ Draw_Near_Field( GtkWidget *drawingarea )
 		  near_field.pz[idx], fx, fy, fz );
 
 	  /* Draw segment */
-	  cairo_set_source_rgb( cr, red, grn, blu );
+	  cairo_set_source_rgb( cr, rd, gn, bl );
 	  Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
 
 	} /* if( isFlagSet(DRAW_POYNTING) ) */
@@ -665,8 +607,9 @@ Draw_Near_Field( GtkWidget *drawingarea )
 /*-----------------------------------------------------------------------*/
 
   gboolean
-Animate_Near_Field( gpointer data )
+Animate_Near_Field( gpointer udata )
 {
+  udata = NULL;
   /* omega*t = 2*pi*f*t = Time-varying phase of excitation */
   static double wt = 0.0;
   int idx, npts;
@@ -890,10 +833,10 @@ Set_Gain_Style( int gs )
 New_Radiation_Projection_Angle(void)
 {
   /* sin and cos of rad pattern rotation and inclination angles */
-  rdpattern_proj_params.sin_wr = sin(rdpattern_proj_params.Wr/TD);
-  rdpattern_proj_params.cos_wr = cos(rdpattern_proj_params.Wr/TD);
-  rdpattern_proj_params.sin_wi = sin(rdpattern_proj_params.Wi/TD);
-  rdpattern_proj_params.cos_wi = cos(rdpattern_proj_params.Wi/TD);
+  rdpattern_proj_params.sin_wr = sin(rdpattern_proj_params.Wr/(double)TD);
+  rdpattern_proj_params.cos_wr = cos(rdpattern_proj_params.Wr/(double)TD);
+  rdpattern_proj_params.sin_wi = sin(rdpattern_proj_params.Wi/(double)TD);
+  rdpattern_proj_params.cos_wi = cos(rdpattern_proj_params.Wi/(double)TD);
 
   /* Trigger a redraw of radiation drawingarea */
   if( isFlagSet(DRAW_ENABLED) )
@@ -912,8 +855,9 @@ New_Radiation_Projection_Angle(void)
  * Refreshes radiation pattern on new frequency in spinbutton
  */
   gboolean
-Redo_Radiation_Pattern( gpointer user_data )
+Redo_Radiation_Pattern( gpointer udata )
 {
+  udata = NULL;
   /* Redo radiation pattern for a new frequency. Below
    * makes calcs use the extra buffer in rad_pattern */
   calc_data.fstep = calc_data.nfrq;
@@ -952,7 +896,7 @@ Viewer_Gain( projection_parameters_t proj_parameters, int fstep )
 	  theta = 360.0 - theta;
 	  phi  -= 180.0;
 	}
-	if( (gnd.ksymp == 2) && (theta > 90.01l) && (gnd.ifar != 1) )
+	if( (gnd.ksymp == 2) && (theta > 90.01) && (gnd.ifar != 1) )
 	  return( -999.0 );
 	nth = (int)( theta/fpat.dth + 0.5 );
 	if( (nth >= fpat.nth) || (nth < 0) ) nth = fpat.nth-1;
@@ -990,7 +934,7 @@ Rdpattern_Window_Killed( void )
 	animate_dialog = NULL;
 	ClearFlag( NEAREH_ANIMATE );
 	g_source_remove( anim_tag );
-	anim_tag = -1;
+	anim_tag = 0;
   }
 
   if( isFlagSet(DRAW_ENABLED) )
@@ -1019,19 +963,19 @@ Set_Window_Labels( void )
 {
   char *pol_type[NUM_POL] =
   {
-	"Total Gain",
-	"Horizontal Polarization",
-	"Vertical Polarization",
-	"RH Circular Polarization",
-	"LH Circular Polarization"
+	_("Total Gain"),
+	_("Horizontal Polarization"),
+	_("Vertical Polarization"),
+	_("RH Circular Polarization"),
+	_("LH Circular Polarization")
   };
 
   char *scale[NUM_SCALES] =
   {
-	"Linear Power",
-	"Linear Voltage",
-	"ARRL Scale",
-	"Logarithmic Scale"
+	_("Linear Power"),
+	_("Linear Voltage"),
+	_("ARRL Scale"),
+	_("Logarithmic Scale")
   };
 
   char txt[64];
@@ -1039,10 +983,10 @@ Set_Window_Labels( void )
   if( isFlagSet(DRAW_ENABLED) )
   {
 	/* Set window labels */
-	strcpy( txt, "Radiation Patterns" );
+	strcpy( txt, _("Radiation Patterns") );
 	if( isFlagSet(DRAW_GAIN) )
 	{
-	  strcpy( txt, "Radiation Pattern: - " );
+	  strcpy( txt, _("Radiation Pattern: - ") );
 	  strcat( txt, pol_type[calc_data.pol_type] );
 	  strcat( txt, " - " );
 	  strcat( txt, scale[gain_style] );
@@ -1050,13 +994,13 @@ Set_Window_Labels( void )
 	else
 	  if( isFlagSet(DRAW_EHFIELD) )
 	  {
-		strcpy( txt, "Near Fields:" );
+		strcpy( txt, _("Near Fields:") );
 		if( isFlagSet(DRAW_EFIELD) )
-		  strcat( txt, " - E Field" );
+		  strcat( txt, _(" - E Field") );
 		if( isFlagSet(DRAW_HFIELD) )
-		  strcat( txt, " - H Field" );
+		  strcat( txt, _(" - H Field") );
 		if( isFlagSet(DRAW_POYNTING) )
-		  strcat( txt, " - Poynting Vector" );
+		  strcat( txt, _(" - Poynting Vector") );
 	  }
 
 	gtk_label_set_text( GTK_LABEL(lookup_widget(
@@ -1066,7 +1010,7 @@ Set_Window_Labels( void )
 
   if( isFlagSet(PLOT_ENABLED) )
   {
-	strcpy( txt, "Frequency Data Plots - " );
+	strcpy( txt, _("Frequency Data Plots - ") );
 	strcat( txt, pol_type[calc_data.pol_type] );
 	gtk_label_set_text( GTK_LABEL(lookup_widget(
 			freqplots_window, "freqplots_label")), txt );
@@ -1104,13 +1048,13 @@ Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
   last_nfrq = nfrq;
 
   /* Allocate rad pattern buffers */
-  mreq = nfrq * sizeof(rad_pattern_t);
+  mreq = (size_t)nfrq * sizeof(rad_pattern_t);
   mem_realloc( (void *)&rad_pattern, mreq, "in draw_radiation.c" );
 
   for( idx = 0; idx < nfrq; idx++ )
   {
 	/* Memory request for allocs */
-	mreq = nph * nth * sizeof(double);
+	mreq = (size_t)(nph * nth) * sizeof(double);
 	rad_pattern[idx].gtot = NULL;
 	mem_alloc( (void *)&rad_pattern[idx].gtot, mreq, "in draw_radiation.c" );
 	rad_pattern[idx].axrt = NULL;
@@ -1135,7 +1079,7 @@ Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
 	mem_alloc( (void *)&rad_pattern[idx].min_gain_idx, mreq, "in draw_radiation.c" );
 
 	rad_pattern[idx].sens = NULL;
-	mreq = nph * nth * sizeof(int);
+	mreq = (size_t)(nph * nth) * sizeof(int);
 	mem_alloc( (void *)&rad_pattern[idx].sens, mreq, "in draw_radiation.c" );
   }
 
@@ -1156,7 +1100,7 @@ Alloc_Nearfield_Buffers( int n1, int n2, int n3 )
   ClearFlag( ALLOC_NEAREH_BUFF );
 
   /* Memory request for allocations */
-  mreq = n1 * n2 * n3 * sizeof( double );
+  mreq = (size_t)(n1 * n2 * n3) * sizeof( double );
 
   /* Allocate near field buffers */
   if( fpat.nfeh & NEAR_EFIELD )

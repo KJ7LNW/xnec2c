@@ -24,68 +24,7 @@
  */
 
 #include "draw_structure.h"
-
-/* Current data */
-extern crnt_t crnt;
-
-/* Geometry data */
-extern data_t data;
-
-/* Network data */
-extern netcx_t netcx;
-
-/* Excitation data */
-extern vsorc_t vsorc;
-
-/* Loading data */
-extern zload_t zload;
-
-/* Saved data buffer */
-extern save_t save;
-
-/* Ground data */
-extern gnd_t gnd;
-
-/* Field pattern data */
-extern fpat_t fpat;
-
-/* Data needed during prog execution */
-extern calc_data_t calc_data;
-
-/* Structure drawing area widget */
-extern GtkWidget *structure_drawingarea;
-extern GtkWidget *main_window;
-
-/* Pixmap for structure drawing */
-extern GdkPixmap *structure_pixmap;
-extern int structure_pixmap_width, structure_pixmap_height;
-
-/* Frequency step entry widget */
-extern GtkEntry *structure_fstep_entry;
-
-/* Parameters for projecting structure and rad pattern to Screen */
-extern projection_parameters_t structure_proj_params;
-extern projection_parameters_t rdpattern_proj_params;
-
-/* Plots and Radiation pattern drawingareas */
-extern GtkWidget *rdpattern_window;
-
-/* Pixmap for drawing plots */
-extern GdkPixmap *freqplots_pixmap;
-extern int freqplots_pixmap_width, freqplots_pixmap_height;
-
-/* Pixmap for drawing radiation patterns */
-extern GdkPixmap *rdpattern_pixmap;
-extern int rdpattern_pixmap_width, rdpattern_pixmap_height;
-
-/* Segments for drawing structure */
-GdkSegment *structure_segs = NULL;
-
-/* Magnitude of seg/patch current/charge */
-double *cmag = NULL, *ct1m = NULL, *ct2m = NULL;
-
-/* Motion event handler id */
-extern gulong structure_motion_handler;
+#include "shared.h"
 
 /*-----------------------------------------------------------------------*/
 
@@ -118,8 +57,8 @@ Draw_Structure( GtkWidget *drawingarea )
   Process_Wire_Segments();
   Process_Surface_Patches();
   Draw_XYZ_Axes( structure_pixmap, structure_proj_params );
-  Draw_Surface_Patches( drawingarea, structure_segs+data.n, data.m );
-  Draw_Wire_Segments( drawingarea, structure_segs, data.n );
+  Draw_Surface_Patches( structure_segs+data.n, data.m );
+  Draw_Wire_Segments( structure_segs, data.n );
 
   /* Show gain in direction of viewer */
   Show_Viewer_Gain( main_window, "main_gain_entry", structure_proj_params );
@@ -218,7 +157,7 @@ New_Patch_Data( void )
   size_t mreq;
 
   /* Allocate memory for patch line segments */
-  mreq = 2 * data.m * sizeof(double);
+  mreq = (size_t)(2 * data.m) * sizeof(double);
   mem_realloc( (void *)&data.px1, mreq, "in draw_structure.c" );
   mem_realloc( (void *)&data.py1, mreq, "in draw_structure.c" );
   mem_realloc( (void *)&data.pz1, mreq, "in draw_structure.c" );
@@ -233,7 +172,7 @@ New_Patch_Data( void )
 	i = 2 * idx;
 
 	/* Side/2 of square representing a patch (sqrt of patch area) */
-	s = sqrt( data.pbi[idx] ) / 2.0;
+	s = (double)sqrt( data.pbi[idx] ) / 2.0;
 
 	/* Projection of s on xyz components of t1 */
 	sx = s * (double)data.t1x[idx];
@@ -374,10 +313,7 @@ Process_Surface_Patches( void )
  */
 
 void
-Draw_Wire_Segments(
-	GtkWidget *drawingarea,
-	GdkSegment *segm,
-	gint nseg )
+Draw_Wire_Segments(	GdkSegment *segm, gint nseg )
 {
   /* Abort if no wire segs or new input pending */
   if( !nseg || isFlagSet(INPUT_PENDING) )
@@ -473,10 +409,10 @@ Draw_Wire_Segments(
 	  {
 		if( isFlagSet(DRAW_CURRENTS) )
 		  /* Calculate segment current magnitude */
-		  cmag[idx] = (double)cabsl( crnt.cur[idx] );
+		  cmag[idx] = (double)cabs( crnt.cur[idx] );
 		else
 		  /* Calculate segment charge density */
-		  cmag[idx] = (double)cabsl( cmplx(crnt.bii[idx], crnt.bir[idx]) );
+		  cmag[idx] = (double)cabs( cmplx(crnt.bii[idx], crnt.bir[idx]) );
 
 		/* Find max current/charge magnitude */
 		if( cmag[idx] > cmax )
@@ -587,10 +523,7 @@ Draw_Wire_Segments(
  *  Draws the line segments that represent surface patches
  */
 void
-Draw_Surface_Patches(
-	GtkWidget *drawingarea,
-	GdkSegment *segm,
-	gint npatch )
+Draw_Surface_Patches( GdkSegment *segm, gint npatch )
 {
   /* Abort if no patches */
   if( ! npatch )
@@ -634,8 +567,8 @@ Draw_Surface_Patches(
 		  cz*(double)data.t2z[i];
 
 		/* Save current magnitudes */
-		ct1m[i] = (double)cabsl( ct1 );
-		ct2m[i] = (double)cabsl( ct2 );
+		ct1m[i] = (double)cabs( ct1 );
+		ct2m[i] = (double)cabs( ct2 );
 
 		/* Find current magnitude max */
 		if( ct1m[i] > cmax ) cmax = ct1m[i];
@@ -709,8 +642,9 @@ Draw_Surface_Patches(
  * Refreshes plots on new frequency in spinbutton
  */
   gboolean
-Redo_Currents( gpointer userdata )
+Redo_Currents( gpointer udata )
 {
+  udata = NULL;
   /* Abort if no geometry data */
   if( ((data.n == 0) && (data.m == 0)) ||
 	  isFlagClear(ENABLE_EXCITN) )
@@ -718,7 +652,7 @@ Redo_Currents( gpointer userdata )
 
   /* Makes calcs use the extra buffer in rad_pattern */
   calc_data.fstep = calc_data.nfrq;
-  save.last_freq = 0.0l;
+  save.last_freq = 0.0;
   New_Frequency();
 
   /* Display freq data in entry widgets */
@@ -744,10 +678,10 @@ Redo_Currents( gpointer userdata )
 New_Structure_Projection_Angle(void)
 {
   /* sin and cos of structure rotation and inclination angles */
-  structure_proj_params.sin_wr = sin(structure_proj_params.Wr/TD);
-  structure_proj_params.cos_wr = cos(structure_proj_params.Wr/TD);
-  structure_proj_params.sin_wi = sin(structure_proj_params.Wi/TD);
-  structure_proj_params.cos_wi = cos(structure_proj_params.Wi/TD);
+  structure_proj_params.sin_wr = sin(structure_proj_params.Wr/(double)TD);
+  structure_proj_params.cos_wr = cos(structure_proj_params.Wr/(double)TD);
+  structure_proj_params.sin_wi = sin(structure_proj_params.Wi/(double)TD);
+  structure_proj_params.cos_wi = cos(structure_proj_params.Wi/(double)TD);
 
   /* Trigger a redraw of structure drawingarea */
   Draw_Structure( structure_drawingarea );
@@ -768,7 +702,7 @@ New_Structure_Projection_Angle(void)
 Init_Struct_Drawing( void )
 {
   /* We need n segs for wires + 2m for patces */
-  size_t mreq = (data.n + 2*data.m) * sizeof(GdkSegment);
+  size_t mreq = (size_t)(data.n + 2*data.m) * sizeof(GdkSegment);
   mem_realloc( (void *)&structure_segs, mreq, "in draw_structure.c" );
   New_Wire_Data();
   New_Patch_Data();

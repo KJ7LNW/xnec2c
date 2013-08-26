@@ -43,24 +43,14 @@
  ***********************************************************************/
 
 #include "geometry.h"
-
-/* common  /data/ */
-data_t data;
-
-/* common  /segj/ */
-extern segj_t segj;
-
-extern FILE *input_fp;
-
-/* Segments for drawing structure */
-GdkSegment *structure_segs;
+#include "shared.h"
 
 /*-------------------------------------------------------------------*/
 
 /* arc generates segment geometry data for an arc of ns segments */
   gboolean
-arc( int itg, int ns, long double rada,
-	long double ang1, long double ang2, long double rad )
+arc( int itg, int ns, double rada,
+	double ang1, double ang2, double rad )
 {
   int ist;
 
@@ -74,22 +64,22 @@ arc( int itg, int ns, long double rada,
   {
 	fprintf( stderr,
 		"xnec2c: arc(): number of segments less than 1 (ns < 1)\n");
-	stop( "arc(): Number of segments < 1", ERR_OK );
+	stop( _("arc(): Number of segments < 1"), ERR_OK );
 	return( FALSE );
   }
 
-  if( fabsl( ang2- ang1) < 360.00001l)
+  if( fabs( ang2- ang1) < 360.00001)
   {
 	int i;
-	long double ang, dang, xs1, xs2, zs1, zs2;
+	double ang, dang, xs1, xs2, zs1, zs2;
 	size_t mreq;
 
 	/* Reallocate tags buffer */
-	mreq = (data.n + data.m) * sizeof(int);
+	mreq = (size_t)(data.n + data.m) * sizeof(int);
 	mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
 
 	/* Reallocate wire buffers */
-	mreq = data.n * sizeof(long double);
+	mreq = (size_t)data.n * sizeof(double);
 	mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
@@ -100,20 +90,20 @@ arc( int itg, int ns, long double rada,
 
 	ang= ang1* TA;
 	dang=( ang2- ang1)* TA/ ns;
-	xs1= rada* cosl( ang);
-	zs1= rada* sinl( ang);
+	xs1= rada* cos( ang);
+	zs1= rada* sin( ang);
 
 	for( i = ist; i < data.n; i++ )
 	{
 	  ang += dang;
-	  xs2= rada* cosl( ang);
-	  zs2= rada* sinl( ang);
+	  xs2= rada* cos( ang);
+	  zs2= rada* sin( ang);
 	  data.x1[i]= xs1;
 
-	  data.y1[i]=0.0l;
+	  data.y1[i]=0.0;
 	  data.z1[i]= zs1;
 	  data.x2[i]= xs2;
-	  data.y2[i]=0.0l;
+	  data.y2[i]=0.0;
 	  data.z2[i]= zs2;
 	  xs1= xs2;
 	  zs1= zs2;
@@ -122,12 +112,12 @@ arc( int itg, int ns, long double rada,
 
 	} /* for( i = ist; i < data.n; i++ ) */
 
-  } /* if( fabsl( ang2- ang1) < 360.00001l) */
+  } /* if( fabs( ang2- ang1) < 360.00001) */
   else
   {
 	fprintf( stderr,
 		"xnec2c: arc(): arc angle exceeds 360 degrees\n");
-	stop( "arc(): Arc angle exceeds 360 degrees", ERR_OK );
+	stop( _("arc(): Arc angle exceeds 360 degrees"), ERR_OK );
 	return( FALSE );
   }
 
@@ -142,8 +132,8 @@ arc( int itg, int ns, long double rada,
 conect( int ignd )
 {
   int i, iz, ic, j, jx, ix, ixx, iseg, iend, jend, jump;
-  long double sep=0.0l, xi1, yi1, zi1, xi2, yi2, zi2;
-  long double slen, xa, ya, za, xs, ys, zs;
+  double sep=0.0, xi1, yi1, zi1, xi2, yi2, zi2;
+  double slen, xa, ya, za, xs, ys, zs;
   size_t mreq;
 
   segj.maxcon = 1;
@@ -166,7 +156,7 @@ conect( int ignd )
 	if( data.np > data.n)
 	{
 	  fprintf( stderr, "xnec2c: conect(): np > n\n" );
-	  stop( "Error in conect(): np > n", ERR_OK );
+	  stop( _("Error in conect(): np > n"), ERR_OK );
 	  return( FALSE );
 	}
 
@@ -178,7 +168,7 @@ conect( int ignd )
   if( data.n != 0)
   {
 	/* Allocate memory to connections */
-	mreq = (data.n + data.m) * sizeof(int);
+	mreq = (size_t)(data.n + data.m) * sizeof(int);
 	mem_realloc( (void *)&data.icon1, mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.icon2, mreq, "in geometry.c" );
 
@@ -192,7 +182,7 @@ conect( int ignd )
 	  xi2= data.x2[i];
 	  yi2= data.y2[i];
 	  zi2= data.z2[i];
-	  slen= sqrtl( (xi2- xi1)*(xi2- xi1) + (yi2- yi1) *
+	  slen= sqrt( (xi2- xi1)*(xi2- xi1) + (yi2- yi1) *
 		  (yi2- yi1) + (zi2- zi1)*(zi2- zi1) ) * SMIN;
 
 	  /* determine connection data for end 1 of segment. */
@@ -204,15 +194,15 @@ conect( int ignd )
 		  fprintf( stderr,
 			  "xnec2c: conect(): geometry data error\n"
 			  "Segment %d extends below ground\n", iz );
-		  stop( "conect(): Geometry data error\n"
-				"Segment extends below ground", ERR_OK );
+		  stop( _("conect(): Geometry data error\n"\
+				"Segment extends below ground"), ERR_OK );
 		  return( FALSE );
 		}
 
 		if( zi1 <= slen)
 		{
 		  data.icon1[i]= iz;
-		  data.z1[i]=0.0l;
+		  data.z1[i]=0.0;
 		  jump = TRUE;
 
 		} /* if( zi1 <= slen) */
@@ -228,16 +218,16 @@ conect( int ignd )
 		  if( ic >= data.n)
 			ic=0;
 
-		  sep= fabsl( xi1- data.x1[ic]) +
-			fabsl(yi1- data.y1[ic])+ fabsl(zi1- data.z1[ic]);
+		  sep= fabs( xi1- data.x1[ic]) +
+			fabs(yi1- data.y1[ic])+ fabs(zi1- data.z1[ic]);
 		  if( sep <= slen)
 		  {
 			data.icon1[i]= -(ic+1);
 			break;
 		  }
 
-		  sep= fabsl( xi1- data.x2[ic]) +
-			fabsl(yi1- data.y2[ic])+ fabsl(zi1- data.z2[ic]);
+		  sep= fabs( xi1- data.x2[ic]) +
+			fabs(yi1- data.y2[ic])+ fabs(zi1- data.z2[ic]);
 		  if( sep <= slen)
 		  {
 			data.icon1[i]= (ic+1);
@@ -256,8 +246,8 @@ conect( int ignd )
 		  fprintf( stderr,
 			  "xnec2c: conect(): geometry data error\n"
 			  "segment %d extends below ground\n", iz );
-		  stop( "conect(): Geometry data error\n"
-				"Segment extends below ground", ERR_OK );
+		  stop( _("conect(): Geometry data error\n"\
+				"Segment extends below ground"), ERR_OK );
 		  return( FALSE );
 		}
 
@@ -268,13 +258,13 @@ conect( int ignd )
 			fprintf( stderr,
 				"xnec2c: conect(): geometry data error\n"
 				"segment %d lies in ground plane\n", iz );
-			stop( "conect(): Geometry data error\n"
-				  "Segment lies in ground plane", ERR_OK );
+			stop( _("conect(): Geometry data error\n"\
+				  "Segment lies in ground plane"), ERR_OK );
 			return( FALSE );
 		  }
 
 		  data.icon2[i]= iz;
-		  data.z2[i]=0.0l;
+		  data.z2[i]=0.0;
 		  continue;
 
 		} /* if( zi2 <= slen) */
@@ -288,16 +278,16 @@ conect( int ignd )
 		if( ic >= data.n)
 		  ic=0;
 
-		sep= fabsl(xi2- data.x1[ic]) +
-		  fabsl(yi2- data.y1[ic])+ fabsl(zi2- data.z1[ic]);
+		sep= fabs(xi2- data.x1[ic]) +
+		  fabs(yi2- data.y1[ic])+ fabs(zi2- data.z1[ic]);
 		if( sep <= slen)
 		{
 		  data.icon2[i]= (ic+1);
 		  break;
 		}
 
-		sep= fabsl(xi2- data.x2[ic]) +
-		  fabsl(yi2- data.y2[ic])+ fabsl(zi2- data.z2[ic]);
+		sep= fabs(xi2- data.x2[ic]) +
+		  fabs(yi2- data.y2[ic])+ fabs(zi2- data.z2[ic]);
 		if( sep <= slen)
 		{
 		  data.icon2[i]= -(ic+1);
@@ -330,9 +320,9 @@ conect( int ignd )
 		  zi2= data.z2[iseg];
 
 		  /* for first end of segment */
-		  slen=( fabsl(xi2- xi1) +
-			  fabsl(yi2- yi1)+ fabsl(zi2- zi1))* SMIN;
-		  sep= fabsl(xi1- xs)+ fabsl(yi1- ys)+ fabsl(zi1- zs);
+		  slen=( fabs(xi2- xi1) +
+			  fabs(yi2- yi1)+ fabs(zi2- zi1))* SMIN;
+		  sep= fabs(xi1- xs)+ fabs(yi1- ys)+ fabs(zi1- zs);
 
 		  /* connection - divide patch into 4
 		   * patches at present array loc. */
@@ -344,7 +334,7 @@ conect( int ignd )
 			break;
 		  }
 
-		  sep= fabsl(xi2- xs)+ fabsl(yi2- ys)+ fabsl(zi2- zs);
+		  sep= fabs(xi2- xs)+ fabs(yi2- ys)+ fabs(zi2- zs);
 		  if( sep <= slen)
 		  {
 			data.icon2[iseg]=PCHCON+ i;
@@ -368,7 +358,7 @@ conect( int ignd )
 	if( data.ipsym == 0 )
 	{
 	  fprintf( stderr, "xnec2c: conect(): ipsym = 0\n" );
-	  stop( "conect(): Error: ipsym = 0", ERR_OK );
+	  stop( _("conect(): Error: ipsym = 0"), ERR_OK );
 	  return( FALSE );
 	}
   } /* if( iseg != 1) */
@@ -377,7 +367,7 @@ conect( int ignd )
   if( data.n <= 0) return( TRUE );
 
   /* Allocate to connection buffers */
-  mreq = segj.maxcon * sizeof(int);
+  mreq = (size_t)segj.maxcon * sizeof(int);
   mem_realloc( (void *)&segj.jco, mreq, "in geometry.c" );
 
   /* Adjust connected segment ends to exactly coincide.
@@ -406,7 +396,7 @@ conect( int ignd )
 			fprintf( stderr,
 				"xnec2c: connect(): segment connection"
 				" error for segment: %d\n", ix );
-			stop( "connect(): Segment connection error", ERR_OK );
+			stop( _("connect(): Segment connection error"), ERR_OK );
 			return( FALSE );
 		  }
 
@@ -431,7 +421,7 @@ conect( int ignd )
 		  if( ic >= segj.maxcon )
 		  {
 			segj.maxcon = ic+1;
-			mreq = segj.maxcon * sizeof(int);
+			mreq = (size_t)segj.maxcon * sizeof(int);
 			mem_realloc( (void *)&segj.jco, mreq, "in geometry.c" );
 		  }
 		  segj.jco[ic-1]= ix* jend;
@@ -469,7 +459,7 @@ conect( int ignd )
 			continue;
 		  }
 
-		sep= (long double)ic;
+		sep= (double)ic;
 		xa= xa/ sep;
 		ya= ya/ sep;
 		za= za/ sep;
@@ -514,7 +504,7 @@ conect( int ignd )
 
   } /* for( j = 0; j < data.n; j++ ) */
 
-  mreq = segj.maxcon * sizeof(long double);
+  mreq = (size_t)segj.maxcon * sizeof(double);
   mem_realloc( (void *)&segj.ax, mreq, "in geometry.c" );
   mem_realloc( (void *)&segj.bx, mreq, "in geometry.c" );
   mem_realloc( (void *)&segj.cx, mreq, "in geometry.c" );
@@ -528,14 +518,14 @@ conect( int ignd )
 /* data for a helix of ns segments */
   void
 helix(
-	long double s, long double hl,
-	long double a1, long double b1,
-	long double a2, long double b2,
-	long double rad, int ns, int itg )
+	double s, double hl,
+	double a1, double b1,
+	double a2, double b2,
+	double rad, int ns, int itg )
 {
   int ist, i;
   size_t mreq;
-  long double zinc, copy;
+  double zinc, copy;
 
   ist = data.n;
   data.n += ns;
@@ -545,14 +535,14 @@ helix(
 
   if( ns < 1) return;
 
-  zinc= fabsl( hl/ ns);
+  zinc= fabs( hl/ ns);
 
   /* Reallocate tags buffer */
-  mreq = data.n * sizeof(int);
+  mreq = (size_t)data.n * sizeof(int);
   mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
 
   /* Reallocate wire buffers */
-  mreq = data.n * sizeof(long double);
+  mreq = (size_t)data.n * sizeof(double);
   mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
   mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
   mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
@@ -561,7 +551,7 @@ helix(
   mem_realloc( (void *)&data.z2, mreq, "in geometry.c" );
   mem_realloc( (void *)&data.bi, mreq, "in geometry.c" );
 
-  data.z1[ist] = 0.0l;
+  data.z1[ist] = 0.0;
   for( i = ist; i < data.n; i++ )
   {
 	data.bi[i]= rad;
@@ -574,31 +564,31 @@ helix(
 
 	if( a2 == a1)
 	{
-	  if( b1 == 0.0l)
+	  if( b1 == 0.0)
 		b1= a1;
 
-	  data.x1[i]= a1* cosl(2.0l* PI* data.z1[i]/ s);
-	  data.y1[i]= b1* sinl(2.0l* PI* data.z1[i]/ s);
-	  data.x2[i]= a1* cosl(2.0l* PI* data.z2[i]/ s);
-	  data.y2[i]= b1* sinl(2.0l* PI* data.z2[i]/ s);
+	  data.x1[i]= a1* cos(2.0* PI* data.z1[i]/ s);
+	  data.y1[i]= b1* sin(2.0* PI* data.z1[i]/ s);
+	  data.x2[i]= a1* cos(2.0* PI* data.z2[i]/ s);
+	  data.y2[i]= b1* sin(2.0* PI* data.z2[i]/ s);
 	}
 	else
 	{
-	  if( b2 == 0.0l)
+	  if( b2 == 0.0)
 		b2= a2;
 
 	  data.x1[i]=( a1+( a2- a1)* data.z1[i] /
-		  fabsl( hl))* cosl(2.0l* PI* data.z1[i]/ s);
+		  fabs( hl))* cos(2.0* PI* data.z1[i]/ s);
 	  data.y1[i]=( b1+( b2- b1)* data.z1[i] /
-		  fabsl( hl))* sinl(2.0l* PI* data.z1[i]/ s);
+		  fabs( hl))* sin(2.0* PI* data.z1[i]/ s);
 	  data.x2[i]=( a1+( a2- a1)* data.z2[i] /
-		  fabsl( hl))* cosl(2.0l* PI* data.z2[i]/ s);
+		  fabs( hl))* cos(2.0* PI* data.z2[i]/ s);
 	  data.y2[i]=( b1+( b2- b1)* data.z2[i] /
-		  fabsl( hl))* sinl(2.0l* PI* data.z2[i]/ s);
+		  fabs( hl))* sin(2.0* PI* data.z2[i]/ s);
 
 	} /* if( a2 == a1) */
 
-	if( hl > 0.0l)
+	if( hl > 0.0)
 	  continue;
 
 	copy= data.x1[i];
@@ -627,8 +617,8 @@ isegno( int itagi, int mx)
 	fprintf( stderr,
 		"xnec2c: isegno(): check data, parameter specifying segment\n"
 		"position in a group of equal tags must not be zero\n" );
-	stop( "isegno(): Parameter specifying segment\n"
-		  "position in a group of equal tags is zero", ERR_OK );
+	stop( _("isegno(): Parameter specifying segment\n"\
+		  "position in a group of equal tags is zero"), ERR_OK );
 	return( -1 );
   }
 
@@ -661,7 +651,7 @@ isegno( int itagi, int mx)
 
   fprintf( stderr,
 	  "xnec2c: isegno(): no segment has an itag of %d\n",  itagi );
-  stop( "isegno(): Segment tag number error", ERR_OK );
+  stop( _("isegno(): Segment tag number error"), ERR_OK );
 
   return( -1 );
 }
@@ -673,24 +663,24 @@ isegno( int itagi, int mx)
 /* structure is rotated about x,y,z axes by rox,roy,roz */
 /* respectively, then shifted by xs,ys,zs */
   gboolean
-move( long double rox, long double roy,
-	long double roz, long double xs, long double ys,
-	long double zs, int its, int nrpt, int itgi )
+move( double rox, double roy,
+	double roz, double xs, double ys,
+	double zs, int its, int nrpt, int itgi )
 {
   int nrp, ix, i1, k, i;
   size_t mreq;
-  long double sps, cps, sth, cth, sph, cph, xx, xy;
-  long double xz, yx, yy, yz, zx, zy, zz, xi, yi, zi;
+  double sps, cps, sth, cth, sph, cph, xx, xy;
+  double xz, yx, yy, yz, zx, zy, zz, xi, yi, zi;
 
-  if( fabsl( rox)+ fabsl( roy) > 1.0e-10l)
+  if( fabs( rox)+ fabs( roy) > 1.0e-10)
 	data.ipsym= data.ipsym*3;
 
-  sps= sinl( rox);
-  cps= cosl( rox);
-  sth= sinl( roy);
-  cth= cosl( roy);
-  sph= sinl( roz);
-  cph= cosl( roz);
+  sps= sin( rox);
+  cps= cos( rox);
+  sth= sin( roy);
+  cth= cos( roy);
+  sph= sin( roz);
+  cph= cos( roz);
   xx= cph* cth;
   xy= cph* sth* sps- sph* cps;
   xz= cph* sth* cps+ sph* sps;
@@ -719,11 +709,11 @@ move( long double rox, long double roy,
 	{
 	  k= data.n;
 	  /* Reallocate tags buffer */
-	  mreq = (data.n + data.m + (data.n + 1 - i1) * nrpt) * sizeof(int);
+	  mreq = (size_t)(data.n + data.m + (data.n + 1 - i1) * nrpt) * sizeof(int);
 	  mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
 
 	  /* Reallocate wire buffers */
-	  mreq = (data.n + (data.n + 1 - i1) * nrpt) * sizeof(long double);
+	  mreq = (size_t)(data.n + (data.n + 1 - i1) * nrpt) * sizeof(double);
 	  mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
 	  mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
 	  mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
@@ -773,7 +763,7 @@ move( long double rox, long double roy,
 	else k = data.m;
 
 	/* Reallocate patch buffers */
-	mreq = data.m * (nrpt + 1) * sizeof(long double);
+	mreq = (size_t)(data.m * (nrpt + 1)) * sizeof(double);
 	mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
@@ -837,17 +827,17 @@ move( long double rox, long double roy,
   gboolean
 patch(
 	int nx, int ny,
-	long double ax1, long double ay1, long double az1,
-	long double ax2, long double ay2, long double az2,
-	long double ax3, long double ay3, long double az3,
-	long double ax4, long double ay4, long double az4 )
+	double ax1, double ay1, double az1,
+	double ax2, double ay2, double az2,
+	double ax3, double ay3, double az3,
+	double ax4, double ay4, double az4 )
 {
   int mi, ntp;
   size_t mreq;
-  long double s1x=0.0l, s1y=0.0l, s1z=0.0l;
-  long double s2x=0.0l, s2y=0.0l, s2z=0.0l, xst=0.0l;
-  long double znv, xnv, ynv, xa, xn2, yn2;
-  long double zn2;
+  double s1x=0.0, s1y=0.0, s1z=0.0;
+  double s2x=0.0, s2y=0.0, s2z=0.0, xst=0.0;
+  double znv, xnv, ynv, xa, xn2, yn2;
+  double zn2;
 
   /* new patches.  for nx=0, ny=1,2,3,4 patch is (respectively) */;
   /* arbitrary, rectagular, triangular, or quadrilateral. */
@@ -858,7 +848,7 @@ patch(
   mi= data.m-1;
 
   /* Reallocate patch buffers */
-  mreq = data.m * sizeof(long double);
+  mreq = (size_t)data.m * sizeof(double);
   mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
   mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
   mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
@@ -880,23 +870,23 @@ patch(
 	data.py[mi]= ay1;
 	data.pz[mi]= az1;
 	data.pbi[mi]= az2;
-	znv= cosl( ax2);
-	xnv= znv* cosl( ay2);
-	ynv= znv* sinl( ay2);
-	znv= sinl( ax2);
-	xa= sqrtl( xnv* xnv+ ynv* ynv);
+	znv= cos( ax2);
+	xnv= znv* cos( ay2);
+	ynv= znv* sin( ay2);
+	znv= sin( ax2);
+	xa= sqrt( xnv* xnv+ ynv* ynv);
 
-	if( xa >= 1.0e-6l)
+	if( xa >= 1.0e-6)
 	{
 	  data.t1x[mi]= -ynv/ xa;
 	  data.t1y[mi]= xnv/ xa;
-	  data.t1z[mi]=0.0l;
+	  data.t1z[mi]=0.0;
 	}
 	else
 	{
-	  data.t1x[mi]=1.0l;
-	  data.t1y[mi]=0.0l;
-	  data.t1z[mi]=0.0l;
+	  data.t1x[mi]=1.0;
+	  data.t1y[mi]=0.0;
+	  data.t1z[mi]=0.0;
 	}
 
   } /* if( ntp <= 1) */
@@ -922,30 +912,30 @@ patch(
 	xnv= s1y* s2z- s1z* s2y;
 	ynv= s1z* s2x- s1x* s2z;
 	znv= s1x* s2y- s1y* s2x;
-	xa= sqrtl( xnv* xnv+ ynv* ynv+ znv* znv);
+	xa= sqrt( xnv* xnv+ ynv* ynv+ znv* znv);
 	xnv= xnv/ xa;
 	ynv= ynv/ xa;
 	znv= znv/ xa;
-	xst= sqrtl( s1x* s1x+ s1y* s1y+ s1z* s1z);
+	xst= sqrt( s1x* s1x+ s1y* s1y+ s1z* s1z);
 	data.t1x[mi]= s1x/ xst;
 	data.t1y[mi]= s1y/ xst;
 	data.t1z[mi]= s1z/ xst;
 
 	if( ntp <= 2)
 	{
-	  data.px[mi]= ax1+.5l*( s1x+ s2x);
-	  data.py[mi]= ay1+.5l*( s1y+ s2y);
-	  data.pz[mi]= az1+.5l*( s1z+ s2z);
+	  data.px[mi]= ax1+.5*( s1x+ s2x);
+	  data.py[mi]= ay1+.5*( s1y+ s2y);
+	  data.pz[mi]= az1+.5*( s1z+ s2z);
 	  data.pbi[mi]= xa;
 	}
 	else
 	{
 	  if( ntp != 4)
 	  {
-		data.px[mi]=( ax1+ ax2+ ax3)/3.0l;
-		data.py[mi]=( ay1+ ay2+ ay3)/3.0l;
-		data.pz[mi]=( az1+ az2+ az3)/3.0l;
-		data.pbi[mi]=.5l* xa;
+		data.px[mi]=( ax1+ ax2+ ax3)/3.0;
+		data.py[mi]=( ay1+ ay2+ ay3)/3.0;
+		data.pz[mi]=( az1+ az2+ az3)/3.0;
+		data.pbi[mi]=.5* xa;
 	  }
 	  else
 	  {
@@ -958,24 +948,24 @@ patch(
 		xn2= s1y* s2z- s1z* s2y;
 		yn2= s1z* s2x- s1x* s2z;
 		zn2= s1x* s2y- s1y* s2x;
-		xst= sqrtl( xn2* xn2+ yn2* yn2+ zn2* zn2);
-		long double salpn=1.0l/(3.0l*( xa+ xst));
+		xst= sqrt( xn2* xn2+ yn2* yn2+ zn2* zn2);
+		double salpn=1.0/(3.0*( xa+ xst));
 		data.px[mi]=( xa*( ax1+ ax2+ ax3) +
 			xst*( ax1+ ax3+ ax4))* salpn;
 		data.py[mi]=( xa*( ay1+ ay2+ ay3) +
 			xst*( ay1+ ay3+ ay4))* salpn;
 		data.pz[mi]=( xa*( az1+ az2+ az3) +
 			xst*( az1+ az3+ az4))* salpn;
-		data.pbi[mi]=.5l*( xa+ xst);
+		data.pbi[mi]=.5*( xa+ xst);
 		s1x=( xnv* xn2+ ynv* yn2+ znv* zn2)/ xst;
 
-		if( s1x <= 0.9998l)
+		if( s1x <= 0.9998)
 		{
 		  fprintf( stderr,
 			  "xnec2c: patch(): corners of quadrilateral\n"
 			  "patch do not lie in a plane\n" );
-		  stop( "patch(): Corners of quadrilateral\n"
-				"patch do not lie in a plane", ERR_OK );
+		  stop( _("patch(): Corners of quadrilateral\n"\
+				"patch do not lie in a plane"), ERR_OK );
 		  return( FALSE );
 		}
 
@@ -988,16 +978,16 @@ patch(
   data.t2x[mi]= ynv* data.t1z[mi]- znv* data.t1y[mi];
   data.t2y[mi]= znv* data.t1x[mi]- xnv* data.t1z[mi];
   data.t2z[mi]= xnv* data.t1y[mi]- ynv* data.t1x[mi];
-  data.psalp[mi]=1.0l;
+  data.psalp[mi]=1.0;
 
   if( nx != 0)
   {
 	int  iy, ix;
-	long double xs, ys, zs, xt, yt, zt;
+	double xs, ys, zs, xt, yt, zt;
 
 	data.m += nx*ny-1;
 	/* Reallocate patch buffers */
-	mreq = data.m * sizeof(long double);
+	mreq = (size_t)data.m * sizeof(double);
 	mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
@@ -1028,12 +1018,12 @@ patch(
 
 	  for( ix = 1; ix <= nx; ix++ )
 	  {
-		xst= (long double)ix;
+		xst= (double)ix;
 		data.px[mi]= xn2+ xst* s1x;
 		data.py[mi]= yn2+ xst* s1y;
 		data.pz[mi]= zn2+ xst* s1z;
 		data.pbi[mi]= xa;
-		data.psalp[mi]=1.0l;
+		data.psalp[mi]=1.0;
 		data.t1x[mi]= xs;
 		data.t1y[mi]= ys;
 		data.t1z[mi]= zs;
@@ -1062,14 +1052,14 @@ subph( int nx, int ny )
 {
   int mia, ix, iy, mi;
   size_t mreq;
-  long double xs, ys, zs, xa, xst, s1x, s1y;
-  long double s1z, s2x, s2y, s2z, saln, xt, yt;
+  double xs, ys, zs, xa, xst, s1x, s1y;
+  double s1z, s2x, s2y, s2z, saln, xt, yt;
 
   /* Reallocate patch buffers */
   if( ny == 0 ) data.m += 3;
   else data.m += 4;
 
-  mreq = data.m * sizeof(long double);
+  mreq = (size_t)data.m * sizeof(double);
   mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
   mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
   mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
@@ -1083,7 +1073,7 @@ subph( int nx, int ny )
   mem_realloc( (void *)&data.psalp, mreq, "in geometry.c" );
   if( !CHILD )
   {
-	mreq = (data.n + 2 * data.m) * sizeof(GdkSegment);
+	mreq = (size_t)(data.n + 2 * data.m) * sizeof(GdkSegment);
 	mem_realloc( (void *)&structure_segs, mreq, "in geometry.c" );
   }
 
@@ -1113,8 +1103,8 @@ subph( int nx, int ny )
   xs= data.px[mi];
   ys= data.py[mi];
   zs= data.pz[mi];
-  xa= data.pbi[mi]/4.0l;
-  xst= sqrtl( xa)/2.0l;
+  xa= data.pbi[mi]/4.0;
+  xst= sqrt( xa)/2.0;
   s1x= data.t1x[mi];
   s1y= data.t1y[mi];
   s1z= data.t1z[mi];
@@ -1160,7 +1150,7 @@ subph( int nx, int ny )
 	data.mp += 3;
 
   if( ny > 0 )
-	data.pz[mi]=10000.0l;
+	data.pz[mi]=10000.0;
 
   /* Process new patches created */
   if( ! CHILD )
@@ -1178,7 +1168,7 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 {
   int i, nx, itagi, k;
   size_t mreq;
-  long double e1, e2, fnop, sam, cs, ss, xk, yk;
+  double e1, e2, fnop, sam, cs, ss, xk, yk;
 
   if( nop == 0) return( TRUE );
 
@@ -1198,11 +1188,11 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	  if( data.n > 0 )
 	  {
 		/* Reallocate tags buffer */
-		mreq = (2 * data.n + data.m) * sizeof(int);
+		mreq = (size_t)(2 * data.n + data.m) * sizeof(int);
 		mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
 
 		/* Reallocate wire buffers */
-		mreq = 2 * data.n * sizeof(long double);
+		mreq = (size_t)(2 * data.n) * sizeof(double);
 		mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
 		mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
 		mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
@@ -1217,13 +1207,13 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 		  e1= data.z1[i];
 		  e2= data.z2[i];
 
-		  if( (fabsl(e1)+fabsl(e2) <= 1.0e-5l) || (e1*e2 < -1.0e-6l) )
+		  if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
 		  {
 			fprintf( stderr,
 				"xnec2c: reflc(): geometry data error\n"
 				"segment %d lies in plane of symmetry\n", i+1 );
-			stop( "reflc(): Geometry data error\n"
-				  "Segment lies in plane of symmetry", ERR_OK );
+			stop( _("reflc(): Geometry data error\n"\
+				  "Segment lies in plane of symmetry"), ERR_OK );
 			return( FALSE );
 		  }
 
@@ -1252,7 +1242,7 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	  if( data.m > 0 )
 	  {
 		/* Reallocate patch buffers */
-		mreq = 2 * data.m * sizeof(long double);
+		mreq = (size_t)(2 * data.m) * sizeof(double);
 		mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
 		mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
 		mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
@@ -1268,13 +1258,13 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 		for( i = 0; i < data.m; i++ )
 		{
 		  nx = i+data.m;
-		  if( fabsl(data.pz[i]) <= 1.0e-10l)
+		  if( fabs(data.pz[i]) <= 1.0e-10)
 		  {
 			fprintf( stderr,
 				"xnec2c: reflc(): geometry data error\n"
 				"patch %d lies in plane of symmetry\n", i+1 );
-			stop( "reflc(): Geometry data error\n"
-				  "Patch lies in plane of symmetry", ERR_OK );
+			stop( _("reflc(): Geometry data error\n"\
+				  "Patch lies in plane of symmetry"), ERR_OK );
 			return( FALSE );
 		  }
 
@@ -1303,10 +1293,10 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	  if( data.n > 0)
 	  {
 		/* Reallocate tags buffer */
-		mreq = 2 * data.n * sizeof(int);
+		mreq = (size_t)(2 * data.n) * sizeof(int);
 		mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
 		/* Reallocate wire buffers */
-		mreq = 2 * data.n * sizeof(long double);
+		mreq = (size_t)(2 * data.n) * sizeof(double);
 		mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
 		mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
 		mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
@@ -1321,13 +1311,13 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 		  e1= data.y1[i];
 		  e2= data.y2[i];
 
-		  if( (fabsl(e1)+fabsl(e2) <= 1.0e-5l) || (e1*e2 < -1.0e-6l) )
+		  if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
 		  {
 			fprintf( stderr,
 				"xnec2c: reflc(): geometry data error\n"
 				"segment %d lies in plane of symmetry\n", i+1 );
-			stop( "reflc(): Geometry data error\n"
-				  "Segment lies in plane of symmetry", ERR_OK );
+			stop( _("reflc(): Geometry data error\n"\
+				  "Segment lies in plane of symmetry"), ERR_OK );
 			return( FALSE );
 		  }
 
@@ -1356,7 +1346,7 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	  if( data.m > 0 )
 	  {
 		/* Reallocate patch buffers */
-		mreq = 2 * data.m * sizeof(long double);
+		mreq = (size_t)(2 * data.m) * sizeof(double);
 		mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
 		mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
 		mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
@@ -1372,13 +1362,13 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 		for( i = 0; i < data.m; i++ )
 		{
 		  nx= i+data.m;
-		  if( fabsl( data.py[i]) <= 1.0e-10l)
+		  if( fabs( data.py[i]) <= 1.0e-10)
 		  {
 			fprintf( stderr,
 				"xnec2c: reflc(): geometry data error\n"
 				"patch %d lies in plane of symmetry\n", i+1 );
-			stop( "reflc(): Geometry data error\n"
-				  "Patch lies in plane of symmetry", ERR_OK );
+			stop( _("reflc(): Geometry data error\n"\
+				  "Patch lies in plane of symmetry"), ERR_OK );
 			return( FALSE );
 		  }
 
@@ -1408,11 +1398,11 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	if( data.n > 0 )
 	{
 	  /* Reallocate tags buffer */
-	  mreq = 2 * data.n * sizeof(int);
+	  mreq = (size_t)(2 * data.n) * sizeof(int);
 	  mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
 
 	  /* Reallocate wire buffers */
-	  mreq = 2*data.n * sizeof(long double);
+	  mreq = (size_t)(2 * data.n) * sizeof(double);
 	  mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
 	  mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
 	  mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
@@ -1427,13 +1417,13 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 		e1= data.x1[i];
 		e2= data.x2[i];
 
-		if( (fabsl(e1)+fabsl(e2) <= 1.0e-5l) || (e1*e2 < -1.0e-6l) )
+		if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
 		{
 		  fprintf( stderr,
 			  "xnec2c: reflc(): geometry data error\n"
 			  "segment %d lies in plane of symmetry\n", i+1 );
-		  stop( "reflc(): Geometry data error\n"
-				"Segment lies in plane of symmetry", ERR_OK );
+		  stop( _("reflc(): Geometry data error\n"\
+				"Segment lies in plane of symmetry"), ERR_OK );
 		  return( FALSE );
 		}
 
@@ -1460,7 +1450,7 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	if( data.m == 0 ) return( TRUE );
 
 	/* Reallocate patch buffers */
-	mreq = 2 * data.m * sizeof(long double);
+	mreq = (size_t)(2 * data.m) * sizeof(double);
 	mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
@@ -1476,13 +1466,13 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	for( i = 0; i < data.m; i++ )
 	{
 	  nx= i+data.m;
-	  if( fabsl( data.px[i]) <= 1.0e-10l)
+	  if( fabs( data.px[i]) <= 1.0e-10)
 	  {
 		fprintf( stderr,
 			"xnec2c: reflc(): geometry data error\n"
 			"patch %d lies in plane of symmetry\n", i+1 );
-		stop( "reflc(): Geometry data error\n"
-			  "Patch lies in plane of symmetry", ERR_OK );
+		stop( _("reflc(): Geometry data error\n"\
+			  "Patch lies in plane of symmetry"), ERR_OK );
 		return( FALSE );
 	  }
 
@@ -1505,11 +1495,11 @@ reflc( int ix, int iy, int iz, int iti, int nop )
   } /* if( ix >= 0) */
 
   /* reproduce structure with rotation to form cylindrical structure */
-  fnop= (long double)nop;
+  fnop= (double)nop;
   data.ipsym=-1;
   sam=TP/ fnop;
-  cs= cosl( sam);
-  ss= sinl( sam);
+  cs= cos( sam);
+  ss= sin( sam);
 
   if( data.n > 0)
   {
@@ -1517,11 +1507,11 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	nx= data.np;
 
 	/* Reallocate tags buffer */
-	mreq = data.n * sizeof(int);
+	mreq = (size_t)data.n * sizeof(int);
 	mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
 
 	/* Reallocate wire buffers */
-	mreq = data.n * sizeof(long double);
+	mreq = (size_t)data.n * sizeof(double);
 	mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
 	mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
@@ -1560,7 +1550,7 @@ reflc( int ix, int iy, int iz, int iti, int nop )
   nx= data.mp;
 
   /* Reallocate patch buffers */
-  mreq = data.m * sizeof(long double);
+  mreq = (size_t)data.m * sizeof(double);
   mem_realloc( (void *)&data.px,  mreq, "in geometry.c"  );
   mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
   mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
@@ -1604,14 +1594,14 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 /* subroutine wire generates segment geometry */
 /* data for a straight wire of ns segments. */
   void
-wire( long double xw1, long double yw1, long double zw1,
-	long double xw2, long double yw2, long double zw2, long double rad,
-	long double rdel, long double rrad, int ns, int itg )
+wire( double xw1, double yw1, double zw1,
+	double xw2, double yw2, double zw2, double rad,
+	double rdel, double rrad, int ns, int itg )
 {
   int ist, i;
   size_t mreq;
-  long double xd, yd, zd, delz, rd, fns, radz;
-  long double xs1, ys1, zs1, xs2, ys2, zs2;
+  double xd, yd, zd, delz, rd, fns, radz;
+  double xs1, ys1, zs1, xs2, ys2, zs2;
 
   if( ns < 1) return;
 
@@ -1622,11 +1612,11 @@ wire( long double xw1, long double yw1, long double zw1,
   data.ipsym=0;
 
   /* Reallocate tags buffer */
-  mreq = data.n * sizeof(int);
+  mreq = (size_t)data.n * sizeof(int);
   mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
 
   /* Reallocate wire buffers */
-  mreq = data.n * sizeof(long double);
+  mreq = (size_t)data.n * sizeof(double);
   mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
   mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
   mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
@@ -1639,13 +1629,13 @@ wire( long double xw1, long double yw1, long double zw1,
   yd= yw2- yw1;
   zd= zw2- zw1;
 
-  if( fabsl( rdel-1.0l) >= 1.0e-6l)
+  if( fabs( rdel-1.0) >= 1.0e-6)
   {
-	delz= sqrtl( xd* xd+ yd* yd+ zd* zd);
+	delz= sqrt( xd* xd+ yd* yd+ zd* zd);
 	xd= xd/ delz;
 	yd= yd/ delz;
 	zd= zd/ delz;
-	delz= delz*(1.0l- rdel)/(1.0l- powl(rdel, ns) );
+	delz= delz*(1.0- rdel)/(1.0- pow(rdel, ns) );
 	rd= rdel;
   }
   else
@@ -1654,8 +1644,8 @@ wire( long double xw1, long double yw1, long double zw1,
 	xd= xd/ fns;
 	yd= yd/ fns;
 	zd= zd/ fns;
-	delz=1.0l;
-	rd=1.0l;
+	delz=1.0;
+	rd=1.0;
   }
 
   radz= rad;

@@ -35,21 +35,7 @@
  */
 
 #include "plot_freqdata.h"
-
-/* Plots drawingarea */
-extern GtkWidget *freqplots_drawingarea;
-extern GtkWidget *freqplots_window;
-
-/* Antenna drawing area widget */
-extern GtkWidget *main_window;
-extern GtkWidget *rdpattern_window;
-
-/* Pixmap for drawing plots */
-extern GdkPixmap *freqplots_pixmap;
-extern int freqplots_pixmap_width, freqplots_pixmap_height;
-
-/* Parameters for projecting structure to Screen */
-extern projection_parameters_t structure_proj_params;
+#include "shared.h"
 
 /* Graph plot bounding rectangle */
 static GdkRectangle plot_rect;
@@ -57,22 +43,6 @@ static GdkRectangle plot_rect;
 /* Frequency scale max, min, num of values */
 static double max_fscale, min_fscale;
 static int nval_fscale;
-
-/* Radiation pattern freq spinbutton */
-extern GtkSpinButton *rdpattern_frequency;
-
-/* Main window freq spinbutton */
-extern GtkSpinButton *mainwin_frequency;
-
-/* Needed data */
-impedance_data_t impedance_data;
-extern save_t save;
-extern calc_data_t calc_data;
-extern fpat_t fpat;
-extern netcx_t netcx;
-
-/* Radiation pattern data */
-extern rad_pattern_t *rad_pattern;
 
 /*-----------------------------------------------------------------------*/
 
@@ -161,7 +131,7 @@ Plot_Frequency_Data( void )
 	gboolean no_fbr;
 
 	/* Allocate max gmax and directions */
-	size_t mreq = fstep * sizeof(double);
+	size_t mreq = (size_t)fstep * sizeof(double);
 	mem_realloc( (void *)&gmax,     mreq, "in plot_freqdata.c" );
 	mem_realloc( (void *)&gdir_tht, mreq, "in plot_freqdata.c" );
 	mem_realloc( (void *)&gdir_phi, mreq, "in plot_freqdata.c" );
@@ -256,18 +226,18 @@ Plot_Frequency_Data( void )
 	if( no_fbr || isFlagSet(PLOT_NETGAIN) )
 	{
 	  /* Plotting frame titles */
-	  titles[0] = "Raw Gain dbi";
+	  titles[0] = _("Raw Gain dbi");
 	  if( isFlagSet(PLOT_NETGAIN) )
 	  {
-		titles[1] = "Max Gain & Net Gain vs Frequency";
-		titles[2] = "Net Gain dbi";
+		titles[1] = _("Max Gain & Net Gain vs Frequency");
+		titles[2] = _("Net Gain dbi");
 		if( fstep > 1 )
 		  Plot_Graph2( gmax, netgain, save.freq, fstep,
 			  titles, calc_data.ngraph, ++posn );
 	  }
 	  else
 	  {
-		titles[1] = "Max Gain & F/B Ratio vs Frequency";
+		titles[1] = _("Max Gain & F/B Ratio vs Frequency");
 		titles[2] = "        ";
 		if( fstep > 1 )
 		  Plot_Graph( gmax, save.freq, fstep,
@@ -277,9 +247,9 @@ Plot_Frequency_Data( void )
 	else
 	{
 	  /* Plotting frame titles */
-	  titles[0] = "Raw Gain dbi";
-	  titles[1] = "Max Gain & F/B Ratio vs Frequency";
-	  titles[2] = "F/B Ratio db";
+	  titles[0] = _("Raw Gain dbi");
+	  titles[1] = _("Max Gain & F/B Ratio vs Frequency");
+	  titles[2] = _("F/B Ratio db");
 	  if( fstep > 1 )
 		Plot_Graph2( gmax, fbratio, save.freq, fstep,
 			titles, calc_data.ngraph, ++posn );
@@ -289,9 +259,9 @@ Plot_Frequency_Data( void )
 	if( isFlagSet(PLOT_GAIN_DIR) )
 	{
 	  /* Plotting frame titles */
-	  titles[0] = "Rad Angle - deg";
-	  titles[1] = "Max Gain Direction vs Frequency";
-	  titles[2] = "Phi - deg";
+	  titles[0] = _("Rad Angle - deg");
+	  titles[1] = _("Max Gain Direction vs Frequency");
+	  titles[2] = _("Phi - deg");
 	  if( fstep > 1 )
 		Plot_Graph2( gdir_tht, gdir_phi, save.freq, fstep,
 			titles, calc_data.ngraph, ++posn );
@@ -303,11 +273,11 @@ Plot_Frequency_Data( void )
   if( isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) )
   {
 	/* Plotting frame titles */
-	titles[0] = "Raw Gain dbi";
-	titles[1] = "Gain in Viewer Direction vs Frequency";
+	titles[0] = _("Raw Gain dbi");
+	titles[1] = _("Gain in Viewer Direction vs Frequency");
 
 	/* Allocate viewer gain buffer */
-	size_t mreq = fstep * sizeof(double);
+	size_t mreq = (size_t)fstep * sizeof(double);
 	mem_realloc( (void *)&vgain, mreq, "in plot_freqdata.c" );
 
 	/* Calcs are done for all freq steps */
@@ -317,7 +287,7 @@ Plot_Frequency_Data( void )
 	/* Plot net gain if selected */
 	if( isFlagSet(PLOT_NETGAIN) )
 	{
-	  size_t mreq = fstep * sizeof(double);
+	  mreq = (size_t)fstep * sizeof(double);
 	  mem_realloc( (void *)&netgain, mreq, "in plot_freqdata.c" );
 
 	  Zo = calc_data.zo;
@@ -330,7 +300,7 @@ Plot_Frequency_Data( void )
 	  }
 
 	  /* Plot net gain if selected */
-	  titles[2] = "Net gain dbi";
+	  titles[2] = _("Net gain dbi");
 	  if( fstep > 1 )
 		Plot_Graph2( vgain, netgain, save.freq, fstep,
 			titles, calc_data.ngraph, ++posn );
@@ -351,8 +321,8 @@ Plot_Frequency_Data( void )
 	double zrpro2, zrmro2, zimag2;
 
 	/* Plotting frame titles */
-	titles[0] = "VSWR";
-	titles[1] = "VSWR vs Frequency";
+	titles[0] = _("VSWR");
+	titles[1] = _("VSWR vs Frequency");
 
 	/* Calculate VSWR */
 	for(idx = 0; idx < fstep; idx++ )
@@ -373,7 +343,7 @@ Plot_Frequency_Data( void )
 	  int mgidx, pol;
 	  double max_gain;
 
-	  size_t mreq = fstep * sizeof(double);
+	  size_t mreq = (size_t)fstep * sizeof(double);
 	  mem_realloc( (void *)&netgmax, mreq, "in plot_freqdata.c" );
 
 	  Zo = calc_data.zo;
@@ -389,7 +359,7 @@ Plot_Frequency_Data( void )
 		netgmax[idx] = max_gain + 10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
 	  }
 
-	  titles[2] = "Net Gain dbi";
+	  titles[2] = _("Net Gain dbi");
 	  Plot_Graph2( vswr, netgmax, save.freq, fstep,
 		  titles, calc_data.ngraph, ++posn );
 	} /* if( isFlagSet(PLOT_NETGAIN) ) */
@@ -406,9 +376,9 @@ Plot_Frequency_Data( void )
   if( isFlagSet(PLOT_ZREAL_ZIMAG) )
   {
 	/* Plotting frame titles */
-	titles[0] = "Z-real";
-	titles[1] = "Impedance vs Frequency";
-	titles[2] = "Z-imag";
+	titles[0] = _("Z-real");
+	titles[1] = _("Impedance vs Frequency");
+	titles[2] = _("Z-imag");
 	if( fstep > 1 )
 	  Plot_Graph2(
 		  impedance_data.zreal, impedance_data.zimag, save.freq,
@@ -420,9 +390,9 @@ Plot_Frequency_Data( void )
   if( isFlagSet(PLOT_ZMAG_ZPHASE) )
   {
 	/* Plotting frame titles */
-	titles[0] = "Z-magn";
-	titles[1] = "Impedance vs Frequency";
-	titles[2] = "Z-phase";
+	titles[0] = _("Z-magn");
+	titles[1] = _("Impedance vs Frequency");
+	titles[2] = _("Z-phase");
 	if( fstep > 1 )
 	  Plot_Graph2( impedance_data.zmagn, impedance_data.zphase,
 		  save.freq, fstep, titles, calc_data.ngraph, ++posn );
@@ -492,11 +462,11 @@ Display_Frequency_Data( void )
 		  freqplots_window, "freqplots_fmhz_entry")), txt );
 
   /* Calculate VSWR */
-  zrpro2 = (double)creall( netcx.zped ) + calc_data.zo;
+  zrpro2 = (double)creal( netcx.zped ) + calc_data.zo;
   zrpro2 *= zrpro2;
-  zrmro2 = (double)creall( netcx.zped ) - calc_data.zo;
+  zrmro2 = (double)creal( netcx.zped ) - calc_data.zo;
   zrmro2 *= zrmro2;
-  zimag2 = (double)cimagl( netcx.zped );
+  zimag2 = (double)cimag( netcx.zped );
   zimag2 *= zimag2;
   gamma = sqrt( (zrmro2 + zimag2)/(zrpro2 + zimag2) );
   vswr = (1+gamma)/(1-gamma);
@@ -510,13 +480,13 @@ Display_Frequency_Data( void )
 		  freqplots_window, "freqplots_vswr_entry")), txt );
 
   /* Display Z real */
-  snprintf( txt, 6, "%5f", (double)creall( netcx.zped ) );
+  snprintf( txt, 6, "%5f", (double)creal( netcx.zped ) );
   txt[5] = '\0';
   gtk_entry_set_text( GTK_ENTRY(lookup_widget(
 		  freqplots_window, "freqplots_zreal_entry")), txt );
 
   /* Display Z imaginary */
-  snprintf( txt, 6, "%5f", (double)cimagl( netcx.zped ) );
+  snprintf( txt, 6, "%5f", (double)cimag( netcx.zped ) );
   txt[5] = '\0';
   gtk_entry_set_text( GTK_ENTRY(lookup_widget(
 		  freqplots_window, "freqplots_zimag_entry")), txt );
@@ -631,22 +601,30 @@ Plot_Vertical_Scale(
   PangoLayout *layout;
   int pl_width, pl_height; /* Layout size */
 
+  /* Abort if not enough values to plot */
+  if( nval <= 1 ) return;
+
   /* Cairo context */
   cairo_t *cr = gdk_cairo_create( freqplots_pixmap );
   cairo_set_source_rgb( cr, red, grn, blu );
 
   /* Calculate step between scale values */
-  if( nval > 1 )
-	vstep = (max-min) / (double)(nval-1);
+  vstep = (max-min) / (double)(nval-1);
 
   /* Determine format for scale values */
   /* Find order of magnitude of min and max values */
-  if( min != 0 )
-	min_order = (int)log10( fabs(min) );
+  if( min != 0.0 )
+  {
+	double mo = log10( fabs(min) );
+	min_order = (int)mo;
+  }
   else
 	min_order = 0;
-  if( max != 0 )
-	max_order = (int)log10( fabs(max) );
+  if( max != 0.0 )
+  {
+	double mo = log10( fabs(max) );
+	max_order = (int)mo;
+  }
   else
 	max_order = 0;
 
@@ -700,17 +678,20 @@ Plot_Horizontal_Scale(
   PangoLayout *layout;
   int pl_width, pl_height; /* Layout size */
 
+  /* Abort if not enough values to plot */
+  if( nval <= 1 ) return;
+
   /* Cairo context */
   cairo_t *cr = gdk_cairo_create( freqplots_pixmap );
   cairo_set_source_rgb( cr, red, grn, blu );
 
   /* Calculate step between scale values */
-  if( nval > 1 )
-	hstep = (max-min) / (nval-1);
+  hstep = (max-min) / (nval-1);
 
   /* Determine format for scale values */
   /* Use order of horizontal step to determine format of print */
-  order = (int)log10( fabs(hstep + 0.0000001) );
+  double ord = log10( fabs(hstep + 0.0000001) );
+  order = (int)ord;
   if( order > 0 )  order = 0;
   if( order < -9 ) order = -9;
   snprintf( format, 6, "%%6.%df", 1-order );
@@ -1073,10 +1054,13 @@ Fit_to_Scale2( double *max1, double *min1,
 New_Max_Min( double *max, double *min, double sval, int *nval )
 {
   int ix;
+  double i;
 
-  ix = (int) ceil(*max / sval - 0.000001);
+  i = ceil(*max / sval - 0.000001);
+  ix = (int)i;
   *max = (double)ix * sval;
-  ix = (int)floor(*min / sval + 0.000001);
+  i = floor(*min / sval + 0.000001);
+  ix = (int)i;
   *min = (double)ix * sval;
   *nval = (int)((*max - *min) / sval + 0.5) + 1;
 
@@ -1119,7 +1103,7 @@ Plot_Graph2(
   /* Plot box rectangle */
   Set_Rectangle(
 	  &plot_rect,
-	  layout_width + 4, plot_posn+2,
+	  layout_width+4, plot_posn+2,
 	  freqplots_pixmap_width-8 - 2*layout_width,
 	  plot_height-8 - 2*layout_height );
 
@@ -1305,7 +1289,7 @@ Plots_Window_Killed(void)
  * Sets the current freq after click by user on plots drawingarea
  */
   void
-Set_Frequency_On_Click( GtkWidget *widget, GdkEventButton *event )
+Set_Frequency_On_Click( GdkEventButton *event )
 {
   gdouble fmhz = 0.0;
   gdouble x, w;
@@ -1368,7 +1352,7 @@ Set_Frequency_On_Click( GtkWidget *widget, GdkEventButton *event )
   }
   else /* Replot data */
   {
-	calc_data.fmhz = (long double)fmhz;
+	calc_data.fmhz = (double)fmhz;
 	g_idle_add( Redo_Currents, NULL );
   }
 

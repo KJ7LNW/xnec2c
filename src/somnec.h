@@ -21,27 +21,28 @@
 #define	SOMNEC_H	1
 
 #include "common.h"
+#include "support.h"
 
-#define	PTP		.6283185308l
-#define PI10	31.41592654l
-#define	TOSP	1.128379167l
+#define	PTP		.6283185308
+#define PI10	31.41592654
+#define	TOSP	1.128379167
 #define	SP		1.772453851
-#define ACCS	1.0E-12l
-#define	GAMMA	.5772156649l
-#define C1		-.02457850915l
-#define C2		.3674669052l
-#define C3		.7978845608l
-#define P10		.0703125l
-#define P20		.1121520996l
-#define Q10		.125l
-#define Q20		.0732421875l
-#define P11		.1171875l
-#define P21		.1441955566l
-#define Q11		.375l
-#define Q21		.1025390625l
-#define POF		.7853981635l
+#define ACCS	1.0E-12
+#define	GAMMA	.5772156649
+#define C1		-.02457850915
+#define C2		.3674669052
+#define C3		.7978845608
+#define P10		.0703125
+#define P20		.1121520996
+#define Q10		.125
+#define Q20		.0732421875
+#define P11		.1171875
+#define P21		.1441955566
+#define Q11		.375
+#define Q21		.1025390625
+#define POF		.7853981635
 #define MAXH	20
-#define CRIT	1.0E-4l
+#define CRIT	1.0E-4
 #define NM		131072
 #define NTS		4
 

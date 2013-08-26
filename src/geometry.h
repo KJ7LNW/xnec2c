@@ -21,6 +21,7 @@
 #define	GEOMETRY_H		1
 
 #include "common.h"
+#include "support.h"
 
 #endif
 

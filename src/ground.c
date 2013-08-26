@@ -43,24 +43,7 @@
  ***********************************************************************/
 
 #include "ground.h"
-
-/* pointers to input/output files */
-extern FILE *input_fp;
-
-/* common  /data/ */
-extern data_t data;
-
-/* common  /dataj/ */
-extern dataj_t dataj;
-
-/* common  /gnd/ */
-gnd_t gnd;
-
-/* common  /gwav/ */
-extern gwav_t gwav;
-
-/* common  /incom/ */
-extern incom_t incom;;
+#include "shared.h"
 
 /*-------------------------------------------------------------------*/
 
@@ -69,25 +52,25 @@ extern incom_t incom;;
 /* field components - the x, y, and z components due to constant, */
 /* sine, and cosine current distributions. */
   void
-rom2( long double a, long double b,
-	complex long double *sum, long double dmin )
+rom2( double a, double b,
+	complex double *sum, double dmin )
 {
   int i, ns, nt, flag = TRUE;
   int nts = 4, nx = 1, n = 9;
-  long double ze, ep, zend, dz=0.0l, dzot=0.0l, tmag1, tmag2, tr, ti;
-  long double z, s; /***also global***/
-  long double rx = 1.0e-4l;
-  complex long double t00, t02, t11;
-  static complex long double *g1 = NULL, *g2 = NULL;
-  static complex long double *g3 = NULL, *g4 = NULL;
-  static complex long double *t01 = NULL, *t10 = NULL;
-  static complex long double *t20 = NULL, *g5 = NULL;
+  double ze, ep, zend, dz=0.0, dzot=0.0, tmag1, tmag2, tr, ti;
+  double z, s; /***also global***/
+  double rx = 1.0e-4;
+  complex double t00, t02, t11;
+  static complex double *g1 = NULL, *g2 = NULL;
+  static complex double *g3 = NULL, *g4 = NULL;
+  static complex double *t01 = NULL, *t10 = NULL;
+  static complex double *t20 = NULL, *g5 = NULL;
   static gboolean first_call = TRUE;
 
   if( first_call )
   {
 	first_call = FALSE;
-	size_t mreq = 9 * sizeof(complex long double);
+	size_t mreq = 9 * sizeof(complex double);
 	mem_alloc( (void *)&g1, mreq, "in ground.c");
 	mem_alloc( (void *)&g2, mreq, "in ground.c");
 	mem_alloc( (void *)&g3, mreq, "in ground.c");
@@ -102,13 +85,13 @@ rom2( long double a, long double b,
   ze= b;
   s= b- a;
 
-  if( s < 0.0l)
+  if( s < 0.0)
   {
 	fprintf( stderr, "xnec2c: b less than a in rom2\n" );
-	stop( "rom2(): b less than a", ERR_STOP );
+	stop( _("rom2(): b less than a"), ERR_STOP );
   }
 
-  ep= s/(1.0e4l* data.npm);
+  ep= s/(1.0e4* data.npm);
   zend= ze- ep;
 
   for( i = 0; i < n; i++ )
@@ -129,21 +112,21 @@ rom2( long double a, long double b,
 		if( dz <= ep) return;
 	  }
 
-	  dzot= dz*.5l;
+	  dzot= dz*.5;
 	  sflds( z+ dzot, g3);
 	  sflds( z+ dz, g5);
 
 	} /* if( flag ) */
 
-	tmag1=0.0l;
-	tmag2=0.0l;
+	tmag1=0.0;
+	tmag2=0.0;
 
 	/* evaluate 3 point romberg result and test convergence. */
 	for( i = 0; i < n; i++ )
 	{
 	  t00=( g1[i]+ g5[i])* dzot;
-	  t01[i]=( t00+ dz* g3[i])*.5l;
-	  t10[i]=(4.0l* t01[i]- t00)/3.0l;
+	  t01[i]=( t00+ dz* g3[i])*.5;
+	  t10[i]=(4.0* t01[i]- t00)/3.0;
 	  if( i > 2)
 		continue;
 
@@ -156,9 +139,9 @@ rom2( long double a, long double b,
 
 	} /* for( i = 0; i < n; i++ ) */
 
-	tmag1= sqrtl( tmag1);
-	tmag2= sqrtl( tmag2);
-	test( tmag1, tmag2, &tr, 0.0l, 0.0l, &ti, dmin);
+	tmag1= sqrt( tmag1);
+	tmag2= sqrt( tmag2);
+	test( tmag1, tmag2, &tr, 0.0, 0.0, &ti, dmin);
 
 	if( tr <= rx)
 	{
@@ -183,17 +166,17 @@ rom2( long double a, long double b,
 
 	} /* if( tr <= rx) */
 
-	sflds( z+ dz*.25l, g2);
-	sflds( z+ dz*.75l, g4);
-	tmag1=0.0l;
-	tmag2=0.0l;
+	sflds( z+ dz*.25, g2);
+	sflds( z+ dz*.75, g4);
+	tmag1=0.0;
+	tmag2=0.0;
 
 	/* evaluate 5 point romberg result and test convergence. */
 	for( i = 0; i < n; i++ )
 	{
-	  t02=( t01[i]+ dzot*( g2[i]+ g4[i]))*.5l;
-	  t11=( 4.0l * t02- t01[i] )/3.0l;
-	  t20[i]=(16.0l* t11- t10[i])/15.0l;
+	  t02=( t01[i]+ dzot*( g2[i]+ g4[i]))*.5;
+	  t11=( 4.0 * t02- t01[i] )/3.0;
+	  t20[i]=(16.0* t11- t10[i])/15.0;
 	  if( i > 2)
 		continue;
 
@@ -206,9 +189,9 @@ rom2( long double a, long double b,
 
 	} /* for( i = 0; i < n; i++ ) */
 
-	tmag1= sqrtl( tmag1);
-	tmag2= sqrtl( tmag2);
-	test( tmag1, tmag2, &tr, 0.0l,0.0l, &ti, dmin);
+	tmag1= sqrt( tmag1);
+	tmag2= sqrt( tmag2);
+	test( tmag1, tmag2, &tr, 0.0,0.0, &ti, dmin);
 
 	if( tr > rx)
 	{
@@ -217,7 +200,7 @@ rom2( long double a, long double b,
 	  {
 		ns= ns*2;
 		dz= s/ ns;
-		dzot= dz*.5l;
+		dzot= dz*.5;
 
 		for( i = 0; i < n; i++ )
 		{
@@ -231,7 +214,7 @@ rom2( long double a, long double b,
 	  } /* if( ns < npm) */
 
 	  fprintf( stderr,
-		  "xnec2c: rom2 -- step size limited at z = %12.5LE\n", z );
+		  "xnec2c: rom2 -- step size limited at z = %12.5E\n", z );
 
 	} /* if( tr > rx) */
 
@@ -262,12 +245,12 @@ rom2( long double a, long double b,
 /* sfldx returns the field due to ground for a current element on */
 /* the source segment at t relative to the segment center. */
   void
-sflds( long double t, complex long double *e )
+sflds( double t, complex double *e )
 {
-  long double xt, yt, zt, rhx, rhy, rhs, rho, phx, phy;
-  long double cph, sph, zphs, r2s, rk, sfac, thet;
-  complex long double eph, erv, ezv, erh, ezh;
-  complex long double er, et, hrv, hzv, hrh;
+  double xt, yt, zt, rhx, rhy, rhs, rho, phx, phy;
+  double cph, sph, zphs, r2s, rk, sfac, thet;
+  complex double eph, erv, ezv, erh, ezh;
+  complex double er, et, hrv, hzv, hrh;
 
   xt= dataj.xj+ t* dataj.cabj;
   yt= dataj.yj+ t* dataj.sabj;
@@ -275,14 +258,14 @@ sflds( long double t, complex long double *e )
   rhx= incom.xo- xt;
   rhy= incom.yo- yt;
   rhs= rhx* rhx+ rhy* rhy;
-  rho= sqrtl( rhs);
+  rho= sqrt( rhs);
 
-  if( rho <= 0.0l)
+  if( rho <= 0.0)
   {
-	rhx=1.0l;
-	rhy=0.0l;
-	phx=0.0l;
-	phy=1.0l;
+	rhx=1.0;
+	rhy=0.0;
+	phx=0.0;
+	phy=1.0;
   }
   else
   {
@@ -295,31 +278,31 @@ sflds( long double t, complex long double *e )
   cph= rhx* incom.xsn+ rhy* incom.ysn;
   sph= rhy* incom.xsn- rhx* incom.ysn;
 
-  if( fabsl( cph) < 1.0e-10l)
-	cph=0.0l;
-  if( fabsl( sph) < 1.0e-10l)
-	sph=0.0l;
+  if( fabs( cph) < 1.0e-10)
+	cph=0.0;
+  if( fabs( sph) < 1.0e-10)
+	sph=0.0;
 
   gwav.zph= incom.zo+ zt;
   zphs= gwav.zph* gwav.zph;
   r2s= rhs+ zphs;
-  gwav.r2= sqrtl( r2s);
+  gwav.r2= sqrt( r2s);
   rk= gwav.r2* TP;
-  gwav.xx2= cmplx( cosl( rk),- sinl( rk));
+  gwav.xx2= cmplx( cos( rk),- sin( rk));
 
   /* use norton approximation for field due to ground.
    * current is lumped at segment center with current moment
    * for constant, sine or cosine distribution. */
   if( incom.isnor != 1)
   {
-	gwav.zmh=1.0l;
-	gwav.r1=1.0l;
-	gwav.xx1=0.0l;
+	gwav.zmh=1.0;
+	gwav.r1=1.0;
+	gwav.xx1=0.0;
 	gwave( &erv, &ezv, &erh, &ezh, &eph);
 
 	et=-CONST1* gnd.frati* gwav.xx2/( r2s* gwav.r2);
-	er=2.0l* et* cmplx(1.0l, rk);
-	et= et* cmplx(1.0l - rk* rk, rk);
+	er=2.0* et* cmplx(1.0, rk);
+	et= et* cmplx(1.0 - rk* rk, rk);
 	hrv=( er+ et)* rho* gwav.zph/ r2s;
 	hzv=( zphs* er- rhs* et)/ r2s;
 	hrh=( rhs* er- zphs* et)/ r2s;
@@ -337,11 +320,11 @@ sflds( long double t, complex long double *e )
 	e[0]=( erh* rhx+ eph* phx)* dataj.s;
 	e[1]=( erh* rhy+ eph* phy)* dataj.s;
 	e[2]=( ezv+ ezh)* dataj.s;
-	e[3]=0.0l;
-	e[4]=0.0l;
-	e[5]=0.0l;
+	e[3]=0.0;
+	e[4]=0.0;
+	e[5]=0.0;
 	sfac= PI* dataj.s;
-	sfac= sinl( sfac)/ sfac;
+	sfac= sin( sfac)/ sfac;
 	e[6]= e[0]* sfac;
 	e[7]= e[1]* sfac;
 	e[8]= e[2]* sfac;
@@ -350,8 +333,8 @@ sflds( long double t, complex long double *e )
   } /* if( smat.isnor != 1) */
 
   /* interpolate in sommerfeld field tables */
-  if( rho >= 1.0e-12l)
-	thet= atanl( gwav.zph/ rho);
+  if( rho >= 1.0e-12)
+	thet= atan( gwav.zph/ rho);
   else
 	thet= POT;
 
@@ -369,12 +352,12 @@ sflds( long double t, complex long double *e )
   e[2]= ezh;
   /* x,y,z fields for sine current */
   rk= TP* t;
-  sfac= sinl( rk);
+  sfac= sin( rk);
   e[3]= e[0]* sfac;
   e[4]= e[1]* sfac;
   /* x,y,z fields for cosine current */
   e[5]= e[2]* sfac;
-  sfac= cosl( rk);
+  sfac= cos( rk);
   e[6]= e[0]* sfac;
   e[7]= e[1]* sfac;
   e[8]= e[2]* sfac;

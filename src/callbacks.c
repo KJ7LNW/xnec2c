@@ -30,156 +30,22 @@
 #include "xnec2c.h"
 #include "editors.h"
 #include "nec2_model.h"
+#include "shared.h"
 #include <gdk/gdkkeysyms.h>
 
 /* File chooser/select widgets */
 static GtkWidget *file_chooser   = NULL;
 static GtkWidget *file_selection = NULL;
 
-/* Editor windows */
-GtkWidget
-  *wire_editor		= NULL,	/* Wire designer window  */
-  *arc_editor		= NULL,	/* Arc designer window   */
-  *helix_editor		= NULL, /* Helix designer window */
-  *patch_editor		= NULL,	/* Patch designer window */
-  *reflect_editor	= NULL,	/* Reflect design window */
-  *scale_editor		= NULL,	/* Scale designer window */
-  *cylinder_editor	= NULL,	/* Cylinder designer window  */
-  *transform_editor	= NULL, /* Transform designer window */
-  *gend_editor		= NULL;	/* Geom End designer window  */
-
-/* Command windows */
-GtkWidget
-  *excitation_command= NULL, /* Ecitation command editor */
-  *frequency_command = NULL, /* Frequency command editor */
-  *ground_command	 = NULL, /* Ground command editor (GN) */
-  *ground2_command	 = NULL, /* Ground command editor (GD) */
-  *loading_command	 = NULL, /* Loading command editor 	*/
-  *network_command	 = NULL, /* Network command editor	*/
-  *txline_command	 = NULL, /* Tran Line command editor */
-  *radiation_command = NULL, /* Rad Pattern command editor */
-  *nearfield_command = NULL, /* Near Fields command editor */
-  *kernel_command	 = NULL, /* Thin-wire Kernel command editor  */
-  *intrange_command	 = NULL, /* Interaction Range command editor */
-  *execute_command	 = NULL; /* Execute (EX card) command editor */
-
-/* Radiation pattern rotation, freq and zoom spin buttons */
-GtkSpinButton *rotate_rdpattern    = NULL;
-GtkSpinButton *incline_rdpattern   = NULL;
-GtkSpinButton *rdpattern_frequency = NULL;
-GtkSpinButton *rdpattern_zoom_spinbutton = NULL;
-
-/* Frequency step entry */
-GtkEntry *rdpattern_fstep_entry = NULL;
-
-/* Main window freq spinbutton */
-extern GtkSpinButton *mainwin_frequency;
-
-/* Structure rotation spin buttons */
-extern GtkSpinButton *rotate_structure;
-extern GtkSpinButton *incline_structure;
-extern GtkSpinButton *structure_zoom_spinbutton;
-
-/* Used to kill window deleted by user */
-static GtkWidget *kill_window = NULL;
-
-/* Used in input (cards) editor */
-GtkTreeView
-  *selected_treeview = NULL, /* Tree view clicked on by user */
-  *geom_treeview = NULL,
-  *cmnd_treeview = NULL;
-
-/* Tree list stores */
-extern GtkListStore
-  *cmnt_store,
-  *geom_store,
-  *cmnd_store;
-
-/* Scroll adjustments of geometry
- * and command treeview windows */
-GtkAdjustment
-  *geom_adjustment = NULL,
-  *cmnd_adjustment = NULL;
-
-/* Main, frequency plots and radation pattern windows */
-extern GtkWidget *main_window;
-GtkWidget
-  *freqplots_window = NULL,
-  *rdpattern_window = NULL,
-  *nec2_edit_window = NULL;
-
-/* Drawing area widgets */
-GtkWidget *structure_drawingarea = NULL;
-GtkWidget *freqplots_drawingarea = NULL;
-GtkWidget *rdpattern_drawingarea = NULL;
-
-/* Motion event handler id */
-gulong rdpattern_motion_handler;
-
-/* Dialog widgets */
-GtkWidget *quit_dialog = NULL;
-GtkWidget *animate_dialog = NULL;
-extern GtkWidget *error_dialog;
-
-/* Animation timeout callback tag */
-gint anim_tag = -1;
-
-/* Pixmap for drawing structures */
-GdkPixmap *structure_pixmap = NULL;
-int structure_pixmap_width, structure_pixmap_height;
-
-/* Pixmap for drawing plots */
-GdkPixmap *freqplots_pixmap = NULL;
-int freqplots_pixmap_width, freqplots_pixmap_height;
-
-/* Pixmap for drawing radiation patterns */
-GdkPixmap *rdpattern_pixmap = NULL;
-int rdpattern_pixmap_width, rdpattern_pixmap_height;
+/* Tree view clicked on by user */
+static GtkTreeView *selected_treeview = NULL;
 
 /* Pixmap for saving drawable images */
 static GdkPixmap *saveas_pixmap = NULL;
 static int saveas_pixmap_width, saveas_pixmap_height;
 
-/* Saved data buffer */
-extern save_t save;
-
-/* Data for various calculations */
-extern calc_data_t calc_data;
-
-/* Parameters for projecting structure and rad patterns to Screen */
-extern projection_parameters_t structure_proj_params;
-extern projection_parameters_t rdpattern_proj_params;
-
-/* Field pattern data */
-extern fpat_t fpat;
-
-/* Input file name */
-extern char infile[];
-
-/* pointers to input/output files */
-extern FILE *input_fp;
-
-/* Frequency loop idle function tag */
-gint floop_tag = -1;
-
-/* Magnitude of seg/patch current/charge */
-extern double *cmag, *ct1m, *ct2m;
-
-/* Segment/patch currents structure */
-extern crnt_t crnt;
-
-/* Radiation pattern data */
-extern rad_pattern_t *rad_pattern;
-extern near_field_t near_field;
-
 /* Action flag for NEC2 "card" editors */
 static int action = EDITOR_NEW;
-
-/* Process Forked flag */
-extern gboolean FORKED;
-
-/* Commands between parent and child processes */
-extern char *comnd[];
 
 /*-----------------------------------------------------------------------*/
 
@@ -198,7 +64,7 @@ on_main_window_delete_event            (GtkWidget       *widget,
 {
   kill_window = main_window;
   SetFlag( MAIN_QUIT );
-  Delete_Event( "Really quit xnec2c?" );
+  Delete_Event( _("Really quit xnec2c?") );
   return TRUE;
 }
 
@@ -209,15 +75,15 @@ on_new_activate     	              (GtkMenuItem     *menuitem,
 {
   /* No save/open file while freq loop is running */
   if( !Nec2_Save_Warn(
-		"A new NEC2 input file may not be created\n"
-		"while the Frequency Loop is running" ) )
+		_("A new NEC2 input file may not be created\n"\
+		  "while the Frequency Loop is running") ) )
 	return;
 
   /* Save open file, if any */
   if( (input_fp != NULL) && (nec2_edit_window != NULL) )
   {
-	stop( "Saving already open NEC2 file\n"
-		"before opening new default file", ERR_OK );
+	stop( _("Saving already open NEC2 file\n"\
+		  "before opening new default file"), ERR_OK );
 	Save_Nec2_Input_File( nec2_edit_window, infile );
 	infile[0] = '\0';
   }
@@ -240,8 +106,8 @@ on_open_input_activate     		       (GtkMenuItem     *menuitem,
 {
   /* No save/open file while freq loop is running */
   if( !Nec2_Save_Warn(
-		"A new NEC2 input file may not be opened\n"
-		"while the Frequency Loop is running") )
+		_("A new NEC2 input file may not be opened\n"\
+		  "while the Frequency Loop is running")) )
 	return;
 
   /* Open file chooser to select a NEC2 input file */
@@ -329,7 +195,7 @@ on_quit_activate                       (GtkMenuItem     *menuitem,
 {
   kill_window = main_window;
   SetFlag( MAIN_QUIT );
-  Delete_Event( "Really quit xnec2c?" );
+  Delete_Event( _("Really quit xnec2c?") );
 }
 
 
@@ -574,7 +440,7 @@ on_main_colorcode_drawingarea_expose_event(	GtkWidget       *widget,
   {
 	Value_to_Color( &red, &grn, &blu, (double) (8*idx), 1280.0 );
 	cairo_set_source_rgb( cr, red, grn, blu );
-	Cairo_Draw_Line( cr, (double)idx, 0.0, (double)idx, 28.0 );
+	Cairo_Draw_Line( cr, idx, 0, idx, 28 );
   }
 
   cairo_destroy( cr );
@@ -611,7 +477,7 @@ on_main_freq_spinbutton_value_changed  (GtkSpinButton   *spinbutton,
 
 	{
 	  /* Recalc currents in structure */
-	  calc_data.fmhz = (long double)fmhz;
+	  calc_data.fmhz = (double)fmhz;
 	  g_idle_add( Redo_Currents, NULL );
 	}
 
@@ -644,7 +510,7 @@ on_main_new_freq_clicked               (GtkButton       *button,
   if( isFlagClear(FREQ_LOOP_RUNNING) )
   {
 	calc_data.fmhz =
-	  (long double)gtk_spin_button_get_value( mainwin_frequency );
+	  (double)gtk_spin_button_get_value( mainwin_frequency );
 	g_idle_add( Redo_Currents, NULL );
   }
 }
@@ -799,7 +665,7 @@ on_freqplots_window_delete_event       (GtkWidget       *widget,
 										gpointer         user_data)
 {
   kill_window = freqplots_window;
-  Delete_Event( "Really close window?" );
+  Delete_Event( _("Really close window?") );
   return TRUE;
 }
 
@@ -972,7 +838,7 @@ on_freqplots_drawingarea_button_press_event(GtkWidget       *widget,
 											GdkEventButton  *event,
 											gpointer         user_data)
 {
-  Set_Frequency_On_Click( widget, event );
+  Set_Frequency_On_Click( event );
   return TRUE;
 }
 
@@ -991,7 +857,7 @@ on_rdpattern_window_delete_event       (GtkWidget       *widget,
 										gpointer         user_data)
 {
   kill_window = rdpattern_window;
-  Delete_Event( "Really close window?" );
+  Delete_Event( _("Really close window?") );
   return TRUE;
 }
 
@@ -1264,7 +1130,7 @@ on_rdpattern_colorcode_drawingarea_expose_event(GtkWidget       *widget,
   {
 	Value_to_Color( &red, &grn, &blu, (double) (8*idx), 1280.0 );
 	cairo_set_source_rgb( cr, red, grn, blu );
-	Cairo_Draw_Line( cr, (double)idx, 0.0, (double)idx, 28.0 );
+	Cairo_Draw_Line( cr, idx, 0, idx, 28 );
   }
 
   cairo_destroy( cr );
@@ -1298,7 +1164,7 @@ on_rdpattern_freq_spinbutton_value_changed(	GtkSpinButton   *spinbutton,
 		(isFlagSet(DRAW_GAIN) || isFlagSet(DRAW_EHFIELD)) )
 	{
 	  /* Recalc currents in structure and rad pattern */
-	  calc_data.fmhz = (long double)fmhz;
+	  calc_data.fmhz = (double)fmhz;
 	  g_idle_add( Redo_Radiation_Pattern, NULL );
 	}
 
@@ -1317,7 +1183,7 @@ on_rdpattern_new_freq_clicked          (GtkButton       *button,
   if( isFlagClear(FREQ_LOOP_RUNNING) )
   {
 	calc_data.fmhz =
-	  (long double)gtk_spin_button_get_value( rdpattern_frequency );
+	  (double)gtk_spin_button_get_value( rdpattern_frequency );
 	Redo_Radiation_Pattern( NULL );
   }
 }
@@ -1384,7 +1250,7 @@ on_quit_okbutton_clicked               (GtkButton       *button,
 	  Stop_Frequency_Loop();
 	  gtk_label_set_text( GTK_LABEL(
 			lookup_widget( quit_dialog, "quit_label")),
-		  "Really quit Xnec2c?" );
+		  _("Really quit Xnec2c?") );
 	  ClearFlag( MAIN_QUIT );
 	  return;
 	}
@@ -1560,7 +1426,7 @@ on_animation_applybutton_clicked       (GtkButton       *button,
 										gpointer         user_data)
 {
   GtkSpinButton *spinbutton;
-  gint intval;
+  guint intval;
   gdouble freq, steps;
 
   spinbutton = GTK_SPIN_BUTTON( lookup_widget(animate_dialog,
@@ -1569,8 +1435,8 @@ on_animation_applybutton_clicked       (GtkButton       *button,
   spinbutton = GTK_SPIN_BUTTON( lookup_widget(animate_dialog,
 		"animate_steps_spinbutton") );
   steps = gtk_spin_button_get_value( spinbutton );
-  intval = (gint)(1000.0 / steps / freq);
-  near_field.anim_step = TP / steps;
+  intval = (guint)(1000.0 / steps / freq);
+  near_field.anim_step = (double)TP / steps;
 
   SetFlag( NEAREH_ANIMATE );
   if( anim_tag > 0 )
@@ -1585,7 +1451,7 @@ on_animation_cancelbutton_clicked      (GtkButton       *button,
 {
   ClearFlag( NEAREH_ANIMATE );
   g_source_remove( anim_tag );
-  anim_tag = -1;
+  anim_tag = 0;
 }
 
 
@@ -1594,7 +1460,7 @@ on_animation_okbutton_clicked          (GtkButton       *button,
 										gpointer         user_data)
 {
   GtkSpinButton *spinbutton;
-  gint intval;
+  guint intval;
   gdouble freq, steps;
 
   spinbutton = GTK_SPIN_BUTTON( lookup_widget(animate_dialog,
@@ -1603,8 +1469,8 @@ on_animation_okbutton_clicked          (GtkButton       *button,
   spinbutton = GTK_SPIN_BUTTON( lookup_widget(animate_dialog,
 		"animate_steps_spinbutton") );
   steps = gtk_spin_button_get_value( spinbutton );
-  intval = (gint)(1000.0 / steps / freq);
-  near_field.anim_step = TP / steps;
+  intval = (guint)(1000.0 / steps / freq);
+  near_field.anim_step = (double)TP / steps;
 
   SetFlag( NEAREH_ANIMATE );
   if( anim_tag > 0 )
@@ -1647,7 +1513,7 @@ on_nec2_edit_activate                  (GtkMenuItem     *menuitem,
   /* Abort if no open input file */
   if( input_fp == NULL )
   {
-	stop( "No open NEC2 input file", ERR_OK );
+	stop( _("No open NEC2 input file"), ERR_OK );
 	return;
   }
 
@@ -1669,7 +1535,7 @@ on_nec2_editor_delete_event            (GtkWidget       *widget,
 	{
 	  file_selection = create_fileselection();
 	  gtk_file_selection_set_filename(
-		  GTK_FILE_SELECTION(file_selection), "untitled" );
+		  GTK_FILE_SELECTION(file_selection), _("untitled") );
 	  gtk_widget_show( file_selection );
 	  ClearFlag( ALL_SAVE_FLAGS );
 	  ClearFlag( NEC2_EDIT_SAVE );
@@ -1682,7 +1548,7 @@ on_nec2_editor_delete_event            (GtkWidget       *widget,
   }
 
   kill_window = nec2_edit_window;
-  Delete_Event( "Really close NEC2 Editor?" );
+  Delete_Event( _("Really close NEC2 Editor?") );
   return TRUE;
 }
 
@@ -1707,8 +1573,8 @@ on_nec2_save_clicked(	GtkButton       *button,
 
   /* No save/open file while freq loop is running */
   if( !Nec2_Save_Warn(
-		"NEC2 Editor's data may not be saved\n"
-		"while the Frequency Loop is running") )
+		_("NEC2 Editor's data may not be saved\n"\
+		  "while the Frequency Loop is running")) )
 	return;
 
   /* Open file selector to specify file  */
@@ -1717,7 +1583,7 @@ on_nec2_save_clicked(	GtkButton       *button,
   {
 	file_selection = create_fileselection();
 	gtk_file_selection_set_filename(
-		GTK_FILE_SELECTION(file_selection), "untitled" );
+		GTK_FILE_SELECTION(file_selection), _("untitled") );
 	gtk_widget_show( file_selection );
 	ClearFlag( ALL_SAVE_FLAGS );
 	SetFlag( NEC2_SAVE );
@@ -1737,15 +1603,15 @@ on_nec2_save_as_clicked                (GtkButton       *button,
 {
   /* No save/open file while freq loop is running */
   if( !Nec2_Save_Warn(
-		"NEC2 Editor's data may not be saved\n"
-		"while the Frequency Loop is running") )
+		_("NEC2 Editor's data may not be saved\n"\
+		  "while the Frequency Loop is running")) )
 	return;
 
   /* Open file selector to specify file   */
   /* name for saving the edited NEC2 file */
   file_selection = create_fileselection();
   gtk_file_selection_set_filename(
-	  GTK_FILE_SELECTION(file_selection), "untitled" );
+	  GTK_FILE_SELECTION(file_selection), _("untitled") );
   gtk_widget_show( file_selection );
   ClearFlag( ALL_SAVE_FLAGS );
   SetFlag( NEC2_SAVE );
@@ -3611,7 +3477,7 @@ on_loop_reset_clicked                  (GtkButton       *button,
   }
 }
 
-GtkWidget *aboutdialog = NULL;
+static GtkWidget *aboutdialog = NULL;
 void
 on_about_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
@@ -3620,7 +3486,10 @@ on_about_activate                      (GtkMenuItem     *menuitem,
   {
 	aboutdialog = create_aboutdialog();
 	gtk_widget_show( aboutdialog );
-	gtk_about_dialog_set_version( GTK_ABOUT_DIALOG(aboutdialog), VERSION );
+	gtk_about_dialog_set_program_name(
+		GTK_ABOUT_DIALOG(aboutdialog), PACKAGE );
+	gtk_about_dialog_set_version(
+		GTK_ABOUT_DIALOG(aboutdialog), VERSION );
   }
 }
 

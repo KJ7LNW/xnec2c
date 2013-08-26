@@ -23,46 +23,7 @@
  */
 
 #include "fork.h"
-
-/* Pointers to input/output files */
-extern FILE *input_fp;
-extern char infile[81];
-
-/* Data needed during prog execution */
-extern calc_data_t calc_data;
-
-/* common  /crnt/ */
-extern crnt_t crnt;
-
-/* common /fpat/ */
-extern fpat_t fpat;
-
-/* Network data */
-extern netcx_t netcx;
-
-/* Input impedance data */
-extern impedance_data_t impedance_data;
-
-/* Geometry data (common /data/) */
-extern data_t data;
-
-/* Near E/H field data */
-extern near_field_t near_field;
-
-/* Radiation pattern data */
-extern rad_pattern_t *rad_pattern;
-
-/* Saved data buffer */
-extern save_t save;
-
-/* Forked process data */
-extern forked_proc_data_t **forked_proc_data;
-
-/* Number of child process */
-extern int num_child_procs;
-
-/* Commands between parent and child processes */
-extern char *fork_commands[];
+#include "shared.h"
 
 /*-----------------------------------------------------------------------*/
 
@@ -74,10 +35,10 @@ extern char *fork_commands[];
   void
 Child_Process( int num_child )
 {
-  int retval;	/* Return from select()/read() etc */
-  char cmnd[8];	/* Command string received from parent */
-  char *buff;	/* Passes address of variables to read()/write() */
-  size_t cnt;	/* Size of data buffers for read()/write() */
+  ssize_t retval;	/* Return from select()/read() etc */
+  char cmnd[8];		/* Command string received from parent */
+  char *buff;		/* Passes address of variables to read()/write() */
+  size_t cnt;		/* Size of data buffers for read()/write() */
 
   /* Close unwanted pipe ends */
   close( forked_proc_data[num_child]->pnt2child_pipe[WRITE] );
@@ -111,15 +72,15 @@ Child_Process( int num_child )
 	  case FRQDATA: /* Calculate currents and pass on */
 		/* Get new frequency */
 		buff = (char *)&calc_data.fmhz;
-		cnt = sizeof( long double );
-		Read_Pipe( num_child, buff, cnt, TRUE );
+		cnt = sizeof( double );
+		Read_Pipe( num_child, buff, (ssize_t)cnt, TRUE );
 
 		/* Frequency buffers in children
 		 * are for current frequency only */
 		calc_data.fstep = 0;
 
 		/* Clear "last-used-frequency" buffer */
-		save.last_freq = 0.0l;
+		save.last_freq = 0.0;
 
 		/* Set flags */
 		SetFlag( FREQ_LOOP_RUNNING );
@@ -136,7 +97,7 @@ Child_Process( int num_child )
 
 		  /* Set near field flags */
 		  cnt = sizeof( flag );
-		  Read_Pipe( num_child, &flag, cnt, TRUE );
+		  Read_Pipe( num_child, &flag, (ssize_t)cnt, TRUE );
 
 		  if( flag & E_HFIELD )
 			SetFlag( DRAW_EHFIELD );
@@ -189,7 +150,7 @@ Child_Input_File( void )
   ClearFlag( INPUT_PENDING );
 
   /* Initialize xnec2c child */
-  save.last_freq = 0.0l;
+  save.last_freq = 0.0;
   crnt.newer = crnt.valid = 0;
 
 } /* Child_Input_FIle() */
@@ -219,8 +180,8 @@ Fork_Command( const char *cdstr )
  *
  * Reads data from a pipe (child and parent processes)
  */
-  int
-Read_Pipe( int idx, char *str, size_t len, gboolean err )
+  ssize_t
+Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
 {
   ssize_t retval;
   int pipefd;
@@ -237,7 +198,7 @@ Read_Pipe( int idx, char *str, size_t len, gboolean err )
 	_exit(0);
   }
 
-  retval = read( pipefd, str, len );
+  retval = read( pipefd, str, (size_t)len );
   if( (retval == -1) || ((retval != len) && err ) )
   {
 	perror( "xnec2c: Read_Pipe(): read()" );
@@ -255,8 +216,8 @@ Read_Pipe( int idx, char *str, size_t len, gboolean err )
  *
  * Writes data to a pipe (child and parent processes)
  */
-  int
-Write_Pipe( int idx, char *str, size_t len, gboolean err )
+  ssize_t
+Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
 {
   ssize_t retval;
   int pipefd;
@@ -273,7 +234,7 @@ Write_Pipe( int idx, char *str, size_t len, gboolean err )
 	_exit(0);
   }
 
-  retval = write( pipefd, str, len );
+  retval = write( pipefd, str, (size_t)len );
   if( (retval == -1) || ((retval != len) && err) )
   {
 	perror( "xnec2c: write()" );
@@ -291,12 +252,12 @@ Write_Pipe( int idx, char *str, size_t len, gboolean err )
  *
  * Reads data from a pipe (used by parent process)
  */
-  int
-PRead_Pipe( int idx, char *str, size_t len, gboolean err )
+  ssize_t
+PRead_Pipe( int idx, char *str, ssize_t len, gboolean err )
 {
   ssize_t retval;
 
-  retval = read( forked_proc_data[idx]->child2pnt_pipe[READ], str, len );
+  retval = read( forked_proc_data[idx]->child2pnt_pipe[READ], str, (size_t)len );
   if( (retval == -1) || ((retval != len) && err ) )
   {
 	perror( "xnec2c: PRead_Pipe(): read()" );
@@ -322,28 +283,28 @@ Pass_Freq_Data( void )
   /*** Total of bytes to read/write thru pipe ***/
   buff_size =
 	/* Current & charge data (a, b, c, ir & ii) */
-	6 * data.npm * sizeof( long double ) +
+	(size_t)(6 * data.npm) * sizeof( double ) +
 	/* Complex current (crnt.cur) */
-	data.np3m * sizeof( complex long double ) +
+	(size_t)data.np3m * sizeof( complex double ) +
 	/* newer and valid flags */
 	2 * sizeof(char) +
 	/* Impedance data */
 	4 * sizeof(double) +
 	/* Network data */
-	sizeof(complex long double);
+	sizeof(complex double);
 
   /* Radiation pattern data if enabled */
   if( isFlagSet(ENABLE_RDPAT) )
   {
 	buff_size +=
 	  /* Gain total, tilt, axial ratio */
-	  3 * fpat.nph * fpat.nth * sizeof(double) +
+	  (size_t)(3 * fpat.nph * fpat.nth) * sizeof(double) +
 	  /* max & min gain, tht & phi angles */
-	  4 * NUM_POL * sizeof(double) +
+	  (size_t)(4 * NUM_POL) * sizeof(double) +
 	  /* max and min gain index */
-	  2 * NUM_POL * sizeof(int) +
+	  (size_t)(2 * NUM_POL) * sizeof(int) +
 	  /* Polarization sens */
-	  fpat.nph * fpat.nth * sizeof(int) +
+	  (size_t)(fpat.nph * fpat.nth) * sizeof(int) +
 	  /* New pattern flag */
 	  sizeof( char );
   }
@@ -357,14 +318,14 @@ Pass_Freq_Data( void )
 	/* Near E field data */
 	if( fpat.nfeh & NEAR_EFIELD )
 	  buff_size +=
-		( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
+		(size_t)( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
 	/* Near H field data */
 	if( fpat.nfeh & NEAR_HFIELD )
 	  buff_size +=
-		( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
+		(size_t)( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
 	/* Co-ordinates of field points */
 	buff_size +=
-	  ( 3 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double) +
+	  (size_t)( 3 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double) +
 	  /* newer & valid flags */
 	  2 * sizeof(char);
   }
@@ -379,7 +340,7 @@ Pass_Freq_Data( void )
   Mem_Copy( buff, buff, 0, WRITE );
 
   /* Pass on current and charge data */
-  cnt =  data.npm * sizeof( long double );
+  cnt =  (size_t)data.npm * sizeof( double );
   Mem_Copy( buff, (char *)crnt.air, cnt, WRITE );
   Mem_Copy( buff, (char *)crnt.aii, cnt, WRITE );
   Mem_Copy( buff, (char *)crnt.bir, cnt, WRITE );
@@ -387,7 +348,7 @@ Pass_Freq_Data( void )
   Mem_Copy( buff, (char *)crnt.cir, cnt, WRITE );
   Mem_Copy( buff, (char *)crnt.cii, cnt, WRITE );
 
-  cnt = data.np3m * sizeof( complex long double );
+  cnt = (size_t)data.np3m * sizeof( complex double );
   Mem_Copy( buff, (char *)crnt.cur, cnt, WRITE );
 
   cnt = sizeof( char );
@@ -402,28 +363,28 @@ Pass_Freq_Data( void )
   Mem_Copy( buff, (char *)&impedance_data.zphase[0], cnt, WRITE );
 
   /* Network data */
-  cnt = sizeof(complex long double);
+  cnt = sizeof(complex double);
   Mem_Copy( buff, (char *)&netcx.zped, cnt, WRITE );
 
   /* Pass on radiation pattern data if enabled */
   if( isFlagSet(ENABLE_RDPAT) )
   {
-	cnt = fpat.nph * fpat.nth * sizeof(double);
+	cnt = (size_t)(fpat.nph * fpat.nth) * sizeof(double);
 	Mem_Copy( buff, (char *)rad_pattern[0].gtot, cnt, WRITE );
 	Mem_Copy( buff, (char *)rad_pattern[0].tilt, cnt, WRITE );
 	Mem_Copy( buff, (char *)rad_pattern[0].axrt, cnt, WRITE );
 
-	cnt = NUM_POL * sizeof(double);
+	cnt = (size_t)NUM_POL * sizeof(double);
 	Mem_Copy( buff, (char *)rad_pattern[0].max_gain, cnt, WRITE );
 	Mem_Copy( buff, (char *)rad_pattern[0].min_gain, cnt, WRITE );
 	Mem_Copy( buff, (char *)rad_pattern[0].max_gain_tht, cnt, WRITE );
 	Mem_Copy( buff, (char *)rad_pattern[0].max_gain_phi, cnt, WRITE );
 
-	cnt = NUM_POL * sizeof(int);
+	cnt = (size_t)NUM_POL * sizeof(int);
 	Mem_Copy( buff, (char *)rad_pattern[0].max_gain_idx, cnt, WRITE );
 	Mem_Copy( buff, (char *)rad_pattern[0].min_gain_idx, cnt, WRITE );
 
-	cnt = fpat.nph * fpat.nth * sizeof(int);
+	cnt = (size_t)(fpat.nph * fpat.nth) * sizeof(int);
 	Mem_Copy( buff, (char *)rad_pattern[0].sens, cnt, WRITE );
 
 	if( isFlagSet(DRAW_NEW_RDPAT) )
@@ -440,7 +401,7 @@ Pass_Freq_Data( void )
 	/* Magnitude and phase of E field */
 	if( fpat.nfeh & NEAR_EFIELD )
 	{
-	  cnt = fpat.nrx * fpat.nry * fpat.nrz * sizeof(double);
+	  cnt = (size_t)(fpat.nrx * fpat.nry * fpat.nrz) * sizeof(double);
 	  Mem_Copy( buff, (char *)near_field.ex, cnt, WRITE );
 	  Mem_Copy( buff, (char *)near_field.ey, cnt, WRITE );
 	  Mem_Copy( buff, (char *)near_field.ez, cnt, WRITE );
@@ -458,7 +419,7 @@ Pass_Freq_Data( void )
 	/* Magnitude and phase of H fields */
 	if( fpat.nfeh & NEAR_HFIELD )
 	{
-	  cnt = fpat.nrx * fpat.nry * fpat.nrz * sizeof(double);
+	  cnt = (size_t)(fpat.nrx * fpat.nry * fpat.nrz) * sizeof(double);
 	  Mem_Copy( buff, (char *)near_field.hx, cnt, WRITE );
 	  Mem_Copy( buff, (char *)near_field.hy, cnt, WRITE );
 	  Mem_Copy( buff, (char *)near_field.hz, cnt, WRITE );
@@ -474,7 +435,7 @@ Pass_Freq_Data( void )
 	}
 
 	/* Co-ordinates of field points */
-	cnt = fpat.nrx * fpat.nry * fpat.nrz * sizeof(double);
+	cnt = (size_t)(fpat.nrx * fpat.nry * fpat.nrz) * sizeof(double);
 	Mem_Copy( buff, (char *)near_field.px, cnt, WRITE );
 	Mem_Copy( buff, (char *)near_field.py, cnt, WRITE );
 	Mem_Copy( buff, (char *)near_field.pz, cnt, WRITE );
@@ -488,7 +449,7 @@ Pass_Freq_Data( void )
   } /* if( isFlagSet(DRAW_EHFIELD) ) */
 
   /* Pass data accumulated in buffer if child */
-  Write_Pipe( num_child_procs, buff, buff_size, TRUE );
+  Write_Pipe( num_child_procs, buff, (ssize_t)buff_size, TRUE );
 
   free_ptr( (void *)&buff );
 
@@ -511,28 +472,28 @@ Get_Freq_Data( int idx, int fstep )
   /*** Total of bytes to read/write thru pipe ***/
   buff_size =
 	/* Current & charge data (a, b, c ir & ii) */
-	6 * data.npm * sizeof( long double ) +
+	(size_t)(6 * data.npm) * sizeof( double ) +
 	/* Complex current (crnt.cur) */
-	data.np3m * sizeof( complex long double ) +
+	(size_t)data.np3m * sizeof( complex double ) +
 	/* newer and valid flags */
 	2 * sizeof(char) +
 	/* Impedance data */
 	4 * sizeof(double) +
 	/* Network data */
-	sizeof(complex long double);
+	sizeof(complex double);
 
   /* Radiation pattern data if enabled */
   if( isFlagSet(ENABLE_RDPAT) )
   {
 	buff_size +=
 	  /* Gain total, tilt, axial ratio */
-	  3 * fpat.nph * fpat.nth * sizeof(double) +
+	  (size_t)(3 * fpat.nph * fpat.nth) * sizeof(double) +
 	  /* max & min gain, tht & phi angles */
-	  4 * NUM_POL * sizeof(double) +
+	  (size_t)(4 * NUM_POL) * sizeof(double) +
 	  /* max and min gain index */
-	  2 * NUM_POL * sizeof(int) +
+	  (size_t)(2 * NUM_POL) * sizeof(int) +
 	  /* Polarization sens */
-	  fpat.nph * fpat.nth * sizeof(int) +
+	  (size_t)(fpat.nph * fpat.nth) * sizeof(int) +
 	  /* New pattern flag */
 	  sizeof( char );
   }
@@ -547,14 +508,14 @@ Get_Freq_Data( int idx, int fstep )
 	/* Near E field data */
 	if( fpat.nfeh & NEAR_EFIELD )
 	  buff_size +=
-		( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
+		(size_t)( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
 	/* Near H field data */
 	if( fpat.nfeh & NEAR_HFIELD )
 	  buff_size +=
-		( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
+		(size_t)( 10 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double);
 	/* Co-ordinates of field points */
 	buff_size +=
-	  ( 3 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double) +
+	  (size_t)( 3 * fpat.nrx * fpat.nry * fpat.nrz + 1 ) * sizeof(double) +
 	  /* newer & valid flags */
 	  2 * sizeof(char);
   }
@@ -566,10 +527,10 @@ Get_Freq_Data( int idx, int fstep )
   Mem_Copy( buff, buff, 0, READ );
 
   /* Get data accumulated in buffer if child */
-  PRead_Pipe( idx, buff, buff_size, TRUE );
+  PRead_Pipe( idx, buff, (ssize_t)buff_size, TRUE );
 
   /* Get current and charge data */
-  cnt =  data.npm * sizeof( long double );
+  cnt =  (size_t)data.npm * sizeof( double );
   Mem_Copy( buff, (char *)crnt.air, cnt, READ );
   Mem_Copy( buff, (char *)crnt.aii, cnt, READ );
   Mem_Copy( buff, (char *)crnt.bir, cnt, READ );
@@ -577,7 +538,7 @@ Get_Freq_Data( int idx, int fstep )
   Mem_Copy( buff, (char *)crnt.cir, cnt, READ );
   Mem_Copy( buff, (char *)crnt.cii, cnt, READ );
 
-  cnt = data.np3m * sizeof( complex long double );
+  cnt = (size_t)data.np3m * sizeof( complex double );
   Mem_Copy( buff, (char *)crnt.cur, cnt, READ );
 
   cnt = sizeof( char );
@@ -592,28 +553,28 @@ Get_Freq_Data( int idx, int fstep )
   Mem_Copy( buff, (char *)&impedance_data.zphase[fstep], cnt, READ );
 
   /* Get network data */
-  cnt = sizeof(complex long double);
+  cnt = sizeof(complex double);
   Mem_Copy( buff, (char *)&netcx.zped, cnt, READ );
 
   /* Get radiation pattern data if enabled */
   if( isFlagSet(ENABLE_RDPAT) )
   {
-	cnt = fpat.nph * fpat.nth * sizeof(double);
+	cnt = (size_t)(fpat.nph * fpat.nth) * sizeof(double);
 	Mem_Copy( buff, (char *)rad_pattern[fstep].gtot, cnt, READ );
 	Mem_Copy( buff, (char *)rad_pattern[fstep].tilt, cnt, READ );
 	Mem_Copy( buff, (char *)rad_pattern[fstep].axrt, cnt, READ );
 
-	cnt = NUM_POL * sizeof(double);
+	cnt = (size_t)NUM_POL * sizeof(double);
 	Mem_Copy( buff, (char *)rad_pattern[fstep].max_gain, cnt, READ );
 	Mem_Copy( buff, (char *)rad_pattern[fstep].min_gain, cnt, READ );
 	Mem_Copy( buff, (char *)rad_pattern[fstep].max_gain_tht, cnt, READ );
 	Mem_Copy( buff, (char *)rad_pattern[fstep].max_gain_phi, cnt, READ );
 
-	cnt = NUM_POL * sizeof(int);
+	cnt = (size_t)NUM_POL * sizeof(int);
 	Mem_Copy( buff, (char *)rad_pattern[fstep].max_gain_idx, cnt, READ );
 	Mem_Copy( buff, (char *)rad_pattern[fstep].min_gain_idx, cnt, READ );
 
-	cnt = fpat.nph * fpat.nth * sizeof(int);
+	cnt = (size_t)(fpat.nph * fpat.nth) * sizeof(int);
 	Mem_Copy( buff, (char *)rad_pattern[fstep].sens, cnt, READ );
 
 	Mem_Copy( buff, &flag, sizeof(flag), READ );
@@ -626,7 +587,7 @@ Get_Freq_Data( int idx, int fstep )
 	/* Magnitude and phase of E field */
 	if( fpat.nfeh & NEAR_EFIELD )
 	{
-	  cnt = fpat.nrx * fpat.nry * fpat.nrz * sizeof(double);
+	  cnt = (size_t)(fpat.nrx * fpat.nry * fpat.nrz) * sizeof(double);
 	  Mem_Copy( buff, (char *)near_field.ex, cnt, READ );
 	  Mem_Copy( buff, (char *)near_field.ey, cnt, READ );
 	  Mem_Copy( buff, (char *)near_field.ez, cnt, READ );
@@ -644,7 +605,7 @@ Get_Freq_Data( int idx, int fstep )
 	/* Magnitude and phase of H fields */
 	if( fpat.nfeh & NEAR_HFIELD )
 	{
-	  cnt = fpat.nrx * fpat.nry * fpat.nrz * sizeof(double);
+	  cnt = (size_t)(fpat.nrx * fpat.nry * fpat.nrz) * sizeof(double);
 	  Mem_Copy( buff, (char *)near_field.hx, cnt, READ );
 	  Mem_Copy( buff, (char *)near_field.hy, cnt, READ );
 	  Mem_Copy( buff, (char *)near_field.hz, cnt, READ );
@@ -660,7 +621,7 @@ Get_Freq_Data( int idx, int fstep )
 	}
 
 	/* Co-ordinates of field points */
-	cnt = fpat.nrx * fpat.nry * fpat.nrz * sizeof(double);
+	cnt = (size_t)(fpat.nrx * fpat.nry * fpat.nrz) * sizeof(double);
 	Mem_Copy( buff, (char *)near_field.px, cnt, READ );
 	Mem_Copy( buff, (char *)near_field.py, cnt, READ );
 	Mem_Copy( buff, (char *)near_field.pz, cnt, READ );

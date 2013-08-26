@@ -1200,7 +1200,6 @@ to Plane of Screen</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
 		  <signal name="clicked" handler="on_structure_one_button_clicked" last_modification_time="Fri, 25 May 2012 08:48:03 GMT"/>
-		  <accelerator key="1" modifiers="0" signal="clicked"/>
 
 		  <child>
 		    <widget class="GtkImage" id="image96">
@@ -1250,6 +1249,7 @@ to Plane of Screen</property>
   <property name="modal">False</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
+  <property name="role">GtkFileChooserDialog</property>
   <property name="decorated">True</property>
   <property name="skip_taskbar_hint">False</property>
   <property name="skip_pager_hint">False</property>
@@ -3422,7 +3422,6 @@ to Plane of Screen</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
 		  <signal name="clicked" handler="on_rdpattern_one_button_clicked" last_modification_time="Fri, 25 May 2012 09:45:00 GMT"/>
-		  <accelerator key="1" modifiers="0" signal="clicked"/>
 
 		  <child>
 		    <widget class="GtkImage" id="image100">

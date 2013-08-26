@@ -21,8 +21,9 @@
 #define	RADIATION_H		1
 
 #include "common.h"
+#include "support.h"
 
-#define	CONST3	(0.0l-29.97922085lj)
+#define	CONST3	(0.0-I*29.97922085)
 
 #endif
 

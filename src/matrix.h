@@ -21,8 +21,9 @@
 #define	MATRIX_H	1
 
 #include "common.h"
+#include "support.h"
 
-#define	RETA	2.654420938E-3l
+#define	RETA	2.654420938E-3
 
 #endif
 

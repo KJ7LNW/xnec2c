@@ -24,9 +24,7 @@
  */
 
 #include "draw.h"
-
-/* Structure drawingarea */
-extern GtkWidget *structure_drawingarea;
+#include "shared.h"
 
 /*-----------------------------------------------------------------------*/
 
@@ -209,7 +207,7 @@ Value_to_Color( double *red, double *grn, double *blu, double val, double max )
   int ival;
 
   /* Scale val so that normalized ival is 0-1279 */
-  ival = (int)(1279.0l * val / max);
+  ival = (int)(1279.0 * val / max);
 
   /* Color hue according to imag value */
   switch( ival/256 )
