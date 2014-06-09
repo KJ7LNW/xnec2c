@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -613,19 +612,10 @@ gshank( complex double start, complex double dela,
 	  b=bk;
 	  del=delb;
 	  rom1(nans,sum,2);
-	  if( ibx != 2 )
-	  {
-		for( i = 0; i < nans; i++ )
-		  ans2[i] += sum[i];
-		intx = 0;
-		continue;
-	  }
-
 	  for( i = 0; i < nans; i++ )
-		ans2[i]=ans1[i]+sum[i];
+		ans2[i] += sum[i];
 	  intx = 0;
 	  continue;
-
 	} /* if( (ibx == 0) && (creal(b) >= rbk) ) */
 
 	rom1(nans,sum,2);
@@ -641,14 +631,6 @@ gshank( complex double start, complex double dela,
 	  b=bk;
 	  del=delb;
 	  rom1(nans,sum,2);
-	  if( ibx != 2 )
-	  {
-		for( i = 0; i < nans; i++ )
-		  ans2[i] += sum[i];
-		intx = 0;
-		continue;
-	  }
-
 	  for( i = 0; i < nans; i++ )
 		ans2[i] = ans1[i]+sum[i];
 	  intx = 0;
@@ -1061,12 +1043,6 @@ void rom1( int n, complex double *sum, int nx )
 
 	for( i = 0; i < n; i++ )
 	  g1[i]=g5[i];
-
-	if( (nt >= NTS) && (ns > nx) )
-	{
-	  ns /= 2;
-	  nt=1;
-	}
 
 	jump = FALSE;
 

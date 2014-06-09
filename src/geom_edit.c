@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -45,10 +44,10 @@ Wire_Editor( int action )
 	iter_gw,
 	iter_gc;
 
-  int idx;
+  int idx, idi;
 
   static gboolean
-	load   = FALSE, /* Enable wire loading (conductivity specified) */
+		   load   = FALSE, /* Enable wire loading (conductivity specified) */
 		   taper  = FALSE, /* Editing a tapered wire */
 		   save   = FALSE, /* Enable saving of editor data */
 		   busy   = FALSE, /* Block callbacks. Must be a better way to do this? */
@@ -121,18 +120,21 @@ Wire_Editor( int action )
   } /* if( (action & EDITOR_SAVE) && save ) */
 
   /* Read int data from the wire editor */
-  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(wire_editor, ispin[idx]) );
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+	spin = GTK_SPIN_BUTTON( lookup_widget(wire_editor, ispin[idi]) );
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
+
   /* Read float data from the wire editor */
-  for( idx = WIRE_X1; idx <= WIRE_LEN; idx++ )
+  for( idx = WIRE_X1; idx <= WIRE_RES; idx++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(wire_editor, fspin[idx]) );
 	fv[idx] = gtk_spin_button_get_value( spin );
   }
-  fv[WIRE_DIA] /= 2.0; fv[WIRE_DIA1] /= 2.0; fv[WIRE_DIAN] /= 2.0;
+  fv[WIRE_DIA]  /= 2.0;
+  fv[WIRE_DIA1] /= 2.0;
+  fv[WIRE_DIAN] /= 2.0;
 
   /* Respond to user action */
   switch( action )
@@ -148,7 +150,6 @@ Wire_Editor( int action )
 
 	  /* Some default values */
 	  iv[SPIN_COL_I1] = ++gbl_tag_num;
-	  if( s > 0.0 )	load = TRUE; /* Enable wire loading */
 	  iv[SPIN_COL_I3] = iv[SPIN_COL_I4] = 0;
 
 	  if( taper )
@@ -201,6 +202,10 @@ Wire_Editor( int action )
 
 		/* Get wire data from tree view */
 		Get_Geometry_Data( geom_store, &iter_gw, iv, fv );
+
+		/* Get wire conductivity if specified in LD card */
+		Get_Wire_Conductivity(iv[SPIN_COL_I1], &s, cmnd_store);
+		fv[WIRE_RES] = s;
 
 		/*** Get tapered wire data if dia = 0 ***/
 		if( fv[WIRE_DIA] == 0.0 )
@@ -275,13 +280,18 @@ Wire_Editor( int action )
 	  spin = GTK_SPIN_BUTTON( lookup_widget(
 			wire_editor, fspin[WIRE_RES]) );
 	  s = gtk_spin_button_get_value( spin );
-	  if( s > 0.0 ) save = load = TRUE;
+	  if( s > 0.0 )
+	  {
+		save = TRUE;
+		load = TRUE;
+	  }
+	  else load = FALSE;
 	  break;
 
 	case EDITOR_TAGNUM: /* Tag number edited by user */
 	  gbl_tag_num = iv[SPIN_COL_I1];
 	  save = TRUE;
-	  if( s > 0.0 )	load = TRUE;
+	  if( s > 0.0 ) load = TRUE;
 	  break;
 
 	case EDITOR_SEGPC: /* Segment length as % of smallest wavelength */
@@ -402,16 +412,16 @@ Wire_Editor( int action )
 	newrdm = TRUE;
 
   /* Write int data to the wire editor */
-  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(wire_editor, ispin[idx]) );
-	gtk_spin_button_set_value( spin, iv[idx] );
+		lookup_widget(wire_editor, ispin[idi]) );
+	gtk_spin_button_set_value( spin, iv[idi] );
   }
 
   /* Write float data to the wire editor (F1 to F7 and taper) */
   fv[WIRE_DIA] *= 2.0; fv[WIRE_DIA1] *= 2.0; fv[WIRE_DIAN] *= 2.0;
-  for( idx = WIRE_X1; idx <= WIRE_LEN; idx++ )
+  for( idx = WIRE_X1; idx <= WIRE_RES; idx++ )
   {
 	spin = GTK_SPIN_BUTTON(
 		lookup_widget(wire_editor, fspin[idx]) );
@@ -442,7 +452,7 @@ Patch_Editor( int action )
 	iter_sp,
 	iter_sc;
 
-  int idx;
+  int idx, idi;
 
   /* Patch type */
   static int ptype = PATCH_ARBT;
@@ -524,12 +534,12 @@ Patch_Editor( int action )
   }
   else
 	/* Read int data from the patch editor (SM card) */
-	for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+	for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
 	{
 	  spin = GTK_SPIN_BUTTON(
-		  lookup_widget(patch_editor, ispin[idx]) );
+		  lookup_widget(patch_editor, ispin[idi]) );
 	  double i = gtk_spin_button_get_value( spin );
-	  iv[idx] = (gint)i;
+	  iv[idi] = (gint)i;
 	}
 
   /* Read float data from the patch editor */
@@ -792,16 +802,16 @@ Patch_Editor( int action )
   }
 
   /* Set card name */
-  strcpy( name, (ptype == PATCH_SURF ? "SM" : "SP") );
+  Strlcpy( name, (ptype == PATCH_SURF ? "SM" : "SP"), sizeof(name) );
   if( gtk_list_store_iter_is_valid(geom_store, &iter_sp) && save )
 	gtk_list_store_set( geom_store, &iter_sp, GEOM_COL_NAME, name, -1 );
 
   /* Write int data for SM card */
   if( ptype == PATCH_SURF )
-	for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+	for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
 	{
-	  spin = GTK_SPIN_BUTTON( lookup_widget(patch_editor, ispin[idx]) );
-	  gtk_spin_button_set_value( spin, iv[idx] );
+	  spin = GTK_SPIN_BUTTON( lookup_widget(patch_editor, ispin[idi]) );
+	  gtk_spin_button_set_value( spin, iv[idi] );
 	}
 
   /* Write float data to the patch editor */
@@ -838,10 +848,10 @@ Arc_Editor( int action )
   /* For reading/writing to GA rows */
   static GtkTreeIter iter_ga;
 
-  int idx;
+  int idx, idi;
 
   static gboolean
-	load   = FALSE, /* Enable wire loading (conductivity specified) */
+		   load   = FALSE, /* Enable wire loading (conductivity specified) */
 		   newpcl = TRUE,  /* New percent-of-lambda value  */
 		   save   = FALSE, /* Enable saving of editor data */
 		   busy   = FALSE; /* Block callbacks. Must be a better way to do this? */
@@ -888,23 +898,27 @@ Arc_Editor( int action )
 	if( load )
 	  Set_Wire_Conductivity( iv[SPIN_COL_I1], s, cmnd_store );
 
-	save = FALSE;
+	save = load = FALSE;
   } /* if( (action & EDITOR_SAVE) && save ) */
 
   /* Read int data from the arc editor */
-  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(arc_editor, ispin[idx]) );
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+	spin = GTK_SPIN_BUTTON( lookup_widget(arc_editor, ispin[idi]) );
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the arc editor */
-  for( idx = ARC_RAD; idx <= ARC_RES; idx++ )
+  for( idx = ARC_RAD; idx <= ARC_PCL; idx++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(arc_editor, fspin[idx]) );
 	fv[idx] = gtk_spin_button_get_value( spin );
   }
   fv[ARC_DIA] /= 2.0;
+
+  /* Get wire conductivity */
+  spin = GTK_SPIN_BUTTON( lookup_widget(arc_editor, fspin[idx]) );
+  s = gtk_spin_button_get_value( spin );
 
   /* Respond to user action */
   switch( action )
@@ -937,6 +951,9 @@ Arc_Editor( int action )
 	  /* Get arc data from tree view */
 	  Get_Geometry_Data(
 		  geom_store, &iter_ga, iv, fv );
+
+	  /* Get wire conductivity if specified in LD card */
+	  Get_Wire_Conductivity(iv[SPIN_COL_I1], &s, cmnd_store);
 	  break;
 
 	case EDITOR_CANCEL: /* Cancel arc editor */
@@ -953,7 +970,12 @@ Arc_Editor( int action )
 	  spin = GTK_SPIN_BUTTON( lookup_widget(
 			arc_editor, fspin[SPIN_COL_F6]) );
 	  s = gtk_spin_button_get_value( spin );
-	  if( s > 0.0 ) save = load = TRUE;
+	  if( s > 0.0 )
+	  {
+		save = TRUE;
+		load = TRUE;
+	  }
+	  else load = FALSE;
 	  break;
 
 	case EDITOR_TAGNUM: /* Tag number edited by user */
@@ -989,22 +1011,26 @@ Arc_Editor( int action )
 	newpcl = TRUE;
 
   /* Write int data to the arc editor */
-  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(arc_editor, ispin[idx]) );
-	gtk_spin_button_set_value( spin, iv[idx] );
+		lookup_widget(arc_editor, ispin[idi]) );
+	gtk_spin_button_set_value( spin, iv[idi] );
   }
 
   /* Write float data to the arc editor (F1 to F4 & pcl/resistance) */
   fv[ARC_DIA] *= 2.0;
-  for( idx = ARC_RAD; idx <= ARC_RES; idx++ )
+  for( idx = ARC_RAD; idx <= ARC_PCL; idx++ )
   {
 	spin = GTK_SPIN_BUTTON(
 		lookup_widget(arc_editor, fspin[idx]) );
 	gtk_spin_button_set_value( spin, fv[idx] );
   }
   fv[ARC_DIA] /= 2.0;
+
+  spin = GTK_SPIN_BUTTON(
+	  lookup_widget(arc_editor, fspin[idx]) );
+  gtk_spin_button_set_value( spin, s );
 
   /* Wait for GTK to complete its tasks */
   while( g_main_context_iteration(NULL, FALSE) );
@@ -1028,11 +1054,11 @@ Helix_Editor( int action )
   /* For reading/writing to GH rows */
   static GtkTreeIter iter_gh;
 
-  gint idx;
+  gint idx, idi;
   gdouble ftmp;
 
   static gboolean
-	load    = FALSE, /* Enable wire loading (conductivity specified) */
+			load    = FALSE, /* Enable wire loading (conductivity specified) */
 			linkall = TRUE,  /* Link all radius spinbuttons  */
 			linkzo  = FALSE, /* Link X, Y @ Z=0 spinbuttons  */
 			linkzhl = FALSE, /* Link X, Y @ Z=HL spinbuttons */
@@ -1043,7 +1069,7 @@ Helix_Editor( int action )
 			busy    = FALSE; /* Block callbacks. Must be a better way to do this? */
 
   /* Float type data, wire conductivity */
-  static gdouble fv[9], s = 0.0;
+  static gdouble fv[10], s = 0.0;
 
   /* Integer type data */
   static gint iv[2];
@@ -1102,14 +1128,14 @@ Helix_Editor( int action )
   } /* if( (action & EDITOR_SAVE) && save ) */
 
   /* Read int data from the helix editor */
-  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(helix_editor, ispin[idx]) );
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+		lookup_widget(helix_editor, ispin[idi]) );
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
   /* Read float data from the helix editor */
-  for( idx = HELIX_TSPACE; idx <= HELIX_NTURN; idx++ )
+  for( idx = HELIX_TSPACE; idx <= HELIX_RES; idx++ )
   {
 	spin = GTK_SPIN_BUTTON(
 		lookup_widget(helix_editor, fspin[idx]) );
@@ -1159,6 +1185,10 @@ Helix_Editor( int action )
 	  /* Get helix data from tree view */
 	  Get_Geometry_Data( geom_store, &iter_gh, iv, fv );
 
+	  /* Get wire conductivity if specified in LD card */
+	  Get_Wire_Conductivity(iv[SPIN_COL_I1], &s, cmnd_store);
+	  fv[HELIX_RES] = s;
+
 	  /* Set LH/RH helix check button */
 	  {
 		GtkToggleButton *toggle =
@@ -1193,7 +1223,12 @@ Helix_Editor( int action )
 	  spin = GTK_SPIN_BUTTON(lookup_widget(
 			helix_editor, fspin[HELIX_RES]));
 	  s = gtk_spin_button_get_value( spin );
-	  if( s > 0.0 ) save = load = TRUE;
+	  if( s > 0.0 )
+	  {
+		save = TRUE;
+		load = TRUE;
+	  }
+	  else load = FALSE;
 	  break;
 
 	case EDITOR_TAGNUM: /* Tag number edited by user */
@@ -1279,17 +1314,17 @@ Helix_Editor( int action )
 	newspc = TRUE;
 
   /* Write int data to the helix editor */
-  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  helix_editor, ispin[idx]) );
-	gtk_spin_button_set_value( spin, iv[idx] );
+		  helix_editor, ispin[idi]) );
+	gtk_spin_button_set_value( spin, iv[idi] );
   }
 
   /* Write float data to the helix editor */
   ftmp = fv[HELIX_DIA];
   fv[HELIX_DIA] *= 2.0;
-  for( idx = HELIX_TSPACE; idx <= HELIX_NTURN; idx++ )
+  for( idx = HELIX_TSPACE; idx <= HELIX_RES; idx++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
 		  helix_editor, fspin[idx]) );
@@ -1460,7 +1495,7 @@ Scale_Editor( int action )
 	"scale_to_spinbutton"
   };
 
-  int idx;
+  int idx, idi;
 
   /* Scale factor */
   static gdouble scale = 1.0;
@@ -1533,11 +1568,11 @@ Scale_Editor( int action )
 			  "Invalid list iterator"), ERR_OK );
 
 	  /* Enter tag from-to data to scale editor */
-	  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(scale_editor, ispin[idx]) );
-		gtk_spin_button_set_value( spin, iv[idx] );
+			lookup_widget(scale_editor, ispin[idi]) );
+		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Set scale factor to scale editor */
@@ -1554,11 +1589,11 @@ Scale_Editor( int action )
 
 	case EDITOR_DATA: /* Some data changed in editor window */
 	  /* Read int data from the scale editor */
-	  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(scale_editor, ispin[idx]) );
-		iv[idx] = gtk_spin_button_get_value_as_int( spin );
+			lookup_widget(scale_editor, ispin[idi]) );
+		iv[idi] = gtk_spin_button_get_value_as_int( spin );
 	  }
 
 	  /* Read scale from the scale editor */
@@ -1590,7 +1625,7 @@ Cylinder_Editor( int action )
   /* For reading/writing to GR row */
   static GtkTreeIter iter_gr;
 
-  int idx;
+  int idi;
 
   /* Integer data (I1 & I2) */
   static gint iv[2];
@@ -1647,11 +1682,11 @@ Cylinder_Editor( int action )
 	  Get_Geometry_Int_Data( geom_store, &iter_gr, iv );
 
 	  /* Write int data to the cylinder editor */
-	  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(cylinder_editor, ispin[idx]));
-		gtk_spin_button_set_value( spin, iv[idx] );
+			lookup_widget(cylinder_editor, ispin[idi]));
+		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 	  break;
 
@@ -1667,11 +1702,11 @@ Cylinder_Editor( int action )
   } /* switch( action ) */
 
   /* Read int data from the cylinder editor */
-  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I2; idx++ )
+  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(cylinder_editor, ispin[idx]));
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+		lookup_widget(cylinder_editor, ispin[idi]));
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Wait for GTK to complete its tasks */
@@ -1695,7 +1730,7 @@ Transform_Editor( int action )
   /* For reading/writing to GM row */
   static GtkTreeIter iter_gm;
 
-  int idx;
+  int idx, idi, idf;
 
   /* Integer data (I1 to I3) */
   static gint iv[3];
@@ -1727,7 +1762,7 @@ Transform_Editor( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1766,18 +1801,18 @@ Transform_Editor( int action )
 
 	  /* Write int data to the transform editor */
 	  iv[SPIN_COL_I3] = (gint)fv[SPIN_COL_F7];
-	  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I3; idx++ )
+	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I3; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(transform_editor, ispin[idx]));
-		gtk_spin_button_set_value( spin, iv[idx] );
+			lookup_widget(transform_editor, ispin[idi]));
+		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 	  /* Write float data to the transform editor */
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(transform_editor, fspin[idx]));
-		gtk_spin_button_set_value( spin, fv[idx] );
+			lookup_widget(transform_editor, fspin[idf]));
+		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 	  break;
 
@@ -1793,11 +1828,11 @@ Transform_Editor( int action )
   } /* switch( action ) */
 
   /* Read int data from the transform editor */
-  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I3; idx++ )
+  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I3; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(transform_editor, ispin[idx]));
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+		lookup_widget(transform_editor, ispin[idi]));
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
   /* Read float data from the transform editor */
   for( idx = 0; idx < 6; idx++ )
@@ -1928,7 +1963,7 @@ Gend_Editor( int action )
   void
 Insert_GE_Card( GtkListStore *store, GtkTreeIter *iter )
 {
-  gint idx;
+  gint idx, idi;
 
   /* Insert default GE card if list is clear */
   idx = gtk_tree_model_iter_n_children(
@@ -1937,8 +1972,8 @@ Insert_GE_Card( GtkListStore *store, GtkTreeIter *iter )
   {
 	gtk_list_store_append( store, iter );
 	gtk_list_store_set( store, iter, GEOM_COL_NAME, "GE", -1 );
-	for( idx = GEOM_COL_I1; idx < GEOM_NUM_COLS; idx++ )
-	  gtk_list_store_set( store, iter, idx, "0", -1 );
+	for( idi = GEOM_COL_I1; idi < GEOM_NUM_COLS; idi++ )
+	  gtk_list_store_set( store, iter, idi, "0", -1 );
   }
 
 } /* Insert_GE_Card() */
@@ -1956,24 +1991,24 @@ Get_Geometry_Data(
 	GtkTreeIter *iter,
 	int *iv, double *fv )
 {
-  gint idx;
+  gint idi, idf;
   gchar *sv;
 
   /* Get data from tree view (I1,I2, F1-F7)*/
   if( gtk_list_store_iter_is_valid(store, iter) )
   {
-	for( idx = GEOM_COL_I1; idx <= GEOM_COL_I2; idx++ )
+	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
 	{
 	  gtk_tree_model_get(
-		  GTK_TREE_MODEL(store), iter, idx, &sv, -1);
-	  iv[idx-GEOM_COL_I1] = atoi(sv);
+		  GTK_TREE_MODEL(store), iter, idi, &sv, -1);
+	  iv[idi-GEOM_COL_I1] = atoi(sv);
 	  g_free(sv);
 	}
-	for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
+	for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
 	{
 	  gtk_tree_model_get(
-		  GTK_TREE_MODEL(store), iter, idx, &sv, -1);
-	  fv[idx-GEOM_COL_F1] = atof(sv);
+		  GTK_TREE_MODEL(store), iter, idf, &sv, -1);
+	  fv[idf-GEOM_COL_F1] = atof(sv);
 	  g_free(sv);
 	}
   }
@@ -1993,17 +2028,17 @@ Get_Geometry_Data(
   void
 Get_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
 {
-  gint idx;
+  gint idi;
   gchar *sv;
 
   /* Get data from tree view (I1, I2) */
   if( gtk_list_store_iter_is_valid(store, iter) )
   {
-	for( idx = GEOM_COL_I1; idx <= GEOM_COL_I2; idx++ )
+	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
 	{
 	  gtk_tree_model_get(
-		  GTK_TREE_MODEL(store), iter, idx, &sv, -1);
-	  iv[idx-GEOM_COL_I1] = atoi(sv);
+		  GTK_TREE_MODEL(store), iter, idi, &sv, -1);
+	  iv[idi-GEOM_COL_I1] = atoi(sv);
 	  g_free(sv);
 	}
   }
@@ -2027,21 +2062,21 @@ Set_Geometry_Data(
 	int *iv, double *fv )
 {
   gchar str[13];
-  gint idx;
+  gint idi, idf;
 
   /* Format and set editor data to treeview (I1, I2 & F1-F7) */
   if( gtk_list_store_iter_is_valid(store, iter) )
   {
-	for( idx = GEOM_COL_I1; idx <= GEOM_COL_I2; idx++ )
+	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
 	{
-	  snprintf( str, 6, "%5d", iv[idx-GEOM_COL_I1] );
-	  gtk_list_store_set( store, iter, idx, str, -1 );
+	  snprintf( str, 6, "%5d", iv[idi-GEOM_COL_I1] );
+	  gtk_list_store_set( store, iter, idi, str, -1 );
 	}
 
-	for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
+	for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
 	{
-	  snprintf( str, 13, "%12.5E", fv[idx-GEOM_COL_F1] );
-	  gtk_list_store_set( store, iter, idx, str, -1 );
+	  snprintf( str, 13, "%12.5E", fv[idf-GEOM_COL_F1] );
+	  gtk_list_store_set( store, iter, idf, str, -1 );
 	}
   }
   else
@@ -2063,20 +2098,20 @@ Set_Geometry_Data(
 Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
 {
   gchar str[6];
-  gint idx;
+  gint idi, idf;
 
   /* Format and set editor data to treeview (I1, I2) */
   if( gtk_list_store_iter_is_valid(store, iter) )
   {
-	for( idx = GEOM_COL_I1; idx <= GEOM_COL_I2; idx++ )
+	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
 	{
-	  snprintf( str, 6, "%5d", iv[idx-GEOM_COL_I1] );
-	  gtk_list_store_set( store, iter, idx, str, -1 );
+	  snprintf( str, 6, "%5d", iv[idi-GEOM_COL_I1] );
+	  gtk_list_store_set( store, iter, idi, str, -1 );
 	}
 
 	/* Clear unused float columns */
-	for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
-	  gtk_list_store_set( store, iter, idx, "0.0", -1 );
+	for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
+	  gtk_list_store_set( store, iter, idf, "0.0", -1 );
   }
   else
 	stop( _("Error writing row data\n"\
@@ -2253,8 +2288,7 @@ Get_Selected_Row(
   /* Get row name */
   gtk_tree_model_get(
 	  GTK_TREE_MODEL(store), iter, GEOM_COL_NAME, &str, -1);
-  strncpy( name, str, 2 );
-  name[2] = '\0';
+  Strlcpy( name, str, 3 );
   g_free( str );
 
   return( TRUE );
@@ -2272,7 +2306,7 @@ Get_Selected_Row(
   void
 Set_Wire_Conductivity( int tag, double s, GtkListStore *store )
 {
-  int idx, nchld;
+  int idx, idi, nchld;
   GtkTreeIter iter_ld;
   gchar *str, sv[13];
 
@@ -2283,29 +2317,29 @@ Set_Wire_Conductivity( int tag, double s, GtkListStore *store )
 	return;
 
   /* Look for an LD card with tag number = tag */
-  for( idx = 0; idx < nchld; idx++ )
+  for( idx = 0; idx < nchld; )
   {
 	gtk_tree_model_get( GTK_TREE_MODEL(store),
 		&iter_ld, GEOM_COL_NAME, &str, -1 );
 
 	if( strcmp(str, "LD") == 0 )
 	{
-	  g_free(str);
+	  g_free( str );
 	  gtk_tree_model_get( GTK_TREE_MODEL(store),
 		  &iter_ld, GEOM_COL_I2, &str, -1 );
-	  if( atoi(str) == tag )
+	  if( atoi( str ) == tag )
 	  {
-		g_free(str);
+		g_free( str );
 		break;
 	  }
-	  else
-		g_free(str);
+	  else g_free( str );
 	}
-	else
-	  g_free(str);
+	else g_free( str );
 
-	gtk_tree_model_iter_next(
-		GTK_TREE_MODEL(store), &iter_ld);
+	idx++;
+	if( !gtk_tree_model_iter_next(
+		  GTK_TREE_MODEL(store), &iter_ld) )
+	  break;
 
   } /* for( idx = 0; idx < nchld; idx++ ) */
 
@@ -2319,8 +2353,8 @@ Set_Wire_Conductivity( int tag, double s, GtkListStore *store )
 		store, &iter_ld, CMND_COL_NAME, "LD", -1 );
 
 	/* Clear rest of LD row */
-	for( idx = CMND_COL_I1; idx <= CMND_COL_F6; idx++ )
-	  gtk_list_store_set( store, &iter_ld, idx, "0", -1 );
+	for( idi = CMND_COL_I1; idi <= CMND_COL_F6; idi++ )
+	  gtk_list_store_set( store, &iter_ld, idi, "0", -1 );
   }
 
   /* Set LD card parameters */
@@ -2335,6 +2369,83 @@ Set_Wire_Conductivity( int tag, double s, GtkListStore *store )
 	  cmnd_adjustment, cmnd_adjustment->upper );
 
 } /* Set_Wire_Conductivity() */
+
+/*------------------------------------------------------------------------*/
+
+/* Get_Wire_Conductivity()
+ *
+ * Gets the wire conductivity specified in a loading
+ * card (LD row) in commands treview for a given tag #
+ */
+
+  gboolean
+Get_Wire_Conductivity( int tag, double *s, GtkListStore *store )
+{
+  int idx, type, nchld;
+  GtkTreeIter iter_ld;
+  gchar *str;
+  static int t = -1;
+
+  /* Find num of rows and first iter, abort if tree empty */
+  nchld = gtk_tree_model_iter_n_children(
+	  GTK_TREE_MODEL(store), NULL );
+  if( !gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter_ld) )
+	return( FALSE );
+
+  /* Look for an LD card with tag number = tag */
+  for( idx = 0; idx < nchld; )
+  {
+	gtk_tree_model_get( GTK_TREE_MODEL(store),
+		&iter_ld, GEOM_COL_NAME, &str, -1 );
+
+	if( strcmp(str, "LD") == 0 )
+	{
+	  g_free( str );
+	  gtk_tree_model_get( GTK_TREE_MODEL(store),
+		  &iter_ld, GEOM_COL_I2, &str, -1 );
+	  if( atoi(str) == tag )
+	  {
+		g_free( str );
+		break;
+	  }
+	  else g_free( str );
+	}
+	else g_free( str );
+
+	idx++;
+	if( !gtk_tree_model_iter_next(
+		  GTK_TREE_MODEL(store), &iter_ld) )
+	  break;
+
+  } /* for( idx = 0; idx < nchld; idx++ ) */
+
+  /* If not found LD card with tagnum = tag, return s=0 */
+  if( idx >= nchld )
+  {
+	*s = 0.0;
+	t = tag;
+	return( FALSE );
+  }
+
+  /* If LD card for given tag is already read, abort */
+  if( t == tag ) return( FALSE );
+  else t = tag;
+
+  /* Get the loading type (we want LDTYP 5) */
+  gtk_tree_model_get( GTK_TREE_MODEL(store),
+	  &iter_ld, GEOM_COL_I1, &str, -1 );
+  type = atoi( str );
+  g_free( str );
+  if( type != 5 ) return( FALSE );
+
+  /* Get the wire conductivity S/m */
+  gtk_tree_model_get( GTK_TREE_MODEL(store),
+	  &iter_ld, CMND_COL_F1, &str, -1 );
+  *s = atof( str );
+  g_free( str );
+
+  return( TRUE );
+} /* Get_Wire_Conductivity() */
 
 /*------------------------------------------------------------------------*/
 

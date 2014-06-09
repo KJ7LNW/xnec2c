@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -61,10 +60,12 @@ Draw_Structure( GtkWidget *drawingarea )
   Draw_Wire_Segments( structure_segs, data.n );
 
   /* Show gain in direction of viewer */
-  Show_Viewer_Gain( main_window, "main_gain_entry", structure_proj_params );
+  Show_Viewer_Gain( main_window,
+	  "main_gain_entry", structure_proj_params );
 
   /* Render pixmap to screen */
-  gdk_window_set_back_pixmap( drawingarea->window, structure_pixmap, FALSE );
+  gdk_window_set_back_pixmap(
+	  drawingarea->window, structure_pixmap, FALSE );
   gdk_window_clear( drawingarea->window );
 
   /* Reset "new current data" flag */
@@ -79,7 +80,8 @@ Draw_Structure( GtkWidget *drawingarea )
   cairo_destroy( cr );
 
   /* Unblock motion events */
-  g_signal_handler_unblock( (gpointer)drawingarea, structure_motion_handler );
+  g_signal_handler_unblock(
+	  (gpointer)drawingarea, structure_motion_handler );
 
 } /* Draw_Structure() */
 
@@ -398,7 +400,8 @@ Draw_Wire_Segments(	GdkSegment *segm, gint nseg )
 	  crnt.valid )
   {
 	static double cmax; /* Max of seg current/charge */
-	double red, grn, blu;  /* To color structure segs   */
+	/* To color structure segs */
+	double red = 0.0, grn = 0.0, blu = 0.0;
 	char label[11];
 
 	/* Loop over all wire segs, find max current/charge */
@@ -541,7 +544,7 @@ Draw_Surface_Patches( GdkSegment *segm, gint npatch )
 	/* Current along x,y,z and t1,t2 vector directions */
 	complex double cx, cy, cz, ct1, ct2;
 
-	double red, grn, blu;
+	double red = 0.0, grn = 0.0, blu = 0.0;
 
 	int i, j;
 
@@ -644,7 +647,6 @@ Draw_Surface_Patches( GdkSegment *segm, gint npatch )
   gboolean
 Redo_Currents( gpointer udata )
 {
-  udata = NULL;
   /* Abort if no geometry data */
   if( ((data.n == 0) && (data.m == 0)) ||
 	  isFlagClear(ENABLE_EXCITN) )

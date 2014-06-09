@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -391,15 +390,6 @@ conect( int ignd )
 	  {
 		do
 		{
-		  if( ix == 0 )
-		  {
-			fprintf( stderr,
-				"xnec2c: connect(): segment connection"
-				" error for segment: %d\n", ix );
-			stop( _("connect(): Segment connection error"), ERR_OK );
-			return( FALSE );
-		  }
-
 		  if( ix < 0 )
 			ix= -ix;
 		  else

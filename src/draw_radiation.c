@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -42,7 +41,8 @@ static point_3d_t *point_3d = NULL;
 Draw_Radiation( GtkWidget *drawingarea )
 {
   /* Block motion events */
-  g_signal_handler_block( (gpointer)drawingarea, rdpattern_motion_handler );
+  g_signal_handler_block(
+	  (gpointer)drawingarea, rdpattern_motion_handler );
 
   /* Abort if xnec2c may be quit by user */
   if( isFlagSet(MAIN_QUIT) || isFlagClear(ENABLE_EXCITN) )
@@ -79,7 +79,8 @@ Draw_Radiation( GtkWidget *drawingarea )
   cairo_destroy( cr );
 
   /* Unblock motion events */
-  g_signal_handler_unblock( (gpointer)drawingarea, rdpattern_motion_handler );
+  g_signal_handler_unblock(
+	  (gpointer)drawingarea, rdpattern_motion_handler );
 
 } /* Draw_Radiation() */
 
@@ -381,7 +382,7 @@ Draw_Near_Field( void )
   GdkSegment segm;
 
   /* For coloring field lines */
-  double rd, gn, bl;
+  double red = 0.0, grn = 0.0, blu = 0.0;
 
   /* Abort if drawing a near field pattern is not possible */
   if( isFlagClear(ENABLE_NEAREH) || !near_field.valid )
@@ -448,7 +449,7 @@ Draw_Near_Field( void )
 	if( isFlagSet(DRAW_EFIELD) && (fpat.nfeh & NEAR_EFIELD) )
 	{
 	  /* Set gc attributes for segment */
-	  Value_to_Color( &rd, &gn, &bl,
+	  Value_to_Color( &red, &grn, &blu,
 		  near_field.er[idx], near_field.max_er );
 
 	  /* Scale factor for each field point, to make
@@ -470,7 +471,7 @@ Draw_Near_Field( void )
 		  fx, fy, fz );
 
 	  /* Draw segment */
-	  cairo_set_source_rgb( cr, rd, gn, bl );
+	  cairo_set_source_rgb( cr, red, grn, blu );
 	  Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
 
 	} /* if( isFlagSet(DRAW_EFIELD) && (fpat.nfeh & NEAR_EFIELD) ) */
@@ -479,7 +480,7 @@ Draw_Near_Field( void )
 	if( isFlagSet(DRAW_HFIELD) && (fpat.nfeh & NEAR_HFIELD) )
 	{
 	  /* Set gc attributes for segment */
-	  Value_to_Color( &rd, &gn, &bl,
+	  Value_to_Color( &red, &grn, &blu,
 		  near_field.hr[idx], near_field.max_hr );
 
 	  /* Scale factor for each field point, to make
@@ -501,7 +502,7 @@ Draw_Near_Field( void )
 		  fx, fy, fz );
 
 	  /* Draw segment */
-	  cairo_set_source_rgb( cr, rd, gn, bl );
+	  cairo_set_source_rgb( cr, red, grn, blu );
 	  Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
 
 	} /* if( isFlagSet(DRAW_HFIELD) && (fpat.nfeh & NEAR_HFIELD) ) */
@@ -546,7 +547,7 @@ Draw_Near_Field( void )
 	  } /* for( ipv = 0; ipv < npts; ipv++ ) */
 
 	  /* Set gc attributes for segment */
-	  Value_to_Color( &rd, &gn, &bl, pov_r[idx], pov_max );
+	  Value_to_Color( &red, &grn, &blu, pov_r[idx], pov_max );
 
 	  /* Scale factor for each field point, to make
 	   * near field direction lines equal-sized */
@@ -568,7 +569,7 @@ Draw_Near_Field( void )
 		  near_field.pz[idx], fx, fy, fz );
 
 	  /* Draw segment */
-	  cairo_set_source_rgb( cr, rd, gn, bl );
+	  cairo_set_source_rgb( cr, red, grn, blu );
 	  Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
 
 	} /* if( isFlagSet(DRAW_POYNTING) ) */
@@ -609,7 +610,6 @@ Draw_Near_Field( void )
   gboolean
 Animate_Near_Field( gpointer udata )
 {
-  udata = NULL;
   /* omega*t = 2*pi*f*t = Time-varying phase of excitation */
   static double wt = 0.0;
   int idx, npts;
@@ -857,7 +857,6 @@ New_Radiation_Projection_Angle(void)
   gboolean
 Redo_Radiation_Pattern( gpointer udata )
 {
-  udata = NULL;
   /* Redo radiation pattern for a new frequency. Below
    * makes calcs use the extra buffer in rad_pattern */
   calc_data.fstep = calc_data.nfrq;
@@ -979,29 +978,29 @@ Set_Window_Labels( void )
   };
 
   char txt[64];
+  size_t s = sizeof( txt );
 
   if( isFlagSet(DRAW_ENABLED) )
   {
 	/* Set window labels */
-	strcpy( txt, _("Radiation Patterns") );
+	Strlcpy( txt, _("Radiation Patterns"), s );
 	if( isFlagSet(DRAW_GAIN) )
 	{
-	  strcpy( txt, _("Radiation Pattern: - ") );
-	  strcat( txt, pol_type[calc_data.pol_type] );
-	  strcat( txt, " - " );
-	  strcat( txt, scale[gain_style] );
+	  Strlcpy( txt, _("Radiation Pattern: - "), s );
+	  Strlcat( txt, pol_type[calc_data.pol_type], s );
+	  Strlcat( txt, " - ", s );
+	  Strlcat( txt, scale[gain_style], s );
 	}
-	else
-	  if( isFlagSet(DRAW_EHFIELD) )
-	  {
-		strcpy( txt, _("Near Fields:") );
-		if( isFlagSet(DRAW_EFIELD) )
-		  strcat( txt, _(" - E Field") );
-		if( isFlagSet(DRAW_HFIELD) )
-		  strcat( txt, _(" - H Field") );
-		if( isFlagSet(DRAW_POYNTING) )
-		  strcat( txt, _(" - Poynting Vector") );
-	  }
+	else if( isFlagSet(DRAW_EHFIELD) )
+	{
+	  Strlcpy( txt, _("Near Fields:"), s );
+	  if( isFlagSet(DRAW_EFIELD) )
+		Strlcat( txt, _(" - E Field"), s );
+	  if( isFlagSet(DRAW_HFIELD) )
+		Strlcat( txt, _(" - H Field"), s );
+	  if( isFlagSet(DRAW_POYNTING) )
+		Strlcat( txt, _(" - Poynting Vector"), s );
+	}
 
 	gtk_label_set_text( GTK_LABEL(lookup_widget(
 			rdpattern_window, "rdpattern_label")), txt );
@@ -1010,8 +1009,8 @@ Set_Window_Labels( void )
 
   if( isFlagSet(PLOT_ENABLED) )
   {
-	strcpy( txt, _("Frequency Data Plots - ") );
-	strcat( txt, pol_type[calc_data.pol_type] );
+	Strlcpy( txt, _("Frequency Data Plots - "), s );
+	Strlcat( txt, pol_type[calc_data.pol_type], s );
 	gtk_label_set_text( GTK_LABEL(lookup_widget(
 			freqplots_window, "freqplots_label")), txt );
   }

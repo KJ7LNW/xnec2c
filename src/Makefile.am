@@ -28,7 +28,7 @@ xnec2c_SOURCES = \
 	xnec2c.c	 	xnec2c.h \
 	input.c		 	input.h \
 	matrix.c	 	matrix.h \
-	misc.c		 	misc.h \
+	utils.c		 	utils.h \
 	nec2_model.c 	nec2_model.h \
 	network.c	 	network.h \
 	plot_freqdata.c	plot_freqdata.h \

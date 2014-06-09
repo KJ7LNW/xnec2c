@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -433,7 +432,7 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 
   } /* if( isFlagSet(ENABLE_RDPAT) && (calc_data.fstep >= 0) ) */
 
-  fclose(fp);
+  if( fp != NULL ) fclose(fp);
 } /* Save_RadPattern_Gnuplot_Data() */
 
 /*-----------------------------------------------------------------------*/

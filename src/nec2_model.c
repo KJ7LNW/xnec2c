@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -166,8 +165,9 @@ Create_List_Stores( void )
 Create_Default_File( void )
 {
   GtkTreeIter iter;
-  int idx;
-  char str[55];
+  int idx, idi;
+  char str[64];
+  size_t s = sizeof( str );
 
 
   /* Clear all tree views */
@@ -176,9 +176,9 @@ Create_Default_File( void )
   gtk_list_store_clear( cmnd_store );
 
   /* Append a default comment row */
-  strcpy( str, _("--- NEC2 Input File created by ") );
-  strcat( str, PACKAGE_STRING);
-  strcat( str, " ---" );
+  Strlcpy( str, _("--- NEC2 Input File created by "), s );
+  Strlcat( str, PACKAGE_STRING, s );
+  Strlcat( str, " ---", s );
   gtk_list_store_append( cmnt_store, &iter );
   gtk_list_store_set(
 	  cmnt_store, &iter,
@@ -300,8 +300,8 @@ Create_Default_File( void )
   gtk_list_store_append( cmnd_store, &iter );
   gtk_list_store_set( cmnd_store,
 	  &iter, CMND_COL_NAME, "EN", -1 );
-  for( idx = CMND_COL_I1; idx < CMND_NUM_COLS; idx++ )
-	gtk_list_store_set( cmnd_store, &iter, idx, "0", -1 );
+  for( idi = CMND_COL_I1; idi < CMND_NUM_COLS; idi++ )
+	gtk_list_store_set( cmnd_store, &iter, idi, "0", -1 );
 
 } /* Create_Default_File() */
 
@@ -328,7 +328,7 @@ List_Comments( void )
   do
   {
 	/* Read a line from input file */
-	if( load_line(line_buf, input_fp) == EOF )
+	if( Load_Line(line_buf, input_fp) == EOF )
 	  stop( _("List_Comments():\n"\
 			"Error reading input file\n"\
 			"Unexpected EOF (End of File)"), ERR_OK );
@@ -339,7 +339,7 @@ List_Comments( void )
 	  stop( _("List_Comments():\n"\
 			"Error reading input file\n"\
 			"Comment mnemonic short or missing"), ERR_OK );
-	  strcpy( line_buf, "XX " );
+	  Strlcpy( line_buf, "XX ", sizeof(line_buf) );
 	}
 
 	/* If only mnemonic in card,
@@ -347,8 +347,7 @@ List_Comments( void )
 	if( strlen(line_buf) == 2 ) line_buf[3] = '\0';
 
 	/* Separate card's id mnemonic */
-	strncpy( ain, line_buf, 2 );
-	ain[2] = '\0';
+	Strlcpy( ain, line_buf, 3 );
 
 	/* Append a comment row and fill in text if opening call */
 	if( !ret )
@@ -400,9 +399,10 @@ List_Geometry( void )
   do
   {
 	/* Read a geometry card. Errors are handled in readgm() */
-	readgm( ain, &iv[0], &iv[1],
+	if( !readgm( ain, &iv[0], &iv[1],
 		&fv[0], &fv[1], &fv[2], &fv[3],
-		&fv[4], &fv[5], &fv[6] );
+		&fv[4], &fv[5], &fv[6]) )
+	  break;
 
 	/* Ignore in-data (NEC4 style) comments */
 	if( strcmp(ain, "CM") == 0 ) continue;
@@ -663,8 +663,8 @@ Save_Treeview_Data( GtkTreeView *tree_view, int ncols, FILE *nec2_fp )
 	}
 
 	/* Overwrite last space with newline */
-	fseek( nec2_fp, -1, SEEK_CUR );
-	fprintf( nec2_fp, "\n" );
+	if( fseek(nec2_fp, -1, SEEK_CUR) == 0 )
+	  fprintf( nec2_fp, "\n" );
 
 	valid = gtk_tree_model_iter_next( list_store, &iter );
   } /* while( valid ) */

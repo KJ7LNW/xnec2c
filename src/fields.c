@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -166,7 +165,7 @@ void efld( double xi, double yi,
 		xymag= sqrt( xij* xij+ yij* yij);
 
 		/* set parameters for radial wire ground screen. */
-		if( gnd.nradl != 0)
+		if( gnd.nradl > 0)
 		{
 		  xspec=( xi* dataj.zj+ zi* dataj.xj)/( zi+ dataj.zj);
 		  yspec=( yi* dataj.zj+ zi* dataj.yj)/( zi+ dataj.zj);
@@ -177,7 +176,15 @@ void efld( double xi, double yi,
 			zscrn= gnd.t1* rhospc* log( rhospc/ gnd.t2);
 			zratx=( zscrn* gnd.zrati)/( ETA* gnd.zrati+ zscrn);
 		  }
-		} /* if( gnd.nradl != 0) */
+		} /* if( gnd.nradl > 0) */
+		else
+		{
+		  xspec= 0.0;
+		  yspec= 0.0;
+		  rhospc= 0.0;
+		  zscrn= 0.0;
+		  zratx= 0.0;
+		}
 
 		/* calculation of reflection coefficients
 		 * when ground is specified. */
@@ -1017,7 +1024,7 @@ void hsfld( double xi, double yi,
 		xymag= sqrt( xij* xij+ yij* yij);
 
 		/* set parameters for radial wire ground screen. */
-		if( gnd.nradl != 0)
+		if( gnd.nradl > 0)
 		{
 		  xspec=( xi* dataj.zj+ zi* dataj.xj)/( zi+ dataj.zj);
 		  yspec=( yi* dataj.zj+ zi* dataj.yj)/( zi+ dataj.zj);
@@ -1028,7 +1035,7 @@ void hsfld( double xi, double yi,
 			rrv= gnd.t1* rhospc* log( rhospc/ gnd.t2);
 			zratx=( rrv* gnd.zrati)/( ETA* gnd.zrati+ rrv);
 		  }
-		}
+		} /* if( gnd.nradl > 0) */
 
 		/* calculation of reflection coefficients
 		 * when ground is specified. */
@@ -1067,6 +1074,14 @@ void hsfld( double xi, double yi,
 		continue;
 
 	  } /* if( gnd.iperf != 1 ) */
+	  else
+	  {
+		xspec= 0.0;
+		yspec= 0.0;
+		rhospc= 0.0;
+		rrv= 0.0;
+		zratx= 0.0;
+	  }
 
 	  dataj.exk= dataj.exk- hpk* phx;
 	  dataj.eyk= dataj.eyk- hpk* phy;

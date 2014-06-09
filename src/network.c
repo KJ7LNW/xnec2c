@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -84,12 +83,11 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 	mreq = (size_t)vsorc.nsant * sizeof(complex double);
 	mem_alloc( (void *)&vsrc, mreq, "in network.c");
   }
-  else
-	if( netcx.masym != 0)
-	{
-	  mreq = (size_t)j * sizeof(int);
-	  mem_alloc( (void *)&ipnt,  mreq, "in network.c");
-	}
+  else if( netcx.masym != 0)
+  {
+	mreq = (size_t)j * sizeof(int);
+	mem_alloc( (void *)&ipnt,  mreq, "in network.c");
+  }
 
   /* Signal new and valid current data */
   crnt.newer = crnt.valid = 1;
@@ -212,7 +210,7 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 	} /* if( netcx.masym != 0) */
 
 	/* solution of network equations */
-	if( netcx.nonet != 0)
+	if( netcx.nonet > 0)
 	{
 	  for( i = 0; i < ndimn; i++ )
 	  {
@@ -451,7 +449,7 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 
   } /* if( netcx.ntsol != 0) */
 
-  if( netcx.nonet != 0)
+  if( netcx.nonet > 0)
   {
 	/* add to network equation right hand side */
 	/* the terms due to element interactions */

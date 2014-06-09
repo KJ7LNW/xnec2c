@@ -871,7 +871,7 @@ for New Frequency</property>
 	      <child>
 		<widget class="GtkDrawingArea" id="structure_drawingarea">
 		  <property name="width_request">681</property>
-		  <property name="height_request">681</property>
+		  <property name="height_request">481</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <signal name="configure_event" handler="on_structure_drawingarea_configure_event" last_modification_time="Wed, 09 Feb 2005 06:20:26 GMT"/>
@@ -2137,7 +2137,7 @@ to Plane of Screen</property>
 	      <child>
 		<widget class="GtkDrawingArea" id="freqplots_drawingarea">
 		  <property name="width_request">681</property>
-		  <property name="height_request">681</property>
+		  <property name="height_request">481</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="events">GDK_BUTTON_PRESS_MASK</property>
@@ -3108,7 +3108,7 @@ to Plane of Screen</property>
 	      <child>
 		<widget class="GtkDrawingArea" id="rdpattern_drawingarea">
 		  <property name="width_request">681</property>
-		  <property name="height_request">681</property>
+		  <property name="height_request">481</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <signal name="configure_event" handler="on_rdpattern_drawingarea_configure_event" last_modification_time="Sat, 19 Mar 2005 14:26:17 GMT"/>
@@ -4246,7 +4246,7 @@ to Plane of Screen</property>
 
 		  <child>
 		    <widget class="GtkTreeView" id="nec2_cmnt_treeview">
-		      <property name="height_request">138</property>
+		      <property name="height_request">70</property>
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="headers_visible">True</property>
@@ -4548,7 +4548,7 @@ to Plane of Screen</property>
 
 		  <child>
 		    <widget class="GtkTreeView" id="nec2_geom_treeview">
-		      <property name="height_request">148</property>
+		      <property name="height_request">70</property>
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="headers_visible">True</property>
@@ -4930,7 +4930,7 @@ to Plane of Screen</property>
 
 		  <child>
 		    <widget class="GtkTreeView" id="nec2_cmnd_treeview">
-		      <property name="height_request">148</property>
+		      <property name="height_request">70</property>
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="headers_visible">True</property>

@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -126,7 +125,6 @@ Ground_Parameters( void )
 		gnd.scrwr = save.scrwrt / data.wlam;
 		gnd.t1 = CPLX_01 * 2367.067/ (double)gnd.nradl;
 		gnd.t2 = gnd.scrwr * (double)gnd.nradl;
-
 	  } /* if( gnd.nradl > 0 ) */
 
 	  if( gnd.iperf == 2)
@@ -146,6 +144,13 @@ Ground_Parameters( void )
 		}
 	  } /* if( gnd.iperf != 2) */
 	} /* if( gnd.iperf != 1) */
+	else
+	{
+	  gnd.scrwl = 0.0;
+	  gnd.scrwr = 0.0;
+	  gnd.t1 = 0.0;
+	  gnd.t2 = 0.0;
+	}
   } /* if( gnd.ksymp != 1) */
 
   return;
@@ -413,7 +418,6 @@ static gboolean retval;	/* Function's return value */
   gboolean
 Frequency_Loop( gpointer udata )
 {
-  udata = NULL;
   /* Value of frequency and step num in the loop */
   static double freq;
 

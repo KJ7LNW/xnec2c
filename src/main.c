@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -77,7 +76,7 @@ main (int argc, char *argv[])
 			  _("xnec2c: input file name too long (>80 char)\n") );
 		  exit(-1);
 		}
-		strcpy( infile, optarg );
+		Strlcpy( infile, optarg, strlen(optarg)+1 ); /* For null term. */
 		break;
 
 	  case 'j': /* number of child processes = num of processors */
@@ -110,7 +109,7 @@ main (int argc, char *argv[])
 		  _("xnec2c: input file path name too long (>80 char)\n") );
 	  exit(-1);
 	}
-	strcpy( infile, argv[argc - 1] );
+	Strlcpy( infile, argv[argc-1], strlen(argv[argc-1])+1 ); /* For null term. */
   }
 
   /* When forking is useful, e.g. if more than 1 processor is
@@ -185,7 +184,7 @@ main (int argc, char *argv[])
 
 	FORKED = TRUE;
 
-  } /* if( calc_data.num_jobs > 0 ) */
+  } /* if( calc_data.num_jobs > 1 ) */
 
   gtk_set_locale ();
   gtk_init (&argc, &argv);
@@ -415,7 +414,6 @@ Open_Input_File( gpointer udata )
 
 static void sig_handler( int signal )
 {
-  fprintf( stderr, "\n" );
   switch( signal )
   {
 	case SIGINT:
@@ -438,16 +436,33 @@ static void sig_handler( int signal )
 	  fprintf( stderr, _("xnec2c: termination request received, exiting\n") );
 	  break;
 
-	case SIGCHLD:return;//FIXME
-	  if( !FORKED )
+	case SIGCHLD:
 	  {
-		fprintf( stderr,
-			_("xnec2c: no child processes, ignoring SIGCHLD from pid %d\n"), getpid() );
-		return;
-	  }
-	  fprintf( stderr, _("xnec2c: child process pid %d exited\n"), getpid() );
-	  if( isFlagSet(MAIN_QUIT) ) return;
+		int idx;
+		pid_t pid = getpid();
 
+		if( !FORKED )
+		{
+		  fprintf( stderr,
+			  _("xnec2c: not forked, ignoring SIGCHLD from pid %d\n"), pid );
+		  return;
+		}
+		else
+		{
+		  for( idx = 0; idx < calc_data.num_jobs; idx++ )
+			if( forked_proc_data[idx]->child_pid == pid )
+			{
+			  fprintf( stderr, _("xnec2c: child process pid %d exited\n"), pid );
+			  if( isFlagSet(MAIN_QUIT) ) return;
+			  else break;
+			}
+		  return;
+		}
+	  }
+	  break;
+
+	default:
+	  fprintf( stderr, _("xnec2c: default exit with signal: %d\n"), signal );
   } /* switch( signal ) */
 
   /* Kill child processes */

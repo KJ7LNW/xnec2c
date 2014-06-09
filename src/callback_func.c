@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -278,6 +277,7 @@ Open_Editor( GtkTreeView *view )
   GtkTreeIter iter;
   GtkTreeModel *model;
   gchar *card;
+  size_t s = sizeof( card );
   GtkWidget *button;
 
   /* Find the selected treeview row */
@@ -290,16 +290,16 @@ Open_Editor( GtkTreeView *view )
 
   /* Some "cards" have common editors */
   if( strcmp(card, "GC") == 0 )
-	strcpy( card, "GW" );
+	Strlcpy( card, "GW", s );
   else
 	if( strcmp(card, "SC") == 0 )
-	  strcpy( card, "SP" );
+	  Strlcpy( card, "SP", s );
 	else
 	  if( strcmp(card, "SM") == 0 )
-		strcpy( card, "SP" );
+		Strlcpy( card, "SP", s );
 	  else
 		if( strcmp(card, "NH") == 0 )
-		  strcpy( card, "NE" );
+		  Strlcpy( card, "NE", s );
 		else
 		  if( strcmp(card, "GE") == 0 )
 		  {

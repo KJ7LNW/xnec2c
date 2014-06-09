@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -426,7 +425,7 @@ on_main_colorcode_drawingarea_expose_event(	GtkWidget       *widget,
 											GdkEventExpose  *event,
 											gpointer         user_data)
 {
-  double red, grn, blu;
+  double red = 0.0, grn = 0.0, blu = 0.0;
   int idx;
 
   /* No redraws if new input pending */
@@ -573,8 +572,7 @@ on_filechooserdialog_response          (GtkDialog       *dialog,
 	/* Get filename of NEC2 input file */
 	filename =
 	  gtk_file_chooser_get_filename( GTK_FILE_CHOOSER(dialog) );
-	strncpy( infile, filename, 80 );
-	infile[80] = '\0';
+	Strlcpy( infile, filename, strlen(filename)+1 ); /* For null term. */
 	g_free( filename );
 	gtk_widget_destroy( file_chooser );
 
@@ -590,6 +588,7 @@ on_fileselection_response(  GtkDialog       *dialog,
 							gpointer         user_data)
 {
   gchar filename[81];
+  size_t s = sizeof( filename );
   char *str;
   gboolean new = FALSE;
 
@@ -597,16 +596,15 @@ on_fileselection_response(  GtkDialog       *dialog,
   if( response_id == GTK_RESPONSE_OK )
   {
 	/* Get the "save as" file name */
-	strncpy( filename, gtk_file_selection_get_filename(
-		  GTK_FILE_SELECTION(dialog)), 75 );
-	filename[75] = '\0';
+	Strlcpy( filename, gtk_file_selection_get_filename(
+		  GTK_FILE_SELECTION(dialog)), s );
 
 	if( isFlagSet(IMAGE_SAVE) )
 	{
 	  /* cat a file extension if not already there */
 	  str = strstr( filename, ".png" );
 	  if( (str == NULL) || (str[4] != '\0') )
-		strcat( filename, ".png" );
+		Strlcat( filename, ".png", s );
 	  Save_Pixmap(
 		  saveas_pixmap, saveas_pixmap_width,
 		  saveas_pixmap_height, filename );
@@ -616,10 +614,10 @@ on_fileselection_response(  GtkDialog       *dialog,
 	  /* cat a file extension if not already there */
 	  str = strstr( filename, ".nec" );
 	  if( (str == NULL) || (str[4] != '\0') )
-		strcat( filename, ".nec" );
+		Strlcat( filename, ".nec", s );
 
 	  /* Use new file name as input file */
-	  strcpy( infile, filename );
+	  Strlcpy( infile, filename, strlen(filename)+1 );
 	  Save_Nec2_Input_File( nec2_edit_window, filename );
 
 	  /* Re-open NEC2 input file */
@@ -631,7 +629,7 @@ on_fileselection_response(  GtkDialog       *dialog,
 	  /* cat a file extension if not already there */
 	  str = strstr( filename, ".gplot" );
 	  if( (str == NULL) || (str[6] != '\0') )
-		strcat( filename, ".gplot" );
+		Strlcat( filename, ".gplot", s );
 	  Save_RadPattern_Gnuplot_Data( filename );
 	}
 	else if( isFlagSet(PLOTS_GNUPLOT_SAVE) )
@@ -639,7 +637,7 @@ on_fileselection_response(  GtkDialog       *dialog,
 	  /* cat a file extension if not already there */
 	  str = strstr( filename, ".gplot" );
 	  if( (str == NULL) || (str[6] != '\0') )
-		strcat( filename, ".gplot" );
+		Strlcat( filename, ".gplot", s );
 	  Save_FreqPlots_Gnuplot_Data( filename );
 	}
 	else if( isFlagSet(STRCT_GNUPLOT_SAVE) )
@@ -647,7 +645,7 @@ on_fileselection_response(  GtkDialog       *dialog,
 	  /* cat a file extension if not already there */
 	  str = strstr( filename, ".gplot" );
 	  if( (str == NULL) || (str[6] != '\0') )
-		strcat( filename, ".gplot" );
+		Strlcat( filename, ".gplot", s );
 	  Save_Struct_Gnuplot_Data( filename );
 	}
 
@@ -1116,7 +1114,7 @@ on_rdpattern_colorcode_drawingarea_expose_event(GtkWidget       *widget,
 												GdkEventExpose  *event,
 												gpointer         user_data)
 {
-  double red, grn, blu;
+  double red = 0.0, grn = 0.0, blu = 0.0;
   int idx;
 
   /* No redraws if new input pending */

@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -56,7 +55,7 @@ Excitation_Command( int action )
   /* For reading/writing to EX row */
   static GtkTreeIter iter_ex;
 
-  int idx;
+  int idx, idi, idf;
 
   /* Integer data (I1-I4) */
   static gint iv[4] = { 0, 0, 0, 0 };
@@ -139,19 +138,19 @@ Excitation_Command( int action )
 	  Get_Command_Data( cmnd_store, &iter_ex, iv, fv );
 
 	  /* Write int data to the command editor */
-	  for( idx = SPIN_COL_I2; idx <= SPIN_COL_I3; idx++ )
+	  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  excitation_command, ispin[idx-SPIN_COL_I2]) );
-		gtk_spin_button_set_value( spin, iv[idx] );
+			  excitation_command, ispin[idi - SPIN_COL_I2]) );
+		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  excitation_command, fspin[idx]) );
-		gtk_spin_button_set_value( spin, fv[idx] );
+			  excitation_command, fspin[idf]) );
+		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 
 	  /* Set radio buttons */
@@ -226,19 +225,19 @@ Excitation_Command( int action )
   } /* switch( action ) */
 
   /* Read int data from the command editor */
-  for( idx = SPIN_COL_I2; idx <= SPIN_COL_I3; idx++ )
+  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  excitation_command, ispin[idx-SPIN_COL_I2]) );
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+		  excitation_command, ispin[idi - SPIN_COL_I2]) );
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the command editor */
-  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  excitation_command, fspin[idx]) );
-	fv[idx] = gtk_spin_button_get_value( spin );
+		  excitation_command, fspin[idf]) );
+	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
   /* Set spin button labels */
@@ -261,10 +260,10 @@ Excitation_Command( int action )
 		  };
 
 		  /* Clear unused spin buttons */
-		  for( idx = SPIN_COL_F4; idx <= SPIN_COL_F6; idx++ )
+		  for( idf = SPIN_COL_F4; idf <= SPIN_COL_F6; idf++ )
 		  {
 			spin = GTK_SPIN_BUTTON(
-				lookup_widget(excitation_command, fspin[idx]) );
+				lookup_widget(excitation_command, fspin[idf]) );
 			gtk_spin_button_set_value( spin, 0 );
 		  }
 		  Set_Labels( excitation_command, labels, text, EX_LABELS );
@@ -339,7 +338,7 @@ Frequency_Command( int action )
   /* For reading/writing to FR row */
   static GtkTreeIter iter_fr;
 
-  int idx;
+  int idf;
 
   /* Integer data (I1-I4) */
   static gint iv[4] = { 0, 0, 0, 0 };
@@ -381,11 +380,11 @@ Frequency_Command( int action )
   iv[SPIN_COL_I2] = gtk_spin_button_get_value_as_int( spin );
 
   /* Read float data from the command editor */
-  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F3; idx++ )
+  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  frequency_command, fspin[idx]) );
-	fv[idx] = gtk_spin_button_get_value( spin );
+		  frequency_command, fspin[idf]) );
+	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
   /* Respond to user action */
@@ -418,11 +417,11 @@ Frequency_Command( int action )
 	  gtk_spin_button_set_value( spin, iv[SPIN_COL_I2] );
 
 	  /* Write float data to the command editor */
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F2; idx++ )
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F2; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(frequency_command, fspin[idx]) );
-		gtk_spin_button_set_value( spin, fv[idx] );
+			lookup_widget(frequency_command, fspin[idf]) );
+		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 
 	  /* Calculate and set end freq to editor */
@@ -535,7 +534,7 @@ Ground_Command( int action )
   /* For reading/writing to GN/GD row */
   static GtkTreeIter iter_gn, iter_gd;
 
-  int idx;
+  int idx, idf;
 
   /* Integer data (I1-I4) */
   static gint iv[8] = { 1, 0, 0, 0, 0, 0, 0, 0 };
@@ -597,6 +596,7 @@ Ground_Command( int action )
 	  radl = scmd = both = FALSE;
 	  show = TRUE;
 	  iv[SPIN_COL_I1] = 1;
+	  iv[SPIN_COL_I2] = 0;
 	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
 			ground_command, "ground_perf_radiobutton") );
 	  gtk_toggle_button_set_active( toggle, TRUE );
@@ -639,11 +639,11 @@ Ground_Command( int action )
 
 	  /* Write 1st ground data to the command editor */
 	  if( (iv[SPIN_COL_I1] != 1) && (iv[SPIN_COL_I1] != -1) )
-		for( idx = SPIN_COL_F1; idx <= SPIN_COL_F2; idx++ )
+		for( idf = SPIN_COL_F1; idf <= SPIN_COL_F2; idf++ )
 		{
 		  spin = GTK_SPIN_BUTTON(
-			  lookup_widget(ground_command, fspin[idx]) );
-		  gtk_spin_button_set_value( spin, fv[idx] );
+			  lookup_widget(ground_command, fspin[idf]) );
+		  gtk_spin_button_set_value( spin, fv[idf] );
 		}
 
 	  /* Radial ground screen specified */
@@ -662,11 +662,11 @@ Ground_Command( int action )
 		gtk_spin_button_set_value( spin, iv[SPIN_COL_I2] );
 
 		/* Write radial data to the command editor */
-		for( idx = SPIN_COL_F3; idx <= SPIN_COL_F4; idx++ )
+		for( idf = SPIN_COL_F3; idf <= SPIN_COL_F4; idf++ )
 		{
 		  spin = GTK_SPIN_BUTTON( lookup_widget(
-				ground_command, fspin[idx+4]) );
-		  gtk_spin_button_set_value( spin, fv[idx] );
+				ground_command, fspin[idf+4]) );
+		  gtk_spin_button_set_value( spin, fv[idf] );
 		}
 
 		/* Check for a following GD card, read data */
@@ -678,12 +678,12 @@ Ground_Command( int action )
 		  /* Write radial data to the command editor */
 		  Get_Command_Data( cmnd_store, &iter_gd,
 			  &iv[CMND_NUM_ICOLS], &fv[CMND_NUM_FCOLS] );
-		  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F4; idx++ )
+		  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F4; idf++ )
 		  {
 			spin = GTK_SPIN_BUTTON( lookup_widget(
-				  ground_command, fspin[idx+2]) );
+				  ground_command, fspin[idf+2]) );
 			gtk_spin_button_set_value(
-				spin, fv[idx+CMND_NUM_FCOLS] );
+				spin, fv[idf+CMND_NUM_FCOLS] );
 		  }
 
 		  /* Set 2nd medium check button */
@@ -704,11 +704,11 @@ Ground_Command( int action )
 		  gtk_toggle_button_set_active( toggle, TRUE );
 
 		  /* Write 2nd medium data to command editor */
-		  for( idx = SPIN_COL_F3; idx <= SPIN_COL_F6; idx++ )
+		  for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
 		  {
 			spin = GTK_SPIN_BUTTON( lookup_widget(
-				  ground_command, fspin[idx]) );
-			gtk_spin_button_set_value( spin, fv[idx] );
+				  ground_command, fspin[idf]) );
+			gtk_spin_button_set_value( spin, fv[idf] );
 		  }
 
 		} /* if( (fv[SPIN_COL_F3] > 0) && (fv[SPIN_COL_F4] > 0) ) */
@@ -734,16 +734,21 @@ Ground_Command( int action )
 	  iv[SPIN_COL_I1] = idx-1;
 
 	  /* Remove GD card if it exists for perfect or null ground */
-	  if( ((iv[SPIN_COL_I1] == 1) || (iv[SPIN_COL_I1] == -1)) && both )
+	  if( (iv[SPIN_COL_I1] == 1) || (iv[SPIN_COL_I1] == -1) )
 	  {
-		Remove_Row( cmnd_store, &iter_gd );
+		if( both ) 
+		  Remove_Row( cmnd_store, &iter_gd );
+
+		/* Set toggle buttons as needed */
 		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
 			  ground_command, "ground_radl_checkbutton") );
 		gtk_toggle_button_set_active( toggle, FALSE );
 		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
 			  ground_command, "ground_secmd_checkbutton") );
 		gtk_toggle_button_set_active( toggle, FALSE );
+
 		both = radl = scmd = FALSE;
+		iv[SPIN_COL_I2] = 0;
 	  }
 
 	  save = show = TRUE;
@@ -808,40 +813,41 @@ Ground_Command( int action )
   /* Perfect or null ground */
   if( (iv[SPIN_COL_I1] == 1) || (iv[SPIN_COL_I1] == -1) )
   {
-	for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
-	  fv[idx] = 0.0;
+	for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
+	  fv[idf] = 0.0;
+	iv[SPIN_COL_I2] = 0;
   }
   else /* Finite ground */
   {
 	/* Read 1st medium rel dielec const & conductivity */
-	for( idx = SPIN_COL_F1; idx <= SPIN_COL_F2; idx++ )
+	for( idf= SPIN_COL_F1; idf <= SPIN_COL_F2; idf++ )
 	{
 	  spin = GTK_SPIN_BUTTON( lookup_widget(
-			ground_command, fspin[idx]) );
-	  fv[idx] = gtk_spin_button_get_value( spin );
+			ground_command, fspin[idf]) );
+	  fv[idf] = gtk_spin_button_get_value( spin );
 	}
 
 	/* If both radial and 2nd medium, GD card is needed */
 	if( both )
 	{
 	  /* Read radial screen parameters */
-	  for( idx = SPIN_COL_F3; idx <= SPIN_COL_F4; idx++ )
+	  for( idf = SPIN_COL_F3; idf <= SPIN_COL_F4; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  ground_command, fspin[idx+4]) );
-		fv[idx] = gtk_spin_button_get_value( spin );
+			  ground_command, fspin[idf+4]) );
+		fv[idf] = gtk_spin_button_get_value( spin );
 	  }
 
 	  /* Set 1st medium & radial screen parameters to GN card */
-	  for( idx = SPIN_COL_F5; idx <= SPIN_COL_F6; idx++ )
-		fv[idx] = 0.0;
+	  for( idf = SPIN_COL_F5; idf <= SPIN_COL_F6; idf++ )
+		fv[idf] = 0.0;
 
 	  /* Set 2nd medium parameters to GD card */
-	  for( idx = SPIN_COL_F3; idx <= SPIN_COL_F6; idx++ )
+	  for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  ground_command, fspin[idx]) );
-		fv[idx-SPIN_COL_F3+CMND_NUM_FCOLS] =
+			  ground_command, fspin[idf]) );
+		fv[idf - SPIN_COL_F3+CMND_NUM_FCOLS] =
 		  gtk_spin_button_get_value( spin );
 	  }
 
@@ -850,28 +856,28 @@ Ground_Command( int action )
 	{
 	  if( radl ) /* If radial ground only specified, read params */
 	  {
-		for( idx = SPIN_COL_F3; idx <= SPIN_COL_F4; idx++ )
+		for( idf = SPIN_COL_F3; idf <= SPIN_COL_F4; idf++ )
 		{
 		  spin = GTK_SPIN_BUTTON( lookup_widget(
-				ground_command, fspin[idx+4]) );
-		  fv[idx] = gtk_spin_button_get_value( spin );
+				ground_command, fspin[idf+4]) );
+		  fv[idf] = gtk_spin_button_get_value( spin );
 		}
-		for( idx = SPIN_COL_F5; idx <= SPIN_COL_F6; idx++ )
-		  fv[idx] = 0.0;
+		for( idf = SPIN_COL_F5; idf <= SPIN_COL_F6; idf++ )
+		  fv[idf] = 0.0;
 	  } /* if( radl ) */
 	  else
 		if( scmd ) /* If second medium only, read parameters */
 		{
-		  for( idx = SPIN_COL_F3; idx <= SPIN_COL_F6; idx++ )
+		  for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
 		  {
 			spin = GTK_SPIN_BUTTON( lookup_widget(
-				  ground_command, fspin[idx]) );
-			fv[idx] = gtk_spin_button_get_value( spin );
+				  ground_command, fspin[idf]) );
+			fv[idf] = gtk_spin_button_get_value( spin );
 		  }
 		}
 		else
-		  for( idx = SPIN_COL_F3; idx <= SPIN_COL_F6; idx++ )
-			fv[idx] = 0.0;
+		  for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
+			fv[idf] = 0.0;
 
 	} /* else of if( both ) */
 
@@ -969,7 +975,7 @@ Ground2_Command( int action )
   /* For reading/writing to GD row */
   static GtkTreeIter iter_gd;
 
-  int idx;
+  int idf;
 
   /* Integer data (I1-I4) */
   static gint iv[4] = { 0, 0, 0, 0 };
@@ -1029,11 +1035,11 @@ Ground2_Command( int action )
 	  Get_Command_Data( cmnd_store, &iter_gd, iv, fv );
 
 	  /* Write float data to the command editor */
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F4; idx++ )
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F4; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  ground2_command, fspin[idx]) );
-		gtk_spin_button_set_value( spin, fv[idx] );
+			  ground2_command, fspin[idf]) );
+		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 	  break;
 
@@ -1045,11 +1051,11 @@ Ground2_Command( int action )
 
 	case EDITOR_DATA: /* Some data changed in editor window */
 	  /* Read float data from the command editor */
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F4; idx++ )
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F4; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  ground2_command, fspin[idx]) );
-		fv[idx] = gtk_spin_button_get_value( spin );
+			  ground2_command, fspin[idf]) );
+		fv[idf] = gtk_spin_button_get_value( spin );
 	  }
 	  save = TRUE;
 
@@ -1078,7 +1084,7 @@ Radiation_Command( int action )
   /* For reading/writing to RP row */
   static GtkTreeIter iter_rp;
 
-  int idx, xnda;
+  int idx, idi, idf, xnda;
 
   /* Integer data (I1-I4) */
   static gint iv[4];
@@ -1239,19 +1245,19 @@ Radiation_Command( int action )
 	  gtk_toggle_button_set_active( toggle, TRUE );
 
 	  /* Write int data to the command editor (i2 & I3) */
-	  for( idx = SPIN_COL_I2; idx <= SPIN_COL_I3; idx++ )
+	  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  radiation_command, ispin[idx-SPIN_COL_I2]) );
-		gtk_spin_button_set_value( spin, iv[idx] );
+			  radiation_command, ispin[idi-SPIN_COL_I2]) );
+		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  radiation_command, fspin[idx]) );
-		gtk_spin_button_set_value( spin, fv[idx] );
+			  radiation_command, fspin[idf]) );
+		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 	  label = TRUE;
 	  break;
@@ -1332,18 +1338,18 @@ Radiation_Command( int action )
   } /* switch( action ) */
 
   /* Read int data from the command editor */
-  for( idx = SPIN_COL_I2; idx <= SPIN_COL_I3; idx++ )
+  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  radiation_command, ispin[idx-SPIN_COL_I2]) );
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+		  radiation_command, ispin[idi-SPIN_COL_I2]) );
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
   /* Read float data from the command editor */
-  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  radiation_command, fspin[idx]) );
-	fv[idx] = gtk_spin_button_get_value( spin );
+		  radiation_command, fspin[idf]) );
+	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
   /* Set labels according to wave/ground type */
@@ -1406,7 +1412,7 @@ Loading_Command( int action )
   /* For reading/writing to LD row */
   static GtkTreeIter iter_ld;
 
-  int idx;
+  int idx, idi, idf;
 
   /* Integer data (I1-I4) */
   static gint iv[4];
@@ -1490,10 +1496,10 @@ Loading_Command( int action )
 
 	case EDITOR_EDIT: /* Edit a command row (LD) selected in treeview */
 	  /* Clear buffers */
-	  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I4; idx++ )
-		iv[idx] = 0;
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F3; idx++ )
-		fv[idx] = 0.0;
+	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
+		iv[idi] = 0;
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
+		fv[idf] = 0.0;
 
 	  /* Get selected row */
 	  Get_Selected_Row( cmnd_treeview, cmnd_store, &iter_ld, name );
@@ -1509,19 +1515,19 @@ Loading_Command( int action )
 	  }
 
 	  /* Write int data to the command editor */
-	  for( idx = SPIN_COL_I2; idx <= SPIN_COL_I4; idx++ )
+	  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  loading_command, ispin[idx-SPIN_COL_I2]) );
-		gtk_spin_button_set_value( spin, iv[idx] );
+			  loading_command, ispin[idi-SPIN_COL_I2]) );
+		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F3; idx++ )
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  loading_command, fspin[idx]) );
-		gtk_spin_button_set_value( spin, fv[idx] );
+			  loading_command, fspin[idf]) );
+		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 
 	  /* Set active radio button */
@@ -1624,29 +1630,29 @@ Loading_Command( int action )
   } /* if( label ) */
 
   /* Read int data from the command editor */
-  for( idx = SPIN_COL_I2; idx <= SPIN_COL_I4; idx++ )
+  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  loading_command, ispin[idx-SPIN_COL_I2]) );
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+		  loading_command, ispin[idi-SPIN_COL_I2]) );
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the command editor */
-  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F3; idx++ )
+  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  loading_command, fspin[idx]) );
-	fv[idx] = gtk_spin_button_get_value( spin );
+		  loading_command, fspin[idf]) );
+	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
   /* Clear or convert parameters to right units for NEC2 */
   switch( iv[SPIN_COL_I1] ) /* Loading type */
   {
 	case -1: /* Short all loads */
-	  for( idx = SPIN_COL_I2; idx <= SPIN_COL_I4; idx++ )
-		iv[idx] = 0;
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F3; idx++ )
-		fv[idx] = 0.0;
+	  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
+		iv[idi] = 0;
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
+		fv[idf] = 0.0;
 	  break;
 
 	case 0: case 1: case 2: case 3: /* Lumped/Distributed loading */
@@ -1686,7 +1692,7 @@ Network_Command( int action )
   /* For reading/writing to NT row */
   static GtkTreeIter iter_nt;
 
-  int idx;
+  int idi, idf;
 
   /* Integer data (I1-I4) */
   static gint iv[4];
@@ -1756,19 +1762,19 @@ Network_Command( int action )
 	  Get_Command_Data( cmnd_store, &iter_nt, iv, fv );
 
 	  /* Write int data to the command editor */
-	  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I4; idx++ )
+	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(network_command, ispin[idx]) );
-		gtk_spin_button_set_value( spin, iv[idx] );
+			lookup_widget(network_command, ispin[idi]) );
+		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(network_command, fspin[idx]) );
-		gtk_spin_button_set_value( spin, fv[idx] );
+			lookup_widget(network_command, fspin[idf]) );
+		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 	  break;
 
@@ -1784,19 +1790,19 @@ Network_Command( int action )
   } /* switch( action ) */
 
   /* Read int data from the command editor */
-  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I4; idx++ )
+  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(network_command, ispin[idx]) );
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+		lookup_widget(network_command, ispin[idi]) );
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the command editor */
-  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(network_command, fspin[idx]) );
-	fv[idx] = gtk_spin_button_get_value( spin );
+		lookup_widget(network_command, fspin[idf]) );
+	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
   /* Wait for GTK to complete its tasks */
@@ -1821,7 +1827,7 @@ Txline_Command( int action )
   /* For reading/writing to TL row */
   static GtkTreeIter iter_tl;
 
-  int idx;
+  int idi, idf;
 
   /* Integer data (I1-I4) */
   static gint iv[4];
@@ -1907,19 +1913,19 @@ Txline_Command( int action )
 	  }
 
 	  /* Write int data to the command editor */
-	  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I4; idx++ )
+	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  txline_command, ispin[idx]) );
-		gtk_spin_button_set_value( spin, iv[idx] );
+			  txline_command, ispin[idi]) );
+		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  txline_command, fspin[idx]) );
-		gtk_spin_button_set_value( spin, fv[idx] );
+			  txline_command, fspin[idf]) );
+		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 
 	  break;
@@ -1946,19 +1952,19 @@ Txline_Command( int action )
   } /* switch( action ) */
 
   /* Read int data from the command editor */
-  for( idx = SPIN_COL_I1; idx <= SPIN_COL_I4; idx++ )
+  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  txline_command, ispin[idx]) );
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+		  txline_command, ispin[idi]) );
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the command editor */
-  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  txline_command, fspin[idx]) );
-	fv[idx] = gtk_spin_button_get_value( spin );
+		  txline_command, fspin[idf]) );
+	fv[idf] = gtk_spin_button_get_value( spin );
   }
   if( crossed )
 	fv[SPIN_COL_F1] = -fv[SPIN_COL_F1];
@@ -1988,7 +1994,7 @@ Nearfield_Command( int action )
 	iter_ne,
 	iter_nh;
 
-  int idx;
+  int idi, idf;
 
   /* Integer data (I1-I4) */
   static gint iv[4];
@@ -2080,19 +2086,19 @@ Nearfield_Command( int action )
 	  Get_Command_Data( cmnd_store, &iter_ne, iv, fv );
 
 	  /* Write int data to the command editor */
-	  for( idx = SPIN_COL_I2; idx <= SPIN_COL_I4; idx++ )
+	  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  nearfield_command, ispin[idx-SPIN_COL_I2]) );
-		gtk_spin_button_set_value( spin, iv[idx] );
+			  nearfield_command, ispin[idi-SPIN_COL_I2]) );
+		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
-	  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  nearfield_command, fspin[idx]) );
-		gtk_spin_button_set_value( spin, fv[idx] );
+			  nearfield_command, fspin[idf]) );
+		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 
 	  /* Set radio buttons */
@@ -2246,19 +2252,19 @@ Nearfield_Command( int action )
   } /* if( label ) */
 
   /* Read int data from the command editor */
-  for( idx = SPIN_COL_I2; idx <= SPIN_COL_I4; idx++ )
+  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  nearfield_command, ispin[idx-SPIN_COL_I2]) );
-	iv[idx] = gtk_spin_button_get_value_as_int( spin );
+		  nearfield_command, ispin[idi-SPIN_COL_I2]) );
+	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the command editor */
-  for( idx = SPIN_COL_F1; idx <= SPIN_COL_F6; idx++ )
+  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  nearfield_command, fspin[idx]) );
-	fv[idx] = gtk_spin_button_get_value( spin );
+		  nearfield_command, fspin[idf]) );
+	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
   /* Wait for GTK to complete its tasks */
@@ -2295,7 +2301,7 @@ Kernel_Command( int action )
 	save = FALSE, /* Enable saving of editor data */
 	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
-  int idx;
+  int idc;
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -2313,8 +2319,8 @@ Kernel_Command( int action )
 		  cmnd_store, &iter_ek, CMND_COL_I1, sek, -1 );
 
 	  /* Clear row to 0 */
-	  for( idx = CMND_COL_I2; idx <= CMND_COL_F6; idx++ )
-		gtk_list_store_set( cmnd_store, &iter_ek, idx, "0", -1 );
+	  for( idc = CMND_COL_I2; idc <= CMND_COL_F6; idc++ )
+		gtk_list_store_set( cmnd_store, &iter_ek, idc, "0", -1 );
 	}
 	save = FALSE;
   } /* if( (action & EDITOR_SAVE) && save ) */
@@ -2416,7 +2422,7 @@ Intrange_Command( int action )
 	save = FALSE, /* Enable saving of editor data */
 	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
-  int idx;
+  int idc;
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, intrange_command) ) return;
@@ -2428,9 +2434,9 @@ Intrange_Command( int action )
 	if( gtk_list_store_iter_is_valid(cmnd_store, &iter_kh) )
 	{
 	  /* Clear row to 0 */
-	  for( idx = CMND_COL_I1; idx <= CMND_COL_F6; idx++ )
+	  for( idc = CMND_COL_I1; idc <= CMND_COL_F6; idc++ )
 		gtk_list_store_set(
-			cmnd_store, &iter_kh, idx, "0", -1 );
+			cmnd_store, &iter_kh, idc, "0", -1 );
 
 	  /* Set range data */
 	  gtk_list_store_set(
@@ -2516,7 +2522,7 @@ Execute_Command( int action )
   gchar *sv;
   gchar sxq[6];
 
-  int idx;
+  int idx, idc;
 
   /* Execute command status */
   static int xq = 0;
@@ -2551,8 +2557,8 @@ Execute_Command( int action )
 	  snprintf( sxq, 6, "%5d", xq );
 	  gtk_list_store_set(
 		  cmnd_store, &iter_xq, CMND_COL_I1, sxq, -1 );
-	  for( idx = CMND_COL_I2; idx <= CMND_COL_F6; idx++ )
-		gtk_list_store_set( cmnd_store, &iter_xq, idx, "0", -1 );
+	  for( idc = CMND_COL_I2; idc <= CMND_COL_F6; idc++ )
+		gtk_list_store_set( cmnd_store, &iter_xq, idc, "0", -1 );
 	}
 	save = FALSE;
   } /* if( (action & EDITOR_SAVE) && save ) */
@@ -2633,7 +2639,7 @@ Execute_Command( int action )
   void
 Insert_EN_Card( GtkListStore *store, GtkTreeIter *iter )
 {
-  gint idx;
+  gint idx, idc;
 
   /* Insert default EN card if list is clear */
   idx = gtk_tree_model_iter_n_children(
@@ -2642,8 +2648,8 @@ Insert_EN_Card( GtkListStore *store, GtkTreeIter *iter )
   {
 	gtk_list_store_append( store, iter );
 	gtk_list_store_set( store, iter, CMND_COL_NAME, "EN", -1 );
-	for( idx = CMND_COL_I1; idx < CMND_NUM_COLS; idx++ )
-	  gtk_list_store_set( store, iter, idx, "0", -1 );
+	for( idc = CMND_COL_I1; idc < CMND_NUM_COLS; idc++ )
+	  gtk_list_store_set( store, iter, idc, "0", -1 );
   }
 
 } /* Insert_EN_Card() */
@@ -2661,24 +2667,24 @@ Get_Command_Data(
 	GtkTreeIter *iter,
 	int *iv, double *fv )
 {
-  gint idx;
+  gint idc;
   gchar *sv;
 
   /* Get data from tree view (I1-I4, F1-F6)*/
   if( gtk_list_store_iter_is_valid(store, iter) )
   {
-	for( idx = CMND_COL_I1; idx <= CMND_COL_I4; idx++ )
+	for( idc = CMND_COL_I1; idc <= CMND_COL_I4; idc++ )
 	{
 	  gtk_tree_model_get(
-		  GTK_TREE_MODEL(store), iter, idx, &sv, -1);
-	  iv[idx-CMND_COL_I1] = atoi(sv);
+		  GTK_TREE_MODEL(store), iter, idc, &sv, -1);
+	  iv[idc-CMND_COL_I1] = atoi(sv);
 	  g_free(sv);
 	}
-	for( idx = CMND_COL_F1; idx <= CMND_COL_F6; idx++ )
+	for( idc = CMND_COL_F1; idc <= CMND_COL_F6; idc++ )
 	{
 	  gtk_tree_model_get(
-		  GTK_TREE_MODEL(store), iter, idx, &sv, -1);
-	  fv[idx-CMND_COL_F1] = atof(sv);
+		  GTK_TREE_MODEL(store), iter, idc, &sv, -1);
+	  fv[idc-CMND_COL_F1] = atof(sv);
 	  g_free(sv);
 	}
   }
@@ -2702,21 +2708,21 @@ Set_Command_Data(
 	int *iv, double *fv )
 {
   gchar str[13];
-  gint idx;
+  gint idc;
 
   /* Format and set editor data to treeview (I1-I4 & F1-F6) */
   if( gtk_list_store_iter_is_valid(store, iter) )
   {
-	for( idx = CMND_COL_I1; idx <= CMND_COL_I4; idx++ )
+	for( idc = CMND_COL_I1; idc <= CMND_COL_I4; idc++ )
 	{
-	  snprintf( str, 6, "%5d", iv[idx-CMND_COL_I1] );
-	  gtk_list_store_set( store, iter, idx, str, -1 );
+	  snprintf( str, 6, "%5d", iv[idc-CMND_COL_I1] );
+	  gtk_list_store_set( store, iter, idc, str, -1 );
 	}
 
-	for( idx = CMND_COL_F1; idx <= CMND_COL_F6; idx++ )
+	for( idc = CMND_COL_F1; idc <= CMND_COL_F6; idc++ )
 	{
-	  snprintf( str, 13, "%12.5E", fv[idx-CMND_COL_F1] );
-	  gtk_list_store_set( store, iter, idx, str, -1 );
+	  snprintf( str, 13, "%12.5E", fv[idc-CMND_COL_F1] );
+	  gtk_list_store_set( store, iter, idc, str, -1 );
 	}
   }
   else

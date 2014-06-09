@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -810,7 +809,7 @@ Fit_to_Scale( double *max, double *min, int *nval )
   /* Acceptable scale values (10/10, 10/5, 10/4, 10/2) */
   /* Intermediate values are geometric mean of pairs */
   double scale_val[] =
-  {1.0, 1.4142, 2.0, 2.2360, 2.5, 3.5355, 5.0, 7.0710, 10.0, 14.142};
+  { 1.0, 1.4142, 2.0, 2.2360, 2.5, 3.5355, 5.0, 7.0710, 10.0, 14.142 };
   double subdiv_val, subdiv_order;
   int idx;
 
@@ -847,11 +846,12 @@ Fit_to_Scale( double *max, double *min, int *nval )
   subdiv_val /= subdiv_order;
 
   /* Find nearest prefered subdiv value */
-  idx = 1;
-  while( (scale_val[idx] < subdiv_val) && (idx < 10) )
-	idx += 2;
+  for( idx = 1; idx <= 9; idx += 2 )
+	if( scale_val[idx] >= subdiv_val )
+	  break;
 
   /* Scale prefered subdiv value */
+  if( idx > 9 ) idx = 9;
   subdiv_val = scale_val[idx-1] * subdiv_order;
 
   /* Recalculate new max and min value */

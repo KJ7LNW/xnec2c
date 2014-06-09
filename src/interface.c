@@ -444,7 +444,7 @@ create_main_window (void)
   structure_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (structure_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment1), structure_drawingarea);
-  gtk_widget_set_size_request (structure_drawingarea, 681, 681);
+  gtk_widget_set_size_request (structure_drawingarea, 681, 481);
   GTK_WIDGET_SET_FLAGS (structure_drawingarea, GTK_CAN_FOCUS);
 
   main_hbox3 = gtk_hbox_new (FALSE, 0);
@@ -794,9 +794,7 @@ create_filechooserdialog (void)
 
   filechooserdialog = gtk_file_chooser_dialog_new (_("xnec2c"), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL, NULL);
   gtk_container_set_border_width (GTK_CONTAINER (filechooserdialog), 5);
-  g_object_set (filechooserdialog,
-                "show-hidden", TRUE,
-                NULL);
+  g_object_set (filechooserdialog, "show-hidden", TRUE, NULL);
   gtk_window_set_position (GTK_WINDOW (filechooserdialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_role (GTK_WINDOW (filechooserdialog), "GtkFileChooserDialog");
   gtk_window_set_type_hint (GTK_WINDOW (filechooserdialog), GDK_WINDOW_TYPE_HINT_DIALOG);
@@ -1192,7 +1190,7 @@ create_freqplots_window (void)
   freqplots_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (freqplots_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment2), freqplots_drawingarea);
-  gtk_widget_set_size_request (freqplots_drawingarea, 681, 681);
+  gtk_widget_set_size_request (freqplots_drawingarea, 681, 481);
   GTK_WIDGET_SET_FLAGS (freqplots_drawingarea, GTK_CAN_FOCUS);
   gtk_widget_set_events (freqplots_drawingarea, GDK_BUTTON_PRESS_MASK);
 
@@ -1815,7 +1813,7 @@ create_rdpattern_window (void)
   rdpattern_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (rdpattern_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment3), rdpattern_drawingarea);
-  gtk_widget_set_size_request (rdpattern_drawingarea, 681, 681);
+  gtk_widget_set_size_request (rdpattern_drawingarea, 681, 481);
   GTK_WIDGET_SET_FLAGS (rdpattern_drawingarea, GTK_CAN_FOCUS);
 
   rdpattern_hbox3 = gtk_hbox_new (FALSE, 0);
@@ -2622,7 +2620,7 @@ create_nec2_editor (void)
   nec2_cmnt_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_cmnt_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow5), nec2_cmnt_treeview);
-  gtk_widget_set_size_request (nec2_cmnt_treeview, -1, 138);
+  gtk_widget_set_size_request (nec2_cmnt_treeview, -1, 70);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_cmnt_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_cmnt_treeview), TRUE);
 
@@ -2724,7 +2722,7 @@ create_nec2_editor (void)
   nec2_geom_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_geom_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow4), nec2_geom_treeview);
-  gtk_widget_set_size_request (nec2_geom_treeview, -1, 148);
+  gtk_widget_set_size_request (nec2_geom_treeview, -1, 70);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_geom_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_geom_treeview), TRUE);
 
@@ -2854,7 +2852,7 @@ create_nec2_editor (void)
   nec2_cmnd_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_cmnd_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow3), nec2_cmnd_treeview);
-  gtk_widget_set_size_request (nec2_cmnd_treeview, -1, 148);
+  gtk_widget_set_size_request (nec2_cmnd_treeview, -1, 70);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_cmnd_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_cmnd_treeview), TRUE);
 
@@ -3118,7 +3116,7 @@ create_wire_editor (void)
   gtk_table_attach (GTK_TABLE (table2), label29, 1, 2, 0, 1,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC(label29), 0.1, 0.5);
+  gtk_misc_set_alignment (GTK_MISC (label29), 0.1, 0.5);
 
   label30 = gtk_label_new (_("Segs % lambda"));
   gtk_widget_show (label30);

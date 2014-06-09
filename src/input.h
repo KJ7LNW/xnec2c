@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,15 +43,14 @@ enum CMDN_MNM
   RP,
   SY,
   TL,
-  XQ
+  XQ,
+  NUM_CMNDS
 };
-
-#define NUM_CMNDS	19
 
 /* Geometry Mnemonics */
 enum GEOM_MNM
 {
-  GW = 1,
+  GW = 0,
   GX,
   GR,
   GS,
@@ -63,10 +61,10 @@ enum GEOM_MNM
   GA,
   SC,
   GH,
-  GF
+  GF,
+  CT,
+  NUM_GEOMN
 };
-
-#define NUM_GEOMN	13
 
 #endif
 

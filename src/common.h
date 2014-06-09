@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -685,50 +684,352 @@ typedef struct
 
 /* Function prototypes produced by cproto */
 /* calculations.c */
-void qdsrc(int is, complex double v, complex double *e);
-void cabc(complex double *curx);
-int couple(complex double *cur, double wlam);
+void qdsrc(int is, _Complex double v, _Complex double *e);
+void cabc(_Complex double *curx);
 double db10(double x);
 double db20(double x);
-void intrp(double x, double y, complex double *f1,
-	complex double *f2, complex double *f3, complex double *f4);
-void intx(double el1, double el2, double b, int ij,
-	double *sgr, double *sgi);
+void intrp(double x, double y, _Complex double *f1, _Complex double *f2, _Complex double *f3, _Complex double *f4);
+void intx(double el1, double el2, double b, int ij, double *sgr, double *sgi);
 int min(int a, int b);
-void test(double f1r, double f2r, double *tr,
-	double f1i, double f2i, double *ti, double dmin);
+void test(double f1r, double f2r, double *tr, double f1i, double f2i, double *ti, double dmin);
 void sbf(int i, int is, double *aa, double *bb, double *cc);
 void tbf(int i, int icap);
 void trio(int j);
-double cang(complex double z);
-void zint(double sigl, double rolam, complex double *zint);
+double cang(_Complex double z);
+void zint(double sigl, double rolam, _Complex double *zint);
 /* callback_func.c */
 void Save_Pixmap(GdkPixmap *pixmap, int pixmap_width, int pixmap_height, char *filename);
-void New_Viewer_Angle(double wr, double wi, GtkSpinButton *wr_spb,
-	GtkSpinButton *wi_spb, projection_parameters_t *params);
-void Create_Pixmap(GdkPixmap **pixmap, int *pixmap_width, int *pixmap_height,
-	GtkWidget *widget, GdkEventConfigure *event, projection_parameters_t *params);
-void Motion_Event(GdkEventMotion *event, projection_parameters_t *params,
-	GtkSpinButton *wr_spb, GtkSpinButton *wi_spb);
+void New_Viewer_Angle(double wr, double wi, GtkSpinButton *wr_spb, GtkSpinButton *wi_spb, projection_parameters_t *params);
+void Create_Pixmap(GdkPixmap **pixmap, int *pixmap_width, int *pixmap_height, GtkWidget *widget, GdkEventConfigure *event, projection_parameters_t *params);
+void Motion_Event(GdkEventMotion *event, projection_parameters_t *params, GtkSpinButton *wr_spb, GtkSpinButton *wi_spb);
 void Plot_Select(GtkToggleButton *togglebutton, unsigned long long int flag);
 void Delete_Event(gchar *message);
 void Set_Pol_Menuitem(GtkMenuItem *menuitem);
 void Close_Windows(void);
 gboolean Open_Editor(GtkTreeView *view);
-gboolean Nec2_Apply_Checkbutton(void);
 void Main_Rdpattern_Activate(gboolean from_menu);
 gboolean Main_Freqplots_Activate(void);
 void Rdpattern_Gain_Togglebutton_Toggled(gboolean flag);
 void Rdpattern_EH_Togglebutton_Toggled(gboolean flag);
 void Main_Currents_Togglebutton_Toggled(gboolean flag);
 void Main_Charges_Togglebutton_Toggled(gboolean flag);
-gboolean Nec2_Save_Warn(const gchar *mesg);
 void Open_Nec2_Editor(int action);
+gboolean Nec2_Apply_Checkbutton(void);
 void Gtk_Quit(void);
 void Pass_EH_Flags(void);
 void Alloc_Crnt_Buffs(void);
 void Free_Crnt_Buffs(void);
-void About_Dialog(GtkWidget *aboutdialog);
+/* callbacks.c */
+void on_main_window_destroy(GtkObject *object, gpointer user_data);
+gboolean on_main_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+void on_new_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_open_input_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_main_save_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_main_save_as_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_struct_save_as_gnuplot_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_quit_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_main_rdpattern_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_main_freqplots_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_total_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_horizontal_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_vertical_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_right_hand_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_left_hand_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_common_projection_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_common_freq_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_main_x_axis_clicked(GtkButton *button, gpointer user_data);
+void on_main_y_axis_clicked(GtkButton *button, gpointer user_data);
+void on_main_z_axis_clicked(GtkButton *button, gpointer user_data);
+void on_main_default_view_clicked(GtkButton *button, gpointer user_data);
+void on_main_rotate_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_main_incline_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_main_currents_togglebutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_main_charges_togglebutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+gboolean on_main_colorcode_drawingarea_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer user_data);
+void on_main_freq_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_main_freq_checkbutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_main_new_freq_clicked(GtkButton *button, gpointer user_data);
+gboolean on_structure_drawingarea_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer user_data);
+gboolean on_structure_drawingarea_motion_notify_event(GtkWidget *widget, GdkEventMotion *event, gpointer user_data);
+gboolean on_structure_drawingarea_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer user_data);
+void on_filechooserdialog_response(GtkDialog *dialog, gint response_id, gpointer user_data);
+void on_fileselection_response(GtkDialog *dialog, gint response_id, gpointer user_data);
+gboolean on_freqplots_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+void on_freqplots_window_destroy(GtkObject *object, gpointer user_data);
+void on_freqplots_save_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_freqplots_save_as_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_freqplots_save_as_gnuplot_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_freqplots_gmax_togglebutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_freqplots_gdir_togglebutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_freqplots_gviewer_togglebutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_freqplots_vswr_togglebutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_freqplots_zo_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_freqplots_zrlzim_togglebutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_freqplots_zmgzph_togglebutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+gboolean on_freqplots_drawingarea_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer user_data);
+gboolean on_freqplots_drawingarea_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer user_data);
+gboolean on_freqplots_drawingarea_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+void on_rdpattern_window_destroy(GtkObject *object, gpointer user_data);
+gboolean on_rdpattern_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+void on_rdpattern_save_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_save_as_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_save_as_gnuplot_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_linear_power_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_linear_voltage_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_arrl_style_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_logarithmic_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_e_field_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_h_field_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_poynting_vector_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_overlay_structure_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_x_axis_clicked(GtkButton *button, gpointer user_data);
+void on_rdpattern_y_axis_clicked(GtkButton *button, gpointer user_data);
+void on_rdpattern_z_axis_clicked(GtkButton *button, gpointer user_data);
+void on_rdpattern_default_view_clicked(GtkButton *button, gpointer user_data);
+void on_rdpattern_rotate_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_rdpattern_incline_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_rdpattern_gain_togglebutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_rdpattern_eh_togglebutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+gboolean on_rdpattern_colorcode_drawingarea_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer user_data);
+void on_rdpattern_freq_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_rdpattern_new_freq_clicked(GtkButton *button, gpointer user_data);
+gboolean on_rdpattern_drawingarea_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer user_data);
+gboolean on_rdpattern_drawingarea_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer user_data);
+gboolean on_rdpattern_drawingarea_motion_notify_event(GtkWidget *widget, GdkEventMotion *event, gpointer user_data);
+void on_quit_cancelbutton_clicked(GtkButton *button, gpointer user_data);
+void on_quit_okbutton_clicked(GtkButton *button, gpointer user_data);
+void main_view_menuitem_activate(GtkMenuItem *menuitem, gpointer user_data);
+void main_pol_menu_activate(GtkMenuItem *menuitem, gpointer user_data);
+void freqplots_pol_menu_activate(GtkMenuItem *menuitem, gpointer user_data);
+void rdpattern_view_menuitem_activate(GtkMenuItem *menuitem, gpointer user_data);
+void rdpattern_pol_menu_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_filechoser_cancel_clicked(GtkButton *button, gpointer user_data);
+void on_fileselection_cancel_clicked(GtkButton *button, gpointer user_data);
+void on_near_peak_value_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_near_snapshot_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_rdpattern_animate_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_animation_applybutton_clicked(GtkButton *button, gpointer user_data);
+void on_animation_cancelbutton_clicked(GtkButton *button, gpointer user_data);
+void on_animation_okbutton_clicked(GtkButton *button, gpointer user_data);
+void on_animate_dialog_destroy(GtkObject *object, gpointer user_data);
+void on_quit_dialog_destroy(GtkObject *object, gpointer user_data);
+gboolean on_error_dialog_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+void on_nec2_edit_activate(GtkMenuItem *menuitem, gpointer user_data);
+gboolean on_nec2_editor_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+void on_nec2_editor_destroy(GtkObject *object, gpointer user_data);
+void on_nec2_save_clicked(GtkButton *button, gpointer user_data);
+void on_nec2_save_as_clicked(GtkButton *button, gpointer user_data);
+void on_nec2_row_add_clicked(GtkButton *button, gpointer user_data);
+void on_nec2_row_remv_clicked(GtkButton *button, gpointer user_data);
+void on_nec2_treeview_clear_clicked(GtkButton *button, gpointer user_data);
+gboolean on_nec2_cmnt_treeview_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+gboolean on_nec2_geom_treeview_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+gboolean on_nec2_cmnd_treeview_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+void on_nec2_revert_clicked(GtkButton *button, gpointer user_data);
+void on_error_stopbutton_clicked(GtkButton *button, gpointer user_data);
+void on_error_okbutton_clicked(GtkButton *button, gpointer user_data);
+void on_error_quitbutton_clicked(GtkButton *button, gpointer user_data);
+void on_wire_editor_destroy(GtkObject *object, gpointer user_data);
+void on_wire_pcl_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_wire_data_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_wire_tagnum_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_wire_len_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_wire_taper_checkbutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_wire_rlen_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_wire_rdia_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_wire_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_wire_res_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_wire_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_wire_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_wire_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_gw_clicked(GtkButton *button, gpointer user_data);
+void on_ga_clicked(GtkButton *button, gpointer user_data);
+void on_gh_clicked(GtkButton *button, gpointer user_data);
+void on_sp_clicked(GtkButton *button, gpointer user_data);
+void on_gr_clicked(GtkButton *button, gpointer user_data);
+void on_gm_clicked(GtkButton *button, gpointer user_data);
+void on_gx_clicked(GtkButton *button, gpointer user_data);
+void on_gs_clicked(GtkButton *button, gpointer user_data);
+void on_ex_clicked(GtkButton *button, gpointer user_data);
+void on_fr_clicked(GtkButton *button, gpointer user_data);
+void on_gn_clicked(GtkButton *button, gpointer user_data);
+void on_gd_clicked(GtkButton *button, gpointer user_data);
+void on_rp_clicked(GtkButton *button, gpointer user_data);
+void on_ld_clicked(GtkButton *button, gpointer user_data);
+void on_nt_clicked(GtkButton *button, gpointer user_data);
+void on_tl_clicked(GtkButton *button, gpointer user_data);
+void on_ne_clicked(GtkButton *button, gpointer user_data);
+void on_ek_clicked(GtkButton *button, gpointer user_data);
+void on_kh_clicked(GtkButton *button, gpointer user_data);
+void on_xq_clicked(GtkButton *button, gpointer user_data);
+void on_patch_data_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_patch_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_patch_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_patch_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_patch_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_patch_editor_destroy(GtkObject *object, gpointer user_data);
+void on_patch_arbitary_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_patch_rectangular_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_patch_triangular_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_patch_quadrilateral_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_patch_surface_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_arc_data_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_arc_tagnum_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_arc_res_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_arc_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_arc_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_arc_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_arc_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_arc_editor_destroy(GtkObject *object, gpointer user_data);
+void on_arc_pcl_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_helix_tagnum_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_helix_pcl_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_helix_nturns_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_helix_res_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_helix_lh_checkbutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_helix_data_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_helix_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_helix_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_helix_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_helix_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_helix_editor_destroy(GtkObject *object, gpointer user_data);
+void on_helix_linkall_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_helix_linkzo_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_helix_linkzhl_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_reflect_taginc_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_reflect_checkbutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_reflect_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_reflect_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_reflect_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_reflect_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_reflect_editor_destroy(GtkObject *object, gpointer user_data);
+void on_scale_editor_destroy(GtkObject *object, gpointer user_data);
+void on_scale_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_scale_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_scale_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_scale_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_scale_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_cylinder_taginc_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_cylinder_total_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_cylinder_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_cylinder_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_cylinder_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_cylinder_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_cylinder_editor_destroy(GtkObject *object, gpointer user_data);
+void on_transform_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_transform_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_transform_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_transform_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_transform_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_transform_editor_destroy(GtkObject *object, gpointer user_data);
+void on_gend_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_gend_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_gend_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_gend_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_gend_editor_destroy(GtkObject *object, gpointer user_data);
+void on_kernel_command_destroy(GtkObject *object, gpointer user_data);
+void on_kernel_checkbutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_kernel_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_kernel_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_kernel_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_kernel_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_execute_command_destroy(GtkObject *object, gpointer user_data);
+void on_execute_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_execute_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_execute_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_execute_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_execute_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_intrange_command_destroy(GtkObject *object, gpointer user_data);
+void on_intrange_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_intrange_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_intrange_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_intrange_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_intrange_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_ground_command_destroy(GtkObject *object, gpointer user_data);
+void on_ground_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_ground_checkbutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_ground_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_ground_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_ground_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_ground_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_ground_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_nearfield_command_destroy(GtkObject *object, gpointer user_data);
+void on_nearfield_nh_checkbutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_nearfield_ne_checkbutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_nearfield_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_nearfield_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_nearfield_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_nearfield_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_nearfield_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_nearfield_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_radiation_command_destroy(GtkObject *object, gpointer user_data);
+void on_radiation_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_radiation_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_radiation_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_radiation_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_radiation_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_radiation_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_excitation_command_destroy(GtkObject *object, gpointer user_data);
+void on_excitation_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_excitation_checkbutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_excitation_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_excitation_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_excitation_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_excitation_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_excitation_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_frequency_command_destroy(GtkObject *object, gpointer user_data);
+void on_frequency_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_frequency_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_frequency_step_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_frequency_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_frequency_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_frequency_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_frequency_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_loading_command_destroy(GtkObject *object, gpointer user_data);
+void on_loading_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_loading_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_loading_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_loading_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_loading_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_loading_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_network_command_destroy(GtkObject *object, gpointer user_data);
+void on_network_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_network_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_network_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_network_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_network_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_txline_command_destroy(GtkObject *object, gpointer user_data);
+void on_txline_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_txline_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_txline_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_txline_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_txline_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_txline_checkbutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_ground2_command_destroy(GtkObject *object, gpointer user_data);
+void on_ground2_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_ground2_new_button_clicked(GtkButton *button, gpointer user_data);
+void on_ground2_cancel_button_clicked(GtkButton *button, gpointer user_data);
+void on_ground2_apply_button_clicked(GtkButton *button, gpointer user_data);
+void on_ground2_ok_button_clicked(GtkButton *button, gpointer user_data);
+void on_loop_start_clicked(GtkButton *button, gpointer user_data);
+void on_loop_pause_clicked(GtkButton *button, gpointer user_data);
+void on_loop_reset_clicked(GtkButton *button, gpointer user_data);
+void on_about_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_aboutdialog_close(GtkDialog *dialog, gpointer user_data);
+void on_aboutdialog_response(GtkDialog *dialog, gint response_id, gpointer user_data);
+void on_net_gain_activate(GtkMenuItem *menuitem, gpointer user_data);
+gboolean on_structure_drawingarea_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+void on_structure_zoom_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_structure_plus_button_clicked(GtkButton *button, gpointer user_data);
+void on_structure_minus_button_clicked(GtkButton *button, gpointer user_data);
+void on_structure_one_button_clicked(GtkButton *button, gpointer user_data);
+gboolean on_rdpattern_drawingarea_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+void on_rdpattern_zoom_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
+void on_rdpattern_plus_button_clicked(GtkButton *button, gpointer user_data);
+void on_rdpattern_minus_button_clicked(GtkButton *button, gpointer user_data);
+void on_rdpattern_one_button_clicked(GtkButton *button, gpointer user_data);
+gboolean on_structure_drawingarea_scroll_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+gboolean on_rdpattern_drawingarea_scroll_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 /* cmnd_edit.c */
 void Excitation_Command(int action);
 void Frequency_Command(int action);
@@ -745,19 +1046,16 @@ void Execute_Command(int action);
 void Insert_EN_Card(GtkListStore *store, GtkTreeIter *iter);
 void Get_Command_Data(GtkListStore *store, GtkTreeIter *iter, int *iv, double *fv);
 void Set_Command_Data(GtkListStore *store, GtkTreeIter *iter, int *iv, double *fv);
-void Insert_Blank_Command_Row(GtkTreeView *view,
-	GtkListStore *store, GtkTreeIter *iter, const gchar *name);
+void Insert_Blank_Command_Row(GtkTreeView *view, GtkListStore *store, GtkTreeIter *iter, const gchar *name);
 void Set_Labels(GtkWidget *widget, gchar **labels, gchar **text, gint num);
 /* draw.c */
-void Set_Gdk_Segment(GdkSegment *segm, projection_parameters_t *param,
-	double x1, double y1, double z1, double x2, double y2, double z2);
-void Project_on_Screen(projection_parameters_t *param,
-	double x, double y, double z, double *xs, double *ys);
-void Project_XYZ_Axes(GdkPixmap *pixmap, projection_parameters_t *param, GdkSegment *segm);
+void Set_Gdk_Segment(GdkSegment *segm, projection_parameters_t *params, double x1, double y1, double z1, double x2, double y2, double z2);
+void Project_on_Screen(projection_parameters_t *params, double x, double y, double z, double *xs, double *ys);
+void Project_XYZ_Axes(GdkPixmap *pixmap, projection_parameters_t *params, GdkSegment *segment);
 void Draw_XYZ_Axes(GdkPixmap *pixmap, projection_parameters_t params);
-void New_Projection_Parameters(int width, int height, projection_parameters_t *param);
+void New_Projection_Parameters(int width, int height, projection_parameters_t *params);
 void Value_to_Color(double *red, double *grn, double *blu, double val, double max);
-void Cairo_Draw_Polygon(cairo_t* cr, GdkPoint *points, int npoints);
+void Cairo_Draw_Polygon(cairo_t *cr, GdkPoint *points, int npoints);
 void Cairo_Draw_Segments(cairo_t *cr, GdkSegment *segm, int nseg);
 void Cairo_Draw_Line(cairo_t *cr, int x1, int y1, int x2, int y2);
 void Cairo_Draw_Lines(cairo_t *cr, GdkPoint *points, int npoints);
@@ -765,13 +1063,13 @@ void Cairo_Draw_Lines(cairo_t *cr, GdkPoint *points, int npoints);
 void Draw_Radiation(GtkWidget *drawingarea);
 void Draw_Radiation_Pattern(void);
 void Draw_Near_Field(void);
-gboolean Animate_Near_Field(gpointer data);
+gboolean Animate_Near_Field(gpointer udata);
 double Scale_Gain(double gain, int fstep, int idx);
 double Polarization_Factor(int pol_type, int fstep, int idx);
 void Set_Polarization(int pol);
 void Set_Gain_Style(int gs);
 void New_Radiation_Projection_Angle(void);
-gboolean Redo_Radiation_Pattern(gpointer user_data);
+gboolean Redo_Radiation_Pattern(gpointer udata);
 double Viewer_Gain(projection_parameters_t proj_parameters, int fstep);
 void Rdpattern_Window_Killed(void);
 void Set_Window_Labels(void);
@@ -786,46 +1084,39 @@ void Process_Wire_Segments(void);
 void Process_Surface_Patches(void);
 void Draw_Wire_Segments(GdkSegment *segm, gint nseg);
 void Draw_Surface_Patches(GdkSegment *segm, gint npatch);
-gboolean Redo_Currents(gpointer userdata);
+gboolean Redo_Currents(gpointer udata);
 void New_Structure_Projection_Angle(void);
 void Init_Struct_Drawing(void);
-void Show_Viewer_Gain(GtkWidget *window, const char *widget,
-	projection_parameters_t proj_params);
+void Show_Viewer_Gain(GtkWidget *window, const char *widget, projection_parameters_t proj_params);
 /* fields.c */
 void efld(double xi, double yi, double zi, double ai, int ij);
-void eksc(double s, double z, double rh, double xk, int ij,
-	complex double *ezs, complex double *ers, complex double *ezc,
-	complex double *erc, complex double *ezk, complex double *erk);
-void ekscx(double bx, double s, double z, double rhx,
-	double xk, int ij, int inx1, int inx2, complex double *ezs,
-	complex double *ers, complex double *ezc, complex double *erc,
-	complex double *ezk, complex double *erk);
+void eksc(double s, double z, double rh, double xk, int ij, _Complex double *ezs, _Complex double *ers, _Complex double *ezc, _Complex double *erc, _Complex double *ezk, _Complex double *erk);
+void ekscx(double bx, double s, double z, double rhx, double xk, int ij, int inx1, int inx2, _Complex double *ezs, _Complex double *ers, _Complex double *ezc, _Complex double *erc, _Complex double *ezk, _Complex double *erk);
 void gf(double zk, double *co, double *si);
 void gh(double zk, double *hr, double *hi);
-void gwave(complex double *erv, complex double *ezv,
-	complex double *erh, complex double *ezh, complex double *eph);
-void gx(double zz, double rh, double xk,
-	complex double *gz, complex double *gzp);
-void gxx(double zz, double rh, double a, double a2,
-	double xk, int ira, complex double *g1, complex double *g1p,
-	complex double *g2, complex double *g2p, complex double *g3,
-	complex double *gzp);
-void hfk(double el1, double el2, double rhk,
-	double zpkx, double *sgr, double *sgi);
+void gwave(_Complex double *erv, _Complex double *ezv, _Complex double *erh, _Complex double *ezh, _Complex double *eph);
+void gx(double zz, double rh, double xk, _Complex double *gz, _Complex double *gzp);
+void gxx(double zz, double rh, double a, double a2, double xk, int ira, _Complex double *g1, _Complex double *g1p, _Complex double *g2, _Complex double *g2p, _Complex double *g3, _Complex double *gzp);
+void hfk(double el1, double el2, double rhk, double zpkx, double *sgr, double *sgi);
 void hintg(double xi, double yi, double zi);
 void hsfld(double xi, double yi, double zi, double ai);
-void hsflx(double s, double rh, double zpx, complex double *hpk,
-	complex double *hps, complex double *hpc);
-void nefld(double xob, double yob, double zob,
-	complex double *ex, complex double *ey, complex double *ez);
+void hsflx(double s, double rh, double zpx, _Complex double *hpk, _Complex double *hps, _Complex double *hpc);
+void nefld(double xob, double yob, double zob, _Complex double *ex, _Complex double *ey, _Complex double *ez);
 void nfpat(int nfeh);
-void nhfld(double xob, double yob, double zob,
-	complex double *hx, complex double *hy, complex double *hz);
-void pcint(double xi, double yi, double zi, double cabi,
-	double sabi, double salpi, complex double *e);
+void nhfld(double xob, double yob, double zob, _Complex double *hx, _Complex double *hy, _Complex double *hz);
+void pcint(double xi, double yi, double zi, double cabi, double sabi, double salpi, _Complex double *e);
 void unere(double xob, double yob, double zob);
-void Near_Field_Total(complex double ex, complex double ey,
-	complex double ez, int nfeh, int idx);
+void Near_Field_Total(_Complex double ex, _Complex double ey, _Complex double ez, int nfeh, int idx);
+/* fork.c */
+void Child_Process(int num_child);
+void Child_Input_File(void);
+int Fork_Command(const char *cdstr);
+ssize_t Read_Pipe(int idx, char *str, ssize_t len, gboolean err);
+ssize_t Write_Pipe(int idx, char *str, ssize_t len, gboolean err);
+ssize_t PRead_Pipe(int idx, char *str, ssize_t len, gboolean err);
+void Pass_Freq_Data(void);
+void Get_Freq_Data(int idx, int fstep);
+void Mem_Copy(char *buff, char *var, size_t cnt, gboolean wrt);
 /* geom_edit.c */
 void Wire_Editor(int action);
 void Patch_Editor(int action);
@@ -841,83 +1132,143 @@ void Get_Geometry_Data(GtkListStore *store, GtkTreeIter *iter, int *iv, double *
 void Get_Geometry_Int_Data(GtkListStore *store, GtkTreeIter *iter, int *iv);
 void Set_Geometry_Data(GtkListStore *store, GtkTreeIter *iter, int *iv, double *fv);
 void Set_Geometry_Int_Data(GtkListStore *store, GtkTreeIter *iter, int *iv);
-gboolean Check_Card_Name(GtkListStore *store,
-	GtkTreeIter *iter, gboolean next, const gchar *name);
+gboolean Check_Card_Name(GtkListStore *store, GtkTreeIter *iter, gboolean next, const gchar *name);
 gboolean Give_Up(int *busy, GtkWidget *widget);
-void Insert_Blank_Geometry_Row(GtkTreeView *view,
-	GtkListStore *store, GtkTreeIter *iter, const gchar *name);
+void Insert_Blank_Geometry_Row(GtkTreeView *view, GtkListStore *store, GtkTreeIter *iter, const gchar *name);
 void Remove_Row(GtkListStore *store, GtkTreeIter *iter);
-gboolean Get_Selected_Row(GtkTreeView *view,
-	GtkListStore *store, GtkTreeIter *iter, gchar *name);
+gboolean Get_Selected_Row(GtkTreeView *view, GtkListStore *store, GtkTreeIter *iter, gchar *name);
 void Set_Wire_Conductivity(int tag, double s, GtkListStore *store);
+gboolean Get_Wire_Conductivity(int tag, double *s, GtkListStore *store);
 /* geometry.c */
-gboolean arc(int itg, int ns, double rada,
-	double ang1, double ang2, double rad);
+gboolean arc(int itg, int ns, double rada, double ang1, double ang2, double rad);
 gboolean conect(int ignd);
-void helix(double s, double hl, double a1, double b1,
-	double a2, double b2, double rad, int ns, int itg);
+void helix(double s, double hl, double a1, double b1, double a2, double b2, double rad, int ns, int itg);
 int isegno(int itagi, int mx);
-gboolean move(double rox, double roy, double roz, double xs,
-	double ys, double zs, int its, int nrpt, int itgi);
-gboolean patch(int nx, int ny, double ax1, double ay1, double az1,
-	double ax2, double ay2, double az2, double ax3,
-	double ay3, double az3, double ax4, double ay4, double az4);
+gboolean move(double rox, double roy, double roz, double xs, double ys, double zs, int its, int nrpt, int itgi);
+gboolean patch(int nx, int ny, double ax1, double ay1, double az1, double ax2, double ay2, double az2, double ax3, double ay3, double az3, double ax4, double ay4, double az4);
 void subph(int nx, int ny);
-int reflc(int ix, int iy, int iz, int itx, int nop);
-void wire(double xw1, double yw1, double zw1, double xw2,
-	double yw2, double zw2, double rad, double rdel,
-	double rrad, int ns, int itg);
+gboolean reflc(int ix, int iy, int iz, int iti, int nop);
+void wire(double xw1, double yw1, double zw1, double xw2, double yw2, double zw2, double rad, double rdel, double rrad, int ns, int itg);
 /* gnuplot.c */
-void Save_RadPattern_Gnuplot_Data(char *filename);
 void Save_FreqPlots_Gnuplot_Data(char *filename);
+void Save_RadPattern_Gnuplot_Data(char *filename);
 void Save_Struct_Gnuplot_Data(char *filename);
 /* ground.c */
-void rom2(double a, double b, complex double *sum, double dmin);
-void sflds(double t, complex double *e);
-/* gtk-fork.c */
-void sigchld_handler(int num);
-gint delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
-void destroy(GtkWidget *widget, gpointer data);
-void fork_me(GtkWidget *widget, gpointer data);
-int main(int argc, char *argv[]);
+void rom2(double a, double b, _Complex double *sum, double dmin);
+void sflds(double t, _Complex double *e);
 /* input.c */
 gboolean Read_Comments(void);
 gboolean Read_Geometry(void);
 gboolean Read_Commands(void);
-gboolean readmn(char *gm, int *i1, int *i2, int *i3, int *i4, double *f1,
-	double *f2, double *f3, double *f4, double *f5,
-	double *f6);
-gboolean readgm(char *gm, int *i1, int *i2, double *x1, double *y1,
-	double *z1, double *x2, double *y2, double *z2,
-	double *rad);
+gboolean readmn(char *mn, int *i1, int *i2, int *i3, int *i4, double *f1, double *f2, double *f3, double *f4, double *f5, double *f6);
+gboolean readgm(char *gm, int *i1, int *i2, double *x1, double *y1, double *z1, double *x2, double *y2, double *z2, double *rad);
 gboolean datagn(void);
 gboolean Tag_Seg_Error(int tag, int segs);
+/* interface.c */
+GtkWidget *create_main_window(void);
+GtkWidget *create_filechooserdialog(void);
+GtkWidget *create_fileselection(void);
+GtkWidget *create_freqplots_window(void);
+GtkWidget *create_rdpattern_window(void);
+GtkWidget *create_quit_dialog(void);
+GtkWidget *create_error_dialog(void);
+GtkWidget *create_animate_dialog(void);
+GtkWidget *create_nec2_editor(void);
+GtkWidget *create_wire_editor(void);
+GtkWidget *create_patch_editor(void);
+GtkWidget *create_arc_editor(void);
+GtkWidget *create_transform_editor(void);
+GtkWidget *create_helix_editor(void);
+GtkWidget *create_reflect_editor(void);
+GtkWidget *create_scale_editor(void);
+GtkWidget *create_cylinder_editor(void);
+GtkWidget *create_kernel_command(void);
+GtkWidget *create_execute_command(void);
+GtkWidget *create_intrange_command(void);
+GtkWidget *create_ground_command(void);
+GtkWidget *create_nearfield_command(void);
+GtkWidget *create_radiation_command(void);
+GtkWidget *create_excitation_command(void);
+GtkWidget *create_frequency_command(void);
+GtkWidget *create_loading_command(void);
+GtkWidget *create_network_command(void);
+GtkWidget *create_txline_command(void);
+GtkWidget *create_ground2_command(void);
+GtkWidget *create_gend_editor(void);
+GtkWidget *create_aboutdialog(void);
 /* main.c */
 int main(int argc, char *argv[]);
-gboolean Open_Input_File(gpointer data);
+gboolean Open_Input_File(gpointer udata);
 gboolean isChild(void);
 /* matrix.c */
-void cmset(int nrow, complex double *cm, double rkhx, int iexkx);
-void cmss(int j1, int j2, int im1, int im2,
-	complex double *cm, int nrow, int itrp);
-void cmsw(int j1, int j2, int i1, int i2, complex double *cm,
-	complex double *cw, int ncw, int nrow, int itrp);
-void cmws(int j, int i1, int i2, complex double *cm,
-	int nr, complex double *cw, int itrp);
-void cmww(int j, int i1, int i2, complex double *cm, int nr,
-	complex double *cw, int nw, int itrp);
-void etmns(double p1, double p2, double p3, double p4,
-	double p5, double p6, int ipr, complex double *e);
-void factr(int n, complex double *a, int *ip, int ndim);
-void factrs(int np, int nrow, complex double *a, int *ip);
+void cmset(int nrow, _Complex double *cmx, double rkhx, int iexkx);
+void cmss(int j1, int j2, int im1, int im2, _Complex double *cmx, int nrow, int itrp);
+void cmsw(int j1, int j2, int i1, int i2, _Complex double *cmx, _Complex double *cw, int ncw, int nrow, int itrp);
+void cmws(int j, int i1, int i2, _Complex double *cmx, int nr, _Complex double *cw, int itrp);
+void cmww(int j, int i1, int i2, _Complex double *cmx, int nr, _Complex double *cw, int nw, int itrp);
+void etmns(double p1, double p2, double p3, double p4, double p5, double p6, int ipr, _Complex double *e);
+void factr(int n, _Complex double *a, int *ip, int ndim);
+void factrs(int np, int nrow, _Complex double *a, int *ip);
 void fblock(int nrow, int ncol, int imax, int ipsym);
-void solve(int n, complex double *a, int *ip, complex double *b, int ndim);
-void solves(complex double *a, int *ip, complex double *b,
-	int neq, int nrh, int np, int n, int mp, int m);
-/* misc.c */
+void solve(int n, _Complex double *a, int *ip, _Complex double *b, int ndim);
+void solves(_Complex double *a, int *ip, _Complex double *b, int neq, int nrh, int np, int n, int mp, int m);
+/* nec2_model.c */
+void Nec2_Input_File_Treeview(int action);
+void Create_List_Stores(void);
+void Create_Default_File(void);
+void List_Comments(void);
+void List_Geometry(void);
+void List_Commands(void);
+void Insert_Columns(GtkWidget *window, gchar *treeview, GtkListStore *store, int ncols, char *colname[]);
+void cell_edited_callback(GtkCellRendererText *cell, gchar *path, gchar *new_text, gpointer user_data);
+void Save_Nec2_Input_File(GtkWidget *treeview_window, char *nec2_file);
+void Save_Treeview_Data(GtkTreeView *tree_view, int ncols, FILE *nec2_fp);
+gboolean gtk_tree_model_iter_previous(GtkTreeModel *tree_model, GtkTreeIter *iter);
+/* network.c */
+void netwk(_Complex double *cmx, int *ip, _Complex double *einc);
+void load(int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt, double *zlr, double *zli, double *zlc);
+/* plot_freqdata.c */
+void Plot_Frequency_Data(void);
+void Display_Frequency_Data(void);
+void Draw_Plotting_Frame(gchar **title, GdkRectangle *rect, int nhor, int nvert);
+void Plot_Vertical_Scale(double red, double grn, double blu, int x, int y, int height, double max, double min, int nval);
+void Plot_Horizontal_Scale(double red, double grn, double blu, int x, int y, int width, double max, double min, int nval);
+void Draw_Graph(double red, double grn, double blu, GdkRectangle *rect, double *a, double *b, double amax, double amin, double bmax, double bmin, int nval, int side);
+void Set_Rectangle(GdkRectangle *rect, int x, int y, int w, int h);
+void Fit_to_Scale(double *max, double *min, int *nval);
+void Fit_to_Scale2(double *max1, double *min1, double *max2, double *min2, int *nval);
+void New_Max_Min(double *max, double *min, double sval, int *nval);
+void Plot_Graph2(double *fa, double *fb, double *fc, int nc, char *titles[], int nplt, int posn);
+void Plot_Graph(double *fa, double *fb, int nb, char *titles[], int nplt, int posn);
+void Plots_Window_Killed(void);
+void Set_Frequency_On_Click(GdkEventButton *event);
+/* radiation.c */
+void ffld(double thet, double phi, _Complex double *eth, _Complex double *eph);
+void fflds(double rox, double roy, double roz, _Complex double *scur, _Complex double *ex, _Complex double *ey, _Complex double *ez);
+void gfld(double rho, double phi, double rz, _Complex double *eth, _Complex double *epi, _Complex double *erd, _Complex double ux, int ksymp);
+void rdpat(void);
+/* shared.c */
+/* somnec.c */
+void somnec(double epr, double sig, double fmhz);
+void bessel(_Complex double z, _Complex double *j0, _Complex double *j0p);
+void evlua(_Complex double *erv, _Complex double *ezv, _Complex double *erh, _Complex double *eph);
+void fbar(_Complex double p, _Complex double *fbar);
+void gshank(_Complex double start, _Complex double dela, _Complex double *sum, int nans, _Complex double *seed, int ibk, _Complex double bk, _Complex double delb);
+void hankel(_Complex double z, _Complex double *h0, _Complex double *h0p);
+void lambda(double t, _Complex double *xlam, _Complex double *dxlam);
+void rom1(int n, _Complex double *sum, int nx);
+void saoa(double t, _Complex double *ans);
+/* support.c */
+GtkWidget *lookup_widget(GtkWidget *widget, const gchar *widget_name);
+void add_pixmap_directory(const gchar *directory);
+GtkWidget *create_pixmap(GtkWidget *widget, const gchar *filename);
+GdkPixbuf *create_pixbuf(const gchar *filename);
+void glade_set_atk_action_description(AtkAction *action, const gchar *action_name, const gchar *description);
+/* utils.c */
 void usage(void);
 int stop(char *mesg, int err);
-int load_line(char *buff, FILE *pfile);
+gboolean Nec2_Save_Warn(const gchar *mesg);
+int Load_Line(char *buff, FILE *pfile);
 void mem_alloc(void **ptr, size_t req, gchar *str);
 void mem_realloc(void **ptr, size_t req, gchar *str);
 void free_ptr(void **ptr);
@@ -929,104 +1280,23 @@ int isFlagClear(unsigned long long int flag);
 void SetFlag(unsigned long long int flag);
 void ClearFlag(unsigned long long int flag);
 void ToggleFlag(unsigned long long int flag);
-void SaveFlag( unsigned long long int *flag, unsigned long long int mask );
-/* nec2_model.c */
-void Nec2_Input_File_Treeview(int action);
-void Create_List_Stores(void);
-void Create_Default_File(void);
-void List_Comments(void);
-void List_Geometry(void);
-void List_Commands(void);
-void Insert_Columns(GtkWidget *window, gchar *treeview,
-	GtkListStore *store, int ncols, char *colname[]);
-void cell_edited_callback(GtkCellRendererText *cell,
-	gchar *path, gchar *new_text, gpointer user_data);
-void Save_Nec2_Input_File(GtkWidget *treeview_window, char *nec2_file);
-void Save_Treeview_Data(GtkTreeView *tree_view, int ncols, FILE *nec2_fp);
-gboolean gtk_tree_model_iter_previous(GtkTreeModel *tree_model, GtkTreeIter *iter);
-/* network.c */
-void netwk(complex double *cm, int *ip, complex double *einc);
-void load(int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
-	double *zlr, double *zli, double *zlc);
-void prnt(int in1, int in2, int in3, double fl1, double fl2, double fl3,
-	double fl4, double fl5, double fl6, char *ia, int ichar);
-/* plot_freqdata.c */
-void Plot_Frequency_Data(void);
-void Display_Frequency_Data(void);
-void Draw_Plotting_Frame(gchar **title, GdkRectangle *rect, int nhor, int nvert);
-void Plot_Vertical_Scale(double red, double grn, double blu,
-	int x, int y, int height, double max, double min, int nval);
-void Plot_Horizontal_Scale(double red, double grn, double blu,
-	int x, int y, int width, double max, double min, int nval);
-void Draw_Graph(double red, double grn, double blu, GdkRectangle *rect, double *a,
-	double *b, double amax, double amin, double bmax, double bmin, int nval, int side);
-void Set_Rectangle(GdkRectangle *rect, int x, int y, int w, int h);
-void Fit_to_Scale(double *max, double *min, int *nval);
-void Fit_to_Scale2(double *max1, double *min1, double *max2, double *min2, int *nval);
-void New_Max_Min(double *max, double *min, double sval, int *nval);
-void Plot_Graph2(double *fa, double *fb, double *fc,
-	int nc, char *titles[], int nplt, int posn);
-void Plot_Graph(double *fa, double *fb, int nb, char *titles[], int nplt, int posn);
-void Plots_Window_Killed(void);
-void Set_Frequency_On_Click(GdkEventButton *event);
-/* radiation.c */
-void ffld(double thet, double phi,
-	complex double *eth, complex double *eph);
-void fflds(double rox, double roy, double roz,
-	complex double *scur, complex double *ex,
-	complex double *ey, complex double *ez);
-void gfld(double rho, double phi, double rz,
-	complex double *eth, complex double *epi,
-	complex double *erd, complex double ux, int ksymp);
-void rdpat(void);
-/* somnec.c */
-void somnec(double epr, double sig, double fmhz);
-void bessel(complex double z, complex double *j0, complex double *j0p);
-void evlua(complex double *erv, complex double *ezv,
-	complex double *erh, complex double *eph);
-void fbar(complex double p, complex double *fbar);
-void gshank(complex double start, complex double dela,
-	complex double *sum, int nans, complex double *seed,
-	int ibk, complex double bk, complex double delb);
-void hankel(complex double z, complex double *h0, complex double *h0p);
-void lambda(double t, complex double *xlam, complex double *dxlam);
-void rom1(int n, complex double *sum, int nx);
-void saoa(double t, complex double *ans);
+void SaveFlag(unsigned long long int *flag, unsigned long long int mask);
+void Strlcpy(char *dest, const char *src, size_t n);
+void Strlcat(char *dest, const char *src, size_t n);
 /* xnec2c.c */
+void Frequency_Scale_Geometry(void);
 void Structure_Impedance_Loading(void);
 void Ground_Parameters(void);
 void Set_Interaction_Matrix(void);
-void Frequency_Scale_Geometry(void);
-void Network_Data(void);
-void Set_Network_Data(void);
 void Set_Excitation(void);
-void Power_Budget(void);
+void Set_Network_Data(void);
 void Power_Loss(void);
-void Segment_Current_Header(void);
-void Segment_Currents(int inc_fld_cnt);
-void Patch_Currents(void);
-void Normalized_Receive_Pattern(void);
-void Normalized_Impedance(void);
-void Frequency_Data(void);
-void Near_Field_Pattern(void);
 void Radiation_Pattern(void);
-void Coupling(void);
+void Near_Field_Pattern(void);
 void New_Frequency(void);
-gboolean Frequency_Loop(gpointer user_data);
+gboolean Frequency_Loop(gpointer udata);
 gboolean Start_Frequency_Loop(void);
 void Stop_Frequency_Loop(void);
 void Incident_Field_Loop(void);
-void Null_Pointers(void);
-/* fork.c */
-void Child_Input_File(void);
-void Child_Process(int num_child);
-void Child_Input_File(void);
-int  Fork_Command(const char *cdstr);
-ssize_t Read_Pipe(int idx, char *str, ssize_t len, gboolean err);
-ssize_t PRead_Pipe(int idx, char *str, ssize_t len, gboolean err);
-ssize_t Write_Pipe(int idx, char *str, ssize_t len, gboolean err);
-void Pass_Freq_Data(void);
-void Get_Freq_Data(int idx, int fstep);
-void Mem_Copy(char *buff, char *var, size_t cnt, gboolean wrt);
 
 #endif

@@ -2,16 +2,15 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta name="generator" content="Bluefish 2.2.3" >
+<meta name="generator" content="Bluefish 2.2.4" >
 <title>Xnec2c User Manual</title>
-<meta name="author" content="Neoklis" >
+<meta name="author" content="Neoklis Kyriazis" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK2 graphical nec2c NEC2 C">
 <meta name="description" content=
 "xnec2c: GTK+v2-based GUI version of nec2c">
 <meta name="ROBOTS" content="INDEX, FOLLOW">
-<meta http-equiv="content-type" content=
-"text/html; charset=us-ascii">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 </head>
 <body>
 <div align="center">
@@ -209,10 +208,10 @@ combination with a multiple-frequency FR card, although only the
 relevant data of the last command will be used.</p>
 <p><b><a name="Compilation" id="Compilation">4. Compilation and
 Installation:</a></b><br>
-Please note that I use <a href="http://www.archlinux.org">Arch
-Linux AMD64</a> which is a "bleeding edge" type distribution, so
-there may be compilation and/or run time difficulties if you are
-using a relatively old distro. This is mostly true of the basic
+Please note that I use <a href="http://www.voidlinux.eu">Void Linux
+AMD64</a> which is a "bleeding edge" type distribution, so there
+may be compilation and/or run time difficulties if you are using a
+relatively old distro. This is mostly true of the basic
 dependencies like GTK+ 2 and Glade-2, and there can also be sound
 card incompatibility problems at run time.</p>
 <p>To compile the package, it may be preferable to first run the
@@ -278,7 +277,7 @@ shown in two spin button widgets which can also be used to change
 the viewing angle.</p>
 <p>Starting with version 2.1, the structure display can be zoomed
 in or out by using the mouse wheel or the Zoom controls (Zoom %
-spinwheel and the +/-/1 buttons) and it can also be moved around by
+spin wheel and the +/-/1 buttons) and it can also be moved around by
 dragging with the right mouse button 2.</p>
 <p>The current distribution or charge density in the structure can
 be displayed by clicking the <b>Cur</b> or <b>Chg</b> toggle
@@ -309,7 +308,7 @@ the <b>Save</b> or <b>Save As</b> items in the File menu.</p>
 <p>Starting with version 2.1, xnec2c can save the structure display
 as a data file for the "gnuplot" plotting program. This is done by
 using the <b>File-&gt;Save As gnuplot</b> menu item, to open a
-filechooser dialog. If only the stem of the filename is given,
+file chooser dialog. If only the stem of the file name is given,
 xnec2c will automatically add the .gplot extension. Plotting in
 gnuplot is done with the "splot &lt;filename&gt; with lines"
 command, although the plot can be enhanced with some of the style
@@ -437,7 +436,7 @@ information on what is on display and also the type of polarization
 or gain scaling.</p>
 <p>Starting with version 2.1, the radiation pattern display can be
 zoomed in or out by using the mouse wheel or the Zoom controls
-(Zoom % spinwheel and the +/-/1 buttons) and it can also be moved
+(Zoom % spin wheel and the +/-/1 buttons) and it can also be moved
 around by dragging with the right mouse button 2.</p>
 <p>Both the Gain and Near Field patterns can be saved as PNG image
 files by using the <b>File-&gt;Save</b> or <b>File-&gt;Save As</b>
@@ -449,7 +448,7 @@ overwriting will occur if the same input file is opened.</p>
 <p>Starting with version 2.1, xnec2c can save the radiation pattern
 and near E/H field display as a data file for the "gnuplot"
 plotting program. This is done by using the <b>File-&gt;Save As
-gnuplot</b> menu item, to open a filechooser dialog. If only the
+gnuplot</b> menu item, to open a file chooser dialog. If only the
 stem of the filename is given, xnec2c will automatically add the
 .gplot extension. Plotting in gnuplot is done with the "splot
 &lt;filename&gt; with lines" command, although the plot can be
@@ -526,7 +525,7 @@ spin buttons etc).</p>
 <p>Starting with version 2.1, xnec2c can save the frequency
 dependent functions as a data file for the "gnuplot" plotting
 program. This is done by using the <b>File-&gt;Save As gnuplot</b>
-menu item, to open a filechooser dialog. If only the stem of the
+menu item, to open a file chooser dialog. If only the stem of the
 filename is given, xnec2c will automatically add the .gplot
 extension. Plotting in gnuplot is done with the "plot
 &lt;filename&gt; with lines" command, although the plot can be
@@ -622,8 +621,8 @@ value is greater than zero, the Editor will enter an LD card in the
 Commands tree view to specify a type 5 (wire conductivity) loading.
 This will result in all segments with tag number equal to that in
 the Editor to be loaded with the specified resistivity. Please note
-that Deleting the row in the Geometry tree view will not remove the
-loading row.</p>
+that Deleting the GW row in the Geometry tree view will not remove
+the LD loading row in the Commands tree view.</p>
 <p>All editors (except for the "GE" card) have the following
 buttons along the bottom of the window: "New" inserts a new blank
 row in the tree view after entering edited data into the current
@@ -862,14 +861,56 @@ LLVM clang compiler when used with the -Weverything option. These
 were mostly cases of implicit conversions between variable types,
 like int to char or uint to int etc. I have also updated the basic
 files of the GNU Autotools build system, to be compatible with the
-currentversion of these tools at the time of writing
-(February 2013).</p>
+current version of these tools at the time of writing (February
+2013).</p>
 <p><b>Version 2.3-beta:</b> Fixed a bug in the
 cell_edited_callback() function that caused segmentation fault
-crashes when a cell in the input file editor was edited directly
-by the user.</p>
-<p><b><a name="Bugs" id="Bugs">9. Bugs and
-Inadequacies:</a></b><br>
+crashes when a cell in the input file editor was edited directly by
+the user.</p>
+<p><b>Version 2.4:</b> I submitted xnec2c (and nec2c) for scanning
+to the <a href="https://scan.coverity.com/" name="coverity" id=
+"coverity">Coverity</a> source code audit website, which produced a
+list of no less than 57 issues to be fixed! Most of them were not
+bugs that affected calculations but possibly two, both in the
+Somnec code, one in function rom1() and one in gshank() likely
+could have caused errors in the relevant calculations.
+Unfortunately the Fortran source of Somnec (as well as that of the
+NEC2) is very difficult to read so I cannot say with certainty if
+this was so.</p>
+<p><b>Version 2.5:</b> After a bug report by Jean Collin, I made
+some changes to the input file parser code in input.c, to properly
+identify tabs in the input file.</p>
+<p><b>Version 2.6:</b> After a bug report by Lucjan SQ9VPA, I
+changed the case of the signal handler that deals with SIGCHLD so
+that it doesn't cause xnec2c to exit when the SIGCHLD signal does
+not originate from child processes created by xnec2c. It appears
+that in some Linux installations a SIGCHLD signal is sent to xnec2c
+even if it is not running forked, e.g. the -j option is not used
+in the command line.</p>
+<p><b>Version 2.7:</b> After a bug report by Tim, WJ5Q, I fixed
+a bug that was preventing the creation of an LD card of type 5
+(LDTYP=5) when wire conductivity (S/m) was specified in the GW
+card (Wire) editor. The same bug was present in the GH (Helix)
+card editor and it was also fixed. I added code so that the 
+wire conductivity for GW, GA and GH cards can be read from the
+relevant LD card and shown in the Conductivity (S/m) spin button.</p>
+<p>After all these changes I checked the xnec2c source code using
+the Coverity Scan service and I fixed an out-of-bounds read error
+that was reported by the scanner, in the plot_freqdat.c file.</p>
+<p><b>Version 2.8:</b> Fixed a bug in the GN card editor function
+which caused xnec2c to save the GN card parameters in the .nec
+antenna description file without clearing the number of radials
+to zero. This resulted in the GN card editor window to open with
+confusing and incorrect defaults for the radial screen, when
+the Reflection Coefficient Approximation method was selected
+for specifying ground parameters.</p>
+<p>Also fixed some bugs (missing variable initializations) in
+the Ground Parameters calculation functions which resulted in
+incorrect Radiation Pattern calculations. This would happen if
+a .nec file, with Perfect Ground (iperf = 1) specified in the
+GN card, was opened after a .nec file, with a Radial Ground
+Screen specified in the GN card, was processed.<p/>
+<p><b><a name="Bugs" id="Bugs">9. Bugs and Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original
 FORTRAN NEC2 code. Any bugs discovered in nec2c will affect xnec2c
 as well and they will have to be fixed. In addition, changing the

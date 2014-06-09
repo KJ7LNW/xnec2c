@@ -1,6 +1,5 @@
 /*
  *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *  Copyright (C) 2003-2010 N. Kyriazis neoklis.kyriazis(at)gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -61,7 +60,7 @@ Read_Comments( void )
   do
   {
 	/* read a line from input file */
-	if( load_line(line_buf, input_fp) == EOF )
+	if( Load_Line(line_buf, input_fp) == EOF )
 	{
 	  fprintf( stderr, "xnec2c: Read_Comments():"
 		  "unexpected EOF (End of File)\n" );
@@ -82,8 +81,7 @@ Read_Comments( void )
 	}
 
 	/* separate card's id mnemonic */
-	strncpy( ain, line_buf, 2 );
-	ain[2] = '\0';
+	Strlcpy( ain, line_buf, 3 );
 
 	/* Check for incorrect mnemonic */
 	if( (strcmp(ain, "CM") != 0) && (strcmp(ain, "CE") != 0) )
@@ -197,7 +195,7 @@ Read_Commands( void )
   int
 	mpcnt, itmp1, itmp2, itmp3, itmp4,
 	ain_num;     /* My addition, ain mnemonic as a number */
-	size_t mreq; /* My addition, size req. for malloc's   */
+  size_t mreq; /* My addition, size req. for malloc's   */
 
   /* initializations etc from original fortran code */
   mpcnt = 0;
@@ -455,8 +453,8 @@ Read_Commands( void )
 		save.sig  = tmp2;
 
 		/* Theta must be less than 90 if ground present */
-		tmp1 = (double)(fpat.nth - 1) * fpat.dth + fpat.thets;
-		if( (gnd.ksymp == 2) && (gnd.ifar != 1) && (tmp1 > 90.0) )
+		double test = (double)(fpat.nth - 1) * fpat.dth + fpat.thets;
+		if( (gnd.ifar != 1) && (test > 90.0) )
 		{
 		  fprintf( stderr,
 			  "xnec2c: Read_Commands(): theta > 90 deg. with ground specified\n" );
@@ -465,7 +463,7 @@ Read_Commands( void )
 		  return( FALSE );
 		}
 
-		if( gnd.nradl != 0)
+		if( gnd.nradl > 0)
 		{
 		  if( gnd.iperf == 2)
 		  {
@@ -480,6 +478,11 @@ Read_Commands( void )
 		  save.scrwlt = tmp3;
 		  save.scrwrt = tmp4;
 		  continue; /* continue card input loop */
+		} /* if( gnd.nradl > 0) */
+		else
+		{
+		  save.scrwlt = 0.0;
+		  save.scrwrt = 0.0;
 		}
 
 		fpat.epsr2 = tmp3;
@@ -843,10 +846,10 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   *f1 = *f2 = *f3 = *f4 = *f5 = *f6 = 0.0;
 
   /* read a line from input file */
-  eof = load_line( line_buf, input_fp );
+  eof = Load_Line( line_buf, input_fp );
   if( eof == EOF )
   {
-	strcpy( mn, "EN" );
+	Strlcpy( mn, "EN", strlen("EN")+1 );
 	fprintf( stderr,
 		"xnec2c: readmn(): command data card error\n"
 		"Unexpected EOF while reading input file - appending EN card\n" );
@@ -862,7 +865,7 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   /* abort if card's mnemonic too short or missing */
   if( len < 2 )
   {
-	strcpy( mn, "XX" );
+	Strlcpy( mn, "XX", strlen("XX")+1 );
 	fprintf( stderr,
 		"xnec2c: readmn(): command data card error\n"
 		"card's mnemonic code too short or missing\n" );
@@ -872,8 +875,7 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   }
 
   /* extract card's mnemonic code */
-  strncpy( mn, line_buf, 2 );
-  mn[2] = '\0';
+  Strlcpy( mn, line_buf, 3 );
 
   /* Return if only mnemonic on card */
   if( len == 2 ) return( TRUE );
@@ -913,9 +915,9 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
 	/* traverse numerical field to next ' ', tab, ',' or '\0' */
 	line_idx--;
 	while(
-		(line_buf[++line_idx] != ' ') &&
-		(line_buf[  line_idx] != '	') &&
-		(line_buf[  line_idx] != ',') &&
+		(line_buf[++line_idx] !=  ' ') &&
+		(line_buf[  line_idx] != '\t') &&
+		(line_buf[  line_idx] !=  ',') &&
 		(line_buf[  line_idx] != '\0') )
 	{
 	  /* test for non-numerical characters */
@@ -957,11 +959,12 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   for( i = 0; i < nflt; i++ )
   {
 	/* Find first numerical character */
-	while( ((line_buf[++line_idx] <  '0')  ||
-		  (line_buf[  line_idx] >  '9')) &&
-		  (line_buf[  line_idx] != '+')  &&
-		  (line_buf[  line_idx] != '-')  &&
-		  (line_buf[  line_idx] != '.') )
+	while(
+		((line_buf[++line_idx] <  '0')  ||
+		 (line_buf[line_idx]   >  '9')) &&
+		 (line_buf[  line_idx] != '+')  &&
+		 (line_buf[  line_idx] != '-')  &&
+		 (line_buf[  line_idx] != '.') )
 	  if( line_buf[line_idx] == '\0' )
 	  {
 		*i1= iarr[0];
@@ -983,9 +986,9 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
 	/* traverse numerical field to next ' ', tab, ',' or '\0'*/
 	line_idx--;
 	while(
-		(line_buf[++line_idx] != ' ') &&
-		(line_buf[  line_idx] != '	') &&
-		(line_buf[  line_idx] != ',') &&
+		(line_buf[++line_idx] !=  ' ') &&
+		(line_buf[  line_idx] != '\t') &&
+		(line_buf[  line_idx] !=  ',') &&
 		(line_buf[  line_idx] != '\0') )
 	{
 	  /* test for non-numerical characters */
@@ -1060,10 +1063,10 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   *x1 = *y1 = *z1 = *x2 = *y2 = *z2 = *rad = 0.0;
 
   /* read a line from input file */
-  eof = load_line( line_buf, input_fp );
+  eof = Load_Line( line_buf, input_fp );
   if( eof == EOF )
   {
-	strcpy( gm, "GE" );
+	Strlcpy( gm, "GE", strlen("GE")+1 );
 	fprintf( stderr,
 		"xnec2c: readgm(): geometry data card error\n"
 		"Unexpected EOF while reading input file - appending GE card\n" );
@@ -1079,7 +1082,7 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   /* abort if card's mnemonic too short or missing */
   if( len < 2 )
   {
-	strcpy( gm, "XX" );
+	Strlcpy( gm, "XX", strlen("XX")+1 );
 	fprintf( stderr,
 		"xnec2c: readgm(): geometry data card error\n"
 		"card's mnemonic code too short or missing\n" );
@@ -1089,8 +1092,7 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   }
 
   /* extract card's mnemonic code */
-  strncpy( gm, line_buf, 2 );
-  gm[2] = '\0';
+  Strlcpy( gm, line_buf, 3 );
 
   /* Return if only mnemonic on card */
   if( len == 2 ) return( TRUE );
@@ -1129,9 +1131,9 @@ readgm( char *gm, int *i1, int *i2, double *x1,
 	/* traverse numerical field to next ' ', tab, ',' or '\0' */
 	line_idx--;
 	while(
-		(line_buf[++line_idx] != ' ') &&
-		(line_buf[  line_idx] != '	') &&
-		(line_buf[  line_idx] != ',') &&
+		(line_buf[++line_idx] !=  ' ') &&
+		(line_buf[  line_idx] != '\t') &&
+		(line_buf[  line_idx] !=  ',') &&
 		(line_buf[  line_idx] != '\0') )
 	{
 	  /* test for non-numerical characters */
@@ -1174,11 +1176,11 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   {
 	/* Find first numerical character */
 	while(
-		((line_buf[++line_idx] <  '0') ||
+		((line_buf[++line_idx] <  '0')  ||
 		 (line_buf[  line_idx] >  '9')) &&
-		(line_buf[  line_idx] != '+')  &&
-		(line_buf[  line_idx] != '-')  &&
-		(line_buf[  line_idx] != '.') )
+		 (line_buf[  line_idx] != '+')  &&
+		 (line_buf[  line_idx] != '-')  &&
+		 (line_buf[  line_idx] != '.') )
 	  if( line_buf[line_idx] == '\0' )
 	  {
 		*i1 = iarr[0];
@@ -1199,9 +1201,9 @@ readgm( char *gm, int *i1, int *i2, double *x1,
 	/* traverse numerical field to next ' ' or ',' or '\0' */
 	line_idx--;
 	while(
-		(line_buf[++line_idx] != ' ') &&
-		(line_buf[  line_idx] != '	') &&
-		(line_buf[  line_idx] != ',') &&
+		(line_buf[++line_idx] !=  ' ') &&
+		(line_buf[  line_idx] != '\t') &&
+		(line_buf[  line_idx] !=  ',') &&
 		(line_buf[  line_idx] != '\0') )
 	{
 	  /* test for non-numerical characters */
@@ -1264,10 +1266,10 @@ datagn( void )
   char gm[3];
 
   /* input card mnemonic list */
-  char *atst[NUM_GEOMN] =
+  char *atst[] =
   {
-	"CM", "GW", "GX", "GR", "GS", "GE", \
-	"GM", "SP", "SM", "GA", "SC", "GH", "GF"
+	"GW", "GX", "GR", "GS", "GE","GM", "SP",\
+	"SM", "GA", "SC", "GH", "GF", "CT"
   };
 
   int nwire, isct, itg, iy=0, iz;
@@ -1299,7 +1301,7 @@ datagn( void )
 	  if( strncmp( gm, atst[gm_num], 2) == 0 )
 		break;
 
-	if( gm_num != 10 ) isct=0;
+	if( gm_num != 9 ) isct=0;
 
 	switch( gm_num )
 	{
@@ -1667,7 +1669,7 @@ datagn( void )
 			  "is not supported"), ERR_OK );
 		return( FALSE );
 
-	  case CM: /* Ignore in-data comments (NEC4 compatibility) */
+	  case CT: /* Ignore in-data comments (NEC4 compatibility) */
 		fprintf( stderr, "xnec2c: datagn(): ignoring CM card in geometry\n" );
 		stop( _("datagn(): Ignoring CM card in geometry"), ERR_OK );
 		continue;
