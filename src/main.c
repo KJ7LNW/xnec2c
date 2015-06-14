@@ -76,7 +76,7 @@ main (int argc, char *argv[])
 			  _("xnec2c: input file name too long (>80 char)\n") );
 		  exit(-1);
 		}
-		Strlcpy( infile, optarg, strlen(optarg)+1 ); /* For null term. */
+		Strlcpy( infile, optarg, sizeof(infile) ); /* For null term. */
 		break;
 
 	  case 'j': /* number of child processes = num of processors */
@@ -109,7 +109,7 @@ main (int argc, char *argv[])
 		  _("xnec2c: input file path name too long (>80 char)\n") );
 	  exit(-1);
 	}
-	Strlcpy( infile, argv[argc-1], strlen(argv[argc-1])+1 ); /* For null term. */
+	Strlcpy( infile, argv[argc-1], sizeof(infile) ); /* For null term. */
   }
 
   /* When forking is useful, e.g. if more than 1 processor is
@@ -121,12 +121,12 @@ main (int argc, char *argv[])
   if( calc_data.num_jobs > 1 )
   {
 	size_t mreq = (size_t)calc_data.num_jobs * sizeof(forked_proc_data_t *);
-	mem_alloc( (void *)&forked_proc_data, mreq, "in main.c" );
+	mem_alloc( (void **)&forked_proc_data, mreq, "in main.c" );
 	for( idx = 0; idx < calc_data.num_jobs; idx++ )
 	{
 	  forked_proc_data[idx] = NULL;
 	  mreq = sizeof(forked_proc_data_t);
-	  mem_alloc( (void *)&forked_proc_data[idx], mreq, "in main.c" );
+	  mem_alloc( (void **)&forked_proc_data[idx], mreq, "in main.c" );
 	}
 
 	/* Fork child processes */
@@ -137,7 +137,8 @@ main (int argc, char *argv[])
 	  if( err )
 	  {
 		perror( "xnec2c: pipe()" );
-		puts( _("xnec2c: exiting after fatal error (pipe() failed)") );
+		fprintf( stderr,
+			_("xnec2c: exiting after fatal error (pipe() failed)") );
 		exit(-1);
 	  }
 
@@ -145,7 +146,8 @@ main (int argc, char *argv[])
 	  if( err )
 	  {
 		perror( "xnec2c: pipe()" );
-		puts( _("xnec2c: exiting after fatal error (pipe() failed)") );
+		fprintf( stderr,
+			_("xnec2c: exiting after fatal error (pipe() failed)") );
 		exit(-1);
 	  }
 
@@ -154,11 +156,11 @@ main (int argc, char *argv[])
 	  if( forked_proc_data[idx]->child_pid == -1 )
 	  {
 		perror( "xnec2c: fork()" );
-		puts( _("xnec2c: exiting after fatal error (fork() failed)") );
+		fprintf( stderr,
+			_("xnec2c: exiting after fatal error (fork() failed)") );
 		exit(-1);
 	  }
-	  else
-		child_pid = forked_proc_data[idx]->child_pid;
+	  else child_pid = forked_proc_data[idx]->child_pid;
 
 	  /* Child get out of forking loop! */
 	  if( CHILD ) Child_Process( idx );
@@ -183,7 +185,6 @@ main (int argc, char *argv[])
 	} /* for( idx = 0; idx < calc_data.num_jobs; idx++ ) */
 
 	FORKED = TRUE;
-
   } /* if( calc_data.num_jobs > 1 ) */
 
   gtk_set_locale ();
@@ -229,7 +230,7 @@ main (int argc, char *argv[])
 		main_window, "main_rotate_spinbutton"));
   incline_structure = GTK_SPIN_BUTTON(lookup_widget(
 		main_window, "main_incline_spinbutton"));
-  structure_zoom_spinbutton = GTK_SPIN_BUTTON(lookup_widget(
+  structure_zoom = GTK_SPIN_BUTTON(lookup_widget(
 		main_window, "structure_zoom_spinbutton"));
   structure_fstep_entry = GTK_ENTRY(lookup_widget(
 		main_window, "structure_fstep_entry")) ;
@@ -246,12 +247,13 @@ main (int argc, char *argv[])
   rdpattern_proj_params.xy_zoom = 1.0;
   rdpattern_proj_params.reset = TRUE;
   rdpattern_proj_params.type = RDPATTERN_DRAWINGAREA;
-
-  New_Structure_Projection_Angle();
+  calc_data.zo = 50.0;
 
   /* Open input file if specified */
   if( strlen(infile) > 0 )
 	g_idle_add( Open_Input_File, (gpointer)&new );
+  else
+	SetFlag( INPUT_PENDING );
 
   gtk_main ();
 
@@ -280,6 +282,7 @@ Open_Input_File( gpointer udata )
   /* Suppress activity while input file opened */
   ClearFlag( OPEN_INPUT_FLAGS );
   SetFlag( INPUT_PENDING );
+  calc_data.fstep = -1;
 
   /* Open NEC2 input file */
   Open_File( &input_fp, infile, "r");
@@ -347,6 +350,7 @@ Open_Input_File( gpointer udata )
   if( nec2_edit_window == NULL )
 	New_Viewer_Angle( 45.0, 45.0, rotate_structure,
 		incline_structure, &structure_proj_params );
+  New_Structure_Projection_Angle();
 
   /* Show current frequency */
   gtk_spin_button_set_value(
@@ -379,8 +383,7 @@ Open_Input_File( gpointer udata )
   else
 	Nec2_Input_File_Treeview( NEC2_EDITOR_RELOAD );
 
-  /* Disable freq step and display sructure */
-  calc_data.fstep = -1;
+  /* Display sructure */
   Draw_Structure( structure_drawingarea );
 
   /* Re-initialize Rad Pattern drawing if window open */
@@ -459,7 +462,6 @@ static void sig_handler( int signal )
 		  return;
 		}
 	  }
-	  break;
 
 	default:
 	  fprintf( stderr, _("xnec2c: default exit with signal: %d\n"), signal );

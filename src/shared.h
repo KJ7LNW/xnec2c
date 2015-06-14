@@ -43,7 +43,8 @@ extern GtkSpinButton
   *rotate_structure,
   *incline_structure,
   *rdpattern_frequency,
-  *rdpattern_zoom_spinbutton ;
+  *rdpattern_zoom,
+  *structure_zoom;
 
 /* Motion event handler id */
 extern gulong structure_motion_handler;
@@ -57,9 +58,6 @@ extern forked_proc_data_t **forked_proc_data;
 extern projection_parameters_t
   rdpattern_proj_params,
   structure_proj_params;
-
-/* Zoom spin button */
-extern GtkSpinButton *structure_zoom_spinbutton;
 
 /* Number of forked child processes */
 extern int num_child_procs;
@@ -169,7 +167,7 @@ extern data_t data;
 extern FILE *input_fp, *output_fp, *plot_fp;
 
 /* Input file name */
-extern char infile[];
+extern char infile[81];
 
 /* common  /fpat/ */
 extern fpat_t fpat;
@@ -206,6 +204,8 @@ extern vsorc_t vsorc;
 
 /* common  /zload/ */
 extern zload_t zload;
+
+#define MOTION_EVENTS_COUNT 8
 
 /*------------------------------------------------------------------------*/
 

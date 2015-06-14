@@ -58,8 +58,7 @@ stop( char *mesg, int err )
 		  num_child_procs );
 	  _exit(-1);
 	}
-	else
-	  return( err );
+	else return( err );
 
   } /* if( CHILD ) */
 
@@ -202,15 +201,15 @@ int Load_Line( char *buff, FILE *pfile )
 static size_t cnt = 0; /* Total allocation */
 void mem_alloc( void **ptr, size_t req, gchar *str )
 {
-  gchar mesg[100];
+  gchar mesg[MESG_SIZE];
 
   free_ptr( ptr );
   *ptr = malloc( req );
   cnt += req;
   if( *ptr == NULL )
   {
-	snprintf( mesg, 99, _("Memory allocation denied %s\n"), str );
-	mesg[99] = '\0';
+	snprintf( mesg, sizeof(mesg),
+		_("Memory allocation denied %s\n"), str );
 	fprintf( stderr, "%s: Total memory request %ld\n", mesg, cnt );
 	stop( mesg, ERR_STOP );
   }
@@ -221,14 +220,14 @@ void mem_alloc( void **ptr, size_t req, gchar *str )
 
 void mem_realloc( void **ptr, size_t req, gchar *str )
 {
-  gchar mesg[100];
+  gchar mesg[MESG_SIZE];
 
   *ptr = realloc( *ptr, req );
   cnt += req;
   if( *ptr == NULL )
   {
-	snprintf( mesg, 99, _("Memory re-allocation denied %s\n"), str );
-	mesg[99] = '\0';
+	snprintf( mesg, sizeof(mesg),
+		_("Memory re-allocation denied %s\n"), str );
 	fprintf( stderr, "%s: Total memory request %ld\n", mesg, cnt );
 	stop( mesg, ERR_STOP );
   }
@@ -261,10 +260,9 @@ Open_File( FILE **fp, char *fname, const char *mode )
   Close_File( fp );
   if( (*fp = fopen(fname, mode)) == NULL )
   {
-	char mesg[110];
-	snprintf( mesg, 109,
+	char mesg[MESG_SIZE];
+	snprintf( mesg, sizeof(mesg),
 		_("xnec2c: %s: Failed to open file\n"), fname );
-	mesg[109] = '\0';
 	stop( mesg, ERR_STOP );
 	return( FALSE );
   }
@@ -298,8 +296,7 @@ Display_Fstep( GtkEntry *entry, int fstep )
 {
   char str[4];
 
-  snprintf( str, 4, "%3d", fstep );
-  str[3] = '\0';
+  snprintf( str, sizeof(str), "%3d", fstep );
   gtk_entry_set_text( entry, str );
 }
 
@@ -367,7 +364,7 @@ Strlcpy( char *dest, const char *src, size_t n )
 
   /* Leave room for terminating null in dest */
   n--;
- 
+
   /* Copy till terminating null of src or to n-1 */
   while( (ch != '\0') && (n > 0) )
   {
@@ -391,7 +388,6 @@ Strlcpy( char *dest, const char *src, size_t n )
  * string is null terminated by copying only n-1 chars to leave room
  * for the terminating char. n would normally be the sizeof(dest)
  * string but copying will not go beyond the terminating null of src
-
  */
   void
 Strlcat( char *dest, const char *src, size_t n )
@@ -401,10 +397,11 @@ Strlcat( char *dest, const char *src, size_t n )
   int ids = 0; /* src  index */
 
   /* Find terminating null of dest */
-  while( (ch != '\0') )
+  while( (n > 0) && (ch != '\0') )
   {
 	idd++;
 	ch = dest[idd];
+	n--; /* Count remaining char's in dest */
   }
 
   /* Copy n-1 chars to leave room for terminating null */
@@ -426,3 +423,41 @@ Strlcat( char *dest, const char *src, size_t n )
 
 /*------------------------------------------------------------------*/
 
+/* Strtod()
+ *
+ * Replaces strtod() to take into account the
+ * locale-dependent decimal point character
+ */
+double Strtod( char *nptr, char **endptr )
+{
+  int idx;
+  size_t len;
+  double d = 0.0;
+  static gboolean first_call = TRUE;
+  static char dp = '.';
+
+
+  /* Find locale-dependent decimal point character */
+  if( first_call )
+  {
+	struct lconv *lcnv;
+	lcnv = localeconv();
+	dp = *lcnv->decimal_point;
+	first_call = FALSE;
+  }
+
+  /* Look for a . or , decimal point character
+   * in the supplied number buffer (string) */
+  len = strlen( nptr );
+  for( idx = 0; idx < (int)len; idx++ )
+	if( (nptr[idx] == ',') || (nptr[idx] == '.') )
+	  break;
+
+  /* If a decimal point character is found, replace */
+  if( idx < (int)len ) nptr[idx] = dp;
+  d = strtod( (const char *)nptr, endptr );
+
+  return( d );
+} /* End of Strtod() */
+
+/*------------------------------------------------------------------*/

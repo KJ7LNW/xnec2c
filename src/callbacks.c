@@ -94,8 +94,7 @@ on_new_activate     	              (GtkMenuItem     *menuitem,
 	infile[0] = '\0';
 	Open_Nec2_Editor( NEC2_EDITOR_NEW );
   }
-  else
-	Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );	
+  else Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );
 }
 
 
@@ -125,6 +124,7 @@ on_main_save_activate        (GtkMenuItem     *menuitem,
 							  gpointer         user_data)
 {
   char saveas[96];
+  size_t s = sizeof( saveas );
 
   /* Count number of structure image files saved of geometry,
    * currents or charges, to avoid over-writing saved files */
@@ -136,13 +136,11 @@ on_main_save_activate        (GtkMenuItem     *menuitem,
   /* Make the structure image save file name from input file
    * name. The count of each image type saved is incremented */
   if( isFlagSet(DRAW_CURRENTS) )
-	snprintf( saveas, 95, "%s-%s_%03d.%s", infile, "current", ++ccr, "png" );
+	snprintf( saveas, s, "%s-%s_%03d.%s", infile, "current", ++ccr, "png" );
+  else if( isFlagSet(DRAW_CHARGES) )
+	snprintf( saveas, s, "%s-%s_%03d.%s", infile, "charge", ++cch, "png" );
   else
-	if( isFlagSet(DRAW_CHARGES) )
-	  snprintf( saveas, 95, "%s-%s_%03d.%s", infile, "charge", ++cch, "png" );
-	else
-	  snprintf( saveas, 95, "%s-%s_%03d.%s", infile, "geometry", ++cgm, "png" );
-  saveas[95] = '\0';
+	snprintf( saveas, s, "%s-%s_%03d.%s", infile, "geometry", ++cgm, "png" );
 
   saveas_pixmap = structure_pixmap;
   saveas_pixmap_width  = structure_pixmap_width;
@@ -223,7 +221,7 @@ on_main_rdpattern_activate             (GtkMenuItem     *menuitem,
 		  rdpattern_window, "rdpattern_incline_spinbutton"));
 	rdpattern_frequency = GTK_SPIN_BUTTON(lookup_widget(
 		  rdpattern_window, "rdpattern_freq_spinbutton"));
-	rdpattern_zoom_spinbutton = GTK_SPIN_BUTTON(lookup_widget(
+	rdpattern_zoom = GTK_SPIN_BUTTON(lookup_widget(
 		  rdpattern_window, "rdpattern_zoom_spinbutton"));
 	rdpattern_fstep_entry = GTK_ENTRY(lookup_widget(
 		  rdpattern_window, "rdpattern_fstep_entry")) ;
@@ -252,12 +250,11 @@ on_main_freqplots_activate             (GtkMenuItem     *menuitem,
 	  Set_Window_Labels();
 	  calc_data.ngraph = 0;
 	} /* if( Main_Freqplots_Activate() */
-	else
-	  gtk_check_menu_item_set_active(
-		  GTK_CHECK_MENU_ITEM(menuitem), FALSE );
+	else gtk_check_menu_item_set_active(
+		GTK_CHECK_MENU_ITEM(menuitem), FALSE );
   }
   else if( isFlagSet(PLOT_ENABLED) )
-	  gtk_widget_destroy( freqplots_window );
+	gtk_widget_destroy( freqplots_window );
 }
 
 
@@ -308,7 +305,20 @@ on_common_projection_activate          (GtkMenuItem     *menuitem,
   /* Enable syncing of projection params
    * for structure and rad pattern drawing */
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
+  {
+	if( isFlagSet(DRAW_ENABLED) )
+	{
+	  rdpattern_proj_params.Wr = structure_proj_params.Wr;
+	  rdpattern_proj_params.Wi = structure_proj_params.Wi;
+	  New_Viewer_Angle(
+		  rdpattern_proj_params.Wr,
+		  rdpattern_proj_params.Wi,
+		  rotate_rdpattern,
+		  incline_rdpattern,
+		  &rdpattern_proj_params );
+	}
 	SetFlag( COMMON_PROJECTION );
+  }
   else
 	ClearFlag( COMMON_PROJECTION );
 }
@@ -335,6 +345,9 @@ on_main_x_axis_clicked                 (GtkButton       *button,
   /* Recalculate projection paramenters */
   New_Viewer_Angle( 0.0, 0.0, rotate_structure,
 	  incline_structure, &structure_proj_params );
+  if( isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_PROJECTION) )
+	New_Viewer_Angle( 0.0, 0.0, rotate_rdpattern,
+		incline_rdpattern, &rdpattern_proj_params );
 }
 
 
@@ -345,6 +358,9 @@ on_main_y_axis_clicked                 (GtkButton       *button,
   /* Recalculate projection paramenters */
   New_Viewer_Angle( 90.0, 0.0, rotate_structure,
 	  incline_structure, &structure_proj_params );
+  if( isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_PROJECTION) )
+	New_Viewer_Angle( 90.0, 0.0, rotate_rdpattern,
+		incline_rdpattern, &rdpattern_proj_params );
 }
 
 
@@ -355,6 +371,9 @@ on_main_z_axis_clicked                 (GtkButton       *button,
   /* Recalculate projection paramenters */
   New_Viewer_Angle( 0.0, 90.0, rotate_structure,
 	  incline_structure, &structure_proj_params );
+  if( isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_PROJECTION) )
+	New_Viewer_Angle( 0.0, 90.0, rotate_rdpattern,
+		incline_rdpattern, &rdpattern_proj_params );
 }
 
 
@@ -365,38 +384,53 @@ on_main_default_view_clicked           (GtkButton       *button,
   /* Projection at 45 deg rotation and inclination */
   New_Viewer_Angle( 45.0, 45.0, rotate_structure,
 	  incline_structure, &structure_proj_params );
+  if( isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_PROJECTION) )
+	New_Viewer_Angle( 45.0, 45.0, rotate_rdpattern,
+		incline_rdpattern, &rdpattern_proj_params );
 }
 
 
 void
-on_main_rotate_spinbutton_value_changed(GtkSpinButton   *spinbutton,
-										gpointer         user_data)
+on_main_rotate_spinbutton_value_changed(
+	GtkSpinButton   *spinbutton,
+	gpointer         user_data)
 {
-  gtk_spin_button_update( spinbutton );
+  /* No redraws if new input pending */
+  if( isFlagSet(INPUT_PENDING) )
+	return;
+
   /* Get new "rotate" structure angle from spinbutton */
   structure_proj_params.Wr = gtk_spin_button_get_value(spinbutton);
-  New_Structure_Projection_Angle();
 
   /* Sync rad pattrern window spinbutton if enabled */
   if( isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_PROJECTION) )
 	gtk_spin_button_set_value(
 		rotate_rdpattern, (gdouble)structure_proj_params.Wr );
+
+  New_Structure_Projection_Angle();
+  gtk_spin_button_update( spinbutton );
 }
 
 
-void
-on_main_incline_spinbutton_value_changed( GtkSpinButton   *spinbutton,
-										  gpointer         user_data)
+  void
+on_main_incline_spinbutton_value_changed(
+	GtkSpinButton   *spinbutton,
+	gpointer         user_data)
 {
-  gtk_spin_button_update( spinbutton );
+  /* No redraws if new input pending */
+  if( isFlagSet(INPUT_PENDING) )
+	return;
+
   /* Get new "incline" structure angle from spinbutton */
   structure_proj_params.Wi = gtk_spin_button_get_value(spinbutton);
-  New_Structure_Projection_Angle();
 
   /* Sync rad pattrern window spinbutton if enabled */
   if( isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_PROJECTION) )
 	gtk_spin_button_set_value(
 		incline_rdpattern, (gdouble)structure_proj_params.Wi );
+
+  New_Structure_Projection_Angle();
+  gtk_spin_button_update( spinbutton );
 }
 
 
@@ -453,7 +487,9 @@ on_main_freq_spinbutton_value_changed  (GtkSpinButton   *spinbutton,
 {
   static gdouble fmhz_save = 0.0;
 
-  gtk_spin_button_update( spinbutton );
+  /* No redraws if new input pending */
+  if( isFlagSet(INPUT_PENDING) )
+	return;
 
   /* Frequency spinbutton value changed by frequency loop */
   if( isFlagSet(FREQ_LOOP_RUNNING) )
@@ -484,9 +520,12 @@ on_main_freq_spinbutton_value_changed  (GtkSpinButton   *spinbutton,
 	if( isFlagSet(DRAW_ENABLED) 	&&
 		isFlagSet(COMMON_FREQUENCY) &&
 		isFlagSet(MAIN_NEW_FREQ) )
+	  /* Show current frequency */
 	  gtk_spin_button_set_value( rdpattern_frequency, fmhz );
 
   } /* else */
+
+  gtk_spin_button_update( spinbutton );
 }
 
 
@@ -536,8 +575,27 @@ on_structure_drawingarea_motion_notify_event( GtkWidget       *widget,
 											  GdkEventMotion  *event,
 											  gpointer         user_data)
 {
-  Motion_Event( event, &structure_proj_params,
-	  rotate_structure, incline_structure );
+  /* Use only 1 in MOTION_EVENTS_COUNT event */
+  static int cnt = 0;
+  if( cnt++ < MOTION_EVENTS_COUNT )
+	return FALSE;
+  cnt = 0;
+
+  /* Block motion events */
+  g_signal_handler_block
+	( (gpointer)structure_drawingarea, structure_motion_handler );
+
+  /* No redraws if new input pending */
+  if( isFlagSet(INPUT_PENDING) )
+	return FALSE;
+
+  /* Handle motion events */
+  Motion_Event( event, &structure_proj_params );
+
+  /* Unblock motion events */
+  g_signal_handler_unblock(
+	  (gpointer)structure_drawingarea, structure_motion_handler );
+
   return TRUE;
 }
 
@@ -572,7 +630,7 @@ on_filechooserdialog_response          (GtkDialog       *dialog,
 	/* Get filename of NEC2 input file */
 	filename =
 	  gtk_file_chooser_get_filename( GTK_FILE_CHOOSER(dialog) );
-	Strlcpy( infile, filename, strlen(filename)+1 ); /* For null term. */
+	Strlcpy( infile, filename, sizeof(infile) );
 	g_free( filename );
 	gtk_widget_destroy( file_chooser );
 
@@ -596,7 +654,8 @@ on_fileselection_response(  GtkDialog       *dialog,
   if( response_id == GTK_RESPONSE_OK )
   {
 	/* Get the "save as" file name */
-	Strlcpy( filename, gtk_file_selection_get_filename(
+	Strlcpy( filename,
+		gtk_file_selection_get_filename(
 		  GTK_FILE_SELECTION(dialog)), s );
 
 	if( isFlagSet(IMAGE_SAVE) )
@@ -617,7 +676,7 @@ on_fileselection_response(  GtkDialog       *dialog,
 		Strlcat( filename, ".nec", s );
 
 	  /* Use new file name as input file */
-	  Strlcpy( infile, filename, strlen(filename)+1 );
+	  Strlcpy( infile, filename, sizeof(infile) );
 	  Save_Nec2_Input_File( nec2_edit_window, filename );
 
 	  /* Re-open NEC2 input file */
@@ -681,6 +740,7 @@ on_freqplots_save_activate             (GtkMenuItem     *menuitem,
 										gpointer         user_data)
 {
   char saveas[96];
+  size_t s = sizeof( saveas );
   static int cnt = 0;
 
   if( (strlen(infile) == 0) || isFlagClear(PLOT_SELECT) )
@@ -688,9 +748,7 @@ on_freqplots_save_activate             (GtkMenuItem     *menuitem,
 
   /* Make file name from input file name,
    * to save frequency plots drawing */
-  snprintf( saveas, 95, "%s-%s_%03d.%s", infile, "plots", ++cnt, "png" );
-  saveas[95] = '\0';
-
+  snprintf( saveas, s, "%s-%s_%03d.%s", infile, "plots", ++cnt, "png" );
   saveas_pixmap = freqplots_pixmap;
   saveas_pixmap_width  = freqplots_pixmap_width;
   saveas_pixmap_height = freqplots_pixmap_height;
@@ -775,11 +833,11 @@ void
 on_freqplots_zo_spinbutton_value_changed( GtkSpinButton   *spinbutton,
 										  gpointer         user_data)
 {
-  gtk_spin_button_update( spinbutton );
   /* Set the value of Z0 used for VSWR calculations */
   calc_data.zo = gtk_spin_button_get_value(spinbutton);
   if( isFlagSet(PLOT_ENABLED) )
 	Plot_Frequency_Data();
+  gtk_spin_button_update( spinbutton );
 }
 
 
@@ -836,6 +894,10 @@ on_freqplots_drawingarea_button_press_event(GtkWidget       *widget,
 											GdkEventButton  *event,
 											gpointer         user_data)
 {
+  /* No redraws if new input pending */
+  if( isFlagSet(INPUT_PENDING) )
+	return FALSE;
+
   Set_Frequency_On_Click( event );
   return TRUE;
 }
@@ -865,6 +927,7 @@ on_rdpattern_save_activate             (GtkMenuItem     *menuitem,
 										gpointer         user_data)
 {
   char saveas[96];
+  size_t s = sizeof( saveas );
   static int cgn = 0, ceh = 0;;
 
   if( strlen(infile) == 0 )
@@ -873,13 +936,10 @@ on_rdpattern_save_activate             (GtkMenuItem     *menuitem,
   /* Make the rad pattern save
    * file name from input name */
   if( isFlagSet(DRAW_GAIN) )
-	snprintf( saveas, 95, "%s-%s_%03d.%s", infile, "gain", ++cgn, "png" );
-  else
-	if( isFlagSet(DRAW_EHFIELD) )
-	  snprintf( saveas, 95, "%s-%s_%03d.%s", infile, "fields", ++ceh, "png" );
-	else
-	  return;
-  saveas[95] = '\0';
+	snprintf( saveas, s, "%s-%s_%03d.%s", infile, "gain", ++cgn, "png" );
+  else if( isFlagSet(DRAW_EHFIELD) )
+	snprintf( saveas, s, "%s-%s_%03d.%s", infile, "fields", ++ceh, "png" );
+  else return;
 
   saveas_pixmap = rdpattern_pixmap;
   saveas_pixmap_width  = rdpattern_pixmap_width;
@@ -1022,6 +1082,9 @@ on_rdpattern_x_axis_clicked            (GtkButton       *button,
   /* Recalculate projection paramenters */
   New_Viewer_Angle( 0.0, 0.0, rotate_rdpattern,
 	  incline_rdpattern, &rdpattern_proj_params );
+  if( isFlagSet(COMMON_PROJECTION) )
+	New_Viewer_Angle( 0.0, 0.0, rotate_structure,
+		incline_structure, &structure_proj_params );
 }
 
 
@@ -1032,6 +1095,9 @@ on_rdpattern_y_axis_clicked            (GtkButton       *button,
   /* Recalculate projection paramenters */
   New_Viewer_Angle( 90.0, 0.0, rotate_rdpattern,
 	  incline_rdpattern, &rdpattern_proj_params );
+  if( isFlagSet(COMMON_PROJECTION) )
+	New_Viewer_Angle( 90.0, 0.0, rotate_structure,
+		incline_structure, &structure_proj_params );
 }
 
 
@@ -1042,52 +1108,67 @@ on_rdpattern_z_axis_clicked            (GtkButton       *button,
   /* Recalculate projection paramenters */
   New_Viewer_Angle( 0.0, 90.0, rotate_rdpattern,
 	  incline_rdpattern, &rdpattern_proj_params );
+  if( isFlagSet(COMMON_PROJECTION) )
+	New_Viewer_Angle( 0.0, 90.0, rotate_structure,
+		incline_structure, &structure_proj_params );
 }
 
 
   void
-on_rdpattern_default_view_clicked      (GtkButton       *button,
-										gpointer         user_data)
+on_rdpattern_default_view_clicked
+  (GtkButton       *button,
+  gpointer         user_data)
 {
   /* Projection at 45 deg rotation and inclination */
   New_Viewer_Angle( 45.0, 45.0, rotate_rdpattern,
 	  incline_rdpattern, &rdpattern_proj_params );
+  if( isFlagSet(COMMON_PROJECTION) )
+	New_Viewer_Angle( 45.0, 45.0, rotate_structure,
+		incline_structure, &structure_proj_params );
 }
 
 
 void
-on_rdpattern_rotate_spinbutton_value_changed(GtkSpinButton   *spinbutton,
-											  gpointer         user_data)
+on_rdpattern_rotate_spinbutton_value_changed(
+	GtkSpinButton   *spinbutton,
+	gpointer         user_data)
 {
-  gtk_spin_button_update( spinbutton );
+  /* No redraws if new input pending */
+  if( isFlagSet(INPUT_PENDING) )
+	return;
 
   /* Get new value of "rotate pattern" angle from spinbutton */
   rdpattern_proj_params.Wr = gtk_spin_button_get_value(spinbutton);
-  New_Radiation_Projection_Angle();
 
   /* Sync main window rotate spinbutton */
   if( isFlagSet(COMMON_PROJECTION) )
-	gtk_spin_button_set_value( GTK_SPIN_BUTTON(lookup_widget(
-			main_window, "main_rotate_spinbutton")),
-		(gdouble)rdpattern_proj_params.Wr );
+	gtk_spin_button_set_value(
+		rotate_structure, (gdouble)rdpattern_proj_params.Wr );
+
+  New_Radiation_Projection_Angle();
+  gtk_spin_button_update( spinbutton );
 }
 
 
 void
-on_rdpattern_incline_spinbutton_value_changed(GtkSpinButton   *spinbutton,
-											  gpointer         user_data)
+on_rdpattern_incline_spinbutton_value_changed(
+	GtkSpinButton   *spinbutton,
+	gpointer         user_data)
 {
-  gtk_spin_button_update( spinbutton );
+  /* No redraws if new input pending */
+  if( isFlagSet(INPUT_PENDING) )
+	return;
 
   /* Get new value of "incline pattern" angle from spinbutton */
   rdpattern_proj_params.Wi = gtk_spin_button_get_value(spinbutton);
-  New_Radiation_Projection_Angle();
 
   /* Sync main window incline spinbutton */
   if( isFlagSet(COMMON_PROJECTION) )
-	gtk_spin_button_set_value( GTK_SPIN_BUTTON(lookup_widget(
-			main_window, "main_incline_spinbutton")),
-		(gdouble)rdpattern_proj_params.Wi );
+	gtk_spin_button_set_value(
+		incline_structure, (gdouble)rdpattern_proj_params.Wi );
+
+  New_Radiation_Projection_Angle();
+  gtk_spin_button_update( spinbutton );
 }
 
 
@@ -1142,7 +1223,9 @@ on_rdpattern_freq_spinbutton_value_changed(	GtkSpinButton   *spinbutton,
 {
   static gdouble fmhz_save = 0.0;
 
-  gtk_spin_button_update( spinbutton );
+  /* No redraws if new input pending */
+  if( isFlagSet(INPUT_PENDING) )
+	return;
 
   /* Frequency spinbutton value changed by frequency loop */
   if( isFlagSet(FREQ_LOOP_RUNNING) && isFlagSet(DRAW_ENABLED) )
@@ -1170,6 +1253,7 @@ on_rdpattern_freq_spinbutton_value_changed(	GtkSpinButton   *spinbutton,
 	if( isFlagSet(COMMON_FREQUENCY) )
 	  gtk_spin_button_set_value( mainwin_frequency, fmhz );
   } /* else */
+  gtk_spin_button_update( spinbutton );
 }
 
 
@@ -1222,8 +1306,27 @@ on_rdpattern_drawingarea_motion_notify_event( GtkWidget       *widget,
 											  GdkEventMotion  *event,
 											  gpointer         user_data)
 {
-  Motion_Event( event, &rdpattern_proj_params,
-	  rotate_rdpattern, incline_rdpattern );
+  /* Use only 1 in MOTION_EVENTS_COUNT event */
+  static int cnt = 0;
+  if( cnt++ < MOTION_EVENTS_COUNT )
+	return FALSE;
+  cnt = 0;
+
+  /* Block motion events */
+  g_signal_handler_block(
+	  (gpointer)rdpattern_drawingarea, rdpattern_motion_handler );
+
+  /* No redraws if new input pending */
+  if( isFlagSet(INPUT_PENDING) )
+	return FALSE;
+
+  /* Handle motion events */
+  Motion_Event( event, &rdpattern_proj_params );
+
+  /* Unblock motion events */
+  g_signal_handler_unblock(
+	  (gpointer)rdpattern_drawingarea, rdpattern_motion_handler );
+
   return TRUE;
 }
 
@@ -1374,8 +1477,7 @@ on_near_peak_value_activate            (GtkMenuItem     *menuitem,
 	  Draw_Radiation( rdpattern_drawingarea );
 	}
   }
-  else
-	SetFlag( NEAREH_SNAPSHOT );
+  else SetFlag( NEAREH_SNAPSHOT );
 
   /* Reset child near field flags */
   Pass_EH_Flags();
@@ -1398,8 +1500,7 @@ on_near_snapshot_activate              (GtkMenuItem     *menuitem,
 	  Draw_Radiation( rdpattern_drawingarea );
 	}
   }
-  else
-	ClearFlag( NEAREH_SNAPSHOT );
+  else ClearFlag( NEAREH_SNAPSHOT );
 
   /* Reset child near field flags */
   Pass_EH_Flags();
@@ -1636,9 +1737,8 @@ on_nec2_row_add_clicked                (GtkButton       *button,
 	model = gtk_tree_view_get_model( selected_treeview );
 	gtk_list_store_insert( GTK_LIST_STORE(model), &iter, 0 );
   }
-  else
-	gtk_list_store_insert_after(
-		GTK_LIST_STORE(model), &iter, &sibling);
+  else gtk_list_store_insert_after(
+	  GTK_LIST_STORE(model), &iter, &sibling);
 
   /* Prime columns of new row */
   ncols = gtk_tree_model_get_n_columns( model );
@@ -1739,7 +1839,8 @@ on_nec2_revert_clicked                 (GtkButton       *button,
   Nec2_Input_File_Treeview( NEC2_EDITOR_REVERT );
 }
 
-
+void on_error_stopbutton_clicked(
+	GtkButton *button, gpointer user_data) __attribute__ ((noreturn));
 void
 on_error_stopbutton_clicked            (GtkButton       *button,
                                         gpointer         user_data)
@@ -2216,7 +2317,7 @@ on_patch_editor_destroy              (GtkObject       *object,
 
 
 void
-on_patch_arbitary_radiobutton_toggled (GtkToggleButton *togglebutton,
+on_patch_arbitrary_radiobutton_toggled (GtkToggleButton *togglebutton,
 										gpointer         user_data)
 {
   if( gtk_toggle_button_get_active(togglebutton) )
@@ -3557,10 +3658,10 @@ on_structure_plus_button_clicked       (GtkButton       *button,
                                         gpointer         user_data)
 {
   structure_proj_params.xy_zoom =
-	gtk_spin_button_get_value( structure_zoom_spinbutton );
+	gtk_spin_button_get_value( structure_zoom );
   structure_proj_params.xy_zoom *= 1.1;
   gtk_spin_button_set_value(
-	  structure_zoom_spinbutton, structure_proj_params.xy_zoom );
+	  structure_zoom, structure_proj_params.xy_zoom );
 }
 
 
@@ -3569,10 +3670,10 @@ on_structure_minus_button_clicked      (GtkButton       *button,
                                         gpointer         user_data)
 {
   structure_proj_params.xy_zoom =
-	gtk_spin_button_get_value( structure_zoom_spinbutton );
+	gtk_spin_button_get_value( structure_zoom );
   structure_proj_params.xy_zoom /= 1.1;
   gtk_spin_button_set_value(
-	  structure_zoom_spinbutton, structure_proj_params.xy_zoom );
+	  structure_zoom, structure_proj_params.xy_zoom );
 }
 
 
@@ -3580,7 +3681,7 @@ void
 on_structure_one_button_clicked        (GtkButton       *button,
                                         gpointer         user_data)
 {
-  gtk_spin_button_set_value( structure_zoom_spinbutton, 100.0 );
+  gtk_spin_button_set_value( structure_zoom, 100.0 );
   structure_proj_params.reset = TRUE;
   New_Projection_Parameters(
 	  structure_pixmap_width,
@@ -3621,10 +3722,10 @@ on_rdpattern_plus_button_clicked       (GtkButton       *button,
                                         gpointer         user_data)
 {
   rdpattern_proj_params.xy_zoom =
-	gtk_spin_button_get_value( rdpattern_zoom_spinbutton );
+	gtk_spin_button_get_value( rdpattern_zoom );
   rdpattern_proj_params.xy_zoom *= 1.1;
   gtk_spin_button_set_value(
-	  rdpattern_zoom_spinbutton, rdpattern_proj_params.xy_zoom );
+	  rdpattern_zoom, rdpattern_proj_params.xy_zoom );
 }
 
 
@@ -3633,10 +3734,10 @@ on_rdpattern_minus_button_clicked      (GtkButton       *button,
                                         gpointer         user_data)
 {
   rdpattern_proj_params.xy_zoom =
-	gtk_spin_button_get_value( rdpattern_zoom_spinbutton );
+	gtk_spin_button_get_value( rdpattern_zoom );
   rdpattern_proj_params.xy_zoom /= 1.1;
   gtk_spin_button_set_value(
-	  rdpattern_zoom_spinbutton, rdpattern_proj_params.xy_zoom );
+	  rdpattern_zoom, rdpattern_proj_params.xy_zoom );
 }
 
 
@@ -3644,7 +3745,7 @@ void
 on_rdpattern_one_button_clicked        (GtkButton       *button,
                                         gpointer         user_data)
 {
-  gtk_spin_button_set_value( rdpattern_zoom_spinbutton, 100.0 );
+  gtk_spin_button_set_value( rdpattern_zoom, 100.0 );
   rdpattern_proj_params.reset = TRUE;
   New_Projection_Parameters(
 	  rdpattern_pixmap_width,
@@ -3660,13 +3761,13 @@ on_structure_drawingarea_scroll_event  (GtkWidget       *widget,
 										gpointer         user_data)
 {
   structure_proj_params.xy_zoom =
-	gtk_spin_button_get_value( structure_zoom_spinbutton );
+	gtk_spin_button_get_value( structure_zoom );
   if( event->scroll.direction == GDK_SCROLL_UP )
 	structure_proj_params.xy_zoom *= 1.1;
   else if( event->scroll.direction == GDK_SCROLL_DOWN )
 	structure_proj_params.xy_zoom /= 1.1;
   gtk_spin_button_set_value(
-	  structure_zoom_spinbutton, structure_proj_params.xy_zoom );
+	  structure_zoom, structure_proj_params.xy_zoom );
   return FALSE;
 }
 
@@ -3677,13 +3778,13 @@ on_rdpattern_drawingarea_scroll_event  (GtkWidget       *widget,
                                         gpointer         user_data)
 {
   rdpattern_proj_params.xy_zoom =
-	gtk_spin_button_get_value( rdpattern_zoom_spinbutton );
+	gtk_spin_button_get_value( rdpattern_zoom );
   if( event->scroll.direction == GDK_SCROLL_UP )
 	rdpattern_proj_params.xy_zoom *= 1.1;
   else if( event->scroll.direction == GDK_SCROLL_DOWN )
 	rdpattern_proj_params.xy_zoom /= 1.1;
   gtk_spin_button_set_value(
-	  rdpattern_zoom_spinbutton, rdpattern_proj_params.xy_zoom );
+	  rdpattern_zoom, rdpattern_proj_params.xy_zoom );
   return FALSE;
 }
 

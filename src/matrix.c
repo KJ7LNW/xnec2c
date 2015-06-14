@@ -154,7 +154,7 @@ void cmset( int nrow, complex double *cmx, double rkhx, int iexkx )
 
   /* Allocate to scratch memory */
   size_t mreq = (size_t)data.np2m * sizeof(complex double);
-  mem_alloc( (void *)&scm, mreq, "in matrix.c");
+  mem_alloc( (void **)&scm, mreq, "in matrix.c");
 
   /* combine elements for symmetry modes */
   for( i = 0; i < it; i++ )
@@ -191,7 +191,7 @@ void cmset( int nrow, complex double *cmx, double rkhx, int iexkx )
 
   } /* for( i = 0; i < it; i++ ) */
 
-  free_ptr( (void *)&scm );
+  free_ptr( (void **)&scm );
 
   return;
 }
@@ -312,7 +312,7 @@ void cmsw( int j1, int j2, int i1, int i2, complex double *cmx,
   static complex double *emel = NULL;
 
   size_t mreq = 9 * sizeof(complex double);
-  mem_alloc( (void *)&emel, mreq, "in matrix.c");
+  mem_alloc( (void **)&emel, mreq, "in matrix.c");
 
   jsnox = segj.jsno-1;
 
@@ -631,12 +631,11 @@ void cmww( int j, int i1, int i2, complex double *cmx,
 		  } /* if( data.icon2[iprx] != jx ) */
 
 		} /* if( ipr != jx ) */
+		else if( (dataj.cabj* dataj.cabj +
+			  dataj.sabj* dataj.sabj) > 1.0e-8)
+		  dataj.ind1=2;
 		else
-		  if( (dataj.cabj* dataj.cabj +
-				dataj.sabj* dataj.sabj) > 1.0e-8)
-			dataj.ind1=2;
-		  else
-			dataj.ind1=0;
+		  dataj.ind1=0;
 
 	  } /* if( ipr == 0 ) */
 
@@ -687,12 +686,11 @@ void cmww( int j, int i1, int i2, complex double *cmx,
 		  } /* if( data.icon2[iprx] != jx ) */
 
 		} /* if( ipr != jx ) */
+		else if( (dataj.cabj* dataj.cabj +
+			  dataj.sabj* dataj.sabj) > 1.0e-8)
+		  dataj.ind2=2;
 		else
-		  if( (dataj.cabj* dataj.cabj +
-				dataj.sabj* dataj.sabj) > 1.0e-8)
-			dataj.ind2=2;
-		  else
-			dataj.ind2=0;
+		  dataj.ind2=0;
 
 	  } /* if( ipr == 0 ) */
 
@@ -1128,7 +1126,7 @@ void factr( int n, complex double *a, int *ip, int ndim)
 
   /* Allocate to scratch memory */
   size_t mreq = (size_t)data.np2m * sizeof(complex double);
-  mem_alloc( (void *)&scm, mreq, "in matrix.c");
+  mem_alloc( (void **)&scm, mreq, "in matrix.c");
 
   /* Un-transpose the matrix for Gauss elimination */
   for( i = 1; i < n; i++ )
@@ -1208,7 +1206,7 @@ void factr( int n, complex double *a, int *ip, int ndim)
 
   } /* for( r=0; r < n; r++ ) */
 
-  free_ptr( (void *)&scm );
+  free_ptr( (void **)&scm );
 
   return;
 }
@@ -1254,8 +1252,7 @@ fblock( int nrow, int ncol, int imax, int ipsym )
 	  matpar.icase=1;
 	  return;
 	}
-	else
-	  matpar.icase=2;
+	else matpar.icase=2;
 
   } /* if( nrow*ncol <= imax) */
 
@@ -1328,7 +1325,7 @@ solve( int n, complex double *a, int *ip,
 
   /* Allocate to scratch memory */
   size_t mreq = (size_t)data.np2m * sizeof(complex double);
-  mem_alloc( (void *)&scm, mreq, "in matrix.c");
+  mem_alloc( (void **)&scm, mreq, "in matrix.c");
 
   /* forward substitution */
   for( i = 0; i < n; i++ )
@@ -1357,7 +1354,7 @@ solve( int n, complex double *a, int *ip,
 	b[i]=( scm[i]- sum)/ a[i+i*ndim];
   }
 
-  free_ptr( (void *)&scm );
+  free_ptr( (void **)&scm );
 
   return;
 }
@@ -1384,7 +1381,7 @@ solves( complex double *a, int *ip,
 
   /* Allocate to scratch memory */
   size_t mreq = (size_t)data.np2m * sizeof(complex double);
-  mem_alloc( (void *)&scm, mreq, "in matrix.c");
+  mem_alloc( (void **)&scm, mreq, "in matrix.c");
 
   if( smat.nop != 1)
   {
@@ -1472,7 +1469,7 @@ solves( complex double *a, int *ip,
 
   if( smat.nop == 1)
   {
-	free_ptr( (void *)&scm );
+	free_ptr( (void **)&scm );
 	return;
   }
 
@@ -1543,7 +1540,7 @@ solves( complex double *a, int *ip,
 
   } /* for( ic = 0; ic < nrh; ic++ ) */
 
-  free_ptr( (void *)&scm );
+  free_ptr( (void **)&scm );
 
   return;
 }

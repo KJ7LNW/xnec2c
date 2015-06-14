@@ -505,8 +505,7 @@ Frequency_Command( int action )
 		lookup_widget(frequency_command, fspin[SPIN_COL_F2]) );
 	gtk_spin_button_set_value( spin, fv[SPIN_COL_F2] );
   } /* if( fstep ) */
-  else
-	fstep = TRUE;
+  else fstep = TRUE;
 
   /* Wait for GTK to complete its tasks */
   while( g_main_context_iteration(NULL, FALSE) );
@@ -693,25 +692,25 @@ Ground_Command( int action )
 
 		} /* if( Check_Card_Name(cmnd_store, &iter_gd, NEXT, "GD") ) */
 	  } /* if( iv[SPIN_COL_I2] > 0 ) */
-	  else  /* 2nd medium data specified */
-		if( (fv[SPIN_COL_F3] > 0) && (fv[SPIN_COL_F4] > 0) )
+	  /* 2nd medium data specified */
+	  else if( (fv[SPIN_COL_F3] > 0) && (fv[SPIN_COL_F4] > 0) )
+	  {
+		scmd = TRUE;
+
+		/* Set 2nd medium check button */
+		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
+			  ground_command, "ground_secmd_checkbutton") );
+		gtk_toggle_button_set_active( toggle, TRUE );
+
+		/* Write 2nd medium data to command editor */
+		for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
 		{
-		  scmd = TRUE;
+		  spin = GTK_SPIN_BUTTON( lookup_widget(
+				ground_command, fspin[idf]) );
+		  gtk_spin_button_set_value( spin, fv[idf] );
+		}
 
-		  /* Set 2nd medium check button */
-		  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-				ground_command, "ground_secmd_checkbutton") );
-		  gtk_toggle_button_set_active( toggle, TRUE );
-
-		  /* Write 2nd medium data to command editor */
-		  for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
-		  {
-			spin = GTK_SPIN_BUTTON( lookup_widget(
-				  ground_command, fspin[idf]) );
-			gtk_spin_button_set_value( spin, fv[idf] );
-		  }
-
-		} /* if( (fv[SPIN_COL_F3] > 0) && (fv[SPIN_COL_F4] > 0) ) */
+	  } /* if( (fv[SPIN_COL_F3] > 0) && (fv[SPIN_COL_F4] > 0) ) */
 	  break;
 
 	case EDITOR_CANCEL: /* Cancel ground editor */
@@ -736,7 +735,7 @@ Ground_Command( int action )
 	  /* Remove GD card if it exists for perfect or null ground */
 	  if( (iv[SPIN_COL_I1] == 1) || (iv[SPIN_COL_I1] == -1) )
 	  {
-		if( both ) 
+		if( both )
 		  Remove_Row( cmnd_store, &iter_gd );
 
 		/* Set toggle buttons as needed */
@@ -805,8 +804,7 @@ Ground_Command( int action )
 		  ground_command, "ground_nrad_spinbutton") );
 	iv[SPIN_COL_I2] = gtk_spin_button_get_value_as_int( spin );
   }
-  else
-	iv[SPIN_COL_I2] = 0;
+  else iv[SPIN_COL_I2] = 0;
 
   /*** Read float data from the command editor ***/
 
@@ -865,19 +863,17 @@ Ground_Command( int action )
 		for( idf = SPIN_COL_F5; idf <= SPIN_COL_F6; idf++ )
 		  fv[idf] = 0.0;
 	  } /* if( radl ) */
-	  else
-		if( scmd ) /* If second medium only, read parameters */
+	  else if( scmd ) /* If second medium only, read parameters */
+	  {
+		for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
 		{
-		  for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
-		  {
-			spin = GTK_SPIN_BUTTON( lookup_widget(
-				  ground_command, fspin[idf]) );
-			fv[idf] = gtk_spin_button_get_value( spin );
-		  }
+		  spin = GTK_SPIN_BUTTON( lookup_widget(
+				ground_command, fspin[idf]) );
+		  fv[idf] = gtk_spin_button_get_value( spin );
 		}
-		else
-		  for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
-			fv[idf] = 0.0;
+	  }
+	  else for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
+		fv[idf] = 0.0;
 
 	} /* else of if( both ) */
 
@@ -2314,7 +2310,7 @@ Kernel_Command( int action )
 	if( gtk_list_store_iter_is_valid(cmnd_store, &iter_ek) )
 	{
 	  /* Set extended kernel data */
-	  snprintf( sek, 6, "%5d", ek );
+	  snprintf( sek, sizeof(sek), "%5d", ek );
 	  gtk_list_store_set(
 		  cmnd_store, &iter_ek, CMND_COL_I1, sek, -1 );
 
@@ -2471,8 +2467,8 @@ Intrange_Command( int action )
 	  {
 		gtk_tree_model_get(
 			GTK_TREE_MODEL(cmnd_store),
-			&iter_kh, CMND_COL_F1, &sv, -1);
-		kh = atof(sv);
+			&iter_kh, CMND_COL_F1, &sv, -1 );
+		kh = Strtod( sv, NULL );
 		g_free(sv);
 	  }
 
@@ -2498,7 +2494,7 @@ Intrange_Command( int action )
   spin = GTK_SPIN_BUTTON(lookup_widget(
 		intrange_command, "intrange_wlen_spinbutton") );
   kh = gtk_spin_button_get_value( spin );
-  snprintf( skh, 13, "%12.5e", kh );
+  snprintf( skh, sizeof(skh), "%12.5e", kh );
 
   /* Wait for GTK to complete its tasks */
   while( g_main_context_iteration(NULL, FALSE) );
@@ -2554,7 +2550,7 @@ Execute_Command( int action )
 	/* Set XQ card data */
 	if( gtk_list_store_iter_is_valid(cmnd_store, &iter_xq) )
 	{
-	  snprintf( sxq, 6, "%5d", xq );
+	  snprintf( sxq, sizeof(sxq), "%5d", xq );
 	  gtk_list_store_set(
 		  cmnd_store, &iter_xq, CMND_COL_I1, sxq, -1 );
 	  for( idc = CMND_COL_I2; idc <= CMND_COL_F6; idc++ )
@@ -2684,13 +2680,12 @@ Get_Command_Data(
 	{
 	  gtk_tree_model_get(
 		  GTK_TREE_MODEL(store), iter, idc, &sv, -1);
-	  fv[idc-CMND_COL_F1] = atof(sv);
+	  fv[idc-CMND_COL_F1] = Strtod( sv, NULL );
 	  g_free(sv);
 	}
   }
-  else
-	stop( _("Get_Command_Data(): Error reading\n"\
-		  "row data: Invalid list iterator"), ERR_OK );
+  else stop( _("Get_Command_Data(): Error reading\n"\
+		"row data: Invalid list iterator"), ERR_OK );
 
 } /* Get_Command_Data() */
 
@@ -2725,9 +2720,8 @@ Set_Command_Data(
 	  gtk_list_store_set( store, iter, idc, str, -1 );
 	}
   }
-  else
-	stop( _("Set_Command_Data(): Error writing row data\n"\
-		  "Please re-select row"), ERR_OK );
+  else stop( _("Set_Command_Data(): Error writing row data\n"\
+		"Please re-select row"), ERR_OK );
 
   SetFlag( NEC2_EDIT_SAVE );
 

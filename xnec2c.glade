@@ -1040,7 +1040,7 @@ in Default Projection</property>
 		  <property name="numeric">True</property>
 		  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 		  <property name="snap_to_ticks">False</property>
-		  <property name="wrap">False</property>
+		  <property name="wrap">True</property>
 		  <property name="adjustment">45 -360 360 1 10 0</property>
 		  <signal name="value_changed" handler="on_main_rotate_spinbutton_value_changed" last_modification_time="Sat, 16 Apr 2005 07:33:16 GMT"/>
 		</widget>
@@ -1079,7 +1079,7 @@ to Plane of Screen</property>
 		  <property name="numeric">True</property>
 		  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 		  <property name="snap_to_ticks">False</property>
-		  <property name="wrap">False</property>
+		  <property name="wrap">True</property>
 		  <property name="adjustment">45 -180 180 1 10 0</property>
 		  <signal name="value_changed" handler="on_main_incline_spinbutton_value_changed" last_modification_time="Sat, 16 Apr 2005 07:32:55 GMT"/>
 		</widget>
@@ -3263,7 +3263,7 @@ to Plane of Screen</property>
 		  <property name="numeric">True</property>
 		  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 		  <property name="snap_to_ticks">False</property>
-		  <property name="wrap">False</property>
+		  <property name="wrap">True</property>
 		  <property name="adjustment">45 -360 360 1 10 0</property>
 		  <signal name="value_changed" handler="on_rdpattern_rotate_spinbutton_value_changed" last_modification_time="Fri, 08 Jul 2005 18:41:18 GMT"/>
 		</widget>
@@ -3301,7 +3301,7 @@ to Plane of Screen</property>
 		  <property name="numeric">True</property>
 		  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 		  <property name="snap_to_ticks">False</property>
-		  <property name="wrap">False</property>
+		  <property name="wrap">True</property>
 		  <property name="adjustment">45 -180 180 1 10 0</property>
 		  <signal name="value_changed" handler="on_rdpattern_incline_spinbutton_value_changed" last_modification_time="Fri, 08 Jul 2005 18:42:24 GMT"/>
 		</widget>
@@ -6179,7 +6179,7 @@ to Plane of Screen</property>
 		  <property name="spacing">0</property>
 
 		  <child>
-		    <widget class="GtkRadioButton" id="patch_arbitary_radiobutton">
+		    <widget class="GtkRadioButton" id="patch_arbitrary_radiobutton">
 		      <property name="border_width">2</property>
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
@@ -6190,7 +6190,7 @@ to Plane of Screen</property>
 		      <property name="active">True</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
-		      <signal name="toggled" handler="on_patch_arbitary_radiobutton_toggled" last_modification_time="Tue, 25 Jul 2006 09:28:57 GMT"/>
+		      <signal name="toggled" handler="on_patch_arbitrary_radiobutton_toggled" last_modification_time="Tue, 25 Jul 2006 09:28:57 GMT"/>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
@@ -6211,7 +6211,7 @@ to Plane of Screen</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
-		      <property name="group">patch_arbitary_radiobutton</property>
+		      <property name="group">patch_arbitrary_radiobutton</property>
 		      <signal name="toggled" handler="on_patch_rectangular_radiobutton_toggled" last_modification_time="Tue, 25 Jul 2006 09:29:10 GMT"/>
 		    </widget>
 		    <packing>
@@ -6233,7 +6233,7 @@ to Plane of Screen</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
-		      <property name="group">patch_arbitary_radiobutton</property>
+		      <property name="group">patch_arbitrary_radiobutton</property>
 		      <signal name="toggled" handler="on_patch_triangular_radiobutton_toggled" last_modification_time="Tue, 25 Jul 2006 09:29:22 GMT"/>
 		    </widget>
 		    <packing>
@@ -6255,7 +6255,7 @@ to Plane of Screen</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
-		      <property name="group">patch_arbitary_radiobutton</property>
+		      <property name="group">patch_arbitrary_radiobutton</property>
 		      <signal name="toggled" handler="on_patch_quadrilateral_radiobutton_toggled" last_modification_time="Tue, 25 Jul 2006 09:29:32 GMT"/>
 		    </widget>
 		    <packing>
@@ -6277,7 +6277,7 @@ to Plane of Screen</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
-		      <property name="group">patch_arbitary_radiobutton</property>
+		      <property name="group">patch_arbitrary_radiobutton</property>
 		      <signal name="toggled" handler="on_patch_surface_radiobutton_toggled" last_modification_time="Thu, 03 Aug 2006 07:11:38 GMT"/>
 		    </widget>
 		    <packing>

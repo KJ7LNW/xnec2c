@@ -664,7 +664,7 @@ on_patch_editor_destroy                (GtkObject       *object,
                                         gpointer         user_data);
 
 void
-on_patch_arbitary_radiobutton_toggled  (GtkToggleButton *togglebutton,
+on_patch_arbitrary_radiobutton_toggled  (GtkToggleButton *togglebutton,
                                         gpointer         user_data);
 
 void

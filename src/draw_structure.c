@@ -34,9 +34,6 @@
   void
 Draw_Structure( GtkWidget *drawingarea )
 {
-  /* Block motion events */
-  g_signal_handler_block( (gpointer)drawingarea, structure_motion_handler );
-
   /* Abort if xnec2c may be quit by user */
   if( isFlagSet(MAIN_QUIT) )
 	return;
@@ -78,10 +75,6 @@ Draw_Structure( GtkWidget *drawingarea )
   while( g_main_context_iteration(NULL, FALSE) );
 
   cairo_destroy( cr );
-
-  /* Unblock motion events */
-  g_signal_handler_unblock(
-	  (gpointer)drawingarea, structure_motion_handler );
 
 } /* Draw_Structure() */
 
@@ -160,12 +153,12 @@ New_Patch_Data( void )
 
   /* Allocate memory for patch line segments */
   mreq = (size_t)(2 * data.m) * sizeof(double);
-  mem_realloc( (void *)&data.px1, mreq, "in draw_structure.c" );
-  mem_realloc( (void *)&data.py1, mreq, "in draw_structure.c" );
-  mem_realloc( (void *)&data.pz1, mreq, "in draw_structure.c" );
-  mem_realloc( (void *)&data.px2, mreq, "in draw_structure.c" );
-  mem_realloc( (void *)&data.py2, mreq, "in draw_structure.c" );
-  mem_realloc( (void *)&data.pz2, mreq, "in draw_structure.c" );
+  mem_realloc( (void **)&data.px1, mreq, "in draw_structure.c" );
+  mem_realloc( (void **)&data.py1, mreq, "in draw_structure.c" );
+  mem_realloc( (void **)&data.pz1, mreq, "in draw_structure.c" );
+  mem_realloc( (void **)&data.px2, mreq, "in draw_structure.c" );
+  mem_realloc( (void **)&data.py2, mreq, "in draw_structure.c" );
+  mem_realloc( (void **)&data.pz2, mreq, "in draw_structure.c" );
 
   /* Find point furthest from xyz axes origin */
   r_max = 0.0;
@@ -403,6 +396,7 @@ Draw_Wire_Segments(	GdkSegment *segm, gint nseg )
 	/* To color structure segs */
 	double red = 0.0, grn = 0.0, blu = 0.0;
 	char label[11];
+	size_t s = sizeof( label );
 
 	/* Loop over all wire segs, find max current/charge */
 	if( crnt.newer )
@@ -424,9 +418,9 @@ Draw_Wire_Segments(	GdkSegment *segm, gint nseg )
 
 	  /* Show max value in color code label */
 	  if( isFlagSet(DRAW_CURRENTS) )
-		snprintf( label, 11, "%10.3E", cmax * (double)data.wlam );
+		snprintf( label, s, "%10.3E", cmax * (double)data.wlam );
 	  else
-		snprintf( label, 11, "%10.3E", cmax * 1.0E-6/(double)calc_data.fmhz );
+		snprintf( label, s, "%10.3E", cmax * 1.0E-6/(double)calc_data.fmhz );
 	  gtk_label_set_text(
 		  GTK_LABEL(lookup_widget(structure_drawingarea,
 			  "main_colorcode_maxlabel")), label );
@@ -622,8 +616,7 @@ Draw_Surface_Patches( GdkSegment *segm, gint npatch )
 	if( isFlagSet(OVERLAY_STRUCT) &&
 		(structure_proj_params.type == RDPATTERN_DRAWINGAREA) )
 	  cairo_set_source_rgb( cr, WHITE );
-	else
-	  cairo_set_source_rgb( cr, BLUE );
+	else cairo_set_source_rgb( cr, BLUE );
 
 	/* Draw patch segments */
 	int nsg = 2 * npatch;
@@ -686,7 +679,8 @@ New_Structure_Projection_Angle(void)
   structure_proj_params.cos_wi = cos(structure_proj_params.Wi/(double)TD);
 
   /* Trigger a redraw of structure drawingarea */
-  Draw_Structure( structure_drawingarea );
+  if( isFlagClear(INPUT_PENDING) )
+	Draw_Structure( structure_drawingarea );
 
   /* Trigger a redraw of plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(PLOT_GVIEWER) )
@@ -705,7 +699,7 @@ Init_Struct_Drawing( void )
 {
   /* We need n segs for wires + 2m for patces */
   size_t mreq = (size_t)(data.n + 2*data.m) * sizeof(GdkSegment);
-  mem_realloc( (void *)&structure_segs, mreq, "in draw_structure.c" );
+  mem_realloc( (void **)&structure_segs, mreq, "in draw_structure.c" );
   New_Wire_Data();
   New_Patch_Data();
 }
@@ -729,12 +723,12 @@ Show_Viewer_Gain(
   {
 	char txt[8];
 
-	if( isFlagSet(ENABLE_RDPAT) && (calc_data.fstep >=0) )
+	if( isFlagSet(ENABLE_RDPAT) && (calc_data.fstep >= 0) )
 	{
-	  snprintf( txt, 8, "%7.2f",
+	  snprintf( txt, sizeof(txt), "%7.2f",
 		  Viewer_Gain(proj_params, calc_data.fstep) );
-	  txt[7] = '\0';
-	  gtk_entry_set_text( GTK_ENTRY(lookup_widget(window, widget)), txt );
+	  gtk_entry_set_text(
+		  GTK_ENTRY(lookup_widget(window, widget)), txt );
 	}
   }
 

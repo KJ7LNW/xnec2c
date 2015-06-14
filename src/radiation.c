@@ -94,7 +94,6 @@ void ffld( double thet, double phi,
 		  zrsin= csqrt(1.0- gnd.zrati* gnd.zrati* thz* thz);
 		  rrv=-( roz- gnd.zrati* zrsin)/( roz+ gnd.zrati* zrsin);
 		  rrh=( gnd.zrati* roz- zrsin)/( gnd.zrati* roz+ zrsin);
-
 		} /* if( gnd.iperf == 1) */
 
 		/* for the cliff problem, two reflection coefficients calculated */
@@ -127,8 +126,7 @@ void ffld( double thet, double phi,
 	  /* loop over structure segments */
 	  for( i = 0; i < data.n; i++ )
 	  {
-		omega=-( rox* data.cab[i] +
-			roy* data.sab[i]+ roz* data.salp[i]);
+		omega=-( rox* data.cab[i] +	roy* data.sab[i]+ roz* data.salp[i]);
 		el= PI* data.si[i];
 		sill= omega* el;
 		top= el+ sill;
@@ -170,7 +168,6 @@ void ffld( double thet, double phi,
 
 		/* specular point distance */
 		dr= data.z[i]* tthet;
-
 		d= dr* phy+ data.x[i];
 		if( gnd.ifar == 2)
 		{
@@ -285,8 +282,8 @@ void ffld( double thet, double phi,
 	  jump = TRUE;
 	else
 	{
-	  *eth=( cix* thx+ ciy* thy+ ciz* thz)* CONST3;
-	  *eph=( cix* phx+ ciy* phy)* CONST3;
+	  *eth = ( cix * thx + ciy * thy + ciz * thz ) * CONST3;
+	  *eph = ( cix * phx + ciy * phy ) * CONST3;
 	  return;
 	}
 
@@ -342,11 +339,12 @@ void ffld( double thet, double phi,
 
   } /* for( ip = 0; ip < gnd.ksymp; ip++ ) */
 
-  ex= ex+ cix* CONST3;
-  ey= ey+ ciy* CONST3;
-  ez= ez+ ciz* CONST3;
-  *eth= ex* thx+ ey* thy+ ez* thz;
-  *eph= ex* phx+ ey* phy;
+  ex = ex + cix * CONST3;
+  ey = ey + ciy * CONST3;
+  ez = ez + ciz * CONST3;
+  
+  *eth = ex * thx + ey * thy + ez * thz;
+  *eph = ex * phx + ey * phy;
 
   return;
 }
@@ -601,23 +599,19 @@ void rdpat(void)
 	if( fpat.ipd != 0)
 	  gcon *= fpat.pinr/ prad;
   }
-  else
-	/*** For elementary current source ***/
-	if( fpat.ixtyp == 4)
-	{
-	  fpat.pinr=394.510* calc_data.xpr6*
-		calc_data.xpr6* data.wlam* data.wlam;
-	  gcop= data.wlam* data.wlam*2.0* PI/(376.73* fpat.pinr);
-	  prad= fpat.pinr- fpat.ploss- fpat.pnlr;
-	  gcon= gcop;
-	  if( fpat.ipd != 0)
-		gcon= gcon* fpat.pinr/ prad;
-	}
-	else
-	  /*** Incident field source ***/
-	{
-	  gcon=4.0* PI/(1.0+ calc_data.xpr6* calc_data.xpr6);
-	}
+  /*** For elementary current source ***/
+  else if( fpat.ixtyp == 4)
+  {
+	fpat.pinr=394.510* calc_data.xpr6*
+	  calc_data.xpr6* data.wlam* data.wlam;
+	gcop= data.wlam* data.wlam*2.0* PI/(376.73* fpat.pinr);
+	prad= fpat.pinr- fpat.ploss- fpat.pnlr;
+	gcon= gcop;
+	if( fpat.ipd != 0)
+	  gcon= gcon* fpat.pinr/ prad;
+  }
+  /*** Incident field source ***/
+  else gcon=4.0* PI/(1.0+ calc_data.xpr6* calc_data.xpr6);
 
   phi  = fpat.phis - fpat.dph;
 
@@ -629,6 +623,8 @@ void rdpat(void)
 	rad_pattern[calc_data.fstep].min_gain[pol] =  10000.0;
 	rad_pattern[calc_data.fstep].max_gain_idx[pol] = 0;
 	rad_pattern[calc_data.fstep].min_gain_idx[pol] = 0;
+	rad_pattern[calc_data.fstep].max_gain_tht[pol] = 0;
+	rad_pattern[calc_data.fstep].max_gain_phi[pol] = 0;
   }
 
   /* Signal new rad pattern data */
@@ -697,24 +693,21 @@ void rdpat(void)
 		  cdfaz= cos( dfaz* TA);
 		  tstor1= ethm2- ephm2;
 		  tstor2=2.0* ephm* ethm* cdfaz;
-		  tilta=.5* atan2( tstor2, tstor1);
+		  tilta=atan2( tstor2, tstor1)/2.0;
 		  stilta= sin( tilta);
 		  tstor1= tstor1* stilta* stilta;
 		  tstor2= tstor2* stilta* cos( tilta);
 		  emajr2= -tstor1+ tstor2+ ethm2;
 		  eminr2= tstor1- tstor2+ ephm2;
-		  if( eminr2 < 0.0)
-			eminr2=0.0;
+		  if( eminr2 < 0.0)	eminr2=0.0;
 
 		  axrat= sqrt( eminr2/ emajr2);
-		  tilta= tilta* TD;
 		  if( axrat <= 1.0e-5)
 			isens= 1;
+		  else if( dfaz <= 0.0)
+			isens= 2;
 		  else
-			if( dfaz <= 0.0)
-			  isens= 2;
-			else
-			  isens= 3;
+			isens= 3;
 
 		} /* if( (ethm2 <= 1.0e-20) && (ephm2 <= 1.0e-20) ) */
 
@@ -751,28 +744,29 @@ void rdpat(void)
 		}
 
 		/* Save rad pattern gains */
-		rad_pattern[calc_data.fstep].gtot[idx] = (double)tstor1;
+		rad_pattern[calc_data.fstep].gtot[idx] = tstor1;
 
 		/* Save axial ratio, tilt and pol sense */
 		if( isens == 2 )
-		  rad_pattern[calc_data.fstep].axrt[idx] = (double)-axrat;
+		  rad_pattern[calc_data.fstep].axrt[idx] = -axrat;
 		else
-		  rad_pattern[calc_data.fstep].axrt[idx] = (double)axrat;
-		rad_pattern[calc_data.fstep].tilt[idx] = (double)(TA * tilta);
+		  rad_pattern[calc_data.fstep].axrt[idx] = axrat;
+		rad_pattern[calc_data.fstep].tilt[idx] = tilta;
 		rad_pattern[calc_data.fstep].sens[idx] = isens;
 
 		/* Find and save max value of gain and direction */
 		for( pol = 0; pol < NUM_POL; pol++ )
 		{
-		  gain = (double)rad_pattern[calc_data.fstep].gtot[idx] + 10.0 *
-			log10( Polarization_Factor( pol, calc_data.fstep, idx) );
+		  gain = rad_pattern[calc_data.fstep].gtot[idx] +
+			Polarization_Factor( pol, calc_data.fstep, idx);
+		  if( gain < -999.99 ) gain = -999.99;
 
 		  /* Find and save max value of gain and direction */
 		  if( rad_pattern[calc_data.fstep].max_gain[pol] < gain )
 		  {
 			rad_pattern[calc_data.fstep].max_gain[pol]     = gain;
-			rad_pattern[calc_data.fstep].max_gain_tht[pol] = (double)thet;
-			rad_pattern[calc_data.fstep].max_gain_phi[pol] = (double)phi;
+			rad_pattern[calc_data.fstep].max_gain_tht[pol] = thet;
+			rad_pattern[calc_data.fstep].max_gain_phi[pol] = phi;
 			rad_pattern[calc_data.fstep].max_gain_idx[pol] = idx;
 		  }
 

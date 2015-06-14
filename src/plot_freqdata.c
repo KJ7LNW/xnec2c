@@ -69,7 +69,6 @@ Plot_Frequency_Data( void )
 
   static double
 	*gmax     = NULL, /* Max gain buffer */
-	*netgmax  = NULL, /* Net Max gain buffer */
 	*vgain    = NULL, /* Viewer direction gain buffer */
 	*netgain  = NULL, /* Viewer direction net gain buffer */
 	*gdir_tht = NULL, /* Direction in theta of gain */
@@ -131,13 +130,13 @@ Plot_Frequency_Data( void )
 
 	/* Allocate max gmax and directions */
 	size_t mreq = (size_t)fstep * sizeof(double);
-	mem_realloc( (void *)&gmax,     mreq, "in plot_freqdata.c" );
-	mem_realloc( (void *)&gdir_tht, mreq, "in plot_freqdata.c" );
-	mem_realloc( (void *)&gdir_phi, mreq, "in plot_freqdata.c" );
-	mem_realloc( (void *)&fbratio,  mreq, "in plot_freqdata.c" );
+	mem_realloc( (void **)&gmax,     mreq, "in plot_freqdata.c" );
+	mem_realloc( (void **)&gdir_tht, mreq, "in plot_freqdata.c" );
+	mem_realloc( (void **)&gdir_phi, mreq, "in plot_freqdata.c" );
+	mem_realloc( (void **)&fbratio,  mreq, "in plot_freqdata.c" );
 
 	if( isFlagSet(PLOT_NETGAIN) )
-	  mem_realloc( (void *)&netgain, mreq, "in plot_freqdata.c" );
+	  mem_realloc( (void **)&netgain, mreq, "in plot_freqdata.c" );
 
 	/* Find max gain and direction, F/B ratio */
 	no_fbr = FALSE;
@@ -158,7 +157,7 @@ Plot_Frequency_Data( void )
 
 	  /* Max gain for given polarization type */
 	  gmax[idx] = rad_pattern[idx].gtot[mgidx] +
-		10.0 * log10( Polarization_Factor(pol, idx, mgidx) );
+		Polarization_Factor(pol, idx, mgidx);
 
 	  /* Net gain if selected */
 	  if( isFlagSet(PLOT_NETGAIN) )
@@ -215,8 +214,8 @@ Plot_Frequency_Data( void )
 	  /* Front to back ratio */
 	  fbratio[idx]  = pow( 10.0, gmax[idx] / 10.0 );
 	  fbratio[idx] /= pow( 10.0,
-		  rad_pattern[idx].gtot[fbidx] / 10.0 +
-		  log10(Polarization_Factor(pol, idx, fbidx)) );
+		  (rad_pattern[idx].gtot[fbidx] +
+		   Polarization_Factor(pol, idx, fbidx)) / 10.0 );
 	  fbratio[idx] = 10.0 * log10( fbratio[idx] );
 
 	} /* for( idx = 0; idx < fstep; idx++ ) */
@@ -277,7 +276,7 @@ Plot_Frequency_Data( void )
 
 	/* Allocate viewer gain buffer */
 	size_t mreq = (size_t)fstep * sizeof(double);
-	mem_realloc( (void *)&vgain, mreq, "in plot_freqdata.c" );
+	mem_realloc( (void **)&vgain, mreq, "in plot_freqdata.c" );
 
 	/* Calcs are done for all freq steps */
 	for( idx = 0; idx < fstep; idx++ )
@@ -287,7 +286,7 @@ Plot_Frequency_Data( void )
 	if( isFlagSet(PLOT_NETGAIN) )
 	{
 	  mreq = (size_t)fstep * sizeof(double);
-	  mem_realloc( (void *)&netgain, mreq, "in plot_freqdata.c" );
+	  mem_realloc( (void **)&netgain, mreq, "in plot_freqdata.c" );
 
 	  Zo = calc_data.zo;
 	  for( idx = 0; idx < fstep; idx++ )
@@ -316,7 +315,7 @@ Plot_Frequency_Data( void )
   /* Plot VSWR vs freq */
   if( isFlagSet(PLOT_VSWR) )
   {
-	double vswr[calc_data.nfrq], gamma;
+	double *vswr = NULL, gamma;
 	double zrpro2, zrmro2, zimag2;
 
 	/* Plotting frame titles */
@@ -324,6 +323,17 @@ Plot_Frequency_Data( void )
 	titles[1] = _("VSWR vs Frequency");
 
 	/* Calculate VSWR */
+	mem_alloc( (void **)&vswr,
+		(size_t)calc_data.nfrq * sizeof(double),
+		"in Plot_Frequency_Data()" );
+	if( vswr == NULL )
+	{
+	  fprintf( stderr, "xnec2c: Plot_Frequency_Data():"
+		  "memory allocation for vswr failed\n" );
+	  stop( _("Plot_Frequency_Data():"
+			"Memory allocation for vswr failed"), ERR_OK );
+	  return;
+	}
 	for(idx = 0; idx < fstep; idx++ )
 	{
 	  zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
@@ -336,39 +346,12 @@ Plot_Frequency_Data( void )
 	  if( vswr[idx] > 10.0 ) vswr[idx] = 10.0;
 	}
 
-	/* Plot net gain if selected */
-	if( isFlagSet(PLOT_NETGAIN) )
-	{
-	  int mgidx, pol;
-	  double max_gain;
-
-	  size_t mreq = (size_t)fstep * sizeof(double);
-	  mem_realloc( (void *)&netgmax, mreq, "in plot_freqdata.c" );
-
-	  Zo = calc_data.zo;
-	  for(idx = 0; idx < fstep; idx++ )
-	  {
-		Zr = impedance_data.zreal[idx];
-		Zi = impedance_data.zimag[idx];
-		pol = calc_data.pol_type;
-		mgidx = rad_pattern[idx].max_gain_idx[pol];
-		/* Max gain for given polarization type */
-		max_gain = rad_pattern[idx].gtot[mgidx] +
-		  10.0 * log10( Polarization_Factor(pol, idx, mgidx) );
-		netgmax[idx] = max_gain + 10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
-	  }
-
-	  titles[2] = _("Net Gain dbi");
-	  Plot_Graph2( vswr, netgmax, save.freq, fstep,
+	titles[2] = "        ";
+	if( fstep > 1 )
+	  Plot_Graph( vswr, save.freq, fstep,
 		  titles, calc_data.ngraph, ++posn );
-	} /* if( isFlagSet(PLOT_NETGAIN) ) */
-	else
-	{
-	  titles[2] = "        ";
-	  if( fstep > 1 )
-		Plot_Graph( vswr, save.freq, fstep,
-			titles, calc_data.ngraph, ++posn );
-	}
+
+	free_ptr( (void **)&vswr );
   } /* if( isFlagSet(PLOT_VSWR) ) */
 
   /* Plot z-real and z-imag */
@@ -444,11 +427,10 @@ Display_Frequency_Data( void )
 	/* Max gain for given polarization type */
 	int mgidx = rad_pattern[fstep].max_gain_idx[pol];
 	double gmax = rad_pattern[fstep].gtot[mgidx] +
-	  10.0 * log10( Polarization_Factor(pol, fstep, mgidx) );
+	  Polarization_Factor(pol, fstep, mgidx);
 
 	/* Display max gain */
 	snprintf( txt, 6, "%5f", gmax );
-	txt[5] = '\0';
 	gtk_entry_set_text( GTK_ENTRY(lookup_widget(
 			freqplots_window, "freqplots_maxgain_entry")), txt );
 
@@ -456,7 +438,6 @@ Display_Frequency_Data( void )
 
   /* Display frequency */
   snprintf( txt, 11, "%10.3f", (double)calc_data.fmhz );
-  txt[10] = '\0';
   gtk_entry_set_text( GTK_ENTRY(lookup_widget(
 		  freqplots_window, "freqplots_fmhz_entry")), txt );
 
@@ -474,19 +455,16 @@ Display_Frequency_Data( void )
 
   /* Display VSWR */
   snprintf( txt, 6, "%5f", vswr );
-  txt[5] = '\0';
   gtk_entry_set_text( GTK_ENTRY(lookup_widget(
 		  freqplots_window, "freqplots_vswr_entry")), txt );
 
   /* Display Z real */
   snprintf( txt, 6, "%5f", (double)creal( netcx.zped ) );
-  txt[5] = '\0';
   gtk_entry_set_text( GTK_ENTRY(lookup_widget(
 		  freqplots_window, "freqplots_zreal_entry")), txt );
 
   /* Display Z imaginary */
   snprintf( txt, 6, "%5f", (double)cimag( netcx.zped ) );
-  txt[5] = '\0';
   gtk_entry_set_text( GTK_ENTRY(lookup_widget(
 		  freqplots_window, "freqplots_zimag_entry")), txt );
 
@@ -624,15 +602,13 @@ Plot_Vertical_Scale(
 	double mo = log10( fabs(max) );
 	max_order = (int)mo;
   }
-  else
-	max_order = 0;
+  else max_order = 0;
 
   /* Use highest order for format */
   order = ( max_order > min_order ? max_order : min_order );
   if( order > 3 ) order = 3;
   if( order < 0 ) order = 0;
   snprintf( format, 6, "%%6.%df", (3-order) );
-  format[5] = '\0';
 
   /* Create a pango layout */
   layout = gtk_widget_create_pango_layout(
@@ -645,8 +621,7 @@ Plot_Vertical_Scale(
   for( idx = 0; idx < nval; idx++ )
   {
 	yps = y + (idx * height) / (nval-1);
-	snprintf( value, 16, format, max );
-	value[15] = '\0';
+	snprintf( value, 16, (const char *)format, max );
 	pango_layout_set_text( layout, value, -1 );
 	cairo_move_to( cr, x, yps );
 	pango_cairo_show_layout( cr, layout );
@@ -694,7 +669,6 @@ Plot_Horizontal_Scale(
   if( order > 0 )  order = 0;
   if( order < -9 ) order = -9;
   snprintf( format, 6, "%%6.%df", 1-order );
-  format[5] = '\0';
 
   /* Create a pango layout */
   layout = gtk_widget_create_pango_layout(
@@ -707,8 +681,7 @@ Plot_Horizontal_Scale(
   for( idx = 0; idx < nval; idx++ )
   {
 	xps = x + (idx * width) / (nval-1);
-	snprintf( value, 16, format, min );
-	value[15] = '\0';
+	snprintf( value, sizeof(value), (const char *)format, min );
 	pango_layout_set_text( layout, value, -1 );
 	cairo_move_to( cr, xps, y );
 	pango_cairo_show_layout( cr, layout );
@@ -736,7 +709,7 @@ Draw_Graph(
 {
   double ra, rb;
   int idx;
-  GdkPoint points[nval], polygn[4];
+  GdkPoint *points = NULL, polygn[4];
 
   /* Cairo context */
   cairo_t *cr = gdk_cairo_create( freqplots_pixmap );
@@ -747,6 +720,17 @@ Draw_Graph(
   rb = bmax - bmin;
 
   /* Calculate points to plot */
+  mem_alloc( (void **)&points,
+	  (size_t)calc_data.nfrq * sizeof(GdkPoint),
+	  "in Plot_Frequency_Data()" );
+  if( points == NULL )
+  {
+	fprintf( stderr, "xnec2c: Draw_Graph():"
+		"memory allocation for points failed\n" );
+	stop( _("Draw_Graph():"
+		  "Memory allocation for points failed"), ERR_OK );
+	return;
+  }
   for( idx = 0; idx < nval; idx++ )
   {
 	points[idx].x = rect->x + (int)( (double)rect->width  *
@@ -776,6 +760,7 @@ Draw_Graph(
   /* Draw the graph */
   Cairo_Draw_Lines( cr, points, nval );
 
+  free_ptr( (void **)&points );
   cairo_destroy( cr );
 } /* Draw_Graph() */
 
@@ -821,17 +806,16 @@ Fit_to_Scale( double *max, double *min, int *nval )
 	  *max =  1.0;
 	  *min = -1.0;
 	}
+	else if( *max > 0.0 )
+	{
+	  *max *= 1.5;
+	  *min /= 2.0;
+	}
 	else
-	  if( *max > 0.0 )
-	  {
-		*max *= 1.5;
-		*min /= 2.0;
-	  }
-	  else
-	  {
-		*max /= 2.0;
-		*min *= 1.5;
-	  }
+	{
+	  *max /= 2.0;
+	  *min *= 1.5;
+	}
   }
 
   /* Find subdivision's lower order of magnitude */
@@ -890,17 +874,16 @@ Fit_to_Scale2( double *max1, double *min1,
 	  *max1 =  1.0;
 	  *min1 = -1.0;
 	}
+	else if( *max1 > 0.0 )
+	{
+	  *max1 *= 1.5;
+	  *min1 /= 2.0;
+	}
 	else
-	  if( *max1 > 0.0 )
-	  {
-		*max1 *= 1.5;
-		*min1 /= 2.0;
-	  }
-	  else
-	  {
-		*max1 /= 2.0;
-		*min1 *= 1.5;
-	  }
+	{
+	  *max1 /= 2.0;
+	  *min1 *= 1.5;
+	}
   }
 
   if( *max2 == *min2 )
@@ -910,17 +893,16 @@ Fit_to_Scale2( double *max1, double *min1,
 	  *max2 =  1.0;
 	  *min2 = -1.0;
 	}
+	else if( *max2 > 0.0 )
+	{
+	  *max2 *= 1.5;
+	  *min2 /= 2.0;
+	}
 	else
-	  if( *max2 > 0.0 )
-	  {
-		*max2 *= 1.5;
-		*min2 /= 2.0;
-	  }
-	  else
-	  {
-		*max2 /= 2.0;
-		*min2 *= 1.5;
-	  }
+	{
+	  *max2 /= 2.0;
+	  *min2 *= 1.5;
+	}
   }
 
   /* For each scale */

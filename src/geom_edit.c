@@ -193,8 +193,7 @@ Wire_Editor( int action )
 				  "with non-zero wire radius"), ERR_OK );
 
 		} /* if( strcmp(name, "GC") == 0 ) */
-		else
-		  stop( _("No GW card before GC card"), ERR_OK );
+		else stop( _("No GW card before GC card"), ERR_OK );
 	  }
 	  else /*** Editing a GW card ***/
 	  {
@@ -220,15 +219,14 @@ Wire_Editor( int action )
 				&iv[SPIN_COL_I3], &fv[WIRE_RLEN] );
 			fv[WIRE_RDIA] = fv[WIRE_RLEN];
 		  }
-		  else
-			stop( _("No GC card after a GW card\n"\
-				  "with a zero wire radius"), ERR_OK );
+		  else stop( _("No GC card after a GW card\n"\
+				"with a zero wire radius"), ERR_OK );
 
 		} /* if( fv[WIRE_DIA] == 0.0 ) */
-		else /* If radius != 0, next card should not be GC */
-		  if( Check_Card_Name(geom_store, &iter_gc, NEXT, "GC") )
-			stop( _("GC card follows a GW card\n"\
-				  "with non-zero wire radius"), ERR_OK );
+		/* If radius != 0, next card should not be GC */
+		else if( Check_Card_Name(geom_store, &iter_gc, NEXT, "GC") )
+		  stop( _("GC card follows a GW card\n"\
+				"with non-zero wire radius"), ERR_OK );
 
 	  } /* if( strcmp(name, "GC") == 0 ) */
 	  break;
@@ -386,8 +384,7 @@ Wire_Editor( int action )
 	/* Wire's length */
 	fv[WIRE_LEN] = (gdouble)sqrt( dx*dx + dy*dy + dz*dz );
   }
-  else
-	newwln = TRUE;
+  else newwln = TRUE;
 
   /*** Calculate seg length as % of smallest wavelength ***/
   if( (calc_data.mxfrq != 0.0) && newpcl )
@@ -401,15 +398,13 @@ Wire_Editor( int action )
 	  fv[WIRE_PCL] = 100.0 * (fv[WIRE_LEN] /
 		  (gdouble)iv[SPIN_COL_I2]) / ((gdouble)CVEL/calc_data.mxfrq);
   }
-  else
-	newpcl = TRUE;
+  else newpcl = TRUE;
 
   /*** Calculate radius taper ratio ***/
   if( (iv[SPIN_COL_I2] > 1) && newrdm )
 	fv[WIRE_RDIA] = pow( fv[WIRE_DIAN]/fv[WIRE_DIA1],
 		1.0/(double)(iv[SPIN_COL_I2]-1) );
-  else
-	newrdm = TRUE;
+  else newrdm = TRUE;
 
   /* Write int data to the wire editor */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
@@ -492,7 +487,7 @@ Patch_Editor( int action )
 
   gchar *rbutton[5] =
   {
-	"patch_arbitary_radiobutton",
+	"patch_arbitrary_radiobutton",
 	"patch_rectangular_radiobutton",
 	"patch_triangular_radiobutton",
 	"patch_quadrilateral_radiobutton",
@@ -518,7 +513,7 @@ Patch_Editor( int action )
 	/* Set SP data to treeview */
 	Set_Geometry_Data( geom_store, &iter_sp, iv, fv );
 
-	/* Set SC card data to treeview if non arbitary */
+	/* Set SC card data to treeview if non arbitrary */
 	if( ptype != PATCH_ARBT )
 	  Set_Geometry_Data(geom_store,
 		  &iter_sc, &iv[SPIN_COL_I3], &fv[PATCH_X3]);
@@ -532,15 +527,14 @@ Patch_Editor( int action )
 	iv[SPIN_COL_I1] = 0; 	  /* Not used in SP */
 	iv[SPIN_COL_I2] = ptype; /* Patch type */
   }
-  else
-	/* Read int data from the patch editor (SM card) */
-	for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
-	{
-	  spin = GTK_SPIN_BUTTON(
-		  lookup_widget(patch_editor, ispin[idi]) );
-	  double i = gtk_spin_button_get_value( spin );
-	  iv[idi] = (gint)i;
-	}
+  /* Read int data from the patch editor (SM card) */
+  else for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
+  {
+	spin = GTK_SPIN_BUTTON(
+		lookup_widget(patch_editor, ispin[idi]) );
+	double i = gtk_spin_button_get_value( spin );
+	iv[idi] = (gint)i;
+  }
 
   /* Read float data from the patch editor */
   for( idx = PATCH_X1; idx <= PATCH_Z2; idx++ )
@@ -568,7 +562,7 @@ Patch_Editor( int action )
 	  Insert_Blank_Geometry_Row(
 		  geom_treeview, geom_store, &iter_sp, name );
 
-	  /* Insert an SC card for non-arbitary patch */
+	  /* Insert an SC card for non-arbitrary patch */
 	  if( ptype != PATCH_ARBT )
 		Insert_Blank_Geometry_Row(
 			geom_treeview, geom_store, &iter_sc, "SC" );
@@ -599,11 +593,11 @@ Patch_Editor( int action )
 		  Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
 		  ptype = iv[SPIN_COL_I2];
 
-		  /* Warn user if SP card with arbitary
+		  /* Warn user if SP card with arbitrary
 		   * patch is followed by an SC card */
 		  if( ptype == PATCH_ARBT )
 			stop( _("SC card preceded by SP card\n"\
-				  "with arbitary patch type"), ERR_OK );
+				  "with arbitrary patch type"), ERR_OK );
 
 		} /* if( Check_Card_Name(geom_store, &iter_sp, PREVIOUS, "SP") ) */
 		else /* Look for a previous SM card */
@@ -614,52 +608,49 @@ Patch_Editor( int action )
 			Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
 			ptype = PATCH_SURF;
 		  }
-		  else
-			stop( _("No SP or SM card before SC card"), ERR_OK );
+		  else stop( _("No SP or SM card before SC card"), ERR_OK );
 		}
 	  } /* if( strcmp(name, "SC") == 0 ) */
-	  else
-		/*** Editing an SP|SM card ***/
-		if( strcmp(name, "SP") == 0 )
+	  /*** Editing an SP|SM card ***/
+	  else if( strcmp(name, "SP") == 0 )
+	  {
+		/* Get patch data from treeview */
+		Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
+		ptype = iv[SPIN_COL_I2];
+
+		/*** Get SC card data if patch type non-arbitrary ***/
+		if( ptype != PATCH_ARBT )
 		{
-		  /* Get patch data from treeview */
-		  Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
-		  ptype = iv[SPIN_COL_I2];
-
-		  /*** Get SC card data if patch type non-arbitary ***/
-		  if( ptype != PATCH_ARBT )
-		  {
-			/* If next card is SC, get data */
-			if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
-			  Get_Geometry_Data( geom_store, &iter_sc,
-				  &iv[SPIN_COL_I3], &fv[PATCH_X3] );
-			else
-			{
-			  ptype = PATCH_ARBT;
-			  stop( _("No SC card after an SP card\n"\
-					"with non-arbitary patch type"), ERR_OK );
-			}
-
-		  } /* if( ptype != PATCH_ARBT ) */
-		  else /* If patch type arbitary, no SC card should follow */
-			if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
-			  stop( _("SC card follows an SP card\n"\
-					"with arbitary patch type"), ERR_OK );
-		} /* if( strcmp(name, "SP") == 0 ) */
-		else /* SM card */
-		{
-		  /* Get patch data from treeview */
-		  Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
-		  ptype = PATCH_SURF;
-
 		  /* If next card is SC, get data */
 		  if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
 			Get_Geometry_Data( geom_store, &iter_sc,
 				&iv[SPIN_COL_I3], &fv[PATCH_X3] );
 		  else
-			stop( _("No SC card after an SM card"), ERR_OK );
+		  {
+			ptype = PATCH_ARBT;
+			stop( _("No SC card after an SP card\n"\
+				  "with non-arbitrary patch type"), ERR_OK );
+		  }
 
-		} /* if( strcmp(name, "SP") == 0 ) */
+		} /* if( ptype != PATCH_ARBT ) */
+		/* If patch type arbitrary, no SC card should follow */
+		else if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
+		  stop( _("SC card follows an SP card\n"\
+				"with arbitrary patch type"), ERR_OK );
+	  } /* if( strcmp(name, "SP") == 0 ) */
+	  else /* SM card */
+	  {
+		/* Get patch data from treeview */
+		Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
+		ptype = PATCH_SURF;
+
+		/* If next card is SC, get data */
+		if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
+		  Get_Geometry_Data( geom_store, &iter_sc,
+			  &iv[SPIN_COL_I3], &fv[PATCH_X3] );
+		else stop( _("No SC card after an SM card"), ERR_OK );
+
+	  } /* if( strcmp(name, "SP") == 0 ) */
 
 	  ptset = TRUE;
 	  break;
@@ -716,7 +707,7 @@ Patch_Editor( int action )
 	  save   = TRUE;
 	  break;
 
-	case PATCH_EDITOR_SCCD: /* Insert SC card (non-arbitary patch case) */
+	case PATCH_EDITOR_SCCD: /* Insert SC card (non-arbitrary patch case) */
 	  if( gtk_list_store_iter_is_valid( geom_store, &iter_sp) )
 		Insert_Blank_Geometry_Row(
 			geom_treeview, geom_store, &iter_sc, "SC");
@@ -1007,8 +998,7 @@ Arc_Editor( int action )
 	fv[ARC_PCL] = 100.0 * (len/(gdouble)iv[SPIN_COL_I2]) /
 	  ((gdouble)CVEL/(gdouble)calc_data.mxfrq);
   }
-  else
-	newpcl = TRUE;
+  else newpcl = TRUE;
 
   /* Write int data to the arc editor */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
@@ -1304,8 +1294,7 @@ Helix_Editor( int action )
 	fv[HELIX_PCL] = 100.0 * (len/(gdouble)iv[SPIN_COL_I2]) /
 	  ((gdouble)CVEL / (gdouble)calc_data.mxfrq);
   }
-  else
-	newpcl = TRUE;
+  else newpcl = TRUE;
 
   /* Calculate new turn spacing */
   if( newspc )
@@ -1522,7 +1511,7 @@ Scale_Editor( int action )
 	Set_Geometry_Int_Data( geom_store, &iter_gs, iv );
 
 	/* Enter scale factor */
-	snprintf( sf, 13, "%12.5E", scale );
+	snprintf( sf, sizeof(sf), "%12.5E", scale );
 	gtk_list_store_set(
 		geom_store, &iter_gs, GEOM_COL_F1, sf, -1 );
 
@@ -1560,12 +1549,12 @@ Scale_Editor( int action )
 	  {
 		gtk_tree_model_get(	GTK_TREE_MODEL(geom_store),
 			&iter_gs, GEOM_COL_F1, &str, -1);
-		scale = atof( str );
+		scale = Strtod( str, NULL );
 		g_free( str );
 	  }
 	  else
 		stop( _("Error reading row data\n"\
-			  "Invalid list iterator"), ERR_OK );
+			    "Invalid list iterator"), ERR_OK );
 
 	  /* Enter tag from-to data to scale editor */
 	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
@@ -1922,9 +1911,8 @@ Gend_Editor( int action )
 			  gend_editor, rdbutton[idx]) );
 		gtk_toggle_button_set_active( toggle, TRUE );
 	  }
-	  else
-		stop( _("Error reading row data\n"\
-			  "Invalid list iterator"), ERR_OK );
+	  else stop( _("Error reading row data\n"\
+			"Invalid list iterator"), ERR_OK );
 	  break;
 
 	case EDITOR_CANCEL: /* Cancel transform editor */
@@ -1942,7 +1930,7 @@ Gend_Editor( int action )
 		if( gtk_toggle_button_get_active(toggle) )
 		  break;
 	  }
-	  snprintf( si, 6, "%5d", idx-1 );
+	  snprintf( si, sizeof(si), "%5d", idx-1 );
 	  save = TRUE;
 
   } /* switch( action ) */
@@ -2008,13 +1996,12 @@ Get_Geometry_Data(
 	{
 	  gtk_tree_model_get(
 		  GTK_TREE_MODEL(store), iter, idf, &sv, -1);
-	  fv[idf-GEOM_COL_F1] = atof(sv);
+	  fv[idf-GEOM_COL_F1] = Strtod( sv, NULL );
 	  g_free(sv);
 	}
   }
-  else
-	stop( _("Error reading row data\n"\
-		  "Invalid list iterator"), ERR_OK );
+  else stop( _("Error reading row data\n"\
+		"Invalid list iterator"), ERR_OK );
 
 } /* Get_Geometry_Data() */
 
@@ -2042,9 +2029,8 @@ Get_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
 	  g_free(sv);
 	}
   }
-  else
-	stop( _("Error reading row data\n"\
-		  "Invalid list iterator"), ERR_OK );
+  else stop( _("Error reading row data\n"\
+		"Invalid list iterator"), ERR_OK );
 
 } /* Get_Geometry_Int_Data() */
 
@@ -2079,9 +2065,8 @@ Set_Geometry_Data(
 	  gtk_list_store_set( store, iter, idf, str, -1 );
 	}
   }
-  else
-	stop( _("Error writing row data\n"\
-		  "Please re-select row"), ERR_OK );
+  else stop( _("Error writing row data\n"\
+		"Please re-select row"), ERR_OK );
 
   SetFlag( NEC2_EDIT_SAVE );
 
@@ -2105,7 +2090,7 @@ Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
   {
 	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
 	{
-	  snprintf( str, 6, "%5d", iv[idi-GEOM_COL_I1] );
+	  snprintf( str, sizeof(str), "%5d", iv[idi-GEOM_COL_I1] );
 	  gtk_list_store_set( store, iter, idi, str, -1 );
 	}
 
@@ -2113,9 +2098,8 @@ Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
 	for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
 	  gtk_list_store_set( store, iter, idf, "0.0", -1 );
   }
-  else
-	stop( _("Error writing row data\n"\
-		  "Please re-select row"), ERR_OK );
+  else stop( _("Error writing row data\n"\
+		"Please re-select row"), ERR_OK );
 
   SetFlag( NEC2_EDIT_SAVE );
 
@@ -2441,7 +2425,7 @@ Get_Wire_Conductivity( int tag, double *s, GtkListStore *store )
   /* Get the wire conductivity S/m */
   gtk_tree_model_get( GTK_TREE_MODEL(store),
 	  &iter_ld, CMND_COL_F1, &str, -1 );
-  *s = atof( str );
+  *s = Strtod( str, NULL );
   g_free( str );
 
   return( TRUE );

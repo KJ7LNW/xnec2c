@@ -94,8 +94,8 @@ Project_XYZ_Axes(
   cairo_t *cr = gdk_cairo_create( pixmap );
   cairo_set_source_rgb( cr, WHITE );
 
-  layout = gtk_widget_create_pango_layout(
-	  structure_drawingarea, "x" );
+  layout =
+	gtk_widget_create_pango_layout( structure_drawingarea, "x" );
 
   segm->x1 = (gint)params->x_center;
   segm->y1 = params->pixmap_height - (gint)(params->y_center);
@@ -127,6 +127,7 @@ Project_XYZ_Axes(
   pango_layout_set_text( layout, " z", -1 );
   cairo_move_to( cr, (double)segm->x2, (double)segm->y2 );
   pango_cairo_show_layout( cr, layout );
+  g_object_unref( layout );
 
   cairo_destroy( cr );
 } /* Project_XYZ_Axes() */

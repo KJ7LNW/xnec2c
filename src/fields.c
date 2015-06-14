@@ -76,7 +76,7 @@ void efld( double xi, double yi,
   static complex double *egnd = NULL;
 
   size_t mreq = 9 * sizeof(complex double);
-  mem_alloc( (void *)&egnd, mreq, "in fields.c");
+  mem_alloc( (void **)&egnd, mreq, "in fields.c");
 
   xij= xi- dataj.xj;
   yij= yi- dataj.yj;
@@ -1265,37 +1265,36 @@ void nefld( double xob, double yob,
 			  dataj.ind1=0;
 		  }
 		} /* if( ipr < 0 ) */
+		else if( ipr == 0 )
+		  dataj.ind1=1;
 		else
-		  if( ipr == 0 )
-			dataj.ind1=1;
-		  else
-		  {
-			iprx = ipr-1;
+		{
+		  iprx = ipr-1;
 
-			if( ipr != ix )
-			{
-			  if( data.icon2[iprx] != ix )
-				dataj.ind1=2;
-			  else
-			  {
-				xi= fabs( dataj.cabj* data.cab[iprx]+ dataj.sabj*
-					data.sab[iprx]+ dataj.salpj* data.salp[iprx]);
-				if( (xi < 0.999999) ||
-					(fabs(data.bi[iprx]/dataj.b-1.0) > 1.0e-6) )
-				  dataj.ind1=2;
-				else
-				  dataj.ind1=0;
-			  }
-			} /* if( ipr != ix ) */
+		  if( ipr != ix )
+		  {
+			if( data.icon2[iprx] != ix )
+			  dataj.ind1=2;
 			else
 			{
-			  if( dataj.cabj* dataj.cabj +
-				  dataj.sabj* dataj.sabj > 1.0e-8)
+			  xi= fabs( dataj.cabj* data.cab[iprx]+ dataj.sabj*
+				  data.sab[iprx]+ dataj.salpj* data.salp[iprx]);
+			  if( (xi < 0.999999) ||
+				  (fabs(data.bi[iprx]/dataj.b-1.0) > 1.0e-6) )
 				dataj.ind1=2;
 			  else
 				dataj.ind1=0;
 			}
-		  } /* else */
+		  } /* if( ipr != ix ) */
+		  else
+		  {
+			if( dataj.cabj* dataj.cabj +
+				dataj.sabj* dataj.sabj > 1.0e-8)
+			  dataj.ind1=2;
+			else
+			  dataj.ind1=0;
+		  }
+		} /* else */
 
 		ipr= data.icon2[i];
 
@@ -1318,38 +1317,37 @@ void nefld( double xob, double yob,
 			  dataj.ind1=0;
 		  }
 		} /* if( ipr < 0 ) */
+		else if( ipr == 0 )
+		  dataj.ind2=1;
 		else
-		  if( ipr == 0 )
-			dataj.ind2=1;
-		  else
-		  {
-			iprx = ipr-1;
+		{
+		  iprx = ipr-1;
 
-			if( ipr != ix )
-			{
-			  if( data.icon1[iprx] != ix )
-				dataj.ind2=2;
-			  else
-			  {
-				xi= fabs( dataj.cabj* data.cab[iprx]+ dataj.sabj*
-					data.sab[iprx]+ dataj.salpj* data.salp[iprx]);
-				if( (xi < 0.999999) ||
-					(fabs(data.bi[iprx]/dataj.b-1.0) > 1.0e-6) )
-				  dataj.ind2=2;
-				else
-				  dataj.ind2=0;
-			  }
-			} /* if( ipr != (i+1) ) */
+		  if( ipr != ix )
+		  {
+			if( data.icon1[iprx] != ix )
+			  dataj.ind2=2;
 			else
 			{
-			  if( dataj.cabj* dataj.cabj +
-				  dataj.sabj* dataj.sabj > 1.0e-8)
-				dataj.ind1=2;
+			  xi= fabs( dataj.cabj* data.cab[iprx]+ dataj.sabj*
+				  data.sab[iprx]+ dataj.salpj* data.salp[iprx]);
+			  if( (xi < 0.999999) ||
+				  (fabs(data.bi[iprx]/dataj.b-1.0) > 1.0e-6) )
+				dataj.ind2=2;
 			  else
-				dataj.ind1=0;
+				dataj.ind2=0;
 			}
+		  } /* if( ipr != (i+1) ) */
+		  else
+		  {
+			if( dataj.cabj* dataj.cabj +
+				dataj.sabj* dataj.sabj > 1.0e-8)
+			  dataj.ind1=2;
+			else
+			  dataj.ind1=0;
+		  }
 
-		  } /* else */
+		} /* else */
 
 	  } /* if( dataj.iexk != 0) */
 

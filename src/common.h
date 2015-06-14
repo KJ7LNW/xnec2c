@@ -65,6 +65,9 @@
 /* Max length of a line read from input file */
 #define	LINE_LEN	135
 
+/* Size of char arrays (strings) for error messages etc */
+#define MESG_SIZE	128
+
 /* Type of projection parameters stuct */
 #define	STRUCTURE_DRAWINGAREA	1
 #define	RDPATTERN_DRAWINGAREA	2
@@ -700,8 +703,9 @@ void zint(double sigl, double rolam, _Complex double *zint);
 /* callback_func.c */
 void Save_Pixmap(GdkPixmap *pixmap, int pixmap_width, int pixmap_height, char *filename);
 void New_Viewer_Angle(double wr, double wi, GtkSpinButton *wr_spb, GtkSpinButton *wi_spb, projection_parameters_t *params);
+void Set_Spin_Button(GtkSpinButton *spin, gdouble value);
 void Create_Pixmap(GdkPixmap **pixmap, int *pixmap_width, int *pixmap_height, GtkWidget *widget, GdkEventConfigure *event, projection_parameters_t *params);
-void Motion_Event(GdkEventMotion *event, projection_parameters_t *params, GtkSpinButton *wr_spb, GtkSpinButton *wi_spb);
+void Motion_Event(GdkEventMotion *event, projection_parameters_t *params);
 void Plot_Select(GtkToggleButton *togglebutton, unsigned long long int flag);
 void Delete_Event(gchar *message);
 void Set_Pol_Menuitem(GtkMenuItem *menuitem);
@@ -868,7 +872,7 @@ void on_patch_cancel_button_clicked(GtkButton *button, gpointer user_data);
 void on_patch_apply_button_clicked(GtkButton *button, gpointer user_data);
 void on_patch_ok_button_clicked(GtkButton *button, gpointer user_data);
 void on_patch_editor_destroy(GtkObject *object, gpointer user_data);
-void on_patch_arbitary_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+void on_patch_arbitrary_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
 void on_patch_rectangular_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
 void on_patch_triangular_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
 void on_patch_quadrilateral_radiobutton_toggled(GtkToggleButton *togglebutton, gpointer user_data);
@@ -1283,6 +1287,7 @@ void ToggleFlag(unsigned long long int flag);
 void SaveFlag(unsigned long long int *flag, unsigned long long int mask);
 void Strlcpy(char *dest, const char *src, size_t n);
 void Strlcat(char *dest, const char *src, size_t n);
+double Strtod(char *nptr, char **endptr);
 /* xnec2c.c */
 void Frequency_Scale_Geometry(void);
 void Structure_Impedance_Loading(void);

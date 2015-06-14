@@ -75,17 +75,17 @@ arc( int itg, int ns, double rada,
 
 	/* Reallocate tags buffer */
 	mreq = (size_t)(data.n + data.m) * sizeof(int);
-	mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.itag, mreq, "in geometry.c" );
 
 	/* Reallocate wire buffers */
 	mreq = (size_t)data.n * sizeof(double);
-	mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.x2, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.y2, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.z2, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.bi, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.x1, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.y1, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.z1, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.x2, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.y2, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.z2, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.bi, mreq, "in geometry.c" );
 
 	ang= ang1* TA;
 	dang=( ang2- ang1)* TA/ ns;
@@ -168,8 +168,8 @@ conect( int ignd )
   {
 	/* Allocate memory to connections */
 	mreq = (size_t)(data.n + data.m) * sizeof(int);
-	mem_realloc( (void *)&data.icon1, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.icon2, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.icon1, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.icon2, mreq, "in geometry.c" );
 
 	for( i = 0; i < data.n; i++ )
 	{
@@ -367,7 +367,7 @@ conect( int ignd )
 
   /* Allocate to connection buffers */
   mreq = (size_t)segj.maxcon * sizeof(int);
-  mem_realloc( (void *)&segj.jco, mreq, "in geometry.c" );
+  mem_realloc( (void **)&segj.jco, mreq, "in geometry.c" );
 
   /* Adjust connected segment ends to exactly coincide.
    * Also find old seg. connecting to new segment */
@@ -412,7 +412,7 @@ conect( int ignd )
 		  {
 			segj.maxcon = ic+1;
 			mreq = (size_t)segj.maxcon * sizeof(int);
-			mem_realloc( (void *)&segj.jco, mreq, "in geometry.c" );
+			mem_realloc( (void **)&segj.jco, mreq, "in geometry.c" );
 		  }
 		  segj.jco[ic-1]= ix* jend;
 
@@ -435,19 +435,18 @@ conect( int ignd )
 		while( ix != 0 );
 
 		if( jump && (iend == 1) ) break;
-		else
-		  if( jump )
-		  {
-			iend=1;
-			jend=1;
-			ix= data.icon2[j];
-			ic=1;
-			segj.jco[0]= jx;
-			xa= data.x2[j];
-			ya= data.y2[j];
-			za= data.z2[j];
-			continue;
-		  }
+		else if( jump )
+		{
+		  iend=1;
+		  jend=1;
+		  ix= data.icon2[j];
+		  ic=1;
+		  segj.jco[0]= jx;
+		  xa= data.x2[j];
+		  ya= data.y2[j];
+		  za= data.z2[j];
+		  continue;
+		}
 
 		sep= (double)ic;
 		xa= xa/ sep;
@@ -495,9 +494,9 @@ conect( int ignd )
   } /* for( j = 0; j < data.n; j++ ) */
 
   mreq = (size_t)segj.maxcon * sizeof(double);
-  mem_realloc( (void *)&segj.ax, mreq, "in geometry.c" );
-  mem_realloc( (void *)&segj.bx, mreq, "in geometry.c" );
-  mem_realloc( (void *)&segj.cx, mreq, "in geometry.c" );
+  mem_realloc( (void **)&segj.ax, mreq, "in geometry.c" );
+  mem_realloc( (void **)&segj.bx, mreq, "in geometry.c" );
+  mem_realloc( (void **)&segj.cx, mreq, "in geometry.c" );
 
   return( TRUE );
 }
@@ -529,17 +528,17 @@ helix(
 
   /* Reallocate tags buffer */
   mreq = (size_t)data.n * sizeof(int);
-  mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.itag, mreq, "in geometry.c" );
 
   /* Reallocate wire buffers */
   mreq = (size_t)data.n * sizeof(double);
-  mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.x2, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.y2, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.z2, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.bi, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.x1, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.y1, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.z1, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.x2, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.y2, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.z2, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.bi, mreq, "in geometry.c" );
 
   data.z1[ist] = 0.0;
   for( i = ist; i < data.n; i++ )
@@ -700,17 +699,17 @@ move( double rox, double roy,
 	  k= data.n;
 	  /* Reallocate tags buffer */
 	  mreq = (size_t)(data.n + data.m + (data.n + 1 - i1) * nrpt) * sizeof(int);
-	  mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.itag, mreq, "in geometry.c" );
 
 	  /* Reallocate wire buffers */
 	  mreq = (size_t)(data.n + (data.n + 1 - i1) * nrpt) * sizeof(double);
-	  mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.x2, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.y2, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.z2, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.bi, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.x1, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.y1, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.z1, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.x2, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.y2, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.z2, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.bi, mreq, "in geometry.c" );
 	}
 
 	for( ir = 0; ir < nrp; ir++ )
@@ -754,17 +753,17 @@ move( double rox, double roy,
 
 	/* Reallocate patch buffers */
 	mreq = (size_t)(data.m * (nrpt + 1)) * sizeof(double);
-	mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t1x, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t1y, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t1z, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t2x, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t2y, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t2z, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.pbi, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.psalp, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.px,  mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.py,  mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.pz,  mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t1x, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t1y, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t1z, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t2x, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t2y, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t2z, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.pbi, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.psalp, mreq, "in geometry.c" );
 
 	for( ii = 0; ii < nrp; ii++ )
 	{
@@ -839,17 +838,17 @@ patch(
 
   /* Reallocate patch buffers */
   mreq = (size_t)data.m * sizeof(double);
-  mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t1x, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t1y, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t1z, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t2x, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t2y, mreq, "in geometry.c");
-  mem_realloc( (void *)&data.t2z, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.pbi, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.psalp, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.px,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.py,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.pz,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1x, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1y, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1z, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2x, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2y, mreq, "in geometry.c");
+  mem_realloc( (void **)&data.t2z, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.pbi, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.psalp, mreq, "in geometry.c" );
 
   if( nx > 0) ntp=2;
   else ntp= ny;
@@ -978,17 +977,17 @@ patch(
 	data.m += nx*ny-1;
 	/* Reallocate patch buffers */
 	mreq = (size_t)data.m * sizeof(double);
-	mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t1x, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t1y, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t1z, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t2x, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t2y, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t2z, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.pbi, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.psalp, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.px,  mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.py,  mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.pz,  mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t1x, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t1y, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t1z, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t2x, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t2y, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t2z, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.pbi, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.psalp, mreq, "in geometry.c" );
 
 	xn2= data.px[mi]- s1x- s2x;
 	yn2= data.py[mi]- s1y- s2y;
@@ -1050,21 +1049,21 @@ subph( int nx, int ny )
   else data.m += 4;
 
   mreq = (size_t)data.m * sizeof(double);
-  mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t1x, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t1y, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t1z, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t2x, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t2y, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t2z, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.pbi, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.psalp, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.px,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.py,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.pz,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1x, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1y, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1z, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2x, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2y, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2z, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.pbi, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.psalp, mreq, "in geometry.c" );
   if( !CHILD )
   {
 	mreq = (size_t)(data.n + 2 * data.m) * sizeof(GdkSegment);
-	mem_realloc( (void *)&structure_segs, mreq, "in geometry.c" );
+	mem_realloc( (void **)&structure_segs, mreq, "in geometry.c" );
   }
 
   /* Shift patches to make room for new ones */
@@ -1179,17 +1178,17 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	  {
 		/* Reallocate tags buffer */
 		mreq = (size_t)(2 * data.n + data.m) * sizeof(int);
-		mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.itag, mreq, "in geometry.c" );
 
 		/* Reallocate wire buffers */
 		mreq = (size_t)(2 * data.n) * sizeof(double);
-		mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.x2, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.y2, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.z2, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.bi, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.x1, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.y1, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.z1, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.x2, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.y2, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.z2, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.bi, mreq, "in geometry.c" );
 
 		for( i = 0; i < data.n; i++ )
 		{
@@ -1233,17 +1232,17 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	  {
 		/* Reallocate patch buffers */
 		mreq = (size_t)(2 * data.m) * sizeof(double);
-		mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t1x, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t1y, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t1z, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t2x, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t2y, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t2z, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.pbi, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.psalp, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.px,  mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.py,  mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.pz,  mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t1x, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t1y, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t1z, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t2x, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t2y, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t2z, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.pbi, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.psalp, mreq, "in geometry.c" );
 
 		for( i = 0; i < data.m; i++ )
 		{
@@ -1284,16 +1283,16 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	  {
 		/* Reallocate tags buffer */
 		mreq = (size_t)(2 * data.n) * sizeof(int);
-		mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.itag, mreq, "in geometry.c" );
 		/* Reallocate wire buffers */
 		mreq = (size_t)(2 * data.n) * sizeof(double);
-		mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.x2, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.y2, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.z2, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.bi, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.x1, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.y1, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.z1, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.x2, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.y2, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.z2, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.bi, mreq, "in geometry.c" );
 
 		for( i = 0; i < data.n; i++ )
 		{
@@ -1337,17 +1336,17 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	  {
 		/* Reallocate patch buffers */
 		mreq = (size_t)(2 * data.m) * sizeof(double);
-		mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t1x, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t1y, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t1z, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t2x, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t2y, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.t2z, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.pbi, mreq, "in geometry.c" );
-		mem_realloc( (void *)&data.psalp, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.px,  mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.py,  mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.pz,  mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t1x, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t1y, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t1z, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t2x, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t2y, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.t2z, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.pbi, mreq, "in geometry.c" );
+		mem_realloc( (void **)&data.psalp, mreq, "in geometry.c" );
 
 		for( i = 0; i < data.m; i++ )
 		{
@@ -1389,17 +1388,17 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	{
 	  /* Reallocate tags buffer */
 	  mreq = (size_t)(2 * data.n) * sizeof(int);
-	  mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.itag, mreq, "in geometry.c" );
 
 	  /* Reallocate wire buffers */
 	  mreq = (size_t)(2 * data.n) * sizeof(double);
-	  mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.x2, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.y2, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.z2, mreq, "in geometry.c" );
-	  mem_realloc( (void *)&data.bi, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.x1, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.y1, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.z1, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.x2, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.y2, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.z2, mreq, "in geometry.c" );
+	  mem_realloc( (void **)&data.bi, mreq, "in geometry.c" );
 
 	  for( i = 0; i < data.n; i++ )
 	  {
@@ -1441,17 +1440,17 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 
 	/* Reallocate patch buffers */
 	mreq = (size_t)(2 * data.m) * sizeof(double);
-	mem_realloc( (void *)&data.px,  mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t1x, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t1y, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t1z, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t2x, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t2y, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.t2z, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.pbi, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.psalp, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.px,  mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.py,  mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.pz,  mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t1x, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t1y, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t1z, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t2x, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t2y, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.t2z, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.pbi, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.psalp, mreq, "in geometry.c" );
 
 	for( i = 0; i < data.m; i++ )
 	{
@@ -1498,17 +1497,17 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 
 	/* Reallocate tags buffer */
 	mreq = (size_t)data.n * sizeof(int);
-	mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.itag, mreq, "in geometry.c" );
 
 	/* Reallocate wire buffers */
 	mreq = (size_t)data.n * sizeof(double);
-	mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.x2, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.y2, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.z2, mreq, "in geometry.c" );
-	mem_realloc( (void *)&data.bi, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.x1, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.y1, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.z1, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.x2, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.y2, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.z2, mreq, "in geometry.c" );
+	mem_realloc( (void **)&data.bi, mreq, "in geometry.c" );
 
 	for( i = nx; i < data.n; i++ )
 	{
@@ -1541,17 +1540,17 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 
   /* Reallocate patch buffers */
   mreq = (size_t)data.m * sizeof(double);
-  mem_realloc( (void *)&data.px,  mreq, "in geometry.c"  );
-  mem_realloc( (void *)&data.py,  mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.pz,  mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t1x, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t1y, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t1z, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t2x, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t2y, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.t2z, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.pbi, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.psalp, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.px,  mreq, "in geometry.c"  );
+  mem_realloc( (void **)&data.py,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.pz,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1x, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1y, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1z, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2x, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2y, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2z, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.pbi, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.psalp, mreq, "in geometry.c" );
 
   for( i = nx; i < data.m; i++ )
   {
@@ -1603,17 +1602,17 @@ wire( double xw1, double yw1, double zw1,
 
   /* Reallocate tags buffer */
   mreq = (size_t)data.n * sizeof(int);
-  mem_realloc( (void *)&data.itag, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.itag, mreq, "in geometry.c" );
 
   /* Reallocate wire buffers */
   mreq = (size_t)data.n * sizeof(double);
-  mem_realloc( (void *)&data.x1, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.y1, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.z1, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.x2, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.y2, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.z2, mreq, "in geometry.c" );
-  mem_realloc( (void *)&data.bi, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.x1, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.y1, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.z1, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.x2, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.y2, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.z2, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.bi, mreq, "in geometry.c" );
 
   xd= xw2- xw1;
   yd= yw2- yw1;

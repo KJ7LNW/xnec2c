@@ -23,6 +23,7 @@
 #include "interface.h"
 #include "support.h"
 #include "shared.h"
+#include <locale.h>
 #include <ctype.h>
 
 /* Carriage return and line feed */

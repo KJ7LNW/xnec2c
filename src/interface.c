@@ -444,7 +444,7 @@ create_main_window (void)
   structure_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (structure_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment1), structure_drawingarea);
-  gtk_widget_set_size_request (structure_drawingarea, 681, 481);
+  gtk_widget_set_size_request (structure_drawingarea, 769, 769);
   GTK_WIDGET_SET_FLAGS (structure_drawingarea, GTK_CAN_FOCUS);
 
   main_hbox3 = gtk_hbox_new (FALSE, 0);
@@ -507,6 +507,7 @@ create_main_window (void)
   gtk_box_pack_start (GTK_BOX (main_hbox3), main_rotate_spinbutton, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, main_rotate_spinbutton, _("Rotate Structure\n around Z-axis"), NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (main_rotate_spinbutton), TRUE);
+  gtk_spin_button_set_wrap (GTK_SPIN_BUTTON (main_rotate_spinbutton), TRUE);
 
   image51 = gtk_image_new_from_stock ("gtk-go-down", GTK_ICON_SIZE_BUTTON);
   gtk_widget_show (image51);
@@ -518,6 +519,7 @@ create_main_window (void)
   gtk_box_pack_start (GTK_BOX (main_hbox3), main_incline_spinbutton, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, main_incline_spinbutton, _("Incline Structure\nto Plane of Screen"), NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (main_incline_spinbutton), TRUE);
+  gtk_spin_button_set_wrap (GTK_SPIN_BUTTON (main_incline_spinbutton), TRUE);
 
   label245 = gtk_label_new (_(" Zoom % "));
   gtk_widget_show (label245);
@@ -1190,7 +1192,7 @@ create_freqplots_window (void)
   freqplots_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (freqplots_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment2), freqplots_drawingarea);
-  gtk_widget_set_size_request (freqplots_drawingarea, 681, 481);
+  gtk_widget_set_size_request (freqplots_drawingarea, 769, 769);
   GTK_WIDGET_SET_FLAGS (freqplots_drawingarea, GTK_CAN_FOCUS);
   gtk_widget_set_events (freqplots_drawingarea, GDK_BUTTON_PRESS_MASK);
 
@@ -1731,7 +1733,6 @@ create_rdpattern_window (void)
   rdpattern_hbox2 = gtk_hbox_new (FALSE, 0);
   gtk_widget_show (rdpattern_hbox2);
   gtk_box_pack_start (GTK_BOX (vbox3), rdpattern_hbox2, FALSE, FALSE, 0);
-  gtk_widget_set_size_request (rdpattern_hbox2, -1, 30);
 
   rdpattern_colorcode_minlabel = gtk_label_new (_("0.0"));
   gtk_widget_show (rdpattern_colorcode_minlabel);
@@ -1813,7 +1814,7 @@ create_rdpattern_window (void)
   rdpattern_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (rdpattern_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment3), rdpattern_drawingarea);
-  gtk_widget_set_size_request (rdpattern_drawingarea, 681, 481);
+  gtk_widget_set_size_request (rdpattern_drawingarea, 769, 769);
   GTK_WIDGET_SET_FLAGS (rdpattern_drawingarea, GTK_CAN_FOCUS);
 
   rdpattern_hbox3 = gtk_hbox_new (FALSE, 0);
@@ -1868,6 +1869,7 @@ create_rdpattern_window (void)
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_rotate_spinbutton, TRUE, TRUE, 0);
   gtk_tooltips_set_tip (tooltips, rdpattern_rotate_spinbutton, _("Rotate radiation pattern around Z-axis"), NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (rdpattern_rotate_spinbutton), TRUE);
+  gtk_spin_button_set_wrap (GTK_SPIN_BUTTON (rdpattern_rotate_spinbutton), TRUE);
 
   image56 = gtk_image_new_from_stock ("gtk-go-down", GTK_ICON_SIZE_BUTTON);
   gtk_widget_show (image56);
@@ -1879,6 +1881,7 @@ create_rdpattern_window (void)
   gtk_box_pack_start (GTK_BOX (rdpattern_hbox3), rdpattern_incline_spinbutton, TRUE, TRUE, 0);
   gtk_tooltips_set_tip (tooltips, rdpattern_incline_spinbutton, _("Incline radiation pattern to plane of screen"), NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (rdpattern_incline_spinbutton), TRUE);
+  gtk_spin_button_set_wrap (GTK_SPIN_BUTTON (rdpattern_incline_spinbutton), TRUE);
 
   label247 = gtk_label_new (_(" Zoom % "));
   gtk_widget_show (label247);
@@ -2620,7 +2623,7 @@ create_nec2_editor (void)
   nec2_cmnt_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_cmnt_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow5), nec2_cmnt_treeview);
-  gtk_widget_set_size_request (nec2_cmnt_treeview, -1, 70);
+  gtk_widget_set_size_request (nec2_cmnt_treeview, 769, 176);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_cmnt_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_cmnt_treeview), TRUE);
 
@@ -2722,7 +2725,7 @@ create_nec2_editor (void)
   nec2_geom_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_geom_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow4), nec2_geom_treeview);
-  gtk_widget_set_size_request (nec2_geom_treeview, -1, 70);
+  gtk_widget_set_size_request (nec2_geom_treeview, 769, 176);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_geom_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_geom_treeview), TRUE);
 
@@ -2852,7 +2855,7 @@ create_nec2_editor (void)
   nec2_cmnd_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_cmnd_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow3), nec2_cmnd_treeview);
-  gtk_widget_set_size_request (nec2_cmnd_treeview, -1, 70);
+  gtk_widget_set_size_request (nec2_cmnd_treeview, 769, 176);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_cmnd_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_cmnd_treeview), TRUE);
 
@@ -3561,8 +3564,8 @@ create_patch_editor (void)
   GtkWidget *patch_type_frame;
   GtkWidget *alignment13;
   GtkWidget *hbox22;
-  GtkWidget *patch_arbitary_radiobutton;
-  GSList *patch_arbitary_radiobutton_group = NULL;
+  GtkWidget *patch_arbitrary_radiobutton;
+  GSList *patch_arbitrary_radiobutton_group = NULL;
   GtkWidget *patch_rectangular_radiobutton;
   GtkWidget *patch_triangular_radiobutton;
   GtkWidget *patch_quadrilateral_radiobutton;
@@ -3656,41 +3659,41 @@ create_patch_editor (void)
   gtk_widget_show (hbox22);
   gtk_container_add (GTK_CONTAINER (alignment13), hbox22);
 
-  patch_arbitary_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Arbitary"));
-  gtk_widget_show (patch_arbitary_radiobutton);
-  gtk_box_pack_start (GTK_BOX (hbox22), patch_arbitary_radiobutton, TRUE, TRUE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (patch_arbitary_radiobutton), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_arbitary_radiobutton), patch_arbitary_radiobutton_group);
-  patch_arbitary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_arbitary_radiobutton));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (patch_arbitary_radiobutton), TRUE);
+  patch_arbitrary_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Arbitary"));
+  gtk_widget_show (patch_arbitrary_radiobutton);
+  gtk_box_pack_start (GTK_BOX (hbox22), patch_arbitrary_radiobutton, TRUE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (patch_arbitrary_radiobutton), 2);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_arbitrary_radiobutton), patch_arbitrary_radiobutton_group);
+  patch_arbitrary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_arbitrary_radiobutton));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (patch_arbitrary_radiobutton), TRUE);
 
   patch_rectangular_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Rectangle"));
   gtk_widget_show (patch_rectangular_radiobutton);
   gtk_box_pack_start (GTK_BOX (hbox22), patch_rectangular_radiobutton, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_rectangular_radiobutton), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_rectangular_radiobutton), patch_arbitary_radiobutton_group);
-  patch_arbitary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_rectangular_radiobutton));
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_rectangular_radiobutton), patch_arbitrary_radiobutton_group);
+  patch_arbitrary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_rectangular_radiobutton));
 
   patch_triangular_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Triangle"));
   gtk_widget_show (patch_triangular_radiobutton);
   gtk_box_pack_start (GTK_BOX (hbox22), patch_triangular_radiobutton, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_triangular_radiobutton), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_triangular_radiobutton), patch_arbitary_radiobutton_group);
-  patch_arbitary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_triangular_radiobutton));
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_triangular_radiobutton), patch_arbitrary_radiobutton_group);
+  patch_arbitrary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_triangular_radiobutton));
 
   patch_quadrilateral_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Quadrilateral"));
   gtk_widget_show (patch_quadrilateral_radiobutton);
   gtk_box_pack_start (GTK_BOX (hbox22), patch_quadrilateral_radiobutton, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_quadrilateral_radiobutton), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_quadrilateral_radiobutton), patch_arbitary_radiobutton_group);
-  patch_arbitary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_quadrilateral_radiobutton));
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_quadrilateral_radiobutton), patch_arbitrary_radiobutton_group);
+  patch_arbitrary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_quadrilateral_radiobutton));
 
   patch_surface_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Surface"));
   gtk_widget_show (patch_surface_radiobutton);
   gtk_box_pack_start (GTK_BOX (hbox22), patch_surface_radiobutton, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (patch_surface_radiobutton), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_surface_radiobutton), patch_arbitary_radiobutton_group);
-  patch_arbitary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_surface_radiobutton));
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (patch_surface_radiobutton), patch_arbitrary_radiobutton_group);
+  patch_arbitrary_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (patch_surface_radiobutton));
 
   label45 = gtk_label_new (_("Patch Type"));
   gtk_widget_show (label45);
@@ -4021,8 +4024,8 @@ create_patch_editor (void)
   g_signal_connect ((gpointer) patch_editor, "destroy",
                     G_CALLBACK (on_patch_editor_destroy),
                     NULL);
-  g_signal_connect ((gpointer) patch_arbitary_radiobutton, "toggled",
-                    G_CALLBACK (on_patch_arbitary_radiobutton_toggled),
+  g_signal_connect ((gpointer) patch_arbitrary_radiobutton, "toggled",
+                    G_CALLBACK (on_patch_arbitrary_radiobutton_toggled),
                     NULL);
   g_signal_connect ((gpointer) patch_rectangular_radiobutton, "toggled",
                     G_CALLBACK (on_patch_rectangular_radiobutton_toggled),
@@ -4097,7 +4100,7 @@ create_patch_editor (void)
   GLADE_HOOKUP_OBJECT (patch_editor, patch_type_frame, "patch_type_frame");
   GLADE_HOOKUP_OBJECT (patch_editor, alignment13, "alignment13");
   GLADE_HOOKUP_OBJECT (patch_editor, hbox22, "hbox22");
-  GLADE_HOOKUP_OBJECT (patch_editor, patch_arbitary_radiobutton, "patch_arbitary_radiobutton");
+  GLADE_HOOKUP_OBJECT (patch_editor, patch_arbitrary_radiobutton, "patch_arbitrary_radiobutton");
   GLADE_HOOKUP_OBJECT (patch_editor, patch_rectangular_radiobutton, "patch_rectangular_radiobutton");
   GLADE_HOOKUP_OBJECT (patch_editor, patch_triangular_radiobutton, "patch_triangular_radiobutton");
   GLADE_HOOKUP_OBJECT (patch_editor, patch_quadrilateral_radiobutton, "patch_quadrilateral_radiobutton");

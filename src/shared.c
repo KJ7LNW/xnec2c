@@ -42,8 +42,10 @@ GtkSpinButton
   *incline_rdpattern   = NULL,
   *rotate_structure    = NULL,
   *incline_structure   = NULL,
+  *rdpattern_zoom      = NULL,
+  *structure_zoom      = NULL,
   *rdpattern_frequency = NULL,
-  *rdpattern_zoom_spinbutton = NULL;
+  *mainwin_frequency = NULL;
 
 projection_parameters_t
   rdpattern_proj_params,
@@ -74,9 +76,6 @@ GtkWidget *rdpattern_drawingarea = NULL;
 /* Motion event handler id */
 gulong rdpattern_motion_handler;
 
-/* Main window freq spinbutton */
-GtkSpinButton *mainwin_frequency;
-
 /* Dialog widgets */
 GtkWidget *quit_dialog	  = NULL;
 GtkWidget *animate_dialog = NULL;
@@ -92,9 +91,6 @@ char *fork_commands[] = FORK_CMNDS;
 
 /* Forked process data */
 forked_proc_data_t **forked_proc_data = NULL;
-
-/* Zoom spin button */
-GtkSpinButton *structure_zoom_spinbutton = NULL;
 
 /* Number of forked child processes */
 int num_child_procs = 0;

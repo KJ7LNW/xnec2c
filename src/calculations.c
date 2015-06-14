@@ -101,35 +101,34 @@ void qdsrc( int is, complex double v, complex double *e )
 			dataj.ind1=0;
 		}
 	  }  /* if( ipr < 0 ) */
-	  else
-		if( ipr == 0 )
-		  dataj.ind1=1;
-		else /* ipr > 0 */
+	  else if( ipr == 0 )
+		dataj.ind1=1;
+	  else /* ipr > 0 */
+	  {
+		ipr--;
+		if( ipr != j )
 		{
-		  ipr--;
-		  if( ipr != j )
-		  {
-			if( data.icon2[ipr] != jp1)
-			  dataj.ind1=2;
-			else
-			{
-			  xi= fabs( dataj.cabj* data.cab[ipr]+ dataj.sabj*
-				  data.sab[ipr]+ dataj.salpj* data.salp[ipr]);
-			  if( (xi < 0.999999) ||
-				  (fabs(data.bi[ipr]/dataj.b-1.0) > 1.0e-6) )
-				dataj.ind1=2;
-			  else
-				dataj.ind1=0;
-			}
-		  } /* if( ipr != j ) */
+		  if( data.icon2[ipr] != jp1)
+			dataj.ind1=2;
 		  else
 		  {
-			if( (dataj.cabj*dataj.cabj + dataj.sabj*dataj.sabj) > 1.0e-8)
+			xi= fabs( dataj.cabj* data.cab[ipr]+ dataj.sabj*
+				data.sab[ipr]+ dataj.salpj* data.salp[ipr]);
+			if( (xi < 0.999999) ||
+				(fabs(data.bi[ipr]/dataj.b-1.0) > 1.0e-6) )
 			  dataj.ind1=2;
 			else
 			  dataj.ind1=0;
 		  }
-		} /* else */
+		} /* if( ipr != j ) */
+		else
+		{
+		  if( (dataj.cabj*dataj.cabj + dataj.sabj*dataj.sabj) > 1.0e-8)
+			dataj.ind1=2;
+		  else
+			dataj.ind1=0;
+		}
+	  } /* else */
 
 	  ipr= data.icon2[j];
 	  if (ipr > PCHCON) dataj.ind2=2;
@@ -150,35 +149,34 @@ void qdsrc( int is, complex double v, complex double *e )
 			dataj.ind1=0;
 		}
 	  } /* if( ipr < 0 ) */
-	  else
-		if( ipr == 0 )
-		  dataj.ind2=1;
-		else /* ipr > 0 */
+	  else if( ipr == 0 )
+		dataj.ind2=1;
+	  else /* ipr > 0 */
+	  {
+		ipr--;
+		if( ipr != j )
 		{
-		  ipr--;
-		  if( ipr != j )
-		  {
-			if( data.icon1[ipr] != jp1)
-			  dataj.ind2=2;
-			else
-			{
-			  xi= fabs( dataj.cabj* data.cab[ipr]+ dataj.sabj*
-				  data.sab[ipr]+ dataj.salpj* data.salp[ipr]);
-			  if( (xi < 0.9999990) ||
-				  (fabs(data.bi[ipr]/dataj.b-1.0) > 1.0e-6) )
-				dataj.ind2=2;
-			  else
-				dataj.ind2=0;
-			}
-		  } /* if( ipr != j )*/
+		  if( data.icon1[ipr] != jp1)
+			dataj.ind2=2;
 		  else
 		  {
-			if( (dataj.cabj* dataj.cabj + dataj.sabj* dataj.sabj) > 1.0e-8)
-			  dataj.ind1=2;
+			xi= fabs( dataj.cabj* data.cab[ipr]+ dataj.sabj*
+				data.sab[ipr]+ dataj.salpj* data.salp[ipr]);
+			if( (xi < 0.9999990) ||
+				(fabs(data.bi[ipr]/dataj.b-1.0) > 1.0e-6) )
+			  dataj.ind2=2;
 			else
-			  dataj.ind1=0;
+			  dataj.ind2=0;
 		  }
-		} /* else */
+		} /* if( ipr != j )*/
+		else
+		{
+		  if( (dataj.cabj* dataj.cabj + dataj.sabj* dataj.sabj) > 1.0e-8)
+			dataj.ind1=2;
+		  else
+			dataj.ind1=0;
+		}
+	  } /* else */
 
 	} /* if( dataj.iexk != 0) */
 
@@ -382,8 +380,8 @@ void intrp( double x, double y, complex double *f1,
   {
 	first_call = FALSE;
 	size_t mreq = 3*sizeof(int);
-	mem_alloc( (void *)&nda,  mreq, "in calculations.c");
-	mem_alloc( (void *)&ndpa, mreq, "in calculations.c");
+	mem_alloc( (void **)&nda,  mreq, "in calculations.c");
+	mem_alloc( (void **)&ndpa, mreq, "in calculations.c");
 	nda[0] = 11; nda[1] = 17; nda[2] = 9;
 	ndpa[0] = 110; ndpa[1] = 85; ndpa[2] = 72;
   }
@@ -810,8 +808,7 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
 		omc=4.0* d* d;
 		omc=((1.3888889e-3* omc -4.1666666667e-2)* omc +.5)* omc;
 	  }
-	  else
-		omc=1.0- cdh* cdh+ sdh* sdh;
+	  else omc=1.0- cdh* cdh+ sdh* sdh;
 
 	  aj=1.0/( log(1.0/( PI* data.bi[jcoxx]))-.577215664);
 	  pp -= omc/ sd* aj;
@@ -877,8 +874,7 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
 	omc=4.0* d* d;
 	omc=((1.3888889e-3* omc -4.1666666667e-2)* omc +.5)* omc;
   }
-  else
-	omc=1.0- cd;
+  else omc=1.0- cd;
 
   ap=1.0/( log(1.0/( PI* data.bi[ix])) -.577215664);
   aj= ap;
@@ -1020,8 +1016,7 @@ tbf( int i, int icap )
 		omc=4.0* d* d;
 		omc=((1.3888889e-3* omc-4.1666666667e-2)* omc+.5)* omc;
 	  }
-	  else
-		omc=1.0- cdh* cdh+ sdh* sdh;
+	  else omc=1.0- cdh* cdh+ sdh* sdh;
 
 	  aj=1.0/( log(1.0/( PI* data.bi[jcoxx]))-.577215664);
 	  pp= pp- omc/ sd* aj;
@@ -1049,11 +1044,9 @@ tbf( int i, int icap )
 		}
 
 	  } /* if( jcox != i) */
-	  else
-		segj.bx[jsnox] = -segj.bx[jsnox];
+	  else segj.bx[jsnox] = -segj.bx[jsnox];
 
-	  if( iend == 1)
-		break;
+	  if( iend == 1) break;
 
 	} /* if( jcox != 0 ) */
 
@@ -1086,8 +1079,7 @@ tbf( int i, int icap )
 	omc=4.0* d* d;
 	omc=((1.3888889e-3* omc-4.1666666667e-2)* omc+.5)* omc;
   }
-  else
-	omc=1.0- cd;
+  else omc=1.0- cd;
 
   ap=1.0/( log(1.0/( PI* data.bi[ix]))-.577215664);
   aj= ap;
@@ -1114,8 +1106,7 @@ tbf( int i, int icap )
 
 	} /* if( njun2 == 0) */
 
-	if( icap == 0)
-	  xxi=0.0;
+	if( icap == 0) xxi=0.0;
 	else
 	{
 	  qp= PI* data.bi[ix];
@@ -1235,11 +1226,11 @@ trio( int j )
 	  {
 		segj.maxcon = segj.jsno +1;
 		size_t mreq = (size_t)segj.maxcon * sizeof(int);
-		mem_realloc( (void *)&segj.jco, mreq, "in calculations.c" );
+		mem_realloc( (void **)&segj.jco, mreq, "in calculations.c" );
 		mreq = (size_t)segj.maxcon * sizeof(double);
-		mem_realloc( (void *) &segj.ax, mreq, "in calculations.c" );
-		mem_realloc( (void *) &segj.bx, mreq, "in calculations.c" );
-		mem_realloc( (void *) &segj.cx, mreq, "in calculations.c" );
+		mem_realloc( (void **) &segj.ax, mreq, "in calculations.c" );
+		mem_realloc( (void **) &segj.bx, mreq, "in calculations.c" );
+		mem_realloc( (void **) &segj.cx, mreq, "in calculations.c" );
 	  }
 
 	  sbf( j, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
@@ -1267,11 +1258,11 @@ trio( int j )
 	  {
 		segj.maxcon = segj.jsno +1;
 		size_t mreq = (size_t)segj.maxcon * sizeof(int);
-		mem_realloc( (void *)&segj.jco, mreq, "in calculations.c" );
+		mem_realloc( (void **)&segj.jco, mreq, "in calculations.c" );
 		mreq = (size_t)segj.maxcon * sizeof(double);
-		mem_realloc( (void *) &segj.ax, mreq, "in calculations.c" );
-		mem_realloc( (void *) &segj.bx, mreq, "in calculations.c" );
-		mem_realloc( (void *) &segj.cx, mreq, "in calculations.c" );
+		mem_realloc( (void **) &segj.ax, mreq, "in calculations.c" );
+		mem_realloc( (void **) &segj.bx, mreq, "in calculations.c" );
+		mem_realloc( (void **) &segj.cx, mreq, "in calculations.c" );
 	  }
 
 	  sbf( jcox, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
@@ -1314,11 +1305,11 @@ trio( int j )
   {
 	segj.maxcon = segj.jsno +1;
 	size_t mreq = (size_t)segj.maxcon * sizeof(int);
-	mem_realloc( (void *)&segj.jco, mreq, "in calculations.c" );
+	mem_realloc( (void **)&segj.jco, mreq, "in calculations.c" );
 	mreq = (size_t)segj.maxcon * sizeof(double);
-	mem_realloc( (void *) &segj.ax, mreq, "in calculations.c" );
-	mem_realloc( (void *) &segj.bx, mreq, "in calculations.c" );
-	mem_realloc( (void *) &segj.cx, mreq, "in calculations.c" );
+	mem_realloc( (void **) &segj.ax, mreq, "in calculations.c" );
+	mem_realloc( (void **) &segj.bx, mreq, "in calculations.c" );
+	mem_realloc( (void **) &segj.cx, mreq, "in calculations.c" );
   }
 
   sbf( j, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);

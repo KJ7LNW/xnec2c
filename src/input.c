@@ -81,7 +81,7 @@ Read_Comments( void )
 	}
 
 	/* separate card's id mnemonic */
-	Strlcpy( ain, line_buf, 3 );
+	Strlcpy( ain, line_buf, sizeof(ain) );
 
 	/* Check for incorrect mnemonic */
 	if( (strcmp(ain, "CM") != 0) && (strcmp(ain, "CE") != 0) )
@@ -116,34 +116,34 @@ Read_Geometry( void )
 
   /* Memory allocation for temporary buffers */
   mreq = (size_t)data.npm * sizeof(double);
-  mem_realloc( (void *)&save.xtemp,  mreq, "in input.c" );
-  mem_realloc( (void *)&save.ytemp,  mreq, "in input.c" );
-  mem_realloc( (void *)&save.ztemp,  mreq, "in input.c" );
-  mem_realloc( (void *)&save.bitemp, mreq, "in input.c" );
+  mem_realloc( (void **)&save.xtemp,  mreq, "in input.c" );
+  mem_realloc( (void **)&save.ytemp,  mreq, "in input.c" );
+  mem_realloc( (void **)&save.ztemp,  mreq, "in input.c" );
+  mem_realloc( (void **)&save.bitemp, mreq, "in input.c" );
   if( data.n > 0 )
   {
 	mreq = (size_t)data.n * sizeof(double);
-	mem_realloc( (void *)&save.sitemp, mreq, "in input.c" );
+	mem_realloc( (void **)&save.sitemp, mreq, "in input.c" );
   }
 
   /* Memory allocation for primary interacton matrix. */
   mreq = (size_t)(data.np2m * (data.np + 2 * data.mp)) * sizeof(complex double);
-  mem_realloc( (void *)&cm, mreq, "in input.c" );
+  mem_realloc( (void **)&cm, mreq, "in input.c" );
 
   /* Memory allocation for current buffers */
   mreq = (size_t)data.npm * sizeof( double);
-  mem_realloc( (void *)&crnt.air, mreq, "in input.c" );
-  mem_realloc( (void *)&crnt.aii, mreq, "in input.c" );
-  mem_realloc( (void *)&crnt.bir, mreq, "in input.c" );
-  mem_realloc( (void *)&crnt.bii, mreq, "in input.c" );
-  mem_realloc( (void *)&crnt.cir, mreq, "in input.c" );
-  mem_realloc( (void *)&crnt.cii, mreq, "in input.c" );
+  mem_realloc( (void **)&crnt.air, mreq, "in input.c" );
+  mem_realloc( (void **)&crnt.aii, mreq, "in input.c" );
+  mem_realloc( (void **)&crnt.bir, mreq, "in input.c" );
+  mem_realloc( (void **)&crnt.bii, mreq, "in input.c" );
+  mem_realloc( (void **)&crnt.cir, mreq, "in input.c" );
+  mem_realloc( (void **)&crnt.cii, mreq, "in input.c" );
   mreq = (size_t)data.np3m * sizeof( complex double);
-  mem_realloc( (void *)&crnt.cur, mreq, "in input.c" );
+  mem_realloc( (void **)&crnt.cur, mreq, "in input.c" );
 
   /* Memory allocation for loading buffers */
   mreq = (size_t)data.npm * sizeof(complex double);
-  mem_realloc( (void *)&zload.zarray, mreq, "in input.c" );
+  mem_realloc( (void **)&zload.zarray, mreq, "in input.c" );
 
   /* Save segment and patch data for freq scaling */
   if( data.n > 0 )
@@ -194,7 +194,7 @@ Read_Commands( void )
   double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
   int
 	mpcnt, itmp1, itmp2, itmp3, itmp4,
-	ain_num;     /* My addition, ain mnemonic as a number */
+	ain_num;   /* My addition, ain mnemonic as a number */
   size_t mreq; /* My addition, size req. for malloc's   */
 
   /* initializations etc from original fortran code */
@@ -243,12 +243,12 @@ Read_Commands( void )
 
   /* Allocate some buffers */
   mreq = (size_t)data.np2m * sizeof(int);
-  mem_realloc( (void *)&save.ip, mreq, "in input.c" );
+  mem_realloc( (void **)&save.ip, mreq, "in input.c" );
 
   /* Memory allocation for symmetry array */
   smat.nop = netcx.neq/netcx.npeq;
   mreq = (size_t)(smat.nop * smat.nop) * sizeof( complex double);
-  mem_realloc( (void *)&smat.ssx, mreq, "in input.c" );
+  mem_realloc( (void **)&smat.ssx, mreq, "in input.c" );
 
   /* main input section, exits at various points */
   /* depending on error conditions or end of job */
@@ -307,11 +307,11 @@ Read_Commands( void )
 		  {
 			vsorc.nvqd++;
 			mreq = (size_t)vsorc.nvqd * sizeof(int);
-			mem_realloc( (void *)&vsorc.ivqd, mreq, "in input.c" );
-			mem_realloc( (void *)&vsorc.iqds, mreq, "in input.c" );
+			mem_realloc( (void **)&vsorc.ivqd, mreq, "in input.c" );
+			mem_realloc( (void **)&vsorc.iqds, mreq, "in input.c" );
 			mreq = (size_t)vsorc.nvqd * sizeof(complex double);
-			mem_realloc( (void *)&vsorc.vqd, mreq, "in input.c" );
-			mem_realloc( (void *)&vsorc.vqds, mreq, "in input.c" );
+			mem_realloc( (void **)&vsorc.vqd, mreq, "in input.c" );
+			mem_realloc( (void **)&vsorc.vqds, mreq, "in input.c" );
 			{
 			  int indx = vsorc.nvqd-1;
 
@@ -331,9 +331,9 @@ Read_Commands( void )
 			/* Else, applied E field */
 			vsorc.nsant++;
 			mreq = (size_t)vsorc.nsant * sizeof(int);
-			mem_realloc( (void *)&vsorc.isant, mreq, "in input.c" );
+			mem_realloc( (void **)&vsorc.isant, mreq, "in input.c" );
 			mreq = (size_t)vsorc.nsant * sizeof(complex double);
-			mem_realloc( (void *)&vsorc.vsant, mreq, "in input.c" );
+			mem_realloc( (void **)&vsorc.vsant, mreq, "in input.c" );
 			{
 			  int indx = vsorc.nsant-1;
 
@@ -379,19 +379,18 @@ Read_Commands( void )
 		  if( calc_data.nfrq <= 0)
 			calc_data.nfrq = 1;
 		}
-		else
-		  calc_data.nfrq = 1;
+		else calc_data.nfrq = 1;
 
 		/* Allocate normalization buffer */
 		{
 		  mreq = (size_t)calc_data.nfrq * sizeof(double);
-		  mem_realloc( (void *)&impedance_data.zreal, mreq, "in input.c" );
-		  mem_realloc( (void *)&impedance_data.zimag, mreq, "in input.c" );
-		  mem_realloc( (void *)&impedance_data.zmagn, mreq, "in input.c" );
-		  mem_realloc( (void *)&impedance_data.zphase, mreq, "in input.c" );
-		  mem_realloc( (void *)&save.freq, mreq, "in input.c" );
+		  mem_realloc( (void **)&impedance_data.zreal, mreq, "in input.c" );
+		  mem_realloc( (void **)&impedance_data.zimag, mreq, "in input.c" );
+		  mem_realloc( (void **)&impedance_data.zmagn, mreq, "in input.c" );
+		  mem_realloc( (void **)&impedance_data.zphase, mreq, "in input.c" );
+		  mem_realloc( (void **)&save.freq, mreq, "in input.c" );
 		  mreq = (size_t)calc_data.nfrq * sizeof(char);
-		  mem_realloc( (void *)&save.fstep, mreq, "in input.c" );
+		  mem_realloc( (void **)&save.fstep, mreq, "in input.c" );
 		}
 
 		if( CHILD ) continue;
@@ -403,10 +402,9 @@ Read_Commands( void )
 		if( itmp1 == 0 )
 		  calc_data.mxfrq =
 			(double)tmp1 + (double)tmp2 * (double)(itmp2-1);
-		else
-		  if( itmp1 == 1 )
-			calc_data.mxfrq =
-			  (double)tmp1 * pow( (double)tmp2, (double)(itmp2-1) );
+		else if( itmp1 == 1 )
+		  calc_data.mxfrq =
+			(double)tmp1 * pow( (double)tmp2, (double)(itmp2-1) );
 
 		/* My addition, extra features in "fr" card. */
 		/* Specifies lower and upper value of frequency range */
@@ -420,19 +418,17 @@ Read_Commands( void )
 		  calc_data.ifrq  = 0;
 		  calc_data.mxfrq = (double)tmp2; /* Max frequency */
 		}
-		else
-		  if( calc_data.ifrq == 3 )
-		  {
-			calc_data.nfrq++;
-			/* Multiplicative frequency stepping */
-			if( calc_data.nfrq > 1 )
-			  calc_data.delfrq =
-				pow( (tmp2-tmp1), 1.0/(double)(calc_data.nfrq-1) );
-			calc_data.ifrq  = 1;
-			calc_data.mxfrq = (double)tmp2; /* Max frequency */
-		  }
-		  else
-			calc_data.delfrq = tmp2;
+		else if( calc_data.ifrq == 3 )
+		{
+		  calc_data.nfrq++;
+		  /* Multiplicative frequency stepping */
+		  if( calc_data.nfrq > 1 )
+			calc_data.delfrq =
+			  pow( (tmp2-tmp1), 1.0/(double)(calc_data.nfrq-1) );
+		  calc_data.ifrq  = 1;
+		  calc_data.mxfrq = (double)tmp2; /* Max frequency */
+		}
+		else calc_data.delfrq = tmp2;
 
 		if( calc_data.iped == 1)
 		  calc_data.zpnorm = 0.0;
@@ -502,15 +498,15 @@ Read_Commands( void )
 		  /* Reallocate loading buffers */
 		  zload.nload++;
 		  mreq = (size_t)zload.nload * sizeof(int);
-		  mem_realloc( (void *)&calc_data.ldtyp,  mreq, "in input.c" );
-		  mem_realloc( (void *)&calc_data.ldtag,  mreq, "in input.c" );
-		  mem_realloc( (void *)&calc_data.ldtagf, mreq, "in input.c" );
-		  mem_realloc( (void *)&calc_data.ldtagt, mreq, "in input.c" );
+		  mem_realloc( (void **)&calc_data.ldtyp,  mreq, "in input.c" );
+		  mem_realloc( (void **)&calc_data.ldtag,  mreq, "in input.c" );
+		  mem_realloc( (void **)&calc_data.ldtagf, mreq, "in input.c" );
+		  mem_realloc( (void **)&calc_data.ldtagt, mreq, "in input.c" );
 
 		  mreq = (size_t)zload.nload * sizeof(double);
-		  mem_realloc( (void *)&calc_data.zlr, mreq, "in input.c" );
-		  mem_realloc( (void *)&calc_data.zli, mreq, "in input.c" );
-		  mem_realloc( (void *)&calc_data.zlc, mreq, "in input.c" );
+		  mem_realloc( (void **)&calc_data.zlr, mreq, "in input.c" );
+		  mem_realloc( (void **)&calc_data.zli, mreq, "in input.c" );
+		  mem_realloc( (void **)&calc_data.zlc, mreq, "in input.c" );
 
 		  idx = zload.nload-1;
 		  calc_data.ldtyp[idx]= itmp1;
@@ -538,66 +534,65 @@ Read_Commands( void )
 		  /* Work out absolute seg number of loaded segments (!) */
 		  if( itmp1 == -1 ) /* Null all loads */
 			zload.nldseg = 0;
-		  else
-			if( itmp2 == 0 ) /* No tag num */
+		  else if( itmp2 == 0 ) /* No tag num */
+		  {
+			if( itmp3 == 0 ) /* All segs loaded */
 			{
-			  if( itmp3 == 0 ) /* All segs loaded */
+			  nseg = data.n;
+			  mreq = (size_t)(nseg + zload.nldseg) * sizeof(int);
+			  mem_realloc( (void **)&zload.ldsegn, mreq, "in input.c" );
+			  mem_realloc( (void **)&zload.ldtype, mreq, "in input.c" );
+			  for( idx = 0; idx < nseg; idx++ )
 			  {
-				nseg = data.n;
-				mreq = (size_t)(nseg + zload.nldseg) * sizeof(int);
-				mem_realloc( (void *)&zload.ldsegn, mreq, "in input.c" );
-				mem_realloc( (void *)&zload.ldtype, mreq, "in input.c" );
-				for( idx = 0; idx < nseg; idx++ )
+				zload.ldtype[zload.nldseg]   = itmp1;
+				zload.ldsegn[zload.nldseg++] = idx+1;
+			  }
+			}
+			else /* Absolute seg num specified */
+			{
+			  nseg = itmp4 - itmp3 + 1;
+			  if( nseg <= 0 ) nseg = 1;
+			  mreq = (size_t)(nseg + zload.nldseg) * sizeof(int);
+			  mem_realloc( (void **)&zload.ldsegn, mreq, "in input.c" );
+			  mem_realloc( (void **)&zload.ldtype, mreq, "in input.c" );
+			  for( idx = 0; idx < nseg; idx++ )
+			  {
+				zload.ldtype[zload.nldseg]   = itmp1;
+				zload.ldsegn[zload.nldseg++] = itmp3+idx;
+			  }
+			}
+
+		  } /* if( itmp2 == 0 ) */
+		  else /* Tag num specified */
+		  {
+			if( (itmp3 == 0) && (itmp4 == 0) ) /* All segs of tag loaded */
+			{
+			  for( idx = 0; idx < data.n; idx++ )
+				if( data.itag[idx] == itmp2 )
 				{
+				  mreq = (size_t)(zload.nldseg + 1) * sizeof(int);
+				  mem_realloc( (void **)&zload.ldsegn, mreq, "in input.c" );
+				  mem_realloc( (void **)&zload.ldtype, mreq, "in input.c" );
 				  zload.ldtype[zload.nldseg]   = itmp1;
 				  zload.ldsegn[zload.nldseg++] = idx+1;
 				}
-			  }
-			  else /* Absolute seg num specified */
-			  {
-				nseg = itmp4 - itmp3 + 1;
-				if( nseg <= 0 ) nseg = 1;
-				mreq = (size_t)(nseg + zload.nldseg) * sizeof(int);
-				mem_realloc( (void *)&zload.ldsegn, mreq, "in input.c" );
-				mem_realloc( (void *)&zload.ldtype, mreq, "in input.c" );
-				for( idx = 0; idx < nseg; idx++ )
-				{
-				  zload.ldtype[zload.nldseg]   = itmp1;
-				  zload.ldsegn[zload.nldseg++] = itmp3+idx;
-				}
-			  }
-
-			} /* if( itmp2 == 0 ) */
-			else /* Tag num specified */
+			}
+			else /* A range of segs of tag loaded */
 			{
-			  if( (itmp3 == 0) && (itmp4 == 0) ) /* All segs of tag loaded */
+			  nseg = itmp4 - itmp3 + 1;
+			  if( nseg <= 0 ) nseg = 1; /* Just one seg of tag (=itmp3) */
+			  mreq = (size_t)(zload.nldseg + nseg) * sizeof(int);
+			  mem_realloc( (void **)&zload.ldsegn, mreq, "in input.c" );
+			  mem_realloc( (void **)&zload.ldtype, mreq, "in input.c" );
+			  for( idx = 0; idx < nseg; idx++ )
 			  {
-				for( idx = 0; idx < data.n; idx++ )
-				  if( data.itag[idx] == itmp2 )
-				  {
-					mreq = (size_t)(zload.nldseg + 1) * sizeof(int);
-					mem_realloc( (void *)&zload.ldsegn, mreq, "in input.c" );
-					mem_realloc( (void *)&zload.ldtype, mreq, "in input.c" );
-					zload.ldtype[zload.nldseg]   = itmp1;
-					zload.ldsegn[zload.nldseg++] = idx+1;
-				  }
-			  }
-			  else /* A range of segs of tag loaded */
-			  {
-				nseg = itmp4 - itmp3 + 1;
-				if( nseg <= 0 ) nseg = 1; /* Just one seg of tag (=itmp3) */
-				mreq = (size_t)(zload.nldseg + nseg) * sizeof(int);
-				mem_realloc( (void *)&zload.ldsegn, mreq, "in input.c" );
-				mem_realloc( (void *)&zload.ldtype, mreq, "in input.c" );
-				for( idx = 0; idx < nseg; idx++ )
-				{
-				  zload.ldtype[zload.nldseg] = itmp1;
-				  if( (zload.ldsegn[zload.nldseg++] =
-						isegno(itmp2, itmp3+idx)) < 0 )
-					return( FALSE );
-				}
+				zload.ldtype[zload.nldseg] = itmp1;
+				if( (zload.ldsegn[zload.nldseg++] =
+					  isegno(itmp2, itmp3+idx)) < 0 )
+				  return( FALSE );
 			  }
 			}
+		  }
 		} /* case 8: */
 		continue; /* continue card input loop */
 
@@ -635,21 +630,21 @@ Read_Commands( void )
 	  case NT: case TL: /* "nt" & "tl" cards, network parameters */
 		{
 		  int idx;
-		  
+
 		  /* Re-allocate network buffers */
 		  netcx.nonet++;
 		  mreq = (size_t)netcx.nonet * sizeof(int);
-		  mem_realloc( (void *)&netcx.ntyp,  mreq, "in input.c" );
-		  mem_realloc( (void *)&netcx.iseg1, mreq, "in input.c" );
-		  mem_realloc( (void *)&netcx.iseg2, mreq, "in input.c" );
+		  mem_realloc( (void **)&netcx.ntyp,  mreq, "in input.c" );
+		  mem_realloc( (void **)&netcx.iseg1, mreq, "in input.c" );
+		  mem_realloc( (void **)&netcx.iseg2, mreq, "in input.c" );
 
 		  mreq = (size_t)netcx.nonet * sizeof(double);
-		  mem_realloc( (void *)&netcx.x11r, mreq, "in input.c" );
-		  mem_realloc( (void *)&netcx.x11i, mreq, "in input.c" );
-		  mem_realloc( (void *)&netcx.x12r, mreq, "in input.c" );
-		  mem_realloc( (void *)&netcx.x12i, mreq, "in input.c" );
-		  mem_realloc( (void *)&netcx.x22r, mreq, "in input.c" );
-		  mem_realloc( (void *)&netcx.x22i, mreq, "in input.c" );
+		  mem_realloc( (void **)&netcx.x11r, mreq, "in input.c" );
+		  mem_realloc( (void **)&netcx.x11i, mreq, "in input.c" );
+		  mem_realloc( (void **)&netcx.x12r, mreq, "in input.c" );
+		  mem_realloc( (void **)&netcx.x12i, mreq, "in input.c" );
+		  mem_realloc( (void **)&netcx.x22r, mreq, "in input.c" );
+		  mem_realloc( (void **)&netcx.x22i, mreq, "in input.c" );
 
 		  idx = netcx.nonet-1;
 		  if( ain_num == 12 )
@@ -739,11 +734,6 @@ Read_Commands( void )
 		}
 		if( fpat.iax != 0) fpat.iax = 1;
 		if( fpat.ipd != 0) fpat.ipd = 1;
-		if( (fpat.nth < 2) || (fpat.nph < 1) || (gnd.ifar == 1) )
-		  ClearFlag( ENABLE_RDPAT );
-		else
-		  SetFlag( ENABLE_RDPAT );
-
 		fpat.thets = tmp1;
 		fpat.phis  = tmp2;
 		fpat.dth   = tmp3;
@@ -794,12 +784,11 @@ Read_Commands( void )
 
 		if( itmp1 == 2)
 		  fpat.phis = 90.0;
-		else
-		  if( itmp1 == 3)
-		  {
-			fpat.nph = 2;
-			fpat.dph = 90.0;
-		  }
+		else if( itmp1 == 3)
+		{
+		  fpat.nph = 2;
+		  fpat.dph = 90.0;
+		}
 
 		SetFlag( ENABLE_RDPAT );
 
@@ -817,9 +806,15 @@ Read_Commands( void )
 		return( FALSE );
 	} /* switch( ain_num ) */
 
-	/* Allocate radiation pattern buffers */
-	if( isFlagSet(ENABLE_RDPAT) )
+	/* Disable radiation pattern plots */
+	if( (fpat.nth < 2) || (fpat.nph < 1) || (gnd.ifar == 1) )
+	  ClearFlag( ENABLE_RDPAT );
+	else
+	{
+	  /* Allocate radiation pattern buffers */
 	  Alloc_Rdpattern_Buffers( calc_data.nfrq+1, fpat.nth, fpat.nph );
+	  SetFlag( ENABLE_RDPAT );
+	}
 
 	return( TRUE );
   } /* while( TRUE ) */
@@ -833,8 +828,11 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
 	double *f1, double *f2, double *f3,
 	double *f4, double *f5, double *f6 )
 {
-  char line_buf[LINE_LEN];
-  int len, i, line_idx;
+  char
+	*line_buf = NULL,
+	*startptr = NULL,
+	*endptr   = NULL;
+  int len, i, idx;
   int nint = 4, nflt = 6;
   int iarr[4] = { 0, 0, 0, 0 };
   double rarr[6] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
@@ -846,16 +844,20 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   *f1 = *f2 = *f3 = *f4 = *f5 = *f6 = 0.0;
 
   /* read a line from input file */
+  mem_alloc((void **)&line_buf, LINE_LEN, "in readmn()");
+  if( line_buf == NULL ) return( FALSE );
+  startptr = line_buf;
   eof = Load_Line( line_buf, input_fp );
   if( eof == EOF )
   {
-	Strlcpy( mn, "EN", strlen("EN")+1 );
+	Strlcpy( mn, "EN", 3 );
 	fprintf( stderr,
 		"xnec2c: readmn(): command data card error\n"
 		"Unexpected EOF while reading input file - appending EN card\n" );
 	stop( _("readmn(): Command data card error\n"\
 		  "Unexpected EOF while reading input file\n"\
 			"Uppending a default EN card"), ERR_OK );
+	free_ptr( (void **)&startptr );
 	return( FALSE );
   }
 
@@ -865,12 +867,13 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   /* abort if card's mnemonic too short or missing */
   if( len < 2 )
   {
-	Strlcpy( mn, "XX", strlen("XX")+1 );
+	Strlcpy( mn, "XX", 3 );
 	fprintf( stderr,
 		"xnec2c: readmn(): command data card error\n"
 		"card's mnemonic code too short or missing\n" );
 	stop( _("readmn(): Command data card error\n"\
 		  "Mnemonic code too short or missing"), ERR_OK );
+	free_ptr( (void **)&startptr );
 	return( FALSE );
   }
 
@@ -878,157 +881,86 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   Strlcpy( mn, line_buf, 3 );
 
   /* Return if only mnemonic on card */
-  if( len == 2 ) return( TRUE );
+  if( len == 2 )
+  {
+	free_ptr( (void **)&startptr );
+	return( TRUE );
+  }
 
-  /* Compatibility with NEC4,
-   * comments between data cards */
-  if( strncmp(mn, "CM", 2) == 0 ) return( TRUE );
+  /* Compatibility with NEC4, comments between data cards */
+  if( strncmp(mn, "CM", 2) == 0 )
+  {
+	free_ptr( (void **)&startptr );
+	return( TRUE );
+  }
+
+  /* check line for spurious characters */
+  for( idx = 2; idx < len; idx++ )
+  {
+	if( ((line_buf[idx] >= '0') &&
+		 (line_buf[idx] <= '9')) ||
+		 (line_buf[idx] == ' ')  ||
+		 (line_buf[idx] == '.')  ||
+		 (line_buf[idx] == ',')  ||
+		 (line_buf[idx] == '+')  ||
+		 (line_buf[idx] == '-')  ||
+		 (line_buf[idx] == 'E')  ||
+		 (line_buf[idx] == 'e')  ||
+		 (line_buf[idx] == '\t') ||
+		 (line_buf[idx] == '\0') )
+	  continue;
+	else
+	  break;
+  }
+  if( idx < len )
+  {
+	fprintf( stderr,
+		"xnec2c: readmn(): command data card \"%s\" error\n"
+		"Spurious character '%c' at column %d\n",
+		mn, line_buf[idx], idx+1 );
+	stop( _("readmn(): Command data card error\n"\
+		  "Spurious character in command card"), ERR_OK );
+	free_ptr( (void **)&startptr );
+	return( FALSE );
+  }
 
   /* read integers from line */
-  line_idx = 1;
+  line_buf += 2;
   for( i = 0; i < nint; i++ )
   {
-	/* Find first numerical character */
-	while(
-		((line_buf[++line_idx] <  '0')  ||
-		 (line_buf[  line_idx] >  '9')) &&
-		 (line_buf[  line_idx] != '+')  &&
-		 (line_buf[  line_idx] != '-') )
-	  if( line_buf[line_idx] == '\0' )
-	  {
-		*i1= iarr[0];
-		*i2= iarr[1];
-		*i3= iarr[2];
-		*i4= iarr[3];
-		*f1= rarr[0];
-		*f2= rarr[1];
-		*f3= rarr[2];
-		*f4= rarr[3];
-		*f5= rarr[4];
-		*f6= rarr[5];
-		return( TRUE );
-	  }
-
 	/* read an integer from line */
-	iarr[i] = atoi( &line_buf[line_idx] );
-
-	/* traverse numerical field to next ' ', tab, ',' or '\0' */
-	line_idx--;
-	while(
-		(line_buf[++line_idx] !=  ' ') &&
-		(line_buf[  line_idx] != '\t') &&
-		(line_buf[  line_idx] !=  ',') &&
-		(line_buf[  line_idx] != '\0') )
-	{
-	  /* test for non-numerical characters */
-	  if( ((line_buf[line_idx] <  '0')  ||
-		   (line_buf[line_idx] >  '9')) &&
-		   (line_buf[line_idx] != '+')  &&
-		   (line_buf[line_idx] != '-') )
-	  {
-		fprintf( stderr,
-			"xnec2c: readmn(): command data card \"%s\" error\n"
-			"non-numerical char '%c' in integer field at char %d\n",
-			mn, line_buf[line_idx], (line_idx+1) );
-		stop( _("readmn(): Command data card error\n"\
-			  "Non-numerical character in integer field"), ERR_OK );
-		return( FALSE );
-	  }
-
-	} /* while( (line_buff[++line_idx] ... */
-
-	/* Return on end of line */
-	if( line_buf[line_idx] == '\0' )
-	{
-	  *i1= iarr[0];
-	  *i2= iarr[1];
-	  *i3= iarr[2];
-	  *i4= iarr[3];
-	  *f1= rarr[0];
-	  *f2= rarr[1];
-	  *f3= rarr[2];
-	  *f4= rarr[3];
-	  *f5= rarr[4];
-	  *f6= rarr[5];
-	  return( TRUE );
-	}
-
+	iarr[i] = (int)strtol( line_buf, &endptr, 10 );
+	if( *endptr == '\0' ) break;
+	line_buf = endptr + 1;
   } /* for( i = 0; i < nint; i++ ) */
+
+  /* Return if no floats are specified in the card */
+  if( *endptr == '\0' )
+  {
+	*i1= iarr[0];
+	*i2= iarr[1];
+	*i3= iarr[2];
+	*i4= iarr[3];
+	*f1= rarr[0];
+	*f2= rarr[1];
+	*f3= rarr[2];
+	*f4= rarr[3];
+	*f5= rarr[4];
+	*f6= rarr[5];
+	free_ptr( (void **)&startptr );
+	return( TRUE );
+  }
 
   /* read doubles from line */
   for( i = 0; i < nflt; i++ )
   {
-	/* Find first numerical character */
-	while(
-		((line_buf[++line_idx] <  '0')  ||
-		 (line_buf[line_idx]   >  '9')) &&
-		 (line_buf[  line_idx] != '+')  &&
-		 (line_buf[  line_idx] != '-')  &&
-		 (line_buf[  line_idx] != '.') )
-	  if( line_buf[line_idx] == '\0' )
-	  {
-		*i1= iarr[0];
-		*i2= iarr[1];
-		*i3= iarr[2];
-		*i4= iarr[3];
-		*f1= rarr[0];
-		*f2= rarr[1];
-		*f3= rarr[2];
-		*f4= rarr[3];
-		*f5= rarr[4];
-		*f6= rarr[5];
-		return( TRUE );
-	  }
-
 	/* read a double from line */
-	rarr[i] = atof( &line_buf[line_idx] );
-
-	/* traverse numerical field to next ' ', tab, ',' or '\0'*/
-	line_idx--;
-	while(
-		(line_buf[++line_idx] !=  ' ') &&
-		(line_buf[  line_idx] != '\t') &&
-		(line_buf[  line_idx] !=  ',') &&
-		(line_buf[  line_idx] != '\0') )
-	{
-	  /* test for non-numerical characters */
-	  if( ((line_buf[line_idx] <  '0')  ||
-		   (line_buf[line_idx] >  '9')) &&
-		   (line_buf[line_idx] != '.')  &&
-		   (line_buf[line_idx] != '+')  &&
-		   (line_buf[line_idx] != '-')  &&
-		   (line_buf[line_idx] != 'E')  &&
-		   (line_buf[line_idx] != 'e') )
-	  {
-		fprintf( stderr,
-			"xnec2c: readmn(): command data card \"%s\" error\n"
-			"non-numerical char '%c' in float field at char %d\n",
-			mn, line_buf[line_idx], (line_idx+1) );
-		stop( _("readmn(): Command data card error\n"\
-			  "Non-numerical character in float field"), ERR_OK );
-		return( FALSE );
-	  }
-
-	} /* while( (line_buff[++line_idx] ... */
-
-	/* Return on end of line */
-	if( line_buf[line_idx] == '\0' )
-	{
-	  *i1= iarr[0];
-	  *i2= iarr[1];
-	  *i3= iarr[2];
-	  *i4= iarr[3];
-	  *f1= rarr[0];
-	  *f2= rarr[1];
-	  *f3= rarr[2];
-	  *f4= rarr[3];
-	  *f5= rarr[4];
-	  *f6= rarr[5];
-	  return( TRUE );
-	}
-
+	rarr[i] = Strtod( line_buf, &endptr );
+	if( *endptr == '\0' ) break;
+	line_buf = endptr + 1;
   } /* for( i = 0; i < nflt; i++ ) */
 
+  /* Return values on normal exit */
   *i1= iarr[0];
   *i2= iarr[1];
   *i3= iarr[2];
@@ -1040,8 +972,9 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   *f5= rarr[4];
   *f6= rarr[5];
 
+  free_ptr( (void **)&startptr );
   return( TRUE );
-}
+} /* readmn() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -1050,8 +983,11 @@ readgm( char *gm, int *i1, int *i2, double *x1,
 	double *y1, double *z1, double *x2,
 	double *y2, double *z2, double *rad )
 {
-  char line_buf[LINE_LEN];
-  int len, i, line_idx;
+  char
+	*line_buf = NULL,
+	*startptr = NULL,
+	*endptr   = NULL;
+  int len, i, idx;
   int nint = 2, nflt = 7;
   int iarr[2] = { 0, 0 };
   double rarr[7] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
@@ -1063,16 +999,20 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   *x1 = *y1 = *z1 = *x2 = *y2 = *z2 = *rad = 0.0;
 
   /* read a line from input file */
+  mem_alloc((void **)&line_buf, LINE_LEN, "in readgm()");
+  if( line_buf == NULL ) return( FALSE );
+  startptr = line_buf;
   eof = Load_Line( line_buf, input_fp );
   if( eof == EOF )
   {
-	Strlcpy( gm, "GE", strlen("GE")+1 );
+	Strlcpy( gm, "GE", 3 );
 	fprintf( stderr,
 		"xnec2c: readgm(): geometry data card error\n"
 		"Unexpected EOF while reading input file - appending GE card\n" );
 	stop( _("readgm(): Geometry data card error\n"\
 		  "Unexpected EOF while reading input file\n"\
 		  "Uppending a default GE card"), ERR_OK );
+	free_ptr( (void **)&startptr );
 	return( FALSE );
   }
 
@@ -1082,12 +1022,13 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   /* abort if card's mnemonic too short or missing */
   if( len < 2 )
   {
-	Strlcpy( gm, "XX", strlen("XX")+1 );
+	Strlcpy( gm, "XX", 3 );
 	fprintf( stderr,
 		"xnec2c: readgm(): geometry data card error\n"
 		"card's mnemonic code too short or missing\n" );
 	stop( _("readgm(): Geometry data card error\n"\
 		  "Card's mnemonic code too short or missing"), ERR_OK );
+	free_ptr( (void **)&startptr );
 	return( FALSE );
   }
 
@@ -1095,155 +1036,86 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   Strlcpy( gm, line_buf, 3 );
 
   /* Return if only mnemonic on card */
-  if( len == 2 ) return( TRUE );
+  if( len == 2 )
+  {
+	free_ptr( (void **)&startptr );
+	return( TRUE );
+  }
 
   /* Compatibility with NEC4,
    * comments between data cards */
-  if( strcmp(gm, "CM") == 0 ) return( TRUE );
+  if( strcmp(gm, "CM") == 0 )
+  {
+	free_ptr( (void **)&startptr );
+	return( TRUE );
+  }
+
+  /* check line for spurious characters */
+  for( idx = 2; idx < len; idx++ )
+  {
+	if( ((line_buf[idx] >= '0') &&
+		 (line_buf[idx] <= '9')) ||
+		 (line_buf[idx] == ' ')  ||
+		 (line_buf[idx] == '.')  ||
+		 (line_buf[idx] == ',')  ||
+		 (line_buf[idx] == '+')  ||
+		 (line_buf[idx] == '-')  ||
+		 (line_buf[idx] == 'E')  ||
+		 (line_buf[idx] == 'e')  ||
+		 (line_buf[idx] == '\t') ||
+		 (line_buf[idx] == '\0') )
+	  continue;
+	else
+	  break;
+  }
+  if( idx < len )
+  {
+	fprintf( stderr,
+		"xnec2c: readgm(): geometry data card \"%s\" error\n"
+		"Spurious character '%c' at column %d\n",
+		gm, line_buf[idx], idx+1 );
+	stop( _("readmn(): Geometry data card error\n"\
+		  "Spurious character in command card"), ERR_OK );
+	free_ptr( (void **)&startptr );
+	return( FALSE );
+  }
 
   /* read integers from line */
-  line_idx = 1;
+  line_buf += 2;
   for( i = 0; i < nint; i++ )
   {
-	/* Find first numerical character */
-	while(
-		((line_buf[++line_idx] <  '0')  ||
-		 (line_buf[  line_idx] >  '9')) &&
-		 (line_buf[  line_idx] != '+')  &&
-		 (line_buf[  line_idx] != '-') )
-	  if( line_buf[line_idx] == '\0' )
-	  {
-		*i1 = iarr[0];
-		*i2 = iarr[1];
-		*x1 = rarr[0];
-		*y1 = rarr[1];
-		*z1 = rarr[2];
-		*x2 = rarr[3];
-		*y2 = rarr[4];
-		*z2 = rarr[5];
-		*rad= rarr[6];
-		return( TRUE );
-	  }
-
-	/* read an integer from line */
-	iarr[i] = atoi( &line_buf[line_idx] );
-
-	/* traverse numerical field to next ' ', tab, ',' or '\0' */
-	line_idx--;
-	while(
-		(line_buf[++line_idx] !=  ' ') &&
-		(line_buf[  line_idx] != '\t') &&
-		(line_buf[  line_idx] !=  ',') &&
-		(line_buf[  line_idx] != '\0') )
-	{
-	  /* test for non-numerical characters */
-	  if(
-		  ((line_buf[line_idx] <  '0')  ||
-		   (line_buf[line_idx] >  '9')) &&
-		   (line_buf[line_idx] != '+')  &&
-		   (line_buf[line_idx] != '-') )
-	  {
-		fprintf( stderr,
-			"xnec2c: readgm(): geometry data card \"%s\" error\n"
-			"non-numerical char '%c' in integer field at char %d\n",
-			gm, line_buf[line_idx], (line_idx+1)  );
-		stop( _("readgm(): Geometry data card error\n"\
-			  "Non-numerical character in integer field"), ERR_OK );
-		return( FALSE );
-	  }
-
-	} /* while( (line_buff[++line_idx] ... */
-
-	/* Return on end of line */
-	if( line_buf[line_idx] == '\0' )
-	{
-	  *i1 = iarr[0];
-	  *i2 = iarr[1];
-	  *x1 = rarr[0];
-	  *y1 = rarr[1];
-	  *z1 = rarr[2];
-	  *x2 = rarr[3];
-	  *y2 = rarr[4];
-	  *z2 = rarr[5];
-	  *rad= rarr[6];
-	  return( TRUE );
-	}
-
+	/* read an integer from line, reject spurious chars */
+	iarr[i] = (int)strtol( line_buf, &endptr, 10 );
+	if( *endptr == '\0' ) break;
+	line_buf = endptr + 1;
   } /* for( i = 0; i < nint; i++ ) */
+
+  /* Return if no floats are specified in the card */
+  if( *endptr == '\0' )
+  {
+	*i1 = iarr[0];
+	*i2 = iarr[1];
+	*x1 = rarr[0];
+	*y1 = rarr[1];
+	*z1 = rarr[2];
+	*x2 = rarr[3];
+	*y2 = rarr[4];
+	*z2 = rarr[5];
+	*rad= rarr[6];
+	free_ptr( (void **)&startptr );
+	return( TRUE );
+  }
 
   /* read doubles from line */
   for( i = 0; i < nflt; i++ )
   {
-	/* Find first numerical character */
-	while(
-		((line_buf[++line_idx] <  '0')  ||
-		 (line_buf[  line_idx] >  '9')) &&
-		 (line_buf[  line_idx] != '+')  &&
-		 (line_buf[  line_idx] != '-')  &&
-		 (line_buf[  line_idx] != '.') )
-	  if( line_buf[line_idx] == '\0' )
-	  {
-		*i1 = iarr[0];
-		*i2 = iarr[1];
-		*x1 = rarr[0];
-		*y1 = rarr[1];
-		*z1 = rarr[2];
-		*x2 = rarr[3];
-		*y2 = rarr[4];
-		*z2 = rarr[5];
-		*rad= rarr[6];
-		return( TRUE );
-	  }
-
 	/* read a double from line */
-	rarr[i] = atof( &line_buf[line_idx] );
-
-	/* traverse numerical field to next ' ' or ',' or '\0' */
-	line_idx--;
-	while(
-		(line_buf[++line_idx] !=  ' ') &&
-		(line_buf[  line_idx] != '\t') &&
-		(line_buf[  line_idx] !=  ',') &&
-		(line_buf[  line_idx] != '\0') )
-	{
-	  /* test for non-numerical characters */
-	  if(
-		  ((line_buf[line_idx] <  '0')  ||
-		   (line_buf[line_idx] >  '9')) &&
-		   (line_buf[line_idx] != '.')  &&
-		   (line_buf[line_idx] != '+')  &&
-		   (line_buf[line_idx] != '-')  &&
-		   (line_buf[line_idx] != 'E')  &&
-		   (line_buf[line_idx] != 'e') )
-	  {
-		fprintf( stderr,
-			"xnec2c: readgm(): geometry data card \"%s\" error\n"
-			"Non-numerical char '%c' in float field at char %d\n",
-			gm, line_buf[line_idx], (line_idx+1) );
-		stop( _("readgm(): Geometry data card error\n"\
-			  "Non-numerical character in float field"), ERR_OK );
-		return( FALSE );
-	  }
-
-	} /* while( (line_buff[++line_idx] ... */
-
-	/* Return on end of line */
-	if( line_buf[line_idx] == '\0' )
-	{
-	  *i1 = iarr[0];
-	  *i2 = iarr[1];
-	  *x1 = rarr[0];
-	  *y1 = rarr[1];
-	  *z1 = rarr[2];
-	  *x2 = rarr[3];
-	  *y2 = rarr[4];
-	  *z2 = rarr[5];
-	  *rad= rarr[6];
-	  return( TRUE );
-	}
-
+	rarr[i] = Strtod( line_buf, &endptr );
+	if( *endptr == '\0' ) break;
+	line_buf = endptr + 1;
   } /* for( i = 0; i < nflt; i++ ) */
 
+  /* Return values on normal exit */
   *i1  = iarr[0];
   *i2  = iarr[1];
   *x1  = rarr[0];
@@ -1254,8 +1126,9 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   *z2  = rarr[5];
   *rad = rarr[6];
 
+  free_ptr( (void **)&startptr );
   return( TRUE );
-}
+} /* readgm() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -1400,17 +1273,16 @@ datagn( void )
 			  data.bi[i]= data.bi[i]* xw1;
 			}
 		  }
-		else
-		  for( i = 0; i < data.n; i++ )
-		  {
-			data.x1[i]= data.x1[i]* xw1;
-			data.y1[i]= data.y1[i]* xw1;
-			data.z1[i]= data.z1[i]* xw1;
-			data.x2[i]= data.x2[i]* xw1;
-			data.y2[i]= data.y2[i]* xw1;
-			data.z2[i]= data.z2[i]* xw1;
-			data.bi[i]= data.bi[i]* xw1;
-		  }
+		else for( i = 0; i < data.n; i++ )
+		{
+		  data.x1[i]= data.x1[i]* xw1;
+		  data.y1[i]= data.y1[i]* xw1;
+		  data.z1[i]= data.z1[i]* xw1;
+		  data.x2[i]= data.x2[i]* xw1;
+		  data.y2[i]= data.y2[i]* xw1;
+		  data.z2[i]= data.z2[i]* xw1;
+		  data.bi[i]= data.bi[i]* xw1;
+		}
 
 		yw1= xw1* xw1;
 		for( i = 0; i < data.m; i++ )
@@ -1438,13 +1310,13 @@ datagn( void )
 		{
 		  /* Allocate wire buffers */
 		  mreq = (size_t)data.n * sizeof(double);
-		  mem_realloc( (void *)&data.si,   mreq, "in input.c" );
-		  mem_realloc( (void *)&data.sab,  mreq, "in input.c" );
-		  mem_realloc( (void *)&data.cab,  mreq, "in input.c" );
-		  mem_realloc( (void *)&data.salp, mreq, "in input.c" );
-		  mem_realloc( (void *)&data.x, mreq, "in input.c" );
-		  mem_realloc( (void *)&data.y, mreq, "in input.c" );
-		  mem_realloc( (void *)&data.z, mreq, "in input.c" );
+		  mem_realloc( (void **)&data.si,   mreq, "in input.c" );
+		  mem_realloc( (void **)&data.sab,  mreq, "in input.c" );
+		  mem_realloc( (void **)&data.cab,  mreq, "in input.c" );
+		  mem_realloc( (void **)&data.salp, mreq, "in input.c" );
+		  mem_realloc( (void **)&data.x, mreq, "in input.c" );
+		  mem_realloc( (void **)&data.y, mreq, "in input.c" );
+		  mem_realloc( (void **)&data.z, mreq, "in input.c" );
 
 		  for( i = 0; i < data.n; i++ )
 		  {
@@ -1456,20 +1328,20 @@ datagn( void )
 			data.z[i]=( data.z1[i]+ data.z2[i])/2.0;
 			xw2= xw1* xw1+ yw1* yw1+ zw1* zw1;
 			yw2= sqrt( xw2);
-			yw2=( xw2/ yw2+ yw2)*.5;
+			//yw2=( xw2/yw2 + yw2)/2.0;
 			data.si[i]= yw2;
 			data.cab[i]= xw1/ yw2;
 			data.sab[i]= yw1/ yw2;
+	
 			xw2= zw1/ yw2;
-
 			if( xw2 > 1.0)
 			  xw2=1.0;
 			if( xw2 < -1.0)
 			  xw2=-1.0;
-
 			data.salp[i]= xw2;
-			xw2= asin( xw2)* TD;
-			yw2= atan2( yw1, xw1)* TD;
+
+			//xw2= asin( xw2)* TD;
+			//yw2= atan2( yw1, xw1)* TD;
 
 			if( (data.si[i] <= 1.0e-20) || (data.bi[i] <= 0.0) )
 			{

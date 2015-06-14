@@ -168,7 +168,7 @@ Set_Interaction_Matrix( void )
   /* Memory allocation for symmetry array */
   smat.nop = netcx.neq/netcx.npeq;
   size_t mreq = (size_t)(smat.nop * smat.nop) * sizeof( complex double);
-  mem_realloc( (void *)&smat.ssx, mreq, "in xnec2c.c" );
+  mem_realloc( (void **)&smat.ssx, mreq, "in xnec2c.c" );
 
   /* irngf is not used (NGF function not implemented) */
   int iresrv = data.np2m * (data.np + 2 * data.mp);
@@ -241,19 +241,18 @@ Set_Network_Data( void )
 		itmp2= netcx.ntyp[j];
 
 		if( (itmp2/itmp1) != 1 ) itmp3 = itmp2;
-		else
-		  if( (itmp2 >= 2) && (netcx.x11i[j] <= 0.0) )
-		  {
-			double xx, yy, zz;
-			int idx4, idx5;
+		else if( (itmp2 >= 2) && (netcx.x11i[j] <= 0.0) )
+		{
+		  double xx, yy, zz;
+		  int idx4, idx5;
 
-			idx4 = netcx.iseg1[j]-1;
-			idx5 = netcx.iseg2[j]-1;
-			xx = data.x[idx5]- data.x[idx4];
-			yy = data.y[idx5]- data.y[idx4];
-			zz = data.z[idx5]- data.z[idx4];
-			netcx.x11i[j] = data.wlam* sqrt( xx*xx + yy*yy + zz*zz );
-		  }
+		  idx4 = netcx.iseg1[j]-1;
+		  idx5 = netcx.iseg2[j]-1;
+		  xx = data.x[idx5]- data.x[idx4];
+		  yy = data.y[idx5]- data.y[idx4];
+		  zz = data.z[idx5]- data.z[idx4];
+		  netcx.x11i[j] = data.wlam* sqrt( xx*xx + yy*yy + zz*zz );
+		}
 
 	  } /* for( j = 0; j < netcx.nonet; j++) */
 
@@ -626,8 +625,7 @@ Frequency_Loop( gpointer udata )
   if( isFlagSet(PLOT_ENABLED) )
   {
 	char txt[10];
-	snprintf( txt, 10, "%10.3f", (gdouble)calc_data.fmhz );
-	txt[9] = '\0';
+	snprintf( txt, sizeof(txt), "%10.3f", (gdouble)calc_data.fmhz );
 	gtk_entry_set_text( GTK_ENTRY(
 		  lookup_widget(freqplots_window, "freqplots_fmhz_entry")), txt );
   }
@@ -659,8 +657,7 @@ Start_Frequency_Loop( void )
 	floop_tag = g_idle_add( Frequency_Loop, NULL );
 	return( TRUE );
   }
-  else
-	return( FALSE );
+  else return( FALSE );
 
 } /* Start_Frequency_Loop() */
 

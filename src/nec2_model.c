@@ -176,7 +176,7 @@ Create_Default_File( void )
   gtk_list_store_clear( cmnd_store );
 
   /* Append a default comment row */
-  Strlcpy( str, _("--- NEC2 Input File created by "), s );
+  Strlcpy( str, _("--- NEC2 Input File created or edited by "), s );
   Strlcat( str, PACKAGE_STRING, s );
   Strlcat( str, " ---", s );
   gtk_list_store_append( cmnt_store, &iter );
@@ -287,7 +287,7 @@ Create_Default_File( void )
 	  CMND_COL_I1, "0",
 	  CMND_COL_I2, "19",
 	  CMND_COL_I3, "37",
-	  CMND_COL_I4, "0",
+	  CMND_COL_I4, "1000",
 	  CMND_COL_F1, "0.0",
 	  CMND_COL_F2, "0.0",
 	  CMND_COL_F3, "10.0",
@@ -347,7 +347,7 @@ List_Comments( void )
 	if( strlen(line_buf) == 2 ) line_buf[3] = '\0';
 
 	/* Separate card's id mnemonic */
-	Strlcpy( ain, line_buf, 3 );
+	Strlcpy( ain, line_buf, sizeof(ain) );
 
 	/* Append a comment row and fill in text if opening call */
 	if( !ret )
@@ -409,7 +409,7 @@ List_Geometry( void )
 
 	/* Format card data and print to string */
 	snprintf( si[0], 6, "%5d",  iv[0] );
-	snprintf( si[1], 6, "%5d ", iv[1] );
+	snprintf( si[1], 7, "%5d ", iv[1] );
 	for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
 	  snprintf( sf[idx-GEOM_COL_F1], 13,
 		  "%12.5E", (double)fv[idx-GEOM_COL_F1] );
@@ -509,7 +509,10 @@ List_Commands( void )
 
 /*------------------------------------------------------------------------*/
 
-/* Inserts columns in a list store */
+/* Insert_Columns()
+ *
+ * Inserts columns in a list store
+ */
   void
 Insert_Columns(	GtkWidget *window, gchar *treeview,
 	GtkListStore* store, int ncols, char *colname[] )
@@ -581,7 +584,7 @@ cell_edited_callback(
   }
   else
 	gtk_list_store_set( GTK_LIST_STORE(model),
-		&iter, column, new_text, -1 );
+	  &iter, column, new_text, -1 );
 
 } /* cell_edited_callback() */
 

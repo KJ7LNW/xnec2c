@@ -21,39 +21,39 @@
 translation of NEC2</h4>
 </div>
 <ol>
-<li><b><a href="#Introduction">Introduction</a></b></li>
-<li><b><a href="#Features">Features</a></b>
+<li><a href="#Introduction">Introduction</a></li>
+<li><a href="#Features">Features</a></b>
 <ul>
-<li><b><a href="#Interactive">Interactive Operation</a></b></li>
-<li><b><a href="#NoOutFile">No Output File</a></b></li>
-<li><b><a href="#Windows">Windows</a></b></li>
-<li><b><a href="#Color">Color Coding</a></b></li>
-<li><b><a href="#OnDemand">On-demand Calculation</a></b></li>
-<li><b><a href="#Multithread">Multi-threaded operation on SMP
-machines</a></b></li>
-<li><b><a href="#Nec2Edit">Built-in NEC2 input file
-editor</a></b></li>
+<li><a href="#Interactive">Interactive Operation</a></li>
+<li><a href="#NoOutFile">No Output File</a></li>
+<li><a href="#Windows">Windows</a></li>
+<li><a href="#Color">Color Coding</a></li>
+<li><a href="#OnDemand">On-demand Calculation</a></li>
+<li><a href="#Multithread">Multi-threaded operation on SMP
+machines</a></li>
+<li><a href="#Nec2Edit">Built-in NEC2 input file
+editor</a></li>
 </ul>
 </li>
-<li><b><a href="#Limitations">Limitations</a></b></li>
-<li><b><a href="#Compilation">Compilation and
-Installation</a></b></li>
-<li><b><a href="#Operation">Operation</a></b>
+<li><a href="#Limitations">Limitations</a></li>
+<li><a href="#Compilation">Compilation and
+Installation</a></li>
+<li><a href="#Operation">Operation</a></b>
 <ul>
-<li><b><a href="#CommandLine">Command Line Options</a></b></li>
-<li><b><a href="#MainWindow">The Main Window</a></b></li>
-<li><b><a href="#RadiationWindow">The Radiation Pattern
-Window</a></b></li>
-<li><b><a href="#FrequencyWindow">Frequency Data Plots</a></b></li>
-<li><b><a href="#Nec2Treeview">NEC2 Input File Editor</a></b></li>
+<li><a href="#CommandLine">Command Line Options</a></li>
+<li><a href="#MainWindow">The Main Window</a></li>
+<li><a href="#RadiationWindow">The Radiation Pattern
+Window</a></li>
+<li><a href="#FrequencyWindow">Frequency Data Plots</a></li>
+<li><a href="#Nec2Treeview">NEC2 Input File Editor</a></li>
 </ul>
 </li>
-<li><b><a href="#InputFile">Input File Considerations</a></b></li>
-<li><b><a href="#OutputFile">Output File
-Considerations</a></b></li>
-<li><b><a href="#Version">Version History</a></b></li>
-<li><b><a href="#Bugs">Bugs and Inadequacies</a></b></li>
-<li><b><a href="#Acknowledgement">Acknowledgment</a></b></li>
+<li><a href="#InputFile">Input File Considerations</a></li>
+<li><a href="#OutputFile">Output File
+Considerations</a></li>
+<li><a href="#Version">Version History</a></li>
+<li><a href="#Bugs">Bugs and Inadequacies</a></li>
+<li><a href="#Acknowledgement">Acknowledgment</a></li>
 </ol>
 <b><a name="Introduction" id="Introduction">1.
 Introduction:</a></b><br>
@@ -910,6 +910,32 @@ incorrect Radiation Pattern calculations. This would happen if
 a .nec file, with Perfect Ground (iperf = 1) specified in the
 GN card, was opened after a .nec file, with a Radial Ground
 Screen specified in the GN card, was processed.<p/>
+<p><b>Version 2.9:</b> After a request by the Debian maintainer
+of xnec2c, I added a rudimentary man page he sent me and
+corrected some spelling errors (arbitrary to arbitrary).<p/>
+<p><b>Version 3.0:</b> I have modified the NEC2 file parser so
+that it can read the file with both the '.' and ',' as decimal
+point characters. This is necessary to make xnec2c compatible with
+different locales. I also fixed a resource (memory) leak, reported
+by valgrind, in the xyz axes drawing routine.<p/>
+<p><b>Version 3.1:</b> I have made several changes to the code
+that renders wire frame drawings and displays some data, like the
+projection parameters (azimuth and elevation of the structure and
+the radiation pattern) and gain values. This has resulted in a
+faster and smoother animation of these drawings and reduced
+workload on the processor during dragging of these images.<br>
+I have also reduced the default minimum size of xnec2c's windows,
+as I had reports that they would not fit in the displays of some
+laptops or monitors, with resolutions on the lower side.<p/>
+<p><b>Version 3.2:</b> I made some changes to the Strlcat()
+function and its usage in the xnec2c code, to improve safe
+handling of string concatenation operations. Hopefully this has
+not broken the handling of various strings in xnec2c! ;-)</p>
+<p><b>Version 3.3:</b> I fixed a bug that was in the code that
+reads the commands from the NEC2 input file, where xnec2c would
+crash with a segmentation fault when the FR card was after the
+RP card. Also modified the Strtod() function to avoid freeing the
+end pointer before it was used, causing problems.</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original
 FORTRAN NEC2 code. Any bugs discovered in nec2c will affect xnec2c

@@ -31,6 +31,7 @@
  * Destination of child processes, handles data
  * transfers between parent and children via pipes
  */
+void Child_Process( int num_child ) __attribute__ ((noreturn));
   void
 Child_Process( int num_child )
 {
@@ -328,12 +329,11 @@ Pass_Freq_Data( void )
 	  /* newer & valid flags */
 	  2 * sizeof(char);
   }
-  else
-	/* Notify parent not to read near field data */
+  else /* Notify parent not to read near field data */
 	Write_Pipe( num_child_procs, "noeh", 4, TRUE );
 
   /* Allocate data buffers */
-  mem_alloc( (void *)&buff, buff_size, "in fork.c" );
+  mem_alloc( (void **)&buff, buff_size, "in fork.c" );
 
   /* Clear buffer index in this function */
   Mem_Copy( buff, buff, 0, WRITE );
@@ -450,7 +450,7 @@ Pass_Freq_Data( void )
   /* Pass data accumulated in buffer if child */
   Write_Pipe( num_child_procs, buff, (ssize_t)buff_size, TRUE );
 
-  free_ptr( (void *)&buff );
+  free_ptr( (void **)&buff );
 
 } /* Pass_Freq_Data() */
 
@@ -520,7 +520,7 @@ Get_Freq_Data( int idx, int fstep )
   }
 
   /* Allocate data buffer */
-  mem_alloc( (void *)&buff, buff_size, "in fork.c" );
+  mem_alloc( (void **)&buff, buff_size, "in fork.c" );
 
   /* Clear buffer index in this function */
   Mem_Copy( buff, buff, 0, READ );
@@ -633,7 +633,7 @@ Get_Freq_Data( int idx, int fstep )
 
   } /*if( isFlagSet(DRAW_EHFIELD) ) */
 
-  free_ptr( (void *)&buff );
+  free_ptr( (void **)&buff );
 
 } /* Get_Freq_Data() */
 

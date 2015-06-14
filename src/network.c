@@ -68,25 +68,25 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
   if( netcx.nonet > 0 )
   {
 	mreq = (size_t)data.np3m * sizeof(complex double);
-	mem_alloc( (void *)&rhs, mreq, "in network.c");
+	mem_alloc( (void **)&rhs, mreq, "in network.c");
 
 	mreq = (size_t)j * sizeof(complex double);
-	mem_alloc( (void *)&rhnt, mreq, "in network.c");
-	mem_alloc( (void *)&rhnx, mreq, "in network.c");
-	mem_alloc( (void *)&cmn,  mreq * (size_t)j, "in network.c");
+	mem_alloc( (void **)&rhnt, mreq, "in network.c");
+	mem_alloc( (void **)&rhnx, mreq, "in network.c");
+	mem_alloc( (void **)&cmn,  mreq * (size_t)j, "in network.c");
 
 	mreq = (size_t)j * sizeof(int);
-	mem_alloc( (void *)&ntsca, mreq, "in network.c");
-	mem_alloc( (void *)&nteqa, mreq, "in network.c");
-	mem_alloc( (void *)&ipnt,  mreq, "in network.c");
+	mem_alloc( (void **)&ntsca, mreq, "in network.c");
+	mem_alloc( (void **)&nteqa, mreq, "in network.c");
+	mem_alloc( (void **)&ipnt,  mreq, "in network.c");
 
 	mreq = (size_t)vsorc.nsant * sizeof(complex double);
-	mem_alloc( (void *)&vsrc, mreq, "in network.c");
+	mem_alloc( (void **)&vsrc, mreq, "in network.c");
   }
   else if( netcx.masym != 0)
   {
 	mreq = (size_t)j * sizeof(int);
-	mem_alloc( (void *)&ipnt,  mreq, "in network.c");
+	mem_alloc( (void **)&ipnt,  mreq, "in network.c");
   }
 
   /* Signal new and valid current data */
@@ -518,14 +518,14 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
   if( (vsorc.nsant+vsorc.nvqd) == 0)
   {
 	/* Free network buffers */
-	free_ptr( (void *)&ipnt );
-	free_ptr( (void *)&nteqa );
-	free_ptr( (void *)&ntsca );
-	free_ptr( (void *)&vsrc );
-	free_ptr( (void *)&rhs );
-	free_ptr( (void *)&cmn );
-	free_ptr( (void *)&rhnt );
-	free_ptr( (void *)&rhnx );
+	free_ptr( (void **)&ipnt );
+	free_ptr( (void **)&nteqa );
+	free_ptr( (void **)&ntsca );
+	free_ptr( (void **)&vsrc );
+	free_ptr( (void **)&rhs );
+	free_ptr( (void **)&cmn );
+	free_ptr( (void **)&rhnt );
+	free_ptr( (void **)&rhnx );
 	return;
   }
 
@@ -583,14 +583,14 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 	} /* for( i = 0; i < vsorc.nvqd; i++ ) */
 
   /* Free network buffers */
-  free_ptr( (void *)&ipnt );
-  free_ptr( (void *)&nteqa );
-  free_ptr( (void *)&ntsca );
-  free_ptr( (void *)&vsrc );
-  free_ptr( (void *)&rhs );
-  free_ptr( (void *)&cmn );
-  free_ptr( (void *)&rhnt );
-  free_ptr( (void *)&rhnx );
+  free_ptr( (void **)&ipnt );
+  free_ptr( (void **)&nteqa );
+  free_ptr( (void **)&ntsca );
+  free_ptr( (void **)&vsrc );
+  free_ptr( (void **)&rhs );
+  free_ptr( (void **)&cmn );
+  free_ptr( (void **)&rhnt );
+  free_ptr( (void **)&rhnx );
 
   return;
 }
@@ -680,12 +680,10 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 		  if( (ichk < ldtagf[istepx]) || (ichk > ldtagt[istepx]) )
 			continue;
 		}
-		else
-		  ichk=1;
+		else ichk=1;
 
 	  } /* if( ldtags != 0) */
-	  else
-		ichk=1;
+	  else ichk=1;
 
 	  /* calculation of lamda*imped. per unit length, */
 	  /* jump to appropriate section for loading type */

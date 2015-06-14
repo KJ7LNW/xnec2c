@@ -66,10 +66,31 @@ New_Viewer_Angle(
   /* Recalculate projection paramenters */
   params->Wr = wr;
   params->Wi = wi;
-  gtk_spin_button_set_value( wr_spb, (gdouble)params->Wr );
-  gtk_spin_button_set_value( wi_spb, (gdouble)params->Wi );
+
+  /* Set new value */
+  Set_Spin_Button( wr_spb, (gdouble)params->Wr );
+  Set_Spin_Button( wi_spb, (gdouble)params->Wi );
 
 } /* New_Viewer_Angle() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Set_Spin_Button()
+ *
+ * Sets the value of a spin button
+ */
+  void
+Set_Spin_Button( GtkSpinButton *spin, gdouble value )
+{
+  /* Save original value and set new */
+  gdouble sav = gtk_spin_button_get_value( spin );
+  gtk_spin_button_set_value( spin, value );
+
+  /* Issue a value_changed signal if needed (given same values) */
+  if( sav == value )
+	g_signal_emit_by_name( G_OBJECT(spin), "value_changed", NULL );
+
+} /* Set_Spin_Button() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -114,14 +135,17 @@ Create_Pixmap(
  */
 void
 Motion_Event(
-	GdkEventMotion  *event, projection_parameters_t *params,
-	GtkSpinButton *wr_spb, GtkSpinButton *wi_spb )
+	GdkEventMotion *event,
+	projection_parameters_t *params )
 {
   /* Save previous pointer position */
-  static gdouble x_old = 0, y_old = 0;
+  static gdouble x_old = 0.0, y_old = 0.0;
 
   gdouble x = event->x;
   gdouble y = event->y;
+  gdouble dx, dy;
+  gchar value[6];
+  size_t s = sizeof( value );
 
   /* Initialize saved x,y */
   if( params->reset )
@@ -131,28 +155,67 @@ Motion_Event(
 	params->reset = FALSE;
   }
 
-  /* Recalculate projection parameters according to pointer motion.
-   * Setting rotate and incline values to spinbuttons triggers redraw */
+  /* Recalculate projection parameters
+   * according to pointer motion */
+  dx = x - x_old;
+  dy = y - y_old;
+  x_old = x;
+  y_old = y;
+
+  /* Other buttons are used for moving axes on screen */
   if( event->state & GDK_BUTTON1_MASK )
   {
-	params->Wr -= (x - x_old) / 4.0;
-	params->Wi += (y - y_old) / 4.0;
-	gtk_spin_button_set_value( wr_spb, params->Wr );
-	gtk_spin_button_set_value( wi_spb, params->Wi );
-  } /* if( event->state & GDK_BUTTON1_MASK ) */
+	/* Set the structure rotate/incline spinbuttons */
+	if( isFlagSet(COMMON_PROJECTION) ||
+		(params->type == STRUCTURE_DRAWINGAREA) )
+	{
+	  structure_proj_params.Wr -= dx / (gdouble)MOTION_EVENTS_COUNT;
+	  structure_proj_params.Wi += dy / (gdouble)MOTION_EVENTS_COUNT;
+	  snprintf( value, s, "%d", (int)structure_proj_params.Wr );
+	  gtk_entry_set_text( GTK_ENTRY(rotate_structure), value );
+	  snprintf( value, s, "%d", (int)structure_proj_params.Wi );
+	  gtk_entry_set_text( GTK_ENTRY(incline_structure), value );
+	}
+
+	/* Set the rdpattern rotate/incline spinbuttons */
+	if( (isFlagSet(DRAW_ENABLED) &&
+		  isFlagSet(COMMON_PROJECTION)) ||
+		(params->type == RDPATTERN_DRAWINGAREA) )
+	{
+	  rdpattern_proj_params.Wr -= dx / (gdouble)MOTION_EVENTS_COUNT;
+	  rdpattern_proj_params.Wi += dy / (gdouble)MOTION_EVENTS_COUNT;
+	  snprintf( value, s, "%d", (int)rdpattern_proj_params.Wr );
+	  gtk_entry_set_text( GTK_ENTRY(rotate_rdpattern), value );
+	  snprintf( value, s, "%d", (int)rdpattern_proj_params.Wi );
+	  gtk_entry_set_text( GTK_ENTRY(incline_rdpattern), value );
+	}
+
+	/* Rotate/incline structure */
+	if( params->type == STRUCTURE_DRAWINGAREA )
+	{
+	  New_Structure_Projection_Angle();
+	  if( isFlagSet(DRAW_ENABLED) &&
+		  isFlagSet(COMMON_PROJECTION) )
+		New_Radiation_Projection_Angle();
+	}
+	else if( params->type == RDPATTERN_DRAWINGAREA )
+	{
+	  /* Rotate/incline rdpattern */
+	  New_Radiation_Projection_Angle();
+	  if( isFlagSet(COMMON_PROJECTION) )
+		New_Structure_Projection_Angle();
+	}
+  }    /* if( event->state & GDK_BUTTON1_MASK ) */
   else
   {
-	params->x_center += x - x_old;
-	params->y_center -= y - y_old;
-
+	/* Move structure or rdpattern axes on screen */
+	params->x_center += dx;
+	params->y_center -= dy;
 	if( params->type == STRUCTURE_DRAWINGAREA )
 	  Draw_Structure( structure_drawingarea );
 	if( params->type == RDPATTERN_DRAWINGAREA )
 	  Draw_Radiation( rdpattern_drawingarea );
   }
-
-  x_old = x;
-  y_old = y;
 
 } /* Motion_Event() */
 
@@ -188,8 +251,8 @@ Plot_Select( GtkToggleButton *togglebutton, unsigned long long int flag )
  *
  * Handles user request to delete a window
  */
-  void
-Delete_Event( gchar *message )
+ void
+Delete_Event( gchar *mesg )
 {
   quit_dialog = create_quit_dialog();
   gtk_widget_show( quit_dialog );
@@ -201,15 +264,13 @@ Delete_Event( gchar *message )
 			  quit_dialog, "quit_label")),
 		  _("The frequency loop is running\n"\
 			"Really end operation?") );
-	else
-	  gtk_label_set_text( GTK_LABEL(lookup_widget(
-			  quit_dialog, "quit_label")),
-		  _("The frequency loop is running\n"\
-			"Really close this window?") );
+	else gtk_label_set_text( GTK_LABEL(lookup_widget(
+			quit_dialog, "quit_label")),
+		_("The frequency loop is running\n"\
+		  "Really close this window?") );
   }
-  else
-	gtk_label_set_text( GTK_LABEL(lookup_widget(
-			quit_dialog, "quit_label")), message );
+  else gtk_label_set_text( GTK_LABEL(lookup_widget(
+		  quit_dialog, "quit_label")), mesg );
 
 } /* Delete_Event() */
 
@@ -277,7 +338,6 @@ Open_Editor( GtkTreeView *view )
   GtkTreeIter iter;
   GtkTreeModel *model;
   gchar *card;
-  size_t s = sizeof( card );
   GtkWidget *button;
 
   /* Find the selected treeview row */
@@ -287,28 +347,24 @@ Open_Editor( GtkTreeView *view )
 
   /* Get the "card" name from first column */
   gtk_tree_model_get( model, &iter, 0, &card, -1);
+  size_t s = strlen( card );
 
   /* Some "cards" have common editors */
   if( strcmp(card, "GC") == 0 )
 	Strlcpy( card, "GW", s );
-  else
-	if( strcmp(card, "SC") == 0 )
-	  Strlcpy( card, "SP", s );
-	else
-	  if( strcmp(card, "SM") == 0 )
-		Strlcpy( card, "SP", s );
-	  else
-		if( strcmp(card, "NH") == 0 )
-		  Strlcpy( card, "NE", s );
-		else
-		  if( strcmp(card, "GE") == 0 )
-		  {
-			Gend_Editor( EDITOR_EDIT );
-			return( TRUE );
-		  }
-		  else /* EN Not editable */
-			if( strcmp(card, "EN") == 0 )
-			  return( TRUE );
+  else if( strcmp(card, "SC") == 0 )
+	Strlcpy( card, "SP", s );
+  else if( strcmp(card, "SM") == 0 )
+	Strlcpy( card, "SP", s );
+  else if( strcmp(card, "NH") == 0 )
+	Strlcpy( card, "NE", s );
+  else if( strcmp(card, "GE") == 0 )
+  {
+	Gend_Editor( EDITOR_EDIT );
+	return( TRUE );
+  } /* EN Not editable */
+  else if( strcmp(card, "EN") == 0 )
+	return( TRUE );
 
   /* Send a "clicked" signal to the appropriate editor button */
   card[0] = (gchar)tolower((int)card[0]);
@@ -331,23 +387,19 @@ Open_Editor( GtkTreeView *view )
   void
 Main_Rdpattern_Activate( gboolean from_menu )
 {
-  /* Show current frequency. The small amount added
-   * allows the value of the spinbutton to change
-   * when the freq loop re-writes the frequency */
-  gtk_spin_button_set_value( rdpattern_frequency,
-	  (gdouble)(calc_data.fmhz + 0.0000001) );
-
   /* Set E field check menu item */
   if( fpat.nfeh & NEAR_EFIELD )
   {
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window, "rdpattern_e_field")), TRUE );
+		  lookup_widget(rdpattern_window,
+			"rdpattern_e_field")), TRUE );
 	SetFlag( DRAW_EFIELD );
   }
   else
   {
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window, "rdpattern_e_field")), FALSE );
+		  lookup_widget(rdpattern_window,
+			"rdpattern_e_field")), FALSE );
 	ClearFlag( DRAW_EFIELD );
   }
 
@@ -355,13 +407,15 @@ Main_Rdpattern_Activate( gboolean from_menu )
   if( fpat.nfeh & NEAR_HFIELD )
   {
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window, "rdpattern_h_field")), TRUE );
+		  lookup_widget(rdpattern_window,
+			"rdpattern_h_field")), TRUE );
 	SetFlag( DRAW_HFIELD );
   }
   else
   {
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window, "rdpattern_h_field")), FALSE );
+		  lookup_widget(rdpattern_window,
+			"rdpattern_h_field")), FALSE );
 	ClearFlag( DRAW_HFIELD );
   }
 
@@ -369,44 +423,67 @@ Main_Rdpattern_Activate( gboolean from_menu )
   if( (fpat.nfeh & NEAR_EHFIELD) == NEAR_EHFIELD )
   {
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window, "rdpattern_poynting_vector")), TRUE );
+		  lookup_widget(rdpattern_window,
+			"rdpattern_poynting_vector")), TRUE );
 	SetFlag( DRAW_POYNTING );
   }
   else
   {
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window, "rdpattern_poynting_vector")), FALSE );
+		  lookup_widget(rdpattern_window,
+			"rdpattern_poynting_vector")), FALSE );
 	ClearFlag( DRAW_POYNTING );
   }
 
   /* Set structure overlay in Rad Pattern window */
   if( isFlagClear(OVERLAY_STRUCT) )
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window, "rdpattern_overlay_structure")), FALSE );
+		  lookup_widget(rdpattern_window,
+			"rdpattern_overlay_structure")), FALSE );
   else
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window, "rdpattern_overlay_structure")), TRUE );
+		  lookup_widget(rdpattern_window,
+			"rdpattern_overlay_structure")), TRUE );
 
 
   /* Sync common projection spinbuttons */
   if( isFlagSet(COMMON_PROJECTION) )
   {
-	gtk_spin_button_set_value(
-		rotate_rdpattern, (gdouble)structure_proj_params.Wr );
-	gtk_spin_button_set_value(
-		incline_rdpattern, (gdouble)structure_proj_params.Wi );
+	gchar value[6];
+	size_t s = sizeof( value ) - 1;
+
+	rdpattern_proj_params.Wr = structure_proj_params.Wr;
+	rdpattern_proj_params.Wi = structure_proj_params.Wi;
+	snprintf( value, s, "%d", (int)rdpattern_proj_params.Wr );
+	value[s] = '\0';
+	gtk_entry_set_text( GTK_ENTRY(rotate_rdpattern), value );
+	snprintf( value, s, "%d", (int)rdpattern_proj_params.Wi );
+	value[s] = '\0';
+	gtk_entry_set_text( GTK_ENTRY(incline_rdpattern), value );
   }
+  else	/* Initialize radiation pattern projection angles */
+  {
+	rdpattern_proj_params.Wr =
+	  gtk_spin_button_get_value(rotate_rdpattern);
+	rdpattern_proj_params.Wi =
+	  gtk_spin_button_get_value(incline_rdpattern);
+  }
+  New_Radiation_Projection_Angle();
 
   /* Redo currents if not reaching this function
    * from the menu callback (e.g. not user action) */
   if( !crnt.valid && !from_menu ) Redo_Currents( NULL );
 
-  /* Initialize radiation pattern projection angles */
-  rdpattern_proj_params.Wr =
-	gtk_spin_button_get_value(rotate_rdpattern);
-  rdpattern_proj_params.Wi =
-	gtk_spin_button_get_value(incline_rdpattern);
-  New_Radiation_Projection_Angle();
+  /* Display frequency in freq spinbutton */
+  if( from_menu )
+  {
+	char value[9];
+	size_t s = sizeof( value );
+	snprintf( value, s, "%.3f", calc_data.fmhz );
+	value[s - 1] = '\0';
+	gtk_entry_set_text(
+		GTK_ENTRY(rdpattern_frequency), value );
+  }
 
   /* Enable Gain or E/H field drawing */
   SetFlag( DRAW_ENABLED );
@@ -433,7 +510,6 @@ Main_Freqplots_Activate( void )
   }
 
   /* Enable freq data graph plotting */
-  calc_data.zo = 50.0;
   SetFlag( PLOT_ENABLED );
 
   return( TRUE );
@@ -759,15 +835,15 @@ Alloc_Crnt_Buffs( void )
   if( data.m > 0 )
   {
 	size_t mreq = (size_t)data.m * sizeof( double );
-	mem_realloc( (void *)&ct1m, mreq, "in callback_func.c" );
-	mem_realloc( (void *)&ct2m, mreq, "in callback_func.c" );
+	mem_realloc( (void **)&ct1m, mreq, "in callback_func.c" );
+	mem_realloc( (void **)&ct2m, mreq, "in callback_func.c" );
   }
 
   /* Segment currents buffer */
   if( data.n > 0 )
   {
 	size_t mreq = (size_t)data.n * sizeof( double );
-	mem_realloc( (void *)&cmag, mreq, "in callback_func.c" );
+	mem_realloc( (void **)&cmag, mreq, "in callback_func.c" );
   }
 
 } /* Alloc_Crnt_Buffs() */
@@ -781,9 +857,9 @@ Alloc_Crnt_Buffs( void )
   void
 Free_Crnt_Buffs( void )
 {
-  free_ptr( (void *)&ct1m );
-  free_ptr( (void *)&ct2m );
-  free_ptr( (void *)&cmag );
+  free_ptr( (void **)&ct1m );
+  free_ptr( (void **)&ct2m );
+  free_ptr( (void **)&cmag );
 } /* Free_Crnt_Buffs() */
 
 /*-----------------------------------------------------------------------*/

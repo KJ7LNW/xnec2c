@@ -63,21 +63,21 @@ void somnec( double epr, double sig, double fmhz )
 
 	/* Allocate some buffers */
 	size_t mreq = sizeof(complex double) * 11 * 10 * 4;
-	mem_alloc( (void *)&ggrid.ar1, mreq, "in somnec.c");
+	mem_alloc( (void **)&ggrid.ar1, mreq, "in somnec.c");
 	mreq = sizeof(complex double) * 17 * 5 * 4;
-	mem_alloc( (void *)&ggrid.ar2, mreq, "in somnec.c");
+	mem_alloc( (void **)&ggrid.ar2, mreq, "in somnec.c");
 	mreq = sizeof(complex double) * 9 * 8 * 4;
-	mem_alloc( (void *)&ggrid.ar3, mreq, "in somnec.c");
+	mem_alloc( (void **)&ggrid.ar3, mreq, "in somnec.c");
 
 	mreq = sizeof(int) * 3;
-	mem_alloc( (void *)&ggrid.nxa, mreq, "in somnec.c");
-	mem_alloc( (void *)&ggrid.nya, mreq, "in somnec.c");
+	mem_alloc( (void **)&ggrid.nxa, mreq, "in somnec.c");
+	mem_alloc( (void **)&ggrid.nya, mreq, "in somnec.c");
 
 	mreq = sizeof(double) * 3;
-	mem_alloc( (void *)&ggrid.dxa, mreq, "in somnec.c");
-	mem_alloc( (void *)&ggrid.dya, mreq, "in somnec.c");
-	mem_alloc( (void *)&ggrid.xsa, mreq, "in somnec.c");
-	mem_alloc( (void *)&ggrid.ysa, mreq, "in somnec.c");
+	mem_alloc( (void **)&ggrid.dxa, mreq, "in somnec.c");
+	mem_alloc( (void **)&ggrid.dya, mreq, "in somnec.c");
+	mem_alloc( (void **)&ggrid.xsa, mreq, "in somnec.c");
+	mem_alloc( (void **)&ggrid.ysa, mreq, "in somnec.c");
 
 	/* Initialize ground grid parameters for somnec */
 	ggrid.nxa[0] = 11;
@@ -111,8 +111,7 @@ void somnec( double epr, double sig, double fmhz )
 	wlam=CVEL/fmhz;
 	ggrid.epscf=cmplx(epr,-sig*wlam*59.96);
   }
-  else
-	ggrid.epscf=cmplx(epr,sig);
+  else ggrid.epscf=cmplx(epr,sig);
 
   ck2=TP;
   ck2sq=ck2*ck2;
@@ -257,9 +256,9 @@ void bessel( complex double z,
 	int i;
 
 	size_t mreq = 101 * sizeof(double);
-	mem_alloc( (void *)&m, mreq, "in somnec.c");
-	mem_alloc( (void *)&a1, mreq, "in somnec.c");
-	mem_alloc( (void *)&a2, mreq, "in somnec.c");
+	mem_alloc( (void **)&m, mreq, "in somnec.c");
+	mem_alloc( (void **)&a1, mreq, "in somnec.c");
+	mem_alloc( (void **)&a2, mreq, "in somnec.c");
 
 	for( k = 1; k <= 25; k++ )
 	{
@@ -367,8 +366,8 @@ evlua( complex double *erv, complex double *ezv,
   {
 	first_call = FALSE;
 	size_t mreq = 6 * sizeof(complex double);
-	mem_alloc( (void *)&sum, mreq, "in somnec.c");
-	mem_alloc( (void *)&ans, mreq, "in somnec.c");
+	mem_alloc( (void **)&sum, mreq, "in somnec.c");
+	mem_alloc( (void **)&ans, mreq, "in somnec.c");
   }
 
   del=zph;
@@ -469,8 +468,7 @@ evlua( complex double *erv, complex double *ezv,
 	jump = TRUE;
 
   } /* if( (rmis >= 2.0*ck2) || (rho >= 1.0e-10) ) */
-  else
-	jump = FALSE;
+  else jump = FALSE;
 
   if( ! jump )
   {
@@ -539,8 +537,7 @@ fbar( complex double p, complex double *fbar )
 	minus=1;
 	z= -z;
   }
-  else
-	minus=0;
+  else minus=0;
 
   zs=0.5/( z* z);
   sum=CPLX_00;
@@ -581,11 +578,11 @@ gshank( complex double start, complex double dela,
   {
 	first_call = FALSE;
 	size_t mreq = 6 * 20 * sizeof(complex double);
-	mem_alloc( (void *)&q1, mreq, "in somnec.c");
-	mem_alloc( (void *)&q2, mreq, "in somnec.c");
+	mem_alloc( (void **)&q1, mreq, "in somnec.c");
+	mem_alloc( (void **)&q2, mreq, "in somnec.c");
 	mreq = 6 * sizeof(complex double);
-	mem_alloc( (void *)&ans1, mreq, "in somnec.c");
-	mem_alloc( (void *)&ans2, mreq, "in somnec.c");
+	mem_alloc( (void **)&ans1, mreq, "in somnec.c");
+	mem_alloc( (void **)&ans2, mreq, "in somnec.c");
   }
 
   rbk=creal(bk);
@@ -662,8 +659,7 @@ gshank( complex double start, complex double dela,
 			a2=aa-q1[idx];
 			a1=q1[idx]-a2*a2/a1;
 		  }
-		  else
-			a1=q1[idx];
+		  else a1=q1[idx];
 
 		  a2=aa+as2-2.0*as1;
 		  if( (creal(a2) != 0.0) || (cimag(a2) != 0.0) )
@@ -756,12 +752,12 @@ hankel( complex double z,
   {
 	first_call = FALSE;
 	size_t mreq = 101 * sizeof(int);
-	mem_alloc( (void *)&m, mreq, "in somnec.c");
+	mem_alloc( (void **)&m, mreq, "in somnec.c");
 	mreq = 25 * sizeof(double);
-	mem_alloc( (void *)&a1, mreq, "in somnec.c");
-	mem_alloc( (void *)&a2, mreq, "in somnec.c");
-	mem_alloc( (void *)&a3, mreq, "in somnec.c");
-	mem_alloc( (void *)&a4, mreq, "in somnec.c");
+	mem_alloc( (void **)&a1, mreq, "in somnec.c");
+	mem_alloc( (void **)&a2, mreq, "in somnec.c");
+	mem_alloc( (void **)&a3, mreq, "in somnec.c");
+	mem_alloc( (void **)&a4, mreq, "in somnec.c");
   }
 
   /* initialization of constants */
@@ -894,14 +890,14 @@ void rom1( int n, complex double *sum, int nx )
   {
 	first_call = FALSE;
 	size_t mreq = 6 * sizeof(complex double);
-	mem_alloc( (void *)&g1, mreq, "in somnec.c");
-	mem_alloc( (void *)&g2, mreq, "in somnec.c");
-	mem_alloc( (void *)&g3, mreq, "in somnec.c");
-	mem_alloc( (void *)&g4, mreq, "in somnec.c");
-	mem_alloc( (void *)&g5, mreq, "in somnec.c");
-	mem_alloc( (void *)&t01, mreq, "in somnec.c");
-	mem_alloc( (void *)&t10, mreq, "in somnec.c");
-	mem_alloc( (void *)&t20, mreq, "in somnec.c");
+	mem_alloc( (void **)&g1, mreq, "in somnec.c");
+	mem_alloc( (void **)&g2, mreq, "in somnec.c");
+	mem_alloc( (void **)&g3, mreq, "in somnec.c");
+	mem_alloc( (void **)&g4, mreq, "in somnec.c");
+	mem_alloc( (void **)&g5, mreq, "in somnec.c");
+	mem_alloc( (void **)&t01, mreq, "in somnec.c");
+	mem_alloc( (void **)&t10, mreq, "in somnec.c");
+	mem_alloc( (void **)&t20, mreq, "in somnec.c");
   }
 
   lstep=0;
@@ -1122,8 +1118,7 @@ void saoa( double t, complex double *ans)
 	}
 
   } /* if(xlr < tsmag) */
-  else
-	dgam=cgam2-cgam1;
+  else dgam=cgam2-cgam1;
 
   den2=cksm*dgam/(cgam2*(ck1sq*cgam2+ck2sq*cgam1));
   den1=1.0/(cgam1+cgam2)-cksm/cgam2;

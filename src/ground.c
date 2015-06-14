@@ -70,14 +70,14 @@ rom2( double a, double b,
   {
 	first_call = FALSE;
 	size_t mreq = 9 * sizeof(complex double);
-	mem_alloc( (void *)&g1, mreq, "in ground.c");
-	mem_alloc( (void *)&g2, mreq, "in ground.c");
-	mem_alloc( (void *)&g3, mreq, "in ground.c");
-	mem_alloc( (void *)&g4, mreq, "in ground.c");
-	mem_alloc( (void *)&g5, mreq, "in ground.c");
-	mem_alloc( (void *)&t01, mreq, "in ground.c");
-	mem_alloc( (void *)&t10, mreq, "in ground.c");
-	mem_alloc( (void *)&t20, mreq, "in ground.c");
+	mem_alloc( (void **)&g1, mreq, "in ground.c");
+	mem_alloc( (void **)&g2, mreq, "in ground.c");
+	mem_alloc( (void **)&g3, mreq, "in ground.c");
+	mem_alloc( (void **)&g4, mreq, "in ground.c");
+	mem_alloc( (void **)&g5, mreq, "in ground.c");
+	mem_alloc( (void **)&t01, mreq, "in ground.c");
+	mem_alloc( (void **)&t10, mreq, "in ground.c");
+	mem_alloc( (void **)&t20, mreq, "in ground.c");
   }
 
   z= a;

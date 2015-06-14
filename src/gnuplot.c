@@ -79,8 +79,8 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
 
 	  /* Max gain for given polarization type */
 	  gmax = rad_pattern[idx].gtot[mgidx] +
-		10.0 * log10( Polarization_Factor(pol, idx, mgidx) );
-	  
+		Polarization_Factor(pol, idx, mgidx);
+
 	  /* Net gain if selected */
 	  if( isFlagSet(PLOT_NETGAIN) )
 	  {
@@ -127,8 +127,8 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
 	  /* Front to back ratio */
 	  fbratio  = pow( 10.0, gmax / 10.0 );
 	  fbratio /= pow( 10.0,
-		  rad_pattern[idx].gtot[fbidx] / 10.0 +
-		  log10(Polarization_Factor(pol, idx, fbidx)) );
+		  (rad_pattern[idx].gtot[fbidx] +
+		   Polarization_Factor(pol, idx, fbidx)) / 10.0 );
 	  fbratio = 10.0 * log10( fbratio );
 
 	  if( no_fbr && isFlagClear(PLOT_NETGAIN) ) /* Plot max gain only */
@@ -239,11 +239,11 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 	 * normalizing field strength values */
 	if( fpat.near ) /* Spherical co-ordinates */
 	  dr = (double)fpat.dxnr;
-	else /* Rectangular co-ordinates */
-	  dr = sqrt(
-		  (double)fpat.dxnr * (double)fpat.dxnr +
-		  (double)fpat.dynr * (double)fpat.dynr +
-		  (double)fpat.dznr * (double)fpat.dznr )/1.75;
+	/* Rectangular co-ordinates */
+	else dr = sqrt(
+		(double)fpat.dxnr * (double)fpat.dxnr +
+		(double)fpat.dynr * (double)fpat.dynr +
+		(double)fpat.dznr * (double)fpat.dznr )/1.75;
 
 	npts = fpat.nrx * fpat.nry * fpat.nrz;
 
@@ -313,10 +313,10 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 	  if( mreq != (size_t)npts * sizeof( double ) )
 	  {
 		mreq = (size_t)npts * sizeof( double );
-		mem_realloc( (void *)&pov_x, mreq, "in draw_radiation.c" );
-		mem_realloc( (void *)&pov_y, mreq, "in draw_radiation.c" );
-		mem_realloc( (void *)&pov_z, mreq, "in draw_radiation.c" );
-		mem_realloc( (void *)&pov_r, mreq, "in draw_radiation.c" );
+		mem_realloc( (void **)&pov_x, mreq, "in draw_radiation.c" );
+		mem_realloc( (void **)&pov_y, mreq, "in draw_radiation.c" );
+		mem_realloc( (void **)&pov_z, mreq, "in draw_radiation.c" );
+		mem_realloc( (void **)&pov_r, mreq, "in draw_radiation.c" );
 	  }
 
 	  /* Calculate Poynting vector and its max and min */

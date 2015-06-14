@@ -40,10 +40,6 @@ static point_3d_t *point_3d = NULL;
   void
 Draw_Radiation( GtkWidget *drawingarea )
 {
-  /* Block motion events */
-  g_signal_handler_block(
-	  (gpointer)drawingarea, rdpattern_motion_handler );
-
   /* Abort if xnec2c may be quit by user */
   if( isFlagSet(MAIN_QUIT) || isFlagClear(ENABLE_EXCITN) )
 	return;
@@ -77,11 +73,6 @@ Draw_Radiation( GtkWidget *drawingarea )
   while( g_main_context_iteration(NULL, FALSE) );
 
   cairo_destroy( cr );
-
-  /* Unblock motion events */
-  g_signal_handler_unblock(
-	  (gpointer)drawingarea, rdpattern_motion_handler );
-
 } /* Draw_Radiation() */
 
 /*-----------------------------------------------------------------------*/
@@ -103,6 +94,7 @@ Draw_Radiation_Pattern( void )
   GdkSegment segm;
 
   int
+	idx,
 	nth,     /* Theta step count */
 	nph,     /* Phi step count   */
 	col_idx, /* Index to rad pattern color buffers */
@@ -133,24 +125,24 @@ Draw_Radiation_Pattern( void )
   if( isFlagSet(DRAW_NEW_RDPAT) )
   {
 	size_t mreq = ((size_t)(fpat.nth * fpat.nph)) * sizeof(point_3d_t);
-	mem_realloc( (void *)&point_3d, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&point_3d, mreq, "in draw_radiation.c" );
 	mreq = (size_t)((fpat.nth-1) * fpat.nph + (fpat.nph-1) * fpat.nth);
 	mreq *= sizeof(double);
-	mem_realloc( (void *)&red, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&grn, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&blu, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&red, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&grn, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&blu, mreq, "in draw_radiation.c" );
 
 	ClearFlag( DRAW_NEW_RDPAT );
 
 	/* Distance of rdpattern point furthest from xyz origin */
+	idx = rad_pattern[fstep].max_gain_idx[pol];
 	rdpattern_proj_params.r_max = Scale_Gain(
-		rad_pattern[fstep].gtot[rad_pattern[fstep].max_gain_idx[pol]],
-		fstep, rad_pattern[fstep].max_gain_idx[pol]);
+		rad_pattern[fstep].gtot[idx], fstep, idx);
 
 	/* Distance of rdpattern point nearest to xyz origin */
+	idx = rad_pattern[fstep].min_gain_idx[pol];
 	r_min = Scale_Gain(
-		rad_pattern[fstep].gtot[rad_pattern[fstep].min_gain_idx[pol]],
-		fstep, rad_pattern[fstep].min_gain_idx[pol]);
+		rad_pattern[fstep].gtot[idx], fstep, idx);
 
 	/* Range of scaled rdpattern gain values */
 	r_range = rdpattern_proj_params.r_max - r_min;
@@ -243,14 +235,12 @@ Draw_Radiation_Pattern( void )
 
 	/* Show max gain on color code bar */
 	snprintf( txt, 7, "%6f", rad_pattern[fstep].max_gain[pol] );
-	txt[6] = '\0';
 	gtk_label_set_text(
 		GTK_LABEL(lookup_widget(rdpattern_window,
 			"rdpattern_colorcode_maxlabel")), txt );
 
 	/* Show min gain on color code bar */
 	snprintf( txt, 5, "%4f", rad_pattern[fstep].min_gain[pol] );
-	txt[6] = '\0';
 	gtk_label_set_text(
 		GTK_LABEL(lookup_widget(rdpattern_window,
 			"rdpattern_colorcode_minlabel")), txt );
@@ -344,8 +334,10 @@ Draw_Radiation_Pattern( void )
   } /* for( nth = 0; nth < fpat.nth; nth++ ) */
 
   /* Show gain in direction of viewer */
-  Show_Viewer_Gain( rdpattern_window,
-	  "rdpattern_viewer_gain", rdpattern_proj_params );
+  Show_Viewer_Gain(
+	  rdpattern_window,
+	  "rdpattern_viewer_gain",
+	  rdpattern_proj_params );
 
   cairo_destroy( cr );
 } /* Draw_Radiation_Pattern() */
@@ -382,7 +374,7 @@ Draw_Near_Field( void )
   GdkSegment segm;
 
   /* For coloring field lines */
-  double red = 0.0, grn = 0.0, blu = 0.0;
+  double xred = 0.0, xgrn = 0.0, xblu = 0.0;
 
   /* Abort if drawing a near field pattern is not possible */
   if( isFlagClear(ENABLE_NEAREH) || !near_field.valid )
@@ -449,7 +441,7 @@ Draw_Near_Field( void )
 	if( isFlagSet(DRAW_EFIELD) && (fpat.nfeh & NEAR_EFIELD) )
 	{
 	  /* Set gc attributes for segment */
-	  Value_to_Color( &red, &grn, &blu,
+	  Value_to_Color( &xred, &xgrn, &xblu,
 		  near_field.er[idx], near_field.max_er );
 
 	  /* Scale factor for each field point, to make
@@ -471,7 +463,7 @@ Draw_Near_Field( void )
 		  fx, fy, fz );
 
 	  /* Draw segment */
-	  cairo_set_source_rgb( cr, red, grn, blu );
+	  cairo_set_source_rgb( cr, xred, xgrn, xblu );
 	  Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
 
 	} /* if( isFlagSet(DRAW_EFIELD) && (fpat.nfeh & NEAR_EFIELD) ) */
@@ -480,7 +472,7 @@ Draw_Near_Field( void )
 	if( isFlagSet(DRAW_HFIELD) && (fpat.nfeh & NEAR_HFIELD) )
 	{
 	  /* Set gc attributes for segment */
-	  Value_to_Color( &red, &grn, &blu,
+	  Value_to_Color( &xred, &xgrn, &xblu,
 		  near_field.hr[idx], near_field.max_hr );
 
 	  /* Scale factor for each field point, to make
@@ -502,7 +494,7 @@ Draw_Near_Field( void )
 		  fx, fy, fz );
 
 	  /* Draw segment */
-	  cairo_set_source_rgb( cr, red, grn, blu );
+	  cairo_set_source_rgb( cr, xred, xgrn, xblu );
 	  Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
 
 	} /* if( isFlagSet(DRAW_HFIELD) && (fpat.nfeh & NEAR_HFIELD) ) */
@@ -518,10 +510,10 @@ Draw_Near_Field( void )
 	  if( isFlagSet(ALLOC_PNTING_BUFF) )
 	  {
 		size_t mreq = (size_t)npts * sizeof( double );
-		mem_realloc( (void *)&pov_x, mreq, "in draw_radiation.c" );
-		mem_realloc( (void *)&pov_y, mreq, "in draw_radiation.c" );
-		mem_realloc( (void *)&pov_z, mreq, "in draw_radiation.c" );
-		mem_realloc( (void *)&pov_r, mreq, "in draw_radiation.c" );
+		mem_realloc( (void **)&pov_x, mreq, "in draw_radiation.c" );
+		mem_realloc( (void **)&pov_y, mreq, "in draw_radiation.c" );
+		mem_realloc( (void **)&pov_z, mreq, "in draw_radiation.c" );
+		mem_realloc( (void **)&pov_r, mreq, "in draw_radiation.c" );
 		ClearFlag( ALLOC_PNTING_BUFF );
 	  }
 
@@ -547,7 +539,7 @@ Draw_Near_Field( void )
 	  } /* for( ipv = 0; ipv < npts; ipv++ ) */
 
 	  /* Set gc attributes for segment */
-	  Value_to_Color( &red, &grn, &blu, pov_r[idx], pov_max );
+	  Value_to_Color( &xred, &xgrn, &xblu, pov_r[idx], pov_max );
 
 	  /* Scale factor for each field point, to make
 	   * near field direction lines equal-sized */
@@ -569,7 +561,7 @@ Draw_Near_Field( void )
 		  near_field.pz[idx], fx, fy, fz );
 
 	  /* Draw segment */
-	  cairo_set_source_rgb( cr, red, grn, blu );
+	  cairo_set_source_rgb( cr, xred, xgrn, xblu );
 	  Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
 
 	} /* if( isFlagSet(DRAW_POYNTING) ) */
@@ -585,14 +577,12 @@ Draw_Near_Field( void )
   /* Show max field strength on color code bar */
   if( isFlagSet(DRAW_EFIELD) )
 	max = near_field.max_er;
-  else
-	if( isFlagSet(DRAW_HFIELD) )
-	  max = near_field.max_hr;
-	else
-	  if( isFlagSet(DRAW_POYNTING) )
-		max = pov_max;
+  else if( isFlagSet(DRAW_HFIELD) )
+	max = near_field.max_hr;
+  else if( isFlagSet(DRAW_POYNTING) )
+	max = pov_max;
 
-  snprintf( txt, 9, "%8.2E", max );
+  snprintf( txt, sizeof(txt), "%8.2E", max );
   gtk_label_set_text(
 	  GTK_LABEL(lookup_widget(rdpattern_window,
 		  "rdpattern_colorcode_maxlabel")), txt );
@@ -683,37 +673,34 @@ static int gain_style = GS_LINP;
 Scale_Gain( double gain, int fstep, int idx )
 {
   /* Scaled rad pattern gain and pol factor */
-  double rad = 0.0, polf;
+  double scaled_rad = 0.0;
 
-  polf = Polarization_Factor( calc_data.pol_type, fstep, idx );
-  if ( polf< 1e-200 ) return( 0.0 );
-
-  gain += 10.0 * log10(polf);
+  gain += Polarization_Factor( calc_data.pol_type, fstep, idx );
 
   switch( gain_style )
   {
 	case GS_LINP:
-	  rad = pow(10.0, (gain/10.0));
+	  scaled_rad = pow(10.0, (gain/10.0));
 	  break;
 
 	case GS_LINV:
-	  rad = pow(10.0, (gain/20.0));
+	  scaled_rad = pow(10.0, (gain/20.0));
 	  break;
 
 	case GS_ARRL:
-	  rad = exp( 0.058267 * gain );
+	  scaled_rad = exp( 0.058267 * gain );
 	  break;
 
 	case GS_LOG:
-	  rad = gain;
-	  if( rad < -40 )
-		rad = 0.0;
+	  scaled_rad = gain;
+	  if( scaled_rad < -40 )
+		scaled_rad = 0.0;
 	  else
-		rad = rad /40.0 + 1.0;
+		scaled_rad = scaled_rad /40.0 + 1.0;
 
   } /* switch( gain_style ) */
 
-  return( rad );
+  return( scaled_rad );
 
 } /* Scale_Gain() */
 
@@ -722,12 +709,12 @@ Scale_Gain( double gain, int fstep, int idx )
 /* Polarization_Factor()
  *
  * Calculates polarization factor from axial
- * ratio and tilt of polarization ellepse
+ * ratio and tilt of polarization ellipse
  */
   double
 Polarization_Factor( int pol_type, int fstep, int idx )
 {
-  double axrt2, tlt, polf = 1.0;
+  double axrt, axrt2, tilt2, polf = 1.0;
 
   switch( pol_type )
   {
@@ -736,37 +723,37 @@ Polarization_Factor( int pol_type, int fstep, int idx )
 	  break;
 
 	case POL_HORIZ:
-	  axrt2 = rad_pattern[fstep].axrt[idx] *
-		rad_pattern[fstep].axrt[idx];
-	  tlt = sin( rad_pattern[fstep].tilt[idx] );
-	  polf = (axrt2 + (1.0 - axrt2) * tlt * tlt) /
-		(1.0 + axrt2);
+	  axrt2  = rad_pattern[fstep].axrt[idx];
+	  axrt2 *= axrt2;
+	  tilt2  = sin( rad_pattern[fstep].tilt[idx] );
+	  tilt2 *= tilt2;
+	  polf = (axrt2 + (1.0 - axrt2) * tilt2) / (1.0 + axrt2);
 	  break;
 
 	case POL_VERT:
-	  axrt2 = rad_pattern[fstep].axrt[idx] *
-		rad_pattern[fstep].axrt[idx];
-	  tlt = cos( rad_pattern[fstep].tilt[idx] );
-	  polf = (axrt2 + (1.0 - axrt2) * tlt * tlt) /
-		(1.0 + axrt2);
+	  axrt2  = rad_pattern[fstep].axrt[idx];
+	  axrt2 *= axrt2;
+	  tilt2  = cos( rad_pattern[fstep].tilt[idx] );
+	  tilt2 *= tilt2;
+	  polf = (axrt2 + (1.0 - axrt2) * tilt2) / (1.0 + axrt2);
 	  break;
 
 	case POL_LHCP:
-	  axrt2 = rad_pattern[fstep].axrt[idx] *
-		rad_pattern[fstep].axrt[idx];
-	  polf = (1.0 + 2.0 * rad_pattern[fstep].axrt[idx] +
-		  axrt2) / 2.0 / (1.0 + axrt2);
+	  axrt  = rad_pattern[fstep].axrt[idx];
+	  axrt2 = axrt * axrt;
+	  polf  = (1.0 + 2.0 * axrt + axrt2) / 2.0 / (1.0 + axrt2);
 	  break;
 
 	case POL_RHCP:
-	  axrt2 = rad_pattern[fstep].axrt[idx] *
-		rad_pattern[fstep].axrt[idx];
-	  polf = (1.0 - 2.0 * rad_pattern[fstep].axrt[idx] +
-		  axrt2) / 2.0 / (1.0 + axrt2);
+	  axrt  = rad_pattern[fstep].axrt[idx];
+	  axrt2 = axrt * axrt;
+	  polf  = (1.0 - 2.0 * axrt + axrt2) / 2.0 / (1.0 + axrt2);
   }
 
+  if( polf < 1.0E-200 ) polf = 1.0E-200;
+  polf = 10.0 * log10( polf );
+  
   return( polf );
-
 } /* Polarization_Factor() */
 
 /*-----------------------------------------------------------------------*/
@@ -880,39 +867,46 @@ Redo_Radiation_Pattern( gpointer udata )
   double
 Viewer_Gain( projection_parameters_t proj_parameters, int fstep )
 {
-  double phi, gain=-999;
+  double phi, gain;
   int nth, nph, idx;
-
-
+  
   /* Calculate theta step from proj params */
   phi = proj_parameters.Wr;
-  if( fpat.dth == 0.0 )	nth = 0;
+  if( fpat.dth == 0.0 ) nth = 0;
   else
   {
-	double theta = fabs( 90.0 - proj_parameters.Wi );
+	double theta;
+	theta = fabs( 90.0 - proj_parameters.Wi );
 	if( theta > 180.0 )
 	{
 	  theta = 360.0 - theta;
 	  phi  -= 180.0;
 	}
-	if( (gnd.ksymp == 2) && (theta > 90.01) && (gnd.ifar != 1) )
-	  return( -999.0 );
-	nth = (int)( theta/fpat.dth + 0.5 );
-	if( (nth >= fpat.nth) || (nth < 0) ) nth = fpat.nth-1;
+
+	if( (gnd.ksymp == 2) &&
+		(theta > 90.01)  &&
+		(gnd.ifar != 1) )
+	  return( -999.99 );
+
+	nth = (int)( (theta - fpat.thets) / fpat.dth + 0.5 );
+	if( (nth >= fpat.nth) || (nth < 0) )
+	  nth = fpat.nth-1;
   }
 
   /* Calculate phi step from proj params */
-  if( fpat.dph == 0.0 )	nph = 0;
+  if( fpat.dph == 0.0 ) nph = 0;
   else
   {
 	while( phi < 0.0 ) phi += 360.0;
-	nph = (int)( phi/fpat.dph + 0.5 );
-	if( (nph >= fpat.nph) || (nph < 0) ) nph = fpat.nph-1;
+	nph = (int)( (phi - fpat.phis) / fpat.dph + 0.5 );
+	if( (nph >= fpat.nph) || (nph < 0) )
+	  nph = fpat.nph-1;
   }
 
-  idx = nth + nph*fpat.nth;
-  gain = rad_pattern[fstep].gtot[idx] +	10.0 *
-	log10( Polarization_Factor(calc_data.pol_type, fstep, idx) );
+  idx = nth + nph * fpat.nth;
+  gain = rad_pattern[fstep].gtot[idx] +
+		Polarization_Factor(calc_data.pol_type, fstep, idx);
+  if( gain < -999.99 ) gain = -999.99;
 
   return( gain );
 
@@ -1033,53 +1027,52 @@ Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
   /* Free old gain buffers first */
   for( idx = 0; idx < last_nfrq; idx++ )
   {
-	free_ptr( (void *)&rad_pattern[idx].gtot );
-	free_ptr( (void *)&rad_pattern[idx].max_gain );
-	free_ptr( (void *)&rad_pattern[idx].min_gain );
-	free_ptr( (void *)&rad_pattern[idx].max_gain_tht );
-	free_ptr( (void *)&rad_pattern[idx].max_gain_phi );
-	free_ptr( (void *)&rad_pattern[idx].max_gain_idx );
-	free_ptr( (void *)&rad_pattern[idx].min_gain_idx );
-	free_ptr( (void *)&rad_pattern[idx].axrt );
-	free_ptr( (void *)&rad_pattern[idx].tilt );
-	free_ptr( (void *)&rad_pattern[idx].sens );
+	free_ptr( (void **)&rad_pattern[idx].gtot );
+	free_ptr( (void **)&rad_pattern[idx].max_gain );
+	free_ptr( (void **)&rad_pattern[idx].min_gain );
+	free_ptr( (void **)&rad_pattern[idx].max_gain_tht );
+	free_ptr( (void **)&rad_pattern[idx].max_gain_phi );
+	free_ptr( (void **)&rad_pattern[idx].max_gain_idx );
+	free_ptr( (void **)&rad_pattern[idx].min_gain_idx );
+	free_ptr( (void **)&rad_pattern[idx].axrt );
+	free_ptr( (void **)&rad_pattern[idx].tilt );
+	free_ptr( (void **)&rad_pattern[idx].sens );
   }
   last_nfrq = nfrq;
 
   /* Allocate rad pattern buffers */
   mreq = (size_t)nfrq * sizeof(rad_pattern_t);
-  mem_realloc( (void *)&rad_pattern, mreq, "in draw_radiation.c" );
-
+  mem_realloc( (void **)&rad_pattern, mreq, "in draw_radiation.c" );
   for( idx = 0; idx < nfrq; idx++ )
   {
 	/* Memory request for allocs */
 	mreq = (size_t)(nph * nth) * sizeof(double);
 	rad_pattern[idx].gtot = NULL;
-	mem_alloc( (void *)&rad_pattern[idx].gtot, mreq, "in draw_radiation.c" );
+	mem_alloc( (void **)&(rad_pattern[idx].gtot), mreq, "in draw_radiation.c" );
 	rad_pattern[idx].axrt = NULL;
-	mem_alloc( (void *)&rad_pattern[idx].axrt, mreq, "in draw_radiation.c" );
+	mem_alloc( (void **)&(rad_pattern[idx].axrt), mreq, "in draw_radiation.c" );
 	rad_pattern[idx].tilt = NULL;
-	mem_alloc( (void *)&rad_pattern[idx].tilt, mreq, "in draw_radiation.c" );
+	mem_alloc( (void **)&(rad_pattern[idx].tilt), mreq, "in draw_radiation.c" );
 
 	mreq = NUM_POL * sizeof(double);
 	rad_pattern[idx].max_gain = NULL;
-	mem_alloc( (void *)&rad_pattern[idx].max_gain, mreq, "in draw_radiation.c" );
+	mem_alloc( (void **)&(rad_pattern[idx].max_gain), mreq, "in draw_radiation.c" );
 	rad_pattern[idx].min_gain = NULL;
-	mem_alloc( (void *)&rad_pattern[idx].min_gain, mreq, "in draw_radiation.c" );
+	mem_alloc( (void **)&(rad_pattern[idx].min_gain), mreq, "in draw_radiation.c" );
 	rad_pattern[idx].max_gain_tht = NULL;
-	mem_alloc( (void *)&rad_pattern[idx].max_gain_tht, mreq, "in draw_radiation.c" );
+	mem_alloc( (void **)&(rad_pattern[idx].max_gain_tht), mreq, "in draw_radiation.c" );
 	rad_pattern[idx].max_gain_phi = NULL;
-	mem_alloc( (void *)&rad_pattern[idx].max_gain_phi, mreq, "in draw_radiation.c" );
+	mem_alloc( (void **)&(rad_pattern[idx].max_gain_phi), mreq, "in draw_radiation.c" );
 
 	mreq = NUM_POL * sizeof(int);
 	rad_pattern[idx].max_gain_idx = NULL;
-	mem_alloc( (void *)&rad_pattern[idx].max_gain_idx, mreq, "in draw_radiation.c" );
+	mem_alloc( (void **)&(rad_pattern[idx].max_gain_idx), mreq, "in draw_radiation.c" );
 	rad_pattern[idx].min_gain_idx = NULL;
-	mem_alloc( (void *)&rad_pattern[idx].min_gain_idx, mreq, "in draw_radiation.c" );
+	mem_alloc( (void **)&(rad_pattern[idx].min_gain_idx), mreq, "in draw_radiation.c" );
 
 	rad_pattern[idx].sens = NULL;
 	mreq = (size_t)(nph * nth) * sizeof(int);
-	mem_alloc( (void *)&rad_pattern[idx].sens, mreq, "in draw_radiation.c" );
+	mem_alloc( (void **)&(rad_pattern[idx].sens), mreq, "in draw_radiation.c" );
   }
 
 } /* Alloc_Rdpattern_Buffers() */
@@ -1104,35 +1097,35 @@ Alloc_Nearfield_Buffers( int n1, int n2, int n3 )
   /* Allocate near field buffers */
   if( fpat.nfeh & NEAR_EFIELD )
   {
-	mem_realloc( (void *)&near_field.ex,  mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.ey,  mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.ez,  mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.fex, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.fey, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.fez, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.erx, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.ery, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.erz, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.er,  mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.ex,  mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.ey,  mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.ez,  mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.fex, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.fey, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.fez, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.erx, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.ery, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.erz, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.er,  mreq, "in draw_radiation.c" );
   }
 
   if( fpat.nfeh & NEAR_HFIELD )
   {
-	mem_realloc( (void *)&near_field.hx,  mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.hy,  mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.hz,  mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.fhx, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.fhy, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.fhz, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.hrx, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.hry, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.hrz, mreq, "in draw_radiation.c" );
-	mem_realloc( (void *)&near_field.hr,  mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.hx,  mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.hy,  mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.hz,  mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.fhx, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.fhy, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.fhz, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.hrx, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.hry, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.hrz, mreq, "in draw_radiation.c" );
+	mem_realloc( (void **)&near_field.hr,  mreq, "in draw_radiation.c" );
   }
 
-  mem_realloc( (void *)&near_field.px, mreq, "in draw_radiation.c" );
-  mem_realloc( (void *)&near_field.py, mreq, "in draw_radiation.c" );
-  mem_realloc( (void *)&near_field.pz, mreq, "in draw_radiation.c" );
+  mem_realloc( (void **)&near_field.px, mreq, "in draw_radiation.c" );
+  mem_realloc( (void **)&near_field.py, mreq, "in draw_radiation.c" );
+  mem_realloc( (void **)&near_field.pz, mreq, "in draw_radiation.c" );
 
 } /* Alloc_Nearfield_Buffers() */
 
@@ -1145,10 +1138,10 @@ Alloc_Nearfield_Buffers( int n1, int n2, int n3 )
   void
 Free_Draw_Buffers( void )
 {
-  free_ptr( (void *)&point_3d );
-  free_ptr( (void *)&red );
-  free_ptr( (void *)&grn );
-  free_ptr( (void *)&blu );
+  free_ptr( (void **)&point_3d );
+  free_ptr( (void **)&red );
+  free_ptr( (void **)&grn );
+  free_ptr( (void **)&blu );
 }
 
 /*-----------------------------------------------------------------------*/
