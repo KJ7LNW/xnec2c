@@ -551,9 +551,9 @@ Draw_Surface_Patches( GdkSegment *segm, gint npatch )
 	  for( i = 0; i < npatch; i++ )
 	  {
 		/* Calculate current along x,y,z vectors */
-		cx = (complex double)crnt.cur[j];
-		cy = (complex double)crnt.cur[j+1];
-		cz = (complex double)crnt.cur[j+2];
+		cx = crnt.cur[j];
+		cy = crnt.cur[j+1];
+		cz = crnt.cur[j+2];
 
 		/* Calculate current along t1 and t2 tangent vectors */
 		ct1 = cx*(double)data.t1x[i] +

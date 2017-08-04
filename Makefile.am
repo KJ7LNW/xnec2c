@@ -10,6 +10,8 @@ EXTRA_DIST = \
 	autogen.sh \
 	xnec2c.glade \
 	xnec2c.gladep \
+	xnec2c.png \
+	xnec2c.desktop \
 	examples \
 	doc \
 	$(INTLTOOL_FILES)
