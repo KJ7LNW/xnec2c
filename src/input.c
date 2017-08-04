@@ -1219,7 +1219,7 @@ datagn( void )
 
 		/* reflect structure along x,y, or z */
 		/* axes or rotate to form cylinder.  */
-	  case GX: /* _("gx") card */
+	  case GX: /* "gx" card */
 		if( (ns < 0) || (itg < 0) )
 		{
 		  fprintf( stderr, "xnec2c: datagn(): geometry GX data card error\n" );
@@ -1258,8 +1258,8 @@ datagn( void )
 		continue;
 
 	  case GS: /* "gs" card, scale structure dimensions by factor xw1 */
-
 		if( (itg > 0) && (ns > 0) && (ns >= itg) )
+		{
 		  for( i = 0; i < data.n; i++ )
 		  {
 			if( (data.itag[i] >= itg) && (data.itag[i] <= ns) )
@@ -1273,6 +1273,10 @@ datagn( void )
 			  data.bi[i]= data.bi[i]* xw1;
 			}
 		  }
+		  /* FIXME corrects errors when GS follows GX but this is just a work-around */
+		  data.np = data.n;
+		  data.ipsym = 0;
+		}
 		else for( i = 0; i < data.n; i++ )
 		{
 		  data.x1[i]= data.x1[i]* xw1;
@@ -1385,9 +1389,9 @@ datagn( void )
 			stop( _("datagn(): Move GM data card error"), ERR_OK );
 			return( FALSE );
 		  }
-		  xw1= xw1* TA;
-		  yw1= yw1* TA;
-		  zw1= zw1* TA;
+		  xw1= xw1* TORAD;
+		  yw1= yw1* TORAD;
+		  zw1= zw1* TORAD;
 		  if( !move(xw1, yw1, zw1, xw2, yw2, zw2, (int)(rad+.5), ns, itg) )
 			return( FALSE );
 		}
@@ -1429,8 +1433,8 @@ datagn( void )
 		} /* if( ns > 1) */
 		else
 		{
-		  xw2= xw2* TA;
-		  yw2= yw2* TA;
+		  xw2= xw2* TORAD;
+		  yw2= yw2* TORAD;
 		}
 
 		if( !patch( itg, ns, xw1, yw1, zw1, xw2,

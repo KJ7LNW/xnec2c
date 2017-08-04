@@ -32,8 +32,7 @@
 /* Editor actions that imply saving */
 enum SAVE_ACTION
 {
-  EDITOR_SAVE = 64,
-  EDITOR_NEW,
+  EDITOR_NEW = 64,
   EDITOR_EDIT,
   EDITOR_APPLY
 };

@@ -105,8 +105,17 @@ Excitation_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, excitation_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( excitation_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Command_Data( cmnd_store, &iter_ex, iv, fv );
 	save  = FALSE;
@@ -367,8 +376,17 @@ Frequency_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, frequency_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( frequency_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Command_Data( cmnd_store, &iter_fr, iv, fv );
 	save  = FALSE;
@@ -578,8 +596,17 @@ Ground_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, ground_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( ground_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Command_Data( cmnd_store, &iter_gn, iv, fv );
 	if( both )
@@ -999,8 +1026,17 @@ Ground2_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, ground2_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( ground2_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Command_Data( cmnd_store, &iter_gd, iv, fv );
 	save  = FALSE;
@@ -1175,8 +1211,17 @@ Radiation_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, radiation_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( radiation_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Command_Data( cmnd_store, &iter_rp, iv, fv );
 	save  = FALSE;
@@ -1465,8 +1510,17 @@ Loading_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, loading_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( loading_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Command_Data( cmnd_store, &iter_ld, iv, fv );
 	save  = FALSE;
@@ -1726,8 +1780,17 @@ Network_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, network_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( network_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Command_Data( cmnd_store, &iter_nt, iv, fv );
 	save  = FALSE;
@@ -1862,8 +1925,17 @@ Txline_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, txline_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( txline_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Command_Data( cmnd_store, &iter_tl, iv, fv );
 	save = FALSE;
@@ -2045,8 +2117,17 @@ Nearfield_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up(&busy, nearfield_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( nearfield_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	if( nref )
 	  Set_Command_Data( cmnd_store, &iter_ne, iv, fv );
@@ -2303,8 +2384,17 @@ Kernel_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, kernel_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( kernel_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	/* Set EK card data */
 	if( gtk_list_store_iter_is_valid(cmnd_store, &iter_ek) )
@@ -2423,8 +2513,17 @@ Intrange_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, intrange_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( intrange_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	/* Set KH card data */
 	if( gtk_list_store_iter_is_valid(cmnd_store, &iter_kh) )
@@ -2544,8 +2643,17 @@ Execute_Command( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, execute_command) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( execute_command );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	/* Set XQ card data */
 	if( gtk_list_store_iter_is_valid(cmnd_store, &iter_xq) )

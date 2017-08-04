@@ -109,8 +109,8 @@ Draw_Radiation_Pattern( void )
   double theta, phi, r, r_min, r_range;
 
   /* theta and phi step in rads */
-  double dth = (double)fpat.dth * (double)TA;
-  double dph = (double)fpat.dph * (double)TA;
+  double dth = (double)fpat.dth * (double)TORAD;
+  double dph = (double)fpat.dph * (double)TORAD;
 
   /* Used to set text in labels */
   gchar txt[7];
@@ -156,12 +156,12 @@ Draw_Radiation_Pattern( void )
 	/*** Convert radiation pattern values
 	 * to points in 3d space in x,y,z axis ***/
 	pts_idx = 0;
-	phi = (double)(fpat.phis * TA); /* In rads */
+	phi = (double)(fpat.phis * TORAD); /* In rads */
 
 	/* Step phi angle */
 	for( nph = 0; nph < fpat.nph; nph++ )
 	{
-	  theta = (double)(fpat.thets * TA); /* In rads */
+	  theta = (double)(fpat.thets * TORAD); /* In rads */
 
 	  /* Step theta angle */
 	  for( nth = 0; nth < fpat.nth; nth++ )
@@ -651,7 +651,7 @@ Animate_Near_Field( gpointer udata )
 
   /* Increment excitation phase, keep < 2pi */
   wt += near_field.anim_step;
-  if( wt >= (double)TP )
+  if( wt >= (double)TWOPI )
 	wt = 0.0;
 
   Draw_Radiation( rdpattern_drawingarea );
@@ -820,10 +820,10 @@ Set_Gain_Style( int gs )
 New_Radiation_Projection_Angle(void)
 {
   /* sin and cos of rad pattern rotation and inclination angles */
-  rdpattern_proj_params.sin_wr = sin(rdpattern_proj_params.Wr/(double)TD);
-  rdpattern_proj_params.cos_wr = cos(rdpattern_proj_params.Wr/(double)TD);
-  rdpattern_proj_params.sin_wi = sin(rdpattern_proj_params.Wi/(double)TD);
-  rdpattern_proj_params.cos_wi = cos(rdpattern_proj_params.Wi/(double)TD);
+  rdpattern_proj_params.sin_wr = sin(rdpattern_proj_params.Wr/(double)TODEG);
+  rdpattern_proj_params.cos_wr = cos(rdpattern_proj_params.Wr/(double)TODEG);
+  rdpattern_proj_params.sin_wi = sin(rdpattern_proj_params.Wi/(double)TODEG);
+  rdpattern_proj_params.cos_wi = cos(rdpattern_proj_params.Wi/(double)TODEG);
 
   /* Trigger a redraw of radiation drawingarea */
   if( isFlagSet(DRAW_ENABLED) )

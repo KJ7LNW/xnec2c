@@ -286,7 +286,7 @@ sflds( double t, complex double *e )
   zphs= gwav.zph* gwav.zph;
   r2s= rhs+ zphs;
   gwav.r2= sqrt( r2s);
-  rk= gwav.r2* TP;
+  rk= gwav.r2* TWOPI;
   gwav.xx2= cmplx( cos( rk),- sin( rk));
 
   /* use norton approximation for field due to ground.
@@ -335,7 +335,7 @@ sflds( double t, complex double *e )
   if( rho >= 1.0e-12)
 	thet= atan( gwav.zph/ rho);
   else
-	thet= POT;
+	thet= PITWO;
 
   /* combine vertical and horizontal components and convert */
   /* to x,y,z components. multiply by exp(-jkr)/r. */
@@ -350,7 +350,7 @@ sflds( double t, complex double *e )
   e[1]= erh* rhy+ eph* phy;
   e[2]= ezh;
   /* x,y,z fields for sine current */
-  rk= TP* t;
+  rk= TWOPI* t;
   sfac= sin( rk);
   e[3]= e[0]* sfac;
   e[4]= e[1]* sfac;

@@ -1,5 +1,6 @@
 ## Process this file with automake to produce Makefile.in
-AM_LDFLAGS = -Wl,--as-needed,-z,relro,-z,now
+AM_LDFLAGS = -Wl,--as-needed
+
 AM_CFLAGS = --pedantic -Wall -std=gnu99 -O2 -D_FORTIFY_SOURCE=2 \
 		 -fstack-protector -Wformat -Werror=format-security -fpie
 

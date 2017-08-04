@@ -673,10 +673,10 @@ Redo_Currents( gpointer udata )
 New_Structure_Projection_Angle(void)
 {
   /* sin and cos of structure rotation and inclination angles */
-  structure_proj_params.sin_wr = sin(structure_proj_params.Wr/(double)TD);
-  structure_proj_params.cos_wr = cos(structure_proj_params.Wr/(double)TD);
-  structure_proj_params.sin_wi = sin(structure_proj_params.Wi/(double)TD);
-  structure_proj_params.cos_wi = cos(structure_proj_params.Wi/(double)TD);
+  structure_proj_params.sin_wr = sin(structure_proj_params.Wr/(double)TODEG);
+  structure_proj_params.cos_wr = cos(structure_proj_params.Wr/(double)TODEG);
+  structure_proj_params.sin_wi = sin(structure_proj_params.Wi/(double)TODEG);
+  structure_proj_params.cos_wi = cos(structure_proj_params.Wi/(double)TODEG);
 
   /* Trigger a redraw of structure drawingarea */
   if( isFlagClear(INPUT_PENDING) )

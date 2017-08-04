@@ -87,8 +87,8 @@ arc( int itg, int ns, double rada,
 	mem_realloc( (void **)&data.z2, mreq, "in geometry.c" );
 	mem_realloc( (void **)&data.bi, mreq, "in geometry.c" );
 
-	ang= ang1* TA;
-	dang=( ang2- ang1)* TA/ ns;
+	ang= ang1* TORAD;
+	dang=( ang2- ang1)* TORAD/ ns;
 	xs1= rada* cos( ang);
 	zs1= rada* sin( ang);
 
@@ -1486,7 +1486,7 @@ reflc( int ix, int iy, int iz, int iti, int nop )
   /* reproduce structure with rotation to form cylindrical structure */
   fnop= (double)nop;
   data.ipsym=-1;
-  sam=TP/ fnop;
+  sam=TWOPI/ fnop;
   cs= cos( sam);
   ss= sin( sam);
 

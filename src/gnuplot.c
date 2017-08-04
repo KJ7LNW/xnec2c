@@ -383,8 +383,8 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 	double theta, phi, r;
 
 	/* theta and phi step in rads */
-	double dth = (double)fpat.dth * (double)TA;
-	double dph = (double)fpat.dph * (double)TA;
+	double dth = (double)fpat.dth * (double)TORAD;
+	double dph = (double)fpat.dph * (double)TORAD;
 
 	/* Open gplot file, abort on error */
 	if( !Open_File(&fp, filename, "w") )
@@ -394,13 +394,13 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 	/* Distance of rdpattern point nearest to xyz origin */
 	/*** Convert radiation pattern values
 	 * to points in 3d space in x,y,z axis ***/
-	phi = (double)fpat.phis * (double)TA; /* In rads */
+	phi = (double)fpat.phis * (double)TORAD; /* In rads */
 
 	/* Step phi angle */
 	idx = 0;
 	for( nph = 0; nph < fpat.nph; nph++ )
 	{
-	  theta = (double)fpat.thets * (double)TA; /* In rads */
+	  theta = (double)fpat.thets * (double)TORAD; /* In rads */
 
 	  /* Step theta angle */
 	  for( nth = 0; nth < fpat.nth; nth++ )

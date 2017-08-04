@@ -46,10 +46,10 @@
 
 /* common constants */
 #define PI		3.141592654
-#define	POT		1.570796327
-#define	TP		6.283185308
-#define	TA		1.745329252E-02
-#define	TD		57.29577951
+#define	PITWO	1.570796327
+#define	TWOPI	6.283185308
+#define	TORAD	1.745329252E-02
+#define	TODEG	57.29577951
 #define	ETA		376.73
 #define	CVEL	299.8
 #define	CONST1	(0.0+I*4.771341189)
@@ -163,6 +163,9 @@
 #define	ALLOC_NEAREH_BUFF	0x0000100000000000ll
 #define	ALLOC_RDPAT_BUFF	0x0000200000000000ll
 #define	ALLOC_PNTING_BUFF	0x0000400000000000ll
+
+/* Force editors to quit */
+#define	EDITOR_QUIT			0x0000800000000000ll
 
 #define	ALL_FLAGS		    0xffffffffffffffffll
 

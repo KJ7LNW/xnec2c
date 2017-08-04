@@ -444,7 +444,7 @@ create_main_window (void)
   structure_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (structure_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment1), structure_drawingarea);
-  gtk_widget_set_size_request (structure_drawingarea, 769, 769);
+  gtk_widget_set_size_request (structure_drawingarea, 681, 769);
   GTK_WIDGET_SET_FLAGS (structure_drawingarea, GTK_CAN_FOCUS);
 
   main_hbox3 = gtk_hbox_new (FALSE, 0);
@@ -796,7 +796,9 @@ create_filechooserdialog (void)
 
   filechooserdialog = gtk_file_chooser_dialog_new (_("xnec2c"), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL, NULL);
   gtk_container_set_border_width (GTK_CONTAINER (filechooserdialog), 5);
-  g_object_set (filechooserdialog, "show-hidden", TRUE, NULL);
+  g_object_set (filechooserdialog,
+                "show-hidden", TRUE,
+                NULL);
   gtk_window_set_position (GTK_WINDOW (filechooserdialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_role (GTK_WINDOW (filechooserdialog), "GtkFileChooserDialog");
   gtk_window_set_type_hint (GTK_WINDOW (filechooserdialog), GDK_WINDOW_TYPE_HINT_DIALOG);
@@ -1192,7 +1194,7 @@ create_freqplots_window (void)
   freqplots_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (freqplots_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment2), freqplots_drawingarea);
-  gtk_widget_set_size_request (freqplots_drawingarea, 769, 769);
+  gtk_widget_set_size_request (freqplots_drawingarea, 1025, 769);
   GTK_WIDGET_SET_FLAGS (freqplots_drawingarea, GTK_CAN_FOCUS);
   gtk_widget_set_events (freqplots_drawingarea, GDK_BUTTON_PRESS_MASK);
 
@@ -1733,6 +1735,7 @@ create_rdpattern_window (void)
   rdpattern_hbox2 = gtk_hbox_new (FALSE, 0);
   gtk_widget_show (rdpattern_hbox2);
   gtk_box_pack_start (GTK_BOX (vbox3), rdpattern_hbox2, FALSE, FALSE, 0);
+  gtk_widget_set_size_request (rdpattern_hbox2, -1, 30);
 
   rdpattern_colorcode_minlabel = gtk_label_new (_("0.0"));
   gtk_widget_show (rdpattern_colorcode_minlabel);
@@ -1814,7 +1817,7 @@ create_rdpattern_window (void)
   rdpattern_drawingarea = gtk_drawing_area_new ();
   gtk_widget_show (rdpattern_drawingarea);
   gtk_container_add (GTK_CONTAINER (alignment3), rdpattern_drawingarea);
-  gtk_widget_set_size_request (rdpattern_drawingarea, 769, 769);
+  gtk_widget_set_size_request (rdpattern_drawingarea, 681, 769);
   GTK_WIDGET_SET_FLAGS (rdpattern_drawingarea, GTK_CAN_FOCUS);
 
   rdpattern_hbox3 = gtk_hbox_new (FALSE, 0);
@@ -2623,7 +2626,7 @@ create_nec2_editor (void)
   nec2_cmnt_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_cmnt_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow5), nec2_cmnt_treeview);
-  gtk_widget_set_size_request (nec2_cmnt_treeview, 769, 176);
+  gtk_widget_set_size_request (nec2_cmnt_treeview, -1, 138);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_cmnt_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_cmnt_treeview), TRUE);
 
@@ -2725,7 +2728,7 @@ create_nec2_editor (void)
   nec2_geom_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_geom_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow4), nec2_geom_treeview);
-  gtk_widget_set_size_request (nec2_geom_treeview, 769, 176);
+  gtk_widget_set_size_request (nec2_geom_treeview, -1, 204);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_geom_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_geom_treeview), TRUE);
 
@@ -2855,7 +2858,7 @@ create_nec2_editor (void)
   nec2_cmnd_treeview = gtk_tree_view_new ();
   gtk_widget_show (nec2_cmnd_treeview);
   gtk_container_add (GTK_CONTAINER (scrolledwindow3), nec2_cmnd_treeview);
-  gtk_widget_set_size_request (nec2_cmnd_treeview, 769, 176);
+  gtk_widget_set_size_request (nec2_cmnd_treeview, -1, 204);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (nec2_cmnd_treeview), TRUE);
   gtk_tree_view_set_reorderable (GTK_TREE_VIEW (nec2_cmnd_treeview), TRUE);
 
@@ -4812,10 +4815,6 @@ create_helix_editor (void)
   GtkWidget *label73;
   GtkWidget *label75;
   GtkWidget *label76;
-  GtkWidget *label77;
-  GtkWidget *label78;
-  GtkWidget *label79;
-  GtkWidget *label80;
   GtkObject *helix_tagnum_spinbutton_adj;
   GtkWidget *helix_tagnum_spinbutton;
   GtkObject *helix_numseg_spinbutton_adj;
@@ -4826,29 +4825,33 @@ create_helix_editor (void)
   GtkWidget *helix_tspace_spinbutton;
   GtkObject *helix_len_spinbutton_adj;
   GtkWidget *helix_len_spinbutton;
-  GtkObject *helix_radxzo_spinbutton_adj;
-  GtkWidget *helix_radxzo_spinbutton;
-  GtkObject *helix_dia_spinbutton_adj;
-  GtkWidget *helix_dia_spinbutton;
-  GtkObject *helix_radyzhl_spinbutton_adj;
-  GtkWidget *helix_radyzhl_spinbutton;
-  GtkObject *helix_radxzhl_spinbutton_adj;
-  GtkWidget *helix_radxzhl_spinbutton;
   GtkWidget *label81;
   GtkObject *helix_nturns_spinbutton_adj;
   GtkWidget *helix_nturns_spinbutton;
   GtkWidget *label82;
-  GtkWidget *label83;
-  GtkObject *helix_radyzo_spinbutton_adj;
-  GtkWidget *helix_radyzo_spinbutton;
-  GtkWidget *label84;
-  GtkObject *helix_res_spinbutton_adj;
-  GtkWidget *helix_res_spinbutton;
   GtkWidget *helix_linkzo_radiobutton;
   GSList *helix_linkzo_radiobutton_group = NULL;
   GtkWidget *helix_linkzhl_radiobutton;
   GtkWidget *helix_linkall_radiobutton;
   GtkWidget *helix_lh_checkbutton;
+  GtkObject *helix_dia_spinbutton_adj;
+  GtkWidget *helix_dia_spinbutton;
+  GtkObject *helix_res_spinbutton_adj;
+  GtkWidget *helix_res_spinbutton;
+  GtkWidget *label80;
+  GtkWidget *label84;
+  GtkObject *helix_radyzhl_spinbutton_adj;
+  GtkWidget *helix_radyzhl_spinbutton;
+  GtkWidget *label79;
+  GtkWidget *label83;
+  GtkObject *helix_radyzo_spinbutton_adj;
+  GtkWidget *helix_radyzo_spinbutton;
+  GtkWidget *label78;
+  GtkObject *helix_radxzhl_spinbutton_adj;
+  GtkWidget *helix_radxzhl_spinbutton;
+  GtkWidget *label77;
+  GtkObject *helix_radxzo_spinbutton_adj;
+  GtkWidget *helix_radxzo_spinbutton;
   GtkWidget *label85;
   GtkWidget *hbox26;
   GtkWidget *helix_new_button;
@@ -4909,34 +4912,6 @@ create_helix_editor (void)
   gtk_label_set_selectable (GTK_LABEL (label76), TRUE);
   gtk_misc_set_alignment (GTK_MISC (label76), 0.1, 0.5);
 
-  label77 = gtk_label_new (_("Radius @ X,Z=0"));
-  gtk_widget_show (label77);
-  gtk_table_attach (GTK_TABLE (table9), label77, 2, 3, 3, 4,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label77), 0.1, 0.5);
-
-  label78 = gtk_label_new (_("Rad. @ X,Z=HL"));
-  gtk_widget_show (label78);
-  gtk_table_attach (GTK_TABLE (table9), label78, 0, 1, 5, 6,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label78), 0.1, 0.5);
-
-  label79 = gtk_label_new (_("Rad. @ Y,Z=HL"));
-  gtk_widget_show (label79);
-  gtk_table_attach (GTK_TABLE (table9), label79, 1, 2, 5, 6,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label79), 0.1, 0.5);
-
-  label80 = gtk_label_new (_("Wire Diameter"));
-  gtk_widget_show (label80);
-  gtk_table_attach (GTK_TABLE (table9), label80, 2, 3, 5, 6,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label80), 0.1, 0.5);
-
   helix_tagnum_spinbutton_adj = gtk_adjustment_new (1, 1, 100000, 1, 10, 0);
   helix_tagnum_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_tagnum_spinbutton_adj), 0.00999999977648, 0);
   gtk_widget_show (helix_tagnum_spinbutton);
@@ -4977,38 +4952,6 @@ create_helix_editor (void)
                     (GtkAttachOptions) (0), 2, 4);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_len_spinbutton), TRUE);
 
-  helix_radxzo_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
-  helix_radxzo_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radxzo_spinbutton_adj), 0.00999999977648, 5);
-  gtk_widget_show (helix_radxzo_spinbutton);
-  gtk_table_attach (GTK_TABLE (table9), helix_radxzo_spinbutton, 2, 3, 4, 5,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 2, 4);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_radxzo_spinbutton), TRUE);
-
-  helix_dia_spinbutton_adj = gtk_adjustment_new (0.00300000002608, 9.99999974738e-06, 100, 9.99999974738e-06, 10, 0);
-  helix_dia_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_dia_spinbutton_adj), 0.00999999977648, 5);
-  gtk_widget_show (helix_dia_spinbutton);
-  gtk_table_attach (GTK_TABLE (table9), helix_dia_spinbutton, 2, 3, 6, 7,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 2, 4);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_dia_spinbutton), TRUE);
-
-  helix_radyzhl_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
-  helix_radyzhl_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radyzhl_spinbutton_adj), 0.00999999977648, 5);
-  gtk_widget_show (helix_radyzhl_spinbutton);
-  gtk_table_attach (GTK_TABLE (table9), helix_radyzhl_spinbutton, 1, 2, 6, 7,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 2, 4);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_radyzhl_spinbutton), TRUE);
-
-  helix_radxzhl_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
-  helix_radxzhl_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radxzhl_spinbutton_adj), 0.00999999977648, 5);
-  gtk_widget_show (helix_radxzhl_spinbutton);
-  gtk_table_attach (GTK_TABLE (table9), helix_radxzhl_spinbutton, 0, 1, 6, 7,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 2, 4);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_radxzhl_spinbutton), TRUE);
-
   label81 = gtk_label_new (_("Tag Number"));
   gtk_widget_show (label81);
   gtk_table_attach (GTK_TABLE (table9), label81, 0, 1, 1, 2,
@@ -5030,36 +4973,6 @@ create_helix_editor (void)
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label82), 0.1, 0.5);
-
-  label83 = gtk_label_new (_("Radius @ Y,Z=0"));
-  gtk_widget_show (label83);
-  gtk_table_attach (GTK_TABLE (table9), label83, 3, 4, 3, 4,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label83), 0.1, 0.5);
-
-  helix_radyzo_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
-  helix_radyzo_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radyzo_spinbutton_adj), 0.00999999977648, 5);
-  gtk_widget_show (helix_radyzo_spinbutton);
-  gtk_table_attach (GTK_TABLE (table9), helix_radyzo_spinbutton, 3, 4, 4, 5,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 2, 4);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_radyzo_spinbutton), TRUE);
-
-  label84 = gtk_label_new (_("Conductivity S/m"));
-  gtk_widget_show (label84);
-  gtk_table_attach (GTK_TABLE (table9), label84, 3, 4, 5, 6,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label84), 0.1, 0.5);
-
-  helix_res_spinbutton_adj = gtk_adjustment_new (0, 0, 1000000000, 9.99999974738e-06, 10, 0);
-  helix_res_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_res_spinbutton_adj), 0.00999999977648, 5);
-  gtk_widget_show (helix_res_spinbutton);
-  gtk_table_attach (GTK_TABLE (table9), helix_res_spinbutton, 3, 4, 6, 7,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 2, 4);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_res_spinbutton), TRUE);
 
   helix_linkzo_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, _("Link @ Z=0"));
   gtk_widget_show (helix_linkzo_radiobutton);
@@ -5095,6 +5008,96 @@ create_helix_editor (void)
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_container_set_border_width (GTK_CONTAINER (helix_lh_checkbutton), 2);
+
+  helix_dia_spinbutton_adj = gtk_adjustment_new (0.00300000002608, 9.99999974738e-06, 100, 9.99999974738e-06, 10, 0);
+  helix_dia_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_dia_spinbutton_adj), 0.00999999977648, 5);
+  gtk_widget_show (helix_dia_spinbutton);
+  gtk_table_attach (GTK_TABLE (table9), helix_dia_spinbutton, 2, 3, 4, 5,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 2, 4);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_dia_spinbutton), TRUE);
+
+  helix_res_spinbutton_adj = gtk_adjustment_new (0, 0, 1000000000, 9.99999974738e-06, 10, 0);
+  helix_res_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_res_spinbutton_adj), 0.00999999977648, 5);
+  gtk_widget_show (helix_res_spinbutton);
+  gtk_table_attach (GTK_TABLE (table9), helix_res_spinbutton, 3, 4, 4, 5,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 2, 4);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_res_spinbutton), TRUE);
+
+  label80 = gtk_label_new (_("Wire Diameter"));
+  gtk_widget_show (label80);
+  gtk_table_attach (GTK_TABLE (table9), label80, 2, 3, 3, 4,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label80), 0.1, 0.5);
+
+  label84 = gtk_label_new (_("Conductivity S/m"));
+  gtk_widget_show (label84);
+  gtk_table_attach (GTK_TABLE (table9), label84, 3, 4, 3, 4,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label84), 0.1, 0.5);
+
+  helix_radyzhl_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
+  helix_radyzhl_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radyzhl_spinbutton_adj), 0.00999999977648, 5);
+  gtk_widget_show (helix_radyzhl_spinbutton);
+  gtk_table_attach (GTK_TABLE (table9), helix_radyzhl_spinbutton, 3, 4, 6, 7,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 2, 4);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_radyzhl_spinbutton), TRUE);
+
+  label79 = gtk_label_new (_("Rad. @ Y,Z=HL"));
+  gtk_widget_show (label79);
+  gtk_table_attach (GTK_TABLE (table9), label79, 3, 4, 5, 6,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label79), 0.1, 0.5);
+
+  label83 = gtk_label_new (_("Radius @ Y,Z=0"));
+  gtk_widget_show (label83);
+  gtk_table_attach (GTK_TABLE (table9), label83, 1, 2, 5, 6,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label83), 0.1, 0.5);
+
+  helix_radyzo_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
+  helix_radyzo_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radyzo_spinbutton_adj), 0.00999999977648, 5);
+  gtk_widget_show (helix_radyzo_spinbutton);
+  gtk_table_attach (GTK_TABLE (table9), helix_radyzo_spinbutton, 1, 2, 6, 7,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 2, 4);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_radyzo_spinbutton), TRUE);
+
+  label78 = gtk_label_new (_("Rad. @ X,Z=HL"));
+  gtk_widget_show (label78);
+  gtk_table_attach (GTK_TABLE (table9), label78, 2, 3, 5, 6,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label78), 0.1, 0.5);
+
+  helix_radxzhl_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
+  helix_radxzhl_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radxzhl_spinbutton_adj), 0.00999999977648, 5);
+  gtk_widget_show (helix_radxzhl_spinbutton);
+  gtk_table_attach (GTK_TABLE (table9), helix_radxzhl_spinbutton, 2, 3, 6, 7,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 2, 4);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_radxzhl_spinbutton), TRUE);
+
+  label77 = gtk_label_new (_("Radius @ X,Z=0"));
+  gtk_widget_show (label77);
+  gtk_table_attach (GTK_TABLE (table9), label77, 0, 1, 5, 6,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label77), 0.1, 0.5);
+
+  helix_radxzo_spinbutton_adj = gtk_adjustment_new (1, 9.99999974738e-06, 10000, 9.99999974738e-06, 10, 0);
+  helix_radxzo_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (helix_radxzo_spinbutton_adj), 0.00999999977648, 5);
+  gtk_widget_show (helix_radxzo_spinbutton);
+  gtk_table_attach (GTK_TABLE (table9), helix_radxzo_spinbutton, 0, 1, 6, 7,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 2, 4);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (helix_radxzo_spinbutton), TRUE);
 
   label85 = gtk_label_new (_("GH Card"));
   gtk_widget_show (label85);
@@ -5163,26 +5166,8 @@ create_helix_editor (void)
   g_signal_connect ((gpointer) helix_len_spinbutton, "value_changed",
                     G_CALLBACK (on_helix_data_spinbutton_value_changed),
                     NULL);
-  g_signal_connect ((gpointer) helix_radxzo_spinbutton, "value_changed",
-                    G_CALLBACK (on_helix_data_spinbutton_value_changed),
-                    NULL);
-  g_signal_connect ((gpointer) helix_dia_spinbutton, "value_changed",
-                    G_CALLBACK (on_helix_data_spinbutton_value_changed),
-                    NULL);
-  g_signal_connect ((gpointer) helix_radyzhl_spinbutton, "value_changed",
-                    G_CALLBACK (on_helix_data_spinbutton_value_changed),
-                    NULL);
-  g_signal_connect ((gpointer) helix_radxzhl_spinbutton, "value_changed",
-                    G_CALLBACK (on_helix_data_spinbutton_value_changed),
-                    NULL);
   g_signal_connect ((gpointer) helix_nturns_spinbutton, "value_changed",
                     G_CALLBACK (on_helix_nturns_spinbutton_value_changed),
-                    NULL);
-  g_signal_connect ((gpointer) helix_radyzo_spinbutton, "value_changed",
-                    G_CALLBACK (on_helix_data_spinbutton_value_changed),
-                    NULL);
-  g_signal_connect ((gpointer) helix_res_spinbutton, "value_changed",
-                    G_CALLBACK (on_helix_res_spinbutton_value_changed),
                     NULL);
   g_signal_connect ((gpointer) helix_linkzo_radiobutton, "toggled",
                     G_CALLBACK (on_helix_linkzo_radiobutton_toggled),
@@ -5195,6 +5180,24 @@ create_helix_editor (void)
                     NULL);
   g_signal_connect ((gpointer) helix_lh_checkbutton, "toggled",
                     G_CALLBACK (on_helix_lh_checkbutton_toggled),
+                    NULL);
+  g_signal_connect ((gpointer) helix_dia_spinbutton, "value_changed",
+                    G_CALLBACK (on_helix_data_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) helix_res_spinbutton, "value_changed",
+                    G_CALLBACK (on_helix_res_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) helix_radyzhl_spinbutton, "value_changed",
+                    G_CALLBACK (on_helix_data_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) helix_radyzo_spinbutton, "value_changed",
+                    G_CALLBACK (on_helix_data_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) helix_radxzhl_spinbutton, "value_changed",
+                    G_CALLBACK (on_helix_data_spinbutton_value_changed),
+                    NULL);
+  g_signal_connect ((gpointer) helix_radxzo_spinbutton, "value_changed",
+                    G_CALLBACK (on_helix_data_spinbutton_value_changed),
                     NULL);
   g_signal_connect ((gpointer) helix_new_button, "clicked",
                     G_CALLBACK (on_helix_new_button_clicked),
@@ -5218,30 +5221,30 @@ create_helix_editor (void)
   GLADE_HOOKUP_OBJECT (helix_editor, label73, "label73");
   GLADE_HOOKUP_OBJECT (helix_editor, label75, "label75");
   GLADE_HOOKUP_OBJECT (helix_editor, label76, "label76");
-  GLADE_HOOKUP_OBJECT (helix_editor, label77, "label77");
-  GLADE_HOOKUP_OBJECT (helix_editor, label78, "label78");
-  GLADE_HOOKUP_OBJECT (helix_editor, label79, "label79");
-  GLADE_HOOKUP_OBJECT (helix_editor, label80, "label80");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_tagnum_spinbutton, "helix_tagnum_spinbutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_numseg_spinbutton, "helix_numseg_spinbutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_pcl_spinbutton, "helix_pcl_spinbutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_tspace_spinbutton, "helix_tspace_spinbutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_len_spinbutton, "helix_len_spinbutton");
-  GLADE_HOOKUP_OBJECT (helix_editor, helix_radxzo_spinbutton, "helix_radxzo_spinbutton");
-  GLADE_HOOKUP_OBJECT (helix_editor, helix_dia_spinbutton, "helix_dia_spinbutton");
-  GLADE_HOOKUP_OBJECT (helix_editor, helix_radyzhl_spinbutton, "helix_radyzhl_spinbutton");
-  GLADE_HOOKUP_OBJECT (helix_editor, helix_radxzhl_spinbutton, "helix_radxzhl_spinbutton");
   GLADE_HOOKUP_OBJECT (helix_editor, label81, "label81");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_nturns_spinbutton, "helix_nturns_spinbutton");
   GLADE_HOOKUP_OBJECT (helix_editor, label82, "label82");
-  GLADE_HOOKUP_OBJECT (helix_editor, label83, "label83");
-  GLADE_HOOKUP_OBJECT (helix_editor, helix_radyzo_spinbutton, "helix_radyzo_spinbutton");
-  GLADE_HOOKUP_OBJECT (helix_editor, label84, "label84");
-  GLADE_HOOKUP_OBJECT (helix_editor, helix_res_spinbutton, "helix_res_spinbutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_linkzo_radiobutton, "helix_linkzo_radiobutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_linkzhl_radiobutton, "helix_linkzhl_radiobutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_linkall_radiobutton, "helix_linkall_radiobutton");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_lh_checkbutton, "helix_lh_checkbutton");
+  GLADE_HOOKUP_OBJECT (helix_editor, helix_dia_spinbutton, "helix_dia_spinbutton");
+  GLADE_HOOKUP_OBJECT (helix_editor, helix_res_spinbutton, "helix_res_spinbutton");
+  GLADE_HOOKUP_OBJECT (helix_editor, label80, "label80");
+  GLADE_HOOKUP_OBJECT (helix_editor, label84, "label84");
+  GLADE_HOOKUP_OBJECT (helix_editor, helix_radyzhl_spinbutton, "helix_radyzhl_spinbutton");
+  GLADE_HOOKUP_OBJECT (helix_editor, label79, "label79");
+  GLADE_HOOKUP_OBJECT (helix_editor, label83, "label83");
+  GLADE_HOOKUP_OBJECT (helix_editor, helix_radyzo_spinbutton, "helix_radyzo_spinbutton");
+  GLADE_HOOKUP_OBJECT (helix_editor, label78, "label78");
+  GLADE_HOOKUP_OBJECT (helix_editor, helix_radxzhl_spinbutton, "helix_radxzhl_spinbutton");
+  GLADE_HOOKUP_OBJECT (helix_editor, label77, "label77");
+  GLADE_HOOKUP_OBJECT (helix_editor, helix_radxzo_spinbutton, "helix_radxzo_spinbutton");
   GLADE_HOOKUP_OBJECT (helix_editor, label85, "label85");
   GLADE_HOOKUP_OBJECT (helix_editor, hbox26, "hbox26");
   GLADE_HOOKUP_OBJECT (helix_editor, helix_new_button, "helix_new_button");

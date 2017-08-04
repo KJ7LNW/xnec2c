@@ -328,7 +328,7 @@ Close_Windows( void )
 
 /* Open_Editor()
  *
- * Pops up a Editor window on user
+ * Pops up an Editor window on user
  * right-click on a NEC2 Editor treeview
  */
   gboolean
@@ -347,7 +347,7 @@ Open_Editor( GtkTreeView *view )
 
   /* Get the "card" name from first column */
   gtk_tree_model_get( model, &iter, 0, &card, -1);
-  size_t s = strlen( card );
+  size_t s = strlen( card ) + 1;
 
   /* Some "cards" have common editors */
   if( strcmp(card, "GC") == 0 )

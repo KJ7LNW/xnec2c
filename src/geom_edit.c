@@ -96,8 +96,17 @@ Wire_Editor( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, wire_editor) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( wire_editor );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	/* Clear data not used in GC card */
 	iv[SPIN_COL_I3] = iv[SPIN_COL_I4] = 0;
@@ -496,45 +505,36 @@ Patch_Editor( int action )
 
   static gboolean
 	save  = FALSE,	/* Enable saving of editor data */
-		  busy  = FALSE,	/* Block callbacks. Must be a better way to do this? */
-		  ptset = FALSE;	/* Set patch type radio buttons */
+	busy  = FALSE,	/* Block callbacks. Must be a better way to do this? */
+	ptset = FALSE;	/* Set patch type radio buttons */
 
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, patch_editor) ) return;
 
-  /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
   {
-	/* Clear data not used in SC card */
-	iv[SPIN_COL_I3]  = iv[SPIN_COL_I4]  = 0;
-	fv[UNUSED_F1] = fv[UNUSED_F2] = 0.0;
-
-	/* Set SP data to treeview */
-	Set_Geometry_Data( geom_store, &iter_sp, iv, fv );
-
-	/* Set SC card data to treeview if non arbitrary */
-	if( ptype != PATCH_ARBT )
-	  Set_Geometry_Data(geom_store,
-		  &iter_sc, &iv[SPIN_COL_I3], &fv[PATCH_X3]);
-
-	save = FALSE;
-  } /* if( (action & EDITOR_SAVE) && save ) */
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( patch_editor );
+	return;
+  }
 
   /* Set int data from the patch editor (SP card) */
   if( ptype != PATCH_SURF )
   {
-	iv[SPIN_COL_I1] = 0; 	  /* Not used in SP */
+	iv[SPIN_COL_I1] = 0; 	 /* Not used in SP */
 	iv[SPIN_COL_I2] = ptype; /* Patch type */
   }
-  /* Read int data from the patch editor (SM card) */
-  else for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
-  {
-	spin = GTK_SPIN_BUTTON(
-		lookup_widget(patch_editor, ispin[idi]) );
-	double i = gtk_spin_button_get_value( spin );
-	iv[idi] = (gint)i;
-  }
+  else /* Set int data from the patch editor (SM card) */
+	for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
+	{
+	  spin = GTK_SPIN_BUTTON(
+		  lookup_widget(patch_editor, ispin[idi]) );
+	  double i = gtk_spin_button_get_value( spin );
+	  iv[idi] = (gint)i;
+	}
 
   /* Read float data from the patch editor */
   for( idx = PATCH_X1; idx <= PATCH_Z2; idx++ )
@@ -549,6 +549,24 @@ Patch_Editor( int action )
 		lookup_widget(patch_editor, fspin[idx-1]) );
 	fv[idx] = gtk_spin_button_get_value( spin );
   }
+
+  /* Save data to nec2 editor if appropriate */
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
+  {
+	/* Clear data not used in SC card */
+	iv[SPIN_COL_I3] = iv[SPIN_COL_I4] = 0;
+	fv[UNUSED_F1]   = fv[UNUSED_F2]   = 0.0;
+
+	/* Set SP data to treeview */
+	Set_Geometry_Data( geom_store, &iter_sp, iv, fv );
+
+	/* Set SC card data to treeview if non arbitrary */
+	if( ptype != PATCH_ARBT )
+	  Set_Geometry_Data(geom_store,
+		  &iter_sc, &iv[SPIN_COL_I3], &fv[PATCH_X3]);
+
+	save = FALSE;
+  } /* if( (action & EDITOR_SAVE) && save ) */
 
   /* Respond to user action */
   switch( action )
@@ -611,46 +629,46 @@ Patch_Editor( int action )
 		  else stop( _("No SP or SM card before SC card"), ERR_OK );
 		}
 	  } /* if( strcmp(name, "SC") == 0 ) */
-	  /*** Editing an SP|SM card ***/
-	  else if( strcmp(name, "SP") == 0 )
-	  {
-		/* Get patch data from treeview */
-		Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
-		ptype = iv[SPIN_COL_I2];
-
-		/*** Get SC card data if patch type non-arbitrary ***/
-		if( ptype != PATCH_ARBT )
+	  else /*** Editing an SP|SM card ***/
+		if( strcmp(name, "SP") == 0 )
 		{
+		  /* Get patch data from treeview */
+		  Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
+		  ptype = iv[SPIN_COL_I2];
+
+		  /*** Get SC card data if patch type non-arbitrary ***/
+		  if( ptype != PATCH_ARBT )
+		  {
+			/* If next card is SC, get data */
+			if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
+			  Get_Geometry_Data( geom_store, &iter_sc,
+				  &iv[SPIN_COL_I3], &fv[PATCH_X3] );
+			else
+			{
+			  ptype = PATCH_ARBT;
+			  stop( _("No SC card after an SP card\n"\
+					"with non-arbitrary patch type"), ERR_OK );
+			}
+
+		  } /* if( ptype != PATCH_ARBT ) */
+		  /* If patch type arbitrary, no SC card should follow */
+		  else if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
+			stop( _("SC card follows an SP card\n"\
+				  "with arbitrary patch type"), ERR_OK );
+		} /* if( strcmp(name, "SP") == 0 ) */
+		else /* SM card */
+		{
+		  /* Get patch data from treeview */
+		  Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
+		  ptype = PATCH_SURF;
+
 		  /* If next card is SC, get data */
 		  if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
 			Get_Geometry_Data( geom_store, &iter_sc,
 				&iv[SPIN_COL_I3], &fv[PATCH_X3] );
-		  else
-		  {
-			ptype = PATCH_ARBT;
-			stop( _("No SC card after an SP card\n"\
-				  "with non-arbitrary patch type"), ERR_OK );
-		  }
+		  else stop( _("No SC card after an SM card"), ERR_OK );
 
-		} /* if( ptype != PATCH_ARBT ) */
-		/* If patch type arbitrary, no SC card should follow */
-		else if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
-		  stop( _("SC card follows an SP card\n"\
-				"with arbitrary patch type"), ERR_OK );
-	  } /* if( strcmp(name, "SP") == 0 ) */
-	  else /* SM card */
-	  {
-		/* Get patch data from treeview */
-		Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
-		ptype = PATCH_SURF;
-
-		/* If next card is SC, get data */
-		if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
-		  Get_Geometry_Data( geom_store, &iter_sc,
-			  &iv[SPIN_COL_I3], &fv[PATCH_X3] );
-		else stop( _("No SC card after an SM card"), ERR_OK );
-
-	  } /* if( strcmp(name, "SP") == 0 ) */
+		} /* if( strcmp(name, "SP") == 0 ) */
 
 	  ptset = TRUE;
 	  break;
@@ -880,8 +898,17 @@ Arc_Editor( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, arc_editor) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( arc_editor );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Geometry_Data( geom_store, &iter_ga, iv, fv );
 
@@ -980,9 +1007,9 @@ Arc_Editor( int action )
 	  if( calc_data.mxfrq != 0.0 )
 	  {
 		gdouble len = fv[ARC_RAD] *
-		  (gdouble)fabs( fv[ARC_END1]-fv[ARC_END2] )/(gdouble)TD;
-		double i = ceil(100.0 / fv[ARC_PCL] *
-			len /((gdouble)CVEL/(gdouble)calc_data.mxfrq));
+		  (gdouble)fabs( fv[ARC_END1] - fv[ARC_END2] ) * (gdouble)TORAD;
+		double i = ceil( 100.0 / fv[ARC_PCL] *
+			len / ((gdouble)CVEL / (gdouble)calc_data.mxfrq) );
 		iv[SPIN_COL_I2] = (gint)i;
 	  }
 	  newpcl = FALSE;
@@ -994,9 +1021,9 @@ Arc_Editor( int action )
   if( (calc_data.mxfrq != 0.0) && newpcl )
   {
 	gdouble len = fv[ARC_RAD] *
-	  (gdouble)fabs( fv[ARC_END1]-fv[ARC_END2] )/(gdouble)TD;
+	  (gdouble)fabs( fv[ARC_END1] - fv[ARC_END2] ) * (gdouble)TORAD;
 	fv[ARC_PCL] = 100.0 * (len/(gdouble)iv[SPIN_COL_I2]) /
-	  ((gdouble)CVEL/(gdouble)calc_data.mxfrq);
+	  ((gdouble)CVEL / (gdouble)calc_data.mxfrq);
   }
   else newpcl = TRUE;
 
@@ -1044,25 +1071,25 @@ Helix_Editor( int action )
   /* For reading/writing to GH rows */
   static GtkTreeIter iter_gh;
 
-  gint idx, idi;
+  gint idx;
   gdouble ftmp;
 
   static gboolean
-			load    = FALSE, /* Enable wire loading (conductivity specified) */
-			linkall = TRUE,  /* Link all radius spinbuttons  */
-			linkzo  = FALSE, /* Link X, Y @ Z=0 spinbuttons  */
-			linkzhl = FALSE, /* Link X, Y @ Z=HL spinbuttons */
-			helixlh = FALSE, /* Specify a left hand helix */
-			newpcl  = TRUE,  /* New percent-of-lambda value  */
-			newspc  = TRUE,  /* New percent-of-lambda value  */
-			save    = FALSE, /* Enable saving of editor data */
-			busy    = FALSE; /* Block callbacks. Must be a better way to do this? */
+	load    = FALSE, /* Enable wire loading (conductivity specified) */
+	linkall = TRUE,  /* Link all radius spinbuttons  */
+	linkzo  = FALSE, /* Link X, Y @ Z=0 spinbuttons  */
+	linkzhl = FALSE, /* Link X, Y @ Z=HL spinbuttons */
+	helixlh = FALSE, /* Specify a left hand helix */
+	newpcl  = TRUE,  /* New percent-of-lambda value  */
+	newspc  = TRUE,  /* New percent-of-lambda value  */
+	save    = FALSE, /* Enable saving of editor data */
+	busy    = FALSE; /* Block callbacks. Must be a better way to do this? */
 
   /* Float type data, wire conductivity */
-  static gdouble fv[10], s = 0.0;
+  static gdouble fv[10], s = 0.0, helix_len = HELIX_LENGTH;
 
   /* Integer type data */
-  static gint iv[2];
+  static gint iv[2], seg_turn = HELIX_SEG_TURN;
 
   /* Card (row) name */
   gchar name[3];
@@ -1092,39 +1119,44 @@ Helix_Editor( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, helix_editor) ) return;
 
-  /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( helix_editor );
+	return;
+  }
+
+  /*** Save data to nec2 editor if appropriate ***/
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	/* Change seg/turn to total number of segs */
-	gint tmp = iv[SPIN_COL_I2];
-	double i = ceil( (gdouble)iv[SPIN_COL_I2] * fv[HELIX_NTURN] );
-	iv[SPIN_COL_I2] = (gint)i;
+	double n = ceil( (gdouble)seg_turn * fv[HELIX_NTURN] );
+	iv[SPIN_COL_I2] = (gint)n;
 
 	/* Change to left hand helix */
-	if( helixlh )
-	  fv[HELIX_LEN] = -fv[HELIX_LEN];
+	if( helixlh ) fv[HELIX_LEN] = -helix_len;
+	else fv[HELIX_LEN] = helix_len;
 
+	/* Save data to NEC2 editor treeview */
 	Set_Geometry_Data( geom_store, &iter_gh, iv, fv );
 
-	/* Change back */
-	iv[SPIN_COL_I2] = tmp;
-	fv[HELIX_LEN] = fabs( fv[HELIX_LEN] );
-
 	/* Set wire conductivity (loading card) */
-	if( load )
-	  Set_Wire_Conductivity( iv[SPIN_COL_I1], s, cmnd_store );
+	if( load ) Set_Wire_Conductivity( iv[SPIN_COL_I1], s, cmnd_store );
 
 	save = load = FALSE;
   } /* if( (action & EDITOR_SAVE) && save ) */
 
-  /* Read int data from the helix editor */
-  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
-  {
-	spin = GTK_SPIN_BUTTON(
-		lookup_widget(helix_editor, ispin[idi]) );
-	iv[idi] = gtk_spin_button_get_value_as_int( spin );
-  }
-  /* Read float data from the helix editor */
+  /*** Read int data from the helix editor ***/
+  spin = GTK_SPIN_BUTTON( lookup_widget(
+		helix_editor, ispin[SPIN_COL_I1]) );
+  iv[SPIN_COL_I1] = gtk_spin_button_get_value_as_int( spin );
+  spin = GTK_SPIN_BUTTON( lookup_widget(
+		helix_editor, ispin[SPIN_COL_I2]) );
+  seg_turn = gtk_spin_button_get_value_as_int( spin );
+
+  /*** Read float data from the helix editor ***/
   for( idx = HELIX_TSPACE; idx <= HELIX_RES; idx++ )
   {
 	spin = GTK_SPIN_BUTTON(
@@ -1132,6 +1164,7 @@ Helix_Editor( int action )
 	fv[idx] = gtk_spin_button_get_value( spin );
   }
   fv[HELIX_DIA] /= 2.0;
+  helix_len = fv[SPIN_COL_F2];
 
   /* Link all radius spinbuttons to X @ Z=0 */
   if( linkall )
@@ -1145,7 +1178,7 @@ Helix_Editor( int action )
   if( linkzhl )
 	fv[HELIX_RYZHL] = fv[HELIX_RXZHL];
 
-  /* Respond to user action */
+  /*** Respond to user action ***/
   switch( action )
   {
 	case EDITOR_NEW: /* New helix row to create */
@@ -1179,7 +1212,7 @@ Helix_Editor( int action )
 	  Get_Wire_Conductivity(iv[SPIN_COL_I1], &s, cmnd_store);
 	  fv[HELIX_RES] = s;
 
-	  /* Set LH/RH helix check button */
+	  /* Set LH/RH helix check button  */
 	  {
 		GtkToggleButton *toggle =
 		  GTK_TOGGLE_BUTTON( lookup_widget(
@@ -1190,13 +1223,14 @@ Helix_Editor( int action )
 		  gtk_toggle_button_set_active( toggle, FALSE );
 	  }
 
-	  /* If left hand helix */
-	  fv[HELIX_LEN] = fabs( fv[HELIX_LEN] );
+	  /* For left hand helix length is -ve */
+	  helix_len = fabs( fv[HELIX_LEN] );
+	  if( fv[HELIX_LEN] < 0.0 ) helixlh = TRUE;
+	  else helixlh = FALSE;
 
 	  /* Change to number of segs/turn */
-	  fv[HELIX_NTURN] = fv[HELIX_LEN] / fv[HELIX_TSPACE];
-	  iv[SPIN_COL_I2] =
-		(gint)((gdouble)iv[SPIN_COL_I2] / fv[HELIX_NTURN]);
+	  fv[HELIX_NTURN] = helix_len / fv[HELIX_TSPACE];
+	  seg_turn = (gint)((gdouble)iv[SPIN_COL_I2] / fv[HELIX_NTURN]);
 	  break;
 
 	case EDITOR_CANCEL: /* Cancel helix editor */
@@ -1253,7 +1287,7 @@ Helix_Editor( int action )
 	  break;
 
 	case HELIX_EDITOR_NTURN: /* New number of turns */
-	  fv[HELIX_TSPACE] = fv[HELIX_LEN] / fv[HELIX_NTURN];
+	  fv[HELIX_TSPACE] = helix_len / fv[HELIX_NTURN];
 	  newspc = FALSE;
 	  save = TRUE;
 	  break;
@@ -1265,15 +1299,15 @@ Helix_Editor( int action )
 		gdouble len, f;
 
 		/* Pitch angle of helix, assumes untapered helix */
-		f = asin( fv[HELIX_TSPACE] / (gdouble)TP / fv[HELIX_RXZO] );
+		f = atan( fv[HELIX_TSPACE] / (gdouble)TWOPI / fv[HELIX_RXZO] );
 
 		/* Helix turn length */
-		len = (gdouble)TP * fv[HELIX_RXZO] / (gdouble)cos( f );
+		len = (gdouble)TWOPI * fv[HELIX_RXZO] / (gdouble)cos( f );
 
 		/* New number of segments */
-		double i = ceil(100.0 / fv[HELIX_PCL]*len /
+		double n = ceil(100.0 / fv[HELIX_PCL] * len /
 			((gdouble)CVEL / (gdouble)calc_data.mxfrq) );
-		iv[SPIN_COL_I2] = (gint)i;
+		seg_turn = (gint)n;
 	  }
 	  newpcl = FALSE;
 	  save = TRUE;
@@ -1286,33 +1320,34 @@ Helix_Editor( int action )
 	gdouble len, f;
 
 	/* Pitch angle of helix, assumes untapered helix */
-	f = asin( fv[HELIX_TSPACE]/(gdouble)TP/fv[HELIX_RXZO] );
+	f = atan( fv[HELIX_TSPACE]/(gdouble)TWOPI/fv[HELIX_RXZO] );
 
 	/* Helix turn length */
-	len = (gdouble)TP * fv[HELIX_RXZO] / (gdouble)cos( f );
+	len = (gdouble)TWOPI * fv[HELIX_RXZO] / (gdouble)cos( f );
 
-	fv[HELIX_PCL] = 100.0 * (len/(gdouble)iv[SPIN_COL_I2]) /
+	fv[HELIX_PCL] = 100.0 * (len / (gdouble)seg_turn) /
 	  ((gdouble)CVEL / (gdouble)calc_data.mxfrq);
   }
   else newpcl = TRUE;
 
   /* Calculate new turn spacing */
   if( newspc )
-	fv[HELIX_NTURN] = fv[HELIX_LEN] / fv[HELIX_TSPACE];
+	fv[HELIX_NTURN] = helix_len / fv[HELIX_TSPACE];
   else
 	newspc = TRUE;
 
   /* Write int data to the helix editor */
-  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
-  {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  helix_editor, ispin[idi]) );
-	gtk_spin_button_set_value( spin, iv[idi] );
-  }
+  spin = GTK_SPIN_BUTTON( lookup_widget(
+		helix_editor, ispin[SPIN_COL_I1]) );
+  gtk_spin_button_set_value( spin, iv[SPIN_COL_I1] );
+  spin = GTK_SPIN_BUTTON( lookup_widget(
+		helix_editor, ispin[SPIN_COL_I2]) );
+  gtk_spin_button_set_value( spin, seg_turn );
 
   /* Write float data to the helix editor */
   ftmp = fv[HELIX_DIA];
   fv[HELIX_DIA] *= 2.0;
+  fv[HELIX_LEN] = helix_len;
   for( idx = HELIX_TSPACE; idx <= HELIX_RES; idx++ )
   {
 	spin = GTK_SPIN_BUTTON( lookup_widget(
@@ -1367,8 +1402,17 @@ Reflect_Editor( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, reflect_editor) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( reflect_editor );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Geometry_Int_Data( geom_store, &iter_gx, iv );
 	save = FALSE;
@@ -1500,8 +1544,17 @@ Scale_Editor( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, scale_editor) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( scale_editor );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	/* Clear all GS columns */
 	for( idx = GEOM_COL_I1; idx <= GEOM_COL_F7; idx++ )
@@ -1631,14 +1684,23 @@ Cylinder_Editor( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, cylinder_editor) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( cylinder_editor );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Geometry_Int_Data( geom_store, &iter_gr, iv );
 	save = FALSE;
@@ -1757,8 +1819,17 @@ Transform_Editor( int action )
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, transform_editor) ) return;
 
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( transform_editor );
+	return;
+  }
+
   /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save )
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Geometry_Data( geom_store, &iter_gm, iv, fv );
 	save = FALSE;
@@ -1871,19 +1942,30 @@ Gend_Editor( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, gend_editor) ) return;
 
-  /* Save data to nec2 editor if appropriate */
-  if( (action & EDITOR_SAVE) && save &&
-	  gtk_list_store_iter_is_valid(geom_store, &iter_ge))
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
   {
-	gtk_list_store_set(
-		geom_store, &iter_ge, GEOM_COL_I1, si, -1 );
-	save = FALSE;
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( gend_editor );
+	return;
+  }
+
+  /* Save data to nec2 editor if appropriate */
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
+  {
+	if( gtk_list_store_iter_is_valid(geom_store, &iter_ge) )
+	{
+	  gtk_list_store_set(
+		  geom_store, &iter_ge, GEOM_COL_I1, si, -1 );
+	  save = FALSE;
+	}
   } /* if( (action & EDITOR_SAVE) && save ) */
 
   /* Respond to user action */
@@ -2051,7 +2133,7 @@ Set_Geometry_Data(
   gint idi, idf;
 
   /* Format and set editor data to treeview (I1, I2 & F1-F7) */
-  if( gtk_list_store_iter_is_valid(store, iter) )
+  if( iter && gtk_list_store_iter_is_valid(store, iter) )
   {
 	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
 	{

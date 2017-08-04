@@ -856,7 +856,7 @@ void etmns( double p1, double p2, double p3, double p4,
 	  {
 		for( i = 0; i < data.n; i++ )
 		{
-		  arg= -TP*( wx* data.x[i]+ wy* data.y[i]+ wz* data.z[i]);
+		  arg= -TWOPI*( wx* data.x[i]+ wy* data.y[i]+ wz* data.z[i]);
 		  e[i]=-( pxl* data.cab[i]+ pyl* data.sab[i]+ pzl*
 			  data.salp[i])* cmplx( cos( arg), sin( arg));
 		}
@@ -870,7 +870,7 @@ void etmns( double p1, double p2, double p3, double p4,
 
 		  for( i = 0; i < data.n; i++ )
 		  {
-			arg= -TP*( wx* data.x[i]+ wy* data.y[i]- wz* data.z[i]);
+			arg= -TWOPI*( wx* data.x[i]+ wy* data.y[i]- wz* data.z[i]);
 			e[i]= e[i]-( cx* data.cab[i]+ cy* data.sab[i]+
 				cz* data.salp[i])* cmplx(cos( arg), sin( arg));
 		  }
@@ -889,7 +889,7 @@ void etmns( double p1, double p2, double p3, double p4,
 		i++;
 		i1 += 2;
 		i2 = i1+1;
-		arg= -TP*( wx* data.px[i] +
+		arg= -TWOPI*( wx* data.px[i] +
 			wy* data.py[i]+ wz* data.pz[i]);
 		tt1= cmplx( cos( arg), sin( arg)) *
 		  data.psalp[i]* RETA;
@@ -914,7 +914,7 @@ void etmns( double p1, double p2, double p3, double p4,
 		i++;
 		i1 += 2;
 		i2 = i1+1;
-		arg= -TP*( wx* data.px[i] +
+		arg= -TWOPI*( wx* data.px[i] +
 			wy* data.py[i]- wz* data.pz[i]);
 		tt1= cmplx( cos( arg), sin( arg)) *
 		  data.psalp[i]* RETA;
@@ -940,7 +940,7 @@ void etmns( double p1, double p2, double p3, double p4,
 
 	  for( i = 0; i < data.n; i++ )
 	  {
-		arg= -TP*( wx* data.x[i]+ wy* data.y[i] + wz* data.z[i]);
+		arg= -TWOPI*( wx* data.x[i]+ wy* data.y[i] + wz* data.z[i]);
 		e[i]=-( cx* data.cab[i]+ cy* data.sab[i] +
 			cz * data.salp[i])* cmplx( cos( arg), sin( arg));
 	  }
@@ -954,7 +954,7 @@ void etmns( double p1, double p2, double p3, double p4,
 
 		for( i = 0; i < data.n; i++ )
 		{
-		  arg= -TP*( wx* data.x[i]+ wy* data.y[i]- wz* data.z[i]);
+		  arg= -TWOPI*( wx* data.x[i]+ wy* data.y[i]- wz* data.z[i]);
 		  e[i]= e[i]-( cx* data.cab[i]+ cy* data.sab[i]+
 			  cz* data.salp[i])* cmplx(cos( arg), sin( arg));
 		}
@@ -977,7 +977,7 @@ void etmns( double p1, double p2, double p3, double p4,
 	  i++;
 	  i1 += 2;
 	  i2 = i1+1;
-	  arg= -TP*( wx* data.px[i] +
+	  arg= -TWOPI*( wx* data.px[i] +
 		  wy* data.py[i]+ wz* data.pz[i]);
 	  tt2= cmplx( cos( arg),
 		  sin( arg)) * data.psalp[i] * RETA;
@@ -1002,7 +1002,7 @@ void etmns( double p1, double p2, double p3, double p4,
 	  i++;
 	  i1 += 2;
 	  i2 = i1+1;
-	  arg= -TP*( wx* data.px[i] +
+	  arg= -TWOPI*( wx* data.px[i] +
 		  wy* data.py[i]- wz* data.pz[i]);
 	  tt1= cmplx( cos( arg), sin( arg)) *
 		data.psalp[i]* RETA;
@@ -1022,7 +1022,7 @@ void etmns( double p1, double p2, double p3, double p4,
   wy= wz* sin( p5);
   wz= sin( p4);
   ds= p6*59.9580;
-  dsh= p6/(2.0* TP);
+  dsh= p6/(2.0* TWOPI);
 
   is= 0;
   i1= data.n-2;
@@ -1072,14 +1072,14 @@ void etmns( double p1, double p2, double p3, double p4,
 
 	} /* if( arg >= 1.0e-30) */
 
-	arg= -TP* r;
+	arg= -TWOPI* r;
 	tt1= cmplx( cos( arg), sin( arg));
 
 	if( i < data.n )
 	{
-	  tt2= cmplx(1.0,-1.0/( r* TP))/ rs;
+	  tt2= cmplx(1.0,-1.0/( r* TWOPI))/ rs;
 	  er= ds* tt1* tt2* cth;
-	  et=.5* ds* tt1*((CPLX_01)* TP/ r+ tt2)* sth;
+	  et=.5* ds* tt1*((CPLX_01)* TWOPI/ r+ tt2)* sth;
 	  ezh= er* cth- et* sth;
 	  erh= er* sth+ et* cth;
 	  cx= ezh* wx+ erh* qx;
@@ -1093,7 +1093,7 @@ void etmns( double p1, double p2, double p3, double p4,
 	  pxl= wy* qz- wz* qy;
 	  pyl= wz* qx- wx* qz;
 	  pzl= wx* qy- wy* qx;
-	  tt2= dsh* tt1* cmplx(1.0/ r, TP) /
+	  tt2= dsh* tt1* cmplx(1.0/ r, TWOPI) /
 		r* sth* data.psalp[is];
 	  cx= tt2* pxl;
 	  cy= tt2* pyl;
@@ -1267,7 +1267,7 @@ fblock( int nrow, int ncol, int imax, int ipsym )
   /* set up smat.ssx matrix for rotational symmetry. */
   if( ipsym <= 0)
   {
-	phaz = TP/smat.nop;
+	phaz = TWOPI/smat.nop;
 
 	for( i = 1; i < smat.nop; i++ )
 	{

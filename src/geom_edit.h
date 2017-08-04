@@ -24,5 +24,9 @@
 #include "support.h"
 #include "editors.h"
 
+/* Default values for helix editor */
+#define	HELIX_SEG_TURN	8
+#define HELIX_LENGTH	5.0
+
 #endif
 

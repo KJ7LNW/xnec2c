@@ -243,7 +243,7 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 		}
 		else
 		{
-		  y22r= TP* netcx.x11i[j]/ data.wlam;
+		  y22r= TWOPI* netcx.x11i[j]/ data.wlam;
 		  y12r=0.0;
 		  y12i=1.0/( netcx.x11r[j]* sin( y22r));
 		  y11r= netcx.x12r[j];
@@ -574,7 +574,7 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 	  cux= cmplx( crnt.air[isc1], crnt.aii[isc1]);
 	  ymit= cmplx( crnt.bir[isc1], crnt.bii[isc1]);
 	  netcx.zped= cmplx( crnt.cir[isc1], crnt.cii[isc1]);
-	  pwr= data.si[isc1]* TP*.5;
+	  pwr= data.si[isc1]* TWOPI*.5;
 	  cux=( cux- ymit* sin( pwr) +
 		  netcx.zped* cos( pwr))* data.wlam;
 	  netcx.zped= vlt/ cux;

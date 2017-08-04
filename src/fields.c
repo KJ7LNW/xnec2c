@@ -113,11 +113,11 @@ void efld( double xi, double yi,
 	r= sqrt( zp* zp+ rh* rh);
 	if( r >= dataj.rkh)
 	{
-	  rmag= TP* r;
+	  rmag= TWOPI* r;
 	  cth= zp/ r;
 	  px= rh/ r;
 	  txk= cmplx( cos( rmag),- sin( rmag));
-	  py= TP* r* r;
+	  py= TWOPI* r* r;
 	  tyk= ETA* cth* txk* cmplx(1.0,-1.0/ rmag)/ py;
 	  tzk= ETA* px* txk* cmplx(1.0, rmag-1.0/ rmag)/(2.0* py);
 	  tezk= tyk* cth- tzk* px;
@@ -137,10 +137,10 @@ void efld( double xi, double yi,
 	{
 	  /* eksc for thin wire approx. or ekscx for extended t.w. approx. */
 	  if( dataj.iexk != 1)
-	   eksc( dataj.s, zp, rh, TP, ijx, &tezs, &ters,
+	   eksc( dataj.s, zp, rh, TWOPI, ijx, &tezs, &ters,
 			&tezc, &terc, &tezk, &terk );
 	  else
-		ekscx( dataj.b, dataj.s, zp, rh, TP, ijx, dataj.ind1,
+		ekscx( dataj.b, dataj.s, zp, rh, TWOPI, ijx, dataj.ind1,
 			dataj.ind2,	&tezs, &ters, &tezc, &terc, &tezk, &terk);
 
 	  txs= tezs* dataj.cabj+ ters* rhox;
@@ -889,7 +889,7 @@ void hintg( double xi, double yi, double zi )
 	  continue;
 
 	r = sqrt( rsq );
-	rk= TP* r;
+	rk= TWOPI* r;
 	cr= cos( rk);
 	sr= sin( rk);
 	gam=-( cmplx(cr,-sr)+rk*cmplx(sr,cr) )/( FPI*rsq*r )* dataj.s;
@@ -1145,10 +1145,10 @@ void hsflx( double s, double rh, double zpx,
 	else
 	  rhz=1.0;
 
-	dk= TP* dh;
+	dk= TWOPI* dh;
 	cdk= cos( dk);
 	sdk= sin( dk);
-	hfk(- dk, dk, rh* TP, zp* TP, &hkr, &hki);
+	hfk(- dk, dk, rh* TWOPI, zp* TWOPI, &hkr, &hki);
 	*hpk= cmplx( hkr, hki);
 
 	if( rhz >= 1.0e-3)
@@ -1164,7 +1164,7 @@ void hsflx( double s, double rh, double zpx,
 	  t2= z2a* ekr2/ r2;
 	  *hps=( cdk*( ekr2- ekr1)- CPLX_01* sdk*( t2+ t1))* hss;
 	  *hpc= -sdk*( ekr2+ ekr1)- CPLX_01* cdk*( t2- t1);
-	  cons= -CPLX_01/(2.0* TP* rh);
+	  cons= -CPLX_01/(2.0* TWOPI* rh);
 	  *hps= cons* *hps;
 	  *hpc= cons* *hpc;
 	  return;
@@ -1173,7 +1173,7 @@ void hsflx( double s, double rh, double zpx,
 
 	ekr1= cmplx( cdk, sdk)/( z2a* z2a);
 	ekr2= cmplx( cdk,- sdk)/( z1* z1);
-	t1= TP*(1.0/ z1-1.0/ z2a);
+	t1= TWOPI*(1.0/ z1-1.0/ z2a);
 	t2= cexp( fjk* zp)* rh/PI8;
 	*hps= t2*( t1+( ekr1+ ekr2)* sdk)* hss;
 	*hpc= t2*(- CPLX_01* t1+( ekr1- ekr2)* cdk);
@@ -1426,8 +1426,8 @@ void nfpat( int nfeh )
 	znrt += fpat.dznr;
 	if( fpat.near != 0)
 	{
-	  cth= cos( TA* znrt);
-	  sth= sin( TA* znrt);
+	  cth= cos( TORAD* znrt);
+	  sth= sin( TORAD* znrt);
 	}
 
 	ynrt= fpat.ynr- fpat.dynr;
@@ -1436,8 +1436,8 @@ void nfpat( int nfeh )
 	  ynrt += fpat.dynr;
 	  if( fpat.near != 0)
 	  {
-		cph= cos( TA* ynrt);
-		sph= sin( TA* ynrt);
+		cph= cos( TORAD* ynrt);
+		sph= sin( TORAD* ynrt);
 	  }
 
 	  xnrt= fpat.xnr- fpat.dxnr;
@@ -1494,18 +1494,18 @@ void nfpat( int nfeh )
 		  near_field.hx[idx]  = (double)tmp1;
 		  near_field.hy[idx]  = (double)tmp3;
 		  near_field.hz[idx]  = (double)tmp5;
-		  near_field.fhx[idx] = (double)(tmp2 * TA);
-		  near_field.fhy[idx] = (double)(tmp4 * TA);
-		  near_field.fhz[idx] = (double)(tmp6 * TA);
+		  near_field.fhx[idx] = (double)(tmp2 * TORAD);
+		  near_field.fhy[idx] = (double)(tmp4 * TORAD);
+		  near_field.fhz[idx] = (double)(tmp6 * TORAD);
 		}
 		else /* Electric field */
 		{
 		  near_field.ex[idx]  = (double)tmp1;
 		  near_field.ey[idx]  = (double)tmp3;
 		  near_field.ez[idx]  = (double)tmp5;
-		  near_field.fex[idx] = (double)(tmp2 * TA);
-		  near_field.fey[idx] = (double)(tmp4 * TA);
-		  near_field.fez[idx] = (double)(tmp6 * TA);
+		  near_field.fex[idx] = (double)(tmp2 * TORAD);
+		  near_field.fey[idx] = (double)(tmp4 * TORAD);
+		  near_field.fez[idx] = (double)(tmp6 * TORAD);
 		}
 
 		idx++;
@@ -1635,7 +1635,7 @@ void pcint( double xi, double yi, double zi,
   ds=4.0* d/ (double) nint;
   da= ds* ds;
   gcon=1.0/ dataj.s;
-  fcon=1.0/(2.0* TP* d);
+  fcon=1.0/(2.0* TWOPI* d);
   xxj= dataj.xj;
   xyj= dataj.yj;
   xzj= dataj.zj;
@@ -1683,7 +1683,7 @@ void pcint( double xi, double yi, double zi,
 	  g2=( d- s1)*( d+ s2)* gcon;
 	  g3=( d- s1)*( d- s2)* gcon;
 	  g4=( d+ s1)*( d- s2)* gcon;
-	  f2=( s1* s1+ s2* s2)* TP;
+	  f2=( s1* s1+ s2* s2)* TWOPI;
 	  f1= s1/ f2-( g1- g2- g3+ g4)* fcon;
 	  f2= s2/ f2-( g1+ g2- g3- g4)* fcon;
 	  e1= e1+ dataj.exk* g1;
@@ -1755,7 +1755,7 @@ void unere( double xob, double yob, double zob )
   }
 
   r= sqrt( r2);
-  tt1= -TP* r;
+  tt1= -TWOPI* r;
   tt2= tt1* tt1;
   rt= r2* r;
   er= cmplx( sin( tt1),- cos( tt1))*( CONST2* dataj.s);
@@ -1878,9 +1878,9 @@ Near_Field_Total(
 	eym = (double)cabs(ey);
 	ezm = (double)cabs(ez);
 	/* Near total electric field vector */
-	fx  = (double)cang(ex)/(double)TD;
-	fy  = (double)cang(ey)/(double)TD;
-	fz  = (double)cang(ez)/(double)TD;
+	fx  = (double)cang(ex)/(double)TODEG;
+	fy  = (double)cang(ey)/(double)TODEG;
+	fz  = (double)cang(ez)/(double)TODEG;
 
 	fx2 = fx * 2.0;
 	fy2 = fy * 2.0;

@@ -1535,7 +1535,7 @@ on_animation_applybutton_clicked       (GtkButton       *button,
 		"animate_steps_spinbutton") );
   steps = gtk_spin_button_get_value( spinbutton );
   intval = (guint)(1000.0 / steps / freq);
-  near_field.anim_step = (double)TP / steps;
+  near_field.anim_step = (double)TWOPI / steps;
 
   SetFlag( NEAREH_ANIMATE );
   if( anim_tag > 0 )
@@ -1569,7 +1569,7 @@ on_animation_okbutton_clicked          (GtkButton       *button,
 		"animate_steps_spinbutton") );
   steps = gtk_spin_button_get_value( spinbutton );
   intval = (guint)(1000.0 / steps / freq);
-  near_field.anim_step = (double)TP / steps;
+  near_field.anim_step = (double)TWOPI / steps;
 
   SetFlag( NEAREH_ANIMATE );
   if( anim_tag > 0 )
@@ -1770,28 +1770,33 @@ on_nec2_row_remv_clicked               (GtkButton       *button,
   gtk_tree_selection_get_selected( selection, &model, &iter);
   gtk_list_store_remove( GTK_LIST_STORE(model), &iter );
   selected_treeview = NULL;
+  SetFlag( EDITOR_QUIT );
 }
 
 
-void
+  void
 on_nec2_treeview_clear_clicked         (GtkButton       *button,
-                                        gpointer         user_data)
+										gpointer         user_data)
 {
   if( selected_treeview != NULL )
+  {
+
 	gtk_list_store_clear( GTK_LIST_STORE(
 		  gtk_tree_view_get_model(selected_treeview)) );
+	SetFlag( EDITOR_QUIT );
+  }
 }
 
 
 gboolean
-on_nec2_cmnt_treeview_button_press_event
-                                        (GtkWidget       *widget,
+  on_nec2_cmnt_treeview_button_press_event
+                                        (GtkWidget      *widget,
                                         GdkEventButton  *event,
                                         gpointer         user_data)
 {
   selected_treeview = GTK_TREE_VIEW(widget);
   if( event->button == 3 )
-	Open_Editor(selected_treeview);
+	Open_Editor( selected_treeview );
   return FALSE;
 }
 
@@ -1806,7 +1811,7 @@ on_nec2_geom_treeview_button_press_event
   if( event->button == 3 )
   {
 	action = EDITOR_EDIT;
-	Open_Editor(selected_treeview);
+	Open_Editor( selected_treeview );
 	action = EDITOR_NEW;
   }
   return FALSE;
@@ -1993,7 +1998,10 @@ on_gw_clicked                          (GtkButton       *button,
 	wire_editor = create_wire_editor();
 	gtk_widget_hide( lookup_widget(wire_editor, "wire_taperframe") );
 	gtk_widget_show( wire_editor );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Wire_Editor( EDITOR_APPLY );
+
   Wire_Editor( action );
   action = EDITOR_NEW;
 }
@@ -2007,7 +2015,10 @@ on_ga_clicked                          (GtkButton       *button,
   {
 	arc_editor = create_arc_editor();
 	gtk_widget_show( arc_editor );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Arc_Editor( EDITOR_APPLY );
+
   Arc_Editor( action );
   action = EDITOR_NEW;
 }
@@ -2021,7 +2032,10 @@ on_gh_clicked                          (GtkButton       *button,
   {
 	helix_editor = create_helix_editor();
 	gtk_widget_show( helix_editor );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Helix_Editor( EDITOR_APPLY );
+
   Helix_Editor( action );
   action = EDITOR_NEW;
 }
@@ -2035,7 +2049,10 @@ on_sp_clicked                          (GtkButton       *button,
   {
 	patch_editor = create_patch_editor();
 	gtk_widget_show( patch_editor );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Patch_Editor( EDITOR_APPLY );
+
   Patch_Editor( action );
   action = EDITOR_NEW;
 }
@@ -2049,7 +2066,10 @@ on_gr_clicked                          (GtkButton       *button,
   {
 	cylinder_editor = create_cylinder_editor();
 	gtk_widget_show( cylinder_editor );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Cylinder_Editor( EDITOR_APPLY );
+
   Cylinder_Editor( action );
   action = EDITOR_NEW;
 }
@@ -2063,7 +2083,10 @@ on_gm_clicked                          (GtkButton       *button,
   {
 	transform_editor = create_transform_editor();
 	gtk_widget_show( transform_editor );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Transform_Editor( EDITOR_APPLY );
+
   Transform_Editor( action );
   action = EDITOR_NEW;
 }
@@ -2077,7 +2100,10 @@ on_gx_clicked                          (GtkButton       *button,
   {
 	reflect_editor = create_reflect_editor();
 	gtk_widget_show( reflect_editor );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Reflect_Editor( EDITOR_APPLY );
+
   Reflect_Editor( action );
   action = EDITOR_NEW;
 }
@@ -2091,7 +2117,10 @@ on_gs_clicked                          (GtkButton       *button,
   {
 	scale_editor = create_scale_editor();
 	gtk_widget_show( scale_editor );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Scale_Editor( EDITOR_APPLY );
+
   Scale_Editor( action );
   action = EDITOR_NEW;
 }
@@ -2105,7 +2134,10 @@ on_ex_clicked                          (GtkButton       *button,
   {
 	excitation_command = create_excitation_command();
 	gtk_widget_show( excitation_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Excitation_Command( EDITOR_APPLY );
+
   Excitation_Command( action );
   action = EDITOR_NEW;
 }
@@ -2119,7 +2151,10 @@ on_fr_clicked                          (GtkButton       *button,
   {
 	frequency_command = create_frequency_command();
 	gtk_widget_show( frequency_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Frequency_Command( EDITOR_APPLY );
+
   Frequency_Command( action );
   action = EDITOR_NEW;
 }
@@ -2133,7 +2168,10 @@ on_gn_clicked                          (GtkButton       *button,
   {
 	ground_command = create_ground_command();
 	gtk_widget_show( ground_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Ground_Command( EDITOR_APPLY );
+
   Ground_Command( action );
   action = EDITOR_NEW;
 }
@@ -2147,7 +2185,10 @@ on_gd_clicked                          (GtkButton       *button,
   {
 	ground2_command = create_ground2_command();
 	gtk_widget_show( ground2_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Ground2_Command( EDITOR_APPLY );
+
   Ground2_Command( action );
   action = EDITOR_NEW;
 }
@@ -2161,7 +2202,10 @@ on_rp_clicked                          (GtkButton       *button,
   {
 	radiation_command = create_radiation_command();
 	gtk_widget_show( radiation_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Radiation_Command( EDITOR_APPLY );
+
   Radiation_Command( action );
   action = EDITOR_NEW;
 }
@@ -2175,7 +2219,10 @@ on_ld_clicked                          (GtkButton       *button,
   {
 	loading_command = create_loading_command();
 	gtk_widget_show( loading_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Loading_Command( EDITOR_APPLY );
+
   Loading_Command( action );
   action = EDITOR_NEW;
 }
@@ -2189,7 +2236,10 @@ on_nt_clicked                          (GtkButton       *button,
   {
 	network_command = create_network_command();
 	gtk_widget_show( network_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Network_Command( EDITOR_APPLY );
+
   Network_Command( action );
   action = EDITOR_NEW;
 }
@@ -2203,7 +2253,10 @@ on_tl_clicked                          (GtkButton       *button,
   {
 	txline_command = create_txline_command();
 	gtk_widget_show( txline_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Txline_Command( EDITOR_APPLY );
+
   Txline_Command( action );
   action = EDITOR_NEW;
 }
@@ -2217,7 +2270,10 @@ on_ne_clicked                          (GtkButton       *button,
   {
 	nearfield_command = create_nearfield_command();
 	gtk_widget_show( nearfield_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Nearfield_Command( EDITOR_APPLY );
+
   Nearfield_Command( action );
   action = EDITOR_NEW;
 }
@@ -2231,7 +2287,10 @@ on_ek_clicked                          (GtkButton       *button,
   {
 	kernel_command = create_kernel_command();
 	gtk_widget_show( kernel_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Kernel_Command( EDITOR_APPLY );
+
   Kernel_Command( action );
   action = EDITOR_NEW;
 }
@@ -2245,7 +2304,10 @@ on_kh_clicked                          (GtkButton       *button,
   {
 	intrange_command = create_intrange_command();
 	gtk_widget_show( intrange_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Intrange_Command( EDITOR_APPLY );
+
   Intrange_Command( action );
   action = EDITOR_NEW;
 }
@@ -2259,7 +2321,10 @@ on_xq_clicked                          (GtkButton       *button,
   {
 	execute_command = create_execute_command();
 	gtk_widget_show( execute_command );
+	ClearFlag( EDITOR_QUIT );
   }
+  else Execute_Command( EDITOR_APPLY );
+
   Execute_Command( action );
   action = EDITOR_NEW;
 }

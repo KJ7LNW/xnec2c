@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta name="generator" content="Bluefish 2.2.4" >
+<meta name="generator" content="Bluefish 2.2.9" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis Kyriazis" >
 <meta name="copyright" content="GPL v2.0 or higher">
@@ -22,7 +22,7 @@ translation of NEC2</h4>
 </div>
 <ol>
 <li><a href="#Introduction">Introduction</a></li>
-<li><a href="#Features">Features</a></b>
+<li><a href="#Features">Features</a>
 <ul>
 <li><a href="#Interactive">Interactive Operation</a></li>
 <li><a href="#NoOutFile">No Output File</a></li>
@@ -31,14 +31,12 @@ translation of NEC2</h4>
 <li><a href="#OnDemand">On-demand Calculation</a></li>
 <li><a href="#Multithread">Multi-threaded operation on SMP
 machines</a></li>
-<li><a href="#Nec2Edit">Built-in NEC2 input file
-editor</a></li>
+<li><a href="#Nec2Edit">Built-in NEC2 input file editor</a></li>
 </ul>
 </li>
 <li><a href="#Limitations">Limitations</a></li>
-<li><a href="#Compilation">Compilation and
-Installation</a></li>
-<li><a href="#Operation">Operation</a></b>
+<li><a href="#Compilation">Compilation and Installation</a></li>
+<li><a href="#Operation">Operation</a>
 <ul>
 <li><a href="#CommandLine">Command Line Options</a></li>
 <li><a href="#MainWindow">The Main Window</a></li>
@@ -49,8 +47,7 @@ Window</a></li>
 </ul>
 </li>
 <li><a href="#InputFile">Input File Considerations</a></li>
-<li><a href="#OutputFile">Output File
-Considerations</a></li>
+<li><a href="#OutputFile">Output File Considerations</a></li>
 <li><a href="#Version">Version History</a></li>
 <li><a href="#Bugs">Bugs and Inadequacies</a></li>
 <li><a href="#Acknowledgement">Acknowledgment</a></li>
@@ -277,8 +274,8 @@ shown in two spin button widgets which can also be used to change
 the viewing angle.</p>
 <p>Starting with version 2.1, the structure display can be zoomed
 in or out by using the mouse wheel or the Zoom controls (Zoom %
-spin wheel and the +/-/1 buttons) and it can also be moved around by
-dragging with the right mouse button 2.</p>
+spin wheel and the +/-/1 buttons) and it can also be moved around
+by dragging with the right mouse button 2.</p>
 <p>The current distribution or charge density in the structure can
 be displayed by clicking the <b>Cur</b> or <b>Chg</b> toggle
 buttons at the top right of the Main window. The distribution of
@@ -307,12 +304,12 @@ is possible to save the structure drawing to a PNG file by using
 the <b>Save</b> or <b>Save As</b> items in the File menu.</p>
 <p>Starting with version 2.1, xnec2c can save the structure display
 as a data file for the "gnuplot" plotting program. This is done by
-using the <b>File-&gt;Save As gnuplot</b> menu item, to open a
-file chooser dialog. If only the stem of the file name is given,
-xnec2c will automatically add the .gplot extension. Plotting in
-gnuplot is done with the "splot &lt;filename&gt; with lines"
-command, although the plot can be enhanced with some of the style
-etc commands available in gnuplot.</p>
+using the <b>File-&gt;Save As gnuplot</b> menu item, to open a file
+chooser dialog. If only the stem of the file name is given, xnec2c
+will automatically add the .gplot extension. Plotting in gnuplot is
+done with the "splot &lt;filename&gt; with lines" command, although
+the plot can be enhanced with some of the style etc commands
+available in gnuplot.</p>
 <p>The View menu allows opening of other output data display
 windows and selection of various options:<br>
 <br clear="all">
@@ -885,58 +882,79 @@ changed the case of the signal handler that deals with SIGCHLD so
 that it doesn't cause xnec2c to exit when the SIGCHLD signal does
 not originate from child processes created by xnec2c. It appears
 that in some Linux installations a SIGCHLD signal is sent to xnec2c
-even if it is not running forked, e.g. the -j option is not used
-in the command line.</p>
-<p><b>Version 2.7:</b> After a bug report by Tim, WJ5Q, I fixed
-a bug that was preventing the creation of an LD card of type 5
-(LDTYP=5) when wire conductivity (S/m) was specified in the GW
-card (Wire) editor. The same bug was present in the GH (Helix)
-card editor and it was also fixed. I added code so that the 
-wire conductivity for GW, GA and GH cards can be read from the
-relevant LD card and shown in the Conductivity (S/m) spin button.</p>
+even if it is not running forked, e.g. the -j option is not used in
+the command line.</p>
+<p><b>Version 2.7:</b> After a bug report by Tim, WJ5Q, I fixed a
+bug that was preventing the creation of an LD card of type 5
+(LDTYP=5) when wire conductivity (S/m) was specified in the GW card
+(Wire) editor. The same bug was present in the GH (Helix) card
+editor and it was also fixed. I added code so that the wire
+conductivity for GW, GA and GH cards can be read from the relevant
+LD card and shown in the Conductivity (S/m) spin button.</p>
 <p>After all these changes I checked the xnec2c source code using
 the Coverity Scan service and I fixed an out-of-bounds read error
 that was reported by the scanner, in the plot_freqdat.c file.</p>
 <p><b>Version 2.8:</b> Fixed a bug in the GN card editor function
 which caused xnec2c to save the GN card parameters in the .nec
-antenna description file without clearing the number of radials
-to zero. This resulted in the GN card editor window to open with
-confusing and incorrect defaults for the radial screen, when
-the Reflection Coefficient Approximation method was selected
-for specifying ground parameters.</p>
-<p>Also fixed some bugs (missing variable initializations) in
-the Ground Parameters calculation functions which resulted in
-incorrect Radiation Pattern calculations. This would happen if
-a .nec file, with Perfect Ground (iperf = 1) specified in the
-GN card, was opened after a .nec file, with a Radial Ground
-Screen specified in the GN card, was processed.<p/>
-<p><b>Version 2.9:</b> After a request by the Debian maintainer
-of xnec2c, I added a rudimentary man page he sent me and
-corrected some spelling errors (arbitrary to arbitrary).<p/>
-<p><b>Version 3.0:</b> I have modified the NEC2 file parser so
-that it can read the file with both the '.' and ',' as decimal
-point characters. This is necessary to make xnec2c compatible with
+antenna description file without clearing the number of radials to
+zero. This resulted in the GN card editor window to open with
+confusing and incorrect defaults for the radial screen, when the
+Reflection Coefficient Approximation method was selected for
+specifying ground parameters.</p>
+<p>Also fixed some bugs (missing variable initializations) in the
+Ground Parameters calculation functions which resulted in incorrect
+Radiation Pattern calculations. This would happen if a .nec file,
+with Perfect Ground (iperf = 1) specified in the GN card, was
+opened after a .nec file, with a Radial Ground Screen specified in
+the GN card, was processed.</p>
+<p><b>Version 2.9:</b> After a request by the Debian maintainer of
+xnec2c, I added a rudimentary man page he sent me and corrected
+some spelling errors (arbitrary to arbitrary).</p>
+<p><b>Version 3.0:</b> I have modified the NEC2 file parser so that
+it can read the file with both the '.' and ',' as decimal point
+characters. This is necessary to make xnec2c compatible with
 different locales. I also fixed a resource (memory) leak, reported
-by valgrind, in the xyz axes drawing routine.<p/>
-<p><b>Version 3.1:</b> I have made several changes to the code
-that renders wire frame drawings and displays some data, like the
+by valgrind, in the xyz axes drawing routine.</p>
+<p><b>Version 3.1:</b> I have made several changes to the code that
+renders wire frame drawings and displays some data, like the
 projection parameters (azimuth and elevation of the structure and
 the radiation pattern) and gain values. This has resulted in a
 faster and smoother animation of these drawings and reduced
 workload on the processor during dragging of these images.<br>
 I have also reduced the default minimum size of xnec2c's windows,
 as I had reports that they would not fit in the displays of some
-laptops or monitors, with resolutions on the lower side.<p/>
+laptops or monitors, with resolutions on the lower side.</p>
 <p><b>Version 3.2:</b> I made some changes to the Strlcat()
-function and its usage in the xnec2c code, to improve safe
-handling of string concatenation operations. Hopefully this has
-not broken the handling of various strings in xnec2c! ;-)</p>
+function and its usage in the xnec2c code, to improve safe handling
+of string concatenation operations. Hopefully this has not broken
+the handling of various strings in xnec2c! ;-)</p>
 <p><b>Version 3.3:</b> I fixed a bug that was in the code that
 reads the commands from the NEC2 input file, where xnec2c would
-crash with a segmentation fault when the FR card was after the
-RP card. Also modified the Strtod() function to avoid freeing the
-end pointer before it was used, causing problems.</p>
-<p><b><a name="Bugs" id="Bugs">9. Bugs and Inadequacies:</a></b><br>
+crash with a segmentation fault when the FR card was after the RP
+card. Also modified the Strtod() function to avoid freeing the end
+pointer before it was used, causing problems.</p>
+<p><b>Version 3.4:</b> I fixed a bug in the code that implements
+the modified GS (scaling) card. In NEC2 the GS card scales all of
+the structure, but in Xnec2c I modified the code so that it is
+possible to specify a range of tag numbers to apply scaling to
+only. When a GS card follows a GX card, selective scaling doesn't
+work correctly because a symmetric structure is created. If you are
+using a GS card, it may be better to avoid specifying a tag number
+range, just in case the bug fix is not complete.</p>
+<p><b>Version 3.5:</b> I modified the NEC2 Editor code so that when
+a Geometry or Command editor window is opened, activating Apply or
+OK will save data in the editor window to the treeview, even if the
+default data is not edited.<br>
+I modified the NEC2 Editor code so that if a treeview row is
+removed while the relevant editor window is open, then activating
+Apply or OK will not attempt to save data to the treeview, since
+this will cause an illegal memory access and will crash xnec2c.<br>
+Fixed a bug in the Helix editor which caused incorrect calculation
+of the segment length as a percentage of wavelength or of the
+number of segments/turn that correspond to a given segment length
+as a percentage of wavelength</p>
+<p><b><a name="Bugs" id="Bugs">9. Bugs and
+Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original
 FORTRAN NEC2 code. Any bugs discovered in nec2c will affect xnec2c
 as well and they will have to be fixed. In addition, changing the

@@ -108,7 +108,7 @@ void ffld( double thet, double phi,
 			zrsin= csqrt(1.0- gnd.zrati2* gnd.zrati2* thz* thz);
 			rrv2=-( roz- gnd.zrati2* zrsin)/( roz+ gnd.zrati2* zrsin);
 			rrh2=( gnd.zrati2* roz- zrsin)/( gnd.zrati2* roz+ zrsin);
-			darg= -TP*2.0* gnd.ch* roz;
+			darg= -TWOPI*2.0* gnd.ch* roz;
 		  }
 		} /* if( gnd.ifar > 1) */
 
@@ -151,7 +151,7 @@ void ffld( double thet, double phi,
 		c= el*( boo+ too);
 		rr= a* crnt.air[i]+ b* crnt.bii[i]+ c* crnt.cir[i];
 		ri= a* crnt.aii[i]- b* crnt.bir[i]+ c* crnt.cii[i];
-		arg= TP*( data.x[i]* rox+ data.y[i]* roy+ data.z[i]* roz);
+		arg= TWOPI*( data.x[i]* rox+ data.y[i]* roy+ data.z[i]* roz);
 
 		if( (k != 1) || (gnd.ifar < 2) )
 		{
@@ -375,7 +375,7 @@ void fflds( double rox, double roy, double roz,
   for( j = 0; j < data.m; j++ )
   {
 	i++;
-	arg= TP*( rox* xs[i]+ roy* ys[i]+ roz* zs[i]);
+	arg= TWOPI*( rox* xs[i]+ roy* ys[i]+ roz* zs[i]);
 	ct= cmplx( cos( arg)* s[i], sin( arg)* s[i]);
 	k=3*j;
 	*ex += scur[k  ]* ct;
@@ -418,7 +418,7 @@ void gfld( double rho, double phi, double rz,
 	  thet= PI*.5;
 
 	ffld( thet, phi, eth, epi);
-	arg= -TP* r;
+	arg= -TWOPI* r;
 	exa= cmplx( cos( arg), sin( arg))/ r;
 	*eth= *eth* exa;
 	*epi= *epi* exa;
@@ -514,9 +514,9 @@ void gfld( double rho, double phi, double rz,
 		b* crnt.bii[i]+ c* crnt.cir[i];
 	  ri= a* crnt.aii[i] -
 		b* crnt.bir[i]+ c* crnt.cii[i];
-	  arg= TP*( data.x[i] *
+	  arg= TWOPI*( data.x[i] *
 		  rnx+ data.y[i]* rny+ data.z[i]* rnz* rfl);
-	  exa= cmplx( cos( arg), sin( arg))* cmplx( rr, ri)/ TP;
+	  exa= cmplx( cos( arg), sin( arg))* cmplx( rr, ri)/ TWOPI;
 
 	  if( k != 1 )
 	  {
@@ -546,7 +546,7 @@ void gfld( double rho, double phi, double rz,
 
   } /* for( i = 0; i < n; i++ ) */
 
-  arg= -TP* r;
+  arg= -TWOPI* r;
   exa= cmplx( cos( arg), sin( arg));
   cix= cix* exa;
   ciy= ciy* exa;
@@ -635,7 +635,7 @@ void rdpat(void)
   for( kph = 1; kph <= fpat.nph; kph++ )
   {
 	phi += fpat.dph;
-	pha= phi* TA;
+	pha= phi* TORAD;
 	thet= fpat.thets - fpat.dth;
 
 	for( kth = 1; kth <= fpat.nth; kth++ )
@@ -652,7 +652,7 @@ void rdpat(void)
 			  "Please check RP card data and correct"), ERR_STOP );
 	  }
 
-	  tha= thet* TA;
+	  tha= thet* TORAD;
 	  if( gnd.ifar != 1)
 		ffld( tha, pha, &eth, &eph);
 	  else
@@ -690,7 +690,7 @@ void rdpat(void)
 		  if( fabs(dfaz) > fabs(dfaz2) )
 			dfaz= dfaz2;
 
-		  cdfaz= cos( dfaz* TA);
+		  cdfaz= cos( dfaz* TORAD);
 		  tstor1= ethm2- ephm2;
 		  tstor2=2.0* ephm* ethm* cdfaz;
 		  tilta=atan2( tstor2, tstor1)/2.0;

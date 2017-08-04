@@ -192,8 +192,8 @@ Set_Excitation( void )
 {
   if( (fpat.ixtyp >= 1) && (fpat.ixtyp <= 4) )
   {
-	tmp4= TA* calc_data.xpr4;
-	tmp5= TA* calc_data.xpr5;
+	tmp4= TORAD* calc_data.xpr4;
+	tmp5= TORAD* calc_data.xpr5;
 
 	if( fpat.ixtyp == 4)
 	{
@@ -204,9 +204,9 @@ Set_Excitation( void )
 	}
 	else
 	{
-	  tmp1= TA* calc_data.xpr1;
-	  tmp2= TA* calc_data.xpr2;
-	  tmp3= TA* calc_data.xpr3;
+	  tmp1= TORAD* calc_data.xpr1;
+	  tmp2= TORAD* calc_data.xpr2;
+	  tmp3= TORAD* calc_data.xpr3;
 	  tmp6= calc_data.xpr6;
 	} /* if( fpat.ixtyp == 4) */
 

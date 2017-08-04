@@ -60,8 +60,8 @@ void qdsrc( int is, complex double v, complex double *e )
   data.icon1[is]= i;
   dataj.s= data.si[is]*.5;
   curd= CCJ* v/(( log(2.0 * dataj.s/ data.bi[is])-1.0) *
-	  ( segj.bx[segj.jsno-1] * cos( TP* dataj.s) +
-		segj.cx[segj.jsno-1] * sin( TP* dataj.s))* data.wlam);
+	  ( segj.bx[segj.jsno-1] * cos( TWOPI* dataj.s) +
+		segj.cx[segj.jsno-1] * sin( TWOPI* dataj.s))* data.wlam);
   vsorc.vqds[vsorc.nqds]= v;
   vsorc.iqds[vsorc.nqds]= is+1;
   vsorc.nqds++;
@@ -290,8 +290,8 @@ void cabc( complex double *curx)
 		data.icon1[i]= jx;
 		sh= data.si[i]*.5;
 		curd= CCJ* vsorc.vqds[is]/( (log(2.0* sh/ data.bi[i])-1.0) *
-			(segj.bx[segj.jsno-1]* cos(TP* sh)+ segj.cx[segj.jsno-1] *
-			 sin(TP* sh))* data.wlam );
+			(segj.bx[segj.jsno-1]* cos(TWOPI* sh)+ segj.cx[segj.jsno-1] *
+			 sin(TWOPI* sh))* data.wlam );
 		ar= creal( curd);
 		ai= cimag( curd);
 
@@ -1323,7 +1323,7 @@ trio( int j )
 /* cang returns the phase angle of a complex number in degrees. */
 double cang( complex double z )
 {
-  return( carg(z)*TD );
+  return( carg(z)*TODEG );
 }
 
 /*-----------------------------------------------------------------------*/
@@ -1350,8 +1350,8 @@ zint( double sigl, double rolam, complex double *zint )
 
 #define th(d) ( (((((cc1*(d)+cc2)*(d)+cc3)*(d)+cc4)*(d)+cc5)*(d)+cc6)*(d) + cc7 )
 #define ph(d) ( (((((cc8*(d)+cc9)*(d)+cc10)*(d)+cc11)*(d)+cc12)*(d)+cc13)*(d)+cc14 )
-#define f(d)  ( csqrt(POT/(d))*cexp(-cn*(d)+th(-8.0/x)) )
-#define g(d)  ( cexp(cn*(d)+th(8.0/x))/csqrt(TP*(d)) )
+#define f(d)  ( csqrt(PITWO/(d))*cexp(-cn*(d)+th(-8.0/x)) )
+#define g(d)  ( cexp(cn*(d)+th(8.0/x))/csqrt(TWOPI*(d)) )
 
   double x;
   double tpcmu = 2.368705e+3;

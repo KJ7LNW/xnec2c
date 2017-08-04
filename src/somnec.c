@@ -113,7 +113,7 @@ void somnec( double epr, double sig, double fmhz )
   }
   else ggrid.epscf=cmplx(epr,sig);
 
-  ck2=TP;
+  ck2=TWOPI;
   ck2sq=ck2*ck2;
 
   /* sommerfeld integral evaluation uses exp(-jwt),
