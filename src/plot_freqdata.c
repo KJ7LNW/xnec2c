@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -14,12 +12,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
-
-/* plot_freqdata.c
- *
- * Code for plotting graphs of structure
- * data (VSWR, impedance, gain etc)
  */
 
 /*
@@ -45,370 +37,18 @@ static int nval_fscale;
 
 /*-----------------------------------------------------------------------*/
 
-/* Plot_Frequency_Data()
- *
- */
-  void
-Plot_Frequency_Data( void )
-{
-  /* Abort plotting if main window is to be closed
-   * or when plots drawing area not available */
-  if(
-	  isFlagSet(MAIN_QUIT) ||
-	  isFlagClear(PLOT_ENABLED) ||
-	  isFlagClear(ENABLE_EXCITN) )
-	return;
-
-  /* Titles for plots */
-  char *titles[3];
-
-  int
-	idx,
-	posn,  /* Position num of plot in drawingarea */
-	fstep; /* Freq step number */
-
-  static double
-	*gmax     = NULL, /* Max gain buffer */
-	*vgain    = NULL, /* Viewer direction gain buffer */
-	*netgain  = NULL, /* Viewer direction net gain buffer */
-	*gdir_tht = NULL, /* Direction in theta of gain */
-	*gdir_phi = NULL, /* Direction in phi of gain */
-	*fbratio  = NULL; /* Front to back ratio */
-
-  /* Used to calculate net gain */
-  double Zr, Zo, Zi;
-
-  /* Cairo context */
-  cairo_t *cr = gdk_cairo_create( freqplots_pixmap );
-
-  /* Clear pixmap */
-  cairo_set_source_rgb( cr, BLACK );
-  cairo_rectangle(
-	  cr, 0.0, 0.0,
-	  (double)freqplots_pixmap_width,
-	  (double)freqplots_pixmap_height );
-  cairo_fill( cr );
-
-  /* Abort if plotting is not possible */
-  if( (calc_data.fstep < 1)				||
-	  (isFlagClear(FREQ_LOOP_RUNNING)	&&
-	   isFlagClear(FREQ_LOOP_DONE))		||
-	  (isFlagClear(PLOT_GMAX)			&&
-	   isFlagClear(PLOT_GVIEWER)		&&
-	   isFlagClear(PLOT_VSWR)			&&
-	   isFlagClear(PLOT_ZREAL_ZIMAG)	&&
-	   isFlagClear(PLOT_ZMAG_ZPHASE)) )
-  {
-	/* Render pixmap to screen */
-	gdk_window_set_back_pixmap(
-		freqplots_drawingarea->window, freqplots_pixmap, FALSE );
-	gdk_window_clear( freqplots_drawingarea->window );
-	cairo_destroy( cr );
-	return;
-  }
-
-  /* Fit frequency range to scale */
-  min_fscale  = (double)save.freq[0];
-  if( isFlagSet(FREQ_LOOP_RUNNING) )
-	max_fscale = (double)save.freq[calc_data.fstep];
-  else
-	max_fscale = (double)save.freq[calc_data.lastf];
-  nval_fscale = freqplots_pixmap_width / 75;
-  Fit_to_Scale( &max_fscale, &min_fscale, &nval_fscale );
-
-  /* Graph position */
-  posn = 0;
-
-  /* Limit freq stepping to last freq step */
-  fstep = calc_data.lastf + 1;
-
-  /* Plot max gain vs frequency, if possible */
-  if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) )
-  {
-	int nth, nph, pol;
-	gboolean no_fbr;
-
-	/* Allocate max gmax and directions */
-	size_t mreq = (size_t)fstep * sizeof(double);
-	mem_realloc( (void **)&gmax,     mreq, "in plot_freqdata.c" );
-	mem_realloc( (void **)&gdir_tht, mreq, "in plot_freqdata.c" );
-	mem_realloc( (void **)&gdir_phi, mreq, "in plot_freqdata.c" );
-	mem_realloc( (void **)&fbratio,  mreq, "in plot_freqdata.c" );
-
-	if( isFlagSet(PLOT_NETGAIN) )
-	  mem_realloc( (void **)&netgain, mreq, "in plot_freqdata.c" );
-
-	/* Find max gain and direction, F/B ratio */
-	no_fbr = FALSE;
-
-	/* Polarization type and impedance */
-	pol = calc_data.pol_type;
-	Zo = calc_data.zo;
-
-	/* When freq loop is done, calcs are done for all freq steps */
-	for( idx = 0; idx < fstep; idx++ )
-	{
-	  double fbdir;
-	  int fbidx, mgidx;
-
-	  /* Index to gtot buffer where max gain
-	   * occurs for given polarization type */
-	  mgidx = rad_pattern[idx].max_gain_idx[pol];
-
-	  /* Max gain for given polarization type */
-	  gmax[idx] = rad_pattern[idx].gtot[mgidx] +
-		Polarization_Factor(pol, idx, mgidx);
-
-	  /* Net gain if selected */
-	  if( isFlagSet(PLOT_NETGAIN) )
-	  {
-		Zr = impedance_data.zreal[idx];
-		Zi = impedance_data.zimag[idx];
-		netgain[idx] = gmax[idx] +
-		  10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
-	  }
-
-	  /* Radiation angle/phi where max gain occurs */
-	  gdir_tht[idx] = 90.0 - rad_pattern[idx].max_gain_tht[pol];
-	  gdir_phi[idx] = rad_pattern[idx].max_gain_phi[pol];
-
-	  /* Find F/B ratio if possible or net gain not required */
-	  if( no_fbr || isFlagSet(PLOT_NETGAIN) )
-		continue;
-
-	  /* Find F/B direction in theta */
-	  fbdir = 180.0 - rad_pattern[idx].max_gain_tht[pol];
-	  if( fpat.dth == 0.0 )
-		nth = 0;
-	  else
-		nth = (int)( fbdir/fpat.dth + 0.5 );
-
-	  /* If the antenna is modelled over ground, then use the same
-	   * theta as the max gain direction, relying on phi alone to
-	   * take us to the back. Patch supplied by Rik van Riel AB1KW
-	   */
-	  if( (nth >= fpat.nth) || (nth < 0) )
-	  {
-		fbdir = rad_pattern[idx].max_gain_tht[pol];
-		if( fpat.dth == 0.0 )
-		  nth = 0;
-		else
-		  nth = (int)( fbdir/fpat.dth + 0.5 );
-	  }
-
-	  /* Find F/B direction in phi */
-	  fbdir = gdir_phi[idx] + 180.0;
-	  if( fbdir >= 360.0 ) fbdir -= 360.0;
-	  nph = (int)( fbdir/fpat.dph + 0.5 );
-
-	  /* No F/B calc. possible if no phi step at +180 from max gain */
-	  if( (nph >= fpat.nph) || (nph < 0) )
-	  {
-		no_fbr = TRUE;
-		continue;
-	  }
-
-	  /* Index to gtot buffer for gain in back direction */
-	  fbidx = nth + nph*fpat.nth;
-
-	  /* Front to back ratio */
-	  fbratio[idx]  = pow( 10.0, gmax[idx] / 10.0 );
-	  fbratio[idx] /= pow( 10.0,
-		  (rad_pattern[idx].gtot[fbidx] +
-		   Polarization_Factor(pol, idx, fbidx)) / 10.0 );
-	  fbratio[idx] = 10.0 * log10( fbratio[idx] );
-
-	} /* for( idx = 0; idx < fstep; idx++ ) */
-
-	/*** Plot gain and f/b ratio (if possible) graph(s) */
-	if( no_fbr || isFlagSet(PLOT_NETGAIN) )
-	{
-	  /* Plotting frame titles */
-	  titles[0] = _("Raw Gain dbi");
-	  if( isFlagSet(PLOT_NETGAIN) )
-	  {
-		titles[1] = _("Max Gain & Net Gain vs Frequency");
-		titles[2] = _("Net Gain dbi");
-		if( fstep > 1 )
-		  Plot_Graph2( gmax, netgain, save.freq, fstep,
-			  titles, calc_data.ngraph, ++posn );
-	  }
-	  else
-	  {
-		titles[1] = _("Max Gain & F/B Ratio vs Frequency");
-		titles[2] = "        ";
-		if( fstep > 1 )
-		  Plot_Graph( gmax, save.freq, fstep,
-			  titles, calc_data.ngraph, ++posn );
-	  }
-	}
-	else
-	{
-	  /* Plotting frame titles */
-	  titles[0] = _("Raw Gain dbi");
-	  titles[1] = _("Max Gain & F/B Ratio vs Frequency");
-	  titles[2] = _("F/B Ratio db");
-	  if( fstep > 1 )
-		Plot_Graph2( gmax, fbratio, save.freq, fstep,
-			titles, calc_data.ngraph, ++posn );
-	}
-
-	/* Plot max gain direction if enabled */
-	if( isFlagSet(PLOT_GAIN_DIR) )
-	{
-	  /* Plotting frame titles */
-	  titles[0] = _("Rad Angle - deg");
-	  titles[1] = _("Max Gain Direction vs Frequency");
-	  titles[2] = _("Phi - deg");
-	  if( fstep > 1 )
-		Plot_Graph2( gdir_tht, gdir_phi, save.freq, fstep,
-			titles, calc_data.ngraph, ++posn );
-	}
-
-  } /* if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) ) */
-
-  /* Plot gain in direction of viewer vs freq, if possible */
-  if( isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) )
-  {
-	/* Plotting frame titles */
-	titles[0] = _("Raw Gain dbi");
-	titles[1] = _("Gain in Viewer Direction vs Frequency");
-
-	/* Allocate viewer gain buffer */
-	size_t mreq = (size_t)fstep * sizeof(double);
-	mem_realloc( (void **)&vgain, mreq, "in plot_freqdata.c" );
-
-	/* Calcs are done for all freq steps */
-	for( idx = 0; idx < fstep; idx++ )
-	  vgain[idx] = Viewer_Gain( structure_proj_params, idx );
-
-	/* Plot net gain if selected */
-	if( isFlagSet(PLOT_NETGAIN) )
-	{
-	  mreq = (size_t)fstep * sizeof(double);
-	  mem_realloc( (void **)&netgain, mreq, "in plot_freqdata.c" );
-
-	  Zo = calc_data.zo;
-	  for( idx = 0; idx < fstep; idx++ )
-	  {
-		Zr = impedance_data.zreal[idx];
-		Zi = impedance_data.zimag[idx];
-		netgain[idx] = vgain[idx] +
-		  10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
-	  }
-
-	  /* Plot net gain if selected */
-	  titles[2] = _("Net gain dbi");
-	  if( fstep > 1 )
-		Plot_Graph2( vgain, netgain, save.freq, fstep,
-			titles, calc_data.ngraph, ++posn );
-	} /* if( isFlagSet(PLOT_NETGAIN) ) */
-	else
-	{
-	  titles[2] = "        ";
-	  if( fstep > 1 )
-		Plot_Graph( vgain, save.freq, fstep,
-			titles, calc_data.ngraph, ++posn );
-	}
-  } /* isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) */
-
-  /* Plot VSWR vs freq */
-  if( isFlagSet(PLOT_VSWR) )
-  {
-	double *vswr = NULL, gamma;
-	double zrpro2, zrmro2, zimag2;
-
-	/* Plotting frame titles */
-	titles[0] = _("VSWR");
-	titles[1] = _("VSWR vs Frequency");
-
-	/* Calculate VSWR */
-	mem_alloc( (void **)&vswr,
-		(size_t)calc_data.nfrq * sizeof(double),
-		"in Plot_Frequency_Data()" );
-	if( vswr == NULL )
-	{
-	  fprintf( stderr, "xnec2c: Plot_Frequency_Data():"
-		  "memory allocation for vswr failed\n" );
-	  stop( _("Plot_Frequency_Data():"
-			"Memory allocation for vswr failed"), ERR_OK );
-	  return;
-	}
-	for(idx = 0; idx < fstep; idx++ )
-	{
-	  zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
-	  zrpro2 *= zrpro2;
-	  zrmro2 = impedance_data.zreal[idx] - calc_data.zo;
-	  zrmro2 *= zrmro2;
-	  zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
-	  gamma = sqrt( (zrmro2 + zimag2)/(zrpro2 + zimag2) );
-	  vswr[idx] = (1+gamma)/(1-gamma);
-	  if( vswr[idx] > 10.0 ) vswr[idx] = 10.0;
-	}
-
-	titles[2] = "        ";
-	if( fstep > 1 )
-	  Plot_Graph( vswr, save.freq, fstep,
-		  titles, calc_data.ngraph, ++posn );
-
-	free_ptr( (void **)&vswr );
-  } /* if( isFlagSet(PLOT_VSWR) ) */
-
-  /* Plot z-real and z-imag */
-  if( isFlagSet(PLOT_ZREAL_ZIMAG) )
-  {
-	/* Plotting frame titles */
-	titles[0] = _("Z-real");
-	titles[1] = _("Impedance vs Frequency");
-	titles[2] = _("Z-imag");
-	if( fstep > 1 )
-	  Plot_Graph2(
-		  impedance_data.zreal, impedance_data.zimag, save.freq,
-		  fstep, titles, calc_data.ngraph, ++posn );
-
-  } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
-
-  /* Plot z-magn and z-phase */
-  if( isFlagSet(PLOT_ZMAG_ZPHASE) )
-  {
-	/* Plotting frame titles */
-	titles[0] = _("Z-magn");
-	titles[1] = _("Impedance vs Frequency");
-	titles[2] = _("Z-phase");
-	if( fstep > 1 )
-	  Plot_Graph2( impedance_data.zmagn, impedance_data.zphase,
-		  save.freq, fstep, titles, calc_data.ngraph, ++posn );
-
-  } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
-
-  /* Render pixmap to screen */
-  gdk_window_set_back_pixmap(
-	  freqplots_drawingarea->window, freqplots_pixmap, FALSE );
-  gdk_window_clear( freqplots_drawingarea->window );
-
-  /* Display freq data in entry widgets */
-  Display_Frequency_Data();
-
-  /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
-
-  cairo_destroy( cr );
-} /* Plot_Frequency_Data() */
-
-/*-----------------------------------------------------------------------*/
-
 /* Display_Frequency_Data()
  *
  * Displays freq dependent data (gain, impedance etc)
  * in the entry widgets in the freq plots window
  */
-  void
+  static void
 Display_Frequency_Data( void )
 {
   int pol, fstep;
   double vswr, gamma;
   double zrpro2, zrmro2, zimag2;
-  char txt[11];
+  char txt[12];
 
   if( isFlagClear(PLOT_ENABLED) ) return;
 
@@ -430,16 +70,16 @@ Display_Frequency_Data( void )
 	  Polarization_Factor(pol, fstep, mgidx);
 
 	/* Display max gain */
-	snprintf( txt, 6, "%5f", gmax );
-	gtk_entry_set_text( GTK_ENTRY(lookup_widget(
-			freqplots_window, "freqplots_maxgain_entry")), txt );
+	snprintf( txt, 7, "%5.1f", gmax );
+	gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
+			freqplots_window_builder, "freqplots_maxgain_entry")), txt );
 
   } /* isFlagSet(ENABLE_RDPAT) */
 
   /* Display frequency */
-  snprintf( txt, 11, "%10.3f", (double)calc_data.fmhz );
-  gtk_entry_set_text( GTK_ENTRY(lookup_widget(
-		  freqplots_window, "freqplots_fmhz_entry")), txt );
+  snprintf( txt, 11, "%9.3f", (double)calc_data.fmhz );
+  gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
+		  freqplots_window_builder, "freqplots_fmhz_entry")), txt );
 
   /* Calculate VSWR */
   zrpro2 = (double)creal( netcx.zped ) + calc_data.zo;
@@ -454,330 +94,44 @@ Display_Frequency_Data( void )
 	vswr = 999.0;
 
   /* Display VSWR */
-  snprintf( txt, 6, "%5f", vswr );
-  gtk_entry_set_text( GTK_ENTRY(lookup_widget(
-		  freqplots_window, "freqplots_vswr_entry")), txt );
+  snprintf( txt, 7, "%5.1f", vswr );
+  gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
+		  freqplots_window_builder, "freqplots_vswr_entry")), txt );
 
   /* Display Z real */
-  snprintf( txt, 6, "%5f", (double)creal( netcx.zped ) );
-  gtk_entry_set_text( GTK_ENTRY(lookup_widget(
-		  freqplots_window, "freqplots_zreal_entry")), txt );
+  snprintf( txt, 7, "%5.1f", (double)creal( netcx.zped ) );
+  gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
+		  freqplots_window_builder, "freqplots_zreal_entry")), txt );
 
   /* Display Z imaginary */
-  snprintf( txt, 6, "%5f", (double)cimag( netcx.zped ) );
-  gtk_entry_set_text( GTK_ENTRY(lookup_widget(
-		  freqplots_window, "freqplots_zimag_entry")), txt );
+  snprintf( txt, 7, "%5.1f", (double)cimag( netcx.zped ) );
+  gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
+		  freqplots_window_builder, "freqplots_zimag_entry")), txt );
 
 } /* Display_Frequency_Data() */
 
 /*-----------------------------------------------------------------------*/
 
-/* Draw_Plotting_Frame()
+/* New_Max_Min()
  *
- * Draws a graph plotting frame, including
- * horizontal and vertical divisions
+ * Calculates new max and min scale
+ * values and the number of steps
  */
-void
-Draw_Plotting_Frame(
-	gchar **title,
-	GdkRectangle *rect,
-	int nhor, int nvert )
+  static void
+New_Max_Min( double *max, double *min, double sval, int *nval )
 {
-  int idx, xpw, xps, yph, yps;
-  PangoLayout *layout;
-  int width0, width1, width2, height; /* Layout size */
+  int ix;
+  double i;
 
-  /* Cairo context */
-  cairo_t *cr = gdk_cairo_create( freqplots_pixmap );
+  i = ceil(*max / sval - 0.000001);
+  ix = (int)i;
+  *max = (double)ix * sval;
+  i = floor(*min / sval + 0.000001);
+  ix = (int)i;
+  *min = (double)ix * sval;
+  *nval = (int)((*max - *min) / sval + 0.5) + 1;
 
-  /* Draw titles (left scale, center and right scale) */
-  cairo_set_source_rgb( cr, MAGENTA );
-  layout = gtk_widget_create_pango_layout(
-	  freqplots_drawingarea, title[0] );
-  pango_layout_get_pixel_size( layout, &width0, &height);
-  cairo_move_to( cr, rect->x, rect->y );
-  pango_cairo_show_layout( cr, layout );
-
-  cairo_set_source_rgb( cr, CYAN );
-  pango_layout_set_text( layout, title[2], -1 );
-  pango_layout_get_pixel_size( layout, &width2, &height);
-  xpw = rect->x + rect->width - width2;
-  cairo_move_to( cr, xpw, rect->y );
-  pango_cairo_show_layout( cr, layout );
-
-  cairo_set_source_rgb( cr, YELLOW );
-  pango_layout_set_text( layout, title[1], -1 );
-  pango_layout_get_pixel_size( layout, &width1, &height);
-  xpw = rect->x + width0/2 + (rect->width-width1-width2)/2;
-  cairo_move_to( cr, xpw, rect->y );
-  pango_cairo_show_layout( cr, layout );
-
-  /* Move to plot box and divisions */
-  rect->y += height;
-  xpw = rect->x + rect->width;
-  yph = rect->y + rect->height;
-
-  /* Draw vertical divisions */
-  cairo_set_source_rgb( cr, GREY );
-  nvert--;
-  for( idx = 1; idx <= nvert; idx++ )
-  {
-	xps = rect->x + (idx * rect->width) / nvert;
-	Cairo_Draw_Line( cr, xps, rect->y, xps, yph );
-  }
-
-  /* Draw horizontal divisions */
-  nhor--;
-  for( idx = 1; idx <= nhor; idx++ )
-  {
-	yps = rect->y + (idx * rect->height) / nhor;
-	Cairo_Draw_Line( cr, rect->x, yps, xpw, yps );
-  }
-
-  /* Draw outer box */
-  cairo_rectangle(
-	  cr, rect->x, rect->y, rect->width, rect->height );
-  cairo_stroke( cr );
-
-  /* Draw a vertical line to show current freq if it was
-   * changed by a user click on the plots drawingarea */
-  if( isFlagSet(FREQ_LOOP_DONE) && isFlagSet(PLOT_FREQ_LINE) )
-  {
-	double fr;
-
-	fr = ((double)calc_data.fmhz - min_fscale) /
-	  (max_fscale - min_fscale);
-	fr = fr * (double)rect->width + 0.5;
-
-	cairo_set_source_rgb( cr, GREEN );
-	Cairo_Draw_Line( cr, rect->x+(int)fr, rect->y, rect->x+(int)fr, yph );
-  }
-
-  g_object_unref( layout );
-  cairo_destroy( cr );
-} /* Draw_Plotting_Frame() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Plot_Vertical_Scale()
- *
- * Draws out a vertical scale, between the min
- * and max value of the variable to be plotted
- */
-void
-Plot_Vertical_Scale(
-	double red, double grn, double blu,
-	int x, int y, int height,
-	double max, double min,
-	int nval )
-{
-  int idx, yps;
-  int min_order, max_order, order;
-  double vstep = 1.0;
-  char value[16], format[6];
-  PangoLayout *layout;
-  int pl_width, pl_height; /* Layout size */
-
-  /* Abort if not enough values to plot */
-  if( nval <= 1 ) return;
-
-  /* Cairo context */
-  cairo_t *cr = gdk_cairo_create( freqplots_pixmap );
-  cairo_set_source_rgb( cr, red, grn, blu );
-
-  /* Calculate step between scale values */
-  vstep = (max-min) / (double)(nval-1);
-
-  /* Determine format for scale values */
-  /* Find order of magnitude of min and max values */
-  if( min != 0.0 )
-  {
-	double mo = log10( fabs(min) );
-	min_order = (int)mo;
-  }
-  else
-	min_order = 0;
-  if( max != 0.0 )
-  {
-	double mo = log10( fabs(max) );
-	max_order = (int)mo;
-  }
-  else max_order = 0;
-
-  /* Use highest order for format */
-  order = ( max_order > min_order ? max_order : min_order );
-  if( order > 3 ) order = 3;
-  if( order < 0 ) order = 0;
-  snprintf( format, 6, "%%6.%df", (3-order) );
-
-  /* Create a pango layout */
-  layout = gtk_widget_create_pango_layout(
-	  freqplots_drawingarea, "X" );
-  pango_layout_get_pixel_size( layout, &pl_width, &pl_height);
-
-  /* Draw vertical scale values */
-  /* Align with plot box */
-  y += pl_height/4;
-  for( idx = 0; idx < nval; idx++ )
-  {
-	yps = y + (idx * height) / (nval-1);
-	snprintf( value, 16, (const char *)format, max );
-	pango_layout_set_text( layout, value, -1 );
-	cairo_move_to( cr, x, yps );
-	pango_cairo_show_layout( cr, layout );
-	max -= vstep;
-  }
-
-  g_object_unref( layout );
-  cairo_destroy( cr );
-} /* Plot_Vertical_Scale() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Plot_Horizontal_Scale()
- *
- * Draws out a horizontal scale, between the min
- * and max value of the variable to be plotted
- */
-void
-Plot_Horizontal_Scale(
-	double red, double grn, double blu,
-	int x, int y, int width,
-	double max, double min,
-	int nval )
-{
-  int idx, xps, order;
-  double hstep = 1.0;
-  char value[16], format[6];
-  PangoLayout *layout;
-  int pl_width, pl_height; /* Layout size */
-
-  /* Abort if not enough values to plot */
-  if( nval <= 1 ) return;
-
-  /* Cairo context */
-  cairo_t *cr = gdk_cairo_create( freqplots_pixmap );
-  cairo_set_source_rgb( cr, red, grn, blu );
-
-  /* Calculate step between scale values */
-  hstep = (max-min) / (nval-1);
-
-  /* Determine format for scale values */
-  /* Use order of horizontal step to determine format of print */
-  double ord = log10( fabs(hstep + 0.0000001) );
-  order = (int)ord;
-  if( order > 0 )  order = 0;
-  if( order < -9 ) order = -9;
-  snprintf( format, 6, "%%6.%df", 1-order );
-
-  /* Create a pango layout */
-  layout = gtk_widget_create_pango_layout(
-	  freqplots_drawingarea, "1234.5" );
-  pango_layout_get_pixel_size( layout, &pl_width, &pl_height);
-
-  /* Draw horizontal scale values */
-  /* Align with plot box */
-  x -= pl_width/2;
-  for( idx = 0; idx < nval; idx++ )
-  {
-	xps = x + (idx * width) / (nval-1);
-	snprintf( value, sizeof(value), (const char *)format, min );
-	pango_layout_set_text( layout, value, -1 );
-	cairo_move_to( cr, xps, y );
-	pango_cairo_show_layout( cr, layout );
-	min += hstep;
-  }
-
-  g_object_unref( layout );
-  cairo_destroy( cr );
-} /* Plot_Horizontal_Scale() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Draw_Graph()
- *
- * Plots a graph of a vs b
- */
-void
-Draw_Graph(
-	double red, double grn, double blu,
-	GdkRectangle *rect,
-	double *a, double *b,
-	double amax, double amin,
-	double bmax, double bmin,
-	int nval, int side )
-{
-  double ra, rb;
-  int idx;
-  GdkPoint *points = NULL, polygn[4];
-
-  /* Cairo context */
-  cairo_t *cr = gdk_cairo_create( freqplots_pixmap );
-  cairo_set_source_rgb( cr, red, grn, blu );
-
-  /* Range of values to plot */
-  ra = amax - amin;
-  rb = bmax - bmin;
-
-  /* Calculate points to plot */
-  mem_alloc( (void **)&points,
-	  (size_t)calc_data.nfrq * sizeof(GdkPoint),
-	  "in Plot_Frequency_Data()" );
-  if( points == NULL )
-  {
-	fprintf( stderr, "xnec2c: Draw_Graph():"
-		"memory allocation for points failed\n" );
-	stop( _("Draw_Graph():"
-		  "Memory allocation for points failed"), ERR_OK );
-	return;
-  }
-  for( idx = 0; idx < nval; idx++ )
-  {
-	points[idx].x = rect->x + (int)( (double)rect->width  *
-		(b[idx]-bmin) / rb + 0.5 );
-	points[idx].y = rect->y + (int)( (double)rect->height *
-		(amax-a[idx]) / ra + 0.5 );
-
-	/* Plot a small rectangle (left scale) or polygon (right scale) at point */
-	if( side == LEFT )
-	{
-	  cairo_rectangle( cr,
-		  (double)(points[idx].x-3), (double)(points[idx].y-3),
-		  6.0, 6.0 );
-	  cairo_fill( cr );
-	}
-	else
-	{
-	  polygn[0].x = points[idx].x-4; polygn[0].y = points[idx].y;
-	  polygn[1].x = points[idx].x;   polygn[1].y = points[idx].y+4;
-	  polygn[2].x = points[idx].x+4; polygn[2].y = points[idx].y;
-	  polygn[3].x = points[idx].x;   polygn[3].y = points[idx].y-4;
-	  Cairo_Draw_Polygon( cr, polygn, 4 );
-	  cairo_fill( cr );
-	}
-  }
-
-  /* Draw the graph */
-  Cairo_Draw_Lines( cr, points, nval );
-
-  free_ptr( (void **)&points );
-  cairo_destroy( cr );
-} /* Draw_Graph() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Set_Rectangle()
- *
- * Sets the parameters of a GdkRectangle
- */
-  void
-Set_Rectangle( GdkRectangle *rect, int x, int y, int w, int h )
-{
-  rect->x = x;
-  rect->y = y;
-  rect->width  = w;
-  rect->height = h;
-}
+} /* New_Max_Min() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -788,7 +142,7 @@ Set_Rectangle( GdkRectangle *rect, int x, int y, int w, int h )
  * sub-division values are easier to interpolate between.
  * The chosen scale values are 10, 10/2, 10/4, 10/5 and 1.
  */
-  void
+  static void
 Fit_to_Scale( double *max, double *min, int *nval )
 {
   /* Acceptable scale values (10/10, 10/5, 10/4, 10/2) */
@@ -798,25 +152,8 @@ Fit_to_Scale( double *max, double *min, int *nval )
   double subdiv_val, subdiv_order;
   int idx;
 
-  /* Fix input */
-  if( *max == *min )
-  {
-	if( *max == 0.0 )
-	{
-	  *max =  1.0;
-	  *min = -1.0;
-	}
-	else if( *max > 0.0 )
-	{
-	  *max *= 1.5;
-	  *min /= 2.0;
-	}
-	else
-	{
-	  *max /= 2.0;
-	  *min *= 1.5;
-	}
-  }
+  /* Do nothing in this case */
+  if( *max <= *min ) return;
 
   /* Find subdivision's lower order of magnitude */
   subdiv_val = (*max - *min) / (double)(*nval-1);
@@ -853,7 +190,7 @@ Fit_to_Scale( double *max, double *min, int *nval )
  * This is done for two scales (left & right) simultaneously.
  * The chosen scale values are 10, 10/2, 10/4, 10/5 and 1.
  */
-  void
+  static void
 Fit_to_Scale2( double *max1, double *min1,
 	double *max2, double *min2, int *nval )
 {
@@ -866,44 +203,9 @@ Fit_to_Scale2( double *max1, double *min1,
   double max1sv=0.0, min1sv=0.0, max2sv=0.0, min2sv=0.0;
   int idx1, idx2, nval1, nval2, nvalsv=0, mx, i1, i2;
 
-  /* Fix input for both scales */
-  if( *max1 == *min1 )
-  {
-	if( *max1 == 0.0 )
-	{
-	  *max1 =  1.0;
-	  *min1 = -1.0;
-	}
-	else if( *max1 > 0.0 )
-	{
-	  *max1 *= 1.5;
-	  *min1 /= 2.0;
-	}
-	else
-	{
-	  *max1 /= 2.0;
-	  *min1 *= 1.5;
-	}
-  }
-
-  if( *max2 == *min2 )
-  {
-	if( *max2 == 0.0 )
-	{
-	  *max2 =  1.0;
-	  *min2 = -1.0;
-	}
-	else if( *max2 > 0.0 )
-	{
-	  *max2 *= 1.5;
-	  *min2 /= 2.0;
-	}
-	else
-	{
-	  *max2 /= 2.0;
-	  *min2 *= 1.5;
-	}
-  }
+  /* Do nothing in these cases */
+  if( *max1 <= *min1 ) return;
+  if( *max2 == *min2 ) return;
 
   /* For each scale */
   /* Find subdivision's lower order of magnitude */
@@ -1027,26 +329,310 @@ Fit_to_Scale2( double *max1, double *min1,
 
 /*-----------------------------------------------------------------------*/
 
-/* New_Max_Min()
+/* Set_Rectangle()
  *
- * Calculates new max and min scale
- * values and the number of steps
+ * Sets the parameters of a GdkRectangle
  */
-  void
-New_Max_Min( double *max, double *min, double sval, int *nval )
+  static void
+Set_Rectangle( GdkRectangle *rect, int x, int y, int w, int h )
 {
-  int ix;
-  double i;
+  rect->x = x;
+  rect->y = y;
+  rect->width  = w;
+  rect->height = h;
+}
 
-  i = ceil(*max / sval - 0.000001);
-  ix = (int)i;
-  *max = (double)ix * sval;
-  i = floor(*min / sval + 0.000001);
-  ix = (int)i;
-  *min = (double)ix * sval;
-  *nval = (int)((*max - *min) / sval + 0.5) + 1;
+/*-----------------------------------------------------------------------*/
 
-} /* New_Max_Min() */
+/* Plot_Horizontal_Scale()
+ *
+ * Draws out a horizontal scale, between the min
+ * and max value of the variable to be plotted
+ */
+  static void
+Plot_Horizontal_Scale(
+	cairo_t *cr,
+	double red, double grn, double blu,
+	int x, int y, int width,
+	double max, double min,
+	int nval )
+{
+  int idx, xps, order;
+  double hstep = 1.0;
+  char value[16], format[8];
+  PangoLayout *layout;
+  int pl_width, pl_height; /* Layout size */
+
+  /* Abort if not enough values to plot */
+  if( nval <= 1 ) return;
+
+  /* Cairo context */
+  cairo_set_source_rgb( cr, red, grn, blu );
+
+  /* Calculate step between scale values */
+  hstep = (max - min) / (nval - 1);
+
+  /* Determine format for scale values */
+  /* Use order of horizontal step to determine format of print */
+  double ord = log10( fabs(hstep + 0.0000001) );
+  order = (int)ord;
+  if( order > 0 )  order = 0;
+  if( order < -9 ) order = -9;
+  snprintf( format, 7, "%%6.%df", 1-order );
+
+  /* Create a pango layout */
+  layout = gtk_widget_create_pango_layout(
+	  freqplots_drawingarea, "1234.5" );
+  pango_layout_get_pixel_size( layout, &pl_width, &pl_height);
+
+  /* Draw horizontal scale values */
+  /* Align with plot box */
+  x -= pl_width/2;
+  for( idx = 0; idx < nval; idx++ )
+  {
+	xps = x + (idx * width) / (nval-1);
+	snprintf( value, sizeof(value), (const char *)format, min );
+	pango_layout_set_text( layout, value, -1 );
+	cairo_move_to( cr, xps, y );
+	pango_cairo_show_layout( cr, layout );
+	min += hstep;
+  }
+
+  g_object_unref( layout );
+
+} /* Plot_Horizontal_Scale() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Plot_Vertical_Scale()
+ *
+ * Draws out a vertical scale, between the min
+ * and max value of the variable to be plotted
+ */
+  static void
+Plot_Vertical_Scale(
+	cairo_t *cr,
+	double red, double grn, double blu,
+	int x, int y, int height,
+	double max, double min,
+	int nval )
+{
+  int idx, yps;
+  int min_order, max_order, order;
+  double vstep = 1.0;
+  char value[16], format[6];
+  PangoLayout *layout;
+  int pl_width, pl_height; /* Layout size */
+
+  /* Abort if not enough values to plot */
+  if( nval <= 1 ) return;
+
+  /* Cairo context */
+  cairo_set_source_rgb( cr, red, grn, blu );
+
+  /* Calculate step between scale values */
+  vstep = (max-min) / (double)(nval-1);
+
+  /* Determine format for scale values */
+  /* Find order of magnitude of min and max values */
+  if( min != 0.0 )
+  {
+	double mo = log10( fabs(min) );
+	min_order = (int)mo;
+  }
+  else
+	min_order = 0;
+  if( max != 0.0 )
+  {
+	double mo = log10( fabs(max) );
+	max_order = (int)mo;
+  }
+  else max_order = 0;
+
+  /* Use highest order for format */
+  order = ( max_order > min_order ? max_order : min_order );
+  if( order > 3 ) order = 3;
+  if( order < 0 ) order = 0;
+  snprintf( format, 6, "%%6.%df", (3-order) );
+
+  /* Create a pango layout */
+  layout = gtk_widget_create_pango_layout(
+	  freqplots_drawingarea, "X" );
+  pango_layout_get_pixel_size( layout, &pl_width, &pl_height);
+
+  /* Draw vertical scale values */
+  /* Align with plot box */
+  y += pl_height/4;
+  for( idx = 0; idx < nval; idx++ )
+  {
+	yps = y + (idx * height) / (nval-1);
+	snprintf( value, 16, (const char *)format, max );
+	pango_layout_set_text( layout, value, -1 );
+	cairo_move_to( cr, x, yps );
+	pango_cairo_show_layout( cr, layout );
+	max -= vstep;
+  }
+
+  g_object_unref( layout );
+
+} /* Plot_Vertical_Scale() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Draw_Plotting_Frame()
+ *
+ * Draws a graph plotting frame, including
+ * horizontal and vertical divisions
+ */
+  static void
+Draw_Plotting_Frame(
+	cairo_t *cr,
+	gchar **title,
+	GdkRectangle *rect,
+	int nhor, int nvert )
+{
+  int idx, xpw, xps, yph, yps;
+  PangoLayout *layout;
+  int width0, width1, width2, height; /* Layout size */
+
+  /* Draw titles (left scale, center and right scale) */
+  cairo_set_source_rgb( cr, MAGENTA );
+  layout = gtk_widget_create_pango_layout(
+	  freqplots_drawingarea, title[0] );
+  pango_layout_get_pixel_size( layout, &width0, &height );
+  cairo_move_to( cr, rect->x, rect->y );
+  pango_cairo_show_layout( cr, layout );
+
+  cairo_set_source_rgb( cr, CYAN );
+  pango_layout_set_text( layout, title[2], -1 );
+  pango_layout_get_pixel_size( layout, &width2, &height );
+  xpw = rect->x + rect->width - width2;
+  cairo_move_to( cr, xpw, rect->y );
+  pango_cairo_show_layout( cr, layout );
+
+  cairo_set_source_rgb( cr, YELLOW );
+  pango_layout_set_text( layout, title[1], -1 );
+  pango_layout_get_pixel_size( layout, &width1, &height );
+  xpw = rect->x + width0/2 + (rect->width-width1-width2)/2;
+  cairo_move_to( cr, xpw, rect->y );
+  pango_cairo_show_layout( cr, layout );
+
+  /* Move to plot box and divisions */
+  rect->y += height;
+  xpw = rect->x + rect->width;
+  yph = rect->y + rect->height;
+
+  /* Draw vertical divisions */
+  cairo_set_source_rgb( cr, GREY );
+  nvert--;
+  for( idx = 1; idx <= nvert; idx++ )
+  {
+	xps = rect->x + (idx * rect->width) / nvert;
+	Cairo_Draw_Line( cr, xps, rect->y, xps, yph );
+  }
+
+  /* Draw horizontal divisions */
+  nhor--;
+  for( idx = 1; idx <= nhor; idx++ )
+  {
+	yps = rect->y + (idx * rect->height) / nhor;
+	Cairo_Draw_Line( cr, rect->x, yps, xpw, yps );
+  }
+
+  /* Draw outer box */
+  cairo_rectangle(
+	  cr, rect->x, rect->y, rect->width, rect->height );
+  cairo_stroke( cr );
+
+  /* Draw a vertical line to show current freq if it was
+   * changed by a user click on the plots drawingarea */
+  if( isFlagSet(FREQ_LOOP_DONE) && isFlagSet(PLOT_FREQ_LINE) )
+  {
+	double fr;
+
+	fr = ((double)calc_data.fmhz - min_fscale) /
+	  (max_fscale - min_fscale);
+	fr = fr * (double)rect->width + 0.5;
+
+	cairo_set_source_rgb( cr, GREEN );
+	Cairo_Draw_Line( cr, rect->x+(int)fr, rect->y, rect->x+(int)fr, yph );
+  }
+
+  g_object_unref( layout );
+
+} /* Draw_Plotting_Frame() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Draw_Graph()
+ *
+ * Plots a graph of a vs b
+ */
+  static void
+Draw_Graph(
+	cairo_t *cr,
+	double red, double grn, double blu,
+	GdkRectangle *rect,
+	double *a, double *b,
+	double amax, double amin,
+	double bmax, double bmin,
+	int nval, int side )
+{
+  double ra, rb;
+  int idx;
+  GdkPoint *points = NULL, polygn[4];
+
+  /* Cairo context */
+  cairo_set_source_rgb( cr, red, grn, blu );
+
+  /* Range of values to plot */
+  ra = amax - amin;
+  rb = bmax - bmin;
+
+  /* Calculate points to plot */
+  mem_alloc( (void **)&points,
+	  (size_t)calc_data.nfrq * sizeof(GdkPoint),
+	  "in Draw_Graph()" );
+  if( points == NULL )
+  {
+	fprintf( stderr, _("xnec2c: Draw_Graph():"
+		"memory allocation for points failed\n") );
+	Stop( _("Draw_Graph():"
+		  "Memory allocation for points failed"), ERR_OK );
+	return;
+  }
+  for( idx = 0; idx < nval; idx++ )
+  {
+	points[idx].x = rect->x + (int)( (double)rect->width  *
+		(b[idx]-bmin) / rb + 0.5 );
+	points[idx].y = rect->y + (int)( (double)rect->height *
+		(amax-a[idx]) / ra + 0.5 );
+
+	/* Plot a small rectangle (left scale) or polygon (right scale) at point */
+	if( side == LEFT )
+	{
+	  cairo_rectangle( cr,
+		  (double)(points[idx].x-3), (double)(points[idx].y-3),
+		  6.0, 6.0 );
+	  cairo_fill( cr );
+	}
+	else
+	{
+	  polygn[0].x = points[idx].x-4; polygn[0].y = points[idx].y;
+	  polygn[1].x = points[idx].x;   polygn[1].y = points[idx].y+4;
+	  polygn[2].x = points[idx].x+4; polygn[2].y = points[idx].y;
+	  polygn[3].x = points[idx].x;   polygn[3].y = points[idx].y-4;
+	  Cairo_Draw_Polygon( cr, polygn, 4 );
+	  cairo_fill( cr );
+	}
+  }
+
+  /* Draw the graph */
+  Cairo_Draw_Lines( cr, points, nval );
+
+  free_ptr( (void **)&points );
+
+} /* Draw_Graph() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -1054,14 +640,16 @@ New_Max_Min( double *max, double *min, double sval, int *nval )
  *
  * Plots graphs of two functions against a common variable
  */
-void
+  static void
 Plot_Graph2(
+	cairo_t *cr,
 	double *fa, double *fb, double *fc, int nc,
 	char *titles[], int nplt, int posn )
 {
   double max_fa, min_fa, max_fb, min_fb;
   static int first_call = TRUE;
   int idx, nval_ab, plot_height, plot_posn;
+
   /* Pango layout size */
   static int layout_width, layout_height;
 
@@ -1079,18 +667,19 @@ Plot_Graph2(
 
   /* Available height for each graph.
    * (np=number of graphs to be plotted) */
-  plot_height = freqplots_pixmap_height/nplt;
-  plot_posn   = (freqplots_pixmap_height * (posn-1))/nplt;
+  plot_height = freqplots_height/nplt;
+  plot_posn   = (freqplots_height * (posn-1))/nplt;
 
   /* Plot box rectangle */
   Set_Rectangle(
 	  &plot_rect,
 	  layout_width+4, plot_posn+2,
-	  freqplots_pixmap_width-8 - 2*layout_width,
+	  freqplots_width-8 - 2*layout_width,
 	  plot_height-8 - 2*layout_height );
 
   /*** Draw horizontal (freq) scale ***/
   Plot_Horizontal_Scale(
+	  cr,
 	  YELLOW,
 	  layout_width+2,
 	  plot_posn+plot_height-2 - layout_height,
@@ -1124,6 +713,7 @@ Plot_Graph2(
 
   /* Draw left scale */
   Plot_Vertical_Scale(
+	  cr,
 	  MAGENTA,
 	  2, plot_posn+2,
 	  plot_rect.height,
@@ -1131,16 +721,18 @@ Plot_Graph2(
 
   /* Draw right scale */
   Plot_Vertical_Scale(
+	  cr,
 	  CYAN,
-	  freqplots_pixmap_width-2 - layout_width, plot_posn+2,
+	  freqplots_width-2 - layout_width, plot_posn+2,
 	  plot_rect.height,
 	  max_fb, min_fb, nval_ab );
 
   /* Draw plotting frame */
-  Draw_Plotting_Frame( titles, &plot_rect, nval_ab, nval_fscale );
+  Draw_Plotting_Frame( cr, titles, &plot_rect, nval_ab, nval_fscale );
 
   /* Draw graph */
   Draw_Graph(
+	  cr,
 	  MAGENTA,
 	  &plot_rect, fa, fc,
 	  max_fa, min_fa,
@@ -1149,6 +741,7 @@ Plot_Graph2(
 
   /* Draw graph */
   Draw_Graph(
+	  cr,
 	  CYAN, &plot_rect,
 	  fb, fc,
 	  max_fb, min_fb,
@@ -1161,10 +754,11 @@ Plot_Graph2(
 
 /* Plot_Graph()
  *
- * Plots graph of a functions against a variable
+ * Plots graph of a function against a variable
  */
-void
+  static void
 Plot_Graph(
+	cairo_t *cr,
 	double *fa, double *fb, int nb,
 	char *titles[], int nplt, int posn )
 {
@@ -1189,18 +783,19 @@ Plot_Graph(
 
   /* Available height for each graph.
    * (np=number of graphs to be plotted) */
-  plot_height = freqplots_pixmap_height/nplt;
-  plot_posn   = (freqplots_pixmap_height * (posn-1))/nplt;
+  plot_height = freqplots_height/nplt;
+  plot_posn   = (freqplots_height * (posn-1))/nplt;
 
   /* Plot box rectangle */
   Set_Rectangle(
 	  &plot_rect,
 	  layout_width + 4, plot_posn+2,
-	  freqplots_pixmap_width-8 - 2*layout_width,
+	  freqplots_width-8 - 2*layout_width,
 	  plot_height-8 - 2*layout_height );
 
   /*** Draw horizontal (freq) scale ***/
   Plot_Horizontal_Scale(
+	  cr,
 	  YELLOW,
 	  layout_width+2,
 	  plot_posn+plot_height-2 - layout_height,
@@ -1224,16 +819,18 @@ Plot_Graph(
 
   /* Draw left scale */
   Plot_Vertical_Scale(
+	  cr,
 	  MAGENTA,
 	  2, plot_posn+2,
 	  plot_rect.height,
 	  max_fa, min_fa, nval_fa );
 
   /* Draw plotting frame */
-  Draw_Plotting_Frame( titles, &plot_rect, nval_fa, nval_fscale );
+  Draw_Plotting_Frame( cr, titles, &plot_rect, nval_fa, nval_fscale );
 
   /* Draw graph */
   Draw_Graph(
+	  cr,
 	  MAGENTA,
 	  &plot_rect, fa, fb,
 	  max_fa, min_fa,
@@ -1244,22 +841,365 @@ Plot_Graph(
 
 /*-----------------------------------------------------------------------*/
 
+/* Plot_Frequency_Data()
+ *
+ * Plots a graph of frequency-dependent parameters
+ * (gain, vswr, imoedance etc) against frequency
+ */
+  void
+Plot_Frequency_Data( cairo_t *cr )
+{
+  /* Abort plotting if main window is to be closed
+   * or when plots drawing area not available */
+  if(
+	  isFlagSet(MAIN_QUIT) ||
+	  isFlagClear(PLOT_ENABLED) ||
+	  isFlagClear(ENABLE_EXCITN) )
+	return;
+
+  /* Titles for plots */
+  char *titles[3];
+
+  int
+	idx,
+	posn,  /* Position num of plot in drawingarea */
+	fstep; /* Freq step number */
+
+  static double
+	*gmax     = NULL, /* Max gain buffer */
+	*vgain    = NULL, /* Viewer direction gain buffer */
+	*netgain  = NULL, /* Viewer direction net gain buffer */
+	*gdir_tht = NULL, /* Direction in theta of gain */
+	*gdir_phi = NULL, /* Direction in phi of gain */
+	*fbratio  = NULL; /* Front to back ratio */
+
+  /* Used to calculate net gain */
+  double Zr, Zo, Zi;
+
+
+  /* Clear drawingarea */
+  cairo_set_source_rgb( cr, BLACK );
+  cairo_rectangle(
+	  cr, 0.0, 0.0,
+	  (double)freqplots_width,
+	  (double)freqplots_height );
+  cairo_fill( cr );
+
+  /* Abort if plotting is not possible */
+  if( (calc_data.fstep < 1)				||
+	  isFlagClear(FREQLOOP_READY)		||
+	  (isFlagClear(FREQ_LOOP_RUNNING)	&&
+	   isFlagClear(FREQ_LOOP_DONE))		||
+	  (isFlagClear(PLOT_GMAX)			&&
+	   isFlagClear(PLOT_GVIEWER)		&&
+	   isFlagClear(PLOT_VSWR)			&&
+	   isFlagClear(PLOT_ZREAL_ZIMAG)	&&
+	   isFlagClear(PLOT_ZMAG_ZPHASE)) )
+  {
+	return;
+  }
+
+  /* Fit frequency range to scale */
+  min_fscale  = (double)save.freq[0];
+  if( isFlagSet(FREQ_LOOP_RUNNING) )
+	max_fscale = (double)save.freq[calc_data.fstep];
+  else
+	max_fscale = (double)save.freq[calc_data.lastf];
+  nval_fscale = freqplots_width / 75;
+  Fit_to_Scale( &max_fscale, &min_fscale, &nval_fscale );
+
+  /* Graph position */
+  posn = 0;
+
+  /* Limit freq stepping to last freq step */
+  fstep = calc_data.lastf + 1;
+
+  /* Plot max gain vs frequency, if possible */
+  if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) )
+  {
+	int nth, nph, pol;
+	gboolean no_fbr;
+
+	/* Allocate max gmax and directions */
+	size_t mreq = (size_t)fstep * sizeof(double);
+	mem_realloc( (void **)&gmax,     mreq, "in plot_freqdata.c" );
+	mem_realloc( (void **)&gdir_tht, mreq, "in plot_freqdata.c" );
+	mem_realloc( (void **)&gdir_phi, mreq, "in plot_freqdata.c" );
+	mem_realloc( (void **)&fbratio,  mreq, "in plot_freqdata.c" );
+
+	if( isFlagSet(PLOT_NETGAIN) )
+	  mem_realloc( (void **)&netgain, mreq, "in plot_freqdata.c" );
+
+	/* Find max gain and direction, F/B ratio */
+	no_fbr = FALSE;
+
+	/* Polarization type and impedance */
+	pol = calc_data.pol_type;
+	Zo = calc_data.zo;
+
+	/* When freq loop is done, calcs are done for all freq steps */
+	for( idx = 0; idx < fstep; idx++ )
+	{
+	  double fbdir;
+	  int fbidx, mgidx;
+
+	  /* Index to gtot buffer where max gain
+	   * occurs for given polarization type */
+	  mgidx = rad_pattern[idx].max_gain_idx[pol];
+
+	  /* Max gain for given polarization type */
+	  gmax[idx] =
+		rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
+
+	  /* Net gain if selected */
+	  if( isFlagSet(PLOT_NETGAIN) )
+	  {
+		Zr = impedance_data.zreal[idx];
+		Zi = impedance_data.zimag[idx];
+		netgain[idx] = gmax[idx] + 10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
+	  }
+
+	  /* Radiation angle/phi where max gain occurs */
+	  gdir_tht[idx] = 90.0 - rad_pattern[idx].max_gain_tht[pol];
+	  gdir_phi[idx] = rad_pattern[idx].max_gain_phi[pol];
+
+	  /* Find F/B ratio if possible or net gain not required */
+	  if( no_fbr || isFlagSet(PLOT_NETGAIN) )
+		continue;
+
+	  /* Find F/B direction in theta */
+	  fbdir = 180.0 - rad_pattern[idx].max_gain_tht[pol];
+	  if( fpat.dth == 0.0 )	nth = 0;
+	  else nth = (int)( fbdir/fpat.dth + 0.5 );
+
+	  /* If the antenna is modelled over ground, then use the same
+	   * theta as the max gain direction, relying on phi alone to
+	   * take us to the back. Patch supplied by Rik van Riel AB1KW
+	   */
+	  if( (nth >= fpat.nth) || (nth < 0) )
+	  {
+		fbdir = rad_pattern[idx].max_gain_tht[pol];
+		if( fpat.dth == 0.0 )
+		  nth = 0;
+		else
+		  nth = (int)( fbdir/fpat.dth + 0.5 );
+	  }
+
+	  /* Find F/B direction in phi */
+	  fbdir = gdir_phi[idx] + 180.0;
+	  if( fbdir >= 360.0 ) fbdir -= 360.0;
+	  nph = (int)( fbdir/fpat.dph + 0.5 );
+
+	  /* No F/B calc. possible if no phi step at +180 from max gain */
+	  if( (nph >= fpat.nph) || (nph < 0) )
+	  {
+		no_fbr = TRUE;
+		continue;
+	  }
+
+	  /* Index to gtot buffer for gain in back direction */
+	  fbidx = nth + nph*fpat.nth;
+
+	  /* Front to back ratio */
+	  fbratio[idx]  = pow( 10.0, gmax[idx] / 10.0 );
+	  fbratio[idx] /= pow( 10.0,
+		  (rad_pattern[idx].gtot[fbidx] +
+		   Polarization_Factor(pol, idx, fbidx)) / 10.0 );
+	  fbratio[idx] = 10.0 * log10( fbratio[idx] );
+
+	} /* for( idx = 0; idx < fstep; idx++ ) */
+
+	/*** Plot gain and f/b ratio (if possible) graph(s) */
+	if( no_fbr || isFlagSet(PLOT_NETGAIN) )
+	{
+	  /* Plotting frame titles */
+	  titles[0] = _("Raw Gain dbi");
+	  if( isFlagSet(PLOT_NETGAIN) )
+	  {
+		titles[1] = _("Max Gain & Net Gain vs Frequency");
+		titles[2] = _("Net Gain dbi");
+		if( fstep > 1 )
+		  Plot_Graph2( cr, gmax, netgain, save.freq, fstep,
+			  titles, calc_data.ngraph, ++posn );
+	  }
+	  else
+	  {
+		titles[1] = _("Max Gain & F/B Ratio vs Frequency");
+		titles[2] = "        ";
+		if( fstep > 1 )
+		  Plot_Graph( cr, gmax, save.freq, fstep,
+			  titles, calc_data.ngraph, ++posn );
+	  }
+	}
+	else
+	{
+	  /* Plotting frame titles */
+	  titles[0] = _("Raw Gain dbi");
+	  titles[1] = _("Max Gain & F/B Ratio vs Frequency");
+	  titles[2] = _("F/B Ratio db");
+	  if( fstep > 1 )
+		Plot_Graph2( cr, gmax, fbratio, save.freq, fstep,
+			titles, calc_data.ngraph, ++posn );
+	}
+
+	/* Plot max gain direction if enabled */
+	if( isFlagSet(PLOT_GAIN_DIR) )
+	{
+	  /* Plotting frame titles */
+	  titles[0] = _("Rad Angle - deg");
+	  titles[1] = _("Max Gain Direction vs Frequency");
+	  titles[2] = _("Phi - deg");
+	  if( fstep > 1 )
+		Plot_Graph2( cr, gdir_tht, gdir_phi, save.freq, fstep,
+			titles, calc_data.ngraph, ++posn );
+	}
+
+  } /* if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) ) */
+
+  /* Plot gain in direction of viewer vs freq, if possible */
+  if( isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) )
+  {
+	/* Plotting frame titles */
+	titles[0] = _("Raw Gain dbi");
+	titles[1] = _("Gain in Viewer Direction vs Frequency");
+
+	/* Allocate viewer gain buffer */
+	size_t mreq = (size_t)fstep * sizeof(double);
+	mem_realloc( (void **)&vgain, mreq, "in plot_freqdata.c" );
+
+	/* Calcs are done for all freq steps */
+	for( idx = 0; idx < fstep; idx++ )
+	  vgain[idx] = Viewer_Gain( structure_proj_params, idx );
+
+	/* Plot net gain if selected */
+	if( isFlagSet(PLOT_NETGAIN) )
+	{
+	  mreq = (size_t)fstep * sizeof(double);
+	  mem_realloc( (void **)&netgain, mreq, "in plot_freqdata.c" );
+
+	  Zo = calc_data.zo;
+	  for( idx = 0; idx < fstep; idx++ )
+	  {
+		Zr = impedance_data.zreal[idx];
+		Zi = impedance_data.zimag[idx];
+		netgain[idx] = vgain[idx] +
+		  10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
+	  }
+
+	  /* Plot net gain if selected */
+	  titles[2] = _("Net gain dbi");
+	  if( fstep > 1 )
+		Plot_Graph2( cr, vgain, netgain, save.freq, fstep,
+			titles, calc_data.ngraph, ++posn );
+	} /* if( isFlagSet(PLOT_NETGAIN) ) */
+	else
+	{
+	  titles[2] = "        ";
+	  if( fstep > 1 )
+		Plot_Graph( cr, vgain, save.freq, fstep,
+			titles, calc_data.ngraph, ++posn );
+	}
+  } /* isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) */
+
+  /* Plot VSWR vs freq */
+  if( isFlagSet(PLOT_VSWR) )
+  {
+	double *vswr = NULL, gamma;
+	double zrpro2, zrmro2, zimag2;
+
+	/* Plotting frame titles */
+	titles[0] = _("VSWR");
+	titles[1] = _("VSWR vs Frequency");
+
+	/* Calculate VSWR */
+	mem_alloc( (void **)&vswr,
+		(size_t)calc_data.nfrq * sizeof(double),
+		"in Plot_Frequency_Data()" );
+	if( vswr == NULL )
+	{
+	  fprintf( stderr, _("xnec2c: Plot_Frequency_Data():"
+		  "memory allocation for vswr failed\n") );
+	  Stop( _("Plot_Frequency_Data():"
+			"Memory allocation for vswr failed"), ERR_OK );
+	  return;
+	}
+	for(idx = 0; idx < fstep; idx++ )
+	{
+	  zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
+	  zrpro2 *= zrpro2;
+	  zrmro2 = impedance_data.zreal[idx] - calc_data.zo;
+	  zrmro2 *= zrmro2;
+	  zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
+	  gamma = sqrt( (zrmro2 + zimag2)/(zrpro2 + zimag2) );
+	  vswr[idx] = (1+gamma)/(1-gamma);
+	  if( vswr[idx] > 10.0 ) vswr[idx] = 10.0;
+	}
+
+	titles[2] = "        ";
+	if( fstep > 1 )
+	  Plot_Graph( cr, vswr, save.freq, fstep,
+		  titles, calc_data.ngraph, ++posn );
+
+	free_ptr( (void **)&vswr );
+  } /* if( isFlagSet(PLOT_VSWR) ) */
+
+  /* Plot z-real and z-imag */
+  if( isFlagSet(PLOT_ZREAL_ZIMAG) )
+  {
+	/* Plotting frame titles */
+	titles[0] = _("Z-real");
+	titles[1] = _("Impedance vs Frequency");
+	titles[2] = _("Z-imag");
+	if( fstep > 1 )
+	  Plot_Graph2( cr,
+		  impedance_data.zreal, impedance_data.zimag, save.freq,
+		  fstep, titles, calc_data.ngraph, ++posn );
+
+  } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
+
+  /* Plot z-magn and z-phase */
+  if( isFlagSet(PLOT_ZMAG_ZPHASE) )
+  {
+	/* Plotting frame titles */
+	titles[0] = _("Z-magn");
+	titles[1] = _("Impedance vs Frequency");
+	titles[2] = _("Z-phase");
+	if( fstep > 1 )
+	  Plot_Graph2( cr, impedance_data.zmagn, impedance_data.zphase,
+		  save.freq, fstep, titles, calc_data.ngraph, ++posn );
+
+  } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
+
+  /* Display freq data in entry widgets */
+  Display_Frequency_Data();
+
+  /* Wait for GTK to complete its tasks */
+  while( g_main_context_iteration(NULL, FALSE) );
+
+} /* Plot_Frequency_Data() */
+
+/*-----------------------------------------------------------------------*/
+
 /* Plots_Window_Killed()
  *
  * Cleans up after the plots window is closed
  */
   void
-Plots_Window_Killed(void)
+Plots_Window_Killed( void )
 {
+  rc_config.freqplots_width  = 0;
+  rc_config.freqplots_height = 0;
+
   if( isFlagSet(PLOT_ENABLED) )
   {
 	ClearFlag( PLOT_FLAGS );
 	freqplots_drawingarea = NULL;
 	freqplots_window = NULL;
+	g_object_unref( freqplots_window_builder );
+	freqplots_window_builder = NULL;
 
-	gtk_check_menu_item_set_active(
-		GTK_CHECK_MENU_ITEM(lookup_widget(
-			main_window, "main_freqplots")), FALSE );
+	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
+		  Builder_Get_Object(main_window_builder, "main_freqplots")), FALSE );
   }
 
 } /* Plots_Window_Killed() */
@@ -1303,7 +1243,9 @@ Set_Frequency_On_Click( GdkEventButton *event )
 
 	case 2: /* Disable drawing of freq line */
 	  ClearFlag( PLOT_FREQ_LINE );
-	  Plot_Frequency_Data();
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( freqplots_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
 	  return;
 
 	case 3: /* Calculate frequency corresponding to mouse position in plot */

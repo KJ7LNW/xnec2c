@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -16,39 +14,55 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* callback_func.c
- *
- * Functions to handle GTK callbacks for xnec2c
- */
-
 #include "callback_func.h"
 #include "shared.h"
 
 /*-----------------------------------------------------------------------*/
 
-/* Save_Pixmap()
+/* Save_Pixbuf()
  *
- * Saves pixmaps as png files
+ * Saves pixbufs as png files
  */
-  void
-Save_Pixmap(
-	GdkPixmap *pixmap, int pixmap_width,
-	int pixmap_height, char *filename )
+  gboolean
+Save_Pixbuf( gpointer save_data )
 {
   GdkPixbuf *pixbuf;
   GError *error = NULL;
+  GdkWindow *window = gtk_widget_get_window(
+	  ((save_data_t *)save_data)->drawingarea );
 
-  /* Get image from pixmap */
-  gtk_widget_grab_focus( structure_drawingarea );
-  pixbuf = gdk_pixbuf_get_from_drawable(
-	  NULL, pixmap, gdk_drawable_get_colormap(pixmap),
-	  0, 0, 0, 0, pixmap_width, pixmap_height );
+  /* Get image from pixbuf */
+  pixbuf = gdk_pixbuf_get_from_window( window, 0, 0,
+	  ((save_data_t *)save_data)->width,
+	  ((save_data_t *)save_data)->height );
 
   /* Save image as PNG file */
-  gdk_pixbuf_save( pixbuf, filename, "png", &error, NULL );
+  gdk_pixbuf_save( pixbuf,
+	  ((save_data_t *)save_data)->filename, "png", &error, NULL );
   g_object_unref( pixbuf );
 
-} /* Save_Pixmap() */
+  return( FALSE );
+
+} /* Save_Pixbuf() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Set_Spin_Button()
+ *
+ * Sets the value of a spin button
+ */
+  static void
+Set_Spin_Button( GtkSpinButton *spin, gdouble value )
+{
+  /* Save original value and set new */
+  gdouble sav = gtk_spin_button_get_value( spin );
+  gtk_spin_button_set_value( spin, value );
+
+  /* Issue a value_changed signal if needed (given same values) */
+  if( sav == value )
+	g_signal_emit_by_name( G_OBJECT(spin), "value_changed", NULL );
+
+} /* Set_Spin_Button() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -75,71 +89,17 @@ New_Viewer_Angle(
 
 /*-----------------------------------------------------------------------*/
 
-/* Set_Spin_Button()
- *
- * Sets the value of a spin button
- */
-  void
-Set_Spin_Button( GtkSpinButton *spin, gdouble value )
-{
-  /* Save original value and set new */
-  gdouble sav = gtk_spin_button_get_value( spin );
-  gtk_spin_button_set_value( spin, value );
-
-  /* Issue a value_changed signal if needed (given same values) */
-  if( sav == value )
-	g_signal_emit_by_name( G_OBJECT(spin), "value_changed", NULL );
-
-} /* Set_Spin_Button() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Create_Pixmap()
- *
- * Creates or resizes a pixmap after a configure event
- */
-void
-Create_Pixmap(
-	GdkPixmap **pixmap,
-	int *pixmap_width,
-	int *pixmap_height,
-	GtkWidget *widget,
-	GdkEventConfigure *event,
-	projection_parameters_t *params )
-{
-  /* Create or resize pixmap */
-  if( *pixmap != NULL )
-  {
-	g_object_unref( *pixmap );
-	*pixmap = NULL;
-  }
-
-  *pixmap = gdk_pixmap_new(
-	  widget->window,
-	  event->width,
-	  event->height, -1 );
-  *pixmap_width  = event->width;
-  *pixmap_height = event->height;
-
-  /* Calculate new projection parameters */
-  if( params != NULL )
-	New_Projection_Parameters( *pixmap_width, *pixmap_height, params );
-
-} /* Create_Pixmap() */
-
-/*-----------------------------------------------------------------------*/
-
 /* Motion_Event()
  *
  * Handles pointer motion event on drawingareas
  */
-void
+  void
 Motion_Event(
 	GdkEventMotion *event,
 	projection_parameters_t *params )
 {
   /* Save previous pointer position */
-  static gdouble x_old = 0.0, y_old = 0.0;
+  static gdouble x_prev = 0.0, y_prev = 0.0;
 
   gdouble x = event->x;
   gdouble y = event->y;
@@ -147,20 +107,22 @@ Motion_Event(
   gchar value[6];
   size_t s = sizeof( value );
 
+  SetFlag( BLOCK_MOTION_EV );
+
   /* Initialize saved x,y */
   if( params->reset )
   {
-	x_old = x;
-	y_old = y;
+	x_prev = x;
+	y_prev = y;
 	params->reset = FALSE;
   }
 
   /* Recalculate projection parameters
    * according to pointer motion */
-  dx = x - x_old;
-  dy = y - y_old;
-  x_old = x;
-  y_old = y;
+  dx = x - x_prev;
+  dy = y - y_prev;
+  x_prev = x;
+  y_prev = y;
 
   /* Other buttons are used for moving axes on screen */
   if( event->state & GDK_BUTTON1_MASK )
@@ -178,8 +140,7 @@ Motion_Event(
 	}
 
 	/* Set the rdpattern rotate/incline spinbuttons */
-	if( (isFlagSet(DRAW_ENABLED) &&
-		  isFlagSet(COMMON_PROJECTION)) ||
+	if( (isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_PROJECTION)) ||
 		(params->type == RDPATTERN_DRAWINGAREA) )
 	{
 	  rdpattern_proj_params.Wr -= dx / (gdouble)MOTION_EVENTS_COUNT;
@@ -209,13 +170,25 @@ Motion_Event(
   else
   {
 	/* Move structure or rdpattern axes on screen */
-	params->x_center += dx;
-	params->y_center -= dy;
+	params->dx_center += dx;
+	params->dy_center -= dy;
+
 	if( params->type == STRUCTURE_DRAWINGAREA )
-	  Draw_Structure( structure_drawingarea );
+	{
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( structure_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+	}
+
 	if( params->type == RDPATTERN_DRAWINGAREA )
-	  Draw_Radiation( rdpattern_drawingarea );
+	{
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( rdpattern_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+	}
   }
+
+  ClearFlag( BLOCK_MOTION_EV );
 
 } /* Motion_Event() */
 
@@ -241,9 +214,35 @@ Plot_Select( GtkToggleButton *togglebutton, unsigned long long int flag )
 
   /* Trigger a redraw of frequency plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
-	Plot_Frequency_Data();
+  {
+	/* Wait for GTK to complete its tasks */
+	gtk_widget_queue_draw( freqplots_drawingarea );
+	while( g_main_context_iteration(NULL, FALSE) );
+  }
 
 } /* Plot_Select() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Nec2_Edit_Save()
+ *
+ * Prompts user to save NEC2 data if edited
+ */
+  gboolean
+Nec2_Edit_Save( void )
+{
+  if( isFlagSet(NEC2_EDIT_SAVE) )
+  {
+	if( nec2_save_dialog == NULL )
+	{
+	  nec2_save_dialog = create_nec2_save_dialog( &nec2_save_dialog_builder );
+	  gtk_widget_show( nec2_save_dialog );
+	}
+	return( TRUE );
+  }
+  else return( FALSE );
+
+} /* Nec2_Edit_Save() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -251,26 +250,26 @@ Plot_Select( GtkToggleButton *togglebutton, unsigned long long int flag )
  *
  * Handles user request to delete a window
  */
- void
+  void
 Delete_Event( gchar *mesg )
 {
-  quit_dialog = create_quit_dialog();
+  quit_dialog = create_quit_dialog( &quit_dialog_builder );
   gtk_widget_show( quit_dialog );
 
   if( isFlagSet(FREQ_LOOP_RUNNING) )
   {
 	if( isFlagSet(MAIN_QUIT) )
-	  gtk_label_set_text( GTK_LABEL(lookup_widget(
-			  quit_dialog, "quit_label")),
-		  _("The frequency loop is running\n"\
+	  gtk_label_set_text( GTK_LABEL(
+			Builder_Get_Object(quit_dialog_builder, "quit_label")),
+		  _("The frequency loop is running\n"
 			"Really end operation?") );
-	else gtk_label_set_text( GTK_LABEL(lookup_widget(
-			quit_dialog, "quit_label")),
-		_("The frequency loop is running\n"\
+	else gtk_label_set_text( GTK_LABEL(
+		  Builder_Get_Object(quit_dialog_builder, "quit_label")),
+		_("The frequency loop is running\n"
 		  "Really close this window?") );
   }
-  else gtk_label_set_text( GTK_LABEL(lookup_widget(
-		  quit_dialog, "quit_label")), mesg );
+  else gtk_label_set_text( GTK_LABEL(
+		Builder_Get_Object(quit_dialog_builder, "quit_label")), mesg );
 
 } /* Delete_Event() */
 
@@ -281,9 +280,27 @@ Delete_Event( gchar *mesg )
  * Sets the polarization type menuitem to current setting
  */
   void
-Set_Pol_Menuitem( GtkMenuItem *menuitem )
+Set_Pol_Menuitem( int window )
 {
-  gchar *pol_menu[NUM_POL] =
+  gchar *main_pol_menu[NUM_POL] =
+  {
+	"main_total",
+	"main_horizontal",
+	"main_vertical",
+	"main_right_hand",
+	"main_left_hand",
+  };
+
+  gchar *freqplots_pol_menu[NUM_POL] =
+  {
+	"freqplots_total",
+	"freqplots_horizontal",
+	"freqplots_vertical",
+	"freqplots_right_hand",
+	"freqplots_left_hand",
+  };
+
+  gchar *rdpattern_pol_menu[NUM_POL] =
   {
 	"rdpattern_total",
 	"rdpattern_horizontal",
@@ -292,37 +309,28 @@ Set_Pol_Menuitem( GtkMenuItem *menuitem )
 	"rdpattern_left_hand",
   };
 
-  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(lookup_widget(
-		  GTK_WIDGET(menuitem), pol_menu[calc_data.pol_type])), TRUE );
+  switch( window )
+  {
+	case MAIN_WINDOW:
+	  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
+			Builder_Get_Object(main_window_builder,
+			  main_pol_menu[calc_data.pol_type])), TRUE );
+	  break;
+
+	case FREQPLOTS_WINDOW:
+	  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
+			Builder_Get_Object(freqplots_window_builder,
+			  freqplots_pol_menu[calc_data.pol_type])), TRUE );
+	  break;
+
+	case RDPATTERN_WINDOW:
+	  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
+			Builder_Get_Object(rdpattern_window_builder,
+			  rdpattern_pol_menu[calc_data.pol_type])), TRUE );
+	  break;
+  } /* switch( window ) */
 
 } /* Set_Pol_Menuitem() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Close_Windows()
- *
- * Closes some open windows
- */
-  void
-Close_Windows( void )
-{
-  if( isFlagSet(PLOT_ENABLED) )
-  {
-	gtk_widget_destroy( freqplots_window );
-	gtk_check_menu_item_set_active(
-		GTK_CHECK_MENU_ITEM(lookup_widget(
-			main_window, "main_freqplots")), FALSE );
-  }
-
-  if( isFlagSet(DRAW_ENABLED) )
-  {
-	gtk_widget_destroy( rdpattern_window );
-	gtk_check_menu_item_set_active(
-		GTK_CHECK_MENU_ITEM(lookup_widget(
-			main_window, "main_rdpattern")), FALSE );
-  }
-
-} /* Close_Windows() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -349,6 +357,10 @@ Open_Editor( GtkTreeView *view )
   gtk_tree_model_get( model, &iter, 0, &card, -1);
   size_t s = strlen( card ) + 1;
 
+  /* Ignore cards from comments */
+  if( (strcmp(card, "CM") == 0) || (strcmp(card, "CE") == 0) )
+	return( TRUE );
+
   /* Some "cards" have common editors */
   if( strcmp(card, "GC") == 0 )
 	Strlcpy( card, "GW", s );
@@ -369,7 +381,7 @@ Open_Editor( GtkTreeView *view )
   /* Send a "clicked" signal to the appropriate editor button */
   card[0] = (gchar)tolower((int)card[0]);
   card[1] = (gchar)tolower((int)card[1]);
-  button = lookup_widget( GTK_WIDGET(view), card );
+  button = Builder_Get_Object( nec2_editor_builder, card );
   g_free(card);
   if( button != NULL )
 	g_signal_emit_by_name( button, "clicked" );
@@ -387,64 +399,15 @@ Open_Editor( GtkTreeView *view )
   void
 Main_Rdpattern_Activate( gboolean from_menu )
 {
-  /* Set E field check menu item */
-  if( fpat.nfeh & NEAR_EFIELD )
-  {
-	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window,
-			"rdpattern_e_field")), TRUE );
-	SetFlag( DRAW_EFIELD );
-  }
-  else
-  {
-	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window,
-			"rdpattern_e_field")), FALSE );
-	ClearFlag( DRAW_EFIELD );
-  }
-
-  /* Set H field check menu item */
-  if( fpat.nfeh & NEAR_HFIELD )
-  {
-	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window,
-			"rdpattern_h_field")), TRUE );
-	SetFlag( DRAW_HFIELD );
-  }
-  else
-  {
-	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window,
-			"rdpattern_h_field")), FALSE );
-	ClearFlag( DRAW_HFIELD );
-  }
-
-  /* Set Poynting vector check menu item */
-  if( (fpat.nfeh & NEAR_EHFIELD) == NEAR_EHFIELD )
-  {
-	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window,
-			"rdpattern_poynting_vector")), TRUE );
-	SetFlag( DRAW_POYNTING );
-  }
-  else
-  {
-	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window,
-			"rdpattern_poynting_vector")), FALSE );
-	ClearFlag( DRAW_POYNTING );
-  }
-
   /* Set structure overlay in Rad Pattern window */
   if( isFlagClear(OVERLAY_STRUCT) )
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window,
+		  Builder_Get_Object(rdpattern_window_builder,
 			"rdpattern_overlay_structure")), FALSE );
   else
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-		  lookup_widget(rdpattern_window,
+		  Builder_Get_Object(rdpattern_window_builder,
 			"rdpattern_overlay_structure")), TRUE );
-
 
   /* Sync common projection spinbuttons */
   if( isFlagSet(COMMON_PROJECTION) )
@@ -470,6 +433,12 @@ Main_Rdpattern_Activate( gboolean from_menu )
   }
   New_Radiation_Projection_Angle();
 
+  /* Reset zoom value */
+  rdpattern_proj_params.xy_zoom  = gtk_spin_button_get_value( rdpattern_zoom );
+  rdpattern_proj_params.xy_zoom /= 100.0;
+  rdpattern_proj_params.xy_scale =
+	rdpattern_proj_params.xy_scale1 * rdpattern_proj_params.xy_zoom;
+
   /* Redo currents if not reaching this function
    * from the menu callback (e.g. not user action) */
   if( !crnt.valid && !from_menu ) Redo_Currents( NULL );
@@ -479,6 +448,7 @@ Main_Rdpattern_Activate( gboolean from_menu )
   {
 	char value[9];
 	size_t s = sizeof( value );
+
 	snprintf( value, s, "%.3f", calc_data.fmhz );
 	value[s - 1] = '\0';
 	gtk_entry_set_text(
@@ -503,8 +473,8 @@ Main_Freqplots_Activate( void )
    * Elementary Current Source Excitation */
   if( (fpat.ixtyp != 0) && (fpat.ixtyp != 5) )
   {
-	stop( _("Not available for Incident Field or\n"\
-		  "Elementary Current Source Excitation.\n"\
+	Stop( _("Not available for Incident Field or\n"
+		  "Elementary Current Source Excitation.\n"
 		  "(Excitation Types 1 to 4)"), ERR_OK );
 	return( FALSE );
   }
@@ -533,16 +503,19 @@ Rdpattern_Gain_Togglebutton_Toggled( gboolean flag )
   {
 	SetFlag( DRAW_GAIN );
 	ClearFlag( DRAW_EHFIELD );
-	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(lookup_widget(
-			rdpattern_window, "rdpattern_eh_togglebutton")), FALSE );
+	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(
+		  Builder_Get_Object(rdpattern_window_builder, "rdpattern_eh_togglebutton")),
+		FALSE );
 
 	/* Redraw radiation pattern drawingarea */
-	if( isFlagSet(DRAW_ENABLED) &&
-		isFlagClear(FREQ_LOOP_RUNNING) )
+	if( isFlagSet(DRAW_ENABLED) && isFlagClear(FREQ_LOOP_RUNNING) )
 	{
 	  if( !crnt.valid ) Redo_Currents( NULL );
 	  SetFlag( DRAW_NEW_RDPAT );
-	  Draw_Radiation( rdpattern_drawingarea );
+
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( rdpattern_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
 	}
 
 	Set_Window_Labels();
@@ -551,9 +524,12 @@ Rdpattern_Gain_Togglebutton_Toggled( gboolean flag )
   {
 	ClearFlag( DRAW_GAIN );
 	/* Clear radiation pattern drawingarea */
-	if( isFlagClear(DRAW_EHFIELD) &&
-		isFlagSet(DRAW_ENABLED) )
-	  Draw_Radiation( rdpattern_drawingarea );
+	if( isFlagClear(DRAW_EHFIELD) && isFlagSet(DRAW_ENABLED) )
+	{
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( rdpattern_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+	}
 	Free_Draw_Buffers();
   }
 
@@ -577,8 +553,8 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
   {
 	SetFlag( DRAW_EHFIELD );
 	ClearFlag( DRAW_GAIN );
-	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(lookup_widget(
-			rdpattern_window, "rdpattern_gain_togglebutton")), FALSE );
+	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(Builder_Get_Object(
+			rdpattern_window_builder, "rdpattern_gain_togglebutton")), FALSE );
 
 	/* Delegate near field calcuations to child
 	 * processes if forked and near field data valid */
@@ -589,13 +565,15 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
 	}
 
 	/* Redraw radiation pattern drawingarea */
-	if( isFlagSet(DRAW_ENABLED) &&
-		isFlagClear(FREQ_LOOP_RUNNING) )
+	if( isFlagSet(DRAW_ENABLED) && isFlagClear(FREQ_LOOP_RUNNING) )
 	{
-	  if( !near_field.valid ) Redo_Currents(NULL);
+	  if( !near_field.valid || !crnt.valid ) Redo_Currents( NULL );
 	  Near_Field_Pattern();
 	  SetFlag( DRAW_NEW_EHFIELD );
-	  Draw_Radiation( rdpattern_drawingarea );
+
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( rdpattern_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
 	}
 
 	Set_Window_Labels();
@@ -606,9 +584,12 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
 	ClearFlag( DRAW_EHFIELD );
 
 	/* Clear radiation pattern drawingarea */
-	if( isFlagClear(DRAW_GAIN)  &&
-		isFlagSet(DRAW_ENABLED) )
-	  Draw_Radiation( rdpattern_drawingarea );
+	if( isFlagClear(DRAW_GAIN) && isFlagSet(DRAW_ENABLED) )
+	{
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( rdpattern_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+	}
 
 	/* Disable near field calcuations
 	 * by child processes if forked */
@@ -616,6 +597,46 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
   }
 
 } /* Rdpattern_EH_Togglebutton_Toggled() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Alloc_Crnt_Buffs()
+ *
+ * Allocates memory for current/charge draw buffers
+ */
+  static void
+Alloc_Crnt_Buffs( void )
+{
+  /* Patch currents buffer */
+  if( data.m > 0 )
+  {
+	size_t mreq = (size_t)data.m * sizeof( double );
+	mem_realloc( (void **)&ct1m, mreq, "in callback_func.c" );
+	mem_realloc( (void **)&ct2m, mreq, "in callback_func.c" );
+  }
+
+  /* Segment currents buffer */
+  if( data.n > 0 )
+  {
+	size_t mreq = (size_t)data.n * sizeof( double );
+	mem_realloc( (void **)&cmag, mreq, "in callback_func.c" );
+  }
+
+} /* Alloc_Crnt_Buffs() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Free_Crnt_Buffs()
+ *
+ * Frees current/charge draw buffers
+ */
+  static void
+Free_Crnt_Buffs( void )
+{
+  free_ptr( (void **)&ct1m );
+  free_ptr( (void **)&ct2m );
+  free_ptr( (void **)&cmag );
+} /* Free_Crnt_Buffs() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -635,19 +656,26 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
 	Alloc_Crnt_Buffs();
 
 	gtk_toggle_button_set_active(
-		GTK_TOGGLE_BUTTON(lookup_widget(main_window,
-			"main_charges_togglebutton")), FALSE );
-	gtk_label_set_text(
-		GTK_LABEL(lookup_widget(main_window, "struct_label")),
-		_("View Currents") );
+		GTK_TOGGLE_BUTTON(Builder_Get_Object(
+			main_window_builder, "main_charges_togglebutton")),	FALSE );
+	gtk_label_set_text(GTK_LABEL(Builder_Get_Object(
+			main_window_builder, "struct_label")), _("View Currents") );
 
 	if( !crnt.valid && isFlagClear(FREQ_LOOP_RUNNING) )
 	  Redo_Currents( NULL );
 	else if( crnt.valid )
-	  Draw_Structure( structure_drawingarea );
+	{
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( structure_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+	}
 
 	if( isFlagSet(OVERLAY_STRUCT) )
-	  Draw_Radiation( rdpattern_drawingarea );
+	{
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( rdpattern_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+	}
   }
   else
   {
@@ -655,16 +683,25 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
 	if( isFlagClear(DRAW_CHARGES) )
 	{
 	  /* Redraw structure on screen if frequency loop is not running */
-	  gtk_label_set_text(
-		  GTK_LABEL(lookup_widget(main_window, "struct_label")),
+	  gtk_label_set_text( GTK_LABEL(
+			Builder_Get_Object(main_window_builder, "struct_label")),
 		  _("View Geometry") );
 	  if( isFlagClear(FREQ_LOOP_RUNNING) )
-		Draw_Structure( structure_drawingarea );
+	  {
+		/* Wait for GTK to complete its tasks */
+		gtk_widget_queue_draw( structure_drawingarea );
+		while( g_main_context_iteration(NULL, FALSE) );
+	  }
 	  Free_Crnt_Buffs();
 	}
 	if( isFlagSet(OVERLAY_STRUCT) )
-	  Draw_Radiation( rdpattern_drawingarea );
+	{
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( rdpattern_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+	}
   }
+
 } /* Main_Currents_Togglebutton_Toggled() */
 
 /*-----------------------------------------------------------------------*/
@@ -684,19 +721,28 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
 	Alloc_Crnt_Buffs();
 
 	gtk_toggle_button_set_active(
-		GTK_TOGGLE_BUTTON(lookup_widget(main_window,
-			"main_currents_togglebutton")), FALSE );
-	gtk_label_set_text(
-		GTK_LABEL(lookup_widget(main_window, "struct_label")),
+		GTK_TOGGLE_BUTTON(
+		  Builder_Get_Object(main_window_builder, "main_currents_togglebutton")),
+		FALSE );
+	gtk_label_set_text(GTK_LABEL(
+		  Builder_Get_Object(main_window_builder, "struct_label")),
 		_("View Charges") );
 
 	if( !crnt.valid && isFlagClear(FREQ_LOOP_RUNNING) )
 	  Redo_Currents( NULL );
 	else if( crnt.valid )
-	  Draw_Structure( structure_drawingarea );
+	{
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( structure_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+	}
 
 	if( isFlagSet(OVERLAY_STRUCT) )
-	  Draw_Radiation( rdpattern_drawingarea );
+	{
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( rdpattern_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+	}
   }
   else
   {
@@ -705,16 +751,236 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
 	{
 	  /* Redraw structure on screen if frequency loop is not running */
 	  gtk_label_set_text(
-		  GTK_LABEL(lookup_widget(main_window, "struct_label")),
-		  _("View Geometry") );
+		  GTK_LABEL(Builder_Get_Object(
+			  main_window_builder, "struct_label")), _("View Geometry") );
+
 	  if( isFlagClear(FREQ_LOOP_RUNNING) )
-		Draw_Structure( structure_drawingarea );
+	  {
+		/* Wait for GTK to complete its tasks */
+		gtk_widget_queue_draw( structure_drawingarea );
+		while( g_main_context_iteration(NULL, FALSE) );
+	  }
+
 	  Free_Crnt_Buffs();
 	}
+
 	if( isFlagSet(OVERLAY_STRUCT) )
-	  Draw_Radiation( rdpattern_drawingarea );
+	{
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( rdpattern_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+	}
   }
+
 } /* Main_Charges_Togglebutton_Toggled() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Open_Filechooser()
+ *
+ * Opens the file chooser dialog to select open or save files
+ */
+  GtkWidget *
+Open_Filechooser(
+	GtkFileChooserAction action,
+	char *pattern,
+	char *prefix,
+	char *filename,
+	char *foldername )
+{
+  /* Create file chooser and set action */
+  GtkBuilder *builder;
+  GtkWidget *chooser = create_filechooserdialog( &builder );
+  gtk_file_chooser_set_action( GTK_FILE_CHOOSER(chooser), action );
+
+  /* Create and set a filter for the file pattern */
+  GtkFileFilter *filter = gtk_file_filter_new();
+  gtk_file_filter_add_pattern( filter, pattern );
+
+  /* Set the filter name */
+  if( strcmp(pattern, "*.png") == 0 )
+	gtk_file_filter_set_name( filter, _("PNG images (*.png)") );
+  else if( strcmp(pattern, "*.gplot") == 0 )
+	gtk_file_filter_set_name( filter, _("GNUplot files (*.gplot)") );
+  else if( strcmp(pattern, "*.nec") == 0 )
+	gtk_file_filter_set_name( filter, _("NEC2 files (*.nec)") );
+
+  /* Add and set filter */
+  gtk_file_chooser_add_filter( GTK_FILE_CHOOSER(chooser), filter );
+  gtk_file_chooser_set_filter( GTK_FILE_CHOOSER(chooser), filter );
+
+  /* Set current filename if given */
+  if( filename != NULL )
+  {
+	char fname[144];
+	if( prefix != NULL )
+	{
+	  Strlcpy( fname, rc_config.working_dir, sizeof(fname) );
+	  Strlcat( fname, filename, sizeof(fname) );
+	}
+	else
+	  Strlcpy( fname, filename, sizeof(fname) );
+
+	gtk_file_chooser_set_current_name(
+		GTK_FILE_CHOOSER(chooser), fname );
+  }
+
+  /* Set folder name if given */
+  if( foldername != NULL )
+	gtk_file_chooser_set_current_folder(
+		GTK_FILE_CHOOSER(chooser), foldername );
+  gtk_widget_show( chooser);
+  g_object_unref( builder );
+
+  return( chooser );
+
+} /* Open_Filechooser() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Filechooser_Response()
+ *
+ * Handles the on_filechooserdialog_response callback
+ */
+  void
+Filechooser_Response(
+	GtkDialog *dialog,
+	gint response_id,
+	int saveas_width,
+	int saveas_height )
+{
+  /* User selects a file name to save a pixbuf to file */
+  if( response_id == GTK_RESPONSE_OK )
+  {
+	gchar *fname;
+	gchar filename[LINE_LEN];
+	gboolean new;
+	char *str;
+
+	/* Get the "save as" file name */
+	fname = gtk_file_chooser_get_filename( GTK_FILE_CHOOSER(dialog) );
+	Strlcpy( filename, fname, sizeof(filename) );
+	gtk_widget_destroy( GTK_WIDGET(dialog) );
+
+	if( isFlagSet(NEC2_SAVE) )
+	{
+	  /* Cat a file extension if not already there */
+	  str = strstr( filename, ".nec" );
+	  if( (str == NULL) || (str[4] != '\0') )
+		Strlcat( filename, ".nec", sizeof(filename) );
+
+	  /* Use new file name as input file */
+	  Strlcpy( rc_config.infile, filename, sizeof(rc_config.infile) );
+	  Save_Nec2_Input_File( nec2_edit_window, rc_config.infile );
+
+	  /* Re-open NEC2 input file */
+	  new = FALSE;
+	  if( Nec2_Apply_Checkbutton() && isFlagClear(MAIN_QUIT) )
+		Open_Input_File( (gpointer)(&new) );
+	}
+	else if( isFlagSet(OPEN_INPUT) )
+	{
+	  ClearFlag( FREQLOOP_READY );
+
+	  /* Save any changes to an open file */
+	  Strlcpy( rc_config.infile, fname, sizeof(rc_config.infile) );
+
+	  /* Open new file */
+	  new = TRUE;
+	  Open_Input_File( (gpointer)(&new) );
+	  ClearFlag( OPEN_INPUT );
+	}
+	else if( isFlagSet(IMAGE_SAVE) )
+	{
+	  /* cat a file extension if not already there */
+	  str = strstr( filename, ".png" );
+	  if( (str == NULL) || (str[4] != '\0') )
+		Strlcat( filename, ".png", sizeof(filename) );
+
+	  /* Save screen shots after redraw and when GTK is finished tasks */
+	  static save_data_t save_data;
+
+	  /* Wait for GTK to complete its tasks */
+	  gtk_widget_queue_draw( saveas_drawingarea );
+	  while( g_main_context_iteration(NULL, FALSE) );
+
+	  save_data.drawingarea = saveas_drawingarea;
+	  save_data.width  = saveas_width;
+	  save_data.height = saveas_height;
+	  Strlcpy( save_data.filename, filename, sizeof(save_data.filename) );
+	  g_idle_add( Save_Pixbuf, (gpointer)&save_data );
+	  ClearFlag( IMAGE_SAVE );
+	}
+	else if( isFlagSet(RDPAT_GNUPLOT_SAVE) )
+	{
+	  /* cat a file extension if not already there */
+	  str = strstr( filename, ".gplot" );
+	  if( (str == NULL) || (str[6] != '\0') )
+		Strlcat( filename, ".gplot", sizeof(filename) );
+	  Save_RadPattern_Gnuplot_Data( filename );
+	  ClearFlag( RDPAT_GNUPLOT_SAVE );
+	}
+	else if( isFlagSet(PLOTS_GNUPLOT_SAVE) )
+	{
+	  /* cat a file extension if not already there */
+	  str = strstr( filename, ".gplot" );
+	  if( (str == NULL) || (str[6] != '\0') )
+		Strlcat( filename, ".gplot", sizeof(filename) );
+	  Save_FreqPlots_Gnuplot_Data( filename );
+	  ClearFlag( PLOTS_GNUPLOT_SAVE );
+	}
+	else if( isFlagSet(STRUCT_GNUPLOT_SAVE) )
+	{
+	  /* cat a file extension if not already there */
+	  str = strstr( filename, ".gplot" );
+	  if( (str == NULL) || (str[6] != '\0') )
+		Strlcat( filename, ".gplot", sizeof(filename) );
+	  Save_Struct_Gnuplot_Data( filename );
+	  ClearFlag( STRUCT_GNUPLOT_SAVE );
+	}
+	g_free( fname );
+
+	/* Open file chooser if user requested an input file to be opened */
+	if( isFlagSet(OPEN_INPUT) )
+	{
+	  file_chooser = Open_Filechooser(
+		  GTK_FILE_CHOOSER_ACTION_OPEN,
+		  "*.nec", NULL, NULL, rc_config.working_dir );
+	  return;
+	}
+
+	/* Open a new NEC2 project */
+	if( isFlagSet(OPEN_NEW_NEC2) )
+	{
+	  /* Open editor window if needed */
+	  if( nec2_edit_window == NULL )
+	  {
+		Close_File( &input_fp );
+		Open_Nec2_Editor( NEC2_EDITOR_NEW );
+	  }
+	  else Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );
+
+	  rc_config.infile[0] = '\0';
+	  selected_treeview = cmnt_treeview;
+	}
+
+	/* Save GUI state data for restoring
+	 * windows if user is quitting xnec2c */
+	if( isFlagSet(MAIN_QUIT) )
+	{
+	  Get_GUI_State();
+	  Save_Config();
+	}
+
+	/* Kill window that initiated edited data save */
+	if( kill_window != NULL ) gtk_widget_destroy( kill_window );
+	kill_window = NULL;
+
+  } /* if( response_id == GTK_RESPONSE_OK ) */
+  else
+	ClearFlag( ALL_CHOOSER_FLAGS );
+
+} /* Filechooser_Response() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -726,22 +992,29 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
   void
 Open_Nec2_Editor( int action )
 {
-  nec2_edit_window = create_nec2_editor();
+  nec2_edit_window = create_nec2_editor( &nec2_editor_builder );
+  gtk_widget_hide( nec2_edit_window );
+  Set_Window_Geometry( nec2_edit_window,
+	  rc_config.nec2_edit_x, rc_config.nec2_edit_y,
+	  rc_config.nec2_edit_width, rc_config.nec2_edit_height );
   gtk_widget_show( nec2_edit_window );
 
+  cmnt_treeview = GTK_TREE_VIEW(
+	  Builder_Get_Object(nec2_editor_builder, "nec2_cmnt_treeview") );
   geom_treeview = GTK_TREE_VIEW(
-	  lookup_widget(nec2_edit_window, "nec2_geom_treeview") );
+	  Builder_Get_Object(nec2_editor_builder, "nec2_geom_treeview") );
   cmnd_treeview = GTK_TREE_VIEW(
-	  lookup_widget(nec2_edit_window, "nec2_cmnd_treeview") );
+	  Builder_Get_Object(nec2_editor_builder, "nec2_cmnd_treeview") );
 
   Nec2_Input_File_Treeview( action );
 
-  geom_adjustment = gtk_scrolled_window_get_vadjustment(
-	  GTK_SCROLLED_WINDOW(lookup_widget(nec2_edit_window,
-		  "scrolledwindow4")) );
-  cmnd_adjustment = gtk_scrolled_window_get_vadjustment(
-	  GTK_SCROLLED_WINDOW(lookup_widget(nec2_edit_window,
-		  "scrolledwindow3")) );
+  geom_adjustment =
+	gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(
+		Builder_Get_Object(nec2_editor_builder, "geom_scrolledwindow")) );
+  cmnd_adjustment =
+	gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(
+		Builder_Get_Object(nec2_editor_builder, "cmnd_scrolledwindow")) );
+
 } /* Open_Nec2_Editor() */
 
 /*-----------------------------------------------------------------------*/
@@ -755,8 +1028,7 @@ Open_Nec2_Editor( int action )
 Nec2_Apply_Checkbutton( void )
 {
   return( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(
-		  lookup_widget(nec2_edit_window,
-			"nec2_apply_checkbutton" ))) );
+		  Builder_Get_Object(nec2_editor_builder, "nec2_apply_checkbutton" ))) );
 }
 
 /*-----------------------------------------------------------------------*/
@@ -824,43 +1096,41 @@ Pass_EH_Flags( void )
 
 /*-----------------------------------------------------------------------*/
 
-/* Alloc_Crnt_Buffs()
+/* Draw_Colorcode( cairo_t *cr )
  *
- * Allocates memory for current/charge draw buffers
+ * Draws the color code bar fopr structure
+ * currents and radiation pattern gain range
  */
   void
-Alloc_Crnt_Buffs( void )
+Draw_Colorcode( cairo_t *cr )
 {
-  /* Patch currents buffer */
-  if( data.m > 0 )
+  double red = 0.0, grn = 0.0, blu = 0.0;
+  int idx;
+
+  /* No redraws if new input pending */
+  if( isFlagSet(INPUT_PENDING) ) return;
+
+  /* Draw color-code bar in main window */
+  for( idx = 0; idx < COLORCODE_WIDTH; idx++ )
   {
-	size_t mreq = (size_t)data.m * sizeof( double );
-	mem_realloc( (void **)&ct1m, mreq, "in callback_func.c" );
-	mem_realloc( (void **)&ct2m, mreq, "in callback_func.c" );
+	Value_to_Color( &red, &grn, &blu, (double)(8 * idx), COLORCODE_MAX );
+	cairo_set_source_rgb( cr, red, grn, blu );
+	Cairo_Draw_Line( cr, idx, 0, idx, COLORCODE_HEIGHT );
   }
 
-  /* Segment currents buffer */
-  if( data.n > 0 )
-  {
-	size_t mreq = (size_t)data.n * sizeof( double );
-	mem_realloc( (void **)&cmag, mreq, "in callback_func.c" );
-  }
-
-} /* Alloc_Crnt_Buffs() */
+} /* Draw_Colorcode() */
 
 /*-----------------------------------------------------------------------*/
 
-/* Free_Crnt_Buffs()
+/* Nec2_Save_Common()
  *
- * Frees current/charge draw buffers
+ * Common actions needed in the nested save sequence of NEC2 data
  */
   void
-Free_Crnt_Buffs( void )
+Nec2_Save_Common( void )
 {
-  free_ptr( (void **)&ct1m );
-  free_ptr( (void **)&ct2m );
-  free_ptr( (void **)&cmag );
-} /* Free_Crnt_Buffs() */
+
+}
 
 /*-----------------------------------------------------------------------*/
 

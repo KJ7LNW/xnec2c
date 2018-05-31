@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -46,6 +44,226 @@
 
 /*-------------------------------------------------------------------*/
 
+/* compute basis function i */
+  static void
+tbf( int i, int icap )
+{
+  int ix, jcox, jcoxx, jend, iend, njun1=0, njun2, jsnop, jsnox;
+  double pp, sdh, cdh, sd, omc, aj, pm=0, cd, ap, qp, qm, xxi;
+  double d, sig; /*** also global ***/
+
+  segj.jsno=0;
+  pp=0.0;
+  ix = i-1;
+  jcox= data.icon1[ix];
+
+  if( jcox > PCHCON)
+	jcox= i;
+
+  jend=-1;
+  iend=-1;
+  sig=-1.0;
+
+  do
+  {
+	if( jcox != 0 )
+	{
+	  if( jcox < 0 )
+		jcox= -jcox;
+	  else
+	  {
+		sig= -sig;
+		jend= -jend;
+	  }
+
+	  jcoxx = jcox-1;
+	  segj.jsno++;
+	  jsnox = segj.jsno-1;
+	  segj.jco[jsnox]= jcox;
+	  d= M_PI* data.si[jcoxx];
+	  sdh= sin( d);
+	  cdh= cos( d);
+	  sd=2.0* sdh* cdh;
+
+	  if( d <= 0.015)
+	  {
+		omc=4.0* d* d;
+		omc=((1.3888889e-3* omc-4.1666666667e-2)* omc+.5)* omc;
+	  }
+	  else omc=1.0- cdh* cdh+ sdh* sdh;
+
+	  aj=1.0/( log(1.0/( M_PI* data.bi[jcoxx]))-.577215664);
+	  pp= pp- omc/ sd* aj;
+	  segj.ax[jsnox]= aj/ sd* sig;
+	  segj.bx[jsnox]= aj/(2.0* cdh);
+	  segj.cx[jsnox]= -aj/(2.0* sdh)* sig;
+
+	  if( jcox != i)
+	  {
+		if( jend == 1)
+		  jcox= data.icon2[jcoxx];
+		else
+		  jcox= data.icon1[jcoxx];
+
+		if( abs(jcox) != i )
+		{
+		  if( jcox != 0 )
+			continue;
+		  else
+		  {
+			fprintf( stderr,
+				_("xnec2c: tbf(): segment connection error for segment %5d\n"), i );
+			Stop( _("Segment connection error in tbf()"), ERR_STOP );
+		  }
+		}
+
+	  } /* if( jcox != i) */
+	  else segj.bx[jsnox] = -segj.bx[jsnox];
+
+	  if( iend == 1) break;
+
+	} /* if( jcox != 0 ) */
+
+	pm= -pp;
+	pp=0.0;
+	njun1= segj.jsno;
+
+	jcox= data.icon2[ix];
+	if( jcox > PCHCON)
+	  jcox= i;
+
+	jend=1;
+	iend=1;
+	sig=-1.0;
+
+  } /* do */
+  while( jcox != 0 );
+
+  njun2= segj.jsno- njun1;
+  jsnop= segj.jsno;
+  segj.jco[jsnop]= i;
+  d= M_PI* data.si[ix];
+  sdh= sin( d);
+  cdh= cos( d);
+  sd=2.0* sdh* cdh;
+  cd= cdh* cdh- sdh* sdh;
+
+  if( d <= 0.015)
+  {
+	omc=4.0* d* d;
+	omc=((1.3888889e-3* omc-4.1666666667e-2)* omc+.5)* omc;
+  }
+  else omc=1.0- cd;
+
+  ap=1.0/( log(1.0/( M_PI* data.bi[ix]))-.577215664);
+  aj= ap;
+
+  if( njun1 == 0)
+  {
+	if( njun2 == 0)
+	{
+	  segj.bx[jsnop]=0.0;
+
+	  if( icap == 0)
+		xxi=0.0;
+	  else
+	  {
+		qp= M_PI* data.bi[ix];
+		xxi= qp* qp;
+		xxi= qp*(1.0-.5* xxi)/(1.0- xxi);
+	  }
+
+	  segj.cx[jsnop]=1.0/( cdh- xxi* sdh);
+	  segj.jsno= jsnop+1;
+	  segj.ax[jsnop]=-1.0;
+	  return;
+
+	} /* if( njun2 == 0) */
+
+	if( icap == 0) xxi=0.0;
+	else
+	{
+	  qp= M_PI* data.bi[ix];
+	  xxi= qp* qp;
+	  xxi= qp*(1.0-.5* xxi)/(1.0- xxi);
+	}
+
+	qp=-( omc+ xxi* sd)/( sd*( ap+ xxi* pp)+ cd*( xxi* ap- pp));
+	d= cd- xxi* sd;
+	segj.bx[jsnop]=( sdh+ ap* qp*( cdh- xxi* sdh))/ d;
+	segj.cx[jsnop]=( cdh+ ap* qp*( sdh+ xxi* cdh))/ d;
+
+	for( iend = 0; iend < njun2; iend++ )
+	{
+	  segj.ax[iend]= -segj.ax[iend]* qp;
+	  segj.bx[iend]= segj.bx[iend]* qp;
+	  segj.cx[iend]= -segj.cx[iend]* qp;
+	}
+
+	segj.jsno= jsnop+1;
+	segj.ax[jsnop]=-1.0;
+	return;
+
+  } /* if( njun1 == 0) */
+
+  if( njun2 == 0)
+  {
+	if( icap == 0)
+	  xxi=0.0;
+	else
+	{
+	  qm= M_PI* data.bi[ix];
+	  xxi= qm* qm;
+	  xxi= qm*(1.0-.5* xxi)/(1.0- xxi);
+	}
+
+	qm=( omc+ xxi* sd)/( sd*( aj- xxi* pm)+ cd*( pm+ xxi* aj));
+	d= cd- xxi* sd;
+	segj.bx[jsnop]=( aj* qm*( cdh- xxi* sdh)- sdh)/ d;
+	segj.cx[jsnop]=( cdh- aj* qm*( sdh+ xxi* cdh))/ d;
+
+	for( iend = 0; iend < njun1; iend++ )
+	{
+	  segj.ax[iend]= segj.ax[iend]* qm;
+	  segj.bx[iend]= segj.bx[iend]* qm;
+	  segj.cx[iend]= segj.cx[iend]* qm;
+	}
+
+	segj.jsno= jsnop+1;
+	segj.ax[jsnop]=-1.0;
+	return;
+
+  } /* if( njun2 == 0) */
+
+  qp= sd*( pm* pp+ aj* ap)+ cd*( pm* ap- pp* aj);
+  qm=( ap* omc- pp* sd)/ qp;
+  qp=-( aj* omc+ pm* sd)/ qp;
+  segj.bx[jsnop]=( aj* qm+ ap* qp)* sdh/ sd;
+  segj.cx[jsnop]=( aj* qm- ap* qp)* cdh/ sd;
+
+  for( iend = 0; iend < njun1; iend++ )
+  {
+	segj.ax[iend]= segj.ax[iend]* qm;
+	segj.bx[iend]= segj.bx[iend]* qm;
+	segj.cx[iend]= segj.cx[iend]* qm;
+  }
+
+  jend= njun1;
+  for( iend = jend; iend < segj.jsno; iend++ )
+  {
+	segj.ax[iend]= -segj.ax[iend]* qp;
+	segj.bx[iend]= segj.bx[iend]* qp;
+	segj.cx[iend]= -segj.cx[iend]* qp;
+  }
+
+  segj.jsno= jsnop+1;
+  segj.ax[jsnop]=-1.0;
+
+  return;
+}
+
+/*-----------------------------------------------------------------------*/
+
 /* fill incident field array for charge discontinuity voltage source */
 void qdsrc( int is, complex double v, complex double *e )
 {
@@ -60,8 +278,8 @@ void qdsrc( int is, complex double v, complex double *e )
   data.icon1[is]= i;
   dataj.s= data.si[is]*.5;
   curd= CCJ* v/(( log(2.0 * dataj.s/ data.bi[is])-1.0) *
-	  ( segj.bx[segj.jsno-1] * cos( TWOPI* dataj.s) +
-		segj.cx[segj.jsno-1] * sin( TWOPI* dataj.s))* data.wlam);
+	  ( segj.bx[segj.jsno-1] * cos( M_2PI* dataj.s) +
+		segj.cx[segj.jsno-1] * sin( M_2PI* dataj.s))* data.wlam);
   vsorc.vqds[vsorc.nqds]= v;
   vsorc.iqds[vsorc.nqds]= is+1;
   vsorc.nqds++;
@@ -290,8 +508,8 @@ void cabc( complex double *curx)
 		data.icon1[i]= jx;
 		sh= data.si[i]*.5;
 		curd= CCJ* vsorc.vqds[is]/( (log(2.0* sh/ data.bi[i])-1.0) *
-			(segj.bx[segj.jsno-1]* cos(TWOPI* sh)+ segj.cx[segj.jsno-1] *
-			 sin(TWOPI* sh))* data.wlam );
+			(segj.bx[segj.jsno-1]* cos(M_2PI* sh)+ segj.cx[segj.jsno-1] *
+			 sin(M_2PI* sh))* data.wlam );
 		ar= creal( curd);
 		ai= cimag( curd);
 
@@ -380,8 +598,8 @@ void intrp( double x, double y, complex double *f1,
   {
 	first_call = FALSE;
 	size_t mreq = 3*sizeof(int);
-	mem_alloc( (void **)&nda,  mreq, "in calculations.c");
-	mem_alloc( (void **)&ndpa, mreq, "in calculations.c");
+	mem_alloc( (void **)&nda,  mreq, _("in calculations.c"));
+	mem_alloc( (void **)&ndpa, mreq, _("in calculations.c"));
 	nda[0] = 11; nda[1] = 17; nda[2] = 9;
 	ndpa[0] = 110; ndpa[1] = 85; ndpa[2] = 72;
   }
@@ -668,7 +886,7 @@ void intx( double el1, double el2, double b,
 	  nt=0;
 	  if( ns >= nma)
 		fprintf( stderr,
-			"xnec2c: step size limited at z= %10.5f\n", z );
+			_("xnec2c: step size limited at z= %10.5f\n"), z );
 	  else
 	  {
 		/* halve step size */
@@ -724,9 +942,9 @@ void intx( double el1, double el2, double b,
 int min( int a, int b )
 {
   if( a < b )
-	return(a);
+	return( a );
   else
-	return(b);
+	return( b );
 }
 
 /*-----------------------------------------------------------------------*/
@@ -761,7 +979,7 @@ void test( double f1r, double f2r, double *tr,
 /*-----------------------------------------------------------------------*/
 
 /* compute component of basis function i on segment is. */
-  void
+  static void
 sbf( int i, int is, double *aa, double *bb, double *cc )
 {
   int ix, jsno, june, jcox, jcoxx, jend, iend, njun1=0, njun2;
@@ -798,7 +1016,7 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
 
 	  jcoxx = jcox-1;
 	  jsno++;
-	  d= PI* data.si[jcoxx];
+	  d= M_PI* data.si[jcoxx];
 	  sdh= sin( d);
 	  cdh= cos( d);
 	  sd=2.0* sdh* cdh;
@@ -810,7 +1028,7 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
 	  }
 	  else omc=1.0- cdh* cdh+ sdh* sdh;
 
-	  aj=1.0/( log(1.0/( PI* data.bi[jcoxx]))-.577215664);
+	  aj=1.0/( log(1.0/( M_PI* data.bi[jcoxx]))-.577215664);
 	  pp -= omc/ sd* aj;
 
 	  if( jcox == is)
@@ -833,8 +1051,8 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
 		  if( jcox == 0 )
 		  {
 			fprintf( stderr,
-				"xnec2c: sbf(): segment connection error for segment %d\n", i );
-			stop( _("Segment connection error in sbf()"), ERR_STOP );
+				_("xnec2c: sbf(): segment connection error for segment %d\n"), i );
+			Stop( _("Segment connection error in sbf()"), ERR_STOP );
 		  }
 		  else continue;
 		}
@@ -863,7 +1081,7 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
   while( jcox != 0 );
 
   njun2= jsno- njun1;
-  d= PI* data.si[ix];
+  d= M_PI* data.si[ix];
   sdh= sin( d);
   cdh= cos( d);
   sd=2.0* sdh* cdh;
@@ -876,7 +1094,7 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
   }
   else omc=1.0- cd;
 
-  ap=1.0/( log(1.0/( PI* data.bi[ix])) -.577215664);
+  ap=1.0/( log(1.0/( M_PI* data.bi[ix])) -.577215664);
   aj= ap;
 
   if( njun1 == 0)
@@ -884,14 +1102,14 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
 	if( njun2 == 0)
 	{
 	  *aa =-1.0;
-	  qp= PI* data.bi[ix];
+	  qp= M_PI* data.bi[ix];
 	  xxi= qp* qp;
 	  xxi= qp*(1.0-.5* xxi)/(1.0- xxi);
 	  *cc=1.0/( cdh- xxi* sdh);
 	  return;
 	}
 
-	qp= PI* data.bi[ix];
+	qp= M_PI* data.bi[ix];
 	xxi= qp* qp;
 	xxi= qp*(1.0-.5* xxi)/(1.0- xxi);
 	qp=-( omc+ xxi* sd)/( sd*( ap+ xxi* pp)+ cd*( xxi* ap- pp));
@@ -915,7 +1133,7 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
 
   if( njun2 == 0)
   {
-	qm= PI* data.bi[ix];
+	qm= M_PI* data.bi[ix];
 	xxi= qm* qm;
 	xxi= qm*(1.0-.5* xxi)/(1.0- xxi);
 	qm=( omc+ xxi* sd)/( sd*( aj- xxi* pm)+ cd*( pm+ xxi* aj));
@@ -970,226 +1188,6 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
 
 /*-----------------------------------------------------------------------*/
 
-/* compute basis function i */
-  void
-tbf( int i, int icap )
-{
-  int ix, jcox, jcoxx, jend, iend, njun1=0, njun2, jsnop, jsnox;
-  double pp, sdh, cdh, sd, omc, aj, pm=0, cd, ap, qp, qm, xxi;
-  double d, sig; /*** also global ***/
-
-  segj.jsno=0;
-  pp=0.0;
-  ix = i-1;
-  jcox= data.icon1[ix];
-
-  if( jcox > PCHCON)
-	jcox= i;
-
-  jend=-1;
-  iend=-1;
-  sig=-1.0;
-
-  do
-  {
-	if( jcox != 0 )
-	{
-	  if( jcox < 0 )
-		jcox= -jcox;
-	  else
-	  {
-		sig= -sig;
-		jend= -jend;
-	  }
-
-	  jcoxx = jcox-1;
-	  segj.jsno++;
-	  jsnox = segj.jsno-1;
-	  segj.jco[jsnox]= jcox;
-	  d= PI* data.si[jcoxx];
-	  sdh= sin( d);
-	  cdh= cos( d);
-	  sd=2.0* sdh* cdh;
-
-	  if( d <= 0.015)
-	  {
-		omc=4.0* d* d;
-		omc=((1.3888889e-3* omc-4.1666666667e-2)* omc+.5)* omc;
-	  }
-	  else omc=1.0- cdh* cdh+ sdh* sdh;
-
-	  aj=1.0/( log(1.0/( PI* data.bi[jcoxx]))-.577215664);
-	  pp= pp- omc/ sd* aj;
-	  segj.ax[jsnox]= aj/ sd* sig;
-	  segj.bx[jsnox]= aj/(2.0* cdh);
-	  segj.cx[jsnox]= -aj/(2.0* sdh)* sig;
-
-	  if( jcox != i)
-	  {
-		if( jend == 1)
-		  jcox= data.icon2[jcoxx];
-		else
-		  jcox= data.icon1[jcoxx];
-
-		if( abs(jcox) != i )
-		{
-		  if( jcox != 0 )
-			continue;
-		  else
-		  {
-			fprintf( stderr,
-				"xnec2c: tbf(): segment connection error for segment %5d\n", i );
-			stop( _("Segment connection error in tbf()"), ERR_STOP );
-		  }
-		}
-
-	  } /* if( jcox != i) */
-	  else segj.bx[jsnox] = -segj.bx[jsnox];
-
-	  if( iend == 1) break;
-
-	} /* if( jcox != 0 ) */
-
-	pm= -pp;
-	pp=0.0;
-	njun1= segj.jsno;
-
-	jcox= data.icon2[ix];
-	if( jcox > PCHCON)
-	  jcox= i;
-
-	jend=1;
-	iend=1;
-	sig=-1.0;
-
-  } /* do */
-  while( jcox != 0 );
-
-  njun2= segj.jsno- njun1;
-  jsnop= segj.jsno;
-  segj.jco[jsnop]= i;
-  d= PI* data.si[ix];
-  sdh= sin( d);
-  cdh= cos( d);
-  sd=2.0* sdh* cdh;
-  cd= cdh* cdh- sdh* sdh;
-
-  if( d <= 0.015)
-  {
-	omc=4.0* d* d;
-	omc=((1.3888889e-3* omc-4.1666666667e-2)* omc+.5)* omc;
-  }
-  else omc=1.0- cd;
-
-  ap=1.0/( log(1.0/( PI* data.bi[ix]))-.577215664);
-  aj= ap;
-
-  if( njun1 == 0)
-  {
-	if( njun2 == 0)
-	{
-	  segj.bx[jsnop]=0.0;
-
-	  if( icap == 0)
-		xxi=0.0;
-	  else
-	  {
-		qp= PI* data.bi[ix];
-		xxi= qp* qp;
-		xxi= qp*(1.0-.5* xxi)/(1.0- xxi);
-	  }
-
-	  segj.cx[jsnop]=1.0/( cdh- xxi* sdh);
-	  segj.jsno= jsnop+1;
-	  segj.ax[jsnop]=-1.0;
-	  return;
-
-	} /* if( njun2 == 0) */
-
-	if( icap == 0) xxi=0.0;
-	else
-	{
-	  qp= PI* data.bi[ix];
-	  xxi= qp* qp;
-	  xxi= qp*(1.0-.5* xxi)/(1.0- xxi);
-	}
-
-	qp=-( omc+ xxi* sd)/( sd*( ap+ xxi* pp)+ cd*( xxi* ap- pp));
-	d= cd- xxi* sd;
-	segj.bx[jsnop]=( sdh+ ap* qp*( cdh- xxi* sdh))/ d;
-	segj.cx[jsnop]=( cdh+ ap* qp*( sdh+ xxi* cdh))/ d;
-
-	for( iend = 0; iend < njun2; iend++ )
-	{
-	  segj.ax[iend]= -segj.ax[iend]* qp;
-	  segj.bx[iend]= segj.bx[iend]* qp;
-	  segj.cx[iend]= -segj.cx[iend]* qp;
-	}
-
-	segj.jsno= jsnop+1;
-	segj.ax[jsnop]=-1.0;
-	return;
-
-  } /* if( njun1 == 0) */
-
-  if( njun2 == 0)
-  {
-	if( icap == 0)
-	  xxi=0.0;
-	else
-	{
-	  qm= PI* data.bi[ix];
-	  xxi= qm* qm;
-	  xxi= qm*(1.0-.5* xxi)/(1.0- xxi);
-	}
-
-	qm=( omc+ xxi* sd)/( sd*( aj- xxi* pm)+ cd*( pm+ xxi* aj));
-	d= cd- xxi* sd;
-	segj.bx[jsnop]=( aj* qm*( cdh- xxi* sdh)- sdh)/ d;
-	segj.cx[jsnop]=( cdh- aj* qm*( sdh+ xxi* cdh))/ d;
-
-	for( iend = 0; iend < njun1; iend++ )
-	{
-	  segj.ax[iend]= segj.ax[iend]* qm;
-	  segj.bx[iend]= segj.bx[iend]* qm;
-	  segj.cx[iend]= segj.cx[iend]* qm;
-	}
-
-	segj.jsno= jsnop+1;
-	segj.ax[jsnop]=-1.0;
-	return;
-
-  } /* if( njun2 == 0) */
-
-  qp= sd*( pm* pp+ aj* ap)+ cd*( pm* ap- pp* aj);
-  qm=( ap* omc- pp* sd)/ qp;
-  qp=-( aj* omc+ pm* sd)/ qp;
-  segj.bx[jsnop]=( aj* qm+ ap* qp)* sdh/ sd;
-  segj.cx[jsnop]=( aj* qm- ap* qp)* cdh/ sd;
-
-  for( iend = 0; iend < njun1; iend++ )
-  {
-	segj.ax[iend]= segj.ax[iend]* qm;
-	segj.bx[iend]= segj.bx[iend]* qm;
-	segj.cx[iend]= segj.cx[iend]* qm;
-  }
-
-  jend= njun1;
-  for( iend = jend; iend < segj.jsno; iend++ )
-  {
-	segj.ax[iend]= -segj.ax[iend]* qp;
-	segj.bx[iend]= segj.bx[iend]* qp;
-	segj.cx[iend]= -segj.cx[iend]* qp;
-  }
-
-  segj.jsno= jsnop+1;
-  segj.ax[jsnop]=-1.0;
-
-  return;
-}
-
-/*-----------------------------------------------------------------------*/
-
 /* compute the components of all basis functions on segment j */
   void
 trio( int j )
@@ -1226,11 +1224,11 @@ trio( int j )
 	  {
 		segj.maxcon = segj.jsno +1;
 		size_t mreq = (size_t)segj.maxcon * sizeof(int);
-		mem_realloc( (void **)&segj.jco, mreq, "in calculations.c" );
+		mem_realloc( (void **)&segj.jco, mreq, _("in calculations.c") );
 		mreq = (size_t)segj.maxcon * sizeof(double);
-		mem_realloc( (void **) &segj.ax, mreq, "in calculations.c" );
-		mem_realloc( (void **) &segj.bx, mreq, "in calculations.c" );
-		mem_realloc( (void **) &segj.cx, mreq, "in calculations.c" );
+		mem_realloc( (void **) &segj.ax, mreq, _("in calculations.c") );
+		mem_realloc( (void **) &segj.bx, mreq, _("in calculations.c") );
+		mem_realloc( (void **) &segj.cx, mreq, _("in calculations.c") );
 	  }
 
 	  sbf( j, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
@@ -1258,11 +1256,11 @@ trio( int j )
 	  {
 		segj.maxcon = segj.jsno +1;
 		size_t mreq = (size_t)segj.maxcon * sizeof(int);
-		mem_realloc( (void **)&segj.jco, mreq, "in calculations.c" );
+		mem_realloc( (void **)&segj.jco, mreq, _("in calculations.c") );
 		mreq = (size_t)segj.maxcon * sizeof(double);
-		mem_realloc( (void **) &segj.ax, mreq, "in calculations.c" );
-		mem_realloc( (void **) &segj.bx, mreq, "in calculations.c" );
-		mem_realloc( (void **) &segj.cx, mreq, "in calculations.c" );
+		mem_realloc( (void **) &segj.ax, mreq, _("in calculations.c") );
+		mem_realloc( (void **) &segj.bx, mreq, _("in calculations.c") );
+		mem_realloc( (void **) &segj.cx, mreq, _("in calculations.c") );
 	  }
 
 	  sbf( jcox, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
@@ -1276,8 +1274,8 @@ trio( int j )
 	  if( jcox == 0 )
 	  {
 		fprintf( stderr,
-			"xnec2c: trio(): segment connention error for segment %5d\n", j );
-		stop( _("Segment connention error in trio()"), ERR_STOP );
+			_("xnec2c: trio(): segment connention error for segment %5d\n"), j );
+		Stop( _("Segment connention error in trio()"), ERR_STOP );
 	  }
 	  else continue;
 
@@ -1305,11 +1303,11 @@ trio( int j )
   {
 	segj.maxcon = segj.jsno +1;
 	size_t mreq = (size_t)segj.maxcon * sizeof(int);
-	mem_realloc( (void **)&segj.jco, mreq, "in calculations.c" );
+	mem_realloc( (void **)&segj.jco, mreq, _("in calculations.c") );
 	mreq = (size_t)segj.maxcon * sizeof(double);
-	mem_realloc( (void **) &segj.ax, mreq, "in calculations.c" );
-	mem_realloc( (void **) &segj.bx, mreq, "in calculations.c" );
-	mem_realloc( (void **) &segj.cx, mreq, "in calculations.c" );
+	mem_realloc( (void **) &segj.ax, mreq, _("in calculations.c") );
+	mem_realloc( (void **) &segj.bx, mreq, _("in calculations.c") );
+	mem_realloc( (void **) &segj.cx, mreq, _("in calculations.c") );
   }
 
   sbf( j, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
@@ -1350,8 +1348,8 @@ zint( double sigl, double rolam, complex double *zint )
 
 #define th(d) ( (((((cc1*(d)+cc2)*(d)+cc3)*(d)+cc4)*(d)+cc5)*(d)+cc6)*(d) + cc7 )
 #define ph(d) ( (((((cc8*(d)+cc9)*(d)+cc10)*(d)+cc11)*(d)+cc12)*(d)+cc13)*(d)+cc14 )
-#define f(d)  ( csqrt(PITWO/(d))*cexp(-cn*(d)+th(-8.0/x)) )
-#define g(d)  ( cexp(cn*(d)+th(8.0/x))/csqrt(TWOPI*(d)) )
+#define f(d)  ( csqrt(M_PI_2/(d))*cexp(-cn*(d)+th(-8.0/x)) )
+#define g(d)  ( cexp(cn*(d)+th(8.0/x))/csqrt(M_2PI*(d)) )
 
   double x;
   double tpcmu = 2.368705e+3;
@@ -1390,7 +1388,7 @@ zint( double sigl, double rolam, complex double *zint )
 	} /* if( x <= 8.0) */
 	else
 	{
-	  br2= CPLX_01* f(x)/ PI;
+	  br2= CPLX_01* f(x)/ M_PI;
 	  br1= g( x)+ br2;
 	  br2= g( x)* ph(8.0/ x)- br2* ph(-8.0/ x);
 	  br1= br1/ br2;

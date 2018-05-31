@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -22,10 +20,21 @@
 #include <ctype.h>
 #include "callbacks.h"
 #include "interface.h"
-#include "support.h"
 #include "editors.h"
 #include "fork.h"
 #include "common.h"
+
+typedef struct save_data
+{
+  GtkWidget *drawingarea;
+  int width, height;
+  char filename[LINE_LEN];
+} save_data_t;
+
+/* Gain colorcode strip size */
+#define COLORCODE_WIDTH		96
+#define COLORCODE_HEIGHT	24
+#define COLORCODE_MAX		768.0  /* Max value, 8 x COLORCODE_WIDTH */
 
 #endif
 

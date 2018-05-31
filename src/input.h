@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -20,10 +18,16 @@
 #define	INPUT_H		1
 
 #include "common.h"
-#include "support.h"
+#include <ctype.h>
+
+#define COMMANDS \
+  "CM", "CP", "EK", "EN", "EX", \
+  "FR", "GD", "GN", "KH", "LD", \
+  "NE", "NH", "NT", "PQ", "PT", \
+  "RP", "SY", "TL", "XQ", "ZO"
 
 /* Command Mnemonics */
-enum CMDN_MNM
+enum CMND_MNM
 {
   CM = 0,
   CP,
@@ -44,6 +48,7 @@ enum CMDN_MNM
   SY,
   TL,
   XQ,
+  ZO,
   NUM_CMNDS
 };
 

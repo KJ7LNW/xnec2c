@@ -1,8 +1,11 @@
 ## Process this file with automake to produce Makefile.in
-AM_LDFLAGS = -Wl,--as-needed
+AM_LDFLAGS = -Wl,--export-dynamic -Wl,--as-needed
 
-AM_CFLAGS = --pedantic -Wall -std=gnu99 -O2 -D_FORTIFY_SOURCE=2 \
-		 -fstack-protector -Wformat -Werror=format-security -fpie
+AM_CFLAGS = --pedantic -Wall -std=gnu11 -O2 -D_FORTIFY_SOURCE=2 \
+			-fstack-protector-strong -Wformat -Werror=format-security -fpie \
+			-DGTK_DISABLE_SINGLE_INCLUDES -DGDK_DISABLE_DEPRECATED \
+			-DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE \
+			-DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED
 
 AM_CPPFLAGS = \
 	-DPROGRAMNAME_LOCALEDIR=\""$(PROGRAMNAME_LOCALEDIR)"\" \
@@ -14,7 +17,6 @@ bin_PROGRAMS = xnec2c
 
 xnec2c_SOURCES = \
 	main.c		 	main.h \
-	support.c	 	support.h \
 	interface.c	 	interface.h \
 	callbacks.c	 	callbacks.h \
 	callback_func.c	callback_func.h \
@@ -37,6 +39,7 @@ xnec2c_SOURCES = \
 	network.c	 	network.h \
 	plot_freqdata.c	plot_freqdata.h \
 	radiation.c	 	radiation.h \
+	rc_config.c	 	rc_config.h \
 	shared.c	 	shared.h \
 	somnec.c	 	somnec.h \
 	common.h		editors.h

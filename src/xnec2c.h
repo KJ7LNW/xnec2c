@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -19,8 +17,8 @@
 #ifndef	XNEC2C_H
 #define XNEC2C_H		1
 
+#include "common.h"
 #include "fork.h"
-#include "support.h"
 
 #endif
 

@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -45,11 +43,56 @@
 #include "shared.h"
 
 /* Radiation pattern data */
+
+/*-----------------------------------------------------------------------*/
+
+/* calculates the xyz components of the electric */
+/* field due to surface currents */
+static void
+fflds( double rox, double roy, double roz,
+	complex double *scur, complex double *ex,
+	complex double *ey, complex double *ez )
+{
+  double *xs, *ys, *zs, *s;
+  int j, i, k;
+  double arg;
+  complex double ct;
+
+  xs = data.px;
+  ys = data.py;
+  zs = data.pz;
+  s = data.pbi;
+
+  *ex=CPLX_00;
+  *ey=CPLX_00;
+  *ez=CPLX_00;
+
+  i= -1;
+  for( j = 0; j < data.m; j++ )
+  {
+	i++;
+	arg= M_2PI*( rox* xs[i]+ roy* ys[i]+ roz* zs[i]);
+	ct= cmplx( cos( arg)* s[i], sin( arg)* s[i]);
+	k=3*j;
+	*ex += scur[k  ]* ct;
+	*ey += scur[k+1]* ct;
+	*ez += scur[k+2]* ct;
+  }
+
+  ct= rox* *ex+ roy* *ey+ roz* *ez;
+  *ex= CONST4*( ct* rox- *ex);
+  *ey= CONST4*( ct* roy- *ey);
+  *ez= CONST4*( ct* roz- *ez);
+
+  return;
+}
+
 /*-----------------------------------------------------------------------*/
 
 /* ffld calculates the far zone radiated electric fields, */
 /* the factor exp(j*k*r)/(r/lamda) not included */
-void ffld( double thet, double phi,
+static void
+ffld( double thet, double phi,
 	complex double *eth, complex double *eph )
 {
   int k, i, ip, jump;
@@ -108,7 +151,7 @@ void ffld( double thet, double phi,
 			zrsin= csqrt(1.0- gnd.zrati2* gnd.zrati2* thz* thz);
 			rrv2=-( roz- gnd.zrati2* zrsin)/( roz+ gnd.zrati2* zrsin);
 			rrh2=( gnd.zrati2* roz- zrsin)/( gnd.zrati2* roz+ zrsin);
-			darg= -TWOPI*2.0* gnd.ch* roz;
+			darg= -M_2PI*2.0* gnd.ch* roz;
 		  }
 		} /* if( gnd.ifar > 1) */
 
@@ -127,7 +170,7 @@ void ffld( double thet, double phi,
 	  for( i = 0; i < data.n; i++ )
 	  {
 		omega=-( rox* data.cab[i] +	roy* data.sab[i]+ roz* data.salp[i]);
-		el= PI* data.si[i];
+		el= M_PI* data.si[i];
 		sill= omega* el;
 		top= el+ sill;
 		bot= el- sill;
@@ -151,7 +194,7 @@ void ffld( double thet, double phi,
 		c= el*( boo+ too);
 		rr= a* crnt.air[i]+ b* crnt.bii[i]+ c* crnt.cir[i];
 		ri= a* crnt.aii[i]- b* crnt.bir[i]+ c* crnt.cii[i];
-		arg= TWOPI*( data.x[i]* rox+ data.y[i]* roy+ data.z[i]* roz);
+		arg= M_2PI*( data.x[i]* rox+ data.y[i]* roy+ data.z[i]* roz);
 
 		if( (k != 1) || (gnd.ifar < 2) )
 		{
@@ -342,7 +385,7 @@ void ffld( double thet, double phi,
   ex = ex + cix * CONST3;
   ey = ey + ciy * CONST3;
   ez = ez + ciz * CONST3;
-  
+
   *eth = ex * thx + ey * thy + ez * thz;
   *eph = ex * phx + ey * phy;
 
@@ -351,50 +394,9 @@ void ffld( double thet, double phi,
 
 /*-----------------------------------------------------------------------*/
 
-/* calculates the xyz components of the electric */
-/* field due to surface currents */
-void fflds( double rox, double roy, double roz,
-	complex double *scur, complex double *ex,
-	complex double *ey, complex double *ez )
-{
-  double *xs, *ys, *zs, *s;
-  int j, i, k;
-  double arg;
-  complex double ct;
-
-  xs = data.px;
-  ys = data.py;
-  zs = data.pz;
-  s = data.pbi;
-
-  *ex=CPLX_00;
-  *ey=CPLX_00;
-  *ez=CPLX_00;
-
-  i= -1;
-  for( j = 0; j < data.m; j++ )
-  {
-	i++;
-	arg= TWOPI*( rox* xs[i]+ roy* ys[i]+ roz* zs[i]);
-	ct= cmplx( cos( arg)* s[i], sin( arg)* s[i]);
-	k=3*j;
-	*ex += scur[k  ]* ct;
-	*ey += scur[k+1]* ct;
-	*ez += scur[k+2]* ct;
-  }
-
-  ct= rox* *ex+ roy* *ey+ roz* *ez;
-  *ex= CONST4*( ct* rox- *ex);
-  *ey= CONST4*( ct* roy- *ey);
-  *ez= CONST4*( ct* roz- *ez);
-
-  return;
-}
-
-/*-----------------------------------------------------------------------*/
-
 /* gfld computes the radiated field including ground wave. */
-void gfld( double rho, double phi, double rz,
+static void
+gfld( double rho, double phi, double rz,
 	complex double *eth, complex double *epi,
 	complex double *erd, complex double ux, int ksymp )
 {
@@ -415,10 +417,10 @@ void gfld( double rho, double phi, double rz,
 	if( rz >= 1.0e-20)
 	  thet= atan( rho/ rz);
 	else
-	  thet= PI*.5;
+	  thet= M_PI*.5;
 
 	ffld( thet, phi, eth, epi);
-	arg= -TWOPI* r;
+	arg= -M_2PI* r;
 	exa= cmplx( cos( arg), sin( arg))/ r;
 	*eth= *eth* exa;
 	*epi= *epi* exa;
@@ -474,7 +476,7 @@ void gfld( double rho, double phi, double rz,
 	  sph= rhy;
 	}
 
-	el= PI* data.si[i];
+	el= M_PI* data.si[i];
 	rfl=-1.0;
 
 	/* integration of (current)*(phase factor)
@@ -514,9 +516,9 @@ void gfld( double rho, double phi, double rz,
 		b* crnt.bii[i]+ c* crnt.cir[i];
 	  ri= a* crnt.aii[i] -
 		b* crnt.bir[i]+ c* crnt.cii[i];
-	  arg= TWOPI*( data.x[i] *
+	  arg= M_2PI*( data.x[i] *
 		  rnx+ data.y[i]* rny+ data.z[i]* rnz* rfl);
-	  exa= cmplx( cos( arg), sin( arg))* cmplx( rr, ri)/ TWOPI;
+	  exa= cmplx( cos( arg), sin( arg))* cmplx( rr, ri)/ M_2PI;
 
 	  if( k != 1 )
 	  {
@@ -546,7 +548,7 @@ void gfld( double rho, double phi, double rz,
 
   } /* for( i = 0; i < n; i++ ) */
 
-  arg= -TWOPI* r;
+  arg= -M_2PI* r;
   exa= cmplx( cos( arg), sin( arg));
   cix= cix* exa;
   ciy= ciy* exa;
@@ -567,7 +569,8 @@ void gfld( double rho, double phi, double rz,
 /*-----------------------------------------------------------------------*/
 
 /* compute radiation pattern, gain, normalized gain */
-void rdpat(void)
+void
+rdpat( void )
 {
   int kth, kph, isens;
   double  prad, gcon, gcop;
@@ -585,33 +588,31 @@ void rdpat(void)
   {
 	gnd.cl= fpat.clt/ data.wlam;
 	gnd.ch= fpat.cht/ data.wlam;
-	gnd.zrati2= csqrt(1.0/ cmplx(
-		  fpat.epsr2,- fpat.sig2* data.wlam*59.96));
+	gnd.zrati2= csqrt(1.0/ cmplx(fpat.epsr2,- fpat.sig2* data.wlam*59.96));
   }
 
   /* Calculate radiation pattern data */
   /*** For applied voltage excitation ***/
   if( (fpat.ixtyp == 0) || (fpat.ixtyp == 5) )
   {
-	gcop= data.wlam* data.wlam* 2.0* PI/(376.73* fpat.pinr);
+	gcop= data.wlam* data.wlam* M_2PI/(376.73* fpat.pinr);
 	prad= fpat.pinr- fpat.ploss- fpat.pnlr;
 	gcon= gcop;
 	if( fpat.ipd != 0)
 	  gcon *= fpat.pinr/ prad;
   }
-  /*** For elementary current source ***/
-  else if( fpat.ixtyp == 4)
+  else if( fpat.ixtyp == 4) /*** For elementary current source ***/
   {
 	fpat.pinr=394.510* calc_data.xpr6*
 	  calc_data.xpr6* data.wlam* data.wlam;
-	gcop= data.wlam* data.wlam*2.0* PI/(376.73* fpat.pinr);
+	gcop= data.wlam* data.wlam*M_2PI/(376.73* fpat.pinr);
 	prad= fpat.pinr- fpat.ploss- fpat.pnlr;
 	gcon= gcop;
 	if( fpat.ipd != 0)
 	  gcon= gcon* fpat.pinr/ prad;
   }
+  else gcon=4.0* M_PI/(1.0+ calc_data.xpr6* calc_data.xpr6);
   /*** Incident field source ***/
-  else gcon=4.0* PI/(1.0+ calc_data.xpr6* calc_data.xpr6);
 
   phi  = fpat.phis - fpat.dph;
 
@@ -648,7 +649,7 @@ void rdpat(void)
 		  gtk_widget_destroy( rdpattern_window );
 		fprintf( stderr, "xnec2c: rdpat(): Theta > 90 deg with ground specified\n"
 			"Please check RP card data and correct\n" );
-		stop( _("rdpat(): Theta > 90 deg with ground specified\n"\
+		Stop( _("rdpat(): Theta > 90 deg with ground specified\n"
 			  "Please check RP card data and correct"), ERR_STOP );
 	  }
 

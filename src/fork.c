@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -16,115 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* fork.c
- *
- * Functions for forking xnec2c in multiprocessor systems
- */
-
 #include "fork.h"
 #include "shared.h"
-
-/*-----------------------------------------------------------------------*/
-
-/* Child_Process()
- *
- * Destination of child processes, handles data
- * transfers between parent and children via pipes
- */
-void Child_Process( int num_child ) __attribute__ ((noreturn));
-  void
-Child_Process( int num_child )
-{
-  ssize_t retval;	/* Return from select()/read() etc */
-  char cmnd[8];		/* Command string received from parent */
-  char *buff;		/* Passes address of variables to read()/write() */
-  size_t cnt;		/* Size of data buffers for read()/write() */
-
-  /* Close unwanted pipe ends */
-  close( forked_proc_data[num_child]->pnt2child_pipe[WRITE] );
-  close( forked_proc_data[num_child]->child2pnt_pipe[READ] );
-
-  /* Watch read/write pipe for i/o */
-  FD_ZERO( &forked_proc_data[num_child]->read_fds );
-
-  FD_SET( forked_proc_data[num_child]->pnt2child_pipe[READ],
-	  &forked_proc_data[num_child]->read_fds );
-
-  FD_ZERO( &forked_proc_data[num_child]->write_fds );
-
-  FD_SET( forked_proc_data[num_child]->child2pnt_pipe[WRITE],
-	  &forked_proc_data[num_child]->write_fds );
-
-  /* Loop around select() in Read_Pipe() waiting for commands/data */
-  while( TRUE )
-  {
-	retval = Read_Pipe( num_child, cmnd, 7, TRUE );
-	cmnd[retval]='\0';
-
-	switch( Fork_Command(cmnd) )
-	{
-	  case INFILE: /* Read input file */
-		retval = Read_Pipe( num_child, infile, 80, FALSE );
-		infile[retval] = '\0';
-		Child_Input_File();
-		break;
-
-	  case FRQDATA: /* Calculate currents and pass on */
-		/* Get new frequency */
-		buff = (char *)&calc_data.fmhz;
-		cnt = sizeof( double );
-		Read_Pipe( num_child, buff, (ssize_t)cnt, TRUE );
-
-		/* Frequency buffers in children
-		 * are for current frequency only */
-		calc_data.fstep = 0;
-
-		/* Clear "last-used-frequency" buffer */
-		save.last_freq = 0.0;
-
-		/* Set flags */
-		SetFlag( FREQ_LOOP_RUNNING );
-
-		/* Calculate freq data and pass to parent */
-		New_Frequency();
-		Pass_Freq_Data();
-		break;
-
-	  case EHFIELD: /* Calcualte near field E/H data */
-		{
-		  /* Get near field flags */
-		  char flag;
-
-		  /* Set near field flags */
-		  cnt = sizeof( flag );
-		  Read_Pipe( num_child, &flag, (ssize_t)cnt, TRUE );
-
-		  if( flag & E_HFIELD )
-			SetFlag( DRAW_EHFIELD );
-		  else
-			ClearFlag( DRAW_EHFIELD );
-
-		  if( flag & SNAPSHOT )
-			SetFlag( NEAREH_SNAPSHOT );
-		  else
-			ClearFlag( NEAREH_SNAPSHOT );
-
-		  if( flag & EFIELD )
-			SetFlag( DRAW_EFIELD );
-		  else
-			ClearFlag( DRAW_EFIELD );
-
-		  if( flag & HFIELD )
-			SetFlag( DRAW_HFIELD );
-		  else
-			ClearFlag( DRAW_HFIELD );
-		}
-
-	} /* switch( Command(cmnd) ) */
-
-  } /* while( TRUE ) */
-
-} /* Child_Process() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -132,14 +23,15 @@ Child_Process( int num_child )
  *
  * Opens NEC2 input file for child processes
  */
-  void
+  static void
 Child_Input_File( void )
 {
   /* Close open files if any */
   Close_File( &input_fp );
 
   /* Open NEC2 input file */
-  Open_File( &input_fp, infile, "r" );
+  if( strlen(rc_config.infile) == 0 ) return;
+  Open_File( &input_fp, rc_config.infile, "r" );
 
   /* Read input file */
   ClearFlag( ALL_FLAGS );
@@ -161,7 +53,7 @@ Child_Input_File( void )
  *
  * Identifies a command srting
  */
-  int
+  static int
 Fork_Command( const char *cdstr )
 {
   int idx;
@@ -180,7 +72,7 @@ Fork_Command( const char *cdstr )
  *
  * Reads data from a pipe (child and parent processes)
  */
-  ssize_t
+  static ssize_t
 Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
 {
   ssize_t retval;
@@ -212,60 +104,30 @@ Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
 
 /*------------------------------------------------------------------------*/
 
-/* Write_Pipe()
+/* Mem_Copy()
  *
- * Writes data to a pipe (child and parent processes)
+ * Copies between buffers using memcpy()
  */
-  ssize_t
-Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
+  static void
+Mem_Copy( char *buff, char *var, size_t cnt, gboolean wrt )
 {
-  ssize_t retval;
-  int pipefd;
+  static int idx;
 
-  if( CHILD )
-	pipefd = forked_proc_data[idx]->child2pnt_pipe[WRITE];
-  else
-	pipefd = forked_proc_data[idx]->pnt2child_pipe[WRITE];
-
-  retval = select( 1024, NULL, &forked_proc_data[idx]->write_fds, NULL, NULL );
-  if( retval == -1 )
+  /* Clear idx to buffer */
+  if( !cnt )
   {
-	perror( "xnec2c: select()" );
-	_exit(0);
+	idx = 0;
+	return;
   }
 
-  retval = write( pipefd, str, (size_t)len );
-  if( (retval == -1) || ((retval != len) && err) )
-  {
-	perror( "xnec2c: write()" );
-	_exit(0);
-  }
+  /* If child process writing data */
+  if( wrt )
+	memcpy( &buff[idx], var, cnt );
+  else /* Parent reading data */
+	memcpy( var, &buff[idx], cnt );
+  idx += (int)cnt;
 
-  usleep(2);
-  return( retval );
-
-} /* Write_Pipe() */
-
-/*------------------------------------------------------------------------*/
-
-/* PRead_Pipe()
- *
- * Reads data from a pipe (used by parent process)
- */
-  ssize_t
-PRead_Pipe( int idx, char *str, ssize_t len, gboolean err )
-{
-  ssize_t retval;
-
-  retval = read( forked_proc_data[idx]->child2pnt_pipe[READ], str, (size_t)len );
-  if( (retval == -1) || ((retval != len) && err ) )
-  {
-	perror( "xnec2c: PRead_Pipe(): read()" );
-	_exit(0);
-  }
-  return( retval );
-
-} /* PRead_Pipe() */
+} /* Mem_Copy() */
 
 /*------------------------------------------------------------------------*/
 
@@ -274,7 +136,7 @@ PRead_Pipe( int idx, char *str, ssize_t len, gboolean err )
  * Passes frequency-dependent data (current, charge density,
  * input impedances etc) from child processes to parent.
  */
-  void
+  static void
 Pass_Freq_Data( void )
 {
   char *buff = NULL, flag;
@@ -453,6 +315,165 @@ Pass_Freq_Data( void )
   free_ptr( (void **)&buff );
 
 } /* Pass_Freq_Data() */
+
+/*------------------------------------------------------------------------*/
+
+/* Child_Process()
+ *
+ * Destination of child processes, handles data
+ * transfers between parent and children via pipes
+ */
+void Child_Process( int num_child ) __attribute__ ((noreturn));
+  void
+Child_Process( int num_child )
+{
+  ssize_t retval;	/* Return from select()/read() etc */
+  char cmnd[8];		/* Command string received from parent */
+  char *buff;		/* Passes address of variables to read()/write() */
+  size_t cnt;		/* Size of data buffers for read()/write() */
+
+  /* Close unwanted pipe ends */
+  close( forked_proc_data[num_child]->pnt2child_pipe[WRITE] );
+  close( forked_proc_data[num_child]->child2pnt_pipe[READ] );
+
+  /* Watch read/write pipe for i/o */
+  FD_ZERO( &forked_proc_data[num_child]->read_fds );
+
+  FD_SET( forked_proc_data[num_child]->pnt2child_pipe[READ],
+	  &forked_proc_data[num_child]->read_fds );
+
+  FD_ZERO( &forked_proc_data[num_child]->write_fds );
+
+  FD_SET( forked_proc_data[num_child]->child2pnt_pipe[WRITE],
+	  &forked_proc_data[num_child]->write_fds );
+
+  /* Loop around select() in Read_Pipe() waiting for commands/data */
+  while( TRUE )
+  {
+	retval = Read_Pipe( num_child, cmnd, 7, TRUE );
+	cmnd[retval]='\0';
+
+	switch( Fork_Command(cmnd) )
+	{
+	  case INFILE: /* Read input file */
+		retval = Read_Pipe( num_child, rc_config.infile, 80, FALSE );
+		rc_config.infile[retval] = '\0';
+		Child_Input_File();
+		break;
+
+	  case FRQDATA: /* Calculate currents and pass on */
+		/* Get new frequency */
+		buff = (char *)&calc_data.fmhz;
+		cnt = sizeof( double );
+		Read_Pipe( num_child, buff, (ssize_t)cnt, TRUE );
+
+		/* Frequency buffers in children
+		 * are for current frequency only */
+		calc_data.fstep = 0;
+
+		/* Clear "last-used-frequency" buffer */
+		save.last_freq = 0.0;
+
+		/* Set flags */
+		SetFlag( FREQ_LOOP_RUNNING );
+
+		/* Calculate freq data and pass to parent */
+		New_Frequency();
+		Pass_Freq_Data();
+		break;
+
+	  case EHFIELD: /* Calcualte near field E/H data */
+		{
+		  /* Get near field flags */
+		  char flag;
+
+		  /* Set near field flags */
+		  cnt = sizeof( flag );
+		  Read_Pipe( num_child, &flag, (ssize_t)cnt, TRUE );
+
+		  if( flag & E_HFIELD )
+			SetFlag( DRAW_EHFIELD );
+		  else
+			ClearFlag( DRAW_EHFIELD );
+
+		  if( flag & SNAPSHOT )
+			SetFlag( NEAREH_SNAPSHOT );
+		  else
+			ClearFlag( NEAREH_SNAPSHOT );
+
+		  if( flag & EFIELD )
+			SetFlag( DRAW_EFIELD );
+		  else
+			ClearFlag( DRAW_EFIELD );
+
+		  if( flag & HFIELD )
+			SetFlag( DRAW_HFIELD );
+		  else
+			ClearFlag( DRAW_HFIELD );
+		}
+
+	} /* switch( Command(cmnd) ) */
+
+  } /* while( TRUE ) */
+
+} /* Child_Process() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Write_Pipe()
+ *
+ * Writes data to a pipe (child and parent processes)
+ */
+  ssize_t
+Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
+{
+  ssize_t retval;
+  int pipefd;
+
+  if( CHILD )
+	pipefd = forked_proc_data[idx]->child2pnt_pipe[WRITE];
+  else
+	pipefd = forked_proc_data[idx]->pnt2child_pipe[WRITE];
+
+  retval = select( 1024, NULL, &forked_proc_data[idx]->write_fds, NULL, NULL );
+  if( retval == -1 )
+  {
+	perror( "xnec2c: select()" );
+	_exit(0);
+  }
+
+  retval = write( pipefd, str, (size_t)len );
+  if( (retval == -1) || ((retval != len) && err) )
+  {
+	perror( "xnec2c: write()" );
+	_exit(0);
+  }
+
+  usleep(2);
+  return( retval );
+
+} /* Write_Pipe() */
+
+/*------------------------------------------------------------------------*/
+
+/* PRead_Pipe()
+ *
+ * Reads data from a pipe (used by parent process)
+ */
+  static ssize_t
+PRead_Pipe( int idx, char *str, ssize_t len, gboolean err )
+{
+  ssize_t retval;
+
+  retval = read( forked_proc_data[idx]->child2pnt_pipe[READ], str, (size_t)len );
+  if( (retval == -1) || ((retval != len) && err ) )
+  {
+	perror( "xnec2c: PRead_Pipe(): read()" );
+	_exit(0);
+  }
+  return( retval );
+
+} /* PRead_Pipe() */
 
 /*------------------------------------------------------------------------*/
 
@@ -636,33 +657,6 @@ Get_Freq_Data( int idx, int fstep )
   free_ptr( (void **)&buff );
 
 } /* Get_Freq_Data() */
-
-/*------------------------------------------------------------------------*/
-
-/* Mem_Copy()
- *
- * Copies between buffers using memcpy()
- */
-  void
-Mem_Copy( char *buff, char *var, size_t cnt, gboolean wrt )
-{
-  static int idx;
-
-  /* Clear idx to buffer */
-  if( !cnt )
-  {
-	idx = 0;
-	return;
-  }
-
-  /* If child process writing data */
-  if( wrt )
-	memcpy( &buff[idx], var, cnt );
-  else /* Parent reading data */
-	memcpy( var, &buff[idx], cnt );
-  idx += (int)cnt;
-
-} /* Mem_Copy() */
 
 /*------------------------------------------------------------------------*/
 

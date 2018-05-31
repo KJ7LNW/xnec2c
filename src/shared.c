@@ -1,10 +1,25 @@
 /*
- * Shared global variables for nec2c.c
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
 #include "shared.h"
 
 /*------------------------------------------------------------------------*/
+
+/* Runtime config file */
+rc_config_t rc_config;
 
 /* Editor windows */
 GtkWidget
@@ -31,7 +46,8 @@ GtkWidget
   *nearfield_command = NULL, /* Near Fields command editor */
   *kernel_command	 = NULL, /* Thin-wire Kernel command editor  */
   *intrange_command	 = NULL, /* Interaction Range command editor */
-  *execute_command	 = NULL; /* Execute (EX card) command editor */
+  *execute_command	 = NULL, /* Execute (EX card) command editor */
+  *zo_command		 = NULL; /* Transmission Line Zo command editor */
 
 /* Frequency step entry */
 GtkEntry *rdpattern_fstep_entry = NULL;
@@ -45,7 +61,7 @@ GtkSpinButton
   *rdpattern_zoom      = NULL,
   *structure_zoom      = NULL,
   *rdpattern_frequency = NULL,
-  *mainwin_frequency = NULL;
+  *mainwin_frequency   = NULL;
 
 projection_parameters_t
   rdpattern_proj_params,
@@ -58,6 +74,7 @@ GtkAdjustment
   *cmnd_adjustment = NULL;
 
 GtkTreeView
+  *cmnt_treeview = NULL,
   *geom_treeview = NULL,
   *cmnd_treeview = NULL;
 
@@ -69,16 +86,70 @@ GtkWidget
   *nec2_edit_window = NULL;
 
 /* Drawing area widgets */
-GtkWidget *structure_drawingarea = NULL;
-GtkWidget *freqplots_drawingarea = NULL;
-GtkWidget *rdpattern_drawingarea = NULL;
+GtkWidget
+  *structure_drawingarea = NULL,
+  *freqplots_drawingarea = NULL,
+  *rdpattern_drawingarea = NULL;
+
+GtkWidget *saveas_drawingarea = NULL;
+
+/* Sizes of above */
+int
+  structure_width,
+  structure_height,
+  freqplots_width,
+  freqplots_height,
+  rdpattern_width,
+  rdpattern_height;
+
+GtkBuilder
+  *main_window_builder = NULL,
+  *freqplots_window_builder = NULL,
+  *rdpattern_window_builder = NULL,
+  *animate_dialog_builder = NULL,
+  *excitation_editor_builder = NULL,
+  *radiation_editor_builder = NULL,
+  *quit_dialog_builder = NULL,
+  *frequency_editor_builder = NULL,
+  *ground_editor_builder = NULL,
+  *loading_editor_builder = NULL,
+  *ground2_editor_builder = NULL,
+  *network_editor_builder = NULL,
+  *txline_editor_builder = NULL,
+  *nearfield_editor_builder = NULL,
+  *kernel_editor_builder = NULL,
+  *intrange_editor_builder = NULL,
+  *zo_editor_builder = NULL,
+  *execute_editor_builder = NULL,
+  *wire_editor_builder = NULL,
+  *arc_editor_builder = NULL,
+  *helix_editor_builder = NULL,
+  *patch_editor_builder = NULL,
+  *reflect_editor_builder = NULL,
+  *scale_editor_builder = NULL,
+  *cylinder_editor_builder = NULL,
+  *transform_editor_builder = NULL,
+  *gend_editor_builder = NULL,
+  *nec2_editor_builder = NULL,
+  *nec2_save_dialog_builder = NULL;
+
+/* xnec2c's glade file */
+char xnec2c_glade[64];
 
 /* Motion event handler id */
 gulong rdpattern_motion_handler;
 
 /* Dialog widgets */
-GtkWidget *quit_dialog	  = NULL;
+GtkWidget *quit_dialog = NULL;
 GtkWidget *animate_dialog = NULL;
+GtkWidget *error_dialog = NULL;
+GtkWidget *nec2_save_dialog = NULL;
+
+/* File chooser/select widgets */
+GtkWidget *file_chooser = NULL;
+
+/* Tree view clicked on by user */
+GtkTreeView *selected_treeview = NULL;
 
 /* Frequency step entry widget */
 GtkEntry *structure_fstep_entry = NULL;
@@ -104,18 +175,6 @@ GtkWidget *kill_window = NULL;
 /* Animation timeout callback tag */
 guint anim_tag = 0;
 
-/* Pixmap for drawing structures */
-GdkPixmap *structure_pixmap = NULL;
-int structure_pixmap_width, structure_pixmap_height;
-
-/* Pixmap for drawing plots */
-GdkPixmap *freqplots_pixmap = NULL;
-int freqplots_pixmap_width, freqplots_pixmap_height;
-
-/* Pixmap for drawing radiation patterns */
-GdkPixmap *rdpattern_pixmap = NULL;
-int rdpattern_pixmap_width, rdpattern_pixmap_height;
-
 /* Frequency loop idle function tag */
 guint floop_tag = 0;
 
@@ -126,12 +185,10 @@ rad_pattern_t *rad_pattern = NULL;
 near_field_t near_field;
 
 /* Segments for drawing structure */
-GdkSegment *structure_segs = NULL;
+Segment_t *structure_segs = NULL;
 
 /* Global tag number for geometry editors */
-gint gbl_tag_num = 0;
-
-GtkWidget *error_dialog = NULL;
+gint tag_num = 0;
 
 /* Tree list stores */
 GtkListStore
@@ -159,9 +216,6 @@ dataj_t dataj;
 
 /* pointers to input/output files */
 FILE *input_fp = NULL;
-
-/* Input file name */
-char infile[81] = "";
 
 /* common  /fpat/ */
 fpat_t fpat;

@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -16,13 +14,350 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* geom_edit.c
- *
- * Structure/Geometry editor functions for xnec2c
- */
-
 #include "geom_edit.h"
 #include "shared.h"
+
+/*------------------------------------------------------------------------*/
+
+/* Insert_GE_Card()
+ *
+ * Inserts a default GE card if missing
+ */
+
+  static void
+Insert_GE_Card( GtkListStore *store, GtkTreeIter *iter )
+{
+  gint idx, idi;
+
+  /* Insert default GE card if list is clear */
+  idx = gtk_tree_model_iter_n_children(
+	  GTK_TREE_MODEL(store), NULL );
+  if( !idx )
+  {
+	gtk_list_store_append( store, iter );
+	gtk_list_store_set( store, iter, GEOM_COL_NAME, "GE", -1 );
+	for( idi = GEOM_COL_I1; idi < GEOM_NUM_COLS; idi++ )
+	  gtk_list_store_set( store, iter, idi, "0", -1 );
+  }
+
+} /* Insert_GE_Card() */
+
+/*------------------------------------------------------------------------*/
+
+/* Get_Geometry_Data()
+ *
+ * Gets geometry data from a treeview row
+ */
+
+  static void
+Get_Geometry_Data(
+	GtkListStore *store,
+	GtkTreeIter *iter,
+	int *iv, double *fv )
+{
+  gint idi, idf;
+  gchar *sv;
+
+  /* Get data from tree view (I1,I2, F1-F7)*/
+  if( gtk_list_store_iter_is_valid(store, iter) )
+  {
+	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
+	{
+	  gtk_tree_model_get(
+		  GTK_TREE_MODEL(store), iter, idi, &sv, -1);
+	  iv[idi-GEOM_COL_I1] = atoi(sv);
+	  g_free(sv);
+	}
+	for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
+	{
+	  gtk_tree_model_get(
+		  GTK_TREE_MODEL(store), iter, idf, &sv, -1);
+	  fv[idf-GEOM_COL_F1] = Strtod( sv, NULL );
+	  g_free(sv);
+	}
+  }
+  else Stop( _("Error reading row data\n"
+		"Invalid list iterator"), ERR_OK );
+
+} /* Get_Geometry_Data() */
+
+/*------------------------------------------------------------------------*/
+
+/* Set_Geometry_Data()
+ *
+ * Sets data into a geometry row
+ */
+
+  static void
+Set_Geometry_Data(
+	GtkListStore *store,
+	GtkTreeIter *iter,
+	int *iv, double *fv )
+{
+  gchar str[13];
+  gint idi, idf;
+
+  /* Format and set editor data to treeview (I1, I2 & F1-F7) */
+  if( iter && gtk_list_store_iter_is_valid(store, iter) )
+  {
+	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
+	{
+	  snprintf( str, 6, "%5d", iv[idi-GEOM_COL_I1] );
+	  gtk_list_store_set( store, iter, idi, str, -1 );
+	}
+
+	for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
+	{
+	  snprintf( str, 13, "%12.5E", fv[idf-GEOM_COL_F1] );
+	  gtk_list_store_set( store, iter, idf, str, -1 );
+	}
+  }
+  else Stop( _("Error writing row data\n"
+		"Please re-select row"), ERR_OK );
+
+  SetFlag( NEC2_EDIT_SAVE );
+
+} /* Set_Geometry_Data() */
+
+/*------------------------------------------------------------------------*/
+
+/* Set_Geometry_Int_Data()
+ *
+ * Sets integer (I1, I2) data into a geometry row
+ */
+
+  static void
+Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
+{
+  gchar str[6];
+  gint idi, idf;
+
+  /* Format and set editor data to treeview (I1, I2) */
+  if( gtk_list_store_iter_is_valid(store, iter) )
+  {
+	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
+	{
+	  snprintf( str, sizeof(str), "%5d", iv[idi-GEOM_COL_I1] );
+	  gtk_list_store_set( store, iter, idi, str, -1 );
+	}
+
+	/* Clear unused float columns */
+	for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
+	  gtk_list_store_set( store, iter, idf, "0.0", -1 );
+  }
+  else Stop( _("Error writing row data\n"
+		"Please re-select row"), ERR_OK );
+
+  SetFlag( NEC2_EDIT_SAVE );
+
+} /* Set_Geometry_Int_Data() */
+
+/*------------------------------------------------------------------------*/
+
+/* Insert_Blank_Geometry_Row()
+ *
+ * Inserts a blank row in a tree view with only its name (GW ... )
+ */
+
+  static void
+Insert_Blank_Geometry_Row(
+	GtkTreeView *view, GtkListStore *store,
+	GtkTreeIter *iter, const gchar *name )
+{
+  GtkTreeSelection *selection;
+  gboolean retv;
+  gint n;
+  gchar *str;
+
+  if( nec2_edit_window == NULL )
+	return;
+
+  /* Get selected row, if any */
+  selection = gtk_tree_view_get_selection( view );
+  retv = gtk_tree_selection_get_selected(
+	  selection, NULL, iter );
+
+  /* If no selected row, insert new row into list
+   * store before last row, else after the selected row,
+   * but if this is a GE row, then insert before it */
+  if( !retv )
+  {
+	n = gtk_tree_model_iter_n_children(
+		GTK_TREE_MODEL(store), NULL );
+	gtk_tree_model_iter_nth_child(
+		GTK_TREE_MODEL(store), iter, NULL, n-1 );
+	gtk_list_store_insert_before( store, iter, iter );
+  }
+  else
+  {
+	gtk_tree_model_get( GTK_TREE_MODEL(store),
+		iter, GEOM_COL_NAME, &str, -1 );
+	if( strcmp(str, "GE") == 0 )
+	  gtk_list_store_insert_before( store, iter, iter );
+	else
+	  gtk_list_store_insert_after( store, iter, iter );
+	g_free(str);
+  }
+
+  gtk_list_store_set( store, iter, GEOM_COL_NAME, name, -1 );
+  for( n = GEOM_COL_I1; n < GEOM_NUM_COLS; n++ )
+	gtk_list_store_set( store, iter, n, "--", -1 );
+  gtk_tree_selection_select_iter( selection, iter );
+
+} /* Insert_Blank_Geometry_Row() */
+
+/*------------------------------------------------------------------------*/
+
+/* Set_Wire_Conductivity()
+ *
+ * Sets the wire conductivity specified in a geometry editor
+ * (wire, arc, helix) to a loading card (LD row) in commands treview
+ */
+
+  static void
+Set_Wire_Conductivity( int tag, double s, GtkListStore *store )
+{
+  int idx, idi, nchld;
+  GtkTreeIter iter_ld;
+  gchar *str, sv[13];
+
+  /* Find num of rows and first iter, abort if tree empty */
+  nchld = gtk_tree_model_iter_n_children(
+	  GTK_TREE_MODEL(store), NULL);
+  if(!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter_ld))
+	return;
+
+  /* Look for an LD card with tag number = tag */
+  for( idx = 0; idx < nchld; )
+  {
+	gtk_tree_model_get( GTK_TREE_MODEL(store),
+		&iter_ld, GEOM_COL_NAME, &str, -1 );
+
+	if( strcmp(str, "LD") == 0 )
+	{
+	  g_free( str );
+	  gtk_tree_model_get( GTK_TREE_MODEL(store),
+		  &iter_ld, GEOM_COL_I2, &str, -1 );
+	  if( atoi( str ) == tag )
+	  {
+		g_free( str );
+		break;
+	  }
+	  else g_free( str );
+	}
+	else g_free( str );
+
+	idx++;
+	if( !gtk_tree_model_iter_next(
+		  GTK_TREE_MODEL(store), &iter_ld) )
+	  break;
+
+  } /* for( idx = 0; idx < nchld; idx++ ) */
+
+  /* If not found LD card with tagnum = tag, insert new */
+  if( idx >= nchld )
+  {
+	gtk_tree_model_iter_nth_child(
+		GTK_TREE_MODEL(store), &iter_ld, NULL, nchld-1 );
+	gtk_list_store_insert_before( store, &iter_ld, &iter_ld );
+	gtk_list_store_set(
+		store, &iter_ld, CMND_COL_NAME, "LD", -1 );
+
+	/* Clear rest of LD row */
+	for( idi = CMND_COL_I1; idi <= CMND_COL_F6; idi++ )
+	  gtk_list_store_set( store, &iter_ld, idi, "0", -1 );
+  }
+
+  /* Set LD card parameters */
+  gtk_list_store_set( store, &iter_ld, CMND_COL_I1, "5", -1 );
+  snprintf( sv, 6, "%5d", tag );
+  gtk_list_store_set( store, &iter_ld, CMND_COL_I2, sv, -1 );
+  snprintf( sv, 13, "%12.5E", s );
+  gtk_list_store_set( store, &iter_ld, CMND_COL_F1, sv, -1 );
+
+  /* Scroll tree view to bottom */
+  gtk_adjustment_set_value( geom_adjustment,
+	  gtk_adjustment_get_upper(geom_adjustment) -
+	  gtk_adjustment_get_page_size(geom_adjustment) );
+
+} /* Set_Wire_Conductivity() */
+
+/*------------------------------------------------------------------------*/
+
+/* Get_Wire_Conductivity()
+ *
+ * Gets the wire conductivity specified in a loading
+ * card (LD row) in commands treview for a given tag #
+ */
+
+  static gboolean
+Get_Wire_Conductivity( int tag, double *s, GtkListStore *store )
+{
+  int idx, type, nchld;
+  GtkTreeIter iter_ld;
+  gchar *str;
+  static int t = -1;
+
+  /* Find num of rows and first iter, abort if tree empty */
+  nchld = gtk_tree_model_iter_n_children(
+	  GTK_TREE_MODEL(store), NULL );
+  if( !gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter_ld) )
+	return( FALSE );
+
+  /* Look for an LD card with tag number = tag */
+  for( idx = 0; idx < nchld; )
+  {
+	gtk_tree_model_get( GTK_TREE_MODEL(store),
+		&iter_ld, GEOM_COL_NAME, &str, -1 );
+
+	if( strcmp(str, "LD") == 0 )
+	{
+	  g_free( str );
+	  gtk_tree_model_get( GTK_TREE_MODEL(store),
+		  &iter_ld, GEOM_COL_I2, &str, -1 );
+	  if( atoi(str) == tag )
+	  {
+		g_free( str );
+		break;
+	  }
+	  else g_free( str );
+	}
+	else g_free( str );
+
+	idx++;
+	if( !gtk_tree_model_iter_next(
+		  GTK_TREE_MODEL(store), &iter_ld) )
+	  break;
+
+  } /* for( idx = 0; idx < nchld; idx++ ) */
+
+  /* If not found LD card with tagnum = tag, return s=0 */
+  if( idx >= nchld )
+  {
+	*s = 0.0;
+	t = tag;
+	return( FALSE );
+  }
+
+  /* If LD card for given tag is already read, abort */
+  if( t == tag ) return( FALSE );
+  else t = tag;
+
+  /* Get the loading type (we want LDTYP 5) */
+  gtk_tree_model_get( GTK_TREE_MODEL(store),
+	  &iter_ld, GEOM_COL_I1, &str, -1 );
+  type = atoi( str );
+  g_free( str );
+  if( type != 5 ) return( FALSE );
+
+  /* Get the wire conductivity S/m */
+  gtk_tree_model_get( GTK_TREE_MODEL(store),
+	  &iter_ld, CMND_COL_F1, &str, -1 );
+  *s = Strtod( str, NULL );
+  g_free( str );
+
+  return( TRUE );
+} /* Get_Wire_Conductivity() */
 
 /*------------------------------------------------------------------------*/
 
@@ -47,13 +382,13 @@ Wire_Editor( int action )
   int idx, idi;
 
   static gboolean
-		   load   = FALSE, /* Enable wire loading (conductivity specified) */
-		   taper  = FALSE, /* Editing a tapered wire */
-		   save   = FALSE, /* Enable saving of editor data */
-		   busy   = FALSE, /* Block callbacks. Must be a better way to do this? */
-		   newpcl = TRUE,  /* New percent-of-lambda value */
-		   newrdm = TRUE,  /* New diameter ratio value */
-		   newwln = TRUE;  /* New wire length value */
+	load   = FALSE, /* Enable wire loading (conductivity specified) */
+	taper  = FALSE, /* Editing a tapered wire */
+	save   = FALSE, /* Enable saving of editor data */
+	busy   = FALSE, /* Block callbacks. Must be a better way to do this? */
+	newpcl = TRUE,  /* New percent-of-lambda value */
+	newrdm = TRUE,  /* New diameter ratio value */
+	newwln = TRUE;  /* New wire length value */
 
   /* Float type data, wire conductivity */
   static gdouble fv[14], s = 0.0;
@@ -131,14 +466,14 @@ Wire_Editor( int action )
   /* Read int data from the wire editor */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(wire_editor, ispin[idi]) );
+	spin = GTK_SPIN_BUTTON( Builder_Get_Object(wire_editor_builder, ispin[idi]) );
 	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the wire editor */
   for( idx = WIRE_X1; idx <= WIRE_RES; idx++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(wire_editor, fspin[idx]) );
+	spin = GTK_SPIN_BUTTON( Builder_Get_Object(wire_editor_builder, fspin[idx]) );
 	fv[idx] = gtk_spin_button_get_value( spin );
   }
   fv[WIRE_DIA]  /= 2.0;
@@ -158,7 +493,7 @@ Wire_Editor( int action )
 		  geom_treeview, geom_store, &iter_gw, "GW" );
 
 	  /* Some default values */
-	  iv[SPIN_COL_I1] = ++gbl_tag_num;
+	  iv[SPIN_COL_I1] = ++tag_num;
 	  iv[SPIN_COL_I3] = iv[SPIN_COL_I4] = 0;
 
 	  if( taper )
@@ -170,8 +505,9 @@ Wire_Editor( int action )
 	  }
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  geom_adjustment, geom_adjustment->upper );
+	  gtk_adjustment_set_value( geom_adjustment,
+		  gtk_adjustment_get_upper(geom_adjustment) -
+		  gtk_adjustment_get_page_size(geom_adjustment) );
 	  break;
 
 	case EDITOR_EDIT:  /* Edit a wire row (GW/GC) */
@@ -198,11 +534,11 @@ Wire_Editor( int action )
 
 		  /* Warn user if wire radius not 0 */
 		  if( fv[WIRE_DIA] != 0.0 )
-			stop( _("GC card preceded by GW card\n"\
+			Stop( _("GC card preceded by GW card\n"
 				  "with non-zero wire radius"), ERR_OK );
 
 		} /* if( strcmp(name, "GC") == 0 ) */
-		else stop( _("No GW card before GC card"), ERR_OK );
+		else Stop( _("No GW card before GC card"), ERR_OK );
 	  }
 	  else /*** Editing a GW card ***/
 	  {
@@ -228,13 +564,13 @@ Wire_Editor( int action )
 				&iv[SPIN_COL_I3], &fv[WIRE_RLEN] );
 			fv[WIRE_RDIA] = fv[WIRE_RLEN];
 		  }
-		  else stop( _("No GC card after a GW card\n"\
+		  else Stop( _("No GC card after a GW card\n"
 				"with a zero wire radius"), ERR_OK );
 
 		} /* if( fv[WIRE_DIA] == 0.0 ) */
 		/* If radius != 0, next card should not be GC */
 		else if( Check_Card_Name(geom_store, &iter_gc, NEXT, "GC") )
-		  stop( _("GC card follows a GW card\n"\
+		  Stop( _("GC card follows a GW card\n"
 				"with non-zero wire radius"), ERR_OK );
 
 	  } /* if( strcmp(name, "GC") == 0 ) */
@@ -247,7 +583,7 @@ Wire_Editor( int action )
 
 		/* Read tapered wire checkbutton */
 		taper = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON(
-			  lookup_widget(wire_editor, "wire_taper_checkbutton")) );
+			  Builder_Get_Object(wire_editor_builder, "wire_taper_checkbutton")) );
 		if( taper )
 		{
 		  /* Set wire dia to 0 */
@@ -284,8 +620,8 @@ Wire_Editor( int action )
 	  break;
 
 	case EDITOR_LOAD: /* Wire conductivity specified */
-	  spin = GTK_SPIN_BUTTON( lookup_widget(
-			wire_editor, fspin[WIRE_RES]) );
+	  spin = GTK_SPIN_BUTTON(
+		  Builder_Get_Object(wire_editor_builder, fspin[WIRE_RES]) );
 	  s = gtk_spin_button_get_value( spin );
 	  if( s > 0.0 )
 	  {
@@ -296,7 +632,7 @@ Wire_Editor( int action )
 	  break;
 
 	case EDITOR_TAGNUM: /* Tag number edited by user */
-	  gbl_tag_num = iv[SPIN_COL_I1];
+	  tag_num = iv[SPIN_COL_I1];
 	  save = TRUE;
 	  if( s > 0.0 ) load = TRUE;
 	  break;
@@ -365,22 +701,20 @@ Wire_Editor( int action )
   } /* switch( action ) */
 
   /* Frame of tapered wire data */
-  frame = lookup_widget(wire_editor, "wire_taperframe");
+  frame = Builder_Get_Object(wire_editor_builder, "wire_taperframe");
   /* Show taper data if appropriate */
   if( taper )
   {
 	gtk_widget_show( frame );
 	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(
-		  lookup_widget(wire_editor,
-			"wire_taper_checkbutton")), TRUE );
+		  Builder_Get_Object(wire_editor_builder, "wire_taper_checkbutton")), TRUE );
   }
   else
   {
 	gtk_widget_hide( frame );
 	gtk_window_resize( GTK_WINDOW(wire_editor), 10, 10 );
 	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(
-		  lookup_widget(wire_editor,
-			"wire_taper_checkbutton")), FALSE );
+		  Builder_Get_Object(wire_editor_builder, "wire_taper_checkbutton")), FALSE );
   }
 
   /*** Calculate wire length ***/
@@ -390,6 +724,7 @@ Wire_Editor( int action )
 	dx = fv[WIRE_X2]-fv[WIRE_X1];
 	dy = fv[WIRE_Y2]-fv[WIRE_Y1];
 	dz = fv[WIRE_Z2]-fv[WIRE_Z1];
+
 	/* Wire's length */
 	fv[WIRE_LEN] = (gdouble)sqrt( dx*dx + dy*dy + dz*dz );
   }
@@ -419,7 +754,7 @@ Wire_Editor( int action )
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(wire_editor, ispin[idi]) );
+		Builder_Get_Object(wire_editor_builder, ispin[idi]) );
 	gtk_spin_button_set_value( spin, iv[idi] );
   }
 
@@ -428,7 +763,7 @@ Wire_Editor( int action )
   for( idx = WIRE_X1; idx <= WIRE_RES; idx++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(wire_editor, fspin[idx]) );
+		Builder_Get_Object(wire_editor_builder, fspin[idx]) );
 	gtk_spin_button_set_value( spin, fv[idx] );
   }
   fv[WIRE_DIA] /= 2.0; fv[WIRE_DIA1] /= 2.0; fv[WIRE_DIAN] /= 2.0;
@@ -505,8 +840,8 @@ Patch_Editor( int action )
 
   static gboolean
 	save  = FALSE,	/* Enable saving of editor data */
-	busy  = FALSE,	/* Block callbacks. Must be a better way to do this? */
-	ptset = FALSE;	/* Set patch type radio buttons */
+    busy  = FALSE,	/* Block callbacks. Must be a better way to do this? */
+    ptset = FALSE;	/* Set patch type radio buttons */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -531,7 +866,7 @@ Patch_Editor( int action )
 	for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
 	{
 	  spin = GTK_SPIN_BUTTON(
-		  lookup_widget(patch_editor, ispin[idi]) );
+		  Builder_Get_Object(patch_editor_builder, ispin[idi]) );
 	  double i = gtk_spin_button_get_value( spin );
 	  iv[idi] = (gint)i;
 	}
@@ -540,13 +875,13 @@ Patch_Editor( int action )
   for( idx = PATCH_X1; idx <= PATCH_Z2; idx++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(patch_editor, fspin[idx]) );
+		Builder_Get_Object(patch_editor_builder, fspin[idx]) );
 	fv[idx] = gtk_spin_button_get_value( spin );
   }
   for( idx = PATCH_X3; idx <= PATCH_Z4; idx++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(patch_editor, fspin[idx-1]) );
+		Builder_Get_Object(patch_editor_builder, fspin[idx-1]) );
 	fv[idx] = gtk_spin_button_get_value( spin );
   }
 
@@ -586,8 +921,9 @@ Patch_Editor( int action )
 			geom_treeview, geom_store, &iter_sc, "SC" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  geom_adjustment, geom_adjustment->upper );
+	  gtk_adjustment_set_value( geom_adjustment,
+		  gtk_adjustment_get_upper(geom_adjustment) -
+		  gtk_adjustment_get_page_size(geom_adjustment) );
 	  ptset = TRUE;
 	  break;
 
@@ -614,7 +950,7 @@ Patch_Editor( int action )
 		  /* Warn user if SP card with arbitrary
 		   * patch is followed by an SC card */
 		  if( ptype == PATCH_ARBT )
-			stop( _("SC card preceded by SP card\n"\
+			Stop( _("SC card preceded by SP card\n"
 				  "with arbitrary patch type"), ERR_OK );
 
 		} /* if( Check_Card_Name(geom_store, &iter_sp, PREVIOUS, "SP") ) */
@@ -626,7 +962,7 @@ Patch_Editor( int action )
 			Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
 			ptype = PATCH_SURF;
 		  }
-		  else stop( _("No SP or SM card before SC card"), ERR_OK );
+		  else Stop( _("No SP or SM card before SC card"), ERR_OK );
 		}
 	  } /* if( strcmp(name, "SC") == 0 ) */
 	  else /*** Editing an SP|SM card ***/
@@ -646,14 +982,14 @@ Patch_Editor( int action )
 			else
 			{
 			  ptype = PATCH_ARBT;
-			  stop( _("No SC card after an SP card\n"\
+			  Stop( _("No SC card after an SP card\n"
 					"with non-arbitrary patch type"), ERR_OK );
 			}
 
 		  } /* if( ptype != PATCH_ARBT ) */
 		  /* If patch type arbitrary, no SC card should follow */
 		  else if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
-			stop( _("SC card follows an SP card\n"\
+			Stop( _("SC card follows an SP card\n"
 				  "with arbitrary patch type"), ERR_OK );
 		} /* if( strcmp(name, "SP") == 0 ) */
 		else /* SM card */
@@ -666,7 +1002,7 @@ Patch_Editor( int action )
 		  if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
 			Get_Geometry_Data( geom_store, &iter_sc,
 				&iv[SPIN_COL_I3], &fv[PATCH_X3] );
-		  else stop( _("No SC card after an SM card"), ERR_OK );
+		  else Stop( _("No SC card after an SM card"), ERR_OK );
 
 		} /* if( strcmp(name, "SP") == 0 ) */
 
@@ -735,69 +1071,69 @@ Patch_Editor( int action )
   /* Change labels as needed */
   if( ptype == PATCH_ARBT )
   {
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_x1_label")), _("Center - X") );
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_y1_label")), _("Center - Y") );
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_z1_label")), _("Center - Z") );
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_x2_label")), _("Normal - Elev.") );
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_y2_label")), _("Normal - Azim.") );
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_z2_label")), _("Patch Area") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_x1_label")), _("Center - X") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_y1_label")), _("Center - Y") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_z1_label")), _("Center - Z") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_x2_label")), _("Normal - Elev.") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_y2_label")), _("Normal - Azim.") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_z2_label")), _("Patch Area") );
   }
   else
   {
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_x1_label")), _("Corner 1 - X") );
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_y1_label")), _("Corner 1 - Y") );
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_z1_label")), _("Corner 1 - Z") );
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_x2_label")), _("Corner 2 - X") );
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_y2_label")), _("Corner 2 - Y") );
-	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(patch_editor, "patch_z2_label")), _("Corner 2 - Z") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_x1_label")), _("Corner 1 - X") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_y1_label")), _("Corner 1 - Y") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_z1_label")), _("Corner 1 - Z") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_x2_label")), _("Corner 2 - X") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_y2_label")), _("Corner 2 - Y") );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			patch_editor_builder, "patch_z2_label")), _("Corner 2 - Z") );
   }
 
   /* Hide/Show parts of window as needed */
   switch( ptype )
   {
 	case PATCH_ARBT: /* Arbitary shaped patch */
-	  gtk_widget_hide( lookup_widget(patch_editor, "patch_sc_frame") );
-	  gtk_widget_hide( lookup_widget(patch_editor, "patch_sm_frame") );
+	  gtk_widget_hide( Builder_Get_Object(patch_editor_builder, "patch_sc_frame") );
+	  gtk_widget_hide( Builder_Get_Object(patch_editor_builder, "patch_sm_frame") );
 	  gtk_window_resize( GTK_WINDOW(patch_editor), 10, 10 );
 	  break;
 
 	case PATCH_RECT: /* Rectangular patch */
-	  gtk_widget_show( lookup_widget(patch_editor, "patch_sc_frame") );
-	  gtk_widget_hide( lookup_widget(patch_editor, "patch_sc_table") );
-	  gtk_widget_hide( lookup_widget(patch_editor, "patch_sm_frame") );
+	  gtk_widget_show( Builder_Get_Object(patch_editor_builder, "patch_sc_frame") );
+	  gtk_widget_hide( Builder_Get_Object(patch_editor_builder, "patch_sc_grid") );
+	  gtk_widget_hide( Builder_Get_Object(patch_editor_builder, "patch_sm_frame") );
 	  gtk_window_resize( GTK_WINDOW(patch_editor), 10, 10 );
 	  break;
 
 	case PATCH_TRIA: /* Triangular patch */
-	  gtk_widget_show( lookup_widget(patch_editor, "patch_sc_frame") );
-	  gtk_widget_hide( lookup_widget(patch_editor, "patch_sc_table") );
-	  gtk_widget_hide( lookup_widget(patch_editor, "patch_sm_frame") );
+	  gtk_widget_show( Builder_Get_Object(patch_editor_builder, "patch_sc_frame") );
+	  gtk_widget_hide( Builder_Get_Object(patch_editor_builder, "patch_sc_grid") );
+	  gtk_widget_hide( Builder_Get_Object(patch_editor_builder, "patch_sm_frame") );
 	  gtk_window_resize( GTK_WINDOW(patch_editor), 10, 10 );
 	  break;
 
 	case PATCH_QUAD: /* Quadrilateral patch */
-	  gtk_widget_show( lookup_widget(patch_editor, "patch_sc_frame") );
-	  gtk_widget_show( lookup_widget(patch_editor, "patch_sc_table") );
-	  gtk_widget_hide( lookup_widget(patch_editor, "patch_sm_frame") );
+	  gtk_widget_show( Builder_Get_Object(patch_editor_builder, "patch_sc_frame") );
+	  gtk_widget_show( Builder_Get_Object(patch_editor_builder, "patch_sc_grid") );
+	  gtk_widget_hide( Builder_Get_Object(patch_editor_builder, "patch_sm_frame") );
 	  gtk_window_resize( GTK_WINDOW(patch_editor), 10, 10 );
 	  break;
 
 	case PATCH_SURF: /* Multi-patch surface */
-	  gtk_widget_show( lookup_widget(patch_editor, "patch_sm_frame") );
-	  gtk_widget_show( lookup_widget(patch_editor, "patch_sc_frame") );
-	  gtk_widget_hide( lookup_widget(patch_editor, "patch_sc_table") );
+	  gtk_widget_show( Builder_Get_Object(patch_editor_builder, "patch_sm_frame") );
+	  gtk_widget_show( Builder_Get_Object(patch_editor_builder, "patch_sc_frame") );
+	  gtk_widget_hide( Builder_Get_Object(patch_editor_builder, "patch_sc_grid") );
 	  gtk_window_resize( GTK_WINDOW(patch_editor), 10, 10 );
 
   } /* switch( ptype ) */
@@ -807,7 +1143,7 @@ Patch_Editor( int action )
   {
 	ptset = FALSE;
 	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(
-		  lookup_widget(patch_editor, rbutton[ptype])), TRUE );
+		  Builder_Get_Object(patch_editor_builder, rbutton[ptype])), TRUE );
   }
 
   /* Set card name */
@@ -819,19 +1155,22 @@ Patch_Editor( int action )
   if( ptype == PATCH_SURF )
 	for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
 	{
-	  spin = GTK_SPIN_BUTTON( lookup_widget(patch_editor, ispin[idi]) );
+	  spin = GTK_SPIN_BUTTON(
+		  Builder_Get_Object(patch_editor_builder, ispin[idi]) );
 	  gtk_spin_button_set_value( spin, iv[idi] );
 	}
 
   /* Write float data to the patch editor */
   for( idx = PATCH_X1; idx <= PATCH_Z2; idx++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(patch_editor, fspin[idx]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(patch_editor_builder, fspin[idx]) );
 	gtk_spin_button_set_value( spin, fv[idx] );
   }
   for( idx = PATCH_X3; idx <= PATCH_Z4; idx++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(patch_editor, fspin[idx-1]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(patch_editor_builder, fspin[idx-1]) );
 	gtk_spin_button_set_value( spin, fv[idx] );
   }
 
@@ -860,10 +1199,10 @@ Arc_Editor( int action )
   int idx, idi;
 
   static gboolean
-		   load   = FALSE, /* Enable wire loading (conductivity specified) */
-		   newpcl = TRUE,  /* New percent-of-lambda value  */
-		   save   = FALSE, /* Enable saving of editor data */
-		   busy   = FALSE; /* Block callbacks. Must be a better way to do this? */
+	load   = FALSE, /* Enable wire loading (conductivity specified) */
+	newpcl = TRUE,  /* New percent-of-lambda value  */
+	save   = FALSE, /* Enable saving of editor data */
+	busy   = FALSE; /* Block callbacks. Must be a better way to do this? */
 
   /* Float type data */
   static gdouble fv[7] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
@@ -922,20 +1261,23 @@ Arc_Editor( int action )
   /* Read int data from the arc editor */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(arc_editor, ispin[idi]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(arc_editor_builder, ispin[idi]) );
 	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the arc editor */
   for( idx = ARC_RAD; idx <= ARC_PCL; idx++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(arc_editor, fspin[idx]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(arc_editor_builder, fspin[idx]) );
 	fv[idx] = gtk_spin_button_get_value( spin );
   }
   fv[ARC_DIA] /= 2.0;
 
   /* Get wire conductivity */
-  spin = GTK_SPIN_BUTTON( lookup_widget(arc_editor, fspin[idx]) );
+  spin = GTK_SPIN_BUTTON(
+	  Builder_Get_Object(arc_editor_builder, fspin[idx]) );
   s = gtk_spin_button_get_value( spin );
 
   /* Respond to user action */
@@ -951,14 +1293,15 @@ Arc_Editor( int action )
 		  geom_treeview, geom_store, &iter_ga, "GA");
 
 	  /* Some default values */
-	  iv[SPIN_COL_I1] = ++gbl_tag_num;
+	  iv[SPIN_COL_I1] = ++tag_num;
 	  spin = GTK_SPIN_BUTTON(
-		  lookup_widget(arc_editor, ispin[SPIN_COL_I1]));
+		  Builder_Get_Object(arc_editor_builder, ispin[SPIN_COL_I1]));
 	  gtk_spin_button_set_value( spin, iv[SPIN_COL_I1] );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  geom_adjustment, geom_adjustment->upper);
+	  gtk_adjustment_set_value( geom_adjustment,
+		  gtk_adjustment_get_upper(geom_adjustment) -
+		  gtk_adjustment_get_page_size(geom_adjustment) );
 	  break;
 
 	case EDITOR_EDIT:  /* Edit an arc row (GA) selected in treeview */
@@ -985,8 +1328,8 @@ Arc_Editor( int action )
 	  break;
 
 	case EDITOR_LOAD: /* Wire conductivity specified */
-	  spin = GTK_SPIN_BUTTON( lookup_widget(
-			arc_editor, fspin[SPIN_COL_F6]) );
+	  spin = GTK_SPIN_BUTTON(
+		  Builder_Get_Object(arc_editor_builder, fspin[SPIN_COL_F6]) );
 	  s = gtk_spin_button_get_value( spin );
 	  if( s > 0.0 )
 	  {
@@ -997,7 +1340,7 @@ Arc_Editor( int action )
 	  break;
 
 	case EDITOR_TAGNUM: /* Tag number edited by user */
-	  gbl_tag_num = iv[SPIN_COL_I1];
+	  tag_num = iv[SPIN_COL_I1];
 	  save = TRUE;
 	  if( s > 0.0 )	load = TRUE;
 	  break;
@@ -1031,7 +1374,7 @@ Arc_Editor( int action )
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(arc_editor, ispin[idi]) );
+		Builder_Get_Object(arc_editor_builder, ispin[idi]) );
 	gtk_spin_button_set_value( spin, iv[idi] );
   }
 
@@ -1040,13 +1383,13 @@ Arc_Editor( int action )
   for( idx = ARC_RAD; idx <= ARC_PCL; idx++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(arc_editor, fspin[idx]) );
+		Builder_Get_Object(arc_editor_builder, fspin[idx]) );
 	gtk_spin_button_set_value( spin, fv[idx] );
   }
   fv[ARC_DIA] /= 2.0;
 
   spin = GTK_SPIN_BUTTON(
-	  lookup_widget(arc_editor, fspin[idx]) );
+	  Builder_Get_Object(arc_editor_builder, fspin[idx]) );
   gtk_spin_button_set_value( spin, s );
 
   /* Wait for GTK to complete its tasks */
@@ -1067,6 +1410,8 @@ Helix_Editor( int action )
 {
   /* For looking up spinbuttons */
   GtkSpinButton *spin;
+  GtkToggleButton *toggle = NULL;
+  GtkImage *img;
 
   /* For reading/writing to GH rows */
   static GtkTreeIter iter_gh;
@@ -1075,21 +1420,29 @@ Helix_Editor( int action )
   gdouble ftmp;
 
   static gboolean
-	load    = FALSE, /* Enable wire loading (conductivity specified) */
-	linkall = TRUE,  /* Link all radius spinbuttons  */
-	linkzo  = FALSE, /* Link X, Y @ Z=0 spinbuttons  */
-	linkzhl = FALSE, /* Link X, Y @ Z=HL spinbuttons */
-	helixlh = FALSE, /* Specify a left hand helix */
-	newpcl  = TRUE,  /* New percent-of-lambda value  */
-	newspc  = TRUE,  /* New percent-of-lambda value  */
-	save    = FALSE, /* Enable saving of editor data */
-	busy    = FALSE; /* Block callbacks. Must be a better way to do this? */
+	load      = FALSE, /* Enable wire loading (conductivity specified) */
+	helix_rh  = TRUE,  /* Specify a right hand helix */
+	helix_lh  = FALSE, /* Specify a left hand helix */
+	spiral_rh = FALSE, /* Specify a right hand helix */
+	spiral_lh = FALSE, /* Specify a left hand helix */
+	newpcl    = TRUE,  /* New percent-of-lambda value  */
+	newtsp    = FALSE, /* New turns space value */
+	link_a1b1 = TRUE,  /* Link values of a1-b1 radii */
+	link_b1a2 = TRUE,  /* Link values of b1-a2 radii */
+	link_a2b2 = TRUE,  /* Link values of a2-b2 radii */
+	save      = FALSE, /* Enable saving of editor data */
+	busy      = FALSE; /* Block callbacks. Must be a better way to do this? */
 
   /* Float type data, wire conductivity */
-  static gdouble fv[10], s = 0.0, helix_len = HELIX_LENGTH;
+  static
+	gdouble fv[10],
+	s = 0.0,
+	helix_len = HELIX_LENGTH;
 
   /* Integer type data */
-  static gint iv[2], seg_turn = HELIX_SEG_TURN;
+  static gint
+	iv[2],
+	seg_turn = HELIX_SEG_TURN;
 
   /* Card (row) name */
   gchar name[3];
@@ -1128,16 +1481,26 @@ Helix_Editor( int action )
 	return;
   }
 
-  /*** Save data to nec2 editor if appropriate ***/
+  /*** Pass data to nec2 editor if appropriate ***/
   if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	/* Change seg/turn to total number of segs */
-	double n = ceil( (gdouble)seg_turn * fv[HELIX_NTURN] );
+	gdouble n = ceil( (gdouble)seg_turn * fv[HELIX_NTURN] );
 	iv[SPIN_COL_I2] = (gint)n;
 
-	/* Change to left hand helix */
-	if( helixlh ) fv[HELIX_LEN] = -helix_len;
-	else fv[HELIX_LEN] = helix_len;
+	/* Change to left/right hand helix */
+	if( helix_lh )
+	  fv[HELIX_LEN] = -helix_len;
+	else if( helix_rh )
+	  fv[HELIX_LEN] = helix_len;
+	else /* Its a spiral */
+	{
+	  fv[HELIX_LEN] = 0.0;
+	  if( spiral_rh )
+		fv[HELIX_TSPACE] = (gdouble)seg_turn;
+	  else if( spiral_lh )
+		fv[HELIX_TSPACE] = -(gdouble)seg_turn;
+	}
 
 	/* Save data to NEC2 editor treeview */
 	Set_Geometry_Data( geom_store, &iter_gh, iv, fv );
@@ -1146,36 +1509,36 @@ Helix_Editor( int action )
 	if( load ) Set_Wire_Conductivity( iv[SPIN_COL_I1], s, cmnd_store );
 
 	save = load = FALSE;
-  } /* if( (action & EDITOR_SAVE) && save ) */
+  } /* if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) */
 
   /*** Read int data from the helix editor ***/
-  spin = GTK_SPIN_BUTTON( lookup_widget(
-		helix_editor, ispin[SPIN_COL_I1]) );
+  spin = GTK_SPIN_BUTTON(
+	  Builder_Get_Object( helix_editor_builder, ispin[SPIN_COL_I1]) );
   iv[SPIN_COL_I1] = gtk_spin_button_get_value_as_int( spin );
-  spin = GTK_SPIN_BUTTON( lookup_widget(
-		helix_editor, ispin[SPIN_COL_I2]) );
+  spin = GTK_SPIN_BUTTON(
+	  Builder_Get_Object( helix_editor_builder, ispin[SPIN_COL_I2]) );
   seg_turn = gtk_spin_button_get_value_as_int( spin );
 
   /*** Read float data from the helix editor ***/
   for( idx = HELIX_TSPACE; idx <= HELIX_RES; idx++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(helix_editor, fspin[idx]) );
+		Builder_Get_Object(helix_editor_builder, fspin[idx]) );
 	fv[idx] = gtk_spin_button_get_value( spin );
   }
   fv[HELIX_DIA] /= 2.0;
   helix_len = fv[SPIN_COL_F2];
 
-  /* Link all radius spinbuttons to X @ Z=0 */
-  if( linkall )
-	fv[HELIX_RYZO] = fv[HELIX_RXZHL] = fv[HELIX_RYZHL] = fv[HELIX_RXZO];
-
-  /* Link X, Y @ Z=0 spinbuttons */
-  if( linkzo )
+  /* Link a1-b1 radius spinbuttons */
+  if( link_a1b1 )
 	fv[HELIX_RYZO] = fv[HELIX_RXZO];
 
-  /* Link X, Y @ Z=0 spinbuttons */
-  if( linkzhl )
+  /* Link b1-a2 radius spinbuttons */
+  if( link_b1a2 )
+	fv[HELIX_RXZHL] = fv[HELIX_RYZO];
+
+  /* Link a2-b2 radius spinbuttons */
+  if( link_a2b2 )
 	fv[HELIX_RYZHL] = fv[HELIX_RXZHL];
 
   /*** Respond to user action ***/
@@ -1191,14 +1554,15 @@ Helix_Editor( int action )
 		  geom_treeview, geom_store, &iter_gh, "GH");
 
 	  /* Some default values */
-	  iv[SPIN_COL_I1] = ++gbl_tag_num;
-	  spin = GTK_SPIN_BUTTON( lookup_widget(
-			helix_editor, ispin[SPIN_COL_I1]) );
+	  iv[SPIN_COL_I1] = ++tag_num;
+	  spin = GTK_SPIN_BUTTON(
+		  Builder_Get_Object(helix_editor_builder, ispin[SPIN_COL_I1]) );
 	  gtk_spin_button_set_value( spin, iv[SPIN_COL_I1] );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  geom_adjustment, geom_adjustment->upper);
+	  gtk_adjustment_set_value( geom_adjustment,
+		  gtk_adjustment_get_upper(geom_adjustment) -
+		  gtk_adjustment_get_page_size(geom_adjustment) );
 	  break;
 
 	case EDITOR_EDIT:  /* Edit a helix row (GH) */
@@ -1212,25 +1576,58 @@ Helix_Editor( int action )
 	  Get_Wire_Conductivity(iv[SPIN_COL_I1], &s, cmnd_store);
 	  fv[HELIX_RES] = s;
 
-	  /* Set LH/RH helix check button  */
+	  /* Set Right hand or Left hand helix or spiral */
+	  helix_len = fv[HELIX_LEN];
+	  if( helix_len > 0.0 ) /* Right hand helix */
 	  {
-		GtkToggleButton *toggle =
-		  GTK_TOGGLE_BUTTON( lookup_widget(
-				helix_editor, "helix_lh_checkbutton") );
-		if( fv[HELIX_LEN] < 0.0 )
-		  gtk_toggle_button_set_active( toggle, TRUE );
-		else
-		  gtk_toggle_button_set_active( toggle, FALSE );
+		helix_rh  = TRUE;
+		helix_lh  = FALSE;
+		spiral_rh = FALSE;
+		spiral_lh = FALSE;
+		toggle = GTK_TOGGLE_BUTTON(
+			Builder_Get_Object(helix_editor_builder, "helix_right_hand_radiobutton") );
 	  }
-
-	  /* For left hand helix length is -ve */
-	  helix_len = fabs( fv[HELIX_LEN] );
-	  if( fv[HELIX_LEN] < 0.0 ) helixlh = TRUE;
-	  else helixlh = FALSE;
+	  else if( helix_len < 0.0 ) /* Left hand helix */
+	  {
+		helix_rh  = FALSE;
+		helix_lh  = TRUE;
+		spiral_rh = FALSE;
+		spiral_lh = FALSE;
+		helix_len = -helix_len;
+		toggle = GTK_TOGGLE_BUTTON(
+			Builder_Get_Object(helix_editor_builder, "helix_left_hand_radiobutton") );
+	  }
+	  else if( fv[HELIX_TSPACE] > 0.0 ) /* Right hand spiral */
+	  {
+		spiral_rh = TRUE;
+		spiral_lh = FALSE;
+		helix_rh  = FALSE;
+		helix_lh  = FALSE;
+		toggle = GTK_TOGGLE_BUTTON(
+			Builder_Get_Object(helix_editor_builder, "spiral_right_hand_radiobutton") );
+	  }
+	  else if( fv[HELIX_TSPACE] < 0.0 ) /* Left hand spiral */
+	  {
+		spiral_rh = FALSE;
+		spiral_lh = TRUE;
+		helix_rh  = FALSE;
+		helix_lh  = FALSE;
+		toggle = GTK_TOGGLE_BUTTON(
+			Builder_Get_Object(helix_editor_builder, "spiral_left_hand_radiobutton") );
+	  }
+	  if( toggle ) gtk_toggle_button_set_active( toggle, TRUE );
 
 	  /* Change to number of segs/turn */
-	  fv[HELIX_NTURN] = helix_len / fv[HELIX_TSPACE];
-	  seg_turn = (gint)((gdouble)iv[SPIN_COL_I2] / fv[HELIX_NTURN]);
+	  if( helix_rh || helix_lh )
+	  {
+		fv[HELIX_NTURN] = helix_len / fv[HELIX_TSPACE];
+		seg_turn = (gint)((gdouble)iv[SPIN_COL_I2] / fv[HELIX_NTURN]);
+	  }
+	  else if( spiral_rh || spiral_lh )
+	  {
+		seg_turn = (gint)( fabs(fv[SPIN_COL_F1]) );
+		fv[HELIX_NTURN] = iv[SPIN_COL_I2] / seg_turn;
+	  }
 	  break;
 
 	case EDITOR_CANCEL: /* Cancel helix editor */
@@ -1244,8 +1641,8 @@ Helix_Editor( int action )
 	  break;
 
 	case EDITOR_LOAD: /* Wire conductivity specified */
-	  spin = GTK_SPIN_BUTTON(lookup_widget(
-			helix_editor, fspin[HELIX_RES]));
+	  spin = GTK_SPIN_BUTTON(
+		  Builder_Get_Object(helix_editor_builder, fspin[HELIX_RES]));
 	  s = gtk_spin_button_get_value( spin );
 	  if( s > 0.0 )
 	  {
@@ -1256,39 +1653,88 @@ Helix_Editor( int action )
 	  break;
 
 	case EDITOR_TAGNUM: /* Tag number edited by user */
-	  gbl_tag_num = iv[SPIN_COL_I1];
+	  tag_num = iv[SPIN_COL_I1];
 	  save = TRUE;
 	  if( s > 0.0 )	load = TRUE;
 	  break;
 
-	case HELIX_EDITOR_LH: /* Left hand helix */
-	  helixlh = TRUE;
+	case HELIX_EDITOR_RH_HELIX: /* Right hand helix */
+	  helix_rh  = TRUE;
+	  helix_lh  = FALSE;
+	  spiral_rh = FALSE;
+	  spiral_lh = FALSE;
 	  save = TRUE;
 	  break;
 
-	case HELIX_EDITOR_RH: /* Right hand helix */
-	  helixlh = FALSE;
+	case HELIX_EDITOR_LH_HELIX: /* Left hand helix */
+	  helix_rh  = FALSE;
+	  helix_lh  = TRUE;
+	  spiral_rh = FALSE;
+	  spiral_lh = FALSE;
 	  save = TRUE;
 	  break;
 
-	case HELIX_EDITOR_LINKALL: /* Link all radius spinbuttons */
-	  linkall = TRUE;
-	  linkzo  = linkzhl = FALSE;
+	case HELIX_EDITOR_RH_SPIRAL: /* Right hand spiral */
+	  spiral_rh = TRUE;
+	  spiral_lh = FALSE;
+	  helix_rh  = FALSE;
+	  helix_lh  = FALSE;
+	  save = TRUE;
 	  break;
 
-	case HELIX_EDITOR_LINKZO: /* Link X, Y @ Z=0 spinbuttons */
-	  linkzo = TRUE;
-	  linkall = linkzhl = FALSE;
+	case HELIX_EDITOR_LH_SPIRAL: /* Left hand spiral */
+	  spiral_rh = FALSE;
+	  spiral_lh = TRUE;
+	  helix_rh  = FALSE;
+	  helix_lh  = FALSE;
+	  save = TRUE;
 	  break;
 
-	case HELIX_EDITOR_LINKZHL: /* Link X, Y @ Z=HL spinbuttons */
-	  linkzhl = TRUE;
-	  linkzo  = linkall = FALSE;
+	case HELIX_EDITOR_LINK_A1B1: /* Link a1-b1 radius spinbuttons */
+	  link_a1b1 = !link_a1b1;
+	  img = GTK_IMAGE(
+		  Builder_Get_Object(helix_editor_builder, "helix_link_a1b1") );
+	  if( link_a1b1 )
+		gtk_image_set_from_file( img, "/usr/share/xnec2c/link.svg" );
+	  else
+		gtk_image_set_from_file( img, "/usr/share/xnec2c/unlink.svg" );
 	  break;
 
-	case HELIX_EDITOR_NTURN: /* New number of turns */
-	  fv[HELIX_TSPACE] = helix_len / fv[HELIX_NTURN];
-	  newspc = FALSE;
+	case HELIX_EDITOR_LINK_B1A2: /* Link b1-a2 radius spinbuttons _for_helix_ */
+	  if( helix_rh || helix_lh )
+	  {
+		link_b1a2 = !link_b1a2;
+		img = GTK_IMAGE(
+			Builder_Get_Object(helix_editor_builder, "helix_link_b1a2") );
+		if( link_b1a2 )
+		  gtk_image_set_from_file( img, "/usr/share/xnec2c/link.svg" );
+		else
+		  gtk_image_set_from_file( img, "/usr/share/xnec2c/unlink.svg" );
+	  }
+	  break;
+
+	case HELIX_EDITOR_LINK_A2B2: /* Link a2-b2 radius spinbuttons */
+	  link_a2b2 = !link_a2b2;
+	  img = GTK_IMAGE(
+		  Builder_Get_Object(helix_editor_builder, "helix_link_a2b2") );
+	  if( link_a2b2 )
+		gtk_image_set_from_file( img, "/usr/share/xnec2c/link.svg" );
+	  else
+		gtk_image_set_from_file( img, "/usr/share/xnec2c/unlink.svg" );
+	  break;
+
+	case HELIX_EDITOR_NTURN: /* New number of turns _for_helix_ */
+	  if( helix_rh || helix_lh )
+		fv[HELIX_TSPACE] = helix_len / fv[HELIX_NTURN];
+	  save = TRUE;
+	  break;
+
+	case HELIX_EDITOR_TSPACE: /* New turns spacing _for_helix_ */
+	  if( helix_rh || helix_lh )
+	  {
+		helix_len = fv[HELIX_TSPACE] * fv[HELIX_NTURN];
+		newtsp = TRUE;
+	  }
 	  save = TRUE;
 	  break;
 
@@ -1296,16 +1742,23 @@ Helix_Editor( int action )
 	  /* Calculate num of segs for given % of lambda */
 	  if( calc_data.mxfrq != 0.0 )
 	  {
-		gdouble len, f;
+		gdouble len, f, ave_rad, n;
+
+		/* Average radius of helix or spiral (approximate) */
+		ave_rad =
+		  ( fv[HELIX_RXZO]  + fv[HELIX_RYZO] +
+		    fv[HELIX_RXZHL] + fv[HELIX_RYZHL] ) / 4.0;
 
 		/* Pitch angle of helix, assumes untapered helix */
-		f = atan( fv[HELIX_TSPACE] / (gdouble)TWOPI / fv[HELIX_RXZO] );
+		if( helix_rh || helix_lh )
+		  f = atan( fv[HELIX_TSPACE] / (gdouble)M_2PI / ave_rad );
+		else f = 0.0;
 
 		/* Helix turn length */
-		len = (gdouble)TWOPI * fv[HELIX_RXZO] / (gdouble)cos( f );
+		len = (gdouble)M_2PI * ave_rad / (gdouble)cos( f );
 
 		/* New number of segments */
-		double n = ceil(100.0 / fv[HELIX_PCL] * len /
+		n = ceil(100.0 / fv[HELIX_PCL] * len /
 			((gdouble)CVEL / (gdouble)calc_data.mxfrq) );
 		seg_turn = (gint)n;
 	  }
@@ -1314,44 +1767,64 @@ Helix_Editor( int action )
 
   } /* switch( action ) */
 
+  /* Separate inner and outer radii of spiral */
+  if( spiral_rh || spiral_lh )
+  {
+	link_b1a2 = FALSE;
+	img = GTK_IMAGE(
+		Builder_Get_Object(helix_editor_builder, "helix_link_b1a2") );
+	gtk_image_set_from_file( img, "/usr/share/xnec2c/unlink.svg" );
+  }
+
   /*** Calculate seg length as % of smallest wavelength ***/
   if( (calc_data.mxfrq != 0.0) && newpcl )
   {
-	gdouble len, f;
+	gdouble len, f, ave_rad;
+
+	/* Average radius of helix or spiral (approximate) */
+	ave_rad =
+	  ( fv[HELIX_RXZO]  + fv[HELIX_RYZO] +
+		fv[HELIX_RXZHL] + fv[HELIX_RYZHL] ) / 4.0;
 
 	/* Pitch angle of helix, assumes untapered helix */
-	f = atan( fv[HELIX_TSPACE]/(gdouble)TWOPI/fv[HELIX_RXZO] );
+	if( helix_rh || helix_lh )
+	  f = atan( fv[HELIX_TSPACE]/(gdouble)M_2PI / ave_rad );
+	else f = 0.0;
 
 	/* Helix turn length */
-	len = (gdouble)TWOPI * fv[HELIX_RXZO] / (gdouble)cos( f );
+	len = (gdouble)M_2PI * ave_rad / (gdouble)cos( f );
 
 	fv[HELIX_PCL] = 100.0 * (len / (gdouble)seg_turn) /
 	  ((gdouble)CVEL / (gdouble)calc_data.mxfrq);
   }
   else newpcl = TRUE;
 
-  /* Calculate new turn spacing */
-  if( newspc )
-	fv[HELIX_NTURN] = helix_len / fv[HELIX_TSPACE];
-  else
-	newspc = TRUE;
+  /* Calculate new turn spacing for helix */
+  if( helix_rh || helix_lh )
+  {
+	if( !newtsp )
+	  fv[HELIX_TSPACE] = helix_len / fv[HELIX_NTURN];
+	else newtsp = FALSE;
+  }
 
   /* Write int data to the helix editor */
-  spin = GTK_SPIN_BUTTON( lookup_widget(
-		helix_editor, ispin[SPIN_COL_I1]) );
+  spin = GTK_SPIN_BUTTON(
+	  Builder_Get_Object(helix_editor_builder, ispin[SPIN_COL_I1]) );
   gtk_spin_button_set_value( spin, iv[SPIN_COL_I1] );
-  spin = GTK_SPIN_BUTTON( lookup_widget(
-		helix_editor, ispin[SPIN_COL_I2]) );
+  spin = GTK_SPIN_BUTTON(
+	  Builder_Get_Object(helix_editor_builder, ispin[SPIN_COL_I2]) );
   gtk_spin_button_set_value( spin, seg_turn );
 
   /* Write float data to the helix editor */
   ftmp = fv[HELIX_DIA];
   fv[HELIX_DIA] *= 2.0;
-  fv[HELIX_LEN] = helix_len;
+  fv[HELIX_LEN]  = helix_len;
+  if( spiral_rh || spiral_lh )
+	fv[HELIX_TSPACE] = 0.0;
   for( idx = HELIX_TSPACE; idx <= HELIX_RES; idx++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  helix_editor, fspin[idx]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(helix_editor_builder, fspin[idx]) );
 	gtk_spin_button_set_value( spin, fv[idx] );
   }
   fv[HELIX_DIA] = ftmp;
@@ -1361,6 +1834,35 @@ Helix_Editor( int action )
   busy = FALSE;
 
 } /* Helix_Editor() */
+
+/*------------------------------------------------------------------------*/
+
+/* Get_Geometry_Int_Data()
+ *
+ * Gets integer (I1, I2) geometry data from a treeview row
+ */
+
+  static void
+Get_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
+{
+  gint idi;
+  gchar *sv;
+
+  /* Get data from tree view (I1, I2) */
+  if( gtk_list_store_iter_is_valid(store, iter) )
+  {
+	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
+	{
+	  gtk_tree_model_get(
+		  GTK_TREE_MODEL(store), iter, idi, &sv, -1);
+	  iv[idi-GEOM_COL_I1] = atoi(sv);
+	  g_free(sv);
+	}
+  }
+  else Stop( _("Error reading row data\n"
+		"Invalid list iterator"), ERR_OK );
+
+} /* Get_Geometry_Int_Data() */
 
 /*------------------------------------------------------------------------*/
 
@@ -1396,7 +1898,7 @@ Reflect_Editor( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1431,8 +1933,9 @@ Reflect_Editor( int action )
 		  geom_treeview, geom_store, &iter_gx, "GX");
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  geom_adjustment, geom_adjustment->upper);
+	  gtk_adjustment_set_value( geom_adjustment,
+		  gtk_adjustment_get_upper(geom_adjustment) -
+		  gtk_adjustment_get_page_size(geom_adjustment) );
 	  break;
 
 	case EDITOR_EDIT:  /* Edit a reflect row (GX) selected in treeview */
@@ -1450,7 +1953,7 @@ Reflect_Editor( int action )
 		for( idx = 0; idx < 3; idx++ )
 		{
 		  toggle = GTK_TOGGLE_BUTTON(
-			  lookup_widget(reflect_editor, ckbutton[idx]) );
+			  Builder_Get_Object(reflect_editor_builder, ckbutton[idx]) );
 		  if( ck & 1 )
 			gtk_toggle_button_set_active( toggle, TRUE );
 		  else
@@ -1461,7 +1964,7 @@ Reflect_Editor( int action )
 
 	  /* Set tag num increment */
 	  spin = GTK_SPIN_BUTTON(
-		  lookup_widget(reflect_editor, "reflect_taginc_spinbutton") );
+		  Builder_Get_Object(reflect_editor_builder, "reflect_taginc_spinbutton") );
 	  gtk_spin_button_set_value( spin, iv[SPIN_COL_I1] );
 	  break;
 
@@ -1485,7 +1988,7 @@ Reflect_Editor( int action )
   for( idx = 0; idx < 3; idx++ )
   {
 	toggle = GTK_TOGGLE_BUTTON(
-		lookup_widget(reflect_editor, ckbutton[idx]) );
+		Builder_Get_Object(reflect_editor_builder, ckbutton[idx]) );
 	if( gtk_toggle_button_get_active(toggle) )
 	  iv[SPIN_COL_I2] += ck;
 	ck *= 10;
@@ -1493,8 +1996,7 @@ Reflect_Editor( int action )
 
   /* Read tag inc from the reflect editor */
   spin = GTK_SPIN_BUTTON(
-	  lookup_widget(reflect_editor,
-		"reflect_taginc_spinbutton") );
+	  Builder_Get_Object(reflect_editor_builder, "reflect_taginc_spinbutton") );
   iv[SPIN_COL_I1] = gtk_spin_button_get_value_as_int( spin );
 
   /* Wait for GTK to complete its tasks */
@@ -1538,7 +2040,7 @@ Scale_Editor( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1584,8 +2086,9 @@ Scale_Editor( int action )
 		  geom_treeview, geom_store, &iter_gs, "GS");
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  geom_adjustment, geom_adjustment->upper);
+	  gtk_adjustment_set_value( geom_adjustment,
+		  gtk_adjustment_get_upper(geom_adjustment) -
+		  gtk_adjustment_get_page_size(geom_adjustment) );
 	  save = FALSE;
 	  break;
 
@@ -1606,20 +2109,20 @@ Scale_Editor( int action )
 		g_free( str );
 	  }
 	  else
-		stop( _("Error reading row data\n"\
-			    "Invalid list iterator"), ERR_OK );
+		Stop( _("Error reading row data\n"
+			  "Invalid list iterator"), ERR_OK );
 
 	  /* Enter tag from-to data to scale editor */
 	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(scale_editor, ispin[idi]) );
+			Builder_Get_Object(scale_editor_builder, ispin[idi]) );
 		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Set scale factor to scale editor */
-	  spin = GTK_SPIN_BUTTON(
-		  lookup_widget(scale_editor, "scale_factor_spinbutton") );
+	  spin = GTK_SPIN_BUTTON( Builder_Get_Object(
+			scale_editor_builder, "scale_factor_spinbutton") );
 	  gtk_spin_button_set_value( spin, scale );
 	  break;
 
@@ -1634,13 +2137,13 @@ Scale_Editor( int action )
 	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(scale_editor, ispin[idi]) );
+			Builder_Get_Object(scale_editor_builder, ispin[idi]) );
 		iv[idi] = gtk_spin_button_get_value_as_int( spin );
 	  }
 
 	  /* Read scale from the scale editor */
-	  spin = GTK_SPIN_BUTTON(
-		  lookup_widget(scale_editor, "scale_factor_spinbutton") );
+	  spin = GTK_SPIN_BUTTON( Builder_Get_Object(
+			scale_editor_builder, "scale_factor_spinbutton") );
 	  scale = gtk_spin_button_get_value( spin );
 	  save = TRUE;
 
@@ -1719,8 +2222,9 @@ Cylinder_Editor( int action )
 		  geom_treeview, geom_store, &iter_gr, "GR");
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  geom_adjustment, geom_adjustment->upper);
+	  gtk_adjustment_set_value( geom_adjustment,
+		  gtk_adjustment_get_upper(geom_adjustment) -
+		  gtk_adjustment_get_page_size(geom_adjustment) );
 	  save = TRUE;
 	  break;
 
@@ -1736,7 +2240,7 @@ Cylinder_Editor( int action )
 	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(cylinder_editor, ispin[idi]));
+			Builder_Get_Object(cylinder_editor_builder, ispin[idi]));
 		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 	  break;
@@ -1756,7 +2260,7 @@ Cylinder_Editor( int action )
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(cylinder_editor, ispin[idi]));
+		Builder_Get_Object(cylinder_editor_builder, ispin[idi]));
 	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
@@ -1848,8 +2352,9 @@ Transform_Editor( int action )
 		  geom_treeview, geom_store, &iter_gm, "GM");
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  geom_adjustment, geom_adjustment->upper);
+	  gtk_adjustment_set_value( geom_adjustment,
+		  gtk_adjustment_get_upper(geom_adjustment) -
+		  gtk_adjustment_get_page_size(geom_adjustment) );
 	  break;
 
 	case EDITOR_EDIT:  /* Edit transform row (GM) selected in treeview */
@@ -1864,14 +2369,14 @@ Transform_Editor( int action )
 	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I3; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(transform_editor, ispin[idi]));
+			Builder_Get_Object(transform_editor_builder, ispin[idi]));
 		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 	  /* Write float data to the transform editor */
 	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(transform_editor, fspin[idf]));
+			Builder_Get_Object(transform_editor_builder, fspin[idf]));
 		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 	  break;
@@ -1891,14 +2396,14 @@ Transform_Editor( int action )
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I3; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(transform_editor, ispin[idi]));
+		Builder_Get_Object(transform_editor_builder, ispin[idi]));
 	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
   /* Read float data from the transform editor */
   for( idx = 0; idx < 6; idx++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(transform_editor, fspin[idx]));
+		Builder_Get_Object(transform_editor_builder, fspin[idx]));
 	fv[idx] = gtk_spin_button_get_value( spin );
   }
   fv[SPIN_COL_F7] = (gdouble)iv[SPIN_COL_I3];
@@ -1975,7 +2480,7 @@ Gend_Editor( int action )
 	  /* Open GE Editor */
 	  if( gend_editor == NULL )
 	  {
-		gend_editor = create_gend_editor();
+		gend_editor = create_gend_editor( &gend_editor_builder );
 		gtk_widget_show( gend_editor );
 	  }
 
@@ -1989,11 +2494,11 @@ Gend_Editor( int action )
 			&iter_ge, GEOM_COL_I1, &sv, -1 );
 		idx = atoi(sv) + 1;
 		g_free(sv);
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  gend_editor, rdbutton[idx]) );
+		toggle = GTK_TOGGLE_BUTTON(
+			Builder_Get_Object(gend_editor_builder, rdbutton[idx]) );
 		gtk_toggle_button_set_active( toggle, TRUE );
 	  }
-	  else stop( _("Error reading row data\n"\
+	  else Stop( _("Error reading row data\n"
 			"Invalid list iterator"), ERR_OK );
 	  break;
 
@@ -2007,8 +2512,8 @@ Gend_Editor( int action )
 	  /* Test radio buttons */
 	  for( idx = 0; idx < GE_RDBTN; idx++ )
 	  {
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  gend_editor, rdbutton[idx]) );
+		toggle = GTK_TOGGLE_BUTTON(
+			Builder_Get_Object(gend_editor_builder, rdbutton[idx]) );
 		if( gtk_toggle_button_get_active(toggle) )
 		  break;
 	  }
@@ -2022,170 +2527,6 @@ Gend_Editor( int action )
   busy = FALSE;
 
 } /* Gend_Editor() */
-
-/*------------------------------------------------------------------------*/
-
-/* Insert_GE_Card()
- *
- * Inserts a default GE card if missing
- */
-
-  void
-Insert_GE_Card( GtkListStore *store, GtkTreeIter *iter )
-{
-  gint idx, idi;
-
-  /* Insert default GE card if list is clear */
-  idx = gtk_tree_model_iter_n_children(
-	  GTK_TREE_MODEL(store), NULL );
-  if( !idx )
-  {
-	gtk_list_store_append( store, iter );
-	gtk_list_store_set( store, iter, GEOM_COL_NAME, "GE", -1 );
-	for( idi = GEOM_COL_I1; idi < GEOM_NUM_COLS; idi++ )
-	  gtk_list_store_set( store, iter, idi, "0", -1 );
-  }
-
-} /* Insert_GE_Card() */
-
-/*------------------------------------------------------------------------*/
-
-/* Get_Geometry_Data()
- *
- * Gets geometry data from a treeview row
- */
-
-  void
-Get_Geometry_Data(
-	GtkListStore *store,
-	GtkTreeIter *iter,
-	int *iv, double *fv )
-{
-  gint idi, idf;
-  gchar *sv;
-
-  /* Get data from tree view (I1,I2, F1-F7)*/
-  if( gtk_list_store_iter_is_valid(store, iter) )
-  {
-	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
-	{
-	  gtk_tree_model_get(
-		  GTK_TREE_MODEL(store), iter, idi, &sv, -1);
-	  iv[idi-GEOM_COL_I1] = atoi(sv);
-	  g_free(sv);
-	}
-	for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
-	{
-	  gtk_tree_model_get(
-		  GTK_TREE_MODEL(store), iter, idf, &sv, -1);
-	  fv[idf-GEOM_COL_F1] = Strtod( sv, NULL );
-	  g_free(sv);
-	}
-  }
-  else stop( _("Error reading row data\n"\
-		"Invalid list iterator"), ERR_OK );
-
-} /* Get_Geometry_Data() */
-
-/*------------------------------------------------------------------------*/
-
-/* Get_Geometry_Int_Data()
- *
- * Gets integer (I1, I2) geometry data from a treeview row
- */
-
-  void
-Get_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
-{
-  gint idi;
-  gchar *sv;
-
-  /* Get data from tree view (I1, I2) */
-  if( gtk_list_store_iter_is_valid(store, iter) )
-  {
-	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
-	{
-	  gtk_tree_model_get(
-		  GTK_TREE_MODEL(store), iter, idi, &sv, -1);
-	  iv[idi-GEOM_COL_I1] = atoi(sv);
-	  g_free(sv);
-	}
-  }
-  else stop( _("Error reading row data\n"\
-		"Invalid list iterator"), ERR_OK );
-
-} /* Get_Geometry_Int_Data() */
-
-/*------------------------------------------------------------------------*/
-
-/* Set_Geometry_Data()
- *
- * Sets data into a geometry row
- */
-
-  void
-Set_Geometry_Data(
-	GtkListStore *store,
-	GtkTreeIter *iter,
-	int *iv, double *fv )
-{
-  gchar str[13];
-  gint idi, idf;
-
-  /* Format and set editor data to treeview (I1, I2 & F1-F7) */
-  if( iter && gtk_list_store_iter_is_valid(store, iter) )
-  {
-	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
-	{
-	  snprintf( str, 6, "%5d", iv[idi-GEOM_COL_I1] );
-	  gtk_list_store_set( store, iter, idi, str, -1 );
-	}
-
-	for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
-	{
-	  snprintf( str, 13, "%12.5E", fv[idf-GEOM_COL_F1] );
-	  gtk_list_store_set( store, iter, idf, str, -1 );
-	}
-  }
-  else stop( _("Error writing row data\n"\
-		"Please re-select row"), ERR_OK );
-
-  SetFlag( NEC2_EDIT_SAVE );
-
-} /* Set_Geometry_Data() */
-
-/*------------------------------------------------------------------------*/
-
-/* Set_Geometry_Int_Data()
- *
- * Sets integer (I1, I2) data into a geometry row
- */
-
-  void
-Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
-{
-  gchar str[6];
-  gint idi, idf;
-
-  /* Format and set editor data to treeview (I1, I2) */
-  if( gtk_list_store_iter_is_valid(store, iter) )
-  {
-	for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
-	{
-	  snprintf( str, sizeof(str), "%5d", iv[idi-GEOM_COL_I1] );
-	  gtk_list_store_set( store, iter, idi, str, -1 );
-	}
-
-	/* Clear unused float columns */
-	for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
-	  gtk_list_store_set( store, iter, idf, "0.0", -1 );
-  }
-  else stop( _("Error writing row data\n"\
-		"Please re-select row"), ERR_OK );
-
-  SetFlag( NEC2_EDIT_SAVE );
-
-} /* Set_Geometry_Int_Data() */
 
 /*------------------------------------------------------------------------*/
 
@@ -2241,7 +2582,7 @@ Check_Card_Name(
  */
 
   gboolean
-Give_Up( int *busy, GtkWidget *widget )
+Give_Up( gboolean *busy, GtkWidget *widget )
 {
   /* Block callbacks. (Should be a better way to do this) */
   if( *busy ) return( TRUE );
@@ -2250,7 +2591,7 @@ Give_Up( int *busy, GtkWidget *widget )
   /* Abort if NEC2 editor window is closed */
   if( nec2_edit_window == NULL )
   {
-	stop( _("NEC2 editor window not open"), ERR_OK );
+	Stop( _("NEC2 editor window not open"), ERR_OK );
 	gtk_widget_destroy( widget );
 	*busy = FALSE;
 	return( TRUE );
@@ -2259,60 +2600,6 @@ Give_Up( int *busy, GtkWidget *widget )
   return( FALSE );
 
 } /* Give_Up() */
-
-/*------------------------------------------------------------------------*/
-
-/* Insert_Blank_Geometry_Row()
- *
- * Inserts a blank row in a tree view with only its name (GW ... )
- */
-
-  void
-Insert_Blank_Geometry_Row(
-	GtkTreeView *view, GtkListStore *store,
-	GtkTreeIter *iter, const gchar *name )
-{
-  GtkTreeSelection *selection;
-  gboolean retv;
-  gint n;
-  gchar *str;
-
-  if( nec2_edit_window == NULL )
-	return;
-
-  /* Get selected row, if any */
-  selection = gtk_tree_view_get_selection( view );
-  retv = gtk_tree_selection_get_selected(
-	  selection, NULL, iter );
-
-  /* If no selected row, insert new row into list
-   * store before last row, else after the selected row,
-   * but if this is a GE row, then insert before it */
-  if( !retv )
-  {
-	n = gtk_tree_model_iter_n_children(
-		GTK_TREE_MODEL(store), NULL );
-	gtk_tree_model_iter_nth_child(
-		GTK_TREE_MODEL(store), iter, NULL, n-1 );
-	gtk_list_store_insert_before( store, iter, iter );
-  }
-  else
-  {
-	gtk_tree_model_get( GTK_TREE_MODEL(store),
-		iter, GEOM_COL_NAME, &str, -1 );
-	if( strcmp(str, "GE") == 0 )
-	  gtk_list_store_insert_before( store, iter, iter );
-	else
-	  gtk_list_store_insert_after( store, iter, iter );
-	g_free(str);
-  }
-
-  gtk_list_store_set( store, iter, GEOM_COL_NAME, name, -1 );
-  for( n = GEOM_COL_I1; n < GEOM_NUM_COLS; n++ )
-	gtk_list_store_set( store, iter, n, "--", -1 );
-  gtk_tree_selection_select_iter( selection, iter );
-
-} /* Insert_Blank_Geometry_Row() */
 
 /*------------------------------------------------------------------------*/
 
@@ -2360,158 +2647,6 @@ Get_Selected_Row(
   return( TRUE );
 
 } /* Get_Selected_Row() */
-
-/*------------------------------------------------------------------------*/
-
-/* Set_Wire_Conductivity()
- *
- * Sets the wire conductivity specified in a geometry editor
- * (wire, arc, helix) to a loading card (LD row) in commands treview
- */
-
-  void
-Set_Wire_Conductivity( int tag, double s, GtkListStore *store )
-{
-  int idx, idi, nchld;
-  GtkTreeIter iter_ld;
-  gchar *str, sv[13];
-
-  /* Find num of rows and first iter, abort if tree empty */
-  nchld = gtk_tree_model_iter_n_children(
-	  GTK_TREE_MODEL(store), NULL);
-  if(!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter_ld))
-	return;
-
-  /* Look for an LD card with tag number = tag */
-  for( idx = 0; idx < nchld; )
-  {
-	gtk_tree_model_get( GTK_TREE_MODEL(store),
-		&iter_ld, GEOM_COL_NAME, &str, -1 );
-
-	if( strcmp(str, "LD") == 0 )
-	{
-	  g_free( str );
-	  gtk_tree_model_get( GTK_TREE_MODEL(store),
-		  &iter_ld, GEOM_COL_I2, &str, -1 );
-	  if( atoi( str ) == tag )
-	  {
-		g_free( str );
-		break;
-	  }
-	  else g_free( str );
-	}
-	else g_free( str );
-
-	idx++;
-	if( !gtk_tree_model_iter_next(
-		  GTK_TREE_MODEL(store), &iter_ld) )
-	  break;
-
-  } /* for( idx = 0; idx < nchld; idx++ ) */
-
-  /* If not found LD card with tagnum = tag, insert new */
-  if( idx >= nchld )
-  {
-	gtk_tree_model_iter_nth_child(
-		GTK_TREE_MODEL(store), &iter_ld, NULL, nchld-1 );
-	gtk_list_store_insert_before( store, &iter_ld, &iter_ld );
-	gtk_list_store_set(
-		store, &iter_ld, CMND_COL_NAME, "LD", -1 );
-
-	/* Clear rest of LD row */
-	for( idi = CMND_COL_I1; idi <= CMND_COL_F6; idi++ )
-	  gtk_list_store_set( store, &iter_ld, idi, "0", -1 );
-  }
-
-  /* Set LD card parameters */
-  gtk_list_store_set( store, &iter_ld, CMND_COL_I1, "5", -1 );
-  snprintf( sv, 6, "%5d", tag );
-  gtk_list_store_set( store, &iter_ld, CMND_COL_I2, sv, -1 );
-  snprintf( sv, 13, "%12.5E", s );
-  gtk_list_store_set( store, &iter_ld, CMND_COL_F1, sv, -1 );
-
-  /* Scroll tree view to bottom */
-  gtk_adjustment_set_value(
-	  cmnd_adjustment, cmnd_adjustment->upper );
-
-} /* Set_Wire_Conductivity() */
-
-/*------------------------------------------------------------------------*/
-
-/* Get_Wire_Conductivity()
- *
- * Gets the wire conductivity specified in a loading
- * card (LD row) in commands treview for a given tag #
- */
-
-  gboolean
-Get_Wire_Conductivity( int tag, double *s, GtkListStore *store )
-{
-  int idx, type, nchld;
-  GtkTreeIter iter_ld;
-  gchar *str;
-  static int t = -1;
-
-  /* Find num of rows and first iter, abort if tree empty */
-  nchld = gtk_tree_model_iter_n_children(
-	  GTK_TREE_MODEL(store), NULL );
-  if( !gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter_ld) )
-	return( FALSE );
-
-  /* Look for an LD card with tag number = tag */
-  for( idx = 0; idx < nchld; )
-  {
-	gtk_tree_model_get( GTK_TREE_MODEL(store),
-		&iter_ld, GEOM_COL_NAME, &str, -1 );
-
-	if( strcmp(str, "LD") == 0 )
-	{
-	  g_free( str );
-	  gtk_tree_model_get( GTK_TREE_MODEL(store),
-		  &iter_ld, GEOM_COL_I2, &str, -1 );
-	  if( atoi(str) == tag )
-	  {
-		g_free( str );
-		break;
-	  }
-	  else g_free( str );
-	}
-	else g_free( str );
-
-	idx++;
-	if( !gtk_tree_model_iter_next(
-		  GTK_TREE_MODEL(store), &iter_ld) )
-	  break;
-
-  } /* for( idx = 0; idx < nchld; idx++ ) */
-
-  /* If not found LD card with tagnum = tag, return s=0 */
-  if( idx >= nchld )
-  {
-	*s = 0.0;
-	t = tag;
-	return( FALSE );
-  }
-
-  /* If LD card for given tag is already read, abort */
-  if( t == tag ) return( FALSE );
-  else t = tag;
-
-  /* Get the loading type (we want LDTYP 5) */
-  gtk_tree_model_get( GTK_TREE_MODEL(store),
-	  &iter_ld, GEOM_COL_I1, &str, -1 );
-  type = atoi( str );
-  g_free( str );
-  if( type != 5 ) return( FALSE );
-
-  /* Get the wire conductivity S/m */
-  gtk_tree_model_get( GTK_TREE_MODEL(store),
-	  &iter_ld, CMND_COL_F1, &str, -1 );
-  *s = Strtod( str, NULL );
-  g_free( str );
-
-  return( TRUE );
-} /* Get_Wire_Conductivity() */
 
 /*------------------------------------------------------------------------*/
 

@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -56,11 +54,14 @@ enum EDITOR_FUNC
 
   /* Helix editor function actions */
   HELIX_EDITOR_NTURN,
-  HELIX_EDITOR_LH,
-  HELIX_EDITOR_RH,
-  HELIX_EDITOR_LINKALL,
-  HELIX_EDITOR_LINKZO,
-  HELIX_EDITOR_LINKZHL,
+  HELIX_EDITOR_TSPACE,
+  HELIX_EDITOR_RH_HELIX,
+  HELIX_EDITOR_LH_HELIX,
+  HELIX_EDITOR_RH_SPIRAL,
+  HELIX_EDITOR_LH_SPIRAL,
+  HELIX_EDITOR_LINK_A1B1,
+  HELIX_EDITOR_LINK_B1A2,
+  HELIX_EDITOR_LINK_A2B2,
 
   /* Patch editor actions */
   PATCH_EDITOR_ARBT,

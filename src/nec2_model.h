@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -21,7 +19,6 @@
 
 #include "common.h"
 #include "interface.h"
-#include "support.h"
 #include "editors.h"
 
 /* Commands for the NEC2 file editor */
@@ -29,7 +26,8 @@ enum NEC2_CMND
 {
   NEC2_EDITOR_NEW = 0,
   NEC2_EDITOR_REVERT,
-  NEC2_EDITOR_RELOAD
+  NEC2_EDITOR_RELOAD,
+  NEC2_EDITOR_CLEAR
 };
 
 #endif

@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -16,12 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* misc.c
- *
- * Miscellaneous support functions for xnec2c.c
- */
-
 #include "utils.h"
+#include "shared.h"
 
 /*------------------------------------------------------------------------*/
 
@@ -30,13 +24,14 @@
  *  Prints usage information
  */
 
-void usage(void)
+  void
+usage(void)
 {
   fprintf( stderr,
-	  _("Usage: xnec2c <input-file-name>\n"\
-		"              [-i <input-file-name>]\n"\
-		"              [-j <number of processors in SMP machine>]\n"\
-		"              [-h: print this usage information and exit]\n"\
+	  _("Usage: xnec2c <input-file-name>\n"
+		"              [-i <input-file-name>]\n"
+		"              [-j <number of processors in SMP machine>]\n"
+		"              [-h: print this usage information and exit]\n"
 		"              [-v: print xnec2c version number and exit]\n") );
 
 } /* end of usage() */
@@ -45,7 +40,7 @@ void usage(void)
 
 /* Does the STOP function of fortran but with a warning dialog */
   int
-stop( char *mesg, int err )
+Stop( char *mesg, int err )
 {
   /* For child processes */
   if( CHILD )
@@ -54,8 +49,7 @@ stop( char *mesg, int err )
 	if( err )
 	{
 	  fprintf( stderr,
-		  _("xnec2c: fatal: child process %d exiting\n"),
-		  num_child_procs );
+		  _("xnec2c: fatal: child process %d exiting\n"), num_child_procs );
 	  _exit(-1);
 	}
 	else return( err );
@@ -64,15 +58,16 @@ stop( char *mesg, int err )
 
   /* Stop operation */
   Stop_Frequency_Loop();
-  error_dialog = create_error_dialog();
+  GtkBuilder *builder;
+  error_dialog = create_error_dialog( &builder );
   gtk_label_set_text( GTK_LABEL(
-		lookup_widget(error_dialog, "error_label")), mesg );
+		Builder_Get_Object(builder, "error_label")), mesg );
 
   /* Hide ok button according to error */
   if( err == TRUE )
-	gtk_widget_hide( lookup_widget(
-		  error_dialog, "error_okbutton") );
+	gtk_widget_hide( Builder_Get_Object(builder, "error_okbutton") );
   gtk_widget_show( error_dialog );
+  g_object_unref( builder );
 
   /* Loop over usleep till user decides what to do */
   /* Could not think of another way to do this :-( */
@@ -87,7 +82,7 @@ stop( char *mesg, int err )
   }
 
   return( err );
-} /* stop */
+} /* Stop() */
 
 /*------------------------------------------------------------------*/
 
@@ -96,12 +91,14 @@ Nec2_Save_Warn( const gchar *mesg )
 {
   if( isFlagSet(FREQ_LOOP_RUNNING) )
   {
-	error_dialog = create_error_dialog();
+	GtkBuilder *builder;
+	error_dialog = create_error_dialog( &builder );
 	gtk_label_set_text( GTK_LABEL(
-		  lookup_widget(error_dialog, "error_label")), mesg );
-	gtk_widget_hide( lookup_widget(
-		  error_dialog, "error_stopbutton") );
+		  Builder_Get_Object(builder, "error_label")), mesg );
+	gtk_widget_hide(
+		Builder_Get_Object(builder, "error_stopbutton") );
 	gtk_widget_show( error_dialog );
+	g_object_unref( builder );
 
 	/* Loop over usleep till user decides what to do */
 	/* Could not think of another way to do this :-( */
@@ -130,7 +127,8 @@ Nec2_Save_Warn( const gchar *mesg )
  *  EOF is returned.
  */
 
-int Load_Line( char *buff, FILE *pfile )
+  int
+Load_Line( char *buff, FILE *pfile )
 {
   int
 	num_chr, /* number of characters read, excluding lf/cr */
@@ -183,12 +181,6 @@ int Load_Line( char *buff, FILE *pfile )
 
   } /* end of while( num_chr < max_chr ) */
 
-  /* Capitalize first two characters (mnemonics) */
-  if( (buff[0] > 0x60) && (buff[0] < 0x79) )
-	buff[0] = (char)toupper( (int)buff[1] );
-  if( (buff[1] > 0x60) && (buff[1] < 0x79) )
-	buff[1] = (char)toupper( (int)buff[1] );
-
   /* terminate buffer as a string */
   buff[num_chr] = '\0';
 
@@ -199,7 +191,8 @@ int Load_Line( char *buff, FILE *pfile )
 
 /***  Memory allocation/freeing utils ***/
 static size_t cnt = 0; /* Total allocation */
-void mem_alloc( void **ptr, size_t req, gchar *str )
+  void
+mem_alloc( void **ptr, size_t req, gchar *str )
 {
   gchar mesg[MESG_SIZE];
 
@@ -211,14 +204,15 @@ void mem_alloc( void **ptr, size_t req, gchar *str )
 	snprintf( mesg, sizeof(mesg),
 		_("Memory allocation denied %s\n"), str );
 	fprintf( stderr, "%s: Total memory request %ld\n", mesg, cnt );
-	stop( mesg, ERR_STOP );
+	Stop( mesg, ERR_STOP );
   }
 
 } /* End of mem_alloc() */
 
 /*------------------------------------------------------------------------*/
 
-void mem_realloc( void **ptr, size_t req, gchar *str )
+  void
+mem_realloc( void **ptr, size_t req, gchar *str )
 {
   gchar mesg[MESG_SIZE];
 
@@ -229,14 +223,15 @@ void mem_realloc( void **ptr, size_t req, gchar *str )
 	snprintf( mesg, sizeof(mesg),
 		_("Memory re-allocation denied %s\n"), str );
 	fprintf( stderr, "%s: Total memory request %ld\n", mesg, cnt );
-	stop( mesg, ERR_STOP );
+	Stop( mesg, ERR_STOP );
   }
 
 } /* End of mem_realloc() */
 
 /*------------------------------------------------------------------------*/
 
-void free_ptr( void **ptr )
+  void
+free_ptr( void **ptr )
 {
   if( *ptr != NULL )
 	free( *ptr );
@@ -253,9 +248,6 @@ void free_ptr( void **ptr )
   gboolean
 Open_File( FILE **fp, char *fname, const char *mode )
 {
-  /* Abort if file name is blank */
-  if( strlen(infile) == 0 ) return( TRUE );
-
   /* Close file path if open */
   Close_File( fp );
   if( (*fp = fopen(fname, mode)) == NULL )
@@ -263,11 +255,11 @@ Open_File( FILE **fp, char *fname, const char *mode )
 	char mesg[MESG_SIZE];
 	snprintf( mesg, sizeof(mesg),
 		_("xnec2c: %s: Failed to open file\n"), fname );
-	stop( mesg, ERR_STOP );
+	Stop( mesg, ERR_STOP );
 	return( FALSE );
   }
 
-  return(TRUE);
+  return( TRUE );
 } /* Open_File() */
 
 /*------------------------------------------------------------------------*/
@@ -279,8 +271,8 @@ Open_File( FILE **fp, char *fname, const char *mode )
   void
 Close_File( FILE **fp )
 {
-  if( *fp != NULL )
-	fclose( *fp );
+  sync();
+  if( *fp != NULL ) fclose( *fp );
   *fp = NULL;
 
 } /* Close_File() */
@@ -461,3 +453,30 @@ double Strtod( char *nptr, char **endptr )
 } /* End of Strtod() */
 
 /*------------------------------------------------------------------*/
+
+/* Get_Dirname()
+ *
+ * Gets the directory name from a file path
+ * including the end / and returns in dirname
+ */
+  void
+Get_Dirname( char *fpath, char *dirname, int *fname_idx )
+{
+  int idx, len;
+
+  /* Get the dirname of input file to use as working directory */
+  len = (int)strlen( fpath );
+  for( idx = len; idx > 0; idx-- )
+	if( fpath[idx] == '/' )
+	  break;
+
+  /* Include end / in directory name */
+  if( dirname ) Strlcpy( dirname, fpath, (size_t)(idx+2) );
+
+  /* Return file name if pointer given */
+  if( fname_idx ) *fname_idx = idx + 1;
+
+} /* Get_Dirname() */
+
+/*------------------------------------------------------------------*/
+

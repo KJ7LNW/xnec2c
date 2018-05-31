@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -86,8 +84,8 @@ rom2( double a, double b,
 
   if( s < 0.0)
   {
-	fprintf( stderr, "xnec2c: b less than a in rom2\n" );
-	stop( _("rom2(): b less than a"), ERR_STOP );
+	fprintf( stderr, _("xnec2c: b less than a in rom2\n") );
+	Stop( _("rom2(): b less than a"), ERR_STOP );
   }
 
   ep= s/(1.0e4* data.npm);
@@ -213,7 +211,7 @@ rom2( double a, double b,
 	  } /* if( ns < npm) */
 
 	  fprintf( stderr,
-		  "xnec2c: rom2 -- step size limited at z = %12.5E\n", z );
+		  _("xnec2c: rom2 -- step size limited at z = %12.5E\n"), z );
 
 	} /* if( tr > rx) */
 
@@ -286,7 +284,7 @@ sflds( double t, complex double *e )
   zphs= gwav.zph* gwav.zph;
   r2s= rhs+ zphs;
   gwav.r2= sqrt( r2s);
-  rk= gwav.r2* TWOPI;
+  rk= gwav.r2* M_2PI;
   gwav.xx2= cmplx( cos( rk),- sin( rk));
 
   /* use norton approximation for field due to ground.
@@ -322,7 +320,7 @@ sflds( double t, complex double *e )
 	e[3]=0.0;
 	e[4]=0.0;
 	e[5]=0.0;
-	sfac= PI* dataj.s;
+	sfac= M_PI* dataj.s;
 	sfac= sin( sfac)/ sfac;
 	e[6]= e[0]* sfac;
 	e[7]= e[1]* sfac;
@@ -335,7 +333,7 @@ sflds( double t, complex double *e )
   if( rho >= 1.0e-12)
 	thet= atan( gwav.zph/ rho);
   else
-	thet= PITWO;
+	thet= M_PI_2;
 
   /* combine vertical and horizontal components and convert */
   /* to x,y,z components. multiply by exp(-jkr)/r. */
@@ -350,7 +348,7 @@ sflds( double t, complex double *e )
   e[1]= erh* rhy+ eph* phy;
   e[2]= ezh;
   /* x,y,z fields for sine current */
-  rk= TWOPI* t;
+  rk= M_2PI* t;
   sfac= sin( rk);
   e[3]= e[0]* sfac;
   e[4]= e[1]* sfac;

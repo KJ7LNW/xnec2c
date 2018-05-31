@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -16,11 +14,6 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* draw_radiation.c
- *
- * Code for drawing radiation patterns
- */
-
 #include "draw_radiation.h"
 #include "shared.h"
 
@@ -33,47 +26,47 @@ static point_3d_t *point_3d = NULL;
 
 /*-----------------------------------------------------------------------*/
 
-/* Draw_Radiation()
+/* Scale_Gain()
  *
- * Draws the radiation pattern or near E/H fields
+ * Scales radiation pattern gain according to selected style
+ * ( ARRL style, logarithmic or linear voltage/power )
  */
-  void
-Draw_Radiation( GtkWidget *drawingarea )
+static int gain_style = GS_LINP;
+
+  static double
+Scale_Gain( double gain, int fstep, int idx )
 {
-  /* Abort if xnec2c may be quit by user */
-  if( isFlagSet(MAIN_QUIT) || isFlagClear(ENABLE_EXCITN) )
-	return;
+  /* Scaled rad pattern gain and pol factor */
+  double scaled_rad = 0.0;
 
-  /* Cairo context */
-  cairo_t *cr = gdk_cairo_create( rdpattern_pixmap );
+  gain += Polarization_Factor( calc_data.pol_type, fstep, idx );
 
-  /* Clear pixmap */
-  cairo_set_source_rgb( cr, BLACK );
-  cairo_rectangle(
-	  cr, 0.0, 0.0,
-	  (double)rdpattern_proj_params.pixmap_width,
-	  (double)rdpattern_proj_params.pixmap_height);
-  cairo_fill( cr );
+  switch( gain_style )
+  {
+	case GS_LINP:
+	  scaled_rad = pow(10.0, (gain/10.0));
+	  break;
 
-  /* Draw rad pattern or E/H fields */
-  if( isFlagSet(DRAW_GAIN) )
-	Draw_Radiation_Pattern();
-  else if( isFlagSet(DRAW_EHFIELD) )
-	  Draw_Near_Field();
+	case GS_LINV:
+	  scaled_rad = pow(10.0, (gain/20.0));
+	  break;
 
-  /* Render pixmap to screen */
-  gdk_window_set_back_pixmap( drawingarea->window,
-	  rdpattern_pixmap, FALSE );
-  gdk_window_clear( drawingarea->window );
+	case GS_ARRL:
+	  scaled_rad = exp( 0.058267 * gain );
+	  break;
 
-  /* Display frequency step */
-  Display_Fstep( rdpattern_fstep_entry, calc_data.fstep );
+	case GS_LOG:
+	  scaled_rad = gain;
+	  if( scaled_rad < -40 )
+		scaled_rad = 0.0;
+	  else
+		scaled_rad = scaled_rad /40.0 + 1.0;
 
-  /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  } /* switch( gain_style ) */
 
-  cairo_destroy( cr );
-} /* Draw_Radiation() */
+  return( scaled_rad );
+
+} /* Scale_Gain() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -83,15 +76,15 @@ Draw_Radiation( GtkWidget *drawingarea )
  * segmants joining the points defined by spherical
  * co-ordinates theta, phi and r = gain(theta, phi)
  */
-  void
-Draw_Radiation_Pattern( void )
+  static void
+Draw_Radiation_Pattern( cairo_t *cr )
 {
   /* Abort if rad pattern cannot be drawn */
   if( isFlagClear(ENABLE_RDPAT) || (calc_data.fstep < 0) )
 	return;
 
   /* Line segments to draw on Screen */
-  GdkSegment segm;
+  Segment_t segm;
 
   int
 	idx,
@@ -113,10 +106,7 @@ Draw_Radiation_Pattern( void )
   double dph = (double)fpat.dph * (double)TORAD;
 
   /* Used to set text in labels */
-  gchar txt[7];
-
-  /* Cairo context */
-  cairo_t *cr = gdk_cairo_create( rdpattern_pixmap );
+  gchar txt[8];
 
   fstep = calc_data.fstep;
   pol   = calc_data.pol_type;
@@ -149,8 +139,8 @@ Draw_Radiation_Pattern( void )
 
 	/* Set radiation pattern projection parametrs */
 	New_Projection_Parameters(
-		rdpattern_pixmap_width,
-		rdpattern_pixmap_height,
+		rdpattern_width,
+		rdpattern_height,
 		&rdpattern_proj_params );
 
 	/*** Convert radiation pattern values
@@ -167,8 +157,7 @@ Draw_Radiation_Pattern( void )
 	  for( nth = 0; nth < fpat.nth; nth++ )
 	  {
 		/* Distance of pattern point from the xyz origin */
-		r = Scale_Gain(
-			rad_pattern[fstep].gtot[pts_idx], fstep, pts_idx );
+		r = Scale_Gain( rad_pattern[fstep].gtot[pts_idx], fstep, pts_idx );
 
 		/* Distance of pattern point from xyz origin */
 		point_3d[pts_idx].r = r;
@@ -234,31 +223,29 @@ Draw_Radiation_Pattern( void )
 	} /* for( nph = 1; nph < fpat.nph; nph++ ) */
 
 	/* Show max gain on color code bar */
-	snprintf( txt, 7, "%6f", rad_pattern[fstep].max_gain[pol] );
-	gtk_label_set_text(
-		GTK_LABEL(lookup_widget(rdpattern_window,
-			"rdpattern_colorcode_maxlabel")), txt );
+	snprintf( txt, 8, "%6.1f", rad_pattern[fstep].max_gain[pol] );
+	gtk_label_set_text(	GTK_LABEL(Builder_Get_Object(
+			rdpattern_window_builder, "rdpattern_colorcode_maxlabel")),
+		txt );
 
 	/* Show min gain on color code bar */
-	snprintf( txt, 5, "%4f", rad_pattern[fstep].min_gain[pol] );
-	gtk_label_set_text(
-		GTK_LABEL(lookup_widget(rdpattern_window,
-			"rdpattern_colorcode_minlabel")), txt );
+	snprintf( txt, 6, "%4.1f", rad_pattern[fstep].min_gain[pol] );
+	gtk_label_set_text(GTK_LABEL(Builder_Get_Object(
+			rdpattern_window_builder, "rdpattern_colorcode_minlabel")),
+		txt );
 
   } /* if( isFlagSet(DRAW_NEWRDPAT) ) ) */
 
   /* Draw xyz axes to Screen */
-  Draw_XYZ_Axes( rdpattern_pixmap, rdpattern_proj_params );
+  Draw_XYZ_Axes( cr, rdpattern_proj_params );
 
   /* Overlay structure on Near Field pattern */
   if( isFlagSet(OVERLAY_STRUCT) )
   {
-	/* Save structure pixmap and params pointers */
-	GdkPixmap *pixmap = structure_pixmap;
+	/* Save structure projection params pointers */
 	projection_parameters_t params = structure_proj_params;
 
 	/* Divert structure drawing to rad pattern area */
-	structure_pixmap = rdpattern_pixmap;
 	structure_proj_params = rdpattern_proj_params;
 	structure_proj_params.r_max = params.r_max;
 	structure_proj_params.xy_scale =
@@ -267,12 +254,12 @@ Draw_Radiation_Pattern( void )
 	/* Process and draw geometry if enabled */
 	Process_Wire_Segments();
 	Process_Surface_Patches();
-	Draw_Surface_Patches( structure_segs+data.n, data.m );
-	Draw_Wire_Segments( structure_segs, data.n );
+	Draw_Surface_Patches( cr, structure_segs+data.n, data.m );
+	Draw_Wire_Segments( cr, structure_segs, data.n );
 
-	/* Restore structure pixmap and params */
-	structure_pixmap = pixmap;
+	/* Restore structure projection params */
 	structure_proj_params = params;
+
   } /* if( isFlagSet(OVERLAY_STRUCT) ) */
 
   /*** Draw rad pattern on screen ***/
@@ -335,11 +322,10 @@ Draw_Radiation_Pattern( void )
 
   /* Show gain in direction of viewer */
   Show_Viewer_Gain(
-	  rdpattern_window,
+	  rdpattern_window_builder,
 	  "rdpattern_viewer_gain",
 	  rdpattern_proj_params );
 
-  cairo_destroy( cr );
 } /* Draw_Radiation_Pattern() */
 
 /*-----------------------------------------------------------------------*/
@@ -348,8 +334,8 @@ Draw_Radiation_Pattern( void )
  *
  * Draws near E/H fields and Poynting vector
  */
-  void
-Draw_Near_Field( void )
+  static void
+Draw_Near_Field( cairo_t *cr )
 {
   int idx, npts; /* Number of points to plot */
   double
@@ -371,7 +357,7 @@ Draw_Near_Field( void )
   gchar txt[9];
 
   /* Line segments to draw on Screen */
-  GdkSegment segm;
+  Segment_t segm;
 
   /* For coloring field lines */
   double xred = 0.0, xgrn = 0.0, xblu = 0.0;
@@ -379,9 +365,6 @@ Draw_Near_Field( void )
   /* Abort if drawing a near field pattern is not possible */
   if( isFlagClear(ENABLE_NEAREH) || !near_field.valid )
 	return;
-
-  /* Cairo context */
-  cairo_t *cr = gdk_cairo_create( rdpattern_pixmap );
 
   /* Initialize projection parameters */
   if( isFlagSet(DRAW_NEW_EHFIELD) )
@@ -400,8 +383,8 @@ Draw_Near_Field( void )
 	/* Distance of field point furthest from xyz origin */
 	rdpattern_proj_params.r_max = near_field.r_max + dr;
 	New_Projection_Parameters(
-		rdpattern_pixmap_width,
-		rdpattern_pixmap_height,
+		rdpattern_width,
+		rdpattern_height,
 		&rdpattern_proj_params );
 
 	ClearFlag( DRAW_NEW_EHFIELD );
@@ -409,27 +392,24 @@ Draw_Near_Field( void )
   } /* if( isFlagSet( DRAW_NEW_EHFIELD ) */
 
   /* Draw xyz axes to Screen */
-  Draw_XYZ_Axes( rdpattern_pixmap, rdpattern_proj_params );
+  Draw_XYZ_Axes( cr, rdpattern_proj_params );
 
   /* Overlay structure on Near Field pattern */
   if( isFlagSet(OVERLAY_STRUCT) )
   {
-	/* Save structure pixmap and params pointers */
-	GdkPixmap *pixmap = structure_pixmap;
+	/* Save projection params pointers */
 	projection_parameters_t params = structure_proj_params;
 
 	/* Divert structure drawing to rad pattern area */
-	structure_pixmap = rdpattern_pixmap;
 	structure_proj_params = rdpattern_proj_params;
 
 	/* Process and draw geometry if enabled */
 	Process_Wire_Segments();
 	Process_Surface_Patches();
-	Draw_Surface_Patches( structure_segs+data.n, data.m );
-	Draw_Wire_Segments( structure_segs, data.n );
+	Draw_Surface_Patches( cr, structure_segs+data.n, data.m );
+	Draw_Wire_Segments( cr, structure_segs, data.n );
 
-	/* Restore structure pixmap and params */
-	structure_pixmap = pixmap;
+	/* Restore structure params */
 	structure_proj_params = params;
   } /* if( isFlagSet(OVERLAY_STRUCT) ) */
 
@@ -505,11 +485,12 @@ Draw_Near_Field( void )
 		(fpat.nfeh & NEAR_HFIELD) )
 	{
 	  int ipv; /* Mem request and index */
+	  static size_t mreq = 0;
 
 	  /* Allocate on new near field matrix size */
-	  if( isFlagSet(ALLOC_PNTING_BUFF) )
+	  if( !mreq || isFlagSet(ALLOC_PNTING_BUFF) )
 	  {
-		size_t mreq = (size_t)npts * sizeof( double );
+		mreq = (size_t)npts * sizeof( double );
 		mem_realloc( (void **)&pov_x, mreq, "in draw_radiation.c" );
 		mem_realloc( (void **)&pov_y, mreq, "in draw_radiation.c" );
 		mem_realloc( (void **)&pov_z, mreq, "in draw_radiation.c" );
@@ -570,7 +551,6 @@ Draw_Near_Field( void )
 
   if( isFlagSet(NEAREH_ANIMATE) )
   {
-	cairo_destroy( cr );
 	return;
   }
 
@@ -583,17 +563,52 @@ Draw_Near_Field( void )
 	max = pov_max;
 
   snprintf( txt, sizeof(txt), "%8.2E", max );
-  gtk_label_set_text(
-	  GTK_LABEL(lookup_widget(rdpattern_window,
-		  "rdpattern_colorcode_maxlabel")), txt );
+  gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+		  rdpattern_window_builder, "rdpattern_colorcode_maxlabel")),
+	  txt );
 
   /* Show min field strength on color code bar */
-  gtk_label_set_text(
-	  GTK_LABEL(lookup_widget(rdpattern_window,
-		  "rdpattern_colorcode_minlabel")), "0" );
+  gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+		  rdpattern_window_builder, "rdpattern_colorcode_minlabel")),
+	  "0" );
 
-  cairo_destroy( cr );
 } /* Draw_Near_Field() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Draw_Radiation()
+ *
+ * Draws the radiation pattern or near E/H fields
+ */
+  void
+Draw_Radiation( cairo_t *cr )
+{
+  /* Abort if xnec2c may be quit by user */
+  if( isFlagSet(MAIN_QUIT) ||
+	  isFlagClear(ENABLE_EXCITN) )
+	return;
+
+  /* Clear drawingarea */
+  cairo_set_source_rgb( cr, BLACK );
+  cairo_rectangle(
+	  cr, 0.0, 0.0,
+	  (double)rdpattern_proj_params.width,
+	  (double)rdpattern_proj_params.height);
+  cairo_fill( cr );
+
+  /* Draw rad pattern or E/H fields */
+  if( isFlagSet(DRAW_GAIN) )
+	Draw_Radiation_Pattern( cr );
+  else if( isFlagSet(DRAW_EHFIELD) )
+	  Draw_Near_Field( cr );
+
+  /* Display frequency step */
+  Display_Fstep( rdpattern_fstep_entry, calc_data.fstep );
+
+  /* Wait for GTK to complete its tasks */
+  while( g_main_context_iteration(NULL, FALSE) );
+
+} /* Draw_Radiation() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -620,6 +635,7 @@ Animate_Near_Field( gpointer udata )
 		cos( wt + near_field.fey[idx] );
 	  near_field.erz[idx] = near_field.ez[idx] *
 		cos( wt + near_field.fez[idx] );
+
 	  /* Near total electric field vector */
 	  near_field.er[idx]  = sqrt(
 		  near_field.erx[idx] * near_field.erx[idx] +
@@ -638,6 +654,7 @@ Animate_Near_Field( gpointer udata )
 		cos( wt + near_field.fhy[idx] );
 	  near_field.hrz[idx] = near_field.hz[idx] *
 		cos( wt + near_field.fhz[idx] );
+
 	  /* Near total magnetic field vector*/
 	  near_field.hr[idx]  = sqrt(
 		  near_field.hrx[idx] * near_field.hrx[idx] +
@@ -651,58 +668,16 @@ Animate_Near_Field( gpointer udata )
 
   /* Increment excitation phase, keep < 2pi */
   wt += near_field.anim_step;
-  if( wt >= (double)TWOPI )
+  if( wt >= (double)M_2PI )
 	wt = 0.0;
 
-  Draw_Radiation( rdpattern_drawingarea );
+  /* Wait for GTK to complete its tasks */
+  gtk_widget_queue_draw( rdpattern_drawingarea );
+  while( g_main_context_iteration(NULL, FALSE) );
 
   return( TRUE );
 
 } /* Animate_Near_Field() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Scale_Gain()
- *
- * Scales radiation pattern gain according to selected style
- * ( ARRL style, logarithmic or linear voltage/power )
- */
-static int gain_style = GS_LINP;
-
-  double
-Scale_Gain( double gain, int fstep, int idx )
-{
-  /* Scaled rad pattern gain and pol factor */
-  double scaled_rad = 0.0;
-
-  gain += Polarization_Factor( calc_data.pol_type, fstep, idx );
-
-  switch( gain_style )
-  {
-	case GS_LINP:
-	  scaled_rad = pow(10.0, (gain/10.0));
-	  break;
-
-	case GS_LINV:
-	  scaled_rad = pow(10.0, (gain/20.0));
-	  break;
-
-	case GS_ARRL:
-	  scaled_rad = exp( 0.058267 * gain );
-	  break;
-
-	case GS_LOG:
-	  scaled_rad = gain;
-	  if( scaled_rad < -40 )
-		scaled_rad = 0.0;
-	  else
-		scaled_rad = scaled_rad /40.0 + 1.0;
-
-  } /* switch( gain_style ) */
-
-  return( scaled_rad );
-
-} /* Scale_Gain() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -752,7 +727,7 @@ Polarization_Factor( int pol_type, int fstep, int idx )
 
   if( polf < 1.0E-200 ) polf = 1.0E-200;
   polf = 10.0 * log10( polf );
-  
+
   return( polf );
 } /* Polarization_Factor() */
 
@@ -770,19 +745,29 @@ Set_Polarization( int pol )
 
   Set_Window_Labels();
 
-  /* Trigger a redraw of drawingareas */
-  if( isFlagSet(DRAW_ENABLED) )
-	Draw_Radiation( rdpattern_drawingarea );
-
-  if( isFlagSet(PLOT_ENABLED) )
-	Plot_Frequency_Data();
-
   /* Show gain in direction of viewer */
-  Show_Viewer_Gain( main_window,
-	  "main_gain_entry", structure_proj_params );
+  Show_Viewer_Gain(
+	  main_window_builder,
+	  "main_gain_entry",
+	  structure_proj_params );
 
   /* Enable redraw of rad pattern */
   SetFlag( DRAW_NEW_RDPAT );
+
+  /* Trigger a redraw of drawingareas */
+  if( isFlagSet(DRAW_ENABLED) )
+  {
+	/* Wait for GTK to complete its tasks */
+	gtk_widget_queue_draw( rdpattern_drawingarea );
+	while( g_main_context_iteration(NULL, FALSE) );
+  }
+
+  if( isFlagSet(PLOT_ENABLED) )
+  {
+	/* Wait for GTK to complete its tasks */
+	gtk_widget_queue_draw( freqplots_drawingarea );
+	while( g_main_context_iteration(NULL, FALSE) );
+  }
 
 } /* Set_Polarization() */
 
@@ -804,7 +789,10 @@ Set_Gain_Style( int gs )
   {
 	/* Enable redraw of rad pattern */
 	SetFlag( DRAW_NEW_RDPAT );
-	Draw_Radiation( rdpattern_drawingarea );
+
+	/* Wait for GTK to complete its tasks */
+	gtk_widget_queue_draw( rdpattern_drawingarea );
+	while( g_main_context_iteration(NULL, FALSE) );
   }
 
 } /* Set_Gain_Style() */
@@ -827,11 +815,19 @@ New_Radiation_Projection_Angle(void)
 
   /* Trigger a redraw of radiation drawingarea */
   if( isFlagSet(DRAW_ENABLED) )
-	Draw_Radiation( rdpattern_drawingarea );
+  {
+	/* Wait for GTK to complete its tasks */
+	gtk_widget_queue_draw( rdpattern_drawingarea );
+	while( g_main_context_iteration(NULL, FALSE) );
+  }
 
   /* Trigger a redraw of plots drawingarea if doing "viewer" gain */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(PLOT_GVIEWER) )
-	Plot_Frequency_Data();
+  {
+	/* Wait for GTK to complete its tasks */
+	gtk_widget_queue_draw( freqplots_drawingarea );
+	while( g_main_context_iteration(NULL, FALSE) );
+  }
 
 } /* New_Radiation_Projection_Angle() */
 
@@ -851,7 +847,11 @@ Redo_Radiation_Pattern( gpointer udata )
 
   /* Redraw radiation pattern on screen */
   if( isFlagSet(DRAW_ENABLED) )
-	Draw_Radiation( rdpattern_drawingarea );
+  {
+	/* Wait for GTK to complete its tasks */
+	gtk_widget_queue_draw( rdpattern_drawingarea );
+	while( g_main_context_iteration(NULL, FALSE) );
+  }
 
   return FALSE;
 
@@ -869,7 +869,7 @@ Viewer_Gain( projection_parameters_t proj_parameters, int fstep )
 {
   double phi, gain;
   int nth, nph, idx;
-  
+
   /* Calculate theta step from proj params */
   phi = proj_parameters.Wr;
   if( fpat.dth == 0.0 ) nth = 0;
@@ -921,12 +921,15 @@ Viewer_Gain( projection_parameters_t proj_parameters, int fstep )
   void
 Rdpattern_Window_Killed( void )
 {
+  rc_config.rdpattern_width  = 0;
+  rc_config.rdpattern_height = 0;
+
   if( animate_dialog != NULL )
   {
 	gtk_widget_destroy( animate_dialog );
 	animate_dialog = NULL;
 	ClearFlag( NEAREH_ANIMATE );
-	g_source_remove( anim_tag );
+	if( anim_tag ) g_source_remove( anim_tag );
 	anim_tag = 0;
   }
 
@@ -935,11 +938,12 @@ Rdpattern_Window_Killed( void )
 	ClearFlag( DRAW_FLAGS );
 	rdpattern_drawingarea = NULL;
 	rdpattern_window = NULL;
+	g_object_unref( rdpattern_window_builder );
+	rdpattern_window_builder = NULL;
 	Free_Draw_Buffers();
 
-	gtk_check_menu_item_set_active(
-		GTK_CHECK_MENU_ITEM(lookup_widget(
-			main_window, "main_rdpattern")), FALSE );
+	gtk_check_menu_item_set_active(	GTK_CHECK_MENU_ITEM(
+		  Builder_Get_Object( main_window_builder, "main_rdpattern")), FALSE );
   }
 
 } /* Rdpattern_Window_Killed() */
@@ -996,8 +1000,8 @@ Set_Window_Labels( void )
 		Strlcat( txt, _(" - Poynting Vector"), s );
 	}
 
-	gtk_label_set_text( GTK_LABEL(lookup_widget(
-			rdpattern_window, "rdpattern_label")), txt );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			rdpattern_window_builder, "rdpattern_label")), txt );
 
   } /* if( isFlagSet(DRAW_ENABLED) ) */
 
@@ -1005,8 +1009,8 @@ Set_Window_Labels( void )
   {
 	Strlcpy( txt, _("Frequency Data Plots - "), s );
 	Strlcat( txt, pol_type[calc_data.pol_type], s );
-	gtk_label_set_text( GTK_LABEL(lookup_widget(
-			freqplots_window, "freqplots_label")), txt );
+	gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
+			freqplots_window_builder, "freqplots_label")), txt );
   }
 
 } /* Set_Window_Labels() */

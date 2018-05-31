@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -46,160 +44,9 @@
 
 /*-------------------------------------------------------------------*/
 
-/* cmset sets up the complex structure matrix in the array cm */
-void cmset( int nrow, complex double *cmx, double rkhx, int iexkx )
-{
-  int mp2, neq, npeq, it, i, j, i1, i2, in2, im1;
-  int im2, ist, ij, ipr, jss, jm1, jm2, jst, k, ka, kk;
-  complex double zaj, deter, *scm = NULL;
-
-  mp2=2* data.mp;
-  npeq= data.np+ mp2;
-  neq= data.n+2* data.m;
-  smat.nop = neq/npeq;
-
-  dataj.rkh= rkhx;
-  dataj.iexk= iexkx;
-  it= matpar.nlast;
-
-  for( i = 0; i < nrow; i++ )
-	for( j = 0; j < it; j++ )
-	  cmx[i+j*nrow]= CPLX_00;
-
-  i1= 1;
-  i2= it;
-  in2= i2;
-
-  if( in2 > data.np)
-	in2= data.np;
-
-  im1= i1- data.np;
-  im2= i2- data.np;
-
-  if( im1 < 1)
-	im1=1;
-
-  ist=1;
-  if( i1 <= data.np)
-	ist= data.np- i1+2;
-
-  /* wire source loop */
-  if( data.n != 0)
-  {
-	for( j = 1; j <= data.n; j++ )
-	{
-	  trio(j);
-	  for( i = 0; i < segj.jsno; i++ )
-	  {
-		ij= segj.jco[i];
-		segj.jco[i]=(( ij-1)/ data.np)* mp2+ ij;
-	  }
-
-	  if( i1 <= in2)
-		cmww( j, i1, in2, cmx, nrow, cmx, nrow,1);
-
-	  if( im1 <= im2)
-		cmws( j, im1, im2, &cmx[(ist-1)*nrow], nrow, cmx, 1);
-
-	  /* matrix elements modified by loading */
-	  if( zload.nload == 0)
-		continue;
-
-	  if( j > data.np)
-		continue;
-
-	  ipr= j;
-	  if( (ipr < 1) || (ipr > it) )
-		continue;
-
-	  zaj= zload.zarray[j-1];
-
-	  for( i = 0; i < segj.jsno; i++ )
-	  {
-		jss= segj.jco[i];
-		cmx[(jss-1)+(ipr-1)*nrow] -=
-		  ( segj.ax[i]+ segj.cx[i])* zaj;
-	  }
-
-	} /* for( j = 1; j <= n; j++ ) */
-
-  } /* if( n != 0) */
-
-  if( data.m != 0)
-  {
-	/* matrix elements for patch current sources */
-	jm1=1- data.mp;
-	jm2=0;
-	jst=1- mp2;
-
-	for( i = 0; i < smat.nop; i++ )
-	{
-	  jm1 += data.mp;
-	  jm2 += data.mp;
-	  jst += npeq;
-
-	  if( i1 <= in2)
-		cmsw( jm1, jm2, i1, in2,
-			&cmx[(jst-1)], cmx, 0, nrow, 1);
-
-	  if( im1 <= im2)
-		cmss( jm1, jm2, im1, im2,
-			&cmx[(jst-1)+(ist-1)*nrow], nrow, 1);
-	}
-
-  } /* if( m != 0) */
-
-  if( matpar.icase == 1)
-	return;
-
-  /* Allocate to scratch memory */
-  size_t mreq = (size_t)data.np2m * sizeof(complex double);
-  mem_alloc( (void **)&scm, mreq, "in matrix.c");
-
-  /* combine elements for symmetry modes */
-  for( i = 0; i < it; i++ )
-  {
-	for( j = 0; j < npeq; j++ )
-	{
-	  for( k = 0; k < smat.nop; k++ )
-	  {
-		ka= j+ k*npeq;
-		scm[k]= cmx[ka+i*nrow];
-	  }
-
-	  deter= scm[0];
-
-	  for( kk = 1; kk < smat.nop; kk++ )
-		deter += scm[kk];
-
-	  cmx[j+i*nrow]= deter;
-
-	  for( k = 1; k < smat.nop; k++ )
-	  {
-		ka= j+ k*npeq;
-		deter= scm[0];
-
-		for( kk = 1; kk < smat.nop; kk++ )
-		{
-		  deter += scm[kk]* smat.ssx[k+kk*smat.nop];
-		  cmx[ka+i*nrow]= deter;
-		}
-
-	  } /* for( k = 1; k < smat.nop; k++ ) */
-
-	} /* for( j = 0; j < npeq; j++ ) */
-
-  } /* for( i = 0; i < it; i++ ) */
-
-  free_ptr( (void **)&scm );
-
-  return;
-}
-
-/*-----------------------------------------------------------------------*/
-
 /* cmss computes matrix elements for surface-surface interactions. */
-void cmss( int j1, int j2, int im1, int im2,
+  static void
+cmss( int j1, int j2, int im1, int im2,
 	complex double *cmx, int nrow, int itrp )
 {
   int i1, i2, icomp, ii1, i, il, ii2, jj1, j, jl, jj2;
@@ -304,152 +151,9 @@ void cmss( int j1, int j2, int im1, int im2,
 
 /*-----------------------------------------------------------------------*/
 
-/* computes matrix elements for e along wires due to patch current */
-void cmsw( int j1, int j2, int i1, int i2, complex double *cmx,
-	complex double *cw, int ncw, int nrow, int itrp )
-{
-  int jsnox; /* -1 offset to "jsno" for array indexing */
-  static complex double *emel = NULL;
-
-  size_t mreq = 9 * sizeof(complex double);
-  mem_alloc( (void **)&emel, mreq, "in matrix.c");
-
-  jsnox = segj.jsno-1;
-
-  if( itrp >= 0)
-  {
-	int k, icgo, i, ipch, jl, j, js, il, ip;
-	double xi, yi, zi, cabi, sabi, salpi, fsign=1.0, pyl, pxl;
-
-	k=-1;
-	icgo=0;
-
-	/* observation loop */
-	for( i = i1-1; i < i2; i++ )
-	{
-	  k++;
-	  xi= data.x[i];
-	  yi= data.y[i];
-	  zi= data.z[i];
-	  cabi= data.cab[i];
-	  sabi= data.sab[i];
-	  salpi= data.salp[i];
-	  ipch=0;
-
-	  if( data.icon1[i] >= PCHCON)
-	  {
-		ipch= data.icon1[i]-PCHCON;
-		fsign=-1.0;
-	  }
-
-	  if( data.icon2[i] >= PCHCON)
-	  {
-		ipch= data.icon2[i]-PCHCON;
-		fsign=1.0;
-	  }
-
-	  /* source loop */
-	  jl = -1;
-	  for( j = j1; j <= j2; j++ )
-	  {
-		jl += 2;
-		js = j-1;
-		dataj.t1xj= data.t1x[js];
-		dataj.t1yj= data.t1y[js];
-		dataj.t1zj= data.t1z[js];
-		dataj.t2xj= data.t2x[js];
-		dataj.t2yj= data.t2y[js];
-		dataj.t2zj= data.t2z[js];
-		dataj.xj= data.px[js];
-		dataj.yj= data.py[js];
-		dataj.zj= data.pz[js];
-		dataj.s= data.pbi[js];
-
-		/* ground loop */
-		for( ip = 1; ip <= gnd.ksymp; ip++ )
-		{
-		  dataj.ipgnd= ip;
-
-		  if( ((ipch == j) || (icgo != 0)) && (ip != 2) )
-		  {
-			if( icgo <= 0 )
-			{
-			  pcint( xi, yi, zi, cabi, sabi, salpi, emel);
-
-			  pyl= PI* data.si[i]* fsign;
-			  pxl= sin( pyl);
-			  pyl= cos( pyl);
-			  dataj.exc= emel[8]* fsign;
-
-			  trio(i+1);
-
-			  il= i-ncw;
-			  if( i < data.np)
-				il += (il/data.np)*2*data.mp;
-
-			  if( itrp == 0 )
-				cw[k+il*nrow] +=
-				  dataj.exc*( segj.ax[jsnox] +
-					  segj.bx[jsnox]* pxl+ segj.cx[jsnox]* pyl);
-			  else
-				cw[il+k*nrow] +=
-				  dataj.exc*( segj.ax[jsnox] +
-					  segj.bx[jsnox]* pxl+ segj.cx[jsnox]* pyl);
-
-			} /* if( icgo <= 0 ) */
-
-			if( itrp == 0)
-			{
-			  cmx[k+(jl-1)*nrow]= emel[icgo];
-			  cmx[k+jl*nrow]    = emel[icgo+4];
-			}
-			else
-			{
-			  cmx[(jl-1)+k*nrow]= emel[icgo];
-			  cmx[jl+k*nrow]    = emel[icgo+4];
-			}
-
-			icgo++;
-			if( icgo == 4)
-			  icgo=0;
-
-			continue;
-
-		  } /* if( ((ipch == (j+1)) || (icgo != 0)) && (ip != 2) ) */
-
-		  unere( xi, yi, zi);
-
-		  /* normal fill */
-		  if( itrp == 0)
-		  {
-			cmx[k+(jl-1)*nrow] +=
-			  dataj.exk* cabi+ dataj.eyk* sabi+ dataj.ezk* salpi;
-			cmx[k+jl*nrow]     +=
-			  dataj.exs* cabi+ dataj.eys* sabi+ dataj.ezs* salpi;
-			continue;
-		  }
-
-		  /* transposed fill */
-		  cmx[(jl-1)+k*nrow] +=
-			dataj.exk* cabi+ dataj.eyk* sabi+ dataj.ezk* salpi;
-		  cmx[jl+k*nrow]     +=
-			dataj.exs* cabi+ dataj.eys* sabi+ dataj.ezs* salpi;
-
-		} /* for( ip = 1; ip <= gnd.ksymp; ip++ ) */
-
-	  } /* for( j = j1; j <= j2; j++ ) */
-
-	} /* for( i = i1-1; i < i2; i++ ) */
-
-  } /* if( itrp >= 0) */
-
-  return;
-}
-
-/*-----------------------------------------------------------------------*/
-
 /* cmws computes matrix elements for wire-surface interactions */
-void cmws( int j, int i1, int i2, complex double *cmx,
+  static void
+cmws( int j, int i1, int i2, complex double *cmx,
 	int nr, complex double *cw, int itrp )
 {
   int ipr, i, ipatch, ik, js=0, ij, jx;
@@ -563,7 +267,8 @@ void cmws( int j, int i1, int i2, complex double *cmx,
 /*-----------------------------------------------------------------------*/
 
 /* cmww computes matrix elements for wire-wire interactions */
-void cmww( int j, int i1, int i2, complex double *cmx,
+  static void
+cmww( int j, int i1, int i2, complex double *cmx,
 	int nr, complex double *cw, int nw, int itrp)
 {
   int ipr, iprx, i, ij, jx;
@@ -771,10 +476,309 @@ void cmww( int j, int i1, int i2, complex double *cmx,
 
 /*-----------------------------------------------------------------------*/
 
+/* cmset sets up the complex structure matrix in the array cm */
+  void
+cmset( int nrow, complex double *cmx, double rkhx, int iexkx )
+{
+  int mp2, neq, npeq, it, i, j, i1, i2, in2, im1;
+  int im2, ist, ij, ipr, jss, jm1, jm2, jst, k, ka, kk;
+  complex double zaj, deter, *scm = NULL;
+
+  mp2=2* data.mp;
+  npeq= data.np+ mp2;
+  neq= data.n+2* data.m;
+  smat.nop = neq/npeq;
+
+  dataj.rkh= rkhx;
+  dataj.iexk= iexkx;
+  it= matpar.nlast;
+
+  for( i = 0; i < nrow; i++ )
+	for( j = 0; j < it; j++ )
+	  cmx[i+j*nrow]= CPLX_00;
+
+  i1= 1;
+  i2= it;
+  in2= i2;
+
+  if( in2 > data.np)
+	in2= data.np;
+
+  im1= i1- data.np;
+  im2= i2- data.np;
+
+  if( im1 < 1)
+	im1=1;
+
+  ist=1;
+  if( i1 <= data.np)
+	ist= data.np- i1+2;
+
+  /* wire source loop */
+  if( data.n != 0)
+  {
+	for( j = 1; j <= data.n; j++ )
+	{
+	  trio(j);
+	  for( i = 0; i < segj.jsno; i++ )
+	  {
+		ij= segj.jco[i];
+		segj.jco[i]=(( ij-1)/ data.np)* mp2+ ij;
+	  }
+
+	  if( i1 <= in2)
+		cmww( j, i1, in2, cmx, nrow, cmx, nrow,1);
+
+	  if( im1 <= im2)
+		cmws( j, im1, im2, &cmx[(ist-1)*nrow], nrow, cmx, 1);
+
+	  /* matrix elements modified by loading */
+	  if( zload.nload == 0)
+		continue;
+
+	  if( j > data.np)
+		continue;
+
+	  ipr= j;
+	  if( (ipr < 1) || (ipr > it) )
+		continue;
+
+	  zaj= zload.zarray[j-1];
+
+	  for( i = 0; i < segj.jsno; i++ )
+	  {
+		jss= segj.jco[i];
+		cmx[(jss-1)+(ipr-1)*nrow] -=
+		  ( segj.ax[i]+ segj.cx[i])* zaj;
+	  }
+
+	} /* for( j = 1; j <= n; j++ ) */
+
+  } /* if( n != 0) */
+
+  if( data.m != 0)
+  {
+	/* matrix elements for patch current sources */
+	jm1=1- data.mp;
+	jm2=0;
+	jst=1- mp2;
+
+	for( i = 0; i < smat.nop; i++ )
+	{
+	  jm1 += data.mp;
+	  jm2 += data.mp;
+	  jst += npeq;
+
+	  if( i1 <= in2)
+		cmsw( jm1, jm2, i1, in2,
+			&cmx[(jst-1)], cmx, 0, nrow, 1);
+
+	  if( im1 <= im2)
+		cmss( jm1, jm2, im1, im2,
+			&cmx[(jst-1)+(ist-1)*nrow], nrow, 1);
+	}
+
+  } /* if( m != 0) */
+
+  if( matpar.icase == 1)
+	return;
+
+  /* Allocate to scratch memory */
+  size_t mreq = (size_t)data.np2m * sizeof(complex double);
+  mem_alloc( (void **)&scm, mreq, "in matrix.c");
+
+  /* combine elements for symmetry modes */
+  for( i = 0; i < it; i++ )
+  {
+	for( j = 0; j < npeq; j++ )
+	{
+	  for( k = 0; k < smat.nop; k++ )
+	  {
+		ka= j+ k*npeq;
+		scm[k]= cmx[ka+i*nrow];
+	  }
+
+	  deter= scm[0];
+
+	  for( kk = 1; kk < smat.nop; kk++ )
+		deter += scm[kk];
+
+	  cmx[j+i*nrow]= deter;
+
+	  for( k = 1; k < smat.nop; k++ )
+	  {
+		ka= j+ k*npeq;
+		deter= scm[0];
+
+		for( kk = 1; kk < smat.nop; kk++ )
+		{
+		  deter += scm[kk]* smat.ssx[k+kk*smat.nop];
+		  cmx[ka+i*nrow]= deter;
+		}
+
+	  } /* for( k = 1; k < smat.nop; k++ ) */
+
+	} /* for( j = 0; j < npeq; j++ ) */
+
+  } /* for( i = 0; i < it; i++ ) */
+
+  free_ptr( (void **)&scm );
+
+  return;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/* computes matrix elements for e along wires due to patch current */
+  void
+cmsw( int j1, int j2, int i1, int i2, complex double *cmx,
+	complex double *cw, int ncw, int nrow, int itrp )
+{
+  int jsnox; /* -1 offset to "jsno" for array indexing */
+  static complex double *emel = NULL;
+
+  size_t mreq = 9 * sizeof(complex double);
+  mem_alloc( (void **)&emel, mreq, "in matrix.c");
+
+  jsnox = segj.jsno-1;
+
+  if( itrp >= 0)
+  {
+	int k, icgo, i, ipch, jl, j, js, il, ip;
+	double xi, yi, zi, cabi, sabi, salpi, fsign=1.0, pyl, pxl;
+
+	k=-1;
+	icgo=0;
+
+	/* observation loop */
+	for( i = i1-1; i < i2; i++ )
+	{
+	  k++;
+	  xi= data.x[i];
+	  yi= data.y[i];
+	  zi= data.z[i];
+	  cabi= data.cab[i];
+	  sabi= data.sab[i];
+	  salpi= data.salp[i];
+	  ipch=0;
+
+	  if( data.icon1[i] >= PCHCON)
+	  {
+		ipch= data.icon1[i]-PCHCON;
+		fsign=-1.0;
+	  }
+
+	  if( data.icon2[i] >= PCHCON)
+	  {
+		ipch= data.icon2[i]-PCHCON;
+		fsign=1.0;
+	  }
+
+	  /* source loop */
+	  jl = -1;
+	  for( j = j1; j <= j2; j++ )
+	  {
+		jl += 2;
+		js = j-1;
+		dataj.t1xj= data.t1x[js];
+		dataj.t1yj= data.t1y[js];
+		dataj.t1zj= data.t1z[js];
+		dataj.t2xj= data.t2x[js];
+		dataj.t2yj= data.t2y[js];
+		dataj.t2zj= data.t2z[js];
+		dataj.xj= data.px[js];
+		dataj.yj= data.py[js];
+		dataj.zj= data.pz[js];
+		dataj.s= data.pbi[js];
+
+		/* ground loop */
+		for( ip = 1; ip <= gnd.ksymp; ip++ )
+		{
+		  dataj.ipgnd= ip;
+
+		  if( ((ipch == j) || (icgo != 0)) && (ip != 2) )
+		  {
+			if( icgo <= 0 )
+			{
+			  pcint( xi, yi, zi, cabi, sabi, salpi, emel);
+
+			  pyl= M_PI* data.si[i]* fsign;
+			  pxl= sin( pyl);
+			  pyl= cos( pyl);
+			  dataj.exc= emel[8]* fsign;
+
+			  trio(i+1);
+
+			  il= i-ncw;
+			  if( i < data.np)
+				il += (il/data.np)*2*data.mp;
+
+			  if( itrp == 0 )
+				cw[k+il*nrow] +=
+				  dataj.exc*( segj.ax[jsnox] +
+					  segj.bx[jsnox]* pxl+ segj.cx[jsnox]* pyl);
+			  else
+				cw[il+k*nrow] +=
+				  dataj.exc*( segj.ax[jsnox] +
+					  segj.bx[jsnox]* pxl+ segj.cx[jsnox]* pyl);
+
+			} /* if( icgo <= 0 ) */
+
+			if( itrp == 0)
+			{
+			  cmx[k+(jl-1)*nrow]= emel[icgo];
+			  cmx[k+jl*nrow]    = emel[icgo+4];
+			}
+			else
+			{
+			  cmx[(jl-1)+k*nrow]= emel[icgo];
+			  cmx[jl+k*nrow]    = emel[icgo+4];
+			}
+
+			icgo++;
+			if( icgo == 4)
+			  icgo=0;
+
+			continue;
+
+		  } /* if( ((ipch == (j+1)) || (icgo != 0)) && (ip != 2) ) */
+
+		  unere( xi, yi, zi);
+
+		  /* normal fill */
+		  if( itrp == 0)
+		  {
+			cmx[k+(jl-1)*nrow] +=
+			  dataj.exk* cabi+ dataj.eyk* sabi+ dataj.ezk* salpi;
+			cmx[k+jl*nrow]     +=
+			  dataj.exs* cabi+ dataj.eys* sabi+ dataj.ezs* salpi;
+			continue;
+		  }
+
+		  /* transposed fill */
+		  cmx[(jl-1)+k*nrow] +=
+			dataj.exk* cabi+ dataj.eyk* sabi+ dataj.ezk* salpi;
+		  cmx[jl+k*nrow]     +=
+			dataj.exs* cabi+ dataj.eys* sabi+ dataj.ezs* salpi;
+
+		} /* for( ip = 1; ip <= gnd.ksymp; ip++ ) */
+
+	  } /* for( j = j1; j <= j2; j++ ) */
+
+	} /* for( i = i1-1; i < i2; i++ ) */
+
+  } /* if( itrp >= 0) */
+
+  return;
+}
+
+/*-----------------------------------------------------------------------*/
+
 /* etmns fills the array e with the negative of the */
 /* electric field incident on the structure. e is the */
 /* right hand side of the matrix equation. */
-void etmns( double p1, double p2, double p3, double p4,
+  void
+etmns( double p1, double p2, double p3, double p4,
 	double p5, double p6, int ipr, complex double *e )
 {
   int i, is, i1, i2=0, neq;
@@ -856,7 +860,7 @@ void etmns( double p1, double p2, double p3, double p4,
 	  {
 		for( i = 0; i < data.n; i++ )
 		{
-		  arg= -TWOPI*( wx* data.x[i]+ wy* data.y[i]+ wz* data.z[i]);
+		  arg= -M_2PI*( wx* data.x[i]+ wy* data.y[i]+ wz* data.z[i]);
 		  e[i]=-( pxl* data.cab[i]+ pyl* data.sab[i]+ pzl*
 			  data.salp[i])* cmplx( cos( arg), sin( arg));
 		}
@@ -870,7 +874,7 @@ void etmns( double p1, double p2, double p3, double p4,
 
 		  for( i = 0; i < data.n; i++ )
 		  {
-			arg= -TWOPI*( wx* data.x[i]+ wy* data.y[i]- wz* data.z[i]);
+			arg= -M_2PI*( wx* data.x[i]+ wy* data.y[i]- wz* data.z[i]);
 			e[i]= e[i]-( cx* data.cab[i]+ cy* data.sab[i]+
 				cz* data.salp[i])* cmplx(cos( arg), sin( arg));
 		  }
@@ -889,7 +893,7 @@ void etmns( double p1, double p2, double p3, double p4,
 		i++;
 		i1 += 2;
 		i2 = i1+1;
-		arg= -TWOPI*( wx* data.px[i] +
+		arg= -M_2PI*( wx* data.px[i] +
 			wy* data.py[i]+ wz* data.pz[i]);
 		tt1= cmplx( cos( arg), sin( arg)) *
 		  data.psalp[i]* RETA;
@@ -914,7 +918,7 @@ void etmns( double p1, double p2, double p3, double p4,
 		i++;
 		i1 += 2;
 		i2 = i1+1;
-		arg= -TWOPI*( wx* data.px[i] +
+		arg= -M_2PI*( wx* data.px[i] +
 			wy* data.py[i]- wz* data.pz[i]);
 		tt1= cmplx( cos( arg), sin( arg)) *
 		  data.psalp[i]* RETA;
@@ -940,7 +944,7 @@ void etmns( double p1, double p2, double p3, double p4,
 
 	  for( i = 0; i < data.n; i++ )
 	  {
-		arg= -TWOPI*( wx* data.x[i]+ wy* data.y[i] + wz* data.z[i]);
+		arg= -M_2PI*( wx* data.x[i]+ wy* data.y[i] + wz* data.z[i]);
 		e[i]=-( cx* data.cab[i]+ cy* data.sab[i] +
 			cz * data.salp[i])* cmplx( cos( arg), sin( arg));
 	  }
@@ -954,7 +958,7 @@ void etmns( double p1, double p2, double p3, double p4,
 
 		for( i = 0; i < data.n; i++ )
 		{
-		  arg= -TWOPI*( wx* data.x[i]+ wy* data.y[i]- wz* data.z[i]);
+		  arg= -M_2PI*( wx* data.x[i]+ wy* data.y[i]- wz* data.z[i]);
 		  e[i]= e[i]-( cx* data.cab[i]+ cy* data.sab[i]+
 			  cz* data.salp[i])* cmplx(cos( arg), sin( arg));
 		}
@@ -977,7 +981,7 @@ void etmns( double p1, double p2, double p3, double p4,
 	  i++;
 	  i1 += 2;
 	  i2 = i1+1;
-	  arg= -TWOPI*( wx* data.px[i] +
+	  arg= -M_2PI*( wx* data.px[i] +
 		  wy* data.py[i]+ wz* data.pz[i]);
 	  tt2= cmplx( cos( arg),
 		  sin( arg)) * data.psalp[i] * RETA;
@@ -1002,7 +1006,7 @@ void etmns( double p1, double p2, double p3, double p4,
 	  i++;
 	  i1 += 2;
 	  i2 = i1+1;
-	  arg= -TWOPI*( wx* data.px[i] +
+	  arg= -M_2PI*( wx* data.px[i] +
 		  wy* data.py[i]- wz* data.pz[i]);
 	  tt1= cmplx( cos( arg), sin( arg)) *
 		data.psalp[i]* RETA;
@@ -1022,7 +1026,7 @@ void etmns( double p1, double p2, double p3, double p4,
   wy= wz* sin( p5);
   wz= sin( p4);
   ds= p6*59.9580;
-  dsh= p6/(2.0* TWOPI);
+  dsh= p6/(2.0* M_2PI);
 
   is= 0;
   i1= data.n-2;
@@ -1072,14 +1076,14 @@ void etmns( double p1, double p2, double p3, double p4,
 
 	} /* if( arg >= 1.0e-30) */
 
-	arg= -TWOPI* r;
+	arg= -M_2PI* r;
 	tt1= cmplx( cos( arg), sin( arg));
 
 	if( i < data.n )
 	{
-	  tt2= cmplx(1.0,-1.0/( r* TWOPI))/ rs;
+	  tt2= cmplx(1.0,-1.0/( r* M_2PI))/ rs;
 	  er= ds* tt1* tt2* cth;
-	  et=.5* ds* tt1*((CPLX_01)* TWOPI/ r+ tt2)* sth;
+	  et=.5* ds* tt1*((CPLX_01)* M_2PI/ r+ tt2)* sth;
 	  ezh= er* cth- et* sth;
 	  erh= er* sth+ et* cth;
 	  cx= ezh* wx+ erh* qx;
@@ -1093,7 +1097,7 @@ void etmns( double p1, double p2, double p3, double p4,
 	  pxl= wy* qz- wz* qy;
 	  pyl= wz* qx- wx* qz;
 	  pzl= wx* qy- wy* qx;
-	  tt2= dsh* tt1* cmplx(1.0/ r, TWOPI) /
+	  tt2= dsh* tt1* cmplx(1.0/ r, M_2PI) /
 		r* sth* data.psalp[is];
 	  cx= tt2* pxl;
 	  cy= tt2* pyl;
@@ -1118,7 +1122,8 @@ void etmns( double p1, double p2, double p3, double p4,
 /* numerical analysis.  comments below refer to comments in ralstons */
 /* text.    (matrix transposed.) */
 
-void factr( int n, complex double *a, int *ip, int ndim)
+  void
+factr( int n, complex double *a, int *ip, int ndim)
 {
   int r, rm1, rp1, pj, pr, iflg, k, j, jp1, i;
   double dmax, elmag;
@@ -1200,7 +1205,7 @@ void factr( int n, complex double *a, int *ip, int ndim)
 	if( iflg == TRUE )
 	{
 	  fprintf( stderr,
-		  "xnec2c: pivot(%d)= %16.8E\n", r, dmax );
+		  _("xnec2c: pivot(%d)= %16.8E\n"), r, dmax );
 	  iflg=FALSE;
 	}
 
@@ -1217,7 +1222,8 @@ void factr( int n, complex double *a, int *ip, int ndim)
 /* matricies of the symmetric modes and calls routine to factor */
 /* matricies.  if no symmetry, the routine is called to factor the */
 /* complete matrix. */
-void factrs( int np, int nrow, complex double *a, int *ip )
+  void
+factrs( int np, int nrow, complex double *a, int *ip )
 {
   int kk, ka;
 
@@ -1260,14 +1266,14 @@ fblock( int nrow, int ncol, int imax, int ipsym )
   if( smat.nop*nrow != ncol)
   {
 	fprintf( stderr,
-		"xnec2c: fblock(): symmetry error - nrow:%d ncol:%d\n",nrow, ncol );
-	stop( _("fblock(): Symmetry error"), ERR_STOP );
+		_("xnec2c: fblock(): symmetry error - nrow:%d ncol:%d\n"),nrow, ncol );
+	Stop( _("fblock(): Symmetry error"), ERR_STOP );
   }
 
   /* set up smat.ssx matrix for rotational symmetry. */
   if( ipsym <= 0)
   {
-	phaz = TWOPI/smat.nop;
+	phaz = M_2PI/smat.nop;
 
 	for( i = 1; i < smat.nop; i++ )
 	{

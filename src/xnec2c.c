@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -16,13 +14,6 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* xnec2c.c
- *
- * Contains functions that carry out various
- * operations that were packed spaggetti-fashion
- * in the original NEC2 main() function
- */
-
 #include "xnec2c.h"
 #include "shared.h"
 
@@ -35,7 +26,7 @@ static double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
  *
  * Scales geometric parameters to frequency
  */
-  void
+  static void
 Frequency_Scale_Geometry()
 {
   double fr;
@@ -81,7 +72,7 @@ Frequency_Scale_Geometry()
  *
  * Calculates structure (segment) impedance loading
  */
-  void
+  static void
 Structure_Impedance_Loading( void )
 {
   /* Calculate some loading parameters */
@@ -100,7 +91,7 @@ Structure_Impedance_Loading( void )
  *
  * Calculates ground parameters (antenna environment)
  */
-  void
+  static void
 Ground_Parameters( void )
 {
   complex double epsc;
@@ -134,12 +125,12 @@ Ground_Parameters( void )
 		if( cabs(( ggrid.epscf - epsc) / epsc) >= 1.0e-3 )
 		{
 		  fprintf( stderr,
-			  "xnec2c: Ground_Parameters(): error in ground parameters\n"
+			  _("xnec2c: Ground_Parameters(): error in ground parameters\n"
 			  "complex dielectric constant from file: %12.5E%+12.5Ej\n"
-			  "                            requested: %12.5E%+12.5Ej\n",
+			  "                            requested: %12.5E%+12.5Ej\n"),
 			  creal(ggrid.epscf), cimag(ggrid.epscf),
 			  creal(epsc), cimag(epsc) );
-		  stop( _("Ground_Parameters():"\
+		  Stop( _("Ground_Parameters():"
 				"Error in ground parameters"), ERR_STOP );
 		}
 	  } /* if( gnd.iperf != 2) */
@@ -162,7 +153,7 @@ Ground_Parameters( void )
  *
  * Sets and factors the interaction matrix
  */
-  void
+  static void
 Set_Interaction_Matrix( void )
 {
   /* Memory allocation for symmetry array */
@@ -187,7 +178,7 @@ Set_Interaction_Matrix( void )
  *
  * Sets the excitation part of the matrix
  */
-  void
+  static void
 Set_Excitation( void )
 {
   if( (fpat.ixtyp >= 1) && (fpat.ixtyp <= 4) )
@@ -223,7 +214,7 @@ Set_Excitation( void )
  *
  * Sets up network data and solves for currents
  */
-  void
+  static void
 Set_Network_Data( void )
 {
   if( netcx.nonet != 0 )
@@ -277,8 +268,7 @@ Set_Network_Data( void )
 	impedance_data.zphase[calc_data.fstep]= (double)cang( netcx.zped);
 
 	if( (calc_data.iped == 1) &&
-		((double)impedance_data.zmagn[calc_data.fstep] >
-		 calc_data.zpnorm) )
+		((double)impedance_data.zmagn[calc_data.fstep] > calc_data.zpnorm) )
 	  calc_data.zpnorm =
 		(double)impedance_data.zmagn[calc_data.fstep];
   }
@@ -291,7 +281,7 @@ Set_Network_Data( void )
  *
  * Calculate power loss due to segment loading
  */
-  void
+  static void
 Power_Loss( void )
 {
   int i;
@@ -325,7 +315,7 @@ Power_Loss( void )
  *
  * Calculates far field (radiation) pattern
  */
-  void
+  static void
 Radiation_Pattern( void )
 {
   if( (gnd.ifar != 1) && isFlagSet(ENABLE_RDPAT) )
@@ -351,10 +341,10 @@ Near_Field_Pattern( void )
 	  isFlagClear(ENABLE_NEAREH) )
 	return;
 
-  if( isFlagSet(DRAW_EFIELD) )
+  if( fpat.nfeh & NEAR_EFIELD )
 	nfpat(0);
 
-  if( isFlagSet(DRAW_HFIELD) )
+  if( fpat.nfeh & NEAR_HFIELD )
 	nfpat(1);
 
 } /* Near_Field_Pattern() */
@@ -370,7 +360,8 @@ New_Frequency( void )
 {
   /* Abort if freq has not really changed, as when changing
    * between current or charge density structure coloring */
-  if( (save.last_freq == calc_data.fmhz) || isFlagClear(ENABLE_EXCITN) )
+  if( (save.last_freq == calc_data.fmhz) ||
+	  isFlagClear(ENABLE_EXCITN) )
 	return;
   save.last_freq = calc_data.fmhz;
 
@@ -414,7 +405,7 @@ static gboolean retval;	/* Function's return value */
  * Loops over frequency if calculations over a frequency range is
  * requested, dividing the job between child processes if forked
  */
-  gboolean
+  static gboolean
 Frequency_Loop( gpointer udata )
 {
   /* Value of frequency and step num in the loop */
@@ -434,7 +425,7 @@ Frequency_Loop( gpointer udata )
   if( isFlagSet(FREQ_LOOP_INIT) )
   {
 	/* Clear global flags */
-	ClearFlag( FREQ_LOOP_INIT |	FREQ_LOOP_DONE );
+	ClearFlag( FREQ_LOOP_INIT | FREQ_LOOP_DONE );
 
 	/* (Re)-enable freq loop (back to start freq) */
 	freq = save.fmhz;
@@ -469,6 +460,7 @@ Frequency_Loop( gpointer udata )
 	return ( retval );
 
   } /* isFlagSet(INIT_FREQ_LOOP) */
+  ClearFlag( FREQ_LOOP_INIT );
 
   /* Repeat freq stepping over number of child processes
    * if forked. calc_data.num_jobs = 1 for non-forked runs.
@@ -482,10 +474,6 @@ Frequency_Loop( gpointer udata )
 	/* Frequency loop is completed or was paused by user */
 	if( (fstep >= calc_data.nfrq) || isFlagSet(FREQ_LOOP_STOP) )
 	{
-	  /* Re-initialize if loop completed all steps */
-	  if( fstep >= calc_data.nfrq )
-		SetFlag( FREQ_LOOP_INIT );
-
 	  /* Points to last buffer in rad_pattern filled by loop */
 	  fstep--;
 
@@ -611,24 +599,36 @@ Frequency_Loop( gpointer udata )
   calc_data.lastf = calc_data.fstep;
   calc_data.fmhz = (double)save.freq[calc_data.fstep];
 
-  /* Trigger a redraw of plots drawingarea */
-  Plot_Frequency_Data();
+  /* Trigger a redraw of open drawingareas */
+  if( isFlagSet(PLOT_ENABLED) )
+  {
+	char txt[10];
+	snprintf( txt, sizeof(txt), "%9.3f", (gdouble)calc_data.fmhz );
+	gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
+			freqplots_window_builder, "freqplots_fmhz_entry")), txt );
+
+	/* Wait for GTK to complete its tasks */
+	gtk_widget_queue_draw( freqplots_drawingarea );
+	while( g_main_context_iteration(NULL, FALSE) );
+  }
+
+  if( isFlagSet(DRAW_ENABLED) )
+  {
+	gtk_spin_button_set_value(
+		rdpattern_frequency, (gdouble)calc_data.fmhz );
+	/* Wait for GTK to complete its tasks */
+	gtk_widget_queue_draw( rdpattern_drawingarea );
+	while( g_main_context_iteration(NULL, FALSE) );
+  }
 
   /* Set frequency spinbuttons */
   gtk_spin_button_set_value(
 	  mainwin_frequency, (gdouble)calc_data.fmhz );
+  /* Wait for GTK to complete its tasks */
+  gtk_widget_queue_draw( structure_drawingarea );
+  while( g_main_context_iteration(NULL, FALSE) );
 
-  if( isFlagSet(DRAW_ENABLED) )
-	gtk_spin_button_set_value(
-		rdpattern_frequency, (gdouble)calc_data.fmhz );
-
-  if( isFlagSet(PLOT_ENABLED) )
-  {
-	char txt[10];
-	snprintf( txt, sizeof(txt), "%10.3f", (gdouble)calc_data.fmhz );
-	gtk_entry_set_text( GTK_ENTRY(
-		  lookup_widget(freqplots_window, "freqplots_fmhz_entry")), txt );
-  }
+  SetFlag( FREQLOOP_READY );
 
   /* Change flags at exit if loop is done */
   if( !retval && !num_busy_procs )
@@ -653,7 +653,8 @@ Start_Frequency_Loop( void )
   if( isFlagClear(FREQ_LOOP_RUNNING) && (calc_data.nfrq > 1) )
   {
 	retval = TRUE;
-	SetFlag(FREQ_LOOP_RUNNING);
+	SetFlag( FREQ_LOOP_INIT );
+	SetFlag( FREQ_LOOP_RUNNING );
 	floop_tag = g_idle_add( Frequency_Loop, NULL );
 	return( TRUE );
   }

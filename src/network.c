@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -49,7 +47,8 @@
 /* subroutine netwk solves for structure currents for a given */
 /* excitation including the effect of non-radiating networks if */
 /* present. */
-void netwk( complex double *cmx, int *ip, complex double *einc )
+void
+netwk( complex double *cmx, int *ip, complex double *einc )
 {
   int *ipnt = NULL, *nteqa = NULL, *ntsca = NULL;
   int nteq=0, ntsc=0, j, ndimn;
@@ -100,7 +99,7 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 	if( netcx.masym != 0)
 	{
 	  irow1=0;
-	  if( netcx.nonet != 0)
+	  if( netcx.nonet > 0)
 	  {
 		for( i = 0; i < netcx.nonet; i++ )
 		{
@@ -131,7 +130,7 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 
 		} /* for( i = 0; i < netcx.nonet; i++ ) */
 
-	  } /* if( netcx.nonet != 0) */
+	  } /* if( netcx.nonet > 0) */
 
 	  if( vsorc.nsant != 0)
 	  {
@@ -159,7 +158,7 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 
 	  } /* if( vsorc.nsant != 0) */
 
-	  if( irow1 >= 2)
+	  if( irow1 >= 2 )
 	  {
 		double asmx;
 
@@ -243,7 +242,7 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 		}
 		else
 		{
-		  y22r= TWOPI* netcx.x11i[j]/ data.wlam;
+		  y22r= M_2PI* netcx.x11i[j]/ data.wlam;
 		  y12r=0.0;
 		  y12i=1.0/( netcx.x11r[j]* sin( y22r));
 		  y11r= netcx.x12r[j];
@@ -574,7 +573,7 @@ void netwk( complex double *cmx, int *ip, complex double *einc )
 	  cux= cmplx( crnt.air[isc1], crnt.aii[isc1]);
 	  ymit= cmplx( crnt.bir[isc1], crnt.bii[isc1]);
 	  netcx.zped= cmplx( crnt.cir[isc1], crnt.cii[isc1]);
-	  pwr= data.si[isc1]* TWOPI*.5;
+	  pwr= data.si[isc1]* M_2PI*.5;
 	  cux=( cux- ymit* sin( pwr) +
 		  netcx.zped* cos( pwr))* data.wlam;
 	  netcx.zped= vlt/ cux;
@@ -644,9 +643,9 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 	if( ldtyp[istepx] > 5 )
 	{
 	  fprintf( stderr,
-		  "xnec2c: load(): improper load type chosen,"
-		  " requested type is %d\n", ldtyp[istepx] );
-	  stop( _("load(): Improper load type chose"), ERR_STOP );
+		  _("xnec2c: load(): improper load type chosen,"
+		  " requested type is %d\n"), ldtyp[istepx] );
+	  Stop( _("load(): Improper load type chose"), ERR_STOP );
 	}
 
 	/* search segments for proper itags */
@@ -735,9 +734,9 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 	if( ichk == 0 )
 	{
 	  fprintf( stderr,
-		  "xnec2c: load(): loading data card error,"
-		  " no segment has an itag = %d\n", ldtags );
-	  stop( _("load(): Loading data card\n"\
+		  _("xnec2c: load(): loading data card error,"
+		  " no segment has an itag = %d\n"), ldtags );
+	  Stop( _("load(): Loading data card\n"
 			"Tag number mismatch error"), ERR_STOP );
 	}
 

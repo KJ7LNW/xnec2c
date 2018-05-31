@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -62,20 +60,26 @@ Read_Comments( void )
 	/* read a line from input file */
 	if( Load_Line(line_buf, input_fp) == EOF )
 	{
-	  fprintf( stderr, "xnec2c: Read_Comments():"
-		  "unexpected EOF (End of File)\n" );
-	  stop( _("Read_Comments(): Error reading Comments\n"\
+	  fprintf( stderr, _("xnec2c: Read_Comments():"
+		  "unexpected EOF (End of File)\n") );
+	  Stop( _("Read_Comments(): Error reading Comments\n"
 			"Unexpected EOF (End of File)"), ERR_OK );
 	  return( FALSE );
 	}
 
+	/* Capitalize first two characters (mnemonics) */
+	if( (line_buf[0] > 0x60) && (line_buf[0] < 0x79) )
+	  line_buf[0] = (char)toupper( (int)line_buf[0] );
+	if( (line_buf[1] > 0x60) && (line_buf[1] < 0x79) )
+	   line_buf[1] = (char)toupper( (int)line_buf[1] );
+
 	/* Check that comment line is not short */
 	if( strlen(line_buf) < 2 )
 	{
-	  fprintf( stderr, "xnec2c: Read_Comments():"
+	  fprintf( stderr, _("xnec2c: Read_Comments():"
 		  "error reading Comments: "
-		  "Comment mnemonic short or missing\n" );
-	  stop( _("Read_Comments(): Error reading Comments\n"\
+		  "Comment mnemonic short or missing\n") );
+	  Stop( _("Read_Comments(): Error reading Comments\n"
 			"Comment mnemonic short or missing"), ERR_OK );
 	  return( FALSE );
 	}
@@ -86,8 +90,8 @@ Read_Comments( void )
 	/* Check for incorrect mnemonic */
 	if( (strcmp(ain, "CM") != 0) && (strcmp(ain, "CE") != 0) )
 	{
-	  stop( _("Read_Comments():\n"\
-			" Error reading input file\n"\
+	  Stop( _("Read_Comments():\n"
+			" Error reading input file\n"
 			"Comment mnemonic incorrect"), ERR_OK );
 	  return( FALSE );
 	}
@@ -96,6 +100,477 @@ Read_Comments( void )
 
   return( TRUE );
 } /* Read_Comments() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Tag_Seg_Error()
+ *
+ * Checks tag and segments number are valid (>1)
+ */
+  static gboolean
+Tag_Seg_Error( int tag, int segs )
+{
+  gboolean retv = FALSE;
+
+  if( tag <= 0 )
+  {
+	fprintf( stderr,
+		_("xnec2c: Tag_Seg_Error(): geometry data card error - "
+		"tag number is less than 1\n") );
+	Stop( _("Tag_Seg_Error(): Geometry data error\n"
+		  "Tag number is less than 1"), ERR_OK );
+	retv = TRUE;
+  }
+
+  if( segs <= 0 )
+  {
+	fprintf( stderr,
+		_("xnec2c: Tag_Seg_Error(): geometry data card error - "
+		"number of segments is less than 1\n") );
+	Stop( _("Tag_Seg_Error(): Geometry data error\n"
+		  "Number of segments is less than 1"), ERR_OK );
+	retv = TRUE;
+  }
+
+  return( retv );
+}
+
+/*-----------------------------------------------------------------------*/
+
+/* datagn is the main routine for input of geometry data. */
+  static gboolean
+datagn( void )
+{
+  char gm[3];
+
+  /* input card mnemonic list */
+  char *atst[] =
+  {
+	"GW", "GX", "GR", "GS", "GE","GM", "SP",\
+	"SM", "GA", "SC", "GH", "GF", "CT"
+  };
+
+  int nwire, isct, itg, iy=0, iz;
+  size_t mreq;
+  int ix, i, ns, gm_num; /* geometry card id as a number */
+  double rad, xs1, xs2, ys1, ys2, zs1, zs2;
+  double x3=0, y3=0, z3=0, x4=0, y4=0, z4=0;
+  double xw1, xw2, yw1, yw2, zw1, zw2;
+  double dummy;
+
+  data.ipsym=0;
+  nwire=0;
+  data.n=0;
+  data.np=0;
+  data.m=0;
+  data.mp=0;
+  isct=0;
+  structure_proj_params.r_max = 0.0;
+
+  /* read geometry data card and branch to */
+  /* section for operation requested */
+  do
+  {
+	if( !readgm(gm, &itg, &ns, &xw1, &yw1, &zw1, &xw2, &yw2, &zw2, &rad) )
+	  return( FALSE );
+
+	/* identify card id mnemonic */
+	for( gm_num = 0; gm_num < NUM_GEOMN; gm_num++ )
+	  if( strncmp( gm, atst[gm_num], 2) == 0 )
+		break;
+
+	if( gm_num != 9 ) isct=0;
+
+	switch( gm_num )
+	{
+	  case GW: /* "gw" card, generate segment data for straight wire. */
+		if( Tag_Seg_Error(itg, ns) ) return( FALSE );
+		nwire++;
+
+		if( rad != 0.0)
+		{
+		  xs1=1.0;
+		  ys1=1.0;
+		}
+		else
+		{
+		  if( !readgm(gm, &ix, &iy, &xs1, &ys1, &zs1,
+			  &dummy, &dummy, &dummy, &dummy) )
+			  return( FALSE );
+
+		  if( strcmp(gm, "GC" ) != 0 )
+		  {
+			fprintf( stderr,
+				_("xnec2c: datagn(): geometry data card error "
+				"no GC card for tapered wire\n") );
+			Stop( _("datagn(): Geometry data error\n"
+				  "No GC card for tapered wire"), ERR_OK );
+			return( FALSE );
+		  }
+
+		  if( (ys1 == 0.0) || (zs1 == 0.0) )
+		  {
+			fprintf( stderr, _("xnec2c: datagn(): geometry GC data card error\n") );
+			Stop( _("datagn(): Geometry GC data card error"), ERR_OK );
+			return( FALSE );
+		  }
+
+		  rad= ys1;
+		  ys1= pow( (zs1/ys1), (1.0/(ns-1.0)) );
+		}
+
+		wire( xw1, yw1, zw1, xw2, yw2, zw2, rad, xs1, ys1, ns, itg);
+		continue;
+
+		/* reflect structure along x,y, or z */
+		/* axes or rotate to form cylinder.  */
+	  case GX: /* "gx" card */
+		if( (ns < 0) || (itg < 0) )
+		{
+		  fprintf( stderr, _("xnec2c: datagn(): geometry GX data card error\n") );
+		  Stop( _("datagn(): Geometry GX data card error"), ERR_OK );
+		  return( FALSE );
+		}
+
+		iy= ns/10;
+		iz= ns- iy*10;
+		ix= iy/10;
+		iy= iy- ix*10;
+
+		if( ix != 0)
+		  ix=1;
+		if( iy != 0)
+		  iy=1;
+		if( iz != 0)
+		  iz=1;
+
+		if( !reflc(ix, iy, iz, itg, ns) )
+		  return( FALSE );
+		continue;
+
+	  case GR: /* "gr" card */
+		if( (ns < 0) || (itg < 0) )
+		{
+		  fprintf( stderr, _("xnec2c: datagn(): geometry GR data card error\n") );
+		  Stop( _("datagn(): Geometry GR data card error"), ERR_OK );
+		  return( FALSE );
+		}
+
+		ix=-1;
+		iz = 0;
+		if( !reflc(ix, iy, iz, itg, ns) )
+		  return( FALSE );
+		continue;
+
+	  case GS: /* "gs" card, scale structure dimensions by factor xw1 */
+		if( (itg > 0) && (ns > 0) && (ns >= itg) )
+		{
+		  for( i = 0; i < data.n; i++ )
+		  {
+			if( (data.itag[i] >= itg) && (data.itag[i] <= ns) )
+			{
+			  data.x1[i]= data.x1[i]* xw1;
+			  data.y1[i]= data.y1[i]* xw1;
+			  data.z1[i]= data.z1[i]* xw1;
+			  data.x2[i]= data.x2[i]* xw1;
+			  data.y2[i]= data.y2[i]* xw1;
+			  data.z2[i]= data.z2[i]* xw1;
+			  data.bi[i]= data.bi[i]* xw1;
+			}
+		  }
+		  /* FIXME corrects errors when GS follows GX but this is just a work-around */
+		  data.np = data.n;
+		  data.ipsym = 0;
+		}
+		else for( i = 0; i < data.n; i++ )
+		{
+		  data.x1[i]= data.x1[i]* xw1;
+		  data.y1[i]= data.y1[i]* xw1;
+		  data.z1[i]= data.z1[i]* xw1;
+		  data.x2[i]= data.x2[i]* xw1;
+		  data.y2[i]= data.y2[i]* xw1;
+		  data.z2[i]= data.z2[i]* xw1;
+		  data.bi[i]= data.bi[i]* xw1;
+		}
+
+		yw1= xw1* xw1;
+		for( i = 0; i < data.m; i++ )
+		{
+		  data.px[i] = data.px[i]* xw1;
+		  data.py[i] = data.py[i]* xw1;
+		  data.pz[i] = data.pz[i]* xw1;
+		  data.pbi[i]= data.pbi[i]* yw1;
+		}
+		continue;
+
+	  case GE: /* "ge" card, terminate structure geometry input. */
+		/* My addition, for drawing */
+		if( ((data.n > 0) || (data.m > 0)) && !CHILD )
+		  Init_Struct_Drawing();
+		else if( (data.n == 0) && (data.m == 0) )
+		{
+		  Stop( _("No geometry data cards"), ERR_OK );
+		  return( FALSE );
+		}
+
+		if( !conect(itg) ) return( FALSE );
+
+		if( data.n != 0)
+		{
+		  /* Allocate wire buffers */
+		  mreq = (size_t)data.n * sizeof(double);
+		  mem_realloc( (void **)&data.si,   mreq, "in input.c" );
+		  mem_realloc( (void **)&data.sab,  mreq, "in input.c" );
+		  mem_realloc( (void **)&data.cab,  mreq, "in input.c" );
+		  mem_realloc( (void **)&data.salp, mreq, "in input.c" );
+		  mem_realloc( (void **)&data.x, mreq, "in input.c" );
+		  mem_realloc( (void **)&data.y, mreq, "in input.c" );
+		  mem_realloc( (void **)&data.z, mreq, "in input.c" );
+
+		  for( i = 0; i < data.n; i++ )
+		  {
+			xw1= data.x2[i]- data.x1[i];
+			yw1= data.y2[i]- data.y1[i];
+			zw1= data.z2[i]- data.z1[i];
+			data.x[i]=( data.x1[i]+ data.x2[i])/2.0;
+			data.y[i]=( data.y1[i]+ data.y2[i])/2.0;
+			data.z[i]=( data.z1[i]+ data.z2[i])/2.0;
+			xw2= xw1* xw1+ yw1* yw1+ zw1* zw1;
+			yw2= sqrt( xw2);
+			//yw2=( xw2/yw2 + yw2)/2.0;
+			data.si[i]= yw2;
+			data.cab[i]= xw1/ yw2;
+			data.sab[i]= yw1/ yw2;
+
+			xw2= zw1/ yw2;
+			if( xw2 > 1.0)
+			  xw2=1.0;
+			if( xw2 < -1.0)
+			  xw2=-1.0;
+			data.salp[i]= xw2;
+
+			//xw2= asin( xw2)* TD;
+			//yw2= atan2( yw1, xw1)* TD;
+
+			if( (data.si[i] <= 1.0e-20) || (data.bi[i] <= 0.0) )
+			{
+			  fprintf( stderr, _("xnec2c: datagn(): segment data error\n") );
+			  Stop( _("datagn(): Segment data error"), ERR_OK );
+			  return( FALSE );
+			}
+
+		  } /* for( i = 0; i < data.n; i++ ) */
+
+		} /* if( data.n != 0) */
+
+		if( data.m != 0)
+		{
+		  for( i = 0; i < data.m; i++ )
+		  {
+			xw1=( data.t1y[i]* data.t2z[i] -
+				data.t1z[i]* data.t2y[i])* data.psalp[i];
+			yw1=( data.t1z[i]* data.t2x[i] -
+				data.t1x[i]* data.t2z[i])* data.psalp[i];
+			zw1=( data.t1x[i]* data.t2y[i] -
+				data.t1y[i]* data.t2x[i])* data.psalp[i];
+		  } /* for( i = 0; i < data.m; i++ ) */
+
+		} /* if( data.m != 0) */
+
+		data.npm  = data.n+data.m;
+		data.np2m = data.n+2*data.m;
+		data.np3m = data.n+3*data.m;
+
+		return( TRUE );
+
+		/* "gm" card, move structure or reproduce */
+		/* original structure in new positions.   */
+	  case GM:
+		{
+		  int tgf = (int)(rad + 0.5);
+		  if( (tgf < 0) || (ns < 0) || (rad < 0.0) )
+		  {
+			fprintf( stderr, _("xnec2c: datagn(): move GM data card error\n") );
+			Stop( _("datagn(): Move GM data card error"), ERR_OK );
+			return( FALSE );
+		  }
+		  xw1= xw1* TORAD;
+		  yw1= yw1* TORAD;
+		  zw1= zw1* TORAD;
+		  if( !move(xw1, yw1, zw1, xw2, yw2, zw2, (int)(rad+.5), ns, itg) )
+			return( FALSE );
+		}
+		continue;
+
+	  case SP: /* "sp" card, generate single new patch */
+		ns++;
+
+		if( itg != 0)
+		{
+		  fprintf( stderr, _("xnec2c: datagn(): patch data card error\n") );
+		  Stop( _("datagn(): Patch data card error"), ERR_OK );
+		  return( FALSE );
+		}
+
+		if( (ns == 2) || (ns == 4) )
+		  isct=1;
+
+		if( ns > 1)
+		{
+		  if( !readgm(gm, &ix, &iy, &x3, &y3,
+				&z3, &x4, &y4, &z4, &dummy) )
+			return( FALSE );
+
+		  if( (ns == 2) || (itg > 0) )
+		  {
+			x4= xw1+ x3- xw2;
+			y4= yw1+ y3- yw2;
+			z4= zw1+ z3- zw2;
+		  }
+
+		  if( strcmp(gm, "SC") != 0 )
+		  {
+			fprintf( stderr, _("xnec2c: datagn(): patch data error\n") );
+			Stop( _("datagn(): Patch data error"), ERR_OK );
+			return( FALSE );
+		  }
+
+		} /* if( ns > 1) */
+		else
+		{
+		  xw2= xw2* TORAD;
+		  yw2= yw2* TORAD;
+		}
+
+		if( !patch( itg, ns, xw1, yw1, zw1, xw2,
+			yw2, zw2, x3, y3, z3, x4, y4, z4) )
+			return( FALSE );
+		continue;
+
+	  case SM: /* "sm" card, generate multiple-patch surface */
+		if( (itg < 1) || (ns < 1) )
+		{
+		  fprintf( stderr, _("datagn(): xnec2c: patch card data error\n") );
+		  Stop( _("datagn(): Patch data card error"), ERR_OK );
+		  return( FALSE );
+		}
+
+		if( !readgm(gm, &ix, &iy, &x3, &y3,
+			  &z3, &x4, &y4, &z4, &dummy) )
+		  return( FALSE );
+
+		if( (ns == 2) || (itg > 0) )
+		{
+		  x4= xw1+ x3- xw2;
+		  y4= yw1+ y3- yw2;
+		  z4= zw1+ z3- zw2;
+		}
+
+		if( strcmp(gm, "SC" ) != 0 )
+		{
+		  fprintf( stderr, _("xnec2c: datagn(): patch card data error\n") );
+		  Stop( _("datagn(): Patch data card error"), ERR_OK );
+		  return( FALSE );
+		}
+
+		if( !patch(itg, ns, xw1, yw1, zw1, xw2,
+			yw2, zw2, x3, y3, z3, x4, y4, z4) )
+		  return( FALSE );
+		continue;
+
+	  case GA: /* "ga" card, generate segment data for wire arc */
+		if( Tag_Seg_Error(itg, ns) ) return( FALSE );
+		nwire++;
+		if( !arc(itg, ns, xw1, yw1, zw1, xw2) ) return( FALSE );
+		continue;
+
+	  case SC: /* "sc" card */
+		if( isct == 0)
+		{
+		  fprintf( stderr, _("xnec2c: datagn(): patch data card error\n") );
+		  Stop( _("datagn(): Patch data card error"), ERR_OK );
+		  return( FALSE );
+		}
+
+		ns++;
+
+		if( (itg != 0) || ((ns != 2) && (ns != 4)) )
+		{
+		  fprintf( stderr, _("xnec2c: datagn(): patch data card error\n") );
+		  Stop( _("datagn(): Patch data card error"), ERR_OK );
+		  return( FALSE );
+		}
+
+		xs1= x4;
+		ys1= y4;
+		zs1= z4;
+		xs2= x3;
+		ys2= y3;
+		zs2= z3;
+		x3= xw1;
+		y3= yw1;
+		z3= zw1;
+
+		if( ns == 4)
+		{
+		  x4= xw2;
+		  y4= yw2;
+		  z4= zw2;
+		}
+
+		xw1= xs1;
+		yw1= ys1;
+		zw1= zs1;
+		xw2= xs2;
+		yw2= ys2;
+		zw2= zs2;
+
+		if( ns != 4)
+		{
+		  x4= xw1+ x3- xw2;
+		  y4= yw1+ y3- yw2;
+		  z4= zw1+ z3- zw2;
+		}
+
+		if( !patch(itg, ns, xw1, yw1, zw1, xw2,
+			yw2, zw2, x3, y3, z3, x4, y4, z4) )
+		  return( FALSE );
+		continue;
+
+	  case GH: /* "gh" card, generate helix */
+		if( Tag_Seg_Error(itg, ns) ) return( FALSE );
+		nwire++;
+		helix( xw1, yw1, zw1, xw2, yw2, zw2, rad, ns, itg);
+		continue;
+
+	  case GF: /* "gf" card, not supported */
+		fprintf( stderr, _("xnec2c: datagn(): \"GF\" card (NGF solution) "
+				"is not supported\n") );
+		Stop( _("datagn(): \"GF\" card (NGF solution)\n"
+			  "is not supported"), ERR_OK );
+		return( FALSE );
+
+	  case CT: /* Ignore in-data comments (NEC4 compatibility) */
+		fprintf( stderr, _("xnec2c: datagn(): ignoring CM card in geometry\n") );
+		Stop( _("datagn(): Ignoring CM card in geometry"), ERR_OK );
+		continue;
+
+	  default: /* error message */
+		fprintf( stderr, _("xnec2c: datagn(): geometry data card error\n") );
+		fprintf( stderr,
+			"%2s %3d %5d %10.5f %10.5f %10.5f"
+			" %10.5f %10.5f %10.5f %10.5f\n",
+			gm, itg, ns, xw1, yw1, zw1, xw2, yw2, zw2, rad );
+
+		Stop( _("datagn(): Geometry data card error"), ERR_OK );
+		return( FALSE );
+
+	} /* switch( gm_num ) */
+
+  } /* do */
+  while( TRUE );
+
+} /* datagn() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -182,13 +657,7 @@ Read_Geometry( void )
 Read_Commands( void )
 {
   /* input card mnemonic list */
-  char *atst[NUM_CMNDS] =
-  {
-	"CM", "CP", "EK", "EN", "EX", \
-	"FR", "GD", "GN", "KH", "LD", \
-	"NE", "NH", "NT", "PQ", "PT", \
-	"RP", "SY", "TL", "XQ"
-  };
+  char *atst[NUM_CMNDS] = { COMMANDS };
 
   char ain[3];
   double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
@@ -272,14 +741,14 @@ Read_Commands( void )
 	switch( ain_num )
 	{
 	  case CM: /* "cm" card ignored, comments in data cards as in NEC4 */
-		fprintf( stderr, "xnec2c: Read_Commands():"
-			" ignoring CM card in commands\n" );
-		stop( _("Read_Commands(): Ignoring CM card in commands"),
+		fprintf( stderr, _("xnec2c: Read_Commands():"
+			" ignoring CM card in commands\n") );
+		Stop( _("Read_Commands(): Ignoring CM card in commands"),
 			ERR_OK );
 		continue;
 
 	  case CP: /* "cp" card ignored, maximum coupling between antennas */
-		stop( _("Read_Commands(): CP card is ignored\n"\
+		Stop( _("Read_Commands(): CP card is ignored\n"
 			  "Coupling calculation not implemented"), ERR_OK );
 		continue; /* continue card input loop */
 
@@ -453,8 +922,8 @@ Read_Commands( void )
 		if( (gnd.ifar != 1) && (test > 90.0) )
 		{
 		  fprintf( stderr,
-			  "xnec2c: Read_Commands(): theta > 90 deg. with ground specified\n" );
-		  stop( _("Read_Commands(): Theta > 90 deg with ground specified\n"\
+			  _("xnec2c: Read_Commands(): theta > 90 deg. with ground specified\n") );
+		  Stop( _("Read_Commands(): Theta > 90 deg with ground specified\n"
 				"Please check RP card data and correct"), ERR_OK );
 		  return( FALSE );
 		}
@@ -464,9 +933,9 @@ Read_Commands( void )
 		  if( gnd.iperf == 2)
 		  {
 			fprintf( stderr,
-				"xnec2c: Read_Commands(): radial wire g.s. approximation\n"
-				"may not be used with Sommerfeld ground option\n" );
-			stop( _("Read_Commands(): radial wire g.s. approximation\n"\
+				_("xnec2c: Read_Commands(): radial wire g.s. approximation\n"
+				"may not be used with Sommerfeld ground option\n") );
+			Stop( _("Read_Commands(): radial wire g.s. approximation\n"
 				  "may not be used with Sommerfeld ground option"), ERR_OK );
 			return( FALSE );
 		  }
@@ -518,10 +987,10 @@ Read_Commands( void )
 		  if( itmp4 < itmp3 )
 		  {
 			fprintf( stderr,
-				"xnec2c: Read_Commands(): data fault on loading card no %d\n"
-				"itag step1 %d is greater than itag step2 %d\n",
+				_("xnec2c: Read_Commands(): data fault on loading card no %d\n"
+				"itag step1 %d is greater than itag step2 %d\n"),
 				zload.nload, itmp3, itmp4 );
-			stop( _("Read_Commands(): Data fault on loading card\n"\
+			Stop( _("Read_Commands(): Data fault on loading card\n"
 				  "itag step1 is greater than itag step2"), ERR_OK );
 			return( FALSE );
 		  }
@@ -596,7 +1065,7 @@ Read_Commands( void )
 		} /* case 8: */
 		continue; /* continue card input loop */
 
-	  case NE: case NH:  /* "ne"/"nh" cards, near field calculation parameters */
+	  case NE: case NH:  /* "negcnh" cards, near field calculation parameters */
 		if( ain_num == 11 )
 		  fpat.nfeh |= NEAR_HFIELD;
 		else
@@ -655,9 +1124,9 @@ Read_Commands( void )
 			if( tmp1 == 0.0 )
 			{
 			  fprintf( stderr,
-				  "xnec2c: Read_Commands(): Transmission Line impedance = 0\n"
-				  "is not valid. Please correct NT or TL card\n" );
-			  stop( _("Read_Commands(): Transmission Line impedance = 0\n"\
+				  _("xnec2c: Read_Commands(): Transmission Line impedance = 0\n"
+				  "is not valid. Please correct NT or TL card\n") );
+			  Stop( _("Read_Commands(): Transmission Line impedance = 0\n"
 					"is not valid. Please correct NT or TL card"), ERR_OK );
 			  return( FALSE );
 			}
@@ -667,8 +1136,8 @@ Read_Commands( void )
 			  ((netcx.iseg2[idx] = isegno(itmp3, itmp4)) < 0) )
 		  {
 			fprintf( stderr,
-				"xnec2c: Read_Commands(): Segment number error in TL or NT card\n" );
-			stop( _("Read_Commands(): Segment number\n"\
+				_("xnec2c: Read_Commands(): Segment number error in TL or NT card\n") );
+			Stop( _("Read_Commands(): Segment number\n"
 				"error in NT or TL card"), ERR_OK );
 			return( FALSE );
 		  }
@@ -690,9 +1159,9 @@ Read_Commands( void )
 
 	  case PQ: case PT: /* "pq" and "pt" cards ignored, no printing */
 		fprintf( stderr,
-			"xnec2c: Read_Commands(): PQ and PT cards are ignored\n"
-			"Printing to file not implemented\n" );
-		stop( _("Read_Commands(): PQ and PT cards are ignored\n"\
+			_("xnec2c: Read_Commands(): PQ and PT cards are ignored\n"
+			"Printing to file not implemented\n") );
+		Stop( _("Read_Commands(): PQ and PT cards are ignored\n"
 			  "Printing to file not implemented"), ERR_OK );
 		continue; /* continue card input loop */
 
@@ -700,9 +1169,9 @@ Read_Commands( void )
 		if( itmp1 == 1 )
 		{
 		  fprintf( stderr,
-			  "xnec2c: Read_Commands(): Surface wave option (I1=1)\n"
-			  "of RP command not implemented\n" );
-		  stop( _("Read_Commands(): Surface wave option (I1=1)\n"\
+			  _("xnec2c: Read_Commands(): Surface wave option (I1=1)\n"
+			  "of RP command not implemented\n") );
+		  Stop( _("Read_Commands(): Surface wave option (I1=1)\n"
 				"of RP command not implemented"), ERR_OK );
 		  return( FALSE );
 		}
@@ -726,9 +1195,9 @@ Read_Commands( void )
 		if( fpat.iavp )
 		{
 		  fprintf( stderr,
-			  "xnec2c: Read_Commands(): Gain averaging (XNDA ***1 or ***2)\n"
-			  "of RP command not implemented\n" );
-		  stop( _("Read_Commands(): Gain averaging (XNDA ***1 or ***2)\n"\
+			  _("xnec2c: Read_Commands(): Gain averaging (XNDA ***1 or ***2)\n"
+			  "of RP command not implemented\n") );
+		  Stop( _("Read_Commands(): Gain averaging (XNDA ***1 or ***2)\n"
 				"of RP command not supported"), ERR_OK );
 		  return( FALSE );
 		}
@@ -746,9 +1215,9 @@ Read_Commands( void )
 		if( (gnd.ksymp == 2) && (gnd.ifar != 1) && (tmp1 > 90.0) )
 		{
 		  fprintf( stderr,
-			  "xnec2c: Read_Commands(): Theta > 90 deg. with ground specified\n"
-			  "Please check RP card data and correct\n" );
-		  stop( _("Read_Commands(): Theta > 90 deg. with ground specified\n"\
+			  _("xnec2c: Read_Commands(): Theta > 90 deg. with ground specified\n"
+			  "Please check RP card data and correct\n") );
+		  Stop( _("Read_Commands(): Theta > 90 deg. with ground specified\n"
 				"Please check RP card data and correct"), ERR_OK );
 		  return( FALSE );
 		}
@@ -797,11 +1266,23 @@ Read_Commands( void )
 		 * XQ now is the same as EN because of above */
 		break;
 
+	  case ZO: /* My addition, impedance against which VSWR is calculated */
+		calc_data.zo = (double)itmp1;
+
+		/* Set the Zo spinbutton value */
+		if( freqplots_window_builder )
+		{
+		  GtkWidget *spin = Builder_Get_Object(
+			  freqplots_window_builder, "freqplots_zo_spinbutton" );
+		  gtk_spin_button_set_value( GTK_SPIN_BUTTON(spin), (gdouble)calc_data.zo );
+		}
+		continue;
+
 	  default:
 		fprintf( stderr,
-			"xnec2c: Read_Commands(): faulty data "
-			"card label after geometry section\n" );
-		stop( _("Read_Commands(): Faulty data card\n"\
+			_("xnec2c: Read_Commands(): faulty data "
+			"card label after geometry section\n") );
+		Stop( _("Read_Commands(): Faulty data card\n"
 			  "label after geometry section"), ERR_OK );
 		return( FALSE );
 	} /* switch( ain_num ) */
@@ -848,14 +1329,21 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   if( line_buf == NULL ) return( FALSE );
   startptr = line_buf;
   eof = Load_Line( line_buf, input_fp );
+
+  /* Capitalize first two characters (mnemonics) */
+  if( (line_buf[0] > 0x60) && (line_buf[0] < 0x79) )
+	line_buf[0] = (char)toupper( (int)line_buf[0] );
+  if( (line_buf[1] > 0x60) && (line_buf[1] < 0x79) )
+	line_buf[1] = (char)toupper( (int)line_buf[1] );
+
   if( eof == EOF )
   {
 	Strlcpy( mn, "EN", 3 );
 	fprintf( stderr,
-		"xnec2c: readmn(): command data card error\n"
-		"Unexpected EOF while reading input file - appending EN card\n" );
-	stop( _("readmn(): Command data card error\n"\
-		  "Unexpected EOF while reading input file\n"\
+		_("xnec2c: readmn(): command data card error\n"
+		"Unexpected EOF while reading input file - appending EN card\n") );
+	Stop( _("readmn(): Command data card error\n"
+		  "Unexpected EOF while reading input file\n"
 			"Uppending a default EN card"), ERR_OK );
 	free_ptr( (void **)&startptr );
 	return( FALSE );
@@ -869,9 +1357,9 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   {
 	Strlcpy( mn, "XX", 3 );
 	fprintf( stderr,
-		"xnec2c: readmn(): command data card error\n"
-		"card's mnemonic code too short or missing\n" );
-	stop( _("readmn(): Command data card error\n"\
+		_("xnec2c: readmn(): command data card error\n"
+		"card's mnemonic code too short or missing\n") );
+	Stop( _("readmn(): Command data card error\n"
 		  "Mnemonic code too short or missing"), ERR_OK );
 	free_ptr( (void **)&startptr );
 	return( FALSE );
@@ -915,10 +1403,10 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   if( idx < len )
   {
 	fprintf( stderr,
-		"xnec2c: readmn(): command data card \"%s\" error\n"
-		"Spurious character '%c' at column %d\n",
+		_("xnec2c: readmn(): command data card \"%s\" error\n"
+		"Spurious character '%c' at column %d\n"),
 		mn, line_buf[idx], idx+1 );
-	stop( _("readmn(): Command data card error\n"\
+	Stop( _("readmn(): Command data card error\n"
 		  "Spurious character in command card"), ERR_OK );
 	free_ptr( (void **)&startptr );
 	return( FALSE );
@@ -1002,15 +1490,22 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   mem_alloc((void **)&line_buf, LINE_LEN, "in readgm()");
   if( line_buf == NULL ) return( FALSE );
   startptr = line_buf;
-  eof = Load_Line( line_buf, input_fp );
+   eof = Load_Line( line_buf, input_fp );
+
+  /* Capitalize first two characters (mnemonics) */
+  if( (line_buf[0] > 0x60) && (line_buf[0] < 0x79) )
+	line_buf[0] = (char)toupper( (int)line_buf[0] );
+  if( (line_buf[1] > 0x60) && (line_buf[1] < 0x79) )
+	line_buf[1] = (char)toupper( (int)line_buf[1] );
+
   if( eof == EOF )
   {
 	Strlcpy( gm, "GE", 3 );
 	fprintf( stderr,
-		"xnec2c: readgm(): geometry data card error\n"
-		"Unexpected EOF while reading input file - appending GE card\n" );
-	stop( _("readgm(): Geometry data card error\n"\
-		  "Unexpected EOF while reading input file\n"\
+		_("xnec2c: readgm(): geometry data card error\n"
+		"Unexpected EOF while reading input file - appending GE card\n") );
+	Stop( _("readgm(): Geometry data card error\n"
+		  "Unexpected EOF while reading input file\n"
 		  "Uppending a default GE card"), ERR_OK );
 	free_ptr( (void **)&startptr );
 	return( FALSE );
@@ -1024,9 +1519,9 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   {
 	Strlcpy( gm, "XX", 3 );
 	fprintf( stderr,
-		"xnec2c: readgm(): geometry data card error\n"
-		"card's mnemonic code too short or missing\n" );
-	stop( _("readgm(): Geometry data card error\n"\
+		_("xnec2c: readgm(): geometry data card error\n"
+		"card's mnemonic code too short or missing\n") );
+	Stop( _("readgm(): Geometry data card error\n"
 		  "Card's mnemonic code too short or missing"), ERR_OK );
 	free_ptr( (void **)&startptr );
 	return( FALSE );
@@ -1071,10 +1566,10 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   if( idx < len )
   {
 	fprintf( stderr,
-		"xnec2c: readgm(): geometry data card \"%s\" error\n"
-		"Spurious character '%c' at column %d\n",
+		_("xnec2c: readgm(): geometry data card \"%s\" error\n"
+		"Spurious character '%c' at column %d\n"),
 		gm, line_buf[idx], idx+1 );
-	stop( _("readmn(): Geometry data card error\n"\
+	Stop( _("readmn(): Geometry data card error\n"
 		  "Spurious character in command card"), ERR_OK );
 	free_ptr( (void **)&startptr );
 	return( FALSE );
@@ -1129,477 +1624,6 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   free_ptr( (void **)&startptr );
   return( TRUE );
 } /* readgm() */
-
-/*-----------------------------------------------------------------------*/
-
-/* datagn is the main routine for input of geometry data. */
-  gboolean
-datagn( void )
-{
-  char gm[3];
-
-  /* input card mnemonic list */
-  char *atst[] =
-  {
-	"GW", "GX", "GR", "GS", "GE","GM", "SP",\
-	"SM", "GA", "SC", "GH", "GF", "CT"
-  };
-
-  int nwire, isct, itg, iy=0, iz;
-  size_t mreq;
-  int ix, i, ns, gm_num; /* geometry card id as a number */
-  double rad, xs1, xs2, ys1, ys2, zs1, zs2;
-  double x3=0, y3=0, z3=0, x4=0, y4=0, z4=0;
-  double xw1, xw2, yw1, yw2, zw1, zw2;
-  double dummy;
-
-  data.ipsym=0;
-  nwire=0;
-  data.n=0;
-  data.np=0;
-  data.m=0;
-  data.mp=0;
-  isct=0;
-  structure_proj_params.r_max = 0.0;
-
-  /* read geometry data card and branch to */
-  /* section for operation requested */
-  do
-  {
-	if( !readgm(gm, &itg, &ns, &xw1, &yw1, &zw1, &xw2, &yw2, &zw2, &rad) )
-	  return( FALSE );
-
-	/* identify card id mnemonic */
-	for( gm_num = 0; gm_num < NUM_GEOMN; gm_num++ )
-	  if( strncmp( gm, atst[gm_num], 2) == 0 )
-		break;
-
-	if( gm_num != 9 ) isct=0;
-
-	switch( gm_num )
-	{
-	  case GW: /* "gw" card, generate segment data for straight wire. */
-		if( Tag_Seg_Error(itg, ns) ) return( FALSE );
-		nwire++;
-
-		if( rad != 0.0)
-		{
-		  xs1=1.0;
-		  ys1=1.0;
-		}
-		else
-		{
-		  if( !readgm(gm, &ix, &iy, &xs1, &ys1, &zs1,
-			  &dummy, &dummy, &dummy, &dummy) )
-			  return( FALSE );
-
-		  if( strcmp(gm, "GC" ) != 0 )
-		  {
-			fprintf( stderr,
-				"xnec2c: datagn(): geometry data card error "
-				"no GC card for tapered wire\n" );
-			stop( _("datagn(): Geometry data error\n"\
-				  "No GC card for tapered wire"), ERR_OK );
-			return( FALSE );
-		  }
-
-		  if( (ys1 == 0.0) || (zs1 == 0.0) )
-		  {
-			fprintf( stderr, "xnec2c: datagn(): geometry GC data card error\n" );
-			stop( _("datagn(): Geometry GC data card error"), ERR_OK );
-			return( FALSE );
-		  }
-
-		  rad= ys1;
-		  ys1= pow( (zs1/ys1), (1.0/(ns-1.0)) );
-		}
-
-		wire( xw1, yw1, zw1, xw2, yw2, zw2, rad, xs1, ys1, ns, itg);
-		continue;
-
-		/* reflect structure along x,y, or z */
-		/* axes or rotate to form cylinder.  */
-	  case GX: /* "gx" card */
-		if( (ns < 0) || (itg < 0) )
-		{
-		  fprintf( stderr, "xnec2c: datagn(): geometry GX data card error\n" );
-		  stop( _("datagn(): Geometry GX data card error"), ERR_OK );
-		  return( FALSE );
-		}
-
-		iy= ns/10;
-		iz= ns- iy*10;
-		ix= iy/10;
-		iy= iy- ix*10;
-
-		if( ix != 0)
-		  ix=1;
-		if( iy != 0)
-		  iy=1;
-		if( iz != 0)
-		  iz=1;
-
-		if( !reflc(ix, iy, iz, itg, ns) )
-		  return( FALSE );
-		continue;
-
-	  case GR: /* "gr" card */
-		if( (ns < 0) || (itg < 0) )
-		{
-		  fprintf( stderr, "xnec2c: datagn(): geometry GR data card error\n" );
-		  stop( _("datagn(): Geometry GR data card error"), ERR_OK );
-		  return( FALSE );
-		}
-
-		ix=-1;
-		iz = 0;
-		if( !reflc(ix, iy, iz, itg, ns) )
-		  return( FALSE );
-		continue;
-
-	  case GS: /* "gs" card, scale structure dimensions by factor xw1 */
-		if( (itg > 0) && (ns > 0) && (ns >= itg) )
-		{
-		  for( i = 0; i < data.n; i++ )
-		  {
-			if( (data.itag[i] >= itg) && (data.itag[i] <= ns) )
-			{
-			  data.x1[i]= data.x1[i]* xw1;
-			  data.y1[i]= data.y1[i]* xw1;
-			  data.z1[i]= data.z1[i]* xw1;
-			  data.x2[i]= data.x2[i]* xw1;
-			  data.y2[i]= data.y2[i]* xw1;
-			  data.z2[i]= data.z2[i]* xw1;
-			  data.bi[i]= data.bi[i]* xw1;
-			}
-		  }
-		  /* FIXME corrects errors when GS follows GX but this is just a work-around */
-		  data.np = data.n;
-		  data.ipsym = 0;
-		}
-		else for( i = 0; i < data.n; i++ )
-		{
-		  data.x1[i]= data.x1[i]* xw1;
-		  data.y1[i]= data.y1[i]* xw1;
-		  data.z1[i]= data.z1[i]* xw1;
-		  data.x2[i]= data.x2[i]* xw1;
-		  data.y2[i]= data.y2[i]* xw1;
-		  data.z2[i]= data.z2[i]* xw1;
-		  data.bi[i]= data.bi[i]* xw1;
-		}
-
-		yw1= xw1* xw1;
-		for( i = 0; i < data.m; i++ )
-		{
-		  data.px[i] = data.px[i]* xw1;
-		  data.py[i] = data.py[i]* xw1;
-		  data.pz[i] = data.pz[i]* xw1;
-		  data.pbi[i]= data.pbi[i]* yw1;
-		}
-		continue;
-
-	  case GE: /* "ge" card, terminate structure geometry input. */
-		/* My addition, for drawing */
-		if( ((data.n > 0) || (data.m > 0)) && !CHILD )
-		  Init_Struct_Drawing();
-		else if( (data.n == 0) && (data.m == 0) )
-		{
-		  stop( _("No geometry data cards"), ERR_OK );
-		  return( FALSE );
-		}
-
-		if( !conect(itg) ) return( FALSE );
-
-		if( data.n != 0)
-		{
-		  /* Allocate wire buffers */
-		  mreq = (size_t)data.n * sizeof(double);
-		  mem_realloc( (void **)&data.si,   mreq, "in input.c" );
-		  mem_realloc( (void **)&data.sab,  mreq, "in input.c" );
-		  mem_realloc( (void **)&data.cab,  mreq, "in input.c" );
-		  mem_realloc( (void **)&data.salp, mreq, "in input.c" );
-		  mem_realloc( (void **)&data.x, mreq, "in input.c" );
-		  mem_realloc( (void **)&data.y, mreq, "in input.c" );
-		  mem_realloc( (void **)&data.z, mreq, "in input.c" );
-
-		  for( i = 0; i < data.n; i++ )
-		  {
-			xw1= data.x2[i]- data.x1[i];
-			yw1= data.y2[i]- data.y1[i];
-			zw1= data.z2[i]- data.z1[i];
-			data.x[i]=( data.x1[i]+ data.x2[i])/2.0;
-			data.y[i]=( data.y1[i]+ data.y2[i])/2.0;
-			data.z[i]=( data.z1[i]+ data.z2[i])/2.0;
-			xw2= xw1* xw1+ yw1* yw1+ zw1* zw1;
-			yw2= sqrt( xw2);
-			//yw2=( xw2/yw2 + yw2)/2.0;
-			data.si[i]= yw2;
-			data.cab[i]= xw1/ yw2;
-			data.sab[i]= yw1/ yw2;
-	
-			xw2= zw1/ yw2;
-			if( xw2 > 1.0)
-			  xw2=1.0;
-			if( xw2 < -1.0)
-			  xw2=-1.0;
-			data.salp[i]= xw2;
-
-			//xw2= asin( xw2)* TD;
-			//yw2= atan2( yw1, xw1)* TD;
-
-			if( (data.si[i] <= 1.0e-20) || (data.bi[i] <= 0.0) )
-			{
-			  fprintf( stderr, "xnec2c: datagn(): segment data error\n" );
-			  stop( _("datagn(): Segment data error"), ERR_OK );
-			  return( FALSE );
-			}
-
-		  } /* for( i = 0; i < data.n; i++ ) */
-
-		} /* if( data.n != 0) */
-
-		if( data.m != 0)
-		{
-		  for( i = 0; i < data.m; i++ )
-		  {
-			xw1=( data.t1y[i]* data.t2z[i] -
-				data.t1z[i]* data.t2y[i])* data.psalp[i];
-			yw1=( data.t1z[i]* data.t2x[i] -
-				data.t1x[i]* data.t2z[i])* data.psalp[i];
-			zw1=( data.t1x[i]* data.t2y[i] -
-				data.t1y[i]* data.t2x[i])* data.psalp[i];
-		  } /* for( i = 0; i < data.m; i++ ) */
-
-		} /* if( data.m != 0) */
-
-		data.npm  = data.n+data.m;
-		data.np2m = data.n+2*data.m;
-		data.np3m = data.n+3*data.m;
-
-		return( TRUE );
-
-		/* "gm" card, move structure or reproduce */
-		/* original structure in new positions.   */
-	  case GM:
-		{
-		  int tgf = (int)(rad + 0.5);
-		  if( (tgf < 0) || (ns < 0) || (rad < 0.0) )
-		  {
-			fprintf( stderr, "xnec2c: datagn(): move GM data card error\n" );
-			stop( _("datagn(): Move GM data card error"), ERR_OK );
-			return( FALSE );
-		  }
-		  xw1= xw1* TORAD;
-		  yw1= yw1* TORAD;
-		  zw1= zw1* TORAD;
-		  if( !move(xw1, yw1, zw1, xw2, yw2, zw2, (int)(rad+.5), ns, itg) )
-			return( FALSE );
-		}
-		continue;
-
-	  case SP: /* "sp" card, generate single new patch */
-		ns++;
-
-		if( itg != 0)
-		{
-		  fprintf( stderr, "xnec2c: datagn(): patch data card error\n" );
-		  stop( _("datagn(): Patch data card error"), ERR_OK );
-		  return( FALSE );
-		}
-
-		if( (ns == 2) || (ns == 4) )
-		  isct=1;
-
-		if( ns > 1)
-		{
-		  if( !readgm(gm, &ix, &iy, &x3, &y3,
-				&z3, &x4, &y4, &z4, &dummy) )
-			return( FALSE );
-
-		  if( (ns == 2) || (itg > 0) )
-		  {
-			x4= xw1+ x3- xw2;
-			y4= yw1+ y3- yw2;
-			z4= zw1+ z3- zw2;
-		  }
-
-		  if( strcmp(gm, "SC") != 0 )
-		  {
-			fprintf( stderr, "xnec2c: datagn(): patch data error\n" );
-			stop( _("datagn(): Patch data error"), ERR_OK );
-			return( FALSE );
-		  }
-
-		} /* if( ns > 1) */
-		else
-		{
-		  xw2= xw2* TORAD;
-		  yw2= yw2* TORAD;
-		}
-
-		if( !patch( itg, ns, xw1, yw1, zw1, xw2,
-			yw2, zw2, x3, y3, z3, x4, y4, z4) )
-			return( FALSE );
-		continue;
-
-	  case SM: /* "sm" card, generate multiple-patch surface */
-		if( (itg < 1) || (ns < 1) )
-		{
-		  fprintf( stderr, "datagn(): xnec2c: patch card data error\n" );
-		  stop( _("datagn(): Patch data card error"), ERR_OK );
-		  return( FALSE );
-		}
-
-		if( !readgm(gm, &ix, &iy, &x3, &y3,
-			  &z3, &x4, &y4, &z4, &dummy) )
-		  return( FALSE );
-
-		if( (ns == 2) || (itg > 0) )
-		{
-		  x4= xw1+ x3- xw2;
-		  y4= yw1+ y3- yw2;
-		  z4= zw1+ z3- zw2;
-		}
-
-		if( strcmp(gm, "SC" ) != 0 )
-		{
-		  fprintf( stderr, "xnec2c: datagn(): patch card data error\n" );
-		  stop( _("datagn(): Patch data card error"), ERR_OK );
-		  return( FALSE );
-		}
-
-		if( !patch(itg, ns, xw1, yw1, zw1, xw2,
-			yw2, zw2, x3, y3, z3, x4, y4, z4) )
-		  return( FALSE );
-		continue;
-
-	  case GA: /* "ga" card, generate segment data for wire arc */
-		if( Tag_Seg_Error(itg, ns) ) return( FALSE );
-		nwire++;
-		if( !arc(itg, ns, xw1, yw1, zw1, xw2) ) return( FALSE );
-		continue;
-
-	  case SC: /* "sc" card */
-		if( isct == 0)
-		{
-		  fprintf( stderr, "xnec2c: datagn(): patch data card error\n" );
-		  stop( _("datagn(): Patch data card error"), ERR_OK );
-		  return( FALSE );
-		}
-
-		ns++;
-
-		if( (itg != 0) || ((ns != 2) && (ns != 4)) )
-		{
-		  fprintf( stderr, "xnec2c: datagn(): patch data card error\n" );
-		  stop( _("datagn(): Patch data card error"), ERR_OK );
-		  return( FALSE );
-		}
-
-		xs1= x4;
-		ys1= y4;
-		zs1= z4;
-		xs2= x3;
-		ys2= y3;
-		zs2= z3;
-		x3= xw1;
-		y3= yw1;
-		z3= zw1;
-
-		if( ns == 4)
-		{
-		  x4= xw2;
-		  y4= yw2;
-		  z4= zw2;
-		}
-
-		xw1= xs1;
-		yw1= ys1;
-		zw1= zs1;
-		xw2= xs2;
-		yw2= ys2;
-		zw2= zs2;
-
-		if( ns != 4)
-		{
-		  x4= xw1+ x3- xw2;
-		  y4= yw1+ y3- yw2;
-		  z4= zw1+ z3- zw2;
-		}
-
-		if( !patch(itg, ns, xw1, yw1, zw1, xw2,
-			yw2, zw2, x3, y3, z3, x4, y4, z4) )
-		  return( FALSE );
-		continue;
-
-	  case GH: /* "gh" card, generate helix */
-		if( Tag_Seg_Error(itg, ns) ) return( FALSE );
-		nwire++;
-		helix( xw1, yw1, zw1, xw2, yw2, zw2, rad, ns, itg);
-		continue;
-
-	  case GF: /* "gf" card, not supported */
-		fprintf( stderr, "xnec2c: datagn(): \"GF\" card (NGF solution) "
-				"is not supported\n" );
-		stop( _("datagn(): \"GF\" card (NGF solution)\n"\
-			  "is not supported"), ERR_OK );
-		return( FALSE );
-
-	  case CT: /* Ignore in-data comments (NEC4 compatibility) */
-		fprintf( stderr, "xnec2c: datagn(): ignoring CM card in geometry\n" );
-		stop( _("datagn(): Ignoring CM card in geometry"), ERR_OK );
-		continue;
-
-	  default: /* error message */
-		fprintf( stderr, "xnec2c: datagn(): geometry data card error\n" );
-		fprintf( stderr,
-			"%2s %3d %5d %10.5f %10.5f %10.5f"
-			" %10.5f %10.5f %10.5f %10.5f\n",
-			gm, itg, ns, xw1, yw1, zw1, xw2, yw2, zw2, rad );
-
-		stop( _("datagn(): Geometry data card error"), ERR_OK );
-		return( FALSE );
-
-	} /* switch( gm_num ) */
-
-  } /* do */
-  while( TRUE );
-
-} /* datagn() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Tag_Seg_Error()
- *
- * Checks tag and segments number are valid (>1)
- */
-  gboolean
-Tag_Seg_Error( int tag, int segs )
-{
-  gboolean retv = FALSE;
-
-  if( tag <= 0 )
-  {
-	fprintf( stderr,
-		"xnec2c: Tag_Seg_Error(): geometry data card error -"
-		"tag number is less than 1\n" );
-	stop( _("Tag_Seg_Error(): Geometry data error\n"\
-		  "Tag number is less than 1"), ERR_OK );
-	retv = TRUE;
-  }
-
-  if( segs <= 0 )
-  {
-	fprintf( stderr,
-		"xnec2c: Tag_Seg_Error(): geometry data card error - "
-		"number of segments is less than 1\n" );
-	stop( _("Tag_Seg_Error(): Geometry data error\n"\
-		  "Number of segments is less than 1"), ERR_OK );
-	retv = TRUE;
-  }
-
-  return( retv );
-}
 
 /*-----------------------------------------------------------------------*/
 

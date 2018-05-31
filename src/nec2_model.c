@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -16,66 +14,44 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* nec2_model.c
- *
- * Structure modelling functions for xnec2c
- */
-
 #include "nec2_model.h"
 #include "shared.h"
 
 /*------------------------------------------------------------------------*/
 
-/* Nec2_Input_File_Treeview()
+/* Insert_Columns()
  *
- * Reads a NEC2 input file and renders it in a tree view
+ * Inserts columns in a list store
  */
-  void
-Nec2_Input_File_Treeview( int action )
+  static void
+Insert_Columns(
+	GtkTreeView *view,
+	GtkListStore* store,
+	int ncols,
+	char *colname[] )
 {
-  /* Abort if editor window is not opened */
-  if( nec2_edit_window == NULL ) return;
+  int idx;
+  GtkTreeModel *model;
+  GtkCellRenderer *renderer;
 
-  /* Signal save of edited file */
-  SetFlag( NEC2_EDIT_SAVE );
-
-  /* Implement user action */
-  switch( action )
+  for( idx = 0; idx < ncols; idx++ )
   {
-	case NEC2_EDITOR_REVERT: /* Revert editor to file contents */
-	  /* Clear all tree view list stores */
-	  gtk_list_store_clear( cmnt_store );
-	  gtk_list_store_clear( geom_store );
-	  gtk_list_store_clear( cmnd_store );
-	  break;
+	renderer = gtk_cell_renderer_text_new();
+	g_object_set(renderer, "editable", TRUE, NULL);
+	g_signal_connect( renderer, "edited",
+		(GCallback)cell_edited_callback, view );
+	g_object_set_data( G_OBJECT(renderer),
+		"column", GUINT_TO_POINTER(idx) );
+	gtk_tree_view_insert_column_with_attributes(
+		view, -1, colname[idx],	renderer, "text", idx, NULL );
+  }
+  model = GTK_TREE_MODEL(store);
+  gtk_tree_view_set_model( view, model );
 
-	case NEC2_EDITOR_NEW: /* Create new default input file */
-	  /* If tree view stores are already
-	   * created, just make the new file */
-	  Create_List_Stores(); /* Only done if needed */
-	  Create_Default_File();
-	  return;
+  /* Destroy model automatically with view */
+  g_object_unref( model );
 
-	case NEC2_EDITOR_RELOAD: /* Just reload input file */
-	  Create_List_Stores();  /* Only done if needed */
-	  break;
-
-  } /* switch( action ) */
-
-  /* Rewind NEC2 input file */
-  rewind( input_fp );
-
-  /*** List Comment cards ***/
-  List_Comments();
-
-  /*** List Geometry cards ***/
-  List_Geometry();
-
-  /*** Read Command cards ***/
-  List_Commands();
-
-  return;
-} /* Nec2_Input_File_Treeview() */
+} /* Insert_Columns() */
 
 /*------------------------------------------------------------------------*/
 
@@ -83,7 +59,7 @@ Nec2_Input_File_Treeview( int action )
  *
  * Create stores needed for the treeview
  */
-  void
+  static void
 Create_List_Stores( void )
 {
   /* Comments column names */
@@ -126,32 +102,20 @@ Create_List_Stores( void )
 
   /* Insert comment columns */
   Insert_Columns(
-	  nec2_edit_window, "nec2_cmnt_treeview",
-	  cmnt_store, CMNT_NUM_COLS, cmnt_col_name );
+	  cmnt_treeview, cmnt_store, CMNT_NUM_COLS, cmnt_col_name );
 
   /* Insert geometry columns */
   Insert_Columns(
-	  nec2_edit_window, "nec2_geom_treeview",
-	  geom_store, GEOM_NUM_COLS, geom_col_name );
+	  geom_treeview, geom_store, GEOM_NUM_COLS, geom_col_name );
 
   /* Insert command columns */
   Insert_Columns(
-	  nec2_edit_window, "nec2_cmnd_treeview",
-	  cmnd_store, CMND_NUM_COLS, cmnd_col_name );
+	  cmnd_treeview, cmnd_store, CMND_NUM_COLS, cmnd_col_name );
 
   /* Set models to treviews */
-  gtk_tree_view_set_model(
-	  GTK_TREE_VIEW(lookup_widget(
-		  nec2_edit_window, "nec2_cmnt_treeview")),
-	  GTK_TREE_MODEL(cmnt_store) );
-  gtk_tree_view_set_model(
-	  GTK_TREE_VIEW(lookup_widget(
-		  nec2_edit_window, "nec2_geom_treeview")),
-	  GTK_TREE_MODEL(geom_store) );
-  gtk_tree_view_set_model(
-	  GTK_TREE_VIEW(lookup_widget(
-		  nec2_edit_window, "nec2_cmnd_treeview")),
-	  GTK_TREE_MODEL(cmnd_store) );
+  gtk_tree_view_set_model( cmnt_treeview, GTK_TREE_MODEL(cmnt_store) );
+  gtk_tree_view_set_model( geom_treeview, GTK_TREE_MODEL(geom_store) );
+  gtk_tree_view_set_model( cmnd_treeview, GTK_TREE_MODEL(cmnd_store) );
 
 } /* Create_List_Stores() */
 
@@ -161,13 +125,15 @@ Create_List_Stores( void )
  *
  * Creates a default NEC2 file if needed
  */
-  void
+  static void
 Create_Default_File( void )
 {
   GtkTreeIter iter;
   int idx, idi;
   char str[64];
   size_t s = sizeof( str );
+  GtkTreeSelection *selection =
+	gtk_tree_view_get_selection( cmnt_treeview );
 
 
   /* Clear all tree views */
@@ -184,6 +150,8 @@ Create_Default_File( void )
 	  cmnt_store, &iter,
 	  CMNT_COL_NAME, "CM",
 	  CMNT_COL_COMMENT, str, -1 );
+
+  gtk_tree_selection_select_iter( selection, &iter );
 
   /* Append a default CE card */
   gtk_list_store_append( cmnt_store, &iter );
@@ -311,11 +279,13 @@ Create_Default_File( void )
  *
  * Reads comments from file and lists in tree view
  */
-  void
+  static void
 List_Comments( void )
 {
   GtkTreeIter iter;
   gboolean ret;
+  GtkTreeSelection *selection =
+	gtk_tree_view_get_selection( cmnt_treeview );
 
   /* "Card" mnemonic and line buffer */
   char ain[3], line_buf[LINE_LEN];
@@ -329,15 +299,15 @@ List_Comments( void )
   {
 	/* Read a line from input file */
 	if( Load_Line(line_buf, input_fp) == EOF )
-	  stop( _("List_Comments():\n"\
-			"Error reading input file\n"\
+	  Stop( _("List_Comments():\n"
+			"Error reading input file\n"
 			"Unexpected EOF (End of File)"), ERR_OK );
 
 	/* Check for short or missing CM or CE and fix */
 	if( strlen(line_buf) < 2 )
 	{
-	  stop( _("List_Comments():\n"\
-			"Error reading input file\n"\
+	  Stop( _("List_Comments():\n"
+			"Error reading input file\n"
 			"Comment mnemonic short or missing"), ERR_OK );
 	  Strlcpy( line_buf, "XX ", sizeof(line_buf) );
 	}
@@ -350,8 +320,7 @@ List_Comments( void )
 	Strlcpy( ain, line_buf, sizeof(ain) );
 
 	/* Append a comment row and fill in text if opening call */
-	if( !ret )
-	  gtk_list_store_append( cmnt_store, &iter );
+	if( !ret ) gtk_list_store_append( cmnt_store, &iter );
 	gtk_list_store_set(
 		cmnt_store, &iter,
 		CMNT_COL_NAME, ain,
@@ -365,6 +334,11 @@ List_Comments( void )
   } /* do */
   while( strcmp(ain, "CE") != 0 );
 
+  /* Select the first row */
+  ret = gtk_tree_model_get_iter_first(
+	  GTK_TREE_MODEL(cmnt_store), &iter );
+  if( ret ) gtk_tree_selection_select_iter( selection, &iter );
+
 } /* List_Comments() */
 
 /*------------------------------------------------------------------------*/
@@ -373,7 +347,7 @@ List_Comments( void )
  *
  * Reads geometry cards from file and lists in tree view
  */
-  void
+  static void
 List_Geometry( void )
 {
   GtkTreeIter iter;
@@ -392,6 +366,7 @@ List_Geometry( void )
 
   int idx;
   gboolean ret;
+
 
   /* Check that store is empty */
   ret = gtk_tree_model_get_iter_first(
@@ -442,7 +417,7 @@ List_Geometry( void )
  *
  * Reads command cards from file and lists in tree view
  */
-  void
+  static void
 List_Commands( void )
 {
   GtkTreeIter iter;
@@ -461,6 +436,7 @@ List_Commands( void )
 
   int idx;
   gboolean ret;
+
 
   /* Check that store is empty */
   ret = gtk_tree_model_get_iter_first(
@@ -509,39 +485,61 @@ List_Commands( void )
 
 /*------------------------------------------------------------------------*/
 
-/* Insert_Columns()
+/* Nec2_Input_File_Treeview()
  *
- * Inserts columns in a list store
+ * Reads a NEC2 input file and renders it in a tree view
  */
   void
-Insert_Columns(	GtkWidget *window, gchar *treeview,
-	GtkListStore* store, int ncols, char *colname[] )
+Nec2_Input_File_Treeview( int action )
 {
-  int idx;
-  GtkTreeModel *model;
-  GtkCellRenderer *renderer;
+  /* Abort if editor window is not opened */
+  if( nec2_edit_window == NULL ) return;
 
-  static GtkWidget *view;
-  view = lookup_widget( window, treeview );
-  for( idx = 0; idx < ncols; idx++ )
+  /* Implement user action */
+  switch( action )
   {
-	renderer = gtk_cell_renderer_text_new();
-	g_object_set(renderer, "editable", TRUE, NULL);
-	g_signal_connect( renderer, "edited",
-		(GCallback)cell_edited_callback, view );
-	g_object_set_data( G_OBJECT(renderer),
-		"column", GUINT_TO_POINTER(idx) );
-	gtk_tree_view_insert_column_with_attributes(
-		GTK_TREE_VIEW(view), -1, colname[idx],
-		renderer, "text", idx, NULL );
-  }
-  model = GTK_TREE_MODEL(store);
-  gtk_tree_view_set_model( GTK_TREE_VIEW (view), model );
+	case NEC2_EDITOR_REVERT: /* Revert editor to file contents */
+	  /* Clear all tree view list stores */
+	  gtk_list_store_clear( cmnt_store );
+	  gtk_list_store_clear( geom_store );
+	  gtk_list_store_clear( cmnd_store );
+	  SetFlag( NEC2_EDIT_SAVE );
+	  break;
 
-  /* Destroy model automatically with view */
-  g_object_unref( model );
+	case NEC2_EDITOR_NEW: /* Create new default input file */
+	  /* If tree view stores are already
+	   * created, just make the new file */
+	  Create_List_Stores(); /* Only done if needed */
+	  Create_Default_File();
+	  ClearFlag( OPEN_NEW_NEC2 );
+	  return;
 
-} /* Insert_Columns() */
+	case NEC2_EDITOR_RELOAD: /* Just reload input file */
+	  Create_List_Stores();  /* Only done if needed */
+	  break;
+
+	case NEC2_EDITOR_CLEAR: /* Just clear the tree view */
+	  gtk_list_store_clear( cmnt_store );
+	  gtk_list_store_clear( geom_store );
+	  gtk_list_store_clear( cmnd_store );
+	  break;
+
+  } /* switch( action ) */
+
+  /* Rewind NEC2 input file */
+  rewind( input_fp );
+
+  /*** List Comment cards ***/
+  List_Comments();
+
+  /*** List Geometry cards ***/
+  List_Geometry();
+
+  /*** Read Command cards ***/
+  List_Commands();
+
+  return;
+} /* Nec2_Input_File_Treeview() */
 
 /*------------------------------------------------------------------------*/
 
@@ -563,10 +561,8 @@ cell_edited_callback(
 
   column = GPOINTER_TO_UINT(
 	  g_object_get_data(G_OBJECT(cell), "column") );
-  selection = gtk_tree_view_get_selection(
-	  GTK_TREE_VIEW(user_data) );
-  gtk_tree_selection_get_selected(
-	  selection, &model, &iter );
+  selection = gtk_tree_view_get_selection( GTK_TREE_VIEW(user_data) );
+  gtk_tree_selection_get_selected( selection, &model, &iter );
 
   /* Blank cells cause problems */
   if( strcmp(new_text, "") == 0 )
@@ -586,46 +582,9 @@ cell_edited_callback(
 	gtk_list_store_set( GTK_LIST_STORE(model),
 	  &iter, column, new_text, -1 );
 
+  SetFlag( NEC2_EDIT_SAVE );
+
 } /* cell_edited_callback() */
-
-/*------------------------------------------------------------------------*/
-
-/* Save_Nec2_Input_File()
- *
- * Saves the data in a NEC2 input treeview to a given filename
- */
-  void
-Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
-{
-  FILE *nec2_fp = NULL;
-  GtkTreeView *tree_view;
-
-
-  /* Abort if editor window is not opened */
-  if( nec2_edit_window == NULL ) return;
-
-  /* Open NEC2 input file for writing */
-  if( !Open_File(&nec2_fp, nec2_file, "w") ) return;
-
-  /* Save comments to file */
-  tree_view = GTK_TREE_VIEW( lookup_widget(
-		treeview_window, "nec2_cmnt_treeview") );
-  Save_Treeview_Data( tree_view, CMNT_NUM_COLS, nec2_fp );
-
-  /* Save geometry to file */
-  tree_view = GTK_TREE_VIEW( lookup_widget(
-		treeview_window, "nec2_geom_treeview") );
-  Save_Treeview_Data( tree_view, GEOM_NUM_COLS, nec2_fp );
-
-  /* Save commands to file */
-  tree_view = GTK_TREE_VIEW( lookup_widget(
-		treeview_window, "nec2_cmnd_treeview") );
-  Save_Treeview_Data( tree_view, CMND_NUM_COLS, nec2_fp );
-
-  /* Re-open file in read mode */
-  Close_File( &nec2_fp );
-
-} /* Save_Nec2_Input_File() */
 
 /*------------------------------------------------------------------------*/
 
@@ -633,7 +592,7 @@ Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
  *
  * Saves tree view data to an open NEC2 input file
  */
-  void
+  static void
 Save_Treeview_Data( GtkTreeView *tree_view, int ncols, FILE *nec2_fp )
 {
   GtkTreeModel *list_store;
@@ -644,9 +603,10 @@ Save_Treeview_Data( GtkTreeView *tree_view, int ncols, FILE *nec2_fp )
   /* Abort if no open file to sane to */
   if( nec2_fp == NULL )
   {
-	stop( _("Cannot save treeview data\n"\
-		  "Please use the Save button\n"\
+	Stop( _("Cannot save treeview data\n"
+		  "Please use the Save button\n"
 		  "to specify a file path"), ERR_STOP );
+	return;
   }
 
   /* Get the first iter in the list */
@@ -676,20 +636,37 @@ Save_Treeview_Data( GtkTreeView *tree_view, int ncols, FILE *nec2_fp )
 
 /*------------------------------------------------------------------------*/
 
-/* Helper function */
-  gboolean
-gtk_tree_model_iter_previous(GtkTreeModel *tree_model, GtkTreeIter *iter)
+/* Save_Nec2_Input_File()
+ *
+ * Saves the data in a NEC2 input treeview to a given filename
+ */
+  void
+Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
 {
-  GtkTreePath *path;
-  gboolean ret;
+  FILE *nec2_fp = NULL;
 
-  path = gtk_tree_model_get_path (tree_model, iter);
-  ret = gtk_tree_path_prev (path);
-  if (ret == TRUE)
-	gtk_tree_model_get_iter (tree_model, iter, path);
-  gtk_tree_path_free (path);
-  return ret;
-}
+  /* Abort if editor window is not opened */
+  if( nec2_edit_window == NULL ) return;
+
+  /* Open NEC2 input file for writing */
+  if( strlen(nec2_file) == 0 ) return;
+  if( !Open_File(&nec2_fp, nec2_file, "w") ) return;
+
+  /* Save comments to file */
+  Save_Treeview_Data( cmnt_treeview, CMNT_NUM_COLS, nec2_fp );
+
+  /* Save geometry to file */
+  Save_Treeview_Data( geom_treeview, GEOM_NUM_COLS, nec2_fp );
+
+  /* Save commands to file */
+  Save_Treeview_Data( cmnd_treeview, CMND_NUM_COLS, nec2_fp );
+
+  /* Re-open file in read mode */
+  Close_File( &nec2_fp );
+
+  ClearFlag( NEC2_SAVE );
+  ClearFlag( NEC2_EDIT_SAVE );
+} /* Save_Nec2_Input_File() */
 
 /*------------------------------------------------------------------------*/
 

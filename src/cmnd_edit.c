@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -16,13 +14,188 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* comnd_edit.c
- *
- * NEC2 command editing functions for xnec2c
- */
-
 #include "cmnd_edit.h"
 #include "shared.h"
+
+/*------------------------------------------------------------------------*/
+
+/* Insert_EN_Card()
+ *
+ * Inserts a default EN card if missing
+ */
+
+  static void
+Insert_EN_Card( GtkListStore *store, GtkTreeIter *iter )
+{
+  gint idx, idc;
+
+  /* Insert default EN card if list is clear */
+  idx = gtk_tree_model_iter_n_children(
+	  GTK_TREE_MODEL(store), NULL );
+  if( !idx )
+  {
+	gtk_list_store_append( store, iter );
+	gtk_list_store_set( store, iter, CMND_COL_NAME, "EN", -1 );
+	for( idc = CMND_COL_I1; idc < CMND_NUM_COLS; idc++ )
+	  gtk_list_store_set( store, iter, idc, "0", -1 );
+  }
+
+} /* Insert_EN_Card() */
+
+/*------------------------------------------------------------------------*/
+
+/* Get_Command_Data()
+ *
+ * Gets command data from a treeview row
+ */
+
+  static void
+Get_Command_Data(
+	GtkListStore *store,
+	GtkTreeIter *iter,
+	int *iv, double *fv )
+{
+  gint idc;
+  gchar *sv;
+
+  /* Get data from tree view (I1-I4, F1-F6)*/
+  if( gtk_list_store_iter_is_valid(store, iter) )
+  {
+	for( idc = CMND_COL_I1; idc <= CMND_COL_I4; idc++ )
+	{
+	  gtk_tree_model_get(
+		  GTK_TREE_MODEL(store), iter, idc, &sv, -1);
+	  iv[idc-CMND_COL_I1] = atoi(sv);
+	  g_free(sv);
+	}
+	for( idc = CMND_COL_F1; idc <= CMND_COL_F6; idc++ )
+	{
+	  gtk_tree_model_get(
+		  GTK_TREE_MODEL(store), iter, idc, &sv, -1);
+	  fv[idc-CMND_COL_F1] = Strtod( sv, NULL );
+	  g_free(sv);
+	}
+  }
+  else Stop( _("Get_Command_Data(): Error reading\n"
+		"row data: Invalid list iterator"), ERR_OK );
+
+} /* Get_Command_Data() */
+
+/*------------------------------------------------------------------------*/
+
+/* Set_Command_Data()
+ *
+ * Sets data into a command row
+ */
+
+  static void
+Set_Command_Data(
+	GtkListStore *store,
+	GtkTreeIter *iter,
+	int *iv, double *fv )
+{
+  gchar str[13];
+  gint idc;
+
+  /* Format and set editor data to treeview (I1-I4 & F1-F6) */
+  if( gtk_list_store_iter_is_valid(store, iter) )
+  {
+	for( idc = CMND_COL_I1; idc <= CMND_COL_I4; idc++ )
+	{
+	  snprintf( str, 6, "%5d", iv[idc-CMND_COL_I1] );
+	  gtk_list_store_set( store, iter, idc, str, -1 );
+	}
+
+	for( idc = CMND_COL_F1; idc <= CMND_COL_F6; idc++ )
+	{
+	  snprintf( str, 13, "%12.5E", fv[idc-CMND_COL_F1] );
+	  gtk_list_store_set( store, iter, idc, str, -1 );
+	}
+  }
+  else Stop( _("Set_Command_Data(): Error writing row data\n"
+		"Please re-select row"), ERR_OK );
+
+  SetFlag( NEC2_EDIT_SAVE );
+
+} /* Set_Command_Data() */
+
+/*------------------------------------------------------------------------*/
+
+/* Insert_Blank_Command_Row()
+ *
+ * Inserts a blank row in a tree view with only its name (GW ... )
+ */
+
+  static void
+Insert_Blank_Command_Row(
+	GtkTreeView *view, GtkListStore *store,
+	GtkTreeIter *iter, const gchar *name )
+{
+  GtkTreeSelection *selection;
+  gboolean retv;
+  gint n;
+  gchar *str;
+
+  if( nec2_edit_window == NULL )
+	return;
+
+  /* Get selected row, if any */
+  selection = gtk_tree_view_get_selection( view );
+  retv = gtk_tree_selection_get_selected( selection, NULL, iter );
+
+  /* If no selected row, insert new row into list
+   * store before last row, else after the selected row,
+   * but if this is a GE row, then insert before it */
+  if( !retv )
+  {
+	n = gtk_tree_model_iter_n_children(
+		GTK_TREE_MODEL(store), NULL );
+	gtk_tree_model_iter_nth_child(
+		GTK_TREE_MODEL(store), iter, NULL, n-1 );
+	gtk_list_store_insert_before( store, iter, iter );
+  }
+  else
+  {
+	gtk_tree_model_get(
+		GTK_TREE_MODEL(store), iter, CMND_COL_NAME, &str, -1 );
+	if( strcmp(str, "EN") == 0 )
+	  gtk_list_store_insert_before( store, iter, iter );
+	else
+	  gtk_list_store_insert_after( store, iter, iter );
+	g_free(str);
+  }
+
+  gtk_list_store_set( store, iter, CMND_COL_NAME, name, -1 );
+  for( n = CMND_COL_I1; n < CMND_NUM_COLS; n++ )
+	gtk_list_store_set( store, iter, n, "--", -1 );
+  gtk_tree_selection_select_iter( selection, iter );
+
+} /* Insert_Blank_Command_Row() */
+
+/*------------------------------------------------------------------------*/
+
+/* Set_Labels()
+ *
+ * Sets labels in an editor window
+ */
+
+  static void
+Set_Labels(
+	GtkBuilder *builder,
+	gchar **labels,
+	gchar **text,
+	gint num )
+{
+  int idx;
+  GtkLabel *label;
+
+  for( idx = 0; idx < num; idx++ )
+  {
+	label = GTK_LABEL( Builder_Get_Object(builder, labels[idx]) );
+	gtk_label_set_text( label, text[idx] );
+  }
+
+} /* Set_Labels() */
 
 /*------------------------------------------------------------------------*/
 
@@ -39,7 +212,7 @@ Excitation_Command( int action )
   GtkToggleButton *toggle;
 
   /* Spinbutton labels */
-  #define EX_LABELS 8
+#define EX_LABELS 8
   static gchar *labels[EX_LABELS] =
   {
 	"excitation_i2_label",
@@ -64,7 +237,7 @@ Excitation_Command( int action )
   static gdouble fv[6] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
   /* Command radio buttons */
-  #define EX_TYPRDBTN 6
+#define EX_TYPRDBTN 6
 
   /* Excitation type */
   static gchar *typrdbtn[EX_TYPRDBTN] =
@@ -98,8 +271,8 @@ Excitation_Command( int action )
 
   static gboolean
 	label = TRUE,  /* Enable setting of spinbutton labels */
-	save  = FALSE, /* Enable saving of editor data */
-	busy  = FALSE; /* Block callbacks. Must be a better way to do this? */
+		  save  = FALSE, /* Enable saving of editor data */
+		  busy  = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -134,8 +307,9 @@ Excitation_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_ex, "EX" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  break;
 
 	case EDITOR_EDIT: /* Edit a command row (EX card) */
@@ -149,37 +323,34 @@ Excitation_Command( int action )
 	  /* Write int data to the command editor */
 	  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  excitation_command, ispin[idi - SPIN_COL_I2]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(excitation_editor_builder, ispin[idi - SPIN_COL_I2]) );
 		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
 	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  excitation_command, fspin[idf]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(excitation_editor_builder, fspin[idf]) );
 		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 
 	  /* Set radio buttons */
-	  toggle = GTK_TOGGLE_BUTTON(
-		  lookup_widget(excitation_command,
-			typrdbtn[iv[SPIN_COL_I1]]) );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			excitation_editor_builder, typrdbtn[iv[SPIN_COL_I1]]) );
 	  gtk_toggle_button_set_active( toggle, TRUE );
 
 	  /* Set check buttons */
-	  toggle = GTK_TOGGLE_BUTTON(
-		  lookup_widget(excitation_command,
-			"excitation_i419_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			excitation_editor_builder, "excitation_i419_checkbutton") );
 	  if( iv[SPIN_COL_I4] & 0x0a )
 		gtk_toggle_button_set_active( toggle, TRUE );
 	  else
 		gtk_toggle_button_set_active( toggle, FALSE );
 
-	  toggle = GTK_TOGGLE_BUTTON(
-		  lookup_widget(excitation_command,
-			"excitation_i420_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			excitation_editor_builder, "excitation_i420_checkbutton") );
 	  if( iv[SPIN_COL_I4] & 0x01 )
 		gtk_toggle_button_set_active( toggle, TRUE );
 	  else
@@ -199,7 +370,7 @@ Excitation_Command( int action )
 	  for( idx = 0; idx < EX_TYPRDBTN; idx++ )
 	  {
 		toggle = GTK_TOGGLE_BUTTON(
-			lookup_widget(excitation_command, typrdbtn[idx]) );
+			Builder_Get_Object(excitation_editor_builder, typrdbtn[idx]) );
 		if( gtk_toggle_button_get_active(toggle) )
 		  break;
 	  }
@@ -211,17 +382,15 @@ Excitation_Command( int action )
 	case COMMAND_CKBUTTON: /* Check button toggled in editor window */
 	  /* Find active print control check button
 	   * (matrix asymmetry and segment impedance) */
-	  toggle = GTK_TOGGLE_BUTTON(
-		  lookup_widget(excitation_command,
-			"excitation_i419_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			excitation_editor_builder, "excitation_i419_checkbutton") );
 	  if( gtk_toggle_button_get_active(toggle) )
 		iv[SPIN_COL_I4] = 10;
 	  else
 		iv[SPIN_COL_I4] = 0;
 
-	  toggle = GTK_TOGGLE_BUTTON(
-		  lookup_widget(excitation_command,
-			"excitation_i420_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			excitation_editor_builder, "excitation_i420_checkbutton") );
 	  if( gtk_toggle_button_get_active(toggle) )
 		iv[SPIN_COL_I4] += 1;
 
@@ -236,16 +405,16 @@ Excitation_Command( int action )
   /* Read int data from the command editor */
   for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  excitation_command, ispin[idi - SPIN_COL_I2]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(excitation_editor_builder, ispin[idi - SPIN_COL_I2]) );
 	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the command editor */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  excitation_command, fspin[idf]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(excitation_editor_builder, fspin[idf]) );
 	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
@@ -272,10 +441,10 @@ Excitation_Command( int action )
 		  for( idf = SPIN_COL_F4; idf <= SPIN_COL_F6; idf++ )
 		  {
 			spin = GTK_SPIN_BUTTON(
-				lookup_widget(excitation_command, fspin[idf]) );
+				Builder_Get_Object(excitation_editor_builder, fspin[idf]) );
 			gtk_spin_button_set_value( spin, 0 );
 		  }
-		  Set_Labels( excitation_command, labels, text, EX_LABELS );
+		  Set_Labels( excitation_editor_builder, labels, text, EX_LABELS );
 		}
 		break;
 
@@ -293,7 +462,7 @@ Excitation_Command( int action )
 			_("Minor/Major Axis")
 		  };
 
-		  Set_Labels( excitation_command, labels, text, EX_LABELS );
+		  Set_Labels( excitation_editor_builder, labels, text, EX_LABELS );
 		}
 		break;
 
@@ -315,10 +484,10 @@ Excitation_Command( int action )
 		  for( idx = 0; idx < 2; idx++ )
 		  {
 			spin = GTK_SPIN_BUTTON(
-				lookup_widget(excitation_command, ispin[idx]) );
+				Builder_Get_Object(excitation_editor_builder, ispin[idx]) );
 			gtk_spin_button_set_value( spin, 0 );
 		  }
-		  Set_Labels( excitation_command, labels, text, EX_LABELS );
+		  Set_Labels( excitation_editor_builder, labels, text, EX_LABELS );
 		}
 
 		label = FALSE;
@@ -369,8 +538,8 @@ Frequency_Command( int action )
 
   static gboolean
 	save  = FALSE, /* Enable saving of editor data */
-    fstep = FALSE, /* Set frequency step to editor */
-    busy  = FALSE; /* Block callbacks. Must be a better way to do this? */
+	fstep = FALSE, /* Set frequency step to editor */
+	busy  = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -393,15 +562,15 @@ Frequency_Command( int action )
   } /* if( (action & EDITOR_SAVE) && save ) */
 
   /* Read int data from the command editor */
-  spin = GTK_SPIN_BUTTON( lookup_widget(
-		frequency_command, "frequency_num_spinbutton") );
+  spin = GTK_SPIN_BUTTON( Builder_Get_Object(
+		frequency_editor_builder, "frequency_num_spinbutton") );
   iv[SPIN_COL_I2] = gtk_spin_button_get_value_as_int( spin );
 
   /* Read float data from the command editor */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  frequency_command, fspin[idf]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(frequency_editor_builder, fspin[idf]) );
 	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
@@ -418,8 +587,9 @@ Frequency_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_fr, "FR" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  break;
 
 	case EDITOR_EDIT: /* Edit a command row (FR card) */
@@ -430,15 +600,15 @@ Frequency_Command( int action )
 	  Get_Command_Data( cmnd_store, &iter_fr, iv, fv );
 
 	  /* Write int data to the command editor */
-	  spin = GTK_SPIN_BUTTON( lookup_widget(
-			frequency_command, "frequency_num_spinbutton") );
+	  spin = GTK_SPIN_BUTTON( Builder_Get_Object(
+			frequency_editor_builder, "frequency_num_spinbutton") );
 	  gtk_spin_button_set_value( spin, iv[SPIN_COL_I2] );
 
 	  /* Write float data to the command editor */
 	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F2; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(frequency_command, fspin[idf]) );
+			Builder_Get_Object(frequency_editor_builder, fspin[idf]) );
 		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 
@@ -453,21 +623,19 @@ Frequency_Command( int action )
 			  (gdouble)(iv[SPIN_COL_I2]-1) );
 
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(frequency_command, fspin[SPIN_COL_F3]) );
+			Builder_Get_Object(frequency_editor_builder, fspin[SPIN_COL_F3]) );
 		gtk_spin_button_set_value( spin, fv[SPIN_COL_F3] );
 	  } /* if( iv[SPIN_COL_I2] > 1 ) */
 
 	  /* Set stepping type radio button */
 	  if( iv[SPIN_COL_I1] == 0 )
-		gtk_toggle_button_set_active(
-			GTK_TOGGLE_BUTTON(lookup_widget(
-				frequency_command,
-				"frequency_add_radiobutton")), TRUE );
+		gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(Builder_Get_Object(
+				frequency_editor_builder, "frequency_add_radiobutton")),
+			TRUE );
 	  else
-		gtk_toggle_button_set_active(
-			GTK_TOGGLE_BUTTON(lookup_widget(
-				frequency_command,
-				"frequency_mul_radiobutton")), TRUE );
+		gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(Builder_Get_Object(
+				frequency_editor_builder, "frequency_mul_radiobutton")),
+			TRUE );
 	  break;
 
 	case EDITOR_CANCEL: /* Cancel frequency editor */
@@ -478,10 +646,8 @@ Frequency_Command( int action )
 
 	case COMMAND_RDBUTTON: /* Radio button toggled in editor window */
 	  /* Set frequency stepping type */
-	  if( gtk_toggle_button_get_active(
-			GTK_TOGGLE_BUTTON(lookup_widget(
-				frequency_command,
-				"frequency_add_radiobutton"))) )
+	  if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON(Builder_Get_Object(
+				frequency_editor_builder, "frequency_add_radiobutton"))) )
 		iv[SPIN_COL_I1] = 0;
 	  else
 		iv[SPIN_COL_I1] = 1;
@@ -498,8 +664,8 @@ Frequency_Command( int action )
 		iv[SPIN_COL_I2] = (gint)(log(fv[SPIN_COL_F3] /
 			  fv[SPIN_COL_F1])/log(fv[SPIN_COL_F2])) + 1;
 
-	  spin = GTK_SPIN_BUTTON( lookup_widget(
-			frequency_command, "frequency_num_spinbutton") );
+	  spin = GTK_SPIN_BUTTON( Builder_Get_Object(
+			frequency_editor_builder, "frequency_num_spinbutton") );
 	  gtk_spin_button_set_value( spin, iv[SPIN_COL_I2] );
 	  save = TRUE;
 	  break;
@@ -520,7 +686,7 @@ Frequency_Command( int action )
 		  1.0/(gdouble)(iv[SPIN_COL_I2]-1));
 
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(frequency_command, fspin[SPIN_COL_F2]) );
+		Builder_Get_Object(frequency_editor_builder, fspin[SPIN_COL_F2]) );
 	gtk_spin_button_set_value( spin, fv[SPIN_COL_F2] );
   } /* if( fstep ) */
   else fstep = TRUE;
@@ -560,7 +726,7 @@ Ground_Command( int action )
   static gdouble fv[12];
 
   /* Command radio buttons */
-  #define GN_RDBTN 4
+#define GN_RDBTN 4
   static gchar *rdbutton[GN_RDBTN] =
   {
 	"ground_null_radiobutton",
@@ -587,11 +753,11 @@ Ground_Command( int action )
 
   static gboolean
 	radl = FALSE, /* Radial ground screen present  */
-	scmd = FALSE, /* Second medium present (cliff) */
-	both = FALSE, /* Both above selected */
-	save = FALSE, /* Enable saving of editor data  */
-	show = TRUE,  /* Show/hide frames according to ground type */
-	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+		 scmd = FALSE, /* Second medium present (cliff) */
+		 both = FALSE, /* Both above selected */
+		 save = FALSE, /* Enable saving of editor data  */
+		 show = TRUE,  /* Show/hide frames according to ground type */
+		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, ground_command) ) return;
@@ -609,8 +775,8 @@ Ground_Command( int action )
   if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
 	Set_Command_Data( cmnd_store, &iter_gn, iv, fv );
-	if( both )
-	  Set_Command_Data( cmnd_store, &iter_gd, &iv[CMND_NUM_ICOLS], &fv[CMND_NUM_FCOLS] );
+	if( both ) Set_Command_Data(
+		cmnd_store, &iter_gd, &iv[CMND_NUM_ICOLS], &fv[CMND_NUM_FCOLS] );
 	save  = FALSE;
   } /* if( (action & EDITOR_SAVE) && save ) */
 
@@ -623,8 +789,8 @@ Ground_Command( int action )
 	  show = TRUE;
 	  iv[SPIN_COL_I1] = 1;
 	  iv[SPIN_COL_I2] = 0;
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			ground_command, "ground_perf_radiobutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			ground_editor_builder, "ground_perf_radiobutton") );
 	  gtk_toggle_button_set_active( toggle, TRUE );
 
 	  /* Insert a default EN card if list is empty */
@@ -636,8 +802,9 @@ Ground_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_gn, "GN" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  save = TRUE;
 	  break;
 
@@ -645,11 +812,11 @@ Ground_Command( int action )
 	  /* Reset flags and check buttons */
 	  radl = scmd = both = FALSE;
 	  show = TRUE;
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			ground_command, "ground_radl_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			ground_editor_builder, "ground_radl_checkbutton") );
 	  gtk_toggle_button_set_active( toggle, FALSE );
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			ground_command, "ground_secmd_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			ground_editor_builder, "ground_secmd_checkbutton") );
 	  gtk_toggle_button_set_active( toggle, FALSE );
 
 	  /* Get selected row */
@@ -659,8 +826,8 @@ Ground_Command( int action )
 	  Get_Command_Data( cmnd_store, &iter_gn, iv, fv );
 
 	  /* Set ground type radio buttons */
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			ground_command, rdbutton[iv[SPIN_COL_I1]+1]) );
+	  toggle = GTK_TOGGLE_BUTTON(
+		  Builder_Get_Object(ground_editor_builder, rdbutton[iv[SPIN_COL_I1]+1]) );
 	  gtk_toggle_button_set_active( toggle, TRUE );
 
 	  /* Write 1st ground data to the command editor */
@@ -668,7 +835,7 @@ Ground_Command( int action )
 		for( idf = SPIN_COL_F1; idf <= SPIN_COL_F2; idf++ )
 		{
 		  spin = GTK_SPIN_BUTTON(
-			  lookup_widget(ground_command, fspin[idf]) );
+			  Builder_Get_Object(ground_editor_builder, fspin[idf]) );
 		  gtk_spin_button_set_value( spin, fv[idf] );
 		}
 
@@ -678,20 +845,20 @@ Ground_Command( int action )
 		radl = TRUE;
 
 		/* Radial ground screen check button */
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  ground_command, "ground_radl_checkbutton") );
+		toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			  ground_editor_builder, "ground_radl_checkbutton") );
 		gtk_toggle_button_set_active( toggle, TRUE );
 
 		/* Write num of radials to the command editor */
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  ground_command, "ground_nrad_spinbutton") );
+		spin = GTK_SPIN_BUTTON(	Builder_Get_Object(
+			  ground_editor_builder, "ground_nrad_spinbutton") );
 		gtk_spin_button_set_value( spin, iv[SPIN_COL_I2] );
 
 		/* Write radial data to the command editor */
 		for( idf = SPIN_COL_F3; idf <= SPIN_COL_F4; idf++ )
 		{
-		  spin = GTK_SPIN_BUTTON( lookup_widget(
-				ground_command, fspin[idf+4]) );
+		  spin = GTK_SPIN_BUTTON(
+			  Builder_Get_Object(ground_editor_builder, fspin[idf+4]) );
 		  gtk_spin_button_set_value( spin, fv[idf] );
 		}
 
@@ -706,15 +873,15 @@ Ground_Command( int action )
 			  &iv[CMND_NUM_ICOLS], &fv[CMND_NUM_FCOLS] );
 		  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F4; idf++ )
 		  {
-			spin = GTK_SPIN_BUTTON( lookup_widget(
-				  ground_command, fspin[idf+2]) );
+			spin = GTK_SPIN_BUTTON(
+				Builder_Get_Object(ground_editor_builder, fspin[idf+2]) );
 			gtk_spin_button_set_value(
 				spin, fv[idf+CMND_NUM_FCOLS] );
 		  }
 
 		  /* Set 2nd medium check button */
-		  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-				ground_command, "ground_secmd_checkbutton") );
+		  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+				ground_editor_builder, "ground_secmd_checkbutton") );
 		  gtk_toggle_button_set_active( toggle, TRUE );
 
 		} /* if( Check_Card_Name(cmnd_store, &iter_gd, NEXT, "GD") ) */
@@ -725,15 +892,15 @@ Ground_Command( int action )
 		scmd = TRUE;
 
 		/* Set 2nd medium check button */
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  ground_command, "ground_secmd_checkbutton") );
+		toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			  ground_editor_builder, "ground_secmd_checkbutton") );
 		gtk_toggle_button_set_active( toggle, TRUE );
 
 		/* Write 2nd medium data to command editor */
 		for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
 		{
-		  spin = GTK_SPIN_BUTTON( lookup_widget(
-				ground_command, fspin[idf]) );
+		  spin = GTK_SPIN_BUTTON(
+			  Builder_Get_Object(ground_editor_builder, fspin[idf]) );
 		  gtk_spin_button_set_value( spin, fv[idf] );
 		}
 
@@ -752,8 +919,8 @@ Ground_Command( int action )
 	  /* Find active radio button */
 	  for( idx = 0; idx < GN_RDBTN; idx++ )
 	  {
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  ground_command, rdbutton[idx]) );
+		toggle = GTK_TOGGLE_BUTTON(
+			Builder_Get_Object(ground_editor_builder, rdbutton[idx]) );
 		if( gtk_toggle_button_get_active(toggle) )
 		  break;
 	  }
@@ -766,11 +933,11 @@ Ground_Command( int action )
 		  Remove_Row( cmnd_store, &iter_gd );
 
 		/* Set toggle buttons as needed */
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  ground_command, "ground_radl_checkbutton") );
+		toggle = GTK_TOGGLE_BUTTON(	Builder_Get_Object(
+			  ground_editor_builder, "ground_radl_checkbutton") );
 		gtk_toggle_button_set_active( toggle, FALSE );
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  ground_command, "ground_secmd_checkbutton") );
+		toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			  ground_editor_builder, "ground_secmd_checkbutton") );
 		gtk_toggle_button_set_active( toggle, FALSE );
 
 		both = radl = scmd = FALSE;
@@ -782,16 +949,16 @@ Ground_Command( int action )
 
 	case COMMAND_CKBUTTON: /* Check button toggled */
 	  /* Get number of radial wires if enabled */
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			ground_command, "ground_radl_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			ground_editor_builder, "ground_radl_checkbutton") );
 	  if( gtk_toggle_button_get_active(toggle) )
 		radl = TRUE;
 	  else
 		radl = FALSE;
 
 	  /* Set 2nd medium flag if enabled */
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			ground_command, "ground_secmd_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			ground_editor_builder, "ground_secmd_checkbutton") );
 	  if( gtk_toggle_button_get_active(toggle) )
 		scmd = TRUE;
 	  else
@@ -802,9 +969,11 @@ Ground_Command( int action )
 	  {
 		Insert_Blank_Command_Row(
 			cmnd_treeview, cmnd_store, &iter_gd, "GD" );
+
 		/* Scroll tree view to bottom */
-		gtk_adjustment_set_value(
-			cmnd_adjustment, cmnd_adjustment->upper );
+		gtk_adjustment_set_value( cmnd_adjustment,
+			gtk_adjustment_get_upper(cmnd_adjustment) -
+			gtk_adjustment_get_page_size(cmnd_adjustment) );
 		both = TRUE;
 	  }
 	  else
@@ -827,8 +996,8 @@ Ground_Command( int action )
   /* Read num of radials from the command editor */
   if( radl )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  ground_command, "ground_nrad_spinbutton") );
+	spin = GTK_SPIN_BUTTON( Builder_Get_Object(
+		  ground_editor_builder, "ground_nrad_spinbutton") );
 	iv[SPIN_COL_I2] = gtk_spin_button_get_value_as_int( spin );
   }
   else iv[SPIN_COL_I2] = 0;
@@ -847,8 +1016,8 @@ Ground_Command( int action )
 	/* Read 1st medium rel dielec const & conductivity */
 	for( idf= SPIN_COL_F1; idf <= SPIN_COL_F2; idf++ )
 	{
-	  spin = GTK_SPIN_BUTTON( lookup_widget(
-			ground_command, fspin[idf]) );
+	  spin = GTK_SPIN_BUTTON(
+		  Builder_Get_Object(ground_editor_builder, fspin[idf]) );
 	  fv[idf] = gtk_spin_button_get_value( spin );
 	}
 
@@ -858,8 +1027,8 @@ Ground_Command( int action )
 	  /* Read radial screen parameters */
 	  for( idf = SPIN_COL_F3; idf <= SPIN_COL_F4; idf++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  ground_command, fspin[idf+4]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(ground_editor_builder, fspin[idf+4]) );
 		fv[idf] = gtk_spin_button_get_value( spin );
 	  }
 
@@ -870,8 +1039,8 @@ Ground_Command( int action )
 	  /* Set 2nd medium parameters to GD card */
 	  for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  ground_command, fspin[idf]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(ground_editor_builder, fspin[idf]) );
 		fv[idf - SPIN_COL_F3+CMND_NUM_FCOLS] =
 		  gtk_spin_button_get_value( spin );
 	  }
@@ -883,8 +1052,8 @@ Ground_Command( int action )
 	  {
 		for( idf = SPIN_COL_F3; idf <= SPIN_COL_F4; idf++ )
 		{
-		  spin = GTK_SPIN_BUTTON( lookup_widget(
-				ground_command, fspin[idf+4]) );
+		  spin = GTK_SPIN_BUTTON(
+			  Builder_Get_Object(ground_editor_builder, fspin[idf+4]) );
 		  fv[idf] = gtk_spin_button_get_value( spin );
 		}
 		for( idf = SPIN_COL_F5; idf <= SPIN_COL_F6; idf++ )
@@ -894,8 +1063,8 @@ Ground_Command( int action )
 	  {
 		for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
 		{
-		  spin = GTK_SPIN_BUTTON( lookup_widget(
-				ground_command, fspin[idf]) );
+		  spin = GTK_SPIN_BUTTON(
+			  Builder_Get_Object(ground_editor_builder, fspin[idf]) );
 		  fv[idf] = gtk_spin_button_get_value( spin );
 		}
 	  }
@@ -913,20 +1082,20 @@ Ground_Command( int action )
 	if( (iv[SPIN_COL_I1] == 1) || (iv[SPIN_COL_I1] == -1) )
 	{
 	  /* Show only radio buttons */
-	  frame = GTK_FRAME( lookup_widget(
-			ground_command, "ground_med1_frame") );
+	  frame = GTK_FRAME( Builder_Get_Object(
+			ground_editor_builder, "ground_med1_frame") );
 	  gtk_widget_hide( GTK_WIDGET(frame) );
-	  frame = GTK_FRAME( lookup_widget(
-			ground_command, "ground_med2_frame") );
+	  frame = GTK_FRAME( Builder_Get_Object(
+			ground_editor_builder, "ground_med2_frame") );
 	  gtk_widget_hide( GTK_WIDGET(frame) );
-	  frame = GTK_FRAME( lookup_widget(
-			ground_command, "ground_radial_frame") );
+	  frame = GTK_FRAME( Builder_Get_Object(
+			ground_editor_builder, "ground_radial_frame") );
 	  gtk_widget_hide( GTK_WIDGET(frame) );
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			ground_command, "ground_radl_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			ground_editor_builder, "ground_radl_checkbutton") );
 	  gtk_widget_hide( GTK_WIDGET(toggle) );
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			ground_command, "ground_secmd_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			ground_editor_builder, "ground_secmd_checkbutton") );
 	  gtk_widget_hide( GTK_WIDGET(toggle) );
 
 	} /* if( (iv[SPIN_COL_I1] == 1) || (iv[SPIN_COL_I1] == -1) ) */
@@ -934,41 +1103,41 @@ Ground_Command( int action )
 	if( (iv[SPIN_COL_I1] == 0) || (iv[SPIN_COL_I1] == 2) ) /* Finite ground */
 	{
 	  /* Show check buttons */
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			ground_command, "ground_radl_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			ground_editor_builder, "ground_radl_checkbutton") );
 	  gtk_widget_show( GTK_WIDGET(toggle) );
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			ground_command, "ground_secmd_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			ground_editor_builder, "ground_secmd_checkbutton") );
 	  gtk_widget_show( GTK_WIDGET(toggle) );
 
 	  /* Show 1st medium */
-	  frame = GTK_FRAME( lookup_widget(
-			ground_command, "ground_med1_frame") );
+	  frame = GTK_FRAME(
+		  Builder_Get_Object(ground_editor_builder, "ground_med1_frame") );
 	  gtk_widget_show( GTK_WIDGET(frame) );
 
 	  if( scmd ) /* Show 2nd medium */
 	  {
-		frame = GTK_FRAME( lookup_widget(
-			  ground_command, "ground_med2_frame") );
+		frame = GTK_FRAME( Builder_Get_Object(
+			  ground_editor_builder, "ground_med2_frame") );
 		gtk_widget_show( GTK_WIDGET(frame) );
 	  }
 	  else
 	  {
-		frame = GTK_FRAME( lookup_widget(
-			  ground_command, "ground_med2_frame") );
+		frame = GTK_FRAME( Builder_Get_Object(
+			  ground_editor_builder, "ground_med2_frame") );
 		gtk_widget_hide( GTK_WIDGET(frame) );
 	  }
 
 	  if( radl ) /* Show radial screen */
 	  {
-		frame = GTK_FRAME( lookup_widget(
-			  ground_command, "ground_radial_frame") );
+		frame = GTK_FRAME( Builder_Get_Object(
+			  ground_editor_builder, "ground_radial_frame") );
 		gtk_widget_show( GTK_WIDGET(frame) );
 	  }
 	  else
 	  {
-		frame = GTK_FRAME( lookup_widget(
-			  ground_command, "ground_radial_frame") );
+		frame = GTK_FRAME( Builder_Get_Object(
+			  ground_editor_builder, "ground_radial_frame") );
 		gtk_widget_hide( GTK_WIDGET(frame) );
 	  }
 	} /* if( (iv[SPIN_COL_I1] == 0) || (iv[SPIN_COL_I1] == 2) ) */
@@ -1020,7 +1189,7 @@ Ground2_Command( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data  */
-    busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1055,8 +1224,9 @@ Ground2_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_gd, "GD" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  break;
 
 	case EDITOR_EDIT:  /* Edit a command row (GD) */
@@ -1069,8 +1239,8 @@ Ground2_Command( int action )
 	  /* Write float data to the command editor */
 	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F4; idf++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  ground2_command, fspin[idf]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(ground2_editor_builder, fspin[idf]) );
 		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 	  break;
@@ -1085,8 +1255,8 @@ Ground2_Command( int action )
 	  /* Read float data from the command editor */
 	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F4; idf++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  ground2_command, fspin[idf]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(ground2_editor_builder, fspin[idf]) );
 		fv[idf] = gtk_spin_button_get_value( spin );
 	  }
 	  save = TRUE;
@@ -1125,7 +1295,7 @@ Radiation_Command( int action )
   static gdouble fv[6];
 
   /* Wave/ground type radio buttons */
-  #define RP_WRDBTN 7
+#define RP_WRDBTN 7
   static gchar *wrdbtn[RP_WRDBTN] =
   {
 	"radiation_i10_radiobutton",
@@ -1138,14 +1308,14 @@ Radiation_Command( int action )
   };
 
   /* XNDA radio buttons */
-  #define RP_XRDBTN 2
+#define RP_XRDBTN 2
   static gchar *xrdbtn[RP_XRDBTN] =
   {
 	"radiation_x0_radiobutton",
 	"radiation_x1_radiobutton"
   };
 
-  #define RP_NRDBTN 6
+#define RP_NRDBTN 6
   static gchar *nrdbtn[RP_NRDBTN] =
   {
 	"radiation_n0_radiobutton",
@@ -1156,14 +1326,14 @@ Radiation_Command( int action )
 	"radiation_n5_radiobutton"
   };
 
-  #define RP_DRDBTN 2
+#define RP_DRDBTN 2
   static gchar *drdbtn[RP_DRDBTN] =
   {
 	"radiation_d0_radiobutton",
 	"radiation_d1_radiobutton"
   };
 
-  #define RP_ARDBTN 3
+#define RP_ARDBTN 3
   static gchar *ardbtn[RP_ARDBTN] =
   {
 	"radiation_a0_radiobutton",
@@ -1189,7 +1359,7 @@ Radiation_Command( int action )
   };
 
   /* Labels for I1, F1-F3 & F5 spinuttons */
-  #define RP_LABELS 4
+#define RP_LABELS 4
   static gchar *labels[RP_LABELS] =
   {
 	"radiation_i1_label",
@@ -1203,9 +1373,9 @@ Radiation_Command( int action )
 
   static gboolean
 	norm  = FALSE, /* Indicates normalization is specified */
-    label = TRUE,  /* Enable setting of labels */
-    save  = FALSE, /* Enable saving of editor data */
-    busy  = FALSE; /* Block callbacks. Must be a better way to do this? */
+		  label = TRUE,  /* Enable setting of labels */
+		  save  = FALSE, /* Enable saving of editor data */
+		  busy  = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1240,8 +1410,9 @@ Radiation_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_rp, "RP" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  label = TRUE;
 	  break;
 
@@ -1253,51 +1424,51 @@ Radiation_Command( int action )
 	  Get_Command_Data( cmnd_store, &iter_rp, iv, fv );
 
 	  /* Set wave type radio buttons */
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			radiation_command, wrdbtn[iv[SPIN_COL_I1]]) );
+	  toggle = GTK_TOGGLE_BUTTON(
+		  Builder_Get_Object(radiation_editor_builder, wrdbtn[iv[SPIN_COL_I1]]) );
 	  gtk_toggle_button_set_active( toggle, TRUE );
 
 	  /* Set X radio buttons */
 	  xnda = iv[SPIN_COL_I4];
 	  idx = xnda/1000;
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			radiation_command, xrdbtn[idx]) );
+	  toggle = GTK_TOGGLE_BUTTON(
+		  Builder_Get_Object(radiation_editor_builder, xrdbtn[idx]) );
 	  gtk_toggle_button_set_active( toggle, TRUE );
 
 	  /* Set N type radio buttons */
 	  xnda -= idx*1000;
 	  idx = xnda/100;
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			radiation_command, nrdbtn[idx]) );
+	  toggle = GTK_TOGGLE_BUTTON(
+		  Builder_Get_Object(radiation_editor_builder, nrdbtn[idx]) );
 	  gtk_toggle_button_set_active( toggle, TRUE );
 
 	  /* Set D type radio buttons */
 	  xnda -= idx*100;
 	  idx = xnda/10;
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			radiation_command, drdbtn[idx]) );
+	  toggle = GTK_TOGGLE_BUTTON(
+		  Builder_Get_Object(radiation_editor_builder, drdbtn[idx]) );
 	  gtk_toggle_button_set_active( toggle, TRUE );
 
 	  /* Set A type radio buttons */
 	  xnda -= idx*10;
 	  idx = xnda;
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			radiation_command, ardbtn[idx]) );
+	  toggle = GTK_TOGGLE_BUTTON(
+		  Builder_Get_Object(radiation_editor_builder, ardbtn[idx]) );
 	  gtk_toggle_button_set_active( toggle, TRUE );
 
 	  /* Write int data to the command editor (i2 & I3) */
 	  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  radiation_command, ispin[idi-SPIN_COL_I2]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(radiation_editor_builder, ispin[idi-SPIN_COL_I2]) );
 		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
 	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  radiation_command, fspin[idf]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(radiation_editor_builder, fspin[idf]) );
 		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 	  label = TRUE;
@@ -1313,8 +1484,8 @@ Radiation_Command( int action )
 	  /* Test wave/ground type radio buttons */
 	  for( idx = 0; idx < RP_WRDBTN; idx++ )
 	  {
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  radiation_command, wrdbtn[idx]) );
+		toggle = GTK_TOGGLE_BUTTON(
+			Builder_Get_Object(radiation_editor_builder, wrdbtn[idx]) );
 		if( gtk_toggle_button_get_active(toggle) )
 		  break;
 	  }
@@ -1327,8 +1498,8 @@ Radiation_Command( int action )
 		/* X radio buttons */
 		for( idx = 0; idx < RP_XRDBTN; idx++ )
 		{
-		  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-				radiation_command, xrdbtn[idx]) );
+		  toggle = GTK_TOGGLE_BUTTON(
+			  Builder_Get_Object(radiation_editor_builder, xrdbtn[idx]) );
 		  if( gtk_toggle_button_get_active(toggle) )
 			break;
 		}
@@ -1337,8 +1508,8 @@ Radiation_Command( int action )
 		/* N radio buttons */
 		for( idx = 0; idx < RP_NRDBTN; idx++ )
 		{
-		  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-				radiation_command, nrdbtn[idx]) );
+		  toggle = GTK_TOGGLE_BUTTON(
+			  Builder_Get_Object(radiation_editor_builder, nrdbtn[idx]) );
 		  if( gtk_toggle_button_get_active(toggle) )
 			break;
 		}
@@ -1351,8 +1522,8 @@ Radiation_Command( int action )
 		/* D radio buttons */
 		for( idx = 0; idx < RP_DRDBTN; idx++ )
 		{
-		  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-				radiation_command, drdbtn[idx]) );
+		  toggle = GTK_TOGGLE_BUTTON(
+			  Builder_Get_Object(radiation_editor_builder, drdbtn[idx]) );
 		  if( gtk_toggle_button_get_active(toggle) )
 			break;
 		}
@@ -1361,8 +1532,8 @@ Radiation_Command( int action )
 		/* A radio buttons */
 		for( idx = 0; idx < RP_ARDBTN; idx++ )
 		{
-		  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-				radiation_command, ardbtn[idx]) );
+		  toggle = GTK_TOGGLE_BUTTON(
+			  Builder_Get_Object(radiation_editor_builder, ardbtn[idx]) );
 		  if( gtk_toggle_button_get_active(toggle) )
 			break;
 		}
@@ -1381,15 +1552,15 @@ Radiation_Command( int action )
   /* Read int data from the command editor */
   for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  radiation_command, ispin[idi-SPIN_COL_I2]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(radiation_editor_builder, ispin[idi-SPIN_COL_I2]) );
 	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
   /* Read float data from the command editor */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  radiation_command, fspin[idf]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(radiation_editor_builder, fspin[idf]) );
 	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
@@ -1405,7 +1576,7 @@ Radiation_Command( int action )
 		_("Increment in Z"),
 		_("Field Point R (m)")
 	  };
-	  Set_Labels( radiation_command, labels, text, RP_LABELS );
+	  Set_Labels( radiation_editor_builder, labels, text, RP_LABELS );
 	}
 	else /* All other wave/ground cases */
 	{
@@ -1416,16 +1587,18 @@ Radiation_Command( int action )
 		_("Increment in Theta"),
 		_("R (m) (Optional)")
 	  };
-	  Set_Labels( radiation_command, labels, text, RP_LABELS );
+	  Set_Labels( radiation_editor_builder, labels, text, RP_LABELS );
 	}
 
 	/* Set normalization factor label */
 	if( norm )
-	  gtk_label_set_text( GTK_LABEL(lookup_widget(radiation_command,
-			  "radiation_f6_label")), _("Normalization Factor") );
+	  gtk_label_set_text( GTK_LABEL(
+			Builder_Get_Object(radiation_editor_builder, "radiation_f6_label")),
+		  _("Normalization Factor") );
 	else
-	  gtk_label_set_text( GTK_LABEL(lookup_widget(radiation_command,
-			  "radiation_f6_label")), _("** NOT USED **") );
+	  gtk_label_set_text( GTK_LABEL(
+			Builder_Get_Object(radiation_editor_builder, "radiation_f6_label")),
+		  _("** NOT USED **") );
 
 	label = FALSE;
   } /* if( label ) */
@@ -1503,8 +1676,8 @@ Loading_Command( int action )
 
   static gboolean
 	save  = FALSE, /* Enable saving of editor data */
-    label = TRUE,  /* Show/hide frames according to loading type */
-    busy  = FALSE; /* Block callbacks. Must be a better way to do this? */
+		  label = TRUE,  /* Show/hide frames according to loading type */
+		  busy  = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1539,8 +1712,9 @@ Loading_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_ld, "LD" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  label = TRUE;
 	  break;
 
@@ -1567,22 +1741,22 @@ Loading_Command( int action )
 	  /* Write int data to the command editor */
 	  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  loading_command, ispin[idi-SPIN_COL_I2]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(loading_editor_builder, ispin[idi-SPIN_COL_I2]) );
 		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
 	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  loading_command, fspin[idf]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(loading_editor_builder, fspin[idf]) );
 		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 
 	  /* Set active radio button */
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			loading_command, rdbutton[iv[SPIN_COL_I1]+1]) );
+	  toggle = GTK_TOGGLE_BUTTON(
+		  Builder_Get_Object(loading_editor_builder, rdbutton[iv[SPIN_COL_I1]+1]) );
 	  gtk_toggle_button_set_active( toggle, TRUE );
 
 	  label = TRUE;
@@ -1598,8 +1772,8 @@ Loading_Command( int action )
 	  /* Find active radio button */
 	  for( idx = 0; idx < LD_RDBTN; idx++ )
 	  {
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  loading_command, rdbutton[idx]) );
+		toggle = GTK_TOGGLE_BUTTON(
+			Builder_Get_Object(loading_editor_builder, rdbutton[idx]) );
 		if( gtk_toggle_button_get_active(toggle) )
 		  break;
 	  }
@@ -1616,14 +1790,14 @@ Loading_Command( int action )
    * values according to loading type */
   if( label )
   {
-	gtk_widget_show( GTK_WIDGET(lookup_widget(
-			loading_command, "loading_frame")) );
+	gtk_widget_show( GTK_WIDGET(Builder_Get_Object(
+			loading_editor_builder, "loading_frame")) );
 
 	switch( iv[SPIN_COL_I1] ) /* Loading type */
 	{
 	  case -1: /* Short all loads */
-		gtk_widget_hide( GTK_WIDGET(lookup_widget(
-				loading_command, "loading_frame")) );
+		gtk_widget_hide( GTK_WIDGET(Builder_Get_Object(
+				loading_editor_builder, "loading_frame")) );
 		gtk_window_resize( GTK_WINDOW(loading_command), 10, 10 );
 		break;
 
@@ -1635,7 +1809,7 @@ Loading_Command( int action )
 			_("Inductance uH"),
 			_("Capacitance pF")
 		  };
-		  Set_Labels( loading_command, labels, text, LD_LABELS );
+		  Set_Labels( loading_editor_builder, labels, text, LD_LABELS );
 		}
 		break;
 
@@ -1647,7 +1821,7 @@ Loading_Command( int action )
 			_("Inductance uH/m"),
 			_("Capacitance pF/m")
 		  };
-		  Set_Labels( loading_command, labels, text, LD_LABELS );
+		  Set_Labels( loading_editor_builder, labels, text, LD_LABELS );
 		}
 		break;
 
@@ -1659,7 +1833,7 @@ Loading_Command( int action )
 			_("Reactance Ohm"),
 			_("  ** NOT USED **")
 		  };
-		  Set_Labels( loading_command, labels, text, LD_LABELS );
+		  Set_Labels( loading_editor_builder, labels, text, LD_LABELS );
 		}
 		break;
 
@@ -1671,7 +1845,7 @@ Loading_Command( int action )
 			_("  ** NOT USED **"),
 			_("  ** NOT USED **")
 		  };
-		  Set_Labels( loading_command, labels, text, LD_LABELS );
+		  Set_Labels( loading_editor_builder, labels, text, LD_LABELS );
 		}
 
 	} /* switch( iv[SPIN_COL_I1] ) */
@@ -1682,16 +1856,16 @@ Loading_Command( int action )
   /* Read int data from the command editor */
   for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  loading_command, ispin[idi-SPIN_COL_I2]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(loading_editor_builder, ispin[idi-SPIN_COL_I2]) );
 	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the command editor */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  loading_command, fspin[idf]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(loading_editor_builder, fspin[idf]) );
 	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
@@ -1774,7 +1948,7 @@ Network_Command( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1809,8 +1983,9 @@ Network_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_nt, "NT" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  break;
 
 	case EDITOR_EDIT:  /* Edit a command row (NT) selected in treeview */
@@ -1824,7 +1999,7 @@ Network_Command( int action )
 	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(network_command, ispin[idi]) );
+			Builder_Get_Object(network_editor_builder, ispin[idi]) );
 		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
@@ -1832,7 +2007,7 @@ Network_Command( int action )
 	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
 		spin = GTK_SPIN_BUTTON(
-			lookup_widget(network_command, fspin[idf]) );
+			Builder_Get_Object(network_editor_builder, fspin[idf]) );
 		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 	  break;
@@ -1852,7 +2027,7 @@ Network_Command( int action )
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(network_command, ispin[idi]) );
+		Builder_Get_Object(network_editor_builder, ispin[idi]) );
 	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
@@ -1860,7 +2035,7 @@ Network_Command( int action )
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
 	spin = GTK_SPIN_BUTTON(
-		lookup_widget(network_command, fspin[idf]) );
+		Builder_Get_Object(network_editor_builder, fspin[idf]) );
 	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
@@ -1918,8 +2093,8 @@ Txline_Command( int action )
 
   static gboolean
 	crossed = FALSE, /* Crossed transmission line */
-	save = FALSE,	 /* Enable saving of editor data */
-	busy = FALSE;	 /* Block callbacks. Must be a better way to do this? */
+			save = FALSE,	 /* Enable saving of editor data */
+			busy = FALSE;	 /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -1954,8 +2129,9 @@ Txline_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_tl, "TL" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  break;
 
 	case EDITOR_EDIT:  /* Edit a command row (TL) selected in treeview */
@@ -1970,29 +2146,31 @@ Txline_Command( int action )
 	  {
 		fv[SPIN_COL_F1] = -fv[SPIN_COL_F1];
 		crossed = TRUE;
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lookup_widget(
-				txline_command, "txline_crossed_checkbutton")), TRUE);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(Builder_Get_Object(
+				txline_editor_builder, "txline_crossed_checkbutton")),
+			TRUE);
 	  }
 	  else
 	  {
 		crossed = FALSE;
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lookup_widget(
-				txline_command, "txline_crossed_checkbutton")), FALSE);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(Builder_Get_Object(
+				txline_editor_builder, "txline_crossed_checkbutton")),
+			FALSE);
 	  }
 
 	  /* Write int data to the command editor */
 	  for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  txline_command, ispin[idi]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(txline_editor_builder, ispin[idi]) );
 		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
 	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  txline_command, fspin[idf]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(txline_editor_builder, fspin[idf]) );
 		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 
@@ -2005,9 +2183,8 @@ Txline_Command( int action )
 	  return;
 
 	case COMMAND_CKBUTTON: /* Check button toggled */
-	  if( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(
-			  lookup_widget(txline_command,
-				"txline_crossed_checkbutton"))) )
+	  if( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(Builder_Get_Object(
+				txline_editor_builder,	"txline_crossed_checkbutton"))) )
 		crossed = TRUE;
 	  else
 		crossed = FALSE;
@@ -2022,16 +2199,16 @@ Txline_Command( int action )
   /* Read int data from the command editor */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  txline_command, ispin[idi]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(txline_editor_builder, ispin[idi]) );
 	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the command editor */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  txline_command, fspin[idf]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(txline_editor_builder, fspin[idf]) );
 	fv[idf] = gtk_spin_button_get_value( spin );
   }
   if( crossed )
@@ -2108,10 +2285,10 @@ Nearfield_Command( int action )
 
   static gboolean
 	label = TRUE,  /* Change spin button labels */
-	nref  = TRUE,  /* Near E field enabled */
-	nrhf  = FALSE, /* Near H field enabled */
-	save  = FALSE, /* Enable saving of editor data */
-	busy  = FALSE; /* Block callbacks. Must be a better way to do this? */
+		  nref  = TRUE,  /* Near E field enabled */
+		  nrhf  = FALSE, /* Near H field enabled */
+		  save  = FALSE, /* Enable saving of editor data */
+		  busy  = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -2149,8 +2326,9 @@ Nearfield_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_ne, "NE" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  label = TRUE;
 	  break;
 
@@ -2165,30 +2343,30 @@ Nearfield_Command( int action )
 	  /* Write int data to the command editor */
 	  for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  nearfield_command, ispin[idi-SPIN_COL_I2]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(nearfield_editor_builder, ispin[idi-SPIN_COL_I2]) );
 		gtk_spin_button_set_value( spin, iv[idi] );
 	  }
 
 	  /* Write float data to the command editor */
 	  for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
 	  {
-		spin = GTK_SPIN_BUTTON( lookup_widget(
-			  nearfield_command, fspin[idf]) );
+		spin = GTK_SPIN_BUTTON(
+			Builder_Get_Object(nearfield_editor_builder, fspin[idf]) );
 		gtk_spin_button_set_value( spin, fv[idf] );
 	  }
 
 	  /* Set radio buttons */
 	  if( iv[SPIN_COL_I1] == 0 ) /* Rectangular coordinates */
 	  {
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  nearfield_command, "nearfield_rect_radiobutton") );
+		toggle = GTK_TOGGLE_BUTTON(	Builder_Get_Object(
+			  nearfield_editor_builder, "nearfield_rect_radiobutton") );
 		gtk_toggle_button_set_active( toggle, TRUE );
 	  }
 	  else
 	  {
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  nearfield_command, "nearfield_sph_radiobutton") );
+		toggle = GTK_TOGGLE_BUTTON(	Builder_Get_Object(
+			  nearfield_editor_builder, "nearfield_sph_radiobutton") );
 		gtk_toggle_button_set_active( toggle, TRUE );
 	  }
 
@@ -2196,24 +2374,24 @@ Nearfield_Command( int action )
 	  if( strcmp(name, "NE") == 0 )
 	  {
 		nref = TRUE; nrhf = FALSE;
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  nearfield_command, "nearfield_ne_checkbutton") );
+		toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			  nearfield_editor_builder, "nearfield_ne_checkbutton") );
 		gtk_toggle_button_set_active( toggle, TRUE );
 
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  nearfield_command, "nearfield_nh_checkbutton") );
+		toggle = GTK_TOGGLE_BUTTON(	Builder_Get_Object(
+			  nearfield_editor_builder, "nearfield_nh_checkbutton") );
 		gtk_toggle_button_set_active( toggle, FALSE );
 	  }
 
 	  if( strcmp(name, "NH") == 0 )
 	  {
 		nrhf = TRUE; nref = FALSE;
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  nearfield_command, "nearfield_nh_checkbutton") );
+		toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			  nearfield_editor_builder, "nearfield_nh_checkbutton") );
 		gtk_toggle_button_set_active( toggle, TRUE );
 
-		toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			  nearfield_command, "nearfield_ne_checkbutton") );
+		toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			  nearfield_editor_builder, "nearfield_ne_checkbutton") );
 		gtk_toggle_button_set_active( toggle, FALSE );
 	  }
 
@@ -2231,8 +2409,8 @@ Nearfield_Command( int action )
 
 	case NEARFIELD_NE_CKBUTTON: /* E-field check button toggled */
 	  /* Test E field check button */
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			nearfield_command, "nearfield_ne_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			nearfield_editor_builder, "nearfield_ne_checkbutton") );
 	  if( gtk_toggle_button_get_active(toggle) )
 	  {
 		nref = TRUE;
@@ -2246,15 +2424,16 @@ Nearfield_Command( int action )
 	  }
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  save = TRUE;
 	  break;
 
 	case NEARFIELD_NH_CKBUTTON: /* H-field check button toggled */
 	  /* Test H field check button */
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			nearfield_command, "nearfield_nh_checkbutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			nearfield_editor_builder, "nearfield_nh_checkbutton") );
 	  if( gtk_toggle_button_get_active(toggle) )
 	  {
 		nrhf = TRUE;
@@ -2268,15 +2447,16 @@ Nearfield_Command( int action )
 	  }
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  save = TRUE;
 	  break;
 
 	case COMMAND_RDBUTTON: /* Radio button toggled */
 	  /* Test rectangular coordinates radio button */
-	  toggle = GTK_TOGGLE_BUTTON( lookup_widget(
-			nearfield_command, "nearfield_rect_radiobutton") );
+	  toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
+			nearfield_editor_builder, "nearfield_rect_radiobutton") );
 	  if( gtk_toggle_button_get_active(toggle) )
 		iv[SPIN_COL_I1] = 0; /* Rectangular */
 	  else
@@ -2306,7 +2486,7 @@ Nearfield_Command( int action )
 		_("Increment in Y (m)"),
 		_("Increment in Z (m)")
 	  };
-	  Set_Labels( nearfield_command, labels, text, NF_LABELS );
+	  Set_Labels( nearfield_editor_builder, labels, text, NF_LABELS );
 	}
 	else /* Spherical coordinates */
 	{
@@ -2322,7 +2502,7 @@ Nearfield_Command( int action )
 		_("Increment in Phi"),
 		_("Increment in Theta")
 	  };
-	  Set_Labels( nearfield_command, labels, text, NF_LABELS );
+	  Set_Labels( nearfield_editor_builder, labels, text, NF_LABELS );
 	  label = FALSE;
 	}
 
@@ -2331,16 +2511,16 @@ Nearfield_Command( int action )
   /* Read int data from the command editor */
   for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  nearfield_command, ispin[idi-SPIN_COL_I2]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(nearfield_editor_builder, ispin[idi-SPIN_COL_I2]) );
 	iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
   /* Read float data from the command editor */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
-	spin = GTK_SPIN_BUTTON( lookup_widget(
-		  nearfield_command, fspin[idf]) );
+	spin = GTK_SPIN_BUTTON(
+		Builder_Get_Object(nearfield_editor_builder, fspin[idf]) );
 	fv[idf] = gtk_spin_button_get_value( spin );
   }
 
@@ -2376,7 +2556,7 @@ Kernel_Command( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
   int idc;
 
@@ -2424,8 +2604,9 @@ Kernel_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_ek, "EK" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  save = TRUE;
 	  break;
 
@@ -2445,8 +2626,8 @@ Kernel_Command( int action )
 	  }
 
 	  /* Set the kernel check button */
-	  ckbutton = GTK_CHECK_BUTTON(lookup_widget(
-			kernel_command, "kernel_checkbutton") );
+	  ckbutton = GTK_CHECK_BUTTON( Builder_Get_Object(
+			kernel_editor_builder, "kernel_checkbutton") );
 	  if( ek == 0 )
 		gtk_toggle_button_set_active(
 			GTK_TOGGLE_BUTTON(ckbutton), TRUE );
@@ -2464,8 +2645,8 @@ Kernel_Command( int action )
 
 	case COMMAND_CKBUTTON: /* Some check button changed in editor window */
 	  /* Set kernel status according to checkbutton */
-	  ckbutton = GTK_CHECK_BUTTON(lookup_widget(
-			kernel_command, "kernel_checkbutton") );
+	  ckbutton = GTK_CHECK_BUTTON( Builder_Get_Object(
+			kernel_editor_builder, "kernel_checkbutton") );
 	  if( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ckbutton)) )
 		ek = 0;
 	  else
@@ -2553,8 +2734,9 @@ Intrange_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_kh, "KH" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  break;
 
 	case EDITOR_EDIT:  /* Edit a command row (KH) */
@@ -2572,8 +2754,8 @@ Intrange_Command( int action )
 	  }
 
 	  /* Set range data to command editor */
-	  spin = GTK_SPIN_BUTTON(lookup_widget(
-			intrange_command, "intrange_wlen_spinbutton") );
+	  spin = GTK_SPIN_BUTTON( Builder_Get_Object(
+			intrange_editor_builder, "intrange_wlen_spinbutton") );
 	  gtk_spin_button_set_value( spin, kh );
 
 	  break;
@@ -2590,8 +2772,8 @@ Intrange_Command( int action )
   } /* switch( action ) */
 
   /* Get range data from editor */
-  spin = GTK_SPIN_BUTTON(lookup_widget(
-		intrange_command, "intrange_wlen_spinbutton") );
+  spin = GTK_SPIN_BUTTON( Builder_Get_Object
+	  (intrange_editor_builder, "intrange_wlen_spinbutton") );
   kh = gtk_spin_button_get_value( spin );
   snprintf( skh, sizeof(skh), "%12.5e", kh );
 
@@ -2611,7 +2793,6 @@ Intrange_Command( int action )
   void
 Execute_Command( int action )
 {
-
   /* For reading/writing to XQ row */
   static GtkTreeIter iter_xq;
   gchar *sv;
@@ -2637,7 +2818,7 @@ Execute_Command( int action )
 
   static gboolean
 	save = FALSE, /* Enable saving of editor data */
-	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+		 busy = FALSE; /* Block callbacks. Must be a better way to do this? */
 
 
   /* Block callbacks. (Should be a better way to do this) */
@@ -2680,8 +2861,9 @@ Execute_Command( int action )
 		  cmnd_treeview, cmnd_store, &iter_xq, "XQ" );
 
 	  /* Scroll tree view to bottom */
-	  gtk_adjustment_set_value(
-		  cmnd_adjustment, cmnd_adjustment->upper );
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
 	  save = TRUE;
 	  break;
 
@@ -2705,7 +2887,7 @@ Execute_Command( int action )
 		if( xq == idx )
 		{
 		  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(
-				lookup_widget(execute_command, rdbutton[idx])), TRUE );
+				Builder_Get_Object(execute_editor_builder, rdbutton[idx])), TRUE );
 		  break;
 		}
 	  break;
@@ -2720,7 +2902,7 @@ Execute_Command( int action )
 	  /* Get active radio button in command editor */
 	  for( idx = 0; idx < XQ_RDBTN; idx++ )
 		if( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(
-				lookup_widget(execute_command, rdbutton[idx]))) )
+				Builder_Get_Object(execute_editor_builder, rdbutton[idx]))) )
 		  break;
 	  xq = idx;
 	  save = TRUE;
@@ -2735,179 +2917,125 @@ Execute_Command( int action )
 
 /*------------------------------------------------------------------------*/
 
-/* Insert_EN_Card()
+/* Zo_Command()
  *
- * Inserts a default EN card if missing
+ * Edits the Transmission Line Zo Command (ZO card) parameters
  */
 
   void
-Insert_EN_Card( GtkListStore *store, GtkTreeIter *iter )
+Zo_Command( int action )
 {
-  gint idx, idc;
+  /* For looking up spinbuttons */
+  GtkSpinButton *spin;
 
-  /* Insert default EN card if list is clear */
-  idx = gtk_tree_model_iter_n_children(
-	  GTK_TREE_MODEL(store), NULL );
-  if( !idx )
-  {
-	gtk_list_store_append( store, iter );
-	gtk_list_store_set( store, iter, CMND_COL_NAME, "EN", -1 );
-	for( idc = CMND_COL_I1; idc < CMND_NUM_COLS; idc++ )
-	  gtk_list_store_set( store, iter, idc, "0", -1 );
-  }
-
-} /* Insert_EN_Card() */
-
-/*------------------------------------------------------------------------*/
-
-/* Get_Command_Data()
- *
- * Gets command data from a treeview row
- */
-
-void
-Get_Command_Data(
-	GtkListStore *store,
-	GtkTreeIter *iter,
-	int *iv, double *fv )
-{
-  gint idc;
+  /* For reading/writing to ZO row */
+  static GtkTreeIter iter_zo;
   gchar *sv;
 
-  /* Get data from tree view (I1-I4, F1-F6)*/
-  if( gtk_list_store_iter_is_valid(store, iter) )
+  /* Tx Line Impedance */
+  static gint zo;
+  static gchar szo[13];
+
+  /* Card (row) name */
+  gchar name[3];
+
+  static gboolean
+	save = FALSE, /* Enable saving of editor data */
+	busy = FALSE; /* Block callbacks. Must be a better way to do this? */
+
+  int idc;
+
+  /* Block callbacks. (Should be a better way to do this) */
+  if( Give_Up( &busy, zo_command) ) return;
+
+  /* Quit if forced quit flag set (treeview row removed) */
+  if( isFlagSet(EDITOR_QUIT) )
   {
-	for( idc = CMND_COL_I1; idc <= CMND_COL_I4; idc++ )
-	{
-	  gtk_tree_model_get(
-		  GTK_TREE_MODEL(store), iter, idc, &sv, -1);
-	  iv[idc-CMND_COL_I1] = atoi(sv);
-	  g_free(sv);
-	}
-	for( idc = CMND_COL_F1; idc <= CMND_COL_F6; idc++ )
-	{
-	  gtk_tree_model_get(
-		  GTK_TREE_MODEL(store), iter, idc, &sv, -1);
-	  fv[idc-CMND_COL_F1] = Strtod( sv, NULL );
-	  g_free(sv);
-	}
-  }
-  else stop( _("Get_Command_Data(): Error reading\n"\
-		"row data: Invalid list iterator"), ERR_OK );
-
-} /* Get_Command_Data() */
-
-/*------------------------------------------------------------------------*/
-
-/* Set_Command_Data()
- *
- * Sets data into a command row
- */
-
-void
-Set_Command_Data(
-	GtkListStore *store,
-	GtkTreeIter *iter,
-	int *iv, double *fv )
-{
-  gchar str[13];
-  gint idc;
-
-  /* Format and set editor data to treeview (I1-I4 & F1-F6) */
-  if( gtk_list_store_iter_is_valid(store, iter) )
-  {
-	for( idc = CMND_COL_I1; idc <= CMND_COL_I4; idc++ )
-	{
-	  snprintf( str, 6, "%5d", iv[idc-CMND_COL_I1] );
-	  gtk_list_store_set( store, iter, idc, str, -1 );
-	}
-
-	for( idc = CMND_COL_F1; idc <= CMND_COL_F6; idc++ )
-	{
-	  snprintf( str, 13, "%12.5E", fv[idc-CMND_COL_F1] );
-	  gtk_list_store_set( store, iter, idc, str, -1 );
-	}
-  }
-  else stop( _("Set_Command_Data(): Error writing row data\n"\
-		"Please re-select row"), ERR_OK );
-
-  SetFlag( NEC2_EDIT_SAVE );
-
-} /* Set_Command_Data() */
-
-/*------------------------------------------------------------------------*/
-
-/* Insert_Blank_Command_Row()
- *
- * Inserts a blank row in a tree view with only its name (GW ... )
- */
-
-void
-Insert_Blank_Command_Row(
-	GtkTreeView *view, GtkListStore *store,
-	GtkTreeIter *iter, const gchar *name )
-{
-  GtkTreeSelection *selection;
-  gboolean retv;
-  gint n;
-  gchar *str;
-
-  if( nec2_edit_window == NULL )
+	ClearFlag( EDITOR_QUIT );
+	save = busy = FALSE;
+	gtk_widget_destroy( zo_command );
 	return;
-
-  /* Get selected row, if any */
-  selection = gtk_tree_view_get_selection( view );
-  retv = gtk_tree_selection_get_selected( selection, NULL, iter );
-
-  /* If no selected row, insert new row into list
-   * store before last row, else after the selected row,
-   * but if this is a GE row, then insert before it */
-  if( !retv )
-  {
-	n = gtk_tree_model_iter_n_children(
-		GTK_TREE_MODEL(store), NULL );
-	gtk_tree_model_iter_nth_child(
-		GTK_TREE_MODEL(store), iter, NULL, n-1 );
-	gtk_list_store_insert_before( store, iter, iter );
-  }
-  else
-  {
-	gtk_tree_model_get(
-		GTK_TREE_MODEL(store), iter, CMND_COL_NAME, &str, -1 );
-	if( strcmp(str, "EN") == 0 )
-	  gtk_list_store_insert_before( store, iter, iter );
-	else
-	  gtk_list_store_insert_after( store, iter, iter );
-	g_free(str);
   }
 
-  gtk_list_store_set( store, iter, CMND_COL_NAME, name, -1 );
-  for( n = CMND_COL_I1; n < CMND_NUM_COLS; n++ )
-	gtk_list_store_set( store, iter, n, "--", -1 );
-  gtk_tree_selection_select_iter( selection, iter );
-
-} /* Insert_Blank_Command_Row() */
-
-/*------------------------------------------------------------------------*/
-
-/* Set_Labels()
- *
- * Sets labels in an editor window
- */
-
-  void
-Set_Labels( GtkWidget *widget, gchar **labels, gchar **text, gint num )
-{
-  int idx;
-  GtkLabel *label;
-
-  for( idx = 0; idx < num; idx++ )
+  /* Save data to nec2 editor if appropriate */
+  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
   {
-	label = GTK_LABEL( lookup_widget(widget, labels[idx]) );
-	gtk_label_set_text( label, text[idx] );
-  }
+	/* Set KH card data */
+	if( gtk_list_store_iter_is_valid(cmnd_store, &iter_zo) )
+	{
+	  /* Clear row to 0 */
+	  for( idc = CMND_COL_I1; idc <= CMND_COL_F6; idc++ )
+		gtk_list_store_set(
+			cmnd_store, &iter_zo, idc, "0", -1 );
 
-} /* Set_Labels() */
+	  /* Set range data */
+	  gtk_list_store_set(
+		  cmnd_store, &iter_zo, CMND_COL_I1, szo, -1 );
+	}
+	save = FALSE;
+  } /* if( (action & EDITOR_SAVE) && save ) */
+
+  /* Respond to user action */
+  switch( action )
+  {
+	case EDITOR_NEW: /* New inter approx range row to create */
+	  /* Insert a default EN card if list is empty */
+	  Insert_EN_Card( cmnd_store, &iter_zo );
+
+	  /* Insert a new blank ZO row after a selected row,
+	   * if any, otherwise before the last (EN) row */
+	  Insert_Blank_Command_Row(
+		  cmnd_treeview, cmnd_store, &iter_zo, "ZO" );
+
+	  /* Scroll tree view to bottom */
+	  gtk_adjustment_set_value( cmnd_adjustment,
+		  gtk_adjustment_get_upper(cmnd_adjustment) -
+		  gtk_adjustment_get_page_size(cmnd_adjustment) );
+	  break;
+
+	case EDITOR_EDIT:  /* Edit a command row (KH) */
+	  /* Get selected row */
+	  Get_Selected_Row( cmnd_treeview, cmnd_store, &iter_zo, name );
+
+	  /* Get data from command editor */
+	  if( gtk_list_store_iter_is_valid(cmnd_store, &iter_zo) )
+	  {
+		gtk_tree_model_get(
+			GTK_TREE_MODEL(cmnd_store),
+			&iter_zo, CMND_COL_I1, &sv, -1 );
+		zo = (gint)atoi( sv );
+		g_free( sv );
+	  }
+
+	  /* Set range data to command editor */
+	  spin = GTK_SPIN_BUTTON(
+		  Builder_Get_Object(zo_editor_builder, "zo_spinbutton") );
+	  gtk_spin_button_set_value( spin, (gdouble)zo );
+
+	  break;
+
+	case EDITOR_CANCEL: /* Cancel inter range editor */
+	  /* Remove card(s) */
+	  Remove_Row( cmnd_store, &iter_zo );
+	  save = busy = FALSE;
+	  return;
+
+	case EDITOR_DATA: /* Some data changed in editor window */
+	  save = TRUE;
+
+  } /* switch( action ) */
+
+  /* Get range data from editor */
+  spin = GTK_SPIN_BUTTON(
+	  Builder_Get_Object(zo_editor_builder, "zo_spinbutton") );
+  zo = gtk_spin_button_get_value_as_int( spin );
+  snprintf( szo, sizeof(szo), "%4d", zo );
+
+  /* Wait for GTK to complete its tasks */
+  while( g_main_context_iteration(NULL, FALSE) );
+  busy = FALSE;
+
+} /* Intrange_Command() */
 
 /*------------------------------------------------------------------------*/
 

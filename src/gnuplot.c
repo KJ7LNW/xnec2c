@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -14,12 +12,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
-
-/*
- *  gnuplot.c
- *
- *  gnuplot routines for xnec2c
  */
 
 #include "gnuplot.h"
@@ -210,6 +202,50 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
 
 /*-----------------------------------------------------------------------*/
 
+/* Scale_Gain()
+ *
+ * Scales radiation pattern gain according to selected style
+ * ( ARRL style, logarithmic or linear voltage/power )
+ */
+static int gain_style = GS_LINP;
+
+  static double
+Scale_Gain( double gain, int fstep, int idx )
+{
+  /* Scaled rad pattern gain and pol factor */
+  double scaled_rad = 0.0;
+
+  gain += Polarization_Factor( calc_data.pol_type, fstep, idx );
+
+  switch( gain_style )
+  {
+	case GS_LINP:
+	  scaled_rad = pow(10.0, (gain/10.0));
+	  break;
+
+	case GS_LINV:
+	  scaled_rad = pow(10.0, (gain/20.0));
+	  break;
+
+	case GS_ARRL:
+	  scaled_rad = exp( 0.058267 * gain );
+	  break;
+
+	case GS_LOG:
+	  scaled_rad = gain;
+	  if( scaled_rad < -40 )
+		scaled_rad = 0.0;
+	  else
+		scaled_rad = scaled_rad /40.0 + 1.0;
+
+  } /* switch( gain_style ) */
+
+  return( scaled_rad );
+
+} /* Scale_Gain() */
+
+/*-----------------------------------------------------------------------*/
+
 /* Save_RadPattern_Gnuplot_Data()
  *
  * Saves radiation pattern data to a file for gnuplot
@@ -310,7 +346,7 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 	  static double pov_max = 0;
 
 	  /* Allocate on new near field matrix size */
-	  if( mreq != (size_t)npts * sizeof( double ) )
+	  if( !mreq || (mreq != (size_t)npts * sizeof(double)) )
 	  {
 		mreq = (size_t)npts * sizeof( double );
 		mem_realloc( (void **)&pov_x, mreq, "in draw_radiation.c" );
@@ -408,8 +444,7 @@ Save_RadPattern_Gnuplot_Data( char *filename )
 		double x, y, z;
 
 		/* Distance of pattern point from the xyz origin */
-		r = Scale_Gain(
-			rad_pattern[fstep].gtot[idx], fstep, idx );
+		r = Scale_Gain(	rad_pattern[fstep].gtot[idx], fstep, idx );
 
 		/* Distance of point's projection on xyz axis, from origin */
 		z = r * cos(theta);

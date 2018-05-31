@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -21,7 +19,7 @@
 
 #include "common.h"
 
-#define	TPJ		(0.0+I*6.283185308)
+#define	TPJ		(0.0+I*M_2PI)
 #define PI8		25.13274123
 #define	FPI		12.56637062
 #define	CONST2	4.771341188

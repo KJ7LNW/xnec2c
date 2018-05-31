@@ -1,6 +1,4 @@
 /*
- *  xnec2c - GTK2-based version of nec2c, the C translation of NEC2
- *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -62,8 +60,8 @@ arc( int itg, int ns, double rada,
   if( ns < 1)
   {
 	fprintf( stderr,
-		"xnec2c: arc(): number of segments less than 1 (ns < 1)\n");
-	stop( _("arc(): Number of segments < 1"), ERR_OK );
+		_("xnec2c: arc(): number of segments less than 1 (ns < 1)\n") );
+	Stop( _("arc(): Number of segments < 1"), ERR_OK );
 	return( FALSE );
   }
 
@@ -115,12 +113,127 @@ arc( int itg, int ns, double rada,
   else
   {
 	fprintf( stderr,
-		"xnec2c: arc(): arc angle exceeds 360 degrees\n");
-	stop( _("arc(): Arc angle exceeds 360 degrees"), ERR_OK );
+		_("xnec2c: arc(): arc angle exceeds 360 degrees\n") );
+	Stop( _("arc(): Arc angle exceeds 360 degrees"), ERR_OK );
 	return( FALSE );
   }
 
   return( TRUE );
+}
+
+/*-----------------------------------------------------------------------*/
+
+/*** this function was an 'entry point' (part of) 'patch()' ***/
+  static void
+subph( int nx, int ny )
+{
+  int mia, ix, iy, mi;
+  size_t mreq;
+  double xs, ys, zs, xa, xst, s1x, s1y;
+  double s1z, s2x, s2y, s2z, saln, xt, yt;
+
+  /* Reallocate patch buffers */
+  if( ny == 0 ) data.m += 3;
+  else data.m += 4;
+
+  mreq = (size_t)data.m * sizeof(double);
+  mem_realloc( (void **)&data.px,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.py,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.pz,  mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1x, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1y, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t1z, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2x, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2y, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.t2z, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.pbi, mreq, "in geometry.c" );
+  mem_realloc( (void **)&data.psalp, mreq, "in geometry.c" );
+  if( !CHILD )
+  {
+	mreq = (size_t)(data.n + 2 * data.m) * sizeof(Segment_t);
+	mem_realloc( (void **)&structure_segs, mreq, "in geometry.c" );
+  }
+
+  /* Shift patches to make room for new ones */
+  if( (ny == 0) && (nx != data.m) )
+  {
+	for( iy = data.m-1; iy > nx+2; iy-- )
+	{
+	  ix = iy-3;
+	  data.px[iy]= data.px[ix];
+	  data.py[iy]= data.py[ix];
+	  data.pz[iy]= data.pz[ix];
+	  data.pbi[iy]= data.pbi[ix];
+	  data.psalp[iy]= data.psalp[ix];
+	  data.t1x[iy]= data.t1x[ix];
+	  data.t1y[iy]= data.t1y[ix];
+	  data.t1z[iy]= data.t1z[ix];
+	  data.t2x[iy]= data.t2x[ix];
+	  data.t2y[iy]= data.t2y[ix];
+	  data.t2z[iy]= data.t2z[ix];
+	}
+
+  } /* if( (ny == 0) || (nx != m) ) */
+
+  /* divide patch for connection */
+  mi= nx-1;
+  xs= data.px[mi];
+  ys= data.py[mi];
+  zs= data.pz[mi];
+  xa= data.pbi[mi]/4.0;
+  xst= sqrt( xa)/2.0;
+  s1x= data.t1x[mi];
+  s1y= data.t1y[mi];
+  s1z= data.t1z[mi];
+  s2x= data.t2x[mi];
+  s2y= data.t2y[mi];
+  s2z= data.t2z[mi];
+  saln= data.psalp[mi];
+  xt= xst;
+  yt= xst;
+
+  if( ny == 0)
+	mia= mi;
+  else
+  {
+	data.mp++;
+	mia= data.m-1;
+  }
+
+  for( ix = 1; ix <= 4; ix++ )
+  {
+	data.px[mia]= xs+ xt* s1x+ yt* s2x;
+	data.py[mia]= ys+ xt* s1y+ yt* s2y;
+	data.pz[mia]= zs+ xt* s1z+ yt* s2z;
+	data.pbi[mia]= xa;
+	data.t1x[mia]= s1x;
+	data.t1y[mia]= s1y;
+	data.t1z[mia]= s1z;
+	data.t2x[mia]= s2x;
+	data.t2y[mia]= s2y;
+	data.t2z[mia]= s2z;
+	data.psalp[mia]= saln;
+
+	if( ix == 2)
+	  yt= -yt;
+
+	if( (ix == 1) || (ix == 3) )
+	  xt= -xt;
+
+	mia++;
+  }
+
+  if( nx <= data.mp)
+	data.mp += 3;
+
+  if( ny > 0 )
+	data.pz[mi]=10000.0;
+
+  /* Process new patches created */
+  if( ! CHILD )
+	New_Patch_Data();
+
+  return;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -155,7 +268,7 @@ conect( int ignd )
 	if( data.np > data.n)
 	{
 	  fprintf( stderr, "xnec2c: conect(): np > n\n" );
-	  stop( _("Error in conect(): np > n"), ERR_OK );
+	  Stop( _("Error in conect(): np > n"), ERR_OK );
 	  return( FALSE );
 	}
 
@@ -191,9 +304,9 @@ conect( int ignd )
 		if( zi1 <= -slen)
 		{
 		  fprintf( stderr,
-			  "xnec2c: conect(): geometry data error\n"
-			  "Segment %d extends below ground\n", iz );
-		  stop( _("conect(): Geometry data error\n"\
+			  _("xnec2c: conect(): geometry data error\n"
+			  "Segment %d extends below ground\n"), iz );
+		  Stop( _("conect(): Geometry data error\n"
 				"Segment extends below ground"), ERR_OK );
 		  return( FALSE );
 		}
@@ -243,9 +356,9 @@ conect( int ignd )
 		if( zi2 <= -slen)
 		{
 		  fprintf( stderr,
-			  "xnec2c: conect(): geometry data error\n"
-			  "segment %d extends below ground\n", iz );
-		  stop( _("conect(): Geometry data error\n"\
+			  _("xnec2c: conect(): geometry data error\n"
+			  "segment %d extends below ground\n"), iz );
+		  Stop( _("conect(): Geometry data error\n"
 				"Segment extends below ground"), ERR_OK );
 		  return( FALSE );
 		}
@@ -255,9 +368,9 @@ conect( int ignd )
 		  if( data.icon1[i] == iz )
 		  {
 			fprintf( stderr,
-				"xnec2c: conect(): geometry data error\n"
-				"segment %d lies in ground plane\n", iz );
-			stop( _("conect(): Geometry data error\n"\
+				_("xnec2c: conect(): geometry data error\n"
+				"segment %d lies in ground plane\n"), iz );
+			Stop( _("conect(): Geometry data error\n"
 				  "Segment lies in ground plane"), ERR_OK );
 			return( FALSE );
 		  }
@@ -357,7 +470,7 @@ conect( int ignd )
 	if( data.ipsym == 0 )
 	{
 	  fprintf( stderr, "xnec2c: conect(): ipsym = 0\n" );
-	  stop( _("conect(): Error: ipsym = 0"), ERR_OK );
+	  Stop( _("conect(): Error: ipsym = 0"), ERR_OK );
 	  return( FALSE );
 	}
   } /* if( iseg != 1) */
@@ -507,24 +620,29 @@ conect( int ignd )
 /* data for a helix of ns segments */
   void
 helix(
-	double s, double hl,
+	double tsp, double hl,
 	double a1, double b1,
 	double a2, double b2,
 	double rad, int ns, int itg )
 {
   int ist, i;
   size_t mreq;
-  double zinc, copy;
+  double z, zinc;
+
+  if( ns < 1) return;
 
   ist = data.n;
   data.n += ns;
   data.np = data.n;
   data.mp = data.m;
   data.ipsym = 0;
-
-  if( ns < 1) return;
-
-  zinc= fabs( hl/ ns);
+  if( b1 == 0.0) b1 = a1;
+  if( b2 == 0.0) b2 = a2;
+  if( hl < 0.0 )
+  {
+	hl  = -hl;
+	tsp = -tsp;
+  }
 
   /* Reallocate tags buffer */
   mreq = (size_t)data.n * sizeof(int);
@@ -540,54 +658,65 @@ helix(
   mem_realloc( (void **)&data.z2, mreq, "in geometry.c" );
   mem_realloc( (void **)&data.bi, mreq, "in geometry.c" );
 
-  data.z1[ist] = 0.0;
-  for( i = ist; i < data.n; i++ )
+  /* For a proper helix */
+  if( (hl != 0.0) && (tsp != 0.0) )
   {
-	data.bi[i]= rad;
-	data.itag[i]= itg;
-
-	if( i != ist )
-	  data.z1[i]= data.z1[i-1]+ zinc;
-
-	data.z2[i]= data.z1[i]+ zinc;
-
-	if( a2 == a1)
+	z = 0.0;
+	zinc = hl / (double)ns;
+	for( i = ist; i < data.n; i++ )
 	{
-	  if( b1 == 0.0)
-		b1= a1;
+	  data.bi[i] = rad;
+	  data.itag[i] = itg;
+	  data.z1[i] = z;
+	  z += zinc;
+	  data.z2[i] = z;
 
-	  data.x1[i]= a1* cos(2.0* PI* data.z1[i]/ s);
-	  data.y1[i]= b1* sin(2.0* PI* data.z1[i]/ s);
-	  data.x2[i]= a1* cos(2.0* PI* data.z2[i]/ s);
-	  data.y2[i]= b1* sin(2.0* PI* data.z2[i]/ s);
-	}
-	else
+	  if( a2 == a1)
+	  {
+		data.x1[i]= a1* cos(M_2PI* data.z1[i]/ tsp);
+		data.y1[i]= b1* sin(M_2PI* data.z1[i]/ tsp);
+		data.x2[i]= a1* cos(M_2PI* data.z2[i]/ tsp);
+		data.y2[i]= b1* sin(M_2PI* data.z2[i]/ tsp);
+	  }
+	  else
+	  {
+		data.x1[i]=( a1+( a2- a1)* data.z1[i] / hl)*
+		  cos(M_2PI* data.z1[i]/ tsp);
+		data.y1[i]=( b1+( b2- b1)* data.z1[i] / hl)*
+		  sin(M_2PI* data.z1[i]/ tsp);
+		data.x2[i]=( a1+( a2- a1)* data.z2[i] / hl)*
+		  cos(M_2PI* data.z2[i]/ tsp);
+		data.y2[i]=( b1+( b2- b1)* data.z2[i] / hl)*
+		  sin(M_2PI* data.z2[i]/ tsp);
+	  } /* if( a2 == a1) */
+
+	} /* for( i = ist; i < data.n; i++ ) */
+  } /* if( (hl != 0.0) && (tsp != 0.0) ) */
+  else /* A spiral */
+  {
+	double
+	  phi  = 0.0,
+	  dphi = M_2PI / tsp,
+	  da   = (a1 - a2) / (double)ns,
+	  db   = (b1 - b2) / (double)ns;
+
+	for( i = ist; i < data.n; i++ )
 	{
-	  if( b2 == 0.0)
-		b2= a2;
+	  data.bi[i] = rad;
+	  data.itag[i] = itg;
+	  data.z1[i] = 0.0;
+	  data.z2[i] = 0.0;
 
-	  data.x1[i]=( a1+( a2- a1)* data.z1[i] /
-		  fabs( hl))* cos(2.0* PI* data.z1[i]/ s);
-	  data.y1[i]=( b1+( b2- b1)* data.z1[i] /
-		  fabs( hl))* sin(2.0* PI* data.z1[i]/ s);
-	  data.x2[i]=( a1+( a2- a1)* data.z2[i] /
-		  fabs( hl))* cos(2.0* PI* data.z2[i]/ s);
-	  data.y2[i]=( b1+( b2- b1)* data.z2[i] /
-		  fabs( hl))* sin(2.0* PI* data.z2[i]/ s);
+	  data.x1[i]= a1 * cos( phi );
+	  data.y1[i]= b1 * sin( phi );
+	  a1 -= da;
+	  b1 -= db;
+	  phi += dphi;
+	  data.x2[i]= a1 * cos( phi );
+	  data.y2[i]= b1 * sin( phi );
 
-	} /* if( a2 == a1) */
-
-	if( hl > 0.0)
-	  continue;
-
-	copy= data.x1[i];
-	data.x1[i]= data.y1[i];
-	data.y1[i]= copy;
-	copy= data.x2[i];
-	data.x2[i]= data.y2[i];
-	data.y2[i]= copy;
-
-  } /* for( i = ist; i < data.n; i++ ) */
+	} /* for( i = ist; i < data.n; i++ ) */
+  }
 
   return;
 }
@@ -606,7 +735,7 @@ isegno( int itagi, int mx)
 	fprintf( stderr,
 		"xnec2c: isegno(): check data, parameter specifying segment\n"
 		"position in a group of equal tags must not be zero\n" );
-	stop( _("isegno(): Parameter specifying segment\n"\
+	Stop( _("isegno(): Parameter specifying segment\n"
 		  "position in a group of equal tags is zero"), ERR_OK );
 	return( -1 );
   }
@@ -639,8 +768,8 @@ isegno( int itagi, int mx)
   } /* if( data.n > 0) */
 
   fprintf( stderr,
-	  "xnec2c: isegno(): no segment has an itag of %d\n",  itagi );
-  stop( _("isegno(): Segment tag number error"), ERR_OK );
+	  _("xnec2c: isegno(): no segment has an itag of %d\n"),  itagi );
+  Stop( _("isegno(): Segment tag number error"), ERR_OK );
 
   return( -1 );
 }
@@ -951,9 +1080,9 @@ patch(
 		if( s1x <= 0.9998)
 		{
 		  fprintf( stderr,
-			  "xnec2c: patch(): corners of quadrilateral\n"
-			  "patch do not lie in a plane\n" );
-		  stop( _("patch(): Corners of quadrilateral\n"\
+			  _("xnec2c: patch(): corners of quadrilateral\n"
+			  "patch do not lie in a plane\n") );
+		  Stop( _("patch(): Corners of quadrilateral\n"
 				"patch do not lie in a plane"), ERR_OK );
 		  return( FALSE );
 		}
@@ -1035,121 +1164,6 @@ patch(
 
 /*-----------------------------------------------------------------------*/
 
-/*** this function was an 'entry point' (part of) 'patch()' ***/
-  void
-subph( int nx, int ny )
-{
-  int mia, ix, iy, mi;
-  size_t mreq;
-  double xs, ys, zs, xa, xst, s1x, s1y;
-  double s1z, s2x, s2y, s2z, saln, xt, yt;
-
-  /* Reallocate patch buffers */
-  if( ny == 0 ) data.m += 3;
-  else data.m += 4;
-
-  mreq = (size_t)data.m * sizeof(double);
-  mem_realloc( (void **)&data.px,  mreq, "in geometry.c" );
-  mem_realloc( (void **)&data.py,  mreq, "in geometry.c" );
-  mem_realloc( (void **)&data.pz,  mreq, "in geometry.c" );
-  mem_realloc( (void **)&data.t1x, mreq, "in geometry.c" );
-  mem_realloc( (void **)&data.t1y, mreq, "in geometry.c" );
-  mem_realloc( (void **)&data.t1z, mreq, "in geometry.c" );
-  mem_realloc( (void **)&data.t2x, mreq, "in geometry.c" );
-  mem_realloc( (void **)&data.t2y, mreq, "in geometry.c" );
-  mem_realloc( (void **)&data.t2z, mreq, "in geometry.c" );
-  mem_realloc( (void **)&data.pbi, mreq, "in geometry.c" );
-  mem_realloc( (void **)&data.psalp, mreq, "in geometry.c" );
-  if( !CHILD )
-  {
-	mreq = (size_t)(data.n + 2 * data.m) * sizeof(GdkSegment);
-	mem_realloc( (void **)&structure_segs, mreq, "in geometry.c" );
-  }
-
-  /* Shift patches to make room for new ones */
-  if( (ny == 0) && (nx != data.m) )
-  {
-	for( iy = data.m-1; iy > nx+2; iy-- )
-	{
-	  ix = iy-3;
-	  data.px[iy]= data.px[ix];
-	  data.py[iy]= data.py[ix];
-	  data.pz[iy]= data.pz[ix];
-	  data.pbi[iy]= data.pbi[ix];
-	  data.psalp[iy]= data.psalp[ix];
-	  data.t1x[iy]= data.t1x[ix];
-	  data.t1y[iy]= data.t1y[ix];
-	  data.t1z[iy]= data.t1z[ix];
-	  data.t2x[iy]= data.t2x[ix];
-	  data.t2y[iy]= data.t2y[ix];
-	  data.t2z[iy]= data.t2z[ix];
-	}
-
-  } /* if( (ny == 0) || (nx != m) ) */
-
-  /* divide patch for connection */
-  mi= nx-1;
-  xs= data.px[mi];
-  ys= data.py[mi];
-  zs= data.pz[mi];
-  xa= data.pbi[mi]/4.0;
-  xst= sqrt( xa)/2.0;
-  s1x= data.t1x[mi];
-  s1y= data.t1y[mi];
-  s1z= data.t1z[mi];
-  s2x= data.t2x[mi];
-  s2y= data.t2y[mi];
-  s2z= data.t2z[mi];
-  saln= data.psalp[mi];
-  xt= xst;
-  yt= xst;
-
-  if( ny == 0)
-	mia= mi;
-  else
-  {
-	data.mp++;
-	mia= data.m-1;
-  }
-
-  for( ix = 1; ix <= 4; ix++ )
-  {
-	data.px[mia]= xs+ xt* s1x+ yt* s2x;
-	data.py[mia]= ys+ xt* s1y+ yt* s2y;
-	data.pz[mia]= zs+ xt* s1z+ yt* s2z;
-	data.pbi[mia]= xa;
-	data.t1x[mia]= s1x;
-	data.t1y[mia]= s1y;
-	data.t1z[mia]= s1z;
-	data.t2x[mia]= s2x;
-	data.t2y[mia]= s2y;
-	data.t2z[mia]= s2z;
-	data.psalp[mia]= saln;
-
-	if( ix == 2)
-	  yt= -yt;
-
-	if( (ix == 1) || (ix == 3) )
-	  xt= -xt;
-
-	mia++;
-  }
-
-  if( nx <= data.mp)
-	data.mp += 3;
-
-  if( ny > 0 )
-	data.pz[mi]=10000.0;
-
-  /* Process new patches created */
-  if( ! CHILD )
-	New_Patch_Data();
-
-  return;
-}
-
-/*-----------------------------------------------------------------------*/
-
 /* reflc reflects partial structure along x,y, or z axes */
 /* or rotates structure to complete a symmetric structure. */
   gboolean
@@ -1199,9 +1213,9 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 		  if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
 		  {
 			fprintf( stderr,
-				"xnec2c: reflc(): geometry data error\n"
-				"segment %d lies in plane of symmetry\n", i+1 );
-			stop( _("reflc(): Geometry data error\n"\
+				_("xnec2c: reflc(): geometry data error\n"
+				"segment %d lies in plane of symmetry\n"), i+1 );
+			Stop( _("reflc(): Geometry data error\n"
 				  "Segment lies in plane of symmetry"), ERR_OK );
 			return( FALSE );
 		  }
@@ -1250,9 +1264,9 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 		  if( fabs(data.pz[i]) <= 1.0e-10)
 		  {
 			fprintf( stderr,
-				"xnec2c: reflc(): geometry data error\n"
-				"patch %d lies in plane of symmetry\n", i+1 );
-			stop( _("reflc(): Geometry data error\n"\
+				_("xnec2c: reflc(): geometry data error\n"
+				"patch %d lies in plane of symmetry\n"), i+1 );
+			Stop( _("reflc(): Geometry data error\n"
 				  "Patch lies in plane of symmetry"), ERR_OK );
 			return( FALSE );
 		  }
@@ -1303,9 +1317,9 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 		  if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
 		  {
 			fprintf( stderr,
-				"xnec2c: reflc(): geometry data error\n"
-				"segment %d lies in plane of symmetry\n", i+1 );
-			stop( _("reflc(): Geometry data error\n"\
+				_("xnec2c: reflc(): geometry data error\n"
+				"segment %d lies in plane of symmetry\n"), i+1 );
+			Stop( _("reflc(): Geometry data error\n"
 				  "Segment lies in plane of symmetry"), ERR_OK );
 			return( FALSE );
 		  }
@@ -1354,9 +1368,9 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 		  if( fabs( data.py[i]) <= 1.0e-10)
 		  {
 			fprintf( stderr,
-				"xnec2c: reflc(): geometry data error\n"
-				"patch %d lies in plane of symmetry\n", i+1 );
-			stop( _("reflc(): Geometry data error\n"\
+				_("xnec2c: reflc(): geometry data error\n"
+				"patch %d lies in plane of symmetry\n"), i+1 );
+			Stop( _("reflc(): Geometry data error\n"
 				  "Patch lies in plane of symmetry"), ERR_OK );
 			return( FALSE );
 		  }
@@ -1409,9 +1423,9 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 		if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
 		{
 		  fprintf( stderr,
-			  "xnec2c: reflc(): geometry data error\n"
-			  "segment %d lies in plane of symmetry\n", i+1 );
-		  stop( _("reflc(): Geometry data error\n"\
+			  _("xnec2c: reflc(): geometry data error\n"
+			  "segment %d lies in plane of symmetry\n"), i+1 );
+		  Stop( _("reflc(): Geometry data error\n"
 				"Segment lies in plane of symmetry"), ERR_OK );
 		  return( FALSE );
 		}
@@ -1458,9 +1472,9 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 	  if( fabs( data.px[i]) <= 1.0e-10)
 	  {
 		fprintf( stderr,
-			"xnec2c: reflc(): geometry data error\n"
-			"patch %d lies in plane of symmetry\n", i+1 );
-		stop( _("reflc(): Geometry data error\n"\
+			_("xnec2c: reflc(): geometry data error\n"
+			"patch %d lies in plane of symmetry\n"), i+1 );
+		Stop( _("reflc(): Geometry data error\n"
 			  "Patch lies in plane of symmetry"), ERR_OK );
 		return( FALSE );
 	  }
@@ -1486,7 +1500,7 @@ reflc( int ix, int iy, int iz, int iti, int nop )
   /* reproduce structure with rotation to form cylindrical structure */
   fnop= (double)nop;
   data.ipsym=-1;
-  sam=TWOPI/ fnop;
+  sam=M_2PI/ fnop;
   cs= cos( sam);
   ss= sin( sam);
 
