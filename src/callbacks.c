@@ -53,7 +53,7 @@ on_main_window_delete_event(
   /* Quit without confirmation dialog */
   if( !rc_config.confirm_quit )
   {
-	gtk_widget_destroy( main_window );
+	Gtk_Widget_Destroy( main_window );
 	return( TRUE );
   }
 
@@ -74,19 +74,19 @@ on_main_window_key_press_event(
 	{
 	  case GDK_KEY_r:
 		gtk_widget_grab_focus( GTK_WIDGET(rotate_structure) );
-	  return( TRUE );
+		return( TRUE );
 
 	  case GDK_KEY_i:
 		gtk_widget_grab_focus( GTK_WIDGET(incline_structure) );
-	  return( TRUE );
+		return( TRUE );
 
 	  case GDK_KEY_z:
 		gtk_widget_grab_focus( GTK_WIDGET(structure_zoom) );
-	  return( TRUE );
+		return( TRUE );
 
 	  case GDK_KEY_f:
 		gtk_widget_grab_focus( GTK_WIDGET(mainwin_frequency) );
-	  return( TRUE );
+		return( TRUE );
 	}
   }
   return( FALSE );
@@ -243,7 +243,7 @@ on_quit_activate(
   /* Quit without confirmation dialog */
   if( !rc_config.confirm_quit )
   {
-	gtk_widget_destroy( main_window );
+	Gtk_Widget_Destroy( main_window );
 	return;
   }
 
@@ -356,7 +356,7 @@ on_main_rdpattern_activate(
 	Main_Rdpattern_Activate( TRUE );
   } /* if( gtk_check_menu_item_get_active(...) ) */
   else if( isFlagSet(DRAW_ENABLED) )
-	gtk_widget_destroy( rdpattern_window );
+	Gtk_Widget_Destroy( rdpattern_window );
 }
 
 
@@ -379,7 +379,7 @@ on_main_freqplots_activate(
 		  rc_config.freqplots_width, rc_config.freqplots_height );
 	  gtk_widget_show( freqplots_window );
 	  freqplots_drawingarea = Builder_Get_Object(
-			freqplots_window_builder, "freqplots_drawingarea" );
+		  freqplots_window_builder, "freqplots_drawingarea" );
 	  Set_Window_Labels();
 	  calc_data.ngraph = 0;
 
@@ -454,7 +454,7 @@ on_main_freqplots_activate(
 		GTK_CHECK_MENU_ITEM(menuitem), FALSE );
   }
   else if( isFlagSet(PLOT_ENABLED) )
-	gtk_widget_destroy( freqplots_window );
+	Gtk_Widget_Destroy( freqplots_window );
 }
 
 
@@ -707,9 +707,9 @@ on_main_freq_spinbutton_value_changed(
 	 * checkbutton next to freq spinbutton or
 	 * freq line plotting enabled, redo currents */
 	if( isFlagSet(PLOT_FREQ_LINE) ||
-	   (isFlagSet(MAIN_NEW_FREQ) &&
-	   (isFlagSet(DRAW_CURRENTS) ||
-		isFlagSet(DRAW_CHARGES))) )
+		(isFlagSet(MAIN_NEW_FREQ) &&
+		 (isFlagSet(DRAW_CURRENTS) ||
+		  isFlagSet(DRAW_CHARGES))) )
 	{
 	  /* Recalc currents in structure */
 	  calc_data.fmhz = (double)fmhz;
@@ -833,7 +833,7 @@ on_filechooserdialog_response(
   Filechooser_Response(
 	  dialog, response_id, saveas_width, saveas_height );
   if( response_id != GTK_RESPONSE_OK )
-	gtk_widget_destroy( file_chooser );
+	Gtk_Widget_Destroy( file_chooser );
 }
 
 
@@ -863,7 +863,7 @@ on_freqplots_window_delete_event(
   /* Close freq plots window without confirmation dialog */
   if( !rc_config.confirm_quit )
   {
-	gtk_widget_destroy( freqplots_window );
+	Gtk_Widget_Destroy( freqplots_window );
 	return( TRUE );
   }
 
@@ -990,7 +990,7 @@ on_freqplots_zo_spinbutton_value_changed(
   {
 	/* Wait for GTK to complete its tasks */
 	gtk_widget_queue_draw( freqplots_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+	while( g_main_context_iteration(NULL, FALSE) );
   }
 
   gtk_spin_button_update( spinbutton );
@@ -1082,7 +1082,7 @@ on_rdpattern_window_delete_event(
   /* Close rdpattern window without confirmation dialog */
   if( !rc_config.confirm_quit )
   {
-	gtk_widget_destroy( rdpattern_window );
+	Gtk_Widget_Destroy( rdpattern_window );
 	return( TRUE );
   }
 
@@ -1206,7 +1206,7 @@ on_rdpattern_e_field_activate(
   {
 	/* Wait for GTK to complete its tasks */
 	gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+	while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1225,7 +1225,7 @@ on_rdpattern_h_field_activate(
   {
 	/* Wait for GTK to complete its tasks */
 	gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+	while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1244,7 +1244,7 @@ on_rdpattern_poynting_vector_activate(
   {
 	/* Wait for GTK to complete its tasks */
 	gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+	while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1529,7 +1529,7 @@ on_quit_cancelbutton_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  gtk_widget_destroy( quit_dialog );
+  Gtk_Widget_Destroy( quit_dialog );
   ClearFlag( MAIN_QUIT );
   kill_window = NULL;
 }
@@ -1560,8 +1560,8 @@ on_quit_okbutton_clicked(
 
   } /* if( isFlagSet(FREQ_LOOP_RUNNING) ) */
 
-  gtk_widget_destroy( quit_dialog );
-  gtk_widget_destroy( kill_window );
+  Gtk_Widget_Destroy( quit_dialog );
+  Gtk_Widget_Destroy( kill_window );
 }
 
 
@@ -1659,19 +1659,19 @@ on_rdpattern_window_key_press_event(
 	{
 	  case GDK_KEY_r:
 		gtk_widget_grab_focus( GTK_WIDGET(rotate_rdpattern) );
-	  return( TRUE );
+		return( TRUE );
 
 	  case GDK_KEY_i:
 		gtk_widget_grab_focus( GTK_WIDGET(incline_rdpattern) );
-	  return( TRUE );
+		return( TRUE );
 
 	  case GDK_KEY_z:
 		gtk_widget_grab_focus( GTK_WIDGET(rdpattern_zoom) );
-	  return( TRUE );
+		return( TRUE );
 
 	  case GDK_KEY_f:
 		gtk_widget_grab_focus( GTK_WIDGET(rdpattern_frequency) );
-	  return( TRUE );
+		return( TRUE );
 	}
   }
   return( FALSE );
@@ -1817,9 +1817,9 @@ on_animate_dialog_destroy(
 	GObject       *object,
 	gpointer       user_data)
 {
+  animate_dialog = NULL;
   g_object_unref( animate_dialog_builder );
   animate_dialog_builder = NULL;
-  animate_dialog = NULL;
 }
 
 
@@ -1842,6 +1842,15 @@ on_error_dialog_delete_event(
 	gpointer         user_data)
 {
   return( TRUE );
+}
+
+
+  void
+on_error_dialog_destroy(
+	GObject       *object,
+	gpointer       user_data)
+{
+  error_dialog = NULL;
 }
 
 
@@ -1885,7 +1894,7 @@ on_nec2_editor_key_press_event(
 	/* Quit without confirmation dialog */
 	if( !rc_config.confirm_quit )
 	{
-	  gtk_widget_destroy( main_window );
+	  Gtk_Widget_Destroy( main_window );
 	  return( TRUE );
 	}
 
@@ -1911,7 +1920,7 @@ on_nec2_editor_delete_event(
   /* Close freq plots window without confirmation dialog */
   if( !rc_config.confirm_quit )
   {
-	gtk_widget_destroy( nec2_edit_window );
+	Gtk_Widget_Destroy( nec2_edit_window );
 	return( TRUE );
   }
 
@@ -2043,10 +2052,11 @@ on_nec2_row_remv_clicked(
 
   selection = gtk_tree_view_get_selection( selected_treeview );
   gtk_tree_selection_get_selected( selection, &model, &iter);
-  gtk_list_store_remove( GTK_LIST_STORE(model), &iter );
-  selected_treeview = NULL;
   SetFlag( EDITOR_QUIT );
   SetFlag( NEC2_EDIT_SAVE );
+  Open_Editor( selected_treeview );
+  gtk_list_store_remove( GTK_LIST_STORE(model), &iter );
+  selected_treeview = NULL;
 }
 
 
@@ -2057,10 +2067,10 @@ on_nec2_treeview_clear_clicked(
 {
   if( selected_treeview != NULL )
   {
-
+	SetFlag( EDITOR_QUIT );
+	Open_Editor( selected_treeview );
 	gtk_list_store_clear( GTK_LIST_STORE(
 		  gtk_tree_view_get_model(selected_treeview)) );
-	SetFlag( EDITOR_QUIT );
   }
 }
 
@@ -2103,7 +2113,7 @@ on_nec2_geom_treeview_key_press_event(
   selected_treeview = GTK_TREE_VIEW( widget );
   if( ( (event->keyval == GDK_KEY_Return) ||
 		(event->keyval == GDK_KEY_KP_Enter) ) &&
-	    (event->state & GDK_CONTROL_MASK) )
+	  (event->state & GDK_CONTROL_MASK) )
   {
 	action = EDITOR_EDIT;
 	Open_Editor( selected_treeview );
@@ -2141,7 +2151,7 @@ on_nec2_cmnd_treeview_key_press_event(
   selected_treeview = GTK_TREE_VIEW(widget);
   if( ( (event->keyval == GDK_KEY_Return) ||
 		(event->keyval == GDK_KEY_KP_Enter) ) &&
-	    (event->state & GDK_CONTROL_MASK) )
+	  (event->state & GDK_CONTROL_MASK) )
   {
 	action = EDITOR_EDIT;
 	Open_Editor( selected_treeview );
@@ -2170,7 +2180,7 @@ on_nec2_save_dialog_response(
 	gint             response_id,
 	gpointer         user_data)
 {
-  gtk_widget_destroy( nec2_save_dialog );
+  Gtk_Widget_Destroy( nec2_save_dialog );
 
   /* Discard edited data */
   if( response_id == GTK_RESPONSE_NO )
@@ -2185,7 +2195,7 @@ on_nec2_save_dialog_response(
 	  /* Open file chooser to select a NEC2 input file */
 	  file_chooser = Open_Filechooser(
 		  GTK_FILE_CHOOSER_ACTION_OPEN, "*.nec", NULL, NULL, rc_config.working_dir );
-	  gtk_widget_destroy( nec2_save_dialog );
+	  Gtk_Widget_Destroy( nec2_save_dialog );
 	  return;
 	}
 
@@ -2258,8 +2268,7 @@ on_nec2_save_dialog_response(
 
   /* Kill window that initiated the save dialog.
    * If it was the main window, xnec2c will exit */
-  if( kill_window ) gtk_widget_destroy( kill_window );
-  kill_window = NULL;
+  Gtk_Widget_Destroy( kill_window );
 }
 
 
@@ -2270,6 +2279,7 @@ on_nec2_save_dialog_destroy(
 {
   nec2_save_dialog = NULL;
   g_object_unref( nec2_save_dialog_builder );
+  nec2_save_dialog_builder = NULL;
 }
 
 
@@ -2281,7 +2291,7 @@ on_error_stopbutton_clicked(
 	gpointer         user_data)
 {
   ClearFlag( ERROR_CONDX );
-  gtk_widget_destroy( error_dialog );
+  Gtk_Widget_Destroy( error_dialog );
   gtk_main();
   exit(0);
 }
@@ -2293,7 +2303,7 @@ on_error_okbutton_clicked(
 	gpointer         user_data)
 {
   ClearFlag( ERROR_CONDX );
-  gtk_widget_destroy( error_dialog );
+  Gtk_Widget_Destroy( error_dialog );
 }
 
 
@@ -2302,8 +2312,8 @@ on_error_quitbutton_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  gtk_widget_destroy( error_dialog );
-  gtk_widget_destroy( main_window );
+  Gtk_Widget_Destroy( error_dialog );
+  Gtk_Widget_Destroy( main_window );
 }
 
 
@@ -2412,7 +2422,7 @@ on_wire_cancel_button_clicked(
 	gpointer         user_data)
 {
   Wire_Editor( EDITOR_CANCEL );
-  gtk_widget_destroy( wire_editor );
+  Gtk_Widget_Destroy( wire_editor );
 }
 
 
@@ -2430,8 +2440,8 @@ on_wire_ok_button_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  Wire_Editor( EDITOR_APPLY );
-  gtk_widget_destroy( wire_editor );
+  Wire_Editor( EDITOR_OK );
+  Gtk_Widget_Destroy( wire_editor );
 }
 
 
@@ -2440,17 +2450,9 @@ on_gw_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( wire_editor == NULL )
-  {
-	wire_editor = create_wire_editor( &wire_editor_builder );
-	gtk_widget_hide( Builder_Get_Object(wire_editor_builder, "wire_taperframe") );
-	gtk_widget_show( wire_editor );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Wire_Editor( EDITOR_APPLY );
-
-  Wire_Editor( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &wire_editor, &wire_editor_builder,
+	  create_wire_editor, Wire_Editor, action );
 }
 
 
@@ -2459,16 +2461,9 @@ on_ga_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( arc_editor == NULL )
-  {
-	arc_editor = create_arc_editor( &arc_editor_builder );
-	gtk_widget_show( arc_editor );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Arc_Editor( EDITOR_APPLY );
-
-  Arc_Editor( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &arc_editor, &arc_editor_builder,
+	  create_arc_editor, Arc_Editor, action );
 }
 
 
@@ -2477,16 +2472,9 @@ on_gh_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( helix_editor == NULL )
-  {
-	helix_editor = create_helix_editor( &helix_editor_builder );
-	gtk_widget_show( helix_editor );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Helix_Editor( EDITOR_APPLY );
-
-  Helix_Editor( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &helix_editor, &helix_editor_builder,
+	  create_helix_editor, Helix_Editor, action );
 }
 
 
@@ -2495,16 +2483,9 @@ on_sp_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( patch_editor == NULL )
-  {
-	patch_editor = create_patch_editor( &patch_editor_builder );
-	gtk_widget_show( patch_editor );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Patch_Editor( EDITOR_APPLY );
-
-  Patch_Editor( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &patch_editor, &patch_editor_builder,
+	  create_patch_editor, Patch_Editor, action );
 }
 
 
@@ -2513,16 +2494,9 @@ on_gr_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( cylinder_editor == NULL )
-  {
-	cylinder_editor = create_cylinder_editor( &cylinder_editor_builder );
-	gtk_widget_show( cylinder_editor );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Cylinder_Editor( EDITOR_APPLY );
-
-  Cylinder_Editor( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &cylinder_editor, &cylinder_editor_builder,
+	  create_cylinder_editor, Cylinder_Editor, action );
 }
 
 
@@ -2531,16 +2505,9 @@ on_gm_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( transform_editor == NULL )
-  {
-	transform_editor = create_transform_editor( &transform_editor_builder );
-	gtk_widget_show( transform_editor );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Transform_Editor( EDITOR_APPLY );
-
-  Transform_Editor( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &transform_editor, &transform_editor_builder,
+	  create_transform_editor, Transform_Editor, action );
 }
 
 
@@ -2549,16 +2516,9 @@ on_gx_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( reflect_editor == NULL )
-  {
-	reflect_editor = create_reflect_editor( &reflect_editor_builder );
-	gtk_widget_show( reflect_editor );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Reflect_Editor( EDITOR_APPLY );
-
-  Reflect_Editor( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &reflect_editor, &reflect_editor_builder,
+	  create_reflect_editor, Reflect_Editor, action );
 }
 
 
@@ -2567,16 +2527,9 @@ on_gs_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( scale_editor == NULL )
-  {
-	scale_editor = create_scale_editor( &scale_editor_builder );
-	gtk_widget_show( scale_editor );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Scale_Editor( EDITOR_APPLY );
-
-  Scale_Editor( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &scale_editor, &scale_editor_builder,
+	  create_scale_editor, Scale_Editor, action );
 }
 
 
@@ -2585,16 +2538,9 @@ on_ex_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( excitation_command == NULL )
-  {
-	excitation_command = create_excitation_command( &excitation_editor_builder );
-	gtk_widget_show( excitation_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Excitation_Command( EDITOR_APPLY );
-
-  Excitation_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &excitation_command, &excitation_editor_builder,
+	  create_excitation_command, Excitation_Command, action );
 }
 
 
@@ -2603,16 +2549,9 @@ on_fr_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( frequency_command == NULL )
-  {
-	frequency_command = create_frequency_command( &frequency_editor_builder );
-	gtk_widget_show( frequency_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Frequency_Command( EDITOR_APPLY );
-
-  Frequency_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &frequency_command, &frequency_editor_builder,
+	  create_frequency_command, Frequency_Command, action );
 }
 
 
@@ -2621,16 +2560,9 @@ on_gn_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( ground_command == NULL )
-  {
-	ground_command = create_ground_command( &ground_editor_builder );
-	gtk_widget_show( ground_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Ground_Command( EDITOR_APPLY );
-
-  Ground_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &ground_command, &ground_editor_builder,
+	  create_ground_command, Ground_Command, action );
 }
 
 
@@ -2639,16 +2571,9 @@ on_gd_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( ground2_command == NULL )
-  {
-	ground2_command = create_ground2_command( &ground2_editor_builder );
-	gtk_widget_show( ground2_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Ground2_Command( EDITOR_APPLY );
-
-  Ground2_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &ground2_command, &ground2_editor_builder,
+	  create_ground2_command, Ground2_Command, action );
 }
 
 
@@ -2657,16 +2582,9 @@ on_rp_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( radiation_command == NULL )
-  {
-	radiation_command = create_radiation_command( &radiation_editor_builder );
-	gtk_widget_show( radiation_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Radiation_Command( EDITOR_APPLY );
-
-  Radiation_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &radiation_command, &radiation_editor_builder,
+	  create_radiation_command, Radiation_Command, action );
 }
 
 
@@ -2675,16 +2593,9 @@ on_ld_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( loading_command == NULL )
-  {
-	loading_command = create_loading_command( &loading_editor_builder );
-	gtk_widget_show( loading_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Loading_Command( EDITOR_APPLY );
-
-  Loading_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &loading_command, &loading_editor_builder,
+	  create_loading_command, Loading_Command, action );
 }
 
 
@@ -2693,16 +2604,9 @@ on_nt_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( network_command == NULL )
-  {
-	network_command = create_network_command( &network_editor_builder );
-	gtk_widget_show( network_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Network_Command( EDITOR_APPLY );
-
-  Network_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &network_command, &network_editor_builder,
+	  create_network_command, Network_Command, action );
 }
 
 
@@ -2711,16 +2615,9 @@ on_tl_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( txline_command == NULL )
-  {
-	txline_command = create_txline_command( &txline_editor_builder );
-	gtk_widget_show( txline_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Txline_Command( EDITOR_APPLY );
-
-  Txline_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &txline_command, &txline_editor_builder,
+	  create_txline_command, Txline_Command, action );
 }
 
 
@@ -2729,16 +2626,9 @@ on_ne_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( nearfield_command == NULL )
-  {
-	nearfield_command = create_nearfield_command( &nearfield_editor_builder );
-	gtk_widget_show( nearfield_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Nearfield_Command( EDITOR_APPLY );
-
-  Nearfield_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &nearfield_command, &nearfield_editor_builder,
+	  create_nearfield_command, Nearfield_Command, action );
 }
 
 
@@ -2747,16 +2637,9 @@ on_ek_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( kernel_command == NULL )
-  {
-	kernel_command = create_kernel_command( &kernel_editor_builder );
-	gtk_widget_show( kernel_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Kernel_Command( EDITOR_APPLY );
-
-  Kernel_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &kernel_command, &kernel_editor_builder,
+	  create_kernel_command, Kernel_Command, action );
 }
 
 
@@ -2765,16 +2648,9 @@ on_kh_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( intrange_command == NULL )
-  {
-	intrange_command = create_intrange_command( &intrange_editor_builder );
-	gtk_widget_show( intrange_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Intrange_Command( EDITOR_APPLY );
-
-  Intrange_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &intrange_command, &intrange_editor_builder,
+	  create_intrange_command, Intrange_Command, action );
 }
 
 
@@ -2783,16 +2659,9 @@ on_zo_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( zo_command == NULL )
-  {
-	zo_command = create_zo_command( &zo_editor_builder );
-	gtk_widget_show( zo_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Zo_Command( EDITOR_APPLY );
-
-  Zo_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &zo_command, &zo_editor_builder,
+	  create_zo_command, Zo_Command, action );
 }
 
 
@@ -2801,16 +2670,9 @@ on_xq_clicked(
 	GtkButton       *button,
 	gpointer         user_data)
 {
-  if( execute_command == NULL )
-  {
-	execute_command = create_execute_command( &execute_editor_builder );
-	gtk_widget_show( execute_command );
-	ClearFlag( EDITOR_QUIT );
-  }
-  else Execute_Command( EDITOR_APPLY );
-
-  Execute_Command( action );
-  action = EDITOR_NEW;
+  Card_Clicked(
+	  &execute_command, &execute_editor_builder,
+	  create_execute_command, Execute_Command, action );
 }
 
 
@@ -2839,7 +2701,7 @@ on_patch_cancel_button_clicked(
 	gpointer         user_data)
 {
   Patch_Editor( EDITOR_CANCEL );
-  gtk_widget_destroy( patch_editor );
+  Gtk_Widget_Destroy( patch_editor );
 }
 
 
@@ -2858,7 +2720,7 @@ on_patch_ok_button_clicked(
 	gpointer         user_data)
 {
   Patch_Editor( EDITOR_APPLY );
-  gtk_widget_destroy( patch_editor );
+  Gtk_Widget_Destroy( patch_editor );
 }
 
 
@@ -2970,7 +2832,7 @@ on_arc_cancel_button_clicked(
 	gpointer         user_data)
 {
   Arc_Editor( EDITOR_CANCEL );
-  gtk_widget_destroy( arc_editor );
+  Gtk_Widget_Destroy( arc_editor );
 }
 
 
@@ -2989,7 +2851,7 @@ on_arc_ok_button_clicked(
 	gpointer         user_data)
 {
   Arc_Editor( EDITOR_APPLY );
-  gtk_widget_destroy( arc_editor );
+  Gtk_Widget_Destroy( arc_editor );
 }
 
 
@@ -3089,7 +2951,7 @@ on_helix_cancel_button_clicked(
 	gpointer         user_data)
 {
   Helix_Editor( EDITOR_CANCEL );
-  gtk_widget_destroy( helix_editor );
+  Gtk_Widget_Destroy( helix_editor );
 }
 
 
@@ -3108,7 +2970,7 @@ on_helix_ok_button_clicked(
 	gpointer         user_data)
 {
   Helix_Editor( EDITOR_APPLY );
-  gtk_widget_destroy( helix_editor );
+  Gtk_Widget_Destroy( helix_editor );
 }
 
 
@@ -3230,7 +3092,7 @@ on_reflect_cancel_button_clicked(
 	gpointer         user_data)
 {
   Reflect_Editor( EDITOR_CANCEL );
-  gtk_widget_destroy( reflect_editor );
+  Gtk_Widget_Destroy( reflect_editor );
 }
 
 
@@ -3249,7 +3111,7 @@ on_reflect_ok_button_clicked(
 	gpointer         user_data)
 {
   Reflect_Editor( EDITOR_APPLY );
-  gtk_widget_destroy( reflect_editor );
+  Gtk_Widget_Destroy( reflect_editor );
 }
 
 
@@ -3301,7 +3163,7 @@ on_scale_cancel_button_clicked(
 	gpointer         user_data)
 {
   Scale_Editor( EDITOR_CANCEL );
-  gtk_widget_destroy( scale_editor );
+  Gtk_Widget_Destroy( scale_editor );
 }
 
 
@@ -3320,7 +3182,7 @@ on_scale_ok_button_clicked(
 	gpointer         user_data)
 {
   Scale_Editor( EDITOR_APPLY );
-  gtk_widget_destroy( scale_editor );
+  Gtk_Widget_Destroy( scale_editor );
 }
 
 
@@ -3359,7 +3221,7 @@ on_cylinder_cancel_button_clicked(
 	gpointer         user_data)
 {
   Cylinder_Editor( EDITOR_CANCEL );
-  gtk_widget_destroy( cylinder_editor );
+  Gtk_Widget_Destroy( cylinder_editor );
 }
 
 
@@ -3378,7 +3240,7 @@ on_cylinder_ok_button_clicked(
 	gpointer         user_data)
 {
   Cylinder_Editor( EDITOR_APPLY );
-  gtk_widget_destroy( cylinder_editor );
+  Gtk_Widget_Destroy( cylinder_editor );
 }
 
 
@@ -3418,7 +3280,7 @@ on_transform_cancel_button_clicked(
 	gpointer         user_data)
 {
   Transform_Editor( EDITOR_CANCEL );
-  gtk_widget_destroy( transform_editor );
+  Gtk_Widget_Destroy( transform_editor );
 }
 
 
@@ -3437,7 +3299,7 @@ on_transform_ok_button_clicked(
 	gpointer         user_data)
 {
   Transform_Editor( EDITOR_APPLY );
-  gtk_widget_destroy( transform_editor );
+  Gtk_Widget_Destroy( transform_editor );
 }
 
 
@@ -3468,7 +3330,7 @@ on_gend_cancel_button_clicked(
 	gpointer         user_data)
 {
   Gend_Editor( EDITOR_CANCEL );
-  gtk_widget_destroy( gend_editor );
+  Gtk_Widget_Destroy( gend_editor );
 }
 
 
@@ -3487,7 +3349,7 @@ on_gend_ok_button_clicked(
 	gpointer         user_data)
 {
   Gend_Editor( EDITOR_APPLY );
-  gtk_widget_destroy( gend_editor );
+  Gtk_Widget_Destroy( gend_editor );
 }
 
 
@@ -3537,7 +3399,7 @@ on_kernel_cancel_button_clicked(
 	gpointer         user_data)
 {
   Kernel_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( kernel_command );
+  Gtk_Widget_Destroy( kernel_command );
 }
 
 
@@ -3556,7 +3418,7 @@ on_kernel_ok_button_clicked(
 	gpointer         user_data)
 {
   Kernel_Command( EDITOR_APPLY );
-  gtk_widget_destroy( kernel_command );
+  Gtk_Widget_Destroy( kernel_command );
 }
 
 
@@ -3595,7 +3457,7 @@ on_execute_cancel_button_clicked(
 	gpointer         user_data)
 {
   Execute_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( execute_command );
+  Gtk_Widget_Destroy( execute_command );
 }
 
 
@@ -3614,7 +3476,7 @@ on_execute_ok_button_clicked(
 	gpointer         user_data)
 {
   Execute_Command( EDITOR_APPLY );
-  gtk_widget_destroy( execute_command );
+  Gtk_Widget_Destroy( execute_command );
 }
 
 
@@ -3654,7 +3516,7 @@ on_intrange_cancel_button_clicked(
 	gpointer         user_data)
 {
   Intrange_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( intrange_command );
+  Gtk_Widget_Destroy( intrange_command );
 }
 
 
@@ -3673,7 +3535,7 @@ on_intrange_ok_button_clicked(
 	gpointer         user_data)
 {
   Intrange_Command( EDITOR_APPLY );
-  gtk_widget_destroy( intrange_command );
+  Gtk_Widget_Destroy( intrange_command );
 }
 
 
@@ -3713,7 +3575,7 @@ on_zo_cancel_button_clicked(
 	gpointer         user_data)
 {
   Zo_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( zo_command );
+  Gtk_Widget_Destroy( zo_command );
 }
 
 
@@ -3732,9 +3594,8 @@ on_zo_ok_button_clicked(
 	gpointer         user_data)
 {
   Zo_Command( EDITOR_APPLY );
-  gtk_widget_destroy( zo_command );
+  Gtk_Widget_Destroy( zo_command );
 }
-
 
 
   void
@@ -3791,7 +3652,7 @@ on_ground_cancel_button_clicked(
 	gpointer         user_data)
 {
   Ground_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( ground_command );
+  Gtk_Widget_Destroy( ground_command );
 }
 
 
@@ -3810,7 +3671,7 @@ on_ground_ok_button_clicked(
 	gpointer         user_data)
 {
   Ground_Command( EDITOR_APPLY );
-  gtk_widget_destroy( ground_command );
+  Gtk_Widget_Destroy( ground_command );
 }
 
 
@@ -3878,7 +3739,7 @@ on_nearfield_cancel_button_clicked(
 	gpointer         user_data)
 {
   Nearfield_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( nearfield_command );
+  Gtk_Widget_Destroy( nearfield_command );
 }
 
 
@@ -3897,7 +3758,7 @@ on_nearfield_ok_button_clicked(
 	gpointer         user_data)
 {
   Nearfield_Command( EDITOR_APPLY );
-  gtk_widget_destroy( nearfield_command );
+  Gtk_Widget_Destroy( nearfield_command );
 }
 
 
@@ -3908,6 +3769,7 @@ on_radiation_command_destroy(
 {
   radiation_command = NULL;
   g_object_unref( radiation_editor_builder );
+  radiation_editor_builder = NULL;
 }
 
 
@@ -3945,7 +3807,7 @@ on_radiation_cancel_button_clicked(
 	gpointer         user_data)
 {
   Radiation_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( radiation_command );
+  Gtk_Widget_Destroy( radiation_command );
 }
 
 
@@ -3964,7 +3826,7 @@ on_radiation_ok_button_clicked(
 	gpointer         user_data)
 {
   Radiation_Command( EDITOR_APPLY );
-  gtk_widget_destroy( radiation_command );
+  Gtk_Widget_Destroy( radiation_command );
 }
 
 
@@ -4022,7 +3884,7 @@ on_excitation_cancel_button_clicked(
 	gpointer         user_data)
 {
   Excitation_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( excitation_command );
+  Gtk_Widget_Destroy( excitation_command );
 }
 
 
@@ -4041,7 +3903,7 @@ on_excitation_ok_button_clicked(
 	gpointer         user_data)
 {
   Excitation_Command( EDITOR_APPLY );
-  gtk_widget_destroy( excitation_command );
+  Gtk_Widget_Destroy( excitation_command );
 }
 
 
@@ -4052,6 +3914,7 @@ on_frequency_command_destroy(
 {
   frequency_command = NULL;
   g_object_unref( frequency_editor_builder );
+  frequency_editor_builder = NULL;
 }
 
 
@@ -4099,7 +3962,7 @@ on_frequency_cancel_button_clicked(
 	gpointer         user_data)
 {
   Frequency_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( frequency_command );
+  Gtk_Widget_Destroy( frequency_command );
 }
 
 
@@ -4118,7 +3981,7 @@ on_frequency_ok_button_clicked(
 	gpointer         user_data)
 {
   Frequency_Command( EDITOR_APPLY );
-  gtk_widget_destroy( frequency_command );
+  Gtk_Widget_Destroy( frequency_command );
 }
 
 
@@ -4167,7 +4030,7 @@ on_loading_cancel_button_clicked(
 	gpointer         user_data)
 {
   Loading_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( loading_command );
+  Gtk_Widget_Destroy( loading_command );
 }
 
 
@@ -4186,7 +4049,7 @@ on_loading_ok_button_clicked(
 	gpointer         user_data)
 {
   Loading_Command( EDITOR_APPLY );
-  gtk_widget_destroy( loading_command );
+  Gtk_Widget_Destroy( loading_command );
 }
 
 
@@ -4226,7 +4089,7 @@ on_network_cancel_button_clicked(
 	gpointer         user_data)
 {
   Network_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( network_command );
+  Gtk_Widget_Destroy( network_command );
 }
 
 
@@ -4245,7 +4108,7 @@ on_network_ok_button_clicked(
 	gpointer         user_data)
 {
   Network_Command( EDITOR_APPLY );
-  gtk_widget_destroy( network_command );
+  Gtk_Widget_Destroy( network_command );
 }
 
 
@@ -4285,7 +4148,7 @@ on_txline_cancel_button_clicked(
 	gpointer         user_data)
 {
   Txline_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( txline_command );
+  Gtk_Widget_Destroy( txline_command );
 }
 
 
@@ -4304,7 +4167,7 @@ on_txline_ok_button_clicked(
 	gpointer         user_data)
 {
   Txline_Command( EDITOR_APPLY );
-  gtk_widget_destroy( txline_command );
+  Gtk_Widget_Destroy( txline_command );
 }
 
 
@@ -4353,7 +4216,7 @@ on_ground2_cancel_button_clicked(
 	gpointer         user_data)
 {
   Ground2_Command( EDITOR_CANCEL );
-  gtk_widget_destroy( ground2_command );
+  Gtk_Widget_Destroy( ground2_command );
 }
 
 
@@ -4372,7 +4235,7 @@ on_ground2_ok_button_clicked(
 	gpointer         user_data)
 {
   Ground2_Command( EDITOR_APPLY );
-  gtk_widget_destroy( ground2_command );
+  Gtk_Widget_Destroy( ground2_command );
 }
 
 
@@ -4431,7 +4294,15 @@ on_aboutdialog_close(
 	GtkDialog       *dialog,
 	gpointer         user_data)
 {
-  gtk_widget_destroy( aboutdialog );
+  Gtk_Widget_Destroy( aboutdialog );
+}
+
+
+  void
+on_aboutdialog_destroy(
+	GObject       *object,
+	gpointer	   user_data)
+{
   aboutdialog = NULL;
 }
 
@@ -4442,8 +4313,7 @@ on_aboutdialog_response(
 	gint             response_id,
 	gpointer         user_data)
 {
-  gtk_widget_destroy( aboutdialog );
-  aboutdialog = NULL;
+  Gtk_Widget_Destroy( aboutdialog );
 }
 
 
@@ -4660,7 +4530,7 @@ on_escape_key_press_event(
 {
   if( event->keyval == GDK_KEY_Escape )
   {
-	gtk_widget_destroy( widget );
+	Gtk_Widget_Destroy( widget );
 	return( TRUE );
   }
   else return( FALSE );

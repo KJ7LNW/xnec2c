@@ -1194,13 +1194,14 @@ Plots_Window_Killed( void )
   {
 	ClearFlag( PLOT_FLAGS );
 	freqplots_drawingarea = NULL;
-	freqplots_window = NULL;
 	g_object_unref( freqplots_window_builder );
 	freqplots_window_builder = NULL;
 
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
 		  Builder_Get_Object(main_window_builder, "main_freqplots")), FALSE );
   }
+  freqplots_window = NULL;
+  kill_window = NULL;
 
 } /* Plots_Window_Killed() */
 

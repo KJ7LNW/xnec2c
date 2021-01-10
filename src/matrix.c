@@ -1317,7 +1317,6 @@ fblock( int nrow, int ncol, int imax, int ipsym )
 
 /*-----------------------------------------------------------------------*/
 
-
 /* subroutine to solve the matrix equation lu*x=b where l is a unit */
 /* lower triangular matrix and u is an upper triangular matrix both */
 /* of which are stored in a.  the rhs vector b is input and the */

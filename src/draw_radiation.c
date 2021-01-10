@@ -742,7 +742,6 @@ Polarization_Factor( int pol_type, int fstep, int idx )
 Set_Polarization( int pol )
 {
   calc_data.pol_type = pol;
-
   Set_Window_Labels();
 
   /* Show gain in direction of viewer */
@@ -926,8 +925,7 @@ Rdpattern_Window_Killed( void )
 
   if( animate_dialog != NULL )
   {
-	gtk_widget_destroy( animate_dialog );
-	animate_dialog = NULL;
+	Gtk_Widget_Destroy( animate_dialog );
 	ClearFlag( NEAREH_ANIMATE );
 	if( anim_tag ) g_source_remove( anim_tag );
 	anim_tag = 0;
@@ -937,7 +935,6 @@ Rdpattern_Window_Killed( void )
   {
 	ClearFlag( DRAW_FLAGS );
 	rdpattern_drawingarea = NULL;
-	rdpattern_window = NULL;
 	g_object_unref( rdpattern_window_builder );
 	rdpattern_window_builder = NULL;
 	Free_Draw_Buffers();
@@ -945,6 +942,8 @@ Rdpattern_Window_Killed( void )
 	gtk_check_menu_item_set_active(	GTK_CHECK_MENU_ITEM(
 		  Builder_Get_Object( main_window_builder, "main_rdpattern")), FALSE );
   }
+  rdpattern_window = NULL;
+  kill_window = NULL;
 
 } /* Rdpattern_Window_Killed() */
 

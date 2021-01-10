@@ -42,6 +42,8 @@ usage(void)
   int
 Stop( char *mesg, int err )
 {
+  GtkBuilder *builder;
+
   /* For child processes */
   if( CHILD )
   {
@@ -58,16 +60,20 @@ Stop( char *mesg, int err )
 
   /* Stop operation */
   Stop_Frequency_Loop();
-  GtkBuilder *builder;
-  error_dialog = create_error_dialog( &builder );
-  gtk_label_set_text( GTK_LABEL(
-		Builder_Get_Object(builder, "error_label")), mesg );
 
-  /* Hide ok button according to error */
-  if( err == TRUE )
-	gtk_widget_hide( Builder_Get_Object(builder, "error_okbutton") );
-  gtk_widget_show( error_dialog );
-  g_object_unref( builder );
+  /* Create error dialog */
+  if( !error_dialog )
+  {
+	error_dialog = create_error_dialog( &builder );
+	gtk_label_set_text( GTK_LABEL(
+		  Builder_Get_Object(builder, "error_label")), mesg );
+
+	/* Hide ok button according to error */
+	if( err == TRUE )
+	  gtk_widget_hide( Builder_Get_Object(builder, "error_okbutton") );
+	gtk_widget_show( error_dialog );
+	g_object_unref( builder );
+  }
 
   /* Loop over usleep till user decides what to do */
   /* Could not think of another way to do this :-( */
@@ -92,13 +98,15 @@ Nec2_Save_Warn( const gchar *mesg )
   if( isFlagSet(FREQ_LOOP_RUNNING) )
   {
 	GtkBuilder *builder;
-	error_dialog = create_error_dialog( &builder );
-	gtk_label_set_text( GTK_LABEL(
-		  Builder_Get_Object(builder, "error_label")), mesg );
-	gtk_widget_hide(
-		Builder_Get_Object(builder, "error_stopbutton") );
-	gtk_widget_show( error_dialog );
-	g_object_unref( builder );
+	if( !error_dialog )
+	{
+	  error_dialog = create_error_dialog( &builder );
+	  gtk_label_set_text( GTK_LABEL(
+			Builder_Get_Object(builder, "error_label")), mesg );
+	  gtk_widget_hide( Builder_Get_Object(builder, "error_stopbutton") );
+	  gtk_widget_show( error_dialog );
+	  g_object_unref( builder );
+	}
 
 	/* Loop over usleep till user decides what to do */
 	/* Could not think of another way to do this :-( */

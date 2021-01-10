@@ -436,12 +436,14 @@ Wire_Editor( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( wire_editor );
+	Gtk_Widget_Destroy( wire_editor );
 	return;
   }
 
   /* Save data to nec2 editor if appropriate */
-  if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save) )
+  if( ( action == EDITOR_APPLY) ||
+	  ( action == EDITOR_OK)    ||
+	  ((action == EDITOR_NEW) && save) )
   {
 	/* Clear data not used in GC card */
 	iv[SPIN_COL_I3] = iv[SPIN_COL_I4] = 0;
@@ -460,6 +462,7 @@ Wire_Editor( int action )
 	if( load )
 	  Set_Wire_Conductivity( iv[SPIN_COL_I1], s, cmnd_store );
 
+	if( action == EDITOR_OK ) taper = FALSE;
 	save = load = FALSE;
   } /* if( (action & EDITOR_SAVE) && save ) */
 
@@ -542,8 +545,6 @@ Wire_Editor( int action )
 	  }
 	  else /*** Editing a GW card ***/
 	  {
-		taper = FALSE;
-
 		/* Get wire data from tree view */
 		Get_Geometry_Data( geom_store, &iter_gw, iv, fv );
 
@@ -569,9 +570,13 @@ Wire_Editor( int action )
 
 		} /* if( fv[WIRE_DIA] == 0.0 ) */
 		/* If radius != 0, next card should not be GC */
-		else if( Check_Card_Name(geom_store, &iter_gc, NEXT, "GC") )
-		  Stop( _("GC card follows a GW card\n"
-				"with non-zero wire radius"), ERR_OK );
+		else /* If radius != 0, next card should not be GC */
+		{
+		  taper = FALSE;
+		  if( Check_Card_Name(geom_store, &iter_gc, NEXT, "GC") )
+			Stop( _("GC card follows a GW card\n"
+				  "with non-zero wire radius"), ERR_OK );
+		}
 
 	  } /* if( strcmp(name, "GC") == 0 ) */
 	  break;
@@ -610,9 +615,8 @@ Wire_Editor( int action )
 	case EDITOR_CANCEL: /* Cancel wire editor */
 	  /* Remove cards */
 	  Remove_Row( geom_store, &iter_gw );
-	  if( taper )
-		Remove_Row( geom_store, &iter_gc );
-	  save = busy = FALSE;
+	  if( taper ) Remove_Row( geom_store, &iter_gc );
+	  save = busy = taper = FALSE;
 	  return;
 
 	case EDITOR_DATA: /* Some data changed in editor window */
@@ -702,6 +706,7 @@ Wire_Editor( int action )
 
   /* Frame of tapered wire data */
   frame = Builder_Get_Object(wire_editor_builder, "wire_taperframe");
+  
   /* Show taper data if appropriate */
   if( taper )
   {
@@ -852,7 +857,7 @@ Patch_Editor( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( patch_editor );
+	Gtk_Widget_Destroy( patch_editor );
 	return;
   }
 
@@ -1242,7 +1247,7 @@ Arc_Editor( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( arc_editor );
+	Gtk_Widget_Destroy( arc_editor );
 	return;
   }
 
@@ -1477,7 +1482,7 @@ Helix_Editor( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( helix_editor );
+	Gtk_Widget_Destroy( helix_editor );
 	return;
   }
 
@@ -1909,7 +1914,7 @@ Reflect_Editor( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( reflect_editor );
+	Gtk_Widget_Destroy( reflect_editor );
 	return;
   }
 
@@ -2051,7 +2056,7 @@ Scale_Editor( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( scale_editor );
+	Gtk_Widget_Destroy( scale_editor );
 	return;
   }
 
@@ -2198,7 +2203,7 @@ Cylinder_Editor( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( cylinder_editor );
+	Gtk_Widget_Destroy( cylinder_editor );
 	return;
   }
 
@@ -2328,7 +2333,7 @@ Transform_Editor( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( transform_editor );
+	Gtk_Widget_Destroy( transform_editor );
 	return;
   }
 
@@ -2458,7 +2463,7 @@ Gend_Editor( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( gend_editor );
+	Gtk_Widget_Destroy( gend_editor );
 	return;
   }
 
@@ -2592,7 +2597,7 @@ Give_Up( gboolean *busy, GtkWidget *widget )
   if( nec2_edit_window == NULL )
   {
 	Stop( _("NEC2 editor window not open"), ERR_OK );
-	gtk_widget_destroy( widget );
+	Gtk_Widget_Destroy( widget );
 	*busy = FALSE;
 	return( TRUE );
   }

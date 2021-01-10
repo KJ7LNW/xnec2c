@@ -302,11 +302,9 @@ Open_Input_File( gpointer udata )
 	gtk_widget_hide(
 		Builder_Get_Object(main_window_builder, "structure_frame") );
 
-	/* Close plot/rdpat windows */
-	if( rdpattern_window != NULL )
-	  gtk_widget_destroy( rdpattern_window );
-	if( freqplots_window != NULL )
-	  gtk_widget_destroy( freqplots_window );
+	/* Close plot/rdpat windows if open */
+	Gtk_Widget_Destroy( rdpattern_window );
+	Gtk_Widget_Destroy( freqplots_window );
 
 	if( nec2_edit_window == NULL )
 	  Open_Nec2_Editor( NEC2_EDITOR_RELOAD );
@@ -314,7 +312,7 @@ Open_Input_File( gpointer udata )
 	  Nec2_Input_File_Treeview( NEC2_EDITOR_CLEAR );
 
 	return( FALSE );
-  }
+  } /* if( !ok ) */
   SetFlag( INPUT_OPENED );
 
   /* Ask child processes to read input file */
@@ -336,7 +334,8 @@ Open_Input_File( gpointer udata )
   SetFlag( COMMON_PROJECTION );
   SetFlag( COMMON_FREQUENCY );
   SetFlag( MAIN_NEW_FREQ );
-  if( isFlagSet(PLOT_ENABLED) ) SetFlag( FREQ_LOOP_INIT );
+  if( isFlagSet(PLOT_ENABLED) )
+	SetFlag( FREQ_LOOP_INIT );
   floop_tag = 0;
   save.last_freq = 0.0;
   crnt.newer = 0;
@@ -350,7 +349,8 @@ Open_Input_File( gpointer udata )
   /* Set projection at 45 deg rotation and
    * inclination if NEC2 editor window is not open */
   if( nec2_edit_window == NULL )
-	New_Viewer_Angle( 45.0, 45.0, rotate_structure,
+	New_Viewer_Angle(
+		45.0, 45.0, rotate_structure,
 		incline_structure, &structure_proj_params );
   New_Structure_Projection_Angle();
 

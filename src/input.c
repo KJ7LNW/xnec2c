@@ -1288,7 +1288,7 @@ Read_Commands( void )
 	} /* switch( ain_num ) */
 
 	/* Disable radiation pattern plots */
-	if( (fpat.nth < 2) || (fpat.nph < 1) || (gnd.ifar == 1) )
+	if( (fpat.nth < 1) || (fpat.nph < 1) || (gnd.ifar == 1) )
 	  ClearFlag( ENABLE_RDPAT );
 	else
 	{
@@ -1412,7 +1412,7 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
 	return( FALSE );
   }
 
-  /* read integers from line */
+  /* Read integers from line */
   line_buf += 2;
   for( i = 0; i < nint; i++ )
   {

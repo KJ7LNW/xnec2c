@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.0 -->
+<!-- Generated with glade 3.22.1 -->
 <!--*- mode: xml -*-->
 <interface>
   <requires lib="gtk+" version="3.20"/>
@@ -26,7 +26,11 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="logo_icon_name"/>
     <property name="license_type">gpl-3-0</property>
     <signal name="close" handler="on_aboutdialog_close" swapped="no"/>
+    <signal name="destroy" handler="on_aboutdialog_destroy" swapped="no"/>
     <signal name="response" handler="on_aboutdialog_response" swapped="no"/>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can_focus">False</property>
@@ -43,9 +47,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
           </packing>
         </child>
       </object>
-    </child>
-    <child>
-      <placeholder/>
     </child>
   </object>
   <object class="GtkAdjustment" id="animate_freq_adjustment">
@@ -70,6 +71,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="window_position">mouse</property>
     <property name="type_hint">dialog</property>
     <signal name="destroy" handler="on_animate_dialog_destroy" swapped="no"/>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -179,6 +183,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
               <object class="GtkSpinButton" id="animate_steps_spinbutton">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">animate_steps_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -194,6 +200,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
               <object class="GtkSpinButton" id="animate_freq_spinbutton">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">animate_freq_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -220,9 +228,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
       <action-widget response="-6">animation_cancelbutton</action-widget>
       <action-widget response="-5">animation_okbutton</action-widget>
     </action-widgets>
-    <child>
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="arc_dia_adjustment">
     <property name="upper">100</property>
@@ -282,6 +287,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Arc Element (GA card)</property>
     <signal name="destroy" handler="on_arc_editor_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -356,6 +364,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="arc_tagnum_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">arc_tagnum_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -372,6 +382,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="arc_numseg_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">arc_numseg_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -388,6 +400,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="arc_pcl_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">arc_pcl_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -405,6 +419,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="arc_dia_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">arc_dia_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -475,6 +491,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="arc_rad_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">arc_rad_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -494,6 +512,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="can_focus">True</property>
                     <property name="max_length">7</property>
                     <property name="width_chars">8</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">arc_end1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -513,6 +533,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="can_focus">True</property>
                     <property name="max_length">7</property>
                     <property name="width_chars">8</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">arc_end2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -531,6 +553,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="arc_res_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">arc_res_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -674,9 +698,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="cylinder_taginc_adjustment">
     <property name="upper">100000</property>
@@ -698,6 +719,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Cylindrical Structure (GR card)</property>
     <signal name="destroy" handler="on_cylinder_editor_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -748,6 +772,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="cylinder_total_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">cylinder_total_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -764,6 +790,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="cylinder_taginc_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">cylinder_taginc_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -906,9 +934,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkDialog" id="error_dialog">
     <property name="visible">True</property>
@@ -920,6 +945,10 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="window_position">center</property>
     <property name="type_hint">dialog</property>
     <signal name="delete-event" handler="on_error_dialog_delete_event" swapped="no"/>
+    <signal name="destroy" handler="on_error_dialog_destroy" swapped="no"/>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -1043,9 +1072,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
       <action-widget response="-5">error_okbutton</action-widget>
       <action-widget response="0">error_stopbutton</action-widget>
     </action-widgets>
-    <child>
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="excitation_f1_adjustment">
     <property name="lower">-10000</property>
@@ -1105,6 +1131,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Excitation Command (EX Card)</property>
     <signal name="destroy" handler="on_excitation_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -1345,6 +1374,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="excitation_i2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">excitation_i2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -1361,6 +1392,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="excitation_i3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">excitation_i3_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -1416,6 +1449,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="excitation_f1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">excitation_f1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -1433,6 +1468,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="excitation_f2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">excitation_f2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -1450,6 +1487,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="excitation_f3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">excitation_f3_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -1506,6 +1545,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="excitation_f6_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">excitation_f6_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -1524,6 +1565,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="excitation_f5_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">excitation_f5_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -1541,6 +1584,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="excitation_f4_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">excitation_f4_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -1690,9 +1735,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkWindow" id="execute_command">
     <property name="visible">True</property>
@@ -1701,6 +1743,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Execute Command (XQ Card)</property>
     <signal name="destroy" handler="on_execute_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -1913,9 +1958,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkFileChooserDialog" id="filechooserdialog">
     <property name="visible">True</property>
@@ -1923,11 +1965,15 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="border_width">2</property>
     <property name="title" translatable="yes">xnec2c</property>
     <property name="role">GtkFileChooserDialog</property>
+    <property name="modal">True</property>
     <property name="window_position">mouse</property>
     <property name="type_hint">dialog</property>
     <property name="do_overwrite_confirmation">True</property>
     <signal name="destroy" handler="on_filechooserdialog_destroy" swapped="no"/>
     <signal name="response" handler="on_filechooserdialog_response" swapped="no"/>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -1986,9 +2032,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
       <action-widget response="-6">filechooserdialog_cancel</action-widget>
       <action-widget response="-5">filechooser_open</action-widget>
     </action-widgets>
-    <child>
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="freqplots_zo_adjustment">
     <property name="lower">1</property>
@@ -2030,6 +2073,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Frequecy Command (FR Card)</property>
     <signal name="destroy" handler="on_frequency_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -2132,6 +2178,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="frequency_num_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">frequency_num_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -2161,6 +2209,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="frequency_start_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">frequency_start_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -2191,6 +2241,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="frequency_step_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">frequency_step_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -2222,6 +2274,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="frequency_end_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">frequency_end_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -2364,9 +2418,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkWindow" id="gend_editor">
     <property name="visible">True</property>
@@ -2375,6 +2426,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Geometry End (GE Card)</property>
     <signal name="destroy" handler="on_gend_editor_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -2557,9 +2611,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="ground2_below_adjustment">
     <property name="upper">10000</property>
@@ -2592,6 +2643,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Ground Parameters (GD Card)</property>
     <signal name="destroy" handler="on_ground2_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -2628,6 +2682,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground2_diel_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground2_diel_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -2658,6 +2714,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground2_dist_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground2_dist_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -2688,6 +2746,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground2_res_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground2_res_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -2718,6 +2778,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground2_below_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground2_below_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -2860,9 +2922,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="ground_below_adjustment">
     <property name="upper">10000</property>
@@ -2926,6 +2985,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Ground Parameters (GN &amp; GD Cards)</property>
     <signal name="destroy" handler="on_ground_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -3088,6 +3150,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground_diel1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground_diel1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3118,6 +3182,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground_res1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground_res1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3170,6 +3236,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="text" translatable="yes">0.00000</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground_diel2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3200,6 +3268,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground_dist2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground_dist2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3230,6 +3300,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground_res2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground_res2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3260,6 +3332,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground_below_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground_below_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3337,6 +3411,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground_scrnrd_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground_scrnrd_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3354,6 +3430,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground_nrad_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground_nrad_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3383,6 +3461,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="ground_diam_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">ground_diam_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3525,9 +3605,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="helix_dia_adjustment">
     <property name="upper">100</property>
@@ -3610,6 +3687,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Helical Element (GA card)</property>
     <signal name="destroy" handler="on_helix_editor_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -3748,6 +3828,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="text" translatable="yes">0.0100</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">helix_dia_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3767,6 +3849,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="text" translatable="yes">5.00</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">helix_pcl_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3786,6 +3870,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="text" translatable="yes">8</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">helix_numseg_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3804,6 +3890,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="text" translatable="yes">1</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">helix_tagnum_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3835,6 +3923,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="text" translatable="yes">8.0000</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">helix_nturns_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3867,6 +3957,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="text" translatable="yes">5.0000</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">helix_len_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3899,6 +3991,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="text" translatable="yes">1.0000</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">helix_tspace_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -3931,6 +4025,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="text" translatable="yes">0.0000</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">helix_res_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -4007,6 +4103,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                         <property name="can_focus">True</property>
                         <property name="hexpand">True</property>
                         <property name="text" translatable="yes">1.0000</property>
+                        <property name="xalign">1</property>
+                        <property name="shadow_type">etched-in</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">helix_radxzo_adjustment</property>
                         <property name="climb_rate">0.10000000000000001</property>
@@ -4058,6 +4156,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                         <property name="can_focus">True</property>
                         <property name="hexpand">True</property>
                         <property name="text" translatable="yes">1.0000</property>
+                        <property name="xalign">1</property>
+                        <property name="shadow_type">etched-in</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">helix_radyzo_adjustment</property>
                         <property name="climb_rate">0.10000000000000001</property>
@@ -4109,6 +4209,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                         <property name="can_focus">True</property>
                         <property name="hexpand">True</property>
                         <property name="text" translatable="yes">1.0000</property>
+                        <property name="xalign">1</property>
+                        <property name="shadow_type">etched-in</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">helix_radxzhl_adjustment</property>
                         <property name="climb_rate">0.10000000000000001</property>
@@ -4155,6 +4257,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                     <property name="can_focus">True</property>
                     <property name="hexpand">True</property>
                     <property name="text" translatable="yes">1.0000</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">helix_radyzhl_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -4303,9 +4407,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="intrange_wlen_adjustment">
     <property name="upper">10000</property>
@@ -4320,6 +4421,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Interaction Approx Range (KH Card)</property>
     <signal name="destroy" handler="on_intrange_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -4356,6 +4460,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="intrange_wlen_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">intrange_wlen_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -4499,9 +4605,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkWindow" id="kernel_command">
     <property name="visible">True</property>
@@ -4510,6 +4613,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Thin Wire Kernel (EK Card)</property>
     <signal name="destroy" handler="on_kernel_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -4661,9 +4767,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="loading_f1_adjustment">
     <property name="upper">1000000000</property>
@@ -4709,6 +4812,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Loading Command (LD Card)</property>
     <signal name="destroy" handler="on_loading_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -4890,6 +4996,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="loading_i2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">loading_i2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -4919,6 +5027,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="loading_f1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">loading_f1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -4949,6 +5059,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="loading_i3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">loading_i3_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -4978,6 +5090,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="loading_f2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">loading_f2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5008,6 +5122,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="loading_i4_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">loading_i4_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5037,6 +5153,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="loading_f3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">loading_f3_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5180,9 +5298,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="main_freq_adjustment">
     <property name="lower">0.01</property>
@@ -5279,6 +5394,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="title" translatable="yes">Near Fields Command (NE/NH Cards)</property>
     <signal name="destroy" handler="on_nearfield_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -5411,6 +5529,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="nearfield_nx_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">nearfield_nx_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5440,6 +5560,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="nearfield_f1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">nearfield_f1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5470,6 +5592,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="nearfield_f4_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">nearfield_f4_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5500,6 +5624,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="nearfield_ny_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">nearfield_ny_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5529,6 +5655,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="nearfield_f2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">nearfield_f2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5559,6 +5687,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="nearfield_f5_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">nearfield_f5_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5589,6 +5719,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="nearfield_nz_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">nearfield_nz_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5618,6 +5750,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="nearfield_f3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">nearfield_f3_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5648,6 +5782,8 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                   <object class="GtkSpinButton" id="nearfield_f6_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">nearfield_f6_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -5791,9 +5927,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkWindow" id="nec2_editor">
     <property name="visible">True</property>
@@ -5804,6 +5937,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <signal name="delete-event" handler="on_nec2_editor_delete_event" swapped="no"/>
     <signal name="destroy" handler="on_nec2_editor_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_nec2_editor_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -5835,7 +5971,7 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
                         <signal name="clicked" handler="on_nec2_row_add_clicked" swapped="no"/>
-                        <accelerator key="a" signal="clicked"/>
+                        <accelerator key="a" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -5852,7 +5988,7 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
                         <signal name="clicked" handler="on_nec2_row_remv_clicked" swapped="no"/>
-                        <accelerator key="r" signal="clicked"/>
+                        <accelerator key="r" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -5869,7 +6005,7 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
                         <signal name="clicked" handler="on_nec2_treeview_clear_clicked" swapped="no"/>
-                        <accelerator key="c" signal="clicked"/>
+                        <accelerator key="c" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -5915,7 +6051,7 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
                         <signal name="clicked" handler="on_nec2_save_as_clicked" swapped="no"/>
-                        <accelerator key="s" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                        <accelerator key="s" signal="clicked" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -5932,7 +6068,7 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
                         <signal name="clicked" handler="on_nec2_save_clicked" swapped="no"/>
-                        <accelerator key="s" signal="clicked"/>
+                        <accelerator key="s" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -6013,7 +6149,7 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                 <property name="border_width">2</property>
                 <property name="hscrollbar_policy">always</property>
                 <property name="vscrollbar_policy">always</property>
-                <property name="shadow_type">in</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="kinetic_scrolling">False</property>
                 <property name="propagate_natural_width">True</property>
                 <property name="propagate_natural_height">True</property>
@@ -6210,7 +6346,7 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                 <property name="border_width">2</property>
                 <property name="hscrollbar_policy">always</property>
                 <property name="vscrollbar_policy">always</property>
-                <property name="shadow_type">in</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="kinetic_scrolling">False</property>
                 <property name="propagate_natural_width">True</property>
                 <property name="propagate_natural_height">True</property>
@@ -6479,7 +6615,7 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
                 <property name="border_width">2</property>
                 <property name="hscrollbar_policy">always</property>
                 <property name="vscrollbar_policy">always</property>
-                <property name="shadow_type">in</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="kinetic_scrolling">False</property>
                 <property name="propagate_natural_width">True</property>
                 <property name="propagate_natural_height">True</property>
@@ -6523,9 +6659,6 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkDialog" id="nec2_save_dialog">
     <property name="visible">True</property>
@@ -6538,6 +6671,9 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="type_hint">dialog</property>
     <signal name="destroy" handler="on_nec2_save_dialog_destroy" swapped="no"/>
     <signal name="response" handler="on_nec2_save_dialog_response" swapped="no"/>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can_focus">False</property>
@@ -6630,9 +6766,6 @@ Save NEC2 Editor data first?
       <action-widget response="-9">nec2_discard_button</action-widget>
       <action-widget response="-8">nec2_save_button</action-widget>
     </action-widgets>
-    <child>
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="network_f1_adjustment">
     <property name="lower">-10000</property>
@@ -6711,6 +6844,9 @@ Save NEC2 Editor data first?
     <property name="title" translatable="yes">Network Command (NT Card)</property>
     <signal name="destroy" handler="on_network_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -6747,6 +6883,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="network_i1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">network_i1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -6776,6 +6914,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="network_i3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">network_i3_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -6805,6 +6945,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="network_i2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">network_i2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -6834,6 +6976,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="network_i4_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">network_i4_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -6896,6 +7040,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="network_f1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">network_f1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -6926,6 +7072,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="network_f3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">network_f3_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -6956,6 +7104,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="network_f5_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">network_f5_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -6986,6 +7136,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="network_f2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">network_f2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7016,6 +7168,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="network_f4_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">network_f4_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7046,6 +7200,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="network_f6_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">network_f6_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7188,9 +7344,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="patch_nx_adjustment">
     <property name="lower">1</property>
@@ -7288,6 +7441,9 @@ Save NEC2 Editor data first?
     <property name="title" translatable="yes">Patch Element (SP &amp; SC Cards)</property>
     <signal name="destroy" handler="on_patch_editor_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -7440,6 +7596,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="patch_nx_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">patch_nx_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7469,6 +7627,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="patch_ny_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">patch_ny_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7531,6 +7691,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="patch_x1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">patch_x1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7561,6 +7723,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="patch_x2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">patch_x2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7591,6 +7755,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="patch_y1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">patch_y1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7621,6 +7787,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="patch_y2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">patch_y2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7651,6 +7819,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="patch_z1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">patch_z1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7681,6 +7851,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="patch_z2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">patch_z2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -7750,6 +7922,8 @@ Save NEC2 Editor data first?
                       <object class="GtkSpinButton" id="patch_x3_spinbutton">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="xalign">1</property>
+                        <property name="shadow_type">etched-in</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">patch_x3_adjustment</property>
                         <property name="climb_rate">0.10000000000000001</property>
@@ -7780,6 +7954,8 @@ Save NEC2 Editor data first?
                       <object class="GtkSpinButton" id="patch_y3_spinbutton">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="xalign">1</property>
+                        <property name="shadow_type">etched-in</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">patch_y3_adjustment</property>
                         <property name="climb_rate">0.10000000000000001</property>
@@ -7810,6 +7986,8 @@ Save NEC2 Editor data first?
                       <object class="GtkSpinButton" id="patch_z3_spinbutton">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="xalign">1</property>
+                        <property name="shadow_type">etched-in</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">patch_z3_adjustment</property>
                         <property name="climb_rate">0.10000000000000001</property>
@@ -7855,6 +8033,8 @@ Save NEC2 Editor data first?
                       <object class="GtkSpinButton" id="patch_x4_spinbutton">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="xalign">1</property>
+                        <property name="shadow_type">etched-in</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">patch_x4_adjustment</property>
                         <property name="climb_rate">0.10000000000000001</property>
@@ -7885,6 +8065,8 @@ Save NEC2 Editor data first?
                       <object class="GtkSpinButton" id="patch_y4_spinbutton">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="xalign">1</property>
+                        <property name="shadow_type">etched-in</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">patch_y4_adjustment</property>
                         <property name="climb_rate">0.10000000000000001</property>
@@ -7915,6 +8097,8 @@ Save NEC2 Editor data first?
                       <object class="GtkSpinButton" id="patch_z4_spinbutton">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="xalign">1</property>
+                        <property name="shadow_type">etched-in</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">patch_z4_adjustment</property>
                         <property name="climb_rate">0.10000000000000001</property>
@@ -8064,9 +8248,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkDialog" id="quit_dialog">
     <property name="visible">True</property>
@@ -8076,6 +8257,9 @@ Save NEC2 Editor data first?
     <property name="window_position">mouse</property>
     <property name="type_hint">dialog</property>
     <signal name="destroy" handler="on_quit_dialog_destroy" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -8182,9 +8366,6 @@ Save NEC2 Editor data first?
       <action-widget response="-6">quit_cancelbutton</action-widget>
       <action-widget response="-5">quit_okbutton</action-widget>
     </action-widgets>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="radiation_f1_adjustment">
     <property name="lower">-10000</property>
@@ -8245,6 +8426,9 @@ Save NEC2 Editor data first?
     <property name="title" translatable="yes">Radiation Pattern (RP Card)</property>
     <signal name="destroy" handler="on_radiation_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -8722,6 +8906,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="radiation_i2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">radiation_i2_adjustment</property>
                     <property name="climb_rate">1</property>
@@ -8738,6 +8924,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="radiation_f1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">radiation_f1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -8755,6 +8943,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="radiation_f3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">radiation_f3_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -8811,6 +9001,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="radiation_i3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">radiation_i3_adjustment</property>
                     <property name="climb_rate">1</property>
@@ -8827,6 +9019,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="radiation_f2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">radiation_f2_adjustment</property>
                     <property name="climb_rate">0.01</property>
@@ -8844,6 +9038,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="radiation_f4_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">radiation_f4_adjustment</property>
                     <property name="climb_rate">0.01</property>
@@ -8874,6 +9070,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="radiation_f5_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">radiation_f5_adjustment</property>
                     <property name="climb_rate">0.01</property>
@@ -8904,6 +9102,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="radiation_f6_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">radiation_f6_adjustment</property>
                     <property name="climb_rate">0.01</property>
@@ -9053,9 +9253,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="rdpattern_freq_adjustment">
     <property name="lower">0.01</property>
@@ -9097,6 +9294,9 @@ Save NEC2 Editor data first?
     <property name="title" translatable="yes">Reflect Structure (GX card)</property>
     <signal name="destroy" handler="on_reflect_editor_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -9179,6 +9379,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="reflect_taginc_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">reflect_taginc_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -9324,9 +9526,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkImage" id="saveas_gnuplot">
     <property name="visible">True</property>
@@ -9341,6 +9540,9 @@ Save NEC2 Editor data first?
     <property name="gravity">static</property>
     <signal name="delete-event" handler="on_freqplots_window_delete_event" swapped="no"/>
     <signal name="destroy" handler="on_freqplots_window_destroy" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox" id="freqplots_box">
         <property name="visible">True</property>
@@ -9678,6 +9880,8 @@ Save NEC2 Editor data first?
                 <property name="width_chars">6</property>
                 <property name="max_width_chars">6</property>
                 <property name="text" translatable="yes"> - - -</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="caps_lock_warning">False</property>
                 <property name="input_purpose">number</property>
               </object>
@@ -9706,11 +9910,13 @@ Save NEC2 Editor data first?
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="editable">False</property>
-                <property name="max_length">5</property>
+                <property name="max_length">6</property>
                 <property name="invisible_char">●</property>
-                <property name="width_chars">5</property>
-                <property name="max_width_chars">5</property>
-                <property name="text" translatable="yes"> - - </property>
+                <property name="width_chars">6</property>
+                <property name="max_width_chars">6</property>
+                <property name="text" translatable="yes"> - - -</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="caps_lock_warning">False</property>
                 <property name="input_purpose">number</property>
               </object>
@@ -9739,11 +9945,13 @@ Save NEC2 Editor data first?
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="editable">False</property>
-                <property name="max_length">5</property>
+                <property name="max_length">6</property>
                 <property name="invisible_char">●</property>
-                <property name="width_chars">5</property>
-                <property name="max_width_chars">5</property>
-                <property name="text" translatable="yes"> - - </property>
+                <property name="width_chars">6</property>
+                <property name="max_width_chars">6</property>
+                <property name="text" translatable="yes"> - - -</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="caps_lock_warning">False</property>
                 <property name="input_purpose">number</property>
               </object>
@@ -9776,7 +9984,9 @@ Save NEC2 Editor data first?
                 <property name="invisible_char">●</property>
                 <property name="width_chars">5</property>
                 <property name="max_width_chars">5</property>
-                <property name="text" translatable="yes"> - - </property>
+                <property name="text" translatable="yes"> - - -</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="caps_lock_warning">False</property>
                 <property name="input_purpose">number</property>
               </object>
@@ -9811,6 +10021,8 @@ Save NEC2 Editor data first?
                 <property name="width_chars">9</property>
                 <property name="max_width_chars">9</property>
                 <property name="text" translatable="yes"> - - - - </property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="caps_lock_warning">False</property>
                 <property name="input_purpose">number</property>
               </object>
@@ -9842,6 +10054,8 @@ Save NEC2 Editor data first?
                 <property name="width_chars">6</property>
                 <property name="max_width_chars">6</property>
                 <property name="text">50.0</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">freqplots_zo_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -9981,7 +10195,7 @@ Save NEC2 Editor data first?
               <object class="GtkViewport">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="shadow_type">none</property>
+                <property name="shadow_type">etched-in</property>
                 <child>
                   <object class="GtkDrawingArea" id="freqplots_drawingarea">
                     <property name="height_request">400</property>
@@ -10021,9 +10235,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkWindow" id="main_window">
     <property name="visible">True</property>
@@ -10033,6 +10244,9 @@ Save NEC2 Editor data first?
     <signal name="delete-event" handler="on_main_window_delete_event" swapped="no"/>
     <signal name="destroy" handler="on_main_window_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_main_window_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -10460,6 +10674,8 @@ Save NEC2 Editor data first?
                 <property name="max_length">3</property>
                 <property name="width_chars">3</property>
                 <property name="max_width_chars">3</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">main_rotate_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -10496,6 +10712,8 @@ Save NEC2 Editor data first?
                 <property name="max_length">3</property>
                 <property name="width_chars">3</property>
                 <property name="max_width_chars">3</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">main_incline_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -10531,6 +10749,8 @@ Save NEC2 Editor data first?
                 <property name="max_length">3</property>
                 <property name="width_chars">3</property>
                 <property name="max_width_chars">3</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">main_zoom_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -10558,8 +10778,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="plus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="KP_Add" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="plus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -10581,8 +10801,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="KP_Subtract" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -10604,8 +10824,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="KP_1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -10699,6 +10919,8 @@ Save NEC2 Editor data first?
                 <property name="width_chars">6</property>
                 <property name="max_width_chars">6</property>
                 <property name="text" translatable="yes">- - - </property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="caps_lock_warning">False</property>
                 <property name="input_purpose">number</property>
               </object>
@@ -10715,6 +10937,8 @@ Save NEC2 Editor data first?
                 <property name="max_length">9</property>
                 <property name="width_chars">9</property>
                 <property name="max_width_chars">9</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">main_freq_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -10770,6 +10994,8 @@ Save NEC2 Editor data first?
                 <property name="width_chars">3</property>
                 <property name="max_width_chars">3</property>
                 <property name="text" translatable="yes">1</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="caps_lock_warning">False</property>
               </object>
               <packing>
@@ -10940,7 +11166,7 @@ Save NEC2 Editor data first?
               <object class="GtkViewport">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="shadow_type">none</property>
+                <property name="shadow_type">etched-in</property>
                 <child>
                   <object class="GtkDrawingArea" id="structure_drawingarea">
                     <property name="height_request">400</property>
@@ -10982,9 +11208,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkWindow" id="rdpattern_window">
     <property name="visible">True</property>
@@ -10995,6 +11218,9 @@ Save NEC2 Editor data first?
     <signal name="delete-event" handler="on_rdpattern_window_delete_event" swapped="no"/>
     <signal name="destroy" handler="on_rdpattern_window_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_rdpattern_window_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox" id="rdpattern_box">
         <property name="visible">True</property>
@@ -11515,6 +11741,8 @@ Save NEC2 Editor data first?
                 <property name="max_length">3</property>
                 <property name="width_chars">3</property>
                 <property name="max_width_chars">3</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">rdpattern_rotate_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -11551,6 +11779,8 @@ Save NEC2 Editor data first?
                 <property name="max_length">3</property>
                 <property name="width_chars">3</property>
                 <property name="max_width_chars">3</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">rdpattern_incline_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -11589,6 +11819,8 @@ Save NEC2 Editor data first?
                 <property name="max_length">3</property>
                 <property name="width_chars">3</property>
                 <property name="max_width_chars">3</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">rdpattern_zoom_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -11617,8 +11849,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="plus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="KP_Add" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="plus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -11641,8 +11873,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="KP_Subtract" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -11665,8 +11897,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="KP_1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="KP_1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -11807,6 +12039,8 @@ Save NEC2 Editor data first?
                 <property name="width_chars">3</property>
                 <property name="max_width_chars">3</property>
                 <property name="text" translatable="yes">1</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="caps_lock_warning">False</property>
               </object>
               <packing>
@@ -11905,6 +12139,8 @@ Save NEC2 Editor data first?
                 <property name="width_chars">9</property>
                 <property name="max_width_chars">9</property>
                 <property name="text" translatable="yes">0.010</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">rdpattern_freq_adjustment</property>
                 <property name="climb_rate">0.10000000000000001</property>
@@ -11958,6 +12194,8 @@ Save NEC2 Editor data first?
                 <property name="width_chars">6</property>
                 <property name="max_width_chars">6</property>
                 <property name="text" translatable="yes"> - - -</property>
+                <property name="xalign">1</property>
+                <property name="shadow_type">etched-in</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -11993,7 +12231,7 @@ Save NEC2 Editor data first?
               <object class="GtkViewport">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="shadow_type">none</property>
+                <property name="shadow_type">etched-in</property>
                 <child>
                   <object class="GtkDrawingArea" id="rdpattern_drawingarea">
                     <property name="height_request">400</property>
@@ -12035,9 +12273,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="scale_factor_adjustment">
     <property name="upper">100000</property>
@@ -12062,6 +12297,9 @@ Save NEC2 Editor data first?
     <property name="title" translatable="yes">Scale Structure (GS card)</property>
     <signal name="destroy" handler="on_scale_editor_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -12113,6 +12351,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="scale_from_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">scale_from_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12129,6 +12369,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="scale_factor_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">scale_factor_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12159,6 +12401,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="scale_to_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">scale_to_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12300,9 +12544,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="transform_mx_adjustment">
     <property name="lower">-10000</property>
@@ -12362,6 +12603,9 @@ Save NEC2 Editor data first?
     <property name="title" translatable="yes">Co-ordinate Transformation (GM card)</property>
     <signal name="destroy" handler="on_transform_editor_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -12399,6 +12643,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="transform_taginc_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">transform_taginc_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12428,6 +12674,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="transform_rx_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">transform_rx_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12458,6 +12706,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="transform_mx_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">transform_mx_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12488,6 +12738,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="transform_new_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">transform_new_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12517,6 +12769,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="transform_ry_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">transform_ry_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12547,6 +12801,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="transform_my_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">transform_my_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12577,6 +12833,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="transform_start_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">transform_start_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12607,6 +12865,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="transform_rz_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">transform_rz_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12637,6 +12897,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="transform_mz_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">transform_mz_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12779,9 +13041,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="txline_f1_adjustment">
     <property name="lower">-10000</property>
@@ -12860,6 +13119,9 @@ Save NEC2 Editor data first?
     <property name="title" translatable="yes">Trans. Line Command (TL Card)</property>
     <signal name="destroy" handler="on_txline_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -12897,6 +13159,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="txline_i1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">txline_i1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12927,6 +13191,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="txline_i3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">txline_i3_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12956,6 +13222,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="txline_i2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">txline_i2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -12986,6 +13254,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="txline_i4_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">txline_i4_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13065,6 +13335,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="txline_f1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">txline_f1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13095,6 +13367,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="txline_f3_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">txline_f3_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13125,6 +13399,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="txline_f5_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">txline_f5_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13155,6 +13431,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="txline_f2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">txline_f2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13185,6 +13463,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="txline_f4_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">txline_f4_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13215,6 +13495,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="txline_f6_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">txline_f6_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13357,9 +13639,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="wire_dia1_adjustment">
     <property name="upper">100</property>
@@ -13469,6 +13748,9 @@ Save NEC2 Editor data first?
     <property name="title" translatable="yes">Wire Element (GW &amp; GC cards)</property>
     <signal name="destroy" handler="on_wire_editor_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -13505,6 +13787,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_tagnum_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_tagnum_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13534,6 +13818,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_x1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_x1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13564,6 +13850,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_x2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_x2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13594,6 +13882,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_numseg_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_numseg_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13624,6 +13914,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_y1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_y1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13654,6 +13946,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_y2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_y2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13684,6 +13978,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_pcl_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_pcl_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13714,6 +14010,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_z1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_z1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13744,6 +14042,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_z2_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_z2_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13774,6 +14074,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_dia_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_dia_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13805,6 +14107,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_len_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_len_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13835,6 +14139,8 @@ Save NEC2 Editor data first?
                   <object class="GtkSpinButton" id="wire_res_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_res_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13851,14 +14157,40 @@ Save NEC2 Editor data first?
               </object>
             </child>
             <child type="label">
-              <object class="GtkLabel">
+              <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="margin_left">2</property>
-                <property name="margin_right">2</property>
-                <property name="label" translatable="yes">Wire Data</property>
-                <property name="single_line_mode">True</property>
-                <property name="track_visited_links">False</property>
+                <property name="spacing">4</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Wire Data</property>
+                    <property name="single_line_mode">True</property>
+                    <property name="track_visited_links">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="wire_taper_checkbutton">
+                    <property name="label" translatable="yes">Tapered Wire</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_wire_taper_checkbutton_toggled" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
             </child>
           </object>
@@ -13881,21 +14213,7 @@ Save NEC2 Editor data first?
                 <property name="row_spacing">2</property>
                 <property name="column_spacing">2</property>
                 <property name="row_homogeneous">True</property>
-                <child>
-                  <object class="GtkCheckButton" id="wire_taper_checkbutton">
-                    <property name="label" translatable="yes">Tapered Wire</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="halign">start</property>
-                    <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="on_wire_taper_checkbutton_toggled" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
+                <property name="column_homogeneous">True</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
@@ -13906,13 +14224,15 @@ Save NEC2 Editor data first?
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
+                    <property name="top_attach">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkSpinButton" id="wire_rlen_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_rlen_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13923,7 +14243,7 @@ Save NEC2 Editor data first?
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
-                    <property name="top_attach">2</property>
+                    <property name="top_attach">1</property>
                   </packing>
                 </child>
                 <child>
@@ -13936,13 +14256,15 @@ Save NEC2 Editor data first?
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="top_attach">1</property>
+                    <property name="top_attach">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkSpinButton" id="wire_dia1_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_dia1_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13953,7 +14275,7 @@ Save NEC2 Editor data first?
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="top_attach">2</property>
+                    <property name="top_attach">1</property>
                   </packing>
                 </child>
                 <child>
@@ -13966,13 +14288,15 @@ Save NEC2 Editor data first?
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
-                    <property name="top_attach">1</property>
+                    <property name="top_attach">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkSpinButton" id="wire_dian_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_dian_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -13983,7 +14307,7 @@ Save NEC2 Editor data first?
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
-                    <property name="top_attach">2</property>
+                    <property name="top_attach">1</property>
                   </packing>
                 </child>
                 <child>
@@ -13996,13 +14320,15 @@ Save NEC2 Editor data first?
                   </object>
                   <packing>
                     <property name="left_attach">3</property>
-                    <property name="top_attach">1</property>
+                    <property name="top_attach">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkSpinButton" id="wire_rdia_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">wire_rdia_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -14013,17 +14339,8 @@ Save NEC2 Editor data first?
                   </object>
                   <packing>
                     <property name="left_attach">3</property>
-                    <property name="top_attach">2</property>
+                    <property name="top_attach">1</property>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
               </object>
             </child>
@@ -14159,9 +14476,6 @@ Save NEC2 Editor data first?
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
   </object>
   <object class="GtkAdjustment" id="zo_adjustment">
     <property name="lower">1</property>
@@ -14177,6 +14491,9 @@ Save NEC2 Editor data first?
     <property name="title" translatable="yes">Interaction Approx Range (KH Card)</property>
     <signal name="destroy" handler="on_zo_command_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_escape_key_press_event" swapped="no"/>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -14215,6 +14532,8 @@ Save NEC2 Editor data first?
                     <property name="can_focus">True</property>
                     <property name="width_chars">4</property>
                     <property name="text" translatable="yes">50.00</property>
+                    <property name="xalign">1</property>
+                    <property name="shadow_type">etched-in</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">zo_adjustment</property>
                     <property name="climb_rate">0.10000000000000001</property>
@@ -14355,9 +14674,6 @@ Save NEC2 Editor data first?
           </packing>
         </child>
       </object>
-    </child>
-    <child type="titlebar">
-      <placeholder/>
     </child>
   </object>
 </interface>

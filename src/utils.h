@@ -17,6 +17,7 @@
 #ifndef	UTILS_H
 #define	UTILS_H		1
 
+#include <locale.h>
 #include "common.h"
 
 /* Carriage return and line feed */

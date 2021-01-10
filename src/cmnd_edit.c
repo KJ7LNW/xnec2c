@@ -283,7 +283,7 @@ Excitation_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( excitation_command );
+    Gtk_Widget_Destroy( excitation_command );
 	return;
   }
 
@@ -550,7 +550,7 @@ Frequency_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( frequency_command );
+	Gtk_Widget_Destroy( frequency_command );
 	return;
   }
 
@@ -767,7 +767,7 @@ Ground_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( ground_command );
+	Gtk_Widget_Destroy( ground_command );
 	return;
   }
 
@@ -1200,7 +1200,7 @@ Ground2_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( ground2_command );
+	Gtk_Widget_Destroy( ground2_command );
 	return;
   }
 
@@ -1386,7 +1386,7 @@ Radiation_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( radiation_command );
+	Gtk_Widget_Destroy( radiation_command );
 	return;
   }
 
@@ -1688,7 +1688,7 @@ Loading_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( loading_command );
+	Gtk_Widget_Destroy( loading_command );
 	return;
   }
 
@@ -1959,7 +1959,7 @@ Network_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( network_command );
+	Gtk_Widget_Destroy( network_command );
 	return;
   }
 
@@ -2105,7 +2105,7 @@ Txline_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( txline_command );
+	Gtk_Widget_Destroy( txline_command );
 	return;
   }
 
@@ -2299,7 +2299,7 @@ Nearfield_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( nearfield_command );
+	Gtk_Widget_Destroy( nearfield_command );
 	return;
   }
 
@@ -2569,7 +2569,7 @@ Kernel_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( kernel_command );
+	Gtk_Widget_Destroy( kernel_command );
 	return;
   }
 
@@ -2699,7 +2699,7 @@ Intrange_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( intrange_command );
+	Gtk_Widget_Destroy( intrange_command );
 	return;
   }
 
@@ -2829,7 +2829,7 @@ Execute_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( execute_command );
+	Gtk_Widget_Destroy( execute_command );
 	return;
   }
 
@@ -2953,7 +2953,7 @@ Zo_Command( int action )
   {
 	ClearFlag( EDITOR_QUIT );
 	save = busy = FALSE;
-	gtk_widget_destroy( zo_command );
+	Gtk_Widget_Destroy( zo_command );
 	return;
   }
 

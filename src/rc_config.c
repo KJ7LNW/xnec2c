@@ -713,24 +713,15 @@ Get_GUI_State( void )
   if( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)) )
 	rc_config.main_charges_togglebutton = 1;
 
-  widget = Builder_Get_Object( main_window_builder, "main_total" );
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)) )
+  if( calc_data.pol_type == POL_TOTAL )
 	rc_config.main_total = 1;
-
-  widget = Builder_Get_Object( main_window_builder, "main_horizontal" );
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)) )
+  else if( calc_data.pol_type == POL_HORIZ )
 	rc_config.main_horizontal = 1;
-
-  widget = Builder_Get_Object( main_window_builder, "main_vertical" );
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)) )
+  else if( calc_data.pol_type == POL_VERT )
 	rc_config.main_vertical = 1;
-
-  widget = Builder_Get_Object( main_window_builder, "main_right_hand" );
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)) )
+  else if( calc_data.pol_type == POL_RHCP )
 	rc_config.main_right_hand = 1;
-
-  widget = Builder_Get_Object( main_window_builder, "main_left_hand" );
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)) )
+  else if( calc_data.pol_type == POL_LHCP )
 	rc_config.main_left_hand = 1;
 
   widget = Builder_Get_Object( main_window_builder, "main_rotate_spinbutton" );

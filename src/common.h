@@ -25,7 +25,6 @@
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
-#include <errno.h>
 #include <time.h>
 #include <sys/types.h>
 #include <sys/times.h>
@@ -843,6 +842,8 @@ gboolean Nec2_Edit_Save(void);
 void Delete_Event(gchar *mesg);
 void Set_Pol_Menuitem(int window);
 gboolean Open_Editor(GtkTreeView *view);
+void
+Card_Clicked(GtkWidget **editor, GtkBuilder **editor_builder, GtkWidget *create_fun(GtkBuilder **), void editor_fun(int), int action);
 void Main_Rdpattern_Activate(gboolean from_menu);
 gboolean Main_Freqplots_Activate(void);
 void Rdpattern_Gain_Togglebutton_Toggled(gboolean flag);
@@ -856,7 +857,7 @@ gboolean Nec2_Apply_Checkbutton(void);
 void Gtk_Quit(void);
 void Pass_EH_Flags(void);
 void Draw_Colorcode(cairo_t *cr);
-void Nec2_Save_Common(void);
+void Gtk_Widget_Destroy(GtkWidget *widget);
 /* callbacks.c */
 void on_main_window_destroy(GObject *object, gpointer user_data);
 gboolean on_main_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
@@ -972,6 +973,7 @@ void on_nec2_save_dialog_response(GtkDialog *dialog, gint response_id, gpointer 
 void on_nec2_save_dialog_destroy(GtkDialog *dialog, gpointer user_data);
 void on_error_stopbutton_clicked(GtkButton *button, gpointer user_data);
 void on_error_okbutton_clicked(GtkButton *button, gpointer user_data);
+void on_error_dialog_destroy( GObject *object, gpointer user_data);
 void on_error_quitbutton_clicked(GtkButton *button, gpointer user_data);
 void on_wire_editor_destroy(GObject *object, gpointer user_data);
 void on_wire_pcl_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
@@ -1171,6 +1173,7 @@ void on_loop_pause_clicked(GtkButton *button, gpointer user_data);
 void on_loop_reset_clicked(GtkButton *button, gpointer user_data);
 void on_about_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_aboutdialog_close(GtkDialog *dialog, gpointer user_data);
+void on_aboutdialog_destroy(GObject *object, gpointer user_data);
 void on_aboutdialog_response(GtkDialog *dialog, gint response_id, gpointer user_data);
 void on_freqplots_net_gain_activate(GtkMenuItem *menuitem, gpointer user_data);
 gboolean on_structure_drawingarea_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data);

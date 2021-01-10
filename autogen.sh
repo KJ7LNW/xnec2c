@@ -867,7 +867,7 @@ restore_clobbered ( ) {
 		$VERBOSE_ECHO "mv ${file}.$$.protect_from_automake.backup ${file}"
 		mv ${file}.$$.protect_from_automake.backup ${file}
 	    fi # -f ${file}
-	
+
 	    # just in case
 	    $VERBOSE_ECHO "rm -f ${file}.$$.protect_from_automake.backup"
 	    rm -f ${file}.$$.protect_from_automake.backup
@@ -1114,7 +1114,7 @@ download_gnulib_config_guess () {
 	opts=""
 	case ${__cmd} in
 	    wget)
-		opts="-O" 
+		opts="-O"
 		;;
 	    curl)
 		opts="-o"

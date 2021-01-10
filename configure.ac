@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([xnec2c], [3.9-beta], [nkcyham@yahoo.com])
+AC_INIT([xnec2c], [4.1.1], [nkcyham@yahoo.com])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/common.h])
 AC_CONFIG_HEADERS([config.h])

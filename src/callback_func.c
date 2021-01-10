@@ -70,7 +70,7 @@ Set_Spin_Button( GtkSpinButton *spin, gdouble value )
  *
  * Sets parameters for a new viewer angle
  */
-void
+  void
 New_Viewer_Angle(
 	double wr, double wi,
 	GtkSpinButton *wr_spb,
@@ -358,7 +358,8 @@ Open_Editor( GtkTreeView *view )
   size_t s = strlen( card ) + 1;
 
   /* Ignore cards from comments */
-  if( (strcmp(card, "CM") == 0) || (strcmp(card, "CE") == 0) )
+  if( (strcmp(card, "CM") == 0) ||
+	  (strcmp(card, "CE") == 0) )
 	return( TRUE );
 
   /* Some "cards" have common editors */
@@ -389,6 +390,39 @@ Open_Editor( GtkTreeView *view )
 
   return( TRUE );
 } /* Open_Editor() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Card_Clicked()
+ *
+ * Performs actions needed when a "card" editor is to be opened
+ */
+  void
+Card_Clicked(
+	GtkWidget **editor,
+	GtkBuilder **editor_builder,
+	GtkWidget *create_fun(GtkBuilder **),
+	void editor_fun(int),
+	int action )
+{
+
+  if( isFlagSet(EDITOR_QUIT) )
+  {
+	if( *editor ) editor_fun( EDITOR_APPLY );
+	ClearFlag( EDITOR_QUIT );
+	return;
+  }
+
+  if( *editor == NULL )
+  {
+	*editor = create_fun( editor_builder );
+	gtk_widget_show( *editor );
+  }
+  else editor_fun( EDITOR_APPLY );
+
+  editor_fun( action );
+  action = EDITOR_NEW;
+}/* Card_Clicked() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -860,7 +894,7 @@ Filechooser_Response(
 	/* Get the "save as" file name */
 	fname = gtk_file_chooser_get_filename( GTK_FILE_CHOOSER(dialog) );
 	Strlcpy( filename, fname, sizeof(filename) );
-	gtk_widget_destroy( GTK_WIDGET(dialog) );
+	Gtk_Widget_Destroy( GTK_WIDGET(dialog) );
 
 	if( isFlagSet(NEC2_SAVE) )
 	{
@@ -973,8 +1007,7 @@ Filechooser_Response(
 	}
 
 	/* Kill window that initiated edited data save */
-	if( kill_window != NULL ) gtk_widget_destroy( kill_window );
-	kill_window = NULL;
+	Gtk_Widget_Destroy( kill_window );
 
   } /* if( response_id == GTK_RESPONSE_OK ) */
   else
@@ -1010,10 +1043,10 @@ Open_Nec2_Editor( int action )
 
   geom_adjustment =
 	gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(
-		Builder_Get_Object(nec2_editor_builder, "geom_scrolledwindow")) );
+		  Builder_Get_Object(nec2_editor_builder, "geom_scrolledwindow")) );
   cmnd_adjustment =
 	gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(
-		Builder_Get_Object(nec2_editor_builder, "cmnd_scrolledwindow")) );
+		  Builder_Get_Object(nec2_editor_builder, "cmnd_scrolledwindow")) );
 
 } /* Open_Nec2_Editor() */
 
@@ -1122,15 +1155,21 @@ Draw_Colorcode( cairo_t *cr )
 
 /*-----------------------------------------------------------------------*/
 
-/* Nec2_Save_Common()
+/* Gtk_Widget_Destroy()
  *
- * Common actions needed in the nested save sequence of NEC2 data
+ * A safety wrapper around Gtk_Widget_Destroy()
+ * Checks that the widget is not null before killing it
  */
   void
-Nec2_Save_Common( void )
+Gtk_Widget_Destroy( GtkWidget *widget )
 {
+  if( widget != NULL )
+  {
+	gtk_widget_destroy( widget );
+	widget = NULL;
+  }
 
-}
+} /* Gtk_Widget_Destroy() */
 
-/*-----------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
 

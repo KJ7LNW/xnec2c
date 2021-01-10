@@ -5,6 +5,7 @@
 <meta name="generator" content="Bluefish 2.2.10" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
+<meta name="date" content="2018-09-26T12:45:45+0300" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C">
 <meta name="description" content=
@@ -568,13 +569,13 @@ mouse click and then clicking on a cell. This requires detailed
 knowledge of the format of each of the NEC2 input file "cards" and
 so this method is only useful for editing comments.</p>
 <p>The main editor is controlled by the top row of buttons: The
-<b>Add (a)</b> button inserts a new blank row in whatever tree view
-has been selected by a mouse click. The <b>Remove (r)</b> button
+<b>Add (Ctrl-a)</b> button inserts a new blank row in whatever tree view
+has been selected by a mouse click. The <b>Remove (Ctrl-r)</b> button
 deletes a row that was selected by a mouse click and the <b>Clear
 (c)</b> button deletes all rows in a selected tree view and clears
-it. The <b>Save As (Ctrl s)</b> button opens a file selector dialog
+it. The <b>Save As (Ctrl S)</b> button opens a file selector dialog
 for saving the data in the Editor to a NEC2 input file. The <b>Save
-(s)</b> button writes data in the Editor to an already open input
+(Ctrl-s)</b> button writes data in the Editor to an already open input
 file. The Apply check button, when checked, signals xnec2c to
 reload the edited input file for execution.</p>
 <p>Note: In xnec2c versions earlier than version 2.0-beta, due to
@@ -1030,6 +1031,39 @@ resulted a division by zero if the helix length was specified as
 zero, possibly intended to produce a spiral. The GH card can now be
 used to produce both a helix or a spiral with no floating point
 exceptions.</p>
+<p><b>Version 3.9:</b> Since I have not received any bug reports
+for some time after releasing version 3.9-b, and having fixed a bug
+that resulted in a gtk_widget_destroy() command to be passed on an
+invalid widget pointer, I am releasing xnec2c as version 3.9.</p>
+<p><b>Version 4.0:</b> I have changed the code that saves the state
+of the View-Polarization menu items, as it would only correctly
+save the state of these items in the Main (structure) window. I
+also changed the code that handles the removal of "card" entries in
+the NEC2 editor, as it was causing crashes of xnec2c under some
+user action combinations.</p>
+<p><b>Version 4.0:</b> I corrected some mistakes in the GUI
+interface code, which handles the creation of windows and dialogs
+from the glade UI description file. These mistakes were such that
+they did not effect the operation of xnec2c but in any case I fixed
+them for the sake of correct programming. Also changed the wire
+designer dialog to include the Tapered Wire selection check-button
+in the dialog's frame and the relevant code to deal with this
+better.</p>
+<p><b>Version 4.1:</b> I corrected some mistakes in the GUI
+interface code, which handles the creation of windows and dialogs
+from the glade UI description file. These mistakes were such that
+they did not effect the operation of xnec2c but in any case I fixed
+them for the sake of correct programming. Also changed the wire
+designer dialog to include the Tapered Wire selection check-button
+in the dialog's frame and the relevant code to deal with this
+better.</p>
+<p><b>Version 4.1.1:</b> I made a small change to the Radiation
+Pattern code to allow the drawing of both horizontal an vertical
+"cuts" in the radiation pattern, in the zx and zy vertical planes
+and the xy horizontal plane. Also changed the accelerator keys for
+the Add, Remove, Clear, Save As, Save and Revert buttons to be
+Modified by the Control button as the original accelerator keys
+were being activated when writing in the Comments Treeview.</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and
 Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original
@@ -1068,8 +1102,6 @@ Some of the code in xnec2c is based on Pieter-Tjerk de Boer's
 "xnecview" application, which visualizes NEC2's input and output
 files. The general 'look and feel" of xnec2c was also influenced by
 the same application.</p>
-<p><b>Author:</b> Neoklis Kyriazis (Ham Radio call: 5B4AZ)<br>
-<br>
-September 20 2005</p>
+<p><b>Author:</b> Neoklis Kyriazis (Ham Radio call: 5B4AZ)</p>
 </body>
 </html>
