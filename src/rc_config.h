@@ -15,14 +15,14 @@
  */
 
 #ifndef RC_CONFIG_H
-#define RC_CONFIG_H	1
+#define RC_CONFIG_H 1
 
 #include "common.h"
 #include "utils.h"
 #include "shared.h"
 #include <sys/stat.h>
 
-#define CONFIG_FILE		".config/xnec2c.conf"
+#define CONFIG_FILE     ".xnec2c/xnec2c.conf"
 
 /* Format of rc config file to use in snprintf() */
 #define RC_CONFIG_FORMAT \
@@ -90,6 +90,8 @@
   "%d\n"\
   "# Frequency Plots Window Z-mag/Z-phase toggle button state\n"\
   "%d\n"\
+  "# Frequency Plots Window Smith toggle button state\n"\
+  "%d\n"\
   "# Frequency Plots Window Net Gain checkbutton state\n"\
   "%d\n"\
   "# NEC2 Editor Window Size, in pixels\n"\
@@ -101,9 +103,9 @@
   "# Rdpattern Projection Center x and y Offset\n"\
   "%d,%d\n"\
   "# Enable Confirm Quit Dialog\n"\
-  "%d\n#")
+  "%d\n#" )
 
 /* Size of string buffer needed to print config file */
-#define RC_FILE_BUF_SIZE	2048
+#define RC_FILE_BUF_SIZE    2048
 
 #endif

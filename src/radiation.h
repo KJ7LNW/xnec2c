@@ -14,12 +14,12 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef	RADIATION_H
-#define	RADIATION_H		1
+#ifndef RADIATION_H
+#define RADIATION_H     1
 
 #include "common.h"
 
-#define	CONST3	(0.0-I*29.97922085)
+#define CONST3  (0.0-I*29.97922085)
 
 #endif
 

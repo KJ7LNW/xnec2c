@@ -14,14 +14,14 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef	PLOT_FREQDATA_H
-#define	PLOT_FREQDATA_H		1
+#ifndef PLOT_FREQDATA_H
+#define PLOT_FREQDATA_H     1
 
 #include "common.h"
 
 /* For plotting graphs */
-#define	LEFT	1
-#define	RIGHT	2
+#define LEFT    1
+#define RIGHT   2
 
 #endif
 

@@ -15,7 +15,7 @@
  */
 
 #ifndef DRAW_RADIATION_H
-#define DRAW_RADIATION_H		1
+#define DRAW_RADIATION_H        1
 
 #include "common.h"
 

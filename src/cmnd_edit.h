@@ -15,7 +15,7 @@
  */
 
 #ifndef CMND_EDIT_H
-#define CMND_EDIT_H		1
+#define CMND_EDIT_H     1
 
 #include "common.h"
 #include "interface.h"

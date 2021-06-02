@@ -6,7 +6,8 @@ EXTRA_DIST = \
 	autogen.sh \
 	files \
 	examples \
-	doc
+	doc \
+	.xnec2c
 
 DISTCLEANFILES = \
 				 autom4te.cache/* \
@@ -47,23 +48,21 @@ DISTCLEANFILES = \
 install-data-local:
 	@$(NORMAL_INSTALL)
 	if test -d files/; then \
-	  mkdir -p $(DESTDIR)/usr/share/applications/; \
-	  cp files/$(PACKAGE).desktop $(DESTDIR)/usr/share/applications/; \
-	  mkdir -p $(DESTDIR)/usr/share/pixmaps/; \
-	  mkdir -p $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/; \
-	  cp files/$(PACKAGE).svg $(DESTDIR)/usr/share/pixmaps/; \
-	  cp files/$(PACKAGE).svg $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/; \
-	  mkdir -p $(DESTDIR)/usr/share/$(PACKAGE); \
-	  cp files/$(PACKAGE).glade $(DESTDIR)/usr/share/$(PACKAGE); \
-	  cp files/link.svg files/unlink.svg $(DESTDIR)/usr/share/$(PACKAGE); \
-	fi; \
-	if !(test -d $(DESTDIR)/usr/share/doc/$(PACKAGE)); then \
-	  mkdir -p $(DESTDIR)/usr/share/doc/$(PACKAGE)/examples/; \
-	  cp examples/* $(DESTDIR)/usr/share/doc/$(PACKAGE)/examples/; \
+	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/applications;\
+	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/pixmaps;\
+	  $(install_sh_DATA) files/$(PACKAGE).desktop $(DESTDIR)$(datarootdir)/applications/; \
+	  $(install_sh_DATA) files/$(PACKAGE).svg $(DESTDIR)$(datarootdir)/pixmaps/; \
 	fi; \
 	if test -d doc/; then \
-	  cp -r doc/* $(DESTDIR)/usr/share/doc/$(PACKAGE)/; \
-	  mkdir -p $(DESTDIR)/usr/share/man/man1/; \
-	  cp -r doc/$(PACKAGE).1.gz $(DESTDIR)/usr/share/man/man1/; \
+	  $(MKDIR_P) $(DESTDIR)$(docdir)/images/;\
+	  $(MKDIR_P) $(DESTDIR)$(mandir)/man1;\
+	  $(install_sh_DATA) doc/*.txt $(DESTDIR)$(docdir)/; \
+	  $(install_sh_DATA) doc/$(PACKAGE).html $(DESTDIR)$(docdir)/; \
+	  $(install_sh_DATA) doc/images/* $(DESTDIR)$(docdir)/images/; \
+	  $(install_sh_DATA) doc/$(PACKAGE).1.gz $(DESTDIR)$(mandir)/man1/; \
+	fi;
+	if test -d .$(PACKAGE)/; then \
+	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/examples/$(PACKAGE)/;\
+	  cp -r .$(PACKAGE)/* $(DESTDIR)$(datarootdir)/examples/$(PACKAGE)/; \
 	fi;
 

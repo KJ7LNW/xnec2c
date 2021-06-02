@@ -2,10 +2,10 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta name="generator" content="Bluefish 2.2.10" >
+<meta name="generator" content="Bluefish 2.2.12" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
-<meta name="date" content="2018-09-26T12:45:45+0300" >
+<meta name="date" content="2021-06-02T09:25:39+0300" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C">
 <meta name="description" content=
@@ -569,15 +569,15 @@ mouse click and then clicking on a cell. This requires detailed
 knowledge of the format of each of the NEC2 input file "cards" and
 so this method is only useful for editing comments.</p>
 <p>The main editor is controlled by the top row of buttons: The
-<b>Add (Ctrl-a)</b> button inserts a new blank row in whatever tree view
-has been selected by a mouse click. The <b>Remove (Ctrl-r)</b> button
-deletes a row that was selected by a mouse click and the <b>Clear
-(c)</b> button deletes all rows in a selected tree view and clears
-it. The <b>Save As (Ctrl S)</b> button opens a file selector dialog
-for saving the data in the Editor to a NEC2 input file. The <b>Save
-(Ctrl-s)</b> button writes data in the Editor to an already open input
-file. The Apply check button, when checked, signals xnec2c to
-reload the edited input file for execution.</p>
+<b>Add (Ctrl-a)</b> button inserts a new blank row in whatever tree
+view has been selected by a mouse click. The <b>Remove (Ctrl-r)</b>
+button deletes a row that was selected by a mouse click and the
+<b>Clear (c)</b> button deletes all rows in a selected tree view
+and clears it. The <b>Save As (Ctrl S)</b> button opens a file
+selector dialog for saving the data in the Editor to a NEC2 input
+file. The <b>Save (Ctrl-s)</b> button writes data in the Editor to
+an already open input file. The Apply check button, when checked,
+signals xnec2c to reload the edited input file for execution.</p>
 <p>Note: In xnec2c versions earlier than version 2.0-beta, due to
 the complex file opening process followed by NEC2 (many data sanity
 checks and initializations etc), reloading the input file resulted
@@ -1064,6 +1064,26 @@ and the xy horizontal plane. Also changed the accelerator keys for
 the Add, Remove, Clear, Save As, Save and Revert buttons to be
 Modified by the Control button as the original accelerator keys
 were being activated when writing in the Comments Treeview.</p>
+<p><b>Version 4.1.2:</b> Changed the installation commands in
+Makefile.am so that all the relevant files (desktop file,
+application pixmap, configuration file, executable binary etc) are
+installed under any location specified to the configure script by
+the --prefix= option. Also modified the program so that on first
+start up after installation, the application will create its
+working directory by copying files from the relevant directories
+under the installation prefix.</p>
+<p><b>Version 4.1.3:</b> Arranged the pipe reading function for the
+parent process to re-read from the child processes if not all data
+is transferred at the first read(). In this case xnec2c was
+crushing with "Resource temporarily unavailable" error message.</p>
+<p><b>Version 4.1.4:</b> Added the stdint.h include file to
+common.h to fix a compilation error reported by Nick G3VNC.</p>
+<p><b>Version 4.1.5:</b> After an inquiry by Eric Wheeler KJ7LNW 
+regarding the use of the GH card to create spirals, I found a bug
+that caused the GH editor to delete the GH entry in NEC2 Editor's
+treeview. I also found a bug that caused the number of turns of a
+spiral to be rounded to the nearest integer. Both bugs have been
+fixed in this version.</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and
 Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original

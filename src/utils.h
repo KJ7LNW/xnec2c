@@ -14,15 +14,15 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef	UTILS_H
-#define	UTILS_H		1
+#ifndef UTILS_H
+#define UTILS_H     1
 
 #include <locale.h>
 #include "common.h"
 
 /* Carriage return and line feed */
-#define	CR	0x0d
-#define	LF	0x0a
+#define CR  0x0d
+#define LF  0x0a
 
 #endif
 

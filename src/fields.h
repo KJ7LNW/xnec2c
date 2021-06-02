@@ -14,15 +14,15 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef	FIELDS_H
-#define	FIELDS_H		1
+#ifndef FIELDS_H
+#define FIELDS_H        1
 
 #include "common.h"
 
-#define	TPJ		(0.0+I*M_2PI)
-#define PI8		25.13274123
-#define	FPI		12.56637062
-#define	CONST2	4.771341188
+#define TPJ     (0.0+I*M_2PI)
+#define PI8     25.13274123
+#define FPI     12.56637062
+#define CONST2  4.771341188
 
 /* common  /tmi/ */
 typedef struct

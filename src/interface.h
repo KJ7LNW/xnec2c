@@ -15,7 +15,7 @@
  */
 
 #ifndef INTERFACE_H
-#define INTERFACE_H		1
+#define INTERFACE_H     1
 
 #include "common.h"
 

@@ -2,10 +2,11 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([xnec2c], [4.1.1], [nkcyham@yahoo.com])
+AC_INIT([xnec2c], [4.1.5], [nkcyham@yahoo.com])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/common.h])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 AM_MAINTAINER_MODE
 
 # Set CFLAGS if not set in environment
@@ -28,7 +29,7 @@ pkg_modules="gtk+-3.0 >= 3.22.0"
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
-AC_CHECK_LIB([m], [atan2l])
+AC_CHECK_LIB([m], [atan2])
 AC_CHECK_LIB([gmodule-2.0], [g_module_open])
 
 # Internationalization tools
@@ -36,16 +37,18 @@ AM_GNU_GETTEXT_VERSION([0.19.8])
 GETTEXT_PACKAGE=xnec2c
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Gettext package.])
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT([external])
 PROGRAMNAME_LOCALEDIR=[${datadir}/locale]
 AC_SUBST(PROGRAMNAME_LOCALEDIR)
 
 # Add the languages which your application supports here.
 ALL_LINGUAS=""
-AM_GNU_GETTEXT
 
 # Checks for header files.
-AC_CHECK_HEADERS([fcntl.h libintl.h locale.h stdlib.h string.h unistd.h])
+AC_CHECK_HEADERS([ctype.h gdk/gdkkeysyms.h complex.h stdio.h signal.h\
+                  math.h stdlib.h unistd.h string.h fcntl.h time.h\
+                  sys/types.h sys/times.h gtk/gtk.h libintl.h sys/wait.h\
+                  sys/stat.h locale.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_PID_T

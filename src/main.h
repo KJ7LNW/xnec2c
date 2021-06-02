@@ -14,8 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef	MAIN_H
-#define	MAIN_H		1
+#ifndef MAIN_H
+#define MAIN_H      1
 
 #include "common.h"
 #include "callbacks.h"
@@ -25,10 +25,10 @@
 #include <sys/wait.h>
 
 #define OPEN_INPUT_FLAGS \
-  RDPAT_FLAGS		| \
-  FREQ_LOOP_FLAGS	| \
-  PLOT_FREQ_LINE	| \
-  ENABLE_EXCITN		| \
+  RDPAT_FLAGS       | \
+  FREQ_LOOP_FLAGS   | \
+  PLOT_FREQ_LINE    | \
+  ENABLE_EXCITN     | \
   INPUT_OPENED
 
 #endif

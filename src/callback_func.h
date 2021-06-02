@@ -15,7 +15,7 @@
  */
 
 #ifndef CALLBACK_FUNC_H
-#define CALLBACK_FUNC_H		1
+#define CALLBACK_FUNC_H     1
 
 #include <ctype.h>
 #include "callbacks.h"
@@ -32,9 +32,9 @@ typedef struct save_data
 } save_data_t;
 
 /* Gain colorcode strip size */
-#define COLORCODE_WIDTH		96
-#define COLORCODE_HEIGHT	24
-#define COLORCODE_MAX		768.0  /* Max value, 8 x COLORCODE_WIDTH */
+#define COLORCODE_WIDTH     96
+#define COLORCODE_HEIGHT    24
+#define COLORCODE_MAX       768.0  /* Max value, 8 x COLORCODE_WIDTH */
 
 #endif
 

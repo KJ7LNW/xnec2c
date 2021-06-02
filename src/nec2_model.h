@@ -14,8 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef	NEC2_MODEL_H
-#define	NEC2_MODEL_H	1
+#ifndef NEC2_MODEL_H
+#define NEC2_MODEL_H    1
 
 #include "common.h"
 #include "interface.h"

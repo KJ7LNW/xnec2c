@@ -14,8 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef	EDITORS_H
-#define	EDITORS_H		1
+#ifndef EDITORS_H
+#define EDITORS_H       1
 
 #include "common.h"
 
@@ -24,8 +24,8 @@
 #define GEOM_NUM_FCOLS 7
 #define GEOM_NUM_ICOLS 2
 
-#define NEXT		TRUE
-#define PREVIOUS	FALSE
+#define NEXT        TRUE
+#define PREVIOUS    FALSE
 
 /* Editor actions that imply saving */
 enum SAVE_ACTION

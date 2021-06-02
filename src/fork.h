@@ -14,8 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef	FORK_H
-#define	FORK_H		1
+#ifndef FORK_H
+#define FORK_H      1
 
 #include "common.h"
 
@@ -32,9 +32,9 @@ enum P2CH_COMND
 };
 
 /* Near Field select flags */
-#define E_HFIELD	0x01
-#define SNAPSHOT	0x02
-#define EFIELD		0x04
-#define HFIELD		0x08
+#define E_HFIELD    0x01
+#define SNAPSHOT    0x02
+#define EFIELD      0x04
+#define HFIELD      0x08
 
 #endif

@@ -39,29 +39,29 @@ Frequency_Scale_Geometry()
   fr= calc_data.fmhz / CVEL;
   if( data.n != 0)
   {
-	for( idx = 0; idx < data.n; idx++ )
-	{
-	  data.x[idx] = save.xtemp[idx] * fr;
-	  data.y[idx] = save.ytemp[idx] * fr;
-	  data.z[idx] = save.ztemp[idx] * fr;
-	  data.si[idx]= save.sitemp[idx]* fr;
-	  data.bi[idx]= save.bitemp[idx]* fr;
-	}
+    for( idx = 0; idx < data.n; idx++ )
+    {
+      data.x[idx] = save.xtemp[idx] * fr;
+      data.y[idx] = save.ytemp[idx] * fr;
+      data.z[idx] = save.ztemp[idx] * fr;
+      data.si[idx]= save.sitemp[idx]* fr;
+      data.bi[idx]= save.bitemp[idx]* fr;
+    }
   }
 
   if( data.m != 0)
   {
-	double fr2= fr* fr;
-	for( idx = 0; idx < data.m; idx++ )
-	{
-	  int j;
+    double fr2= fr* fr;
+    for( idx = 0; idx < data.m; idx++ )
+    {
+      int j;
 
-	  j = idx + data.n;
-	  data.px[idx] = save.xtemp[j] * fr;
-	  data.py[idx] = save.ytemp[j] * fr;
-	  data.pz[idx] = save.ztemp[j] * fr;
-	  data.pbi[idx]= save.bitemp[j]* fr2;
-	}
+      j = idx + data.n;
+      data.px[idx] = save.xtemp[j] * fr;
+      data.py[idx] = save.ytemp[j] * fr;
+      data.pz[idx] = save.ztemp[j] * fr;
+      data.pbi[idx]= save.bitemp[j]* fr2;
+    }
   }
 
 } /* Frequency_Scale_Geometry() */
@@ -77,11 +77,11 @@ Structure_Impedance_Loading( void )
 {
   /* Calculate some loading parameters */
   if( zload.nload != 0)
-	load(
-		calc_data.ldtyp,  calc_data.ldtag,
-		calc_data.ldtagf, calc_data.ldtagt,
-		calc_data.zlr,    calc_data.zli,
-		calc_data.zlc );
+    load(
+        calc_data.ldtyp,  calc_data.ldtag,
+        calc_data.ldtagf, calc_data.ldtagt,
+        calc_data.zlr,    calc_data.zli,
+        calc_data.zlc );
 
 } /* Struct_Impedance_Loading() */
 
@@ -98,50 +98,50 @@ Ground_Parameters( void )
 
   if( gnd.ksymp != 1)
   {
-	gnd.frati = CPLX_10;
+    gnd.frati = CPLX_10;
 
-	if( gnd.iperf != 1)
-	{
-	  if( save.sig < 0.0 )
-		save.sig = -save.sig / (59.96 * data.wlam);
+    if( gnd.iperf != 1)
+    {
+      if( save.sig < 0.0 )
+        save.sig = -save.sig / (59.96 * data.wlam);
 
-	  epsc = cmplx( save.epsr, -save.sig * data.wlam * 59.96 );
-	  gnd.zrati = 1.0 / csqrt( epsc);
-	  gwav.u = gnd.zrati;
-	  gwav.u2 = gwav.u * gwav.u;
+      epsc = cmplx( save.epsr, -save.sig * data.wlam * 59.96 );
+      gnd.zrati = 1.0 / csqrt( epsc);
+      gwav.u = gnd.zrati;
+      gwav.u2 = gwav.u * gwav.u;
 
-	  if( gnd.nradl > 0 )
-	  {
-		gnd.scrwl = save.scrwlt / data.wlam;
-		gnd.scrwr = save.scrwrt / data.wlam;
-		gnd.t1 = CPLX_01 * 2367.067/ (double)gnd.nradl;
-		gnd.t2 = gnd.scrwr * (double)gnd.nradl;
-	  } /* if( gnd.nradl > 0 ) */
+      if( gnd.nradl > 0 )
+      {
+        gnd.scrwl = save.scrwlt / data.wlam;
+        gnd.scrwr = save.scrwrt / data.wlam;
+        gnd.t1 = CPLX_01 * 2367.067/ (double)gnd.nradl;
+        gnd.t2 = gnd.scrwr * (double)gnd.nradl;
+      } /* if( gnd.nradl > 0 ) */
 
-	  if( gnd.iperf == 2)
-	  {
-		somnec( save.epsr, save.sig, calc_data.fmhz );
-		gnd.frati =( epsc - 1.0) / ( epsc + 1.0);
-		if( cabs(( ggrid.epscf - epsc) / epsc) >= 1.0e-3 )
-		{
-		  fprintf( stderr,
-			  _("xnec2c: Ground_Parameters(): error in ground parameters\n"
-			  "complex dielectric constant from file: %12.5E%+12.5Ej\n"
-			  "                            requested: %12.5E%+12.5Ej\n"),
-			  creal(ggrid.epscf), cimag(ggrid.epscf),
-			  creal(epsc), cimag(epsc) );
-		  Stop( _("Ground_Parameters():"
-				"Error in ground parameters"), ERR_STOP );
-		}
-	  } /* if( gnd.iperf != 2) */
-	} /* if( gnd.iperf != 1) */
-	else
-	{
-	  gnd.scrwl = 0.0;
-	  gnd.scrwr = 0.0;
-	  gnd.t1 = 0.0;
-	  gnd.t2 = 0.0;
-	}
+      if( gnd.iperf == 2)
+      {
+        somnec( save.epsr, save.sig, calc_data.fmhz );
+        gnd.frati =( epsc - 1.0) / ( epsc + 1.0);
+        if( cabs(( ggrid.epscf - epsc) / epsc) >= 1.0e-3 )
+        {
+          fprintf( stderr,
+              _("xnec2c: Ground_Parameters(): error in ground parameters\n"
+              "complex dielectric constant from file: %12.5E%+12.5Ej\n"
+              "                            requested: %12.5E%+12.5Ej\n"),
+              creal(ggrid.epscf), cimag(ggrid.epscf),
+              creal(epsc), cimag(epsc) );
+          Stop( _("Ground_Parameters():"
+                "Error in ground parameters"), ERR_STOP );
+        }
+      } /* if( gnd.iperf != 2) */
+    } /* if( gnd.iperf != 1) */
+    else
+    {
+      gnd.scrwl = 0.0;
+      gnd.scrwr = 0.0;
+      gnd.t1 = 0.0;
+      gnd.t2 = 0.0;
+    }
   } /* if( gnd.ksymp != 1) */
 
   return;
@@ -164,7 +164,7 @@ Set_Interaction_Matrix( void )
   /* irngf is not used (NGF function not implemented) */
   int iresrv = data.np2m * (data.np + 2 * data.mp);
   if( matpar.imat == 0)
-	fblock( netcx.npeq, netcx.neq, iresrv, data.ipsym);
+    fblock( netcx.npeq, netcx.neq, iresrv, data.ipsym);
 
   cmset( netcx.neq, cm, calc_data.rkh, calc_data.iexk );
   factrs( netcx.npeq, netcx.neq, cm, save.ip );
@@ -183,23 +183,23 @@ Set_Excitation( void )
 {
   if( (fpat.ixtyp >= 1) && (fpat.ixtyp <= 4) )
   {
-	tmp4= TORAD* calc_data.xpr4;
-	tmp5= TORAD* calc_data.xpr5;
+    tmp4= TORAD* calc_data.xpr4;
+    tmp5= TORAD* calc_data.xpr5;
 
-	if( fpat.ixtyp == 4)
-	{
-	  tmp1= calc_data.xpr1/ data.wlam;
-	  tmp2= calc_data.xpr2/ data.wlam;
-	  tmp3= calc_data.xpr3/ data.wlam;
-	  tmp6= calc_data.xpr6/( data.wlam* data.wlam);
-	}
-	else
-	{
-	  tmp1= TORAD* calc_data.xpr1;
-	  tmp2= TORAD* calc_data.xpr2;
-	  tmp3= TORAD* calc_data.xpr3;
-	  tmp6= calc_data.xpr6;
-	} /* if( fpat.ixtyp == 4) */
+    if( fpat.ixtyp == 4)
+    {
+      tmp1= calc_data.xpr1/ data.wlam;
+      tmp2= calc_data.xpr2/ data.wlam;
+      tmp3= calc_data.xpr3/ data.wlam;
+      tmp6= calc_data.xpr6/( data.wlam* data.wlam);
+    }
+    else
+    {
+      tmp1= TORAD* calc_data.xpr1;
+      tmp2= TORAD* calc_data.xpr2;
+      tmp3= TORAD* calc_data.xpr3;
+      tmp6= calc_data.xpr6;
+    } /* if( fpat.ixtyp == 4) */
 
   } /* if( (fpat.ixtyp >= 1) && (fpat.ixtyp <= 4) ) */
 
@@ -219,39 +219,39 @@ Set_Network_Data( void )
 {
   if( netcx.nonet != 0 )
   {
-	int i, j, itmp1, itmp2, itmp3;
+    int i, j, itmp1, itmp2, itmp3;
 
-	itmp3=0;
-	itmp1= netcx.ntyp[0];
-	for( i = 0; i < 2; i++ )
-	{
-	  if( itmp1 == 3) itmp1=2;
+    itmp3=0;
+    itmp1= netcx.ntyp[0];
+    for( i = 0; i < 2; i++ )
+    {
+      if( itmp1 == 3) itmp1=2;
 
-	  for( j = 0; j < netcx.nonet; j++)
-	  {
-		itmp2= netcx.ntyp[j];
+      for( j = 0; j < netcx.nonet; j++)
+      {
+        itmp2= netcx.ntyp[j];
 
-		if( (itmp2/itmp1) != 1 ) itmp3 = itmp2;
-		else if( (itmp2 >= 2) && (netcx.x11i[j] <= 0.0) )
-		{
-		  double xx, yy, zz;
-		  int idx4, idx5;
+        if( (itmp2/itmp1) != 1 ) itmp3 = itmp2;
+        else if( (itmp2 >= 2) && (netcx.x11i[j] <= 0.0) )
+        {
+          double xx, yy, zz;
+          int idx4, idx5;
 
-		  idx4 = netcx.iseg1[j]-1;
-		  idx5 = netcx.iseg2[j]-1;
-		  xx = data.x[idx5]- data.x[idx4];
-		  yy = data.y[idx5]- data.y[idx4];
-		  zz = data.z[idx5]- data.z[idx4];
-		  netcx.x11i[j] = data.wlam* sqrt( xx*xx + yy*yy + zz*zz );
-		}
+          idx4 = netcx.iseg1[j]-1;
+          idx5 = netcx.iseg2[j]-1;
+          xx = data.x[idx5]- data.x[idx4];
+          yy = data.y[idx5]- data.y[idx4];
+          zz = data.z[idx5]- data.z[idx4];
+          netcx.x11i[j] = data.wlam* sqrt( xx*xx + yy*yy + zz*zz );
+        }
 
-	  } /* for( j = 0; j < netcx.nonet; j++) */
+      } /* for( j = 0; j < netcx.nonet; j++) */
 
-	  if( itmp3 == 0) break;
+      if( itmp3 == 0) break;
 
-	  itmp1= itmp3;
+      itmp1= itmp3;
 
-	} /* for( i = 0; i < 2; i++ ) */
+    } /* for( i = 0; i < 2; i++ ) */
 
   } /* if( netcx.nonet != 0 ) */
 
@@ -262,15 +262,15 @@ Set_Network_Data( void )
   /* Save impedance data for normalization */
   if( ((calc_data.nfrq > 1) && isFlagSet(FREQ_LOOP_RUNNING)) || CHILD )
   {
-	impedance_data.zreal[calc_data.fstep] = (double)creal( netcx.zped);
-	impedance_data.zimag[calc_data.fstep] = (double)cimag( netcx.zped);
-	impedance_data.zmagn[calc_data.fstep] = (double)cabs( netcx.zped);
-	impedance_data.zphase[calc_data.fstep]= (double)cang( netcx.zped);
+    impedance_data.zreal[calc_data.fstep] = (double)creal( netcx.zped);
+    impedance_data.zimag[calc_data.fstep] = (double)cimag( netcx.zped);
+    impedance_data.zmagn[calc_data.fstep] = (double)cabs( netcx.zped);
+    impedance_data.zphase[calc_data.fstep]= (double)cang( netcx.zped);
 
-	if( (calc_data.iped == 1) &&
-		((double)impedance_data.zmagn[calc_data.fstep] > calc_data.zpnorm) )
-	  calc_data.zpnorm =
-		(double)impedance_data.zmagn[calc_data.fstep];
+    if( (calc_data.iped == 1) &&
+        ((double)impedance_data.zmagn[calc_data.fstep] > calc_data.zpnorm) )
+      calc_data.zpnorm =
+        (double)impedance_data.zmagn[calc_data.fstep];
   }
 
 } /* Set_Network_Data() */
@@ -296,14 +296,14 @@ Power_Loss( void )
   /* Loop over all wire segs */
   for( i = 0; i < data.n; i++ )
   {
-	/* Calculate segment current (mag/phase) */
-	curi= crnt.cur[i]* data.wlam;
-	cmg= cabs( curi);
+    /* Calculate segment current (mag/phase) */
+    curi= crnt.cur[i]* data.wlam;
+    cmg= cabs( curi);
 
-	/* Calculate power loss in segment */
-	if( (zload.nload != 0) &&
-		(fabs(creal(zload.zarray[i])) >= 1.0e-20) )
-	  fpat.ploss += 0.5* cmg* cmg* creal( zload.zarray[i])* data.si[i];
+    /* Calculate power loss in segment */
+    if( (zload.nload != 0) &&
+        (fabs(creal(zload.zarray[i])) >= 1.0e-20) )
+      fpat.ploss += 0.5* cmg* cmg* creal( zload.zarray[i])* data.si[i];
 
   } /* for( i = 0; i < n; i++ ) */
 
@@ -320,9 +320,9 @@ Radiation_Pattern( void )
 {
   if( (gnd.ifar != 1) && isFlagSet(ENABLE_RDPAT) )
   {
-	fpat.pinr= netcx.pin;
-	fpat.pnlr= netcx.pnls;
-	rdpat();
+    fpat.pinr= netcx.pin;
+    fpat.pnlr= netcx.pnls;
+    rdpat();
   }
 
 } /* Radiation_Pattern() */
@@ -337,15 +337,15 @@ Radiation_Pattern( void )
 Near_Field_Pattern( void )
 {
   if( near_field.valid ||
-	  isFlagClear(DRAW_EHFIELD) ||
-	  isFlagClear(ENABLE_NEAREH) )
-	return;
+      isFlagClear(DRAW_EHFIELD) ||
+      isFlagClear(ENABLE_NEAREH) )
+    return;
 
   if( fpat.nfeh & NEAR_EFIELD )
-	nfpat(0);
+    nfpat(0);
 
   if( fpat.nfeh & NEAR_HFIELD )
-	nfpat(1);
+    nfpat(1);
 
 } /* Near_Field_Pattern() */
 
@@ -361,8 +361,8 @@ New_Frequency( void )
   /* Abort if freq has not really changed, as when changing
    * between current or charge density structure coloring */
   if( (save.last_freq == calc_data.fmhz) ||
-	  isFlagClear(ENABLE_EXCITN) )
-	return;
+      isFlagClear(ENABLE_EXCITN) )
+    return;
   save.last_freq = calc_data.fmhz;
 
   /* Frequency scaling of geometric parameters */
@@ -398,7 +398,7 @@ New_Frequency( void )
 
 /*-----------------------------------------------------------------------*/
 
-static gboolean retval;	/* Function's return value */
+static gboolean retval; /* Function's return value */
 
 /* Frequency_Loop()
  *
@@ -417,47 +417,47 @@ Frequency_Loop( gpointer udata )
 
   int idx, job_num = 0;
   size_t len;
-  char *buff;				/* Used to pass on structure poiners */
-  fd_set read_fds;			/* Read file descriptors for select() */
+  char *buff;               /* Used to pass on structure poiners */
+  fd_set read_fds;          /* Read file descriptors for select() */
 
 
   /* (Re) initialize freq loop */
   if( isFlagSet(FREQ_LOOP_INIT) )
   {
-	/* Clear global flags */
-	ClearFlag( FREQ_LOOP_INIT | FREQ_LOOP_DONE );
+    /* Clear global flags */
+    ClearFlag( FREQ_LOOP_INIT | FREQ_LOOP_DONE );
 
-	/* (Re)-enable freq loop (back to start freq) */
-	freq = save.fmhz;
+    /* (Re)-enable freq loop (back to start freq) */
+    freq = save.fmhz;
 
-	/* Step back frequency and step count since incrementing
-	 * is done at start of frequency loop calculations */
-	fstep = -1;
-	if( calc_data.ifrq == 1)
-	  freq /= calc_data.delfrq;
-	else
-	  freq -= calc_data.delfrq;
+    /* Step back frequency and step count since incrementing
+     * is done at start of frequency loop calculations */
+    fstep = -1;
+    if( calc_data.ifrq == 1)
+      freq /= calc_data.delfrq;
+    else
+      freq -= calc_data.delfrq;
 
-	/* Clear list of "valid" (processed) loop steps */
-	for( idx = 0; idx < calc_data.nfrq; idx++ )
-	  save.fstep[idx] = 0;
+    /* Clear list of "valid" (processed) loop steps */
+    for( idx = 0; idx < calc_data.nfrq; idx++ )
+      save.fstep[idx] = 0;
 
-	/* Clear "last-used-frequency" buffer */
-	save.last_freq = 0.0;
+    /* Clear "last-used-frequency" buffer */
+    save.last_freq = 0.0;
 
-	/* Zero num of busy processes */
-	num_busy_procs = 0;
+    /* Zero num of busy processes */
+    num_busy_procs = 0;
 
-	/* Signal global freq step "illegal" */
-	calc_data.fstep = -1;
+    /* Signal global freq step "illegal" */
+    calc_data.fstep = -1;
 
-	/* Inherited from NEC2 */
-	if( calc_data.zpnorm > 0.0 )
-	  calc_data.iped = 2;
+    /* Inherited from NEC2 */
+    if( calc_data.zpnorm > 0.0 )
+      calc_data.iped = 2;
 
-	/* Continue gtk_main idle callbacks */
-	retval = TRUE;
-	return ( retval );
+    /* Continue gtk_main idle callbacks */
+    retval = TRUE;
+    return ( retval );
 
   } /* isFlagSet(INIT_FREQ_LOOP) */
   ClearFlag( FREQ_LOOP_INIT );
@@ -468,129 +468,129 @@ Frequency_Loop( gpointer udata )
    * execute only once, since only one instance is running */
   for( idx = 0; idx < calc_data.num_jobs; idx++ )
   {
-	/* Up frequency step count */
-	fstep++;
+    /* Up frequency step count */
+    fstep++;
 
-	/* Frequency loop is completed or was paused by user */
-	if( (fstep >= calc_data.nfrq) || isFlagSet(FREQ_LOOP_STOP) )
-	{
-	  /* Points to last buffer in rad_pattern filled by loop */
-	  fstep--;
+    /* Frequency loop is completed or was paused by user */
+    if( (fstep >= calc_data.nfrq) || isFlagSet(FREQ_LOOP_STOP) )
+    {
+      /* Points to last buffer in rad_pattern filled by loop */
+      fstep--;
 
-	  /* Last freq step that was processed by children */
-	  calc_data.lastf = fstep;
+      /* Last freq step that was processed by children */
+      calc_data.lastf = fstep;
 
-	  /* Re-enable pausing of freq loop */
-	  ClearFlag( FREQ_LOOP_STOP );
+      /* Re-enable pausing of freq loop */
+      ClearFlag( FREQ_LOOP_STOP );
 
-	  /* Cancel idle callbacks on exit */
-	  retval = FALSE;
+      /* Cancel idle callbacks on exit */
+      retval = FALSE;
 
-	  break;
-	} /* if( (fstep >= calc_data.nfrq) || isFlagSet(FREQ_LOOP_STOP) ) */
+      break;
+    } /* if( (fstep >= calc_data.nfrq) || isFlagSet(FREQ_LOOP_STOP) ) */
 
-	/* Increment frequency */
-	if( calc_data.ifrq == 1)
-	  freq *= calc_data.delfrq;	/* Multiplicative stepping */
-	else
-	  freq += calc_data.delfrq; /* Additive stepping */
+    /* Increment frequency */
+    if( calc_data.ifrq == 1)
+      freq *= calc_data.delfrq; /* Multiplicative stepping */
+    else
+      freq += calc_data.delfrq; /* Additive stepping */
 
-	/* Save frequencies for plotting */
-	save.freq[fstep] = (double)freq;
+    /* Save frequencies for plotting */
+    save.freq[fstep] = (double)freq;
 
-	/* Delegate calculations to child processes if forked */
-	if( FORKED )
-	{
-	  /* Look for an idle process */
-	  for( job_num = 0; job_num < calc_data.num_jobs; job_num++ )
-	  {
-		/* If an idle process is found, give it a job and
-		 * then step the frequency loop by breaking out */
-		if( ! forked_proc_data[job_num]->busy )
-		{
-		  /* Signal and count busy processes */
-		  forked_proc_data[job_num]->busy  = TRUE;
-		  forked_proc_data[job_num]->fstep = fstep;
-		  num_busy_procs++;
+    /* Delegate calculations to child processes if forked */
+    if( FORKED )
+    {
+      /* Look for an idle process */
+      for( job_num = 0; job_num < calc_data.num_jobs; job_num++ )
+      {
+        /* If an idle process is found, give it a job and
+         * then step the frequency loop by breaking out */
+        if( ! forked_proc_data[job_num]->busy )
+        {
+          /* Signal and count busy processes */
+          forked_proc_data[job_num]->busy  = TRUE;
+          forked_proc_data[job_num]->fstep = fstep;
+          num_busy_procs++;
 
-		  /* Tell process to calculate freq dependent data */
-		  len = strlen( fork_commands[FRQDATA] );
-		  Write_Pipe( job_num, fork_commands[FRQDATA], (ssize_t)len, TRUE );
+          /* Tell process to calculate freq dependent data */
+          len = strlen( fork_commands[FRQDATA] );
+          Write_Pipe( job_num, fork_commands[FRQDATA], (ssize_t)len, TRUE );
 
-		  /* When it responds, give it next frequency */
-		  buff = (char *)&freq;
-		  len = sizeof( double );
-		  Write_Pipe( job_num, buff, (ssize_t)len, TRUE );
-		  break;
-		}
-	  } /* for( job_num = 0; job_num < calc_data.num_jobs; job_num++ ) */
+          /* When it responds, give it next frequency */
+          buff = (char *)&freq;
+          len = sizeof( double );
+          Write_Pipe( job_num, buff, (ssize_t)len, TRUE );
+          break;
+        }
+      } /* for( job_num = 0; job_num < calc_data.num_jobs; job_num++ ) */
 
-	} /* if( FORKED ) */
-	else /* Calculate freq dependent data (no fork) */
-	{
-	  calc_data.fmhz  = freq;
-	  calc_data.fstep = fstep;
-	  calc_data.lastf = fstep;
-	  New_Frequency();
-	  break;
-	}
+    } /* if( FORKED ) */
+    else /* Calculate freq dependent data (no fork) */
+    {
+      calc_data.fmhz  = freq;
+      calc_data.fstep = fstep;
+      calc_data.lastf = fstep;
+      New_Frequency();
+      break;
+    }
 
-	/* All idle processes are given a job */
-	if( num_busy_procs >= calc_data.num_jobs )
-	  break;
+    /* All idle processes are given a job */
+    if( num_busy_procs >= calc_data.num_jobs )
+      break;
 
   } /* for( idx = 0; idx < calc_data.num_jobs; idx++ ) */
 
   /* Receive results from forked children */
   if( FORKED && num_busy_procs )
-	do
-	{
-	  int n = 0;
+    do
+    {
+      int n = 0;
 
-	  /* Set read fd's to watch for child writes */
-	  FD_ZERO( &read_fds );
-	  for( idx = 0; idx < calc_data.num_jobs; idx++ )
-	  {
-		FD_SET( forked_proc_data[idx]->child2pnt_pipe[READ], &read_fds );
-		if( n < forked_proc_data[idx]->child2pnt_pipe[READ] )
-		  n = forked_proc_data[idx]->child2pnt_pipe[READ];
-	  }
+      /* Set read fd's to watch for child writes */
+      FD_ZERO( &read_fds );
+      for( idx = 0; idx < calc_data.num_jobs; idx++ )
+      {
+        FD_SET( forked_proc_data[idx]->child2pnt_pipe[READ], &read_fds );
+        if( n < forked_proc_data[idx]->child2pnt_pipe[READ] )
+          n = forked_proc_data[idx]->child2pnt_pipe[READ];
+      }
 
-	  /* Wait for data from finished child processes */
-	  if( select( n+1, &read_fds, NULL, NULL, NULL ) == -1 )
-	  {
-		perror( "xnec2c: select()" );
-		_exit(0);
-	  }
+      /* Wait for data from finished child processes */
+      if( select( n+1, &read_fds, NULL, NULL, NULL ) == -1 )
+      {
+        perror( "xnec2c: select()" );
+        _exit(0);
+      }
 
-	  /* Check for finished child processes */
-	  for( idx = 0; idx < num_child_procs; idx++ )
-	  {
-		if( FD_ISSET(forked_proc_data[idx]->child2pnt_pipe[READ], &read_fds) )
-		{
-		  /* Read data from finished child process */
-		  Get_Freq_Data( idx, forked_proc_data[idx]->fstep );
+      /* Check for finished child processes */
+      for( idx = 0; idx < num_child_procs; idx++ )
+      {
+        if( FD_ISSET(forked_proc_data[idx]->child2pnt_pipe[READ], &read_fds) )
+        {
+          /* Read data from finished child process */
+          Get_Freq_Data( idx, forked_proc_data[idx]->fstep );
 
-		  /* Mark freq step in list of processed steps */
-		  save.fstep[forked_proc_data[idx]->fstep] = 1;
+          /* Mark freq step in list of processed steps */
+          save.fstep[forked_proc_data[idx]->fstep] = 1;
 
-		  /* Mark finished child process as ready for next job */
-		  forked_proc_data[idx]->busy = FALSE;
+          /* Mark finished child process as ready for next job */
+          forked_proc_data[idx]->busy = FALSE;
 
-		  /* Count down number of busy processes */
-		  num_busy_procs--;
-		}
-	  } /* for( idx = 0; idx < num_child_procs; idx++ ) */
+          /* Count down number of busy processes */
+          num_busy_procs--;
+        }
+      } /* for( idx = 0; idx < num_child_procs; idx++ ) */
 
-	  /* Find highest freq step that has no steps below it
-	   * that have not been processed by a child process */
-	  for( idx = 0; idx < calc_data.nfrq; idx++ )
-		if( save.fstep[idx] ) calc_data.fstep = idx;
-		else break;
+      /* Find highest freq step that has no steps below it
+       * that have not been processed by a child process */
+      for( idx = 0; idx < calc_data.nfrq; idx++ )
+        if( save.fstep[idx] ) calc_data.fstep = idx;
+        else break;
 
-	} /* do */
-	/* Loop terminated and busy children */
-	while( !retval && num_busy_procs );
+    } /* do */
+    /* Loop terminated and busy children */
+    while( !retval && num_busy_procs );
 
   /* Return if freq step 0 not ready yet */
   if( calc_data.fstep < 0 ) return( retval );
@@ -602,28 +602,28 @@ Frequency_Loop( gpointer udata )
   /* Trigger a redraw of open drawingareas */
   if( isFlagSet(PLOT_ENABLED) )
   {
-	char txt[10];
-	snprintf( txt, sizeof(txt), "%9.3f", (gdouble)calc_data.fmhz );
-	gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
-			freqplots_window_builder, "freqplots_fmhz_entry")), txt );
+    char txt[10];
+    snprintf( txt, sizeof(txt), "%9.3f", (gdouble)calc_data.fmhz );
+    gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
+            freqplots_window_builder, "freqplots_fmhz_entry")), txt );
 
-	/* Wait for GTK to complete its tasks */
-	gtk_widget_queue_draw( freqplots_drawingarea );
-	while( g_main_context_iteration(NULL, FALSE) );
+    /* Wait for GTK to complete its tasks */
+    gtk_widget_queue_draw( freqplots_drawingarea );
+    while( g_main_context_iteration(NULL, FALSE) );
   }
 
   if( isFlagSet(DRAW_ENABLED) )
   {
-	gtk_spin_button_set_value(
-		rdpattern_frequency, (gdouble)calc_data.fmhz );
-	/* Wait for GTK to complete its tasks */
-	gtk_widget_queue_draw( rdpattern_drawingarea );
-	while( g_main_context_iteration(NULL, FALSE) );
+    gtk_spin_button_set_value(
+        rdpattern_frequency, (gdouble)calc_data.fmhz );
+    /* Wait for GTK to complete its tasks */
+    gtk_widget_queue_draw( rdpattern_drawingarea );
+    while( g_main_context_iteration(NULL, FALSE) );
   }
 
   /* Set frequency spinbuttons */
   gtk_spin_button_set_value(
-	  mainwin_frequency, (gdouble)calc_data.fmhz );
+      mainwin_frequency, (gdouble)calc_data.fmhz );
   /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( structure_drawingarea );
   while( g_main_context_iteration(NULL, FALSE) );
@@ -633,8 +633,8 @@ Frequency_Loop( gpointer udata )
   /* Change flags at exit if loop is done */
   if( !retval && !num_busy_procs )
   {
-	ClearFlag( FREQ_LOOP_RUNNING );
-	SetFlag( FREQ_LOOP_DONE );
+    ClearFlag( FREQ_LOOP_RUNNING );
+    SetFlag( FREQ_LOOP_DONE );
   }
 
   return( retval );
@@ -652,11 +652,11 @@ Start_Frequency_Loop( void )
 {
   if( isFlagClear(FREQ_LOOP_RUNNING) && (calc_data.nfrq > 1) )
   {
-	retval = TRUE;
-	SetFlag( FREQ_LOOP_INIT );
-	SetFlag( FREQ_LOOP_RUNNING );
-	floop_tag = g_idle_add( Frequency_Loop, NULL );
-	return( TRUE );
+    retval = TRUE;
+    SetFlag( FREQ_LOOP_INIT );
+    SetFlag( FREQ_LOOP_RUNNING );
+    floop_tag = g_idle_add( Frequency_Loop, NULL );
+    return( TRUE );
   }
   else return( FALSE );
 
@@ -673,8 +673,8 @@ Stop_Frequency_Loop( void )
 {
   if( floop_tag > 0 )
   {
-	g_source_remove( floop_tag );
-	floop_tag = 0;
+    g_source_remove( floop_tag );
+    floop_tag = 0;
   }
   ClearFlag( FREQ_LOOP_RUNNING );
 
@@ -709,24 +709,24 @@ Incident_Field_Loop( void )
   /* Loop over phi */
   for( phi_step = 0; phi_step < calc_data.nphi; phi_step++ )
   {
-	/* Loop over theta */
-	for( theta_step = 0; theta_step < calc_data.nthi; theta_step++ )
-	{
-	  /* Fill excitation part of matrix */
-	  Set_Excitation();
+    /* Loop over theta */
+    for( theta_step = 0; theta_step < calc_data.nthi; theta_step++ )
+    {
+      /* Fill excitation part of matrix */
+      Set_Excitation();
 
-	  /* Matrix solving (netwk calls solves) */
-	  Set_Network_Data();
+      /* Matrix solving (netwk calls solves) */
+      Set_Network_Data();
 
-	  /* Calculate power loss */
-	  Power_Loss();
+      /* Calculate power loss */
+      Power_Loss();
 
-	  calc_data.xpr1 += calc_data.xpr4;
+      calc_data.xpr1 += calc_data.xpr4;
 
-	} /* for( theta_step = 0; theta_step < calc_data.nthi.. */
+    } /* for( theta_step = 0; theta_step < calc_data.nthi.. */
 
-	calc_data.xpr1= calc_data.thetis;
-	calc_data.xpr2= calc_data.xpr2+ calc_data.xpr5;
+    calc_data.xpr1= calc_data.thetis;
+    calc_data.xpr2= calc_data.xpr2+ calc_data.xpr5;
 
   } /* for( phi_step = 0; phi_step < calc_data.nphi.. */
 

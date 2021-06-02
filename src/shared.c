@@ -23,31 +23,31 @@ rc_config_t rc_config;
 
 /* Editor windows */
 GtkWidget
-  *wire_editor		= NULL,	/* Wire designer window  */
-  *arc_editor		= NULL,	/* Arc designer window   */
-  *helix_editor		= NULL, /* Helix designer window */
-  *patch_editor		= NULL,	/* Patch designer window */
-  *reflect_editor	= NULL,	/* Reflect design window */
-  *scale_editor		= NULL,	/* Scale designer window */
-  *cylinder_editor	= NULL,	/* Cylinder designer window  */
-  *transform_editor	= NULL, /* Transform designer window */
-  *gend_editor		= NULL;	/* Geom End designer window  */
+  *wire_editor      = NULL, /* Wire designer window  */
+  *arc_editor       = NULL, /* Arc designer window   */
+  *helix_editor     = NULL, /* Helix designer window */
+  *patch_editor     = NULL, /* Patch designer window */
+  *reflect_editor   = NULL, /* Reflect design window */
+  *scale_editor     = NULL, /* Scale designer window */
+  *cylinder_editor  = NULL, /* Cylinder designer window  */
+  *transform_editor = NULL, /* Transform designer window */
+  *gend_editor      = NULL; /* Geom End designer window  */
 
 /* Command windows */
 GtkWidget
   *excitation_command = NULL, /* Ecitation command editor */
   *frequency_command  = NULL, /* Frequency command editor */
-  *ground_command	  = NULL, /* Ground command editor (GN) */
-  *ground2_command	  = NULL, /* Ground command editor (GD) */
-  *loading_command	  = NULL, /* Loading command editor 	*/
-  *network_command	  = NULL, /* Network command editor	*/
-  *txline_command	  = NULL, /* Tran Line command editor */
+  *ground_command     = NULL, /* Ground command editor (GN) */
+  *ground2_command    = NULL, /* Ground command editor (GD) */
+  *loading_command    = NULL, /* Loading command editor     */
+  *network_command    = NULL, /* Network command editor */
+  *txline_command     = NULL, /* Tran Line command editor */
   *radiation_command  = NULL, /* Rad Pattern command editor */
   *nearfield_command  = NULL, /* Near Fields command editor */
-  *kernel_command	  = NULL, /* Thin-wire Kernel command editor  */
-  *intrange_command	  = NULL, /* Interaction Range command editor */
-  *execute_command	  = NULL, /* Execute (EX card) command editor */
-  *zo_command		  = NULL; /* Transmission Line Zo command editor */
+  *kernel_command     = NULL, /* Thin-wire Kernel command editor  */
+  *intrange_command   = NULL, /* Interaction Range command editor */
+  *execute_command    = NULL, /* Execute (EX card) command editor */
+  *zo_command         = NULL; /* Transmission Line Zo command editor */
 
 /* Frequency step entry */
 GtkEntry *rdpattern_fstep_entry = NULL;
@@ -80,7 +80,7 @@ GtkTreeView
 
 /* Main, frequency plots and radation pattern windows */
 GtkWidget
-  *main_window		= NULL,
+  *main_window      = NULL,
   *freqplots_window = NULL,
   *rdpattern_window = NULL,
   *nec2_edit_window = NULL;
@@ -103,46 +103,43 @@ int
   rdpattern_height;
 
 GtkBuilder
-  *main_window_builder		 = NULL,
+  *main_window_builder       = NULL,
   *freqplots_window_builder  = NULL,
   *rdpattern_window_builder  = NULL,
-  *animate_dialog_builder	 = NULL,
+  *animate_dialog_builder    = NULL,
   *excitation_editor_builder = NULL,
   *radiation_editor_builder  = NULL,
-  *quit_dialog_builder		 = NULL,
+  *quit_dialog_builder       = NULL,
   *frequency_editor_builder  = NULL,
-  *ground_editor_builder	 = NULL,
-  *loading_editor_builder	 = NULL,
-  *ground2_editor_builder	 = NULL,
-  *network_editor_builder	 = NULL,
-  *txline_editor_builder	 = NULL,
+  *ground_editor_builder     = NULL,
+  *loading_editor_builder    = NULL,
+  *ground2_editor_builder    = NULL,
+  *network_editor_builder    = NULL,
+  *txline_editor_builder     = NULL,
   *nearfield_editor_builder  = NULL,
-  *kernel_editor_builder	 = NULL,
-  *intrange_editor_builder	 = NULL,
-  *zo_editor_builder		 = NULL,
-  *execute_editor_builder	 = NULL,
-  *wire_editor_builder		 = NULL,
-  *arc_editor_builder		 = NULL,
-  *helix_editor_builder		 = NULL,
-  *patch_editor_builder		 = NULL,
-  *reflect_editor_builder	 = NULL,
-  *scale_editor_builder		 = NULL,
-  *cylinder_editor_builder	 = NULL,
+  *kernel_editor_builder     = NULL,
+  *intrange_editor_builder   = NULL,
+  *zo_editor_builder         = NULL,
+  *execute_editor_builder    = NULL,
+  *wire_editor_builder       = NULL,
+  *arc_editor_builder        = NULL,
+  *helix_editor_builder      = NULL,
+  *patch_editor_builder      = NULL,
+  *reflect_editor_builder    = NULL,
+  *scale_editor_builder      = NULL,
+  *cylinder_editor_builder   = NULL,
   *transform_editor_builder  = NULL,
-  *gend_editor_builder		 = NULL,
-  *nec2_editor_builder		 = NULL,
+  *gend_editor_builder       = NULL,
+  *nec2_editor_builder       = NULL,
   *nec2_save_dialog_builder  = NULL;
-
-/* xnec2c's glade file */
-char xnec2c_glade[64];
 
 /* Motion event handler id */
 gulong rdpattern_motion_handler;
 
 /* Dialog widgets */
-GtkWidget *quit_dialog		= NULL;
-GtkWidget *animate_dialog	= NULL;
-GtkWidget *error_dialog		= NULL;
+GtkWidget *quit_dialog      = NULL;
+GtkWidget *animate_dialog   = NULL;
+GtkWidget *error_dialog     = NULL;
 GtkWidget *nec2_save_dialog = NULL;
 
 /* File chooser/select widgets */

@@ -14,8 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef	CALLBACKS_H
-#define	CALLBACKS_H		1
+#ifndef CALLBACKS_H
+#define CALLBACKS_H     1
 
 #include "common.h"
 #include "interface.h"
