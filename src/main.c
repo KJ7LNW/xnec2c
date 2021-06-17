@@ -29,7 +29,6 @@ main (int argc, char *argv[])
 {
   /* getopt() variables */
   int option, idx, err;
-  gboolean new = TRUE;
 
   /*** Signal handler related code ***/
   /* new and old actions for sigaction() */
@@ -47,7 +46,6 @@ main (int argc, char *argv[])
   sigaction( SIGTERM, &sa_new, NULL );
   sigaction( SIGABRT, &sa_new, NULL );
   sigaction( SIGCHLD, &sa_new, NULL );
-  sigaction( SIGHUP,  &sa_new, NULL );
 
   gtk_init (&argc, &argv);
 
@@ -303,10 +301,13 @@ main (int argc, char *argv[])
   SetFlag( XNEC2C_START );
 
   /* Open input file if specified */
+  gboolean new = TRUE;
   if( strlen(rc_config.input_file) > 0 )
     g_idle_add( Open_Input_File, (gpointer)(&new) );
   else
     SetFlag( INPUT_PENDING );
+  
+  sigaction( SIGHUP, &sa_new, NULL );
 
   gtk_main ();
 
@@ -381,7 +382,7 @@ Open_Input_File( gpointer udata )
     for( idx = 0; idx < num_child_procs; idx++ )
     {
       Write_Pipe( idx, fork_commands[INFILE], (ssize_t)lenc, TRUE );
-      Write_Pipe( idx, rc_config.input_file, (ssize_t)leni, TRUE );
+      Write_Pipe( idx, rc_config.input_file,  (ssize_t)leni, TRUE );
     }
   } /* if( FORKED ) */
 

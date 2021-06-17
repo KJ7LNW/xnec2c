@@ -140,7 +140,7 @@ Sig_HungUp( void )
   SetFlag( SIGHUP_RECEIVED );
   gboolean flag = TRUE;
   g_idle_add( Open_Input_File, (gpointer)&flag );
-}
+} // Sig_HungUp()
 
 /*------------------------------------------------------------------------*/
 
