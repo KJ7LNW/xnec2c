@@ -117,7 +117,7 @@ on_new_activate(
   }
   else Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );
 
-  rc_config.infile[0] = '\0';
+  rc_config.input_file[0] = '\0';
   selected_treeview = cmnt_treeview;
 }
 
@@ -161,19 +161,19 @@ on_main_save_activate(
    * currents or charges, to avoid over-writing saved files */
   static int cgm = 0, ccr = 0, cch = 0;
 
-  if( strlen(rc_config.infile) == 0 ) return;
+  if( strlen(rc_config.input_file) == 0 ) return;
 
   /* Make the structure image save file name from input file
    * name. The count of each image type saved is incremented */
   if( isFlagSet(DRAW_CURRENTS) )
     snprintf( saveas, s, "%s-%s_%03d.%s",
-        rc_config.infile, "current", ++ccr, "png" );
+        rc_config.input_file, "current", ++ccr, "png" );
   else if( isFlagSet(DRAW_CHARGES) )
     snprintf( saveas, s, "%s-%s_%03d.%s",
-        rc_config.infile, "charge", ++cch, "png" );
+        rc_config.input_file, "charge", ++cch, "png" );
   else
     snprintf( saveas, s, "%s-%s_%03d.%s",
-        rc_config.infile, "geometry", ++cgm, "png" );
+        rc_config.input_file, "geometry", ++cgm, "png" );
 
   saveas_drawingarea = structure_drawingarea;
   saveas_width  = structure_width;
@@ -899,7 +899,7 @@ on_freqplots_save_activate(
   size_t s = sizeof( saveas );
   static int cnt = 0;
 
-  if( (strlen(rc_config.infile) == 0) ||
+  if( (strlen(rc_config.input_file) == 0) ||
       isFlagClear(PLOT_SELECT) )
     return;
 
@@ -910,7 +910,7 @@ on_freqplots_save_activate(
   /* Make file name from input file name,
    * to save frequency plots drawing */
   snprintf( saveas, s, "%s-%s_%03d%s",
-      rc_config.infile, "plots", ++cnt, ".png" );
+      rc_config.input_file, "plots", ++cnt, ".png" );
 
   /* Open file chooser to save frequency plots */
   SetFlag( IMAGE_SAVE );
@@ -1118,7 +1118,7 @@ on_rdpattern_save_activate(
   size_t s = sizeof( saveas );
   static int cgn = 0, ceh = 0;
 
-  if( strlen(rc_config.infile) == 0 ) return;
+  if( strlen(rc_config.input_file) == 0 ) return;
 
   saveas_drawingarea = rdpattern_drawingarea;
   saveas_width  = rdpattern_width;
@@ -1128,10 +1128,10 @@ on_rdpattern_save_activate(
    * file name from input name */
   if( isFlagSet(DRAW_GAIN) )
     snprintf( saveas, s, "%s-%s_%03d%s",
-        rc_config.infile, "gain", ++cgn, ".png" );
+        rc_config.input_file, "gain", ++cgn, ".png" );
   else if( isFlagSet(DRAW_EHFIELD) )
     snprintf( saveas, s, "%s-%s_%03d%s",
-        rc_config.infile, "fields", ++ceh, ".png" );
+        rc_config.input_file, "fields", ++ceh, ".png" );
   else return;
 
   /* Open file chooser to save frequency plots */
@@ -1979,7 +1979,7 @@ on_nec2_save_clicked(
 
   /* Open file selector to specify file  */
   /* name for saving a new NEC2 input file */
-  if( strlen(rc_config.infile) == 0 )
+  if( strlen(rc_config.input_file) == 0 )
   {
     /* Open file chooser to save NEC2 input file */
     SetFlag( NEC2_SAVE );
@@ -1990,7 +1990,7 @@ on_nec2_save_clicked(
   }
 
   /* Save NEC2 editor data */
-  Save_Nec2_Input_File( nec2_edit_window, rc_config.infile );
+  Save_Nec2_Input_File( nec2_edit_window, rc_config.input_file );
   if( Nec2_Apply_Checkbutton() )
     Open_Input_File( (gpointer)(&new) );
 }
@@ -2185,8 +2185,8 @@ on_nec2_revert_clicked(
     gpointer         user_data)
 {
   /* Open NEC2 input file */
-  if( strlen(rc_config.infile) == 0 ) return;
-  Open_File( &input_fp, rc_config.infile, "r" );
+  if( strlen(rc_config.input_file) == 0 ) return;
+  Open_File( &input_fp, rc_config.input_file, "r" );
   Nec2_Input_File_Treeview( NEC2_EDITOR_REVERT );
 }
 
@@ -2227,7 +2227,7 @@ on_nec2_save_dialog_response(
       }
       else Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );
 
-      rc_config.infile[0] = '\0';
+      rc_config.input_file[0] = '\0';
       selected_treeview = cmnt_treeview;
       ClearFlag( OPEN_NEW_NEC2 );
     }
@@ -2237,14 +2237,14 @@ on_nec2_save_dialog_response(
     /* Open file chooser to specify file name to save
      * NEC2 editor data to, if no file is already open */
     SetFlag( NEC2_SAVE );
-    if( strlen(rc_config.infile) == 0 )
+    if( strlen(rc_config.input_file) == 0 )
     {
       file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
           "*.nec", NULL, "untitled.nec", rc_config.working_dir );
       return;
     }
     else /* Save to already open input file */
-      Save_Nec2_Input_File( nec2_edit_window, rc_config.infile );
+      Save_Nec2_Input_File( nec2_edit_window, rc_config.input_file );
 
     /* Re-open NEC2 input file */
     gboolean new = FALSE;
@@ -2270,7 +2270,7 @@ on_nec2_save_dialog_response(
       }
       else Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );
 
-      rc_config.infile[0] = '\0';
+      rc_config.input_file[0] = '\0';
       selected_treeview = cmnt_treeview;
     }
   } /* if( response_id == GTK_RESPONSE_YES ) */

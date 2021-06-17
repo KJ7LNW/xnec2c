@@ -214,6 +214,9 @@ typedef struct Segment
 /* Signal start of xnec2c */
 #define XNEC2C_START        0x0040000000000000ll
 
+// Handle SIGHUP signal
+#define SIGHUP_RECEIVED     0x0080000000000000ll
+
 #define ALL_FLAGS           0xFFFFFFFFFFFFFFFFll
 
 /* Type of near field data requested */
@@ -233,7 +236,7 @@ typedef struct
   char xnec2c_glade[FILENAME_LEN];
 
   /* Current NEC2 input file */
-  char infile[FILENAME_LEN];
+  char input_file[FILENAME_LEN];
 
   /* Main (structure) window position and size */
   gint
@@ -764,7 +767,7 @@ typedef struct
     *max_gain,      /* Maximum gain for each polarization type */
     *min_gain,      /* Minimum gain for each polarization type */
     *max_gain_tht,  /* Theta angle where maximum gain occurs */
-    *max_gain_phi,  /*   Phi angle where minimum gain occurs */
+    *max_gain_phi,  /*   Phi angle where maximum gain occurs */
     *tilt,          /* Tilt angle of polarization ellipse  */
     *axrt;          /* Elliptic axial ratio of pol ellipse */
 
@@ -1348,6 +1351,9 @@ void Save_Nec2_Input_File(GtkWidget *treeview_window, char *nec2_file);
 /* network.c */
 void netwk(_Complex double *cmx, int *ip, _Complex double *einc);
 void load(int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt, double *zlr, double *zli, double *zlc);
+/* optimize.c */
+void Write_Optimizer_Data(void);
+void Sig_HungUp(void);
 /* plot_freqdata.c */
 void Plot_Frequency_Data(cairo_t *cr);
 void Plots_Window_Killed(void);

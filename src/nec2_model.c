@@ -661,7 +661,7 @@ Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
   /* Save commands to file */
   Save_Treeview_Data( cmnd_treeview, CMND_NUM_COLS, nec2_fp );
 
-  /* Re-open file in read mode */
+  /* Close file to re-open in read mode */
   Close_File( &nec2_fp );
 
   ClearFlag( NEC2_SAVE );

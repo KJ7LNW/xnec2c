@@ -985,8 +985,7 @@ Plot_Frequency_Data( cairo_t *cr )
 {
   /* Abort plotting if main window is to be closed
    * or when plots drawing area not available */
-  if(
-      isFlagSet(MAIN_QUIT) ||
+  if( isFlagSet(MAIN_QUIT) ||
       isFlagClear(PLOT_ENABLED) ||
       isFlagClear(ENABLE_EXCITN) )
     return;
@@ -1061,7 +1060,6 @@ Plot_Frequency_Data( cairo_t *cr )
     mem_realloc( (void **)&gdir_tht, mreq, "in plot_freqdata.c" );
     mem_realloc( (void **)&gdir_phi, mreq, "in plot_freqdata.c" );
     mem_realloc( (void **)&fbratio,  mreq, "in plot_freqdata.c" );
-
     if( isFlagSet(PLOT_NETGAIN) )
       mem_realloc( (void **)&netgain, mreq, "in plot_freqdata.c" );
 
@@ -1091,7 +1089,8 @@ Plot_Frequency_Data( cairo_t *cr )
       {
         Zr = impedance_data.zreal[idx];
         Zi = impedance_data.zimag[idx];
-        netgain[idx] = gmax[idx] + 10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
+        netgain[idx] = gmax[idx] +
+          10.0 * log10( 4.0 * Zr * Zo / (pow(Zr + Zo, 2.0) + pow( Zi, 2.0 )) );
       }
 
       /* Radiation angle/phi where max gain occurs */
@@ -1218,7 +1217,7 @@ Plot_Frequency_Data( cairo_t *cr )
         Zr = impedance_data.zreal[idx];
         Zi = impedance_data.zimag[idx];
         netgain[idx] = vgain[idx] +
-          10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
+          10.0 * log10( 4.0 * Zr * Zo / (pow(Zr + Zo, 2.0 ) + pow(Zi, 2.0)) );
       }
 
       /* Plot net gain if selected */
@@ -1258,6 +1257,7 @@ Plot_Frequency_Data( cairo_t *cr )
             "Memory allocation for vswr failed"), ERR_OK );
       return;
     }
+
     for(idx = 0; idx < fstep; idx++ )
     {
       zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
@@ -1265,8 +1265,8 @@ Plot_Frequency_Data( cairo_t *cr )
       zrmro2 = impedance_data.zreal[idx] - calc_data.zo;
       zrmro2 *= zrmro2;
       zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
-      gamma = sqrt( (zrmro2 + zimag2)/(zrpro2 + zimag2) );
-      vswr[idx] = (1+gamma)/(1-gamma);
+      gamma = sqrt( (zrmro2 + zimag2) / (zrpro2 + zimag2) );
+      vswr[idx] = (1.0 + gamma) / (1.0 - gamma);
       if( vswr[idx] > 10.0 ) vswr[idx] = 10.0;
     }
 
