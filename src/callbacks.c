@@ -2016,6 +2016,104 @@ on_nec2_save_as_clicked(
 
 
   void
+on_nec2_save_dialog_response(
+    GtkDialog       *dialog,
+    gint             response_id,
+    gpointer         user_data)
+{
+  Gtk_Widget_Destroy( &nec2_save_dialog );
+
+  /* Discard edited data */
+  if( response_id == GTK_RESPONSE_NO )
+  {
+    /* Cancel NEC2 data save */
+    ClearFlag( NEC2_EDIT_SAVE );
+    ClearFlag( NEC2_SAVE );
+
+    /* Open file chooser if user requested an input file to be opened */
+    if( isFlagSet(OPEN_INPUT) )
+    {
+      /* Open file chooser to select a NEC2 input file */
+      file_chooser = Open_Filechooser(
+          GTK_FILE_CHOOSER_ACTION_OPEN, "*.nec", NULL, NULL, rc_config.working_dir );
+      Gtk_Widget_Destroy( &nec2_save_dialog );
+      return;
+    }
+
+    /* Open a new NEC2 project */
+    if( isFlagSet(OPEN_NEW_NEC2) )
+    {
+      /* Open editor window if needed */
+      if( nec2_edit_window == NULL )
+      {
+        Close_File( &input_fp );
+        Open_Nec2_Editor( NEC2_EDITOR_NEW );
+      }
+      else Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );
+
+      rc_config.input_file[0] = '\0';
+      selected_treeview = cmnt_treeview;
+      ClearFlag( OPEN_NEW_NEC2 );
+    }
+  } /* if( response_id == GTK_RESPONSE_NO ) */
+  else if( response_id == GTK_RESPONSE_YES )
+  {
+    /* Open file chooser to specify file name to save
+     * NEC2 editor data to, if no file is already open */
+    SetFlag( NEC2_SAVE );
+    if( strlen(rc_config.input_file) == 0 )
+    {
+      file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
+          "*.nec", NULL, "untitled.nec", rc_config.working_dir );
+      return;
+    }
+    else /* Save to already open input file */
+      Save_Nec2_Input_File( nec2_edit_window, rc_config.input_file );
+
+    /* Re-open NEC2 input file */
+    gboolean new = FALSE;
+    if( Nec2_Apply_Checkbutton() && isFlagClear(MAIN_QUIT) )
+      Open_Input_File( (gpointer)(&new) );
+
+    /* Open file chooser if user requested an input file to be opened */
+    if( isFlagSet(OPEN_INPUT) )
+    {
+      file_chooser = Open_Filechooser(
+          GTK_FILE_CHOOSER_ACTION_OPEN, "*.nec", NULL, NULL, rc_config.working_dir );
+      return;
+    }
+
+    /* Open a new NEC2 project */
+    if( isFlagSet(OPEN_NEW_NEC2) )
+    {
+      /* Open editor window if needed */
+      if( nec2_edit_window == NULL )
+      {
+        Close_File( &input_fp );
+        Open_Nec2_Editor( NEC2_EDITOR_NEW );
+      }
+      else Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );
+
+      rc_config.input_file[0] = '\0';
+      selected_treeview = cmnt_treeview;
+    }
+  } /* if( response_id == GTK_RESPONSE_YES ) */
+
+  /* Save GUI state data for restoring
+   * windows if user is quitting xnec2c */
+  if( isFlagSet(MAIN_QUIT) )
+  {
+    Get_GUI_State();
+    Save_Config();
+  }
+
+  /* Kill window that initiated the save dialog.
+   * If it was the main window, xnec2c will exit */
+  Gtk_Widget_Destroy( &kill_window );
+}
+
+
+  void
 on_nec2_row_add_clicked(
     GtkButton       *button,
     gpointer         user_data)
@@ -2188,104 +2286,6 @@ on_nec2_revert_clicked(
   if( strlen(rc_config.input_file) == 0 ) return;
   Open_File( &input_fp, rc_config.input_file, "r" );
   Nec2_Input_File_Treeview( NEC2_EDITOR_REVERT );
-}
-
-
-  void
-on_nec2_save_dialog_response(
-    GtkDialog       *dialog,
-    gint             response_id,
-    gpointer         user_data)
-{
-  Gtk_Widget_Destroy( &nec2_save_dialog );
-
-  /* Discard edited data */
-  if( response_id == GTK_RESPONSE_NO )
-  {
-    /* Cancel NEC2 data save */
-    ClearFlag( NEC2_EDIT_SAVE );
-    ClearFlag( NEC2_SAVE );
-
-    /* Open file chooser if user requested an input file to be opened */
-    if( isFlagSet(OPEN_INPUT) )
-    {
-      /* Open file chooser to select a NEC2 input file */
-      file_chooser = Open_Filechooser(
-          GTK_FILE_CHOOSER_ACTION_OPEN, "*.nec", NULL, NULL, rc_config.working_dir );
-      Gtk_Widget_Destroy( &nec2_save_dialog );
-      return;
-    }
-
-    /* Open a new NEC2 project */
-    if( isFlagSet(OPEN_NEW_NEC2) )
-    {
-      /* Open editor window if needed */
-      if( nec2_edit_window == NULL )
-      {
-        Close_File( &input_fp );
-        Open_Nec2_Editor( NEC2_EDITOR_NEW );
-      }
-      else Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );
-
-      rc_config.input_file[0] = '\0';
-      selected_treeview = cmnt_treeview;
-      ClearFlag( OPEN_NEW_NEC2 );
-    }
-  } /* if( response_id == GTK_RESPONSE_NO ) */
-  else if( response_id == GTK_RESPONSE_YES )
-  {
-    /* Open file chooser to specify file name to save
-     * NEC2 editor data to, if no file is already open */
-    SetFlag( NEC2_SAVE );
-    if( strlen(rc_config.input_file) == 0 )
-    {
-      file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
-          "*.nec", NULL, "untitled.nec", rc_config.working_dir );
-      return;
-    }
-    else /* Save to already open input file */
-      Save_Nec2_Input_File( nec2_edit_window, rc_config.input_file );
-
-    /* Re-open NEC2 input file */
-    gboolean new = FALSE;
-    if( Nec2_Apply_Checkbutton() && isFlagClear(MAIN_QUIT) )
-      Open_Input_File( (gpointer)(&new) );
-
-    /* Open file chooser if user requested an input file to be opened */
-    if( isFlagSet(OPEN_INPUT) )
-    {
-      file_chooser = Open_Filechooser(
-          GTK_FILE_CHOOSER_ACTION_OPEN, "*.nec", NULL, NULL, rc_config.working_dir );
-      return;
-    }
-
-    /* Open a new NEC2 project */
-    if( isFlagSet(OPEN_NEW_NEC2) )
-    {
-      /* Open editor window if needed */
-      if( nec2_edit_window == NULL )
-      {
-        Close_File( &input_fp );
-        Open_Nec2_Editor( NEC2_EDITOR_NEW );
-      }
-      else Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );
-
-      rc_config.input_file[0] = '\0';
-      selected_treeview = cmnt_treeview;
-    }
-  } /* if( response_id == GTK_RESPONSE_YES ) */
-
-  /* Save GUI state data for restoring
-   * windows if user is quitting xnec2c */
-  if( isFlagSet(MAIN_QUIT) )
-  {
-    Get_GUI_State();
-    Save_Config();
-  }
-
-  /* Kill window that initiated the save dialog.
-   * If it was the main window, xnec2c will exit */
-  Gtk_Widget_Destroy( &kill_window );
 }
 
 
