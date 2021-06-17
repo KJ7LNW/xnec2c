@@ -30,8 +30,8 @@ Child_Input_File( void )
   Close_File( &input_fp );
 
   /* Open NEC2 input file */
-  if( strlen(rc_config.infile) == 0 ) return;
-  Open_File( &input_fp, rc_config.infile, "r" );
+  if( strlen(rc_config.input_file) == 0 ) return;
+  Open_File( &input_fp, rc_config.input_file, "r" );
 
   /* Read input file */
   ClearFlag( ALL_FLAGS );
@@ -356,8 +356,8 @@ Child_Process( int num_child )
     switch( Fork_Command(cmnd) )
     {
       case INFILE: /* Read input file */
-        retval = Read_Pipe( num_child, rc_config.infile, 80, FALSE );
-        rc_config.infile[retval] = '\0';
+        retval = Read_Pipe( num_child, rc_config.input_file, 80, FALSE );
+        rc_config.input_file[retval] = '\0';
         Child_Input_File();
         break;
 

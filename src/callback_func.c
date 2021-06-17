@@ -905,8 +905,8 @@ Filechooser_Response(
         Strlcat( filename, ".nec", sizeof(filename) );
 
       /* Use new file name as input file */
-      Strlcpy( rc_config.infile, filename, sizeof(rc_config.infile) );
-      Save_Nec2_Input_File( nec2_edit_window, rc_config.infile );
+      Strlcpy( rc_config.input_file, filename, sizeof(rc_config.input_file) );
+      Save_Nec2_Input_File( nec2_edit_window, rc_config.input_file );
 
       /* Re-open NEC2 input file */
       new = FALSE;
@@ -918,7 +918,7 @@ Filechooser_Response(
       ClearFlag( FREQLOOP_READY );
 
       /* Save any changes to an open file */
-      Strlcpy( rc_config.infile, fname, sizeof(rc_config.infile) );
+      Strlcpy( rc_config.input_file, fname, sizeof(rc_config.input_file) );
 
       /* Open new file */
       new = TRUE;
@@ -995,7 +995,7 @@ Filechooser_Response(
       }
       else Nec2_Input_File_Treeview( NEC2_EDITOR_NEW );
 
-      rc_config.infile[0] = '\0';
+      rc_config.input_file[0] = '\0';
       selected_treeview = cmnt_treeview;
     }
 

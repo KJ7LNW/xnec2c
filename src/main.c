@@ -47,6 +47,7 @@ main (int argc, char *argv[])
   sigaction( SIGTERM, &sa_new, NULL );
   sigaction( SIGABRT, &sa_new, NULL );
   sigaction( SIGCHLD, &sa_new, NULL );
+  sigaction( SIGHUP,  &sa_new, NULL );
 
   gtk_init (&argc, &argv);
 
@@ -114,14 +115,14 @@ main (int argc, char *argv[])
 
   /* Process command line options */
   calc_data.num_jobs  = 1;
-  rc_config.infile[0] = '\0';
+  rc_config.input_file[0] = '\0';
   while( (option = getopt(argc, argv, "i:j:hv") ) != -1 )
   {
     switch( option )
     {
       case 'i': /* specify input file name */
         {
-          size_t siz = sizeof( rc_config.infile );
+          size_t siz = sizeof( rc_config.input_file );
           if( strlen(optarg) >= siz )
           {
             fprintf ( stderr,
@@ -129,7 +130,7 @@ main (int argc, char *argv[])
             exit(-1);
           }
           /* For null term. */
-          Strlcpy( rc_config.infile, optarg, siz );
+          Strlcpy( rc_config.input_file, optarg, siz );
         }
         break;
 
@@ -153,11 +154,11 @@ main (int argc, char *argv[])
   } /* while( (option = getopt(argc, argv, "i:o:hv") ) != -1 ) */
 
   /* Read input file path name if not supplied by -i option */
-  if( (strlen(rc_config.infile) == 0) &&
+  if( (strlen(rc_config.input_file) == 0) &&
       (strstr(argv[argc - 1], ".nec") ||
        strstr(argv[argc - 1], ".NEC")) )
   {
-    size_t siz = sizeof( rc_config.infile );
+    size_t siz = sizeof( rc_config.input_file );
     if( strlen(argv[argc - 1]) >= siz )
     {
       fprintf ( stderr,
@@ -165,7 +166,7 @@ main (int argc, char *argv[])
       exit(-1);
     }
      /* For null termination */
-    Strlcpy( rc_config.infile, argv[argc-1], siz );
+    Strlcpy( rc_config.input_file, argv[argc-1], siz );
   }
 
   /* When forking is useful, e.g. if more than 1 processor is
@@ -257,8 +258,8 @@ main (int argc, char *argv[])
   Read_Config();
 
   /* If input file is specified, get the working directory */
-  if( strlen(rc_config.infile) )
-    Get_Dirname( rc_config.infile, rc_config.working_dir, NULL );
+  if( strlen(rc_config.input_file) )
+    Get_Dirname( rc_config.input_file, rc_config.working_dir, NULL );
 
   /* Main window freq spinbutton */
   mainwin_frequency = GTK_SPIN_BUTTON(
@@ -302,7 +303,7 @@ main (int argc, char *argv[])
   SetFlag( XNEC2C_START );
 
   /* Open input file if specified */
-  if( strlen(rc_config.infile) > 0 )
+  if( strlen(rc_config.input_file) > 0 )
     g_idle_add( Open_Input_File, (gpointer)(&new) );
   else
     SetFlag( INPUT_PENDING );
@@ -310,7 +311,7 @@ main (int argc, char *argv[])
   gtk_main ();
 
   return 0;
-}
+} // main()
 
 /*-----------------------------------------------------------------------*/
 
@@ -318,7 +319,6 @@ main (int argc, char *argv[])
  *
  * Opens NEC2 input file
  */
-
   gboolean
 Open_Input_File( gpointer udata )
 {
@@ -338,8 +338,8 @@ Open_Input_File( gpointer udata )
   calc_data.fstep = -1;
 
   /* Open NEC2 input file */
-  if( strlen(rc_config.infile) == 0 ) return( FALSE );
-  Open_File( &input_fp, rc_config.infile, "r");
+  if( strlen(rc_config.input_file) == 0 ) return( FALSE );
+  Open_File( &input_fp, rc_config.input_file, "r");
 
   /* Read input file, record failures */
   ok = Read_Comments() && Read_Geometry() && Read_Commands();
@@ -377,11 +377,11 @@ Open_Input_File( gpointer udata )
     size_t lenc, leni;
 
     lenc = strlen( fork_commands[INFILE] );
-    leni = strlen( rc_config.infile );
+    leni = strlen( rc_config.input_file );
     for( idx = 0; idx < num_child_procs; idx++ )
     {
       Write_Pipe( idx, fork_commands[INFILE], (ssize_t)lenc, TRUE );
-      Write_Pipe( idx, rc_config.infile, (ssize_t)leni, TRUE );
+      Write_Pipe( idx, rc_config.input_file, (ssize_t)leni, TRUE );
     }
   } /* if( FORKED ) */
 
@@ -398,14 +398,13 @@ Open_Input_File( gpointer udata )
   near_field.newer = 0;
   near_field.valid = 0;
 
-  /* Allow redraws on expose events etc */
+  /* Allow re-draws on expose events etc */
   ClearFlag( INPUT_PENDING );
 
   /* Set projection at 45 deg rotation and
    * inclination if NEC2 editor window is not open */
   if( nec2_edit_window == NULL )
-    New_Viewer_Angle(
-        45.0, 45.0, rotate_structure,
+    New_Viewer_Angle( 45.0, 45.0, rotate_structure,
         incline_structure, &structure_proj_params );
   New_Structure_Projection_Angle();
 
@@ -534,6 +533,10 @@ static void sig_handler( int signal )
     case SIGTERM:
       fprintf( stderr, _("xnec2c: termination request received, exiting\n") );
       break;
+
+    case SIGHUP: // Open .nec file, reprocess it and write Optimizer file
+      Sig_HungUp();
+      return;
 
     case SIGCHLD:
       {

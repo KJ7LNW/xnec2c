@@ -417,11 +417,10 @@ Frequency_Loop( gpointer udata )
 
   int idx, job_num = 0;
   size_t len;
-  char *buff;               /* Used to pass on structure poiners */
-  fd_set read_fds;          /* Read file descriptors for select() */
+  char *buff;      /* Used to pass on structure poiners */
+  fd_set read_fds; /* Read file descriptors for select() */
 
-
-  /* (Re) initialize freq loop */
+  /* (Re) Initialize freq loop */
   if( isFlagSet(FREQ_LOOP_INIT) )
   {
     /* Clear global flags */
@@ -491,9 +490,9 @@ Frequency_Loop( gpointer udata )
 
     /* Increment frequency */
     if( calc_data.ifrq == 1)
-      freq *= calc_data.delfrq; /* Multiplicative stepping */
+      freq *= calc_data.delfrq;  /* Multiplicative stepping */
     else
-      freq += calc_data.delfrq; /* Additive stepping */
+      freq += calc_data.delfrq;  /* Additive stepping */
 
     /* Save frequencies for plotting */
     save.freq[fstep] = (double)freq;
@@ -600,6 +599,7 @@ Frequency_Loop( gpointer udata )
   calc_data.fmhz = (double)save.freq[calc_data.fstep];
 
   /* Trigger a redraw of open drawingareas */
+  /* Plot frequency-dependent data */
   if( isFlagSet(PLOT_ENABLED) )
   {
     char txt[10];
@@ -612,10 +612,12 @@ Frequency_Loop( gpointer udata )
     while( g_main_context_iteration(NULL, FALSE) );
   }
 
+  /* Draw Radiation patterns */
   if( isFlagSet(DRAW_ENABLED) )
   {
     gtk_spin_button_set_value(
         rdpattern_frequency, (gdouble)calc_data.fmhz );
+
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
     while( g_main_context_iteration(NULL, FALSE) );
@@ -624,10 +626,10 @@ Frequency_Loop( gpointer udata )
   /* Set frequency spinbuttons */
   gtk_spin_button_set_value(
       mainwin_frequency, (gdouble)calc_data.fmhz );
+
   /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( structure_drawingarea );
   while( g_main_context_iteration(NULL, FALSE) );
-
   SetFlag( FREQLOOP_READY );
 
   /* Change flags at exit if loop is done */
@@ -635,10 +637,16 @@ Frequency_Loop( gpointer udata )
   {
     ClearFlag( FREQ_LOOP_RUNNING );
     SetFlag( FREQ_LOOP_DONE );
+
+    /* Write out frequency loop data for
+     * the optimizer if SIGHUP received */
+    if( isFlagSet(SIGHUP_RECEIVED) )
+    {
+      Write_Optimizer_Data();
+    }
   }
 
   return( retval );
-
 } /* Frequency_Loop() */
 
 /*-----------------------------------------------------------------------*/
