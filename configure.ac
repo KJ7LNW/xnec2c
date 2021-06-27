@@ -31,6 +31,7 @@ AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
 AC_CHECK_LIB([m], [atan2])
 AC_CHECK_LIB([gmodule-2.0], [g_module_open])
+AC_CHECK_LIB([pthread], [pthread_create])
 
 # Internationalization tools
 AM_GNU_GETTEXT_VERSION([0.19.8])

@@ -640,7 +640,7 @@ Frequency_Loop( gpointer udata )
 
     /* Write out frequency loop data for
      * the optimizer if SIGHUP received */
-    if( isFlagSet(SIGHUP_RECEIVED) )
+    if( isFlagSet(OPTIMIZER_OUTPUT) )
     {
       Write_Optimizer_Data();
     }
