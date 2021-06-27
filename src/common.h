@@ -214,8 +214,8 @@ typedef struct Segment
 /* Signal start of xnec2c */
 #define XNEC2C_START        0x0040000000000000ll
 
-// Handle SIGHUP signal
-#define SIGHUP_RECEIVED     0x0080000000000000ll
+// Enable Optimizer Output
+#define OPTIMIZER_OUTPUT    0x0080000000000000ll
 
 #define ALL_FLAGS           0xFFFFFFFFFFFFFFFFll
 
@@ -875,6 +875,7 @@ void on_open_input_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_main_save_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_main_save_as_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_struct_save_as_gnuplot_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_optimizer_output_toggled(GtkMenuItem *menuitem, gpointer user_data);
 void on_confirm_quit_toggled(GtkMenuItem *menuitem, gpointer user_data);
 void on_quit_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_main_rdpattern_activate(GtkMenuItem *menuitem, gpointer user_data);
@@ -1353,7 +1354,7 @@ void netwk(_Complex double *cmx, int *ip, _Complex double *einc);
 void load(int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt, double *zlr, double *zli, double *zlc);
 /* optimize.c */
 void Write_Optimizer_Data(void);
-void Sig_HungUp(void);
+void *Optimizer_Output(void *arg);
 /* plot_freqdata.c */
 void Plot_Frequency_Data(cairo_t *cr);
 void Plots_Window_Killed(void);

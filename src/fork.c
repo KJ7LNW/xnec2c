@@ -445,7 +445,7 @@ Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
   if( (retval == -1) || ((retval != len) && err) )
   {
     perror( "xnec2c: Write_Pipe(): write()" );
-    _exit( 0 );
+    //_exit( 0 );
   }
 
   usleep( 10 );

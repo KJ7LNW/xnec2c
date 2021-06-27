@@ -635,6 +635,7 @@ NULL
 "main_save", \
 "main_save_as", \
 "struct_save_as_gnuplot", \
+"optimizer_output", \
 "confirm_quit", \
 "main_quit", \
 "main_view_menuitem", \

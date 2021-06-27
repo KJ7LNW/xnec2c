@@ -16,6 +16,7 @@
 
 #include "callbacks.h"
 #include "shared.h"
+#include <pthread.h>
 
 /* Action flag for NEC2 "card" editors */
 static int editor_action = EDITOR_NEW;
@@ -210,6 +211,31 @@ on_struct_save_as_gnuplot_activate(
   SetFlag( STRUCT_GNUPLOT_SAVE );
   file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
       "*.gplot", NULL, "untitled.gplot", rc_config.working_dir );
+}
+
+
+  void
+on_optimizer_output_toggled(
+    GtkMenuItem     *menuitem,
+    gpointer         user_data)
+{
+  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
+  {
+    // Enable frequency data output to Optimizer's file
+    SetFlag( OPTIMIZER_OUTPUT );
+
+    // Create a thread to play back demodulation buffer
+    pthread_t thrd;
+    int ret = pthread_create( &thrd, NULL, Optimizer_Output, NULL );
+    if( ret != 0 )
+    {
+      fprintf( stderr, "xnec2c: failed to create Optimizer Output thread\n" ); 
+      perror( "xnec2c: pthread_create()" );
+      exit( -1 );
+    }
+  }
+  else
+    ClearFlag( OPTIMIZER_OUTPUT );
 }
 
 

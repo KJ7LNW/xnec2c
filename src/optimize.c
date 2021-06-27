@@ -15,6 +15,8 @@
  */
 
 #include "shared.h"
+#include <poll.h>
+#include <sys/inotify.h>
 
 /*------------------------------------------------------------------------*/
 
@@ -26,8 +28,6 @@ Write_Optimizer_Data( void )
   char csv_file[FILENAME_LEN];
   size_t s = sizeof( csv_file );
   
-  ClearFlag( SIGHUP_RECEIVED );
-
   /* Create a file name for the Optimizer csv file */
   Strlcpy( csv_file, rc_config.input_file, s );
   Strlcat( csv_file, ".csv", s );
@@ -133,14 +133,77 @@ Write_Optimizer_Data( void )
 
 /*------------------------------------------------------------------------*/
 
-/* Response to signal SIGHUP */
-  void
-Sig_HungUp( void )
+  void *
+Optimizer_Output( void *arg )
 {
-  SetFlag( SIGHUP_RECEIVED );
-  gboolean flag = TRUE;
-  g_idle_add( Open_Input_File, (gpointer)&flag );
-} // Sig_HungUp()
+  int fd, poll_num;
+  int wd;
+  struct pollfd pfd;
+  char buf[256] __attribute__ ((aligned(__alignof__(struct inotify_event))));
+  const struct inotify_event *event;
+  ssize_t len;
+
+  /* Create the file descriptor for accessing the inotify API. */
+  fd = inotify_init1( IN_NONBLOCK );
+  if( fd == -1 )
+  {
+    perror( "xnec2c: inotify_init1" );
+    exit( -1 );
+  }
+
+  /* Create a file watch descriptor */
+  wd = inotify_add_watch( fd, rc_config.input_file, IN_CLOSE_WRITE );
+  if( wd == -1 )
+  {
+    fprintf(stderr, "xnec2c: cannot watch '%s': %s\n",
+        rc_config.input_file, strerror(errno));
+    exit( -1 );
+  }
+
+  pfd.fd     = fd;     /* Inotify input */
+  pfd.events = POLLIN;
+
+  /* Wait for watch events */
+  while( TRUE )
+  {
+    // Exit thread if optimizer output has been cancelled
+    if( isFlagClear(OPTIMIZER_OUTPUT) )
+      break;
+
+    // Poll inotify file descriptor, timeout 1 sec
+    poll_num = poll( &pfd, 1, 1000 );
+    if (poll_num == -1)
+    {
+      if( errno == EINTR ) continue;
+      perror( "xnec2c: poll" );
+      exit( -1 );
+    }
+
+    if( poll_num > 0 )
+    {
+      if( pfd.revents & POLLIN )
+      {
+        /* Inotify events are available. Read some events. */
+        len = read( fd, buf, sizeof(buf) );
+        if( (len == -1) && (errno != EAGAIN) )
+        {
+          perror( "xnec2c: read" );
+          exit( -1 );
+        }
+        event = (const struct inotify_event *) buf;
+
+        /* Read input file and re-process */
+        gboolean flag = TRUE;
+        if( event->mask & IN_CLOSE_WRITE )
+          g_idle_add( Open_Input_File, (gpointer) &flag );
+      }
+    } // if( poll_num > 0 )
+  } // while( TRUE )
+
+  /* Close inotify file descriptor. */
+  close( fd );
+  return( NULL );
+}
 
 /*------------------------------------------------------------------------*/
 

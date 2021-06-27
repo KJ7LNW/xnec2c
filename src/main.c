@@ -250,6 +250,7 @@ main (int argc, char *argv[])
   gtk_widget_hide( Builder_Get_Object(main_window_builder, "main_grid1") );
   gtk_widget_hide( Builder_Get_Object(main_window_builder, "main_view_menuitem") );
   gtk_widget_hide( Builder_Get_Object(main_window_builder, "structure_frame") );
+  gtk_widget_hide( Builder_Get_Object(main_window_builder, "optimizer_output") );
   calc_data.zo = 50.0;
 
   /* Read GUI state config file and reset geometry */
@@ -306,8 +307,6 @@ main (int argc, char *argv[])
     g_idle_add( Open_Input_File, (gpointer)(&new) );
   else
     SetFlag( INPUT_PENDING );
-  
-  sigaction( SIGHUP, &sa_new, NULL );
 
   gtk_main ();
 
@@ -370,6 +369,7 @@ Open_Input_File( gpointer udata )
     return( FALSE );
   } /* if( !ok ) */
   SetFlag( INPUT_OPENED );
+  gtk_widget_show( Builder_Get_Object(main_window_builder, "optimizer_output") );
 
   /* Ask child processes to read input file */
   if( FORKED )
@@ -534,10 +534,6 @@ static void sig_handler( int signal )
     case SIGTERM:
       fprintf( stderr, _("xnec2c: termination request received, exiting\n") );
       break;
-
-    case SIGHUP: // Open .nec file, reprocess it and write Optimizer file
-      Sig_HungUp();
-      return;
 
     case SIGCHLD:
       {
