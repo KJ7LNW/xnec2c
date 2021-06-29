@@ -66,7 +66,7 @@ main (int argc, char *argv[])
 
     /* Find the binary's path (location in file system) */
     char exe_path[256], file_path[288];
-    
+
     /* Read the file path to xnec2c executable */
     size_t len = sizeof( exe_path );
     int bytes = (int)readlink( "/proc/self/exe", exe_path, len );

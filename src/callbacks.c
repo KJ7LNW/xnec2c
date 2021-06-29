@@ -229,7 +229,7 @@ on_optimizer_output_toggled(
     int ret = pthread_create( &thrd, NULL, Optimizer_Output, NULL );
     if( ret != 0 )
     {
-      fprintf( stderr, "xnec2c: failed to create Optimizer Output thread\n" ); 
+      fprintf( stderr, "xnec2c: failed to create Optimizer Output thread\n" );
       perror( "xnec2c: pthread_create()" );
       exit( -1 );
     }

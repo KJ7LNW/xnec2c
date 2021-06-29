@@ -27,7 +27,7 @@ Write_Optimizer_Data( void )
 {
   char csv_file[FILENAME_LEN];
   size_t s = sizeof( csv_file );
-  
+
   /* Create a file name for the Optimizer csv file */
   Strlcpy( csv_file, rc_config.input_file, s );
   Strlcat( csv_file, ".csv", s );
