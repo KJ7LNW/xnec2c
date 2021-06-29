@@ -706,7 +706,7 @@ Wire_Editor( int action )
 
   /* Frame of tapered wire data */
   frame = Builder_Get_Object(wire_editor_builder, "wire_taperframe");
-  
+
   /* Show taper data if appropriate */
   if( taper )
   {

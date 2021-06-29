@@ -10364,6 +10364,21 @@ Save NEC2 Editor data first?
                           </object>
                         </child>
                         <child>
+                          <object class="GtkCheckMenuItem" id="optimizer_output">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Optimizer Output</property>
+                            <property name="use-underline">True</property>
+                            <signal name="toggled" handler="on_optimizer_output_toggled" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkSeparatorMenuItem">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                          </object>
+                        </child>
+                        <child>
                           <object class="GtkCheckMenuItem" id="confirm_quit">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
@@ -10797,8 +10812,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="plus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="KP_Add" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="plus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -10820,8 +10835,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="KP_Subtract" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -10843,8 +10858,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="KP_1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -11867,8 +11882,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="plus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="KP_Add" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="plus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -11891,8 +11906,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="KP_Subtract" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -11915,8 +11930,8 @@ Save NEC2 Editor data first?
                     <property name="icon_size">3</property>
                   </object>
                 </child>
-                <accelerator key="KP_1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <accelerator key="1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="KP_1" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
                 <property name="expand">True</property>

@@ -30,6 +30,7 @@
 #include <sys/types.h>
 #include <sys/times.h>
 #include <gtk/gtk.h>
+#include <errno.h>
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
