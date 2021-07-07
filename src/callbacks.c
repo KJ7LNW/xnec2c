@@ -2002,7 +2002,6 @@ on_nec2_save_clicked(
           "while the Frequency Loop is running")) )
     return;
 
-
   /* Open file selector to specify file  */
   /* name for saving a new NEC2 input file */
   if( strlen(rc_config.input_file) == 0 )

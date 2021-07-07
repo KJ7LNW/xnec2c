@@ -56,7 +56,7 @@ Write_Optimizer_Data( void )
   if( isFlagSet(PLOT_ZREAL_ZIMAG) ) fprintf( fp, "%12s,%12s,", "Z-real", "Z-imag" );
   if( isFlagSet(PLOT_ZMAG_ZPHASE) ) fprintf( fp, "%12s,%12s,", "Z-magn", "Z-phase" );
   if( isFlagSet(PLOT_VSWR) )        fprintf( fp, "%12s,", "VSWR" );
-  if( isFlagSet(PLOT_GMAX) )        fprintf( fp, "%12s,", "Gain-max" );
+  if( isFlagSet(PLOT_GMAX) )        fprintf( fp, "%12s,%12s,", "Gain-max", "F/B Ratio" );
   if( isFlagSet(PLOT_GVIEWER) )     fprintf( fp, "%12s,", "Gain-viewer" );
   if( isFlagSet(PLOT_NETGAIN) )     fprintf( fp, "%12s,", "Gain-net" );
   fprintf( fp, "\n" );
@@ -101,7 +101,7 @@ Write_Optimizer_Data( void )
       int pol = calc_data.pol_type;
       int mgidx = rad_pattern[idx].max_gain_idx[pol];
       double max_gain = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
-      fprintf( fp, "%12.4E,", max_gain );
+      fprintf( fp, "%12.4E,%12.4E,", max_gain, rad_pattern[idx].fbratio );
     }
 
     /* Print gain in viewer's direction */
@@ -133,6 +133,8 @@ Write_Optimizer_Data( void )
 
 /*------------------------------------------------------------------------*/
 
+// Watches the NEC2 (.nec) input file for a save using the
+// inotify system and re-reads the input file for re-processing
   void *
 Optimizer_Output( void *arg )
 {
@@ -195,7 +197,15 @@ Optimizer_Output( void *arg )
         /* Read input file and re-process */
         gboolean flag = TRUE;
         if( event->mask & IN_CLOSE_WRITE )
+        {
+          /* No save/open file while freq loop is running */
+          if( !Nec2_Save_Warn(
+                _("NEC2 input file may not be saved\n"
+                  "while the Frequency Loop is running")) )
+            continue;
+
           g_idle_add( Open_Input_File, (gpointer) &flag );
+        }
       }
     } // if( poll_num > 0 )
   } // while( TRUE )
@@ -203,7 +213,7 @@ Optimizer_Output( void *arg )
   /* Close inotify file descriptor. */
   close( fd );
   return( NULL );
-}
+} // Optimizer_Output()
 
 /*------------------------------------------------------------------------*/
 

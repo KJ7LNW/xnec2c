@@ -770,7 +770,8 @@ typedef struct
     *max_gain_tht,  /* Theta angle where maximum gain occurs */
     *max_gain_phi,  /*   Phi angle where maximum gain occurs */
     *tilt,          /* Tilt angle of polarization ellipse  */
-    *axrt;          /* Elliptic axial ratio of pol ellipse */
+    *axrt,          /* Elliptic axial ratio of pol ellipse */
+    fbratio;        /* Front to Back gain ratio */
 
   int
     *max_gain_idx,  /* Where in rad_pattern.gtot the max value occurs */
