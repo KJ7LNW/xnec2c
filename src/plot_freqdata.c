@@ -1004,7 +1004,7 @@ Plot_Frequency_Data( cairo_t *cr )
     *netgain  = NULL, /* Viewer direction net gain buffer */
     *gdir_tht = NULL, /* Direction in theta of gain */
     *gdir_phi = NULL, /* Direction in phi of gain */
-    *fbratio  = NULL; /* Front to back ratio */
+    *fbratio  = NULL; /* Direction in phi of gain */
 
   /* Used to calculate net gain */
   double Zr, Zo, Zi;
@@ -1081,8 +1081,7 @@ Plot_Frequency_Data( cairo_t *cr )
       mgidx = rad_pattern[idx].max_gain_idx[pol];
 
       /* Max gain for given polarization type */
-      gmax[idx] =
-        rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
+      gmax[idx] = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
 
       /* Net gain if selected */
       if( isFlagSet(PLOT_NETGAIN) )
@@ -1137,10 +1136,9 @@ Plot_Frequency_Data( cairo_t *cr )
       /* Front to back ratio */
       fbratio[idx]  = pow( 10.0, gmax[idx] / 10.0 );
       fbratio[idx] /= pow( 10.0,
-          (rad_pattern[idx].gtot[fbidx] +
-           Polarization_Factor(pol, idx, fbidx)) / 10.0 );
+          (rad_pattern[idx].gtot[fbidx] + Polarization_Factor(pol, idx, fbidx)) / 10.0 );
       fbratio[idx] = 10.0 * log10( fbratio[idx] );
-
+      rad_pattern[idx].fbratio = fbratio[idx];
     } /* for( idx = 0; idx < fstep; idx++ ) */
 
     /*** Plot gain and f/b ratio (if possible) graph(s) */
