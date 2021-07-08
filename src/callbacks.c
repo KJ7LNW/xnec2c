@@ -106,6 +106,7 @@ on_new_activate(
     return;
 
   SetFlag( OPEN_NEW_NEC2 );
+  calc_data.fmhz_save = 0.0;
 
   /* Prompt user to save NEC2 data */
   if( Nec2_Edit_Save() ) return;
@@ -135,6 +136,7 @@ on_open_input_activate(
     return;
 
   SetFlag( OPEN_INPUT );
+  calc_data.fmhz_save = 0.0;
 
   /* Prompt user to save NEC2 data */
   if( Nec2_Edit_Save() )

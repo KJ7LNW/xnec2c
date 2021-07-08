@@ -5,7 +5,7 @@
 <meta name="generator" content="Bluefish 2.2.12" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
-<meta name="date" content="2021-06-02T09:25:39+0300" >
+<meta name="date" content="2021-07-07T12:24:59+0300" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C">
 <meta name="description" content=
@@ -1078,12 +1078,22 @@ is transferred at the first read(). In this case xnec2c was
 crushing with "Resource temporarily unavailable" error message.</p>
 <p><b>Version 4.1.4:</b> Added the stdint.h include file to
 common.h to fix a compilation error reported by Nick G3VNC.</p>
-<p><b>Version 4.1.5:</b> After an inquiry by Eric Wheeler KJ7LNW 
+<p><b>Version 4.1.5:</b> After an inquiry by Eric Wheeler KJ7LNW
 regarding the use of the GH card to create spirals, I found a bug
 that caused the GH editor to delete the GH entry in NEC2 Editor's
 treeview. I also found a bug that caused the number of turns of a
 spiral to be rounded to the nearest integer. Both bugs have been
 fixed in this version.</p>
+<p><b>Version 4.1.6:</b> To aid Eric Wheeler KJ7LNW to develop his
+Simplex automatic Optimizer, I added code to monitor, with inotify,
+the .nec input file and to trigger recalculation and plotting of
+frequency dependent data, while at the same time printing to file
+results (VSWR, max gain, F/B ratio etc). Also added code so that if
+the user clicks on the Frequency Plots drawing area, the underlying
+frequency is saved and re-entered into the frequency-dependent
+calculations. This, together with maintaining the viewing angle of
+the Radiation pattern makes it easier to monitor the Optimizer's
+progress.</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and
 Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original

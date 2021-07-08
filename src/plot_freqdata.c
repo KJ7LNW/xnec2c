@@ -1382,7 +1382,7 @@ Set_Frequency_On_Click( GdkEventButton *event )
       SetFlag( PLOT_FREQ_LINE );
 
       fmhz = max_fscale - min_fscale;
-      fmhz = min_fscale + fmhz * x/w;
+      fmhz = min_fscale + fmhz * x / w;
       break;
 
     case 2: /* Disable drawing of freq line */
@@ -1410,6 +1410,9 @@ Set_Frequency_On_Click( GdkEventButton *event )
       fmhz = save.freq[idx];
 
   } /* switch( event->button ) */
+
+  /* Save frequency for later use */
+  calc_data.fmhz_save = (double)fmhz;
 
   /* Set frequency spinbuttons on new freq */
   if( fmhz != gtk_spin_button_get_value(mainwin_frequency) )
