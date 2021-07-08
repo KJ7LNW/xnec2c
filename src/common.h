@@ -741,6 +741,7 @@ typedef struct
     thetis,
     phiss,
     fmhz,       /* Frequency in MHz, moved from save_t */
+    fmhz_save,  /* Saved value of above */
     delfrq;     /* Frequency step for freq loop */
 
   double

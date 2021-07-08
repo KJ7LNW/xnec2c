@@ -587,8 +587,7 @@ Frequency_Loop( gpointer udata )
         if( save.fstep[idx] ) calc_data.fstep = idx;
         else break;
 
-    } /* do */
-    /* Loop terminated and busy children */
+    } /* do. Loop terminated and busy children */
     while( !retval && num_busy_procs );
 
   /* Return if freq step 0 not ready yet */
@@ -596,7 +595,7 @@ Frequency_Loop( gpointer udata )
 
   /* Set frequency and step to global variables */
   calc_data.lastf = calc_data.fstep;
-  calc_data.fmhz = (double)save.freq[calc_data.fstep];
+  calc_data.fmhz  = (double)save.freq[calc_data.fstep];
 
   /* Trigger a redraw of open drawingareas */
   /* Plot frequency-dependent data */
@@ -637,6 +636,16 @@ Frequency_Loop( gpointer udata )
   {
     ClearFlag( FREQ_LOOP_RUNNING );
     SetFlag( FREQ_LOOP_DONE );
+
+    /* After the loop is finished, re-set the saved frequency
+     * the user clicked on in the frequency plots window */
+    if( calc_data.fmhz_save )
+    {
+      SetFlag( PLOT_FREQ_LINE );
+      gtk_spin_button_set_value( mainwin_frequency, calc_data.fmhz_save );
+      if( isFlagSet(DRAW_ENABLED) )
+        gtk_spin_button_set_value( rdpattern_frequency, calc_data.fmhz_save );
+    }
 
     /* Write out frequency loop data for
      * the optimizer if SIGHUP received */

@@ -195,7 +195,6 @@ Optimizer_Output( void *arg )
         event = (const struct inotify_event *) buf;
 
         /* Read input file and re-process */
-        gboolean flag = TRUE;
         if( event->mask & IN_CLOSE_WRITE )
         {
           /* No save/open file while freq loop is running */
@@ -204,6 +203,7 @@ Optimizer_Output( void *arg )
                   "while the Frequency Loop is running")) )
             continue;
 
+          gboolean flag = FALSE;
           g_idle_add( Open_Input_File, (gpointer) &flag );
         }
       }

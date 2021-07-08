@@ -320,7 +320,7 @@ main (int argc, char *argv[])
  * Opens NEC2 input file
  */
   gboolean
-Open_Input_File( gpointer udata )
+Open_Input_File( gpointer data )
 {
   gboolean ok, new;
   GtkWidget *widget;
@@ -404,7 +404,7 @@ Open_Input_File( gpointer udata )
 
   /* Set projection at 45 deg rotation and
    * inclination if NEC2 editor window is not open */
-  if( nec2_edit_window == NULL )
+  if( (nec2_edit_window == NULL) && isFlagClear(OPTIMIZER_OUTPUT) )
     New_Viewer_Angle( 45.0, 45.0, rotate_structure,
         incline_structure, &structure_proj_params );
   New_Structure_Projection_Angle();
@@ -429,8 +429,8 @@ Open_Input_File( gpointer udata )
 
   /* Set input file to NEC2 editor. It will only
    * happen if the NEC2 editor window is open */
-  new = *( (gboolean *)udata );
-  if( new )
+  new = *( (gboolean *)data );
+  if( new && isFlagClear(OPTIMIZER_OUTPUT) )
     Nec2_Input_File_Treeview( NEC2_EDITOR_CLEAR );
   else
     Nec2_Input_File_Treeview( NEC2_EDITOR_RELOAD );
