@@ -824,7 +824,9 @@ New_Radiation_Projection_Angle(void)
   }
 
   /* Trigger a redraw of plots drawingarea if doing "viewer" gain */
-  if( isFlagSet(PLOT_ENABLED) && isFlagSet(PLOT_GVIEWER) )
+  if( isFlagSet(PLOT_ENABLED) &&
+      isFlagSet(PLOT_GVIEWER) &&
+      isFlagClear(OPTIMIZER_OUTPUT) )
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );

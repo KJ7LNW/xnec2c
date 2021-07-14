@@ -1115,7 +1115,7 @@ Plot_Frequency_Data( cairo_t *cr )
         if( fpat.dth == 0.0 )
           nth = 0;
         else
-          nth = (int)( fbdir/fpat.dth + 0.5 );
+          nth = (int)( fbdir / fpat.dth + 0.5 );
       }
 
       /* Find F/B direction in phi */

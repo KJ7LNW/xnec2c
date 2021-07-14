@@ -57,6 +57,7 @@ Write_Optimizer_Data( void )
   if( isFlagSet(PLOT_ZMAG_ZPHASE) ) fprintf( fp, "%12s,%12s,", "Z-magn", "Z-phase" );
   if( isFlagSet(PLOT_VSWR) )        fprintf( fp, "%12s,", "VSWR" );
   if( isFlagSet(PLOT_GMAX) )        fprintf( fp, "%12s,%12s,", "Gain-max", "F/B Ratio" );
+  if( isFlagSet(PLOT_GAIN_DIR) )    fprintf( fp, "%12s,%12s,", "Direct-tht", "Direct-phi" );
   if( isFlagSet(PLOT_GVIEWER) )     fprintf( fp, "%12s,", "Gain-viewer" );
   if( isFlagSet(PLOT_NETGAIN) )     fprintf( fp, "%12s,", "Gain-net" );
   fprintf( fp, "\n" );
@@ -95,13 +96,18 @@ Write_Optimizer_Data( void )
       fprintf( fp, "%12.4E,", vswr );
     }
 
-    /* Print Max gain for given polarization type */
+    /* Print Max gain for given polarization type and direction if enabled */
     if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) )
     {
       int pol = calc_data.pol_type;
       int mgidx = rad_pattern[idx].max_gain_idx[pol];
       double max_gain = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
       fprintf( fp, "%12.4E,%12.4E,", max_gain, rad_pattern[idx].fbratio );
+
+      if( isFlagSet(PLOT_GAIN_DIR) )
+        fprintf( fp, "%12.4E,%12.4E,",
+            90.0 - rad_pattern[idx].max_gain_tht[pol],
+            rad_pattern[idx].max_gain_phi[pol] );
     }
 
     /* Print gain in viewer's direction */
