@@ -601,28 +601,26 @@ Frequency_Loop( gpointer udata )
   /* Plot frequency-dependent data */
   if( isFlagSet(PLOT_ENABLED) )
   {
+    /* Display current frequency in plots entry */
     char txt[10];
-    snprintf( txt, sizeof(txt), "%9.3f", (gdouble)calc_data.fmhz );
+    snprintf( txt, sizeof(txt), "%9.3f", calc_data.fmhz );
     gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
             freqplots_window_builder, "freqplots_fmhz_entry")), txt );
 
     /* Wait for GTK to complete its tasks */
-    gtk_widget_queue_draw( freqplots_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    if( isFlagClear(OPTIMIZER_OUTPUT) )
+    {
+      gtk_widget_queue_draw( freqplots_drawingarea );
+      while( g_main_context_iteration(NULL, FALSE) );
+    }
   }
 
-  /* Draw Radiation patterns */
+  /* Set Radiation pattern window frequency spinbutton */
   if( isFlagSet(DRAW_ENABLED) )
-  {
     gtk_spin_button_set_value(
         rdpattern_frequency, (gdouble)calc_data.fmhz );
 
-    /* Wait for GTK to complete its tasks */
-    gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
-  }
-
-  /* Set frequency spinbuttons */
+  /* Set main window frequency spinbutton */
   gtk_spin_button_set_value(
       mainwin_frequency, (gdouble)calc_data.fmhz );
 
@@ -638,14 +636,31 @@ Frequency_Loop( gpointer udata )
     SetFlag( FREQ_LOOP_DONE );
 
     /* After the loop is finished, re-set the saved frequency
-     * the user clicked on in the frequency plots window */
+     * that the user clicked on in the frequency plots window */
     if( calc_data.fmhz_save )
     {
-      SetFlag( PLOT_FREQ_LINE );
+      calc_data.fmhz = calc_data.fmhz_save;
       gtk_spin_button_set_value( mainwin_frequency, calc_data.fmhz_save );
+
       if( isFlagSet(DRAW_ENABLED) )
         gtk_spin_button_set_value( rdpattern_frequency, calc_data.fmhz_save );
+
+      if( isFlagSet(PLOT_ENABLED) )
+      {
+        SetFlag( PLOT_FREQ_LINE );
+        char txt[10];
+        snprintf( txt, sizeof(txt), "%9.3f", calc_data.fmhz_save );
+        gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
+                freqplots_window_builder, "freqplots_fmhz_entry")), txt );
+      }
     }
+
+    /* Re-draw drawing areas at end of loop */
+    if( isFlagSet(PLOT_ENABLED) )
+      gtk_widget_queue_draw( freqplots_drawingarea );
+    if( isFlagSet(DRAW_ENABLED) )
+      gtk_widget_queue_draw( rdpattern_drawingarea );
+    while( g_main_context_iteration(NULL, FALSE) );
 
     /* Write out frequency loop data for
      * the optimizer if SIGHUP received */

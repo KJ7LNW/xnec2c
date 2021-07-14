@@ -438,19 +438,27 @@ Open_Input_File( gpointer data )
   /* Re-initialize Rad Pattern drawing if window open */
   if( rdpattern_window != NULL )
   {
-      widget = Builder_Get_Object(
-          rdpattern_window_builder, "rdpattern_zoom_spinbutton" );
-      gtk_spin_button_set_value(
-          GTK_SPIN_BUTTON(widget), (gdouble)rc_config.rdpattern_zoom_spinbutton );
+    widget = Builder_Get_Object(
+        rdpattern_window_builder, "rdpattern_zoom_spinbutton" );
+    gtk_spin_button_set_value(
+        GTK_SPIN_BUTTON(widget), (gdouble)rc_config.rdpattern_zoom_spinbutton );
 
     /* Simulate activation of main rdpattern button */
-    Main_Rdpattern_Activate( FALSE );
+    if( isFlagClear(OPTIMIZER_OUTPUT) )
+      Main_Rdpattern_Activate( FALSE );
     crnt.valid = 0;
 
+    /* Select display of radiation or EH pattern */
     if( isFlagSet(DRAW_GAIN) )
-      Rdpattern_Gain_Togglebutton_Toggled( TRUE );
+    {
+      if( isFlagClear(OPTIMIZER_OUTPUT) )
+        Rdpattern_Gain_Togglebutton_Toggled( TRUE );
+    }
     else if( isFlagSet(DRAW_EHFIELD) )
-      Rdpattern_EH_Togglebutton_Toggled( TRUE );
+    {
+      if( isFlagClear(OPTIMIZER_OUTPUT) )
+        Rdpattern_EH_Togglebutton_Toggled( TRUE );
+    }
     else
     {
       Rdpattern_Gain_Togglebutton_Toggled( FALSE );
