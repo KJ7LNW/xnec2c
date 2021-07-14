@@ -126,13 +126,12 @@ Draw_Radiation_Pattern( cairo_t *cr )
 
     /* Distance of rdpattern point furthest from xyz origin */
     idx = rad_pattern[fstep].max_gain_idx[pol];
-    rdpattern_proj_params.r_max = Scale_Gain(
-        rad_pattern[fstep].gtot[idx], fstep, idx);
+    rdpattern_proj_params.r_max =
+      Scale_Gain( rad_pattern[fstep].gtot[idx], fstep, idx);
 
     /* Distance of rdpattern point nearest to xyz origin */
     idx = rad_pattern[fstep].min_gain_idx[pol];
-    r_min = Scale_Gain(
-        rad_pattern[fstep].gtot[idx], fstep, idx);
+    r_min = Scale_Gain( rad_pattern[fstep].gtot[idx], fstep, idx);
 
     /* Range of scaled rdpattern gain values */
     r_range = rdpattern_proj_params.r_max - r_min;
@@ -584,8 +583,12 @@ Draw_Near_Field( cairo_t *cr )
 Draw_Radiation( cairo_t *cr )
 {
   /* Abort if xnec2c may be quit by user */
-  if( isFlagSet(MAIN_QUIT) ||
-      isFlagClear(ENABLE_EXCITN) )
+  if( isFlagSet(MAIN_QUIT) || isFlagClear(ENABLE_EXCITN) )
+    return;
+
+  /* Don't draw radiation pattern when freq
+   * loop is running and optimizer enabled */
+  if( isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_RUNNING) )
     return;
 
   /* Clear drawingarea */

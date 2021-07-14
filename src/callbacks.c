@@ -1453,18 +1453,19 @@ on_rdpattern_freq_spinbutton_value_changed(
     return;
 
   /* Frequency spinbutton value changed by frequency loop */
-  if( isFlagSet(FREQ_LOOP_RUNNING) &&
-      isFlagSet(DRAW_ENABLED) )
+  if( isFlagSet(FREQ_LOOP_RUNNING) && isFlagSet(DRAW_ENABLED) )
   {
     /* Wait for GTK to complete its tasks */
-    gtk_widget_queue_draw( rdpattern_drawingarea );
+    if( isFlagClear(OPTIMIZER_OUTPUT) )
+      gtk_widget_queue_draw( rdpattern_drawingarea );
     while( g_main_context_iteration(NULL, FALSE) );
   }
   else
   {
     /* Get freq from spin button, avoid double signal by GTK */
     gdouble fmhz = (gdouble)gtk_spin_button_get_value(spinbutton);
-    if( fmhz == fmhz_save ) return; /* to avoid double signal by GTK */
+    if( (fmhz == fmhz_save) && isFlagClear(OPTIMIZER_OUTPUT) )
+      return; /* to avoid double signal by GTK */
     fmhz_save = fmhz;
 
     /* If new freq calculations are enabled
@@ -1535,11 +1536,11 @@ on_rdpattern_drawingarea_draw(
     GtkWidget       *widget,
     cairo_t         *cr,
     gpointer         user_data)
-{
+{puts("AAA");
   /* No redraws if new input pending */
   if( isFlagSet(INPUT_PENDING) )
     return( FALSE );
-
+puts("BBB");
   Draw_Radiation( cr );
   return( TRUE );
 }
