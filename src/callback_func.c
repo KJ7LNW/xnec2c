@@ -479,15 +479,13 @@ Main_Rdpattern_Activate( gboolean from_menu )
   if( !crnt.valid && !from_menu ) Redo_Currents( NULL );
 
   /* Display frequency in freq spinbutton */
-  if( from_menu )
+  if( from_menu && calc_data.FR_cards )
   {
     char value[9];
     size_t s = sizeof( value );
-
-    snprintf( value, s, "%.3f", calc_data.fmhz );
+    snprintf( value, s, "%.3f", calc_data.freq_mhz );
     value[s - 1] = '\0';
-    gtk_entry_set_text(
-        GTK_ENTRY(rdpattern_frequency), value );
+    gtk_entry_set_text( GTK_ENTRY(rdpattern_frequency), value );
   }
 
   /* Enable Gain or E/H field drawing */
@@ -915,7 +913,7 @@ Filechooser_Response(
     }
     else if( isFlagSet(OPEN_INPUT) )
     {
-      ClearFlag( FREQLOOP_READY );
+      ClearFlag( FREQ_LOOP_READY );
 
       /* Save any changes to an open file */
       Strlcpy( rc_config.input_file, fname, sizeof(rc_config.input_file) );

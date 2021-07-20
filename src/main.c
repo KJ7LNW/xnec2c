@@ -252,6 +252,7 @@ main (int argc, char *argv[])
   gtk_widget_hide( Builder_Get_Object(main_window_builder, "structure_frame") );
   gtk_widget_hide( Builder_Get_Object(main_window_builder, "optimizer_output") );
   calc_data.zo = 50.0;
+  calc_data.freq_loop_data = NULL;
 
   /* Read GUI state config file and reset geometry */
   Read_Config();
@@ -272,8 +273,7 @@ main (int argc, char *argv[])
   structure_width  = allocation.width;
   structure_height = allocation.height;
   New_Projection_Parameters(
-      structure_width, structure_height,
-      &structure_proj_params );
+      structure_width, structure_height, &structure_proj_params );
 
   /* Initialize structure projection angles */
   rotate_structure  = GTK_SPIN_BUTTON(
@@ -335,10 +335,13 @@ Open_Input_File( gpointer data )
   /* Suppress activity while input file opened */
   ClearFlag( OPEN_INPUT_FLAGS );
   SetFlag( INPUT_PENDING );
-  calc_data.fstep = -1;
+  calc_data.freq_step = -1; //FIXME
 
   /* Open NEC2 input file */
-  if( strlen(rc_config.input_file) == 0 ) return( FALSE );
+  if( strlen(rc_config.input_file) == 0 )
+    return( FALSE );
+  calc_data.FR_cards = 0;
+  calc_data.FR_index = 0;
   Open_File( &input_fp, rc_config.input_file, "r");
 
   /* Read input file, record failures */
@@ -346,16 +349,11 @@ Open_Input_File( gpointer data )
   if( !ok )
   {
     /* Hide main control buttons etc */
-    gtk_widget_hide(
-        Builder_Get_Object(main_window_builder, "main_hbox1") );
-    gtk_widget_hide(
-        Builder_Get_Object(main_window_builder, "main_hbox2") );
-    gtk_widget_hide(
-        Builder_Get_Object(main_window_builder, "main_grid1") );
-    gtk_widget_hide(
-        Builder_Get_Object(main_window_builder, "main_view_menuitem") );
-    gtk_widget_hide(
-        Builder_Get_Object(main_window_builder, "structure_frame") );
+    gtk_widget_hide( Builder_Get_Object(main_window_builder, "main_hbox1") );
+    gtk_widget_hide( Builder_Get_Object(main_window_builder, "main_hbox2") );
+    gtk_widget_hide( Builder_Get_Object(main_window_builder, "main_grid1") );
+    gtk_widget_hide( Builder_Get_Object(main_window_builder, "main_view_menuitem") );
+    gtk_widget_hide( Builder_Get_Object(main_window_builder, "structure_frame") );
 
     /* Close plot/rdpat windows if open */
     Gtk_Widget_Destroy( &rdpattern_window );
@@ -390,8 +388,7 @@ Open_Input_File( gpointer data )
   SetFlag( COMMON_PROJECTION );
   SetFlag( COMMON_FREQUENCY );
   SetFlag( MAIN_NEW_FREQ );
-  if( isFlagSet(PLOT_ENABLED) )
-    SetFlag( FREQ_LOOP_INIT );
+  if( isFlagSet(PLOT_ENABLED) ) SetFlag( FREQ_LOOP_INIT );
   floop_tag = 0;
   save.last_freq = 0.0;
   crnt.newer = 0;
@@ -410,7 +407,7 @@ Open_Input_File( gpointer data )
   New_Structure_Projection_Angle();
 
   /* Show current frequency */
-  gtk_spin_button_set_value( mainwin_frequency, (gdouble)calc_data.fmhz );
+  gtk_spin_button_set_value( mainwin_frequency, (gdouble)calc_data.freq_mhz );
 
   /* Show main control buttons etc */
   gtk_widget_show( Builder_Get_Object(main_window_builder, "main_hbox1") );
@@ -465,16 +462,14 @@ Open_Input_File( gpointer data )
       Rdpattern_EH_Togglebutton_Toggled( FALSE );
     }
 
-    GtkWidget *box =
-      Builder_Get_Object( rdpattern_window_builder, "rdpattern_box" );
+    GtkWidget *box = Builder_Get_Object( rdpattern_window_builder, "rdpattern_box" );
     gtk_widget_show( box );
   }
 
-  /* Re-initiate plots if window open */
-  if( freqplots_window != NULL )
+  /* Re-initiate frequency plots if window open */
+  if( isFlagSet(PLOT_ENABLED) )
   {
-    GtkWidget *box =
-      Builder_Get_Object( freqplots_window_builder, "freqplots_box" );
+    GtkWidget *box = Builder_Get_Object( freqplots_window_builder, "freqplots_box" );
     gtk_widget_show( box );
     if( rc_config.main_loop_start )
     {

@@ -63,8 +63,8 @@ Write_Optimizer_Data( void )
   fprintf( fp, "\n" );
 
   /* Print frequency-dependent data corresponding
-   * to graphs in plot of frequency-dependent data */
-  for( int idx = 0; idx < calc_data.nfrq; idx++ )
+   * to graphs in plot of frequency-dependent data FIXME */
+  for( int idx = 0; idx < calc_data.freq_loop_data[calc_data.FR_index].freq_steps; idx++ )
   {
     /* Print the frequency in MHz */
     fprintf( fp, "%12.4E,", (double)save.freq[idx] );
@@ -132,7 +132,7 @@ Write_Optimizer_Data( void )
     }
 
     fprintf( fp, "\n" );
-  } //for( int idx = 0; idx < calc_data.nfrq; idx++ )
+  } //for( int idx = 0; idx < calc_data.freq_steps; idx++ )
 
   fclose( fp );
 } // Write_Optimizer_Data()
@@ -175,7 +175,8 @@ Optimizer_Output( void *arg )
   while( TRUE )
   {
     // Exit thread if optimizer output has been cancelled
-    if( isFlagClear(OPTIMIZER_OUTPUT) )
+    if( isFlagClear(OPTIMIZER_OUTPUT) ||
+        isFlagClear(PLOT_ENABLED) )
       break;
 
     // Poll inotify file descriptor, timeout 1 sec

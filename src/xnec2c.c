@@ -33,10 +33,10 @@ Frequency_Scale_Geometry()
   int idx;
 
   /* Calculate wavelength */
-  data.wlam= CVEL/ calc_data.fmhz;
+  data.wlam= CVEL / calc_data.freq_mhz;
 
   /* frequency scaling of geometric parameters */
-  fr= calc_data.fmhz / CVEL;
+  fr= calc_data.freq_mhz / CVEL;
   if( data.n != 0)
   {
     for( idx = 0; idx < data.n; idx++ )
@@ -120,7 +120,7 @@ Ground_Parameters( void )
 
       if( gnd.iperf == 2)
       {
-        somnec( save.epsr, save.sig, calc_data.fmhz );
+        somnec( save.epsr, save.sig, calc_data.freq_mhz );
         gnd.frati =( epsc - 1.0) / ( epsc + 1.0);
         if( cabs(( ggrid.epscf - epsc) / epsc) >= 1.0e-3 )
         {
@@ -260,17 +260,18 @@ Set_Network_Data( void )
   netcx.ntsol = 1;
 
   /* Save impedance data for normalization */
-  if( ((calc_data.nfrq > 1) && isFlagSet(FREQ_LOOP_RUNNING)) || CHILD )
+  if( ((calc_data.freq_loop_data[calc_data.FR_index].freq_steps > 1) &&
+        isFlagSet(FREQ_LOOP_RUNNING)) || CHILD )
   {
-    impedance_data.zreal[calc_data.fstep] = (double)creal( netcx.zped);
-    impedance_data.zimag[calc_data.fstep] = (double)cimag( netcx.zped);
-    impedance_data.zmagn[calc_data.fstep] = (double)cabs( netcx.zped);
-    impedance_data.zphase[calc_data.fstep]= (double)cang( netcx.zped);
+    int fstep = calc_data.freq_step;
+    impedance_data.zreal[fstep] = (double)creal( netcx.zped);
+    impedance_data.zimag[fstep] = (double)cimag( netcx.zped);
+    impedance_data.zmagn[fstep] = (double)cabs( netcx.zped);
+    impedance_data.zphase[fstep]= (double)cang( netcx.zped);
 
     if( (calc_data.iped == 1) &&
-        ((double)impedance_data.zmagn[calc_data.fstep] > calc_data.zpnorm) )
-      calc_data.zpnorm =
-        (double)impedance_data.zmagn[calc_data.fstep];
+        ((double)impedance_data.zmagn[fstep] > calc_data.zpnorm) )
+      calc_data.zpnorm = (double)impedance_data.zmagn[fstep];
   }
 
 } /* Set_Network_Data() */
@@ -360,10 +361,10 @@ New_Frequency( void )
 {
   /* Abort if freq has not really changed, as when changing
    * between current or charge density structure coloring */
-  if( (save.last_freq == calc_data.fmhz) ||
+  if( (save.last_freq == calc_data.freq_mhz) ||
       isFlagClear(ENABLE_EXCITN) )
     return;
-  save.last_freq = calc_data.fmhz;
+  save.last_freq = calc_data.freq_mhz;
 
   /* Frequency scaling of geometric parameters */
   Frequency_Scale_Geometry();
@@ -420,6 +421,7 @@ Frequency_Loop( gpointer udata )
   char *buff;      /* Used to pass on structure poiners */
   fd_set read_fds; /* Read file descriptors for select() */
 
+
   /* (Re) Initialize freq loop */
   if( isFlagSet(FREQ_LOOP_INIT) )
   {
@@ -427,18 +429,18 @@ Frequency_Loop( gpointer udata )
     ClearFlag( FREQ_LOOP_INIT | FREQ_LOOP_DONE );
 
     /* (Re)-enable freq loop (back to start freq) */
-    freq = save.fmhz;
+    freq = calc_data.freq_loop_data[0].min_freq;
 
     /* Step back frequency and step count since incrementing
      * is done at start of frequency loop calculations */
     fstep = -1;
-    if( calc_data.ifrq == 1)
-      freq /= calc_data.delfrq;
+    if( calc_data.freq_loop_data[calc_data.FR_index].ifreq == 1)
+      freq /= calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
     else
-      freq -= calc_data.delfrq;
+      freq -= calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
 
     /* Clear list of "valid" (processed) loop steps */
-    for( idx = 0; idx < calc_data.nfrq; idx++ )
+    for( idx = 0; idx < calc_data.freq_loop_data[calc_data.FR_index].freq_steps; idx++ )
       save.fstep[idx] = 0;
 
     /* Clear "last-used-frequency" buffer */
@@ -447,12 +449,11 @@ Frequency_Loop( gpointer udata )
     /* Zero num of busy processes */
     num_busy_procs = 0;
 
-    /* Signal global freq step "illegal" */
-    calc_data.fstep = -1;
+    /* Signal global freq step "illegal" FIXME */
+    calc_data.freq_step = -1;
 
     /* Inherited from NEC2 */
-    if( calc_data.zpnorm > 0.0 )
-      calc_data.iped = 2;
+    if( calc_data.zpnorm > 0.0 ) calc_data.iped = 2;
 
     /* Continue gtk_main idle callbacks */
     retval = TRUE;
@@ -471,13 +472,14 @@ Frequency_Loop( gpointer udata )
     fstep++;
 
     /* Frequency loop is completed or was paused by user */
-    if( (fstep >= calc_data.nfrq) || isFlagSet(FREQ_LOOP_STOP) )
+    if( (fstep >= calc_data.freq_loop_data[calc_data.FR_index].freq_steps) ||
+        isFlagSet(FREQ_LOOP_STOP) )
     {
       /* Points to last buffer in rad_pattern filled by loop */
       fstep--;
 
       /* Last freq step that was processed by children */
-      calc_data.lastf = fstep;
+      calc_data.freq_loop_data[calc_data.FR_index].last_step = fstep;
 
       /* Re-enable pausing of freq loop */
       ClearFlag( FREQ_LOOP_STOP );
@@ -486,13 +488,13 @@ Frequency_Loop( gpointer udata )
       retval = FALSE;
 
       break;
-    } /* if( (fstep >= calc_data.nfrq) || isFlagSet(FREQ_LOOP_STOP) ) */
+    } /* if( (fstep >= calc_data.freq_steps) || isFlagSet(FREQ_LOOP_STOP) ) */
 
     /* Increment frequency */
-    if( calc_data.ifrq == 1)
-      freq *= calc_data.delfrq;  /* Multiplicative stepping */
+    if( calc_data.freq_loop_data[calc_data.FR_index].ifreq == 1)
+      freq *= calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
     else
-      freq += calc_data.delfrq;  /* Additive stepping */
+      freq += calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
 
     /* Save frequencies for plotting */
     save.freq[fstep] = (double)freq;
@@ -527,9 +529,9 @@ Frequency_Loop( gpointer udata )
     } /* if( FORKED ) */
     else /* Calculate freq dependent data (no fork) */
     {
-      calc_data.fmhz  = freq;
-      calc_data.fstep = fstep;
-      calc_data.lastf = fstep;
+      calc_data.freq_mhz  = freq;
+      calc_data.freq_step = fstep;
+      calc_data.freq_loop_data[calc_data.FR_index].last_step = fstep;
       New_Frequency();
       break;
     }
@@ -582,20 +584,20 @@ Frequency_Loop( gpointer udata )
       } /* for( idx = 0; idx < num_child_procs; idx++ ) */
 
       /* Find highest freq step that has no steps below it
-       * that have not been processed by a child process */
-      for( idx = 0; idx < calc_data.nfrq; idx++ )
-        if( save.fstep[idx] ) calc_data.fstep = idx;
+       * that have not been processed by a child process FIXME */
+      for( idx = 0; idx < calc_data.freq_loop_data[calc_data.FR_index].freq_steps; idx++ )
+        if( save.fstep[idx] ) calc_data.freq_step = idx;
         else break;
 
     } /* do. Loop terminated and busy children */
     while( !retval && num_busy_procs );
 
   /* Return if freq step 0 not ready yet */
-  if( calc_data.fstep < 0 ) return( retval );
+  if( calc_data.freq_step < 0 ) return( retval );
 
-  /* Set frequency and step to global variables */
-  calc_data.lastf = calc_data.fstep;
-  calc_data.fmhz  = (double)save.freq[calc_data.fstep];
+  /* Set frequency and step to global variables FIXME */
+  calc_data.freq_loop_data[calc_data.FR_index].last_step = calc_data.freq_step;
+  calc_data.freq_mhz = (double)save.freq[calc_data.freq_step];
 
   /* Trigger a redraw of open drawingareas */
   /* Plot frequency-dependent data */
@@ -603,7 +605,7 @@ Frequency_Loop( gpointer udata )
   {
     /* Display current frequency in plots entry */
     char txt[10];
-    snprintf( txt, sizeof(txt), "%9.3f", calc_data.fmhz );
+    snprintf( txt, sizeof(txt), "%9.3f", calc_data.freq_mhz );
     gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
             freqplots_window_builder, "freqplots_fmhz_entry")), txt );
 
@@ -615,19 +617,17 @@ Frequency_Loop( gpointer udata )
     }
   }
 
+  /* Set main window frequency spinbutton */
+  gtk_spin_button_set_value( mainwin_frequency, (gdouble)calc_data.freq_mhz );
+
   /* Set Radiation pattern window frequency spinbutton */
   if( isFlagSet(DRAW_ENABLED) )
-    gtk_spin_button_set_value(
-        rdpattern_frequency, (gdouble)calc_data.fmhz );
-
-  /* Set main window frequency spinbutton */
-  gtk_spin_button_set_value(
-      mainwin_frequency, (gdouble)calc_data.fmhz );
+    gtk_spin_button_set_value( rdpattern_frequency, (gdouble)calc_data.freq_mhz );
 
   /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( structure_drawingarea );
   while( g_main_context_iteration(NULL, FALSE) );
-  SetFlag( FREQLOOP_READY );
+  SetFlag( FREQ_LOOP_READY );
 
   /* Change flags at exit if loop is done */
   if( !retval && !num_busy_procs )
@@ -637,11 +637,14 @@ Frequency_Loop( gpointer udata )
 
     /* After the loop is finished, re-set the saved frequency
      * that the user clicked on in the frequency plots window */
-    if( calc_data.fmhz_save )
+    if( (int)calc_data.fmhz_save )
     {
-      calc_data.fmhz = calc_data.fmhz_save;
+      calc_data.freq_mhz = calc_data.fmhz_save;
+      
+      /* Set main window frequency spinbutton */
       gtk_spin_button_set_value( mainwin_frequency, calc_data.fmhz_save );
 
+      /* Set Radiation pattern window frequency spinbutton */
       if( isFlagSet(DRAW_ENABLED) )
         gtk_spin_button_set_value( rdpattern_frequency, calc_data.fmhz_save );
 
@@ -668,7 +671,7 @@ Frequency_Loop( gpointer udata )
     {
       Write_Optimizer_Data();
     }
-  }
+  } // if( !retval && !num_busy_procs )
 
   return( retval );
 } /* Frequency_Loop() */
@@ -682,7 +685,12 @@ Frequency_Loop( gpointer udata )
   gboolean
 Start_Frequency_Loop( void )
 {
-  if( isFlagClear(FREQ_LOOP_RUNNING) && (calc_data.nfrq > 1) )
+  if( calc_data.freq_loop_data == NULL )
+    return( FALSE );
+
+  if( isFlagClear(FREQ_LOOP_RUNNING) &&
+      (calc_data.FR_cards > 0 )      &&
+      (calc_data.freq_loop_data[calc_data.FR_index].freq_steps > 1) )
   {
     retval = TRUE;
     SetFlag( FREQ_LOOP_INIT );

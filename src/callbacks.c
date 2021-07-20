@@ -106,7 +106,15 @@ on_new_activate(
     return;
 
   SetFlag( OPEN_NEW_NEC2 );
-  calc_data.fmhz_save = 0.0;
+
+  /* Reset on opening new file */
+  calc_data.FR_cards  = 0;
+  calc_data.FR_index  = 0;
+  if( isFlagClear(OPTIMIZER_OUTPUT) )
+  {
+    calc_data.fmhz_save = 0.0;
+    ClearFlag( PLOT_FREQ_LINE );
+  }
 
   /* Prompt user to save NEC2 data */
   if( Nec2_Edit_Save() ) return;
@@ -136,7 +144,15 @@ on_open_input_activate(
     return;
 
   SetFlag( OPEN_INPUT );
-  calc_data.fmhz_save = 0.0;
+
+  /* Reset on opening new file */
+  calc_data.FR_cards  = 0;
+  calc_data.FR_index  = 0;
+  if( isFlagClear(OPTIMIZER_OUTPUT) )
+  {
+    calc_data.fmhz_save = 0.0;
+    ClearFlag( PLOT_FREQ_LINE );
+  }
 
   /* Prompt user to save NEC2 data */
   if( Nec2_Edit_Save() )
@@ -717,8 +733,6 @@ on_main_freq_spinbutton_value_changed(
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
-  static gdouble fmhz_save = 0.0;
-
   /* No redraws if new input pending */
   if( isFlagSet(INPUT_PENDING) )
     return;
@@ -732,22 +746,17 @@ on_main_freq_spinbutton_value_changed(
   }
   else if( isFlagClear(FREQ_LOOP_INIT) ) /* by user */
   {
-    /* Get freq from spin button, avoid double signal by GTK */
+    /* Get frequency from spin button */
     gdouble fmhz = (gdouble)gtk_spin_button_get_value(spinbutton);
-    if( (fmhz == fmhz_save) && isFlagClear(PLOT_FREQ_LINE) )
-      return; /* to avoid double signal by GTK */
-    fmhz_save = fmhz;
 
     /* If new freq calculations are enabled by
      * checkbutton next to freq spinbutton or
      * freq line plotting enabled, redo currents */
-    if( isFlagSet(PLOT_FREQ_LINE) ||
-        (isFlagSet(MAIN_NEW_FREQ) &&
-         (isFlagSet(DRAW_CURRENTS) ||
-          isFlagSet(DRAW_CHARGES))) )
+    if( isFlagSet(PLOT_FREQ_LINE)  || (isFlagSet(MAIN_NEW_FREQ) &&
+         (isFlagSet(DRAW_CURRENTS) || isFlagSet(DRAW_CHARGES))) )
     {
       /* Recalc currents in structure */
-      calc_data.fmhz = (double)fmhz;
+      calc_data.freq_mhz = (double)fmhz;
       g_idle_add( Redo_Currents, NULL );
     }
 
@@ -787,14 +796,12 @@ on_main_new_freq_clicked(
   /* Recalculate (and redraw) currents on user command */
   if( isFlagClear(FREQ_LOOP_RUNNING) )
   {
-    calc_data.fmhz =
-      (double)gtk_spin_button_get_value( mainwin_frequency );
+    calc_data.freq_mhz = (double)gtk_spin_button_get_value( mainwin_frequency );
 
     /* Sync rad pattern frequency spinbutton */
     /* Show current frequency */
-    if( isFlagSet(DRAW_ENABLED) &&
-        isFlagSet(COMMON_FREQUENCY) )
-      gtk_spin_button_set_value( rdpattern_frequency, calc_data.fmhz );
+    if( isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_FREQUENCY) )
+      gtk_spin_button_set_value( rdpattern_frequency, calc_data.freq_mhz );
 
     g_idle_add( Redo_Currents, NULL );
 
@@ -1072,7 +1079,7 @@ on_freqplots_drawingarea_draw(
   if( isFlagSet(INPUT_PENDING) )
     return( FALSE );
 
-  /* Enable drawing of freq line */
+  /* Draw the frequency dependent data plots */
   Plot_Frequency_Data( cr );
   return( TRUE );
 }
@@ -1446,8 +1453,6 @@ on_rdpattern_freq_spinbutton_value_changed(
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
-  static gdouble fmhz_save = 0.0;
-
   /* No redraws if new input pending */
   if( isFlagSet(INPUT_PENDING) )
     return;
@@ -1462,11 +1467,8 @@ on_rdpattern_freq_spinbutton_value_changed(
   }
   else
   {
-    /* Get freq from spin button, avoid double signal by GTK */
+    /* Get frequency from spin button */
     gdouble fmhz = (gdouble)gtk_spin_button_get_value(spinbutton);
-    if( (fmhz == fmhz_save) && isFlagClear(OPTIMIZER_OUTPUT) )
-      return; /* to avoid double signal by GTK */
-    fmhz_save = fmhz;
 
     /* If new freq calculations are enabled
      * by checkbutton next to freq spinbutton */
@@ -1476,7 +1478,7 @@ on_rdpattern_freq_spinbutton_value_changed(
         (isFlagSet(DRAW_GAIN) || isFlagSet(DRAW_EHFIELD)) )
     {
       /* Recalc currents in structure and rad pattern */
-      calc_data.fmhz = (double)fmhz;
+      calc_data.freq_mhz = (double)fmhz;
       g_idle_add( Redo_Radiation_Pattern, NULL );
 
       /* Sync main window frequency spinbutton */
@@ -1497,14 +1499,13 @@ on_rdpattern_new_freq_clicked(
   /* Recalculate and draw rad pattern after user command */
   if( isFlagClear(FREQ_LOOP_RUNNING) )
   {
-    calc_data.fmhz =
-      (double)gtk_spin_button_get_value( rdpattern_frequency );
+    calc_data.freq_mhz = (double)gtk_spin_button_get_value( rdpattern_frequency );
     Redo_Radiation_Pattern( NULL );
 
     /* Sync main frequency spinbutton */
     /* Show current frequency */
     if( isFlagSet(COMMON_FREQUENCY) )
-      gtk_spin_button_set_value( mainwin_frequency, calc_data.fmhz );
+      gtk_spin_button_set_value( mainwin_frequency, calc_data.freq_mhz );
 
     g_idle_add( Redo_Currents, NULL );
 
@@ -1536,11 +1537,11 @@ on_rdpattern_drawingarea_draw(
     GtkWidget       *widget,
     cairo_t         *cr,
     gpointer         user_data)
-{puts("AAA");
+{
   /* No redraws if new input pending */
   if( isFlagSet(INPUT_PENDING) )
     return( FALSE );
-puts("BBB");
+
   Draw_Radiation( cr );
   return( TRUE );
 }
