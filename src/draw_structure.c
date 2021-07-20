@@ -54,7 +54,7 @@ Draw_Structure( cairo_t *cr )
   crnt.newer = 0;
 
   /* Display frequency step */
-  Display_Fstep( structure_fstep_entry, calc_data.fstep );
+  Display_Fstep( structure_fstep_entry, calc_data.freq_step );
 
   /* Wait for GTK to complete its tasks */
   while( g_main_context_iteration(NULL, FALSE) );
@@ -397,7 +397,7 @@ Draw_Wire_Segments( cairo_t *cr, Segment_t *segm, gint nseg )
       if( isFlagSet(DRAW_CURRENTS) )
         snprintf( label, s, "%8.2E", cmax * (double)data.wlam );
       else
-        snprintf( label, s, "%8.2E", cmax * 1.0E-6/(double)calc_data.fmhz );
+        snprintf( label, s, "%8.2E", cmax * 1.0E-6 / (double)calc_data.freq_mhz );
       gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
               main_window_builder, "main_colorcode_maxlabel")), label );
 
@@ -614,9 +614,9 @@ Redo_Currents( gpointer udata )
       isFlagClear(ENABLE_EXCITN) )
     return FALSE;
 
-  /* Makes calcs use the extra buffer in rad_pattern */
-  calc_data.fstep = calc_data.nfrq;
-  save.last_freq = 0.0;
+  /* Makes calcs use the extra buffer in rad_pattern FIXME */
+  calc_data.freq_step = calc_data.freq_loop_data[calc_data.FR_index].freq_steps;
+  save.last_freq  = 0.0;
   New_Frequency();
 
   /* Display freq data in entry widgets */
@@ -703,19 +703,16 @@ Show_Viewer_Gain(
     gchar *widget,
     projection_parameters_t proj_params )
 {
-  if( isFlagSet(DRAW_CURRENTS)  ||
-      isFlagSet(DRAW_CHARGES)   ||
-      isFlagSet(DRAW_GAIN)      ||
+  if( isFlagSet(DRAW_CURRENTS) ||
+      isFlagSet(DRAW_CHARGES)  ||
+      isFlagSet(DRAW_GAIN)     ||
       isFlagSet(FREQ_LOOP_RUNNING) )
   {
     char txt[8];
-
-    if( isFlagSet(ENABLE_RDPAT) && (calc_data.fstep >= 0) )
+    if( isFlagSet(ENABLE_RDPAT) && (calc_data.freq_step >= 0) )
     {
-      snprintf( txt, sizeof(txt), "%7.2f",
-          Viewer_Gain(proj_params, calc_data.fstep) );
-      gtk_entry_set_text(GTK_ENTRY(
-            Builder_Get_Object(builder, widget)), txt );
+      snprintf( txt, sizeof(txt), "%7.2f", Viewer_Gain(proj_params, calc_data.freq_step) );
+      gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(builder, widget)), txt );
     }
   }
 

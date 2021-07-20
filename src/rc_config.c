@@ -182,19 +182,19 @@ Restore_Windows( gpointer dat )
 {
   GtkWidget *widget;
 
-  /* Open radiation pattern window if state data available */
-  if( rc_config.rdpattern_width &&
-      rc_config.rdpattern_height )
-  {
-    widget = Builder_Get_Object( main_window_builder, "main_rdpattern" );
-    gtk_menu_item_activate( GTK_MENU_ITEM(widget) );
-  }
-
   /* Open frequency plots window if state data available */
   if( rc_config.freqplots_width &&
       rc_config.freqplots_height )
   {
     widget = Builder_Get_Object( main_window_builder, "main_freqplots" );
+    gtk_menu_item_activate( GTK_MENU_ITEM(widget) );
+  }
+
+  /* Open radiation pattern window if state data available */
+  if( rc_config.rdpattern_width &&
+      rc_config.rdpattern_height )
+  {
+    widget = Builder_Get_Object( main_window_builder, "main_rdpattern" );
     gtk_menu_item_activate( GTK_MENU_ITEM(widget) );
   }
 

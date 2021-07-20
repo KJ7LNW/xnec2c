@@ -204,7 +204,7 @@ typedef struct Segment
 #define EDITOR_QUIT         0x0004000000000000ll
 
 /* Frequency loop results ready */
-#define FREQLOOP_READY      0x0008000000000000ll
+#define FREQ_LOOP_READY     0x0008000000000000ll
 
 /* Block motion events till ready */
 #define BLOCK_MOTION_EV     0x0010000000000000ll
@@ -692,14 +692,32 @@ typedef struct
     dy_center;  /* Displacement of center y (move projection) */
 
   int
-    width,  /*  Width of drawable */
-    height; /* Height of drawable */
+    width,   /*  Width of drawable */
+    height;  /* Height of drawable */
 
   char type; /* Type of projection parameters stuct */
 
   gboolean reset;  /* Reset flag needed in some functions */
 
 } projection_parameters_t;
+
+/* My addition, a struct for frequency loop related data.
+ * This is needed to implement multiple FR cards so
+ * that a frequency sweep can be made in separate bands
+ */
+typedef struct
+{
+  int
+    ifreq,       /* Frequency specification flag */
+    freq_steps,  /* Number of frequency steps */
+    last_step;   /* Last frequency step */
+
+  double
+    delta_freq,  /* Frequency step in freq loop */
+    min_freq,    /* Min frequency in an FR card */
+    max_freq;    /* Max frequency in an FR card */
+
+} freq_loop_data_t;
 
 /* My addition, struct to hold data needed
  * to execute various calculations requested
@@ -716,10 +734,6 @@ typedef struct
     nphi,
     iexk,
     iped,
-    ifrq,       /* Frequency specification flag */
-    nfrq,       /* Number of frequency steps */
-    fstep,      /* Frequency step */
-    lastf,      /* Last frequency step */
     ngraph,     /* Number of graphs to be plotted */
     pol_type,   /* User-specified Polarization type for plots and patterns */
     num_jobs;   /* Number of child processes (jobs) to fork */
@@ -727,9 +741,7 @@ typedef struct
   double
     *zlr,
     *zli,
-    *zlc;
-
-  double
+    *zlc,
     xpr1,
     xpr2,
     xpr3,
@@ -740,13 +752,18 @@ typedef struct
     zpnorm,
     thetis,
     phiss,
-    fmhz,       /* Frequency in MHz, moved from save_t */
-    fmhz_save,  /* Saved value of above */
-    delfrq;     /* Frequency step for freq loop */
+    zo;     /* Characteristic impedance used in VSWR calcs */
+
+  int
+    FR_cards,   /* Number of FR cards in input file */
+    FR_index,   /* Index to FR card data in use */
+    freq_step;  /* Frequency step in frequency loop */
+
+  freq_loop_data_t *freq_loop_data;
 
   double
-    mxfrq,  /* Max frequency in freq loop */
-    zo;     /* Characteristic impedance used in VSWR calcs */
+    fmhz_save,  /* Saved value of frequency clicked on by user in plots window */
+    freq_mhz;   /* Current Frequency in MHz, moved from save_t */
 
 } calc_data_t;
 

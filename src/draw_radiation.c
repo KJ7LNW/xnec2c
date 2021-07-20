@@ -79,10 +79,6 @@ Scale_Gain( double gain, int fstep, int idx )
   static void
 Draw_Radiation_Pattern( cairo_t *cr )
 {
-  /* Abort if rad pattern cannot be drawn */
-  if( isFlagClear(ENABLE_RDPAT) || (calc_data.fstep < 0) )
-    return;
-
   /* Line segments to draw on Screen */
   Segment_t segm;
 
@@ -108,8 +104,12 @@ Draw_Radiation_Pattern( cairo_t *cr )
   /* Used to set text in labels */
   gchar txt[8];
 
-  fstep = calc_data.fstep;
-  pol   = calc_data.pol_type;
+  /* Abort if rad pattern cannot be drawn */
+  fstep = calc_data.freq_step;
+  if( isFlagClear(ENABLE_RDPAT) || (fstep < 0) )
+    return;
+
+  pol = calc_data.pol_type;
 
   /* Change drawing if newer rad pattern data */
   if( isFlagSet(DRAW_NEW_RDPAT) )
@@ -606,7 +606,7 @@ Draw_Radiation( cairo_t *cr )
       Draw_Near_Field( cr );
 
   /* Display frequency step */
-  Display_Fstep( rdpattern_fstep_entry, calc_data.fstep );
+  Display_Fstep( rdpattern_fstep_entry, calc_data.freq_step );
 
   /* Wait for GTK to complete its tasks */
   while( g_main_context_iteration(NULL, FALSE) );
@@ -748,10 +748,8 @@ Set_Polarization( int pol )
   Set_Window_Labels();
 
   /* Show gain in direction of viewer */
-  Show_Viewer_Gain(
-      main_window_builder,
-      "main_gain_entry",
-      structure_proj_params );
+  if( isFlagSet(INPUT_OPENED) )
+    Show_Viewer_Gain( main_window_builder, "main_gain_entry", structure_proj_params );
 
   /* Enable redraw of rad pattern */
   SetFlag( DRAW_NEW_RDPAT );
@@ -845,8 +843,8 @@ New_Radiation_Projection_Angle(void)
 Redo_Radiation_Pattern( gpointer udata )
 {
   /* Redo radiation pattern for a new frequency. Below
-   * makes calcs use the extra buffer in rad_pattern */
-  calc_data.fstep = calc_data.nfrq;
+   * makes calcs use the extra buffer in rad_pattern FIXME */
+  calc_data.freq_step = calc_data.freq_loop_data[calc_data.FR_index].freq_steps;
   New_Frequency();
 
   /* Redraw radiation pattern on screen */
@@ -909,7 +907,7 @@ Viewer_Gain( projection_parameters_t proj_parameters, int fstep )
 
   idx = nth + nph * fpat.nth;
   gain = rad_pattern[fstep].gtot[idx] +
-        Polarization_Factor(calc_data.pol_type, fstep, idx);
+    Polarization_Factor(calc_data.pol_type, fstep, idx);
   if( gain < -999.99 ) gain = -999.99;
 
   return( gain );

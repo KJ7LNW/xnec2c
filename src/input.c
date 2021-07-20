@@ -53,7 +53,6 @@ Read_Comments( void )
 {
   char ain[3], line_buf[LINE_LEN];
 
-
   /* Look for CM or CE card */
   do
   {
@@ -666,7 +665,7 @@ Read_Commands( void )
     ain_num;   /* My addition, ain mnemonic as a number */
   size_t mreq; /* My addition, size req. for malloc's   */
 
-  /* initializations etc from original fortran code */
+  /* Initializations etc from original fortran code */
   mpcnt = 0;
 
   /* Matrix parameters */
@@ -680,10 +679,7 @@ Read_Commands( void )
   calc_data.rkh = 1.0;
   calc_data.iexk = 0;
   calc_data.iped = 0;
-  calc_data.nfrq = 1;
-  calc_data.fmhz = CVEL;
   save.fmhz = CVEL;
-  calc_data.mxfrq = 0.0;
   fpat.dth   = 0.0;
   fpat.thets = 0.0;
   fpat.ixtyp = 0;
@@ -709,6 +705,8 @@ Read_Commands( void )
   vsorc.nsant  = 0;
   zload.nldseg = 0;
   zload.nload  = 0;
+  calc_data.FR_cards = 0;
+  calc_data.FR_index = 0;
 
   /* Allocate some buffers */
   mreq = (size_t)data.np2m * sizeof(int);
@@ -842,65 +840,84 @@ Read_Commands( void )
         continue; /* continue card input loop */
 
       case FR: /* "fr" card, frequency parameters */
+        /* Count of FR cards encountered */
+        calc_data.FR_cards++;
+
+        /* Allocate the frequency data structure pointer FIXME */
+        mreq = (size_t)calc_data.FR_cards * sizeof(freq_loop_data_t);
+        mem_realloc( (void **) &(calc_data.freq_loop_data), mreq, "in input.c" );
+
+        /* Short cuts */
+        freq_loop_data_t *fld = calc_data.freq_loop_data;
+        int card = calc_data.FR_cards - 1;
+
+        /* Defaults */
+        fld[card].freq_steps = 1;
+        fld[card].max_freq = 0.0;
+
         if( !CHILD )
         {
-          calc_data.nfrq = itmp2;
-          if( calc_data.nfrq <= 0)
-            calc_data.nfrq = 1;
+          fld[card].freq_steps = itmp2;
+          if( fld[card].freq_steps <= 0) fld[card].freq_steps = 1;
         }
-        else calc_data.nfrq = 1;
+        else fld[card].freq_steps = 1;
 
         /* Allocate normalization buffer */
         {
-          mreq = (size_t)calc_data.nfrq * sizeof(double);
+          mreq = (size_t)fld[card].freq_steps * sizeof(double);
           mem_realloc( (void **)&impedance_data.zreal, mreq, "in input.c" );
           mem_realloc( (void **)&impedance_data.zimag, mreq, "in input.c" );
           mem_realloc( (void **)&impedance_data.zmagn, mreq, "in input.c" );
           mem_realloc( (void **)&impedance_data.zphase, mreq, "in input.c" );
           mem_realloc( (void **)&save.freq, mreq, "in input.c" );
-          mreq = (size_t)calc_data.nfrq * sizeof(char);
-          mem_realloc( (void **)&save.fstep, mreq, "in input.c" );
+          mreq = (size_t)fld[card].freq_steps * sizeof(char);
+          mem_realloc( (void **) &(save.fstep), mreq, "in input.c" );
         }
 
         if( CHILD ) continue;
 
-        calc_data.ifrq = itmp1;
-        calc_data.fmhz = save.fmhz = tmp1;
+        /* Per FR card data */
+        fld[card].ifreq = itmp1;
+        fld[card].min_freq = tmp1;
+
+        /* Data from first FR card only used here */
+        if( calc_data.FR_cards == 1 )
+        {
+          save.fmhz = tmp1;
+          calc_data.freq_mhz = tmp1;
+        }
 
         /* My addition, max frequency */
         if( itmp1 == 0 )
-          calc_data.mxfrq =
-            (double)tmp1 + (double)tmp2 * (double)(itmp2-1);
+          fld[card].max_freq = (double)tmp1 + (double)tmp2 * (double)(itmp2 - 1);
         else if( itmp1 == 1 )
-          calc_data.mxfrq =
-            (double)tmp1 * pow( (double)tmp2, (double)(itmp2-1) );
+          fld[card].max_freq = (double)tmp1 * pow( (double)tmp2, (double)(itmp2 - 1) );
 
         /* My addition, extra features in "fr" card. */
         /* Specifies lower and upper value of frequency range */
-        if( calc_data.ifrq == 2 )
+        if( fld[card].ifreq == 2 )
         {
-          calc_data.nfrq++;
-          /* Linear frequency stepping */
-          if( calc_data.nfrq > 1 )
-            calc_data.delfrq =
-              (tmp2 - tmp1)/(double)(calc_data.nfrq-1);
-          calc_data.ifrq  = 0;
-          calc_data.mxfrq = (double)tmp2; /* Max frequency */
-        }
-        else if( calc_data.ifrq == 3 )
-        {
-          calc_data.nfrq++;
-          /* Multiplicative frequency stepping */
-          if( calc_data.nfrq > 1 )
-            calc_data.delfrq =
-              pow( (tmp2-tmp1), 1.0/(double)(calc_data.nfrq-1) );
-          calc_data.ifrq  = 1;
-          calc_data.mxfrq = (double)tmp2; /* Max frequency */
-        }
-        else calc_data.delfrq = tmp2;
+          fld[card].freq_steps++;
 
-        if( calc_data.iped == 1)
-          calc_data.zpnorm = 0.0;
+          /* Linear frequency stepping */
+          if( fld[card].freq_steps > 1 )
+            fld[card].delta_freq = ( tmp2 - tmp1 ) / (double)( fld[card].freq_steps - 1 );
+          fld[card].ifreq  = 0;
+          fld[card].max_freq = (double)tmp2; /* Max frequency */
+        }
+        else if( fld[card].ifreq == 3 )
+        {
+          fld[card].freq_steps++;
+
+          /* Multiplicative frequency stepping */
+          if( fld[card].freq_steps > 1 )
+            fld[card].delta_freq = pow( (tmp2 - tmp1), 1.0 / (double)(fld[card].freq_steps - 1) );
+          fld[card].ifreq  = 1;
+          fld[card].max_freq = (double)tmp2; /* Max frequency */
+        }
+        else fld[card].delta_freq = tmp2;
+
+        if( calc_data.iped == 1) calc_data.zpnorm = 0.0;
         continue; /* continue card input loop */
 
       case GD: /* "gd" card, ground representation */
@@ -1292,8 +1309,9 @@ Read_Commands( void )
       ClearFlag( ENABLE_RDPAT );
     else
     {
-      /* Allocate radiation pattern buffers */
-      Alloc_Rdpattern_Buffers( calc_data.nfrq+1, fpat.nth, fpat.nph );
+      /* Allocate radiation pattern buffers FIXME */
+      Alloc_Rdpattern_Buffers(
+          calc_data.freq_loop_data[calc_data.FR_index].freq_steps + 1, fpat.nth, fpat.nph );
       SetFlag( ENABLE_RDPAT );
     }
 

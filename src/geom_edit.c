@@ -484,6 +484,7 @@ Wire_Editor( int action )
   fv[WIRE_DIAN] /= 2.0;
 
   /* Respond to user action */
+  double max_freq = calc_data.freq_loop_data[calc_data.FR_cards-1].max_freq;
   switch( action )
   {
     case EDITOR_NEW: /* New wire row(s) to create */
@@ -643,7 +644,7 @@ Wire_Editor( int action )
 
     case EDITOR_SEGPC: /* Segment length as % of smallest wavelength */
       /* Calculate num of segs for given % of lambda */
-      if( calc_data.mxfrq != 0.0 )
+      if( max_freq != 0.0 )
       {
         if( taper && ( fv[WIRE_RLEN] != 1.0) ) /* Taper ratio < 1 */
         {
@@ -657,7 +658,7 @@ Wire_Editor( int action )
         else
         {
           double i = ceil( 100.0 * (fv[WIRE_LEN]/fv[WIRE_PCL]) /
-              ((double)CVEL/calc_data.mxfrq) );
+              ((double)CVEL / max_freq) );
           iv[SPIN_COL_I2] = (gint)i;
         }
       }
@@ -736,16 +737,16 @@ Wire_Editor( int action )
   else newwln = TRUE;
 
   /*** Calculate seg length as % of smallest wavelength ***/
-  if( (calc_data.mxfrq != 0.0) && newpcl )
+  if( (max_freq != 0.0) && newpcl )
   {
     if( taper && (fv[WIRE_RLEN] != 1.0) )
       fv[WIRE_PCL] =
         100.0 * fv[WIRE_LEN] * (1.0-fv[WIRE_RLEN]) /
         (1.0-(gdouble)pow(fv[WIRE_RLEN], (gdouble)iv[SPIN_COL_I2])) /
-        ((gdouble)CVEL/calc_data.mxfrq);
+        ((gdouble)CVEL / max_freq);
     else
       fv[WIRE_PCL] = 100.0 * (fv[WIRE_LEN] /
-          (gdouble)iv[SPIN_COL_I2]) / ((gdouble)CVEL/calc_data.mxfrq);
+          (gdouble)iv[SPIN_COL_I2]) / ((gdouble)CVEL / max_freq);
   }
   else newpcl = TRUE;
 
@@ -1286,6 +1287,7 @@ Arc_Editor( int action )
   s = gtk_spin_button_get_value( spin );
 
   /* Respond to user action */
+  double max_freq = calc_data.freq_loop_data[calc_data.FR_cards-1].max_freq;
   switch( action )
   {
     case EDITOR_NEW: /* New arc row to create */
@@ -1352,12 +1354,12 @@ Arc_Editor( int action )
 
     case EDITOR_SEGPC: /* Segment length as % of smallest wavelength */
       /* Calculate num of segs for given % of lambda */
-      if( calc_data.mxfrq != 0.0 )
+      if( max_freq != 0.0 )
       {
         gdouble len = fv[ARC_RAD] *
           (gdouble)fabs( fv[ARC_END1] - fv[ARC_END2] ) * (gdouble)TORAD;
         double i = ceil( 100.0 / fv[ARC_PCL] *
-            len / ((gdouble)CVEL / (gdouble)calc_data.mxfrq) );
+            len / ((gdouble)CVEL / (gdouble)max_freq) );
         iv[SPIN_COL_I2] = (gint)i;
       }
       newpcl = FALSE;
@@ -1366,12 +1368,12 @@ Arc_Editor( int action )
   } /* switch( action ) */
 
   /*** Calculate seg length as % of smallest wavelength ***/
-  if( (calc_data.mxfrq != 0.0) && newpcl )
+  if( (max_freq != 0.0) && newpcl )
   {
     gdouble len = fv[ARC_RAD] *
       (gdouble)fabs( fv[ARC_END1] - fv[ARC_END2] ) * (gdouble)TORAD;
     fv[ARC_PCL] = 100.0 * (len/(gdouble)iv[SPIN_COL_I2]) /
-      ((gdouble)CVEL / (gdouble)calc_data.mxfrq);
+      ((gdouble)CVEL / (gdouble)max_freq);
   }
   else newpcl = TRUE;
 
@@ -1551,6 +1553,7 @@ Helix_Editor( int action )
     fv[HELIX_RYZHL] = fv[HELIX_RXZHL];
 
   /*** Respond to user action ***/
+  double max_freq = calc_data.freq_loop_data[calc_data.FR_cards-1].max_freq;
   switch( action )
   {
     case EDITOR_NEW: /* New helix row to create */
@@ -1749,7 +1752,7 @@ Helix_Editor( int action )
 
     case EDITOR_SEGPC: /* Segment length as % of smallest wavelength */
       /* Calculate num of segs for given % of lambda */
-      if( calc_data.mxfrq != 0.0 )
+      if( max_freq != 0.0 )
       {
         gdouble len, f, ave_rad, n;
 
@@ -1768,7 +1771,7 @@ Helix_Editor( int action )
 
         /* New number of segments */
         n = ceil(100.0 / fv[HELIX_PCL] * len /
-            ((gdouble)CVEL / (gdouble)calc_data.mxfrq) );
+            ((gdouble)CVEL / (gdouble)max_freq) );
         seg_turn = (gint)n;
       }
       newpcl = FALSE;
@@ -1785,7 +1788,7 @@ Helix_Editor( int action )
   }
 
   /*** Calculate seg length as % of smallest wavelength ***/
-  if( (calc_data.mxfrq != 0.0) && newpcl )
+  if( (max_freq != 0.0) && newpcl )
   {
     gdouble len, f, ave_rad;
 
@@ -1803,7 +1806,7 @@ Helix_Editor( int action )
     len = (gdouble)M_2PI * ave_rad / (gdouble)cos( f );
 
     fv[HELIX_PCL] = 100.0 * (len / (gdouble)seg_turn) /
-      ((gdouble)CVEL / (gdouble)calc_data.mxfrq);
+      ((gdouble)CVEL / (gdouble)max_freq);
   }
   else newpcl = TRUE;
 

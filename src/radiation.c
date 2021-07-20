@@ -569,7 +569,7 @@ gfld( double rho, double phi, double rz,
 /*-----------------------------------------------------------------------*/
 
 /* compute radiation pattern, gain, normalized gain */
-void
+  void
 rdpat( void )
 {
   int kth, kph, isens;
@@ -620,12 +620,13 @@ rdpat( void )
   /* Prime max and min gains and index */
   for( pol = 0; pol < NUM_POL; pol++ )
   {
-    rad_pattern[calc_data.fstep].max_gain[pol] = -10000.0;
-    rad_pattern[calc_data.fstep].min_gain[pol] =  10000.0;
-    rad_pattern[calc_data.fstep].max_gain_idx[pol] = 0;
-    rad_pattern[calc_data.fstep].min_gain_idx[pol] = 0;
-    rad_pattern[calc_data.fstep].max_gain_tht[pol] = 0;
-    rad_pattern[calc_data.fstep].max_gain_phi[pol] = 0;
+    int fstep = calc_data.freq_step;
+    rad_pattern[fstep].max_gain[pol] = -10000.0;
+    rad_pattern[fstep].min_gain[pol] =  10000.0;
+    rad_pattern[fstep].max_gain_idx[pol] = 0;
+    rad_pattern[fstep].min_gain_idx[pol] = 0;
+    rad_pattern[fstep].max_gain_tht[pol] = 0;
+    rad_pattern[fstep].max_gain_phi[pol] = 0;
   }
 
   /* Signal new rad pattern data */
@@ -743,38 +744,39 @@ rdpat( void )
             tstor1= gtot;
         }
 
-        /* Save rad pattern gains */
-        rad_pattern[calc_data.fstep].gtot[idx] = tstor1;
+        /* Save rad pattern gains FIXME */
+        int fstep = calc_data.freq_step;
+        rad_pattern[fstep].gtot[idx] = tstor1;
 
         /* Save axial ratio, tilt and pol sense */
         if( isens == 2 )
-          rad_pattern[calc_data.fstep].axrt[idx] = -axrat;
+          rad_pattern[fstep].axrt[idx] = -axrat;
         else
-          rad_pattern[calc_data.fstep].axrt[idx] = axrat;
-        rad_pattern[calc_data.fstep].tilt[idx] = tilta;
-        rad_pattern[calc_data.fstep].sens[idx] = isens;
+          rad_pattern[fstep].axrt[idx] = axrat;
+        rad_pattern[fstep].tilt[idx] = tilta;
+        rad_pattern[fstep].sens[idx] = isens;
 
         /* Find and save max value of gain and direction */
         for( pol = 0; pol < NUM_POL; pol++ )
         {
-          gain = rad_pattern[calc_data.fstep].gtot[idx] +
-            Polarization_Factor( pol, calc_data.fstep, idx);
+          gain = rad_pattern[fstep].gtot[idx] +
+            Polarization_Factor( pol, fstep, idx);
           if( gain < -999.99 ) gain = -999.99;
 
           /* Find and save max value of gain and direction */
-          if( rad_pattern[calc_data.fstep].max_gain[pol] < gain )
+          if( rad_pattern[fstep].max_gain[pol] < gain )
           {
-            rad_pattern[calc_data.fstep].max_gain[pol]     = gain;
-            rad_pattern[calc_data.fstep].max_gain_tht[pol] = thet;
-            rad_pattern[calc_data.fstep].max_gain_phi[pol] = phi;
-            rad_pattern[calc_data.fstep].max_gain_idx[pol] = idx;
+            rad_pattern[fstep].max_gain[pol]     = gain;
+            rad_pattern[fstep].max_gain_tht[pol] = thet;
+            rad_pattern[fstep].max_gain_phi[pol] = phi;
+            rad_pattern[fstep].max_gain_idx[pol] = idx;
           }
 
           /* Find and save min value of gain and buffer idx */
-          if( rad_pattern[calc_data.fstep].min_gain[pol] > gain )
+          if( rad_pattern[fstep].min_gain[pol] > gain )
           {
-            rad_pattern[calc_data.fstep].min_gain[pol]     = gain;
-            rad_pattern[calc_data.fstep].min_gain_idx[pol] = idx;
+            rad_pattern[fstep].min_gain[pol]     = gain;
+            rad_pattern[fstep].min_gain_idx[pol] = idx;
           }
 
         } /* for( pol = 0; pol < NUM_POL; pol++ ) */

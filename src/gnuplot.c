@@ -41,8 +41,10 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
   /* Plot max gain vs frequency, if possible */
   if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) )
   {
-    int nth, nph, idx, pol;
+    int nth, nph, pol;
     gboolean no_fbr;
+
+    int idx = 0;
 
     double
       gmax,     /* Max gain buffer */
@@ -60,91 +62,91 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
 
     /* Save data for all frequency steps that were used */
     fprintf( fp, _("# Gain and F/B Ratio vs Frequency\n") );
-    for( idx = 0; idx <= calc_data.lastf; idx++ )
-    {
-      double fbdir;
-      int fbidx, mgidx;
-
-      /* Index to gtot buffer where max gain
-       * occurs for given polarization type */
-      mgidx = rad_pattern[idx].max_gain_idx[pol];
-
-      /* Max gain for given polarization type */
-      gmax = rad_pattern[idx].gtot[mgidx] +
-        Polarization_Factor(pol, idx, mgidx);
-
-      /* Net gain if selected */
-      if( isFlagSet(PLOT_NETGAIN) )
+    for( int fr = 0; fr < calc_data.FR_cards; fr++ )
+      for( int step = 0; step <= calc_data.freq_loop_data[fr].last_step; step++ )
       {
-        Zr = impedance_data.zreal[idx];
-        Zi = impedance_data.zimag[idx];
-        netgain = gmax + 10*log10(4*Zr*Zo/(pow(Zr+Zo,2)+pow(Zi,2)));
-      }
+        double fbdir;
+        int fbidx, mgidx;
 
-      /* Radiation angle/phi where max gain occurs */
-      gdir_phi = rad_pattern[idx].max_gain_phi[pol];
+        /* Index to gtot buffer where max gain
+         * occurs for given polarization type */
+        mgidx = rad_pattern[idx].max_gain_idx[pol];
 
-      /* Find F/B direction in theta */
-      fbdir = 180.0 - rad_pattern[idx].max_gain_tht[pol];
-      if( fpat.dth == 0.0 )
-        nth = 0;
-      else
-        nth = (int)( fbdir/fpat.dth + 0.5 );
+        /* Max gain for given polarization type */
+        gmax = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
 
-      /* If the antenna is modelled over ground, then use the same
-       * theta as the max gain direction, relying on phi alone to
-       * take us to the back. Patch supplied by Rik van Riel AB1KW
-       */
-      if( (nth >= fpat.nth) || (nth < 0) )
-      {
-        fbdir = rad_pattern[idx].max_gain_tht[pol];
-        if( fpat.dth == 0.0 )
-          nth = 0;
-        else
-          nth = (int)( fbdir/fpat.dth + 0.5 );
-      }
+        /* Net gain if selected */
+        if( isFlagSet(PLOT_NETGAIN) )
+        {
+          Zr = impedance_data.zreal[idx];
+          Zi = impedance_data.zimag[idx];
+          netgain = gmax + 10 * log10( 4 * Zr * Zo / (pow(Zr + Zo, 2) + pow( Zi, 2)) );
+        }
 
-      /* Find F/B direction in phi */
-      fbdir = gdir_phi + 180.0;
-      if( fbdir >= 360.0 ) fbdir -= 360.0;
-      nph = (int)( fbdir/fpat.dph + 0.5 );
+        /* Radiation angle/phi where max gain occurs */
+        gdir_phi = rad_pattern[idx].max_gain_phi[pol];
 
-      /* No F/B calc. possible if no phi step at +180 from max gain */
-      if( (nph >= fpat.nph) || (nph < 0) )
-        no_fbr = TRUE;
+        /* Find F/B direction in theta */
+        fbdir = 180.0 - rad_pattern[idx].max_gain_tht[pol];
+        if( fpat.dth == 0.0 ) nth = 0;
+        else nth = (int)( fbdir/fpat.dth + 0.5 );
 
-      /* Index to gtot buffer for gain in back direction */
-      fbidx = nth + nph*fpat.nth;
+        /* If the antenna is modelled over ground, then use the same
+         * theta as the max gain direction, relying on phi alone to
+         * take us to the back. Patch supplied by Rik van Riel AB1KW
+         */
+        if( (nth >= fpat.nth) || (nth < 0) )
+        {
+          fbdir = rad_pattern[idx].max_gain_tht[pol];
+          if( fpat.dth == 0.0 ) nth = 0;
+          else nth = (int)( fbdir/fpat.dth + 0.5 );
+        }
 
-      /* Front to back ratio */
-      fbratio  = pow( 10.0, gmax / 10.0 );
-      fbratio /= pow( 10.0,
-          (rad_pattern[idx].gtot[fbidx] +
-           Polarization_Factor(pol, idx, fbidx)) / 10.0 );
-      fbratio = 10.0 * log10( fbratio );
+        /* Find F/B direction in phi */
+        fbdir = gdir_phi + 180.0;
+        if( fbdir >= 360.0 ) fbdir -= 360.0;
+        nph = (int)( fbdir/fpat.dph + 0.5 );
 
-      if( no_fbr && isFlagClear(PLOT_NETGAIN) ) /* Plot max gain only */
-        fprintf( fp, "%13.6E %10.3E\n", save.freq[idx], gmax );
-      else if( isFlagSet(PLOT_NETGAIN) ) /* Plot max gain and net gain */
-        fprintf( fp, "%13.6E %10.3E %10.3E\n", save.freq[idx], gmax, netgain );
-      else if( !no_fbr ) /* Plot max gain and F/B ratio */
-        fprintf( fp, "%13.6E %10.3E %10.3E\n", save.freq[idx], gmax, fbratio );
-    } /* for( idx = 0; idx < calc_data.lastf; idx++ ) */
+        /* No F/B calc. possible if no phi step at +180 from max gain */
+        if( (nph >= fpat.nph) || (nph < 0) )
+          no_fbr = TRUE;
+
+        /* Index to gtot buffer for gain in back direction */
+        fbidx = nth + nph*fpat.nth;
+
+        /* Front to back ratio */
+        fbratio  = pow( 10.0, gmax / 10.0 );
+        fbratio /= pow( 10.0, (rad_pattern[idx].gtot[fbidx] +
+              Polarization_Factor(pol, idx, fbidx)) / 10.0 );
+        fbratio = 10.0 * log10( fbratio );
+
+        if( no_fbr && isFlagClear(PLOT_NETGAIN) ) /* Plot max gain only */
+          fprintf( fp, "%13.6E %10.3E\n", save.freq[idx], gmax );
+        else if( isFlagSet(PLOT_NETGAIN) ) /* Plot max gain and net gain */
+          fprintf( fp, "%13.6E %10.3E %10.3E\n", save.freq[idx], gmax, netgain );
+        else if( !no_fbr ) /* Plot max gain and F/B ratio */
+          fprintf( fp, "%13.6E %10.3E %10.3E\n", save.freq[idx], gmax, fbratio );
+
+        idx++;
+      } /* for( int step = 0; step <= calc_data.freq_loop_data[fr].last_step; step++ ) */
 
     /* Plot gain direction in phi and theta */
     if( isFlagSet(PLOT_GAIN_DIR) )
     {
       fprintf( fp, "\n\n" );
       fprintf( fp, _("# Direction of gain in theta and phi\n") );
-      for( idx = 0; idx < calc_data.lastf; idx++ )
-      {
-        double gdir_tht; /* Direction in theta of gain */
+      for( int fr = 0; fr < calc_data.FR_cards; fr++ )
+        for( int step = 0; step <= calc_data.freq_loop_data[fr].last_step; step++ )
+        {
+          double gdir_tht; /* Direction in theta of gain */
 
-        /* Radiation angle/phi where max gain occurs */
-        gdir_tht = 90.0 - rad_pattern[idx].max_gain_tht[pol];
-        gdir_phi = rad_pattern[idx].max_gain_phi[pol];
-        fprintf( fp, "%13.6E %10.3E %10.3E\n", save.freq[idx], gdir_tht, gdir_phi );
-      } /* for( idx = 0; idx < calc_data.lastf; idx++ ) */
+          /* Radiation angle/phi where max gain occurs */
+          gdir_tht = 90.0 - rad_pattern[idx].max_gain_tht[pol];
+          gdir_phi = rad_pattern[idx].max_gain_phi[pol];
+          fprintf( fp, "%13.6E %10.3E %10.3E\n", save.freq[idx], gdir_tht, gdir_phi );
+
+          idx++;
+        } /* for( int step = 0; step <= calc_data.freq_loop_data[fr].last_step; step++ ) */
     } /* if( isFlagSet(PLOT_GAIN_DIR) ) */
 
     fprintf( fp, "\n\n" );
@@ -153,24 +155,27 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
   /* Plot VSWR vs freq */
   if( isFlagSet(PLOT_VSWR) )
   {
-    int idx;
+    int idx = 0;
     double vswr, gamma;
     double zrpro2, zrmro2, zimag2;
 
     /* Calculate VSWR */
     fprintf( fp, _("# VSWR vs Frequency\n") );
-    for(idx = 0; idx <= calc_data.lastf; idx++ )
-    {
-      zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
-      zrpro2 *= zrpro2;
-      zrmro2 = impedance_data.zreal[idx] - calc_data.zo;
-      zrmro2 *= zrmro2;
-      zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
-      gamma = sqrt( (zrmro2 + zimag2)/(zrpro2 + zimag2) );
-      vswr = (1+gamma)/(1-gamma);
-      if( vswr > 10.0 ) vswr = 10.0;
-      fprintf( fp, "%13.6E %10.3E\n", save.freq[idx], vswr );
-    }
+    for( int fr = 0; fr < calc_data.FR_cards; fr++ )
+      for( int step = 0; step <= calc_data.freq_loop_data[fr].last_step; step++ )
+      {
+        zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
+        zrpro2 *= zrpro2;
+        zrmro2 = impedance_data.zreal[idx] - calc_data.zo;
+        zrmro2 *= zrmro2;
+        zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
+        gamma = sqrt( (zrmro2 + zimag2)/(zrpro2 + zimag2) );
+        vswr = (1+gamma)/(1-gamma);
+        if( vswr > 10.0 ) vswr = 10.0;
+        fprintf( fp, "%13.6E %10.3E\n", save.freq[idx], vswr );
+
+        idx++;
+      }
 
     fprintf( fp, "\n\n" );
   } /* if( isFlagSet(PLOT_VSWR) ) */
@@ -178,23 +183,28 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
   /* Plot z-real and z-imag */
   if( isFlagSet(PLOT_ZREAL_ZIMAG) )
   {
-    int idx;
-    fprintf( fp, _("# Z real & Z imaginary vs Frequency\n") );
-    for(idx = 0; idx <= calc_data.lastf; idx++ )
-      fprintf( fp, "%13.6E %10.3E %10.3E\n",
-          save.freq[idx], impedance_data.zreal[idx], impedance_data.zimag[idx] );
+    int idx = 0;
 
+    fprintf( fp, _("# Z real & Z imaginary vs Frequency\n") );
+    for( int fr = 0; fr < calc_data.FR_cards; fr++ )
+      for( int step = 0; step <= calc_data.freq_loop_data[fr].last_step; step++ )
+        fprintf( fp, "%13.6E %10.3E %10.3E\n",
+            save.freq[idx], impedance_data.zreal[idx], impedance_data.zimag[idx] );
     fprintf( fp, "\n\n" );
+
+    idx++;
   } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
 
   /* Plot z-magn and z-phase */
   if( isFlagSet(PLOT_ZMAG_ZPHASE) )
   {
-    int idx;
+    int idx = 0;
     fprintf( fp, _("# Z magnitude & Z phase vs Frequency\n") );
-    for(idx = 0; idx <= calc_data.lastf; idx++ )
-      fprintf( fp, "%13.6E %10.3E %10.3E\n",
-          save.freq[idx], impedance_data.zmagn[idx], impedance_data.zphase[idx] );
+    for( int fr = 0; fr < calc_data.FR_cards; fr++ )
+      for( int step = 0; step <= calc_data.freq_loop_data[fr].last_step; step++ )
+        fprintf( fp, "%13.6E %10.3E %10.3E\n",
+            save.freq[idx], impedance_data.zmagn[idx], impedance_data.zphase[idx] );
+    idx++;
   } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
 
   fclose(fp);
@@ -405,14 +415,14 @@ Save_RadPattern_Gnuplot_Data( char *filename )
   } /* if( isFlagSet(ENABLE_NEAREH) && near_field.valid ) */
 
   /* Save radiation pattern data if possible */
-  if( isFlagSet(ENABLE_RDPAT) && (calc_data.fstep >= 0) )
+  if( isFlagSet(ENABLE_RDPAT) && (calc_data.freq_step >= 0) )
   {
     int
       nth,  /* Theta step count */
       nph;  /* Phi step count   */
 
     /* Frequency step and polarization type */
-    int fstep = calc_data.fstep;
+    int fstep = calc_data.freq_step;
 
     /* Theta and phi angles defining a rad pattern point
      * and distance of its projection from xyz origin */
@@ -463,9 +473,7 @@ Save_RadPattern_Gnuplot_Data( char *filename )
       /* Step phi in rads */
       phi += dph;
     } /* for( nph = 0; nph < fpat.nph; nph++ ) */
-
-
-  } /* if( isFlagSet(ENABLE_RDPAT) && (calc_data.fstep >= 0) ) */
+  } /* if( isFlagSet(ENABLE_RDPAT) && (calc_data.freq_step >= 0) ) */
 
   if( fp != NULL ) fclose(fp);
 } /* Save_RadPattern_Gnuplot_Data() */

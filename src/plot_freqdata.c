@@ -52,10 +52,10 @@ Display_Frequency_Data( void )
 
   if( isFlagClear(PLOT_ENABLED) ) return;
 
-  /* Limit freq stepping to nfrq */
-  fstep = calc_data.fstep;
-  if( fstep >= calc_data.nfrq )
-    fstep = calc_data.nfrq;
+  /* Limit freq stepping to freq_steps FIXME */
+  fstep = calc_data.freq_step;
+  if( fstep >= calc_data.freq_loop_data[calc_data.FR_index].freq_steps )
+    fstep = calc_data.freq_loop_data[calc_data.FR_index].freq_steps;
 
   /* Polarization type */
   pol = calc_data.pol_type;
@@ -77,7 +77,7 @@ Display_Frequency_Data( void )
   } /* isFlagSet(ENABLE_RDPAT) */
 
   /* Display frequency */
-  snprintf( txt, 11, "%9.3f", (double)calc_data.fmhz );
+  snprintf( txt, 11, "%9.3f", (double)calc_data.freq_mhz );
   gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
           freqplots_window_builder, "freqplots_fmhz_entry")), txt );
 
@@ -550,8 +550,7 @@ Draw_Plotting_Frame(
   {
     double fr;
 
-    fr = ((double)calc_data.fmhz - min_fscale) /
-      (max_fscale - min_fscale);
+    fr = ( (double)calc_data.freq_mhz - min_fscale ) / ( max_fscale - min_fscale );
     fr = fr * (double)rect->width + 0.5;
 
     cairo_set_source_rgb( cr, GREEN );
@@ -591,7 +590,7 @@ Draw_Graph(
 
   /* Calculate points to plot */
   mem_alloc( (void **)&points,
-      (size_t)calc_data.nfrq * sizeof(GdkPoint),
+      (size_t)calc_data.freq_loop_data[calc_data.FR_index].freq_steps * sizeof(GdkPoint),
       "in Draw_Graph()" );
   if( points == NULL )
   {
@@ -786,10 +785,8 @@ Plot_Graph_Smith(
   if( first_call )
   {
 	/* Create a pango layout to get scale size */
-	layout = gtk_widget_create_pango_layout(
-		freqplots_drawingarea, "000000" );
-	pango_layout_get_pixel_size( layout,
-		&layout_width, &layout_height);
+	layout = gtk_widget_create_pango_layout( freqplots_drawingarea, "000000" );
+	pango_layout_get_pixel_size( layout, &layout_width, &layout_height);
 	first_call = FALSE;
 	g_object_unref( layout );
   }
@@ -800,8 +797,7 @@ Plot_Graph_Smith(
   plot_posn   = ( freqplots_height * (posn - 1) ) / nplt;
 
   /* Plot box rectangle */
-  Set_Rectangle(
-	  &plot_rect,
+  Set_Rectangle( &plot_rect,
 	  layout_width + 4, plot_posn + 2,
 	  freqplots_width - 8 - 2 * layout_width,
 	  plot_height - 8 - 2 * layout_height );
@@ -845,8 +841,9 @@ Plot_Graph_Smith(
 
   /* Calculate points to plot */
   mem_alloc( (void **)&points,
-	  (size_t)calc_data.nfrq * sizeof(GdkPoint),
+	  (size_t)calc_data.freq_loop_data[calc_data.FR_index].freq_steps * sizeof(GdkPoint),
 	  "in Draw_Graph()" );
+
   if( points == NULL )
   {
 	fprintf( stderr, _("xnec2c: Draw_Graph():"
@@ -855,6 +852,7 @@ Plot_Graph_Smith(
 		  "Memory allocation for points failed"), ERR_OK );
 	return;
   }
+
   for( idx = 0; idx < nc; idx++ )
   {
 	Calculate_Smith( fa[idx], fb[idx], calc_data.zo, &re, &im );
@@ -874,12 +872,12 @@ Plot_Graph_Smith(
    * changed by a user click on the plots drawingarea */
   if( isFlagSet(FREQ_LOOP_DONE) && isFlagSet(PLOT_FREQ_LINE) )
   {
-	cairo_set_source_rgb( cr, GREEN );
-	Calculate_Smith( creal(netcx.zped), cimag(netcx.zped), calc_data.zo, &re, &im );
-	x = x0 + (gint)( re * scale / 2 );
-	y = y0 + (gint)( im * scale / 2 );
-        cairo_rectangle( cr, x - 4, y - 4, 8.0, 8.0 );
-	cairo_fill( cr );
+    cairo_set_source_rgb( cr, GREEN );
+    Calculate_Smith( creal(netcx.zped), cimag(netcx.zped), calc_data.zo, &re, &im );
+    x = x0 + (gint)( re * scale / 2 );
+    y = y0 + (gint)( im * scale / 2 );
+    cairo_rectangle( cr, x - 4, y - 4, 8.0, 8.0 );
+    cairo_fill( cr );
   }
 
 } /* Plot_Graph_Smith() */
@@ -1018,27 +1016,28 @@ Plot_Frequency_Data( cairo_t *cr )
       (double)freqplots_height );
   cairo_fill( cr );
 
-  /* Abort if plotting is not possible */
-  if( (calc_data.fstep < 1)             ||
-      isFlagClear(FREQLOOP_READY)       ||
-      (isFlagClear(FREQ_LOOP_RUNNING)   &&
-       isFlagClear(FREQ_LOOP_DONE))     ||
-      (isFlagClear(PLOT_GMAX)           &&
-       isFlagClear(PLOT_GVIEWER)        &&
-       isFlagClear(PLOT_VSWR)           &&
-       isFlagClear(PLOT_ZREAL_ZIMAG)    &&
-       isFlagClear(PLOT_ZMAG_ZPHASE)    &&
+  printf("%0x  %0x\n", isFlagClear(FREQ_LOOP_RUNNING), isFlagClear(FREQ_LOOP_DONE) );
+
+  /* Abort if plotting is not possible FIXME */
+  if( (calc_data.freq_step < 1) || isFlagClear(FREQ_LOOP_READY) ||
+      (isFlagClear(FREQ_LOOP_RUNNING) && isFlagClear(FREQ_LOOP_DONE)) ||
+
+      (isFlagClear(PLOT_GMAX)         &&
+       isFlagClear(PLOT_GVIEWER)      &&
+       isFlagClear(PLOT_VSWR)         &&
+       isFlagClear(PLOT_ZREAL_ZIMAG)  &&
+       isFlagClear(PLOT_ZMAG_ZPHASE)  &&
        isFlagClear(PLOT_SMITH)) )
   {
     return;
   }
 
-  /* Fit frequency range to scale */
+  /* Fit frequency range to scale FIXME */
   min_fscale  = (double)save.freq[0];
   if( isFlagSet(FREQ_LOOP_RUNNING) )
-    max_fscale = (double)save.freq[calc_data.fstep];
+    max_fscale = (double)save.freq[calc_data.freq_step];
   else
-    max_fscale = (double)save.freq[calc_data.lastf];
+    max_fscale = (double)save.freq[calc_data.freq_loop_data[calc_data.FR_index].last_step];
   nval_fscale = freqplots_width / 75;
   Fit_to_Scale( &max_fscale, &min_fscale, &nval_fscale );
 
@@ -1046,7 +1045,7 @@ Plot_Frequency_Data( cairo_t *cr )
   posn = 0;
 
   /* Limit freq stepping to last freq step */
-  fstep = calc_data.lastf + 1;
+  fstep = calc_data.freq_loop_data[calc_data.FR_index].last_step + 1;
 
   /* Plot max gain vs frequency, if possible */
   if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) )
@@ -1244,8 +1243,8 @@ Plot_Frequency_Data( cairo_t *cr )
     titles[1] = _("VSWR vs Frequency");
 
     /* Calculate VSWR */
-    mem_alloc( (void **)&vswr,
-        (size_t)calc_data.nfrq * sizeof(double),
+    mem_alloc( (void **) &vswr,
+        (size_t)calc_data.freq_loop_data[calc_data.FR_index].freq_steps * sizeof(double),
         "in Plot_Frequency_Data()" );
     if( vswr == NULL )
     {
@@ -1373,8 +1372,8 @@ Set_Frequency_On_Click( GdkEventButton *event )
   if( x < 0.0 ) x = 0.0;
   else if( x > w ) x = w;
 
-  /* Set freq corresponding to click 'x', to freq spinbuttons */
-  idx = calc_data.lastf;
+  /* Set freq corresponding to click 'x', to freq spinbuttons FIXME */
+  idx = calc_data.freq_loop_data[calc_data.FR_index].last_step;
   switch( event->button )
   {
     case 1: /* Calculate frequency corresponding to mouse position in plot */
@@ -1387,12 +1386,14 @@ Set_Frequency_On_Click( GdkEventButton *event )
 
     case 2: /* Disable drawing of freq line */
       ClearFlag( PLOT_FREQ_LINE );
+      calc_data.fmhz_save = 0.0;
+
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( freqplots_drawingarea );
       while( g_main_context_iteration(NULL, FALSE) );
       return;
 
-    case 3: /* Calculate frequency corresponding to mouse position in plot */
+    case 3: /* Calculate frequency corresponding to mouse position in plot FIXME */
       /* Enable drawing of freq line */
       SetFlag( PLOT_FREQ_LINE );
 
@@ -1403,13 +1404,17 @@ Set_Frequency_On_Click( GdkEventButton *event )
       idx = (int)( (double)idx * (fmhz - save.freq[0]) /
           (save.freq[idx] - save.freq[0]) + 0.5 );
 
-      if( idx > calc_data.lastf )
-        idx = calc_data.lastf;
+      if( idx > calc_data.freq_loop_data[calc_data.FR_index].last_step )
+        idx = calc_data.freq_loop_data[calc_data.FR_index].last_step;
       else if( idx < 0 ) idx = 0;
 
       fmhz = save.freq[idx];
 
   } /* switch( event->button ) */
+
+  /* Round frequency to nearest 1 kHz */
+  int ifmhz = (int)( fmhz * 1000.0 + 0.5 );
+  fmhz = (gdouble)ifmhz / 1000.0;
 
   /* Save frequency for later use */
   calc_data.fmhz_save = (double)fmhz;
@@ -1423,7 +1428,7 @@ Set_Frequency_On_Click( GdkEventButton *event )
   }
   else /* Replot data */
   {
-    calc_data.fmhz = (double)fmhz;
+    calc_data.freq_mhz = (double)fmhz;
     g_idle_add( Redo_Currents, NULL );
   }
 

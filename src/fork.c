@@ -363,13 +363,12 @@ Child_Process( int num_child )
 
       case FRQDATA: /* Calculate currents and pass on */
         /* Get new frequency */
-        buff = (char *)&calc_data.fmhz;
+        buff = (char *) &calc_data.freq_mhz;
         cnt = sizeof( double );
         Read_Pipe( num_child, buff, (ssize_t)cnt, TRUE );
 
-        /* Frequency buffers in children
-         * are for current frequency only */
-        calc_data.fstep = 0;
+        /* Frequency buffers in children are for current frequency only */
+        calc_data.freq_step = 0;
 
         /* Clear "last-used-frequency" buffer */
         save.last_freq = 0.0;
