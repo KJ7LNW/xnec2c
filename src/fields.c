@@ -919,8 +919,7 @@ hfk( double el1, double el2, double rhk,
       nt=0;
       if( ns >= nma)
       {
-        fprintf( stderr,
-            _("\nxnec2c: step size limited at z= %10.5f"), z );
+        fprintf( stderr, _("\nxnec2c: step size limited at z= %10.5f"), z );
       }
       else
       {

@@ -320,7 +320,7 @@ main (int argc, char *argv[])
  * Opens NEC2 input file
  */
   gboolean
-Open_Input_File( gpointer data )
+Open_Input_File( gpointer arg )
 {
   gboolean ok, new;
   GtkWidget *widget;
@@ -340,8 +340,10 @@ Open_Input_File( gpointer data )
   /* Open NEC2 input file */
   if( strlen(rc_config.input_file) == 0 )
     return( FALSE );
-  calc_data.FR_cards = 0;
-  calc_data.FR_index = 0;
+  calc_data.FR_cards    = 0;
+  calc_data.FR_index    = 0;
+  calc_data.steps_total = 0;
+  calc_data.last_step   = 0;
   Open_File( &input_fp, rc_config.input_file, "r");
 
   /* Read input file, record failures */
@@ -426,7 +428,7 @@ Open_Input_File( gpointer data )
 
   /* Set input file to NEC2 editor. It will only
    * happen if the NEC2 editor window is open */
-  new = *( (gboolean *)data );
+  new = *( (gboolean *)arg );
   if( new && isFlagClear(OPTIMIZER_OUTPUT) )
     Nec2_Input_File_Treeview( NEC2_EDITOR_CLEAR );
   else

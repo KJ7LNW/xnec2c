@@ -885,8 +885,7 @@ void intx( double el1, double el2, double b,
     {
       nt=0;
       if( ns >= nma)
-        fprintf( stderr,
-            _("xnec2c: step size limited at z= %10.5f\n"), z );
+        fprintf( stderr, _("xnec2c: step size limited at z= %10.5f\n"), z );
       else
       {
         /* halve step size */

@@ -64,7 +64,7 @@ Write_Optimizer_Data( void )
 
   /* Print frequency-dependent data corresponding
    * to graphs in plot of frequency-dependent data FIXME */
-  for( int idx = 0; idx < calc_data.freq_loop_data[calc_data.FR_index].freq_steps; idx++ )
+  for( int idx = 0; idx < calc_data.steps_total; idx++ )
   {
     /* Print the frequency in MHz */
     fprintf( fp, "%12.4E,", (double)save.freq[idx] );

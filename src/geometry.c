@@ -112,8 +112,7 @@ arc( int itg, int ns, double rada,
   } /* if( fabs( ang2- ang1) < 360.00001) */
   else
   {
-    fprintf( stderr,
-        _("xnec2c: arc(): arc angle exceeds 360 degrees\n") );
+    fprintf( stderr, _("xnec2c: arc(): arc angle exceeds 360 degrees\n") );
     Stop( _("arc(): Arc angle exceeds 360 degrees"), ERR_OK );
     return( FALSE );
   }

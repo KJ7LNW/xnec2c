@@ -5,7 +5,7 @@
 <meta name="generator" content="Bluefish 2.2.12" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
-<meta name="date" content="2021-07-07T12:24:59+0300" >
+<meta name="date" content="2021-07-23T19:55:35+0300" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C">
 <meta name="description" content=
@@ -1094,6 +1094,13 @@ frequency is saved and re-entered into the frequency-dependent
 calculations. This, together with maintaining the viewing angle of
 the Radiation pattern makes it easier to monitor the Optimizer's
 progress.</p>
+<p><b>Version 4.2:</b> Further to the changes above, I have
+modified xnec2c so that more than one FR (frequency range) card can
+be specified in the NEC2 file. This makes it possible to calculate
+frequency-dependent parameters over separate ranges of interest and
+thus reduces the time taken by the program to produce results.
+Unnecessary calculations between ranges of interest are also
+avoided.</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and
 Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original
