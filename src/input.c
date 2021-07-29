@@ -921,6 +921,16 @@ Read_Commands( void )
         }
         else fld[card].delta_freq = tmp2;
 
+        /* Warn user if max frequency <= min frequency */
+        if( fld[card].max_freq <= fld[card].min_freq )
+        {
+          fprintf( stderr,
+              _("xnec2c: Read_Commands(): Max frequency <= Min frequency in FR card\n") );
+          Stop( _("Read_Commands(): Max frequency <= Min frequency in FR card\n"
+                "Please check FR card data and correct"), ERR_OK );
+          return( FALSE );
+        }
+
         if( calc_data.iped == 1) calc_data.zpnorm = 0.0;
         continue; /* continue card input loop */
 
@@ -1316,6 +1326,20 @@ Read_Commands( void )
       /* Allocate radiation pattern buffers FIXME */
       Alloc_Rdpattern_Buffers( calc_data.steps_total + 1, fpat.nth, fpat.nph );
       SetFlag( ENABLE_RDPAT );
+    }
+
+    /* Reject FR cards that are not in ascending frequency order */
+    freq_loop_data_t *fld = calc_data.freq_loop_data;
+    for( int idx = 1; idx < calc_data.FR_cards; idx++ )
+    {
+      if( fld[idx].min_freq <= fld[idx-1].max_freq )
+      {
+        fprintf( stderr,
+            _("xnec2c: Read_Commands(): FR cards in incorrect order\n") );
+        Stop( _("Read_Commands(): FR cards not in ascending\n"
+              "frequency order or frequency ranges overlapping."), ERR_OK );
+        return( FALSE );
+      }
     }
 
     return( TRUE );
