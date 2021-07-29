@@ -36,7 +36,7 @@ Frequency_Scale_Geometry()
   data.wlam= CVEL / calc_data.freq_mhz;
 
   /* frequency scaling of geometric parameters */
-  fr= calc_data.freq_mhz / CVEL;
+  fr = calc_data.freq_mhz / CVEL;
   if( data.n != 0)
   {
     for( idx = 0; idx < data.n; idx++ )
@@ -260,7 +260,7 @@ Set_Network_Data( void )
   netcx.ntsol = 1;
 
   /* Save impedance data for normalization */
-  if( ((calc_data.freq_loop_data[calc_data.FR_index].freq_steps > 1) &&
+  if( ((calc_data.steps_total > 1) &&
         isFlagSet(FREQ_LOOP_RUNNING)) || CHILD )
   {
     int fstep = calc_data.freq_step;
@@ -412,9 +412,10 @@ Frequency_Loop( gpointer udata )
   /* Value of frequency and step num in the loop */
   static double freq;
 
-  /* Current freq step, saved steps
-   * index, num of busy processes */
-  static int fstep, num_busy_procs;
+  static int
+    fstep,           /* Current frequency step */
+    fsteps_total,    /* Total number of frequency steps processed */
+    num_busy_procs;  /* Number of busy child processes */
 
   int idx, job_num = 0;
   size_t len;
@@ -432,16 +433,23 @@ Frequency_Loop( gpointer udata )
     freq = calc_data.freq_loop_data[0].min_freq;
 
     /* Step back frequency and step count since incrementing
-     * is done at start of frequency loop calculations */
+     * is done at start of frequency loop calculations. This
+     * is done using data from the first (index 0) FR card */
     fstep = -1;
-    if( calc_data.freq_loop_data[calc_data.FR_index].ifreq == 1)
-      freq /= calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
+    if( calc_data.freq_loop_data[0].ifreq == 1)
+      freq /= calc_data.freq_loop_data[0].delta_freq;
     else
-      freq -= calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
+      freq -= calc_data.freq_loop_data[0].delta_freq;
 
     /* Clear list of "valid" (processed) loop steps */
-    for( idx = 0; idx < calc_data.freq_loop_data[calc_data.FR_index].freq_steps; idx++ )
+    for( idx = 0; idx < calc_data.steps_total; idx++ )
       save.fstep[idx] = 0;
+
+    /* Clear the index to current FR card and steps total */
+    calc_data.FR_index = 0;
+
+    /* Initialize frequency steps totalizer to first FR card steps */
+    fsteps_total = calc_data.freq_loop_data[0].freq_steps;
 
     /* Clear "last-used-frequency" buffer */
     save.last_freq = 0.0;
@@ -471,15 +479,37 @@ Frequency_Loop( gpointer udata )
     /* Up frequency step count */
     fstep++;
 
+    /* If all steps of current FR card are processed, go to the next */
+    if( fstep >= fsteps_total )
+    {
+      calc_data.FR_index++;
+      if( calc_data.FR_index < calc_data.FR_cards )
+      {
+        /* Add steps of new FR card range to total */
+        fsteps_total += calc_data.freq_loop_data[calc_data.FR_index].freq_steps;
+
+        /* Update loop frequency from new FR card */
+        freq = calc_data.freq_loop_data[calc_data.FR_index].min_freq;
+        if( calc_data.freq_loop_data[calc_data.FR_index].ifreq == 1)
+          freq /= calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
+        else
+          freq -= calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
+      }
+      else
+      {
+        SetFlag(FREQ_LOOP_STOP);
+        calc_data.FR_index--;   /* keep it in range, avoid off-by-1 error */
+      }
+    }
+
     /* Frequency loop is completed or was paused by user */
-    if( (fstep >= calc_data.freq_loop_data[calc_data.FR_index].freq_steps) ||
-        isFlagSet(FREQ_LOOP_STOP) )
+    if( isFlagSet(FREQ_LOOP_STOP) )
     {
       /* Points to last buffer in rad_pattern filled by loop */
       fstep--;
 
       /* Last freq step that was processed by children */
-      calc_data.freq_loop_data[calc_data.FR_index].last_step = fstep;
+      calc_data.last_step = fstep;
 
       /* Re-enable pausing of freq loop */
       ClearFlag( FREQ_LOOP_STOP );
@@ -488,7 +518,7 @@ Frequency_Loop( gpointer udata )
       retval = FALSE;
 
       break;
-    } /* if( (fstep >= calc_data.freq_steps) || isFlagSet(FREQ_LOOP_STOP) ) */
+    } /* if( isFlagSet(FREQ_LOOP_STOP) ) */
 
     /* Increment frequency */
     if( calc_data.freq_loop_data[calc_data.FR_index].ifreq == 1)
@@ -531,7 +561,7 @@ Frequency_Loop( gpointer udata )
     {
       calc_data.freq_mhz  = freq;
       calc_data.freq_step = fstep;
-      calc_data.freq_loop_data[calc_data.FR_index].last_step = fstep;
+      calc_data.last_step = fstep;
       New_Frequency();
       break;
     }
@@ -585,9 +615,11 @@ Frequency_Loop( gpointer udata )
 
       /* Find highest freq step that has no steps below it
        * that have not been processed by a child process FIXME */
-      for( idx = 0; idx < calc_data.freq_loop_data[calc_data.FR_index].freq_steps; idx++ )
+      for( idx = 0; idx < calc_data.steps_total; idx++ )
+      {
         if( save.fstep[idx] ) calc_data.freq_step = idx;
         else break;
+      }
 
     } /* do. Loop terminated and busy children */
     while( !retval && num_busy_procs );
@@ -596,7 +628,7 @@ Frequency_Loop( gpointer udata )
   if( calc_data.freq_step < 0 ) return( retval );
 
   /* Set frequency and step to global variables FIXME */
-  calc_data.freq_loop_data[calc_data.FR_index].last_step = calc_data.freq_step;
+  calc_data.last_step = calc_data.freq_step;
   calc_data.freq_mhz = (double)save.freq[calc_data.freq_step];
 
   /* Trigger a redraw of open drawingareas */
@@ -690,7 +722,7 @@ Start_Frequency_Loop( void )
 
   if( isFlagClear(FREQ_LOOP_RUNNING) &&
       (calc_data.FR_cards > 0 )      &&
-      (calc_data.freq_loop_data[calc_data.FR_index].freq_steps > 1) )
+      (calc_data.steps_total > 1) )
   {
     retval = TRUE;
     SetFlag( FREQ_LOOP_INIT );

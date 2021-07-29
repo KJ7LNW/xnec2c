@@ -210,8 +210,7 @@ rom2( double a, double b,
 
       } /* if( ns < npm) */
 
-      fprintf( stderr,
-          _("xnec2c: rom2 -- step size limited at z = %12.5E\n"), z );
+      fprintf( stderr, _("xnec2c: rom2 -- step size limited at z = %12.5E\n"), z );
 
     } /* if( tr > rx) */
 

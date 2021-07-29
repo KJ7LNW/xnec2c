@@ -108,8 +108,10 @@ on_new_activate(
   SetFlag( OPEN_NEW_NEC2 );
 
   /* Reset on opening new file */
-  calc_data.FR_cards  = 0;
-  calc_data.FR_index  = 0;
+  calc_data.FR_cards    = 0;
+  calc_data.FR_index    = 0;
+  calc_data.steps_total = 0;
+  calc_data.last_step   = 0;
   if( isFlagClear(OPTIMIZER_OUTPUT) )
   {
     calc_data.fmhz_save = 0.0;
@@ -146,8 +148,10 @@ on_open_input_activate(
   SetFlag( OPEN_INPUT );
 
   /* Reset on opening new file */
-  calc_data.FR_cards  = 0;
-  calc_data.FR_index  = 0;
+  calc_data.FR_cards    = 0;
+  calc_data.FR_index    = 0;
+  calc_data.steps_total = 0;
+  calc_data.last_step   = 0;
   if( isFlagClear(OPTIMIZER_OUTPUT) )
   {
     calc_data.fmhz_save = 0.0;

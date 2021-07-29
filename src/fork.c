@@ -576,9 +576,9 @@ Get_Freq_Data( int idx, int fstep )
 
   /* Get impedance data */
   cnt = sizeof(double);
-  Mem_Copy( buff, (char *)&impedance_data.zreal[fstep], cnt, READ );
-  Mem_Copy( buff, (char *)&impedance_data.zimag[fstep], cnt, READ );
-  Mem_Copy( buff, (char *)&impedance_data.zmagn[fstep], cnt, READ );
+  Mem_Copy( buff, (char *)&impedance_data.zreal[fstep],  cnt, READ );
+  Mem_Copy( buff, (char *)&impedance_data.zimag[fstep],  cnt, READ );
+  Mem_Copy( buff, (char *)&impedance_data.zmagn[fstep],  cnt, READ );
   Mem_Copy( buff, (char *)&impedance_data.zphase[fstep], cnt, READ );
 
   /* Get network data */

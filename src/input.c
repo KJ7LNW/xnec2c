@@ -705,8 +705,10 @@ Read_Commands( void )
   vsorc.nsant  = 0;
   zload.nldseg = 0;
   zload.nload  = 0;
-  calc_data.FR_cards = 0;
-  calc_data.FR_index = 0;
+  calc_data.FR_cards    = 0;
+  calc_data.FR_index    = 0;
+  calc_data.steps_total = 0;
+  calc_data.last_step   = 0;
 
   /* Allocate some buffers */
   mreq = (size_t)data.np2m * sizeof(int);
@@ -853,7 +855,7 @@ Read_Commands( void )
 
         /* Defaults */
         fld[card].freq_steps = 1;
-        fld[card].max_freq = 0.0;
+        fld[card].max_freq   = 0.0;
 
         if( !CHILD )
         {
@@ -864,20 +866,22 @@ Read_Commands( void )
 
         /* Allocate normalization buffer */
         {
-          mreq = (size_t)fld[card].freq_steps * sizeof(double);
-          mem_realloc( (void **)&impedance_data.zreal, mreq, "in input.c" );
-          mem_realloc( (void **)&impedance_data.zimag, mreq, "in input.c" );
-          mem_realloc( (void **)&impedance_data.zmagn, mreq, "in input.c" );
-          mem_realloc( (void **)&impedance_data.zphase, mreq, "in input.c" );
-          mem_realloc( (void **)&save.freq, mreq, "in input.c" );
-          mreq = (size_t)fld[card].freq_steps * sizeof(char);
+          calc_data.steps_total += fld[card].freq_steps;
+          mreq = (size_t)calc_data.steps_total * sizeof(double);
+          mem_realloc( (void **) &(impedance_data.zreal),  mreq, "in input.c" );
+          mem_realloc( (void **) &(impedance_data.zimag),  mreq, "in input.c" );
+          mem_realloc( (void **) &(impedance_data.zmagn),  mreq, "in input.c" );
+          mem_realloc( (void **) &(impedance_data.zphase), mreq, "in input.c" );
+          mem_realloc( (void **) &(save.freq), mreq, "in input.c" );
+
+          mreq = (size_t)calc_data.steps_total * sizeof(char);
           mem_realloc( (void **) &(save.fstep), mreq, "in input.c" );
         }
 
         if( CHILD ) continue;
 
         /* Per FR card data */
-        fld[card].ifreq = itmp1;
+        fld[card].ifreq    = itmp1;
         fld[card].min_freq = tmp1;
 
         /* Data from first FR card only used here */
@@ -1310,8 +1314,7 @@ Read_Commands( void )
     else
     {
       /* Allocate radiation pattern buffers FIXME */
-      Alloc_Rdpattern_Buffers(
-          calc_data.freq_loop_data[calc_data.FR_index].freq_steps + 1, fpat.nth, fpat.nph );
+      Alloc_Rdpattern_Buffers( calc_data.steps_total + 1, fpat.nth, fpat.nph );
       SetFlag( ENABLE_RDPAT );
     }
 

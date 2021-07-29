@@ -844,7 +844,7 @@ Redo_Radiation_Pattern( gpointer udata )
 {
   /* Redo radiation pattern for a new frequency. Below
    * makes calcs use the extra buffer in rad_pattern FIXME */
-  calc_data.freq_step = calc_data.freq_loop_data[calc_data.FR_index].freq_steps;
+  calc_data.freq_step = calc_data.steps_total;
   New_Frequency();
 
   /* Redraw radiation pattern on screen */

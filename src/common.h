@@ -709,8 +709,7 @@ typedef struct
 {
   int
     ifreq,       /* Frequency specification flag */
-    freq_steps,  /* Number of frequency steps */
-    last_step;   /* Last frequency step */
+    freq_steps;  /* Number of frequency steps */
 
   double
     delta_freq,  /* Frequency step in freq loop */
@@ -755,15 +754,17 @@ typedef struct
     zo;     /* Characteristic impedance used in VSWR calcs */
 
   int
-    FR_cards,   /* Number of FR cards in input file */
-    FR_index,   /* Index to FR card data in use */
-    freq_step;  /* Frequency step in frequency loop */
-
-  freq_loop_data_t *freq_loop_data;
+    FR_cards,     /* Number of FR cards in input file */
+    FR_index,     /* Index to FR card data in use */
+    freq_step,    /* Frequency step in frequency loop */
+    steps_total,  /* Total number of frequency steps */
+    last_step;    /* Last frequency step */
 
   double
     fmhz_save,  /* Saved value of frequency clicked on by user in plots window */
     freq_mhz;   /* Current Frequency in MHz, moved from save_t */
+
+  freq_loop_data_t *freq_loop_data;
 
 } calc_data_t;
 

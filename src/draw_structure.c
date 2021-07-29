@@ -615,7 +615,7 @@ Redo_Currents( gpointer udata )
     return FALSE;
 
   /* Makes calcs use the extra buffer in rad_pattern FIXME */
-  calc_data.freq_step = calc_data.freq_loop_data[calc_data.FR_index].freq_steps;
+  calc_data.freq_step = calc_data.steps_total;
   save.last_freq  = 0.0;
   New_Frequency();
 

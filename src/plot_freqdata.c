@@ -54,8 +54,8 @@ Display_Frequency_Data( void )
 
   /* Limit freq stepping to freq_steps FIXME */
   fstep = calc_data.freq_step;
-  if( fstep >= calc_data.freq_loop_data[calc_data.FR_index].freq_steps )
-    fstep = calc_data.freq_loop_data[calc_data.FR_index].freq_steps;
+  if( fstep >= calc_data.steps_total )
+    fstep = calc_data.steps_total;
 
   /* Polarization type */
   pol = calc_data.pol_type;
@@ -589,8 +589,7 @@ Draw_Graph(
   rb = bmax - bmin;
 
   /* Calculate points to plot */
-  mem_alloc( (void **)&points,
-      (size_t)calc_data.freq_loop_data[calc_data.FR_index].freq_steps * sizeof(GdkPoint),
+  mem_alloc( (void **) &points, (size_t)calc_data.steps_total * sizeof(GdkPoint),
       "in Draw_Graph()" );
   if( points == NULL )
   {
@@ -840,8 +839,7 @@ Plot_Graph_Smith(
   cairo_set_source_rgb( cr, MAGENTA );
 
   /* Calculate points to plot */
-  mem_alloc( (void **)&points,
-	  (size_t)calc_data.freq_loop_data[calc_data.FR_index].freq_steps * sizeof(GdkPoint),
+  mem_alloc( (void **)&points, (size_t)calc_data.steps_total * sizeof(GdkPoint),
 	  "in Draw_Graph()" );
 
   if( points == NULL )
@@ -1016,8 +1014,6 @@ Plot_Frequency_Data( cairo_t *cr )
       (double)freqplots_height );
   cairo_fill( cr );
 
-  printf("%0x  %0x\n", isFlagClear(FREQ_LOOP_RUNNING), isFlagClear(FREQ_LOOP_DONE) );
-
   /* Abort if plotting is not possible FIXME */
   if( (calc_data.freq_step < 1) || isFlagClear(FREQ_LOOP_READY) ||
       (isFlagClear(FREQ_LOOP_RUNNING) && isFlagClear(FREQ_LOOP_DONE)) ||
@@ -1037,7 +1033,7 @@ Plot_Frequency_Data( cairo_t *cr )
   if( isFlagSet(FREQ_LOOP_RUNNING) )
     max_fscale = (double)save.freq[calc_data.freq_step];
   else
-    max_fscale = (double)save.freq[calc_data.freq_loop_data[calc_data.FR_index].last_step];
+    max_fscale = (double)save.freq[calc_data.last_step];
   nval_fscale = freqplots_width / 75;
   Fit_to_Scale( &max_fscale, &min_fscale, &nval_fscale );
 
@@ -1045,7 +1041,7 @@ Plot_Frequency_Data( cairo_t *cr )
   posn = 0;
 
   /* Limit freq stepping to last freq step */
-  fstep = calc_data.freq_loop_data[calc_data.FR_index].last_step + 1;
+  fstep = calc_data.last_step + 1;
 
   /* Plot max gain vs frequency, if possible */
   if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) )
@@ -1243,8 +1239,7 @@ Plot_Frequency_Data( cairo_t *cr )
     titles[1] = _("VSWR vs Frequency");
 
     /* Calculate VSWR */
-    mem_alloc( (void **) &vswr,
-        (size_t)calc_data.freq_loop_data[calc_data.FR_index].freq_steps * sizeof(double),
+    mem_alloc( (void **) &vswr, (size_t)calc_data.steps_total * sizeof(double),
         "in Plot_Frequency_Data()" );
     if( vswr == NULL )
     {
@@ -1373,13 +1368,14 @@ Set_Frequency_On_Click( GdkEventButton *event )
   else if( x > w ) x = w;
 
   /* Set freq corresponding to click 'x', to freq spinbuttons FIXME */
-  idx = calc_data.freq_loop_data[calc_data.FR_index].last_step;
+  idx = calc_data.last_step;
   switch( event->button )
   {
     case 1: /* Calculate frequency corresponding to mouse position in plot */
-      /* Enable drawing of freq line */
+      /* Enable drawing of frequency line */
       SetFlag( PLOT_FREQ_LINE );
 
+      /* Frequency corresponding to x position of click */
       fmhz = max_fscale - min_fscale;
       fmhz = min_fscale + fmhz * x / w;
       break;
@@ -1394,22 +1390,41 @@ Set_Frequency_On_Click( GdkEventButton *event )
       return;
 
     case 3: /* Calculate frequency corresponding to mouse position in plot FIXME */
-      /* Enable drawing of freq line */
+      /* Enable drawing of frequency line */
       SetFlag( PLOT_FREQ_LINE );
 
+      /* Frequency corresponding to x position of click */
       fmhz = max_fscale - min_fscale;
-      fmhz = min_fscale + fmhz * x/w;
+      fmhz = min_fscale + fmhz * x / w;
 
-      /* Find nearest freq step */
-      idx = (int)( (double)idx * (fmhz - save.freq[0]) /
-          (save.freq[idx] - save.freq[0]) + 0.5 );
+      /* Find in which FR card frequency range the frequency belongs */
+      int fr;
+      for( fr = 0; fr < calc_data.FR_cards; fr++ )
+      {
+        if( (fmhz <= calc_data.freq_loop_data[fr].max_freq) &&
+            (fmhz >= calc_data.freq_loop_data[fr].min_freq) )
+          break;
+      }
 
-      if( idx > calc_data.freq_loop_data[calc_data.FR_index].last_step )
-        idx = calc_data.freq_loop_data[calc_data.FR_index].last_step;
-      else if( idx < 0 ) idx = 0;
-
-      fmhz = save.freq[idx];
-
+      /* Find nearest frequency step */
+      double fmx = calc_data.freq_loop_data[fr].max_freq;
+      double fmn = calc_data.freq_loop_data[fr].min_freq;
+      int stp    = calc_data.freq_loop_data[fr].freq_steps - 1;
+      if( fr < calc_data.FR_cards )
+      {
+        idx = (int)( (fmhz - fmn) / (fmx - fmn) * (double)stp + 0.5 );
+        if( idx > calc_data.last_step )
+          idx = calc_data.last_step;
+        else if( idx < 0 )
+          idx = 0;
+        fmhz = (double)idx / (double)stp * ( fmx - fmn ) + fmn;
+      }
+      else
+      {
+        /* Frequency corresponding to x position of click */
+        fmhz = max_fscale - min_fscale;
+        fmhz = min_fscale + fmhz * x / w;
+      }
   } /* switch( event->button ) */
 
   /* Round frequency to nearest 1 kHz */
