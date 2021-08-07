@@ -31,10 +31,18 @@
 /* Graph plot bounding rectangle */
 static GdkRectangle plot_rect;
 
-
 /* Frequency scale max, min, num of values */
 static double max_fscale, min_fscale;
 static int nval_fscale;
+
+/* helper function to get width and height by creating a layout */
+static void get_pixel_size(GtkWidget* widget, int *width, int *height)
+{
+	PangoLayout *layout = NULL;
+    layout = gtk_widget_create_pango_layout(freqplots_drawingarea, "000000" );
+    pango_layout_get_pixel_size( layout, width, height);
+    g_object_unref( layout );
+}
 
 /*-----------------------------------------------------------------------*/
 
@@ -508,6 +516,8 @@ Draw_Graph(
 /* Plot_Graph()
  *
  * Plots graphs of two functions against a common variable
+ *
+ * y_left or y_right may be NULL, in which case it is omitted.
  */
   static void
 Plot_Graph(
@@ -516,7 +526,6 @@ Plot_Graph(
     char *titles[], int nplt, int posn )
 {
   double max_y_left, min_y_left, max_y_right, min_y_right;
-  static int first_call = TRUE;
   int idx, nval, plot_height, plot_posn;
 
   /* Pango layout size */
@@ -641,7 +650,6 @@ Plot_Graph_Smith(
     double *fa, double *fb, double *fc,
     int nc, int nplt, int posn )
 {
-  static int first_call = TRUE;
   int plot_height, plot_posn;
   int idx;
   GdkPoint *points = NULL;
@@ -1218,13 +1226,5 @@ Set_Frequency_On_Click( GdkEventButton *event )
   }
 
 } /* Set_Freq_On_Click() */
-
-void get_pixel_size(GtkWidget* widget, int *width, int *height)
-{
-	PangoLayout *layout = NULL;
-    layout = gtk_widget_create_pango_layout(freqplots_drawingarea, "000000" );
-    pango_layout_get_pixel_size( layout, width, height);
-    g_object_unref( layout );
-}
 /*-----------------------------------------------------------------------*/
 
