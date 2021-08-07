@@ -172,6 +172,9 @@ Fit_to_Scale( double *max, double *min, int *nval )
   }
 
 
+  /* prevent divide by zero on small screens */
+  if(*nval <= 1) return;
+
   /* Find subdivision's lower order of magnitude */
   subdiv_val = (*max - *min) / (double)(*nval-1);
   subdiv_order = 1.0;
@@ -197,7 +200,6 @@ Fit_to_Scale( double *max, double *min, int *nval )
 
 } /* Fit_to_Scale() */
 
-/*-----------------------------------------------------------------------*/
 
 /* Set_Rectangle()
  *
@@ -503,12 +505,12 @@ Draw_Graph(
 
 /*-----------------------------------------------------------------------*/
 
-/* Plot_Graph2()
+/* Plot_Graph()
  *
  * Plots graphs of two functions against a common variable
  */
   static void
-Plot_Graph2(
+Plot_Graph(
     cairo_t *cr,
     double *y_left, double *y_right, double *x, int nx,
     char *titles[], int nplt, int posn )
@@ -615,7 +617,7 @@ Plot_Graph2(
       nx, RIGHT );
   }
 
-} /* Plot_Graph2() */
+} /* Plot_Graph() */
 
 
   static void
@@ -736,85 +738,6 @@ Plot_Graph_Smith(
   }
 
 } /* Plot_Graph_Smith() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Plot_Graph()
- *
- * Plots graph of a function against a variable
- */
-  static void
-Plot_Graph(
-    cairo_t *cr,
-    double *fa, double *fb, int nb,
-    char *titles[], int nplt, int posn )
-{
-  double max_fa, min_fa;
-  static int first_call = TRUE;
-  int idx, nval_fa, plot_height, plot_posn;
-  /* Pango layout size */
-  static int layout_width, layout_height;
-
-
-  get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
-
-  /* Available height for each graph.
-   * (np=number of graphs to be plotted) */
-  plot_height = freqplots_height/nplt;
-  plot_posn   = (freqplots_height * (posn-1))/nplt;
-
-  /* Plot box rectangle */
-  Set_Rectangle(
-      &plot_rect,
-      layout_width + 4, plot_posn+2,
-      freqplots_width-8 - 2*layout_width,
-      plot_height-8 - 2*layout_height );
-
-  /*** Draw horizontal (freq) scale ***/
-  Plot_Horizontal_Scale(
-      cr,
-      YELLOW,
-      layout_width+2,
-      plot_posn+plot_height-2 - layout_height,
-      plot_rect.width,
-      max_fscale, min_fscale, nval_fscale );
-
-  /*** Draw left scale ***/
-  /* Find max and min of fa */
-  max_fa = min_fa = fa[0];
-  for( idx = 1; idx < nb; idx++ )
-  {
-    if( max_fa < fa[idx] )
-      max_fa = fa[idx];
-    if( min_fa > fa[idx] )
-      min_fa = fa[idx];
-  }
-
-  /* Fit fa range to scale */
-  nval_fa = plot_height / 50;
-  Fit_to_Scale( &max_fa, &min_fa, &nval_fa );
-
-  /* Draw left scale */
-  Plot_Vertical_Scale(
-      cr,
-      MAGENTA,
-      2, plot_posn+2,
-      plot_rect.height,
-      max_fa, min_fa, nval_fa );
-
-  /* Draw plotting frame */
-  Draw_Plotting_Frame( cr, titles, &plot_rect, nval_fa, nval_fscale );
-
-  /* Draw graph */
-  Draw_Graph(
-      cr,
-      MAGENTA,
-      &plot_rect, fa, fb,
-      max_fa, min_fa,
-      max_fscale, min_fscale,
-      nb, LEFT );
-
-} /* Plot_Graph() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -993,7 +916,7 @@ Plot_Frequency_Data( cairo_t *cr )
         titles[1] = _("AA Max Gain & Net Gain vs Frequency");
         titles[2] = _("Net Gain dbi");
         if( fstep > 1 )
-          Plot_Graph2( cr, gmax, netgain, save.freq, fstep,
+          Plot_Graph( cr, gmax, netgain, save.freq, fstep,
               titles, calc_data.ngraph, ++posn );
       }
       else
@@ -1001,7 +924,7 @@ Plot_Frequency_Data( cairo_t *cr )
         titles[1] = _("BB Max Gain & F/B Ratio vs Frequency");
         titles[2] = "        ";
         if( fstep > 1 )
-          Plot_Graph2( cr, gmax, NULL, save.freq, fstep,
+          Plot_Graph( cr, gmax, NULL, save.freq, fstep,
               titles, calc_data.ngraph, ++posn );
       }
     }
@@ -1012,7 +935,7 @@ Plot_Frequency_Data( cairo_t *cr )
       titles[1] = _("CC Max Gain & F/B Ratio vs Frequency");
       titles[2] = _("F/B Ratio db");
       if( fstep > 1 )
-        Plot_Graph2( cr, gmax, fbratio, save.freq, fstep,
+        Plot_Graph( cr, gmax, fbratio, save.freq, fstep,
             titles, calc_data.ngraph, ++posn );
     }
 
@@ -1024,7 +947,7 @@ Plot_Frequency_Data( cairo_t *cr )
       titles[1] = _("DD Max Gain Direction vs Frequency");
       titles[2] = _("Phi - deg");
       if( fstep > 1 )
-        Plot_Graph2( cr, gdir_tht, gdir_phi, save.freq, fstep,
+        Plot_Graph( cr, gdir_tht, gdir_phi, save.freq, fstep,
             titles, calc_data.ngraph, ++posn );
     }
 
@@ -1063,14 +986,14 @@ Plot_Frequency_Data( cairo_t *cr )
       /* Plot net gain if selected */
       titles[2] = _("Net gain dbi");
       if( fstep > 1 )
-        Plot_Graph2( cr, vgain, netgain, save.freq, fstep,
+        Plot_Graph( cr, vgain, netgain, save.freq, fstep,
             titles, calc_data.ngraph, ++posn );
     } /* if( isFlagSet(PLOT_NETGAIN) ) */
     else
     {
       titles[2] = "        ";
       if( fstep > 1 )
-        Plot_Graph2( cr, vgain, NULL, save.freq, fstep,
+        Plot_Graph( cr, vgain, NULL, save.freq, fstep,
             titles, calc_data.ngraph, ++posn );
     }
   } /* isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) */
@@ -1111,7 +1034,7 @@ Plot_Frequency_Data( cairo_t *cr )
 
     titles[2] = "        ";
     if( fstep > 1 )
-      Plot_Graph2( cr, vswr, NULL, save.freq, fstep,
+      Plot_Graph( cr, vswr, NULL, save.freq, fstep,
           titles, calc_data.ngraph, ++posn );
 
     free_ptr( (void **)&vswr );
@@ -1125,7 +1048,7 @@ Plot_Frequency_Data( cairo_t *cr )
     titles[1] = _("Impedance vs Frequency");
     titles[2] = _("Z-imag");
     if( fstep > 1 )
-      Plot_Graph2( cr,
+      Plot_Graph( cr,
           impedance_data.zreal, impedance_data.zimag, save.freq,
           fstep, titles, calc_data.ngraph, ++posn );
 
@@ -1139,7 +1062,7 @@ Plot_Frequency_Data( cairo_t *cr )
     titles[1] = _("Impedance vs Frequency");
     titles[2] = _("Z-phase");
     if( fstep > 1 )
-      Plot_Graph2( cr, impedance_data.zmagn, impedance_data.zphase,
+      Plot_Graph( cr, impedance_data.zmagn, impedance_data.zphase,
           save.freq, fstep, titles, calc_data.ngraph, ++posn );
 
   } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
