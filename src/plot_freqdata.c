@@ -31,6 +31,7 @@
 /* Graph plot bounding rectangle */
 static GdkRectangle plot_rect;
 
+
 /* Frequency scale max, min, num of values */
 static double max_fscale, min_fscale;
 static int nval_fscale;
@@ -428,6 +429,7 @@ Plot_Horizontal_Scale(
   /* Create a pango layout */
   layout = gtk_widget_create_pango_layout(
       freqplots_drawingarea, "1234.5" );
+
   pango_layout_get_pixel_size( layout, &pl_width, &pl_height);
 
   /* Draw horizontal scale values */
@@ -696,17 +698,7 @@ Plot_Graph2(
   /* Pango layout size */
   static int layout_width, layout_height;
 
-  if( first_call )
-  {
-    /* Create a pango layout to get scale size */
-    PangoLayout *layout;
-    layout = gtk_widget_create_pango_layout(
-        freqplots_drawingarea, "000000" );
-    pango_layout_get_pixel_size( layout,
-        &layout_width, &layout_height);
-    first_call = FALSE;
-    g_object_unref( layout );
-  }
+  get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
 
   /* Available height for each graph.
    * (np=number of graphs to be plotted) */
@@ -818,22 +810,13 @@ Plot_Graph_Smith(
   int plot_height, plot_posn;
   int idx;
   GdkPoint *points = NULL;
-  PangoLayout *layout;
-  int width1, height; /* Layout size */
   int scale, x0, y0, x, y, xpw;
   double re, im;
 
   /* Pango layout size */
   static int layout_width, layout_height;
 
-  if( first_call )
-  {
-    /* Create a pango layout to get scale size */
-    layout = gtk_widget_create_pango_layout( freqplots_drawingarea, "000000" );
-    pango_layout_get_pixel_size( layout, &layout_width, &layout_height);
-    first_call = FALSE;
-    g_object_unref( layout );
-  }
+  get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
 
   /* Available height for each graph.
    * (np=number of graphs to be plotted) */
@@ -846,14 +829,10 @@ Plot_Graph_Smith(
       freqplots_width - 8 - 2 * layout_width,
       plot_height - 8 - 2 * layout_height );
 
-
   cairo_set_source_rgb( cr, YELLOW );
-  layout = gtk_widget_create_pango_layout( freqplots_drawingarea, _("Smith Chart") );
-  pango_layout_get_pixel_size( layout, &width1, &height );
-  xpw = plot_rect.x + ( plot_rect.width - width1 ) / 2;
+  xpw = plot_rect.x + ( plot_rect.width - layout_width ) / 2;
   cairo_move_to( cr, xpw, plot_rect.y );
-  pango_cairo_show_layout( cr, layout );
-  plot_rect.y += height;
+  plot_rect.y += layout_height;
 
   x0 = plot_rect.x + plot_rect.width  / 2;
   y0 = plot_rect.y + plot_rect.height / 2;
@@ -878,7 +857,7 @@ Plot_Graph_Smith(
   }
 
   cairo_stroke( cr );
-  g_object_unref( layout );
+  //g_object_unref( layout );
 
   /* Cairo context */
   cairo_set_source_rgb( cr, MAGENTA );
@@ -944,17 +923,7 @@ Plot_Graph(
   static int layout_width, layout_height;
 
 
-  if( first_call )
-  {
-    /* Create a pango layout to get scale size */
-    PangoLayout *layout;
-    layout = gtk_widget_create_pango_layout(
-        freqplots_drawingarea, "000000" );
-    pango_layout_get_pixel_size(
-        layout, &layout_width, &layout_height);
-    first_call = FALSE;
-    g_object_unref( layout );
-  }
+  get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
 
   /* Available height for each graph.
    * (np=number of graphs to be plotted) */
@@ -1494,5 +1463,12 @@ Set_Frequency_On_Click( GdkEventButton *event )
 
 } /* Set_Freq_On_Click() */
 
+void get_pixel_size(GtkWidget* widget, int *width, int *height)
+{
+	PangoLayout *layout = NULL;
+    layout = gtk_widget_create_pango_layout(freqplots_drawingarea, "000000" );
+    pango_layout_get_pixel_size( layout, width, height);
+    g_object_unref( layout );
+}
 /*-----------------------------------------------------------------------*/
 
