@@ -199,182 +199,6 @@ Fit_to_Scale( double *max, double *min, int *nval )
 
 /*-----------------------------------------------------------------------*/
 
-/* Fit_to_Scale2()
- *
- * Adjust the max and min value of data to be plotted,
- * as well as the number of scale sub-divisions, so that
- * sub-division values are easier to interpolate between.
- * This is done for two scales (left & right) simultaneously.
- * The chosen scale values are 10, 10/2, 10/4, 10/5 and 1.
- */
-  static void
-Fit_to_Scale2( double *max1, double *min1,
-    double *max2, double *min2, int *nval )
-{
-  /* Acceptable scale values (10/10, 10/5, 10/4, 10/2) */
-  /* Intermediate values are geometric mean of pairs */
-  double scale_val[] = { 10.0, 5.0, 2.5, 2.0, 1.0, 0.5 };
-
-  double subdiv_val1, subdiv_order1, subdiv_val2, subdiv_order2;
-  double max_1, min_1, max_2, min_2, range1, range2, min_stretch;
-  double max1sv = 0.0, min1sv = 0.0, max2sv = 0.0, min2sv = 0.0;
-  int idx1, idx2, nval1, nval2, nvalsv = 0, mx, i1, i2;
-
-  /* Do nothing in these cases */
-  if( *max1 < *min1 ) return;
-  if( *max2 < *min2 ) return;
-
-  /* Provide a made-up range if max = min */
-  if( *max1 == *min1 )
-  {
-    if( *max1 == 0.0 )
-    {
-      *max1 =  1.0;
-      *min1 = -1.0;
-    }
-    else
-    {
-      *max1 += fabs( *max1 ) / 10.0;
-      *min1 -= fabs( *min1 ) / 10.0;
-    }
-  }
-
-  if( *max2 == *min2 )
-  {
-    if( *max2 == 0.0 )
-    {
-      *max2 =  1.0;
-      *min2 = -1.0;
-    }
-    else
-    {
-      *max2 += fabs( *max2 ) / 10.0;
-      *min2 -= fabs( *min2 ) / 10.0;
-    }
-  }
-
-  /* For each scale */
-  /* Find subdivision's lower order of magnitude */
-  subdiv_val1 = (*max1 - *min1) / (double)(*nval-1);
-  subdiv_order1 = 1.0;
-  while( subdiv_order1 < subdiv_val1 )
-    subdiv_order1 *= 10.0;
-  while( subdiv_order1 > subdiv_val1 )
-    subdiv_order1 /= 10.0;
-
-  /* Scale subdivision 1 < subd < 10 */
-  subdiv_val1 /= subdiv_order1;
-
-  /* Find nearest prefered subdiv value */
-  idx1 = 1;
-  while( (scale_val[idx1] > subdiv_val1) && (idx1 <= 4) )
-    idx1++;
-
-  /* Find subdivision's lower order of magnitude */
-  subdiv_val2 = (*max2 - *min2) / (double)(*nval-1);
-  subdiv_order2 = 1.0;
-  while( subdiv_order2 < subdiv_val2 )
-    subdiv_order2 *= 10.0;
-  while( subdiv_order2 > subdiv_val2 )
-    subdiv_order2 /= 10.0;
-
-  /* Scale subdivision 1 < subd < 10 */
-  subdiv_val2 /= subdiv_order2;
-
-  /* Find nearest prefered subdiv value */
-  idx2 = 1;
-  while( (scale_val[idx2] > subdiv_val2) && (idx2 <= 4) )
-    idx2++;
-
-  /* Search for a compromize in scale stretching */
-  range1 = *max1 - *min1;
-  range2 = *max2 - *min2;
-  min_stretch = 10.0;
-
-  /* Scale prefered subdiv values */
-  subdiv_val1 = scale_val[idx1] * subdiv_order1;
-  subdiv_val2 = scale_val[idx2] * subdiv_order2;
-
-  /* Recalculate new max and min values */
-  max_1 = *max1; min_1 = *min1; nval1 = *nval;
-  max_2 = *max2; min_2 = *min2; nval2 = *nval;
-  New_Max_Min( &max_1, &min_1, subdiv_val1, &nval1 );
-  New_Max_Min( &max_2, &min_2, subdiv_val2, &nval2 );
-
-  /* This is a lucky case */
-  if( (nval1 == nval2) && (nval1 >= *nval) )
-  {
-    *max1 = max_1; *min1 = min_1;
-    *max2 = max_2; *min2 = min_2;
-    *nval = nval1;
-    return;
-  }
-
-  /* More likely look for a compromise */
-  for( i1 = 0; i1 < 2; i1++ )
-    for( i2 = 0; i2 < 2; i2++ )
-    {
-      double stretch;
-
-      /* Scale prefered subdiv values */
-      subdiv_val1 = scale_val[idx1-i1] * subdiv_order1;
-      subdiv_val2 = scale_val[idx2-i2] * subdiv_order2;
-
-      /* Recalculate new max and min values */
-      max_1 = *max1; min_1 = *min1; nval1 = *nval;
-      max_2 = *max2; min_2 = *min2; nval2 = *nval;
-      New_Max_Min( &max_1, &min_1, subdiv_val1, &nval1 );
-      New_Max_Min( &max_2, &min_2, subdiv_val2, &nval2 );
-
-      /* This is a lucky case */
-      if( nval1 == nval2 )
-      {
-        *max1 = max_1; *min1 = min_1;
-        *max2 = max_2; *min2 = min_2;
-        *nval = nval1;
-        return;
-      }
-
-      /* Stretch scale with the fewer steps */
-      if( nval1 > nval2 )
-      {
-        mx = nval1 - nval2;
-        max_2 += ((mx+1)/2) * subdiv_val2;
-        min_2 -= (mx/2) * subdiv_val2;
-        stretch = (max_2-min_2)/range2;
-        if( (stretch < min_stretch) )
-        {
-          min_stretch = stretch;
-          max2sv = max_2; min2sv = min_2;
-          max1sv = max_1; min1sv = min_1;
-          nvalsv = nval1;
-        }
-      }
-      else
-      {
-        mx = nval2 - nval1;
-        max_1 += ((mx+1)/2) * subdiv_val1;
-        min_1 -= (mx/2) * subdiv_val1;
-        stretch = (max_1-min_1)/range1;
-        if( (stretch < min_stretch) )
-        {
-          min_stretch = stretch;
-          max1sv = max_1; min1sv = min_1;
-          max2sv = max_2; min2sv = min_2;
-          nvalsv = nval2;
-        }
-      }
-
-    } /* for( i1 = 0; i1 < 3; i1++ ) */
-
-  *max1 = max1sv; *min1 = min1sv;
-  *max2 = max2sv; *min2 = min2sv;
-  *nval = nvalsv;
-
-} /* Fit_to_Scale2() */
-
-/*-----------------------------------------------------------------------*/
-
 /* Set_Rectangle()
  *
  * Sets the parameters of a GdkRectangle
@@ -691,7 +515,7 @@ Plot_Graph2(
 {
   double max_y_left, min_y_left, max_y_right, min_y_right;
   static int first_call = TRUE;
-  int idx, nval_ab, plot_height, plot_posn;
+  int idx, nval, plot_height, plot_posn;
 
   /* Pango layout size */
   static int layout_width, layout_height;
@@ -719,7 +543,13 @@ Plot_Graph2(
       plot_rect.width,
       max_fscale, min_fscale, nval_fscale );
 
-  /*** Draw left and right scale ***/
+
+  /* Draw plotting frame */
+  nval = plot_height / 50;
+  Draw_Plotting_Frame( cr, titles, &plot_rect, nval, nval_fscale );
+
+  if (y_left != NULL)
+  {
   /* Find max and min of y_left */
   max_y_left = min_y_left = y_left[0];
   for( idx = 1; idx < nx; idx++ )
@@ -730,19 +560,8 @@ Plot_Graph2(
       min_y_left = y_left[idx];
   }
 
-  /* Find max and min of y_right */
-  max_y_right = min_y_right = y_right[0];
-  for( idx = 1; idx < nx; idx++ )
-  {
-    if( max_y_right < y_right[idx] )
-      max_y_right = y_right[idx];
-    if( min_y_right > y_right[idx] )
-      min_y_right = y_right[idx];
-  }
-
   /* Fit ranges to common scale */
-  nval_ab = plot_height / 50;
-  Fit_to_Scale2( &max_y_left, &min_y_left, &max_y_right, &min_y_right, &nval_ab );
+	  Fit_to_Scale(&max_y_left, &min_y_left, &nval);
 
   /* Draw left scale */
   Plot_Vertical_Scale(
@@ -750,18 +569,7 @@ Plot_Graph2(
       MAGENTA,
       2, plot_posn+2,
       plot_rect.height,
-      max_y_left, min_y_left, nval_ab );
-
-  /* Draw right scale */
-  Plot_Vertical_Scale(
-      cr,
-      CYAN,
-      freqplots_width-2 - layout_width, plot_posn+2,
-      plot_rect.height,
-      max_y_right, min_y_right, nval_ab );
-
-  /* Draw plotting frame */
-  Draw_Plotting_Frame( cr, titles, &plot_rect, nval_ab, nval_fscale );
+		  max_y_left, min_y_left, nval );
 
   /* Draw graph */
   Draw_Graph(
@@ -772,6 +580,30 @@ Plot_Graph2(
       max_y_left, min_y_left,
       max_fscale, min_fscale,
       nx, LEFT );
+  }
+
+  if (y_right != NULL)
+  {
+	  /* Find max and min of y_right */
+	  max_y_right = min_y_right = y_right[0];
+	  for( idx = 1; idx < nx; idx++ )
+	  {
+		if( max_y_right < y_right[idx] )
+		  max_y_right = y_right[idx];
+		if( min_y_right > y_right[idx] )
+		  min_y_right = y_right[idx];
+	  }
+
+	  /* Fit ranges to common scale */
+	  Fit_to_Scale(&max_y_right, &min_y_right, &nval);
+
+	  /* Draw right scale */
+	  Plot_Vertical_Scale(
+		  cr,
+		  CYAN,
+		  freqplots_width-2 - layout_width, plot_posn+2,
+		  plot_rect.height,
+		  max_y_right, min_y_right, nval );
 
   /* Draw graph */
   Draw_Graph(
@@ -781,8 +613,10 @@ Plot_Graph2(
       max_y_right, min_y_right,
       max_fscale, min_fscale,
       nx, RIGHT );
+  }
 
 } /* Plot_Graph2() */
+
 
   static void
 Calculate_Smith( double zr, double zi, double z0, double *re, double *im )
@@ -1167,7 +1001,7 @@ Plot_Frequency_Data( cairo_t *cr )
         titles[1] = _("BB Max Gain & F/B Ratio vs Frequency");
         titles[2] = "        ";
         if( fstep > 1 )
-          Plot_Graph( cr, gmax, save.freq, fstep,
+          Plot_Graph2( cr, gmax, NULL, save.freq, fstep,
               titles, calc_data.ngraph, ++posn );
       }
     }
@@ -1236,7 +1070,7 @@ Plot_Frequency_Data( cairo_t *cr )
     {
       titles[2] = "        ";
       if( fstep > 1 )
-        Plot_Graph( cr, vgain, save.freq, fstep,
+        Plot_Graph2( cr, vgain, NULL, save.freq, fstep,
             titles, calc_data.ngraph, ++posn );
     }
   } /* isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) */
@@ -1277,7 +1111,7 @@ Plot_Frequency_Data( cairo_t *cr )
 
     titles[2] = "        ";
     if( fstep > 1 )
-      Plot_Graph( cr, vswr, save.freq, fstep,
+      Plot_Graph2( cr, vswr, NULL, save.freq, fstep,
           titles, calc_data.ngraph, ++posn );
 
     free_ptr( (void **)&vswr );
