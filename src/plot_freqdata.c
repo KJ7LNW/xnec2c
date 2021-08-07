@@ -503,8 +503,7 @@ Plot_Vertical_Scale(
   snprintf( format, 6, "%%6.%df", (3-order) );
 
   /* Create a pango layout */
-  layout = gtk_widget_create_pango_layout(
-      freqplots_drawingarea, "X" );
+  layout = gtk_widget_create_pango_layout(freqplots_drawingarea, "X");
   pango_layout_get_pixel_size( layout, &pl_width, &pl_height);
 
   /* Draw vertical scale values */
@@ -544,8 +543,7 @@ Draw_Plotting_Frame(
 
   /* Draw titles (left scale, center and right scale) */
   cairo_set_source_rgb( cr, MAGENTA );
-  layout = gtk_widget_create_pango_layout(
-      freqplots_drawingarea, title[0] );
+  layout = gtk_widget_create_pango_layout(freqplots_drawingarea, title[0] );
   pango_layout_get_pixel_size( layout, &width0, &height );
   cairo_move_to( cr, rect->x, rect->y );
   pango_cairo_show_layout( cr, layout );
@@ -688,10 +686,10 @@ Draw_Graph(
   static void
 Plot_Graph2(
     cairo_t *cr,
-    double *fa, double *fb, double *fc, int nc,
+    double *y_left, double *y_right, double *x, int nx,
     char *titles[], int nplt, int posn )
 {
-  double max_fa, min_fa, max_fb, min_fb;
+  double max_y_left, min_y_left, max_y_right, min_y_right;
   static int first_call = TRUE;
   int idx, nval_ab, plot_height, plot_posn;
 
@@ -722,29 +720,29 @@ Plot_Graph2(
       max_fscale, min_fscale, nval_fscale );
 
   /*** Draw left and right scale ***/
-  /* Find max and min of fa */
-  max_fa = min_fa = fa[0];
-  for( idx = 1; idx < nc; idx++ )
+  /* Find max and min of y_left */
+  max_y_left = min_y_left = y_left[0];
+  for( idx = 1; idx < nx; idx++ )
   {
-    if( max_fa < fa[idx] )
-      max_fa = fa[idx];
-    if( min_fa > fa[idx] )
-      min_fa = fa[idx];
+    if( max_y_left < y_left[idx] )
+      max_y_left = y_left[idx];
+    if( min_y_left > y_left[idx] )
+      min_y_left = y_left[idx];
   }
 
-  /* Find max and min of fb */
-  max_fb = min_fb = fb[0];
-  for( idx = 1; idx < nc; idx++ )
+  /* Find max and min of y_right */
+  max_y_right = min_y_right = y_right[0];
+  for( idx = 1; idx < nx; idx++ )
   {
-    if( max_fb < fb[idx] )
-      max_fb = fb[idx];
-    if( min_fb > fb[idx] )
-      min_fb = fb[idx];
+    if( max_y_right < y_right[idx] )
+      max_y_right = y_right[idx];
+    if( min_y_right > y_right[idx] )
+      min_y_right = y_right[idx];
   }
 
   /* Fit ranges to common scale */
   nval_ab = plot_height / 50;
-  Fit_to_Scale2( &max_fa, &min_fa, &max_fb, &min_fb, &nval_ab );
+  Fit_to_Scale2( &max_y_left, &min_y_left, &max_y_right, &min_y_right, &nval_ab );
 
   /* Draw left scale */
   Plot_Vertical_Scale(
@@ -752,7 +750,7 @@ Plot_Graph2(
       MAGENTA,
       2, plot_posn+2,
       plot_rect.height,
-      max_fa, min_fa, nval_ab );
+      max_y_left, min_y_left, nval_ab );
 
   /* Draw right scale */
   Plot_Vertical_Scale(
@@ -760,7 +758,7 @@ Plot_Graph2(
       CYAN,
       freqplots_width-2 - layout_width, plot_posn+2,
       plot_rect.height,
-      max_fb, min_fb, nval_ab );
+      max_y_right, min_y_right, nval_ab );
 
   /* Draw plotting frame */
   Draw_Plotting_Frame( cr, titles, &plot_rect, nval_ab, nval_fscale );
@@ -769,19 +767,20 @@ Plot_Graph2(
   Draw_Graph(
       cr,
       MAGENTA,
-      &plot_rect, fa, fc,
-      max_fa, min_fa,
+      &plot_rect,
+	  y_left, x,
+      max_y_left, min_y_left,
       max_fscale, min_fscale,
-      nc, LEFT );
+      nx, LEFT );
 
   /* Draw graph */
   Draw_Graph(
       cr,
       CYAN, &plot_rect,
-      fb, fc,
-      max_fb, min_fb,
+      y_right, x,
+      max_y_right, min_y_right,
       max_fscale, min_fscale,
-      nc, RIGHT );
+      nx, RIGHT );
 
 } /* Plot_Graph2() */
 
