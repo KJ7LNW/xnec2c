@@ -29,7 +29,6 @@
 #include "shared.h"
 
 /* Graph plot bounding rectangle */
-static GdkRectangle plot_rect;
 
 /* Frequency scale max, min, num of values */
 static double max_fscale, min_fscale;
@@ -306,6 +305,7 @@ Plot_Vertical_Scale(
   int pl_width, pl_height; /* Layout size */
 
   /* Abort if not enough values to plot */
+  printf("Plot_Vertical_Scale: nval=%d\n", nval);
   if( nval <= 1 ) return;
 
   /* Cairo context */
@@ -480,8 +480,8 @@ Draw_Graph(
   }
   for( idx = 0; idx < nval; idx++ )
   {
-    points[idx].x = rect->x + (int)( (double)rect->width  *
-        (b[idx]-bmin) / rb + 0.5 );
+    //points[idx].x = rect->x + (int)((double)rect->width * (b[idx]-bmin) / rb + 0.5);
+    points[idx].x = rect->x + (int)((double)rect->width * idx/nval + 0.5);
     points[idx].y = rect->y + (int)( (double)rect->height *
         (amax-a[idx]) / ra + 0.5 );
 
@@ -525,7 +525,13 @@ Plot_Graph_FR(
     char *titles[], int nplt, int posn, GdkRectangle *plot_rect)
 {
   double max_y_left, min_y_left, max_y_right, min_y_right;
-  int idx, nval, plot_height, plot_posn;
+  int idx;
+
+  // duplicated in Plot_Graph:
+  int plot_height = freqplots_height/nplt;
+  int plot_posn   = (freqplots_height * (posn-1))/nplt;
+
+  int nval = plot_height / 50;
 
   /* Pango layout size */
   static int layout_width, layout_height;
@@ -544,7 +550,6 @@ Plot_Graph_FR(
 
 
   /* Draw plotting frame */
-  nval = plot_height / 50;
   Draw_Plotting_Frame( cr, titles, plot_rect, nval, nval_fscale );
 
   if (y_left != NULL)
@@ -641,18 +646,19 @@ Plot_Graph(
 	get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
 
 	int fr, offset = 0;
+	int width = (freqplots_width-8 - 2*layout_width) / calc_data.FR_cards;
+
 	for (fr = 0; fr < calc_data.FR_cards; fr++)
 	{
 		printf("num-cards=%d fr=%d offset=%d x=%d\n", 
 			calc_data.FR_cards, fr, offset, layout_width * fr/calc_data.FR_cards);
+
 		Set_Rectangle(
 			&plot_rect,
-			(layout_width) + 4 + layout_width*fr/calc_data.FR_cards, // x
+			(layout_width+4)+(fr*width), // x
 			plot_posn+2,    // y
-			(freqplots_width-8 - 2*layout_width) / calc_data.FR_cards, // width 
+			width,
 			plot_height-8 - 2*layout_height );  // height
-
-printf("2\n");
 
 		Plot_Graph_FR(cr, 
 			(y_left != NULL ? y_left+offset : NULL),
@@ -662,7 +668,6 @@ printf("2\n");
 
 		// Next FR card index
 		offset += calc_data.freq_loop_data[fr].freq_steps;
-printf("3\n");
 	}
 
 
@@ -695,6 +700,8 @@ Plot_Graph_Smith(
   GdkPoint *points = NULL;
   int scale, x0, y0, x, y, xpw;
   double re, im;
+
+  GdkRectangle plot_rect;
 
   /* Pango layout size */
   static int layout_width, layout_height;
@@ -1176,15 +1183,16 @@ Set_Frequency_On_Click( GdkEventButton *event )
   gdouble x, w;
   int idx;
 
+return;
 
   if( isFlagClear(FREQ_LOOP_DONE) )
     return;
 
   /* Width of plot bounding rectangle */
-  w = (double)plot_rect.width;
+  //w = (double)plot_rect.width;
 
   /* 'x' posn of click refered to plot bounding rectangle's 'x' */
-  x = event->x - (double)plot_rect.x;
+  //x = event->x - (double)plot_rect.x;
   if( x < 0.0 ) x = 0.0;
   else if( x > w ) x = w;
 
