@@ -512,7 +512,6 @@ Draw_Graph(
 } /* Draw_Graph() */
 
 /*-----------------------------------------------------------------------*/
-
 /* Plot_Graph()
  *
  * Plots graphs of two functions against a common variable
@@ -520,10 +519,10 @@ Draw_Graph(
  * y_left or y_right may be NULL, in which case it is omitted.
  */
   static void
-Plot_Graph(
+Plot_Graph_FR(
     cairo_t *cr,
     double *y_left, double *y_right, double *x, int nx,
-    char *titles[], int nplt, int posn )
+    char *titles[], int nplt, int posn, GdkRectangle *plot_rect)
 {
   double max_y_left, min_y_left, max_y_right, min_y_right;
   int idx, nval, plot_height, plot_posn;
@@ -533,31 +532,20 @@ Plot_Graph(
 
   get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
 
-  /* Available height for each graph.
-   * (np=number of graphs to be plotted) */
-  plot_height = freqplots_height/nplt;
-  plot_posn   = (freqplots_height * (posn-1))/nplt;
-
   /* Plot box rectangle */
-  Set_Rectangle(
-      &plot_rect,
-      layout_width+4, plot_posn+2,
-      freqplots_width-8 - 2*layout_width,
-      plot_height-8 - 2*layout_height );
-
   /*** Draw horizontal (freq) scale ***/
   Plot_Horizontal_Scale(
       cr,
       YELLOW,
       layout_width+2,
       plot_posn+plot_height-2 - layout_height,
-      plot_rect.width,
+      plot_rect->width,
       max_fscale, min_fscale, nval_fscale );
 
 
   /* Draw plotting frame */
   nval = plot_height / 50;
-  Draw_Plotting_Frame( cr, titles, &plot_rect, nval, nval_fscale );
+  Draw_Plotting_Frame( cr, titles, plot_rect, nval, nval_fscale );
 
   if (y_left != NULL)
   {
@@ -579,14 +567,14 @@ Plot_Graph(
       cr,
       MAGENTA,
       2, plot_posn+2,
-      plot_rect.height,
+		  plot_rect->height,
 		  max_y_left, min_y_left, nval );
 
   /* Draw graph */
   Draw_Graph(
       cr,
       MAGENTA,
-      &plot_rect,
+		  plot_rect,
 	  y_left, x,
       max_y_left, min_y_left,
       max_fscale, min_fscale,
@@ -613,13 +601,13 @@ Plot_Graph(
 		  cr,
 		  CYAN,
 		  freqplots_width-2 - layout_width, plot_posn+2,
-		  plot_rect.height,
+		  plot_rect->height,
 		  max_y_right, min_y_right, nval );
 
   /* Draw graph */
   Draw_Graph(
       cr,
-      CYAN, &plot_rect,
+		  CYAN, plot_rect,
       y_right, x,
       max_y_right, min_y_right,
       max_fscale, min_fscale,
@@ -627,6 +615,58 @@ Plot_Graph(
   }
 
 } /* Plot_Graph() */
+
+  static void
+Plot_Graph(
+    cairo_t *cr,
+    double *y_left, double *y_right, double *x, int nx,
+    char *titles[], int nplt, int posn)
+{
+	GdkRectangle plot_rect;
+	/*
+	if (fr_idx >=  calc_data.FR_cards)
+	{
+		printf("Plot_Graph_FR: 0 <= fr_idx=%d < %d, aborting plot\n",
+			fr_idx, calc_data.FR_cards);
+		return;
+	}
+	*/
+
+	/* Available height for each graph.
+	* (np=number of graphs to be plotted) */
+	int plot_height = freqplots_height/nplt;
+	int plot_posn   = (freqplots_height * (posn-1))/nplt;
+
+	int layout_width, layout_height;
+	get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
+
+	int fr, offset = 0;
+	for (fr = 0; fr < calc_data.FR_cards; fr++)
+	{
+		printf("num-cards=%d fr=%d offset=%d x=%d\n", 
+			calc_data.FR_cards, fr, offset, layout_width * fr/calc_data.FR_cards);
+		Set_Rectangle(
+			&plot_rect,
+			(layout_width) + 4 + layout_width*fr/calc_data.FR_cards, // x
+			plot_posn+2,    // y
+			(freqplots_width-8 - 2*layout_width) / calc_data.FR_cards, // width 
+			plot_height-8 - 2*layout_height );  // height
+
+printf("2\n");
+
+		Plot_Graph_FR(cr, 
+			(y_left != NULL ? y_left+offset : NULL),
+			(y_right != NULL ? y_right+offset : NULL), 
+			x+offset, calc_data.freq_loop_data[fr].freq_steps,
+			titles, nplt, posn, &plot_rect);
+
+		// Next FR card index
+		offset += calc_data.freq_loop_data[fr].freq_steps;
+printf("3\n");
+	}
+
+
+}
 
 
   static void
@@ -924,7 +964,10 @@ Plot_Frequency_Data( cairo_t *cr )
         titles[1] = _("AA Max Gain & Net Gain vs Frequency");
         titles[2] = _("Net Gain dbi");
         if( fstep > 1 )
-          Plot_Graph( cr, gmax, netgain, save.freq, fstep,
+          Plot_Graph( cr,
+			  gmax, netgain,
+			  save.freq,
+			  fstep,
               titles, calc_data.ngraph, ++posn );
       }
       else
