@@ -31,8 +31,10 @@
 /* Graph plot bounding rectangle */
 
 /* Frequency scale max, min, num of values */
-static double max_fscale, min_fscale;
-static int nval_fscale;
+//static double max_fscale, min_fscale;
+//static int nval_fscale;
+
+static void Fit_to_Scale( double *max, double *min, int *nval );
 
 /* helper function to get width and height by creating a layout */
 static void get_pixel_size(GtkWidget* widget, int *width, int *height)
@@ -41,6 +43,17 @@ static void get_pixel_size(GtkWidget* widget, int *width, int *height)
     layout = gtk_widget_create_pango_layout(freqplots_drawingarea, "000000" );
     pango_layout_get_pixel_size( layout, width, height);
     g_object_unref( layout );
+}
+
+void get_fscale(double *min_fscale, double *max_fscale, int *nval_fscale)
+{
+  *min_fscale  = (double)save.freq[0];
+  if( isFlagSet(FREQ_LOOP_RUNNING) )
+    *max_fscale = (double)save.freq[calc_data.freq_step];
+  else
+    *max_fscale = (double)save.freq[calc_data.last_step];
+  *nval_fscale = freqplots_width / 75;
+  Fit_to_Scale(max_fscale, min_fscale, nval_fscale);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -150,8 +163,7 @@ New_Max_Min( double *max, double *min, double sval, int *nval )
  * sub-division values are easier to interpolate between.
  * The chosen scale values are 10, 10/2, 10/4, 10/5 and 1.
  */
-  static void
-Fit_to_Scale( double *max, double *min, int *nval )
+static void Fit_to_Scale( double *max, double *min, int *nval )
 {
   /* Acceptable scale values (10/10, 10/5, 10/4, 10/2) */
   /* Intermediate values are geometric mean of pairs */
@@ -428,6 +440,9 @@ Draw_Plotting_Frame(
   if( isFlagSet(FREQ_LOOP_DONE) && isFlagSet(PLOT_FREQ_LINE) )
   {
     double fr;
+	double max_fscale, min_fscale;
+	int nval_fscale;
+	get_fscale(&min_fscale, &max_fscale, &nval_fscale);
 
     fr = ( (double)calc_data.freq_mhz - min_fscale ) / ( max_fscale - min_fscale );
     fr = fr * (double)rect->width + 0.5;
@@ -478,6 +493,7 @@ Draw_Graph(
           "Memory allocation for points failed"), ERR_OK );
     return;
   }
+
   for( idx = 0; idx < nval; idx++ )
   {
     //points[idx].x = rect->x + (int)((double)rect->width * (b[idx]-bmin) / rb + 0.5);
@@ -538,15 +554,21 @@ Plot_Graph_FR(
 
   get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
 
+	double max_fscale, min_fscale;
+	int nval_fscale;
+	get_fscale(&min_fscale, &max_fscale, &nval_fscale);
+
   /* Plot box rectangle */
   /*** Draw horizontal (freq) scale ***/
   Plot_Horizontal_Scale(
       cr,
       YELLOW,
-      layout_width+2,
+      //layout_width+2,
+	  plot_rect->x-2,
       plot_posn+plot_height-2 - layout_height,
       plot_rect->width,
-      max_fscale, min_fscale, nval_fscale );
+      54, 50, nval_fscale/3 );
+      //max_fscale, min_fscale, nval_fscale/3 );
 
 
   /* Draw plotting frame */
@@ -628,14 +650,6 @@ Plot_Graph(
     char *titles[], int nplt, int posn)
 {
 	GdkRectangle plot_rect;
-	/*
-	if (fr_idx >=  calc_data.FR_cards)
-	{
-		printf("Plot_Graph_FR: 0 <= fr_idx=%d < %d, aborting plot\n",
-			fr_idx, calc_data.FR_cards);
-		return;
-	}
-	*/
 
 	/* Available height for each graph.
 	* (np=number of graphs to be plotted) */
@@ -660,6 +674,11 @@ Plot_Graph(
 			width,
 			plot_height-8 - 2*layout_height );  // height
 
+		int plotmax = calc_data.freq_step - offset;
+
+		if (plotmax <= 0)
+			break;
+
 		Plot_Graph_FR(cr, 
 			(y_left != NULL ? y_left+offset : NULL),
 			(y_right != NULL ? y_right+offset : NULL), 
@@ -668,6 +687,9 @@ Plot_Graph(
 
 		// Next FR card index
 		offset += calc_data.freq_loop_data[fr].freq_steps;
+
+		if (offset > calc_data.freq_step)
+			break;
 	}
 
 
@@ -854,13 +876,9 @@ Plot_Frequency_Data( cairo_t *cr )
   }
 
   /* Fit frequency range to scale FIXME */
-  min_fscale  = (double)save.freq[0];
-  if( isFlagSet(FREQ_LOOP_RUNNING) )
-    max_fscale = (double)save.freq[calc_data.freq_step];
-  else
-    max_fscale = (double)save.freq[calc_data.last_step];
-  nval_fscale = freqplots_width / 75;
-  Fit_to_Scale( &max_fscale, &min_fscale, &nval_fscale );
+  double max_fscale, min_fscale;
+  int nval_fscale;
+  get_fscale(&min_fscale, &max_fscale, &nval_fscale);
 
   /* Graph position */
   posn = 0;
@@ -1187,6 +1205,11 @@ return;
 
   if( isFlagClear(FREQ_LOOP_DONE) )
     return;
+
+
+	double max_fscale, min_fscale;
+	int nval_fscale;
+	get_fscale(&min_fscale, &max_fscale, &nval_fscale);
 
   /* Width of plot bounding rectangle */
   //w = (double)plot_rect.width;
