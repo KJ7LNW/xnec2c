@@ -391,6 +391,59 @@ Plot_Vertical_Scale(
 
 /*-----------------------------------------------------------------------*/
 
+enum { JUSTIFY_LEFT, JUSTIFY_CENTER, JUSTIFY_RIGHT };
+
+/* draw_text:
+ * cr:      cairo object
+ * widget:  the widget being drawn on
+ * x:       the x position
+ * y:       the y position
+ * text:    the text to draw
+ * justify: JUSTIFY_LEFT, JUSTIFY_CENTER, or JUSTIFY_RIGHT
+ *          The justification calculates based the 'x' position. For example,
+ *          if you choose JUSTIFY_CENTER, then 'x' will be the center of the
+ *          text.
+ * r, g, b: text color
+ * width:   the text width (optional, may be NULL)
+ * height:  the text height (optional, may be NULL)
+ */
+void draw_text(cairo_t *cr, GtkWidget *widget, 
+	int x, int y,
+	char *text, int justify,
+	double r, double g, double b, 
+	int *width, int *height)
+{
+	PangoLayout *layout;
+	int w, h;
+
+	cairo_set_source_rgb( cr, r, g, b);
+	layout = gtk_widget_create_pango_layout(widget, text);
+
+	pango_layout_get_pixel_size( layout, &w, &h);
+	if (width != NULL)
+		*width = w;
+	
+	if (height != NULL)
+		*height = h;
+
+	switch (justify)
+	{
+		case JUSTIFY_LEFT:
+			cairo_move_to( cr, x, y );
+			break;
+
+		case JUSTIFY_RIGHT:
+			cairo_move_to( cr, x - w, y );
+			break;
+
+		case JUSTIFY_CENTER:
+			cairo_move_to( cr, x - w/2, y );
+			break;
+	}
+	pango_cairo_show_layout( cr, layout );
+	g_object_unref( layout );
+}
+
 /* Draw_Plotting_Frame()
  *
  * Draws a graph plotting frame, including
@@ -405,31 +458,8 @@ Draw_Plotting_Frame(
 {
   int idx, xpw, xps, yph, yps;
   PangoLayout *layout;
-  int width0, width1, width2, height; /* Layout size */
-
-  /* Draw titles (left scale, center and right scale) */
-  cairo_set_source_rgb( cr, MAGENTA );
-  layout = gtk_widget_create_pango_layout(freqplots_drawingarea, title[0] );
-  pango_layout_get_pixel_size( layout, &width0, &height );
-  cairo_move_to( cr, rect->x, rect->y );
-  pango_cairo_show_layout( cr, layout );
-
-  cairo_set_source_rgb( cr, CYAN );
-  pango_layout_set_text( layout, title[2], -1 );
-  pango_layout_get_pixel_size( layout, &width2, &height );
-  xpw = rect->x + rect->width - width2;
-  cairo_move_to( cr, xpw, rect->y );
-  pango_cairo_show_layout( cr, layout );
-
-  cairo_set_source_rgb( cr, YELLOW );
-  pango_layout_set_text( layout, title[1], -1 );
-  pango_layout_get_pixel_size( layout, &width1, &height );
-  xpw = rect->x + width0/2 + (rect->width-width1-width2)/2;
-  cairo_move_to( cr, xpw, rect->y );
-  pango_cairo_show_layout( cr, layout );
 
   /* Move to plot box and divisions */
-  rect->y += height;
   xpw = rect->x + rect->width;
   yph = rect->y + rect->height;
 
@@ -673,19 +703,21 @@ Plot_Graph(
 
 	plot_t plot;
 
-	int pad_y_px_above_scale, pad_y_scale_text, pad_y_title_text,
+	int pad_y_px_above_scale, pad_y_bottom_scale_text, pad_y_title_text,
 		pad_x_scale_text, pad_x_px_after_scale, pad_x_between_graphs;
 
-	int text_width, text_height;
-
-	pango_text_size(freqplots_drawingarea, &text_width, &text_height, "1234.5");
+	// Get the pixel size of the scale text on left and right of the
+	// graph.
+	pango_text_size(freqplots_drawingarea, 
+		&pad_x_scale_text,
+		&pad_y_bottom_scale_text, "1234.5");
 
 	// padding in pixels
 	pad_y_px_above_scale  =  8;
-	pad_y_scale_text   =  text_height;
-	pad_y_title_text   =  text_height;
 
-	pad_x_scale_text   = text_width;
+	// Title text is the same as the scale text:
+	pad_y_title_text   = pad_y_bottom_scale_text;
+
 	pad_x_px_after_scale = 30;
 	pad_x_between_graphs = 10;
 
@@ -693,12 +725,11 @@ Plot_Graph(
 	* (calc_data.ngraph is the number of graphs to be plotted) */
 	plot.plot_height = 
 		freqplots_height / calc_data.ngraph - (
+			pad_y_title_text +
 			pad_y_px_above_scale +
-			pad_y_scale_text +
-			pad_y_title_text
+			pad_y_bottom_scale_text
 		);
 
-	plot.plot_y_position   = (freqplots_height * (posn-1)) / calc_data.ngraph;
 
 	plot.plot_width = 
 		(freqplots_width - (
@@ -711,6 +742,32 @@ Plot_Graph(
 			(pad_x_between_graphs*(calc_data.FR_cards-1))
 		)) / calc_data.FR_cards;
 
+	/* Draw titles */
+	plot.plot_y_position   = (freqplots_height * (posn-1)) / calc_data.ngraph;
+	draw_text(cr, freqplots_drawingarea, 
+		0,
+		plot.plot_y_position,
+		titles[0], JUSTIFY_LEFT, MAGENTA,
+		NULL, NULL);
+
+	draw_text(cr, freqplots_drawingarea, 
+		freqplots_width/2,
+		plot.plot_y_position,
+		titles[1], JUSTIFY_CENTER, YELLOW,
+		NULL, NULL);
+
+	draw_text(cr, freqplots_drawingarea, 
+		freqplots_width,
+		plot.plot_y_position,
+		titles[2], JUSTIFY_RIGHT, CYAN,
+		NULL, NULL);
+
+	plot.plot_y_position += pad_y_title_text;
+
+	plot.plot_rect.y = plot.plot_y_position;    // y
+	plot.plot_rect.width = plot.plot_width;
+	plot.plot_rect.height = plot.plot_height;
+
 	int fr, offset = 0;
 	for (fr = 0; fr < calc_data.FR_cards; fr++)
 	{
@@ -722,20 +779,9 @@ Plot_Graph(
 			+ fr*pad_x_between_graphs;
 
 		printf("num-cards=%d fr=%d offset=%d x=%d\n", 
-			calc_data.FR_cards, fr, offset, text_width * fr/calc_data.FR_cards);
+			calc_data.FR_cards, fr, offset, pad_y_bottom_scale_text * fr/calc_data.FR_cards);
 
-		plot.plot_rect.x = plot.plot_x_position,    // x
-		plot.plot_rect.y = plot.plot_y_position,    // y
-		plot.plot_rect.width = plot.plot_width;
-		plot.plot_rect.height = plot.plot_height;
-
-		Set_Rectangle(
-			&plot_rect,
-			//(pad_x_scale_text)+(fr*width) + fr*graph_spacing, // x
-			plot.plot_x_position,    // y
-			plot.plot_y_position,    // y
-			plot.plot_width,
-			plot.plot_height);  // height
+		plot.plot_rect.x = plot.plot_x_position;    // x
 
 		int plotmax = calc_data.freq_step - offset;
 
@@ -746,7 +792,7 @@ Plot_Graph(
 			(y_left != NULL ? y_left+offset : NULL),
 			(y_right != NULL ? y_right+offset : NULL), 
 			x+offset, calc_data.freq_loop_data[fr].freq_steps,
-			titles, posn, &plot_rect);
+			titles, posn, &plot.plot_rect);
 
 		// Next FR card index
 		offset += calc_data.freq_loop_data[fr].freq_steps;
