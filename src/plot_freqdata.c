@@ -33,15 +33,35 @@
 /* Frequency scale max, min, num of values */
 //static double max_fscale, min_fscale;
 //static int nval_fscale;
+typedef struct {
+	// Pango Layout text height/width:
+	int text_width, text_height;
+
+	// Plot rectangle:
+	GdkRectangle plot_rect;
+
+	// Plot data:
+	double *y_left, *y_right, *x;
+	int num_x;
+
+	// The FR card being plotted:
+	freq_loop_data_t *FR;
+
+	// Plot position (0, 1, 2...) and height:
+	int nplots, plot_postion;
+	int plot_height;
+
+} plot_t;
 
 static void Fit_to_Scale( double *max, double *min, int *nval );
 
 /* helper function to get width and height by creating a layout */
-static void get_pixel_size(GtkWidget* widget, int *width, int *height)
+static void pango_text_size(GtkWidget* widget, int *width, int *height, char *s)
 {
 	PangoLayout *layout = NULL;
-    layout = gtk_widget_create_pango_layout(freqplots_drawingarea, "000000" );
+    layout = gtk_widget_create_pango_layout(freqplots_drawingarea, s);
     pango_layout_get_pixel_size( layout, width, height);
+	printf("pango_text_size: width=%d, height=%d\n", *width, *height);
     g_object_unref( layout );
 }
 
@@ -497,7 +517,7 @@ Draw_Graph(
   for( idx = 0; idx < nval; idx++ )
   {
     //points[idx].x = rect->x + (int)((double)rect->width * (b[idx]-bmin) / rb + 0.5);
-    points[idx].x = rect->x + (int)((double)rect->width * idx/nval + 0.5);
+    points[idx].x = rect->x + (int)((double)rect->width * idx/(nval-1) + 0.5);
     points[idx].y = rect->y + (int)( (double)rect->height *
         (amax-a[idx]) / ra + 0.5 );
 
@@ -552,7 +572,7 @@ Plot_Graph_FR(
   /* Pango layout size */
   static int layout_width, layout_height;
 
-  get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
+  pango_text_size(freqplots_drawingarea, &layout_width, &layout_height, "000000");
 
 	double max_fscale, min_fscale;
 	int nval_fscale;
@@ -651,16 +671,20 @@ Plot_Graph(
 {
 	GdkRectangle plot_rect;
 
+	plot_t plot;
+
 	/* Available height for each graph.
 	* (np=number of graphs to be plotted) */
 	int plot_height = freqplots_height/nplt;
 	int plot_posn   = (freqplots_height * (posn-1))/nplt;
 
 	int layout_width, layout_height;
-	get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
+	pango_text_size(freqplots_drawingarea, &layout_width, &layout_height, "1234.5");
 
 	int fr, offset = 0;
 	int width = (freqplots_width-8 - 2*layout_width) / calc_data.FR_cards;
+	int graph_spacing = 10;
+	width -= (graph_spacing*(calc_data.FR_cards-1))/(calc_data.FR_cards);
 
 	for (fr = 0; fr < calc_data.FR_cards; fr++)
 	{
@@ -669,8 +693,8 @@ Plot_Graph(
 
 		Set_Rectangle(
 			&plot_rect,
-			(layout_width+4)+(fr*width), // x
-			plot_posn+2,    // y
+			(layout_width)+(fr*width) + fr*graph_spacing, // x
+			plot_posn,    // y
 			width,
 			plot_height-8 - 2*layout_height );  // height
 
@@ -726,9 +750,9 @@ Plot_Graph_Smith(
   GdkRectangle plot_rect;
 
   /* Pango layout size */
-  static int layout_width, layout_height;
+  static int layout_width, layout_height, width1, height;
 
-  get_pixel_size(freqplots_drawingarea, &layout_width, &layout_height);
+  pango_text_size(freqplots_drawingarea, &layout_width, &layout_height, "000000");
 
   /* Available height for each graph.
    * (np=number of graphs to be plotted) */
@@ -742,9 +766,10 @@ Plot_Graph_Smith(
       plot_height - 8 - 2 * layout_height );
 
   cairo_set_source_rgb( cr, YELLOW );
-  xpw = plot_rect.x + ( plot_rect.width - layout_width ) / 2;
+  pango_text_size(freqplots_drawingarea, &width1, &height, _("Smith Chart") );
+  xpw = plot_rect.x + ( plot_rect.width - width1 ) / 2;
   cairo_move_to( cr, xpw, plot_rect.y );
-  plot_rect.y += layout_height;
+  plot_rect.y += height;
 
   x0 = plot_rect.x + plot_rect.width  / 2;
   y0 = plot_rect.y + plot_rect.height / 2;
