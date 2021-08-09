@@ -48,8 +48,8 @@ typedef struct {
 	freq_loop_data_t *FR;
 
 	// Plot position (0, 1, 2...) and height:
-	int nplots, plot_postion;
-	int plot_height;
+	int nplots, plot_x_position, plot_y_position;
+	int plot_width, plot_height;
 
 } plot_t;
 
@@ -558,14 +558,14 @@ Draw_Graph(
 Plot_Graph_FR(
     cairo_t *cr,
     double *y_left, double *y_right, double *x, int nx,
-    char *titles[], int nplt, int posn, GdkRectangle *plot_rect)
+    char *titles[], int posn, GdkRectangle *plot_rect)
 {
   double max_y_left, min_y_left, max_y_right, min_y_right;
   int idx;
 
   // duplicated in Plot_Graph:
-  int plot_height = freqplots_height/nplt;
-  int plot_posn   = (freqplots_height * (posn-1))/nplt;
+	int plot_height = freqplots_height / calc_data.ngraph;
+	int plot_y_position   = (freqplots_height * (posn-1)) / calc_data.ngraph;
 
   int nval = plot_height / 50;
 
@@ -585,7 +585,7 @@ Plot_Graph_FR(
       YELLOW,
       //layout_width+2,
 	  plot_rect->x-2,
-      plot_posn+plot_height-2 - layout_height,
+      plot_y_position+plot_height-2 - layout_height,
       plot_rect->width,
       54, 50, nval_fscale/3 );
       //max_fscale, min_fscale, nval_fscale/3 );
@@ -613,7 +613,7 @@ Plot_Graph_FR(
   Plot_Vertical_Scale(
       cr,
       MAGENTA,
-      2, plot_posn+2,
+		  2, plot_y_position+2,
 		  plot_rect->height,
 		  max_y_left, min_y_left, nval );
 
@@ -647,7 +647,7 @@ Plot_Graph_FR(
 	  Plot_Vertical_Scale(
 		  cr,
 		  CYAN,
-		  freqplots_width-2 - layout_width, plot_posn+2,
+		  freqplots_width-2 - layout_width, plot_y_position+2,
 		  plot_rect->height,
 		  max_y_right, min_y_right, nval );
 
@@ -667,36 +667,75 @@ Plot_Graph_FR(
 Plot_Graph(
     cairo_t *cr,
     double *y_left, double *y_right, double *x, int nx,
-    char *titles[], int nplt, int posn)
+    char *titles[], int posn)
 {
 	GdkRectangle plot_rect;
 
 	plot_t plot;
 
-	/* Available height for each graph.
-	* (np=number of graphs to be plotted) */
-	int plot_height = freqplots_height/nplt;
-	int plot_posn   = (freqplots_height * (posn-1))/nplt;
+	int pad_y_px_above_scale, pad_y_scale_text, pad_y_title_text,
+		pad_x_scale_text, pad_x_px_after_scale, pad_x_between_graphs;
 
-	int layout_width, layout_height;
-	pango_text_size(freqplots_drawingarea, &layout_width, &layout_height, "1234.5");
+	int text_width, text_height;
+
+	pango_text_size(freqplots_drawingarea, &text_width, &text_height, "1234.5");
+
+	// padding in pixels
+	pad_y_px_above_scale  =  8;
+	pad_y_scale_text   =  text_height;
+	pad_y_title_text   =  text_height;
+
+	pad_x_scale_text   = text_width;
+	pad_x_px_after_scale = 30;
+	pad_x_between_graphs = 10;
+
+	/* Available height for each graph.
+	* (calc_data.ngraph is the number of graphs to be plotted) */
+	plot.plot_height = 
+		freqplots_height / calc_data.ngraph - (
+			pad_y_px_above_scale +
+			pad_y_scale_text +
+			pad_y_title_text
+		);
+
+	plot.plot_y_position   = (freqplots_height * (posn-1)) / calc_data.ngraph;
+
+	plot.plot_width = 
+		(freqplots_width - (
+			// one for each side
+			2*pad_x_scale_text +
+			2*pad_x_px_after_scale +
+
+			// One less space between graphs than there
+			// are graphs:
+			(pad_x_between_graphs*(calc_data.FR_cards-1))
+		)) / calc_data.FR_cards;
 
 	int fr, offset = 0;
-	int width = (freqplots_width-8 - 2*layout_width) / calc_data.FR_cards;
-	int graph_spacing = 10;
-	width -= (graph_spacing*(calc_data.FR_cards-1))/(calc_data.FR_cards);
-
 	for (fr = 0; fr < calc_data.FR_cards; fr++)
 	{
+		// Position adjustments from left to right:
+		plot.plot_x_position =
+			pad_x_scale_text
+			+ pad_x_px_after_scale
+			+ fr*plot.plot_width 
+			+ fr*pad_x_between_graphs;
+
 		printf("num-cards=%d fr=%d offset=%d x=%d\n", 
-			calc_data.FR_cards, fr, offset, layout_width * fr/calc_data.FR_cards);
+			calc_data.FR_cards, fr, offset, text_width * fr/calc_data.FR_cards);
+
+		plot.plot_rect.x = plot.plot_x_position,    // x
+		plot.plot_rect.y = plot.plot_y_position,    // y
+		plot.plot_rect.width = plot.plot_width;
+		plot.plot_rect.height = plot.plot_height;
 
 		Set_Rectangle(
 			&plot_rect,
-			(layout_width)+(fr*width) + fr*graph_spacing, // x
-			plot_posn,    // y
-			width,
-			plot_height-8 - 2*layout_height );  // height
+			//(pad_x_scale_text)+(fr*width) + fr*graph_spacing, // x
+			plot.plot_x_position,    // y
+			plot.plot_y_position,    // y
+			plot.plot_width,
+			plot.plot_height);  // height
 
 		int plotmax = calc_data.freq_step - offset;
 
@@ -707,7 +746,7 @@ Plot_Graph(
 			(y_left != NULL ? y_left+offset : NULL),
 			(y_right != NULL ? y_right+offset : NULL), 
 			x+offset, calc_data.freq_loop_data[fr].freq_steps,
-			titles, nplt, posn, &plot_rect);
+			titles, posn, &plot_rect);
 
 		// Next FR card index
 		offset += calc_data.freq_loop_data[fr].freq_steps;
@@ -739,9 +778,9 @@ Calculate_Smith( double zr, double zi, double z0, double *re, double *im )
 Plot_Graph_Smith(
     cairo_t *cr,
     double *fa, double *fb, double *fc,
-    int nc, int nplt, int posn )
+    int nc, int posn )
 {
-  int plot_height, plot_posn;
+  int plot_height, plot_y_position;
   int idx;
   GdkPoint *points = NULL;
   int scale, x0, y0, x, y, xpw;
@@ -756,12 +795,12 @@ Plot_Graph_Smith(
 
   /* Available height for each graph.
    * (np=number of graphs to be plotted) */
-  plot_height = freqplots_height / nplt;
-  plot_posn   = ( freqplots_height * (posn - 1) ) / nplt;
+  plot_height = freqplots_height / calc_data.ngraph;
+  plot_y_position   = ( freqplots_height * (posn - 1) ) / calc_data.ngraph;
 
   /* Plot box rectangle */
   Set_Rectangle( &plot_rect,
-      layout_width + 4, plot_posn + 2,
+	  layout_width + 4, plot_y_position + 2,
       freqplots_width - 8 - 2 * layout_width,
       plot_height - 8 - 2 * layout_height );
 
@@ -1018,7 +1057,7 @@ Plot_Frequency_Data( cairo_t *cr )
 			  gmax, netgain,
 			  save.freq,
 			  fstep,
-              titles, calc_data.ngraph, ++posn );
+              titles, ++posn );
       }
       else
       {
@@ -1026,7 +1065,7 @@ Plot_Frequency_Data( cairo_t *cr )
         titles[2] = "        ";
         if( fstep > 1 )
           Plot_Graph( cr, gmax, NULL, save.freq, fstep,
-              titles, calc_data.ngraph, ++posn );
+              titles, ++posn );
       }
     }
     else
@@ -1037,7 +1076,7 @@ Plot_Frequency_Data( cairo_t *cr )
       titles[2] = _("F/B Ratio db");
       if( fstep > 1 )
         Plot_Graph( cr, gmax, fbratio, save.freq, fstep,
-            titles, calc_data.ngraph, ++posn );
+            titles, ++posn );
     }
 
     /* Plot max gain direction if enabled */
@@ -1049,7 +1088,7 @@ Plot_Frequency_Data( cairo_t *cr )
       titles[2] = _("Phi - deg");
       if( fstep > 1 )
         Plot_Graph( cr, gdir_tht, gdir_phi, save.freq, fstep,
-            titles, calc_data.ngraph, ++posn );
+            titles, ++posn );
     }
 
   } /* if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) ) */
@@ -1088,14 +1127,14 @@ Plot_Frequency_Data( cairo_t *cr )
       titles[2] = _("Net gain dbi");
       if( fstep > 1 )
         Plot_Graph( cr, vgain, netgain, save.freq, fstep,
-            titles, calc_data.ngraph, ++posn );
+            titles, ++posn );
     } /* if( isFlagSet(PLOT_NETGAIN) ) */
     else
     {
       titles[2] = "        ";
       if( fstep > 1 )
         Plot_Graph( cr, vgain, NULL, save.freq, fstep,
-            titles, calc_data.ngraph, ++posn );
+            titles, ++posn );
     }
   } /* isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) */
 
@@ -1136,7 +1175,7 @@ Plot_Frequency_Data( cairo_t *cr )
     titles[2] = "        ";
     if( fstep > 1 )
       Plot_Graph( cr, vswr, NULL, save.freq, fstep,
-          titles, calc_data.ngraph, ++posn );
+          titles, ++posn );
 
     free_ptr( (void **)&vswr );
   } /* if( isFlagSet(PLOT_VSWR) ) */
@@ -1151,7 +1190,7 @@ Plot_Frequency_Data( cairo_t *cr )
     if( fstep > 1 )
       Plot_Graph( cr,
           impedance_data.zreal, impedance_data.zimag, save.freq,
-          fstep, titles, calc_data.ngraph, ++posn );
+          fstep, titles, ++posn );
 
   } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
 
@@ -1164,7 +1203,7 @@ Plot_Frequency_Data( cairo_t *cr )
     titles[2] = _("Z-phase");
     if( fstep > 1 )
       Plot_Graph( cr, impedance_data.zmagn, impedance_data.zphase,
-          save.freq, fstep, titles, calc_data.ngraph, ++posn );
+          save.freq, fstep, titles, ++posn );
 
   } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
 
@@ -1174,7 +1213,7 @@ Plot_Frequency_Data( cairo_t *cr )
     if( fstep > 1 )
       Plot_Graph_Smith( cr,
           impedance_data.zreal, impedance_data.zimag, save.freq,
-          fstep, calc_data.ngraph, ++posn );
+		  fstep, ++posn );
 
   } /* if( isFlagSet(PLOT_SMITH) ) */
 
