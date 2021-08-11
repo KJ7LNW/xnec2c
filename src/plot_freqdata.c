@@ -76,6 +76,90 @@ void get_fscale(double *min_fscale, double *max_fscale, int *nval_fscale)
   Fit_to_Scale(max_fscale, min_fscale, nval_fscale);
 }
 
+/* draw_text:
+ * cr:      cairo object
+ * widget:  the widget being drawn on
+ * x:       the x position
+ * y:       the y position
+ * text:    the text to draw
+ * justify: JUSTIFY_LEFT, JUSTIFY_CENTER, or JUSTIFY_RIGHT
+ *          The justification calculates based the 'x' position. For example,
+ *          if you choose JUSTIFY_CENTER, then 'x' will be the center of the
+ *          text.
+ * r, g, b: text color
+ * width:   the text width (optional, may be NULL)
+ * height:  the text height (optional, may be NULL)
+ */
+
+enum { 
+	// Horizontal:
+	JUSTIFY_LEFT    =  0,
+	JUSTIFY_CENTER  =  1,
+	JUSTIFY_RIGHT   =  2,
+	JUSTIFY_HMASK   =  0x03,
+
+	// Vertical:
+	JUSTIFY_BELOW   =  0,     // Draw the text below the y coordinate
+	JUSTIFY_MIDDLE  =  1<<2,  // Draw the text centered at the y coordinate
+	JUSTIFY_ABOVE   =  2<<2,  // Draw the text above the y coordinate
+	JUSTIFY_VMASK   =  0x0c
+};
+
+void draw_text(cairo_t *cr, GtkWidget *widget, 
+	int x, int y,
+	char *text, int justify,
+	double r, double g, double b, 
+	int *width, int *height)
+{
+	PangoLayout *layout;
+	int w, h;
+
+	cairo_set_source_rgb( cr, r, g, b);
+	layout = gtk_widget_create_pango_layout(widget, text);
+
+	pango_layout_get_pixel_size( layout, &w, &h);
+	if (width != NULL)
+		*width = w;
+	
+	if (height != NULL)
+		*height = h;
+
+	switch (justify & JUSTIFY_HMASK)
+	{
+		case JUSTIFY_RIGHT:
+			x -= w;
+			break;
+
+		case JUSTIFY_CENTER:
+			x -= w/2;
+			break;
+
+		case JUSTIFY_LEFT:
+		default:
+			break;
+	}
+
+	switch (justify & JUSTIFY_VMASK)
+	{
+		case JUSTIFY_ABOVE:
+			y -= h;
+			break;
+
+		case JUSTIFY_MIDDLE:
+			y -= h/2;
+			break;
+
+		case JUSTIFY_BELOW:
+		default:
+			break;
+	}
+
+	cairo_move_to( cr, x, y );
+
+	pango_cairo_show_layout( cr, layout );
+	g_object_unref( layout );
+}
+
 /*-----------------------------------------------------------------------*/
 
 /* Display_Frequency_Data()
@@ -263,7 +347,7 @@ Set_Rectangle( GdkRectangle *rect, int x, int y, int w, int h )
   static void
 Plot_Horizontal_Scale(
     cairo_t *cr,
-    double red, double grn, double blu,
+    double r, double g, double b,
     int x, int y, int width,
     double max, double min,
     int nval )
@@ -277,9 +361,6 @@ Plot_Horizontal_Scale(
   /* Abort if not enough values to plot */
   if( nval <= 1 ) return;
 
-  /* Cairo context */
-  cairo_set_source_rgb( cr, red, grn, blu );
-
   /* Calculate step between scale values */
   hstep = (max - min) / (nval - 1);
 
@@ -289,24 +370,23 @@ Plot_Horizontal_Scale(
   order = (int)ord;
   if( order > 0 )  order = 0;
   if( order < -9 ) order = -9;
-  snprintf( format, 7, "%%6.%df", 1-order );
-
-  /* Create a pango layout */
-  layout = gtk_widget_create_pango_layout(
-      freqplots_drawingarea, "1234.5" );
-
-  pango_layout_get_pixel_size( layout, &pl_width, &pl_height);
+  snprintf( format, 7, "%%.%df", 1-order );
 
   /* Draw horizontal scale values */
-  /* Align with plot box */
-  x -= pl_width/2;
   for( idx = 0; idx < nval; idx++ )
   {
-    xps = x + (idx * width) / (nval-1);
+		int justify = JUSTIFY_CENTER;
+		if (idx == 0) justify = JUSTIFY_LEFT;
+		if (idx == nval-1) justify = JUSTIFY_RIGHT;
+
     snprintf( value, sizeof(value), (const char *)format, min );
-    pango_layout_set_text( layout, value, -1 );
-    cairo_move_to( cr, xps, y );
-    pango_cairo_show_layout( cr, layout );
+		draw_text(cr, freqplots_drawingarea,
+			x + (idx * width) / (nval-1),
+			y,
+			value, justify,
+			r, g, b, 
+			NULL, NULL);
+
     min += hstep;
   }
 
@@ -337,11 +417,7 @@ Plot_Vertical_Scale(
   int pl_width, pl_height; /* Layout size */
 
   /* Abort if not enough values to plot */
-  printf("Plot_Vertical_Scale: nval=%d\n", nval);
   if( nval <= 1 ) return;
-
-  /* Cairo context */
-  cairo_set_source_rgb( cr, red, grn, blu );
 
   /* Calculate step between scale values */
   vstep = (max-min) / (double)(nval-1);
@@ -366,22 +442,20 @@ Plot_Vertical_Scale(
   order = ( max_order > min_order ? max_order : min_order );
   if( order > 3 ) order = 3;
   if( order < 0 ) order = 0;
-  snprintf( format, 6, "%%6.%df", (3-order) );
-
-  /* Create a pango layout */
-  layout = gtk_widget_create_pango_layout(freqplots_drawingarea, "X");
-  pango_layout_get_pixel_size( layout, &pl_width, &pl_height);
+  snprintf( format, 6, "%%.%df", (3-order) );
 
   /* Draw vertical scale values */
-  /* Align with plot box */
-  y += pl_height/4;
   for( idx = 0; idx < nval; idx++ )
   {
     yps = y + (idx * height) / (nval-1);
     snprintf( value, 16, (const char *)format, max );
-    pango_layout_set_text( layout, value, -1 );
-    cairo_move_to( cr, x, yps );
-    pango_cairo_show_layout( cr, layout );
+
+	// Algin the first value to the top to keep from overlapping the title
+	// but otherwise center on the scale line.
+	draw_text(cr, freqplots_drawingarea,
+		x, yps,
+		value, JUSTIFY_RIGHT | JUSTIFY_MIDDLE,
+		red, grn, blu, NULL, NULL);
     max -= vstep;
   }
 
@@ -391,58 +465,6 @@ Plot_Vertical_Scale(
 
 /*-----------------------------------------------------------------------*/
 
-enum { JUSTIFY_LEFT, JUSTIFY_CENTER, JUSTIFY_RIGHT };
-
-/* draw_text:
- * cr:      cairo object
- * widget:  the widget being drawn on
- * x:       the x position
- * y:       the y position
- * text:    the text to draw
- * justify: JUSTIFY_LEFT, JUSTIFY_CENTER, or JUSTIFY_RIGHT
- *          The justification calculates based the 'x' position. For example,
- *          if you choose JUSTIFY_CENTER, then 'x' will be the center of the
- *          text.
- * r, g, b: text color
- * width:   the text width (optional, may be NULL)
- * height:  the text height (optional, may be NULL)
- */
-void draw_text(cairo_t *cr, GtkWidget *widget, 
-	int x, int y,
-	char *text, int justify,
-	double r, double g, double b, 
-	int *width, int *height)
-{
-	PangoLayout *layout;
-	int w, h;
-
-	cairo_set_source_rgb( cr, r, g, b);
-	layout = gtk_widget_create_pango_layout(widget, text);
-
-	pango_layout_get_pixel_size( layout, &w, &h);
-	if (width != NULL)
-		*width = w;
-	
-	if (height != NULL)
-		*height = h;
-
-	switch (justify)
-	{
-		case JUSTIFY_LEFT:
-			cairo_move_to( cr, x, y );
-			break;
-
-		case JUSTIFY_RIGHT:
-			cairo_move_to( cr, x - w, y );
-			break;
-
-		case JUSTIFY_CENTER:
-			cairo_move_to( cr, x - w/2, y );
-			break;
-	}
-	pango_cairo_show_layout( cr, layout );
-	g_object_unref( layout );
-}
 
 /* Draw_Plotting_Frame()
  *
@@ -457,7 +479,6 @@ Draw_Plotting_Frame(
     int nhor, int nvert )
 {
   int idx, xpw, xps, yph, yps;
-  PangoLayout *layout;
 
   /* Move to plot box and divisions */
   xpw = rect->x + rect->width;
@@ -500,9 +521,6 @@ Draw_Plotting_Frame(
     cairo_set_source_rgb( cr, GREEN );
     Cairo_Draw_Line( cr, rect->x+(int)fr, rect->y, rect->x+(int)fr, yph );
   }
-
-  g_object_unref( layout );
-
 } /* Draw_Plotting_Frame() */
 
 /*-----------------------------------------------------------------------*/
@@ -521,7 +539,7 @@ Draw_Graph(
     double bmax, double bmin,
     int nval, int side )
 {
-  double ra, rb;
+  double ra;
   int idx;
   GdkPoint *points = NULL, polygn[4];
 
@@ -530,7 +548,6 @@ Draw_Graph(
 
   /* Range of values to plot */
   ra = amax - amin;
-  rb = bmax - bmin;
 
   /* Calculate points to plot */
   mem_alloc( (void **) &points, (size_t)calc_data.steps_total * sizeof(GdkPoint),
@@ -546,7 +563,6 @@ Draw_Graph(
 
   for( idx = 0; idx < nval; idx++ )
   {
-    //points[idx].x = rect->x + (int)((double)rect->width * (b[idx]-bmin) / rb + 0.5);
     points[idx].x = rect->x + (int)((double)rect->width * idx/(nval-1) + 0.5);
     points[idx].y = rect->y + (int)( (double)rect->height *
         (amax-a[idx]) / ra + 0.5 );
@@ -610,6 +626,7 @@ Plot_Graph_FR(
 
   /* Plot box rectangle */
   /*** Draw horizontal (freq) scale ***/
+/*
   Plot_Horizontal_Scale(
       cr,
       YELLOW,
@@ -617,13 +634,14 @@ Plot_Graph_FR(
 	  plot_rect->x-2,
       plot_y_position+plot_height-2 - layout_height,
       plot_rect->width,
-      54, 50, nval_fscale/3 );
+      54, 50, nval_fscale/3 ); // this '3' should be number
       //max_fscale, min_fscale, nval_fscale/3 );
+	 */
 
 
   /* Draw plotting frame */
-  Draw_Plotting_Frame( cr, titles, plot_rect, nval, nval_fscale );
-
+  //Draw_Plotting_Frame( cr, titles, plot_rect, nval, nval_fscale );
+return;
   if (y_left != NULL)
   {
   /* Find max and min of y_left */
@@ -638,14 +656,6 @@ Plot_Graph_FR(
 
   /* Fit ranges to common scale */
 	  Fit_to_Scale(&max_y_left, &min_y_left, &nval);
-
-  /* Draw left scale */
-  Plot_Vertical_Scale(
-      cr,
-      MAGENTA,
-		  2, plot_y_position+2,
-		  plot_rect->height,
-		  max_y_left, min_y_left, nval );
 
   /* Draw graph */
   Draw_Graph(
@@ -673,14 +683,6 @@ Plot_Graph_FR(
 	  /* Fit ranges to common scale */
 	  Fit_to_Scale(&max_y_right, &min_y_right, &nval);
 
-	  /* Draw right scale */
-	  Plot_Vertical_Scale(
-		  cr,
-		  CYAN,
-		  freqplots_width-2 - layout_width, plot_y_position+2,
-		  plot_rect->height,
-		  max_y_right, min_y_right, nval );
-
   /* Draw graph */
   Draw_Graph(
       cr,
@@ -699,12 +701,29 @@ Plot_Graph(
     double *y_left, double *y_right, double *x, int nx,
     char *titles[], int posn)
 {
-	GdkRectangle plot_rect;
-
 	plot_t plot;
 
 	int pad_y_px_above_scale, pad_y_bottom_scale_text, pad_y_title_text,
 		pad_x_scale_text, pad_x_px_after_scale, pad_x_between_graphs;
+
+	int px_per_vert_scale, px_per_horiz_scale,
+		n_vert_scale, n_vert_scale_left, n_vert_scale_right,
+		n_horiz_scale;
+
+	// Configurable pad values:
+
+	// Number of pixels below the graph above the horizontal scale values:
+	pad_y_px_above_scale  =  8;
+
+	// Number of pixels to the right (and left) of the vertical scale on each side:
+	pad_x_px_after_scale = 8;
+
+	// Number of pixels between each FR card graph:
+	pad_x_between_graphs = 10;
+
+	// Show a vertical or horizontal scale line every N pixels
+	px_per_vert_scale = 50;
+	px_per_horiz_scale = 75;
 
 	// Get the pixel size of the scale text on left and right of the
 	// graph.
@@ -712,14 +731,11 @@ Plot_Graph(
 		&pad_x_scale_text,
 		&pad_y_bottom_scale_text, "1234.5");
 
-	// padding in pixels
-	pad_y_px_above_scale  =  8;
 
-	// Title text is the same as the scale text:
+	// Title text is the same as the scale text, but change this
+	// if the title font ever changes!
 	pad_y_title_text   = pad_y_bottom_scale_text;
 
-	pad_x_px_after_scale = 30;
-	pad_x_between_graphs = 10;
 
 	/* Available height for each graph.
 	* (calc_data.ngraph is the number of graphs to be plotted) */
@@ -745,7 +761,7 @@ Plot_Graph(
 	/* Draw titles */
 	plot.plot_y_position   = (freqplots_height * (posn-1)) / calc_data.ngraph;
 	draw_text(cr, freqplots_drawingarea, 
-		0,
+		pad_x_scale_text+pad_x_px_after_scale,
 		plot.plot_y_position,
 		titles[0], JUSTIFY_LEFT, MAGENTA,
 		NULL, NULL);
@@ -757,17 +773,95 @@ Plot_Graph(
 		NULL, NULL);
 
 	draw_text(cr, freqplots_drawingarea, 
-		freqplots_width,
+		freqplots_width - (pad_x_scale_text+pad_x_px_after_scale),
 		plot.plot_y_position,
 		titles[2], JUSTIFY_RIGHT, CYAN,
 		NULL, NULL);
 
+	// Increase the y position to account for the title text size:
 	plot.plot_y_position += pad_y_title_text;
 
+	// FIXME: This shouldn't be necessary, replace the plot.* with plot.plot_rect.*
+	// where necessary:
 	plot.plot_rect.y = plot.plot_y_position;    // y
 	plot.plot_rect.width = plot.plot_width;
 	plot.plot_rect.height = plot.plot_height;
 
+	int i; 
+	double max_y_left, min_y_left, max_y_right, min_y_right;
+
+	// Scales start at the same value, may be modified below.
+	n_vert_scale = plot.plot_rect.height / px_per_vert_scale;
+	n_vert_scale_left = n_vert_scale;
+	n_vert_scale_right = n_vert_scale;
+
+	n_horiz_scale = plot.plot_rect.width / px_per_horiz_scale;
+
+	// Set min/max_y_left and nval for left and right:
+	if (y_left != NULL)
+	{
+		//y_left[0] = 1; // deleteme
+
+		max_y_left = min_y_left = y_left[0];
+
+		//printf("nx=%d\n", nx);
+		//nx = nx > 10 ? 10 : nx;// delteme
+		for( i = 1; i < nx; i++ )
+		{
+			//y_left[i] = i+1;// delteme
+
+			if( max_y_left < y_left[i] )
+				max_y_left = y_left[i];
+			if( min_y_left > y_left[i] )
+				min_y_left = y_left[i];
+
+		}
+
+		Fit_to_Scale(&max_y_left, &min_y_left, &n_vert_scale_left);
+		//n_vert_scale=10; // FIXME: Why does Fit_to_Scale set this?
+
+		Plot_Vertical_Scale(
+			cr,
+			MAGENTA,
+			pad_x_scale_text, plot.plot_rect.y,
+			plot.plot_rect.height,
+			max_y_left, min_y_left, n_vert_scale_left);
+	}
+
+	if (y_right != NULL)
+	{
+		//y_right[0] = 1; // deleteme
+
+		max_y_right = min_y_right = y_right[0];
+
+		//printf("nx=%d\n", nx);
+		//nx = nx > 10 ? 10 : nx;// delteme
+		for( i = 1; i < nx; i++ )
+		{
+			//y_right[i] = i+1;// delteme
+
+			if( max_y_right < y_right[i] )
+				max_y_right = y_right[i];
+			if( min_y_right > y_right[i] )
+				min_y_right = y_right[i];
+
+		}
+
+		Fit_to_Scale(&max_y_right, &min_y_right, &n_vert_scale_right);
+		//n_vert_scale=10; // FIXME: Why does Fit_to_Scale set this?
+
+		Plot_Vertical_Scale(
+			cr,
+			CYAN,
+			freqplots_width,
+			plot.plot_rect.y,
+			plot.plot_rect.height,
+			max_y_right, min_y_right, n_vert_scale_right);
+	}
+
+
+
+	// Plot FR cards:
 	int fr, offset = 0;
 	for (fr = 0; fr < calc_data.FR_cards; fr++)
 	{
@@ -778,27 +872,83 @@ Plot_Graph(
 			+ fr*plot.plot_width 
 			+ fr*pad_x_between_graphs;
 
-		printf("num-cards=%d fr=%d offset=%d x=%d\n", 
-			calc_data.FR_cards, fr, offset, pad_y_bottom_scale_text * fr/calc_data.FR_cards);
-
 		plot.plot_rect.x = plot.plot_x_position;    // x
 
-		int plotmax = calc_data.freq_step - offset;
-
-		if (plotmax <= 0)
+		// Offset is the offset into the value arrays: 
+		// Break if there are no more values to plot because
+		// it has plotted all of them or the values are still
+		// being calculated:
+		if (calc_data.freq_step - offset <= 0)
 			break;
 
+		/* Draw plotting frame */
+		double max_fscale, min_fscale;
+		int nval_fscale;
+
+		min_fscale = calc_data.freq_loop_data[fr].min_freq;
+		max_fscale = calc_data.freq_loop_data[fr].max_freq;
+		nval_fscale = calc_data.freq_loop_data[fr].freq_steps;
+
+		Fit_to_Scale(&max_fscale, &min_fscale, &nval_fscale);
+
+		Draw_Plotting_Frame( cr, titles,
+			&plot.plot_rect, n_horiz_scale, nval_fscale);
+
+
+		Plot_Horizontal_Scale(
+			cr,
+			YELLOW,
+			plot.plot_rect.x-2,
+			plot.plot_rect.y + plot.plot_rect.height,
+			plot.plot_rect.width,
+			max_fscale, min_fscale, calc_data.freq_loop_data[fr].freq_steps );
+			//max_fscale, min_fscale, nval_fscale/3 );
+
+/*
 		Plot_Graph_FR(cr, 
 			(y_left != NULL ? y_left+offset : NULL),
 			(y_right != NULL ? y_right+offset : NULL), 
 			x+offset, calc_data.freq_loop_data[fr].freq_steps,
 			titles, posn, &plot.plot_rect);
+*/
+
+		if (y_left != NULL)
+		{
+			/* Draw graph */
+			Draw_Graph(
+				cr,
+				MAGENTA,
+				&plot.plot_rect,
+				y_left+offset, x+offset,
+				max_y_left, min_y_left,
+				max_fscale, min_fscale,
+				calc_data.freq_loop_data[fr].freq_steps,
+				LEFT );
+		}
+
+		if (y_right != NULL)
+		{
+			/* Draw graph */
+			Draw_Graph(
+				cr,
+				CYAN,
+				&plot.plot_rect,
+				y_right+offset, x+offset,
+				max_y_right, min_y_right,
+				max_fscale, min_fscale,
+				calc_data.freq_loop_data[fr].freq_steps,
+				RIGHT);
+		}
 
 		// Next FR card index
 		offset += calc_data.freq_loop_data[fr].freq_steps;
 
 		if (offset > calc_data.freq_step)
+		{
+			printf("warn: offset > calc_data.freq_step\n");
 			break;
+	}
+
 	}
 
 
