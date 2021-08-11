@@ -33,26 +33,6 @@
 /* Frequency scale max, min, num of values */
 //static double max_fscale, min_fscale;
 //static int nval_fscale;
-typedef struct {
-	// Pango Layout text height/width:
-	int text_width, text_height;
-
-	// Plot rectangle:
-	GdkRectangle plot_rect;
-
-	// Plot data:
-	double *y_left, *y_right, *x;
-	int num_x;
-
-	// The FR card being plotted:
-	freq_loop_data_t *FR;
-
-	// Plot position (0, 1, 2...) and height:
-	int nplots, plot_x_position, plot_y_position;
-	int plot_width, plot_height;
-
-} plot_t;
-
 static void Fit_to_Scale( double *max, double *min, int *nval );
 
 /* helper function to get width and height by creating a layout */
@@ -267,7 +247,7 @@ New_Max_Min( double *max, double *min, double sval, int *nval )
  * sub-division values are easier to interpolate between.
  * The chosen scale values are 10, 10/2, 10/4, 10/5 and 1.
  */
-static void Fit_to_Scale( double *max, double *min, int *nval )
+static Fit_to_Scale( double *max, double *min, int *nval )
 {
   /* Acceptable scale values (10/10, 10/5, 10/4, 10/2) */
   /* Intermediate values are geometric mean of pairs */
@@ -321,21 +301,153 @@ static void Fit_to_Scale( double *max, double *min, int *nval )
   /* Recalculate new max and min value */
   New_Max_Min( max, min, subdiv_val, nval );
 
+  return subdiv_order;
 } /* Fit_to_Scale() */
 
-
-/* Set_Rectangle()
+/* Fit_to_Scale2()
  *
- * Sets the parameters of a GdkRectangle
+ * Adjust the max and min value of data to be plotted,
+ * as well as the number of scale sub-divisions, so that
+ * sub-division values are easier to interpolate between.
+ * This is done for two scales (left & right) simultaneously.
+ * The chosen scale values are 10, 10/2, 10/4, 10/5 and 1.
  */
   static void
-Set_Rectangle( GdkRectangle *rect, int x, int y, int w, int h )
+Fit_to_Scale2( double *max1, double *min1,
+    double *max2, double *min2, int *nval )
 {
-  rect->x = x;
-  rect->y = y;
-  rect->width  = w;
-  rect->height = h;
+  // Acceptable scale values (10/10, 10/5, 10/4, 10/2) 
+  // Intermediate values are geometric mean of pairs 
+  double scale_val[] = { 10.0, 5.0, 2.5, 2.0, 1.0, 0.5 };
+
+  double subdiv_val1, subdiv_order1, subdiv_val2, subdiv_order2;
+  double max_1, min_1, max_2, min_2, range1, range2, min_stretch;
+  double max1sv=0.0, min1sv=0.0, max2sv=0.0, min2sv=0.0;
+  int idx1, idx2, nval1, nval2, nvalsv=0, mx, i1, i2;
+
+  // Do nothing in these cases 
+  if( *max1 <= *min1 ) return;
+  if( *max2 == *min2 ) return;
+
+  // For each scale 
+  // Find subdivision's lower order of magnitude 
+  subdiv_val1 = (*max1 - *min1) / (double)(*nval-1);
+  subdiv_order1 = 1.0;
+  while( subdiv_order1 < subdiv_val1 )
+    subdiv_order1 *= 10.0;
+  while( subdiv_order1 > subdiv_val1 )
+    subdiv_order1 /= 10.0;
+
+  // Scale subdivision 1 < subd < 10 
+  subdiv_val1 /= subdiv_order1;
+
+  // Find nearest prefered subdiv value 
+  idx1 = 1;
+  while( (scale_val[idx1] > subdiv_val1) && (idx1 <= 4) )
+    idx1++;
+
+  // Find subdivision's lower order of magnitude 
+  subdiv_val2 = (*max2 - *min2) / (double)(*nval-1);
+  subdiv_order2 = 1.0;
+  while( subdiv_order2 < subdiv_val2 )
+    subdiv_order2 *= 10.0;
+  while( subdiv_order2 > subdiv_val2 )
+    subdiv_order2 /= 10.0;
+
+  // Scale subdivision 1 < subd < 10 
+  subdiv_val2 /= subdiv_order2;
+
+  // Find nearest prefered subdiv value 
+  idx2 = 1;
+  while( (scale_val[idx2] > subdiv_val2) && (idx2 <= 4) )
+    idx2++;
+
+  // Search for a compromize in scale stretching 
+  range1 = *max1 - *min1;
+  range2 = *max2 - *min2;
+  min_stretch = 10.0;
+
+  // Scale prefered subdiv values 
+  subdiv_val1 = scale_val[idx1] * subdiv_order1;
+  subdiv_val2 = scale_val[idx2] * subdiv_order2;
+
+  // Recalculate new max and min values 
+  max_1 = *max1; min_1 = *min1; nval1 = *nval;
+  max_2 = *max2; min_2 = *min2; nval2 = *nval;
+  New_Max_Min( &max_1, &min_1, subdiv_val1, &nval1 );
+  New_Max_Min( &max_2, &min_2, subdiv_val2, &nval2 );
+
+  /* This is a lucky case */
+  if( (nval1 == nval2) && (nval1 >= *nval) )
+  {
+    *max1 = max_1; *min1 = min_1;
+    *max2 = max_2; *min2 = min_2;
+    *nval = nval1;
+    return;
+  }
+
+  /* More likely look for a compromise */
+  for( i1 = 0; i1 < 2; i1++ )
+    for( i2 = 0; i2 < 2; i2++ )
+{
+      double stretch;
+
+      /* Scale prefered subdiv values */
+      subdiv_val1 = scale_val[idx1-i1] * subdiv_order1;
+      subdiv_val2 = scale_val[idx2-i2] * subdiv_order2;
+
+      /* Recalculate new max and min values */
+      max_1 = *max1; min_1 = *min1; nval1 = *nval;
+      max_2 = *max2; min_2 = *min2; nval2 = *nval;
+      New_Max_Min( &max_1, &min_1, subdiv_val1, &nval1 );
+      New_Max_Min( &max_2, &min_2, subdiv_val2, &nval2 );
+
+      /* This is a lucky case */
+      if( nval1 == nval2 )
+      {
+        *max1 = max_1; *min1 = min_1;
+        *max2 = max_2; *min2 = min_2;
+        *nval = nval1;
+        return;
+      }
+
+      /* Stretch scale with the fewer steps */
+      if( nval1 > nval2 )
+      {
+        mx = nval1 - nval2;
+        max_2 += ((mx+1)/2) * subdiv_val2;
+        min_2 -= (mx/2) * subdiv_val2;
+        stretch = (max_2-min_2)/range2;
+        if( (stretch < min_stretch) )
+        {
+          min_stretch = stretch;
+          max2sv = max_2; min2sv = min_2;
+          max1sv = max_1; min1sv = min_1;
+          nvalsv = nval1;
 }
+      }
+      else
+      {
+        mx = nval2 - nval1;
+        max_1 += ((mx+1)/2) * subdiv_val1;
+        min_1 -= (mx/2) * subdiv_val1;
+        stretch = (max_1-min_1)/range1;
+        if( (stretch < min_stretch) )
+        {
+          min_stretch = stretch;
+          max1sv = max_1; min1sv = min_1;
+          max2sv = max_2; min2sv = min_2;
+          nvalsv = nval2;
+        }
+      }
+
+    } /* for( i1 = 0; i1 < 3; i1++ ) */
+
+  *max1 = max1sv; *min1 = min1sv;
+  *max2 = max2sv; *min2 = min2sv;
+  *nval = nvalsv;
+
+} /* Fit_to_Scale2() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -352,11 +464,9 @@ Plot_Horizontal_Scale(
     double max, double min,
     int nval )
 {
-  int idx, xps, order;
+  int idx, order;
   double hstep = 1.0;
   char value[16], format[8];
-  PangoLayout *layout;
-  int pl_width, pl_height; /* Layout size */
 
   /* Abort if not enough values to plot */
   if( nval <= 1 ) return;
@@ -390,7 +500,6 @@ Plot_Horizontal_Scale(
     min += hstep;
   }
 
-  g_object_unref( layout );
 
 } /* Plot_Horizontal_Scale() */
 
@@ -413,8 +522,6 @@ Plot_Vertical_Scale(
   int min_order, max_order, order;
   double vstep = 1.0;
   char value[16], format[6];
-  PangoLayout *layout;
-  int pl_width, pl_height; /* Layout size */
 
   /* Abort if not enough values to plot */
   if( nval <= 1 ) return;
@@ -458,8 +565,6 @@ Plot_Vertical_Scale(
 		red, grn, blu, NULL, NULL);
     max -= vstep;
   }
-
-  g_object_unref( layout );
 
 } /* Plot_Vertical_Scale() */
 
@@ -601,113 +706,18 @@ Draw_Graph(
  * y_left or y_right may be NULL, in which case it is omitted.
  */
   static void
-Plot_Graph_FR(
-    cairo_t *cr,
-    double *y_left, double *y_right, double *x, int nx,
-    char *titles[], int posn, GdkRectangle *plot_rect)
-{
-  double max_y_left, min_y_left, max_y_right, min_y_right;
-  int idx;
-
-  // duplicated in Plot_Graph:
-	int plot_height = freqplots_height / calc_data.ngraph;
-	int plot_y_position   = (freqplots_height * (posn-1)) / calc_data.ngraph;
-
-  int nval = plot_height / 50;
-
-  /* Pango layout size */
-  static int layout_width, layout_height;
-
-  pango_text_size(freqplots_drawingarea, &layout_width, &layout_height, "000000");
-
-	double max_fscale, min_fscale;
-	int nval_fscale;
-	get_fscale(&min_fscale, &max_fscale, &nval_fscale);
-
-  /* Plot box rectangle */
-  /*** Draw horizontal (freq) scale ***/
-/*
-  Plot_Horizontal_Scale(
-      cr,
-      YELLOW,
-      //layout_width+2,
-	  plot_rect->x-2,
-      plot_y_position+plot_height-2 - layout_height,
-      plot_rect->width,
-      54, 50, nval_fscale/3 ); // this '3' should be number
-      //max_fscale, min_fscale, nval_fscale/3 );
-	 */
-
-
-  /* Draw plotting frame */
-  //Draw_Plotting_Frame( cr, titles, plot_rect, nval, nval_fscale );
-return;
-  if (y_left != NULL)
-  {
-  /* Find max and min of y_left */
-  max_y_left = min_y_left = y_left[0];
-  for( idx = 1; idx < nx; idx++ )
-  {
-    if( max_y_left < y_left[idx] )
-      max_y_left = y_left[idx];
-    if( min_y_left > y_left[idx] )
-      min_y_left = y_left[idx];
-  }
-
-  /* Fit ranges to common scale */
-	  Fit_to_Scale(&max_y_left, &min_y_left, &nval);
-
-  /* Draw graph */
-  Draw_Graph(
-      cr,
-      MAGENTA,
-		  plot_rect,
-	  y_left, x,
-      max_y_left, min_y_left,
-      max_fscale, min_fscale,
-      nx, LEFT );
-  }
-
-  if (y_right != NULL)
-  {
-	  /* Find max and min of y_right */
-	  max_y_right = min_y_right = y_right[0];
-	  for( idx = 1; idx < nx; idx++ )
-	  {
-		if( max_y_right < y_right[idx] )
-		  max_y_right = y_right[idx];
-		if( min_y_right > y_right[idx] )
-		  min_y_right = y_right[idx];
-	  }
-
-	  /* Fit ranges to common scale */
-	  Fit_to_Scale(&max_y_right, &min_y_right, &nval);
-
-  /* Draw graph */
-  Draw_Graph(
-      cr,
-		  CYAN, plot_rect,
-      y_right, x,
-      max_y_right, min_y_right,
-      max_fscale, min_fscale,
-      nx, RIGHT );
-  }
-
-} /* Plot_Graph() */
-
-  static void
 Plot_Graph(
     cairo_t *cr,
     double *y_left, double *y_right, double *x, int nx,
     char *titles[], int posn)
 {
-	plot_t plot;
+	GdkRectangle plot_rect;
 
 	int pad_y_px_above_scale, pad_y_bottom_scale_text, pad_y_title_text,
 		pad_x_scale_text, pad_x_px_after_scale, pad_x_between_graphs;
 
 	int px_per_vert_scale, px_per_horiz_scale,
-		n_vert_scale, n_vert_scale_left, n_vert_scale_right,
+		n_vert_scale,
 		n_horiz_scale;
 
 	// Configurable pad values:
@@ -722,8 +732,8 @@ Plot_Graph(
 	pad_x_between_graphs = 10;
 
 	// Show a vertical or horizontal scale line every N pixels
-	px_per_vert_scale = 50;
-	px_per_horiz_scale = 75;
+	px_per_vert_scale = 100;  // space between vertical lines across the X axis
+	px_per_horiz_scale = 50; // space between horizontal lines down the Y axis
 
 	// Get the pixel size of the scale text on left and right of the
 	// graph.
@@ -739,7 +749,7 @@ Plot_Graph(
 
 	/* Available height for each graph.
 	* (calc_data.ngraph is the number of graphs to be plotted) */
-	plot.plot_height = 
+	plot_rect.height = 
 		freqplots_height / calc_data.ngraph - (
 			pad_y_title_text +
 			pad_y_px_above_scale +
@@ -747,7 +757,7 @@ Plot_Graph(
 		);
 
 
-	plot.plot_width = 
+	plot_rect.width = 
 		(freqplots_width - (
 			// one for each side
 			2*pad_x_scale_text +
@@ -759,106 +769,93 @@ Plot_Graph(
 		)) / calc_data.FR_cards;
 
 	/* Draw titles */
-	plot.plot_y_position   = (freqplots_height * (posn-1)) / calc_data.ngraph;
+	plot_rect.y = (freqplots_height * (posn-1)) / calc_data.ngraph;
 	draw_text(cr, freqplots_drawingarea, 
 		pad_x_scale_text+pad_x_px_after_scale,
-		plot.plot_y_position,
+		plot_rect.y,
 		titles[0], JUSTIFY_LEFT, MAGENTA,
 		NULL, NULL);
 
 	draw_text(cr, freqplots_drawingarea, 
 		freqplots_width/2,
-		plot.plot_y_position,
+		plot_rect.y,
 		titles[1], JUSTIFY_CENTER, YELLOW,
 		NULL, NULL);
 
 	draw_text(cr, freqplots_drawingarea, 
 		freqplots_width - (pad_x_scale_text+pad_x_px_after_scale),
-		plot.plot_y_position,
+		plot_rect.y,
 		titles[2], JUSTIFY_RIGHT, CYAN,
 		NULL, NULL);
 
 	// Increase the y position to account for the title text size:
-	plot.plot_y_position += pad_y_title_text;
-
-	// FIXME: This shouldn't be necessary, replace the plot.* with plot.plot_rect.*
-	// where necessary:
-	plot.plot_rect.y = plot.plot_y_position;    // y
-	plot.plot_rect.width = plot.plot_width;
-	plot.plot_rect.height = plot.plot_height;
+	plot_rect.y += pad_y_title_text;
 
 	int i; 
 	double max_y_left, min_y_left, max_y_right, min_y_right;
 
 	// Scales start at the same value, may be modified below.
-	n_vert_scale = plot.plot_rect.height / px_per_vert_scale;
-	n_vert_scale_left = n_vert_scale;
-	n_vert_scale_right = n_vert_scale;
+	n_vert_scale = plot_rect.width / px_per_vert_scale;
+	n_horiz_scale = plot_rect.height / px_per_horiz_scale;
 
-	n_horiz_scale = plot.plot_rect.width / px_per_horiz_scale;
 
-	// Set min/max_y_left and nval for left and right:
+	// Calculate min/max if defined:
 	if (y_left != NULL)
 	{
-		//y_left[0] = 1; // deleteme
-
 		max_y_left = min_y_left = y_left[0];
-
-		//printf("nx=%d\n", nx);
-		//nx = nx > 10 ? 10 : nx;// delteme
 		for( i = 1; i < nx; i++ )
 		{
-			//y_left[i] = i+1;// delteme
-
 			if( max_y_left < y_left[i] )
 				max_y_left = y_left[i];
 			if( min_y_left > y_left[i] )
 				min_y_left = y_left[i];
 
 		}
-
-		Fit_to_Scale(&max_y_left, &min_y_left, &n_vert_scale_left);
-		//n_vert_scale=10; // FIXME: Why does Fit_to_Scale set this?
-
-		Plot_Vertical_Scale(
-			cr,
-			MAGENTA,
-			pad_x_scale_text, plot.plot_rect.y,
-			plot.plot_rect.height,
-			max_y_left, min_y_left, n_vert_scale_left);
 	}
 
+	// Calculate min/max if defined:
 	if (y_right != NULL)
 	{
-		//y_right[0] = 1; // deleteme
-
 		max_y_right = min_y_right = y_right[0];
-
-		//printf("nx=%d\n", nx);
-		//nx = nx > 10 ? 10 : nx;// delteme
 		for( i = 1; i < nx; i++ )
 		{
-			//y_right[i] = i+1;// delteme
-
 			if( max_y_right < y_right[i] )
 				max_y_right = y_right[i];
 			if( min_y_right > y_right[i] )
 				min_y_right = y_right[i];
 
 		}
+	}
 
-		Fit_to_Scale(&max_y_right, &min_y_right, &n_vert_scale_right);
-		//n_vert_scale=10; // FIXME: Why does Fit_to_Scale set this?
+	// We need to fit the scales depending on whether left or right are NULL
+	if (y_left != NULL && y_right == NULL)
+		Fit_to_Scale(&max_y_left, &min_y_left, &n_vert_scale);
+	else if (y_right != NULL && y_left == NULL)
+		Fit_to_Scale(&max_y_right, &min_y_right, &n_vert_scale);
+	else // both are defined
+		Fit_to_Scale2(
+			&max_y_left, &min_y_left,
+			&max_y_right, &min_y_right, 
+			&n_vert_scale);
 
+
+	// Set min/max_y_left and nval for left and right:
+	if (y_left != NULL)
+		Plot_Vertical_Scale(
+			cr,
+			MAGENTA,
+			pad_x_scale_text, plot_rect.y,
+			plot_rect.height,
+			max_y_left, min_y_left, n_horiz_scale);
+
+	if (y_right != NULL)
 		Plot_Vertical_Scale(
 			cr,
 			CYAN,
 			freqplots_width,
-			plot.plot_rect.y,
-			plot.plot_rect.height,
-			max_y_right, min_y_right, n_vert_scale_right);
-	}
-
+			plot_rect.y,
+			plot_rect.height,
+			max_y_right, min_y_right, n_horiz_scale);
 
 
 	// Plot FR cards:
@@ -866,13 +863,11 @@ Plot_Graph(
 	for (fr = 0; fr < calc_data.FR_cards; fr++)
 	{
 		// Position adjustments from left to right:
-		plot.plot_x_position =
+		plot_rect.x =
 			pad_x_scale_text
 			+ pad_x_px_after_scale
-			+ fr*plot.plot_width 
+			+ fr*plot_rect.width 
 			+ fr*pad_x_between_graphs;
-
-		plot.plot_rect.x = plot.plot_x_position;    // x
 
 		// Offset is the offset into the value arrays: 
 		// Break if there are no more values to plot because
@@ -891,34 +886,27 @@ Plot_Graph(
 
 		Fit_to_Scale(&max_fscale, &min_fscale, &nval_fscale);
 
+		printf("n_horiz_scale=%d n_vert_scale=%d\n",
+			n_horiz_scale, n_vert_scale);
+
 		Draw_Plotting_Frame( cr, titles,
-			&plot.plot_rect, n_horiz_scale, nval_fscale);
+			&plot_rect, n_horiz_scale, n_vert_scale);
 
 
 		Plot_Horizontal_Scale(
 			cr,
 			YELLOW,
-			plot.plot_rect.x-2,
-			plot.plot_rect.y + plot.plot_rect.height,
-			plot.plot_rect.width,
-			max_fscale, min_fscale, calc_data.freq_loop_data[fr].freq_steps );
-			//max_fscale, min_fscale, nval_fscale/3 );
-
-/*
-		Plot_Graph_FR(cr, 
-			(y_left != NULL ? y_left+offset : NULL),
-			(y_right != NULL ? y_right+offset : NULL), 
-			x+offset, calc_data.freq_loop_data[fr].freq_steps,
-			titles, posn, &plot.plot_rect);
-*/
+			plot_rect.x,
+			plot_rect.y + plot_rect.height,
+			plot_rect.width,
+			max_fscale, min_fscale, n_vert_scale);
 
 		if (y_left != NULL)
 		{
-			/* Draw graph */
 			Draw_Graph(
 				cr,
 				MAGENTA,
-				&plot.plot_rect,
+				&plot_rect,
 				y_left+offset, x+offset,
 				max_y_left, min_y_left,
 				max_fscale, min_fscale,
@@ -928,11 +916,10 @@ Plot_Graph(
 
 		if (y_right != NULL)
 		{
-			/* Draw graph */
 			Draw_Graph(
 				cr,
 				CYAN,
-				&plot.plot_rect,
+				&plot_rect,
 				y_right+offset, x+offset,
 				max_y_right, min_y_right,
 				max_fscale, min_fscale,
@@ -995,10 +982,10 @@ Plot_Graph_Smith(
   plot_y_position   = ( freqplots_height * (posn - 1) ) / calc_data.ngraph;
 
   /* Plot box rectangle */
-  Set_Rectangle( &plot_rect,
-	  layout_width + 4, plot_y_position + 2,
-      freqplots_width - 8 - 2 * layout_width,
-      plot_height - 8 - 2 * layout_height );
+  plot_rect.x = layout_width + 4;
+  plot_rect.y = plot_y_position + 2;
+  plot_rect.width = freqplots_width - 8 - 2 * layout_width;
+  plot_rect.height = plot_height - 8 - 2 * layout_height;
 
   cairo_set_source_rgb( cr, YELLOW );
   pango_text_size(freqplots_drawingarea, &width1, &height, _("Smith Chart") );
