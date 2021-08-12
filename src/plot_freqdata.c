@@ -28,12 +28,10 @@
 #include "plot_freqdata.h"
 #include "shared.h"
 
-/* Graph plot bounding rectangle */
+static GdkRectangle *fr_plot_rects = NULL;
 
-/* Frequency scale max, min, num of values */
-//static double max_fscale, min_fscale;
-//static int nval_fscale;
-static void Fit_to_Scale( double *max, double *min, int *nval );
+/* Graph plot bounding rectangle */
+static double Fit_to_Scale( double *max, double *min, int *nval );
 
 /* helper function to get width and height by creating a layout */
 static void pango_text_size(GtkWidget* widget, int *width, int *height, char *s)
@@ -41,8 +39,17 @@ static void pango_text_size(GtkWidget* widget, int *width, int *height, char *s)
 	PangoLayout *layout = NULL;
     layout = gtk_widget_create_pango_layout(freqplots_drawingarea, s);
     pango_layout_get_pixel_size( layout, width, height);
-	printf("pango_text_size: width=%d, height=%d\n", *width, *height);
     g_object_unref( layout );
+}
+
+GdkRectangle *get_plot_rect(int posn, int fr)
+{
+	return &fr_plot_rects[posn*calc_data.FR_cards + fr];
+}
+
+void save_plot_rect(GdkRectangle *plot_rect, int posn, int fr)
+{
+	memcpy(get_plot_rect(posn, fr), plot_rect, sizeof(GdkRectangle));
 }
 
 void get_fscale(double *min_fscale, double *max_fscale, int *nval_fscale)
@@ -247,7 +254,7 @@ New_Max_Min( double *max, double *min, double sval, int *nval )
  * sub-division values are easier to interpolate between.
  * The chosen scale values are 10, 10/2, 10/4, 10/5 and 1.
  */
-static Fit_to_Scale( double *max, double *min, int *nval )
+static double Fit_to_Scale( double *max, double *min, int *nval )
 {
   /* Acceptable scale values (10/10, 10/5, 10/4, 10/2) */
   /* Intermediate values are geometric mean of pairs */
@@ -276,7 +283,7 @@ static Fit_to_Scale( double *max, double *min, int *nval )
 
 
   /* prevent divide by zero on small screens */
-  if(*nval <= 1) return;
+  if(*nval <= 1) return 1;
 
   /* Find subdivision's lower order of magnitude */
   subdiv_val = (*max - *min) / (double)(*nval-1);
@@ -611,21 +618,6 @@ Draw_Plotting_Frame(
       cr, rect->x, rect->y, rect->width, rect->height );
   cairo_stroke( cr );
 
-  /* Draw a vertical line to show current freq if it was
-   * changed by a user click on the plots drawingarea */
-  if( isFlagSet(FREQ_LOOP_DONE) && isFlagSet(PLOT_FREQ_LINE) )
-  {
-    double fr;
-	double max_fscale, min_fscale;
-	int nval_fscale;
-	get_fscale(&min_fscale, &max_fscale, &nval_fscale);
-
-    fr = ( (double)calc_data.freq_mhz - min_fscale ) / ( max_fscale - min_fscale );
-    fr = fr * (double)rect->width + 0.5;
-
-    cairo_set_source_rgb( cr, GREEN );
-    Cairo_Draw_Line( cr, rect->x+(int)fr, rect->y, rect->x+(int)fr, yph );
-  }
 } /* Draw_Plotting_Frame() */
 
 /*-----------------------------------------------------------------------*/
@@ -769,7 +761,7 @@ Plot_Graph(
 		)) / calc_data.FR_cards;
 
 	/* Draw titles */
-	plot_rect.y = (freqplots_height * (posn-1)) / calc_data.ngraph;
+	plot_rect.y = (freqplots_height * posn) / calc_data.ngraph;
 	draw_text(cr, freqplots_drawingarea, 
 		pad_x_scale_text+pad_x_px_after_scale,
 		plot_rect.y,
@@ -869,29 +861,28 @@ Plot_Graph(
 			+ fr*plot_rect.width 
 			+ fr*pad_x_between_graphs;
 
+		save_plot_rect(&plot_rect, posn, fr);
+
 		// Offset is the offset into the value arrays: 
 		// Break if there are no more values to plot because
 		// it has plotted all of them or the values are still
 		// being calculated:
-		if (calc_data.freq_step - offset <= 0)
+		int maxidx = calc_data.freq_step - offset;
+		if (maxidx <= 0)
 			break;
 
+		// Clamp the number of index to be plotted if there
+		// are some available to plot in the next FR card which
+		// will be done in the next iteration of this loop:
+		if (maxidx > calc_data.freq_loop_data[fr].freq_steps)
+			maxidx = calc_data.freq_loop_data[fr].freq_steps;
+
 		/* Draw plotting frame */
-		double max_fscale, min_fscale;
-		int nval_fscale;
-
-		min_fscale = calc_data.freq_loop_data[fr].min_freq;
-		max_fscale = calc_data.freq_loop_data[fr].max_freq;
-		nval_fscale = calc_data.freq_loop_data[fr].freq_steps;
-
-		Fit_to_Scale(&max_fscale, &min_fscale, &nval_fscale);
-
-		printf("n_horiz_scale=%d n_vert_scale=%d\n",
-			n_horiz_scale, n_vert_scale);
+		double min_fscale = calc_data.freq_loop_data[fr].min_freq;
+		double max_fscale = calc_data.freq_loop_data[fr].max_freq;
 
 		Draw_Plotting_Frame( cr, titles,
 			&plot_rect, n_horiz_scale, n_vert_scale);
-
 
 		Plot_Horizontal_Scale(
 			cr,
@@ -910,7 +901,7 @@ Plot_Graph(
 				y_left+offset, x+offset,
 				max_y_left, min_y_left,
 				max_fscale, min_fscale,
-				calc_data.freq_loop_data[fr].freq_steps,
+				maxidx,
 				LEFT );
 		}
 
@@ -923,19 +914,30 @@ Plot_Graph(
 				y_right+offset, x+offset,
 				max_y_right, min_y_right,
 				max_fscale, min_fscale,
-				calc_data.freq_loop_data[fr].freq_steps,
+				maxidx,
 				RIGHT);
 		}
 
-		// Next FR card index
-		offset += calc_data.freq_loop_data[fr].freq_steps;
-
-		if (offset > calc_data.freq_step)
+		/* Draw a vertical line to show current freq if it was
+		* changed by a user click on the plots drawingarea */
+		if( isFlagSet(FREQ_LOOP_DONE) && isFlagSet(PLOT_FREQ_LINE)
+			&& calc_data.freq_mhz >= min_fscale 
+			&& calc_data.freq_mhz <= max_fscale 
+			)
 		{
-			printf("warn: offset > calc_data.freq_step\n");
-			break;
+			double freq_x;
+
+			freq_x = (calc_data.freq_mhz - min_fscale) / (max_fscale - min_fscale);
+			freq_x *= plot_rect.width;
+
+			cairo_set_source_rgb( cr, GREEN );
+			Cairo_Draw_Line(cr,
+				plot_rect.x+freq_x, plot_rect.y,
+				plot_rect.x+freq_x, plot_rect.y+plot_rect.height);
 	}
 
+		// Next FR card index
+		offset += calc_data.freq_loop_data[fr].freq_steps;
 	}
 
 
@@ -979,7 +981,7 @@ Plot_Graph_Smith(
   /* Available height for each graph.
    * (np=number of graphs to be plotted) */
   plot_height = freqplots_height / calc_data.ngraph;
-  plot_y_position   = ( freqplots_height * (posn - 1) ) / calc_data.ngraph;
+  plot_y_position   = ( freqplots_height * posn) / calc_data.ngraph;
 
   /* Plot box rectangle */
   plot_rect.x = layout_width + 4;
@@ -1083,8 +1085,7 @@ Plot_Frequency_Data( cairo_t *cr )
   /* Titles for plots */
   char *titles[3];
 
-  int
-    idx,
+  int idx,
     posn,  /* Position num of plot in drawingarea */
     fstep; /* Freq step number */
 
@@ -1099,6 +1100,13 @@ Plot_Frequency_Data( cairo_t *cr )
   /* Used to calculate net gain */
   double Zr, Zo, Zi;
 
+  /* 2d array of plot rectangles popluated by the Plot_Graph function */
+  mem_realloc((void**)&fr_plot_rects,
+	sizeof(GdkRectangle) * calc_data.ngraph * calc_data.FR_cards,
+	"in plot_freqdata.c"); 
+
+  memset(fr_plot_rects, 0,
+	  sizeof(GdkRectangle) * calc_data.ngraph * calc_data.FR_cards);
 
   /* Clear drawingarea */
   cairo_set_source_rgb( cr, BLACK );
@@ -1121,11 +1129,6 @@ Plot_Frequency_Data( cairo_t *cr )
   {
     return;
   }
-
-  /* Fit frequency range to scale FIXME */
-  double max_fscale, min_fscale;
-  int nval_fscale;
-  get_fscale(&min_fscale, &max_fscale, &nval_fscale);
 
   /* Graph position */
   posn = 0;
@@ -1240,7 +1243,7 @@ Plot_Frequency_Data( cairo_t *cr )
 			  gmax, netgain,
 			  save.freq,
 			  fstep,
-              titles, ++posn );
+              titles, posn++ );
       }
       else
       {
@@ -1248,7 +1251,7 @@ Plot_Frequency_Data( cairo_t *cr )
         titles[2] = "        ";
         if( fstep > 1 )
           Plot_Graph( cr, gmax, NULL, save.freq, fstep,
-              titles, ++posn );
+              titles, posn++ );
       }
     }
     else
@@ -1259,7 +1262,7 @@ Plot_Frequency_Data( cairo_t *cr )
       titles[2] = _("F/B Ratio db");
       if( fstep > 1 )
         Plot_Graph( cr, gmax, fbratio, save.freq, fstep,
-            titles, ++posn );
+            titles, posn++ );
     }
 
     /* Plot max gain direction if enabled */
@@ -1271,7 +1274,7 @@ Plot_Frequency_Data( cairo_t *cr )
       titles[2] = _("Phi - deg");
       if( fstep > 1 )
         Plot_Graph( cr, gdir_tht, gdir_phi, save.freq, fstep,
-            titles, ++posn );
+            titles, posn++ );
     }
 
   } /* if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) ) */
@@ -1310,14 +1313,14 @@ Plot_Frequency_Data( cairo_t *cr )
       titles[2] = _("Net gain dbi");
       if( fstep > 1 )
         Plot_Graph( cr, vgain, netgain, save.freq, fstep,
-            titles, ++posn );
+            titles, posn++ );
     } /* if( isFlagSet(PLOT_NETGAIN) ) */
     else
     {
       titles[2] = "        ";
       if( fstep > 1 )
         Plot_Graph( cr, vgain, NULL, save.freq, fstep,
-            titles, ++posn );
+            titles, posn++ );
     }
   } /* isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) */
 
@@ -1358,7 +1361,7 @@ Plot_Frequency_Data( cairo_t *cr )
     titles[2] = "        ";
     if( fstep > 1 )
       Plot_Graph( cr, vswr, NULL, save.freq, fstep,
-          titles, ++posn );
+          titles, posn++ );
 
     free_ptr( (void **)&vswr );
   } /* if( isFlagSet(PLOT_VSWR) ) */
@@ -1373,7 +1376,7 @@ Plot_Frequency_Data( cairo_t *cr )
     if( fstep > 1 )
       Plot_Graph( cr,
           impedance_data.zreal, impedance_data.zimag, save.freq,
-          fstep, titles, ++posn );
+          fstep, titles, posn++ );
 
   } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
 
@@ -1386,7 +1389,7 @@ Plot_Frequency_Data( cairo_t *cr )
     titles[2] = _("Z-phase");
     if( fstep > 1 )
       Plot_Graph( cr, impedance_data.zmagn, impedance_data.zphase,
-          save.freq, fstep, titles, ++posn );
+          save.freq, fstep, titles, posn++ );
 
   } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
 
@@ -1396,7 +1399,7 @@ Plot_Frequency_Data( cairo_t *cr )
     if( fstep > 1 )
       Plot_Graph_Smith( cr,
           impedance_data.zreal, impedance_data.zimag, save.freq,
-		  fstep, ++posn );
+		  fstep, posn++ );
 
   } /* if( isFlagSet(PLOT_SMITH) ) */
 
@@ -1433,6 +1436,14 @@ Plots_Window_Killed( void )
   freqplots_window = NULL;
   kill_window = NULL;
 
+/*
+  if (fr_plot_rects != NULL)
+  {
+	  free(fr_plot_rects);
+	  fr_plot_rects = NULL;
+  }
+*/
+
 } /* Plots_Window_Killed() */
 
 /*-----------------------------------------------------------------------*/
@@ -1444,30 +1455,53 @@ Plots_Window_Killed( void )
   void
 Set_Frequency_On_Click( GdkEventButton *event )
 {
-  gdouble fmhz = 0.0;
-  gdouble x, w;
-  int idx;
+  GdkRectangle *plot_rect = NULL;
+  double fmhz = 0.0;
+  double x, w;
+  int i, fr = 0;
 
-return;
 
   if( isFlagClear(FREQ_LOOP_DONE) )
     return;
 
+  for (i = 0; i < calc_data.ngraph * calc_data.FR_cards; i++)
+  {
+	if (   event->x >= fr_plot_rects[i].x
+		&& event->x <= fr_plot_rects[i].x + fr_plot_rects[i].width
+		&& event->y >= fr_plot_rects[i].y 
+		&& event->y <= fr_plot_rects[i].y + fr_plot_rects[i].height)
+	{
+		plot_rect = &fr_plot_rects[i];
+		fr = i % calc_data.FR_cards;
+		break;
+	}
 
-	double max_fscale, min_fscale;
-	int nval_fscale;
-	get_fscale(&min_fscale, &max_fscale, &nval_fscale);
+  }
+
+  if (fr >= calc_data.FR_cards || plot_rect == NULL)
+  {
+	  // no plot_rect selected for frequency line
+	  return;
+  }
+
+  double min_fscale = calc_data.freq_loop_data[fr].min_freq;
+  double max_fscale = calc_data.freq_loop_data[fr].max_freq;
 
   /* Width of plot bounding rectangle */
-  //w = (double)plot_rect.width;
+  w = plot_rect->width;
 
   /* 'x' posn of click refered to plot bounding rectangle's 'x' */
-  //x = event->x - (double)plot_rect.x;
+  x = event->x - plot_rect->x;
   if( x < 0.0 ) x = 0.0;
   else if( x > w ) x = w;
 
+  printf("event[%f,%f] -> fr_plot_rects[%d: rect_x=%f], fr: min=%f, max=%f\n",
+  	event->x, event->y,
+	fr,
+	x,
+	min_fscale, max_fscale);
+
   /* Set freq corresponding to click 'x', to freq spinbuttons FIXME */
-  idx = calc_data.last_step;
   switch( event->button )
   {
     case 1: /* Calculate frequency corresponding to mouse position in plot */
@@ -1480,6 +1514,7 @@ return;
       break;
 
     case 2: /* Disable drawing of freq line */
+    case 3: 
       ClearFlag( PLOT_FREQ_LINE );
       calc_data.fmhz_save = 0.0;
 
@@ -1488,50 +1523,14 @@ return;
       //while( g_main_context_iteration(NULL, FALSE) );
       return;
 
-    case 3: /* Calculate frequency corresponding to mouse position in plot FIXME */
-      /* Enable drawing of frequency line */
-      SetFlag( PLOT_FREQ_LINE );
-
-      /* Frequency corresponding to x position of click */
-      fmhz = max_fscale - min_fscale;
-      fmhz = min_fscale + fmhz * x / w;
-
-      /* Find in which FR card frequency range the frequency belongs */
-      int fr;
-      for( fr = 0; fr < calc_data.FR_cards; fr++ )
-      {
-        if( (fmhz <= calc_data.freq_loop_data[fr].max_freq) &&
-            (fmhz >= calc_data.freq_loop_data[fr].min_freq) )
-          break;
-      }
-
-      /* Find nearest frequency step */
-      double fmx = calc_data.freq_loop_data[fr].max_freq;
-      double fmn = calc_data.freq_loop_data[fr].min_freq;
-      int stp    = calc_data.freq_loop_data[fr].freq_steps - 1;
-      if( fr < calc_data.FR_cards )
-      {
-        idx = (int)( (fmhz - fmn) / (fmx - fmn) * (double)stp + 0.5 );
-        if( idx > calc_data.last_step )
-          idx = calc_data.last_step;
-        else if( idx < 0 )
-          idx = 0;
-        fmhz = (double)idx / (double)stp * ( fmx - fmn ) + fmn;
-      }
-      else
-      {
-        /* Frequency corresponding to x position of click */
-        fmhz = max_fscale - min_fscale;
-        fmhz = min_fscale + fmhz * x / w;
-      }
   } /* switch( event->button ) */
 
   /* Round frequency to nearest 1 kHz */
-  int ifmhz = (int)( fmhz * 1000.0 + 0.5 );
-  fmhz = (gdouble)ifmhz / 1000.0;
+  int ifmhz = ( fmhz * 1000.0 + 0.5 );
+  fmhz = ifmhz / 1000.0;
 
-  /* Save frequency for later use */
-  calc_data.fmhz_save = (double)fmhz;
+  /* Save frequency for later use when the graph plots after the NEC2 run */
+  calc_data.fmhz_save = fmhz;
 
   /* Set frequency spinbuttons on new freq */
   if( fmhz != gtk_spin_button_get_value(mainwin_frequency) )
@@ -1542,7 +1541,7 @@ return;
   }
   else /* Replot data */
   {
-    calc_data.freq_mhz = (double)fmhz;
+    calc_data.freq_mhz = fmhz;
     g_idle_add( Redo_Currents, NULL );
   }
 
