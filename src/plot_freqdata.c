@@ -28,6 +28,9 @@
 #include "plot_freqdata.h"
 #include "shared.h"
 
+#define FR_PLOT_T_MAGIC 				0xc2bca3083893e65eULL
+#define FR_PLOT_T_IS_VALID(fr_plot_ptr)	((fr_plot_ptr)->valid == FR_PLOT_T_MAGIC)
+
 typedef struct {
 	GdkRectangle plot_rect;
 	double plot_scale;	// Value from 0-1 for the plot width
@@ -36,6 +39,12 @@ typedef struct {
 
 	// Pointer to &calc_data.freq_loop_data[fr]
 	freq_loop_data_t *freq_loop_data;
+
+	// Because we are using realloc it is hard to know if the structure has
+	// been initialized or if it needs to be set to sane values.  The 
+	// value will equal 0xc2bca3083893e65e (just a 64-bit random number) if
+	// it is valid.
+	uint64_t valid; 
 } fr_plot_t;
 
 fr_plot_t *fr_plots = NULL;
@@ -69,8 +78,7 @@ void save_plot_rect(GdkRectangle *plot_rect, int posn, int fr)
 
 void print_fr_plot(fr_plot_t *p)
 {
-	printf("fr_plot[%p, posn=%d, fr=%d, scale=%f] rect[x=%d, y=%d, w=%d, h=%d] freq[min=%f, max=%f, steps=%d]\n",
-		p,
+	printf("fr_plot[posn=%d, fr=%d, scale=%f] rect[x=%d, y=%d, w=%d, h=%d] freq[min=%f, max=%f, steps=%d]\n",
 		p->posn,
 		p->fr,
 		p->plot_scale,
@@ -1126,13 +1134,11 @@ Plot_Frequency_Data( cairo_t *cr )
 	sizeof(fr_plot_t) * calc_data.ngraph * calc_data.FR_cards,
 	"in plot_freqdata.c"); 
 
-  memset(fr_plots, 0,
-	  sizeof(fr_plot_t) * calc_data.ngraph * calc_data.FR_cards);
 
   for (idx = 0; idx < calc_data.ngraph * calc_data.FR_cards; idx++)
   {
-	  // Default to 1/Nth of the size:
-	  fr_plots[idx].plot_scale = 1.0/(double)calc_data.FR_cards;
+	  if (FR_PLOT_T_IS_VALID(&fr_plots[idx]))
+		  continue;
 
 	  // Set the plot position
 	  fr_plots[idx].posn = idx / calc_data.FR_cards;
@@ -1140,6 +1146,19 @@ Plot_Frequency_Data( cairo_t *cr )
 	  // Point to the freq loop data
 	  fr_plots[idx].fr = idx % calc_data.FR_cards;
 	  fr_plots[idx].freq_loop_data = &calc_data.freq_loop_data[fr_plots[idx].fr];
+
+      // Because the number of FR cards may have changed, reset the
+	  // scale for all FR's in this posn:
+	  // Default to 1/Nth of the size:
+	  for (int fr = 0; fr < calc_data.FR_cards; fr++)
+	  {
+		  get_fr_plot(fr_plots[idx].posn, fr)->plot_scale = 1.0/(double)calc_data.FR_cards;
+	  }
+
+	  memset(&fr_plots[idx].plot_rect, 0, sizeof(GdkRectangle));
+
+      // Set it as valid:
+	  fr_plots[idx].valid = FR_PLOT_T_MAGIC;
   }
 
   /* Clear drawingarea */
@@ -1485,11 +1504,15 @@ Plots_Window_Killed( void )
  * Sets the current freq after click by user on plots drawingarea
  */
   void
-Set_Frequency_On_Click( GdkEventButton *event )
+Set_Frequency_On_Click( GdkEvent *e)
 {
   double fmhz = 0.0;
+  double scale_adjust = 0.05; // for scroll wheel
   double x, w;
   int i;
+
+  GdkEventButton *button_event = (GdkEventButton *)e;
+  GdkEventScroll *scroll_event = (GdkEventScroll *)e;
 
   fr_plot_t *fr_plot = NULL;
 
@@ -1498,10 +1521,10 @@ Set_Frequency_On_Click( GdkEventButton *event )
 
   for (i = 0; i < calc_data.ngraph * calc_data.FR_cards; i++)
   {
-	if (   event->x >= fr_plots[i].plot_rect.x
-		&& event->x <= fr_plots[i].plot_rect.x + fr_plots[i].plot_rect.width
-		&& event->y >= fr_plots[i].plot_rect.y 
-		&& event->y <= fr_plots[i].plot_rect.y + fr_plots[i].plot_rect.height)
+	if (   button_event->x >= fr_plots[i].plot_rect.x
+		&& button_event->x <= fr_plots[i].plot_rect.x + fr_plots[i].plot_rect.width
+		&& button_event->y >= fr_plots[i].plot_rect.y 
+		&& button_event->y <= fr_plots[i].plot_rect.y + fr_plots[i].plot_rect.height)
 	{
 		fr_plot = &fr_plots[i];
 		break;
@@ -1522,15 +1545,15 @@ Set_Frequency_On_Click( GdkEventButton *event )
   w = fr_plot->plot_rect.width;
 
   /* 'x' posn of click refered to plot bounding rectangle's 'x' */
-  x = event->x - fr_plot->plot_rect.x;
+  x = button_event->x - fr_plot->plot_rect.x;
   if( x < 0.0 ) x = 0.0;
   else if( x > w ) x = w;
 
-  printf("mouse click[%f,%f]: ", event->x, event->y);
+  printf("mouse click[%f,%f button=%d]: ", button_event->x, button_event->y, button_event->button);
   print_fr_plot(fr_plot);
 
   /* Set freq corresponding to click 'x', to freq spinbuttons FIXME */
-  switch( event->button )
+  switch( button_event->button )
   {
     case 1: /* Calculate frequency corresponding to mouse position in plot */
       /* Enable drawing of frequency line */
@@ -1551,7 +1574,39 @@ Set_Frequency_On_Click( GdkEventButton *event )
       //while( g_main_context_iteration(NULL, FALSE) );
       return;
 
-  } /* switch( event->button ) */
+	// not a button, is it a scroll?
+    case 0: 
+		// Switch scale direction if this is a valid scroll direction:	
+		if (scroll_event->direction == GDK_SCROLL_DOWN)
+			scale_adjust *= -1;
+		else if (scroll_event->direction != GDK_SCROLL_UP)
+		{
+			printf("Unknown scroll event, scroll.direction=%d\n",
+				scroll_event->direction);
+			return;
+		}
+
+		// Increase (or decrease) the scale and clamp it to 80/20%:
+		fr_plot->plot_scale += scale_adjust;
+		if (fr_plot->plot_scale > 0.8) fr_plot->plot_scale = 0.8;
+		if (fr_plot->plot_scale < 0.1) fr_plot->plot_scale = 0.2;
+
+		// Adjust all related FR cards:
+		for (int fr = 0; fr < calc_data.FR_cards; fr++)
+		{
+			fr_plot_t *f = get_fr_plot(fr_plot->posn, fr);
+			
+			printf("fr=%d: ", fr);
+			print_fr_plot(f);
+
+			if (f != fr_plot)
+				f->plot_scale -= scale_adjust / (calc_data.FR_cards-1);
+		}
+
+		// Just return, we don't want to set fmhz below.
+		return;
+
+  } /* switch( button_event->button ) */
 
   /* Round frequency to nearest 1 kHz */
   int ifmhz = ( fmhz * 1000.0 + 0.5 );

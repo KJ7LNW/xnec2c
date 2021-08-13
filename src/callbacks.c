@@ -1115,6 +1115,16 @@ on_freqplots_drawingarea_button_press_event(
   return( TRUE );
 }
 
+  gboolean
+on_freqplots_drawingarea_scroll_event(
+    GtkWidget       *widget,
+    GdkEvent        *event,
+    gpointer         user_data)
+{
+
+  Set_Frequency_On_Click( event );
+  return TRUE;
+}
 
   void
 on_rdpattern_window_destroy(
