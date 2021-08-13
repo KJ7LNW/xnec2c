@@ -1218,6 +1218,7 @@ void on_rdpattern_plus_button_clicked(GtkButton *button, gpointer user_data);
 void on_rdpattern_minus_button_clicked(GtkButton *button, gpointer user_data);
 void on_rdpattern_one_button_clicked(GtkButton *button, gpointer user_data);
 gboolean on_structure_drawingarea_scroll_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+gboolean on_freqplots_drawingarea_scroll_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 gboolean on_rdpattern_drawingarea_scroll_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 gboolean on_escape_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 /* cmnd_edit.c */
@@ -1379,7 +1380,7 @@ void *Optimizer_Output(void *arg);
 /* plot_freqdata.c */
 void Plot_Frequency_Data(cairo_t *cr);
 void Plots_Window_Killed(void);
-void Set_Frequency_On_Click(GdkEventButton *event);
+void Set_Frequency_On_Click(GdkEvent *event);
 /* radiation.c */
 void rdpat(void);
 /* rc_config.c */
