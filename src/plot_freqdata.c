@@ -1630,6 +1630,8 @@ Set_Frequency_On_Click( GdkEvent *e)
 
   // Support holding the button down to drag the green line:
   if (motion_event->state & GDK_BUTTON1_MASK) button = 1;
+  if (motion_event->state & GDK_BUTTON2_MASK) button = 2;
+  if (motion_event->state & GDK_BUTTON3_MASK) button = 3;
 
   /* Set freq corresponding to click 'x', to freq spinbuttons FIXME */
   switch( button )
