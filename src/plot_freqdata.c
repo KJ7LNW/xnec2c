@@ -28,6 +28,11 @@
 #include "plot_freqdata.h"
 #include "shared.h"
 
+// Move this to be used in all calls to mem_realloc:
+#define __S1(x) #x
+#define __S2(x) __S1(x)
+#define  __LOCATION__ "in " __S2(__FILE__) " on line " __S2(__LINE__)
+
 #define FR_PLOT_T_MAGIC 				0xc2bca3083893e65eULL
 #define FR_PLOT_T_IS_VALID(fr_plot_ptr)	((fr_plot_ptr)->valid == FR_PLOT_T_MAGIC)
 
@@ -47,6 +52,13 @@ typedef struct {
 } fr_plot_t;
 
 fr_plot_t *fr_plots = NULL;
+
+// prev_width_available is used if to detect window resize in Plot_Graph.
+// It must be global so it can be reset to zero when the window closes.
+// Maybe there is a better way to detect that it is the first call to Plot_Graph after
+// closing the window, but for now this works:
+static int prev_width_available = 0;
+
 
 /* Graph plot bounding rectangle */
 static double Fit_to_Scale( double *max, double *min, int *nval );
@@ -764,10 +776,8 @@ Plot_Graph(
 	// Values for the fr_plot->plot_rect object below in the FR card loop
 	int plot_rect_y, plot_rect_height;
 
-	// Values for the width available for plotting. prev_width_available
-	// is used if to detect window resize.
+	// Values for the width available for plotting. 
 	int width_available;
-	static int prev_width_available = 0;
 
 	// Values for pixel padding in the UI:
 	int pad_y_px_above_scale, pad_y_bottom_scale_text, pad_y_title_text,
@@ -913,7 +923,7 @@ Plot_Graph(
 		Plot_Vertical_Scale(
 			cr,
 			CYAN,
-			freqplots_width,
+			freqplots_width-pad_x_px_after_scale,
 			plot_rect_y,
 			plot_rect_height,
 			max_y_right, min_y_right, n_horiz_scale);
@@ -971,12 +981,12 @@ Plot_Graph(
 		// Clamp the number of index to be plotted if there
 		// are some available to plot in the next FR card which
 		// will be done in the next iteration of this loop:
-		if (maxidx > calc_data.freq_loop_data[fr].freq_steps)
-			maxidx = calc_data.freq_loop_data[fr].freq_steps;
+		if (maxidx > fr_plot->freq_loop_data->freq_steps)
+			maxidx = fr_plot->freq_loop_data->freq_steps;
 
 		/* Draw plotting frame */
-		double min_fscale = calc_data.freq_loop_data[fr].min_freq;
-		double max_fscale = calc_data.freq_loop_data[fr].max_freq;
+		double min_fscale = fr_plot->freq_loop_data->min_freq;
+		double max_fscale = fr_plot->freq_loop_data->max_freq;
 
 		Draw_Plotting_Frame( cr, titles,
 			plot_rect, n_horiz_scale, n_vert_scale);
@@ -1035,7 +1045,7 @@ Plot_Graph(
 
 		// Next FR card index:
 		x_offset += plot_rect->width + pad_x_between_graphs;
-		offset += calc_data.freq_loop_data[fr].freq_steps;
+		offset += fr_plot->freq_loop_data->freq_steps;
 	}
 }
 
@@ -1197,9 +1207,12 @@ Plot_Frequency_Data( cairo_t *cr )
   double Zr, Zo, Zi;
 
   /* 2d array of plot rectangles popluated by the Plot_Graph function */
+  if (calc_data.ngraph > 0 && calc_data.FR_cards > 0)
   mem_realloc((void**)&fr_plots,
 	sizeof(fr_plot_t) * calc_data.ngraph * calc_data.FR_cards,
-	"in plot_freqdata.c"); 
+		__LOCATION__); 
+  else // nothing to do here...
+	  return;
 
 
   for (idx = 0; idx < calc_data.ngraph * calc_data.FR_cards; idx++)
@@ -1535,6 +1548,9 @@ Plots_Window_Killed( void )
 {
   rc_config.freqplots_width  = 0;
   rc_config.freqplots_height = 0;
+
+  // Reset this for next time otherwise width_available rescales in Plot_Graph will not work.
+  prev_width_available = 0;
 
   if( isFlagSet(PLOT_ENABLED) )
   {
