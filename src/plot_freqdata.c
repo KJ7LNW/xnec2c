@@ -1576,10 +1576,11 @@ Set_Frequency_On_Click( GdkEvent *e)
 {
   double fmhz = 0.0;
   double x, w;
-  int i;
+  int button, i;
 
   GdkEventButton *button_event = (GdkEventButton *)e;
   GdkEventScroll *scroll_event = (GdkEventScroll *)e;
+  GdkEventMotion *motion_event = (GdkEventMotion *)e;
 
   // fr_plot: the plot where the mouse hovered:
   fr_plot_t *fr_plot = NULL;
@@ -1625,8 +1626,13 @@ Set_Frequency_On_Click( GdkEvent *e)
   printf("mouse click[%f,%f button=%d]: ", button_event->x, button_event->y, button_event->button);
   print_fr_plot(fr_plot);
 
+  button = button_event->button;
+
+  // Support holding the button down to drag the green line:
+  if (motion_event->state & GDK_BUTTON1_MASK) button = 1;
+
   /* Set freq corresponding to click 'x', to freq spinbuttons FIXME */
-  switch( button_event->button )
+  switch( button )
   {
     case 1: /* Calculate frequency corresponding to mouse position in plot */
       /* Enable drawing of frequency line */
@@ -1635,6 +1641,7 @@ Set_Frequency_On_Click( GdkEvent *e)
       /* Frequency corresponding to x position of click */
       fmhz = max_fscale - min_fscale;
       fmhz = min_fscale + fmhz * x / w;
+      gtk_widget_queue_draw( freqplots_drawingarea );
       break;
 
     case 2: /* Disable drawing of freq line */
@@ -1644,7 +1651,6 @@ Set_Frequency_On_Click( GdkEvent *e)
 
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( freqplots_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
       return;
 
 	// not a button, is it a scroll?
@@ -1687,7 +1693,6 @@ Set_Frequency_On_Click( GdkEvent *e)
 
         /* Redraw and wait for GTK to complete its tasks */
 		gtk_widget_queue_draw( freqplots_drawingarea );
-		while( g_main_context_iteration(NULL, FALSE) );
 		
 		// Just return, we don't want to set fmhz below.
 		return;

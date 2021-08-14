@@ -1111,7 +1111,7 @@ on_freqplots_drawingarea_button_press_event(
   if( isFlagSet(INPUT_PENDING) )
     return( FALSE );
 
-  Set_Frequency_On_Click( event );
+  Set_Frequency_On_Click( (GdkEvent*)event );
   return( TRUE );
 }
 
@@ -1124,6 +1124,16 @@ on_freqplots_drawingarea_scroll_event(
 
   Set_Frequency_On_Click( event );
   return TRUE;
+}
+
+  gboolean
+on_freqplots_drawingarea_motion_notify_event(
+    GtkWidget       *widget,
+    GdkEventMotion  *event,
+    gpointer         user_data)
+{
+  Set_Frequency_On_Click( (GdkEvent*)event );
+  return( TRUE );
 }
 
   void

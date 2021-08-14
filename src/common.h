@@ -941,6 +941,7 @@ void on_freqplots_smith_togglebutton_toggled(GtkToggleButton *togglebutton, gpoi
 gboolean on_freqplots_drawingarea_draw(GtkWidget *widget, cairo_t *cr, gpointer user_data);
 gboolean on_freqplots_drawingarea_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer user_data);
 gboolean on_freqplots_drawingarea_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+gboolean on_freqplots_drawingarea_motion_notify_event(GtkWidget *widget, GdkEventMotion *event, gpointer user_data);
 void on_rdpattern_window_destroy(GObject *object, gpointer user_data);
 gboolean on_rdpattern_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 void on_rdpattern_save_activate(GtkMenuItem *menuitem, gpointer user_data);
