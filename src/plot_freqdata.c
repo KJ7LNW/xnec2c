@@ -33,7 +33,6 @@
 
 typedef struct {
 	GdkRectangle plot_rect;
-	double plot_scale;	// Value from 0-1 for the plot width
 	int posn;			// Position in the frequency plots
 	int fr;				// index into calc_data.freq_loop_data[fr]
 
@@ -63,25 +62,49 @@ static void pango_text_size(GtkWidget* widget, int *width, int *height, char *s)
 
 fr_plot_t *get_fr_plot(int posn, int fr)
 {
+	if (posn < 0 || posn >= calc_data.ngraph ||	fr < 0 || fr >= calc_data.FR_cards)
+		return NULL;
+		
 	return &fr_plots[posn*calc_data.FR_cards + fr];
 }
 
 GdkRectangle *get_plot_rect(int posn, int fr)
 {
-	return &get_fr_plot(posn, fr)->plot_rect;
+	fr_plot_t *p = get_fr_plot(posn, fr);
+
+	if (p == NULL)
+		return NULL;
+	
+	return &p->plot_rect;
 }
 
-void save_plot_rect(GdkRectangle *plot_rect, int posn, int fr)
+void fr_plot_sync_widths(fr_plot_t *fr_plot)
 {
-	memcpy(get_plot_rect(posn, fr), plot_rect, sizeof(GdkRectangle));
+	GdkRectangle *current, *r;
+	int posn, fr;
+	// Update all plot widths so they re the same as fr_plot's width.
+	for (posn = 0; posn < calc_data.ngraph; posn++)
+	{
+		// Skip the current one the mouse adjusted:
+		if (posn == fr_plot->posn)
+			continue;
+
+		for (fr = 0; fr < calc_data.FR_cards; fr++)
+{
+			current = get_plot_rect(fr_plot->posn, fr);
+			r = get_plot_rect(posn, fr);
+
+			r->width = current->width;
+		}
+	}
+
 }
 
 void print_fr_plot(fr_plot_t *p)
 {
-	printf("fr_plot[posn=%d, fr=%d, scale=%f] rect[x=%d, y=%d, w=%d, h=%d] freq[min=%f, max=%f, steps=%d]\n",
+	printf("fr_plot[posn=%d, fr=%d] rect[x=%d, y=%d, w=%d, h=%d] freq[min=%f, max=%f, steps=%d]\n",
 		p->posn,
 		p->fr,
-		p->plot_scale,
 		p->plot_rect.x,
 		p->plot_rect.y,
 		p->plot_rect.width,
@@ -732,14 +755,29 @@ Plot_Graph(
     double *y_left, double *y_right, double *x, int nx,
     char *titles[], int posn)
 {
-	GdkRectangle plot_rect;
+	// Pointer to the FR card's plot_rect
+	GdkRectangle *plot_rect = NULL;
 
+	// Min/max values for the data series
+	double max_y_left, min_y_left, max_y_right, min_y_right;
+
+	// Values for the fr_plot->plot_rect object below in the FR card loop
+	int plot_rect_y, plot_rect_height;
+
+	// Values for the width available for plotting. prev_width_available
+	// is used if to detect window resize.
+	int width_available;
+	static int prev_width_available = 0;
+
+	// Values for pixel padding in the UI:
 	int pad_y_px_above_scale, pad_y_bottom_scale_text, pad_y_title_text,
 		pad_x_scale_text, pad_x_px_after_scale, pad_x_between_graphs;
 
+	// Values for scale markers:
 	int px_per_vert_scale, px_per_horiz_scale,
-		n_vert_scale,
-		n_horiz_scale;
+		n_vert_scale,      n_horiz_scale;
+
+	int i; 
 
 	// Get the pixel size of the scale text on left and right of the graph.
 	pango_text_size(freqplots_drawingarea, 
@@ -767,23 +805,28 @@ Plot_Graph(
 	px_per_horiz_scale = pad_y_bottom_scale_text*3;
 
 	// Title text is the same as the scale text, but change this
-	// if the title font ever changes!
+	// if the title font-size ever changes!
 	pad_y_title_text   = pad_y_bottom_scale_text;
-
 
 	/* Available height for each graph.
 	* (calc_data.ngraph is the number of graphs to be plotted) */
-	plot_rect.height = 
+	plot_rect_height = 
 		freqplots_height / calc_data.ngraph - (
 			pad_y_title_text +
 			pad_y_px_above_scale +
 			pad_y_bottom_scale_text
 		);
 
+	// Scales start at the same value, may be modified below.
+	// The number of horizontal scale lines (n_horiz_scale) is
+	// calculated here. (But n_vert_scale is calculated below in
+	// the FR card loop because it can change with the plot size.)
+	n_horiz_scale = plot_rect_height / px_per_horiz_scale;
 
-	int width_available = 
+	// Calculate the entire available width for plotting:
+	width_available = 
 		(freqplots_width - (
-			// one for each side
+			// 2x, one for each side, left and right:
 			2*pad_x_scale_text +
 			2*pad_x_px_after_scale +
 
@@ -794,35 +837,28 @@ Plot_Graph(
 
 
 	/* Draw titles */
-	plot_rect.y = (freqplots_height * posn) / calc_data.ngraph;
+	plot_rect_y = (freqplots_height * posn) / calc_data.ngraph;
+
 	draw_text(cr, freqplots_drawingarea, 
 		pad_x_scale_text+pad_x_px_after_scale,
-		plot_rect.y,
+		plot_rect_y,
 		titles[0], JUSTIFY_LEFT, MAGENTA,
 		NULL, NULL);
 
 	draw_text(cr, freqplots_drawingarea, 
 		freqplots_width/2,
-		plot_rect.y,
+		plot_rect_y,
 		titles[1], JUSTIFY_CENTER, YELLOW,
 		NULL, NULL);
 
 	draw_text(cr, freqplots_drawingarea, 
 		freqplots_width - (pad_x_scale_text+pad_x_px_after_scale),
-		plot_rect.y,
+		plot_rect_y,
 		titles[2], JUSTIFY_RIGHT, CYAN,
 		NULL, NULL);
 
-	// Increase the y position to account for the title text size:
-	plot_rect.y += pad_y_title_text;
-
-	int i; 
-	double max_y_left, min_y_left, max_y_right, min_y_right;
-
-	// Scales start at the same value, may be modified below.
-	// n_horiz_scale is calculated here, n_vert_scale is 
-	// calculated below in the FR card loop because it can change:
-	n_horiz_scale = plot_rect.height / px_per_horiz_scale;
+	// Increase the y position to account for the title text height above:
+	plot_rect_y += pad_y_title_text;
 
 	// Calculate min/max if defined:
 	if (y_left != NULL)
@@ -869,8 +905,8 @@ Plot_Graph(
 		Plot_Vertical_Scale(
 			cr,
 			MAGENTA,
-			pad_x_scale_text, plot_rect.y,
-			plot_rect.height,
+			pad_x_scale_text, plot_rect_y,
+			plot_rect_height,
 			max_y_left, min_y_left, n_horiz_scale);
 
 	if (y_right != NULL)
@@ -878,27 +914,51 @@ Plot_Graph(
 			cr,
 			CYAN,
 			freqplots_width,
-			plot_rect.y,
-			plot_rect.height,
+			plot_rect_y,
+			plot_rect_height,
 			max_y_right, min_y_right, n_horiz_scale);
 
 
 	// Plot FR cards:
 	int fr, x_offset = 0, offset = 0;
 
+	double width_rescale = 1;
+
+	// Detect window resize:
+	if (width_available != prev_width_available && prev_width_available != 0)
+	{
+		width_rescale = (double)width_available / (double)prev_width_available;
+	}
+
+	prev_width_available = width_available;
+
 	x_offset = pad_x_scale_text	+ pad_x_px_after_scale;
 	for (fr = 0; fr < calc_data.FR_cards; fr++)
 	{
 		fr_plot_t *fr_plot = get_fr_plot(posn, fr);
-		print_fr_plot(fr_plot);
+		plot_rect = &fr_plot->plot_rect;
 
-		// Setup the x position for this plot and set its width
-		// based on the plot_scale
-		plot_rect.x = x_offset;
-		plot_rect.width = width_available * fr_plot->plot_scale;
-		n_vert_scale = plot_rect.width / px_per_vert_scale;
+		// Set the y/height values from above:
+		fr_plot->plot_rect.y = plot_rect_y;
+		fr_plot->plot_rect.height = plot_rect_height;
 
-		save_plot_rect(&plot_rect, posn, fr);
+		// Setup the x position for this plot:
+		fr_plot->plot_rect.x = x_offset;
+
+		// If fr_plot->plot_rect.width is uninitialized then do it now.  We can't
+		// initialize it early because we didn't previously know 'width_available'.
+		if (plot_rect->width == 0)
+			plot_rect->width = width_available / calc_data.FR_cards;
+		
+		// Resize and sync plots if the window size changed.
+		if (width_rescale != 1)
+		{
+			plot_rect->width *= width_rescale;
+			fr_plot_sync_widths(fr_plot);
+		}
+
+		n_vert_scale = plot_rect->width / px_per_vert_scale;
+
 
 		// Offset is the offset into the value arrays: 
 		// Break if there are no more values to plot because
@@ -919,14 +979,14 @@ Plot_Graph(
 		double max_fscale = calc_data.freq_loop_data[fr].max_freq;
 
 		Draw_Plotting_Frame( cr, titles,
-			&plot_rect, n_horiz_scale, n_vert_scale);
+			plot_rect, n_horiz_scale, n_vert_scale);
 
 		Plot_Horizontal_Scale(
 			cr,
 			YELLOW,
-			plot_rect.x,
-			plot_rect.y + plot_rect.height,
-			plot_rect.width,
+			plot_rect->x,
+			plot_rect->y + plot_rect->height,
+			plot_rect->width,
 			max_fscale, min_fscale, n_vert_scale);
 
 		if (y_left != NULL)
@@ -934,7 +994,7 @@ Plot_Graph(
 			Draw_Graph(
 				cr,
 				MAGENTA,
-				&plot_rect,
+				plot_rect,
 				y_left+offset, x+offset,
 				max_y_left, min_y_left,
 				max_fscale, min_fscale,
@@ -947,7 +1007,7 @@ Plot_Graph(
 			Draw_Graph(
 				cr,
 				CYAN,
-				&plot_rect,
+				plot_rect,
 				y_right+offset, x+offset,
 				max_y_right, min_y_right,
 				max_fscale, min_fscale,
@@ -965,22 +1025,18 @@ Plot_Graph(
 			double freq_x;
 
 			freq_x = (calc_data.freq_mhz - min_fscale) / (max_fscale - min_fscale);
-			freq_x *= plot_rect.width;
+			freq_x *= plot_rect->width;
 
 			cairo_set_source_rgb( cr, GREEN );
 			Cairo_Draw_Line(cr,
-				plot_rect.x+freq_x, plot_rect.y,
-				plot_rect.x+freq_x, plot_rect.y+plot_rect.height);
+				plot_rect->x+freq_x, plot_rect->y,
+				plot_rect->x+freq_x, plot_rect->y+plot_rect->height);
 	}
 
-		// Next FR card index
-
-		x_offset += plot_rect.width + pad_x_between_graphs;
-
+		// Next FR card index:
+		x_offset += plot_rect->width + pad_x_between_graphs;
 		offset += calc_data.freq_loop_data[fr].freq_steps;
 	}
-
-
 }
 
 
@@ -1158,14 +1214,7 @@ Plot_Frequency_Data( cairo_t *cr )
 	  fr_plots[idx].fr = idx % calc_data.FR_cards;
 	  fr_plots[idx].freq_loop_data = &calc_data.freq_loop_data[fr_plots[idx].fr];
 
-      // Because the number of FR cards may have changed, reset the
-	  // scale for all FR's in this posn:
-	  // Default to 1/Nth of the size:
-	  for (int fr = 0; fr < calc_data.FR_cards; fr++)
-	  {
-		  get_fr_plot(fr_plots[idx].posn, fr)->plot_scale = 1.0/(double)calc_data.FR_cards;
-	  }
-
+      // zero the plot_rect, Plot_Graph() will fill it in.
 	  memset(&fr_plots[idx].plot_rect, 0, sizeof(GdkRectangle));
 
       // Set it as valid:
@@ -1520,16 +1569,22 @@ Set_Frequency_On_Click( GdkEvent *e)
   double fmhz = 0.0;
   double scale_adjust = 0.05; // for scroll wheel
   double x, w;
-  int i;
+  int i, fr, posn;
 
   GdkEventButton *button_event = (GdkEventButton *)e;
   GdkEventScroll *scroll_event = (GdkEventScroll *)e;
 
+  // fr_plot: the plot where the mouse hovered:
   fr_plot_t *fr_plot = NULL;
+
+  // fr_adj: the plot to adjust when using the mouse wheel:
+  fr_plot_t *fr_adj = NULL;
+
 
   if( isFlagClear(FREQ_LOOP_DONE) )
     return;
 
+  // find the fr_plot structure that the mouse is within:
   for (i = 0; i < calc_data.ngraph * calc_data.FR_cards; i++)
   {
 	if (   button_event->x >= fr_plots[i].plot_rect.x
@@ -1587,53 +1642,41 @@ Set_Frequency_On_Click( GdkEvent *e)
 
 	// not a button, is it a scroll?
     case 0: 
-		// Switch scale direction if this is a valid scroll direction:	
-		1;
 
+		// If its the last plot than shrink/grow the previous:
+		if (fr_plot->fr == calc_data.FR_cards-1) 
+			fr_adj = get_fr_plot(fr_plot->posn, fr_plot->fr-1);
 
-		fr_plot_t *min = NULL, *max = NULL;
-		for (int fr = 0; fr < calc_data.FR_cards; fr++)
-		{
-			fr_plot_t *f = get_fr_plot(fr_plot->posn, fr);
-
-			if (min == NULL || f->plot_scale < min->plot_scale)
-				min = f;
-
-			if (max == NULL || f->plot_scale > max->plot_scale)
-				max = f;
-		}
-
-		if (scroll_event->direction == GDK_SCROLL_UP
-			&& (min->plot_scale > 0.2 || fr_plot == min))
-			//scale_adjust = (fr_plot->plot_scale * 1.1) - fr_plot->plot_scale;
-			scale_adjust = 0.05;
-		else if (scroll_event->direction == GDK_SCROLL_DOWN
-			&& (max->plot_scale < 0.8 || fr_plot == max))
-			//scale_adjust = (fr_plot->plot_scale * 0.9) - fr_plot->plot_scale;
-			scale_adjust = -0.05;
+		// Otherwise shink/grow the next:
 		else 
+			fr_adj = get_fr_plot(fr_plot->posn, fr_plot->fr+1);
+
+		// Abort if there is only one plot:
+		if (fr_adj == NULL)
 			return;
 
-		printf("scale_adjust=%f\n", scale_adjust);
+		// the amount to adjust on scale:
+		int px_adjust = 20;
 
-		// Increase (or decrease) the scale and clamp it to 80/20%:
-		if (fr_plot->plot_scale + scale_adjust < 0.8 
-			&& fr_plot->plot_scale + scale_adjust > 0.2)
-		fr_plot->plot_scale += scale_adjust;
-		else
-			return;
-
-		// Adjust all related FR cards:
-		for (int fr = 0; fr < calc_data.FR_cards; fr++)
+		if (scroll_event->direction == GDK_SCROLL_UP)
 		{
-			fr_plot_t *f = get_fr_plot(fr_plot->posn, fr);
-			
-			printf("fr=%d: ", fr);
-			print_fr_plot(f);
+			if (fr_adj->plot_rect.width < 100)
+			return;
 
-			if (f != fr_plot)
-				f->plot_scale -= scale_adjust / (calc_data.FR_cards-1);
+			fr_adj->plot_rect.width -= px_adjust;
+			fr_plot->plot_rect.width += px_adjust;
 		}
+		else if (scroll_event->direction == GDK_SCROLL_DOWN)
+		{
+			if (fr_plot->plot_rect.width < 100)
+				return;
+
+			fr_adj->plot_rect.width += px_adjust;
+			fr_plot->plot_rect.width -= px_adjust;
+		}
+
+		// Sync widths for all positions based on fr_plot:
+		fr_plot_sync_widths(fr_plot);
 
         /* Redraw and wait for GTK to complete its tasks */
 		gtk_widget_queue_draw( freqplots_drawingarea );
