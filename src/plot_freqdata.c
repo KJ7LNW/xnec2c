@@ -932,16 +932,6 @@ Plot_Graph(
 	// Plot FR cards:
 	int fr, x_offset = 0, offset = 0;
 
-	double width_rescale = 1;
-
-	// Detect window resize:
-	if (width_available != prev_width_available && prev_width_available != 0)
-	{
-		width_rescale = (double)width_available / (double)prev_width_available;
-	}
-
-	prev_width_available = width_available;
-
 	x_offset = pad_x_scale_text	+ pad_x_px_after_scale;
 	for (fr = 0; fr < calc_data.FR_cards; fr++)
 	{
@@ -961,9 +951,8 @@ Plot_Graph(
 			plot_rect->width = width_available / calc_data.FR_cards;
 		
 		// Resize and sync plots if the window size changed.
-		if (width_rescale != 1)
-		{
-			plot_rect->width *= width_rescale;
+		if (prev_width_available != width_available) {
+			plot_rect->width = width_available / calc_data.FR_cards;
 			fr_plot_sync_widths(fr_plot);
 		}
 
@@ -1047,6 +1036,9 @@ Plot_Graph(
 		x_offset += plot_rect->width + pad_x_between_graphs;
 		offset += fr_plot->freq_loop_data->freq_steps;
 	}
+
+	prev_width_available = width_available;
+
 }
 
 
@@ -1583,9 +1575,8 @@ Plots_Window_Killed( void )
 Set_Frequency_On_Click( GdkEvent *e)
 {
   double fmhz = 0.0;
-  double scale_adjust = 0.05; // for scroll wheel
   double x, w;
-  int i, fr, posn;
+  int i;
 
   GdkEventButton *button_event = (GdkEventButton *)e;
   GdkEventScroll *scroll_event = (GdkEventScroll *)e;
