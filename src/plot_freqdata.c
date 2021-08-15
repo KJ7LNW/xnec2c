@@ -1655,9 +1655,9 @@ Set_Frequency_On_Click( GdkEvent *e)
       gtk_widget_queue_draw( freqplots_drawingarea );
       return;
 
-	// not a button, is it a scroll?
-    case 0: 
-
+    case 4:  // scroll up
+    case 5:  // scroll down
+    case 0: // not a button, is it a scroll?
 		// If its the last plot than shrink/grow the previous:
 		if (fr_plot->fr == calc_data.FR_cards-1) 
 			fr_adj = get_fr_plot(fr_plot->posn, fr_plot->fr-1);
@@ -1673,7 +1673,7 @@ Set_Frequency_On_Click( GdkEvent *e)
 		// the amount to adjust on scale:
 		int px_adjust = 20;
 
-		if (scroll_event->direction == GDK_SCROLL_UP)
+		if (scroll_event->direction == GDK_SCROLL_UP || button == 4)
 		{
 			if (fr_adj->plot_rect.width < 100)
 			return;
@@ -1681,7 +1681,7 @@ Set_Frequency_On_Click( GdkEvent *e)
 			fr_adj->plot_rect.width -= px_adjust;
 			fr_plot->plot_rect.width += px_adjust;
 		}
-		else if (scroll_event->direction == GDK_SCROLL_DOWN)
+		else if (scroll_event->direction == GDK_SCROLL_DOWN || button == 5)
 		{
 			if (fr_plot->plot_rect.width < 100)
 				return;
