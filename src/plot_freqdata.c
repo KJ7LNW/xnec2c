@@ -1653,6 +1653,8 @@ Set_Frequency_On_Click( GdkEvent *e)
 
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( freqplots_drawingarea );
+
+	  // Just return, we don't want to set fmhz below.
       return;
 
     case 4:  // scroll up
