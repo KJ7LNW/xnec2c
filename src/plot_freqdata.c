@@ -58,13 +58,14 @@ fr_plot_t *fr_plots = NULL;
 // Maybe there is a better way to detect that it is the first call to Plot_Graph after
 // closing the window, but for now this works:
 static int prev_width_available = 0;
+static int prev_ngraphs = 0;
 
 
 /* Graph plot bounding rectangle */
 static double Fit_to_Scale( double *max, double *min, int *nval );
 
 /* helper function to get width and height by creating a layout */
-static void pango_text_size(GtkWidget* widget, int *width, int *height, char *s)
+static inline void pango_text_size(GtkWidget* widget, int *width, int *height, char *s)
 {
 	PangoLayout *layout = NULL;
     layout = gtk_widget_create_pango_layout(freqplots_drawingarea, s);
@@ -72,7 +73,7 @@ static void pango_text_size(GtkWidget* widget, int *width, int *height, char *s)
     g_object_unref( layout );
 }
 
-fr_plot_t *get_fr_plot(int posn, int fr)
+static inline fr_plot_t *get_fr_plot(int posn, int fr)
 {
 	if (posn < 0 || posn >= calc_data.ngraph ||	fr < 0 || fr >= calc_data.FR_cards)
 		return NULL;
@@ -80,7 +81,7 @@ fr_plot_t *get_fr_plot(int posn, int fr)
 	return &fr_plots[posn*calc_data.FR_cards + fr];
 }
 
-GdkRectangle *get_plot_rect(int posn, int fr)
+static inline GdkRectangle *get_plot_rect(int posn, int fr)
 {
 	fr_plot_t *p = get_fr_plot(posn, fr);
 
@@ -90,7 +91,7 @@ GdkRectangle *get_plot_rect(int posn, int fr)
 	return &p->plot_rect;
 }
 
-void fr_plot_sync_widths(fr_plot_t *fr_plot)
+static inline void fr_plot_sync_widths(fr_plot_t *fr_plot)
 {
 	GdkRectangle *current, *r;
 	int posn, fr;
@@ -114,7 +115,7 @@ void fr_plot_sync_widths(fr_plot_t *fr_plot)
 
 void print_fr_plot(fr_plot_t *p)
 {
-	printf("fr_plot[posn=%d, fr=%d] rect[x=%d, y=%d, w=%d, h=%d] freq[min=%f, max=%f, steps=%d]\n",
+	printf("fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n",
 		p->posn,
 		p->fr,
 		p->plot_rect.x,
@@ -950,12 +951,16 @@ Plot_Graph(
 		if (plot_rect->width == 0)
 			plot_rect->width = width_available / calc_data.FR_cards;
 		
-		// Resize and sync plots if the window size changed.
+		// Resize and sync plots if the window size or number of plots have changed.
 		if (prev_width_available != width_available) {
 			plot_rect->width = width_available / calc_data.FR_cards;
 			fr_plot_sync_widths(fr_plot);
 		}
+		else if (prev_ngraphs != calc_data.ngraph) {
+			fr_plot_sync_widths(fr_plot);
+		}
 
+		// Adjust the vertical scale based on the width (assigned above).
 		n_vert_scale = plot_rect->width / px_per_vert_scale;
 
 
@@ -1038,7 +1043,7 @@ Plot_Graph(
 	}
 
 	prev_width_available = width_available;
-
+	prev_ngraphs = calc_data.ngraph;
 }
 
 
@@ -1543,6 +1548,7 @@ Plots_Window_Killed( void )
 
   // Reset this for next time otherwise width_available rescales in Plot_Graph will not work.
   prev_width_available = 0;
+  prev_ngraphs = 0;
 
   if( isFlagSet(PLOT_ENABLED) )
   {
@@ -1623,15 +1629,29 @@ Set_Frequency_On_Click( GdkEvent *e)
   if( x < 0.0 ) x = 0.0;
   else if( x > w ) x = w;
 
-  printf("mouse click[%f,%f button=%d]: ", button_event->x, button_event->y, button_event->button);
-  print_fr_plot(fr_plot);
 
-  button = button_event->button;
+  button = 0;
 
+  if (e->type == GDK_BUTTON_PRESS)
+	  button = button_event->button;
+  else if (e->type == GDK_SCROLL && scroll_event->direction == GDK_SCROLL_UP)
+	  button = 4;
+  else if (e->type == GDK_SCROLL && scroll_event->direction == GDK_SCROLL_DOWN)
+	  button = 5;
+  else if (e->type == GDK_MOTION_NOTIFY)
+  {
   // Support holding the button down to drag the green line:
   if (motion_event->state & GDK_BUTTON1_MASK) button = 1;
-  if (motion_event->state & GDK_BUTTON2_MASK) button = 2;
-  if (motion_event->state & GDK_BUTTON3_MASK) button = 3;
+	  else if (motion_event->state & GDK_BUTTON2_MASK) button = 2;
+	  else if (motion_event->state & GDK_BUTTON3_MASK) button = 3;
+  }
+
+  // event types: https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gdk/gdkevents.h#L309
+  printf("mouse click[type=%d pos=%4.1f,%4.1f button=%d(%d)]: ",
+	  e->type,
+	  button_event->x, button_event->y,
+	  button, button_event->button);
+  print_fr_plot(fr_plot);
 
   /* Set freq corresponding to click 'x', to freq spinbuttons FIXME */
   switch( button )
@@ -1675,7 +1695,8 @@ Set_Frequency_On_Click( GdkEvent *e)
 		// the amount to adjust on scale:
 		int px_adjust = 20;
 
-		if (scroll_event->direction == GDK_SCROLL_UP || button == 4)
+		// scroll up
+		if (button == 4)
 		{
 			if (fr_adj->plot_rect.width < 100)
 			return;
@@ -1683,7 +1704,8 @@ Set_Frequency_On_Click( GdkEvent *e)
 			fr_adj->plot_rect.width -= px_adjust;
 			fr_plot->plot_rect.width += px_adjust;
 		}
-		else if (scroll_event->direction == GDK_SCROLL_DOWN || button == 5)
+		// scroll down
+		else if (button == 5)
 		{
 			if (fr_plot->plot_rect.width < 100)
 				return;
@@ -1700,6 +1722,10 @@ Set_Frequency_On_Click( GdkEvent *e)
 		
 		// Just return, we don't want to set fmhz below.
 		return;
+
+		default: 
+			printf("mouse button: unknown button %d\n", button);
+			return;
 
   } /* switch( button_event->button ) */
 
