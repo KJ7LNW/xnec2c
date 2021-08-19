@@ -94,6 +94,8 @@
   "%d\n"\
   "# Frequency Plots Window Net Gain checkbutton state\n"\
   "%d\n"\
+  "# Frequency Plots Window Min/Max checkbutton state\n"\
+  "%d\n"\
   "# NEC2 Editor Window Size, in pixels\n"\
   "%d,%d\n"\
   "# NEC2 Editor Window Position (root x and y)\n"\

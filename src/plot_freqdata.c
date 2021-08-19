@@ -687,6 +687,29 @@ Draw_Plotting_Frame(
 
 /*-----------------------------------------------------------------------*/
 
+void draw_poly(
+    cairo_t *cr,
+	int x, int y,
+	int side)
+{
+	GdkPoint polygn[4];
+    if( side == LEFT )
+    {
+      cairo_rectangle( cr,
+          (double)(x-3), (double)(y-3),
+          6.0, 6.0 );
+      cairo_fill( cr );
+    }
+    else
+    {
+      polygn[0].x = x-3; polygn[0].y = y;
+      polygn[1].x = x;   polygn[1].y = y+5;
+      polygn[2].x = x+3; polygn[2].y = y;
+      polygn[3].x = x;   polygn[3].y = y-5;
+      Cairo_Draw_Polygon( cr, polygn, 4 );
+      cairo_fill( cr );
+    }
+}
 /* Draw_Graph()
  *
  * Plots a graph of a vs b
@@ -703,7 +726,8 @@ Draw_Graph(
 {
   double ra;
   int idx;
-  GdkPoint *points = NULL, polygn[4];
+  GdkPoint *points = NULL;
+  char s[20];
 
   /* Cairo context */
   cairo_set_source_rgb( cr, red, grn, blu );
@@ -723,33 +747,55 @@ Draw_Graph(
     return;
   }
 
+  int min_idx = 0, max_idx = 0;
   for( idx = 0; idx < nval; idx++ )
   {
     points[idx].x = rect->x + (int)((double)rect->width * idx/(nval-1) + 0.5);
     points[idx].y = rect->y + (int)( (double)rect->height *
         (amax-a[idx]) / ra + 0.5 );
 
-    /* Plot a small rectangle (left scale) or polygon (right scale) at point */
-    if( side == LEFT )
-    {
-      cairo_rectangle( cr,
-          (double)(points[idx].x-3), (double)(points[idx].y-3),
-          6.0, 6.0 );
-      cairo_fill( cr );
-    }
-    else
-    {
-      polygn[0].x = points[idx].x-4; polygn[0].y = points[idx].y;
-      polygn[1].x = points[idx].x;   polygn[1].y = points[idx].y+4;
-      polygn[2].x = points[idx].x+4; polygn[2].y = points[idx].y;
-      polygn[3].x = points[idx].x;   polygn[3].y = points[idx].y-4;
-      Cairo_Draw_Polygon( cr, polygn, 4 );
-      cairo_fill( cr );
-    }
-  }
+	if (a[idx] < a[min_idx])
+		min_idx = idx;
 
+	if (a[idx] > a[max_idx])
+		max_idx = idx;
+
+  }
+  
   /* Draw the graph */
   Cairo_Draw_Lines( cr, points, nval );
+
+    /* Plot a small rectangle (left scale) or polygon (right scale) at point */
+  for( idx = 0; idx < nval; idx++ )
+    {
+	if (idx == min_idx || idx == max_idx)
+		cairo_set_source_rgb( cr, WHITE );
+    else
+		cairo_set_source_rgb( cr, red, grn, blu);
+
+	draw_poly(cr, points[idx].x, points[idx].y, side);
+  }
+
+  // Min/max labels:
+  if (rc_config.freqplots_min_max)
+  {
+	  snprintf(s, sizeof(s)-1, "min:%.2f\nmax:%.2f", a[min_idx], a[max_idx]);
+
+	  if (side == LEFT)
+		  draw_text(cr, freqplots_drawingarea,
+				rect->x + 5,
+				rect->y + 5,
+				s, JUSTIFY_LEFT,
+				red, grn, blu,
+				NULL, NULL);
+	  else 
+		  draw_text(cr, freqplots_drawingarea,
+				rect->x + rect->width - 5,
+				rect->y + 5,
+				s, JUSTIFY_RIGHT,
+				red, grn, blu,
+				NULL, NULL);
+  }
 
   free_ptr( (void **)&points );
 
@@ -1020,11 +1066,12 @@ Plot_Graph(
 		}
 
 		/* Draw a vertical line to show current freq if it was
-		* changed by a user click on the plots drawingarea */
+		* changed by a user click on the plots drawingarea
+		* The +/- 0.001 is to adjust for floating-point error, 
+		* for example: freq_mhz=148.000000 !<= max_fscale=147.999996 */
 		if( isFlagSet(FREQ_LOOP_DONE) && isFlagSet(PLOT_FREQ_LINE)
-			&& calc_data.freq_mhz >= min_fscale 
-			&& calc_data.freq_mhz <= max_fscale 
-			)
+			&& calc_data.freq_mhz >= min_fscale - 0.001 
+			&& calc_data.freq_mhz <= max_fscale + 0.001)
 		{
 			double freq_x;
 
@@ -1629,6 +1676,10 @@ Set_Frequency_On_Click( GdkEvent *e)
   if( x < 0.0 ) x = 0.0;
   else if( x > w ) x = w;
 
+  /* Calculate frequency corresponding to x position of click,
+   * used for button 1 and 3: */
+  fmhz = max_fscale - min_fscale;
+  fmhz = min_fscale + fmhz * x / w;
 
   button = 0;
 
@@ -1656,18 +1707,13 @@ Set_Frequency_On_Click( GdkEvent *e)
   /* Set freq corresponding to click 'x', to freq spinbuttons FIXME */
   switch( button )
   {
-    case 1: /* Calculate frequency corresponding to mouse position in plot */
-      /* Enable drawing of frequency line */
+    case 1: /* Enable drawing of frequency line */
       SetFlag( PLOT_FREQ_LINE );
 
-      /* Frequency corresponding to x position of click */
-      fmhz = max_fscale - min_fscale;
-      fmhz = min_fscale + fmhz * x / w;
       gtk_widget_queue_draw( freqplots_drawingarea );
       break;
 
     case 2: /* Disable drawing of freq line */
-    case 3: 
       ClearFlag( PLOT_FREQ_LINE );
       calc_data.fmhz_save = 0.0;
 
@@ -1677,9 +1723,20 @@ Set_Frequency_On_Click( GdkEvent *e)
 	  // Just return, we don't want to set fmhz below.
       return;
 
+    case 3: /* Calculate nearest frequency corresponding to mouse position in plot */
+      i = (fmhz - fr_plot->freq_loop_data->min_freq) / fr_plot->freq_loop_data->delta_freq + 0.5;
+
+      fmhz = fr_plot->freq_loop_data->min_freq + i * fr_plot->freq_loop_data->delta_freq;
+
+      /* Enable drawing of frequency line */
+      SetFlag( PLOT_FREQ_LINE );
+
+      gtk_widget_queue_draw( freqplots_drawingarea );
+      break;
+	
+
     case 4:  // scroll up
     case 5:  // scroll down
-    case 0: // not a button, is it a scroll?
 		// If its the last plot than shrink/grow the previous:
 		if (fr_plot->fr == calc_data.FR_cards-1) 
 			fr_adj = get_fr_plot(fr_plot->posn, fr_plot->fr-1);

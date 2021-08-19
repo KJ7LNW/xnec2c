@@ -138,6 +138,7 @@ Create_Default_Config( void )
   rc_config.freqplots_zmgzph_togglebutton  = 0;
   rc_config.freqplots_smith_togglebutton   = 0;
   rc_config.freqplots_net_gain = 0;
+  rc_config.freqplots_min_max = 0;
 
   /* For NEC2 editor window */
   rc_config.nec2_edit_width  = 0;
@@ -636,6 +637,15 @@ Read_Config( void )
   }
   rc_config.freqplots_net_gain = (uint8_t)atoi( line );
 
+  /* Read frequency plots window Net Gain menu item state */
+  if( Load_Line(line, fp) == EOF )
+  {
+    fprintf( stderr,
+        _("xnec2c: failed to read Frequency Plots window Min/Max menu item state\n") );
+    return( FALSE );
+  }
+  rc_config.freqplots_min_max = (uint8_t)atoi( line );
+
   /* Read NEC2 editor window size */
   if( Load_Line(line, fp) == EOF )
   {
@@ -822,6 +832,7 @@ Get_GUI_State( void )
   rc_config.freqplots_zmgzph_togglebutton  = 0;
   rc_config.freqplots_smith_togglebutton   = 0;
   rc_config.freqplots_net_gain = 0;
+  rc_config.freqplots_min_max = 0;
   if( freqplots_window )
   {
     widget = Builder_Get_Object(
@@ -858,6 +869,11 @@ Get_GUI_State( void )
         freqplots_window_builder, "freqplots_net_gain" );
     if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)) )
       rc_config.freqplots_net_gain = 1;
+
+    widget = Builder_Get_Object(
+        freqplots_window_builder, "freqplots_min_max" );
+    if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)) )
+      rc_config.freqplots_min_max = 1;
 
     widget = Builder_Get_Object(
         freqplots_window_builder, "freqplots_smith_togglebutton" );
@@ -934,6 +950,7 @@ Save_Config( void )
       rc_config.freqplots_zmgzph_togglebutton,
       rc_config.freqplots_smith_togglebutton,
       rc_config.freqplots_net_gain,
+      rc_config.freqplots_min_max,
       rc_config.nec2_edit_width,
       rc_config.nec2_edit_height,
       rc_config.nec2_edit_x,
