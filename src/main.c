@@ -345,6 +345,9 @@ Open_Input_File( gpointer arg )
   calc_data.FR_index    = 0;
   calc_data.steps_total = 0;
   calc_data.last_step   = 0;
+
+  free_ptr((void**)&fr_plots);
+
   Open_File( &input_fp, rc_config.input_file, "r");
 
   /* Read input file, record failures */
