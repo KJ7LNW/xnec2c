@@ -294,6 +294,7 @@ typedef struct
     freqplots_zrlzim_togglebutton,
     freqplots_zmgzph_togglebutton,
     freqplots_smith_togglebutton,
+    freqplots_min_max,
     freqplots_net_gain;
 
   /* NEC2 editor window position and size */
