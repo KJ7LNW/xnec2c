@@ -33,24 +33,6 @@
 #define __S2(x) __S1(x)
 #define  __LOCATION__ "in " __S2(__FILE__) " on line " __S2(__LINE__)
 
-#define FR_PLOT_T_MAGIC 				0xc2bca3083893e65eULL
-#define FR_PLOT_T_IS_VALID(fr_plot_ptr)	((fr_plot_ptr)->valid == FR_PLOT_T_MAGIC)
-
-typedef struct {
-	GdkRectangle plot_rect;
-	int posn;			// Position in the frequency plots
-	int fr;				// index into calc_data.freq_loop_data[fr]
-
-	// Pointer to &calc_data.freq_loop_data[fr]
-	freq_loop_data_t *freq_loop_data;
-
-	// Because we are using realloc it is hard to know if the structure has
-	// been initialized or if it needs to be set to sane values.  The 
-	// value will equal 0xc2bca3083893e65e (just a 64-bit random number) if
-	// it is valid.
-	uint64_t valid; 
-} fr_plot_t;
-
 fr_plot_t *fr_plots = NULL;
 
 // prev_width_available is used if to detect window resize in Plot_Graph.
@@ -1255,8 +1237,12 @@ Plot_Frequency_Data( cairo_t *cr )
   mem_realloc((void**)&fr_plots,
 	sizeof(fr_plot_t) * calc_data.ngraph * calc_data.FR_cards,
 		__LOCATION__); 
-  else // nothing to do here...
+  else if (fr_plots != NULL)
+  {
+	  free_ptr((void **)&fr_plots);
+	  // nothing to do here...
 	  return;
+  }
 
 
   for (idx = 0; idx < calc_data.ngraph * calc_data.FR_cards; idx++)
@@ -1612,8 +1598,7 @@ Plots_Window_Killed( void )
 
   if (fr_plots != NULL)
   {
-	  free(fr_plots);
-	  fr_plots = NULL;
+	  free_ptr((void **)&fr_plots);
   }
 
 } /* Plots_Window_Killed() */

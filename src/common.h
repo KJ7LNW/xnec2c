@@ -719,6 +719,27 @@ typedef struct
 
 } freq_loop_data_t;
 
+/* 
+ * fr_plot_t structure and related defines used in plot_freqdata.c
+ */
+#define FR_PLOT_T_MAGIC 				0xc2bca3083893e65eULL
+#define FR_PLOT_T_IS_VALID(fr_plot_ptr)	((fr_plot_ptr)->valid == FR_PLOT_T_MAGIC)
+
+typedef struct {
+	GdkRectangle plot_rect;
+	int posn;			// Position in the frequency plots
+	int fr;				// index into calc_data.freq_loop_data[fr]
+
+	// Pointer to &calc_data.freq_loop_data[fr]
+	freq_loop_data_t *freq_loop_data;
+
+	// Because we are using realloc it is hard to know if the structure has
+	// been initialized or if it needs to be set to sane values.  The 
+	// value will equal 0xc2bca3083893e65e (just a 64-bit random number) if
+	// it is valid.
+	uint64_t valid; 
+} fr_plot_t;
+
 /* My addition, struct to hold data needed
  * to execute various calculations requested
  * by commands like EX, RP, NH, NE etc.

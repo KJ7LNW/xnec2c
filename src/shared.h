@@ -154,6 +154,9 @@ extern int
   rdpattern_width,
   rdpattern_height;
 
+/* memory for fr_plot_t data (defined in plot_freqdata.c) */
+extern fr_plot_t *fr_plots;
+
 /* Motion event handler id */
 extern gulong rdpattern_motion_handler;
 
