@@ -652,7 +652,6 @@ Frequency_Loop( gpointer udata )
     gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
             freqplots_window_builder, "freqplots_fmhz_entry")), txt );
 
-    /* Wait for GTK to complete its tasks */
     if( isFlagClear(OPTIMIZER_OUTPUT) )
     {
       gtk_widget_queue_draw( freqplots_drawingarea );
@@ -666,7 +665,6 @@ Frequency_Loop( gpointer udata )
   if( isFlagSet(DRAW_ENABLED) )
     gtk_spin_button_set_value( rdpattern_frequency, (gdouble)calc_data.freq_mhz );
 
-  /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( structure_drawingarea );
   SetFlag( FREQ_LOOP_READY );
 

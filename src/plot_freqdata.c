@@ -1562,8 +1562,6 @@ Plot_Frequency_Data( cairo_t *cr )
   /* Display freq data in entry widgets */
   Display_Frequency_Data();
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
 
 } /* Plot_Frequency_Data() */
 
@@ -1702,7 +1700,6 @@ Set_Frequency_On_Click( GdkEvent *e)
       ClearFlag( PLOT_FREQ_LINE );
       calc_data.fmhz_save = 0.0;
 
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( freqplots_drawingarea );
 
 	  // Just return, we don't want to set fmhz below.
@@ -1759,7 +1756,6 @@ Set_Frequency_On_Click( GdkEvent *e)
 		// Sync widths for all positions based on fr_plot:
 		fr_plot_sync_widths(fr_plot);
 
-        /* Redraw and wait for GTK to complete its tasks */
 		gtk_widget_queue_draw( freqplots_drawingarea );
 		
 		// Just return, we don't want to set fmhz below.

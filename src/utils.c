@@ -82,8 +82,6 @@ Stop( char *mesg, int err )
   {
     if( isFlagSet(MAIN_QUIT) ) exit(-1);
 
-    /* Wait for GTK to complete its tasks */
-    while( g_main_context_iteration(NULL, FALSE) );
     usleep(100000);
   }
 
@@ -115,8 +113,6 @@ Nec2_Save_Warn( const gchar *mesg )
     {
       if( isFlagSet(MAIN_QUIT) ) exit(-1);
 
-      /* Wait for GTK to complete its tasks */
-      while( g_main_context_iteration(NULL, FALSE) );
       usleep(100000);
     }
 

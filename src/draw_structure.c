@@ -56,8 +56,6 @@ Draw_Structure( cairo_t *cr )
   /* Display frequency step */
   Display_Fstep( structure_fstep_entry, calc_data.freq_step );
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
 
 } /* Draw_Structure() */
 
@@ -622,18 +620,14 @@ Redo_Currents( gpointer udata )
   /* Display freq data in entry widgets */
   if( isFlagSet(PLOT_FREQ_LINE) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   /* Redraw structure on screen */
   if( (structure_drawingarea != NULL) &&
       (isFlagSet(DRAW_CURRENTS) || isFlagSet(DRAW_CHARGES)) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( structure_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   return FALSE;
@@ -658,9 +652,7 @@ New_Structure_Projection_Angle(void)
   /* Trigger a redraw of structure drawingarea */
   if( structure_drawingarea && isFlagClear(INPUT_PENDING) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( structure_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   /* Trigger a redraw of plots drawingarea */
@@ -668,9 +660,7 @@ New_Structure_Projection_Angle(void)
       isFlagSet(PLOT_GVIEWER) &&
       isFlagClear(OPTIMIZER_OUTPUT) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
 } /* New_Structure_Projection_Angle() */

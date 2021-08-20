@@ -783,8 +783,6 @@ Wire_Editor( int action )
   }
   fv[WIRE_DIA] /= 2.0; fv[WIRE_DIA1] /= 2.0; fv[WIRE_DIAN] /= 2.0;
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Wire_Editor() */
@@ -1189,8 +1187,6 @@ Patch_Editor( int action )
     gtk_spin_button_set_value( spin, fv[idx] );
   }
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Patch_Editor() */
@@ -1417,8 +1413,6 @@ Arc_Editor( int action )
       Builder_Get_Object(arc_editor_builder, fspin[idx]) );
   gtk_spin_button_set_value( spin, s );
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Arc_Editor() */
@@ -1868,8 +1862,6 @@ Helix_Editor( int action )
   }
   fv[HELIX_DIA] = ftmp;
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Helix_Editor() */
@@ -2038,8 +2030,6 @@ Reflect_Editor( int action )
       Builder_Get_Object(reflect_editor_builder, "reflect_taginc_spinbutton") );
   iv[SPIN_COL_I1] = gtk_spin_button_get_value_as_int( spin );
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Reflection_Editor() */
@@ -2188,8 +2178,6 @@ Scale_Editor( int action )
 
   } /* switch( action ) */
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Scale_Editor() */
@@ -2303,8 +2291,6 @@ Cylinder_Editor( int action )
     iv[idi] = gtk_spin_button_get_value_as_int( spin );
   }
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Cylinder_Editor() */
@@ -2447,8 +2433,6 @@ Transform_Editor( int action )
   }
   fv[SPIN_COL_F7] = (gdouble)iv[SPIN_COL_I3];
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Transform_Editor() */
@@ -2561,8 +2545,6 @@ Gend_Editor( int action )
 
   } /* switch( action ) */
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Gend_Editor() */

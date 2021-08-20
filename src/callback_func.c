@@ -175,16 +175,12 @@ Motion_Event(
 
     if( params->type == STRUCTURE_DRAWINGAREA )
     {
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( structure_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     if( params->type == RDPATTERN_DRAWINGAREA )
     {
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
 
@@ -215,9 +211,7 @@ Plot_Select( GtkToggleButton *togglebutton, unsigned long long int flag )
   /* Trigger a redraw of frequency plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
 } /* Plot_Select() */
@@ -546,9 +540,7 @@ Rdpattern_Gain_Togglebutton_Toggled( gboolean flag )
       if( !crnt.valid ) Redo_Currents( NULL );
       SetFlag( DRAW_NEW_RDPAT );
 
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     Set_Window_Labels();
@@ -559,9 +551,7 @@ Rdpattern_Gain_Togglebutton_Toggled( gboolean flag )
     /* Clear radiation pattern drawingarea */
     if( isFlagClear(DRAW_EHFIELD) && isFlagSet(DRAW_ENABLED) )
     {
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
     Free_Draw_Buffers();
   }
@@ -604,9 +594,7 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
       Near_Field_Pattern();
       SetFlag( DRAW_NEW_EHFIELD );
 
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     Set_Window_Labels();
@@ -619,9 +607,7 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
     /* Clear radiation pattern drawingarea */
     if( isFlagClear(DRAW_GAIN) && isFlagSet(DRAW_ENABLED) )
     {
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     /* Disable near field calcuations
@@ -698,16 +684,12 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
       Redo_Currents( NULL );
     else if( crnt.valid )
     {
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( structure_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     if( isFlagSet(OVERLAY_STRUCT) )
     {
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
   else
@@ -721,17 +703,13 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
           _("View Geometry") );
       if( isFlagClear(FREQ_LOOP_RUNNING) )
       {
-        /* Wait for GTK to complete its tasks */
         gtk_widget_queue_draw( structure_drawingarea );
-        //while( g_main_context_iteration(NULL, FALSE) );
       }
       Free_Crnt_Buffs();
     }
     if( isFlagSet(OVERLAY_STRUCT) )
     {
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
 
@@ -765,16 +743,12 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
       Redo_Currents( NULL );
     else if( crnt.valid )
     {
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( structure_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     if( isFlagSet(OVERLAY_STRUCT) )
     {
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
   else
@@ -789,9 +763,7 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
 
       if( isFlagClear(FREQ_LOOP_RUNNING) )
       {
-        /* Wait for GTK to complete its tasks */
         gtk_widget_queue_draw( structure_drawingarea );
-        //while( g_main_context_iteration(NULL, FALSE) );
       }
 
       Free_Crnt_Buffs();
@@ -799,9 +771,7 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
 
     if( isFlagSet(OVERLAY_STRUCT) )
     {
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
 
@@ -933,9 +903,7 @@ Filechooser_Response(
       /* Save screen shots after redraw and when GTK is finished tasks */
       static save_data_t save_data;
 
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( saveas_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
 
       save_data.drawingarea = saveas_drawingarea;
       save_data.width  = saveas_width;
@@ -1025,7 +993,6 @@ Filechooser_Response(
 Open_Nec2_Editor( int action )
 {
   nec2_edit_window = create_nec2_editor( &nec2_editor_builder );
-  //while( g_main_context_iteration(NULL, FALSE) );
   Set_Window_Geometry( nec2_edit_window,
       rc_config.nec2_edit_x, rc_config.nec2_edit_y,
       rc_config.nec2_edit_width, rc_config.nec2_edit_height );

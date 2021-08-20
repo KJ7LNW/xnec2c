@@ -179,7 +179,6 @@ Set_Window_Geometry(
 
   /* Set size and position of window */
   /* gtk_widget_hide( window ); this leads to an undecorated window in icewm */
-  //while( g_main_context_iteration(NULL, FALSE) );
   gtk_window_resize( GTK_WINDOW(window), width, height );
   gtk_window_move( GTK_WINDOW(window), x, y );
 

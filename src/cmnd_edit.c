@@ -495,8 +495,6 @@ Excitation_Command( int action )
     } /* switch( iv[SPIN_COL_I1] ) */
   } /* if( label ) */
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Excitation_Command() */
@@ -692,8 +690,6 @@ Frequency_Command( int action )
   } /* if( fstep ) */
   else fstep = TRUE;
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Frequency_Command() */
@@ -1146,8 +1142,6 @@ Ground_Command( int action )
     gtk_window_resize( GTK_WINDOW(ground_command), 10, 10 );
   } /* if( show ) */
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Ground_Command() */
@@ -1264,8 +1258,6 @@ Ground2_Command( int action )
 
   } /* switch( action ) */
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Ground2_Command() */
@@ -1604,8 +1596,6 @@ Radiation_Command( int action )
     label = FALSE;
   } /* if( label ) */
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Radiation_Command() */
@@ -1895,8 +1885,6 @@ Loading_Command( int action )
 
   } /* switch( iv[SPIN_COL_I1] ) */
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Loading_Command() */
@@ -2040,8 +2028,6 @@ Network_Command( int action )
     fv[idf] = gtk_spin_button_get_value( spin );
   }
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Network_Command() */
@@ -2215,8 +2201,6 @@ Txline_Command( int action )
   if( crossed )
     fv[SPIN_COL_F1] = -fv[SPIN_COL_F1];
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Txline_Command() */
@@ -2525,8 +2509,6 @@ Nearfield_Command( int action )
     fv[idf] = gtk_spin_button_get_value( spin );
   }
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Nearfield_Command() */
@@ -2656,8 +2638,6 @@ Kernel_Command( int action )
 
   } /* switch( action ) */
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Kernel_Command() */
@@ -2778,8 +2758,6 @@ Intrange_Command( int action )
   kh = gtk_spin_button_get_value( spin );
   snprintf( skh, sizeof(skh), "%12.5e", kh );
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Intrange_Command() */
@@ -2910,8 +2888,6 @@ Execute_Command( int action )
 
   } /* switch( action ) */
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Execute_Command() */
@@ -3032,8 +3008,6 @@ Zo_Command( int action )
   zo = gtk_spin_button_get_value_as_int( spin );
   snprintf( szo, sizeof(szo), "%4d", zo );
 
-  /* Wait for GTK to complete its tasks */
-  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Intrange_Command() */
