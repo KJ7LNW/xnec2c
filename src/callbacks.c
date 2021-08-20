@@ -747,9 +747,7 @@ on_main_freq_spinbutton_value_changed(
   /* Frequency spinbutton value changed by frequency loop */
   if( isFlagSet(FREQ_LOOP_RUNNING) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( structure_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
   else if( isFlagClear(FREQ_LOOP_INIT) ) /* by user */
   {
@@ -774,9 +772,7 @@ on_main_freq_spinbutton_value_changed(
         isFlagSet(MAIN_NEW_FREQ) )
       gtk_spin_button_set_value( rdpattern_frequency, fmhz );
 
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( structure_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   } /* else */
 
   gtk_spin_button_update( spinbutton );
@@ -812,9 +808,7 @@ on_main_new_freq_clicked(
 
     g_idle_add( Redo_Currents, NULL );
 
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( structure_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1038,9 +1032,7 @@ on_freqplots_zo_spinbutton_value_changed(
   calc_data.zo = gtk_spin_button_get_value(spinbutton);
   if( isFlagSet(PLOT_ENABLED) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   gtk_spin_button_update( spinbutton );
@@ -1283,9 +1275,7 @@ on_rdpattern_e_field_activate(
   Set_Window_Labels();
   if( isFlagSet(DRAW_EHFIELD) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1302,9 +1292,7 @@ on_rdpattern_h_field_activate(
   Set_Window_Labels();
   if( isFlagSet(DRAW_EHFIELD) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1321,9 +1309,7 @@ on_rdpattern_poynting_vector_activate(
   Set_Window_Labels();
   if( isFlagSet(DRAW_EHFIELD) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1338,9 +1324,7 @@ on_rdpattern_overlay_structure_activate(
   else
     ClearFlag( OVERLAY_STRUCT );
 
-  /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( rdpattern_drawingarea );
-  //while( g_main_context_iteration(NULL, FALSE) );
 }
 
 
@@ -1487,7 +1471,6 @@ on_rdpattern_freq_spinbutton_value_changed(
   /* Frequency spinbutton value changed by frequency loop */
   if( isFlagSet(FREQ_LOOP_RUNNING) && isFlagSet(DRAW_ENABLED) )
   {
-    /* Wait for GTK to complete its tasks */
     if( isFlagClear(OPTIMIZER_OUTPUT) )
       gtk_widget_queue_draw( rdpattern_drawingarea );
   }
@@ -1535,9 +1518,7 @@ on_rdpattern_new_freq_clicked(
 
     g_idle_add( Redo_Currents, NULL );
 
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1766,9 +1747,7 @@ on_near_peak_value_activate(
       near_field.valid = 0;
       Near_Field_Pattern();
 
-      /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
   else SetFlag( NEAREH_SNAPSHOT );
@@ -1793,8 +1772,6 @@ on_near_snapshot_activate(
       near_field.valid = 0;
       Near_Field_Pattern();
 
-      /* Wait for GTK to complete its tasks */
-      //while( g_main_context_iteration(NULL, FALSE) );
       gtk_widget_queue_draw( rdpattern_drawingarea );
     }
   }
@@ -4434,9 +4411,7 @@ on_freqplots_min_max_activate(
   /* Trigger a redraw of frequency plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -4453,9 +4428,7 @@ on_freqplots_net_gain_activate(
   /* Trigger a redraw of frequency plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
   {
-    /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -4482,10 +4455,8 @@ on_main_zoom_spinbutton_value_changed(
     structure_proj_params.xy_scale1 * structure_proj_params.xy_zoom;
 
   /* Trigger a redraw of structure drawingarea */
-  /* Wait for GTK to complete its tasks */
   if( structure_drawingarea )
     gtk_widget_queue_draw( structure_drawingarea );
-  //while( g_main_context_iteration(NULL, FALSE) );
 }
 
 
@@ -4529,9 +4500,7 @@ on_structure_one_button_clicked(
       structure_height,
       &structure_proj_params );
 
-  /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( structure_drawingarea );
-  //while( g_main_context_iteration(NULL, FALSE) );
 }
 
 
@@ -4557,9 +4526,7 @@ on_rdpattern_zoom_spinbutton_value_changed(
     rdpattern_proj_params.xy_scale1 * rdpattern_proj_params.xy_zoom;
 
   /* Trigger a redraw of structure drawingarea */
-  /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( rdpattern_drawingarea );
-  //while( g_main_context_iteration(NULL, FALSE) );
 }
 
 
@@ -4603,9 +4570,7 @@ on_rdpattern_one_button_clicked(
       rdpattern_height,
       &rdpattern_proj_params );
 
-  /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( rdpattern_drawingarea );
-  //while( g_main_context_iteration(NULL, FALSE) );
 }
 
 
