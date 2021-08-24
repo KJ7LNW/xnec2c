@@ -68,71 +68,59 @@ Fork_Command( const char *cdstr )
 
 /*------------------------------------------------------------------------*/
 
-/* Code contributed as patch by Eric Wheeler */
-  static int
-write_exact( int fd, char *buf, int size )
+int write_exact(int fd, char *buf, int size)
 {
   int len    = 0;
   int offset = 0;
 
-  do
-  {
-    len = (int)( write(fd, buf + offset, (size_t)size) );
+	do {
+		len = write(fd, buf + offset, size);
 
-    if( (len < 0) && (errno == EINTR) ) continue;
+		if (len < 0 && errno == EINTR) continue;
 
-    if( len < 0 )
-    {
-      perror( "xnec2c: write_exact(): " );
-      return( len );
-    }
+		if (len < 0) {
+			perror("write_exact(): ");
+			return len;
+		}
 
-    if( !len ) size = 0;
-    else
-    {
-      size   -= len;
-      offset += len;
-    }
-  }
-  while( size );
+		if (!len)
+			size = 0;
+		else {
+			size -= len;
+			offset += len;
+		}
+	} while (size);
 
-  return( offset );
+	return offset;
 }
 
-/*------------------------------------------------------------------------*/
 
-/* Code contributed as patch by Eric Wheeler */
-  static int
-read_exact( int fd, char *buf, int size )
+int read_exact(int fd, char *buf, int size)
 {
   int len    = 0;
   int offset = 0;
 
-  do
-  {
-    len = (int)( read(fd, buf + offset, (size_t)size) );
+	do {
+		len = read(fd, buf + offset, size);
 
-    if( (len < 0) && (errno == EINTR) ) continue;
+		if (len < 0 && errno == EINTR) continue;
 
-    if( len < 0 )
-    {
-      perror( "xnec2c: read_exact(): " );
-      return len;
-    }
+		if (len < 0) {
+			perror("read_exact(): ");
+			return len;
+		}
 
-    if( !len ) size = 0;
-    else
-    {
-      size   -= len;
-      offset += len;
-    }
-  }
-  while( size );
+		if (!len)
+			size = 0;
+		else {
+			size -= len;
+			offset += len;
+		}
+	} while (size);
 
-  return( offset );
+	return offset;
 }
 
-/*------------------------------------------------------------------------*/
 
 /* Read_Pipe()
  *
@@ -156,7 +144,7 @@ Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
     _exit( 0 );
   }
   
-  retval = read_exact( pipefd, str, (int)len );
+  retval = read_exact( pipefd, str, (size_t)len );
 
   if( (retval == -1) || ((retval != len) && err ) )
   {
@@ -507,11 +495,11 @@ Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
     _exit( 0 );
   }
 
-  retval = write_exact( pipefd, str, (int)len );
+  retval = write_exact( pipefd, str, (size_t)len );
   if( (retval == -1) || ((retval != len) && err) )
   {
     perror( "xnec2c: Write_Pipe(): write()" );
-    //_exit( 0 );
+    _exit( 0 );
   }
 
   return( retval );
