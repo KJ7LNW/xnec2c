@@ -82,6 +82,10 @@ extern projection_parameters_t
 /* Number of forked child processes */
 extern int num_child_procs;
 
+/* Global lock to prevent nested execution of functions like
+   Frequency_Loop(), Open_Input_File(), and possibly others. */
+extern GMutex global_lock;
+
 /* Program forked flag */
 extern gboolean FORKED;
 

@@ -163,6 +163,10 @@ forked_proc_data_t **forked_proc_data = NULL;
 /* Number of forked child processes */
 int num_child_procs = 0;
 
+/* Global lock to prevent nested execution of functions like
+   Frequency_Loop(), Open_Input_File(), and possibly others. */
+GMutex global_lock;
+
 /* Program forked flag */
 gboolean FORKED = FALSE;
 

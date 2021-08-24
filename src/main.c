@@ -324,7 +324,6 @@ Open_Input_File( gpointer arg )
 {
   gboolean ok, new;
   GtkWidget *widget;
-  static GMutex mutex;
 
   /* Stop freq loop */
   if( isFlagSet(FREQ_LOOP_RUNNING) )
@@ -374,7 +373,7 @@ Open_Input_File( gpointer arg )
   } /* if( !ok ) */
 
   // The optimizer can queue multiple calls to this function so protect it with a lock
-  g_mutex_lock (&mutex);
+  g_mutex_lock(&global_lock);
 
   SetFlag( INPUT_OPENED );
   gtk_widget_show( Builder_Get_Object(main_window_builder, "optimizer_output") );
@@ -520,7 +519,7 @@ Open_Input_File( gpointer arg )
   }
 
   // Unlock the mutex:
-  g_mutex_unlock (&mutex);
+  g_mutex_unlock(&global_lock);
 
   return( FALSE );
 } /* Open_Input_File() */
