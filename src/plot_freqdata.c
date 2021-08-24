@@ -1624,6 +1624,8 @@ Set_Frequency_On_Click( GdkEvent *e)
   // fr_adj: the plot to adjust when using the mouse wheel:
   fr_plot_t *fr_adj = NULL;
 
+  if (fr_plots == NULL)
+	return;
 
   if( isFlagClear(FREQ_LOOP_DONE) )
     return;
