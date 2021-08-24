@@ -180,15 +180,15 @@ Optimizer_Output( void *arg )
       break;
 
     if ( CHILD )
-    {
-        printf( "optimize.c: exiting because we are a child process.\n" );
-        break;
-    }
+	{
+		printf("optimize.c: exiting because we are a child process.\n");
+		break;
+	}
 
     // Poll inotify file descriptor, timeout 1 sec
     poll_num = poll( &pfd, 1, 1000 );
 
-    if( poll_num == -1 )
+    if (poll_num == -1)
     {
       if( errno == EINTR ) continue;
       perror( "xnec2c: poll" );
@@ -207,19 +207,19 @@ Optimizer_Output( void *arg )
           exit( -1 );
         }
 
-        if ( isFlagSet(FREQ_LOOP_RUNNING | FREQ_LOOP_INIT | INPUT_PENDING)|| isFlagClear(FREQ_LOOP_DONE))
-          continue;
+		if ( isFlagSet(FREQ_LOOP_RUNNING | FREQ_LOOP_INIT | INPUT_PENDING)|| isFlagClear(FREQ_LOOP_DONE))
+			continue;
 
-        num_busy_procs = 0;
-        for (job_num = 0; job_num < calc_data.num_jobs; job_num++)
-            if (forked_proc_data != NULL && forked_proc_data[job_num] != NULL && forked_proc_data[job_num]->busy) 
-            num_busy_procs++;
-
-        if( num_busy_procs )
-        {
-            printf("warning: %d child jobs are running, skipping optimization\n", num_busy_procs);
-            continue;
-        }
+		num_busy_procs = 0;
+		for (job_num = 0; job_num < calc_data.num_jobs; job_num++)
+			if (forked_proc_data != NULL && forked_proc_data[job_num] != NULL && forked_proc_data[job_num]->busy) 
+				num_busy_procs++;
+		
+		if (num_busy_procs)
+		{
+			printf("warning: %d child jobs are running, skipping optimization\n", num_busy_procs);
+			continue;
+		}
 
         event = (const struct inotify_event *) buf;
 
@@ -233,7 +233,11 @@ Optimizer_Output( void *arg )
             continue;
 
           gboolean flag = FALSE;
+
+		  // Prevent queuing a file change while locked:
+		  g_mutex_lock(&global_lock);
           g_idle_add( Open_Input_File, (gpointer) &flag );
+		  g_mutex_unlock(&global_lock);
 
         }
       }

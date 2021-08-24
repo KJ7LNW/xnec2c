@@ -411,7 +411,6 @@ Frequency_Loop( gpointer udata )
 {
   /* Value of frequency and step num in the loop */
   static double freq;
-  static GMutex mutex;
 
   static int
     fstep,           /* Current frequency step */
@@ -472,7 +471,7 @@ Frequency_Loop( gpointer udata )
   ClearFlag( FREQ_LOOP_INIT );
 
   // Prevent the optimizer from running this function in parallel:
-  g_mutex_lock (&mutex);
+  g_mutex_lock(&global_lock);
   
   // Synchronize here to get the flags setup when all the async callbacks finish:
   while( g_main_context_iteration(NULL, FALSE) );
@@ -634,7 +633,7 @@ Frequency_Loop( gpointer udata )
   /* Return if freq step 0 not ready yet */
   if( calc_data.freq_step < 0 )
   {
-      g_mutex_unlock( &mutex );
+	  g_mutex_unlock(&global_lock);
       return( retval );
   }
 
@@ -711,7 +710,11 @@ Frequency_Loop( gpointer udata )
     }
   } // if( !retval && !num_busy_procs )
 
-  g_mutex_unlock( &mutex );
+  // Synchronize here before unlocking so the drawing finishes.  Otherwise
+  // the drawings can flicker while optmizing.
+  while( g_main_context_iteration(NULL, FALSE) );
+
+  g_mutex_unlock(&global_lock);
 
   return( retval );
 } /* Frequency_Loop() */
