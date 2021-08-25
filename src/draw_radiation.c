@@ -591,6 +591,10 @@ Draw_Radiation( cairo_t *cr )
   if( isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_RUNNING) )
     return;
 
+  // Try to hold the lock to prevent drawing the radiation pattern
+  // since it could be drawing while inotify triggers a new freqloop:
+  int locked = g_mutex_trylock(&global_lock);
+
   /* Clear drawingarea */
   cairo_set_source_rgb( cr, BLACK );
   cairo_rectangle(
@@ -608,6 +612,10 @@ Draw_Radiation( cairo_t *cr )
   /* Display frequency step */
   Display_Fstep( rdpattern_fstep_entry, calc_data.freq_step );
 
+  if (locked)
+	  g_mutex_unlock(&global_lock);
+
+  return;
 
 } /* Draw_Radiation() */
 

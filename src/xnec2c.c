@@ -694,6 +694,8 @@ Frequency_Loop( gpointer udata )
         gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
                 freqplots_window_builder, "freqplots_fmhz_entry")), txt );
       }
+
+      New_Frequency();
     }
 
     /* Re-draw drawing areas at end of loop */
