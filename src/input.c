@@ -658,7 +658,7 @@ Read_Commands( void )
   /* input card mnemonic list */
   char *atst[NUM_CMNDS] = { COMMANDS };
 
-  char ain[3];
+  char ain[3], notice[128];
   double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
   int
     mpcnt, itmp1, itmp2, itmp3, itmp4,
@@ -853,7 +853,7 @@ Read_Commands( void )
         freq_loop_data_t *fld = calc_data.freq_loop_data;
         int card = calc_data.FR_cards - 1;
 
-        memset( &fld[card], 0, sizeof(freq_loop_data_t) );
+		memset(&fld[card], 0, sizeof(freq_loop_data_t));
 
         /* Defaults */
         fld[card].freq_steps = 1;
@@ -932,6 +932,18 @@ Read_Commands( void )
                 "Please check FR card data and correct"), ERR_OK );
           return( FALSE );
         }
+
+        /* Reject FR cards that are not in ascending frequency order */
+        if (card > 1 && fld[card].min_freq <= fld[card-1].max_freq)
+        {
+            fprintf( stderr,
+                _("xnec2c: Read_Commands(): FR cards in incorrect order: prev=%f, cur=%f\n"),
+                fld[card-1].max_freq, fld[card].min_freq );
+            Stop( _("Read_Commands(): FR cards not in ascending\n"
+                  "frequency order or frequency ranges overlapping."), ERR_OK );
+            return( FALSE );
+        }
+
 
         if( calc_data.iped == 1) calc_data.zpnorm = 0.0;
         continue; /* continue card input loop */
@@ -1312,11 +1324,11 @@ Read_Commands( void )
         continue;
 
       default:
-        fprintf( stderr,
-            _("xnec2c: Read_Commands(): faulty data "
-            "card label after geometry section\n") );
-        Stop( _("Read_Commands(): Faulty data card\n"
-              "label after geometry section"), ERR_OK );
+        snprintf(notice, sizeof(notice)-1, "%s: %s\n",
+            _("Read_Commands(): Faulty data card"),
+            ain);
+        fprintf(stderr, "%s", notice);
+        Stop(notice, ERR_OK);
         return( FALSE );
     } /* switch( ain_num ) */
 
@@ -1330,23 +1342,12 @@ Read_Commands( void )
       SetFlag( ENABLE_RDPAT );
     }
 
-    /* Reject FR cards that are not in ascending frequency order */
-    freq_loop_data_t *fld = calc_data.freq_loop_data;
-    for( int idx = 1; idx < calc_data.FR_cards; idx++ )
-    {
-      if( fld[idx].min_freq <= fld[idx-1].max_freq )
-      {
-        fprintf( stderr,
-            _("xnec2c: Read_Commands(): FR cards in incorrect order: prev=%f, cur=%f\n"),
-            fld[idx-1].max_freq, fld[idx].min_freq );
-        Stop( _("Read_Commands(): FR cards not in ascending\n"
-              "frequency order or frequency ranges overlapping."), ERR_OK );
-        return( FALSE );
-      }
-    }
-
     return( TRUE );
   } /* while( TRUE ) */
+
+  // Default as an unknown error, though we might not ever get here:
+  Stop(_("Read_Commands(): Unexpected exit from while loop"), ERR_OK);
+  return( FALSE );
 
 } /* Read_Commands() */
 

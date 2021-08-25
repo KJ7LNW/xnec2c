@@ -80,6 +80,9 @@ Stop( char *mesg, int err )
   SetFlag( ERROR_CONDX );
   while( isFlagSet(ERROR_CONDX) )
   {
+	// We are out of gtk_main() so iterate manually:
+	while( g_main_context_iteration(NULL, FALSE) );
+
     if( isFlagSet(MAIN_QUIT) ) exit(-1);
 
     usleep(100000);
@@ -111,6 +114,9 @@ Nec2_Save_Warn( const gchar *mesg )
     SetFlag( ERROR_CONDX );
     while( isFlagSet(ERROR_CONDX) )
     {
+      // We are out of gtk_main() so iterate manually:
+      while( g_main_context_iteration(NULL, FALSE) );
+
       if( isFlagSet(MAIN_QUIT) ) exit(-1);
 
       usleep(100000);

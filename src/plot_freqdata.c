@@ -55,6 +55,41 @@ static inline void pango_text_size(GtkWidget* widget, int *width, int *height, c
     g_object_unref( layout );
 }
 
+void fr_plots_init()
+{
+  int idx;
+
+  /* 2d array of plot rectangles popluated by the Plot_Graph function */
+  if (calc_data.ngraph > 0 && calc_data.FR_cards > 0)
+	  mem_realloc((void**)&fr_plots,
+		sizeof(fr_plot_t) * calc_data.ngraph * calc_data.FR_cards,
+		__LOCATION__); 
+  else if (fr_plots != NULL)
+  {
+	  free_ptr((void **)&fr_plots);
+	  return;
+  }
+
+  for (idx = 0; idx < calc_data.ngraph * calc_data.FR_cards; idx++)
+  {
+	  if (FR_PLOT_T_IS_VALID(&fr_plots[idx]))
+		  continue;
+
+	  // Set the plot position
+	  fr_plots[idx].posn = idx / calc_data.FR_cards;
+
+	  // Point to the freq loop data
+	  fr_plots[idx].fr = idx % calc_data.FR_cards;
+	  fr_plots[idx].freq_loop_data = &calc_data.freq_loop_data[fr_plots[idx].fr];
+
+	  // zero the plot_rect, Plot_Graph() will fill it in.
+	  memset(&fr_plots[idx].plot_rect, 0, sizeof(GdkRectangle));
+
+	  // Set it as valid:
+	  fr_plots[idx].valid = FR_PLOT_T_MAGIC;
+  }
+}
+
 static inline fr_plot_t *get_fr_plot(int posn, int fr)
 {
 	if (posn < 0 || posn >= calc_data.ngraph ||	fr < 0 || fr >= calc_data.FR_cards)
@@ -77,6 +112,10 @@ static inline void fr_plot_sync_widths(fr_plot_t *fr_plot)
 {
 	GdkRectangle *current, *r;
 	int posn, fr;
+
+	if (fr_plot == NULL || fr_plots == NULL)
+		return;
+
 	// Update all plot widths so they re the same as fr_plot's width.
 	for (posn = 0; posn < calc_data.ngraph; posn++)
 	{
@@ -87,6 +126,13 @@ static inline void fr_plot_sync_widths(fr_plot_t *fr_plot)
 		for (fr = 0; fr < calc_data.FR_cards; fr++)
 {
 			current = get_plot_rect(fr_plot->posn, fr);
+			if (current == NULL)
+			{
+				printf("fr_plot_sync_widths, current == NULL: "
+						"calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n",
+					calc_data.FR_cards, calc_data.ngraph, fr, fr_plot->posn, FR_PLOT_T_IS_VALID(fr_plot));
+				return;
+			}
 			r = get_plot_rect(posn, fr);
 
 			r->width = current->width;
@@ -1232,37 +1278,10 @@ Plot_Frequency_Data( cairo_t *cr )
   /* Used to calculate net gain */
   double Zr, Zo, Zi;
 
-  /* 2d array of plot rectangles popluated by the Plot_Graph function */
-  if (calc_data.ngraph > 0 && calc_data.FR_cards > 0)
-  mem_realloc((void**)&fr_plots,
-	sizeof(fr_plot_t) * calc_data.ngraph * calc_data.FR_cards,
-		__LOCATION__); 
-  else if (fr_plots != NULL)
-  {
-	  free_ptr((void **)&fr_plots);
-	  // nothing to do here...
-	  return;
-  }
+  fr_plots_init();
 
-
-  for (idx = 0; idx < calc_data.ngraph * calc_data.FR_cards; idx++)
-  {
-	  if (FR_PLOT_T_IS_VALID(&fr_plots[idx]))
-		  continue;
-
-	  // Set the plot position
-	  fr_plots[idx].posn = idx / calc_data.FR_cards;
-
-	  // Point to the freq loop data
-	  fr_plots[idx].fr = idx % calc_data.FR_cards;
-	  fr_plots[idx].freq_loop_data = &calc_data.freq_loop_data[fr_plots[idx].fr];
-
-      // zero the plot_rect, Plot_Graph() will fill it in.
-	  memset(&fr_plots[idx].plot_rect, 0, sizeof(GdkRectangle));
-
-      // Set it as valid:
-	  fr_plots[idx].valid = FR_PLOT_T_MAGIC;
-  }
+  if (fr_plots == NULL)
+	  return; // nothing to do here...
 
   /* Clear drawingarea */
   cairo_set_source_rgb( cr, BLACK );
@@ -1611,6 +1630,7 @@ Plots_Window_Killed( void )
 Set_Frequency_On_Click( GdkEvent *e)
 {
   double fmhz = 0.0;
+  int set_fmhz = 0, draw_freqplot = 0;
   double x, w;
   int button, i;
 
@@ -1627,9 +1647,6 @@ Set_Frequency_On_Click( GdkEvent *e)
   if (fr_plots == NULL)
 	return;
 
-  if( isFlagClear(FREQ_LOOP_DONE) )
-    return;
-
   // find the fr_plot structure that the mouse is within:
   for (i = 0; i < calc_data.ngraph * calc_data.FR_cards; i++)
   {
@@ -1644,7 +1661,7 @@ Set_Frequency_On_Click( GdkEvent *e)
 
   }
 
-  if (fr_plot == NULL)
+  if (fr_plot == NULL || !FR_PLOT_T_IS_VALID(fr_plot))
   {
 	  // no plot_rect selected for frequency line
 	  return;
@@ -1682,12 +1699,15 @@ Set_Frequency_On_Click( GdkEvent *e)
 	  else if (motion_event->state & GDK_BUTTON3_MASK) button = 3;
   }
 
+  /*
   // event types: https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gdk/gdkevents.h#L309
+  // Enable this for mouse debugging:
   printf("mouse click[type=%d pos=%4.1f,%4.1f button=%d(%d)]: ",
 	  e->type,
 	  button_event->x, button_event->y,
 	  button, button_event->button);
   print_fr_plot(fr_plot);
+  */
 
   /* Set freq corresponding to click 'x', to freq spinbuttons FIXME */
   switch( button )
@@ -1695,6 +1715,8 @@ Set_Frequency_On_Click( GdkEvent *e)
     case 1: /* Enable drawing of frequency line */
       SetFlag( PLOT_FREQ_LINE );
 
+	  draw_freqplot = 1;
+	  set_fmhz = 1;
       gtk_widget_queue_draw( freqplots_drawingarea );
       break;
 
@@ -1702,10 +1724,9 @@ Set_Frequency_On_Click( GdkEvent *e)
       ClearFlag( PLOT_FREQ_LINE );
       calc_data.fmhz_save = 0.0;
 
-      gtk_widget_queue_draw( freqplots_drawingarea );
+	  draw_freqplot = 1;
 
-	  // Just return, we don't want to set fmhz below.
-      return;
+      break;
 
     case 3: /* Calculate nearest frequency corresponding to mouse position in plot */
       i = (fmhz - fr_plot->freq_loop_data->min_freq) / fr_plot->freq_loop_data->delta_freq + 0.5;
@@ -1715,7 +1736,8 @@ Set_Frequency_On_Click( GdkEvent *e)
       /* Enable drawing of frequency line */
       SetFlag( PLOT_FREQ_LINE );
 
-      gtk_widget_queue_draw( freqplots_drawingarea );
+	  draw_freqplot = 1;
+	  set_fmhz = 1;
       break;
 	
 
@@ -1758,10 +1780,9 @@ Set_Frequency_On_Click( GdkEvent *e)
 		// Sync widths for all positions based on fr_plot:
 		fr_plot_sync_widths(fr_plot);
 
-		gtk_widget_queue_draw( freqplots_drawingarea );
+		draw_freqplot = 1;
 		
-		// Just return, we don't want to set fmhz below.
-		return;
+		break;
 
 		default: 
 			printf("mouse button: unknown button %d\n", button);
@@ -1769,6 +1790,8 @@ Set_Frequency_On_Click( GdkEvent *e)
 
   } /* switch( button_event->button ) */
 
+  if (set_fmhz)
+  {
   /* Round frequency to nearest 1 kHz */
   int ifmhz = ( fmhz * 1000.0 + 0.5 );
   fmhz = ifmhz / 1000.0;
@@ -1787,6 +1810,17 @@ Set_Frequency_On_Click( GdkEvent *e)
   {
     calc_data.freq_mhz = fmhz;
     g_idle_add( Redo_Currents, NULL );
+  }
+  }
+
+  // only redraw the plots window if we hold the lock:
+  if (draw_freqplot && g_mutex_trylock(&global_lock))
+  {
+
+    gtk_widget_queue_draw( freqplots_drawingarea );
+	while( g_main_context_iteration(NULL, FALSE) );
+
+	g_mutex_unlock(&global_lock);
   }
 
 } /* Set_Freq_On_Click() */
