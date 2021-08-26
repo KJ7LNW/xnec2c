@@ -42,6 +42,7 @@ fr_plot_t *fr_plots = NULL;
 static int prev_width_available = 0;
 static int prev_ngraphs = 0;
 
+static GdkEvent *prev_click_event = NULL;
 
 /* Graph plot bounding rectangle */
 static double Fit_to_Scale( double *max, double *min, int *nval );
@@ -1305,6 +1306,9 @@ Plot_Frequency_Data( cairo_t *cr )
     return;
   }
 
+  if (prev_click_event != NULL)
+	  Set_Frequency_On_Click(prev_click_event);
+
   /* Graph position */
   posn = 0;
 
@@ -1614,13 +1618,28 @@ Plots_Window_Killed( void )
   kill_window = NULL;
 
   if (fr_plots != NULL)
-  {
 	  free_ptr((void **)&fr_plots);
-  }
+
+  if (prev_click_event != NULL)
+	  free_ptr((void **)&prev_click_event);
 
 } /* Plots_Window_Killed() */
 
 /*-----------------------------------------------------------------------*/
+
+void save_click_event(GdkEvent *e)
+{
+	if (prev_click_event == NULL)
+		mem_alloc((void**)&prev_click_event, sizeof(GdkEvent), __LOCATION__);
+
+	memcpy(prev_click_event, e, sizeof(GdkEvent));
+}
+
+int freqplots_click_pending()
+{
+	return prev_click_event != NULL;
+}
+
 
 /* Set_Frequecy_On_Click()
  *
@@ -1645,7 +1664,10 @@ Set_Frequency_On_Click( GdkEvent *e)
   fr_plot_t *fr_adj = NULL;
 
   if (fr_plots == NULL)
+  {
+	save_click_event(e);
 	return;
+  }
 
   // find the fr_plot structure that the mouse is within:
   for (i = 0; i < calc_data.ngraph * calc_data.FR_cards; i++)
@@ -1664,6 +1686,7 @@ Set_Frequency_On_Click( GdkEvent *e)
   if (fr_plot == NULL || !FR_PLOT_T_IS_VALID(fr_plot))
   {
 	  // no plot_rect selected for frequency line
+	save_click_event(e);
 	  return;
   }
 
@@ -1813,15 +1836,23 @@ Set_Frequency_On_Click( GdkEvent *e)
   }
   }
 
-  // only redraw the plots window if we hold the lock:
-  if (draw_freqplot && g_mutex_trylock(&global_lock))
+  // Only redraw the plots window if we hold the lock
+  // to minimize flicker during optimization.
+  //
+  // If prev_click_event is set then we are being called from Plot_Frequency_Data()
+  // to update fmhz so don't redraw because Plot_Frequency_Data() is going to draw
+  // after we return.
+  // 
+  if (draw_freqplot && prev_click_event == NULL && g_mutex_trylock(&global_lock))
   {
-
     gtk_widget_queue_draw( freqplots_drawingarea );
-	while( g_main_context_iteration(NULL, FALSE) );
 
 	g_mutex_unlock(&global_lock);
   }
+
+  // Free the prev_click_event since it was serviced.
+  if (prev_click_event != NULL)
+	  free_ptr((void**)&prev_click_event);
 
 } /* Set_Freq_On_Click() */
 /*-----------------------------------------------------------------------*/

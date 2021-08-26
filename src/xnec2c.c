@@ -473,9 +473,6 @@ Frequency_Loop( gpointer udata )
   // Prevent the optimizer from running this function in parallel:
   g_mutex_lock(&global_lock);
   
-  // Synchronize here to get the flags setup when all the async callbacks finish:
-  while( g_main_context_iteration(NULL, FALSE) );
-
   /* Repeat freq stepping over number of child processes
    * if forked. calc_data.num_jobs = 1 for non-forked runs.
    * If not forked (no multi-threading), following block will
@@ -651,7 +648,7 @@ Frequency_Loop( gpointer udata )
     gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
             freqplots_window_builder, "freqplots_fmhz_entry")), txt );
 
-    if( isFlagClear(OPTIMIZER_OUTPUT) )
+    if( isFlagClear(OPTIMIZER_OUTPUT) || freqplots_click_pending())
     {
       gtk_widget_queue_draw( freqplots_drawingarea );
     }
@@ -711,10 +708,6 @@ Frequency_Loop( gpointer udata )
       Write_Optimizer_Data();
     }
   } // if( !retval && !num_busy_procs )
-
-  // Synchronize here before unlocking so the drawing finishes.  Otherwise
-  // the drawings can flicker while optmizing.
-  while( g_main_context_iteration(NULL, FALSE) );
 
   g_mutex_unlock(&global_lock);
 
