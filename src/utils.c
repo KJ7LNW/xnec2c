@@ -216,6 +216,8 @@ mem_alloc( void **ptr, size_t req, gchar *str )
     fprintf( stderr, "%s: Total memory request %lu\n", mesg, cnt );
     Stop( mesg, ERR_STOP );
   }
+  else
+	  memset(*ptr, 0, req);
 
 } /* End of mem_alloc() */
 
