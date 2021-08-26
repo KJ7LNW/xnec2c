@@ -70,8 +70,8 @@ Fork_Command( const char *cdstr )
 
 int write_exact(int fd, char *buf, int size)
 {
-  int len    = 0;
-  int offset = 0;
+	int len = 0;
+	int offset = 0;
 
 	do {
 		len = write(fd, buf + offset, size);
@@ -97,8 +97,8 @@ int write_exact(int fd, char *buf, int size)
 
 int read_exact(int fd, char *buf, int size)
 {
-  int len    = 0;
-  int offset = 0;
+	int len = 0;
+	int offset = 0;
 
 	do {
 		len = read(fd, buf + offset, size);
@@ -512,38 +512,29 @@ Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
  *
  * Reads data from a pipe (used by parent process)
  */
-  static ssize_t
-PRead_Pipe( int idx, char *str, ssize_t len, gboolean err )
+static ssize_t PRead_Pipe(int idx, char *str, ssize_t len, gboolean err)
 {
-  ssize_t retval;
-  int str_idx = 0;
+	ssize_t retval;
 
-  /* Repeat read() if not all data returned */
-  do
-  {
-    retval = read( forked_proc_data[idx]->child2pnt_pipe[READ], &str[str_idx], (size_t)len );
-    if( retval == -1 )
-    {
-      perror( "xnec2c: PRead_Pipe(): read()" );
-      fprintf( stderr, "xnec2c: PRead_Pipe(): child %d  length %d  return %d\n",
-          idx, (int)len, (int)retval );
-      _exit(0);
-    }
+	// Repeat read() if not all data returned 
+	retval = read_exact(forked_proc_data[idx]->child2pnt_pipe[READ], str, (size_t) len);
+	if (retval < 0)
+	{
+		perror("xnec2c: PRead_Pipe(): read()");
+		fprintf(stderr, "xnec2c: PRead_Pipe(): child %d  length %d  return %d\n",
+			idx, (int) len, (int) retval);
+		_exit(0);
+	}
 
-    len     -= retval;
-    str_idx += (int)retval;
+	if (retval == 0 && len > 0)
+	{
+		fprintf(stderr, "xnec2c: PRead_Pipe(): early EOF?, child %d  length %d  return %d\n",
+			idx, (int) len, (int) retval);
+		return -1;
+	}
 
-    if (retval == 0 && len > 0)
-    {
-      fprintf( stderr, "xnec2c: PRead_Pipe(): early EOF?, child %d  length %d  return %d\n",
-          idx, (int)len, (int)retval );
-      return -1;
-    }
-  }
-  while( len );
-
-  return( retval );
-} /* PRead_Pipe() */
+	return (retval);
+}	/* PRead_Pipe() */
 
 /*------------------------------------------------------------------------*/
 
@@ -589,8 +580,8 @@ Get_Freq_Data( int idx, int fstep )
   }
 
   /* Notification to read near field data */
-  if( PRead_Pipe( idx, nfeh, 4, TRUE ) == -1 )
-      return;
+  if (PRead_Pipe( idx, nfeh, 4, TRUE ) < 0)
+	  return;
 
   nfeh[4] = '\0';
 
@@ -619,10 +610,10 @@ Get_Freq_Data( int idx, int fstep )
   Mem_Copy( NULL, NULL, 0, READ );
 
   /* Get data accumulated in buffer if child */
-  if( PRead_Pipe( idx, buff, (ssize_t)buff_size, TRUE ) == -1 )
+  if (PRead_Pipe( idx, buff, (ssize_t)buff_size, TRUE ) < 0)
   {
-      free_ptr((void **)&buff);
-      return;
+	  free_ptr((void **)&buff);
+	  return;
   }
 
   /* Get current and charge data */
