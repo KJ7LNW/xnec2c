@@ -1404,6 +1404,7 @@ void *Optimizer_Output(void *arg);
 void Plot_Frequency_Data(cairo_t *cr);
 void Plots_Window_Killed(void);
 void Set_Frequency_On_Click(GdkEvent *event);
+int freqplots_click_pending();
 /* radiation.c */
 void rdpat(void);
 /* rc_config.c */
