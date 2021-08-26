@@ -650,7 +650,7 @@ Frequency_Loop( gpointer udata )
 
     if( isFlagClear(OPTIMIZER_OUTPUT) || freqplots_click_pending())
     {
-      gtk_widget_queue_draw( freqplots_drawingarea );
+      xnec2_widget_queue_draw( freqplots_drawingarea );
     }
   }
 
@@ -661,7 +661,7 @@ Frequency_Loop( gpointer udata )
   if( isFlagSet(DRAW_ENABLED) )
     gtk_spin_button_set_value( rdpattern_frequency, (gdouble)calc_data.freq_mhz );
 
-  gtk_widget_queue_draw( structure_drawingarea );
+  xnec2_widget_queue_draw( structure_drawingarea );
   SetFlag( FREQ_LOOP_READY );
 
   /* Change flags at exit if loop is done */
@@ -697,9 +697,9 @@ Frequency_Loop( gpointer udata )
 
     /* Re-draw drawing areas at end of loop */
     if( isFlagSet(PLOT_ENABLED) )
-      gtk_widget_queue_draw( freqplots_drawingarea );
+      xnec2_widget_queue_draw( freqplots_drawingarea );
     if( isFlagSet(DRAW_ENABLED) )
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
 
     /* Write out frequency loop data for
      * the optimizer if SIGHUP received */

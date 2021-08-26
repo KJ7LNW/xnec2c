@@ -175,12 +175,12 @@ Motion_Event(
 
     if( params->type == STRUCTURE_DRAWINGAREA )
     {
-      gtk_widget_queue_draw( structure_drawingarea );
+      xnec2_widget_queue_draw( structure_drawingarea );
     }
 
     if( params->type == RDPATTERN_DRAWINGAREA )
     {
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
   }
 
@@ -211,7 +211,7 @@ Plot_Select( GtkToggleButton *togglebutton, unsigned long long int flag )
   /* Trigger a redraw of frequency plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
   {
-    gtk_widget_queue_draw( freqplots_drawingarea );
+    xnec2_widget_queue_draw( freqplots_drawingarea );
   }
 
 } /* Plot_Select() */
@@ -540,7 +540,7 @@ Rdpattern_Gain_Togglebutton_Toggled( gboolean flag )
       if( !crnt.valid ) Redo_Currents( NULL );
       SetFlag( DRAW_NEW_RDPAT );
 
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
 
     Set_Window_Labels();
@@ -551,7 +551,7 @@ Rdpattern_Gain_Togglebutton_Toggled( gboolean flag )
     /* Clear radiation pattern drawingarea */
     if( isFlagClear(DRAW_EHFIELD) && isFlagSet(DRAW_ENABLED) )
     {
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
     Free_Draw_Buffers();
   }
@@ -594,7 +594,7 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
       Near_Field_Pattern();
       SetFlag( DRAW_NEW_EHFIELD );
 
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
 
     Set_Window_Labels();
@@ -607,7 +607,7 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
     /* Clear radiation pattern drawingarea */
     if( isFlagClear(DRAW_GAIN) && isFlagSet(DRAW_ENABLED) )
     {
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
 
     /* Disable near field calcuations
@@ -684,12 +684,12 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
       Redo_Currents( NULL );
     else if( crnt.valid )
     {
-      gtk_widget_queue_draw( structure_drawingarea );
+      xnec2_widget_queue_draw( structure_drawingarea );
     }
 
     if( isFlagSet(OVERLAY_STRUCT) )
     {
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
   }
   else
@@ -703,13 +703,13 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
           _("View Geometry") );
       if( isFlagClear(FREQ_LOOP_RUNNING) )
       {
-        gtk_widget_queue_draw( structure_drawingarea );
+        xnec2_widget_queue_draw( structure_drawingarea );
       }
       Free_Crnt_Buffs();
     }
     if( isFlagSet(OVERLAY_STRUCT) )
     {
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
   }
 
@@ -743,12 +743,12 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
       Redo_Currents( NULL );
     else if( crnt.valid )
     {
-      gtk_widget_queue_draw( structure_drawingarea );
+      xnec2_widget_queue_draw( structure_drawingarea );
     }
 
     if( isFlagSet(OVERLAY_STRUCT) )
     {
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
   }
   else
@@ -763,7 +763,7 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
 
       if( isFlagClear(FREQ_LOOP_RUNNING) )
       {
-        gtk_widget_queue_draw( structure_drawingarea );
+        xnec2_widget_queue_draw( structure_drawingarea );
       }
 
       Free_Crnt_Buffs();
@@ -771,7 +771,7 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
 
     if( isFlagSet(OVERLAY_STRUCT) )
     {
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
   }
 
@@ -903,7 +903,7 @@ Filechooser_Response(
       /* Save screen shots after redraw and when GTK is finished tasks */
       static save_data_t save_data;
 
-      gtk_widget_queue_draw( saveas_drawingarea );
+      xnec2_widget_queue_draw( saveas_drawingarea );
 
       save_data.drawingarea = saveas_drawingarea;
       save_data.width  = saveas_width;
