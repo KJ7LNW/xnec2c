@@ -933,18 +933,6 @@ Read_Commands( void )
           return( FALSE );
         }
 
-        /* Reject FR cards that are not in ascending frequency order */
-        if (card > 1 && fld[card].min_freq <= fld[card-1].max_freq)
-        {
-            fprintf( stderr,
-                _("xnec2c: Read_Commands(): FR cards in incorrect order: prev=%f, cur=%f\n"),
-                fld[card-1].max_freq, fld[card].min_freq );
-            Stop( _("Read_Commands(): FR cards not in ascending\n"
-                  "frequency order or frequency ranges overlapping."), ERR_OK );
-            return( FALSE );
-        }
-
-
         if( calc_data.iped == 1) calc_data.zpnorm = 0.0;
         continue; /* continue card input loop */
 
