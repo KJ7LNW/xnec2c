@@ -1739,7 +1739,7 @@ Set_Frequency_On_Click( GdkEvent *e)
 
 	  draw_freqplot = 1;
 	  set_fmhz = 1;
-      gtk_widget_queue_draw( freqplots_drawingarea );
+      xnec2_widget_queue_draw( freqplots_drawingarea );
       break;
 
     case 2: /* Disable drawing of freq line */
@@ -1844,7 +1844,7 @@ Set_Frequency_On_Click( GdkEvent *e)
   // 
   if (draw_freqplot && prev_click_event == NULL && g_mutex_trylock(&global_lock))
   {
-    gtk_widget_queue_draw( freqplots_drawingarea );
+    xnec2_widget_queue_draw( freqplots_drawingarea );
 
 	g_mutex_unlock(&global_lock);
   }

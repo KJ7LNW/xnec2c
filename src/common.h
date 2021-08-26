@@ -1438,6 +1438,7 @@ void Strlcpy(char *dest, const char *src, size_t n);
 void Strlcat(char *dest, const char *src, size_t n);
 double Strtod(char *nptr, char **endptr);
 void Get_Dirname(char *fpath, char *dirname, int *fname_idx);
+void xnec2_widget_queue_draw(GtkWidget *w);
 /* xnec2c.c */
 void Near_Field_Pattern(void);
 void New_Frequency(void);

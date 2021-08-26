@@ -620,14 +620,14 @@ Redo_Currents( gpointer udata )
   /* Display freq data in entry widgets */
   if( isFlagSet(PLOT_FREQ_LINE) )
   {
-    gtk_widget_queue_draw( freqplots_drawingarea );
+    xnec2_widget_queue_draw( freqplots_drawingarea );
   }
 
   /* Redraw structure on screen */
   if( (structure_drawingarea != NULL) &&
       (isFlagSet(DRAW_CURRENTS) || isFlagSet(DRAW_CHARGES)) )
   {
-    gtk_widget_queue_draw( structure_drawingarea );
+    xnec2_widget_queue_draw( structure_drawingarea );
   }
 
   return FALSE;
@@ -652,7 +652,7 @@ New_Structure_Projection_Angle(void)
   /* Trigger a redraw of structure drawingarea */
   if( structure_drawingarea && isFlagClear(INPUT_PENDING) )
   {
-    gtk_widget_queue_draw( structure_drawingarea );
+    xnec2_widget_queue_draw( structure_drawingarea );
   }
 
   /* Trigger a redraw of plots drawingarea */
@@ -660,7 +660,7 @@ New_Structure_Projection_Angle(void)
       isFlagSet(PLOT_GVIEWER) &&
       isFlagClear(OPTIMIZER_OUTPUT) )
   {
-    gtk_widget_queue_draw( freqplots_drawingarea );
+    xnec2_widget_queue_draw( freqplots_drawingarea );
   }
 
 } /* New_Structure_Projection_Angle() */

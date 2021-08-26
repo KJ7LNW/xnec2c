@@ -747,7 +747,7 @@ on_main_freq_spinbutton_value_changed(
   /* Frequency spinbutton value changed by frequency loop */
   if( isFlagSet(FREQ_LOOP_RUNNING) )
   {
-    gtk_widget_queue_draw( structure_drawingarea );
+    xnec2_widget_queue_draw( structure_drawingarea );
   }
   else if( isFlagClear(FREQ_LOOP_INIT) ) /* by user */
   {
@@ -772,7 +772,7 @@ on_main_freq_spinbutton_value_changed(
         isFlagSet(MAIN_NEW_FREQ) )
       gtk_spin_button_set_value( rdpattern_frequency, fmhz );
 
-    gtk_widget_queue_draw( structure_drawingarea );
+    xnec2_widget_queue_draw( structure_drawingarea );
   } /* else */
 
   gtk_spin_button_update( spinbutton );
@@ -808,7 +808,7 @@ on_main_new_freq_clicked(
 
     g_idle_add( Redo_Currents, NULL );
 
-    gtk_widget_queue_draw( structure_drawingarea );
+    xnec2_widget_queue_draw( structure_drawingarea );
   }
 }
 
@@ -1032,7 +1032,7 @@ on_freqplots_zo_spinbutton_value_changed(
   calc_data.zo = gtk_spin_button_get_value(spinbutton);
   if( isFlagSet(PLOT_ENABLED) )
   {
-    gtk_widget_queue_draw( freqplots_drawingarea );
+    xnec2_widget_queue_draw( freqplots_drawingarea );
   }
 
   gtk_spin_button_update( spinbutton );
@@ -1275,7 +1275,7 @@ on_rdpattern_e_field_activate(
   Set_Window_Labels();
   if( isFlagSet(DRAW_EHFIELD) )
   {
-    gtk_widget_queue_draw( rdpattern_drawingarea );
+    xnec2_widget_queue_draw( rdpattern_drawingarea );
   }
 }
 
@@ -1292,7 +1292,7 @@ on_rdpattern_h_field_activate(
   Set_Window_Labels();
   if( isFlagSet(DRAW_EHFIELD) )
   {
-    gtk_widget_queue_draw( rdpattern_drawingarea );
+    xnec2_widget_queue_draw( rdpattern_drawingarea );
   }
 }
 
@@ -1309,7 +1309,7 @@ on_rdpattern_poynting_vector_activate(
   Set_Window_Labels();
   if( isFlagSet(DRAW_EHFIELD) )
   {
-    gtk_widget_queue_draw( rdpattern_drawingarea );
+    xnec2_widget_queue_draw( rdpattern_drawingarea );
   }
 }
 
@@ -1324,7 +1324,7 @@ on_rdpattern_overlay_structure_activate(
   else
     ClearFlag( OVERLAY_STRUCT );
 
-  gtk_widget_queue_draw( rdpattern_drawingarea );
+  xnec2_widget_queue_draw( rdpattern_drawingarea );
 }
 
 
@@ -1472,7 +1472,7 @@ on_rdpattern_freq_spinbutton_value_changed(
   if( isFlagSet(FREQ_LOOP_RUNNING) && isFlagSet(DRAW_ENABLED) )
   {
     if( isFlagClear(OPTIMIZER_OUTPUT) )
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
   }
   else
   {
@@ -1518,7 +1518,7 @@ on_rdpattern_new_freq_clicked(
 
     g_idle_add( Redo_Currents, NULL );
 
-    gtk_widget_queue_draw( rdpattern_drawingarea );
+    xnec2_widget_queue_draw( rdpattern_drawingarea );
   }
 }
 
@@ -1747,7 +1747,7 @@ on_near_peak_value_activate(
       near_field.valid = 0;
       Near_Field_Pattern();
 
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
   }
   else SetFlag( NEAREH_SNAPSHOT );
@@ -1772,7 +1772,7 @@ on_near_snapshot_activate(
       near_field.valid = 0;
       Near_Field_Pattern();
 
-      gtk_widget_queue_draw( rdpattern_drawingarea );
+      xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
   }
   else ClearFlag( NEAREH_SNAPSHOT );
@@ -4411,7 +4411,7 @@ on_freqplots_min_max_activate(
   /* Trigger a redraw of frequency plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
   {
-    gtk_widget_queue_draw( freqplots_drawingarea );
+    xnec2_widget_queue_draw( freqplots_drawingarea );
   }
 }
 
@@ -4428,7 +4428,7 @@ on_freqplots_net_gain_activate(
   /* Trigger a redraw of frequency plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
   {
-    gtk_widget_queue_draw( freqplots_drawingarea );
+    xnec2_widget_queue_draw( freqplots_drawingarea );
   }
 }
 
@@ -4456,7 +4456,7 @@ on_main_zoom_spinbutton_value_changed(
 
   /* Trigger a redraw of structure drawingarea */
   if( structure_drawingarea )
-    gtk_widget_queue_draw( structure_drawingarea );
+    xnec2_widget_queue_draw( structure_drawingarea );
 }
 
 
@@ -4500,7 +4500,7 @@ on_structure_one_button_clicked(
       structure_height,
       &structure_proj_params );
 
-  gtk_widget_queue_draw( structure_drawingarea );
+  xnec2_widget_queue_draw( structure_drawingarea );
 }
 
 
@@ -4526,7 +4526,7 @@ on_rdpattern_zoom_spinbutton_value_changed(
     rdpattern_proj_params.xy_scale1 * rdpattern_proj_params.xy_zoom;
 
   /* Trigger a redraw of structure drawingarea */
-  gtk_widget_queue_draw( rdpattern_drawingarea );
+  xnec2_widget_queue_draw( rdpattern_drawingarea );
 }
 
 
@@ -4570,7 +4570,7 @@ on_rdpattern_one_button_clicked(
       rdpattern_height,
       &rdpattern_proj_params );
 
-  gtk_widget_queue_draw( rdpattern_drawingarea );
+  xnec2_widget_queue_draw( rdpattern_drawingarea );
 }
 
 
