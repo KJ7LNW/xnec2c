@@ -1197,7 +1197,6 @@ Plot_Graph_Smith(
   }
 
   cairo_stroke( cr );
-  //g_object_unref( layout );
 
   /* Cairo context */
   cairo_set_source_rgb( cr, MAGENTA );
