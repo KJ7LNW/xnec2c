@@ -33,6 +33,8 @@ AC_CHECK_LIB([m], [atan2])
 AC_CHECK_LIB([gmodule-2.0], [g_module_open])
 AC_CHECK_LIB([pthread], [pthread_create])
 
+CFLAGS="$CFLAGS -fcx-fortran-rules"
+
 # Internationalization tools
 AM_GNU_GETTEXT_VERSION([0.19.8])
 GETTEXT_PACKAGE=xnec2c
