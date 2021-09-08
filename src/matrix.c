@@ -41,6 +41,7 @@
 
 #include "matrix.h"
 #include "shared.h"
+#include "mathlib.h"
 
 /*-------------------------------------------------------------------*/
 
@@ -1122,8 +1123,7 @@ etmns( double p1, double p2, double p3, double p4,
 /* numerical analysis.  comments below refer to comments in ralstons */
 /* text.    (matrix transposed.) */
 
-  void
-factr( int n, complex double *a, int *ip, int ndim)
+int factr_gauss_elim( int n, complex double *a, int *ip, int ndim)
 {
   int r, rm1, rp1, pj, pr, iflg, k, j, jp1, i;
   double dmax, elmag;
@@ -1133,14 +1133,11 @@ factr( int n, complex double *a, int *ip, int ndim)
   size_t mreq = (size_t)data.np2m * sizeof(complex double);
   mem_alloc( (void **)&scm, mreq, "in matrix.c");
 
-  /* Un-transpose the matrix for Gauss elimination */
-  for( i = 1; i < n; i++ )
-    for( j = 0; j < i; j++ )
-    {
-      arj = a[i+j*ndim];
-      a[i+j*ndim] = a[j+i*ndim];
-      a[j+i*ndim] = arj;
-    }
+  // Notice: Un-transposition of the matrix for Gauss elimination 
+  // was previously performed in this function from the original NEC2
+  // code but has been moved to the factr() function because the LAPACK
+  // and OpenBLAS calls need it too.  See the for(i,j) nested loop at the 
+  // top of factr().
 
   iflg=FALSE;
   /* step 1 */
@@ -1215,8 +1212,37 @@ factr( int n, complex double *a, int *ip, int ndim)
 
   free_ptr( (void **)&scm );
 
-  return;
+  return 0;
 }
+
+int factr( int n, complex double *a, int *ip, int ndim)
+{
+  complex double arj;
+  int i, j;
+
+  /* Un-transpose the matrix for Gauss elimination */
+  for( i = 1; i < n; i++ )
+  {
+    for( j = 0; j < i; j++ )
+    {
+      arj = a[i+j*ndim];
+      a[i+j*ndim] = a[j+i*ndim];
+      a[j+i*ndim] = arj;
+    }
+  }
+
+  int32_t info = zgetrf (CblasColMajor, (int32_t)n, (int32_t)n, (void*) a, (int32_t)ndim, ip);
+  
+  if (info != 0) {
+    /*
+      The factorization has been completed, but the factor U is exactly singular,
+      and division by zero will occur if it is used to solve a system of equations. 
+    */
+    printf("factr:  LU Decomposition Failed: %d\n", info);
+  }
+  
+}
+
 
 /*-----------------------------------------------------------------------*/
 
@@ -1323,8 +1349,7 @@ fblock( int nrow, int ncol, int imax, int ipsym )
 /* lower triangular matrix and u is an upper triangular matrix both */
 /* of which are stored in a.  the rhs vector b is input and the */
 /* solution is returned through vector b.   (matrix transposed) */
-  void
-solve( int n, complex double *a, int *ip,
+int solve_gauss_elim( int n, complex double *a, int *ip,
     complex double *b, int ndim )
 {
   int i, ip1, j, k, pia;
@@ -1363,8 +1388,26 @@ solve( int n, complex double *a, int *ip,
 
   free_ptr( (void **)&scm );
 
-  return;
+  return 0;
 }
+
+int solve( int n, complex double *a, int *ip,
+    complex double *b, int ndim )
+{
+  int info = zgetrs (CblasColMajor, CblasNoTrans, 
+    (int)n, 1, (void*) a, (int)ndim, ip, b, (int)n);
+  
+  if (info != 0) {
+    /*
+      The factorization has been completed, but the factor U is exactly singular,
+      and division by zero will occur if it is used to solve a system of equations. 
+    */
+    printf("solve:  Solving Failed: %d\n", info);
+  }
+
+  return info;
+}
+
 
 /*-----------------------------------------------------------------------*/
 

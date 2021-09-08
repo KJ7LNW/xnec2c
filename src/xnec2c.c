@@ -16,6 +16,7 @@
 
 #include "xnec2c.h"
 #include "shared.h"
+#include "mathlib.h"
 
 /* Left-overs from fortran code :-( */
 static double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
@@ -359,6 +360,21 @@ Near_Field_Pattern( void )
   void
 New_Frequency( void )
 {
+	//FIXME: timings need reset on mathlib change
+  struct timespec start, end;
+  double elapsed;
+  static double prev_mhz = 0;
+  static double total_time = 0;
+  static int n = 0;
+
+  // FIXME: This is a good check, but needs reset on .nec open!
+  if (prev_mhz == calc_data.freq_mhz)
+	  return;
+
+  prev_mhz = calc_data.freq_mhz;
+
+  clock_gettime(CLOCK_MONOTONIC, &start);
+
   /* Abort if freq has not really changed, as when changing
    * between current or charge density structure coloring */
   if( (save.last_freq == calc_data.freq_mhz) ||
@@ -395,6 +411,22 @@ New_Frequency( void )
   near_field.valid = 0;
   Near_Field_Pattern();
 
+  clock_gettime(CLOCK_MONOTONIC, &end);
+
+  elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
+
+  n++;
+  total_time += elapsed;
+
+  printf("New_Frequency[%d]: %s: total time at %.2f MHz: %f seconds (%f average, %+2.1f%%)\n",
+  		getpid(),
+		current_mathlib->lib,
+        calc_data.freq_mhz,
+		elapsed,
+		total_time/n, // average
+		100*(elapsed-total_time/n)/(total_time/n) // % change
+	);
+
 } /* New_Frequency()  */
 
 /*-----------------------------------------------------------------------*/
@@ -421,6 +453,9 @@ Frequency_Loop( gpointer udata )
   size_t len;
   char *buff;      /* Used to pass on structure poiners */
   fd_set read_fds; /* Read file descriptors for select() */
+
+  // Total freqloop time:
+  static struct timespec start, end;
 
 
   /* (Re) Initialize freq loop */
@@ -462,6 +497,9 @@ Frequency_Loop( gpointer udata )
 
     /* Inherited from NEC2 */
     if( calc_data.zpnorm > 0.0 ) calc_data.iped = 2;
+
+	// Start the timer:
+	clock_gettime(CLOCK_MONOTONIC, &start);
 
     /* Continue gtk_main idle callbacks */
     retval = TRUE;
@@ -669,6 +707,12 @@ Frequency_Loop( gpointer udata )
   {
     ClearFlag( FREQ_LOOP_RUNNING );
     SetFlag( FREQ_LOOP_DONE );
+
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	printf("Frequency_Loop elapsed time: %f seconds\n", 
+		(end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9));
+
+
 
     /* After the loop is finished, re-set the saved frequency
      * that the user clicked on in the frequency plots window */

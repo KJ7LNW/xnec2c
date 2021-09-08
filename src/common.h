@@ -1385,10 +1385,12 @@ gboolean isChild(void);
 void cmset(int nrow, _Complex double *cmx, double rkhx, int iexkx);
 void cmsw(int j1, int j2, int i1, int i2, _Complex double *cmx, _Complex double *cw, int ncw, int nrow, int itrp);
 void etmns(double p1, double p2, double p3, double p4, double p5, double p6, int ipr, _Complex double *e);
-void factr(int n, _Complex double *a, int *ip, int ndim);
+int factr(int n, _Complex double *a, int *ip, int ndim);
+int factr_gauss_elim( int n, complex double *a, int *ip, int ndim);
 void factrs(int np, int nrow, _Complex double *a, int *ip);
 void fblock(int nrow, int ncol, int imax, int ipsym);
-void solve(int n, _Complex double *a, int *ip, _Complex double *b, int ndim);
+int solve(int n, _Complex double *a, int *ip, _Complex double *b, int ndim);
+int solve_gauss_elim( int n, complex double *a, int *ip, complex double *b, int ndim );
 void solves(_Complex double *a, int *ip, _Complex double *b, int neq, int nrh, int np, int n, int mp, int m);
 /* nec2_model.c */
 void Nec2_Input_File_Treeview(int action);

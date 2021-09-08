@@ -151,6 +151,8 @@ main (int argc, char *argv[])
     } /* switch( option ) */
   } /* while( (option = getopt(argc, argv, "i:o:hv") ) != -1 ) */
 
+  init_mathlib();
+
   /* Read input file path name if not supplied by -i option */
   if( (strlen(rc_config.input_file) == 0) &&
       (strstr(argv[argc - 1], ".nec") ||
@@ -307,6 +309,8 @@ main (int argc, char *argv[])
     g_idle_add( Open_Input_File, (gpointer)(&new) );
   else
     SetFlag( INPUT_PENDING );
+
+  init_mathlib_menu();
 
   gtk_main ();
 

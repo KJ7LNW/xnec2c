@@ -10383,6 +10383,24 @@ Save NEC2 Editor data first?
                             <signal name="toggled" handler="on_optimizer_output_toggled" swapped="no"/>
                           </object>
                         </child>
+
+                        <child> 
+                          <object class="GtkMenuItem" id="main_mathlib_menu">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">_Math Libraries</property>
+                            <property name="use-underline">True</property>
+                            <child type="submenu">
+                              <!-- This submenu is filled in by init_mathlib() -->
+                              <object class="GtkMenu" id="main_mathlib_menu_menu">
+                                <property name="can-focus">False</property>
+                              </object>
+                            </child>
+
+                          </object>
+                        </child>
+
+
                         <child>
                           <object class="GtkSeparatorMenuItem">
                             <property name="visible">True</property>
