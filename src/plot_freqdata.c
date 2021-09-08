@@ -28,11 +28,6 @@
 #include "plot_freqdata.h"
 #include "shared.h"
 
-// Move this to be used in all calls to mem_realloc:
-#define __S1(x) #x
-#define __S2(x) __S1(x)
-#define  __LOCATION__ "in " __S2(__FILE__) " on line " __S2(__LINE__)
-
 fr_plot_t *fr_plots = NULL;
 
 // prev_width_available is used if to detect window resize in Plot_Graph.
