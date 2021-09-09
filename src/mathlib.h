@@ -1,14 +1,20 @@
-#ifdef HAVE_OPENBLAS
-	#include <lapacke/lapacke.h>
+#ifdef HAVE_OPENBLAS_CBLAS_H
 	#include <openblas/cblas.h>
+	#ifdef HAVE_OPENBLAS_LAPACKE_H
+		#include <openblas/lapacke.h>
+	#endif
+	#ifdef HAVE_LAPACKE_H
+		#include <lapacke.h>
+	#endif
+
 #else
-	#ifdef HAVE_ATLAS
+	#ifdef HAVE_CLAPACK_H
 			#include <clapack.h>
 	#else
 			// Define it ourself if undefined:
 			enum CBLAS_TRANSPOSE {CblasNoTrans=111, CblasTrans=112, CblasConjTrans=113};
 	#endif 
-#endif // HAVE_OPENBLAS
+#endif
 
 typedef struct 
 {
@@ -18,6 +24,8 @@ typedef struct
 	void **functions;
 } mathlib_t;
 
+// You only need a new enum if the calling convention is different.  For example,
+// Intel MKL uses the OpenBLAS calling convention.
 enum {
 	MATHLIB_ATLAS,
 	MATHLIB_OPENBLAS,
