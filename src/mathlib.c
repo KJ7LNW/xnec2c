@@ -14,21 +14,33 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#define _GNU_SOURCE
 #include <dlfcn.h>
+#include <link.h>
 #include "main.h"
 #include "shared.h"
 #include "mathlib.h"
 
 static mathlib_t mathlibs[] = {
-	{.type = MATHLIB_ATLAS, .lib = "libtatlas.so", .name = "ATLAS, Threaded"},
-	{.type = MATHLIB_ATLAS, .lib = "libsatlas.so", .name = "ATLAS, Serial"},
+	// In order of preference, xnec2c will use the first one that loads successfully:
+	{.type = MATHLIB_ATLAS, .lib = "libtatlas.so", .name = "ATLAS, Threaded", .f_prefix = "clapack_"},
+	{.type = MATHLIB_ATLAS, .lib = "libsatlas.so", .name = "ATLAS, Serial", .f_prefix = "clapack_"},
 
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas.so",  .name = "OpenBLAS+LAPACKe, Serial"},
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so", .name = "OpenBLAS+LAPACKe, OpenMP"},
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so", .name = "OpenBLAS+LAPACKe, pthreads"},
+	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas.so",  .name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_"},
+	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so", .name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
+	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
 
-	{.type = MATHLIB_NONE, .lib = "(builtin)", .name = "NEC2 Gaussian Elimination"}
+	// These are of type MATHLIB_OPENBLAS because the calling convention is the same:
+	{.type = MATHLIB_OPENBLAS, .lib = "libmkl_rt.so", .name = "Intel KML", .f_prefix = "LAPACKE_"},
 
+	// Default implementation if none of the newer libraries are found.  This is
+	// before the old implementations below because it has been tested:
+	{.type = MATHLIB_NONE, .lib = "(builtin)", .name = "NEC2 Gaussian Elimination"},
+
+	// Old implementations that may or may not work
+	{.type = MATHLIB_ATLAS, .lib = "libatlas.so", .name = "ATLAS, Serial (old)", .f_prefix = "clapack_"},
+	{.type = MATHLIB_ATLAS, .lib = "libcblas.so", .name = "CBLAS, Serial (old)", .f_prefix = "clapack_"},
+	{.type = MATHLIB_ATLAS, .lib = "libptcblas.so", .name = "CBLAS, Threaded (old)", .f_prefix = "clapack_"}
 };
 
 mathlib_t *current_mathlib = NULL;
@@ -73,10 +85,14 @@ int open_mathlib(mathlib_t *lib)
 	if (lib->type == MATHLIB_NONE)
 		return 1;
 	
+	// clear any error state
+	dlerror();
+
 	lib->handle = dlopen(lib->lib, RTLD_NOW);
+
 	if (lib->handle == NULL)
 	{
-		printf("Unable to open %s: %s\n", lib->lib, dlerror());
+		printf("  Unable to open %s: %s\n", lib->lib, dlerror());
 		return 0;
 	}
 
@@ -96,7 +112,7 @@ int open_mathlib(mathlib_t *lib)
 
 		if (error != NULL)
 		{
-			printf("%s: unable to bind %s: %s\n", lib->lib, mathfuncs[fidx], error);
+			printf("  %s: unable to bind %s: %s\n", lib->lib, mathfuncs[fidx], error);
 			free_ptr((void **) &lib->functions);
 			dlclose(lib->handle);
 			lib->handle = NULL;
@@ -116,18 +132,22 @@ void init_mathlib()
 
 	for (libidx = 0; libidx < num_mathlibs; libidx++)
 	{
-		if (mathlibs[libidx].type == MATHLIB_ATLAS)
-			mathlibs[libidx].f_prefix = "clapack_";
-		else if (mathlibs[libidx].type == MATHLIB_OPENBLAS)
-			mathlibs[libidx].f_prefix = "LAPACKE_";
-
 		mathlibs[libidx].functions = NULL;
 
-		printf("Trying %s (%s): ", mathlibs[libidx].name, mathlibs[libidx].lib);
+		printf("\nTrying %s (%s):\n", mathlibs[libidx].name, mathlibs[libidx].lib);
 		if (!open_mathlib(&mathlibs[libidx]))
+		{
+			printf("  skipping.\n");
 			continue;
+		}
+		else if (mathlibs[libidx].handle != NULL)
+		{
+			char lpath[PATH_MAX];
+			dlinfo(mathlibs[libidx].handle, RTLD_DI_ORIGIN, lpath);
+			printf("  loaded ok: %s/%s\n", lpath, mathlibs[libidx].lib);
+		}
 		else
-			printf("loaded ok.\n");
+			printf("  loaded ok.\n");
 
 		// Set the default to the first one we find:
 		if (current_mathlib == NULL)
