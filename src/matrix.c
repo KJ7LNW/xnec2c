@@ -1158,8 +1158,19 @@ int factr_gauss_elim( int n, complex double *a, int *ip, int ndim)
         scm[pj]= scm[j];
         jp1= j+1;
 
-        #pragma GCC unroll 128
-        #pragma GCC ivdep
+		// This loop is a hotspot and it is non-dependent.  Try to speed it up
+		// with CPU pipelining, introduced in GCC v8:
+		#ifdef __GNUC__
+			#if __GNUC__ >= 8
+				#pragma GCC unroll 128
+				#pragma GCC ivdep
+			#endif
+		#endif
+
+		// Same thing for clang:
+		#ifdef __clang__
+			#pragma clang loop vectorize(enable) interleave(enable)
+		#endif
         for( i = jp1; i < n; i++ )
           scm[i] -= a[i+j*ndim]* arj;
 
@@ -1241,6 +1252,7 @@ int factr( int n, complex double *a, int *ip, int ndim)
     printf("factr:  LU Decomposition Failed: %d\n", info);
   }
   
+  return info;
 }
 
 
