@@ -16,26 +16,53 @@
 	#endif 
 #endif
 
-typedef struct 
-{
-	int type;
-	char *lib, *name, *f_prefix, *f_suffix;
-	void *handle;
-	void **functions;
-} mathlib_t;
 
 // You only need a new enum if the calling convention is different.  For example,
 // Intel MKL uses the OpenBLAS calling convention.
-enum {
+enum MATHLIB_TYPES {
 	MATHLIB_ATLAS,
 	MATHLIB_OPENBLAS,
-	MATHLIB_NONE
+	MATHLIB_NEC2
 };
 
-enum {
+enum MATHLIB_FUNCTIONS {
 	MATHLIB_ZGETRF, 
 	MATHLIB_ZGETRS,
 };
+
+typedef struct mathlib_t
+{
+	// Mathlib type:
+	int type; 
+
+	// Index into the mathlibs array:
+	int idx; 
+
+	// True if it opened successfully upon initialization:
+	int available;
+
+	// lib: libname.so
+	// name: a human readable description
+	// f_prefix: the prefix to the function exported by the lib.  For example, "LAPACKE_"
+	// f_suffix: the prefix to the function exported by the lib. For example, "_"
+	char *lib, *name, *f_prefix, *f_suffix;
+
+	// Handle from dlopen 
+	void *handle;
+
+	// Namespace for the .so, this should be an Lmid_t but can't have _GNU_SOURCE defined here.
+	long int lmid; 
+
+	// Function pointers, one for each function in MATHLIB_FUNCTIONS.
+	void **functions;
+
+	// Pointer to environment variables that should be set before dlopen() is called.
+	// env[0] is the name, env[1] is the value.
+	char *env[2];
+
+	// Function pointer to call after dlopen() and is passed the mathlib_t pointer.
+	void (*init)(struct mathlib_t*);
+} mathlib_t;
 
 typedef int32_t (zgetrf_atlas_t)(int32_t, int32_t, int32_t, complex double *, int32_t, int32_t*);
 typedef int32_t (zgetrf_openblas_t)(int32_t, int32_t, int32_t, complex double *, int32_t, int32_t*);
