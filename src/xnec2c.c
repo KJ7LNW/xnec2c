@@ -368,8 +368,10 @@ New_Frequency( void )
   static int n = 0;
 
   // FIXME: This is a good check, but needs reset on .nec open!
+  /*
   if (prev_mhz == calc_data.freq_mhz)
 	  return;
+  */
 
   prev_mhz = calc_data.freq_mhz;
 
@@ -584,6 +586,11 @@ Frequency_Loop( gpointer udata )
           forked_proc_data[job_num]->busy  = TRUE;
           forked_proc_data[job_num]->fstep = fstep;
           num_busy_procs++;
+
+
+          // Send the mathlib to use:
+          Write_Pipe( idx, fork_commands[MATHLIB], (ssize_t)strlen(fork_commands[MATHLIB]), TRUE );
+          Write_Pipe( idx, (char*)&current_mathlib->idx,  (ssize_t)sizeof(current_mathlib->idx), TRUE );
 
           /* Tell process to calculate freq dependent data */
           len = strlen( fork_commands[FRQDATA] );
