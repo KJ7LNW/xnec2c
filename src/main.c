@@ -16,6 +16,7 @@
 
 #include "main.h"
 #include "shared.h"
+#include "mathlib.h"
 
 static void sig_handler(int signal);
 

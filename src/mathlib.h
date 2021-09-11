@@ -64,6 +64,12 @@ typedef struct mathlib_t
 	void (*init)(struct mathlib_t*);
 } mathlib_t;
 
+
+void init_mathlib();
+void init_mathlib_menu();
+mathlib_t *get_mathlib_by_idx(int idx);
+void set_mathlib(GtkWidget *widget, mathlib_t *lib);
+
 typedef int32_t (zgetrf_atlas_t)(int32_t, int32_t, int32_t, complex double *, int32_t, int32_t*);
 typedef int32_t (zgetrf_openblas_t)(int32_t, int32_t, int32_t, complex double *, int32_t, int32_t*);
 

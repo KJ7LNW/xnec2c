@@ -16,6 +16,7 @@
 
 #include "fork.h"
 #include "shared.h"
+#include "mathlib.h"
 
 /*-----------------------------------------------------------------------*/
 
@@ -408,8 +409,15 @@ Child_Process( int num_child )
     retval = Read_Pipe( num_child, cmnd, 7, TRUE );
     cmnd[retval]='\0';
 
+    int libidx;
     switch( Fork_Command(cmnd) )
     {
+      case MATHLIB:
+        retval = Read_Pipe( num_child, (char*)&libidx, sizeof(current_mathlib->idx), FALSE );
+        set_mathlib(NULL, get_mathlib_by_idx(libidx));
+        printf("set mathlib %s\n", current_mathlib->lib);
+        break;
+
       case INFILE: /* Read input file */
         retval = Read_Pipe( num_child, rc_config.input_file, sizeof(rc_config.input_file), FALSE );
         rc_config.input_file[retval] = '\0';
