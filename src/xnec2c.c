@@ -363,17 +363,18 @@ New_Frequency( void )
 	//FIXME: timings need reset on mathlib change
   struct timespec start, end;
   double elapsed;
-  static double prev_mhz = 0;
   static double total_time = 0;
   static int n = 0;
 
-  // FIXME: This is a good check, but needs reset on .nec open!
+  // FIXME: This is a good check, but needs reset on .nec open. Also, it probably breaks benchmarks.
   /*
+  static double prev_mhz = 0;
   if (prev_mhz == calc_data.freq_mhz)
 	  return;
-  */
 
   prev_mhz = calc_data.freq_mhz;
+  */
+
 
   clock_gettime(CLOCK_MONOTONIC, &start);
 
@@ -440,7 +441,7 @@ static gboolean retval; /* Function's return value */
  * Loops over frequency if calculations over a frequency range is
  * requested, dividing the job between child processes if forked
  */
-  static gboolean
+  gboolean
 Frequency_Loop( gpointer udata )
 {
   /* Value of frequency and step num in the loop */
@@ -638,6 +639,8 @@ Frequency_Loop( gpointer udata )
       /* Wait for data from finished child processes */
       if( select( n+1, &read_fds, NULL, NULL, NULL ) == -1 )
       {
+        if (errno == EINTR)
+			continue;
         perror( "xnec2c: select()" );
         _exit(0);
       }

@@ -10400,6 +10400,15 @@ Save NEC2 Editor data first?
                           </object>
                         </child>
 
+                        <child>
+                          <object class="GtkImageMenuItem" id="main_mathlib_benchmark">
+                            <property name="label" translatable="yes">Mathlib Benchmark</property>
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="use-underline">True</property>
+                            <signal name="activate" handler="mathlib_benchmark" swapped="no"/>
+                          </object>
+                        </child>
 
                         <child>
                           <object class="GtkSeparatorMenuItem">

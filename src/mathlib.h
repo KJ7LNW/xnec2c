@@ -18,10 +18,11 @@
 
 
 // You only need a new enum if the calling convention is different.  For example,
-// Intel MKL uses the OpenBLAS calling convention.
+// Intel MKL uses the OpenBLAS calling convention, but needs special treatment:
 enum MATHLIB_TYPES {
 	MATHLIB_ATLAS,
 	MATHLIB_OPENBLAS,
+	MATHLIB_INTEL,
 	MATHLIB_NEC2
 };
 
@@ -60,6 +61,9 @@ typedef struct mathlib_t
 	// env[0] is the name, env[1] is the value.
 	char *env[2];
 
+	// Reference to the menu item under File->Math Libraries.
+	GtkWidget *menu_widget;
+
 	// Function pointer to call after dlopen() and is passed the mathlib_t pointer.
 	void (*init)(struct mathlib_t*);
 } mathlib_t;
@@ -69,6 +73,11 @@ void init_mathlib();
 void init_mathlib_menu();
 mathlib_t *get_mathlib_by_idx(int idx);
 void set_mathlib(GtkWidget *widget, mathlib_t *lib);
+
+void mathlib_mkl_set_threading_intel(mathlib_t *lib);
+void mathlib_mkl_set_threading_sequential(mathlib_t *lib);
+void mathlib_mkl_set_threading_gnu(mathlib_t *lib);
+void mathlib_mkl_set_threading_tbb(mathlib_t *lib);
 
 typedef int32_t (zgetrf_atlas_t)(int32_t, int32_t, int32_t, complex double *, int32_t, int32_t*);
 typedef int32_t (zgetrf_openblas_t)(int32_t, int32_t, int32_t, complex double *, int32_t, int32_t*);

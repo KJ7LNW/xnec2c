@@ -21,7 +21,7 @@
 #include "shared.h"
 #include "mathlib.h"
 
-void warn_restart(mathlib_t *lib);
+void mathlib_mkl_set_threading_intel(mathlib_t *lib);
 
 static mathlib_t mathlibs[] = {
 	// In order of preference, xnec2c will use the first one that loads successfully:
@@ -32,15 +32,14 @@ static mathlib_t mathlibs[] = {
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so", .name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
 
-	// These are of type MATHLIB_OPENBLAS because the calling convention is the same:
-	{.type = MATHLIB_OPENBLAS, .lib = "libmkl_rt.so", .name = "Intel MKL, Serial", .f_prefix = "LAPACKE_",
-		.env = { "MKL_THREADING_LAYER", "SEQUENTIAL" }, .init = warn_restart },
-	{.type = MATHLIB_OPENBLAS, .lib = "libmkl_rt.so", .name = "Intel MKL, TBB Threads", .f_prefix = "LAPACKE_",
-		.env = { "MKL_THREADING_LAYER", "TBB" }, .init = warn_restart },
-	{.type = MATHLIB_OPENBLAS, .lib = "libmkl_rt.so", .name = "Intel MKL, Intel Threads", .f_prefix = "LAPACKE_",
-		.env = { "MKL_THREADING_LAYER", "INTEL" }, .init = warn_restart },
-	{.type = MATHLIB_OPENBLAS, .lib = "libmkl_rt.so", .name = "Intel MKL, GNU Threads", .f_prefix = "LAPACKE_",
-		.env = { "MKL_THREADING_LAYER", "GNU" }, .init = warn_restart },
+	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, Serial", .f_prefix = "LAPACKE_",
+		.init = mathlib_mkl_set_threading_sequential },
+	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, TBB Threads", .f_prefix = "LAPACKE_",
+		.init = mathlib_mkl_set_threading_tbb },
+	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, Intel Threads", .f_prefix = "LAPACKE_",
+		.init = mathlib_mkl_set_threading_intel },
+	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, GNU Threads", .f_prefix = "LAPACKE_",
+		.init = mathlib_mkl_set_threading_gnu },
 
 	// Default implementation if none of the newer libraries are found.  This is
 	// before the old implementations below because it has been tested:
@@ -117,8 +116,7 @@ int open_mathlib(mathlib_t *lib)
 	dlerror();
 
 	// Open the .so library
-	lib->handle = dlopen(lib->lib, RTLD_NOW);
-	//lib->handle = dlmopen(LM_ID_NEWLM, lib->lib, RTLD_NOW);
+	lib->handle = dlopen(lib->lib, RTLD_LAZY);
 
 	if (lib->handle == NULL)
 	{
@@ -209,6 +207,8 @@ void init_mathlib()
 
 void set_mathlib(GtkWidget *widget, mathlib_t *lib)
 {
+	int i;
+
 	if (widget != NULL && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)))
 		return;
 
@@ -227,7 +227,35 @@ void set_mathlib(GtkWidget *widget, mathlib_t *lib)
 		current_mathlib = lib;
 
 		open_mathlib(lib);
-		printf("mathlib: selected %s\n", lib->name);
+
+		// Intel libraries can only be set once:
+		if (lib->type == MATHLIB_INTEL)
+		{
+			if (!CHILD)
+				printf( _("\n"
+				"* Notice: \"%s\" was selected, but you can only change to a\n"
+				"* different Intel MKL threading library by restarting xnec2c.\n"
+				"* \n"
+				"* However, you may continue to select any other Linear Algebra library\n"
+				"* without restart, including this same Intel MKL library.  All other\n"
+				"* Intel MKL threading libraries are disabled until restart because of an \n"
+				"* MKL limitation where the MKL threading library can only be dynamically\n"
+				"* linked only once per runtime.\n"
+				"* \n"
+				"* See Intel's documentation on mkl_set_threading_layer() for more detail.\n"),
+					 lib->name);
+
+			// Disable the other MKL threading options.
+			for (i = 0; i < num_mathlibs; i++)
+				if (mathlibs[i].available && mathlibs[i].type == MATHLIB_INTEL && lib->idx != i)
+				{
+					mathlibs[i].available = 0;
+
+					if (!CHILD)
+						gtk_widget_set_sensitive(GTK_WIDGET(mathlibs[i].menu_widget), FALSE);
+				}
+		}
+
 		g_mutex_unlock(&global_lock);
 	}
 	else
@@ -249,6 +277,7 @@ void init_mathlib_menu()
 
 		// Create the menu item widget:
 		GtkWidget *w = gtk_radio_menu_item_new_with_label(math_radio_group, mathlibs[libidx].name);
+		mathlibs[libidx].menu_widget = w;
 
 		math_radio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(w));
 
@@ -267,6 +296,58 @@ void init_mathlib_menu()
 	gtk_widget_show_all(main_window);
 }
 
+void mathlib_benchmark()
+{
+	struct timespec start, end;
+	int response;
+	char m[1024] = {0};
+	int i;
+
+	response = Notice(_("Mathlib Benchmark"),
+		 _("This will run a frequency loop benchmark for each detected linear algebra library and then provide a summary.  It "
+		 "may take some time to complete depending on how big and how many frequencies your NEC2 will use. "
+		 "Detailed timing will be provided in the terminal.\n"
+		 "\n"
+		 "Notes:\n"
+		 "* Only one Intel MKL library can be tested without restarting xnec2c, so select which one you wish"
+		 "to benchmark before proceeding or it will choose the first in the list and skip the rest.\n\n"
+		 "* Thread congestion will occur for multi-threaded libraries when using the -j N option if there are not enough "
+		 "CPUs available to accomodate the forked processes in combination with library threads.  Consider reducing the value of -j N for "
+		 "benchmarking to find what library works best with a mix of forking and threading; you can use `top` to monitor your CPU usage"
+		 "and if it reaches 0% idle then you might consider reducing -j N.\n"
+		 "\n"
+		 "Click OK to proceed, this dialog will close when complete."),
+		 GTK_BUTTONS_OK_CANCEL);
+
+	if (response != GTK_RESPONSE_OK)
+		return;
+	
+	for (i = 0; i < num_mathlibs; i++)
+	{
+		if (!mathlibs[i].available)
+			continue;
+
+		set_mathlib(NULL, &mathlibs[i]);
+		printf("\nStarting %s benchmark\n", current_mathlib->name);
+
+
+		save.last_freq = 0;
+		SetFlag(FREQ_LOOP_INIT);
+	
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		while (Frequency_Loop(NULL));
+		clock_gettime(CLOCK_MONOTONIC, &end);
+
+		double elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
+		snprintf(m + strlen(m), sizeof(m)-strlen(m)-1, "%s:\n   %f seconds\n\n",
+			mathlibs[i].name,
+			elapsed);
+	}
+
+	Notice("Mathlib Benchmark", m, GTK_BUTTONS_OK);
+	printf("%s", m);
+}
+
 int32_t zgetrf(int32_t order, int32_t m, int32_t n, complex double *a, int32_t ndim, int32_t *ip)
 {
 	int f_idx = MATHLIB_ZGETRF;
@@ -281,7 +362,7 @@ int32_t zgetrf(int32_t order, int32_t m, int32_t n, complex double *a, int32_t n
 		*(void**)(&f) = current_mathlib->functions[f_idx];
 		return f(order, m, n, a, ndim, (int32_t*)ip);
 	}
-	else if (current_mathlib->type == MATHLIB_OPENBLAS)
+	else if (current_mathlib->type == MATHLIB_OPENBLAS || current_mathlib->type == MATHLIB_INTEL)
 	{
 		zgetrf_openblas_t *f;
 		*(void**)(&f) = current_mathlib->functions[f_idx];
@@ -312,7 +393,7 @@ int32_t zgetrs(int32_t order, int32_t trans, int32_t lda, int32_t nrhs,
 		*(void**)(&f) = current_mathlib->functions[f_idx];
 		return f(order, trans, lda, nrhs, a, ndim, (int32_t*)ip, b, ldb);
 	}
-	else if (current_mathlib->type == MATHLIB_OPENBLAS)
+	else if (current_mathlib->type == MATHLIB_OPENBLAS || current_mathlib->type == MATHLIB_INTEL)
 	{
 		zgetrs_openblas_t *f;
 
@@ -335,22 +416,13 @@ int32_t zgetrs(int32_t order, int32_t trans, int32_t lda, int32_t nrhs,
 	return 1;
 }
 
-void warn_restart(mathlib_t *lib)
-{
-}
-
-
-// These Intel MKL functions are not being used but I'm leaving them here
-// in case they become useful in the future to set the threading type.
-// Currently we use setenv(MKL_THREADING_LAYER):
-
 /* Single Dynamic library threading
  * https://software.intel.com/content/www/us/en/develop/documentation/onemkl-linux-developer-guide/top/linking-your-application-with-the-intel-oneapi-math-kernel-library/linking-in-detail/dynamically-selecting-the-interface-and-threading-layer.html
  */
 
 #define MKL_THREADING_INTEL         0
 #define MKL_THREADING_SEQUENTIAL    1
-#define MKL_THREADING_PGI           2
+#define MKL_THREADING_PGI           2 // Only for PGI compiler, not implemented here.
 #define MKL_THREADING_GNU           3
 #define MKL_THREADING_TBB           4
 
@@ -358,14 +430,17 @@ void mathlib_mkl_set_threading(mathlib_t *lib, int code)
 {
 	int (*mkl_set_threading_layer)(int) = NULL;
 
+	// Skip this if not yet initialized:
+	if (!lib->available)
+		return;
+	
+	dlerror();
 	*(void **) (&mkl_set_threading_layer) = dlsym(lib->handle, "MKL_Set_Threading_Layer");
 	if (mkl_set_threading_layer == NULL)
 	{
 		printf("dlsym(mkl_set_threading_layer): %s\n", dlerror());
 		return;
 	}
-
-	printf("mkl_set_threading_layer(%d)\n", code);
 
 	mkl_set_threading_layer(code);
 }

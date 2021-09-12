@@ -1422,6 +1422,7 @@ void fbar(_Complex double p, _Complex double *fbar);
 /* utils.c */
 void usage(void);
 int Stop(char *mesg, int err);
+int Notice(char *title, char *message,  GtkButtonsType buttons);
 gboolean Nec2_Save_Warn(const gchar *mesg);
 int Load_Line(char *buff, FILE *pfile);
 void mem_alloc(void **ptr, size_t req, gchar *str);
@@ -1444,6 +1445,7 @@ void xnec2_widget_queue_draw(GtkWidget *w);
 /* xnec2c.c */
 void Near_Field_Pattern(void);
 void New_Frequency(void);
+gboolean Frequency_Loop(gpointer udata);
 gboolean Start_Frequency_Loop(void);
 void Stop_Frequency_Loop(void);
 void Incident_Field_Loop(void);
