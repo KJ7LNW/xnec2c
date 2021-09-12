@@ -133,17 +133,20 @@ Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
   ssize_t retval;
   int pipefd;
 
-  if(CHILD)
-    pipefd = forked_proc_data[idx]->pnt2child_pipe[READ];
-  else
-    pipefd = forked_proc_data[idx]->child2pnt_pipe[READ];
+  do {
+	  if(CHILD)
+		pipefd = forked_proc_data[idx]->pnt2child_pipe[READ];
+	  else
+		pipefd = forked_proc_data[idx]->child2pnt_pipe[READ];
 
-  retval = select( 1024, &forked_proc_data[idx]->read_fds, NULL, NULL, NULL );
-  if( retval == -1 )
-  {
-    perror( "xnec2c: Read_Pipe(): select()" );
-    _exit( 0 );
-  }
+	  retval = select( 1024, &forked_proc_data[idx]->read_fds, NULL, NULL, NULL );
+
+	  if (retval == -1 && errno != EINTR)
+	  {
+		perror( "xnec2c: Read_Pipe(): select()" );
+		_exit( 0 );
+	  }
+  } while (retval == -1 && errno == EINTR);
   
   retval = read_exact( pipefd, str, (size_t)len );
 
@@ -415,7 +418,6 @@ Child_Process( int num_child )
       case MATHLIB:
         retval = Read_Pipe( num_child, (char*)&libidx, sizeof(current_mathlib->idx), FALSE );
         set_mathlib(NULL, get_mathlib_by_idx(libidx));
-        printf("set mathlib %s\n", current_mathlib->lib);
         break;
 
       case INFILE: /* Read input file */
@@ -491,17 +493,22 @@ Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
   ssize_t retval;
   int pipefd;
 
-  if( CHILD )
-    pipefd = forked_proc_data[idx]->child2pnt_pipe[WRITE];
-  else
-    pipefd = forked_proc_data[idx]->pnt2child_pipe[WRITE];
+  do {
+	  if( CHILD )
+		pipefd = forked_proc_data[idx]->child2pnt_pipe[WRITE];
+	  else
+		pipefd = forked_proc_data[idx]->pnt2child_pipe[WRITE];
 
-  retval = select( 1024, NULL, &forked_proc_data[idx]->write_fds, NULL, NULL );
-  if( retval == -1 )
-  {
-    perror( "xnec2c: Write_Pipe(): select()" );
-    _exit( 0 );
-  }
+	  retval = select( 1024, NULL, &forked_proc_data[idx]->write_fds, NULL, NULL );
+
+	  if (retval == -1 && errno != EINTR)
+	  {
+		perror( "xnec2c: Write_Pipe(): select()" );
+		_exit( 0 );
+	  }
+
+  } while (retval == -1 && errno == EINTR);
+
 
   retval = write_exact( pipefd, str, (size_t)len );
   if( (retval == -1) || ((retval != len) && err) )
