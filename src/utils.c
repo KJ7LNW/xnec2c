@@ -36,6 +36,25 @@ usage(void)
 
 } /* end of usage() */
 
+
+// May return GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, ...
+int Notice(char *title, char *message,  GtkButtonsType buttons)
+{
+	int response;
+	GtkWidget *notice = gtk_message_dialog_new(GTK_WINDOW(main_window),
+		GTK_DIALOG_MODAL, GTK_MESSAGE_INFO,
+		buttons,
+		"%s", title);
+
+	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(notice), "%s", message);
+
+	response = gtk_dialog_run(GTK_DIALOG(notice));
+
+	gtk_widget_destroy(notice);
+
+	return response;
+}
+
 /*------------------------------------------------------------------------*/
 
 /* Does the STOP function of fortran but with a warning dialog */
