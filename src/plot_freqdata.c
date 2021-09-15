@@ -371,6 +371,24 @@ static double Fit_to_Scale( double *max, double *min, int *nval )
   }
 
 
+  /* Do nothing in this case */
+  if( *max < *min ) return;
+
+  /* Provide a made-up range if max = min */
+  if( *max == *min )
+  {
+    if( *max == 0.0 )
+    {
+      *max =  1.0;
+      *min = -1.0;
+    }
+    else
+    {
+      *max += fabs( *max ) / 10.0;
+      *min -= fabs( *min ) / 10.0;
+    }
+  }
+
   /* prevent divide by zero on small screens */
   if(*nval <= 1) return 1;
 
@@ -424,6 +442,35 @@ Fit_to_Scale2( double *max1, double *min1,
   // Do nothing in these cases 
   if( *max1 <= *min1 ) return;
   if( *max2 == *min2 ) return;
+
+  /* Provide a made-up range if max = min */
+  if( *max1 == *min1 )
+  {
+    if( *max1 == 0.0 )
+    {
+      *max1 =  1.0;
+      *min1 = -1.0;
+    }
+    else
+    {
+      *max1 += fabs( *max1 ) / 10.0;
+      *min1 -= fabs( *min1 ) / 10.0;
+    }
+  }
+
+  if( *max2 == *min2 )
+  {
+    if( *max2 == 0.0 )
+    {
+      *max2 =  1.0;
+      *min2 = -1.0;
+    }
+    else
+    {
+      *max2 += fabs( *max2 ) / 10.0;
+      *min2 -= fabs( *min2 ) / 10.0;
+    }
+  }
 
   // For each scale 
   // Find subdivision's lower order of magnitude 
