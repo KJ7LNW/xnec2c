@@ -240,14 +240,14 @@ typedef struct
   char input_file[FILENAME_LEN];
 
   /* Main (structure) window position and size */
-  gint
+  int
     main_x,
     main_y,
     main_width,
     main_height;
 
   /* Main (structure) window state of widgets */
-  uint8_t
+  int
     main_currents_togglebutton,
     main_charges_togglebutton,
     main_total,
@@ -257,13 +257,13 @@ typedef struct
     main_left_hand,
     main_loop_start;
 
-  gint
+  int
     main_rotate_spinbutton,
     main_incline_spinbutton,
     main_zoom_spinbutton;
 
   /* Radiation pattern window position and size */
-  gint
+  int
     rdpattern_x,
     rdpattern_y,
     rdpattern_width,
@@ -271,7 +271,7 @@ typedef struct
     rdpattern_zoom_spinbutton;
 
   /* Radiation pattern window state of widgets */
-  uint8_t
+  int
     rdpattern_gain_togglebutton,
     rdpattern_eh_togglebutton,
     rdpattern_e_field,
@@ -279,14 +279,14 @@ typedef struct
     rdpattern_poynting_vector;
 
   /* Frequency plots window state of widgetsposition and size */
-  gint
+  int
     freqplots_x,
     freqplots_y,
     freqplots_width,
     freqplots_height;
 
   /* Frequency plots window state of widgets */
-  uint8_t
+  int
     freqplots_gmax_togglebutton,
     freqplots_gdir_togglebutton,
     freqplots_gviewer_togglebutton,
@@ -298,14 +298,14 @@ typedef struct
     freqplots_net_gain;
 
   /* NEC2 editor window position and size */
-  gint
+  int
     nec2_edit_x,
     nec2_edit_y,
     nec2_edit_width,
     nec2_edit_height;
 
   /* Enable Quit dialog */
-  uint8_t confirm_quit;
+  int confirm_quit;
 
 } rc_config_t;
 
