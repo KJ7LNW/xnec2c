@@ -14,7 +14,224 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <ctype.h>
 #include "rc_config.h"
+
+
+/* Add configuration options here. To add new variables:
+ *    Add a new section and description
+ *    Set the format string
+ *    Create references to the .vars structure to load/save values
+ */
+
+rc_config_vars_t rc_config_vars[] = {
+	{ .desc = "Application Vesrsion", .format = "%s", .ro = 1, 
+		.vars = { PACKAGE_STRING } },
+
+	{ .desc = "Current Working Directory", .format = "%s",
+		.vars = { rc_config.working_dir }, .size = FILENAME_LEN },
+
+	{ .desc = "Main Window Size, in pixels", .format = "%d,%d",
+		.vars = { &rc_config.main_width, &rc_config.main_height } },
+
+	{ .desc = "Main Window Position (root x and y)", .format = "%d,%d",
+		.vars = { &rc_config.main_x, &rc_config.main_y } },
+
+	{ .desc = "Main Window Currents toggle button state", .format = "%d",
+		.vars = { &rc_config.main_currents_togglebutton } },
+
+	{ .desc = "Main Window Charges toggle button state", .format = "%d",
+		.vars = { &rc_config.main_charges_togglebutton } },
+
+	{ .desc = "Main Window Polarization menu total state", .format = "%d",
+		.vars = { &rc_config.main_total } },
+
+	{ .desc = "Main Window Polarization menu horizontal state", .format = "%d",
+		.vars = { &rc_config.main_horizontal } },
+
+	{ .desc = "Main Window Polarization menu vertical state", .format = "%d",
+		.vars = { &rc_config.main_vertical } },
+
+	{ .desc = "Main Window Polarization menu right hand state", .format = "%d",
+		.vars = { &rc_config.main_right_hand } },
+
+	{ .desc = "Main Window Polarization menu left hand state", .format = "%d",
+		.vars = { &rc_config.main_left_hand } },
+
+	{ .desc = "Main Window Frequency loop start state", .format = "%d",
+		.vars = { &rc_config.main_loop_start } },
+
+	{ .desc = "Main Window Rotate spinbutton state", .format = "%d",
+		.vars = { &rc_config.main_rotate_spinbutton } },
+
+	{ .desc = "Main Window Incline spinbutton state", .format = "%d",
+		.vars = { &rc_config.main_incline_spinbutton } },
+
+	{ .desc = "Main Window Zoom spinbutton state", .format = "%d",
+		.vars = { &rc_config.main_zoom_spinbutton } },
+
+	{ .desc = "Radiation Pattern Window Size, in pixels", .format = "%d,%d",
+		.vars = { &rc_config.rdpattern_width, &rc_config.rdpattern_height } },
+
+	{ .desc = "Radiation Pattern Window Position (root x and y)", .format = "%d,%d",
+		.vars = { &rc_config.rdpattern_x, &rc_config.rdpattern_y } },
+
+	{ .desc = "Radiation Pattern Window Gain toggle button state", .format = "%d",
+		.vars = { &rc_config.rdpattern_gain_togglebutton } },
+
+	{ .desc = "Radiation Pattern Window EH toggle button state", .format = "%d",
+		.vars = { &rc_config.rdpattern_eh_togglebutton } },
+
+	{ .desc = "Radiation Pattern Window Menu E-field state", .format = "%d",
+		.vars = { &rc_config.rdpattern_e_field } },
+
+	{ .desc = "Radiation Pattern Window Menu H-field state", .format = "%d",
+		.vars = { &rc_config.rdpattern_h_field } },
+
+	{ .desc = "Radiation Pattern Window Menu Poynting vector state", .format = "%d",
+		.vars = { &rc_config.rdpattern_poynting_vector } },
+
+	{ .desc = "Radiation Pattern Window Zoom spinbutton state", .format = "%d",
+		.vars = { &rc_config.rdpattern_zoom_spinbutton } },
+
+	{ .desc = "Frequency Plots Window Size, in pixels", .format = "%d,%d",
+		.vars = { &rc_config.freqplots_width, &rc_config.freqplots_height } },
+
+	{ .desc = "Frequency Plots Window Position (root x and y)", .format = "%d,%d",
+		.vars = { &rc_config.freqplots_x, &rc_config.freqplots_y } },
+
+	{ .desc = "Frequency Plots Window Max Gain toggle button state", .format = "%d",
+		.vars = { &rc_config.freqplots_gmax_togglebutton } },
+
+	{ .desc = "Frequency Plots Window Gain Direction toggle button state", .format = "%d",
+		.vars = { &rc_config.freqplots_gdir_togglebutton } },
+
+	{ .desc = "Frequency Plots Window Viewer Direction Gain toggle button state", .format = "%d",
+		.vars = { &rc_config.freqplots_gviewer_togglebutton } },
+
+	{ .desc = "Frequency Plots Window VSWR toggle button state", .format = "%d",
+		.vars = { &rc_config.freqplots_vswr_togglebutton } },
+
+	{ .desc = "Frequency Plots Window Z-real/Z-imag toggle button state", .format = "%d",
+		.vars = { &rc_config.freqplots_zrlzim_togglebutton } },
+
+	{ .desc = "Frequency Plots Window Z-mag/Z-phase toggle button state", .format = "%d",
+		.vars = { &rc_config.freqplots_zmgzph_togglebutton } },
+
+	{ .desc = "Frequency Plots Window Smith toggle button state", .format = "%d",
+		.vars = { &rc_config.freqplots_smith_togglebutton } },
+
+	{ .desc = "Frequency Plots Window Net Gain checkbutton state", .format = "%d",
+		.vars = { &rc_config.freqplots_net_gain } },
+
+	{ .desc = "Frequency Plots Window Min/Max checkbutton state", .format = "%d",
+		.vars = { &rc_config.freqplots_min_max } },
+
+	{ .desc = "NEC2 Editor Window Size, in pixels", .format = "%d,%d",
+		.vars = { &rc_config.nec2_edit_width, &rc_config.nec2_edit_height } },
+
+	{ .desc = "NEC2 Editor Window Position (root x and y)", .format = "%d,%d",
+		.vars = { &rc_config.nec2_edit_x, &rc_config.nec2_edit_y } },
+
+	{ .desc = "Structure Projection Center x and y Offset", .format = "%lf,%lf",
+		.vars = { &structure_proj_params.dx_center, &structure_proj_params.dy_center } },
+
+	{ .desc = "Rdpattern Projection Center x and y Offset", .format = "%lf,%lf",
+		.vars = { &rdpattern_proj_params.dx_center, &rdpattern_proj_params.dy_center } },
+
+	{ .desc = "Enable Confirm Quit Dialog", .format = "%d",
+		.vars = { &rc_config.confirm_quit } }
+};
+
+
+rc_config_vars_t rc_config_vars[];
+int num_rc_config_vars = sizeof(rc_config_vars) / sizeof(rc_config_vars_t);
+
+
+// Trim the newline
+void chomp(char *line)
+{
+	int i;
+	int len = strlen(line);
+
+	for (i = 0; i < len; i++)
+		if (line[i] == '\r' || line[i] == '\n')
+		{
+			line[i] = 0;
+			break;
+		}
+}
+
+// Find a variable defined by its comment
+rc_config_vars_t *find_var(char *s)
+{
+	while (s[0] && (isspace(s[0]) || s[0] == '#'))
+		s++;
+
+	for (int i = 0; i < num_rc_config_vars; i++)
+		if (!strcmp(rc_config_vars[i].desc, s))
+			return &rc_config_vars[i];
+
+	return NULL;
+}
+
+// Rease the line into the variable's .vars reference(s)
+int parse_var(rc_config_vars_t *v, char *line)
+{
+	int count = 0;
+	
+	// Skip read-only or missing vars:
+	if (v->ro || (v->vars[0] == NULL && v->vars[1] == NULL))
+		return 0;
+
+	if (strcmp(v->format, "%d") == 0)
+		count = sscanf(line, v->format, (int*)v->vars[0]);
+	else if (strcmp(v->format, "%s") == 0)
+	{
+		strncpy((char*)v->vars[0], line, v->size - 1);
+		count = 1;
+	}
+	else if (strcmp(v->format, "%f") == 0)
+		count = sscanf(line, v->format, (double*)v->vars[0]);
+	else if (strcmp(v->format, "%d,%d") == 0)
+		count = sscanf(line, v->format, (int*)v->vars[0], (int*)v->vars[1]);
+	else if (strcmp(v->format, "%f,%f") == 0)
+		count = sscanf(line, v->format, (float*)v->vars[0], (float*)v->vars[1]);
+	else if (strcmp(v->format, "%lf,%lf") == 0)
+		count = sscanf(line, v->format, (double*)v->vars[0], (double*)v->vars[1]);
+
+	// `count` contains the number of vars parsed, return true
+	// if the count matches the number of vars, otherwise it failed
+	// to parse.  Make this a loop if you add support for more than
+	// two vars being parsed (see struct rc_config_vars_t.vars[2]).
+	return (v->vars[0] == NULL && count == 0)
+		|| (v->vars[1] == NULL && count == 1)
+		|| (v->vars[1] != NULL && count == 2);
+}
+
+// Print a var to a file descriptor based on its type:
+int fprint_var(FILE *fp, rc_config_vars_t *v)
+{
+	int count = 0;
+	
+	if (v->vars[0] == NULL && v->vars[1] == NULL)
+		return 0;
+
+	if (strcmp(v->format, "%d") == 0)
+		count = fprintf(fp, v->format, *(int*)v->vars[0]);
+	else if (strcmp(v->format, "%s") == 0)
+		count = fprintf(fp, v->format, (char*)v->vars[0]);
+	else if (strcmp(v->format, "%f") == 0)
+		count = fprintf(fp, v->format, *(double*)v->vars[0]);
+	else if (strcmp(v->format, "%d,%d") == 0)
+		count = fprintf(fp, v->format, *(int*)v->vars[0], *(int*)v->vars[1]);
+	else if (strcmp(v->format, "%f,%f") == 0)
+		count = fprintf(fp, v->format, *(float*)v->vars[0], *(float*)v->vars[1]);
+	else if (strcmp(v->format, "%lf,%lf") == 0)
+		count = fprintf(fp, v->format, *(double*)v->vars[0], *(double*)v->vars[1]);
+
+	return count;
+}
 
 /*------------------------------------------------------------------------*/
 
@@ -44,15 +261,18 @@ Get_Window_Geometry(
 
 /* Create_Default_Config()
  *
- * Creates a default xnec2.conf file
+ * Provide a warning if the version changes.
+ * Set defaults, they will be saved later.  Read_Config() is called after 
+ * this function so it will override any settings if they are available in the config
+ * and save a new file if it is missing using the defaults defined below.
  */
   gboolean
 Create_Default_Config( void )
 {
   char
-    line[LINE_LEN], /* Buffer for Load_Line() */
-    cfg_file[FILENAME_LEN],   /* Path to config file */
-    config_dir[FILENAME_LEN];
+    line[LINE_LEN],
+    cfg_file[FILENAME_LEN];   /* Path to config file */
+
   FILE *fp = NULL;
 
   /* Setup file path to xnec2c config file */
@@ -70,29 +290,10 @@ Create_Default_Config( void )
 
     /* Produce fresh default config file if version number new */
     if( strncmp(line, PACKAGE_STRING, sizeof(line)) != 0 )
-      printf( _("xnec2c: existing config file version incopatible: %s\n"), line );
-    else
-    {
+      printf( _("xnec2c: warning: existing config file version differs: %s != %s\n"), line, PACKAGE_STRING );
+
       Close_File( &fp );
-      return( TRUE );
-    }
   } /* if( (fp = fopen(cfg_file, "r")) != NULL ) */
-
-  /* Make a default configuration, will not usually work well */
-  printf( _("xnec2c: creating a default config file: %s\n"), cfg_file );
-
-  /* Check config folder exists, create it */
-  snprintf( config_dir, sizeof(config_dir), "%s/%.7s", getenv("HOME"), CONFIG_FILE );
-  DIR *dir;
-  if( (dir = opendir(config_dir)) == NULL )
-  {
-    if( mkdir(config_dir, 0755) == -1 )
-    {
-      Close_File( &fp );
-      return( FALSE );
-    }
-  }
-  else closedir( dir );
 
   /* For main window */
   Strlcpy( rc_config.working_dir, getenv("HOME"), sizeof(rc_config.working_dir) );
@@ -155,11 +356,6 @@ Create_Default_Config( void )
   rdpattern_proj_params.dx_center = 0.0;
   rdpattern_proj_params.dy_center = 0.0;
 
-  /* Save default config to file */
-  if( !Save_Config() )
-    fprintf( stderr, _("xnec2c: failed to save default config file\n") );
-
-  Close_File( &fp );
   return( TRUE );
 
 } /* Create_Default_Config() */
@@ -303,408 +499,60 @@ Read_Config( void )
 {
   char
     fpath[FILENAME_LEN], /* File path to xnec2crc */
-    line[LINE_LEN];      /* Buffer for Load_Line() */
-  int idx;
+    line[LINE_LEN];
+  int lnum;
 
   /* Config and mnemonics file pointer */
   FILE *fp = NULL;
 
-
   /* Setup file path to xnec2c rc file */
   snprintf( fpath, sizeof(fpath), "%s/%s", getenv("HOME"), CONFIG_FILE );
+
+  /* Create the file if missing */
+  if( access(fpath, R_OK) < 0 && errno == ENOENT)
+	  Save_Config();
 
   /* Open xnec2c config file */
   if( !Open_File(&fp, fpath, "r") ) return( FALSE );
 
-  /* Read Application Version (not used here) */
-  if( Load_Line(line, fp) == EOF )
+  // Iterate over each line and parse the variables into
+  // their references defined by rc_config_vars[].
+  lnum = 0;
+  while ( fgets(line, LINE_LEN, fp) != NULL)
   {
-    fprintf( stderr,
-        _("xnec2c: failed to read Application Version \n") );
-    return( FALSE );
+	  lnum++;
+
+	  chomp(line);
+
+	  rc_config_vars_t *v = find_var(line);
+	  if (!v)
+  {
+		  if (line[0] != '#')
+			  printf("%s:%d: Line not parsed: %s\n", fpath, lnum, line);
+		  continue;
   }
 
-  /* Read working directory */
-  if( Load_Line(line, fp) == EOF )
+	  if ( fgets(line, LINE_LEN, fp) == NULL)
   {
-    fprintf( stderr,
-        _("xnec2c: failed to read Working Directory \n") );
-    return( FALSE );
+		  printf("%s:%d: Early end of file for %s: %s \n", fpath, lnum, v->desc, line);
+		  break;
   }
-  Strlcpy( rc_config.working_dir, line, sizeof(rc_config.working_dir) );
 
-  /* Read main window size */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window size\n") );
-    return( FALSE );
-  }
-  idx = 0;
-  rc_config.main_width = atoi( line );
-  do idx++;
-  while( (idx < LINE_LEN - 2) && (line[idx] != ',')  );
-  rc_config.main_height = atoi( &line[idx + 1] );
+	  lnum++;
 
-  /* Read main window position */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window position\n") );
-    return( FALSE );
-  }
-  idx = 0;
-  rc_config.main_x = atoi( line );
-  do idx++;
-  while( (idx < LINE_LEN - 2) && (line[idx] != ',')  );
-  rc_config.main_y = atoi( &line[idx + 1] );
+	  // Skip read-only vars:
+	  if (v->ro)
+		  continue;
 
-  /* Read main window Currents toggle button state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window Currents toggle state\n") );
-    return( FALSE );
-  }
-  rc_config.main_currents_togglebutton = (uint8_t)atoi( line );
+	  chomp(line);
 
-  /* Read main window Charges toggle button state */
-  if( Load_Line(line, fp) == EOF )
+	  if (parse_var(v, line))
   {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window Charges toggle state\n") );
-    return( FALSE );
+		  printf("  Parsed ok: '%s'\n", line);
   }
-  rc_config.main_charges_togglebutton = (uint8_t)atoi( line );
-
-  /* Read main window Total menuitem state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window Total menuitem state\n") );
-    return( FALSE );
+	  else if (line[0] != '#')
+		  printf("%s:%d: parse error (%s): %s \n", fpath, lnum, v->desc, line);
   }
-  rc_config.main_total = (uint8_t)atoi( line );
-
-  /* Read main window Horizontal menuitem state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window Horizontal menuitem state\n") );
-    return( FALSE );
-  }
-  rc_config.main_horizontal = (uint8_t)atoi( line );
-
-  /* Read main window Vertical menuitem state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window Vertical menuitem state\n") );
-    return( FALSE );
-  }
-  rc_config.main_vertical = (uint8_t)atoi( line );
-
-  /* Read main window Right Hand menuitem state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window Right Hand menuitem state\n") );
-    return( FALSE );
-  }
-  rc_config.main_right_hand = (uint8_t)atoi( line );
-
-  /* Read main window Left Hand menuitem state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window Left Hand menuitem state\n") );
-    return( FALSE );
-  }
-  rc_config.main_left_hand = (uint8_t)atoi( line );
-
-  /* Read main window Loop Start menuitem state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window Loop Start menuitem state\n") );
-    return( FALSE );
-  }
-  rc_config.main_loop_start = (uint8_t)atoi( line );
-
-  /* Read main window Rotate Spinbutton value */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Main Window Rotate Spinbutton value\n") );
-    return( FALSE );
-  }
-  rc_config.main_rotate_spinbutton = atoi( line );
-
-  /* Read main window Incline Spinbutton value */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read main Incline Spinbutton value\n") );
-    return( FALSE );
-  }
-  rc_config.main_incline_spinbutton = atoi( line );
-
-  /* Read main window Zoom Spinbutton value */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read main Zoom Spinbutton value\n") );
-    return( FALSE );
-  }
-  rc_config.main_zoom_spinbutton = atoi( line );
-
-  /* Read radiation pattern window size */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Radiation Pattern window size\n") );
-    return( FALSE );
-  }
-  idx = 0;
-  rc_config.rdpattern_width = atoi( line );
-  do idx++;
-  while( (idx < LINE_LEN - 2) && (line[idx] != ',') );
-  rc_config.rdpattern_height = atoi( &line[idx + 1] );
-
-  /* Read radiation pattern window position */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Radiation Pattern window position\n") );
-    return( FALSE );
-  }
-  idx = 0;
-  rc_config.rdpattern_x = atoi( line );
-  do idx++;
-  while( (idx < LINE_LEN - 2) && (line[idx] != ',') );
-  rc_config.rdpattern_y = atoi( &line[idx + 1] );
-
-  /* Read radiation pattern window Gain toggle button state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Radiation Pattern window Gain toggle state\n") );
-    return( FALSE );
-  }
-  rc_config.rdpattern_gain_togglebutton = (uint8_t)atoi( line );
-
-  /* Read radiation pattern window EH toggle button state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Radiation Pattern window EH toggle state\n") );
-    return( FALSE );
-  }
-  rc_config.rdpattern_eh_togglebutton = (uint8_t)atoi( line );
-
-  /* Read radiation pattern window E menuitem state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Radiation Pattern window E men uitem state\n") );
-    return( FALSE );
-  }
-  rc_config.rdpattern_e_field = (uint8_t)atoi( line );
-
-  /* Read radiation pattern window H menuitem state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Radiation Pattern window H menu item state\n") );
-    return( FALSE );
-  }
-  rc_config.rdpattern_h_field = (uint8_t)atoi( line );
-
-  /* Read radiation pattern window Poynting menuitem state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Radiation Pattern window Poynting menu item state\n") );
-    return( FALSE );
-  }
-  rc_config.rdpattern_poynting_vector = (uint8_t)atoi( line );
-
-  /* Read radiation pattern window Zoom Spinbutton value */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Radiation Pattern Zoom Spinbutton value\n") );
-    return( FALSE );
-  }
-  rc_config.rdpattern_zoom_spinbutton = atoi( line );
-
-  /* Read frequency plots window size */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window size\n") );
-    return( FALSE );
-  }
-  idx = 0;
-  rc_config.freqplots_width = atoi( line );
-  do idx++;
-  while( (idx < LINE_LEN - 2) && (line[idx] != ',') );
-  rc_config.freqplots_height = atoi( &line[idx + 1] );
-
-  /* Read frequency plots window position */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window position\n") );
-    return( FALSE );
-  }
-  idx = 0;
-  rc_config.freqplots_x = atoi( line );
-  do idx++;
-  while( (idx < LINE_LEN - 2) && (line[idx] != ',') );
-  rc_config.freqplots_y = atoi( &line[idx + 1] );
-
-  /* Read frequency plots window Max Gain toggle button state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window GMax toggle state\n") );
-    return( FALSE );
-  }
-  rc_config.freqplots_gmax_togglebutton = (uint8_t)atoi( line );
-
-  /* Read frequency plots window Gain Direction toggle button state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window GDir toggle state\n") );
-    return( FALSE );
-  }
-  rc_config.freqplots_gdir_togglebutton = (uint8_t)atoi( line );
-
-  /* Read frequency plots window Gain in Viewer direction toggle button state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window GViewer toggle state\n") );
-    return( FALSE );
-  }
-  rc_config.freqplots_gviewer_togglebutton = (uint8_t)atoi( line );
-
-  /* Read frequency plots window VSWR toggle button state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window VSWR toggle state\n") );
-    return( FALSE );
-  }
-  rc_config.freqplots_vswr_togglebutton = (uint8_t)atoi( line );
-
-  /* Read frequency plots window Z-real/Z-imag toggle button state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window Z-real/Z-imag toggle state\n") );
-    return( FALSE );
-  }
-  rc_config.freqplots_zrlzim_togglebutton = (uint8_t)atoi( line );
-
-  /* Read frequency plots window Z-mag/Z-phase toggle button state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window Z-mag/Z-phase toggle state\n") );
-    return( FALSE );
-  }
-  rc_config.freqplots_zmgzph_togglebutton = (uint8_t)atoi( line );
-
-  /* Read frequency plots window smith toggle button state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window smith toggle state\n") );
-    return( FALSE );
-  }
-  rc_config.freqplots_smith_togglebutton = (uint8_t)atoi( line );
-
-  /* Read frequency plots window Net Gain menu item state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window Net Gain menu item state\n") );
-    return( FALSE );
-  }
-  rc_config.freqplots_net_gain = (uint8_t)atoi( line );
-
-  /* Read frequency plots window Net Gain menu item state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Frequency Plots window Min/Max menu item state\n") );
-    return( FALSE );
-  }
-  rc_config.freqplots_min_max = (uint8_t)atoi( line );
-
-  /* Read NEC2 editor window size */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read NEC2 Editor window size\n") );
-    return( FALSE );
-  }
-  idx = 0;
-  rc_config.nec2_edit_width = atoi( line );
-  do idx++;
-  while( (idx < LINE_LEN - 2) && (line[idx] != ',') );
-  rc_config.nec2_edit_height = atoi( &line[idx + 1] );
-
-  /* Read NEC2 editor window position */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read NEC2 Editor window position\n") );
-    return( FALSE );
-  }
-  idx = 0;
-  rc_config.nec2_edit_x = atoi( line );
-  do idx++;
-  while( (idx < LINE_LEN - 2) & (line[idx] != ',') );
-  rc_config.nec2_edit_y = atoi( &line[idx + 1] );
-
-  /* Read Structure Projection Center x and y offset */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Structure Projection Center x, y offset\n") );
-    return( FALSE );
-  }
-  idx = 0;
-  structure_proj_params.dx_center = atof( line );
-  do idx++;
-  while( (idx < LINE_LEN - 2) && (line[idx] != ',') );
-  structure_proj_params.dy_center = atof( &line[idx + 1] );
-
-  /* Read Rdpattern Projection Center x and y offset */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Rdpattern Projection Center x, y offset\n") );
-    return( FALSE );
-  }
-  idx = 0;
-  rdpattern_proj_params.dx_center = atof( line );
-  do idx++;
-  while( (idx < LINE_LEN - 2) && (line[idx] != ',') );
-  rdpattern_proj_params.dy_center = atof( &line[idx + 1] );
-
-  /* Read Enable Confirm Quit dialog state */
-  if( Load_Line(line, fp) == EOF )
-  {
-    fprintf( stderr,
-        _("xnec2c: failed to read Enable Confirm Quit dialog state\n") );
-    return( FALSE );
-  }
-  rc_config.confirm_quit = (uint8_t)atoi( line );
 
   /* Close the config file pointer */
   Close_File( &fp );
@@ -899,66 +747,8 @@ Save_Config( void )
   FILE *fp = NULL;  /* File pointer to write config file */
 
   char
-    rc_buf[RC_FILE_BUF_SIZE], /* Buffer for config file contents */
     err_str[300],             /* Error messages string */
     cfg_file[FILENAME_LEN];   /* Path to config file */
-
-  size_t fsize; /* File size of config file */
-  int ret_val;
-
-
-  /* Print config values to buffer */
-  snprintf( rc_buf, sizeof(rc_buf),
-      RC_CONFIG_FORMAT,
-      PACKAGE_STRING,
-      rc_config.working_dir,
-      rc_config.main_width,
-      rc_config.main_height,
-      rc_config.main_x,
-      rc_config.main_y,
-      rc_config.main_currents_togglebutton,
-      rc_config.main_charges_togglebutton,
-      rc_config.main_total,
-      rc_config.main_horizontal,
-      rc_config.main_vertical,
-      rc_config.main_right_hand,
-      rc_config.main_left_hand,
-      rc_config.main_loop_start,
-      rc_config.main_rotate_spinbutton,
-      rc_config.main_incline_spinbutton,
-      rc_config.main_zoom_spinbutton,
-      rc_config.rdpattern_width,
-      rc_config.rdpattern_height,
-      rc_config.rdpattern_x,
-      rc_config.rdpattern_y,
-      rc_config.rdpattern_gain_togglebutton,
-      rc_config.rdpattern_eh_togglebutton,
-      rc_config.rdpattern_e_field,
-      rc_config.rdpattern_h_field,
-      rc_config.rdpattern_poynting_vector,
-      rc_config.rdpattern_zoom_spinbutton,
-      rc_config.freqplots_width,
-      rc_config.freqplots_height,
-      rc_config.freqplots_x,
-      rc_config.freqplots_y,
-      rc_config.freqplots_gmax_togglebutton,
-      rc_config.freqplots_gdir_togglebutton,
-      rc_config.freqplots_gviewer_togglebutton,
-      rc_config.freqplots_vswr_togglebutton,
-      rc_config.freqplots_zrlzim_togglebutton,
-      rc_config.freqplots_zmgzph_togglebutton,
-      rc_config.freqplots_smith_togglebutton,
-      rc_config.freqplots_net_gain,
-      rc_config.freqplots_min_max,
-      rc_config.nec2_edit_width,
-      rc_config.nec2_edit_height,
-      rc_config.nec2_edit_x,
-      rc_config.nec2_edit_y,
-      (int)structure_proj_params.dx_center,
-      (int)structure_proj_params.dy_center,
-      (int)rdpattern_proj_params.dx_center,
-      (int)rdpattern_proj_params.dy_center,
-      rc_config.confirm_quit );
 
   /* Setup file path to xnec2c working directory */
   snprintf( cfg_file, sizeof(cfg_file), "%s/%s", getenv("HOME"), CONFIG_FILE );
@@ -973,18 +763,12 @@ Save_Config( void )
     return( FALSE );
   }
 
-  /* Write config buffer to file */
-  fsize = strlen( rc_buf );
-  ret_val = (int)fwrite( rc_buf, fsize, 1, fp );
-  if( ret_val != 1 )
+  fprintf(fp, "# Xnec2c configuration file\n#\n");
+  for (int i = 0; i < num_rc_config_vars; i++)
   {
-    size_t s = sizeof( err_str );
-    snprintf( err_str, s, "xnec2c: %s", cfg_file );
-    err_str[s-1] = '\0';
-    perror( err_str );
-    fprintf( stderr,
-        _("xnec2c: cannot write to xnec2c's config file: %s\n"), cfg_file );
-    return( FALSE );
+	  fprintf(fp, "# %s\n", rc_config_vars[i].desc);
+	  fprint_var(fp, &rc_config_vars[i]);
+	  fprintf(fp, "\n");
   }
 
   Close_File( &fp );
