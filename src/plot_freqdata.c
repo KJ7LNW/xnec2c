@@ -372,7 +372,7 @@ static double Fit_to_Scale( double *max, double *min, int *nval )
 
 
   /* Do nothing in this case */
-  if( *max < *min ) return;
+  if( *max < *min ) return 1;
 
   /* Provide a made-up range if max = min */
   if( *max == *min )
