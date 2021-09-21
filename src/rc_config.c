@@ -292,7 +292,7 @@ Create_Default_Config( void )
     if( strncmp(line, PACKAGE_STRING, sizeof(line)) != 0 )
       printf( _("xnec2c: warning: existing config file version differs: %s != %s\n"), line, PACKAGE_STRING );
 
-      Close_File( &fp );
+    Close_File( &fp );
   } /* if( (fp = fopen(cfg_file, "r")) != NULL ) */
 
   /* For main window */
@@ -521,22 +521,22 @@ Read_Config( void )
   while ( fgets(line, LINE_LEN, fp) != NULL)
   {
 	  lnum++;
-
+      
 	  chomp(line);
 
 	  rc_config_vars_t *v = find_var(line);
 	  if (!v)
-  {
+	  {
 		  if (line[0] != '#')
 			  printf("%s:%d: Line not parsed: %s\n", fpath, lnum, line);
 		  continue;
-  }
-
+	  }
+	  
 	  if ( fgets(line, LINE_LEN, fp) == NULL)
-  {
+	  {
 		  printf("%s:%d: Early end of file for %s: %s \n", fpath, lnum, v->desc, line);
 		  break;
-  }
+	  }
 
 	  lnum++;
 
@@ -546,11 +546,7 @@ Read_Config( void )
 
 	  chomp(line);
 
-	  if (parse_var(v, line))
-  {
-		  printf("  Parsed ok: '%s'\n", line);
-  }
-	  else if (line[0] != '#')
+	  if (!parse_var(v, line) && line[0] != '#')
 		  printf("%s:%d: parse error (%s): %s \n", fpath, lnum, v->desc, line);
   }
 
