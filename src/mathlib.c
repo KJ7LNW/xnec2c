@@ -24,14 +24,25 @@
 void mathlib_mkl_set_threading_intel(mathlib_t *lib);
 
 static mathlib_t mathlibs[] = {
-	// In order of preference, xnec2c will use the first one that loads successfully:
+	// In order of preference, xnec2c will use the first one that loads successfully by default:
+	
+	// CentOS 7 atlas-devel
 	{.type = MATHLIB_ATLAS, .lib = "libtatlas.so", .name = "ATLAS, Threaded", .f_prefix = "clapack_"},
 	{.type = MATHLIB_ATLAS, .lib = "libsatlas.so", .name = "ATLAS, Serial", .f_prefix = "clapack_"},
 
+	// CentOS 7 openblas-devel
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas.so",  .name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_"},
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so", .name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
+	
+	// Ubuntu 18.04 libatlas3-base
+	{.type = MATHLIB_ATLAS, .lib = "liblapack_atlas.so", .name = "ATLAS, Serial", .f_prefix = "clapack_"},
 
+	// Ubuntu 18.04 liblapacke
+	{.type = MATHLIB_OPENBLAS, .lib = "liblapacke.so.3", .name = "LAPACKe, Threaded", .f_prefix = "LAPACKE_"},
+	
+
+	// Intel
 	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, Serial", .f_prefix = "LAPACKE_",
 		.init = mathlib_mkl_set_threading_sequential },
 	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, TBB Threads", .f_prefix = "LAPACKE_",
@@ -45,10 +56,6 @@ static mathlib_t mathlibs[] = {
 	// before the old implementations below because it has been tested:
 	{.type = MATHLIB_NEC2, .lib = "(builtin)", .name = "NEC2 Gaussian Elimination"},
 
-	// Old implementations that may or may not work
-	{.type = MATHLIB_ATLAS, .lib = "libatlas.so", .name = "ATLAS, Serial (old)", .f_prefix = "clapack_"},
-	{.type = MATHLIB_ATLAS, .lib = "libcblas.so", .name = "CBLAS, Serial (old)", .f_prefix = "clapack_"},
-	{.type = MATHLIB_ATLAS, .lib = "libptcblas.so", .name = "CBLAS, Threaded (old)", .f_prefix = "clapack_"}
 };
 
 mathlib_t *current_mathlib = NULL;
