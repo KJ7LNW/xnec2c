@@ -36,7 +36,7 @@ static mathlib_t mathlibs[] = {
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
 	
 	// Ubuntu 18.04 libatlas3-base
-	{.type = MATHLIB_ATLAS, .lib = "liblapack_atlas.so", .name = "ATLAS, Serial", .f_prefix = "clapack_"},
+	{.type = MATHLIB_ATLAS, .lib = "liblapack_atlas.so.3", .name = "ATLAS, Serial", .f_prefix = "clapack_"},
 
 	// Ubuntu 18.04 liblapacke
 	{.type = MATHLIB_OPENBLAS, .lib = "liblapacke.so.3", .name = "LAPACKe, Threaded", .f_prefix = "LAPACKE_"},
