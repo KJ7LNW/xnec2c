@@ -25,7 +25,7 @@ AC_PROG_CC
 AC_PROG_MAKE_SET
 
 # Checks for libraries.
-pkg_modules="gtk+-3.0 >= 3.22.0"
+pkg_modules="gtk+-3.0 >= 3.18.0"
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
@@ -63,7 +63,7 @@ fi
 CFLAGS="$CFLAGS -fcx-fortran-rules"
 
 # Internationalization tools
-AM_GNU_GETTEXT_VERSION([0.19.8])
+AM_GNU_GETTEXT_VERSION([0.19.7])
 GETTEXT_PACKAGE=xnec2c
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Gettext package.])

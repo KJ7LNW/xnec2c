@@ -12,7 +12,7 @@
 			#include <clapack.h>
 	#else
 			// Define it ourself if undefined:
-			enum CBLAS_TRANSPOSE {CblasNoTrans=111, CblasTrans=112, CblasConjTrans=113};
+			enum CBLAS_TRANSPOSE {CblasColMajor=102, CblasNoTrans=111, CblasTrans=112, CblasConjTrans=113};
 	#endif 
 #endif
 
