@@ -35,12 +35,19 @@ static mathlib_t mathlibs[] = {
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so", .name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
 	
-	// Ubuntu 18.04 libatlas3-base
-	{.type = MATHLIB_ATLAS, .lib = "liblapack_atlas.so.3", .name = "ATLAS, Serial", .f_prefix = "clapack_"},
+	// Ubuntu / Debian libatlas3-base (tested Ubuntu 16.04, 18.04, 20.04 Debian 9)
+	{.type = MATHLIB_ATLAS, .lib = "liblapack.so.3", .name = "LAPACK", .f_prefix = "clapack_"},
 
-	// Ubuntu 18.04 liblapacke
-	{.type = MATHLIB_OPENBLAS, .lib = "liblapacke.so.3", .name = "LAPACKe, Threaded", .f_prefix = "LAPACKE_"},
-	
+	// Ubuntu / Debian liblapacke (tested Ubuntu 16.04, 18.04, 20.04, Debian 9, Debian 11)
+	// Note that you may need to use `alternatives` to select your openblas implementation.
+	{.type = MATHLIB_OPENBLAS, .lib = "liblapacke.so.3", .name = "LAPACKe, Threaded?", .f_prefix = "LAPACKE_"},
+
+	// Ubuntu / Debian libatlas3-base (tested Ubuntu 16.04, 18.04, Debian 9, Debian 11)
+	// Note: This requires the following in Debian 11 and Ubuntu 20.04:
+	//   LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/atlas/
+	//   Without it, Ubuntu 20.04 crashes and Debian 11 gives "undefined symbol: clapack_zgetrf"
+	//
+	{.type = MATHLIB_ATLAS, .lib = "liblapack_atlas.so.3", .name = "LAPACK+ATLAS, Serial", .f_prefix = "clapack_"},
 
 	// Intel
 	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, Serial", .f_prefix = "LAPACKE_",
