@@ -35,19 +35,21 @@ static mathlib_t mathlibs[] = {
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so", .name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
 	
-	// Ubuntu / Debian libatlas3-base (tested Ubuntu 16.04, 18.04, 20.04 Debian 9)
-	{.type = MATHLIB_ATLAS, .lib = "liblapack.so.3", .name = "LAPACK", .f_prefix = "clapack_"},
-
-	// Ubuntu / Debian liblapacke (tested Ubuntu 16.04, 18.04, 20.04, Debian 9, Debian 11)
-	// Note that you may need to use `alternatives` to select your openblas implementation.
-	{.type = MATHLIB_OPENBLAS, .lib = "liblapacke.so.3", .name = "LAPACKe, Threaded?", .f_prefix = "LAPACKE_"},
+	// Ubuntu / Debian (liblapacke libopenblas0-*) (tested Ubuntu 16.04, 18.04, 20.04, Debian 9, Debian 11)
+	//   Note that you may need to use `alternatives` to select your openblas implementation.
+	//   Some combinations of BLAS/LAPACK may or may not work together:
+	//     ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu
+	//     ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu
+	{.type = MATHLIB_OPENBLAS, .lib = "liblapacke.so.3", .name = "Selected LAPACK+BLAS", .f_prefix = "LAPACKE_"},
 
 	// Ubuntu / Debian libatlas3-base (tested Ubuntu 16.04, 18.04, Debian 9, Debian 11)
 	// Note: This requires the following in Debian 11 and Ubuntu 20.04:
-	//   LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/atlas/
+	//   Note that you may need to use `alternatives` to select your openblas implementation:
+	//     update-alternatives --config libblas.so.3-x86_64-linux-gnu
+	//   Additionally, you should set this:
+	//     LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/atlas/
 	//   Without it, Ubuntu 20.04 crashes and Debian 11 gives "undefined symbol: clapack_zgetrf"
-	//
-	{.type = MATHLIB_ATLAS, .lib = "liblapack_atlas.so.3", .name = "LAPACK+ATLAS, Serial", .f_prefix = "clapack_"},
+	{.type = MATHLIB_ATLAS, .lib = "liblapack_atlas.so.3", .name = "ATLAS", .f_prefix = "clapack_"},
 
 	// Intel
 	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, Serial", .f_prefix = "LAPACKE_",
@@ -59,8 +61,7 @@ static mathlib_t mathlibs[] = {
 	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, GNU Threads", .f_prefix = "LAPACKE_",
 		.init = mathlib_mkl_set_threading_gnu },
 
-	// Default implementation if none of the newer libraries are found.  This is
-	// before the old implementations below because it has been tested:
+	// Default implementation if none of the newer libraries are found.
 	{.type = MATHLIB_NEC2, .lib = "(builtin)", .name = "NEC2 Gaussian Elimination"},
 
 };
@@ -88,7 +89,6 @@ mathlib_t *get_mathlib_by_idx(int idx)
 	else
 		return NULL;
 }
-
 
 void close_mathlib(mathlib_t *lib)
 {
@@ -130,7 +130,7 @@ int open_mathlib(mathlib_t *lib)
 	dlerror();
 
 	// Open the .so library
-	lib->handle = dlopen(lib->lib, RTLD_LAZY);
+	lib->handle = dlopen(lib->lib, RTLD_NOW);
 
 	if (lib->handle == NULL)
 	{
@@ -219,6 +219,20 @@ void init_mathlib()
 	}
 }
 
+
+// Restore selection on open:
+void mathlib_config_init(rc_config_vars_t *v)
+{
+	if (rc_config.mathlib_idx < num_mathlibs &&
+		rc_config.mathlib_idx >= 0 &&
+		mathlibs[rc_config.mathlib_idx].available)
+	{
+		set_mathlib(NULL, &mathlibs[rc_config.mathlib_idx]);
+	}
+	else
+		printf("Unable to set the preferred mathlib index to %d\n", rc_config.mathlib_idx);
+}
+
 void set_mathlib(GtkWidget *widget, mathlib_t *lib)
 {
 	int i;
@@ -239,6 +253,9 @@ void set_mathlib(GtkWidget *widget, mathlib_t *lib)
 	{
 		close_mathlib(current_mathlib);
 		current_mathlib = lib;
+
+		// Save selection on exit:
+		rc_config.mathlib_idx = current_mathlib->idx;
 
 		open_mathlib(lib);
 
@@ -265,7 +282,7 @@ void set_mathlib(GtkWidget *widget, mathlib_t *lib)
 				{
 					mathlibs[i].available = 0;
 
-					if (!CHILD)
+					if (!CHILD && mathlibs[i].menu_widget != NULL)
 						gtk_widget_set_sensitive(GTK_WIDGET(mathlibs[i].menu_widget), FALSE);
 				}
 		}
@@ -295,8 +312,7 @@ void init_mathlib_menu()
 
 		math_radio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(w));
 
-		// This is where we need to read the config:
-		if (libidx == 0)
+		if (libidx == current_mathlib->idx)
 			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(w), TRUE);
 		else
 			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(w), FALSE);
@@ -313,6 +329,7 @@ void init_mathlib_menu()
 void mathlib_benchmark()
 {
 	struct timespec start, end;
+	mathlib_t *mathlib_before_benchmark = current_mathlib;
 	int response;
 	char m[1024] = {0};
 	int i;
@@ -329,6 +346,11 @@ void mathlib_benchmark()
 		 "CPUs available to accomodate the forked processes in combination with library threads.  Consider reducing the value of -j N for "
 		 "benchmarking to find what library works best with a mix of forking and threading; you can use `top` to monitor your CPU usage"
 		 "and if it reaches 0% idle then you might consider reducing -j N.\n"
+		 "\n"
+		 "You may wish to experiment setting these environment variables:\n"
+		 "  * OPENBLAS_NUM_THREADS=N\t# OpenBLAS thread limit\n"
+		 "  * OMP_NUM_THREADS=N\t\t# OpenMP thread limit\n"
+		 "  * MKL_NUM_THREADS=N\t\t# Intel MKL thread limit\n"
 		 "\n"
 		 "Click OK to proceed, this dialog will close when complete."),
 		 GTK_BUTTONS_OK_CANCEL);
@@ -358,6 +380,8 @@ void mathlib_benchmark()
 			elapsed);
 	}
 
+	set_mathlib(NULL, mathlib_before_benchmark);
+
 	Notice("Mathlib Benchmark", m, GTK_BUTTONS_OK);
 	printf("%s", m);
 }
@@ -366,7 +390,11 @@ int32_t zgetrf(int32_t order, int32_t m, int32_t n, complex double *a, int32_t n
 {
 	int f_idx = MATHLIB_ZGETRF;
 
-	//printf("%s: type=%d typename=%s\n", mathfuncs[f_idx], current_mathlib->type, current_mathlib->name);
+	if (current_mathlib == NULL)
+	{
+		printf("zgetrf: current_mathlib is NULL, this should never happen.\n");
+		return 1;
+	}
 
 	if (current_mathlib->type == MATHLIB_ATLAS)
 	{
@@ -397,6 +425,12 @@ int32_t zgetrs(int32_t order, int32_t trans, int32_t lda, int32_t nrhs,
 	complex double *a, int32_t ndim, int32_t *ip, complex double *b, int32_t ldb)
 {
 	int f_idx = MATHLIB_ZGETRS;
+
+	if (current_mathlib == NULL)
+	{
+		printf("zgetrs: current_mathlib is NULL, this should never happen.\n");
+		return 1;
+	}
 
 	//printf("%s: type=%d typename=%s\n", mathfuncs[f_idx], current_mathlib->type, current_mathlib->name);
 

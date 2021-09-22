@@ -30,6 +30,7 @@ typedef struct rc_config_vars_t {
 	char *desc;
 	char *format;
 	void *vars[2];
+	void (*init)(struct rc_config_vars_t *);  // call this to initialize if not NULL
 } rc_config_vars_t;
 
 extern rc_config_vars_t rc_config_vars[];
