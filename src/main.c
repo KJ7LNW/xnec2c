@@ -152,6 +152,7 @@ main (int argc, char *argv[])
     } /* switch( option ) */
   } /* while( (option = getopt(argc, argv, "i:o:hv") ) != -1 ) */
 
+  /* Initialize the external math libraries */
   init_mathlib();
 
   /* Read input file path name if not supplied by -i option */

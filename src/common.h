@@ -307,6 +307,9 @@ typedef struct
   /* Enable Quit dialog */
   int confirm_quit;
 
+  /* Preferred mathlib index, if available */
+  int mathlib_idx;
+
 } rc_config_t;
 
 /* Gain Scaling style */

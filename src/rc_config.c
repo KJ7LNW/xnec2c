@@ -16,6 +16,7 @@
 
 #include <ctype.h>
 #include "rc_config.h"
+#include "mathlib.h"
 
 
 /* Add configuration options here. To add new variables:
@@ -140,7 +141,10 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rdpattern_proj_params.dx_center, &rdpattern_proj_params.dy_center } },
 
 	{ .desc = "Enable Confirm Quit Dialog", .format = "%d",
-		.vars = { &rc_config.confirm_quit } }
+		.vars = { &rc_config.confirm_quit } },
+
+	{ .desc = "Selected Mathlib", .format = "%d",
+		.vars = { &rc_config.mathlib_idx }, .init = mathlib_config_init }
 };
 
 
@@ -548,6 +552,8 @@ Read_Config( void )
 
 	  if (!parse_var(v, line) && line[0] != '#')
 		  printf("%s:%d: parse error (%s): %s \n", fpath, lnum, v->desc, line);
+	  else if (v->init != NULL)
+		  v->init(v);
   }
 
   /* Close the config file pointer */

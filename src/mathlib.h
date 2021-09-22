@@ -16,6 +16,7 @@
 	#endif 
 #endif
 
+#include "rc_config.h"
 
 // You only need a new enum if the calling convention is different.  For example,
 // Intel MKL uses the OpenBLAS calling convention, but needs special treatment:
@@ -73,6 +74,8 @@ void init_mathlib();
 void init_mathlib_menu();
 mathlib_t *get_mathlib_by_idx(int idx);
 void set_mathlib(GtkWidget *widget, mathlib_t *lib);
+
+void mathlib_config_init(rc_config_vars_t *v);
 
 void mathlib_mkl_set_threading_intel(mathlib_t *lib);
 void mathlib_mkl_set_threading_sequential(mathlib_t *lib);
