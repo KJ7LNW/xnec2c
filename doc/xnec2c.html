@@ -5,7 +5,7 @@
 <meta name="generator" content="Bluefish 2.2.12" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
-<meta name="date" content="2021-07-23T19:55:35+0300" >
+<meta name="date" content="2021-09-29T09:11:04+0300" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C">
 <meta name="description" content=
@@ -65,7 +65,7 @@ contrast xnec2c is a GUI interactive application that (in its
 current form) reads NEC2 input files but presents output data in
 graphical form, e.g. as wire frame drawings of the radiation
 pattern or near E/H field, graphs of maximum gain, input impedance,
-vswr etc against frequency and simple rendering of the antenna
+VSWR etc against frequency and simple rendering of the antenna
 structure, including color code representation of currents or
 charge densities. These results are only calculated and drawn on
 user demand via menu items or buttons, e.g. xnec2c is interactive
@@ -896,7 +896,7 @@ list of no less than 57 issues to be fixed! Most of them were not
 bugs that affected calculations but possibly two, both in the
 Somnec code, one in function rom1() and one in gshank() likely
 could have caused errors in the relevant calculations.
-Unfortunately the Fortran source of Somnec (as well as that of the
+Unfortunately the FORTRAN source of Somnec (as well as that of the
 NEC2) is very difficult to read so I cannot say with certainty if
 this was so.</p>
 <p><b>Version 2.5:</b> After a bug report by Jean Collin, I made
@@ -1084,9 +1084,9 @@ that caused the GH editor to delete the GH entry in NEC2 Editor's
 treeview. I also found a bug that caused the number of turns of a
 spiral to be rounded to the nearest integer. Both bugs have been
 fixed in this version.</p>
-<p><b>Version 4.1.6:</b> To aid Eric Wheeler KJ7LNW to develop his
-Simplex automatic Optimizer, I added code to monitor, with inotify,
-the .nec input file and to trigger recalculation and plotting of
+<p>Further, to aid Eric Wheeler KJ7LNW to develop his Simplex
+automatic Optimizer, I added code to monitor, with inotify, the
+.nec input file and to trigger recalculation and plotting of
 frequency dependent data, while at the same time printing to file
 results (VSWR, max gain, F/B ratio etc). Also added code so that if
 the user clicks on the Frequency Plots drawing area, the underlying

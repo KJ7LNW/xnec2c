@@ -153,7 +153,23 @@ Fit_to_Scale( double *max, double *min, int *nval )
   int idx;
 
   /* Do nothing in this case */
-  if( *max <= *min ) return;
+  if( *max < *min ) return;
+
+  /* Provide a made-up range if max = min */
+  if( *max == *min )
+  {
+    if( *max == 0.0 )
+    {
+      *max =  1.0;
+      *min = -1.0;
+    }
+    else
+    {
+      *max += fabs( *max ) / 10.0;
+      *min -= fabs( *min ) / 10.0;
+    }
+  }
+
 
   /* Find subdivision's lower order of magnitude */
   subdiv_val = (*max - *min) / (double)(*nval-1);
@@ -200,12 +216,41 @@ Fit_to_Scale2( double *max1, double *min1,
 
   double subdiv_val1, subdiv_order1, subdiv_val2, subdiv_order2;
   double max_1, min_1, max_2, min_2, range1, range2, min_stretch;
-  double max1sv=0.0, min1sv=0.0, max2sv=0.0, min2sv=0.0;
-  int idx1, idx2, nval1, nval2, nvalsv=0, mx, i1, i2;
+  double max1sv = 0.0, min1sv = 0.0, max2sv = 0.0, min2sv = 0.0;
+  int idx1, idx2, nval1, nval2, nvalsv = 0, mx, i1, i2;
 
   /* Do nothing in these cases */
-  if( *max1 <= *min1 ) return;
-  if( *max2 == *min2 ) return;
+  if( *max1 < *min1 ) return;
+  if( *max2 < *min2 ) return;
+
+  /* Provide a made-up range if max = min */
+  if( *max1 == *min1 )
+  {
+    if( *max1 == 0.0 )
+    {
+      *max1 =  1.0;
+      *min1 = -1.0;
+    }
+    else
+    {
+      *max1 += fabs( *max1 ) / 10.0;
+      *min1 -= fabs( *min1 ) / 10.0;
+    }
+  }
+
+  if( *max2 == *min2 )
+  {
+    if( *max2 == 0.0 )
+    {
+      *max2 =  1.0;
+      *min2 = -1.0;
+    }
+    else
+    {
+      *max2 += fabs( *max2 ) / 10.0;
+      *min2 -= fabs( *min2 ) / 10.0;
+    }
+  }
 
   /* For each scale */
   /* Find subdivision's lower order of magnitude */
@@ -765,8 +810,8 @@ Calculate_Smith( double zr, double zi, double z0, double *re, double *im )
  */
   static void
 Plot_Graph_Smith(
-	cairo_t *cr,
-	double *fa, double *fb, double *fc,
+    cairo_t *cr,
+    double *fa, double *fb, double *fc,
     int nc, int nplt, int posn )
 {
   static int first_call = TRUE;
@@ -783,11 +828,11 @@ Plot_Graph_Smith(
 
   if( first_call )
   {
-	/* Create a pango layout to get scale size */
-	layout = gtk_widget_create_pango_layout( freqplots_drawingarea, "000000" );
-	pango_layout_get_pixel_size( layout, &layout_width, &layout_height);
-	first_call = FALSE;
-	g_object_unref( layout );
+    /* Create a pango layout to get scale size */
+    layout = gtk_widget_create_pango_layout( freqplots_drawingarea, "000000" );
+    pango_layout_get_pixel_size( layout, &layout_width, &layout_height);
+    first_call = FALSE;
+    g_object_unref( layout );
   }
 
   /* Available height for each graph.
@@ -797,9 +842,9 @@ Plot_Graph_Smith(
 
   /* Plot box rectangle */
   Set_Rectangle( &plot_rect,
-	  layout_width + 4, plot_posn + 2,
-	  freqplots_width - 8 - 2 * layout_width,
-	  plot_height - 8 - 2 * layout_height );
+      layout_width + 4, plot_posn + 2,
+      freqplots_width - 8 - 2 * layout_width,
+      plot_height - 8 - 2 * layout_height );
 
 
   cairo_set_source_rgb( cr, YELLOW );
@@ -814,7 +859,7 @@ Plot_Graph_Smith(
   y0 = plot_rect.y + plot_rect.height / 2;
   scale = plot_rect.width;
   if( scale > plot_rect.height )
-	  scale = plot_rect.height;
+      scale = plot_rect.height;
   cairo_move_to( cr, x0 - scale / 2, y0 );
 
   /* Draw smith background */
@@ -840,26 +885,26 @@ Plot_Graph_Smith(
 
   /* Calculate points to plot */
   mem_alloc( (void **)&points, (size_t)calc_data.steps_total * sizeof(GdkPoint),
-	  "in Draw_Graph()" );
+      "in Draw_Graph()" );
 
   if( points == NULL )
   {
-	fprintf( stderr, _("xnec2c: Draw_Graph():"
-		"memory allocation for points failed\n") );
-	Stop( _("Draw_Graph():"
-		  "Memory allocation for points failed"), ERR_OK );
-	return;
+    fprintf( stderr, _("xnec2c: Draw_Graph():"
+        "memory allocation for points failed\n") );
+    Stop( _("Draw_Graph():"
+          "Memory allocation for points failed"), ERR_OK );
+    return;
   }
 
   for( idx = 0; idx < nc; idx++ )
   {
-	Calculate_Smith( fa[idx], fb[idx], calc_data.zo, &re, &im );
-	points[idx].x = x0 + (gint)( re * scale / 2 );
-	points[idx].y = y0 + (gint)( im * scale / 2 );
+    Calculate_Smith( fa[idx], fb[idx], calc_data.zo, &re, &im );
+    points[idx].x = x0 + (gint)( re * scale / 2 );
+    points[idx].y = y0 + (gint)( im * scale / 2 );
         cairo_rectangle( cr,
             (double)(points[idx].x - 3),
             (double)(points[idx].y - 3), 6.0, 6.0 );
-	cairo_fill( cr );
+    cairo_fill( cr );
   }
 
   /* Draw the graph */
@@ -1143,7 +1188,7 @@ Plot_Frequency_Data( cairo_t *cr )
       titles[0] = _("Raw Gain dbi");
       if( isFlagSet(PLOT_NETGAIN) )
       {
-        titles[1] = _("Max Gain & Net Gain vs Frequency");
+        titles[1] = _("AA Max Gain & Net Gain vs Frequency");
         titles[2] = _("Net Gain dbi");
         if( fstep > 1 )
           Plot_Graph2( cr, gmax, netgain, save.freq, fstep,
@@ -1151,7 +1196,7 @@ Plot_Frequency_Data( cairo_t *cr )
       }
       else
       {
-        titles[1] = _("Max Gain & F/B Ratio vs Frequency");
+        titles[1] = _("BB Max Gain & F/B Ratio vs Frequency");
         titles[2] = "        ";
         if( fstep > 1 )
           Plot_Graph( cr, gmax, save.freq, fstep,
@@ -1162,7 +1207,7 @@ Plot_Frequency_Data( cairo_t *cr )
     {
       /* Plotting frame titles */
       titles[0] = _("Raw Gain dbi");
-      titles[1] = _("Max Gain & F/B Ratio vs Frequency");
+      titles[1] = _("CC Max Gain & F/B Ratio vs Frequency");
       titles[2] = _("F/B Ratio db");
       if( fstep > 1 )
         Plot_Graph2( cr, gmax, fbratio, save.freq, fstep,
@@ -1174,7 +1219,7 @@ Plot_Frequency_Data( cairo_t *cr )
     {
       /* Plotting frame titles */
       titles[0] = _("Rad Angle - deg");
-      titles[1] = _("Max Gain Direction vs Frequency");
+      titles[1] = _("DD Max Gain Direction vs Frequency");
       titles[2] = _("Phi - deg");
       if( fstep > 1 )
         Plot_Graph2( cr, gdir_tht, gdir_phi, save.freq, fstep,
@@ -1300,10 +1345,10 @@ Plot_Frequency_Data( cairo_t *cr )
   /* Plot smith chart */
   if( isFlagSet(PLOT_SMITH) )
   {
-	if( fstep > 1 )
-	  Plot_Graph_Smith( cr,
-		  impedance_data.zreal, impedance_data.zimag, save.freq,
-		  fstep, calc_data.ngraph, ++posn );
+    if( fstep > 1 )
+      Plot_Graph_Smith( cr,
+          impedance_data.zreal, impedance_data.zimag, save.freq,
+          fstep, calc_data.ngraph, ++posn );
 
   } /* if( isFlagSet(PLOT_SMITH) ) */
 
@@ -1311,7 +1356,7 @@ Plot_Frequency_Data( cairo_t *cr )
   Display_Frequency_Data();
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
 
 } /* Plot_Frequency_Data() */
 
@@ -1386,7 +1431,7 @@ Set_Frequency_On_Click( GdkEventButton *event )
 
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( freqplots_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
       return;
 
     case 3: /* Calculate frequency corresponding to mouse position in plot FIXME */

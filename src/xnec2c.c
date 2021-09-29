@@ -411,6 +411,7 @@ Frequency_Loop( gpointer udata )
 {
   /* Value of frequency and step num in the loop */
   static double freq;
+  static GMutex mutex;
 
   static int
     fstep,           /* Current frequency step */
@@ -469,6 +470,12 @@ Frequency_Loop( gpointer udata )
 
   } /* isFlagSet(INIT_FREQ_LOOP) */
   ClearFlag( FREQ_LOOP_INIT );
+
+  // Prevent the optimizer from running this function in parallel:
+  g_mutex_lock (&mutex);
+  
+  // Synchronize here to get the flags setup when all the async callbacks finish:
+  while( g_main_context_iteration(NULL, FALSE) );
 
   /* Repeat freq stepping over number of child processes
    * if forked. calc_data.num_jobs = 1 for non-forked runs.
@@ -614,7 +621,7 @@ Frequency_Loop( gpointer udata )
       } /* for( idx = 0; idx < num_child_procs; idx++ ) */
 
       /* Find highest freq step that has no steps below it
-       * that have not been processed by a child process FIXME */
+       * that have not been processed by a child process */
       for( idx = 0; idx < calc_data.steps_total; idx++ )
       {
         if( save.fstep[idx] ) calc_data.freq_step = idx;
@@ -625,9 +632,13 @@ Frequency_Loop( gpointer udata )
     while( !retval && num_busy_procs );
 
   /* Return if freq step 0 not ready yet */
-  if( calc_data.freq_step < 0 ) return( retval );
+  if( calc_data.freq_step < 0 )
+  {
+      g_mutex_unlock( &mutex );
+      return( retval );
+  }
 
-  /* Set frequency and step to global variables FIXME */
+  /* Set frequency and step to global variables */
   calc_data.last_step = calc_data.freq_step;
   calc_data.freq_mhz = (double)save.freq[calc_data.freq_step];
 
@@ -645,7 +656,6 @@ Frequency_Loop( gpointer udata )
     if( isFlagClear(OPTIMIZER_OUTPUT) )
     {
       gtk_widget_queue_draw( freqplots_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
     }
   }
 
@@ -658,7 +668,6 @@ Frequency_Loop( gpointer udata )
 
   /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( structure_drawingarea );
-  while( g_main_context_iteration(NULL, FALSE) );
   SetFlag( FREQ_LOOP_READY );
 
   /* Change flags at exit if loop is done */
@@ -695,7 +704,6 @@ Frequency_Loop( gpointer udata )
       gtk_widget_queue_draw( freqplots_drawingarea );
     if( isFlagSet(DRAW_ENABLED) )
       gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
 
     /* Write out frequency loop data for
      * the optimizer if SIGHUP received */
@@ -704,6 +712,8 @@ Frequency_Loop( gpointer udata )
       Write_Optimizer_Data();
     }
   } // if( !retval && !num_busy_procs )
+
+  g_mutex_unlock( &mutex );
 
   return( retval );
 } /* Frequency_Loop() */

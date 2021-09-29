@@ -746,7 +746,7 @@ on_main_freq_spinbutton_value_changed(
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( structure_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
   else if( isFlagClear(FREQ_LOOP_INIT) ) /* by user */
   {
@@ -773,7 +773,7 @@ on_main_freq_spinbutton_value_changed(
 
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( structure_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   } /* else */
 
   gtk_spin_button_update( spinbutton );
@@ -811,7 +811,7 @@ on_main_new_freq_clicked(
 
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( structure_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1037,7 +1037,7 @@ on_freqplots_zo_spinbutton_value_changed(
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   gtk_spin_button_update( spinbutton );
@@ -1055,8 +1055,8 @@ on_freqplots_zrlzim_togglebutton_toggled(
 
   void
 on_freqplots_smith_togglebutton_toggled(
-	GtkToggleButton *togglebutton,
-	gpointer         user_data)
+    GtkToggleButton *togglebutton,
+    gpointer         user_data)
 {
   /* Enable or not smith chart plotting */
   Plot_Select( togglebutton, PLOT_SMITH );
@@ -1262,7 +1262,7 @@ on_rdpattern_e_field_activate(
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1281,7 +1281,7 @@ on_rdpattern_h_field_activate(
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1300,7 +1300,7 @@ on_rdpattern_poynting_vector_activate(
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1317,7 +1317,7 @@ on_rdpattern_overlay_structure_activate(
 
   /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( rdpattern_drawingarea );
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
 }
 
 
@@ -1467,7 +1467,6 @@ on_rdpattern_freq_spinbutton_value_changed(
     /* Wait for GTK to complete its tasks */
     if( isFlagClear(OPTIMIZER_OUTPUT) )
       gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
   }
   else
   {
@@ -1515,7 +1514,7 @@ on_rdpattern_new_freq_clicked(
 
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -1746,7 +1745,7 @@ on_near_peak_value_activate(
 
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
   else SetFlag( NEAREH_SNAPSHOT );
@@ -1772,7 +1771,7 @@ on_near_snapshot_activate(
       Near_Field_Pattern();
 
       /* Wait for GTK to complete its tasks */
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
       gtk_widget_queue_draw( rdpattern_drawingarea );
     }
   }
@@ -2500,6 +2499,16 @@ on_gw_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
+  /* Abort if FR cards have not been processed */
+  if( calc_data.FR_cards < 1 )
+  {
+    Stop(
+        "Frequency (FR) cards not yet processed.\n"
+        "You may need to save the NEC2 Editor data first.",
+        ERR_OK );
+    return;
+  }
+
   Card_Clicked(
       &wire_editor, &wire_editor_builder,
       create_wire_editor, Wire_Editor, &editor_action );
@@ -2511,6 +2520,16 @@ on_ga_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
+  /* Abort if FR cards have not been processed */
+  if( calc_data.FR_cards < 1 )
+  {
+    Stop(
+        "Frequency (FR) cards not yet processed.\n"
+        "You may need to save the NEC2 Editor data first.",
+        ERR_OK );
+    return;
+  }
+
   Card_Clicked(
       &arc_editor, &arc_editor_builder,
       create_arc_editor, Arc_Editor, &editor_action );
@@ -2522,6 +2541,16 @@ on_gh_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
+  /* Abort if FR cards have not been processed */
+  if( calc_data.FR_cards < 1 )
+  {
+    Stop(
+        "Frequency (FR) cards not yet processed.\n"
+        "You may need to save the NEC2 Editor data first.",
+        ERR_OK );
+    return;
+  }
+
   Card_Clicked(
       &helix_editor, &helix_editor_builder,
       create_helix_editor, Helix_Editor, &editor_action );
@@ -4382,7 +4411,7 @@ on_freqplots_net_gain_activate(
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 }
 
@@ -4412,7 +4441,7 @@ on_main_zoom_spinbutton_value_changed(
   /* Wait for GTK to complete its tasks */
   if( structure_drawingarea )
     gtk_widget_queue_draw( structure_drawingarea );
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
 }
 
 
@@ -4458,7 +4487,7 @@ on_structure_one_button_clicked(
 
   /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( structure_drawingarea );
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
 }
 
 
@@ -4486,7 +4515,7 @@ on_rdpattern_zoom_spinbutton_value_changed(
   /* Trigger a redraw of structure drawingarea */
   /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( rdpattern_drawingarea );
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
 }
 
 
@@ -4532,7 +4561,7 @@ on_rdpattern_one_button_clicked(
 
   /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( rdpattern_drawingarea );
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
 }
 
 

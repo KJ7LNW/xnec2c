@@ -324,6 +324,7 @@ Open_Input_File( gpointer arg )
 {
   gboolean ok, new;
   GtkWidget *widget;
+  static GMutex mutex;
 
   /* Stop freq loop */
   if( isFlagSet(FREQ_LOOP_RUNNING) )
@@ -368,6 +369,10 @@ Open_Input_File( gpointer arg )
 
     return( FALSE );
   } /* if( !ok ) */
+
+  // The optimizer can queue multiple calls to this function so protect it with a lock
+  g_mutex_lock (&mutex);
+
   SetFlag( INPUT_OPENED );
   gtk_widget_show( Builder_Get_Object(main_window_builder, "optimizer_output") );
 
@@ -378,7 +383,7 @@ Open_Input_File( gpointer arg )
     size_t lenc, leni;
 
     lenc = strlen( fork_commands[INFILE] );
-    leni = strlen( rc_config.input_file );
+    leni = sizeof( rc_config.input_file );
     for( idx = 0; idx < num_child_procs; idx++ )
     {
       Write_Pipe( idx, fork_commands[INFILE], (ssize_t)lenc, TRUE );
@@ -510,6 +515,9 @@ Open_Input_File( gpointer arg )
         Builder_Get_Object(main_window_builder, "nec2_edit") );
     gtk_menu_item_activate( menu_item );
   }
+
+  // Unlock the mutex:
+  g_mutex_unlock (&mutex);
 
   return( FALSE );
 } /* Open_Input_File() */

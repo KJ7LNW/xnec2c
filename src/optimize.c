@@ -145,7 +145,7 @@ Write_Optimizer_Data( void )
 Optimizer_Output( void *arg )
 {
   int fd, poll_num;
-  int wd;
+  int wd, job_num, num_busy_procs;
   struct pollfd pfd;
   char buf[256] __attribute__ ((aligned(__alignof__(struct inotify_event))));
   const struct inotify_event *event;
@@ -179,9 +179,16 @@ Optimizer_Output( void *arg )
         isFlagClear(PLOT_ENABLED) )
       break;
 
+    if ( CHILD )
+    {
+        printf( "optimize.c: exiting because we are a child process.\n" );
+        break;
+    }
+
     // Poll inotify file descriptor, timeout 1 sec
     poll_num = poll( &pfd, 1, 1000 );
-    if (poll_num == -1)
+
+    if( poll_num == -1 )
     {
       if( errno == EINTR ) continue;
       perror( "xnec2c: poll" );
@@ -199,6 +206,25 @@ Optimizer_Output( void *arg )
           perror( "xnec2c: read" );
           exit( -1 );
         }
+
+        if( isFlagSet(FREQ_LOOP_RUNNING | FREQ_LOOP_INIT | INPUT_PENDING) ||
+            isFlagClear(FREQ_LOOP_DONE) )
+          continue;
+
+        num_busy_procs = 0;
+        for (job_num = 0; job_num < calc_data.num_jobs; job_num++)
+          if( (forked_proc_data != NULL) &&
+              (forked_proc_data[job_num] != NULL) &&
+              forked_proc_data[job_num]->busy ) 
+            num_busy_procs++;
+
+        if( num_busy_procs )
+        {
+            printf( "xnec2c: warning: %d child jobs are running, skipping optimization\n",
+                num_busy_procs );
+            continue;
+        }
+
         event = (const struct inotify_event *) buf;
 
         /* Read input file and re-process */

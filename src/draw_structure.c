@@ -57,7 +57,7 @@ Draw_Structure( cairo_t *cr )
   Display_Fstep( structure_fstep_entry, calc_data.freq_step );
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
 
 } /* Draw_Structure() */
 
@@ -624,7 +624,7 @@ Redo_Currents( gpointer udata )
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   /* Redraw structure on screen */
@@ -633,7 +633,7 @@ Redo_Currents( gpointer udata )
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( structure_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   return FALSE;
@@ -660,7 +660,7 @@ New_Structure_Projection_Angle(void)
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( structure_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   /* Trigger a redraw of plots drawingarea */
@@ -670,7 +670,7 @@ New_Structure_Projection_Angle(void)
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
 } /* New_Structure_Projection_Angle() */

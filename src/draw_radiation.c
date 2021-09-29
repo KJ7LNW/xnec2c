@@ -609,7 +609,7 @@ Draw_Radiation( cairo_t *cr )
   Display_Fstep( rdpattern_fstep_entry, calc_data.freq_step );
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
 
 } /* Draw_Radiation() */
 
@@ -676,7 +676,7 @@ Animate_Near_Field( gpointer udata )
 
   /* Wait for GTK to complete its tasks */
   gtk_widget_queue_draw( rdpattern_drawingarea );
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
 
   return( TRUE );
 
@@ -759,14 +759,14 @@ Set_Polarization( int pol )
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   if( isFlagSet(PLOT_ENABLED) )
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
 } /* Set_Polarization() */
@@ -792,7 +792,7 @@ Set_Gain_Style( int gs )
 
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
 } /* Set_Gain_Style() */
@@ -818,7 +818,7 @@ New_Radiation_Projection_Angle(void)
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   /* Trigger a redraw of plots drawingarea if doing "viewer" gain */
@@ -828,7 +828,7 @@ New_Radiation_Projection_Angle(void)
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
 } /* New_Radiation_Projection_Angle() */
@@ -852,7 +852,7 @@ Redo_Radiation_Pattern( gpointer udata )
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( rdpattern_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
   return FALSE;

@@ -19,7 +19,9 @@
 
 #include "common.h"
 
-/* Parent/child commands */
+/* Parent/child commands
+ * Note: these must be 7 bytes long.  This is hard-coded!
+ */
 #define FORK_CMNDS { "inpfile", "frqdata", "nearehf" }
 
 /* Indices for parent/child commands */
