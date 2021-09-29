@@ -51,8 +51,8 @@ Create_Default_Config( void )
 {
   char
     line[LINE_LEN], /* Buffer for Load_Line() */
-    cfg_file[FILENAME_LEN];   /* Path to config file */
-
+    cfg_file[FILENAME_LEN],   /* Path to config file */
+    config_dir[FILENAME_LEN];
   FILE *fp = NULL;
 
   /* Setup file path to xnec2c config file */
@@ -80,6 +80,19 @@ Create_Default_Config( void )
 
   /* Make a default configuration, will not usually work well */
   printf( _("xnec2c: creating a default config file: %s\n"), cfg_file );
+
+  /* Check config folder exists, create it */
+  snprintf( config_dir, sizeof(config_dir), "%s/%.7s", getenv("HOME"), CONFIG_FILE );
+  DIR *dir;
+  if( (dir = opendir(config_dir)) == NULL )
+  {
+    if( mkdir(config_dir, 0755) == -1 )
+    {
+      Close_File( &fp );
+      return( FALSE );
+    }
+  }
+  else closedir( dir );
 
   /* For main window */
   Strlcpy( rc_config.working_dir, getenv("HOME"), sizeof(rc_config.working_dir) );
@@ -165,7 +178,7 @@ Set_Window_Geometry(
 
   /* Set size and position of window */
   /* gtk_widget_hide( window ); this leads to an undecorated window in icewm */
-  // while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   gtk_window_resize( GTK_WINDOW(window), width, height );
   gtk_window_move( GTK_WINDOW(window), x, y );
 
@@ -608,9 +621,9 @@ Read_Config( void )
   /* Read frequency plots window smith toggle button state */
   if( Load_Line(line, fp) == EOF )
   {
-	fprintf( stderr,
-		_("xnec2c: failed to read Frequency Plots window smith toggle state\n") );
-	return( FALSE );
+    fprintf( stderr,
+        _("xnec2c: failed to read Frequency Plots window smith toggle state\n") );
+    return( FALSE );
   }
   rc_config.freqplots_smith_togglebutton = (uint8_t)atoi( line );
 

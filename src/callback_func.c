@@ -177,14 +177,14 @@ Motion_Event(
     {
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( structure_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     if( params->type == RDPATTERN_DRAWINGAREA )
     {
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
 
@@ -217,7 +217,7 @@ Plot_Select( GtkToggleButton *togglebutton, unsigned long long int flag )
   {
     /* Wait for GTK to complete its tasks */
     gtk_widget_queue_draw( freqplots_drawingarea );
-    while( g_main_context_iteration(NULL, FALSE) );
+    //while( g_main_context_iteration(NULL, FALSE) );
   }
 
 } /* Plot_Select() */
@@ -548,7 +548,7 @@ Rdpattern_Gain_Togglebutton_Toggled( gboolean flag )
 
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     Set_Window_Labels();
@@ -561,7 +561,7 @@ Rdpattern_Gain_Togglebutton_Toggled( gboolean flag )
     {
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
     Free_Draw_Buffers();
   }
@@ -606,7 +606,7 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
 
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     Set_Window_Labels();
@@ -621,7 +621,7 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
     {
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     /* Disable near field calcuations
@@ -700,14 +700,14 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
     {
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( structure_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     if( isFlagSet(OVERLAY_STRUCT) )
     {
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
   else
@@ -723,7 +723,7 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
       {
         /* Wait for GTK to complete its tasks */
         gtk_widget_queue_draw( structure_drawingarea );
-        while( g_main_context_iteration(NULL, FALSE) );
+        //while( g_main_context_iteration(NULL, FALSE) );
       }
       Free_Crnt_Buffs();
     }
@@ -731,7 +731,7 @@ Main_Currents_Togglebutton_Toggled( gboolean flag )
     {
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
 
@@ -767,14 +767,14 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
     {
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( structure_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
 
     if( isFlagSet(OVERLAY_STRUCT) )
     {
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
   else
@@ -791,7 +791,7 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
       {
         /* Wait for GTK to complete its tasks */
         gtk_widget_queue_draw( structure_drawingarea );
-        while( g_main_context_iteration(NULL, FALSE) );
+        //while( g_main_context_iteration(NULL, FALSE) );
       }
 
       Free_Crnt_Buffs();
@@ -801,7 +801,7 @@ Main_Charges_Togglebutton_Toggled( gboolean flag )
     {
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( rdpattern_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
     }
   }
 
@@ -935,7 +935,7 @@ Filechooser_Response(
 
       /* Wait for GTK to complete its tasks */
       gtk_widget_queue_draw( saveas_drawingarea );
-      while( g_main_context_iteration(NULL, FALSE) );
+      //while( g_main_context_iteration(NULL, FALSE) );
 
       save_data.drawingarea = saveas_drawingarea;
       save_data.width  = saveas_width;
@@ -1025,7 +1025,7 @@ Filechooser_Response(
 Open_Nec2_Editor( int action )
 {
   nec2_edit_window = create_nec2_editor( &nec2_editor_builder );
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   Set_Window_Geometry( nec2_edit_window,
       rc_config.nec2_edit_x, rc_config.nec2_edit_y,
       rc_config.nec2_edit_width, rc_config.nec2_edit_height );

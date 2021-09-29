@@ -853,6 +853,8 @@ Read_Commands( void )
         freq_loop_data_t *fld = calc_data.freq_loop_data;
         int card = calc_data.FR_cards - 1;
 
+        memset( &fld[card], 0, sizeof(freq_loop_data_t) );
+
         /* Defaults */
         fld[card].freq_steps = 1;
         fld[card].max_freq   = 0.0;
@@ -1335,7 +1337,8 @@ Read_Commands( void )
       if( fld[idx].min_freq <= fld[idx-1].max_freq )
       {
         fprintf( stderr,
-            _("xnec2c: Read_Commands(): FR cards in incorrect order\n") );
+            _("xnec2c: Read_Commands(): FR cards in incorrect order: prev=%f, cur=%f\n"),
+            fld[idx-1].max_freq, fld[idx].min_freq );
         Stop( _("Read_Commands(): FR cards not in ascending\n"
               "frequency order or frequency ranges overlapping."), ERR_OK );
         return( FALSE );

@@ -261,7 +261,7 @@ Open_File( FILE **fp, char *fname, const char *mode )
   if( (*fp = fopen(fname, mode)) == NULL )
   {
     char mesg[MESG_SIZE];
-    snprintf( mesg, sizeof(mesg), _("xnec2c: %s: Failed to open file\n"), fname );
+    snprintf( mesg, sizeof(mesg), _("xnec2c[%d]: %s: Failed to open file\n"), getpid(), fname );
     Stop( mesg, ERR_STOP );
     return( FALSE );
   }

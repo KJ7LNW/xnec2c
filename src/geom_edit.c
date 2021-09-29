@@ -427,6 +427,15 @@ Wire_Editor( int action )
     "wire_res_spinbutton"
   };
 
+  /* Abort if FR cards have not been processed */
+  if( calc_data.FR_cards < 1 )
+  {
+    Stop(
+        "Frequency (FR) cards not yet processed.\n"
+        "You may need to save the NEC2 Editor data first.",
+        ERR_OK );
+    return;
+  }
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, wire_editor) ) return;
@@ -775,7 +784,7 @@ Wire_Editor( int action )
   fv[WIRE_DIA] /= 2.0; fv[WIRE_DIA1] /= 2.0; fv[WIRE_DIAN] /= 2.0;
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Wire_Editor() */
@@ -1181,7 +1190,7 @@ Patch_Editor( int action )
   }
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Patch_Editor() */
@@ -1239,6 +1248,15 @@ Arc_Editor( int action )
     "arc_res_spinbutton"
   };
 
+  /* Abort if FR cards have not been processed */
+  if( calc_data.FR_cards < 1 )
+  {
+    Stop(
+        "Frequency (FR) cards not yet processed.\n"
+        "You may need to save the NEC2 Editor data first.",
+        ERR_OK );
+    return;
+  }
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, arc_editor) ) return;
@@ -1400,7 +1418,7 @@ Arc_Editor( int action )
   gtk_spin_button_set_value( spin, s );
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Arc_Editor() */
@@ -1474,6 +1492,16 @@ Helix_Editor( int action )
     "helix_nturns_spinbutton",
     "helix_res_spinbutton"
   };
+
+  /* Abort if FR cards have not been processed */
+  if( calc_data.FR_cards < 1 )
+  {
+    Stop(
+        "Frequency (FR) cards not yet processed.\n"
+        "You may need to save the NEC2 Editor data first.",
+        ERR_OK );
+    return;
+  }
 
   /* File names to link and unlink icons */
   gchar link[FILENAME_LEN], unlink[FILENAME_LEN];
@@ -1841,7 +1869,7 @@ Helix_Editor( int action )
   fv[HELIX_DIA] = ftmp;
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Helix_Editor() */
@@ -2011,7 +2039,7 @@ Reflect_Editor( int action )
   iv[SPIN_COL_I1] = gtk_spin_button_get_value_as_int( spin );
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Reflection_Editor() */
@@ -2161,7 +2189,7 @@ Scale_Editor( int action )
   } /* switch( action ) */
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Scale_Editor() */
@@ -2276,7 +2304,7 @@ Cylinder_Editor( int action )
   }
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Cylinder_Editor() */
@@ -2420,7 +2448,7 @@ Transform_Editor( int action )
   fv[SPIN_COL_F7] = (gdouble)iv[SPIN_COL_I3];
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Transform_Editor() */
@@ -2534,7 +2562,7 @@ Gend_Editor( int action )
   } /* switch( action ) */
 
   /* Wait for GTK to complete its tasks */
-  while( g_main_context_iteration(NULL, FALSE) );
+  //while( g_main_context_iteration(NULL, FALSE) );
   busy = FALSE;
 
 } /* Gend_Editor() */

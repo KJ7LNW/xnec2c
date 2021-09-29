@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 AM_LDFLAGS = -Wl,--export-dynamic -Wl,--as-needed
 
-AM_CFLAGS = --pedantic -Wall -std=gnu11 -O2 -D_FORTIFY_SOURCE=2 \
+AM_CFLAGS = --pedantic -Wall -std=gnu11 -O2 -g -D_FORTIFY_SOURCE=2 \
             -fstack-protector-strong -Wformat -Werror=format-security -fpie \
             -DGTK_DISABLE_SINGLE_INCLUDES -DGDK_DISABLE_DEPRECATED \
             -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE \
@@ -37,6 +37,7 @@ xnec2c_SOURCES = \
     utils.c         utils.h \
     nec2_model.c    nec2_model.h \
     network.c       network.h \
+    optimize.c      optimize.h \
     plot_freqdata.c plot_freqdata.h \
     radiation.c     radiation.h \
     rc_config.c     rc_config.h \

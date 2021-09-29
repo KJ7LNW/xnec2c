@@ -1161,6 +1161,8 @@ factr( int n, complex double *a, int *ip, int ndim)
         scm[pj]= scm[j];
         jp1= j+1;
 
+        #pragma GCC unroll 128
+        #pragma GCC ivdep
         for( i = jp1; i < n; i++ )
           scm[i] -= a[i+j*ndim]* arj;
 

@@ -494,7 +494,7 @@ Save_Struct_Gnuplot_Data( char *filename )
     int idx, m2;
 
     /* Output segments data */
-    fprintf( fp, _("# structure patch segmenets\n") );
+    fprintf( fp, _("# structure patch segments\n") );
 
     /* Output first segment outside loop to enable separation of wires */
     fprintf( fp, "%10.3E %10.3E %10.3E\n%10.3E %10.3E %10.3E\n",
@@ -519,7 +519,7 @@ Save_Struct_Gnuplot_Data( char *filename )
     int idx;
 
     /* Output segments data */
-    fprintf( fp, _("# structure wire segmenets\n") );
+    fprintf( fp, _("# structure wire segments\n") );
 
     /* Output first segment outside loop to enable separation of wires */
     fprintf( fp, "%10.3E %10.3E %10.3E\n%10.3E %10.3E %10.3E\n",

@@ -68,6 +68,72 @@ Fork_Command( const char *cdstr )
 
 /*------------------------------------------------------------------------*/
 
+/* Code contributed as patch by Eric Wheeler */
+  static int
+write_exact( int fd, char *buf, int size )
+{
+  int len    = 0;
+  int offset = 0;
+
+  do
+  {
+    len = (int)( write(fd, buf + offset, (size_t)size) );
+
+    if( (len < 0) && (errno == EINTR) ) continue;
+
+    if( len < 0 )
+    {
+      perror( "xnec2c: write_exact(): " );
+      return( len );
+    }
+
+    if( !len ) size = 0;
+    else
+    {
+      size   -= len;
+      offset += len;
+    }
+  }
+  while( size );
+
+  return( offset );
+}
+
+/*------------------------------------------------------------------------*/
+
+/* Code contributed as patch by Eric Wheeler */
+  static int
+read_exact( int fd, char *buf, int size )
+{
+  int len    = 0;
+  int offset = 0;
+
+  do
+  {
+    len = (int)( read(fd, buf + offset, (size_t)size) );
+
+    if( (len < 0) && (errno == EINTR) ) continue;
+
+    if( len < 0 )
+    {
+      perror( "xnec2c: read_exact(): " );
+      return len;
+    }
+
+    if( !len ) size = 0;
+    else
+    {
+      size   -= len;
+      offset += len;
+    }
+  }
+  while( size );
+
+  return( offset );
+}
+
+/*------------------------------------------------------------------------*/
+
 /* Read_Pipe()
  *
  * Reads data from a pipe (child and parent processes)
@@ -89,8 +155,9 @@ Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
     perror( "xnec2c: Read_Pipe(): select()" );
     _exit( 0 );
   }
+  
+  retval = read_exact( pipefd, str, (int)len );
 
-  retval = read( pipefd, str, (size_t)len );
   if( (retval == -1) || ((retval != len) && err ) )
   {
     perror( "xnec2c: Read_Pipe(): read()" );
@@ -356,7 +423,7 @@ Child_Process( int num_child )
     switch( Fork_Command(cmnd) )
     {
       case INFILE: /* Read input file */
-        retval = Read_Pipe( num_child, rc_config.input_file, 80, FALSE );
+        retval = Read_Pipe( num_child, rc_config.input_file, sizeof(rc_config.input_file), FALSE );
         rc_config.input_file[retval] = '\0';
         Child_Input_File();
         break;
@@ -440,14 +507,13 @@ Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
     _exit( 0 );
   }
 
-  retval = write( pipefd, str, (size_t)len );
+  retval = write_exact( pipefd, str, (int)len );
   if( (retval == -1) || ((retval != len) && err) )
   {
     perror( "xnec2c: Write_Pipe(): write()" );
     //_exit( 0 );
   }
 
-  usleep( 10 );
   return( retval );
 
 } /* Write_Pipe() */
@@ -478,6 +544,13 @@ PRead_Pipe( int idx, char *str, ssize_t len, gboolean err )
 
     len     -= retval;
     str_idx += (int)retval;
+
+    if (retval == 0 && len > 0)
+    {
+      fprintf( stderr, "xnec2c: PRead_Pipe(): early EOF?, child %d  length %d  return %d\n",
+          idx, (int)len, (int)retval );
+      return -1;
+    }
   }
   while( len );
 
@@ -528,7 +601,9 @@ Get_Freq_Data( int idx, int fstep )
   }
 
   /* Notification to read near field data */
-  PRead_Pipe( idx, nfeh, 4, TRUE );
+  if( PRead_Pipe( idx, nfeh, 4, TRUE ) == -1 )
+      return;
+
   nfeh[4] = '\0';
 
   /* Get near field data if enabled */
@@ -556,7 +631,11 @@ Get_Freq_Data( int idx, int fstep )
   Mem_Copy( NULL, NULL, 0, READ );
 
   /* Get data accumulated in buffer if child */
-  PRead_Pipe( idx, buff, (ssize_t)buff_size, TRUE );
+  if( PRead_Pipe( idx, buff, (ssize_t)buff_size, TRUE ) == -1 )
+  {
+      free_ptr((void **)&buff);
+      return;
+  }
 
   /* Get current and charge data */
   cnt =  (size_t)data.npm * sizeof( double );

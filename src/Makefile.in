@@ -113,9 +113,9 @@ am_xnec2c_OBJECTS = main.$(OBJEXT) interface.$(OBJEXT) \
 	draw_radiation.$(OBJEXT) fields.$(OBJEXT) fork.$(OBJEXT) \
 	geometry.$(OBJEXT) ground.$(OBJEXT) xnec2c.$(OBJEXT) \
 	input.$(OBJEXT) matrix.$(OBJEXT) utils.$(OBJEXT) \
-	nec2_model.$(OBJEXT) network.$(OBJEXT) plot_freqdata.$(OBJEXT) \
-	radiation.$(OBJEXT) rc_config.$(OBJEXT) shared.$(OBJEXT) \
-	somnec.$(OBJEXT)
+	nec2_model.$(OBJEXT) network.$(OBJEXT) optimize.$(OBJEXT) \
+	plot_freqdata.$(OBJEXT) radiation.$(OBJEXT) \
+	rc_config.$(OBJEXT) shared.$(OBJEXT) somnec.$(OBJEXT)
 xnec2c_OBJECTS = $(am_xnec2c_OBJECTS)
 am__DEPENDENCIES_1 =
 xnec2c_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -144,10 +144,10 @@ am__depfiles_remade = ./$(DEPDIR)/calculations.Po \
 	./$(DEPDIR)/input.Po ./$(DEPDIR)/interface.Po \
 	./$(DEPDIR)/main.Po ./$(DEPDIR)/matrix.Po \
 	./$(DEPDIR)/nec2_model.Po ./$(DEPDIR)/network.Po \
-	./$(DEPDIR)/plot_freqdata.Po ./$(DEPDIR)/radiation.Po \
-	./$(DEPDIR)/rc_config.Po ./$(DEPDIR)/shared.Po \
-	./$(DEPDIR)/somnec.Po ./$(DEPDIR)/utils.Po \
-	./$(DEPDIR)/xnec2c.Po
+	./$(DEPDIR)/optimize.Po ./$(DEPDIR)/plot_freqdata.Po \
+	./$(DEPDIR)/radiation.Po ./$(DEPDIR)/rc_config.Po \
+	./$(DEPDIR)/shared.Po ./$(DEPDIR)/somnec.Po \
+	./$(DEPDIR)/utils.Po ./$(DEPDIR)/xnec2c.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -315,7 +315,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_LDFLAGS = -Wl,--export-dynamic -Wl,--as-needed
-AM_CFLAGS = --pedantic -Wall -std=gnu11 -O2 -D_FORTIFY_SOURCE=2 \
+AM_CFLAGS = --pedantic -Wall -std=gnu11 -O2 -g -D_FORTIFY_SOURCE=2 \
             -fstack-protector-strong -Wformat -Werror=format-security -fpie \
             -DGTK_DISABLE_SINGLE_INCLUDES -DGDK_DISABLE_DEPRECATED \
             -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE \
@@ -349,6 +349,7 @@ xnec2c_SOURCES = \
     utils.c         utils.h \
     nec2_model.c    nec2_model.h \
     network.c       network.h \
+    optimize.c      optimize.h \
     plot_freqdata.c plot_freqdata.h \
     radiation.c     radiation.h \
     rc_config.c     rc_config.h \
@@ -462,6 +463,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/matrix.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/nec2_model.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/network.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/optimize.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plot_freqdata.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/radiation.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rc_config.Po@am__quote@ # am--include-marker
@@ -636,6 +638,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/matrix.Po
 	-rm -f ./$(DEPDIR)/nec2_model.Po
 	-rm -f ./$(DEPDIR)/network.Po
+	-rm -f ./$(DEPDIR)/optimize.Po
 	-rm -f ./$(DEPDIR)/plot_freqdata.Po
 	-rm -f ./$(DEPDIR)/radiation.Po
 	-rm -f ./$(DEPDIR)/rc_config.Po
@@ -707,6 +710,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/matrix.Po
 	-rm -f ./$(DEPDIR)/nec2_model.Po
 	-rm -f ./$(DEPDIR)/network.Po
+	-rm -f ./$(DEPDIR)/optimize.Po
 	-rm -f ./$(DEPDIR)/plot_freqdata.Po
 	-rm -f ./$(DEPDIR)/radiation.Po
 	-rm -f ./$(DEPDIR)/rc_config.Po
