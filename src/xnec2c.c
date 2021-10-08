@@ -353,6 +353,22 @@ Near_Field_Pattern( void )
 
 /*-----------------------------------------------------------------------*/
 
+/* New_Frequency_Reset_Prev()
+ *
+ * Resets the previous frequency state to force New_Frequency() to recalculate if the
+ * same frequency is called.
+ *
+ * save.last_freq variable stores the previous MHz value that was used when
+ * calling New_Frequency() so it can exit early if that frequency
+ * has already been calculated.  Reset_Prev_New_Frequency() needs
+ * to be called to reset this when a file is opened or when a benchmark
+ * is being run.
+ */
+void New_Frequency_Reset_Prev(void)
+{
+	save.last_freq = 0;
+}
+
 /* New_Frequency()
  *
  * (Re)calculates all frequency-dependent parameters
@@ -360,30 +376,18 @@ Near_Field_Pattern( void )
   void
 New_Frequency( void )
 {
-	//FIXME: timings need reset on mathlib change
   struct timespec start, end;
   double elapsed;
-  static double total_time = 0;
-  static int n = 0;
-
-  // FIXME: This is a good check, but needs reset on .nec open. Also, it probably breaks benchmarks.
-  /*
-  static double prev_mhz = 0;
-  if (prev_mhz == calc_data.freq_mhz)
-	  return;
-
-  prev_mhz = calc_data.freq_mhz;
-  */
-
-
-  clock_gettime(CLOCK_MONOTONIC, &start);
 
   /* Abort if freq has not really changed, as when changing
    * between current or charge density structure coloring */
   if( (save.last_freq == calc_data.freq_mhz) ||
       isFlagClear(ENABLE_EXCITN) )
     return;
+
   save.last_freq = calc_data.freq_mhz;
+
+  clock_gettime(CLOCK_MONOTONIC, &start);
 
   /* Frequency scaling of geometric parameters */
   Frequency_Scale_Geometry();
@@ -418,16 +422,11 @@ New_Frequency( void )
 
   elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
 
-  n++;
-  total_time += elapsed;
-
-  printf("New_Frequency[%d]: %s: total time at %.2f MHz: %f seconds (%f average, %+2.1f%%)\n",
+  printf("New_Frequency[%d]: %s: total time at %.2f MHz: %f seconds\n",
   		getpid(),
-		current_mathlib->lib,
+		current_mathlib->name,
         calc_data.freq_mhz,
-		elapsed,
-		total_time/n, // average
-		100*(elapsed-total_time/n)/(total_time/n) // % change
+		elapsed
 	);
 
 } /* New_Frequency()  */
@@ -490,7 +489,7 @@ Frequency_Loop( gpointer udata )
     fsteps_total = calc_data.freq_loop_data[0].freq_steps;
 
     /* Clear "last-used-frequency" buffer */
-    save.last_freq = 0.0;
+    New_Frequency_Reset_Prev();
 
     /* Zero num of busy processes */
     num_busy_procs = 0;

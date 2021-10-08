@@ -1448,6 +1448,8 @@ void xnec2_widget_queue_draw(GtkWidget *w);
 /* xnec2c.c */
 void Near_Field_Pattern(void);
 void New_Frequency(void);
+void New_Frequency_Reset_Prev(void);
+
 gboolean Frequency_Loop(gpointer udata);
 gboolean Start_Frequency_Loop(void);
 void Stop_Frequency_Loop(void);
