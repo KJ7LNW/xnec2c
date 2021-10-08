@@ -541,10 +541,11 @@ void mathlib_benchmark(int slow)
 			GTK_BUTTONS_OK);
 
 
-	// Make sure a library is selected
+	// Make sure a library is selected.  We assume if .benchmark=1 that the
+	// library is available.
 	for (i = 0; i < num_mathlibs; i++)
 	{
-		if (!mathlibs[i].available || !mathlibs[i].benchmark)
+		if (!mathlibs[i].benchmark)
 			continue;
 		else
 			break;
@@ -592,7 +593,7 @@ void mathlib_benchmark(int slow)
 
 	for (i = 0; i < num_mathlibs; i++)
 	{
-		if (!mathlibs[i].available || !mathlibs[i].benchmark)
+		if (!mathlibs[i].benchmark)
 			continue;
 
 		if (FORKED)
@@ -618,7 +619,7 @@ void mathlib_benchmark(int slow)
 		{
 			printf("\nStarting %s benchmark (-j %d)\n", active_mathlib->name, calc_data.num_jobs);
 
-			save.last_freq = 0;
+			New_Frequency_Reset_Prev();
 			calc_data.fmhz_save = 0;
 
 			SetFlag(FREQ_LOOP_INIT);
@@ -673,8 +674,11 @@ void mathlib_benchmark(int slow)
 	calc_data.num_jobs = orig_jobs;
 	g_mutex_unlock(&global_lock);
 
-	snprintf(m + strlen(m), sizeof(m)-strlen(m)-1, "\nBest Mathlib: %s (-j %d): %f seconds\n",
-		best_mathlib->name, best_num_jobs, best_elapsed);
+	if (best_mathlib != NULL)
+		snprintf(m + strlen(m), sizeof(m)-strlen(m)-1, "\nBest Mathlib: %s (-j %d): %f seconds\n",
+			best_mathlib->name, best_num_jobs, best_elapsed);
+	else
+		snprintf(m + strlen(m), sizeof(m)-strlen(m)-1, "\nNo result found?  This is a bug.");
 
 	Notice(_("Mathlib Benchmark"), m, GTK_BUTTONS_OK);
 }

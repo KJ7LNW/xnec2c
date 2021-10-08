@@ -43,7 +43,7 @@ Child_Input_File( void )
   ClearFlag( INPUT_PENDING );
 
   /* Initialize xnec2c child */
-  save.last_freq = 0.0;
+  New_Frequency_Reset_Prev();
   crnt.newer = crnt.valid = 0;
 
 } /* Child_Input_FIle() */
@@ -419,6 +419,10 @@ Child_Process( int num_child )
 			(char*)&rc_config.mathlib_batch_idx,
 			sizeof(rc_config.mathlib_batch_idx), FALSE );
 
+        // Clear the previous frequency cache to prevent false values from benchmarking:
+        if (current_mathlib->idx != rc_config.mathlib_batch_idx)
+            New_Frequency_Reset_Prev();
+
         // This says "interactive" mathlib, but since we are forked it is running
         // as a batch from the parent.
         set_mathlib_interactive(NULL, get_mathlib_by_idx(rc_config.mathlib_batch_idx));
@@ -438,9 +442,6 @@ Child_Process( int num_child )
 
         /* Frequency buffers in children are for current frequency only */
         calc_data.freq_step = 0;
-
-        /* Clear "last-used-frequency" buffer */
-        save.last_freq = 0.0;
 
         /* Set flags */
         SetFlag( FREQ_LOOP_RUNNING );

@@ -405,11 +405,12 @@ Open_Input_File( gpointer arg )
   SetFlag( MAIN_NEW_FREQ );
   if( isFlagSet(PLOT_ENABLED) ) SetFlag( FREQ_LOOP_INIT );
   floop_tag = 0;
-  save.last_freq = 0.0;
   crnt.newer = 0;
   crnt.valid = 0;
   near_field.newer = 0;
   near_field.valid = 0;
+
+  New_Frequency_Reset_Prev();
 
   /* Allow re-draws on expose events etc */
   ClearFlag( INPUT_PENDING );

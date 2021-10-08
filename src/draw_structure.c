@@ -612,9 +612,8 @@ Redo_Currents( gpointer udata )
       isFlagClear(ENABLE_EXCITN) )
     return FALSE;
 
-  /* Makes calcs use the extra buffer in rad_pattern FIXME */
+  /* Makes calcs use the extra buffer in rad_pattern */
   calc_data.freq_step = calc_data.steps_total;
-  save.last_freq  = 0.0;
   New_Frequency();
 
   /* Display freq data in entry widgets */
