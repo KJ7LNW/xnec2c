@@ -59,8 +59,17 @@ if test "x$OPENMP_CFLAGS" != "x"; then
 fi
 
 
-# Enable fortran math optimizations
-CFLAGS="$CFLAGS -fcx-fortran-rules"
+## Enable fortran math optimizations
+
+# GCC
+AX_CHECK_COMPILE_FLAG(-fcx-fortran-rules, CFLAGS="$CFLAGS -fcx-fortran-rules")
+
+# clang
+AX_CHECK_COMPILE_FLAG(-fno-honor-infinities, CFLAGS="$CFLAGS -fno-honor-infinities")
+AX_CHECK_COMPILE_FLAG(-fno-honor-nans, CFLAGS="$CFLAGS -fno-honor-nans")
+AX_CHECK_COMPILE_FLAG(-ffinite-math-only, CFLAGS="$CFLAGS -ffinite-math-only")
+AX_CHECK_COMPILE_FLAG(-fno-signed-zeros, CFLAGS="$CFLAGS -fno-signed-zeros")
+AX_CHECK_COMPILE_FLAG(-fno-math-errno, CFLAGS="$CFLAGS -fno-math-errno")
 
 # Internationalization tools
 AM_GNU_GETTEXT_VERSION([0.19.7])

@@ -32,6 +32,14 @@ enum MATHLIB_FUNCTIONS {
 	MATHLIB_ZGETRS,
 };
 
+enum MATHLIB_BENCHMARKS
+{
+	MATHLIB_BENCHMARK_PARALLEL,
+	MATHLIB_BENCHMARK_SINGLE,
+	MATHLIB_BENCHMARK_NLOG2,
+	MATHLIB_BENCHMARK_NJ
+};
+
 typedef struct mathlib_t
 {
 	// Mathlib type:
@@ -42,6 +50,9 @@ typedef struct mathlib_t
 
 	// True if it opened successfully upon initialization:
 	int available;
+
+	// True if included for benchmarks
+	int benchmark;
 
 	// lib: libname.so
 	// name: a human readable description
@@ -63,7 +74,10 @@ typedef struct mathlib_t
 	char *env[2];
 
 	// Reference to the menu item under File->Math Libraries.
-	GtkWidget *menu_widget;
+	GtkWidget
+		*interactive_widget,
+		*batch_widget,
+		*benchmark_widget;
 
 	// Function pointer to call after dlopen() and is passed the mathlib_t pointer.
 	void (*init)(struct mathlib_t*);
@@ -73,9 +87,14 @@ typedef struct mathlib_t
 void init_mathlib();
 void init_mathlib_menu();
 mathlib_t *get_mathlib_by_idx(int idx);
-void set_mathlib(GtkWidget *widget, mathlib_t *lib);
+void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib);
 
-void mathlib_config_init(rc_config_vars_t *v);
+void mathlib_lock_intel_interactive(int locked_idx);
+void mathlib_lock_intel_batch(int locked_idx);
+
+void mathlib_config_init(rc_config_vars_t *v, char *line);
+int mathlib_config_benchmark_parse(rc_config_vars_t *v, char *line);
+int mathlib_config_benchmark_save(rc_config_vars_t *v, FILE *fp);
 
 void mathlib_mkl_set_threading_intel(mathlib_t *lib);
 void mathlib_mkl_set_threading_sequential(mathlib_t *lib);

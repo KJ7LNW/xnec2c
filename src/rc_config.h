@@ -30,7 +30,9 @@ typedef struct rc_config_vars_t {
 	char *desc;
 	char *format;
 	void *vars[2];
-	void (*init)(struct rc_config_vars_t *);  // call this to initialize if not NULL
+	void (*init)(struct rc_config_vars_t *, char *);  // call this to initialize if not NULL
+	int (*parse)(struct rc_config_vars_t *, char *); // call this to parse, ignore "format"
+	int (*save)(struct rc_config_vars_t *, FILE *);  // call this to save, ignore "format"
 } rc_config_vars_t;
 
 extern rc_config_vars_t rc_config_vars[];

@@ -308,7 +308,7 @@ typedef struct
   int confirm_quit;
 
   /* Preferred mathlib index, if available */
-  int mathlib_idx;
+  int mathlib_idx, mathlib_batch_idx;
 
 } rc_config_t;
 

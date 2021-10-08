@@ -10384,16 +10384,58 @@ Save NEC2 Editor data first?
                           </object>
                         </child>
 
-                        <child> 
+                        <child>
                           <object class="GtkMenuItem" id="main_mathlib_menu">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="label" translatable="yes">_Math Libraries</property>
                             <property name="use-underline">True</property>
                             <child type="submenu">
-                              <!-- This submenu is filled in by init_mathlib() -->
                               <object class="GtkMenu" id="main_mathlib_menu_menu">
                                 <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkMenuItem" id="main_mathlib_interactive_menu">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">_Interactive</property>
+                                    <property name="use-underline">True</property>
+                                    <child type="submenu">
+                                      <!-- This submenu is filled in by init_mathlib_menu() -->
+                                      <object class="GtkMenu" id="main_mathlib_interactive_menu_menu">
+                                        <property name="can-focus">False</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkMenuItem" id="main_mathlib_batch_menu">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">_Batch</property>
+                                    <property name="use-underline">True</property>
+                                    <child type="submenu">
+                                      <!-- This submenu is filled in by init_mathlib_menu() -->
+                                      <object class="GtkMenu" id="main_mathlib_batch_menu_menu">
+                                        <property name="can-focus">False</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparatorMenuItem">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkMenuItem" id="main_mathlib_help_menu">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">Mathlib _Help</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="activate" handler="mathlib_help" swapped="no"/>
+                                  </object>
+                                </child>
                               </object>
                             </child>
 
@@ -10401,15 +10443,104 @@ Save NEC2 Editor data first?
                         </child>
 
                         <child>
-                          <object class="GtkImageMenuItem" id="main_mathlib_benchmark">
-                            <property name="label" translatable="yes">Mathlib Benchmark</property>
+                          <object class="GtkMenuItem" id="main_mathlib_benchmark_menu">
+                            <property name="label" translatable="yes">Mathlib _Benchmarks</property>
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="use-underline">True</property>
-                            <signal name="activate" handler="mathlib_benchmark" swapped="no"/>
+                            <child type="submenu">
+                              <object class="GtkMenu" id="main_mathlib_benchmark_menu_menu">
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkMenuItem" id="main_mathlib_benchmark_select_menu">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">_Selected Mathlibs</property>
+                                    <property name="use-underline">True</property>
+                                    <child type="submenu">
+                                      <!-- This submenu is filled in by init_mathlib_menu() -->
+                                      <object class="GtkMenu" id="main_mathlib_benchmark_select_menu_menu">
+                                        <property name="can-focus">False</property>
+                                        <child>
+                                          <object class="GtkCheckMenuItem" id="main_mathlib_select_menu_select_all">
+                                            <property name="label" translatable="yes">Select All/None</property>
+                                            <property name="visible">True</property>
+                                            <property name="can-focus">False</property>
+                                            <property name="use-underline">True</property>
+                                            <signal name="activate" handler="set_mathlib_benchmark" swapped="no"/>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkSeparatorMenuItem">
+                                            <property name="visible">True</property>
+                                            <property name="can-focus">False</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparatorMenuItem">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkImageMenuItem" id="main_mathlib_benchmark_parallel">
+                                    <property name="label" translatable="yes">_Parallel (-j N):		O(N/J)</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="activate" handler="mathlib_benchmark_parallel" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkImageMenuItem" id="main_mathlib_benchmark_single">
+                                    <property name="label" translatable="yes">_Single Job (-j 1):	O(N)</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="activate" handler="mathlib_benchmark_single" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkImageMenuItem" id="main_mathlib_benchmark_nlog2">
+                                    <property name="label" translatable="yes">_Iterate -j N/=2:	O(N*log2(J))</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="activate" handler="mathlib_benchmark_nlog2" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkImageMenuItem" id="main_mathlib_benchmark_nj">
+                                    <property name="label" translatable="yes">_Iterate -j N-=1:	O(N*J)</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="activate" handler="mathlib_benchmark_nj" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparatorMenuItem">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkImageMenuItem" id="main_mathlib_benchmark_info">
+                                    <property name="label" translatable="yes">Benchmark _Help</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="activate" handler="mathlib_benchmark_help" swapped="no"/>
+                                  </object>
+                                </child>
+
+                              </object>
+                            </child>
+
                           </object>
                         </child>
-
                         <child>
                           <object class="GtkSeparatorMenuItem">
                             <property name="visible">True</property>
@@ -10572,9 +10703,9 @@ Save NEC2 Editor data first?
                 </child>
                 <child>
                   <object class="GtkMenuItem">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes">_Help</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
                     <property name="use-underline">True</property>
                     <child type="submenu">
                       <object class="GtkMenu" id="menuitem4_menu">

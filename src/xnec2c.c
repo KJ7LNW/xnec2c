@@ -588,10 +588,11 @@ Frequency_Loop( gpointer udata )
           forked_proc_data[job_num]->fstep = fstep;
           num_busy_procs++;
 
-
-          // Send the mathlib to use:
+          // Send the mathlib to use, try to lock it if it is Intel MKL.
+		  mathlib_lock_intel_batch(rc_config.mathlib_batch_idx);
           Write_Pipe( idx, fork_commands[MATHLIB], (ssize_t)strlen(fork_commands[MATHLIB]), TRUE );
-          Write_Pipe( idx, (char*)&current_mathlib->idx,  (ssize_t)sizeof(current_mathlib->idx), TRUE );
+          Write_Pipe( idx, (char*)&rc_config.mathlib_batch_idx,
+			  (ssize_t)sizeof(rc_config.mathlib_batch_idx), TRUE );
 
           /* Tell process to calculate freq dependent data */
           len = strlen( fork_commands[FRQDATA] );
