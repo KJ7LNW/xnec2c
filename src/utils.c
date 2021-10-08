@@ -46,6 +46,7 @@ int Notice(char *title, char *message,  GtkButtonsType buttons)
 		buttons,
 		"%s", title);
 
+	printf("\n=== Notice: %s ===\n%s\n\n", title, message);
 	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(notice), "%s", message);
 
 	response = gtk_dialog_run(GTK_DIALOG(notice));

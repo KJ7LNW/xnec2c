@@ -144,7 +144,14 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.confirm_quit } },
 
 	{ .desc = "Selected Mathlib", .format = "%d",
-		.vars = { &rc_config.mathlib_idx }, .init = mathlib_config_init }
+		.vars = { &rc_config.mathlib_idx }, .init = mathlib_config_init },
+
+	{ .desc = "Selected Batch Mathlib", .format = "%d",
+		.vars = { &rc_config.mathlib_batch_idx } },
+
+	{ .desc = "Selected Mathlib Benchmarks",
+		.parse = mathlib_config_benchmark_parse,
+		.save = mathlib_config_benchmark_save  }
 };
 
 
@@ -183,7 +190,11 @@ rc_config_vars_t *find_var(char *s)
 int parse_var(rc_config_vars_t *v, char *line)
 {
 	int count = 0;
-	
+
+	// Use the parse function if available:
+	if (v->parse != NULL)
+		return v->parse(v, line);
+
 	// Skip read-only or missing vars:
 	if (v->ro || (v->vars[0] == NULL && v->vars[1] == NULL))
 		return 0;
@@ -218,6 +229,9 @@ int fprint_var(FILE *fp, rc_config_vars_t *v)
 {
 	int count = 0;
 	
+	if (v->save != NULL)
+		return v->save(v, fp);
+
 	if (v->vars[0] == NULL && v->vars[1] == NULL)
 		return 0;
 
@@ -553,7 +567,7 @@ Read_Config( void )
 	  if (!parse_var(v, line) && line[0] != '#')
 		  printf("%s:%d: parse error (%s): %s \n", fpath, lnum, v->desc, line);
 	  else if (v->init != NULL)
-		  v->init(v);
+		  v->init(v, line);
   }
 
   /* Close the config file pointer */

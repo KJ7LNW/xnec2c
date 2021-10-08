@@ -412,12 +412,16 @@ Child_Process( int num_child )
     retval = Read_Pipe( num_child, cmnd, 7, TRUE );
     cmnd[retval]='\0';
 
-    int libidx;
     switch( Fork_Command(cmnd) )
     {
       case MATHLIB:
-        retval = Read_Pipe( num_child, (char*)&libidx, sizeof(current_mathlib->idx), FALSE );
-        set_mathlib(NULL, get_mathlib_by_idx(libidx));
+        retval = Read_Pipe( num_child,
+			(char*)&rc_config.mathlib_batch_idx,
+			sizeof(rc_config.mathlib_batch_idx), FALSE );
+
+        // This says "interactive" mathlib, but since we are forked it is running
+        // as a batch from the parent.
+        set_mathlib_interactive(NULL, get_mathlib_by_idx(rc_config.mathlib_batch_idx));
         break;
 
       case INFILE: /* Read input file */
