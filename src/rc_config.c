@@ -151,7 +151,11 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Selected Mathlib Benchmarks",
 		.parse = mathlib_config_benchmark_parse,
-		.save = mathlib_config_benchmark_save  }
+		.save = mathlib_config_benchmark_save  },
+
+	{ .desc = "Selected fmhz_save Frequency", .format = "%lf",
+		.vars = { &calc_data.fmhz_save } },
+
 };
 
 
@@ -208,6 +212,8 @@ int parse_var(rc_config_vars_t *v, char *line)
 	}
 	else if (strcmp(v->format, "%f") == 0)
 		count = sscanf(line, v->format, (double*)v->vars[0]);
+	else if (strcmp(v->format, "%lf") == 0)
+		count = sscanf(line, v->format, (double*)v->vars[0]);
 	else if (strcmp(v->format, "%d,%d") == 0)
 		count = sscanf(line, v->format, (int*)v->vars[0], (int*)v->vars[1]);
 	else if (strcmp(v->format, "%f,%f") == 0)
@@ -240,6 +246,8 @@ int fprint_var(FILE *fp, rc_config_vars_t *v)
 	else if (strcmp(v->format, "%s") == 0)
 		count = fprintf(fp, v->format, (char*)v->vars[0]);
 	else if (strcmp(v->format, "%f") == 0)
+		count = fprintf(fp, v->format, *(double*)v->vars[0]);
+	else if (strcmp(v->format, "%lf") == 0)
 		count = fprintf(fp, v->format, *(double*)v->vars[0]);
 	else if (strcmp(v->format, "%d,%d") == 0)
 		count = fprintf(fp, v->format, *(int*)v->vars[0], *(int*)v->vars[1]);

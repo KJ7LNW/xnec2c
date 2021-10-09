@@ -751,7 +751,11 @@ Frequency_Loop( gpointer udata )
 
     /* After the loop is finished, re-set the saved frequency
      * that the user clicked on in the frequency plots window */
-    if( (int)calc_data.fmhz_save )
+    double max_freq = calc_data.freq_loop_data[calc_data.FR_cards-1].max_freq;
+    double min_freq = calc_data.freq_loop_data[0].min_freq;
+    if( (int)calc_data.fmhz_save &&
+		calc_data.fmhz_save >= min_freq &&
+		calc_data.fmhz_save <= max_freq)
     {
       calc_data.freq_mhz = calc_data.fmhz_save;
       
