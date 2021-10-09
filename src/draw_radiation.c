@@ -77,7 +77,7 @@ Scale_Gain( double gain, int fstep, int idx )
  * co-ordinates theta, phi and r = gain(theta, phi)
  */
   static void
-Draw_Radiation_Pattern( cairo_t *cr )
+_Draw_Radiation_Pattern( cairo_t *cr )
 {
   /* Line segments to draw on Screen */
   Segment_t segm;
@@ -326,6 +326,13 @@ Draw_Radiation_Pattern( cairo_t *cr )
       rdpattern_proj_params );
 
 } /* Draw_Radiation_Pattern() */
+
+static void Draw_Radiation_Pattern( cairo_t *cr )
+{
+	g_mutex_lock(&freq_data_lock);
+	_Draw_Radiation_Pattern( cr );
+	g_mutex_unlock(&freq_data_lock);
+}
 
 /*-----------------------------------------------------------------------*/
 

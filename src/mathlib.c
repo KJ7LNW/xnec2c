@@ -534,7 +534,7 @@ void mathlib_benchmark(int slow)
 	int i, best_num_jobs = 0;
 	double best_elapsed = 0;
 
-	if (!FORKED && slow != MATHLIB_BENCHMARK_SINGLE)
+	if (calc_data.num_jobs == 1 && slow != MATHLIB_BENCHMARK_SINGLE)
 		Notice(_("Mathlib Benchmark"),
 			_("Choosing a benchmark other than \"Single Job\" has no effect "
 			  "unless -j is specified on the command line."),

@@ -92,6 +92,10 @@ extern int num_child_procs;
    Frequency_Loop(), Open_Input_File(), and possibly others. */
 extern GMutex global_lock;
 
+/* Lock for frequency data to prevent use of data populated by Get_Freq_Data() and New_Frequency()
+   before it is done filling the data buffers.  */
+extern GMutex freq_data_lock;
+
 /* Program forked flag */
 extern gboolean FORKED;
 

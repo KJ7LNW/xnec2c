@@ -167,6 +167,10 @@ int num_child_procs = 0;
    Frequency_Loop(), Open_Input_File(), and possibly others. */
 GMutex global_lock;
 
+/* Lock for frequency data to prevent use of data populated by Get_Freq_Data() and New_Frequency()
+   before it is done filling the data buffers.  */
+GMutex freq_data_lock;
+
 /* Program forked flag */
 gboolean FORKED = FALSE;
 
