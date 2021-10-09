@@ -14,6 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <pthread.h>
+
 #include "xnec2c.h"
 #include "shared.h"
 #include "mathlib.h"
@@ -454,7 +456,7 @@ void update_freqplots_fmhz_entry(gpointer p)
 }
 
 // Set the specified widget to the value of calc_data.freq_mhz
-void update_fmhz_spin_button_value(GtkWidget *w)
+void update_fmhz_spin_button_value(GtkSpinButton *w)
 {
 	gtk_spin_button_set_value(w, (gdouble)calc_data.freq_mhz );
 }
@@ -719,7 +721,7 @@ Frequency_Loop( gpointer udata )
   if( isFlagSet(PLOT_ENABLED) )
   {
     /* Display current frequency in plots entry */
-    g_idle_add(update_freqplots_fmhz_entry, NULL);
+    g_idle_add((GSourceFunc)update_freqplots_fmhz_entry, NULL);
 
     if( isFlagClear(OPTIMIZER_OUTPUT) || freqplots_click_pending())
     {
@@ -728,11 +730,11 @@ Frequency_Loop( gpointer udata )
   }
 
   /* Set main window frequency spinbutton */
-  g_idle_add(update_fmhz_spin_button_value, mainwin_frequency);
+  g_idle_add((GSourceFunc)update_fmhz_spin_button_value, mainwin_frequency);
 
   /* Set Radiation pattern window frequency spinbutton */
   if( isFlagSet(DRAW_ENABLED) )
-    g_idle_add(update_fmhz_spin_button_value, rdpattern_frequency);
+    g_idle_add((GSourceFunc)update_fmhz_spin_button_value, rdpattern_frequency);
 
   xnec2_widget_queue_draw( structure_drawingarea );
   SetFlag( FREQ_LOOP_READY );
@@ -754,7 +756,7 @@ Frequency_Loop( gpointer udata )
       calc_data.freq_mhz = calc_data.fmhz_save;
       
       /* Set main window frequency spinbutton */
-      g_idle_add(update_fmhz_spin_button_value, mainwin_frequency);
+      g_idle_add((GSourceFunc)update_fmhz_spin_button_value, mainwin_frequency);
 
       /* Set Radiation pattern window frequency spinbutton */
       if( isFlagSet(DRAW_ENABLED) )
@@ -763,7 +765,7 @@ Frequency_Loop( gpointer udata )
       if( isFlagSet(PLOT_ENABLED) )
       {
         SetFlag( PLOT_FREQ_LINE );
-        g_idle_add(update_freqplots_fmhz_entry, NULL);
+        g_idle_add((GSourceFunc)update_freqplots_fmhz_entry, NULL);
       }
 
       New_Frequency();
@@ -779,7 +781,7 @@ Frequency_Loop( gpointer udata )
      * the optimizer if SIGHUP received */
     if( isFlagSet(OPTIMIZER_OUTPUT) )
     {
-      g_idle_add(Write_Optimizer_Data, NULL);
+      g_idle_add((GSourceFunc)Write_Optimizer_Data, NULL);
     }
   } // if( !retval && !num_busy_procs )
 
@@ -791,7 +793,7 @@ Frequency_Loop( gpointer udata )
 /*-----------------------------------------------------------------------*/
 
 
-void Frequency_Loop_Thread(void *p)
+void *Frequency_Loop_Thread(void *p)
 {
 	while (isFlagSet(FREQ_LOOP_RUNNING) && Frequency_Loop(NULL));
 }
