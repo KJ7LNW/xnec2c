@@ -509,16 +509,17 @@ Get_Dirname( char *fpath, char *dirname, int *fname_idx )
 
 } /* Get_Dirname() */
 
-/* This is a hook to centrally control the redraw of widgets based on state */
+/* This is a hook to centrally control the redraw of widgets based on state
+ * Also it uses g_idle_add so it is thread-safe. */
 void xnec2_widget_queue_draw(GtkWidget *w)
 {
 	// Only redraw the rdpattern when FREQ_LOOP_DONE or it the window will flash grey:
 	if (w == rdpattern_drawingarea && isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_DONE))
 	{
-		g_idle_add(gtk_widget_queue_draw, w);
+		g_idle_add((GSourceFunc)gtk_widget_queue_draw, w);
 	}
 	else
-		g_idle_add(gtk_widget_queue_draw, w);
+		g_idle_add((GSourceFunc)gtk_widget_queue_draw, w);
 
 }
 /*------------------------------------------------------------------*/
