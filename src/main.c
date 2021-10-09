@@ -246,6 +246,9 @@ main (int argc, char *argv[])
     FORKED = TRUE;
   } /* if( calc_data.num_jobs > 1 ) */
 
+  // Make GTK thread-safe:
+  g_thread_init(NULL);
+
   /* Create the main window */
   main_window = create_main_window( &main_window_builder );
   gtk_window_set_title( GTK_WINDOW(main_window), PACKAGE_STRING );

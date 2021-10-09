@@ -617,7 +617,8 @@ Draw_Radiation( cairo_t *cr )
       Draw_Near_Field( cr );
 
   /* Display frequency step */
-  Display_Fstep( rdpattern_fstep_entry, calc_data.freq_step );
+  if (calc_data.freq_step >= 0)
+	  Display_Fstep( rdpattern_fstep_entry, calc_data.freq_step );
 
   if (locked)
 	  g_mutex_unlock(&global_lock);

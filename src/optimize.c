@@ -132,7 +132,7 @@ Write_Optimizer_Data( void )
     }
 
     fprintf( fp, "\n" );
-  } //for( int idx = 0; idx < calc_data.freq_steps; idx++ )
+  } //for( int idx = 0; idx < calc_data.steps_total; idx++ )
 
   fclose( fp );
 } // Write_Optimizer_Data()

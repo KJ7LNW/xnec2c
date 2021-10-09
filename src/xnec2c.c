@@ -18,6 +18,8 @@
 #include "shared.h"
 #include "mathlib.h"
 
+static pthread_t pth_freq_loop;
+
 /* Left-overs from fortran code :-( */
 static double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
 
@@ -265,6 +267,9 @@ Set_Network_Data( void )
         isFlagSet(FREQ_LOOP_RUNNING)) || CHILD )
   {
     int fstep = calc_data.freq_step;
+    if (fstep < 0)
+        return;
+
     impedance_data.zreal[fstep] = (double)creal( netcx.zped);
     impedance_data.zimag[fstep] = (double)cimag( netcx.zped);
     impedance_data.zmagn[fstep] = (double)cabs( netcx.zped);
@@ -439,6 +444,21 @@ New_Frequency( void )
 
 static gboolean retval; /* Function's return value */
 
+void update_freqplots_fmhz_entry(gpointer p)
+{
+    /* Display current frequency in plots entry */
+    char txt[10];
+    snprintf( txt, sizeof(txt), "%9.3f", calc_data.freq_mhz );
+    gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
+            freqplots_window_builder, "freqplots_fmhz_entry")), txt );
+}
+
+// Set the specified widget to the value of calc_data.freq_mhz
+void update_fmhz_spin_button_value(GtkWidget *w)
+{
+	gtk_spin_button_set_value(w, (gdouble)calc_data.freq_mhz );
+}
+
 /* Frequency_Loop()
  *
  * Loops over frequency if calculations over a frequency range is
@@ -467,6 +487,8 @@ Frequency_Loop( gpointer udata )
   /* (Re) Initialize freq loop */
   if( isFlagSet(FREQ_LOOP_INIT) )
   {
+    g_mutex_lock(&freq_data_lock);
+
     /* Clear global flags */
     ClearFlag( FREQ_LOOP_INIT | FREQ_LOOP_DONE );
 
@@ -506,6 +528,8 @@ Frequency_Loop( gpointer udata )
 
 	// Start the timer:
 	clock_gettime(CLOCK_MONOTONIC, &start);
+
+    g_mutex_unlock(&freq_data_lock);
 
     /* Continue gtk_main idle callbacks */
     retval = TRUE;
@@ -695,10 +719,7 @@ Frequency_Loop( gpointer udata )
   if( isFlagSet(PLOT_ENABLED) )
   {
     /* Display current frequency in plots entry */
-    char txt[10];
-    snprintf( txt, sizeof(txt), "%9.3f", calc_data.freq_mhz );
-    gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
-            freqplots_window_builder, "freqplots_fmhz_entry")), txt );
+    g_idle_add(update_freqplots_fmhz_entry, NULL);
 
     if( isFlagClear(OPTIMIZER_OUTPUT) || freqplots_click_pending())
     {
@@ -707,11 +728,11 @@ Frequency_Loop( gpointer udata )
   }
 
   /* Set main window frequency spinbutton */
-  gtk_spin_button_set_value( mainwin_frequency, (gdouble)calc_data.freq_mhz );
+  g_idle_add(update_fmhz_spin_button_value, mainwin_frequency);
 
   /* Set Radiation pattern window frequency spinbutton */
   if( isFlagSet(DRAW_ENABLED) )
-    gtk_spin_button_set_value( rdpattern_frequency, (gdouble)calc_data.freq_mhz );
+    g_idle_add(update_fmhz_spin_button_value, rdpattern_frequency);
 
   xnec2_widget_queue_draw( structure_drawingarea );
   SetFlag( FREQ_LOOP_READY );
@@ -726,8 +747,6 @@ Frequency_Loop( gpointer udata )
 	printf("Frequency_Loop elapsed time: %f seconds\n", 
 		(end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9));
 
-
-
     /* After the loop is finished, re-set the saved frequency
      * that the user clicked on in the frequency plots window */
     if( (int)calc_data.fmhz_save )
@@ -735,7 +754,7 @@ Frequency_Loop( gpointer udata )
       calc_data.freq_mhz = calc_data.fmhz_save;
       
       /* Set main window frequency spinbutton */
-      gtk_spin_button_set_value( mainwin_frequency, calc_data.fmhz_save );
+      g_idle_add(update_fmhz_spin_button_value, mainwin_frequency);
 
       /* Set Radiation pattern window frequency spinbutton */
       if( isFlagSet(DRAW_ENABLED) )
@@ -744,10 +763,7 @@ Frequency_Loop( gpointer udata )
       if( isFlagSet(PLOT_ENABLED) )
       {
         SetFlag( PLOT_FREQ_LINE );
-        char txt[10];
-        snprintf( txt, sizeof(txt), "%9.3f", calc_data.fmhz_save );
-        gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
-                freqplots_window_builder, "freqplots_fmhz_entry")), txt );
+        g_idle_add(update_freqplots_fmhz_entry, NULL);
       }
 
       New_Frequency();
@@ -763,7 +779,7 @@ Frequency_Loop( gpointer udata )
      * the optimizer if SIGHUP received */
     if( isFlagSet(OPTIMIZER_OUTPUT) )
     {
-      Write_Optimizer_Data();
+      g_idle_add(Write_Optimizer_Data, NULL);
     }
   } // if( !retval && !num_busy_procs )
 
@@ -788,8 +804,6 @@ void Frequency_Loop_Thread(void *p)
   gboolean
 Start_Frequency_Loop( void )
 {
-  static pthread_t thrd;
-
   if( calc_data.freq_loop_data == NULL )
     return( FALSE );
 
@@ -800,7 +814,7 @@ Start_Frequency_Loop( void )
     retval = TRUE;
     SetFlag( FREQ_LOOP_INIT );
     SetFlag( FREQ_LOOP_RUNNING );
-    int ret = pthread_create( &thrd, NULL, Frequency_Loop_Thread, NULL );
+    int ret = pthread_create( &pth_freq_loop, NULL, Frequency_Loop_Thread, NULL );
     if( ret != 0 )
     {
         fprintf( stderr, "xnec2c: failed to start Frequency_Loop_Thread\n" );
@@ -824,6 +838,9 @@ Stop_Frequency_Loop( void )
 {
   // Clearing this flag will cause the Frequency_Loop pthread to exit when it is done:
   ClearFlag( FREQ_LOOP_RUNNING );
+
+  // Wait for the thread to exit:
+  pthread_join(pth_freq_loop, NULL);
 } /* Stop_Frequency_Loop() */
 
 /*-----------------------------------------------------------------------*/

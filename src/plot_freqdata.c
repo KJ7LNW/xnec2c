@@ -255,6 +255,10 @@ Display_Frequency_Data( void )
 
   /* Limit freq stepping to freq_steps FIXME */
   fstep = calc_data.freq_step;
+
+  if (fstep < 0)
+	  return;
+
   if( fstep >= calc_data.steps_total )
     fstep = calc_data.steps_total;
 
@@ -907,6 +911,9 @@ Plot_Graph(
 
 	int i; 
 
+	if (calc_data.freq_step < 0)
+		return;
+	
 	// Get the pixel size of the scale text on left and right of the graph.
 	pango_text_size(freqplots_drawingarea, 
 		&pad_x_scale_text,

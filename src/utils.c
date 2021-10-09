@@ -515,10 +515,10 @@ void xnec2_widget_queue_draw(GtkWidget *w)
 	// Only redraw the rdpattern when FREQ_LOOP_DONE or it the window will flash grey:
 	if (w == rdpattern_drawingarea && isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_DONE))
 	{
-		gtk_widget_queue_draw(w);
+		g_idle_add(gtk_widget_queue_draw, w);
 	}
 	else
-		gtk_widget_queue_draw(w);
+		g_idle_add(gtk_widget_queue_draw, w);
 
 }
 /*------------------------------------------------------------------*/
