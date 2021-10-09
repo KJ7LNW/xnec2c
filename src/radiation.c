@@ -618,9 +618,12 @@ rdpat( void )
 
   /*** Save radiation pattern data ***/
   /* Prime max and min gains and index */
+  int fstep = calc_data.freq_step;
+  if (fstep < 0)
+	  return;
+
   for( pol = 0; pol < NUM_POL; pol++ )
   {
-    int fstep = calc_data.freq_step;
     rad_pattern[fstep].max_gain[pol] = -10000.0;
     rad_pattern[fstep].min_gain[pol] =  10000.0;
     rad_pattern[fstep].max_gain_idx[pol] = 0;
@@ -744,8 +747,11 @@ rdpat( void )
             tstor1= gtot;
         }
 
-        /* Save rad pattern gains FIXME */
+        /* Save rad pattern gains */
         int fstep = calc_data.freq_step;
+		if (fstep < 0)
+			return;
+
         rad_pattern[fstep].gtot[idx] = tstor1;
 
         /* Save axial ratio, tilt and pol sense */

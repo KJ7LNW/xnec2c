@@ -54,9 +54,8 @@ _Draw_Structure( cairo_t *cr )
   crnt.newer = 0;
 
   /* Display frequency step */
-  Display_Fstep( structure_fstep_entry, calc_data.freq_step );
-
-
+  if (calc_data.freq_step >= 0)
+	  Display_Fstep( structure_fstep_entry, calc_data.freq_step );
 } /* Draw_Structure() */
 
 void Draw_Structure( cairo_t *cr )
