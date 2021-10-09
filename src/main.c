@@ -177,7 +177,7 @@ main (int argc, char *argv[])
    * requested number of child processes = number of processors */
 
   /* Allocate buffers for fork data */
-  if( calc_data.num_jobs > 1 )
+  if( calc_data.num_jobs >= 1 )
   {
     size_t mreq = (size_t)calc_data.num_jobs * sizeof(forked_proc_data_t *);
     mem_alloc( (void **)&forked_proc_data, mreq, "in main.c" );

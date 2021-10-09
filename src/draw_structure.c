@@ -24,7 +24,7 @@
  *  Draws xyz axes, wire segments and patches
  */
   void
-Draw_Structure( cairo_t *cr )
+_Draw_Structure( cairo_t *cr )
 {
   /* Abort if xnec2c may be quit by user */
   if( isFlagSet(MAIN_QUIT) ) return;
@@ -58,6 +58,13 @@ Draw_Structure( cairo_t *cr )
 
 
 } /* Draw_Structure() */
+
+void Draw_Structure( cairo_t *cr )
+{
+	g_mutex_lock(&freq_data_lock);
+	_Draw_Structure( cr );
+	g_mutex_unlock(&freq_data_lock);
+}
 
 /*-----------------------------------------------------------------------*/
 

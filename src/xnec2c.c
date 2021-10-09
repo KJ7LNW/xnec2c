@@ -385,6 +385,8 @@ New_Frequency( void )
       isFlagClear(ENABLE_EXCITN) )
     return;
 
+  g_mutex_lock(&freq_data_lock);
+
   save.last_freq = calc_data.freq_mhz;
 
   clock_gettime(CLOCK_MONOTONIC, &start);
@@ -417,6 +419,8 @@ New_Frequency( void )
   /* Near field calculation */
   near_field.valid = 0;
   Near_Field_Pattern();
+
+  g_mutex_unlock(&freq_data_lock);
 
   clock_gettime(CLOCK_MONOTONIC, &end);
 
@@ -770,6 +774,13 @@ Frequency_Loop( gpointer udata )
 
 /*-----------------------------------------------------------------------*/
 
+
+void Frequency_Loop_Thread(void *p)
+{
+	while (isFlagSet(FREQ_LOOP_RUNNING) && Frequency_Loop(NULL));
+}
+
+
 /* Start_Frequency_Loop()
  *
  * Starts frequency loop
@@ -777,6 +788,8 @@ Frequency_Loop( gpointer udata )
   gboolean
 Start_Frequency_Loop( void )
 {
+  static pthread_t thrd;
+
   if( calc_data.freq_loop_data == NULL )
     return( FALSE );
 
@@ -787,7 +800,13 @@ Start_Frequency_Loop( void )
     retval = TRUE;
     SetFlag( FREQ_LOOP_INIT );
     SetFlag( FREQ_LOOP_RUNNING );
-    floop_tag = g_idle_add( Frequency_Loop, NULL );
+    int ret = pthread_create( &thrd, NULL, Frequency_Loop_Thread, NULL );
+    if( ret != 0 )
+    {
+        fprintf( stderr, "xnec2c: failed to start Frequency_Loop_Thread\n" );
+        perror( "xnec2c: pthread_create()" );
+        exit( -1 );
+    }
     return( TRUE );
   }
   else return( FALSE );
@@ -803,13 +822,8 @@ Start_Frequency_Loop( void )
   void
 Stop_Frequency_Loop( void )
 {
-  if( floop_tag > 0 )
-  {
-    g_source_remove( floop_tag );
-    floop_tag = 0;
-  }
+  // Clearing this flag will cause the Frequency_Loop pthread to exit when it is done:
   ClearFlag( FREQ_LOOP_RUNNING );
-
 } /* Stop_Frequency_Loop() */
 
 /*-----------------------------------------------------------------------*/

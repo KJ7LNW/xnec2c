@@ -564,7 +564,7 @@ static ssize_t PRead_Pipe(int idx, char *str, ssize_t len, gboolean err)
  * input impedances etc) from child processes.
  */
   void
-Get_Freq_Data( int idx, int fstep )
+_Get_Freq_Data( int idx, int fstep )
 {
   char *buff = NULL, flag;
   char nfeh[5];
@@ -744,6 +744,13 @@ Get_Freq_Data( int idx, int fstep )
   free_ptr( (void **)&buff );
 
 } /* Get_Freq_Data() */
+
+void Get_Freq_Data( int idx, int fstep )
+{
+	g_mutex_lock(&freq_data_lock);
+	_Get_Freq_Data( idx, fstep );
+	g_mutex_unlock(&freq_data_lock);
+}
 
 /*------------------------------------------------------------------------*/
 

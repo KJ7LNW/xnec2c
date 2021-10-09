@@ -1293,7 +1293,7 @@ Plot_Graph_Smith(
  * (gain, vswr, imoedance etc) against frequency
  */
   void
-Plot_Frequency_Data( cairo_t *cr )
+_Plot_Frequency_Data( cairo_t *cr )
 {
   /* Abort plotting if main window is to be closed
    * or when plots drawing area not available */
@@ -1628,6 +1628,13 @@ Plot_Frequency_Data( cairo_t *cr )
 
 
 } /* Plot_Frequency_Data() */
+
+void Plot_Frequency_Data( cairo_t *cr )
+{
+	g_mutex_lock(&freq_data_lock);
+	_Plot_Frequency_Data( cr );
+	g_mutex_unlock(&freq_data_lock);
+}
 
 /*-----------------------------------------------------------------------*/
 
