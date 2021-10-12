@@ -6,7 +6,7 @@ AC_INIT([xnec2c], [4.2], [nkcyham@yahoo.com])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/common.h])
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_MACRO_DIRS([m4 m4-include])
 AM_MAINTAINER_MODE
 
 # Set CFLAGS if not set in environment
