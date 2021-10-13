@@ -20,7 +20,7 @@
 #include "shared.h"
 #include "mathlib.h"
 
-static pthread_t pth_freq_loop;
+static pthread_t *pth_freq_loop = NULL;
 
 /* Left-overs from fortran code :-( */
 static double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
@@ -456,9 +456,14 @@ void update_freqplots_fmhz_entry(gpointer p)
 }
 
 // Set the specified widget to the value of calc_data.freq_mhz
-void update_fmhz_spin_button_value(GtkSpinButton *w)
+void update_freq_mhz_spin_button_value(GtkSpinButton *w)
 {
 	gtk_spin_button_set_value(w, (gdouble)calc_data.freq_mhz );
+}
+
+void update_fmhz_save_spin_button_value(GtkSpinButton *w)
+{
+	gtk_spin_button_set_value(w, (gdouble)calc_data.fmhz_save );
 }
 
 /* Frequency_Loop()
@@ -533,7 +538,7 @@ Frequency_Loop( gpointer udata )
 
     g_mutex_unlock(&freq_data_lock);
 
-    /* Continue gtk_main idle callbacks */
+    /* Continue iterating this function.  (Returning FALSE would discontinue the frequency loop.) */
     retval = TRUE;
     return ( retval );
 
@@ -730,11 +735,11 @@ Frequency_Loop( gpointer udata )
   }
 
   /* Set main window frequency spinbutton */
-  g_idle_add((GSourceFunc)update_fmhz_spin_button_value, mainwin_frequency);
+  g_idle_add((GSourceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
 
   /* Set Radiation pattern window frequency spinbutton */
   if( isFlagSet(DRAW_ENABLED) )
-    g_idle_add((GSourceFunc)update_fmhz_spin_button_value, rdpattern_frequency);
+    g_idle_add((GSourceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
 
   xnec2_widget_queue_draw( structure_drawingarea );
   SetFlag( FREQ_LOOP_READY );
@@ -760,11 +765,11 @@ Frequency_Loop( gpointer udata )
       calc_data.freq_mhz = calc_data.fmhz_save;
       
       /* Set main window frequency spinbutton */
-      g_idle_add((GSourceFunc)update_fmhz_spin_button_value, mainwin_frequency);
+      g_idle_add((GSourceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
 
       /* Set Radiation pattern window frequency spinbutton */
       if( isFlagSet(DRAW_ENABLED) )
-        gtk_spin_button_set_value( rdpattern_frequency, calc_data.fmhz_save );
+        g_idle_add((GSourceFunc)update_fmhz_save_spin_button_value, rdpattern_frequency);
 
       if( isFlagSet(PLOT_ENABLED) )
       {
@@ -820,9 +825,11 @@ Start_Frequency_Loop( void )
     retval = TRUE;
     SetFlag( FREQ_LOOP_INIT );
     SetFlag( FREQ_LOOP_RUNNING );
-    int ret = pthread_create( &pth_freq_loop, NULL, Frequency_Loop_Thread, NULL );
+    mem_alloc((void**)&pth_freq_loop, sizeof(pthread_t), __LOCATION__);
+    int ret = pthread_create( pth_freq_loop, NULL, Frequency_Loop_Thread, NULL );
     if( ret != 0 )
     {
+        free_ptr((void**)&pth_freq_loop);
         fprintf( stderr, "xnec2c: failed to start Frequency_Loop_Thread\n" );
         perror( "xnec2c: pthread_create()" );
         exit( -1 );
@@ -846,7 +853,11 @@ Stop_Frequency_Loop( void )
   ClearFlag( FREQ_LOOP_RUNNING );
 
   // Wait for the thread to exit:
-  pthread_join(pth_freq_loop, NULL);
+  if (pth_freq_loop != NULL)
+  {
+	  pthread_join(*pth_freq_loop, NULL);
+	  free_ptr((void**)&pth_freq_loop);
+  }
 } /* Stop_Frequency_Loop() */
 
 /*-----------------------------------------------------------------------*/
