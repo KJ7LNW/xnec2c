@@ -30,6 +30,7 @@ main (int argc, char *argv[])
 {
   /* getopt() variables */
   int option, idx, err;
+  int enable_forking = 1;
 
   /*** Signal handler related code ***/
   /* new and old actions for sigaction() */
@@ -135,6 +136,13 @@ main (int argc, char *argv[])
 
       case 'j': /* number of child processes = num of processors */
         calc_data.num_jobs = atoi( optarg );
+
+        if (calc_data.num_jobs == 0)
+        {
+            printf("[%d] Forking disabled!\n", getpid());
+            enable_forking = 0;
+            calc_data.num_jobs = 1;
+        }
         break;
 
       case 'h': /* print usage and exit */
@@ -177,7 +185,7 @@ main (int argc, char *argv[])
    * requested number of child processes = number of processors */
 
   /* Allocate buffers for fork data */
-  if( calc_data.num_jobs >= 1 )
+  if( calc_data.num_jobs >= 1 && enable_forking )
   {
     size_t mreq = (size_t)calc_data.num_jobs * sizeof(forked_proc_data_t *);
     mem_alloc( (void **)&forked_proc_data, mreq, "in main.c" );
@@ -349,12 +357,15 @@ Open_Input_File( gpointer arg )
   /* Open NEC2 input file */
   if( strlen(rc_config.input_file) == 0 )
     return( FALSE );
+
+  g_mutex_lock(&freq_data_lock);
   calc_data.FR_cards    = 0;
   calc_data.FR_index    = 0;
   calc_data.steps_total = 0;
   calc_data.last_step   = 0;
 
   free_ptr((void**)&fr_plots);
+  g_mutex_unlock(&freq_data_lock);
 
   Open_File( &input_fp, rc_config.input_file, "r");
 

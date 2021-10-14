@@ -60,7 +60,7 @@ void fr_plots_init()
 	  mem_realloc((void**)&fr_plots,
 		sizeof(fr_plot_t) * calc_data.ngraph * calc_data.FR_cards,
 		__LOCATION__); 
-  else if (fr_plots != NULL)
+  else
   {
 	  free_ptr((void **)&fr_plots);
 	  return;
@@ -68,9 +68,6 @@ void fr_plots_init()
 
   for (idx = 0; idx < calc_data.ngraph * calc_data.FR_cards; idx++)
   {
-	  if (FR_PLOT_T_IS_VALID(&fr_plots[idx]))
-		  continue;
-
 	  // Set the plot position
 	  fr_plots[idx].posn = idx / calc_data.FR_cards;
 
@@ -1076,7 +1073,9 @@ Plot_Graph(
 			plot_rect->width = width_available / calc_data.FR_cards;
 		
 		// Resize and sync plots if the window size or number of plots have changed.
-		if (prev_width_available != width_available) {
+		if (prev_width_available != width_available ||
+			plot_rect->width > width_available ||
+			plot_rect->width < 0) {
 			plot_rect->width = width_available / calc_data.FR_cards;
 			fr_plot_sync_widths(fr_plot);
 		}
@@ -1354,8 +1353,9 @@ _Plot_Frequency_Data( cairo_t *cr )
     return;
   }
 
+  // Call the underscore version because freq_data_lock is already held:
   if (prev_click_event != NULL)
-	  Set_Frequency_On_Click(prev_click_event);
+	  _Set_Frequency_On_Click(prev_click_event);
 
   /* Graph position */
   posn = 0;
@@ -1701,7 +1701,7 @@ int freqplots_click_pending()
  * Sets the current freq after click by user on plots drawingarea
  */
   void
-Set_Frequency_On_Click( GdkEvent *e)
+_Set_Frequency_On_Click( GdkEvent *e)
 {
   double fmhz = 0.0;
   int set_fmhz = 0, draw_freqplot = 0;
@@ -1910,5 +1910,13 @@ Set_Frequency_On_Click( GdkEvent *e)
 	  free_ptr((void**)&prev_click_event);
 
 } /* Set_Freq_On_Click() */
+
+void Set_Frequency_On_Click( GdkEvent *e)
+{
+	g_mutex_lock(&freq_data_lock);
+	_Set_Frequency_On_Click(e);
+	g_mutex_unlock(&freq_data_lock);
+}
+
 /*-----------------------------------------------------------------------*/
 
