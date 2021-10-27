@@ -14,6 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <execinfo.h>
+
 #include "utils.h"
 #include "shared.h"
 
@@ -509,18 +511,109 @@ Get_Dirname( char *fpath, char *dirname, int *fname_idx )
 
 } /* Get_Dirname() */
 
+typedef struct 
+{
+	GSourceFunc function;
+	gpointer data;
+	GMutex lock;
+	int is_locked;
+} g_idle_add_data_t;
+
+
+int _callback_g_idle_add_once(g_idle_add_data_t *cbdata)
+{
+	cbdata->function(cbdata->data);
+
+	// If it is locked then wait for GTK and unlock it so the caller can proceed.
+	//    1. If is_locked: The caller will free the memory
+	//
+	//    2. If !is_locked: we free it here because this is an async call
+	//       and no caller will be waiting.
+	if (cbdata->is_locked)
+	{
+		// Wait for GTK
+		while (g_main_context_iteration(NULL, FALSE));
+
+		g_mutex_unlock(&cbdata->lock);
+	}
+	else
+		free_ptr((void**)&cbdata);
+
+	return FALSE;
+}
+
+void _g_idle_add_once(GSourceFunc function, gpointer data, int lock)
+{
+	g_idle_add_data_t *cbdata = NULL;
+	mem_alloc((void**)&cbdata, sizeof(g_idle_add_data_t), __LOCATION__);
+
+	g_mutex_init(&cbdata->lock);
+
+	cbdata->function = function;
+	cbdata->data = data;
+	cbdata->is_locked = lock;
+
+	if (lock)
+		g_mutex_lock(&cbdata->lock);
+
+	g_idle_add((GSourceFunc)_callback_g_idle_add_once, cbdata);
+
+	// Wait for the lock to release and free it.
+	if (lock)
+	{
+		g_mutex_lock(&cbdata->lock);
+		g_mutex_unlock(&cbdata->lock);
+		free_ptr((void**)&cbdata);
+	}
+}
+
+// Call from any thread to queue a function to run once, do not wait for it to finish.
+void g_idle_add_once(GSourceFunc function, gpointer data)
+{
+	_g_idle_add_once(function, data, 0); // async
+}
+
+// Call from another thread to queue a function to run once, and wait for it to finish.
+void g_idle_add_once_sync(GSourceFunc function, gpointer data)
+{
+	_g_idle_add_once(function, data, 1); // sync
+}
+
+
 /* This is a hook to centrally control the redraw of widgets based on state
  * Also it uses g_idle_add so it is thread-safe. */
 void xnec2_widget_queue_draw(GtkWidget *w)
 {
 	// Only redraw the rdpattern when FREQ_LOOP_DONE or it the window will flash grey:
-	if (w == rdpattern_drawingarea && isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_DONE))
+	if (w == rdpattern_drawingarea && isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_RUNNING))
 	{
-		g_idle_add((GSourceFunc)gtk_widget_queue_draw, w);
+		printf("Optimizer loop incomplete, skipping radiation pattern redraw.\n");
 	}
 	else
-		g_idle_add((GSourceFunc)gtk_widget_queue_draw, w);
+		g_idle_add_once((GSourceFunc)gtk_widget_queue_draw, w);
 
 }
 /*------------------------------------------------------------------*/
 
+
+/*
+   Obtain a backtrace and print it to stdout. 
+ */
+void print_backtrace(void)
+{
+	void *array[10];
+	char **strings;
+	int size, i;
+
+	size = backtrace(array, 10);
+	strings = backtrace_symbols(array, size);
+	if (strings != NULL)
+	{
+
+		printf("  Obtained %d stack frames.\n", size);
+		for (i = 0; i < size; i++)
+			printf("    %s\n", strings[i]);
+	}
+
+	free(strings);
+}

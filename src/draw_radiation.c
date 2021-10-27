@@ -77,7 +77,7 @@ Scale_Gain( double gain, int fstep, int idx )
  * co-ordinates theta, phi and r = gain(theta, phi)
  */
   static void
-_Draw_Radiation_Pattern( cairo_t *cr )
+Draw_Radiation_Pattern( cairo_t *cr )
 {
   /* Line segments to draw on Screen */
   Segment_t segm;
@@ -88,7 +88,6 @@ _Draw_Radiation_Pattern( cairo_t *cr )
     nph,     /* Phi step count   */
     col_idx, /* Index to rad pattern color buffers */
     pts_idx; /* Index to rad pattern 3d-points buffer */
-
 
   /* Frequency step and polarization type */
   int fstep, pol;
@@ -326,13 +325,6 @@ _Draw_Radiation_Pattern( cairo_t *cr )
       rdpattern_proj_params );
 
 } /* Draw_Radiation_Pattern() */
-
-static void Draw_Radiation_Pattern( cairo_t *cr )
-{
-	g_mutex_lock(&freq_data_lock);
-	_Draw_Radiation_Pattern( cr );
-	g_mutex_unlock(&freq_data_lock);
-}
 
 /*-----------------------------------------------------------------------*/
 
@@ -586,22 +578,9 @@ Draw_Near_Field( cairo_t *cr )
  *
  * Draws the radiation pattern or near E/H fields
  */
-  void
-Draw_Radiation( cairo_t *cr )
+  int
+_Draw_Radiation( cairo_t *cr )
 {
-  /* Abort if xnec2c may be quit by user */
-  if( isFlagSet(MAIN_QUIT) || isFlagClear(ENABLE_EXCITN) )
-    return;
-
-  /* Don't draw radiation pattern when freq
-   * loop is running and optimizer enabled */
-  if( isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_RUNNING) )
-    return;
-
-  // Try to hold the lock to prevent drawing the radiation pattern
-  // since it could be drawing while inotify triggers a new freqloop:
-  int locked = g_mutex_trylock(&global_lock);
-
   /* Clear drawingarea */
   cairo_set_source_rgb( cr, BLACK );
   cairo_rectangle(
@@ -609,6 +588,19 @@ Draw_Radiation( cairo_t *cr )
       (double)rdpattern_proj_params.width,
       (double)rdpattern_proj_params.height);
   cairo_fill( cr );
+
+  /* Abort if xnec2c may be quit by user */
+  if( isFlagSet(MAIN_QUIT) || isFlagClear(ENABLE_EXCITN) )
+    return FALSE;
+
+  /* Don't draw radiation pattern when freq
+   * loop is running and optimizer enabled */
+  if( isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_RUNNING) )
+    return FALSE;
+
+  // Try to hold the lock to prevent drawing the radiation pattern
+  // since it could be drawing while inotify triggers a new freqloop:
+  int locked = g_mutex_trylock(&global_lock);
 
   /* Draw rad pattern or E/H fields */
   if( isFlagSet(DRAW_GAIN) )
@@ -623,9 +615,20 @@ Draw_Radiation( cairo_t *cr )
   if (locked)
 	  g_mutex_unlock(&global_lock);
 
-  return;
+  return TRUE;
 
 } /* Draw_Radiation() */
+
+int Draw_Radiation( cairo_t *cr )
+{
+	int ret;
+
+	g_mutex_lock(&freq_data_lock);
+	ret = _Draw_Radiation( cr );
+	g_mutex_unlock(&freq_data_lock);
+
+	return ret;
+}
 
 /*-----------------------------------------------------------------------*/
 
@@ -820,7 +823,8 @@ New_Radiation_Projection_Angle(void)
   rdpattern_proj_params.cos_wi = cos(rdpattern_proj_params.Wi/(double)TODEG);
 
   /* Trigger a redraw of radiation drawingarea */
-  if( isFlagSet(DRAW_ENABLED) )
+  if( isFlagSet(DRAW_ENABLED) && 
+	  (isFlagClear(OPTIMIZER_OUTPUT) || isFlagClear(FREQ_LOOP_RUNNING)))
   {
     xnec2_widget_queue_draw( rdpattern_drawingarea );
   }
