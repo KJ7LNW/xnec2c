@@ -1271,7 +1271,7 @@ void Cairo_Draw_Segments(cairo_t *cr, Segment_t *segm, int nseg);
 void Cairo_Draw_Line(cairo_t *cr, int x1, int y1, int x2, int y2);
 void Cairo_Draw_Lines(cairo_t *cr, GdkPoint *points, int npoints);
 /* draw_radiation.c */
-void Draw_Radiation(cairo_t *cr);
+int Draw_Radiation(cairo_t *cr);
 gboolean Animate_Near_Field(gpointer udata);
 double Polarization_Factor(int pol_type, int fstep, int idx);
 void Set_Polarization(int pol);
@@ -1445,6 +1445,10 @@ void Strlcat(char *dest, const char *src, size_t n);
 double Strtod(char *nptr, char **endptr);
 void Get_Dirname(char *fpath, char *dirname, int *fname_idx);
 void xnec2_widget_queue_draw(GtkWidget *w);
+void g_idle_add_once(GSourceFunc function, gpointer data);
+void g_idle_add_once_sync(GSourceFunc function, gpointer data);
+void print_backtrace(void);
+
 /* xnec2c.c */
 void Near_Field_Pattern(void);
 void New_Frequency(void);

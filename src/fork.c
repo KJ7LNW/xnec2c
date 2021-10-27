@@ -749,6 +749,11 @@ void Get_Freq_Data( int idx, int fstep )
 {
 	g_mutex_lock(&freq_data_lock);
 	_Get_Freq_Data( idx, fstep );
+
+	/* Clear "last-used-frequency" buffer, the local version of the data is 
+	 * no longer what New_Frequency() set it to: */
+	New_Frequency_Reset_Prev();
+
 	g_mutex_unlock(&freq_data_lock);
 }
 

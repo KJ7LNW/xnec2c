@@ -254,9 +254,6 @@ main (int argc, char *argv[])
     FORKED = TRUE;
   } /* if( calc_data.num_jobs > 1 ) */
 
-  // Make GTK thread-safe:
-  g_thread_init(NULL);
-
   /* Create the main window */
   main_window = create_main_window( &main_window_builder );
   gtk_window_set_title( GTK_WINDOW(main_window), PACKAGE_STRING );
@@ -430,11 +427,14 @@ Open_Input_File( gpointer arg )
   ClearFlag( INPUT_PENDING );
 
   /* Set projection at 45 deg rotation and
-   * inclination if NEC2 editor window is not open */
+   * inclination if NEC2 editor window is not open, but
+   * not while optimizing because so the view stays where it is */
   if( (nec2_edit_window == NULL) && isFlagClear(OPTIMIZER_OUTPUT) )
+  {
     New_Viewer_Angle( 45.0, 45.0, rotate_structure,
         incline_structure, &structure_proj_params );
-  New_Structure_Projection_Angle();
+    New_Structure_Projection_Angle();
+  }
 
   /* Show current frequency */
   gtk_spin_button_set_value( mainwin_frequency, (gdouble)calc_data.freq_mhz );
@@ -465,10 +465,15 @@ Open_Input_File( gpointer arg )
   /* Re-initialize Rad Pattern drawing if window open */
   if( rdpattern_window != NULL )
   {
-    widget = Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_zoom_spinbutton" );
-    gtk_spin_button_set_value(
+    // Don't reset the zoom during optimization:
+    if( isFlagClear(OPTIMIZER_OUTPUT) )
+    {
+      widget = Builder_Get_Object(
+          rdpattern_window_builder, "rdpattern_zoom_spinbutton" );
+
+      gtk_spin_button_set_value(
         GTK_SPIN_BUTTON(widget), (gdouble)rc_config.rdpattern_zoom_spinbutton );
+    }
 
     /* Simulate activation of main rdpattern button */
     if( isFlagClear(OPTIMIZER_OUTPUT) )
