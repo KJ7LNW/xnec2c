@@ -1,0 +1,39 @@
+Neoklis has asked me to take over maintenance of xnec2c, so github will
+its permanent home.  Please send me patches and pull-requests if you
+have anything to contribute on this project.  Thanks!
+
+-Eric, KJ7LNW
+	https://github.com/KJ7LNW
+	https://www.linuxglobal.com/
+
+Background:
+
+I had asked Neoklis for help integrating an external Simplex optimizer
+some time last year.  In the process of that project Neoklis added
+support for multiple FR cards and I added multi-plot support for each
+frequency range.  We also added accelerated linear algebra libraries as
+of that refactor.
+
+Here is the original discussion with Neoklis that led to my taking over
+as maintainer:
+
+
+On 10/15/21 6:20 AM, Neoklis Kyriazis wrote:
+>> Time to choose a new name for your creation? 
+
+Eric> A new name? This is a modest modification of the existing code base,
+Eric> I think it should remain xnec2c!
+
+Well, I think it is an extensive modification but anyhow, its the matter of
+maintenance of the code - since you made all these changes I think it will
+be difficult for me to maintain the code. I am sort of winding down my 
+activities in programming in any case and I may not be able to deal with
+bug reports. Also, the documentation will need to be updated with info
+for the user and a new version number in the history.
+	 
+Eric> Is it working well enough that you can update this as the latest version
+Eric> on your website?
+
+I could put it on my website but it would be better if you set it up on Github
+as your own development of xnec2c.  The same thing is happening with
+glrpt, a Russian programmer is developing a very modified version on Github.
