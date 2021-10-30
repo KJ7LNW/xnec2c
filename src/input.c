@@ -42,6 +42,9 @@
 #include "input.h"
 #include "shared.h"
 
+// For use if you need to printf/debug based on line number in readgm()
+static int readgm_line_count = 0;
+
 /*------------------------------------------------------------------------*/
 
 /* Read_Comments()
@@ -135,6 +138,11 @@ Tag_Seg_Error( int tag, int segs )
 }
 
 /*-----------------------------------------------------------------------*/
+void readgm_reset_count()
+{
+	readgm_line_count = 0;
+}
+
 
 /* datagn is the main routine for input of geometry data. */
   static gboolean
@@ -165,6 +173,8 @@ datagn( void )
   data.mp=0;
   isct=0;
   structure_proj_params.r_max = 0.0;
+
+  readgm_reset_count();
 
   /* read geometry data card and branch to */
   /* section for operation requested */
@@ -353,8 +363,9 @@ datagn( void )
 
             if( (data.si[i] <= 1.0e-20) || (data.bi[i] <= 0.0) )
             {
-              fprintf( stderr, _("xnec2c: datagn(): segment data error\n") );
-              Stop( _("datagn(): Segment data error"), ERR_OK );
+              fprintf( stderr, _("xnec2c: datagn(): segment data error: tag=%d si=%lf, bi=%lf\n"),
+				  i+1, data.si[i], data.bi[i] );
+              Stop( _("datagn(): Segment data error, zero-length line?  See console."), ERR_OK );
               return( FALSE );
             }
 
@@ -1528,6 +1539,9 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   if( line_buf == NULL ) return( FALSE );
   startptr = line_buf;
    eof = Load_Line( line_buf, input_fp );
+
+  // For use if you need to printf/debug based on line number.
+  readgm_line_count++;
 
   /* Capitalize first two characters (mnemonics) */
   if( (line_buf[0] > 0x60) && (line_buf[0] < 0x79) )

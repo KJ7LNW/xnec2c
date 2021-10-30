@@ -727,6 +727,7 @@ Frequency_Loop( gpointer udata )
   calc_data.last_step = calc_data.freq_step;
   calc_data.freq_mhz = (double)save.freq[calc_data.freq_step];
 
+  SetFlag( FREQ_LOOP_READY );
   if (retval || num_busy_procs)
   {
   /* Trigger a redraw of open drawingareas */
@@ -750,7 +751,6 @@ Frequency_Loop( gpointer udata )
 		g_idle_add_once((GSourceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
 
   xnec2_widget_queue_draw( structure_drawingarea );
-  SetFlag( FREQ_LOOP_READY );
   }
 
   /* Change flags at exit if loop is done */
@@ -833,11 +833,13 @@ void *Frequency_Loop_Thread(void *p)
 		g_idle_add_once_sync((GSourceFunc) gtk_widget_queue_draw, freqplots_drawingarea);
 	if (isFlagSet(DRAW_ENABLED))
 	{
-		g_idle_add_once_sync(update_freq_mhz_spin_button_value, rdpattern_frequency);
-		g_idle_add_once_sync(update_freq_mhz_spin_button_value, mainwin_frequency);
+		g_idle_add_once_sync((GSourceFunc) update_freq_mhz_spin_button_value, rdpattern_frequency);
+		g_idle_add_once_sync((GSourceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
 		g_idle_add_once_sync(Redo_Currents, NULL);
 		g_idle_add_once_sync((GSourceFunc) gtk_widget_queue_draw, rdpattern_drawingarea);
 	}
+
+	return NULL;
 }
 
 

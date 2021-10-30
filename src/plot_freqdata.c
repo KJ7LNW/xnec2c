@@ -42,6 +42,8 @@ static GdkEvent *prev_click_event = NULL;
 /* Graph plot bounding rectangle */
 static double Fit_to_Scale( double *max, double *min, int *nval );
 
+void _Set_Frequency_On_Click( GdkEvent *e);
+
 /* helper function to get width and height by creating a layout */
 static inline void pango_text_size(GtkWidget* widget, int *width, int *height, char *s)
 {
