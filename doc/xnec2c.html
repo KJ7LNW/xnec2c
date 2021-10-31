@@ -5,11 +5,10 @@
 <meta name="generator" content="Bluefish 2.2.12" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
-<meta name="date" content="2021-09-29T09:11:04+0300" >
+<meta name="date" content="2021-10-30T16:54:17-0700" >
 <meta name="copyright" content="GPL v2.0 or higher">
-<meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C">
-<meta name="description" content=
-"xnec2c: GTK+-3 based GUI version of nec2c">
+<meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C simplex EM simulator">
+<meta name="description" content="xnec2c: GTK+-3 based GUI version of nec2c for electromagnetic simulation.">
 <meta name="ROBOTS" content="INDEX, FOLLOW">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 </head>
@@ -1101,6 +1100,59 @@ frequency-dependent parameters over separate ranges of interest and
 thus reduces the time taken by the program to produce results.
 Unnecessary calculations between ranges of interest are also
 avoided.</p>
+<p><b>Version 4.3:</b> 
+<ul>
+<li>Changed maintainer to Eric Wheeler, KJ7LNW</li>
+<li>Moved xnec2c to github: https://github.com/KJ7LNW/xnec2c</li>
+<li>Major refactor of the plotting code:
+	<ul>
+		<li>Added multi-plot support when multiple FR cards are used.</li>
+		<li>Added "View-&gt;Show Min/Max" values to the Frequency Data Plots
+		  graph.</li>
+		<li>Enable click+drag for continuous frequency selection.</li>
+	</ul>
+</li>
+<li>Performance improvements:
+	<ul>
+		<li>30% speedup of native NEC2 code Gaussian Elimination code with
+		  -fcx-fortran-rules</li>
+		<li>Added support for ATLAS, LAPACK, OpenBLAS and Intel MKL accelerated
+		  linear algebra libraries. These are auto-detected at runtime on
+		  CentOS/RHEL, Ubuntu/Debian, and openSUSE.</li>
+		<li>Added benchmark and time reporting for math libraries</li>
+		<li>Separated interactive vs batch math library to get the best of
+		  parallel graphing performance as well as interactive single-frequency
+		  performance.</li>
+		<li>Prevent calculating frequency dependent data twice when the program
+		  loads a new file.</li>
+		<li>Removed synchronous GTK+ loops to increase responsiveness.</li>
+		<li>Made GTK more responsive by converting Frequency_Loop() to run as
+		  a pthread</li>
+		<li>Made xnec2c always fork a child process for handling frequency data
+		  calculations requested by Frequency_Loop even for -j1 to prevent blocking
+		  GTK during a calculation (disable forking with -j0)</li>
+	</ul>
+</li>
+<li>Bug-fixes:
+	<ul>
+		<li>Fixed parallel job child communication races and better EINTR
+		  handling</li>
+		<li>Fixed multiple crashes when inotify detects a change of the .nec
+		  file while the frequency loop is running.</li>
+		<li>Fixed uninitialized data program-wide by calling memset(0) in
+		  mem_alloc().</li>
+		<li>Fixed Clang compiler support and added auto-detection</li>
+		<li>Fixed multiple multi-threaded fixes and optimization flicker
+		  problems</li>
+		<li>Prevent resetting the projection angle and zoom during
+		  optimization</li>
+		<li>Retry the optimization request after 100ms if there are busy child
+		  processes.</li>
+	</ul>
+</li>
+</ul>
+
+</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and
 Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original
@@ -1121,9 +1173,11 @@ condition that did appear a couple of times was xnec2c getting
 blocked in a select() call, waiting for a child to write to a pipe.
 This apparently happened because I was testing a very minimal input
 file and the child processes seemed to write to the pipes before
-the parent process dropped into select(). If this seems to happen,
-do not enable multi-threading (don't use the -j option) for very
-simple jobs.</p>
+the parent process dropped into select(). This was fixed in v4.3 by
+always sending full-length filenames to the job children. If this seems
+to happen, then please send a bug report with as much detail as possible
+to reproduce the problem.
+</p>
 <p>A known inadequacy of xnec2c is the slowness of the animation of
 displayed drawings, e.g. the structure itself, the radiation
 pattern, near fields pattern etc. Specifically, dragging these
