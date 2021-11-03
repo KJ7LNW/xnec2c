@@ -1447,7 +1447,7 @@ _Plot_Frequency_Data( cairo_t *cr )
       titles[0] = _("Raw Gain dbi");
       if( isFlagSet(PLOT_NETGAIN) )
       {
-        titles[1] = _("AA Max Gain & Net Gain vs Frequency");
+        titles[1] = _("Max Gain & Net Gain vs Frequency");
         titles[2] = _("Net Gain dbi");
         if( fstep > 1 )
           Plot_Graph( cr,
@@ -1458,7 +1458,7 @@ _Plot_Frequency_Data( cairo_t *cr )
       }
       else
       {
-        titles[1] = _("BB Max Gain & F/B Ratio vs Frequency");
+        titles[1] = _("Max Gain & F/B Ratio vs Frequency");
         titles[2] = "        ";
         if( fstep > 1 )
           Plot_Graph( cr, gmax, NULL, save.freq, fstep,
@@ -1469,7 +1469,7 @@ _Plot_Frequency_Data( cairo_t *cr )
     {
       /* Plotting frame titles */
       titles[0] = _("Raw Gain dbi");
-      titles[1] = _("CC Max Gain & F/B Ratio vs Frequency");
+      titles[1] = _("Max Gain & F/B Ratio vs Frequency");
       titles[2] = _("F/B Ratio db");
       if( fstep > 1 )
         Plot_Graph( cr, gmax, fbratio, save.freq, fstep,
@@ -1481,7 +1481,7 @@ _Plot_Frequency_Data( cairo_t *cr )
     {
       /* Plotting frame titles */
       titles[0] = _("Rad Angle - deg");
-      titles[1] = _("DD Max Gain Direction vs Frequency");
+      titles[1] = _("Max Gain Direction vs Frequency");
       titles[2] = _("Phi - deg");
       if( fstep > 1 )
         Plot_Graph( cr, gdir_tht, gdir_phi, save.freq, fstep,
