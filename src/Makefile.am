@@ -17,6 +17,7 @@ bin_PROGRAMS = xnec2c
 
 xnec2c_SOURCES = \
     main.c          main.h \
+    mathlib.c       mathlib.h \
     interface.c     interface.h \
     callbacks.c     callbacks.h \
     callback_func.c callback_func.h \
