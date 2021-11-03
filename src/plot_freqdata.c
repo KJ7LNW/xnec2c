@@ -119,7 +119,7 @@ static inline void fr_plot_sync_widths(fr_plot_t *fr_plot)
 			continue;
 
 		for (fr = 0; fr < calc_data.FR_cards; fr++)
-{
+		{
 			current = get_plot_rect(fr_plot->posn, fr);
 			if (current == NULL)
 			{
@@ -356,25 +356,6 @@ static double Fit_to_Scale( double *max, double *min, int *nval )
   int idx;
 
   /* Do nothing in this case */
-  if( *max < *min ) return;
-
-  /* Provide a made-up range if max = min */
-  if( *max == *min )
-  {
-    if( *max == 0.0 )
-    {
-      *max =  1.0;
-      *min = -1.0;
-    }
-    else
-    {
-      *max += fabs( *max ) / 10.0;
-      *min -= fabs( *min ) / 10.0;
-    }
-  }
-
-
-  /* Do nothing in this case */
   if( *max < *min ) return 1;
 
   /* Provide a made-up range if max = min */
@@ -535,7 +516,7 @@ Fit_to_Scale2( double *max1, double *min1,
   /* More likely look for a compromise */
   for( i1 = 0; i1 < 2; i1++ )
     for( i2 = 0; i2 < 2; i2++ )
-{
+    {
       double stretch;
 
       /* Scale prefered subdiv values */
@@ -570,7 +551,7 @@ Fit_to_Scale2( double *max1, double *min1,
           max2sv = max_2; min2sv = min_2;
           max1sv = max_1; min1sv = min_1;
           nvalsv = nval1;
-}
+        }
       }
       else
       {
@@ -635,7 +616,7 @@ Plot_Horizontal_Scale(
 		if (idx == 0) justify = JUSTIFY_LEFT;
 		if (idx == nval-1) justify = JUSTIFY_RIGHT;
 
-    snprintf( value, sizeof(value), (const char *)format, min );
+		snprintf( value, sizeof(value), (const char *)format, min );
 		draw_text(cr, freqplots_drawingarea,
 			x + (idx * width) / (nval-1),
 			y,
@@ -839,9 +820,9 @@ Draw_Graph(
   /* Draw the graph */
   Cairo_Draw_Lines( cr, points, nval );
 
-    /* Plot a small rectangle (left scale) or polygon (right scale) at point */
+  /* Plot a small rectangle (left scale) or polygon (right scale) at point */
   for( idx = 0; idx < nval; idx++ )
-    {
+  {
 	if (idx == min_idx || idx == max_idx)
 		cairo_set_source_rgb( cr, WHITE );
     else
@@ -1078,8 +1059,8 @@ Plot_Graph(
 		if (prev_width_available != width_available ||
 			plot_rect->width > width_available ||
 			plot_rect->width < 0) {
-			plot_rect->width = width_available / calc_data.FR_cards;
-			fr_plot_sync_widths(fr_plot);
+				plot_rect->width = width_available / calc_data.FR_cards;
+				fr_plot_sync_widths(fr_plot);
 		}
 		else if (prev_ngraphs != calc_data.ngraph) {
 			fr_plot_sync_widths(fr_plot);
@@ -1161,7 +1142,7 @@ Plot_Graph(
 			Cairo_Draw_Line(cr,
 				plot_rect->x+freq_x, plot_rect->y,
 				plot_rect->x+freq_x, plot_rect->y+plot_rect->height);
-	}
+		}
 
 		// Next FR card index:
 		x_offset += plot_rect->width + pad_x_between_graphs;
@@ -1190,9 +1171,9 @@ Calculate_Smith( double zr, double zi, double z0, double *re, double *im )
  */
   static void
 Plot_Graph_Smith(
-    cairo_t *cr,
-    double *fa, double *fb, double *fc,
-    int nc, int posn )
+	cairo_t *cr,
+	double *fa, double *fb, double *fc,
+	int nc, int posn )
 {
   int plot_height, plot_y_position;
   int idx;
