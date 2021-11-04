@@ -8,33 +8,61 @@
 <meta name="date" content="2021-10-30T16:54:17-0700" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C simplex EM simulator">
-<meta name="description" content="xnec2c: GTK+-3 based GUI version of nec2c for electromagnetic simulation.">
+<meta name="description" content="Xnec2c is a high-performance multi-threaded electromagnetic simulation package to model antenna near- and far-field radiation patterns for Linux and UNIX operating systems.  The original FORTAN version of NEC2 was ported to C by Neoklis Kyriazis, 5B4AZ and released as nec2c.  Later, he wrote xnec2c a graphical interface for ease of use with many more features.">
 <meta name="ROBOTS" content="INDEX, FOLLOW">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 </head>
 <body>
-<div align="center">
-<h2>Xnec2c User Manual</h2>
-</div>
-<div align="center">
-<h4>Xnec2c is a GTK3-based Graphical version of nec2c, the C
-translation of NEC2</h4>
-</div>
+<img src="images/web-heading.png"/><br/>
+<h1>Xnec2c: Graphical NEC2 Antenna Simulation</h1>
+Xnec2c is a high-performance multi-threaded electromagnetic simulation
+package to model antenna near- and far-field radiation patterns
+for Linux and UNIX operating systems.  The original FORTAN version of
+NEC2 was ported to C by <a target="_blank" href="http://www.5b4az.org/">Neoklis Kyriazis, 5B4AZ</a> and released as nec2c.
+Later he wrote xnec2c, a graphical interface for ease of use with
+many more features:
+
+<h2>Xnec2c Quick Start Guide</h2>
+
+    <ul>
+      <li><tt>git clone https://github.com/KJ7LNW/xnec2c.git</tt></li>
+      <li><tt>cd xnec2c</tt></li>
+      <li><tt>./autogen.sh<br>
+        </tt></li>
+      <li><tt>./configure --prefix=/usr/local/xnec2c-git/</tt></li>
+      <li><tt>make &amp;&amp; make install</tt></li>
+      <li><tt>/usr/local/xnec2c-git/bin/xnec2c</tt></li>
+    </ul>
+
+If you prefer to download .tar.gz files they are available on our
+<a target="_blank" href="https://www.xnec2c.org/releases/?C=M;O=D">releases</a> page.
+
+<h3>Compilation Notes</h3>
+Modify --prefix= to the location that you prefer, or leave it
+default and install into /usr/local/.  You will need the Gnome
+development libraries installed for your distribution.
+
+<h3>Contribute to Xnec2c</h3>
+If you wish
+to contribute to the xnec2c project then we would welcome your
+support and pull-requests at the
+<a target="_blank" href="https://github.com/KJ7LNW/xnec2c.git">official xnec2c GitHub repository</a>
+<br/> <br/>
+
+<h2>User's Manual</h2>
 <ol>
 <li><a href="#Introduction">Introduction</a></li>
 <li><a href="#Features">Features</a>
 <ul>
-<li><a href="#Interactive">Interactive Operation</a></li>
-<li><a href="#NoOutFile">No Output File</a></li>
-<li><a href="#Windows">Windows</a></li>
-<li><a href="#Color">Color Coding</a></li>
+<li><a href="#Multithread">Multi-threaded operation on SMP machines</a></li>
 <li><a href="#OnDemand">On-demand Calculation</a></li>
-<li><a href="#Multithread">Multi-threaded operation on SMP
-machines</a></li>
 <li><a href="#Nec2Edit">Built-in NEC2 input file editor</a></li>
+<li><a href="#Linalg">Accelerated Linear Algebra Support</a></li>
+<li><a href="#Interactive">Interactive Operation</a></li>
+<li><a href="#Windows">User Interface</a></li>
+<li><a href="#Color">Color Coding</a></li>
 </ul>
 </li>
-<li><a href="#Limitations">Limitations</a></li>
 <li><a href="#Compilation">Compilation and Installation</a></li>
 <li><a href="#Operation">Operation</a>
 <ul>
@@ -49,6 +77,7 @@ Window</a></li>
 <li><a href="#InputFile">Input File Considerations</a></li>
 <li><a href="#OutputFile">Output File Considerations</a></li>
 <li><a href="#Version">Version History</a></li>
+<li><a href="#Limitations">Limitations</a></li>
 <li><a href="#Bugs">Bugs and Inadequacies</a></li>
 <li><a href="#Acknowledgement">Acknowledgment</a></li>
 </ol>
@@ -88,9 +117,61 @@ NEC2-compatible input file which can then be re-loaded by xnec2c
 for execution.</p>
 <b><a name="Features" id="Features">2. Features:</a></b><br>
 <ul>
-<li>
-<p><b><a name="Interactive" id="Interactive">Interactive
-Operation:</a></b><br>
+<li> <p><b><a name="Multithread" id="Multithread">Multi-threading
+operation on SMP machines:</a></b><br>
+Since version 1.0, xnec2c can run multi-threaded (by forking) on
+SMP machines, when executing a frequency loop. Multi-threading is
+enabled by using the -j&lt;n&gt; option, where n is the number of
+processors in a SMP machine. xnec2c will spawn n child processes,
+to which it will delegate calculation of frequency-dependent data
+for each frequency step. Thus data related to n frequency steps
+will be calculated concurrently and passed on the the parent
+process by pipes, to be further processed for graphical display.
+Child processes are spawned before GTK is initialized and started
+so that only the parent process is tied to the GUI interface. Thus
+there are n+1 processes running when the -j option is used and
+execution is faster by slightly less than n times. <b>Please
+note</b> that its pointless and counter-productive to specify a
+value of n greater than the number of steps in the frequency
+loop.</p>
+</li>
+<li> <p><b><a name="OnDemand" id="OnDemand">On-demand
+Calculation:</a></b><br>
+Since xnec2c collects data to be displayed in buffers directly from
+the functions that produce them, there is no need to produce and
+parse an output file and no need to re-run the program when certain
+input data (currently the frequency) is changed or when different
+output data (gain, near-fields, input impedance etc) is required.
+The frequency can be changed either from spin buttons in the
+<a href="#MainWindow">Main</a> and <a href=
+"#RadiationWindow">Radiation Pattern</a> windows or by clicking on
+the <a href="#FrequencyWindow">Frequency Data</a> window's graph
+drawing area. The frequency corresponding to the pointer position
+will then be used to re-calculate whatever data is on display.</p>
+</li>
+<li><p><b><a name="Nec2Edit" id="Nec2Edit">Built-in NEC2 input file
+editor:</a></b><br>
+Xnec2c has a built-in editor for NEC2 input files. Data in NEC2
+"cards" can be entered or edited either directly in the main editor
+window (tree view) or in more convenient dedicated editors for each
+type of card. Edited data can be saved to a NEC2 input file and
+reloaded for execution so that the edit-execute-display cycle is
+quicker and more convenient.</p>
+</li>
+<li><p><b><a name="Linalg" id="Linalg">Accelerated Linear Algebra Support</a></b><br>
+Support for accelerated libraries was added in version 4.3.
+Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL
+can speed up xnec2c EM simulations if available on your platform.
+Library detection details are available in the terminal. See
+File-&gt;Math Libraries-&gt;Help for more information. Accelerated operation
+is optional, it will fall back to the original NEC2 algorithms if
+necessary.  Accelerated library support has been tested on Ubuntu
+, Debian, CentOS/RHEL, and VOID Linux.
+Generally speaking, if you can install the requisite libraries,
+it will be detected.  If libraries are not detected on your OS then
+please open a bug report.
+</li>
+<li> <p><b><a name="Interactive" id="Interactive">Interactive Operation:</a></b><br>
 Xnec2c is interactive in its operation, e.g. when started it just
 shows its Main window in a "blank" state, indicating that no valid
 input data has been read in yet. The NEC2-type input file can be
@@ -103,16 +184,7 @@ appear so as to allow proper operation. The NEC2 "commands" in the
 input file are read in but not executed, until a request is issued
 by the user via buttons or menus in the appropriate windows.</p>
 </li>
-<li>
-<p><b><a name="NoOutFile" id="NoOutFile">No Output
-File:</a></b><br>
-Printing of results to an output file has been removed starting
-from version 1.0, since xnec2c works in a way that does not allow
-printing compatible with the NEC2 format. If printing to file is
-needed then it is better to use the original NEC2 program, to avoid
-bugs that may still be lurking in the C translation.</p>
-</li>
-<li><b><a name="Windows" id="Windows">Windows:</a></b><br>
+<li><b><a name="Windows" id="Windows">User Interface:</a></b><br>
 In its current form, xnec2c has three windows for the graphical
 display of output data: When started without an input file
 specified optionally by the -i &lt;input-file&gt; option, the
@@ -130,8 +202,7 @@ the <a href="#RadiationWindow">Radiation Pattern window</a> have
 buttons to select fixed viewing angles of the structure or the
 radiation pattern, as well as spin buttons to input specific
 viewing angles.</li>
-<li>
-<p><b><a name="Color" id="Color">Color Coding:</a></b><br>
+<li> <p><b><a name="Color" id="Color">Color Coding:</a></b><br>
 Xnec2c uses color coding to visualize the Current or Charge
 distribution in the Structure's segments or patches as well as the
 Gain pattern or the Near E/H field pattern. Color coding is also
@@ -139,78 +210,13 @@ used to clarify the Graphs of Frequency-related data. A color code
 strip is shown in the <a href="#MainWindow">Main</a> and <a href=
 "#RadiationWindow">Radiation Pattern</a> windows.</p>
 </li>
-<li>
-<p><b><a name="OnDemand" id="OnDemand">On-demand
-Calculation:</a></b><br>
-Since xnec2c collects data to be displayed in buffers directly from
-the functions that produce them, there is no need to produce and
-parse an output file and no need to re-run the program when certain
-input data (currently the frequency) is changed or when different
-output data (gain, near-fields, input impedance etc) is required.
-The frequency can be changed either from spin buttons in the
-<a href="#MainWindow">Main</a> and <a href=
-"#RadiationWindow">Radiation Pattern</a> windows or by clicking on
-the <a href="#FrequencyWindow">Frequency Data</a> window's graph
-drawing area. The frequency corresponding to the pointer position
-will then be used to re-calculate whatever data is on display.</p>
-</li>
-<li>
-<p><b><a name="Multithread" id="Multithread">Multi-threading
-operation on SMP machines:</a></b><br>
-Since version 1.0, xnec2c can run multi-threaded (by forking) on
-SMP machines, when executing a frequency loop. Multi-threading is
-enabled by using the -j&lt;n&gt; option, where n is the number of
-processors in a SMP machine. xnec2c will spawn n child processes,
-to which it will delegate calculation of frequency-dependent data
-for each frequency step. Thus data related to n frequency steps
-will be calculated concurrently and passed on the the parent
-process by pipes, to be further processed for graphical display.
-Child processes are spawned before GTK is initialized and started
-so that only the parent process is tied to the GUI interface. Thus
-there are n+1 processes running when the -j option is used and
-execution is faster by slightly less than n times. <b>Please
-note</b> that its pointless and counter-productive to specify a
-value of n greater than the number of steps in the frequency
-loop.</p>
-<p><b><a name="Nec2Edit" id="Nec2Edit">Built-in NEC2 input file
-editor:</a></b><br>
-Xnec2c has a built-in editor for NEC2 input files. Data in NEC2
-"cards" can be entered or edited either directly in the main editor
-window (tree view) or in more convenient dedicated editors for each
-type of card. Edited data can be saved to a NEC2 input file and
-reloaded for execution so that the edit-execute-display cycle is
-quicker and more convenient.</p>
-</li>
 </ul>
-<b><a name="Limitations" id="Limitations">3.
-Limitations:</a></b><br>
-<p>Since xnec2c is interactive, it cannot operate in the same way
-as NEC2 or nec2c. Specifically, commands that cause execution in
-NEC2/nec2c (XQ, RP etc), are only read in but not acted upon unless
-the user requests the display of relevant data. For example, if an
-RP command line is included in the input file, xnec2c reads the
-relevant data from that line but does not calculate/render the
-radiation pattern, until the user requests this by opening the
-<a href="#RadiationWindow">Radiation Pattern window</a> and
-clicking on the <b>Gain</b> button. In addition, the NX and WG/GF
-commands are not recognized since only one structure at a time can
-be input and evaluated, and the Numerical Green's function is not
-needed or implemented. Also, some options of certain commands (e.g.
-the surface wave option I1=1 of the RP command) are not implemented
-and they must not be used since they will disrupt or even crash
-xnec2c.</p>
-<p>There are advantages deriving from the interactive operation: it
-is possible, for example, to specify both the NE and NH commands in
-combination with a multiple-frequency FR card, although only the
-relevant data of the last command will be used.</p>
-<p><b><a name="Compilation" id="Compilation">4. Compilation and
+<p><b><a name="Compilation" id="Compilation">3. Compilation and
 Installation:</a></b><br>
-Please note that I use <a href="http://www.voidlinux.eu">Void Linux
-AMD64</a> which is a "bleeding edge" type distribution, so there
-may be compilation and/or run time difficulties if you are using a
-relatively old distro. This is mostly true of the basic
-dependencies like GTK+-3, and there can also be sound card
-incompatibility problems at run time.</p>
+Xnec2c is known to build on many different platforms including Linux
+and by using <a href="https://www.freshports.org/comms/xnec2c/">FreeBSD FRESH ports</a>.
+If you have trouble building on your OS then please open a bug report.
+</p>
 <p>To compile the package, it may be preferable to first run the
 included "autogen.sh" script in the package's top directory, to
 produce a fresh build environment. Then the "configure" script can
@@ -230,7 +236,7 @@ that were used during development are in the xnec2c/examples
 directory. Please also read the <b>xnec2c/doc/nec2c.txt</b> file
 that describes the nec2c application that is used as the basis for
 xnec2c.</p>
-<b><a name="Operation" id="Operation">5. Operation:</a></b><br>
+<b><a name="Operation" id="Operation">4. Operation:</a></b><br>
 <p><a name="CommandLine" id="CommandLine"><b>Command Line
 Options:</b></a><br>
 Xnec2c has the following command line options:<br></p>
@@ -245,7 +251,10 @@ so that the total number of processes running will be n+1. n should
 be equal to the number of processors in a SMP machine. <b>Please
 note</b> that its pointless and counter-productive to specify a
 value of n greater than the number of steps in the frequency
-loop.<br></p>
+loop, or greater than the number of logical CPUs on your system.
+tarting in version 4.3, xnec2c always forks at least one job
+for better UI responsiveness.  If you wish to disable forking for
+debug or testing then specify -j0.<br></p>
 <p><b>-h:</b> Print usage information and exit.<br></p>
 <p><b>-v:</b> Print version information and exit.</p>
 <p><b><a name="MainWindow" id="MainWindow">The Main
@@ -668,7 +677,7 @@ printed to the output file but please remember that xnec2c does not
 produce an output file. The buttons in the bottom row of the
 Command Editors function in the same way as the Wire editor
 described above.</p>
-<p><b><a name="InputFile" id="InputFile">6. Input File
+<p><b><a name="InputFile" id="InputFile">5. Input File
 Considerations:</a></b><br>
 Since xnec2c is interactive, it will not initiate calculations
 without a prompt from the user. For this reason certain NEC2
@@ -704,14 +713,14 @@ card.<br>
 <b>Zo:</b> As of version 3.7-beta, this is a new "card" addition to
 the input file, which I have incorporated to allow the Transmission
 Line Zo to be specified in the NEC2 antenna description file.
-<p><b><a name="OutputFile" id="OutputFile">7. Output File
+<p><b><a name="OutputFile" id="OutputFile">6. Output File
 Considerations:</a></b><br>
 Printing of results to an output file has been removed starting
 from version 1.0, since xnec2c works in a way that does not allow
 printing compatible with the NEC2 format. If printing to file is
 needed then it is better to use the original NEC2 program, to avoid
 bugs that may still be lurking in the C translation.</p>
-<p><b><a name="Version" id="Version">8. Version
+<p><b><a name="Version" id="Version">7. Version
 History:</a></b></p>
 <p><b>Version 0.1:</b> First version with ability to draw a
 color-coded wire frame Radiation Pattern (Near and Far Field),
@@ -1153,6 +1162,31 @@ avoided.</p>
 </ul>
 
 </p>
+<b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
+<p>Since xnec2c is interactive, it cannot operate in the same way
+as NEC2 or nec2c. Specifically, commands that cause execution in
+NEC2/nec2c (XQ, RP etc), are only read in but not acted upon unless
+the user requests the display of relevant data. For example, if an
+RP command line is included in the input file, xnec2c reads the
+relevant data from that line but does not calculate/render the
+radiation pattern, until the user requests this by opening the
+<a href="#RadiationWindow">Radiation Pattern window</a> and
+clicking on the <b>Gain</b> button. In addition, the NX and WG/GF
+commands are not recognized since only one structure at a time can
+be input and evaluated, and the Numerical Green's function is not
+needed or implemented. Also, some options of certain commands (e.g.
+the surface wave option I1=1 of the RP command) are not implemented
+and they must not be used since they will disrupt or even crash
+xnec2c.</p>
+<p>There are advantages deriving from the interactive operation: it
+is possible, for example, to specify both the NE and NH commands in
+combination with a multiple-frequency FR card, although only the
+relevant data of the last command will be used.</p>
+<p><a name="NoOutFile" id="NoOutFile">No Output File:</a>
+Printing of results to an output file has been removed starting
+from version 1.0, since xnec2c works in a way that does not allow
+printing compatible with the original NEC2 output format. If printing to file is
+needed then it is better to use the original NEC2 program.</p>
 <p><b><a name="Bugs" id="Bugs">9. Bugs and
 Inadequacies:</a></b><br>
 Xnec2c is based on nec2c, my translation to C of the original
