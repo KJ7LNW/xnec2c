@@ -5,7 +5,7 @@
 <meta name="generator" content="Bluefish 2.2.12" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
-<meta name="date" content="2021-11-20T17:02:35-0700" >
+<meta name="date" content="2021-11-20T23:48:35-0700" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C simplex EM simulator">
 <meta name="description" content="Xnec2c is a high-performance multi-threaded electromagnetic simulation package to model antenna near- and far-field radiation patterns for Linux and UNIX operating systems.  The original FORTAN version of NEC2 was ported to C by Neoklis Kyriazis, 5B4AZ and released as nec2c.  Later, he wrote xnec2c a graphical interface for ease of use with many more features.">
@@ -1175,6 +1175,10 @@ entire VSWR curve no matter how big VSWR is, then see Frequency Plots-&gt;View-&
 <li>Fixed deadlock while optimizing when inotify recieves a .nec change before xnec2c
 is done writing the .nec.csv file.</li>
 </ul>
+</p>
+<p><b>Version 4.3.2:</b> Additional optimizer trigger and inotify cleanup.  Also xnec2c writes
+the .csv file as soon as the checkbox is selected to trigger any external optimizers waiting for
+the .csv to be modified.
 </p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
