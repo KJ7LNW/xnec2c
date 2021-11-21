@@ -9756,6 +9756,24 @@ Save NEC2 Editor data first?
                             <signal name="activate" handler="on_freqplots_min_max_activate" swapped="no"/>
                           </object>
                         </child>
+                        <child>
+                          <object class="GtkCheckMenuItem" id="freqplots_s11">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Show _S11 (dB) Values</property>
+                            <property name="use-underline">True</property>
+                            <signal name="activate" handler="on_freqplots_s11_activate" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckMenuItem" id="freqplots_clamp_vswr">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Clamp _VSWR Graph to 10</property>
+                            <property name="use-underline">True</property>
+                            <signal name="activate" handler="on_freqplots_clamp_vswr_activate" swapped="no"/>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>

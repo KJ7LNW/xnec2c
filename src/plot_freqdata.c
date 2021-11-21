@@ -1444,11 +1444,11 @@ _Plot_Frequency_Data( cairo_t *cr )
     if( no_fbr || isFlagSet(PLOT_NETGAIN) )
     {
       /* Plotting frame titles */
-      titles[0] = _("Raw Gain dbi");
+      titles[0] = _("Raw Gain dBi");
       if( isFlagSet(PLOT_NETGAIN) )
       {
         titles[1] = _("Max Gain & Net Gain vs Frequency");
-        titles[2] = _("Net Gain dbi");
+        titles[2] = _("Net Gain dBi");
         if( fstep > 1 )
           Plot_Graph( cr,
 			  gmax, netgain,
@@ -1468,9 +1468,9 @@ _Plot_Frequency_Data( cairo_t *cr )
     else
     {
       /* Plotting frame titles */
-      titles[0] = _("Raw Gain dbi");
+      titles[0] = _("Raw Gain dBi");
       titles[1] = _("Max Gain & F/B Ratio vs Frequency");
-      titles[2] = _("F/B Ratio db");
+      titles[2] = _("F/B Ratio dB");
       if( fstep > 1 )
         Plot_Graph( cr, gmax, fbratio, save.freq, fstep,
             titles, posn++ );
@@ -1494,7 +1494,7 @@ _Plot_Frequency_Data( cairo_t *cr )
   if( isFlagSet(PLOT_GVIEWER) && isFlagSet(ENABLE_RDPAT) )
   {
     /* Plotting frame titles */
-    titles[0] = _("Raw Gain dbi");
+    titles[0] = _("Raw Gain dBi");
     titles[1] = _("Gain in Viewer Direction vs Frequency");
 
     /* Allocate viewer gain buffer */
@@ -1521,7 +1521,7 @@ _Plot_Frequency_Data( cairo_t *cr )
       }
 
       /* Plot net gain if selected */
-      titles[2] = _("Net gain dbi");
+      titles[2] = _("Net gain dBi");
       if( fstep > 1 )
         Plot_Graph( cr, vgain, netgain, save.freq, fstep,
             titles, posn++ );
@@ -1538,22 +1538,36 @@ _Plot_Frequency_Data( cairo_t *cr )
   /* Plot VSWR vs freq */
   if( isFlagSet(PLOT_VSWR) )
   {
-    double *vswr = NULL, gamma;
+    double *vswr = NULL, *s11 = NULL, gamma;
     double zrpro2, zrmro2, zimag2;
 
     /* Plotting frame titles */
     titles[0] = _("VSWR");
-    titles[1] = _("VSWR vs Frequency");
+    if (rc_config.freqplots_s11)
+    {
+        titles[1] = _("VSWR & S11 vs Frequency");
+        titles[2] = _("S11 dB");
+    }
+    else
+    {
+        titles[1] = _("VSWR vs Frequency");
+        titles[2] = "";
+    }
+
 
     /* Calculate VSWR */
     mem_alloc( (void **) &vswr, (size_t)calc_data.steps_total * sizeof(double),
         "in Plot_Frequency_Data()" );
-    if( vswr == NULL )
+
+    mem_alloc( (void **) &s11, (size_t)calc_data.steps_total * sizeof(double),
+        "in Plot_Frequency_Data()" );
+
+    if( vswr == NULL || s11 == NULL)
     {
       fprintf( stderr, _("xnec2c: Plot_Frequency_Data():"
-          "memory allocation for vswr failed\n") );
+          "memory allocation for vswr/s11 failed\n") );
       Stop( _("Plot_Frequency_Data():"
-            "Memory allocation for vswr failed"), ERR_OK );
+            "Memory allocation for vswr/s11 failed"), ERR_OK );
       return;
     }
 
@@ -1565,16 +1579,22 @@ _Plot_Frequency_Data( cairo_t *cr )
       zrmro2 *= zrmro2;
       zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
       gamma = sqrt( (zrmro2 + zimag2) / (zrpro2 + zimag2) );
+      
       vswr[idx] = (1.0 + gamma) / (1.0 - gamma);
-      if( vswr[idx] > 10.0 ) vswr[idx] = 10.0;
+      
+      if (rc_config.freqplots_s11)
+          s11[idx] = 20*log10( gamma );
+
+      if (rc_config.freqplots_clamp_vswr && vswr[idx] > 10.0 )
+          vswr[idx] = 10.0;
     }
 
-    titles[2] = "        ";
     if( fstep > 1 )
-      Plot_Graph( cr, vswr, NULL, save.freq, fstep,
+      Plot_Graph( cr, vswr, (rc_config.freqplots_s11 ? s11 : NULL), save.freq, fstep,
           titles, posn++ );
 
     free_ptr( (void **)&vswr );
+    free_ptr( (void **)&s11);
   } /* if( isFlagSet(PLOT_VSWR) ) */
 
   /* Plot z-real and z-imag */

@@ -156,6 +156,11 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Selected fmhz_save Frequency", .format = "%lf",
 		.vars = { &calc_data.fmhz_save } },
 
+	{ .desc = "Frequency Plots Show S11 checkbutton state", .format = "%d",
+		.vars = { &rc_config.freqplots_s11 } },
+
+	{ .desc = "Frequency Plots Show Clamp VSWR checkbutton state", .format = "%d",
+		.vars = { &rc_config.freqplots_clamp_vswr } },
 };
 
 
@@ -366,6 +371,8 @@ Create_Default_Config( void )
   rc_config.freqplots_smith_togglebutton   = 0;
   rc_config.freqplots_net_gain = 0;
   rc_config.freqplots_min_max = 0;
+  rc_config.freqplots_s11 = 0;
+  rc_config.freqplots_clamp_vswr = 1;
 
   /* For NEC2 editor window */
   rc_config.nec2_edit_width  = 0;

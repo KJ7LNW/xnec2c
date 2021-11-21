@@ -501,6 +501,20 @@ on_main_freqplots_activate(
         gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(widget), TRUE );
       }
 
+      if( rc_config.freqplots_s11 )
+      {
+        widget = Builder_Get_Object(
+            freqplots_window_builder, "freqplots_s11" );
+        gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(widget), TRUE );
+      }
+
+      if( rc_config.freqplots_clamp_vswr )
+      {
+        widget = Builder_Get_Object(
+            freqplots_window_builder, "freqplots_clamp_vswr" );
+        gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(widget), TRUE );
+      }
+
       if( isFlagClear(INPUT_OPENED) )
       {
         GtkWidget *box =
@@ -4407,6 +4421,44 @@ on_freqplots_min_max_activate(
     rc_config.freqplots_min_max = 1;
   else
     rc_config.freqplots_min_max = 0;
+
+  /* Trigger a redraw of frequency plots drawingarea */
+  if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
+  {
+    xnec2_widget_queue_draw( freqplots_drawingarea );
+  }
+}
+
+  void
+on_freqplots_s11_activate(
+    GtkMenuItem     *menuitem,
+    gpointer         user_data)
+{
+
+  // No room for PLOT_ flags, so using rc_config:
+  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
+    rc_config.freqplots_s11 = 1;
+  else
+    rc_config.freqplots_s11 = 0;
+
+  /* Trigger a redraw of frequency plots drawingarea */
+  if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
+  {
+    xnec2_widget_queue_draw( freqplots_drawingarea );
+  }
+}
+
+  void
+on_freqplots_clamp_vswr_activate(
+    GtkMenuItem     *menuitem,
+    gpointer         user_data)
+{
+
+  // No room for PLOT_ flags, so using rc_config:
+  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
+    rc_config.freqplots_clamp_vswr = 1;
+  else
+    rc_config.freqplots_clamp_vswr = 0;
 
   /* Trigger a redraw of frequency plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
