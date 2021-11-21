@@ -229,12 +229,6 @@ Optimizer_Output( void *arg )
         /* Read input file and re-process */
         if( event->mask & IN_CLOSE_WRITE )
         {
-          /* No save/open file while freq loop is running */
-          if( !Nec2_Save_Warn(
-                _("NEC2 input file may not be saved\n"
-                  "while the Frequency Loop is running")) )
-            continue;
-
           gboolean flag = FALSE;
 
 		  // Prevent queuing a file change while locked:

@@ -339,6 +339,14 @@ Open_Input_File( gpointer arg )
   gboolean ok, new;
   GtkWidget *widget;
 
+  /* Suppress activity while input file opened.  Set this before calling
+   * Stop_Frequency_Loop() so the Frequency_Loop_Thread() knows not to 
+   * make any synchronous GTK calls which would hang waiting for
+   * this Open_Input_File() to return, but Open_Input_File() would be
+   * waiting for Stop_Frequency_Loop() and deadlock. */
+  ClearFlag( OPEN_INPUT_FLAGS );
+  SetFlag( INPUT_PENDING );
+
   /* Stop freq loop */
   if( isFlagSet(FREQ_LOOP_RUNNING) )
     Stop_Frequency_Loop();
@@ -346,9 +354,6 @@ Open_Input_File( gpointer arg )
   /* Close open files if any */
   Close_File( &input_fp );
 
-  /* Suppress activity while input file opened */
-  ClearFlag( OPEN_INPUT_FLAGS );
-  SetFlag( INPUT_PENDING );
   calc_data.freq_step = -1; //FIXME
 
   /* Open NEC2 input file */

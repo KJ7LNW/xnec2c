@@ -827,10 +827,22 @@ void *Frequency_Loop_Thread(void *p)
 	SetFlag(DRAW_NEW_RDPAT);
 
 	/*
+		Prevent deadlock waiting for Stop_Frequency_Loop()=>pthread_join()
+		in Open_Input_File() triggered by Optimizer_Output() because
+		g_idle_add_once_sync won't allow this Frequency_Loop_Thread()
+		thread to exit until Open_Input_File() returns for GTK to make
+		progress, but Open_Input_File() is waiting for pthread_join()
+		to return when this thread exits.
+	*/
+	if ( isFlagSet(INPUT_PENDING) )
+		return NULL;
+
+	/*
 	   Re-draw drawing areas at end of loop 
 	 */
 	if (isFlagSet(PLOT_ENABLED))
 		g_idle_add_once_sync((GSourceFunc) gtk_widget_queue_draw, freqplots_drawingarea);
+
 	if (isFlagSet(DRAW_ENABLED))
 	{
 		g_idle_add_once_sync((GSourceFunc) update_freq_mhz_spin_button_value, rdpattern_frequency);
