@@ -23,7 +23,7 @@
 /* Writes out frequency-dependent
  * data for the external Optimizer */
   void
-Write_Optimizer_Data( void )
+_Write_Optimizer_Data( void )
 {
   char csv_file[FILENAME_LEN];
   size_t s = sizeof( csv_file );
@@ -137,6 +137,13 @@ Write_Optimizer_Data( void )
   fclose( fp );
 } // Write_Optimizer_Data()
 
+void Write_Optimizer_Data( void )
+{
+	g_mutex_lock(&freq_data_lock);
+	_Write_Optimizer_Data();
+	g_mutex_unlock(&freq_data_lock);
+}
+
 /*------------------------------------------------------------------------*/
 
 // Watches the NEC2 (.nec) input file for a save using the
@@ -210,19 +217,17 @@ Optimizer_Output( void *arg )
 		if ( isFlagSet(FREQ_LOOP_RUNNING | FREQ_LOOP_INIT | INPUT_PENDING)|| isFlagClear(FREQ_LOOP_DONE))
 			continue;
 
-		do {
-			num_busy_procs = 0;
-			for (job_num = 0; job_num < calc_data.num_jobs; job_num++)
-				if (forked_proc_data != NULL && forked_proc_data[job_num] != NULL && forked_proc_data[job_num]->busy) 
-					num_busy_procs++;
+		num_busy_procs = 0;
+		for (job_num = 0; job_num < calc_data.num_jobs; job_num++)
+			if (forked_proc_data != NULL && forked_proc_data[job_num] != NULL && forked_proc_data[job_num]->busy) 
+				num_busy_procs++;
 
-			if (num_busy_procs)
-			{
-				printf("warning: %d child jobs are running, skipping optimization\n", num_busy_procs);
-				continue;
-			}
+		if (num_busy_procs)
+		{
+			printf("warning: %d child jobs are running, skipping optimization\n", num_busy_procs);
 			usleep(100000);
-		} while (num_busy_procs);
+			continue;
+		}
 
         event = (const struct inotify_event *) buf;
 

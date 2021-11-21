@@ -242,6 +242,9 @@ on_optimizer_output_toggled(
     // Enable frequency data output to Optimizer's file
     SetFlag( OPTIMIZER_OUTPUT );
 
+    // Do an initial write in case the optimizer is waiting for the .csv:
+    Write_Optimizer_Data();
+
     // Create a thread to play back demodulation buffer
     pthread_t thrd;
     int ret = pthread_create( &thrd, NULL, Optimizer_Output, NULL );

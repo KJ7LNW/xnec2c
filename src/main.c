@@ -354,13 +354,13 @@ Open_Input_File( gpointer arg )
   /* Close open files if any */
   Close_File( &input_fp );
 
-  calc_data.freq_step = -1; //FIXME
 
   /* Open NEC2 input file */
   if( strlen(rc_config.input_file) == 0 )
     return( FALSE );
 
   g_mutex_lock(&freq_data_lock);
+  calc_data.freq_step = -1;
   calc_data.FR_cards    = 0;
   calc_data.FR_index    = 0;
   calc_data.steps_total = 0;
