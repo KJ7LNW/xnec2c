@@ -5,7 +5,7 @@
 <meta name="generator" content="Bluefish 2.2.12" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
-<meta name="date" content="2021-10-30T16:54:17-0700" >
+<meta name="date" content="2021-11-20T17:02:35-0700" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C simplex EM simulator">
 <meta name="description" content="Xnec2c is a high-performance multi-threaded electromagnetic simulation package to model antenna near- and far-field radiation patterns for Linux and UNIX operating systems.  The original FORTAN version of NEC2 was ported to C by Neoklis Kyriazis, 5B4AZ and released as nec2c.  Later, he wrote xnec2c a graphical interface for ease of use with many more features.">
@@ -518,8 +518,10 @@ impedance.<br>
 <b>Zm/Zph (p):</b> The scalar magnitude and phase of the input
 impedance.<br>
 <b>The View-&gt;Net Gain</b> menu item changes the second plotted
-quantity to the Net Gain of the array. This was added after a
-feature request for xnec2c.</p>
+quantity to the Net Gain of the array. Net Gain is the effective
+gain after subtracting the effects of reflection caused by 
+impedance mismatch (return loss); Net Gain is equal to Raw Gain
+when VSWR&asymp;1.0 (S11&asymp;0.0).</p>
 <p>The Frequency Loop control buttons at the top right can be use
 to Start, Pause or Reset the loop. As the loop progresses, more
 data will be presented in the graphs and in the text entry widgets
@@ -1160,7 +1162,19 @@ avoided.</p>
 	</ul>
 </li>
 </ul>
-
+</p>
+<p><b>Version 4.3.1:</b> 
+<ul>
+<li>Added an option to show S11 (dB) (negative return loss) as a plot next to VSWR. See
+Frequency Plots-&gt;View-&gt;Show S11
+</li>
+<li>Added an option to clamp VSWR to a max of 10 for graphing purposes.  In the past
+xnec2c has always clamped to 10 so this option defaults enabled.  If you want to see the
+entire VSWR curve no matter how big VSWR is, then see Frequency Plots-&gt;View-&gt;Clamp VSWR to 10.
+</li>
+<li>Fixed deadlock while optimizing when inotify recieves a .nec change before xnec2c
+is done writing the .nec.csv file.</li>
+</ul>
 </p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
