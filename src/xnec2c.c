@@ -396,7 +396,9 @@ New_Frequency( void )
 
   save.last_freq = calc_data.freq_mhz;
 
-  clock_gettime(CLOCK_MONOTONIC, &start);
+  // Only show this if you manually change frequencies:
+  if (isFlagClear( FREQ_LOOP_RUNNING ))
+	clock_gettime(CLOCK_MONOTONIC, &start);
 
   /* Frequency scaling of geometric parameters */
   Frequency_Scale_Geometry();
@@ -429,16 +431,22 @@ New_Frequency( void )
 
   g_mutex_unlock(&freq_data_lock);
 
-  clock_gettime(CLOCK_MONOTONIC, &end);
 
-  elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
 
-  printf("New_Frequency[%d]: %s: total time at %.2f MHz: %f seconds\n",
-  		getpid(),
-		current_mathlib->name,
-        calc_data.freq_mhz,
-		elapsed
-	);
+  // Only show this if you manually change frequencies:
+  if (isFlagClear( FREQ_LOOP_RUNNING ))
+  {
+	// Calculate elapsed time
+	clock_gettime(CLOCK_MONOTONIC, &end);
+
+	elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
+	printf("New_Frequency[%d]: %s: total time at %.2f MHz: %f seconds\n",
+		  getpid(),
+		  current_mathlib->name,
+		  calc_data.freq_mhz,
+		  elapsed
+	  );
+  }
 
 } /* New_Frequency()  */
 
@@ -730,27 +738,27 @@ Frequency_Loop( gpointer udata )
   SetFlag( FREQ_LOOP_READY );
   if (retval || num_busy_procs)
   {
-  /* Trigger a redraw of open drawingareas */
-  /* Plot frequency-dependent data */
-  if( isFlagSet(PLOT_ENABLED) )
-  {
-    /* Display current frequency in plots entry */
-		g_idle_add_once((GSourceFunc)update_freqplots_fmhz_entry, NULL);
+	/* Trigger a redraw of open drawingareas */
+	/* Plot frequency-dependent data */
+	if( isFlagSet(PLOT_ENABLED) )
+	{
+	  /* Display current frequency in plots entry */
+	  g_idle_add_once((GSourceFunc)update_freqplots_fmhz_entry, NULL);
 
-    if( isFlagClear(OPTIMIZER_OUTPUT) || freqplots_click_pending())
-    {
-      xnec2_widget_queue_draw( freqplots_drawingarea );
-    }
-  }
+	  if( isFlagClear(OPTIMIZER_OUTPUT) || freqplots_click_pending())
+	  {
+		xnec2_widget_queue_draw( freqplots_drawingarea );
+	  }
+	}
 
-  /* Set main window frequency spinbutton */
-	  g_idle_add_once((GSourceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
+	/* Set main window frequency spinbutton */
+	g_idle_add_once((GSourceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
 
-  /* Set Radiation pattern window frequency spinbutton */
-  if( isFlagSet(DRAW_ENABLED) )
-		g_idle_add_once((GSourceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
+	/* Set Radiation pattern window frequency spinbutton */
+	if( isFlagSet(DRAW_ENABLED) )
+		  g_idle_add_once((GSourceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
 
-  xnec2_widget_queue_draw( structure_drawingarea );
+	xnec2_widget_queue_draw( structure_drawingarea );
   }
 
   /* Change flags at exit if loop is done */
