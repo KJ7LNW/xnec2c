@@ -130,17 +130,9 @@ void Write_Optimizer_Data( void )
 
 /*------------------------------------------------------------------------*/
 
-// Watches the NEC2 (.nec) input file for a save using the
-// inotify system and re-reads the input file for re-processing
-  void *
-Optimizer_Output( void *arg )
+int inotify_open(struct pollfd *pfd)
 {
-  int fd, poll_num;
-  int wd, job_num, num_busy_procs;
-  struct pollfd pfd;
-  char buf[256] __attribute__ ((aligned(__alignof__(struct inotify_event))));
-  const struct inotify_event *event;
-  ssize_t len;
+  int wd, fd;
 
   /* Create the file descriptor for accessing the inotify API. */
   fd = inotify_init1( IN_NONBLOCK );
@@ -159,12 +151,40 @@ Optimizer_Output( void *arg )
     exit( -1 );
   }
 
-  pfd.fd     = fd;     /* Inotify input */
-  pfd.events = POLLIN;
+  pfd->fd     = fd;     /* Inotify input */
+  pfd->events = POLLIN;
+
+  return fd;
+}
+
+// Watches the NEC2 (.nec) input file for a save using the
+// inotify system and re-reads the input file for re-processing
+  void *
+Optimizer_Output( void *arg )
+{
+  int fd = -1, poll_num;
+  int job_num, num_busy_procs;
+  struct pollfd pfd;
+  char buf[256] __attribute__ ((aligned(__alignof__(struct inotify_event))));
+  const struct inotify_event *event;
+  ssize_t len;
+
+  char prev_input_file[sizeof(rc_config.input_file)] = {0};
 
   /* Wait for watch events */
   while( TRUE )
   {
+	// Re-open the inotify handle if the filename changes.  This works
+	// for the first iteration too because prev_input_file is empty:
+	if (strcmp(prev_input_file, rc_config.input_file))
+	{
+	  if (fd > 0)
+		close(fd);
+
+	  fd = inotify_open(&pfd);
+	  strncpy(prev_input_file, rc_config.input_file, sizeof(rc_config.input_file));
+	}
+
     // Exit thread if optimizer output has been cancelled
     if( isFlagClear(OPTIMIZER_OUTPUT) ||
         isFlagClear(PLOT_ENABLED) )
