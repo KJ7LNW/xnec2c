@@ -5,7 +5,7 @@
 <meta name="generator" content="Bluefish 2.2.12" >
 <title>Xnec2c User Manual</title>
 <meta name="author" content="Neoklis" >
-<meta name="date" content="2021-11-20T23:48:35-0700" >
+<meta name="date" content="2021-11-27T21:57:19-0700" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C simplex EM simulator">
 <meta name="description" content="Xnec2c is a high-performance multi-threaded electromagnetic simulation package to model antenna near- and far-field radiation patterns for Linux and UNIX operating systems.  The original FORTAN version of NEC2 was ported to C by Neoklis Kyriazis, 5B4AZ and released as nec2c.  Later, he wrote xnec2c a graphical interface for ease of use with many more features.">
@@ -1179,6 +1179,10 @@ is done writing the .nec.csv file.</li>
 <p><b>Version 4.3.2:</b> Additional optimizer trigger and inotify cleanup.  Also xnec2c writes
 the .csv file as soon as the checkbox is selected to trigger any external optimizers waiting for
 the .csv to be modified.
+</p>
+<p><b>Version 4.3.3:</b>
+A few optimizer cleanups and bug fixes including updating CSV format to
+remove extra whitespace and increase precision of the NEC2 data.  See git log for details.
 </p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
