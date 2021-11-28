@@ -63,7 +63,7 @@ _Write_Optimizer_Data( void )
   fprintf( fp, "%s,%s,", "Gain-max", "F/B Ratio" );
   fprintf( fp, "%s,%s,", "Direct-tht", "Direct-phi" );
   fprintf( fp, "%s,", "Gain-viewer" );
-  fprintf( fp, "%s,", "Gain-net" );
+  fprintf( fp, "%s", "Gain-net" );
   fprintf( fp, "\n" );
 
   /* Print frequency-dependent data corresponding
@@ -71,14 +71,14 @@ _Write_Optimizer_Data( void )
   for( int idx = 0; idx < calc_data.steps_total; idx++ )
   {
     /* Print the frequency in MHz */
-    fprintf( fp, "%10.17g,", (double)save.freq[idx] );
+    fprintf( fp, "%.17g,", (double)save.freq[idx] );
 
     /* Print Z-real and Z-imag of input impedance */
-	fprintf( fp, "%10.17g,%10.17g,",
+	fprintf( fp, "%.17g,%.17g,",
 		impedance_data.zreal[idx], impedance_data.zimag[idx] );
 
     /* Plot Z-magnitude and Z-phase */
-	fprintf( fp, "%10.17g,%10.17g,",
+	fprintf( fp, "%.17g,%.17g,",
 		impedance_data.zmagn[idx], impedance_data.zphase[idx] );
 
     /* Print VSWR */
@@ -90,21 +90,21 @@ _Write_Optimizer_Data( void )
 	double gamma = sqrt( (zrmro2 + zimag2) / (zrpro2 + zimag2) );
 	double vswr = (1 + gamma) / (1 - gamma);
 	double s11 = 20*log10( gamma );
-	fprintf( fp, "%10.17g,%10.17g,", vswr, s11);
+	fprintf( fp, "%.17g,%.17g,", vswr, s11);
 
     /* Print Max gain for given polarization type and direction if enabled */
 	pol = calc_data.pol_type;
 	mgidx = rad_pattern[idx].max_gain_idx[pol];
 	max_gain = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
-	fprintf( fp, "%10.17g,%10.17g,", max_gain, rad_pattern[idx].fbratio );
+	fprintf( fp, "%.17g,%.17g,", max_gain, rad_pattern[idx].fbratio );
 
-	fprintf( fp, "%10.17g,%10.17g,",
+	fprintf( fp, "%.17g,%.17g,",
 		90.0 - rad_pattern[idx].max_gain_tht[pol],
 		rad_pattern[idx].max_gain_phi[pol] );
 
     /* Print gain in viewer's direction */
 	double viewer_gain = Viewer_Gain( structure_proj_params, idx );
-	fprintf( fp, "%10.17g,", viewer_gain );
+	fprintf( fp, "%.17g,", viewer_gain );
 
     /* Print Net gain in max gain case */
 	pol = calc_data.pol_type;
@@ -115,7 +115,7 @@ _Write_Optimizer_Data( void )
 	double Zo = calc_data.zo;
 	double net_gain = max_gain +
 	  10.0 * log10( 4.0 * Zr * Zo / (pow(Zr + Zo, 2.0) + pow( Zi, 2.0 )) );
-	fprintf( fp, "%10.17g,", net_gain );
+	fprintf( fp, "%.17g", net_gain );
 
     fprintf( fp, "\n" );
   } //for( int idx = 0; idx < calc_data.steps_total; idx++ )
