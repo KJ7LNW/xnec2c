@@ -263,6 +263,8 @@ Draw_Radiation_Pattern( cairo_t *cr )
   /*** Draw rad pattern on screen ***/
   /* Draw segments along theta direction */
   col_idx = pts_idx = 0;
+
+//  printf("==== points start\n");
   for( nph = 0; nph < fpat.nph; nph++ )
   {
     for( nth = 1; nth < fpat.nth; nth++ )
@@ -277,6 +279,17 @@ Draw_Radiation_Pattern( cairo_t *cr )
           point_3d[pts_idx+1].x,
           point_3d[pts_idx+1].y,
           point_3d[pts_idx+1].z );
+
+/*
+	  printf(
+		  "{ { %f, %f, %f }, { %f, %f, %f } }, // theta a\n"
+		  "{ { %f, %f, %f }, { %f, %f, %f } }, // theta b\n",
+		  	point_3d[pts_idx].x, point_3d[pts_idx].y, point_3d[pts_idx].z, 
+				red[col_idx], grn[col_idx], blu[col_idx],
+		  	point_3d[pts_idx+1].x, point_3d[pts_idx+1].y, point_3d[pts_idx+1].z, 
+				red[col_idx], grn[col_idx], blu[col_idx]);
+*/
+	  	
       pts_idx++;
 
       /* Draw segment */
@@ -305,6 +318,16 @@ Draw_Radiation_Pattern( cairo_t *cr )
           point_3d[pts_idx+fpat.nth].x,
           point_3d[pts_idx+fpat.nth].y,
           point_3d[pts_idx+fpat.nth].z );
+/*
+	  printf(
+		  "{ { %f, %f, %f }, { %f, %f, %f } }, // phi a\n"
+		  "{ { %f, %f, %f }, { %f, %f, %f } }, // phi b\n",
+		  	point_3d[pts_idx].x, point_3d[pts_idx].y, point_3d[pts_idx].z, 
+				red[col_idx], grn[col_idx], blu[col_idx],
+		  	point_3d[pts_idx+fpat.nth].x, point_3d[pts_idx+fpat.nth].y, point_3d[pts_idx+fpat.nth].z, 
+				red[col_idx], grn[col_idx], blu[col_idx]);
+*/
+
 
       /* Draw segment */
       cairo_set_source_rgb( cr, red[col_idx], grn[col_idx], blu[col_idx] );
