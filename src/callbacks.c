@@ -627,7 +627,7 @@ on_main_x_axis_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  /* Recalculate projection paramenters */
+  /* Recalculate projection parameters */
   New_Viewer_Angle( 0.0, 0.0, rotate_structure,
       incline_structure, &structure_proj_params );
   if( isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_PROJECTION) )
@@ -641,7 +641,7 @@ on_main_y_axis_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  /* Recalculate projection paramenters */
+  /* Recalculate projection parameters */
   New_Viewer_Angle( 90.0, 0.0, rotate_structure,
       incline_structure, &structure_proj_params );
   if( isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_PROJECTION) )
@@ -655,7 +655,7 @@ on_main_z_axis_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  /* Recalculate projection paramenters */
+  /* Recalculate projection parameters */
   New_Viewer_Angle( 0.0, 90.0, rotate_structure,
       incline_structure, &structure_proj_params );
   if( isFlagSet(DRAW_ENABLED) && isFlagSet(COMMON_PROJECTION) )
@@ -1353,7 +1353,7 @@ on_rdpattern_x_axis_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  /* Recalculate projection paramenters */
+  /* Recalculate projection parameters */
   New_Viewer_Angle( 0.0, 0.0, rotate_rdpattern,
       incline_rdpattern, &rdpattern_proj_params );
   if( isFlagSet(COMMON_PROJECTION) )
@@ -1367,7 +1367,7 @@ on_rdpattern_y_axis_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  /* Recalculate projection paramenters */
+  /* Recalculate projection parameters */
   New_Viewer_Angle( 90.0, 0.0, rotate_rdpattern,
       incline_rdpattern, &rdpattern_proj_params );
   if( isFlagSet(COMMON_PROJECTION) )
@@ -1381,7 +1381,7 @@ on_rdpattern_z_axis_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  /* Recalculate projection paramenters */
+  /* Recalculate projection parameters */
   New_Viewer_Angle( 0.0, 90.0, rotate_rdpattern,
       incline_rdpattern, &rdpattern_proj_params );
   if( isFlagSet(COMMON_PROJECTION) )

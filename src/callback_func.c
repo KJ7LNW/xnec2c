@@ -80,7 +80,7 @@ New_Viewer_Angle(
     GtkSpinButton *wi_spb,
     projection_parameters_t *params )
 {
-  /* Recalculate projection paramenters */
+  /* Recalculate projection parameters */
   params->Wr = wr;
   params->Wi = wi;
 
@@ -582,7 +582,7 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
     gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(Builder_Get_Object(
             rdpattern_window_builder, "rdpattern_gain_togglebutton")), FALSE );
 
-    /* Delegate near field calcuations to child
+    /* Delegate near field calculations to child
      * processes if forked and near field data valid */
     if( FORKED )
     {
@@ -613,7 +613,7 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
       xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
 
-    /* Disable near field calcuations
+    /* Disable near field calculations
      * by child processes if forked */
     Pass_EH_Flags();
   }

@@ -110,7 +110,7 @@ typedef struct Segment
 /* Size of char arrays (strings) for error messages etc */
 #define MESG_SIZE   128
 
-/* Type of projection parameters stuct */
+/* Type of projection parameters struct */
 #define STRUCTURE_DRAWINGAREA   1
 #define RDPATTERN_DRAWINGAREA   2
 
@@ -651,7 +651,7 @@ typedef struct
 typedef struct
 {
   int
-    *isant, /* Num of segs on which an aplied field source is located */
+    *isant, /* Num of segs on which an applied field source is located */
     *ivqd,  /* Num of segs on which a current-slope discontinuity source is located */
     *iqds,  /* Same as above (?) */
     nsant,  /* Number of applied field voltage sources */
@@ -704,7 +704,7 @@ typedef struct
     width,   /*  Width of drawable */
     height;  /* Height of drawable */
 
-  char type; /* Type of projection parameters stuct */
+  char type; /* Type of projection parameters struct */
 
   gboolean reset;  /* Reset flag needed in some functions */
 

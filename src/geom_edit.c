@@ -1119,7 +1119,7 @@ Patch_Editor( int action )
   /* Hide/Show parts of window as needed */
   switch( ptype )
   {
-    case PATCH_ARBT: /* Arbitary shaped patch */
+    case PATCH_ARBT: /* Arbitrary shaped patch */
       gtk_widget_hide( Builder_Get_Object(patch_editor_builder, "patch_sc_frame") );
       gtk_widget_hide( Builder_Get_Object(patch_editor_builder, "patch_sm_frame") );
       gtk_window_resize( GTK_WINDOW(patch_editor), 10, 10 );
@@ -2067,7 +2067,7 @@ Scale_Editor( int action )
   /* Scale factor */
   static gdouble scale = 1.0;
 
-  /* Card (row) name, strings for convertions */
+  /* Card (row) name, strings for conversions */
   gchar name[3], sf[13], *str;
 
   static gboolean
@@ -2212,7 +2212,7 @@ Cylinder_Editor( int action )
     "cylinder_total_spinbutton"
   };
 
-  /* Card (row) name, strings for convertions */
+  /* Card (row) name, strings for conversions */
   gchar name[3];
 
   static gboolean
@@ -2340,7 +2340,7 @@ Transform_Editor( int action )
     "transform_mz_spinbutton"
   };
 
-  /* Card (row) name, strings for convertions */
+  /* Card (row) name, strings for conversions */
   gchar name[3];
 
   static gboolean
@@ -2465,7 +2465,7 @@ Gend_Editor( int action )
     "gend_img_radiobutton"
   };
 
-  /* Card (row) name, strings for convertions */
+  /* Card (row) name, strings for conversions */
   gchar name[3], *sv;
   static gchar si[6];
 
@@ -2602,7 +2602,7 @@ Check_Card_Name(
 
 /* Give_Up()
  *
- * Signals functon to abort if busy or no NEC2 editor window
+ * Signals function to abort if busy or no NEC2 editor window
  */
 
   gboolean

@@ -37,7 +37,7 @@ To fix the extended thin-wire kernel with patches in NEC-2:
        SUBROUTINE CMWW (J,I1,I2,CM,NR,CW,NW,ITRP)
        .
        .
-C     DECIDE WETHER EXT. T.W. APPROX. CAN BE USED
+C     DECIDE WHETHER EXT. T.W. APPROX. CAN BE USED
        IPR=ICON1(J)
        IF(IPR.GT.10000)GO TO 5      !<---NEW
        IF (IPR) 1,6,2

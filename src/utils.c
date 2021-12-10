@@ -379,7 +379,7 @@ SaveFlag( unsigned long long int *flag, unsigned long long int mask )
 /* Strlcpy()
  *
  * Copies n-1 chars from src string into dest string. Unlike other
- * such library fuctions, this makes sure that the dest string is
+ * such library functions, this makes sure that the dest string is
  * null terminated by copying only n-1 chars to leave room for the
  * terminating char. n would normally be the sizeof(dest) string but
  * copying will not go beyond the terminating null of src string
@@ -412,7 +412,7 @@ Strlcpy( char *dest, const char *src, size_t n )
 /* Strlcat()
  *
  * Concatenates at most n-1 chars from src string into dest string.
- * Unlike other such library fuctions, this makes sure that the dest
+ * Unlike other such library functions, this makes sure that the dest
  * string is null terminated by copying only n-1 chars to leave room
  * for the terminating char. n would normally be the sizeof(dest)
  * string but copying will not go beyond the terminating null of src

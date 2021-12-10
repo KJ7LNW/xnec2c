@@ -81,7 +81,7 @@ GtkTreeView
   *geom_treeview = NULL,
   *cmnd_treeview = NULL;
 
-/* Main, frequency plots and radation pattern windows */
+/* Main, frequency plots and radiation pattern windows */
 GtkWidget
   *main_window      = NULL,
   *freqplots_window = NULL,
