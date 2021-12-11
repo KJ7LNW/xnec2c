@@ -136,7 +136,7 @@ Draw_XYZ_Axes( cairo_t *cr, projection_parameters_t params )
 {
   static Segment_t seg[3];
 
-  /* Calcualte Screen co-ordinates of xyz axes */
+  /* Calculate Screen co-ordinates of xyz axes */
   Project_XYZ_Axes( cr, &params, seg );
 
   /* Draw xyz axes */

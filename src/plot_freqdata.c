@@ -390,12 +390,12 @@ static double Fit_to_Scale( double *max, double *min, int *nval )
   /* Scale subdivision 1 < subd < 10 */
   subdiv_val /= subdiv_order;
 
-  /* Find nearest prefered subdiv value */
+  /* Find nearest preferred subdiv value */
   for( idx = 1; idx <= 9; idx += 2 )
     if( scale_val[idx] >= subdiv_val )
       break;
 
-  /* Scale prefered subdiv value */
+  /* Scale preferred subdiv value */
   if( idx > 9 ) idx = 9;
   subdiv_val = scale_val[idx-1] * subdiv_order;
 
@@ -471,7 +471,7 @@ Fit_to_Scale2( double *max1, double *min1,
   // Scale subdivision 1 < subd < 10 
   subdiv_val1 /= subdiv_order1;
 
-  // Find nearest prefered subdiv value 
+  // Find nearest preferred subdiv value 
   idx1 = 1;
   while( (scale_val[idx1] > subdiv_val1) && (idx1 <= 4) )
     idx1++;
@@ -487,17 +487,17 @@ Fit_to_Scale2( double *max1, double *min1,
   // Scale subdivision 1 < subd < 10 
   subdiv_val2 /= subdiv_order2;
 
-  // Find nearest prefered subdiv value 
+  // Find nearest preferred subdiv value 
   idx2 = 1;
   while( (scale_val[idx2] > subdiv_val2) && (idx2 <= 4) )
     idx2++;
 
-  // Search for a compromize in scale stretching 
+  // Search for a compromise in scale stretching 
   range1 = *max1 - *min1;
   range2 = *max2 - *min2;
   min_stretch = 10.0;
 
-  // Scale prefered subdiv values 
+  // Scale preferred subdiv values 
   subdiv_val1 = scale_val[idx1] * subdiv_order1;
   subdiv_val2 = scale_val[idx2] * subdiv_order2;
 
@@ -522,7 +522,7 @@ Fit_to_Scale2( double *max1, double *min1,
     {
       double stretch;
 
-      /* Scale prefered subdiv values */
+      /* Scale preferred subdiv values */
       subdiv_val1 = scale_val[idx1-i1] * subdiv_order1;
       subdiv_val2 = scale_val[idx2-i2] * subdiv_order2;
 
@@ -1758,7 +1758,7 @@ _Set_Frequency_On_Click( GdkEvent *e)
   /* Width of plot bounding rectangle */
   w = fr_plot->plot_rect.width;
 
-  /* 'x' posn of click refered to plot bounding rectangle's 'x' */
+  /* 'x' posn of click referred to plot bounding rectangle's 'x' */
   x = button_event->x - fr_plot->plot_rect.x;
   if( x < 0.0 ) x = 0.0;
   else if( x > w ) x = w;

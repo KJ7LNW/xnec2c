@@ -571,7 +571,7 @@ void mathlib_benchmark(int slow)
 		 "* Only one Intel MKL library can be tested without restarting xnec2c, so select which one you wish"
 		 "to benchmark before proceeding or it will choose the first in the list and skip the rest.\n\n"
 		 "* Thread congestion will occur for multi-threaded libraries when using the -j N option if there are not enough "
-		 "CPUs available to accomodate the forked processes in combination with library threads.  Consider reducing the value of -j N for "
+		 "CPUs available to accommodate the forked processes in combination with library threads.  Consider reducing the value of -j N for "
 		 "benchmarking to find what library works best with a mix of forking and threading; you can use `top` to monitor your CPU usage"
 		 "and if it reaches 0% idle then you might consider reducing -j N.\n"
 		 "\n"

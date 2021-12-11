@@ -116,7 +116,7 @@ extern GtkTreeView
   *geom_treeview,
   *cmnd_treeview ;
 
-/* Main, frequency plots and radation pattern windows */
+/* Main, frequency plots and radiation pattern windows */
 extern GtkWidget
   *main_window,
   *freqplots_window,

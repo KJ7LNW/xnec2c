@@ -55,7 +55,7 @@ Child_Input_File( void )
 
 /* Fork_Command()
  *
- * Identifies a command srting
+ * Identifies a command string
  */
   static int
 Fork_Command( const char *cdstr )
@@ -454,7 +454,7 @@ Child_Process( int num_child )
         Pass_Freq_Data();
         break;
 
-      case EHFIELD: /* Calcualte near field E/H data */
+      case EHFIELD: /* Calculate near field E/H data */
         {
           /* Get near field flags */
           char flag;
