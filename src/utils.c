@@ -307,9 +307,13 @@ Open_File( FILE **fp, char *fname, const char *mode )
   void
 Close_File( FILE **fp )
 {
-  sync();
-  if( *fp != NULL ) fclose( *fp );
-  *fp = NULL;
+  if( *fp != NULL )
+  {
+	  fsync(*fp);
+	  fclose(*fp);
+  }
+  else
+	  *fp = NULL;
 
 } /* Close_File() */
 
