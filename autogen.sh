@@ -334,6 +334,21 @@ if [ ! -f "$AUTOGEN_SH" ] ; then
     exit 1
 fi
 
+if [ ! -x "$(command -v gettext)" ]; then
+	echo "gettext does not exist: install the gettext package."
+	exit 1
+fi
+
+if [ ! -x "$(command -v gettextize)" ]; then
+	echo "gettextize does not exist: install the gettext package."
+	exit 1
+fi
+
+if [ ! -x "$(command -v autopoint)" ]; then
+	echo "autopoint does not exist: install the autopoint or gettext-devel package."
+	exit 1
+fi
+
 # force locale setting to C so things like date output as expected
 LC_ALL=C
 
