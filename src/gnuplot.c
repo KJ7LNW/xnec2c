@@ -154,14 +154,18 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
     fprintf( fp, "\n\n" );
   } /* if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) ) */
 
-  /* Plot VSWR vs freq */
-  if( isFlagSet(PLOT_VSWR) )
+  /* Save all available input parameters */
+  if( isFlagSet(PLOT_VSWR)||isFlagSet(PLOT_ZREAL_ZIMAG)||isFlagSet(PLOT_ZMAG_ZPHASE) )
   {
     double vswr, gamma;
     double zrpro2, zrmro2, zimag2;
 
-    /* Calculate VSWR */
-    fprintf( fp, _("# VSWR vs Frequency\n") );
+    fprintf( fp, _("# Antenna input values vs Frequency\n") );
+    fprintf( fp, _("# Reference impedance Z0 = %10.3E Ohm\n#\n"), calc_data.zo );
+    fprintf( fp, "# Frequency[MHz] Real{Zin}[Ohm] Imag{Zin}[Ohm] Mag{Zin}[Ohm] Phase{Zin}[deg.]    VSWR       Mag{S11}[dB]\n" );
+
+
+    /* Calculate VSWR and Mag(S11) and output all the relevant parameters*/
     idx = 0;
     for( int step = 0; step <= calc_data.last_step; step++ )
     {
@@ -172,38 +176,15 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
       zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
       gamma = sqrt( (zrmro2 + zimag2)/(zrpro2 + zimag2) );
       vswr = (1+gamma)/(1-gamma);
-      if( vswr > 10.0 ) vswr = 10.0;
-      fprintf( fp, "%13.6E %10.3E\n", save.freq[idx], vswr );
+//      if( vswr > 10.0 ) vswr = 10.0;
+      fprintf( fp, "%13.6E     %10.3E     %10.3E     %10.3E     %10.3E     %10.3E     %10.3E\n", save.freq[idx], impedance_data.zreal[idx], impedance_data.zimag[idx],
+		      impedance_data.zmagn[idx], impedance_data.zphase[idx], vswr, 20*log10(gamma));
 
       idx++;
     }
 
     fprintf( fp, "\n\n" );
-  } /* if( isFlagSet(PLOT_VSWR) ) */
-
-  /* Plot z-real and z-imag */
-  if( isFlagSet(PLOT_ZREAL_ZIMAG) )
-  {
-    fprintf( fp, _("# Z real & Z imaginary vs Frequency\n") );
-    idx = 0;
-    for( int step = 0; step <= calc_data.last_step; step++ )
-      fprintf( fp, "%13.6E %10.3E %10.3E\n",
-          save.freq[idx], impedance_data.zreal[idx], impedance_data.zimag[idx] );
-    fprintf( fp, "\n\n" );
-
-    idx++;
-  } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
-
-  /* Plot z-magn and z-phase */
-  if( isFlagSet(PLOT_ZMAG_ZPHASE) )
-  {
-    idx = 0;
-    fprintf( fp, _("# Z magnitude & Z phase vs Frequency\n") );
-    for( int step = 0; step <= calc_data.last_step; step++ )
-      fprintf( fp, "%13.6E %10.3E %10.3E\n",
-          save.freq[idx], impedance_data.zmagn[idx], impedance_data.zphase[idx] );
-    idx++;
-  } /* if( isFlagSet(PLOT_ZREAL_ZIMAG) ) */
+  } /* if( isFlagSet(PLOT_VSWR)||isFlagSet(PLOT_ZREAL_ZIMAG)||isFlagSet(PLOT_ZMAG_ZPHASE) ) */
 
   fclose(fp);
 } /* Save_FreqPlots_Gnuplot_Data() */
