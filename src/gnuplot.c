@@ -210,50 +210,6 @@ Save_FreqPlots_Gnuplot_Data( char *filename )
 
 /*-----------------------------------------------------------------------*/
 
-/* Scale_Gain()
- *
- * Scales radiation pattern gain according to selected style
- * ( ARRL style, logarithmic or linear voltage/power )
- */
-static int gain_style = GS_LINP;
-
-  static double
-Scale_Gain( double gain, int fstep, int idx )
-{
-  /* Scaled rad pattern gain and pol factor */
-  double scaled_rad = 0.0;
-
-  gain += Polarization_Factor( calc_data.pol_type, fstep, idx );
-
-  switch( gain_style )
-  {
-    case GS_LINP:
-      scaled_rad = pow(10.0, (gain/10.0));
-      break;
-
-    case GS_LINV:
-      scaled_rad = pow(10.0, (gain/20.0));
-      break;
-
-    case GS_ARRL:
-      scaled_rad = exp( 0.058267 * gain );
-      break;
-
-    case GS_LOG:
-      scaled_rad = gain;
-      if( scaled_rad < -40 )
-        scaled_rad = 0.0;
-      else
-        scaled_rad = scaled_rad /40.0 + 1.0;
-
-  } /* switch( gain_style ) */
-
-  return( scaled_rad );
-
-} /* Scale_Gain() */
-
-/*-----------------------------------------------------------------------*/
-
 /* Save_RadPattern_Gnuplot_Data()
  *
  * Saves radiation pattern data to a file for gnuplot

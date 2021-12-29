@@ -315,6 +315,9 @@ typedef struct
   /* Preferred mathlib index, if available */
   int mathlib_idx, mathlib_batch_idx;
 
+  /* See enum GAIN_SCALE */
+  int gain_style;
+
 } rc_config_t;
 
 /* Gain Scaling style */
@@ -1289,6 +1292,7 @@ void Set_Window_Labels(void);
 void Alloc_Rdpattern_Buffers(int nfrq, int nth, int nph);
 void Alloc_Nearfield_Buffers(int n1, int n2, int n3);
 void Free_Draw_Buffers(void);
+double Scale_Gain( double gain, int fstep, int idx );
 /* draw_structure.c */
 void Draw_Structure(cairo_t *cr);
 void New_Patch_Data(void);

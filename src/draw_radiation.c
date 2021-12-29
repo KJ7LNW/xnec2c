@@ -34,17 +34,14 @@ static point_3d_t *point_3d = NULL;
  * Scales radiation pattern gain according to selected style
  * ( ARRL style, logarithmic or linear voltage/power )
  */
-static int gain_style = GS_LINP;
-
-  static double
-Scale_Gain( double gain, int fstep, int idx )
+double Scale_Gain( double gain, int fstep, int idx )
 {
   /* Scaled rad pattern gain and pol factor */
   double scaled_rad = 0.0;
 
   gain += Polarization_Factor( calc_data.pol_type, fstep, idx );
 
-  switch( gain_style )
+  switch( rc_config.gain_style )
   {
     case GS_LINP:
       scaled_rad = pow(10.0, (gain/10.0));
@@ -65,7 +62,7 @@ Scale_Gain( double gain, int fstep, int idx )
       else
         scaled_rad = scaled_rad /40.0 + 1.0;
 
-  } /* switch( gain_style ) */
+  } /* switch( rc_config.gain_style ) */
 
   return( scaled_rad );
 
@@ -794,7 +791,23 @@ Set_Polarization( int pol )
   void
 Set_Gain_Style( int gs )
 {
-  gain_style = gs;
+  static char *scale_widget_names[NUM_SCALES] = {
+	  "rdpattern_linear_power",
+	  "rdpattern_linear_voltage",
+	  "rdpattern_arrl_style",
+	  "rdpattern_logarithmic"
+	  };
+
+  GtkWidget *widget;
+
+  // This should never happen:
+  if (gs >= NUM_SCALES)
+	  return;
+
+  rc_config.gain_style = gs;
+
+  widget = Builder_Get_Object( rdpattern_window_builder, scale_widget_names[rc_config.gain_style] );
+  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(widget), TRUE );
 
   Set_Window_Labels();
 
@@ -996,7 +1009,7 @@ Set_Window_Labels( void )
       Strlcpy( txt, _("Radiation Pattern: - "), s );
       Strlcat( txt, pol_type[calc_data.pol_type], s );
       Strlcat( txt, " - ", s );
-      Strlcat( txt, scale[gain_style], s );
+      Strlcat( txt, scale[rc_config.gain_style], s );
     }
     else if( isFlagSet(DRAW_EHFIELD) )
     {

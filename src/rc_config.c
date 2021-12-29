@@ -164,6 +164,9 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Frequency Plots Show Clamp VSWR checkbutton state", .format = "%d",
 		.vars = { &rc_config.freqplots_clamp_vswr } },
+
+	{ .desc = "Radiation Plots Gain Style", .format = "%d",
+		.vars = { &rc_config.gain_style } },
 };
 
 
@@ -359,6 +362,9 @@ Create_Default_Config( void )
   rc_config.rdpattern_h_field = 1;
   rc_config.rdpattern_poynting_vector = 0;
   rc_config.rdpattern_zoom_spinbutton = 100;
+
+  /* See enum GAIN_SCALE */
+  rc_config.gain_style = GS_LINP;
 
   /* For freq plots window */
   rc_config.freqplots_width  = 0;
@@ -660,13 +666,13 @@ Get_GUI_State( void )
       &(rc_config.rdpattern_width), &(rc_config.rdpattern_height) );
 
   /* Get state of widgets in radiation patterns window */
-  rc_config.rdpattern_gain_togglebutton = 0;
-  rc_config.rdpattern_eh_togglebutton = 0;
-  rc_config.rdpattern_e_field = 0;
-  rc_config.rdpattern_h_field = 0;
-  rc_config.rdpattern_poynting_vector = 0;
   if( rdpattern_window )
   {
+    rc_config.rdpattern_gain_togglebutton = 0;
+    rc_config.rdpattern_eh_togglebutton = 0;
+    rc_config.rdpattern_e_field = 0;
+    rc_config.rdpattern_h_field = 0;
+    rc_config.rdpattern_poynting_vector = 0;
     widget = Builder_Get_Object(
         rdpattern_window_builder, "rdpattern_gain_togglebutton" );
     if( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)) )
@@ -705,17 +711,18 @@ Get_GUI_State( void )
       &(rc_config.freqplots_width), &(rc_config.freqplots_height) );
 
   /* Get state of widgets in frequency plots window */
-  rc_config.freqplots_gmax_togglebutton    = 0;
-  rc_config.freqplots_gdir_togglebutton    = 0;
-  rc_config.freqplots_gviewer_togglebutton = 0;
-  rc_config.freqplots_vswr_togglebutton    = 0;
-  rc_config.freqplots_zrlzim_togglebutton  = 0;
-  rc_config.freqplots_zmgzph_togglebutton  = 0;
-  rc_config.freqplots_smith_togglebutton   = 0;
-  rc_config.freqplots_net_gain = 0;
-  rc_config.freqplots_min_max = 0;
   if( freqplots_window )
   {
+    rc_config.freqplots_gmax_togglebutton    = 0;
+    rc_config.freqplots_gdir_togglebutton    = 0;
+    rc_config.freqplots_gviewer_togglebutton = 0;
+    rc_config.freqplots_vswr_togglebutton    = 0;
+    rc_config.freqplots_zrlzim_togglebutton  = 0;
+    rc_config.freqplots_zmgzph_togglebutton  = 0;
+    rc_config.freqplots_smith_togglebutton   = 0;
+    rc_config.freqplots_net_gain = 0;
+    rc_config.freqplots_min_max = 0;
+
     widget = Builder_Get_Object(
         freqplots_window_builder, "freqplots_gmax_togglebutton" );
     if( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)) )
