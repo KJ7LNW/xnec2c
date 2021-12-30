@@ -808,7 +808,7 @@ Draw_Graph(
   int min_idx = 0, max_idx = 0;
   for( idx = 0; idx < nval; idx++ )
   {
-    points[idx].x = rect->x + (int)((double)rect->width * idx/(nval-1) + 0.5);
+    points[idx].x = rect->x + (int)((double)rect->width * idx/(calc_data.steps_total-1) + 0.5);
     points[idx].y = rect->y + (int)( (double)rect->height *
         (amax-a[idx]) / ra + 0.5 );
 
