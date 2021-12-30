@@ -236,9 +236,6 @@ typedef struct
   /* Current working directory */
   char working_dir[FILENAME_LEN];
 
-  /* xnec2c's glade file */
-  char xnec2c_glade[FILENAME_LEN];
-
   /* Current NEC2 input file */
   char input_file[FILENAME_LEN];
 

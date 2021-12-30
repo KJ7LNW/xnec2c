@@ -349,6 +349,17 @@ if [ ! -x "$(command -v autopoint)" ]; then
 	exit 1
 fi
 
+if [ ! -x "$(command -v glib-compile-resources)" ]; then
+	echo "glib-compile-resources does not exist: install the libglib2.0-dev-bin or glib2-devel package."
+	exit 1
+fi
+
+if [ ! -x "$(command -v pkg-config)" ]; then
+	echo "pkgconfig does not exist: install the pkgconfig or pkg-config package."
+	exit 1
+fi
+
+
 # force locale setting to C so things like date output as expected
 LC_ALL=C
 

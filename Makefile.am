@@ -47,11 +47,14 @@ DISTCLEANFILES = \
 
 install-data-local:
 	@$(NORMAL_INSTALL)
+	$(MKDIR_P) $(DESTDIR)$(pkgdatadir); \
 	if test -d files/; then \
 	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/applications;\
 	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/pixmaps;\
 	  $(install_sh_DATA) files/$(PACKAGE).desktop $(DESTDIR)$(datarootdir)/applications/; \
-	  $(install_sh_DATA) files/$(PACKAGE).svg $(DESTDIR)$(datarootdir)/pixmaps/; \
+	fi; \
+	if test -d resources/; then \
+	  $(install_sh_DATA) resources/$(PACKAGE).svg $(DESTDIR)$(datarootdir)/pixmaps/; \
 	fi; \
 	if test -d doc/; then \
 	  $(MKDIR_P) $(DESTDIR)$(docdir)/images/;\
@@ -60,9 +63,10 @@ install-data-local:
 	  $(install_sh_DATA) doc/$(PACKAGE).html $(DESTDIR)$(docdir)/; \
 	  $(install_sh_DATA) doc/images/* $(DESTDIR)$(docdir)/images/; \
 	  $(install_sh_DATA) doc/$(PACKAGE).1.gz $(DESTDIR)$(mandir)/man1/; \
-	fi;
-	if test -d .$(PACKAGE)/; then \
-	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/examples/$(PACKAGE)/;\
-	  cp -r .$(PACKAGE)/* $(DESTDIR)$(datarootdir)/examples/$(PACKAGE)/; \
+	  ln -s $(DESTDIR)$(docdir) $(DESTDIR)$(pkgdatadir)/doc; \
+	fi; \
+	if test -d examples/; then \
+	  $(MKDIR_P) $(DESTDIR)$(pkgdatadir)/examples;\
+	  cp -r examples/* $(DESTDIR)$(pkgdatadir)/examples/; \
 	fi;
 

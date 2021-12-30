@@ -54,65 +54,6 @@ main (int argc, char *argv[])
 
   gtk_init (&argc, &argv);
 
-  /* Create the file path to xnec2c Glade file */
-  Strlcpy( rc_config.xnec2c_glade,
-      getenv("HOME"), sizeof(rc_config.xnec2c_glade) );
-  Strlcat( rc_config.xnec2c_glade,
-      "/.xnec2c/xnec2c.glade", sizeof(rc_config.xnec2c_glade) );
-
-  /* Check for the Glade config file */
-  FILE *fp = fopen( rc_config.xnec2c_glade, "r" );
-  if( fp == NULL )
-  {
-    fprintf( stderr, "xnec2c: cannot open xnec2c Glade GUI Description file.\n" );
-    perror( rc_config.xnec2c_glade );
-    fprintf( stderr, "xnec2c: trying to create xnec2c config directory "
-                     "from the installation prefix file tree.\n" );
-
-    /* Find the binary's path (location in file system) */
-    char exe_path[256], file_path[288];
-
-    /* Read the file path to xnec2c executable */
-    size_t len = sizeof( exe_path );
-    int bytes = (int)readlink( "/proc/self/exe", exe_path, len );
-    if( bytes <= 0 )
-    {
-      fprintf( stderr, "xnec2c: cannot read xnec2c binary's location.\n" );
-      perror( "/proc/self/exe" );
-      exit( -1 );
-    }
-
-    /* Remove "/bin/xnec2c" from the path with room for termination */
-    bytes -= sizeof( "/bin/xnec2c" ) - 1;
-    if( bytes < 1 )
-    {
-      fprintf( stderr, "xnec2c: cannot create file path to examples/xnec2c.\n" );
-      exit( -1 );
-    }
-
-    /* Create file path to xnec2c examples directory */
-    exe_path[bytes] = '\0';
-    Strlcpy( file_path, exe_path, sizeof(file_path) );
-    Strlcat( file_path, "/share/examples/xnec2c", sizeof(file_path) );
-    fprintf( stderr, "xnec2c: creating xnec2c config directory from: %s\n", file_path );
-
-    /* Create system command to copy examples/xnec2c to ~/.xnec2c */
-    char syscmnd[512];
-    Strlcpy( syscmnd, "cp -r ", sizeof(syscmnd) );
-    Strlcat( syscmnd, file_path, sizeof(syscmnd) );
-    Strlcat( syscmnd, " ", sizeof(syscmnd) );
-    Strlcat( syscmnd, getenv("HOME"), sizeof(syscmnd) );
-    Strlcat( syscmnd, "/.xnec2c",   sizeof(syscmnd) );
-    int ret = system( syscmnd );
-    if( ret == -1 )
-    {
-      fprintf( stderr,"xnec2c: cannot create xnec2c's working directory.\n" );
-      perror( file_path );
-      exit( -1 );
-    }
-  } /* if( fp == NULL ) */
-  else fclose( fp );
-
   /* Create a default config if needed, abort on error */
   if( !Create_Default_Config() ) exit( -1 );
 
