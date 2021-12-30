@@ -1206,6 +1206,20 @@ remove extra whitespace and increase precision of the NEC2 data.  See git log fo
 	Updated documentation around autogen.sh and added tests to make sure gettext and related tools are
 	available for autoconf to complete successfully.
 </p>
+<p><b>Version 4.4:</b>
+<ul>
+	<li>The File-&gt;Gain Scaling setting is now saved between restarts
+	since this is a visual preference per user.</li>
+	<li>GTK resource refactor prevents the need to delete the old
+	xnec2c.glade file on new releases that have UI changes. This is 
+	a pretty major change that should be transparent to users, so please report any regressions.</li>
+	<li>Fixed a minor fsync() bug</li>
+	<li>Updated installation details that will
+	help distribution packagers.  Special thanks to Tom DL1JBE at
+	Gentoo for his packaging feedback!</li>
+	<li>Added a PACKAGING file to help distribution packagers.</li>
+</ul>
+</p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
 as NEC2 or nec2c. Specifically, commands that cause execution in
