@@ -9,7 +9,7 @@ AM_CFLAGS = --pedantic -Wall -std=gnu11 -O2 -g -D_FORTIFY_SOURCE=2 \
 
 AM_CPPFLAGS = \
     -DPROGRAMNAME_LOCALEDIR=\""$(PROGRAMNAME_LOCALEDIR)"\" \
-    -DPACKAGE_DATA_DIR=\""$(datadir)"\" \
+    -DPACKAGE_DATA_DIR=\""$(pkgdata)"\" \
     -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
     @PACKAGE_CFLAGS@
 
@@ -44,7 +44,13 @@ xnec2c_SOURCES = \
     rc_config.c     rc_config.h \
     shared.c        shared.h \
     somnec.c        somnec.h \
-    common.h        editors.h
+    common.h        editors.h \
+    xnec2c-resources.c
 
 xnec2c_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 
+PKGCONFIG = $(shell which pkg-config)
+GLIB_COMPILE_RESOURCES = $(shell $(PKGCONFIG) --variable=glib_compile_resources gio-2.0)
+
+xnec2c-resources.c: ../resources/xnec2c.gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=../resources --generate-dependencies ../resources/xnec2c.gresource.xml)
+	$(GLIB_COMPILE_RESOURCES) --sourcedir=../resources --target=xnec2c-resources.c --generate-source ../resources/xnec2c.gresource.xml

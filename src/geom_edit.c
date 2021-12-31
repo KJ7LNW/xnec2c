@@ -1502,8 +1502,8 @@ Helix_Editor( int action )
 
   /* File names to link and unlink icons */
   gchar link[FILENAME_LEN], unlink[FILENAME_LEN];
-  snprintf( link,   sizeof(link),   "%s/%s", getenv("HOME"), ".xnec2c/link.svg" );
-  snprintf( unlink, sizeof(unlink), "%s/%s", getenv("HOME"), ".xnec2c/unlink.svg" );
+  strncpy( link,   "/link.svg", sizeof(link));
+  strncpy( unlink, "/unlink.svg", sizeof(unlink));
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, helix_editor) ) return;
@@ -1732,9 +1732,9 @@ Helix_Editor( int action )
       img = GTK_IMAGE(
           Builder_Get_Object(helix_editor_builder, "helix_link_a1b1") );
       if( link_a1b1 )
-        gtk_image_set_from_file( img, link );
+        gtk_image_set_from_resource( img, link );
       else
-        gtk_image_set_from_file( img, unlink );
+        gtk_image_set_from_resource( img, unlink );
       break;
 
     case HELIX_EDITOR_LINK_B1A2: /* Link b1-a2 radius spinbuttons _for_helix_ */
@@ -1744,9 +1744,9 @@ Helix_Editor( int action )
         img = GTK_IMAGE(
             Builder_Get_Object(helix_editor_builder, "helix_link_b1a2") );
         if( link_b1a2 )
-          gtk_image_set_from_file( img, link );
+          gtk_image_set_from_resource( img, link );
         else
-          gtk_image_set_from_file( img, unlink );
+          gtk_image_set_from_resource( img, unlink );
       }
       break;
 
@@ -1755,9 +1755,9 @@ Helix_Editor( int action )
       img = GTK_IMAGE(
           Builder_Get_Object(helix_editor_builder, "helix_link_a2b2") );
       if( link_a2b2 )
-        gtk_image_set_from_file( img, link );
+        gtk_image_set_from_resource( img, link );
       else
-        gtk_image_set_from_file( img, unlink );
+        gtk_image_set_from_resource( img, unlink );
       break;
 
     case HELIX_EDITOR_NTURN: /* New number of turns _for_helix_ */
@@ -1809,7 +1809,7 @@ Helix_Editor( int action )
   {
     link_b1a2 = FALSE;
     img = GTK_IMAGE( Builder_Get_Object(helix_editor_builder, "helix_link_b1a2") );
-    gtk_image_set_from_file( img, unlink );
+    gtk_image_set_from_resource( img, unlink );
   }
 
   /*** Calculate seg length as % of smallest wavelength ***/

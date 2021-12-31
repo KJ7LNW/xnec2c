@@ -309,7 +309,7 @@ Close_File( FILE **fp )
 {
   if( *fp != NULL )
   {
-	  fsync(*fp);
+	  fsync(fileno(*fp));
 	  fclose(*fp);
 	  *fp = NULL;
   }

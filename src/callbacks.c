@@ -404,6 +404,10 @@ on_main_rdpattern_activate(
     }
 
     Main_Rdpattern_Activate( TRUE );
+
+    /* Restore gain style */
+    Set_Gain_Style(rc_config.gain_style);
+
   } /* if( gtk_check_menu_item_get_active(...) ) */
   else if( isFlagSet(DRAW_ENABLED) )
     Gtk_Widget_Destroy( &rdpattern_window );

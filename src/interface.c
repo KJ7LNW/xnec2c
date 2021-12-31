@@ -32,8 +32,8 @@ Gtk_Builder( GtkBuilder **builder, gchar **object_ids )
 
   /* Create a builder from object ids */
   *builder = gtk_builder_new();
-  ret = (int)gtk_builder_add_objects_from_file(
-      *builder, rc_config.xnec2c_glade, object_ids, &gerror );
+  ret = (int)gtk_builder_add_objects_from_resource(
+      *builder, "/xnec2c.glade", object_ids, &gerror );
   if( !ret )
   {
     fprintf( stderr, _("Xnec2c: failed to add objects to builder:\n%s\n"),
