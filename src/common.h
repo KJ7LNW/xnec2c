@@ -239,6 +239,10 @@ typedef struct
   /* Current NEC2 input file */
   char input_file[FILENAME_LEN];
 
+  /* If set true, then use GTK loops for the frequency loop iteration
+   * instead of spawing a pthread */
+  int disable_pthread_freqloop;
+
   /* Main (structure) window position and size */
   int
     main_x,
@@ -1436,6 +1440,7 @@ gboolean Nec2_Save_Warn(const gchar *mesg);
 int Load_Line(char *buff, FILE *pfile);
 void mem_alloc(void **ptr, size_t req, gchar *str);
 void mem_realloc(void **ptr, size_t req, gchar *str);
+void mem_backtrace(void *ptr);
 void free_ptr(void **ptr);
 gboolean Open_File(FILE **fp, char *fname, const char *mode);
 void Close_File(FILE **fp);
@@ -1453,7 +1458,7 @@ void Get_Dirname(char *fpath, char *dirname, int *fname_idx);
 void xnec2_widget_queue_draw(GtkWidget *w);
 void g_idle_add_once(GSourceFunc function, gpointer data);
 void g_idle_add_once_sync(GSourceFunc function, gpointer data);
-void print_backtrace(void);
+void print_backtrace(char *msg);
 
 /* xnec2c.c */
 void Near_Field_Pattern(void);

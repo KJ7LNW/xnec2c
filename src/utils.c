@@ -22,6 +22,10 @@
 #include "utils.h"
 #include "shared.h"
 
+char **_get_backtrace();
+void _print_backtrace(char **strings);
+
+
 /*------------------------------------------------------------------------*/
 
 /*  usage()
@@ -36,6 +40,8 @@ usage(void)
       _("Usage: xnec2c <input-file-name>\n"
         "              [-i <input-file-name>]\n"
         "              [-j <number of processors in SMP machine>]\n"
+        "                  -j 0 disables forking for debug.\n"
+        "              [-P: debug: disable pthreads for freqloop, use GTK mainloop instead.\n"
         "              [-h: print this usage information and exit]\n"
         "              [-v: print xnec2c version number and exit]\n") );
 
@@ -224,44 +230,134 @@ Load_Line( char *buff, FILE *pfile )
 
 /*------------------------------------------------------------------------*/
 
-/***  Memory allocation/freeing utils ***/
-static size_t cnt = 0; /* Total allocation */
-  void
-mem_alloc( void **ptr, size_t req, gchar *str )
+/* xnec2c uses mem_realloc() very often to resize buffers in the code.
+ * There are cases where uninitialized memory buffers can lead to incorrect behavior
+ * but unfortunatly the libc realloc() call doesn't initialize the reallocated memory.
+ * 
+ * Since there is not a portable way to discover the amount of memory allocated by the
+ * previous realloc/malloc() call we cannot call memset() on the extended portion.
+ *
+ * To solve this mem_obj_t stores a couple sizes and a pointer:
+ *    1. size: the total allocated size requested by the caller
+ *             Note that the actual allocated size is greater by sizeof(mem_obj_t)
+ *    2. used: The amount actually used by the caller
+ *         a. If mem_realloc() is called with a smaller amount of memory requested
+ *            then it will shrink the `used` size without reallocating.  
+ *            
+ *         b. If mem_realloc() is called requesting more than `used` but less than `size`
+ *            then it is grown without reallocating.
+ *
+ *         c. If mem_realloc() is called requesting more than `size` then realloc() is
+ *            called and both `size` and `used` are updated.
+ *
+ *    3. ptr: a pointer to the memory used by the caller
+ *          
+ * A mem_obj_t object is allocated in excess of the structure size by the amount
+ * of memory requested by the caller.  When ptr_free or mem_realloc are called
+ * we use decrement by sizeof(mem_obj_t) to access the original
+ * structure pointer.
+ */
+typedef struct mem_obj_t
 {
-  gchar mesg[MESG_SIZE];
+	size_t size;
+	size_t used;
+	char **backtrace;
 
-  free_ptr( ptr );
-  *ptr = malloc( req );
-  cnt += req;
-  if( *ptr == NULL )
-  {
-    snprintf( mesg, sizeof(mesg),
-        _("Memory allocation denied %s\n"), str );
-    fprintf( stderr, "%s: Total memory request %lu\n", mesg, cnt );
-    Stop( mesg, ERR_STOP );
-  }
-  else
-	  memset(*ptr, 0, req);
+	void *ptr;
+} mem_obj_t;
 
+void mem_backtrace(void *ptr)
+{
+	mem_obj_t *m = (mem_obj_t *)ptr;
+	if (m == NULL)
+	{
+		print_backtrace("mem_backtrace(NULL)");
+
+		return;
+	}
+
+	m--;
+	printf("mem_backtrace(%p):\n", ptr);
+	if (m->backtrace == NULL)
+		printf("  m->backtrace is null, no backtrace data\n");
+	else
+		_print_backtrace(m->backtrace);
+
+}
+
+inline void mem_alloc( void **ptr, size_t req, gchar *str )
+{
+	mem_realloc(ptr, req, str);
 } /* End of mem_alloc() */
 
 /*------------------------------------------------------------------------*/
 
-  void
-mem_realloc( void **ptr, size_t req, gchar *str )
+void mem_realloc( void **ptr, size_t req, gchar *str )
 {
   gchar mesg[MESG_SIZE];
+  size_t prev_used;
 
-  *ptr = realloc( *ptr, req );
-  cnt += req;
-  if( *ptr == NULL )
+  // Get the original mem_obj_t object:
+  mem_obj_t *m = (mem_obj_t *)*ptr;
+
+  if (m == NULL)
+  {
+	  prev_used = 0;
+	  m = realloc( m, req+sizeof(mem_obj_t) );
+
+	  if (m != NULL)
+	  {
+		  m->size = req;
+		  m->used = req;
+		  m->backtrace = NULL;
+	  }
+  }
+  else
+  {
+	  // Adjust pointer to struct location:
+	  m--;
+
+	  if (m->backtrace != NULL)
+	  {
+		  free(m->backtrace);
+		  m->backtrace = NULL;
+	  }
+	  prev_used = m->used;
+
+	  if (req <= m->size)
+	  {
+		m->used = req;
+	  }
+	  else 
+	  {
+		m = realloc( m, req+sizeof(mem_obj_t) );
+
+		if (m != NULL)
+		{
+			m->size = req;
+			m->used = req;
+		}
+	  }
+  }
+
+  if( m == NULL )
   {
     snprintf( mesg, sizeof(mesg),
         _("Memory re-allocation denied %s\n"), str );
-    fprintf( stderr, "%s: Total memory request %lu\n", mesg, cnt );
+    fprintf( stderr, "%s: Memory requested %lu\n", mesg, req );
     Stop( mesg, ERR_STOP );
+	return;
   }
+
+  m->ptr = (void*)(m+1);
+  *ptr = m->ptr;
+
+  // Get a backtrace for the allocation.  Use mem_backtrace(ptr) to display it.
+  // Debug only if you need it, this is very slow:
+  //m->backtrace = _get_backtrace();
+
+  if (m->used > prev_used)
+	  memset(((uint8_t*)*ptr)+prev_used, 0x00, m->used - prev_used);
 
 } /* End of mem_realloc() */
 
@@ -271,7 +367,11 @@ mem_realloc( void **ptr, size_t req, gchar *str )
 free_ptr( void **ptr )
 {
   if( *ptr != NULL )
-    free( *ptr );
+  {
+	mem_obj_t *m = (mem_obj_t *)*ptr;
+	m--;
+    free( m );
+  }
   *ptr = NULL;
 
 } /* End of free_ptr() */
@@ -290,7 +390,7 @@ Open_File( FILE **fp, char *fname, const char *mode )
   if( (*fp = fopen(fname, mode)) == NULL )
   {
     char mesg[MESG_SIZE];
-    snprintf( mesg, sizeof(mesg), _("xnec2c[%d]: %s: Failed to open file\n"), getpid(), fname );
+    snprintf( mesg, sizeof(mesg), _("xnec2c[%d]: %s: Failed to open file: %s\n"), getpid(), fname, strerror(errno) );
     Stop( mesg, ERR_STOP );
     return( FALSE );
   }
@@ -522,6 +622,7 @@ typedef struct
 	gpointer data;
 	GMutex lock;
 	int is_locked;
+	char **backtrace;
 } g_idle_add_data_t;
 
 
@@ -538,11 +639,26 @@ int _callback_g_idle_add_once(g_idle_add_data_t *cbdata)
 	{
 		// Wait for GTK
 		while (g_main_context_iteration(NULL, FALSE));
+		
+		if (cbdata->backtrace != NULL)
+		{
+			free(cbdata->backtrace);
+			cbdata->backtrace = NULL;
+		}
 
 		g_mutex_unlock(&cbdata->lock);
 	}
 	else
+	{
+		if (cbdata->backtrace != NULL)
+		{
+			cbdata->backtrace = NULL;
+			free(cbdata->backtrace);
+		}
+
 		free_ptr((void**)&cbdata);
+	}
+
 
 	return FALSE;
 }
@@ -557,6 +673,11 @@ void _g_idle_add_once(GSourceFunc function, gpointer data, int lock)
 	cbdata->function = function;
 	cbdata->data = data;
 	cbdata->is_locked = lock;
+
+	cbdata->backtrace = NULL;
+
+	// Debug async call backtraces if you need it, but be aware that _get_backtrace() is slow.
+	//cbdata->backtrace = _get_backtrace();
 
 	if (lock)
 		g_mutex_lock(&cbdata->lock);
@@ -604,7 +725,16 @@ void xnec2_widget_queue_draw(GtkWidget *w)
 /*
    Obtain a backtrace and print it to stdout. 
  */
-void print_backtrace(void)
+void _print_backtrace(char **strings)
+{
+	int i;
+	printf("  Backtrace:\n");
+	for (i = 0; strings[i] != NULL; i++)
+		printf("    %d. %s\n", i, strings[i]);
+}
+
+// Return an array of backtrace strings.  The value returned must be free()'ed.
+char **_get_backtrace()
 {
 	void *array[10];
 	char **strings;
@@ -612,13 +742,23 @@ void print_backtrace(void)
 
 	size = backtrace(array, 10);
 	strings = backtrace_symbols(array, size);
+
+	// This wastes an array entry, but allows _print_backtrace() to find
+	// the end of the list without realloc'ing space for a NULL:
+	strings[size-1] = NULL;
+
+	return strings;
+}
+
+void print_backtrace(char *msg)
+{
+	if (msg != NULL)
+		printf("%s:\n", msg);
+
+	char **strings = _get_backtrace();
 	if (strings != NULL)
 	{
-
-		printf("  Obtained %d stack frames.\n", size);
-		for (i = 0; i < size; i++)
-			printf("    %s\n", strings[i]);
+		_print_backtrace(strings);
+		free(strings);
 	}
-
-	free(strings);
 }

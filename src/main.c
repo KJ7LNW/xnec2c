@@ -60,7 +60,7 @@ main (int argc, char *argv[])
   /* Process command line options */
   calc_data.num_jobs  = 1;
   rc_config.input_file[0] = '\0';
-  while( (option = getopt(argc, argv, "i:j:hv") ) != -1 )
+  while( (option = getopt(argc, argv, "i:j:hvP") ) != -1 )
   {
     switch( option )
     {
@@ -88,6 +88,11 @@ main (int argc, char *argv[])
             calc_data.num_jobs = 1;
         }
         break;
+
+	  case 'P': /* disable pthread loop */
+	    rc_config.disable_pthread_freqloop = 1;
+		printf("[%d] pthread freqloop disabled!\n", getpid());
+	    break;
 
       case 'h': /* print usage and exit */
         usage();
