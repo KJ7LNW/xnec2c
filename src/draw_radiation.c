@@ -1044,7 +1044,7 @@ Set_Window_Labels( void )
  * Allocates memory to the radiation pattern buffers
  */
   void
-Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
+_Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
 {
   int idx;
   size_t mreq;
@@ -1102,6 +1102,13 @@ Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
   }
 
 } /* Alloc_Rdpattern_Buffers() */
+
+void Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
+{
+	g_mutex_lock(&freq_data_lock);
+	_Alloc_Rdpattern_Buffers(nfrq, nth, nph);
+	g_mutex_unlock(&freq_data_lock);
+}
 
 /*-----------------------------------------------------------------------*/
 
