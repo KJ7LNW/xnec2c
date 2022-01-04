@@ -73,6 +73,9 @@ void fr_plots_init()
 
   for (idx = 0; idx < calc_data.ngraph * calc_data.FR_cards; idx++)
   {
+	  if (FR_PLOT_T_IS_VALID(&fr_plots[idx]))
+		  continue;
+
 	  // Set the plot position
 	  fr_plots[idx].posn = idx / calc_data.FR_cards;
 
@@ -771,6 +774,8 @@ void draw_poly(
 /* Draw_Graph()
  *
  * Plots a graph of a vs b
+ * nval: number of points to plot
+ * nval_max: number of points in the whole graph in case nval<nval_max
  */
   static void
 Draw_Graph(
@@ -780,7 +785,7 @@ Draw_Graph(
     double *a, double *b,
     double amax, double amin,
     double bmax, double bmin,
-    int nval, int side )
+    int nval, int nval_max, int side )
 {
   double ra;
   int idx;
@@ -808,7 +813,7 @@ Draw_Graph(
   int min_idx = 0, max_idx = 0;
   for( idx = 0; idx < nval; idx++ )
   {
-    points[idx].x = rect->x + (int)((double)rect->width * idx/(calc_data.steps_total-1) + 0.5);
+    points[idx].x = rect->x + (int)((double)rect->width * idx/(nval_max-1) + 0.5);
     points[idx].y = rect->y + (int)( (double)rect->height *
         (amax-a[idx]) / ra + 0.5 );
 
@@ -1074,12 +1079,10 @@ Plot_Graph(
 
 
 		// Offset is the offset into the value arrays: 
-		// Break if there are no more values to plot because
+		// Skip plot below if there are no more values to plot because
 		// it has plotted all of them or the values are still
 		// being calculated:
-		int maxidx = calc_data.freq_step - offset;
-		if (maxidx <= 0)
-			break;
+		int maxidx = nx - offset;
 
 		// Clamp the number of index to be plotted if there
 		// are some available to plot in the next FR card which
@@ -1102,7 +1105,7 @@ Plot_Graph(
 			plot_rect->width,
 			max_fscale, min_fscale, n_vert_scale);
 
-		if (y_left != NULL)
+		if (maxidx > 0 && y_left != NULL)
 		{
 			Draw_Graph(
 				cr,
@@ -1111,11 +1114,11 @@ Plot_Graph(
 				y_left+offset, x+offset,
 				max_y_left, min_y_left,
 				max_fscale, min_fscale,
-				maxidx,
+				maxidx, fr_plot->freq_loop_data->freq_steps,
 				LEFT );
 		}
 
-		if (y_right != NULL)
+		if (maxidx > 0 && y_right != NULL)
 		{
 			Draw_Graph(
 				cr,
@@ -1124,7 +1127,7 @@ Plot_Graph(
 				y_right+offset, x+offset,
 				max_y_right, min_y_right,
 				max_fscale, min_fscale,
-				maxidx,
+				maxidx, fr_plot->freq_loop_data->freq_steps,
 				RIGHT);
 		}
 
@@ -1381,6 +1384,21 @@ _Plot_Frequency_Data( cairo_t *cr )
       /* Index to gtot buffer where max gain
        * occurs for given polarization type */
       mgidx = rad_pattern[idx].max_gain_idx[pol];
+
+      // This should never happen, but please report it with your .NEC file if it does.
+      //
+      // It should be fixed in commit 42afbe3a3, but just in case:
+      if (mgidx < 0)
+      {
+          printf("BUG: invalid mgidx=%d: idx=%d pol=%d fstep=%d last_step=%d freq_step=%d\n", mgidx, idx, pol, fstep,
+              calc_data.last_step,
+              calc_data.freq_step
+              );
+          printf("BUG: rad_pattern=%p .max_gain_idx=%p\n", rad_pattern, rad_pattern[idx].max_gain_idx);
+          printf("BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d\n", idx, save.fstep[idx], isFlagSet(FREQ_LOOP_STOP));
+          mem_backtrace(rad_pattern[idx].max_gain_idx);
+          continue;
+      }
 
       /* Max gain for given polarization type */
       gmax[idx] = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
