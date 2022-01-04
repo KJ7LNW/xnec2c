@@ -487,9 +487,30 @@ int update_fmhz_save_spin_button_value(GtkSpinButton *w)
  *
  * Loops over frequency if calculations over a frequency range is
  * requested, dividing the job between child processes if forked
+ *
+ * This function does the following:
+
+	0. If FREQ_LOOP_INIT, set initial state
+	1. For each job:
+		a. Set "freq" to the right value from FR_cards for the next job to assign
+		b. If FREQ_LOOP_STOP, then cleanup and disable loop
+		c. Increment frequency, set save.freq[fstep] = (double)freq;
+		d. Find an available child and give it the fstep
+	5. Wait until a child has frequency data ready.
+		- For each available child:
+			a. Load the data via Get_Freq_Data
+			     into the fstep'th index that was handed to that particular child
+			b. Set save.fstep[child_fstep]=1 to indicate the data is ready
+			c. Clear the child's busy flag
+	6. Set calc_data.freq_step to the highest available step with data. 
+		This is an index value, not a count.
+	7. Trigger a redraw if still have busy children
+	8. If no more busy children:
+		Reset the saved frequency (green line) to what it was.
+	9. Save optimizer output if enabled
  */
-  gboolean
-Frequency_Loop( gpointer udata )
+
+gboolean Frequency_Loop( gpointer udata )
 {
   /* Value of frequency and step num in the loop */
   static double freq;
@@ -574,7 +595,8 @@ Frequency_Loop( gpointer udata )
     /* Up frequency step count */
     fstep++;
 
-    /* If all steps of current FR card are processed, go to the next */
+    /* Set `freq` for use below
+     * If all steps of current FR card are processed, go to the next */
     if( fstep >= fsteps_total )
     {
       calc_data.FR_index++;
@@ -583,7 +605,9 @@ Frequency_Loop( gpointer udata )
         /* Add steps of new FR card range to total */
         fsteps_total += calc_data.freq_loop_data[calc_data.FR_index].freq_steps;
 
-        /* Update loop frequency from new FR card */
+        /* Update loop frequency from new FR card
+         * FIXME:  We shrink it here just so we cang row it down
+         * below where it is commented "Increment frequency" */
         freq = calc_data.freq_loop_data[calc_data.FR_index].min_freq;
         if( calc_data.freq_loop_data[calc_data.FR_index].ifreq == 1)
           freq /= calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
@@ -592,19 +616,15 @@ Frequency_Loop( gpointer udata )
       }
       else
       {
-        SetFlag(FREQ_LOOP_STOP);
         calc_data.FR_index--;   /* keep it in range, avoid off-by-1 error */
       }
     }
 
-    /* Frequency loop is completed or was paused by user */
+    /* Frequency loop was paused by user */
     if( isFlagSet(FREQ_LOOP_STOP) )
     {
       /* Points to last buffer in rad_pattern filled by loop */
-      fstep--;
-
-      /* Last freq step that was processed by children */
-      calc_data.last_step = fstep;
+      fstep = calc_data.freq_step;
 
       /* Re-enable pausing of freq loop */
       ClearFlag( FREQ_LOOP_STOP );
@@ -615,17 +635,21 @@ Frequency_Loop( gpointer udata )
       break;
     } /* if( isFlagSet(FREQ_LOOP_STOP) ) */
 
-    /* Increment frequency */
+    /* Increment frequency:
+	 * ifreq is "IFRQ (I1) from the FR card specification:
+	 *    0 - linear stepping
+	 *    1 - multiplicative stepping */
     if( calc_data.freq_loop_data[calc_data.FR_index].ifreq == 1)
       freq *= calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
     else
       freq += calc_data.freq_loop_data[calc_data.FR_index].delta_freq;
 
     /* Save frequencies for plotting */
-    save.freq[fstep] = (double)freq;
+    if (fstep < calc_data.steps_total)
+		save.freq[fstep] = (double)freq;
 
     /* Delegate calculations to child processes if forked */
-    if( FORKED )
+    if( FORKED && fstep < calc_data.steps_total )
     {
       /* Look for an idle process */
       for( job_num = 0; job_num < calc_data.num_jobs; job_num++ )
@@ -649,7 +673,7 @@ Frequency_Loop( gpointer udata )
           len = strlen( fork_commands[FRQDATA] );
           Write_Pipe( job_num, fork_commands[FRQDATA], (ssize_t)len, TRUE );
 
-          /* When it responds, give it next frequency */
+          /* Give it the next frequency */
           buff = (char *)&freq;
           len = sizeof( double );
           Write_Pipe( job_num, buff, (ssize_t)len, TRUE );
@@ -658,11 +682,14 @@ Frequency_Loop( gpointer udata )
       } /* for( job_num = 0; job_num < calc_data.num_jobs; job_num++ ) */
 
     } /* if( FORKED ) */
-    else /* Calculate freq dependent data (no fork) */
+    else if ( fstep < calc_data.steps_total ) /* Calculate freq dependent data (no fork) */
     {
+      g_mutex_lock(&freq_data_lock);
       calc_data.freq_mhz  = freq;
       calc_data.freq_step = fstep;
       calc_data.last_step = fstep;
+      g_mutex_lock(&freq_data_lock);
+
       New_Frequency();
       break;
     }
@@ -698,12 +725,14 @@ Frequency_Loop( gpointer udata )
       }
 
       /* Check for finished child processes */
+      g_mutex_lock(&freq_data_lock);
+
       for( idx = 0; idx < num_child_procs; idx++ )
       {
         if( FD_ISSET(forked_proc_data[idx]->child2pnt_pipe[READ], &read_fds) )
         {
           /* Read data from finished child process */
-          Get_Freq_Data( idx, forked_proc_data[idx]->fstep );
+          _Get_Freq_Data( idx, forked_proc_data[idx]->fstep );
 
           /* Mark freq step in list of processed steps */
           save.fstep[forked_proc_data[idx]->fstep] = 1;
@@ -724,21 +753,52 @@ Frequency_Loop( gpointer udata )
         else break;
       }
 
+      if (calc_data.freq_step >= calc_data.steps_total-1)
+	  {
+		  /* Cancel idle callbacks on exit */
+		  retval = FALSE;
+		  if (num_busy_procs != 0)
+		  {
+			  printf("BUG: Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n",
+				num_busy_procs,
+				calc_data.freq_step,
+				calc_data.steps_total);
+				for( job_num = 0; job_num < calc_data.num_jobs; job_num++ )
+				{
+					if (forked_proc_data[job_num]->busy)
+					{
+						printf("  busy job[%d]: fstep=%d freq=%f\n",
+							job_num,
+							forked_proc_data[job_num]->fstep,
+							save.freq[forked_proc_data[job_num]->fstep]);
+
+
+					}
+				}
+		  }
+	  }
+
+      g_mutex_unlock(&freq_data_lock);
+
     } /* do. Loop terminated and busy children */
     while( !retval && num_busy_procs );
 
-  /* Return if freq step 0 not ready yet */
+  /* Return if freq step 0 not ready yet, no frequency data is populated yet. */
   if( calc_data.freq_step < 0 )
   {
 	  g_mutex_unlock(&global_lock);
       return( retval );
   }
 
-  /* Set frequency and step to global variables */
+  /* Set frequency and step to global variables
+   * FIXME: These should move within the &freq_data_lock section just above ^^ */
+  g_mutex_lock(&freq_data_lock);
   calc_data.last_step = calc_data.freq_step;
   calc_data.freq_mhz = (double)save.freq[calc_data.freq_step];
+  g_mutex_unlock(&freq_data_lock);
 
   SetFlag( FREQ_LOOP_READY );
+
   if (retval || num_busy_procs)
   {
 	/* Trigger a redraw of open drawingareas */
@@ -883,15 +943,23 @@ Start_Frequency_Loop( void )
     retval = TRUE;
     SetFlag( FREQ_LOOP_INIT );
     SetFlag( FREQ_LOOP_RUNNING );
-    mem_alloc((void**)&pth_freq_loop, sizeof(pthread_t), __LOCATION__);
-    int ret = pthread_create( pth_freq_loop, NULL, Frequency_Loop_Thread, NULL );
-    if( ret != 0 )
-    {
-        free_ptr((void**)&pth_freq_loop);
-        fprintf( stderr, "xnec2c: failed to start Frequency_Loop_Thread\n" );
-        perror( "xnec2c: pthread_create()" );
-        exit( -1 );
-    }
+
+	if (!rc_config.disable_pthread_freqloop)
+	{
+		mem_alloc((void**)&pth_freq_loop, sizeof(pthread_t), __LOCATION__);
+		int ret = pthread_create( pth_freq_loop, NULL, Frequency_Loop_Thread, NULL );
+		if( ret != 0 )
+		{
+			free_ptr((void**)&pth_freq_loop);
+			fprintf( stderr, "xnec2c: failed to start Frequency_Loop_Thread\n" );
+			perror( "xnec2c: pthread_create()" );
+			exit( -1 );
+		}
+	}
+	else
+	{
+		floop_tag = g_idle_add( Frequency_Loop, NULL );
+	}
     return( TRUE );
   }
   else return( FALSE );
@@ -910,11 +978,19 @@ Stop_Frequency_Loop( void )
   // Clearing this flag will cause the Frequency_Loop pthread to exit when it is done:
   ClearFlag( FREQ_LOOP_RUNNING );
 
-  // Wait for the thread to exit:
-  if (pth_freq_loop != NULL)
+  if (!rc_config.disable_pthread_freqloop)
   {
-	  pthread_join(*pth_freq_loop, NULL);
-	  free_ptr((void**)&pth_freq_loop);
+	  // Wait for the thread to exit:
+	  if (pth_freq_loop != NULL)
+	  {
+		  pthread_join(*pth_freq_loop, NULL);
+		  free_ptr((void**)&pth_freq_loop);
+	  }
+  }
+  else if( floop_tag > 0 )
+  {
+	g_source_remove( floop_tag );
+	floop_tag = 0;
   }
 } /* Stop_Frequency_Loop() */
 
