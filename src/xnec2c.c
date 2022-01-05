@@ -732,7 +732,11 @@ gboolean Frequency_Loop( gpointer udata )
         if( FD_ISSET(forked_proc_data[idx]->child2pnt_pipe[READ], &read_fds) )
         {
           /* Read data from finished child process */
-          _Get_Freq_Data( idx, forked_proc_data[idx]->fstep );
+          Get_Freq_Data( idx, forked_proc_data[idx]->fstep );
+
+          /* Clear "last-used-frequency" buffer, the local version of the data is
+           * no longer what New_Frequency() set it to: */
+          New_Frequency_Reset_Prev(); 
 
           /* Mark freq step in list of processed steps */
           save.fstep[forked_proc_data[idx]->fstep] = 1;

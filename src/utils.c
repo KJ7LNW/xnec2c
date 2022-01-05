@@ -738,7 +738,7 @@ char **_get_backtrace()
 {
 	void *array[10];
 	char **strings;
-	int size, i;
+	int size;
 
 	size = backtrace(array, 10);
 	strings = backtrace_symbols(array, size);

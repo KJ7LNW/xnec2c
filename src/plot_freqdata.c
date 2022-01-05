@@ -1413,7 +1413,6 @@ _Plot_Frequency_Data( cairo_t *cr )
               calc_data.last_step,
               calc_data.freq_step
               );
-          printf("BUG: rad_pattern=%p .max_gain_idx=%p\n", rad_pattern, rad_pattern[idx].max_gain_idx);
           printf("BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d\n", idx, save.fstep[idx], isFlagSet(FREQ_LOOP_STOP));
           mem_backtrace(rad_pattern[idx].max_gain_idx);
           continue;
