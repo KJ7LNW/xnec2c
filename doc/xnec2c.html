@@ -1239,7 +1239,22 @@ remove extra whitespace and increase precision of the NEC2 data.  See git log fo
 	performance slightly, reduces heap thrashing, increases stability by clearing memory
 	on reallocation, and makes memory handling easier to debug.</li>
 </ul>
-
+</p>
+<p><b>Version 4.4.3:</b>
+Added option to Round X-axis Frequency Values:
+<br/><br/>
+X-Axis frequency values in the Frequency Data Plots window default to
+scaling based on the total frequency range and number of points which
+deviates from the way Neoklis originally implemented the plot.  This makes
+the best use of graph space, however, this new form can create axis values
+that do not align nicely to whole numbers or common fractions of numbers
+(like 13.5 vs 13.72).
+<br/><br/>
+The new option "View-&gt;Round X Axis Frequency Values" will align the X Axis
+labels to normalized values as originally designed in releases prior
+to v4.1.5.  When this option is off, it will show one more frequency
+signifigant figure displayed on the X Axis and scale the plot to use
+the entire plot space.
 </p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
