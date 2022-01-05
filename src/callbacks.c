@@ -525,6 +525,13 @@ on_main_freqplots_activate(
         gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(widget), TRUE );
       }
 
+      if( rc_config.freqplots_round_x_axis )
+      {
+        widget = Builder_Get_Object(
+            freqplots_window_builder, "freqplots_round_x_axis" );
+        gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(widget), TRUE );
+      }
+
       if( isFlagClear(INPUT_OPENED) )
       {
         GtkWidget *box =
@@ -4469,6 +4476,25 @@ on_freqplots_clamp_vswr_activate(
     rc_config.freqplots_clamp_vswr = 1;
   else
     rc_config.freqplots_clamp_vswr = 0;
+
+  /* Trigger a redraw of frequency plots drawingarea */
+  if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )
+  {
+    xnec2_widget_queue_draw( freqplots_drawingarea );
+  }
+}
+
+  void
+on_freqplots_round_x_axis_activate(
+    GtkMenuItem     *menuitem,
+    gpointer         user_data)
+{
+
+  // No room for PLOT_ flags, so using rc_config:
+  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
+    rc_config.freqplots_round_x_axis = 1;
+  else
+    rc_config.freqplots_round_x_axis = 0;
 
   /* Trigger a redraw of frequency plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) && isFlagSet(FREQ_LOOP_DONE) )

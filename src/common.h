@@ -319,6 +319,10 @@ typedef struct
   /* See enum GAIN_SCALE */
   int gain_style;
 
+  /* If true, then call Fit_to_Scale() on the X-axis
+   * fr_plot->min_fscale/fr_plot->max_fscale values. */
+  int freqplots_round_x_axis;
+
 } rc_config_t;
 
 /* Gain Scaling style */
@@ -744,6 +748,10 @@ typedef struct {
 
 	// Pointer to &calc_data.freq_loop_data[fr]
 	freq_loop_data_t *freq_loop_data;
+
+	// Scaled versions of fr_plot->freq_loop_data->min_freq/max_freq for plot display
+	// for use with rc_config.freqplots_round_x_axis
+	double min_fscale, max_fscale;
 
 	// Because we are using realloc it is hard to know if the structure has
 	// been initialized or if it needs to be set to sane values.  The 

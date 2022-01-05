@@ -611,8 +611,13 @@ Plot_Horizontal_Scale(
   /* Use order of horizontal step to determine format of print */
   double ord = log10( fabs(hstep + 0.0000001) );
   order = (int)ord;
+
+  if (!rc_config.freqplots_round_x_axis)
+	  order--;
+
   if( order > 0 )  order = 0;
   if( order < -9 ) order = -9;
+
   snprintf( format, 7, "%%.%df", 1-order );
 
   /* Draw horizontal scale values */
@@ -787,7 +792,7 @@ Draw_Graph(
     double bmax, double bmin,
     int nval, int nval_max, int side )
 {
-  double ra;
+  double ra, rb;
   int idx;
   GdkPoint *points = NULL;
   char s[20];
@@ -797,6 +802,7 @@ Draw_Graph(
 
   /* Range of values to plot */
   ra = amax - amin;
+  rb = bmax - bmin;
 
   /* Calculate points to plot */
   mem_alloc( (void **) &points, (size_t)calc_data.steps_total * sizeof(GdkPoint),
@@ -813,7 +819,7 @@ Draw_Graph(
   int min_idx = 0, max_idx = 0;
   for( idx = 0; idx < nval; idx++ )
   {
-    points[idx].x = rect->x + (int)((double)rect->width * idx/(nval_max-1) + 0.5);
+    points[idx].x = rect->x + (int)((double)rect->width * (b[idx]-bmin)/rb + 0.5);
     points[idx].y = rect->y + (int)( (double)rect->height *
         (amax-a[idx]) / ra + 0.5 );
 
@@ -922,7 +928,7 @@ Plot_Graph(
 	// pango_text_size() above:
 
 	// Space between vertical scale lines across the X axis:
-	px_per_vert_scale = pad_x_scale_text*1.5;
+	px_per_vert_scale = 75;
 
 	// Space between horizontal scale lines down the Y axis:
 	px_per_horiz_scale = pad_y_bottom_scale_text*3;
@@ -1091,8 +1097,21 @@ Plot_Graph(
 			maxidx = fr_plot->freq_loop_data->freq_steps;
 
 		/* Draw plotting frame */
-		double min_fscale = fr_plot->freq_loop_data->min_freq;
-		double max_fscale = fr_plot->freq_loop_data->max_freq;
+
+		// Scale the X-axis frequency values to nice round numbers:
+		fr_plot->min_fscale = fr_plot->freq_loop_data->min_freq;
+		fr_plot->max_fscale = fr_plot->freq_loop_data->max_freq;
+
+		if (rc_config.freqplots_round_x_axis)
+			Fit_to_Scale( &fr_plot->max_fscale, &fr_plot->min_fscale, &n_vert_scale );
+
+		// Always label at least 2 frequencies, the first and last:
+		if (n_vert_scale < 2)
+			n_vert_scale = 2;
+
+		// local shorthand variables
+		double min_fscale = fr_plot->min_fscale;
+		double max_fscale = fr_plot->max_fscale;
 
 		Draw_Plotting_Frame( cr, titles,
 			plot_rect, n_horiz_scale, n_vert_scale);
@@ -1770,8 +1789,9 @@ _Set_Frequency_On_Click( GdkEvent *e)
 	  return;
   }
 
-  double min_fscale = fr_plot->freq_loop_data->min_freq;
-  double max_fscale = fr_plot->freq_loop_data->max_freq;
+  // local shorthand variables
+  double min_fscale = fr_plot->min_fscale;
+  double max_fscale = fr_plot->max_fscale;
 
   /* Width of plot bounding rectangle */
   w = fr_plot->plot_rect.width;

@@ -167,6 +167,9 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Radiation Plots Gain Style", .format = "%d",
 		.vars = { &rc_config.gain_style } },
+
+	{ .desc = "Round X Axis", .format = "%d",
+		.vars = { &rc_config.freqplots_round_x_axis } },
 };
 
 
@@ -382,6 +385,7 @@ Create_Default_Config( void )
   rc_config.freqplots_min_max = 0;
   rc_config.freqplots_s11 = 0;
   rc_config.freqplots_clamp_vswr = 1;
+  rc_config.freqplots_round_x_axis = 0;
 
   /* For NEC2 editor window */
   rc_config.nec2_edit_width  = 0;
@@ -721,7 +725,9 @@ Get_GUI_State( void )
     rc_config.freqplots_zmgzph_togglebutton  = 0;
     rc_config.freqplots_smith_togglebutton   = 0;
     rc_config.freqplots_net_gain = 0;
+    rc_config.freqplots_clamp_vswr = 0;
     rc_config.freqplots_min_max = 0;
+    rc_config.freqplots_round_x_axis = 0;
 
     widget = Builder_Get_Object(
         freqplots_window_builder, "freqplots_gmax_togglebutton" );
@@ -762,6 +768,16 @@ Get_GUI_State( void )
         freqplots_window_builder, "freqplots_min_max" );
     if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)) )
       rc_config.freqplots_min_max = 1;
+
+    widget = Builder_Get_Object(
+        freqplots_window_builder, "freqplots_clamp_vswr" );
+    if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)) )
+      rc_config.freqplots_clamp_vswr = 1;
+
+    widget = Builder_Get_Object(
+        freqplots_window_builder, "freqplots_round_x_axis" );
+    if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)) )
+      rc_config.freqplots_round_x_axis = 1;
 
     widget = Builder_Get_Object(
         freqplots_window_builder, "freqplots_smith_togglebutton" );
