@@ -63,6 +63,7 @@ fi
 
 # GCC
 AX_CHECK_COMPILE_FLAG(-fcx-fortran-rules, CFLAGS="$CFLAGS -fcx-fortran-rules")
+AX_CHECK_COMPILE_FLAG(-fstack-protector-strong, CFLAGS="$CFLAGS -fstack-protector-strong")
 
 # clang
 
