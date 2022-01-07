@@ -65,9 +65,11 @@ fi
 AX_CHECK_COMPILE_FLAG(-fcx-fortran-rules, CFLAGS="$CFLAGS -fcx-fortran-rules")
 
 # clang
+
+# Note that -ffinite-math-only is known to break xnec2c radiation patterns,
+# so please do not add it to the list.
 AX_CHECK_COMPILE_FLAG(-fno-honor-infinities, CFLAGS="$CFLAGS -fno-honor-infinities")
 AX_CHECK_COMPILE_FLAG(-fno-honor-nans, CFLAGS="$CFLAGS -fno-honor-nans")
-AX_CHECK_COMPILE_FLAG(-ffinite-math-only, CFLAGS="$CFLAGS -ffinite-math-only")
 AX_CHECK_COMPILE_FLAG(-fno-signed-zeros, CFLAGS="$CFLAGS -fno-signed-zeros")
 AX_CHECK_COMPILE_FLAG(-fno-math-errno, CFLAGS="$CFLAGS -fno-math-errno")
 
