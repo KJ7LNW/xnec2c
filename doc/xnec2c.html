@@ -1256,6 +1256,14 @@ to v4.1.5.  When this option is off, it will show one more frequency
 signifigant figure displayed on the X Axis and scale the plot to use
 the entire plot space.
 </p>
+<p><b>Version 4.4.4:</b>
+Fixed regression introduced in v4.3 by adding -ffinite-math-only as a
+gcc optimization.  This causes radiation patterns to draw incorrectly
+when the RP card (radiation pattern card) when using a "Perfect Ground"
+in the GN card at the same time that "Radial wire screen" is used as
+the ground in the RP card.  Thank you Neoklis for investigating the examples
+that produced the issue.
+</p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
 as NEC2 or nec2c. Specifically, commands that cause execution in

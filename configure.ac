@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([xnec2c], [4.4.3], [xnec2c-bugs@z.ewheeler.org])
+AC_INIT([xnec2c], [4.4.4], [xnec2c-bugs@z.ewheeler.org])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/common.h])
 AC_CONFIG_HEADERS([config.h])
@@ -61,14 +61,17 @@ fi
 
 ## Enable fortran math optimizations
 
+# Note that -ffinite-math-only is known to break xnec2c radiation patterns,
+# so please do not add it to the list.  Interestingly, clang seems to work fine
+# with -fno-honor-infinities and -fno-honor-nans which are the same as GCC's
+# -ffinite-math-only flag (except in the implementation), so this seems to be
+# a GCC-specific quirk.
+
 # GCC
 AX_CHECK_COMPILE_FLAG(-fcx-fortran-rules, CFLAGS="$CFLAGS -fcx-fortran-rules")
 AX_CHECK_COMPILE_FLAG(-fstack-protector-strong, CFLAGS="$CFLAGS -fstack-protector-strong")
 
 # clang
-
-# Note that -ffinite-math-only is known to break xnec2c radiation patterns,
-# so please do not add it to the list.
 AX_CHECK_COMPILE_FLAG(-fno-honor-infinities, CFLAGS="$CFLAGS -fno-honor-infinities")
 AX_CHECK_COMPILE_FLAG(-fno-honor-nans, CFLAGS="$CFLAGS -fno-honor-nans")
 AX_CHECK_COMPILE_FLAG(-fno-signed-zeros, CFLAGS="$CFLAGS -fno-signed-zeros")
