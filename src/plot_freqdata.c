@@ -1273,6 +1273,10 @@ Plot_Graph_Smith(
   for( idx = 0; idx < nc; idx++ )
   {
     Calculate_Smith( fa[idx], fb[idx], calc_data.zo, &re, &im );
+
+    // flip plot vertically because negative imaginary is the bottom half    
+    im = -im;
+
     points[idx].x = x0 + (gint)( re * scale / 2 );
     points[idx].y = y0 + (gint)( im * scale / 2 );
         cairo_rectangle( cr,
@@ -1291,6 +1295,10 @@ Plot_Graph_Smith(
   {
     cairo_set_source_rgb( cr, GREEN );
     Calculate_Smith( creal(netcx.zped), cimag(netcx.zped), calc_data.zo, &re, &im );
+
+    // flip plot vertically because negative imaginary is the bottom half    
+    im = -im;
+
     x = x0 + (gint)( re * scale / 2 );
     y = y0 + (gint)( im * scale / 2 );
     cairo_rectangle( cr, x - 4, y - 4, 8.0, 8.0 );
