@@ -551,6 +551,11 @@ Read_Config( void )
   /* Config and mnemonics file pointer */
   FILE *fp = NULL;
 
+  /* Create the dir if missing */
+  snprintf( fpath, sizeof(fpath), "%s/.xnec2c", getenv("HOME"));
+  if( access(fpath, R_OK) < 0 && errno == ENOENT)
+	  mkdir(fpath, 755);
+
   /* Setup file path to xnec2c rc file */
   snprintf( fpath, sizeof(fpath), "%s/%s", getenv("HOME"), CONFIG_FILE );
 
