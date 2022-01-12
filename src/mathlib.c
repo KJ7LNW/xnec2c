@@ -233,6 +233,23 @@ void init_mathlib()
 			// Otherwise close it for now and re-open on use.
 			close_mathlib(&mathlibs[libidx]);
 	}
+
+	if (!mathlibs[rc_config.mathlib_idx].available)
+		for (libidx = 0; libidx < num_mathlibs; libidx++)
+			if (mathlibs[libidx].available)
+			{
+				set_mathlib_interactive(NULL, &mathlibs[libidx]);
+				break;
+			}
+
+	if (!mathlibs[rc_config.mathlib_batch_idx].available)
+		for (libidx = 0; libidx < num_mathlibs; libidx++)
+			if (mathlibs[libidx].available)
+			{
+				rc_config.mathlib_batch_idx = libidx;
+				break;
+			}
+
 }
 
 
@@ -248,7 +265,7 @@ void mathlib_config_init(rc_config_vars_t *v, char *line)
 		set_mathlib_interactive(NULL, &mathlibs[rc_config.mathlib_idx]);
 	}
 	else
-		printf("Unable to set the preferred mathlib index to %d\n", rc_config.mathlib_idx);
+		printf("Unable to set the preferred mathlib index to %d (ignore if first run)\n", rc_config.mathlib_idx);
 }
 
 int mathlib_config_benchmark_parse(rc_config_vars_t *v, char *line)
