@@ -20,7 +20,6 @@ AC_MSG_RESULT($enable_cflags_setting)
 test "x$enable_cflags_setting" = xyes && CFLAGS=""
 
 # Checks for programs.
-AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_MAKE_SET
 
