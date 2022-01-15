@@ -20,6 +20,15 @@
 #ifndef COMMON_H
 #define COMMON_H    1
 
+#ifdef WIN32
+#include <windows.h>
+#undef near
+#undef far
+#undef grp1
+#undef grp2
+
+#endif
+
 #include <complex.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -31,9 +40,15 @@
 #include <fcntl.h>
 #include <time.h>
 #include <sys/types.h>
+
+#ifndef WIN32
 #include <sys/times.h>
+#endif
 #include <gtk/gtk.h>
 #include <errno.h>
+
+
+
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
@@ -901,7 +916,9 @@ double db10(double x);
 double db20(double x);
 void intrp(double x, double y, _Complex double *f1, _Complex double *f2, _Complex double *f3, _Complex double *f4);
 void intx(double el1, double el2, double b, int ij, double *sgr, double *sgi);
+#ifndef WIN32
 int min(int a, int b);
+#endif
 void test(double f1r, double f2r, double *tr, double f1i, double f2i, double *ti, double dmin);
 void trio(int j);
 double cang(_Complex double z);

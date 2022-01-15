@@ -17,7 +17,9 @@
  *    https://www.xnec2c.org/
  */
 
+#ifndef WIN32
 #include <execinfo.h>
+#endif
 
 #include "utils.h"
 #include "shared.h"
@@ -409,7 +411,9 @@ Close_File( FILE **fp )
 {
   if( *fp != NULL )
   {
+#ifndef WIN32
 	  fsync(fileno(*fp));
+#endif
 	  fclose(*fp);
 	  *fp = NULL;
   }
@@ -742,11 +746,13 @@ void _print_backtrace(char **strings)
 char **_get_backtrace()
 {
 	void *array[10];
-	char **strings;
+	char **strings = NULL;
 	int size;
 
+#ifndef WIN32
 	size = backtrace(array, 10);
 	strings = backtrace_symbols(array, size);
+#endif
 
 	// This wastes an array entry, but allows _print_backtrace() to find
 	// the end of the list without realloc'ing space for a NULL:

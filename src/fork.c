@@ -142,7 +142,10 @@ Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
 	  else
 		pipefd = forked_proc_data[idx]->child2pnt_pipe[READ];
 
+
+#ifndef WIN32
 	  retval = select( 1024, &forked_proc_data[idx]->read_fds, NULL, NULL, NULL );
+#endif
 
 	  if (retval == -1 && errno != EINTR)
 	  {
@@ -507,7 +510,10 @@ Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
 	  else
 		pipefd = forked_proc_data[idx]->pnt2child_pipe[WRITE];
 
+
+#ifndef WIN32
 	  retval = select( 1024, NULL, &forked_proc_data[idx]->write_fds, NULL, NULL );
+#endif
 
 	  if (retval == -1 && errno != EINTR)
 	  {
