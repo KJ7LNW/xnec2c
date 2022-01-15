@@ -1048,12 +1048,14 @@ Gtk_Quit( void )
   SetFlag( MAIN_QUIT );
 
   /* Kill child processes */
+#ifndef WIN32
   if( FORKED && !CHILD )
     while( num_child_procs )
     {
       num_child_procs--;
       kill( forked_proc_data[num_child_procs]->child_pid, SIGKILL );
     }
+#endif
 
   /* Kill possibly nested loops */
   k = (int)gtk_main_level();

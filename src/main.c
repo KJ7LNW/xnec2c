@@ -35,6 +35,7 @@ main (int argc, char *argv[])
   int option, idx, err;
   int enable_forking = 1;
 
+#ifndef WIN32
   /*** Signal handler related code ***/
   /* new and old actions for sigaction() */
   struct sigaction sa_new, sa_old;
@@ -51,6 +52,7 @@ main (int argc, char *argv[])
   sigaction( SIGTERM, &sa_new, NULL );
   sigaction( SIGABRT, &sa_new, NULL );
   sigaction( SIGCHLD, &sa_new, NULL );
+#endif
 
   gtk_init (&argc, &argv);
 
@@ -132,6 +134,9 @@ main (int argc, char *argv[])
    * available, the parent process handles the GUI and delegates
    * calculations to the child processes, one per processor. The
    * requested number of child processes = number of processors */
+#ifdef WIN32
+  enable_forking = 0;
+#else
 
   /* Allocate buffers for fork data */
   if( calc_data.num_jobs >= 1 && enable_forking )
@@ -202,6 +207,7 @@ main (int argc, char *argv[])
 
     FORKED = TRUE;
   } /* if( calc_data.num_jobs > 1 ) */
+#endif
 
   /* Create the main window */
   main_window = create_main_window( &main_window_builder );
@@ -506,6 +512,7 @@ Open_Input_File( gpointer arg )
 
 /*------------------------------------------------------------------------*/
 
+#ifndef WIN32
 static void sig_handler( int signal )
 {
   switch( signal )
@@ -572,6 +579,7 @@ static void sig_handler( int signal )
   else exit( signal );
 
 } /* End of sig_handler() */
+#endif
 
 /*------------------------------------------------------------------------*/
 

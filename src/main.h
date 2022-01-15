@@ -25,7 +25,10 @@
 #include "interface.h"
 #include "fork.h"
 #include "nec2_model.h"
+
+#ifndef WIN32
 #include <sys/wait.h>
+#endif
 
 #define OPEN_INPUT_FLAGS \
   RDPAT_FLAGS       | \

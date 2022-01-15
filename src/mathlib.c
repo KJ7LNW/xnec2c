@@ -17,9 +17,13 @@
  *    https://www.xnec2c.org/
  */
 
+
+#ifndef WIN32
 #define _GNU_SOURCE
 #include <dlfcn.h>
 #include <link.h>
+#endif
+
 #include "main.h"
 #include "shared.h"
 #include "mathlib.h"
@@ -115,16 +119,23 @@ void close_mathlib(mathlib_t *lib)
 
 	if (lib->handle != NULL)
 	{
+#ifndef WIN32
 		dlclose(lib->handle);
+#endif
 		lib->handle = NULL;
 	}
 
 	if (lib->env[0] != NULL)
+#ifndef WIN32
 		unsetenv(lib->env[0]);
+#else
+		SetEnvironmentVariable(lib->env[0], NULL);
+#endif
 }
 
 int open_mathlib(mathlib_t *lib)
 {
+#ifndef WIN32
 	char fname[40];
 	int fidx;
 
@@ -189,6 +200,7 @@ int open_mathlib(mathlib_t *lib)
 		return 1;
 	else
 		return 0;
+#endif
 }
 
 
@@ -220,7 +232,9 @@ void init_mathlib()
 		if (mathlibs[libidx].handle != NULL)
 		{
 			char lpath[PATH_MAX];
+#ifndef WIN32
 			dlinfo(mathlibs[libidx].handle, RTLD_DI_ORIGIN, lpath);
+#endif
 			printf("  loaded ok: %s/%s\n", lpath, mathlibs[libidx].lib);
 		}
 		else
@@ -897,6 +911,7 @@ int32_t zgetrs(int32_t order, int32_t trans, int32_t lda, int32_t nrhs,
 void mathlib_mkl_set_threading(mathlib_t *lib, int code)
 {
 	int (*mkl_set_threading_layer)(int) = NULL;
+#ifndef WIN32
 
 	// Skip this if not yet initialized:
 	if (!lib->available)
@@ -911,6 +926,7 @@ void mathlib_mkl_set_threading(mathlib_t *lib, int code)
 	}
 
 	mkl_set_threading_layer(code);
+#endif
 }
 
 void mathlib_mkl_set_threading_intel(mathlib_t *lib)

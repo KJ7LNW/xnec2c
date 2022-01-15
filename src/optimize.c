@@ -18,8 +18,10 @@
  */
 
 #include "shared.h"
+#ifndef WIN32
 #include <poll.h>
 #include <sys/inotify.h>
+#endif
 
 /*------------------------------------------------------------------------*/
 
@@ -137,7 +139,9 @@ void Write_Optimizer_Data( void )
 
 int inotify_open(struct pollfd *pfd)
 {
-  int wd, fd;
+  int wd, fd = -1;
+
+#ifndef WIN32
 
   /* Create the file descriptor for accessing the inotify API. */
   fd = inotify_init1( IN_NONBLOCK );
@@ -159,6 +163,9 @@ int inotify_open(struct pollfd *pfd)
   pfd->fd     = fd;     /* Inotify input */
   pfd->events = POLLIN;
 
+#endif
+
+
   return fd;
 }
 
@@ -167,6 +174,10 @@ int inotify_open(struct pollfd *pfd)
   void *
 Optimizer_Output( void *arg )
 {
+
+#ifndef WIN32
+
+
   int fd = -1, poll_num;
   int job_num, num_busy_procs;
   struct pollfd pfd;
@@ -258,6 +269,7 @@ Optimizer_Output( void *arg )
   /* Close inotify file descriptor. */
   close( fd );
   return( NULL );
+#endif
 } // Optimizer_Output()
 
 /*------------------------------------------------------------------------*/

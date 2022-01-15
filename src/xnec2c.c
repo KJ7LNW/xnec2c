@@ -700,6 +700,7 @@ gboolean Frequency_Loop( gpointer udata )
 
   } /* for( idx = 0; idx < calc_data.num_jobs; idx++ ) */
 
+#ifndef WIN32
   /* Receive results from forked children */
   if( FORKED && num_busy_procs )
     do
@@ -786,6 +787,7 @@ gboolean Frequency_Loop( gpointer udata )
 
     } /* do. Loop terminated and busy children */
     while( !retval && num_busy_procs );
+#endif
 
   /* Return if freq step 0 not ready yet, no frequency data is populated yet. */
   if( calc_data.freq_step < 0 )
