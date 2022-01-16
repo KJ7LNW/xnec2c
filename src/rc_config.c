@@ -176,6 +176,21 @@ rc_config_vars_t rc_config_vars[] = {
 rc_config_vars_t rc_config_vars[];
 int num_rc_config_vars = sizeof(rc_config_vars) / sizeof(rc_config_vars_t);
 
+char *get_conf_dir(char *s, int len)
+{
+	char *home = getenv("HOME");
+	if (home == NULL || strlen(home) == 0)
+	{
+		getcwd(s, len);
+		printf("warning: environment variable HOME is undefined, using %s\n", s);
+	}
+	else
+	{
+		strncpy(s, home, len);
+	}
+
+	return s;
+}
 
 // Trim the newline
 void chomp(char *line)
@@ -310,13 +325,14 @@ Get_Window_Geometry(
 Create_Default_Config( void )
 {
   char
+    home[PATH_MAX],
     line[LINE_LEN],
     cfg_file[FILENAME_LEN];   /* Path to config file */
 
   FILE *fp = NULL;
 
   /* Setup file path to xnec2c config file */
-  snprintf( cfg_file, sizeof(cfg_file), "%s/%s", getenv("HOME"), CONFIG_FILE );
+  snprintf( cfg_file, sizeof(cfg_file), "%s/%s", get_conf_dir(home, sizeof(home)), CONFIG_FILE );
   fp = fopen( cfg_file, "r" );
   if( fp != NULL )
   {
@@ -336,7 +352,7 @@ Create_Default_Config( void )
   } /* if( (fp = fopen(cfg_file, "r")) != NULL ) */
 
   /* For main window */
-  Strlcpy( rc_config.working_dir, getenv("HOME"), sizeof(rc_config.working_dir) );
+  Strlcpy( rc_config.working_dir, get_conf_dir(home, sizeof(home)), sizeof(rc_config.working_dir) );
   Strlcat( rc_config.working_dir, "/", sizeof(rc_config.working_dir) );
   rc_config.main_width  = 600;
   rc_config.main_height = 400;
@@ -544,6 +560,7 @@ Restore_GUI_State( void )
 Read_Config( void )
 {
   char
+    home[PATH_MAX],
     fpath[FILENAME_LEN], /* File path to xnec2crc */
     line[LINE_LEN];
   int lnum;
@@ -552,12 +569,12 @@ Read_Config( void )
   FILE *fp = NULL;
 
   /* Create the dir if missing */
-  snprintf( fpath, sizeof(fpath), "%s/.xnec2c", getenv("HOME"));
+  snprintf( fpath, sizeof(fpath), "%s/.xnec2c", get_conf_dir(home, sizeof(home)));
   if( access(fpath, R_OK) < 0 && errno == ENOENT)
 	  mkdir(fpath, 755);
 
   /* Setup file path to xnec2c rc file */
-  snprintf( fpath, sizeof(fpath), "%s/%s", getenv("HOME"), CONFIG_FILE );
+  snprintf( fpath, sizeof(fpath), "%s/%s", get_conf_dir(home, sizeof(home)), CONFIG_FILE );
 
   /* Create the file if missing */
   if( access(fpath, R_OK) < 0 && errno == ENOENT)
@@ -809,11 +826,12 @@ Save_Config( void )
   FILE *fp = NULL;  /* File pointer to write config file */
 
   char
+    home[PATH_MAX],
     err_str[300],             /* Error messages string */
     cfg_file[FILENAME_LEN];   /* Path to config file */
 
   /* Setup file path to xnec2c working directory */
-  snprintf( cfg_file, sizeof(cfg_file), "%s/%s", getenv("HOME"), CONFIG_FILE );
+  snprintf( cfg_file, sizeof(cfg_file), "%s/%s", get_conf_dir(home, sizeof(home)), CONFIG_FILE );
 
   /* Open config file for writing */
   if( !Open_File( &fp, cfg_file, "w" ) )
