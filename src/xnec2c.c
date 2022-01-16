@@ -688,9 +688,14 @@ gboolean Frequency_Loop( gpointer udata )
       calc_data.freq_mhz  = freq;
       calc_data.freq_step = fstep;
       calc_data.last_step = fstep;
-      g_mutex_lock(&freq_data_lock);
+      g_mutex_unlock(&freq_data_lock);
 
       New_Frequency();
+
+      // Be sure to exit if this was the last iteration:
+      if (fstep >= calc_data.steps_total-1)
+             retval = 0;
+
       break;
     }
 

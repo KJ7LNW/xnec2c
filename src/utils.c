@@ -668,6 +668,11 @@ void _g_idle_add_once(GSourceFunc function, gpointer data, int lock)
 	g_idle_add_data_t *cbdata = NULL;
 	mem_alloc((void**)&cbdata, sizeof(g_idle_add_data_t), __LOCATION__);
 
+	// Don't do a locked sync if -P is specified because GTK
+	// is already running synchronously.
+	if (rc_config.disable_pthread_freqloop)
+		lock = 0;
+
 	g_mutex_init(&cbdata->lock);
 
 	cbdata->function = function;
