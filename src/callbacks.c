@@ -30,7 +30,7 @@ static int saveas_height;
 /*-----------------------------------------------------------------------*/
 
   void
-on_main_window_destroy(
+G_MODULE_EXPORT on_main_window_destroy (
     GObject     *object,
     gpointer    user_data)
 {
@@ -39,7 +39,7 @@ on_main_window_destroy(
 
 
   gboolean
-on_main_window_delete_event(
+G_MODULE_EXPORT on_main_window_delete_event (
     GtkWidget       *widget,
     GdkEvent        *event,
     gpointer         user_data)
@@ -67,7 +67,7 @@ on_main_window_delete_event(
 
 
   gboolean
-on_main_window_key_press_event(
+G_MODULE_EXPORT on_main_window_key_press_event (
     GtkWidget    *widget,
     GdkEventKey  *event,
     gpointer      user_data)
@@ -98,7 +98,7 @@ on_main_window_key_press_event(
 
 
   void
-on_new_activate(
+G_MODULE_EXPORT on_new_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -138,7 +138,7 @@ on_new_activate(
 
 
   void
-on_open_input_activate(
+G_MODULE_EXPORT on_open_input_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -172,7 +172,7 @@ on_open_input_activate(
 
 
   void
-on_main_save_activate(
+G_MODULE_EXPORT on_main_save_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -209,7 +209,7 @@ on_main_save_activate(
 
 
   void
-on_main_save_as_activate(
+G_MODULE_EXPORT on_main_save_as_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -224,7 +224,7 @@ on_main_save_as_activate(
 }
 
   void
-on_struct_save_as_gnuplot_activate(
+G_MODULE_EXPORT on_struct_save_as_gnuplot_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -236,7 +236,7 @@ on_struct_save_as_gnuplot_activate(
 
 
   void
-on_optimizer_output_toggled(
+G_MODULE_EXPORT on_optimizer_output_toggled (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -264,7 +264,7 @@ on_optimizer_output_toggled(
 
 
   void
-on_confirm_quit_toggled(
+G_MODULE_EXPORT on_confirm_quit_toggled (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -276,7 +276,7 @@ on_confirm_quit_toggled(
 
 
   void
-on_quit_activate(
+G_MODULE_EXPORT on_quit_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -302,7 +302,7 @@ on_quit_activate(
 
 
   void
-on_main_rdpattern_activate(
+G_MODULE_EXPORT on_main_rdpattern_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -415,7 +415,7 @@ on_main_rdpattern_activate(
 
 
   void
-on_main_freqplots_activate(
+G_MODULE_EXPORT on_main_freqplots_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -548,7 +548,7 @@ on_main_freqplots_activate(
 
 
   void
-on_rdpattern_total_activate(
+G_MODULE_EXPORT on_rdpattern_total_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -557,7 +557,7 @@ on_rdpattern_total_activate(
 
 
   void
-on_rdpattern_horizontal_activate(
+G_MODULE_EXPORT on_rdpattern_horizontal_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -566,7 +566,7 @@ on_rdpattern_horizontal_activate(
 
 
   void
-on_rdpattern_vertical_activate(
+G_MODULE_EXPORT on_rdpattern_vertical_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -575,7 +575,7 @@ on_rdpattern_vertical_activate(
 
 
   void
-on_rdpattern_right_hand_activate(
+G_MODULE_EXPORT on_rdpattern_right_hand_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -584,7 +584,7 @@ on_rdpattern_right_hand_activate(
 
 
   void
-on_rdpattern_left_hand_activate(
+G_MODULE_EXPORT on_rdpattern_left_hand_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -593,7 +593,7 @@ on_rdpattern_left_hand_activate(
 
 
   void
-on_common_projection_activate(
+G_MODULE_EXPORT on_common_projection_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -620,7 +620,7 @@ on_common_projection_activate(
 
 
   void
-on_common_freq_activate(
+G_MODULE_EXPORT on_common_freq_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -634,7 +634,7 @@ on_common_freq_activate(
 
 
   void
-on_main_x_axis_clicked(
+G_MODULE_EXPORT on_main_x_axis_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -648,7 +648,7 @@ on_main_x_axis_clicked(
 
 
   void
-on_main_y_axis_clicked(
+G_MODULE_EXPORT on_main_y_axis_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -662,7 +662,7 @@ on_main_y_axis_clicked(
 
 
   void
-on_main_z_axis_clicked(
+G_MODULE_EXPORT on_main_z_axis_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -676,7 +676,7 @@ on_main_z_axis_clicked(
 
 
   void
-on_main_default_view_clicked(
+G_MODULE_EXPORT on_main_default_view_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -690,7 +690,7 @@ on_main_default_view_clicked(
 
 
   void
-on_main_rotate_spinbutton_value_changed(
+G_MODULE_EXPORT on_main_rotate_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -712,7 +712,7 @@ on_main_rotate_spinbutton_value_changed(
 
 
   void
-on_main_incline_spinbutton_value_changed(
+G_MODULE_EXPORT on_main_incline_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -734,7 +734,7 @@ on_main_incline_spinbutton_value_changed(
 
 
   void
-on_main_currents_togglebutton_toggled(
+G_MODULE_EXPORT on_main_currents_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -745,7 +745,7 @@ on_main_currents_togglebutton_toggled(
 
 
   void
-on_main_charges_togglebutton_toggled(
+G_MODULE_EXPORT on_main_charges_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -756,7 +756,7 @@ on_main_charges_togglebutton_toggled(
 
 
   gboolean
-on_main_colorcode_drawingarea_draw(
+G_MODULE_EXPORT on_main_colorcode_drawingarea_draw (
     GtkWidget       *widget,
     cairo_t         *cr,
     gpointer         user_data)
@@ -767,7 +767,7 @@ on_main_colorcode_drawingarea_draw(
 
 
   void
-on_main_freq_spinbutton_value_changed(
+G_MODULE_EXPORT on_main_freq_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -811,7 +811,7 @@ on_main_freq_spinbutton_value_changed(
 
 
   void
-on_main_freq_checkbutton_toggled(
+G_MODULE_EXPORT on_main_freq_checkbutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -823,7 +823,7 @@ on_main_freq_checkbutton_toggled(
 
 
   void
-on_main_new_freq_clicked(
+G_MODULE_EXPORT on_main_new_freq_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -845,7 +845,7 @@ on_main_new_freq_clicked(
 
 
   gboolean
-on_structure_drawingarea_configure_event(
+G_MODULE_EXPORT on_structure_drawingarea_configure_event (
     GtkWidget       *widget,
     GdkEventConfigure *event,
     gpointer         user_data)
@@ -860,7 +860,7 @@ on_structure_drawingarea_configure_event(
 
 
   gboolean
-on_structure_drawingarea_motion_notify_event(
+G_MODULE_EXPORT on_structure_drawingarea_motion_notify_event (
     GtkWidget       *widget,
     GdkEventMotion  *event,
     gpointer         user_data)
@@ -884,7 +884,7 @@ on_structure_drawingarea_motion_notify_event(
 
 
   gboolean
-on_structure_drawingarea_draw(
+G_MODULE_EXPORT on_structure_drawingarea_draw (
     GtkWidget       *widget,
     cairo_t         *cr,
     gpointer         user_data)
@@ -899,7 +899,7 @@ on_structure_drawingarea_draw(
 
 
   void
-on_filechooserdialog_response(
+G_MODULE_EXPORT on_filechooserdialog_response (
     GtkDialog       *dialog,
     gint             response_id,
     gpointer         user_data)
@@ -912,7 +912,7 @@ on_filechooserdialog_response(
 
 
   void
-on_filechooserdialog_destroy(
+G_MODULE_EXPORT on_filechooserdialog_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -921,7 +921,7 @@ on_filechooserdialog_destroy(
 
 
   gboolean
-on_freqplots_window_delete_event(
+G_MODULE_EXPORT on_freqplots_window_delete_event (
     GtkWidget       *widget,
     GdkEvent        *event,
     gpointer         user_data)
@@ -949,7 +949,7 @@ on_freqplots_window_delete_event(
 
 
   void
-on_freqplots_window_destroy(
+G_MODULE_EXPORT on_freqplots_window_destroy (
     GObject       *object,
     gpointer       user_data)
 {
@@ -958,7 +958,7 @@ on_freqplots_window_destroy(
 
 
   void
-on_freqplots_save_activate(
+G_MODULE_EXPORT on_freqplots_save_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -987,7 +987,7 @@ on_freqplots_save_activate(
 
 
   void
-on_freqplots_save_as_activate(
+G_MODULE_EXPORT on_freqplots_save_as_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1003,7 +1003,7 @@ on_freqplots_save_as_activate(
 
 
   void
-on_freqplots_save_as_gnuplot_activate(
+G_MODULE_EXPORT on_freqplots_save_as_gnuplot_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1015,7 +1015,7 @@ on_freqplots_save_as_gnuplot_activate(
 
 
   void
-on_freqplots_gmax_togglebutton_toggled(
+G_MODULE_EXPORT on_freqplots_gmax_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -1025,7 +1025,7 @@ on_freqplots_gmax_togglebutton_toggled(
 
 
   void
-on_freqplots_gdir_togglebutton_toggled(
+G_MODULE_EXPORT on_freqplots_gdir_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -1035,7 +1035,7 @@ on_freqplots_gdir_togglebutton_toggled(
 
 
   void
-on_freqplots_gviewer_togglebutton_toggled(
+G_MODULE_EXPORT on_freqplots_gviewer_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -1045,7 +1045,7 @@ on_freqplots_gviewer_togglebutton_toggled(
 
 
   void
-on_freqplots_vswr_togglebutton_toggled(
+G_MODULE_EXPORT on_freqplots_vswr_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -1055,7 +1055,7 @@ on_freqplots_vswr_togglebutton_toggled(
 
 
   void
-on_freqplots_zo_spinbutton_value_changed(
+G_MODULE_EXPORT on_freqplots_zo_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -1071,7 +1071,7 @@ on_freqplots_zo_spinbutton_value_changed(
 
 
   void
-on_freqplots_zrlzim_togglebutton_toggled(
+G_MODULE_EXPORT on_freqplots_zrlzim_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -1080,7 +1080,7 @@ on_freqplots_zrlzim_togglebutton_toggled(
 }
 
   void
-on_freqplots_smith_togglebutton_toggled(
+G_MODULE_EXPORT on_freqplots_smith_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -1090,7 +1090,7 @@ on_freqplots_smith_togglebutton_toggled(
 
 
   void
-on_freqplots_zmgzph_togglebutton_toggled(
+G_MODULE_EXPORT on_freqplots_zmgzph_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -1100,7 +1100,7 @@ on_freqplots_zmgzph_togglebutton_toggled(
 
 
   gboolean
-on_freqplots_drawingarea_draw(
+G_MODULE_EXPORT on_freqplots_drawingarea_draw (
     GtkWidget       *widget,
     cairo_t         *cr,
     gpointer         user_data)
@@ -1116,7 +1116,7 @@ on_freqplots_drawingarea_draw(
 
 
   gboolean
-on_freqplots_drawingarea_configure_event(
+G_MODULE_EXPORT on_freqplots_drawingarea_configure_event (
     GtkWidget       *widget,
     GdkEventConfigure *event,
     gpointer         user_data)
@@ -1128,7 +1128,7 @@ on_freqplots_drawingarea_configure_event(
 
 
   gboolean
-on_freqplots_drawingarea_button_press_event(
+G_MODULE_EXPORT on_freqplots_drawingarea_button_press_event (
     GtkWidget       *widget,
     GdkEventButton  *event,
     gpointer         user_data)
@@ -1142,7 +1142,7 @@ on_freqplots_drawingarea_button_press_event(
 }
 
   gboolean
-on_freqplots_drawingarea_scroll_event(
+G_MODULE_EXPORT on_freqplots_drawingarea_scroll_event (
     GtkWidget       *widget,
     GdkEvent        *event,
     gpointer         user_data)
@@ -1153,7 +1153,7 @@ on_freqplots_drawingarea_scroll_event(
 }
 
   gboolean
-on_freqplots_drawingarea_motion_notify_event(
+G_MODULE_EXPORT on_freqplots_drawingarea_motion_notify_event (
     GtkWidget       *widget,
     GdkEventMotion  *event,
     gpointer         user_data)
@@ -1163,7 +1163,7 @@ on_freqplots_drawingarea_motion_notify_event(
 }
 
   void
-on_rdpattern_window_destroy(
+G_MODULE_EXPORT on_rdpattern_window_destroy (
     GObject       *object,
     gpointer       user_data)
 {
@@ -1172,7 +1172,7 @@ on_rdpattern_window_destroy(
 
 
   gboolean
-on_rdpattern_window_delete_event(
+G_MODULE_EXPORT on_rdpattern_window_delete_event (
     GtkWidget       *widget,
     GdkEvent        *event,
     gpointer         user_data)
@@ -1195,7 +1195,7 @@ on_rdpattern_window_delete_event(
 
 
   void
-on_rdpattern_save_activate(
+G_MODULE_EXPORT on_rdpattern_save_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1227,7 +1227,7 @@ on_rdpattern_save_activate(
 
 
   void
-on_rdpattern_save_as_activate(
+G_MODULE_EXPORT on_rdpattern_save_as_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1243,7 +1243,7 @@ on_rdpattern_save_as_activate(
 
 
   void
-on_rdpattern_save_as_gnuplot_activate(
+G_MODULE_EXPORT on_rdpattern_save_as_gnuplot_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1255,7 +1255,7 @@ on_rdpattern_save_as_gnuplot_activate(
 
 
   void
-on_rdpattern_linear_power_activate(
+G_MODULE_EXPORT on_rdpattern_linear_power_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1265,7 +1265,7 @@ on_rdpattern_linear_power_activate(
 
 
   void
-on_rdpattern_linear_voltage_activate(
+G_MODULE_EXPORT on_rdpattern_linear_voltage_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1275,7 +1275,7 @@ on_rdpattern_linear_voltage_activate(
 
 
   void
-on_rdpattern_arrl_style_activate(
+G_MODULE_EXPORT on_rdpattern_arrl_style_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1285,7 +1285,7 @@ on_rdpattern_arrl_style_activate(
 
 
   void
-on_rdpattern_logarithmic_activate(
+G_MODULE_EXPORT on_rdpattern_logarithmic_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1295,7 +1295,7 @@ on_rdpattern_logarithmic_activate(
 
 
   void
-on_rdpattern_e_field_activate(
+G_MODULE_EXPORT on_rdpattern_e_field_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1312,7 +1312,7 @@ on_rdpattern_e_field_activate(
 
 
   void
-on_rdpattern_h_field_activate(
+G_MODULE_EXPORT on_rdpattern_h_field_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1329,7 +1329,7 @@ on_rdpattern_h_field_activate(
 
 
   void
-on_rdpattern_poynting_vector_activate(
+G_MODULE_EXPORT on_rdpattern_poynting_vector_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1346,7 +1346,7 @@ on_rdpattern_poynting_vector_activate(
 
 
   void
-on_rdpattern_overlay_structure_activate(
+G_MODULE_EXPORT on_rdpattern_overlay_structure_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1360,7 +1360,7 @@ on_rdpattern_overlay_structure_activate(
 
 
   void
-on_rdpattern_x_axis_clicked(
+G_MODULE_EXPORT on_rdpattern_x_axis_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -1374,7 +1374,7 @@ on_rdpattern_x_axis_clicked(
 
 
   void
-on_rdpattern_y_axis_clicked(
+G_MODULE_EXPORT on_rdpattern_y_axis_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -1388,7 +1388,7 @@ on_rdpattern_y_axis_clicked(
 
 
   void
-on_rdpattern_z_axis_clicked(
+G_MODULE_EXPORT on_rdpattern_z_axis_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -1402,7 +1402,7 @@ on_rdpattern_z_axis_clicked(
 
 
   void
-on_rdpattern_default_view_clicked(
+G_MODULE_EXPORT on_rdpattern_default_view_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -1416,7 +1416,7 @@ on_rdpattern_default_view_clicked(
 
 
   void
-on_rdpattern_rotate_spinbutton_value_changed(
+G_MODULE_EXPORT on_rdpattern_rotate_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -1438,7 +1438,7 @@ on_rdpattern_rotate_spinbutton_value_changed(
 
 
   void
-on_rdpattern_incline_spinbutton_value_changed(
+G_MODULE_EXPORT on_rdpattern_incline_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -1460,7 +1460,7 @@ on_rdpattern_incline_spinbutton_value_changed(
 
 
   void
-on_rdpattern_gain_togglebutton_toggled(
+G_MODULE_EXPORT on_rdpattern_gain_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -1470,7 +1470,7 @@ on_rdpattern_gain_togglebutton_toggled(
 
 
   void
-on_rdpattern_eh_togglebutton_toggled(
+G_MODULE_EXPORT on_rdpattern_eh_togglebutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -1480,7 +1480,7 @@ on_rdpattern_eh_togglebutton_toggled(
 
 
   gboolean
-on_rdpattern_colorcode_drawingarea_draw(
+G_MODULE_EXPORT on_rdpattern_colorcode_drawingarea_draw (
     GtkWidget       *widget,
     cairo_t         *cr,
     gpointer         user_data)
@@ -1491,7 +1491,7 @@ on_rdpattern_colorcode_drawingarea_draw(
 
 
   void
-on_rdpattern_freq_spinbutton_value_changed(
+G_MODULE_EXPORT on_rdpattern_freq_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -1532,7 +1532,7 @@ on_rdpattern_freq_spinbutton_value_changed(
 
 
   void
-on_rdpattern_new_freq_clicked(
+G_MODULE_EXPORT on_rdpattern_new_freq_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -1555,7 +1555,7 @@ on_rdpattern_new_freq_clicked(
 
 
   gboolean
-on_rdpattern_drawingarea_configure_event(
+G_MODULE_EXPORT on_rdpattern_drawingarea_configure_event (
     GtkWidget       *widget,
     GdkEventConfigure *event,
     gpointer         user_data)
@@ -1571,7 +1571,7 @@ on_rdpattern_drawingarea_configure_event(
 
 
   gboolean
-on_rdpattern_drawingarea_draw(
+G_MODULE_EXPORT on_rdpattern_drawingarea_draw (
     GtkWidget       *widget,
     cairo_t         *cr,
     gpointer         user_data)
@@ -1586,7 +1586,7 @@ on_rdpattern_drawingarea_draw(
 
 
   gboolean
-on_rdpattern_drawingarea_motion_notify_event(
+G_MODULE_EXPORT on_rdpattern_drawingarea_motion_notify_event (
     GtkWidget       *widget,
     GdkEventMotion  *event,
     gpointer         user_data)
@@ -1610,7 +1610,7 @@ on_rdpattern_drawingarea_motion_notify_event(
 
 
   void
-on_quit_cancelbutton_clicked(
+G_MODULE_EXPORT on_quit_cancelbutton_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -1621,7 +1621,7 @@ on_quit_cancelbutton_clicked(
 
 
   void
-on_quit_okbutton_clicked(
+G_MODULE_EXPORT on_quit_okbutton_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -1651,7 +1651,7 @@ on_quit_okbutton_clicked(
 
 
   void
-main_view_menuitem_activate(
+G_MODULE_EXPORT main_view_menuitem_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1679,7 +1679,7 @@ main_view_menuitem_activate(
 
 
   void
-main_pol_menu_activate(
+G_MODULE_EXPORT main_pol_menu_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1688,7 +1688,7 @@ main_pol_menu_activate(
 
 
   void
-freqplots_pol_menu_activate(
+G_MODULE_EXPORT freqplots_pol_menu_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1697,7 +1697,7 @@ freqplots_pol_menu_activate(
 
 
   void
-rdpattern_pol_menu_activate(
+G_MODULE_EXPORT rdpattern_pol_menu_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1706,7 +1706,7 @@ rdpattern_pol_menu_activate(
 
 
   void
-rdpattern_view_menuitem_activate(
+G_MODULE_EXPORT rdpattern_view_menuitem_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1733,7 +1733,7 @@ rdpattern_view_menuitem_activate(
 
 
   gboolean
-on_rdpattern_window_key_press_event(
+G_MODULE_EXPORT on_rdpattern_window_key_press_event (
     GtkWidget    *widget,
     GdkEventKey  *event,
     gpointer      user_data)
@@ -1764,7 +1764,7 @@ on_rdpattern_window_key_press_event(
 
 
   void
-on_near_peak_value_activate(
+G_MODULE_EXPORT on_near_peak_value_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1789,7 +1789,7 @@ on_near_peak_value_activate(
 
 
   void
-on_near_snapshot_activate(
+G_MODULE_EXPORT on_near_snapshot_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1814,7 +1814,7 @@ on_near_snapshot_activate(
 
 
   void
-on_rdpattern_animate_activate(
+G_MODULE_EXPORT on_rdpattern_animate_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1830,7 +1830,7 @@ on_rdpattern_animate_activate(
 
 
   void
-on_animation_applybutton_clicked(
+G_MODULE_EXPORT on_animation_applybutton_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -1855,7 +1855,7 @@ on_animation_applybutton_clicked(
 
 
   void
-on_animation_cancelbutton_clicked(
+G_MODULE_EXPORT on_animation_cancelbutton_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -1867,7 +1867,7 @@ on_animation_cancelbutton_clicked(
 
 
   void
-on_animation_okbutton_clicked(
+G_MODULE_EXPORT on_animation_okbutton_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -1894,7 +1894,7 @@ on_animation_okbutton_clicked(
 
 
   void
-on_animate_dialog_destroy(
+G_MODULE_EXPORT on_animate_dialog_destroy (
     GObject       *object,
     gpointer       user_data)
 {
@@ -1905,7 +1905,7 @@ on_animate_dialog_destroy(
 
 
   void
-on_quit_dialog_destroy(
+G_MODULE_EXPORT on_quit_dialog_destroy (
     GObject       *object,
     gpointer       user_data)
 {
@@ -1917,7 +1917,7 @@ on_quit_dialog_destroy(
 
 
   gboolean
-on_error_dialog_delete_event(
+G_MODULE_EXPORT on_error_dialog_delete_event (
     GtkWidget       *widget,
     GdkEvent        *event,
     gpointer         user_data)
@@ -1927,7 +1927,7 @@ on_error_dialog_delete_event(
 
 
   void
-on_error_dialog_destroy(
+G_MODULE_EXPORT on_error_dialog_destroy (
     GObject       *object,
     gpointer       user_data)
 {
@@ -1936,7 +1936,7 @@ on_error_dialog_destroy(
 
 
   void
-on_nec2_edit_activate(
+G_MODULE_EXPORT on_nec2_edit_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -1954,7 +1954,7 @@ on_nec2_edit_activate(
 
 
   gboolean
-on_nec2_editor_key_press_event(
+G_MODULE_EXPORT on_nec2_editor_key_press_event (
     GtkWidget    *widget,
     GdkEventKey  *event,
     gpointer      user_data)
@@ -1988,7 +1988,7 @@ on_nec2_editor_key_press_event(
 
 
   gboolean
-on_nec2_editor_delete_event(
+G_MODULE_EXPORT on_nec2_editor_delete_event (
     GtkWidget       *widget,
     GdkEvent        *event,
     gpointer         user_data)
@@ -2011,7 +2011,7 @@ on_nec2_editor_delete_event(
 
 
   void
-on_nec2_editor_destroy(
+G_MODULE_EXPORT on_nec2_editor_destroy (
     GObject       *object,
     gpointer       user_data)
 {
@@ -2028,7 +2028,7 @@ on_nec2_editor_destroy(
 
 
   void
-on_nec2_save_clicked(
+G_MODULE_EXPORT on_nec2_save_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2060,7 +2060,7 @@ on_nec2_save_clicked(
 
 
   void
-on_nec2_save_as_clicked(
+G_MODULE_EXPORT on_nec2_save_as_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2079,7 +2079,7 @@ on_nec2_save_as_clicked(
 
 
   void
-on_nec2_save_dialog_response(
+G_MODULE_EXPORT on_nec2_save_dialog_response (
     GtkDialog       *dialog,
     gint             response_id,
     gpointer         user_data)
@@ -2177,7 +2177,7 @@ on_nec2_save_dialog_response(
 
 
   void
-on_nec2_row_add_clicked(
+G_MODULE_EXPORT on_nec2_row_add_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2217,7 +2217,7 @@ on_nec2_row_add_clicked(
 
 
   void
-on_nec2_row_remv_clicked(
+G_MODULE_EXPORT on_nec2_row_remv_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2239,7 +2239,7 @@ on_nec2_row_remv_clicked(
 
 
   void
-on_nec2_treeview_clear_clicked(
+G_MODULE_EXPORT on_nec2_treeview_clear_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2254,7 +2254,7 @@ on_nec2_treeview_clear_clicked(
 
 
   gboolean
-on_nec2_cmnt_treeview_button_press_event(
+G_MODULE_EXPORT on_nec2_cmnt_treeview_button_press_event (
     GtkWidget       *widget,
     GdkEventButton  *event,
     gpointer         user_data)
@@ -2265,7 +2265,7 @@ on_nec2_cmnt_treeview_button_press_event(
 
 
   gboolean
-on_nec2_geom_treeview_button_press_event(
+G_MODULE_EXPORT on_nec2_geom_treeview_button_press_event (
     GtkWidget       *widget,
     GdkEventButton  *event,
     gpointer         user_data)
@@ -2283,7 +2283,7 @@ on_nec2_geom_treeview_button_press_event(
 
 
   gboolean
-on_nec2_geom_treeview_key_press_event(
+G_MODULE_EXPORT on_nec2_geom_treeview_key_press_event (
     GtkWidget    *widget,
     GdkEventKey  *event,
     gpointer      user_data)
@@ -2303,7 +2303,7 @@ on_nec2_geom_treeview_key_press_event(
 
 
   gboolean
-on_nec2_cmnd_treeview_button_press_event(
+G_MODULE_EXPORT on_nec2_cmnd_treeview_button_press_event (
     GtkWidget       *widget,
     GdkEventButton  *event,
     gpointer         user_data)
@@ -2321,7 +2321,7 @@ on_nec2_cmnd_treeview_button_press_event(
 
 
   gboolean
-on_nec2_cmnd_treeview_key_press_event(
+G_MODULE_EXPORT on_nec2_cmnd_treeview_key_press_event (
     GtkWidget    *widget,
     GdkEventKey  *event,
     gpointer      user_data)
@@ -2341,7 +2341,7 @@ on_nec2_cmnd_treeview_key_press_event(
 
 
   void
-on_nec2_revert_clicked(
+G_MODULE_EXPORT on_nec2_revert_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2353,7 +2353,7 @@ on_nec2_revert_clicked(
 
 
   void
-on_nec2_save_dialog_destroy(
+G_MODULE_EXPORT on_nec2_save_dialog_destroy (
     GtkDialog       *dialog,
     gpointer         user_data)
 {
@@ -2363,10 +2363,11 @@ on_nec2_save_dialog_destroy(
 }
 
 
-void on_error_stopbutton_clicked(
+void
+G_MODULE_EXPORT on_error_stopbutton_clicked (
     GtkButton *button, gpointer user_data) __attribute__((noreturn));
   void
-on_error_stopbutton_clicked(
+G_MODULE_EXPORT on_error_stopbutton_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2378,7 +2379,7 @@ on_error_stopbutton_clicked(
 
 
   void
-on_error_okbutton_clicked(
+G_MODULE_EXPORT on_error_okbutton_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2388,7 +2389,7 @@ on_error_okbutton_clicked(
 
 
   void
-on_error_quitbutton_clicked(
+G_MODULE_EXPORT on_error_quitbutton_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2398,7 +2399,7 @@ on_error_quitbutton_clicked(
 
 
   void
-on_wire_editor_destroy(
+G_MODULE_EXPORT on_wire_editor_destroy (
     GObject       *object,
     gpointer         user_data)
 {
@@ -2409,7 +2410,7 @@ on_wire_editor_destroy(
 
 
   void
-on_wire_pcl_spinbutton_value_changed(
+G_MODULE_EXPORT on_wire_pcl_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2419,7 +2420,7 @@ on_wire_pcl_spinbutton_value_changed(
 
 
   void
-on_wire_data_spinbutton_value_changed(
+G_MODULE_EXPORT on_wire_data_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2429,7 +2430,7 @@ on_wire_data_spinbutton_value_changed(
 
 
   void
-on_wire_tagnum_spinbutton_value_changed(
+G_MODULE_EXPORT on_wire_tagnum_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2439,7 +2440,7 @@ on_wire_tagnum_spinbutton_value_changed(
 
 
   void
-on_wire_len_spinbutton_value_changed(
+G_MODULE_EXPORT on_wire_len_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2449,7 +2450,7 @@ on_wire_len_spinbutton_value_changed(
 
 
   void
-on_wire_taper_checkbutton_toggled(
+G_MODULE_EXPORT on_wire_taper_checkbutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -2458,7 +2459,7 @@ on_wire_taper_checkbutton_toggled(
 
 
   void
-on_wire_rlen_spinbutton_value_changed(
+G_MODULE_EXPORT on_wire_rlen_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2468,7 +2469,7 @@ on_wire_rlen_spinbutton_value_changed(
 
 
   void
-on_wire_rdia_spinbutton_value_changed(
+G_MODULE_EXPORT on_wire_rdia_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2478,7 +2479,7 @@ on_wire_rdia_spinbutton_value_changed(
 
 
   void
-on_wire_new_button_clicked(
+G_MODULE_EXPORT on_wire_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2487,7 +2488,7 @@ on_wire_new_button_clicked(
 
 
   void
-on_wire_res_spinbutton_value_changed(
+G_MODULE_EXPORT on_wire_res_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2497,7 +2498,7 @@ on_wire_res_spinbutton_value_changed(
 
 
   void
-on_wire_cancel_button_clicked(
+G_MODULE_EXPORT on_wire_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2507,7 +2508,7 @@ on_wire_cancel_button_clicked(
 
 
   void
-on_wire_apply_button_clicked(
+G_MODULE_EXPORT on_wire_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2516,7 +2517,7 @@ on_wire_apply_button_clicked(
 
 
   void
-on_wire_ok_button_clicked(
+G_MODULE_EXPORT on_wire_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2526,7 +2527,7 @@ on_wire_ok_button_clicked(
 
 
   void
-on_gw_clicked(
+G_MODULE_EXPORT on_gw_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2547,7 +2548,7 @@ on_gw_clicked(
 
 
   void
-on_ga_clicked(
+G_MODULE_EXPORT on_ga_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2568,7 +2569,7 @@ on_ga_clicked(
 
 
   void
-on_gh_clicked(
+G_MODULE_EXPORT on_gh_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2589,7 +2590,7 @@ on_gh_clicked(
 
 
   void
-on_sp_clicked(
+G_MODULE_EXPORT on_sp_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2600,7 +2601,7 @@ on_sp_clicked(
 
 
   void
-on_gr_clicked(
+G_MODULE_EXPORT on_gr_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2611,7 +2612,7 @@ on_gr_clicked(
 
 
   void
-on_gm_clicked(
+G_MODULE_EXPORT on_gm_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2622,7 +2623,7 @@ on_gm_clicked(
 
 
   void
-on_gx_clicked(
+G_MODULE_EXPORT on_gx_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2633,7 +2634,7 @@ on_gx_clicked(
 
 
   void
-on_gs_clicked(
+G_MODULE_EXPORT on_gs_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2644,7 +2645,7 @@ on_gs_clicked(
 
 
   void
-on_ex_clicked(
+G_MODULE_EXPORT on_ex_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2655,7 +2656,7 @@ on_ex_clicked(
 
 
   void
-on_fr_clicked(
+G_MODULE_EXPORT on_fr_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2666,7 +2667,7 @@ on_fr_clicked(
 
 
   void
-on_gn_clicked(
+G_MODULE_EXPORT on_gn_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2677,7 +2678,7 @@ on_gn_clicked(
 
 
   void
-on_gd_clicked(
+G_MODULE_EXPORT on_gd_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2688,7 +2689,7 @@ on_gd_clicked(
 
 
   void
-on_rp_clicked(
+G_MODULE_EXPORT on_rp_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2699,7 +2700,7 @@ on_rp_clicked(
 
 
   void
-on_ld_clicked(
+G_MODULE_EXPORT on_ld_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2710,7 +2711,7 @@ on_ld_clicked(
 
 
   void
-on_nt_clicked(
+G_MODULE_EXPORT on_nt_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2721,7 +2722,7 @@ on_nt_clicked(
 
 
   void
-on_tl_clicked(
+G_MODULE_EXPORT on_tl_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2732,7 +2733,7 @@ on_tl_clicked(
 
 
   void
-on_ne_clicked(
+G_MODULE_EXPORT on_ne_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2743,7 +2744,7 @@ on_ne_clicked(
 
 
   void
-on_ek_clicked(
+G_MODULE_EXPORT on_ek_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2754,7 +2755,7 @@ on_ek_clicked(
 
 
   void
-on_kh_clicked(
+G_MODULE_EXPORT on_kh_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2765,7 +2766,7 @@ on_kh_clicked(
 
 
   void
-on_zo_clicked(
+G_MODULE_EXPORT on_zo_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2776,7 +2777,7 @@ on_zo_clicked(
 
 
   void
-on_xq_clicked(
+G_MODULE_EXPORT on_xq_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2787,7 +2788,7 @@ on_xq_clicked(
 
 
   void
-on_patch_data_spinbutton_value_changed(
+G_MODULE_EXPORT on_patch_data_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2797,7 +2798,7 @@ on_patch_data_spinbutton_value_changed(
 
 
   void
-on_patch_new_button_clicked(
+G_MODULE_EXPORT on_patch_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2806,7 +2807,7 @@ on_patch_new_button_clicked(
 
 
   void
-on_patch_cancel_button_clicked(
+G_MODULE_EXPORT on_patch_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2816,7 +2817,7 @@ on_patch_cancel_button_clicked(
 
 
   void
-on_patch_apply_button_clicked(
+G_MODULE_EXPORT on_patch_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2825,7 +2826,7 @@ on_patch_apply_button_clicked(
 
 
   void
-on_patch_ok_button_clicked(
+G_MODULE_EXPORT on_patch_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2835,7 +2836,7 @@ on_patch_ok_button_clicked(
 
 
   void
-on_patch_editor_destroy(
+G_MODULE_EXPORT on_patch_editor_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -2846,7 +2847,7 @@ on_patch_editor_destroy(
 
 
   void
-on_patch_arbitrary_radiobutton_toggled(
+G_MODULE_EXPORT on_patch_arbitrary_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -2858,7 +2859,7 @@ on_patch_arbitrary_radiobutton_toggled(
 
 
   void
-on_patch_rectangular_radiobutton_toggled(
+G_MODULE_EXPORT on_patch_rectangular_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -2868,7 +2869,7 @@ on_patch_rectangular_radiobutton_toggled(
 
 
   void
-on_patch_triangular_radiobutton_toggled(
+G_MODULE_EXPORT on_patch_triangular_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -2878,7 +2879,7 @@ on_patch_triangular_radiobutton_toggled(
 
 
   void
-on_patch_quadrilateral_radiobutton_toggled(
+G_MODULE_EXPORT on_patch_quadrilateral_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -2888,7 +2889,7 @@ on_patch_quadrilateral_radiobutton_toggled(
 
 
   void
-on_patch_surface_radiobutton_toggled(
+G_MODULE_EXPORT on_patch_surface_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -2898,7 +2899,7 @@ on_patch_surface_radiobutton_toggled(
 
 
   void
-on_arc_data_spinbutton_value_changed(
+G_MODULE_EXPORT on_arc_data_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2908,7 +2909,7 @@ on_arc_data_spinbutton_value_changed(
 
 
   void
-on_arc_tagnum_spinbutton_value_changed(
+G_MODULE_EXPORT on_arc_tagnum_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2918,7 +2919,7 @@ on_arc_tagnum_spinbutton_value_changed(
 
 
   void
-on_arc_res_spinbutton_value_changed(
+G_MODULE_EXPORT on_arc_res_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2928,7 +2929,7 @@ on_arc_res_spinbutton_value_changed(
 
 
   void
-on_arc_new_button_clicked(
+G_MODULE_EXPORT on_arc_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2937,7 +2938,7 @@ on_arc_new_button_clicked(
 
 
   void
-on_arc_cancel_button_clicked(
+G_MODULE_EXPORT on_arc_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2947,7 +2948,7 @@ on_arc_cancel_button_clicked(
 
 
   void
-on_arc_apply_button_clicked(
+G_MODULE_EXPORT on_arc_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2956,7 +2957,7 @@ on_arc_apply_button_clicked(
 
 
   void
-on_arc_ok_button_clicked(
+G_MODULE_EXPORT on_arc_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -2966,7 +2967,7 @@ on_arc_ok_button_clicked(
 
 
   void
-on_arc_editor_destroy(
+G_MODULE_EXPORT on_arc_editor_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -2977,7 +2978,7 @@ on_arc_editor_destroy(
 
 
   void
-on_arc_pcl_spinbutton_value_changed(
+G_MODULE_EXPORT on_arc_pcl_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2987,7 +2988,7 @@ on_arc_pcl_spinbutton_value_changed(
 
 
   void
-on_helix_tagnum_spinbutton_value_changed(
+G_MODULE_EXPORT on_helix_tagnum_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -2997,7 +2998,7 @@ on_helix_tagnum_spinbutton_value_changed(
 
 
   void
-on_helix_pcl_spinbutton_value_changed(
+G_MODULE_EXPORT on_helix_pcl_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3007,7 +3008,7 @@ on_helix_pcl_spinbutton_value_changed(
 
 
   void
-on_helix_nturns_spinbutton_value_changed(
+G_MODULE_EXPORT on_helix_nturns_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3017,7 +3018,7 @@ on_helix_nturns_spinbutton_value_changed(
 
 
   void
-on_helix_tspace_spinbutton_value_changed(
+G_MODULE_EXPORT on_helix_tspace_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3027,7 +3028,7 @@ on_helix_tspace_spinbutton_value_changed(
 
 
   void
-on_helix_res_spinbutton_value_changed(
+G_MODULE_EXPORT on_helix_res_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3037,7 +3038,7 @@ on_helix_res_spinbutton_value_changed(
 
 
   void
-on_helix_data_spinbutton_value_changed(
+G_MODULE_EXPORT on_helix_data_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3047,7 +3048,7 @@ on_helix_data_spinbutton_value_changed(
 
 
   void
-on_helix_new_button_clicked(
+G_MODULE_EXPORT on_helix_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3056,7 +3057,7 @@ on_helix_new_button_clicked(
 
 
   void
-on_helix_cancel_button_clicked(
+G_MODULE_EXPORT on_helix_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3066,7 +3067,7 @@ on_helix_cancel_button_clicked(
 
 
   void
-on_helix_apply_button_clicked(
+G_MODULE_EXPORT on_helix_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3075,7 +3076,7 @@ on_helix_apply_button_clicked(
 
 
   void
-on_helix_ok_button_clicked(
+G_MODULE_EXPORT on_helix_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3085,7 +3086,7 @@ on_helix_ok_button_clicked(
 
 
   void
-on_helix_editor_destroy(
+G_MODULE_EXPORT on_helix_editor_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3096,7 +3097,7 @@ on_helix_editor_destroy(
 
 
   void
-on_helix_right_hand_radiobutton_toggled(
+G_MODULE_EXPORT on_helix_right_hand_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3106,7 +3107,7 @@ on_helix_right_hand_radiobutton_toggled(
 
 
   void
-on_helix_left_hand_radiobutton_toggled(
+G_MODULE_EXPORT on_helix_left_hand_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3116,7 +3117,7 @@ on_helix_left_hand_radiobutton_toggled(
 
 
   gboolean
-on_helix_link_a1b1_button_press_event(
+G_MODULE_EXPORT on_helix_link_a1b1_button_press_event (
     GtkWidget      *widget,
     GdkEventButton *event,
     gpointer        user_data)
@@ -3127,7 +3128,7 @@ on_helix_link_a1b1_button_press_event(
 
 
   gboolean
-on_helix_link_b1a2_button_press_event(
+G_MODULE_EXPORT on_helix_link_b1a2_button_press_event (
     GtkWidget      *widget,
     GdkEventButton *event,
     gpointer        user_data)
@@ -3138,7 +3139,7 @@ on_helix_link_b1a2_button_press_event(
 
 
   gboolean
-on_helix_link_a2b2_button_press_event(
+G_MODULE_EXPORT on_helix_link_a2b2_button_press_event (
     GtkWidget      *widget,
     GdkEventButton *event,
     gpointer        user_data)
@@ -3149,7 +3150,7 @@ on_helix_link_a2b2_button_press_event(
 
 
   void
-on_spiral_right_hand_radiobutton_toggled(
+G_MODULE_EXPORT on_spiral_right_hand_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3159,7 +3160,7 @@ on_spiral_right_hand_radiobutton_toggled(
 
 
   void
-on_spiral_left_hand_radiobutton_toggled(
+G_MODULE_EXPORT on_spiral_left_hand_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3169,7 +3170,7 @@ on_spiral_left_hand_radiobutton_toggled(
 
 
   void
-on_reflect_taginc_spinbutton_value_changed(
+G_MODULE_EXPORT on_reflect_taginc_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3179,7 +3180,7 @@ on_reflect_taginc_spinbutton_value_changed(
 
 
   void
-on_reflect_checkbutton_toggled(
+G_MODULE_EXPORT on_reflect_checkbutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3188,7 +3189,7 @@ on_reflect_checkbutton_toggled(
 
 
   void
-on_reflect_new_button_clicked(
+G_MODULE_EXPORT on_reflect_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3197,7 +3198,7 @@ on_reflect_new_button_clicked(
 
 
   void
-on_reflect_cancel_button_clicked(
+G_MODULE_EXPORT on_reflect_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3207,7 +3208,7 @@ on_reflect_cancel_button_clicked(
 
 
   void
-on_reflect_apply_button_clicked(
+G_MODULE_EXPORT on_reflect_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3216,7 +3217,7 @@ on_reflect_apply_button_clicked(
 
 
   void
-on_reflect_ok_button_clicked(
+G_MODULE_EXPORT on_reflect_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3226,7 +3227,7 @@ on_reflect_ok_button_clicked(
 
 
   void
-on_reflect_editor_destroy(
+G_MODULE_EXPORT on_reflect_editor_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3237,7 +3238,7 @@ on_reflect_editor_destroy(
 
 
   void
-on_scale_editor_destroy(
+G_MODULE_EXPORT on_scale_editor_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3248,7 +3249,7 @@ on_scale_editor_destroy(
 
 
   void
-on_scale_spinbutton_value_changed(
+G_MODULE_EXPORT on_scale_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3259,7 +3260,7 @@ on_scale_spinbutton_value_changed(
 
 
   void
-on_scale_new_button_clicked(
+G_MODULE_EXPORT on_scale_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3268,7 +3269,7 @@ on_scale_new_button_clicked(
 
 
   void
-on_scale_cancel_button_clicked(
+G_MODULE_EXPORT on_scale_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3278,7 +3279,7 @@ on_scale_cancel_button_clicked(
 
 
   void
-on_scale_apply_button_clicked(
+G_MODULE_EXPORT on_scale_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3287,7 +3288,7 @@ on_scale_apply_button_clicked(
 
 
   void
-on_scale_ok_button_clicked(
+G_MODULE_EXPORT on_scale_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3297,7 +3298,7 @@ on_scale_ok_button_clicked(
 
 
   void
-on_cylinder_taginc_spinbutton_value_changed(
+G_MODULE_EXPORT on_cylinder_taginc_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3307,7 +3308,7 @@ on_cylinder_taginc_spinbutton_value_changed(
 
 
   void
-on_cylinder_total_spinbutton_value_changed(
+G_MODULE_EXPORT on_cylinder_total_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3317,7 +3318,7 @@ on_cylinder_total_spinbutton_value_changed(
 
 
   void
-on_cylinder_new_button_clicked(
+G_MODULE_EXPORT on_cylinder_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3326,7 +3327,7 @@ on_cylinder_new_button_clicked(
 
 
   void
-on_cylinder_cancel_button_clicked(
+G_MODULE_EXPORT on_cylinder_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3336,7 +3337,7 @@ on_cylinder_cancel_button_clicked(
 
 
   void
-on_cylinder_apply_button_clicked(
+G_MODULE_EXPORT on_cylinder_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3345,7 +3346,7 @@ on_cylinder_apply_button_clicked(
 
 
   void
-on_cylinder_ok_button_clicked(
+G_MODULE_EXPORT on_cylinder_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3355,7 +3356,7 @@ on_cylinder_ok_button_clicked(
 
 
   void
-on_cylinder_editor_destroy(
+G_MODULE_EXPORT on_cylinder_editor_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3366,7 +3367,7 @@ on_cylinder_editor_destroy(
 
 
   void
-on_transform_spinbutton_value_changed(
+G_MODULE_EXPORT on_transform_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3376,7 +3377,7 @@ on_transform_spinbutton_value_changed(
 
 
   void
-on_transform_new_button_clicked(
+G_MODULE_EXPORT on_transform_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3385,7 +3386,7 @@ on_transform_new_button_clicked(
 
 
   void
-on_transform_cancel_button_clicked(
+G_MODULE_EXPORT on_transform_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3395,7 +3396,7 @@ on_transform_cancel_button_clicked(
 
 
   void
-on_transform_apply_button_clicked(
+G_MODULE_EXPORT on_transform_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3404,7 +3405,7 @@ on_transform_apply_button_clicked(
 
 
   void
-on_transform_ok_button_clicked(
+G_MODULE_EXPORT on_transform_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3414,7 +3415,7 @@ on_transform_ok_button_clicked(
 
 
   void
-on_transform_editor_destroy(
+G_MODULE_EXPORT on_transform_editor_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3426,7 +3427,7 @@ on_transform_editor_destroy(
 
 
   void
-on_gend_radiobutton_toggled(
+G_MODULE_EXPORT on_gend_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3435,7 +3436,7 @@ on_gend_radiobutton_toggled(
 
 
   void
-on_gend_cancel_button_clicked(
+G_MODULE_EXPORT on_gend_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3445,7 +3446,7 @@ on_gend_cancel_button_clicked(
 
 
   void
-on_gend_apply_button_clicked(
+G_MODULE_EXPORT on_gend_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3454,7 +3455,7 @@ on_gend_apply_button_clicked(
 
 
   void
-on_gend_ok_button_clicked(
+G_MODULE_EXPORT on_gend_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3464,7 +3465,7 @@ on_gend_ok_button_clicked(
 
 
   void
-on_gend_editor_destroy(
+G_MODULE_EXPORT on_gend_editor_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3475,7 +3476,7 @@ on_gend_editor_destroy(
 
 
   void
-on_kernel_command_destroy(
+G_MODULE_EXPORT on_kernel_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3486,7 +3487,7 @@ on_kernel_command_destroy(
 
 
   void
-on_kernel_checkbutton_toggled(
+G_MODULE_EXPORT on_kernel_checkbutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3495,7 +3496,7 @@ on_kernel_checkbutton_toggled(
 
 
   void
-on_kernel_new_button_clicked(
+G_MODULE_EXPORT on_kernel_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3504,7 +3505,7 @@ on_kernel_new_button_clicked(
 
 
   void
-on_kernel_cancel_button_clicked(
+G_MODULE_EXPORT on_kernel_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3514,7 +3515,7 @@ on_kernel_cancel_button_clicked(
 
 
   void
-on_kernel_apply_button_clicked(
+G_MODULE_EXPORT on_kernel_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3523,7 +3524,7 @@ on_kernel_apply_button_clicked(
 
 
   void
-on_kernel_ok_button_clicked(
+G_MODULE_EXPORT on_kernel_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3533,7 +3534,7 @@ on_kernel_ok_button_clicked(
 
 
   void
-on_execute_command_destroy(
+G_MODULE_EXPORT on_execute_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3544,7 +3545,7 @@ on_execute_command_destroy(
 
 
   void
-on_execute_radiobutton_toggled(
+G_MODULE_EXPORT on_execute_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3553,7 +3554,7 @@ on_execute_radiobutton_toggled(
 
 
   void
-on_execute_new_button_clicked(
+G_MODULE_EXPORT on_execute_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3562,7 +3563,7 @@ on_execute_new_button_clicked(
 
 
   void
-on_execute_cancel_button_clicked(
+G_MODULE_EXPORT on_execute_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3572,7 +3573,7 @@ on_execute_cancel_button_clicked(
 
 
   void
-on_execute_apply_button_clicked(
+G_MODULE_EXPORT on_execute_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3581,7 +3582,7 @@ on_execute_apply_button_clicked(
 
 
   void
-on_execute_ok_button_clicked(
+G_MODULE_EXPORT on_execute_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3591,7 +3592,7 @@ on_execute_ok_button_clicked(
 
 
   void
-on_intrange_command_destroy(
+G_MODULE_EXPORT on_intrange_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3602,7 +3603,7 @@ on_intrange_command_destroy(
 
 
   void
-on_intrange_spinbutton_value_changed(
+G_MODULE_EXPORT on_intrange_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3612,7 +3613,7 @@ on_intrange_spinbutton_value_changed(
 
 
   void
-on_intrange_new_button_clicked(
+G_MODULE_EXPORT on_intrange_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3621,7 +3622,7 @@ on_intrange_new_button_clicked(
 
 
   void
-on_intrange_cancel_button_clicked(
+G_MODULE_EXPORT on_intrange_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3631,7 +3632,7 @@ on_intrange_cancel_button_clicked(
 
 
   void
-on_intrange_apply_button_clicked(
+G_MODULE_EXPORT on_intrange_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3640,7 +3641,7 @@ on_intrange_apply_button_clicked(
 
 
   void
-on_intrange_ok_button_clicked(
+G_MODULE_EXPORT on_intrange_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3650,7 +3651,7 @@ on_intrange_ok_button_clicked(
 
 
   void
-on_zo_command_destroy(
+G_MODULE_EXPORT on_zo_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3661,7 +3662,7 @@ on_zo_command_destroy(
 
 
   void
-on_zo_spinbutton_value_changed(
+G_MODULE_EXPORT on_zo_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3671,7 +3672,7 @@ on_zo_spinbutton_value_changed(
 
 
   void
-on_zo_new_button_clicked(
+G_MODULE_EXPORT on_zo_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3680,7 +3681,7 @@ on_zo_new_button_clicked(
 
 
   void
-on_zo_cancel_button_clicked(
+G_MODULE_EXPORT on_zo_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3690,7 +3691,7 @@ on_zo_cancel_button_clicked(
 
 
   void
-on_zo_apply_button_clicked(
+G_MODULE_EXPORT on_zo_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3699,7 +3700,7 @@ on_zo_apply_button_clicked(
 
 
   void
-on_zo_ok_button_clicked(
+G_MODULE_EXPORT on_zo_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3709,7 +3710,7 @@ on_zo_ok_button_clicked(
 
 
   void
-on_ground_command_destroy(
+G_MODULE_EXPORT on_ground_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3720,7 +3721,7 @@ on_ground_command_destroy(
 
 
   void
-on_ground_radiobutton_toggled(
+G_MODULE_EXPORT on_ground_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3729,7 +3730,7 @@ on_ground_radiobutton_toggled(
 
 
   void
-on_ground_checkbutton_toggled(
+G_MODULE_EXPORT on_ground_checkbutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3738,7 +3739,7 @@ on_ground_checkbutton_toggled(
 
 
   void
-on_ground_spinbutton_value_changed(
+G_MODULE_EXPORT on_ground_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3748,7 +3749,7 @@ on_ground_spinbutton_value_changed(
 
 
   void
-on_ground_new_button_clicked(
+G_MODULE_EXPORT on_ground_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3757,7 +3758,7 @@ on_ground_new_button_clicked(
 
 
   void
-on_ground_cancel_button_clicked(
+G_MODULE_EXPORT on_ground_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3767,7 +3768,7 @@ on_ground_cancel_button_clicked(
 
 
   void
-on_ground_apply_button_clicked(
+G_MODULE_EXPORT on_ground_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3776,7 +3777,7 @@ on_ground_apply_button_clicked(
 
 
   void
-on_ground_ok_button_clicked(
+G_MODULE_EXPORT on_ground_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3786,7 +3787,7 @@ on_ground_ok_button_clicked(
 
 
   void
-on_nearfield_command_destroy(
+G_MODULE_EXPORT on_nearfield_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3798,7 +3799,7 @@ on_nearfield_command_destroy(
 
 
   void
-on_nearfield_nh_checkbutton_toggled(
+G_MODULE_EXPORT on_nearfield_nh_checkbutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3807,7 +3808,7 @@ on_nearfield_nh_checkbutton_toggled(
 
 
   void
-on_nearfield_ne_checkbutton_toggled(
+G_MODULE_EXPORT on_nearfield_ne_checkbutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3816,7 +3817,7 @@ on_nearfield_ne_checkbutton_toggled(
 
 
   void
-on_nearfield_radiobutton_toggled(
+G_MODULE_EXPORT on_nearfield_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3825,7 +3826,7 @@ on_nearfield_radiobutton_toggled(
 
 
   void
-on_nearfield_spinbutton_value_changed(
+G_MODULE_EXPORT on_nearfield_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3835,7 +3836,7 @@ on_nearfield_spinbutton_value_changed(
 
 
   void
-on_nearfield_new_button_clicked(
+G_MODULE_EXPORT on_nearfield_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3844,7 +3845,7 @@ on_nearfield_new_button_clicked(
 
 
   void
-on_nearfield_cancel_button_clicked(
+G_MODULE_EXPORT on_nearfield_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3854,7 +3855,7 @@ on_nearfield_cancel_button_clicked(
 
 
   void
-on_nearfield_apply_button_clicked(
+G_MODULE_EXPORT on_nearfield_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3863,7 +3864,7 @@ on_nearfield_apply_button_clicked(
 
 
   void
-on_nearfield_ok_button_clicked(
+G_MODULE_EXPORT on_nearfield_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3873,7 +3874,7 @@ on_nearfield_ok_button_clicked(
 
 
   void
-on_radiation_command_destroy(
+G_MODULE_EXPORT on_radiation_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3884,7 +3885,7 @@ on_radiation_command_destroy(
 
 
   void
-on_radiation_radiobutton_toggled(
+G_MODULE_EXPORT on_radiation_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3893,7 +3894,7 @@ on_radiation_radiobutton_toggled(
 
 
   void
-on_radiation_spinbutton_value_changed(
+G_MODULE_EXPORT on_radiation_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3903,7 +3904,7 @@ on_radiation_spinbutton_value_changed(
 
 
   void
-on_radiation_new_button_clicked(
+G_MODULE_EXPORT on_radiation_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3912,7 +3913,7 @@ on_radiation_new_button_clicked(
 
 
   void
-on_radiation_cancel_button_clicked(
+G_MODULE_EXPORT on_radiation_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3922,7 +3923,7 @@ on_radiation_cancel_button_clicked(
 
 
   void
-on_radiation_apply_button_clicked(
+G_MODULE_EXPORT on_radiation_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3931,7 +3932,7 @@ on_radiation_apply_button_clicked(
 
 
   void
-on_radiation_ok_button_clicked(
+G_MODULE_EXPORT on_radiation_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3941,7 +3942,7 @@ on_radiation_ok_button_clicked(
 
 
   void
-on_excitation_command_destroy(
+G_MODULE_EXPORT on_excitation_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -3952,7 +3953,7 @@ on_excitation_command_destroy(
 
 
   void
-on_excitation_radiobutton_toggled(
+G_MODULE_EXPORT on_excitation_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3961,7 +3962,7 @@ on_excitation_radiobutton_toggled(
 
 
   void
-on_excitation_checkbutton_toggled(
+G_MODULE_EXPORT on_excitation_checkbutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -3970,7 +3971,7 @@ on_excitation_checkbutton_toggled(
 
 
   void
-on_excitation_spinbutton_value_changed(
+G_MODULE_EXPORT on_excitation_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -3980,7 +3981,7 @@ on_excitation_spinbutton_value_changed(
 
 
   void
-on_excitation_new_button_clicked(
+G_MODULE_EXPORT on_excitation_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3989,7 +3990,7 @@ on_excitation_new_button_clicked(
 
 
   void
-on_excitation_cancel_button_clicked(
+G_MODULE_EXPORT on_excitation_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -3999,7 +4000,7 @@ on_excitation_cancel_button_clicked(
 
 
   void
-on_excitation_apply_button_clicked(
+G_MODULE_EXPORT on_excitation_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4008,7 +4009,7 @@ on_excitation_apply_button_clicked(
 
 
   void
-on_excitation_ok_button_clicked(
+G_MODULE_EXPORT on_excitation_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4018,7 +4019,7 @@ on_excitation_ok_button_clicked(
 
 
   void
-on_frequency_command_destroy(
+G_MODULE_EXPORT on_frequency_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -4029,7 +4030,7 @@ on_frequency_command_destroy(
 
 
   void
-on_frequency_radiobutton_toggled(
+G_MODULE_EXPORT on_frequency_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -4038,7 +4039,7 @@ on_frequency_radiobutton_toggled(
 
 
   void
-on_frequency_spinbutton_value_changed(
+G_MODULE_EXPORT on_frequency_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -4048,7 +4049,7 @@ on_frequency_spinbutton_value_changed(
 
 
   void
-on_frequency_step_spinbutton_value_changed(
+G_MODULE_EXPORT on_frequency_step_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -4058,7 +4059,7 @@ on_frequency_step_spinbutton_value_changed(
 
 
   void
-on_frequency_new_button_clicked(
+G_MODULE_EXPORT on_frequency_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4067,7 +4068,7 @@ on_frequency_new_button_clicked(
 
 
   void
-on_frequency_cancel_button_clicked(
+G_MODULE_EXPORT on_frequency_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4077,7 +4078,7 @@ on_frequency_cancel_button_clicked(
 
 
   void
-on_frequency_apply_button_clicked(
+G_MODULE_EXPORT on_frequency_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4086,7 +4087,7 @@ on_frequency_apply_button_clicked(
 
 
   void
-on_frequency_ok_button_clicked(
+G_MODULE_EXPORT on_frequency_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4096,7 +4097,7 @@ on_frequency_ok_button_clicked(
 
 
   void
-on_loading_command_destroy(
+G_MODULE_EXPORT on_loading_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -4107,7 +4108,7 @@ on_loading_command_destroy(
 
 
   void
-on_loading_radiobutton_toggled(
+G_MODULE_EXPORT on_loading_radiobutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -4116,7 +4117,7 @@ on_loading_radiobutton_toggled(
 
 
   void
-on_loading_spinbutton_value_changed(
+G_MODULE_EXPORT on_loading_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -4126,7 +4127,7 @@ on_loading_spinbutton_value_changed(
 
 
   void
-on_loading_new_button_clicked(
+G_MODULE_EXPORT on_loading_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4135,7 +4136,7 @@ on_loading_new_button_clicked(
 
 
   void
-on_loading_cancel_button_clicked(
+G_MODULE_EXPORT on_loading_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4145,7 +4146,7 @@ on_loading_cancel_button_clicked(
 
 
   void
-on_loading_apply_button_clicked(
+G_MODULE_EXPORT on_loading_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4154,7 +4155,7 @@ on_loading_apply_button_clicked(
 
 
   void
-on_loading_ok_button_clicked(
+G_MODULE_EXPORT on_loading_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4164,7 +4165,7 @@ on_loading_ok_button_clicked(
 
 
   void
-on_network_command_destroy(
+G_MODULE_EXPORT on_network_command_destroy (
     GObject       *object,
     gpointer      user_data)
 {
@@ -4175,7 +4176,7 @@ on_network_command_destroy(
 
 
   void
-on_network_spinbutton_value_changed(
+G_MODULE_EXPORT on_network_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -4185,7 +4186,7 @@ on_network_spinbutton_value_changed(
 
 
   void
-on_network_new_button_clicked(
+G_MODULE_EXPORT on_network_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4194,7 +4195,7 @@ on_network_new_button_clicked(
 
 
   void
-on_network_cancel_button_clicked(
+G_MODULE_EXPORT on_network_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4204,7 +4205,7 @@ on_network_cancel_button_clicked(
 
 
   void
-on_network_apply_button_clicked(
+G_MODULE_EXPORT on_network_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4213,7 +4214,7 @@ on_network_apply_button_clicked(
 
 
   void
-on_network_ok_button_clicked(
+G_MODULE_EXPORT on_network_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4223,7 +4224,7 @@ on_network_ok_button_clicked(
 
 
   void
-on_txline_command_destroy(
+G_MODULE_EXPORT on_txline_command_destroy (
     GObject       *object,
     gpointer       user_data)
 {
@@ -4234,7 +4235,7 @@ on_txline_command_destroy(
 
 
   void
-on_txline_spinbutton_value_changed(
+G_MODULE_EXPORT on_txline_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -4244,7 +4245,7 @@ on_txline_spinbutton_value_changed(
 
 
   void
-on_txline_new_button_clicked(
+G_MODULE_EXPORT on_txline_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4253,7 +4254,7 @@ on_txline_new_button_clicked(
 
 
   void
-on_txline_cancel_button_clicked(
+G_MODULE_EXPORT on_txline_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4263,7 +4264,7 @@ on_txline_cancel_button_clicked(
 
 
   void
-on_txline_apply_button_clicked(
+G_MODULE_EXPORT on_txline_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4272,7 +4273,7 @@ on_txline_apply_button_clicked(
 
 
   void
-on_txline_ok_button_clicked(
+G_MODULE_EXPORT on_txline_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4282,7 +4283,7 @@ on_txline_ok_button_clicked(
 
 
   void
-on_txline_checkbutton_toggled(
+G_MODULE_EXPORT on_txline_checkbutton_toggled (
     GtkToggleButton *togglebutton,
     gpointer         user_data)
 {
@@ -4291,7 +4292,7 @@ on_txline_checkbutton_toggled(
 
 
   void
-on_ground2_command_destroy(
+G_MODULE_EXPORT on_ground2_command_destroy (
     GObject       *object,
     gpointer       user_data)
 {
@@ -4302,7 +4303,7 @@ on_ground2_command_destroy(
 
 
   void
-on_ground2_spinbutton_value_changed(
+G_MODULE_EXPORT on_ground2_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -4312,7 +4313,7 @@ on_ground2_spinbutton_value_changed(
 
 
   void
-on_ground2_new_button_clicked(
+G_MODULE_EXPORT on_ground2_new_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4321,7 +4322,7 @@ on_ground2_new_button_clicked(
 
 
   void
-on_ground2_cancel_button_clicked(
+G_MODULE_EXPORT on_ground2_cancel_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4331,7 +4332,7 @@ on_ground2_cancel_button_clicked(
 
 
   void
-on_ground2_apply_button_clicked(
+G_MODULE_EXPORT on_ground2_apply_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4340,7 +4341,7 @@ on_ground2_apply_button_clicked(
 
 
   void
-on_ground2_ok_button_clicked(
+G_MODULE_EXPORT on_ground2_ok_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4350,7 +4351,7 @@ on_ground2_ok_button_clicked(
 
 
   void
-on_loop_start_clicked(
+G_MODULE_EXPORT on_loop_start_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4360,7 +4361,7 @@ on_loop_start_clicked(
 
 
   void
-on_loop_pause_clicked(
+G_MODULE_EXPORT on_loop_pause_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4371,7 +4372,7 @@ on_loop_pause_clicked(
 
 
   void
-on_loop_reset_clicked(
+G_MODULE_EXPORT on_loop_reset_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4381,7 +4382,7 @@ on_loop_reset_clicked(
 
 static GtkWidget *aboutdialog = NULL;
   void
-on_about_activate(
+G_MODULE_EXPORT on_about_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -4400,7 +4401,7 @@ on_about_activate(
 
 
   void
-on_aboutdialog_close(
+G_MODULE_EXPORT on_aboutdialog_close (
     GtkDialog       *dialog,
     gpointer         user_data)
 {
@@ -4409,7 +4410,7 @@ on_aboutdialog_close(
 
 
   void
-on_aboutdialog_destroy(
+G_MODULE_EXPORT on_aboutdialog_destroy (
     GObject       *object,
     gpointer       user_data)
 {
@@ -4418,7 +4419,7 @@ on_aboutdialog_destroy(
 
 
   void
-on_aboutdialog_response(
+G_MODULE_EXPORT on_aboutdialog_response (
     GtkDialog       *dialog,
     gint             response_id,
     gpointer         user_data)
@@ -4428,7 +4429,7 @@ on_aboutdialog_response(
 
 
   void
-on_freqplots_min_max_activate(
+G_MODULE_EXPORT on_freqplots_min_max_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -4447,7 +4448,7 @@ on_freqplots_min_max_activate(
 }
 
   void
-on_freqplots_s11_activate(
+G_MODULE_EXPORT on_freqplots_s11_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -4466,7 +4467,7 @@ on_freqplots_s11_activate(
 }
 
   void
-on_freqplots_clamp_vswr_activate(
+G_MODULE_EXPORT on_freqplots_clamp_vswr_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -4485,7 +4486,7 @@ on_freqplots_clamp_vswr_activate(
 }
 
   void
-on_freqplots_round_x_axis_activate(
+G_MODULE_EXPORT on_freqplots_round_x_axis_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -4504,7 +4505,7 @@ on_freqplots_round_x_axis_activate(
 }
 
   void
-on_freqplots_net_gain_activate(
+G_MODULE_EXPORT on_freqplots_net_gain_activate (
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
@@ -4522,7 +4523,7 @@ on_freqplots_net_gain_activate(
 
 
   gboolean
-on_structure_drawingarea_button_press_event(
+G_MODULE_EXPORT on_structure_drawingarea_button_press_event (
     GtkWidget      *widget,
     GdkEventButton  *event,
     gpointer         user_data)
@@ -4533,7 +4534,7 @@ on_structure_drawingarea_button_press_event(
 
 
   void
-on_main_zoom_spinbutton_value_changed(
+G_MODULE_EXPORT on_main_zoom_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -4549,7 +4550,7 @@ on_main_zoom_spinbutton_value_changed(
 
 
   void
-on_structure_plus_button_clicked(
+G_MODULE_EXPORT on_structure_plus_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4562,7 +4563,7 @@ on_structure_plus_button_clicked(
 
 
   void
-on_structure_minus_button_clicked(
+G_MODULE_EXPORT on_structure_minus_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4575,7 +4576,7 @@ on_structure_minus_button_clicked(
 
 
   void
-on_structure_one_button_clicked(
+G_MODULE_EXPORT on_structure_one_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4593,7 +4594,7 @@ on_structure_one_button_clicked(
 
 
   gboolean
-on_rdpattern_drawingarea_button_press_event(
+G_MODULE_EXPORT on_rdpattern_drawingarea_button_press_event (
     GtkWidget      *widget,
     GdkEventButton  *event,
     gpointer         user_data)
@@ -4604,7 +4605,7 @@ on_rdpattern_drawingarea_button_press_event(
 
 
   void
-on_rdpattern_zoom_spinbutton_value_changed(
+G_MODULE_EXPORT on_rdpattern_zoom_spinbutton_value_changed (
     GtkSpinButton   *spinbutton,
     gpointer         user_data)
 {
@@ -4619,7 +4620,7 @@ on_rdpattern_zoom_spinbutton_value_changed(
 
 
   void
-on_rdpattern_plus_button_clicked(
+G_MODULE_EXPORT on_rdpattern_plus_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4632,7 +4633,7 @@ on_rdpattern_plus_button_clicked(
 
 
   void
-on_rdpattern_minus_button_clicked(
+G_MODULE_EXPORT on_rdpattern_minus_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4645,7 +4646,7 @@ on_rdpattern_minus_button_clicked(
 
 
   void
-on_rdpattern_one_button_clicked(
+G_MODULE_EXPORT on_rdpattern_one_button_clicked (
     GtkButton       *button,
     gpointer         user_data)
 {
@@ -4663,7 +4664,7 @@ on_rdpattern_one_button_clicked(
 
 
   gboolean
-on_structure_drawingarea_scroll_event(
+G_MODULE_EXPORT on_structure_drawingarea_scroll_event (
     GtkWidget       *widget,
     GdkEvent        *event,
     gpointer         user_data)
@@ -4681,7 +4682,7 @@ on_structure_drawingarea_scroll_event(
 
 
   gboolean
-on_rdpattern_drawingarea_scroll_event(
+G_MODULE_EXPORT on_rdpattern_drawingarea_scroll_event (
     GtkWidget       *widget,
     GdkEvent        *event,
     gpointer         user_data)
@@ -4699,7 +4700,7 @@ on_rdpattern_drawingarea_scroll_event(
 
 
   gboolean
-on_escape_key_press_event(
+G_MODULE_EXPORT on_escape_key_press_event (
     GtkWidget    *widget,
     GdkEventKey  *event,
     gpointer      user_data)

@@ -377,7 +377,7 @@ void set_mathlib_batch(GtkWidget *widget, mathlib_t *lib)
 	rc_config.mathlib_batch_idx = lib->idx;
 }
 
-void set_mathlib_benchmark(GtkWidget *widget, mathlib_t *lib)
+void G_MODULE_EXPORT set_mathlib_benchmark (GtkWidget *widget, mathlib_t *lib)
 {
 	int i, state = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 
@@ -477,7 +477,7 @@ void init_mathlib_menu()
 	gtk_widget_show_all(main_window);
 }
 
-void mathlib_help()
+void G_MODULE_EXPORT mathlib_help ()
 {
 	Notice(_("Mathlib Help"),
 		"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed up xnec2c EM simulations "
@@ -516,7 +516,7 @@ void mathlib_help()
 		GTK_BUTTONS_OK);
 }
 
-void mathlib_benchmark_help()
+void G_MODULE_EXPORT mathlib_benchmark_help ()
 {
 	Notice(_("Mathlib Benchmark Help"),
 		_(
@@ -717,22 +717,22 @@ void mathlib_benchmark(int slow)
 	Notice(_("Mathlib Benchmark"), m, GTK_BUTTONS_OK);
 }
 
-void mathlib_benchmark_parallel()
+void G_MODULE_EXPORT mathlib_benchmark_parallel ()
 {
 	mathlib_benchmark(MATHLIB_BENCHMARK_PARALLEL);
 }
 
-void mathlib_benchmark_single()
+void G_MODULE_EXPORT mathlib_benchmark_single ()
 {
 	mathlib_benchmark(MATHLIB_BENCHMARK_SINGLE);
 }
 
-void mathlib_benchmark_nlog2()
+void G_MODULE_EXPORT mathlib_benchmark_nlog2 ()
 {
 	mathlib_benchmark(MATHLIB_BENCHMARK_NLOG2);
 }
 
-void mathlib_benchmark_nj()
+void G_MODULE_EXPORT mathlib_benchmark_nj ()
 {
 	mathlib_benchmark(MATHLIB_BENCHMARK_NJ);
 }
