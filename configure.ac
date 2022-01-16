@@ -9,6 +9,9 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4 m4-include])
 AM_MAINTAINER_MODE
 
+ac_cv_func_malloc_0_nonnull=yes
+ac_cv_func_realloc_0_nonnull=yes
+
 # Set CFLAGS if not set in environment
 AC_MSG_CHECKING([whether configure should try to set CFLAGS])
 if test "x${CFLAGS+set}" = xset; then
@@ -46,9 +49,9 @@ AC_ARG_WITH(openblas-incdir,
 AC_CHECK_HEADERS([clapack.h cblas.h lapacke.h openblas/cblas.h openblas/lapacke.h])
 
 # Dynamic loader for linear algebra  
-AC_SEARCH_LIBS([dlopen], [dl dld], [], [
-	AC_MSG_ERROR([unable to find the dlopen() function])
-])
+#AC_SEARCH_LIBS([dlopen], [dl dld], [], [
+#	AC_MSG_ERROR([unable to find the dlopen() function])
+#])
 
 # Check for OpenMP
 AC_OPENMP
