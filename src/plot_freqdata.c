@@ -1603,10 +1603,10 @@ _Plot_Frequency_Data( cairo_t *cr )
 
 
     /* Calculate VSWR */
-    mem_alloc( (void **) &vswr, (size_t)calc_data.steps_total * sizeof(double),
+    mem_alloc( (void **) &vswr, (size_t)(calc_data.steps_total+1) * sizeof(double),
         "in Plot_Frequency_Data()" );
 
-    mem_alloc( (void **) &s11, (size_t)calc_data.steps_total * sizeof(double),
+    mem_alloc( (void **) &s11, (size_t)(calc_data.steps_total+1) * sizeof(double),
         "in Plot_Frequency_Data()" );
 
     if( vswr == NULL || s11 == NULL)
