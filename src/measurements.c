@@ -28,6 +28,11 @@ const char *meas_names[] = {
 	[MEAS_COUNT]            =  NULL
 };
 
+// Calculates measurement data.
+// m:   a measurement_t structure to fill
+// idx: the index into the calculated data structures.
+//
+// Warning: idx is not checked to make sure it is valid.
 void meas_calc(measurement_t *m, int idx)
 {
 	int pol = calc_data.pol_type;
@@ -154,16 +159,22 @@ int meas_name_idx(char *name, int len)
 	return MEAS_COUNT;
 }
 
-
-void meas_format(measurement_t *m, char *s, char *out, int outlen)
+// Format a string with values from the measurement.
+//         m: The measurement provided by meas_calc()
+//    format: The format string. For example "{mhz} {vswr}" becomes "1.8 2.0"
+//            Format is %.17g, so you need about 19 chars per formatted value.
+//            Available format specifiers are above in meas_names[].
+//
+//        out: The output buffer, eg: char out[MEAS_COUNT*25];
+//     outlen: The length of the output buffer. 
+void meas_format(measurement_t *m, char *format, char *out, int outlen)
 {
 	char *o, *p, *name;
 
 	o = out;
-	p = s;
 	name = NULL;
 
-	for (p = s; p && *p; p++)
+	for (p = format; p && *p; p++)
 	{
 		if (o >= out+outlen)
 		{
@@ -176,6 +187,7 @@ void meas_format(measurement_t *m, char *s, char *out, int outlen)
 		{
 			name = p+1;
 		}
+		// Found close brace so populate the value.
 		else if (*p == '}')
 		{
 			int idx = meas_name_idx(name, (p-name));
