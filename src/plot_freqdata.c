@@ -1339,8 +1339,7 @@ _Plot_Frequency_Data( cairo_t *cr )
     *gdir_phi = NULL, /* Direction in phi of gain */
     *fbratio  = NULL; /* Direction in phi of gain */
 
-  /* Used to calculate net gain */
-  double Zr, Zo, Zi;
+  measurement_t meas;
 
   fr_plots_init();
 
@@ -1383,7 +1382,6 @@ _Plot_Frequency_Data( cairo_t *cr )
   /* Plot max gain vs frequency, if possible */
   if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) )
   {
-    int nth, nph, pol;
     gboolean no_fbr;
 
     /* Allocate max gmax and directions */
@@ -1399,93 +1397,23 @@ _Plot_Frequency_Data( cairo_t *cr )
     no_fbr = FALSE;
 
     /* Polarization type and impedance */
-    pol = calc_data.pol_type;
-    Zo = calc_data.zo;
 
     /* When freq loop is done, calcs are done for all freq steps */
     for( idx = 0; idx < fstep; idx++ )
     {
-      double fbdir;
-      int fbidx, mgidx;
+	  meas_calc(&meas, idx);
 
-      /* Index to gtot buffer where max gain
-       * occurs for given polarization type */
-      mgidx = rad_pattern[idx].max_gain_idx[pol];
+	  gmax[idx] = meas.gain_max;
+	  if( isFlagSet(PLOT_NETGAIN) )
+		  netgain[idx] = meas.gain_net;
+	  gdir_tht[idx] = meas.gain_max_theta;
+	  gdir_phi[idx] = meas.gain_max_phi;
 
-      // This should never happen, but please report it with your .NEC file if it does.
-      //
-      // It should be fixed in commit 42afbe3a3, but just in case:
-      if (mgidx < 0)
-      {
-          printf("BUG: invalid mgidx=%d: idx=%d pol=%d fstep=%d last_step=%d freq_step=%d\n", mgidx, idx, pol, fstep,
-              calc_data.last_step,
-              calc_data.freq_step
-              );
-          printf("BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d\n", idx, save.fstep[idx], isFlagSet(FREQ_LOOP_STOP));
-          mem_backtrace(rad_pattern[idx].max_gain_idx);
-          continue;
-      }
-
-      /* Max gain for given polarization type */
-      gmax[idx] = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
-
-      /* Net gain if selected */
-      if( isFlagSet(PLOT_NETGAIN) )
-      {
-        Zr = impedance_data.zreal[idx];
-        Zi = impedance_data.zimag[idx];
-        netgain[idx] = gmax[idx] +
-          10.0 * log10( 4.0 * Zr * Zo / (pow(Zr + Zo, 2.0) + pow( Zi, 2.0 )) );
-      }
-
-      /* Radiation angle/phi where max gain occurs */
-      gdir_tht[idx] = 90.0 - rad_pattern[idx].max_gain_tht[pol];
-      gdir_phi[idx] = rad_pattern[idx].max_gain_phi[pol];
-
-      /* Find F/B ratio if possible or net gain not required */
-      if( no_fbr || isFlagSet(PLOT_NETGAIN) )
-        continue;
-
-      /* Find F/B direction in theta */
-      fbdir = 180.0 - rad_pattern[idx].max_gain_tht[pol];
-      if( fpat.dth == 0.0 ) nth = 0;
-      else nth = (int)( fbdir/fpat.dth + 0.5 );
-
-      /* If the antenna is modelled over ground, then use the same
-       * theta as the max gain direction, relying on phi alone to
-       * take us to the back. Patch supplied by Rik van Riel AB1KW
-       */
-      if( (nth >= fpat.nth) || (nth < 0) )
-      {
-        fbdir = rad_pattern[idx].max_gain_tht[pol];
-        if( fpat.dth == 0.0 )
-          nth = 0;
-        else
-          nth = (int)( fbdir / fpat.dth + 0.5 );
-      }
-
-      /* Find F/B direction in phi */
-      fbdir = gdir_phi[idx] + 180.0;
-      if( fbdir >= 360.0 ) fbdir -= 360.0;
-      nph = (int)( fbdir/fpat.dph + 0.5 );
-
-      /* No F/B calc. possible if no phi step at +180 from max gain */
-      if( (nph >= fpat.nph) || (nph < 0) )
-      {
-        no_fbr = TRUE;
-        continue;
-      }
-
-      /* Index to gtot buffer for gain in back direction */
-      fbidx = nth + nph*fpat.nth;
-
-      /* Front to back ratio */
-      fbratio[idx]  = pow( 10.0, gmax[idx] / 10.0 );
-      fbratio[idx] /= pow( 10.0,
-          (rad_pattern[idx].gtot[fbidx] + Polarization_Factor(pol, idx, fbidx)) / 10.0 );
-      fbratio[idx] = 10.0 * log10( fbratio[idx] );
-      rad_pattern[idx].fbratio = fbratio[idx];
-    } /* for( idx = 0; idx < fstep; idx++ ) */
+	  if (meas.fb_ratio >= 0)
+		  fbratio[idx] = meas.fb_ratio;
+	  else
+		  no_fbr = TRUE;
+    }
 
     /*** Plot gain and f/b ratio (if possible) graph(s) */
     if( no_fbr || isFlagSet(PLOT_NETGAIN) )
@@ -1558,13 +1486,10 @@ _Plot_Frequency_Data( cairo_t *cr )
       mreq = (size_t)fstep * sizeof(double);
       mem_realloc( (void **)&netgain, mreq, "in plot_freqdata.c" );
 
-      Zo = calc_data.zo;
       for( idx = 0; idx < fstep; idx++ )
       {
-        Zr = impedance_data.zreal[idx];
-        Zi = impedance_data.zimag[idx];
-        netgain[idx] = vgain[idx] +
-          10.0 * log10( 4.0 * Zr * Zo / (pow(Zr + Zo, 2.0 ) + pow(Zi, 2.0)) );
+		  meas_calc(&meas, idx);
+		  netgain[idx] = meas.gain_viewer_net;
       }
 
       /* Plot net gain if selected */
@@ -1585,8 +1510,7 @@ _Plot_Frequency_Data( cairo_t *cr )
   /* Plot VSWR vs freq */
   if( isFlagSet(PLOT_VSWR) )
   {
-    double *vswr = NULL, *s11 = NULL, gamma;
-    double zrpro2, zrmro2, zimag2;
+    double *vswr = NULL, *s11 = NULL;
 
     /* Plotting frame titles */
     titles[0] = _("VSWR");
@@ -1620,17 +1544,12 @@ _Plot_Frequency_Data( cairo_t *cr )
 
     for(idx = 0; idx < fstep; idx++ )
     {
-      zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
-      zrpro2 *= zrpro2;
-      zrmro2 = impedance_data.zreal[idx] - calc_data.zo;
-      zrmro2 *= zrmro2;
-      zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
-      gamma = sqrt( (zrmro2 + zimag2) / (zrpro2 + zimag2) );
+      meas_calc(&meas, idx);
       
-      vswr[idx] = (1.0 + gamma) / (1.0 - gamma);
+      vswr[idx] = meas.vswr;
       
       if (rc_config.freqplots_s11)
-          s11[idx] = 20*log10( gamma );
+          s11[idx] = meas.s11;
 
       if (rc_config.freqplots_clamp_vswr && vswr[idx] > 10.0 )
           vswr[idx] = 10.0;

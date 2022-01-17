@@ -16,6 +16,7 @@ enum MEASUREMENT_INDEXES
 	MEAS_GAIN_THETA,
 	MEAS_GAIN_PHI,
 	MEAS_GAIN_VIEWER,
+	MEAS_GAIN_VIEWER_NET,
 	MEAS_FB_RATIO,
 
 	MEAS_COUNT
@@ -37,7 +38,7 @@ typedef struct
 			double s11_real, s11_imag;
 			double gain_max, gain_net;
 			double gain_max_theta, gain_max_phi;
-			double gain_viewer;
+			double gain_viewer, gain_viewer_net;
 			double fb_ratio;
 		};
 
