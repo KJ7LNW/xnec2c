@@ -39,6 +39,8 @@
 #  include <config.h>
 #endif
 
+#include "measurements.h"
+
 #undef _Complex_I
 #define _Complex_I  (__extension__ 1.0i)
 #undef I
