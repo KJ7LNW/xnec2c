@@ -520,7 +520,8 @@ typedef struct
     ksymp,  /* Ground flag */
     ifar,   /* Int flag in RP card, for far field calculations */
     iperf,  /* Type of ground flag */
-    nradl;  /* Number of radials in ground screen */
+    nradl,  /* Number of radials in ground screen */
+    gpflag; /* The gpflag from the GE card */
 
   double
     t2,     /* Const for radial wire ground impedance */

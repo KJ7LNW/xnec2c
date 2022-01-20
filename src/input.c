@@ -327,6 +327,8 @@ datagn( void )
 
         if( !conect(itg) ) return( FALSE );
 
+        gnd.gpflag = itg;
+
         if( data.n != 0)
         {
           /* Allocate wire buffers */
@@ -958,6 +960,17 @@ Read_Commands( void )
         continue; /* continue card input loop */
 
       case GN: /* "gn" card, ground parameters under the antenna */
+
+        // Ignore the GN card if both GN and GE cards indicate freespace.
+        if (itmp1 == -1 && gnd.gpflag == 0)
+            continue;
+
+        if (itmp1 == -1 && gnd.gpflag != 0)
+        {
+            Stop(_("Fix the GE/GN cards:\nThe GE card specifies that a ground is present, but the GN indicates otherwise."), ERR_OK);
+            return( FALSE );
+        }
+
         gnd.iperf = itmp1;
         gnd.nradl = itmp2;
         gnd.ksymp = 2;
