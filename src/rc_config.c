@@ -181,8 +181,10 @@ char *get_conf_dir(char *s, int len)
 	char *home = getenv("HOME");
 	if (home == NULL || strlen(home) == 0)
 	{
-		getcwd(s, len);
-		printf("warning: environment variable HOME is undefined, using %s\n", s);
+		if (getcwd(s, len) == NULL)
+			printf("warning: unable to getcwd(): %s\n", strerror(errno));
+		else
+			printf("warning: environment variable HOME is undefined, using %s\n", s);
 	}
 	else
 	{
