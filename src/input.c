@@ -938,7 +938,7 @@ Read_Commands( void )
         else fld[card].delta_freq = tmp2;
 
         /* Warn user if max frequency <= min frequency */
-        if( fld[card].max_freq <= fld[card].min_freq )
+        if( fld[card].freq_steps > 1 && fld[card].max_freq <= fld[card].min_freq )
         {
           fprintf( stderr,
               _("xnec2c: Read_Commands(): Max frequency <= Min frequency in FR card\n") );
