@@ -40,6 +40,10 @@
 #  include <config.h>
 #endif
 
+#ifdef HAVE_OPENMP
+#include <omp.h>
+#endif
+
 #include "measurements.h"
 
 // Define GSourceOnceFunc if compiling against an older version of GLIB:
@@ -1508,6 +1512,9 @@ int Stop(char *mesg, int err);
 int Notice(char *title, char *message,  GtkButtonsType buttons);
 gboolean Nec2_Save_Warn(const gchar *mesg);
 int Load_Line(char *buff, FILE *pfile);
+void xnec2c_set_omp_cpus();
+void clock_print_elapsed(char *msg, clockid_t clk_id, struct timespec *start);
+void clock_print_elapsed_when(char *msg, clockid_t clk_id, struct timespec *start, float min_sec);
 void mem_alloc(void **ptr, size_t req, gchar *str);
 void mem_realloc(void **ptr, size_t req, gchar *str);
 void mem_backtrace(void *ptr);

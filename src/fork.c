@@ -408,6 +408,9 @@ Child_Process( int num_child )
   FD_SET( forked_proc_data[num_child]->child2pnt_pipe[WRITE],
       &forked_proc_data[num_child]->write_fds );
 
+  // Scale the OpenMP resources based on the number of parallel forked jobs.
+  xnec2c_set_omp_cpus();
+
   /* Loop around select() in Read_Pipe() waiting for commands/data */
   while( TRUE )
   {

@@ -146,7 +146,13 @@ main (int argc, char *argv[])
   if( !Create_Default_Config() ) exit( -1 );
 
   /* Process command line options */
-  calc_data.num_jobs  = 1;
+#ifdef HAVE_OPENMP
+  calc_data.num_jobs = omp_get_num_procs();
+  pr_info("Detected %d CPUs\n", calc_data.num_jobs);
+#else 
+  calc_data.num_jobs = 1;
+#endif
+
   rc_config.input_file[0] = '\0';
 
   // default to show warnings or more important errors.
@@ -310,6 +316,7 @@ main (int argc, char *argv[])
       mem_alloc( (void **)&forked_proc_data[idx], mreq, "in main.c" );
     }
 
+    pr_info("Forking %d jobs.\n", calc_data.num_jobs);
     /* Fork child processes */
     for( idx = 0; idx < calc_data.num_jobs; idx++ )
     {

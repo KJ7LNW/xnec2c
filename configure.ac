@@ -156,6 +156,21 @@ AC_FUNC_REALLOC
 
 AC_CHECK_LIB([pthread], [pthread_create])
 
+AC_ARG_ENABLE(debug-timings,
+	[AS_HELP_STRING([--enable-debug-timings],
+	[Enable TIMETHIS macro and print timing information])],
+	CFLAGS="$CFLAGS -DENABLE_TIMETHIS=1")
+
+AC_ARG_ENABLE(optimizations,
+	[AS_HELP_STRING([--disable-optimizations],
+		[Disable compiler optimizations. Use this if you plan to set your own -Ox option])]
+	)
+
+# Optimized compiler flags:
+if test "$enable_optimizations" != no; then
+	CFLAGS="$CFLAGS -O3"
+fi
+
 # Provide special options for ATLAS
 AC_ARG_WITH([atlas-incdir],
 	[AS_HELP_STRING([--with-atlas-incdir=<ATLAS header dir>],

@@ -288,6 +288,60 @@ Load_Line( char *buff, FILE *pfile )
 
 /*------------------------------------------------------------------------*/
 
+// Scale the OpenMP resources based on the number of parallel forked jobs.
+// If you fork 25 jobs and have 100 CPUs then OMP can run 4 CPUs per fork:
+void xnec2c_set_omp_cpus()
+{
+#ifdef HAVE_OPENMP
+	int cpus_per_job;
+	int n;
+
+	int env_num_procs = 0;
+
+	// Respect OMP_NUM_THREADS
+	if (getenv("OMP_NUM_THREADS") != NULL)
+		env_num_procs = atoi(getenv("OMP_NUM_THREADS"));
+
+	if (env_num_procs > 0)
+		n = env_num_procs;
+	else
+		n = omp_get_num_procs();
+
+	if (CHILD)
+	{
+		cpus_per_job = n / calc_data.num_jobs;
+
+		if (cpus_per_job <= 0)
+			cpus_per_job = 1;
+
+		omp_set_num_threads(cpus_per_job);
+		pr_info("using %d OpenMP threads per job (%d/%d CPUs)\n",
+			getpid(),
+			cpus_per_job, omp_get_num_threads(), omp_get_num_procs());
+	}
+	else
+		omp_set_num_threads(n);
+#endif
+}
+
+void clock_print_elapsed_when(char *msg, clockid_t clk_id, struct timespec *start, float min_sec)
+{
+	struct timespec end;
+	clock_gettime(clk_id, &end);
+	double elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start->tv_sec + (double)start->tv_nsec/1e9);
+
+	if (elapsed > min_sec)
+		pr_debug("%s[%d]: %f seconds\n",
+			msg,
+			getpid(),
+			(end.tv_sec + (double)end.tv_nsec/1e9) - (start->tv_sec + (double)start->tv_nsec/1e9));
+}
+
+void clock_print_elapsed(char *msg, clockid_t clk_id, struct timespec *start)
+{
+	clock_print_elapsed_when(msg, clk_id, start, 0);
+}
+
 /* xnec2c uses mem_realloc() very often to resize buffers in the code.
  * There are cases where uninitialized memory buffers can lead to incorrect behavior
  * but unfortunately the libc realloc() call doesn't initialize the reallocated memory.
