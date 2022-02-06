@@ -31,10 +31,6 @@ _Write_Optimizer_Data( void )
   char csv_file[FILENAME_LEN];
   size_t s = sizeof( csv_file );
 
-  int i;
-
-  measurement_t meas;
-
   /* Create a file name for the Optimizer csv file */
   Strlcpy( csv_file, rc_config.input_file, s );
   Strlcat( csv_file, ".csv", s );
@@ -58,22 +54,8 @@ _Write_Optimizer_Data( void )
     return;
   } // if( !Open_File(&fp, csv_file, "w") )
 
-  // Print names
-  for (i = 0; i < MEAS_COUNT; i++)
-	  fprintf(fp, "%s,", meas_names[i]);
-  fprintf(fp, "\n");
-
-  /* Print frequency-dependent data corresponding
-   * to graphs in plot of frequency-dependent data FIXME */
-  for( int idx = 0; idx < calc_data.steps_total; idx++ )
-  {
-	meas_calc(&meas, idx);
-	for (i = 0; i < MEAS_COUNT; i++)
-	{
-		fprintf( fp, "%.17g,", meas.a[i] );
-	}
-    fprintf(fp, "\n");
-  }
+  meas_write_header(fp, ",");
+  meas_write_data(fp, ",");
 
   fclose( fp );
 } // Write_Optimizer_Data()

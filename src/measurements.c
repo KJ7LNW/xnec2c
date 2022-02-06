@@ -209,3 +209,34 @@ void meas_format(measurement_t *m, char *format, char *out, int outlen)
 	}
 }
 
+void meas_write_header(FILE *fp, char *delim)
+{
+	int i;
+	// Print names
+	for (i = 0; i < MEAS_COUNT; i++)
+	{
+		fputs(meas_names[i], fp);
+		if (i < MEAS_COUNT-1)
+			fputs(delim, fp);
+	}
+	fprintf(fp, "\n");
+}
+
+// Print frequency-dependent data corresponding to graphs in plot of
+// frequency-dependent data.
+void meas_write_data(FILE *fp, char *delim)
+{
+	measurement_t meas;
+	int i, idx;
+	for (idx = 0; idx < calc_data.steps_total; idx++)
+	{
+		meas_calc(&meas, idx);
+		for (i = 0; i < MEAS_COUNT; i++)
+		{
+			fprintf(fp, "%.17g", meas.a[i]);
+			if (i < MEAS_COUNT-1)
+				fputs(delim, fp);
+		}
+		fprintf(fp, "\n");
+	}
+}
