@@ -26,168 +26,37 @@
  *
  * Saves frequency plots data to a file for gnuplot
  */
-  void
-Save_FreqPlots_Gnuplot_Data( char *filename )
+void Save_FreqPlots_Gnuplot_Data(char *filename)
 {
-  /* Abort if plot data not available */
-  if( isFlagClear(FREQ_LOOP_DONE) )
-    return;
-
-  /* Used to calculate net gain */
-  double Zr, Zo, Zi;
-  int idx;
-
-  /* Open gplot file, abort on error */
-  FILE *fp = NULL;
-  if( !Open_File(&fp, filename, "w") )
-    return;
-
-  /* Plot max gain vs frequency, if possible */
-  if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) )
-  {
-    int nth, nph, pol;
-    gboolean no_fbr;
-
-    double
-      gmax,     /* Max gain buffer */
-      netgain,  /* Viewer direction net gain buffer */
-      gdir_phi, /* Direction in phi of gain */
-      fbratio;  /* Front to back ratio */
-
-    /* Find max gain and direction, F/B ratio */
-    no_fbr = FALSE;
-    netgain = 0;
-
-    /* Polarization type and impedance */
-    pol = calc_data.pol_type;
-    Zo = calc_data.zo;
-
-    /* Save data for all frequency steps that were used */
-    fprintf( fp, _("# Gain and F/B Ratio vs Frequency\n") );
-    idx = 0;
-    for( int step = 0; step <= calc_data.last_step; step++ )
-    {
-      double fbdir;
-      int fbidx, mgidx;
-
-      /* Index to gtot buffer where max gain
-       * occurs for given polarization type */
-      mgidx = rad_pattern[idx].max_gain_idx[pol];
-
-      /* Max gain for given polarization type */
-      gmax = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
-
-      /* Net gain if selected */
-      if( isFlagSet(PLOT_NETGAIN) )
-      {
-        Zr = impedance_data.zreal[idx];
-        Zi = impedance_data.zimag[idx];
-        netgain = gmax + 10 * log10( 4 * Zr * Zo / (pow(Zr + Zo, 2) + pow( Zi, 2)) );
-      }
-
-      /* Radiation angle/phi where max gain occurs */
-      gdir_phi = rad_pattern[idx].max_gain_phi[pol];
-
-      /* Find F/B direction in theta */
-      fbdir = 180.0 - rad_pattern[idx].max_gain_tht[pol];
-      if( fpat.dth == 0.0 ) nth = 0;
-      else nth = (int)( fbdir/fpat.dth + 0.5 );
-
-      /* If the antenna is modelled over ground, then use the same
-       * theta as the max gain direction, relying on phi alone to
-       * take us to the back. Patch supplied by Rik van Riel AB1KW
-       */
-      if( (nth >= fpat.nth) || (nth < 0) )
-      {
-        fbdir = rad_pattern[idx].max_gain_tht[pol];
-        if( fpat.dth == 0.0 ) nth = 0;
-        else nth = (int)( fbdir/fpat.dth + 0.5 );
-      }
-
-      /* Find F/B direction in phi */
-      fbdir = gdir_phi + 180.0;
-      if( fbdir >= 360.0 ) fbdir -= 360.0;
-      nph = (int)( fbdir/fpat.dph + 0.5 );
-
-      /* No F/B calc. possible if no phi step at +180 from max gain */
-      if( (nph >= fpat.nph) || (nph < 0) )
-        no_fbr = TRUE;
-
-      /* Index to gtot buffer for gain in back direction */
-      fbidx = nth + nph*fpat.nth;
-
-      /* Front to back ratio */
-      fbratio  = pow( 10.0, gmax / 10.0 );
-      fbratio /= pow( 10.0, (rad_pattern[idx].gtot[fbidx] +
-            Polarization_Factor(pol, idx, fbidx)) / 10.0 );
-      fbratio = 10.0 * log10( fbratio );
-
-      if( no_fbr && isFlagClear(PLOT_NETGAIN) ) /* Plot max gain only */
-        fprintf( fp, "%13.6E %10.3E\n", save.freq[idx], gmax );
-      else if( isFlagSet(PLOT_NETGAIN) ) /* Plot max gain and net gain */
-        fprintf( fp, "%13.6E %10.3E %10.3E\n", save.freq[idx], gmax, netgain );
-      else if( !no_fbr ) /* Plot max gain and F/B ratio */
-        fprintf( fp, "%13.6E %10.3E %10.3E\n", save.freq[idx], gmax, fbratio );
-
-      idx++;
-    } /* for( int step = 0; step <= calc_data.freq_loop_data[fr].last_step; step++ ) */
-
-    /* Plot gain direction in phi and theta */
-    idx = 0;
-    if( isFlagSet(PLOT_GAIN_DIR) )
-    {
-      fprintf( fp, "\n\n" );
-      fprintf( fp, _("# Direction of gain in theta and phi\n") );
-      for( int step = 0; step <= calc_data.last_step; step++ )
-      {
-        double gdir_tht; /* Direction in theta of gain */
-
-        /* Radiation angle/phi where max gain occurs */
-        gdir_tht = 90.0 - rad_pattern[idx].max_gain_tht[pol];
-        gdir_phi = rad_pattern[idx].max_gain_phi[pol];
-        fprintf( fp, "%13.6E %10.3E %10.3E\n", save.freq[idx], gdir_tht, gdir_phi );
-
-        idx++;
-      } /* for( int step = 0; step <= calc_data.freq_loop_data[fr].last_step; step++ ) */
-    } /* if( isFlagSet(PLOT_GAIN_DIR) ) */
-
-    fprintf( fp, "\n\n" );
-  } /* if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) ) */
-
-  /* Save all available input parameters */
-  if( isFlagSet(PLOT_VSWR)||isFlagSet(PLOT_ZREAL_ZIMAG)||isFlagSet(PLOT_ZMAG_ZPHASE) )
-  {
-    double vswr, gamma;
-    double zrpro2, zrmro2, zimag2;
-
-    fprintf( fp, _("# Antenna input values vs Frequency\n") );
-    fprintf( fp, _("# Reference impedance Z0 = %10.3E Ohm\n#\n"), calc_data.zo );
-    fprintf( fp, "# Frequency[MHz] Real{Zin}[Ohm] Imag{Zin}[Ohm] Mag{Zin}[Ohm] Phase{Zin}[deg.]    VSWR       Mag{S11}[dB]\n" );
+	FILE *fp = NULL;
+	time_t rawtime;
+	struct tm *info;
+	char buffer[80];
 
 
-    /* Calculate VSWR and Mag(S11) and output all the relevant parameters*/
-    idx = 0;
-    for( int step = 0; step <= calc_data.last_step; step++ )
-    {
-      zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
-      zrpro2 *= zrpro2;
-      zrmro2 = impedance_data.zreal[idx] - calc_data.zo;
-      zrmro2 *= zrmro2;
-      zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
-      gamma = sqrt( (zrmro2 + zimag2)/(zrpro2 + zimag2) );
-      vswr = (1+gamma)/(1-gamma);
-//      if( vswr > 10.0 ) vswr = 10.0;
-      fprintf( fp, "%13.6E     %10.3E     %10.3E     %10.3E     %10.3E     %10.3E     %10.3E\n", save.freq[idx], impedance_data.zreal[idx], impedance_data.zimag[idx],
-		      impedance_data.zmagn[idx], impedance_data.zphase[idx], vswr, 20*log10(gamma));
+	// Abort if plot data not available 
+	if (isFlagClear(FREQ_LOOP_DONE))
+	{
+		Notice(_("Gnuplot Data"), "Cannot save data while frequency loop is running", GTK_BUTTONS_OK);
+		return;
+	}
 
-      idx++;
-    }
+	// Open gplot file, abort on error 
+	if (!Open_File(&fp, filename, "w"))
+		return;
 
-    fprintf( fp, "\n\n" );
-  } /* if( isFlagSet(PLOT_VSWR)||isFlagSet(PLOT_ZREAL_ZIMAG)||isFlagSet(PLOT_ZMAG_ZPHASE) ) */
+	time( &rawtime );
+	info = localtime( &rawtime );
+	strftime(buffer, sizeof(buffer)-1, "%c (%F %H:%M:%S)", info);
 
-  fclose(fp);
-} /* Save_FreqPlots_Gnuplot_Data() */
+	fprintf(fp, "# %s - %s\n", rc_config.input_file, buffer);
+	fprintf(fp, _("# Reference impedance Z0 = %.2f Ohm\n#\n"), calc_data.zo);
+
+	meas_write_header_enc(fp, "\t", "\"", "\"");
+	meas_write_data(fp, "\t");
+
+	fclose(fp);
+}
 
 /*-----------------------------------------------------------------------*/
 

@@ -54,3 +54,6 @@ void meas_format(measurement_t *m, char *s, char *out, int outlen);
 
 void meas_write_header(FILE *fp, char *delim);
 void meas_write_data(FILE *fp, char *delim);
+
+void meas_write_header_enc(FILE *fp, char *delim, char *left, char *right);
+void meas_write_data_enc(FILE *fp, char *delim, char *left, char *right);
