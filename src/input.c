@@ -48,6 +48,34 @@
 // For use if you need to printf/debug based on line number in readgm()
 static int readgm_line_count = 0;
 
+
+/* input card mnemonic list */
+static char *atst[NUM_CMNDS+1] = {
+    [CM] = "CM",
+    [CP] = "CP",
+    [EK] = "EK",
+    [EN] = "EN",
+    [EX] = "EX",
+    [FR] = "FR",
+    [GD] = "GD",
+    [GN] = "GN",
+    [KH] = "KH",
+    [LD] = "LD",
+    [NE] = "NE",
+    [NH] = "NH",
+    [NT] = "NT",
+    [PQ] = "PQ",
+    [PT] = "PT",
+    [RP] = "RP",
+    [PL] = "PL",
+    [SY] = "SY",
+    [TL] = "TL",
+    [XQ] = "XQ",
+    [ZO] = "ZO",
+    NULL
+    };
+
+
 /*------------------------------------------------------------------------*/
 
 /* Read_Comments()
@@ -58,6 +86,7 @@ static int readgm_line_count = 0;
 Read_Comments( void )
 {
   char ain[3], line_buf[LINE_LEN];
+  int idx = 0;
 
   /* Look for CM or CE card */
   do
@@ -100,6 +129,23 @@ Read_Comments( void )
             "Comment mnemonic incorrect"), ERR_OK );
       return( FALSE );
     }
+
+    // Allocate space for the current index and NULL pointer (+2):
+    mem_alloc((void**)&calc_data.comments, sizeof(char*)*(idx+2), __LOCATION__);
+
+    // Allocate space for the \0 and carriage return (+2):
+    int len = strlen(line_buf);
+    mem_realloc((void**)&calc_data.comments[idx], len+2, __LOCATION__);
+
+    // Skip the card name in the copy (+3):
+    strncpy(calc_data.comments[idx], line_buf+3, len+1);
+
+    *(calc_data.comments[idx]+len) = '\n';
+    *(calc_data.comments[idx]+len+1) = 0;
+
+    calc_data.comments[idx+1] = NULL;
+
+    idx++;
   }
   while( (strcmp(ain, "CE") != 0) );
 
@@ -671,9 +717,6 @@ Read_Geometry( void )
   gboolean
 Read_Commands( void )
 {
-  /* input card mnemonic list */
-  char *atst[NUM_CMNDS] = { COMMANDS };
-
   char ain[3], notice[128];
   double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
   int
@@ -715,6 +758,14 @@ Read_Commands( void )
   netcx.ntsol = 0;
   netcx.masym = 0;
   netcx.npeq = data.np+2*data.mp;
+  plot.iplp1 = 0;
+  plot.iplp2 = 0;
+  plot.iplp3 = 0;
+  plot.iplp4 = 0;
+  plot.plotfile[0] = 0;
+
+  plot.iptflg=-2;
+  plot.iptflq=-1;
 
   /* My additions */
   vsorc.nvqd   = 0;
@@ -1217,12 +1268,39 @@ Read_Commands( void )
 
         } /* case 12: case 17: */
 
-      case PQ: case PT: /* "pq" and "pt" cards ignored, no printing */
-        fprintf( stderr,
-            _("xnec2c: Read_Commands(): PQ and PT cards are ignored\n"
-            "Printing to file not implemented\n") );
-        Stop( _("Read_Commands(): PQ and PT cards are ignored\n"
-              "Printing to file not implemented"), ERR_OK );
+      case PT:
+        plot.iptflg = itmp1;
+        plot.iptag = itmp2;
+        plot.iptagf = itmp3;
+        plot.iptagt = itmp4;
+
+        if( (itmp3 == 0) && (plot.iptflg != -1) )
+          plot.iptflg = -2;
+        if( itmp4 == 0)
+            plot.iptagt = plot.iptagf;
+        continue;
+        
+      case PQ:
+        plot.iptflq = itmp1;
+        plot.iptaq = itmp2;
+        plot.iptaqf = itmp3;
+        plot.iptaqt = itmp4;
+
+        if( (itmp3 == 0) && (plot.iptflq != -1) )
+          plot.iptflq = -2;
+        if( itmp4 == 0)
+          plot.iptaqt = plot.iptaqf;
+
+        continue; /* continue card input loop */
+
+      case PL:
+        plot.iplp1 = itmp1;
+        plot.iplp2 = itmp2;
+        plot.iplp3 = itmp3;
+        plot.iplp4 = itmp4;
+        snprintf(plot.plotfile, sizeof(plot.plotfile)-1,
+            "%s.plt", rc_config.input_file);
+
         continue; /* continue card input loop */
 
       case RP: /* "rp" card, standard observation angle parameters */

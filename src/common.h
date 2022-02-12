@@ -610,6 +610,26 @@ typedef struct
 
 } netcx_t;
 
+/*
+   common /plot/
+ */
+typedef struct
+{
+	/* Plot control flags */
+	int iplp1, iplp2, iplp3, iplp4;
+
+	// really this flag is from the "PT" card, but related to
+	// NEC2 output so putting it here.
+	int iptflg, iptag, iptagf, iptagt;
+
+	// PQ card:
+	int iptflq, iptaq, iptaqf, iptaqt;
+
+	// Add room for ".plt".  Really this won't work any since
+	// it is bigger than FILENAME_LEN, but it prevents a compiler error.
+	char plotfile[FILENAME_LEN+8];
+} plot_t;
+
 /* common  /save/ */
 typedef struct
 {
@@ -810,6 +830,8 @@ typedef struct
     freq_mhz;   /* Current Frequency in MHz, moved from save_t */
 
   freq_loop_data_t *freq_loop_data;
+
+  char **comments; /* CM card content, one per line */
 
 } calc_data_t;
 
@@ -1474,6 +1496,7 @@ void print_backtrace(char *msg);
 void Near_Field_Pattern(void);
 void New_Frequency(void);
 void New_Frequency_Reset_Prev(void);
+void Frequency_Scale_Geometry(void);
 
 gboolean Frequency_Loop(gpointer udata);
 gboolean Start_Frequency_Loop(void);

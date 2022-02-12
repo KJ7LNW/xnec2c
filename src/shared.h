@@ -265,6 +265,9 @@ extern matpar_t matpar;
 /* common  /netcx/ */
 extern netcx_t netcx;
 
+/* common  /plot/ */
+extern plot_t plot;
+
 /* common  /save/ */
 extern save_t save;
 
