@@ -249,6 +249,9 @@ matpar_t matpar;
 /* common  /netcx/ */
 netcx_t netcx;
 
+/* common  /plot/ */
+plot_t plot;
+
 /* common  /save/ */
 save_t save;
 
