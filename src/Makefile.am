@@ -46,7 +46,8 @@ xnec2c_SOURCES = \
     shared.c        shared.h \
     somnec.c        somnec.h \
     common.h        editors.h \
-    xnec2c-resources.c
+    xnec2c-resources.c \
+    nec2-output.c
 
 xnec2c_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 
