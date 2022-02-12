@@ -919,12 +919,225 @@ static void write_freq_excitation(FILE *output_fp, FILE *plot_fp, int fr_idx, do
 	}			/* do (l_54) */
 	while (TRUE);
 
+    /*
+    // jump to freq. or input loop 
+    if( jmp_iloop )
+      break;
+
+    if( jmp_floop )
+      continue;
+
+    nphic = 1;
+    xpr2  = phiss;
+    */
+
+}
+
+// UNTESTED
+static void write_freq_input_impedance_data(FILE *output_fp)
+{
+	double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
+    int itmp1, itmp2, itmp3, itmp4, itmp5;
+
+    int fr, nfrq, idx;
+
+    //tmp1 = tmp2 = tmp3 = tmp4 = tmp5 = tmp6 = 0;
+    //itmp1 = itmp2 = itmp3 = itmp4 = itmp5 = 0;
+
+	if (calc_data.iped != 0)
+	{
+		int iss;
+
+		if (vsorc.nvqd > 0)
+			iss = vsorc.ivqd[vsorc.nvqd - 1];
+		else
+			iss = vsorc.isant[vsorc.nsant - 1];
+
+		fprintf(output_fp, "\n\n\n"
+			"                            "
+			" -------- INPUT IMPEDANCE DATA --------\n"
+			"                                     "
+			" SOURCE SEGMENT No: %d\n"
+			"                                  "
+			" NORMALIZATION FACTOR:%12.5E\n\n"
+			"              ----------- UNNORMALIZED IMPEDANCE ----------  "
+			"  ------------ NORMALIZED IMPEDANCE -----------\n"
+			"      FREQ    RESISTANCE    REACTANCE    MAGNITUDE    PHASE  "
+			"  RESISTANCE    REACTANCE    MAGNITUDE    PHASE\n"
+			"       MHz       OHMS         OHMS         OHMS     DEGREES  "
+			"     OHMS         OHMS         OHMS     DEGREES", iss, calc_data.zpnorm);
+
+        nfrq = 0;
+        for (fr = 0; fr < calc_data.FR_cards; fr++)
+            nfrq += calc_data.freq_loop_data[fr].freq_steps;
+
+		for (idx = 0; idx < nfrq; idx++)
+		{
+            complex double zped = impedance_data.zreal[idx] + I * impedance_data.zimag[idx];
+
+            tmp1 = save.freq[idx];
+			tmp2 = creal(zped) / calc_data.zpnorm;
+			tmp3 = cimag(zped) / calc_data.zpnorm;
+			tmp4 = cabs(zped) / calc_data.zpnorm;
+			tmp5 = cang(zped);
+
+			fprintf(output_fp, "\n"
+				" %9.3f   %11.4E  %11.4E  %11.4E  %7.2f  "
+				" %11.4E  %11.4E  %11.4E  %7.2f",
+				tmp1,
+                creal(zped),  cimag(zped),  cabs(zped),  cang(zped),
+                tmp2,         tmp3,         tmp4,        tmp5);
+
+		}		/* for( i = 0; i < itmp1; i++ ) */
+
+		fprintf(output_fp, "\n\n\n");
+
+	}			/* if( calc_data.iped != 0) */
+}
+
+static void write_freq_near_fields(FILE * output_fp, FILE * plot_fp, int fr_idx, double fmhz, int nfeh)
+{
+	int i, j, kk;
+	double znrt, cth = 0., sth = 0., ynrt, cph = 0., sph = 0., xnrt, xob, yob;
+	double zob, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, xxx;
+	complex double ex, ey, ez;
+
+	int idx;
+
+	// If xnec2c isn't rendering these, then they need computed:
+	if (near_field.valid || isFlagClear(DRAW_EHFIELD) || isFlagClear(ENABLE_NEAREH))
+		nfpat(nfeh);
+
+	if (nfeh != 1)
+	{
+		fprintf(output_fp, "\n\n\n"
+			"                             -------- NEAR ELECTRIC FIELDS --------\n"
+			"     ------- LOCATION -------     ------- EX ------    ------- EY ------    ------- EZ ------\n"
+			"      X         Y         Z       MAGNITUDE   PHASE    MAGNITUDE   PHASE    MAGNITUDE   PHASE\n"
+			"    METERS    METERS    METERS     VOLTS/M  DEGREES    VOLTS/M   DEGREES     VOLTS/M  DEGREES");
+	}
+	else
+	{
+		fprintf(output_fp, "\n\n\n"
+			"                                   -------- NEAR MAGNETIC FIELDS ---------\n\n"
+			"     ------- LOCATION -------     ------- HX ------    ------- HY ------    ------- HZ ------\n"
+			"      X         Y         Z       MAGNITUDE   PHASE    MAGNITUDE   PHASE    MAGNITUDE   PHASE\n"
+			"    METERS    METERS    METERS      AMPS/M  DEGREES      AMPS/M  DEGREES      AMPS/M  DEGREES");
+	}
+
+	idx = 0;
+	for (i = 0; i < fpat.nrz; i++)
+	{
+		for (j = 0; j < fpat.nry; j++)
+		{
+			for (kk = 0; kk < fpat.nrx; kk++)
+			{
+				xob = near_field.px[idx];
+				yob = near_field.py[idx];
+				zob = near_field.pz[idx];
+
+				if (nfeh == 1)	/* Magnetic field */
+				{
+					tmp1 = near_field.hx[idx];
+					tmp3 = near_field.hy[idx];
+					tmp5 = near_field.hz[idx];
+					tmp2 = near_field.fhx[idx] / TORAD;
+					tmp4 = near_field.fhy[idx] / TORAD;
+					tmp6 = near_field.fhz[idx] / TORAD;
+				}
+				else	/* Electric field */
+				{
+					tmp1 = near_field.ex[idx];
+					tmp3 = near_field.ey[idx];
+					tmp5 = near_field.ez[idx];
+					tmp2 = near_field.fex[idx] / TORAD;
+					tmp4 = near_field.fey[idx] / TORAD;
+					tmp6 = near_field.fez[idx] / TORAD;
+				}
+
+				fprintf(output_fp, "\n"
+					" %9.4f %9.4f %9.4f  %11.4E %7.2f  %11.4E %7.2f  %11.4E %7.2f",
+					xob, yob, zob, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6);
+
+				idx++;
+
+				if (plot.iplp1 != 2)
+					continue;
+
+				if (plot.iplp4 < 0)
+					xxx = xob;
+				else if (plot.iplp4 == 0)
+					xxx = yob;
+				else
+					xxx = zob;
+
+				if (plot.iplp2 == 2)
+				{
+					switch (plot.iplp3)
+					{
+					case 1:
+						fprintf(plot_fp, "%12.4E %12.4E %12.4E\n", xxx, tmp1, tmp2);
+						break;
+					case 2:
+						fprintf(plot_fp, "%12.4E %12.4E %12.4E\n", xxx, tmp3, tmp4);
+						break;
+					case 3:
+						fprintf(plot_fp, "%12.4E %12.4E %12.4E\n", xxx, tmp5, tmp6);
+						break;
+					case 4:
+						fprintf(plot_fp, "%12.4E %12.4E %12.4E %12.4E %12.4E %12.4E %12.4E\n",
+							xxx, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6);
+					}
+					continue;
+				}
+
+				if (plot.iplp2 != 1)
+					continue;
+
+				// FIXME: ex/y/z are not stored complex, these numbers are going to be wrong:
+				// See fields.c:nfpat() for how they are stored in near_field.*
+				// Not sure we can reconstruct them, but maybe.
+				// if m=cabs(z), c=carg(z) then,
+				// z = (+/-) m(sqrt( (1+tan^2(c)) / (1+tan^2(c)) # real
+				// (+/-) I*sqrt(m^2*tan^2(c)/(1+tan^2(c))) # imag
+				// The sign is lost, however.
+				//
+				fprintf(plot_fp, "FIXME: these values are incorrect, ex/y/z are not stored complex\n");
+
+				switch (plot.iplp3)
+				{
+
+				case 1:
+					fprintf(plot_fp, "%12.4E %12.4E %12.4E\n", xxx, creal(ex), cimag(ex));
+					break;
+				case 2:
+					fprintf(plot_fp, "%12.4E %12.4E %12.4E\n", xxx, creal(ey), cimag(ey));
+					break;
+				case 3:
+					fprintf(plot_fp, "%12.4E %12.4E %12.4E\n", xxx, creal(ez), cimag(ez));
+					break;
+				case 4:
+					fprintf(plot_fp, "%12.4E %12.4E %12.4E %12.4E %12.4E %12.4E %12.4E\n",
+						xxx, creal(ex), cimag(ex), creal(ey), cimag(ey), creal(ez), cimag(ez));
+				}
+
+			}	/* for( kk = 0; kk < fpat.nrx; kk++ ) */
+
+		}		/* for( j = 0; j < fpat.nry; j++ ) */
+
+	}			/* for( i = 0; i < fpat.nrz; i++ ) */
 }
 
 /*static void write_freq_(FILE *output_fp, int fr_idx, double fmhz)
 {
 }
 */
+
+/*static void write_freq_(FILE *output_fp, int fr_idx, double fmhz)
+{
+}
+*/
+
 /*static void write_freq_(FILE *output_fp, int fr_idx, double fmhz)
 {
 }
@@ -966,34 +1179,34 @@ void write_nec2_output()
 	else
 		plot_fp = NULL;
 
-    write_heading(output_fp);
-    write_comments(output_fp);
+	write_heading(output_fp);
+	write_comments(output_fp);
 
-    write_structure_spec(output_fp); // partially implemented
+	write_structure_spec(output_fp);	// partially implemented
 
-    write_seg_data(output_fp, plot_fp);
-    write_surface_patch_data(output_fp);
+	write_seg_data(output_fp, plot_fp);
+	write_surface_patch_data(output_fp);
 
-    write_data_card_detail(output_fp); // not implemented
+	write_data_card_detail(output_fp);	// not implemented
 
+	double fmhz;
 
-    double fmhz;
 	idx = 0;
 
-    // foreach FR card:
+	// foreach FR card:
 	for (fr = 0; fr < calc_data.FR_cards; fr++, idx++)
 	{
 		fmhz = calc_data.freq_loop_data[fr].min_freq;
 		int fr_idx;
 
-        // foreach frequency in the FR card:
+		// foreach frequency in the FR card:
 		for (fr_idx = 0; fr_idx < calc_data.freq_loop_data[fr].freq_steps; fr_idx++)
 		{
 			if (fr_idx > 0)
 			{
-				/* Increment frequency: ifreq is "IFRQ (I1) from the FR card specification:
-                 *  0 - linear stepping
-                 *  1 - multiplicative stepping 
+				/*
+				   Increment frequency: ifreq is "IFRQ (I1) from the FR card specification: * 0 -
+				   linear stepping * 1 - multiplicative stepping 
 				 */
 				if (calc_data.freq_loop_data[fr].ifreq == 1)
 					fmhz *= calc_data.freq_loop_data[fr].delta_freq;
@@ -1001,29 +1214,35 @@ void write_nec2_output()
 					fmhz += calc_data.freq_loop_data[fr].delta_freq;
 			}
 
-            calc_data.freq_mhz = fmhz;
-            g_mutex_unlock(&freq_data_lock);
-            New_Frequency();
-            g_mutex_lock(&freq_data_lock);
-            //calc_data.freq_mhz = prev_freq_mhz;
-            /*
-            */
+			calc_data.freq_mhz = fmhz;
+			g_mutex_unlock(&freq_data_lock);
+			New_Frequency();
+			g_mutex_lock(&freq_data_lock);
+			// calc_data.freq_mhz = prev_freq_mhz;
+			/*
+			 */
 
-            write_freq_header(output_fp, fr_idx, fmhz);
-            write_freq_loading(output_fp, fr_idx, fmhz);
-            write_freq_antenna_env(output_fp, fr_idx, fmhz);
-            write_freq_matrix_timing(output_fp, fr_idx, fmhz);
-            write_freq_antenna_inputs(output_fp, fr_idx, fmhz);
+			write_freq_header(output_fp, fr_idx, fmhz);
+			write_freq_loading(output_fp, fr_idx, fmhz);
+			write_freq_antenna_env(output_fp, fr_idx, fmhz);
+			write_freq_matrix_timing(output_fp, fr_idx, fmhz);
+			write_freq_antenna_inputs(output_fp, fr_idx, fmhz);
 
-            // Needs New_Frequency to set crnt.cur[] correctly per frequency.
-            // Maybe keep these in a buffer?
-            write_freq_excitation(output_fp, plot_fp, fr_idx, fmhz);
-            //(output_fp, fr_idx, fmhz);
+			// Needs New_Frequency to set crnt.cur[] correctly per frequency.
+			// Maybe keep these in a buffer?
+			write_freq_excitation(output_fp, plot_fp, fr_idx, fmhz);
 
+			if (fpat.nfeh & NEAR_EFIELD)
+				write_freq_near_fields(output_fp, plot_fp, fr_idx, fmhz, 0);
 
-            // END OF FREQ LOOP
+			if (fpat.nfeh & NEAR_HFIELD)
+				write_freq_near_fields(output_fp, plot_fp, fr_idx, fmhz, 1);
+
+			// END OF FREQ LOOP
 		}
 	}
+
+	write_freq_input_impedance_data(output_fp);
 
 	fprintf(output_fp, "\n");
 	fclose(output_fp);
