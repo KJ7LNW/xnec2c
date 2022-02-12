@@ -1279,7 +1279,7 @@ Read_Commands( void )
         if( itmp4 == 0)
             plot.iptagt = plot.iptagf;
         continue;
-        
+
       case PQ:
         plot.iptflq = itmp1;
         plot.iptaq = itmp2;
