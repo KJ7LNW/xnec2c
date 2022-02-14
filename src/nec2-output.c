@@ -405,8 +405,6 @@ static void write_freq_antenna_inputs(FILE *output_fp, int fr_idx, double fmhz)
             impedance_data.zreal[fr_idx], impedance_data.zimag[fr_idx], creal(ymit),
             cimag(ymit), pwr);
     }
-
-
 }
 
 void couple( complex double *cur, double wlam );
@@ -995,6 +993,501 @@ static void write_freq_input_impedance_data(FILE *output_fp)
 	}			/* if( calc_data.iped != 0) */
 }
 
+static void write_freq_radiation_pattern(FILE *output_fp, FILE *plot_fp, int fr_idx, double fmhz)
+{
+	char *hpol[3] = { "LINEAR", "RIGHT ", "LEFT  " };
+	char *igtp[2] = { "----- POWER GAINS ----- ", "--- DIRECTIVE GAINS ---" };
+	char *igax[4] = { " MAJOR", " MINOR", " VERTC", " HORIZ" };
+	char *igntp[5] = { " MAJOR AXIS", "  MINOR AXIS", "    VERTICAL", "  HORIZONTAL", "       TOTAL " };
+
+	char *hclif=NULL, *isens;
+	int i, j, jump, itmp1, itmp2, kth, kph, itmp3, itmp4;
+	double exrm=0., exra=0., prad, gcon, gcop, gmax, pint, tmp1, tmp2;
+	double phi, pha, thet, tha, erdm=0., erda=0., ethm2, ethm, *gain = NULL;
+	double etha, ephm2, ephm, epha, tilta, emajr2, eminr2, axrat;
+	double dfaz, dfaz2, cdfaz, tstor1=0., tstor2, stilta, gnmj;
+	double gnmn, gnv, gnh, gtot, tmp3, tmp4, da, tmp5, tmp6;
+	complex double eth, eph, erd;
+
+	int idx;
+
+	if (gnd.ifar > 1)
+	{
+		fprintf(output_fp, "\n\n\n"
+			"                               " "------ FAR FIELD GROUND PARAMETERS ------\n\n");
+
+		jump = FALSE;
+		if (gnd.ifar > 3)
+		{
+			fprintf(output_fp, "\n"
+				"                               "
+				"--- RADIAL WIRE GROUND SCREEN ---\n"
+				"                               "
+				"NUM OF WIRES= %d\n"
+				"                               "
+				"WIRE LENGTH= %8.2f METERS\n"
+				"                               "
+				"WIRE RADIUS= %10.3E METERS", gnd.nradl, save.scrwlt, save.scrwrt);
+
+			if (gnd.ifar == 4)
+				jump = TRUE;
+
+		}		/* if( gnd.ifar > 3) */
+
+		if (!jump)
+		{
+			if ((gnd.ifar == 2) || (gnd.ifar == 5))
+				hclif = "LINEAR";
+			if ((gnd.ifar == 3) || (gnd.ifar == 6))
+				hclif = "CIRCULAR";
+
+			//gnd.cl = fpat.clt / data.wlam;
+			//gnd.ch = fpat.cht / data.wlam;
+			//gnd.zrati2 = csqrt(1. / cmplx(fpat.epsr2, -fpat.sig2 * data.wlam * 59.96));
+
+			fprintf(output_fp, "\n"
+				"                               "
+				"--- %s CLIFF ---\n"
+				"                               "
+				"EDGE DISTANCE= %9.2f METERS\n"
+				"                               "
+				"       HEIGHT= %9.2f METERS\n"
+				"                               "
+				"--- SECOND MEDIUM ---\n"
+				"                               "
+				"RELATIVE DIELECTRIC CONST= %10.3f\n"
+				"                               "
+				"      GROUND CONDUCTIVITY= %10.3f MHOS",
+				hclif, fpat.clt, fpat.cht, fpat.epsr2, fpat.sig2);
+
+		}		/* if( ! jump ) */
+
+	}			/* if( gnd.ifar > 1) */
+
+	if (gnd.ifar == 1)
+	{
+		fprintf(output_fp, "\n\n\n"
+			"                             "
+			"------- RADIATED FIELDS NEAR GROUND --------\n\n"
+			"    ------- LOCATION -------     --- E(THETA) ---    "
+			" ---- E(PHI) ----    --- E(RADIAL) ---\n"
+			"      RHO    PHI        Z           MAG    PHASE     "
+			"    MAG    PHASE        MAG     PHASE\n"
+			"    METERS DEGREES    METERS      VOLTS/M DEGREES   "
+			"   VOLTS/M DEGREES     VOLTS/M  DEGREES");
+	}
+	else
+	{
+		itmp1 = 2 * fpat.iax;
+		itmp2 = itmp1 + 1;
+
+		fprintf(output_fp, "\n\n\n"
+			"                             " "---------- RADIATION PATTERNS -----------\n");
+
+		if (fpat.rfld >= 1.0e-20)
+		{
+			exrm = 1. / fpat.rfld;
+			exra = fpat.rfld / data.wlam;
+			exra = -360. * (exra - floor(exra));
+
+			fprintf(output_fp, "\n"
+				"                             "
+				"RANGE: %13.6E METERS\n"
+				"                             "
+				"EXP(-JKR)/R: %12.5E AT PHASE: %7.2f DEGREES\n", fpat.rfld, exrm, exra);
+		}
+
+		fprintf(output_fp, "\n"
+			" ---- ANGLES -----     %23s      ---- POLARIZATION ----  " // POWER GAINS or DIRECTIVE GAINS
+			" ---- E(THETA) ----    ----- E(PHI) ------\n"
+			"  THETA      PHI      %6s   %6s    TOTAL       AXIAL    "  // VERTC/HORIZ or MAJOR/MINOR
+			"  TILT  SENSE   MAGNITUDE    PHASE    MAGNITUDE     PHASE\n"
+			" DEGREES   DEGREES        DB       DB       DB       RATIO  "
+			" DEGREES            VOLTS/M   DEGREES     VOLTS/M   DEGREES",
+			igtp[fpat.ipd], igax[itmp1], igax[itmp2]);
+
+	}			/* if( gnd.ifar == 1) */
+
+	if ((fpat.ixtyp == 0) || (fpat.ixtyp == 5))
+	{
+		gcop = data.wlam * data.wlam * 2. * M_PI / (376.73 * fpat.pinr);
+		prad = fpat.pinr - fpat.ploss - fpat.pnlr;
+		gcon = gcop;
+		if (fpat.ipd != 0)
+			gcon = gcon * fpat.pinr / prad;
+	}
+	else if (fpat.ixtyp == 4)
+	{
+		fpat.pinr = 394.51 * calc_data.xpr6 * calc_data.xpr6 * data.wlam * data.wlam;
+		gcop = data.wlam * data.wlam * 2. * M_PI / (376.73 * fpat.pinr);
+		prad = fpat.pinr - fpat.ploss - fpat.pnlr;
+		gcon = gcop;
+		if (fpat.ipd != 0)
+			gcon = gcon * fpat.pinr / prad;
+	}
+	else
+	{
+		gcon = 4. * M_PI / (1. + calc_data.xpr6 * calc_data.xpr6);
+		gcop = gcon;
+	}
+
+	i = 0;
+	gmax = -1.e+10;
+	pint = 0.;
+	tmp1 = fpat.dph * TORAD;
+	tmp2 = .5 * fpat.dth * TORAD;
+	phi = fpat.phis - fpat.dph;
+
+	idx = 0;
+	for (kph = 1; kph <= fpat.nph; kph++)
+	{
+		phi += fpat.dph;
+		pha = phi * TORAD;
+		thet = fpat.thets - fpat.dth;
+
+		for (kth = 1; kth <= fpat.nth; kth++)
+		{
+			thet += fpat.dth;
+
+			// Can this move above the for(kph) loop?
+			if ((gnd.ksymp == 2) && (thet > 90.01) && (gnd.ifar != 1))
+				continue;
+
+			tha = thet * TORAD;
+
+			/*
+			if (gnd.ifar != 1)
+				ffld(tha, pha, &eth, &eph);
+			else
+			{
+				gfld(fpat.rfld / data.wlam, pha, thet / data.wlam,
+					 &eth, &eph, &erd, gnd.zrati, gnd.ksymp);
+				erdm = cabs(erd);
+				erda = cang(erd);
+			}
+			*/
+
+			eth = rad_pattern[fr_idx].eth[idx];
+			eph = rad_pattern[fr_idx].eph[idx];
+			erd = rad_pattern[fr_idx].erd[idx];
+
+			idx++;
+
+			// Re-calculate tilta below because the xnec2c emagr2/eminr2 numbers
+			// need to be recalculated from an intermediate value of tilta, so
+			// don't use this: tilta = rad_pattern[fr_idx].tilta[idx];
+
+			if (gnd.ifar == 1)
+			{
+				erdm = cabs(erd);
+				erda = cang(erd);
+			}
+
+			ethm2 = creal(eth * conj(eth));
+			ethm = sqrt(ethm2);
+			etha = cang(eth);
+			ephm2 = creal(eph * conj(eph));
+			ephm = sqrt(ephm2);
+			epha = cang(eph);
+
+			/*
+			   elliptical polarization calc.
+			 */
+			if (gnd.ifar != 1)
+			{
+				if ((ethm2 <= 1.0e-20) && (ephm2 <= 1.0e-20))
+				{
+					tilta = 0.;
+					emajr2 = 0.;
+					eminr2 = 0.;
+					axrat = 0.;
+					isens = " ";
+				}
+				else
+				{
+					dfaz = epha - etha;
+					if (epha >= 0.)
+						dfaz2 = dfaz - 360.;
+					else
+						dfaz2 = dfaz + 360.;
+
+					if (fabs(dfaz) > fabs(dfaz2))
+						dfaz = dfaz2;
+
+					cdfaz = cos(dfaz * TORAD);
+					tstor1 = ethm2 - ephm2;
+					tstor2 = 2. * ephm * ethm * cdfaz;
+					tilta = .5 * atan2(tstor2, tstor1);
+					stilta = sin(tilta);
+					tstor1 = tstor1 * stilta * stilta;
+					tstor2 = tstor2 * stilta * cos(tilta);
+					emajr2 = -tstor1 + tstor2 + ethm2;
+					eminr2 = tstor1 - tstor2 + ephm2;
+					if (eminr2 < 0.)
+						eminr2 = 0.;
+
+					axrat = sqrt(eminr2 / emajr2);
+					tilta = tilta * TODEG;
+					if (axrat <= 1.0e-5)
+						isens = hpol[0];
+					else if (dfaz <= 0.)
+						isens = hpol[1];
+					else
+						isens = hpol[2];
+
+				}	/* if( (ethm2 <= 1.0e-20) && (ephm2 <= 1.0e-20) ) */
+
+				gnmj = db10(gcon * emajr2);
+				gnmn = db10(gcon * eminr2);
+				gnv = db10(gcon * ethm2);
+				gnh = db10(gcon * ephm2);
+				gtot = db10(gcon * (ethm2 + ephm2));
+
+				// These values can be calculated from eth,eph,erd but we have them
+				// so lets use them:
+				/*
+				DONT USE THIS HERE, idx has been incremented.
+				Maybe use them?
+				int mgidx = rad_pattern[idx].max_gain_idx[pol];
+				gtot = rad_pattern[fr_idx].gtot[idx];
+				axrat = rad_pattern[fr_idx].axrt[idx];
+				isens = rad_pattern[fr_idx].isens[idx];
+				*/
+
+				if (fpat.inor > 0)
+				{
+					i++;
+					switch (fpat.inor)
+					{
+					case 1:
+						tstor1 = gnmj;
+						break;
+
+					case 2:
+						tstor1 = gnmn;
+						break;
+
+					case 3:
+						tstor1 = gnv;
+						break;
+
+					case 4:
+						tstor1 = gnh;
+						break;
+
+					case 5:
+						tstor1 = gtot;
+					}
+
+					gain[i - 1] = tstor1;
+					if (tstor1 > gmax)
+						gmax = tstor1;
+
+				}	/* if( fpat.inor > 0) */
+
+				if (fpat.iavp != 0)
+				{
+					tstor1 = gcop * (ethm2 + ephm2);
+					tmp3 = tha - tmp2;
+					tmp4 = tha + tmp2;
+
+					if (kth == 1)
+						tmp3 = tha;
+					else if (kth == fpat.nth)
+						tmp4 = tha;
+
+					da = fabs(tmp1 * (cos(tmp3) - cos(tmp4)));
+					if ((kph == 1) || (kph == fpat.nph))
+						da *= .5;
+					pint += tstor1 * da;
+
+					if (fpat.iavp == 2)
+						continue;
+				}
+
+				if (fpat.iax != 1)
+				{
+					tmp5 = gnmj;
+					tmp6 = gnmn;
+				}
+				else
+				{
+					tmp5 = gnv;
+					tmp6 = gnh;
+					// DONT USE THIS HERE, idx has been incremented.
+					//tmp5 = rad_pattern[fr_idx].gtot[idx] + Polarization_Factor(POL_VERT, idx, mgidx);
+					//tmp6 = rad_pattern[fr_idx].gtot[idx] + Polarization_Factor(POL_HORIZ, idx, mgidx);
+				}
+
+				ethm = ethm * data.wlam;
+				ephm = ephm * data.wlam;
+
+				if (fpat.rfld >= 1.0e-20)
+				{
+					ethm = ethm * exrm;
+					etha = etha + exra;
+					ephm = ephm * exrm;
+					epha = epha + exra;
+				}
+
+				fprintf(output_fp, "\n"
+					" %7.2f %9.2f  %8.2f %8.2f %8.2f %11.4f"
+					" %9.2f %6s %11.4E %9.2f %11.4E %9.2f",
+					thet, phi, tmp5, tmp6, gtot, axrat, tilta, isens, ethm, etha, ephm, epha);
+
+
+				if (plot.iplp1 != 3)
+					continue;
+
+				if (plot.iplp3 != 0)
+				{
+					if (plot.iplp2 == 1)
+					{
+						if (plot.iplp3 == 1)
+							fprintf(plot_fp, "%12.4E %12.4E %12.4E\n", thet, ethm, etha);
+						else if (plot.iplp3 == 2)
+							fprintf(plot_fp, "%12.4E %12.4E %12.4E\n", thet, ephm, epha);
+					}
+
+					if (plot.iplp2 == 2)
+					{
+						if (plot.iplp3 == 1)
+							fprintf(plot_fp, "%12.4E %12.4E %12.4E\n", phi, ethm, etha);
+						else if (plot.iplp3 == 2)
+							fprintf(plot_fp, "%12.4E %12.4E %12.4E\n", phi, ephm, epha);
+					}
+				}
+
+				if (plot.iplp4 == 0)
+					continue;
+
+				if (plot.iplp2 == 1)
+				{
+					switch (plot.iplp4)
+					{
+					case 1:
+						fprintf(plot_fp, "%12.4E %12.4E\n", thet, tmp5);
+						break;
+					case 2:
+						fprintf(plot_fp, "%12.4E %12.4E\n", thet, tmp6);
+						break;
+					case 3:
+						fprintf(plot_fp, "%12.4E %12.4E\n", thet, gtot);
+					}
+				}
+
+				if (plot.iplp2 == 2)
+				{
+					switch (plot.iplp4)
+					{
+					case 1:
+						fprintf(plot_fp, "%12.4E %12.4E\n", phi, tmp5);
+						break;
+					case 2:
+						fprintf(plot_fp, "%12.4E %12.4E\n", phi, tmp6);
+						break;
+					case 3:
+						fprintf(plot_fp, "%12.4E %12.4E\n", phi, gtot);
+					}
+				}
+
+				continue;
+			}	/* if( gnd.ifar != 1) */
+
+			// else, gnd.ifar == 1:
+			fprintf(output_fp, "\n"
+				" %9.2f %7.2f %9.2f  %11.4E %7.2f  %11.4E %7.2f  %11.4E %7.2f",
+				fpat.rfld, phi, thet, ethm, etha, ephm, epha, erdm, erda);
+
+		}		/* for( kth = 1; kth <= fpat.nth; kth++ ) */
+
+	}			/* for( kph = 1; kph <= fpat.nph; kph++ ) */
+
+	if (fpat.iavp != 0)
+	{
+		tmp3 = fpat.thets * TORAD;
+		tmp4 = tmp3 + fpat.dth * TORAD * (double) (fpat.nth - 1);
+		tmp3 = fabs(fpat.dph * TORAD * (double) (fpat.nph - 1) * (cos(tmp3) - cos(tmp4)));
+		pint /= tmp3;
+		tmp3 /= M_PI;
+
+		fprintf(output_fp, "\n\n\n"
+			"  AVERAGE POWER GAIN: %11.4E - SOLID ANGLE"
+			" USED IN AVERAGING: (%+7.4f)*M_PI STERADIANS", pint, tmp3);
+	}
+
+	if (fpat.inor > 0)
+	{
+		if (fabs(fpat.gnor) > 1.0e-20)
+			gmax = fpat.gnor;
+		itmp1 = (fpat.inor - 1);
+
+		fprintf(output_fp, "\n\n\n"
+			"                             "
+			" ---------- NORMALIZED GAIN ----------\n"
+			"                                      %6s GAIN\n"
+			"                                  "
+			" NORMALIZATION FACTOR: %.2f db\n\n"
+			"    ---- ANGLES ----                ---- ANGLES ----"
+			"                ---- ANGLES ----\n"
+			"    THETA      PHI        GAIN      THETA      PHI  "
+			"      GAIN      THETA      PHI       GAIN\n"
+			"   DEGREES   DEGREES        DB     DEGREES   DEGREES "
+			"       DB     DEGREES   DEGREES       DB", igntp[itmp1], gmax);
+
+		itmp2 = fpat.nph * fpat.nth;
+		itmp1 = (itmp2 + 2) / 3;
+		itmp2 = itmp1 * 3 - itmp2;
+		itmp3 = itmp1;
+		itmp4 = 2 * itmp1;
+
+		if (itmp2 == 2)
+			itmp4--;
+
+		for (i = 0; i < itmp1; i++)
+		{
+			itmp3++;
+			itmp4++;
+			j = i / fpat.nth;
+			tmp1 = fpat.thets + (double) (i - j * fpat.nth) * fpat.dth;
+			tmp2 = fpat.phis + (double) (j) * fpat.dph;
+			j = (itmp3 - 1) / fpat.nth;
+			tmp3 = fpat.thets + (double) (itmp3 - j * fpat.nth - 1) * fpat.dth;
+			tmp4 = fpat.phis + (double) (j) * fpat.dph;
+			j = (itmp4 - 1) / fpat.nth;
+			tmp5 = fpat.thets + (double) (itmp4 - j * fpat.nth - 1) * fpat.dth;
+			tmp6 = fpat.phis + (double) (j) * fpat.dph;
+			tstor1 = gain[i] - gmax;
+
+			if (((i + 1) == itmp1) && (itmp2 != 0))
+			{
+				if (itmp2 != 2)
+				{
+					tstor2 = gain[itmp3 - 1] - gmax;
+					fprintf(output_fp, "\n"
+						" %9.2f %9.2f %9.2f   %9.2f %9.2f %9.2f   ",
+						tmp1, tmp2, tstor1, tmp3, tmp4, tstor2);
+					free_ptr((void *) &gain);
+					return;
+				}
+
+				fprintf(output_fp, "\n" " %9.2f %9.2f %9.2f   ", tmp1, tmp2, tstor1);
+				free_ptr((void *) &gain);
+				return;
+
+			}	/* if( ((i+1) == itmp1) && (itmp2 != 0) ) */
+
+			tstor2 = gain[itmp3 - 1] - gmax;
+			pint = gain[itmp4 - 1] - gmax;
+
+			fprintf(output_fp, "\n"
+				" %9.2f %9.2f %9.2f   %9.2f %9.2f %9.2f   %9.2f %9.2f %9.2f",
+				tmp1, tmp2, tstor1, tmp3, tmp4, tstor2, tmp5, tmp6, pint);
+
+		}		/* for( i = 0; i < itmp1; i++ ) */
+	}
+}
+
 static void write_freq_near_fields(FILE * output_fp, FILE * plot_fp, int fr_idx, double fmhz, int nfeh)
 {
 	int i, j, kk;
@@ -1099,7 +1592,7 @@ static void write_freq_near_fields(FILE * output_fp, FILE * plot_fp, int fr_idx,
 				// Not sure we can reconstruct them, but maybe.
 				// if m=cabs(z), c=carg(z) then,
 				// z = (+/-) m(sqrt( (1+tan^2(c)) / (1+tan^2(c)) # real
-				// (+/-) I*sqrt(m^2*tan^2(c)/(1+tan^2(c))) # imag
+				//     (+/-) I*sqrt(m^2*tan^2(c)/(1+tan^2(c))) # imag
 				// The sign is lost, however.
 				//
 				fprintf(plot_fp, "FIXME: these values are incorrect, ex/y/z are not stored complex\n");
@@ -1127,11 +1620,6 @@ static void write_freq_near_fields(FILE * output_fp, FILE * plot_fp, int fr_idx,
 
 	}			/* for( i = 0; i < fpat.nrz; i++ ) */
 }
-
-/*static void write_freq_(FILE *output_fp, int fr_idx, double fmhz)
-{
-}
-*/
 
 /*static void write_freq_(FILE *output_fp, int fr_idx, double fmhz)
 {
@@ -1237,6 +1725,10 @@ void write_nec2_output()
 
 			if (fpat.nfeh & NEAR_HFIELD)
 				write_freq_near_fields(output_fp, plot_fp, fr_idx, fmhz, 1);
+
+			write_freq_radiation_pattern(output_fp, plot_fp, fr_idx, fmhz);
+
+			//(output_fp, plot_fp, fr_idx, fmhz, 1);
 
 			// END OF FREQ LOOP
 		}

@@ -1080,6 +1080,11 @@ _Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
     rad_pattern[idx].tilt = NULL;
     mem_alloc( (void **)&(rad_pattern[idx].tilt), mreq, "in draw_radiation.c" );
 
+    mreq = (size_t)(nph * nth) * sizeof(complex double);
+    mem_alloc( (void **)&(rad_pattern[idx].eth), mreq, "in draw_radiation.c" );
+    mem_alloc( (void **)&(rad_pattern[idx].eph), mreq, "in draw_radiation.c" );
+    mem_alloc( (void **)&(rad_pattern[idx].erd), mreq, "in draw_radiation.c" );
+
     mreq = NUM_POL * sizeof(double);
     rad_pattern[idx].max_gain = NULL;
     mem_alloc( (void **)&(rad_pattern[idx].max_gain), mreq, "in draw_radiation.c" );

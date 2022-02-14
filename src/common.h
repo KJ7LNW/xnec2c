@@ -858,6 +858,11 @@ typedef struct
     *tilt,          /* Tilt angle of polarization ellipse  */
     *axrt;          /* Elliptic axial ratio of pol ellipse */
 
+  complex double
+    *eth,           /* Theta E-Field */
+    *eph,           /* Phi E-Field */
+    *erd;           /* Used when gnd.ifar == 1: Surface Wave Propagating */
+
   int
     *max_gain_idx,  /* Where in rad_pattern.gtot the max value occurs */
     *min_gain_idx,  /* Where in rad_pattern.gtot the min value occurs */

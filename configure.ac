@@ -69,13 +69,18 @@ fi
 # However, -fno-honor-nans should be safe because -fcx-fortran-rules disables
 # NaN detection and NEC2 is originally fortran code.
 
+
 # GCC
 AX_CHECK_COMPILE_FLAG(-fcx-fortran-rules, CFLAGS="$CFLAGS -fcx-fortran-rules")
 AX_CHECK_COMPILE_FLAG(-fstack-protector-strong, CFLAGS="$CFLAGS -fstack-protector-strong")
 
 # clang
 AX_CHECK_COMPILE_FLAG(-fno-honor-nans, CFLAGS="$CFLAGS -fno-honor-nans")
-AX_CHECK_COMPILE_FLAG(-fno-signed-zeros, CFLAGS="$CFLAGS -fno-signed-zeros")
+
+# Note that -fno-signed-zeros creates differences between the xnec2c and nec2c
+# output because -0.00 shows up in the NEC2 output text.  Disable this if you
+# are validating output:
+#AX_CHECK_COMPILE_FLAG(-fno-signed-zeros, CFLAGS="$CFLAGS -fno-signed-zeros")
 
 # gcc/clang shared
 AX_CHECK_COMPILE_FLAG(-fno-math-errno, CFLAGS="$CFLAGS -fno-math-errno")

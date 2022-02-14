@@ -661,12 +661,19 @@ rdpat( void )
 
       tha= thet* TORAD;
       if( gnd.ifar != 1)
+      {
         ffld( tha, pha, &eth, &eph);
+        erd = 0;
+      }
       else
       {
         gfld( fpat.rfld/data.wlam, pha, thet/data.wlam,
             &eth, &eph, &erd, gnd.zrati, gnd.ksymp);
       }
+
+      rad_pattern[fstep].eth[idx] = eth;
+      rad_pattern[fstep].eph[idx] = eph;
+      rad_pattern[fstep].erd[idx] = erd;
 
       ethm2= creal( eth* conj( eth));
       ethm= sqrt( ethm2);
@@ -718,6 +725,8 @@ rdpat( void )
 
         } /* if( (ethm2 <= 1.0e-20) && (ephm2 <= 1.0e-20) ) */
 
+        // TODO PERF: Only calculate gnm[jn] and gn[vh] depending on 
+        // the switch statement below (fpat.inor), as not allways used.
         gnmj= db10( gcon* emajr2);
         gnmn= db10( gcon* eminr2);
         gnv = db10( gcon* ethm2);
