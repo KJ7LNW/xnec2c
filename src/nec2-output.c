@@ -1626,14 +1626,72 @@ static void write_freq_near_fields(FILE * output_fp, FILE * plot_fp, int fr_idx,
 }
 */
 
-/*static void write_freq_(FILE *output_fp, int fr_idx, double fmhz)
+static void write_freq_far_field_data(FILE * output_fp, int fr_idx, double fmhz)
 {
+	time_t rawtime;
+	struct tm *info;
+	char buffer[80], *filename;
+
+	int idx, kth, kph;
+	double phi, thet, pha, tha;
+
+	idx = 0;
+	time(&rawtime);
+	info = localtime(&rawtime);
+	strftime(buffer, sizeof(buffer) - 1, "%F     %H:%M:%S", info);
+
+    filename = rc_config.input_file;
+    while (filename && *filename != '\0' && *filename != '/' && *filename != '\\')
+        filename++;
+
+    if (!*filename)
+        filename = rc_config.input_file;
+    else
+        filename++;
+
+	fprintf(output_fp, "                      xnec2c ver. %s\n\n", VERSION);
+	fprintf(output_fp, "%-45s%s\n\n", filename, buffer);
+	fprintf(output_fp, "         --------------- FAR FIELD PATTERN DATA ---------------\n\n");
+	fprintf(output_fp, "Frequency = %.2f MHz\n\n", fmhz);
+	fprintf(output_fp, "   Reference = %.1f dBi (what is this? Hard-coded at 0 for now.)\n", 0.0);
+
+    for (kth = 0; kth < fpat.nth; kth++)
+	{
+        //thet += fpat.dth;
+        thet = fpat.thets + (fpat.dth*kth);
+        tha = thet * TORAD;
+
+		fprintf(output_fp, "\nAzimuth Pattern   Elevation angle = %.1f deg.\n",
+            90-thet);
+		fprintf(output_fp, " Deg      V dB      H dB      Tot dB\n");
+
+        idx = kth;
+
+        // exclude the 360'th degree:
+        for (kph = 0; kph < fpat.nph-1; kph++)
+		{
+            phi = fpat.phis + (fpat.dph*kph);
+            pha = phi * TORAD;
+
+            double gnv = rad_pattern[fr_idx].gtot[idx] + Polarization_Factor( POL_VERT, fr_idx, idx);
+            double gnh = rad_pattern[fr_idx].gtot[idx] + Polarization_Factor( POL_HORIZ, fr_idx, idx);
+            double gtot = rad_pattern[fr_idx].gtot[idx];
+
+            if (gnv < -99.99) gnv = -99.99;
+            if (gnh < -99.99) gnh = -99.99;
+            if (gtot < -99.99) gtot = -99.99;
+
+            fprintf(output_fp, "%5.1f    %6.2f    %6.2f    %6.2f\n",
+                phi, gnv, gnh, gtot);
+
+            idx += fpat.nth;
+		}
+	}
 }
-*/
 
 void write_nec2_output()
 {
-	FILE *output_fp, *plot_fp;
+	FILE *output_fp, *plot_fp, *far_fp;
 	int idx, i, fr;
 
 	double prev_freq_mhz = calc_data.freq_mhz;
@@ -1652,6 +1710,13 @@ void write_nec2_output()
 	if (!output_fp)
 	{
 		perror("nec2.out");
+		return;
+	}
+
+	far_fp = fopen("far.out", "w");
+	if (!far_fp)
+	{
+		perror("far.out");
 		return;
 	}
 
@@ -1728,6 +1793,7 @@ void write_nec2_output()
 
 			write_freq_radiation_pattern(output_fp, plot_fp, fr_idx, fmhz);
 
+			write_freq_far_field_data(far_fp, fr_idx, fmhz);
 			//(output_fp, plot_fp, fr_idx, fmhz, 1);
 
 			// END OF FREQ LOOP
@@ -1738,6 +1804,7 @@ void write_nec2_output()
 
 	fprintf(output_fp, "\n");
 	fclose(output_fp);
+	fclose(far_fp);
 	if (plot_fp != NULL)
 		fclose(plot_fp);
 }
