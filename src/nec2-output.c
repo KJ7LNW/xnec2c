@@ -410,7 +410,7 @@ static void write_freq_antenna_inputs(FILE *output_fp, int fr_idx, double fmhz)
 void couple( complex double *cur, double wlam );
 static void write_freq_excitation(FILE *output_fp, FILE *plot_fp, int fr_idx, double fmhz)
 {
-	double rkh, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
+	double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
     double cmag, ph;
     complex double curi;
 
@@ -526,16 +526,6 @@ static void write_freq_excitation(FILE *output_fp, FILE *plot_fp, int fr_idx, do
 						itmp5 = netcx.iseg2[j];
 						idx4 = itmp4 - 1;
 						idx5 = itmp5 - 1;
-
-						if ((itmp2 >= 2) && (netcx.x11i[j] <= 0.))
-						{
-							double xx, yy, zz;
-
-							xx = data.x[idx5] - data.x[idx4];
-							yy = data.y[idx5] - data.y[idx4];
-							zz = data.z[idx5] - data.z[idx4];
-							//netcx.x11i[j] = data.wlam * sqrt(xx * xx + yy * yy + zz * zz);
-						}
 
 						fprintf(output_fp, "\n"
 							" %4d %5d %4d %5d  %11.4E %11.4E  "
@@ -934,8 +924,7 @@ static void write_freq_excitation(FILE *output_fp, FILE *plot_fp, int fr_idx, do
 // UNTESTED
 static void write_freq_input_impedance_data(FILE *output_fp)
 {
-	double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
-    int itmp1, itmp2, itmp3, itmp4, itmp5;
+	double tmp1, tmp2, tmp3, tmp4, tmp5;
 
     int fr, nfrq, idx;
 
@@ -1003,7 +992,7 @@ static void write_freq_radiation_pattern(FILE *output_fp, FILE *plot_fp, int fr_
 	char *hclif=NULL, *isens;
 	int i, j, jump, itmp1, itmp2, kth, kph, itmp3, itmp4;
 	double exrm=0., exra=0., prad, gcon, gcop, gmax, pint, tmp1, tmp2;
-	double phi, pha, thet, tha, erdm=0., erda=0., ethm2, ethm, *gain = NULL;
+	double phi, thet, tha, erdm=0., erda=0., ethm2, ethm, *gain = NULL;
 	double etha, ephm2, ephm, epha, tilta, emajr2, eminr2, axrat;
 	double dfaz, dfaz2, cdfaz, tstor1=0., tstor2, stilta, gnmj;
 	double gnmn, gnv, gnh, gtot, tmp3, tmp4, da, tmp5, tmp6;
@@ -1142,7 +1131,6 @@ static void write_freq_radiation_pattern(FILE *output_fp, FILE *plot_fp, int fr_
 	for (kph = 1; kph <= fpat.nph; kph++)
 	{
 		phi += fpat.dph;
-		pha = phi * TORAD;
 		thet = fpat.thets - fpat.dth;
 
 		for (kth = 1; kth <= fpat.nth; kth++)
@@ -1154,18 +1142,6 @@ static void write_freq_radiation_pattern(FILE *output_fp, FILE *plot_fp, int fr_
 				continue;
 
 			tha = thet * TORAD;
-
-			/*
-			if (gnd.ifar != 1)
-				ffld(tha, pha, &eth, &eph);
-			else
-			{
-				gfld(fpat.rfld / data.wlam, pha, thet / data.wlam,
-					 &eth, &eph, &erd, gnd.zrati, gnd.ksymp);
-				erdm = cabs(erd);
-				erda = cang(erd);
-			}
-			*/
 
 			eth = rad_pattern[fr_idx].eth[idx];
 			eph = rad_pattern[fr_idx].eph[idx];
@@ -1491,7 +1467,7 @@ static void write_freq_radiation_pattern(FILE *output_fp, FILE *plot_fp, int fr_
 static void write_freq_near_fields(FILE * output_fp, FILE * plot_fp, int fr_idx, double fmhz, int nfeh)
 {
 	int i, j, kk;
-	double znrt, cth = 0., sth = 0., ynrt, cph = 0., sph = 0., xnrt, xob, yob;
+	double xob, yob;
 	double zob, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, xxx;
 	complex double ex, ey, ez;
 
@@ -1633,7 +1609,7 @@ static void write_freq_far_field_data(FILE * output_fp, int fr_idx, double fmhz)
 	char buffer[80], *filename;
 
 	int idx, kth, kph;
-	double phi, thet, pha, tha;
+	double phi, thet;
 
 	idx = 0;
 	time(&rawtime);
@@ -1659,7 +1635,6 @@ static void write_freq_far_field_data(FILE * output_fp, int fr_idx, double fmhz)
 	{
         //thet += fpat.dth;
         thet = fpat.thets + (fpat.dth*kth);
-        tha = thet * TORAD;
 
 		fprintf(output_fp, "\nAzimuth Pattern   Elevation angle = %.1f deg.\n",
             90-thet);
@@ -1671,7 +1646,6 @@ static void write_freq_far_field_data(FILE * output_fp, int fr_idx, double fmhz)
         for (kph = 0; kph < fpat.nph-1; kph++)
 		{
             phi = fpat.phis + (fpat.dph*kph);
-            pha = phi * TORAD;
 
             double gnv = rad_pattern[fr_idx].gtot[idx] + Polarization_Factor( POL_VERT, fr_idx, idx);
             double gnh = rad_pattern[fr_idx].gtot[idx] + Polarization_Factor( POL_HORIZ, fr_idx, idx);
@@ -1692,7 +1666,7 @@ static void write_freq_far_field_data(FILE * output_fp, int fr_idx, double fmhz)
 void write_nec2_output()
 {
 	FILE *output_fp, *plot_fp, *far_fp;
-	int idx, i, fr;
+	int idx, fr;
 
 	double prev_freq_mhz = calc_data.freq_mhz;
 
@@ -1801,6 +1775,9 @@ void write_nec2_output()
 	}
 
 	write_freq_input_impedance_data(output_fp);
+
+	// FIXME: use correct timing.
+	fprintf(output_fp, "\n\n  TOTAL RUN TIME: 0 msec");
 
 	fprintf(output_fp, "\n");
 	fclose(output_fp);
