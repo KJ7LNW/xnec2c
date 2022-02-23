@@ -34,8 +34,7 @@ static double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
  *
  * Scales geometric parameters to frequency
  */
-  static void
-Frequency_Scale_Geometry()
+void Frequency_Scale_Geometry()
 {
   double fr;
   int idx;
@@ -348,9 +347,7 @@ Radiation_Pattern( void )
   void
 Near_Field_Pattern( void )
 {
-  if( near_field.valid ||
-      isFlagClear(DRAW_EHFIELD) ||
-      isFlagClear(ENABLE_NEAREH) )
+  if(isFlagClear(ENABLE_NEAREH) || near_field[calc_data.freq_step].valid )
     return;
 
   if( fpat.nfeh & NEAR_EFIELD )
@@ -429,8 +426,11 @@ New_Frequency( void )
   Radiation_Pattern();
 
   /* Near field calculation */
-  near_field.valid = 0;
-  Near_Field_Pattern();
+  if (isFlagSet(ENABLE_NEAREH))
+  {
+	  near_field[calc_data.freq_step].valid = 0;
+	  Near_Field_Pattern();
+  }
 
   g_mutex_unlock(&freq_data_lock);
 
@@ -606,7 +606,7 @@ gboolean Frequency_Loop( gpointer udata )
         fsteps_total += calc_data.freq_loop_data[calc_data.FR_index].freq_steps;
 
         /* Update loop frequency from new FR card
-         * FIXME:  We shrink it here just so we cang row it down
+         * FIXME:  We shrink it here just so we can grow it down
          * below where it is commented "Increment frequency" */
         freq = calc_data.freq_loop_data[calc_data.FR_index].min_freq;
         if( calc_data.freq_loop_data[calc_data.FR_index].ifreq == 1)

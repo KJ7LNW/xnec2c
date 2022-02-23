@@ -190,7 +190,7 @@ guint floop_tag = 0;
 rad_pattern_t *rad_pattern = NULL;
 
 /* Near E/H field data */
-near_field_t near_field;
+near_field_t *near_field = NULL;
 
 /* Segments for drawing structure */
 Segment_t *structure_segs = NULL;

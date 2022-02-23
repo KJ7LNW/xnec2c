@@ -372,8 +372,6 @@ Open_Input_File( gpointer arg )
   floop_tag = 0;
   crnt.newer = 0;
   crnt.valid = 0;
-  near_field.newer = 0;
-  near_field.valid = 0;
 
   New_Frequency_Reset_Prev();
 

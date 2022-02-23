@@ -1474,8 +1474,8 @@ static void write_freq_near_fields(FILE * output_fp, FILE * plot_fp, int fr_idx,
 	int idx;
 
 	// If xnec2c isn't rendering these, then they need computed:
-	if (near_field.valid || isFlagClear(DRAW_EHFIELD) || isFlagClear(ENABLE_NEAREH))
-		nfpat(nfeh);
+	if (isFlagClear(ENABLE_NEAREH) || !near_field[fr_idx].valid )
+		return;
 
 	if (nfeh != 1)
 	{
@@ -1501,27 +1501,27 @@ static void write_freq_near_fields(FILE * output_fp, FILE * plot_fp, int fr_idx,
 		{
 			for (kk = 0; kk < fpat.nrx; kk++)
 			{
-				xob = near_field.px[idx];
-				yob = near_field.py[idx];
-				zob = near_field.pz[idx];
+				xob = near_field[fr_idx].px[idx];
+				yob = near_field[fr_idx].py[idx];
+				zob = near_field[fr_idx].pz[idx];
 
 				if (nfeh == 1)	/* Magnetic field */
 				{
-					tmp1 = near_field.hx[idx];
-					tmp3 = near_field.hy[idx];
-					tmp5 = near_field.hz[idx];
-					tmp2 = near_field.fhx[idx] / TORAD;
-					tmp4 = near_field.fhy[idx] / TORAD;
-					tmp6 = near_field.fhz[idx] / TORAD;
+					tmp1 = near_field[fr_idx].hx[idx];
+					tmp3 = near_field[fr_idx].hy[idx];
+					tmp5 = near_field[fr_idx].hz[idx];
+					tmp2 = near_field[fr_idx].fhx[idx] / TORAD;
+					tmp4 = near_field[fr_idx].fhy[idx] / TORAD;
+					tmp6 = near_field[fr_idx].fhz[idx] / TORAD;
 				}
 				else	/* Electric field */
 				{
-					tmp1 = near_field.ex[idx];
-					tmp3 = near_field.ey[idx];
-					tmp5 = near_field.ez[idx];
-					tmp2 = near_field.fex[idx] / TORAD;
-					tmp4 = near_field.fey[idx] / TORAD;
-					tmp6 = near_field.fez[idx] / TORAD;
+					tmp1 = near_field[fr_idx].ex[idx];
+					tmp3 = near_field[fr_idx].ey[idx];
+					tmp5 = near_field[fr_idx].ez[idx];
+					tmp2 = near_field[fr_idx].fex[idx] / TORAD;
+					tmp4 = near_field[fr_idx].fey[idx] / TORAD;
+					tmp6 = near_field[fr_idx].fez[idx] / TORAD;
 				}
 
 				fprintf(output_fp, "\n"

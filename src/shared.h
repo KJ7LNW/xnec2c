@@ -202,7 +202,7 @@ extern guint floop_tag;
 extern rad_pattern_t *rad_pattern ;
 
 /* Near E/H field data */
-extern near_field_t near_field;
+extern near_field_t *near_field;
 
 /* Segments for drawing structure */
 extern Segment_t *structure_segs ;

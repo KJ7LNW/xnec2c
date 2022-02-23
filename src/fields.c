@@ -1509,33 +1509,31 @@ Near_Field_Total(
     if( nfeh == 1 ) /* Magnetic field */
     {
       /* Near magnetic field components */
-      near_field.hrx[idx] = (double)creal(ex);
-      near_field.hry[idx] = (double)creal(ey);
-      near_field.hrz[idx] = (double)creal(ez);
+      near_field[calc_data.freq_step].hrx[idx] = (double)creal(ex);
+      near_field[calc_data.freq_step].hry[idx] = (double)creal(ey);
+      near_field[calc_data.freq_step].hrz[idx] = (double)creal(ez);
 
       /* Near total magnetic field vector*/
-      near_field.hr[idx]  = sqrt(
-          near_field.hrx[idx] * near_field.hrx[idx] +
-          near_field.hry[idx] * near_field.hry[idx] +
-          near_field.hrz[idx] * near_field.hrz[idx] );
-      if( near_field.max_hr < near_field.hr[idx] )
-        near_field.max_hr = near_field.hr[idx];
+      near_field[calc_data.freq_step].hr[idx]  = sqrt(near_field[calc_data.freq_step].hrx[idx] * near_field[calc_data.freq_step].hrx[idx] +
+                                                      near_field[calc_data.freq_step].hry[idx] * near_field[calc_data.freq_step].hry[idx] +
+                                                      near_field[calc_data.freq_step].hrz[idx] * near_field[calc_data.freq_step].hrz[idx] );
+      if(near_field[calc_data.freq_step].max_hr < near_field[calc_data.freq_step].hr[idx] )
+        near_field[calc_data.freq_step].max_hr = near_field[calc_data.freq_step].hr[idx];
     }
     else /* Electric field */
     {
       /* Near electric field components */
       /* Near electric field components */
-      near_field.erx[idx] = (double)creal(ex);
-      near_field.ery[idx] = (double)creal(ey);
-      near_field.erz[idx] = (double)creal(ez);
+      near_field[calc_data.freq_step].erx[idx] = (double)creal(ex);
+      near_field[calc_data.freq_step].ery[idx] = (double)creal(ey);
+      near_field[calc_data.freq_step].erz[idx] = (double)creal(ez);
 
       /* Near total electric field vector */
-      near_field.er[idx]  = sqrt(
-          near_field.erx[idx] * near_field.erx[idx] +
-          near_field.ery[idx] * near_field.ery[idx] +
-          near_field.erz[idx] * near_field.erz[idx] );
-      if( near_field.max_er < near_field.er[idx] )
-        near_field.max_er = near_field.er[idx];
+      near_field[calc_data.freq_step].er[idx]  = sqrt(near_field[calc_data.freq_step].erx[idx] * near_field[calc_data.freq_step].erx[idx] +
+                                                      near_field[calc_data.freq_step].ery[idx] * near_field[calc_data.freq_step].ery[idx] +
+                                                      near_field[calc_data.freq_step].erz[idx] * near_field[calc_data.freq_step].erz[idx] );
+      if(near_field[calc_data.freq_step].max_er < near_field[calc_data.freq_step].er[idx] )
+        near_field[calc_data.freq_step].max_er = near_field[calc_data.freq_step].er[idx];
     } /* if( nfeh == 1 ) */
 
   } /* if( isFlagSet(NEAREH_SNAPSHOT) ) */
@@ -1572,26 +1570,26 @@ Near_Field_Total(
     if( nfeh == 1 ) /* Magnetic field */
     {
       /* Near magnetic field components */
-      near_field.hrx[idx] = exm * cos(wt + fx);
-      near_field.hry[idx] = eym * cos(wt + fy);
-      near_field.hrz[idx] = ezm * cos(wt + fz);
+      near_field[calc_data.freq_step].hrx[idx] = exm * cos(wt + fx);
+      near_field[calc_data.freq_step].hry[idx] = eym * cos(wt + fy);
+      near_field[calc_data.freq_step].hrz[idx] = ezm * cos(wt + fz);
 
       /* Near total magnetic field vector, peak value */
-      near_field.hr[idx]  = sqrt( (exm2 + eym2 + ezm2 + tp)/2.0 );
-      if( near_field.max_hr < near_field.hr[idx] )
-        near_field.max_hr = near_field.hr[idx];
+      near_field[calc_data.freq_step].hr[idx]  = sqrt( (exm2 + eym2 + ezm2 + tp)/2.0 );
+      if(near_field[calc_data.freq_step].max_hr < near_field[calc_data.freq_step].hr[idx] )
+        near_field[calc_data.freq_step].max_hr = near_field[calc_data.freq_step].hr[idx];
     }
     else /* Electric field */
     {
       /* Near electric field components */
-      near_field.erx[idx] = exm * cos(wt + fx);
-      near_field.ery[idx] = eym * cos(wt + fy);
-      near_field.erz[idx] = ezm * cos(wt + fz);
+      near_field[calc_data.freq_step].erx[idx] = exm * cos(wt + fx);
+      near_field[calc_data.freq_step].ery[idx] = eym * cos(wt + fy);
+      near_field[calc_data.freq_step].erz[idx] = ezm * cos(wt + fz);
 
       /* Near total electric field vector, peak value */
-      near_field.er[idx]  = sqrt( (exm2 + eym2 + ezm2 + tp)/2.0 );
-      if( near_field.max_er < near_field.er[idx] )
-        near_field.max_er = near_field.er[idx];
+      near_field[calc_data.freq_step].er[idx]  = sqrt( (exm2 + eym2 + ezm2 + tp)/2.0 );
+      if(near_field[calc_data.freq_step].max_er < near_field[calc_data.freq_step].er[idx] )
+        near_field[calc_data.freq_step].max_er = near_field[calc_data.freq_step].er[idx];
     }
   }
 
@@ -1614,10 +1612,10 @@ nfpat( int nfeh )
 
   /* Initialize according to E/H flag */
   if( nfeh == 1 )
-    near_field.max_hr = 0.0;
+    near_field[calc_data.freq_step].max_hr = 0.0;
   else
-    near_field.max_er = 0.0;
-  near_field.r_max = 0.0;
+    near_field[calc_data.freq_step].max_er = 0.0;
+  near_field[calc_data.freq_step].r_max = 0.0;
 
   idx = 0;
   znrt= fpat.znr- fpat.dznr;
@@ -1670,17 +1668,16 @@ nfpat( int nfeh )
         Near_Field_Total( ex, ey, ez, nfeh, idx );
 
         /* Save field point co-ordinates */
-        near_field.px[idx] = (double)xob;
-        near_field.py[idx] = (double)yob;
-        near_field.pz[idx] = (double)zob;
+        near_field[calc_data.freq_step].px[idx] = (double)xob;
+        near_field[calc_data.freq_step].py[idx] = (double)yob;
+        near_field[calc_data.freq_step].pz[idx] = (double)zob;
 
         /* Find max distance from xyz origin */
-        r = sqrt(
-            near_field.px[idx] * near_field.px[idx] +
-            near_field.py[idx] * near_field.py[idx] +
-            near_field.pz[idx] * near_field.pz[idx] );
-        if( near_field.r_max < r )
-          near_field.r_max = r;
+        r = sqrt(near_field[calc_data.freq_step].px[idx] * near_field[calc_data.freq_step].px[idx] +
+                 near_field[calc_data.freq_step].py[idx] * near_field[calc_data.freq_step].py[idx] +
+                 near_field[calc_data.freq_step].pz[idx] * near_field[calc_data.freq_step].pz[idx] );
+        if(near_field[calc_data.freq_step].r_max < r )
+          near_field[calc_data.freq_step].r_max = r;
 
         tmp1= cabs(ex);
         tmp2= cang (ex);
@@ -1691,21 +1688,21 @@ nfpat( int nfeh )
 
         if( nfeh == 1 ) /* Magnetic field */
         {
-          near_field.hx[idx]  = (double)tmp1;
-          near_field.hy[idx]  = (double)tmp3;
-          near_field.hz[idx]  = (double)tmp5;
-          near_field.fhx[idx] = (double)(tmp2 * TORAD);
-          near_field.fhy[idx] = (double)(tmp4 * TORAD);
-          near_field.fhz[idx] = (double)(tmp6 * TORAD);
+          near_field[calc_data.freq_step].hx[idx]  = (double)tmp1;
+          near_field[calc_data.freq_step].hy[idx]  = (double)tmp3;
+          near_field[calc_data.freq_step].hz[idx]  = (double)tmp5;
+          near_field[calc_data.freq_step].fhx[idx] = (double)(tmp2 * TORAD);
+          near_field[calc_data.freq_step].fhy[idx] = (double)(tmp4 * TORAD);
+          near_field[calc_data.freq_step].fhz[idx] = (double)(tmp6 * TORAD);
         }
         else /* Electric field */
         {
-          near_field.ex[idx]  = (double)tmp1;
-          near_field.ey[idx]  = (double)tmp3;
-          near_field.ez[idx]  = (double)tmp5;
-          near_field.fex[idx] = (double)(tmp2 * TORAD);
-          near_field.fey[idx] = (double)(tmp4 * TORAD);
-          near_field.fez[idx] = (double)(tmp6 * TORAD);
+          near_field[calc_data.freq_step].ex[idx]  = (double)tmp1;
+          near_field[calc_data.freq_step].ey[idx]  = (double)tmp3;
+          near_field[calc_data.freq_step].ez[idx]  = (double)tmp5;
+          near_field[calc_data.freq_step].fex[idx] = (double)(tmp2 * TORAD);
+          near_field[calc_data.freq_step].fey[idx] = (double)(tmp4 * TORAD);
+          near_field[calc_data.freq_step].fez[idx] = (double)(tmp6 * TORAD);
         }
 
         idx++;
@@ -1717,7 +1714,7 @@ nfpat( int nfeh )
   } /* for( i = 0; i < fpat.nrz; i++ ) */
 
   /* Signal new valid near field data */
-  near_field.newer = near_field.valid = 1;
+  near_field[calc_data.freq_step].newer = near_field[calc_data.freq_step].valid = 1;
 
   /* Signal new E/H pattern data */
   SetFlag( DRAW_NEW_EHFIELD );

@@ -593,7 +593,7 @@ Rdpattern_EH_Togglebutton_Toggled( gboolean flag )
     /* Redraw radiation pattern drawingarea */
     if( isFlagSet(DRAW_ENABLED) && isFlagClear(FREQ_LOOP_RUNNING) )
     {
-      if( !near_field.valid || !crnt.valid ) Redo_Currents( NULL );
+      if( !near_field[calc_data.freq_step].valid || !crnt.valid ) Redo_Currents( NULL );
       Near_Field_Pattern();
       SetFlag( DRAW_NEW_EHFIELD );
 

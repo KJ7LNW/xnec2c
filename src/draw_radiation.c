@@ -361,7 +361,7 @@ Draw_Near_Field( cairo_t *cr )
   double xred = 0.0, xgrn = 0.0, xblu = 0.0;
 
   /* Abort if drawing a near field pattern is not possible */
-  if( isFlagClear(ENABLE_NEAREH) || !near_field.valid )
+  if( isFlagClear(ENABLE_NEAREH) || !near_field[calc_data.freq_step].valid )
     return;
 
   /* Initialize projection parameters */
@@ -379,7 +379,7 @@ Draw_Near_Field( cairo_t *cr )
 
     /* Set radiation pattern projection parametrs */
     /* Distance of field point furthest from xyz origin */
-    rdpattern_proj_params.r_max = near_field.r_max + dr;
+    rdpattern_proj_params.r_max = near_field[calc_data.freq_step].r_max + dr;
     New_Projection_Parameters(
         rdpattern_width,
         rdpattern_height,
@@ -420,24 +420,27 @@ Draw_Near_Field( cairo_t *cr )
     {
       /* Set gc attributes for segment */
       Value_to_Color( &xred, &xgrn, &xblu,
-          near_field.er[idx], near_field.max_er );
+          near_field[calc_data.freq_step].er[idx],
+          near_field[calc_data.freq_step].max_er );
 
       /* Scale factor for each field point, to make
        * near field direction lines equal-sized */
-      fscale = dr / near_field.er[idx];
+      fscale = dr / near_field[calc_data.freq_step].er[idx];
 
       /* Scaled field values are used to set one end of a
        * line segment that represents direction of field.
        * The other end is set by the field point co-ordinates */
-      fx = near_field.px[idx] + near_field.erx[idx] * fscale;
-      fy = near_field.py[idx] + near_field.ery[idx] * fscale;
-      fz = near_field.pz[idx] + near_field.erz[idx] * fscale;
+      fx = near_field[calc_data.freq_step].px[idx] + near_field[calc_data.freq_step].erx[idx] * fscale;
+      fy = near_field[calc_data.freq_step].py[idx] + near_field[calc_data.freq_step].ery[idx] * fscale;
+      fz = near_field[calc_data.freq_step].pz[idx] + near_field[calc_data.freq_step].erz[idx] * fscale;
 
       /* Project new line segment of
        * phi chain to the Screen */
       Set_Gdk_Segment(
           &segm, &rdpattern_proj_params,
-          near_field.px[idx], near_field.py[idx], near_field.pz[idx],
+          near_field[calc_data.freq_step].px[idx],
+          near_field[calc_data.freq_step].py[idx],
+          near_field[calc_data.freq_step].pz[idx],
           fx, fy, fz );
 
       /* Draw segment */
@@ -451,24 +454,27 @@ Draw_Near_Field( cairo_t *cr )
     {
       /* Set gc attributes for segment */
       Value_to_Color( &xred, &xgrn, &xblu,
-          near_field.hr[idx], near_field.max_hr );
+          near_field[calc_data.freq_step].hr[idx],
+          near_field[calc_data.freq_step].max_hr );
 
       /* Scale factor for each field point, to make
        * near field direction lines equal-sized */
-      fscale = dr / near_field.hr[idx];
+      fscale = dr / near_field[calc_data.freq_step].hr[idx];
 
       /* Scaled field values are used to set one end of a
        * line segment that represents direction of field.
        * The other end is set by the field point co-ordinates */
-      fx = near_field.px[idx] + near_field.hrx[idx] * fscale;
-      fy = near_field.py[idx] + near_field.hry[idx] * fscale;
-      fz = near_field.pz[idx] + near_field.hrz[idx] * fscale;
+      fx = near_field[calc_data.freq_step].px[idx] + near_field[calc_data.freq_step].hrx[idx] * fscale;
+      fy = near_field[calc_data.freq_step].py[idx] + near_field[calc_data.freq_step].hry[idx] * fscale;
+      fz = near_field[calc_data.freq_step].pz[idx] + near_field[calc_data.freq_step].hrz[idx] * fscale;
 
       /* Project new line segment of
        * phi chain to the Screen */
       Set_Gdk_Segment(
           &segm, &rdpattern_proj_params,
-          near_field.px[idx], near_field.py[idx], near_field.pz[idx],
+          near_field[calc_data.freq_step].px[idx],
+          near_field[calc_data.freq_step].py[idx],
+          near_field[calc_data.freq_step].pz[idx],
           fx, fy, fz );
 
       /* Draw segment */
@@ -501,14 +507,14 @@ Draw_Near_Field( cairo_t *cr )
       for( ipv = 0; ipv < npts; ipv++ )
       {
         pov_x[ipv] =
-          near_field.ery[ipv] * near_field.hrz[ipv] -
-          near_field.hry[ipv] * near_field.erz[ipv];
+          near_field[calc_data.freq_step].ery[ipv] * near_field[calc_data.freq_step].hrz[ipv] -
+          near_field[calc_data.freq_step].hry[ipv] * near_field[calc_data.freq_step].erz[ipv];
         pov_y[ipv] =
-          near_field.erz[ipv] * near_field.hrx[ipv] -
-          near_field.hrz[ipv] * near_field.erx[ipv];
+          near_field[calc_data.freq_step].erz[ipv] * near_field[calc_data.freq_step].hrx[ipv] -
+          near_field[calc_data.freq_step].hrz[ipv] * near_field[calc_data.freq_step].erx[ipv];
         pov_z[ipv] =
-          near_field.erx[ipv] * near_field.hry[ipv] -
-          near_field.hrx[ipv] * near_field.ery[ipv];
+          near_field[calc_data.freq_step].erx[ipv] * near_field[calc_data.freq_step].hry[ipv] -
+          near_field[calc_data.freq_step].hrx[ipv] * near_field[calc_data.freq_step].ery[ipv];
         pov_r[ipv] = sqrt(
             pov_x[ipv] * pov_x[ipv] +
             pov_y[ipv] * pov_y[ipv] +
@@ -527,17 +533,18 @@ Draw_Near_Field( cairo_t *cr )
       /* Scaled field values are used to set one end of a
        * line segment that represents direction of field.
        * The other end is set by the field point co-ordinates */
-      fx = near_field.px[idx] + pov_x[idx] * fscale;
-      fy = near_field.py[idx] + pov_y[idx] * fscale;
-      fz = near_field.pz[idx] + pov_z[idx] * fscale;
+      fx = near_field[calc_data.freq_step].px[idx] + pov_x[idx] * fscale;
+      fy = near_field[calc_data.freq_step].py[idx] + pov_y[idx] * fscale;
+      fz = near_field[calc_data.freq_step].pz[idx] + pov_z[idx] * fscale;
 
       /* Project new line segment of
        * Poynting vector to the Screen */
       Set_Gdk_Segment(
           &segm,
           &rdpattern_proj_params,
-          near_field.px[idx], near_field.py[idx],
-          near_field.pz[idx], fx, fy, fz );
+          near_field[calc_data.freq_step].px[idx],
+          near_field[calc_data.freq_step].py[idx],
+          near_field[calc_data.freq_step].pz[idx], fx, fy, fz );
 
       /* Draw segment */
       cairo_set_source_rgb( cr, xred, xgrn, xblu );
@@ -554,9 +561,9 @@ Draw_Near_Field( cairo_t *cr )
 
   /* Show max field strength on color code bar */
   if( isFlagSet(DRAW_EFIELD) )
-    max = near_field.max_er;
+    max = near_field[calc_data.freq_step].max_er;
   else if( isFlagSet(DRAW_HFIELD) )
-    max = near_field.max_hr;
+    max = near_field[calc_data.freq_step].max_hr;
   else if( isFlagSet(DRAW_POYNTING) )
     max = pov_max;
 
@@ -649,45 +656,43 @@ Animate_Near_Field( gpointer udata )
     if( isFlagSet(DRAW_EFIELD) || isFlagSet(DRAW_POYNTING) )
     {
       /* Real component of complex E field strength */
-      near_field.erx[idx] = near_field.ex[idx] *
-        cos( wt + near_field.fex[idx] );
-      near_field.ery[idx] = near_field.ey[idx] *
-        cos( wt + near_field.fey[idx] );
-      near_field.erz[idx] = near_field.ez[idx] *
-        cos( wt + near_field.fez[idx] );
+      near_field[calc_data.freq_step].erx[idx] = near_field[calc_data.freq_step].ex[idx] *
+        cos( wt + near_field[calc_data.freq_step].fex[idx] );
+      near_field[calc_data.freq_step].ery[idx] = near_field[calc_data.freq_step].ey[idx] *
+        cos( wt + near_field[calc_data.freq_step].fey[idx] );
+      near_field[calc_data.freq_step].erz[idx] = near_field[calc_data.freq_step].ez[idx] *
+        cos( wt + near_field[calc_data.freq_step].fez[idx] );
 
       /* Near total electric field vector */
-      near_field.er[idx]  = sqrt(
-          near_field.erx[idx] * near_field.erx[idx] +
-          near_field.ery[idx] * near_field.ery[idx] +
-          near_field.erz[idx] * near_field.erz[idx] );
-      if( near_field.max_er < near_field.er[idx] )
-        near_field.max_er = near_field.er[idx];
+      near_field[calc_data.freq_step].er[idx]  = sqrt(near_field[calc_data.freq_step].erx[idx] * near_field[calc_data.freq_step].erx[idx] +
+                                                      near_field[calc_data.freq_step].ery[idx] * near_field[calc_data.freq_step].ery[idx] +
+                                                      near_field[calc_data.freq_step].erz[idx] * near_field[calc_data.freq_step].erz[idx] );
+      if(near_field[calc_data.freq_step].max_er < near_field[calc_data.freq_step].er[idx] )
+        near_field[calc_data.freq_step].max_er = near_field[calc_data.freq_step].er[idx];
     }
 
     if( isFlagSet(DRAW_HFIELD) || isFlagSet(DRAW_POYNTING) )
     {
       /* Real component of complex H field strength */
-      near_field.hrx[idx] = near_field.hx[idx] *
-        cos( wt + near_field.fhx[idx] );
-      near_field.hry[idx] = near_field.hy[idx] *
-        cos( wt + near_field.fhy[idx] );
-      near_field.hrz[idx] = near_field.hz[idx] *
-        cos( wt + near_field.fhz[idx] );
+      near_field[calc_data.freq_step].hrx[idx] = near_field[calc_data.freq_step].hx[idx] *
+        cos( wt + near_field[calc_data.freq_step].fhx[idx] );
+      near_field[calc_data.freq_step].hry[idx] = near_field[calc_data.freq_step].hy[idx] *
+        cos( wt + near_field[calc_data.freq_step].fhy[idx] );
+      near_field[calc_data.freq_step].hrz[idx] = near_field[calc_data.freq_step].hz[idx] *
+        cos( wt + near_field[calc_data.freq_step].fhz[idx] );
 
       /* Near total magnetic field vector*/
-      near_field.hr[idx]  = sqrt(
-          near_field.hrx[idx] * near_field.hrx[idx] +
-          near_field.hry[idx] * near_field.hry[idx] +
-          near_field.hrz[idx] * near_field.hrz[idx] );
-      if( near_field.max_hr < near_field.hr[idx] )
-        near_field.max_hr = near_field.hr[idx];
+      near_field[calc_data.freq_step].hr[idx]  = sqrt(near_field[calc_data.freq_step].hrx[idx] * near_field[calc_data.freq_step].hrx[idx] +
+                                                      near_field[calc_data.freq_step].hry[idx] * near_field[calc_data.freq_step].hry[idx] +
+                                                      near_field[calc_data.freq_step].hrz[idx] * near_field[calc_data.freq_step].hrz[idx] );
+      if(near_field[calc_data.freq_step].max_hr < near_field[calc_data.freq_step].hr[idx] )
+        near_field[calc_data.freq_step].max_hr = near_field[calc_data.freq_step].hr[idx];
     }
 
   } /* for( idx = 0; idx < npts; idx++ ) */
 
   /* Increment excitation phase, keep < 2pi */
-  wt += near_field.anim_step;
+  wt += near_field[calc_data.freq_step].anim_step;
   if( wt >= (double)M_2PI )
     wt = 0.0;
 
@@ -1121,51 +1126,91 @@ void Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
  *
  * Allocates memory to the radiation pattern buffers
  */
-  void
-Alloc_Nearfield_Buffers( int n1, int n2, int n3 )
+void Alloc_Nearfield_Buffers(int n1, int n2, int n3)
 {
-  size_t mreq;
+	int i, nfrq;
+	size_t mreq;
+	static int last_nfrq = 0;
 
-  if( isFlagClear(ALLOC_NEAREH_BUFF) ) return;
-  ClearFlag( ALLOC_NEAREH_BUFF );
+	if (isFlagClear(ALLOC_NEAREH_BUFF))
+		return;
+	ClearFlag(ALLOC_NEAREH_BUFF);
 
-  /* Memory request for allocations */
-  mreq = (size_t)(n1 * n2 * n3) * sizeof( double );
+	for (i = 0; i < last_nfrq; i++)
+	{
+		free_ptr((void **) &near_field[i].ex);
+		free_ptr((void **) &near_field[i].ey);
+		free_ptr((void **) &near_field[i].ez);
+		free_ptr((void **) &near_field[i].fex);
+		free_ptr((void **) &near_field[i].fey);
+		free_ptr((void **) &near_field[i].fez);
+		free_ptr((void **) &near_field[i].erx);
+		free_ptr((void **) &near_field[i].ery);
+		free_ptr((void **) &near_field[i].erz);
+		free_ptr((void **) &near_field[i].er);
+		free_ptr((void **) &near_field[i].hx);
+		free_ptr((void **) &near_field[i].hy);
+		free_ptr((void **) &near_field[i].hz);
+		free_ptr((void **) &near_field[i].fhx);
+		free_ptr((void **) &near_field[i].fhy);
+		free_ptr((void **) &near_field[i].fhz);
+		free_ptr((void **) &near_field[i].hrx);
+		free_ptr((void **) &near_field[i].hry);
+		free_ptr((void **) &near_field[i].hrz);
+		free_ptr((void **) &near_field[i].hr);
+		free_ptr((void **) &near_field[i].px);
+		free_ptr((void **) &near_field[i].py);
+		free_ptr((void **) &near_field[i].pz);
+	}
 
-  /* Allocate near field buffers */
-  if( fpat.nfeh & NEAR_EFIELD )
-  {
-    mem_realloc( (void **)&near_field.ex,  mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.ey,  mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.ez,  mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.fex, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.fey, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.fez, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.erx, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.ery, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.erz, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.er,  mreq, "in draw_radiation.c" );
-  }
+	nfrq = calc_data.steps_total + 1;
+	last_nfrq = nfrq;
 
-  if( fpat.nfeh & NEAR_HFIELD )
-  {
-    mem_realloc( (void **)&near_field.hx,  mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.hy,  mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.hz,  mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.fhx, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.fhy, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.fhz, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.hrx, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.hry, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.hrz, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&near_field.hr,  mreq, "in draw_radiation.c" );
-  }
+	mem_realloc((void **) &near_field, nfrq * sizeof(near_field_t), "in draw_radiation.c");
 
-  mem_realloc( (void **)&near_field.px, mreq, "in draw_radiation.c" );
-  mem_realloc( (void **)&near_field.py, mreq, "in draw_radiation.c" );
-  mem_realloc( (void **)&near_field.pz, mreq, "in draw_radiation.c" );
+	// Explicit memset for safety so free_ptr will work properly:
+	memset(near_field, 0, nfrq * sizeof(near_field_t));
 
-} /* Alloc_Nearfield_Buffers() */
+	mreq = (size_t) (n1 * n2 * n3) * sizeof(double);
+	for (i = 0; i < nfrq; i++)
+	{
+		/*
+		   Allocate near field buffers 
+		 */
+		if (fpat.nfeh & NEAR_EFIELD)
+		{
+			mem_realloc((void **) &near_field[i].ex, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].ey, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].ez, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].fex, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].fey, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].fez, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].erx, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].ery, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].erz, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].er, mreq, "in draw_radiation.c");
+		}
+
+		if (fpat.nfeh & NEAR_HFIELD)
+		{
+			mem_realloc((void **) &near_field[i].hx, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].hy, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].hz, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].fhx, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].fhy, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].fhz, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].hrx, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].hry, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].hrz, mreq, "in draw_radiation.c");
+			mem_realloc((void **) &near_field[i].hr, mreq, "in draw_radiation.c");
+		}
+
+		mem_realloc((void **) &near_field[i].px, mreq, "in draw_radiation.c");
+		mem_realloc((void **) &near_field[i].py, mreq, "in draw_radiation.c");
+		mem_realloc((void **) &near_field[i].pz, mreq, "in draw_radiation.c");
+	}
+
+}				/* Alloc_Nearfield_Buffers() */
 
 /*-----------------------------------------------------------------------*/
 

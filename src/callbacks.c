@@ -1775,7 +1775,7 @@ on_near_peak_value_activate(
     /* Redraw radiation pattern drawingarea */
     if( isFlagSet(DRAW_EHFIELD) )
     {
-      near_field.valid = 0;
+      near_field[calc_data.freq_step].valid = 0;
       Near_Field_Pattern();
 
       xnec2_widget_queue_draw( rdpattern_drawingarea );
@@ -1800,7 +1800,7 @@ on_near_snapshot_activate(
     /* Redraw radiation pattern drawingarea */
     if( isFlagSet(DRAW_EHFIELD) )
     {
-      near_field.valid = 0;
+      near_field[calc_data.freq_step].valid = 0;
       Near_Field_Pattern();
 
       xnec2_widget_queue_draw( rdpattern_drawingarea );
@@ -1845,7 +1845,7 @@ on_animation_applybutton_clicked(
       Builder_Get_Object(animate_dialog_builder, "animate_steps_spinbutton") );
   steps = gtk_spin_button_get_value( spinbutton );
   intval = (guint)(1000.0 / steps / freq);
-  near_field.anim_step = (double)M_2PI / steps;
+  near_field[calc_data.freq_step].anim_step = (double)M_2PI / steps;
 
   SetFlag( NEAREH_ANIMATE );
   if( anim_tag > 0 )
@@ -1882,7 +1882,7 @@ on_animation_okbutton_clicked(
       Builder_Get_Object(animate_dialog_builder, "animate_steps_spinbutton") );
   steps = gtk_spin_button_get_value( spinbutton );
   intval = (guint)(1000.0 / steps / freq);
-  near_field.anim_step = (double)M_2PI / steps;
+  near_field[calc_data.freq_step].anim_step = (double)M_2PI / steps;
 
   SetFlag( NEAREH_ANIMATE );
   if( anim_tag > 0 )

@@ -79,7 +79,7 @@ Save_RadPattern_Gnuplot_Data( char *filename )
   FILE *fp = NULL;
 
   /* Draw near field pattern if possible */
-  if( isFlagSet(ENABLE_NEAREH) && near_field.valid )
+  if( isFlagSet(ENABLE_NEAREH) && near_field[calc_data.freq_step].valid )
   {
     /* Open gplot file, abort on error */
     if( !Open_File(&fp, filename, "w") )
@@ -104,19 +104,19 @@ Save_RadPattern_Gnuplot_Data( char *filename )
       /* Write e-field out to file [DJS] */
       for( idx = 0; idx < npts; idx++ )
       {
-        fscale = dr / near_field.er[idx];
-        fx = near_field.px[idx] + near_field.erx[idx] * fscale;
-        fy = near_field.py[idx] + near_field.ery[idx] * fscale;
-        fz = near_field.pz[idx] + near_field.erz[idx] * fscale;
+        fscale = dr / near_field[calc_data.freq_step].er[idx];
+        fx = near_field[calc_data.freq_step].px[idx] + near_field[calc_data.freq_step].erx[idx] * fscale;
+        fy = near_field[calc_data.freq_step].py[idx] + near_field[calc_data.freq_step].ery[idx] * fscale;
+        fz = near_field[calc_data.freq_step].pz[idx] + near_field[calc_data.freq_step].erz[idx] * fscale;
 
         /* Print as x, y, z, dx, dy, dz for gnuplot */
         fprintf( fp, "%f %f %f %f %f %f\n",
-            near_field.px[idx],
-            near_field.py[idx],
-            near_field.pz[idx],
-            fx - near_field.px[idx],
-            fy - near_field.py[idx],
-            fz - near_field.pz[idx] );
+            near_field[calc_data.freq_step].px[idx],
+            near_field[calc_data.freq_step].py[idx],
+            near_field[calc_data.freq_step].pz[idx],
+            fx - near_field[calc_data.freq_step].px[idx],
+            fy - near_field[calc_data.freq_step].py[idx],
+            fz - near_field[calc_data.freq_step].pz[idx] );
       }
     } /* if( isFlagSet(DRAW_EFIELD) */
 
@@ -127,19 +127,19 @@ Save_RadPattern_Gnuplot_Data( char *filename )
       /* Write h-field out to file [DJS] */
       for( idx = 0; idx < npts; idx++ )
       {
-        fscale = dr / near_field.hr[idx];
-        fx = near_field.px[idx] + near_field.hrx[idx] * fscale;
-        fy = near_field.py[idx] + near_field.hry[idx] * fscale;
-        fz = near_field.pz[idx] + near_field.hrz[idx] * fscale;
+        fscale = dr / near_field[calc_data.freq_step].hr[idx];
+        fx = near_field[calc_data.freq_step].px[idx] + near_field[calc_data.freq_step].hrx[idx] * fscale;
+        fy = near_field[calc_data.freq_step].py[idx] + near_field[calc_data.freq_step].hry[idx] * fscale;
+        fz = near_field[calc_data.freq_step].pz[idx] + near_field[calc_data.freq_step].hrz[idx] * fscale;
 
         /* Print as x, y, z, dx, dy, dz for gnuplot */
         fprintf( fp, "%f %f %f %f %f %f\n",
-            near_field.px[idx],
-            near_field.py[idx],
-            near_field.pz[idx],
-            fx - near_field.px[idx],
-            fy - near_field.py[idx],
-            fz - near_field.pz[idx] );
+            near_field[calc_data.freq_step].px[idx],
+            near_field[calc_data.freq_step].py[idx],
+            near_field[calc_data.freq_step].pz[idx],
+            fx - near_field[calc_data.freq_step].px[idx],
+            fy - near_field[calc_data.freq_step].py[idx],
+            fz - near_field[calc_data.freq_step].pz[idx] );
       }
     } /* if( isFlagSet(DRAW_HFIELD) && (fpat.nfeh & NEAR_HFIELD) ) */
 
@@ -177,14 +177,14 @@ Save_RadPattern_Gnuplot_Data( char *filename )
         for( ipv = 0; ipv < npts; ipv++ )
         {
           pov_x[ipv] =
-            near_field.ery[ipv] * near_field.hrz[ipv] -
-            near_field.hry[ipv] * near_field.erz[ipv];
+            near_field[calc_data.freq_step].ery[ipv] * near_field[calc_data.freq_step].hrz[ipv] -
+            near_field[calc_data.freq_step].hry[ipv] * near_field[calc_data.freq_step].erz[ipv];
           pov_y[ipv] =
-            near_field.erz[ipv] * near_field.hrx[ipv] -
-            near_field.hrz[ipv] * near_field.erx[ipv];
+            near_field[calc_data.freq_step].erz[ipv] * near_field[calc_data.freq_step].hrx[ipv] -
+            near_field[calc_data.freq_step].hrz[ipv] * near_field[calc_data.freq_step].erx[ipv];
           pov_z[ipv] =
-            near_field.erx[ipv] * near_field.hry[ipv] -
-            near_field.hrx[ipv] * near_field.ery[ipv];
+            near_field[calc_data.freq_step].erx[ipv] * near_field[calc_data.freq_step].hry[ipv] -
+            near_field[calc_data.freq_step].hrx[ipv] * near_field[calc_data.freq_step].ery[ipv];
           pov_r[ipv] = sqrt(
               pov_x[ipv] * pov_x[ipv] +
               pov_y[ipv] * pov_y[ipv] +
@@ -201,18 +201,18 @@ Save_RadPattern_Gnuplot_Data( char *filename )
         /* Scaled field values are used to set one end of a
          * line segment that represents direction of field.
          * The other end is set by the field point co-ordinates */
-        fx = near_field.px[idx] + pov_x[idx] * fscale;
-        fy = near_field.py[idx] + pov_y[idx] * fscale;
-        fz = near_field.pz[idx] + pov_z[idx] * fscale;
+        fx = near_field[calc_data.freq_step].px[idx] + pov_x[idx] * fscale;
+        fy = near_field[calc_data.freq_step].py[idx] + pov_y[idx] * fscale;
+        fz = near_field[calc_data.freq_step].pz[idx] + pov_z[idx] * fscale;
 
         /* Print as x, y, z, dx, dy, dz for gnuplot */
         fprintf( fp, "%f %f %f %f %f %f\n",
-            near_field.px[idx],
-            near_field.py[idx],
-            near_field.pz[idx],
-            fx - near_field.px[idx],
-            fy - near_field.py[idx],
-            fz - near_field.pz[idx] );
+            near_field[calc_data.freq_step].px[idx],
+            near_field[calc_data.freq_step].py[idx],
+            near_field[calc_data.freq_step].pz[idx],
+            fx - near_field[calc_data.freq_step].px[idx],
+            fy - near_field[calc_data.freq_step].py[idx],
+            fz - near_field[calc_data.freq_step].pz[idx] );
       } /* for( idx = 0; idx < npts; idx++ ) */
 
     } /* if( isFlagSet(DRAW_POYNTING) ) */

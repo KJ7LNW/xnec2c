@@ -1429,11 +1429,11 @@ Read_Commands( void )
     if( (fpat.nth < 1) || (fpat.nph < 1) || (gnd.ifar == 1) )
       ClearFlag( ENABLE_RDPAT );
     else
-    {
-      /* Allocate radiation pattern buffers FIXME */
-      Alloc_Rdpattern_Buffers( calc_data.steps_total + 1, fpat.nth, fpat.nph );
       SetFlag( ENABLE_RDPAT );
-    }
+
+    /* Allocate radiation pattern buffers */
+    Alloc_Rdpattern_Buffers( calc_data.steps_total + 1, fpat.nth, fpat.nph );
+	Alloc_Nearfield_Buffers( fpat.nrx, fpat.nry, fpat.nrz );
 
     return( TRUE );
   } /* while( TRUE ) */
