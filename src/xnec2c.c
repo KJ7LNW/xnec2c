@@ -213,6 +213,9 @@ Set_Excitation( void )
   /* fills e field right-hand matrix */
   etmns( tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, fpat.ixtyp, crnt.cur );
 
+  // Save this for write_freq_excitation();
+  memcpy(save.cur[calc_data.freq_step], crnt.cur, data.np3m * sizeof(complex double));
+
 } /* Set_Excitation() */
 
 /*-----------------------------------------------------------------------*/
@@ -418,6 +421,11 @@ New_Frequency( void )
   /* Matrix solving (netwk calls solves) */
   crnt.valid = 0;
   Set_Network_Data();
+  
+  // Save these for write_freq_excitation()
+  memcpy(save.bir[calc_data.freq_step], crnt.bir, data.npm * sizeof(double));
+  memcpy(save.bii[calc_data.freq_step], crnt.bii, data.npm * sizeof(double));
+
 
   /* Calculate power loss */
   Power_Loss();

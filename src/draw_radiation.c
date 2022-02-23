@@ -1120,6 +1120,37 @@ void Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
 	g_mutex_unlock(&freq_data_lock);
 }
 
+void Alloc_Current_Buffers()
+{
+	int i, nfrq;
+	size_t mreq;
+	static int last_nfrq = 0;
+
+	for (i = 0; i < last_nfrq; i++)
+	{
+		free_ptr((void **) &save.cur[i]);
+		free_ptr((void **) &save.bir[i]);
+		free_ptr((void **) &save.bii[i]);
+	}
+
+	nfrq = calc_data.steps_total + 1;
+	last_nfrq = nfrq;
+
+	mem_realloc((void **) &save.cur, sizeof(complex double) * nfrq, __LOCATION__);
+	mem_realloc((void **) &save.bir, sizeof(double) * nfrq, __LOCATION__);
+	mem_realloc((void **) &save.bii, sizeof(double) * nfrq, __LOCATION__);
+
+	mreq = (size_t) data.np3m * sizeof(complex double);
+	for (i = 0; i < nfrq; i++)
+		mem_realloc((void **) &save.cur[i], mreq, __LOCATION__);
+
+	mreq = (size_t) data.npm * sizeof(double);
+	for (i = 0; i < nfrq; i++)
+	{
+		mem_realloc((void **) &save.bir[i], mreq, "in input.c");
+		mem_realloc((void **) &save.bii[i], mreq, "in input.c");
+	}
+}
 /*-----------------------------------------------------------------------*/
 
 /* Alloc_Nearfield_Buffers

@@ -654,6 +654,12 @@ typedef struct
   double *freq; /* My addition, frequencies used in freq loop */
   char *fstep;  /* My addition, freq loop steps that returned results */
 
+  // From crnt_t, but per-frequency: 
+  double
+	  **bir, // per-frequency Bi/lambda, real part
+	  **bii; // per-frequency Bi/lambda, imaginary part
+  complex double **cur; /* per-frequency amplitude of basis function */
+
 } save_t;
 
 /* common  /segj/ */
@@ -1329,6 +1335,7 @@ void Rdpattern_Window_Killed(void);
 void Set_Window_Labels(void);
 void Alloc_Rdpattern_Buffers(int nfrq, int nth, int nph);
 void Alloc_Nearfield_Buffers(int n1, int n2, int n3);
+void Alloc_Current_Buffers();
 void Free_Draw_Buffers(void);
 double Scale_Gain( double gain, int fstep, int idx );
 /* draw_structure.c */

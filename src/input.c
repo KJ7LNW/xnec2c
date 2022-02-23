@@ -1433,7 +1433,8 @@ Read_Commands( void )
 
     /* Allocate radiation pattern buffers */
     Alloc_Rdpattern_Buffers( calc_data.steps_total + 1, fpat.nth, fpat.nph );
-	Alloc_Nearfield_Buffers( fpat.nrx, fpat.nry, fpat.nrz );
+    Alloc_Nearfield_Buffers( fpat.nrx, fpat.nry, fpat.nrz );
+    Alloc_Current_Buffers();
 
     return( TRUE );
   } /* while( TRUE ) */
