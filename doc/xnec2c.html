@@ -1273,6 +1273,28 @@ that produced the issue.
 </ul>
 See the git commits for detail if you're interested!
 </p>
+<p><b>Version 4.4.6:</b>
+This is mostly a release with a handful of bugfixes and some internal re-organization
+in preparation for s1p/s2p output and gnuplot extensions (measurements.c).
+Detailed descriptions are available in the git log.
+<ul>
+<li>Removed C++ compiler dependency, xnec2c is written in C</li>
+<li>Fixed default mathlib handling when no accelerated library is installed</li>
+<li>Fixed error on first run when ~/.xnec2c/ does not exist</li>
+<li>Added libtool dependency to documentation for CentOS</li>
+<li>Fixed segment fault when HOME environment variable is undefined.</li>
+<li>Fix off-by-one error in memory allocation for frequency plot arrays.</li>
+<li>Fixed deadlocks when running without pthreads and without forking.</li>
+<li>Refactored common measurements into measurements.c</li>
+<li>Refactored plot_freqdata.c to use meas_calc()</li>
+<li>Added function use comments to measurements.c</li>
+<li>Suppress max_freq==min_freq when freq_steps==1</li>
+<li>Fixed gcc warning about the return value of getcwd() not being checked.</li>
+<li>Ignore the GN card if both GN and GE cards indicate freespace.</li>
+<li>Fixed format-truncation compiler warning</li>
+
+</ul>
+</p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
 as NEC2 or nec2c. Specifically, commands that cause execution in
