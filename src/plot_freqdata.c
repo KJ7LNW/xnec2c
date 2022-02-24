@@ -599,7 +599,7 @@ Plot_Horizontal_Scale(
 {
   int idx, order;
   double hstep = 1.0;
-  char value[16], format[8];
+  char value[16], format[16];
 
   /* Abort if not enough values to plot */
   if( nval <= 1 ) return;
@@ -618,7 +618,7 @@ Plot_Horizontal_Scale(
   if( order > 0 )  order = 0;
   if( order < -9 ) order = -9;
 
-  snprintf( format, 7, "%%.%df", 1-order );
+  snprintf( format, 16, "%%.%df", 1-order );
 
   /* Draw horizontal scale values */
   for( idx = 0; idx < nval; idx++ )
@@ -659,7 +659,7 @@ Plot_Vertical_Scale(
   int idx, yps;
   int min_order, max_order, order;
   double vstep = 1.0;
-  char value[16], format[6];
+  char value[16], format[16];
 
   /* Abort if not enough values to plot */
   if( nval <= 1 ) return;
@@ -687,7 +687,7 @@ Plot_Vertical_Scale(
   order = ( max_order > min_order ? max_order : min_order );
   if( order > 3 ) order = 3;
   if( order < 0 ) order = 0;
-  snprintf( format, 6, "%%.%df", (3-order) );
+  snprintf( format, 16, "%%.%df", (3-order) );
 
   /* Draw vertical scale values */
   for( idx = 0; idx < nval; idx++ )
