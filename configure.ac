@@ -42,6 +42,8 @@ AC_FUNC_REALLOC
 
 AC_CHECK_LIB([gmodule-2.0], [g_module_open])
 AC_CHECK_LIB([pthread], [pthread_create])
+AC_CHECK_LIB([GLU], [gluPerspective])
+AC_CHECK_LIB([GL], [glEnable])
 
 # Provide special options for ATLAS
 AC_ARG_WITH(atlas-incdir,
