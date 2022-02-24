@@ -907,6 +907,7 @@ gboolean Frequency_Loop( gpointer udata )
 /*-----------------------------------------------------------------------*/
 
 
+void write_nec2_output();
 void *Frequency_Loop_Thread(void *p)
 {
 	while (isFlagSet(FREQ_LOOP_RUNNING) && Frequency_Loop(NULL));
@@ -938,6 +939,11 @@ void *Frequency_Loop_Thread(void *p)
 		g_idle_add_once_sync(Redo_Currents, NULL);
 		g_idle_add_once_sync((GSourceFunc) gtk_widget_queue_draw, rdpattern_drawingarea);
 	}
+
+
+  g_mutex_lock(&freq_data_lock);
+write_nec2_output();
+  g_mutex_unlock(&freq_data_lock);
 
 	return NULL;
 }
