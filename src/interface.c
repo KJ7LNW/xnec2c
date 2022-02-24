@@ -81,6 +81,16 @@ Builder_Get_Object( GtkBuilder *builder, gchar *name )
 /*------------------------------------------------------------------*/
 
   GtkWidget *
+create_gl_window( GtkBuilder **builder )
+{
+  GtkWidget *ret = NULL;
+  char *GL_IDS[] = {"gltest", "gl_drawing_area", NULL};
+  Gtk_Builder( builder, GL_IDS );
+  ret = Builder_Get_Object( *builder, "gl_drawing_area" );
+  return( ret );
+}
+
+  GtkWidget *
 create_main_window( GtkBuilder **builder )
 {
   GtkWidget *ret = NULL;

@@ -21,6 +21,10 @@
 #include "shared.h"
 #include "mathlib.h"
 
+
+#include <GL/gl.h>
+#include <GL/glu.h>
+
 static void sig_handler(int signal);
 
 /* Child process pid returned by fork() */
@@ -29,6 +33,10 @@ static pid_t child_pid = (pid_t)(-1);
 /*------------------------------------------------------------------------*/
 
 char *orig_numeric_locale = NULL;
+
+void Gtk_Builder( GtkBuilder **builder, gchar **object_ids );
+GtkWidget * create_gl_window( GtkBuilder **builder );
+GtkWidget *gl_window = NULL;
 
   int
 main (int argc, char *argv[])
@@ -298,12 +306,94 @@ main (int argc, char *argv[])
 
   init_mathlib_menu();
 
+	//opengl
+	{
+		GtkBuilder *gl_builder = NULL;
+		gl_window = create_gl_window(&gl_builder);
+	  gtk_widget_show( gl_window );
+	}
+
+
   gtk_main ();
 
   free_ptr((void**)&orig_numeric_locale);
 
   return 0;
 } // main()
+
+
+gboolean on_gl_destroy(GObject *object, gpointer user_data)
+{
+	return TRUE;
+}
+
+void gl_init(GtkGLArea *area)
+{
+	gtk_gl_area_make_current(GTK_GL_AREA(area));
+	if (gtk_gl_area_get_error(GTK_GL_AREA(area)) != NULL)
+	  return;
+  /* set the window title */
+char *title;
+  const char *renderer = (char*)glGetString (GL_RENDERER);
+  title = g_strdup_printf ("glarea on %s", renderer ? renderer : "Unknown");
+  gtk_window_set_title (GTK_WINDOW (area), title);
+  g_free (title);
+}
+
+void gl_fini(GtkGLArea *area, GdkGLContext *context)
+{
+}
+
+extern rgba_t *colors;
+extern point_3d_t *point_3d;
+
+gboolean gl_draw(GtkGLArea *area)
+{
+	printf("gl_draw: point_3d=%p colors=%p n=%d\n",
+		(void*)point_3d, (void*)colors,
+		fpat.nph*fpat.nth);
+
+	gtk_gl_area_make_current(GTK_GL_AREA(area));
+	if (gtk_gl_area_get_error(GTK_GL_AREA(area)) != NULL)
+	  return FALSE;
+
+	glClearColor (0, 0, 255, 255);
+	glClear (GL_COLOR_BUFFER_BIT);
+
+	// We will need blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// We need to do depth testing
+	//glEnable(GL_DEPTH_TEST);
+
+	// We enable the arrays
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
+
+	//glPushMatrix();
+
+	glVertexPointer(3, GL_DOUBLE,sizeof(point_3d_t), point_3d);
+	glColorPointer(4, GL_DOUBLE, 0, colors);
+
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, fpat.nph*fpat.nth);
+
+	//glPopMatrix();
+
+	// We disable the arrays
+	//glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_COLOR_ARRAY);
+	//glDisableClientState(GL_NORMAL_ARRAY);
+
+	// We disable blending
+	//glDisable(GL_BLEND);
+
+	// We disable depth testing
+	//glDisable(GL_DEPTH_TEST);
+glFlush();
+
+	return FALSE;
+}
 
 /*-----------------------------------------------------------------------*/
 

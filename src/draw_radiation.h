@@ -17,18 +17,13 @@
  *    https://www.xnec2c.org/
  */
 
+
+/// REMOVE THIS FILE?
+
 #ifndef DRAW_RADIATION_H
 #define DRAW_RADIATION_H        1
 
 #include "common.h"
-
-/* Point in 3d xyz axes */
-typedef struct
-{
-  double
-    x, y, z, r;
-
-} point_3d_t;
 
 #endif
 

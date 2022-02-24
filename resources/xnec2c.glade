@@ -279,6 +279,26 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
+  <object class="GtkWindow" id="gltest">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="border-width">2</property>
+    <property name="title" translatable="yes">GLArea Test</property>
+    <property name="resizable">True</property>
+    <property name="icon">xnec2c.svg</property>
+    <signal name="destroy" handler="on_gl_destroy" swapped="no"/>
+	<child>
+	  <object class="GtkGLArea" id="gl_drawing_area">
+		<signal name="realize" handler="gl_init" swapped="yes"/>
+		<signal name="unrealize" handler="gl_fini" swapped="yes"/>
+		<signal name="render" handler="gl_draw" swapped="yes"/>
+		<property name="visible">True</property>
+		<property name="can_focus">False</property>
+		<property name="hexpand">True</property>
+		<property name="vexpand">True</property>
+	  </object>
+	</child>
+  </object>
   <object class="GtkWindow" id="arc_editor">
     <property name="visible">True</property>
     <property name="can-focus">False</property>

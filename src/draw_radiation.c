@@ -20,12 +20,11 @@
 #include "draw_radiation.h"
 #include "shared.h"
 
-/* For coloring rad pattern */
-static double *red = NULL, *grn = NULL, *blu = NULL;
-
 /* Buffered points in 3d (xyz) space
  * forming the radiation pattern */
-static point_3d_t *point_3d = NULL;
+point_3d_t *point_3d = NULL;
+
+rgba_t *colors = NULL;
 
 /*-----------------------------------------------------------------------*/
 
@@ -70,6 +69,7 @@ double Scale_Gain( double gain, int fstep, int idx )
 
 /*-----------------------------------------------------------------------*/
 
+extern GtkWidget *gl_window;
 /* Draw_Radiation_Pattern()
  *
  * Draws the radiation pattern as a frame of line
@@ -116,10 +116,8 @@ Draw_Radiation_Pattern( cairo_t *cr )
     size_t mreq = ((size_t)(fpat.nth * fpat.nph)) * sizeof(point_3d_t);
     mem_realloc( (void **)&point_3d, mreq, "in draw_radiation.c" );
     mreq = (size_t)((fpat.nth-1) * fpat.nph + (fpat.nph-1) * fpat.nth);
-    mreq *= sizeof(double);
-    mem_realloc( (void **)&red, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&grn, mreq, "in draw_radiation.c" );
-    mem_realloc( (void **)&blu, mreq, "in draw_radiation.c" );
+    mreq *= sizeof(rgba_t);
+    mem_realloc( (void **)&colors, mreq, "in draw_radiation.c" );
 
     ClearFlag( DRAW_NEW_RDPAT );
 
@@ -188,9 +186,10 @@ Draw_Radiation_Pattern( cairo_t *cr )
       for( nth = 1; nth < fpat.nth; nth++ )
       {
         Value_to_Color(
-            &red[col_idx], &grn[col_idx], &blu[col_idx],
+            &colors[col_idx].r, &colors[col_idx].g, &colors[col_idx].b,
             (point_3d[pts_idx].r+point_3d[pts_idx+1].r)/2.0-r_min,
             r_range );
+		colors[col_idx].a = 0.5;
         col_idx++;
         pts_idx++;
 
@@ -208,7 +207,7 @@ Draw_Radiation_Pattern( cairo_t *cr )
       for( nph = 1; nph < fpat.nph; nph++ )
       {
         Value_to_Color(
-            &red[col_idx], &grn[col_idx], &blu[col_idx],
+            &colors[col_idx].r, &colors[col_idx].g, &colors[col_idx].b,
             (point_3d[pts_idx].r +
              point_3d[pts_idx+fpat.nth].r)/2.0-r_min,
             r_range );
@@ -293,7 +292,8 @@ Draw_Radiation_Pattern( cairo_t *cr )
       pts_idx++;
 
       /* Draw segment */
-      cairo_set_source_rgb( cr, red[col_idx], grn[col_idx], blu[col_idx] );
+      cairo_set_source_rgb( cr, colors[col_idx].r, colors[col_idx].g,
+                           colors[col_idx].b);
       Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
       col_idx++;
 
@@ -330,7 +330,8 @@ Draw_Radiation_Pattern( cairo_t *cr )
 
 
       /* Draw segment */
-      cairo_set_source_rgb( cr, red[col_idx], grn[col_idx], blu[col_idx] );
+      cairo_set_source_rgb( cr, colors[col_idx].r, colors[col_idx].g,
+                           colors[col_idx].b);
       Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
       col_idx++;
 
@@ -1195,9 +1196,7 @@ Alloc_Nearfield_Buffers( int n1, int n2, int n3 )
 Free_Draw_Buffers( void )
 {
   free_ptr( (void **)&point_3d );
-  free_ptr( (void **)&red );
-  free_ptr( (void **)&grn );
-  free_ptr( (void **)&blu );
+  free_ptr( (void **)&colors);
 }
 
 /*-----------------------------------------------------------------------*/

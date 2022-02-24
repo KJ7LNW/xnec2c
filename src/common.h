@@ -344,6 +344,20 @@ typedef struct {
 	char *extension;
 } filechooser_t;
 
+/* For coloring rad pattern */
+typedef struct
+{
+	double r,g,b,a;
+} rgba_t;
+
+/* Point in 3d xyz axes */
+typedef struct
+{
+  double
+    x, y, z, r;
+
+} point_3d_t;
+
 /* Gain Scaling style */
 enum GAIN_SCALE
 {
