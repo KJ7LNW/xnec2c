@@ -476,7 +476,7 @@ static void write_freq_excitation(FILE *output_fp, FILE *plot_fp, int fr_idx, do
 		/*
 		   fills e field right-hand matrix 
 		 */
-		//etmns(tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, fpat.ixtyp, crnt.cur);
+		//etmns(tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, fpat.ixtyp, save.cur[fr_idx]);
         //data.wlam = CVEL/fmhz;
 
 		/*
@@ -550,7 +550,7 @@ static void write_freq_excitation(FILE *output_fp, FILE *plot_fp, int fr_idx, do
 		if ((inc > 1) && (plot.iptflg > 0))
 			netcx.nprint = 1;
 
-		//netwk(cm, save.ip, crnt.cur);
+		//netwk(cm, save.ip, save.cur[fr_idx]);
 		//netcx.ntsol = 1;
 
         /*
@@ -615,10 +615,10 @@ static void write_freq_excitation(FILE *output_fp, FILE *plot_fp, int fr_idx, do
 					break; //continue; // break because plot.iptflg is invariant.
 
                 //data.wlam = fmhz/CVEL;
-				curi = crnt.cur[i] * data.wlam;
+				curi = save.cur[fr_idx][i] * data.wlam;
 				cmag = cabs(curi);
 				ph = cang(curi);
-  //printf("%d. fmhz=%f crnt.cur[i]=%f curi=%f wlam=%f\n", i, fmhz, cabs(crnt.cur[i]), curi, data.wlam);
+  //printf("%d. fmhz=%f save.cur[fr_idx][i]=%f curi=%f wlam=%f\n", i, fmhz, cabs(save.cur[fr_idx][i]), curi, data.wlam);
 
 				//if ((zload.nload != 0) && (fabs(creal(zload.zarray[i])) >= 1.e-20))
 				//	fpat.ploss += 0.5 * cmag * cmag * creal(zload.zarray[i]) * data.si[i];
@@ -704,7 +704,9 @@ static void write_freq_excitation(FILE *output_fp, FILE *plot_fp, int fr_idx, do
 
 					}	/* if( plot.iptflq == -2) */
 
+					//curi = fr * cmplx(-save.bii[fr_idx][i], save.bir[fr_idx][i]);
 					curi = fr * cmplx(-crnt.bii[i], crnt.bir[i]);
+					
 					cmag = cabs(curi);
 					ph = cang(curi);
 
@@ -740,9 +742,9 @@ static void write_freq_excitation(FILE *output_fp, FILE *plot_fp, int fr_idx, do
 			{
 				j += 3;
 				itmp1++;
-				complex double ex = crnt.cur[j];
-				complex double ey = crnt.cur[j + 1];
-				complex double ez = crnt.cur[j + 2];
+				complex double ex = save.cur[fr_idx][j];
+				complex double ey = save.cur[fr_idx][j + 1];
+				complex double ez = save.cur[fr_idx][j + 2];
 				complex double eth = ex * data.t1x[itmp1] + ey * data.t1y[itmp1] + ez * data.t1z[itmp1];
 				complex double eph = ex * data.t2x[itmp1] + ey * data.t2y[itmp1] + ez * data.t2z[itmp1];
 				double ethm = cabs(eth);
@@ -793,7 +795,7 @@ static void write_freq_excitation(FILE *output_fp, FILE *plot_fp, int fr_idx, do
 		//igo = 4;
 
 		//if (yparm.ncoup > 0)
-		//	couple(crnt.cur, data.wlam);
+		//	couple(save.cur[fr_idx], data.wlam);
 
         /*
 		if (iflow == 7)
@@ -1755,7 +1757,7 @@ void write_nec2_output()
 			write_freq_matrix_timing(output_fp, fr_idx, fmhz);
 			write_freq_antenna_inputs(output_fp, fr_idx, fmhz);
 
-			// Needs New_Frequency to set crnt.cur[] correctly per frequency.
+			// Needs New_Frequency to set save.cur[fr_idx][] correctly per frequency.
 			// Maybe keep these in a buffer?
 			write_freq_excitation(output_fp, plot_fp, fr_idx, fmhz);
 
