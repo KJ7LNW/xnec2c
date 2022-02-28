@@ -139,7 +139,7 @@ Optimizer_Output( void *arg )
 		close(fd);
 
 	  fd = inotify_open(&pfd);
-	  strncpy(prev_input_file, rc_config.input_file, sizeof(rc_config.input_file));
+	  strncpy(prev_input_file, rc_config.input_file, sizeof(prev_input_file));
 	}
 
     // Exit thread if optimizer output has been cancelled
