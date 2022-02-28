@@ -1,9 +1,7 @@
-#define _GNU_SOURCE
-#include <complex.h> // for clog10
-
 #include "common.h"
 #include "shared.h"
 
+#define clog10(z) (clog(z) / log(10))
 
 // Ordering doesn't matter here because we use [] indexes,
 // but it still would be nice to keep the same order as the

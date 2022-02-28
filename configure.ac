@@ -28,7 +28,18 @@ pkg_modules="gtk+-3.0 >= 3.18.0"
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
+
+# GCC has atan2 as a built-in so the autoconf test casts it incorrectly and triggers a warning.
+# This causes -Werror to fail and then xnec2c does not link with -lm.  Disable built-ins
+# for this test:
+CFLAGS_SAVE="$CFLAGS"
+CFLAGS="$CFLAGS  -fno-builtin"
 AC_CHECK_LIB([m], [atan2])
+CFLAGS="$CFLAGS_SAVE"
+
+AC_FUNC_MALLOC
+AC_FUNC_REALLOC
+
 AC_CHECK_LIB([gmodule-2.0], [g_module_open])
 AC_CHECK_LIB([pthread], [pthread_create])
 
@@ -49,6 +60,46 @@ AC_CHECK_HEADERS([clapack.h cblas.h lapacke.h openblas/cblas.h openblas/lapacke.
 AC_SEARCH_LIBS([dlopen], [dl dld], [], [
 	AC_MSG_ERROR([unable to find the dlopen() function])
 ])
+
+# If the user sets -Werror then _FORTIFY_SOURCE=2 fails with -O0
+# so make it optional:
+AC_MSG_CHECKING([for _FORTIFY_SOURCE=2])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+               #define _FORTIFY_SOURCE 2
+               #include <stdlib.h>
+               ]])
+       ],
+       [
+               AC_MSG_RESULT([yes])
+               CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=2"
+       ],
+       [AC_MSG_RESULT([no])])
+
+AC_MSG_CHECKING([whether dlopen supports LMID])
+AC_RUN_IFELSE([AC_LANG_PROGRAM([
+			#define _GNU_SOURCE
+			#include <link.h>
+			#include <dlfcn.h>
+			#include <stdlib.h>
+		],
+		[
+			int i = RTLD_DI_LMID;
+		])],
+		[
+			AC_DEFINE([HAVE_LMID], 1, [dlopen supports LMID ] )
+			AC_MSG_RESULT([yes])
+		],
+		[
+			AC_MSG_RESULT([no])
+		]
+	)
+
+AC_CHECK_HEADER(execinfo.h,
+			[
+			AC_DEFINE([HAVE_BACKTRACE], 1, [libc supports backtrace()] )
+			]
+		)
+
 
 # Check for OpenMP
 AC_OPENMP

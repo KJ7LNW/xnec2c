@@ -17,7 +17,11 @@
  *    https://www.xnec2c.org/
  */
 
+#include "config.h"
+
+#ifdef HAVE_BACKTRACE
 #include <execinfo.h>
+#endif
 
 #include "utils.h"
 #include "shared.h"
@@ -741,6 +745,7 @@ void _print_backtrace(char **strings)
 // Return an array of backtrace strings.  The value returned must be free()'ed.
 char **_get_backtrace()
 {
+#ifdef HAVE_BACKTRACE
 	void *array[10];
 	char **strings;
 	int size;
@@ -753,6 +758,9 @@ char **_get_backtrace()
 	strings[size-1] = NULL;
 
 	return strings;
+#else
+	return NULL;
+#endif
 }
 
 void print_backtrace(char *msg)

@@ -155,8 +155,10 @@ int open_mathlib(mathlib_t *lib)
 		return 0;
 	}
 
+#ifdef HAVE_LMID
 	if (dlinfo(lib->handle, RTLD_DI_LMID, &lib->lmid) == -1)
 		printf("dlinfo: %s: %s\n", lib->lib, dlerror());
+#endif
 
 	// Call the init() function if configured
 	if (lib->init != NULL)
@@ -217,6 +219,7 @@ void init_mathlib()
 			mathlibs[libidx].available = 1;
 
 		// At this point the library load was successful, provide detail:
+#ifdef HAVE_LMID
 		if (mathlibs[libidx].handle != NULL)
 		{
 			char lpath[PATH_MAX];
@@ -225,6 +228,9 @@ void init_mathlib()
 		}
 		else
 			printf("  loaded ok.\n");
+#else
+		printf("  loaded ok.\n");
+#endif
 
 		// Set the default to the first one we find:
 		if (current_mathlib == NULL)
