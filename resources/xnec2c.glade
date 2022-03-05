@@ -11,7 +11,7 @@
     <property name="resizable">False</property>
     <property name="icon">xnec2c.svg</property>
     <property name="type-hint">normal</property>
-    <property name="copyright" translatable="yes">(C) 2007-2017 Neoklis Kyriazis</property>
+    <property name="copyright" translatable="yes">(C) 2007-2022 Neoklis Kyriazis</property>
     <property name="comments" translatable="yes">xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.
 
 xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.
@@ -19,7 +19,7 @@ xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in
 xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.
 
 PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!</property>
-    <property name="website">http://www.qsl.net/5b4az</property>
+    <property name="website">https://www.xnec2c.org/</property>
     <property name="authors">Neoklis Kyriazis
 	  Ham Radio Call: 5B4AZ
 	  http://www.qsl.net/5b4az</property>
@@ -9772,6 +9772,15 @@ Save NEC2 Editor data first?
                             <property name="label" translatable="yes">Clamp _VSWR Graph to 10</property>
                             <property name="use-underline">True</property>
                             <signal name="activate" handler="on_freqplots_clamp_vswr_activate" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckMenuItem" id="freqplots_round_x_axis">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Round _X Axis Frequency Values</property>
+                            <property name="use-underline">True</property>
+                            <signal name="activate" handler="on_freqplots_round_x_axis_activate" swapped="no"/>
                           </object>
                         </child>
                       </object>

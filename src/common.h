@@ -39,6 +39,8 @@
 #  include <config.h>
 #endif
 
+#include "measurements.h"
+
 #undef _Complex_I
 #define _Complex_I  (__extension__ 1.0i)
 #undef I
@@ -239,6 +241,10 @@ typedef struct
   /* Current NEC2 input file */
   char input_file[FILENAME_LEN];
 
+  /* If set true, then use GTK loops for the frequency loop iteration
+   * instead of spawing a pthread */
+  int disable_pthread_freqloop;
+
   /* Main (structure) window position and size */
   int
     main_x,
@@ -314,6 +320,10 @@ typedef struct
 
   /* See enum GAIN_SCALE */
   int gain_style;
+
+  /* If true, then call Fit_to_Scale() on the X-axis
+   * fr_plot->min_fscale/fr_plot->max_fscale values. */
+  int freqplots_round_x_axis;
 
 } rc_config_t;
 
@@ -510,7 +520,8 @@ typedef struct
     ksymp,  /* Ground flag */
     ifar,   /* Int flag in RP card, for far field calculations */
     iperf,  /* Type of ground flag */
-    nradl;  /* Number of radials in ground screen */
+    nradl,  /* Number of radials in ground screen */
+    gpflag; /* The gpflag from the GE card */
 
   double
     t2,     /* Const for radial wire ground impedance */
@@ -741,6 +752,10 @@ typedef struct {
 	// Pointer to &calc_data.freq_loop_data[fr]
 	freq_loop_data_t *freq_loop_data;
 
+	// Scaled versions of fr_plot->freq_loop_data->min_freq/max_freq for plot display
+	// for use with rc_config.freqplots_round_x_axis
+	double min_fscale, max_fscale;
+
 	// Because we are using realloc it is hard to know if the structure has
 	// been initialized or if it needs to be set to sane values.  The 
 	// value will equal 0xc2bca3083893e65e (just a 64-bit random number) if
@@ -819,8 +834,7 @@ typedef struct
     *max_gain_tht,  /* Theta angle where maximum gain occurs */
     *max_gain_phi,  /*   Phi angle where maximum gain occurs */
     *tilt,          /* Tilt angle of polarization ellipse  */
-    *axrt,          /* Elliptic axial ratio of pol ellipse */
-    fbratio;        /* Front to Back gain ratio */
+    *axrt;          /* Elliptic axial ratio of pol ellipse */
 
   int
     *max_gain_idx,  /* Where in rad_pattern.gtot the max value occurs */
@@ -1436,6 +1450,7 @@ gboolean Nec2_Save_Warn(const gchar *mesg);
 int Load_Line(char *buff, FILE *pfile);
 void mem_alloc(void **ptr, size_t req, gchar *str);
 void mem_realloc(void **ptr, size_t req, gchar *str);
+void mem_backtrace(void *ptr);
 void free_ptr(void **ptr);
 gboolean Open_File(FILE **fp, char *fname, const char *mode);
 void Close_File(FILE **fp);
@@ -1453,7 +1468,7 @@ void Get_Dirname(char *fpath, char *dirname, int *fname_idx);
 void xnec2_widget_queue_draw(GtkWidget *w);
 void g_idle_add_once(GSourceFunc function, gpointer data);
 void g_idle_add_once_sync(GSourceFunc function, gpointer data);
-void print_backtrace(void);
+void print_backtrace(char *msg);
 
 /* xnec2c.c */
 void Near_Field_Pattern(void);

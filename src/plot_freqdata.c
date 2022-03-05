@@ -73,6 +73,9 @@ void fr_plots_init()
 
   for (idx = 0; idx < calc_data.ngraph * calc_data.FR_cards; idx++)
   {
+	  if (FR_PLOT_T_IS_VALID(&fr_plots[idx]))
+		  continue;
+
 	  // Set the plot position
 	  fr_plots[idx].posn = idx / calc_data.FR_cards;
 
@@ -596,7 +599,7 @@ Plot_Horizontal_Scale(
 {
   int idx, order;
   double hstep = 1.0;
-  char value[16], format[8];
+  char value[16], format[16];
 
   /* Abort if not enough values to plot */
   if( nval <= 1 ) return;
@@ -608,9 +611,14 @@ Plot_Horizontal_Scale(
   /* Use order of horizontal step to determine format of print */
   double ord = log10( fabs(hstep + 0.0000001) );
   order = (int)ord;
+
+  if (!rc_config.freqplots_round_x_axis)
+	  order--;
+
   if( order > 0 )  order = 0;
   if( order < -9 ) order = -9;
-  snprintf( format, 7, "%%.%df", 1-order );
+
+  snprintf( format, 16, "%%.%df", 1-order );
 
   /* Draw horizontal scale values */
   for( idx = 0; idx < nval; idx++ )
@@ -651,7 +659,7 @@ Plot_Vertical_Scale(
   int idx, yps;
   int min_order, max_order, order;
   double vstep = 1.0;
-  char value[16], format[6];
+  char value[16], format[16];
 
   /* Abort if not enough values to plot */
   if( nval <= 1 ) return;
@@ -679,7 +687,7 @@ Plot_Vertical_Scale(
   order = ( max_order > min_order ? max_order : min_order );
   if( order > 3 ) order = 3;
   if( order < 0 ) order = 0;
-  snprintf( format, 6, "%%.%df", (3-order) );
+  snprintf( format, 16, "%%.%df", (3-order) );
 
   /* Draw vertical scale values */
   for( idx = 0; idx < nval; idx++ )
@@ -771,6 +779,8 @@ void draw_poly(
 /* Draw_Graph()
  *
  * Plots a graph of a vs b
+ * nval: number of points to plot
+ * nval_max: number of points in the whole graph in case nval<nval_max
  */
   static void
 Draw_Graph(
@@ -780,9 +790,9 @@ Draw_Graph(
     double *a, double *b,
     double amax, double amin,
     double bmax, double bmin,
-    int nval, int side )
+    int nval, int nval_max, int side )
 {
-  double ra;
+  double ra, rb;
   int idx;
   GdkPoint *points = NULL;
   char s[20];
@@ -792,6 +802,7 @@ Draw_Graph(
 
   /* Range of values to plot */
   ra = amax - amin;
+  rb = bmax - bmin;
 
   /* Calculate points to plot */
   mem_alloc( (void **) &points, (size_t)calc_data.steps_total * sizeof(GdkPoint),
@@ -808,7 +819,7 @@ Draw_Graph(
   int min_idx = 0, max_idx = 0;
   for( idx = 0; idx < nval; idx++ )
   {
-    points[idx].x = rect->x + (int)((double)rect->width * idx/(calc_data.steps_total-1) + 0.5);
+    points[idx].x = rect->x + (int)((double)rect->width * (b[idx]-bmin)/rb + 0.5);
     points[idx].y = rect->y + (int)( (double)rect->height *
         (amax-a[idx]) / ra + 0.5 );
 
@@ -917,7 +928,7 @@ Plot_Graph(
 	// pango_text_size() above:
 
 	// Space between vertical scale lines across the X axis:
-	px_per_vert_scale = pad_x_scale_text*1.5;
+	px_per_vert_scale = 75;
 
 	// Space between horizontal scale lines down the Y axis:
 	px_per_horiz_scale = pad_y_bottom_scale_text*3;
@@ -1074,12 +1085,10 @@ Plot_Graph(
 
 
 		// Offset is the offset into the value arrays: 
-		// Break if there are no more values to plot because
+		// Skip plot below if there are no more values to plot because
 		// it has plotted all of them or the values are still
 		// being calculated:
-		int maxidx = calc_data.freq_step - offset;
-		if (maxidx <= 0)
-			break;
+		int maxidx = nx - offset;
 
 		// Clamp the number of index to be plotted if there
 		// are some available to plot in the next FR card which
@@ -1088,8 +1097,21 @@ Plot_Graph(
 			maxidx = fr_plot->freq_loop_data->freq_steps;
 
 		/* Draw plotting frame */
-		double min_fscale = fr_plot->freq_loop_data->min_freq;
-		double max_fscale = fr_plot->freq_loop_data->max_freq;
+
+		// Scale the X-axis frequency values to nice round numbers:
+		fr_plot->min_fscale = fr_plot->freq_loop_data->min_freq;
+		fr_plot->max_fscale = fr_plot->freq_loop_data->max_freq;
+
+		if (rc_config.freqplots_round_x_axis)
+			Fit_to_Scale( &fr_plot->max_fscale, &fr_plot->min_fscale, &n_vert_scale );
+
+		// Always label at least 2 frequencies, the first and last:
+		if (n_vert_scale < 2)
+			n_vert_scale = 2;
+
+		// local shorthand variables
+		double min_fscale = fr_plot->min_fscale;
+		double max_fscale = fr_plot->max_fscale;
 
 		Draw_Plotting_Frame( cr, titles,
 			plot_rect, n_horiz_scale, n_vert_scale);
@@ -1102,7 +1124,7 @@ Plot_Graph(
 			plot_rect->width,
 			max_fscale, min_fscale, n_vert_scale);
 
-		if (y_left != NULL)
+		if (maxidx > 0 && y_left != NULL)
 		{
 			Draw_Graph(
 				cr,
@@ -1111,11 +1133,11 @@ Plot_Graph(
 				y_left+offset, x+offset,
 				max_y_left, min_y_left,
 				max_fscale, min_fscale,
-				maxidx,
+				maxidx, fr_plot->freq_loop_data->freq_steps,
 				LEFT );
 		}
 
-		if (y_right != NULL)
+		if (maxidx > 0 && y_right != NULL)
 		{
 			Draw_Graph(
 				cr,
@@ -1124,7 +1146,7 @@ Plot_Graph(
 				y_right+offset, x+offset,
 				max_y_right, min_y_right,
 				max_fscale, min_fscale,
-				maxidx,
+				maxidx, fr_plot->freq_loop_data->freq_steps,
 				RIGHT);
 		}
 
@@ -1251,6 +1273,10 @@ Plot_Graph_Smith(
   for( idx = 0; idx < nc; idx++ )
   {
     Calculate_Smith( fa[idx], fb[idx], calc_data.zo, &re, &im );
+
+    // flip plot vertically because negative imaginary is the bottom half    
+    im = -im;
+
     points[idx].x = x0 + (gint)( re * scale / 2 );
     points[idx].y = y0 + (gint)( im * scale / 2 );
         cairo_rectangle( cr,
@@ -1269,6 +1295,10 @@ Plot_Graph_Smith(
   {
     cairo_set_source_rgb( cr, GREEN );
     Calculate_Smith( creal(netcx.zped), cimag(netcx.zped), calc_data.zo, &re, &im );
+
+    // flip plot vertically because negative imaginary is the bottom half    
+    im = -im;
+
     x = x0 + (gint)( re * scale / 2 );
     y = y0 + (gint)( im * scale / 2 );
     cairo_rectangle( cr, x - 4, y - 4, 8.0, 8.0 );
@@ -1309,8 +1339,7 @@ _Plot_Frequency_Data( cairo_t *cr )
     *gdir_phi = NULL, /* Direction in phi of gain */
     *fbratio  = NULL; /* Direction in phi of gain */
 
-  /* Used to calculate net gain */
-  double Zr, Zo, Zi;
+  measurement_t meas;
 
   fr_plots_init();
 
@@ -1353,7 +1382,6 @@ _Plot_Frequency_Data( cairo_t *cr )
   /* Plot max gain vs frequency, if possible */
   if( isFlagSet(PLOT_GMAX) && isFlagSet(ENABLE_RDPAT) )
   {
-    int nth, nph, pol;
     gboolean no_fbr;
 
     /* Allocate max gmax and directions */
@@ -1369,79 +1397,23 @@ _Plot_Frequency_Data( cairo_t *cr )
     no_fbr = FALSE;
 
     /* Polarization type and impedance */
-    pol = calc_data.pol_type;
-    Zo = calc_data.zo;
 
     /* When freq loop is done, calcs are done for all freq steps */
     for( idx = 0; idx < fstep; idx++ )
     {
-      double fbdir;
-      int fbidx, mgidx;
+	  meas_calc(&meas, idx);
 
-      /* Index to gtot buffer where max gain
-       * occurs for given polarization type */
-      mgidx = rad_pattern[idx].max_gain_idx[pol];
+	  gmax[idx] = meas.gain_max;
+	  if( isFlagSet(PLOT_NETGAIN) )
+		  netgain[idx] = meas.gain_net;
+	  gdir_tht[idx] = meas.gain_max_theta;
+	  gdir_phi[idx] = meas.gain_max_phi;
 
-      /* Max gain for given polarization type */
-      gmax[idx] = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
-
-      /* Net gain if selected */
-      if( isFlagSet(PLOT_NETGAIN) )
-      {
-        Zr = impedance_data.zreal[idx];
-        Zi = impedance_data.zimag[idx];
-        netgain[idx] = gmax[idx] +
-          10.0 * log10( 4.0 * Zr * Zo / (pow(Zr + Zo, 2.0) + pow( Zi, 2.0 )) );
-      }
-
-      /* Radiation angle/phi where max gain occurs */
-      gdir_tht[idx] = 90.0 - rad_pattern[idx].max_gain_tht[pol];
-      gdir_phi[idx] = rad_pattern[idx].max_gain_phi[pol];
-
-      /* Find F/B ratio if possible or net gain not required */
-      if( no_fbr || isFlagSet(PLOT_NETGAIN) )
-        continue;
-
-      /* Find F/B direction in theta */
-      fbdir = 180.0 - rad_pattern[idx].max_gain_tht[pol];
-      if( fpat.dth == 0.0 ) nth = 0;
-      else nth = (int)( fbdir/fpat.dth + 0.5 );
-
-      /* If the antenna is modelled over ground, then use the same
-       * theta as the max gain direction, relying on phi alone to
-       * take us to the back. Patch supplied by Rik van Riel AB1KW
-       */
-      if( (nth >= fpat.nth) || (nth < 0) )
-      {
-        fbdir = rad_pattern[idx].max_gain_tht[pol];
-        if( fpat.dth == 0.0 )
-          nth = 0;
-        else
-          nth = (int)( fbdir / fpat.dth + 0.5 );
-      }
-
-      /* Find F/B direction in phi */
-      fbdir = gdir_phi[idx] + 180.0;
-      if( fbdir >= 360.0 ) fbdir -= 360.0;
-      nph = (int)( fbdir/fpat.dph + 0.5 );
-
-      /* No F/B calc. possible if no phi step at +180 from max gain */
-      if( (nph >= fpat.nph) || (nph < 0) )
-      {
-        no_fbr = TRUE;
-        continue;
-      }
-
-      /* Index to gtot buffer for gain in back direction */
-      fbidx = nth + nph*fpat.nth;
-
-      /* Front to back ratio */
-      fbratio[idx]  = pow( 10.0, gmax[idx] / 10.0 );
-      fbratio[idx] /= pow( 10.0,
-          (rad_pattern[idx].gtot[fbidx] + Polarization_Factor(pol, idx, fbidx)) / 10.0 );
-      fbratio[idx] = 10.0 * log10( fbratio[idx] );
-      rad_pattern[idx].fbratio = fbratio[idx];
-    } /* for( idx = 0; idx < fstep; idx++ ) */
+	  if (meas.fb_ratio >= 0)
+		  fbratio[idx] = meas.fb_ratio;
+	  else
+		  no_fbr = TRUE;
+    }
 
     /*** Plot gain and f/b ratio (if possible) graph(s) */
     if( no_fbr || isFlagSet(PLOT_NETGAIN) )
@@ -1514,13 +1486,10 @@ _Plot_Frequency_Data( cairo_t *cr )
       mreq = (size_t)fstep * sizeof(double);
       mem_realloc( (void **)&netgain, mreq, "in plot_freqdata.c" );
 
-      Zo = calc_data.zo;
       for( idx = 0; idx < fstep; idx++ )
       {
-        Zr = impedance_data.zreal[idx];
-        Zi = impedance_data.zimag[idx];
-        netgain[idx] = vgain[idx] +
-          10.0 * log10( 4.0 * Zr * Zo / (pow(Zr + Zo, 2.0 ) + pow(Zi, 2.0)) );
+		  meas_calc(&meas, idx);
+		  netgain[idx] = meas.gain_viewer_net;
       }
 
       /* Plot net gain if selected */
@@ -1541,8 +1510,7 @@ _Plot_Frequency_Data( cairo_t *cr )
   /* Plot VSWR vs freq */
   if( isFlagSet(PLOT_VSWR) )
   {
-    double *vswr = NULL, *s11 = NULL, gamma;
-    double zrpro2, zrmro2, zimag2;
+    double *vswr = NULL, *s11 = NULL;
 
     /* Plotting frame titles */
     titles[0] = _("VSWR");
@@ -1559,10 +1527,10 @@ _Plot_Frequency_Data( cairo_t *cr )
 
 
     /* Calculate VSWR */
-    mem_alloc( (void **) &vswr, (size_t)calc_data.steps_total * sizeof(double),
+    mem_alloc( (void **) &vswr, (size_t)(calc_data.steps_total+1) * sizeof(double),
         "in Plot_Frequency_Data()" );
 
-    mem_alloc( (void **) &s11, (size_t)calc_data.steps_total * sizeof(double),
+    mem_alloc( (void **) &s11, (size_t)(calc_data.steps_total+1) * sizeof(double),
         "in Plot_Frequency_Data()" );
 
     if( vswr == NULL || s11 == NULL)
@@ -1576,17 +1544,12 @@ _Plot_Frequency_Data( cairo_t *cr )
 
     for(idx = 0; idx < fstep; idx++ )
     {
-      zrpro2 = impedance_data.zreal[idx] + calc_data.zo;
-      zrpro2 *= zrpro2;
-      zrmro2 = impedance_data.zreal[idx] - calc_data.zo;
-      zrmro2 *= zrmro2;
-      zimag2 = impedance_data.zimag[idx] * impedance_data.zimag[idx];
-      gamma = sqrt( (zrmro2 + zimag2) / (zrpro2 + zimag2) );
+      meas_calc(&meas, idx);
       
-      vswr[idx] = (1.0 + gamma) / (1.0 - gamma);
+      vswr[idx] = meas.vswr;
       
       if (rc_config.freqplots_s11)
-          s11[idx] = 20*log10( gamma );
+          s11[idx] = meas.s11;
 
       if (rc_config.freqplots_clamp_vswr && vswr[idx] > 10.0 )
           vswr[idx] = 10.0;
@@ -1752,8 +1715,9 @@ _Set_Frequency_On_Click( GdkEvent *e)
 	  return;
   }
 
-  double min_fscale = fr_plot->freq_loop_data->min_freq;
-  double max_fscale = fr_plot->freq_loop_data->max_freq;
+  // local shorthand variables
+  double min_fscale = fr_plot->min_fscale;
+  double max_fscale = fr_plot->max_fscale;
 
   /* Width of plot bounding rectangle */
   w = fr_plot->plot_rect.width;

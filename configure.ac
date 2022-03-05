@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([xnec2c], [4.4.1], [xnec2c-bugs@z.ewheeler.org])
+AC_INIT([xnec2c], [4.4.6], [xnec2c-bugs@z.ewheeler.org])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/common.h])
 AC_CONFIG_HEADERS([config.h])
@@ -20,7 +20,6 @@ AC_MSG_RESULT($enable_cflags_setting)
 test "x$enable_cflags_setting" = xyes && CFLAGS=""
 
 # Checks for programs.
-AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_MAKE_SET
 
@@ -61,14 +60,24 @@ fi
 
 ## Enable fortran math optimizations
 
+# Note that -ffinite-math-only is known to break xnec2c radiation patterns,
+# so please do not add it to the list.  Interestingly, clang seems to work fine
+# with -fno-honor-infinities and -fno-honor-nans which are the same as GCC's
+# -ffinite-math-only flag (except in the implementation), so this seems to be
+# a GCC-specific quirk.  Just in case, we are excluding the -fno-honor-infinities
+# flags as well in case there is some NEC2 code that needs that handled.  
+# However, -fno-honor-nans should be safe because -fcx-fortran-rules disables
+# NaN detection and NEC2 is originally fortran code.
+
 # GCC
 AX_CHECK_COMPILE_FLAG(-fcx-fortran-rules, CFLAGS="$CFLAGS -fcx-fortran-rules")
+AX_CHECK_COMPILE_FLAG(-fstack-protector-strong, CFLAGS="$CFLAGS -fstack-protector-strong")
 
 # clang
-AX_CHECK_COMPILE_FLAG(-fno-honor-infinities, CFLAGS="$CFLAGS -fno-honor-infinities")
 AX_CHECK_COMPILE_FLAG(-fno-honor-nans, CFLAGS="$CFLAGS -fno-honor-nans")
-AX_CHECK_COMPILE_FLAG(-ffinite-math-only, CFLAGS="$CFLAGS -ffinite-math-only")
 AX_CHECK_COMPILE_FLAG(-fno-signed-zeros, CFLAGS="$CFLAGS -fno-signed-zeros")
+
+# gcc/clang shared
 AX_CHECK_COMPILE_FLAG(-fno-math-errno, CFLAGS="$CFLAGS -fno-math-errno")
 
 # Internationalization tools

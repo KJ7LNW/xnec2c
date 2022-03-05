@@ -327,6 +327,8 @@ datagn( void )
 
         if( !conect(itg) ) return( FALSE );
 
+        gnd.gpflag = itg;
+
         if( data.n != 0)
         {
           /* Allocate wire buffers */
@@ -938,7 +940,7 @@ Read_Commands( void )
         else fld[card].delta_freq = tmp2;
 
         /* Warn user if max frequency <= min frequency */
-        if( fld[card].max_freq <= fld[card].min_freq )
+        if( fld[card].freq_steps > 1 && fld[card].max_freq <= fld[card].min_freq )
         {
           fprintf( stderr,
               _("xnec2c: Read_Commands(): Max frequency <= Min frequency in FR card\n") );
@@ -958,6 +960,17 @@ Read_Commands( void )
         continue; /* continue card input loop */
 
       case GN: /* "gn" card, ground parameters under the antenna */
+
+        // Ignore the GN card if both GN and GE cards indicate freespace.
+        if (itmp1 == -1 && gnd.gpflag == 0)
+            continue;
+
+        if (itmp1 == -1 && gnd.gpflag != 0)
+        {
+            Stop(_("Fix the GE/GN cards:\nThe GE card specifies that a ground is present, but the GN indicates otherwise."), ERR_OK);
+            return( FALSE );
+        }
+
         gnd.iperf = itmp1;
         gnd.nradl = itmp2;
         gnd.ksymp = 2;

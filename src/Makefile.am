@@ -2,7 +2,7 @@
 AM_LDFLAGS = -Wl,--export-dynamic -Wl,--as-needed
 
 AM_CFLAGS = --pedantic -Wall -std=gnu11 -O2 -g -D_FORTIFY_SOURCE=2 \
-            -fstack-protector-strong -Wformat -Werror=format-security -fpie \
+            -Wformat -Werror=format-security -fpie \
             -DGTK_DISABLE_SINGLE_INCLUDES -DGDK_DISABLE_DEPRECATED \
             -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE \
             -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED
@@ -18,6 +18,7 @@ bin_PROGRAMS = xnec2c
 xnec2c_SOURCES = \
     main.c          main.h \
     mathlib.c       mathlib.h \
+    measurements.c  measurements.h \
     interface.c     interface.h \
     callbacks.c     callbacks.h \
     callback_func.c callback_func.h \

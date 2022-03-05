@@ -40,8 +40,8 @@ If you prefer to download .tar.gz files they are available on our
 	<li>
 	You will need the Gnome development libraries and build tools installed for your distribution:
 	<ul>
-		<li>Debian/Ubuntu: apt-get install build-essential gnome-devel gettext autopoint</li>
-		<li>CentOS: yum install gcc make automake autoconf gtk3-devel gettext-devel</li>
+		<li>Debian/Ubuntu: apt-get install build-essential gnome-devel libgtk-3-dev gettext autopoint</li>
+		<li>CentOS: yum install gcc make automake autoconf gtk3-devel gettext-devel libtool</li>
 	</ul>
 	</li>
 	<li>
@@ -1226,6 +1226,74 @@ remove extra whitespace and increase precision of the NEC2 data.  See git log fo
 	the points line up correctly to their frequencies throughout the plot
 	while the frequency loop is running instead of only being correct after
 	all points have been plotted. Thank you Neoklis for pointing this out!
+</p>
+<p><b>Version 4.4.2:</b>
+<ul>
+	<li>Fixed plot width drawing with multiple FR cards.  This fixes a regression that had disabled
+	mouse-wheel scrolling to resize plots with multiple FR cards.</li>
+	<li>Fixed Frequency_Loop race conditions causing access to uninitialized data that
+	were seen as flickering while running the frequency loop, or as incomplete plot drawings.</li>
+	<li>Added strerror on failed file open for @m-anish on github to
+	troubleshoot error opening xnec2c.conf. </li>
+	<li>Refactored memory handling routines to bypass realloc() if possible.  This increases
+	performance slightly, reduces heap thrashing, increases stability by clearing memory
+	on reallocation, and makes memory handling easier to debug.</li>
+</ul>
+</p>
+<p><b>Version 4.4.3:</b>
+Added option to Round X-axis Frequency Values:
+<br/><br/>
+X-Axis frequency values in the Frequency Data Plots window default to
+scaling based on the total frequency range and number of points which
+deviates from the way Neoklis originally implemented the plot.  This makes
+the best use of graph space, however, this new form can create axis values
+that do not align nicely to whole numbers or common fractions of numbers
+(like 13.5 vs 13.72).
+<br/><br/>
+The new option "View-&gt;Round X Axis Frequency Values" will align the X Axis
+labels to normalized values as originally designed in releases prior
+to v4.1.5.  When this option is off, it will show one more frequency
+signifigant figure displayed on the X Axis and scale the plot to use
+the entire plot space.
+</p>
+<p><b>Version 4.4.4:</b>
+Fixed regression introduced in v4.3 by adding -ffinite-math-only as a
+gcc optimization.  This causes radiation patterns to draw incorrectly
+when the RP card (radiation pattern card) when using a "Perfect Ground"
+in the GN card at the same time that "Radial wire screen" is used as
+the ground in the RP card.  Thank you Neoklis for investigating the examples
+that produced the issue.
+</p>
+<p><b>Version 4.4.5:</b>
+<ul>
+<li>Corrected Im(-z) plotting on the Smith chart, it was plotting upside-down.  Thanks to Juan Pablo
+    Garcia for pointing this out.</li>
+<li>Updated examples with corrections from Neoklis related to ground configuration.</li>
+<li>Updated GCC/Clang compiler optimization settings for better compatability.</li>
+</ul>
+See the git commits for detail if you're interested!
+</p>
+<p><b>Version 4.4.6:</b>
+This is mostly a release with a handful of bugfixes and some internal re-organization
+in preparation for s1p/s2p output and gnuplot extensions (measurements.c).
+Detailed descriptions are available in the git log.
+<ul>
+<li>Removed C++ compiler dependency, xnec2c is written in C</li>
+<li>Fixed default mathlib handling when no accelerated library is installed</li>
+<li>Fixed error on first run when ~/.xnec2c/ does not exist</li>
+<li>Added libtool dependency to documentation for CentOS</li>
+<li>Fixed segment fault when HOME environment variable is undefined.</li>
+<li>Fix off-by-one error in memory allocation for frequency plot arrays.</li>
+<li>Fixed deadlocks when running without pthreads and without forking.</li>
+<li>Refactored common measurements into measurements.c</li>
+<li>Refactored plot_freqdata.c to use meas_calc()</li>
+<li>Added function use comments to measurements.c</li>
+<li>Suppress max_freq==min_freq when freq_steps==1</li>
+<li>Fixed gcc warning about the return value of getcwd() not being checked.</li>
+<li>Ignore the GN card if both GN and GE cards indicate freespace.</li>
+<li>Fixed format-truncation compiler warning</li>
+
+</ul>
 </p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
