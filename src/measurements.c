@@ -211,9 +211,23 @@ int meas_write_format(measurement_t *m, char *format, FILE *fp)
 {
 	char *s = NULL;
 	int ret;
-	mem_alloc((void**)&s, strlen(format)*2, __LOCATION__);
+	int i, len, count; 
+	size_t mreq;
 
-	meas_format(m, format, s, strlen(format)*2-1);
+	len = strlen(format);
+
+	for (count = i = 0; i < len; i++)
+	{
+		if (format[i] == '{')
+			count++;
+	}
+
+	// mreq length is 20*count of formatted strings to get all the floating point digits
+	// plus the total number of chars in `format` should be more than enough.
+	mreq = 20*count+len;
+	mem_alloc((void**)&s, 20*count+len, __LOCATION__);
+
+	meas_format(m, format, s, mreq-1);
 	ret = fputs(s, fp);
 	free_ptr((void**)&s);
 	return ret;
