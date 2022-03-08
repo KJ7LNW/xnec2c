@@ -1013,6 +1013,47 @@ on_freqplots_save_as_gnuplot_activate(
       "*.gplot", NULL, _("untitled.gplot"), rc_config.working_dir );
 }
 
+  void
+on_freqplots_save_as_s1p_activate(
+    GtkMenuItem     *menuitem,
+    gpointer         user_data)
+{
+  /* Open file chooser to save frequency plots */
+
+  mem_alloc((void**)&filechooser_callback, sizeof(filechooser_t), __LOCATION__);
+  filechooser_callback->callback = Save_FreqPlots_S1P;
+  filechooser_callback->extension = ".s1p";
+  file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
+      "*.s1p", NULL, _("untitled.s1p"), rc_config.working_dir );
+}
+
+  void
+on_freqplots_save_as_s2p_max_gain_activate(
+    GtkMenuItem     *menuitem,
+    gpointer         user_data)
+{
+  /* Open file chooser to save frequency plots */
+
+  mem_alloc((void**)&filechooser_callback, sizeof(filechooser_t), __LOCATION__);
+  filechooser_callback->callback = Save_FreqPlots_S2P_Max_Gain;
+  filechooser_callback->extension = ".s2p";
+  file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
+      "*.s2p", NULL, _("untitled.s2p"), rc_config.working_dir );
+}
+
+  void
+on_freqplots_save_as_s2p_viewer_gain_activate(
+    GtkMenuItem     *menuitem,
+    gpointer         user_data)
+{
+  /* Open file chooser to save frequency plots */
+
+  mem_alloc((void**)&filechooser_callback, sizeof(filechooser_t), __LOCATION__);
+  filechooser_callback->callback = Save_FreqPlots_S2P_Viewer_Gain;
+  filechooser_callback->extension = ".s2p";
+  file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
+      "*.s2p", NULL, _("untitled.s2p"), rc_config.working_dir );
+}
 
   void
 on_freqplots_gmax_togglebutton_toggled(

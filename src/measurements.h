@@ -50,7 +50,8 @@ typedef struct
 
 void meas_calc(measurement_t *m, int idx);
 int meas_name_idx(char *name, int len);
-void meas_format(measurement_t *m, char *s, char *out, int outlen);
+void meas_format(measurement_t *m, char *format, char *out, int outlen);
+int meas_write_format(measurement_t *m, char *format, FILE *fp);
 
 void meas_write_header(FILE *fp, char *delim);
 void meas_write_data(FILE *fp, char *delim);

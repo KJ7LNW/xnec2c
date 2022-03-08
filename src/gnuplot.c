@@ -20,6 +20,13 @@
 #include "gnuplot.h"
 #include "shared.h"
 
+// Touchstone save types:
+enum {
+	TOUCHSTONE_S1P,
+	TOUCHSTONE_S2P_MAXGAIN,
+	TOUCHSTONE_S2P_VIEWERGAIN,
+};
+
 /*-----------------------------------------------------------------------*/
 
 /* Save_FreqPlots_Gnuplot_Data()
@@ -61,6 +68,92 @@ void Save_FreqPlots_Gnuplot_Data(char *filename)
 
 	fclose(fp);
 }
+
+
+void Save_FreqPlots_Touchstone(char *filename, int type)
+{
+	FILE *fp = NULL;
+	time_t rawtime;
+	struct tm *info;
+	char buffer[80];
+	int idx;
+
+	measurement_t meas;
+
+
+	// Abort if plot data not available
+	if (isFlagClear(FREQ_LOOP_DONE))
+	{
+		Notice(_("Touchstone Data"), "Cannot save data while frequency loop is running", GTK_BUTTONS_OK);
+		return;
+	}
+
+	// Open gplot file, abort on error
+	if (!Open_File(&fp, filename, "w"))
+		return;
+
+	time( &rawtime );
+	info = localtime( &rawtime );
+	strftime(buffer, sizeof(buffer)-1, "%c (%F %H:%M:%S)", info);
+
+	fprintf(fp, "! %s - %s\n", rc_config.input_file, buffer);
+	fprintf(fp, _("! Reference impedance Z0 = %.2f Ohm\n"), calc_data.zo);
+	fprintf(fp, "!\n");
+
+	char *format = "{mhz}\t{s11_real}\t{s11_imag}\n";
+	switch (type)
+	{
+		case TOUCHSTONE_S1P:
+			fprintf(fp, "!MHz\tS11(Real)\tS11(Imag)\n");
+			format = "{mhz}\t{s11_real}\t{s11_imag}\n";
+			break;
+
+
+		// For .s2p files gain is used as S21 and S12.  We assume they
+		// are passive so S21==S12.  S22 is a bit of a mystery, so we 
+		// assume that all S22 behavior is normalized into S11 and thus
+		// S22 is deminimus and set it to -100 dB.
+		//
+		case TOUCHSTONE_S2P_MAXGAIN:
+			format = "{mhz}\t{s11_real}\t{s11_imag}\t{gain_max}\t0\t{gain_max}\t0\t-100\t0\n";
+			fprintf(fp, "!MHz\tS11(Real)\tS11(Imag)\tS21(Real)\tS21(Imag)\tS12(Real)\tS12(Imag)\tS22(Real)\tS22(Imag)\n");
+			break;
+
+		case TOUCHSTONE_S2P_VIEWERGAIN:
+			format = "{mhz}\t{s11_real}\t{s11_imag}\t{gain_viewer}\t0\t{gain_viewer}\t0\t-100\t0\n";
+			fprintf(fp, "!MHz\tS11(Real)\tS11(Imag)\tS21(Real)\tS21(Imag)\tS12(Real)\tS12(Imag)\tS22(Real)\tS22(Imag)\n");
+			break;
+
+		default:
+			printf(__LOCATION__ "BUG: this should never happen. touchstone type=%d\n", type);
+	}
+
+	fprintf(fp, "# MHz S DB R %g\n", calc_data.zo);
+
+	for (idx = 0; idx < calc_data.steps_total; idx++)
+	{
+		meas_calc(&meas, idx);
+		meas_write_format(&meas, format, fp);
+	}
+
+	fclose(fp);
+}
+
+void Save_FreqPlots_S1P(char *filename)
+{
+	Save_FreqPlots_Touchstone(filename, TOUCHSTONE_S1P);
+}
+
+void Save_FreqPlots_S2P_Max_Gain(char *filename)
+{
+	Save_FreqPlots_Touchstone(filename, TOUCHSTONE_S2P_MAXGAIN);
+}
+
+void Save_FreqPlots_S2P_Viewer_Gain(char *filename)
+{
+	Save_FreqPlots_Touchstone(filename, TOUCHSTONE_S2P_VIEWERGAIN);
+}
+
 
 /*-----------------------------------------------------------------------*/
 

@@ -204,6 +204,8 @@ GtkListStore
   *geom_store = NULL,
   *cmnd_store = NULL;
 
+filechooser_t *filechooser_callback = NULL;
+
 complex double *cm = NULL;
 
 /* Needed data */

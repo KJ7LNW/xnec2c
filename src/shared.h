@@ -216,6 +216,8 @@ extern GtkListStore
   *geom_store,
   *cmnd_store ;
 
+extern filechooser_t *filechooser_callback;
+
 extern data_t data;
 
 extern complex double *cm;

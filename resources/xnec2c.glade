@@ -9640,6 +9640,49 @@ Save NEC2 Editor data first?
                           </object>
                         </child>
                         <child>
+                          <object class="GtkMenuItem" id="freqplots_touchstone_menu">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Save as _Touchstone (.SnP)</property>
+                            <property name="use-underline">True</property>
+                            <child type="submenu">
+                              <object class="GtkMenu" id="freqplots_touchstone_submenu">
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkImageMenuItem" id="freqplots_save_as_s1p">
+                                    <property name="label" translatable="yes">Save as S_1P: Reflection Only</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <property name="use-stock">False</property>
+                                    <signal name="activate" handler="on_freqplots_save_as_s1p_activate" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkImageMenuItem" id="freqplots_save_as_s2p_max_gain">
+                                    <property name="label" translatable="yes">Save as S2P: _Max Gain (S21)</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <property name="use-stock">False</property>
+                                    <signal name="activate" handler="on_freqplots_save_as_s2p_max_gain_activate" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkImageMenuItem" id="freqplots_save_as_s2p_viewer_gain">
+                                    <property name="label" translatable="yes">Save as S2P: _Viewer Gain (S21)</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <property name="use-stock">False</property>
+                                    <signal name="activate" handler="on_freqplots_save_as_s2p_viewer_gain_activate" swapped="no"/>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
                           <object class="GtkSeparatorMenuItem">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>

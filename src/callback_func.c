@@ -810,6 +810,10 @@ Open_Filechooser(
     gtk_file_filter_set_name( filter, _("GNUplot files (*.gplot)") );
   else if( strcmp(pattern, "*.nec") == 0 )
     gtk_file_filter_set_name( filter, _("NEC2 files (*.nec)") );
+  else if( strcmp(pattern, "*.s1p") == 0 )
+    gtk_file_filter_set_name( filter, _("Touchstone 1-port files (*.s1p)") );
+  else if( strcmp(pattern, "*.s2p") == 0 )
+    gtk_file_filter_set_name( filter, _("Touchstone 2-port files (*.s2p)") );
 
   /* Add and set filter */
   gtk_file_chooser_add_filter( GTK_FILE_CHOOSER(chooser), filter );
@@ -942,6 +946,14 @@ Filechooser_Response(
       Save_Struct_Gnuplot_Data( filename );
       ClearFlag( STRUCT_GNUPLOT_SAVE );
     }
+    else if ( filechooser_callback != NULL )
+    {
+      str = strstr( filename, filechooser_callback->extension );
+      if( (str == NULL) || (str[strlen(filechooser_callback->extension)] != '\0') )
+        Strlcat( filename, filechooser_callback->extension, sizeof(filename) );
+      filechooser_callback->callback(filename);
+      free_ptr((void**)&filechooser_callback);
+    }
     g_free( fname );
 
     /* Open file chooser if user requested an input file to be opened */
@@ -981,7 +993,10 @@ Filechooser_Response(
 
   } /* if( response_id == GTK_RESPONSE_OK ) */
   else
+  {
+    free_ptr((void**)&filechooser_callback);
     ClearFlag( ALL_CHOOSER_FLAGS );
+  }
 
 } /* Filechooser_Response() */
 

@@ -207,6 +207,18 @@ void meas_format(measurement_t *m, char *format, char *out, int outlen)
 	}
 }
 
+int meas_write_format(measurement_t *m, char *format, FILE *fp)
+{
+	char *s = NULL;
+	int ret;
+	mem_alloc((void**)&s, strlen(format)*2, __LOCATION__);
+
+	meas_format(m, format, s, strlen(format)*2-1);
+	ret = fputs(s, fp);
+	free_ptr((void**)&s);
+	return ret;
+}
+
 // Print headers:
 // Enclose the headerin the strings left and right.  For example, if 
 // left and right are both "\"" then it will quote the header name.

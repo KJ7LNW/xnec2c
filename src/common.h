@@ -327,6 +327,11 @@ typedef struct
 
 } rc_config_t;
 
+typedef struct {
+	void (*callback)(char *);
+	char *extension;
+} filechooser_t;
+
 /* Gain Scaling style */
 enum GAIN_SCALE
 {
@@ -1354,6 +1359,9 @@ gboolean patch(int nx, int ny, double ax1, double ay1, double az1, double ax2, d
 gboolean reflc(int ix, int iy, int iz, int iti, int nop);
 void wire(double xw1, double yw1, double zw1, double xw2, double yw2, double zw2, double rad, double rdel, double rrad, int ns, int itg);
 /* gnuplot.c */
+void Save_FreqPlots_S1P(char *filename);
+void Save_FreqPlots_S2P_Max_Gain(char *filename);
+void Save_FreqPlots_S2P_Viewer_Gain(char *filename);
 void Save_FreqPlots_Gnuplot_Data(char *filename);
 void Save_RadPattern_Gnuplot_Data(char *filename);
 void Save_Struct_Gnuplot_Data(char *filename);
