@@ -554,10 +554,44 @@ dependent functions as a data file for the "gnuplot" plotting
 program. This is done by using the <b>File-&gt;Save As gnuplot</b>
 menu item, to open a file chooser dialog. If only the stem of the
 filename is given, xnec2c will automatically add the .gplot
-extension. Plotting in gnuplot is done with the "plot
-&lt;filename&gt; with lines" command, although the plot can be
-enhanced with some of the style etc commands available in
-gnuplot.</p>
+extension. Plotting in gnuplot is done with the "plot for [i=2:3]
+'filename.gplot' using 1:i with lines smooth bezier title columnhead(i)"
+command at the gnuplot console, although the plot can be enhanced with
+some of the style etc commands available in gnuplot. In this example
+it plots columns 2 and 3 (zreal and zimag) against column 1 (MHz).
+Change 2:3 to 2:16 to see all columns, though 16 plots will make the
+graph very busy.</p>
+
+<b>Touchstone Files:</b><p>
+Touchstone files (or SnP files) are used by professional RF software
+packages like Microwave Office, Sonnet, and others.   Now xnec2c can
+export .s1p and .s2p files to be used with those software packages.
+S11 is the same as return loss, reflection and .s1p files provide
+single-port data.  You can export Touchstone files from the Frequency
+Plots with<b>File->Save as Touchstone (.SnP)</b>.
+</p>
+
+<p>
+For .s2p files gain is used as S21 and S12: we assume the antenna is
+passive are passive so S21==S12.  S22 is a bit of a mystery, so we assume
+that all S22 behavior is normalized into S11 and thus S22 is deminimus
+and set it to -100 dB.  This may not be a correct assumption, so please
+provide a suggestion here if you know a better way.
+</p>
+<p>
+The S21 and S12 values in the .s2p come in two types: Max Gain and
+Viewer Gain.  Max gain is the maximum gain of the antenna, whereas,
+viewer gain is the current gain of the antenna pointing toward the
+viewport of xnec2c.  For a directional antenna, pointing the main antenna
+lobe toward the xnec2c viewport would give the same (or nearly the same)
+values as max gain.
+</p>
+<p>
+Once you have your .s2p or .s1p files you can design a matching circuit
+or other RF behavior in your favorite RF design software.
+</p>
+
+</p>
 <br clear="all">
 <p><b><a name="Nec2Treeview" id="Nec2Treeview">NEC2 Input File
 Editor:</a></b><br>
@@ -1293,6 +1327,26 @@ Detailed descriptions are available in the git log.
 <li>Ignore the GN card if both GN and GE cards indicate freespace.</li>
 <li>Fixed format-truncation compiler warning</li>
 
+</ul>
+</p>
+<p><b>Version 4.4.7:</b>
+This release has a few minor features added:
+<ul>
+<li>Touchstone 1- and 2-port files (.s1p, .s2p) can be exported from the
+frequency plots window.  Touchstone files are used by professional RF
+software packages like Microwave Office, Sonnet, and others.   Now xnec2c
+can export .s1p and .s2p files to be used with those software packages.
+S11 is the same as return loss, reflection and .s1p files provide
+single-port data.  Thanks to Juan Pablo García, EA4CIV for suggesting this
+feature.
+</li>
+<li>Converted frequency plot gnuplot output to include all columns. Now
+all columns are available in the .gnuplot file.  Thanks to @scaramacai
+on github for the initial work on this conversion.</li>
+<li>Added auto-detection of musl-libc so it will compile for users
+with musl-libc. Thanks to Tom, DL1JBE at Gentoo for suggesting and testing
+this change.</li>
+<li>See the github changelog for the lovely details.</li>
 </ul>
 </p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
