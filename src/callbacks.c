@@ -29,6 +29,30 @@ static int saveas_height;
 
 /*-----------------------------------------------------------------------*/
 
+
+char *get_nec_filename_stem(char *dst, char *newext, size_t maxlen)
+{
+	int i, len;
+	char *ext, *p = rc_config.input_file;
+
+	len = strlen(rc_config.input_file);
+	for (i = 0; i < len; i++)
+	{
+		if (rc_config.input_file[i] == '/' || rc_config.input_file[i] == '\\')
+			p = &rc_config.input_file[i+1];
+	}
+
+	strncpy(dst, p, maxlen);
+	ext = strstr(dst, ".nec");
+	if (ext != NULL && ext[4] == '\0')
+		*ext = '\0';
+
+	if (newext != NULL)
+		strncat(dst, newext, maxlen-strlen(dst));
+
+	return dst;
+}
+
   void
 on_main_window_destroy(
     GObject     *object,
@@ -213,6 +237,7 @@ on_main_save_as_activate(
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
+  char newfn[PATH_MAX];
   saveas_drawingarea = structure_drawingarea;
   saveas_width  = structure_width;
   saveas_height = structure_height;
@@ -220,7 +245,8 @@ on_main_save_as_activate(
   /* Open file chooser to save structure image */
   SetFlag( IMAGE_SAVE );
   file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
-      "*.png", NULL, "untitled.png", rc_config.working_dir );
+      "*.png", NULL, get_nec_filename_stem(newfn, ".png", PATH_MAX),
+      rc_config.working_dir );
 }
 
   void
@@ -228,10 +254,12 @@ on_struct_save_as_gnuplot_activate(
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
+  char newfn[PATH_MAX];
   /* Open file chooser to save structure image */
   SetFlag( STRUCT_GNUPLOT_SAVE );
   file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
-      "*.gplot", NULL, "untitled.gplot", rc_config.working_dir );
+      "*.gplot", NULL, get_nec_filename_stem(newfn, "-structure.gplot", PATH_MAX),
+      rc_config.working_dir );
 }
 
 
@@ -991,6 +1019,7 @@ on_freqplots_save_as_activate(
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
+  char newfn[PATH_MAX];
   saveas_drawingarea = freqplots_drawingarea;
   saveas_width  = freqplots_width;
   saveas_height = freqplots_height;
@@ -998,7 +1027,8 @@ on_freqplots_save_as_activate(
   /* Open file chooser to save frequency plots */
   SetFlag( IMAGE_SAVE );
   file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
-      "*.png", NULL, _("untitled.png"), rc_config.working_dir );
+      "*.png", NULL, get_nec_filename_stem(newfn, ".png", PATH_MAX),
+      rc_config.working_dir );
 }
 
 
@@ -1007,10 +1037,12 @@ on_freqplots_save_as_gnuplot_activate(
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
+  char newfn[PATH_MAX];
   /* Open file chooser to save frequency plots */
   SetFlag( PLOTS_GNUPLOT_SAVE );
   file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
-      "*.gplot", NULL, _("untitled.gplot"), rc_config.working_dir );
+      "*.gplot", NULL, get_nec_filename_stem(newfn, ".gplot", PATH_MAX),
+      rc_config.working_dir );
 }
 
   void
@@ -1018,13 +1050,15 @@ on_freqplots_save_as_s1p_activate(
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
+  char newfn[PATH_MAX];
   /* Open file chooser to save frequency plots */
 
   mem_alloc((void**)&filechooser_callback, sizeof(filechooser_t), __LOCATION__);
   filechooser_callback->callback = Save_FreqPlots_S1P;
   filechooser_callback->extension = ".s1p";
   file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
-      "*.s1p", NULL, _("untitled.s1p"), rc_config.working_dir );
+      "*.s1p", NULL, get_nec_filename_stem(newfn, ".s1p", PATH_MAX),
+      rc_config.working_dir );
 }
 
   void
@@ -1032,13 +1066,15 @@ on_freqplots_save_as_s2p_max_gain_activate(
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
+  char newfn[PATH_MAX];
   /* Open file chooser to save frequency plots */
 
   mem_alloc((void**)&filechooser_callback, sizeof(filechooser_t), __LOCATION__);
   filechooser_callback->callback = Save_FreqPlots_S2P_Max_Gain;
   filechooser_callback->extension = ".s2p";
   file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
-      "*.s2p", NULL, _("untitled.s2p"), rc_config.working_dir );
+      "*.s2p", NULL, get_nec_filename_stem(newfn, "-maxgain.s2p", PATH_MAX),
+      rc_config.working_dir );
 }
 
   void
@@ -1046,13 +1082,15 @@ on_freqplots_save_as_s2p_viewer_gain_activate(
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
+  char newfn[PATH_MAX];
   /* Open file chooser to save frequency plots */
 
   mem_alloc((void**)&filechooser_callback, sizeof(filechooser_t), __LOCATION__);
   filechooser_callback->callback = Save_FreqPlots_S2P_Viewer_Gain;
   filechooser_callback->extension = ".s2p";
   file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
-      "*.s2p", NULL, _("untitled.s2p"), rc_config.working_dir );
+      "*.s2p", NULL, get_nec_filename_stem(newfn, "-viewergain.s2p", PATH_MAX),
+      rc_config.working_dir );
 }
 
   void
@@ -1272,6 +1310,7 @@ on_rdpattern_save_as_activate(
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
+  char newfn[PATH_MAX];
   saveas_drawingarea = rdpattern_drawingarea;
   saveas_width  = rdpattern_width;
   saveas_height = rdpattern_height;
@@ -1279,7 +1318,8 @@ on_rdpattern_save_as_activate(
   /* Open file chooser to save frequency plots */
   SetFlag( IMAGE_SAVE );
   file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
-      "*.png", NULL, _("untitled.png"), rc_config.working_dir );
+      "*.png", NULL, get_nec_filename_stem(newfn, ".png", PATH_MAX),
+      rc_config.working_dir );
 }
 
 
@@ -1288,10 +1328,12 @@ on_rdpattern_save_as_gnuplot_activate(
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
+  char newfn[PATH_MAX];
   /* Open file chooser to save frequency plots */
   SetFlag( RDPAT_GNUPLOT_SAVE );
   file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
-      "*.gplot", NULL, _("untitled.gplot"), rc_config.working_dir );
+      "*.gplot", NULL, get_nec_filename_stem(newfn, "-radpattern.gplot", PATH_MAX),
+      rc_config.working_dir );
 }
 
 
