@@ -1349,6 +1349,19 @@ this change.</li>
 <li>See the github changelog for the lovely details.</li>
 </ul>
 </p>
+<p><b>Version 4.4.8:</b>
+This is a minor maintenance release.
+<ul>
+<li>Fixed buffer overflow in the temp string used in mem_write_format(),
+thanks to Juan Pablo García, EA4CIV for reporting the bug while testing
+touchstone file output.</li>
+<li>Changed default Save-As filenames to resemble the original .nec filename where appropriate.</li>
+<li>Avoid EM calculation if the selected frequency step (when you
+right-click on a graph) has already been calculated. Note that, at the
+moment, it must always calculate if left-clicking the graph or when
+"Show Currents" or "Show Charges" is selected.</li>
+</ul>
+</p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
 as NEC2 or nec2c. Specifically, commands that cause execution in
