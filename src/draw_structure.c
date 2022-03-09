@@ -621,9 +621,12 @@ Redo_Currents( gpointer udata )
       isFlagClear(ENABLE_EXCITN) )
     return FALSE;
 
-  /* Makes calcs use the extra buffer in rad_pattern */
-  calc_data.freq_step = calc_data.steps_total;
-  New_Frequency();
+  // Only re-calculate if the set_freq_step() determines that
+  // the selected frequency has not been calculated.
+  // FIXME: the global structure `crnt` is not per-frequency
+  // so it must always re-calculate if DRAW_CURRENTS or DRAW_CHARGES is enabled:
+  if (!set_freq_step() || isFlagSet(DRAW_CURRENTS) || isFlagSet(DRAW_CHARGES))
+	  New_Frequency();
 
   /* Display freq data in entry widgets */
   if( isFlagSet(PLOT_FREQ_LINE) )

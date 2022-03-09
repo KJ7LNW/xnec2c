@@ -1487,5 +1487,6 @@ gboolean Frequency_Loop(gpointer udata);
 gboolean Start_Frequency_Loop(void);
 void Stop_Frequency_Loop(void);
 void Incident_Field_Loop(void);
+int set_freq_step();
 
 #endif

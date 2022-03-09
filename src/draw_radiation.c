@@ -864,10 +864,10 @@ New_Radiation_Projection_Angle(void)
   gboolean
 Redo_Radiation_Pattern( gpointer udata )
 {
-  /* Redo radiation pattern for a new frequency. Below
-   * makes calcs use the extra buffer in rad_pattern FIXME */
-  calc_data.freq_step = calc_data.steps_total;
-  New_Frequency();
+  // Only re-calculate if the set_freq_step() determines that
+  // the selected frequency has not been calculated.
+  if (!set_freq_step())
+	  New_Frequency();
 
   /* Redraw radiation pattern on screen */
   if( isFlagSet(DRAW_ENABLED) )

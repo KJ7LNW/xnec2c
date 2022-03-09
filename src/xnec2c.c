@@ -30,6 +30,56 @@ static double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
 
 /*-----------------------------------------------------------------------*/
 
+/* Set the calc_data.freq_step if it matches calc_data.freq_mhz.
+ * Redo radiation pattern for a new frequency.
+ *
+ * If it doesn't, return 0 so the caller can run New_Frequency() and
+ * use the extra buffer (in rad_pattern and other structures). */
+int set_freq_step()
+{
+	int fr, step;
+	double freq;
+
+	int prev_freq_step = calc_data.freq_step;
+
+	int idx = 0;
+	int found = 0;
+	for (fr = 0; !found && fr < calc_data.FR_cards && save.fstep[idx]; fr++)
+	{
+		freq = calc_data.freq_loop_data[fr].min_freq;
+		for (step = 0; !found && step < calc_data.freq_loop_data[fr].freq_steps && save.fstep[idx]; step++)
+		{
+			// if calc_data.freq_mhz =~ freq, +/- 1 Hz for rounding error:
+			if (calc_data.freq_mhz > freq - 1e-6 && calc_data.freq_mhz < freq + 1e-6)
+			{
+				calc_data.freq_step = idx;
+				found = 1;
+			}
+			else
+			{
+				if (calc_data.freq_loop_data[fr].ifreq == 1)
+					freq *= calc_data.freq_loop_data[fr].delta_freq;
+				else
+					freq += calc_data.freq_loop_data[fr].delta_freq;
+
+				idx++;
+			}
+
+		}
+	}
+
+	// If we didn't find the frequency, then use the "extra" frequency
+	// allocated as +1 at the end of all per-frequency data indexes:
+	if (!found)
+		calc_data.freq_step = calc_data.steps_total;
+
+	if (calc_data.freq_step != prev_freq_step)
+		SetFlag( DRAW_NEW_RDPAT );
+
+	// If we found the index, then no need to re-run New_Frequency because it is
+	// in the index.
+	return found;
+}
 /* Frequency_Scale_Geometry()
  *
  * Scales geometric parameters to frequency
@@ -268,12 +318,15 @@ Set_Network_Data( void )
   netcx.ntsol = 1;
 
   /* Save impedance data for normalization */
+  int fstep = calc_data.freq_step;
+  if (fstep < 0 || fstep > calc_data.steps_total)
+	return;
+
   if( ((calc_data.steps_total > 1) &&
-        isFlagSet(FREQ_LOOP_RUNNING)) || CHILD )
+        isFlagSet(FREQ_LOOP_RUNNING)) ||
+		CHILD ||
+		fstep == calc_data.steps_total)
   {
-    int fstep = calc_data.freq_step;
-    if (fstep < 0)
-        return;
 
     impedance_data.zreal[fstep] = (double)creal( netcx.zped);
     impedance_data.zimag[fstep] = (double)cimag( netcx.zped);
@@ -443,7 +496,7 @@ New_Frequency( void )
 	clock_gettime(CLOCK_MONOTONIC, &end);
 
 	elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
-	printf("New_Frequency[%d]: %s: total time at %.2f MHz: %f seconds\n",
+	printf("New_Frequency[%d]: %s: total time at %.6f MHz: %f seconds\n",
 		  getpid(),
 		  current_mathlib->name,
 		  calc_data.freq_mhz,
@@ -592,7 +645,8 @@ gboolean Frequency_Loop( gpointer udata )
    * execute only once, since only one instance is running */
   for( idx = 0; idx < calc_data.num_jobs; idx++ )
   {
-    /* Up frequency step count */
+    /* Up frequency step count. Note that this is initialized at -1 above so it
+	 * really does start the first loop with fstep==0 */
     fstep++;
 
     /* Set `freq` for use below
