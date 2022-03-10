@@ -34,6 +34,8 @@
 /* Runtime config file */
 extern rc_config_t rc_config;
 
+extern char *orig_numeric_locale;
+
 /* Editor windows */
 extern GtkWidget
   *wire_editor,     /* Wire designer window  */

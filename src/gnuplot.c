@@ -40,7 +40,6 @@ void Save_FreqPlots_Gnuplot_Data(char *filename)
 	struct tm *info;
 	char buffer[80];
 
-
 	// Abort if plot data not available 
 	if (isFlagClear(FREQ_LOOP_DONE))
 	{
@@ -51,6 +50,7 @@ void Save_FreqPlots_Gnuplot_Data(char *filename)
 	// Open gplot file, abort on error 
 	if (!Open_File(&fp, filename, "w"))
 		return;
+	setlocale(LC_NUMERIC, "C");
 
 	time( &rawtime );
 	info = localtime( &rawtime );
@@ -67,6 +67,8 @@ void Save_FreqPlots_Gnuplot_Data(char *filename)
 	meas_write_data(fp, "\t");
 
 	fclose(fp);
+
+	setlocale(LC_NUMERIC, orig_numeric_locale);
 }
 
 
@@ -80,7 +82,6 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 
 	measurement_t meas;
 
-
 	// Abort if plot data not available
 	if (isFlagClear(FREQ_LOOP_DONE))
 	{
@@ -91,6 +92,7 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 	// Open gplot file, abort on error
 	if (!Open_File(&fp, filename, "w"))
 		return;
+	setlocale(LC_NUMERIC, "C");
 
 	time( &rawtime );
 	info = localtime( &rawtime );
@@ -137,6 +139,8 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 	}
 
 	fclose(fp);
+
+	setlocale(LC_NUMERIC, orig_numeric_locale);
 }
 
 void Save_FreqPlots_S1P(char *filename)
@@ -181,6 +185,8 @@ Save_RadPattern_Gnuplot_Data( char *filename )
     /* Open gplot file, abort on error */
     if( !Open_File(&fp, filename, "w") )
       return;
+
+    setlocale(LC_NUMERIC, "C");
 
     /* Reference for scale factor used in
      * normalizing field strength values */
@@ -336,6 +342,9 @@ Save_RadPattern_Gnuplot_Data( char *filename )
     /* Open gplot file, abort on error */
     if( !Open_File(&fp, filename, "w") )
       return;
+
+    setlocale(LC_NUMERIC, "C");
+
     fprintf( fp, _("# Radiation Pattern\n") );
 
     /* Distance of rdpattern point nearest to xyz origin */
@@ -376,6 +385,8 @@ Save_RadPattern_Gnuplot_Data( char *filename )
     } /* for( nph = 0; nph < fpat.nph; nph++ ) */
   } /* if( isFlagSet(ENABLE_RDPAT) && (calc_data.freq_step >= 0) ) */
 
+  setlocale(LC_NUMERIC, orig_numeric_locale);
+
   if( fp != NULL ) fclose(fp);
 } /* Save_RadPattern_Gnuplot_Data() */
 
@@ -393,6 +404,7 @@ Save_Struct_Gnuplot_Data( char *filename )
   /* Open gplot file, abort on error */
   if( !Open_File(&fp, filename, "w") )
     return;
+  setlocale(LC_NUMERIC, "C");
 
   /* Output if patch segs and no new input pending */
   if( data.m && isFlagClear(INPUT_PENDING) )
@@ -448,6 +460,7 @@ Save_Struct_Gnuplot_Data( char *filename )
     } /* for( idx = 1; idx < data.n; idx++ ) */
   } /* if( data.n && isFlagSet(INPUT_PENDING) ) */
 
+  setlocale(LC_NUMERIC, orig_numeric_locale);
   fclose( fp );
 } /* Save_Struct_Gnuplot_Data() */
 

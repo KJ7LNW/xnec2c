@@ -28,6 +28,8 @@ static pid_t child_pid = (pid_t)(-1);
 
 /*------------------------------------------------------------------------*/
 
+char *orig_numeric_locale = NULL;
+
   int
 main (int argc, char *argv[])
 {
@@ -43,6 +45,14 @@ main (int argc, char *argv[])
   sa_new.sa_handler = sig_handler;
   sigemptyset( &sa_new.sa_mask );
   sa_new.sa_flags = 0;
+
+  // Setup locales so we can switch between C and the system locale.
+  // The pointer returned from setlocale() seems to be stack sensitive
+  // so make a copy of it for later:
+  setlocale(LC_ALL, "");
+  char *l = setlocale(LC_NUMERIC, NULL);
+  mem_alloc((void**)&orig_numeric_locale, strlen(l)+1, __LOCATION__);
+  strcpy(orig_numeric_locale, l);
 
   /* Register function to handle signals */
   sigaction( SIGINT,  &sa_new, &sa_old );
@@ -272,6 +282,8 @@ main (int argc, char *argv[])
   init_mathlib_menu();
 
   gtk_main ();
+
+  free_ptr((void**)&orig_numeric_locale);
 
   return 0;
 } // main()

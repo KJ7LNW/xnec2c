@@ -168,6 +168,7 @@ int meas_name_idx(char *name, int len)
 void meas_format(measurement_t *m, char *format, char *out, int outlen)
 {
 	char *o, *p, *name;
+	setlocale(LC_NUMERIC, "C");
 
 	o = out;
 	name = NULL;
@@ -205,6 +206,8 @@ void meas_format(measurement_t *m, char *format, char *out, int outlen)
 			*o = 0;
 		}
 	}
+
+	setlocale(LC_NUMERIC, orig_numeric_locale);
 }
 
 int meas_write_format(measurement_t *m, char *format, FILE *fp)
@@ -266,6 +269,7 @@ void meas_write_data_enc(FILE *fp, char *delim, char *left, char *right)
 {
 	measurement_t meas;
 	int i, idx;
+	setlocale(LC_NUMERIC, "C");
 
 	if (left == NULL) left = "";
 	if (right == NULL) right = "";
@@ -281,6 +285,8 @@ void meas_write_data_enc(FILE *fp, char *delim, char *left, char *right)
 		}
 		fprintf(fp, "\n");
 	}
+
+	setlocale(LC_NUMERIC, orig_numeric_locale);
 }
 
 void meas_write_data(FILE *fp, char *delim)

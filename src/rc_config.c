@@ -234,6 +234,8 @@ int parse_var(rc_config_vars_t *v, char *line)
 	if (v->ro || (v->vars[0] == NULL && v->vars[1] == NULL))
 		return 0;
 
+	setlocale(LC_NUMERIC, "C");
+
 	if (strcmp(v->format, "%d") == 0)
 		count = sscanf(line, v->format, (int*)v->vars[0]);
 	else if (strcmp(v->format, "%s") == 0)
@@ -251,6 +253,8 @@ int parse_var(rc_config_vars_t *v, char *line)
 		count = sscanf(line, v->format, (float*)v->vars[0], (float*)v->vars[1]);
 	else if (strcmp(v->format, "%lf,%lf") == 0)
 		count = sscanf(line, v->format, (double*)v->vars[0], (double*)v->vars[1]);
+
+	setlocale(LC_NUMERIC, orig_numeric_locale);
 
 	// `count` contains the number of vars parsed, return true
 	// if the count matches the number of vars, otherwise it failed
@@ -272,6 +276,8 @@ int fprint_var(FILE *fp, rc_config_vars_t *v)
 	if (v->vars[0] == NULL && v->vars[1] == NULL)
 		return 0;
 
+	setlocale(LC_NUMERIC, "C");
+
 	if (strcmp(v->format, "%d") == 0)
 		count = fprintf(fp, v->format, *(int*)v->vars[0]);
 	else if (strcmp(v->format, "%s") == 0)
@@ -286,6 +292,8 @@ int fprint_var(FILE *fp, rc_config_vars_t *v)
 		count = fprintf(fp, v->format, *(float*)v->vars[0], *(float*)v->vars[1]);
 	else if (strcmp(v->format, "%lf,%lf") == 0)
 		count = fprintf(fp, v->format, *(double*)v->vars[0], *(double*)v->vars[1]);
+
+	setlocale(LC_NUMERIC, orig_numeric_locale);
 
 	return count;
 }
