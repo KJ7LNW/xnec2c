@@ -16,6 +16,7 @@ const char *meas_names[] = {
 	[MEAS_S11]              =  "s11",
 	[MEAS_S11_REAL]         =  "s11_real",
 	[MEAS_S11_IMAG]         =  "s11_imag",
+	[MEAS_S11_ANG]          =  "s11_ang",
 	[MEAS_GAIN_MAX]         =  "gain_max",
 	[MEAS_GAIN_NET]         =  "gain_net",
 	[MEAS_GAIN_THETA]       =  "gain_max_theta",
@@ -81,6 +82,7 @@ void meas_calc(measurement_t *m, int idx)
 
 	m->s11_real = creal(cs11);
 	m->s11_imag = cimag(cs11);
+	m->s11_ang = cang(cgamma);
 
 	double net_gain_adjust = 10.0 * log10( 4.0 * Zr * Zo / (pow(Zr + Zo, 2.0) + pow( Zi, 2.0 )) );
 

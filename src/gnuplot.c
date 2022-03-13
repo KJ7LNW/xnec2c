@@ -102,12 +102,12 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 	fprintf(fp, _("! Reference impedance Z0 = %.2f Ohm\n"), calc_data.zo);
 	fprintf(fp, "!\n");
 
-	char *format = "{mhz}\t{s11_real}\t{s11_imag}\n";
+	char *format = "{mhz}\t{s11_real}\t{s11_ang}\n";
 	switch (type)
 	{
 		case TOUCHSTONE_S1P:
-			fprintf(fp, "!MHz\tS11(Real)\tS11(Imag)\n");
-			format = "{mhz}\t{s11_real}\t{s11_imag}\n";
+			fprintf(fp, "!MHz\tS11(Real)\tS11(Ang)\n");
+			format = "{mhz}\t{s11_real}\t{s11_ang}\n";
 			break;
 
 
@@ -117,13 +117,13 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 		// S22 is deminimus and set it to -100 dB.
 		//
 		case TOUCHSTONE_S2P_MAXGAIN:
-			format = "{mhz}\t{s11_real}\t{s11_imag}\t{gain_max}\t0\t{gain_max}\t0\t-100\t0\n";
-			fprintf(fp, "!MHz\tS11(Real)\tS11(Imag)\tS21(Real)\tS21(Imag)\tS12(Real)\tS12(Imag)\tS22(Real)\tS22(Imag)\n");
+			format = "{mhz}\t{s11_real}\t{s11_ang}\t{gain_max}\t0\t{gain_max}\t0\t-100\t0\n";
+			fprintf(fp, "!MHz\tS11(Real)\tS11(Ang)\tS21(Real)\tS21(Ang)\tS12(Real)\tS12(Ang)\tS22(Real)\tS22(Ang)\n");
 			break;
 
 		case TOUCHSTONE_S2P_VIEWERGAIN:
-			format = "{mhz}\t{s11_real}\t{s11_imag}\t{gain_viewer}\t0\t{gain_viewer}\t0\t-100\t0\n";
-			fprintf(fp, "!MHz\tS11(Real)\tS11(Imag)\tS21(Real)\tS21(Imag)\tS12(Real)\tS12(Imag)\tS22(Real)\tS22(Imag)\n");
+			format = "{mhz}\t{s11_real}\t{s11_ang}\t{gain_viewer}\t0\t{gain_viewer}\t0\t-100\t0\n";
+			fprintf(fp, "!MHz\tS11(Real)\tS11(Ang)\tS21(Real)\tS21(Ang)\tS12(Real)\tS12(Ang)\tS22(Real)\tS22(Ang)\n");
 			break;
 
 		default:

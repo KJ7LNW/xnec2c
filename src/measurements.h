@@ -11,6 +11,7 @@ enum MEASUREMENT_INDEXES
 	MEAS_S11,
 	MEAS_S11_REAL,
 	MEAS_S11_IMAG,
+	MEAS_S11_ANG,
 	MEAS_GAIN_MAX,
 	MEAS_GAIN_NET,
 	MEAS_GAIN_THETA,
@@ -35,7 +36,7 @@ typedef struct
 			double zmag, zphase;
 			double vswr;
 			double s11;
-			double s11_real, s11_imag;
+			double s11_real, s11_imag, s11_ang;
 			double gain_max, gain_net;
 			double gain_max_theta, gain_max_phi;
 			double gain_viewer, gain_viewer_net;
