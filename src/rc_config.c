@@ -222,9 +222,12 @@ rc_config_vars_t *find_var(char *s)
 }
 
 // Rease the line into the variable's .vars reference(s)
-int parse_var(rc_config_vars_t *v, char *line)
+int parse_var(rc_config_vars_t *v, char *line, char *locale)
 {
+	char *format = NULL;
 	int count = 0;
+	int check = 0;
+	size_t mreq;
 
 	// Use the parse function if available:
 	if (v->parse != NULL)
@@ -234,27 +237,41 @@ int parse_var(rc_config_vars_t *v, char *line)
 	if (v->ro || (v->vars[0] == NULL && v->vars[1] == NULL))
 		return 0;
 
-	setlocale(LC_NUMERIC, "C");
+	mreq = strlen(v->format)+4;
+	mem_alloc((void**)&format, mreq, __LOCATION__);
+	snprintf(format, mreq-1, "%s%%n", v->format);
+
+	setlocale(LC_NUMERIC, locale);
 
 	if (strcmp(v->format, "%d") == 0)
-		count = sscanf(line, v->format, (int*)v->vars[0]);
+		count = sscanf(line, format, (int *)v->vars[0], &check);
 	else if (strcmp(v->format, "%s") == 0)
 	{
 		strncpy((char*)v->vars[0], line, v->size - 1);
 		count = 1;
+		check = strlen(line);
 	}
 	else if (strcmp(v->format, "%f") == 0)
-		count = sscanf(line, v->format, (double*)v->vars[0]);
+		count = sscanf(line, format, (double *)v->vars[0], &check);
 	else if (strcmp(v->format, "%lf") == 0)
-		count = sscanf(line, v->format, (double*)v->vars[0]);
+		count = sscanf(line, format, (double *)v->vars[0], &check);
 	else if (strcmp(v->format, "%d,%d") == 0)
-		count = sscanf(line, v->format, (int*)v->vars[0], (int*)v->vars[1]);
+		count = sscanf(line, format, (int *)v->vars[0], (int *)v->vars[1], &check);
 	else if (strcmp(v->format, "%f,%f") == 0)
-		count = sscanf(line, v->format, (float*)v->vars[0], (float*)v->vars[1]);
+		count = sscanf(line, format, (float *)v->vars[0], (float *)v->vars[1], &check);
 	else if (strcmp(v->format, "%lf,%lf") == 0)
-		count = sscanf(line, v->format, (double*)v->vars[0], (double*)v->vars[1]);
+		count = sscanf(line, format, (double *)v->vars[0], (double *)v->vars[1], &check);
 
 	setlocale(LC_NUMERIC, orig_numeric_locale);
+
+	free_ptr((void**)&format);
+
+	if (check != strlen(line))
+	{
+		printf("warning: %s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n",
+			v->desc, locale, check, strlen(line), line);
+		return 0;
+	}
 
 	// `count` contains the number of vars parsed, return true
 	// if the count matches the number of vars, otherwise it failed
@@ -624,7 +641,15 @@ Read_Config( void )
 
 	  chomp(line);
 
-	  if (!parse_var(v, line) && line[0] != '#')
+	  // 1. Skip comments.
+	  // 2. Then try in the "C" locale
+	  // 3. Try in the current locale
+	  // 4. Then try in a known locale with comma for decimals
+	  if (line[0] != '#' &&
+		  !parse_var(v, line, "C") &&
+		  !parse_var(v, line, NULL) &&
+		  !parse_var(v, line, "en_DK")
+		  )
 		  printf("%s:%d: parse error (%s): %s \n", fpath, lnum, v->desc, line);
 	  else if (v->init != NULL)
 		  v->init(v, line);
