@@ -270,6 +270,20 @@ typedef struct mem_obj_t
 	void *ptr;
 } mem_obj_t;
 
+void mem_obj_dump(void *ptr)
+{
+	mem_obj_t *m = (mem_obj_t*)ptr;
+	m--;
+
+	printf("mem_obj_t at %p:\n"
+			"  size: %lu\n"
+			"  used: %lu\n"
+			"  addr: %p\n",
+				(void*)m, m->size, m->used, m->ptr);
+
+
+}
+
 void mem_backtrace(void *ptr)
 {
 	mem_obj_t *m = (mem_obj_t *)ptr;

@@ -1459,6 +1459,7 @@ int Load_Line(char *buff, FILE *pfile);
 void mem_alloc(void **ptr, size_t req, gchar *str);
 void mem_realloc(void **ptr, size_t req, gchar *str);
 void mem_backtrace(void *ptr);
+void mem_obj_dump(void *ptr);
 void free_ptr(void **ptr);
 gboolean Open_File(FILE **fp, char *fname, const char *mode);
 void Close_File(FILE **fp);

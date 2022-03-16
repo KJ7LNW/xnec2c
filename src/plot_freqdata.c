@@ -786,7 +786,7 @@ Draw_Graph(
   rb = bmax - bmin;
 
   /* Calculate points to plot */
-  mem_alloc( (void **) &points, (size_t)calc_data.steps_total * sizeof(GdkPoint),
+  mem_alloc( (void **) &points, (size_t)nval * sizeof(GdkPoint),
       "in Draw_Graph()" );
   if( points == NULL )
   {
@@ -1239,7 +1239,7 @@ Plot_Graph_Smith(
   cairo_set_source_rgb( cr, MAGENTA );
 
   /* Calculate points to plot */
-  mem_alloc( (void **)&points, (size_t)calc_data.steps_total * sizeof(GdkPoint),
+  mem_alloc( (void **)&points, (size_t)nc * sizeof(GdkPoint),
       "in Draw_Graph()" );
 
   if( points == NULL )

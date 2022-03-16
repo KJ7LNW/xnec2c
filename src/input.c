@@ -885,7 +885,7 @@ Read_Commands( void )
         /* Allocate normalization buffer */
         {
           calc_data.steps_total += fld[card].freq_steps;
-          mreq = (size_t)calc_data.steps_total * sizeof(double);
+          mreq = (size_t)(calc_data.steps_total+1) * sizeof(double);
           mem_realloc( (void **) &(impedance_data.zreal),  mreq, "in input.c" );
           mem_realloc( (void **) &(impedance_data.zimag),  mreq, "in input.c" );
           mem_realloc( (void **) &(impedance_data.zmagn),  mreq, "in input.c" );
