@@ -492,7 +492,7 @@ void mathlib_help()
 		"== Math Libraries by Distribution ==\n"
 		"* CentOS: yum install atlas-devel openblas-devel\n"
 		"\n"
-		"* Debian/Ubuntu: apt-get install liblapacke libopenblas0-* libatlas3-base\n"
+		"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
 		"    Note that you may need to use `alternatives` to select your\n"
 		"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
 		"    or may not work together:\n"

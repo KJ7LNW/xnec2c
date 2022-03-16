@@ -80,6 +80,7 @@ void meas_calc(measurement_t *m, int idx)
 	m->vswr = (1 + gamma) / (1 - gamma);
 	m->s11 = 20*log10( gamma );
 
+	// Note that creal(cs11) == creal(20*clog10( cgamma )) == 20*log10(cabs(cgamma)):
 	m->s11_real = creal(cs11);
 	m->s11_imag = cimag(cs11);
 	m->s11_ang = cang(cgamma);
