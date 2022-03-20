@@ -34,6 +34,7 @@
 #include <sys/times.h>
 #include <gtk/gtk.h>
 #include <errno.h>
+#include <locale.h>
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
