@@ -1,5 +1,6 @@
 *.o
 src/*.[is]
+*.s[12]p
 *.swp
 *.patch
 /Makefile.in
@@ -32,6 +33,7 @@ gmon.out
 gmon.txt
 install-sh
 src/xnec2c
+src/xnec2c-resources.c
 m4
 ABOUT-NLS
 missing 
