@@ -1,0 +1,37 @@
+.de URL
+\\$2 \(laURL: \\$1 \(ra\\$3
+..
+.TH XNEC2C "1" "March 2022" "xnec2c 4.4.10" "User Commands"
+.SH NAME
+xnec2c \- a GTK+ graphical interactive version of nec2c,
+a translation to C of the FORTRAN application NEC2
+.SH SYNOPSIS
+.IP
+.B xnec2c [\-ijhvP]
+\fI\,<input-file-name>\/\fR
+.SH DESCRIPTION
+.PD 0
+.IP
+[\-i <input\-file\-name>]
+.IP
+[\-j <number of processors in SMP machine> (-j0 disables forking)]
+.IP
+[\-P: disable pthreads and use the GTK loop for debugging]
+.IP
+[\-h: print this usage information and exit]
+.IP
+[\-v: print xnec2c version number and exit]
+.SH "SEE ALSO"
+Full documentation is available at the official website for xnec2c
+.URL "https://www.xnec2c.org/" "Offical xnec2c Website" .
+In addition, the full documentation for
+.B xnec2c
+is maintained as an html document.  If the
+.B xnec2c
+program is properly installed at your site, the command
+.PD 1
+.IP
+.B firefox /usr/share/doc/xnec2c/xnec2c.html
+.PP
+should give you access to the complete manual.
+

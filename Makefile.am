@@ -62,8 +62,8 @@ install-data-local:
 	  $(install_sh_DATA) doc/*.txt $(DESTDIR)$(docdir)/; \
 	  $(install_sh_DATA) doc/$(PACKAGE).html $(DESTDIR)$(docdir)/; \
 	  $(install_sh_DATA) doc/images/* $(DESTDIR)$(docdir)/images/; \
-	  $(install_sh_DATA) doc/$(PACKAGE).1.gz $(DESTDIR)$(mandir)/man1/; \
-	  ln -s $(DESTDIR)$(docdir) $(DESTDIR)$(pkgdatadir)/doc; \
+	  $(install_sh_DATA) doc/$(PACKAGE).1 $(DESTDIR)$(mandir)/man1/; \
+	  gzip -f -9 $(DESTDIR)$(mandir)/man1/$(PACKAGE).1; \
 	fi; \
 	if test -d examples/; then \
 	  $(MKDIR_P) $(DESTDIR)$(pkgdatadir)/examples;\
