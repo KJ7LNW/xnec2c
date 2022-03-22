@@ -1,8 +1,12 @@
 ## Process this file with automake to produce Makefile.in
 AM_LDFLAGS = -Wl,--export-dynamic -Wl,--as-needed
 
+# Disable warnings for overlength-strings, nothing we can do about that for GTK resources.
+# Maybe some compilers can't handle the length, but gcc and clang take it fine.
+# See this bug reference: https://gitlab.gnome.org/GNOME/glib/-/merge_requests/763
 AM_CFLAGS = --pedantic -Wall -std=gnu11 -O2 -g \
             -Wformat -Werror=format-security -fpie \
+            -Wno-overlength-strings \
             -DGTK_DISABLE_SINGLE_INCLUDES -DGDK_DISABLE_DEPRECATED \
             -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE \
             -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED
