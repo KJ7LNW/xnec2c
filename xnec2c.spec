@@ -147,7 +147,9 @@ update-desktop-database &> /dev/null || :
 %{_bindir}/*
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/mime/packages/x-nec2.xml
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_datadir}/icons/hicolor/256x256/apps/%{name}.png
 %{_datadir}/pixmaps/%{name}.svg
 %{?fedora:%{_datadir}/appdata/%{name}.appdata.xml}
 %{_mandir}/man1/%{name}.*

@@ -2,6 +2,26 @@ Hello distribution package maintainer:
 
 First, thank you for maintaining xnec2c for your distro!
 
+Please read through this document for ideas on how xnec2c might be
+packaged.
+
+
+=== Desktop Install ===
+xnec2c now supports desktop integration via xdg-utils.
+
+Note that running `make desktop-install` is intended for end-users.
+Instead, as a package distributor, will want to add something
+like this to your build after installing the packaged files:
+
+    update-mime-database /usr/share/mime || :
+	update-desktop-database || :
+	gtk-update-icon-cache /usr/share/icons/hicolor ||
+
+For example, see the bottom of ./Makefile.am under 'desktop-install:'
+or the %post section of ./xnec2c.spec .
+
+
+=== Dependencies ===
 If Gnome development packages are installed then you probably have all
 the "required" dependencies.  Notably:
   * gtk3 / gdk3

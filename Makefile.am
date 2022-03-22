@@ -47,13 +47,18 @@ DISTCLEANFILES = \
 
 install-data-local:
 	@$(NORMAL_INSTALL)
+	set -e \
 	$(MKDIR_P) $(DESTDIR)$(pkgdatadir); \
 	if test -d files/; then \
 	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/applications;\
-	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/pixmaps;\
 	  $(install_sh_DATA) files/$(PACKAGE).desktop $(DESTDIR)$(datarootdir)/applications/; \
+	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/icons/hicolor/256x256/apps/;\
+	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/mime/packages/;\
+	  $(install_sh_DATA) files/$(PACKAGE).png $(DESTDIR)$(datarootdir)/icons/hicolor/256x256/apps/; \
+	  $(install_sh_DATA) files/x-nec2.xml $(DESTDIR)$(datarootdir)/mime/packages/; \
 	fi; \
 	if test -d resources/; then \
+	  $(MKDIR_P) $(DESTDIR)$(datarootdir)/pixmaps;\
 	  $(install_sh_DATA) resources/$(PACKAGE).svg $(DESTDIR)$(datarootdir)/pixmaps/; \
 	fi; \
 	if test -d doc/; then \
@@ -68,5 +73,10 @@ install-data-local:
 	if test -d examples/; then \
 	  $(MKDIR_P) $(DESTDIR)$(pkgdatadir)/examples;\
 	  cp -r examples/* $(DESTDIR)$(pkgdatadir)/examples/; \
-	fi;
+	fi; \
+	echo -e "\n\nRun 'make desktop-install' for icons and .NEC file associations.\n\n"
 
+desktop-install:
+	  update-mime-database $(datarootdir)/mime || : \
+	  update-desktop-database || : \
+	  gtk-update-icon-cache $(datarootdir)/icons/hicolor || : 
