@@ -43,6 +43,10 @@ static mathlib_t mathlibs[] = {
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas.so",  .name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_"},
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so", .name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
+	// CentOS 7: yum install openblas-{serial,threads,openmp}
+	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas.so.0",  .name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_"},
+	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so.0", .name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
+	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so.0", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
 
 	// openSUSE OpenBLAS: zypper install libopenblas_*0
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas_serial.so.0",  .name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_"},
