@@ -18,6 +18,7 @@
  */
 
 #include <ctype.h>
+#include <sys/stat.h>
 #include "rc_config.h"
 #include "mathlib.h"
 
@@ -592,13 +593,31 @@ Read_Config( void )
     line[LINE_LEN];
   int lnum;
 
+  struct stat st;
+  int umsk, newmode;
+
   /* Config and mnemonics file pointer */
   FILE *fp = NULL;
+
 
   /* Create the dir if missing */
   snprintf( fpath, sizeof(fpath), "%s/.xnec2c", get_conf_dir(home, sizeof(home)));
   if( access(fpath, R_OK) < 0 && errno == ENOENT)
 	  mkdir(fpath, 0755);
+
+  // In commit 4e62893b the mkdir call used 755 instead of 0755 so
+  // permissions were broken.  This fixes that:
+  if (stat(fpath, &st) != 0)
+	  perror(fpath);
+  st.st_mode &= 01777;
+  umask(umsk = umask(0));
+  if (st.st_mode == 755 || st.st_mode == (755 & (~umsk)))
+  {
+	  newmode = 0755 & (~umsk) & 0777;
+	  printf("Fixed %s directory permissions from 0%o to 0%o from bug introduced in 4e62893b.\n",
+		  fpath, st.st_mode, newmode);
+	  chmod(fpath, newmode);
+  }
 
   /* Setup file path to xnec2c rc file */
   snprintf( fpath, sizeof(fpath), "%s/%s", get_conf_dir(home, sizeof(home)), CONFIG_FILE );
