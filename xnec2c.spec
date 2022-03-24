@@ -1,5 +1,5 @@
 Name:           xnec2c
-Version:        4.4.10
+Version:        4.4.11
 Release:        1%{?dist}
 Summary:        A multi-threaded EM tool to model antenna near- and far-field radiation patterns.
 

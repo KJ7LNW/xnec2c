@@ -1378,6 +1378,27 @@ decimal point to another with comma for decimal point, or vice-versa.
 <p><b>Version 4.4.10:</b>
 Fixed crash caused memory allocation off-by-one error.  Thanks to Juan Pablo García, EA4CIV for reporting the bug!
 </p>
+<p><b>Version 4.4.11:</b>
+There are many small improvements in this update, please update!  Here is 
+a brief summary, see the git commit log for detail:
+<ul>
+<li>Updated icons and file associations so you can double-click to open
+.nec files in most desktop environments.  Just `make desktop-install`
+after `make install` to set it up!  Distribution maintainers: see the
+PACKAGING file for details.</li>
+<li>Added .so.0 filenames names for OpenBLAS detection in CentOS when
+the -devel package is not installed.</li>
+<li>Added the debian/upstream/metadata file as recommended by Debian
+for package info.</li>
+<li>Added xnec2c.spec for RPM-based builds!  Just `rpmbuild -bb
+xnec2c.spec` to create an RPM.  You will need to place the latest
+.tar.gz file in ~/rpmbuild/SOURCES or run `spectool -g -R xnec2c.spec`
+to download them for you. Thanks to Richard Shaw KF5OIM for reviewing
+the .spec file!</li>
+<li>Added include of locale.h to fix building under musl-libc. Thanks
+to Tom DL1JBE for pointing this out and testing the fix!</li>
+</ul>
+</p>
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
 as NEC2 or nec2c. Specifically, commands that cause execution in
