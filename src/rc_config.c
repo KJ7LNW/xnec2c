@@ -598,7 +598,7 @@ Read_Config( void )
   /* Create the dir if missing */
   snprintf( fpath, sizeof(fpath), "%s/.xnec2c", get_conf_dir(home, sizeof(home)));
   if( access(fpath, R_OK) < 0 && errno == ENOENT)
-	  mkdir(fpath, 755);
+	  mkdir(fpath, 0755);
 
   /* Setup file path to xnec2c rc file */
   snprintf( fpath, sizeof(fpath), "%s/%s", get_conf_dir(home, sizeof(home)), CONFIG_FILE );
