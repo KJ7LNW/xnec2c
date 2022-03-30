@@ -70,7 +70,7 @@ main (int argc, char *argv[])
   /* Process command line options */
   calc_data.num_jobs  = 1;
   rc_config.input_file[0] = '\0';
-  while( (option = getopt(argc, argv, "i:j:hvP") ) != -1 )
+  while( (option = getopt(argc, argv, "i:j:hvPb") ) != -1 )
   {
     switch( option )
     {
@@ -103,6 +103,12 @@ main (int argc, char *argv[])
 	    rc_config.disable_pthread_freqloop = 1;
 		printf("[%d] pthread freqloop disabled!\n", getpid());
 	    break;
+
+      case 'b': /* batch mode */
+	    printf("Notice: batch mode enabled, will exit after first loop\n");
+		rc_config.batch_mode = 1;
+		rc_config.main_loop_start = 1;
+		break;
 
       case 'h': /* print usage and exit */
         usage();

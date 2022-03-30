@@ -955,9 +955,22 @@ gboolean Frequency_Loop( gpointer udata )
 
 void *Frequency_Loop_Thread(void *p)
 {
+	// Don't draw the green line if in batch mode
+	if (rc_config.batch_mode)
+		calc_data.fmhz_save = 0.0;
+
+	// Run the loop
 	while (isFlagSet(FREQ_LOOP_RUNNING) && Frequency_Loop(NULL));
 
 	ClearFlag(FREQ_LOOP_RUNNING);
+
+	// Exit if in batch mode
+	if (rc_config.batch_mode)
+	{
+		g_idle_add_once_sync((GSourceFunc)Gtk_Quit, NULL);
+		return NULL;
+	}
+
 	SetFlag(DRAW_NEW_RDPAT);
 
 	/*

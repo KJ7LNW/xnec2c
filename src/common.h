@@ -326,6 +326,9 @@ typedef struct
    * fr_plot->min_fscale/fr_plot->max_fscale values. */
   int freqplots_round_x_axis;
 
+  /* if true, exit after the first frequency loop iteration */
+  int batch_mode;
+
 } rc_config_t;
 
 typedef struct {

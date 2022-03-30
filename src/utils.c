@@ -45,6 +45,7 @@ usage(void)
         "              [-i <input-file-name>]\n"
         "              [-j <number of processors in SMP machine>]\n"
         "                  -j 0 disables forking for debug.\n"
+        "              [-b: enable batch mode, exit after the frequency loop runs.\n"
         "              [-P: debug: disable pthreads for freqloop, use GTK mainloop instead.\n"
         "              [-h: print this usage information and exit]\n"
         "              [-v: print xnec2c version number and exit]\n") );
