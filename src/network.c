@@ -645,10 +645,8 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 
     if( ldtyp[istepx] > 5 )
     {
-      fprintf( stderr,
-          _("xnec2c: load(): improper load type chosen,"
-          " requested type is %d\n"), ldtyp[istepx] );
-      Stop( _("load(): Improper load type chose"), ERR_STOP );
+      pr_err("improper load type chosen, requested type is %d\n", ldtyp[istepx]);
+      Stop( _("Improper load type chose"), ERR_STOP );
     }
 
     /* search segments for proper itags */
@@ -736,10 +734,8 @@ load( int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt,
 
     if( ichk == 0 )
     {
-      fprintf( stderr,
-          _("xnec2c: load(): loading data card error,"
-          " no segment has an itag = %d\n"), ldtags );
-      Stop( _("load(): Loading data card\n"
+      pr_err("loading data card error, no segment has an itag = %d\n", ldtags);
+      Stop( _("Loading data card\n"
             "Tag number mismatch error"), ERR_STOP );
     }
 

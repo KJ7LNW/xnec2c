@@ -36,14 +36,13 @@ Gtk_Builder( GtkBuilder **builder, gchar **object_ids )
       *builder, "/xnec2c.glade", object_ids, &gerror );
   if( !ret )
   {
-    fprintf( stderr, _("Xnec2c: failed to add objects to builder:\n%s\n"),
-        gerror->message );
+    pr_err("failed to add objects to builder: %s\n", gerror->message);
 
-    fprintf( stderr, _("Xnec2c: Listing Object Ids:\n") );
+    pr_err("Listing Object Ids:\n");
     int idx = 0;
     while( object_ids[idx] != NULL )
     {
-      fprintf( stderr, "%s\n", object_ids[idx] );
+      pr_err("%s\n", object_ids[idx]);
       idx++;
     }
 
@@ -53,7 +52,7 @@ Gtk_Builder( GtkBuilder **builder, gchar **object_ids )
   /* Connect signals if gmodule is supported */
   if( !g_module_supported() )
   {
-    fprintf( stderr, _("Xnec2c: lib gmodule not supported\n") );
+    pr_err("lib gmodule not supported\n");
     exit( -1 );
   }
   gtk_builder_connect_signals( *builder, NULL );
@@ -72,8 +71,7 @@ Builder_Get_Object( GtkBuilder *builder, gchar *name )
   GObject *object = gtk_builder_get_object( builder, name );
   if( object == NULL )
   {
-    fprintf( stderr,
-        _("!! Xnec2c: builder failed to get named object: %s\n"), name );
+    pr_err("builder failed to get named object: %s\n", name);
     exit( -1 );
   }
 

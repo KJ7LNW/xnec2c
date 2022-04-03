@@ -129,9 +129,10 @@ static inline void fr_plot_sync_widths(fr_plot_t *fr_plot)
 			current = get_plot_rect(fr_plot->posn, fr);
 			if (current == NULL)
 			{
-				printf("fr_plot_sync_widths, current == NULL: "
-						"calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n",
-					calc_data.FR_cards, calc_data.ngraph, fr, fr_plot->posn, FR_PLOT_T_IS_VALID(fr_plot));
+				BUG("fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n",
+					calc_data.FR_cards, calc_data.ngraph,
+					fr, fr_plot->posn,
+					FR_PLOT_T_IS_VALID(fr_plot));
 				return;
 			}
 			r = get_plot_rect(posn, fr);
@@ -144,17 +145,11 @@ static inline void fr_plot_sync_widths(fr_plot_t *fr_plot)
 
 void print_fr_plot(fr_plot_t *p)
 {
-	printf("fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n",
-		p->posn,
-		p->fr,
-		p->plot_rect.x,
-		p->plot_rect.y,
-		p->plot_rect.width,
-		p->plot_rect.height,
-		p->freq_loop_data->min_freq,
-		p->freq_loop_data->max_freq,
-		p->freq_loop_data->freq_steps
-		);
+	pr_debug("fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n",
+		p->posn, p->fr, p->plot_rect.x, p->plot_rect.y,
+		p->plot_rect.width, p->plot_rect.height,
+		p->freq_loop_data->min_freq, p->freq_loop_data->max_freq,
+		p->freq_loop_data->freq_steps);
 }
 
 /* draw_text:
@@ -790,8 +785,7 @@ Draw_Graph(
       "in Draw_Graph()" );
   if( points == NULL )
   {
-    fprintf( stderr, _("xnec2c: Draw_Graph():"
-        "memory allocation for points failed\n") );
+    pr_err("memory allocation for points failed\n");
     Stop( _("Draw_Graph():"
           "Memory allocation for points failed"), ERR_OK );
     return;
@@ -1244,8 +1238,7 @@ Plot_Graph_Smith(
 
   if( points == NULL )
   {
-    fprintf( stderr, _("xnec2c: Draw_Graph():"
-        "memory allocation for points failed\n") );
+    pr_err("memory allocation for points failed\n");
     Stop( _("Draw_Graph():"
           "Memory allocation for points failed"), ERR_OK );
     return;
@@ -1508,8 +1501,7 @@ _Plot_Frequency_Data( cairo_t *cr )
 
     if( vswr == NULL || s11 == NULL)
     {
-      fprintf( stderr, _("xnec2c: Plot_Frequency_Data():"
-          "memory allocation for vswr/s11 failed\n") );
+      pr_err("memory allocation for vswr/s11 failed\n");
       Stop( _("Plot_Frequency_Data():"
             "Memory allocation for vswr/s11 failed"), ERR_OK );
       return;
@@ -1719,10 +1711,10 @@ _Set_Frequency_On_Click( GdkEvent *e)
 	  else if (motion_event->state & GDK_BUTTON3_MASK) button = 3;
   }
 
-  /*
   // event types: https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gdk/gdkevents.h#L309
   // Enable this for mouse debugging:
-  printf("mouse click[type=%d pos=%4.1f,%4.1f button=%d(%d)]: ",
+  /*
+  pr_debug("mouse click[type=%d pos=%4.1f,%4.1f button=%d(%d)]\n",
 	  e->type,
 	  button_event->x, button_event->y,
 	  button, button_event->button);
@@ -1805,7 +1797,7 @@ _Set_Frequency_On_Click( GdkEvent *e)
 		break;
 
 		default: 
-			printf("mouse button: unknown button %d\n", button);
+			pr_debug("mouse button: unknown button %d\n", button);
 			return;
 
   } /* switch( button_event->button ) */

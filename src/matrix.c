@@ -1217,8 +1217,7 @@ int factr_gauss_elim( int n, complex double *a, int *ip, int ndim)
 
     if( iflg == TRUE )
     {
-      fprintf( stderr,
-          _("xnec2c: pivot(%d)= %16.8E\n"), r, dmax );
+      pr_err("pivot(%d)= %16.8E\n", r, dmax);
       iflg=FALSE;
     }
 
@@ -1252,7 +1251,7 @@ int factr( int n, complex double *a, int *ip, int ndim)
       The factorization has been completed, but the factor U is exactly singular,
       and division by zero will occur if it is used to solve a system of equations. 
     */
-    printf("factr:  LU Decomposition Failed: %d\n", info);
+    pr_err("LU Decomposition Failed: %d\n", info);
   }
   
   return info;
@@ -1308,9 +1307,8 @@ fblock( int nrow, int ncol, int imax, int ipsym )
   smat.nop = ncol/nrow;
   if( smat.nop*nrow != ncol)
   {
-    fprintf( stderr,
-        _("xnec2c: fblock(): symmetry error - nrow:%d ncol:%d\n"),nrow, ncol );
-    Stop( _("fblock(): Symmetry error"), ERR_STOP );
+    pr_err("symmetry error - nrow:%d ncol:%d\n", nrow, ncol);
+    Stop( _("Symmetry error"), ERR_STOP );
   }
 
   /* set up smat.ssx matrix for rotational symmetry. */
@@ -1417,7 +1415,7 @@ int solve( int n, complex double *a, int *ip,
       The factorization has been completed, but the factor U is exactly singular,
       and division by zero will occur if it is used to solve a system of equations. 
     */
-    printf("solve:  Solving Failed: %d\n", info);
+    pr_err("Solving Failed: %d\n", info);
   }
 
   return info;

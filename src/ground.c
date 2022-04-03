@@ -87,8 +87,8 @@ rom2( double a, double b,
 
   if( s < 0.0)
   {
-    fprintf( stderr, _("xnec2c: b less than a in rom2\n") );
-    Stop( _("rom2(): b less than a"), ERR_STOP );
+    pr_err("b less than a\n");
+    Stop( _("b less than a"), ERR_STOP );
   }
 
   ep= s/(1.0e4* data.npm);
@@ -213,7 +213,7 @@ rom2( double a, double b,
 
       } /* if( ns < npm) */
 
-      fprintf( stderr, _("xnec2c: rom2 -- step size limited at z = %12.5E\n"), z );
+      pr_err("step size limited at z = %12.5E\n", z);
 
     } /* if( tr > rx) */
 

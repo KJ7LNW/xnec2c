@@ -653,9 +653,8 @@ rdpat( void )
       if( (gnd.ksymp == 2) && (thet > 90.01) && (gnd.ifar != 1) )
       {
         Gtk_Widget_Destroy( &rdpattern_window );
-        fprintf( stderr, "xnec2c: rdpat(): Theta > 90 deg with ground specified\n"
-            "Please check RP card data and correct\n" );
-        Stop( _("rdpat(): Theta > 90 deg with ground specified\n"
+        pr_err("Theta > 90 deg with ground specified: Please check RP card data and correct\n");
+        Stop( _("Theta > 90 deg with ground specified\n"
               "Please check RP card data and correct"), ERR_STOP );
       }
 

@@ -62,9 +62,8 @@ arc( int itg, int ns, double rada,
 
   if( ns < 1)
   {
-    fprintf( stderr,
-        _("xnec2c: arc(): number of segments less than 1 (ns < 1)\n") );
-    Stop( _("arc(): Number of segments < 1"), ERR_OK );
+    pr_err("number of segments less than 1 (ns < 1)\n");
+    Stop( _("Number of segments < 1"), ERR_OK );
     return( FALSE );
   }
 
@@ -115,8 +114,8 @@ arc( int itg, int ns, double rada,
   } /* if( fabs( ang2- ang1) < 360.00001) */
   else
   {
-    fprintf( stderr, _("xnec2c: arc(): arc angle exceeds 360 degrees\n") );
-    Stop( _("arc(): Arc angle exceeds 360 degrees"), ERR_OK );
+    pr_err("arc angle exceeds 360 degrees\n");
+    Stop( _("Arc angle exceeds 360 degrees"), ERR_OK );
     return( FALSE );
   }
 
@@ -269,7 +268,7 @@ conect( int ignd )
     /*** possibly should be error condition?? **/
     if( data.np > data.n)
     {
-      fprintf( stderr, "xnec2c: conect(): np > n\n" );
+      pr_err("np > n\n");
       Stop( _("Error in conect(): np > n"), ERR_OK );
       return( FALSE );
     }
@@ -305,10 +304,8 @@ conect( int ignd )
       {
         if( zi1 <= -slen)
         {
-          fprintf( stderr,
-              _("xnec2c: conect(): geometry data error\n"
-              "Segment %d extends below ground\n"), iz );
-          Stop( _("conect(): Geometry data error\n"
+          pr_err("geometry data error: segment %d extends below ground\n", iz);
+          Stop( _("Geometry data error\n"
                 "Segment extends below ground"), ERR_OK );
           return( FALSE );
         }
@@ -357,10 +354,8 @@ conect( int ignd )
       {
         if( zi2 <= -slen)
         {
-          fprintf( stderr,
-              _("xnec2c: conect(): geometry data error\n"
-              "segment %d extends below ground\n"), iz );
-          Stop( _("conect(): Geometry data error\n"
+          pr_err("geometry data error: segment %d extends below ground\n", iz);
+          Stop( _("Geometry data error\n"
                 "Segment extends below ground"), ERR_OK );
           return( FALSE );
         }
@@ -369,10 +364,8 @@ conect( int ignd )
         {
           if( data.icon1[i] == iz )
           {
-            fprintf( stderr,
-                _("xnec2c: conect(): geometry data error\n"
-                "segment %d lies in ground plane\n"), iz );
-            Stop( _("conect(): Geometry data error\n"
+            pr_err("geometry data error: segment %d lies in ground plane\n", iz);
+            Stop( _("Geometry data error\n"
                   "Segment lies in ground plane"), ERR_OK );
             return( FALSE );
           }
@@ -471,8 +464,8 @@ conect( int ignd )
     /*** may be error condition?? ***/
     if( data.ipsym == 0 )
     {
-      fprintf( stderr, "xnec2c: conect(): ipsym = 0\n" );
-      Stop( _("conect(): Error: ipsym = 0"), ERR_OK );
+      pr_err("ipsym = 0\n");
+      Stop( _("Error: ipsym = 0"), ERR_OK );
       return( FALSE );
     }
   } /* if( iseg != 1) */
@@ -734,10 +727,8 @@ isegno( int itagi, int mx)
 
   if( mx <= 0)
   {
-    fprintf( stderr,
-        "xnec2c: isegno(): check data, parameter specifying segment\n"
-        "position in a group of equal tags must not be zero\n" );
-    Stop( _("isegno(): Parameter specifying segment\n"
+    pr_err("check data, parameter specifying segment: position in a group of equal tags must not be zero\n");
+    Stop( _("Parameter specifying segment\n"
           "position in a group of equal tags is zero"), ERR_OK );
     return( -1 );
   }
@@ -769,9 +760,8 @@ isegno( int itagi, int mx)
 
   } /* if( data.n > 0) */
 
-  fprintf( stderr,
-      _("xnec2c: isegno(): no segment has an itag of %d\n"),  itagi );
-  Stop( _("isegno(): Segment tag number error"), ERR_OK );
+  pr_err("no segment has an itag of %d\n", itagi);
+  Stop( _("Segment tag number error"), ERR_OK );
 
   return( -1 );
 }
@@ -1081,10 +1071,8 @@ patch(
 
         if( s1x <= 0.9998)
         {
-          fprintf( stderr,
-              _("xnec2c: patch(): corners of quadrilateral\n"
-              "patch do not lie in a plane\n") );
-          Stop( _("patch(): Corners of quadrilateral\n"
+          pr_err("corners of quadrilateral: patch do not lie in a plane\n");
+          Stop( _("Corners of quadrilateral\n"
                 "patch do not lie in a plane"), ERR_OK );
           return( FALSE );
         }
@@ -1214,10 +1202,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 
           if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
           {
-            fprintf( stderr,
-                _("xnec2c: reflc(): geometry data error\n"
-                "segment %d lies in plane of symmetry\n"), i+1 );
-            Stop( _("reflc(): Geometry data error\n"
+            pr_err("geometry data error: segment %d lies in plane of symmetry\n", i + 1);
+            Stop( _("Geometry data error\n"
                   "Segment lies in plane of symmetry"), ERR_OK );
             return( FALSE );
           }
@@ -1265,10 +1251,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
           nx = i+data.m;
           if( fabs(data.pz[i]) <= 1.0e-10)
           {
-            fprintf( stderr,
-                _("xnec2c: reflc(): geometry data error\n"
-                "patch %d lies in plane of symmetry\n"), i+1 );
-            Stop( _("reflc(): Geometry data error\n"
+            pr_err("geometry data error: patch %d lies in plane of symmetry\n", i + 1);
+            Stop( _("Geometry data error\n"
                   "Patch lies in plane of symmetry"), ERR_OK );
             return( FALSE );
           }
@@ -1318,10 +1302,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 
           if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
           {
-            fprintf( stderr,
-                _("xnec2c: reflc(): geometry data error\n"
-                "segment %d lies in plane of symmetry\n"), i+1 );
-            Stop( _("reflc(): Geometry data error\n"
+            pr_err("geometry data error: segment %d lies in plane of symmetry\n", i + 1);
+            Stop( _("Geometry data error\n"
                   "Segment lies in plane of symmetry"), ERR_OK );
             return( FALSE );
           }
@@ -1369,10 +1351,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
           nx= i+data.m;
           if( fabs( data.py[i]) <= 1.0e-10)
           {
-            fprintf( stderr,
-                _("xnec2c: reflc(): geometry data error\n"
-                "patch %d lies in plane of symmetry\n"), i+1 );
-            Stop( _("reflc(): Geometry data error\n"
+            pr_err("geometry data error: patch %d lies in plane of symmetry\n", i + 1);
+            Stop( _("Geometry data error\n"
                   "Patch lies in plane of symmetry"), ERR_OK );
             return( FALSE );
           }
@@ -1424,10 +1404,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 
         if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
         {
-          fprintf( stderr,
-              _("xnec2c: reflc(): geometry data error\n"
-              "segment %d lies in plane of symmetry\n"), i+1 );
-          Stop( _("reflc(): Geometry data error\n"
+          pr_err("geometry data error: segment %d lies in plane of symmetry\n", i + 1);
+          Stop( _("Geometry data error\n"
                 "Segment lies in plane of symmetry"), ERR_OK );
           return( FALSE );
         }
@@ -1473,10 +1451,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
       nx= i+data.m;
       if( fabs( data.px[i]) <= 1.0e-10)
       {
-        fprintf( stderr,
-            _("xnec2c: reflc(): geometry data error\n"
-            "patch %d lies in plane of symmetry\n"), i+1 );
-        Stop( _("reflc(): Geometry data error\n"
+        pr_err("geometry data error: patch %d lies in plane of symmetry\n", i + 1);
+        Stop( _("Geometry data error\n"
               "Patch lies in plane of symmetry"), ERR_OK );
         return( FALSE );
       }

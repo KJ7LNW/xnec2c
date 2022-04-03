@@ -183,9 +183,12 @@ char *get_conf_dir(char *s, int len)
 	if (home == NULL || strlen(home) == 0)
 	{
 		if (getcwd(s, len) == NULL)
-			printf("warning: unable to getcwd(): %s\n", strerror(errno));
-		else
-			printf("warning: environment variable HOME is undefined, using %s\n", s);
+		{
+			pr_warn("unable to getcwd(): %s\n", strerror(errno));
+			strncpy(s, "./", len);
+		}
+
+		pr_warn("environment variable HOME is undefined, using %s\n", s);
 	}
 	else
 	{
@@ -269,8 +272,8 @@ int parse_var(rc_config_vars_t *v, char *line, char *locale)
 
 	if (check != strlen(line))
 	{
-		printf("warning: %s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n",
-			v->desc, locale, check, strlen(line), line);
+		pr_warn("%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n",
+		        v->desc, locale, check, strlen(line), line);
 		return 0;
 	}
 
@@ -367,14 +370,14 @@ Create_Default_Config( void )
     /* Read Application Version */
     if( Load_Line(line, fp) == EOF )
     {
-      fprintf( stderr, _("xnec2c: failed to read Application Version\n") );
+      pr_err("EOF reading application version\n");
       Close_File( &fp );
       return( FALSE );
     }
 
     /* Produce fresh default config file if version number new */
     if( strncmp(line, PACKAGE_STRING, sizeof(line)) != 0 )
-      printf( _("xnec2c: warning: existing config file version differs: %s != %s\n"), line, PACKAGE_STRING );
+      pr_notice("existing config file version differs: %s != %s\n", line, PACKAGE_STRING);
 
     Close_File( &fp );
   } /* if( (fp = fopen(cfg_file, "r")) != NULL ) */
@@ -614,8 +617,8 @@ Read_Config( void )
   if (st.st_mode == 755 || st.st_mode == (755 & (~umsk)))
   {
 	  newmode = 0755 & (~umsk) & 0777;
-	  printf("Fixed %s directory permissions from 0%o to 0%o from bug introduced in 4e62893b.\n",
-		  fpath, st.st_mode, newmode);
+	  pr_notice("Fixed %s directory permissions from 0%o to 0%o from bug introduced in 4e62893b.\n",
+                  fpath, st.st_mode, newmode);
 	  chmod(fpath, newmode);
   }
 
@@ -642,13 +645,13 @@ Read_Config( void )
 	  if (!v)
 	  {
 		  if (line[0] != '#')
-			  printf("%s:%d: Line not parsed: %s\n", fpath, lnum, line);
+			  pr_err("%s:%d: Line not parsed: %s\n", fpath, lnum, line);
 		  continue;
 	  }
 	  
 	  if ( fgets(line, LINE_LEN, fp) == NULL)
 	  {
-		  printf("%s:%d: Early end of file for %s: %s \n", fpath, lnum, v->desc, line);
+		  pr_err("%s:%d: Early end of file for %s: %s \n", fpath, lnum, v->desc, line);
 		  break;
 	  }
 
@@ -669,7 +672,7 @@ Read_Config( void )
 		  !parse_var(v, line, NULL) &&
 		  !parse_var(v, line, "en_DK")
 		  )
-		  printf("%s:%d: parse error (%s): %s \n", fpath, lnum, v->desc, line);
+		  pr_err("%s:%d: parse error (%s): %s \n", fpath, lnum, v->desc, line);
 	  else if (v->init != NULL)
 		  v->init(v, line);
   }
@@ -890,10 +893,9 @@ Save_Config( void )
   /* Open config file for writing */
   if( !Open_File( &fp, cfg_file, "w" ) )
   {
-    snprintf( err_str, sizeof(err_str), "xnec2c: %s", cfg_file );
+    snprintf( err_str, sizeof(err_str), "%s", cfg_file );
     perror( err_str );
-    fprintf( stderr,
-        _("xnec2c: cannot open xnec2c's config file: %s\n"), cfg_file );
+    pr_err("cannot open xnec2c's config file: %s\n", cfg_file);
     return( FALSE );
   }
 

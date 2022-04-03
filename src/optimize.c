@@ -49,7 +49,7 @@ _Write_Optimizer_Data( void )
       gtk_widget_show( error_dialog );
       g_object_unref( builder );
     }
-    perror( "xnec2c: Open_File()" );
+    perror( "Open_File()" );
 
     return;
   } // if( !Open_File(&fp, csv_file, "w") )
@@ -77,7 +77,7 @@ int inotify_open(struct pollfd *pfd)
   fd = inotify_init1( IN_NONBLOCK );
   if( fd == -1 )
   {
-    perror( "xnec2c: inotify_init1" );
+    perror( "inotify_init1" );
     exit( -1 );
   }
 
@@ -85,8 +85,8 @@ int inotify_open(struct pollfd *pfd)
   wd = inotify_add_watch( fd, rc_config.input_file, IN_CLOSE_WRITE );
   if( wd == -1 )
   {
-    fprintf(stderr, "xnec2c: cannot watch '%s': %s\n",
-        rc_config.input_file, strerror(errno));
+    pr_err("cannot watch '%s': %s\n", rc_config.input_file,
+           strerror(errno));
     exit( -1 );
   }
 
@@ -131,7 +131,7 @@ Optimizer_Output( void *arg )
 
     if ( CHILD )
 	{
-		printf("optimize.c: exiting because we are a child process.\n");
+		pr_info("optimize.c: exiting because we are a child process.\n");
 		break;
 	}
 
@@ -141,7 +141,7 @@ Optimizer_Output( void *arg )
     if (poll_num == -1)
     {
       if( errno == EINTR ) continue;
-      perror( "xnec2c: poll" );
+      perror( "poll" );
       exit( -1 );
     }
 
@@ -153,7 +153,7 @@ Optimizer_Output( void *arg )
         len = read( fd, buf, sizeof(buf) );
         if( (len == -1) && (errno != EAGAIN) )
         {
-          perror( "xnec2c: read" );
+          perror( "read" );
           exit( -1 );
         }
 
@@ -167,7 +167,8 @@ Optimizer_Output( void *arg )
 
 		if (num_busy_procs)
 		{
-			printf("warning: %d child jobs are running, skipping optimization\n", num_busy_procs);
+			pr_warn("%d child jobs are running, skipping optimization\n",
+                                num_busy_procs);
 			usleep(100000);
 			continue;
 		}

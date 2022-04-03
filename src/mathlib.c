@@ -134,7 +134,7 @@ int open_mathlib(mathlib_t *lib)
 
 	if (lib == NULL)
 	{
-		printf("open_mathlib: lib is NULL\n");
+		pr_err("open_mathlib: lib is NULL\n");
 		return 0;
 	}
 
@@ -144,7 +144,7 @@ int open_mathlib(mathlib_t *lib)
 
 	// Set environment if configured:
 	if (lib->env[0] != NULL && setenv(lib->env[0], lib->env[1], 1) < 0)
-			printf("setenv(%s, %s): %s\n", lib->env[0], lib->env[1], strerror(errno));
+			pr_debug("setenv(%s, %s): %s\n", lib->env[0], lib->env[1], strerror(errno));
 
 	// Clear any error state
 	dlerror();
@@ -154,14 +154,14 @@ int open_mathlib(mathlib_t *lib)
 
 	if (lib->handle == NULL)
 	{
-		printf("  Unable to open %s: %s\n", lib->lib, dlerror());
+		pr_err("  Unable to open %s: %s\n", lib->lib, dlerror());
 		close_mathlib(lib);
 		return 0;
 	}
 
 #ifdef HAVE_LMID
 	if (dlinfo(lib->handle, RTLD_DI_LMID, &lib->lmid) == -1)
-		printf("dlinfo: %s: %s\n", lib->lib, dlerror());
+		pr_err("dlinfo: %s: %s\n", lib->lib, dlerror());
 #endif
 
 	// Call the init() function if configured
@@ -185,7 +185,7 @@ int open_mathlib(mathlib_t *lib)
 
 		if (error != NULL)
 		{
-			printf("  %s: unable to bind %s: %s\n", lib->lib, mathfuncs[fidx], error);
+			pr_err("  %s: unable to bind %s: %s\n", lib->lib, mathfuncs[fidx], error);
 			close_mathlib(lib);
 			break;
 		}
@@ -209,10 +209,10 @@ void init_mathlib()
 		mathlibs[libidx].functions = NULL;
 
 		// Try to open each library:
-		printf("\nTrying %s (%s):\n", mathlibs[libidx].name, mathlibs[libidx].lib);
+		pr_info("\nTrying %s (%s):\n", mathlibs[libidx].name, mathlibs[libidx].lib);
 		if (!open_mathlib(&mathlibs[libidx]))
 		{
-			printf("  skipping.\n");
+			pr_info("  skipping.\n");
 
 			close_mathlib(&mathlibs[libidx]);
 
@@ -228,12 +228,12 @@ void init_mathlib()
 		{
 			char lpath[PATH_MAX];
 			dlinfo(mathlibs[libidx].handle, RTLD_DI_ORIGIN, lpath);
-			printf("  loaded ok: %s/%s\n", lpath, mathlibs[libidx].lib);
+			pr_info("  loaded ok: %s/%s\n", lpath, mathlibs[libidx].lib);
 		}
 		else
-			printf("  loaded ok.\n");
+			pr_info("  loaded ok.\n");
 #else
-		printf("  loaded ok.\n");
+		pr_info("  loaded ok.\n");
 #endif
 
 		// Set the default to the first one we find:
@@ -275,7 +275,8 @@ void mathlib_config_init(rc_config_vars_t *v, char *line)
 		set_mathlib_interactive(NULL, &mathlibs[rc_config.mathlib_idx]);
 	}
 	else
-		printf("Unable to set the preferred mathlib index to %d (ignore if first run)\n", rc_config.mathlib_idx);
+		pr_err("Unable to set the preferred mathlib index to %d (ignore if first run)\n",
+		       rc_config.mathlib_idx);
 }
 
 int mathlib_config_benchmark_parse(rc_config_vars_t *v, char *line)
@@ -311,7 +312,7 @@ void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib)
 
 	if (lib == NULL)
 	{
-		printf("set_mathlib_interactive: lib == NULL\n");
+		BUG("set_mathlib_interactive: lib == NULL\n");
 		return;
 	}
 
@@ -320,9 +321,8 @@ void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib)
 
 	if (!lib->available)
 	{
-		printf("set_mathlib_interactive[%d]: mathlib.available=0, skipping: %s\n",
-			getpid(),
-			lib->name);
+		pr_err("set_mathlib_interactive[%d]: mathlib.available=0, skipping: %s\n",
+		        getpid(), lib->name);
 
 		// If the library is unavailable for some reason then clear the one that was
 		// just set and reset the active one:
@@ -360,7 +360,7 @@ void set_mathlib_batch(GtkWidget *widget, mathlib_t *lib)
 
 	if (lib == NULL)
 	{
-		printf("set_mathlib_batch: lib == NULL\n");
+		BUG("set_mathlib_batch: lib == NULL\n");
 		return;
 	}
 
@@ -406,7 +406,7 @@ void set_mathlib_benchmark(GtkWidget *widget, mathlib_t *lib)
 						gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mathlibs[i].benchmark_widget), FALSE);
 			}
 
-		printf("%s: benchmark=%d\n", lib->name, lib->benchmark);
+		pr_info("%s: benchmark=%d\n", lib->name, lib->benchmark);
 	}
 }
 
@@ -647,7 +647,8 @@ void mathlib_benchmark(int slow)
 
 		while (calc_data.num_jobs >= 1)
 		{
-			printf("\nStarting %s benchmark (-j %d)\n", active_mathlib->name, calc_data.num_jobs);
+			pr_info("\nStarting %s benchmark (-j %d)\n",
+				active_mathlib->name, calc_data.num_jobs);
 
 			New_Frequency_Reset_Prev();
 			calc_data.fmhz_save = 0;
@@ -743,8 +744,8 @@ void mathlib_lock_intel(int locked_idx, int batch)
 	locked_lib = get_mathlib_by_idx(locked_idx);
 	if (locked_lib == NULL)
 	{
-		printf("mathlib_lock_intel: Cannot find library for mathlib idx=%d\n",
-			locked_idx);
+		BUG("mathlib_lock_intel: Cannot find library for mathlib idx=%d\n",
+		        locked_idx);
 		return;
 	}
 
@@ -754,18 +755,18 @@ void mathlib_lock_intel(int locked_idx, int batch)
 	if (!warned && !CHILD)
 	{
 		warned = 1;
-		printf( _("\n"
-		"* Notice: \"%s\" was selected, but you can only change to a\n"
-		"* different Intel MKL threading library by restarting xnec2c.\n"
-		"* \n"
-		"* However, you may continue to select any other Linear Algebra library\n"
-		"* without restart, including this same Intel MKL library.  All other\n"
-		"* Intel MKL threading libraries are disabled until restart because of an \n"
-		"* MKL limitation where the MKL threading library can only be dynamically\n"
-		"* linked only once per runtime.\n"
-		"* \n"
-		"* See Intel's documentation on mkl_set_threading_layer() for more detail.\n"),
-			 locked_lib->name);
+		pr_notice("\n"
+		        "* Notice: \"%s\" was selected, but you can only change to a\n"
+		        "* different Intel MKL threading library by restarting xnec2c.\n"
+		        "* \n"
+		        "* However, you may continue to select any other Linear Algebra library\n"
+		        "* without restart, including this same Intel MKL library.  All other\n"
+		        "* Intel MKL threading libraries are disabled until restart because of an \n"
+		        "* MKL limitation where the MKL threading library can only be dynamically\n"
+		        "* linked only once per runtime.\n"
+				"* \n"
+		        "* See Intel's documentation on mkl_set_threading_layer() for more detail.\n",
+		        locked_lib->name);
 	}
 
 	// Disable the other MKL threading options.
@@ -822,7 +823,7 @@ int32_t zgetrf(int32_t order, int32_t m, int32_t n, complex double *a, int32_t n
 
 	if (current_mathlib == NULL)
 	{
-		printf("zgetrf: current_mathlib is NULL, this should never happen.\n");
+		BUG("zgetrf: current_mathlib is NULL, this should never happen.\n");
 		return 1;
 	}
 
@@ -846,7 +847,8 @@ int32_t zgetrf(int32_t order, int32_t m, int32_t n, complex double *a, int32_t n
 		return factr_gauss_elim(n, a, (int32_t*)ip, ndim);
 	}
 	else
-		printf("%s: unsupported mathlib type %d\n", __func__, current_mathlib->type);
+		BUG("%s: unsupported mathlib type %d\n", __func__,
+			current_mathlib->type);
 
 	return 1;
 }
@@ -858,11 +860,11 @@ int32_t zgetrs(int32_t order, int32_t trans, int32_t lda, int32_t nrhs,
 
 	if (current_mathlib == NULL)
 	{
-		printf("zgetrs: current_mathlib is NULL, this should never happen.\n");
+		BUG("zgetrs: current_mathlib is NULL, this should never happen.\n");
 		return 1;
 	}
 
-	//printf("%s: type=%d typename=%s\n", mathfuncs[f_idx], current_mathlib->type, current_mathlib->name);
+	//pr_debug("%s: type=%d typename=%s\n", mathfuncs[f_idx], current_mathlib->type, current_mathlib->name);
 
 	if (current_mathlib->type == MATHLIB_ATLAS)
 	{
@@ -883,13 +885,15 @@ int32_t zgetrs(int32_t order, int32_t trans, int32_t lda, int32_t nrhs,
 	else if (current_mathlib->type == MATHLIB_NEC2)
 	{
 		if (lda != ldb)
-			printf("zgetrs warning: lda(%d) != ldb(%d)\n", lda, ldb);
+			BUG("zgetrs warning: lda(%d) != ldb(%d)\n", lda,
+				ldb);
 
 		// use the original NEC2 function
 		return solve_gauss_elim(lda, a, (int32_t*)ip, b, ndim);
 	}
 	else
-		printf("%s: unsupported mathlib type %d\n", __func__, current_mathlib->type);
+		BUG("%s: unsupported mathlib type %d\n", __func__,
+			current_mathlib->type);
 
 	return 1;
 }
@@ -916,7 +920,7 @@ void mathlib_mkl_set_threading(mathlib_t *lib, int code)
 	*(void **) (&mkl_set_threading_layer) = dlsym(lib->handle, "MKL_Set_Threading_Layer");
 	if (mkl_set_threading_layer == NULL)
 	{
-		printf("dlsym(mkl_set_threading_layer): %s\n", dlerror());
+		pr_err("dlsym(mkl_set_threading_layer): %s\n", dlerror());
 		return;
 	}
 

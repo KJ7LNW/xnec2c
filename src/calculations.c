@@ -114,8 +114,7 @@ tbf( int i, int icap )
             continue;
           else
           {
-            fprintf( stderr,
-                _("xnec2c: tbf(): segment connection error for segment %5d\n"), i );
+            pr_err("segment connection error for segment %5d\n", i);
             Stop( _("Segment connection error in tbf()"), ERR_STOP );
           }
         }
@@ -888,7 +887,7 @@ void intx( double el1, double el2, double b,
     {
       nt=0;
       if( ns >= nma)
-        fprintf( stderr, _("xnec2c: step size limited at z= %10.5f\n"), z );
+        pr_err("step size limited at z= %10.5f\n", z);
       else
       {
         /* halve step size */
@@ -1052,8 +1051,7 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
         {
           if( jcox == 0 )
           {
-            fprintf( stderr,
-                _("xnec2c: sbf(): segment connection error for segment %d\n"), i );
+            pr_err("segment connection error for segment %d\n", i);
             Stop( _("Segment connection error in sbf()"), ERR_STOP );
           }
           else continue;
@@ -1275,9 +1273,8 @@ trio( int j )
 
       if( jcox == 0 )
       {
-        fprintf( stderr,
-            _("xnec2c: trio(): segment connention error for segment %5d\n"), j );
-        Stop( _("Segment connention error in trio()"), ERR_STOP );
+        pr_err("segment connection error for segment %5d\n", j);
+        Stop( _("Segment connection error in trio()"), ERR_STOP );
       }
       else continue;
 

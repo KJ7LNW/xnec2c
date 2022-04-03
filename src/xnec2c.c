@@ -182,12 +182,9 @@ Ground_Parameters( void )
         gnd.frati =( epsc - 1.0) / ( epsc + 1.0);
         if( cabs(( ggrid.epscf - epsc) / epsc) >= 1.0e-3 )
         {
-          fprintf( stderr,
-              _("xnec2c: Ground_Parameters(): error in ground parameters\n"
-              "complex dielectric constant from file: %12.5E%+12.5Ej\n"
-              "                            requested: %12.5E%+12.5Ej\n"),
-              creal(ggrid.epscf), cimag(ggrid.epscf),
-              creal(epsc), cimag(epsc) );
+          pr_err("complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n",
+                 creal(ggrid.epscf), cimag(ggrid.epscf),
+				 creal(epsc), cimag(epsc));
           Stop( _("Ground_Parameters():"
                 "Error in ground parameters"), ERR_STOP );
         }
@@ -453,8 +450,7 @@ New_Frequency( void )
   save.last_freq = calc_data.freq_mhz;
 
   // Only show this if you manually change frequencies:
-  if (isFlagClear( FREQ_LOOP_RUNNING ))
-	clock_gettime(CLOCK_MONOTONIC, &start);
+  clock_gettime(CLOCK_MONOTONIC, &start);
 
   /* Frequency scaling of geometric parameters */
   Frequency_Scale_Geometry();
@@ -487,22 +483,12 @@ New_Frequency( void )
 
   g_mutex_unlock(&freq_data_lock);
 
-
-
-  // Only show this if you manually change frequencies:
-  if (isFlagClear( FREQ_LOOP_RUNNING ))
-  {
-	// Calculate elapsed time
-	clock_gettime(CLOCK_MONOTONIC, &end);
-
-	elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
-	printf("New_Frequency[%d]: %s: total time at %.6f MHz: %f seconds\n",
-		  getpid(),
-		  current_mathlib->name,
-		  calc_data.freq_mhz,
-		  elapsed
-	  );
-  }
+  // Calculate elapsed time
+  clock_gettime(CLOCK_MONOTONIC, &end);
+  
+  elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
+  pr_info("New_Frequency[%d]: %s: total time at %.6f MHz: %f seconds\n",
+  			getpid(), current_mathlib->name, calc_data.freq_mhz, elapsed);
 
 } /* New_Frequency()  */
 
@@ -779,7 +765,7 @@ gboolean Frequency_Loop( gpointer udata )
       {
         if (errno == EINTR)
 			continue;
-        perror( "xnec2c: select()" );
+        perror( "select()" );
         _exit(0);
       }
 
@@ -822,20 +808,17 @@ gboolean Frequency_Loop( gpointer udata )
 		  retval = FALSE;
 		  if (num_busy_procs != 0)
 		  {
-			  printf("BUG: Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n",
-				num_busy_procs,
-				calc_data.freq_step,
-				calc_data.steps_total);
+			  BUG("Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n",
+                              num_busy_procs, calc_data.freq_step,
+                              calc_data.steps_total);
 				for( job_num = 0; job_num < calc_data.num_jobs; job_num++ )
 				{
 					if (forked_proc_data[job_num]->busy)
 					{
-						printf("  busy job[%d]: fstep=%d freq=%f\n",
+						pr_debug("  busy job[%d]: fstep=%d freq=%f\n",
 							job_num,
 							forked_proc_data[job_num]->fstep,
 							save.freq[forked_proc_data[job_num]->fstep]);
-
-
 					}
 				}
 		  }
@@ -894,8 +877,8 @@ gboolean Frequency_Loop( gpointer udata )
     SetFlag( FREQ_LOOP_DONE );
 
 	clock_gettime(CLOCK_MONOTONIC, &end);
-	printf("Frequency_Loop elapsed time: %f seconds\n", 
-		(end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9));
+	pr_notice("Frequency_Loop elapsed time: %f seconds\n",
+                (end.tv_sec + (double)end.tv_nsec / 1e9) - (start.tv_sec + (double)start.tv_nsec / 1e9));
 
     /* After the loop is finished, re-set the saved frequency
      * that the user clicked on in the frequency plots window */
@@ -1027,8 +1010,8 @@ Start_Frequency_Loop( void )
 		if( ret != 0 )
 		{
 			free_ptr((void**)&pth_freq_loop);
-			fprintf( stderr, "xnec2c: failed to start Frequency_Loop_Thread\n" );
-			perror( "xnec2c: pthread_create()" );
+			pr_crit("failed to start Frequency_Loop_Thread\n");
+			perror( "pthread_create()" );
 			exit( -1 );
 		}
 	}

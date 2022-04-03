@@ -235,8 +235,8 @@ hankel( complex double z,
   zms=creal( z*conj(z) );
   if(zms == 0.0)
   {
-    fprintf( stderr, _("xnec2c: hankel(): Hankel not valid for z = 0\n") );
-    Stop( _("hankel(): Hankel not valid for z = 0"), ERR_STOP );
+    pr_err("Hankel not valid for z = 0\n");
+    Stop( _("Hankel not valid for z = 0"), ERR_STOP );
   }
 
   ib=0;
@@ -747,8 +747,8 @@ gshank( complex double start, complex double dela,
   } /* for( intx = 1; intx <= maxh; intx++ ) */
 
   /* No convergence */
-  fprintf( stderr, _("xnec2c: gshank(): No convergence\n") );
-  Stop( _("gshank(): No convergencn"), ERR_STOP );
+  pr_err("No convergence\n");
+  Stop( _("No convergencn"), ERR_STOP );
   return;
 }
 

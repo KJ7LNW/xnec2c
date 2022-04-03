@@ -127,7 +127,7 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 			break;
 
 		default:
-			printf(__LOCATION__ "BUG: this should never happen. touchstone type=%d\n", type);
+			BUG("This should never happen. touchstone type=%d\n", type);
 	}
 
 	fprintf(fp, "# MHz S DB R %g\n", calc_data.zo);

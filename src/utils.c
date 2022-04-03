@@ -63,7 +63,7 @@ int Notice(char *title, char *message,  GtkButtonsType buttons)
 		buttons,
 		"%s", title);
 
-	printf("\n=== Notice: %s ===\n%s\n\n", title, message);
+	pr_notice("\n=== Notice: %s ===\n%s\n\n", title, message);
 	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(notice), "%s", message);
 
 	response = gtk_dialog_run(GTK_DIALOG(notice));
@@ -84,11 +84,10 @@ Stop( char *mesg, int err )
   /* For child processes */
   if( CHILD )
   {
-    fprintf( stderr, "%s\n", mesg );
+    pr_err("%s\n", mesg);
     if( err )
     {
-      fprintf( stderr,
-          _("xnec2c: fatal: child process %d exiting\n"), num_child_procs );
+      pr_crit("child process %d exiting\n", num_child_procs);
       _exit(-1);
     }
     else return( err );
@@ -277,11 +276,10 @@ void mem_obj_dump(void *ptr)
 	mem_obj_t *m = (mem_obj_t*)ptr;
 	m--;
 
-	printf("mem_obj_t at %p:\n"
-			"  size: %lu\n"
-			"  used: %lu\n"
-			"  addr: %p\n",
-				(void*)m, m->size, m->used, m->ptr);
+	pr_debug("mem_obj_t at %p:\n"
+		"  size: %lu\n"
+		"  used: %lu\n"
+		"  addr: %p\n", (void *)m, m->size, m->used, m->ptr);
 
 
 }
@@ -297,9 +295,9 @@ void mem_backtrace(void *ptr)
 	}
 
 	m--;
-	printf("mem_backtrace(%p):\n", ptr);
+	pr_debug("mem_backtrace(%p):\n", ptr);
 	if (m->backtrace == NULL)
-		printf("  m->backtrace is null, no backtrace data\n");
+		pr_debug("  m->backtrace is null, no backtrace data\n");
 	else
 		_print_backtrace(m->backtrace);
 
@@ -364,7 +362,7 @@ void mem_realloc( void **ptr, size_t req, gchar *str )
   {
     snprintf( mesg, sizeof(mesg),
         _("Memory re-allocation denied %s\n"), str );
-    fprintf( stderr, "%s: Memory requested %lu\n", mesg, req );
+    pr_err("%s: Memory requested %lu\n", mesg, req);
     Stop( mesg, ERR_STOP );
 	return;
   }
@@ -738,7 +736,7 @@ void xnec2_widget_queue_draw(GtkWidget *w)
 	// Only redraw the rdpattern when FREQ_LOOP_DONE or it the window will flash grey:
 	if (w == rdpattern_drawingarea && isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_RUNNING))
 	{
-		printf("Optimizer loop incomplete, skipping radiation pattern redraw.\n");
+		pr_debug("Optimizer loop incomplete, skipping radiation pattern redraw.\n");
 	}
 	else
 		g_idle_add_once((GSourceFunc)gtk_widget_queue_draw, w);
@@ -753,9 +751,9 @@ void xnec2_widget_queue_draw(GtkWidget *w)
 void _print_backtrace(char **strings)
 {
 	int i;
-	printf("  Backtrace:\n");
+	pr_debug("  Backtrace:\n");
 	for (i = 0; strings[i] != NULL; i++)
-		printf("    %d. %s\n", i, strings[i]);
+		pr_debug("    %d. %s\n", i, strings[i]);
 }
 
 // Return an array of backtrace strings.  The value returned must be free()'ed.
@@ -782,7 +780,7 @@ char **_get_backtrace()
 void print_backtrace(char *msg)
 {
 	if (msg != NULL)
-		printf("%s:\n", msg);
+		pr_debug("%s:\n", msg);
 
 	char **strings = _get_backtrace();
 	if (strings != NULL)

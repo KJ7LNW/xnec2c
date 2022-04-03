@@ -83,7 +83,7 @@ int write_exact(int fd, char *buf, int size)
 		if (len < 0 && errno == EINTR) continue;
 
 		if (len < 0) {
-			perror("write_exact(): ");
+			perror("write()");
 			return len;
 		}
 
@@ -110,7 +110,7 @@ int read_exact(int fd, char *buf, int size)
 		if (len < 0 && errno == EINTR) continue;
 
 		if (len < 0) {
-			perror("read_exact(): ");
+			perror("read()");
 			return len;
 		}
 
@@ -146,7 +146,7 @@ Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
 
 	  if (retval == -1 && errno != EINTR)
 	  {
-		perror( "xnec2c: Read_Pipe(): select()" );
+		perror( "select()" );
 		_exit( 0 );
 	  }
   } while (retval == -1 && errno == EINTR);
@@ -155,9 +155,8 @@ Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
 
   if( (retval == -1) || ((retval != len) && err ) )
   {
-    perror( "xnec2c: Read_Pipe(): read()" );
-    fprintf( stderr, "xnec2c: Read_Pipe(): child %d  length %d  return %d\n",
-        idx, (int)len, (int)retval );
+    perror( "read()" );
+    pr_err("child %d  length %d  return %d\n", idx, (int)len, (int)retval);
     _exit( 0 );
   }
   return( retval );
@@ -511,7 +510,7 @@ Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
 
 	  if (retval == -1 && errno != EINTR)
 	  {
-		perror( "xnec2c: Write_Pipe(): select()" );
+		perror( "select()" );
 		_exit( 0 );
 	  }
 
@@ -521,7 +520,7 @@ Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
   retval = write_exact( pipefd, str, (size_t)len );
   if( (retval == -1) || ((retval != len) && err) )
   {
-    perror( "xnec2c: Write_Pipe(): write()" );
+    perror( "write()" );
     _exit( 0 );
   }
 
@@ -543,16 +542,14 @@ static ssize_t PRead_Pipe(int idx, char *str, ssize_t len, gboolean err)
 	retval = read_exact(forked_proc_data[idx]->child2pnt_pipe[READ], str, (size_t) len);
 	if (retval < 0)
 	{
-		perror("xnec2c: PRead_Pipe(): read()");
-		fprintf(stderr, "xnec2c: PRead_Pipe(): child %d  length %d  return %d\n",
-			idx, (int) len, (int) retval);
+		perror("read()");
+		pr_err("child %d  length %d  return %d\n", idx, (int)len, (int)retval);
 		_exit(0);
 	}
 
 	if (retval == 0 && len > 0)
 	{
-		fprintf(stderr, "xnec2c: PRead_Pipe(): early EOF?, child %d  length %d  return %d\n",
-			idx, (int) len, (int) retval);
+		pr_err("early EOF?, child %d  length %d  return %d\n", idx, (int)len, (int)retval);
 		return -1;
 	}
 

@@ -82,8 +82,7 @@ main (int argc, char *argv[])
           size_t siz = sizeof( rc_config.input_file );
           if( strlen(optarg) >= siz )
           {
-            fprintf ( stderr,
-                _("xnec2c: input file name too long ( > %d char )\n"), (int)siz - 1 );
+            pr_crit("input file name too long ( > %d char )\n", (int)siz - 1);
             exit(-1);
           }
           /* For null term. */
@@ -109,7 +108,7 @@ main (int argc, char *argv[])
 
         if (calc_data.num_jobs == 0)
         {
-            printf("[%d] Forking disabled!\n", getpid());
+            pr_notice("Forking disabled!\n");
             enable_forking = 0;
             calc_data.num_jobs = 1;
         }
@@ -117,11 +116,11 @@ main (int argc, char *argv[])
 
 	  case 'P': /* disable pthread loop */
 	    rc_config.disable_pthread_freqloop = 1;
-		printf("[%d] pthread freqloop disabled!\n", getpid());
+		pr_notice("pthread freqloop disabled!\n");
 	    break;
 
       case 'b': /* batch mode */
-	    printf("Notice: batch mode enabled, will exit after first loop\n");
+	    pr_notice("batch mode enabled, will exit after first loop\n");
 		rc_config.batch_mode = 1;
 		rc_config.main_loop_start = 1;
 		break;
@@ -152,8 +151,7 @@ main (int argc, char *argv[])
     size_t siz = sizeof( rc_config.input_file );
     if( strlen(argv[argc - 1]) >= siz )
     {
-      fprintf ( stderr,
-          _("xnec2c: input file path name too long ( > %d char )\n"), (int)siz - 1 );
+      pr_crit("input file path name too long ( > %d char )\n", (int)siz - 1);
       exit(-1);
     }
      /* For null termination */
@@ -184,18 +182,16 @@ main (int argc, char *argv[])
       err = pipe( forked_proc_data[idx]->pnt2child_pipe );
       if( err )
       {
-        perror( "xnec2c: pipe()" );
-        fprintf( stderr,
-            _("xnec2c: exiting after fatal error: pipe() failed") );
+        perror( "pipe()" );
+        pr_crit("exiting after fatal error: pipe() failed");
         exit(-1);
       }
 
       err = pipe( forked_proc_data[idx]->child2pnt_pipe );
       if( err )
       {
-        perror( "xnec2c: pipe()" );
-        fprintf( stderr,
-            _("xnec2c: exiting after fatal error: pipe() failed") );
+        perror( "pipe()" );
+        pr_crit("exiting after fatal error: pipe() failed");
         exit(-1);
       }
 
@@ -203,9 +199,8 @@ main (int argc, char *argv[])
       forked_proc_data[idx]->child_pid = fork();
       if( forked_proc_data[idx]->child_pid == -1 )
       {
-        perror( "xnec2c: fork()" );
-        fprintf( stderr,
-            _("xnec2c: exiting after fatal error: fork() failed") );
+        perror( "fork()" );
+        pr_crit("exiting after fatal error: fork() failed");
         exit(-1);
       }
       else child_pid = forked_proc_data[idx]->child_pid;
@@ -545,23 +540,23 @@ static void sig_handler( int signal )
   switch( signal )
   {
     case SIGINT:
-      fprintf( stderr, _("xnec2c: exiting via user interrupt\n") );
+      pr_crit("exiting via user interrupt\n");
       break;
 
     case SIGSEGV:
-      fprintf( stderr, _("xnec2c: segmentation fault, exiting\n") );
+      pr_crit("segmentation fault, exiting\n");
       break;
 
     case SIGFPE:
-      fprintf( stderr, _("xnec2c: floating point exception, exiting\n") );
+      pr_crit("floating point exception, exiting\n");
       break;
 
     case SIGABRT:
-      fprintf( stderr, _("xnec2c: abort signal received, exiting\n") );
+      pr_crit("abort signal received, exiting\n");
       break;
 
     case SIGTERM:
-      fprintf( stderr, _("xnec2c: termination request received, exiting\n") );
+      pr_crit("termination request received, exiting\n");
       break;
 
     case SIGCHLD:
@@ -571,8 +566,7 @@ static void sig_handler( int signal )
 
         if( !FORKED )
         {
-          fprintf( stderr,
-              _("xnec2c: not forked, ignoring SIGCHLD from pid %d\n"), pid );
+          pr_crit("not forked, ignoring SIGCHLD from pid %d\n", pid);
           return;
         }
         else
@@ -580,7 +574,7 @@ static void sig_handler( int signal )
           for( idx = 0; idx < calc_data.num_jobs; idx++ )
             if( forked_proc_data[idx]->child_pid == pid )
             {
-              fprintf( stderr, _("xnec2c: child process pid %d exited\n"), pid );
+              pr_crit("child process pid %d exited\n", pid);
               if( isFlagSet(MAIN_QUIT) ) return;
               else break;
             }
@@ -589,7 +583,7 @@ static void sig_handler( int signal )
       }
 
     default:
-      fprintf( stderr, _("xnec2c: default exit with signal: %d\n"), signal );
+      pr_debug("default exit with signal: %d\n", signal);
   } /* switch( signal ) */
 
   /* Kill child processes */

@@ -42,10 +42,11 @@ void meas_calc(measurement_t *m, int idx)
 	// It should be fixed in commit 42afbe3a3, but just in case:
 	if (mgidx < 0)
 	{
-		printf("BUG: invalid mgidx=%d: idx=%d pol=%d fstep=%d last_step=%d freq_step=%d\n",
-				mgidx, idx, pol, calc_data.last_step + 1,
-			   calc_data.last_step, calc_data.freq_step);
-		printf("BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d\n", idx, save.fstep[idx], isFlagSet(FREQ_LOOP_STOP));
+		BUG("BUG: invalid mgidx=%d: idx=%d pol=%d fstep=%d last_step=%d freq_step=%d\n",
+		    mgidx, idx, pol, calc_data.last_step + 1,
+		    calc_data.last_step, calc_data.freq_step);
+		BUG("BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d\n", idx,
+		    save.fstep[idx], isFlagSet(FREQ_LOOP_STOP));
 		mem_backtrace(rad_pattern[idx].max_gain_idx);
 		return;
 	}
@@ -153,7 +154,7 @@ int meas_name_idx(char *name, int len)
 
 	if (i == MEAS_COUNT)
 	{
-		printf("meas_name_idx: Invald name with length=%d: %s\n", len, name);
+		BUG("meas_name_idx: Invald name with length=%d: %s\n", len, name);
 		print_backtrace(NULL);
 	}
 
@@ -180,7 +181,7 @@ void meas_format(measurement_t *m, char *format, char *out, int outlen)
 	{
 		if (o >= out+outlen)
 		{
-			printf("meas_format: output overflow\n");
+			BUG("meas_format: output overflow\n");
 			break;
 		}
 
