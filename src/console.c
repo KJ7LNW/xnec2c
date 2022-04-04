@@ -68,7 +68,8 @@ inline void _xnec2c_printf(int level, const char *file, const char *func, const 
 		fprintf(stderr, "%s[%s]%s ",
 			pr_colors[level], pr_levels[level], COLOR_NONE);
 
-	vfprintf(stderr, format, args);
+	// Try to use the local language if possible:
+	vfprintf(stderr, _(format), args);
 
 #ifdef HAVE_BACKTRACE
 	// Temporarily set PR_DEBUG for print_backtrace.
