@@ -73,7 +73,8 @@ inline void _xnec2c_printf(int level, const char *file, const char *func, const 
 #ifdef HAVE_BACKTRACE
 	// Temporarily set PR_DEBUG for print_backtrace.
 	// print_backtrace uses PR_DEBUG so prevent recursion.
-	if (level != PR_DEBUG && rc_config.debug >= 2)
+	// Always backtrace if there is a BUG.
+	if (level == PR_BUG || (level != PR_DEBUG && rc_config.debug >= 2))
 	{
 		int oldverbose = rc_config.verbose;
 		rc_config.verbose = PR_DEBUG;
