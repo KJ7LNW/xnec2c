@@ -134,7 +134,7 @@ int open_mathlib(mathlib_t *lib)
 
 	if (lib == NULL)
 	{
-		pr_err("open_mathlib: lib is NULL\n");
+		BUG("open_mathlib: lib is NULL\n");
 		return 0;
 	}
 
@@ -154,7 +154,7 @@ int open_mathlib(mathlib_t *lib)
 
 	if (lib->handle == NULL)
 	{
-		pr_err("  Unable to open %s: %s\n", lib->lib, dlerror());
+		pr_info("%s: %s\n", lib->name, dlerror());
 		close_mathlib(lib);
 		return 0;
 	}
@@ -192,7 +192,10 @@ int open_mathlib(mathlib_t *lib)
 	}
 
 	if (lib->handle != NULL)
+	{
+		pr_info("%s is active: %s\n", lib->name, lib->lib);
 		return 1;
+	}
 	else
 		return 0;
 }
@@ -209,11 +212,8 @@ void init_mathlib()
 		mathlibs[libidx].functions = NULL;
 
 		// Try to open each library:
-		pr_info("\nTrying %s (%s):\n", mathlibs[libidx].name, mathlibs[libidx].lib);
 		if (!open_mathlib(&mathlibs[libidx]))
 		{
-			pr_info("  skipping.\n");
-
 			close_mathlib(&mathlibs[libidx]);
 
 			mathlibs[libidx].available = 0;
@@ -228,12 +228,13 @@ void init_mathlib()
 		{
 			char lpath[PATH_MAX];
 			dlinfo(mathlibs[libidx].handle, RTLD_DI_ORIGIN, lpath);
-			pr_info("  loaded ok: %s/%s\n", lpath, mathlibs[libidx].lib);
+			pr_notice("Loaded %s: %s/%s\n",
+				mathlibs[libidx].name, lpath, mathlibs[libidx].lib);
 		}
 		else
-			pr_info("  loaded ok.\n");
+			pr_notice("Loaded %s\n", mathlibs[libidx].name);
 #else
-		pr_info("  loaded ok.\n");
+		pr_notice("Loaded %s\n", mathlibs[libidx].name);
 #endif
 
 		// Set the default to the first one we find:
@@ -647,7 +648,7 @@ void mathlib_benchmark(int slow)
 
 		while (calc_data.num_jobs >= 1)
 		{
-			pr_info("\nStarting %s benchmark (-j %d)\n",
+			pr_info("Starting %s benchmark (-j %d)\n",
 				active_mathlib->name, calc_data.num_jobs);
 
 			New_Frequency_Reset_Prev();
