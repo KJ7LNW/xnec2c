@@ -70,7 +70,10 @@ main (int argc, char *argv[])
   /* Process command line options */
   calc_data.num_jobs  = 1;
   rc_config.input_file[0] = '\0';
-  while( (option = getopt(argc, argv, "i:j:hvPb") ) != -1 )
+
+  // default to show warnings or more important errors.
+  rc_config.verbose = 4; 
+  while( (option = getopt(argc, argv, "i:j:hdqvVPb") ) != -1 )
   {
     switch( option )
     {
@@ -86,6 +89,19 @@ main (int argc, char *argv[])
           /* For null term. */
           Strlcpy( rc_config.input_file, optarg, siz );
         }
+        break;
+
+      case 'v': /* increase verbosity */
+        rc_config.verbose++;
+        break;
+
+      case 'd': /* debug */
+        rc_config.debug++;
+        break;
+
+      case 'q': /* quiet */
+        rc_config.debug = 0;
+        rc_config.verbose = 0;
         break;
 
       case 'j': /* number of child processes = num of processors */
@@ -114,7 +130,7 @@ main (int argc, char *argv[])
         usage();
         exit(0);
 
-      case 'v': /* print xnec2c version */
+      case 'V': /* print xnec2c version */
         puts( PACKAGE_STRING );
         exit(0);
 

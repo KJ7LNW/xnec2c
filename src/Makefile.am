@@ -25,6 +25,7 @@ xnec2c_SOURCES = \
     measurements.c  measurements.h \
     interface.c     interface.h \
     callbacks.c     callbacks.h \
+    console.c       console.h \
     callback_func.c callback_func.h \
     calculations.c  calculations.h \
     cmnd_edit.c     cmnd_edit.h \

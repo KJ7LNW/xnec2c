@@ -47,6 +47,12 @@
 #undef I
 #define I _Complex_I
 
+// Use __LOCATION__ anywhere you want the file and line number:
+// (Move this to be used in all calls to mem_realloc)
+#define __S1(x) #x
+#define __S2(x) __S1(x)
+#define  __LOCATION__ __FILE__ ":"  __S2(__LINE__)
+
 /*
  * Standard gettext macros.
  */
@@ -329,6 +335,8 @@ typedef struct
   /* if true, exit after the first frequency loop iteration */
   int batch_mode;
 
+  /* verbose and debug levels, see console.h */
+  int verbose, debug;
 } rc_config_t;
 
 typedef struct {

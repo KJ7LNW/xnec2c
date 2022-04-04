@@ -40,15 +40,16 @@ void _print_backtrace(char **strings);
   void
 usage(void)
 {
-  fprintf( stderr,
-      _("Usage: xnec2c <input-file-name>\n"
-        "              [-i <input-file-name>]\n"
-        "              [-j <number of processors in SMP machine>]\n"
-        "                  -j 0 disables forking for debug.\n"
-        "              [-b: enable batch mode, exit after the frequency loop runs.\n"
-        "              [-P: debug: disable pthreads for freqloop, use GTK mainloop instead.\n"
-        "              [-h: print this usage information and exit]\n"
-        "              [-v: print xnec2c version number and exit]\n") );
+  fprintf(stderr, "Usage: xnec2c <input-file-name>\n"
+         "              [-i <input-file-name>]\n"
+         "              [-j <number of processors in SMP machine>]\n"
+         "                  -j 0 disables forking for debug.\n"
+         "              [-b: enable batch mode, exit after the frequency loop runs.]\n"
+         "              [-P: debug: disable pthreads for freqloop, use GTK mainloop instead.]\n"
+         "              [-h: print this usage information and exit.]\n"
+         "              [-V: print xnec2c version number and exit.]\n"
+         "              [-v: increase verbosity, can be specified multiple times.]\n"
+         "              [-d: increase debug output (-dd includes backtraces).]\n");
 
 } /* end of usage() */
 
