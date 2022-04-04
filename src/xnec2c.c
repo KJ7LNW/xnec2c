@@ -487,8 +487,8 @@ New_Frequency( void )
   clock_gettime(CLOCK_MONOTONIC, &end);
   
   elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
-  pr_info("New_Frequency[%d]: %s: total time at %.6f MHz: %f seconds\n",
-  			getpid(), current_mathlib->name, calc_data.freq_mhz, elapsed);
+  pr_info("%.6f MHz: %f seconds. (%s)\n",
+			calc_data.freq_mhz, elapsed, current_mathlib->name);
 
 } /* New_Frequency()  */
 
@@ -877,8 +877,9 @@ gboolean Frequency_Loop( gpointer udata )
     SetFlag( FREQ_LOOP_DONE );
 
 	clock_gettime(CLOCK_MONOTONIC, &end);
-	pr_notice("Frequency_Loop elapsed time: %f seconds\n",
-                (end.tv_sec + (double)end.tv_nsec / 1e9) - (start.tv_sec + (double)start.tv_nsec / 1e9));
+	pr_notice("Frequency loop elapsed time: %f seconds. (%s)\n",
+                (end.tv_sec + (double)end.tv_nsec / 1e9) - (start.tv_sec + (double)start.tv_nsec / 1e9),
+				(FORKED ? get_mathlib_by_idx(rc_config.mathlib_batch_idx)->name : current_mathlib->name));
 
     /* After the loop is finished, re-set the saved frequency
      * that the user clicked on in the frequency plots window */
