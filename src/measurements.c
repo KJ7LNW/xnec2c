@@ -35,21 +35,8 @@ const char *meas_names[] = {
 void meas_calc(measurement_t *m, int idx)
 {
 	int pol = calc_data.pol_type;
-	int mgidx = rad_pattern[idx].max_gain_idx[pol];
-
-	// This should never happen, but please report it with your .NEC file if it does.
-	//
-	// It should be fixed in commit 42afbe3a3, but just in case:
-	if (mgidx < 0)
-	{
-		BUG("BUG: invalid mgidx=%d: idx=%d pol=%d fstep=%d last_step=%d freq_step=%d\n",
-		    mgidx, idx, pol, calc_data.last_step + 1,
-		    calc_data.last_step, calc_data.freq_step);
-		BUG("BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d\n", idx,
-		    save.fstep[idx], isFlagSet(FREQ_LOOP_STOP));
-		mem_backtrace(rad_pattern[idx].max_gain_idx);
-		return;
-	}
+	int mgidx;
+	int i;
 
 	double Zr, Zi, Zo = calc_data.zo;
 
@@ -70,6 +57,11 @@ void meas_calc(measurement_t *m, int idx)
 	double fbdir;
 	int fbidx, nth, nph;
 
+	// Start with invalidated values (-1) in case something cannot be
+	// calculated due to NEC state or card configuration:
+	for (i = 0; i < MEAS_COUNT; i++)
+		m->a[i] = -1;
+
 	m->mhz = save.freq[idx];
 
 	Zr = m->zreal = impedance_data.zreal[idx];
@@ -88,6 +80,26 @@ void meas_calc(measurement_t *m, int idx)
 
 	double net_gain_adjust = 10.0 * log10( 4.0 * Zr * Zo / (pow(Zr + Zo, 2.0) + pow( Zi, 2.0 )) );
 
+	// Everything below here is dependent on the radiation pattern
+	// having been calculated, so fields will remain invalid (-1).
+	if (rad_pattern == NULL)
+		return;
+
+	mgidx = rad_pattern[idx].max_gain_idx[pol];
+
+	// This should never happen, but please report it with your .NEC file if it does.
+	//
+	// It should be fixed in commit 42afbe3a3, but just in case:
+	if (mgidx < 0)
+	{
+		BUG("BUG: invalid mgidx=%d: idx=%d pol=%d fstep=%d last_step=%d freq_step=%d\n",
+			mgidx, idx, pol, calc_data.last_step + 1,
+			calc_data.last_step, calc_data.freq_step);
+		BUG("BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d\n", idx,
+			save.fstep[idx], isFlagSet(FREQ_LOOP_STOP));
+		mem_backtrace(rad_pattern[idx].max_gain_idx);
+		return;
+	}
 	m->gain_max = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
 	m->gain_net = m->gain_max + net_gain_adjust;
 

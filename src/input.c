@@ -1319,7 +1319,10 @@ Read_Commands( void )
 
     /* Disable radiation pattern plots */
     if( (fpat.nth < 1) || (fpat.nph < 1) || (gnd.ifar == 1) )
+    {
+      if (!CHILD) pr_notice("Missing or invalid RP card: Radiation pattern and gain calculations disabled\n");
       ClearFlag( ENABLE_RDPAT );
+    }
     else
     {
       /* Allocate radiation pattern buffers FIXME */
