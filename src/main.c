@@ -461,7 +461,6 @@ Open_Input_File( gpointer arg )
     /* Simulate activation of main rdpattern button */
     if( isFlagClear(OPTIMIZER_OUTPUT) )
       Main_Rdpattern_Activate( FALSE );
-    crnt.valid = 0;
 
     /* Select display of radiation or EH pattern */
     if( isFlagSet(DRAW_GAIN) )
