@@ -39,19 +39,14 @@ static mathlib_t mathlibs[] = {
 	{.type = MATHLIB_ATLAS, .lib = "libtatlas.so.3", .name = "ATLAS, Threaded", .f_prefix = "clapack_"},
 	{.type = MATHLIB_ATLAS, .lib = "libsatlas.so.3", .name = "ATLAS, Serial", .f_prefix = "clapack_"},
 
-	// CentOS 7: yum install openblas-devel
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas.so",  .name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_"},
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so", .name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
-	// CentOS 7: yum install openblas-{serial,threads,openmp}
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas.so.0",  .name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_"},
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so.0", .name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so.0", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
-
+	// CentOS 7: yum install openblas-devel # or openblas-{serial,threads,openmp}
 	// openSUSE OpenBLAS: zypper install libopenblas_*0
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas_serial.so.0",  .name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_"},
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas_openmp.so.0", .name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
-	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas_pthreads.so.0", .name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
+	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas.so.0,libopenblas.so,libopenblas_serial.so.0",
+		.name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_"},
+	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so.0,libopenblaso.so,libopenblas_openmp.so.0",
+		.name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
+	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so.0,libopenblasp.so,libopenblas_pthreads.so.0",
+		.name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
 
 	// Ubuntu / Debian: apt-get install liblapacke libopenblas0-*
 	// Tested Ubuntu 16.04, 18.04, 20.04, Debian 9, Debian 11
@@ -129,6 +124,7 @@ void close_mathlib(mathlib_t *lib)
 
 int open_mathlib(mathlib_t *lib)
 {
+	char *libfn0 = NULL, *libfn, *token;
 	char fname[40];
 	int fidx;
 
@@ -149,20 +145,31 @@ int open_mathlib(mathlib_t *lib)
 	// Clear any error state
 	dlerror();
 
-	// Open the .so library
-	lib->handle = dlopen(lib->lib, RTLD_NOW);
+	// Open the .so library, split on a comma (,):
+	mem_alloc((void**)&libfn0, strlen(lib->lib)+1, __LOCATION__);
+	strcpy(libfn0, lib->lib);
+	libfn = libfn0;
+	while ((token = strtok_r(libfn, ",", &libfn)) != NULL)
+	{
+		lib->handle = dlopen(token, RTLD_NOW);
+		if (lib->handle == NULL)
+		{
+			pr_info("%s: %s\n", lib->name, dlerror());
+			close_mathlib(lib);
+		}
+		else
+		{
+			pr_info("%s: opened %s\n", lib->name, token);
+			break;
+		}
+	}
+	free_ptr((void**)&libfn0);
 
 	if (lib->handle == NULL)
 	{
-		pr_info("%s: %s\n", lib->name, dlerror());
-		close_mathlib(lib);
+		pr_info("%s: library not found or nonfunctional, skipping: %s\n", lib->name, lib->lib);
 		return 0;
 	}
-
-#ifdef HAVE_LMID
-	if (dlinfo(lib->handle, RTLD_DI_LMID, &lib->lmid) == -1)
-		pr_err("dlinfo: %s: %s\n", lib->lib, dlerror());
-#endif
 
 	// Call the init() function if configured
 	if (lib->init != NULL)
@@ -192,10 +199,7 @@ int open_mathlib(mathlib_t *lib)
 	}
 
 	if (lib->handle != NULL)
-	{
-		pr_info("%s is active: %s\n", lib->name, lib->lib);
 		return 1;
-	}
 	else
 		return 0;
 }
@@ -223,19 +227,7 @@ void init_mathlib()
 			mathlibs[libidx].available = 1;
 
 		// At this point the library load was successful, provide detail:
-#ifdef HAVE_LMID
-		if (mathlibs[libidx].handle != NULL)
-		{
-			char lpath[PATH_MAX];
-			dlinfo(mathlibs[libidx].handle, RTLD_DI_ORIGIN, lpath);
-			pr_notice("Loaded %s: %s/%s\n",
-				mathlibs[libidx].name, lpath, mathlibs[libidx].lib);
-		}
-		else
-			pr_notice("Loaded %s\n", mathlibs[libidx].name);
-#else
-		pr_notice("Loaded %s\n", mathlibs[libidx].name);
-#endif
+		pr_notice("%s: loaded\n", mathlibs[libidx].name);
 
 		// Set the default to the first one we find:
 		if (current_mathlib == NULL)
