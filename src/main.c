@@ -539,7 +539,7 @@ static void sig_handler( int signal )
   switch( signal )
   {
     case SIGINT:
-      pr_crit("exiting via user interrupt\n");
+      if (!CHILD) pr_crit("exiting via user interrupt\n");
       break;
 
     case SIGSEGV:
