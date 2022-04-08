@@ -1379,7 +1379,7 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
     pr_err("command data card error: Unexpected EOF while reading input file - appending EN card\n");
     Stop( _("Command data card error\n"
           "Unexpected EOF while reading input file\n"
-            "Uppending a default EN card"), ERR_OK );
+            "Appending a default EN card"), ERR_OK );
     free_ptr( (void **)&startptr );
     return( FALSE );
   }
@@ -1538,7 +1538,7 @@ readgm( char *gm, int *i1, int *i2, double *x1,
     pr_err("geometry data card error: Unexpected EOF while reading input file - appending GE card\n");
     Stop( _("Geometry data card error\n"
           "Unexpected EOF while reading input file\n"
-          "Uppending a default GE card"), ERR_OK );
+          "Appending a default GE card"), ERR_OK );
     free_ptr( (void **)&startptr );
     return( FALSE );
   }
