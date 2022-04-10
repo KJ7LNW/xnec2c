@@ -600,8 +600,8 @@ void intrp( double x, double y, complex double *f1,
   {
     first_call = FALSE;
     size_t mreq = 3*sizeof(int);
-    mem_alloc( (void **)&nda,  mreq, _("in calculations.c"));
-    mem_alloc( (void **)&ndpa, mreq, _("in calculations.c"));
+    mem_alloc( (void **)&nda,  mreq, "in calculations.c");
+    mem_alloc( (void **)&ndpa, mreq, "in calculations.c");
     nda[0] = 11; nda[1] = 17; nda[2] = 9;
     ndpa[0] = 110; ndpa[1] = 85; ndpa[2] = 72;
   }
@@ -1224,11 +1224,11 @@ trio( int j )
       {
         segj.maxcon = segj.jsno +1;
         size_t mreq = (size_t)segj.maxcon * sizeof(int);
-        mem_realloc( (void **)&segj.jco, mreq, _("in calculations.c") );
+        mem_realloc( (void **)&segj.jco, mreq, "in calculations.c" );
         mreq = (size_t)segj.maxcon * sizeof(double);
-        mem_realloc( (void **) &segj.ax, mreq, _("in calculations.c") );
-        mem_realloc( (void **) &segj.bx, mreq, _("in calculations.c") );
-        mem_realloc( (void **) &segj.cx, mreq, _("in calculations.c") );
+        mem_realloc( (void **) &segj.ax, mreq, "in calculations.c" );
+        mem_realloc( (void **) &segj.bx, mreq, "in calculations.c" );
+        mem_realloc( (void **) &segj.cx, mreq, "in calculations.c" );
       }
 
       sbf( j, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
@@ -1256,11 +1256,11 @@ trio( int j )
       {
         segj.maxcon = segj.jsno +1;
         size_t mreq = (size_t)segj.maxcon * sizeof(int);
-        mem_realloc( (void **)&segj.jco, mreq, _("in calculations.c") );
+        mem_realloc( (void **)&segj.jco, mreq, "in calculations.c" );
         mreq = (size_t)segj.maxcon * sizeof(double);
-        mem_realloc( (void **) &segj.ax, mreq, _("in calculations.c") );
-        mem_realloc( (void **) &segj.bx, mreq, _("in calculations.c") );
-        mem_realloc( (void **) &segj.cx, mreq, _("in calculations.c") );
+        mem_realloc( (void **) &segj.ax, mreq, "in calculations.c" );
+        mem_realloc( (void **) &segj.bx, mreq, "in calculations.c" );
+        mem_realloc( (void **) &segj.cx, mreq, "in calculations.c" );
       }
 
       sbf( jcox, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
@@ -1302,11 +1302,11 @@ trio( int j )
   {
     segj.maxcon = segj.jsno +1;
     size_t mreq = (size_t)segj.maxcon * sizeof(int);
-    mem_realloc( (void **)&segj.jco, mreq, _("in calculations.c") );
+    mem_realloc( (void **)&segj.jco, mreq, "in calculations.c" );
     mreq = (size_t)segj.maxcon * sizeof(double);
-    mem_realloc( (void **) &segj.ax, mreq, _("in calculations.c") );
-    mem_realloc( (void **) &segj.bx, mreq, _("in calculations.c") );
-    mem_realloc( (void **) &segj.cx, mreq, _("in calculations.c") );
+    mem_realloc( (void **) &segj.ax, mreq, "in calculations.c" );
+    mem_realloc( (void **) &segj.bx, mreq, "in calculations.c" );
+    mem_realloc( (void **) &segj.cx, mreq, "in calculations.c" );
   }
 
   sbf( j, j, &segj.ax[jsnox], &segj.bx[jsnox], &segj.cx[jsnox]);
