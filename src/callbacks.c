@@ -85,7 +85,7 @@ on_main_window_delete_event(
     return( TRUE );
   }
 
-  Delete_Event( _("Really quit xnec2c?") );
+  Delete_Event( _("Are you sure you wish to quit xnec2c?") );
   return( TRUE );
 }
 
@@ -346,7 +346,7 @@ on_quit_activate(
     return;
   }
 
-  Delete_Event( _("Really quit xnec2c?") );
+  Delete_Event( _("Are you sure you wish to quit xnec2c?") );
 }
 
 
@@ -992,7 +992,7 @@ on_freqplots_window_delete_event(
   }
 
   kill_window = freqplots_window;
-  Delete_Event( _("Really close window?") );
+  Delete_Event( _("Are you sure you wish to close this window?") );
   return( TRUE );
 }
 
@@ -1305,7 +1305,7 @@ on_rdpattern_window_delete_event(
   }
 
   kill_window = rdpattern_window;
-  Delete_Event( _("Really close window?") );
+  Delete_Event( _("Are you sure you wish to close this window?") );
   return( TRUE );
 }
 
@@ -1752,7 +1752,7 @@ on_quit_okbutton_clicked(
       Stop_Frequency_Loop();
       gtk_label_set_text( GTK_LABEL(
             Builder_Get_Object(quit_dialog_builder, "quit_label")),
-          _("Really quit Xnec2c?") );
+          _("Are you sure you wish to quit xnec2c?") );
       ClearFlag( MAIN_QUIT );
       return;
     }
@@ -2099,7 +2099,7 @@ on_nec2_editor_key_press_event(
       return( TRUE );
     }
 
-    Delete_Event( _("Really quit xnec2c?") );
+    Delete_Event( _("Are you sure you wish to quit xnec2c?") );
     return( TRUE );
   }
 
@@ -2125,7 +2125,7 @@ on_nec2_editor_delete_event(
     return( TRUE );
   }
 
-  Delete_Event( _("Really close window?") );
+  Delete_Event( _("Are you sure you wish to close this window?") );
   return( TRUE );
 }
 

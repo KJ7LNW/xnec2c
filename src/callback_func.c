@@ -259,11 +259,11 @@ Delete_Event( gchar *mesg )
       gtk_label_set_text( GTK_LABEL(
             Builder_Get_Object(quit_dialog_builder, "quit_label")),
           _("The frequency loop is running\n"
-            "Really end operation?") );
+            "Are you sure you wish to end the calculation?") );
     else gtk_label_set_text( GTK_LABEL(
           Builder_Get_Object(quit_dialog_builder, "quit_label")),
         _("The frequency loop is running\n"
-          "Really close this window?") );
+          "Are you sure you wish to close this window?") );
   }
   else gtk_label_set_text( GTK_LABEL(
         Builder_Get_Object(quit_dialog_builder, "quit_label")), mesg );
