@@ -1,3 +1,4 @@
+*~
 *.o
 src/*.[is]
 /*.s[12]p
@@ -6,9 +7,17 @@ src/*.[is]
 /examples/*.csv
 *.swp
 *.patch
+/Makefile
 /Makefile.in
+/intltool-extract.in
+/intltool-merge.in
+/intltool-update.in
+/missing
+/depcomp
+po/stamp-it
 po/Makefile
 po/Makefile.in
+po/Makefile.in.in
 po/Makevars.template
 po/POTFILES
 po/Rules-quot
@@ -19,7 +28,9 @@ po/insert-header.sin
 po/quot.sed
 po/remove-potcdate.sin
 po/stamp-po
+po/stamp-it
 po/xnec2c.pot
+po/*.gmo
 aclocal.m4
 autom4te.cache/
 config.guess
@@ -37,6 +48,10 @@ gmon.txt
 install-sh
 src/xnec2c
 src/xnec2c-resources.c
+src/*.[is]
+src/.deps/
+src/Makefile
+src/Makefile.in
 m4
 ABOUT-NLS
 missing 
