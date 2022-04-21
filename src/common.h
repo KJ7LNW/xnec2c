@@ -66,7 +66,7 @@ typedef void (* GSourceOnceFunc) (gpointer user_data);
 /*
  * Standard gettext macros.
  */
-#ifdef ENABLE_NLS
+#if defined(ENABLE_NLS) || defined(HAVE_LIBINTL_H)
 #  include <libintl.h>
 #  undef _
 #  define _(String) dgettext (PACKAGE, String)

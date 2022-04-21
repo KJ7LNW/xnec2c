@@ -9,6 +9,10 @@ EXTRA_DIST = \
 	doc \
 	.xnec2c
 
+INTLTOOL_FILES = intltool-extract.in \
+                 intltool-merge.in \
+                 intltool-update.in
+
 DISTCLEANFILES = \
 				 autom4te.cache/* \
 				 intl/* \
@@ -43,6 +47,10 @@ DISTCLEANFILES = \
 				 po/quot.sed \
 				 po/Makefile.in.in \
 				 po/xnec2c.pot \
+				 intltool-extract \
+				 intltool-merge \
+				 intltool-update \
+				 po/.intltool-merge-cache \
 				 Makefile
 
 install-data-local:

@@ -133,6 +133,10 @@ main (int argc, char *argv[])
   // The pointer returned from setlocale() seems to be stack sensitive
   // so make a copy of it for later:
   setlocale(LC_ALL, "");
+  bindtextdomain(GETTEXT_PACKAGE, PROGRAMNAME_LOCALEDIR);
+  bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+  textdomain(GETTEXT_PACKAGE);
+
   char *l = setlocale(LC_NUMERIC, NULL);
   mem_alloc((void**)&orig_numeric_locale, strlen(l)+1, __LOCATION__);
   strcpy(orig_numeric_locale, l);

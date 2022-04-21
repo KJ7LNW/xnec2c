@@ -155,6 +155,14 @@ AM_GNU_GETTEXT([external])
 PROGRAMNAME_LOCALEDIR=[${datadir}/locale]
 AC_SUBST(PROGRAMNAME_LOCALEDIR)
 
+IT_PROG_INTLTOOL([0.50.0])
+
+# --force seems like a hack, but it seems that po/Makefile.in.in
+# is in conflict between gettext and intltool so --force "fixes" it.
+# Patches welcome if you have a better way!
+intltoolize --automake --force
+
+
 # Add the languages which your application supports here.
 ALL_LINGUAS=""
 
