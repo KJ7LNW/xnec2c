@@ -29,19 +29,41 @@
 
 #define  COLOR_NONE           "\x1b[0m"
 
+// Thanks to @RichardHansen: https://stackoverflow.com/a/11172679/14055985
+// This provides a '##' free version for macro comma separation:
+#define _VA_FIRST(...) _VA_FIRST_HELPER(__VA_ARGS__, throwaway)
+#define _VA_FIRST_HELPER(first, ...) first
+
+#define _VA_REST(...) _VA_REST_HELPER(_VA_NUM(__VA_ARGS__), __VA_ARGS__)
+#define _VA_REST_HELPER(qty, ...) _VA_REST_HELPER2(qty, __VA_ARGS__)
+#define _VA_REST_HELPER2(qty, ...) _VA_REST_HELPER_##qty(__VA_ARGS__)
+#define _VA_REST_HELPER_ONE(first)
+#define _VA_REST_HELPER_TWOORMORE(first, ...) , __VA_ARGS__
+#define _VA_NUM(...) \
+    _VA_SELECT_32ND(__VA_ARGS__, \
+			TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, \
+			TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, \
+			TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, \
+			TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, \
+			TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, \
+			ONE, throwaway)
+#define _VA_SELECT_32ND(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, \
+			a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, \
+			a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, ...) a32
+
 // Basically follow the Linux kernel's pr_ message values, but pr_emerg is BUG.
 // rc_config.verbose = 0 will suppress all output except for BUGs.
+#define BUG(...)       _xnec2c_printf(PR_BUG,    __FILE__, __func__, __LINE__, _VA_FIRST(__VA_ARGS__)  _VA_REST(__VA_ARGS__))
+#define pr_alert(...)  _xnec2c_printf(PR_ALERT,  __FILE__, __func__, __LINE__, _VA_FIRST(__VA_ARGS__)  _VA_REST(__VA_ARGS__))
+#define pr_crit(...)   _xnec2c_printf(PR_CRIT,   __FILE__, __func__, __LINE__, _VA_FIRST(__VA_ARGS__)  _VA_REST(__VA_ARGS__))
+#define pr_err(...)    _xnec2c_printf(PR_ERR,    __FILE__, __func__, __LINE__, _VA_FIRST(__VA_ARGS__)  _VA_REST(__VA_ARGS__))
+#define pr_warn(...)   _xnec2c_printf(PR_WARN,   __FILE__, __func__, __LINE__, _VA_FIRST(__VA_ARGS__)  _VA_REST(__VA_ARGS__))
+#define pr_notice(...) _xnec2c_printf(PR_NOTICE, __FILE__, __func__, __LINE__, _VA_FIRST(__VA_ARGS__)  _VA_REST(__VA_ARGS__))
+#define pr_info(...)   _xnec2c_printf(PR_INFO,   __FILE__, __func__, __LINE__, _VA_FIRST(__VA_ARGS__)  _VA_REST(__VA_ARGS__))
+#define pr_debug(...)  _xnec2c_printf(PR_DEBUG,  __FILE__, __func__, __LINE__, _VA_FIRST(__VA_ARGS__)  _VA_REST(__VA_ARGS__))
 
-#define BUG(...)        _xnec2c_printf(PR_BUG,  __FILE__,  __func__,  __LINE__,  ##  __VA_ARGS__)
-#define BUG_ON(expr, ...) { if (expr) BUG(PR_BUG, ## __VA_ARGS__) }
-
-#define pr_alert(...)   _xnec2c_printf(PR_ALERT,   __FILE__,  __func__,  __LINE__,  ##  __VA_ARGS__)
-#define pr_crit(...)    _xnec2c_printf(PR_CRIT,    __FILE__,  __func__,  __LINE__,  ##  __VA_ARGS__)
-#define pr_err(...)     _xnec2c_printf(PR_ERR,     __FILE__,  __func__,  __LINE__,  ##  __VA_ARGS__)
-#define pr_warn(...)    _xnec2c_printf(PR_WARN,    __FILE__,  __func__,  __LINE__,  ##  __VA_ARGS__)
-#define pr_notice(...)  _xnec2c_printf(PR_NOTICE,  __FILE__,  __func__,  __LINE__,  ##  __VA_ARGS__)
-#define pr_info(...)    _xnec2c_printf(PR_INFO,    __FILE__,  __func__,  __LINE__,  ##  __VA_ARGS__)
-#define pr_debug(...)   _xnec2c_printf(PR_DEBUG,   __FILE__,  __func__,  __LINE__,  ##  __VA_ARGS__)
+// Funny {} braces are to deal with else cases that generate compiler warnings:
+#define BUG_ON(expr, ...) { if (expr) BUG(__VA_ARGS__) }
 
 enum 
 {
