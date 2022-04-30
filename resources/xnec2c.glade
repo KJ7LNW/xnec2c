@@ -288,15 +288,7 @@ PLEASE read the documantation in the doc/ sub-directory as xnec2c is not fully c
     <property name="icon">xnec2c.svg</property>
     <signal name="destroy" handler="on_gl_destroy" swapped="no"/>
 	<child>
-	  <object class="GtkGLArea" id="gl_drawing_area">
-		<signal name="realize" handler="gl_init" swapped="yes"/>
-		<signal name="unrealize" handler="gl_fini" swapped="yes"/>
-		<signal name="render" handler="gl_draw" swapped="yes"/>
-		<property name="visible">True</property>
-		<property name="can_focus">False</property>
-		<property name="hexpand">True</property>
-		<property name="vexpand">True</property>
-	  </object>
+	  <object class="GtkBox" id="gl_drawing_area"> </object>
 	</child>
   </object>
   <object class="GtkWindow" id="arc_editor">
