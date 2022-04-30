@@ -24,7 +24,7 @@
  * forming the radiation pattern */
 point_3d_t *point_3d = NULL;
 
-rgba_t *colors = NULL;
+rgba_t *rdpat_colors = NULL;
 
 /*-----------------------------------------------------------------------*/
 
@@ -117,7 +117,7 @@ Draw_Radiation_Pattern( cairo_t *cr )
     mem_realloc( (void **)&point_3d, mreq, "in draw_radiation.c" );
     mreq = (size_t)((fpat.nth-1) * fpat.nph + (fpat.nph-1) * fpat.nth);
     mreq *= sizeof(rgba_t);
-    mem_realloc( (void **)&colors, mreq, "in draw_radiation.c" );
+    mem_realloc( (void **)&rdpat_colors, mreq, "in draw_radiation.c" );
 
     ClearFlag( DRAW_NEW_RDPAT );
 
@@ -186,10 +186,10 @@ Draw_Radiation_Pattern( cairo_t *cr )
       for( nth = 1; nth < fpat.nth; nth++ )
       {
         Value_to_Color(
-            &colors[col_idx].r, &colors[col_idx].g, &colors[col_idx].b,
+            &rdpat_colors[col_idx].r, &rdpat_colors[col_idx].g, &rdpat_colors[col_idx].b,
             (point_3d[pts_idx].r+point_3d[pts_idx+1].r)/2.0-r_min,
             r_range );
-		colors[col_idx].a = 0.5;
+		rdpat_colors[col_idx].a = 0.5;
         col_idx++;
         pts_idx++;
 
@@ -207,7 +207,7 @@ Draw_Radiation_Pattern( cairo_t *cr )
       for( nph = 1; nph < fpat.nph; nph++ )
       {
         Value_to_Color(
-            &colors[col_idx].r, &colors[col_idx].g, &colors[col_idx].b,
+            &rdpat_colors[col_idx].r, &rdpat_colors[col_idx].g, &rdpat_colors[col_idx].b,
             (point_3d[pts_idx].r +
              point_3d[pts_idx+fpat.nth].r)/2.0-r_min,
             r_range );
@@ -292,8 +292,8 @@ Draw_Radiation_Pattern( cairo_t *cr )
       pts_idx++;
 
       /* Draw segment */
-      cairo_set_source_rgb( cr, colors[col_idx].r, colors[col_idx].g,
-                           colors[col_idx].b);
+      cairo_set_source_rgb( cr, rdpat_colors[col_idx].r, rdpat_colors[col_idx].g,
+                           rdpat_colors[col_idx].b);
       Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
       col_idx++;
 
@@ -330,8 +330,8 @@ Draw_Radiation_Pattern( cairo_t *cr )
 
 
       /* Draw segment */
-      cairo_set_source_rgb( cr, colors[col_idx].r, colors[col_idx].g,
-                           colors[col_idx].b);
+      cairo_set_source_rgb( cr, rdpat_colors[col_idx].r, rdpat_colors[col_idx].g,
+                           rdpat_colors[col_idx].b);
       Cairo_Draw_Line( cr, segm.x1, segm.y1, segm.x2, segm.y2 );
       col_idx++;
 
@@ -1196,7 +1196,7 @@ Alloc_Nearfield_Buffers( int n1, int n2, int n3 )
 Free_Draw_Buffers( void )
 {
   free_ptr( (void **)&point_3d );
-  free_ptr( (void **)&colors);
+  free_ptr( (void **)&rdpat_colors);
 }
 
 /*-----------------------------------------------------------------------*/
