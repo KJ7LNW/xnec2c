@@ -1,6 +1,6 @@
 #include "console.h"
 
-const char *colors[] = {
+const char *vt100_colors[] = {
 	COLOR_BLACK,
 	COLOR_BLUE,
 	COLOR_GREEN,

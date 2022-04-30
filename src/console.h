@@ -77,10 +77,6 @@ enum
 	PR_DEBUG
 };
 
-extern const char *colors[];
-extern const char *pr_levels[];
-extern const char *pr_colors[];
-
 extern rc_config_t rc_config;
 
 void _xnec2c_printf(int level, const char *file, const char *func, const int line, char *format, ...);
