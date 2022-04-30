@@ -34,9 +34,36 @@ static pid_t child_pid = (pid_t)(-1);
 
 char *orig_numeric_locale = NULL;
 
+extern rgba_t *rdpat_colors;
+extern point_3d_t *point_3d;
+
 void Gtk_Builder( GtkBuilder **builder, gchar **object_ids );
+void gl_box_init(GtkBox *box);
 GtkWidget * create_gl_window( GtkBuilder **builder );
 GtkWidget *gl_window = NULL;
+GtkWidget *gl_area = NULL;
+
+// class members:
+static GLuint program;
+static GLuint mvp_location;
+static GLuint position_idx;
+static GLuint color_idx;
+static GLuint vao;
+float mvp[16];
+
+
+struct vertex_info {
+  float pos[3];
+  float color[3];
+};
+
+// Maybe not keep this?
+G_DEFINE_QUARK (glarea-error, glarea_error);
+
+typedef enum {
+  GLAREA_ERROR_SHADER_COMPILATION,
+  GLAREA_ERROR_SHADER_LINK
+} GlareaError;
 
   int
 main (int argc, char *argv[])
@@ -310,6 +337,7 @@ main (int argc, char *argv[])
 	{
 		GtkBuilder *gl_builder = NULL;
 		gl_window = create_gl_window(&gl_builder);
+		gl_box_init(gl_window);
 	  gtk_widget_show( gl_window );
 	}
 
@@ -321,78 +349,358 @@ main (int argc, char *argv[])
   return 0;
 } // main()
 
-
-gboolean on_gl_destroy(GObject *object, gpointer user_data)
+static guint create_shader(int shader_type, const char *source,
+	GError **error, guint *shader_out)
 {
-	return TRUE;
+	guint shader = glCreateShader(shader_type);
+
+	glShaderSource(shader, 1, &source, NULL);
+	glCompileShader(shader);
+
+	int status;
+
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+	if (status == GL_FALSE)
+	{
+		int log_len;
+
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &log_len);
+
+		char *buffer = g_malloc(log_len + 1);
+
+		glGetShaderInfoLog(shader, log_len, NULL, buffer);
+
+		g_set_error(error, glarea_error_quark(), GLAREA_ERROR_SHADER_COMPILATION,
+			    "Compilation failure in %s shader: %s",
+			    shader_type == GL_VERTEX_SHADER ? "vertex" : "fragment", buffer);
+
+		g_free(buffer);
+
+		glDeleteShader(shader);
+		shader = 0;
+	}
+
+	if (shader_out != NULL)
+		*shader_out = shader;
+
+	return shader != 0;
 }
 
-void gl_init(GtkGLArea *area)
+static gboolean init_shaders(guint *program_out, guint *mvp_location_out,
+	guint *position_location_out, guint *color_location_out, GError **error)
 {
-	gtk_gl_area_make_current(GTK_GL_AREA(area));
-	if (gtk_gl_area_get_error(GTK_GL_AREA(area)) != NULL)
-	  return;
-  /* set the window title */
-char *title;
-  const char *renderer = (char*)glGetString (GL_RENDERER);
-  title = g_strdup_printf ("glarea on %s", renderer ? renderer : "Unknown");
-  gtk_window_set_title (GTK_WINDOW (area), title);
-  g_free (title);
+	GBytes *source;
+	guint program = 0;
+	guint mvp_location = 0;
+	guint vertex = 0, fragment = 0;
+	guint position_location = 0;
+	guint color_location = 0;
+
+	// load the vertex shader 
+	source = g_resources_lookup_data("/gl/rdpat-vertex.glsl", 0, NULL);
+	create_shader(GL_VERTEX_SHADER,
+		g_bytes_get_data(source, NULL), error, &vertex);
+
+	g_bytes_unref(source);
+	if (vertex == 0)
+	{
+		pr_err("unable to load resource /gl/rdpat-vertex.glsl\n");
+		goto out;
+	}
+
+	// load the fragment shader 
+	source = g_resources_lookup_data("/gl/rdpat-fragment.glsl", 0, NULL);
+	create_shader(GL_FRAGMENT_SHADER,
+		g_bytes_get_data(source, NULL), error, &fragment);
+
+	g_bytes_unref(source);
+	if (fragment == 0)
+	{
+		pr_err("unable to load resource /gl/rdpat-fragment.glsl\n");
+		goto out;
+	}
+
+	// link the vertex and fragment shaders together 
+	program = glCreateProgram();
+	glAttachShader(program, vertex);
+	glAttachShader(program, fragment);
+	glLinkProgram(program);
+
+	int status = 0;
+
+	glGetProgramiv(program, GL_LINK_STATUS, &status);
+	if (status == GL_FALSE)
+	{
+		int log_len = 0;
+
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &log_len);
+
+		char *buffer = g_malloc(log_len + 1);
+
+		glGetProgramInfoLog(program, log_len, NULL, buffer);
+
+		pr_err("Linking failure in program: %s", buffer);
+		g_set_error(error, glarea_error_quark(), GLAREA_ERROR_SHADER_LINK, "Linking failure in program: %s", buffer);
+
+		g_free(buffer);
+
+		glDeleteProgram(program);
+		program = 0;
+
+		goto out;
+	}
+
+	// get the location of the "mvp" uniform 
+	mvp_location = glGetUniformLocation(program, "mvp");
+
+	// get the location of the "position" and "color" attributes 
+	position_location = glGetAttribLocation(program, "position");
+	color_location = glGetAttribLocation(program, "color");
+
+	// the individual shaders can be detached and destroyed 
+	glDetachShader(program, vertex);
+	glDetachShader(program, fragment);
+
+out:
+	if (vertex != 0)
+		glDeleteShader(vertex);
+	if (fragment != 0)
+		glDeleteShader(fragment);
+
+	if (program_out != NULL)
+		*program_out = program;
+	if (mvp_location_out != NULL)
+		*mvp_location_out = mvp_location;
+	if (position_location_out != NULL)
+		*position_location_out = position_location;
+	if (color_location_out != NULL)
+		*color_location_out = color_location;
+
+	return program != 0;
+}
+
+static void init_buffers(guint position_idx, guint color_idx, guint *vao_out)
+{
+	guint vao, vertex_buffer, color_buffer;
+	pr_debug("fpat nth=%d nph=%d\n", fpat.nph, fpat.nth);
+
+	// we need to create a VAO to store the other buffers 
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	// this is the VBO that holds the vertex data 
+	glGenBuffers(1, &vertex_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+	glBufferData(GL_ARRAY_BUFFER, fpat.nph*fpat.nth*sizeof(point_3d_t),
+		point_3d, GL_STATIC_DRAW);
+
+	// enable and set the position attribute 
+	glEnableVertexAttribArray(position_idx);
+	glVertexAttribPointer(position_idx, 3, GL_DOUBLE, GL_FALSE,
+			      sizeof(point_3d_t), 0);
+
+	// this is the VBO that holds the vertex data 
+	//glGenBuffers(1, &color_buffer);
+	//glBindBuffer(GL_ARRAY_BUFFER, color_buffer);
+	glBufferData(GL_ARRAY_BUFFER, fpat.nph*fpat.nth*sizeof(rgba_t),
+		rdpat_colors, GL_STATIC_DRAW);
+
+	// enable and set the color attribute 
+	// TODO: Convert colors to bytes not doubles:
+	glEnableVertexAttribArray(color_idx);
+	glVertexAttribPointer(color_idx, 3, GL_DOUBLE, GL_FALSE,
+			      sizeof(rgba_t), 0);
+
+	// reset the state; we will re-enable the VAO when needed 
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
+	// the VBO is referenced by the VAO 
+	glDeleteBuffers(1, &vertex_buffer);
+	glDeleteBuffers(1, &color_buffer);
+
+	if (vao_out != NULL)
+		*vao_out = vao;
+}
+
+void init_mvp(float *res)
+{
+  /* initialize a matrix as an identity matrix */
+  res[0] = 1.f; res[4] = 0.f;  res[8] = 0.f; res[12] = 0.f;
+  res[1] = 0.f; res[5] = 1.f;  res[9] = 0.f; res[13] = 0.f;
+  res[2] = 0.f; res[6] = 0.f; res[10] = 1.f; res[14] = 0.f;
+  res[3] = 0.f; res[7] = 0.f; res[11] = 0.f; res[15] = 1.f;
+}
+
+void compute_mvp(float *res, float  phi, float  theta, float  psi)
+{
+  float x = phi * (G_PI / 180.f);
+  float y = theta * (G_PI / 180.f);
+  float z = psi * (G_PI / 180.f);
+  float c1 = cosf (x), s1 = sinf (x);
+  float c2 = cosf (y), s2 = sinf (y);
+  float c3 = cosf (z), s3 = sinf (z);
+  float c3c2 = c3 * c2;
+  float s3c1 = s3 * c1;
+  float c3s2s1 = c3 * s2 * s1;
+  float s3s1 = s3 * s1;
+  float c3s2c1 = c3 * s2 * c1;
+  float s3c2 = s3 * c2;
+  float c3c1 = c3 * c1;
+  float s3s2s1 = s3 * s2 * s1;
+  float c3s1 = c3 * s1;
+  float s3s2c1 = s3 * s2 * c1;
+  float c2s1 = c2 * s1;
+  float c2c1 = c2 * c1;
+  
+  /* apply all three Euler angles rotations using the three matrices:
+   *
+   * ⎡  c3 s3 0 ⎤ ⎡ c2  0 -s2 ⎤ ⎡ 1   0  0 ⎤
+   * ⎢ -s3 c3 0 ⎥ ⎢  0  1   0 ⎥ ⎢ 0  c1 s1 ⎥
+   * ⎣   0  0 1 ⎦ ⎣ s2  0  c2 ⎦ ⎣ 0 -s1 c1 ⎦
+   */
+  res[0] = c3c2;  res[4] = s3c1 + c3s2s1;  res[8] = s3s1 - c3s2c1; res[12] = 0.f;
+  res[1] = -s3c2; res[5] = c3c1 - s3s2s1;  res[9] = c3s1 + s3s2c1; res[13] = 0.f;
+  res[2] = s2;    res[6] = -c2s1;         res[10] = c2c1;          res[14] = 0.f;
+  res[3] = 0.f;   res[7] = 0.f;           res[11] = 0.f;           res[15] = 1.f;
 }
 
 void gl_fini(GtkGLArea *area, GdkGLContext *context)
 {
 }
 
-extern rgba_t *colors;
-extern point_3d_t *point_3d;
-
-gboolean gl_draw(GtkGLArea *area)
+void gl_init(GtkGLArea * area)
 {
-	printf("gl_draw: point_3d=%p colors=%p n=%d\n",
-		(void*)point_3d, (void*)colors,
-		fpat.nph*fpat.nth);
+	pr_debug("\n");
+	gtk_gl_area_make_current(GTK_GL_AREA(gl_area));
+	if (gtk_gl_area_get_error(GTK_GL_AREA(gl_area)) != NULL)
+		return;
 
+	init_mvp(mvp);
+
+	// initialize the shaders and retrieve the program data 
+	GError *error = NULL;
+
+	if (!init_shaders(&program, &mvp_location, &position_idx, &color_idx, &error))
+	{
+		// set the GtkGLArea in error state, so we'll
+		// see the error message rendered inside the viewport 
+		gtk_gl_area_set_error(GTK_GL_AREA(gl_area), error);
+		g_error_free(error);
+		return;
+	}
+
+	// set the window title 
+	const char *renderer = (char *) glGetString(GL_RENDERER);
+	pr_info("glarea renderer: %s\n", renderer ? renderer : "Unknown");
+}
+
+gboolean gl_draw(GtkGLArea * area)
+{
+	pr_debug("\n");
 	gtk_gl_area_make_current(GTK_GL_AREA(area));
 	if (gtk_gl_area_get_error(GTK_GL_AREA(area)) != NULL)
-	  return FALSE;
+	{
+		pr_err("gtk_gl_area_get_error() failed\n");
+		return FALSE;
+	}
 
-	glClearColor (0, 0, 255, 255);
-	glClear (GL_COLOR_BUFFER_BIT);
+	glClearColor(0, 0, 255, 255);
+	glClear(GL_COLOR_BUFFER_BIT);
 
+	printf("gl_draw: program=%d point_3d=%p rdpat_colors=%p n=%d area=%p\n",
+	       program, (void *) point_3d, (void *) rdpat_colors, fpat.nph * fpat.nth, area);
+
+	for (int i = 0; i < fpat.nph * fpat.nth; i++)
+	{
+		// rdpat_colors[i].r *= 255;
+		// rdpat_colors[i].g *= 255;
+		// rdpat_colors[i].b *= 255;
+		// rdpat_colors[i].a *= 255;
+	}
+	// initialize the vertex buffers 
+	init_buffers(position_idx, color_idx, &vao);
+
+	/*
+	   load our program 
+	 */
+	glUseProgram(program);
+
+	/*
+	   update the "mvp" matrix we use in the shader 
+	 */
+	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, &(mvp[0]));
+
+	/*
+	   use the buffers in the VAO 
+	 */
+	glBindVertexArray(vao);
+
+	/*
+	   draw the three vertices as a triangle 
+	 */
+	// glDrawArrays (GL_TRIANGLES, 0, 3);
+	//glDrawArrays(GL_TRIANGLES, 0, fpat.nph * fpat.nth);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, fpat.nph*fpat.nth);
+
+	/*
+	   we finished using the buffers and program 
+	 */
+	glBindVertexArray(0);
+	glUseProgram(0);
+
+	glFlush();
+
+	return;
 	// We will need blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// We need to do depth testing
-	//glEnable(GL_DEPTH_TEST);
+	// glEnable(GL_DEPTH_TEST);
 
 	// We enable the arrays
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 
-	//glPushMatrix();
+	// glPushMatrix();
 
-	glVertexPointer(3, GL_DOUBLE,sizeof(point_3d_t), point_3d);
-	glColorPointer(4, GL_DOUBLE, 0, colors);
+	glVertexPointer(3, GL_DOUBLE, sizeof(point_3d_t), point_3d);
+	glColorPointer(4, GL_DOUBLE, 0, rdpat_colors);
 
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, fpat.nph*fpat.nth);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, fpat.nph * fpat.nth);
 
-	//glPopMatrix();
+	// glPopMatrix();
 
 	// We disable the arrays
-	//glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_COLOR_ARRAY);
-	//glDisableClientState(GL_NORMAL_ARRAY);
+	// glDisableClientState(GL_VERTEX_ARRAY);
+	// glDisableClientState(GL_COLOR_ARRAY);
+	// glDisableClientState(GL_NORMAL_ARRAY);
 
 	// We disable blending
-	//glDisable(GL_BLEND);
+	// glDisable(GL_BLEND);
 
 	// We disable depth testing
-	//glDisable(GL_DEPTH_TEST);
-glFlush();
+	// glDisable(GL_DEPTH_TEST);
+	glFlush();
 
 	return FALSE;
+}
+
+void gl_box_init(GtkBox *box)
+{
+	pr_debug("box add\n");
+	gl_area = gtk_gl_area_new();
+	gtk_widget_set_hexpand(gl_area, TRUE);
+	gtk_widget_set_vexpand(gl_area, TRUE);
+
+	gtk_container_add(GTK_CONTAINER(box), gl_area);
+
+	g_signal_connect(gl_area, "realize", G_CALLBACK (gl_init), NULL);
+	g_signal_connect(gl_area, "unrealize", G_CALLBACK (gl_fini), NULL);
+	g_signal_connect(gl_area, "render", G_CALLBACK (gl_draw), NULL);
+
+	gtk_widget_show_all(box);
 }
 
 /*-----------------------------------------------------------------------*/
