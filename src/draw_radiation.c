@@ -26,6 +26,12 @@ point_3d_t *point_3d = NULL;
 
 rgba_t *rdpat_colors = NULL;
 
+color_point_t *rdpat_points = NULL;
+
+#define phi_theta_step_to_idx(phi_step, theta_step) (phi_step*fpat.nth + theta_step)
+
+#define phi_step_to_deg(phi_step)     ((fpat.phis + phi_step*fpat.dph)*TORAD)
+#define theta_step_to_deg(theta_step) ((fpat.thets + theta_step*fpat.dth)*TORAD)
 /*-----------------------------------------------------------------------*/
 
 /* Scale_Gain()
@@ -115,6 +121,10 @@ Draw_Radiation_Pattern( cairo_t *cr )
   {
     size_t mreq = ((size_t)(fpat.nth * fpat.nph)) * sizeof(point_3d_t);
     mem_realloc( (void **)&point_3d, mreq, "in draw_radiation.c" );
+
+    mreq = ((size_t)(fpat.nth * fpat.nph)) * sizeof(color_point_t);
+    mem_realloc( (void **)&rdpat_points, mreq, "in draw_radiation.c" );
+
     mreq = (size_t)((fpat.nth-1) * fpat.nph + (fpat.nph-1) * fpat.nth);
     mreq *= sizeof(rgba_t);
     mem_realloc( (void **)&rdpat_colors, mreq, "in draw_radiation.c" );
@@ -152,6 +162,20 @@ Draw_Radiation_Pattern( cairo_t *cr )
       /* Step theta angle */
       for( nth = 0; nth < fpat.nth; nth++ )
       {
+		theta = theta_step_to_deg(nth);
+
+		if (abs(theta - theta_step_to_deg(nth)) > 1e-12)
+			pr_err("theta != theta_step_to_deg(nth): %f != %f\n",
+				theta, theta_step_to_deg(nth));
+
+		if (abs(phi - phi_step_to_deg(nph)) > 1e-12)
+			pr_err("phi != phi_step_to_deg(nph): %f != %f\n",
+				phi, phi_step_to_deg(nph));
+
+		if (pts_idx != phi_theta_step_to_idx(nph, nth))
+			pr_err("pts_idx != phi_theta_step_to_idx(nph, nth): %d != (%d,%d)\n",
+				pts_idx, nph, nth);
+
         /* Distance of pattern point from the xyz origin */
         r = Scale_Gain( rad_pattern[fstep].gtot[pts_idx], fstep, pts_idx );
 
@@ -163,6 +187,19 @@ Draw_Radiation_Pattern( cairo_t *cr )
         r *= sin(theta);
         point_3d[pts_idx].x = r * cos(phi);
         point_3d[pts_idx].y = r * sin(phi);
+
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.x = point_3d[pts_idx].x;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.y = point_3d[pts_idx].y;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.z = point_3d[pts_idx].z;
+
+		Value_to_Color(
+			&rdpat_points[phi_theta_step_to_idx(nph, nth)].color.r,
+			&rdpat_points[phi_theta_step_to_idx(nph, nth)].color.g,
+			&rdpat_points[phi_theta_step_to_idx(nph, nth)].color.b,
+			point_3d[pts_idx].r - r_min,
+			point_3d[pts_idx].r 
+		);
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.a = 1;
 
         /* Step theta in rads */
         theta += dth;

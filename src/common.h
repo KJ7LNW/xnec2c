@@ -358,6 +358,12 @@ typedef struct
 
 } point_3d_t;
 
+typedef struct
+{
+	point_3d_t point;
+	rgba_t color;
+} color_point_t;
+
 /* Gain Scaling style */
 enum GAIN_SCALE
 {

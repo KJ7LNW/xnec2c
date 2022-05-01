@@ -36,6 +36,7 @@ char *orig_numeric_locale = NULL;
 
 extern rgba_t *rdpat_colors;
 extern point_3d_t *point_3d;
+extern color_point_t *rdpat_points;
 
 void Gtk_Builder( GtkBuilder **builder, gchar **object_ids );
 void gl_box_init(GtkBox *box);
@@ -481,7 +482,7 @@ out:
 
 static void init_buffers(guint position_idx, guint color_idx, guint *vao_out)
 {
-	guint vao, vertex_buffer, color_buffer;
+	guint vao, buffer;
 	pr_debug("fpat nth=%d nph=%d\n", fpat.nph, fpat.nth);
 
 	// we need to create a VAO to store the other buffers 
@@ -489,35 +490,30 @@ static void init_buffers(guint position_idx, guint color_idx, guint *vao_out)
 	glBindVertexArray(vao);
 
 	// this is the VBO that holds the vertex data 
-	glGenBuffers(1, &vertex_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-	glBufferData(GL_ARRAY_BUFFER, fpat.nph*fpat.nth*sizeof(point_3d_t),
+	glGenBuffers(1, &buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, rdpat_points);
+	glBufferData(GL_ARRAY_BUFFER, fpat.nph*fpat.nth*sizeof(color_point_t),
 		point_3d, GL_STATIC_DRAW);
 
 	// enable and set the position attribute 
 	glEnableVertexAttribArray(position_idx);
 	glVertexAttribPointer(position_idx, 3, GL_DOUBLE, GL_FALSE,
-			      sizeof(point_3d_t), 0);
-
-	// this is the VBO that holds the vertex data 
-	//glGenBuffers(1, &color_buffer);
-	//glBindBuffer(GL_ARRAY_BUFFER, color_buffer);
-	glBufferData(GL_ARRAY_BUFFER, fpat.nph*fpat.nth*sizeof(rgba_t),
-		rdpat_colors, GL_STATIC_DRAW);
+		sizeof(color_point_t),
+		G_STRUCT_OFFSET(color_point_t, point));
 
 	// enable and set the color attribute 
 	// TODO: Convert colors to bytes not doubles:
 	glEnableVertexAttribArray(color_idx);
-	glVertexAttribPointer(color_idx, 3, GL_DOUBLE, GL_FALSE,
-			      sizeof(rgba_t), 0);
+	glVertexAttribPointer(color_idx, 4, GL_DOUBLE, GL_FALSE,
+		sizeof(color_point_t),
+		G_STRUCT_OFFSET(color_point_t, color));
 
 	// reset the state; we will re-enable the VAO when needed 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
 	// the VBO is referenced by the VAO 
-	glDeleteBuffers(1, &vertex_buffer);
-	glDeleteBuffers(1, &color_buffer);
+	glDeleteBuffers(1, &buffer);
 
 	if (vao_out != NULL)
 		*vao_out = vao;
@@ -605,7 +601,7 @@ gboolean gl_draw(GtkGLArea * area)
 		return FALSE;
 	}
 
-	glClearColor(0, 0, 255, 255);
+	glClearColor(0, 0, 0, 255);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	printf("gl_draw: program=%d point_3d=%p rdpat_colors=%p n=%d area=%p\n",
@@ -618,70 +614,27 @@ gboolean gl_draw(GtkGLArea * area)
 		// rdpat_colors[i].b *= 255;
 		// rdpat_colors[i].a *= 255;
 	}
-	// initialize the vertex buffers 
+	// initialize the vertex buffers because rdpat may have changed:
 	init_buffers(position_idx, color_idx, &vao);
 
-	/*
-	   load our program 
-	 */
+	// load our program 
 	glUseProgram(program);
 
-	/*
-	   update the "mvp" matrix we use in the shader 
-	 */
+	// update the "mvp" matrix we use in the shader 
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, &(mvp[0]));
 
-	/*
-	   use the buffers in the VAO 
-	 */
+	// use the buffers in the VAO 
 	glBindVertexArray(vao);
 
-	/*
-	   draw the three vertices as a triangle 
-	 */
+	// draw the three vertices as a triangle 
 	// glDrawArrays (GL_TRIANGLES, 0, 3);
 	//glDrawArrays(GL_TRIANGLES, 0, fpat.nph * fpat.nth);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, fpat.nph*fpat.nth);
 
-	/*
-	   we finished using the buffers and program 
-	 */
+	// we finished using the buffers and program 
 	glBindVertexArray(0);
 	glUseProgram(0);
 
-	glFlush();
-
-	return;
-	// We will need blending
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	// We need to do depth testing
-	// glEnable(GL_DEPTH_TEST);
-
-	// We enable the arrays
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-
-	// glPushMatrix();
-
-	glVertexPointer(3, GL_DOUBLE, sizeof(point_3d_t), point_3d);
-	glColorPointer(4, GL_DOUBLE, 0, rdpat_colors);
-
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, fpat.nph * fpat.nth);
-
-	// glPopMatrix();
-
-	// We disable the arrays
-	// glDisableClientState(GL_VERTEX_ARRAY);
-	// glDisableClientState(GL_COLOR_ARRAY);
-	// glDisableClientState(GL_NORMAL_ARRAY);
-
-	// We disable blending
-	// glDisable(GL_BLEND);
-
-	// We disable depth testing
-	// glDisable(GL_DEPTH_TEST);
 	glFlush();
 
 	return FALSE;
