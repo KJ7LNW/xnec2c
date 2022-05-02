@@ -26,6 +26,7 @@ point_3d_t *point_3d = NULL;
 
 rgba_t *rdpat_colors = NULL;
 
+GtkWidget *create_gl_window(GtkBuilder **builder);
 color_point_t *rdpat_points = NULL;
 color_triangle_t *rdpat_triangles = NULL;
 

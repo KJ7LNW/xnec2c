@@ -495,14 +495,14 @@ static void init_buffers(guint position_idx, guint color_idx, guint *vao_out)
 	glEnableVertexAttribArray(position_idx);
 	glVertexAttribPointer(position_idx, 3, GL_FLOAT, GL_FALSE,
 		sizeof(color_point_t),
-		G_STRUCT_OFFSET(color_point_t, point));
+		(void*)G_STRUCT_OFFSET(color_point_t, point));
 
 	// enable and set the color attribute 
 	// TODO: Convert colors to bytes not doubles, use GL_RGBA?
 	glEnableVertexAttribArray(color_idx);
 	glVertexAttribPointer(color_idx, 3, GL_FLOAT, GL_FALSE,
 		sizeof(color_point_t),
-		G_STRUCT_OFFSET(color_point_t, color));
+		(void*)G_STRUCT_OFFSET(color_point_t, color));
 
 	// reset the state; we will re-enable the VAO when needed 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -600,14 +600,18 @@ gboolean gl_draw(GtkGLArea * area)
 	if (!rdpat_triangles)
 	{
 		pr_debug("rdpat_triangles is NULL\n");
-		return;
+		return FALSE;
 	}
 
 	glClearColor(0, 0, 0, 255);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	printf("gl_draw: program=%d point_3d=%p rdpat_colors=%p n=%d area=%p\n",
-	       program, (void *) point_3d, (void *) rdpat_colors, fpat.nph * fpat.nth, area);
+	       program,
+		   (void *) point_3d,
+		   (void *) rdpat_colors,
+		   fpat.nph * fpat.nth,
+		   (void*)area);
 
 	for (int i = 0; i < fpat.nph * fpat.nth; i++)
 	{
@@ -683,7 +687,7 @@ void gl_box_init(GtkBox *box)
 	g_signal_connect(gl_area, "unrealize", G_CALLBACK (gl_fini), NULL);
 	g_signal_connect(gl_area, "render", G_CALLBACK (gl_draw), NULL);
 
-	gtk_widget_show_all(GTK_BOX(box));
+	gtk_widget_show_all(GTK_WIDGET(box));
 }
 
 /*-----------------------------------------------------------------------*/
