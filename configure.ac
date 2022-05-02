@@ -113,6 +113,9 @@ if test "x$OPENMP_CFLAGS" != "x"; then
 	AC_DEFINE(HAVE_OPENMP, 1 , Define to 1 if you have OpenMP )
 fi
 
+# Add cglm includes:
+CFLAGS="$CFLAGS -I$ac_pwd/cglm/include/"
+
 
 ## Enable fortran math optimizations
 
