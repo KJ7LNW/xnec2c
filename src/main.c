@@ -51,7 +51,7 @@ static GLuint mvp_location;
 static GLuint position_idx;
 static GLuint color_idx;
 static GLuint vao;
-float mvp[16];
+mat4 mvp;
 
 
 struct vertex_info {
@@ -515,16 +515,16 @@ static void init_buffers(guint position_idx, guint color_idx, guint *vao_out)
 		*vao_out = vao;
 }
 
-void init_mvp(float *res)
+void init_mvp(mat4 res)
 {
   /* initialize a matrix as an identity matrix */
-  res[0] = 1.f; res[4] = 0.f;  res[8] = 0.f; res[12] = 0.f;
-  res[1] = 0.f; res[5] = 1.f;  res[9] = 0.f; res[13] = 0.f;
-  res[2] = 0.f; res[6] = 0.f; res[10] = 1.f; res[14] = 0.f;
-  res[3] = 0.f; res[7] = 0.f; res[11] = 0.f; res[15] = 1.f;
+  res[0][0] = 1.f; res[0][4] = 0.f;  res[0][8] = 0.f; res[0][12] = 0.f;
+  res[0][1] = 0.f; res[0][5] = 1.f;  res[0][9] = 0.f; res[0][13] = 0.f;
+  res[0][2] = 0.f; res[0][6] = 0.f; res[0][10] = 1.f; res[0][14] = 0.f;
+  res[0][3] = 0.f; res[0][7] = 0.f; res[0][11] = 0.f; res[0][15] = 1.f;
 }
 
-void compute_mvp(float *res, float  phi, float  theta, float  psi)
+void compute_mvp(mat4 res, float  phi, float  theta, float  psi)
 {
   float x = phi * (G_PI / 180.f);
   float y = theta * (G_PI / 180.f);
@@ -551,10 +551,10 @@ void compute_mvp(float *res, float  phi, float  theta, float  psi)
    * ⎢ -s3 c3 0 ⎥ ⎢  0  1   0 ⎥ ⎢ 0  c1 s1 ⎥
    * ⎣   0  0 1 ⎦ ⎣ s2  0  c2 ⎦ ⎣ 0 -s1 c1 ⎦
    */
-  res[0] = c3c2;  res[4] = s3c1 + c3s2s1;  res[8] = s3s1 - c3s2c1; res[12] = 0.f;
-  res[1] = -s3c2; res[5] = c3c1 - s3s2s1;  res[9] = c3s1 + s3s2c1; res[13] = 0.f;
-  res[2] = s2;    res[6] = -c2s1;         res[10] = c2c1;          res[14] = 0.f;
-  res[3] = 0.f;   res[7] = 0.f;           res[11] = 0.f;           res[15] = 1.f;
+  res[0][0] = c3c2;  res[0][4] = s3c1 + c3s2s1;  res[0][8] = s3s1 - c3s2c1; res[0][12] = 0.f;
+  res[0][1] = -s3c2; res[0][5] = c3c1 - s3s2s1;  res[0][9] = c3s1 + s3s2c1; res[0][13] = 0.f;
+  res[0][2] = s2;    res[0][6] = -c2s1;         res[0][10] = c2c1;          res[0][14] = 0.f;
+  res[0][3] = 0.f;   res[0][7] = 0.f;           res[0][11] = 0.f;           res[0][15] = 1.f;
 }
 
 void gl_fini(GtkGLArea *area, GdkGLContext *context)
@@ -666,7 +666,7 @@ gboolean gl_draw(GtkGLArea * area)
 	glUseProgram(program);
 
 	// update the "mvp" matrix we use in the shader 
-	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, &(mvp[0]));
+	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, mvp[0]);
 
 	// use the buffers in the VAO 
 	glBindVertexArray(vao);
