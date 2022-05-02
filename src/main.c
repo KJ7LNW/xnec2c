@@ -22,9 +22,9 @@
 #include "mathlib.h"
 
 #define GL_GLEXT_PROTOTYPES
-
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <cglm/cglm.h>
 
 static void sig_handler(int signal);
 
@@ -606,13 +606,25 @@ gboolean gl_draw(GtkGLArea * area)
 	glClearColor(0, 0, 0, 255);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	printf("gl_draw: program=%d point_3d=%p rdpat_colors=%p n=%d area=%p\n",
+	pr_debug("program=%d point_3d=%p rdpat_colors=%p n=%d area=%p\n",
 	       program,
 		   (void *) point_3d,
 		   (void *) rdpat_colors,
 		   fpat.nph * fpat.nth,
 		   (void*)area);
 
+	pr_debug("Wi=%f Wr=%f zoom=%f scale=%f scale1=%f\n",
+		rdpattern_proj_params.Wi,
+		rdpattern_proj_params.Wr,
+		rdpattern_proj_params.xy_zoom,
+		rdpattern_proj_params.xy_scale,
+		rdpattern_proj_params.xy_scale1
+		);
+
+  compute_mvp(mvp,
+	  rdpattern_proj_params.Wi,
+	  rdpattern_proj_params.Wi,
+	  rdpattern_proj_params.Wr);
 	for (int i = 0; i < fpat.nph * fpat.nth; i++)
 	{
 		// rdpat_colors[i].r *= 255;

@@ -33,8 +33,8 @@ color_triangle_t *rdpat_triangles = NULL;
 #define phi_theta_step_to_idx(phi_step, theta_step) \
 	((phi_step%fpat.nph)*fpat.nth + (theta_step%fpat.nth))
 
-#define phi_step_to_deg(phi_step)     ((fpat.phis + (phi_step%fpat.nph)*fpat.dph)*TORAD)
-#define theta_step_to_deg(theta_step) ((fpat.thets + (theta_step%fpat.nth)*fpat.dth)*TORAD)
+#define phi_step_to_rad(phi_step)     ((fpat.phis + (phi_step%fpat.nph)*fpat.dph)*TORAD)
+#define theta_step_to_rad(theta_step) ((fpat.thets + (theta_step%fpat.nth)*fpat.dth)*TORAD)
 /*-----------------------------------------------------------------------*/
 
 /* Scale_Gain()
@@ -165,15 +165,13 @@ Draw_Radiation_Pattern( cairo_t *cr )
       /* Step theta angle */
       for( nth = 0; nth < fpat.nth; nth++ )
       {
-		theta = theta_step_to_deg(nth);
+		if (abs(theta - theta_step_to_rad(nth)) > 1e-12)
+			pr_err("theta != theta_step_to_rad(nth): %f != %f\n",
+				theta, theta_step_to_rad(nth));
 
-		if (abs(theta - theta_step_to_deg(nth)) > 1e-12)
-			pr_err("theta != theta_step_to_deg(nth): %f != %f\n",
-				theta, theta_step_to_deg(nth));
-
-		if (abs(phi - phi_step_to_deg(nph)) > 1e-12)
-			pr_err("phi != phi_step_to_deg(nph): %f != %f\n",
-				phi, phi_step_to_deg(nph));
+		if (abs(phi - phi_step_to_rad(nph)) > 1e-12)
+			pr_err("phi != phi_step_to_rad(nph): %f != %f\n",
+				phi, phi_step_to_rad(nph));
 
 		if (pts_idx != phi_theta_step_to_idx(nph, nth))
 			pr_err("pts_idx != phi_theta_step_to_idx(nph, nth): %d != (%d,%d)\n",
@@ -184,6 +182,7 @@ Draw_Radiation_Pattern( cairo_t *cr )
 
         /* Distance of pattern point from xyz origin */
         point_3d[pts_idx].r = r;
+		rdpat_points[pts_idx].point.r = r *rdpattern_proj_params.xy_zoom;
 
         /* Distance of point's projection on xyz axis, from origin */
         point_3d[pts_idx].z = r * cos(theta);
@@ -191,9 +190,20 @@ Draw_Radiation_Pattern( cairo_t *cr )
         point_3d[pts_idx].x = r * cos(phi);
         point_3d[pts_idx].y = r * sin(phi);
 
-		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.x = point_3d[pts_idx].x*.1;
-		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.y = point_3d[pts_idx].y*.1;
-		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.z = point_3d[pts_idx].z*.1;
+		rdpat_points[pts_idx].point.x = point_3d[pts_idx].x*rdpattern_proj_params.xy_zoom;
+		rdpat_points[pts_idx].point.y = point_3d[pts_idx].y*rdpattern_proj_params.xy_zoom;
+		rdpat_points[pts_idx].point.z = point_3d[pts_idx].z*rdpattern_proj_params.xy_zoom;
+
+		if (pts_idx < 100)
+			printf("%4d(%4d): nph=%3d nth=%3d r=%f phi=%f theta=%f x=%+f y=%+f z=+%f\n",
+				pts_idx,
+				phi_theta_step_to_idx(nph, nth),
+				nph, nth,
+				r, phi, theta,
+				point_3d[pts_idx].x,
+				point_3d[pts_idx].y,
+				point_3d[pts_idx].z);
+
 
 		double r, g, b;
 		Value_to_Color(
@@ -219,13 +229,19 @@ Draw_Radiation_Pattern( cairo_t *cr )
 
 
 	// <= is not a typo, we want to step one more further in phi to
-	// close the loop.  phi/theta_step_to_deg will take the modulus and
+	// close the loop.  phi/theta_step_to_rad will take the modulus and
 	// return the correct index:
 	mreq = 2 * fpat.nph * (fpat.nth-1) * sizeof(color_triangle_t);
 	mem_alloc((void**)&rdpat_triangles, mreq, __LOCATION__);
 	int tri_idx = 0;
     for( nth = 0; nth < fpat.nth-1; nth++ )
     {
+	  if (abs(0-theta_step_to_rad(nth)) < 1e-12)
+		  continue;
+
+	  if (abs(M_PI-theta_step_to_rad(nth)) < 1e-12)
+		  continue;
+
       // Step theta angle, there is 1 less set of triangle pairs than
       // the number of theta points:
 	  for( nph = 0; nph < fpat.nph; nph++ )
@@ -239,6 +255,29 @@ Draw_Radiation_Pattern( cairo_t *cr )
 		rdpat_triangles[tri_idx].cp[2] = 
 			rdpat_points[phi_theta_step_to_idx(nph+1, nth+1)];
 
+		if (tri_idx < 10)
+			printf("A[%4d]. %d=(r=%f, %+f, %+f, %+f)\t%d=(r=%f, %+f, %+f, %+f)\t%d=(r=%f, %+f, %+f, %+f)\n",
+				tri_idx,
+				phi_theta_step_to_idx(nph, nth),
+				rdpat_triangles[tri_idx].cp[0].point.r,
+				rdpat_triangles[tri_idx].cp[0].point.x,
+				rdpat_triangles[tri_idx].cp[0].point.y,
+				rdpat_triangles[tri_idx].cp[0].point.z,
+
+				phi_theta_step_to_idx(nph+1, nth),
+				rdpat_triangles[tri_idx].cp[1].point.r,
+				rdpat_triangles[tri_idx].cp[1].point.x,
+				rdpat_triangles[tri_idx].cp[1].point.y,
+				rdpat_triangles[tri_idx].cp[1].point.z,
+
+				phi_theta_step_to_idx(nph+1, nth+1),
+				rdpat_triangles[tri_idx].cp[2].point.r,
+				rdpat_triangles[tri_idx].cp[2].point.x,
+				rdpat_triangles[tri_idx].cp[2].point.y,
+				rdpat_triangles[tri_idx].cp[2].point.z
+				);
+
+
 		tri_idx++;
 
 		rdpat_triangles[tri_idx].cp[0] = 
@@ -250,10 +289,31 @@ Draw_Radiation_Pattern( cairo_t *cr )
 		rdpat_triangles[tri_idx].cp[2] = 
 			rdpat_points[phi_theta_step_to_idx(nph+1, nth+1)];
 
+		if (tri_idx < 10)
+			printf("B[%4d]. %d=(r=%f, %+f, %+f, %+f)\t%d=(r=%f, %+f, %+f, %+f)\t%d=(r=%f, %+f, %+f, %+f)\n",
+				tri_idx,
+				phi_theta_step_to_idx(nph, nth),
+				rdpat_triangles[tri_idx].cp[0].point.r,
+				rdpat_triangles[tri_idx].cp[0].point.x,
+				rdpat_triangles[tri_idx].cp[0].point.y,
+				rdpat_triangles[tri_idx].cp[0].point.z,
+
+				phi_theta_step_to_idx(nph, nth+1),
+				rdpat_triangles[tri_idx].cp[1].point.r,
+				rdpat_triangles[tri_idx].cp[1].point.x,
+				rdpat_triangles[tri_idx].cp[1].point.y,
+				rdpat_triangles[tri_idx].cp[1].point.z,
+
+				phi_theta_step_to_idx(nph+1, nth+1),
+				rdpat_triangles[tri_idx].cp[2].point.r,
+				rdpat_triangles[tri_idx].cp[2].point.x,
+				rdpat_triangles[tri_idx].cp[2].point.y,
+				rdpat_triangles[tri_idx].cp[2].point.z
+				);
+
 		tri_idx++;
       }
     }
-	xnec2_widget_queue_draw(create_gl_window(NULL));
 
     /* Calculate RGB value for rad pattern seg.
      * The average gain value of the two points
@@ -312,6 +372,8 @@ Draw_Radiation_Pattern( cairo_t *cr )
         txt );
 
   } /* if( isFlagSet(DRAW_NEWRDPAT) ) ) */
+
+  xnec2_widget_queue_draw(create_gl_window(NULL));
 
   /* Draw xyz axes to Screen */
   Draw_XYZ_Axes( cr, rdpattern_proj_params );
