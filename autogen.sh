@@ -344,6 +344,11 @@ if [ ! -x "$(command -v gettextize)" ]; then
 	exit 1
 fi
 
+if [ ! -x "$(command -v libtoolize)" ]; then
+	echo "libtoolize does not exist: install the libtool package."
+	exit 1
+fi
+
 if [ ! -x "$(command -v autopoint)" ]; then
 	echo "autopoint does not exist: install the autopoint or gettext-devel package."
 	exit 1

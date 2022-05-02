@@ -9,6 +9,9 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4 m4-include])
 AM_MAINTAINER_MODE
 
+LT_INIT
+AC_CONFIG_SUBDIRS([cglm/])
+
 # Set CFLAGS if not set in environment
 AC_MSG_CHECKING([whether configure should try to set CFLAGS])
 if test "x${CFLAGS+set}" = xset; then
