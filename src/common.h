@@ -358,11 +358,28 @@ typedef struct
 
 } point_3d_t;
 
+/* For coloring rad pattern */
 typedef struct
 {
-	point_3d_t point;
-	rgba_t color;
+	float r,g,b,a;
+} rgba_f_t;
+
+/* Point in 3d xyz axes */
+typedef struct
+{
+	float x, y, z, r;
+} point_f_3d_t;
+
+typedef struct
+{
+	point_f_3d_t point;
+	rgba_f_t color;
 } color_point_t;
+
+typedef struct
+{
+	color_point_t cp[3];
+} color_triangle_t;
 
 /* Gain Scaling style */
 enum GAIN_SCALE

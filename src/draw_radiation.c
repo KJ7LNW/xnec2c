@@ -27,11 +27,13 @@ point_3d_t *point_3d = NULL;
 rgba_t *rdpat_colors = NULL;
 
 color_point_t *rdpat_points = NULL;
+color_triangle_t *rdpat_triangles = NULL;
 
-#define phi_theta_step_to_idx(phi_step, theta_step) (phi_step*fpat.nth + theta_step)
+#define phi_theta_step_to_idx(phi_step, theta_step) \
+	((phi_step%fpat.nph)*fpat.nth + (theta_step%fpat.nth))
 
-#define phi_step_to_deg(phi_step)     ((fpat.phis + phi_step*fpat.dph)*TORAD)
-#define theta_step_to_deg(theta_step) ((fpat.thets + theta_step*fpat.dth)*TORAD)
+#define phi_step_to_deg(phi_step)     ((fpat.phis + (phi_step%fpat.nph)*fpat.dph)*TORAD)
+#define theta_step_to_deg(theta_step) ((fpat.thets + (theta_step%fpat.nth)*fpat.dth)*TORAD)
 /*-----------------------------------------------------------------------*/
 
 /* Scale_Gain()
@@ -188,18 +190,20 @@ Draw_Radiation_Pattern( cairo_t *cr )
         point_3d[pts_idx].x = r * cos(phi);
         point_3d[pts_idx].y = r * sin(phi);
 
-		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.x = point_3d[pts_idx].x;
-		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.y = point_3d[pts_idx].y;
-		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.z = point_3d[pts_idx].z;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.x = point_3d[pts_idx].x*.1;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.y = point_3d[pts_idx].y*.1;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].point.z = point_3d[pts_idx].z*.1;
 
+		double r, g, b;
 		Value_to_Color(
-			&rdpat_points[phi_theta_step_to_idx(nph, nth)].color.r,
-			&rdpat_points[phi_theta_step_to_idx(nph, nth)].color.g,
-			&rdpat_points[phi_theta_step_to_idx(nph, nth)].color.b,
+			&r, &g, &b,
 			point_3d[pts_idx].r - r_min,
 			point_3d[pts_idx].r 
 		);
-		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.a = 1;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.r = r;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.g = g;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.b = b;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.a = 0.5;
 
         /* Step theta in rads */
         theta += dth;
@@ -211,6 +215,44 @@ Draw_Radiation_Pattern( cairo_t *cr )
       /* Step phi in rads */
       phi += dph;
     } /* for( nph = 0; nph < fpat.nph; nph++ ) */
+
+
+	// <= is not a typo, we want to step one more further in phi to
+	// close the loop.  phi/theta_step_to_deg will take the modulus and
+	// return the correct index:
+	mreq = 2 * fpat.nph * (fpat.nth-1) * sizeof(color_triangle_t);
+	mem_alloc((void**)&rdpat_triangles, mreq, __LOCATION__);
+	int tri_idx = 0;
+    for( nth = 0; nth < fpat.nth-1; nth++ )
+    {
+      // Step theta angle, there is 1 less set of triangle pairs than
+      // the number of theta points:
+	  for( nph = 0; nph < fpat.nph; nph++ )
+      {
+		rdpat_triangles[tri_idx].cp[0] = 
+			rdpat_points[phi_theta_step_to_idx(nph, nth)];
+
+		rdpat_triangles[tri_idx].cp[1] = 
+			rdpat_points[phi_theta_step_to_idx(nph+1, nth)];
+
+		rdpat_triangles[tri_idx].cp[2] = 
+			rdpat_points[phi_theta_step_to_idx(nph+1, nth+1)];
+
+		tri_idx++;
+
+		rdpat_triangles[tri_idx].cp[0] = 
+			rdpat_points[phi_theta_step_to_idx(nph, nth)];
+
+		rdpat_triangles[tri_idx].cp[1] = 
+			rdpat_points[phi_theta_step_to_idx(nph, nth+1)];
+
+		rdpat_triangles[tri_idx].cp[2] = 
+			rdpat_points[phi_theta_step_to_idx(nph+1, nth+1)];
+
+		tri_idx++;
+      }
+    }
+	xnec2_widget_queue_draw(create_gl_window(NULL));
 
     /* Calculate RGB value for rad pattern seg.
      * The average gain value of the two points

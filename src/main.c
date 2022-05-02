@@ -21,6 +21,7 @@
 #include "shared.h"
 #include "mathlib.h"
 
+#define GL_GLEXT_PROTOTYPES
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -36,7 +37,7 @@ char *orig_numeric_locale = NULL;
 
 extern rgba_t *rdpat_colors;
 extern point_3d_t *point_3d;
-extern color_point_t *rdpat_points;
+extern color_triangle_t *rdpat_triangles;
 
 void Gtk_Builder( GtkBuilder **builder, gchar **object_ids );
 void gl_box_init(GtkBox *box);
@@ -57,9 +58,6 @@ struct vertex_info {
   float pos[3];
   float color[3];
 };
-
-// Maybe not keep this?
-G_DEFINE_QUARK (glarea-error, glarea_error);
 
 typedef enum {
   GLAREA_ERROR_SHADER_COMPILATION,
@@ -338,7 +336,7 @@ main (int argc, char *argv[])
 	{
 		GtkBuilder *gl_builder = NULL;
 		gl_window = create_gl_window(&gl_builder);
-		gl_box_init(gl_window);
+		gl_box_init(GTK_BOX(gl_window));
 	  gtk_widget_show( gl_window );
 	}
 
@@ -371,8 +369,7 @@ static guint create_shader(int shader_type, const char *source,
 
 		glGetShaderInfoLog(shader, log_len, NULL, buffer);
 
-		g_set_error(error, glarea_error_quark(), GLAREA_ERROR_SHADER_COMPILATION,
-			    "Compilation failure in %s shader: %s",
+		pr_err("Compilation failure in %s shader: %s",
 			    shader_type == GL_VERTEX_SHADER ? "vertex" : "fragment", buffer);
 
 		g_free(buffer);
@@ -441,8 +438,6 @@ static gboolean init_shaders(guint *program_out, guint *mvp_location_out,
 		glGetProgramInfoLog(program, log_len, NULL, buffer);
 
 		pr_err("Linking failure in program: %s", buffer);
-		g_set_error(error, glarea_error_quark(), GLAREA_ERROR_SHADER_LINK, "Linking failure in program: %s", buffer);
-
 		g_free(buffer);
 
 		glDeleteProgram(program);
@@ -491,20 +486,21 @@ static void init_buffers(guint position_idx, guint color_idx, guint *vao_out)
 
 	// this is the VBO that holds the vertex data 
 	glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, rdpat_points);
-	glBufferData(GL_ARRAY_BUFFER, fpat.nph*fpat.nth*sizeof(color_point_t),
-		point_3d, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+	glBufferData(GL_ARRAY_BUFFER,
+		2*fpat.nph*(fpat.nth-1)*sizeof(color_triangle_t),
+		rdpat_triangles, GL_STATIC_DRAW);
 
 	// enable and set the position attribute 
 	glEnableVertexAttribArray(position_idx);
-	glVertexAttribPointer(position_idx, 3, GL_DOUBLE, GL_FALSE,
+	glVertexAttribPointer(position_idx, 3, GL_FLOAT, GL_FALSE,
 		sizeof(color_point_t),
 		G_STRUCT_OFFSET(color_point_t, point));
 
 	// enable and set the color attribute 
-	// TODO: Convert colors to bytes not doubles:
+	// TODO: Convert colors to bytes not doubles, use GL_RGBA?
 	glEnableVertexAttribArray(color_idx);
-	glVertexAttribPointer(color_idx, 4, GL_DOUBLE, GL_FALSE,
+	glVertexAttribPointer(color_idx, 3, GL_FLOAT, GL_FALSE,
 		sizeof(color_point_t),
 		G_STRUCT_OFFSET(color_point_t, color));
 
@@ -601,6 +597,12 @@ gboolean gl_draw(GtkGLArea * area)
 		return FALSE;
 	}
 
+	if (!rdpat_triangles)
+	{
+		pr_debug("rdpat_triangles is NULL\n");
+		return;
+	}
+
 	glClearColor(0, 0, 0, 255);
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -614,6 +616,33 @@ gboolean gl_draw(GtkGLArea * area)
 		// rdpat_colors[i].b *= 255;
 		// rdpat_colors[i].a *= 255;
 	}
+	/*
+	*/
+	rdpat_triangles[0].cp[0].point.x = -1;
+	rdpat_triangles[0].cp[0].point.y = -1;
+	rdpat_triangles[0].cp[0].point.z = 0;
+	rdpat_triangles[0].cp[0].color.r = 1;
+	rdpat_triangles[0].cp[0].color.g = 0;
+	rdpat_triangles[0].cp[0].color.b = 0;
+	rdpat_triangles[0].cp[0].color.a = 0.1;
+	
+	
+	rdpat_triangles[0].cp[1].point.x = 1;
+	rdpat_triangles[0].cp[1].point.y = -1;
+	rdpat_triangles[0].cp[1].point.z = 0;
+	rdpat_triangles[0].cp[1].color.r = 0;
+	rdpat_triangles[0].cp[1].color.g = 1;
+	rdpat_triangles[0].cp[1].color.b = 0;
+	rdpat_triangles[0].cp[1].color.a = 0.1;
+
+	rdpat_triangles[0].cp[2].point.x = 0;
+	rdpat_triangles[0].cp[2].point.y = 1;
+	rdpat_triangles[0].cp[2].point.z = 0;
+	rdpat_triangles[0].cp[2].color.r = 0;
+	rdpat_triangles[0].cp[2].color.g = 0;
+	rdpat_triangles[0].cp[2].color.b = 1;
+	rdpat_triangles[0].cp[2].color.a = 0.1;
+
 	// initialize the vertex buffers because rdpat may have changed:
 	init_buffers(position_idx, color_idx, &vao);
 
@@ -629,7 +658,8 @@ gboolean gl_draw(GtkGLArea * area)
 	// draw the three vertices as a triangle 
 	// glDrawArrays (GL_TRIANGLES, 0, 3);
 	//glDrawArrays(GL_TRIANGLES, 0, fpat.nph * fpat.nth);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, fpat.nph*fpat.nth);
+	glDrawArrays(GL_TRIANGLES, 0, 3*2*fpat.nph*(fpat.nth-1));
+	//glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	// we finished using the buffers and program 
 	glBindVertexArray(0);
@@ -653,7 +683,7 @@ void gl_box_init(GtkBox *box)
 	g_signal_connect(gl_area, "unrealize", G_CALLBACK (gl_fini), NULL);
 	g_signal_connect(gl_area, "render", G_CALLBACK (gl_draw), NULL);
 
-	gtk_widget_show_all(box);
+	gtk_widget_show_all(GTK_BOX(box));
 }
 
 /*-----------------------------------------------------------------------*/
