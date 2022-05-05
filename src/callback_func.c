@@ -159,39 +159,75 @@ Motion_Event(
 	mat4 model = GLM_MAT4_IDENTITY_INIT;
 	glm_scale(model, (vec3){params->xy_zoom, params->xy_zoom, params->xy_zoom});
 
+	// Rotate the camera around the origin:
 	vec3 pivot = { 0, 0, 0 };
-	vec3 direction = {
+
+	// Calculate camera direction, up, and right vectors:
+	//   From here: https://learnopengl.com/Getting-started/Camera
+	//     glm::vec3 cam_dir = glm::normalize(camera_eye - pivot);
+	vec3 cam_dir;
+	glm_vec3_sub(camera_eye, pivot, cam_dir);
+	glm_vec3_normalize(cam_dir);
+
+	//     glm::vec3 cam_up = glm::vec3(0.0f, 1.0f, 0.0f); 
+	//     glm::vec3 cam_right = glm::normalize(glm::cross(cam_up, cam_dir));
+	vec3 cam_up = {0, 1, 0};
+	vec3 cam_right;
+	glm_vec3_cross(cam_up, cam_dir, cam_right);
+	glm_vec3_normalize(cam_right);
+
+	//     glm::vec3 cam_up = glm::cross(cam_dir, cam_right);
+	glm_vec3_cross(cam_dir, cam_right, cam_up);
+	glm_vec3_normalize(cam_up);
+
+	// Calculate rotation direction, right, and up vectors:
+	//   From here: http://www.opengl-tutorial.org/beginners-tutorials/tutorial-6-keyboard-and-mouse/
+	vec3 rot_dir = {
 		cos(yAngle) * sin(xAngle),
 		sin(yAngle),
 		cos(yAngle) * cos(xAngle)
 	};
+	glm_vec3_normalize(rot_dir);
 
-	vec3 right = {
+	vec3 rot_right = {
 		sin(xAngle - M_PI / 2.0f),
 		0,
 		cos(xAngle - M_PI / 2.0f)
 	};
+	glm_vec3_normalize(rot_right);
 
-	vec3 up;
-	glm_vec3_cross(right, direction, up);
+	//     glm::vec3 rot_up = glm::cross( rot_right, rot_dir );
+	vec3 rot_up;
+	glm_vec3_cross(rot_right, rot_dir, rot_up);
+	glm_vec3_normalize(rot_up);
 
+	// Which is best: cam_up/right or rot_up/right?
+	vec3 up, right;
+
+	//glm_vec3_copy(cam_up, up);
+	//glm_vec3_copy(cam_right, right);
+	glm_vec3_copy(rot_up, up);
+	glm_vec3_copy(rot_right, right);
+
+
+	// Setup a translation matrix to rotate
 	mat4 rx = GLM_MAT4_IDENTITY_INIT;
 	mat4 ry = GLM_MAT4_IDENTITY_INIT;
 
 	glm_rotate(rx, xAngle, up);
 	glm_rotate(ry, yAngle, right);
-	
+
 	// CGLM: camera_eye = (rx * (camera_eye - pivot)) + pivot;
-	vec3 pos_sub_piv, v3tmp;
-	glm_vec3_sub(camera_eye, pivot, pos_sub_piv);
-	glm_mat4_mulv3(rx, pos_sub_piv, 1, v3tmp);
+	vec3 v3tmp;
+	glm_vec3_sub(camera_eye, pivot, cam_dir);
+	glm_mat4_mulv3(rx, cam_dir, 1, v3tmp);
 	glm_vec3_add(v3tmp, pivot, camera_eye);
 
 	// CGLM: camera_eye = (ry * (camera_eye - pivot)) + pivot;
-	glm_vec3_sub(camera_eye, pivot, pos_sub_piv);
-	glm_mat4_mulv3(ry, pos_sub_piv, 1, v3tmp);
+	glm_vec3_sub(camera_eye, pivot, cam_dir);
+	glm_mat4_mulv3(ry, cam_dir, 1, v3tmp);
 	glm_vec3_add(v3tmp, pivot, camera_eye);
-	
+
 	mat4 proj;
 	glm_perspective(60*TORAD,
 		(float)params->width/(float)params->height,
@@ -199,13 +235,10 @@ Motion_Event(
 		100.0,
 		proj);
 
-	vec3 posdir;
-	glm_vec3_add(camera_eye, direction, posdir);
-
 	mat4 view;
 	glm_lookat(
 		camera_eye,
-		(vec3){0, 0, 0},
+		pivot,
 		up,
 		view);
 
