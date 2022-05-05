@@ -132,6 +132,10 @@ Motion_Event(
    * according to pointer motion */
   dx = x - x_prev;
   dy = y - y_prev;
+
+  float dx2 = x_prev - x;
+  float dy2 = y_prev - y;
+
   x_prev = x;
   y_prev = y;
 
@@ -143,8 +147,8 @@ Motion_Event(
 	// a movement from top to bottom = PI = 180 deg
 	float deltaAngleY = (M_PI / params->height);
 
-	float xAngle = dx * deltaAngleX;
-	float yAngle = dy * deltaAngleY;
+	float xAngle = dx2 * deltaAngleX;
+	float yAngle = dy2 * deltaAngleY;
 
 	pr_debug("xAngle=%f yAngle=%f\n",
 		xAngle*TODEG, yAngle*TODEG);
@@ -179,7 +183,6 @@ Motion_Event(
 //glm_mat4_print(rx, stderr);
 //glm_mat4_print(ry, stderr);
 
-/*
 	// vec3 position = (rx * (position - pivot)) + pivot;
 	vec3 pos_sub_piv, v3tmp;
 	glm_vec3_sub(position, pivot, pos_sub_piv);
@@ -190,7 +193,6 @@ Motion_Event(
 	glm_vec3_sub(position, pivot, pos_sub_piv);
 	glm_mat4_mulv3(ry, pos_sub_piv, 1, v3tmp);
 	glm_vec3_add(v3tmp, pivot, position);
-*/
 	
 	mat4 proj;
 	glm_perspective(60*TORAD,

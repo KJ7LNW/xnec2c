@@ -619,9 +619,9 @@ gboolean gl_draw(GtkGLArea * area)
 	// load our program 
 	glUseProgram(program);
 
-	// update the "mvp" matrix we use in the shader 
-	pr_debug(""); glm_mat4_print(mvp, stderr);
+	//pr_debug(""); glm_mat4_print(mvp, stderr);
 
+	// update the "mvp" matrix we use in the shader 
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, mvp[0]);
 
 	// use the buffers in the VAO 
