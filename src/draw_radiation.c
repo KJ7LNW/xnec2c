@@ -182,7 +182,7 @@ Draw_Radiation_Pattern( cairo_t *cr )
 
         /* Distance of pattern point from xyz origin */
         point_3d[pts_idx].r = r;
-		rdpat_points[pts_idx].point.r = r *rdpattern_proj_params.xy_zoom;
+		rdpat_points[pts_idx].point.r = r;
 
         /* Distance of point's projection on xyz axis, from origin */
         point_3d[pts_idx].z = r * cos(theta);
@@ -190,9 +190,9 @@ Draw_Radiation_Pattern( cairo_t *cr )
         point_3d[pts_idx].x = r * cos(phi);
         point_3d[pts_idx].y = r * sin(phi);
 
-		rdpat_points[pts_idx].point.x = point_3d[pts_idx].x*rdpattern_proj_params.xy_zoom;
-		rdpat_points[pts_idx].point.y = point_3d[pts_idx].y*rdpattern_proj_params.xy_zoom;
-		rdpat_points[pts_idx].point.z = point_3d[pts_idx].z*rdpattern_proj_params.xy_zoom;
+		rdpat_points[pts_idx].point.x = point_3d[pts_idx].x;
+		rdpat_points[pts_idx].point.y = point_3d[pts_idx].y;
+		rdpat_points[pts_idx].point.z = point_3d[pts_idx].z;
 
 		if (pts_idx < 100)
 			printf("%4d(%4d): nph=%3d nth=%3d r=%f phi=%f theta=%f x=%+f y=%+f z=+%f\n",

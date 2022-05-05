@@ -20,6 +20,11 @@
 #include "callback_func.h"
 #include "shared.h"
 
+#define CGLM_DEFINE_PRINTS
+#include <cglm/cglm.h>
+
+extern mat4 mvp;
+
 /*-----------------------------------------------------------------------*/
 
 /* Save_Pixbuf()
@@ -96,6 +101,9 @@ New_Viewer_Angle(
  *
  * Handles pointer motion event on drawingareas
  */
+
+vec3 position = { 0, 0, 5 }; // camera position
+
   void
 Motion_Event(
     GdkEventMotion *event,
@@ -130,6 +138,82 @@ Motion_Event(
   /* Other buttons are used for moving axes on screen */
   if( event->state & GDK_BUTTON1_MASK )
   {
+	// a movement from left to right = 2*PI = 360 deg
+	float deltaAngleX = (2 * M_PI / params->width);
+	// a movement from top to bottom = PI = 180 deg
+	float deltaAngleY = (M_PI / params->height);
+
+	float xAngle = dx * deltaAngleX;
+	float yAngle = dy * deltaAngleY;
+
+	pr_debug("xAngle=%f yAngle=%f\n",
+		xAngle*TODEG, yAngle*TODEG);
+
+	mat4 model = GLM_MAT4_IDENTITY_INIT;
+	glm_scale(model, (vec3){params->xy_zoom, params->xy_zoom, params->xy_zoom});
+
+	vec3 pivot = { 0, 0, 0 };
+	vec3 direction = {
+		cos(yAngle) * sin(xAngle),
+		sin(yAngle),
+		cos(yAngle) * cos(xAngle)
+	};
+
+	vec3 right = {
+		sin(xAngle - M_PI / 2.0f),
+		0,
+		cos(xAngle - M_PI / 2.0f)
+	};
+
+	vec3 up;
+	glm_vec3_cross(right, direction, up);
+
+
+	mat4 rx = GLM_MAT4_IDENTITY_INIT;
+	mat4 ry = GLM_MAT4_IDENTITY_INIT;
+
+
+	glm_rotate(rx, xAngle, up);
+	glm_rotate(ry, yAngle, right);
+	
+//glm_mat4_print(rx, stderr);
+//glm_mat4_print(ry, stderr);
+
+/*
+	// vec3 position = (rx * (position - pivot)) + pivot;
+	vec3 pos_sub_piv, v3tmp;
+	glm_vec3_sub(position, pivot, pos_sub_piv);
+	glm_mat4_mulv3(rx, pos_sub_piv, 1, v3tmp);
+	glm_vec3_add(v3tmp, pivot, position);
+
+	// vec3 position = (ry * (position - pivot)) + pivot;
+	glm_vec3_sub(position, pivot, pos_sub_piv);
+	glm_mat4_mulv3(ry, pos_sub_piv, 1, v3tmp);
+	glm_vec3_add(v3tmp, pivot, position);
+*/
+	
+	mat4 proj;
+	glm_perspective(60*TORAD,
+		(float)params->width/(float)params->height,
+		0.1,
+		100.0,
+		proj);
+
+	vec3 posdir;
+	glm_vec3_add(position, direction, posdir);
+
+	mat4 view;
+	glm_lookat(
+		position,
+		(vec3){0, 0, 0},
+		//posdir, // (position+direction)
+		up,
+		view);
+
+	glm_mat4_mulN((mat4 *[]){&proj, &view, &model}, 3, mvp);
+
+	pr_debug(""); glm_mat4_print(mvp, stderr);
+
     /* Set the structure rotate/incline spinbuttons */
     if( isFlagSet(COMMON_PROJECTION) ||
         (params->type == STRUCTURE_DRAWINGAREA) )
