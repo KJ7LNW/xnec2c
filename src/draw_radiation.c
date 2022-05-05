@@ -205,15 +205,18 @@ Draw_Radiation_Pattern( cairo_t *cr )
 				point_3d[pts_idx].z);
 
 
-		double r, g, b;
+		// Value_to_Color() takes doubles by reference, so need to make temp values
+		// to pass to the OpenGL fields below.
+		double red, green, blue;
 		Value_to_Color(
-			&r, &g, &b,
+			&red, &green, &blue,
 			point_3d[pts_idx].r - r_min,
-			point_3d[pts_idx].r 
+			r_range
 		);
-		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.r = r;
-		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.g = g;
-		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.b = b;
+
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.r = (float)red;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.g = (float)green;
+		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.b = (float)blue;
 		rdpat_points[phi_theta_step_to_idx(nph, nth)].color.a = 0.5;
 
         /* Step theta in rads */

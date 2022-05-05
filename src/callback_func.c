@@ -102,14 +102,14 @@ New_Viewer_Angle(
  * Handles pointer motion event on drawingareas
  */
 
-vec3 position = { 0, 0, 5 }; // camera position
+vec3 camera_eye = { 0, 0, 5 }; // camera camera_eye
 
   void
 Motion_Event(
     GdkEventMotion *event,
     projection_parameters_t *params )
 {
-  /* Save previous pointer position */
+  /* Save previous pointer camera_eye */
   static gdouble x_prev = 0.0, y_prev = 0.0;
 
   gdouble x = event->x;
@@ -142,6 +142,9 @@ Motion_Event(
   /* Other buttons are used for moving axes on screen */
   if( event->state & GDK_BUTTON1_MASK )
   {
+	// Implement an Arcball.
+	// Thanks Marie! https://asliceofrendering.com/camera/2019/11/30/ArcballCamera/
+
 	// a movement from left to right = 2*PI = 360 deg
 	float deltaAngleX = (2 * M_PI / params->width);
 	// a movement from top to bottom = PI = 180 deg
@@ -172,27 +175,22 @@ Motion_Event(
 	vec3 up;
 	glm_vec3_cross(right, direction, up);
 
-
 	mat4 rx = GLM_MAT4_IDENTITY_INIT;
 	mat4 ry = GLM_MAT4_IDENTITY_INIT;
-
 
 	glm_rotate(rx, xAngle, up);
 	glm_rotate(ry, yAngle, right);
 	
-//glm_mat4_print(rx, stderr);
-//glm_mat4_print(ry, stderr);
-
-	// vec3 position = (rx * (position - pivot)) + pivot;
+	// CGLM: camera_eye = (rx * (camera_eye - pivot)) + pivot;
 	vec3 pos_sub_piv, v3tmp;
-	glm_vec3_sub(position, pivot, pos_sub_piv);
+	glm_vec3_sub(camera_eye, pivot, pos_sub_piv);
 	glm_mat4_mulv3(rx, pos_sub_piv, 1, v3tmp);
-	glm_vec3_add(v3tmp, pivot, position);
+	glm_vec3_add(v3tmp, pivot, camera_eye);
 
-	// vec3 position = (ry * (position - pivot)) + pivot;
-	glm_vec3_sub(position, pivot, pos_sub_piv);
+	// CGLM: camera_eye = (ry * (camera_eye - pivot)) + pivot;
+	glm_vec3_sub(camera_eye, pivot, pos_sub_piv);
 	glm_mat4_mulv3(ry, pos_sub_piv, 1, v3tmp);
-	glm_vec3_add(v3tmp, pivot, position);
+	glm_vec3_add(v3tmp, pivot, camera_eye);
 	
 	mat4 proj;
 	glm_perspective(60*TORAD,
@@ -202,13 +200,12 @@ Motion_Event(
 		proj);
 
 	vec3 posdir;
-	glm_vec3_add(position, direction, posdir);
+	glm_vec3_add(camera_eye, direction, posdir);
 
 	mat4 view;
 	glm_lookat(
-		position,
+		camera_eye,
 		(vec3){0, 0, 0},
-		//posdir, // (position+direction)
 		up,
 		view);
 
