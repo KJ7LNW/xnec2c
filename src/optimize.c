@@ -20,6 +20,7 @@
 #include "shared.h"
 #include <poll.h>
 #include <sys/inotify.h>
+#include <sys/stat.h>
 
 /*------------------------------------------------------------------------*/
 
@@ -85,7 +86,7 @@ int inotify_open(struct pollfd *pfd)
   wd = inotify_add_watch( fd, rc_config.input_file, IN_CLOSE_WRITE );
   if( wd == -1 )
   {
-    pr_err("cannot watch '%s': %s\n", rc_config.input_file,
+    pr_err("Unable to configure file modification detection to %s: %s\n", rc_config.input_file,
            strerror(errno));
     exit( -1 );
   }
@@ -131,7 +132,7 @@ Optimizer_Output( void *arg )
 
     if ( CHILD )
 	{
-		pr_info("optimize.c: exiting because we are a child process.\n");
+		pr_info("optimize.c: exit because this is a child process.\n");
 		break;
 	}
 
@@ -172,6 +173,25 @@ Optimizer_Output( void *arg )
 			usleep(100000);
 			continue;
 		}
+
+		int done = 0;
+		struct stat st;
+
+		// This fixes a crash when inotify reports the file is closed but the
+		// file content is empty.  Interestingly, just calling `stat` on the
+		// file seems to be enough to prevent the bug, but the code is here
+		// just in case:
+		do
+		{
+			errno = 0;
+			int stat_ret = stat(rc_config.input_file, &st);
+			done = (stat_ret == 0 && st.st_size > 0);
+			if (!done)
+			{
+				pr_warn("%s: file is zero bytes, retrying (%s)\n", strerror(errno));
+				usleep(100000);
+			}
+		} while (!done);
 
         event = (const struct inotify_event *) buf;
 
