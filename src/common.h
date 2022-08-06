@@ -249,7 +249,7 @@ typedef struct
   char input_file[FILENAME_LEN];
 
   /* If set true, then use GTK loops for the frequency loop iteration
-   * instead of spawing a pthread */
+   * instead of spawning a pthread */
   int disable_pthread_freqloop;
 
   /* Main (structure) window position and size */
