@@ -166,7 +166,7 @@ int meas_name_idx(char *name, int len)
 
 	if (i == MEAS_COUNT)
 	{
-		BUG("meas_name_idx: Invald name with length=%d: %s\n", len, name);
+		BUG("meas_name_idx: Invalid name with length=%d: %s\n", len, name);
 		print_backtrace(NULL);
 	}
 

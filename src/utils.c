@@ -237,7 +237,7 @@ Load_Line( char *buff, FILE *pfile )
 
 /* xnec2c uses mem_realloc() very often to resize buffers in the code.
  * There are cases where uninitialized memory buffers can lead to incorrect behavior
- * but unfortunatly the libc realloc() call doesn't initialize the reallocated memory.
+ * but unfortunately the libc realloc() call doesn't initialize the reallocated memory.
  * 
  * Since there is not a portable way to discover the amount of memory allocated by the
  * previous realloc/malloc() call we cannot call memset() on the extended portion.
