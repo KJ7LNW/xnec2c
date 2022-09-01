@@ -681,7 +681,7 @@ int _callback_g_idle_add_once(g_idle_add_data_t *cbdata)
 	return FALSE;
 }
 
-void _g_idle_add_once(GSourceFunc function, gpointer data, int lock)
+void _g_idle_add_once(GSourceOnceFunc function, gpointer data, int lock)
 {
 	g_idle_add_data_t *cbdata = NULL;
 	mem_alloc((void**)&cbdata, sizeof(g_idle_add_data_t), __LOCATION__);
@@ -717,13 +717,13 @@ void _g_idle_add_once(GSourceFunc function, gpointer data, int lock)
 }
 
 // Call from any thread to queue a function to run once, do not wait for it to finish.
-void g_idle_add_once(GSourceFunc function, gpointer data)
+guint g_idle_add_once(GSourceOnceFunc function, gpointer data)
 {
 	_g_idle_add_once(function, data, 0); // async
 }
 
 // Call from another thread to queue a function to run once, and wait for it to finish.
-void g_idle_add_once_sync(GSourceFunc function, gpointer data)
+void g_idle_add_once_sync(GSourceOnceFunc function, gpointer data)
 {
 	_g_idle_add_once(function, data, 1); // sync
 }
@@ -739,7 +739,7 @@ void xnec2_widget_queue_draw(GtkWidget *w)
 		pr_debug("Optimizer loop incomplete, skipping radiation pattern redraw.\n");
 	}
 	else
-		g_idle_add_once((GSourceFunc)gtk_widget_queue_draw, w);
+		g_idle_add_once((GSourceOnceFunc)gtk_widget_queue_draw, w);
 
 }
 /*------------------------------------------------------------------*/
