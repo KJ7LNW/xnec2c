@@ -47,6 +47,11 @@
 #undef I
 #define I _Complex_I
 
+/* GNU/Hurd has no hard PATH_MAX */
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif
+
 // Use __LOCATION__ anywhere you want the file and line number:
 // (Move this to be used in all calls to mem_realloc)
 #define __S1(x) #x
