@@ -42,6 +42,11 @@
 
 #include "measurements.h"
 
+// Define GSourceOnceFunc if compiling against an older version of GLIB:
+#if GLIB_VERSION_CUR_STABLE < G_ENCODE_VERSION(2,74)
+typedef void (* GSourceOnceFunc) (gpointer user_data);
+#endif
+
 #undef _Complex_I
 #define _Complex_I  (__extension__ 1.0i)
 #undef I
@@ -1487,8 +1492,10 @@ void Strlcat(char *dest, const char *src, size_t n);
 double Strtod(char *nptr, char **endptr);
 void Get_Dirname(char *fpath, char *dirname, int *fname_idx);
 void xnec2_widget_queue_draw(GtkWidget *w);
+#if GLIB_VERSION_CUR_STABLE < G_ENCODE_VERSION(2,74)
 guint g_idle_add_once(GSourceOnceFunc function, gpointer data);
-void g_idle_add_once_sync(GSourceOnceFunc function, gpointer data);
+#endif
+guint g_idle_add_once_sync(GSourceOnceFunc function, gpointer data);
 void print_backtrace(char *msg);
 
 /* xnec2c.c */

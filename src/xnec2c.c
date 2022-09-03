@@ -951,7 +951,7 @@ void *Frequency_Loop_Thread(void *p)
 	// Exit if in batch mode
 	if (rc_config.batch_mode)
 	{
-		g_idle_add_once_sync((GSourceFunc)Gtk_Quit, NULL);
+		g_idle_add_once_sync((GSourceOnceFunc)Gtk_Quit, NULL);
 		return NULL;
 	}
 
@@ -976,10 +976,10 @@ void *Frequency_Loop_Thread(void *p)
 
 	if (isFlagSet(DRAW_ENABLED))
 	{
-		g_idle_add_once_sync((GSourceOnceFunc) update_freq_mhz_spin_button_value, rdpattern_frequency);
+		g_idle_add_once_sync((GSourceOnceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
 		g_idle_add_once_sync((GSourceOnceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
-		g_idle_add_once_sync(Redo_Currents, NULL);
-		g_idle_add_once_sync((GSourceOnceFunc) gtk_widget_queue_draw, rdpattern_drawingarea);
+		g_idle_add_once_sync((GSourceOnceFunc)Redo_Currents, NULL);
+		g_idle_add_once_sync((GSourceOnceFunc)gtk_widget_queue_draw, rdpattern_drawingarea);
 	}
 
 	return NULL;
