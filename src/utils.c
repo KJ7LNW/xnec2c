@@ -636,7 +636,7 @@ Get_Dirname( char *fpath, char *dirname, int *fname_idx )
 
 typedef struct 
 {
-	GSourceFunc function;
+	GSourceOnceFunc function;
 	gpointer data;
 	GMutex lock;
 	int is_locked;
@@ -681,9 +681,11 @@ int _callback_g_idle_add_once(g_idle_add_data_t *cbdata)
 	return FALSE;
 }
 
-void _g_idle_add_once(GSourceOnceFunc function, gpointer data, int lock)
+guint _g_idle_add_once(GSourceOnceFunc function, gpointer data, int lock)
 {
+	guint ret;
 	g_idle_add_data_t *cbdata = NULL;
+
 	mem_alloc((void**)&cbdata, sizeof(g_idle_add_data_t), __LOCATION__);
 
 	// Don't do a locked sync if -P is specified because GTK
@@ -705,7 +707,7 @@ void _g_idle_add_once(GSourceOnceFunc function, gpointer data, int lock)
 	if (lock)
 		g_mutex_lock(&cbdata->lock);
 
-	g_idle_add((GSourceFunc)_callback_g_idle_add_once, cbdata);
+	ret = g_idle_add((GSourceFunc)_callback_g_idle_add_once, cbdata);
 
 	// Wait for the lock to release and free it.
 	if (lock)
@@ -714,18 +716,23 @@ void _g_idle_add_once(GSourceOnceFunc function, gpointer data, int lock)
 		g_mutex_unlock(&cbdata->lock);
 		free_ptr((void**)&cbdata);
 	}
+
+	return ret;
 }
 
 // Call from any thread to queue a function to run once, do not wait for it to finish.
+// This was implemented in glib 2.74 so use Gnome's version if available.
+#if GLIB_VERSION_CUR_STABLE < G_ENCODE_VERSION(2,74)
 guint g_idle_add_once(GSourceOnceFunc function, gpointer data)
 {
-	_g_idle_add_once(function, data, 0); // async
+	return _g_idle_add_once(function, data, 0); // async
 }
+#endif
 
 // Call from another thread to queue a function to run once, and wait for it to finish.
-void g_idle_add_once_sync(GSourceOnceFunc function, gpointer data)
+guint g_idle_add_once_sync(GSourceOnceFunc function, gpointer data)
 {
-	_g_idle_add_once(function, data, 1); // sync
+	return _g_idle_add_once(function, data, 1); // sync
 }
 
 
