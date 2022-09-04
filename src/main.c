@@ -41,6 +41,9 @@ main (int argc, char *argv[])
   /* new and old actions for sigaction() */
   struct sigaction sa_new, sa_old;
 
+  // Print all notices that may occur before getopt parsing:
+  rc_config.verbose = 9;
+
   /* initialize new actions */
   sa_new.sa_handler = sig_handler;
   sigemptyset( &sa_new.sa_mask );

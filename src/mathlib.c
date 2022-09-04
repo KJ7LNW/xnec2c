@@ -261,15 +261,25 @@ void init_mathlib()
 // Restore selection on open:
 void mathlib_config_init(rc_config_vars_t *v, char *line)
 {
-	if (rc_config.mathlib_idx < num_mathlibs &&
-		rc_config.mathlib_idx >= 0 &&
-		mathlibs[rc_config.mathlib_idx].available)
+	if (rc_config.mathlib_idx >= num_mathlibs || rc_config.mathlib_idx < 0)
 	{
-		set_mathlib_interactive(NULL, &mathlibs[rc_config.mathlib_idx]);
+		pr_warn("mathlib_idx out of range, clamping to zero: 0 !< %d !< %d\n",
+			rc_config.mathlib_idx, num_mathlibs);
+		rc_config.mathlib_idx = 0;
 	}
-	else
-		pr_err("Unable to set the preferred mathlib index to %d (ignore if first run)\n",
-		       rc_config.mathlib_idx);
+
+	if (rc_config.mathlib_batch_idx >= num_mathlibs || rc_config.mathlib_batch_idx < 0)
+	{
+		pr_warn("mathlib_batch_idx out of range, clamping to zero: 0 !< %d !< %d\n",
+			rc_config.mathlib_batch_idx, num_mathlibs);
+		rc_config.mathlib_batch_idx = 0;
+	}
+
+	if (mathlibs[rc_config.mathlib_idx].available)
+		set_mathlib_interactive(NULL, &mathlibs[rc_config.mathlib_idx]);
+	else if (!rc_config.first_run)
+		pr_err("%s was not detected: Unable to set the mathlib index to %d\n",
+		       mathlibs[rc_config.mathlib_idx].name, rc_config.mathlib_idx);
 }
 
 int mathlib_config_benchmark_parse(rc_config_vars_t *v, char *line)

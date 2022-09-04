@@ -347,6 +347,9 @@ typedef struct
 
   /* verbose and debug levels, see console.h */
   int verbose, debug;
+
+  /* true if ~/.xnec2c/xnec2c.conf does not exist, false otherwise */
+  int first_run;
 } rc_config_t;
 
 typedef struct {
