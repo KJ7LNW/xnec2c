@@ -9640,6 +9640,16 @@ Save NEC2 Editor data first?
                           </object>
                         </child>
                         <child>
+                          <object class="GtkImageMenuItem" id="freqplots_save_as_csv">
+                            <property name="label" translatable="yes">Save as _CSV</property>
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="use-underline">True</property>
+                            <property name="use-stock">False</property>
+                            <signal name="activate" handler="on_freqplots_save_as_csv_activate" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
                           <object class="GtkMenuItem" id="freqplots_touchstone_menu">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>

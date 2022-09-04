@@ -158,6 +158,27 @@ void Save_FreqPlots_S2P_Viewer_Gain(char *filename)
 	Save_FreqPlots_Touchstone(filename, TOUCHSTONE_S2P_VIEWERGAIN);
 }
 
+void Save_FreqPlots_CSV(char *filename)
+{
+	/* Open Optimizer csv file */
+	FILE *fp = NULL;
+
+	// Abort if plot data not available
+	if (isFlagClear(FREQ_LOOP_DONE))
+	{
+		Notice(_("Touchstone Data"), "Cannot save data while frequency loop is running", GTK_BUTTONS_OK);
+		return;
+	}
+
+	if (!Open_File(&fp, filename, "w"))
+		return;
+
+	meas_write_header(fp, ",");
+	meas_write_data(fp, ",");
+
+	fclose(fp);
+}
+
 
 /*-----------------------------------------------------------------------*/
 

@@ -814,6 +814,8 @@ Open_Filechooser(
     gtk_file_filter_set_name( filter, _("Touchstone 1-port files (*.s1p)") );
   else if( strcmp(pattern, "*.s2p") == 0 )
     gtk_file_filter_set_name( filter, _("Touchstone 2-port files (*.s2p)") );
+  else if( strcmp(pattern, "*.csv") == 0 )
+    gtk_file_filter_set_name( filter, _("Comma-separated CSV files (*.csv)") );
 
   /* Add and set filter */
   gtk_file_chooser_add_filter( GTK_FILE_CHOOSER(chooser), filter );

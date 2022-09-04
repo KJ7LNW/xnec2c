@@ -45,29 +45,7 @@ _Write_Optimizer_Data( void )
   Strlcpy( csv_file, rc_config.input_file, s );
   Strlcat( csv_file, ".csv", s );
 
-  /* Open Optimizer csv file */
-  FILE *fp = NULL;
-  if( !Open_File(&fp, csv_file, "w") )
-  {
-    if( error_dialog == NULL )
-    {
-      GtkBuilder *builder;
-      error_dialog = create_error_dialog( &builder );
-      gtk_label_set_text( GTK_LABEL(Builder_Get_Object(builder, "error_label")),
-          "Failed to open Optimizer CSV file for writing" );
-      gtk_widget_hide( Builder_Get_Object(builder, "error_okbutton") );
-      gtk_widget_show( error_dialog );
-      g_object_unref( builder );
-    }
-    perror( "Open_File()" );
-
-    return;
-  } // if( !Open_File(&fp, csv_file, "w") )
-
-  meas_write_header(fp, ",");
-  meas_write_data(fp, ",");
-
-  fclose( fp );
+  Save_FreqPlots_CSV(csv_file);
 } // Write_Optimizer_Data()
 
 void Write_Optimizer_Data( void )

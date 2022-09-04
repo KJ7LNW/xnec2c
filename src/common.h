@@ -1387,6 +1387,7 @@ void wire(double xw1, double yw1, double zw1, double xw2, double yw2, double zw2
 void Save_FreqPlots_S1P(char *filename);
 void Save_FreqPlots_S2P_Max_Gain(char *filename);
 void Save_FreqPlots_S2P_Viewer_Gain(char *filename);
+void Save_FreqPlots_CSV(char *filename);
 void Save_FreqPlots_Gnuplot_Data(char *filename);
 void Save_RadPattern_Gnuplot_Data(char *filename);
 void Save_Struct_Gnuplot_Data(char *filename);
