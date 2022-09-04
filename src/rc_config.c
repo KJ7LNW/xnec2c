@@ -273,7 +273,7 @@ int parse_var(rc_config_vars_t *v, char *line, char *locale)
 	if (check != strlen(line))
 	{
 		pr_warn("%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n",
-		        v->desc, locale, check, strlen(line), line);
+		        v->desc, locale, check, (unsigned long)strlen(line), line);
 		return 0;
 	}
 

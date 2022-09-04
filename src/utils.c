@@ -279,7 +279,7 @@ void mem_obj_dump(void *ptr)
 	pr_debug("mem_obj_t at %p:\n"
 		"  size: %lu\n"
 		"  used: %lu\n"
-		"  addr: %p\n", (void *)m, m->size, m->used, m->ptr);
+		"  addr: %p\n", (void *)m, (unsigned long)m->size,  (unsigned long)m->used, m->ptr);
 
 
 }
@@ -362,7 +362,7 @@ void mem_realloc( void **ptr, size_t req, gchar *str )
   {
     snprintf( mesg, sizeof(mesg),
         _("Memory re-allocation denied %s\n"), str );
-    pr_err("%s: Memory requested %lu\n", mesg, req);
+    pr_err("%s: Memory requested %lu\n", mesg, (unsigned long)req);
     Stop( mesg, ERR_STOP );
 	return;
   }
