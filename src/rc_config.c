@@ -30,6 +30,8 @@
  */
 
 rc_config_vars_t rc_config_vars[] = {
+	// Historical typo "Vesrsion", but it cannot changed for backwards
+	// compatibility because we parse the comment:
 	{ .desc = "Application Vesrsion", .format = "%s", .ro = 1, 
 		.vars = { PACKAGE_STRING } },
 
@@ -151,7 +153,7 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.mathlib_idx }, .init = mathlib_config_init },
 
 	{ .desc = "Selected Batch Mathlib", .format = "%d",
-		.vars = { &rc_config.mathlib_batch_idx } },
+		.vars = { &rc_config.mathlib_batch_idx }, .init = mathlib_config_init },
 
 	{ .desc = "Selected Mathlib Benchmarks",
 		.parse = mathlib_config_benchmark_parse,
@@ -370,9 +372,8 @@ Create_Default_Config( void )
     /* Read Application Version */
     if( Load_Line(line, fp) == EOF )
     {
-      pr_err("EOF reading application version\n");
-      Close_File( &fp );
-      return( FALSE );
+      pr_err("%s: EOF reading application version.\n", cfg_file);
+      strcpy(line, "(unknown)");
     }
 
     /* Produce fresh default config file if version number new */
@@ -627,7 +628,12 @@ Read_Config( void )
 
   /* Create the file if missing */
   if( access(fpath, R_OK) < 0 && errno == ENOENT)
+  {
+	  rc_config.first_run = 1;
 	  Save_Config();
+  }
+  else
+	  rc_config.first_run = 0;
 
   /* Open xnec2c config file */
   if( !Open_File(&fp, fpath, "r") ) return( FALSE );
@@ -876,6 +882,11 @@ Get_GUI_State( void )
 /* Save_Config()
  *
  * Saves the current values in rc_config to xnec2c.conf
+ *
+ * The format is perhaps unusual.  For historical and backwards-compatibility
+ * reasons the comment indicates the variable on the next line.  It used to be
+ * parsed with a strict ordering, but now rc_config_vars_t defines the output
+ * ordering and assigns values by reference to `rc_config`.
  */
   gboolean
 Save_Config( void )
