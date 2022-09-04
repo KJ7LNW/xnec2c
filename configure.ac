@@ -100,6 +100,12 @@ AC_CHECK_HEADER(execinfo.h,
 			]
 		)
 
+AC_CHECK_HEADER(sys/inotify.h,
+                       [
+                       AC_DEFINE([HAVE_INOTIFY], 1, [we have inotify] )
+                       ]
+               )
+
 
 # Check for OpenMP
 AC_OPENMP

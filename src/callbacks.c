@@ -268,8 +268,17 @@ on_optimizer_output_toggled(
     GtkMenuItem     *menuitem,
     gpointer         user_data)
 {
+#ifndef HAVE_INOTIFY
+	Notice(_("xnec2c geometry optimizer"),
+		_("xnec2c was built without inotify support: the optimizer cannot be enabled."),
+		GTK_BUTTONS_OK);
+    ClearFlag( OPTIMIZER_OUTPUT );
+	return;
+#endif
+
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
   {
+
     // Enable frequency data output to Optimizer's file
     SetFlag( OPTIMIZER_OUTPUT );
 

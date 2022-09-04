@@ -18,6 +18,15 @@
  */
 
 #include "shared.h"
+
+// If inotify was not detected then create stubs:
+#ifndef HAVE_INOTIFY
+void *Optimizer_Output( void *arg ) { pr_err("xnec2c was built without inotify."); return NULL; }
+void Write_Optimizer_Data( void )   { pr_err("xnec2c was built without inotify."); }
+
+// Otherwise, normal optimize code:
+#else
+
 #include <poll.h>
 #include <sys/inotify.h>
 #include <sys/stat.h>
@@ -214,6 +223,8 @@ Optimizer_Output( void *arg )
   close( fd );
   return( NULL );
 } // Optimizer_Output()
+
+#endif // HAVE_INOTIFY
 
 /*------------------------------------------------------------------------*/
 
