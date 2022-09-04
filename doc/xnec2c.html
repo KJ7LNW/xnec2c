@@ -23,20 +23,22 @@ many more features:
 
 <h2>Xnec2c Quick Start Guide</h2>
 
+<h3>Compilation</h3>
     <ul>
       <li><tt>git clone https://github.com/KJ7LNW/xnec2c.git</tt></li>
       <li><tt>cd xnec2c</tt></li>
-      <li><tt>./autogen.sh</li>
+      <li><tt>./autogen.sh</tt></li>
       <li><tt>./configure</tt></li>
       <li><tt>make &amp;&amp; make install</tt></li>
       <li><tt>make desktop-install # Optional: for icons and file association.</tt></li>
       <li><tt>xnec2c</tt></li>
     </ul>
 
+<h3>Compilation Notes</h3>
+
 If you prefer to download .tar.gz files they are available on our
 <a target="_blank" href="https://www.xnec2c.org/releases/?C=M;O=D">releases</a> page.
 
-<h3>Compilation Notes</h3>
 <ul>
 	<li>
 	You will need the Gnome development libraries and build tools installed for your distribution:
@@ -53,6 +55,25 @@ If you prefer to download .tar.gz files they are available on our
 	If you have trouble building on any OS then please open an issue on the <a href="https://github.com/KJ7LNW/xnec2c/issues">github issues</a> page so we can make xnec2c build on as many systems as possible.
 	</li>
 </ul>
+
+<h3>Getting Started</h3>
+<ol>
+	<li>Open a simple antenna like <tt>examples/2m_yagi.nec</tt> because it will render quickly.</li>
+	<li>In the main window, select <tt>View-&gt;Radiation Pattern</tt> and <tt>View-&gt;Frequency Plots</tt></li>
+	<li>In the Freqplots window, select "Max Gain" and "VSWR" (or whichever you'd like to see).</li>
+	<li>Click the triangle "Play" button on the freqplots window to render the graph.</li>
+	<li>Click anywhere in the plot window to select a frequency (green line)</li>
+	<li>Drag the radiation pattern around and have a look!</li>
+</ol>
+
+
+<h3>Performance Tips</h3>
+<ul>
+	<li>Launch xnec2c with as many jobs as you have CPUs; for example: <tt>xnec2c -j8</tt></li>
+	<li>Configure accelerated LAPACK libraries.  See File-&gt;Mathlib Libraries-&gt;Mathlib Help</li>
+</ul>
+
+
 
 <h3>Contribute to Xnec2c</h3>
 If you wish
