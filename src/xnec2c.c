@@ -852,7 +852,7 @@ gboolean Frequency_Loop( gpointer udata )
 	if( isFlagSet(PLOT_ENABLED) )
 	{
 	  /* Display current frequency in plots entry */
-	  g_idle_add_once((GSourceFunc)update_freqplots_fmhz_entry, NULL);
+	  g_idle_add_once((GSourceOnceFunc)update_freqplots_fmhz_entry, NULL);
 
 	  if( isFlagClear(OPTIMIZER_OUTPUT) || freqplots_click_pending())
 	  {
@@ -861,11 +861,11 @@ gboolean Frequency_Loop( gpointer udata )
 	}
 
 	/* Set main window frequency spinbutton */
-	g_idle_add_once((GSourceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
+	g_idle_add_once((GSourceOnceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
 
 	/* Set Radiation pattern window frequency spinbutton */
 	if( isFlagSet(DRAW_ENABLED) )
-		  g_idle_add_once((GSourceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
+		  g_idle_add_once((GSourceOnceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
 
 	xnec2_widget_queue_draw( structure_drawingarea );
   }
@@ -901,17 +901,17 @@ gboolean Frequency_Loop( gpointer udata )
 
       /* Set main window frequency spinbutton.
 	   * This will trigger New_Frequency() via Redo_Currents(). */
-      g_idle_add_once_sync((GSourceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
+      g_idle_add_once_sync((GSourceOnceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
 
       /* Set Radiation pattern window frequency spinbutton.
 	   * This will trigger New_Frequency() via Redo_Radiation_Pattern,. */
       if( isFlagSet(DRAW_ENABLED) )
-        g_idle_add_once_sync((GSourceFunc)update_fmhz_save_spin_button_value, rdpattern_frequency);
+        g_idle_add_once_sync((GSourceOnceFunc)update_fmhz_save_spin_button_value, rdpattern_frequency);
 
       if( isFlagSet(PLOT_ENABLED) )
       {
         SetFlag( PLOT_FREQ_LINE );
-        g_idle_add_once_sync((GSourceFunc)update_freqplots_fmhz_entry, NULL);
+        g_idle_add_once_sync((GSourceOnceFunc)update_freqplots_fmhz_entry, NULL);
       }
     }
 
@@ -925,7 +925,7 @@ gboolean Frequency_Loop( gpointer udata )
      * the optimizer if SIGHUP received */
     if( isFlagSet(OPTIMIZER_OUTPUT) )
     {
-      g_idle_add_once_sync((GSourceFunc)Write_Optimizer_Data, NULL);
+      g_idle_add_once_sync((GSourceOnceFunc)Write_Optimizer_Data, NULL);
     }
   } // if( !retval && !num_busy_procs )
 
@@ -951,7 +951,7 @@ void *Frequency_Loop_Thread(void *p)
 	// Exit if in batch mode
 	if (rc_config.batch_mode)
 	{
-		g_idle_add_once_sync((GSourceFunc)Gtk_Quit, NULL);
+		g_idle_add_once_sync((GSourceOnceFunc)Gtk_Quit, NULL);
 		return NULL;
 	}
 
@@ -972,14 +972,14 @@ void *Frequency_Loop_Thread(void *p)
 	   Re-draw drawing areas at end of loop 
 	 */
 	if (isFlagSet(PLOT_ENABLED))
-		g_idle_add_once_sync((GSourceFunc) gtk_widget_queue_draw, freqplots_drawingarea);
+		g_idle_add_once_sync((GSourceOnceFunc) gtk_widget_queue_draw, freqplots_drawingarea);
 
 	if (isFlagSet(DRAW_ENABLED))
 	{
-		g_idle_add_once_sync((GSourceFunc) update_freq_mhz_spin_button_value, rdpattern_frequency);
-		g_idle_add_once_sync((GSourceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
-		g_idle_add_once_sync(Redo_Currents, NULL);
-		g_idle_add_once_sync((GSourceFunc) gtk_widget_queue_draw, rdpattern_drawingarea);
+		g_idle_add_once_sync((GSourceOnceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
+		g_idle_add_once_sync((GSourceOnceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
+		g_idle_add_once_sync((GSourceOnceFunc)Redo_Currents, NULL);
+		g_idle_add_once_sync((GSourceOnceFunc)gtk_widget_queue_draw, rdpattern_drawingarea);
 	}
 
 	return NULL;
