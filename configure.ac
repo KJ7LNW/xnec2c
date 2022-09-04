@@ -75,25 +75,6 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
        ],
        [AC_MSG_RESULT([no])])
 
-AC_MSG_CHECKING([whether dlopen supports LMID])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([
-			#define _GNU_SOURCE
-			#include <link.h>
-			#include <dlfcn.h>
-			#include <stdlib.h>
-		],
-		[
-			int i = RTLD_DI_LMID;
-		])],
-		[
-			AC_DEFINE([HAVE_LMID], 1, [dlopen supports LMID ] )
-			AC_MSG_RESULT([yes])
-		],
-		[
-			AC_MSG_RESULT([no])
-		]
-	)
-
 AC_CHECK_HEADER(execinfo.h,
 			[
 			AC_DEFINE([HAVE_BACKTRACE], 1, [libc supports backtrace()] )
