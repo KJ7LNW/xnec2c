@@ -187,7 +187,7 @@ update-desktop-database &> /dev/null || :
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
 * Thu May 31 2018 Richard Shaw <hobbes1069@gmail.com> - 3.9-0.1
-- Update to 3.9 Beta with GTK3 suppoert.
+- Update to 3.9 Beta with GTK3 support.
 
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild

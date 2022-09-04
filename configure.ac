@@ -76,7 +76,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
        [AC_MSG_RESULT([no])])
 
 AC_MSG_CHECKING([whether dlopen supports LMID])
-AC_RUN_IFELSE([AC_LANG_PROGRAM([
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([
 			#define _GNU_SOURCE
 			#include <link.h>
 			#include <dlfcn.h>
