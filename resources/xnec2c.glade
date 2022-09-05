@@ -10455,15 +10455,78 @@ Save NEC2 Editor data first?
                           </object>
                         </child>
                         <child>
-                          <object class="GtkCheckMenuItem" id="optimizer_output">
+                          <object class="GtkMenuItem" id="optimizer_output_menu">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="label" translatable="yes">Optimizer Output</property>
+                            <property name="label" translatable="yes">Optimization Settings</property>
                             <property name="use-underline">True</property>
-                            <signal name="toggled" handler="on_optimizer_output_toggled" swapped="no"/>
+                            <child type="submenu">
+                              <object class="GtkMenu" id="optimizer_output_submenu">
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkCheckMenuItem" id="optimizer_output">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">Reload and write data on .NEC file changes</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="toggled" handler="on_optimizer_output_toggled" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkMenuItem" id="optimizer_write_output">
+                                    <property name="label" translatable="yes">_Write files selected below, now.</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="activate" handler="Write_Optimizer_Data" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparatorMenuItem">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkCheckMenuItem" id="optimizer_write_csv">
+                                    <property name="label" translatable="yes">After calculation, write &lt;file&gt;.csv</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="toggled" handler="rc_callback_check_menu_item" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkCheckMenuItem" id="optimizer_write_s1p">
+                                    <property name="label" translatable="yes">After calculation, write &lt;file&gt;.s_1p</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="toggled" handler="rc_callback_check_menu_item" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkCheckMenuItem" id="optimizer_write_s2p_max_gain">
+                                    <property name="label" translatable="yes">After calculation, write &lt;file&gt;-_maxgain.s2p</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="toggled" handler="rc_callback_check_menu_item" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkCheckMenuItem" id="optimizer_write_s2p_viewer_gain">
+                                    <property name="label" translatable="yes">After calculation, write &lt;file&gt;-_viewergain.s2p</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="toggled" handler="rc_callback_check_menu_item" swapped="no"/>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
                           </object>
                         </child>
-
                         <child>
                           <object class="GtkMenuItem" id="main_mathlib_menu">
                             <property name="visible">True</property>

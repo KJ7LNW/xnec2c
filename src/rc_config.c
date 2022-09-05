@@ -19,6 +19,7 @@
 
 #include <ctype.h>
 #include <sys/stat.h>
+#include "shared.h"
 #include "rc_config.h"
 #include "mathlib.h"
 
@@ -173,6 +174,22 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Round X Axis", .format = "%d",
 		.vars = { &rc_config.freqplots_round_x_axis } },
+
+	{ .desc = "Optimizer Write CSV", .format = "%d",
+		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_csv",
+		.vars = { &rc_config.opt_write_csv } },
+
+	{ .desc = "Optimizer Write S1P", .format = "%d",
+		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_s1p",
+		.vars = { &rc_config.opt_write_s1p } },
+
+	{ .desc = "Optimizer Write S2P Max Gain", .format = "%d",
+		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_s2p_max_gain",
+		.vars = { &rc_config.opt_write_s2p_max_gain } },
+
+	{ .desc = "Optimizer Write S2P Viewer Gain", .format = "%d",
+		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_s2p_viewer_gain",
+		.vars = { &rc_config.opt_write_s2p_viewer_gain } },
 };
 
 
@@ -320,6 +337,36 @@ int fprint_var(FILE *fp, rc_config_vars_t *v)
 
 	return count;
 }
+
+
+/*
+ * rc_callback_check_menu_item()
+ *
+ * Use as a callback in resources/xnec2c.glade for GtkCheckMenuItem to handle
+ * the checkbox toggle and also set the referenced variable defined in
+ * rc_config_vars.
+ *
+ */
+void rc_callback_check_menu_item(GtkCheckMenuItem *menuitem, gpointer user_data)
+{
+	for (int i = 0; i < num_rc_config_vars; i++)
+	{
+		if (rc_config_vars[i].builder_check_menu_item_id == NULL || rc_config_vars[i].builder_window == NULL)
+			continue;
+
+		GtkBuilder *bw = *rc_config_vars[i].builder_window;
+		GtkWidget *w = Builder_Get_Object(bw, rc_config_vars[i].builder_check_menu_item_id);
+		if (GTK_CHECK_MENU_ITEM(w) == menuitem)
+		{
+			pr_debug("match: %s\n", rc_config_vars[i].builder_check_menu_item_id);
+
+			// This is a toggle button, it will always be an int:
+			int *var = (int*)rc_config_vars[i].vars[0];
+			*var = gtk_check_menu_item_get_active(menuitem);
+		}
+	}
+}
+
 
 /*------------------------------------------------------------------------*/
 
@@ -679,8 +726,20 @@ Read_Config( void )
 		  !parse_var(v, line, "en_DK")
 		  )
 		  pr_err("%s:%d: parse error (%s): %s \n", fpath, lnum, v->desc, line);
-	  else if (v->init != NULL)
-		  v->init(v, line);
+	  else
+	  {
+		  if (v->builder_check_menu_item_id != NULL && v->builder_window != NULL)
+		  {
+			GtkBuilder *bw = *v->builder_window;
+			GtkWidget *w = Builder_Get_Object(bw, v->builder_check_menu_item_id);
+			int *var = (int*)v->vars[0];
+			gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(w), (gboolean)*var );
+		  }
+
+		  if (v->init != NULL)
+			  v->init(v, line);
+
+	  }
   }
 
   /* Close the config file pointer */

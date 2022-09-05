@@ -36,6 +36,14 @@ typedef struct rc_config_vars_t {
 	void (*init)(struct rc_config_vars_t *, char *);  // call this to initialize if not NULL
 	int (*parse)(struct rc_config_vars_t *, char *); // call this to parse, ignore "format"
 	int (*save)(struct rc_config_vars_t *, FILE *);  // call this to save, ignore "format"
+
+	// GTK UI Integration:
+
+	// A pointer to the builder window, such as &main_window_builder.
+	GtkBuilder **builder_window;
+
+	// String id="<id>" name from resources/xnec2c.glade for GtkCheckMenuItem objects:
+	char *builder_check_menu_item_id;
 } rc_config_vars_t;
 
 extern rc_config_vars_t rc_config_vars[];
