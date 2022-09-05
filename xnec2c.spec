@@ -33,7 +33,11 @@ Requires: libpng
 # recommended for performance.  xnec2c detects available BLAS
 # libraries at runtime:
 Requires: atlas
+%if 0%{?rhel} && 0%{?rhel} <= 7
 Requires: openblas-serial
+%else
+Requires: openblas
+%endif
 Requires: openblas-threads
 Requires: openblas-openmp
 
