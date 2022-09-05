@@ -1465,6 +1465,7 @@ void load(int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt, double *zlr, double 
 /* optimize.c */
 void Write_Optimizer_Data(void);
 void *Optimizer_Output(void *arg);
+int opt_have_files_to_save();
 /* plot_freqdata.c */
 void Plot_Frequency_Data(cairo_t *cr);
 void Plots_Window_Killed(void);

@@ -290,10 +290,7 @@ on_optimizer_output_toggled(
     if (isFlagSet(FREQ_LOOP_DONE))
         Write_Optimizer_Data();
 
-    if (!rc_config.opt_write_csv &&
-        !rc_config.opt_write_s1p &&
-        !rc_config.opt_write_s2p_max_gain &&
-        !rc_config.opt_write_s2p_viewer_gain)
+    if (!opt_have_files_to_save())
     {
         Notice(_("Xnec2c Optimizer"), _("No files are selected for writing. "
             "However, xnec2c will still reload and recalculate the input file on "

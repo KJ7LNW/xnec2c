@@ -921,9 +921,11 @@ gboolean Frequency_Loop( gpointer udata )
     if( isFlagSet(DRAW_ENABLED) )
       xnec2_widget_queue_draw( rdpattern_drawingarea );
 
-    /* Write out frequency loop data for
-     * the optimizer if SIGHUP received */
-    if( isFlagSet(OPTIMIZER_OUTPUT) )
+    /* Write out frequency loop data for the optimizer if optimization is
+     * active.  This is a sync call, so only call this if we have files flagged
+     * for writing (opt_have_files_to_save) based on the checkboxes in
+     * File->Optimization Settings */
+    if( isFlagSet(OPTIMIZER_OUTPUT) && opt_have_files_to_save() )
     {
       g_idle_add_once_sync((GSourceOnceFunc)Write_Optimizer_Data, NULL);
     }

@@ -21,6 +21,14 @@
 
 /*------------------------------------------------------------------------*/
 
+int opt_have_files_to_save()
+{
+	return rc_config.opt_write_csv ||
+        rc_config.opt_write_s1p ||
+        rc_config.opt_write_s2p_max_gain ||
+        rc_config.opt_write_s2p_viewer_gain;
+}
+
 /* Writes out frequency-dependent
  * data for the external Optimizer */
   void
