@@ -269,11 +269,15 @@ on_optimizer_output_toggled(
     gpointer         user_data)
 {
 #ifndef HAVE_INOTIFY
-	Notice(_("xnec2c geometry optimizer"),
-		_("xnec2c was built without inotify support: the optimizer cannot be enabled."),
-		GTK_BUTTONS_OK);
+    if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)))
+		return;
+
+    Notice(_("xnec2c geometry optimizer"),
+        _("xnec2c was built without inotify support: the optimizer cannot be enabled."),
+        GTK_BUTTONS_OK);
     ClearFlag( OPTIMIZER_OUTPUT );
-	return;
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), FALSE);
+    return;
 #endif
 
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
@@ -285,6 +289,16 @@ on_optimizer_output_toggled(
     // Do an initial write in case the optimizer is waiting for the .csv:
     if (isFlagSet(FREQ_LOOP_DONE))
         Write_Optimizer_Data();
+
+    if (!rc_config.opt_write_csv &&
+        !rc_config.opt_write_s1p &&
+        !rc_config.opt_write_s2p_max_gain &&
+        !rc_config.opt_write_s2p_viewer_gain)
+    {
+        Notice(_("Xnec2c Optimizer"), _("No files are selected for writing. "
+            "However, xnec2c will still reload and recalculate the input file on "
+            "modification when triggered by inotify."), GTK_BUTTONS_OK);
+    }
 
     // Create a thread to play back demodulation buffer
     pthread_t thrd;

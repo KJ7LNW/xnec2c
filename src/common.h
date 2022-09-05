@@ -350,6 +350,12 @@ typedef struct
 
   /* true if ~/.xnec2c/xnec2c.conf does not exist, false otherwise */
   int first_run;
+
+  /* optimization file write flags */
+  int opt_write_csv;
+  int opt_write_s1p;
+  int opt_write_s2p_max_gain;
+  int opt_write_s2p_viewer_gain;
 } rc_config_t;
 
 typedef struct {
