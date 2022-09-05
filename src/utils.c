@@ -81,6 +81,7 @@ Stop( char *mesg, int err )
 {
   GtkBuilder *builder;
 
+  pr_err("Stop: %s\n", mesg);
   /* For child processes */
   if( CHILD )
   {
