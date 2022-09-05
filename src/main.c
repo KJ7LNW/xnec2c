@@ -21,10 +21,56 @@
 #include "shared.h"
 #include "mathlib.h"
 
+#include <getopt.h>
+
 static void sig_handler(int signal);
 
 /* Child process pid returned by fork() */
 static pid_t child_pid = (pid_t)(-1);
+
+enum XNEC2C_OPTS {
+	// Start at 128 after all single-digit opts:
+	OPT_FIRST_OPT = 128,
+
+	OPT_MAX_OPTS
+};
+
+static struct option long_options[] = {
+		{  "input",                  required_argument,   NULL,  'i'  },
+		{  "jobs",                   required_argument,   NULL,  'j'  },
+		{  "help",                   no_argument,         NULL,  'h'  },
+		{  "verbose",                no_argument,         NULL,  'v'  },
+		{  "debug",                  no_argument,         NULL,  'd'  },
+		{  "quiet",                  no_argument,         NULL,  'q'  },
+		{  "version",                no_argument,         NULL,  'V'  },
+		{  "no-pthreads",            no_argument,         NULL,  'P'  },
+		{  "batch",                  no_argument,         NULL,  'b'  },
+		{  NULL,                     0,                   NULL,  0    }
+	};
+
+static char *build_optstring(struct option *long_options)
+{
+	static char optstring[256] = {0};
+	char c[2] = {0,0};
+
+	int i;
+	for (i = 0; long_options[i].name != NULL; i++)
+	{
+		if (long_options[i].val < OPT_FIRST_OPT)
+			c[0] = (char)long_options[i].val;
+		else
+			continue;
+
+		strcat(optstring, c);
+
+		if (long_options[i].has_arg == required_argument)
+			strcat(optstring, ":");
+		else if (long_options[i].has_arg == optional_argument)
+			strcat(optstring, "::");
+	}
+
+	return optstring;
+}
 
 /*------------------------------------------------------------------------*/
 
@@ -76,7 +122,9 @@ main (int argc, char *argv[])
 
   // default to show warnings or more important errors.
   rc_config.verbose = 4; 
-  while( (option = getopt(argc, argv, "i:j:hdqvVPb") ) != -1 )
+
+  int option_index = 0;
+  while( (option = getopt_long(argc, argv, build_optstring(long_options), long_options, &option_index) ) != -1 )
   {
     switch( option )
     {
@@ -147,18 +195,36 @@ main (int argc, char *argv[])
   init_mathlib();
 
   /* Read input file path name if not supplied by -i option */
-  if( (strlen(rc_config.input_file) == 0) &&
-      (strstr(argv[argc - 1], ".nec") ||
-       strstr(argv[argc - 1], ".NEC")) )
+  while (strlen(rc_config.input_file) == 0 && optind < argc)
   {
-    size_t siz = sizeof( rc_config.input_file );
-    if( strlen(argv[argc - 1]) >= siz )
+    if (strstr(argv[optind], ".nec") || strstr(argv[optind], ".NEC"))
     {
-      pr_crit("input file path name too long ( > %d char )\n", (int)siz - 1);
-      exit(-1);
+      size_t siz = sizeof(rc_config.input_file);
+
+      if (strlen(argv[optind]) >= siz)
+      {
+        pr_crit("input file path name too long ( > %d char )\n", (int) siz - 1);
+        exit(1);
+      }
+
+      Strlcpy(rc_config.input_file, argv[optind], siz);
     }
-     /* For null termination */
-    Strlcpy( rc_config.input_file, argv[argc-1], siz );
+    else
+      pr_warn("unexpected argument '%s' does not appear to be a .nec file\n", argv[optind]);
+
+    optind++;
+  }
+
+  while (optind < argc)
+  {
+    pr_warn("unexpected argument: %s\n", argv[optind]);
+    optind++;
+  }
+
+  if (strlen(rc_config.input_file) == 0 && rc_config.batch_mode)
+  {
+	  pr_crit("batch mode requires an input file\n");
+	  exit(1);
   }
 
   /* When forking is useful, e.g. if more than 1 processor is
