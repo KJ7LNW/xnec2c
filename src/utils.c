@@ -612,6 +612,24 @@ double Strtod( char *nptr, char **endptr )
 
 /*------------------------------------------------------------------*/
 
+/* str_append()
+ *
+ * Append a and b, store in dst.
+ *
+ * For example, this writes "hello world" to d:
+ *    char d[20];
+ *    str_append(d, "hello ", "world", 19);
+ */
+char *str_append(char *dst, char *a, char *b, size_t n)
+{
+  Strlcpy( dst, a, n );
+  Strlcat( dst, b, n );
+
+  return dst;
+}
+
+/*------------------------------------------------------------------*/
+
 /* Get_Dirname()
  *
  * Gets the directory name from a file path

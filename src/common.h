@@ -1505,6 +1505,7 @@ void SaveFlag(unsigned long long int *flag, unsigned long long int mask);
 void Strlcpy(char *dest, const char *src, size_t n);
 void Strlcat(char *dest, const char *src, size_t n);
 double Strtod(char *nptr, char **endptr);
+char *str_append(char *dst, char *a, char *b, size_t n);
 void Get_Dirname(char *fpath, char *dirname, int *fname_idx);
 void xnec2_widget_queue_draw(GtkWidget *w);
 #if GLIB_VERSION_CUR_STABLE < G_ENCODE_VERSION(2,74)
