@@ -412,6 +412,8 @@ Open_File( FILE **fp, char *fname, const char *mode )
     Stop( mesg, ERR_STOP );
     return( FALSE );
   }
+  else
+    pr_debug("%s: %s\n", mode, fname);
 
   return( TRUE );
 } /* Open_File() */
