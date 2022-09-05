@@ -40,16 +40,26 @@ void _print_backtrace(char **strings);
   void
 usage(void)
 {
-  fprintf(stderr, "Usage: xnec2c <input-file-name>\n"
-         "              [-i <input-file-name>]\n"
-         "              [-j <number of processors in SMP machine>]\n"
-         "                  -j 0 disables forking for debug.\n"
-         "              [-b: enable batch mode, exit after the frequency loop runs.]\n"
-         "              [-P: debug: disable pthreads for freqloop, use GTK mainloop instead.]\n"
-         "              [-h: print this usage information and exit.]\n"
-         "              [-V: print xnec2c version number and exit.]\n"
-         "              [-v: increase verbosity, can be specified multiple times.]\n"
-         "              [-d: increase debug output (-dd includes backtraces).]\n");
+  fprintf(stderr, "Usage: xnec2c [options] [<input-file-name>]\n"
+		"  -i|--input <input-file-name>\n"
+		"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+		"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+		"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+		"  -h|--help:         print usage information and exit\n"
+		"  -V|--version:      print xnec2c version number and exit\n"
+		"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+		"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+		"  -d|--quiet:        suppress debug/verbose output\n"
+		"\n"
+		"The following arguments write to an output file after the frequency loop\n"
+		"completes.  These are useful to combine with --batch; If you wish to specify\n"
+		"filenames to write without --batch mode then enable the File->Optimizer\n"
+		"Settings or the files you specify on the command line will not be written.\n"
+		"\n"
+		"  --write-csv <filename>\n"
+		"  --write-s1p <filename>\n"
+		"  --write-s2p-max-gain <filename>\n"
+		"  --write-s2p-viewer-gain <filename>\n");
 
 } /* end of usage() */
 

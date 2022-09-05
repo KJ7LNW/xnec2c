@@ -925,7 +925,7 @@ gboolean Frequency_Loop( gpointer udata )
      * active.  This is a sync call, so only call this if we have files flagged
      * for writing (opt_have_files_to_save) based on the checkboxes in
      * File->Optimization Settings */
-    if( isFlagSet(OPTIMIZER_OUTPUT) && opt_have_files_to_save() )
+    if( (rc_config.batch_mode || isFlagSet(OPTIMIZER_OUTPUT)) && opt_have_files_to_save() )
     {
       g_idle_add_once_sync((GSourceOnceFunc)Write_Optimizer_Data, NULL);
     }

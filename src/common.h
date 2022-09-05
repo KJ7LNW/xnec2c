@@ -356,6 +356,13 @@ typedef struct
   int opt_write_s1p;
   int opt_write_s2p_max_gain;
   int opt_write_s2p_viewer_gain;
+
+  /* If for example --write-csv <file> is added to the cmdline then write
+   * the file after each frequency iteration */
+  char *filename_csv;
+  char *filename_s1p;
+  char *filename_s2p_max_gain;
+  char *filename_s2p_viewer_gain;
 } rc_config_t;
 
 typedef struct {

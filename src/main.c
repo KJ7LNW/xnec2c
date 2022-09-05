@@ -32,20 +32,31 @@ enum XNEC2C_OPTS {
 	// Start at 128 after all single-digit opts:
 	OPT_FIRST_OPT = 128,
 
+	OPT_WRITE_CSV,
+	OPT_WRITE_S1P,
+	OPT_WRITE_S2P_MAX_GAIN,
+	OPT_WRITE_S2P_VIEWER_GAIN,
+
 	OPT_MAX_OPTS
 };
 
 static struct option long_options[] = {
-		{  "input",                  required_argument,   NULL,  'i'  },
-		{  "jobs",                   required_argument,   NULL,  'j'  },
-		{  "help",                   no_argument,         NULL,  'h'  },
-		{  "verbose",                no_argument,         NULL,  'v'  },
-		{  "debug",                  no_argument,         NULL,  'd'  },
-		{  "quiet",                  no_argument,         NULL,  'q'  },
-		{  "version",                no_argument,         NULL,  'V'  },
-		{  "no-pthreads",            no_argument,         NULL,  'P'  },
-		{  "batch",                  no_argument,         NULL,  'b'  },
-		{  NULL,                     0,                   NULL,  0    }
+		{  "input",                  required_argument,   NULL,  'i'                        },
+		{  "jobs",                   required_argument,   NULL,  'j'                        },
+		{  "help",                   no_argument,         NULL,  'h'                        },
+		{  "verbose",                no_argument,         NULL,  'v'                        },
+		{  "debug",                  no_argument,         NULL,  'd'                        },
+		{  "quiet",                  no_argument,         NULL,  'q'                        },
+		{  "version",                no_argument,         NULL,  'V'                        },
+		{  "no-pthreads",            no_argument,         NULL,  'P'                        },
+		{  "batch",                  no_argument,         NULL,  'b'                        },
+
+		{  "write-csv",              required_argument,   NULL,  OPT_WRITE_CSV              },
+		{  "write-s1p",              required_argument,   NULL,  OPT_WRITE_S1P              },
+		{  "write-s2p-max-gain",     required_argument,   NULL,  OPT_WRITE_S2P_MAX_GAIN     },
+		{  "write-s2p-viewer-gain",  required_argument,   NULL,  OPT_WRITE_S2P_VIEWER_GAIN  },
+
+		{  NULL,                     0,                   NULL,  0                          }
 	};
 
 static char *build_optstring(struct option *long_options)
@@ -165,28 +176,47 @@ main (int argc, char *argv[])
         }
         break;
 
-	  case 'P': /* disable pthread loop */
-	    rc_config.disable_pthread_freqloop = 1;
-		pr_notice("pthread freqloop disabled!\n");
-	    break;
+      case 'P': /* disable pthread loop */
+        rc_config.disable_pthread_freqloop = 1;
+        pr_notice("pthread freqloop disabled!\n");
+        break;
 
       case 'b': /* batch mode */
-	    pr_notice("batch mode enabled, will exit after first loop\n");
-		rc_config.batch_mode = 1;
-		rc_config.main_loop_start = 1;
-		break;
+        pr_notice("batch mode enabled, will exit after first loop\n");
+        rc_config.batch_mode = 1;
+        rc_config.main_loop_start = 1;
+        break;
 
       case 'h': /* print usage and exit */
         usage();
         exit(0);
+        break;
 
       case 'V': /* print xnec2c version */
         puts( PACKAGE_STRING );
         exit(0);
+        break;
+
+      case OPT_WRITE_CSV:
+        rc_config.filename_csv = optarg;
+        break;
+
+      case OPT_WRITE_S1P:
+        rc_config.filename_s1p = optarg;
+        break;
+
+      case OPT_WRITE_S2P_MAX_GAIN:
+        rc_config.filename_s2p_max_gain = optarg;
+        break;
+
+      case OPT_WRITE_S2P_VIEWER_GAIN:
+        rc_config.filename_s2p_viewer_gain = optarg;
+        break;
 
       default:
         usage();
         exit(0);
+        break;
 
     } /* switch( option ) */
   } /* while( (option = getopt(argc, argv, "i:o:hv") ) != -1 ) */

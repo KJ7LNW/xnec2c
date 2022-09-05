@@ -1,32 +1,46 @@
 .de URL
 \\$2 \(laURL: \\$1 \(ra\\$3
 ..
-.TH XNEC2C "1" "April 2022" "xnec2c 4.4.11" "User Commands"
+.TH XNEC2C "1" "September 2022" "xnec2c 4.4.11" "User Commands"
 .SH NAME
 xnec2c \- a GTK+ graphical interactive version of nec2c,
 a translation to C of the FORTRAN application NEC2
 .SH SYNOPSIS
 .IP
-.B xnec2c [\-ijhvP]
+.B xnec2c [\-ijhvPVb]
 \fI\,<input-file-name>\/\fR
 .SH DESCRIPTION
 .PD 0
 .IP
-[\-i <input\-file\-name>]
+\-i|\-\-input <input\-file\-name>
 .IP
-[\-j <number of processors in SMP machine> (-j0 disables forking)]
+\-j|\-\-jobs  <number of processors in SMP machine> (-j0 disables forking)
 .IP
-[\-b: enable batch mode, exit after the frequency loop runs]
+\-b|\-\-batch:        enable batch mode, exit after the frequency loop runs
 .IP
-[\-P: disable pthreads and use the GTK loop for debugging]
+\-P|\-\-no\-pthreads:  disable pthreads and use the GTK loop for debugging
 .IP
-[\-h: print this usage information and exit]
+\-h|\-\-help:         print usage information and exit
 .IP
-[\-V: print xnec2c version number and exit]
+\-V|\-\-version:      print xnec2c version number and exit
 .IP
-[\-v: increase verbosity, can be specified multiple times]
+\-v|\-\-verbose:      increase verbosity, can be specified multiple times
 .IP
-[\-d: enable debug output (-dd includes backtraces)]
+\-d|\-\-debug:        enable debug output (-dd includes backtraces)
+.IP
+\-d|\-\-quiet:        suppress debug/verbose output
+.IP
+The following arguments write to an output file after the frequency loop completes.
+These are useful to combine with \-\-batch:
+.IP
+\-\-write\-csv <filename> 
+.IP
+\-\-write\-s1p <filename> 
+.IP
+\-\-write\-s2p\-max\-gain <filename> 
+.IP
+\-\-write\-s2p\-viewer\-gain <filename> 
+.IP
 .SH "SEE ALSO"
 Full documentation is available at the official website for xnec2c
 .URL "https://www.xnec2c.org/" "Official xnec2c Website" .
@@ -34,7 +48,7 @@ In addition, the full documentation for
 .B xnec2c
 is maintained as an html document.  If the
 .B xnec2c
-program is properly installed at your site, the command
+program is properly installed at your site, a command like
 .PD 1
 .IP
 .B firefox /usr/share/doc/xnec2c/xnec2c.html

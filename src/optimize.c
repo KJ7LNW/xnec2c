@@ -23,10 +23,19 @@
 
 int opt_have_files_to_save()
 {
-	return rc_config.opt_write_csv ||
+	return (
+		// Flags
+		rc_config.opt_write_csv ||
         rc_config.opt_write_s1p ||
         rc_config.opt_write_s2p_max_gain ||
-        rc_config.opt_write_s2p_viewer_gain;
+        rc_config.opt_write_s2p_viewer_gain ||
+
+		// Files:
+		rc_config.filename_csv ||
+		rc_config.filename_s1p ||
+		rc_config.filename_s2p_max_gain ||
+		rc_config.filename_s2p_viewer_gain
+	);
 }
 
 /* Writes out frequency-dependent
@@ -48,6 +57,18 @@ _Write_Optimizer_Data( void )
 
   if (rc_config.opt_write_s2p_viewer_gain)
 	  Save_FreqPlots_S2P_Viewer_Gain(str_append(filename, rc_config.input_file, "-viewergain.s2p", n));
+
+  if (rc_config.filename_csv)
+	  Save_FreqPlots_CSV(rc_config.filename_csv);
+
+  if (rc_config.filename_s1p)
+	  Save_FreqPlots_S1P(rc_config.filename_s1p);
+
+  if (rc_config.filename_s2p_max_gain)
+	  Save_FreqPlots_S2P_Max_Gain(rc_config.filename_s2p_max_gain);
+
+  if (rc_config.filename_s2p_viewer_gain)
+	  Save_FreqPlots_S2P_Viewer_Gain(rc_config.filename_s2p_viewer_gain);
 
 } // Write_Optimizer_Data()
 
