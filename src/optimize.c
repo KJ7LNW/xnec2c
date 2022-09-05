@@ -19,18 +19,6 @@
 
 #include "shared.h"
 
-// If inotify was not detected then create stubs:
-#ifndef HAVE_INOTIFY
-void *Optimizer_Output( void *arg ) { pr_err("xnec2c was built without inotify."); return NULL; }
-void Write_Optimizer_Data( void )   { pr_err("xnec2c was built without inotify."); }
-
-// Otherwise, normal optimize code:
-#else
-
-#include <poll.h>
-#include <sys/inotify.h>
-#include <sys/stat.h>
-
 /*------------------------------------------------------------------------*/
 
 /* Writes out frequency-dependent
@@ -38,14 +26,21 @@ void Write_Optimizer_Data( void )   { pr_err("xnec2c was built without inotify."
   void
 _Write_Optimizer_Data( void )
 {
-  char csv_file[FILENAME_LEN];
-  size_t s = sizeof( csv_file );
+  char filename[FILENAME_LEN];
+  size_t n = sizeof( filename );
 
-  /* Create a file name for the Optimizer csv file */
-  Strlcpy( csv_file, rc_config.input_file, s );
-  Strlcat( csv_file, ".csv", s );
+  if (rc_config.opt_write_csv)
+	  Save_FreqPlots_CSV(str_append(filename, rc_config.input_file, ".csv", n));
 
-  Save_FreqPlots_CSV(csv_file);
+  if (rc_config.opt_write_s1p)
+	  Save_FreqPlots_S1P(str_append(filename, rc_config.input_file, ".s1p", n));
+
+  if (rc_config.opt_write_s2p_max_gain)
+	  Save_FreqPlots_S2P_Max_Gain(str_append(filename, rc_config.input_file, "-maxgain.s2p", n));
+
+  if (rc_config.opt_write_s2p_viewer_gain)
+	  Save_FreqPlots_S2P_Viewer_Gain(str_append(filename, rc_config.input_file, "-viewergain.s2p", n));
+
 } // Write_Optimizer_Data()
 
 void Write_Optimizer_Data( void )
@@ -55,7 +50,18 @@ void Write_Optimizer_Data( void )
 	g_mutex_unlock(&freq_data_lock);
 }
 
-/*------------------------------------------------------------------------*/
+
+// If inotify was not detected then create stubs:
+#ifndef HAVE_INOTIFY
+
+void *Optimizer_Output( void *arg ) { pr_err("xnec2c was built without inotify.\n"); return NULL; }
+
+// Otherwise, normal optimize code:
+#else
+
+#include <poll.h>
+#include <sys/inotify.h>
+#include <sys/stat.h>
 
 int inotify_open(struct pollfd *pfd)
 {
