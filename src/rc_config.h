@@ -37,6 +37,9 @@ typedef struct rc_config_vars_t {
 	int (*parse)(struct rc_config_vars_t *, char *); // call this to parse, ignore "format"
 	int (*save)(struct rc_config_vars_t *, FILE *);  // call this to save, ignore "format"
 
+	// True if the variable should not be set when rc_config.batch_mode is true.
+	int batch_mode_skip;
+
 	// GTK UI Integration:
 
 	// A pointer to the builder window, such as &main_window_builder.

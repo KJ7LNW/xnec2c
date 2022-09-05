@@ -175,19 +175,19 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Round X Axis", .format = "%d",
 		.vars = { &rc_config.freqplots_round_x_axis } },
 
-	{ .desc = "Optimizer Write CSV", .format = "%d",
+	{ .desc = "Optimizer Write CSV", .format = "%d", .batch_mode_skip = TRUE,
 		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_csv",
 		.vars = { &rc_config.opt_write_csv } },
 
-	{ .desc = "Optimizer Write S1P", .format = "%d",
+	{ .desc = "Optimizer Write S1P", .format = "%d", .batch_mode_skip = TRUE,
 		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_s1p",
 		.vars = { &rc_config.opt_write_s1p } },
 
-	{ .desc = "Optimizer Write S2P Max Gain", .format = "%d",
+	{ .desc = "Optimizer Write S2P Max Gain", .format = "%d", .batch_mode_skip = TRUE,
 		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_s2p_max_gain",
 		.vars = { &rc_config.opt_write_s2p_max_gain } },
 
-	{ .desc = "Optimizer Write S2P Viewer Gain", .format = "%d",
+	{ .desc = "Optimizer Write S2P Viewer Gain", .format = "%d", .batch_mode_skip = TRUE,
 		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_s2p_viewer_gain",
 		.vars = { &rc_config.opt_write_s2p_viewer_gain } },
 };
@@ -244,7 +244,7 @@ rc_config_vars_t *find_var(char *s)
 	return NULL;
 }
 
-// Rease the line into the variable's .vars reference(s)
+// Read the line into the variable's .vars reference(s)
 int parse_var(rc_config_vars_t *v, char *line, char *locale)
 {
 	char *format = NULL;
@@ -712,6 +712,10 @@ Read_Config( void )
 
 	  // Skip read-only vars:
 	  if (v->ro)
+		  continue;
+
+	  // Skip vars that should be excluded when batch_mode is enabled:
+	  if (rc_config.batch_mode && v->batch_mode_skip)
 		  continue;
 
 	  chomp(line);
