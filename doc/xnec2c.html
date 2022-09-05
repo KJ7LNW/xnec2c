@@ -10,6 +10,7 @@
 <meta name="description" content="Xnec2c is a high-performance multi-threaded electromagnetic simulation package to model antenna near- and far-field radiation patterns for Linux and UNIX operating systems.  The original FORTRAN version of NEC2 was ported to C by Neoklis Kyriazis, 5B4AZ and released as nec2c.  Later, he wrote xnec2c a graphical interface for ease of use with many more features.">
 <meta name="ROBOTS" content="INDEX, FOLLOW">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="canonical" href="https://www.xnec2c.org/" />
 </head>
 <body>
 <a href="https://www.xnec2c.org/"><img src="images/web-heading.png"/></a><br/>
@@ -105,6 +106,7 @@ support and pull-requests at the
 Window</a></li>
 <li><a href="#FrequencyWindow">Frequency Data Plots</a></li>
 <li><a href="#Nec2Treeview">NEC2 Input File Editor</a></li>
+<li><a href="#Optimization">Antenna Geometry Optimization (ie, high gain, low VSWR)</a></li>
 </ul>
 </li>
 <li><a href="#InputFile">Input File Considerations</a></li>
@@ -765,6 +767,99 @@ printed to the output file but please remember that xnec2c does not
 produce an output file. The buttons in the bottom row of the
 Command Editors function in the same way as the Wire editor
 described above.</p>
+
+<p>
+
+<b><a name="Optimization" id="Optimization">Antenna Geometry Optimization</a></b>
+<br/>
+<br/>
+
+Neoklis, 5B4AZ explains Antenna Optimization in xnec2c on his page <a
+href="http://www.5b4az.org/pages/antenna_designs.html">here</a> as follows:
+<br/>
+<br/>
+
+<i>"Xnec2c monitors its .nec input file for changes and re-runs the frequency
+stepping loop which recalculates new data and prints to the .csv file. It is
+therefore possible to arrange the optimizer program to read the .csv data file,
+recalculate antenna parameters and save them to the .nec input file. xnec2c
+will then recalculate and save new frequency-dependent data to the .csv file.
+<br/>
+<br/>
+If the optimizer program is arranged to monitor changes to the .csv file, then
+a continuous loop can be created in which new antenna parameters are calculated
+and saved to the .nec file, new frequency dependent data are calculated and
+saved to the .csv file and the loop repeated until the desired results
+(optimization) are obtained."</i>
+
+<br/>
+<br/>
+
+This optimization feedback mechanism was first implemented in Xnec2c v4.2 and
+has been refined over the past couple of versions to be very effective at
+optimizing antenna geometry.  As explained above, the catch is that you need to use an external
+optimizer.  At the time of this writing there is only one published external
+optimization package:
+
+<br/>
+&nbsp;&nbsp;&nbsp;&bull;<b><a href="https://github.com/KJ7LNW/xnec2c-optimize/">xnec2c-optimize</a></b>
+is hosted on github and the linked page has instructions for getting started.<br/>
+<br/>
+
+<b>Activating .NEC File Monitoring for Optimization</b>
+<br/>
+<br/>
+
+Xnec2c will monitor the currently open .NEC file when you select
+"File-&gt;Optimization Settings" and select "Reload and write data on .NEC file
+changes".  Additionally, you need to tell xnec2c where to write its output
+file.  You can do that with one of the <tt>--write-*</tt> command-line options
+or by checking one of the boxes in "File-&gt;Optimization Settings" such as
+"After calculation, write &lt;file&gt;.csv".  
+<br/>
+<br/>
+Finally you need to enable the frequency sweep if it is not already turned on as follows:
+<ol>
+<li>From the main window: select View-&gt;Frequency Plots</li>
+<li>From the Frequency Data Plots window: Enable a graph, like VSWR. Configure
+	whatever you would like to see during optimization.  </li>
+<li>Click the triangular "Play" button to run a frequency sweep.  This is a
+persistent setting that will auto-sweep each time xnec2c loads and it must be
+active in order for the optimizer loop to function.</li>
+</ol>
+<br/>
+Frequency loop timing information is available on the console when you increase
+verbosity with <tt>-v</tt>.  Specify  <tt>-v</tt> multiple times to increase
+verbosity.  For example, with <tt>-vv</tt> using examples/2m_yagi.nec:
+
+<pre>
+[info] 140.000000 MHz: 0.045850 seconds. (ATLAS, Threaded)
+[info] 141.500000 MHz: 0.054378 seconds. (ATLAS, Threaded)
+[info] 140.000000 MHz: 0.063772 seconds. (ATLAS, Threaded)
+[info] 140.500000 MHz: 0.066472 seconds. (ATLAS, Threaded)
+[info] 141.000000 MHz: 0.078861 seconds. (ATLAS, Threaded)
+[info] 142.000000 MHz: 0.047910 seconds. (ATLAS, Threaded)
+[info] 143.000000 MHz: 0.068066 seconds. (ATLAS, Threaded)
+[info] 143.500000 MHz: 0.076449 seconds. (ATLAS, Threaded)
+[info] 144.000000 MHz: 0.068083 seconds. (ATLAS, Threaded)
+[info] 142.500000 MHz: 0.113185 seconds. (ATLAS, Threaded)
+[info] 146.000000 MHz: 0.050178 seconds. (ATLAS, Threaded)
+[info] 144.500000 MHz: 0.051486 seconds. (ATLAS, Threaded)
+[info] 145.000000 MHz: 0.058897 seconds. (ATLAS, Threaded)
+[info] 145.500000 MHz: 0.060019 seconds. (ATLAS, Threaded)
+[info] 147.000000 MHz: 0.057313 seconds. (ATLAS, Threaded)
+[info] 146.500000 MHz: 0.070968 seconds. (ATLAS, Threaded)
+[info] 148.000000 MHz: 0.071760 seconds. (ATLAS, Threaded)
+[info] 147.500000 MHz: 0.080575 seconds. (ATLAS, Threaded)
+[info] 148.500000 MHz: 0.051870 seconds. (ATLAS, Threaded)
+[info] 149.500000 MHz: 0.058890 seconds. (ATLAS, Threaded)
+[info] 150.000000 MHz: 0.056449 seconds. (ATLAS, Threaded)
+[info] 149.000000 MHz: 0.071011 seconds. (ATLAS, Threaded)
+[notice] Frequency loop elapsed time: 0.467847 seconds. (ATLAS, Threaded)
+</pre>
+
+</p>
+
 <p><b><a name="InputFile" id="InputFile">5. Input File
 Considerations:</a></b><br>
 Since xnec2c is interactive, it will not initiate calculations
