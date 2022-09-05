@@ -283,7 +283,8 @@ on_optimizer_output_toggled(
     SetFlag( OPTIMIZER_OUTPUT );
 
     // Do an initial write in case the optimizer is waiting for the .csv:
-    Write_Optimizer_Data();
+    if (isFlagSet(FREQ_LOOP_DONE))
+        Write_Optimizer_Data();
 
     // Create a thread to play back demodulation buffer
     pthread_t thrd;
