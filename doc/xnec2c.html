@@ -905,394 +905,286 @@ printing compatible with the NEC2 format. If printing to file is
 needed then it is better to use the original NEC2 program, to avoid
 bugs that may still be lurking in the C translation.</p>
 <p><b><a name="Version" id="Version">7. Version
-History:</a></b></p>
-<p><b>Version 0.1:</b> First version with ability to draw a
-color-coded wire frame Radiation Pattern (Near and Far Field),
-Graphs of various Frequency dependent data (Gain, VSWR, Impedance
-etc) and the Structure (Wires/Patches), including a color coded
-Current or Charge distribution.</p>
-<p><b>Version 0.2:</b> Incorporated some changes to the GUI (the
-Glade-generated design) since after upgrading to GTK+ 2.8.9, the
-geometry of the windows (the position and extend of buttons/entry
-widgets) changed a little. Also fixed some bugs in the GUI code to
-handle unusual sequences of user actions correctly.</p>
-<p><b>Version 0.3:</b> Added the ability to stop the frequency loop
-by clicking on the frequency display spin buttons and to restart it
-by toggling the "Gain" or "E/H" buttons in the Radiation Pattern
-window.</p>
-<p><b>Version 0.4b:</b> Added a NEC2 input file editor that makes
-the edit/save/reload/execute cycle easier and quicker.</p>
-<p><b>Version 0.5b:</b>Fixed a bug that caused segmentation faults
-when only one wire segment was present in the structure. This is
-not a case that will normally exist but the seg fault had to be
-fixed.</p>
-<p><b>Version 0.6b:</b> Fixed a bug inherited from NEC2: If no
-geometry cards are present (only a GE card) then there is division
-by zero in conect(). NEC2 seems to accept the lack of geometry
-cards, this is now an error condition in xnec2c. Reduced the max
-value specification of the Capacitance spin button in the Loading
-card editor, from 1.0e+12 to 1.0e+9 (pF) since the higher value is
-beyond the range of the "long" type in 32 bit systems. Modified the
-behavior of some card Editors to make them more user friendly.</p>
-<p><b>Version 0.7b:</b> Fixed a bug in the co-ordinate translation
-(Move) editor and edited the code in the GW card editor so that the
-wire diameter does not change when the New button is clicked.</p>
-<p><b>Version 0.8b:</b> Fixed a serious bug that caused
-segmentation faults and crashes in structures that have a wire in
-contact with a patch. The subph() routine divides this patch into 3
-or 4 sub-patches so the total number of patches increases. There
-was no provision to reallocate and initialize buffers used in
-rendering patches in the structure display window. Other minor bugs
-were also fixed and the example NEC2 files were also checked and
-edited when needed.</p>
-<p><b>Version 0.9b:</b> Fixed a few bugs mainly in the NEC2 editor
-code and also changed the code of all individual Geometry and
-Command editors, so that edited data are set in the main NEC2
-editor's tree views when another Geometry or Command card (tree
-view row) is selected for editing.</p>
-<p>Implemented a work round around a serious bug which I could not
-trace, since it now seems to be outside my code: When the zint() or
-fbar() functions are called, they seem to corrupt xnec2c's memory
-allocation when they return. This corruption manifests itself as
-NAN values appearing in calculations so I modified these functions
-to return their computed value via a pointer in the argument list.
-I also changed the function declaration from complex long double to
-void as it seems this bug is related to functions of the former
-type declaration, returning a value.</p>
-<p><b>Version 1.0b:</b> In this version xnec2c has been re-worked
-extensively to make it multi-threading and to streamline its
-operation to some extend. Many bugs created by these changes, and
-others that already existed have been fixed, and the user interface
-has also changed somewhat. The example input files have also been
-checked and some mistakes in them have been corrected. This is now
-the first version 1.0 beta release for public testing.</p>
-<p><b>Version 1.0b3:</b> Added setlocale(LC_NUMERIC, "C"); to the
-main() function, so that in locales where commas are used in
-decimal numbers xnec2c can read data correctly (suggested by Joop
-Stakenborg). Some minor changes to the user interface were also
-made to allow the NEC2 editor window to fit in displays with
-shorter heights.</p>
-<p><b>Version 1.0b4:</b> After a bug report from Juha Vierinen I
-changed some "sprintf" commands to "snprintf" to avoid buffer
-overruns.</p>
-<p><b>Version 1.0b5:</b> Following on the above changes, I revised
-all similar situations in xnec2c's source and modified all
-"sprintf" commands to "snprintf" just in case, as I could not
-replicate the bug so could not test for other similar problems. I
-also fixed a bug in the "save" and "save as" handler, to avoid
-false attempts by xnec2c to save structure and radiation
-pattern/frequency plots pixmaps when a save of the NEC2 editor data
-failed for some reason.</p>
-<p><b>Version 1.0:</b> After several months with no bug reports or
-feature requests, I am sticking my neck out and releasing xnec2c as
-version 1.0. This version incorporates the last two feature request
-I received from users:<br>
-The "Cancel" button on card editors has been replaces with a
-"Delete Card" button, which deletes the selected "card" (row in the
-NEC2 editor window).<br>
-A "Net Gain" menu item has been added to the View menu of the
-Frequency Plots window to replace the second plotted quantity with
-the Net Gain of the antenna.</p>
-<p><b>Version 1.1:</b> I spoke too soon! A segfault bug has been
-reported that occurs when Maximum Admittance Matrix Asymmetry
-printing is requested in the EX card. Although this is not
-supported in xnec2c, it still produces a segmentation fault because
-the "ipnt" buffer is not allocated in the netwk() function in
-network.c</p>
-<p><b>Version 1.2:</b> Made the page size of spin buttons 0 to make
-setting of spin button values compatible with GTK 2.4</p>
-<p><b>Version 1.3:</b> After an inquiry about using incident field
-excitation, which was not implemented in previous versions, I
-removed the restrictions in excitation to allow plotting the
-re-radiated pattern from a structure excited by incident field or
-elementary current source. However, the calculations are carried
-out only for one set of angle-of-incidence angles, e.g. there is no
-stepping of the theta and phi angles. This would require much more
-complex changes to xnec2c and I am not currently able to do
-this.</p>
-<p><b>Version 1.4:</b> Applied a patch supplied by Tom Beierlein,
-DL1JBE, to fix crashing of xnec2c 1.3 on long input file names
-(&gt; 80 characters).</p>
-<p><b>Version 1.5:</b> Changed the handling of command line
-arguments so that the input file name may be specified without the
-use of the -i option. In this case xnec2c will take the last
-argument to be the input file name, but only if it has the .nec
-extension.<br clear="all">
-Got rid of some variables that were set but not used, according to
-warnings given by gcc.<br clear="all">
-Applied a patch supplied by Rik van Riel to allow the calculation
-of front to back ratios when the antenna is modeled over
-ground.</p>
-<p><b>Version 1.6:</b> I received another bug report from Rik van
-Riel: The patch applied above did not help, as somehow the buggy
-code got duplicated below the bug fix, reproducing the same error
-in the calculation of front-to-back ratio! Hopefully fixed this
-time.</p>
-<p><b>Version 2.0-beta:</b> I received a bug report from David
-Binderman regarding an array bounds violation, which he found by
-compiling xnec2c with the -D_FORTIFY_SOURCE gcc flag. I fixed this
-bug and also tested xnec2c source code using cppcheck.<br clear=
-"all">
-I decided it was about time I modify the xnec2c user interface so
-that it will, as far as possible, allow the user to save and
-re-open NEC2 files in the Editor window, without closing the
-Radiation Pattern and/or the Frequency Plots windows. This will
-significantly speed up work on editing NEC2 files and also make
-xnec2c usage less awkward. However, many bugs were introduced and
-fixed during this re-write of xnec2c, so users are advised to be
-watchful of possible bugs that got away and to report them for
-fixing.</p>
-<p><b>Version 2.1-beta:</b> I have introduced many changes in this
-version, so I am releasing it again as a public beta version for
-testing and bug reports:<br clear="all">
-After a bug report by David J. Singer, I changed all declarations
-of variables that are used in memory allocations, from int to
-size_t. This error was in the nec2c code from the beginning but
-apparently it only showed up when extremely large memory
-allocations are requested in nec2c and xnec2c.<br clear="all">
-I have replaced all the (deprecated) GDK drawing primitives with
-equivalent Cairo graphics equivalents (e.g. replaced
-gdk_draw_line() with cairo_line_to()) since Cairo provides for
-nicer anti-aliased drawing.<br clear="all">
-After a feature request by David J. Singer and friend Richard, I
-have added code to save data of the structure display, radiation
-patterns and frequency plots into file, in a format suitable for
-the "gnuplot" plotting program.</p>
-<p><b>Version 2.1:</b> Patched a problem in the graph plotting
-routines that caused xnec2c to crash with a division by zero fault.
-This can happen when e.g. a single-wire structure is specified and
-a plot of gain vs frequency is requested, for a polarization that
-is at 90 deg to the wire, e.g. requesting gain plot for horizontal
-polarization for a vertical wire. Since there is no radiation in
-the horizontal plane of a vertical wire, the values of gain given
-to the plotting routines are all the same so the vertical scale
-drawing routines crash xnec2c. Please note that although xnec2c
-will now not crash as above, the plots will be jumbled and
-meaningless.</p>
-<p><b>Version 2.2-beta:</b> I made extensive modifications to the
-source code to silence a large number of warnings generated by the
-LLVM clang compiler when used with the -Weverything option. These
-were mostly cases of implicit conversions between variable types,
-like int to char or uint to int etc. I have also updated the basic
-files of the GNU Autotools build system, to be compatible with the
-current version of these tools at the time of writing (February
-2013).</p>
-<p><b>Version 2.3-beta:</b> Fixed a bug in the
-cell_edited_callback() function that caused segmentation fault
-crashes when a cell in the input file editor was edited directly by
-the user.</p>
-<p><b>Version 2.4:</b> I submitted xnec2c (and nec2c) for scanning
-to the <a href="https://scan.coverity.com/" name="coverity" id=
-"coverity">Coverity</a> source code audit website, which produced a
-list of no less than 57 issues to be fixed! Most of them were not
-bugs that affected calculations but possibly two, both in the
-Somnec code, one in function rom1() and one in gshank() likely
-could have caused errors in the relevant calculations.
-Unfortunately the FORTRAN source of Somnec (as well as that of the
-NEC2) is very difficult to read so I cannot say with certainty if
-this was so.</p>
-<p><b>Version 2.5:</b> After a bug report by Jean Collin, I made
-some changes to the input file parser code in input.c, to properly
-identify tabs in the input file.</p>
-<p><b>Version 2.6:</b> After a bug report by Lucjan SQ9VPA, I
-changed the case of the signal handler that deals with SIGCHLD so
-that it doesn't cause xnec2c to exit when the SIGCHLD signal does
-not originate from child processes created by xnec2c. It appears
-that in some Linux installations a SIGCHLD signal is sent to xnec2c
-even if it is not running forked, e.g. the -j option is not used in
-the command line.</p>
-<p><b>Version 2.7:</b> After a bug report by Tim, WJ5Q, I fixed a
-bug that was preventing the creation of an LD card of type 5
-(LDTYP=5) when wire conductivity (S/m) was specified in the GW card
-(Wire) editor. The same bug was present in the GH (Helix) card
-editor and it was also fixed. I added code so that the wire
-conductivity for GW, GA and GH cards can be read from the relevant
-LD card and shown in the Conductivity (S/m) spin button.</p>
-<p>After all these changes I checked the xnec2c source code using
-the Coverity Scan service and I fixed an out-of-bounds read error
-that was reported by the scanner, in the plot_freqdat.c file.</p>
-<p><b>Version 2.8:</b> Fixed a bug in the GN card editor function
-which caused xnec2c to save the GN card parameters in the .nec
-antenna description file without clearing the number of radials to
-zero. This resulted in the GN card editor window to open with
-confusing and incorrect defaults for the radial screen, when the
-Reflection Coefficient Approximation method was selected for
-specifying ground parameters.</p>
-<p>Also fixed some bugs (missing variable initializations) in the
-Ground Parameters calculation functions which resulted in incorrect
-Radiation Pattern calculations. This would happen if a .nec file,
-with Perfect Ground (iperf = 1) specified in the GN card, was
-opened after a .nec file, with a Radial Ground Screen specified in
-the GN card, was processed.</p>
-<p><b>Version 2.9:</b> After a request by the Debian maintainer of
-xnec2c, I added a rudimentary man page he sent me and corrected
-some spelling errors (arbitrary to arbitrary).</p>
-<p><b>Version 3.0:</b> I have modified the NEC2 file parser so that
-it can read the file with both the '.' and ',' as decimal point
-characters. This is necessary to make xnec2c compatible with
-different locales. I also fixed a resource (memory) leak, reported
-by valgrind, in the xyz axes drawing routine.</p>
-<p><b>Version 3.1:</b> I have made several changes to the code that
-renders wire frame drawings and displays some data, like the
-projection parameters (azimuth and elevation of the structure and
-the radiation pattern) and gain values. This has resulted in a
-faster and smoother animation of these drawings and reduced
-workload on the processor during dragging of these images.<br>
-I have also reduced the default minimum size of xnec2c's windows,
-as I had reports that they would not fit in the displays of some
-laptops or monitors, with resolutions on the lower side.</p>
-<p><b>Version 3.2:</b> I made some changes to the Strlcat()
-function and its usage in the xnec2c code, to improve safe handling
-of string concatenation operations. Hopefully this has not broken
-the handling of various strings in xnec2c! ;-)</p>
-<p><b>Version 3.3:</b> I fixed a bug that was in the code that
-reads the commands from the NEC2 input file, where xnec2c would
-crash with a segmentation fault when the FR card was after the RP
-card. Also modified the Strtod() function to avoid freeing the end
-pointer before it was used, causing problems.</p>
-<p><b>Version 3.4:</b> I fixed a bug in the code that implements
-the modified GS (scaling) card. In NEC2 the GS card scales all of
-the structure, but in Xnec2c I modified the code so that it is
-possible to specify a range of tag numbers to apply scaling to
-only. When a GS card follows a GX card, selective scaling doesn't
-work correctly because a symmetric structure is created. If you are
-using a GS card, it may be better to avoid specifying a tag number
-range, just in case the bug fix is not complete.</p>
-<p><b>Version 3.5:</b> I modified the NEC2 Editor code so that when
-a Geometry or Command editor window is opened, activating Apply or
-OK will save data in the editor window to the treeview, even if the
-default data is not edited.<br>
-I modified the NEC2 Editor code so that if a treeview row is
-removed while the relevant editor window is open, then activating
-Apply or OK will not attempt to save data to the treeview, since
-this will cause an illegal memory access and will crash xnec2c.<br>
-Fixed a bug in the Helix editor which caused incorrect calculation
-of the segment length as a percentage of wavelength or of the
-number of segments/turn that correspond to a given segment length
-as a percentage of wavelength.</p>
-<p><b>Version 3.5.1:</b> After a request by Fan Jun BH1SCW, I
-replaced the original makeshift desktop icon with one provided by
-Serge ON4AA.</p>
-<p><b>Version 3.6-beta:</b> I migrated Xnec2c to the latest
-GTK+-3.22 toolkit to bring it up to date. A lot of changes were
-needed to both the GUI and parts of the Xnec2c source code, mainly
-the use of GTK3's GUI Builder for creating the User Interface and
-the revised drawing model of GDK for presenting the Graphics
-displays. A new autogen.sh script has also been incorporated in the
-source package and internationalization has been migrated to the
-GNU GetText system. Because Xnec2c is very complicated and thorough
-testing is difficult, I am releasing this version as a beta.</p>
-<p><b>Version 3.6.1-beta:</b> After a request by Don Walters W9DKI
-I modified the xnec2c.glade file to reduce the default size of the
-drawing areas as they would not fit in displays with reduced
-resolution. I also removed some legacy code, left over from the
-migration of xnec2c to GTK3, which was producing error messages
-from GTK3 during the dragging of structure or radiation pattern
-displays. And I modified the Makefile.am file to get "make install"
-to install program files and documentation to the right places.</p>
-<p><b>Version 3.7-beta:</b> After some feature requests by users of
-xnec2c, I implemented a number of changes to xnec2c so that it can
-save the state of the GUI at exit and restore it on start up. To
-this effect xnec2c now produces a configuration file xnec2c.config
-in the user's ~/.config directory. In this file xnec2c saves the
-state (position, size, active toggle buttons, projection parameters
-for structure and radiation pattern displays, the state of the
-frequency loop etc) of the main windows, e.g. structure, radiation
-pattern, frequency plots and NEC2 editor.<br>
-I have also added keyboard accelerators for a number of buttons and
-menu items, more commonly used in the main windows of xnec2c, and a
-new "Zo" NEC2 "card" to specify transmission line impedance.</p>
-<p><b>Version 3.7.1-beta:</b> Fixed a reported bug that prevented
-wire diameter entries less than 0.01 in the Helix (GH) card editor.
-This was due to specifying a minimum value of 0.01 in the
-xnec2c.glade file.</p>
-<p><b>Version 3.8-beta:</b> I edited some of the code so that when
-a NEC2 file is saved, the Center x and y offsets (the change of
-position) of the structure and radiation pattern are not changed. I
-also arranged for the offset values to be saved in
-~/.config/xnec2c.config when closing xnec2c, and to be read back
-and restored when starting.</p>
-<p><b>Version 3.9-beta:</b> I have arranged for some user actions
-to be "nested", mainly regarding the saving of NEC2 editor data
-followed by the opening of another file or starting a new project.
-Some such functionality already existed in previous versions but it
-is now more comprehensive.<br>
-Another useful change is fixing a bug in the original NEC2 code for
-producing a helix (as specified by the GH "card"). This bug
-resulted a division by zero if the helix length was specified as
-zero, possibly intended to produce a spiral. The GH card can now be
-used to produce both a helix or a spiral with no floating point
-exceptions.</p>
-<p><b>Version 3.9:</b> Since I have not received any bug reports
-for some time after releasing version 3.9-b, and having fixed a bug
-that resulted in a gtk_widget_destroy() command to be passed on an
-invalid widget pointer, I am releasing xnec2c as version 3.9.</p>
-<p><b>Version 4.0:</b> I have changed the code that saves the state
-of the View-Polarization menu items, as it would only correctly
-save the state of these items in the Main (structure) window. I
-also changed the code that handles the removal of "card" entries in
-the NEC2 editor, as it was causing crashes of xnec2c under some
-user action combinations.</p>
-<p><b>Version 4.0:</b> I corrected some mistakes in the GUI
-interface code, which handles the creation of windows and dialogs
-from the glade UI description file. These mistakes were such that
-they did not effect the operation of xnec2c but in any case I fixed
-them for the sake of correct programming. Also changed the wire
-designer dialog to include the Tapered Wire selection check-button
-in the dialog's frame and the relevant code to deal with this
-better.</p>
-<p><b>Version 4.1:</b> I corrected some mistakes in the GUI
-interface code, which handles the creation of windows and dialogs
-from the glade UI description file. These mistakes were such that
-they did not effect the operation of xnec2c but in any case I fixed
-them for the sake of correct programming. Also changed the wire
-designer dialog to include the Tapered Wire selection check-button
-in the dialog's frame and the relevant code to deal with this
-better.</p>
-<p><b>Version 4.1.1:</b> I made a small change to the Radiation
-Pattern code to allow the drawing of both horizontal an vertical
-"cuts" in the radiation pattern, in the zx and zy vertical planes
-and the xy horizontal plane. Also changed the accelerator keys for
-the Add, Remove, Clear, Save As, Save and Revert buttons to be
-Modified by the Control button as the original accelerator keys
-were being activated when writing in the Comments Treeview.</p>
-<p><b>Version 4.1.2:</b> Changed the installation commands in
-Makefile.am so that all the relevant files (desktop file,
-application pixmap, configuration file, executable binary etc) are
-installed under any location specified to the configure script by
-the --prefix= option. Also modified the program so that on first
-start up after installation, the application will create its
-working directory by copying files from the relevant directories
-under the installation prefix.</p>
-<p><b>Version 4.1.3:</b> Arranged the pipe reading function for the
-parent process to re-read from the child processes if not all data
-is transferred at the first read(). In this case xnec2c was
-crushing with "Resource temporarily unavailable" error message.</p>
-<p><b>Version 4.1.4:</b> Added the stdint.h include file to
-common.h to fix a compilation error reported by Nick G3VNC.</p>
-<p><b>Version 4.1.5:</b> After an inquiry by Eric Wheeler KJ7LNW
-regarding the use of the GH card to create spirals, I found a bug
-that caused the GH editor to delete the GH entry in NEC2 Editor's
-treeview. I also found a bug that caused the number of turns of a
-spiral to be rounded to the nearest integer. Both bugs have been
-fixed in this version.</p>
-<p>Further, to aid Eric Wheeler KJ7LNW to develop his Simplex
-automatic Optimizer, I added code to monitor, with inotify, the
-.nec input file and to trigger recalculation and plotting of
-frequency dependent data, while at the same time printing to file
-results (VSWR, max gain, F/B ratio etc). Also added code so that if
-the user clicks on the Frequency Plots drawing area, the underlying
-frequency is saved and re-entered into the frequency-dependent
-calculations. This, together with maintaining the viewing angle of
-the Radiation pattern makes it easier to monitor the Optimizer's
-progress.</p>
-<p><b>Version 4.2:</b> Further to the changes above, I have
-modified xnec2c so that more than one FR (frequency range) card can
-be specified in the NEC2 file. This makes it possible to calculate
-frequency-dependent parameters over separate ranges of interest and
-thus reduces the time taken by the program to produce results.
-Unnecessary calculations between ranges of interest are also
-avoided.</p>
+History (newest first):</a></b></p>
+
+<p><b>Version 4.4.12:</b>
+This release has been pending for a while, there are quite a few changes.
+I thought about making this 4.5 but not yet since these are mostly
+maintenance items, with a few new features as well:
+<ul>
+<li>UI Features:
+	<ul>
+	<li>Added "File-&gt;Save-as CSV" in the Frequency Plots window</li>
+	<li>Added optimizer output config checkboxes for csv, s1p, and/or s2p.  Now you can auto-generate .csv, .s1p, or .s2p files when the input .NEC file is modified by an external program.</li>
+	<li>Pre-processed CSV data for each example .NEC file and placed them in examples/data/.  You can view these with any spreadsheet program and graph columns as you like; the data is useful for regression testing, too.</li>
+	<li>Updated optimization documentation.</li>
+	</ul>
+</li>
+<li>Console Features:
+	<ul>
+	<li>Refactored console output based on output priority levels.  Console output is now color coded and output level can be controlled with -v and -d options.  See --help for details.</li>
+	<li>Add batch mode (-b) commandline flag.</li>
+	<li>Added commandline options --write-csv, --write-s1p, --write-s2p-max-gain, and --write-s2p-viewer-gain for use with --batch and the optimizer.</li>
+	<li>Added --optimize to activate the optimizer thread immediately.</li>
+	<li>Updated the man page</li>
+	</ul>
+</li>
+<li>Bugfixes:
+	<ul>
+	<li>Fixed octal representation of 0755 when creating ~/.xnec2c/</li>
+	<li>Added directory permission hotfix for users affected by 4e62893b</li>
+	<li>Do not invalidate current data when radiation pattern is enabled; Thanks to Gian Luigi for reporting this bug and providing .nec file samples to reproduce the problem.</li>
+	<li>Check if radiation pattern was calculated before using the RP data,  Thanks to Gian Luigi for reporting this bug, too.</li>
+	<li>Added fallback PATH_MAX if undefined, like for GNU/Hurd.</li>
+	<li>optimizer: prevent loading zero-byte files</li>
+	<li>Disable optimizer if inotify is missing, this should fix xnec2c builds on BSD.</li>
+	<li>Fixed printf size_t warnings on 32-bit architectures</li>
+	<li>Fix type errors with glib 2.73 and later, Thanks to the Debian maintainer Christoph Berg, DF7CB, for his work to troubleshot and test this!</li>
+	<li>Fixed segfault when mathlib_idx or mathlib_batch_idx is out of range. Thanks to Christoph Berg, DF7CB for reporting this.</li>
+	<li>Only write optimizer data if FREQ_LOOP_DONE</li>
+	<li>Updated xnec2c.spec to reference the right dependencies in el8.</li>
+	</ul>
+</li>
+<li>Cleanup:
+	<ul>
+	<li>Renamed files with a : in them so checkouts will work in Windows.</li>
+	<li>Updated frequency calculation timing output.</li>
+	<li>mathlib: fixed duplicate BLAS detection, removed LMID support, simplified console output</li>
+	<li>Several spelling fixes, thanks to Daniele Forsi, IU5HKX (@dforsi on github)!</li>
+	<li>Fix cross compilation issues, Thanks Michal Vasilek!</li>
+	<li>Updated quickstart documentation</li>
+	<li>Removed LMID checks from configure.ac; again, Thanks Michal Vasilek!</li>
+	<li>Re-ordered change history in this document so the newest versions are on top</li>
+	</ul>
+</li>
+</ul>
+</p>
+
+
+<p><b>Version 4.4.11:</b>
+There are many small improvements in this update, please update!  Here is 
+a brief summary, see the git commit log for detail:
+<ul>
+<li>Updated icons and file associations so you can double-click to open
+.nec files in most desktop environments.  Just `make desktop-install`
+after `make install` to set it up!  Distribution maintainers: see the
+PACKAGING file for details.</li>
+<li>Added .so.0 filenames names for OpenBLAS detection in CentOS when
+the -devel package is not installed.</li>
+<li>Added the debian/upstream/metadata file as recommended by Debian
+for package info.</li>
+<li>Added xnec2c.spec for RPM-based builds!  Just `rpmbuild -bb
+xnec2c.spec` to create an RPM.  You will need to place the latest
+.tar.gz file in ~/rpmbuild/SOURCES or run `spectool -g -R xnec2c.spec`
+to download them for you. Thanks to Richard Shaw KF5OIM for reviewing
+the .spec file!</li>
+<li>Added include of locale.h to fix building under musl-libc. Thanks
+to Tom DL1JBE for pointing this out and testing the fix!</li>
+</ul>
+</p>
+
+
+<p><b>Version 4.4.10:</b>
+Fixed crash caused memory allocation off-by-one error.  Thanks to Juan Pablo García, EA4CIV for reporting the bug!
+</p>
+
+
+<p><b>Version 4.4.9:</b>
+Minor fixes, both reported and tested by Juan Pablo García, EA4CIV.  Thanks for your help!
+<ul>
+<li>
+Fixed S11 phase angle calculation for graphs and touchstone file export.
+</li>
+<li>
+Fixed locale issues for numeric output data (touchstone, gnuplot, csv)
+and for xnec2c.conf when switching from one locale with period for
+decimal point to another with comma for decimal point, or vice-versa.
+</li>
+</ul>
+</p>
+
+
+<p><b>Version 4.4.8:</b>
+This is a minor maintenance release.
+<ul>
+<li>Fixed buffer overflow in the temp string used in mem_write_format(),
+thanks to Juan Pablo García, EA4CIV for reporting the bug while testing
+touchstone file output.</li>
+<li>Changed default Save-As filenames to resemble the original .nec filename where appropriate.</li>
+<li>Avoid EM calculation if the selected frequency step (when you
+right-click on a graph) has already been calculated. Note that, at the
+moment, it must always calculate if left-clicking the graph or when
+"Show Currents" or "Show Charges" is selected.</li>
+</ul>
+</p>
+
+
+<p><b>Version 4.4.7:</b>
+This release has a few minor features added:
+<ul>
+<li>Touchstone 1- and 2-port files (.s1p, .s2p) can be exported from the
+frequency plots window.  Touchstone files are used by professional RF
+software packages like Microwave Office, Sonnet, and others.   Now xnec2c
+can export .s1p and .s2p files to be used with those software packages.
+S11 is the same as return loss, reflection and .s1p files provide
+single-port data.  Thanks to Juan Pablo García, EA4CIV for suggesting this
+feature.
+</li>
+<li>Converted frequency plot gnuplot output to include all columns. Now
+all columns are available in the .gnuplot file.  Thanks to @scaramacai
+on github for the initial work on this conversion.</li>
+<li>Added auto-detection of musl-libc so it will compile for users
+with musl-libc. Thanks to Tom, DL1JBE at Gentoo for suggesting and testing
+this change.</li>
+<li>See the github changelog for the lovely details.</li>
+</ul>
+</p>
+
+
+<p><b>Version 4.4.6:</b>
+This is mostly a release with a handful of bugfixes and some internal re-organization
+in preparation for s1p/s2p output and gnuplot extensions (measurements.c).
+Detailed descriptions are available in the git log.
+<ul>
+<li>Removed C++ compiler dependency, xnec2c is written in C</li>
+<li>Fixed default mathlib handling when no accelerated library is installed</li>
+<li>Fixed error on first run when ~/.xnec2c/ does not exist</li>
+<li>Added libtool dependency to documentation for CentOS</li>
+<li>Fixed segment fault when HOME environment variable is undefined.</li>
+<li>Fix off-by-one error in memory allocation for frequency plot arrays.</li>
+<li>Fixed deadlocks when running without pthreads and without forking.</li>
+<li>Refactored common measurements into measurements.c</li>
+<li>Refactored plot_freqdata.c to use meas_calc()</li>
+<li>Added function use comments to measurements.c</li>
+<li>Suppress max_freq==min_freq when freq_steps==1</li>
+<li>Fixed gcc warning about the return value of getcwd() not being checked.</li>
+<li>Ignore the GN card if both GN and GE cards indicate freespace.</li>
+<li>Fixed format-truncation compiler warning</li>
+</ul>
+</p>
+
+
+<p><b>Version 4.4.5:</b>
+<ul>
+<li>Corrected Im(-z) plotting on the Smith chart, it was plotting upside-down.  Thanks to Juan Pablo
+    Garcia for pointing this out.</li>
+<li>Updated examples with corrections from Neoklis related to ground configuration.</li>
+<li>Updated GCC/Clang compiler optimization settings for better compatibility.</li>
+</ul>
+See the git commits for detail if you're interested!
+</p>
+
+
+<p><b>Version 4.4.4:</b>
+Fixed regression introduced in v4.3 by adding -ffinite-math-only as a
+gcc optimization.  This causes radiation patterns to draw incorrectly
+when the RP card (radiation pattern card) when using a "Perfect Ground"
+in the GN card at the same time that "Radial wire screen" is used as
+the ground in the RP card.  Thank you Neoklis for investigating the examples
+that produced the issue.
+</p>
+
+
+<p><b>Version 4.4.3:</b>
+Added option to Round X-axis Frequency Values:
+<br/><br/>
+X-Axis frequency values in the Frequency Data Plots window default to
+scaling based on the total frequency range and number of points which
+deviates from the way Neoklis originally implemented the plot.  This makes
+the best use of graph space, however, this new form can create axis values
+that do not align nicely to whole numbers or common fractions of numbers
+(like 13.5 vs 13.72).
+<br/><br/>
+The new option "View-&gt;Round X Axis Frequency Values" will align the X Axis
+labels to normalized values as originally designed in releases prior
+to v4.1.5.  When this option is off, it will show one more frequency
+significant figure displayed on the X Axis and scale the plot to use
+the entire plot space.
+</p>
+
+
+<p><b>Version 4.4.2:</b>
+<ul>
+	<li>Fixed plot width drawing with multiple FR cards.  This fixes a regression that had disabled
+	mouse-wheel scrolling to resize plots with multiple FR cards.</li>
+	<li>Fixed Frequency_Loop race conditions causing access to uninitialized data that
+	were seen as flickering while running the frequency loop, or as incomplete plot drawings.</li>
+	<li>Added strerror on failed file open for @m-anish on github to
+	troubleshoot error opening xnec2c.conf. </li>
+	<li>Refactored memory handling routines to bypass realloc() if possible.  This increases
+	performance slightly, reduces heap thrashing, increases stability by clearing memory
+	on reallocation, and makes memory handling easier to debug.</li>
+</ul>
+</p>
+
+
+<p><b>Version 4.4.1:</b>
+	Fixed graph scaling so that each point is drawn in order while running
+	the frequency loop without rescaling the graph on the x-axis.  This way
+	the points line up correctly to their frequencies throughout the plot
+	while the frequency loop is running instead of only being correct after
+	all points have been plotted. Thank you Neoklis for pointing this out!
+</p>
+
+
+<p><b>Version 4.4:</b>
+<ul>
+	<li>The File-&gt;Gain Scaling setting is now saved between restarts
+	since this is a visual preference per user.</li>
+	<li>GTK resource refactor prevents the need to delete the old
+	xnec2c.glade file on new releases that have UI changes. This is 
+	a pretty major change that should be transparent to users, so please report any regressions.</li>
+	<li>Fixed a minor fsync() bug</li>
+	<li>Updated installation details that will
+	help distribution packagers.  Special thanks to Tom DL1JBE at
+	Gentoo for his packaging feedback!</li>
+	<li>Added a PACKAGING file to help distribution packagers.</li>
+</ul>
+</p>
+
+
+<p><b>Version 4.3.5:</b>
+	Updated documentation around autogen.sh and added tests to make sure gettext and related tools are
+	available for autoconf to complete successfully.
+</p>
+
+
+<p><b>Version 4.3.4:</b>
+<ul>
+	<li>Fixed slow sync() issue by replacing it with fsync().  Thanks to @bbarenblat on github.</li>
+	<li>Fixed typos and spelling errors throughout the application, thanks to @dforsi on github.</li>
+	<li>Updated documentation and added official website links</li>
+</ul>
+</p>
+
+
+<p><b>Version 4.3.3:</b>
+A few optimizer cleanups and bug fixes including updating CSV format to
+remove extra whitespace and increase precision of the NEC2 data.  See git log for details.
+</p>
+
+
+<p><b>Version 4.3.2:</b> Additional optimizer trigger and inotify cleanup.  Also xnec2c writes
+the .csv file as soon as the checkbox is selected to trigger any external optimizers waiting for
+the .csv to be modified.
+</p>
+
+
+<p><b>Version 4.3.1:</b> 
+<ul>
+<li>Added an option to show S11 (dB) (negative return loss) as a plot next to VSWR. See
+Frequency Plots-&gt;View-&gt;Show S11
+</li>
+<li>Added an option to clamp VSWR to a max of 10 for graphing purposes.  In the past
+xnec2c has always clamped to 10 so this option defaults enabled.  If you want to see the
+entire VSWR curve no matter how big VSWR is, then see Frequency Plots-&gt;View-&gt;Clamp VSWR to 10.
+</li>
+<li>Fixed deadlock while optimizing when inotify receives a .nec change before xnec2c
+is done writing the .nec.csv file.</li>
+</ul>
+</p>
+
+
 <p><b>Version 4.3:</b> 
 <ul>
 <li>Changed maintainer to Eric Wheeler, KJ7LNW</li>
@@ -1345,197 +1237,503 @@ avoided.</p>
 </li>
 </ul>
 </p>
-<p><b>Version 4.3.1:</b> 
-<ul>
-<li>Added an option to show S11 (dB) (negative return loss) as a plot next to VSWR. See
-Frequency Plots-&gt;View-&gt;Show S11
-</li>
-<li>Added an option to clamp VSWR to a max of 10 for graphing purposes.  In the past
-xnec2c has always clamped to 10 so this option defaults enabled.  If you want to see the
-entire VSWR curve no matter how big VSWR is, then see Frequency Plots-&gt;View-&gt;Clamp VSWR to 10.
-</li>
-<li>Fixed deadlock while optimizing when inotify receives a .nec change before xnec2c
-is done writing the .nec.csv file.</li>
-</ul>
-</p>
-<p><b>Version 4.3.2:</b> Additional optimizer trigger and inotify cleanup.  Also xnec2c writes
-the .csv file as soon as the checkbox is selected to trigger any external optimizers waiting for
-the .csv to be modified.
-</p>
-<p><b>Version 4.3.3:</b>
-A few optimizer cleanups and bug fixes including updating CSV format to
-remove extra whitespace and increase precision of the NEC2 data.  See git log for details.
-</p>
-<p><b>Version 4.3.4:</b>
-<ul>
-	<li>Fixed slow sync() issue by replacing it with fsync().  Thanks to @bbarenblat on github.</li>
-	<li>Fixed typos and spelling errors throughout the application, thanks to @dforsi on github.</li>
-	<li>Updated documentation and added official website links</li>
-</ul>
-</p>
-<p><b>Version 4.3.5:</b>
-	Updated documentation around autogen.sh and added tests to make sure gettext and related tools are
-	available for autoconf to complete successfully.
-</p>
-<p><b>Version 4.4:</b>
-<ul>
-	<li>The File-&gt;Gain Scaling setting is now saved between restarts
-	since this is a visual preference per user.</li>
-	<li>GTK resource refactor prevents the need to delete the old
-	xnec2c.glade file on new releases that have UI changes. This is 
-	a pretty major change that should be transparent to users, so please report any regressions.</li>
-	<li>Fixed a minor fsync() bug</li>
-	<li>Updated installation details that will
-	help distribution packagers.  Special thanks to Tom DL1JBE at
-	Gentoo for his packaging feedback!</li>
-	<li>Added a PACKAGING file to help distribution packagers.</li>
-</ul>
-</p>
-<p><b>Version 4.4.1:</b>
-	Fixed graph scaling so that each point is drawn in order while running
-	the frequency loop without rescaling the graph on the x-axis.  This way
-	the points line up correctly to their frequencies throughout the plot
-	while the frequency loop is running instead of only being correct after
-	all points have been plotted. Thank you Neoklis for pointing this out!
-</p>
-<p><b>Version 4.4.2:</b>
-<ul>
-	<li>Fixed plot width drawing with multiple FR cards.  This fixes a regression that had disabled
-	mouse-wheel scrolling to resize plots with multiple FR cards.</li>
-	<li>Fixed Frequency_Loop race conditions causing access to uninitialized data that
-	were seen as flickering while running the frequency loop, or as incomplete plot drawings.</li>
-	<li>Added strerror on failed file open for @m-anish on github to
-	troubleshoot error opening xnec2c.conf. </li>
-	<li>Refactored memory handling routines to bypass realloc() if possible.  This increases
-	performance slightly, reduces heap thrashing, increases stability by clearing memory
-	on reallocation, and makes memory handling easier to debug.</li>
-</ul>
-</p>
-<p><b>Version 4.4.3:</b>
-Added option to Round X-axis Frequency Values:
-<br/><br/>
-X-Axis frequency values in the Frequency Data Plots window default to
-scaling based on the total frequency range and number of points which
-deviates from the way Neoklis originally implemented the plot.  This makes
-the best use of graph space, however, this new form can create axis values
-that do not align nicely to whole numbers or common fractions of numbers
-(like 13.5 vs 13.72).
-<br/><br/>
-The new option "View-&gt;Round X Axis Frequency Values" will align the X Axis
-labels to normalized values as originally designed in releases prior
-to v4.1.5.  When this option is off, it will show one more frequency
-significant figure displayed on the X Axis and scale the plot to use
-the entire plot space.
-</p>
-<p><b>Version 4.4.4:</b>
-Fixed regression introduced in v4.3 by adding -ffinite-math-only as a
-gcc optimization.  This causes radiation patterns to draw incorrectly
-when the RP card (radiation pattern card) when using a "Perfect Ground"
-in the GN card at the same time that "Radial wire screen" is used as
-the ground in the RP card.  Thank you Neoklis for investigating the examples
-that produced the issue.
-</p>
-<p><b>Version 4.4.5:</b>
-<ul>
-<li>Corrected Im(-z) plotting on the Smith chart, it was plotting upside-down.  Thanks to Juan Pablo
-    Garcia for pointing this out.</li>
-<li>Updated examples with corrections from Neoklis related to ground configuration.</li>
-<li>Updated GCC/Clang compiler optimization settings for better compatibility.</li>
-</ul>
-See the git commits for detail if you're interested!
-</p>
-<p><b>Version 4.4.6:</b>
-This is mostly a release with a handful of bugfixes and some internal re-organization
-in preparation for s1p/s2p output and gnuplot extensions (measurements.c).
-Detailed descriptions are available in the git log.
-<ul>
-<li>Removed C++ compiler dependency, xnec2c is written in C</li>
-<li>Fixed default mathlib handling when no accelerated library is installed</li>
-<li>Fixed error on first run when ~/.xnec2c/ does not exist</li>
-<li>Added libtool dependency to documentation for CentOS</li>
-<li>Fixed segment fault when HOME environment variable is undefined.</li>
-<li>Fix off-by-one error in memory allocation for frequency plot arrays.</li>
-<li>Fixed deadlocks when running without pthreads and without forking.</li>
-<li>Refactored common measurements into measurements.c</li>
-<li>Refactored plot_freqdata.c to use meas_calc()</li>
-<li>Added function use comments to measurements.c</li>
-<li>Suppress max_freq==min_freq when freq_steps==1</li>
-<li>Fixed gcc warning about the return value of getcwd() not being checked.</li>
-<li>Ignore the GN card if both GN and GE cards indicate freespace.</li>
-<li>Fixed format-truncation compiler warning</li>
 
-</ul>
-</p>
-<p><b>Version 4.4.7:</b>
-This release has a few minor features added:
-<ul>
-<li>Touchstone 1- and 2-port files (.s1p, .s2p) can be exported from the
-frequency plots window.  Touchstone files are used by professional RF
-software packages like Microwave Office, Sonnet, and others.   Now xnec2c
-can export .s1p and .s2p files to be used with those software packages.
-S11 is the same as return loss, reflection and .s1p files provide
-single-port data.  Thanks to Juan Pablo García, EA4CIV for suggesting this
-feature.
-</li>
-<li>Converted frequency plot gnuplot output to include all columns. Now
-all columns are available in the .gnuplot file.  Thanks to @scaramacai
-on github for the initial work on this conversion.</li>
-<li>Added auto-detection of musl-libc so it will compile for users
-with musl-libc. Thanks to Tom, DL1JBE at Gentoo for suggesting and testing
-this change.</li>
-<li>See the github changelog for the lovely details.</li>
-</ul>
-</p>
-<p><b>Version 4.4.8:</b>
-This is a minor maintenance release.
-<ul>
-<li>Fixed buffer overflow in the temp string used in mem_write_format(),
-thanks to Juan Pablo García, EA4CIV for reporting the bug while testing
-touchstone file output.</li>
-<li>Changed default Save-As filenames to resemble the original .nec filename where appropriate.</li>
-<li>Avoid EM calculation if the selected frequency step (when you
-right-click on a graph) has already been calculated. Note that, at the
-moment, it must always calculate if left-clicking the graph or when
-"Show Currents" or "Show Charges" is selected.</li>
-</ul>
-</p>
-<p><b>Version 4.4.9:</b>
-Minor fixes, both reported and tested by Juan Pablo García, EA4CIV.  Thanks for your help!
-<ul>
-<li>
-Fixed S11 phase angle calculation for graphs and touchstone file export.
-</li>
-<li>
-Fixed locale issues for numeric output data (touchstone, gnuplot, csv)
-and for xnec2c.conf when switching from one locale with period for
-decimal point to another with comma for decimal point, or vice-versa.
-</li>
-</ul>
-</p>
-<p><b>Version 4.4.10:</b>
-Fixed crash caused memory allocation off-by-one error.  Thanks to Juan Pablo García, EA4CIV for reporting the bug!
-</p>
-<p><b>Version 4.4.11:</b>
-There are many small improvements in this update, please update!  Here is 
-a brief summary, see the git commit log for detail:
-<ul>
-<li>Updated icons and file associations so you can double-click to open
-.nec files in most desktop environments.  Just `make desktop-install`
-after `make install` to set it up!  Distribution maintainers: see the
-PACKAGING file for details.</li>
-<li>Added .so.0 filenames names for OpenBLAS detection in CentOS when
-the -devel package is not installed.</li>
-<li>Added the debian/upstream/metadata file as recommended by Debian
-for package info.</li>
-<li>Added xnec2c.spec for RPM-based builds!  Just `rpmbuild -bb
-xnec2c.spec` to create an RPM.  You will need to place the latest
-.tar.gz file in ~/rpmbuild/SOURCES or run `spectool -g -R xnec2c.spec`
-to download them for you. Thanks to Richard Shaw KF5OIM for reviewing
-the .spec file!</li>
-<li>Added include of locale.h to fix building under musl-libc. Thanks
-to Tom DL1JBE for pointing this out and testing the fix!</li>
-</ul>
-</p>
+
+<p><b>Version 4.2:</b> Further to the changes above, I have
+modified xnec2c so that more than one FR (frequency range) card can
+be specified in the NEC2 file. This makes it possible to calculate
+frequency-dependent parameters over separate ranges of interest and
+thus reduces the time taken by the program to produce results.
+Unnecessary calculations between ranges of interest are also
+avoided.</p>
+
+
+<p><b>Version 4.1.5:</b> After an inquiry by Eric Wheeler KJ7LNW
+regarding the use of the GH card to create spirals, I found a bug
+that caused the GH editor to delete the GH entry in NEC2 Editor's
+treeview. I also found a bug that caused the number of turns of a
+spiral to be rounded to the nearest integer. Both bugs have been
+fixed in this version.</p>
+<p>Further, to aid Eric Wheeler KJ7LNW to develop his Simplex
+automatic Optimizer, I added code to monitor, with inotify, the
+.nec input file and to trigger recalculation and plotting of
+frequency dependent data, while at the same time printing to file
+results (VSWR, max gain, F/B ratio etc). Also added code so that if
+the user clicks on the Frequency Plots drawing area, the underlying
+frequency is saved and re-entered into the frequency-dependent
+calculations. This, together with maintaining the viewing angle of
+the Radiation pattern makes it easier to monitor the Optimizer's
+progress.</p>
+
+
+<p><b>Version 4.1.4:</b> Added the stdint.h include file to
+common.h to fix a compilation error reported by Nick G3VNC.</p>
+
+
+<p><b>Version 4.1.3:</b> Arranged the pipe reading function for the
+parent process to re-read from the child processes if not all data
+is transferred at the first read(). In this case xnec2c was
+crushing with "Resource temporarily unavailable" error message.</p>
+
+
+<p><b>Version 4.1.2:</b> Changed the installation commands in
+Makefile.am so that all the relevant files (desktop file,
+application pixmap, configuration file, executable binary etc) are
+installed under any location specified to the configure script by
+the --prefix= option. Also modified the program so that on first
+start up after installation, the application will create its
+working directory by copying files from the relevant directories
+under the installation prefix.</p>
+
+
+<p><b>Version 4.1.1:</b> I made a small change to the Radiation
+Pattern code to allow the drawing of both horizontal an vertical
+"cuts" in the radiation pattern, in the zx and zy vertical planes
+and the xy horizontal plane. Also changed the accelerator keys for
+the Add, Remove, Clear, Save As, Save and Revert buttons to be
+Modified by the Control button as the original accelerator keys
+were being activated when writing in the Comments Treeview.</p>
+
+
+<p><b>Version 4.1:</b> I corrected some mistakes in the GUI
+interface code, which handles the creation of windows and dialogs
+from the glade UI description file. These mistakes were such that
+they did not effect the operation of xnec2c but in any case I fixed
+them for the sake of correct programming. Also changed the wire
+designer dialog to include the Tapered Wire selection check-button
+in the dialog's frame and the relevant code to deal with this
+better.</p>
+
+
+<p><b>Version 4.0:</b> I corrected some mistakes in the GUI
+interface code, which handles the creation of windows and dialogs
+from the glade UI description file. These mistakes were such that
+they did not effect the operation of xnec2c but in any case I fixed
+them for the sake of correct programming. Also changed the wire
+designer dialog to include the Tapered Wire selection check-button
+in the dialog's frame and the relevant code to deal with this
+better.</p>
+
+
+<p><b>Version 4.0:</b> I have changed the code that saves the state
+of the View-Polarization menu items, as it would only correctly
+save the state of these items in the Main (structure) window. I
+also changed the code that handles the removal of "card" entries in
+the NEC2 editor, as it was causing crashes of xnec2c under some
+user action combinations.</p>
+
+
+<p><b>Version 3.9:</b> Since I have not received any bug reports
+for some time after releasing version 3.9-b, and having fixed a bug
+that resulted in a gtk_widget_destroy() command to be passed on an
+invalid widget pointer, I am releasing xnec2c as version 3.9.</p>
+
+
+<p><b>Version 3.9-beta:</b> I have arranged for some user actions
+to be "nested", mainly regarding the saving of NEC2 editor data
+followed by the opening of another file or starting a new project.
+Some such functionality already existed in previous versions but it
+is now more comprehensive.<br>
+Another useful change is fixing a bug in the original NEC2 code for
+producing a helix (as specified by the GH "card"). This bug
+resulted a division by zero if the helix length was specified as
+zero, possibly intended to produce a spiral. The GH card can now be
+used to produce both a helix or a spiral with no floating point
+exceptions.</p>
+
+
+<p><b>Version 3.8-beta:</b> I edited some of the code so that when
+a NEC2 file is saved, the Center x and y offsets (the change of
+position) of the structure and radiation pattern are not changed. I
+also arranged for the offset values to be saved in
+~/.config/xnec2c.config when closing xnec2c, and to be read back
+and restored when starting.</p>
+
+
+<p><b>Version 3.7.1-beta:</b> Fixed a reported bug that prevented
+wire diameter entries less than 0.01 in the Helix (GH) card editor.
+This was due to specifying a minimum value of 0.01 in the
+xnec2c.glade file.</p>
+
+
+<p><b>Version 3.7-beta:</b> After some feature requests by users of
+xnec2c, I implemented a number of changes to xnec2c so that it can
+save the state of the GUI at exit and restore it on start up. To
+this effect xnec2c now produces a configuration file xnec2c.config
+in the user's ~/.config directory. In this file xnec2c saves the
+state (position, size, active toggle buttons, projection parameters
+for structure and radiation pattern displays, the state of the
+frequency loop etc) of the main windows, e.g. structure, radiation
+pattern, frequency plots and NEC2 editor.<br>
+I have also added keyboard accelerators for a number of buttons and
+menu items, more commonly used in the main windows of xnec2c, and a
+new "Zo" NEC2 "card" to specify transmission line impedance.</p>
+
+
+<p><b>Version 3.6.1-beta:</b> After a request by Don Walters W9DKI
+I modified the xnec2c.glade file to reduce the default size of the
+drawing areas as they would not fit in displays with reduced
+resolution. I also removed some legacy code, left over from the
+migration of xnec2c to GTK3, which was producing error messages
+from GTK3 during the dragging of structure or radiation pattern
+displays. And I modified the Makefile.am file to get "make install"
+to install program files and documentation to the right places.</p>
+
+
+<p><b>Version 3.6-beta:</b> I migrated Xnec2c to the latest
+GTK+-3.22 toolkit to bring it up to date. A lot of changes were
+needed to both the GUI and parts of the Xnec2c source code, mainly
+the use of GTK3's GUI Builder for creating the User Interface and
+the revised drawing model of GDK for presenting the Graphics
+displays. A new autogen.sh script has also been incorporated in the
+source package and internationalization has been migrated to the
+GNU GetText system. Because Xnec2c is very complicated and thorough
+testing is difficult, I am releasing this version as a beta.</p>
+
+
+<p><b>Version 3.5.1:</b> After a request by Fan Jun BH1SCW, I
+replaced the original makeshift desktop icon with one provided by
+Serge ON4AA.</p>
+
+
+<p><b>Version 3.5:</b> I modified the NEC2 Editor code so that when
+a Geometry or Command editor window is opened, activating Apply or
+OK will save data in the editor window to the treeview, even if the
+default data is not edited.<br>
+I modified the NEC2 Editor code so that if a treeview row is
+removed while the relevant editor window is open, then activating
+Apply or OK will not attempt to save data to the treeview, since
+this will cause an illegal memory access and will crash xnec2c.<br>
+Fixed a bug in the Helix editor which caused incorrect calculation
+of the segment length as a percentage of wavelength or of the
+number of segments/turn that correspond to a given segment length
+as a percentage of wavelength.</p>
+
+
+<p><b>Version 3.4:</b> I fixed a bug in the code that implements
+the modified GS (scaling) card. In NEC2 the GS card scales all of
+the structure, but in Xnec2c I modified the code so that it is
+possible to specify a range of tag numbers to apply scaling to
+only. When a GS card follows a GX card, selective scaling doesn't
+work correctly because a symmetric structure is created. If you are
+using a GS card, it may be better to avoid specifying a tag number
+range, just in case the bug fix is not complete.</p>
+
+
+<p><b>Version 3.3:</b> I fixed a bug that was in the code that
+reads the commands from the NEC2 input file, where xnec2c would
+crash with a segmentation fault when the FR card was after the RP
+card. Also modified the Strtod() function to avoid freeing the end
+pointer before it was used, causing problems.</p>
+
+
+<p><b>Version 3.2:</b> I made some changes to the Strlcat()
+function and its usage in the xnec2c code, to improve safe handling
+of string concatenation operations. Hopefully this has not broken
+the handling of various strings in xnec2c! ;-)</p>
+
+
+<p><b>Version 3.1:</b> I have made several changes to the code that
+renders wire frame drawings and displays some data, like the
+projection parameters (azimuth and elevation of the structure and
+the radiation pattern) and gain values. This has resulted in a
+faster and smoother animation of these drawings and reduced
+workload on the processor during dragging of these images.<br>
+I have also reduced the default minimum size of xnec2c's windows,
+as I had reports that they would not fit in the displays of some
+laptops or monitors, with resolutions on the lower side.</p>
+
+
+<p><b>Version 3.0:</b> I have modified the NEC2 file parser so that
+it can read the file with both the '.' and ',' as decimal point
+characters. This is necessary to make xnec2c compatible with
+different locales. I also fixed a resource (memory) leak, reported
+by valgrind, in the xyz axes drawing routine.</p>
+
+
+<p><b>Version 2.9:</b> After a request by the Debian maintainer of
+xnec2c, I added a rudimentary man page he sent me and corrected
+some spelling errors (arbitrary to arbitrary).</p>
+
+
+<p><b>Version 2.8:</b> Fixed a bug in the GN card editor function
+which caused xnec2c to save the GN card parameters in the .nec
+antenna description file without clearing the number of radials to
+zero. This resulted in the GN card editor window to open with
+confusing and incorrect defaults for the radial screen, when the
+Reflection Coefficient Approximation method was selected for
+specifying ground parameters.</p>
+<p>Also fixed some bugs (missing variable initializations) in the
+Ground Parameters calculation functions which resulted in incorrect
+Radiation Pattern calculations. This would happen if a .nec file,
+with Perfect Ground (iperf = 1) specified in the GN card, was
+opened after a .nec file, with a Radial Ground Screen specified in
+the GN card, was processed.</p>
+
+
+<p><b>Version 2.7:</b> After a bug report by Tim, WJ5Q, I fixed a
+bug that was preventing the creation of an LD card of type 5
+(LDTYP=5) when wire conductivity (S/m) was specified in the GW card
+(Wire) editor. The same bug was present in the GH (Helix) card
+editor and it was also fixed. I added code so that the wire
+conductivity for GW, GA and GH cards can be read from the relevant
+LD card and shown in the Conductivity (S/m) spin button.</p>
+<p>After all these changes I checked the xnec2c source code using
+the Coverity Scan service and I fixed an out-of-bounds read error
+that was reported by the scanner, in the plot_freqdat.c file.</p>
+
+
+<p><b>Version 2.6:</b> After a bug report by Lucjan SQ9VPA, I
+changed the case of the signal handler that deals with SIGCHLD so
+that it doesn't cause xnec2c to exit when the SIGCHLD signal does
+not originate from child processes created by xnec2c. It appears
+that in some Linux installations a SIGCHLD signal is sent to xnec2c
+even if it is not running forked, e.g. the -j option is not used in
+the command line.</p>
+
+
+<p><b>Version 2.5:</b> After a bug report by Jean Collin, I made
+some changes to the input file parser code in input.c, to properly
+identify tabs in the input file.</p>
+
+
+<p><b>Version 2.4:</b> I submitted xnec2c (and nec2c) for scanning
+to the <a href="https://scan.coverity.com/" name="coverity" id=
+"coverity">Coverity</a> source code audit website, which produced a
+list of no less than 57 issues to be fixed! Most of them were not
+bugs that affected calculations but possibly two, both in the
+Somnec code, one in function rom1() and one in gshank() likely
+could have caused errors in the relevant calculations.
+Unfortunately the FORTRAN source of Somnec (as well as that of the
+NEC2) is very difficult to read so I cannot say with certainty if
+this was so.</p>
+
+
+<p><b>Version 2.3-beta:</b> Fixed a bug in the
+cell_edited_callback() function that caused segmentation fault
+crashes when a cell in the input file editor was edited directly by
+the user.</p>
+
+
+<p><b>Version 2.2-beta:</b> I made extensive modifications to the
+source code to silence a large number of warnings generated by the
+LLVM clang compiler when used with the -Weverything option. These
+were mostly cases of implicit conversions between variable types,
+like int to char or uint to int etc. I have also updated the basic
+files of the GNU Autotools build system, to be compatible with the
+current version of these tools at the time of writing (February
+2013).</p>
+
+
+<p><b>Version 2.1:</b> Patched a problem in the graph plotting
+routines that caused xnec2c to crash with a division by zero fault.
+This can happen when e.g. a single-wire structure is specified and
+a plot of gain vs frequency is requested, for a polarization that
+is at 90 deg to the wire, e.g. requesting gain plot for horizontal
+polarization for a vertical wire. Since there is no radiation in
+the horizontal plane of a vertical wire, the values of gain given
+to the plotting routines are all the same so the vertical scale
+drawing routines crash xnec2c. Please note that although xnec2c
+will now not crash as above, the plots will be jumbled and
+meaningless.</p>
+
+
+<p><b>Version 2.1-beta:</b> I have introduced many changes in this
+version, so I am releasing it again as a public beta version for
+testing and bug reports:<br clear="all">
+After a bug report by David J. Singer, I changed all declarations
+of variables that are used in memory allocations, from int to
+size_t. This error was in the nec2c code from the beginning but
+apparently it only showed up when extremely large memory
+allocations are requested in nec2c and xnec2c.<br clear="all">
+I have replaced all the (deprecated) GDK drawing primitives with
+equivalent Cairo graphics equivalents (e.g. replaced
+gdk_draw_line() with cairo_line_to()) since Cairo provides for
+nicer anti-aliased drawing.<br clear="all">
+After a feature request by David J. Singer and friend Richard, I
+have added code to save data of the structure display, radiation
+patterns and frequency plots into file, in a format suitable for
+the "gnuplot" plotting program.</p>
+
+
+<p><b>Version 2.0-beta:</b> I received a bug report from David
+Binderman regarding an array bounds violation, which he found by
+compiling xnec2c with the -D_FORTIFY_SOURCE gcc flag. I fixed this
+bug and also tested xnec2c source code using cppcheck.<br clear=
+"all">
+I decided it was about time I modify the xnec2c user interface so
+that it will, as far as possible, allow the user to save and
+re-open NEC2 files in the Editor window, without closing the
+Radiation Pattern and/or the Frequency Plots windows. This will
+significantly speed up work on editing NEC2 files and also make
+xnec2c usage less awkward. However, many bugs were introduced and
+fixed during this re-write of xnec2c, so users are advised to be
+watchful of possible bugs that got away and to report them for
+fixing.</p>
+
+
+<p><b>Version 1.6:</b> I received another bug report from Rik van
+Riel: The patch applied above did not help, as somehow the buggy
+code got duplicated below the bug fix, reproducing the same error
+in the calculation of front-to-back ratio! Hopefully fixed this
+time.</p>
+
+
+<p><b>Version 1.5:</b> Changed the handling of command line
+arguments so that the input file name may be specified without the
+use of the -i option. In this case xnec2c will take the last
+argument to be the input file name, but only if it has the .nec
+extension.<br clear="all">
+Got rid of some variables that were set but not used, according to
+warnings given by gcc.<br clear="all">
+Applied a patch supplied by Rik van Riel to allow the calculation
+of front to back ratios when the antenna is modeled over
+ground.</p>
+
+
+<p><b>Version 1.4:</b> Applied a patch supplied by Tom Beierlein,
+DL1JBE, to fix crashing of xnec2c 1.3 on long input file names
+(&gt; 80 characters).</p>
+
+
+<p><b>Version 1.3:</b> After an inquiry about using incident field
+excitation, which was not implemented in previous versions, I
+removed the restrictions in excitation to allow plotting the
+re-radiated pattern from a structure excited by incident field or
+elementary current source. However, the calculations are carried
+out only for one set of angle-of-incidence angles, e.g. there is no
+stepping of the theta and phi angles. This would require much more
+complex changes to xnec2c and I am not currently able to do
+this.</p>
+
+
+<p><b>Version 1.2:</b> Made the page size of spin buttons 0 to make
+setting of spin button values compatible with GTK 2.4</p>
+
+
+<p><b>Version 1.1:</b> I spoke too soon! A segfault bug has been
+reported that occurs when Maximum Admittance Matrix Asymmetry
+printing is requested in the EX card. Although this is not
+supported in xnec2c, it still produces a segmentation fault because
+the "ipnt" buffer is not allocated in the netwk() function in
+network.c</p>
+
+
+<p><b>Version 1.0:</b> After several months with no bug reports or
+feature requests, I am sticking my neck out and releasing xnec2c as
+version 1.0. This version incorporates the last two feature request
+I received from users:<br>
+The "Cancel" button on card editors has been replaces with a
+"Delete Card" button, which deletes the selected "card" (row in the
+NEC2 editor window).<br>
+A "Net Gain" menu item has been added to the View menu of the
+Frequency Plots window to replace the second plotted quantity with
+the Net Gain of the antenna.</p>
+
+
+<p><b>Version 1.0b5:</b> Following on the above changes, I revised
+all similar situations in xnec2c's source and modified all
+"sprintf" commands to "snprintf" just in case, as I could not
+replicate the bug so could not test for other similar problems. I
+also fixed a bug in the "save" and "save as" handler, to avoid
+false attempts by xnec2c to save structure and radiation
+pattern/frequency plots pixmaps when a save of the NEC2 editor data
+failed for some reason.</p>
+
+
+<p><b>Version 1.0b4:</b> After a bug report from Juha Vierinen I
+changed some "sprintf" commands to "snprintf" to avoid buffer
+overruns.</p>
+
+
+<p><b>Version 1.0b3:</b> Added setlocale(LC_NUMERIC, "C"); to the
+main() function, so that in locales where commas are used in
+decimal numbers xnec2c can read data correctly (suggested by Joop
+Stakenborg). Some minor changes to the user interface were also
+made to allow the NEC2 editor window to fit in displays with
+shorter heights.</p>
+
+
+<p><b>Version 1.0b:</b> In this version xnec2c has been re-worked
+extensively to make it multi-threading and to streamline its
+operation to some extend. Many bugs created by these changes, and
+others that already existed have been fixed, and the user interface
+has also changed somewhat. The example input files have also been
+checked and some mistakes in them have been corrected. This is now
+the first version 1.0 beta release for public testing.</p>
+
+
+<p><b>Version 0.9b:</b> Fixed a few bugs mainly in the NEC2 editor
+code and also changed the code of all individual Geometry and
+Command editors, so that edited data are set in the main NEC2
+editor's tree views when another Geometry or Command card (tree
+view row) is selected for editing.</p>
+<p>Implemented a work round around a serious bug which I could not
+trace, since it now seems to be outside my code: When the zint() or
+fbar() functions are called, they seem to corrupt xnec2c's memory
+allocation when they return. This corruption manifests itself as
+NAN values appearing in calculations so I modified these functions
+to return their computed value via a pointer in the argument list.
+I also changed the function declaration from complex long double to
+void as it seems this bug is related to functions of the former
+type declaration, returning a value.</p>
+
+
+<p><b>Version 0.8b:</b> Fixed a serious bug that caused
+segmentation faults and crashes in structures that have a wire in
+contact with a patch. The subph() routine divides this patch into 3
+or 4 sub-patches so the total number of patches increases. There
+was no provision to reallocate and initialize buffers used in
+rendering patches in the structure display window. Other minor bugs
+were also fixed and the example NEC2 files were also checked and
+edited when needed.</p>
+
+
+<p><b>Version 0.7b:</b> Fixed a bug in the co-ordinate translation
+(Move) editor and edited the code in the GW card editor so that the
+wire diameter does not change when the New button is clicked.</p>
+
+
+<p><b>Version 0.6b:</b> Fixed a bug inherited from NEC2: If no
+geometry cards are present (only a GE card) then there is division
+by zero in conect(). NEC2 seems to accept the lack of geometry
+cards, this is now an error condition in xnec2c. Reduced the max
+value specification of the Capacitance spin button in the Loading
+card editor, from 1.0e+12 to 1.0e+9 (pF) since the higher value is
+beyond the range of the "long" type in 32 bit systems. Modified the
+behavior of some card Editors to make them more user friendly.</p>
+
+
+<p><b>Version 0.5b:</b>Fixed a bug that caused segmentation faults
+when only one wire segment was present in the structure. This is
+not a case that will normally exist but the seg fault had to be
+fixed.</p>
+
+
+<p><b>Version 0.4b:</b> Added a NEC2 input file editor that makes
+the edit/save/reload/execute cycle easier and quicker.</p>
+
+
+<p><b>Version 0.3:</b> Added the ability to stop the frequency loop
+by clicking on the frequency display spin buttons and to restart it
+by toggling the "Gain" or "E/H" buttons in the Radiation Pattern
+window.</p>
+
+
+<p><b>Version 0.2:</b> Incorporated some changes to the GUI (the
+Glade-generated design) since after upgrading to GTK+ 2.8.9, the
+geometry of the windows (the position and extend of buttons/entry
+widgets) changed a little. Also fixed some bugs in the GUI code to
+handle unusual sequences of user actions correctly.</p>
+
+
+<p><b>Version 0.1:</b> First version with ability to draw a
+color-coded wire frame Radiation Pattern (Near and Far Field),
+Graphs of various Frequency dependent data (Gain, VSWR, Impedance
+etc) and the Structure (Wires/Patches), including a color coded
+Current or Charge distribution.</p>
+
+
 <b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
 <p>Since xnec2c is interactive, it cannot operate in the same way
 as NEC2 or nec2c. Specifically, commands that cause execution in
