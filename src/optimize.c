@@ -110,8 +110,10 @@ int inotify_open(struct pollfd *pfd)
   {
     pr_err("Unable to configure file modification detection to %s: %s\n", rc_config.input_file,
            strerror(errno));
-    exit( -1 );
+    return -1;
   }
+  else
+	  pr_debug("Monitoring rc_config.input_file: %s\n", rc_config.input_file);
 
   pfd->fd     = fd;     /* Inotify input */
   pfd->events = POLLIN;
@@ -144,13 +146,18 @@ Optimizer_Output( void *arg )
 		close(fd);
 
 	  fd = inotify_open(&pfd);
+	  if (fd < 0)
+		  ClearFlag(OPTIMIZER_OUTPUT);
+
 	  strncpy(prev_input_file, rc_config.input_file, sizeof(prev_input_file));
 	}
 
     // Exit thread if optimizer output has been cancelled
-    if( isFlagClear(OPTIMIZER_OUTPUT) ||
-        isFlagClear(PLOT_ENABLED) )
+    if( isFlagClear(OPTIMIZER_OUTPUT))
+    {
+      pr_debug("Exited optimizer thread.\n");
       break;
+    }
 
     if ( CHILD )
 	{

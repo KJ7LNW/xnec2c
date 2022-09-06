@@ -32,6 +32,8 @@ enum XNEC2C_OPTS {
 	// Start at 128 after all single-digit opts:
 	OPT_FIRST_OPT = 128,
 
+	OPT_ENABLE_OPTIMIZE,
+
 	OPT_WRITE_CSV,
 	OPT_WRITE_S1P,
 	OPT_WRITE_S2P_MAX_GAIN,
@@ -50,6 +52,8 @@ static struct option long_options[] = {
 		{  "version",                no_argument,         NULL,  'V'                        },
 		{  "no-pthreads",            no_argument,         NULL,  'P'                        },
 		{  "batch",                  no_argument,         NULL,  'b'                        },
+
+		{  "optimize",               no_argument,         NULL,  OPT_ENABLE_OPTIMIZE        },
 
 		{  "write-csv",              required_argument,   NULL,  OPT_WRITE_CSV              },
 		{  "write-s1p",              required_argument,   NULL,  OPT_WRITE_S1P              },
@@ -81,6 +85,25 @@ static char *build_optstring(struct option *long_options)
 	}
 
 	return optstring;
+}
+
+static gint opt_start_optimizer_thread()
+{
+	GtkWidget *w;
+
+	w = Builder_Get_Object(main_window_builder, "main_freqplots");
+	if (!gtk_check_menu_item_get_active( GTK_CHECK_MENU_ITEM(w)))
+	{
+		Notice(_("Xnec2c Optimize"),
+			_("Frequency plots window is not configured. "
+			"Select your desired graphs and click the triangle \"Play\" button."), GTK_BUTTONS_OK);
+		gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(w), TRUE);
+	}
+
+	w = Builder_Get_Object(main_window_builder, "optimizer_output");
+	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(w), TRUE);
+
+	return FALSE;
 }
 
 /*------------------------------------------------------------------------*/
@@ -197,6 +220,10 @@ main (int argc, char *argv[])
         exit(0);
         break;
 
+      case OPT_ENABLE_OPTIMIZE:
+          SetFlag( OPTIMIZER_OUTPUT );
+          break;
+
       case OPT_WRITE_CSV:
         rc_config.filename_csv = optarg;
         break;
@@ -220,6 +247,12 @@ main (int argc, char *argv[])
 
     } /* switch( option ) */
   } /* while( (option = getopt(argc, argv, "i:o:hv") ) != -1 ) */
+
+  if (rc_config.batch_mode && isFlagSet(OPTIMIZER_OUTPUT))
+  {
+	  pr_crit("--batch and --optimize are mutual exclusive.\n");
+	  exit(1);
+  }
 
   /* Initialize the external math libraries */
   init_mathlib();
@@ -396,6 +429,9 @@ main (int argc, char *argv[])
     SetFlag( INPUT_PENDING );
 
   init_mathlib_menu();
+
+  if (isFlagSet(OPTIMIZER_OUTPUT))
+	  g_idle_add_once((GSourceOnceFunc)opt_start_optimizer_thread, NULL);
 
   gtk_main ();
 

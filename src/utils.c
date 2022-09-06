@@ -44,6 +44,7 @@ usage(void)
 		"  -i|--input <input-file-name>\n"
 		"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
 		"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+		"     --optimize:     Activate the optimizer immediately.\n"
 		"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
 		"  -h|--help:         print usage information and exit\n"
 		"  -V|--version:      print xnec2c version number and exit\n"
