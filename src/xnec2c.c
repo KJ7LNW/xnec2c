@@ -950,6 +950,9 @@ void *Frequency_Loop_Thread(void *p)
 
 	ClearFlag(FREQ_LOOP_RUNNING);
 
+	if (isFlagSet(FREQ_LOOP_STOP))
+		return NULL;
+
 	// Exit if in batch mode
 	if (rc_config.batch_mode)
 	{
@@ -1039,6 +1042,7 @@ Stop_Frequency_Loop( void )
 {
   // Clearing this flag will cause the Frequency_Loop pthread to exit when it is done:
   ClearFlag( FREQ_LOOP_RUNNING );
+  SetFlag(FREQ_LOOP_STOP);
 
   if (!rc_config.disable_pthread_freqloop)
   {
@@ -1048,6 +1052,11 @@ Stop_Frequency_Loop( void )
 		  pthread_join(*pth_freq_loop, NULL);
 		  free_ptr((void**)&pth_freq_loop);
 	  }
+
+	  // Flush any pending GTK events. This is critical because any pending
+	  // events that may work upon GtkWidget's that change (or close) upon exit
+	  // from this function will fail.
+	  while( g_main_context_iteration(NULL, FALSE) );
   }
   else if( floop_tag > 0 )
   {
