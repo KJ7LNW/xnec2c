@@ -669,6 +669,8 @@ Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
 
   ClearFlag( NEC2_SAVE );
   ClearFlag( NEC2_EDIT_SAVE );
+
+  xnec2_widget_queue_draw( structure_drawingarea );
 } /* Save_Nec2_Input_File() */
 
 /*------------------------------------------------------------------------*/
