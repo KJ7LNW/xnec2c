@@ -240,7 +240,12 @@ subph( int nx, int ny )
 /*-----------------------------------------------------------------------*/
 
 /* connect sets up segment connection data in arrays icon1 and */
-/* icon2 by searching for segment ends that are in contact. */
+/* icon2 by searching for segment ends that are in contact.
+ *
+ * Note to spell checkers:  "conect" is the original FORTRAN function name
+ * and we need to keep the name this way for historical reasons (mostly nostalgia)
+ * because xnec2c is a C re-implementation of the original FORTRAN NEC2 code.
+ * */
   gboolean
 conect( int ignd )
 {
