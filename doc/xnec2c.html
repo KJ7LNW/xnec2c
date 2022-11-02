@@ -107,6 +107,7 @@ Window</a></li>
 <li><a href="#FrequencyWindow">Frequency Data Plots</a></li>
 <li><a href="#Nec2Treeview">NEC2 Input File Editor</a></li>
 <li><a href="#Optimization">Antenna Geometry Optimization (ie, high gain, low VSWR)</a></li>
+<li><a href="#Optimizers">External Optimizers</a></li>
 </ul>
 </li>
 <li><a href="#InputFile">Input File Considerations</a></li>
@@ -798,13 +799,28 @@ saved to the .csv file and the loop repeated until the desired results
 
 This optimization feedback mechanism was first implemented in Xnec2c v4.2 and
 has been refined over the past couple of versions to be very effective at
-optimizing antenna geometry.  As explained above, the catch is that you need to use an external
-optimizer.  At the time of this writing there is only one published external
-optimization package:
+optimizing antenna geometry.
 
 <br/>
-&nbsp;&nbsp;&nbsp;&bull;<b><a href="https://github.com/KJ7LNW/xnec2c-optimize/">xnec2c-optimize</a></b>
-is hosted on github and the linked page has instructions for getting started.<br/>
+<br/>
+<b><a name="Optimizers" id="Optimizers">External Optimizers</b>
+<br/>
+
+As explained above, you need to use an external optimizer to optimize with
+xnec2c.  The following external optimization packages are available.  Click one
+of the packages for more information:
+
+<ul>
+	<li>
+		<b><a target="_blank" href="https://github.com/polyrod/xnec2c-gao/">Xnec2c-gao</a></b>
+		is an external optimizer that uses a genetic algorithm to find
+		solutions in a multidimensional search space.  It is written in Haskell
+		by Maurizio Di Pietro, DC1MDP and hosted on github.
+	</li>
+	<li>
+		<b><a target="_blank" href="https://github.com/KJ7LNW/xnec2c-optimize/">Xnec2c-optimize</a></b>
+		is written in Perl by Eric, KJ7LNW and hosted on github.</li>
+	</ul>
 <br/>
 
 <b>Activating .NEC File Monitoring for Optimization</b>
