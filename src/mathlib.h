@@ -63,9 +63,6 @@ typedef struct mathlib_t
 	// Handle from dlopen 
 	void *handle;
 
-	// Namespace for the .so, this should be an Lmid_t but can't have _GNU_SOURCE defined here.
-	long int lmid; 
-
 	// Function pointers, one for each function in MATHLIB_FUNCTIONS.
 	void **functions;
 

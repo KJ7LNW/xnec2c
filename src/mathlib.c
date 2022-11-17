@@ -19,7 +19,6 @@
 
 #define _GNU_SOURCE
 #include <dlfcn.h>
-#include <link.h>
 #include "main.h"
 #include "shared.h"
 #include "mathlib.h"
