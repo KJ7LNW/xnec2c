@@ -1,5 +1,10 @@
 ## Process this file with automake to produce Makefile.in
+
+if OSX
+AM_LDFLAGS = -Wl,-export_dynamic
+else
 AM_LDFLAGS = -Wl,--export-dynamic -Wl,--as-needed
+endif
 
 # Disable warnings for overlength-strings, nothing we can do about that for GTK resources.
 # Maybe some compilers can't handle the length, but gcc and clang take it fine.
