@@ -80,6 +80,10 @@ desktop-install:
 	  update-desktop-database || : \
 	  gtk-update-icon-cache $(datarootdir)/icons/hicolor || : 
 
+
+EXTRA_DIST += m4-include/ax_check_compile_flag.m4
+EXTRA_DIST += m4-include/pkg.m4
+
 EXTRA_DIST += resources/link.svg
 EXTRA_DIST += resources/unlink.svg
 
