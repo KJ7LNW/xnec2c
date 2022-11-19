@@ -79,3 +79,11 @@ desktop-install:
 	  update-mime-database $(datarootdir)/mime || : \
 	  update-desktop-database || : \
 	  gtk-update-icon-cache $(datarootdir)/icons/hicolor || : 
+
+EXTRA_DIST += resources/link.svg
+EXTRA_DIST += resources/unlink.svg
+
+EXTRA_DIST += resources/xnec2c.glade
+
+EXTRA_DIST += resources/xnec2c.gresource.xml
+EXTRA_DIST += resources/xnec2c.svg
