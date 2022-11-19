@@ -6,8 +6,7 @@ EXTRA_DIST = \
 	autogen.sh \
 	files \
 	examples \
-	doc \
-	.xnec2c
+	doc
 
 DISTCLEANFILES = \
 				 autom4te.cache/* \
