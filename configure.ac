@@ -51,6 +51,16 @@ test "x$enable_cflags_setting" = xyes && CFLAGS=""
 AC_PROG_CC
 AC_PROG_MAKE_SET
 
+m4_pattern_forbid([PKG_CHECK_VAR])dnl
+PKG_CHECK_VAR([GLIB_COMPILE_RESOURCES], [gio-2.0], [glib_compile_resources], [], [dnl
+  AC_MSG_ERROR([Could not find glib-compile-resources tool])
+])
+AC_MSG_CHECKING([for glib-compile-resources tool])
+AC_MSG_RESULT([$GLIB_COMPILE_RESOURCES])
+AS_CASE([$GLIB_COMPILE_RESOURCES], [false|no], [dnl
+  AC_MSG_ERROR([glib-compile-resources tool required])
+])
+
 # Checks for libraries.
 m4_pattern_forbid([PKG_CHECK_MODULES])dnl
 PKG_CHECK_MODULES([GTK], [gtk+-3.0 >= 3.18.0])
