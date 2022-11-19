@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([xnec2c], [4.4.12], [xnec2c-bugs@z.ewheeler.org])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([1.13.2])
 AC_CONFIG_SRCDIR([src/common.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4 m4-include])
