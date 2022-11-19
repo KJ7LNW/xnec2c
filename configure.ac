@@ -52,6 +52,7 @@ AC_PROG_CC
 AC_PROG_MAKE_SET
 
 # Checks for libraries.
+m4_pattern_forbid([PKG_CHECK_MODULES])dnl
 PKG_CHECK_MODULES([GTK], [gtk+-3.0 >= 3.18.0])
 
 # GCC has atan2 as a built-in so the autoconf test casts it incorrectly and triggers a warning.
@@ -131,6 +132,8 @@ fi
 # flags as well in case there is some NEC2 code that needs that handled.  
 # However, -fno-honor-nans should be safe because -fcx-fortran-rules disables
 # NaN detection and NEC2 is originally fortran code.
+
+m4_pattern_forbid([AX_CHECK_COMPILE_FLAG])dnl
 
 # GCC
 AX_CHECK_COMPILE_FLAG(-fcx-fortran-rules, CFLAGS="$CFLAGS -fcx-fortran-rules")
