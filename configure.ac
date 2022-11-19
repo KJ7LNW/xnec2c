@@ -54,8 +54,6 @@ AC_PROG_MAKE_SET
 # Checks for libraries.
 pkg_modules="gtk+-3.0 >= 3.18.0"
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
-AC_SUBST(PACKAGE_CFLAGS)
-AC_SUBST(PACKAGE_LIBS)
 
 # GCC has atan2 as a built-in so the autoconf test casts it incorrectly and triggers a warning.
 # This causes -Werror to fail and then xnec2c does not link with -lm.  Disable built-ins
