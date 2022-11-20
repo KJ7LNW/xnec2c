@@ -7,7 +7,7 @@ AM_INIT_AUTOMAKE([1.13.2])
 AC_CONFIG_SRCDIR([src/common.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4 m4-include])
-AM_MAINTAINER_MODE
+AM_MAINTAINER_MODE([enable])
 
 # AC_CANONICAL_HOST is needed to access the 'host_os' variable
 AC_CANONICAL_HOST
