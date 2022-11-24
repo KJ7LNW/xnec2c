@@ -9,6 +9,29 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4 m4-include])
 AM_MAINTAINER_MODE([enable])
 
+dnl ======================================================================
+dnl Relevant tool release dates and versions
+dnl
+dnl 2012-04-24 autoconf-2.69    available in centos 7
+dnl 2012-04-24 autoconf-2.69    longtime xnec2c requirement
+dnl
+dnl 2013-06-20 automake-1.14    introduces %reldir%, implies AM_PROG_CC_C_O
+dnl 2013-06-14 automake-1.13.4  available in centos 7
+dnl 2013-05-15 automake-1.13.2  (bugfix for handling multiple m4 macro dirs)
+dnl 2012-12-28 automake-1.13    fix important but with AC_CONFIG_MACRO_DIRS
+dnl 0000-00-00 automake-<none>  longtime xnec2c requirement
+dnl
+dnl 2016-06-09 gettext-0.19.8   available in centos 7
+dnl 2015-12-28 gettext-0.19.7   longtime xnec2c requirement
+dnl
+dnl 2011-10-18 libtool-2.4.2    available in centos 7
+dnl
+dnl 2012-08-24 pkgconfig-0.27.1 available in centos 7
+dnl
+dnl 2018-04-06 glib2-2.56.1     available in centos 7
+dnl
+dnl ======================================================================
+
 # AC_CANONICAL_HOST is needed to access the 'host_os' variable
 AC_CANONICAL_HOST
 
