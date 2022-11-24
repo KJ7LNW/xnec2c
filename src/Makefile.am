@@ -20,7 +20,7 @@ AM_CPPFLAGS = \
     -DPROGRAMNAME_LOCALEDIR=\""$(PROGRAMNAME_LOCALEDIR)"\" \
     -DPACKAGE_DATA_DIR=\""$(pkgdata)"\" \
     -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
-    @PACKAGE_CFLAGS@
+    $(GTK_CFLAGS)
 
 bin_PROGRAMS = xnec2c
 
@@ -58,7 +58,7 @@ xnec2c_SOURCES = \
     common.h        editors.h \
     xnec2c-resources.c
 
-xnec2c_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
+xnec2c_LDADD = $(GTK_LIBS) $(INTLLIBS)
 
 PKGCONFIG = $(shell which pkg-config)
 GLIB_COMPILE_RESOURCES = $(shell $(PKGCONFIG) --variable=glib_compile_resources gio-2.0)
