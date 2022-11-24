@@ -51,6 +51,8 @@ test "x$enable_cflags_setting" = xyes && CFLAGS=""
 AC_PROG_CC
 AC_PROG_MAKE_SET
 
+AC_LANG([C])
+
 m4_pattern_forbid([PKG_CHECK_VAR])dnl
 PKG_CHECK_VAR([GLIB_COMPILE_RESOURCES], [gio-2.0], [glib_compile_resources], [], [dnl
   AC_MSG_ERROR([Could not find glib-compile-resources tool])
@@ -59,6 +61,49 @@ AC_MSG_CHECKING([for glib-compile-resources tool])
 AC_MSG_RESULT([$GLIB_COMPILE_RESOURCES])
 AS_CASE([$GLIB_COMPILE_RESOURCES], [false|no], [dnl
   AC_MSG_ERROR([glib-compile-resources tool required])
+])
+
+
+m4_pattern_forbid([PKG_CHECK_MODULES])dnl
+PKG_CHECK_MODULES([GIO], [gio-2.0])
+
+cat>gcrtest.xml<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+</gresources>
+EOF
+
+AS_IF([$GLIB_COMPILE_RESOURCES --sourcedir=. --target=gcrtest.c --generate-source gcrtest.xml], [dnl
+  xnc2c_gcr_works=yes
+], [dnl
+  xnc2c_gcr_works=no
+])
+AC_MSG_CHECKING([glib-compile-resources tool works])
+AC_MSG_RESULT([$xnc2c_gcr_works])
+AS_VAR_IF([xnc2c_gcr_works], [no], [dnl
+  rm -f gcrtest.xml
+  AC_MSG_ERROR([working glib-compile-resources tool required])
+])
+
+AC_MSG_CHECKING([glib-compile-resources tool output compiles and links])
+xnc2c_saved_CPPFLAGS="$CPPFLAGS"
+xnc2c_saved_LIBS="$LIBS"
+CPPFLAGS="$CPPFLAGS $GIO_CFLAGS"
+LIBS="$LDADD $GIO_LIBS"
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+  #include <stdio.h>
+  #include "gcrtest.c"
+]], [[
+  void *ptr = &static_resource;
+  printf("static_resource=%p\n", ptr);
+]])], [xnc2c_gcr_links=yes],
+      [xnc2c_gcr_links=no])
+CPPFLAGS="$xnc2c_saved_CPPFLAGS"
+LIBS="$xnc2c_saved_LIBS"
+AC_MSG_RESULT([$xnc2c_gcr_links])
+rm -f gcrtest.c gcrtest.xml
+AS_VAR_IF([xnc2c_gcr_links], [no], [dnl
+  AC_MSG_FAILURE([glib-compile-resources result must compile and link])
 ])
 
 # Checks for libraries.
