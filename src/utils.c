@@ -40,7 +40,7 @@ void _print_backtrace(char **strings);
   void
 usage(void)
 {
-  fprintf(stderr, "Usage: xnec2c [options] [<input-file-name>]\n"
+  fprintf(stdout, "Usage: xnec2c [options] [<input-file-name>]\n"
 		"  -i|--input <input-file-name>\n"
 		"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
 		"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
