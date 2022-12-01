@@ -3,27 +3,6 @@
 CLEANFILES =
 DISTCLEANFILES =
 
-if OSX
-AM_LDFLAGS = -Wl,-export_dynamic
-else
-AM_LDFLAGS = -Wl,--export-dynamic -Wl,--as-needed
-endif
-
-# Disable warnings for overlength-strings, nothing we can do about that for GTK resources.
-# Maybe some compilers can't handle the length, but gcc and clang take it fine.
-# See this bug reference: https://gitlab.gnome.org/GNOME/glib/-/merge_requests/763
-AM_CFLAGS = --pedantic -Wall -std=gnu11 -O2 -g \
-            -Wformat -Werror=format-security -fpie \
-            -Wno-overlength-strings \
-            -DGTK_DISABLE_SINGLE_INCLUDES -DGDK_DISABLE_DEPRECATED \
-            -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE \
-            -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED
-
-AM_CPPFLAGS = \
-    -DPROGRAMNAME_LOCALEDIR=\""$(PROGRAMNAME_LOCALEDIR)"\" \
-    -DPACKAGE_DATA_DIR=\""$(pkgdata)"\" \
-    -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
-    $(GTK_CFLAGS)
 
 bin_PROGRAMS = xnec2c
 
@@ -60,7 +39,43 @@ xnec2c_SOURCES = \
     somnec.c        somnec.h \
     common.h        editors.h
 
-xnec2c_LDADD = $(GTK_LIBS) $(INTLLIBS)
+xnec2c_CPPFLAGS  =
+xnec2c_CFLAGS    =
+xnec2c_LDFLAGS   =
+xnec2c_LDADD     =
+
+if OSX
+xnec2c_LDFLAGS += -Wl,-export_dynamic
+else
+xnec2c_LDFLAGS += -Wl,--export-dynamic -Wl,--as-needed
+endif
+
+# Disable warnings for overlength-strings, nothing we can do about that for GTK resources.
+# Maybe some compilers can't handle the length, but gcc and clang take it fine.
+# See this bug reference: https://gitlab.gnome.org/GNOME/glib/-/merge_requests/763
+xnec2c_CFLAGS   += --pedantic
+xnec2c_CFLAGS   +=  -Wall
+xnec2c_CFLAGS   += -std=gnu11
+xnec2c_CFLAGS   += -O2 -g
+xnec2c_CFLAGS   += -Wformat
+xnec2c_CFLAGS   += -Werror=format-security
+xnec2c_CFLAGS   += -fpie
+xnec2c_CFLAGS   += -Wno-overlength-strings
+xnec2c_CFLAGS   += -DGTK_DISABLE_SINGLE_INCLUDES
+xnec2c_CFLAGS   += -DGDK_DISABLE_DEPRECATED
+xnec2c_CFLAGS   += -DGTK_DISABLE_DEPRECATED
+xnec2c_CFLAGS   += -DGSEAL_ENABLE
+xnec2c_CFLAGS   += -DGDK_PIXBUF_DISABLE_DEPRECATED
+xnec2c_CFLAGS   += -DG_DISABLE_DEPRECATED
+
+xnec2c_CPPFLAGS += -DPROGRAMNAME_LOCALEDIR="\"$(PROGRAMNAME_LOCALEDIR)\""
+xnec2c_CPPFLAGS += -DPACKAGE_DATA_DIR="\"$(pkgdata)\""
+xnec2c_CPPFLAGS += -DPACKAGE_LOCALE_DIR="\"$(prefix)/$(DATADIRNAME)/locale\""
+
+xnec2c_CPPFLAGS += $(GTK_CFLAGS)
+xnec2c_LDADD    += $(GTK_LIBS)
+
+xnec2c_LDADD    += $(INTLLIBS)
 
 
 ########################################################################
