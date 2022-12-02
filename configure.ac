@@ -136,7 +136,8 @@ AS_VAR_IF([xnc2c_gcr_links], [no], [dnl
 
 # Checks for libraries.
 m4_pattern_forbid([PKG_CHECK_MODULES])dnl
-PKG_CHECK_MODULES([GTK], [gtk+-3.0 >= 3.18.0])
+PKG_CHECK_MODULES([GMODULE], [gmodule-2.0])
+PKG_CHECK_MODULES([GTK],     [gtk+-3.0 >= 3.18.0])
 
 # GCC has atan2 as a built-in so the autoconf test casts it incorrectly and triggers a warning.
 # This causes -Werror to fail and then xnec2c does not link with -lm.  Disable built-ins
@@ -149,7 +150,6 @@ CFLAGS="$CFLAGS_SAVE"
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 
-AC_CHECK_LIB([gmodule-2.0], [g_module_open])
 AC_CHECK_LIB([pthread], [pthread_create])
 
 # Provide special options for ATLAS
