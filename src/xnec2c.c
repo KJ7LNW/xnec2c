@@ -808,7 +808,7 @@ gboolean Frequency_Loop( gpointer udata )
 		  retval = FALSE;
 		  if (num_busy_procs != 0)
 		  {
-			  BUG("Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n",
+			  pr_debug("Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n",
                               num_busy_procs, calc_data.freq_step,
                               calc_data.steps_total);
 				for( job_num = 0; job_num < calc_data.num_jobs; job_num++ )
