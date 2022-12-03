@@ -589,8 +589,8 @@ _Draw_Radiation( cairo_t *cr )
       (double)rdpattern_proj_params.height);
   cairo_fill( cr );
 
-  /* Abort if xnec2c may be quit by user */
-  if( isFlagSet(MAIN_QUIT) || isFlagClear(ENABLE_EXCITN) )
+  /* Abort if excitation (EX card) is missing */
+  if( isFlagClear(ENABLE_EXCITN) )
     return FALSE;
 
   /* Don't draw radiation pattern when freq

@@ -1293,8 +1293,7 @@ _Plot_Frequency_Data( cairo_t *cr )
 {
   /* Abort plotting if main window is to be closed
    * or when plots drawing area not available */
-  if( isFlagSet(MAIN_QUIT) ||
-      isFlagClear(PLOT_ENABLED) ||
+  if( isFlagClear(PLOT_ENABLED) ||
       isFlagClear(ENABLE_EXCITN) )
     return;
 

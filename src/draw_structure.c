@@ -29,9 +29,6 @@
   void
 _Draw_Structure( cairo_t *cr )
 {
-  /* Abort if xnec2c may be quit by user */
-  if( isFlagSet(MAIN_QUIT) ) return;
-
   /* Clear drawingarea */
   cairo_set_source_rgb( cr, BLACK );
   cairo_rectangle(
