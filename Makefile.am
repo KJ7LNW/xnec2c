@@ -64,6 +64,12 @@ EXTRA_DIST += resources/unlink.svg
 EXTRA_DIST += resources/xnec2c.glade
 EXTRA_DIST += resources/xnec2c.gresource.xml
 
+SED_CMDS  =
+SED_CMDS += -e 's|[@]PACKAGE_NAME@|$(PACKAGE_NAME)|g'
+SED_CMDS += -e 's|[@]PACKAGE_STRING@|$(PACKAGE_STRING)|g'
+SED_CMDS += -e 's|[@]PACKAGE_TARNAME@|$(PACKAGE_TARNAME)|g'
+SED_CMDS += -e 's|[@]PACKAGE_VERSION@|$(PACKAGE_VERSION)|g'
+
 
 ########################################################################
 # Desktop integration
@@ -94,8 +100,14 @@ desktop-install:
 # Documentation
 ########################################################################
 
-EXTRA_DIST    += doc/xnec2c.1
+EXTRA_DIST    += doc/xnec2c.1.in
+CLEANFILES    += doc/xnec2c.1
 man1_MANS     += doc/xnec2c.1
+
+SUFFIXES += .1.in .1
+.1.in.1:
+	@$(MKDIR_P) $(@D)
+	$(SED) $(SED_CMDS) < $< > $@
 
 dist_doc_DATA  =
 dist_doc_DATA += doc/NEC2-bug.txt
@@ -377,4 +389,11 @@ check-examples-file-list:
 # Local convenience RPM builds
 ########################################################################
 
-EXTRA_DIST += xnec2c.spec
+EXTRA_DIST  += xnec2c.spec.in
+CLEANFILES  += xnec2c.spec
+noinst_DATA += xnec2c.spec
+
+SUFFIXES += .spec.in .spec
+.spec.in.spec:
+	@$(MKDIR_P) $(@D)
+	$(SED) $(SED_CMDS) < $< > $@
