@@ -13,42 +13,6 @@ EXTRA_DIST += autogen.sh
 EXTRA_DIST += .gitignore
 EXTRA_DIST += m4/.gitignore
 
-DISTCLEANFILES = \
-				 autom4te.cache/* \
-				 intl/* \
-				 m4/* \
-				 aclocal.m4 \
-				 compile \
-				 config.guess \
-				 config.rpath \
-				 config.status \
-				 config.sub \
-				 configure \
-				 depcomp \
-				 install-sh \
-				 missing \
-				 ABOUT-NLS \
-				 Makefile.in \
-				 config.h \
-				 config.h.in \
-				 config.log \
-				 configure \
-				 stamp-h1 \
-				 stamp-h.in \
-				 src/Makefile.in \
-				 po/Rules-quot \
-				 po/en@quot.header \
-				 po/remove-potcdate.sin \
-				 po/Makevars.template \
-				 po/boldquot.sed \
-				 po/insert-header.sin \
-				 po/stamp-po \
-				 po/en@boldquot.header \
-				 po/quot.sed \
-				 po/Makefile.in.in \
-				 po/xnec2c.pot \
-				 Makefile
-
 EXTRA_DIST += debian/upstream/metadata
 EXTRA_DIST += update-example-data.sh
 
