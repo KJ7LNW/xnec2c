@@ -78,6 +78,7 @@ test "x$enable_cflags_setting" = xyes && CFLAGS=""
 AC_PROG_CC
 AM_PROG_CC_C_O()dnl remove this line when requiring automake >= 1.14
 AC_PROG_MAKE_SET
+AC_PROG_SED
 
 AC_LANG([C])
 
