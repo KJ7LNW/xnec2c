@@ -1,0 +1,68 @@
+name: CI build
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ] # , macos-latest ]
+
+    steps:
+      - name: Check out source code with history (Linux)
+        if: runner.os == 'Linux'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Check out source code without history (non-Linux)
+        if: runner.os != 'Linux'
+        uses: actions/checkout@v2
+
+      - name: Install Software (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt install automake autoconf autopoint gettext
+
+      - name: Install Software (macOS)
+        if: runner.os == 'macOS'
+        run: brew install automake autoconf gettext libtool
+
+      - name: 'Determine number of cores to build on (Linux)'
+        if: runner.os == 'Linux'
+        run: echo NPROC=$(nproc) >> $GITHUB_ENV
+
+      - name: 'Determine number of cores to build on (macOS)'
+        if: runner.os == 'macOS'
+        run: echo NPROC=$(sysctl -n hw.logicalcpu) >> $GITHUB_ENV
+
+      # Setting MAKE would interfere with Makefile{,.in,.am} using $(MAKE)
+      - name: 'Prepare concurrent make'
+        run: if test "x$NPROC" = x; then echo ci_MAKE="make" >> $GITHUB_ENV; echo "NPROC must be set"; exit 1; else echo ci_MAKE="make -j${NPROC} -l${NPROC}" >> $GITHUB_ENV; fi
+
+      - name: autoreconf
+        run: autoreconf -vis .
+
+      - name: configure
+        run: ./configure
+
+      - name: make
+        run: $ci_MAKE
+
+      - name: make check
+        run: $ci_MAKE check
+
+      - name: make install
+        run: $ci_MAKE install
+
+      - name: make installcheck
+        run: $ci_MAKE installcheck
+
+      - name: make distcheck
+        run: $ci_MAKE distcheck
