@@ -991,6 +991,7 @@ on_freqplots_window_delete_event(
     return( TRUE );
   }
 
+  SetFlag( PLOT_QUIT );
   kill_window = freqplots_window;
   Delete_Event( _("Really close window?") );
   return( TRUE );
@@ -1304,6 +1305,7 @@ on_rdpattern_window_delete_event(
     return( TRUE );
   }
 
+  SetFlag( DRAW_QUIT );
   kill_window = rdpattern_window;
   Delete_Event( _("Really close window?") );
   return( TRUE );
@@ -1736,6 +1738,8 @@ on_quit_cancelbutton_clicked(
 {
   Gtk_Widget_Destroy( &quit_dialog );
   ClearFlag( MAIN_QUIT );
+  ClearFlag( PLOT_QUIT );
+  ClearFlag( DRAW_QUIT );
   kill_window = NULL;
 }
 
@@ -1764,6 +1768,18 @@ on_quit_okbutton_clicked(
       Stop_Frequency_Loop();
 
   } /* if( isFlagSet(FREQ_LOOP_RUNNING) ) */
+
+  // Clear Plot or Draw Enable flag
+  if( isFlagSet(DRAW_QUIT) )
+  {
+    ClearFlag( DRAW_ENABLED );
+    ClearFlag( DRAW_QUIT );
+  }
+  if( isFlagSet(PLOT_QUIT) )
+  {
+    ClearFlag( PLOT_ENABLED );
+    ClearFlag( PLOT_QUIT );
+  }
 
   Gtk_Widget_Destroy( &quit_dialog );
   Gtk_Widget_Destroy( &kill_window );
