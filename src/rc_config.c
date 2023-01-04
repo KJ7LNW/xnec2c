@@ -470,7 +470,7 @@ Create_Default_Config( void )
   rc_config.rdpattern_height = 0;
   rc_config.rdpattern_x = 0;
   rc_config.rdpattern_y = 0;
-  rc_config.rdpattern_gain_togglebutton = 0;
+  rc_config.rdpattern_gain_togglebutton = 1;
   rc_config.rdpattern_eh_togglebutton   = 0;
   rc_config.rdpattern_e_field = 1;
   rc_config.rdpattern_h_field = 1;
