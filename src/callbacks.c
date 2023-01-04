@@ -283,11 +283,12 @@ on_optimizer_output_toggled(
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
   {
     GtkWidget *w = Builder_Get_Object(main_window_builder, "main_freqplots");
+    rc_config.main_loop_start = 1;
+
     if (!gtk_check_menu_item_get_active( GTK_CHECK_MENU_ITEM(w)))
-    {
-        rc_config.main_loop_start = 1;
         gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(w), TRUE);
-    }
+    else if(isFlagClear(FREQ_LOOP_DONE))
+      Start_Frequency_Loop();
 
     // Enable frequency data output to Optimizer's file
     SetFlag( OPTIMIZER_OUTPUT );
