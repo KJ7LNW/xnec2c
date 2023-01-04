@@ -91,15 +91,6 @@ static gint opt_start_optimizer_thread()
 {
 	GtkWidget *w;
 
-	w = Builder_Get_Object(main_window_builder, "main_freqplots");
-	if (!gtk_check_menu_item_get_active( GTK_CHECK_MENU_ITEM(w)))
-	{
-		Notice(_("Xnec2c Optimize"),
-			_("Frequency plots window is not configured. "
-			"Select your desired graphs and click the triangle \"Play\" button."), GTK_BUTTONS_OK);
-		gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(w), TRUE);
-	}
-
 	w = Builder_Get_Object(main_window_builder, "optimizer_output");
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(w), TRUE);
 

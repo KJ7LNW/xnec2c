@@ -282,6 +282,12 @@ on_optimizer_output_toggled(
 
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
   {
+    GtkWidget *w = Builder_Get_Object(main_window_builder, "main_freqplots");
+    if (!gtk_check_menu_item_get_active( GTK_CHECK_MENU_ITEM(w)))
+    {
+        rc_config.main_loop_start = 1;
+        gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(w), TRUE);
+    }
 
     // Enable frequency data output to Optimizer's file
     SetFlag( OPTIMIZER_OUTPUT );
@@ -294,7 +300,9 @@ on_optimizer_output_toggled(
     {
         Notice(_("Xnec2c Optimizer"), _("No files are selected for writing. "
             "However, xnec2c will still reload and recalculate the input file on "
-            "modification when triggered by inotify."), GTK_BUTTONS_OK);
+            "modification when triggered by inotify."
+            "Select files for writing in \"File->Optimization Settings\"."),
+            GTK_BUTTONS_OK);
     }
 
     // Create a thread to play back demodulation buffer
@@ -587,6 +595,10 @@ on_main_freqplots_activate(
           Builder_Get_Object( freqplots_window_builder, "freqplots_box" );
         gtk_widget_hide( box );
       }
+
+      if( rc_config.main_loop_start && isFlagClear(FREQ_LOOP_DONE))
+        Start_Frequency_Loop();
+
     } /* if( Main_Freqplots_Activate() */
     else gtk_check_menu_item_set_active(
         GTK_CHECK_MENU_ITEM(menuitem), FALSE );
@@ -4484,8 +4496,7 @@ on_loop_pause_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  if( isFlagSet(FREQ_LOOP_RUNNING) )
-    SetFlag( FREQ_LOOP_STOP );
+  Stop_Frequency_Loop();
   rc_config.main_loop_start = 0;
 }
 
