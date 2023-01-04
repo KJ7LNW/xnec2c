@@ -369,6 +369,13 @@ on_main_rdpattern_activate(
     GtkAllocation alloc;
     GtkWidget *widget;
 
+    if (!rc_config.rdpattern_x || !rc_config.rdpattern_y)
+    {
+        Get_GUI_State();
+        rc_config.rdpattern_x = rc_config.main_x;
+        rc_config.rdpattern_y = rc_config.main_y + rc_config.main_height;
+    }
+
     rdpattern_window = create_rdpattern_window( &rdpattern_window_builder );
     Set_Window_Geometry( rdpattern_window,
         rc_config.rdpattern_x, rc_config.rdpattern_y,
@@ -483,6 +490,13 @@ on_main_freqplots_activate(
     if( Main_Freqplots_Activate() )
     {
       GtkWidget *widget;
+
+      if (!rc_config.freqplots_x || !rc_config.rdpattern_y)
+      {
+          Get_GUI_State();
+          rc_config.freqplots_x = rc_config.main_x + rc_config.main_width;
+          rc_config.freqplots_y = rc_config.main_y;
+      }
 
       freqplots_window = create_freqplots_window( &freqplots_window_builder );
       Set_Window_Geometry( freqplots_window,

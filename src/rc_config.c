@@ -529,12 +529,13 @@ Set_Window_Geometry(
     GtkWidget *window,
     gint x, gint y, gint width, gint height )
 {
-  if( (width == 0) || (height == 0) ) return;
-
   /* Set size and position of window */
   /* gtk_widget_hide( window ); this leads to an undecorated window in icewm */
-  gtk_window_resize( GTK_WINDOW(window), width, height );
-  gtk_window_move( GTK_WINDOW(window), x, y );
+  if (width && height)
+    gtk_window_resize( GTK_WINDOW(window), width, height );
+
+  if (x && y)
+    gtk_window_move( GTK_WINDOW(window), x, y );
 
 } /* Set_Window_Geometry() */
 
