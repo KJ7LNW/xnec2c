@@ -370,7 +370,7 @@ on_main_rdpattern_activate(
     GtkAllocation alloc;
     GtkWidget *widget;
 
-    if (!rc_config.rdpattern_x || !rc_config.rdpattern_y)
+    if (rc_config.rdpattern_x < 0 || rc_config.rdpattern_y < 0)
     {
         Get_GUI_State();
         rc_config.rdpattern_x = rc_config.main_x;
@@ -492,7 +492,7 @@ on_main_freqplots_activate(
     {
       GtkWidget *widget;
 
-      if (!rc_config.freqplots_x || !rc_config.rdpattern_y)
+      if (rc_config.freqplots_x < 0 || rc_config.rdpattern_y < 0)
       {
           Get_GUI_State();
           rc_config.freqplots_x = rc_config.main_x + rc_config.main_width;

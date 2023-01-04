@@ -468,8 +468,8 @@ Create_Default_Config( void )
   rc_config.rdpattern_is_open = 1;
   rc_config.rdpattern_width  = 0;
   rc_config.rdpattern_height = 0;
-  rc_config.rdpattern_x = 0;
-  rc_config.rdpattern_y = 0;
+  rc_config.rdpattern_x = -1;
+  rc_config.rdpattern_y = -1;
   rc_config.rdpattern_gain_togglebutton = 1;
   rc_config.rdpattern_eh_togglebutton   = 0;
   rc_config.rdpattern_e_field = 1;
@@ -484,8 +484,8 @@ Create_Default_Config( void )
   rc_config.freqplots_is_open = 1;
   rc_config.freqplots_width  = 0;
   rc_config.freqplots_height = 0;
-  rc_config.freqplots_x = 0;
-  rc_config.freqplots_y = 0;
+  rc_config.freqplots_x = -1;
+  rc_config.freqplots_y = -1;
   rc_config.freqplots_gmax_togglebutton    = 1;
   rc_config.freqplots_gdir_togglebutton    = 0;
   rc_config.freqplots_gviewer_togglebutton = 0;
@@ -534,7 +534,7 @@ Set_Window_Geometry(
   if (width && height)
     gtk_window_resize( GTK_WINDOW(window), width, height );
 
-  if (x && y)
+  if (x >= 0 && y >= 0)
     gtk_window_move( GTK_WINDOW(window), x, y );
 
 } /* Set_Window_Geometry() */
