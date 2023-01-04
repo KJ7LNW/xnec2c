@@ -1584,16 +1584,13 @@ void Plot_Frequency_Data( cairo_t *cr )
   void
 Plots_Window_Killed( void )
 {
-  rc_config.freqplots_width  = 0;
-  rc_config.freqplots_height = 0;
-
   // Reset this for next time otherwise width_available rescales in Plot_Graph will not work.
   prev_width_available = 0;
   prev_ngraphs = 0;
 
   if( isFlagSet(PLOT_ENABLED) )
   {
-    ClearFlag( PLOT_FLAGS );
+    ClearFlag( PLOT_ENABLED );
     freqplots_drawingarea = NULL;
     g_object_unref( freqplots_window_builder );
     freqplots_window_builder = NULL;

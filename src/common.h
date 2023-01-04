@@ -287,6 +287,7 @@ typedef struct
 
   /* Radiation pattern window position and size */
   int
+    rdpattern_is_open,
     rdpattern_x,
     rdpattern_y,
     rdpattern_width,
@@ -303,6 +304,7 @@ typedef struct
 
   /* Frequency plots window state of widgetsposition and size */
   int
+    freqplots_is_open,
     freqplots_x,
     freqplots_y,
     freqplots_width,

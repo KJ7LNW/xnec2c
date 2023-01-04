@@ -190,6 +190,12 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Optimizer Write S2P Viewer Gain", .format = "%d", .batch_mode_skip = TRUE,
 		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_s2p_viewer_gain",
 		.vars = { &rc_config.opt_write_s2p_viewer_gain } },
+
+	{ .desc = "Frequency Plots window is open", .format = "%d",
+		.vars = { &rc_config.freqplots_is_open } },
+
+	{ .desc = "Radiation Pattern Window window is open", .format = "%d",
+		.vars = { &rc_config.rdpattern_is_open } },
 };
 
 
@@ -373,9 +379,9 @@ void rc_callback_check_menu_item(GtkCheckMenuItem *menuitem, gpointer user_data)
 /* Get_Widget_Geometry()
  *
  * Gets a widget's size and position
+ * Return: 1 if open, 0 if closed.
  */
-  static void
-Get_Window_Geometry(
+int Get_Window_Geometry(
     GtkWidget *window,
     gint *x, gint *y, gint *width, gint *height )
 {
@@ -383,11 +389,14 @@ Get_Window_Geometry(
   {
     gtk_window_get_size( GTK_WINDOW(window), width, height );
     gtk_window_get_position( GTK_WINDOW(window), x, y );
+	pr_debug("window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n",
+		*x, *y, *width, *height,
+		gtk_window_get_title(GTK_WINDOW(window)));
+    return 1;
   }
   else /* Disable window restoring */
   {
-    *x = *y = 0;
-    *width = *height = 0;
+    return 0;
   }
 
 } /* Get_Widget_Geometry() */
@@ -449,7 +458,14 @@ Create_Default_Config( void )
   rc_config.main_incline_spinbutton = 45;
   rc_config.main_zoom_spinbutton    = 100;
 
+  // The *_is_open values below default to "1" for backward compatiblity.  It
+  // still does not open the window if width/height are undefined so defaults
+  // are consistent.  However, if they are defined but *_is_open is not defined
+  // (ie, <= v4.1.12) then the specified windows will open.  After the first
+  // run the new version will use xnec2c.conf for *_is_open values.
+
   /* For rdpattern window */
+  rc_config.rdpattern_is_open = 1;
   rc_config.rdpattern_width  = 0;
   rc_config.rdpattern_height = 0;
   rc_config.rdpattern_x = 0;
@@ -465,14 +481,15 @@ Create_Default_Config( void )
   rc_config.gain_style = GS_LINP;
 
   /* For freq plots window */
+  rc_config.freqplots_is_open = 1;
   rc_config.freqplots_width  = 0;
   rc_config.freqplots_height = 0;
   rc_config.freqplots_x = 0;
   rc_config.freqplots_y = 0;
-  rc_config.freqplots_gmax_togglebutton    = 0;
+  rc_config.freqplots_gmax_togglebutton    = 1;
   rc_config.freqplots_gdir_togglebutton    = 0;
   rc_config.freqplots_gviewer_togglebutton = 0;
-  rc_config.freqplots_vswr_togglebutton    = 0;
+  rc_config.freqplots_vswr_togglebutton    = 1;
   rc_config.freqplots_zrlzim_togglebutton  = 0;
   rc_config.freqplots_zmgzph_togglebutton  = 0;
   rc_config.freqplots_smith_togglebutton   = 0;
@@ -533,16 +550,14 @@ Restore_Windows( gpointer dat )
   GtkWidget *widget;
 
   /* Open frequency plots window if state data available */
-  if( rc_config.freqplots_width &&
-      rc_config.freqplots_height )
+  if( rc_config.freqplots_is_open && rc_config.freqplots_width && rc_config.freqplots_height)
   {
     widget = Builder_Get_Object( main_window_builder, "main_freqplots" );
     gtk_menu_item_activate( GTK_MENU_ITEM(widget) );
   }
 
   /* Open radiation pattern window if state data available */
-  if( rc_config.rdpattern_width &&
-      rc_config.rdpattern_height )
+  if( rc_config.rdpattern_is_open && rc_config.freqplots_width && rc_config.freqplots_height)
   {
     widget = Builder_Get_Object( main_window_builder, "main_rdpattern" );
     gtk_menu_item_activate( GTK_MENU_ITEM(widget) );
@@ -688,6 +703,7 @@ Read_Config( void )
   // Iterate over each line and parse the variables into
   // their references defined by rc_config_vars[].
   lnum = 0;
+
   while ( fgets(line, LINE_LEN, fp) != NULL)
   {
 	  lnum++;
@@ -813,7 +829,7 @@ Get_GUI_State( void )
     gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget) );
 
   /* Get geometry of radiation patterns window */
-  Get_Window_Geometry( rdpattern_window,
+  rc_config.rdpattern_is_open = Get_Window_Geometry( rdpattern_window,
       &(rc_config.rdpattern_x), &(rc_config.rdpattern_y),
       &(rc_config.rdpattern_width), &(rc_config.rdpattern_height) );
 
@@ -858,7 +874,7 @@ Get_GUI_State( void )
   }
 
   /* Get geometry of frequency plots window */
-  Get_Window_Geometry( freqplots_window,
+  rc_config.freqplots_is_open = Get_Window_Geometry( freqplots_window,
       &(rc_config.freqplots_x), &(rc_config.freqplots_y),
       &(rc_config.freqplots_width), &(rc_config.freqplots_height) );
 

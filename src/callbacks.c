@@ -904,6 +904,9 @@ on_structure_drawingarea_configure_event(
   New_Projection_Parameters(
       structure_width, structure_height,
       &structure_proj_params );
+
+  Get_GUI_State();
+
   return( TRUE );
 }
 
@@ -975,15 +978,6 @@ on_freqplots_window_delete_event(
     GdkEvent        *event,
     gpointer         user_data)
 {
-  /* Disable auto setting of freq plots toggle buttons */
-  rc_config.freqplots_gmax_togglebutton    = 0;
-  rc_config.freqplots_gdir_togglebutton    = 0;
-  rc_config.freqplots_gviewer_togglebutton = 0;
-  rc_config.freqplots_vswr_togglebutton    = 0;
-  rc_config.freqplots_zrlzim_togglebutton  = 0;
-  rc_config.freqplots_zmgzph_togglebutton  = 0;
-  rc_config.freqplots_smith_togglebutton   = 0;
-
   /* Close freq plots window without confirmation dialog */
   if( !rc_config.confirm_quit )
   {
@@ -1239,6 +1233,9 @@ on_freqplots_drawingarea_configure_event(
 {
   freqplots_width  = event->width;
   freqplots_height = event->height;
+
+  Get_GUI_State();
+
   return( TRUE );
 }
 
@@ -1686,6 +1683,9 @@ on_rdpattern_drawingarea_configure_event(
       rdpattern_width,
       rdpattern_height,
       &rdpattern_proj_params );
+
+  Get_GUI_State();
+
   return( TRUE );
 }
 
