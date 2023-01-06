@@ -417,7 +417,7 @@ Child_Process( int num_child )
     switch( Fork_Command(cmnd) )
     {
       case MATHLIB:
-        retval = Read_Pipe( num_child,
+        Read_Pipe( num_child,
 			(char*)&rc_config.mathlib_batch_idx,
 			sizeof(rc_config.mathlib_batch_idx), FALSE );
 
