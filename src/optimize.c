@@ -141,15 +141,17 @@ Optimizer_Output( void *arg )
 	// Re-open the inotify handle if the filename changes.  This works
 	// for the first iteration too because prev_input_file is empty:
 	if (strcmp(prev_input_file, rc_config.input_file))
-	{
-	  if (fd > 0)
-		close(fd);
+    {
+      if (fd > 0) close( fd );
 
-	  fd = inotify_open(&pfd);
-	  if (fd < 0)
-		  ClearFlag(OPTIMIZER_OUTPUT);
+      fd = inotify_open( &pfd );
+      if (fd < 0)
+      {
+        ClearFlag( OPTIMIZER_OUTPUT );
+        return( NULL );
+      }
 
-	  strncpy(prev_input_file, rc_config.input_file, sizeof(prev_input_file));
+      strncpy(prev_input_file, rc_config.input_file, sizeof(prev_input_file));
 	}
 
     // Exit thread if optimizer output has been cancelled
