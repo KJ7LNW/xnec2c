@@ -151,7 +151,7 @@ Optimizer_Output( void *arg )
         return( NULL );
       }
 
-      strncpy(prev_input_file, rc_config.input_file, sizeof(prev_input_file));
+      Strlcpy(prev_input_file, rc_config.input_file, sizeof(prev_input_file));
 	}
 
     // Exit thread if optimizer output has been cancelled
