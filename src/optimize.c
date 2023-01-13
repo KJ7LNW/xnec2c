@@ -242,7 +242,7 @@ Optimizer_Output( void *arg )
   } // while( TRUE )
 
   /* Close inotify file descriptor. */
-  close( fd );
+  if( fd >= 0) close( fd );
   return( NULL );
 } // Optimizer_Output()
 

@@ -130,6 +130,12 @@ Tag_Seg_Error( int tag, int segs )
     retv = TRUE;
   }
 
+  if( segs > 1000000 )
+  {
+    pr_warn("warning - number of segments is greater than 1000000\n");
+    retv = FALSE;
+  }
+
   return( retv );
 }
 
