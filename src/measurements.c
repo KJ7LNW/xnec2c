@@ -203,7 +203,7 @@ void meas_format(measurement_t *m, char *format, char *out, int outlen)
 			name = p+1;
 		}
 		// Found close brace so populate the value.
-		else if (*p == '}')
+		else if (*p == '}' && name != NULL)
 		{
 			int idx = meas_name_idx(name, (p-name));
 
