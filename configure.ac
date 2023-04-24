@@ -28,7 +28,7 @@ case "${host_os}" in
         build_mac=yes
         ;;
     *)
-        AC_MSG_ERROR(["OS $host_os is not supported"])
+        AC_MSG_WARN(["OS $host_os is not supported or has not been tested. Please open an issue here: https://github.com/KJ7LNW/xnec2c/issues"])
         ;;
 esac
 
