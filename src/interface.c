@@ -50,11 +50,15 @@ Gtk_Builder( GtkBuilder **builder, gchar **object_ids )
   }
 
   /* Connect signals if gmodule is supported */
+#if HAVE_G_MODULE_SUPPORTED
   if( !g_module_supported() )
   {
-    pr_err("lib gmodule not supported\n");
-    exit( -1 );
+    pr_warn("libgmodule not supported: xnec2c may not function properly on this platform.\n");
   }
+#else
+    pr_warn("libgmodule not supported: xnec2c may not function properly on this platform.\n");
+#endif
+
   gtk_builder_connect_signals( *builder, NULL );
 
 } /* Gtk_Builder() */

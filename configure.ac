@@ -111,6 +111,10 @@ AC_CHECK_HEADER(execinfo.h,
 			]
 		)
 
+AC_CHECK_FUNC(g_module_supported,
+	AC_DEFINE([HAVE_G_MODULE_SUPPORTED], 1, [we have g_module_supported()] )
+)
+
 AC_CHECK_HEADER(sys/inotify.h,
                        [
                        AC_DEFINE([HAVE_INOTIFY], 1, [we have inotify] )
