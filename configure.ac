@@ -105,7 +105,9 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 
 AC_CHECK_HEADER(execinfo.h,
 			[
-			AC_DEFINE([HAVE_BACKTRACE], 1, [libc supports backtrace()] )
+				AC_CHECK_FUNC(backtrace,
+					AC_DEFINE([HAVE_BACKTRACE], 1, [libc supports backtrace()] )
+				)
 			]
 		)
 
