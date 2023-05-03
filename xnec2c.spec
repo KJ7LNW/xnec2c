@@ -94,7 +94,7 @@ cat > %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml << EOF
   <id>%{name}.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
-  <name>Xnec2c</name>
+  <name>xnec2c</name>
   <summary>A multi-threaded EM tool based on NEC2 to model antenna radiation patterns.</summary>
   <description>
     <p>
