@@ -189,7 +189,14 @@ AC_CHECK_HEADER([execinfo.h], [dnl
   AC_CHECK_FUNC(backtrace, AC_DEFINE([HAVE_BACKTRACE], [1], [libc supports backtrace()]))
 ])
 
+
+xnc2c_saved_CPPFLAGS="$CPPFLAGS"
+xnc2c_saved_LIBS="$LIBS"
+CPPFLAGS="$CPPFLAGS $GMODULE_CFLAGS"
+LIBS="$LDADD $GMODULE_LIBS"
 AC_CHECK_FUNC(g_module_supported, AC_DEFINE([HAVE_G_MODULE_SUPPORTED], [1], [we have g_module_supported()]))
+CPPFLAGS="$xnc2c_saved_CPPFLAGS"
+LIBS="$xnc2c_saved_LIBS"
 
 AC_CHECK_HEADER([sys/inotify.h], [dnl
   AC_DEFINE([HAVE_INOTIFY], [1], [we have inotify])
