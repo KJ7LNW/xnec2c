@@ -1524,7 +1524,7 @@ void Strlcat(char *dest, const char *src, size_t n);
 double Strtod(char *nptr, char **endptr);
 void Get_Dirname(char *fpath, char *dirname, int *fname_idx);
 void xnec2_widget_queue_draw(GtkWidget *w);
-void g_idle_add_once(GSourceFunc function, gpointer data);
+void g_idle_add_once_ts(GSourceFunc function, gpointer data);
 void g_idle_add_once_sync(GSourceFunc function, gpointer data);
 void print_backtrace(char *msg);
 

@@ -852,7 +852,7 @@ gboolean Frequency_Loop( gpointer udata )
 	if( isFlagSet(PLOT_ENABLED) )
 	{
 	  /* Display current frequency in plots entry */
-	  g_idle_add_once((GSourceFunc)update_freqplots_fmhz_entry, NULL);
+	  g_idle_add_once_ts((GSourceFunc)update_freqplots_fmhz_entry, NULL);
 
 	  if( isFlagClear(OPTIMIZER_OUTPUT) || freqplots_click_pending())
 	  {
@@ -861,11 +861,11 @@ gboolean Frequency_Loop( gpointer udata )
 	}
 
 	/* Set main window frequency spinbutton */
-	g_idle_add_once((GSourceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
+	g_idle_add_once_ts((GSourceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
 
 	/* Set Radiation pattern window frequency spinbutton */
 	if( isFlagSet(DRAW_ENABLED) )
-		  g_idle_add_once((GSourceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
+		  g_idle_add_once_ts((GSourceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
 
 	xnec2_widget_queue_draw( structure_drawingarea );
   }

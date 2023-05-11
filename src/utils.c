@@ -717,7 +717,7 @@ void _g_idle_add_once(GSourceFunc function, gpointer data, int lock)
 }
 
 // Call from any thread to queue a function to run once, do not wait for it to finish.
-void g_idle_add_once(GSourceFunc function, gpointer data)
+void g_idle_add_once_ts(GSourceFunc function, gpointer data)
 {
 	_g_idle_add_once(function, data, 0); // async
 }
@@ -739,7 +739,7 @@ void xnec2_widget_queue_draw(GtkWidget *w)
 		pr_debug("Optimizer loop incomplete, skipping radiation pattern redraw.\n");
 	}
 	else
-		g_idle_add_once((GSourceFunc)gtk_widget_queue_draw, w);
+		g_idle_add_once_ts((GSourceFunc)gtk_widget_queue_draw, w);
 
 }
 /*------------------------------------------------------------------*/
