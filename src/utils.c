@@ -129,7 +129,7 @@ Stop( char *mesg, int err )
   while( isFlagSet(ERROR_CONDX) )
   {
 	// We are out of gtk_main() so iterate manually:
-	while( g_main_context_iteration(NULL, FALSE) );
+	while( g_main_context_iteration(NULL, FALSE) ) {}
 
     if( isFlagSet(MAIN_QUIT) ) exit(-1);
 
@@ -163,7 +163,7 @@ Nec2_Save_Warn( const gchar *mesg )
     while( isFlagSet(ERROR_CONDX) )
     {
       // We are out of gtk_main() so iterate manually:
-      while( g_main_context_iteration(NULL, FALSE) );
+      while( g_main_context_iteration(NULL, FALSE) ) {}
 
       if( isFlagSet(MAIN_QUIT) ) exit(-1);
 
@@ -691,7 +691,7 @@ int _callback_g_idle_add_once(g_idle_add_data_t *cbdata)
 	if (cbdata->is_locked)
 	{
 		// Wait for GTK
-		while (g_main_context_iteration(NULL, FALSE));
+		while (g_main_context_iteration(NULL, FALSE)) {}
 		
 		if (cbdata->backtrace != NULL)
 		{

@@ -1056,7 +1056,7 @@ Stop_Frequency_Loop( void )
 	  // Flush any pending GTK events. This is critical because any pending
 	  // events that may work upon GtkWidget's that change (or close) upon exit
 	  // from this function will fail.
-	  while( g_main_context_iteration(NULL, FALSE) );
+	  while( g_main_context_iteration(NULL, FALSE) ) {}
   }
   else if( floop_tag > 0 )
   {
