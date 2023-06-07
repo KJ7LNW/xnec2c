@@ -48,6 +48,9 @@ case "${host_os}" in
     linux*)
         build_linux=yes
         ;;
+    openbsd*)
+        build_openbsd=yes
+        ;;
     cygwin*|mingw*)
         build_windows=yes
         ;;
