@@ -671,8 +671,11 @@ typedef struct
 	GSourceOnceFunc function;
 	gpointer data;
 	GMutex lock;
+	GCond cond;
 	int is_locked;
 	char **backtrace;
+
+	volatile int done;
 } g_idle_add_data_t;
 
 
@@ -696,6 +699,10 @@ int _callback_g_idle_add_once(g_idle_add_data_t *cbdata)
 			cbdata->backtrace = NULL;
 		}
 
+		// Signal the waiting thread:
+		g_mutex_lock(&cbdata->lock);
+		cbdata->done = 1;
+		g_cond_signal(&cbdata->cond);
 		g_mutex_unlock(&cbdata->lock);
 	}
 	else
@@ -725,19 +732,21 @@ guint _g_idle_add_once(GSourceOnceFunc function, gpointer data, int lock)
 	if (rc_config.disable_pthread_freqloop)
 		lock = 0;
 
-	g_mutex_init(&cbdata->lock);
+	if (lock)
+	{
+		g_mutex_init(&cbdata->lock);
+		g_cond_init(&cbdata->cond);
+	}
 
 	cbdata->function = function;
 	cbdata->data = data;
 	cbdata->is_locked = lock;
+	cbdata->done = 0;
 
 	cbdata->backtrace = NULL;
 
 	// Debug async call backtraces if you need it, but be aware that _get_backtrace() is slow.
 	//cbdata->backtrace = _get_backtrace();
-
-	if (lock)
-		g_mutex_lock(&cbdata->lock);
 
 	ret = g_idle_add((GSourceFunc)_callback_g_idle_add_once, cbdata);
 
@@ -745,7 +754,13 @@ guint _g_idle_add_once(GSourceOnceFunc function, gpointer data, int lock)
 	if (lock)
 	{
 		g_mutex_lock(&cbdata->lock);
+		while (!cbdata->done)
+			g_cond_wait(&cbdata->cond, &cbdata->lock);
 		g_mutex_unlock(&cbdata->lock);
+
+		g_mutex_clear(&cbdata->lock);
+		g_cond_clear(&cbdata->cond);
+
 		free_ptr((void**)&cbdata);
 	}
 
