@@ -427,8 +427,6 @@ void Save_RadPattern_CSV(char *filename)
 
 	double theta, phi, r;
 
-	phi = (double)fpat.phis * (double)TORAD; // In rads
-
     /* theta and phi step in rads */
     double dth = (double)fpat.dth * (double)TORAD;
     double dph = (double)fpat.dph * (double)TORAD;
@@ -441,6 +439,7 @@ void Save_RadPattern_CSV(char *filename)
 		{
 			// Step phi angle
 			idx = 0;
+			phi = (double)fpat.phis * (double)TORAD; // In rads
 
 			for (nph = 0; nph < fpat.nph; nph++)
 			{
