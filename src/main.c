@@ -39,6 +39,7 @@ enum XNEC2C_OPTS {
 	OPT_WRITE_S2P_MAX_GAIN,
 	OPT_WRITE_S2P_VIEWER_GAIN,
 	OPT_WRITE_RDPAT,
+	OPT_WRITE_CURRENTS,
 
 	OPT_MAX_OPTS
 };
@@ -61,6 +62,7 @@ static struct option long_options[] = {
 		{  "write-s2p-max-gain",     required_argument,   NULL,  OPT_WRITE_S2P_MAX_GAIN     },
 		{  "write-s2p-viewer-gain",  required_argument,   NULL,  OPT_WRITE_S2P_VIEWER_GAIN  },
 		{  "write-rdpat",            required_argument,   NULL,  OPT_WRITE_RDPAT            },
+		{  "write-currents",         required_argument,   NULL,  OPT_WRITE_CURRENTS         },
 
 		{  NULL,                     0,                   NULL,  0                          }
 	};
@@ -234,7 +236,11 @@ main (int argc, char *argv[])
         break;
 
       case OPT_WRITE_RDPAT:
-        rc_config.filename_s2p_viewer_gain = optarg;
+        rc_config.filename_rdpat = optarg;
+        break;
+
+      case OPT_WRITE_CURRENTS:
+        rc_config.filename_currents = optarg;
         break;
 
       default:

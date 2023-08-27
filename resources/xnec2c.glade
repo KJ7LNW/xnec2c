@@ -10449,6 +10449,17 @@ Save NEC2 Editor data first?
                           </object>
                         </child>
                         <child>
+                          <object class="GtkImageMenuItem" id="struct_save_currents">
+                            <property name="label" translatable="yes">Save _Currents/Charges as CSV</property>
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="use-underline">True</property>
+                            <property name="image">saveas_gnuplot</property>
+                            <property name="use-stock">False</property>
+                            <signal name="activate" handler="on_struct_save_currents_activate" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
                           <object class="GtkSeparatorMenuItem">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
@@ -10526,6 +10537,15 @@ Save NEC2 Editor data first?
                                 <child>
                                   <object class="GtkCheckMenuItem" id="optimizer_write_rdpat">
                                     <property name="label" translatable="yes">After calculation, write &lt;file&gt;-_radpattern.csv</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="use-underline">True</property>
+                                    <signal name="toggled" handler="rc_callback_check_menu_item" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkCheckMenuItem" id="optimizer_write_currents">
+                                    <property name="label" translatable="yes">After calculation, write &lt;file&gt;-_currents.csv</property>
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="use-underline">True</property>

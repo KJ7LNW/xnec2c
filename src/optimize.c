@@ -29,12 +29,16 @@ int opt_have_files_to_save()
         rc_config.opt_write_s1p ||
         rc_config.opt_write_s2p_max_gain ||
         rc_config.opt_write_s2p_viewer_gain ||
+		rc_config.opt_write_rdpat ||
+		rc_config.opt_write_currents ||
 
 		// Files:
 		rc_config.filename_csv ||
 		rc_config.filename_s1p ||
 		rc_config.filename_s2p_max_gain ||
-		rc_config.filename_s2p_viewer_gain
+		rc_config.filename_s2p_viewer_gain ||
+		rc_config.filename_rdpat ||
+		rc_config.filename_currents
 	);
 }
 
@@ -46,6 +50,7 @@ _Write_Optimizer_Data( void )
   char filename[FILENAME_LEN];
   size_t n = sizeof( filename );
 
+  // from the menu:
   if (rc_config.opt_write_csv)
 	  Save_FreqPlots_CSV(str_append(filename, rc_config.input_file, ".csv", n));
 
@@ -61,6 +66,11 @@ _Write_Optimizer_Data( void )
   if (rc_config.opt_write_rdpat)
 	  Save_RadPattern_CSV(str_append(filename, rc_config.input_file, "-radpattern.csv", n));
 
+  if (rc_config.opt_write_currents)
+	  Save_Currents_CSV(str_append(filename, rc_config.input_file, "-currents.csv", n));
+
+
+  // from the cmdline:
   if (rc_config.filename_csv)
 	  Save_FreqPlots_CSV(rc_config.filename_csv);
 
@@ -74,7 +84,16 @@ _Write_Optimizer_Data( void )
 	  Save_FreqPlots_S2P_Viewer_Gain(rc_config.filename_s2p_viewer_gain);
 
   if (rc_config.filename_rdpat)
+  {
+	pr_debug("saving rdpat: %s\n", rc_config.filename_rdpat);
 	Save_RadPattern_CSV(rc_config.filename_rdpat);
+  }
+
+  if (rc_config.filename_currents)
+  {
+	pr_debug("saving currents: %s\n", rc_config.filename_currents);
+	Save_Currents_CSV(rc_config.filename_currents);
+  }
 
 } // Write_Optimizer_Data()
 

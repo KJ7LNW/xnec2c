@@ -557,3 +557,38 @@ Save_Struct_Gnuplot_Data( char *filename )
 
 /*-----------------------------------------------------------------------*/
 
+void Save_Currents_CSV(char *filename)
+{
+	FILE *fp = NULL;
+
+	if (!crnt.valid)
+	{
+		Notice("Save Currents and Charges to CSV",
+			"You must enable current data by clicking \"Currents\" or \"Charges\""
+			"in the main xnec2c window.", GTK_BUTTONS_OK);
+		return;
+	}
+
+	if (!Open_File(&fp, filename, "w"))
+		return;
+
+	setlocale(LC_NUMERIC, "C");
+
+	fprintf(fp, "mhz,seg,tag,current_real,current_imag,charge_real,charge_imag,x1,y1,z1,x2,y2,z2\n");
+
+	int idx;
+
+	for (idx = 0; idx < data.n; idx++)
+	{
+		fprintf(fp, "%.6f,%d,%d,%.17g,%.17g,%.17g,%.17g,%.17g,%.17g,%.17g,%.17g,%.17g,%.17g\n",
+			calc_data.freq_mhz,
+			idx+1, data.itag[idx],
+			creal(crnt.cur[idx]), cimag(crnt.cur[idx]),
+			crnt.bir[idx], crnt.bii[idx],
+			data.x1[idx], data.y1[idx], data.z1[idx],
+			data.x2[idx], data.y2[idx], data.z2[idx]);
+	}
+
+	setlocale(LC_NUMERIC, orig_numeric_locale);
+	fclose(fp);
+}
