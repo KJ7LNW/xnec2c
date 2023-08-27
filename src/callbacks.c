@@ -1397,6 +1397,22 @@ on_rdpattern_save_as_gnuplot_activate(
       rc_config.working_dir );
 }
 
+  void
+on_rdpattern_save_as_csv_activate(
+    GtkMenuItem     *menuitem,
+    gpointer         user_data)
+{
+  char newfn[PATH_MAX];
+  /* Open file chooser to save frequency plots */
+
+  mem_alloc((void**)&filechooser_callback, sizeof(filechooser_t), __LOCATION__);
+  filechooser_callback->callback = Save_FreqPlots_CSV;
+  filechooser_callback->extension = ".csv";
+  file_chooser = Open_Filechooser( GTK_FILE_CHOOSER_ACTION_SAVE,
+      "*.csv", NULL, get_nec_filename_stem(newfn, "-radpattern.csv", PATH_MAX),
+      rc_config.working_dir );
+}
+
 
   void
 on_rdpattern_linear_power_activate(

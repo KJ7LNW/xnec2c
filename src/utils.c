@@ -57,10 +57,11 @@ usage(void)
 		"filenames to write without --batch mode then enable the File->Optimizer\n"
 		"Settings or the files you specify on the command line will not be written.\n"
 		"\n"
-		"  --write-csv <filename>\n"
-		"  --write-s1p <filename>\n"
-		"  --write-s2p-max-gain <filename>\n"
-		"  --write-s2p-viewer-gain <filename>\n");
+		"  --write-csv             <filename>  - write CSV file of measurements\n"
+		"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+		"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+		"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+		"  --write-rdpat           <filename>  - write CSV of the radiation patternCSV\n");
 
 } /* end of usage() */
 

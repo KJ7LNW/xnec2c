@@ -411,6 +411,76 @@ Save_RadPattern_Gnuplot_Data( char *filename )
   if( fp != NULL ) fclose(fp);
 } /* Save_RadPattern_Gnuplot_Data() */
 
+
+void Save_RadPattern_CSV(char *filename)
+{
+	FILE *fp = NULL;
+
+	if (!Open_File(&fp, filename, "w"))
+		return;
+
+	fprintf(fp, "mhz,phi,theta,gain_total,gain_horiz,gain_vert,gain_rhcp,gain_lhcp\n");
+
+	setlocale(LC_NUMERIC, "C");
+	// Distance of rdpattern point nearest to xyz origin
+	// Convert radiation pattern values to points in 3 d space in x, y, z axis
+
+	double theta, phi, r;
+
+	phi = (double)fpat.phis * (double)TORAD; // In rads
+
+    /* theta and phi step in rads */
+    double dth = (double)fpat.dth * (double)TORAD;
+    double dph = (double)fpat.dph * (double)TORAD;
+
+	int calc_idx, idx, nph, nth, pol;
+
+	if (isFlagSet(ENABLE_RDPAT) && (calc_data.freq_step >= 0))
+	{
+		for (calc_idx = 0; calc_idx < calc_data.steps_total; calc_idx++)
+		{
+			// Step phi angle
+			idx = 0;
+
+			for (nph = 0; nph < fpat.nph; nph++)
+			{
+				theta = (double) fpat.thets * (double) TORAD;	// In rads
+
+				// Step theta angle
+				for (nth = 0; nth < fpat.nth; nth++)
+				{
+					// Distance of pattern point from the xyz origin
+					r = rad_pattern[calc_idx].gtot[idx];
+
+					// mhz,phi,theta
+					fprintf(fp, "%.6f,%.17g,%.17g,",
+						save.freq[calc_idx],
+						phi * TODEG,
+						theta * TODEG);
+
+					// POL_TOTAL, POL_HORIZ, POL_VERT, POL_RHCP, POL_LHCP
+					for (pol = 0; pol < NUM_POL; pol++)
+						fprintf(fp, "%.17g%s", 
+							r + Polarization_Factor(pol, calc_idx, idx),
+							(pol == NUM_POL-1 ? "\n" : ",")
+							);
+
+					// Step theta in rads
+					theta += dth;
+					idx++;
+				} // for( nth = 0; nth < fpat.nth; nth++ )
+
+				// Step phi in rads
+				phi += dph;
+			} // for( nph = 0; nph < fpat.nph; nph++ )
+		}
+	} // if( isFlagSet(ENABLE_RDPAT) && (calc_data.freq_step >= 0) )
+
+	setlocale(LC_NUMERIC, orig_numeric_locale);
+
+	fclose(fp);
+}
+
 /*-----------------------------------------------------------------------*/
 
 /* Save_Struct_Gnuplot_Data()

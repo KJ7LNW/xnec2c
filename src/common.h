@@ -358,6 +358,7 @@ typedef struct
   int opt_write_s1p;
   int opt_write_s2p_max_gain;
   int opt_write_s2p_viewer_gain;
+  int opt_write_rdpat;
 
   /* If for example --write-csv <file> is added to the cmdline then write
    * the file after each frequency iteration */
@@ -365,6 +366,7 @@ typedef struct
   char *filename_s1p;
   char *filename_s2p_max_gain;
   char *filename_s2p_viewer_gain;
+  char *filename_rdpat;
 } rc_config_t;
 
 typedef struct {
@@ -1405,6 +1407,7 @@ void Save_FreqPlots_S2P_Viewer_Gain(char *filename);
 void Save_FreqPlots_CSV(char *filename);
 void Save_FreqPlots_Gnuplot_Data(char *filename);
 void Save_RadPattern_Gnuplot_Data(char *filename);
+void Save_RadPattern_CSV(char *filename);
 void Save_Struct_Gnuplot_Data(char *filename);
 /* ground.c */
 void rom2(double a, double b, _Complex double *sum, double dmin);

@@ -58,6 +58,9 @@ _Write_Optimizer_Data( void )
   if (rc_config.opt_write_s2p_viewer_gain)
 	  Save_FreqPlots_S2P_Viewer_Gain(str_append(filename, rc_config.input_file, "-viewergain.s2p", n));
 
+  if (rc_config.opt_write_rdpat)
+	  Save_RadPattern_CSV(str_append(filename, rc_config.input_file, "-radpattern.csv", n));
+
   if (rc_config.filename_csv)
 	  Save_FreqPlots_CSV(rc_config.filename_csv);
 
@@ -69,6 +72,9 @@ _Write_Optimizer_Data( void )
 
   if (rc_config.filename_s2p_viewer_gain)
 	  Save_FreqPlots_S2P_Viewer_Gain(rc_config.filename_s2p_viewer_gain);
+
+  if (rc_config.filename_rdpat)
+	Save_RadPattern_CSV(rc_config.filename_rdpat);
 
 } // Write_Optimizer_Data()
 
