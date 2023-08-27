@@ -390,7 +390,7 @@ Draw_Wire_Segments( cairo_t *cr, Segment_t *segm, gint nseg )
           cmag[idx] = (double)cabs( crnt.cur[idx] );
         else
           /* Calculate segment charge density */
-          cmag[idx] = (double)cabs( cmplx(crnt.bii[idx], crnt.bir[idx]) );
+          cmag[idx] = (double)cabs( cmplx(crnt.bir[idx], crnt.bii[idx]) );
 
         /* Find max current/charge magnitude */
         if( cmag[idx] > cmax )
