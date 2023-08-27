@@ -35,13 +35,17 @@ a translation to C of the FORTRAN application NEC2
 The following arguments write to an output file after the frequency loop completes.
 These are useful to combine with \-\-batch:
 .IP
-\-\-write\-csv <filename> 
+  \-\-write\-csv             <filename>  \- write CSV file of measurements
 .IP
-\-\-write\-s1p <filename> 
+  \-\-write\-s1p             <filename>  \- write S1P file of S\-parameters
 .IP
-\-\-write\-s2p\-max\-gain <filename> 
+  \-\-write\-s2p\-max\-gain    <filename>  \- write S2P file, port\-2 is max\-gain
 .IP
-\-\-write\-s2p\-viewer\-gain <filename> 
+  \-\-write\-s2p\-viewer\-gain <filename>  \- write S2P file, port\-2 is viewer\-gain
+.IP
+  \-\-write\-rdpat           <filename>  \- write CSV of the radiation pattern
+.IP
+  \-\-write\-currents        <filename>  \- write CSV of currents and charges
 .IP
 .SH "SEE ALSO"
 Full documentation is available at the official website for xnec2c
