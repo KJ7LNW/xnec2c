@@ -1800,8 +1800,8 @@ _Set_Frequency_On_Click( GdkEvent *e)
 
   if (set_fmhz)
   {
-	  /* Round frequency to nearest 1 kHz */
-	  int ifmhz = ( fmhz * 1e6 + 0.5 );
+	  /* Round frequency to nearest 1 Hz */
+	  uint64_t ifmhz = ( fmhz * 1e6 + 0.5 );
 	  fmhz = ifmhz / 1e6;
 
 	  /* Save frequency for later use when the graph plots after the NEC2 run */
