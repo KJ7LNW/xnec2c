@@ -6,7 +6,11 @@ Xnec2c: Fast Multi-Threaded EM Simulator based on NEC2
 
 Xnec2c now has a built-in editor for NEC2 input files which can be used to edit geometry or command "card" data. This basic editor displays comment, geometry and command cards in tree views where individual rows, each representing a card, can have their cells edited directly for "raw" entry of data. More useful are pop-up "editor" windows that open when appropriate buttons are clicked or when a selected row is right-clicked with the mouse. These editors allow easier, more convenient entry and editing of individual rows, with no need for detailed knowledge of "card" formats. When editing is completed, the contents of the nec2 editor can be saved in a NEC2-compatible input file which can then be re-loaded by xnec2c for execution.
 
-**2\. Features:**  
+**2\. Compiling and Documentation:**
+
+See the documentation on the [Xnec2c website](https://www.xnec2c.org/).
+
+**3\. Features:**
 *   **Multi-threading operation on SMP machines:**  
     Since version 1.0, xnec2c can run multi-threaded (by forking) on SMP machines, when executing a frequency loop. Multi-threading is enabled by using the -j<n> option, where n is the number of processors in a SMP machine. xnec2c will spawn n child processes, to which it will delegate calculation of frequency-dependent data for each frequency step. Thus data related to n frequency steps will be calculated concurrently and passed on the the parent process by pipes, to be further processed for graphical display. Child processes are spawned before GTK is initialized and started so that only the parent process is tied to the GUI interface. Thus there are n+1 processes running when the -j option is used and execution is faster by slightly less than n times. **Please note** that its pointless and counter-productive to specify a value of n greater than the number of steps in the frequency loop.
 
