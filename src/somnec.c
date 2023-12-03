@@ -1123,7 +1123,7 @@ fbar( complex double p, complex double *fbar )
     }
 
     *fbar=1.0-(1.0- sum* TOSP)* z* cexp( zs)* SP;
-
+    return;
   } /* if( cabs( z) <= 3.0) */
 
   /* asymptotic expansion */
