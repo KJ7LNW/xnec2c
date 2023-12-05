@@ -432,7 +432,7 @@ Child_Process( int num_child )
 
       case INFILE: /* Read input file */
         retval = Read_Pipe( num_child, rc_config.input_file, sizeof(rc_config.input_file), FALSE );
-        rc_config.input_file[retval] = '\0';
+        rc_config.input_file[retval-1] = '\0';
         Child_Input_File();
         break;
 
