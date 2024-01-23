@@ -771,7 +771,7 @@ Draw_Graph(
   double ra, rb;
   int idx;
   GdkPoint *points = NULL;
-  char s[20];
+  char s[23];
 
   /* Cairo context */
   cairo_set_source_rgb( cr, red, grn, blu );
