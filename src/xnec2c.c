@@ -499,8 +499,8 @@ static gboolean retval; /* Function's return value */
 int update_freqplots_fmhz_entry(gpointer p)
 {
     /* Display current frequency in plots entry */
-    char txt[10];
-    snprintf( txt, sizeof(txt), "%9.3f", calc_data.freq_mhz );
+    char txt[16];
+    snprintf( txt, sizeof(txt)-1, "%.3f", calc_data.freq_mhz );
     gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
             freqplots_window_builder, "freqplots_fmhz_entry")), txt );
 

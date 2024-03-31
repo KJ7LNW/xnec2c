@@ -247,8 +247,8 @@ void draw_text(cairo_t *cr, GtkWidget *widget,
 Display_Frequency_Data( void )
 {
   int fstep;
-  double vswr;
-  char txt[12];
+  double vswr, zreal, zimag;
+  char txt[16];
 
   measurement_t meas;
 
@@ -266,31 +266,40 @@ Display_Frequency_Data( void )
   meas_calc(&meas, fstep);
 
   /* Display max gain */
-  snprintf( txt, 7, "%5.1f", meas.gain_max );
+  snprintf( txt, sizeof(txt)-1, "%.2f", meas.gain_max );
   gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
           freqplots_window_builder, "freqplots_maxgain_entry")), txt );
 
   /* Display frequency */
-  snprintf( txt, 11, "%9.3f", (double)calc_data.freq_mhz );
+  snprintf( txt, sizeof(txt)-1, "%.3f", (double)calc_data.freq_mhz );
   gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
           freqplots_window_builder, "freqplots_fmhz_entry")), txt );
 
+  // Prevent UI overflows that cause beeps:
   vswr = meas.vswr;
   if( vswr > 999.0 )
     vswr = 999.0;
 
+  zreal = meas.zreal;
+  if (zreal > 1e6)
+	  zreal = 999999;
+
+  zimag = meas.zimag;
+  if (zimag > 1e6)
+	  zimag = 999999;
+
   /* Display VSWR */
-  snprintf( txt, 7, "%5.1f", vswr );
+  snprintf( txt, sizeof(txt)-1, "%.2f", vswr );
   gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
           freqplots_window_builder, "freqplots_vswr_entry")), txt );
 
   /* Display Z real */
-  snprintf( txt, 7, "%5.1f", (double)meas.zreal);
+  snprintf( txt, sizeof(txt)-1, "%.1f", zreal);
   gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
           freqplots_window_builder, "freqplots_zreal_entry")), txt );
 
   /* Display Z imaginary */
-  snprintf( txt, 7, "%5.1f", (double)meas.zimag);
+  snprintf( txt, sizeof(txt)-1, "%.1f", zimag);
   gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
           freqplots_window_builder, "freqplots_zimag_entry")), txt );
 

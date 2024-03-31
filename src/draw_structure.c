@@ -376,8 +376,8 @@ Draw_Wire_Segments( cairo_t *cr, Segment_t *segm, gint nseg )
     static double cmax; /* Max of seg current/charge */
     /* To color structure segs */
     double red = 0.0, grn = 0.0, blu = 0.0;
-    char label[11];
-    size_t s = sizeof( label );
+    char label[16];
+    size_t s = sizeof( label )-1;
 
     /* Loop over all wire segs, find max current/charge */
     if( crnt.newer )
@@ -706,10 +706,10 @@ Show_Viewer_Gain(
       isFlagSet(DRAW_GAIN)     ||
       isFlagSet(FREQ_LOOP_RUNNING) )
   {
-    char txt[8];
+    char txt[16];
     if( isFlagSet(ENABLE_RDPAT) && (calc_data.freq_step >= 0) )
     {
-      snprintf( txt, sizeof(txt), "%7.2f", Viewer_Gain(proj_params, calc_data.freq_step) );
+      snprintf( txt, sizeof(txt)-1, "%.2f", Viewer_Gain(proj_params, calc_data.freq_step) );
       gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(builder, widget)), txt );
     }
   }

@@ -101,7 +101,7 @@ Draw_Radiation_Pattern( cairo_t *cr )
   double dph = (double)fpat.dph * (double)TORAD;
 
   /* Used to set text in labels */
-  gchar txt[8];
+  gchar txt[16];
 
   /* Abort if rad pattern cannot be drawn */
   fstep = calc_data.freq_step;
@@ -221,13 +221,13 @@ Draw_Radiation_Pattern( cairo_t *cr )
     } /* for( nph = 1; nph < fpat.nph; nph++ ) */
 
     /* Show max gain on color code bar */
-    snprintf( txt, 8, "%6.1f", rad_pattern[fstep].max_gain[pol] );
+    snprintf( txt, sizeof(txt)-1, "%.2f", rad_pattern[fstep].max_gain[pol] );
     gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
             rdpattern_window_builder, "rdpattern_colorcode_maxlabel")),
         txt );
 
     /* Show min gain on color code bar */
-    snprintf( txt, 6, "%4.1f", rad_pattern[fstep].min_gain[pol] );
+    snprintf( txt, sizeof(txt)-1, "%.2f", rad_pattern[fstep].min_gain[pol] );
     gtk_label_set_text(GTK_LABEL(Builder_Get_Object(
             rdpattern_window_builder, "rdpattern_colorcode_minlabel")),
         txt );
