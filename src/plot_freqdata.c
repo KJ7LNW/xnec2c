@@ -1808,7 +1808,7 @@ _Set_Frequency_On_Click( GdkEvent *e)
 	  calc_data.fmhz_save = fmhz;
 
 	  /* Set frequency spinbuttons on new freq */
-	  if( fmhz != calc_data.freq_mhz )
+	  if( isFlagClear(FREQ_LOOP_RUNNING) && fmhz != calc_data.freq_mhz )
 	  {
 		gtk_spin_button_set_value( mainwin_frequency, fmhz );
 		if( isFlagSet(DRAW_ENABLED) )
