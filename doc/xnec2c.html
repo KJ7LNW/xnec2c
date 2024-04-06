@@ -934,6 +934,92 @@ bugs that may still be lurking in the C translation.</p>
 <p><b><a name="Version" id="Version">7. Version
 History (newest first):</a></b></p>
 
+<p><b>Version 4.4.13:</b>
+
+This is a large bug-fix release and includes a few minor features and
+documentation updates. I would like to thank the following who helped with new
+features and bug fixes, in order of contribution:
+
+<ul>
+	<li>Contributors:
+		<ul>
+			<li>Neoklis 5B4AZ</li>
+			<li>Rafal Lukawiecki EI6LA</li>
+			<li>@ndim</li>
+			<li>@anoduck</li>
+			<li>@rklasen</li>
+			<li>Ward, AE6TY</li>
+			<li>@ChrisMaple</li>
+		</ul>
+	</li>
+
+	<li>Features:
+		<ul>
+			<li>Save window positions when they are closed</li>
+			<li>Tile rdpattern and freqplot windows on first run</li>
+			<li>Default the Radiation Pattern "Gain Pattern" to be enabled</li>
+			<li>Officially support OpenBSD, thanks @anoduck for testing</li>
+			<li>Add save radiation pattern to CSV</li>
+			<li>Add save currents and charges to CSV</li>
+		</ul>
+	</li>
+	<li>Documentation:
+		<ul>
+			<li>Added External Optimizers section</li>
+			<li>Added Google Translate javascript for the website</li>
+		</ul>
+	</li>
+	<li>Bug Fixes:
+		<ul>
+			<li>Fixed deadlock when the frequency loop is running and a window is</li>
+			  closed. Thanks to Neoklis 5B4AZ for discovering the problem and proposing</li>
+			  a solution.</li>
+			<li>Fixed edge case where structure window does not redraw on save. Thanks</li>
+			  to Neoklis 5B4AZ for discovering the problem and providing a fix.</li>
+			<li>Fix blank plots, structures and radiation pattern when Quit is pressed.</li>
+			<li>Open the Frequency Plots window when Optimization is enabled</li>
+			<li>Auto-run freq loop when optimization is enabled</li>
+			<li>Differentiate between windows at 0,0 and never opened</li>
+			<li>Correct a relatively trivial warning from Coverity Scan about an</li>
+			  unused value</li>
+			<li>Fix warning from Coverity Scan about invalid argument to a function</li>
+			<li>Fix a warning by Coverity Scan about an unterminated buffer</li>
+			<li>Fix Coverity Scan warning about a tainted value used in malloc()</li>
+			<li>Fix a Coverity Scan report about a "Forward NULL"</li>
+			<li>Convert double-locking synchronization to use a condition</li>
+			  variable. Thanks to @anoduck for testing and reporting the issue in the</li>
+			  process of adding OpenBSD support.</li>
+			<li>Fix warning: while loop has empty body</li>
+			<li>Fix real/imag swap</li>
+			<li>rdpat csv: reset phi on each frequency iteration</li>
+			<li>fix integer overflow in frequency selection, thanks to @rklasen.</li>
+			<li>Fix sommerfeld ground excitement issue. Thanks to Ward, AE6TY for</li>
+			  reporting the bug and writing a fix.</li>
+			<li>Fix off-by-one array index</li>
+			<li>Fix sprintf truncation when plotting. Thanks to @ChrisMaple for</li>
+			  reporting this issue.</li>
+			<li>Delay clicked frequency calculation while a freq loop is running</li>
+			<li>Fix beeps on GTK field overflow</li>
+		</ul>
+	</li>
+	<li>Build system:
+		<ul>
+			<li>Huge autoconf and buildsystem refactor by @ndim</li>
+			<li>Updated autoconf to detect Mac OS X properly</li>
+			<li>Fix Debian Lintian desktop-mime-but-no-exec-code</li>
+			<li>Removed more LMID references</li>
+			<li>Changed host_os is not supported to be a warning</li>
+			<li>Actually check if backtrace exists.</li>
+			<li>Add g_module_supported detection</li>
+			<li>Added OARS metadata into AppStream</li>
+			<li>Updated autoconf to detect Mac OS X and set LDFLAGS
+			accordingly. Big thanks to Rafal Lukawiecki EI6LA for helping
+			troubleshoot and get xnec2c building on OSX.</li>
+		</ul>
+	</li>
+</ul>
+</p>
+
 <p><b>Version 4.4.12:</b>
 This release has been pending for a while, there are quite a few changes.
 I thought about making this 4.5 but not yet since these are mostly
