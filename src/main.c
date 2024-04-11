@@ -176,6 +176,7 @@ main (int argc, char *argv[])
 
       case 'd': /* debug */
         rc_config.debug++;
+        rc_config.verbose += 3;
         break;
 
       case 'q': /* quiet */
