@@ -417,6 +417,7 @@ Fit_to_Scale2( double *max1, double *min1,
   // Do nothing in these cases 
   if( *max1 <= *min1 ) return;
   if( *max2 == *min2 ) return;
+  if( *nval < 3 ) return;
 
   /* Provide a made-up range if max = min */
   if( *max1 == *min1 )
@@ -646,8 +647,9 @@ Plot_Vertical_Scale(
   double vstep = 1.0;
   char value[16], format[16];
 
-  /* Abort if not enough values to plot */
-  if( nval <= 1 ) return;
+  /* only plot min/max if there are not enough values to plot */
+  if( nval <= 1 )
+    nval = 2;
 
   /* Calculate step between scale values */
   vstep = (max-min) / (double)(nval-1);
