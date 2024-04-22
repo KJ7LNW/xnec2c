@@ -81,8 +81,8 @@ typedef struct mathlib_t
 } mathlib_t;
 
 
-void init_mathlib();
-void init_mathlib_menu();
+void init_mathlib(void);
+void init_mathlib_menu(void);
 mathlib_t *get_mathlib_by_idx(int idx);
 void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib);
 
