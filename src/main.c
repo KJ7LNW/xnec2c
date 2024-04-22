@@ -91,7 +91,7 @@ static char *build_optstring(struct option *long_options)
 	return optstring;
 }
 
-static gint opt_start_optimizer_thread()
+static gint opt_start_optimizer_thread(void)
 {
 	GtkWidget *w;
 

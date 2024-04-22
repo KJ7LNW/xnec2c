@@ -21,7 +21,7 @@
 
 /*------------------------------------------------------------------------*/
 
-int opt_have_files_to_save()
+int opt_have_files_to_save(void)
 {
 	return (
 		// Flags

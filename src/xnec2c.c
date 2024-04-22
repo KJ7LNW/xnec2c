@@ -35,7 +35,7 @@ static double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
  *
  * If it doesn't, return 0 so the caller can run New_Frequency() and
  * use the extra buffer (in rad_pattern and other structures). */
-int set_freq_step()
+int set_freq_step(void)
 {
 	int fr, step;
 	double freq;
@@ -85,7 +85,7 @@ int set_freq_step()
  * Scales geometric parameters to frequency
  */
   static void
-Frequency_Scale_Geometry()
+Frequency_Scale_Geometry(void)
 {
   double fr;
   int idx;

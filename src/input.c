@@ -140,7 +140,7 @@ Tag_Seg_Error( int tag, int segs )
 }
 
 /*-----------------------------------------------------------------------*/
-void readgm_reset_count()
+void readgm_reset_count(void)
 {
 	readgm_line_count = 0;
 }
