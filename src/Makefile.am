@@ -59,7 +59,7 @@ xnec2c_CFLAGS   += -std=gnu11
 xnec2c_CFLAGS   += -O2 -g
 xnec2c_CFLAGS   += -Wformat
 xnec2c_CFLAGS   += -Werror=format-security
-xnec2c_CFLAGS   += -fpie
+xnec2c_CFLAGS   += -fPIC
 xnec2c_CFLAGS   += -Wno-overlength-strings
 xnec2c_CFLAGS   += -DGTK_DISABLE_SINGLE_INCLUDES
 xnec2c_CFLAGS   += -DGDK_DISABLE_DEPRECATED
