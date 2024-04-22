@@ -26,7 +26,7 @@
 #include "utils.h"
 #include "shared.h"
 
-char **_get_backtrace();
+char **_get_backtrace(void);
 void _print_backtrace(char **strings);
 
 

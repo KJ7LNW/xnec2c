@@ -56,7 +56,7 @@ static inline void pango_text_size(GtkWidget* widget, int *width, int *height, c
     g_object_unref( layout );
 }
 
-void fr_plots_init()
+void fr_plots_init(void)
 {
   int idx;
 
@@ -1630,7 +1630,7 @@ void save_click_event(GdkEvent *e)
 	memcpy(prev_click_event, e, sizeof(GdkEvent));
 }
 
-int freqplots_click_pending()
+int freqplots_click_pending(void)
 {
 	return prev_click_event != NULL;
 }

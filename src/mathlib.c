@@ -133,7 +133,7 @@ int open_mathlib(mathlib_t *lib)
 		return 0;
 	}
 
-	// Builting NEC2 Gaussian Elimination isn't a .so, just return success.
+	// Builtin NEC2 Gaussian Elimination isn't a .so, just return success.
 	if (lib->type == MATHLIB_NEC2)
 		return 1;
 
@@ -204,7 +204,7 @@ int open_mathlib(mathlib_t *lib)
 }
 
 
-void init_mathlib()
+void init_mathlib(void)
 {
 	int libidx;
 
@@ -425,7 +425,7 @@ GSList *add_mathlib_menu(mathlib_t *lib, GtkWidget *menu, GtkWidget *item, int s
 		return group;
 }
 
-void init_mathlib_menu()
+void init_mathlib_menu(void)
 {
 	GSList *interactive_radio_group = NULL;
 	GSList *batch_radio_group = NULL;
@@ -475,7 +475,7 @@ void init_mathlib_menu()
 	gtk_widget_show_all(main_window);
 }
 
-void mathlib_help()
+void mathlib_help(void)
 {
 	Notice(_("Mathlib Help"),
 		"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed up xnec2c EM simulations "
@@ -514,7 +514,7 @@ void mathlib_help()
 		GTK_BUTTONS_OK);
 }
 
-void mathlib_benchmark_help()
+void mathlib_benchmark_help(void)
 {
 	Notice(_("Mathlib Benchmark Help"),
 		_(
@@ -716,22 +716,22 @@ void mathlib_benchmark(int slow)
 	Notice(_("Mathlib Benchmark"), m, GTK_BUTTONS_OK);
 }
 
-void mathlib_benchmark_parallel()
+void mathlib_benchmark_parallel(void)
 {
 	mathlib_benchmark(MATHLIB_BENCHMARK_PARALLEL);
 }
 
-void mathlib_benchmark_single()
+void mathlib_benchmark_single(void)
 {
 	mathlib_benchmark(MATHLIB_BENCHMARK_SINGLE);
 }
 
-void mathlib_benchmark_nlog2()
+void mathlib_benchmark_nlog2(void)
 {
 	mathlib_benchmark(MATHLIB_BENCHMARK_NLOG2);
 }
 
-void mathlib_benchmark_nj()
+void mathlib_benchmark_nj(void)
 {
 	mathlib_benchmark(MATHLIB_BENCHMARK_NJ);
 }
