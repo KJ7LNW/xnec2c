@@ -1170,10 +1170,6 @@ int factr_gauss_elim( int n, complex double *a, int *ip, int ndim)
 			#endif
 		#endif
 
-		// Same thing for clang:
-		#ifdef __clang__
-			#pragma clang loop vectorize(enable) interleave(enable)
-		#endif
         for( i = jp1; i < n; i++ )
           scm[i] -= a[i+j*ndim]* arj;
 
