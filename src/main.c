@@ -598,13 +598,13 @@ Open_Input_File( gpointer arg )
     }
 
     /* Simulate activation of main rdpattern button */
-    if( isFlagClear(OPTIMIZER_OUTPUT) )
+    if( isFlagClear(OPTIMIZER_OUTPUT) && !rc_config.main_loop_start)
       Main_Rdpattern_Activate( FALSE );
 
     /* Select display of radiation or EH pattern */
     if( isFlagSet(DRAW_GAIN) )
     {
-      if( isFlagClear(OPTIMIZER_OUTPUT) )
+      if( isFlagClear(OPTIMIZER_OUTPUT) && !rc_config.main_loop_start)
         Rdpattern_Gain_Togglebutton_Toggled( TRUE );
     }
     else if( isFlagSet(DRAW_EHFIELD) )
