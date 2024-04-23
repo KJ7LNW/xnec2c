@@ -1480,12 +1480,12 @@ void load(int *ldtyp, int *ldtag, int *ldtagf, int *ldtagt, double *zlr, double 
 /* optimize.c */
 void Write_Optimizer_Data(void);
 void *Optimizer_Output(void *arg);
-int opt_have_files_to_save();
+int opt_have_files_to_save(void);
 /* plot_freqdata.c */
 void Plot_Frequency_Data(cairo_t *cr);
 void Plots_Window_Killed(void);
 void Set_Frequency_On_Click(GdkEvent *event);
-int freqplots_click_pending();
+int freqplots_click_pending(void);
 /* radiation.c */
 void rdpat(void);
 /* rc_config.c */
@@ -1539,6 +1539,6 @@ gboolean Frequency_Loop(gpointer udata);
 gboolean Start_Frequency_Loop(void);
 void Stop_Frequency_Loop(void);
 void Incident_Field_Loop(void);
-int set_freq_step();
+int set_freq_step(void);
 
 #endif
