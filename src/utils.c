@@ -813,7 +813,7 @@ void _print_backtrace(char **strings)
 }
 
 // Return an array of backtrace strings.  The value returned must be free()'ed.
-char **_get_backtrace()
+char **_get_backtrace(void)
 {
 #ifdef HAVE_BACKTRACE
 	void *array[10];
