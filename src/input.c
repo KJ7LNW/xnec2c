@@ -567,7 +567,7 @@ datagn( void )
         continue;
 
       default: /* error message */
-        pr_err("geometry data card error\n");
+        pr_err("geometry data card error (nwire=%d)\n", nwire);
         pr_err("%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n",
 			gm, itg, ns, xw1, yw1, zw1, xw2, yw2, zw2, rad);
 
@@ -1315,9 +1315,9 @@ Read_Commands( void )
         continue;
 
       default:
-        snprintf(notice, sizeof(notice)-1, "%s: %s\n",
+        snprintf(notice, sizeof(notice)-1, "%s: %s (mpcnt=%d)\n",
             _("Faulty data card"),
-            ain);
+            ain, mpcnt);
         pr_err("%s", notice);
         Stop(notice, ERR_OK);
         return( FALSE );
