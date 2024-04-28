@@ -203,7 +203,6 @@ main (int argc, char *argv[])
       case 'b': /* batch mode */
         pr_notice("batch mode enabled, will exit after first loop\n");
         rc_config.batch_mode = 1;
-        rc_config.main_loop_start = 1;
         break;
 
       case 'h': /* print usage and exit */
@@ -380,6 +379,9 @@ main (int argc, char *argv[])
 
   /* Read GUI state config file and reset geometry */
   Read_Config();
+
+  if (rc_config.batch_mode)
+	  rc_config.main_loop_start = 1;
 
   /* If input file is specified, get the working directory */
   if( strlen(rc_config.input_file) )
