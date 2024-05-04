@@ -629,7 +629,7 @@ Open_Input_File( gpointer arg )
   {
     GtkWidget *box = Builder_Get_Object( freqplots_window_builder, "freqplots_box" );
     gtk_widget_show( box );
-    if( rc_config.main_loop_start )
+    if( rc_config.main_loop_start || isFlagSet(OPTIMIZER_OUTPUT) )
     {
       Main_Freqplots_Activate();
       Start_Frequency_Loop();

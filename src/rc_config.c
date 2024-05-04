@@ -67,7 +67,10 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.main_left_hand } },
 
 	{ .desc = "Main Window Frequency loop start state", .format = "%d",
-		.vars = { &rc_config.main_loop_start } },
+		.vars = { &rc_config.main_loop_start },
+		.builder_window = &main_window_builder,
+		.builder_check_menu_item_id = "config_main_loop_start"
+		},
 
 	{ .desc = "Main Window Rotate spinbutton state", .format = "%d",
 		.vars = { &rc_config.main_rotate_spinbutton } },
@@ -365,6 +368,13 @@ void rc_callback_check_menu_item(GtkCheckMenuItem *menuitem, gpointer user_data)
 {
 	for (int i = 0; i < num_rc_config_vars; i++)
 	{
+		if (rc_config_vars[i].builder_check_menu_item_id == NULL && rc_config_vars[i].builder_window != NULL)
+			BUG("rc_config: %s: builder_check_menu_item_id is NULL but builder_window is defined.\n",
+				rc_config_vars[i].desc);
+		else if (rc_config_vars[i].builder_check_menu_item_id != NULL && rc_config_vars[i].builder_window == NULL)
+			BUG("rc_config: %s: builder_window is NULL but builder_check_menu_item_id is defined.\n",
+				rc_config_vars[i].desc);
+
 		if (rc_config_vars[i].builder_check_menu_item_id == NULL || rc_config_vars[i].builder_window == NULL)
 			continue;
 
@@ -559,7 +569,8 @@ Restore_Windows( gpointer dat )
   GtkWidget *widget;
 
   /* Open frequency plots window if state data available */
-  if( rc_config.freqplots_is_open && rc_config.freqplots_width && rc_config.freqplots_height)
+  if( rc_config.main_loop_start || isFlagSet(OPTIMIZER_OUTPUT) ||
+	  (rc_config.freqplots_is_open && rc_config.freqplots_width && rc_config.freqplots_height))
   {
     widget = Builder_Get_Object( main_window_builder, "main_freqplots" );
     gtk_menu_item_activate( GTK_MENU_ITEM(widget) );
