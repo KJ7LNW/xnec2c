@@ -1053,6 +1053,8 @@ Stop_Frequency_Loop( void )
 		  free_ptr((void**)&pth_freq_loop);
 	  }
 
+	  ClearFlag(FREQ_LOOP_STOP);
+
 	  // Flush any pending GTK events. This is critical because any pending
 	  // events that may work upon GtkWidget's that change (or close) upon exit
 	  // from this function will fail.
