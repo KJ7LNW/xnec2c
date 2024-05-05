@@ -766,7 +766,8 @@ isegno( int itagi, int mx)
   } /* if( data.n > 0) */
 
   pr_err("no segment has an itag of %d\n", itagi);
-  Stop( _("Segment tag number error"), ERR_OK );
+  Stop( _("Segment tag number error.  You are (probably) referencing an unknown tag or\n"
+          "segment number in a control card."), ERR_OK );
 
   return( -1 );
 }
