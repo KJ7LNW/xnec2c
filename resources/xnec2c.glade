@@ -5319,7 +5319,7 @@ PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully c
   </object>
   <object class="GtkAdjustment" id="main_zoom_adjustment">
     <property name="lower">10</property>
-    <property name="upper">999</property>
+    <property name="upper">99999</property>
     <property name="value">100</property>
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
@@ -9284,7 +9284,7 @@ Save NEC2 Editor data first?
   </object>
   <object class="GtkAdjustment" id="rdpattern_zoom_adjustment">
     <property name="lower">10</property>
-    <property name="upper">999</property>
+    <property name="upper">99999</property>
     <property name="value">100</property>
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
@@ -11130,9 +11130,9 @@ Save NEC2 Editor data first?
               <object class="GtkSpinButton" id="main_zoom_spinbutton">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="max-length">3</property>
-                <property name="width-chars">3</property>
-                <property name="max-width-chars">3</property>
+                <property name="max-length">5</property>
+                <property name="width-chars">5</property>
+                <property name="max-width-chars">5</property>
                 <property name="xalign">1</property>
                 <property name="shadow-type">etched-in</property>
                 <property name="input-purpose">number</property>
@@ -12209,9 +12209,9 @@ Save NEC2 Editor data first?
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="hexpand">True</property>
-                <property name="max-length">3</property>
-                <property name="width-chars">3</property>
-                <property name="max-width-chars">3</property>
+                <property name="max-length">5</property>
+                <property name="width-chars">5</property>
+                <property name="max-width-chars">5</property>
                 <property name="xalign">1</property>
                 <property name="shadow-type">etched-in</property>
                 <property name="input-purpose">number</property>
