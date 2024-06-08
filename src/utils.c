@@ -71,12 +71,32 @@ usage(void)
 int Notice(char *title, char *message,  GtkButtonsType buttons)
 {
 	int response;
+	int locked = 0;
+
+	if (!g_mutex_trylock(&freq_data_lock))
+		locked = 1;
+	else
+		g_mutex_unlock(&freq_data_lock);
+
+	if (!g_mutex_trylock(&global_lock))
+		locked = 1;
+	else
+		g_mutex_unlock(&global_lock);
+
+	if (locked)
+	{
+		pr_err("\n=== Notice: %s ===\n%s\n\n", title, message);
+
+		return 0;
+	}
+
+	pr_notice("\n=== Notice: %s ===\n%s\n\n", title, message);
+
 	GtkWidget *notice = gtk_message_dialog_new(GTK_WINDOW(main_window),
 		GTK_DIALOG_MODAL, GTK_MESSAGE_INFO,
 		buttons,
 		"%s", title);
 
-	pr_notice("\n=== Notice: %s ===\n%s\n\n", title, message);
 	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(notice), "%s", message);
 
 	response = gtk_dialog_run(GTK_DIALOG(notice));
