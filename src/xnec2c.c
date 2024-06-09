@@ -777,7 +777,14 @@ gboolean Frequency_Loop( gpointer udata )
         if( FD_ISSET(forked_proc_data[idx]->child2pnt_pipe[READ], &read_fds) )
         {
           /* Read data from finished child process */
-          Get_Freq_Data( idx, forked_proc_data[idx]->fstep );
+          if (!Get_Freq_Data( idx, forked_proc_data[idx]->fstep ))
+          {
+            pr_err("Failed to read data from forked child\n");
+            SetFlag(FREQ_LOOP_STOP);
+            g_mutex_unlock(&freq_data_lock);
+            g_mutex_unlock(&global_lock);
+            return FALSE;
+          }
 
           /* Clear "last-used-frequency" buffer, the local version of the data is
            * no longer what New_Frequency() set it to: */
