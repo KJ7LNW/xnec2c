@@ -121,7 +121,7 @@ Window</a></li>
 <li><a href="#Optimizers">External Optimizers</a></li>
 </ul>
 </li>
-<li><a href="#InputFile">Input File Considerations</a></li>
+<li><a href="#InputFile">Input File Considerations and NEC2 Card Reference</a></li>
 <li><a href="#OutputFile">Output File Considerations</a></li>
 <li><a href="#Version">Version History</a></li>
 <li><a href="#Limitations">Limitations</a></li>
@@ -321,7 +321,7 @@ be equal to the number of processors in a SMP machine. <b>Please
 note</b> that its pointless and counter-productive to specify a
 value of n greater than the number of steps in the frequency
 loop, or greater than the number of logical CPUs on your system.
-tarting in version 4.3, xnec2c always forks at least one job
+Starting in version 4.3, xnec2c always forks at least one job
 for better UI responsiveness.  If you wish to disable forking for
 debug or testing then specify -j0.<br></p>
 <p><b><a name="MainWindow" id="MainWindow">The Main
@@ -900,8 +900,15 @@ was designed to visualize output data graphically, certain types of
 output data requests are not supported (e.g. the surface wave
 pattern option (I1=1) of the RP command etc). An error message
 dialog will hopefully appear to inform the user of unsupported
-commands or options. Here is a list of commands or command options
-not supported by xnec2c:</p>
+commands or options.
+<br/><br/>
+Since xnec2c is an implementation of NEC2.  You can learn more about the NEC2
+format at <a href="http://www.nec2.org">http://www.nec2.org</a>. Be sure to review
+<a href="http://www.nec2.org/part_3/toc.html">Part III: NEC User's Guide</a>.
+
+Here is a list of commands or command options not supported by xnec2c:
+
+</p>
 <p><b>GF:</b> Read Numerical Green's Function: Relevant code has
 been removed in nec2c since this type of solution is obsolete.<br>
 <b>WG:</b> Write Numerical Green's Function: Relevant code has been
