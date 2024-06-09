@@ -60,6 +60,8 @@ _Draw_Structure( cairo_t *cr )
 
 void Draw_Structure( cairo_t *cr )
 {
+	if (isFlagSet(ERROR_CONDX))
+		return;
 	g_mutex_lock(&freq_data_lock);
 	_Draw_Structure( cr );
 	g_mutex_unlock(&freq_data_lock);

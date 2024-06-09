@@ -1581,6 +1581,8 @@ _Plot_Frequency_Data( cairo_t *cr )
 
 void Plot_Frequency_Data( cairo_t *cr )
 {
+	if (isFlagSet(ERROR_CONDX))
+		return;
 	g_mutex_lock(&freq_data_lock);
 	_Plot_Frequency_Data( cr );
 	g_mutex_unlock(&freq_data_lock);

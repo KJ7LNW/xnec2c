@@ -623,6 +623,9 @@ int Draw_Radiation( cairo_t *cr )
 {
 	int ret;
 
+	if (isFlagSet(ERROR_CONDX))
+		return FALSE;
+
 	g_mutex_lock(&freq_data_lock);
 	ret = _Draw_Radiation( cr );
 	g_mutex_unlock(&freq_data_lock);
