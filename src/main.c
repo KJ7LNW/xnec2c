@@ -571,13 +571,6 @@ Open_Input_File( gpointer arg )
   gtk_widget_show( Builder_Get_Object(main_window_builder, "main_view_menuitem") );
   gtk_widget_show( structure_drawingarea );
 
-  /* If currents or charges draw button is active
-   * re-initialize structure currents/charges drawing */
-  if( isFlagSet(DRAW_CURRENTS) )
-    Main_Currents_Togglebutton_Toggled( TRUE );
-  if( isFlagSet(DRAW_CHARGES) )
-    Main_Charges_Togglebutton_Toggled( TRUE );
-
   /* Set input file to NEC2 editor. It will only
    * happen if the NEC2 editor window is open */
   new = *( (gboolean *)arg );
@@ -669,6 +662,13 @@ Open_Input_File( gpointer arg )
 
   // Unlock the mutex:
   g_mutex_unlock(&global_lock);
+
+  /* If currents or charges draw button is active
+   * re-initialize structure currents/charges drawing */
+  if( isFlagSet(DRAW_CURRENTS) )
+    Main_Currents_Togglebutton_Toggled( TRUE );
+  if( isFlagSet(DRAW_CHARGES) )
+    Main_Charges_Togglebutton_Toggled( TRUE );
 
   return( FALSE );
 } /* Open_Input_File() */
