@@ -114,22 +114,41 @@ Stop( char *mesg, int err )
 {
   GtkBuilder *builder;
 
+  int locked = 0;
+
+  if (!g_mutex_trylock(&freq_data_lock))
+    locked = 1;
+  else
+    g_mutex_unlock(&freq_data_lock);
+
+  if (!g_mutex_trylock(&global_lock))
+    locked = 1;
+  else
+    g_mutex_unlock(&global_lock);
+
   pr_err("Stop: %s\n", mesg);
+
   /* For child processes */
   if( CHILD )
   {
-    pr_err("%s\n", mesg);
     if( err )
     {
-      pr_crit("child process %d exiting\n", num_child_procs);
-      _exit(-1);
+      pr_crit("%s\n", mesg);
     }
-    else return( err );
+    else
+    {
+      pr_err("%s\n", mesg);
+    }
+    return( err );
 
   } /* if( CHILD ) */
 
-  /* Stop operation */
-  Stop_Frequency_Loop();
+  SetFlag(FREQ_LOOP_STOP);
+
+  if (!locked)
+    /* Stop operation */
+    Stop_Frequency_Loop();
+
 
   /* Create error dialog */
   if( !error_dialog )
