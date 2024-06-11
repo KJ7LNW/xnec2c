@@ -107,8 +107,18 @@ Draw_Radiation_Pattern( cairo_t *cr )
 
   /* Abort if rad pattern cannot be drawn */
   fstep = calc_data.freq_step;
-  if( isFlagClear(ENABLE_RDPAT) || (fstep < 0) )
-    return;
+  if ( isFlagClear(ENABLE_RDPAT) )
+	  return;
+
+  /* If fstep is invalid, try to use data from the last FR card run.  Note that
+   * calc_data.steps_total is the count of frequencies from the FR card, but we
+   * always allocate +1 for the user-selected "green line" frequency. This,
+   * calc_data.steps_total is the index of the green-line frequency, and -1 is
+   * the last FR card frequency.  Thus, we use calc_data.steps_total-1:
+   */
+  if ( (fstep < 0 || fstep >= (calc_data.steps_total))
+      && rad_pattern != NULL && rad_pattern[0].gtot != NULL)
+    fstep = calc_data.steps_total-2;
 
   pol = calc_data.pol_type;
 
