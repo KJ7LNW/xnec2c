@@ -566,6 +566,14 @@ void mathlib_benchmark(int slow)
 	int i, best_num_jobs = 0;
 	double best_elapsed = 0;
 
+	if (isFlagSet(OPTIMIZER_OUTPUT))
+	{
+		Notice(_("Mathlib Benchmark"),
+			_("Benchmarks are disabled while optimization is activated."),
+			GTK_BUTTONS_OK);
+		return;
+	}
+
 	if (calc_data.num_jobs == 1 && slow != MATHLIB_BENCHMARK_SINGLE)
 		Notice(_("Mathlib Benchmark"),
 			_("Choosing a benchmark other than \"Single Job\" has no effect "
