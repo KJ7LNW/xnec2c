@@ -74,6 +74,7 @@ extern GtkSpinButton
 
 /* Motion event handler id */
 extern gulong structure_motion_handler;
+extern int need_structure_redraw;
 
 /* Commands between parent and child processes */
 extern char *fork_commands[];
@@ -173,6 +174,7 @@ extern fr_plot_t *fr_plots;
 
 /* Motion event handler id */
 extern gulong rdpattern_motion_handler;
+extern int need_rdpat_redraw;
 
 /* Dialog widgets */
 extern GtkWidget *quit_dialog ;

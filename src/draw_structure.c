@@ -20,6 +20,8 @@
 #include "draw_structure.h"
 #include "shared.h"
 
+int need_structure_redraw = 1;
+
 /*-----------------------------------------------------------------------*/
 
 /*  Draw_Structure()
@@ -62,6 +64,9 @@ void Draw_Structure( cairo_t *cr )
 {
 	if (isFlagSet(ERROR_CONDX))
 		return;
+
+	need_structure_redraw = 0;
+
 	g_mutex_lock(&freq_data_lock);
 	_Draw_Structure( cr );
 	g_mutex_unlock(&freq_data_lock);
@@ -658,6 +663,8 @@ New_Structure_Projection_Angle(void)
   structure_proj_params.cos_wr = cos(structure_proj_params.Wr/(double)TODEG);
   structure_proj_params.sin_wi = sin(structure_proj_params.Wi/(double)TODEG);
   structure_proj_params.cos_wi = cos(structure_proj_params.Wi/(double)TODEG);
+
+  need_structure_redraw = 1;
 
   /* Trigger a redraw of structure drawingarea */
   if( structure_drawingarea && isFlagClear(INPUT_PENDING) )

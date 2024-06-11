@@ -4719,7 +4719,10 @@ on_main_zoom_spinbutton_value_changed(
 
   /* Trigger a redraw of structure drawingarea */
   if( structure_drawingarea )
+  {
+    need_structure_redraw = 1;
     xnec2_widget_queue_draw( structure_drawingarea );
+  }
 }
 
 
@@ -4789,6 +4792,7 @@ on_rdpattern_zoom_spinbutton_value_changed(
     rdpattern_proj_params.xy_scale1 * rdpattern_proj_params.xy_zoom;
 
   /* Trigger a redraw of structure drawingarea */
+  need_rdpat_redraw = 1;
   xnec2_widget_queue_draw( rdpattern_drawingarea );
 }
 
@@ -4833,6 +4837,7 @@ on_rdpattern_one_button_clicked(
       rdpattern_height,
       &rdpattern_proj_params );
 
+  need_rdpat_redraw = 1;
   xnec2_widget_queue_draw( rdpattern_drawingarea );
 }
 

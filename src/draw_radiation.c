@@ -23,6 +23,8 @@
 /* For coloring rad pattern */
 static double *red = NULL, *grn = NULL, *blu = NULL;
 
+int need_rdpat_redraw = 1;
+
 /* Buffered points in 3d (xyz) space
  * forming the radiation pattern */
 static point_3d_t *point_3d = NULL;
@@ -593,11 +595,6 @@ _Draw_Radiation( cairo_t *cr )
   if( isFlagClear(ENABLE_EXCITN) )
     return FALSE;
 
-  /* Don't draw radiation pattern when freq
-   * loop is running and optimizer enabled */
-  if( isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_RUNNING) )
-    return FALSE;
-
   // Try to hold the lock to prevent drawing the radiation pattern
   // since it could be drawing while inotify triggers a new freqloop:
   int locked = g_mutex_trylock(&global_lock);
@@ -625,6 +622,8 @@ int Draw_Radiation( cairo_t *cr )
 
 	if (isFlagSet(ERROR_CONDX))
 		return FALSE;
+
+	need_rdpat_redraw = 0;
 
 	g_mutex_lock(&freq_data_lock);
 	ret = _Draw_Radiation( cr );
@@ -841,9 +840,10 @@ New_Radiation_Projection_Angle(void)
   rdpattern_proj_params.sin_wi = sin(rdpattern_proj_params.Wi/(double)TODEG);
   rdpattern_proj_params.cos_wi = cos(rdpattern_proj_params.Wi/(double)TODEG);
 
+  need_rdpat_redraw = 1;
+
   /* Trigger a redraw of radiation drawingarea */
-  if( isFlagSet(DRAW_ENABLED) && 
-	  (isFlagClear(OPTIMIZER_OUTPUT) || isFlagClear(FREQ_LOOP_RUNNING)))
+  if( isFlagSet(DRAW_ENABLED) )
   {
     xnec2_widget_queue_draw( rdpattern_drawingarea );
   }

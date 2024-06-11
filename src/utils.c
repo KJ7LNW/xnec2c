@@ -829,9 +829,19 @@ guint g_idle_add_once_sync(GSourceOnceFunc function, gpointer data)
 void xnec2_widget_queue_draw(GtkWidget *w)
 {
 	// Only redraw the rdpattern when FREQ_LOOP_DONE or it the window will flash grey:
-	if (w == rdpattern_drawingarea && isFlagSet(OPTIMIZER_OUTPUT) && isFlagSet(FREQ_LOOP_RUNNING))
+	if (w == rdpattern_drawingarea &&
+	    isFlagSet(OPTIMIZER_OUTPUT) &&
+	    isFlagSet(FREQ_LOOP_RUNNING) &&
+	    !need_rdpat_redraw)
 	{
 		pr_debug("Optimizer loop incomplete, skipping radiation pattern redraw.\n");
+	}
+	else if (w == structure_drawingarea &&
+	    isFlagSet(OPTIMIZER_OUTPUT) &&
+	    isFlagSet(FREQ_LOOP_RUNNING) &&
+	    !need_structure_redraw)
+	{
+		pr_debug("Optimizer loop incomplete, skipping structure redraw.\n");
 	}
 	else
 		g_idle_add_once((GSourceOnceFunc)gtk_widget_queue_draw, w);

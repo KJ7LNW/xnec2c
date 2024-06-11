@@ -178,11 +178,13 @@ Motion_Event(
 
     if( params->type == STRUCTURE_DRAWINGAREA )
     {
+      need_structure_redraw = 1;
       xnec2_widget_queue_draw( structure_drawingarea );
     }
 
     if( params->type == RDPATTERN_DRAWINGAREA )
     {
+      need_rdpat_redraw = 1;
       xnec2_widget_queue_draw( rdpattern_drawingarea );
     }
   }

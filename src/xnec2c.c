@@ -991,6 +991,10 @@ void *Frequency_Loop_Thread(void *p)
 		g_idle_add_once_sync((GSourceOnceFunc)update_freq_mhz_spin_button_value, rdpattern_frequency);
 		g_idle_add_once_sync((GSourceOnceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
 		g_idle_add_once_sync((GSourceOnceFunc)Redo_Currents, NULL);
+
+		need_rdpat_redraw = 1;
+		need_structure_redraw = 1;
+		g_idle_add_once_sync((GSourceOnceFunc)gtk_widget_queue_draw, structure_drawingarea);
 		g_idle_add_once_sync((GSourceOnceFunc)gtk_widget_queue_draw, rdpattern_drawingarea);
 	}
 
