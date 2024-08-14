@@ -1,0 +1,27 @@
+version: 1
+
+AppDir:
+  path: ./AppDir
+  app_info:
+    id: xnec2c
+    name: xnec2c
+    icon: usr/share/icons/hicolor/scalable/apps/xnec2c.svg
+    exec: usr/bin/xnec2c
+    exec_args: "$@"
+    version: "${VERSION}${DIST}"
+
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: 'deb [arch=amd64] http://vault.centos.org/7.9.2009/os/ x86_64 main'
+    include: 
+      - glibc
+      - libgtk-3-0
+      - libglib2.0-0
+      - fuse
+      - other-dependencies
+
+AppImage:
+  arch: x86_64
+  update-information: None
+  sign-key: None
