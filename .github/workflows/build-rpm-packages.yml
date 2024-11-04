@@ -1,5 +1,4 @@
 name: Build RPM Package
-
 on:
   push:
     branches:
@@ -13,20 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Determine Version
         id: version
+        shell: bash
         run: |
-          # Get the most recent tag
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          
-          # Check if the latest commit is tagged
           TAGGED_COMMIT=$(git describe --tags --exact-match 2>/dev/null || echo "notag")
           
           if [ "$TAGGED_COMMIT" = "notag" ]; then
@@ -36,62 +33,76 @@ jobs:
             VERSION=$LATEST_TAG
             DIST=""
           fi
-
-          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "DIST=$DIST" >> $GITHUB_ENV
+          
+          # Remove 'v' prefix if present
+          VERSION=$(echo $VERSION | sed 's/^v//')
+          
+          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "DIST=${DIST}" >> $GITHUB_ENV
 
       - name: Build RPM
         run: |
-          docker run --rm -v $(pwd):/workspace -w /workspace almalinux:9 /bin/bash -c "
-            set -x
-
+          docker run --rm -v $(pwd):/workspace -w /workspace almalinux:9 /bin/bash -c '
+            set -eux
+            
             # Install dependencies
             dnf install -y epel-release
-            dnf install -y gcc make automake autoconf gtk3-devel gettext-devel libtool \
-                rpm-build rpmdevtools git desktop-file-utils intltool
+            dnf install -y \
+              gcc \
+              make \
+              automake \
+              autoconf \
+              gtk3-devel \
+              gettext-devel \
+              libtool \
+              rpm-build \
+              rpmdevtools \
+              git \
+              desktop-file-utils \
+              intltool
 
-            # Prepare the RPM build environment
+            # Setup RPM build environment
             rpmdev-setuptree
-
+            
+            # Build source
             ./autogen.sh
             ./configure
-            make xnec2c.spec
+            make -j$(nproc) xnec2c.spec
             make dist
-
-            # Copy the spec file to the SPECS directory
+            
+            # Prepare spec and source
             cp xnec2c.spec /root/rpmbuild/SPECS/
-
-            find . /workspace
-            pwd
-            ls -ltr
-
-            # Create a properly versioned tarball
+            
+            # Create versioned tarball
             TAR_FILE=$(ls /workspace/xnec2c-*.tar.gz)
-            mkdir -p /root/rpmbuild/SOURCES/xnec2c-${VERSION}
-            tar -xzf $TAR_FILE --strip-components=1 -C /root/rpmbuild/SOURCES/xnec2c-${VERSION}
-            tar -czf /root/rpmbuild/SOURCES/xnec2c-${VERSION}.tar.gz -C /root/rpmbuild/SOURCES xnec2c-${VERSION}
+            SOURCES_DIR="/root/rpmbuild/SOURCES/xnec2c-${VERSION}"
+            mkdir -p "${SOURCES_DIR}"
+            tar -xzf "${TAR_FILE}" --strip-components=1 -C "${SOURCES_DIR}"
+            tar -czf "/root/rpmbuild/SOURCES/xnec2c-${VERSION}.tar.gz" -C /root/rpmbuild/SOURCES "xnec2c-${VERSION}"
+            
+            # Build RPM
+            rpmbuild -ba \
+              --define "_version ${VERSION}" \
+              --define "_dist ${DIST}" \
+              --define "_topdir /root/rpmbuild" \
+              /root/rpmbuild/SPECS/xnec2c.spec
+            
+            # Copy RPMs back to workspace
+            cp /root/rpmbuild/RPMS/x86_64/xnec2c-*.rpm /workspace/
+          '
 
-            # Build the RPM
-            rpmbuild -ba --define \"_version ${VERSION}\" --define \"_dist ${DIST}\" \
-                --define \"_topdir /root/rpmbuild\" /root/rpmbuild/SPECS/xnec2c.spec
-
-            # Check the RPM files
-            ls -l /root/rpmbuild/RPMS/x86_64
-          "
-
-      - name: Install and Test RPM
+      - name: Test RPM
         run: |
-          docker run --rm -v $(pwd):/workspace -w /workspace almalinux:9 /bin/bash -c "
-            # Install the RPM package
-            dnf install -y /root/rpmbuild/RPMS/x86_64/xnec2c-*.rpm
-
-            # Run the test to verify the package
+          docker run --rm -v $(pwd):/workspace -w /workspace almalinux:9 /bin/bash -c '
+            set -eux
+            dnf install -y ./xnec2c-*.rpm
             xnec2c -h
-          "
+          '
 
       - name: Upload RPM
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: xnec2c-rpm
-          path: /root/rpmbuild/RPMS/x86_64/xnec2c-*.rpm
+          path: xnec2c-*.rpm
+          retention-days: 7
