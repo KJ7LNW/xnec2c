@@ -21,21 +21,36 @@ jobs:
           - debian-11
           - debian-10
           - debian-9
+      fail-fast: false
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full Git history and tags
+          fetch-depth: 0
 
       - name: Set up the build environment
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential autoconf automake libtool \
-              libgtk-3-dev libglib2.0-dev gettext desktop-file-utils devscripts fakeroot lintian autopoint dh-make dh-autoreconf
+          sudo apt-get install -y \
+            build-essential \
+            autoconf \
+            automake \
+            libtool \
+            libgtk-3-dev \
+            libglib2.0-dev \
+            gettext \
+            desktop-file-utils \
+            devscripts \
+            fakeroot \
+            lintian \
+            autopoint \
+            dh-make \
+            dh-autoreconf
 
       - name: Determine version and dist
         id: version
+        shell: bash
         run: |
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.0.0")
           TAGGED_COMMIT=$(git describe --tags --exact-match 2>/dev/null || echo "notag")
@@ -48,70 +63,77 @@ jobs:
             DIST=""
           fi
 
-          # Remove the 'v' prefix and ensure the version starts with a digit
-          VERSION=$(echo $VERSION | sed 's/^v//')
-          VERSION=$(echo $VERSION | sed 's/[+]//g') # Replace '+' with '.'
+          # Clean version string
+          VERSION=$(echo $VERSION | sed -e 's/^v//' -e 's/[+]//g')
 
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "DIST=$DIST" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "DIST=${DIST}" >> $GITHUB_ENV
 
       - name: Generate Debian Packaging Files
         run: |
           rm -rf ./debian
-          dh_make --createorig -y --single --native --packagename xnec2c_$VERSION
-          echo -e '#!/usr/bin/make -f\n%:\n\tdh $@' > debian/rules
+          dh_make --createorig -y --single --native --packagename xnec2c_${VERSION}
+          
+          cat > debian/rules << 'EOF'
+          #!/usr/bin/make -f
+          %:
+          	dh $@
+          EOF
           chmod +x debian/rules
+          
+          cat > debian/control << EOF
+          Source: xnec2c
+          Section: utils
+          Priority: optional
+          Maintainer: Your Name <you@example.com>
+          Build-Depends: debhelper (>= 9), 
+            autotools-dev,
+            automake,
+            autoconf,
+            libtool,
+            libgtk-3-dev,
+            libglib2.0-dev,
+            gettext,
+            desktop-file-utils
+          Standards-Version: 3.9.6
+          Homepage: https://www.example.com
+
+          Package: xnec2c
+          Architecture: any
+          Depends: \${shlibs:Depends}, \${misc:Depends}
+          Description: EM tool for antenna radiation pattern modeling
+           Xnec2c is a high-performance multi-threaded electromagnetic simulation
+           package to model antenna near- and far-field radiation patterns for
+           Linux and UNIX operating systems.
+          EOF
+          
           echo "9" > debian/compat
-          echo "Source: xnec2c" > debian/control
-          echo "Section: utils" >> debian/control
-          echo "Priority: optional" >> debian/control
-          echo "Maintainer: Your Name <you@example.com>" >> debian/control
-          echo "Build-Depends: debhelper (>= 9), autotools-dev, automake, autoconf, libtool, libgtk-3-dev, libglib2.0-dev, gettext, desktop-file-utils" >> debian/control
-          echo "Standards-Version: 3.9.6" >> debian/control
-          echo "Homepage: https://www.example.com" >> debian/control
-          echo "" >> debian/control
-          echo "Package: xnec2c" >> debian/control
-          echo "Architecture: any" >> debian/control
-          echo "Depends: \${shlibs:Depends}, \${misc:Depends}" >> debian/control
-          echo "Description: A multi-threaded EM tool to model antenna near- and far-field radiation patterns." >> debian/control
-          echo " Xnec2c is a high-performance multi-threaded electromagnetic simulation" >> debian/control
-          echo " package to model antenna near- and far-field radiation patterns for" >> debian/control
-          echo " Linux and UNIX operating systems." >> debian/control
 
-      - name: Generate Debian Changelog from Git Log
+      - name: Generate Debian Changelog
         run: |
-          VERSION=${{ steps.version.outputs.VERSION }}${{ steps.version.outputs.DIST }}
-          PACKAGE_NAME="xnec2c"
-          DISTRIBUTION="unstable"
-          MAINTAINER="Your Name <you@example.com>"
+          {
+            echo "xnec2c (${VERSION}${DIST}) unstable; urgency=low"
+            echo ""
+            git log --pretty=format:"  * %s"
+            echo ""
+            echo " -- Your Name <you@example.com>  $(date -R)"
+          } > debian/changelog
 
-          echo "$PACKAGE_NAME ($VERSION) $DISTRIBUTION; urgency=low" > debian/changelog
-          echo "" >> debian/changelog
-          git log --pretty=format:"  * %s" >> debian/changelog
-          echo "" >> debian/changelog
-          echo " -- $MAINTAINER  $(date -R)" >> debian/changelog
-
-      - name: Verify Debian Directory
-        run: |
-          if [ ! -f "debian/rules" ]; then
-            echo "Error: debian/rules file not found!"
-            exit 1
-          fi
-
-      - name: Build the DEB package using debuild
+      - name: Build DEB package
         run: |
           ./autogen.sh
           ./configure
-          make
+          make -j$(nproc)
           debuild -us -uc -b
 
       - name: Test DEB package
         run: |
-          dpkg -i ../xnec2c_*.deb || true
+          sudo dpkg -i ../xnec2c_*.deb || sudo apt-get -f install -y
           xnec2c -h
 
-      - name: Upload the DEB package
-        uses: actions/upload-artifact@v2
+      - name: Upload DEB package
+        uses: actions/upload-artifact@v4
         with:
           name: xnec2c-${{ matrix.os }}.deb
           path: ../xnec2c_*.deb
+          retention-days: 7
