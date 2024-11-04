@@ -1,5 +1,4 @@
 name: Build and Test AppImage
-
 on:
   push:
     branches:
@@ -13,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Determine Version
         id: version
+        shell: bash
         run: |
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           TAGGED_COMMIT=$(git describe --tags --exact-match 2>/dev/null || echo "notag")
-
           if [ "$TAGGED_COMMIT" = "notag" ]; then
             VERSION="${LATEST_TAG}+"
             DIST="-git"
@@ -30,71 +29,74 @@ jobs:
             VERSION=$LATEST_TAG
             DIST=""
           fi
-
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "DIST=$DIST" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "DIST=${DIST}" >> $GITHUB_ENV
 
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3 python3-pip
-          pip3 install appimage-builder
+          sudo apt-get install -y python3 python3-pip fuse
+          sudo pip3 install appimage-builder
 
-      - name: Verify Installation
-        run: |
-          which appimage-builder
-          appimage-builder --version
+      - name: Setup Docker
+        uses: docker/setup-buildx-action@v3
 
       - name: Build AppImage
         run: |
-          docker run --rm -v $(pwd):/workspace -w /workspace centos:7 /bin/bash -c "
+          docker run --privileged --rm -v $(pwd):/workspace -w /workspace centos:7 /bin/bash -c '
             set -eux
-
-            # Update repository URLs to use the correct vault since CentOS 7.9.2009 has reached EOL
-            echo 'Updating repository URLs...'
-            sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-*.repo
-            sed -i 's|^#baseurl=http://mirror.centos.org/centos/\$releasever|baseurl=http://vault.centos.org/7.9.2009/os/x86_64|g' /etc/yum.repos.d/CentOS-*.repo
             
+            # Update repository URLs for CentOS 7 vault
+            sed -i "s|^mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*.repo
+            sed -i "s|^#baseurl=http://mirror.centos.org/centos/\$releasever|baseurl=http://vault.centos.org/7.9.2009/os/x86_64|g" /etc/yum.repos.d/CentOS-*.repo
+            
+            # Clean and update yum cache
             yum clean all && yum makecache
             
-            # Install EPEL repository first
-            echo 'Installing epel-release...'
+            # Install EPEL and dependencies
             yum install -y epel-release
+            yum install -y \
+              gcc \
+              make \
+              automake \
+              autoconf \
+              gtk3-devel \
+              gettext-devel \
+              libtool \
+              fuse \
+              fuse-libs \
+              patchelf \
+              wget
 
-            # Install all required packages
-            echo 'Installing dependencies...'
-            yum install -y gcc make automake autoconf gtk3-devel \
-                gettext-devel libtool fuse fuse-libs patchelf wget
+            # Build application
+            ./autogen.sh
+            ./configure
+            make -j$(nproc)
 
-            # Build the application
-            echo 'Building the application...'
-            ./autogen.sh && ./configure && make
+            # Prepare AppDir structure
+            mkdir -p AppDir/usr/{bin,share/{icons/hicolor/scalable/apps,applications}}
 
-            # Prepare AppDir and copy necessary files
-            echo 'Preparing AppDir...'
-            mkdir -p AppDir/usr/bin AppDir/usr/share/icons/hicolor/scalable/apps AppDir/usr/share/applications
-
-            # Install the application into AppDir
-            echo 'Installing the application...'
+            # Install to AppDir
             make install DESTDIR=$(pwd)/AppDir
 
-            # Manually copy files to their destinations within AppDir
-            cp src/xnec2c AppDir/usr/bin/xnec2c
-            cp resources/xnec2c.svg AppDir/usr/share/icons/hicolor/scalable/apps/xnec2c.svg
-            cp files/xnec2c.desktop AppDir/usr/share/applications/xnec2c.desktop
-          "
+            # Copy additional files
+            cp src/xnec2c AppDir/usr/bin/
+            cp resources/xnec2c.svg AppDir/usr/share/icons/hicolor/scalable/apps/
+            cp files/xnec2c.desktop AppDir/usr/share/applications/
+          '
 
-      - name: Generate AppImage with appimage-builder
+      - name: Generate AppImage
         run: |
           appimage-builder --recipe appimage-builder.yml
+          chmod +x xnec2c-${VERSION}${DIST}.AppImage
 
       - name: Test AppImage
         run: |
-          chmod +x xnec2c-${VERSION}${DIST}.AppImage
           ./xnec2c-${VERSION}${DIST}.AppImage -h
 
       - name: Upload AppImage
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: xnec2c-appimage
           path: xnec2c-${VERSION}${DIST}.AppImage
+          retention-days: 7
