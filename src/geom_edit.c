@@ -30,7 +30,7 @@
   static void
 Insert_GE_Card( GtkListStore *store, GtkTreeIter *iter )
 {
-  gint idx, idi;
+  gint idx;
 
   /* Insert default GE card if list is clear */
   idx = gtk_tree_model_iter_n_children(
@@ -39,8 +39,7 @@ Insert_GE_Card( GtkListStore *store, GtkTreeIter *iter )
   {
     gtk_list_store_append( store, iter );
     gtk_list_store_set( store, iter, GEOM_COL_NAME, "GE", -1 );
-    for( idi = GEOM_COL_I1; idi < GEOM_NUM_COLS; idi++ )
-      gtk_list_store_set( store, iter, idi, "0", -1 );
+    Zero_Store(store, iter, GEOM_NUM_COLS, GEOM_COL_I1, -1);
   }
 
 } /* Insert_GE_Card() */
@@ -59,24 +58,19 @@ Get_Geometry_Data(
     int *iv, double *fv )
 {
   gint idi, idf;
-  gchar *sv;
 
   /* Get data from tree view (I1,I2, F1-F7)*/
   if( gtk_list_store_iter_is_valid(store, iter) )
   {
     for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
     {
-      gtk_tree_model_get(
-          GTK_TREE_MODEL(store), iter, idi, &sv, -1);
-      iv[idi-GEOM_COL_I1] = atoi(sv);
-      g_free(sv);
+      gtk_tree_model_get(GTK_TREE_MODEL(store), iter, idi,
+                         &iv[idi - GEOM_COL_I1], -1);
     }
     for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
     {
       gtk_tree_model_get(
-          GTK_TREE_MODEL(store), iter, idf, &sv, -1);
-      fv[idf-GEOM_COL_F1] = Strtod( sv, NULL );
-      g_free(sv);
+          GTK_TREE_MODEL(store), iter, idf, &fv[idf-GEOM_COL_F1], -1);
     }
   }
   else Stop( _("Error reading row data\n"
@@ -97,7 +91,6 @@ Set_Geometry_Data(
     GtkTreeIter *iter,
     int *iv, double *fv )
 {
-  gchar str[13];
   gint idi, idf;
 
   /* Format and set editor data to treeview (I1, I2 & F1-F7) */
@@ -105,14 +98,12 @@ Set_Geometry_Data(
   {
     for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
     {
-      snprintf( str, 6, "%5d", iv[idi-GEOM_COL_I1] );
-      gtk_list_store_set( store, iter, idi, str, -1 );
+      gtk_list_store_set( store, iter, idi, iv[idi - GEOM_COL_I1], -1 );
     }
 
     for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
     {
-      snprintf( str, 13, "%12.5E", fv[idf-GEOM_COL_F1] );
-      gtk_list_store_set( store, iter, idf, str, -1 );
+      gtk_list_store_set( store, iter, idf, fv[idf - GEOM_COL_F1], -1 );
     }
   }
   else Stop( _("Error writing row data\n"
@@ -132,21 +123,18 @@ Set_Geometry_Data(
   static void
 Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
 {
-  gchar str[6];
-  gint idi, idf;
+  gint idi;
 
   /* Format and set editor data to treeview (I1, I2) */
   if( gtk_list_store_iter_is_valid(store, iter) )
   {
     for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
     {
-      snprintf( str, sizeof(str), "%5d", iv[idi-GEOM_COL_I1] );
-      gtk_list_store_set( store, iter, idi, str, -1 );
+      gtk_list_store_set( store, iter, idi, iv[idi - GEOM_COL_I1], -1 );
     }
 
     /* Clear unused float columns */
-    for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
-      gtk_list_store_set( store, iter, idf, "0.0", -1 );
+    Zero_Store(store, iter, GEOM_NUM_COLS, GEOM_COL_F1, GEOM_COL_F7);
   }
   else Stop( _("Error writing row data\n"
         "Please re-select row"), ERR_OK );
@@ -203,8 +191,7 @@ Insert_Blank_Geometry_Row(
   }
 
   gtk_list_store_set( store, iter, GEOM_COL_NAME, name, -1 );
-  for( n = GEOM_COL_I1; n < GEOM_NUM_COLS; n++ )
-    gtk_list_store_set( store, iter, n, "--", -1 );
+  Zero_Store(store, iter, GEOM_NUM_COLS, GEOM_COL_I1, -1);
   gtk_tree_selection_select_iter( selection, iter );
 
 } /* Insert_Blank_Geometry_Row() */
@@ -220,9 +207,9 @@ Insert_Blank_Geometry_Row(
   static void
 Set_Wire_Conductivity( int tag, double s, GtkListStore *store )
 {
-  int idx, idi, nchld;
+  int idx, nchld;
   GtkTreeIter iter_ld;
-  gchar *str, sv[13];
+  gchar *str;
 
   /* Find num of rows and first iter, abort if tree empty */
   nchld = gtk_tree_model_iter_n_children(
@@ -239,14 +226,11 @@ Set_Wire_Conductivity( int tag, double s, GtkListStore *store )
     if( strcmp(str, "LD") == 0 )
     {
       g_free( str );
+      gint tag_val;
       gtk_tree_model_get( GTK_TREE_MODEL(store),
-          &iter_ld, GEOM_COL_I2, &str, -1 );
-      if( atoi( str ) == tag )
-      {
-        g_free( str );
+          &iter_ld, GEOM_COL_I2, &tag_val, -1 );
+      if( tag_val == tag )
         break;
-      }
-      else g_free( str );
     }
     else g_free( str );
 
@@ -266,17 +250,13 @@ Set_Wire_Conductivity( int tag, double s, GtkListStore *store )
     gtk_list_store_set(
         store, &iter_ld, CMND_COL_NAME, "LD", -1 );
 
-    /* Clear rest of LD row */
-    for( idi = CMND_COL_I1; idi <= CMND_COL_F6; idi++ )
-      gtk_list_store_set( store, &iter_ld, idi, "0", -1 );
+    Zero_Store(store, &iter_ld, CMND_NUM_COLS, CMND_COL_I1, -1);
   }
 
   /* Set LD card parameters */
-  gtk_list_store_set( store, &iter_ld, CMND_COL_I1, "5", -1 );
-  snprintf( sv, 6, "%5d", tag );
-  gtk_list_store_set( store, &iter_ld, CMND_COL_I2, sv, -1 );
-  snprintf( sv, 13, "%12.5E", s );
-  gtk_list_store_set( store, &iter_ld, CMND_COL_F1, sv, -1 );
+  gtk_list_store_set( store, &iter_ld, CMND_COL_I1, 5, -1 );
+  gtk_list_store_set( store, &iter_ld, CMND_COL_I2, tag, -1 );
+  gtk_list_store_set( store, &iter_ld, CMND_COL_F1, s, -1 );
 
   /* Scroll tree view to bottom */
   gtk_adjustment_set_value( geom_adjustment,
@@ -316,11 +296,11 @@ Get_Wire_Conductivity( int tag, double *s, GtkListStore *store )
     if( strcmp(str, "LD") == 0 )
     {
       g_free( str );
+      gint tag_val;
       gtk_tree_model_get( GTK_TREE_MODEL(store),
-          &iter_ld, GEOM_COL_I2, &str, -1 );
-      if( atoi(str) == tag )
+          &iter_ld, GEOM_COL_I2, &tag_val, -1 );
+      if( tag_val == tag )
       {
-        g_free( str );
         break;
       }
       else g_free( str );
@@ -348,16 +328,13 @@ Get_Wire_Conductivity( int tag, double *s, GtkListStore *store )
 
   /* Get the loading type (we want LDTYP 5) */
   gtk_tree_model_get( GTK_TREE_MODEL(store),
-      &iter_ld, GEOM_COL_I1, &str, -1 );
-  type = atoi( str );
+      &iter_ld, GEOM_COL_I1, &type, -1 );
   g_free( str );
   if( type != 5 ) return( FALSE );
 
   /* Get the wire conductivity S/m */
   gtk_tree_model_get( GTK_TREE_MODEL(store),
-      &iter_ld, CMND_COL_F1, &str, -1 );
-  *s = Strtod( str, NULL );
-  g_free( str );
+      &iter_ld, CMND_COL_F1, s, -1 );
 
   return( TRUE );
 } /* Get_Wire_Conductivity() */
@@ -1880,17 +1857,14 @@ Helix_Editor( int action )
 Get_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
 {
   gint idi;
-  gchar *sv;
 
   /* Get data from tree view (I1, I2) */
   if( gtk_list_store_iter_is_valid(store, iter) )
   {
     for( idi = GEOM_COL_I1; idi <= GEOM_COL_I2; idi++ )
     {
-      gtk_tree_model_get(
-          GTK_TREE_MODEL(store), iter, idi, &sv, -1);
-      iv[idi-GEOM_COL_I1] = atoi(sv);
-      g_free(sv);
+      gtk_tree_model_get(GTK_TREE_MODEL(store), iter, idi,
+                         &iv[idi - GEOM_COL_I1], -1);
     }
   }
   else Stop( _("Error reading row data\n"
@@ -2062,13 +2036,13 @@ Scale_Editor( int action )
     "scale_to_spinbutton"
   };
 
-  int idx, idi;
+  int idi;
 
   /* Scale factor */
   static gdouble scale = 1.0;
 
-  /* Card (row) name, strings for conversions */
-  gchar name[3], sf[13], *str;
+  /* Card (row) name */
+  gchar name[3];
 
   static gboolean
     save_data = FALSE, /* Enable saving of editor data */
@@ -2090,17 +2064,14 @@ Scale_Editor( int action )
   /* Save data to nec2 editor if appropriate */
   if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save_data) )
   {
-    /* Clear all GS columns */
-    for( idx = GEOM_COL_I1; idx <= GEOM_COL_F7; idx++ )
-      gtk_list_store_set( geom_store, &iter_gs, idx, "0", -1 );
+    Zero_Store(geom_store, &iter_gs, GEOM_NUM_COLS, GEOM_COL_I1, GEOM_COL_F7);
 
     /* Enter tag from-to data */
     Set_Geometry_Int_Data( geom_store, &iter_gs, iv );
 
     /* Enter scale factor */
-    snprintf( sf, sizeof(sf), "%12.5E", scale );
     gtk_list_store_set(
-        geom_store, &iter_gs, GEOM_COL_F1, sf, -1 );
+        geom_store, &iter_gs, GEOM_COL_F1, scale, -1 );
 
     save_data = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
@@ -2136,9 +2107,7 @@ Scale_Editor( int action )
       if( gtk_list_store_iter_is_valid(geom_store, &iter_gs) )
       {
         gtk_tree_model_get( GTK_TREE_MODEL(geom_store),
-            &iter_gs, GEOM_COL_F1, &str, -1);
-        scale = Strtod( str, NULL );
-        g_free( str );
+            &iter_gs, GEOM_COL_F1, &scale, -1);
       }
       else
         Stop( _("Error reading row data\n"
@@ -2465,9 +2434,9 @@ Gend_Editor( int action )
     "gend_img_radiobutton"
   };
 
-  /* Card (row) name, strings for conversions */
-  gchar name[3], *sv;
-  static gchar si[6];
+  /* Card (row) name */
+  gchar name[3];
+  static gchar si[12];
 
   int idx;
 
@@ -2517,9 +2486,8 @@ Gend_Editor( int action )
       if( gtk_list_store_iter_is_valid(geom_store, &iter_ge) )
       {
         gtk_tree_model_get( GTK_TREE_MODEL(geom_store),
-            &iter_ge, GEOM_COL_I1, &sv, -1 );
-        idx = atoi(sv) + 1;
-        g_free(sv);
+            &iter_ge, GEOM_COL_I1, &idx, -1 );
+        idx++;
         toggle = GTK_TOGGLE_BUTTON(
             Builder_Get_Object(gend_editor_builder, rdbutton[idx]) );
         gtk_toggle_button_set_active( toggle, TRUE );
@@ -2673,4 +2641,3 @@ Get_Selected_Row(
 } /* Get_Selected_Row() */
 
 /*------------------------------------------------------------------------*/
-

@@ -30,17 +30,12 @@
   static void
 Insert_EN_Card( GtkListStore *store, GtkTreeIter *iter )
 {
-  gint idx, idc;
-
   /* Insert default EN card if list is clear */
-  idx = gtk_tree_model_iter_n_children(
-      GTK_TREE_MODEL(store), NULL );
-  if( !idx )
+  if( !gtk_tree_model_iter_n_children(GTK_TREE_MODEL(store), NULL) )
   {
     gtk_list_store_append( store, iter );
     gtk_list_store_set( store, iter, CMND_COL_NAME, "EN", -1 );
-    for( idc = CMND_COL_I1; idc < CMND_NUM_COLS; idc++ )
-      gtk_list_store_set( store, iter, idc, "0", -1 );
+    Zero_Store(store, iter, CMND_NUM_COLS, CMND_COL_I1, -1);
   }
 
 } /* Insert_EN_Card() */
@@ -59,24 +54,19 @@ Get_Command_Data(
     int *iv, double *fv )
 {
   gint idc;
-  gchar *sv;
 
   /* Get data from tree view (I1-I4, F1-F6)*/
   if( gtk_list_store_iter_is_valid(store, iter) )
   {
     for( idc = CMND_COL_I1; idc <= CMND_COL_I4; idc++ )
     {
-      gtk_tree_model_get(
-          GTK_TREE_MODEL(store), iter, idc, &sv, -1);
-      iv[idc-CMND_COL_I1] = atoi(sv);
-      g_free(sv);
+      gtk_tree_model_get(GTK_TREE_MODEL(store), iter, idc,
+                         &iv[idc - CMND_COL_I1], -1);
     }
     for( idc = CMND_COL_F1; idc <= CMND_COL_F6; idc++ )
     {
       gtk_tree_model_get(
-          GTK_TREE_MODEL(store), iter, idc, &sv, -1);
-      fv[idc-CMND_COL_F1] = Strtod( sv, NULL );
-      g_free(sv);
+          GTK_TREE_MODEL(store), iter, idc, &fv[idc-CMND_COL_F1], -1);
     }
   }
   else Stop( _("Get_Command_Data(): Error reading\n"
@@ -97,7 +87,6 @@ Set_Command_Data(
     GtkTreeIter *iter,
     int *iv, double *fv )
 {
-  gchar str[13];
   gint idc;
 
   /* Format and set editor data to treeview (I1-I4 & F1-F6) */
@@ -105,14 +94,12 @@ Set_Command_Data(
   {
     for( idc = CMND_COL_I1; idc <= CMND_COL_I4; idc++ )
     {
-      snprintf( str, 6, "%5d", iv[idc-CMND_COL_I1] );
-      gtk_list_store_set( store, iter, idc, str, -1 );
+      gtk_list_store_set( store, iter, idc, iv[idc - CMND_COL_I1], -1 );
     }
 
     for( idc = CMND_COL_F1; idc <= CMND_COL_F6; idc++ )
     {
-      snprintf( str, 13, "%12.5E", fv[idc-CMND_COL_F1] );
-      gtk_list_store_set( store, iter, idc, str, -1 );
+      gtk_list_store_set( store, iter, idc, fv[idc - CMND_COL_F1], -1 );
     }
   }
   else Stop( _("Set_Command_Data(): Error writing row data\n"
@@ -169,8 +156,7 @@ Insert_Blank_Command_Row(
   }
 
   gtk_list_store_set( store, iter, CMND_COL_NAME, name, -1 );
-  for( n = CMND_COL_I1; n < CMND_NUM_COLS; n++ )
-    gtk_list_store_set( store, iter, n, "--", -1 );
+  Zero_Store(store, iter, CMND_NUM_COLS, CMND_COL_I1, -1);
   gtk_tree_selection_select_iter( selection, iter );
 
 } /* Insert_Blank_Command_Row() */
@@ -2534,18 +2520,12 @@ Kernel_Command( int action )
 
   /* Thin wire kernel status */
   static int ek = 0;
-  gchar sek[6];
-  gchar *sv;
-
   /* Card (row) name */
   gchar name[3];
 
   static gboolean
     save_data = FALSE, /* Enable saving of editor data */
     busy      = FALSE; /* Block callbacks. Must be a better way to do this? */
-
-  int idc;
-
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, kernel_command) ) return;
@@ -2566,13 +2546,11 @@ Kernel_Command( int action )
     if( gtk_list_store_iter_is_valid(cmnd_store, &iter_ek) )
     {
       /* Set extended kernel data */
-      snprintf( sek, sizeof(sek), "%5d", ek );
       gtk_list_store_set(
-          cmnd_store, &iter_ek, CMND_COL_I1, sek, -1 );
+          cmnd_store, &iter_ek, CMND_COL_I1, ek, -1 );
 
       /* Clear row to 0 */
-      for( idc = CMND_COL_I2; idc <= CMND_COL_F6; idc++ )
-        gtk_list_store_set( cmnd_store, &iter_ek, idc, "0", -1 );
+      Zero_Store(cmnd_store, &iter_ek, CMND_NUM_COLS, CMND_COL_I2, CMND_COL_F6);
     }
     save_data = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
@@ -2604,11 +2582,8 @@ Kernel_Command( int action )
       /* Get data from command editor */
       if( gtk_list_store_iter_is_valid(cmnd_store, &iter_ek) )
       {
-        gtk_tree_model_get(
-            GTK_TREE_MODEL(cmnd_store),
-            &iter_ek, CMND_COL_I1, &sv, -1);
-        ek = atoi(sv);
-        g_free(sv);
+        gtk_tree_model_get(GTK_TREE_MODEL(cmnd_store), &iter_ek, CMND_COL_I1,
+                           &ek, -1);
       }
 
       /* Set the kernel check button */
@@ -2660,7 +2635,6 @@ Intrange_Command( int action )
 
   /* For reading/writing to KH row */
   static GtkTreeIter iter_kh;
-  gchar *sv;
 
   /* Interaction Approx range */
   static gdouble kh;
@@ -2672,8 +2646,6 @@ Intrange_Command( int action )
   static gboolean
     save_data = FALSE, /* Enable saving of editor data */
     busy      = FALSE; /* Block callbacks. Must be a better way to do this? */
-
-  int idc;
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, intrange_command) ) return;
@@ -2693,10 +2665,7 @@ Intrange_Command( int action )
     /* Set KH card data */
     if( gtk_list_store_iter_is_valid(cmnd_store, &iter_kh) )
     {
-      /* Clear row to 0 */
-      for( idc = CMND_COL_I1; idc <= CMND_COL_F6; idc++ )
-        gtk_list_store_set(
-            cmnd_store, &iter_kh, idc, "0", -1 );
+      Zero_Store(cmnd_store, &iter_kh, CMND_NUM_COLS, CMND_COL_I1, -1);
 
       /* Set range data */
       gtk_list_store_set(
@@ -2732,9 +2701,7 @@ Intrange_Command( int action )
       {
         gtk_tree_model_get(
             GTK_TREE_MODEL(cmnd_store),
-            &iter_kh, CMND_COL_F1, &sv, -1 );
-        kh = Strtod( sv, NULL );
-        g_free(sv);
+            &iter_kh, CMND_COL_F1, &kh, -1 );
       }
 
       /* Set range data to command editor */
@@ -2777,10 +2744,7 @@ Execute_Command( int action )
 {
   /* For reading/writing to XQ row */
   static GtkTreeIter iter_xq;
-  gchar *sv;
-  gchar sxq[6];
-
-  int idx, idc;
+  int idx;
 
   /* Execute command status */
   static int xq = 0;
@@ -2821,11 +2785,9 @@ Execute_Command( int action )
     /* Set XQ card data */
     if( gtk_list_store_iter_is_valid(cmnd_store, &iter_xq) )
     {
-      snprintf( sxq, sizeof(sxq), "%5d", xq );
       gtk_list_store_set(
-          cmnd_store, &iter_xq, CMND_COL_I1, sxq, -1 );
-      for( idc = CMND_COL_I2; idc <= CMND_COL_F6; idc++ )
-        gtk_list_store_set( cmnd_store, &iter_xq, idc, "0", -1 );
+          cmnd_store, &iter_xq, CMND_COL_I1, xq, -1 );
+      Zero_Store(cmnd_store, &iter_xq, CMND_NUM_COLS, CMND_COL_I2, CMND_COL_F6);
     }
     save_data = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
@@ -2857,11 +2819,8 @@ Execute_Command( int action )
       /* Get data from command editor */
       if( gtk_list_store_iter_is_valid(cmnd_store, &iter_xq) )
       {
-        gtk_tree_model_get(
-            GTK_TREE_MODEL(cmnd_store),
-            &iter_xq, CMND_COL_I1, &sv, -1);
-        xq = atoi(sv);
-        g_free(sv);
+        gtk_tree_model_get(GTK_TREE_MODEL(cmnd_store), &iter_xq, CMND_COL_I1,
+                           &xq, -1);
       }
 
       /* Set radio button in command editor */
@@ -2910,7 +2869,6 @@ Zo_Command( int action )
 
   /* For reading/writing to ZO row */
   static GtkTreeIter iter_zo;
-  gchar *sv;
 
   /* Tx Line Impedance */
   static gint zo;
@@ -2922,8 +2880,6 @@ Zo_Command( int action )
   static gboolean
     save_data = FALSE, /* Enable saving of editor data */
     busy      = FALSE; /* Block callbacks. Must be a better way to do this? */
-
-  int idc;
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, zo_command) ) return;
@@ -2943,10 +2899,7 @@ Zo_Command( int action )
     /* Set KH card data */
     if( gtk_list_store_iter_is_valid(cmnd_store, &iter_zo) )
     {
-      /* Clear row to 0 */
-      for( idc = CMND_COL_I1; idc <= CMND_COL_F6; idc++ )
-        gtk_list_store_set(
-            cmnd_store, &iter_zo, idc, "0", -1 );
+      Zero_Store(cmnd_store, &iter_zo, CMND_NUM_COLS, CMND_COL_I1, CMND_COL_F6);
 
       /* Set range data */
       gtk_list_store_set(
@@ -2980,11 +2933,7 @@ Zo_Command( int action )
       /* Get data from command editor */
       if( gtk_list_store_iter_is_valid(cmnd_store, &iter_zo) )
       {
-        gtk_tree_model_get(
-            GTK_TREE_MODEL(cmnd_store),
-            &iter_zo, CMND_COL_I1, &sv, -1 );
-        zo = (gint)atoi( sv );
-        g_free( sv );
+        gtk_tree_model_get(GTK_TREE_MODEL(cmnd_store), &iter_zo, CMND_COL_I1, &zo, -1);
       }
 
       /* Set range data to command editor */
@@ -3016,4 +2965,3 @@ Zo_Command( int action )
 } /* Intrange_Command() */
 
 /*------------------------------------------------------------------------*/
-

@@ -1471,6 +1471,7 @@ int solve(int n, _Complex double *a, int *ip, _Complex double *b, int ndim);
 int solve_gauss_elim( int n, complex double *a, int *ip, complex double *b, int ndim );
 void solves(_Complex double *a, int *ip, _Complex double *b, int neq, int nrh, int np, int n, int mp, int m);
 /* nec2_model.c */
+void Zero_Store(GtkListStore *store, GtkTreeIter *iter, int ncols, int start_idx, int stop_idx);
 void Nec2_Input_File_Treeview(int action);
 void cell_edited_callback(GtkCellRendererText *cell, gchar *path, gchar *new_text, gpointer user_data);
 void Save_Nec2_Input_File(GtkWidget *treeview_window, char *nec2_file);
