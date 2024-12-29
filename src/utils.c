@@ -83,7 +83,7 @@ int Notice(char *title, char *message,  GtkButtonsType buttons)
 	else
 		g_mutex_unlock(&global_lock);
 
-	if (locked)
+	if (locked || rc_config.batch_mode)
 	{
 		pr_err("\n=== Notice: %s ===\n%s\n\n", title, message);
 
@@ -142,6 +142,21 @@ Stop( char *mesg, int err )
     return( err );
 
   } /* if( CHILD ) */
+
+  /* Handle batch mode gracefully */
+  if (rc_config.batch_mode)
+  {
+    if( err )
+      pr_crit("%s\n", mesg);
+    else 
+      pr_err("%s\n", mesg);
+
+    SetFlag(FREQ_LOOP_STOP);
+    if (!locked)
+      Stop_Frequency_Loop();
+    gtk_main_quit();
+    return( err );
+  }
 
   SetFlag(FREQ_LOOP_STOP);
 
