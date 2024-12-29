@@ -22,6 +22,47 @@
 
 /*------------------------------------------------------------------------*/
 
+/* Zero_Store()
+ *
+ * Zeros out a list store row properly handling data types
+ * start_idx: Starting column index to zero out (after name column)
+ * stop_idx: Optional stopping column index, or -1 for all columns
+ */
+void Zero_Store(GtkListStore *store, GtkTreeIter *iter, int ncols, int start_idx, int stop_idx)
+{
+  int idx;
+
+  if (ncols == CMNT_NUM_COLS)
+  {
+    if (start_idx <= CMNT_COL_NAME && (stop_idx == -1 || CMNT_COL_NAME <= stop_idx))
+      gtk_list_store_set(store, iter, CMNT_COL_NAME, "", -1);
+    if (start_idx <= CMNT_COL_COMMENT && (stop_idx == -1 || CMNT_COL_COMMENT <= stop_idx))
+      gtk_list_store_set(store, iter, CMNT_COL_COMMENT, "", -1);
+  }
+  else if (ncols == GEOM_NUM_COLS)
+  {
+    if (start_idx <= GEOM_COL_NAME && (stop_idx == -1 || GEOM_COL_NAME <= stop_idx))
+      gtk_list_store_set(store, iter, GEOM_COL_NAME, "", -1);
+    for (idx = (start_idx <= GEOM_COL_I1 ? GEOM_COL_I1 : start_idx);
+         idx <= (stop_idx == -1 ? GEOM_COL_I2 : MIN(stop_idx, GEOM_COL_I2)); idx++)
+      gtk_list_store_set(store, iter, idx, 0, -1);
+    for (idx = (start_idx <= GEOM_COL_F1 ? GEOM_COL_F1 : start_idx);
+         idx <= (stop_idx == -1 ? GEOM_COL_F7 : MIN(stop_idx, GEOM_COL_F7)); idx++)
+      gtk_list_store_set(store, iter, idx, 0.0, -1);
+  }
+  else if (ncols == CMND_NUM_COLS)
+  {
+    if (start_idx <= CMND_COL_NAME && (stop_idx == -1 || CMND_COL_NAME <= stop_idx))
+      gtk_list_store_set(store, iter, CMND_COL_NAME, "", -1);
+    for (idx = (start_idx <= CMND_COL_I1 ? CMND_COL_I1 : start_idx);
+         idx <= (stop_idx == -1 ? CMND_COL_I4 : MIN(stop_idx, CMND_COL_I4)); idx++)
+      gtk_list_store_set(store, iter, idx, 0, -1);
+    for (idx = (start_idx <= CMND_COL_F1 ? CMND_COL_F1 : start_idx);
+         idx <= (stop_idx == -1 ? CMND_COL_F6 : MIN(stop_idx, CMND_COL_F6)); idx++)
+      gtk_list_store_set(store, iter, idx, 0.0, -1);
+  }
+}
+
 /* Insert_Columns()
  *
  * Inserts columns in a list store
@@ -88,20 +129,20 @@ Create_List_Stores( void )
   /* Create geometry data list store */
   geom_store = gtk_list_store_new(
       GEOM_NUM_COLS, G_TYPE_STRING,
-      G_TYPE_STRING, G_TYPE_STRING,
-      G_TYPE_STRING, G_TYPE_STRING,
-      G_TYPE_STRING, G_TYPE_STRING,
-      G_TYPE_STRING, G_TYPE_STRING,
-      G_TYPE_STRING );
+      G_TYPE_INT, G_TYPE_INT,
+      G_TYPE_DOUBLE, G_TYPE_DOUBLE,
+      G_TYPE_DOUBLE, G_TYPE_DOUBLE,
+      G_TYPE_DOUBLE, G_TYPE_DOUBLE,
+      G_TYPE_DOUBLE );
 
   /* Create control commands data list store */
   cmnd_store = gtk_list_store_new(
       CMND_NUM_COLS, G_TYPE_STRING,
-      G_TYPE_STRING, G_TYPE_STRING,
-      G_TYPE_STRING, G_TYPE_STRING,
-      G_TYPE_STRING, G_TYPE_STRING,
-      G_TYPE_STRING, G_TYPE_STRING,
-      G_TYPE_STRING, G_TYPE_STRING );
+      G_TYPE_INT, G_TYPE_INT,
+      G_TYPE_INT, G_TYPE_INT,
+      G_TYPE_DOUBLE, G_TYPE_DOUBLE,
+      G_TYPE_DOUBLE, G_TYPE_DOUBLE,
+      G_TYPE_DOUBLE, G_TYPE_DOUBLE );
 
   /* Insert comment columns */
   Insert_Columns(
@@ -132,7 +173,6 @@ Create_List_Stores( void )
 Create_Default_File( void )
 {
   GtkTreeIter iter;
-  int idx, idi;
   char str[64];
   size_t s = sizeof( str );
   GtkTreeSelection *selection =
@@ -169,110 +209,109 @@ Create_Default_File( void )
   gtk_list_store_append( geom_store, &iter );
   gtk_list_store_set( geom_store, &iter,
       GEOM_COL_NAME, "GW",
-      GEOM_COL_I1, "1",
-      GEOM_COL_I2, "15",
-      GEOM_COL_F1, "0.0",
-      GEOM_COL_F2, "0.0",
-      GEOM_COL_F3, "-1.0",
-      GEOM_COL_F4, "0.0",
-      GEOM_COL_F5, "0.0",
-      GEOM_COL_F6, "1.0",
-      GEOM_COL_F7, "0.015",
+      GEOM_COL_I1, 1,
+      GEOM_COL_I2, 15,
+      GEOM_COL_F1, 0.0,
+      GEOM_COL_F2, 0.0,
+      GEOM_COL_F3, -1.0,
+      GEOM_COL_F4, 0.0,
+      GEOM_COL_F5, 0.0,
+      GEOM_COL_F6, 1.0,
+      GEOM_COL_F7, 0.015,
       -1 );
 
   /* Append a geometry end (GE) card */
   gtk_list_store_append( geom_store, &iter );
   gtk_list_store_set( geom_store,
       &iter, GEOM_COL_NAME, "GE", -1 );
-  for( idx = GEOM_COL_I1; idx < GEOM_NUM_COLS; idx++ )
-    gtk_list_store_set( geom_store, &iter, idx, "0", -1 );
+  Zero_Store(geom_store, &iter, GEOM_NUM_COLS, GEOM_COL_I1, -1);
 
   /* Append an excitation (EX) card */
   gtk_list_store_append( cmnd_store, &iter );
   gtk_list_store_set( cmnd_store, &iter,
       CMND_COL_NAME, "EX",
-      CMND_COL_I1, "0",
-      CMND_COL_I2, "1",
-      CMND_COL_I3, "8",
-      CMND_COL_I4, "0",
-      CMND_COL_F1, "1.0",
-      CMND_COL_F2, "0.0",
-      CMND_COL_F3, "0.0",
-      CMND_COL_F4, "0.0",
-      CMND_COL_F5, "0.0",
-      CMND_COL_F6, "0.0",
+      CMND_COL_I1, 0,
+      CMND_COL_I2, 1,
+      CMND_COL_I3, 8,
+      CMND_COL_I4, 0,
+      CMND_COL_F1, 1.0,
+      CMND_COL_F2, 0.0,
+      CMND_COL_F3, 0.0,
+      CMND_COL_F4, 0.0,
+      CMND_COL_F5, 0.0,
+      CMND_COL_F6, 0.0,
       -1 );
 
   /* Append a frequency (FR) card */
   gtk_list_store_append( cmnd_store, &iter );
   gtk_list_store_set( cmnd_store, &iter,
       CMND_COL_NAME, "FR",
-      CMND_COL_I1, "0",
-      CMND_COL_I2, "11",
-      CMND_COL_I3, "0",
-      CMND_COL_I4, "0",
-      CMND_COL_F1, "50.0",
-      CMND_COL_F2, "5.0",
-      CMND_COL_F3, "0.0",
-      CMND_COL_F4, "0.0",
-      CMND_COL_F5, "0.0",
-      CMND_COL_F6, "0.0",
+      CMND_COL_I1, 0,
+      CMND_COL_I2, 11,
+      CMND_COL_I3, 0,
+      CMND_COL_I4, 0,
+      CMND_COL_F1, 50.0,
+      CMND_COL_F2, 5.0,
+      CMND_COL_F3, 0.0,
+      CMND_COL_F4, 0.0,
+      CMND_COL_F5, 0.0,
+      CMND_COL_F6, 0.0,
       -1 );
 
   /* Append a near H field (NH) card */
   gtk_list_store_append( cmnd_store, &iter );
   gtk_list_store_set( cmnd_store, &iter,
       CMND_COL_NAME, "NH",
-      CMND_COL_I1, "0",
-      CMND_COL_I2, "0",
-      CMND_COL_I3, "0",
-      CMND_COL_I4, "0",
-      CMND_COL_F1, "0.0",
-      CMND_COL_F2, "0.0",
-      CMND_COL_F3, "0.0",
-      CMND_COL_F4, "0.0",
-      CMND_COL_F5, "0.0",
-      CMND_COL_F6, "0.0",
+      CMND_COL_I1, 0,
+      CMND_COL_I2, 0,
+      CMND_COL_I3, 0,
+      CMND_COL_I4, 0,
+      CMND_COL_F1, 0.0,
+      CMND_COL_F2, 0.0,
+      CMND_COL_F3, 0.0,
+      CMND_COL_F4, 0.0,
+      CMND_COL_F5, 0.0,
+      CMND_COL_F6, 0.0,
       -1 );
 
   /* Append a near E field (NE) card */
   gtk_list_store_append( cmnd_store, &iter );
   gtk_list_store_set( cmnd_store, &iter,
       CMND_COL_NAME, "NE",
-      CMND_COL_I1, "0",
-      CMND_COL_I2, "10",
-      CMND_COL_I3, "1",
-      CMND_COL_I4, "10",
-      CMND_COL_F1, "-1.35",
-      CMND_COL_F2, "0.0",
-      CMND_COL_F3, "-1.35",
-      CMND_COL_F4, "0.3",
-      CMND_COL_F5, "0.0",
-      CMND_COL_F6, "0.3",
+      CMND_COL_I1, 0,
+      CMND_COL_I2, 10,
+      CMND_COL_I3, 1,
+      CMND_COL_I4, 10,
+      CMND_COL_F1, -1.35,
+      CMND_COL_F2, 0.0,
+      CMND_COL_F3, -1.35,
+      CMND_COL_F4, 0.3,
+      CMND_COL_F5, 0.0,
+      CMND_COL_F6, 0.3,
       -1 );
 
   /* Append a radiation pattern (RP) card */
   gtk_list_store_append( cmnd_store, &iter );
   gtk_list_store_set( cmnd_store, &iter,
       CMND_COL_NAME, "RP",
-      CMND_COL_I1, "0",
-      CMND_COL_I2, "19",
-      CMND_COL_I3, "37",
-      CMND_COL_I4, "1000",
-      CMND_COL_F1, "0.0",
-      CMND_COL_F2, "0.0",
-      CMND_COL_F3, "10.0",
-      CMND_COL_F4, "10.0",
-      CMND_COL_F5, "0.0",
-      CMND_COL_F6, "0.0",
+      CMND_COL_I1, 0,
+      CMND_COL_I2, 19,
+      CMND_COL_I3, 37,
+      CMND_COL_I4, 1000,
+      CMND_COL_F1, 0.0,
+      CMND_COL_F2, 0.0,
+      CMND_COL_F3, 10.0,
+      CMND_COL_F4, 10.0,
+      CMND_COL_F5, 0.0,
+      CMND_COL_F6, 0.0,
       -1 );
 
   /* Append a file end (EN) card */
   gtk_list_store_append( cmnd_store, &iter );
   gtk_list_store_set( cmnd_store,
       &iter, CMND_COL_NAME, "EN", -1 );
-  for( idi = CMND_COL_I1; idi < CMND_NUM_COLS; idi++ )
-    gtk_list_store_set( cmnd_store, &iter, idi, "0", -1 );
+
+  Zero_Store( cmnd_store, &iter, CMND_NUM_COLS, CMND_COL_I1, -1);
 
 } /* Create_Default_File() */
 
@@ -364,9 +403,6 @@ List_Geometry( void )
   /* float data from cards */
   double fv[7];
 
-  /* For snprintf */
-  char si[4][7], sf[7][13];
-
   int idx;
   gboolean ret;
 
@@ -385,14 +421,7 @@ List_Geometry( void )
     /* Ignore in-data (NEC4 style) comments */
     if( strcmp(ain, "CM") == 0 ) continue;
 
-    /* Format card data and print to string */
-    snprintf( si[0], 6, "%5d",  iv[0] );
-    snprintf( si[1], 7, "%5d ", iv[1] );
-    for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
-      snprintf( sf[idx-GEOM_COL_F1], 13,
-          "%12.5E", (double)fv[idx-GEOM_COL_F1] );
-
-    /* Append a comment row and fill in text if opening call */
+    /* Append a geometry row if needed */
     if( !ret )
       gtk_list_store_append( geom_store, &iter );
 
@@ -401,10 +430,10 @@ List_Geometry( void )
         geom_store, &iter, GEOM_COL_NAME, ain, -1 );
     for( idx = GEOM_COL_I1; idx <= GEOM_COL_I2; idx++ )
       gtk_list_store_set(
-          geom_store, &iter, idx, si[idx-GEOM_COL_I1], -1 );
+          geom_store, &iter, idx, iv[idx-GEOM_COL_I1], -1 );
     for( idx = GEOM_COL_F1; idx <= GEOM_COL_F7; idx++ )
       gtk_list_store_set(
-          geom_store, &iter, idx, sf[idx-GEOM_COL_F1], -1 );
+          geom_store, &iter, idx, fv[idx-GEOM_COL_F1], -1 );
 
     /* Get new row if available */
     ret = gtk_tree_model_iter_next(
@@ -434,9 +463,6 @@ List_Commands( void )
   /* float data from cards */
   double fv[7];
 
-  /* For snprintf */
-  char si[4][7], sf[7][13];
-
   int idx;
   gboolean ret;
 
@@ -454,17 +480,7 @@ List_Commands( void )
     /* Ignore in-data (NEC4 style) comments */
     if( strcmp(ain, "CM") == 0 ) continue;
 
-    /* Format card data and print to string */
-    for( idx = CMND_COL_I1; idx < CMND_COL_I4; idx++ )
-      snprintf( si[idx-CMND_COL_I1], 6, "%5d", iv[idx-CMND_COL_I1] );
-
-    /* For alignment of data printed to NEC2 file */
-    snprintf( si[idx-CMND_COL_I1], 7, " %5d", iv[idx-CMND_COL_I1] );
-    for( idx = CMND_COL_F1; idx <= CMND_COL_F6; idx++ )
-      snprintf( sf[idx-CMND_COL_F1], 13,
-          "%12.5E", (double)fv[idx-CMND_COL_F1] );
-
-    /* Append a command row and fill in text if opening call */
+    /* Append a command row if needed */
     if( !ret )
       gtk_list_store_append( cmnd_store, &iter );
 
@@ -473,10 +489,10 @@ List_Commands( void )
         cmnd_store, &iter, CMND_COL_NAME, ain, -1 );
     for( idx = CMND_COL_I1; idx <= CMND_COL_I4; idx++ )
       gtk_list_store_set(
-          cmnd_store, &iter, idx, si[idx-CMND_COL_I1], -1 );
+          cmnd_store, &iter, idx, iv[idx-CMND_COL_I1], -1 );
     for( idx = CMND_COL_F1; idx <= CMND_COL_F6; idx++ )
       gtk_list_store_set(
-          cmnd_store, &iter, idx, sf[idx-CMND_COL_F1], -1 );
+          cmnd_store, &iter, idx, fv[idx-CMND_COL_F1], -1 );
 
     /* Get new row if available */
     ret = gtk_tree_model_iter_next(
@@ -578,12 +594,35 @@ cell_edited_callback(
           &iter, column, _("End Comments"), -1 );
     else
       gtk_list_store_set( GTK_LIST_STORE(model),
-          &iter, column, "0", -1 );
+          &iter, column, 0, -1 );
     g_free(name);
   }
   else
-    gtk_list_store_set( GTK_LIST_STORE(model),
-      &iter, column, new_text, -1 );
+  {
+    GtkListStore *store = GTK_LIST_STORE(model);
+    
+    if (store == cmnt_store)
+    {
+      gtk_list_store_set(store, &iter, column, new_text, -1);
+    }
+    else if ((store == geom_store) || (store == cmnd_store))
+    {
+      if ((store == geom_store && (column == GEOM_COL_I1 || column == GEOM_COL_I2)) ||
+          (store == cmnd_store && (column >= CMND_COL_I1 && column <= CMND_COL_I4)))
+      {
+        gint int_val = (gint)atoi(new_text); 
+        gtk_list_store_set(store, &iter, column, int_val, -1);
+      }
+      else if ((store == geom_store && (column >= GEOM_COL_F1 && column <= GEOM_COL_F7)) ||
+               (store == cmnd_store && (column >= CMND_COL_F1 && column <= CMND_COL_F6)))
+      {
+        gdouble double_val = Strtod(new_text, NULL);
+        gtk_list_store_set(store, &iter, column, double_val, -1);
+      }
+      else
+        gtk_list_store_set(store, &iter, column, new_text, -1);
+    }
+  }
 
   SetFlag( NEC2_EDIT_SAVE );
 
@@ -621,11 +660,33 @@ Save_Treeview_Data( GtkTreeView *tree_view, int ncols, FILE *nec2_fp )
   {
     gchar *str_data;
 
-    for( idx = 0; idx < ncols; idx++ )
+    gtk_tree_model_get( list_store, &iter, 0, &str_data, -1 );
+    fprintf( nec2_fp, "%s ", str_data );
+    g_free( str_data );
+
+    for( idx = 1; idx < ncols; idx++ )
     {
-      gtk_tree_model_get( list_store, &iter, idx, &str_data, -1 );
-      fprintf( nec2_fp, "%s ", str_data );
-      g_free( str_data );
+      if (ncols == CMNT_NUM_COLS)
+      {
+        gtk_tree_model_get( list_store, &iter, idx, &str_data, -1 );
+        fprintf( nec2_fp, "%s", str_data );
+        g_free( str_data );
+      }
+      else if ((ncols == GEOM_NUM_COLS && idx >= GEOM_COL_I1 && idx <= GEOM_COL_I2) ||
+               (ncols == CMND_NUM_COLS && idx >= CMND_COL_I1 && idx <= CMND_COL_I4))
+      {
+        gint int_data;
+        gtk_tree_model_get( list_store, &iter, idx, &int_data, -1 );
+        fprintf( nec2_fp, "%5d", int_data );
+      }
+      else if ((ncols == GEOM_NUM_COLS && idx >= GEOM_COL_F1 && idx <= GEOM_COL_F7) ||
+               (ncols == CMND_NUM_COLS && idx >= CMND_COL_F1 && idx <= CMND_COL_F6))
+      {
+        gdouble double_data;
+        gtk_tree_model_get( list_store, &iter, idx, &double_data, -1 );
+        fprintf( nec2_fp, "%12.5E", double_data );
+      }
+      fprintf( nec2_fp, " " );
     }
 
     /* Overwrite last space with newline */
@@ -648,6 +709,7 @@ Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
 {
   FILE *nec2_fp = NULL;
 
+  setlocale(LC_NUMERIC, "C");
   /* Abort if editor window is not opened */
   if( nec2_edit_window == NULL ) return;
 
@@ -667,6 +729,8 @@ Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
   /* Close file to re-open in read mode */
   Close_File( &nec2_fp );
 
+  setlocale(LC_NUMERIC, orig_numeric_locale);
+
   ClearFlag( NEC2_SAVE );
   ClearFlag( NEC2_EDIT_SAVE );
 
@@ -674,4 +738,3 @@ Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
 } /* Save_Nec2_Input_File() */
 
 /*------------------------------------------------------------------------*/
-

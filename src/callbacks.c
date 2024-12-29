@@ -2381,13 +2381,18 @@ on_nec2_row_add_clicked(
 
   /* Prime columns of new row */
   ncols = gtk_tree_model_get_n_columns( model );
-  if( ncols == 2 ) /* Comments treeview */
-    gtk_list_store_set( GTK_LIST_STORE(model), &iter, 0, "CM", -1 );
-  else
+  if( ncols == CMNT_NUM_COLS ) /* Comments treeview */
   {
-    int idx;
-    for( idx = 0; idx < ncols; idx++ )
-      gtk_list_store_set( GTK_LIST_STORE(model), &iter, idx, "--", -1 );
+    gtk_list_store_set( GTK_LIST_STORE(model), &iter, CMNT_COL_NAME, "CM", -1 );
+    Zero_Store(GTK_LIST_STORE(model), &iter, ncols, CMNT_COL_COMMENT, CMNT_COL_COMMENT);
+  }
+  else if( ncols == GEOM_NUM_COLS )
+  {
+    Zero_Store(GTK_LIST_STORE(model), &iter, ncols, GEOM_COL_NAME, -1);
+  }
+  else if( ncols == CMND_NUM_COLS )
+  {
+    Zero_Store(GTK_LIST_STORE(model), &iter, ncols, CMND_COL_NAME, -1);
   }
 
   SetFlag( NEC2_EDIT_SAVE );
