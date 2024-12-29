@@ -322,6 +322,17 @@ datagn( void )
           return( FALSE );
         }
 
+        /* Verify segment lengths and check for overlapping segments */
+        if( !verify_segments() )
+        {
+          Notice( _("Probable invalid segment geometry.\n"), 
+                _("Invalid segment geometry.\n"
+                "See warnings in the console for detail.\n"
+                "Trying to continue..."), GTK_BUTTONS_OK );
+        }
+        else
+          pr_info("Read_Geometry: verify_segments() passed\n");
+
         if( !conect(itg) ) return( FALSE );
 
         gnd.gpflag = itg;
@@ -1660,4 +1671,3 @@ readgm( char *gm, int *i1, int *i2, double *x1,
 } /* readgm() */
 
 /*-----------------------------------------------------------------------*/
-

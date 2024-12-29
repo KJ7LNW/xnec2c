@@ -45,6 +45,35 @@
 #include "geometry.h"
 #include "shared.h"
 
+/* Calculate Manhattan distance between points */
+static inline double
+calc_manhattan_distance(double x1, double y1, double z1,
+                       double x2, double y2, double z2)
+{
+  return fabs(x2 - x1) + fabs(y2 - y1) + fabs(z2 - z1);
+}
+
+/* Calculate connection threshold for a segment */
+static inline double
+calc_connection_threshold(double x1, double y1, double z1,
+                         double x2, double y2, double z2)
+{
+  /* Calculate segment length using Euclidean distance */
+  double dx = x2 - x1;
+  double dy = y2 - y1;
+  double dz = z2 - z1;
+  return sqrt(dx*dx + dy*dy + dz*dz) * SMIN;
+}
+
+/* Check if two points are close enough to connect */
+static inline gboolean
+points_would_connect(double x1, double y1, double z1,
+                    double x2, double y2, double z2,
+                    double threshold)
+{
+  return calc_manhattan_distance(x1, y1, z1, x2, y2, z2) <= threshold;
+}
+
 /*-------------------------------------------------------------------*/
 
 /* arc generates segment geometry data for an arc of ns segments */
@@ -254,7 +283,10 @@ conect( int ignd )
   double slen, xa, ya, za, xs, ys, zs;
   size_t mreq;
 
-  segj.maxcon = 1;
+  /* Pre-allocate connection buffer based on typical wire geometry:
+   * Most segments have 2 connections (previous/next), with some
+   * having up to 4 at junctions */
+  segj.maxcon = data.n * 4;
 
   if( ignd != 0)
   {
@@ -300,8 +332,7 @@ conect( int ignd )
       xi2= data.x2[i];
       yi2= data.y2[i];
       zi2= data.z2[i];
-      slen= sqrt( (xi2- xi1)*(xi2- xi1) + (yi2- yi1) *
-          (yi2- yi1) + (zi2- zi1)*(zi2- zi1) ) * SMIN;
+      slen = calc_connection_threshold(xi1, yi1, zi1, xi2, yi2, zi2);
 
       /* determine connection data for end 1 of segment. */
       jump = FALSE;
@@ -334,18 +365,16 @@ conect( int ignd )
           if( ic >= data.n)
             ic=0;
 
-          sep= fabs( xi1- data.x1[ic]) +
-            fabs(yi1- data.y1[ic])+ fabs(zi1- data.z1[ic]);
-          if( sep <= slen)
-          {
+          if (points_would_connect(xi1, yi1, zi1,
+                                 data.x1[ic], data.y1[ic], data.z1[ic],
+                                 slen)) {
             data.icon1[i]= -(ic+1);
             break;
           }
 
-          sep= fabs( xi1- data.x2[ic]) +
-            fabs(yi1- data.y2[ic])+ fabs(zi1- data.z2[ic]);
-          if( sep <= slen)
-          {
+          if (points_would_connect(xi1, yi1, zi1,
+                                 data.x2[ic], data.y2[ic], data.z2[ic],
+                                 slen)) {
             data.icon1[i]= (ic+1);
             break;
           }
@@ -390,18 +419,16 @@ conect( int ignd )
         if( ic >= data.n)
           ic=0;
 
-        sep= fabs(xi2- data.x1[ic]) +
-          fabs(yi2- data.y1[ic])+ fabs(zi2- data.z1[ic]);
-        if( sep <= slen)
-        {
+          if (points_would_connect(xi2, yi2, zi2,
+                                 data.x1[ic], data.y1[ic], data.z1[ic],
+                                 slen)) {
           data.icon2[i]= (ic+1);
           break;
         }
 
-        sep= fabs(xi2- data.x2[ic]) +
-          fabs(yi2- data.y2[ic])+ fabs(zi2- data.z2[ic]);
-        if( sep <= slen)
-        {
+          if (points_would_connect(xi2, yi2, zi2,
+                                 data.x2[ic], data.y2[ic], data.z2[ic],
+                                 slen)) {
           data.icon2[i]= -(ic+1);
           break;
         }
@@ -432,23 +459,15 @@ conect( int ignd )
           zi2= data.z2[iseg];
 
           /* for first end of segment */
-          slen=( fabs(xi2- xi1) +
-              fabs(yi2- yi1)+ fabs(zi2- zi1))* SMIN;
-          sep= fabs(xi1- xs)+ fabs(yi1- ys)+ fabs(zi1- zs);
-
-          /* connection - divide patch into 4
-           * patches at present array loc. */
-          if( sep <= slen)
-          {
+          /* connection - divide patch into 4 patches at present array loc. */
+          if (points_would_connect(xi1, yi1, zi1, xs, ys, zs, slen)) {
             data.icon1[iseg]=PCHCON+ i;
             ic=0;
             subph( i, ic );
             break;
           }
 
-          sep= fabs(xi2- xs)+ fabs(yi2- ys)+ fabs(zi2- zs);
-          if( sep <= slen)
-          {
+          if (points_would_connect(xi2, yi2, zi2, xs, ys, zs, slen)) {
             data.icon2[iseg]=PCHCON+ i;
             ic=0;
             subph( i, ic );
@@ -1587,6 +1606,221 @@ reflc( int ix, int iy, int iz, int iti, int nop )
 
 /*-----------------------------------------------------------------------*/
 
+/* Check if any segments would connect to themselves */
+static gboolean
+verify_self_connections(void)
+{
+  gboolean retval = TRUE;
+  for (int i = 0; i < data.n; i++) {
+    double slen = calc_connection_threshold(data.x1[i], data.y1[i], data.z1[i],
+                                          data.x2[i], data.y2[i], data.z2[i]);
+    double sep = calc_manhattan_distance(data.x1[i], data.y1[i], data.z1[i],
+                                       data.x2[i], data.y2[i], data.z2[i]);
+    if (sep <= slen) {
+      pr_warn("tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n",
+        data.itag[i], i+1, sep, slen);
+      retval = FALSE;
+    }
+  }
+  return retval;
+}
+
+/* Check for segments that are too close or overlapping */
+static gboolean
+verify_segment_overlaps(void)
+{
+  gboolean retval = TRUE;
+  for (int i = 0; i < data.n; i++) {
+    double xi = data.x2[i] - data.x1[i];
+    double yi = data.y2[i] - data.y1[i];
+    double zi = data.z2[i] - data.z1[i];
+    double seg_manhattan = fabs(xi) + fabs(yi) + fabs(zi);
+
+    for (int j = 0; j < data.n; j++) {
+      if (i == j) continue;
+      
+      /* Check if segments connect at endpoints */
+      double slen = calc_connection_threshold(data.x1[i], data.y1[i], data.z1[i],
+                                            data.x2[i], data.y2[i], data.z2[i]);
+      if (points_would_connect(data.x1[i], data.y1[i], data.z1[i],
+                             data.x1[j], data.y1[j], data.z1[j], slen) ||
+          points_would_connect(data.x1[i], data.y1[i], data.z1[i],
+                             data.x2[j], data.y2[j], data.z2[j], slen) ||
+          points_would_connect(data.x2[i], data.y2[i], data.z2[i],
+                             data.x1[j], data.y1[j], data.z1[j], slen) ||
+          points_would_connect(data.x2[i], data.y2[i], data.z2[i],
+                             data.x2[j], data.y2[j], data.z2[j], slen)) {
+        continue;
+      }
+
+      /* Check if segments are too close along their length */
+      double dx = data.x1[j] - data.x1[i];
+      double dy = data.y1[j] - data.y1[i];
+      double dz = data.z1[j] - data.z1[i];
+      double mid_dist = sqrt(dx*dx + dy*dy + dz*dz);
+      if (mid_dist <= SMIN * mid_dist * 2) {
+        pr_warn("tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n",
+            data.itag[i], i+1, mid_dist, data.itag[j], j+1, SMIN * mid_dist * 2);
+        retval = FALSE;
+        break;
+      }
+    }
+  }
+  return retval;
+}
+
+/* Check for segments with very different lengths that could cause connection issues */
+static gboolean
+verify_relative_lengths(void)
+{
+  gboolean retval = TRUE;
+  for (int i = 0; i < data.n; i++) {
+    double xi = data.x2[i] - data.x1[i];
+    double yi = data.y2[i] - data.y1[i];
+    double zi = data.z2[i] - data.z1[i];
+    double seg_len = sqrt(xi*xi + yi*yi + zi*zi);
+    
+    for (int j = 0; j < data.n; j++) {
+      if (i == j) continue;
+      double xj = data.x2[j] - data.x1[j];
+      double yj = data.y2[j] - data.y1[j];
+      double zj = data.z2[j] - data.z1[j];
+      double other_len = sqrt(xj*xj + yj*yj + zj*zj);
+      if (seg_len < other_len * 0.01) {
+        /* Calculate connection thresholds for both segments */
+        double slen_i = calc_connection_threshold(data.x1[i], data.y1[i], data.z1[i],
+                                                data.x2[i], data.y2[i], data.z2[i]);
+        double slen_j = calc_connection_threshold(data.x1[j], data.y1[j], data.z1[j],
+                                                data.x2[j], data.y2[j], data.z2[j]);
+        
+        /* Check if any endpoint of segment i is within either threshold of any endpoint of segment j */
+        if ((calc_manhattan_distance(data.x1[i], data.y1[i], data.z1[i],
+                                   data.x1[j], data.y1[j], data.z1[j]) <= slen_i) ||
+            (calc_manhattan_distance(data.x1[i], data.y1[i], data.z1[i],
+                                   data.x2[j], data.y2[j], data.z2[j]) <= slen_i) ||
+            (calc_manhattan_distance(data.x2[i], data.y2[i], data.z2[i],
+                                   data.x1[j], data.y1[j], data.z1[j]) <= slen_i) ||
+            (calc_manhattan_distance(data.x2[i], data.y2[i], data.z2[i],
+                                   data.x2[j], data.y2[j], data.z2[j]) <= slen_i) ||
+            (calc_manhattan_distance(data.x1[i], data.y1[i], data.z1[i],
+                                   data.x1[j], data.y1[j], data.z1[j]) <= slen_j) ||
+            (calc_manhattan_distance(data.x1[i], data.y1[i], data.z1[i],
+                                   data.x2[j], data.y2[j], data.z2[j]) <= slen_j) ||
+            (calc_manhattan_distance(data.x2[i], data.y2[i], data.z2[i],
+                                   data.x1[j], data.y1[j], data.z1[j]) <= slen_j) ||
+            (calc_manhattan_distance(data.x2[i], data.y2[i], data.z2[i],
+                                   data.x2[j], data.y2[j], data.z2[j]) <= slen_j)) {
+          
+          pr_warn("tag=%d/seg=%d: length=%.3e too short (and close enough) compared to tag=%d/seg=%d length=%.3e; connection detection may fail\n",
+            data.itag[i], i+1, seg_len, data.itag[j], j+1, other_len);
+          retval = FALSE;
+          break;
+        }
+      }
+    }
+  }
+  return retval;
+}
+
+/* Check segment lengths relative to wavelength */
+static gboolean
+verify_wavelength_limits(double wavelength)
+{
+  gboolean retval = TRUE;
+  for (int i = 0; i < data.n; i++) {
+    double xi = data.x2[i] - data.x1[i];
+    double yi = data.y2[i] - data.y1[i];
+    double zi = data.z2[i] - data.z1[i];
+    double seg_len = sqrt(xi*xi + yi*yi + zi*zi);
+    double seg_lambda = seg_len / wavelength;
+
+    if (seg_lambda < 0.001) {
+      pr_err("tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n",
+        data.itag[i], i+1, seg_lambda);
+      retval = FALSE;
+    }
+    else if (seg_lambda > 0.1) {
+      pr_warn("tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n",
+        data.itag[i], i+1, seg_lambda);
+      retval = FALSE;
+    }
+    else if (seg_lambda > 0.05) {
+      pr_info("tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n",
+        data.itag[i], i+1, seg_lambda);
+    }
+  }
+  return retval;
+}
+
+/* Check segment length/radius ratios */
+static gboolean
+verify_kernel_limits(void)
+{
+  gboolean retval = TRUE;
+  for (int i = 0; i < data.n; i++) {
+    double xi = data.x2[i] - data.x1[i];
+    double yi = data.y2[i] - data.y1[i];
+    double zi = data.z2[i] - data.z1[i];
+    double seg_len = sqrt(xi*xi + yi*yi + zi*zi);
+    double delta_a = seg_len / data.bi[i];
+
+    if (!calc_data.iexk)
+    {
+      if (delta_a < 2.0) {
+        pr_err("tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n",
+          data.itag[i], i+1, delta_a);
+        retval = FALSE;
+      }
+      else if (delta_a < 8.0) {
+        pr_warn("tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n",
+          data.itag[i], i+1, delta_a);
+      }
+    }
+    else
+    {
+      if (delta_a < 0.5) {
+        pr_err("tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n",
+          data.itag[i], i+1, delta_a);
+        retval = FALSE;
+      }
+      else if (delta_a < 2.0) {
+        pr_warn("tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n",
+          data.itag[i], i+1, delta_a);
+      }
+    }
+  }
+  return retval;
+}
+
+/* Main verification function that calls individual test functions */
+  gboolean verify_segments(void)
+{
+  gboolean retval = TRUE;
+  retval &= verify_self_connections();
+  retval &= verify_segment_overlaps();
+  retval &= verify_relative_lengths();
+
+  /* Check kernel limits - independent of frequency */
+  retval &= verify_kernel_limits();
+
+  if (calc_data.FR_cards == 0) {
+    pr_debug("verify_segments() skipping frequency-dependent checks - no frequency data\n");
+    return retval;
+  }
+
+  /* Get shortest wavelength from highest frequency */
+  double wavelength = CVEL;
+  for (int i = 0; i < calc_data.FR_cards; i++) {
+    double max_freq = calc_data.freq_loop_data[i].max_freq;
+    if (max_freq > 0.0)
+      wavelength = fmin(wavelength, CVEL/(max_freq * 1e6));
+  }
+
+  retval &= verify_wavelength_limits(wavelength);
+
+  return retval;
+}
+
 /* subroutine wire generates segment geometry */
 /* data for a straight wire of ns segments. */
   void
@@ -1677,4 +1911,3 @@ wire( double xw1, double yw1, double zw1,
 }
 
 /*-----------------------------------------------------------------------*/
-
