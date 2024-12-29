@@ -573,17 +573,35 @@ void Save_Currents_CSV(char *filename)
 
 	setlocale(LC_NUMERIC, "C");
 
-	fprintf(fp, "mhz,seg,tag,current_real,current_imag,charge_real,charge_imag,x1,y1,z1,x2,y2,z2\n");
+	fprintf(fp, "mhz,seg,tag,"
+		"current_real,current_imag,current_mag,"  // Current in Amperes
+		"charge_real,charge_imag,charge_mag,"     // Charge in Coulombs
+		"x1,y1,z1,x2,y2,z2\n");
 
 	int idx;
+	double wavelength = data.wlam;
+	double charge_scale = 1.0E-6 / calc_data.freq_mhz;
 
 	for (idx = 0; idx < data.n; idx++)
 	{
-		fprintf(fp, "%.6f,%d,%d,%.17g,%.17g,%.17g,%.17g,%.17g,%.17g,%.17g,%.17g,%.17g,%.17g\n",
+		fprintf(fp, "%.6f,%d,%d,"
+			"%.17g,%.17g,%.17g,"  // Current (A)
+			"%.17g,%.17g,%.17g,"  // Charge (C)
+			"%.17g,%.17g,%.17g,%.17g,%.17g,%.17g\n",
 			calc_data.freq_mhz,
 			idx+1, data.itag[idx],
-			creal(crnt.cur[idx]), cimag(crnt.cur[idx]),
-			crnt.bir[idx], crnt.bii[idx],
+
+			// Currents
+			creal(crnt.cur[idx]) * wavelength,
+			cimag(crnt.cur[idx]) * wavelength,
+			cabs(crnt.cur[idx]) * wavelength,
+
+			// Charges
+			crnt.bir[idx] * charge_scale,
+			crnt.bii[idx] * charge_scale,
+			cabs(cmplx(crnt.bir[idx], crnt.bii[idx])) * charge_scale,
+
+			// Segment endpoints
 			data.x1[idx], data.y1[idx], data.z1[idx],
 			data.x2[idx], data.y2[idx], data.z2[idx]);
 	}
