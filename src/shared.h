@@ -29,6 +29,9 @@
 /* Runtime config file */
 extern rc_config_t rc_config;
 
+/* Flag to control verify_segments check */
+extern gboolean skip_verify_segments;
+
 extern char *orig_numeric_locale;
 
 /* Editor windows */

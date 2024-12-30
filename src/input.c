@@ -323,15 +323,18 @@ datagn( void )
         }
 
         /* Verify segment lengths and check for overlapping segments */
-        if( !verify_segments() )
+        if( !rc_config.skip_verify_segments )
         {
-          Notice( _("Probable invalid segment geometry.\n"), 
-                _("Invalid segment geometry.\n"
-                "See warnings in the console for detail.\n"
-                "Trying to continue..."), GTK_BUTTONS_OK );
+          if( !verify_segments() )
+          {
+            Notice( _("Probable invalid segment geometry.\n"), 
+                  _("Invalid segment geometry.\n"
+                  "See warnings in the console for detail.\n"
+                  "Trying to continue..."), GTK_BUTTONS_OK );
+          }
+          else
+            pr_info("Read_Geometry: verify_segments() passed\n");
         }
-        else
-          pr_info("Read_Geometry: verify_segments() passed\n");
 
         if( !conect(itg) ) return( FALSE );
 

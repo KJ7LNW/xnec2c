@@ -347,6 +347,9 @@ typedef struct
   /* if true, exit after the first frequency loop iteration */
   int batch_mode;
 
+  /* true to skip verify_segments check */
+  int skip_verify_segments;
+
   /* verbose and debug levels, see console.h */
   int verbose, debug;
 

@@ -40,6 +40,7 @@ enum XNEC2C_OPTS {
 	OPT_WRITE_S2P_VIEWER_GAIN,
 	OPT_WRITE_RDPAT,
 	OPT_WRITE_CURRENTS,
+	OPT_SKIP_VERIFY,
 
 	OPT_MAX_OPTS
 };
@@ -63,6 +64,7 @@ static struct option long_options[] = {
 		{  "write-s2p-viewer-gain",  required_argument,   NULL,  OPT_WRITE_S2P_VIEWER_GAIN  },
 		{  "write-rdpat",            required_argument,   NULL,  OPT_WRITE_RDPAT            },
 		{  "write-currents",         required_argument,   NULL,  OPT_WRITE_CURRENTS         },
+		{  "skip-verify",            no_argument,         NULL,  OPT_SKIP_VERIFY            },
 
 		{  NULL,                     0,                   NULL,  0                          }
 	};
@@ -241,6 +243,11 @@ main (int argc, char *argv[])
 
       case OPT_WRITE_CURRENTS:
         rc_config.filename_currents = optarg;
+        break;
+
+      case OPT_SKIP_VERIFY:
+        pr_notice("verify segments check disabled\n");
+        rc_config.skip_verify_segments = 1;
         break;
 
       default:
