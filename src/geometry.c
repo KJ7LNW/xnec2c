@@ -1617,8 +1617,21 @@ verify_self_connections(void)
     double sep = calc_manhattan_distance(data.x1[i], data.y1[i], data.z1[i],
                                        data.x2[i], data.y2[i], data.z2[i]);
     if (sep <= slen) {
-      pr_warn("tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n",
-        data.itag[i], i+1, sep, slen);
+      static int last_tag = -1;
+      static int msg_count = 0;
+      if (data.itag[i] != last_tag) {
+        last_tag = data.itag[i];
+        msg_count = 0;
+      }
+      if (msg_count < 3) {
+        pr_warn("tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n",
+          data.itag[i], i+1, sep, slen);
+        msg_count++;
+      }
+      else if (msg_count == 3) {
+        pr_warn("tag=%d: suppressing additional self-connection warnings\n", data.itag[i]);
+        msg_count++;
+      }
       retval = FALSE;
     }
   }
@@ -1659,8 +1672,21 @@ verify_segment_overlaps(void)
       double dz = data.z1[j] - data.z1[i];
       double mid_dist = sqrt(dx*dx + dy*dy + dz*dz);
       if (mid_dist <= SMIN * mid_dist * 2) {
-        pr_warn("tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n",
-            data.itag[i], i+1, mid_dist, data.itag[j], j+1, SMIN * mid_dist * 2);
+        static int last_tag = -1;
+        static int msg_count = 0;
+        if (data.itag[i] != last_tag) {
+          last_tag = data.itag[i];
+          msg_count = 0;
+        }
+          if (msg_count < 3) {
+            pr_warn("tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n",
+              data.itag[i], i+1, mid_dist, data.itag[j], j+1, SMIN * mid_dist * 2);
+            msg_count++;
+          }
+          else if (msg_count == 3) {
+            pr_warn("tag=%d: suppressing additional overlap warnings\n", data.itag[i]);
+            msg_count++;
+          }
         retval = FALSE;
         break;
       }
@@ -1711,8 +1737,21 @@ verify_relative_lengths(void)
             (calc_manhattan_distance(data.x2[i], data.y2[i], data.z2[i],
                                    data.x2[j], data.y2[j], data.z2[j]) <= slen_j)) {
           
-          pr_warn("tag=%d/seg=%d: length=%.3e too short (and close enough) compared to tag=%d/seg=%d length=%.3e; connection detection may fail\n",
-            data.itag[i], i+1, seg_len, data.itag[j], j+1, other_len);
+          static int last_tag = -1;
+          static int msg_count = 0;
+          if (data.itag[i] != last_tag) {
+            last_tag = data.itag[i];
+            msg_count = 0;
+          }
+          if (msg_count < 3) {
+            pr_warn("tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n",
+              data.itag[i], i+1, seg_len, data.itag[j], j+1, other_len);
+            msg_count++;
+          }
+          else if (msg_count == 3) {
+            pr_warn("tag=%d: suppressing additional connection detection may fail or short warnings\n", data.itag[i]);
+            msg_count++;
+          }
           retval = FALSE;
           break;
         }
@@ -1735,18 +1774,57 @@ verify_wavelength_limits(double wavelength)
     double seg_lambda = seg_len / wavelength;
 
     if (seg_lambda < 0.001) {
-      pr_err("tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n",
-        data.itag[i], i+1, seg_lambda);
+      static int last_tag_short = -1;
+      static int msg_count_short = 0;
+      if (data.itag[i] != last_tag_short) {
+        last_tag_short = data.itag[i];
+        msg_count_short = 0;
+      }
+      if (msg_count_short < 3) {
+        pr_err("tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n",
+          data.itag[i], i+1, seg_lambda);
+        msg_count_short++;
+      }
+      else if (msg_count_short == 3) {
+        pr_err("tag=%d: suppressing additional short wavelength ratio errors\n", data.itag[i]);
+        msg_count_short++;
+      }
       retval = FALSE;
     }
     else if (seg_lambda > 0.1) {
-      pr_warn("tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n",
-        data.itag[i], i+1, seg_lambda);
+      static int last_tag_long = -1;
+      static int msg_count_long = 0;
+      if (data.itag[i] != last_tag_long) {
+        last_tag_long = data.itag[i];
+        msg_count_long = 0;
+      }
+      if (msg_count_long < 3) {
+        pr_warn("tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n",
+          data.itag[i], i+1, seg_lambda);
+        msg_count_long++;
+      }
+      else if (msg_count_long == 3) {
+        pr_warn("tag=%d: suppressing additional long wavelength ratio warnings\n", data.itag[i]);
+        msg_count_long++;
+      }
       retval = FALSE;
     }
     else if (seg_lambda > 0.05) {
-      pr_info("tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n",
-        data.itag[i], i+1, seg_lambda);
+      static int last_tag_info = -1;
+      static int msg_count_info = 0;
+      if (data.itag[i] != last_tag_info) {
+        last_tag_info = data.itag[i];
+        msg_count_info = 0;
+      }
+      if (msg_count_info < 3) {
+        pr_info("tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n",
+          data.itag[i], i+1, seg_lambda);
+        msg_count_info++;
+      }
+      else if (msg_count_info == 3) {
+        pr_info("tag=%d: suppressing additional accuracy improvement suggestions\n", data.itag[i]);
+        msg_count_info++;
+      }
     }
   }
   return retval;
@@ -1767,25 +1845,77 @@ verify_kernel_limits(void)
     if (!calc_data.iexk)
     {
       if (delta_a < 2.0) {
-        pr_err("tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n",
-          data.itag[i], i+1, delta_a);
+        static int last_tag_std_err = -1;
+        static int msg_count_std_err = 0;
+        if (data.itag[i] != last_tag_std_err) {
+          last_tag_std_err = data.itag[i];
+          msg_count_std_err = 0;
+        }
+          if (msg_count_std_err < 3) {
+            pr_err("tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n",
+              data.itag[i], i+1, delta_a);
+            msg_count_std_err++;
+          }
+          else if (msg_count_std_err == 3) {
+            pr_err("tag=%d: suppressing additional standard kernel ratio errors\n", data.itag[i]);
+            msg_count_std_err++;
+          }
         retval = FALSE;
       }
       else if (delta_a < 8.0) {
-        pr_warn("tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n",
-          data.itag[i], i+1, delta_a);
+        static int last_tag_std_warn = -1;
+        static int msg_count_std_warn = 0;
+        if (data.itag[i] != last_tag_std_warn) {
+          last_tag_std_warn = data.itag[i];
+          msg_count_std_warn = 0;
+        }
+          if (msg_count_std_warn < 3) {
+            pr_warn("tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n",
+              data.itag[i], i+1, delta_a);
+            msg_count_std_warn++;
+          }
+          else if (msg_count_std_warn == 3) {
+            pr_warn("tag=%d: suppressing additional standard kernel ratio warnings\n", data.itag[i]);
+            msg_count_std_warn++;
+          }
       }
     }
     else
     {
       if (delta_a < 0.5) {
-        pr_err("tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n",
-          data.itag[i], i+1, delta_a);
+        static int last_tag_ext_err = -1;
+        static int msg_count_ext_err = 0;
+        if (data.itag[i] != last_tag_ext_err) {
+          last_tag_ext_err = data.itag[i];
+          msg_count_ext_err = 0;
+        }
+          if (msg_count_ext_err < 3) {
+            pr_err("tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n",
+              data.itag[i], i+1, delta_a);
+            msg_count_ext_err++;
+          }
+          else if (msg_count_ext_err == 3) {
+            pr_err("tag=%d: suppressing additional extended kernel ratio errors\n", data.itag[i]);
+            msg_count_ext_err++;
+          }
         retval = FALSE;
       }
       else if (delta_a < 2.0) {
-        pr_warn("tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n",
-          data.itag[i], i+1, delta_a);
+        static int last_tag_ext_warn = -1;
+        static int msg_count_ext_warn = 0;
+        if (data.itag[i] != last_tag_ext_warn) {
+          last_tag_ext_warn = data.itag[i];
+          msg_count_ext_warn = 0;
+        }
+          if (msg_count_ext_warn < 3) {
+            pr_warn("tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n",
+              data.itag[i], i+1, delta_a);
+            msg_count_ext_warn++;
+          }
+          else if (msg_count_ext_warn == 3) {
+            pr_warn("tag=%d: suppressing additional extended kernel ratio warnings\n", data.itag[i]);
+            msg_count_ext_warn++;
+          }
       }
     }
   }
