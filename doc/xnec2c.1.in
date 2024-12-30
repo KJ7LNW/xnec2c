@@ -12,7 +12,9 @@ a translation to C of the FORTRAN application NEC2
 .SH DESCRIPTION
 .PD 0
 .IP
-\-i|\-\-input <input\-file\-name>
+\-i|\-\-input         <input\-file\-name>
+\-c|\-\-config        <config\-file\-path>     \- file must exist
+\-C|\-\-new\-config    <new\-config\-file\-path> \- creates the file when missing
 .IP
 \-j|\-\-jobs  <number of processors in SMP machine> (-j0 disables forking)
 .IP

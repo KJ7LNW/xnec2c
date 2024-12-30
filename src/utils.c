@@ -41,7 +41,9 @@ void _print_backtrace(char **strings);
 usage(void)
 {
   fprintf(stdout, "Usage: xnec2c [options] [<input-file-name>]\n"
-		"  -i|--input <input-file-name>\n"
+		"  -i|--input         <input-file-name>\n"
+		"  -c|--config        <config-file-path>     - file must exist\n"
+		"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
 		"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
 		"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
 		"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"

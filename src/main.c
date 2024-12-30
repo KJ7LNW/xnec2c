@@ -47,6 +47,8 @@ enum XNEC2C_OPTS {
 
 static struct option long_options[] = {
 		{  "input",                  required_argument,   NULL,  'i'                        },
+		{  "config",                 required_argument,   NULL,  'c'                        },
+		{  "new-config",             required_argument,   NULL,  'C'                        },
 		{  "jobs",                   required_argument,   NULL,  'j'                        },
 		{  "help",                   no_argument,         NULL,  'h'                        },
 		{  "verbose",                no_argument,         NULL,  'v'                        },
@@ -151,6 +153,11 @@ main (int argc, char *argv[])
   calc_data.num_jobs  = 1;
   rc_config.input_file[0] = '\0';
 
+  /* Initialize default config file path */
+  char home[PATH_MAX];
+  get_conf_dir(home, sizeof(home));
+  snprintf(rc_config.config_file, sizeof(rc_config.config_file), "%s/%s", home, DEFAULT_CONFIG_FILE);
+
   // default to show warnings or more important errors.
   rc_config.verbose = 4; 
 
@@ -159,6 +166,24 @@ main (int argc, char *argv[])
   {
     switch( option )
     {
+      case 'c': /* specify existing config file path */
+        if (access(optarg, R_OK) < 0) {
+          pr_crit("config file does not exist or is not readable: %s\n", optarg);
+          exit(-1);
+        }
+        /* fall through */
+      case 'C': /* specify new config file path */
+        {
+          size_t siz = sizeof( rc_config.config_file );
+          if( strlen(optarg) >= siz )
+          {
+            pr_crit("config file path too long ( > %d char )\n", (int)siz - 1);
+            exit(-1);
+          }
+          Strlcpy( rc_config.config_file, optarg, siz );
+        }
+        break;
+
       case 'i': /* specify input file name */
         {
           size_t siz = sizeof( rc_config.input_file );
@@ -758,4 +783,3 @@ isChild(void)
 }
 
 /*------------------------------------------------------------------------*/
-

@@ -124,7 +124,7 @@ typedef struct Segment
 #define LINE_LEN    135
 
 /* Max length of strings used for creating file names */
-#define FILENAME_LEN    256
+#define FILENAME_LEN    PATH_MAX
 
 /* Size of char arrays (strings) for error messages etc */
 #define MESG_SIZE   128
@@ -257,6 +257,9 @@ typedef struct
 
   /* Current NEC2 input file */
   char input_file[FILENAME_LEN];
+
+  /* Custom config file path */
+  char config_file[FILENAME_LEN];
 
   /* If set true, then use GTK loops for the frequency loop iteration
    * instead of spawning a pthread */

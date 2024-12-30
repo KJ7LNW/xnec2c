@@ -431,22 +431,17 @@ int Get_Window_Geometry(
   gboolean
 Create_Default_Config( void )
 {
-  char
-    home[PATH_MAX],
-    line[LINE_LEN],
-    cfg_file[FILENAME_LEN];   /* Path to config file */
-
+  char line[LINE_LEN];
+  char home[PATH_MAX];
   FILE *fp = NULL;
 
-  /* Setup file path to xnec2c config file */
-  snprintf( cfg_file, sizeof(cfg_file), "%s/%s", get_conf_dir(home, sizeof(home)), CONFIG_FILE );
-  fp = fopen( cfg_file, "r" );
+  fp = fopen(rc_config.config_file, "r");
   if( fp != NULL )
   {
     /* Read Application Version */
     if( Load_Line(line, fp) == EOF )
     {
-      pr_err("%s: EOF reading application version.\n", cfg_file);
+      pr_err("%s: EOF reading application version.\n", rc_config.config_file);
       strcpy(line, "(unknown)");
     }
 
@@ -455,7 +450,7 @@ Create_Default_Config( void )
       pr_notice("existing config file version differs: %s != %s\n", line, PACKAGE_STRING);
 
     Close_File( &fp );
-  } /* if( (fp = fopen(cfg_file, "r")) != NULL ) */
+  }
 
   /* For main window */
   Strlcpy( rc_config.working_dir, get_conf_dir(home, sizeof(home)), sizeof(rc_config.working_dir) );
@@ -694,7 +689,7 @@ Read_Config( void )
   // In commit 4e62893b the mkdir call used 755 instead of 0755 so
   // permissions were broken.  This fixes that:
   if (stat(fpath, &st) != 0)
-	  perror(fpath);
+	  pr_err("stat failed for %s: %s\n", fpath, strerror(errno));
   st.st_mode &= 01777;
   umask(umsk = umask(0));
   if (st.st_mode == 755 || st.st_mode == (755 & (~umsk)))
@@ -705,11 +700,8 @@ Read_Config( void )
 	  chmod(fpath, newmode);
   }
 
-  /* Setup file path to xnec2c rc file */
-  snprintf( fpath, sizeof(fpath), "%s/%s", get_conf_dir(home, sizeof(home)), CONFIG_FILE );
-
   /* Create the file if missing */
-  if( access(fpath, R_OK) < 0 && errno == ENOENT)
+  if (access(rc_config.config_file, R_OK) < 0 && errno == ENOENT)
   {
 	  rc_config.first_run = 1;
 	  Save_Config();
@@ -718,7 +710,7 @@ Read_Config( void )
 	  rc_config.first_run = 0;
 
   /* Open xnec2c config file */
-  if( !Open_File(&fp, fpath, "r") ) return( FALSE );
+  if (!Open_File(&fp, rc_config.config_file, "r")) return(FALSE);
 
   // Iterate over each line and parse the variables into
   // their references defined by rc_config_vars[].
@@ -734,13 +726,13 @@ Read_Config( void )
 	  if (!v)
 	  {
 		  if (line[0] != '#')
-			  pr_err("%s:%d: Line not parsed: %s\n", fpath, lnum, line);
+			  pr_err("%s:%d: Line not parsed: %s\n", rc_config.config_file, lnum, line);
 		  continue;
 	  }
 	  
 	  if ( fgets(line, LINE_LEN, fp) == NULL)
 	  {
-		  pr_err("%s:%d: Early end of file for %s: %s \n", fpath, lnum, v->desc, line);
+		  pr_err("%s:%d: Early end of file for %s: %s \n", rc_config.config_file, lnum, v->desc, line);
 		  break;
 	  }
 
@@ -765,7 +757,7 @@ Read_Config( void )
 		  !parse_var(v, line, NULL) &&
 		  !parse_var(v, line, "en_DK")
 		  )
-		  pr_err("%s:%d: parse error (%s): %s \n", fpath, lnum, v->desc, line);
+		  pr_err("%s:%d: parse error (%s): %s \n", rc_config.config_file, lnum, v->desc, line);
 	  else
 	  {
 		  if (v->builder_check_menu_item_id != NULL && v->builder_window != NULL)
@@ -992,20 +984,10 @@ Save_Config( void )
 {
   FILE *fp = NULL;  /* File pointer to write config file */
 
-  char
-    home[PATH_MAX],
-    err_str[300],             /* Error messages string */
-    cfg_file[FILENAME_LEN];   /* Path to config file */
-
-  /* Setup file path to xnec2c working directory */
-  snprintf( cfg_file, sizeof(cfg_file), "%s/%s", get_conf_dir(home, sizeof(home)), CONFIG_FILE );
-
   /* Open config file for writing */
-  if( !Open_File( &fp, cfg_file, "w" ) )
+  if (!Open_File(&fp, rc_config.config_file, "w"))
   {
-    snprintf( err_str, sizeof(err_str), "%s", cfg_file );
-    perror( err_str );
-    pr_err("cannot open xnec2c's config file: %s\n", cfg_file);
+    pr_err("cannot open xnec2c's config file %s: %s\n", rc_config.config_file, strerror(errno));
     return( FALSE );
   }
 
@@ -1023,4 +1005,3 @@ Save_Config( void )
 } /* Save_Config() */
 
 /*------------------------------------------------------------------------*/
-
