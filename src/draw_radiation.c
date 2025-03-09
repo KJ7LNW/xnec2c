@@ -23,6 +23,9 @@
 /* For coloring rad pattern */
 static double *red = NULL, *grn = NULL, *blu = NULL;
 
+/* Function prototypes */
+void Draw_Color_Legend_Overlay( cairo_t *cr );
+
 int need_rdpat_redraw = 1;
 
 /* Buffered points in 3d (xyz) space
@@ -330,6 +333,9 @@ Draw_Radiation_Pattern( cairo_t *cr )
     } /* for( nph = 1; nph < fpat.nph; nph++ ) */
   } /* for( nth = 0; nth < fpat.nth; nth++ ) */
 
+  /* Draw color legend overlay */
+  Draw_Color_Legend_Overlay( cr );
+
   /* Show gain in direction of viewer */
   Show_Viewer_Gain(
       rdpattern_window_builder,
@@ -563,6 +569,9 @@ Draw_Near_Field( cairo_t *cr )
   {
     return;
   }
+
+  /* Draw color legend overlay */
+  Draw_Color_Legend_Overlay( cr );
 
   /* Show max field strength on color code bar */
   if( isFlagSet(DRAW_EFIELD) )
@@ -1176,6 +1185,103 @@ Alloc_Nearfield_Buffers( int n1, int n2, int n3 )
 } /* Alloc_Nearfield_Buffers() */
 
 /*-----------------------------------------------------------------------*/
+
+/* Draw_Color_Legend_Overlay()
+ *
+ * Draws a color gradient legend in the bottom right corner
+ * showing gain values and corresponding colors
+ */
+void
+Draw_Color_Legend_Overlay( cairo_t *cr )
+{
+  int i, y;
+  double val, red, grn, blu;
+  char txt[16];
+  int fstep = calc_data.freq_step;
+  int pol = calc_data.pol_type;
+
+  /* Validate parameters */
+  if (!cr || !rad_pattern) return;
+
+  /* Validate frequency step */
+  if (fstep < 0 || fstep >= calc_data.steps_total) {
+    if (rad_pattern != NULL && rad_pattern[0].gtot != NULL)
+      fstep = calc_data.steps_total-2;
+    else
+      return;
+  }
+
+  /* Validate polarization type */
+  if (pol < 0 || pol >= NUM_POL) return;
+
+  /* Validate rad_pattern members */
+  if (!rad_pattern[fstep].max_gain || !rad_pattern[fstep].min_gain) return;
+
+  /* Legend dimensions and position */
+  const int width = 20;
+  const int height = 200;
+  const int margin = 10;
+  const int text_width = 80; /* Increased for "dB" suffix */
+  const int num_graduations = 5; /* Number of intermediate graduations */
+  
+  /* Position in bottom right corner */
+  int x = rdpattern_proj_params.width - width - text_width - margin;
+  y = rdpattern_proj_params.height - height - margin;
+
+  /* Draw color gradient bar */
+  if (x >= 0 && y >= 0 &&
+      x + width <= rdpattern_proj_params.width &&
+      y + height <= rdpattern_proj_params.height)
+  {
+    for( i = 0; i < height; i++ )
+    {
+      val = (double)(height - i - 1) / (double)(height - 1);
+      Value_to_Color( &red, &grn, &blu, val, 1.0 );
+      cairo_set_source_rgb( cr, red, grn, blu );
+      cairo_rectangle( cr, x, y + i, width, 1 );
+      cairo_fill( cr );
+    }
+
+    /* Draw border around gradient */
+    cairo_set_source_rgb( cr, WHITE );
+    cairo_rectangle( cr, x, y, width, height );
+    cairo_stroke( cr );
+
+    /* Draw graduation marks */
+    for( i = 0; i < num_graduations; i++ )
+    {
+      int grad_y = y + (i * height) / (num_graduations - 1);
+      cairo_move_to( cr, x + width, grad_y );
+      cairo_line_to( cr, x + width + 3, grad_y );
+      cairo_stroke( cr );
+    }
+  }
+
+  /* Show max gain value */
+  double max_gain = rad_pattern[fstep].max_gain[pol];
+  if (max_gain < -999.99) max_gain = -999.99;
+  snprintf( txt, sizeof(txt)-1, "%.2f dB", max_gain );
+  cairo_move_to( cr, x + width + 5, y + 12 );
+  cairo_show_text( cr, txt );
+
+  /* Show intermediate gain values */
+  double gain_range = max_gain - rad_pattern[fstep].min_gain[pol];
+  for( i = 1; i < num_graduations - 1; i++ )
+  {
+    double grad_gain = max_gain - (i * gain_range) / (num_graduations - 1);
+    if (grad_gain < -999.99) grad_gain = -999.99;
+    snprintf( txt, sizeof(txt)-1, "%.2f dB", grad_gain );
+    cairo_move_to( cr, x + width + 5, y + (i * height) / (num_graduations - 1) + 4 );
+    cairo_show_text( cr, txt );
+  }
+
+  /* Show min gain value */
+  double min_gain = rad_pattern[fstep].min_gain[pol];
+  if (min_gain < -999.99) min_gain = -999.99;
+  snprintf( txt, sizeof(txt)-1, "%.2f dB", min_gain );
+  cairo_move_to( cr, x + width + 5, y + height );
+  cairo_show_text( cr, txt );
+}
 
 /* Free_Draw_Buffers()
  *
