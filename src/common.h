@@ -386,6 +386,9 @@ enum GAIN_SCALE
   NUM_SCALES
 };
 
+/* Minimum gain value used for color mapping */
+#define COLOR_MIN_GAIN -60.0
+
 /* Polarization type */
 enum POL_TYPE
 {

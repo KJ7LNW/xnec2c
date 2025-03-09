@@ -143,9 +143,14 @@ Draw_Radiation_Pattern( cairo_t *cr )
     rdpattern_proj_params.r_max =
       Scale_Gain( rad_pattern[fstep].gtot[idx], fstep, idx);
 
-    /* Distance of rdpattern point nearest to xyz origin */
+    /* Get actual minimum gain for calculations and display */
     idx = rad_pattern[fstep].min_gain_idx[pol];
-    r_min = Scale_Gain( rad_pattern[fstep].gtot[idx], fstep, idx);
+    double actual_gain = rad_pattern[fstep].gtot[idx];
+    double actual_min = Scale_Gain(actual_gain, fstep, idx);
+
+    /* For color mapping, use COLOR_MIN_GAIN as the floor */
+    double color_gain = (actual_gain < COLOR_MIN_GAIN) ? COLOR_MIN_GAIN : actual_gain;
+    r_min = Scale_Gain(color_gain, fstep, idx);
 
     /* Range of scaled rdpattern gain values */
     r_range = rdpattern_proj_params.r_max - r_min;
@@ -204,8 +209,8 @@ Draw_Radiation_Pattern( cairo_t *cr )
       {
         Value_to_Color(
             &red[col_idx], &grn[col_idx], &blu[col_idx],
-            (point_3d[pts_idx].r+point_3d[pts_idx+1].r)/2.0-r_min,
-            r_range );
+            ((point_3d[pts_idx].r+point_3d[pts_idx+1].r)/2.0-r_min)/r_range,
+            1.0);
         col_idx++;
         pts_idx++;
 
@@ -241,8 +246,10 @@ Draw_Radiation_Pattern( cairo_t *cr )
             rdpattern_window_builder, "rdpattern_colorcode_maxlabel")),
         txt );
 
-    /* Show min gain on color code bar */
-    snprintf( txt, sizeof(txt)-1, "%.2f", rad_pattern[fstep].min_gain[pol] );
+    /* Show min gain on color code bar, clamped to COLOR_MIN_GAIN */
+    double color_min_gain = rad_pattern[fstep].min_gain[pol];
+    if (color_min_gain < COLOR_MIN_GAIN) color_min_gain = COLOR_MIN_GAIN;
+    snprintf( txt, sizeof(txt)-1, "%.2f", color_min_gain );
     gtk_label_set_text(GTK_LABEL(Builder_Get_Object(
             rdpattern_window_builder, "rdpattern_colorcode_minlabel")),
         txt );
@@ -1195,7 +1202,7 @@ void
 Draw_Color_Legend_Overlay( cairo_t *cr )
 {
   int i, y;
-  double val, red, grn, blu;
+  double red, grn, blu;
   char txt[16];
   int fstep = calc_data.freq_step;
   int pol = calc_data.pol_type;
@@ -1228,18 +1235,32 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
   int x = rdpattern_proj_params.width - width - text_width - margin;
   y = rdpattern_proj_params.height - height - margin;
 
+  /* Get actual min/max gains */
+  double max_gain = rad_pattern[fstep].max_gain[pol];
+  double actual_min = rad_pattern[fstep].min_gain[pol];
+
+  /* Use COLOR_MIN_GAIN as floor for color mapping */
+  double color_min = (actual_min < COLOR_MIN_GAIN) ? COLOR_MIN_GAIN : actual_min;
+  double color_range = max_gain - color_min;
+
   /* Draw color gradient bar */
   if (x >= 0 && y >= 0 &&
       x + width <= rdpattern_proj_params.width &&
       y + height <= rdpattern_proj_params.height)
   {
+    /* Draw color gradient with proper scaling (min at bottom, max at top) */
     for( i = 0; i < height; i++ )
     {
-      val = (double)(height - i - 1) / (double)(height - 1);
-      Value_to_Color( &red, &grn, &blu, val, 1.0 );
-      cairo_set_source_rgb( cr, red, grn, blu );
-      cairo_rectangle( cr, x, y + i, width, 1 );
-      cairo_fill( cr );
+      /* Map position in gradient to gain value (i=0 is top, i=height-1 is bottom) */
+      double pos = 1.0 - ((double)i / (double)(height - 1));  // Invert position
+      double gain_at_pos = color_min + (pos * color_range);
+      
+      /* Calculate normalized value for color mapping */
+      double normalized_val = pos;  // Already normalized 0-1
+      Value_to_Color(&red, &grn, &blu, normalized_val, 1.0);
+      cairo_set_source_rgb(cr, red, grn, blu);
+      cairo_rectangle(cr, x, y + i, width, 1);
+      cairo_fill(cr);
     }
 
     /* Draw border around gradient */
@@ -1247,40 +1268,30 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
     cairo_rectangle( cr, x, y, width, height );
     cairo_stroke( cr );
 
-    /* Draw graduation marks */
+    /* Draw graduation marks with matching colors and values (min at bottom, max at top) */
     for( i = 0; i < num_graduations; i++ )
     {
+      /* Calculate actual gain value at this graduation (reverse order) */
+      double grad_pos = (double)(num_graduations - 1 - i) / (double)(num_graduations - 1);
+      double grad_gain = color_min + (grad_pos * color_range);
+      
+      /* Draw graduation mark with matching color */
+      Value_to_Color(&red, &grn, &blu, grad_pos, 1.0);
+      cairo_set_source_rgb(cr, red, grn, blu);
+      
       int grad_y = y + (i * height) / (num_graduations - 1);
-      cairo_move_to( cr, x + width, grad_y );
-      cairo_line_to( cr, x + width + 3, grad_y );
-      cairo_stroke( cr );
+      cairo_move_to(cr, x + width, grad_y);
+      cairo_line_to(cr, x + width + 3, grad_y);
+      cairo_stroke(cr);
+
+      /* Show gain value in text */
+      if (grad_gain < -999.99) grad_gain = -999.99;
+      snprintf(txt, sizeof(txt)-1, "%.2f dB", grad_gain);
+      cairo_set_source_rgb(cr, WHITE);
+      cairo_move_to(cr, x + width + 5, grad_y + 4);
+      cairo_show_text(cr, txt);
     }
   }
-
-  /* Show max gain value */
-  double max_gain = rad_pattern[fstep].max_gain[pol];
-  if (max_gain < -999.99) max_gain = -999.99;
-  snprintf( txt, sizeof(txt)-1, "%.2f dB", max_gain );
-  cairo_move_to( cr, x + width + 5, y + 12 );
-  cairo_show_text( cr, txt );
-
-  /* Show intermediate gain values */
-  double gain_range = max_gain - rad_pattern[fstep].min_gain[pol];
-  for( i = 1; i < num_graduations - 1; i++ )
-  {
-    double grad_gain = max_gain - (i * gain_range) / (num_graduations - 1);
-    if (grad_gain < -999.99) grad_gain = -999.99;
-    snprintf( txt, sizeof(txt)-1, "%.2f dB", grad_gain );
-    cairo_move_to( cr, x + width + 5, y + (i * height) / (num_graduations - 1) + 4 );
-    cairo_show_text( cr, txt );
-  }
-
-  /* Show min gain value */
-  double min_gain = rad_pattern[fstep].min_gain[pol];
-  if (min_gain < -999.99) min_gain = -999.99;
-  snprintf( txt, sizeof(txt)-1, "%.2f dB", min_gain );
-  cairo_move_to( cr, x + width + 5, y + height );
-  cairo_show_text( cr, txt );
 }
 
 /* Free_Draw_Buffers()
