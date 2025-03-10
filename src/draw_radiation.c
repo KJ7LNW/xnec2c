@@ -1277,11 +1277,35 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
   double scaled_min = Scale_Gain(color_min, fstep, rad_pattern[fstep].min_gain_idx[pol]);
   double scaled_range = scaled_max - scaled_min;
 
+  /* Calculate relative gain points */
+  const double rel_gains[] = {-3.0, -6.0, -10.0, -12.0};
+  double scaled_vals[4];
+  double positions[4];
+  for (i = 0; i < 4; i++) {
+    double gain_val = max_gain + rel_gains[i];
+    scaled_vals[i] = Scale_Gain(gain_val, fstep, rad_pattern[fstep].max_gain_idx[pol]);
+    positions[i] = (scaled_vals[i] - scaled_min) / scaled_range;
+  }
+
   /* Draw color gradient bar */
   if (x >= 0 && y >= 0 &&
       x + width <= rdpattern_proj_params.width &&
       y + height <= rdpattern_proj_params.height)
   {
+    /* Draw headings */
+    cairo_set_source_rgb(cr, WHITE);
+    cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+    
+    /* Right-justify "Rel." */
+    cairo_text_extents_t rel_extents;
+    cairo_text_extents(cr, "Rel.", &rel_extents);
+    cairo_move_to(cr, x - 5 - rel_extents.width, y - 7);  /* Moved up 2px */
+    cairo_show_text(cr, "Rel.");
+    
+    /* Left-justify "Abs." */
+    cairo_move_to(cr, x + width + 5, y - 7);  /* Moved up 2px */
+    cairo_show_text(cr, "Abs.");
+
     /* Draw color gradient with proper scaling (min at bottom, max at top) */
     for (i = 0; i < height; i++)
     {
@@ -1328,7 +1352,38 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
       if (db_val < -999.99) db_val = -999.99;
       snprintf(txt, sizeof(txt)-1, "%.2f dB", db_val);
       cairo_set_source_rgb(cr, WHITE);
+      /* Left-justify absolute gain values with normal weight */
+      cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
       cairo_move_to(cr, x + width + 5, grad_y + 4);
+      cairo_show_text(cr, txt);
+    }
+
+    /* Draw relative gain marks on left side */
+    for (i = 0; i < 4; i++) {
+      int mark_y = y + (int)((1.0 - positions[i]) * (height - 1));
+      
+      /* Draw mark */
+      Value_to_Color(&red, &grn, &blu, positions[i], 1.0);
+      cairo_set_source_rgb(cr, red, grn, blu);
+      cairo_move_to(cr, x - 3, mark_y);
+      cairo_line_to(cr, x, mark_y);
+      cairo_stroke(cr);
+
+      /* Show value */
+      cairo_set_source_rgb(cr, WHITE);
+      if (i == 0) {  /* -3dB point */
+        /* Ensure -3dB is bold */
+        cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+        snprintf(txt, sizeof(txt)-1, "-3 dB");
+      } else {
+        /* Other relative gain values in normal weight */
+        cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
+        snprintf(txt, sizeof(txt)-1, "%d dB", (int)rel_gains[i]);
+      }
+      /* Right-justify relative gain values */
+      cairo_text_extents_t extents;
+      cairo_text_extents(cr, txt, &extents);
+      cairo_move_to(cr, x - 5 - extents.width, mark_y + 4);
       cairo_show_text(cr, txt);
     }
   }
