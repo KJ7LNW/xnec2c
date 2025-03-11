@@ -1281,11 +1281,55 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
   double scaled_min = Scale_Gain(color_min, fstep, rad_pattern[fstep].min_gain_idx[pol]);
   double scaled_range = scaled_max - scaled_min;
 
-  /* Calculate relative gain points */
-  const double rel_gains[] = {-3.0, -6.0, -10.0, -12.0};
-  double scaled_vals[4];
-  double positions[4];
-  for (i = 0; i < 4; i++) {
+  /* Calculate relative gain points starting at -3dB and stepping by -6dB */
+  int num_rel_marks = 0;
+  double rel_gains[10]; // Large enough for all possible marks
+  double scaled_vals[10];
+  double positions[10];
+  
+  // Get text height for spacing calculation
+  cairo_text_extents_t text_extents;
+  cairo_text_extents(cr, "-88 dB", &text_extents);
+  double text_height = text_extents.height;
+  double min_mark_spacing = text_height * 1.5; // Minimum pixels between marks
+  
+  // Start with -3dB
+  rel_gains[num_rel_marks++] = -3.0;
+  
+  // Add -6dB steps and -10dB multiples
+  double current_gain = -6.0;
+  double last_y_pos = 0;
+  
+  while (current_gain > -40.0) { // Reasonable lower limit
+    double gain_val = max_gain + current_gain;
+    double scaled_val = Scale_Gain(gain_val, fstep, rad_pattern[fstep].max_gain_idx[pol]);
+    double pos = (scaled_val - scaled_min) / scaled_range;
+    double y_pos = (1.0 - pos) * (height - 1);
+    
+    // Only add mark if it has enough spacing from previous mark
+    if (num_rel_marks == 1 || (y_pos - last_y_pos) >= min_mark_spacing) {
+      rel_gains[num_rel_marks++] = current_gain;
+      last_y_pos = y_pos;
+      
+      // Check if next -10dB multiple would have enough spacing
+      double next_ten = floor(current_gain/10.0) * 10.0 - 10.0;
+      if (next_ten > current_gain - 6.0) {
+        gain_val = max_gain + next_ten;
+        scaled_val = Scale_Gain(gain_val, fstep, rad_pattern[fstep].max_gain_idx[pol]);
+        pos = (scaled_val - scaled_min) / scaled_range;
+        y_pos = (1.0 - pos) * (height - 1);
+        
+        if ((y_pos - last_y_pos) >= min_mark_spacing) {
+          rel_gains[num_rel_marks++] = next_ten;
+          last_y_pos = y_pos;
+        }
+      }
+    }
+    current_gain -= 6.0;
+  }
+
+  // Calculate scaled values and positions
+  for (i = 0; i < num_rel_marks; i++) {
     double gain_val = max_gain + rel_gains[i];
     scaled_vals[i] = Scale_Gain(gain_val, fstep, rad_pattern[fstep].max_gain_idx[pol]);
     positions[i] = (scaled_vals[i] - scaled_min) / scaled_range;
@@ -1373,7 +1417,7 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
     }
 
     /* Draw relative gain marks on left side */
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < num_rel_marks; i++) {
       int mark_y = y + (int)((1.0 - positions[i]) * (height - 1));
       
       /* Draw mark */
