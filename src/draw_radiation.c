@@ -22,6 +22,7 @@
 
 /* Constants for display layout */
 #define TEXT_GRADIENT_SPACING 8  /* Spacing between text and gradient bar in pixels */
+#define LINE_WIDTH 2            /* Width of lines in pixels */
 
 /* For coloring rad pattern */
 static double *red = NULL, *grn = NULL, *blu = NULL;
@@ -1327,7 +1328,8 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
 
     /* Draw border around gradient */
     cairo_set_source_rgb(cr, WHITE);
-    cairo_rectangle(cr, x, y, width, height);
+    cairo_set_line_width(cr, LINE_WIDTH);
+    cairo_rectangle(cr, x, y-(LINE_WIDTH/2), width, height+2*(LINE_WIDTH/2));
     cairo_stroke(cr);
 
     /* Draw graduation marks with matching colors and values (min at bottom, max at top) */
@@ -1347,7 +1349,7 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
       cairo_set_source_rgb(cr, red, grn, blu);
       
       int grad_y = y + (i * height) / (num_graduations - 1);
-      cairo_move_to(cr, x + width, grad_y);
+      cairo_move_to(cr, x + width - (LINE_WIDTH/2), grad_y);
       cairo_line_to(cr, x + width + TEXT_GRADIENT_SPACING, grad_y);
       cairo_stroke(cr);
 
