@@ -1253,12 +1253,14 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
   /* Validate parameters */
   if (!cr || !rad_pattern) return;
 
-  /* Validate frequency step */
-  if (fstep < 0 || fstep >= calc_data.steps_total) {
-    if (rad_pattern != NULL && rad_pattern[0].gtot != NULL)
-      fstep = calc_data.steps_total-2;
-    else
-      return;
+
+  /* Validate frequency step. Note fstep == calc_data.steps_total is valid
+   * because an extra index is used the custom frequency when clicking on 
+   * the graph at an arbitrary point.
+   */
+  if (fstep < 0 || fstep > calc_data.steps_total) {
+    pr_err("fstep=%d is out of bounds. calc_data.steps_total=%d", fstep, calc_data.steps_total);
+    return;
   }
 
   /* Validate polarization type */
