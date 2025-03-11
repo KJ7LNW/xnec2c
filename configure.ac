@@ -6,6 +6,26 @@ AC_INIT([xnec2c], [4.4.16], [xnec2c-bugs@z.ewheeler.org])
 AC_CONFIG_SRCDIR([src/common.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4 m4-include])
+
+# Initialize VSCode include paths collection
+VSC_INCLUDES=
+
+# Override PKG_CHECK_MODULES to capture include paths
+m4_define([PKG_CHECK_MODULES_VSC], m4_defn([PKG_CHECK_MODULES]))
+m4_define([PKG_CHECK_MODULES], [
+  PKG_CHECK_MODULES_VSC([$1], [$2])
+  VSC_INCLUDES="$VSC_INCLUDES $(pkg-config --cflags-only-I $2 | sed 's/-I//g')"
+])
+
+# Override AC_CHECK_HEADERS to capture system include paths
+m4_define([AC_CHECK_HEADERS_VSC], m4_defn([AC_CHECK_HEADERS]))
+m4_define([AC_CHECK_HEADERS], [
+  AC_CHECK_HEADERS_VSC([$1], [$2], [$3], [$4])
+  for header in $1; do
+    dir=$(dirname $(gcc -print-file-name=$header))
+    test "$dir" != "." && VSC_INCLUDES="$VSC_INCLUDES $dir"
+  done
+])
 AC_CONFIG_AUX_DIR([auto-aux])
 AM_INIT_AUTOMAKE([
   1.13.2
@@ -141,7 +161,7 @@ AS_VAR_IF([xnc2c_gcr_links], [no], [dnl
 # Checks for libraries.
 m4_pattern_forbid([PKG_CHECK_MODULES])dnl
 PKG_CHECK_MODULES([GMODULE], [gmodule-2.0])
-PKG_CHECK_MODULES([GTK],     [gtk+-3.0 >= 3.18.0])
+PKG_CHECK_MODULES([GTK],     [gtk+-3.0])
 
 # GCC has atan2 as a built-in so the autoconf test casts it incorrectly and triggers a warning.
 # This causes -Werror to fail and then xnec2c does not link with -lm.  Disable built-ins
@@ -272,9 +292,14 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_CHECK_FUNCS([floor pow select setlocale sqrt strstr])
 
+# Create JSON array of unique include paths for VSCode
+VSC_INCLUDES_JSON=$(echo "$VSC_INCLUDES" | tr ' ' '\n' | sort -u | grep '^/' | sed 's/^/                "/;s/$/",/' | tr '\n' ' ')
+AC_SUBST([VSC_INCLUDES_JSON])
+
 AC_CONFIG_FILES([
   Makefile
   src/Makefile
   po/Makefile.in
+  .vscode/c_cpp_properties.json
 ])
 AC_OUTPUT

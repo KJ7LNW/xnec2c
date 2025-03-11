@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-CLEANFILES =
+CLEANFILES = .vscode/c_cpp_properties.json
 EXTRA_DIST =
 SUFFIXES =
 man1_MANS =
