@@ -20,6 +20,9 @@
 #include "draw_radiation.h"
 #include "shared.h"
 
+/* Constants for display layout */
+#define TEXT_GRADIENT_SPACING 8  /* Spacing between text and gradient bar in pixels */
+
 /* For coloring rad pattern */
 static double *red = NULL, *grn = NULL, *blu = NULL;
 
@@ -1345,16 +1348,25 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
       
       int grad_y = y + (i * height) / (num_graduations - 1);
       cairo_move_to(cr, x + width, grad_y);
-      cairo_line_to(cr, x + width + 3, grad_y);
+      cairo_line_to(cr, x + width + TEXT_GRADIENT_SPACING, grad_y);
       cairo_stroke(cr);
 
       /* Show gain value in text */
       if (db_val < -999.99) db_val = -999.99;
-      snprintf(txt, sizeof(txt)-1, "%.2f dB", db_val);
+      /* First measure width of numeric part */
+      char num_txt[16];
+      snprintf(num_txt, sizeof(num_txt)-1, "%.2f", db_val);
+      cairo_text_extents_t num_extents;
+      cairo_text_extents(cr, num_txt, &num_extents);
+      
+      /* Then format full text with dBi */
+      snprintf(txt, sizeof(txt)-1, "%.2f dBi", db_val);
       cairo_set_source_rgb(cr, WHITE);
-      /* Left-justify absolute gain values with normal weight */
+      /* Right-justify absolute gain values with normal weight */
       cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
-      cairo_move_to(cr, x + width + 5, grad_y + 4);
+      
+      /* Position text so numeric part aligns with gradient */
+      cairo_move_to(cr, x + width + TEXT_GRADIENT_SPACING, grad_y + 4);
       cairo_show_text(cr, txt);
     }
 
@@ -1365,7 +1377,7 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
       /* Draw mark */
       Value_to_Color(&red, &grn, &blu, positions[i], 1.0);
       cairo_set_source_rgb(cr, red, grn, blu);
-      cairo_move_to(cr, x - 3, mark_y);
+      cairo_move_to(cr, x - TEXT_GRADIENT_SPACING, mark_y);
       cairo_line_to(cr, x, mark_y);
       cairo_stroke(cr);
 
@@ -1383,7 +1395,7 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
       /* Right-justify relative gain values */
       cairo_text_extents_t extents;
       cairo_text_extents(cr, txt, &extents);
-      cairo_move_to(cr, x - 5 - extents.width, mark_y + 4);
+      cairo_move_to(cr, x - TEXT_GRADIENT_SPACING - extents.width, mark_y + 4);
       cairo_show_text(cr, txt);
     }
   }
