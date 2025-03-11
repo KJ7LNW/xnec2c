@@ -1302,7 +1302,7 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
   double current_gain = -6.0;
   double last_y_pos = 0;
   
-  while (current_gain > -40.0) { // Reasonable lower limit
+  while (current_gain > COLOR_MIN_GAIN) { // Reasonable lower limit
     double gain_val = max_gain + current_gain;
     double scaled_val = Scale_Gain(gain_val, fstep, rad_pattern[fstep].max_gain_idx[pol]);
     double pos = (scaled_val - scaled_min) / scaled_range;
@@ -1312,20 +1312,6 @@ Draw_Color_Legend_Overlay( cairo_t *cr )
     if (num_rel_marks == 1 || (y_pos - last_y_pos) >= min_mark_spacing) {
       rel_gains[num_rel_marks++] = current_gain;
       last_y_pos = y_pos;
-      
-      // Check if next -10dB multiple would have enough spacing
-      double next_ten = floor(current_gain/10.0) * 10.0 - 10.0;
-      if (next_ten > current_gain - 6.0) {
-        gain_val = max_gain + next_ten;
-        scaled_val = Scale_Gain(gain_val, fstep, rad_pattern[fstep].max_gain_idx[pol]);
-        pos = (scaled_val - scaled_min) / scaled_range;
-        y_pos = (1.0 - pos) * (height - 1);
-        
-        if ((y_pos - last_y_pos) >= min_mark_spacing) {
-          rel_gains[num_rel_marks++] = next_ten;
-          last_y_pos = y_pos;
-        }
-      }
     }
     current_gain -= 6.0;
   }
