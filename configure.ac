@@ -17,14 +17,20 @@ m4_define([PKG_CHECK_MODULES], [
   VSC_INCLUDES="$VSC_INCLUDES $(pkg-config --cflags-only-I $2 | sed 's/-I//g')"
 ])
 
-# Override AC_CHECK_HEADERS to capture system include paths
-m4_define([AC_CHECK_HEADERS_VSC], m4_defn([AC_CHECK_HEADERS]))
+# Override AC_CHECK_HEADERS to capture system include paths for VSCode IntelliSense.
+# 1. Save original macro as ORIG_AC_CHECK_HEADERS
+m4_define([ORIG_AC_CHECK_HEADERS], m4_defn([AC_CHECK_HEADERS]))
+
+# 2. For each header in the whitespace-separated list:
+#    - Get its full path via gcc -print-file-name
+#    - Extract the directory and add to VSC_INCLUDES if found
+# Uses m4_foreach_w for proper token handling to prevent shell syntax errors
 m4_define([AC_CHECK_HEADERS], [
-  AC_CHECK_HEADERS_VSC([$1], [$2], [$3], [$4])
-  for header in $1; do
-    dir=$(dirname $(gcc -print-file-name=$header))
+  ORIG_AC_CHECK_HEADERS([$1], [$2], [$3], [$4])
+  m4_foreach_w([header], [$1], [
+    dir=$(dirname $(gcc -print-file-name='header'))
     test "$dir" != "." && VSC_INCLUDES="$VSC_INCLUDES $dir"
-  done
+  ])
 ])
 AC_CONFIG_AUX_DIR([auto-aux])
 AM_INIT_AUTOMAKE([
