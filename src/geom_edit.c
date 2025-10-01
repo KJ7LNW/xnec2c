@@ -303,7 +303,6 @@ Get_Wire_Conductivity( int tag, double *s, GtkListStore *store )
       {
         break;
       }
-      else g_free( str );
     }
     else g_free( str );
 
