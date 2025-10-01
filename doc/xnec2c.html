@@ -10,6 +10,51 @@
 <meta name="ROBOTS" content="INDEX, FOLLOW">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="canonical" href="https://www.xnec2c.org/" />
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // URL mapping configuration
+  const urlMap = {
+    'version-tag': 'https://github.com/KJ7LNW/xnec2c/tree/{value}',
+    'commit-hash': 'https://github.com/KJ7LNW/xnec2c/commit/{value}',
+    'issue-ref': 'https://github.com/KJ7LNW/xnec2c/issues/{value}',
+    'callsign': 'https://www.qrz.com/db/{value}',
+    'github-user': 'https://github.com/{value}'
+  };
+
+  // Universal auto-linking function
+  function createAutoLinks(className) {
+    const template = urlMap[className];
+    if (!template) return;
+
+    document.querySelectorAll('.' + className).forEach(function(el) {
+      let value = el.textContent.trim();
+
+      // Special handling for different types
+      if (className === 'github-user') {
+        value = value.replace('@', '');
+      } else if (className === 'issue-ref') {
+        value = value.replace('#', '');
+      } else if (className === 'version-tag') {
+        // Ensure version tags have 'v' prefix for the URL
+        if (!value.startsWith('v')) {
+          value = 'v' + value;
+        }
+      }
+
+      const link = document.createElement('a');
+      link.href = template.replace('{value}', value);
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = el.textContent;
+      link.className = className + '-link';
+      el.replaceWith(link);
+    });
+  }
+
+  // Apply to all configured classes
+  Object.keys(urlMap).forEach(createAutoLinks);
+});
+</script>
 <style>
 /* Radiation Pattern Inspired Color Scheme */
 :root {
@@ -470,6 +515,42 @@ button:hover {
   padding-left: 0.5rem;
 }
 
+/* Auto-link styling */
+.version-tag-link {
+  /* Version tags link to GitHub releases */
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.commit-hash-link {
+  /* Commit hashes link to GitHub commits */
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  background-color: var(--color-base-200);
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  color: var(--color-accent-dark);
+  font-size: 0.9em;
+}
+
+.issue-ref-link {
+  /* Issue references link to GitHub issues */
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.callsign-link {
+  /* Callsigns are auto-linked to QRZ.com */
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  color: var(--color-primary);
+}
+
+.github-user-link {
+  /* GitHub usernames link to profiles */
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  color: var(--color-primary);
+}
+
 /* Translation notice */
 #translate {
   background-color: var(--color-base-200);
@@ -682,7 +763,7 @@ function googleTranslateElementInit() {
 Xnec2c is a high-performance multi-threaded electromagnetic simulation
 package to model antenna near- and far-field radiation patterns
 for Linux and UNIX operating systems.  The original FORTRAN version of
-NEC2 was ported to C by <a target="_blank" rel="noopener noreferrer" href="http://www.5b4az.org/">Neoklis Kyriazis, 5B4AZ</a> and released as nec2c.
+NEC2 was ported to C by <a target="_blank" rel="noopener noreferrer" href="https://www.5b4az.org/">Neoklis Kyriazis, <span class="callsign">5B4AZ</span></a> and released as nec2c.
 Later he wrote xnec2c, a graphical interface for ease of use with
 many more features:
 
@@ -745,7 +826,7 @@ If you prefer to download <span class="filepath">.tar.gz</span> files they are a
 <p>If you wish
 to contribute to the xnec2c project then we would welcome your
 support and pull-requests at the
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c.git">official xnec2c GitHub repository</a>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c">official xnec2c GitHub repository</a>
 </p>
 
 <h2>User's Manual</h2>
@@ -802,7 +883,7 @@ charge densities. These results are only calculated and drawn on
 user demand via menu items or buttons, e.g.&nbsp;xnec2c is interactive
 and does not execute NEC2 "commands" in batch style as the original
 does. Printing of results to an output file has been removed
-starting from version 1.0, since xnec2c works in a way that does
+starting from <span class="version-tag">v1.0</span>, since xnec2c works in a way that does
 not allow printing compatible with the NEC2 format. If printing to
 file is needed then it is better to use the original NEC2 program,
 to avoid bugs that may still be lurking in the C translation.</p>
@@ -821,7 +902,7 @@ for execution.</p>
 <h2 id="Features">Features</h2>
 </ul>
 <h3 id="Multithread">Multi-threading operation on <code>SMP</code> machines</h3>
-<p>Since version 1.0, xnec2c can run multi-threaded (by forking) on
+<p>Since <span class="version-tag">v1.0</span>, xnec2c can run multi-threaded (by forking) on
 <code>SMP</code> machines, when executing a frequency loop. Multi-threading is
 enabled by using the <code>-j &lt;n&gt;</code> option, where <var>n</var> is the number of
 processors in a <code>SMP</code> machine. xnec2c will spawn <var>n</var> child processes,
@@ -864,7 +945,7 @@ quicker and more convenient.</p>
 
 <h3 id="Linalg">Accelerated Linear Algebra Support</h3>
 <p>
-Support for accelerated libraries was added in version 4.3.
+Support for accelerated libraries was added in <span class="version-tag">v4.3</span>.
 Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL
 can speed up xnec2c EM simulations if available on your platform.
 Library detection details are available in the terminal. See
@@ -1001,7 +1082,7 @@ be opened at start-up. If the <code>-i</code> option is omitted, xnec2c will
 take the last argument to be the input file path name, but will
 only open it if it has the <span class="filepath">.nec</span> extension.</p>
 <p><strong>&lt;<var>number of child processes to spawn</var>&gt;</strong>: Since
-version 1.0 xnec2c can run multi-threaded on <code>SMP</code> machines. This
+<span class="version-tag">v1.0</span> xnec2c can run multi-threaded on <code>SMP</code> machines. This
 option specifies the number of child processes to spawn by forking,
 so that the total number of processes running will be <var>n</var>+1. <var>n</var> should
 be equal to the number of processors in a <code>SMP</code> machine.</p>
@@ -1010,7 +1091,7 @@ be equal to the number of processors in a <code>SMP</code> machine.</p>
 value of <var>n</var> greater than the number of steps in the frequency
 loop, or greater than the number of logical CPUs on your system.
 </aside>
-<p>Starting in version 4.3, xnec2c always forks at least one job
+<p>Starting in <span class="version-tag">v4.3</span>, xnec2c always forks at least one job
 for better UI responsiveness.  If you wish to disable forking for
 debug or testing then specify <code>-j0</code>.</p>
 <h3 id="MainWindow">The Main Window</h3>
@@ -1019,14 +1100,14 @@ debug or testing then specify <code>-j0</code>.</p>
 <figcaption>Main window showing current distribution on antenna structure</figcaption>
 </figure>
 <aside class="notice" role="note">
-<strong>Note:</strong> As of version 3.7-beta, many buttons and menu items
+<strong>Note:</strong> As of <span class="version-tag">v3.7-beta</span>, many buttons and menu items
 have been given keyboard accelerators and these are denoted in
 brackets, after the mention of these widgets in the manual's
 text.
 </aside>
 When starting xnec2c from a terminal or from a file manager (by
 OLE), the <code>-i</code> option can be used to specify a NEC2 input file:
-<code>xnec2c -i ~/nec2/turnstile.nec</code>. Otherwise an input file can
+<code>xnec2c -i <span class="filepath">~/nec2/turnstile.nec</span></code>. Otherwise an input file can
 be opened from the Main window's <span class="menu-path">File → Open</span> menu <kbd class="shortcut">o</kbd>
 item. If the input file is valid, xnec2c will render the structure
 specified in the Geometry section of the file in the Main window's
@@ -1044,7 +1125,7 @@ and dragging the structure with the mouse pointer, clicking the
 view button (45° rotation and tilt). The actual value of
 rotation and tilt is shown in two spin button widgets which can
 also be used to change the viewing angle.</p>
-<p>Starting with version 2.1, the structure display can be zoomed
+<p>Starting with <span class="version-tag">v2.1</span>, the structure display can be zoomed
 in or out by using the mouse wheel or the Zoom controls: <span class="ui-button">Zoom %</span> spin wheel and the <span class="ui-button">Zoom In</span> (<kbd class="shortcut">Ctrl+Plus</kbd>), <span class="ui-button">Zoom Out</span> (<kbd class="shortcut">Ctrl+Minus</kbd>), and <span class="ui-button">Zoom 100%</span> (<kbd class="shortcut">Ctrl+1</kbd>) buttons and it can also be moved around by dragging
 with the right mouse button #2.</p>
 <p>The current distribution or charge density in the structure can
@@ -1066,15 +1147,15 @@ each time the frequency is changed in the spin button, all relevant
 data on display will be recalculated. If not, clicking the Redo
 button will initiate recalculation.</p>
 <p>Printing of results to an output file has been removed starting
-from version 1.0, since xnec2c works in a way that does not allow
+from <span class="version-tag">v1.0</span>, since xnec2c works in a way that does not allow
 printing compatible with the NEC2 format. If printing to file is
 needed then it is better to use the original NEC2 program, to avoid
 bugs that may still be lurking in the C translation. Otherwise, it
 is possible to save the structure drawing to a PNG file by using
 the <span class="ui-button">Save</span> (<kbd class="shortcut">s</kbd>) or <span class="ui-button">Save As</span> (<kbd class="shortcut">Ctrl+s</kbd>) items in the File
 menu.</p>
-<p>Starting with version 2.1, xnec2c can save the structure display
-as a data file for the "gnuplot" plotting program. This is done by
+<p>Starting with <span class="version-tag">v2.1</span>, xnec2c can save the structure display
+as a data file for the <code>gnuplot</code> plotting program. This is done by
 using the <span class="menu-path">File → Save As gnuplot</span> menu item, to open a file
 chooser dialog. If only the stem of the file name is given, xnec2c
 will automatically add the <span class="filepath">.gplot</span> extension. Plotting in gnuplot is
@@ -1218,8 +1299,8 @@ so that consecutive Saves do not overwrite files.</p>
 <p>When xnec2c is restarted the serial numbers are reset so that
 overwriting will occur if the same input file is opened.</p>
 </aside>
-<p>Starting with version 2.1, xnec2c can save the radiation pattern
-and near E/H field display as a data file for the "gnuplot"
+<p>Starting with <span class="version-tag">v2.1</span>, xnec2c can save the radiation pattern
+and near E/H field display as a data file for the <code>gnuplot</code>
 plotting program. This is done by using the <span class="menu-path">File → Save As gnuplot</span> menu item, to open a file chooser dialog. If only the
 stem of the filename is given, xnec2c will automatically add the
 <span class="filepath">.gplot</span> extension. Plotting in gnuplot is done with the <code class="language-gnuplot">splot
@@ -1281,7 +1362,7 @@ to select data to be plotted against frequency. These are:</p>
 <tr>
 <td><span class="ui-button">Direction</span></td>
 <td><kbd class="shortcut">d</kbd></td>
-<td>The direction of maximum gain, e.g.&nbsp;the radiation angle relative to the xy plane (90&nbsp;−&nbsp;<var>θ</var>) and the <var>φ</var> angle as defined in NEC2.</td>
+<td>The direction of maximum gain, e.g.&nbsp;the radiation angle relative to the xy plane (90&nbsp;&minus;&nbsp;<var>θ</var>) and the <var>φ</var> angle as defined in NEC2.</td>
 </tr>
 <tr>
 <td><span class="ui-button">Viewer</span></td>
@@ -1325,8 +1406,8 @@ data is calculated and presented. When Viewer gain plotting is
 enabled, the graph will be re-drawn when the structure projection
 is changed by the various means described earlier (dragging by
 mouse pointer, Rotate/Incline spin buttons etc).</p>
-<p>Starting with version 2.1, xnec2c can save the frequency
-dependent functions as a data file for the "gnuplot" plotting
+<p>Starting with <span class="version-tag">v2.1</span>, xnec2c can save the frequency
+dependent functions as a data file for the <code>gnuplot</code> plotting
 program. This is done by using the <span class="menu-path">File → Save As gnuplot</span>
 menu item, to open a file chooser dialog. If only the stem of the
 filename is given, xnec2c will automatically add the <span class="filepath">.gplot</span>
@@ -1349,7 +1430,7 @@ Plots with <span class="menu-path">File → Save as Touchstone (.SnP)</span>.
 
 <p>
 For <span class="filepath">.s2p</span> files gain is used as S<sub>21</sub> and S<sub>12</sub>: we assume the antenna is
-passive so S<sub>21</sub>&nbsp;==&nbsp;S<sub>12</sub>.  S<sub>22</sub> is a bit of a mystery, so we assume
+passive so <code>S<sub>21</sub>&nbsp;==&nbsp;S<sub>12</sub></code>.  S<sub>22</sub> is a bit of a mystery, so we assume
 that all S<sub>22</sub> behavior is normalized into S<sub>11</sub> and thus S<sub>22</sub> is deminimus
 and set it to −100&nbsp;dB.  This may not be a correct assumption, so please
 provide a suggestion here if you know a better way.
@@ -1411,12 +1492,12 @@ selector dialog for saving the data in the Editor to a NEC2 input
 file. The <span class="ui-button">Save</span> (<kbd class="shortcut">Ctrl+s</kbd>) button writes data in the Editor to
 an already open input file. The <span class="ui-button">Apply</span> check button, when checked,
 signals xnec2c to reload the edited input file for execution.</p>
-<p>Note: In xnec2c versions earlier than version 2.0-beta, due to
+<p>Note: In xnec2c versions earlier than <span class="version-tag">v2.0-beta</span>, due to
 the complex file opening process followed by NEC2 (many data sanity
 checks and initializations etc), reloading the input file resulted
 in all open windows (radiation pattern, frequency plots) to be
 closed. This was always an awkward situation and slowed down work
-in the NEC2 input file editor. As of xnec2c version 2.0-beta, the
+in the NEC2 input file editor. As of xnec2c <span class="version-tag">v2.0-beta</span>, the
 user interface as well as a fair amount of code in xnec2c, have
 been modified so that as far as possible, when an edited NEC2 file
 is saved and reloaded, or another NEC2 file is opened, xnec2c will
@@ -1490,7 +1571,7 @@ there is a dedicated editor for it which opens with a right-click
 on the (selected) <code class="nec-card">GE</code> row and <i>it should be used</i> to specify
 the presence of Ground (<code class="nec-card">GN</code> command etc).</p>
 </aside>
-<p>As of version 3.9-beta, the <code class="nec-card">GH</code> "card" editor has a new
+<p>As of <span class="version-tag">v3.9-beta</span>, the <code class="nec-card">GH</code> "card" editor has a new
 appearance, since the Helix producing code has been edited to allow
 the creation of a spiral. Both right-hand/left-hand helices or
 spirals can be specified with the radio buttons in the top row of
@@ -1524,7 +1605,7 @@ described above.</p>
 
 <p>
 Neoklis, 5B4AZ explains Antenna Optimization in xnec2c on his page <a target="_blank" rel="noopener noreferrer"
-href="http://www.5b4az.org/pages/antenna_designs.html">here</a> as follows:</p>
+href="https://www.5b4az.org/pages/antenna_designs.html">here</a> as follows:</p>
 
 <blockquote>
 <p>Xnec2c monitors its <span class="filepath">.nec</span> input file for changes and re-runs the frequency
@@ -1543,7 +1624,7 @@ saved to the <span class="filepath">.csv</span> file and the loop repeated until
 </blockquote>
 
 <p>
-This optimization feedback mechanism was first implemented in Xnec2c v4.2 and
+This optimization feedback mechanism was first implemented in Xnec2c <span class="version-tag">v4.2</span> and
 has been refined over the past couple of versions to be very effective at
 optimizing antenna geometry.
 </p>
@@ -1561,11 +1642,11 @@ of the packages for more information:
 		<strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/polyrod/xnec2c-gao/">Xnec2c-gao</a></strong>
 		is an external optimizer that uses a genetic algorithm to find
 		solutions in a multidimensional search space.  It is written in Haskell
-		by Maurizio Di Pietro, DC1MDP and hosted on github.
+		by Maurizio Di Pietro, <span class="callsign">DC1MDP</span> and hosted on github.
 	</li>
 	<li>
 		<strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c-optimize/">Xnec2c-optimize</a></strong>
-		is written in Perl by Eric, KJ7LNW and hosted on github.</li>
+		is written in Perl by Eric, <span class="callsign">KJ7LNW</span> and hosted on github.</li>
 	</ul>
 
 <h4>Activating <span class="filepath">.NEC</span> File Monitoring for Optimization</h4>
@@ -1637,8 +1718,8 @@ commands or options.
 </p>
 
 <p>Since xnec2c is an implementation of NEC2.  You can learn more about the NEC2
-format at <a target="_blank" rel="noopener noreferrer" href="http://www.nec2.org">http://www.nec2.org</a>. Be sure to review
-<a target="_blank" rel="noopener noreferrer" href="http://www.nec2.org/part_3/toc.html">Part III: NEC User's Guide</a>.
+format at <a target="_blank" rel="noopener noreferrer" href="https://www.nec2.org">https://www.nec2.org</a>. Be sure to review
+<a target="_blank" rel="noopener noreferrer" href="https://www.nec2.org/part_3/toc.html">Part III: NEC User's Guide</a>.
 
 Here is a list of commands or command options not supported by xnec2c:
 
@@ -1654,7 +1735,7 @@ Here is a list of commands or command options not supported by xnec2c:
 <dd>Next Structure Data: Relevant code has been removed since xnec2c cannot operate in batch mode.</dd>
 
 <dt><code class="nec-card">PQ</code>, <code class="nec-card">PT</code>, <code class="nec-card">CP</code></dt>
-<dd>These commands affect printed output and have no effect on data presented by xnec2c in graphical form. Since version 1.0 xnec2c does not print results to file.</dd>
+<dd>These commands affect printed output and have no effect on data presented by xnec2c in graphical form. Since <span class="version-tag">v1.0</span> xnec2c does not print results to file.</dd>
 
 <dt><code class="nec-card">SOMNEC</code></dt>
 <dd>The separate SOMNEC code has been incorporated in nec2c and hence in xnec2c also.</dd>
@@ -1666,23 +1747,23 @@ Here is a list of commands or command options not supported by xnec2c:
 <dd>The surface wave option (<var>I1</var> = 1) is not supported.</dd>
 
 <dt><code class="nec-card">ZO</code></dt>
-<dd>As of version 3.7-beta, this is a new "card" addition to the input file, which I have incorporated to allow the Transmission Line Z<sub>0</sub> to be specified in the NEC2 antenna description file.</dd>
+<dd>As of <span class="version-tag">v3.7-beta</span>, this is a new "card" addition to the input file, which I have incorporated to allow the Transmission Line Z<sub>0</sub> to be specified in the NEC2 antenna description file.</dd>
 </dl>
 <h2 id="OutputFile">Output File Considerations</h2>
 <p>
 Printing of results to an output file has been removed starting
-from version 1.0, since xnec2c works in a way that does not allow
+from <span class="version-tag">v1.0</span>, since xnec2c works in a way that does not allow
 printing compatible with the NEC2 format. If printing to file is
 needed then it is better to use the original NEC2 program, to avoid
 bugs that may still be lurking in the C translation.</p>
 <h2 id="Version">Version History (newest first)</h2>
 
-<h3>Version 4.4.16</h3>
+<h3>Version <span class="version-tag">4.4.16</span></h3>
 <ul>
 <li>Bug Fixes:
 	<ul>
-	<li>Fixed geometry calculations when reading NEC2 decks that use the <code class="nec-card">GM</code> card with tag=0 to copy all segments</li>
-	<li>Fixed segment lookup failures when tag=0 is specified</li>
+	<li>Fixed geometry calculations when reading NEC2 decks that use the <code class="nec-card">GM</code> card with <code>tag=0</code> to copy all segments</li>
+	<li>Fixed segment lookup failures when <code>tag=0</code> is specified</li>
 	<li>Improved error message to properly identify which <code class="nec-card">GM</code> card caused lookup failures</li>
 	<li>Improved radiation pattern color legend spacing</li>
 	<li>Fixed building on sparc64</li>
@@ -1692,23 +1773,23 @@ bugs that may still be lurking in the C translation.</p>
 <li>Contributors:
 	<ul>
 	<li>Diane Bruce - inspired code cleanup and helped with pull requests</li>
-	<li>Dave Hibberd (@Hibby) - Debian maintainer who helped troubleshoot and provide guidance in solving the sparc64 build issue</li>
+	<li>Dave Hibberd (<span class="github-user">@Hibby</span>) - Debian maintainer who helped troubleshoot and provide guidance in solving the sparc64 build issue</li>
 	</ul>
 </li>
 </ul>
 
-<h3>Version 4.4.15</h3>
+<h3>Version <span class="version-tag">4.4.15</span></h3>
 <p>This release fixes a crash related to a GTK icon problem.
-Thanks to @AsciiWolf for helping report and troubleshoot the issue.
+Thanks to <span class="github-user">@AsciiWolf</span> for helping report and troubleshoot the issue.
 </p>
 
-<h3>Version 4.4.14</h3>
+<h3>Version <span class="version-tag">4.4.14</span></h3>
 <p>This release fixes a hang when the frequency plots window is too small
-for the number of plots being rendered.  Thanks to Tom DL1JBE who reported
+for the number of plots being rendered.  Thanks to Tom <span class="callsign">DL1JBE</span> who reported
 the issue.
 </p>
 
-<h3>Version 4.4.13</h3>
+<h3>Version <span class="version-tag">4.4.13</span></h3>
 <p>This is a large bug-fix release and includes a few minor features and
 documentation updates. I would like to thank the following who helped with new
 features and bug fixes, in order of contribution:
@@ -1716,13 +1797,13 @@ features and bug fixes, in order of contribution:
 <ul>
 	<li>Contributors:
 		<ul>
-			<li>Neoklis 5B4AZ</li>
-			<li>Rafal Lukawiecki EI6LA</li>
-			<li>@ndim</li>
-			<li>@anoduck</li>
-			<li>@rklasen</li>
-			<li>Ward, AE6TY</li>
-			<li>@ChrisMaple</li>
+			<li>Neoklis <span class="callsign">5B4AZ</span></li>
+			<li>Rafal Lukawiecki <span class="callsign">EI6LA</span></li>
+			<li><span class="github-user">@ndim</span></li>
+			<li><span class="github-user">@anoduck</span></li>
+			<li><span class="github-user">@rklasen</span></li>
+			<li>Ward, <span class="callsign">AE6TY</span></li>
+			<li><span class="github-user">@ChrisMaple</span></li>
 		</ul>
 	</li>
 
@@ -1731,7 +1812,7 @@ features and bug fixes, in order of contribution:
 			<li>Save window positions when they are closed</li>
 			<li>Tile rdpattern and freqplot windows on first run</li>
 			<li>Default the Radiation Pattern "Gain Pattern" to be enabled</li>
-			<li>Officially support OpenBSD, thanks @anoduck for testing</li>
+			<li>Officially support OpenBSD, thanks <span class="github-user">@anoduck</span> for testing</li>
 			<li>Add save radiation pattern to CSV</li>
 			<li>Add save currents and charges to CSV</li>
 		</ul>
@@ -1745,10 +1826,10 @@ features and bug fixes, in order of contribution:
 	<li>Bug Fixes:
 		<ul>
 			<li>Fixed deadlock when the frequency loop is running and a window is</li>
-			  closed. Thanks to Neoklis 5B4AZ for discovering the problem and proposing</li>
+			  closed. Thanks to Neoklis <span class="callsign">5B4AZ</span> for discovering the problem and proposing</li>
 			  a solution.</li>
 			<li>Fixed edge case where structure window does not redraw on save. Thanks</li>
-			  to Neoklis 5B4AZ for discovering the problem and providing a fix.</li>
+			  to Neoklis <span class="callsign">5B4AZ</span> for discovering the problem and providing a fix.</li>
 			<li>Fix blank plots, structures and radiation pattern when Quit is pressed.</li>
 			<li>Open the Frequency Plots window when Optimization is enabled</li>
 			<li>Auto-run freq loop when optimization is enabled</li>
@@ -1760,16 +1841,16 @@ features and bug fixes, in order of contribution:
 			<li>Fix Coverity Scan warning about a tainted value used in <code class="language-c">malloc()</code></li>
 			<li>Fix a Coverity Scan report about a "Forward NULL"</li>
 			<li>Convert double-locking synchronization to use a condition</li>
-			  variable. Thanks to @anoduck for testing and reporting the issue in the</li>
+			  variable. Thanks to <span class="github-user">@anoduck</span> for testing and reporting the issue in the</li>
 			  process of adding OpenBSD support.</li>
 			<li>Fix warning: while loop has empty body</li>
 			<li>Fix real/imag swap</li>
 			<li>rdpat csv: reset <var>φ</var> on each frequency iteration</li>
-			<li>fix integer overflow in frequency selection, thanks to @rklasen.</li>
-			<li>Fix sommerfeld ground excitement issue. Thanks to Ward, AE6TY for</li>
+			<li>fix integer overflow in frequency selection, thanks to <span class="github-user">@rklasen</span>.</li>
+			<li>Fix sommerfeld ground excitement issue. Thanks to Ward, <span class="callsign">AE6TY</span> for</li>
 			  reporting the bug and writing a fix.</li>
 			<li>Fix off-by-one array index</li>
-			<li>Fix sprintf truncation when plotting. Thanks to @ChrisMaple for</li>
+			<li>Fix sprintf truncation when plotting. Thanks to <span class="github-user">@ChrisMaple</span> for</li>
 			  reporting this issue.</li>
 			<li>Delay clicked frequency calculation while a freq loop is running</li>
 			<li>Fix beeps on GTK field overflow</li>
@@ -1777,7 +1858,7 @@ features and bug fixes, in order of contribution:
 	</li>
 	<li>Build system:
 		<ul>
-			<li>Huge autoconf and buildsystem refactor by @ndim</li>
+			<li>Huge autoconf and buildsystem refactor by <span class="github-user">@ndim</span></li>
 			<li>Updated autoconf to detect Mac OS X properly</li>
 			<li>Fix Debian Lintian desktop-mime-but-no-exec-code</li>
 			<li>Removed more LMID references</li>
@@ -1786,14 +1867,14 @@ features and bug fixes, in order of contribution:
 			<li>Add g_module_supported detection</li>
 			<li>Added OARS metadata into AppStream</li>
 			<li>Updated autoconf to detect Mac OS X and set LDFLAGS
-			accordingly. Big thanks to Rafal Lukawiecki EI6LA for helping
+			accordingly. Big thanks to Rafal Lukawiecki <span class="callsign">EI6LA</span> for helping
 			troubleshoot and get xnec2c building on OSX.</li>
 		</ul>
 	</li>
 </ul>
 </p>
 
-<h3>Version 4.4.12</h3>
+<h3>Version <span class="version-tag">4.4.12</span></h3>
 <p>This release has been pending for a while, there are quite a few changes.
 I thought about making this 4.5 but not yet since these are mostly
 maintenance items, with a few new features as well:
@@ -1801,8 +1882,8 @@ maintenance items, with a few new features as well:
 <li>UI Features:
 	<ul>
 	<li>Added <span class="menu-path">File → Save-as CSV</span> in the Frequency Plots window</li>
-	<li>Added optimizer output config checkboxes for csv, s1p, and/or s2p.  Now you can auto-generate <span class="filepath">.csv</span>, <span class="filepath">.s1p</span>, or <span class="filepath">.s2p</span> files when the input <span class="filepath">.NEC</span> file is modified by an external program.</li>
-	<li>Pre-processed CSV data for each example <span class="filepath">.NEC</span> file and placed them in <span class="filepath">examples/data/</span>.  You can view these with any spreadsheet program and graph columns as you like; the data is useful for regression testing, too.</li>
+	<li>Added optimizer output config checkboxes for csv, s1p, and/or s2p.  Now you can auto-generate <span class="filepath">.csv</span>, <span class="filepath">.s1p</span>, or <span class="filepath">.s2p</span> files when the input <span class="filepath">.nec</span> file is modified by an external program.</li>
+	<li>Pre-processed CSV data for each example <span class="filepath">.nec</span> file and placed them in <span class="filepath">examples/data/</span>.  You can view these with any spreadsheet program and graph columns as you like; the data is useful for regression testing, too.</li>
 	<li>Updated optimization documentation.</li>
 	</ul>
 </li>
@@ -1817,16 +1898,16 @@ maintenance items, with a few new features as well:
 </li>
 <li>Bugfixes:
 	<ul>
-	<li>Fixed octal representation of 0755 when creating <span class="filepath">~/.xnec2c/</span></li>
-	<li>Added directory permission hotfix for users affected by 4e62893b</li>
+	<li>Fixed octal representation of <code>0755</code> when creating <span class="filepath">~/.xnec2c/</span></li>
+	<li>Added directory permission hotfix for users affected by <span class="commit-hash">4e62893b</span></li>
 	<li>Do not invalidate current data when radiation pattern is enabled; Thanks to Gian Luigi for reporting this bug and providing <span class="filepath">.nec</span> file samples to reproduce the problem.</li>
 	<li>Check if radiation pattern was calculated before using the <code class="nec-card">RP</code> data,  Thanks to Gian Luigi for reporting this bug, too.</li>
 	<li>Added fallback PATH_MAX if undefined, like for GNU/Hurd.</li>
 	<li>optimizer: prevent loading zero-byte files</li>
 	<li>Disable optimizer if inotify is missing, this should fix xnec2c builds on BSD.</li>
-	<li>Fixed printf size_t warnings on 32-bit architectures</li>
-	<li>Fix type errors with glib 2.73 and later, Thanks to the Debian maintainer Christoph Berg, DF7CB, for his work to troubleshot and test this!</li>
-	<li>Fixed segfault when mathlib_idx or mathlib_batch_idx is out of range. Thanks to Christoph Berg, DF7CB for reporting this.</li>
+	<li>Fixed printf <code>size_t</code> warnings on 32-bit architectures</li>
+	<li>Fix type errors with <code>glib 2.73</code> and later, Thanks to the Debian maintainer Christoph Berg, <span class="callsign">DF7CB</span>, for his work to troubleshot and test this!</li>
+	<li>Fixed segfault when mathlib_idx or mathlib_batch_idx is out of range. Thanks to Christoph Berg, <span class="callsign">DF7CB</span> for reporting this.</li>
 	<li>Only write optimizer data if FREQ_LOOP_DONE</li>
 	<li>Updated <span class="filepath">xnec2c.spec</span> to reference the right dependencies in el8.</li>
 	</ul>
@@ -1836,7 +1917,7 @@ maintenance items, with a few new features as well:
 	<li>Renamed files with a : in them so checkouts will work in Windows.</li>
 	<li>Updated frequency calculation timing output.</li>
 	<li>mathlib: fixed duplicate BLAS detection, removed LMID support, simplified console output</li>
-	<li>Several spelling fixes, thanks to Daniele Forsi, IU5HKX (@dforsi on github)!</li>
+	<li>Several spelling fixes, thanks to Daniele Forsi, <span class="callsign">IU5HKX</span> (<span class="github-user">@dforsi</span> on github)!</li>
 	<li>Fix cross compilation issues, Thanks Michal Vasilek!</li>
 	<li>Updated quickstart documentation</li>
 	<li>Removed LMID checks from configure.ac; again, Thanks Michal Vasilek!</li>
@@ -1847,7 +1928,7 @@ maintenance items, with a few new features as well:
 </p>
 
 
-<h3>Version 4.4.11</h3>
+<h3>Version <span class="version-tag">4.4.11</span></h3>
 <p>There are many small improvements in this update, please update!  Here is 
 a brief summary, see the git commit log for detail:
 <ul>
@@ -1861,21 +1942,21 @@ the <code>-devel</code> package is not installed.</li>
 for package info.</li>
 <li>Added <span class="filepath">xnec2c.spec</span> for RPM-based builds!  Just <code>rpmbuild -bb xnec2c.spec</code> to create an RPM.  You will need to place the latest
 <span class="filepath">.tar.gz</span> file in <span class="filepath">~/rpmbuild/SOURCES</span> or run <code>spectool -g -R xnec2c.spec</code>
-to download them for you. Thanks to Richard Shaw KF5OIM for reviewing
+to download them for you. Thanks to Richard Shaw <span class="callsign">KF5OIM</span> for reviewing
 the <span class="filepath">.spec</span> file!</li>
-<li>Added include of <code>locale.h</code> to fix building under musl-libc. Thanks
-to Tom DL1JBE for pointing this out and testing the fix!</li>
+<li>Added include of <code>locale.h</code> to fix building under <code>musl-libc</code>. Thanks
+to Tom <span class="callsign">DL1JBE</span> for pointing this out and testing the fix!</li>
 </ul>
 </p>
 
 
-<h3>Version 4.4.10</h3>
-<p>Fixed crash caused memory allocation off-by-one error.  Thanks to Juan Pablo García, EA4CIV for reporting the bug!
+<h3>Version <span class="version-tag">4.4.10</span></h3>
+<p>Fixed crash caused memory allocation off-by-one error.  Thanks to Juan Pablo García, <span class="callsign">EA4CIV</span> for reporting the bug!
 </p>
 
 
-<h3>Version 4.4.9</h3>
-<p>Minor fixes, both reported and tested by Juan Pablo García, EA4CIV.  Thanks for your help!
+<h3>Version <span class="version-tag">4.4.9</span></h3>
+<p>Minor fixes, both reported and tested by Juan Pablo García, <span class="callsign">EA4CIV</span>.  Thanks for your help!
 <ul>
 <li>
 Fixed S<sub>11</sub> phase angle calculation for graphs and touchstone file export.
@@ -1889,11 +1970,11 @@ decimal point to another with comma for decimal point, or vice-versa.
 </p>
 
 
-<h3>Version 4.4.8</h3>
+<h3>Version <span class="version-tag">4.4.8</span></h3>
 <p>This is a minor maintenance release.
 <ul>
 <li>Fixed buffer overflow in the temp string used in <code class="language-c">mem_write_format()</code>,
-thanks to Juan Pablo García, EA4CIV for reporting the bug while testing
+thanks to Juan Pablo García, <span class="callsign">EA4CIV</span> for reporting the bug while testing
 touchstone file output.</li>
 <li>Changed default Save-As filenames to resemble the original <span class="filepath">.nec</span> filename where appropriate.</li>
 <li>Avoid EM calculation if the selected frequency step (when you
@@ -1904,7 +1985,7 @@ moment, it must always calculate if left-clicking the graph or when
 </p>
 
 
-<h3>Version 4.4.7</h3>
+<h3>Version <span class="version-tag">4.4.7</span></h3>
 <p>This release has a few minor features added:
 <ul>
 <li>Touchstone 1- and 2-port files (<span class="filepath">.s1p</span>, <span class="filepath">.s2p</span>) can be exported from the
@@ -1912,21 +1993,21 @@ frequency plots window.  Touchstone files are used by professional RF
 software packages like Microwave Office, Sonnet, and others.   Now xnec2c
 can export <span class="filepath">.s1p</span> and <span class="filepath">.s2p</span> files to be used with those software packages.
 S<sub>11</sub> is the same as return loss, reflection and <span class="filepath">.s1p</span> files provide
-single-port data.  Thanks to Juan Pablo García, EA4CIV for suggesting this
+single-port data.  Thanks to Juan Pablo García, <span class="callsign">EA4CIV</span> for suggesting this
 feature.
 </li>
 <li>Converted frequency plot gnuplot output to include all columns. Now
-all columns are available in the <span class="filepath">.gnuplot</span> file.  Thanks to @scaramacai
+all columns are available in the <span class="filepath">.gnuplot</span> file.  Thanks to <span class="github-user">@scaramacai</span>
 on github for the initial work on this conversion.</li>
-<li>Added auto-detection of musl-libc so it will compile for users
-with musl-libc. Thanks to Tom, DL1JBE at Gentoo for suggesting and testing
+<li>Added auto-detection of <code>musl-libc</code> so it will compile for users
+with <code>musl-libc</code>. Thanks to Tom, <span class="callsign">DL1JBE</span> at Gentoo for suggesting and testing
 this change.</li>
 <li>See the github changelog for the lovely details.</li>
 </ul>
 </p>
 
 
-<h3>Version 4.4.6</h3>
+<h3>Version <span class="version-tag">4.4.6</span></h3>
 <p>This is mostly a release with a handful of bugfixes and some internal re-organization
 in preparation for s1p/s2p output and gnuplot extensions (measurements.c).
 Detailed descriptions are available in the git log.
@@ -1935,13 +2016,13 @@ Detailed descriptions are available in the git log.
 <li>Fixed default mathlib handling when no accelerated library is installed</li>
 <li>Fixed error on first run when <span class="filepath">~/.xnec2c/</span> does not exist</li>
 <li>Added libtool dependency to documentation for CentOS</li>
-<li>Fixed segment fault when HOME environment variable is undefined.</li>
+<li>Fixed segment fault when <code>HOME</code> environment variable is undefined.</li>
 <li>Fix off-by-one error in memory allocation for frequency plot arrays.</li>
 <li>Fixed deadlocks when running without pthreads and without forking.</li>
 <li>Refactored common measurements into measurements.c</li>
 <li>Refactored plot_freqdata.c to use <code class="language-c">meas_calc()</code></li>
 <li>Added function use comments to measurements.c</li>
-<li>Suppress max_freq==min_freq when freq_steps==1</li>
+<li>Suppress <code>max_freq&nbsp;==&nbsp;min_freq</code> when <code>freq_steps&nbsp;==&nbsp;1</code></li>
 <li>Fixed gcc warning about the return value of <code class="language-c">getcwd()</code> not being checked.</li>
 <li>Ignore the <code class="nec-card">GN</code> card if both <code class="nec-card">GN</code> and <code class="nec-card">GE</code> cards indicate freespace.</li>
 <li>Fixed format-truncation compiler warning</li>
@@ -1949,10 +2030,10 @@ Detailed descriptions are available in the git log.
 </p>
 
 
-<h3>Version 4.4.5</h3>
+<h3>Version <span class="version-tag">4.4.5</span></h3>
 <ul>
 <li>Corrected Im(-z) plotting on the Smith chart, it was plotting upside-down.  Thanks to Juan Pablo
-    Garcia for pointing this out.</li>
+    García <span class="callsign">EA4CIV</span> for pointing this out.</li>
 <li>Updated examples with corrections from Neoklis related to ground configuration.</li>
 <li>Updated GCC/Clang compiler optimization settings for better compatibility.</li>
 </ul>
@@ -1960,8 +2041,8 @@ Detailed descriptions are available in the git log.
 </p>
 
 
-<h3>Version 4.4.4</h3>
-<p>Fixed regression introduced in v4.3 by adding -ffinite-math-only as a
+<h3>Version <span class="version-tag">4.4.4</span></h3>
+<p>Fixed regression introduced in <span class="version-tag">v4.3</span> by adding <code>-ffinite-math-only</code> as a
 gcc optimization.  This causes radiation patterns to draw incorrectly
 when the <code class="nec-card">RP</code> card (radiation pattern card) when using a "Perfect Ground"
 in the <code class="nec-card">GN</code> card at the same time that "Radial wire screen" is used as
@@ -1970,7 +2051,7 @@ that produced the issue.
 </p>
 
 
-<h3>Version 4.4.3</h3>
+<h3>Version <span class="version-tag">4.4.3</span></h3>
 <p>Added option to Round X-axis Frequency Values:
 </p>
 
@@ -1984,27 +2065,27 @@ that do not align nicely to whole numbers or common fractions of numbers
 
 <p>The new option <span class="menu-path">View → Round X Axis Frequency Values</span> will align the X Axis
 labels to normalized values as originally designed in releases prior
-to v4.1.5.  When this option is off, it will show one more frequency
+to <span class="version-tag">v4.1.5</span>.  When this option is off, it will show one more frequency
 significant figure displayed on the X Axis and scale the plot to use
 the entire plot space.
 </p>
 
 
-<h3>Version 4.4.2</h3>
+<h3>Version <span class="version-tag">4.4.2</span></h3>
 <ul>
 	<li>Fixed plot width drawing with multiple <code class="nec-card">FR</code> cards.  This fixes a regression that had disabled
 	mouse-wheel scrolling to resize plots with multiple <code class="nec-card">FR</code> cards.</li>
 	<li>Fixed Frequency_Loop race conditions causing access to uninitialized data that
 	were seen as flickering while running the frequency loop, or as incomplete plot drawings.</li>
-	<li>Added strerror on failed file open for @m-anish on github to
-	troubleshoot error opening <code class="filepath">xnec2c.conf</code>. </li>
-	<li>Refactored memory handling routines to bypass realloc() if possible.  This increases
+	<li>Added strerror on failed file open for <span class="github-user">@m-anish</span> on github to
+	troubleshoot error opening <span class="filepath">xnec2c.conf</span>. </li>
+	<li>Refactored memory handling routines to bypass <code>realloc()</code> if possible.  This increases
 	performance slightly, reduces heap thrashing, increases stability by clearing memory
 	on reallocation, and makes memory handling easier to debug.</li>
 </ul>
 
 
-<h3>Version 4.4.1</h3>
+<h3>Version <span class="version-tag">4.4.1</span></h3>
 <p>Fixed graph scaling so that each point is drawn in order while running
 	the frequency loop without rescaling the graph on the x-axis.  This way
 	the points line up correctly to their frequencies throughout the plot
@@ -2013,7 +2094,7 @@ the entire plot space.
 </p>
 
 
-<h3>Version 4.4</h3>
+<h3>Version <span class="version-tag">4.4</span></h3>
 <ul>
 	<li>The <span class="menu-path">File → Gain Scaling</span> setting is now saved between restarts
 	since this is a visual preference per user.</li>
@@ -2028,34 +2109,34 @@ the entire plot space.
 </ul>
 
 
-<h3>Version 4.3.5</h3>
+<h3>Version <span class="version-tag">4.3.5</span></h3>
 <p>Updated documentation around autogen.sh and added tests to make sure gettext and related tools are
 	available for autoconf to complete successfully.
 </p>
 
 
-<h3>Version 4.3.4</h3>
+<h3>Version <span class="version-tag">4.3.4</span></h3>
 <ul>
-	<li>Fixed slow sync() issue by replacing it with fsync().  Thanks to @bbarenblat on github.</li>
-	<li>Fixed typos and spelling errors throughout the application, thanks to @dforsi on github.</li>
+	<li>Fixed slow <code>sync()</code> issue by replacing it with <code>fsync()</code>.  Thanks to <span class="github-user">@bbarenblat</span> on github.</li>
+	<li>Fixed typos and spelling errors throughout the application, thanks to <span class="github-user">@dforsi</span> on github.</li>
 	<li>Updated documentation and added official website links</li>
 </ul>
 
 
-<h3>Version 4.3.3</h3>
+<h3>Version <span class="version-tag">4.3.3</span></h3>
 <p>A few optimizer cleanups and bug fixes including updating CSV format to
 remove extra whitespace and increase precision of the NEC2 data.  See git log for details.
 </p>
 
 
-<h3>Version 4.3.2</h3>
+<h3>Version <span class="version-tag">4.3.2</span></h3>
 <p>Additional optimizer trigger and inotify cleanup.  Also xnec2c writes
 the <span class="filepath">.csv</span> file as soon as the checkbox is selected to trigger any external optimizers waiting for
 the <span class="filepath">.csv</span> to be modified.
 </p>
 
 
-<h3>Version 4.3.1</h3>
+<h3>Version <span class="version-tag">4.3.1</span></h3>
 <ul>
 <li>Added an option to show S<sub>11</sub> (dB) (negative return loss) as a plot next to VSWR. See
 <span class="menu-path">Frequency Plots → View → Show S<sub>11</sub></span>
@@ -2069,10 +2150,10 @@ is done writing the <span class="filepath">.nec.csv</span> file.</li>
 </ul>
 
 
-<h3>Version 4.3</h3>
+<h3>Version <span class="version-tag">4.3</span></h3>
 <ul>
-<li>Changed maintainer to Eric Wheeler, KJ7LNW</li>
-<li>Moved xnec2c to github: https://github.com/KJ7LNW/xnec2c</li>
+<li>Changed maintainer to Eric Wheeler, <span class="callsign">KJ7LNW</span></li>
+<li>Moved xnec2c to github: <a href="https://github.com/KJ7LNW/xnec2c">https://github.com/KJ7LNW/xnec2c</a></li>
 <li>Major refactor of the plotting code:
 	<ul>
 		<li>Added multi-plot support when multiple <code class="nec-card">FR</code> cards are used.</li>
@@ -2084,7 +2165,7 @@ is done writing the <span class="filepath">.nec.csv</span> file.</li>
 <li>Performance improvements:
 	<ul>
 		<li>30% speedup of native NEC2 code Gaussian Elimination code with
-		  -fcx-fortran-rules</li>
+		  <code>-fcx-fortran-rules</code></li>
 		<li>Added support for ATLAS, LAPACK, OpenBLAS and Intel MKL accelerated
 		  linear algebra libraries. These are auto-detected at runtime on
 		  CentOS/RHEL, Ubuntu/Debian, and openSUSE.</li>
@@ -2122,7 +2203,7 @@ is done writing the <span class="filepath">.nec.csv</span> file.</li>
 </ul>
 
 
-<h3>Version 4.2</h3>
+<h3>Version <span class="version-tag">4.2</span></h3>
 <p>Further to the changes above, I have
 modified xnec2c so that more than one <code class="nec-card">FR</code> (frequency range) card can
 be specified in the NEC2 file. This makes it possible to calculate
@@ -2132,14 +2213,14 @@ Unnecessary calculations between ranges of interest are also
 avoided.</p>
 
 
-<h3>Version 4.1.5</h3>
-<p>After an inquiry by Eric Wheeler KJ7LNW
+<h3>Version <span class="version-tag">4.1.5</span></h3>
+<p>After an inquiry by Eric Wheeler <span class="callsign">KJ7LNW</span>
 regarding the use of the <code class="nec-card">GH</code> card to create spirals, I found a bug
 that caused the <code class="nec-card">GH</code> editor to delete the <code class="nec-card">GH</code> entry in NEC2 Editor's
 treeview. I also found a bug that caused the number of turns of a
 spiral to be rounded to the nearest integer. Both bugs have been
 fixed in this version.</p>
-<p>Further, to aid Eric Wheeler KJ7LNW to develop his Simplex
+<p>Further, to aid Eric Wheeler <span class="callsign">KJ7LNW</span> to develop his Simplex
 automatic Optimizer, I added code to monitor, with inotify, the
 <span class="filepath">.nec</span> input file and to trigger recalculation and plotting of
 frequency dependent data, while at the same time printing to file
@@ -2151,19 +2232,19 @@ the Radiation pattern makes it easier to monitor the Optimizer's
 progress.</p>
 
 
-<h3>Version 4.1.4</h3>
+<h3>Version <span class="version-tag">4.1.4</span></h3>
 <p>Added the stdint.h include file to
-common.h to fix a compilation error reported by Nick G3VNC.</p>
+common.h to fix a compilation error reported by Nick <span class="callsign">G3VNC</span>.</p>
 
 
-<h3>Version 4.1.3</h3>
+<h3>Version <span class="version-tag">4.1.3</span></h3>
 <p>Arranged the pipe reading function for the
 parent process to re-read from the child processes if not all data
 is transferred at the first read(). In this case xnec2c was
 crushing with "Resource temporarily unavailable" error message.</p>
 
 
-<h3>Version 4.1.2</h3>
+<h3>Version <span class="version-tag">4.1.2</span></h3>
 <p>Changed the installation commands in
 Makefile.am so that all the relevant files (desktop file,
 application pixmap, configuration file, executable binary etc) are
@@ -2174,7 +2255,7 @@ working directory by copying files from the relevant directories
 under the installation prefix.</p>
 
 
-<h3>Version 4.1.1</h3>
+<h3>Version <span class="version-tag">4.1.1</span></h3>
 <p>I made a small change to the Radiation
 Pattern code to allow the drawing of both horizontal an vertical
 "cuts" in the radiation pattern, in the zx and zy vertical planes
@@ -2184,7 +2265,7 @@ Modified by the Control button as the original accelerator keys
 were being activated when writing in the Comments Treeview.</p>
 
 
-<h3>Version 4.1</h3>
+<h3>Version <span class="version-tag">4.1</span></h3>
 <p>I corrected some mistakes in the GUI
 interface code, which handles the creation of windows and dialogs
 from the glade UI description file. These mistakes were such that
@@ -2195,7 +2276,7 @@ in the dialog's frame and the relevant code to deal with this
 better.</p>
 
 
-<h3>Version 4.0</h3>
+<h3>Version <span class="version-tag">4.0</span></h3>
 <p>I corrected some mistakes in the GUI
 interface code, which handles the creation of windows and dialogs
 from the glade UI description file. These mistakes were such that
@@ -2206,7 +2287,7 @@ in the dialog's frame and the relevant code to deal with this
 better.</p>
 
 
-<h3>Version 4.0</h3>
+<h3>Version <span class="version-tag">4.0</span></h3>
 <p>I have changed the code that saves the state
 of the View-Polarization menu items, as it would only correctly
 save the state of these items in the Main (structure) window. I
@@ -2215,14 +2296,14 @@ the NEC2 editor, as it was causing crashes of xnec2c under some
 user action combinations.</p>
 
 
-<h3>Version 3.9</h3>
+<h3>Version <span class="version-tag">3.9</span></h3>
 <p>Since I have not received any bug reports
-for some time after releasing version 3.9-b, and having fixed a bug
-that resulted in a gtk_widget_destroy() command to be passed on an
-invalid widget pointer, I am releasing xnec2c as version 3.9.</p>
+for some time after releasing <span class="version-tag">v3.9-b</span>, and having fixed a bug
+that resulted in a <code class="language-c">gtk_widget_destroy()</code> command to be passed on an
+invalid widget pointer, I am releasing xnec2c as <span class="version-tag">v3.9</span>.</p>
 
 
-<h3>Version 3.9-beta</h3>
+<h3>Version <span class="version-tag">3.9-beta</span></h3>
 <p>I have arranged for some user actions
 to be "nested", mainly regarding the saving of NEC2 editor data
 followed by the opening of another file or starting a new project.
@@ -2236,7 +2317,7 @@ used to produce both a helix or a spiral with no floating point
 exceptions.</p>
 
 
-<h3>Version 3.8-beta</h3>
+<h3>Version <span class="version-tag">3.8-beta</span></h3>
 <p>I edited some of the code so that when
 a NEC2 file is saved, the Center x and y offsets (the change of
 position) of the structure and radiation pattern are not changed. I
@@ -2245,14 +2326,14 @@ also arranged for the offset values to be saved in
 and restored when starting.</p>
 
 
-<h3>Version 3.7.1-beta</h3>
+<h3>Version <span class="version-tag">3.7.1-beta</span></h3>
 <p>Fixed a reported bug that prevented
 wire diameter entries less than 0.01 in the Helix (<code class="nec-card">GH</code>) card editor.
 This was due to specifying a minimum value of 0.01 in the
 <span class="filepath">xnec2c.glade</span> file.</p>
 
 
-<h3>Version 3.7-beta</h3>
+<h3>Version <span class="version-tag">3.7-beta</span></h3>
 <p>After some feature requests by users of
 xnec2c, I implemented a number of changes to xnec2c so that it can
 save the state of the GUI at exit and restore it on start up. To
@@ -2267,8 +2348,8 @@ menu items, more commonly used in the main windows of xnec2c, and a
 new <code class="nec-card">ZO</code> NEC2 "card" to specify transmission line impedance.</p>
 
 
-<h3>Version 3.6.1-beta</h3>
-<p>After a request by Don Walters W9DKI
+<h3>Version <span class="version-tag">3.6.1-beta</span></h3>
+<p>After a request by Don Walters <span class="callsign">W9DKI</span>
 I modified the <span class="filepath">xnec2c.glade</span> file to reduce the default size of the
 drawing areas as they would not fit in displays with reduced
 resolution. I also removed some legacy code, left over from the
@@ -2278,9 +2359,9 @@ displays. And I modified the <span class="filepath">Makefile.am</span> file to g
 to install program files and documentation to the right places.</p>
 
 
-<h3>Version 3.6-beta</h3>
+<h3>Version <span class="version-tag">3.6-beta</span></h3>
 <p>I migrated Xnec2c to the latest
-GTK+-3.22 toolkit to bring it up to date. A lot of changes were
+<code>GTK+-3.22</code> toolkit to bring it up to date. A lot of changes were
 needed to both the GUI and parts of the Xnec2c source code, mainly
 the use of GTK3's GUI Builder for creating the User Interface and
 the revised drawing model of GDK for presenting the Graphics
@@ -2290,13 +2371,13 @@ GNU GetText system. Because Xnec2c is very complicated and thorough
 testing is difficult, I am releasing this version as a beta.</p>
 
 
-<h3>Version 3.5.1</h3>
-<p>After a request by Fan Jun BH1SCW, I
+<h3>Version <span class="version-tag">3.5.1</span></h3>
+<p>After a request by Fan Jun <span class="callsign">BH1SCW</span>, I
 replaced the original makeshift desktop icon with one provided by
-Serge ON4AA.</p>
+Serge <span class="callsign">ON4AA</span>.</p>
 
 
-<h3>Version 3.5</h3>
+<h3>Version <span class="version-tag">3.5</span></h3>
 <p>I modified the NEC2 Editor code so that when
 a Geometry or Command editor window is opened, activating Apply or
 OK will save data in the editor window to the treeview, even if the
@@ -2311,7 +2392,7 @@ number of segments/turn that correspond to a given segment length
 as a percentage of <var>λ</var>.</p>
 
 
-<h3>Version 3.4</h3>
+<h3>Version <span class="version-tag">3.4</span></h3>
 <p>I fixed a bug in the code that implements
 the modified <code class="nec-card">GS</code> (scaling) card. In NEC2 the <code class="nec-card">GS</code> card scales all of
 the structure, but in Xnec2c I modified the code so that it is
@@ -2322,22 +2403,22 @@ using a <code class="nec-card">GS</code> card, it may be better to avoid specify
 range, just in case the bug fix is not complete.</p>
 
 
-<h3>Version 3.3</h3>
+<h3>Version <span class="version-tag">3.3</span></h3>
 <p>I fixed a bug that was in the code that
 reads the commands from the NEC2 input file, where xnec2c would
 crash with a segmentation fault when the <code class="nec-card">FR</code> card was after the <code class="nec-card">RP</code>
-card. Also modified the Strtod() function to avoid freeing the end
+card. Also modified the <code class="language-c">Strtod()</code> function to avoid freeing the end
 pointer before it was used, causing problems.</p>
 
 
-<h3>Version 3.2</h3>
-<p>I made some changes to the Strlcat()
+<h3>Version <span class="version-tag">3.2</span></h3>
+<p>I made some changes to the <code class="language-c">Strlcat()</code>
 function and its usage in the xnec2c code, to improve safe handling
 of string concatenation operations. Hopefully this has not broken
 the handling of various strings in xnec2c!</p>
 
 
-<h3>Version 3.1</h3>
+<h3>Version <span class="version-tag">3.1</span></h3>
 <p>I have made several changes to the code that
 renders wire frame drawings and displays some data, like the
 projection parameters (azimuth and elevation of the structure and
@@ -2349,21 +2430,21 @@ as I had reports that they would not fit in the displays of some
 laptops or monitors, with resolutions on the lower side.</p>
 
 
-<h3>Version 3.0</h3>
+<h3>Version <span class="version-tag">3.0</span></h3>
 <p>I have modified the NEC2 file parser so that
 it can read the file with both the '.' and ',' as decimal point
 characters. This is necessary to make xnec2c compatible with
 different locales. I also fixed a resource (memory) leak, reported
-by valgrind, in the xyz axes drawing routine.</p>
+by <code>valgrind</code>, in the xyz axes drawing routine.</p>
 
 
-<h3>Version 2.9</h3>
+<h3>Version <span class="version-tag">2.9</span></h3>
 <p>After a request by the Debian maintainer of
 xnec2c, I added a rudimentary man page he sent me and corrected
 some spelling errors (arbitrary to arbitrary).</p>
 
 
-<h3>Version 2.8</h3>
+<h3>Version <span class="version-tag">2.8</span></h3>
 <p>Fixed a bug in the <code class="nec-card">GN</code> card editor function
 which caused xnec2c to save the <code class="nec-card">GN</code> card parameters in the <span class="filepath">.nec</span>
 antenna description file without clearing the number of radials to
@@ -2379,8 +2460,8 @@ opened after a <span class="filepath">.nec</span> file, with a Radial Ground Scr
 the <code class="nec-card">GN</code> card, was processed.</p>
 
 
-<h3>Version 2.7</h3>
-<p>After a bug report by Tim, WJ5Q, I fixed a
+<h3>Version <span class="version-tag">2.7</span></h3>
+<p>After a bug report by Tim, <span class="callsign">WJ5Q</span>, I fixed a
 bug that was preventing the creation of an <code class="nec-card">LD</code> card of type 5
 (<code>LDTYP=5</code>) when wire conductivity (S/m) was specified in the <code class="nec-card">GW</code> card
 (Wire) editor. The same bug was present in the <code class="nec-card">GH</code> (Helix) card
@@ -2389,11 +2470,11 @@ conductivity for <code class="nec-card">GW</code>, <code class="nec-card">GA</co
 <code class="nec-card">LD</code> card and shown in the Conductivity (S/m) spin button.</p>
 <p>After all these changes I checked the xnec2c source code using
 the Coverity Scan service and I fixed an out-of-bounds read error
-that was reported by the scanner, in the plot_freqdat.c file.</p>
+that was reported by the scanner, in the <span class="filepath">plot_freqdat.c</span> file.</p>
 
 
-<h3>Version 2.6</h3>
-<p>After a bug report by Lucjan SQ9VPA, I
+<h3>Version <span class="version-tag">2.6</span></h3>
+<p>After a bug report by Lucjan <span class="callsign">SQ9VPA</span>, I
 changed the case of the signal handler that deals with <code class="signal">SIGCHLD</code> so
 that it doesn't cause xnec2c to exit when the <code class="signal">SIGCHLD</code> signal does
 not originate from child processes created by xnec2c. It appears
@@ -2402,13 +2483,13 @@ even if it is not running forked, e.g.&nbsp;the <code>-j</code> option is not us
 the command line.</p>
 
 
-<h3>Version 2.5</h3>
+<h3>Version <span class="version-tag">2.5</span></h3>
 <p>After a bug report by Jean Collin, I made
-some changes to the input file parser code in input.c, to properly
+some changes to the input file parser code in <span class="filepath">input.c</span>, to properly
 identify tabs in the input file.</p>
 
 
-<h3>Version 2.4</h3>
+<h3>Version <span class="version-tag">2.4</span></h3>
 <p>I submitted xnec2c (and nec2c) for scanning
 to the <a target="_blank" rel="noopener noreferrer" href="https://scan.coverity.com/" name="coverity" id=
 "coverity">Coverity</a> source code audit website, which produced a
@@ -2421,25 +2502,25 @@ NEC2) is very difficult to read so I cannot say with certainty if
 this was so.</p>
 
 
-<h3>Version 2.3-beta</h3>
+<h3>Version <span class="version-tag">2.3-beta</span></h3>
 <p>Fixed a bug in the
 <code class="language-c">cell_edited_callback()</code> function that caused segmentation fault
 crashes when a cell in the input file editor was edited directly by
 the user.</p>
 
 
-<h3>Version 2.2-beta</h3>
+<h3>Version <span class="version-tag">2.2-beta</span></h3>
 <p>I made extensive modifications to the
 source code to silence a large number of warnings generated by the
-LLVM clang compiler when used with the <code>-Weverything</code> option. These
+<code>LLVM clang</code> compiler when used with the <code>-Weverything</code> option. These
 were mostly cases of implicit conversions between variable types,
-like int to char or uint to int etc. I have also updated the basic
+like <code>int</code> to <code>char</code> or <code>uint</code> to <code>int</code> etc. I have also updated the basic
 files of the GNU Autotools build system, to be compatible with the
 current version of these tools at the time of writing (February
 2013).</p>
 
 
-<h3>Version 2.1</h3>
+<h3>Version <span class="version-tag">2.1</span></h3>
 <p>Patched a problem in the graph plotting
 routines that caused xnec2c to crash with a division by zero fault.
 This can happen when e.g.&nbsp;a single-wire structure is specified and
@@ -2457,13 +2538,13 @@ meaningless.</p>
 </aside>
 
 
-<h3>Version 2.1-beta</h3>
+<h3>Version <span class="version-tag">2.1-beta</span></h3>
 <p>I have introduced many changes in this
 version, so I am releasing it again as a public beta version for
 testing and bug reports:</p>
 <p>After a bug report by David J. Singer, I changed all declarations
-of variables that are used in memory allocations, from int to
-size_t. This error was in the nec2c code from the beginning but
+of variables that are used in memory allocations, from <code>int</code> to
+<code>size_t</code>. This error was in the nec2c code from the beginning but
 apparently it only showed up when extremely large memory
 allocations are requested in nec2c and xnec2c.</p>
 <p>I have replaced all the (deprecated) GDK drawing primitives with
@@ -2473,14 +2554,14 @@ nicer anti-aliased drawing.</p>
 <p>After a feature request by David J. Singer and friend Richard, I
 have added code to save data of the structure display, radiation
 patterns and frequency plots into file, in a format suitable for
-the "gnuplot" plotting program.</p>
+the <code>gnuplot</code> plotting program.</p>
 
 
-<h3>Version 2.0-beta</h3>
+<h3>Version <span class="version-tag">2.0-beta</span></h3>
 <p>I received a bug report from David
 Binderman regarding an array bounds violation, which he found by
-compiling xnec2c with the -D_FORTIFY_SOURCE gcc flag. I fixed this
-bug and also tested xnec2c source code using cppcheck.</p>
+compiling xnec2c with the <code>-D_FORTIFY_SOURCE</code> gcc flag. I fixed this
+bug and also tested xnec2c source code using <code>cppcheck</code>.</p>
 <p>I decided it was about time I modify the xnec2c user interface so
 that it will, as far as possible, allow the user to save and
 re-open NEC2 files in the Editor window, without closing the
@@ -2492,7 +2573,7 @@ watchful of possible bugs that got away and to report them for
 fixing.</p>
 
 
-<h3>Version 1.6</h3>
+<h3>Version <span class="version-tag">1.6</span></h3>
 <p>I received another bug report from Rik van
 Riel: The patch applied above did not help, as somehow the buggy
 code got duplicated below the bug fix, reproducing the same error
@@ -2500,7 +2581,7 @@ in the calculation of front-to-back ratio! Hopefully fixed this
 time.</p>
 
 
-<h3>Version 1.5</h3>
+<h3>Version <span class="version-tag">1.5</span></h3>
 <p>Changed the handling of command line
 arguments so that the input file name may be specified without the
 use of the <code>-i</code> option. In this case xnec2c will take the last
@@ -2511,13 +2592,13 @@ of front to back ratios when the antenna is modeled over
 ground.</p>
 
 
-<h3>Version 1.4</h3>
+<h3>Version <span class="version-tag">1.4</span></h3>
 <p>Applied a patch supplied by Tom Beierlein,
-DL1JBE, to fix crashing of xnec2c 1.3 on long input file names
+<span class="callsign">DL1JBE</span>, to fix crashing of xnec2c <span class="version-tag">v1.3</span> on long input file names
 (&gt; 80 characters).</p>
 
 
-<h3>Version 1.3</h3>
+<h3>Version <span class="version-tag">1.3</span></h3>
 <p>After an inquiry about using incident field
 excitation, which was not implemented in previous versions, I
 removed the restrictions in excitation to allow plotting the
@@ -2529,24 +2610,24 @@ complex changes to xnec2c and I am not currently able to do
 this.</p>
 
 
-<h3>Version 1.2</h3>
+<h3>Version <span class="version-tag">1.2</span></h3>
 <p>Made the page size of spin buttons 0 to make
 setting of spin button values compatible with GTK 2.4</p>
 
 
-<h3>Version 1.1</h3>
+<h3>Version <span class="version-tag">1.1</span></h3>
 <p>I spoke too soon! A segfault bug has been
 reported that occurs when Maximum Admittance Matrix Asymmetry
 printing is requested in the <code class="nec-card">EX</code> card. Although this is not
 supported in xnec2c, it still produces a segmentation fault because
 the <code>ipnt</code> buffer is not allocated in the <code class="language-c">netwk()</code> function in
-network.c</p>
+<span class="filepath">network.c</span></p>
 
 
-<h3>Version 1.0</h3>
+<h3>Version <span class="version-tag">1.0</span></h3>
 <p>After several months with no bug reports or
 feature requests, I am sticking my neck out and releasing xnec2c as
-version 1.0. This version incorporates the last two feature request
+<span class="version-tag">v1.0</span>. This version incorporates the last two feature request
 I received from users:
 The "Cancel" button on card editors has been replaces with a
 "Delete Card" button, which deletes the selected "card" (row in the
@@ -2556,7 +2637,7 @@ Frequency Plots window to replace the second plotted quantity with
 the Net Gain of the antenna.</p>
 
 
-<h3>Version 1.0b5</h3>
+<h3>Version <span class="version-tag">1.0b5</span></h3>
 <p>Following on the above changes, I revised
 all similar situations in xnec2c's source and modified all
 <code class="language-c">sprintf</code> commands to <code class="language-c">snprintf</code> just in case, as I could not
@@ -2567,32 +2648,32 @@ pattern/frequency plots pixmaps when a save of the NEC2 editor data
 failed for some reason.</p>
 
 
-<h3>Version 1.0b4</h3>
+<h3>Version <span class="version-tag">1.0b4</span></h3>
 <p>After a bug report from Juha Vierinen I
 changed some <code class="language-c">sprintf</code> commands to <code class="language-c">snprintf</code> to avoid buffer
 overruns.</p>
 
 
-<h3>Version 1.0b3</h3>
-<p>Added <code>setlocale(<code>LC_NUMERIC</code>, "C");</code> to the
-main() function, so that in locales where commas are used in
+<h3>Version <span class="version-tag">1.0b3</span></h3>
+<p>Added <code>setlocale(LC_NUMERIC, "C");</code> to the
+<code class="language-c">main()</code> function, so that in locales where commas are used in
 decimal numbers xnec2c can read data correctly (suggested by Joop
 Stakenborg). Some minor changes to the user interface were also
 made to allow the NEC2 editor window to fit in displays with
 shorter heights.</p>
 
 
-<h3>Version 1.0b</h3>
+<h3>Version <span class="version-tag">1.0b</span></h3>
 <p>In this version xnec2c has been re-worked
 extensively to make it multi-threading and to streamline its
 operation to some extend. Many bugs created by these changes, and
 others that already existed have been fixed, and the user interface
 has also changed somewhat. The example input files have also been
 checked and some mistakes in them have been corrected. This is now
-the first version 1.0 beta release for public testing.</p>
+the first <span class="version-tag">v1.0</span> beta release for public testing.</p>
 
 
-<h3>Version 0.9b</h3>
+<h3>Version <span class="version-tag">0.9b</span></h3>
 <p>Fixed a few bugs mainly in the NEC2 editor
 code and also changed the code of all individual Geometry and
 Command editors, so that edited data are set in the main NEC2
@@ -2604,12 +2685,12 @@ trace, since it now seems to be outside my code: When the <code class="language-
 allocation when they return. This corruption manifests itself as
 NAN values appearing in calculations so I modified these functions
 to return their computed value via a pointer in the argument list.
-I also changed the function declaration from complex long double to
+I also changed the function declaration from <code>complex long double</code> to
 void as it seems this bug is related to functions of the former
 type declaration, returning a value.</p>
 
 
-<h3>Version 0.8b</h3>
+<h3>Version <span class="version-tag">0.8b</span></h3>
 <p>Fixed a serious bug that caused
 segmentation faults and crashes in structures that have a wire in
 contact with a patch. The <code class="language-c">subph()</code> routine divides this patch into 3
@@ -2620,13 +2701,13 @@ were also fixed and the example NEC2 files were also checked and
 edited when needed.</p>
 
 
-<h3>Version 0.7b</h3>
+<h3>Version <span class="version-tag">0.7b</span></h3>
 <p>Fixed a bug in the co-ordinate translation
 (Move) editor and edited the code in the <code class="nec-card">GW</code> card editor so that the
 wire diameter does not change when the New button is clicked.</p>
 
 
-<h3>Version 0.6b</h3>
+<h3>Version <span class="version-tag">0.6b</span></h3>
 <p>Fixed a bug inherited from NEC2: If no
 geometry cards are present (only a <code class="nec-card">GE</code> card) then there is division
 by zero in <code class="language-c">conect()</code>. NEC2 seems to accept the lack of geometry
@@ -2637,34 +2718,34 @@ beyond the range of the <code>long</code> type in 32 bit systems. Modified the
 behavior of some card Editors to make them more user friendly.</p>
 
 
-<h3>Version 0.5b</h3>
+<h3>Version <span class="version-tag">0.5b</span></h3>
 <p>Fixed a bug that caused segmentation faults
 when only one wire segment was present in the structure. This is
 not a case that will normally exist but the seg fault had to be
 fixed.</p>
 
 
-<h3>Version 0.4b</h3>
+<h3>Version <span class="version-tag">0.4b</span></h3>
 <p>Added a NEC2 input file editor that makes
 the edit/save/reload/execute cycle easier and quicker.</p>
 
 
-<h3>Version 0.3</h3>
+<h3>Version <span class="version-tag">0.3</span></h3>
 <p>Added the ability to stop the frequency loop
 by clicking on the frequency display spin buttons and to restart it
 by toggling the "Gain" or "E/H" buttons in the Radiation Pattern
 window.</p>
 
 
-<h3>Version 0.2</h3>
+<h3>Version <span class="version-tag">0.2</span></h3>
 <p>Incorporated some changes to the GUI (the
-Glade-generated design) since after upgrading to GTK+ 2.8.9, the
+Glade-generated design) since after upgrading to <code>GTK+ 2.8.9</code>, the
 geometry of the windows (the position and extend of buttons/entry
 widgets) changed a little. Also fixed some bugs in the GUI code to
 handle unusual sequences of user actions correctly.</p>
 
 
-<h3>Version 0.1</h3>
+<h3>Version <span class="version-tag">0.1</span></h3>
 <p>First version with ability to draw a
 color-coded wire frame Radiation Pattern (Near and Far Field),
 Graphs of various Frequency dependent data (Gain, VSWR, Impedance
@@ -2694,7 +2775,7 @@ combination with a multiple-frequency <code class="nec-card">FR</code> card, alt
 relevant data of the last command will be used.</p>
 <h3 id="NoOutFile">No Output File</h3>
 <p>Printing of results to an output file has been removed starting
-from version 1.0, since xnec2c works in a way that does not allow
+from <span class="version-tag">v1.0</span>, since xnec2c works in a way that does not allow
 printing compatible with the original NEC2 output format. If printing to file is
 needed then it is better to use the original NEC2 program.</p>
 <h2 id="Bugs">Bugs and Inadequacies</h2>
@@ -2717,7 +2798,7 @@ condition that did appear a couple of times was xnec2c getting
 blocked in a select() call, waiting for a child to write to a pipe.
 This apparently happened because I was testing a very minimal input
 file and the child processes seemed to write to the pipes before
-the parent process dropped into select(). This was fixed in v4.3 by
+the parent process dropped into select(). This was fixed in <span class="version-tag">v4.3</span> by
 always sending full-length filenames to the job children. If this seems
 to happen, then please send a bug report with as much detail as possible
 to reproduce the problem.
