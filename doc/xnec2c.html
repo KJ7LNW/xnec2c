@@ -374,11 +374,19 @@ img.float-right {
 
 /* Lists */
 ul, ol {
-  margin: 1rem 0 1rem 2rem;
+  margin: 1rem 0;
+  padding-left: 1.5rem;
 }
 
 li {
   margin: 0.5rem 0;
+}
+
+/* Nested lists */
+ul ul, ul ol, ol ul, ol ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
 }
 
 /* Paragraphs */
@@ -452,6 +460,15 @@ button:hover {
     float: none;
     display: block;
     margin: 1rem auto;
+  }
+
+  /* Reduce list indentation on mobile */
+  ul, ol {
+    padding-left: 1.25rem;
+  }
+
+  ul ul, ul ol, ol ul, ol ol {
+    padding-left: 1rem;
   }
 }
 
