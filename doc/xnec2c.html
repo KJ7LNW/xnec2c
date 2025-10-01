@@ -1,6 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta name="generator" content="Bluefish 2.2.12" >
 <title>Xnec2c User Manual</title>
@@ -11,6 +10,659 @@
 <meta name="ROBOTS" content="INDEX, FOLLOW">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="canonical" href="https://www.xnec2c.org/" />
+<style>
+/* Radiation Pattern Inspired Color Scheme */
+:root {
+  /* Primary gradient colors from antenna pattern */
+  --color-primary: #1e40af;        /* Deep blue */
+  --color-primary-dark: #1e3a8a;
+  --color-primary-light: #3b82f6;
+
+  --color-secondary: #0284c7;      /* Sky blue */
+  --color-secondary-dark: #0369a1;
+  --color-secondary-light: #0ea5e9;
+
+  --color-accent: #0891b2;         /* Cyan */
+  --color-accent-dark: #0e7490;
+  --color-accent-light: #06b6d4;
+
+  --color-success: #059669;        /* Emerald green */
+  --color-warning: #d97706;        /* Amber */
+  --color-error: #dc2626;          /* Red */
+
+  /* Neutral palette */
+  --color-base-100: #ffffff;
+  --color-base-200: #f8fafc;
+  --color-base-300: #e2e8f0;
+  --color-base-content: #1e293b;
+  --color-neutral: #334155;
+  --color-neutral-light: #64748b;
+
+  /* Gradient colors for visualization */
+  --gradient-cold: #1e40af;        /* Deep blue */
+  --gradient-cool: #3b82f6;        /* Blue */
+  --gradient-mid-cool: #0891b2;    /* Cyan */
+  --gradient-mid: #059669;         /* Green */
+  --gradient-mid-warm: #ca8a04;    /* Yellow */
+  --gradient-warm: #ea580c;        /* Orange */
+  --gradient-hot: #dc2626;         /* Red */
+}
+
+/* Base Typography */
+body {
+  font-family: Georgia, Cambria, "Times New Roman", serif;
+  line-height: 1.6;
+  color: var(--color-base-content);
+  background-color: var(--color-base-100);
+  margin: 2rem;
+}
+
+/* Navigation */
+nav, nav * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Headings */
+h1 {
+  color: var(--color-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0 1.5rem;
+  border-bottom: 3px solid var(--color-primary);
+  padding-bottom: 0.75rem;
+  letter-spacing: -0.025em;
+}
+
+h1:first-of-type {
+  margin-top: 0;
+}
+
+h2 {
+  color: var(--color-primary-dark);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 3rem 0 1.25rem;
+  border-bottom: 2px solid var(--color-base-300);
+  padding-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  color: var(--color-secondary-dark);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+  letter-spacing: -0.015em;
+}
+
+h4 {
+  color: var(--color-neutral);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--color-primary-light);
+  text-decoration: underline;
+}
+
+a:visited {
+  color: var(--color-primary-dark);
+}
+
+/* Menu Paths */
+.menu-path {
+  background: linear-gradient(135deg, var(--color-base-200), var(--color-base-300));
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.95em;
+  white-space: nowrap;
+  display: inline-block;
+  margin: 0 0.25rem;
+  border: 1px solid var(--color-base-300);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.menu-path::after {
+  content: '';
+}
+
+/* Make arrow separators in menu paths more prominent */
+.menu-path + .menu-path::before {
+  content: '→';
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 0 0.3rem;
+  color: var(--color-primary);
+  vertical-align: middle;
+}
+
+/* Keyboard Shortcuts */
+kbd {
+  background: linear-gradient(180deg, #fff, var(--color-base-200));
+  border: 1px solid var(--color-base-300);
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.1), inset 0 0 0 2px #fff;
+  color: var(--color-neutral);
+  display: inline-block;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  margin: 0 0.15rem;
+  vertical-align: baseline;
+}
+
+/* Spacing utilities */
+.space-sm {
+  margin-bottom: 0.5rem;
+}
+
+.space-md {
+  margin-bottom: 1rem;
+}
+
+.space-lg {
+  margin-bottom: 2rem;
+}
+
+.section-spacing {
+  margin-bottom: 2rem;
+}
+
+/* Code Elements */
+code, tt {
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.25rem;
+  padding: 0.15rem 0.4rem;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.9em;
+  color: var(--color-accent-dark);
+  font-weight: 500;
+}
+
+/* Scientific notation */
+sub, sup {
+  font-size: 0.75em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+.nec-card {
+  background-color: var(--color-base-200);
+  border: 1px solid var(--color-base-300);
+  border-radius: 0.25rem;
+  padding: 0.15rem 0.4rem;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.9em;
+  color: var(--color-accent-dark);
+  font-weight: 600;
+}
+
+.version-number {
+  color: var(--color-success);
+}
+
+pre {
+  background-color: var(--color-base-200);
+  border: 1px solid var(--color-base-300);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  line-height: 1.4;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* File Paths */
+.filepath {
+  background-color: var(--color-base-200);
+  color: var(--color-success);
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+/* Definition Lists */
+dl {
+  margin: 1.5rem 0;
+  background-color: var(--color-base-100);
+  border-left: 4px solid var(--color-accent);
+  padding-left: 1.5rem;
+}
+
+dt {
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-top: 1.25rem;
+  font-size: 1.1em;
+}
+
+dt code {
+  font-size: 1.05em;
+  color: var(--color-accent-dark);
+  background-color: var(--color-base-200);
+  border: 1px solid var(--color-base-300);
+  padding: 0.15rem 0.4rem;
+}
+
+dd {
+  margin-left: 2rem;
+  margin-bottom: 1.25rem;
+  color: var(--color-base-content);
+  line-height: 1.7;
+}
+
+/* Definition Tables */
+table.definition-table {
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+}
+
+table.definition-table th {
+  background-color: var(--color-primary);
+  color: white;
+  text-align: left;
+  padding: 0.75rem;
+}
+
+table.definition-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--color-base-300);
+}
+
+table.definition-table tr:hover {
+  background-color: var(--color-base-200);
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+img.float-left {
+  float: left;
+  margin: 1rem 2rem 1rem 0;
+}
+
+img.float-right {
+  float: right;
+  margin: 1rem 0 1rem 2rem;
+}
+
+/* Lists */
+ul, ol {
+  margin: 1rem 0 1rem 2rem;
+}
+
+li {
+  margin: 0.5rem 0;
+}
+
+/* Paragraphs */
+p {
+  margin: 1rem 0;
+  text-align: justify;
+}
+
+/* Tables (for future use) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+th {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--color-base-300);
+}
+
+tr:hover {
+  background-color: var(--color-base-200);
+}
+
+/* Buttons (for interactive elements) */
+button, input[type="button"], input[type="submit"] {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    margin: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  img.float-left,
+  img.float-right {
+    float: none;
+    display: block;
+    margin: 1rem auto;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    color: black;
+    background: white;
+  }
+
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+
+  .menu-path, kbd {
+    border: 1px solid #ccc;
+    background: white;
+  }
+}
+
+/* Scientific notation helpers */
+.subscript {
+  vertical-align: sub;
+  font-size: 0.75em;
+}
+
+.superscript {
+  vertical-align: super;
+  font-size: 0.75em;
+}
+
+.impedance {
+  font-style: italic;
+}
+
+/* Accessibility */
+:focus {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Version history styling */
+.version-history h3 {
+  color: var(--color-success);
+  border-left: 4px solid var(--color-success);
+  padding-left: 0.5rem;
+}
+
+/* Translation notice */
+#translate {
+  background-color: var(--color-base-200);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection colors */
+::selection {
+  background-color: var(--color-accent-light);
+  color: var(--color-base-content);
+}
+
+::-moz-selection {
+  background-color: var(--color-accent-light);
+  color: var(--color-base-content);
+}
+
+/* Navigation and Table of Contents - sans-serif for scanability */
+nav, nav ol, nav ul, nav li, nav a {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Definition table for button descriptions */
+.definition-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.definition-table th {
+  text-align: left;
+  font-weight: normal;
+  padding: 0.5rem 1rem 0.5rem 0;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.definition-table td {
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-left: 2px solid var(--color-base-300);
+}
+
+/* Language-specific code highlighting */
+.language-bash, .language-shell {
+  background-color: #f6f8fa;
+  display: block;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.language-c {
+  color: #032f62;
+  font-weight: 500;
+}
+
+.language-gnuplot {
+  color: #1f2328;
+  background-color: #fff8f0;
+}
+
+.math-expression {
+  font-family: "Cambria Math", "Times New Roman", serif;
+  font-style: italic;
+  color: #6e4c13;
+}
+
+/* Notice blocks - small aside boxes that float right */
+.notice {
+  float: right;
+  width: 35%;
+  max-width: 300px;
+  background-color: var(--color-base-200);
+  border-left: 3px solid var(--color-accent);
+  padding: 0.75rem;
+  margin: 0 0 1rem 1.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  line-height: 1.4;
+  clear: right;
+}
+
+.notice strong {
+  color: var(--color-accent-dark);
+  font-size: 0.95em;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.notice h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1em;
+  color: var(--color-accent-dark);
+}
+
+.notice p {
+  margin: 0.5rem 0;
+  text-align: left;
+}
+
+/* Clear floats after sections */
+h2, h3 {
+  clear: both;
+}
+
+/* For smaller screens, make notices full width */
+@media (max-width: 768px) {
+  .notice {
+    float: none;
+    width: 100%;
+    max-width: none;
+    margin: 1rem 0;
+  }
+}
+
+/* UI Elements */
+.ui-button {
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+kbd.shortcut {
+  margin-left: 0.5rem;
+}
+
+/* Figure captions */
+figcaption {
+  font-style: italic;
+  text-align: center;
+  margin-top: 0.5rem;
+  color: var(--color-neutral);
+  font-size: 0.95em;
+}
+
+/* Button table specific styling */
+.button-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.button-table th:first-child {
+  width: 20%;
+}
+
+.button-table th:nth-child(2) {
+  width: 15%;
+}
+
+.button-table th:nth-child(3) {
+  width: 65%;
+}
+
+/* Signal names */
+.signal {
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  color: #e16f24;
+  font-weight: 600;
+  background-color: #fff8f0;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+}
+
+/* Command-line options definition list */
+.command-options dt {
+  font-size: 1em;
+  font-weight: normal;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.command-options dt code {
+  font-size: 0.95em;
+  font-weight: 600;
+  background-color: var(--color-base-200);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  color: var(--color-primary-dark);
+}
+
+.command-options dd {
+  margin-left: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-base-content);
+}
+</style>
 </head>
 <body>
 
@@ -22,79 +674,82 @@ function googleTranslateElementInit() {
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<a href="https://www.xnec2c.org/"><img src="images/web-heading.png"/></a><br/>
 <div id="translate"></div>
 <h1>Xnec2c: Graphical NEC2 Antenna Simulation</h1>
+<figure>
+<a href="https://www.xnec2c.org/" target="_blank" rel="noopener noreferrer"><img src="images/web-heading.png" alt="Xnec2c logo and heading" loading="lazy"/></a>
+</figure>
 Xnec2c is a high-performance multi-threaded electromagnetic simulation
 package to model antenna near- and far-field radiation patterns
 for Linux and UNIX operating systems.  The original FORTRAN version of
-NEC2 was ported to C by <a target="_blank" href="http://www.5b4az.org/">Neoklis Kyriazis, 5B4AZ</a> and released as nec2c.
+NEC2 was ported to C by <a target="_blank" rel="noopener noreferrer" href="http://www.5b4az.org/">Neoklis Kyriazis, 5B4AZ</a> and released as nec2c.
 Later he wrote xnec2c, a graphical interface for ease of use with
 many more features:
 
 <h2>Xnec2c Quick Start Guide</h2>
 
 <h3>Compilation</h3>
-    <ul class="notranslate">
-      <li><tt>git clone https://github.com/KJ7LNW/xnec2c.git</tt></li>
-      <li><tt>cd xnec2c</tt></li>
-      <li><tt>./autogen.sh</tt></li>
-      <li><tt>./configure</tt></li>
-      <li><tt>make &amp;&amp; make install</tt></li>
-      <li><tt>make desktop-install # Optional: for icons and file association.</tt></li>
-      <li><tt>xnec2c</tt></li>
-    </ul>
+<ul>
+<li><code>git clone https://github.com/KJ7LNW/xnec2c.git</code></li>
+<li><code>cd xnec2c</code></li>
+<li><code>./autogen.sh</code></li>
+<li><code>./configure</code></li>
+<li><code>make &amp;&amp; make install</code></li>
+<li><code>make desktop-install</code> # Optional: for icons and file association.</li>
+<li><code>xnec2c</code></li>
+</ul>
 
 <h3>Compilation Notes</h3>
 
-If you prefer to download .tar.gz files they are available on our
-<a target="_blank" href="https://www.xnec2c.org/releases/?C=M;O=D">releases</a> page.
+If you prefer to download <span class="filepath">.tar.gz</span> files they are available on our
+<a target="_blank" rel="noopener noreferrer" href="https://www.xnec2c.org/releases/?C=M;O=D">releases</a> page.
 
 <ul>
 	<li>
 	You will need the Gnome development libraries and build tools installed for your distribution:
 	<ul>
-		<li>Debian/Ubuntu: apt-get install build-essential autoconf libtool gnome-devel libgtk-3-dev gettext autopoint gnome-icon-theme desktop-file-utils</li>
-		<li>CentOS: yum install gcc make automake autoconf gtk3-devel gettext-devel libtool</li>
-		<li>Note: some distributions may need the `autoconf-archive` package.
+		<li>Debian/Ubuntu: <code>apt-get install build-essential autoconf libtool gnome-devel libgtk-3-dev gettext autopoint gnome-icon-theme desktop-file-utils</code></li>
+		<li>CentOS: <code>yum install gcc make automake autoconf gtk3-devel gettext-devel libtool</code></li>
+		<li>Note: some distributions may need the <code>autoconf-archive</code> package.
 	</ul>
 	</li>
 	<li>
-	If you have trouble running "./autogen.sh" then try "autoreconf -v -i -W all" instead; its
+	If you have trouble running <code>./autogen.sh</code> then try <code>autoreconf -v -i -W all</code> instead; its
 	output may be more informative and indicate the actual issue.
 	</li>
 	<li>
-	If you have trouble building on any OS then please open an issue on the <a href="https://github.com/KJ7LNW/xnec2c/issues">github issues</a> page so we can make xnec2c build on as many systems as possible.
+	If you have trouble building on any OS then please open an issue on the <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues">github issues</a> page so we can make xnec2c build on as many systems as possible.
 	</li>
 </ul>
 
 <h3>Getting Started</h3>
 <ol>
-	<li>Open a simple antenna like <tt>examples/2m_yagi.nec</tt> because it will render quickly.</li>
-	<li>In the main window, select <tt>View-&gt;Radiation Pattern</tt> and <tt>View-&gt;Frequency Plots</tt></li>
-	<li>In the Freqplots window, select "Max Gain" and "VSWR" (or whichever you'd like to see).</li>
-	<li>Click the triangle "Play" button on the freqplots window to render the graph.</li>
-	<li>Click anywhere in the plot window to select a frequency (green line)</li>
-	<li>Drag the radiation pattern around and have a look!</li>
+<li>Open a simple antenna like <span class="filepath">examples/2m_yagi.nec</span> because it will render quickly.</li>
+<li>In the main window, select <span class="menu-path">View → Radiation Pattern</span> and <span class="menu-path">View → Frequency Plots</span></li>
+<li>In the Freqplots window, select "Max Gain" and "VSWR" (or whichever you'd like to see).</li>
+<li>Click the triangle "Play" button on the freqplots window to render the graph.</li>
+<li>Click anywhere in the plot window to select a frequency (green line)</li>
+<li>Drag the radiation pattern around and have a look!</li>
 </ol>
 
 
 <h3>Performance Tips</h3>
 <ul>
-	<li>Launch xnec2c with as many jobs as you have CPUs; for example: <tt>xnec2c -j8</tt></li>
-	<li>Configure accelerated LAPACK libraries.  See File-&gt;Mathlib Libraries-&gt;Mathlib Help</li>
+<li>Launch xnec2c with as many jobs as you have CPUs; for example: <code>xnec2c -j8</code></li>
+<li>Configure accelerated LAPACK libraries.  See <span class="menu-path">File → Mathlib Libraries → Mathlib Help</span></li>
 </ul>
 
 
 
 <h3>Contribute to Xnec2c</h3>
-If you wish
+<p>If you wish
 to contribute to the xnec2c project then we would welcome your
 support and pull-requests at the
-<a target="_blank" href="https://github.com/KJ7LNW/xnec2c.git">official xnec2c GitHub repository</a>
-<br/> <br/>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c.git">official xnec2c GitHub repository</a>
+</p>
 
 <h2>User's Manual</h2>
+<nav role="navigation" aria-label="Table of Contents">
 <ol>
 <li><a href="#Introduction">Introduction</a></li>
 <li><a href="#Features">Features</a>
@@ -128,8 +783,9 @@ Window</a></li>
 <li><a href="#Bugs">Bugs and Inadequacies</a></li>
 <li><a href="#Acknowledgement">Acknowledgment</a></li>
 </ol>
-<b><a name="Introduction" id="Introduction">1.
-Introduction:</a></b><br>
+</nav>
+<main role="main">
+<h2 id="Introduction">Introduction</h2>
 <p>Xnec2c is a GTK3-based Graphical version of nec2c, my
 translation to the C language of NEC2, the FORTRAN Numerical
 Electromagnetics Code commonly used for antenna simulation and
@@ -138,12 +794,12 @@ application that reads standard NEC2 input files and produces an
 output file with data requested by "commands" in the input file. In
 contrast xnec2c is a GUI interactive application that (in its
 current form) reads NEC2 input files but presents output data in
-graphical form, e.g. as wire frame drawings of the radiation
+graphical form, e.g.&nbsp;as wire frame drawings of the radiation
 pattern or near E/H field, graphs of maximum gain, input impedance,
 VSWR etc against frequency and simple rendering of the antenna
 structure, including color code representation of currents or
 charge densities. These results are only calculated and drawn on
-user demand via menu items or buttons, e.g. xnec2c is interactive
+user demand via menu items or buttons, e.g.&nbsp;xnec2c is interactive
 and does not execute NEC2 "commands" in batch style as the original
 does. Printing of results to an output file has been removed
 starting from version 1.0, since xnec2c works in a way that does
@@ -162,28 +818,29 @@ with no need for detailed knowledge of "card" formats. When editing
 is completed, the contents of the nec2 editor can be saved in a
 NEC2-compatible input file which can then be re-loaded by xnec2c
 for execution.</p>
-<b><a name="Features" id="Features">2. Features:</a></b><br>
-<ul>
-<li> <p><b><a name="Multithread" id="Multithread">Multi-threading
-operation on SMP machines:</a></b><br>
-Since version 1.0, xnec2c can run multi-threaded (by forking) on
-SMP machines, when executing a frequency loop. Multi-threading is
-enabled by using the -j&lt;n&gt; option, where n is the number of
-processors in a SMP machine. xnec2c will spawn n child processes,
+<h2 id="Features">Features</h2>
+</ul>
+<h3 id="Multithread">Multi-threading operation on <code>SMP</code> machines</h3>
+<p>Since version 1.0, xnec2c can run multi-threaded (by forking) on
+<code>SMP</code> machines, when executing a frequency loop. Multi-threading is
+enabled by using the <code>-j &lt;n&gt;</code> option, where <var>n</var> is the number of
+processors in a <code>SMP</code> machine. xnec2c will spawn <var>n</var> child processes,
 to which it will delegate calculation of frequency-dependent data
-for each frequency step. Thus data related to n frequency steps
+for each frequency step. Thus data related to <var>n</var> frequency steps
 will be calculated concurrently and passed on the the parent
 process by pipes, to be further processed for graphical display.
 Child processes are spawned before GTK is initialized and started
 so that only the parent process is tied to the GUI interface. Thus
-there are n+1 processes running when the -j option is used and
-execution is faster by slightly less than n times. <b>Please
-note</b> that its pointless and counter-productive to specify a
-value of n greater than the number of steps in the frequency
-loop.</p>
-</li>
-<li> <p><b><a name="OnDemand" id="OnDemand">On-demand
-Calculation:</a></b><br>
+there are <var>n</var>+1 processes running when the <code>-j</code> option is used and
+execution is faster by slightly less than <var>n</var> times.</p>
+<aside class="notice" role="note">
+<strong>Note:</strong> its pointless and counter-productive to specify a
+value of <var>n</var> greater than the number of steps in the frequency
+loop.
+</aside>
+
+<h3 id="OnDemand">On-demand Calculation</h3>
+<p>
 Since xnec2c collects data to be displayed in buffers directly from
 the functions that produce them, there is no need to produce and
 parse an output file and no need to re-run the program when certain
@@ -195,51 +852,53 @@ The frequency can be changed either from spin buttons in the
 the <a href="#FrequencyWindow">Frequency Data</a> window's graph
 drawing area. The frequency corresponding to the pointer position
 will then be used to re-calculate whatever data is on display.</p>
-</li>
-<li><p><b><a name="Nec2Edit" id="Nec2Edit">Built-in NEC2 input file
-editor:</a></b><br>
+
+<h3 id="Nec2Edit">Built-in NEC2 input file editor</h3>
+<p>
 Xnec2c has a built-in editor for NEC2 input files. Data in NEC2
 "cards" can be entered or edited either directly in the main editor
 window (tree view) or in more convenient dedicated editors for each
 type of card. Edited data can be saved to a NEC2 input file and
 reloaded for execution so that the edit-execute-display cycle is
 quicker and more convenient.</p>
-</li>
-<li><p><b><a name="Linalg" id="Linalg">Accelerated Linear Algebra Support</a></b><br>
+
+<h3 id="Linalg">Accelerated Linear Algebra Support</h3>
+<p>
 Support for accelerated libraries was added in version 4.3.
 Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL
 can speed up xnec2c EM simulations if available on your platform.
 Library detection details are available in the terminal. See
-File-&gt;Math Libraries-&gt;Help for more information. Accelerated operation
+<span class="menu-path">File → Math Libraries → Help</span> for more information. Accelerated operation
 is optional, it will fall back to the original NEC2 algorithms if
 necessary.  Accelerated library support has been tested on Ubuntu
 , Debian, CentOS/RHEL, and VOID Linux.
 Generally speaking, if you can install the requisite libraries,
 it will be detected.  If libraries are not detected on your OS then
-please open a bug report.
-</li>
-<li> <p><b><a name="Interactive" id="Interactive">Interactive Operation:</a></b><br>
-Xnec2c is interactive in its operation, e.g. when started it just
+please open a bug report.</p>
+
+<h3 id="Interactive">Interactive Operation</h3>
+<p>
+Xnec2c is interactive in its operation, e.g.&nbsp;when started it just
 shows its Main window in a "blank" state, indicating that no valid
 input data has been read in yet. The NEC2-type input file can be
-specified at start-up in the command line optionally with the <b>-i
-option</b> or it can be opened from the file selection dialog that
-appears via the <b>File-&gt;Open menu</b> of the <a href=
+specified at start-up in the command line optionally with the <strong><code>-i</code>
+option</strong> or it can be opened from the file selection dialog that
+appears via the <span class="menu-path">File → Open</span> menu of the <a href=
 "#MainWindow">Main window</a>. Once a valid input file is opened,
 all the normal widgets in the <a href="#MainWindow">Main window</a>
 appear so as to allow proper operation. The NEC2 "commands" in the
 input file are read in but not executed, until a request is issued
 by the user via buttons or menus in the appropriate windows.</p>
-</li>
-<li><b><a name="Windows" id="Windows">User Interface:</a></b><br>
+
+<h3 id="Windows">User Interface</h3>
 In its current form, xnec2c has three windows for the graphical
 display of output data: When started without an input file
-specified optionally by the -i &lt;input-file&gt; option, the
+specified optionally by the <code>-i &lt;input-file&gt;</code> option, the
 <a href="#MainWindow">Main window</a> opens with most of the button
 and menu widgets hidden. When a valid input file is opened, all the
 hidden widgets are shown and the structure is drawn in the <a href=
 "#MainWindow">Main window's</a> drawing area widget. From the
-<b>View</b> menu, the <a href="#RadiationWindow">Radiation
+<strong>View</strong> menu, the <a href="#RadiationWindow">Radiation
 Pattern</a> and <a href="#FrequencyWindow">Frequency Related
 data</a> display windows can be opened, to draw either the Gain
 pattern or the Near E/H fields or Frequency-related Data like Input
@@ -248,94 +907,127 @@ direction etc. Both the <a href="#MainWindow">Main window</a> and
 the <a href="#RadiationWindow">Radiation Pattern window</a> have
 buttons to select fixed viewing angles of the structure or the
 radiation pattern, as well as spin buttons to input specific
-viewing angles.</li>
-<li> <p><b><a name="Color" id="Color">Color Coding:</a></b><br>
+viewing angles.
+
+<h3 id="Color">Color Coding</h3>
+<p>
 Xnec2c uses color coding to visualize the Current or Charge
 distribution in the Structure's segments or patches as well as the
 Gain pattern or the Near E/H field pattern. Color coding is also
 used to clarify the Graphs of Frequency-related data. A color code
 strip is shown in the <a href="#MainWindow">Main</a> and <a href=
 "#RadiationWindow">Radiation Pattern</a> windows.</p>
-</li>
-</ul>
-<p><b><a name="Compilation" id="Compilation">3. Compilation and
-Installation:</a></b><br>
+<h2 id="Compilation">Compilation and Installation</h2>
+<p>
 Xnec2c is known to build on many different platforms including Linux
-and by using <a href="https://www.freshports.org/comms/xnec2c/">FreeBSD FRESH ports</a>.
+and by using <a target="_blank" rel="noopener noreferrer" href="https://www.freshports.org/comms/xnec2c/">FreeBSD FRESH ports</a>.
 If you have trouble building on your OS then please open a bug report.
 </p>
 <p>To compile the package, it may be preferable to first run the
-included "autogen.sh" script in the package's top directory, to
-produce a fresh build environment. Then the "configure" script can
+included <code>autogen.sh</code> script in the package's top directory, to
+produce a fresh build environment. Then the <code>configure</code> script can
 be run with optional parameters to override the default settings
-and compiler flags, e.g: ./configure --prefix=/usr CFLAGS="-g -O2"
-will override the default /usr/local installation prefix and the
-"-Wall -O2" compiler flags.</p>
-<p>Running "make" in the package's top directory should produce the
-executable binary in src/. Running "make install" will install the
-binary into /usr/local/bin by default or under the specified
+and compiler flags, e.g: <code>./configure --prefix=/usr CFLAGS="-g -O2"</code>
+will override the default <span class="filepath">/usr/local</span> installation prefix and the
+<code>-Wall -O2</code> compiler flags.</p>
+<p>Running <code>make</code> in the package's top directory should produce the
+executable binary in <span class="filepath">src/</span>. Running <code>make install</code> will install the
+binary into <span class="filepath">/usr/local/bin</span> by default or under the specified
 prefix. It will also install the default configuration file into
 the user's home directory. This will have to be edited by the user
 as required. There is also this hypertext documentation file which
 you can copy to a location of your choice.</p>
 <p>No configuration files are needed and the sample input files
-that were used during development are in the xnec2c/examples
-directory. Please also read the <b>xnec2c/doc/nec2c.txt</b> file
+that were used during development are in the <span class="filepath">xnec2c/examples</span>
+directory. Please also read the <strong><span class="filepath">xnec2c/doc/nec2c.txt</span></strong> file
 that describes the nec2c application that is used as the basis for
 xnec2c.</p>
-<b><a name="Operation" id="Operation">4. Operation:</a></b><br>
-<p><a name="CommandLine" id="CommandLine"><b>Command Line Options:</b></a></p>
-<pre class="notranslate">
-Usage: xnec2c [options] [&lt;input-file-name&gt;]
-  -i|--input &lt;input-file-name&gt;
-  -j|--jobs  &lt;number of processors in SMP machine&gt; (-j0 disables forking)
-  -b|--batch:        enable batch mode, exit after the frequency loop runs
-     --optimize:     Activate the optimizer immediately.
-  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging
-  -h|--help:         print usage information and exit
-  -V|--version:      print xnec2c version number and exit
-  -v|--verbose:      increase verbosity, can be specified multiple times
-  -d|--debug:        enable debug output (-dd includes backtraces)
-  -d|--quiet:        suppress debug/verbose output
+<h2 id="Operation">Operation</h2>
+<h3 id="CommandLine">Command Line Options</h3>
+<p><strong>Usage:</strong> <code>xnec2c [options] [&lt;<var>input-file-name</var>&gt;]</code></p>
 
-The following arguments write to an output file after the frequency loop
-completes.  These are useful to combine with --batch; If you wish to specify
-filenames to write without --batch mode then enable the File-&gt;Optimizer
-Settings or the files you specify on the command line will not be written.
+<dl class="command-options">
+  <dt><code>-i|--input &lt;input-file-name&gt;</code></dt>
+  <dd>Specify a NEC2 input file to be opened at start-up.</dd>
 
-  --write-csv &lt;filename&gt;
-  --write-s1p &lt;filename&gt;
-  --write-s2p-max-gain &lt;filename&gt;
-  --write-s2p-viewer-gain &lt;filename&gt;
-</pre>
-<p><b>Command Line Notes:</b></p>
-<p><b>&lt;input-file-name&gt;</b>: Specify a NEC2 input file to
-be opened at start-up. If the -i option is omitted, xnec2c will
+  <dt><code>-j|--jobs &lt;n&gt;</code></dt>
+  <dd>Number of processors in SMP machine, where <var>n</var> is the number of processors (<code>-j0</code> disables forking).</dd>
+
+  <dt><code>-b|--batch</code></dt>
+  <dd>Enable batch mode, exit after the frequency loop runs.</dd>
+
+  <dt><code>--optimize</code></dt>
+  <dd>Activate the optimizer immediately.</dd>
+
+  <dt><code>-P|--no-pthreads</code></dt>
+  <dd>Disable pthreads and use the GTK loop for debugging.</dd>
+
+  <dt><code>-h|--help</code></dt>
+  <dd>Print usage information and exit.</dd>
+
+  <dt><code>-V|--version</code></dt>
+  <dd>Print xnec2c version number and exit.</dd>
+
+  <dt><code>-v|--verbose</code></dt>
+  <dd>Increase verbosity, can be specified multiple times.</dd>
+
+  <dt><code>-d|--debug</code></dt>
+  <dd>Enable debug output (<code>-dd</code> includes backtraces).</dd>
+
+  <dt><code>-q|--quiet</code></dt>
+  <dd>Suppress debug/verbose output.</dd>
+</dl>
+
+<p>The following arguments write to an output file after the frequency loop
+completes. These are useful to combine with <code>--batch</code>; If you wish to specify
+filenames to write without <code>--batch</code> mode then enable the <span class="menu-path">File → Optimizer Settings</span> or the files you specify on the command line will not be written.</p>
+
+<dl class="command-options">
+  <dt><code>--write-csv &lt;filename&gt;</code></dt>
+  <dd>Write results in CSV format.</dd>
+
+  <dt><code>--write-s1p &lt;filename&gt;</code></dt>
+  <dd>Write S1P Touchstone file.</dd>
+
+  <dt><code>--write-s2p-max-gain &lt;filename&gt;</code></dt>
+  <dd>Write S2P file using maximum gain.</dd>
+
+  <dt><code>--write-s2p-viewer-gain &lt;filename&gt;</code></dt>
+  <dd>Write S2P file using viewer gain.</dd>
+</dl>
+<h4>Command Line Notes</h4>
+<p><strong>&lt;<var>input-file-name</var>&gt;</strong>: Specify a NEC2 input file to
+be opened at start-up. If the <code>-i</code> option is omitted, xnec2c will
 take the last argument to be the input file path name, but will
-only open it if it has the .nec extension.</p>
-<p><b>&lt;number of child processes to spawn&gt;</b>: Since
-version 1.0 xnec2c can run multi-threaded on SMP machines. This
+only open it if it has the <span class="filepath">.nec</span> extension.</p>
+<p><strong>&lt;<var>number of child processes to spawn</var>&gt;</strong>: Since
+version 1.0 xnec2c can run multi-threaded on <code>SMP</code> machines. This
 option specifies the number of child processes to spawn by forking,
-so that the total number of processes running will be n+1. n should
-be equal to the number of processors in a SMP machine. <b>Please
-note</b> that its pointless and counter-productive to specify a
-value of n greater than the number of steps in the frequency
+so that the total number of processes running will be <var>n</var>+1. <var>n</var> should
+be equal to the number of processors in a <code>SMP</code> machine.</p>
+<aside class="notice" role="note">
+<strong>Note:</strong> its pointless and counter-productive to specify a
+value of <var>n</var> greater than the number of steps in the frequency
 loop, or greater than the number of logical CPUs on your system.
-Starting in version 4.3, xnec2c always forks at least one job
+</aside>
+<p>Starting in version 4.3, xnec2c always forks at least one job
 for better UI responsiveness.  If you wish to disable forking for
-debug or testing then specify -j0.<br></p>
-<p><b><a name="MainWindow" id="MainWindow">The Main
-Window:</a></b><br>
-<img src="images/currents.png" width="676" height="882" border="0"
-hspace="10" vspace="10" alt="Main Window" align="left"></p>
-<p><b>Note:</b> As of version 3.7-beta, many buttons and menu items
+debug or testing then specify <code>-j0</code>.</p>
+<h3 id="MainWindow">The Main Window</h3>
+<figure>
+<img src="images/currents.png" class="float-left" alt="Main window showing current distribution on antenna structure" loading="lazy">
+<figcaption>Main window showing current distribution on antenna structure</figcaption>
+</figure>
+<aside class="notice" role="note">
+<strong>Note:</strong> As of version 3.7-beta, many buttons and menu items
 have been given keyboard accelerators and these are denoted in
 brackets, after the mention of these widgets in the manual's
-text.</p>
+text.
+</aside>
 When starting xnec2c from a terminal or from a file manager (by
-OLE), the -i option can be used to specify a NEC2 input file:
-<b>xnec2c -i ~/nec2/turnstile.nec</b>. Otherwise an input file can
-be opened from the Main window's <b>File-&gt;Open (o)</b> menu
+OLE), the <code>-i</code> option can be used to specify a NEC2 input file:
+<code>xnec2c -i ~/nec2/turnstile.nec</code>. Otherwise an input file can
+be opened from the Main window's <span class="menu-path">File → Open</span> menu <kbd class="shortcut">o</kbd>
 item. If the input file is valid, xnec2c will render the structure
 specified in the Geometry section of the file in the Main window's
 drawing area. The background color is black and the structure is
@@ -348,31 +1040,28 @@ development there is no option to change them.
 rotated around the Z axis and tilted about a horizontal axis
 through the origin. This can be done either by pressing button #1
 and dragging the structure with the mouse pointer, clicking the
-<b>X (x), Y (y), Z (z)</b> or the right-arrow <b>Default (d)</b>
-view button (45 deg rotation and tilt). The actual value of
+<span class="ui-button">X</span> (<kbd class="shortcut">x</kbd>), <span class="ui-button">Y</span> (<kbd class="shortcut">y</kbd>), <span class="ui-button">Z</span> (<kbd class="shortcut">z</kbd>), or <span class="ui-button">Default</span> (<kbd class="shortcut">d</kbd>)
+view button (45° rotation and tilt). The actual value of
 rotation and tilt is shown in two spin button widgets which can
 also be used to change the viewing angle.</p>
 <p>Starting with version 2.1, the structure display can be zoomed
-in or out by using the mouse wheel or the Zoom controls: <b>Zoom
-%</b> spin wheel and the <b>+ (Ctrl Key +), - (Ctrl Key -) and 1
-(Ctrl 1)</b> buttons and it can also be moved around by dragging
+in or out by using the mouse wheel or the Zoom controls: <span class="ui-button">Zoom %</span> spin wheel and the <span class="ui-button">Zoom In</span> (<kbd class="shortcut">Ctrl+Plus</kbd>), <span class="ui-button">Zoom Out</span> (<kbd class="shortcut">Ctrl+Minus</kbd>), and <span class="ui-button">Zoom 100%</span> (<kbd class="shortcut">Ctrl+1</kbd>) buttons and it can also be moved around by dragging
 with the right mouse button #2.</p>
 <p>The current distribution or charge density in the structure can
-be displayed by clicking the <b>Currents (i)</b> or <b>Charges
-(v)</b> toggle buttons at the top right of the Main window. The
+be displayed by clicking the <span class="ui-button">Currents</span> (<kbd class="shortcut">i</kbd>) or <span class="ui-button">Charges</span> (<kbd class="shortcut">v</kbd>) toggle buttons at the top right of the Main window. The
 distribution of current or charges is rendered by a color code, red
 for the maximum value and magenta for zero. The Frequency Loop
 control buttons can be used to Start, Pause or Reset the loop.
-There is a <b>Color Code</b> bar at the left of the second row of
+There is a <span class="ui-button">Color Code</span> bar at the left of the second row of
 widgets in the Main window, indicating the color coding and the
 maximum value of the displayed quantity (at its right).</p>
 <p>The title in the border of the drawing area widget shows the
 user-selected function of the display, while the text entry widget
 at the right of the color code bar shows antenna gain in the Viewer
-direction, e.g. perpendicular to the Screen. To the right of this
-the <b>Frequency Spin Button</b> shows the current frequency in MHz
+direction, e.g.&nbsp;perpendicular to the Screen. To the right of this
+the <span class="ui-button">Frequency Spin Button</span> shows the current frequency in&nbsp;MHz
 for which the current/charge distribution and Viewer gain are
-calculated and displayed. If the <b>Redo Check box</b> is active,
+calculated and displayed. If the <span class="ui-button">Redo Check box</span> is active,
 each time the frequency is changed in the spin button, all relevant
 data on display will be recalculated. If not, clicking the Redo
 button will initiate recalculation.</p>
@@ -382,106 +1071,106 @@ printing compatible with the NEC2 format. If printing to file is
 needed then it is better to use the original NEC2 program, to avoid
 bugs that may still be lurking in the C translation. Otherwise, it
 is possible to save the structure drawing to a PNG file by using
-the <b>Save (s)</b> or <b>Save As (Ctrl s)</b> items in the File
+the <span class="ui-button">Save</span> (<kbd class="shortcut">s</kbd>) or <span class="ui-button">Save As</span> (<kbd class="shortcut">Ctrl+s</kbd>) items in the File
 menu.</p>
 <p>Starting with version 2.1, xnec2c can save the structure display
 as a data file for the "gnuplot" plotting program. This is done by
-using the <b>File-&gt;Save As gnuplot</b> menu item, to open a file
+using the <span class="menu-path">File → Save As gnuplot</span> menu item, to open a file
 chooser dialog. If only the stem of the file name is given, xnec2c
-will automatically add the .gplot extension. Plotting in gnuplot is
-done with the "splot &lt;filename&gt; with lines" command, although
+will automatically add the <span class="filepath">.gplot</span> extension. Plotting in gnuplot is
+done with the <code class="language-gnuplot">splot &lt;<var>filename</var>&gt; with lines</code> command, although
 the plot can be enhanced with some of the style etc commands
 available in gnuplot.</p>
-<p>The View menu allows opening of other output data display
-windows and selection of various options:<br>
-<br clear="all">
-The <b>Radiation Pattern (r)</b> menu item opens the <a href=
+<p>The <span class="ui-button">View</span> menu allows opening of other output data display
+windows and selection of various options:
+The <span class="menu-path">Radiation Pattern</span> menu (<kbd class="shortcut">r</kbd>) item opens the <a href=
 "#RadiationWindow">Radiation Pattern window</a> so that the Gain
-pattern or the Near E/H fields can be calculated and displayed.<br>
-The <b>Frequency Data (f)</b> item opens the <a href=
+pattern or the Near E/H fields can be calculated and displayed.
+The <span class="menu-path">Frequency Data</span> menu (<kbd class="shortcut">f</kbd>) item opens the <a href=
 "#FrequencyWindow">Frequency Data Plots window</a> which allows the
 plotting of various frequency-related data against the frequency
-range specified in the FR command. It also allows quick selection
+range specified in the <code class="nec-card">FR</code> command. It also allows quick selection
 of the current frequency and recalculation of data by clicking on
-the plots drawing area.<br>
-The <b>Polarization</b> sub menu allows the selection of different
-polarizations for which many data items are calculated (e.g. gain,
-F/B ratio etc). The selection is global, e.g. it effects all
-relevant data that are drawn or displayed in other windows.<br>
-The <b>Common Projection</b> item couples the projection (viewing
+the plots drawing area.
+The <span class="menu-path">Polarization</span> submenu allows the selection of different
+polarizations for which many data items are calculated (e.g.&nbsp;gain,
+F/B ratio etc). The selection is global, e.g.&nbsp;it effects all
+relevant data that are drawn or displayed in other windows.
+The <span class="menu-path">Common Projection</span> item couples the projection (viewing
 angle) parameters of the Structure display in the Main window and
 the Gain or E/H field display in the <a href=
 "#RadiationWindow">Radiation pattern</a> window so that both move
-in step. Similarly, the <b>Common Frequency</b> menu item couples
+in step. Similarly, the <span class="menu-path">Common Frequency</span> menu item couples
 the Frequency entry/display spin buttons in the same windows so
 that displayed data are for the same frequency.</p>
-<p><b><a name="RadiationWindow" id="RadiationWindow">The Radiation
-Pattern window:</a></b><br>
-<img src="images/radiation.png" width="655" height="882" border="0"
-hspace="10" vspace="10" alt="Radiation Pattern" align="left"> On
+<h3 id="RadiationWindow">The Radiation Pattern window</h3>
+<figure>
+<img src="images/radiation.png" class="float-left" alt="Radiation pattern window showing 3D gain visualization" loading="lazy">
+<figcaption>Radiation pattern window showing 3D gain visualization</figcaption>
+</figure>
+On
 the top row of widgets, this window has the same Viewer angle
 selection buttons and spin button displays as the <a href=
 "#MainWindow">Main window</a>. The two buttons at the middle right
-(<b>Gain (g)</b> and <b>E/H Field (f)</b>) select either the Gain
+(<span class="ui-button">Gain</span> (<kbd class="shortcut">g</kbd>) and <span class="ui-button">E/H Field</span> (<kbd class="shortcut">f</kbd>)) select either the Gain
 or the Near Electric/Magnetic Field pattern display. Provided there
-are at least two steps in the theta and one in the phi angle as
-specified in the Radiation Pattern (RP) command, the Gain pattern
+are at least two steps in the <var>θ</var> and one in the <var>φ</var> angle as
+specified in the Radiation Pattern (<code class="nec-card">RP</code>) command, the Gain pattern
 will be calculated and drawn. The E/H field will be properly drawn
-if there are at least two points specified in the NE or NH
+if there are at least two points specified in the <code class="nec-card">NE</code> or <code class="nec-card">NH</code>
 commands. The Frequency Loop control buttons at the far right can
 be used to Start, Pause and Reset the loop.</p>
-<p>The <b>View</b> menu, in addition to the <b>Common
-Projection</b> and <b>Common Frequency</b> check buttons, provides
-sub-menus for selecting <b>Polarization</b> type, <b>Gain
-Scaling</b> and the <b>Near Field</b> data to be drawn. The
+<p>The <span class="ui-button">View</span> menu, in addition to the <span class="menu-path">Common
+Projection</span> and <span class="menu-path">Common Frequency</span> check buttons, provides
+submenus for selecting <span class="ui-button">Polarization</span> type, <span class="ui-button">Gain
+Scaling</span> and the <span class="ui-button">Near Field</span> data to be drawn. The
 selection of polarization type affects the Gain pattern, the
 displayed Viewer gain and the value of max and min gain as shown to
 the left and right of the color code bar. The selection of gain
 scaling only affects the form of the Gain pattern drawing:
-<b>Linear Power</b> is the most realistic, since the distance from
+<span class="ui-button">Linear Power</span> is the most realistic, since the distance from
 the origin of each point in the gain pattern is proportional to the
 radiated power density, as is the color code (red for max gain and
 magenta for min gain). A disadvantage of this scaling is the
 inadequate representation of side lobes since they are usually
-significantly weaker than the main beam. <b>Linear Voltage</b> is
+significantly weaker than the main beam. <span class="ui-button">Linear Voltage</span> is
 better in this respect since the position of points in the gain
 pattern is proportional to Electric field strength and hence
-follows a square root law. <b>ARRL Style</b> follows a form of
+follows a square root law. <span class="ui-button">ARRL Style</span> follows a form of
 logarithmic scaling suggested by the American Radio Relay League,
-e.g. exp(0.058267 * gain) where gain is in dB10. Finally
-<b>Logarithmic</b> follows a logarithmic scale with a median of
-40dB.</p>
-<p>When a Near Field (<b>NE</b> or <b>NH</b>) command is included
-in the input file, clicking the <b>E/H Field (f)</b> button
+e.g.&nbsp;<code class="math-expression">exp(0.058267&nbsp;×&nbsp;gain)</code> where gain is in&nbsp;dB<sub>10</sub>. Finally
+<span class="ui-button">Logarithmic</span> follows a logarithmic scale with a median of
+40&nbsp;dB.</p>
+<p>When a Near Field (<code class="nec-card">NE</code> or <code class="nec-card">NH</code>) command is included
+in the input file, clicking the <span class="ui-button">E/H Field</span> (<kbd class="shortcut">f</kbd>) button
 produces a drawing of the near Electric and/or Magnetic fields. By
-selecting the <b>Near Field-&gt;Poynting Vector</b> menu item the
+selecting the <span class="menu-path">Near Field → Poynting Vector</span> menu item the
 Poynting vector is also drawn. These fields are depicted by lines
 of fixed length in the direction of the relevant (E/H/Poynting)
 vector at each point in the drawing. The field strength is depicted
 by the color of the lines as using the line length for this purpose
 makes most lines too small to be useful. The drawing of the Near E
-or H Fields can be enabled or disabled by the <b>Near
-Field-&gt;Near E Field</b> and <b>Near Field-&gt;Near H Field</b>
+or H Fields can be enabled or disabled by the <span class="menu-path">Near Field → Near E Field</span> and <span class="menu-path">Near Field → Near H Field</span>
 menu items.</p>
-<p>The <b>Near Field-&gt;Animate Dialog</b> menu item opens a
+<p>The <span class="menu-path">Near Field → Animate Dialog</span> menu item opens a
 dialog box for setting the parameters and starting an Animation of
-the near field pattern. The <b>Steps/Cycle</b> spin button allows
+the near field pattern. The <span class="ui-button">Steps/Cycle</span> spin button allows
 the setting of the number of angular steps around a cycle of the
 excitation input. The default is 36 and it results in angular steps
-of 10 degrees. The <b>Animate Frequency</b> spin button specifies a
+of 10°. The <span class="ui-button">Animate Frequency</span> spin button specifies a
 fictitious (slowed down) excitation frequency for which the
-animation is performed. The default is 1.0 Hz. Clicking the
-<b>Apply</b> button starts an animation of the near fields using
-the specified parameters. The <b>OK</b> button does like wise but
-it closes the animation dialog, while <b>Cancel</b> stops the
+animation is performed. The default is 1.0&nbsp;Hz. Clicking the
+<span class="ui-button">Apply</span> button starts an animation of the near fields using
+the specified parameters. The <span class="ui-button">OK</span> button does like wise but
+it closes the animation dialog, while <span class="ui-button">Cancel</span> stops the
 animation.</p>
-<p>The <b>Total Field</b> sub-menu allows the selection of drawing
-either the <b>Peak</b> value or a "time-frozen" <b>Snapshot</b> of
+<p>The <span class="ui-button">Total Field</span> sub-menu allows the selection of drawing
+either the <span class="ui-button">Peak</span> value or a "time-frozen" <span class="ui-button">Snapshot</span> of
 the instantaneous value of the total Near Field E/H vectors. The
 Snapshot values are calculated as the vector sum of the X, Y, Z
 components of the E/H field and the Peak values are calculated
 using the formula NEC4 uses to print the Peak field values.</p>
-<p>The <b>Overlay Structure</b> menu item enables the drawing of
+<p>The <span class="menu-path">Overlay Structure</span> menu item enables the drawing of
 the structure in the radiation pattern drawing area when the Near
 Field pattern is selected for drawing. This makes it easier to
 understand the scale and extend of the Near Field patterns around
@@ -489,18 +1178,18 @@ the structure. The color scheme for the structure becomes white
 when Overlay is enabled, unless it is overridden by either the
 Current or Charge distribution being enabled by the relevant
 buttons in the <a href="#MainWindow">Main window.</a></p>
-<p>In the second row of widgets, the <b>Color Code</b> bar shows
+<p>In the second row of widgets, the <span class="ui-button">Color Code</span> bar shows
 either the max and min values of Gain in the radiation pattern or
 the maximum value of the field strength in the near E/H field
 pattern. (Of course only one value can be shown, the precedence
 being E field, H field or Poynting field strength, depending on
-which of these is enabled in the <b>View-&gt;Near Field</b> sub
-menu). The <b>Text Entry</b> widget at the right of the color bar
+which of these is enabled in the <span class="menu-path">View → Near Field</span> sub
+menu). The <span class="ui-button">Text Entry</span> widget at the right of the color bar
 shows gain in the direction of the viewer (perpendicular to
-screen), while the <b>Frequency Spin button</b> following it shows
-the current frequency in MHz for which data is displayed. It can
+screen), while the <span class="ui-button">Frequency Spin button</span> following it shows
+the current frequency in&nbsp;MHz for which data is displayed. It can
 also be used to enter a new frequency in the same manner as in the
-<a href="#MainWindow">Main window.</a> The <b>Redo Check box</b>
+<a href="#MainWindow">Main window.</a> The <span class="ui-button">Redo Check box</span>
 enables re-calculation and display of data when the frequency value
 changes, while the button to its right causes same when clicked by
 the user, but only if a new frequency has been entered.</p>
@@ -508,45 +1197,49 @@ the user, but only if a new frequency has been entered.</p>
 with each line segment colored according to the average value of
 gain associated with the two points it joins. The pattern can be
 "dragged" with the mouse pointer to rotate or tilt it and it can
-also be positioned using either the <b>X (x), Y (y), Z (z) or
-Default (d)</b> (right arrow) buttons. The <b>Rotate</b> and
-<b>Incline</b> spin buttons can also be used to accurately position
-the Gain pattern in the window. The <b>label</b> in the drawing
+also be positioned using either the <span class="ui-button">X</span> (<kbd class="shortcut">x</kbd>), <span class="ui-button">Y</span> (<kbd class="shortcut">y</kbd>), <span class="ui-button">Z</span> (<kbd class="shortcut">z</kbd>), or
+<span class="ui-button">Default</span> (<kbd class="shortcut">d</kbd>) buttons. The <span class="ui-button">Rotate</span> and
+<span class="ui-button">Incline</span> spin buttons can also be used to accurately position
+the Gain pattern in the window. The <span class="ui-button">label</span> in the drawing
 area's frame gives information on what is on display and also the
 type of polarization or gain scaling.</p>
 <p>Starting with version 2.1, the radiation pattern display can be
 zoomed in or out by using the mouse wheel or the Zoom controls
-(<b>Zoom %</b> spin wheel and the <b>+ (Ctrl Key +), - (Ctrl Key -)
-and 1 (Ctrl 1)</b> buttons) and it can also be moved around by
+(<span class="ui-button">Zoom %</span> spin wheel and the <span class="ui-button">Zoom In</span> (<kbd class="shortcut">Ctrl+Plus</kbd>), <span class="ui-button">Zoom Out</span> (<kbd class="shortcut">Ctrl+Minus</kbd>),
+and <span class="ui-button">Zoom 100%</span> (<kbd class="shortcut">Ctrl+1</kbd>) buttons) and it can also be moved around by
 dragging with the right mouse button #2.</p>
 <p>Both the Gain and Near Field patterns can be saved as PNG image
-files by using the <b>File-&gt;Save (s)</b> or <b>File-&gt;Save As
-(Ctrl s)</b> menu items. The Save option will save the drawings
+files by using the <span class="menu-path">File → Save</span> menu (<kbd class="shortcut">s</kbd>) or <span class="menu-path">File → Save As</span>
+menu (<kbd class="shortcut">Ctrl+s</kbd>) items. The Save option will save the drawings
 with a suitable default file name which includes a serial number,
-so that consecutive Saves do not overwrite files, but please note
-that when xnec2c is restarted the serial numbers are reset so that
+so that consecutive Saves do not overwrite files.</p>
+<aside class="notice" role="note">
+<h4>Note</h4>
+<p>When xnec2c is restarted the serial numbers are reset so that
 overwriting will occur if the same input file is opened.</p>
+</aside>
 <p>Starting with version 2.1, xnec2c can save the radiation pattern
 and near E/H field display as a data file for the "gnuplot"
-plotting program. This is done by using the <b>File-&gt;Save As
-gnuplot</b> menu item, to open a file chooser dialog. If only the
+plotting program. This is done by using the <span class="menu-path">File → Save As gnuplot</span> menu item, to open a file chooser dialog. If only the
 stem of the filename is given, xnec2c will automatically add the
-.gplot extension. Plotting in gnuplot is done with the "splot
-&lt;filename&gt; with lines" command, although the plot can be
+<span class="filepath">.gplot</span> extension. Plotting in gnuplot is done with the <code class="language-gnuplot">splot
+&lt;<var>filename</var>&gt; with lines</code> command, although the plot can be
 enhanced with some of the style etc commands available in
 gnuplot.</p>
-<br clear="all">
-<p><b><a name="FrequencyWindow" id="FrequencyWindow">Frequency Data
-Plots window:</a></b><br>
-<img src="images/freq_plots.png" width="938" height="1034" border=
-"0" hspace="10" vspace="10" alt="Frequency Plots" align="left">The
+<h3 id="FrequencyWindow">Frequency Data Plots window</h3>
+<figure>
+<img src="images/freq_plots.png" class="float-left" alt="Frequency plots window showing VSWR and gain graphs" loading="lazy">
+<figcaption>Frequency plots window showing VSWR and gain graphs</figcaption>
+</figure>
+<p>
+The
 Frequency Data Plots window is the main display of frequency
 related data such as maximum gain, VSWR, input impedance etc. Most
 data can be plotted against frequency and some are displayed in
 text entry widgets. It is also a convenient way to quickly enter a
 new current frequency by clicking on the graph drawing area.</p>
 <p>The following applies to all graphs plotted in this window: When
-a graph of two quantities against frequency is plotted (e.g real
+a graph of two quantities against frequency is plotted (e.g.&nbsp;real
 and imaginary parts of input impedance), then one quantity is
 plotted in magenta color and its scale is at the left vertical side
 of the bounding box. The second quantity is plotted in cyan color
@@ -556,7 +1249,7 @@ box is in white and the scale grid lines are in light gray. When
 only a single quantity is plotted against frequency, it is plotted
 in magenta color and the scale is at the left side of the bounding
 box.</p>
-<p>Once graph plotting is complete (e.g. the frequency loop is
+<p>Once graph plotting is complete (e.g.&nbsp;the frequency loop is
 done), clicking on the graph drawing area with button #1 (left
 mouse button) will produce a vertical green line in the graph
 bounding box, marking the new current frequency and triggering a
@@ -570,72 +1263,99 @@ frequency-related data are still recalculated and refreshed e.g.
 buffered values are not used. Clicking with button 2 (middle
 button) cancels the green frequency-marking line.</p>
 <p>The top row of widgets in this window has at its right buttons
-to select data to be plotted against frequency. These are:<br>
-<b>Max Gain (m):</b> Maximum gain and front-to-back ratio at each
-frequency step.<br>
-<b>Direction (d):</b> The direction of maximum gain, e.g. the
-radiation angle relative to the xy plane (90-theta) and the phi
-angle as defined in NEC2.<br>
-<b>Viewer (w):</b> The gain in the viewer's direction, e.g.
-perpendicular to the screen.<br>
-<b>VSWR (v):</b> The VSWR for the Zo value in the <b>Impedance Spin
-button</b> (default 50 Ohm).<br>
-<b>Zr/Zi (z):</b> The real and imaginary parts of the input
-impedance.<br>
-<b>Zm/Zph (p):</b> The scalar magnitude and phase of the input
-impedance.<br>
-<b>The View-&gt;Net Gain</b> menu item changes the second plotted
+to select data to be plotted against frequency. These are:</p>
+<table class="button-table">
+<thead>
+<tr>
+<th>Button</th>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="ui-button">Max Gain</span></td>
+<td><kbd class="shortcut">m</kbd></td>
+<td>Maximum gain and front-to-back ratio at each frequency step.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Direction</span></td>
+<td><kbd class="shortcut">d</kbd></td>
+<td>The direction of maximum gain, e.g.&nbsp;the radiation angle relative to the xy plane (90&nbsp;−&nbsp;<var>θ</var>) and the <var>φ</var> angle as defined in NEC2.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Viewer</span></td>
+<td><kbd class="shortcut">w</kbd></td>
+<td>The gain in the viewer's direction, e.g. perpendicular to the screen.</td>
+</tr>
+<tr>
+<td><span class="ui-button">VSWR</span></td>
+<td><kbd class="shortcut">v</kbd></td>
+<td>The VSWR for the Z<sub>0</sub> value in the <span class="ui-button">Impedance Spin button</span> (default 50&nbsp;Ω).</td>
+</tr>
+<tr>
+<td><span class="ui-button">Z<sub>r</sub>/Z<sub>i</sub></span></td>
+<td><kbd class="shortcut">z</kbd></td>
+<td>The real and imaginary parts of the input impedance.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Z<sub>m</sub>/Z<sub>ph</sub></span></td>
+<td><kbd class="shortcut">p</kbd></td>
+<td>The scalar magnitude and phase of the input impedance.</td>
+</tr>
+</tbody>
+</table>
+<p>The <span class="menu-path">View → Net Gain</span> menu item changes the second plotted
 quantity to the Net Gain of the array. Net Gain is the effective
-gain after subtracting the effects of reflection caused by 
+gain after subtracting the effects of reflection caused by
 impedance mismatch (return loss); Net Gain is equal to Raw Gain
-when VSWR&asymp;1.0 (S11&asymp;-&infin;).</p>
+when VSWR&nbsp;≈&nbsp;1.0 (S<sub>11</sub>&nbsp;≈&nbsp;−∞).</p>
 <p>The Frequency Loop control buttons at the top right can be use
 to Start, Pause or Reset the loop. As the loop progresses, more
 data will be presented in the graphs and in the text entry widgets
 above the graph drawing area. These widgets display the current
-frequency in MHz, the maximum gain in the radiation pattern for
-that frequency, the VSWR for the Zo value in the spin button above
+frequency in&nbsp;MHz, the maximum gain in the radiation pattern for
+that frequency, the VSWR for the Z<sub>0</sub> value in the spin button above
 and the real and imaginary parts of the input impedance.</p>
-<p>The <b>File-&gt;Save (s)</b> and <b>File-&gt;Save As (Ctrl
-s)</b> menu items can be used to save the graphs in the drawing
+<p>The <span class="menu-path">File → Save</span> menu <kbd class="shortcut">s</kbd> and <span class="menu-path">File → Save As</span> menu <kbd class="shortcut">Ctrl+s</kbd> items can be used to save the graphs in the drawing
 area as PNG image files, with a default file name or one of the
-user's choice respectively. The <b>View-&gt;Polarization</b>
-sub-menu can be used to select the wave polarization type for which
+user's choice respectively. The <span class="menu-path">View → Polarization</span>
+submenu can be used to select the wave polarization type for which
 data is calculated and presented. When Viewer gain plotting is
 enabled, the graph will be re-drawn when the structure projection
 is changed by the various means described earlier (dragging by
 mouse pointer, Rotate/Incline spin buttons etc).</p>
 <p>Starting with version 2.1, xnec2c can save the frequency
 dependent functions as a data file for the "gnuplot" plotting
-program. This is done by using the <b>File-&gt;Save As gnuplot</b>
+program. This is done by using the <span class="menu-path">File → Save As gnuplot</span>
 menu item, to open a file chooser dialog. If only the stem of the
-filename is given, xnec2c will automatically add the .gplot
-extension. Plotting in gnuplot is done with the "plot for [i=2:3]
-'filename.gplot' using 1:i with lines smooth bezier title columnhead(i)"
+filename is given, xnec2c will automatically add the <span class="filepath">.gplot</span>
+extension. Plotting in gnuplot is done with the <code class="language-gnuplot">plot for [i=2:3] 'filename.gplot' using 1:i with lines smooth bezier title columnhead(i)</code>
 command at the gnuplot console, although the plot can be enhanced with
 some of the style etc commands available in gnuplot. In this example
 it plots columns 2 and 3 (zreal and zimag) against column 1 (MHz).
 Change 2:3 to 2:16 to see all columns, though 16 plots will make the
 graph very busy.</p>
 
-<b>Touchstone Files:</b><p>
+<h4>Touchstone Files</h4>
+<p>
 Touchstone files (or SnP files) are used by professional RF software
 packages like Microwave Office, Sonnet, and others.   Now xnec2c can
-export .s1p and .s2p files to be used with those software packages.
-S11 is the same as return loss, reflection and .s1p files provide
+export <span class="filepath">.s1p</span> and <span class="filepath">.s2p</span> files to be used with those software packages.
+S<sub>11</sub> is the same as return loss, reflection and <span class="filepath">.s1p</span> files provide
 single-port data.  You can export Touchstone files from the Frequency
-Plots with<b>File->Save as Touchstone (.SnP)</b>.
+Plots with <span class="menu-path">File → Save as Touchstone (.SnP)</span>.
 </p>
 
 <p>
-For .s2p files gain is used as S21 and S12: we assume the antenna is
-passive are passive so S21==S12.  S22 is a bit of a mystery, so we assume
-that all S22 behavior is normalized into S11 and thus S22 is deminimus
-and set it to -100 dB.  This may not be a correct assumption, so please
+For <span class="filepath">.s2p</span> files gain is used as S<sub>21</sub> and S<sub>12</sub>: we assume the antenna is
+passive so S<sub>21</sub>&nbsp;==&nbsp;S<sub>12</sub>.  S<sub>22</sub> is a bit of a mystery, so we assume
+that all S<sub>22</sub> behavior is normalized into S<sub>11</sub> and thus S<sub>22</sub> is deminimus
+and set it to −100&nbsp;dB.  This may not be a correct assumption, so please
 provide a suggestion here if you know a better way.
 </p>
 <p>
-The S21 and S12 values in the .s2p come in two types: Max Gain and
+The S<sub>21</sub> and S<sub>12</sub> values in the <span class="filepath">.s2p</span> come in two types: Max Gain and
 Viewer Gain.  Max gain is the maximum gain of the antenna, whereas,
 viewer gain is the current gain of the antenna pointing toward the
 viewport of xnec2c.  For a directional antenna, pointing the main antenna
@@ -643,23 +1363,25 @@ lobe toward the xnec2c viewport would give the same (or nearly the same)
 values as max gain.
 </p>
 <p>
-Once you have your .s2p or .s1p files you can design a matching circuit
+Once you have your <span class="filepath">.s2p</span> or <span class="filepath">.s1p</span> files you can design a matching circuit
 or other RF behavior in your favorite RF design software.
 </p>
 
 </p>
-<br clear="all">
-<p><b><a name="Nec2Treeview" id="Nec2Treeview">NEC2 Input File
-Editor:</a></b><br>
-<img src="images/nec2_edit.png" width="814" height="882" border="0"
-hspace="10" vspace="10" alt="Nec2 Editor" align="left"> Xnec2c has
+<h3 id="Nec2Treeview">NEC2 Input File Editor</h3>
+<figure>
+<img src="images/nec2_edit.png" class="float-left" alt="NEC2 input file editor window" loading="lazy">
+<figcaption>NEC2 input file editor window</figcaption>
+</figure>
+<p>
+Xnec2c has
 a built-in NEC2 input file editor to make the edit/save/execute
 cycle easier and quicker. The main editor window opens from either
-the <b>File-&gt;New (n) or File-&gt;Edit (e)</b> menu items of the
-<a href="#MainWindow">Main window</a>. The <b>File-&gt;New</b> menu
+the <span class="menu-path">File → New</span> menu <kbd class="shortcut">n</kbd> or <span class="menu-path">File → Edit</span> menu <kbd class="shortcut">e</kbd> items of the
+<a href="#MainWindow">Main window</a>. The <span class="menu-path">File → New</span> menu
 item opens the editor with some default rows ("cards") that amount
 to a free space vertical dipole which serves as a simple example.
-The <b>File-&gt;Edit</b> menu is used to edit a NEC2 input file
+The <span class="menu-path">File → Edit</span> menu is used to edit a NEC2 input file
 that is already open in xnec2c.</p>
 <p>The main NEC2 input file editor can be used to directly edit
 rows if desired and indeed this is the only method available for
@@ -669,25 +1391,25 @@ Buttons above the Geometry and Commands Tree Views. The dedicated
 editor windows open when these buttons are clicked (to add a new
 row) or when a selected row is right-clicked by the user with the
 mouse.</p>
-<p><b>Main Editor Description:</b><br>
-The Main NEC2 Editor window is divided into three Tree View areas,
+<h4>Main Editor Description</h4>
+<p>The Main NEC2 Editor window is divided into three Tree View areas,
 one for editing Comments, one for editing Geometry and one for
 Control Commands. Each tree view has editable rows divided into
-cells that correspond to NEC2 input file's card columns e.g. Card
-Name (CM) - Comment Text or Card Name (GW) - Wire Data (I1 I2 F1 F2
-F3 F4 F5 F6 F7) etc. Each row can be edited by selecting it with a
+cells that correspond to NEC2 input file's card columns e.g.&nbsp;Card
+Name (<code class="nec-card">CM</code>) - Comment Text or Card Name (<code class="nec-card">GW</code>) - Wire Data (<var>I1</var> <var>I2</var> <var>F1</var> <var>F2</var>
+<var>F3</var> <var>F4</var> <var>F5</var> <var>F6</var> <var>F7</var>) etc. Each row can be edited by selecting it with a
 mouse click and then clicking on a cell. This requires detailed
 knowledge of the format of each of the NEC2 input file "cards" and
 so this method is only useful for editing comments.</p>
 <p>The main editor is controlled by the top row of buttons: The
-<b>Add (Ctrl-a)</b> button inserts a new blank row in whatever tree
-view has been selected by a mouse click. The <b>Remove (Ctrl-r)</b>
+<span class="ui-button">Add</span> (<kbd class="shortcut">Ctrl+a</kbd>) button inserts a new blank row in whatever tree
+view has been selected by a mouse click. The <span class="ui-button">Remove</span> (<kbd class="shortcut">Ctrl+r</kbd>)
 button deletes a row that was selected by a mouse click and the
-<b>Clear (c)</b> button deletes all rows in a selected tree view
-and clears it. The <b>Save As (Ctrl S)</b> button opens a file
+<span class="ui-button">Clear</span> (<kbd class="shortcut">c</kbd>) button deletes all rows in a selected tree view
+and clears it. The <span class="ui-button">Save As</span> (<kbd class="shortcut">Ctrl+Shift+s</kbd>) button opens a file
 selector dialog for saving the data in the Editor to a NEC2 input
-file. The <b>Save (Ctrl-s)</b> button writes data in the Editor to
-an already open input file. The Apply check button, when checked,
+file. The <span class="ui-button">Save</span> (<kbd class="shortcut">Ctrl+s</kbd>) button writes data in the Editor to
+an already open input file. The <span class="ui-button">Apply</span> check button, when checked,
 signals xnec2c to reload the edited input file for execution.</p>
 <p>Note: In xnec2c versions earlier than version 2.0-beta, due to
 the complex file opening process followed by NEC2 (many data sanity
@@ -702,76 +1424,93 @@ not close open Radiation Pattern or Frequency Plot windows and will
 not completely reset internally. This allows the user to edit a
 NEC2 file in the Editor window and, after saving, to be presented
 with the new calculations on the structure being modeled.</p>
-<p>Finally the <b>Revert (Ctrl r)</b> button reloads the last saved
+<p>Finally the <span class="ui-button">Revert</span> (<kbd class="shortcut">Ctrl+r</kbd>) button reloads the last saved
 state of the editor from the input file, to reduce the effort
 needed to recover from a big mistake like clearing a tree view
 accidentally!</p>
-<br clear="all">
-<p><b>Sample Dedicated Geometry Editor Description:</b><br>
-<img src="images/wire.png" width="772" height="293" border="0"
-hspace="10" vspace="10" alt="Wire Editor" align="left"><b>Wire
-Geometry Editor:</b> This is one of the dedicated "card" or row
+<h4>Sample Dedicated Geometry Editor Description</h4>
+<figure>
+<img src="images/wire.png" class="float-left" alt="Wire geometry editor dialog" loading="lazy">
+<figcaption>Wire geometry editor dialog</figcaption>
+</figure>
+<h4>Wire Geometry Editor</h4>
+This is one of the dedicated "card" or row
 editors, for creating or editing wire geometry. It will appear when
 the "Wire" button in the "Edit Geometry Data" frame is clicked or
 when a selected Wire row is right-clicked with the mouse. In the
-former case, a blank "GW" row will be added to the Geometry tree
+former case, a blank <code class="nec-card">GW</code> row will be added to the Geometry tree
 view which can then be filled by entering wire geometry data in the
 Editor and clicking Apply or OK. (in the latter case the editor is
 closed). The "Tapered Wire" check button in the upper left corner
 opens an additional frame for entering wire taper data and adds a
-blank "GC" row to the tree view.</p>
+blank <code class="nec-card">GC</code> row to the tree view.</p>
 <p>To make things easier, the Wire editor has spin buttons to
 specify Length Taper and Diameter Taper separately to hide the need
 for calculating the actual beginning and end diameters. Also the
-"Segs % lambda" spin button indicates the wire segment length as a
-percentage of smallest wavelength and can be use to set the needed
+"Segs&nbsp;%&nbsp;<var>λ</var>" spin button indicates the wire segment length as a
+percentage of smallest <var>λ</var> and can be use to set the needed
 number of segments for each wire to maintain a uniform relative
-segment length for all wires. <b>Please note</b> that this function
-will only work if the Frequency (FR) card is specified in the
+segment length for all wires.</p>
+<aside class="notice" role="note">
+<h4>Note</h4>
+<p>This function
+will only work if the Frequency (<code class="nec-card">FR</code>) card is specified in the
 Commands tree view <i>and</i> all the data is saved to file and
 read by xnec2c, so that frequency data is valid in xnec2c's
-buffers. <b>Please also note</b> that all dedicated editors require
+buffers.</p>
+<p>All dedicated editors require
 wire diameter to be specified but then convert this to radius when
 entering to the Main editor and saving to file (NEC2 requires wire
 radius to be specified).</p>
+</aside>
 <p>Three geometry Editors (wire, helix, arc) have a spin button to
-specify wire conductivity in Siemens/meter. When the spin button
-value is greater than zero, the Editor will enter an LD card in the
+specify wire conductivity in S/m. When the spin button
+value is greater than zero, the Editor will enter an <code class="nec-card">LD</code> card in the
 Commands tree view to specify a type 5 (wire conductivity) loading.
 This will result in all segments with tag number equal to that in
-the Editor to be loaded with the specified resistivity. Please note
-that Deleting the GW row in the Geometry tree view will not remove
-the LD loading row in the Commands tree view.</p>
-<p>All editors (except for the "GE" card) have the following
+the Editor to be loaded with the specified resistivity.</p>
+<aside class="notice" role="note">
+<h4>Note</h4>
+<p>Deleting the <code class="nec-card">GW</code> row in the Geometry tree view will not remove
+the <code class="nec-card">LD</code> loading row in the Commands tree view.</p>
+</aside>
+<p>All editors (except for the <code class="nec-card">GE</code> card) have the following
 buttons along the bottom of the window: "New" inserts a new blank
 row in the tree view after entering edited data into the current
 row. "Delete Card" removes the current row (card) and closes the
 editor window. "Apply" enters edited data into the current row.
 "OK" enters edited data into the current row and closes the editor
-window. <b>Please note</b> that the "GE" row is entered
+window.</p>
+<aside class="notice" role="note">
+<h4>Note</h4>
+<p>The <code class="nec-card">GE</code> row is entered
 automatically by the first editor used, if the tree view is
 cleared, and there is no button for it in the Geometry frame. But
 there is a dedicated editor for it which opens with a right-click
-on the (selected) GE row and <i>it should be used</i> to specify
-the presence of Ground (GN command etc).</p>
-<p>As of version 3.9-beta, the GH "card" editor has a new
+on the (selected) <code class="nec-card">GE</code> row and <i>it should be used</i> to specify
+the presence of Ground (<code class="nec-card">GN</code> command etc).</p>
+</aside>
+<p>As of version 3.9-beta, the <code class="nec-card">GH</code> "card" editor has a new
 appearance, since the Helix producing code has been edited to allow
 the creation of a spiral. Both right-hand/left-hand helices or
 spirals can be specified with the radio buttons in the top row of
-the GH editor dialog. In the bottom row, the radii that specify the
+the <code class="nec-card">GH</code> editor dialog. In the bottom row, the radii that specify the
 shape of helices or spirals can be entered in the relevant spin
 buttons. These can be linked so that values entered can be
 propagated to the right, to make editing easier if all radii are
 the same. Right propagation is controlled by clicking on the "chain
 link" icons - if the icon displays a linked chain, right
 propagation is enabled. Otherwise if a broken link, right
-propagation is disabled.<br clear="all"></p>
-<p><b>Sample Dedicated Control Editor:</b><br>
-<img src="images/excitation.png" width="821" height="441" border=
-"0" hspace="10" vspace="10" alt="Excitation Editor" align=
-"left"><b>Excitation Command Editor:</b> The Excitation Command
+propagation is disabled.</p>
+<h4>Sample Dedicated Control Editor</h4>
+<figure>
+<img src="images/excitation.png" class="float-left" alt="Excitation command editor dialog" loading="lazy">
+<figcaption>Excitation command editor dialog</figcaption>
+</figure>
+<h4>Excitation Command Editor</h4>
+The Excitation Command
 Editor opens when the "Excitation" button in the "Edit Control
-Commands" frame is clicked or when a selected "EX" row is
+Commands" frame is clicked or when a selected <code class="nec-card">EX</code> row is
 right-clicked with the mouse. The excitation type is selected by
 activating the appropriate radio button whereby some labels over
 the data input spin buttons will change to indicate their purpose.
@@ -781,188 +1520,196 @@ produce an output file. The buttons in the bottom row of the
 Command Editors function in the same way as the Wire editor
 described above.</p>
 
+<h3 id="Optimization">Antenna Geometry Optimization</h3>
+
 <p>
+Neoklis, 5B4AZ explains Antenna Optimization in xnec2c on his page <a target="_blank" rel="noopener noreferrer"
+href="http://www.5b4az.org/pages/antenna_designs.html">here</a> as follows:</p>
 
-<b><a name="Optimization" id="Optimization">Antenna Geometry Optimization</a></b>
-<br/>
-<br/>
+<blockquote>
+<p>Xnec2c monitors its <span class="filepath">.nec</span> input file for changes and re-runs the frequency
+stepping loop which recalculates new data and prints to the <span class="filepath">.csv</span> file. It is
+therefore possible to arrange the optimizer program to read the <span class="filepath">.csv</span> data file,
+recalculate antenna parameters and save them to the <span class="filepath">.nec</span> input file. xnec2c
+will then recalculate and save new frequency-dependent data to the <span class="filepath">.csv</span> file.</p>
 
-Neoklis, 5B4AZ explains Antenna Optimization in xnec2c on his page <a
-href="http://www.5b4az.org/pages/antenna_designs.html">here</a> as follows:
-<br/>
-<br/>
-
-<i>"Xnec2c monitors its .nec input file for changes and re-runs the frequency
-stepping loop which recalculates new data and prints to the .csv file. It is
-therefore possible to arrange the optimizer program to read the .csv data file,
-recalculate antenna parameters and save them to the .nec input file. xnec2c
-will then recalculate and save new frequency-dependent data to the .csv file.
-<br/>
-<br/>
-If the optimizer program is arranged to monitor changes to the .csv file, then
+<p>If the optimizer program is arranged to monitor changes to the <span class="filepath">.csv</span> file, then
 a continuous loop can be created in which new antenna parameters are calculated
-and saved to the .nec file, new frequency dependent data are calculated and
-saved to the .csv file and the loop repeated until the desired results
-(optimization) are obtained."</i>
+and saved to the <span class="filepath">.nec</span> file, new frequency dependent data are calculated and
+saved to the <span class="filepath">.csv</span> file and the loop repeated until the desired results
+(optimization) are obtained.</p>
 
-<br/>
-<br/>
+<footer><cite>Neoklis, 5B4AZ</cite></footer>
+</blockquote>
 
+<p>
 This optimization feedback mechanism was first implemented in Xnec2c v4.2 and
 has been refined over the past couple of versions to be very effective at
 optimizing antenna geometry.
+</p>
 
-<br/>
-<br/>
-<b><a name="Optimizers" id="Optimizers">External Optimizers</b>
-<br/>
+<h3 id="Optimizers">External Optimizers</h3>
 
+<p>
 As explained above, you need to use an external optimizer to optimize with
 xnec2c.  The following external optimization packages are available.  Click one
 of the packages for more information:
+</p>
 
 <ul>
 	<li>
-		<b><a target="_blank" href="https://github.com/polyrod/xnec2c-gao/">Xnec2c-gao</a></b>
+		<strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/polyrod/xnec2c-gao/">Xnec2c-gao</a></strong>
 		is an external optimizer that uses a genetic algorithm to find
 		solutions in a multidimensional search space.  It is written in Haskell
 		by Maurizio Di Pietro, DC1MDP and hosted on github.
 	</li>
 	<li>
-		<b><a target="_blank" href="https://github.com/KJ7LNW/xnec2c-optimize/">Xnec2c-optimize</a></b>
+		<strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c-optimize/">Xnec2c-optimize</a></strong>
 		is written in Perl by Eric, KJ7LNW and hosted on github.</li>
 	</ul>
-<br/>
 
-<b>Activating .NEC File Monitoring for Optimization</b>
-<br/>
-<br/>
+<h4>Activating <span class="filepath">.NEC</span> File Monitoring for Optimization</h4>
 
-Xnec2c will monitor the currently open .NEC file when you select
-"File-&gt;Optimization Settings" and select "Reload and write data on .NEC file
+<p>
+Xnec2c will monitor the currently open <span class="filepath">.NEC</span> file when you select
+<span class="menu-path">File → Optimization Settings</span> and select "Reload and write data on <span class="filepath">.NEC</span> file
 changes".  Additionally, you need to tell xnec2c where to write its output
-file.  You can do that with one of the <tt>--write-*</tt> command-line options
-or by checking one of the boxes in "File-&gt;Optimization Settings" such as
-"After calculation, write &lt;file&gt;.csv".  
-<br/>
-<br/>
+file.  You can do that with one of the <code>--write-*</code> command-line options
+or by checking one of the boxes in <span class="menu-path">File → Optimization Settings</span> such as
+"After calculation, write &lt;file&gt;<span class="filepath">.csv</span>".</p>
+
+<p>
 Finally you need to enable the frequency sweep if it is not already turned on as follows:
 <ol>
-<li>From the main window: select View-&gt;Frequency Plots</li>
+<li>From the main window: select <span class="menu-path">View → Frequency Plots</span></li>
 <li>From the Frequency Data Plots window: Enable a graph, like VSWR. Configure
 	whatever you would like to see during optimization.  </li>
 <li>Click the triangular "Play" button to run a frequency sweep.  This is a
 persistent setting that will auto-sweep each time xnec2c loads and it must be
 active in order for the optimizer loop to function.</li>
 </ol>
-<br/>
-Frequency loop timing information is available on the console when you increase
-verbosity with <tt>-v</tt>.  Specify  <tt>-v</tt> multiple times to increase
-verbosity.  For example, with <tt>-vv</tt> using examples/2m_yagi.nec:
 
-<pre>
-[info] 140.000000 MHz: 0.045850 seconds. (ATLAS, Threaded)
-[info] 141.500000 MHz: 0.054378 seconds. (ATLAS, Threaded)
-[info] 140.000000 MHz: 0.063772 seconds. (ATLAS, Threaded)
-[info] 140.500000 MHz: 0.066472 seconds. (ATLAS, Threaded)
-[info] 141.000000 MHz: 0.078861 seconds. (ATLAS, Threaded)
-[info] 142.000000 MHz: 0.047910 seconds. (ATLAS, Threaded)
-[info] 143.000000 MHz: 0.068066 seconds. (ATLAS, Threaded)
-[info] 143.500000 MHz: 0.076449 seconds. (ATLAS, Threaded)
-[info] 144.000000 MHz: 0.068083 seconds. (ATLAS, Threaded)
-[info] 142.500000 MHz: 0.113185 seconds. (ATLAS, Threaded)
-[info] 146.000000 MHz: 0.050178 seconds. (ATLAS, Threaded)
-[info] 144.500000 MHz: 0.051486 seconds. (ATLAS, Threaded)
-[info] 145.000000 MHz: 0.058897 seconds. (ATLAS, Threaded)
-[info] 145.500000 MHz: 0.060019 seconds. (ATLAS, Threaded)
-[info] 147.000000 MHz: 0.057313 seconds. (ATLAS, Threaded)
-[info] 146.500000 MHz: 0.070968 seconds. (ATLAS, Threaded)
-[info] 148.000000 MHz: 0.071760 seconds. (ATLAS, Threaded)
-[info] 147.500000 MHz: 0.080575 seconds. (ATLAS, Threaded)
-[info] 148.500000 MHz: 0.051870 seconds. (ATLAS, Threaded)
-[info] 149.500000 MHz: 0.058890 seconds. (ATLAS, Threaded)
-[info] 150.000000 MHz: 0.056449 seconds. (ATLAS, Threaded)
-[info] 149.000000 MHz: 0.071011 seconds. (ATLAS, Threaded)
+<p>
+Frequency loop timing information is available on the console when you increase
+verbosity with <code>-v</code>.  Specify  <code>-v</code> multiple times to increase
+verbosity.  For example, with <code>-vv</code> using <span class="filepath">examples/2m_yagi.nec</span>:
+
+<pre><code class="language-bash">[info] 140.000000&nbsp;MHz: 0.045850 seconds. (ATLAS, Threaded)
+[info] 141.500000&nbsp;MHz: 0.054378 seconds. (ATLAS, Threaded)
+[info] 140.000000&nbsp;MHz: 0.063772 seconds. (ATLAS, Threaded)
+[info] 140.500000&nbsp;MHz: 0.066472 seconds. (ATLAS, Threaded)
+[info] 141.000000&nbsp;MHz: 0.078861 seconds. (ATLAS, Threaded)
+[info] 142.000000&nbsp;MHz: 0.047910 seconds. (ATLAS, Threaded)
+[info] 143.000000&nbsp;MHz: 0.068066 seconds. (ATLAS, Threaded)
+[info] 143.500000&nbsp;MHz: 0.076449 seconds. (ATLAS, Threaded)
+[info] 144.000000&nbsp;MHz: 0.068083 seconds. (ATLAS, Threaded)
+[info] 142.500000&nbsp;MHz: 0.113185 seconds. (ATLAS, Threaded)
+[info] 146.000000&nbsp;MHz: 0.050178 seconds. (ATLAS, Threaded)
+[info] 144.500000&nbsp;MHz: 0.051486 seconds. (ATLAS, Threaded)
+[info] 145.000000&nbsp;MHz: 0.058897 seconds. (ATLAS, Threaded)
+[info] 145.500000&nbsp;MHz: 0.060019 seconds. (ATLAS, Threaded)
+[info] 147.000000&nbsp;MHz: 0.057313 seconds. (ATLAS, Threaded)
+[info] 146.500000&nbsp;MHz: 0.070968 seconds. (ATLAS, Threaded)
+[info] 148.000000&nbsp;MHz: 0.071760 seconds. (ATLAS, Threaded)
+[info] 147.500000&nbsp;MHz: 0.080575 seconds. (ATLAS, Threaded)
+[info] 148.500000&nbsp;MHz: 0.051870 seconds. (ATLAS, Threaded)
+[info] 149.500000&nbsp;MHz: 0.058890 seconds. (ATLAS, Threaded)
+[info] 150.000000&nbsp;MHz: 0.056449 seconds. (ATLAS, Threaded)
+[info] 149.000000&nbsp;MHz: 0.071011 seconds. (ATLAS, Threaded)
 [notice] Frequency loop elapsed time: 0.467847 seconds. (ATLAS, Threaded)
-</pre>
+</code></pre>
 
 </p>
 
-<p><b><a name="InputFile" id="InputFile">5. Input File
-Considerations:</a></b><br>
+<h2 id="InputFile">Input File Considerations</h2>
+<p>
 Since xnec2c is interactive, it will not initiate calculations
 without a prompt from the user. For this reason certain NEC2
-commands that normally cause execution (e.g. RP, XQ etc) are read
+commands that normally cause execution (e.g.&nbsp;<code class="nec-card">RP</code>, <code class="nec-card">XQ</code> etc) are read
 in but not acted upon. Any data in the lines of these commands are
 saved for use when the user requests output data calculation and
 display, via buttons and menu items in the GUI. Also, since xnec2c
 was designed to visualize output data graphically, certain types of
-output data requests are not supported (e.g. the surface wave
-pattern option (I1=1) of the RP command etc). An error message
+output data requests are not supported (e.g.&nbsp;the surface wave
+pattern option (<var>I1</var> = 1) of the <code class="nec-card">RP</code> command etc). An error message
 dialog will hopefully appear to inform the user of unsupported
 commands or options.
-<br/><br/>
-Since xnec2c is an implementation of NEC2.  You can learn more about the NEC2
-format at <a href="http://www.nec2.org">http://www.nec2.org</a>. Be sure to review
-<a href="http://www.nec2.org/part_3/toc.html">Part III: NEC User's Guide</a>.
+</p>
+
+<p>Since xnec2c is an implementation of NEC2.  You can learn more about the NEC2
+format at <a target="_blank" rel="noopener noreferrer" href="http://www.nec2.org">http://www.nec2.org</a>. Be sure to review
+<a target="_blank" rel="noopener noreferrer" href="http://www.nec2.org/part_3/toc.html">Part III: NEC User's Guide</a>.
 
 Here is a list of commands or command options not supported by xnec2c:
 
 </p>
-<p><b>GF:</b> Read Numerical Green's Function: Relevant code has
-been removed in nec2c since this type of solution is obsolete.<br>
-<b>WG:</b> Write Numerical Green's Function: Relevant code has been
-removed in nec2c since this type of solution is obsolete.<br>
-<b>NX:</b> Next Structure Data: Relevant code has been removed
-since xnec2c cannot operate in batch mode.<br>
-<b>PQ, PT, CP:</b> These commands affect printed output and have no
-effect on data presented by xnec2c in graphical form. Since version
-1.0 xnec2c does not print results to file.<br>
-<b>SOMNEC:</b> The separate SOMNEC code has been incorporated in
-nec2c and hence in xnec2c also.<br>
-<b>EX:</b> When Incident Wave or Elementary Current Source
-Excitation is specified, xnec2c can only calculate and render the
-re-radiated field, produced by the current induced onto the
-structure. Only the initial values of the theta and phi angles are
-used and no stepping of these angles is performed. Therefore it is
-better to specify only one step for theta and phi in the EX
-card.<br>
-<b>RP:</b> The surface wave option (I1=1) is not supported.</p>
-<b>Zo:</b> As of version 3.7-beta, this is a new "card" addition to
-the input file, which I have incorporated to allow the Transmission
-Line Zo to be specified in the NEC2 antenna description file.
-<p><b><a name="OutputFile" id="OutputFile">6. Output File
-Considerations:</a></b><br>
+<dl>
+<dt><code class="nec-card">GF</code></dt>
+<dd>Read Numerical Green's Function: Relevant code has been removed in nec2c since this type of solution is obsolete.</dd>
+
+<dt><code class="nec-card">WG</code></dt>
+<dd>Write Numerical Green's Function: Relevant code has been removed in nec2c since this type of solution is obsolete.</dd>
+
+<dt><code class="nec-card">NX</code></dt>
+<dd>Next Structure Data: Relevant code has been removed since xnec2c cannot operate in batch mode.</dd>
+
+<dt><code class="nec-card">PQ</code>, <code class="nec-card">PT</code>, <code class="nec-card">CP</code></dt>
+<dd>These commands affect printed output and have no effect on data presented by xnec2c in graphical form. Since version 1.0 xnec2c does not print results to file.</dd>
+
+<dt><code class="nec-card">SOMNEC</code></dt>
+<dd>The separate SOMNEC code has been incorporated in nec2c and hence in xnec2c also.</dd>
+
+<dt><code class="nec-card">EX</code></dt>
+<dd>When Incident Wave or Elementary Current Source Excitation is specified, xnec2c can only calculate and render the re-radiated field, produced by the current induced onto the structure. Only the initial values of the <var>θ</var> and <var>φ</var> angles are used and no stepping of these angles is performed. Therefore it is better to specify only one step for <var>θ</var> and <var>φ</var> in the <code class="nec-card">EX</code> card.</dd>
+
+<dt><code class="nec-card">RP</code></dt>
+<dd>The surface wave option (<var>I1</var> = 1) is not supported.</dd>
+
+<dt><code class="nec-card">ZO</code></dt>
+<dd>As of version 3.7-beta, this is a new "card" addition to the input file, which I have incorporated to allow the Transmission Line Z<sub>0</sub> to be specified in the NEC2 antenna description file.</dd>
+</dl>
+<h2 id="OutputFile">Output File Considerations</h2>
+<p>
 Printing of results to an output file has been removed starting
 from version 1.0, since xnec2c works in a way that does not allow
 printing compatible with the NEC2 format. If printing to file is
 needed then it is better to use the original NEC2 program, to avoid
 bugs that may still be lurking in the C translation.</p>
-<p><b><a name="Version" id="Version">7. Version
-History (newest first):</a></b></p>
+<h2 id="Version">Version History (newest first)</h2>
 
-<p><b>Version 4.4.16:</b>
-The primary purpose of this release is to fix building on sparc64.
-Additionally, there have been several code cleanups.  I would like the thank
-Diane Bruce for inspiring the code cleanup and helping with pull requests;
-also, a big thank-you to the Debian maintainer, Dave Hibberd (@Hibby), who
-helped troubleshoot and provide guidance in solving the sparc64 build issue.
-</p>
+<h3>Version 4.4.16</h3>
+<ul>
+<li>Bug Fixes:
+	<ul>
+	<li>Fixed geometry calculations when reading NEC2 decks that use the <code class="nec-card">GM</code> card with tag=0 to copy all segments</li>
+	<li>Fixed segment lookup failures when tag=0 is specified</li>
+	<li>Improved error message to properly identify which <code class="nec-card">GM</code> card caused lookup failures</li>
+	<li>Improved radiation pattern color legend spacing</li>
+	<li>Fixed building on sparc64</li>
+	</ul>
+</li>
+<li>Code cleanups and improvements</li>
+<li>Contributors:
+	<ul>
+	<li>Diane Bruce - inspired code cleanup and helped with pull requests</li>
+	<li>Dave Hibberd (@Hibby) - Debian maintainer who helped troubleshoot and provide guidance in solving the sparc64 build issue</li>
+	</ul>
+</li>
+</ul>
 
-<p><b>Version 4.4.15:</b>
-This release fixes a crash related to a GTK icon problem.
+<h3>Version 4.4.15</h3>
+<p>This release fixes a crash related to a GTK icon problem.
 Thanks to @AsciiWolf for helping report and troubleshoot the issue.
 </p>
 
-<p><b>Version 4.4.14:</b>
-This release fixes a hang when the frequency plots window is too small
+<h3>Version 4.4.14</h3>
+<p>This release fixes a hang when the frequency plots window is too small
 for the number of plots being rendered.  Thanks to Tom DL1JBE who reported
 the issue.
 </p>
 
-<p><b>Version 4.4.13:</b>
-
-This is a large bug-fix release and includes a few minor features and
+<h3>Version 4.4.13</h3>
+<p>This is a large bug-fix release and includes a few minor features and
 documentation updates. I would like to thank the following who helped with new
 features and bug fixes, in order of contribution:
 
@@ -1010,14 +1757,14 @@ features and bug fixes, in order of contribution:
 			  unused value</li>
 			<li>Fix warning from Coverity Scan about invalid argument to a function</li>
 			<li>Fix a warning by Coverity Scan about an unterminated buffer</li>
-			<li>Fix Coverity Scan warning about a tainted value used in malloc()</li>
+			<li>Fix Coverity Scan warning about a tainted value used in <code class="language-c">malloc()</code></li>
 			<li>Fix a Coverity Scan report about a "Forward NULL"</li>
 			<li>Convert double-locking synchronization to use a condition</li>
 			  variable. Thanks to @anoduck for testing and reporting the issue in the</li>
 			  process of adding OpenBSD support.</li>
 			<li>Fix warning: while loop has empty body</li>
 			<li>Fix real/imag swap</li>
-			<li>rdpat csv: reset phi on each frequency iteration</li>
+			<li>rdpat csv: reset <var>φ</var> on each frequency iteration</li>
 			<li>fix integer overflow in frequency selection, thanks to @rklasen.</li>
 			<li>Fix sommerfeld ground excitement issue. Thanks to Ward, AE6TY for</li>
 			  reporting the bug and writing a fix.</li>
@@ -1046,34 +1793,34 @@ features and bug fixes, in order of contribution:
 </ul>
 </p>
 
-<p><b>Version 4.4.12:</b>
-This release has been pending for a while, there are quite a few changes.
+<h3>Version 4.4.12</h3>
+<p>This release has been pending for a while, there are quite a few changes.
 I thought about making this 4.5 but not yet since these are mostly
 maintenance items, with a few new features as well:
 <ul>
 <li>UI Features:
 	<ul>
-	<li>Added "File-&gt;Save-as CSV" in the Frequency Plots window</li>
-	<li>Added optimizer output config checkboxes for csv, s1p, and/or s2p.  Now you can auto-generate .csv, .s1p, or .s2p files when the input .NEC file is modified by an external program.</li>
-	<li>Pre-processed CSV data for each example .NEC file and placed them in examples/data/.  You can view these with any spreadsheet program and graph columns as you like; the data is useful for regression testing, too.</li>
+	<li>Added <span class="menu-path">File → Save-as CSV</span> in the Frequency Plots window</li>
+	<li>Added optimizer output config checkboxes for csv, s1p, and/or s2p.  Now you can auto-generate <span class="filepath">.csv</span>, <span class="filepath">.s1p</span>, or <span class="filepath">.s2p</span> files when the input <span class="filepath">.NEC</span> file is modified by an external program.</li>
+	<li>Pre-processed CSV data for each example <span class="filepath">.NEC</span> file and placed them in <span class="filepath">examples/data/</span>.  You can view these with any spreadsheet program and graph columns as you like; the data is useful for regression testing, too.</li>
 	<li>Updated optimization documentation.</li>
 	</ul>
 </li>
 <li>Console Features:
 	<ul>
-	<li>Refactored console output based on output priority levels.  Console output is now color coded and output level can be controlled with -v and -d options.  See --help for details.</li>
-	<li>Add batch mode (-b) commandline flag.</li>
-	<li>Added commandline options --write-csv, --write-s1p, --write-s2p-max-gain, and --write-s2p-viewer-gain for use with --batch and the optimizer.</li>
-	<li>Added --optimize to activate the optimizer thread immediately.</li>
+	<li>Refactored console output based on output priority levels.  Console output is now color coded and output level can be controlled with <code>-v</code> and <code>-d</code> options.  See <code>--help</code> for details.</li>
+	<li>Add batch mode (<code>-b</code>) commandline flag.</li>
+	<li>Added commandline options <code>--write-csv</code>, <code>--write-s1p</code>, <code>--write-s2p-max-gain</code>, and <code>--write-s2p-viewer-gain</code> for use with <code>--batch</code> and the optimizer.</li>
+	<li>Added <code>--optimize</code> to activate the optimizer thread immediately.</li>
 	<li>Updated the man page</li>
 	</ul>
 </li>
 <li>Bugfixes:
 	<ul>
-	<li>Fixed octal representation of 0755 when creating ~/.xnec2c/</li>
+	<li>Fixed octal representation of 0755 when creating <span class="filepath">~/.xnec2c/</span></li>
 	<li>Added directory permission hotfix for users affected by 4e62893b</li>
-	<li>Do not invalidate current data when radiation pattern is enabled; Thanks to Gian Luigi for reporting this bug and providing .nec file samples to reproduce the problem.</li>
-	<li>Check if radiation pattern was calculated before using the RP data,  Thanks to Gian Luigi for reporting this bug, too.</li>
+	<li>Do not invalidate current data when radiation pattern is enabled; Thanks to Gian Luigi for reporting this bug and providing <span class="filepath">.nec</span> file samples to reproduce the problem.</li>
+	<li>Check if radiation pattern was calculated before using the <code class="nec-card">RP</code> data,  Thanks to Gian Luigi for reporting this bug, too.</li>
 	<li>Added fallback PATH_MAX if undefined, like for GNU/Hurd.</li>
 	<li>optimizer: prevent loading zero-byte files</li>
 	<li>Disable optimizer if inotify is missing, this should fix xnec2c builds on BSD.</li>
@@ -1081,7 +1828,7 @@ maintenance items, with a few new features as well:
 	<li>Fix type errors with glib 2.73 and later, Thanks to the Debian maintainer Christoph Berg, DF7CB, for his work to troubleshot and test this!</li>
 	<li>Fixed segfault when mathlib_idx or mathlib_batch_idx is out of range. Thanks to Christoph Berg, DF7CB for reporting this.</li>
 	<li>Only write optimizer data if FREQ_LOOP_DONE</li>
-	<li>Updated xnec2c.spec to reference the right dependencies in el8.</li>
+	<li>Updated <span class="filepath">xnec2c.spec</span> to reference the right dependencies in el8.</li>
 	</ul>
 </li>
 <li>Cleanup:
@@ -1100,56 +1847,55 @@ maintenance items, with a few new features as well:
 </p>
 
 
-<p><b>Version 4.4.11:</b>
-There are many small improvements in this update, please update!  Here is 
+<h3>Version 4.4.11</h3>
+<p>There are many small improvements in this update, please update!  Here is 
 a brief summary, see the git commit log for detail:
 <ul>
 <li>Updated icons and file associations so you can double-click to open
-.nec files in most desktop environments.  Just `make desktop-install`
-after `make install` to set it up!  Distribution maintainers: see the
-PACKAGING file for details.</li>
-<li>Added .so.0 filenames names for OpenBLAS detection in CentOS when
-the -devel package is not installed.</li>
-<li>Added the debian/upstream/metadata file as recommended by Debian
+<span class="filepath">.nec</span> files in most desktop environments.  Just <code>make desktop-install</code>
+after <code>make install</code> to set it up!  Distribution maintainers: see the
+<span class="filepath">PACKAGING</span> file for details.</li>
+<li>Added <span class="filepath">.so.0</span> filenames names for OpenBLAS detection in CentOS when
+the <code>-devel</code> package is not installed.</li>
+<li>Added the <span class="filepath">debian/upstream/metadata</span> file as recommended by Debian
 for package info.</li>
-<li>Added xnec2c.spec for RPM-based builds!  Just `rpmbuild -bb
-xnec2c.spec` to create an RPM.  You will need to place the latest
-.tar.gz file in ~/rpmbuild/SOURCES or run `spectool -g -R xnec2c.spec`
+<li>Added <span class="filepath">xnec2c.spec</span> for RPM-based builds!  Just <code>rpmbuild -bb xnec2c.spec</code> to create an RPM.  You will need to place the latest
+<span class="filepath">.tar.gz</span> file in <span class="filepath">~/rpmbuild/SOURCES</span> or run <code>spectool -g -R xnec2c.spec</code>
 to download them for you. Thanks to Richard Shaw KF5OIM for reviewing
-the .spec file!</li>
-<li>Added include of locale.h to fix building under musl-libc. Thanks
+the <span class="filepath">.spec</span> file!</li>
+<li>Added include of <code>locale.h</code> to fix building under musl-libc. Thanks
 to Tom DL1JBE for pointing this out and testing the fix!</li>
 </ul>
 </p>
 
 
-<p><b>Version 4.4.10:</b>
-Fixed crash caused memory allocation off-by-one error.  Thanks to Juan Pablo García, EA4CIV for reporting the bug!
+<h3>Version 4.4.10</h3>
+<p>Fixed crash caused memory allocation off-by-one error.  Thanks to Juan Pablo García, EA4CIV for reporting the bug!
 </p>
 
 
-<p><b>Version 4.4.9:</b>
-Minor fixes, both reported and tested by Juan Pablo García, EA4CIV.  Thanks for your help!
+<h3>Version 4.4.9</h3>
+<p>Minor fixes, both reported and tested by Juan Pablo García, EA4CIV.  Thanks for your help!
 <ul>
 <li>
-Fixed S11 phase angle calculation for graphs and touchstone file export.
+Fixed S<sub>11</sub> phase angle calculation for graphs and touchstone file export.
 </li>
 <li>
 Fixed locale issues for numeric output data (touchstone, gnuplot, csv)
-and for xnec2c.conf when switching from one locale with period for
+and for <span class="filepath">xnec2c.conf</span> when switching from one locale with period for
 decimal point to another with comma for decimal point, or vice-versa.
 </li>
 </ul>
 </p>
 
 
-<p><b>Version 4.4.8:</b>
-This is a minor maintenance release.
+<h3>Version 4.4.8</h3>
+<p>This is a minor maintenance release.
 <ul>
-<li>Fixed buffer overflow in the temp string used in mem_write_format(),
+<li>Fixed buffer overflow in the temp string used in <code class="language-c">mem_write_format()</code>,
 thanks to Juan Pablo García, EA4CIV for reporting the bug while testing
 touchstone file output.</li>
-<li>Changed default Save-As filenames to resemble the original .nec filename where appropriate.</li>
+<li>Changed default Save-As filenames to resemble the original <span class="filepath">.nec</span> filename where appropriate.</li>
 <li>Avoid EM calculation if the selected frequency step (when you
 right-click on a graph) has already been calculated. Note that, at the
 moment, it must always calculate if left-clicking the graph or when
@@ -1158,19 +1904,19 @@ moment, it must always calculate if left-clicking the graph or when
 </p>
 
 
-<p><b>Version 4.4.7:</b>
-This release has a few minor features added:
+<h3>Version 4.4.7</h3>
+<p>This release has a few minor features added:
 <ul>
-<li>Touchstone 1- and 2-port files (.s1p, .s2p) can be exported from the
+<li>Touchstone 1- and 2-port files (<span class="filepath">.s1p</span>, <span class="filepath">.s2p</span>) can be exported from the
 frequency plots window.  Touchstone files are used by professional RF
 software packages like Microwave Office, Sonnet, and others.   Now xnec2c
-can export .s1p and .s2p files to be used with those software packages.
-S11 is the same as return loss, reflection and .s1p files provide
+can export <span class="filepath">.s1p</span> and <span class="filepath">.s2p</span> files to be used with those software packages.
+S<sub>11</sub> is the same as return loss, reflection and <span class="filepath">.s1p</span> files provide
 single-port data.  Thanks to Juan Pablo García, EA4CIV for suggesting this
 feature.
 </li>
 <li>Converted frequency plot gnuplot output to include all columns. Now
-all columns are available in the .gnuplot file.  Thanks to @scaramacai
+all columns are available in the <span class="filepath">.gnuplot</span> file.  Thanks to @scaramacai
 on github for the initial work on this conversion.</li>
 <li>Added auto-detection of musl-libc so it will compile for users
 with musl-libc. Thanks to Tom, DL1JBE at Gentoo for suggesting and testing
@@ -1180,61 +1926,63 @@ this change.</li>
 </p>
 
 
-<p><b>Version 4.4.6:</b>
-This is mostly a release with a handful of bugfixes and some internal re-organization
+<h3>Version 4.4.6</h3>
+<p>This is mostly a release with a handful of bugfixes and some internal re-organization
 in preparation for s1p/s2p output and gnuplot extensions (measurements.c).
 Detailed descriptions are available in the git log.
 <ul>
 <li>Removed C++ compiler dependency, xnec2c is written in C</li>
 <li>Fixed default mathlib handling when no accelerated library is installed</li>
-<li>Fixed error on first run when ~/.xnec2c/ does not exist</li>
+<li>Fixed error on first run when <span class="filepath">~/.xnec2c/</span> does not exist</li>
 <li>Added libtool dependency to documentation for CentOS</li>
 <li>Fixed segment fault when HOME environment variable is undefined.</li>
 <li>Fix off-by-one error in memory allocation for frequency plot arrays.</li>
 <li>Fixed deadlocks when running without pthreads and without forking.</li>
 <li>Refactored common measurements into measurements.c</li>
-<li>Refactored plot_freqdata.c to use meas_calc()</li>
+<li>Refactored plot_freqdata.c to use <code class="language-c">meas_calc()</code></li>
 <li>Added function use comments to measurements.c</li>
 <li>Suppress max_freq==min_freq when freq_steps==1</li>
-<li>Fixed gcc warning about the return value of getcwd() not being checked.</li>
-<li>Ignore the GN card if both GN and GE cards indicate freespace.</li>
+<li>Fixed gcc warning about the return value of <code class="language-c">getcwd()</code> not being checked.</li>
+<li>Ignore the <code class="nec-card">GN</code> card if both <code class="nec-card">GN</code> and <code class="nec-card">GE</code> cards indicate freespace.</li>
 <li>Fixed format-truncation compiler warning</li>
 </ul>
 </p>
 
 
-<p><b>Version 4.4.5:</b>
+<h3>Version 4.4.5</h3>
 <ul>
 <li>Corrected Im(-z) plotting on the Smith chart, it was plotting upside-down.  Thanks to Juan Pablo
     Garcia for pointing this out.</li>
 <li>Updated examples with corrections from Neoklis related to ground configuration.</li>
 <li>Updated GCC/Clang compiler optimization settings for better compatibility.</li>
 </ul>
-See the git commits for detail if you're interested!
+<p>See the git commits for detail if you're interested!
 </p>
 
 
-<p><b>Version 4.4.4:</b>
-Fixed regression introduced in v4.3 by adding -ffinite-math-only as a
+<h3>Version 4.4.4</h3>
+<p>Fixed regression introduced in v4.3 by adding -ffinite-math-only as a
 gcc optimization.  This causes radiation patterns to draw incorrectly
-when the RP card (radiation pattern card) when using a "Perfect Ground"
-in the GN card at the same time that "Radial wire screen" is used as
-the ground in the RP card.  Thank you Neoklis for investigating the examples
+when the <code class="nec-card">RP</code> card (radiation pattern card) when using a "Perfect Ground"
+in the <code class="nec-card">GN</code> card at the same time that "Radial wire screen" is used as
+the ground in the <code class="nec-card">RP</code> card.  Thank you Neoklis for investigating the examples
 that produced the issue.
 </p>
 
 
-<p><b>Version 4.4.3:</b>
-Added option to Round X-axis Frequency Values:
-<br/><br/>
-X-Axis frequency values in the Frequency Data Plots window default to
+<h3>Version 4.4.3</h3>
+<p>Added option to Round X-axis Frequency Values:
+</p>
+
+<p>X-Axis frequency values in the Frequency Data Plots window default to
 scaling based on the total frequency range and number of points which
 deviates from the way Neoklis originally implemented the plot.  This makes
 the best use of graph space, however, this new form can create axis values
 that do not align nicely to whole numbers or common fractions of numbers
 (like 13.5 vs 13.72).
-<br/><br/>
-The new option "View-&gt;Round X Axis Frequency Values" will align the X Axis
+</p>
+
+<p>The new option <span class="menu-path">View → Round X Axis Frequency Values</span> will align the X Axis
 labels to normalized values as originally designed in releases prior
 to v4.1.5.  When this option is off, it will show one more frequency
 significant figure displayed on the X Axis and scale the plot to use
@@ -1242,23 +1990,22 @@ the entire plot space.
 </p>
 
 
-<p><b>Version 4.4.2:</b>
+<h3>Version 4.4.2</h3>
 <ul>
-	<li>Fixed plot width drawing with multiple FR cards.  This fixes a regression that had disabled
-	mouse-wheel scrolling to resize plots with multiple FR cards.</li>
+	<li>Fixed plot width drawing with multiple <code class="nec-card">FR</code> cards.  This fixes a regression that had disabled
+	mouse-wheel scrolling to resize plots with multiple <code class="nec-card">FR</code> cards.</li>
 	<li>Fixed Frequency_Loop race conditions causing access to uninitialized data that
 	were seen as flickering while running the frequency loop, or as incomplete plot drawings.</li>
 	<li>Added strerror on failed file open for @m-anish on github to
-	troubleshoot error opening xnec2c.conf. </li>
+	troubleshoot error opening <code class="filepath">xnec2c.conf</code>. </li>
 	<li>Refactored memory handling routines to bypass realloc() if possible.  This increases
 	performance slightly, reduces heap thrashing, increases stability by clearing memory
 	on reallocation, and makes memory handling easier to debug.</li>
 </ul>
-</p>
 
 
-<p><b>Version 4.4.1:</b>
-	Fixed graph scaling so that each point is drawn in order while running
+<h3>Version 4.4.1</h3>
+<p>Fixed graph scaling so that each point is drawn in order while running
 	the frequency loop without rescaling the graph on the x-axis.  This way
 	the points line up correctly to their frequencies throughout the plot
 	while the frequency loop is running instead of only being correct after
@@ -1266,72 +2013,70 @@ the entire plot space.
 </p>
 
 
-<p><b>Version 4.4:</b>
+<h3>Version 4.4</h3>
 <ul>
-	<li>The File-&gt;Gain Scaling setting is now saved between restarts
+	<li>The <span class="menu-path">File → Gain Scaling</span> setting is now saved between restarts
 	since this is a visual preference per user.</li>
 	<li>GTK resource refactor prevents the need to delete the old
-	xnec2c.glade file on new releases that have UI changes. This is 
+	<span class="filepath">xnec2c.glade</span> file on new releases that have UI changes. This is
 	a pretty major change that should be transparent to users, so please report any regressions.</li>
 	<li>Fixed a minor fsync() bug</li>
 	<li>Updated installation details that will
 	help distribution packagers.  Special thanks to Tom DL1JBE at
 	Gentoo for his packaging feedback!</li>
-	<li>Added a PACKAGING file to help distribution packagers.</li>
+	<li>Added a <span class="filepath">PACKAGING</span> file to help distribution packagers.</li>
 </ul>
-</p>
 
 
-<p><b>Version 4.3.5:</b>
-	Updated documentation around autogen.sh and added tests to make sure gettext and related tools are
+<h3>Version 4.3.5</h3>
+<p>Updated documentation around autogen.sh and added tests to make sure gettext and related tools are
 	available for autoconf to complete successfully.
 </p>
 
 
-<p><b>Version 4.3.4:</b>
+<h3>Version 4.3.4</h3>
 <ul>
 	<li>Fixed slow sync() issue by replacing it with fsync().  Thanks to @bbarenblat on github.</li>
 	<li>Fixed typos and spelling errors throughout the application, thanks to @dforsi on github.</li>
 	<li>Updated documentation and added official website links</li>
 </ul>
-</p>
 
 
-<p><b>Version 4.3.3:</b>
-A few optimizer cleanups and bug fixes including updating CSV format to
+<h3>Version 4.3.3</h3>
+<p>A few optimizer cleanups and bug fixes including updating CSV format to
 remove extra whitespace and increase precision of the NEC2 data.  See git log for details.
 </p>
 
 
-<p><b>Version 4.3.2:</b> Additional optimizer trigger and inotify cleanup.  Also xnec2c writes
-the .csv file as soon as the checkbox is selected to trigger any external optimizers waiting for
-the .csv to be modified.
+<h3>Version 4.3.2</h3>
+<p>Additional optimizer trigger and inotify cleanup.  Also xnec2c writes
+the <span class="filepath">.csv</span> file as soon as the checkbox is selected to trigger any external optimizers waiting for
+the <span class="filepath">.csv</span> to be modified.
 </p>
 
 
-<p><b>Version 4.3.1:</b> 
+<h3>Version 4.3.1</h3>
 <ul>
-<li>Added an option to show S11 (dB) (negative return loss) as a plot next to VSWR. See
-Frequency Plots-&gt;View-&gt;Show S11
+<li>Added an option to show S<sub>11</sub> (dB) (negative return loss) as a plot next to VSWR. See
+<span class="menu-path">Frequency Plots → View → Show S<sub>11</sub></span>
 </li>
 <li>Added an option to clamp VSWR to a max of 10 for graphing purposes.  In the past
 xnec2c has always clamped to 10 so this option defaults enabled.  If you want to see the
-entire VSWR curve no matter how big VSWR is, then see Frequency Plots-&gt;View-&gt;Clamp VSWR to 10.
+entire VSWR curve no matter how big VSWR is, then see <span class="menu-path">Frequency Plots → View → Clamp VSWR to 10</span>.
 </li>
-<li>Fixed deadlock while optimizing when inotify receives a .nec change before xnec2c
-is done writing the .nec.csv file.</li>
+<li>Fixed deadlock while optimizing when inotify receives a <span class="filepath">.nec</span> change before xnec2c
+is done writing the <span class="filepath">.nec.csv</span> file.</li>
 </ul>
-</p>
 
 
-<p><b>Version 4.3:</b> 
+<h3>Version 4.3</h3>
 <ul>
 <li>Changed maintainer to Eric Wheeler, KJ7LNW</li>
 <li>Moved xnec2c to github: https://github.com/KJ7LNW/xnec2c</li>
 <li>Major refactor of the plotting code:
 	<ul>
-		<li>Added multi-plot support when multiple FR cards are used.</li>
-		<li>Added "View-&gt;Show Min/Max" values to the Frequency Data Plots
+		<li>Added multi-plot support when multiple <code class="nec-card">FR</code> cards are used.</li>
+		<li>Added <span class="menu-path">View → Show Min/Max</span> values to the Frequency Data Plots
 		  graph.</li>
 		<li>Enable click+drag for continuous frequency selection.</li>
 	</ul>
@@ -1353,15 +2098,15 @@ is done writing the .nec.csv file.</li>
 		<li>Made GTK more responsive by converting Frequency_Loop() to run as
 		  a pthread</li>
 		<li>Made xnec2c always fork a child process for handling frequency data
-		  calculations requested by Frequency_Loop even for -j1 to prevent blocking
-		  GTK during a calculation (disable forking with -j0)</li>
+		  calculations requested by Frequency_Loop even for <code>-j1</code> to prevent blocking
+		  GTK during a calculation (disable forking with <code>-j0</code>)</li>
 	</ul>
 </li>
 <li>Bug-fixes:
 	<ul>
 		<li>Fixed parallel job child communication races and better EINTR
 		  handling</li>
-		<li>Fixed multiple crashes when inotify detects a change of the .nec
+		<li>Fixed multiple crashes when inotify detects a change of the <span class="filepath">.nec</span>
 		  file while the frequency loop is running.</li>
 		<li>Fixed uninitialized data program-wide by calling memset(0) in
 		  mem_alloc().</li>
@@ -1375,11 +2120,11 @@ is done writing the .nec.csv file.</li>
 	</ul>
 </li>
 </ul>
-</p>
 
 
-<p><b>Version 4.2:</b> Further to the changes above, I have
-modified xnec2c so that more than one FR (frequency range) card can
+<h3>Version 4.2</h3>
+<p>Further to the changes above, I have
+modified xnec2c so that more than one <code class="nec-card">FR</code> (frequency range) card can
 be specified in the NEC2 file. This makes it possible to calculate
 frequency-dependent parameters over separate ranges of interest and
 thus reduces the time taken by the program to produce results.
@@ -1387,15 +2132,16 @@ Unnecessary calculations between ranges of interest are also
 avoided.</p>
 
 
-<p><b>Version 4.1.5:</b> After an inquiry by Eric Wheeler KJ7LNW
-regarding the use of the GH card to create spirals, I found a bug
-that caused the GH editor to delete the GH entry in NEC2 Editor's
+<h3>Version 4.1.5</h3>
+<p>After an inquiry by Eric Wheeler KJ7LNW
+regarding the use of the <code class="nec-card">GH</code> card to create spirals, I found a bug
+that caused the <code class="nec-card">GH</code> editor to delete the <code class="nec-card">GH</code> entry in NEC2 Editor's
 treeview. I also found a bug that caused the number of turns of a
 spiral to be rounded to the nearest integer. Both bugs have been
 fixed in this version.</p>
 <p>Further, to aid Eric Wheeler KJ7LNW to develop his Simplex
 automatic Optimizer, I added code to monitor, with inotify, the
-.nec input file and to trigger recalculation and plotting of
+<span class="filepath">.nec</span> input file and to trigger recalculation and plotting of
 frequency dependent data, while at the same time printing to file
 results (VSWR, max gain, F/B ratio etc). Also added code so that if
 the user clicks on the Frequency Plots drawing area, the underlying
@@ -1405,27 +2151,31 @@ the Radiation pattern makes it easier to monitor the Optimizer's
 progress.</p>
 
 
-<p><b>Version 4.1.4:</b> Added the stdint.h include file to
+<h3>Version 4.1.4</h3>
+<p>Added the stdint.h include file to
 common.h to fix a compilation error reported by Nick G3VNC.</p>
 
 
-<p><b>Version 4.1.3:</b> Arranged the pipe reading function for the
+<h3>Version 4.1.3</h3>
+<p>Arranged the pipe reading function for the
 parent process to re-read from the child processes if not all data
 is transferred at the first read(). In this case xnec2c was
 crushing with "Resource temporarily unavailable" error message.</p>
 
 
-<p><b>Version 4.1.2:</b> Changed the installation commands in
+<h3>Version 4.1.2</h3>
+<p>Changed the installation commands in
 Makefile.am so that all the relevant files (desktop file,
 application pixmap, configuration file, executable binary etc) are
 installed under any location specified to the configure script by
-the --prefix= option. Also modified the program so that on first
+the <code>--prefix=</code> option. Also modified the program so that on first
 start up after installation, the application will create its
 working directory by copying files from the relevant directories
 under the installation prefix.</p>
 
 
-<p><b>Version 4.1.1:</b> I made a small change to the Radiation
+<h3>Version 4.1.1</h3>
+<p>I made a small change to the Radiation
 Pattern code to allow the drawing of both horizontal an vertical
 "cuts" in the radiation pattern, in the zx and zy vertical planes
 and the xy horizontal plane. Also changed the accelerator keys for
@@ -1434,7 +2184,8 @@ Modified by the Control button as the original accelerator keys
 were being activated when writing in the Comments Treeview.</p>
 
 
-<p><b>Version 4.1:</b> I corrected some mistakes in the GUI
+<h3>Version 4.1</h3>
+<p>I corrected some mistakes in the GUI
 interface code, which handles the creation of windows and dialogs
 from the glade UI description file. These mistakes were such that
 they did not effect the operation of xnec2c but in any case I fixed
@@ -1444,7 +2195,8 @@ in the dialog's frame and the relevant code to deal with this
 better.</p>
 
 
-<p><b>Version 4.0:</b> I corrected some mistakes in the GUI
+<h3>Version 4.0</h3>
+<p>I corrected some mistakes in the GUI
 interface code, which handles the creation of windows and dialogs
 from the glade UI description file. These mistakes were such that
 they did not effect the operation of xnec2c but in any case I fixed
@@ -1454,7 +2206,8 @@ in the dialog's frame and the relevant code to deal with this
 better.</p>
 
 
-<p><b>Version 4.0:</b> I have changed the code that saves the state
+<h3>Version 4.0</h3>
+<p>I have changed the code that saves the state
 of the View-Polarization menu items, as it would only correctly
 save the state of these items in the Main (structure) window. I
 also changed the code that handles the removal of "card" entries in
@@ -1462,201 +2215,223 @@ the NEC2 editor, as it was causing crashes of xnec2c under some
 user action combinations.</p>
 
 
-<p><b>Version 3.9:</b> Since I have not received any bug reports
+<h3>Version 3.9</h3>
+<p>Since I have not received any bug reports
 for some time after releasing version 3.9-b, and having fixed a bug
 that resulted in a gtk_widget_destroy() command to be passed on an
 invalid widget pointer, I am releasing xnec2c as version 3.9.</p>
 
 
-<p><b>Version 3.9-beta:</b> I have arranged for some user actions
+<h3>Version 3.9-beta</h3>
+<p>I have arranged for some user actions
 to be "nested", mainly regarding the saving of NEC2 editor data
 followed by the opening of another file or starting a new project.
 Some such functionality already existed in previous versions but it
-is now more comprehensive.<br>
+is now more comprehensive.
 Another useful change is fixing a bug in the original NEC2 code for
-producing a helix (as specified by the GH "card"). This bug
+producing a helix (as specified by the <code class="nec-card">GH</code> "card"). This bug
 resulted a division by zero if the helix length was specified as
-zero, possibly intended to produce a spiral. The GH card can now be
+zero, possibly intended to produce a spiral. The <code class="nec-card">GH</code> card can now be
 used to produce both a helix or a spiral with no floating point
 exceptions.</p>
 
 
-<p><b>Version 3.8-beta:</b> I edited some of the code so that when
+<h3>Version 3.8-beta</h3>
+<p>I edited some of the code so that when
 a NEC2 file is saved, the Center x and y offsets (the change of
 position) of the structure and radiation pattern are not changed. I
 also arranged for the offset values to be saved in
-~/.config/xnec2c.config when closing xnec2c, and to be read back
+<span class="filepath">~/.config/xnec2c.config</span> when closing xnec2c, and to be read back
 and restored when starting.</p>
 
 
-<p><b>Version 3.7.1-beta:</b> Fixed a reported bug that prevented
-wire diameter entries less than 0.01 in the Helix (GH) card editor.
+<h3>Version 3.7.1-beta</h3>
+<p>Fixed a reported bug that prevented
+wire diameter entries less than 0.01 in the Helix (<code class="nec-card">GH</code>) card editor.
 This was due to specifying a minimum value of 0.01 in the
-xnec2c.glade file.</p>
+<span class="filepath">xnec2c.glade</span> file.</p>
 
 
-<p><b>Version 3.7-beta:</b> After some feature requests by users of
+<h3>Version 3.7-beta</h3>
+<p>After some feature requests by users of
 xnec2c, I implemented a number of changes to xnec2c so that it can
 save the state of the GUI at exit and restore it on start up. To
-this effect xnec2c now produces a configuration file xnec2c.config
-in the user's ~/.config directory. In this file xnec2c saves the
+this effect xnec2c now produces a configuration file <span class="filepath">xnec2c.config</span>
+in the user's <span class="filepath">~/.config</span> directory. In this file xnec2c saves the
 state (position, size, active toggle buttons, projection parameters
 for structure and radiation pattern displays, the state of the
-frequency loop etc) of the main windows, e.g. structure, radiation
-pattern, frequency plots and NEC2 editor.<br>
+frequency loop etc) of the main windows, e.g.&nbsp;structure, radiation
+pattern, frequency plots and NEC2 editor.
 I have also added keyboard accelerators for a number of buttons and
 menu items, more commonly used in the main windows of xnec2c, and a
-new "Zo" NEC2 "card" to specify transmission line impedance.</p>
+new <code class="nec-card">ZO</code> NEC2 "card" to specify transmission line impedance.</p>
 
 
-<p><b>Version 3.6.1-beta:</b> After a request by Don Walters W9DKI
-I modified the xnec2c.glade file to reduce the default size of the
+<h3>Version 3.6.1-beta</h3>
+<p>After a request by Don Walters W9DKI
+I modified the <span class="filepath">xnec2c.glade</span> file to reduce the default size of the
 drawing areas as they would not fit in displays with reduced
 resolution. I also removed some legacy code, left over from the
 migration of xnec2c to GTK3, which was producing error messages
 from GTK3 during the dragging of structure or radiation pattern
-displays. And I modified the Makefile.am file to get "make install"
+displays. And I modified the <span class="filepath">Makefile.am</span> file to get <code>make install</code>
 to install program files and documentation to the right places.</p>
 
 
-<p><b>Version 3.6-beta:</b> I migrated Xnec2c to the latest
+<h3>Version 3.6-beta</h3>
+<p>I migrated Xnec2c to the latest
 GTK+-3.22 toolkit to bring it up to date. A lot of changes were
 needed to both the GUI and parts of the Xnec2c source code, mainly
 the use of GTK3's GUI Builder for creating the User Interface and
 the revised drawing model of GDK for presenting the Graphics
-displays. A new autogen.sh script has also been incorporated in the
+displays. A new <code>autogen.sh</code> script has also been incorporated in the
 source package and internationalization has been migrated to the
 GNU GetText system. Because Xnec2c is very complicated and thorough
 testing is difficult, I am releasing this version as a beta.</p>
 
 
-<p><b>Version 3.5.1:</b> After a request by Fan Jun BH1SCW, I
+<h3>Version 3.5.1</h3>
+<p>After a request by Fan Jun BH1SCW, I
 replaced the original makeshift desktop icon with one provided by
 Serge ON4AA.</p>
 
 
-<p><b>Version 3.5:</b> I modified the NEC2 Editor code so that when
+<h3>Version 3.5</h3>
+<p>I modified the NEC2 Editor code so that when
 a Geometry or Command editor window is opened, activating Apply or
 OK will save data in the editor window to the treeview, even if the
-default data is not edited.<br>
-I modified the NEC2 Editor code so that if a treeview row is
+default data is not edited.</p>
+<p>I modified the NEC2 Editor code so that if a treeview row is
 removed while the relevant editor window is open, then activating
 Apply or OK will not attempt to save data to the treeview, since
-this will cause an illegal memory access and will crash xnec2c.<br>
-Fixed a bug in the Helix editor which caused incorrect calculation
-of the segment length as a percentage of wavelength or of the
+this will cause an illegal memory access and will crash xnec2c.</p>
+<p>Fixed a bug in the Helix editor which caused incorrect calculation
+of the segment length as a percentage of <var>λ</var> or of the
 number of segments/turn that correspond to a given segment length
-as a percentage of wavelength.</p>
+as a percentage of <var>λ</var>.</p>
 
 
-<p><b>Version 3.4:</b> I fixed a bug in the code that implements
-the modified GS (scaling) card. In NEC2 the GS card scales all of
+<h3>Version 3.4</h3>
+<p>I fixed a bug in the code that implements
+the modified <code class="nec-card">GS</code> (scaling) card. In NEC2 the <code class="nec-card">GS</code> card scales all of
 the structure, but in Xnec2c I modified the code so that it is
 possible to specify a range of tag numbers to apply scaling to
-only. When a GS card follows a GX card, selective scaling doesn't
+only. When a <code class="nec-card">GS</code> card follows a <code class="nec-card">GX</code> card, selective scaling doesn't
 work correctly because a symmetric structure is created. If you are
-using a GS card, it may be better to avoid specifying a tag number
+using a <code class="nec-card">GS</code> card, it may be better to avoid specifying a tag number
 range, just in case the bug fix is not complete.</p>
 
 
-<p><b>Version 3.3:</b> I fixed a bug that was in the code that
+<h3>Version 3.3</h3>
+<p>I fixed a bug that was in the code that
 reads the commands from the NEC2 input file, where xnec2c would
-crash with a segmentation fault when the FR card was after the RP
+crash with a segmentation fault when the <code class="nec-card">FR</code> card was after the <code class="nec-card">RP</code>
 card. Also modified the Strtod() function to avoid freeing the end
 pointer before it was used, causing problems.</p>
 
 
-<p><b>Version 3.2:</b> I made some changes to the Strlcat()
+<h3>Version 3.2</h3>
+<p>I made some changes to the Strlcat()
 function and its usage in the xnec2c code, to improve safe handling
 of string concatenation operations. Hopefully this has not broken
-the handling of various strings in xnec2c! ;-)</p>
+the handling of various strings in xnec2c!</p>
 
 
-<p><b>Version 3.1:</b> I have made several changes to the code that
+<h3>Version 3.1</h3>
+<p>I have made several changes to the code that
 renders wire frame drawings and displays some data, like the
 projection parameters (azimuth and elevation of the structure and
 the radiation pattern) and gain values. This has resulted in a
 faster and smoother animation of these drawings and reduced
-workload on the processor during dragging of these images.<br>
+workload on the processor during dragging of these images.
 I have also reduced the default minimum size of xnec2c's windows,
 as I had reports that they would not fit in the displays of some
 laptops or monitors, with resolutions on the lower side.</p>
 
 
-<p><b>Version 3.0:</b> I have modified the NEC2 file parser so that
+<h3>Version 3.0</h3>
+<p>I have modified the NEC2 file parser so that
 it can read the file with both the '.' and ',' as decimal point
 characters. This is necessary to make xnec2c compatible with
 different locales. I also fixed a resource (memory) leak, reported
 by valgrind, in the xyz axes drawing routine.</p>
 
 
-<p><b>Version 2.9:</b> After a request by the Debian maintainer of
+<h3>Version 2.9</h3>
+<p>After a request by the Debian maintainer of
 xnec2c, I added a rudimentary man page he sent me and corrected
 some spelling errors (arbitrary to arbitrary).</p>
 
 
-<p><b>Version 2.8:</b> Fixed a bug in the GN card editor function
-which caused xnec2c to save the GN card parameters in the .nec
+<h3>Version 2.8</h3>
+<p>Fixed a bug in the <code class="nec-card">GN</code> card editor function
+which caused xnec2c to save the <code class="nec-card">GN</code> card parameters in the <span class="filepath">.nec</span>
 antenna description file without clearing the number of radials to
-zero. This resulted in the GN card editor window to open with
+zero. This resulted in the <code class="nec-card">GN</code> card editor window to open with
 confusing and incorrect defaults for the radial screen, when the
 Reflection Coefficient Approximation method was selected for
 specifying ground parameters.</p>
 <p>Also fixed some bugs (missing variable initializations) in the
 Ground Parameters calculation functions which resulted in incorrect
-Radiation Pattern calculations. This would happen if a .nec file,
-with Perfect Ground (iperf = 1) specified in the GN card, was
-opened after a .nec file, with a Radial Ground Screen specified in
-the GN card, was processed.</p>
+Radiation Pattern calculations. This would happen if a <span class="filepath">.nec</span> file,
+with Perfect Ground (<code>iperf = 1</code>) specified in the <code class="nec-card">GN</code> card, was
+opened after a <span class="filepath">.nec</span> file, with a Radial Ground Screen specified in
+the <code class="nec-card">GN</code> card, was processed.</p>
 
 
-<p><b>Version 2.7:</b> After a bug report by Tim, WJ5Q, I fixed a
-bug that was preventing the creation of an LD card of type 5
-(LDTYP=5) when wire conductivity (S/m) was specified in the GW card
-(Wire) editor. The same bug was present in the GH (Helix) card
+<h3>Version 2.7</h3>
+<p>After a bug report by Tim, WJ5Q, I fixed a
+bug that was preventing the creation of an <code class="nec-card">LD</code> card of type 5
+(<code>LDTYP=5</code>) when wire conductivity (S/m) was specified in the <code class="nec-card">GW</code> card
+(Wire) editor. The same bug was present in the <code class="nec-card">GH</code> (Helix) card
 editor and it was also fixed. I added code so that the wire
-conductivity for GW, GA and GH cards can be read from the relevant
-LD card and shown in the Conductivity (S/m) spin button.</p>
+conductivity for <code class="nec-card">GW</code>, <code class="nec-card">GA</code> and <code class="nec-card">GH</code> cards can be read from the relevant
+<code class="nec-card">LD</code> card and shown in the Conductivity (S/m) spin button.</p>
 <p>After all these changes I checked the xnec2c source code using
 the Coverity Scan service and I fixed an out-of-bounds read error
 that was reported by the scanner, in the plot_freqdat.c file.</p>
 
 
-<p><b>Version 2.6:</b> After a bug report by Lucjan SQ9VPA, I
-changed the case of the signal handler that deals with SIGCHLD so
-that it doesn't cause xnec2c to exit when the SIGCHLD signal does
+<h3>Version 2.6</h3>
+<p>After a bug report by Lucjan SQ9VPA, I
+changed the case of the signal handler that deals with <code class="signal">SIGCHLD</code> so
+that it doesn't cause xnec2c to exit when the <code class="signal">SIGCHLD</code> signal does
 not originate from child processes created by xnec2c. It appears
-that in some Linux installations a SIGCHLD signal is sent to xnec2c
-even if it is not running forked, e.g. the -j option is not used in
+that in some Linux installations a <code class="signal">SIGCHLD</code> signal is sent to xnec2c
+even if it is not running forked, e.g.&nbsp;the <code>-j</code> option is not used in
 the command line.</p>
 
 
-<p><b>Version 2.5:</b> After a bug report by Jean Collin, I made
+<h3>Version 2.5</h3>
+<p>After a bug report by Jean Collin, I made
 some changes to the input file parser code in input.c, to properly
 identify tabs in the input file.</p>
 
 
-<p><b>Version 2.4:</b> I submitted xnec2c (and nec2c) for scanning
-to the <a href="https://scan.coverity.com/" name="coverity" id=
+<h3>Version 2.4</h3>
+<p>I submitted xnec2c (and nec2c) for scanning
+to the <a target="_blank" rel="noopener noreferrer" href="https://scan.coverity.com/" name="coverity" id=
 "coverity">Coverity</a> source code audit website, which produced a
 list of no less than 57 issues to be fixed! Most of them were not
 bugs that affected calculations but possibly two, both in the
-Somnec code, one in function rom1() and one in gshank() likely
+Somnec code, one in function <code class="language-c">rom1()</code> and one in <code class="language-c">gshank()</code> likely
 could have caused errors in the relevant calculations.
 Unfortunately the FORTRAN source of Somnec (as well as that of the
 NEC2) is very difficult to read so I cannot say with certainty if
 this was so.</p>
 
 
-<p><b>Version 2.3-beta:</b> Fixed a bug in the
-cell_edited_callback() function that caused segmentation fault
+<h3>Version 2.3-beta</h3>
+<p>Fixed a bug in the
+<code class="language-c">cell_edited_callback()</code> function that caused segmentation fault
 crashes when a cell in the input file editor was edited directly by
 the user.</p>
 
 
-<p><b>Version 2.2-beta:</b> I made extensive modifications to the
+<h3>Version 2.2-beta</h3>
+<p>I made extensive modifications to the
 source code to silence a large number of warnings generated by the
-LLVM clang compiler when used with the -Weverything option. These
+LLVM clang compiler when used with the <code>-Weverything</code> option. These
 were mostly cases of implicit conversions between variable types,
 like int to char or uint to int etc. I have also updated the basic
 files of the GNU Autotools build system, to be compatible with the
@@ -1664,43 +2439,49 @@ current version of these tools at the time of writing (February
 2013).</p>
 
 
-<p><b>Version 2.1:</b> Patched a problem in the graph plotting
+<h3>Version 2.1</h3>
+<p>Patched a problem in the graph plotting
 routines that caused xnec2c to crash with a division by zero fault.
-This can happen when e.g. a single-wire structure is specified and
+This can happen when e.g.&nbsp;a single-wire structure is specified and
 a plot of gain vs frequency is requested, for a polarization that
-is at 90 deg to the wire, e.g. requesting gain plot for horizontal
+is at 90° to the wire, e.g.&nbsp;requesting gain plot for horizontal
 polarization for a vertical wire. Since there is no radiation in
 the horizontal plane of a vertical wire, the values of gain given
 to the plotting routines are all the same so the vertical scale
-drawing routines crash xnec2c. Please note that although xnec2c
+drawing routines crash xnec2c.</p>
+<aside class="notice" role="note">
+<h4>Note</h4>
+<p>Although xnec2c
 will now not crash as above, the plots will be jumbled and
 meaningless.</p>
+</aside>
 
 
-<p><b>Version 2.1-beta:</b> I have introduced many changes in this
+<h3>Version 2.1-beta</h3>
+<p>I have introduced many changes in this
 version, so I am releasing it again as a public beta version for
-testing and bug reports:<br clear="all">
-After a bug report by David J. Singer, I changed all declarations
+testing and bug reports:</p>
+<p>After a bug report by David J. Singer, I changed all declarations
 of variables that are used in memory allocations, from int to
 size_t. This error was in the nec2c code from the beginning but
 apparently it only showed up when extremely large memory
-allocations are requested in nec2c and xnec2c.<br clear="all">
-I have replaced all the (deprecated) GDK drawing primitives with
-equivalent Cairo graphics equivalents (e.g. replaced
-gdk_draw_line() with cairo_line_to()) since Cairo provides for
-nicer anti-aliased drawing.<br clear="all">
-After a feature request by David J. Singer and friend Richard, I
+allocations are requested in nec2c and xnec2c.</p>
+<p>I have replaced all the (deprecated) GDK drawing primitives with
+equivalent Cairo graphics equivalents (e.g.&nbsp;replaced
+<code class="language-c">gdk_draw_line()</code> with <code class="language-c">cairo_line_to()</code>) since Cairo provides for
+nicer anti-aliased drawing.</p>
+<p>After a feature request by David J. Singer and friend Richard, I
 have added code to save data of the structure display, radiation
 patterns and frequency plots into file, in a format suitable for
 the "gnuplot" plotting program.</p>
 
 
-<p><b>Version 2.0-beta:</b> I received a bug report from David
+<h3>Version 2.0-beta</h3>
+<p>I received a bug report from David
 Binderman regarding an array bounds violation, which he found by
 compiling xnec2c with the -D_FORTIFY_SOURCE gcc flag. I fixed this
-bug and also tested xnec2c source code using cppcheck.<br clear=
-"all">
-I decided it was about time I modify the xnec2c user interface so
+bug and also tested xnec2c source code using cppcheck.</p>
+<p>I decided it was about time I modify the xnec2c user interface so
 that it will, as far as possible, allow the user to save and
 re-open NEC2 files in the Editor window, without closing the
 Radiation Pattern and/or the Frequency Plots windows. This will
@@ -1711,68 +2492,74 @@ watchful of possible bugs that got away and to report them for
 fixing.</p>
 
 
-<p><b>Version 1.6:</b> I received another bug report from Rik van
+<h3>Version 1.6</h3>
+<p>I received another bug report from Rik van
 Riel: The patch applied above did not help, as somehow the buggy
 code got duplicated below the bug fix, reproducing the same error
 in the calculation of front-to-back ratio! Hopefully fixed this
 time.</p>
 
 
-<p><b>Version 1.5:</b> Changed the handling of command line
+<h3>Version 1.5</h3>
+<p>Changed the handling of command line
 arguments so that the input file name may be specified without the
-use of the -i option. In this case xnec2c will take the last
-argument to be the input file name, but only if it has the .nec
-extension.<br clear="all">
-Got rid of some variables that were set but not used, according to
-warnings given by gcc.<br clear="all">
-Applied a patch supplied by Rik van Riel to allow the calculation
+use of the <code>-i</code> option. In this case xnec2c will take the last
+argument to be the input file name, but only if it has the <span class="filepath">.nec</span>
+extension.Got rid of some variables that were set but not used, according to
+warnings given by gcc.Applied a patch supplied by Rik van Riel to allow the calculation
 of front to back ratios when the antenna is modeled over
 ground.</p>
 
 
-<p><b>Version 1.4:</b> Applied a patch supplied by Tom Beierlein,
+<h3>Version 1.4</h3>
+<p>Applied a patch supplied by Tom Beierlein,
 DL1JBE, to fix crashing of xnec2c 1.3 on long input file names
 (&gt; 80 characters).</p>
 
 
-<p><b>Version 1.3:</b> After an inquiry about using incident field
+<h3>Version 1.3</h3>
+<p>After an inquiry about using incident field
 excitation, which was not implemented in previous versions, I
 removed the restrictions in excitation to allow plotting the
 re-radiated pattern from a structure excited by incident field or
 elementary current source. However, the calculations are carried
-out only for one set of angle-of-incidence angles, e.g. there is no
-stepping of the theta and phi angles. This would require much more
+out only for one set of angle-of-incidence angles, e.g.&nbsp;there is no
+stepping of the <var>θ</var> and <var>φ</var> angles. This would require much more
 complex changes to xnec2c and I am not currently able to do
 this.</p>
 
 
-<p><b>Version 1.2:</b> Made the page size of spin buttons 0 to make
+<h3>Version 1.2</h3>
+<p>Made the page size of spin buttons 0 to make
 setting of spin button values compatible with GTK 2.4</p>
 
 
-<p><b>Version 1.1:</b> I spoke too soon! A segfault bug has been
+<h3>Version 1.1</h3>
+<p>I spoke too soon! A segfault bug has been
 reported that occurs when Maximum Admittance Matrix Asymmetry
-printing is requested in the EX card. Although this is not
+printing is requested in the <code class="nec-card">EX</code> card. Although this is not
 supported in xnec2c, it still produces a segmentation fault because
-the "ipnt" buffer is not allocated in the netwk() function in
+the <code>ipnt</code> buffer is not allocated in the <code class="language-c">netwk()</code> function in
 network.c</p>
 
 
-<p><b>Version 1.0:</b> After several months with no bug reports or
+<h3>Version 1.0</h3>
+<p>After several months with no bug reports or
 feature requests, I am sticking my neck out and releasing xnec2c as
 version 1.0. This version incorporates the last two feature request
-I received from users:<br>
+I received from users:
 The "Cancel" button on card editors has been replaces with a
 "Delete Card" button, which deletes the selected "card" (row in the
-NEC2 editor window).<br>
+NEC2 editor window).
 A "Net Gain" menu item has been added to the View menu of the
 Frequency Plots window to replace the second plotted quantity with
 the Net Gain of the antenna.</p>
 
 
-<p><b>Version 1.0b5:</b> Following on the above changes, I revised
+<h3>Version 1.0b5</h3>
+<p>Following on the above changes, I revised
 all similar situations in xnec2c's source and modified all
-"sprintf" commands to "snprintf" just in case, as I could not
+<code class="language-c">sprintf</code> commands to <code class="language-c">snprintf</code> just in case, as I could not
 replicate the bug so could not test for other similar problems. I
 also fixed a bug in the "save" and "save as" handler, to avoid
 false attempts by xnec2c to save structure and radiation
@@ -1780,12 +2567,14 @@ pattern/frequency plots pixmaps when a save of the NEC2 editor data
 failed for some reason.</p>
 
 
-<p><b>Version 1.0b4:</b> After a bug report from Juha Vierinen I
-changed some "sprintf" commands to "snprintf" to avoid buffer
+<h3>Version 1.0b4</h3>
+<p>After a bug report from Juha Vierinen I
+changed some <code class="language-c">sprintf</code> commands to <code class="language-c">snprintf</code> to avoid buffer
 overruns.</p>
 
 
-<p><b>Version 1.0b3:</b> Added setlocale(LC_NUMERIC, "C"); to the
+<h3>Version 1.0b3</h3>
+<p>Added <code>setlocale(<code>LC_NUMERIC</code>, "C");</code> to the
 main() function, so that in locales where commas are used in
 decimal numbers xnec2c can read data correctly (suggested by Joop
 Stakenborg). Some minor changes to the user interface were also
@@ -1793,7 +2582,8 @@ made to allow the NEC2 editor window to fit in displays with
 shorter heights.</p>
 
 
-<p><b>Version 1.0b:</b> In this version xnec2c has been re-worked
+<h3>Version 1.0b</h3>
+<p>In this version xnec2c has been re-worked
 extensively to make it multi-threading and to streamline its
 operation to some extend. Many bugs created by these changes, and
 others that already existed have been fixed, and the user interface
@@ -1802,14 +2592,15 @@ checked and some mistakes in them have been corrected. This is now
 the first version 1.0 beta release for public testing.</p>
 
 
-<p><b>Version 0.9b:</b> Fixed a few bugs mainly in the NEC2 editor
+<h3>Version 0.9b</h3>
+<p>Fixed a few bugs mainly in the NEC2 editor
 code and also changed the code of all individual Geometry and
 Command editors, so that edited data are set in the main NEC2
 editor's tree views when another Geometry or Command card (tree
 view row) is selected for editing.</p>
 <p>Implemented a work round around a serious bug which I could not
-trace, since it now seems to be outside my code: When the zint() or
-fbar() functions are called, they seem to corrupt xnec2c's memory
+trace, since it now seems to be outside my code: When the <code class="language-c">zint()</code> or
+<code class="language-c">fbar()</code> functions are called, they seem to corrupt xnec2c's memory
 allocation when they return. This corruption manifests itself as
 NAN values appearing in calculations so I modified these functions
 to return their computed value via a pointer in the argument list.
@@ -1818,9 +2609,10 @@ void as it seems this bug is related to functions of the former
 type declaration, returning a value.</p>
 
 
-<p><b>Version 0.8b:</b> Fixed a serious bug that caused
+<h3>Version 0.8b</h3>
+<p>Fixed a serious bug that caused
 segmentation faults and crashes in structures that have a wire in
-contact with a patch. The subph() routine divides this patch into 3
+contact with a patch. The <code class="language-c">subph()</code> routine divides this patch into 3
 or 4 sub-patches so the total number of patches increases. There
 was no provision to reallocate and initialize buffers used in
 rendering patches in the structure display window. Other minor bugs
@@ -1828,78 +2620,85 @@ were also fixed and the example NEC2 files were also checked and
 edited when needed.</p>
 
 
-<p><b>Version 0.7b:</b> Fixed a bug in the co-ordinate translation
-(Move) editor and edited the code in the GW card editor so that the
+<h3>Version 0.7b</h3>
+<p>Fixed a bug in the co-ordinate translation
+(Move) editor and edited the code in the <code class="nec-card">GW</code> card editor so that the
 wire diameter does not change when the New button is clicked.</p>
 
 
-<p><b>Version 0.6b:</b> Fixed a bug inherited from NEC2: If no
-geometry cards are present (only a GE card) then there is division
-by zero in conect(). NEC2 seems to accept the lack of geometry
+<h3>Version 0.6b</h3>
+<p>Fixed a bug inherited from NEC2: If no
+geometry cards are present (only a <code class="nec-card">GE</code> card) then there is division
+by zero in <code class="language-c">conect()</code>. NEC2 seems to accept the lack of geometry
 cards, this is now an error condition in xnec2c. Reduced the max
 value specification of the Capacitance spin button in the Loading
 card editor, from 1.0e+12 to 1.0e+9 (pF) since the higher value is
-beyond the range of the "long" type in 32 bit systems. Modified the
+beyond the range of the <code>long</code> type in 32 bit systems. Modified the
 behavior of some card Editors to make them more user friendly.</p>
 
 
-<p><b>Version 0.5b:</b>Fixed a bug that caused segmentation faults
+<h3>Version 0.5b</h3>
+<p>Fixed a bug that caused segmentation faults
 when only one wire segment was present in the structure. This is
 not a case that will normally exist but the seg fault had to be
 fixed.</p>
 
 
-<p><b>Version 0.4b:</b> Added a NEC2 input file editor that makes
+<h3>Version 0.4b</h3>
+<p>Added a NEC2 input file editor that makes
 the edit/save/reload/execute cycle easier and quicker.</p>
 
 
-<p><b>Version 0.3:</b> Added the ability to stop the frequency loop
+<h3>Version 0.3</h3>
+<p>Added the ability to stop the frequency loop
 by clicking on the frequency display spin buttons and to restart it
 by toggling the "Gain" or "E/H" buttons in the Radiation Pattern
 window.</p>
 
 
-<p><b>Version 0.2:</b> Incorporated some changes to the GUI (the
+<h3>Version 0.2</h3>
+<p>Incorporated some changes to the GUI (the
 Glade-generated design) since after upgrading to GTK+ 2.8.9, the
 geometry of the windows (the position and extend of buttons/entry
 widgets) changed a little. Also fixed some bugs in the GUI code to
 handle unusual sequences of user actions correctly.</p>
 
 
-<p><b>Version 0.1:</b> First version with ability to draw a
+<h3>Version 0.1</h3>
+<p>First version with ability to draw a
 color-coded wire frame Radiation Pattern (Near and Far Field),
 Graphs of various Frequency dependent data (Gain, VSWR, Impedance
 etc) and the Structure (Wires/Patches), including a color coded
 Current or Charge distribution.</p>
 
 
-<b><a name="Limitations" id="Limitations">8.  Limitations:</a></b><br>
+<h2 id="Limitations">Limitations</h2>
 <p>Since xnec2c is interactive, it cannot operate in the same way
 as NEC2 or nec2c. Specifically, commands that cause execution in
-NEC2/nec2c (XQ, RP etc), are only read in but not acted upon unless
+NEC2/nec2c (<code class="nec-card">XQ</code>, <code class="nec-card">RP</code> etc), are only read in but not acted upon unless
 the user requests the display of relevant data. For example, if an
-RP command line is included in the input file, xnec2c reads the
+<code class="nec-card">RP</code> command line is included in the input file, xnec2c reads the
 relevant data from that line but does not calculate/render the
 radiation pattern, until the user requests this by opening the
 <a href="#RadiationWindow">Radiation Pattern window</a> and
-clicking on the <b>Gain</b> button. In addition, the NX and WG/GF
+clicking on the <strong>Gain</strong> button. In addition, the NX and <code class="nec-card">WG</code>/<code class="nec-card">GF</code>
 commands are not recognized since only one structure at a time can
 be input and evaluated, and the Numerical Green's function is not
-needed or implemented. Also, some options of certain commands (e.g.
-the surface wave option I1=1 of the RP command) are not implemented
+needed or implemented. Also, some options of certain commands (e.g.&nbsp;
+the surface wave option <var>I1</var>&nbsp;=&nbsp;1 of the <code class="nec-card">RP</code> command) are not implemented
 and they must not be used since they will disrupt or even crash
 xnec2c.</p>
 <p>There are advantages deriving from the interactive operation: it
-is possible, for example, to specify both the NE and NH commands in
-combination with a multiple-frequency FR card, although only the
+is possible, for example, to specify both the <code class="nec-card">NE</code> and <code class="nec-card">NH</code> commands in
+combination with a multiple-frequency <code class="nec-card">FR</code> card, although only the
 relevant data of the last command will be used.</p>
-<p><a name="NoOutFile" id="NoOutFile">No Output File:</a>
-Printing of results to an output file has been removed starting
+<h3 id="NoOutFile">No Output File</h3>
+<p>Printing of results to an output file has been removed starting
 from version 1.0, since xnec2c works in a way that does not allow
 printing compatible with the original NEC2 output format. If printing to file is
 needed then it is better to use the original NEC2 program.</p>
-<p><b><a name="Bugs" id="Bugs">9. Bugs and
-Inadequacies:</a></b><br>
+<h2 id="Bugs">Bugs and Inadequacies</h2>
+<p>
 Xnec2c is based on nec2c, my translation to C of the original
 FORTRAN NEC2 code. Any bugs discovered in nec2c will affect xnec2c
 as well and they will have to be fixed. In addition, changing the
@@ -1910,7 +2709,7 @@ always possible that a combination of some input file with an
 untested sequence of user actions may trigger a hidden bug. Such a
 case in fact did appear and it was traced to a bug in the original
 NEC2 code. This has been fixed by G. Burke and the fix has been
-incorporated in nec2c and xnec2c. See the NEC2-bug.txt file for
+incorporated in nec2c and xnec2c. See the <code class="filepath">NEC2-bug.txt</code> file for
 details.</p>
 <p>When xnec2c was made multi-threading, a lot of bugs appeared and
 were fixed but again there may be some that have not showed up. One
@@ -1924,20 +2723,23 @@ to happen, then please send a bug report with as much detail as possible
 to reproduce the problem.
 </p>
 <p>A known inadequacy of xnec2c is the slowness of the animation of
-displayed drawings, e.g. the structure itself, the radiation
+displayed drawings, e.g.&nbsp;the structure itself, the radiation
 pattern, near fields pattern etc. Specifically, dragging these
 drawings with the mouse to rotate or incline them seems very heavy
 on processor loading, and with most structures the movement is
 jerky. This is my first attempt at animated wire frame drawings and
 I lack experience with GTK3 in this field, so I probably went about
 this the wrong way. I am open to any suggestions that may solve
-this problem! -;)</p>
-<p><b><a name="Acknowledgement" id="Acknowledgement">10.
-Acknowledgment:</a></b><br>
+this problem!</p>
+</main>
+<footer role="contentinfo">
+<h2 id="Acknowledgement">Acknowledgment</h2>
+<p>
 Some of the code in xnec2c is based on Pieter-Tjerk de Boer's
 "xnecview" application, which visualizes NEC2's input and output
 files. The general 'look and feel" of xnec2c was also influenced by
 the same application.</p>
-<p><b>Author:</b> Neoklis Kyriazis (Ham Radio call: 5B4AZ)</p>
+<p><strong>Author:</strong> Neoklis Kyriazis (Ham Radio call: 5B4AZ)</p>
+</footer>
 </body>
 </html>
