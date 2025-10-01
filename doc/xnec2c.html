@@ -3,6 +3,7 @@
 <head>
 <meta name="generator" content="Bluefish 2.2.12" >
 <title>Xnec2c User Manual</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Neoklis" >
 <meta name="copyright" content="GPL v2.0 or higher">
 <meta name="keywords" content="xnec2c GTK3 graphical nec2c NEC2 C simplex EM simulator">
@@ -745,6 +746,8 @@ figcaption {
   color: var(--color-base-content);
 }
 </style>
+<link rel="stylesheet" href="mobile-styles.css">
+<script src="mobile-menu.js" defer></script>
 </head>
 <body>
 
@@ -902,11 +905,11 @@ NEC2-compatible input file which can then be re-loaded by xnec2c
 for execution.</p>
 <h2 id="Features">Features</h2>
 </ul>
-<h3 id="Multithread">Multi-threading operation on <code>SMP</code> machines</h3>
+<h3 id="Multithread">Multi-threading operation on SMP machines</h3>
 <p>Since <span class="version-tag">v1.0</span>, xnec2c can run multi-threaded (by forking) on
-<code>SMP</code> machines, when executing a frequency loop. Multi-threading is
+SMP machines, when executing a frequency loop. Multi-threading is
 enabled by using the <code>-j &lt;n&gt;</code> option, where <var>n</var> is the number of
-processors in a <code>SMP</code> machine. xnec2c will spawn <var>n</var> child processes,
+processors in a SMP machine. xnec2c will spawn <var>n</var> child processes,
 to which it will delegate calculation of frequency-dependent data
 for each frequency step. Thus data related to <var>n</var> frequency steps
 will be calculated concurrently and passed on the the parent
@@ -1083,10 +1086,10 @@ be opened at start-up. If the <code>-i</code> option is omitted, xnec2c will
 take the last argument to be the input file path name, but will
 only open it if it has the <span class="filepath">.nec</span> extension.</p>
 <p><strong>&lt;<var>number of child processes to spawn</var>&gt;</strong>: Since
-<span class="version-tag">v1.0</span> xnec2c can run multi-threaded on <code>SMP</code> machines. This
+<span class="version-tag">v1.0</span> xnec2c can run multi-threaded on SMP machines. This
 option specifies the number of child processes to spawn by forking,
 so that the total number of processes running will be <var>n</var>+1. <var>n</var> should
-be equal to the number of processors in a <code>SMP</code> machine.</p>
+be equal to the number of processors in a SMP machine.</p>
 <aside class="notice" role="note">
 <strong>Note:</strong> its pointless and counter-productive to specify a
 value of <var>n</var> greater than the number of steps in the frequency

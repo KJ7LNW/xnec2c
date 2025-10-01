@@ -1,0 +1,459 @@
+/* Mobile-First Responsive Styles for Xnec2c Documentation */
+
+/* Mobile Menu Toggle Button */
+#mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1002;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#mobile-menu-toggle:hover {
+  background: var(--color-primary-dark);
+  transform: scale(1.05);
+}
+
+#mobile-menu-toggle:active {
+  transform: scale(0.95);
+}
+
+.menu-icon {
+  display: inline-block;
+  width: 20px;
+  height: 16px;
+  position: relative;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.menu-icon span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: white;
+  left: 0;
+  transition: all 0.3s;
+}
+
+.menu-icon span:nth-child(1) { top: 0; }
+.menu-icon span:nth-child(2) { top: 7px; }
+.menu-icon span:nth-child(3) { top: 14px; }
+
+.menu-text {
+  vertical-align: middle;
+}
+
+/* Mobile Navigation Container */
+#mobile-nav-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 85%;
+  max-width: 320px;
+  height: 100vh;
+  background: var(--color-base-100);
+  box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+  z-index: 1001;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transition: transform 0.3s ease-out;
+  display: none; /* Hidden by default, shown via media query */
+}
+
+#mobile-nav-container.mobile-nav-closed {
+  transform: translateX(-100%);
+}
+
+#mobile-nav-container.mobile-nav-open {
+  transform: translateX(0);
+}
+
+/* Navigation Overlay */
+#mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  transition: opacity 0.3s;
+}
+
+#mobile-nav-overlay.overlay-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#mobile-nav-overlay.overlay-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile Navigation Styles */
+.mobile-nav {
+  padding: 3rem 1.5rem 2rem;
+  display: block !important; /* Ensure navigation is visible */
+}
+
+.mobile-nav ol,
+.mobile-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-nav li {
+  margin: 0;
+  border-bottom: 1px solid var(--color-base-300);
+}
+
+.mobile-nav a {
+  display: block;
+  padding: 0.75rem 0.5rem;
+  color: var(--color-base-content);
+  text-decoration: none;
+  transition: background-color 0.2s, padding-left 0.2s;
+  font-size: 1rem;
+}
+
+.mobile-nav a:hover,
+.mobile-nav a:focus {
+  background-color: var(--color-base-200);
+  padding-left: 1rem;
+  color: var(--color-primary);
+}
+
+/* Nested navigation items */
+.mobile-nav ul ul {
+  margin-left: 1rem;
+}
+
+.mobile-nav ul ul a {
+  font-size: 0.95rem;
+  padding: 0.6rem 0.5rem;
+}
+
+/* Close button */
+.nav-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--color-neutral);
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.nav-close:hover {
+  background-color: var(--color-base-200);
+}
+
+/* Back to Top Button */
+#back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 1rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 999;
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: 0.9;
+}
+
+#back-to-top:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+#back-to-top:active {
+  transform: scale(0.95);
+}
+
+/* Table Wrapper for Responsive Tables */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  border-radius: 0.5rem;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: var(--color-base-200);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-light);
+  border-radius: 4px;
+}
+
+.table-wrapper table {
+  margin: 0;
+  min-width: 100%;
+}
+
+/* Horizontal scroll indicator for code blocks */
+pre.has-horizontal-scroll {
+  position: relative;
+}
+
+pre.has-horizontal-scroll::after {
+  content: '→ scroll →';
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  background: rgba(255,255,255,0.9);
+  color: var(--color-neutral-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Mobile-First Media Queries */
+
+/* Small Mobile Devices (320px - 480px) */
+@media screen and (max-width: 480px) {
+  body {
+    margin: 1rem 0.75rem;
+    font-size: 16px; /* Prevent iOS zoom */
+  }
+
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  h4 { font-size: 1.1rem; }
+
+  /* Stack menu paths vertically on very small screens */
+  .menu-path {
+    display: block;
+    margin: 0.25rem 0;
+  }
+
+  .menu-path + .menu-path::before {
+    content: '↓';
+    display: block;
+    margin: 0.25rem 0;
+  }
+
+  /* Adjust notice boxes for mobile */
+  .notice {
+    float: none !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 1rem 0 !important;
+  }
+
+  /* Stack floated images */
+  img.float-left,
+  img.float-right {
+    float: none !important;
+    display: block;
+    margin: 1rem auto !important;
+  }
+
+  /* Improve pre/code readability */
+  pre, code {
+    font-size: 0.85rem;
+  }
+}
+
+/* Medium Mobile to Tablet (481px - 768px) */
+@media screen and (max-width: 768px) {
+  /* Show mobile menu components */
+  #mobile-menu-toggle {
+    display: block;
+  }
+
+  #mobile-nav-container {
+    display: block !important;
+  }
+
+  #mobile-nav-overlay {
+    display: block;
+  }
+
+  /* Hide desktop navigation */
+  nav[role="navigation"] {
+    display: none;
+  }
+
+  /* Adjust body padding for fixed menu button */
+  body {
+    padding-top: 3rem;
+    margin: 0 1rem;
+  }
+
+  /* Responsive images */
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+
+  /* Stack floated content */
+  .notice {
+    float: none;
+    width: 100%;
+    max-width: none;
+    margin: 1rem 0;
+  }
+
+  img.float-left,
+  img.float-right {
+    float: none;
+    display: block;
+    margin: 1rem auto;
+  }
+
+  /* Improve touch targets */
+  a, button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Definition lists mobile optimization */
+  dl {
+    padding-left: 1rem;
+  }
+
+  dd {
+    margin-left: 1rem;
+  }
+
+  /* Code blocks */
+  pre {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  /* Tables */
+  table {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 0.5rem;
+  }
+
+  /* Command options - better mobile layout */
+  .command-options dt {
+    margin-top: 1.5rem;
+  }
+
+  .command-options dd {
+    margin-left: 1rem;
+  }
+}
+
+/* Tablet to Desktop Transition (769px - 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  body {
+    margin: 2rem 3rem;
+  }
+
+  /* Keep notice boxes floated on tablets */
+  .notice {
+    width: 40%;
+    max-width: 350px;
+  }
+}
+
+/* Large Desktop (1025px+) */
+@media screen and (min-width: 1025px) {
+  body {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+  }
+}
+
+/* Print styles enhancement */
+@media print {
+  #mobile-menu-toggle,
+  #mobile-nav-container,
+  #mobile-nav-overlay,
+  #back-to-top,
+  #translate {
+    display: none !important;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Ensure all content is visible */
+  .notice {
+    float: none;
+    width: 100%;
+    page-break-inside: avoid;
+  }
+
+  pre, table {
+    page-break-inside: avoid;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  #mobile-menu-toggle,
+  #back-to-top {
+    border: 2px solid currentColor;
+  }
+
+  .mobile-nav a:focus {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Dark mode support (if implemented) */
+@media (prefers-color-scheme: dark) {
+  /* Could add dark mode overrides here if needed */
+}
