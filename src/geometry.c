@@ -775,8 +775,22 @@ isegno( int itagi, int mx)
   } /* if( data.n > 0) */
 
   pr_err("no segment has an itag of %d\n", itagi);
-  Stop( _("Segment tag number error.  You are (probably) referencing an unknown tag or\n"
-          "segment number in a control card."), ERR_OK );
+
+  if( itagi == 0 )
+  {
+    Stop( _("Segment tag number error: Tag 0 is reserved and cannot be used.\n"
+            "Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
+            "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."), ERR_OK );
+  }
+  else
+  {
+    char error_msg[256];
+    snprintf(error_msg, sizeof(error_msg),
+             _("Segment tag number error: No segment found with tag %d.\n"
+               "You are referencing an unknown tag or segment in a control card.\n"
+               "Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."), itagi);
+    Stop(error_msg, ERR_OK);
+  }
 
   return( -1 );
 }
