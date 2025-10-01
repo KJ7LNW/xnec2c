@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
     'commit-hash': 'https://github.com/KJ7LNW/xnec2c/commit/{value}',
     'issue-ref': 'https://github.com/KJ7LNW/xnec2c/issues/{value}',
     'callsign': 'https://www.qrz.com/db/{value}',
-    'github-user': 'https://github.com/{value}'
+    'github-user': 'https://github.com/{value}',
+    'filepath': 'https://github.com/KJ7LNW/xnec2c/tree/master/{value}'
   };
 
   // Universal auto-linking function
@@ -1005,7 +1006,7 @@ and by using <a target="_blank" rel="noopener noreferrer" href="https://www.fres
 If you have trouble building on your OS then please open a bug report.
 </p>
 <p>To compile the package, it may be preferable to first run the
-included <code>autogen.sh</code> script in the package's top directory, to
+included <span class="filepath">autogen.sh</span> script in the package's top directory, to
 produce a fresh build environment. Then the <code>configure</code> script can
 be run with optional parameters to override the default settings
 and compiler flags, e.g: <code>./configure --prefix=/usr CFLAGS="-g -O2"</code>
@@ -1019,8 +1020,8 @@ the user's home directory. This will have to be edited by the user
 as required. There is also this hypertext documentation file which
 you can copy to a location of your choice.</p>
 <p>No configuration files are needed and the sample input files
-that were used during development are in the <span class="filepath">xnec2c/examples</span>
-directory. Please also read the <strong><span class="filepath">xnec2c/doc/nec2c.txt</span></strong> file
+that were used during development are in the <span class="filepath">examples</span>
+directory. Please also read the <strong><span class="filepath">doc/nec2c.txt</span></strong> file
 that describes the nec2c application that is used as the basis for
 xnec2c.</p>
 <h2 id="Operation">Operation</h2>
@@ -1920,7 +1921,7 @@ maintenance items, with a few new features as well:
 	<li>Several spelling fixes, thanks to Daniele Forsi, <span class="callsign">IU5HKX</span> (<span class="github-user">@dforsi</span> on github)!</li>
 	<li>Fix cross compilation issues, Thanks Michal Vasilek!</li>
 	<li>Updated quickstart documentation</li>
-	<li>Removed LMID checks from configure.ac; again, Thanks Michal Vasilek!</li>
+	<li>Removed LMID checks from <span class="filepath">configure.ac</span>; again, Thanks Michal Vasilek!</li>
 	<li>Re-ordered change history in this document so the newest versions are on top</li>
 	</ul>
 </li>
@@ -2009,7 +2010,7 @@ this change.</li>
 
 <h3>Version <span class="version-tag">4.4.6</span></h3>
 <p>This is mostly a release with a handful of bugfixes and some internal re-organization
-in preparation for s1p/s2p output and gnuplot extensions (measurements.c).
+in preparation for s1p/s2p output and gnuplot extensions (<span class="filepath">src/measurements.c</span>).
 Detailed descriptions are available in the git log.
 <ul>
 <li>Removed C++ compiler dependency, xnec2c is written in C</li>
@@ -2019,9 +2020,9 @@ Detailed descriptions are available in the git log.
 <li>Fixed segment fault when <code>HOME</code> environment variable is undefined.</li>
 <li>Fix off-by-one error in memory allocation for frequency plot arrays.</li>
 <li>Fixed deadlocks when running without pthreads and without forking.</li>
-<li>Refactored common measurements into measurements.c</li>
-<li>Refactored plot_freqdata.c to use <code class="language-c">meas_calc()</code></li>
-<li>Added function use comments to measurements.c</li>
+<li>Refactored common measurements into <span class="filepath">src/measurements.c</span></li>
+<li>Refactored <span class="filepath">src/plot_freqdata.c</span> to use <code class="language-c">meas_calc()</code></li>
+<li>Added function use comments to <span class="filepath">src/measurements.c</span></li>
 <li>Suppress <code>max_freq&nbsp;==&nbsp;min_freq</code> when <code>freq_steps&nbsp;==&nbsp;1</code></li>
 <li>Fixed gcc warning about the return value of <code class="language-c">getcwd()</code> not being checked.</li>
 <li>Ignore the <code class="nec-card">GN</code> card if both <code class="nec-card">GN</code> and <code class="nec-card">GE</code> cards indicate freespace.</li>
@@ -2099,7 +2100,7 @@ the entire plot space.
 	<li>The <span class="menu-path">File → Gain Scaling</span> setting is now saved between restarts
 	since this is a visual preference per user.</li>
 	<li>GTK resource refactor prevents the need to delete the old
-	<span class="filepath">xnec2c.glade</span> file on new releases that have UI changes. This is
+	<span class="filepath">resources/xnec2c.glade</span> file on new releases that have UI changes. This is
 	a pretty major change that should be transparent to users, so please report any regressions.</li>
 	<li>Fixed a minor fsync() bug</li>
 	<li>Updated installation details that will
@@ -2110,7 +2111,7 @@ the entire plot space.
 
 
 <h3>Version <span class="version-tag">4.3.5</span></h3>
-<p>Updated documentation around autogen.sh and added tests to make sure gettext and related tools are
+<p>Updated documentation around <span class="filepath">autogen.sh</span> and added tests to make sure gettext and related tools are
 	available for autoconf to complete successfully.
 </p>
 
@@ -2233,8 +2234,8 @@ progress.</p>
 
 
 <h3>Version <span class="version-tag">4.1.4</span></h3>
-<p>Added the stdint.h include file to
-common.h to fix a compilation error reported by Nick <span class="callsign">G3VNC</span>.</p>
+<p>Added the <code>stdint.h</code> include file to
+<span class="filepath">src/common.h</span> to fix a compilation error reported by Nick <span class="callsign">G3VNC</span>.</p>
 
 
 <h3>Version <span class="version-tag">4.1.3</span></h3>
@@ -2246,7 +2247,7 @@ crushing with "Resource temporarily unavailable" error message.</p>
 
 <h3>Version <span class="version-tag">4.1.2</span></h3>
 <p>Changed the installation commands in
-Makefile.am so that all the relevant files (desktop file,
+<span class="filepath">Makefile.am</span> so that all the relevant files (<span class="filepath">files/xnec2c.desktop</span>,
 application pixmap, configuration file, executable binary etc) are
 installed under any location specified to the configure script by
 the <code>--prefix=</code> option. Also modified the program so that on first
@@ -2330,7 +2331,7 @@ and restored when starting.</p>
 <p>Fixed a reported bug that prevented
 wire diameter entries less than 0.01 in the Helix (<code class="nec-card">GH</code>) card editor.
 This was due to specifying a minimum value of 0.01 in the
-<span class="filepath">xnec2c.glade</span> file.</p>
+<span class="filepath">resources/xnec2c.glade</span> file.</p>
 
 
 <h3>Version <span class="version-tag">3.7-beta</span></h3>
@@ -2350,7 +2351,7 @@ new <code class="nec-card">ZO</code> NEC2 "card" to specify transmission line im
 
 <h3>Version <span class="version-tag">3.6.1-beta</span></h3>
 <p>After a request by Don Walters <span class="callsign">W9DKI</span>
-I modified the <span class="filepath">xnec2c.glade</span> file to reduce the default size of the
+I modified the <span class="filepath">resources/xnec2c.glade</span> file to reduce the default size of the
 drawing areas as they would not fit in displays with reduced
 resolution. I also removed some legacy code, left over from the
 migration of xnec2c to GTK3, which was producing error messages
@@ -2365,7 +2366,7 @@ to install program files and documentation to the right places.</p>
 needed to both the GUI and parts of the Xnec2c source code, mainly
 the use of GTK3's GUI Builder for creating the User Interface and
 the revised drawing model of GDK for presenting the Graphics
-displays. A new <code>autogen.sh</code> script has also been incorporated in the
+displays. A new <span class="filepath">autogen.sh</span> script has also been incorporated in the
 source package and internationalization has been migrated to the
 GNU GetText system. Because Xnec2c is very complicated and thorough
 testing is difficult, I am releasing this version as a beta.</p>
@@ -2470,7 +2471,7 @@ conductivity for <code class="nec-card">GW</code>, <code class="nec-card">GA</co
 <code class="nec-card">LD</code> card and shown in the Conductivity (S/m) spin button.</p>
 <p>After all these changes I checked the xnec2c source code using
 the Coverity Scan service and I fixed an out-of-bounds read error
-that was reported by the scanner, in the <span class="filepath">plot_freqdat.c</span> file.</p>
+that was reported by the scanner, in the <span class="filepath">src/plot_freqdata.c</span> file.</p>
 
 
 <h3>Version <span class="version-tag">2.6</span></h3>
@@ -2485,7 +2486,7 @@ the command line.</p>
 
 <h3>Version <span class="version-tag">2.5</span></h3>
 <p>After a bug report by Jean Collin, I made
-some changes to the input file parser code in <span class="filepath">input.c</span>, to properly
+some changes to the input file parser code in <span class="filepath">src/input.c</span>, to properly
 identify tabs in the input file.</p>
 
 
@@ -2621,7 +2622,7 @@ reported that occurs when Maximum Admittance Matrix Asymmetry
 printing is requested in the <code class="nec-card">EX</code> card. Although this is not
 supported in xnec2c, it still produces a segmentation fault because
 the <code>ipnt</code> buffer is not allocated in the <code class="language-c">netwk()</code> function in
-<span class="filepath">network.c</span></p>
+<span class="filepath">src/network.c</span></p>
 
 
 <h3>Version <span class="version-tag">1.0</span></h3>
@@ -2790,7 +2791,7 @@ always possible that a combination of some input file with an
 untested sequence of user actions may trigger a hidden bug. Such a
 case in fact did appear and it was traced to a bug in the original
 NEC2 code. This has been fixed by G. Burke and the fix has been
-incorporated in nec2c and xnec2c. See the <code class="filepath">NEC2-bug.txt</code> file for
+incorporated in nec2c and xnec2c. See the <span class="filepath">doc/NEC2-bug.txt</span> file for
 details.</p>
 <p>When xnec2c was made multi-threading, a lot of bugs appeared and
 were fixed but again there may be some that have not showed up. One
