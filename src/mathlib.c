@@ -191,7 +191,7 @@ int open_mathlib(mathlib_t *lib)
 
 		if (error != NULL)
 		{
-			pr_err("  %s: unable to bind %s: %s\n", lib->lib, mathfuncs[fidx], error);
+			pr_warn("  %s: unable to bind %s: %s\n", lib->lib, mathfuncs[fidx], error);
 			close_mathlib(lib);
 			break;
 		}
@@ -277,7 +277,7 @@ void mathlib_config_init(rc_config_vars_t *v, char *line)
 	if (mathlibs[rc_config.mathlib_idx].available)
 		set_mathlib_interactive(NULL, &mathlibs[rc_config.mathlib_idx]);
 	else if (!rc_config.first_run)
-		pr_err("%s was not detected: Unable to set the mathlib index to %d\n",
+		pr_warn("%s was not detected: Unable to set the mathlib index to %d\n",
 		       mathlibs[rc_config.mathlib_idx].name, rc_config.mathlib_idx);
 }
 
