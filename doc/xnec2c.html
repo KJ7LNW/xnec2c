@@ -1779,6 +1779,69 @@ needed then it is better to use the original NEC2 program, to avoid
 bugs that may still be lurking in the C translation.</p>
 <h2 id="Version">Version History (newest first)</h2>
 
+<h3>Version <span class="version-tag">4.4.17</span></h3>
+<p>This release includes radiation pattern color legend enhancements, critical bug fixes for locale handling and CSV output, stability improvements, and build system updates.
+
+<ul>
+	<li>Contributors:
+		<ul>
+			<li>Ian <span class="callsign">G4IXT</span> (<span class="github-user">@g4ixt</span>) - color legend suggestions, reported <a href="https://github.com/KJ7LNW/xnec2c/issues/61" target="_blank" rel="noopener noreferrer">#61</a></li>
+			<li>Neoklis <span class="callsign">5B4AZ</span> (<span class="github-user">@neoklis</span>) - technical guidance on current scaling (<a href="https://github.com/KJ7LNW/xnec2c/issues/61" target="_blank" rel="noopener noreferrer">#61</a>)</li>
+			<li>Devin Bayer (<span class="github-user">@akvadrako</span>) - fixed double-free crash in geometry editor (<a href="https://github.com/KJ7LNW/xnec2c/pull/67" target="_blank" rel="noopener noreferrer">#67</a>)</li>
+			<li><span class="github-user">@hamarituc</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/59" target="_blank" rel="noopener noreferrer">#59</a></li>
+			<li><span class="github-user">@ProtonTheFox</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/44" target="_blank" rel="noopener noreferrer">#44</a>, <a href="https://github.com/KJ7LNW/xnec2c/issues/45" target="_blank" rel="noopener noreferrer">#45</a></li>
+			<li><span class="github-user">@likecabezon</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/68" target="_blank" rel="noopener noreferrer">#68</a></li>
+			<li>Jerry <span class="callsign">KF7RCC</span> (<span class="github-user">@jerryd</span>) - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/52" target="_blank" rel="noopener noreferrer">#52</a></li>
+			<li><span class="github-user">@polprog</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/50" target="_blank" rel="noopener noreferrer">#50</a></li>
+			<li><span class="github-user">@roberthadow</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/47" target="_blank" rel="noopener noreferrer">#47</a></li>
+		</ul>
+	</li>
+
+	<li>Features:
+		<ul>
+			<li>Graduated color legend with relative/absolute gain marks (-3dB, -6dB, -10dB intervals)</li>
+			<li>Color legend with dynamic spacing and proper gain scaling</li>
+			<li>Increased 3D zoom limit to 999999x</li>
+			<li>GTK menu tear-offs for frequently used menus</li>
+			<li>"Begin Frequency Loop at Startup" config checkbox (<a href="https://github.com/KJ7LNW/xnec2c/issues/45" target="_blank" rel="noopener noreferrer">#45</a>)</li>
+			<li>Smooth pan/tilt/zoom during optimization</li>
+			<li>Responsive mobile support for HTML documentation</li>
+		</ul>
+	</li>
+	<li>Bug Fixes:
+		<ul>
+			<li>Fix NEC file format to use decimal points regardless of locale (<a href="https://github.com/KJ7LNW/xnec2c/issues/59" target="_blank" rel="noopener noreferrer">#59</a>)</li>
+			<li>Fix CSV output scaling for currents/charges magnitude (<a href="https://github.com/KJ7LNW/xnec2c/issues/61" target="_blank" rel="noopener noreferrer">#61</a>)</li>
+			<li>Fix double-free crash when editing geometry (<a href="https://github.com/KJ7LNW/xnec2c/pull/67" target="_blank" rel="noopener noreferrer">#67</a>)</li>
+			<li>Prevent deadlocks in <code class="language-c">Notice()</code>, <code class="language-c">Open_Input_File()</code>, and dialog scenarios</li>
+			<li>Fix endless loop with overlapping segments</li>
+			<li>Fix gain value display and color mapping</li>
+			<li>Improve error messages for segment tag lookup failures (<a href="https://github.com/KJ7LNW/xnec2c/issues/68" target="_blank" rel="noopener noreferrer">#68</a>, <a href="https://github.com/KJ7LNW/xnec2c/issues/47" target="_blank" rel="noopener noreferrer">#47</a>)</li>
+			<li>Fix custom frequency step in color legend</li>
+			<li>Fix radiation pattern color legend to match gain scaling styles</li>
+			<li>Prevent GTK beeps (<a href="https://github.com/KJ7LNW/xnec2c/issues/50" target="_blank" rel="noopener noreferrer">#50</a>)</li>
+			<li>Fix batch mode auto-start (<a href="https://github.com/KJ7LNW/xnec2c/issues/44" target="_blank" rel="noopener noreferrer">#44</a>)</li>
+			<li>Graceful child process exit handling</li>
+			<li>Reduce severity of math library detection failures to warnings</li>
+		</ul>
+	</li>
+	<li>Documentation:
+		<ul>
+			<li>Add nec2.org user manual reference (<a href="https://github.com/KJ7LNW/xnec2c/issues/52" target="_blank" rel="noopener noreferrer">#52</a>)</li>
+			<li>Update Ubuntu/Debian package suggestions (<a href="https://github.com/KJ7LNW/xnec2c/issues/46" target="_blank" rel="noopener noreferrer">#46</a>)</li>
+			<li>Modernize HTML documentation with improved styling</li>
+		</ul>
+	</li>
+	<li>Build system:
+		<ul>
+			<li>Add VSCode integration with debug configs and auto-configure</li>
+			<li>Generate <span class="filepath">c_cpp_properties.json</span> from configure</li>
+			<li>Parallel build tasks support</li>
+		</ul>
+	</li>
+</ul>
+</p>
+
 <h3>Version <span class="version-tag">4.4.16</span></h3>
 <ul>
 <li>Bug Fixes:
