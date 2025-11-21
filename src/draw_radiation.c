@@ -24,6 +24,12 @@
 #define TEXT_GRADIENT_SPACING 8  /* Spacing between text and gradient bar in pixels */
 #define LINE_WIDTH 2            /* Width of lines in pixels */
 
+static const char *nearfield_animation_error_msg =
+  N_("Animation requires near field data.\n\n"
+     "E-field animation: Add NE card to NEC file\n"
+     "H-field animation: Add NH card to NEC file\n"
+     "Poynting vector: Add both NE and NH cards");
+
 /* For coloring rad pattern */
 static double *red = NULL, *grn = NULL, *blu = NULL;
 
@@ -653,6 +659,34 @@ int Draw_Radiation( cairo_t *cr )
 
 /*-----------------------------------------------------------------------*/
 
+gboolean
+Validate_Nearfield_Animation( void )
+{
+  if( ((isFlagSet(DRAW_EFIELD) || isFlagSet(DRAW_POYNTING)) && !(fpat.nfeh & NEAR_EFIELD)) ||
+      ((isFlagSet(DRAW_HFIELD) || isFlagSet(DRAW_POYNTING)) && !(fpat.nfeh & NEAR_HFIELD)) )
+  {
+    Notice( _("Near Field Animation"),
+        _(nearfield_animation_error_msg),
+        GTK_BUTTONS_OK );
+    return( FALSE );
+  }
+
+  if( ((isFlagSet(DRAW_EFIELD) || isFlagSet(DRAW_POYNTING)) &&
+       (near_field.fex == NULL || near_field.fey == NULL || near_field.fez == NULL)) ||
+      ((isFlagSet(DRAW_HFIELD) || isFlagSet(DRAW_POYNTING)) &&
+       (near_field.fhx == NULL || near_field.fhy == NULL || near_field.fhz == NULL)) )
+  {
+    Notice( _("Near Field Animation"),
+        _(nearfield_animation_error_msg),
+        GTK_BUTTONS_OK );
+    return( FALSE );
+  }
+
+  return( TRUE );
+}
+
+/*-----------------------------------------------------------------------*/
+
   gboolean
 Animate_Near_Field( gpointer udata )
 {
@@ -662,6 +696,19 @@ Animate_Near_Field( gpointer udata )
 
   if( isFlagClear(NEAREH_ANIMATE) )
     return( FALSE );
+
+  if( !Validate_Nearfield_Animation() )
+  {
+    ClearFlag( NEAREH_ANIMATE );
+    if( anim_tag > 0 )
+    {
+      g_source_remove( anim_tag );
+      anim_tag = 0;
+    }
+    if( animate_dialog != NULL )
+      Gtk_Widget_Destroy( &animate_dialog );
+    return( FALSE );
+  }
 
   /* Number of points in near fields */
   npts = fpat.nrx * fpat.nry * fpat.nrz;

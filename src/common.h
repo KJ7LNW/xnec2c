@@ -1347,6 +1347,7 @@ void Cairo_Draw_Line(cairo_t *cr, int x1, int y1, int x2, int y2);
 void Cairo_Draw_Lines(cairo_t *cr, GdkPoint *points, int npoints);
 /* draw_radiation.c */
 int Draw_Radiation(cairo_t *cr);
+gboolean Validate_Nearfield_Animation(void);
 gboolean Animate_Near_Field(gpointer udata);
 double Polarization_Factor(int pol_type, int fstep, int idx);
 void Set_Polarization(int pol);

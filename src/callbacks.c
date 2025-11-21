@@ -1997,7 +1997,17 @@ on_rdpattern_animate_activate(
     gpointer         user_data)
 {
   if( isFlagClear(DRAW_EHFIELD) )
-    return;
+  {
+    if( !fpat.nfeh )
+    {
+      if( !Validate_Nearfield_Animation() )
+        return;
+    }
+
+    gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(
+        Builder_Get_Object(rdpattern_window_builder, "rdpattern_eh_togglebutton")),
+      TRUE );
+  }
 
   if( animate_dialog == NULL )
   {
@@ -2015,6 +2025,9 @@ on_animation_applybutton_clicked(
   GtkSpinButton *spinbutton;
   guint intval;
   gdouble freq, steps;
+
+  if( !Validate_Nearfield_Animation() )
+    return;
 
   spinbutton = GTK_SPIN_BUTTON(
       Builder_Get_Object(animate_dialog_builder, "animate_freq_spinbutton") );
@@ -2053,6 +2066,9 @@ on_animation_okbutton_clicked(
   guint intval;
   gdouble freq, steps;
 
+  if( !Validate_Nearfield_Animation() )
+    return;
+
   spinbutton = GTK_SPIN_BUTTON(
       Builder_Get_Object(animate_dialog_builder, "animate_freq_spinbutton") );
   freq = gtk_spin_button_get_value( spinbutton );
@@ -2066,8 +2082,6 @@ on_animation_okbutton_clicked(
   if( anim_tag > 0 )
     g_source_remove( anim_tag );
   anim_tag = g_timeout_add( intval, Animate_Near_Field, NULL );
-
-  gtk_widget_hide( animate_dialog );
 }
 
 
