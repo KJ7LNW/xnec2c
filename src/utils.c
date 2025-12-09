@@ -290,7 +290,7 @@ Load_Line( char *buff, FILE *pfile )
 
 // Scale the OpenMP resources based on the number of parallel forked jobs.
 // If you fork 25 jobs and have 100 CPUs then OMP can run 4 CPUs per fork:
-void xnec2c_set_omp_cpus()
+void xnec2c_set_omp_cpus(void)
 {
 #ifdef HAVE_OPENMP
 	int cpus_per_job;

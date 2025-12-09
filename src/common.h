@@ -1513,7 +1513,7 @@ int Stop(char *mesg, int err);
 int Notice(char *title, char *message,  GtkButtonsType buttons);
 gboolean Nec2_Save_Warn(const gchar *mesg);
 int Load_Line(char *buff, FILE *pfile);
-void xnec2c_set_omp_cpus();
+void xnec2c_set_omp_cpus(void);
 void clock_print_elapsed(char *msg, clockid_t clk_id, struct timespec *start);
 void clock_print_elapsed_when(char *msg, clockid_t clk_id, struct timespec *start, float min_sec);
 void mem_alloc(void **ptr, size_t req, gchar *str);
