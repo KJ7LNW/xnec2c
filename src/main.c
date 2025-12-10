@@ -34,6 +34,10 @@ enum XNEC2C_OPTS {
 
 	OPT_ENABLE_OPTIMIZE,
 
+	OPT_OPENBLAS_THREADS,
+	OPT_MKL_THREADS,
+	OPT_OMP_THREADS,
+
 	OPT_WRITE_CSV,
 	OPT_WRITE_S1P,
 	OPT_WRITE_S2P_MAX_GAIN,
@@ -56,6 +60,10 @@ static struct option long_options[] = {
 		{  "batch",                  no_argument,         NULL,  'b'                        },
 
 		{  "optimize",               no_argument,         NULL,  OPT_ENABLE_OPTIMIZE        },
+
+		{  "openblas-threads",       required_argument,   NULL,  OPT_OPENBLAS_THREADS       },
+		{  "mkl-threads",            required_argument,   NULL,  OPT_MKL_THREADS            },
+		{  "omp-threads",            required_argument,   NULL,  OPT_OMP_THREADS            },
 
 		{  "write-csv",              required_argument,   NULL,  OPT_WRITE_CSV              },
 		{  "write-s1p",              required_argument,   NULL,  OPT_WRITE_S1P              },
@@ -99,6 +107,18 @@ static gint opt_start_optimizer_thread(void)
 	gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(w), TRUE);
 
 	return FALSE;
+}
+
+static void validate_thread_count(const char *option_name, const char *optarg)
+{
+	char *endptr;
+	long val = strtol(optarg, &endptr, 10);
+
+	if (*endptr != '\0' || endptr == optarg || val < 1)
+	{
+		pr_crit("%s requires a positive integer argument\n", option_name);
+		exit(1);
+	}
 }
 
 /*------------------------------------------------------------------------*/
@@ -156,7 +176,11 @@ main (int argc, char *argv[])
   rc_config.input_file[0] = '\0';
 
   // default to show warnings or more important errors.
-  rc_config.verbose = 4; 
+  rc_config.verbose = 4;
+
+  setenv("OPENBLAS_NUM_THREADS", "1", 0);
+  setenv("MKL_NUM_THREADS", "1", 0);
+  setenv("OMP_NUM_THREADS", "1", 0);
 
   int option_index = 0;
   while( (option = getopt_long(argc, argv, build_optstring(long_options), long_options, &option_index) ) != -1 )
@@ -224,6 +248,21 @@ main (int argc, char *argv[])
       case OPT_ENABLE_OPTIMIZE:
           SetFlag( OPTIMIZER_OUTPUT );
           break;
+
+      case OPT_OPENBLAS_THREADS:
+        validate_thread_count("--openblas-threads", optarg);
+        setenv("OPENBLAS_NUM_THREADS", optarg, 1);
+        break;
+
+      case OPT_MKL_THREADS:
+        validate_thread_count("--mkl-threads", optarg);
+        setenv("MKL_NUM_THREADS", optarg, 1);
+        break;
+
+      case OPT_OMP_THREADS:
+        validate_thread_count("--omp-threads", optarg);
+        setenv("OMP_NUM_THREADS", optarg, 1);
+        break;
 
       case OPT_WRITE_CSV:
         rc_config.filename_csv = optarg;

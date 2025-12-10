@@ -16,6 +16,12 @@ a translation to C of the FORTRAN application NEC2
 .IP
 \-j|\-\-jobs  <number of processors in SMP machine> (-j0 disables forking)
 .IP
+   \-\-openblas\-threads <n>  set OpenBLAS thread count (default: 1)
+.IP
+   \-\-mkl\-threads <n>       set Intel MKL thread count (default: 1)
+.IP
+   \-\-omp\-threads <n>       set OpenMP thread count (default: 1)
+.IP
 \-b|\-\-batch:        enable batch mode, exit after the frequency loop runs
 .IP
    \-\-optimize:     Activate the optimizer immediately.
