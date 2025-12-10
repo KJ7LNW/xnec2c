@@ -7,8 +7,9 @@ License:        GPLv2+
 URL:            https://www.xnec2c.org/
 
 # Download the selected source with `spectool -g -R xnec2c.spec`
-Source0:        https://www.xnec2c.org/releases/%{name}-v%{version}.tar.gz
-#Source1:        https://github.com/KJ7LNW/xnec2c/archive/v%{version}/%{name}-%{version}.tar.gz
+#Source0:        https://www.xnec2c.org/releases/%{name}-%{version}.tar.gz # if from `make dist`
+Source0:        https://www.xnec2c.org/releases/%{name}-v%{version}.tar.gz # if from git tag .tar.gz
+#Source1:        https://github.com/KJ7LNW/xnec2c/archive/v%{version}/%{name}-%{version}.tar.gz 
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -59,13 +60,14 @@ features:
 	and much more.
 
 %prep
-%setup -n %{name}-v%{version}
+%setup -n %{name}-v%{version} # if from git tag .tar.gz
+#%setup -n %{name}-%{version} # if from `make dist`
 
 
 %build
 ./autogen.sh
 %configure
-%make_build CFLAGS="%{optflags}" %{?_smp_mflags}
+%make_build %{?_smp_mflags}
 
 
 %install
