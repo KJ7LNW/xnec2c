@@ -253,6 +253,9 @@ typedef struct Segment
 
 #define CHILD   isChild()
 
+/* Maximum length for mathlib ID strings (including null terminator) */
+#define MATHLIB_ID_LEN 32
+
 /* Runtime configuration data */
 typedef struct
 {
@@ -338,8 +341,9 @@ typedef struct
   /* Enable Quit dialog */
   int confirm_quit;
 
-  /* Preferred mathlib index, if available */
-  int mathlib_idx, mathlib_batch_idx;
+  /* Preferred mathlib identifiers for persistence */
+  char mathlib_id[MATHLIB_ID_LEN];
+  char mathlib_batch_id[MATHLIB_ID_LEN];
 
   /* See enum GAIN_SCALE */
   int gain_style;

@@ -153,11 +153,11 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Enable Confirm Quit Dialog", .format = "%d",
 		.vars = { &rc_config.confirm_quit } },
 
-	{ .desc = "Selected Mathlib", .format = "%d",
-		.vars = { &rc_config.mathlib_idx }, .init = mathlib_config_init },
+	{ .desc = "Selected Mathlib", .format = "%s",
+		.vars = { rc_config.mathlib_id }, .size = MATHLIB_ID_LEN, .init = mathlib_config_init },
 
-	{ .desc = "Selected Batch Mathlib", .format = "%d",
-		.vars = { &rc_config.mathlib_batch_idx }, .init = mathlib_config_init },
+	{ .desc = "Selected Batch Mathlib", .format = "%s",
+		.vars = { rc_config.mathlib_batch_id }, .size = MATHLIB_ID_LEN, .init = mathlib_config_init },
 
 	{ .desc = "Selected Mathlib Benchmarks",
 		.parse = mathlib_config_benchmark_parse,
@@ -288,6 +288,7 @@ int parse_var(rc_config_vars_t *v, char *line, char *locale)
 	else if (strcmp(v->format, "%s") == 0)
 	{
 		strncpy((char*)v->vars[0], line, v->size - 1);
+		((char*)v->vars[0])[v->size - 1] = '\0';
 		count = 1;
 		check = strlen(line);
 	}

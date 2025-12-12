@@ -18,12 +18,45 @@
  */
 
 #define _GNU_SOURCE
+#include <ctype.h>
 #include <dlfcn.h>
 #include "main.h"
 #include "shared.h"
 #include "mathlib.h"
 
 void mathlib_mkl_set_threading_intel(mathlib_t *lib);
+void set_mathlib_batch(GtkWidget *widget, mathlib_t *lib);
+
+// Legacy index mapping for backwards compatibility with integer-based configs.
+// Maps old integer indices (0-11) to stable IDs.
+//
+// *** DO NOT MODIFY THIS MAPPING ***
+//
+// This mapping reflects the mathlibs[] array order at commit d67fd622
+// when ID-based configuration was introduced. Integer configs written
+// before this commit must map deterministically to the same libraries.
+//
+// New libraries added after d67fd622 are NOT included in this mapping.
+// They receive IDs but have no legacy index equivalents.
+//
+// Modification would break backwards compatibility with existing configs.
+static const char *legacy_index_to_id[] = {
+	[0]  = "atlas-threaded",       // d67fd622: mathlibs[0]
+	[1]  = "atlas-serial",          // d67fd622: mathlibs[1]
+	[2]  = "openblas-serial",       // d67fd622: mathlibs[2]
+	[3]  = "openblas-openmp",       // d67fd622: mathlibs[3]
+	[4]  = "openblas-pthreads",     // d67fd622: mathlibs[4]
+	[5]  = "lapacke-debian",        // d67fd622: mathlibs[5]
+	[6]  = "atlas-debian",          // d67fd622: mathlibs[6]
+	[7]  = "mkl-serial",            // d67fd622: mathlibs[7]
+	[8]  = "mkl-tbb",               // d67fd622: mathlibs[8]
+	[9]  = "mkl-intel",             // d67fd622: mathlibs[9]
+	[10] = "mkl-gnu",               // d67fd622: mathlibs[10]
+	[11] = "nec2-builtin",          // d67fd622: mathlibs[11]
+};
+
+#define NUM_LEGACY_INDICES \
+	(sizeof(legacy_index_to_id) / sizeof(legacy_index_to_id[0]))
 
 static mathlib_t mathlibs[] = {
 	// In order of preference, xnec2c will use the first one that loads successfully by default:
@@ -35,17 +68,22 @@ static mathlib_t mathlibs[] = {
 	// but it was giving me an Illegal instruction error, so probably not compiled for my CPU.
 
 	// CentOS 7 and openSUSE use the same library names:
-	{.type = MATHLIB_ATLAS, .lib = "libtatlas.so.3", .name = "ATLAS, Threaded", .f_prefix = "clapack_"},
-	{.type = MATHLIB_ATLAS, .lib = "libsatlas.so.3", .name = "ATLAS, Serial", .f_prefix = "clapack_"},
+	{.type = MATHLIB_ATLAS, .lib = "libtatlas.so.3", .name = "ATLAS, Threaded", .f_prefix = "clapack_",
+		.id = "atlas-threaded"},
+	{.type = MATHLIB_ATLAS, .lib = "libsatlas.so.3", .name = "ATLAS, Serial", .f_prefix = "clapack_",
+		.id = "atlas-serial"},
 
 	// CentOS 7: yum install openblas-devel # or openblas-{serial,threads,openmp}
 	// openSUSE OpenBLAS: zypper install libopenblas_*0
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblas.so.0,libopenblas.so,libopenblas_serial.so.0",
-		.name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_"},
+		.name = "OpenBLAS+LAPACKe, Serial", .f_prefix = "LAPACKE_",
+		.id = "openblas-serial"},
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblaso.so.0,libopenblaso.so,libopenblas_openmp.so.0",
-		.name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_"},
+		.name = "OpenBLAS+LAPACKe, OpenMP", .f_prefix = "LAPACKE_",
+		.id = "openblas-openmp"},
 	{.type = MATHLIB_OPENBLAS, .lib = "libopenblasp.so.0,libopenblasp.so,libopenblas_pthreads.so.0",
-		.name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_"},
+		.name = "OpenBLAS+LAPACKe, pthreads", .f_prefix = "LAPACKE_",
+		.id = "openblas-pthreads"},
 
 	// Ubuntu / Debian: apt-get install liblapacke libopenblas0-*
 	// Tested Ubuntu 16.04, 18.04, 20.04, Debian 9, Debian 11
@@ -53,7 +91,8 @@ static mathlib_t mathlibs[] = {
 	//   Some combinations of BLAS/LAPACK may or may not work together:
 	//     ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu
 	//     ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu
-	{.type = MATHLIB_OPENBLAS, .lib = "liblapacke.so.3", .name = "Selected LAPACK+BLAS", .f_prefix = "LAPACKE_"},
+	{.type = MATHLIB_OPENBLAS, .lib = "liblapacke.so.3", .name = "Selected LAPACK+BLAS", .f_prefix = "LAPACKE_",
+		.id = "lapacke-debian"},
 
 	// Ubuntu / Debian: apt-get install libatlas3-base
 	// Tested Ubuntu 16.04, 18.04, Debian 9, Debian 11)
@@ -63,20 +102,26 @@ static mathlib_t mathlibs[] = {
 	//   Additionally, you may need to set this (or add the path to /etc/ld.so.conf.d/atlas.conf):
 	//     LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/atlas/
 	//   Without it, Ubuntu 20.04 crashes and Debian 11 gives "undefined symbol: clapack_zgetrf"
-	{.type = MATHLIB_ATLAS, .lib = "liblapack_atlas.so.3", .name = "ATLAS", .f_prefix = "clapack_"},
+	{.type = MATHLIB_ATLAS, .lib = "liblapack_atlas.so.3", .name = "ATLAS", .f_prefix = "clapack_",
+		.id = "atlas-debian"},
 
 	// Intel
 	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, Serial", .f_prefix = "LAPACKE_",
-		.init = mathlib_mkl_set_threading_sequential },
+		.init = mathlib_mkl_set_threading_sequential,
+		.id = "mkl-serial"},
 	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, TBB Threads", .f_prefix = "LAPACKE_",
-		.init = mathlib_mkl_set_threading_tbb },
+		.init = mathlib_mkl_set_threading_tbb,
+		.id = "mkl-tbb"},
 	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, Intel Threads", .f_prefix = "LAPACKE_",
-		.init = mathlib_mkl_set_threading_intel },
+		.init = mathlib_mkl_set_threading_intel,
+		.id = "mkl-intel"},
 	{.type = MATHLIB_INTEL, .lib = "libmkl_rt.so", .name = "Intel MKL, GNU Threads", .f_prefix = "LAPACKE_",
-		.init = mathlib_mkl_set_threading_gnu },
+		.init = mathlib_mkl_set_threading_gnu,
+		.id = "mkl-gnu"},
 
 	// Default implementation if none of the newer libraries are found.
-	{.type = MATHLIB_NEC2, .lib = "(builtin)", .name = "NEC2 Gaussian Elimination"},
+	{.type = MATHLIB_NEC2, .lib = "(builtin)", .name = "NEC2 Gaussian Elimination",
+		.id = "nec2-builtin"},
 
 };
 
@@ -96,12 +141,122 @@ static char *mathfuncs[] = {
 static int num_mathlibs = sizeof(mathlibs) / sizeof(mathlib_t);
 static int num_mathfuncs = sizeof(mathfuncs) / sizeof(char *);
 
-mathlib_t *get_mathlib_by_idx(int idx)
+mathlib_t *get_mathlib_by_id(const char *id)
 {
-	if (idx < num_mathlibs)
-		return &mathlibs[idx];
-	else
+	int i;
+
+	if (id == NULL)
 		return NULL;
+
+	for (i = 0; i < num_mathlibs; i++)
+	{
+		if (mathlibs[i].id != NULL && strcmp(mathlibs[i].id, id) == 0)
+			return &mathlibs[i];
+	}
+
+	return NULL;
+}
+
+// Update mathlib selection: ID is authoritative.
+// Copies ID string to static buffer.
+// Returns 1 on success, 0 if ID not found or NULL.
+static int update_mathlib_selection(char *id_field, const char *new_id)
+{
+	mathlib_t *lib;
+
+	if (new_id == NULL)
+		return 0;
+
+	lib = get_mathlib_by_id(new_id);
+	if (lib == NULL)
+		return 0;
+
+	strncpy(id_field, new_id, MATHLIB_ID_LEN - 1);
+	id_field[MATHLIB_ID_LEN - 1] = '\0';
+
+	return 1;
+}
+
+// Detects if string contains only digits (0-9).
+// Used to identify legacy integer-based mathlib config values.
+static int is_numeric(const char *str)
+{
+	if (str == NULL || *str == '\0')
+		return 0;
+
+	while (*str)
+	{
+		if (!isdigit(*str))
+			return 0;
+		str++;
+	}
+	return 1;
+}
+
+// Validates mathlib ID uniqueness and legacy mapping consistency.
+// Called at startup before any mathlib operations.
+// Aborts on:
+//   - NULL ID in mathlibs[]
+//   - Duplicate ID in mathlibs[]
+//   - Legacy mapping references nonexistent ID
+//   - Legacy mapping size != 12 (commit d67fd622 array size)
+static void validate_mathlib_ids(void)
+{
+	int i, j, k;
+
+	for (i = 0; i < num_mathlibs; i++)
+	{
+		if (mathlibs[i].id == NULL)
+		{
+			fprintf(stderr, "FATAL: mathlib[%d] has NULL id: %s\n",
+				i, mathlibs[i].name);
+			abort();
+		}
+
+		for (j = i + 1; j < num_mathlibs; j++)
+		{
+			if (strcmp(mathlibs[i].id, mathlibs[j].id) == 0)
+			{
+				fprintf(stderr,
+					"FATAL: Duplicate mathlib ID '%s' at indices %d and %d\n"
+					"  [%d]: %s\n"
+					"  [%d]: %s\n",
+					mathlibs[i].id, i, j,
+					i, mathlibs[i].name,
+					j, mathlibs[j].name);
+				abort();
+			}
+		}
+	}
+
+	for (k = 0; k < NUM_LEGACY_INDICES; k++)
+	{
+		int found = 0;
+		for (i = 0; i < num_mathlibs; i++)
+		{
+			if (strcmp(legacy_index_to_id[k], mathlibs[i].id) == 0)
+			{
+				found = 1;
+				break;
+			}
+		}
+
+		if (!found)
+		{
+			fprintf(stderr,
+				"FATAL: Legacy index %d maps to '%s' but no mathlib has that ID\n",
+				k, legacy_index_to_id[k]);
+			abort();
+		}
+	}
+
+	if (NUM_LEGACY_INDICES != 12)
+	{
+		fprintf(stderr,
+			"FATAL: Legacy mapping has %zu entries, expected 12\n",
+			(size_t)NUM_LEGACY_INDICES);
+		abort();
+	}
 }
 
 void close_mathlib(mathlib_t *lib)
@@ -208,10 +363,11 @@ void init_mathlib(void)
 {
 	int libidx;
 
+	validate_mathlib_ids();
+
 	for (libidx = 0; libidx < num_mathlibs; libidx++)
 	{
 		// Initialization:
-		mathlibs[libidx].idx = libidx;
 		mathlibs[libidx].functions = NULL;
 
 		// Try to open each library:
@@ -236,7 +392,8 @@ void init_mathlib(void)
 			close_mathlib(&mathlibs[libidx]);
 	}
 
-	if (!mathlibs[rc_config.mathlib_idx].available)
+	mathlib_t *lib = get_mathlib_by_id(rc_config.mathlib_id);
+	if (lib == NULL || !lib->available)
 		for (libidx = 0; libidx < num_mathlibs; libidx++)
 			if (mathlibs[libidx].available)
 			{
@@ -244,11 +401,13 @@ void init_mathlib(void)
 				break;
 			}
 
-	if (!mathlibs[rc_config.mathlib_batch_idx].available)
+	lib = get_mathlib_by_id(rc_config.mathlib_batch_id);
+	if (lib == NULL || !lib->available)
 		for (libidx = 0; libidx < num_mathlibs; libidx++)
 			if (mathlibs[libidx].available)
 			{
-				rc_config.mathlib_batch_idx = libidx;
+				strncpy(rc_config.mathlib_batch_id, mathlibs[libidx].id, MATHLIB_ID_LEN - 1);
+				rc_config.mathlib_batch_id[MATHLIB_ID_LEN - 1] = '\0';
 				break;
 			}
 
@@ -257,34 +416,139 @@ void init_mathlib(void)
 
 /////////////////////////////////////////////////////////////////////
 //                                 SAVE/RESTORE FUNCTIONS (rc_config)
-// Restore selection on open:
+
+// Select first available mathlib and update ID field.
+// Returns 1 if mathlib found, 0 if none available.
+static int select_first_available_mathlib(char *id_field, int is_interactive)
+{
+	int i;
+
+	for (i = 0; i < num_mathlibs; i++)
+	{
+		if (mathlibs[i].available)
+		{
+			if (is_interactive)
+				set_mathlib_interactive(NULL, &mathlibs[i]);
+
+			update_mathlib_selection(id_field, mathlibs[i].id);
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
+// Migrate legacy numeric index to ID string.
+// Returns const pointer to ID string from legacy_index_to_id[] or NULL if out of range.
+// Caller must copy to destination buffer.
+static const char *migrate_legacy_index(const char *id_str)
+{
+	int legacy_idx;
+
+	if (id_str == NULL || !is_numeric(id_str))
+		return id_str;
+
+	legacy_idx = atoi(id_str);
+
+	if (legacy_idx >= 0 && legacy_idx < NUM_LEGACY_INDICES)
+	{
+		pr_notice("Migrated legacy mathlib index %d to ID '%s'\n",
+			legacy_idx, legacy_index_to_id[legacy_idx]);
+		return legacy_index_to_id[legacy_idx];
+	}
+
+	pr_warn("Legacy mathlib index %d out of range [0-%d], triggering first-run scan\n",
+		legacy_idx, NUM_LEGACY_INDICES - 1);
+	return NULL;
+}
+
+// Restore selection on open with backwards compatibility migration:
 void mathlib_config_init(rc_config_vars_t *v, char *line)
 {
-	if (rc_config.mathlib_idx >= num_mathlibs || rc_config.mathlib_idx < 0)
+	mathlib_t *lib;
+	const char *migrated_id;
+
+	migrated_id = migrate_legacy_index(rc_config.mathlib_id);
+
+	if (migrated_id != NULL && migrated_id != rc_config.mathlib_id)
 	{
-		pr_warn("mathlib_idx out of range, clamping to zero: 0 !< %d !< %d\n",
-			rc_config.mathlib_idx, num_mathlibs);
-		rc_config.mathlib_idx = 0;
+		strncpy(rc_config.mathlib_id, migrated_id, MATHLIB_ID_LEN - 1);
+		rc_config.mathlib_id[MATHLIB_ID_LEN - 1] = '\0';
 	}
 
-	if (rc_config.mathlib_batch_idx >= num_mathlibs || rc_config.mathlib_batch_idx < 0)
+	if (rc_config.mathlib_id[0] != '\0')
 	{
-		pr_warn("mathlib_batch_idx out of range, clamping to zero: 0 !< %d !< %d\n",
-			rc_config.mathlib_batch_idx, num_mathlibs);
-		rc_config.mathlib_batch_idx = 0;
+		lib = get_mathlib_by_id(rc_config.mathlib_id);
+		if (lib && lib->available)
+		{
+			set_mathlib_interactive(NULL, lib);
+		}
+		else
+		{
+			if (lib == NULL)
+				pr_notice("Mathlib ID '%s' not found in available libraries.\n", rc_config.mathlib_id);
+			else if (!lib->available)
+				pr_notice("Mathlib '%s' is not available.\n", lib->name);
+
+			select_first_available_mathlib(rc_config.mathlib_id, 1);
+
+			if (!rc_config.first_run && rc_config.mathlib_id[0] != '\0')
+				pr_notice("Selected first available mathlib: %s\n",
+					get_mathlib_by_id(rc_config.mathlib_id)->name);
+		}
+	}
+	else
+	{
+		select_first_available_mathlib(rc_config.mathlib_id, 1);
 	}
 
-	if (mathlibs[rc_config.mathlib_idx].available)
-		set_mathlib_interactive(NULL, &mathlibs[rc_config.mathlib_idx]);
-	else if (!rc_config.first_run)
-		pr_warn("%s was not detected: Unable to set the mathlib index to %d\n",
-		       mathlibs[rc_config.mathlib_idx].name, rc_config.mathlib_idx);
+	migrated_id = migrate_legacy_index(rc_config.mathlib_batch_id);
+
+	if (migrated_id != NULL && migrated_id != rc_config.mathlib_batch_id)
+	{
+		strncpy(rc_config.mathlib_batch_id, migrated_id, MATHLIB_ID_LEN - 1);
+		rc_config.mathlib_batch_id[MATHLIB_ID_LEN - 1] = '\0';
+	}
+
+	if (rc_config.mathlib_batch_id[0] != '\0')
+	{
+		lib = get_mathlib_by_id(rc_config.mathlib_batch_id);
+		if (lib && lib->available)
+		{
+			set_mathlib_batch(NULL, lib);
+		}
+		else
+		{
+			select_first_available_mathlib(rc_config.mathlib_batch_id, 0);
+		}
+	}
+	else
+	{
+		select_first_available_mathlib(rc_config.mathlib_batch_id, 0);
+	}
 }
 
 int mathlib_config_benchmark_parse(rc_config_vars_t *v, char *line)
 {
-	int i, len = strlen(line);
+	int i, len;
+	char *token, *saveptr, *line_copy;
 
+	if (strchr(line, ',') || strchr(line, '-'))
+	{
+		line_copy = strdup(line);
+		for (token = strtok_r(line_copy, ",", &saveptr);
+		     token;
+		     token = strtok_r(NULL, ",", &saveptr))
+		{
+			mathlib_t *lib = get_mathlib_by_id(token);
+			if (lib && lib->available)
+				lib->benchmark = 1;
+		}
+		free(line_copy);
+		return 1;
+	}
+
+	len = strlen(line);
 	for (i = 0; i < num_mathlibs && i < len; i++)
 		if (line[i] == '1' && mathlibs[i].available)
 			mathlibs[i].benchmark = 1;
@@ -294,10 +558,16 @@ int mathlib_config_benchmark_parse(rc_config_vars_t *v, char *line)
 
 int mathlib_config_benchmark_save(rc_config_vars_t *v, FILE *fp)
 {
-	int i;
+	int i, first = 1;
 
 	for (i = 0; i < num_mathlibs; i++)
-		fprintf(fp, "%c", mathlibs[i].benchmark ? '1' : '0');
+	{
+		if (mathlibs[i].benchmark)
+		{
+			fprintf(fp, "%s%s", first ? "" : ",", mathlibs[i].id);
+			first = 0;
+		}
+	}
 
 	return 1;
 }
@@ -341,8 +611,7 @@ void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib)
 		close_mathlib(current_mathlib);
 		current_mathlib = lib;
 
-		// Save selection on exit:
-		rc_config.mathlib_idx = current_mathlib->idx;
+		update_mathlib_selection(rc_config.mathlib_id, lib->id);
 
 		open_mathlib(lib);
 
@@ -372,7 +641,7 @@ void set_mathlib_batch(GtkWidget *widget, mathlib_t *lib)
 			"(However, this selection will be saved for next time xnec2c is opened.)\n"),
 			GTK_BUTTONS_OK);
 
-	rc_config.mathlib_batch_idx = lib->idx;
+	update_mathlib_selection(rc_config.mathlib_batch_id, lib->id);
 }
 
 void set_mathlib_benchmark(GtkWidget *widget, mathlib_t *lib)
@@ -404,7 +673,7 @@ void set_mathlib_benchmark(GtkWidget *widget, mathlib_t *lib)
 				if (mathlibs[i].available &&
 					mathlibs[i].benchmark_widget != NULL &&
 					mathlibs[i].type == MATHLIB_INTEL &&
-					i != lib->idx)
+					&mathlibs[i] != lib)
 						gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mathlibs[i].benchmark_widget), FALSE);
 			}
 
@@ -447,7 +716,7 @@ void init_mathlib_menu(void)
 		interactive_radio_group = add_mathlib_menu(&mathlibs[libidx],
 			interactive_menu,
 			mathlibs[libidx].interactive_widget,
-			libidx == current_mathlib->idx,
+			current_mathlib == &mathlibs[libidx],
 			G_CALLBACK(set_mathlib_interactive));
 
 		// Create the batch menu item widget:
@@ -457,7 +726,7 @@ void init_mathlib_menu(void)
 		batch_radio_group = add_mathlib_menu(&mathlibs[libidx],
 			batch_menu,
 			mathlibs[libidx].batch_widget,
-			libidx == rc_config.mathlib_batch_idx,
+			strcmp(mathlibs[libidx].id, rc_config.mathlib_batch_id) == 0,
 			G_CALLBACK(set_mathlib_batch)
 			);
 
@@ -559,7 +828,7 @@ void mathlib_benchmark(int slow)
 {
 	struct timespec start, end;
 	mathlib_t *mathlib_before_benchmark = current_mathlib;
-	mathlib_t *mathlib_batch_before_benchmark = &mathlibs[rc_config.mathlib_batch_idx];
+	mathlib_t *mathlib_batch_before_benchmark = get_mathlib_by_id(rc_config.mathlib_batch_id);
 	mathlib_t *best_mathlib = NULL, *active_mathlib = NULL;
 	int response;
 	char m[10240] = {0};
@@ -641,7 +910,7 @@ void mathlib_benchmark(int slow)
 		else
 			set_mathlib_interactive(NULL, &mathlibs[i]);
 
-		active_mathlib = get_mathlib_by_idx(i);
+		active_mathlib = &mathlibs[i];
 
 		// Sleep to let the threads settle before the next test:
 		usleep(100000);
@@ -744,18 +1013,18 @@ void mathlib_benchmark_nj(void)
 	mathlib_benchmark(MATHLIB_BENCHMARK_NJ);
 }
 
-void mathlib_lock_intel(int locked_idx, int batch)
+void mathlib_lock_intel(const char *locked_id, int batch)
 {
 	static int warned = 0;
 
 	mathlib_t *locked_lib;
 	int i;
 
-	locked_lib = get_mathlib_by_idx(locked_idx);
+	locked_lib = get_mathlib_by_id(locked_id);
 	if (locked_lib == NULL)
 	{
-		BUG("mathlib_lock_intel: Cannot find library for mathlib idx=%d\n",
-		        locked_idx);
+		BUG("mathlib_lock_intel: Cannot find library for mathlib ID='%s'\n",
+		        locked_id);
 		return;
 	}
 
@@ -781,7 +1050,7 @@ void mathlib_lock_intel(int locked_idx, int batch)
 
 	// Disable the other MKL threading options.
 	for (i = 0; i < num_mathlibs; i++)
-		if (mathlibs[i].type == MATHLIB_INTEL && locked_idx != i)
+		if (mathlibs[i].type == MATHLIB_INTEL && locked_lib != &mathlibs[i])
 		{
 			mathlibs[i].available = 0;
 
@@ -804,21 +1073,21 @@ void mathlib_lock_intel(int locked_idx, int batch)
 		}
 }
 
-void mathlib_lock_intel_interactive(int locked_idx)
+void mathlib_lock_intel_interactive(const char *locked_id)
 {
-	mathlib_lock_intel(locked_idx, 0);
+	mathlib_lock_intel(locked_id, 0);
 }
 
-void mathlib_lock_intel_batch(int locked_idx)
+void mathlib_lock_intel_batch(const char *locked_id)
 {
-	mathlib_lock_intel(locked_idx, 1);
+	mathlib_lock_intel(locked_id, 1);
 }
 
 void *mathlib_get_func(int f_idx)
 {
 	// Intel libraries can only be set once, so lock it:
 	if (current_mathlib->type == MATHLIB_INTEL)
-		mathlib_lock_intel_interactive(current_mathlib->idx);
+		mathlib_lock_intel_interactive(current_mathlib->id);
 
 	if (current_mathlib->functions == NULL)
 		return NULL;

@@ -43,16 +43,18 @@ enum MATHLIB_BENCHMARKS
 typedef struct mathlib_t
 {
 	// Mathlib type:
-	int type; 
-
-	// Index into the mathlibs array:
-	int idx; 
+	int type;
 
 	// True if it opened successfully upon initialization:
 	int available;
 
 	// True if included for benchmarks
 	int benchmark;
+
+	// Unique stable identifier for configuration persistence.
+	// MUST remain unchanged once assigned to maintain backwards compatibility.
+	// Used for string-based config storage instead of array indices.
+	char *id;
 
 	// lib: libname.so
 	// name: a human readable description
@@ -83,11 +85,11 @@ typedef struct mathlib_t
 
 void init_mathlib(void);
 void init_mathlib_menu(void);
-mathlib_t *get_mathlib_by_idx(int idx);
+mathlib_t *get_mathlib_by_id(const char *id);
 void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib);
 
-void mathlib_lock_intel_interactive(int locked_idx);
-void mathlib_lock_intel_batch(int locked_idx);
+void mathlib_lock_intel_interactive(const char *locked_id);
+void mathlib_lock_intel_batch(const char *locked_id);
 
 void mathlib_config_init(rc_config_vars_t *v, char *line);
 int mathlib_config_benchmark_parse(rc_config_vars_t *v, char *line);

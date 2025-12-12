@@ -421,16 +421,16 @@ Child_Process( int num_child )
     {
       case MATHLIB:
         Read_Pipe( num_child,
-			(char*)&rc_config.mathlib_batch_idx,
-			sizeof(rc_config.mathlib_batch_idx), FALSE );
+			rc_config.mathlib_batch_id,
+			MATHLIB_ID_LEN, FALSE );
 
         // Clear the previous frequency cache to prevent false values from benchmarking:
-        if (current_mathlib->idx != rc_config.mathlib_batch_idx)
+        if (strcmp(current_mathlib->id, rc_config.mathlib_batch_id) != 0)
             New_Frequency_Reset_Prev();
 
         // This says "interactive" mathlib, but since we are forked it is running
         // as a batch from the parent.
-        set_mathlib_interactive(NULL, get_mathlib_by_idx(rc_config.mathlib_batch_idx));
+        set_mathlib_interactive(NULL, get_mathlib_by_id(rc_config.mathlib_batch_id));
         break;
 
       case INFILE: /* Read input file */

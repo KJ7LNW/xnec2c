@@ -704,10 +704,9 @@ gboolean Frequency_Loop( gpointer udata )
           num_busy_procs++;
 
           // Send the mathlib to use, try to lock it if it is Intel MKL.
-		  mathlib_lock_intel_batch(rc_config.mathlib_batch_idx);
+		  mathlib_lock_intel_batch(rc_config.mathlib_batch_id);
           Write_Pipe( idx, fork_commands[MATHLIB], (ssize_t)strlen(fork_commands[MATHLIB]), TRUE );
-          Write_Pipe( idx, (char*)&rc_config.mathlib_batch_idx,
-			  (ssize_t)sizeof(rc_config.mathlib_batch_idx), TRUE );
+          Write_Pipe( idx, rc_config.mathlib_batch_id, (ssize_t)MATHLIB_ID_LEN, TRUE );
 
           /* Tell process to calculate freq dependent data */
           len = strlen( fork_commands[FRQDATA] );
@@ -886,7 +885,7 @@ gboolean Frequency_Loop( gpointer udata )
 	clock_gettime(CLOCK_MONOTONIC, &end);
 	pr_notice("Frequency loop elapsed time: %f seconds. (%s)\n",
                 (end.tv_sec + (double)end.tv_nsec / 1e9) - (start.tv_sec + (double)start.tv_nsec / 1e9),
-				(FORKED ? get_mathlib_by_idx(rc_config.mathlib_batch_idx)->name : current_mathlib->name));
+				(FORKED ? get_mathlib_by_id(rc_config.mathlib_batch_id)->name : current_mathlib->name));
 
     /* After the loop is finished, re-set the saved frequency
      * that the user clicked on in the frequency plots window */
