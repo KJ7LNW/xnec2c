@@ -94,6 +94,11 @@ static mathlib_t mathlibs[] = {
 	{.type = MATHLIB_OPENBLAS, .lib = "liblapacke.so.3", .name = "Selected LAPACK+BLAS", .f_prefix = "LAPACKE_",
 		.id = "lapacke-debian"},
 
+	// MacOS 14+ MacPorts: sudo port install openblas-devel +lapack
+	// Tested MacOS 26
+	{.type = MATHLIB_OPENBLAS, .lib = "/opt/local/lib/libopenblas.0.3.dylib,libopenblas.dylib", .name = "OpenBLAS+LAPACKe, MacPorts", .f_prefix = "LAPACKE_",
+		.id = "openblas-macos"},
+
 	// Ubuntu / Debian: apt-get install libatlas3-base
 	// Tested Ubuntu 16.04, 18.04, Debian 9, Debian 11)
 	// Note: This requires the following in Debian 11 and Ubuntu 20.04:
