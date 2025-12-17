@@ -848,6 +848,14 @@ void mathlib_benchmark(int slow)
 		return;
 	}
 
+	if (calc_data.freq_loop_data == NULL)
+	{
+		Notice(_("Mathlib Benchmark"),
+			_("You must load a NEC2 input file before running benchmarks."),
+			GTK_BUTTONS_OK);
+		return;
+	}
+
 	if (calc_data.num_jobs == 1 && slow != MATHLIB_BENCHMARK_SINGLE)
 		Notice(_("Mathlib Benchmark"),
 			_("Choosing a benchmark other than \"Single Job\" has no effect "
