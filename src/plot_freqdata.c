@@ -405,8 +405,8 @@ static double Fit_to_Scale( double *max, double *min, int *nval )
 Fit_to_Scale2( double *max1, double *min1,
     double *max2, double *min2, int *nval )
 {
-  // Acceptable scale values (10/10, 10/5, 10/4, 10/2) 
-  // Intermediate values are geometric mean of pairs 
+  // Acceptable scale values (10/10, 10/5, 10/4, 10/2)
+  // Intermediate values are geometric mean of pairs
   double scale_val[] = { 10.0, 5.0, 2.5, 2.0, 1.0, 0.5 };
 
   double subdiv_val1, subdiv_order1, subdiv_val2, subdiv_order2;
@@ -414,13 +414,31 @@ Fit_to_Scale2( double *max1, double *min1,
   double max1sv=0.0, min1sv=0.0, max2sv=0.0, min2sv=0.0;
   int idx1, idx2, nval1, nval2, nvalsv=0, mx, i1, i2;
 
-  // Do nothing in these cases 
-  if( *max1 <= *min1 ) return;
-  if( *max2 == *min2 ) return;
-  if( *nval < 3 ) return;
-
   /* Provide a made-up range if max = min */
-  if( *max1 == *min1 )
+
+  // Asymmetric expansion for dual single-point case positions left scale
+  // at 2/3 from top and right scale at 1/3 from top to prevent overlap
+  if( *max1 == *min1 && *max2 == *min2 )
+  {
+    double delta1, delta2;
+
+    if( *max1 == 0.0 )
+      delta1 = 1.0;
+    else
+      delta1 = fabs( *max1 ) / 10.0;
+
+    if( *max2 == 0.0 )
+      delta2 = 1.0;
+    else
+      delta2 = fabs( *max2 ) / 10.0;
+
+    *max1 = *min1 + delta1 * (4.0/3.0);
+    *min1 = *min1 - delta1 * (2.0/3.0);
+
+    *max2 = *min2 + delta2 * (2.0/3.0);
+    *min2 = *min2 - delta2 * (4.0/3.0);
+  }
+  else if( *max1 == *min1 )
   {
     if( *max1 == 0.0 )
     {
@@ -433,8 +451,7 @@ Fit_to_Scale2( double *max1, double *min1,
       *min1 -= fabs( *min1 ) / 10.0;
     }
   }
-
-  if( *max2 == *min2 )
+  else if( *max2 == *min2 )
   {
     if( *max2 == 0.0 )
     {
@@ -447,6 +464,11 @@ Fit_to_Scale2( double *max1, double *min1,
       *min2 -= fabs( *min2 ) / 10.0;
     }
   }
+
+  // Do nothing in these cases
+  if( *max1 < *min1 ) return;
+  if( *max2 < *min2 ) return;
+  if( *nval < 3 ) return;
 
   // For each scale 
   // Find subdivision's lower order of magnitude 
@@ -743,22 +765,24 @@ Draw_Plotting_Frame(
 void draw_poly(
     cairo_t *cr,
 	int x, int y,
-	int side)
+	int side, int size)
 {
 	GdkPoint polygn[4];
+	int half = size / 2;
+
     if( side == LEFT )
     {
       cairo_rectangle( cr,
-          (double)(x-3), (double)(y-3),
-          6.0, 6.0 );
+          (double)(x-half), (double)(y-half),
+          (double)size, (double)size );
       cairo_fill( cr );
     }
     else
     {
-      polygn[0].x = x-3; polygn[0].y = y;
-      polygn[1].x = x;   polygn[1].y = y+5;
-      polygn[2].x = x+3; polygn[2].y = y;
-      polygn[3].x = x;   polygn[3].y = y-5;
+      polygn[0].x = x-half; polygn[0].y = y;
+      polygn[1].x = x;      polygn[1].y = y+half+1;
+      polygn[2].x = x+half; polygn[2].y = y;
+      polygn[3].x = x;      polygn[3].y = y-half-1;
       Cairo_Draw_Polygon( cr, polygn, 4 );
       cairo_fill( cr );
     }
@@ -783,6 +807,11 @@ Draw_Graph(
   int idx;
   GdkPoint *points = NULL;
   char s[23];
+  int marker_size, circle_padding;
+
+  const int MARKER_SIZE_SINGLE_POINT = 10;
+  const int MARKER_SIZE_MULTI_POINT = 6;
+  const int CIRCLE_PADDING_PX = 3;
 
   /* Cairo context */
   cairo_set_source_rgb( cr, red, grn, blu );
@@ -790,6 +819,9 @@ Draw_Graph(
   /* Range of values to plot */
   ra = amax - amin;
   rb = bmax - bmin;
+
+  marker_size = (nval < 3) ? MARKER_SIZE_SINGLE_POINT : MARKER_SIZE_MULTI_POINT;
+  circle_padding = CIRCLE_PADDING_PX;
 
   /* Calculate points to plot */
   mem_alloc( (void **) &points, (size_t)nval * sizeof(GdkPoint),
@@ -823,12 +855,24 @@ Draw_Graph(
   /* Plot a small rectangle (left scale) or polygon (right scale) at point */
   for( idx = 0; idx < nval; idx++ )
   {
+	// Circle behind enlarged markers provides visible axis color when no trace line
+	if (marker_size == MARKER_SIZE_SINGLE_POINT)
+	{
+		if (side == LEFT)
+			cairo_set_source_rgb( cr, MAGENTA );
+		else
+			cairo_set_source_rgb( cr, CYAN );
+
+		cairo_arc(cr, points[idx].x, points[idx].y, marker_size/2 + circle_padding, 0, M_2PI);
+		cairo_stroke(cr);
+	}
+
 	if (idx == min_idx || idx == max_idx)
 		cairo_set_source_rgb( cr, WHITE );
     else
 		cairo_set_source_rgb( cr, red, grn, blu);
 
-	draw_poly(cr, points[idx].x, points[idx].y, side);
+	draw_poly(cr, points[idx].x, points[idx].y, side, marker_size);
   }
 
   // Min/max labels:
@@ -937,6 +981,9 @@ Plot_Graph(
 	// calculated here. (But n_vert_scale is calculated below in
 	// the FR card loop because it can change with the plot size.)
 	n_horiz_scale = plot_rect_height / px_per_horiz_scale;
+
+	if (n_horiz_scale < 3)
+		n_horiz_scale = 3;
 
 	// Calculate the entire available width for plotting:
 	width_available = 
@@ -1069,8 +1116,10 @@ Plot_Graph(
 		// Adjust the vertical scale based on the width (assigned above).
 		n_vert_scale = plot_rect->width / px_per_vert_scale;
 
+		if (n_vert_scale < 2)
+			n_vert_scale = 2;
 
-		// Offset is the offset into the value arrays: 
+		// Offset is the offset into the value arrays:
 		// Skip plot below if there are no more values to plot because
 		// it has plotted all of them or the values are still
 		// being calculated:
@@ -1088,12 +1137,9 @@ Plot_Graph(
 		fr_plot->min_fscale = fr_plot->freq_loop_data->min_freq;
 		fr_plot->max_fscale = fr_plot->freq_loop_data->max_freq;
 
-		if (rc_config.freqplots_round_x_axis)
+		if (rc_config.freqplots_round_x_axis ||
+		    fabs(fr_plot->min_fscale - fr_plot->max_fscale) < 1e-6)
 			Fit_to_Scale( &fr_plot->max_fscale, &fr_plot->min_fscale, &n_vert_scale );
-
-		// Always label at least 2 frequencies, the first and last:
-		if (n_vert_scale < 2)
-			n_vert_scale = 2;
 
 		// local shorthand variables
 		double min_fscale = fr_plot->min_fscale;
