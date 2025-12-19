@@ -1013,7 +1013,7 @@ Start_Frequency_Loop( void )
 
   if( isFlagClear(FREQ_LOOP_RUNNING) &&
       (calc_data.FR_cards > 0 )      &&
-      (calc_data.steps_total > 1) )
+      (calc_data.steps_total >= 1) )
   {
     retval = TRUE;
     SetFlag( FREQ_LOOP_INIT );
