@@ -45,6 +45,7 @@ enum XNEC2C_OPTS {
 	OPT_WRITE_RDPAT,
 	OPT_WRITE_CURRENTS,
 	OPT_SKIP_VERIFY,
+	OPT_FORCE_VERIFY,
 
 	OPT_MAX_OPTS
 };
@@ -75,6 +76,7 @@ static struct option long_options[] = {
 		{  "write-rdpat",            required_argument,   NULL,  OPT_WRITE_RDPAT            },
 		{  "write-currents",         required_argument,   NULL,  OPT_WRITE_CURRENTS         },
 		{  "skip-verify",            no_argument,         NULL,  OPT_SKIP_VERIFY            },
+		{  "force-verify",           no_argument,         NULL,  OPT_FORCE_VERIFY           },
 
 		{  NULL,                     0,                   NULL,  0                          }
 	};
@@ -182,6 +184,10 @@ main (int argc, char *argv[])
   /* Initialize default config file path */
   char home[PATH_MAX];
   get_conf_dir(home, sizeof(home));
+  if (strlen(home) + strlen(DEFAULT_CONFIG_FILE) + 2 > sizeof(rc_config.config_file)) {
+    pr_err("config file path too long\n");
+    exit(EXIT_FAILURE);
+  }
   snprintf(rc_config.config_file, sizeof(rc_config.config_file), "%s/%s", home, DEFAULT_CONFIG_FILE);
 
   // default to show warnings or more important errors.
@@ -318,6 +324,11 @@ main (int argc, char *argv[])
       case OPT_SKIP_VERIFY:
         pr_notice("verify segments check disabled\n");
         rc_config.skip_verify_segments = 1;
+        break;
+
+      case OPT_FORCE_VERIFY:
+        pr_notice("forcing overlap check on large models\n");
+        rc_config.force_verify_segments = 1;
         break;
 
       default:

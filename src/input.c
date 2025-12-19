@@ -44,6 +44,7 @@
 
 #include "input.h"
 #include "shared.h"
+#include "geometry.h"
 
 // For use if you need to pr_debug based on line number in readgm()
 static int readgm_line_count = 0;
@@ -346,11 +347,11 @@ datagn( void )
         }
 
         /* Verify segment lengths and check for overlapping segments */
-        if( !rc_config.skip_verify_segments )
+        if( !CHILD && !rc_config.skip_verify_segments )
         {
           if( !verify_segments() )
           {
-            Notice( _("Probable invalid segment geometry.\n"), 
+            Notice( _("Probable invalid segment geometry.\n"),
                   _("Invalid segment geometry.\n"
                   "See warnings in the console for detail.\n"
                   "Trying to continue..."), GTK_BUTTONS_OK );

@@ -361,6 +361,9 @@ typedef struct
   /* true to skip verify_segments check */
   int skip_verify_segments;
 
+  /* force overlap check for large models */
+  int force_verify_segments;
+
   /* verbose and debug levels, see console.h */
   int verbose, debug;
 

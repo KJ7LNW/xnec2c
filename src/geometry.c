@@ -45,6 +45,9 @@
 #include "geometry.h"
 #include "shared.h"
 
+/* Threshold for skipping O(n²) overlap check on large models */
+#define SEGMENT_OVERLAP_THRESHOLD 1000
+
 /* Calculate Manhattan distance between points */
 static inline double
 calc_manhattan_distance(double x1, double y1, double z1,
@@ -365,21 +368,21 @@ conect( int ignd )
           if( ic >= data.n)
             ic=0;
 
-          if (points_would_connect(xi1, yi1, zi1,
-                                 data.x1[ic], data.y1[ic], data.z1[ic],
-                                 slen)) {
-            data.icon1[i]= -(ic+1);
-            break;
-          }
+        if (points_would_connect(xi1, yi1, zi1,
+                               data.x1[ic], data.y1[ic], data.z1[ic],
+                               slen)) {
+          data.icon1[i]= -(ic+1);
+          break;
+        }
 
-          if (points_would_connect(xi1, yi1, zi1,
-                                 data.x2[ic], data.y2[ic], data.z2[ic],
-                                 slen)) {
-            data.icon1[i]= (ic+1);
-            break;
-          }
+        if (points_would_connect(xi1, yi1, zi1,
+                               data.x2[ic], data.y2[ic], data.z2[ic],
+                               slen)) {
+          data.icon1[i]= (ic+1);
+          break;
+        }
 
-        } /* for( j = 1; j < data.n; j++) */
+      } /* for( j = 1; j < data.n; j++) */
 
       } /* if( ! jump ) */
 
@@ -419,16 +422,16 @@ conect( int ignd )
         if( ic >= data.n)
           ic=0;
 
-          if (points_would_connect(xi2, yi2, zi2,
-                                 data.x1[ic], data.y1[ic], data.z1[ic],
-                                 slen)) {
+        if (points_would_connect(xi2, yi2, zi2,
+                               data.x1[ic], data.y1[ic], data.z1[ic],
+                               slen)) {
           data.icon2[i]= (ic+1);
           break;
         }
 
-          if (points_would_connect(xi2, yi2, zi2,
-                                 data.x2[ic], data.y2[ic], data.z2[ic],
-                                 slen)) {
+        if (points_would_connect(xi2, yi2, zi2,
+                               data.x2[ic], data.y2[ic], data.z2[ic],
+                               slen)) {
           data.icon2[i]= -(ic+1);
           break;
         }
@@ -457,6 +460,7 @@ conect( int ignd )
           xi2= data.x2[iseg];
           yi2= data.y2[iseg];
           zi2= data.z2[iseg];
+          slen = calc_connection_threshold(xi1, yi1, zi1, xi2, yi2, zi2);
 
           /* for first end of segment */
           /* connection - divide patch into 4 patches at present array loc. */
@@ -1661,7 +1665,6 @@ verify_segment_overlaps(void)
     double xi = data.x2[i] - data.x1[i];
     double yi = data.y2[i] - data.y1[i];
     double zi = data.z2[i] - data.z1[i];
-    double seg_manhattan = fabs(xi) + fabs(yi) + fabs(zi);
 
     for (int j = 0; j < data.n; j++) {
       if (i == j) continue;
@@ -1941,7 +1944,17 @@ verify_kernel_limits(void)
 {
   gboolean retval = TRUE;
   retval &= verify_self_connections();
-  retval &= verify_segment_overlaps();
+
+  if (data.n > SEGMENT_OVERLAP_THRESHOLD && !rc_config.force_verify_segments) {
+    pr_warn("Skipping overlap check for %d segments (use --force-verify to enable)\n", data.n);
+  }
+  else {
+    if (data.n > SEGMENT_OVERLAP_THRESHOLD && rc_config.force_verify_segments) {
+      pr_info("Forcing overlap check for %d segments\n", data.n);
+    }
+    retval &= verify_segment_overlaps();
+  }
+
   retval &= verify_relative_lengths();
 
   /* Check kernel limits - independent of frequency */
