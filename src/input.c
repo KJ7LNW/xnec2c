@@ -1272,9 +1272,9 @@ Read_Commands( void )
 
         if( fpat.iavp )
         {
-          pr_err("Gain averaging (XNDA ***1 or ***2): of RP command not implemented\n");
-          Stop( _("Gain averaging (XNDA ***1 or ***2)\n"
-                "of RP command not supported"), ERR_OK );
+          Stop( _("Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
+                "xnec2c renders radiation patterns graphically instead of text tables.\n"
+                "Pattern calculations proceed normally; use GUI to view results."), ERR_OK );
           return( FALSE );
         }
         if( fpat.iax != 0) fpat.iax = 1;
