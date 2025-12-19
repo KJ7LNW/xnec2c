@@ -58,6 +58,14 @@ static int readgm_line_count = 0;
 Read_Comments( void )
 {
   char ain[3], line_buf[LINE_LEN];
+  int i;
+  size_t mreq, line_len;
+
+  /* Free old comment strings before reallocating array */
+  for( i = 0; i < comments.num; i++ )
+    free_ptr( (void **)&comments.lines[i] );
+
+  comments.num = 0;
 
   /* Look for CM or CE card */
   do
@@ -97,8 +105,23 @@ Read_Comments( void )
             "Comment mnemonic incorrect"), ERR_OK );
       return( FALSE );
     }
+
+    /* Store CM card text (skip CE card) */
+    if( strcmp(ain, "CM") == 0 )
+    {
+      mreq = (size_t)(comments.num + 1) * sizeof(char *);
+      mem_realloc( (void **)&comments.lines, mreq, "in input.c" );
+
+      line_len = strlen(&line_buf[3]) + 1;
+      mem_alloc( (void **)&comments.lines[comments.num], line_len, "in input.c" );
+      Strlcpy( comments.lines[comments.num], &line_buf[3], line_len );
+
+      comments.num++;
+    }
   }
   while( (strcmp(ain, "CE") != 0) );
+
+  Update_Window_Titles();
 
   return( TRUE );
 } /* Read_Comments() */

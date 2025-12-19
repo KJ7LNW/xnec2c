@@ -266,5 +266,8 @@ vsorc_t vsorc;
 /* common  /zload/ */
 zload_t zload;
 
+/* Comment cards storage */
+comments_t comments = { 0, NULL };
+
 /*------------------------------------------------------------------------*/
 

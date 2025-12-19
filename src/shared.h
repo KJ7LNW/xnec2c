@@ -281,6 +281,9 @@ extern vsorc_t vsorc;
 /* common  /zload/ */
 extern zload_t zload;
 
+/* Comment cards storage */
+extern comments_t comments;
+
 /* Segments for drawing structure */
 extern Segment_t *structure_segs;
 

@@ -397,6 +397,7 @@ on_main_rdpattern_activate(
         rc_config.rdpattern_x, rc_config.rdpattern_y,
         rc_config.rdpattern_width, rc_config.rdpattern_height );
     gtk_widget_show( rdpattern_window );
+    Update_Window_Titles();
 
     rdpattern_drawingarea = Builder_Get_Object(
         rdpattern_window_builder, "rdpattern_drawingarea" );
@@ -519,6 +520,7 @@ on_main_freqplots_activate(
           rc_config.freqplots_x, rc_config.freqplots_y,
           rc_config.freqplots_width, rc_config.freqplots_height );
       gtk_widget_show( freqplots_window );
+      Update_Window_Titles();
       freqplots_drawingarea = Builder_Get_Object(
           freqplots_window_builder, "freqplots_drawingarea" );
       Set_Window_Labels();

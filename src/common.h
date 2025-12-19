@@ -752,6 +752,14 @@ typedef struct
 
 } zload_t;
 
+/* Comment cards storage */
+typedef struct
+{
+  int    num;     /* Number of CM comment lines */
+  char **lines;   /* Array of comment line strings */
+
+} comments_t;
+
 /* Parameters for projecting points on screen */
 typedef struct
 {
@@ -1545,6 +1553,7 @@ guint g_idle_add_once(GSourceOnceFunc function, gpointer data);
 #endif
 guint g_idle_add_once_sync(GSourceOnceFunc function, gpointer data);
 void print_backtrace(char *msg);
+void Update_Window_Titles(void);
 
 /* xnec2c.c */
 void Near_Field_Pattern(void);

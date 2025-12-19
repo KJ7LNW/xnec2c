@@ -1019,6 +1019,7 @@ Open_Nec2_Editor( int action )
       rc_config.nec2_edit_x, rc_config.nec2_edit_y,
       rc_config.nec2_edit_width, rc_config.nec2_edit_height );
   gtk_widget_show( nec2_edit_window );
+  Update_Window_Titles();
 
   cmnt_treeview = GTK_TREE_VIEW(
       Builder_Get_Object(nec2_editor_builder, "nec2_cmnt_treeview") );
@@ -1035,6 +1036,8 @@ Open_Nec2_Editor( int action )
   cmnd_adjustment =
     gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(
           Builder_Get_Object(nec2_editor_builder, "cmnd_scrolledwindow")) );
+
+  Update_Window_Titles();
 
 } /* Open_Nec2_Editor() */
 
