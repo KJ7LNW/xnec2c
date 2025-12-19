@@ -41,19 +41,23 @@ void _print_backtrace(char **strings);
 usage(void)
 {
   fprintf(stdout, "Usage: xnec2c [options] [<input-file-name>]\n"
-		"  -i|--input <input-file-name>\n"
+		"  -i|--input         <input-file-name>\n"
+		"  -c|--config        <config-file-path>     - file must exist\n"
+		"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
 		"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
 		"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
 		"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
 		"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
 		"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-		"     --optimize:     Activate the optimizer immediately.\n"
 		"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
 		"  -h|--help:         print usage information and exit\n"
 		"  -V|--version:      print xnec2c version number and exit\n"
 		"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
 		"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
 		"  -d|--quiet:        suppress debug/verbose output\n"
+		"\n"
+		"  --optimize:        Activate the optimizer immediately.\n"
+		"  --skip-verify:     skip geometry verification checks\n"
 		"\n"
 		"The following arguments write to an output file after the frequency loop\n"
 		"completes.  These are useful to combine with --batch; If you wish to specify\n"
@@ -86,7 +90,7 @@ int Notice(char *title, char *message,  GtkButtonsType buttons)
 	else
 		g_mutex_unlock(&global_lock);
 
-	if (locked)
+	if (locked || rc_config.batch_mode)
 	{
 		pr_err("\n=== Notice: %s ===\n%s\n\n", title, message);
 
@@ -145,6 +149,21 @@ Stop( char *mesg, int err )
     return( err );
 
   } /* if( CHILD ) */
+
+  /* Handle batch mode gracefully */
+  if (rc_config.batch_mode)
+  {
+    if( err )
+      pr_crit("%s\n", mesg);
+    else 
+      pr_err("%s\n", mesg);
+
+    SetFlag(FREQ_LOOP_STOP);
+    if (!locked)
+      Stop_Frequency_Loop();
+    gtk_main_quit();
+    return( err );
+  }
 
   SetFlag(FREQ_LOOP_STOP);
 

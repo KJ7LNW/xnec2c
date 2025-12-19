@@ -44,12 +44,15 @@ enum XNEC2C_OPTS {
 	OPT_WRITE_S2P_VIEWER_GAIN,
 	OPT_WRITE_RDPAT,
 	OPT_WRITE_CURRENTS,
+	OPT_SKIP_VERIFY,
 
 	OPT_MAX_OPTS
 };
 
 static struct option long_options[] = {
 		{  "input",                  required_argument,   NULL,  'i'                        },
+		{  "config",                 required_argument,   NULL,  'c'                        },
+		{  "new-config",             required_argument,   NULL,  'C'                        },
 		{  "jobs",                   required_argument,   NULL,  'j'                        },
 		{  "help",                   no_argument,         NULL,  'h'                        },
 		{  "verbose",                no_argument,         NULL,  'v'                        },
@@ -71,6 +74,7 @@ static struct option long_options[] = {
 		{  "write-s2p-viewer-gain",  required_argument,   NULL,  OPT_WRITE_S2P_VIEWER_GAIN  },
 		{  "write-rdpat",            required_argument,   NULL,  OPT_WRITE_RDPAT            },
 		{  "write-currents",         required_argument,   NULL,  OPT_WRITE_CURRENTS         },
+		{  "skip-verify",            no_argument,         NULL,  OPT_SKIP_VERIFY            },
 
 		{  NULL,                     0,                   NULL,  0                          }
 	};
@@ -175,6 +179,11 @@ main (int argc, char *argv[])
 
   rc_config.input_file[0] = '\0';
 
+  /* Initialize default config file path */
+  char home[PATH_MAX];
+  get_conf_dir(home, sizeof(home));
+  snprintf(rc_config.config_file, sizeof(rc_config.config_file), "%s/%s", home, DEFAULT_CONFIG_FILE);
+
   // default to show warnings or more important errors.
   rc_config.verbose = 4;
 
@@ -187,6 +196,24 @@ main (int argc, char *argv[])
   {
     switch( option )
     {
+      case 'c': /* specify existing config file path */
+        if (access(optarg, R_OK) < 0) {
+          pr_crit("config file does not exist or is not readable: %s\n", optarg);
+          exit(-1);
+        }
+        /* fall through */
+      case 'C': /* specify new config file path */
+        {
+          size_t siz = sizeof( rc_config.config_file );
+          if( strlen(optarg) >= siz )
+          {
+            pr_crit("config file path too long ( > %d char )\n", (int)siz - 1);
+            exit(-1);
+          }
+          Strlcpy( rc_config.config_file, optarg, siz );
+        }
+        break;
+
       case 'i': /* specify input file name */
         {
           size_t siz = sizeof( rc_config.input_file );
@@ -286,6 +313,11 @@ main (int argc, char *argv[])
 
       case OPT_WRITE_CURRENTS:
         rc_config.filename_currents = optarg;
+        break;
+
+      case OPT_SKIP_VERIFY:
+        pr_notice("verify segments check disabled\n");
+        rc_config.skip_verify_segments = 1;
         break;
 
       default:
@@ -797,4 +829,3 @@ isChild(void)
 }
 
 /*------------------------------------------------------------------------*/
-

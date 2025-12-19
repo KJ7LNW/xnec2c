@@ -25,7 +25,7 @@
 #include "shared.h"
 #include <sys/stat.h>
 
-#define CONFIG_FILE     ".xnec2c/xnec2c.conf"
+#define DEFAULT_CONFIG_FILE     ".xnec2c/xnec2c.conf"
 
 typedef struct rc_config_vars_t {
 	size_t size;
@@ -51,5 +51,7 @@ typedef struct rc_config_vars_t {
 
 extern rc_config_vars_t rc_config_vars[];
 extern int num_rc_config_vars;
+
+char *get_conf_dir(char *s, int len);
 
 #endif

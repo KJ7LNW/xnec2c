@@ -22,5 +22,7 @@
 
 #include "common.h"
 
-#endif
+/* Function prototypes */
+gboolean verify_segments(void);
 
+#endif

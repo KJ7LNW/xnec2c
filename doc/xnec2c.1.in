@@ -12,7 +12,9 @@ a translation to C of the FORTRAN application NEC2
 .SH DESCRIPTION
 .PD 0
 .IP
-\-i|\-\-input <input\-file\-name>
+\-i|\-\-input         <input\-file\-name>
+\-c|\-\-config        <config\-file\-path>     \- file must exist
+\-C|\-\-new\-config    <new\-config\-file\-path> \- creates the file when missing
 .IP
 \-j|\-\-jobs  <number of processors in SMP machine> (-j0 disables forking)
 .IP
@@ -23,8 +25,6 @@ a translation to C of the FORTRAN application NEC2
    \-\-omp\-threads <n>       set OpenMP thread count (default: 1)
 .IP
 \-b|\-\-batch:        enable batch mode, exit after the frequency loop runs
-.IP
-   \-\-optimize:     Activate the optimizer immediately.
 .IP
 \-P|\-\-no\-pthreads:  disable pthreads and use the GTK loop for debugging
 .IP
@@ -38,20 +38,30 @@ a translation to C of the FORTRAN application NEC2
 .IP
 \-d|\-\-quiet:        suppress debug/verbose output
 .IP
+\-\-optimize:         Activate the optimizer immediately.
+.IP
+\-\-skip\-verify      skip geometry verification checks
+.PP
+.sp 2
+
 The following arguments write to an output file after the frequency loop completes.
-These are useful to combine with \-\-batch:
+These are useful to combine with \-\-batch; If you wish to specify filenames to write
+without \-\-batch mode then enable the File\->Optimizer Settings or the files you
+specify on the command line will not be written.
+
+.sp 2
 .IP
-  \-\-write\-csv             <filename>  \- write CSV file of measurements
+\-\-write\-csv             <filename>  \- write CSV file of measurements
 .IP
-  \-\-write\-s1p             <filename>  \- write S1P file of S\-parameters
+\-\-write\-s1p             <filename>  \- write S1P file of S\-parameters
 .IP
-  \-\-write\-s2p\-max\-gain    <filename>  \- write S2P file, port\-2 is max\-gain
+\-\-write\-s2p\-max\-gain    <filename>  \- write S2P file, port\-2 is max\-gain
 .IP
-  \-\-write\-s2p\-viewer\-gain <filename>  \- write S2P file, port\-2 is viewer\-gain
+\-\-write\-s2p\-viewer\-gain <filename>  \- write S2P file, port\-2 is viewer\-gain
 .IP
-  \-\-write\-rdpat           <filename>  \- write CSV of the radiation pattern
+\-\-write\-rdpat           <filename>  \- write CSV of the radiation pattern
 .IP
-  \-\-write\-currents        <filename>  \- write CSV of currents and charges
+\-\-write\-currents        <filename>  \- write CSV of currents and charges
 .IP
 .SH "SEE ALSO"
 Full documentation is available at the official website for xnec2c
@@ -66,4 +76,3 @@ program is properly installed at your site, a command like
 .B firefox /usr/share/doc/xnec2c/xnec2c.html
 .PP
 should give you access to the complete manual.
-
