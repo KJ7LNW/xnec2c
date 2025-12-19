@@ -1788,6 +1788,46 @@ needed then it is better to use the original NEC2 program, to avoid
 bugs that may still be lurking in the C translation.</p>
 <h2 id="Version">Version History (newest first)</h2>
 
+<h3>Version <span class="version-tag">4.4.18</span></h3>
+<p>This release focuses on mathlib enhancements, platform compatibility improvements for MacOS and Fedora, and crash prevention through input validation.
+
+<ul>
+	<li>Contributors:
+		<ul>
+			<li><span class="github-user">@vk1kcm</span> - MacOS testing, reported <a href="https://github.com/KJ7LNW/xnec2c/issues/73" target="_blank" rel="noopener noreferrer">#73</a>, tested MacOS build (<a href="https://github.com/KJ7LNW/xnec2c/issues/66" target="_blank" rel="noopener noreferrer">#66</a>)</li>
+			<li><span class="github-user">@likecabezon</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/70" target="_blank" rel="noopener noreferrer">#70</a></li>
+			<li>Richard Shaw - reported Fedora OpenMP build issue</li>
+		</ul>
+	</li>
+
+	<li>Features:
+		<ul>
+			<li>Thread count control via CLI options (<code>--openblas-threads</code>, <code>--mkl-threads</code>, <code>--omp-threads</code>)</li>
+			<li>MacOS MacPorts OpenBLAS support</li>
+			<li>Mathlib ID-based configuration for stable config persistence across version upgrades</li>
+		</ul>
+	</li>
+	<li>Bug Fixes:
+		<ul>
+			<li>Fix mathlib benchmark crash without loaded NEC2 file (<a href="https://github.com/KJ7LNW/xnec2c/issues/73" target="_blank" rel="noopener noreferrer">#73</a>)</li>
+			<li>Fix OpenMP linking in Fedora RPM builds</li>
+			<li>Fix strict-prototypes warning on macOS builds (<a href="https://github.com/KJ7LNW/xnec2c/issues/66" target="_blank" rel="noopener noreferrer">#66</a>)</li>
+			<li>Fix nearfield animation crash with missing NE/NH cards (<a href="https://github.com/KJ7LNW/xnec2c/issues/70" target="_blank" rel="noopener noreferrer">#70</a>)</li>
+		</ul>
+	</li>
+	<li>Documentation:
+		<ul>
+			<li>Thread control options documented in man page and HTML documentation</li>
+		</ul>
+	</li>
+	<li>Build system:
+		<ul>
+			<li>Fix CFLAGS handling in spec file to preserve OpenMP flags</li>
+		</ul>
+	</li>
+</ul>
+</p>
+
 <h3>Version <span class="version-tag">4.4.17</span></h3>
 <p>This release includes radiation pattern color legend enhancements, critical bug fixes for locale handling and CSV output, stability improvements, and build system updates.
 
