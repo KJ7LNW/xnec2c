@@ -1662,10 +1662,6 @@ verify_segment_overlaps(void)
 {
   gboolean retval = TRUE;
   for (int i = 0; i < data.n; i++) {
-    double xi = data.x2[i] - data.x1[i];
-    double yi = data.y2[i] - data.y1[i];
-    double zi = data.z2[i] - data.z1[i];
-
     for (int j = 0; j < data.n; j++) {
       if (i == j) continue;
       
