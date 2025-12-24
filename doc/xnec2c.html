@@ -11,33 +11,199 @@
 <meta name="ROBOTS" content="INDEX, FOLLOW">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="canonical" href="https://www.xnec2c.org/" />
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'translate');
+}
+
+if (location.protocol !== 'file:') {
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  document.head.appendChild(script);
+}
+</script>
+<script>
+window.addEventListener('load', function() {
+  const contributorsMap = new Map();
+
+  const countryInfo = {
+    '5B': { flag: '🇨🇾', name: 'Cyprus' },
+    'DC': { flag: '🇩🇪', name: 'Germany' },
+    'DF': { flag: '🇩🇪', name: 'Germany' },
+    'DL': { flag: '🇩🇪', name: 'Germany' },
+    'EI': { flag: '🇮🇪', name: 'Ireland' },
+    'A': { flag: '🇺🇸', name: 'United States' },
+    'K': { flag: '🇺🇸', name: 'United States' },
+    'W': { flag: '🇺🇸', name: 'United States' },
+    'N': { flag: '🇺🇸', name: 'United States' },
+    'G': { flag: '🇬🇧', name: 'United Kingdom' },
+    'EA': { flag: '🇪🇸', name: 'Spain' },
+    'IU': { flag: '🇮🇹', name: 'Italy' },
+    'KF': { flag: '🇺🇸', name: 'United States' },
+    'ON': { flag: '🇧🇪', name: 'Belgium' },
+    'SQ': { flag: '🇵🇱', name: 'Poland' },
+    'BH': { flag: '🇨🇳', name: 'China' },
+    'VK': { flag: '🇦🇺', name: 'Australia' },
+    'PA': { flag: '🇳🇱', name: 'Netherlands' },
+    'NL': { flag: '🇳🇱', name: 'Netherlands' },
+    'US': { flag: '🇺🇸', name: 'United States' }
+  };
+
+  function getCountryFromCallsign(callsign) {
+    if (!callsign) {
+      return null;
+    }
+    const prefixMatch = callsign.match(/^([A-Z0-9]+)/);
+    if (prefixMatch) {
+      const prefix = prefixMatch[1];
+      for (let i = prefix.length; i > 0; i--) {
+        const check = prefix.substring(0, i);
+        if (countryInfo[check]) {
+          return countryInfo[check];
+        }
+      }
+    }
+    return null;
+  }
+
+  function getFlagAndCountry(callsign, github, explicitCountry) {
+    if (explicitCountry && countryInfo[explicitCountry]) {
+      return { flag: countryInfo[explicitCountry].flag, country: countryInfo[explicitCountry].name };
+    }
+    const fromCallsign = getCountryFromCallsign(callsign);
+    if (fromCallsign) {
+      return { flag: fromCallsign.flag, country: fromCallsign.name };
+    }
+    if (github) {
+      return { flag: '🌐', country: 'GitHub' };
+    }
+    return { flag: '🏳️', country: 'Unknown' };
+  }
+
+  function buildTooltip(name, callsign, github, country, role) {
+    const parts = [name];
+    if (callsign) {
+      parts.push('Callsign: ' + callsign);
+    }
+    if (github) {
+      parts.push('GitHub: @' + github);
+    }
+    if (country) {
+      parts.push('Country: ' + country);
+    }
+    if (role) {
+      parts.push('Role: ' + role);
+    }
+    return parts.join('\n');
+  }
+
+  function renderContact(name, callsign, github, country, role) {
+    const container = document.createElement('span');
+    container.className = 'contact-rendered';
+    container.title = buildTooltip(name, callsign, github, country, role);
+
+    const nameIsGithub = github && name.toLowerCase() === github.toLowerCase();
+    const hasDistinctName = name && !nameIsGithub;
+
+    if (hasDistinctName) {
+      container.appendChild(document.createTextNode(name));
+      if (callsign || github) {
+        container.appendChild(document.createTextNode(', '));
+      }
+    }
+
+    if (callsign) {
+      const callLink = document.createElement('a');
+      callLink.href = 'https://www.qrz.com/db/' + callsign;
+      callLink.target = '_blank';
+      callLink.rel = 'noopener noreferrer';
+      callLink.className = 'callsign-link';
+      callLink.textContent = callsign;
+      container.appendChild(callLink);
+    }
+
+    if (github) {
+      if (callsign) {
+        container.appendChild(document.createTextNode(' ('));
+      }
+      const ghLink = document.createElement('a');
+      ghLink.href = 'https://github.com/' + github;
+      ghLink.target = '_blank';
+      ghLink.rel = 'noopener noreferrer';
+      ghLink.className = 'github-link';
+      ghLink.textContent = '@' + github;
+      container.appendChild(ghLink);
+      if (callsign) {
+        container.appendChild(document.createTextNode(')'));
+      }
+    }
+
+    return container;
+  }
+
+  document.querySelectorAll('.contact').forEach(el => {
+    const name = el.textContent.trim();
+    const callsign = el.dataset.callsign || null;
+    const github = el.dataset.github || null;
+    const country = el.dataset.country || null;
+    const role = el.dataset.role || null;
+
+    const flagInfo = getFlagAndCountry(callsign, github, country);
+    el.replaceWith(renderContact(name, callsign, github, flagInfo.country, role));
+
+    const dedupeKey = callsign || github || name;
+    if (!contributorsMap.has(dedupeKey)) {
+      contributorsMap.set(dedupeKey, {
+        name: name,
+        callsign: callsign,
+        github: github,
+        role: role,
+        flag: flagInfo.flag,
+        country: flagInfo.country
+      });
+    }
+  });
+
+  const sorted = Array.from(contributorsMap.values()).sort((a, b) => {
+    const aLower = a.name.toLowerCase().replace(/^@/, '');
+    const bLower = b.name.toLowerCase().replace(/^@/, '');
+    return aLower.localeCompare(bLower);
+  });
+
+  const list = document.getElementById('contributors-list');
+  if (list && sorted.length > 0) {
+    sorted.forEach(c => {
+      const li = document.createElement('li');
+      li.setAttribute('data-flag', c.flag);
+      li.appendChild(renderContact(c.name, c.callsign, c.github, c.country, c.role));
+      list.appendChild(li);
+    });
+  }
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // URL mapping configuration
   const urlMap = {
     'version-tag': 'https://github.com/KJ7LNW/xnec2c/tree/{value}',
     'commit-hash': 'https://github.com/KJ7LNW/xnec2c/commit/{value}',
     'issue-ref': 'https://github.com/KJ7LNW/xnec2c/issues/{value}',
-    'callsign': 'https://www.qrz.com/db/{value}',
-    'github-user': 'https://github.com/{value}',
     'filepath': 'https://github.com/KJ7LNW/xnec2c/tree/master/{value}'
   };
 
-  // Universal auto-linking function
   function createAutoLinks(className) {
     const template = urlMap[className];
-    if (!template) return;
+    if (!template) {
+      return;
+    }
 
     document.querySelectorAll('.' + className).forEach(function(el) {
       let value = el.textContent.trim();
 
-      // Special handling for different types
-      if (className === 'github-user') {
-        value = value.replace('@', '');
-      } else if (className === 'issue-ref') {
+      if (className === 'issue-ref') {
         value = value.replace('#', '');
-      } else if (className === 'version-tag') {
-        // Ensure version tags have 'v' prefix for the URL
+      }
+      else if (className === 'version-tag') {
         if (!value.startsWith('v')) {
           value = 'v' + value;
         }
@@ -53,7 +219,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Apply to all configured classes
   Object.keys(urlMap).forEach(createAutoLinks);
 });
 </script>
@@ -151,6 +316,14 @@ h4 {
   font-size: 1.25rem;
   font-weight: 600;
   margin: 1.5rem 0 0.75rem;
+}
+
+h5 {
+  color: var(--color-neutral);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
 }
 
 /* Links */
@@ -558,14 +731,26 @@ button:hover {
   font-weight: 500;
 }
 
-.callsign-link {
-  /* Callsigns are auto-linked to QRZ.com */
-  font-family: "Consolas", "Monaco", "Courier New", monospace;
-  color: var(--color-primary);
+/* Unified contact styling */
+.contact-rendered {
+  text-decoration: underline dotted;
+  text-decoration-color: var(--color-neutral-light);
+  text-underline-offset: 2px;
+  cursor: help;
 }
 
-.github-user-link {
-  /* GitHub usernames link to profiles */
+#contributors-list .contact-rendered {
+  text-decoration: none;
+  cursor: default;
+}
+
+.contact-rendered .callsign-link {
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.contact-rendered .github-link {
   font-family: "Consolas", "Monaco", "Courier New", monospace;
   color: var(--color-primary);
 }
@@ -678,6 +863,24 @@ nav, nav ol, nav ul, nav li, nav a {
   text-align: left;
 }
 
+/* Contributors list */
+#contributors-list {
+  columns: auto 200px;
+  column-gap: 2rem;
+  list-style: none;
+  padding-left: 0;
+}
+
+#contributors-list li {
+  padding-left: 2em;
+  text-indent: -2em;
+}
+
+#contributors-list li::before {
+  content: attr(data-flag) " ";
+  margin-right: 0.5em;
+}
+
 /* Clear floats after sections */
 h2, h3 {
   clear: both;
@@ -768,14 +971,6 @@ figcaption {
 </head>
 <body>
 
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'en'}, 'translate');
-}
-</script>
-
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 <div id="translate"></div>
 <h1>Xnec2c: Graphical NEC2 Antenna Simulation</h1>
 <figure>
@@ -784,13 +979,25 @@ function googleTranslateElementInit() {
 Xnec2c is a high-performance multi-threaded electromagnetic simulation
 package to model antenna near- and far-field radiation patterns
 for Linux and UNIX operating systems.  The original FORTRAN version of
-NEC2 was ported to C by <a target="_blank" rel="noopener noreferrer" href="https://www.5b4az.org/">Neoklis Kyriazis, <span class="callsign">5B4AZ</span></a> and released as nec2c.
+NEC2 was ported to C by <a target="_blank" rel="noopener noreferrer" href="https://www.5b4az.org/"><span class="contact" data-callsign="5B4AZ" data-role="author">Neoklis Kyriazis</span></a> and released as nec2c.
 Later he wrote xnec2c, a graphical interface for ease of use with
 many more features:
 
 <h2>Xnec2c Quick Start Guide</h2>
 
-<h3>Compilation</h3>
+<h3>Installation</h3>
+
+<p>Binary packages are available for quick installation:</p>
+
+<h4>Linux via Flathub</h4>
+<pre><code>flatpak install flathub org.xnec2c.Xnec2c</code></pre>
+<p>See <a target="_blank" rel="noopener noreferrer" href="https://flathub.org/en/apps/org.xnec2c.Xnec2c">Flathub xnec2c</a> for details. Thanks to <span class="contact" data-github="AsciiWolf">AsciiWolf</span> for providing this package in <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues/29">issue #29</a>.</p>
+
+<h4>macOS via MacPorts</h4>
+<pre><code>sudo port install xnec2c</code></pre>
+<p>See <a target="_blank" rel="noopener noreferrer" href="https://ports.macports.org/port/xnec2c/">MacPorts xnec2c</a> for details. Thanks to <span class="contact" data-callsign="VK1KCM" data-github="vk1kcm">Carl Makin</span> for providing this package in <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues/66">issue #66</a>.</p>
+
+<h4>Compilation</h4>
 <ul>
 <li><code>git clone https://github.com/KJ7LNW/xnec2c.git</code></li>
 <li><code>cd xnec2c</code></li>
@@ -801,9 +1008,9 @@ many more features:
 <li><code>xnec2c</code></li>
 </ul>
 
-<h3>Compilation Notes</h3>
+<h5>Compilation Notes</h5>
 
-If you prefer to download <span class="filepath">.tar.gz</span> files they are available on our
+If you prefer to download <code>.tar.gz</code> files they are available on our
 <a target="_blank" rel="noopener noreferrer" href="https://www.xnec2c.org/releases/?C=M;O=D">releases</a> page.
 
 <ul>
@@ -848,6 +1055,12 @@ If you prefer to download <span class="filepath">.tar.gz</span> files they are a
 to contribute to the xnec2c project then we would welcome your
 support and pull-requests at the
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c">official xnec2c GitHub repository</a>
+</p>
+
+<h4>Contributors</h4>
+<ul id="contributors-list"></ul>
+<p style="font-style: italic; font-size: 0.9em; margin-top: 1em;">
+If your name or country is not represented in the way that you would like to see it, please open a <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues">GitHub issue</a> and I will change it.
 </p>
 
 <h2>User's Manual</h2>
@@ -1021,8 +1234,10 @@ strip is shown in the <a href="#MainWindow">Main</a> and <a href=
 "#RadiationWindow">Radiation Pattern</a> windows.</p>
 <h2 id="Compilation">Compilation and Installation</h2>
 <p>
-Xnec2c is known to build on many different platforms including Linux
-and by using <a target="_blank" rel="noopener noreferrer" href="https://www.freshports.org/comms/xnec2c/">FreeBSD FRESH ports</a>.
+Binary packages are available via <a target="_blank" rel="noopener noreferrer" href="https://flathub.org/en/apps/org.xnec2c.Xnec2c">Flathub</a> for Linux (thanks to <span class="contact" data-github="AsciiWolf">AsciiWolf</span> in <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues/29">issue #29</a>),
+<a target="_blank" rel="noopener noreferrer" href="https://ports.macports.org/port/xnec2c/">MacPorts</a> for macOS (thanks to <span class="contact" data-callsign="VK1KCM" data-github="vk1kcm">Carl Makin</span> in <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues/66">issue #66</a>), and
+<a target="_blank" rel="noopener noreferrer" href="https://www.freshports.org/comms/xnec2c/">FreeBSD FRESH ports</a>.
+Xnec2c is known to build from source on many different platforms including Linux.
 If you have trouble building on your OS then please open a bug report.
 </p>
 <p>To compile the package, it may be preferable to first run the
@@ -1684,11 +1899,11 @@ of the packages for more information:
 		<strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/polyrod/xnec2c-gao/">Xnec2c-gao</a></strong>
 		is an external optimizer that uses a genetic algorithm to find
 		solutions in a multidimensional search space.  It is written in Haskell
-		by Maurizio Di Pietro, <span class="callsign">DC1MDP</span> and hosted on github.
+		by <span class="contact" data-callsign="DC1MDP">Maurizio Di Pietro</span> and hosted on github.
 	</li>
 	<li>
 		<strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c-optimize/">Xnec2c-optimize</a></strong>
-		is written in Perl by Eric, <span class="callsign">KJ7LNW</span> and hosted on github.</li>
+		is written in Perl by <span class="contact" data-callsign="KJ7LNW" data-role="maintainer">Eric Wheeler</span> and hosted on github.</li>
 	</ul>
 
 <h4>Activating <span class="filepath">.NEC</span> File Monitoring for Optimization</h4>
@@ -1806,9 +2021,9 @@ bugs that may still be lurking in the C translation.</p>
 <ul>
 	<li>Contributors:
 		<ul>
-			<li><span class="github-user">@vk1kcm</span> - MacOS testing, reported <a href="https://github.com/KJ7LNW/xnec2c/issues/73" target="_blank" rel="noopener noreferrer">#73</a>, tested MacOS build (<a href="https://github.com/KJ7LNW/xnec2c/issues/66" target="_blank" rel="noopener noreferrer">#66</a>)</li>
-			<li><span class="github-user">@likecabezon</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/70" target="_blank" rel="noopener noreferrer">#70</a></li>
-			<li>Richard Shaw - reported Fedora OpenMP build issue</li>
+			<li><span class="contact" data-callsign="VK1KCM" data-github="vk1kcm">Carl Makin</span> - MacOS testing, reported <a href="https://github.com/KJ7LNW/xnec2c/issues/73" target="_blank" rel="noopener noreferrer">#73</a>, tested MacOS build (<a href="https://github.com/KJ7LNW/xnec2c/issues/66" target="_blank" rel="noopener noreferrer">#66</a>)</li>
+			<li><span class="contact" data-github="likecabezon">likecabezon</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/70" target="_blank" rel="noopener noreferrer">#70</a></li>
+			<li><span class="contact" data-callsign="KF5OIM">Richard Shaw</span> - reported Fedora OpenMP build issue</li>
 		</ul>
 	</li>
 
@@ -1846,15 +2061,15 @@ bugs that may still be lurking in the C translation.</p>
 <ul>
 	<li>Contributors:
 		<ul>
-			<li>Ian <span class="callsign">G4IXT</span> (<span class="github-user">@g4ixt</span>) - color legend suggestions, reported <a href="https://github.com/KJ7LNW/xnec2c/issues/61" target="_blank" rel="noopener noreferrer">#61</a></li>
-			<li>Neoklis <span class="callsign">5B4AZ</span> (<span class="github-user">@neoklis</span>) - technical guidance on current scaling (<a href="https://github.com/KJ7LNW/xnec2c/issues/61" target="_blank" rel="noopener noreferrer">#61</a>)</li>
-			<li>Devin Bayer (<span class="github-user">@akvadrako</span>) - fixed double-free crash in geometry editor (<a href="https://github.com/KJ7LNW/xnec2c/pull/67" target="_blank" rel="noopener noreferrer">#67</a>)</li>
-			<li><span class="github-user">@hamarituc</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/59" target="_blank" rel="noopener noreferrer">#59</a></li>
-			<li><span class="github-user">@ProtonTheFox</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/44" target="_blank" rel="noopener noreferrer">#44</a>, <a href="https://github.com/KJ7LNW/xnec2c/issues/45" target="_blank" rel="noopener noreferrer">#45</a></li>
-			<li><span class="github-user">@likecabezon</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/68" target="_blank" rel="noopener noreferrer">#68</a></li>
-			<li>Jerry <span class="callsign">KF7RCC</span> (<span class="github-user">@jerryd</span>) - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/52" target="_blank" rel="noopener noreferrer">#52</a></li>
-			<li><span class="github-user">@polprog</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/50" target="_blank" rel="noopener noreferrer">#50</a></li>
-			<li><span class="github-user">@roberthadow</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/47" target="_blank" rel="noopener noreferrer">#47</a></li>
+			<li><span class="contact" data-callsign="G4IXT" data-github="g4ixt">Ian</span> - color legend suggestions, reported <a href="https://github.com/KJ7LNW/xnec2c/issues/61" target="_blank" rel="noopener noreferrer">#61</a></li>
+			<li><span class="contact" data-callsign="5B4AZ" data-github="neoklis" data-role="author">Neoklis Kyriazis</span> - technical guidance on current scaling (<a href="https://github.com/KJ7LNW/xnec2c/issues/61" target="_blank" rel="noopener noreferrer">#61</a>)</li>
+			<li><span class="contact" data-github="akvadrako">Devin Bayer</span> - fixed double-free crash in geometry editor (<a href="https://github.com/KJ7LNW/xnec2c/pull/67" target="_blank" rel="noopener noreferrer">#67</a>)</li>
+			<li><span class="contact" data-github="hamarituc">hamarituc</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/59" target="_blank" rel="noopener noreferrer">#59</a></li>
+			<li><span class="contact" data-github="ProtonTheFox">ProtonTheFox</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/44" target="_blank" rel="noopener noreferrer">#44</a>, <a href="https://github.com/KJ7LNW/xnec2c/issues/45" target="_blank" rel="noopener noreferrer">#45</a></li>
+			<li><span class="contact" data-github="likecabezon">likecabezon</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/68" target="_blank" rel="noopener noreferrer">#68</a></li>
+			<li><span class="contact" data-callsign="KF7RCC" data-github="jerryd">Jerry</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/52" target="_blank" rel="noopener noreferrer">#52</a></li>
+			<li><span class="contact" data-github="polprog">polprog</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/50" target="_blank" rel="noopener noreferrer">#50</a></li>
+			<li><span class="contact" data-github="roberthadow">roberthadow</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/47" target="_blank" rel="noopener noreferrer">#47</a></li>
 		</ul>
 	</li>
 
@@ -1917,20 +2132,20 @@ bugs that may still be lurking in the C translation.</p>
 <li>Code cleanups and improvements</li>
 <li>Contributors:
 	<ul>
-	<li>Diane Bruce - inspired code cleanup and helped with pull requests</li>
-	<li>Dave Hibberd (<span class="github-user">@Hibby</span>) - Debian maintainer who helped troubleshoot and provide guidance in solving the sparc64 build issue</li>
+	<li><span class="contact">Diane Bruce</span> - inspired code cleanup and helped with pull requests</li>
+	<li><span class="contact" data-github="Hibby" data-role="Debian maintainer">Dave Hibberd</span> - Debian maintainer who helped troubleshoot and provide guidance in solving the sparc64 build issue</li>
 	</ul>
 </li>
 </ul>
 
 <h3>Version <span class="version-tag">4.4.15</span></h3>
 <p>This release fixes a crash related to a GTK icon problem.
-Thanks to <span class="github-user">@AsciiWolf</span> for helping report and troubleshoot the issue.
+Thanks to <span class="contact" data-github="AsciiWolf">AsciiWolf</span> for helping report and troubleshoot the issue.
 </p>
 
 <h3>Version <span class="version-tag">4.4.14</span></h3>
 <p>This release fixes a hang when the frequency plots window is too small
-for the number of plots being rendered.  Thanks to Tom <span class="callsign">DL1JBE</span> who reported
+for the number of plots being rendered.  Thanks to <span class="contact" data-callsign="DL1JBE" data-role="Gentoo maintainer">Tom</span> who reported
 the issue.
 </p>
 
@@ -1942,13 +2157,13 @@ features and bug fixes, in order of contribution:
 <ul>
 	<li>Contributors:
 		<ul>
-			<li>Neoklis <span class="callsign">5B4AZ</span></li>
-			<li>Rafal Lukawiecki <span class="callsign">EI6LA</span></li>
-			<li><span class="github-user">@ndim</span></li>
-			<li><span class="github-user">@anoduck</span></li>
-			<li><span class="github-user">@rklasen</span></li>
-			<li>Ward, <span class="callsign">AE6TY</span></li>
-			<li><span class="github-user">@ChrisMaple</span></li>
+			<li><span class="contact" data-callsign="5B4AZ" data-role="author">Neoklis Kyriazis</span></li>
+			<li><span class="contact" data-callsign="EI6LA">Rafal Lukawiecki</span></li>
+			<li><span class="contact" data-github="ndim">ndim</span></li>
+			<li><span class="contact" data-github="anoduck">anoduck</span></li>
+			<li><span class="contact" data-github="rklasen">rklasen</span></li>
+			<li><span class="contact" data-callsign="AE6TY">Ward</span></li>
+			<li><span class="contact" data-github="ChrisMaple">ChrisMaple</span></li>
 		</ul>
 	</li>
 
@@ -1957,7 +2172,7 @@ features and bug fixes, in order of contribution:
 			<li>Save window positions when they are closed</li>
 			<li>Tile rdpattern and freqplot windows on first run</li>
 			<li>Default the Radiation Pattern "Gain Pattern" to be enabled</li>
-			<li>Officially support OpenBSD, thanks <span class="github-user">@anoduck</span> for testing</li>
+			<li>Officially support OpenBSD, thanks <span class="contact" data-github="anoduck">anoduck</span> for testing</li>
 			<li>Add save radiation pattern to CSV</li>
 			<li>Add save currents and charges to CSV</li>
 		</ul>
@@ -1971,10 +2186,10 @@ features and bug fixes, in order of contribution:
 	<li>Bug Fixes:
 		<ul>
 			<li>Fixed deadlock when the frequency loop is running and a window is</li>
-			  closed. Thanks to Neoklis <span class="callsign">5B4AZ</span> for discovering the problem and proposing</li>
+			  closed. Thanks to <span class="contact" data-callsign="5B4AZ" data-role="author">Neoklis Kyriazis</span> for discovering the problem and proposing</li>
 			  a solution.</li>
 			<li>Fixed edge case where structure window does not redraw on save. Thanks</li>
-			  to Neoklis <span class="callsign">5B4AZ</span> for discovering the problem and providing a fix.</li>
+			  to <span class="contact" data-callsign="5B4AZ" data-role="author">Neoklis Kyriazis</span> for discovering the problem and providing a fix.</li>
 			<li>Fix blank plots, structures and radiation pattern when Quit is pressed.</li>
 			<li>Open the Frequency Plots window when Optimization is enabled</li>
 			<li>Auto-run freq loop when optimization is enabled</li>
@@ -1986,16 +2201,16 @@ features and bug fixes, in order of contribution:
 			<li>Fix Coverity Scan warning about a tainted value used in <code class="language-c">malloc()</code></li>
 			<li>Fix a Coverity Scan report about a "Forward NULL"</li>
 			<li>Convert double-locking synchronization to use a condition</li>
-			  variable. Thanks to <span class="github-user">@anoduck</span> for testing and reporting the issue in the</li>
+			  variable. Thanks to <span class="contact" data-github="anoduck">anoduck</span> for testing and reporting the issue in the</li>
 			  process of adding OpenBSD support.</li>
 			<li>Fix warning: while loop has empty body</li>
 			<li>Fix real/imag swap</li>
 			<li>rdpat csv: reset <var>φ</var> on each frequency iteration</li>
-			<li>fix integer overflow in frequency selection, thanks to <span class="github-user">@rklasen</span>.</li>
-			<li>Fix sommerfeld ground excitement issue. Thanks to Ward, <span class="callsign">AE6TY</span> for</li>
+			<li>fix integer overflow in frequency selection, thanks to <span class="contact" data-github="rklasen">rklasen</span>.</li>
+			<li>Fix sommerfeld ground excitement issue. Thanks to <span class="contact" data-callsign="AE6TY">Ward</span> for</li>
 			  reporting the bug and writing a fix.</li>
 			<li>Fix off-by-one array index</li>
-			<li>Fix sprintf truncation when plotting. Thanks to <span class="github-user">@ChrisMaple</span> for</li>
+			<li>Fix sprintf truncation when plotting. Thanks to <span class="contact" data-github="ChrisMaple">ChrisMaple</span> for</li>
 			  reporting this issue.</li>
 			<li>Delay clicked frequency calculation while a freq loop is running</li>
 			<li>Fix beeps on GTK field overflow</li>
@@ -2003,7 +2218,7 @@ features and bug fixes, in order of contribution:
 	</li>
 	<li>Build system:
 		<ul>
-			<li>Huge autoconf and buildsystem refactor by <span class="github-user">@ndim</span></li>
+			<li>Huge autoconf and buildsystem refactor by <span class="contact" data-github="ndim">ndim</span></li>
 			<li>Updated autoconf to detect Mac OS X properly</li>
 			<li>Fix Debian Lintian desktop-mime-but-no-exec-code</li>
 			<li>Removed more LMID references</li>
@@ -2012,7 +2227,7 @@ features and bug fixes, in order of contribution:
 			<li>Add g_module_supported detection</li>
 			<li>Added OARS metadata into AppStream</li>
 			<li>Updated autoconf to detect Mac OS X and set LDFLAGS
-			accordingly. Big thanks to Rafal Lukawiecki <span class="callsign">EI6LA</span> for helping
+			accordingly. Big thanks to <span class="contact" data-callsign="EI6LA">Rafal Lukawiecki</span> for helping
 			troubleshoot and get xnec2c building on OSX.</li>
 		</ul>
 	</li>
@@ -2045,14 +2260,14 @@ maintenance items, with a few new features as well:
 	<ul>
 	<li>Fixed octal representation of <code>0755</code> when creating <span class="filepath">~/.xnec2c/</span></li>
 	<li>Added directory permission hotfix for users affected by <span class="commit-hash">4e62893b</span></li>
-	<li>Do not invalidate current data when radiation pattern is enabled; Thanks to Gian Luigi for reporting this bug and providing <span class="filepath">.nec</span> file samples to reproduce the problem.</li>
-	<li>Check if radiation pattern was calculated before using the <code class="nec-card">RP</code> data,  Thanks to Gian Luigi for reporting this bug, too.</li>
+	<li>Do not invalidate current data when radiation pattern is enabled; Thanks to <span class="contact">Gian Luigi</span> for reporting this bug and providing <span class="filepath">.nec</span> file samples to reproduce the problem.</li>
+	<li>Check if radiation pattern was calculated before using the <code class="nec-card">RP</code> data,  Thanks to <span class="contact">Gian Luigi</span> for reporting this bug, too.</li>
 	<li>Added fallback PATH_MAX if undefined, like for GNU/Hurd.</li>
 	<li>optimizer: prevent loading zero-byte files</li>
 	<li>Disable optimizer if inotify is missing, this should fix xnec2c builds on BSD.</li>
 	<li>Fixed printf <code>size_t</code> warnings on 32-bit architectures</li>
-	<li>Fix type errors with <code>glib 2.73</code> and later, Thanks to the Debian maintainer Christoph Berg, <span class="callsign">DF7CB</span>, for his work to troubleshot and test this!</li>
-	<li>Fixed segfault when mathlib_idx or mathlib_batch_idx is out of range. Thanks to Christoph Berg, <span class="callsign">DF7CB</span> for reporting this.</li>
+	<li>Fix type errors with <code>glib 2.73</code> and later, Thanks to the Debian maintainer <span class="contact" data-callsign="DF7CB" data-role="Debian maintainer">Christoph Berg</span>, for his work to troubleshot and test this!</li>
+	<li>Fixed segfault when mathlib_idx or mathlib_batch_idx is out of range. Thanks to <span class="contact" data-callsign="DF7CB" data-role="Debian maintainer">Christoph Berg</span> for reporting this.</li>
 	<li>Only write optimizer data if FREQ_LOOP_DONE</li>
 	<li>Updated <span class="filepath">xnec2c.spec</span> to reference the right dependencies in el8.</li>
 	</ul>
@@ -2062,10 +2277,10 @@ maintenance items, with a few new features as well:
 	<li>Renamed files with a : in them so checkouts will work in Windows.</li>
 	<li>Updated frequency calculation timing output.</li>
 	<li>mathlib: fixed duplicate BLAS detection, removed LMID support, simplified console output</li>
-	<li>Several spelling fixes, thanks to Daniele Forsi, <span class="callsign">IU5HKX</span> (<span class="github-user">@dforsi</span> on github)!</li>
-	<li>Fix cross compilation issues, Thanks Michal Vasilek!</li>
+	<li>Several spelling fixes, thanks to <span class="contact" data-callsign="IU5HKX" data-github="dforsi">Daniele Forsi</span>!</li>
+	<li>Fix cross compilation issues, Thanks <span class="contact">Michal Vasilek</span>!</li>
 	<li>Updated quickstart documentation</li>
-	<li>Removed LMID checks from <span class="filepath">configure.ac</span>; again, Thanks Michal Vasilek!</li>
+	<li>Removed LMID checks from <span class="filepath">configure.ac</span>; again, Thanks <span class="contact">Michal Vasilek</span>!</li>
 	<li>Re-ordered change history in this document so the newest versions are on top</li>
 	</ul>
 </li>
@@ -2087,21 +2302,21 @@ the <code>-devel</code> package is not installed.</li>
 for package info.</li>
 <li>Added <span class="filepath">xnec2c.spec</span> for RPM-based builds!  Just <code>rpmbuild -bb xnec2c.spec</code> to create an RPM.  You will need to place the latest
 <span class="filepath">.tar.gz</span> file in <span class="filepath">~/rpmbuild/SOURCES</span> or run <code>spectool -g -R xnec2c.spec</code>
-to download them for you. Thanks to Richard Shaw <span class="callsign">KF5OIM</span> for reviewing
+to download them for you. Thanks to <span class="contact" data-callsign="KF5OIM">Richard Shaw</span> for reviewing
 the <span class="filepath">.spec</span> file!</li>
 <li>Added include of <code>locale.h</code> to fix building under <code>musl-libc</code>. Thanks
-to Tom <span class="callsign">DL1JBE</span> for pointing this out and testing the fix!</li>
+to <span class="contact" data-callsign="DL1JBE" data-role="Gentoo maintainer">Tom</span> for pointing this out and testing the fix!</li>
 </ul>
 </p>
 
 
 <h3>Version <span class="version-tag">4.4.10</span></h3>
-<p>Fixed crash caused memory allocation off-by-one error.  Thanks to Juan Pablo García, <span class="callsign">EA4CIV</span> for reporting the bug!
+<p>Fixed crash caused memory allocation off-by-one error.  Thanks to <span class="contact" data-callsign="EA4CIV">Juan Pablo García</span> for reporting the bug!
 </p>
 
 
 <h3>Version <span class="version-tag">4.4.9</span></h3>
-<p>Minor fixes, both reported and tested by Juan Pablo García, <span class="callsign">EA4CIV</span>.  Thanks for your help!
+<p>Minor fixes, both reported and tested by <span class="contact" data-callsign="EA4CIV">Juan Pablo García</span>.  Thanks for your help!
 <ul>
 <li>
 Fixed S<sub>11</sub> phase angle calculation for graphs and touchstone file export.
@@ -2119,7 +2334,7 @@ decimal point to another with comma for decimal point, or vice-versa.
 <p>This is a minor maintenance release.
 <ul>
 <li>Fixed buffer overflow in the temp string used in <code class="language-c">mem_write_format()</code>,
-thanks to Juan Pablo García, <span class="callsign">EA4CIV</span> for reporting the bug while testing
+thanks to <span class="contact" data-callsign="EA4CIV">Juan Pablo García</span> for reporting the bug while testing
 touchstone file output.</li>
 <li>Changed default Save-As filenames to resemble the original <span class="filepath">.nec</span> filename where appropriate.</li>
 <li>Avoid EM calculation if the selected frequency step (when you
@@ -2138,14 +2353,14 @@ frequency plots window.  Touchstone files are used by professional RF
 software packages like Microwave Office, Sonnet, and others.   Now xnec2c
 can export <span class="filepath">.s1p</span> and <span class="filepath">.s2p</span> files to be used with those software packages.
 S<sub>11</sub> is the same as return loss, reflection and <span class="filepath">.s1p</span> files provide
-single-port data.  Thanks to Juan Pablo García, <span class="callsign">EA4CIV</span> for suggesting this
+single-port data.  Thanks to <span class="contact" data-callsign="EA4CIV">Juan Pablo García</span> for suggesting this
 feature.
 </li>
 <li>Converted frequency plot gnuplot output to include all columns. Now
-all columns are available in the <span class="filepath">.gnuplot</span> file.  Thanks to <span class="github-user">@scaramacai</span>
+all columns are available in the <span class="filepath">.gnuplot</span> file.  Thanks to <span class="contact" data-github="scaramacai">scaramacai</span>
 on github for the initial work on this conversion.</li>
 <li>Added auto-detection of <code>musl-libc</code> so it will compile for users
-with <code>musl-libc</code>. Thanks to Tom, <span class="callsign">DL1JBE</span> at Gentoo for suggesting and testing
+with <code>musl-libc</code>. Thanks to <span class="contact" data-callsign="DL1JBE" data-role="Gentoo maintainer">Tom</span> at Gentoo for suggesting and testing
 this change.</li>
 <li>See the github changelog for the lovely details.</li>
 </ul>
@@ -2177,8 +2392,7 @@ Detailed descriptions are available in the git log.
 
 <h3>Version <span class="version-tag">4.4.5</span></h3>
 <ul>
-<li>Corrected Im(-z) plotting on the Smith chart, it was plotting upside-down.  Thanks to Juan Pablo
-    García <span class="callsign">EA4CIV</span> for pointing this out.</li>
+<li>Corrected Im(-z) plotting on the Smith chart, it was plotting upside-down.  Thanks to <span class="contact" data-callsign="EA4CIV">Juan Pablo García</span> for pointing this out.</li>
 <li>Updated examples with corrections from Neoklis related to ground configuration.</li>
 <li>Updated GCC/Clang compiler optimization settings for better compatibility.</li>
 </ul>
@@ -2222,7 +2436,7 @@ the entire plot space.
 	mouse-wheel scrolling to resize plots with multiple <code class="nec-card">FR</code> cards.</li>
 	<li>Fixed Frequency_Loop race conditions causing access to uninitialized data that
 	were seen as flickering while running the frequency loop, or as incomplete plot drawings.</li>
-	<li>Added strerror on failed file open for <span class="github-user">@m-anish</span> on github to
+	<li>Added strerror on failed file open for <span class="contact" data-github="m-anish">m-anish</span> on github to
 	troubleshoot error opening <span class="filepath">xnec2c.conf</span>. </li>
 	<li>Refactored memory handling routines to bypass <code>realloc()</code> if possible.  This increases
 	performance slightly, reduces heap thrashing, increases stability by clearing memory
@@ -2262,8 +2476,8 @@ the entire plot space.
 
 <h3>Version <span class="version-tag">4.3.4</span></h3>
 <ul>
-	<li>Fixed slow <code>sync()</code> issue by replacing it with <code>fsync()</code>.  Thanks to <span class="github-user">@bbarenblat</span> on github.</li>
-	<li>Fixed typos and spelling errors throughout the application, thanks to <span class="github-user">@dforsi</span> on github.</li>
+	<li>Fixed slow <code>sync()</code> issue by replacing it with <code>fsync()</code>.  Thanks to <span class="contact" data-github="bbarenblat">bbarenblat</span> on github.</li>
+	<li>Fixed typos and spelling errors throughout the application, thanks to <span class="contact" data-callsign="IU5HKX" data-github="dforsi">Daniele Forsi</span> on github.</li>
 	<li>Updated documentation and added official website links</li>
 </ul>
 
@@ -2297,7 +2511,7 @@ is done writing the <span class="filepath">.nec.csv</span> file.</li>
 
 <h3>Version <span class="version-tag">4.3</span></h3>
 <ul>
-<li>Changed maintainer to Eric Wheeler, <span class="callsign">KJ7LNW</span></li>
+<li>Changed maintainer to <span class="contact" data-callsign="KJ7LNW" data-role="maintainer">Eric Wheeler</span></li>
 <li>Moved xnec2c to github: <a href="https://github.com/KJ7LNW/xnec2c">https://github.com/KJ7LNW/xnec2c</a></li>
 <li>Major refactor of the plotting code:
 	<ul>
@@ -2359,13 +2573,13 @@ avoided.</p>
 
 
 <h3>Version <span class="version-tag">4.1.5</span></h3>
-<p>After an inquiry by Eric Wheeler <span class="callsign">KJ7LNW</span>
+<p>After an inquiry by <span class="contact" data-callsign="KJ7LNW" data-role="maintainer">Eric Wheeler</span>
 regarding the use of the <code class="nec-card">GH</code> card to create spirals, I found a bug
 that caused the <code class="nec-card">GH</code> editor to delete the <code class="nec-card">GH</code> entry in NEC2 Editor's
 treeview. I also found a bug that caused the number of turns of a
 spiral to be rounded to the nearest integer. Both bugs have been
 fixed in this version.</p>
-<p>Further, to aid Eric Wheeler <span class="callsign">KJ7LNW</span> to develop his Simplex
+<p>Further, to aid <span class="contact" data-callsign="KJ7LNW" data-role="maintainer">Eric Wheeler</span> to develop his Simplex
 automatic Optimizer, I added code to monitor, with inotify, the
 <span class="filepath">.nec</span> input file and to trigger recalculation and plotting of
 frequency dependent data, while at the same time printing to file
@@ -2379,7 +2593,7 @@ progress.</p>
 
 <h3>Version <span class="version-tag">4.1.4</span></h3>
 <p>Added the <code>stdint.h</code> include file to
-<span class="filepath">src/common.h</span> to fix a compilation error reported by Nick <span class="callsign">G3VNC</span>.</p>
+<span class="filepath">src/common.h</span> to fix a compilation error reported by <span class="contact" data-callsign="G3VNC">Nick</span>.</p>
 
 
 <h3>Version <span class="version-tag">4.1.3</span></h3>
@@ -2494,7 +2708,7 @@ new <code class="nec-card">ZO</code> NEC2 "card" to specify transmission line im
 
 
 <h3>Version <span class="version-tag">3.6.1-beta</span></h3>
-<p>After a request by Don Walters <span class="callsign">W9DKI</span>
+<p>After a request by <span class="contact" data-callsign="W9DKI">Don Walters</span>
 I modified the <span class="filepath">resources/xnec2c.glade</span> file to reduce the default size of the
 drawing areas as they would not fit in displays with reduced
 resolution. I also removed some legacy code, left over from the
@@ -2517,9 +2731,9 @@ testing is difficult, I am releasing this version as a beta.</p>
 
 
 <h3>Version <span class="version-tag">3.5.1</span></h3>
-<p>After a request by Fan Jun <span class="callsign">BH1SCW</span>, I
+<p>After a request by <span class="contact" data-callsign="BH1SCW">Fan Jun</span>, I
 replaced the original makeshift desktop icon with one provided by
-Serge <span class="callsign">ON4AA</span>.</p>
+<span class="contact" data-callsign="ON4AA">Serge</span>.</p>
 
 
 <h3>Version <span class="version-tag">3.5</span></h3>
@@ -2606,7 +2820,7 @@ the <code class="nec-card">GN</code> card, was processed.</p>
 
 
 <h3>Version <span class="version-tag">2.7</span></h3>
-<p>After a bug report by Tim, <span class="callsign">WJ5Q</span>, I fixed a
+<p>After a bug report by <span class="contact" data-callsign="WJ5Q">Tim</span>, I fixed a
 bug that was preventing the creation of an <code class="nec-card">LD</code> card of type 5
 (<code>LDTYP=5</code>) when wire conductivity (S/m) was specified in the <code class="nec-card">GW</code> card
 (Wire) editor. The same bug was present in the <code class="nec-card">GH</code> (Helix) card
@@ -2619,7 +2833,7 @@ that was reported by the scanner, in the <span class="filepath">src/plot_freqdat
 
 
 <h3>Version <span class="version-tag">2.6</span></h3>
-<p>After a bug report by Lucjan <span class="callsign">SQ9VPA</span>, I
+<p>After a bug report by <span class="contact" data-callsign="SQ9VPA">Lucjan</span>, I
 changed the case of the signal handler that deals with <code class="signal">SIGCHLD</code> so
 that it doesn't cause xnec2c to exit when the <code class="signal">SIGCHLD</code> signal does
 not originate from child processes created by xnec2c. It appears
@@ -2629,7 +2843,7 @@ the command line.</p>
 
 
 <h3>Version <span class="version-tag">2.5</span></h3>
-<p>After a bug report by Jean Collin, I made
+<p>After a bug report by <span class="contact">Jean Collin</span>, I made
 some changes to the input file parser code in <span class="filepath">src/input.c</span>, to properly
 identify tabs in the input file.</p>
 
@@ -2687,7 +2901,7 @@ meaningless.</p>
 <p>I have introduced many changes in this
 version, so I am releasing it again as a public beta version for
 testing and bug reports:</p>
-<p>After a bug report by David J. Singer, I changed all declarations
+<p>After a bug report by <span class="contact">David J. Singer</span>, I changed all declarations
 of variables that are used in memory allocations, from <code>int</code> to
 <code>size_t</code>. This error was in the nec2c code from the beginning but
 apparently it only showed up when extremely large memory
@@ -2696,7 +2910,7 @@ allocations are requested in nec2c and xnec2c.</p>
 equivalent Cairo graphics equivalents (e.g.&nbsp;replaced
 <code class="language-c">gdk_draw_line()</code> with <code class="language-c">cairo_line_to()</code>) since Cairo provides for
 nicer anti-aliased drawing.</p>
-<p>After a feature request by David J. Singer and friend Richard, I
+<p>After a feature request by <span class="contact">David J. Singer</span> and friend Richard, I
 have added code to save data of the structure display, radiation
 patterns and frequency plots into file, in a format suitable for
 the <code>gnuplot</code> plotting program.</p>
@@ -2732,14 +2946,14 @@ arguments so that the input file name may be specified without the
 use of the <code>-i</code> option. In this case xnec2c will take the last
 argument to be the input file name, but only if it has the <span class="filepath">.nec</span>
 extension.Got rid of some variables that were set but not used, according to
-warnings given by gcc.Applied a patch supplied by Rik van Riel to allow the calculation
+warnings given by gcc.Applied a patch supplied by <span class="contact" data-callsign="AB1KW" data-github="rikvanriel">Rik van Riel</span> to allow the calculation
 of front to back ratios when the antenna is modeled over
 ground.</p>
 
 
 <h3>Version <span class="version-tag">1.4</span></h3>
 <p>Applied a patch supplied by Tom Beierlein,
-<span class="callsign">DL1JBE</span>, to fix crashing of xnec2c <span class="version-tag">v1.3</span> on long input file names
+<span class="contact" data-callsign="DL1JBE" data-role="Gentoo maintainer">Tom</span>, to fix crashing of xnec2c <span class="version-tag">v1.3</span> on long input file names
 (&gt; 80 characters).</p>
 
 
@@ -2794,7 +3008,7 @@ failed for some reason.</p>
 
 
 <h3>Version <span class="version-tag">1.0b4</span></h3>
-<p>After a bug report from Juha Vierinen I
+<p>After a bug report from <span class="contact">Juha Vierinen</span> I
 changed some <code class="language-c">sprintf</code> commands to <code class="language-c">snprintf</code> to avoid buffer
 overruns.</p>
 
@@ -2934,7 +3148,7 @@ rather complex and introduced many bugs that were fixed, but it is
 always possible that a combination of some input file with an
 untested sequence of user actions may trigger a hidden bug. Such a
 case in fact did appear and it was traced to a bug in the original
-NEC2 code. This has been fixed by G. Burke and the fix has been
+NEC2 code. This has been fixed by <span class="contact" data-country="US" data-role="original NEC2 author">Gerald J. Burke</span> (Lawrence Livermore National Laboratory, original FORTRAN NEC2 author) and the fix has been
 incorporated in nec2c and xnec2c. See the <span class="filepath">doc/NEC2-bug.txt</span> file for
 details.</p>
 <p>When xnec2c was made multi-threading, a lot of bugs appeared and
@@ -2961,7 +3175,7 @@ this problem!</p>
 <footer role="contentinfo">
 <h2 id="Acknowledgement">Acknowledgment</h2>
 <p>
-Some of the code in xnec2c is based on Pieter-Tjerk de Boer's
+Some of the code in xnec2c is based on <span class="contact" data-callsign="PA3FWM" data-role="xnecview author">Pieter-Tjerk de Boer</span>'s
 "xnecview" application, which visualizes NEC2's input and output
 files. The general 'look and feel" of xnec2c was also influenced by
 the same application.</p>

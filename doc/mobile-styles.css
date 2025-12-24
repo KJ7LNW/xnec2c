@@ -381,6 +381,21 @@ pre.has-horizontal-scroll::after {
   .command-options dd {
     margin-left: 1rem;
   }
+
+  /* Contributors list - prevent flag/callsign overlap */
+  #contributors-list li {
+    display: flex;
+    align-items: baseline;
+    padding-left: 0;
+    text-indent: 0;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  #contributors-list li::before {
+    flex-shrink: 0;
+    min-width: 1.2em;
+  }
 }
 
 /* Tablet to Desktop Transition (769px - 1024px) */
