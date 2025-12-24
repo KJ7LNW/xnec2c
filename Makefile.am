@@ -40,7 +40,20 @@ SED_CMDS += -e 's|[@]PACKAGE_VERSION@|$(PACKAGE_VERSION)|g'
 ########################################################################
 
 applicationsdir        = $(datarootdir)/applications
+
+if HAVE_PROG_MSGFMT
+files/xnec2c.desktop: $(srcdir)/files/xnec2c.desktop.in $(wildcard $(top_srcdir)/po/*.po)
+	$(MSGFMT) --desktop --template=$(srcdir)/files/xnec2c.desktop.in \
+	  -d $(top_srcdir)/po \
+	  -o $@
+else
+files/xnec2c.desktop: $(srcdir)/files/xnec2c.desktop.in
+	cp $(srcdir)/files/xnec2c.desktop.in $@
+endif
+
 dist_applications_DATA = files/xnec2c.desktop
+
+CLEANFILES += files/xnec2c.desktop
 
 appiconsdir            = $(datarootdir)/icons/hicolor/256x256/apps
 dist_appicons_DATA     = files/xnec2c.png
@@ -77,6 +90,7 @@ dist_doc_DATA  =
 dist_doc_DATA += doc/NEC2-bug.txt
 dist_doc_DATA += doc/NearFieldCalcs.txt
 dist_doc_DATA += doc/nec2c.txt
+dist_doc_DATA += doc/TRANSLATING.md
 dist_doc_DATA += doc/xnec2c.html
 
 docimagesdir = $(docdir)/images
@@ -361,3 +375,12 @@ SUFFIXES += .spec.in .spec
 .spec.in.spec:
 	@$(MKDIR_P) $(@D)
 	$(SED) $(SED_CMDS) < $< > $@
+
+########################################################################
+# Translation maintenance targets
+########################################################################
+
+update-po:
+	$(MAKE) -C po update-po
+
+.PHONY: update-po

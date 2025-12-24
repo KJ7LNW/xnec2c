@@ -158,6 +158,10 @@ main (int argc, char *argv[])
   mem_alloc((void**)&orig_numeric_locale, strlen(l)+1, __LOCATION__);
   strcpy(orig_numeric_locale, l);
 
+  // Initialize gettext for internationalization
+  bindtextdomain(PACKAGE, PROGRAMNAME_LOCALEDIR);
+  textdomain(PACKAGE);
+
   /* Register function to handle signals */
   sigaction( SIGINT,  &sa_new, &sa_old );
   sigaction( SIGSEGV, &sa_new, NULL );

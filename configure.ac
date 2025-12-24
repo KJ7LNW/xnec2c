@@ -267,6 +267,12 @@ AM_GNU_GETTEXT([external])
 PROGRAMNAME_LOCALEDIR="${datadir}/locale"
 AC_SUBST([PROGRAMNAME_LOCALEDIR])
 
+# Check for msgfmt for .desktop file translation
+AM_CONDITIONAL([HAVE_PROG_MSGFMT], [test "x$MSGFMT" != "x:"])
+
+# Make ENABLE_NLS available as automake conditional for test builds
+AM_CONDITIONAL([ENABLE_NLS], [test "x$USE_NLS" = "xyes"])
+
 # Add the languages which your application supports here.
 ALL_LINGUAS=""
 
