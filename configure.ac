@@ -12,6 +12,7 @@ AM_INIT_AUTOMAKE([
   -Wall
   subdir-objects
 ])
+AM_SILENT_RULES([yes])
 AM_MAINTAINER_MODE([enable])
 
 dnl ======================================================================
