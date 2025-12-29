@@ -221,7 +221,7 @@ main(int argc, char *argv[])
   {
     exe_path[len] = '\0';
     exe_dir = dirname(exe_path);
-    snprintf(fixture_base, sizeof(fixture_base), "%s/fixtures", exe_dir);
+    snprintf(fixture_base, sizeof(fixture_base), "%s/../fixtures", exe_dir);
   }
   else
   {
