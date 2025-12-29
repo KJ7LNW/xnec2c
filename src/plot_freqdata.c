@@ -917,7 +917,7 @@ Plot_Graph(
 	GdkRectangle *plot_rect = NULL;
 
 	// Min/max values for the data series
-	double max_y_left, min_y_left, max_y_right, min_y_right;
+	double max_y_left = 0.0, min_y_left = 0.0, max_y_right = 0.0, min_y_right = 0.0;
 
 	// Values for the fr_plot->plot_rect object below in the FR card loop
 	int plot_rect_y, plot_rect_height;
