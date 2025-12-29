@@ -159,7 +159,9 @@ main (int argc, char *argv[])
   strcpy(orig_numeric_locale, l);
 
   // Initialize gettext for internationalization
-  bindtextdomain(PACKAGE, PROGRAMNAME_LOCALEDIR);
+  const char *localedir = getenv("XNEC2C_LOCALEDIR");
+  if (!localedir) localedir = PROGRAMNAME_LOCALEDIR;
+  bindtextdomain(PACKAGE, localedir);
   textdomain(PACKAGE);
 
   /* Register function to handle signals */

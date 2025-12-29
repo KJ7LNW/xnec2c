@@ -384,3 +384,22 @@ update-po:
 	$(MAKE) -C po update-po
 
 .PHONY: update-po
+
+########################################################################
+# Create locale tree for running from source tree
+########################################################################
+
+all-local: locale-tree
+
+locale-tree:
+	@$(MKDIR_P) locale
+	@for gmo in po/*.gmo; do \
+		test -f "$$gmo" || continue; \
+		lang=$$(basename "$$gmo" .gmo); \
+		$(MKDIR_P) locale/$$lang/LC_MESSAGES; \
+		cp "$$gmo" locale/$$lang/LC_MESSAGES/$(PACKAGE).mo; \
+	done
+
+CLEANFILES += -r locale
+
+.PHONY: locale-tree
