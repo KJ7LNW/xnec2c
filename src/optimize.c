@@ -129,16 +129,31 @@ int inotify_open(struct pollfd *pfd)
     exit( -1 );
   }
 
-  /* Create a file watch descriptor */
-  wd = inotify_add_watch( fd, rc_config.input_file, IN_CLOSE_WRITE );
+  /* Watch directory instead of file to handle atomic writes (editors use temp file + rename).
+   * Watching the file inode directly fails when the inode is replaced. */
+  char watch_dir[PATH_MAX];
+  char *last_slash = strrchr(rc_config.input_file, '/');
+  if( last_slash )
+  {
+    size_t dir_len = last_slash - rc_config.input_file;
+    memcpy(watch_dir, rc_config.input_file, dir_len);
+    watch_dir[dir_len] = '\0';
+  }
+  else
+  {
+    strcpy(watch_dir, ".");
+  }
+
+  /* Create a directory watch descriptor. IN_MOVED_TO catches atomic renames. */
+  wd = inotify_add_watch( fd, watch_dir, IN_CLOSE_WRITE | IN_MOVED_TO );
   if( wd == -1 )
   {
-    pr_err("Unable to configure file modification detection to %s: %s\n", rc_config.input_file,
+    pr_err("Unable to configure file modification detection to %s: %s\n", watch_dir,
            strerror(errno));
     return -1;
   }
   else
-	  pr_debug("Monitoring rc_config.input_file: %s\n", rc_config.input_file);
+	  pr_debug("Monitoring directory for %s: %s\n", rc_config.input_file, watch_dir);
 
   pfd->fd     = fd;     /* Inotify input */
   pfd->events = POLLIN;
@@ -251,8 +266,13 @@ Optimizer_Output( void *arg )
 
         event = (const struct inotify_event *) buf;
 
+        /* Filter events to match only our target file */
+        const char *target_filename = strrchr(rc_config.input_file, '/');
+        target_filename = target_filename ? target_filename + 1 : rc_config.input_file;
+
         /* Read input file and re-process */
-        if( event->mask & IN_CLOSE_WRITE )
+        if( event->len && strcmp(event->name, target_filename) == 0 &&
+            (event->mask & (IN_CLOSE_WRITE | IN_MOVED_TO)) )
         {
           gboolean flag = FALSE;
 
