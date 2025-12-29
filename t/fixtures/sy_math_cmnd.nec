@@ -1,0 +1,9 @@
+CM Test SY with mathematical functions in command section
+CE
+GW 1 11 0 0 0 0 0 0.069 0.0015
+GE 0
+SY f_start=1000
+SY f_step=10
+SY n_steps=10
+FR 0 n_steps 0 0 f_start f_step
+EN

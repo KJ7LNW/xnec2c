@@ -1,0 +1,8 @@
+CM Test separate SY card definitions
+CE
+SY a=1
+SY b=a*2
+SY c=b+1
+GW 1 5 0 0 a 0 0 c 0.001
+GE 0
+EN

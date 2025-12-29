@@ -21,6 +21,7 @@
 #define INPUT_H     1
 
 #include "common.h"
+#include "sy_expr.h"
 #include <ctype.h>
 
 #define COMMANDS \
@@ -71,6 +72,7 @@ enum GEOM_MNM
   GH,
   GF,
   CT,
+  SY_GEOM,
   NUM_GEOMN
 };
 

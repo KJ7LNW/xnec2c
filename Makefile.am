@@ -6,7 +6,7 @@ SUFFIXES =
 man1_MANS =
 noinst_DATA =
 
-SUBDIRS = src po
+SUBDIRS = src po t
 
 EXTRA_DIST += autogen.sh
 

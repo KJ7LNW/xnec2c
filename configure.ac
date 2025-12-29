@@ -10,6 +10,7 @@ AC_CONFIG_AUX_DIR([auto-aux])
 AM_INIT_AUTOMAKE([
   1.13.2
   -Wall
+  subdir-objects
 ])
 AM_MAINTAINER_MODE([enable])
 
@@ -297,5 +298,6 @@ AC_CONFIG_FILES([
   Makefile
   src/Makefile
   po/Makefile.in
+  t/Makefile
 ])
 AC_OUTPUT

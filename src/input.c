@@ -49,6 +49,13 @@
 // For use if you need to pr_debug based on line number in readgm()
 static int readgm_line_count = 0;
 
+/* Forward declarations for SY card helper functions */
+static gboolean parse_sy_card(const char *line_content);
+static const char *readgm_get_sy_line(void);
+static const char *readmn_get_sy_line(void);
+static gboolean validate_card_characters(const char *line_buf, int start_idx, int len, const char *card_type);
+static gboolean parse_field_with_expression(const char **line_ptr, char **endptr, double *result, const char *context);
+
 /*------------------------------------------------------------------------*/
 
 /* Read_Comments()
@@ -164,11 +171,208 @@ Tag_Seg_Error( int tag, int segs )
 }
 
 /*-----------------------------------------------------------------------*/
+
+/* validate_card_characters()
+ *
+ * Validates characters in NEC2 card data fields
+ * Accepts numeric values and expression syntax (for SY card support)
+ */
+static gboolean
+validate_card_characters(const char *line_buf, int start_idx, int len, const char *card_type)
+{
+  int idx;
+
+  for( idx = start_idx; idx < len; idx++ )
+  {
+    if( ((line_buf[idx] >= '0') &&
+         (line_buf[idx] <= '9')) ||
+         ((line_buf[idx] >= 'a') &&
+         (line_buf[idx] <= 'z')) ||
+         ((line_buf[idx] >= 'A') &&
+         (line_buf[idx] <= 'Z')) ||
+         (line_buf[idx] == ' ')  ||
+         (line_buf[idx] == '.')  ||
+         (line_buf[idx] == ',')  ||
+         (line_buf[idx] == '+')  ||
+         (line_buf[idx] == '-')  ||
+         (line_buf[idx] == '*')  ||
+         (line_buf[idx] == '/')  ||
+         (line_buf[idx] == '^')  ||
+         (line_buf[idx] == '(')  ||
+         (line_buf[idx] == ')')  ||
+         (line_buf[idx] == '_')  ||
+         (line_buf[idx] == '=')  ||
+         (line_buf[idx] == 'E')  ||
+         (line_buf[idx] == 'e')  ||
+         (line_buf[idx] == '\t') ||
+         (line_buf[idx] == '\n') ||
+         (line_buf[idx] == '\r') ||
+         (line_buf[idx] == '\0') )
+      continue;
+    else
+    {
+      pr_err("%s data card error: Spurious character '%c' at column %d\n",
+          card_type, line_buf[idx], idx + 1);
+      Stop( _("Data card error\n"
+            "Spurious character in card"), ERR_OK );
+      return FALSE;
+    }
+  }
+
+  return TRUE;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/* parse_field_with_expression()
+ *
+ * Parse a numeric field that can be a plain number or expression
+ * Handles field extraction, expression detection, and evaluation
+ * Updates line_ptr to point past the parsed field
+ */
+static gboolean
+parse_field_with_expression(const char **line_ptr, char **endptr, double *result, const char *context)
+{
+  const char *line_buf = *line_ptr;
+  char field_buf[256];
+  int field_len;
+  const char *field_end;
+
+  while( *line_buf == ' ' || *line_buf == '\t' )
+    line_buf++;
+
+  if( *line_buf == '\0' )
+  {
+    *endptr = (char *)line_buf;
+    *line_ptr = line_buf;
+    return TRUE;
+  }
+
+  field_end = line_buf;
+  while( *field_end != '\0' && *field_end != ' ' && *field_end != ',' && *field_end != '\t' && *field_end != '\n' && *field_end != '\r' )
+    field_end++;
+
+  field_len = (int)(field_end - line_buf);
+  if( field_len >= (int)sizeof(field_buf) )
+    field_len = sizeof(field_buf) - 1;
+
+  strncpy(field_buf, line_buf, (size_t)field_len);
+  field_buf[field_len] = '\0';
+
+  if( sy_is_expression(field_buf) )
+  {
+    if( !sy_evaluate(field_buf, result) )
+    {
+      pr_err("%s: expression evaluation failed for \"%s\"\n", context, field_buf);
+      return FALSE;
+    }
+  }
+  else
+  {
+    *result = Strtod( field_buf, endptr );
+  }
+
+  *line_ptr = field_end;
+  *endptr = (char *)field_end;
+  return TRUE;
+}
+
+/*-----------------------------------------------------------------------*/
 void readgm_reset_count(void)
 {
 	readgm_line_count = 0;
 }
 
+/*-----------------------------------------------------------------------*/
+
+/* parse_sy_card()
+ *
+ * Parse SY card line content and define symbols
+ * Handles comma-separated definitions: name1=expr1, name2=expr2
+ */
+static gboolean
+parse_sy_card(const char *line_content)
+{
+  char *p, *eq, *comma;
+  char name[64];
+  char expr[256];
+  double value;
+  int name_len, expr_len;
+
+  if( line_content == NULL )
+  {
+    pr_err("SY card: no line content available\n");
+    Stop( _("SY card: no line content available"), ERR_OK );
+    return FALSE;
+  }
+
+  p = (char *)line_content;
+
+  while( *p != '\0' )
+  {
+    while( isspace((int)*p) )
+      p++;
+
+    if( *p == '\0' )
+      break;
+
+    eq = strchr(p, '=');
+    if( eq == NULL )
+    {
+      pr_err("SY card: missing '=' in definition\n");
+      Stop( _("SY card: missing '=' in definition"), ERR_OK );
+      return FALSE;
+    }
+
+    name_len = (int)(eq - p);
+    if( name_len >= (int)sizeof(name) )
+      name_len = (int)sizeof(name) - 1;
+
+    g_strlcpy(name, p, (size_t)(name_len + 1));
+
+    while( name_len > 0 && isspace((int)name[name_len - 1]) )
+      name[--name_len] = '\0';
+
+    p = eq + 1;
+    while( isspace((int)*p) )
+      p++;
+
+    comma = strchr(p, ',');
+    if( comma != NULL )
+      expr_len = (int)(comma - p);
+    else
+      expr_len = (int)strlen(p);
+
+    if( expr_len >= (int)sizeof(expr) )
+      expr_len = (int)sizeof(expr) - 1;
+
+    g_strlcpy(expr, p, (size_t)(expr_len + 1));
+
+    while( expr_len > 0 && isspace((int)expr[expr_len - 1]) )
+      expr[--expr_len] = '\0';
+
+    if( !sy_evaluate(expr, &value) )
+    {
+      pr_err("SY card: expression evaluation failed for %s=%s\n", name, expr);
+      return FALSE;
+    }
+
+    if( !sy_define(name, value) )
+    {
+      pr_err("SY card: symbol definition failed for %s\n", name);
+      return FALSE;
+    }
+
+    if( comma != NULL )
+      p = comma + 1;
+    else
+      break;
+  }
+
+  return TRUE;
+}
+
+/*-----------------------------------------------------------------------*/
 
 /* datagn is the main routine for input of geometry data. */
   static gboolean
@@ -180,7 +384,7 @@ datagn( void )
   char *atst[] =
   {
     "GW", "GX", "GR", "GS", "GE","GM", "SP",\
-    "SM", "GA", "SC", "GH", "GF", "CT"
+    "SM", "GA", "SC", "GH", "GF", "CT", "SY"
   };
 
   int nwire, isct, itg, iy=0, iz;
@@ -604,6 +808,15 @@ datagn( void )
         Stop( _("Ignoring CM card in geometry"), ERR_OK );
         continue;
 
+      case SY_GEOM: /* "sy" card, symbolic variable definition */
+        /* SY card handling requires full line content after mnemonic
+         * readgm() preserves this in static buffer for SY cards
+         */
+        if( !parse_sy_card(readgm_get_sy_line()) )
+          return( FALSE );
+        else
+          continue;
+
       default: /* error message */
         pr_err("geometry data card error (nwire=%d)\n", nwire);
         pr_err("%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n",
@@ -631,10 +844,24 @@ Read_Geometry( void )
   int idx;
   size_t mreq;
 
-  /* Moved here from Read_Commands() */
-  matpar.imat=0;
-  data.n = data.m = 0;
-  if( !datagn() ) return( FALSE );
+  /* Initialize symbol table for SY card support */
+  if( !sy_init() )
+  {
+    pr_err("Failed to initialize symbol table\n");
+    Stop( _("Failed to initialize symbol table"), ERR_OK );
+    return( FALSE );
+  }
+  else
+  {
+    /* Moved here from Read_Commands() */
+    matpar.imat=0;
+    data.n = data.m = 0;
+    if( !datagn() )
+    {
+      sy_cleanup();
+      return( FALSE );
+    }
+  }
 
   /* Memory allocation for temporary buffers */
   mreq = (size_t)data.npm * sizeof(double);
@@ -1300,9 +1527,11 @@ Read_Commands( void )
          * execution is not triggered by any card */
         continue; /* continue card input loop */
 
-      case SY: /* "sy" TODO Compatibility with 4nec2.
-                  Too difficult, may never happen :-( */
-        continue;
+      case SY: /* "sy" card, symbolic variable definition in command section */
+        if( !parse_sy_card(readmn_get_sy_line()) )
+          return( FALSE );
+        else
+          continue;
 
       case XQ: /* "xq" execute card */
         /* Because of the interactive GUI, program
@@ -1374,14 +1603,33 @@ Read_Commands( void )
       SetFlag( ENABLE_RDPAT );
     }
 
+    /* Cleanup symbol table before normal exit */
+    sy_cleanup();
     return( TRUE );
   } /* while( TRUE ) */
 
-  // Default as an unknown error, though we might not ever get here:
+  /* Cleanup on error paths */
+  sy_cleanup();
   Stop(_("Unexpected exit from while loop"), ERR_OK);
   return( FALSE );
 
 } /* Read_Commands() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Static buffer for preserving SY card line content in readmn */
+static char sy_line_buffer_cmnd[LINE_LEN];
+
+/* readmn_get_sy_line()
+ *
+ * Returns preserved SY card line content (after mnemonic) for command cards
+ * Returns NULL if buffer is empty
+ */
+const char *
+readmn_get_sy_line(void)
+{
+  return strlen(sy_line_buffer_cmnd) > 0 ? sy_line_buffer_cmnd : NULL;
+}
 
 /*-----------------------------------------------------------------------*/
 
@@ -1394,7 +1642,7 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
     *line_buf = NULL,
     *startptr = NULL,
     *endptr   = NULL;
-  int len, i, idx;
+  int len, i;
   int nint = 4, nflt = 6;
   int iarr[4] = { 0, 0, 0, 0 };
   double rarr[6] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
@@ -1445,6 +1693,18 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   /* extract card's mnemonic code */
   Strlcpy( mn, line_buf, 3 );
 
+  /* Preserve full line for SY card parsing in command section */
+  if( strcmp(mn, "SY") == 0 )
+  {
+    Strlcpy(sy_line_buffer_cmnd, line_buf + 2, sizeof(sy_line_buffer_cmnd));
+    free_ptr( (void **)&startptr );
+    return( TRUE );
+  }
+  else
+  {
+    sy_line_buffer_cmnd[0] = '\0';
+  }
+
   /* Return if only mnemonic on card */
   if( len == 2 )
   {
@@ -1459,42 +1719,27 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
     return( TRUE );
   }
 
-  /* check line for spurious characters */
-  for( idx = 2; idx < len; idx++ )
+  /* Validate characters in command card data */
+  if( !validate_card_characters(line_buf, 2, len, "command") )
   {
-    if( ((line_buf[idx] >= '0') &&
-         (line_buf[idx] <= '9')) ||
-         (line_buf[idx] == ' ')  ||
-         (line_buf[idx] == '.')  ||
-         (line_buf[idx] == ',')  ||
-         (line_buf[idx] == '+')  ||
-         (line_buf[idx] == '-')  ||
-         (line_buf[idx] == 'E')  ||
-         (line_buf[idx] == 'e')  ||
-         (line_buf[idx] == '\t') ||
-         (line_buf[idx] == '\0') )
-      continue;
-    else
-      break;
-  }
-  if( idx < len )
-  {
-    pr_err("command data card \"%s\" error: Spurious character '%c' at column %d\n",
-		mn, line_buf[idx], idx + 1);
-    Stop( _("Command data card error\n"
-          "Spurious character in command card"), ERR_OK );
     free_ptr( (void **)&startptr );
     return( FALSE );
   }
 
-  /* Read integers from line */
+  /* Read integers from line with expression support */
   line_buf += 2;
   for( i = 0; i < nint; i++ )
   {
-    /* read an integer from line */
-    iarr[i] = (int)strtol( line_buf, &endptr, 10 );
+    const char *line_ptr = line_buf;
+    double value;
+    if( !parse_field_with_expression(&line_ptr, &endptr, &value, "command data") )
+    {
+      free_ptr( (void **)&startptr );
+      return( FALSE );
+    }
+    iarr[i] = (int)value;
+    line_buf = (char *)line_ptr;
     if( *endptr == '\0' ) break;
-    line_buf = endptr + 1;
   } /* for( i = 0; i < nint; i++ ) */
 
   /* Return if no floats are specified in the card */
@@ -1514,13 +1759,17 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
     return( TRUE );
   }
 
-  /* read doubles from line */
+  /* read doubles from line, with expression evaluation support */
   for( i = 0; i < nflt; i++ )
   {
-    /* read a double from line */
-    rarr[i] = Strtod( line_buf, &endptr );
+    const char *line_ptr = line_buf;
+    if( !parse_field_with_expression(&line_ptr, &endptr, &rarr[i], "command data") )
+    {
+      free_ptr( (void **)&startptr );
+      return( FALSE );
+    }
+    line_buf = (char *)line_ptr;
     if( *endptr == '\0' ) break;
-    line_buf = endptr + 1;
   } /* for( i = 0; i < nflt; i++ ) */
 
   /* Return values on normal exit */
@@ -1541,6 +1790,22 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
 
 /*-----------------------------------------------------------------------*/
 
+/* Static buffer for preserving SY card line content */
+static char sy_line_buffer[LINE_LEN];
+
+/* readgm_get_sy_line()
+ *
+ * Returns preserved SY card line content (after mnemonic)
+ * Returns NULL if buffer is empty
+ */
+const char *
+readgm_get_sy_line(void)
+{
+  return strlen(sy_line_buffer) > 0 ? sy_line_buffer : NULL;
+}
+
+/*-----------------------------------------------------------------------*/
+
   gboolean
 readgm( char *gm, int *i1, int *i2, double *x1,
     double *y1, double *z1, double *x2,
@@ -1550,7 +1815,7 @@ readgm( char *gm, int *i1, int *i2, double *x1,
     *line_buf = NULL,
     *startptr = NULL,
     *endptr   = NULL;
-  int len, i, idx;
+  int len, i;
   int nint = 2, nflt = 7;
   int iarr[2] = { 0, 0 };
   double rarr[7] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
@@ -1604,6 +1869,18 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   /* extract card's mnemonic code */
   Strlcpy( gm, line_buf, 3 );
 
+  /* Preserve full line for SY card parsing */
+  if( strcmp(gm, "SY") == 0 )
+  {
+    Strlcpy(sy_line_buffer, line_buf + 2, sizeof(sy_line_buffer));
+    free_ptr( (void **)&startptr );
+    return( TRUE );
+  }
+  else
+  {
+    sy_line_buffer[0] = '\0';
+  }
+
   /* Return if only mnemonic on card */
   if( len == 2 )
   {
@@ -1619,42 +1896,27 @@ readgm( char *gm, int *i1, int *i2, double *x1,
     return( TRUE );
   }
 
-  /* check line for spurious characters */
-  for( idx = 2; idx < len; idx++ )
+  /* Validate characters in geometry card data */
+  if( !validate_card_characters(line_buf, 2, len, "geometry") )
   {
-    if( ((line_buf[idx] >= '0') &&
-         (line_buf[idx] <= '9')) ||
-         (line_buf[idx] == ' ')  ||
-         (line_buf[idx] == '.')  ||
-         (line_buf[idx] == ',')  ||
-         (line_buf[idx] == '+')  ||
-         (line_buf[idx] == '-')  ||
-         (line_buf[idx] == 'E')  ||
-         (line_buf[idx] == 'e')  ||
-         (line_buf[idx] == '\t') ||
-         (line_buf[idx] == '\0') )
-      continue;
-    else
-      break;
-  }
-  if( idx < len )
-  {
-    pr_err("geometry data card \"%s\" error: Spurious character '%c' at column %d\n",
-		gm, line_buf[idx], idx + 1);
-    Stop( _("Geometry data card error\n"
-          "Spurious character in command card"), ERR_OK );
     free_ptr( (void **)&startptr );
     return( FALSE );
   }
 
-  /* read integers from line */
+  /* read integers from line with expression support */
   line_buf += 2;
   for( i = 0; i < nint; i++ )
   {
-    /* read an integer from line, reject spurious chars */
-    iarr[i] = (int)strtol( line_buf, &endptr, 10 );
+    const char *line_ptr = line_buf;
+    double value;
+    if( !parse_field_with_expression(&line_ptr, &endptr, &value, "geometry data") )
+    {
+      free_ptr( (void **)&startptr );
+      return( FALSE );
+    }
+    iarr[i] = (int)value;
+    line_buf = (char *)line_ptr;
     if( *endptr == '\0' ) break;
-    line_buf = endptr + 1;
   } /* for( i = 0; i < nint; i++ ) */
 
   /* Return if no floats are specified in the card */
@@ -1673,13 +1935,17 @@ readgm( char *gm, int *i1, int *i2, double *x1,
     return( TRUE );
   }
 
-  /* read doubles from line */
+  /* read doubles from line, with expression evaluation support */
   for( i = 0; i < nflt; i++ )
   {
-    /* read a double from line */
-    rarr[i] = Strtod( line_buf, &endptr );
+    const char *line_ptr = line_buf;
+    if( !parse_field_with_expression(&line_ptr, &endptr, &rarr[i], "geometry data") )
+    {
+      free_ptr( (void **)&startptr );
+      return( FALSE );
+    }
+    line_buf = (char *)line_ptr;
     if( *endptr == '\0' ) break;
-    line_buf = endptr + 1;
   } /* for( i = 0; i < nflt; i++ ) */
 
   /* Return values on normal exit */

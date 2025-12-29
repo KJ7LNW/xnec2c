@@ -1,0 +1,10 @@
+CM Test SY with mathematical functions in geometry section
+CE
+SY freq=1090
+SY lambda=300/freq
+SY height=lambda/4
+SY radius=1.5*MM
+GW 1 11 0 0 0 0 0 height radius
+GE 0
+FR 0 1 0 0 freq 0
+EN
