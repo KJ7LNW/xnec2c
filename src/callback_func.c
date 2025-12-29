@@ -505,9 +505,20 @@ Main_Freqplots_Activate( void )
    * Elementary Current Source Excitation */
   if( (fpat.ixtyp != 0) && (fpat.ixtyp != 5) )
   {
-    Stop( ERR_OK, _("Not available for Incident Field or\n"
-          "Elementary Current Source Excitation.\n"
-          "(Excitation Types 1 to 4)") );
+    /* If window is already open, close it automatically */
+    if( freqplots_window != NULL )
+    {
+      Gtk_Widget_Destroy( &freqplots_window );
+      Stop( ERR_OK, _("Frequency plots window closed: excitation type %d is incompatible.\n"
+            "Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."), fpat.ixtyp );
+    }
+    else
+    {
+      /* Window not open - show detailed error message */
+      Stop( ERR_OK, _("Frequency plots are not available with excitation type %d.\n"
+            "This model uses Incident Field or Elementary Current Source excitation.\n"
+            "Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."), fpat.ixtyp );
+    }
     return( FALSE );
   }
 
