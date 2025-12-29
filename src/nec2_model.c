@@ -341,16 +341,16 @@ List_Comments( void )
   {
     /* Read a line from input file */
     if( Load_Line(line_buf, input_fp) == EOF )
-      Stop( _("List_Comments():\n"
+      Stop( ERR_OK, _("List_Comments():\n"
             "Error reading input file\n"
-            "Unexpected EOF (End of File)"), ERR_OK );
+            "Unexpected EOF (End of File)") );
 
     /* Check for short or missing CM or CE and fix */
     if( strlen(line_buf) < 2 )
     {
-      Stop( _("List_Comments():\n"
+      Stop( ERR_OK, _("List_Comments():\n"
             "Error reading input file\n"
-            "Comment mnemonic short or missing"), ERR_OK );
+            "Comment mnemonic short or missing") );
       Strlcpy( line_buf, "XX ", sizeof(line_buf) );
     }
 
@@ -645,9 +645,9 @@ Save_Treeview_Data( GtkTreeView *tree_view, int ncols, FILE *nec2_fp )
   /* Abort if no open file to sane to */
   if( nec2_fp == NULL )
   {
-    Stop( _("Cannot save treeview data\n"
+    Stop( ERR_STOP, _("Cannot save treeview data\n"
           "Please use the Save button\n"
-          "to specify a file path"), ERR_STOP );
+          "to specify a file path") );
     return;
   }
 

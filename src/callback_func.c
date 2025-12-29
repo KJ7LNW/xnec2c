@@ -505,9 +505,9 @@ Main_Freqplots_Activate( void )
    * Elementary Current Source Excitation */
   if( (fpat.ixtyp != 0) && (fpat.ixtyp != 5) )
   {
-    Stop( _("Not available for Incident Field or\n"
+    Stop( ERR_OK, _("Not available for Incident Field or\n"
           "Elementary Current Source Excitation.\n"
-          "(Excitation Types 1 to 4)"), ERR_OK );
+          "(Excitation Types 1 to 4)") );
     return( FALSE );
   }
 

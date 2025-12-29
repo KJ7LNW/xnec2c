@@ -17,8 +17,15 @@ print_backtrace(char *msg)
 }
 
 int
-Stop(char *mesg, int err)
+Stop(int err, const char *format, ...)
 {
+  char mesg[1024];
+  va_list args;
+
+  va_start(args, format);
+  vsnprintf(mesg, sizeof(mesg), format, args);
+  va_end(args);
+
   fprintf(stderr, "Stop called: %s (err=%d)\n", mesg, err);
   return 0;
 }

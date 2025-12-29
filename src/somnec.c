@@ -235,8 +235,7 @@ hankel( complex double z,
   zms=creal( z*conj(z) );
   if(zms == 0.0)
   {
-    pr_err("Hankel not valid for z = 0\n");
-    Stop( _("Hankel not valid for z = 0"), ERR_STOP );
+    Stop( ERR_STOP, _("Hankel not valid for z = 0") );
   }
 
   ib=0;
@@ -747,8 +746,7 @@ gshank( complex double start, complex double dela,
   } /* for( intx = 1; intx <= maxh; intx++ ) */
 
   /* No convergence */
-  pr_err("No convergence\n");
-  Stop( _("No convergencn"), ERR_STOP );
+  Stop( ERR_STOP, _("No convergencn") );
   return;
 }
 

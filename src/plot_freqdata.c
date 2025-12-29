@@ -829,8 +829,8 @@ Draw_Graph(
   if( points == NULL )
   {
     pr_err("memory allocation for points failed\n");
-    Stop( _("Draw_Graph():"
-          "Memory allocation for points failed"), ERR_OK );
+    Stop( ERR_OK, _("Draw_Graph():"
+          "Memory allocation for points failed") );
     return;
   }
 
@@ -1296,8 +1296,8 @@ Plot_Graph_Smith(
   if( points == NULL )
   {
     pr_err("memory allocation for points failed\n");
-    Stop( _("Draw_Graph():"
-          "Memory allocation for points failed"), ERR_OK );
+    Stop( ERR_OK, _("Draw_Graph():"
+          "Memory allocation for points failed") );
     return;
   }
 
@@ -1558,8 +1558,8 @@ _Plot_Frequency_Data( cairo_t *cr )
     if( vswr == NULL || s11 == NULL)
     {
       pr_err("memory allocation for vswr/s11 failed\n");
-      Stop( _("Plot_Frequency_Data():"
-            "Memory allocation for vswr/s11 failed"), ERR_OK );
+      Stop( ERR_OK, _("Plot_Frequency_Data():"
+            "Memory allocation for vswr/s11 failed") );
       return;
     }
 

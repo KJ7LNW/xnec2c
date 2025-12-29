@@ -653,9 +653,8 @@ rdpat( void )
       if( (gnd.ksymp == 2) && (thet > 90.01) && (gnd.ifar != 1) )
       {
         Gtk_Widget_Destroy( &rdpattern_window );
-        pr_err("Theta > 90 deg with ground specified: Please check RP card data and correct\n");
-        Stop( _("Theta > 90 deg with ground specified\n"
-              "Please check RP card data and correct"), ERR_STOP );
+        Stop( ERR_STOP, _("Theta > 90 deg with ground specified\n"
+              "Please check RP card data and correct") );
       }
 
       tha= thet* TORAD;

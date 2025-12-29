@@ -457,7 +457,7 @@ sy_tokenize(const gchar *expr)
     }
     else
     {
-      Stop(_("Expression syntax error: unexpected character"), ERR_OK);
+      Stop(ERR_OK, _("Expression syntax error: unexpected character"));
       g_array_free(tokens, TRUE);
       return NULL;
     }
@@ -594,7 +594,7 @@ sy_infix_to_rpn(GArray *tokens)
     }
     else
     {
-      Stop(_("Expression parsing error: unexpected token"), ERR_OK);
+      Stop(ERR_OK, _("Expression parsing error: unexpected token"));
       g_queue_free(output);
       g_queue_free(operators);
       return NULL;
@@ -606,7 +606,7 @@ sy_infix_to_rpn(GArray *tokens)
     op_token = (sy_token_t *)g_queue_pop_head(operators);
     if( op_token->type == SY_TOKEN_LPAREN || op_token->type == SY_TOKEN_RPAREN )
     {
-      Stop(_("Expression error: mismatched parentheses"), ERR_OK);
+      Stop(ERR_OK, _("Expression error: mismatched parentheses"));
       g_free(op_token);
       g_queue_free_full(output, g_free);
       g_queue_free_full(operators, g_free);
@@ -667,7 +667,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
       {
         if( symbol_table == NULL )
         {
-          Stop(_("Symbol table not initialized"), ERR_OK);
+          Stop(ERR_OK, _("Symbol table not initialized"));
           g_free(token);
           g_queue_free_full(stack, g_free);
           return FALSE;
@@ -679,7 +679,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
           {
             gchar err_msg[128];
             snprintf(err_msg, sizeof(err_msg), _("Undefined symbol: %s"), upper_name);
-            Stop(err_msg, ERR_OK);
+            Stop(ERR_OK, "%s", err_msg);
             g_free(token);
             g_queue_free_full(stack, g_free);
             return FALSE;
@@ -704,7 +704,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
 
       if( g_queue_is_empty(stack) )
       {
-        Stop(_("Expression error: missing operand"), ERR_OK);
+        Stop(ERR_OK, _("Expression error: missing operand"));
         g_free(token);
         g_queue_free_full(stack, g_free);
         return FALSE;
@@ -714,7 +714,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
 
       if( g_queue_is_empty(stack) )
       {
-        Stop(_("Expression error: missing operand"), ERR_OK);
+        Stop(ERR_OK, _("Expression error: missing operand"));
         g_free(token);
         g_free(val2);
         g_queue_free_full(stack, g_free);
@@ -726,7 +726,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
       op_entry = sy_lookup_operator(token->value.op);
       if( op_entry == NULL )
       {
-        Stop(_("Unknown operator"), ERR_OK);
+        Stop(ERR_OK, _("Unknown operator"));
         g_free(token);
         g_free(val1);
         g_free(val2);
@@ -738,7 +738,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
 
       if( token->value.op == '/' && *val2 == 0.0 )
       {
-        Stop(_("Division by zero"), ERR_OK);
+        Stop(ERR_OK, _("Division by zero"));
         g_free(token);
         g_free(val1);
         g_free(val2);
@@ -764,7 +764,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
       {
         gchar err_msg[128];
         snprintf(err_msg, sizeof(err_msg), _("Unknown function: %s"), token->value.name);
-        Stop(err_msg, ERR_OK);
+        Stop(ERR_OK, "%s", err_msg);
         g_free(token);
         g_queue_free_full(stack, g_free);
         return FALSE;
@@ -775,7 +775,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
         {
           if( g_queue_is_empty(stack) )
           {
-            Stop(_("Function error: missing argument"), ERR_OK);
+            Stop(ERR_OK, _("Function error: missing argument"));
             g_free(token);
             g_queue_free_full(stack, g_free);
             return FALSE;
@@ -794,7 +794,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
         {
           if( g_queue_is_empty(stack) )
           {
-            Stop(_("Function error: missing argument"), ERR_OK);
+            Stop(ERR_OK, _("Function error: missing argument"));
             g_free(token);
             g_queue_free_full(stack, g_free);
             return FALSE;
@@ -804,7 +804,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
 
           if( g_queue_is_empty(stack) )
           {
-            Stop(_("Function error: missing argument"), ERR_OK);
+            Stop(ERR_OK, _("Function error: missing argument"));
             g_free(token);
             g_free(val2);
             g_queue_free_full(stack, g_free);
@@ -823,7 +823,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
         }
         else
         {
-          Stop(_("Function error: invalid arity"), ERR_OK);
+          Stop(ERR_OK, _("Function error: invalid arity"));
           g_free(token);
           g_queue_free_full(stack, g_free);
           return FALSE;
@@ -837,7 +837,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
     /* Totality enforcement: handle unexpected token types in RPN queue
      * Parentheses and commas should never appear in RPN output
      */
-    Stop(_("Expression error: unexpected token type in RPN"), ERR_OK);
+    Stop(ERR_OK, _("Expression error: unexpected token type in RPN"));
     g_free(token);
     g_queue_free_full(stack, g_free);
     return FALSE;
@@ -845,7 +845,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
 
   if( g_queue_get_length(stack) != 1 )
   {
-    Stop(_("Expression error: invalid result"), ERR_OK);
+    Stop(ERR_OK, _("Expression error: invalid result"));
     g_queue_free_full(stack, g_free);
     return FALSE;
   }
@@ -899,7 +899,7 @@ sy_define(const gchar *name, gdouble value)
 
   if( symbol_table == NULL )
   {
-    Stop(_("Symbol table not initialized"), ERR_OK);
+    Stop(ERR_OK, _("Symbol table not initialized"));
     return FALSE;
   }
   else
@@ -924,7 +924,7 @@ sy_evaluate(const gchar *expr, gdouble *result)
 
   if( expr == NULL || result == NULL )
   {
-    Stop(_("Invalid arguments to sy_evaluate"), ERR_OK);
+    Stop(ERR_OK, _("Invalid arguments to sy_evaluate"));
     return FALSE;
   }
   else

@@ -665,9 +665,8 @@ Validate_Nearfield_Animation( void )
   if( ((isFlagSet(DRAW_EFIELD) || isFlagSet(DRAW_POYNTING)) && !(fpat.nfeh & NEAR_EFIELD)) ||
       ((isFlagSet(DRAW_HFIELD) || isFlagSet(DRAW_POYNTING)) && !(fpat.nfeh & NEAR_HFIELD)) )
   {
-    Notice( _("Near Field Animation"),
-        _(nearfield_animation_error_msg),
-        GTK_BUTTONS_OK );
+    Notice( GTK_BUTTONS_OK, _("Near Field Animation"), "%s",
+        _(nearfield_animation_error_msg) );
     return( FALSE );
   }
 
@@ -676,9 +675,8 @@ Validate_Nearfield_Animation( void )
       ((isFlagSet(DRAW_HFIELD) || isFlagSet(DRAW_POYNTING)) &&
        (near_field.fhx == NULL || near_field.fhy == NULL || near_field.fhz == NULL)) )
   {
-    Notice( _("Near Field Animation"),
-        _(nearfield_animation_error_msg),
-        GTK_BUTTONS_OK );
+    Notice( GTK_BUTTONS_OK, _("Near Field Animation"), "%s",
+        _(nearfield_animation_error_msg) );
     return( FALSE );
   }
 

@@ -115,7 +115,7 @@ tbf( int i, int icap )
           else
           {
             pr_err("segment connection error for segment %5d\n", i);
-            Stop( _("Segment connection error in tbf()"), ERR_STOP );
+            Stop( ERR_STOP, _("Segment connection error in tbf()") );
           }
         }
 
@@ -1052,7 +1052,7 @@ sbf( int i, int is, double *aa, double *bb, double *cc )
           if( jcox == 0 )
           {
             pr_err("segment connection error for segment %d\n", i);
-            Stop( _("Segment connection error in sbf()"), ERR_STOP );
+            Stop( ERR_STOP, _("Segment connection error in sbf()") );
           }
           else continue;
         }
@@ -1274,7 +1274,7 @@ trio( int j )
       if( jcox == 0 )
       {
         pr_err("segment connection error for segment %5d\n", j);
-        Stop( _("Segment connection error in trio()"), ERR_STOP );
+        Stop( ERR_STOP, _("Segment connection error in trio()") );
       }
       else continue;
 

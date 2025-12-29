@@ -87,8 +87,7 @@ rom2( double a, double b,
 
   if( s < 0.0)
   {
-    pr_err("b less than a\n");
-    Stop( _("b less than a"), ERR_STOP );
+    Stop( ERR_STOP, _("b less than a") );
   }
 
   ep= s/(1.0e4* data.npm);

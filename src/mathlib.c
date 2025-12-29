@@ -623,7 +623,7 @@ void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib)
 		g_mutex_unlock(&global_lock);
 	}
 	else
-		Stop( _("mathlib: You cannot change the math library while the freq loop is running."), ERR_OK );
+		Stop( ERR_OK, _("mathlib: You cannot change the math library while the freq loop is running.") );
 
 }
 
@@ -641,10 +641,9 @@ void set_mathlib_batch(GtkWidget *widget, mathlib_t *lib)
 	}
 
 	if (!FORKED)
-		Notice(_("Batch Math Library"),
+		Notice(GTK_BUTTONS_OK, _("Batch Math Library"),
 			_("Selecting a batched math library has no effect unless -j is specified on the command line. "
-			"(However, this selection will be saved for next time xnec2c is opened.)\n"),
-			GTK_BUTTONS_OK);
+			"(However, this selection will be saved for next time xnec2c is opened.)\n"));
 
 	update_mathlib_selection(rc_config.mathlib_batch_id, lib->id);
 }
@@ -751,7 +750,7 @@ void init_mathlib_menu(void)
 
 void mathlib_help(void)
 {
-	Notice(_("Mathlib Help"),
+	Notice(GTK_BUTTONS_OK, _("Mathlib Help"), "%s",
 		"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed up xnec2c EM simulations "
 		"if available on your platform. Library detection details are available in the terminal.\n"
 		"\n"
@@ -782,15 +781,12 @@ void mathlib_help(void)
 		"* openSUSE: zypper install libopenblas_*0\n"
 		"  ATLAS is not officially supported by openSUSE so build from source\n"
 		"\n"
-		"This text is available in the terminal so you can copy-paste.\n"
-
-		,
-		GTK_BUTTONS_OK);
+		"This text is available in the terminal so you can copy-paste.\n");
 }
 
 void mathlib_benchmark_help(void)
 {
-	Notice(_("Mathlib Benchmark Help"),
+	Notice(GTK_BUTTONS_OK, _("Mathlib Benchmark Help"),
 		_(
 		"Jobs are forked and run in parallel by xnec2c, "
 		"whereas threads are used by the mathlib implementation to parallelize the linear "
@@ -825,8 +821,7 @@ void mathlib_benchmark_help(void)
 		"library as modified by the environment variables listed above.\n"
 		"\n"
 		"* Iterate -j N-=2: O(N*J) time: Same as -j N/=2 above, but instead decrement the number of jobs "
-		"by 1.  This takes the longest to run.\n"),
-		GTK_BUTTONS_OK);
+		"by 1.  This takes the longest to run.\n"));
 }
 
 void mathlib_benchmark(int slow)
@@ -842,25 +837,22 @@ void mathlib_benchmark(int slow)
 
 	if (isFlagSet(OPTIMIZER_OUTPUT))
 	{
-		Notice(_("Mathlib Benchmark"),
-			_("Benchmarks are disabled while optimization is activated."),
-			GTK_BUTTONS_OK);
+		Notice(GTK_BUTTONS_OK, _("Mathlib Benchmark"),
+			_("Benchmarks are disabled while optimization is activated."));
 		return;
 	}
 
 	if (calc_data.freq_loop_data == NULL)
 	{
-		Notice(_("Mathlib Benchmark"),
-			_("You must load a NEC2 input file before running benchmarks."),
-			GTK_BUTTONS_OK);
+		Notice(GTK_BUTTONS_OK, _("Mathlib Benchmark"),
+			_("You must load a NEC2 input file before running benchmarks."));
 		return;
 	}
 
 	if (calc_data.num_jobs == 1 && slow != MATHLIB_BENCHMARK_SINGLE)
-		Notice(_("Mathlib Benchmark"),
+		Notice(GTK_BUTTONS_OK, _("Mathlib Benchmark"),
 			_("Choosing a benchmark other than \"Single Job\" has no effect "
-			  "unless -j is specified on the command line."),
-			GTK_BUTTONS_OK);
+			  "unless -j is specified on the command line."));
 
 
 	// Make sure a library is selected.  We assume if .benchmark=1 that the
@@ -875,13 +867,12 @@ void mathlib_benchmark(int slow)
 
 	if (i == num_mathlibs)
     {
-		Notice(_("Mathlib Benchmark"),
-			_("You must select at least one math library to benchmark"),
-			GTK_BUTTONS_CLOSE);
+		Notice(GTK_BUTTONS_CLOSE, _("Mathlib Benchmark"),
+			_("You must select at least one math library to benchmark"));
 		return;
 	}
 
-	response = Notice(_("Mathlib Benchmark"),
+	response = Notice(GTK_BUTTONS_YES_NO, _("Mathlib Benchmark"),
 		 _("This will run a frequency loop benchmark for each detected linear algebra library and then provide a summary.  It "
 		 "may take some time to complete depending on how big and how many frequencies your NEC2 will use. "
 		 "Detailed timing will be provided in the terminal.\n"
@@ -1003,7 +994,7 @@ void mathlib_benchmark(int slow)
 	else
 		snprintf(m + strlen(m), sizeof(m)-strlen(m)-1, "\nNo result found?  This is a bug.");
 
-	Notice(_("Mathlib Benchmark"), m, GTK_BUTTONS_OK);
+	Notice(GTK_BUTTONS_OK, _("Mathlib Benchmark"), "%s", m);
 }
 
 void mathlib_benchmark_parallel(void)

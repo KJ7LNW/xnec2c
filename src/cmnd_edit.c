@@ -69,8 +69,8 @@ Get_Command_Data(
           GTK_TREE_MODEL(store), iter, idc, &fv[idc-CMND_COL_F1], -1);
     }
   }
-  else Stop( _("Get_Command_Data(): Error reading\n"
-        "row data: Invalid list iterator"), ERR_OK );
+  else Stop( ERR_OK, _("Get_Command_Data(): Error reading\n"
+        "row data: Invalid list iterator") );
 
 } /* Get_Command_Data() */
 
@@ -102,8 +102,8 @@ Set_Command_Data(
       gtk_list_store_set( store, iter, idc, fv[idc - CMND_COL_F1], -1 );
     }
   }
-  else Stop( _("Set_Command_Data(): Error writing row data\n"
-        "Please re-select row"), ERR_OK );
+  else Stop( ERR_OK, _("Set_Command_Data(): Error writing row data\n"
+        "Please re-select row") );
 
   SetFlag( NEC2_EDIT_SAVE );
 

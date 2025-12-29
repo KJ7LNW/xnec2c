@@ -185,8 +185,8 @@ Ground_Parameters( void )
           pr_err("complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n",
                  creal(ggrid.epscf), cimag(ggrid.epscf),
 				 creal(epsc), cimag(epsc));
-          Stop( _("Ground_Parameters():"
-                "Error in ground parameters"), ERR_STOP );
+          Stop( ERR_STOP, _("Ground_Parameters():"
+                "Error in ground parameters") );
         }
       } /* if( gnd.iperf != 2) */
     } /* if( gnd.iperf != 1) */

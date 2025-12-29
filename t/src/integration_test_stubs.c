@@ -107,16 +107,30 @@ create_error_dialog(GtkBuilder **builder)
 
 /* Stub for Stop function */
 int
-Stop(char *mesg, int err)
+Stop(int err, const char *format, ...)
 {
+  char mesg[1024];
+  va_list args;
+
+  va_start(args, format);
+  vsnprintf(mesg, sizeof(mesg), format, args);
+  va_end(args);
+
   fprintf(stderr, "  [STUB] Stop() called: %s\n", mesg);
   return err;
 }
 
 /* Stub for Notice function */
 int
-Notice(char *title, char *message, GtkButtonsType buttons)
+Notice(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...)
 {
+  char message[1024];
+  va_list args;
+
+  va_start(args, msg_fmt);
+  vsnprintf(message, sizeof(message), msg_fmt, args);
+  va_end(args);
+
   printf("  [STUB] Notice() called: %s - %s\n", title, message);
   return 0;
 }

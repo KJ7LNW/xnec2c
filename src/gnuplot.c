@@ -43,7 +43,7 @@ void Save_FreqPlots_Gnuplot_Data(char *filename)
 	// Abort if plot data not available 
 	if (isFlagClear(FREQ_LOOP_DONE))
 	{
-		Notice(_("Gnuplot Data"), "Cannot save data while frequency loop is running", GTK_BUTTONS_OK);
+		Notice(GTK_BUTTONS_OK, _("Gnuplot Data"), "Cannot save data while frequency loop is running");
 		return;
 	}
 
@@ -85,7 +85,7 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 	// Abort if plot data not available
 	if (isFlagClear(FREQ_LOOP_DONE))
 	{
-		Notice(_("Touchstone Data"), "Cannot save data while frequency loop is running", GTK_BUTTONS_OK);
+		Notice(GTK_BUTTONS_OK, _("Touchstone Data"), "Cannot save data while frequency loop is running");
 		return;
 	}
 
@@ -166,7 +166,7 @@ void Save_FreqPlots_CSV(char *filename)
 	// Abort if plot data not available
 	if (isFlagClear(FREQ_LOOP_DONE))
 	{
-		Notice(_("Touchstone Data"), "Cannot save data while frequency loop is running", GTK_BUTTONS_OK);
+		Notice(GTK_BUTTONS_OK, _("Touchstone Data"), "Cannot save data while frequency loop is running");
 		return;
 	}
 
@@ -562,9 +562,9 @@ void Save_Currents_CSV(char *filename)
 
 	if (!crnt.valid)
 	{
-		Notice("Save Currents and Charges to CSV",
+		Notice(GTK_BUTTONS_OK, "Save Currents and Charges to CSV",
 			"You must enable current data by clicking \"Currents\" or \"Charges\""
-			"in the main xnec2c window.", GTK_BUTTONS_OK);
+			"in the main xnec2c window.");
 		return;
 	}
 

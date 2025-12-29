@@ -12,7 +12,7 @@
 #define SY_EXPR_TEST_BUILD 1
 #include "../src/sy_expr.h"
 
-extern int Stop(char *mesg, int err);
+extern int Stop(int err, const char *format, ...);
 
 static int test_failures = 0;
 static int tests_run = 0;

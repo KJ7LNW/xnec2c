@@ -23,6 +23,8 @@
 #include <execinfo.h>
 #endif
 
+#include <stdarg.h>
+
 #include "utils.h"
 #include "shared.h"
 
@@ -75,10 +77,16 @@ usage(void)
 
 
 // May return GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, ...
-int Notice(char *title, char *message,  GtkButtonsType buttons)
+int Notice(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...)
 {
+	char message[1024];
+	va_list args;
 	int response;
 	int locked = 0;
+
+	va_start(args, msg_fmt);
+	vsnprintf(message, sizeof(message), msg_fmt, args);
+	va_end(args);
 
 	if (!g_mutex_trylock(&freq_data_lock))
 		locked = 1;
@@ -117,11 +125,17 @@ int Notice(char *title, char *message,  GtkButtonsType buttons)
 
 /* Does the STOP function of fortran but with a warning dialog */
   int
-Stop( char *mesg, int err )
+Stop( int err, const char *format, ... )
 {
+  char mesg[1024];
+  va_list args;
   GtkBuilder *builder;
 
   int locked = 0;
+
+  va_start(args, format);
+  vsnprintf(mesg, sizeof(mesg), format, args);
+  va_end(args);
 
   if (!g_mutex_trylock(&freq_data_lock))
     locked = 1;
@@ -492,7 +506,7 @@ void mem_realloc( void **ptr, size_t req, gchar *str )
     snprintf( mesg, sizeof(mesg),
         _("Memory re-allocation denied %s\n"), str );
     pr_err("%s: Memory requested %lu\n", mesg, (unsigned long)req);
-    Stop( mesg, ERR_STOP );
+    Stop( ERR_STOP, "%s", mesg );
 	return;
   }
 
@@ -538,7 +552,7 @@ Open_File( FILE **fp, char *fname, const char *mode )
   {
     char mesg[MESG_SIZE];
     snprintf( mesg, sizeof(mesg), _("xnec2c[%d]: %s: Failed to open file: %s\n"), getpid(), fname, strerror(errno) );
-    Stop( mesg, ERR_STOP );
+    Stop( ERR_STOP, "%s", mesg );
     return( FALSE );
   }
   else

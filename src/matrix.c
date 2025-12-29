@@ -1304,7 +1304,7 @@ fblock( int nrow, int ncol, int imax, int ipsym )
   if( smat.nop*nrow != ncol)
   {
     pr_err("symmetry error - nrow:%d ncol:%d\n", nrow, ncol);
-    Stop( _("Symmetry error"), ERR_STOP );
+    Stop( ERR_STOP, _("Symmetry error") );
   }
 
   /* set up smat.ssx matrix for rotational symmetry. */

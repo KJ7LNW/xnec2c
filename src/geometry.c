@@ -94,8 +94,7 @@ arc( int itg, int ns, double rada,
 
   if( ns < 1)
   {
-    pr_err("number of segments less than 1 (ns < 1)\n");
-    Stop( _("Number of segments < 1"), ERR_OK );
+    Stop( ERR_OK, _("Number of segments < 1") );
     return( FALSE );
   }
 
@@ -146,8 +145,7 @@ arc( int itg, int ns, double rada,
   } /* if( fabs( ang2- ang1) < 360.00001) */
   else
   {
-    pr_err("arc angle exceeds 360 degrees\n");
-    Stop( _("Arc angle exceeds 360 degrees"), ERR_OK );
+    Stop( ERR_OK, _("Arc angle exceeds 360 degrees") );
     return( FALSE );
   }
 
@@ -308,8 +306,7 @@ conect( int ignd )
     /*** possibly should be error condition?? **/
     if( data.np > data.n)
     {
-      pr_err("np > n\n");
-      Stop( _("Error in conect(): np > n"), ERR_OK );
+      Stop( ERR_OK, _("Error in conect(): np > n") );
       return( FALSE );
     }
 
@@ -344,8 +341,8 @@ conect( int ignd )
         if( zi1 <= -slen)
         {
           pr_err("geometry data error: segment %d extends below ground\n", iz);
-          Stop( _("Geometry data error\n"
-                "Segment extends below ground"), ERR_OK );
+          Stop( ERR_OK, _("Geometry data error\n"
+                "Segment extends below ground") );
           return( FALSE );
         }
 
@@ -392,8 +389,8 @@ conect( int ignd )
         if( zi2 <= -slen)
         {
           pr_err("geometry data error: segment %d extends below ground\n", iz);
-          Stop( _("Geometry data error\n"
-                "Segment extends below ground"), ERR_OK );
+          Stop( ERR_OK, _("Geometry data error\n"
+                "Segment extends below ground") );
           return( FALSE );
         }
 
@@ -402,8 +399,8 @@ conect( int ignd )
           if( data.icon1[i] == iz )
           {
             pr_err("geometry data error: segment %d lies in ground plane\n", iz);
-            Stop( _("Geometry data error\n"
-                  "Segment lies in ground plane"), ERR_OK );
+            Stop( ERR_OK, _("Geometry data error\n"
+                  "Segment lies in ground plane") );
             return( FALSE );
           }
 
@@ -493,7 +490,7 @@ conect( int ignd )
     if( data.ipsym == 0 )
     {
       pr_err("ipsym = 0\n");
-      Stop( _("Error: ipsym = 0"), ERR_OK );
+      Stop( ERR_OK, _("Error: ipsym = 0") );
       return( FALSE );
     }
   } /* if( iseg != 1) */
@@ -551,8 +548,8 @@ conect( int ignd )
             {
               pr_err("Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n",
                 (long)data.n, (long)segj.maxcon);
-	      Stop("Segment connection count exceeds a full mesh, which is unlikely!\n"
-		   "Check for overlapping or nearly-connected segments\n", ERR_STOP);
+	      Stop(ERR_STOP, "Segment connection count exceeds a full mesh, which is unlikely!\n"
+		   "Check for overlapping or nearly-connected segments\n");
 	      return FALSE;
             }
 
@@ -765,8 +762,8 @@ isegno( int itagi, int mx)
   if( mx <= 0)
   {
     pr_err("check data, parameter specifying segment: position in a group of equal tags must not be zero\n");
-    Stop( _("Parameter specifying segment\n"
-          "position in a group of equal tags is zero"), ERR_OK );
+    Stop( ERR_OK, _("Parameter specifying segment\n"
+          "position in a group of equal tags is zero") );
     return( -1 );
   }
 
@@ -801,9 +798,9 @@ isegno( int itagi, int mx)
 
   if( itagi == 0 )
   {
-    Stop( _("Segment tag number error: Tag 0 is reserved and cannot be used.\n"
+    Stop( ERR_OK, _("Segment tag number error: Tag 0 is reserved and cannot be used.\n"
             "Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
-            "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."), ERR_OK );
+            "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0.") );
   }
   else
   {
@@ -812,7 +809,7 @@ isegno( int itagi, int mx)
              _("Segment tag number error: No segment found with tag %d.\n"
                "You are referencing an unknown tag or segment in a control card.\n"
                "Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."), itagi);
-    Stop(error_msg, ERR_OK);
+    Stop(ERR_OK, "%s", error_msg);
   }
 
   return( -1 );
@@ -1124,8 +1121,8 @@ patch(
         if( s1x <= 0.9998)
         {
           pr_err("corners of quadrilateral: patch do not lie in a plane\n");
-          Stop( _("Corners of quadrilateral\n"
-                "patch do not lie in a plane"), ERR_OK );
+          Stop( ERR_OK, _("Corners of quadrilateral\n"
+                "patch do not lie in a plane") );
           return( FALSE );
         }
 
@@ -1255,8 +1252,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
           if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
           {
             pr_err("geometry data error: segment %d lies in plane of symmetry\n", i + 1);
-            Stop( _("Geometry data error\n"
-                  "Segment lies in plane of symmetry"), ERR_OK );
+            Stop( ERR_OK, _("Geometry data error\n"
+                  "Segment lies in plane of symmetry") );
             return( FALSE );
           }
 
@@ -1304,8 +1301,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
           if( fabs(data.pz[i]) <= 1.0e-10)
           {
             pr_err("geometry data error: patch %d lies in plane of symmetry\n", i + 1);
-            Stop( _("Geometry data error\n"
-                  "Patch lies in plane of symmetry"), ERR_OK );
+            Stop( ERR_OK, _("Geometry data error\n"
+                  "Patch lies in plane of symmetry") );
             return( FALSE );
           }
 
@@ -1355,8 +1352,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
           if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
           {
             pr_err("geometry data error: segment %d lies in plane of symmetry\n", i + 1);
-            Stop( _("Geometry data error\n"
-                  "Segment lies in plane of symmetry"), ERR_OK );
+            Stop( ERR_OK, _("Geometry data error\n"
+                  "Segment lies in plane of symmetry") );
             return( FALSE );
           }
 
@@ -1404,8 +1401,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
           if( fabs( data.py[i]) <= 1.0e-10)
           {
             pr_err("geometry data error: patch %d lies in plane of symmetry\n", i + 1);
-            Stop( _("Geometry data error\n"
-                  "Patch lies in plane of symmetry"), ERR_OK );
+            Stop( ERR_OK, _("Geometry data error\n"
+                  "Patch lies in plane of symmetry") );
             return( FALSE );
           }
 
@@ -1457,8 +1454,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
         if( (fabs(e1)+fabs(e2) <= 1.0e-5) || (e1*e2 < -1.0e-6) )
         {
           pr_err("geometry data error: segment %d lies in plane of symmetry\n", i + 1);
-          Stop( _("Geometry data error\n"
-                "Segment lies in plane of symmetry"), ERR_OK );
+          Stop( ERR_OK, _("Geometry data error\n"
+                "Segment lies in plane of symmetry") );
           return( FALSE );
         }
 
@@ -1504,8 +1501,8 @@ reflc( int ix, int iy, int iz, int iti, int nop )
       if( fabs( data.px[i]) <= 1.0e-10)
       {
         pr_err("geometry data error: patch %d lies in plane of symmetry\n", i + 1);
-        Stop( _("Geometry data error\n"
-              "Patch lies in plane of symmetry"), ERR_OK );
+        Stop( ERR_OK, _("Geometry data error\n"
+              "Patch lies in plane of symmetry") );
         return( FALSE );
       }
 

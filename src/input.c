@@ -81,9 +81,8 @@ Read_Comments( void )
     /* read a line from input file */
     if( Load_Line(line_buf, input_fp) == EOF )
     {
-      pr_err("unexpected EOF (End of File)\n");
-      Stop( _("Error reading Comments\n"
-            "Unexpected EOF (End of File)"), ERR_OK );
+      Stop( ERR_OK, _("Error reading Comments\n"
+            "Unexpected EOF (End of File)") );
       return( FALSE );
     }
 
@@ -96,9 +95,8 @@ Read_Comments( void )
     /* Check that comment line is not short */
     if( strlen(line_buf) < 2 )
     {
-      pr_err("error reading Comments: Comment mnemonic short or missing\n");
-      Stop( _("Error reading Comments\n"
-            "Comment mnemonic short or missing"), ERR_OK );
+      Stop( ERR_OK, _("Error reading Comments\n"
+            "Comment mnemonic short or missing") );
       return( FALSE );
     }
 
@@ -108,9 +106,9 @@ Read_Comments( void )
     /* Check for incorrect mnemonic */
     if( (strcmp(ain, "CM") != 0) && (strcmp(ain, "CE") != 0) )
     {
-      Stop( _("Read_Comments():\n"
+      Stop( ERR_OK, _("Read_Comments():\n"
             " Error reading input file\n"
-            "Comment mnemonic incorrect"), ERR_OK );
+            "Comment mnemonic incorrect") );
       return( FALSE );
     }
 
@@ -147,17 +145,15 @@ Tag_Seg_Error( int tag, int segs )
 
   if( tag <= 0 )
   {
-    pr_err("geometry data card error - tag number is less than 1\n");
-    Stop( _("Geometry data error\n"
-          "Tag number is less than 1"), ERR_OK );
+    Stop( ERR_OK, _("Geometry data error\n"
+          "Tag number is less than 1") );
     retv = TRUE;
   }
 
   if( segs <= 0 )
   {
-    pr_err("geometry data card error - number of segments is less than 1\n");
-    Stop( _("Geometry data error\n"
-          "Number of segments is less than 1"), ERR_OK );
+    Stop( ERR_OK, _("Geometry data error\n"
+          "Number of segments is less than 1") );
     retv = TRUE;
   }
 
@@ -213,8 +209,8 @@ validate_card_characters(const char *line_buf, int start_idx, int len, const cha
     {
       pr_err("%s data card error: Spurious character '%c' at column %d\n",
           card_type, line_buf[idx], idx + 1);
-      Stop( _("Data card error\n"
-            "Spurious character in card"), ERR_OK );
+      Stop( ERR_OK, _("Data card error\n"
+            "Spurious character in card") );
       return FALSE;
     }
   }
@@ -302,7 +298,7 @@ parse_sy_card(const char *line_content)
   if( line_content == NULL )
   {
     pr_err("SY card: no line content available\n");
-    Stop( _("SY card: no line content available"), ERR_OK );
+    Stop( ERR_OK, _("SY card: no line content available") );
     return FALSE;
   }
 
@@ -320,7 +316,7 @@ parse_sy_card(const char *line_content)
     if( eq == NULL )
     {
       pr_err("SY card: missing '=' in definition\n");
-      Stop( _("SY card: missing '=' in definition"), ERR_OK );
+      Stop( ERR_OK, _("SY card: missing '=' in definition") );
       return FALSE;
     }
 
@@ -439,16 +435,14 @@ datagn( void )
 
           if( strcmp(gm, "GC" ) != 0 )
           {
-            pr_err("geometry data card error no GC card for tapered wire\n");
-            Stop( _("Geometry data error\n"
-                  "No GC card for tapered wire"), ERR_OK );
+            Stop( ERR_OK, _("Geometry data error\n"
+                  "No GC card for tapered wire") );
             return( FALSE );
           }
 
           if( (ys1 == 0.0) || (zs1 == 0.0) )
           {
-            pr_err("geometry GC data card error\n");
-            Stop( _("Geometry GC data card error"), ERR_OK );
+            Stop( ERR_OK, _("Geometry GC data card error") );
             return( FALSE );
           }
 
@@ -464,8 +458,7 @@ datagn( void )
       case GX: /* "gx" card */
         if( (ns < 0) || (itg < 0) )
         {
-          pr_err("geometry GX data card error\n");
-          Stop( _("Geometry GX data card error"), ERR_OK );
+          Stop( ERR_OK, _("Geometry GX data card error") );
           return( FALSE );
         }
 
@@ -488,8 +481,7 @@ datagn( void )
       case GR: /* "gr" card */
         if( (ns < 0) || (itg < 0) )
         {
-          pr_err("geometry GR data card error\n");
-          Stop( _("Geometry GR data card error"), ERR_OK );
+          Stop( ERR_OK, _("Geometry GR data card error") );
           return( FALSE );
         }
 
@@ -546,7 +538,7 @@ datagn( void )
           Init_Struct_Drawing();
         else if( (data.n == 0) && (data.m == 0) )
         {
-          Stop( _("No geometry data cards"), ERR_OK );
+          Stop( ERR_OK, _("No geometry data cards") );
           return( FALSE );
         }
 
@@ -555,10 +547,10 @@ datagn( void )
         {
           if( !verify_segments() )
           {
-            Notice( _("Probable invalid segment geometry.\n"),
+            Notice( GTK_BUTTONS_OK, _("Probable invalid segment geometry.\n"),
                   _("Invalid segment geometry.\n"
                   "See warnings in the console for detail.\n"
-                  "Trying to continue..."), GTK_BUTTONS_OK );
+                  "Trying to continue...") );
           }
           else
             pr_info("Read_Geometry: verify_segments() passed\n");
@@ -609,7 +601,7 @@ datagn( void )
             {
               pr_err("segment data error: tag=%d si=%lf, bi=%lf\n",
                      i + 1, data.si[i], data.bi[i]);
-              Stop( _("Segment data error, zero-length line?  See console."), ERR_OK );
+              Stop( ERR_OK, _("Segment data error, zero-length line?  See console.") );
               return( FALSE );
             }
 
@@ -644,8 +636,7 @@ datagn( void )
           int tgf = (int)(rad + 0.5);
           if( (tgf < 0) || (ns < 0) || (rad < 0.0) )
           {
-            pr_err("move GM data card error\n");
-            Stop( _("Move GM data card error"), ERR_OK );
+            Stop( ERR_OK, _("Move GM data card error") );
             return( FALSE );
           }
           xw1= xw1* TORAD;
@@ -661,8 +652,7 @@ datagn( void )
 
         if( itg != 0)
         {
-          pr_err("patch data card error\n");
-          Stop( _("Patch data card error"), ERR_OK );
+          Stop( ERR_OK, _("Patch data card error") );
           return( FALSE );
         }
 
@@ -684,8 +674,7 @@ datagn( void )
 
           if( strcmp(gm, "SC") != 0 )
           {
-            pr_err("patch data error\n");
-            Stop( _("Patch data error"), ERR_OK );
+            Stop( ERR_OK, _("Patch data error") );
             return( FALSE );
           }
 
@@ -704,8 +693,7 @@ datagn( void )
       case SM: /* "sm" card, generate multiple-patch surface */
         if( (itg < 1) || (ns < 1) )
         {
-          pr_err("patch card data error\n");
-          Stop( _("Patch data card error"), ERR_OK );
+          Stop( ERR_OK, _("Patch data card error") );
           return( FALSE );
         }
 
@@ -722,8 +710,7 @@ datagn( void )
 
         if( strcmp(gm, "SC" ) != 0 )
         {
-          pr_err("patch card data error\n");
-          Stop( _("Patch data card error"), ERR_OK );
+          Stop( ERR_OK, _("Patch data card error") );
           return( FALSE );
         }
 
@@ -741,8 +728,7 @@ datagn( void )
       case SC: /* "sc" card */
         if( isct == 0)
         {
-          pr_err("patch data card error\n");
-          Stop( _("Patch data card error"), ERR_OK );
+          Stop( ERR_OK, _("Patch data card error") );
           return( FALSE );
         }
 
@@ -750,8 +736,7 @@ datagn( void )
 
         if( (itg != 0) || ((ns != 2) && (ns != 4)) )
         {
-          pr_err("patch data card error\n");
-          Stop( _("Patch data card error"), ERR_OK );
+          Stop( ERR_OK, _("Patch data card error") );
           return( FALSE );
         }
 
@@ -798,14 +783,12 @@ datagn( void )
         continue;
 
       case GF: /* "gf" card, not supported */
-        pr_err("\"GF\" card (NGF solution) is not supported\n");
-        Stop( _("\"GF\" card (NGF solution)\n"
-              "is not supported"), ERR_OK );
+        Stop( ERR_OK, _("\"GF\" card (NGF solution)\n"
+              "is not supported") );
         return( FALSE );
 
       case CT: /* Ignore in-data comments (NEC4 compatibility) */
-        pr_err("ignoring CM card in geometry\n");
-        Stop( _("Ignoring CM card in geometry"), ERR_OK );
+        Stop( ERR_OK, _("Ignoring CM card in geometry") );
         continue;
 
       case SY_GEOM: /* "sy" card, symbolic variable definition */
@@ -822,7 +805,7 @@ datagn( void )
         pr_err("%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n",
 			gm, itg, ns, xw1, yw1, zw1, xw2, yw2, zw2, rad);
 
-        Stop( _("Geometry data card error"), ERR_OK );
+        Stop( ERR_OK, _("Geometry data card error") );
         return( FALSE );
 
     } /* switch( gm_num ) */
@@ -848,7 +831,7 @@ Read_Geometry( void )
   if( !sy_init() )
   {
     pr_err("Failed to initialize symbol table\n");
-    Stop( _("Failed to initialize symbol table"), ERR_OK );
+    Stop( ERR_OK, _("Failed to initialize symbol table") );
     return( FALSE );
   }
   else
@@ -1017,13 +1000,12 @@ Read_Commands( void )
     {
       case CM: /* "cm" card ignored, comments in data cards as in NEC4 */
         pr_warn("ignoring CM card in commands\n");
-        Stop( _("Ignoring CM card in commands"),
-            ERR_OK );
+        Stop( ERR_OK, _("Ignoring CM card in commands") );
         continue;
 
       case CP: /* "cp" card ignored, maximum coupling between antennas */
-        Stop( _("CP card is ignored\n"
-              "Coupling calculation not implemented"), ERR_OK );
+        Stop( ERR_OK, _("CP card is ignored\n"
+              "Coupling calculation not implemented") );
         continue; /* continue card input loop */
 
       case EK: /* "ek" card,  extended thin wire kernel option */
@@ -1201,8 +1183,8 @@ Read_Commands( void )
         if( fld[card].freq_steps > 1 && fld[card].max_freq <= fld[card].min_freq )
         {
           pr_err("Max frequency <= Min frequency in FR card\n");
-          Stop( _("Max frequency <= Min frequency in FR card\n"
-                "Please check FR card data and correct"), ERR_OK );
+          Stop( ERR_OK, _("Max frequency <= Min frequency in FR card\n"
+                "Please check FR card data and correct") );
           return( FALSE );
         }
 
@@ -1224,7 +1206,7 @@ Read_Commands( void )
 
         if (itmp1 == -1 && gnd.gpflag != 0)
         {
-            Stop(_("Fix the GE/GN cards:\nThe GE card specifies that a ground is present, but the GN indicates otherwise."), ERR_OK);
+            Stop(ERR_OK, _("Fix the GE/GN cards:\nThe GE card specifies that a ground is present, but the GN indicates otherwise."));
             return( FALSE );
         }
 
@@ -1239,8 +1221,8 @@ Read_Commands( void )
         if( (gnd.ifar != 1) && (test > 90.0) )
         {
           pr_err("theta > 90 deg. with ground specified\n");
-          Stop( _("Theta > 90 deg with ground specified\n"
-                "Please check RP card data and correct"), ERR_OK );
+          Stop( ERR_OK, _("Theta > 90 deg with ground specified\n"
+                "Please check RP card data and correct") );
           return( FALSE );
         }
 
@@ -1249,8 +1231,8 @@ Read_Commands( void )
           if( gnd.iperf == 2)
           {
             pr_err("radial wire g.s. approximation: may not be used with Sommerfeld ground option\n");
-            Stop( _("radial wire g.s. approximation\n"
-                  "may not be used with Sommerfeld ground option"), ERR_OK );
+            Stop( ERR_OK, _("radial wire g.s. approximation\n"
+                  "may not be used with Sommerfeld ground option") );
             return( FALSE );
           }
 
@@ -1302,8 +1284,8 @@ Read_Commands( void )
           {
             pr_err("data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n",
                    zload.nload, itmp3, itmp4);
-            Stop( _("Data fault on loading card\n"
-                  "itag step1 is greater than itag step2"), ERR_OK );
+            Stop( ERR_OK, _("Data fault on loading card\n"
+                  "itag step1 is greater than itag step2") );
             return( FALSE );
           }
 
@@ -1436,8 +1418,8 @@ Read_Commands( void )
             if( tmp1 == 0.0 )
             {
               pr_err("Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n");
-              Stop( _("Transmission Line impedance = 0\n"
-                    "is not valid. Please correct NT or TL card"), ERR_OK );
+              Stop( ERR_OK, _("Transmission Line impedance = 0\n"
+                    "is not valid. Please correct NT or TL card") );
               return( FALSE );
             }
           }
@@ -1446,8 +1428,8 @@ Read_Commands( void )
               ((netcx.iseg2[idx] = isegno(itmp3, itmp4)) < 0) )
           {
             pr_err("Segment number error in TL or NT card\n");
-            Stop( _("Segment number\n"
-                "error in NT or TL card"), ERR_OK );
+            Stop( ERR_OK, _("Segment number\n"
+                "error in NT or TL card") );
             return( FALSE );
           }
           netcx.x11r[idx]  = tmp1;
@@ -1468,16 +1450,16 @@ Read_Commands( void )
 
       case PQ: case PT: /* "pq" and "pt" cards ignored, no printing */
         pr_err("PQ and PT cards are ignored: Printing to file not implemented\n");
-        Stop( _("PQ and PT cards are ignored\n"
-              "Printing to file not implemented"), ERR_OK );
+        Stop( ERR_OK, _("PQ and PT cards are ignored\n"
+              "Printing to file not implemented") );
         continue; /* continue card input loop */
 
       case RP: /* "rp" card, standard observation angle parameters */
         if( itmp1 == 1 )
         {
           pr_err("Surface wave option (I1=1): of RP command not implemented\n");
-          Stop( _("Surface wave option (I1=1)\n"
-                "of RP command not implemented"), ERR_OK );
+          Stop( ERR_OK, _("Surface wave option (I1=1)\n"
+                "of RP command not implemented") );
           return( FALSE );
         }
 
@@ -1499,9 +1481,9 @@ Read_Commands( void )
 
         if( fpat.iavp )
         {
-          Stop( _("Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
+          Stop( ERR_OK, _("Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
                 "xnec2c renders radiation patterns graphically instead of text tables.\n"
-                "Pattern calculations proceed normally; use GUI to view results."), ERR_OK );
+                "Pattern calculations proceed normally; use GUI to view results.") );
           return( FALSE );
         }
         if( fpat.iax != 0) fpat.iax = 1;
@@ -1518,8 +1500,8 @@ Read_Commands( void )
         if( (gnd.ksymp == 2) && (gnd.ifar != 1) && (tmp1 > 90.0) )
         {
           pr_err("Theta > 90 deg. with ground specified: Please check RP card data and correct\n");
-          Stop( _("Theta > 90 deg. with ground specified\n"
-                "Please check RP card data and correct"), ERR_OK );
+          Stop( ERR_OK, _("Theta > 90 deg. with ground specified\n"
+                "Please check RP card data and correct") );
           return( FALSE );
         }
 
@@ -1586,7 +1568,7 @@ Read_Commands( void )
             _("Faulty data card"),
             ain, mpcnt);
         pr_err("%s", notice);
-        Stop(notice, ERR_OK);
+        Stop(ERR_OK, "%s", notice);
         return( FALSE );
     } /* switch( ain_num ) */
 
@@ -1610,7 +1592,7 @@ Read_Commands( void )
 
   /* Cleanup on error paths */
   sy_cleanup();
-  Stop(_("Unexpected exit from while loop"), ERR_OK);
+  Stop(ERR_OK, _("Unexpected exit from while loop"));
   return( FALSE );
 
 } /* Read_Commands() */
@@ -1669,9 +1651,9 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   {
     Strlcpy( mn, "EN", 3 );
     pr_err("command data card error: Unexpected EOF while reading input file - appending EN card\n");
-    Stop( _("Command data card error\n"
+    Stop( ERR_OK, _("Command data card error\n"
           "Unexpected EOF while reading input file\n"
-            "Appending a default EN card"), ERR_OK );
+            "Appending a default EN card") );
     free_ptr( (void **)&startptr );
     return( FALSE );
   }
@@ -1684,8 +1666,8 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   {
     Strlcpy( mn, "XX", 3 );
     pr_err("command data card error: card's mnemonic code too short or missing\n");
-    Stop( _("Command data card error\n"
-          "Mnemonic code too short or missing"), ERR_OK );
+    Stop( ERR_OK, _("Command data card error\n"
+          "Mnemonic code too short or missing") );
     free_ptr( (void **)&startptr );
     return( FALSE );
   }
@@ -1845,9 +1827,9 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   {
     Strlcpy( gm, "GE", 3 );
     pr_err("geometry data card error: Unexpected EOF while reading input file - appending GE card\n");
-    Stop( _("Geometry data card error\n"
+    Stop( ERR_OK, _("Geometry data card error\n"
           "Unexpected EOF while reading input file\n"
-          "Appending a default GE card"), ERR_OK );
+          "Appending a default GE card") );
     free_ptr( (void **)&startptr );
     return( FALSE );
   }
@@ -1860,8 +1842,8 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   {
     Strlcpy( gm, "XX", 3 );
     pr_err("geometry data card error: card's mnemonic code too short or missing\n");
-    Stop( _("Geometry data card error\n"
-          "Card's mnemonic code too short or missing"), ERR_OK );
+    Stop( ERR_OK, _("Geometry data card error\n"
+          "Card's mnemonic code too short or missing") );
     free_ptr( (void **)&startptr );
     return( FALSE );
   }

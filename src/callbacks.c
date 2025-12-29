@@ -288,9 +288,8 @@ on_optimizer_output_toggled(
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)))
 		return;
 
-    Notice(_("xnec2c geometry optimizer"),
-        _("xnec2c was built without inotify support: the optimizer cannot be enabled."),
-        GTK_BUTTONS_OK);
+    Notice(GTK_BUTTONS_OK, _("xnec2c geometry optimizer"),
+        _("xnec2c was built without inotify support: the optimizer cannot be enabled."));
     ClearFlag( OPTIMIZER_OUTPUT );
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), FALSE);
     return;
@@ -314,11 +313,10 @@ on_optimizer_output_toggled(
 
     if (!opt_have_files_to_save())
     {
-        Notice(_("Xnec2c Optimizer"), _("No files are selected for writing. "
+        Notice(GTK_BUTTONS_OK, _("Xnec2c Optimizer"), _("No files are selected for writing. "
             "However, xnec2c will still reload and recalculate the input file on "
             "modification when triggered by inotify."
-            "Select files for writing in \"File->Optimization Settings\"."),
-            GTK_BUTTONS_OK);
+            "Select files for writing in \"File->Optimization Settings\"."));
     }
 
     // Create a thread to play back demodulation buffer
@@ -2137,7 +2135,7 @@ on_nec2_edit_activate(
   /* Abort if no open input file */
   if( input_fp == NULL )
   {
-    Stop( _("No open NEC2 input file"), ERR_OK );
+    Stop( ERR_OK, _("No open NEC2 input file") );
     return;
   }
 
@@ -2732,10 +2730,9 @@ on_gw_clicked(
   /* Abort if FR cards have not been processed */
   if( calc_data.FR_cards < 1 )
   {
-    Stop(
+    Stop(ERR_OK,
         "Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first.",
-        ERR_OK );
+        "You may need to save the NEC2 Editor data first.");
     return;
   }
 
@@ -2753,10 +2750,9 @@ on_ga_clicked(
   /* Abort if FR cards have not been processed */
   if( calc_data.FR_cards < 1 )
   {
-    Stop(
+    Stop(ERR_OK,
         "Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first.",
-        ERR_OK );
+        "You may need to save the NEC2 Editor data first.");
     return;
   }
 
@@ -2774,10 +2770,9 @@ on_gh_clicked(
   /* Abort if FR cards have not been processed */
   if( calc_data.FR_cards < 1 )
   {
-    Stop(
+    Stop(ERR_OK,
         "Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first.",
-        ERR_OK );
+        "You may need to save the NEC2 Editor data first.");
     return;
   }
 

@@ -73,8 +73,8 @@ Get_Geometry_Data(
           GTK_TREE_MODEL(store), iter, idf, &fv[idf-GEOM_COL_F1], -1);
     }
   }
-  else Stop( _("Error reading row data\n"
-        "Invalid list iterator"), ERR_OK );
+  else Stop( ERR_OK, _("Error reading row data\n"
+        "Invalid list iterator") );
 
 } /* Get_Geometry_Data() */
 
@@ -106,8 +106,8 @@ Set_Geometry_Data(
       gtk_list_store_set( store, iter, idf, fv[idf - GEOM_COL_F1], -1 );
     }
   }
-  else Stop( _("Error writing row data\n"
-        "Please re-select row"), ERR_OK );
+  else Stop( ERR_OK, _("Error writing row data\n"
+        "Please re-select row") );
 
   SetFlag( NEC2_EDIT_SAVE );
 
@@ -136,8 +136,8 @@ Set_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
     /* Clear unused float columns */
     Zero_Store(store, iter, GEOM_NUM_COLS, GEOM_COL_F1, GEOM_COL_F7);
   }
-  else Stop( _("Error writing row data\n"
-        "Please re-select row"), ERR_OK );
+  else Stop( ERR_OK, _("Error writing row data\n"
+        "Please re-select row") );
 
   SetFlag( NEC2_EDIT_SAVE );
 
@@ -409,10 +409,9 @@ Wire_Editor( int action )
   /* Abort if FR cards have not been processed */
   if( calc_data.FR_cards < 1 )
   {
-    Stop(
+    Stop( ERR_OK,
         "Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first.",
-        ERR_OK );
+        "You may need to save the NEC2 Editor data first." );
     return;
   }
 
@@ -526,11 +525,11 @@ Wire_Editor( int action )
 
           /* Warn user if wire radius not 0 */
           if( fv[WIRE_DIA] != 0.0 )
-            Stop( _("GC card preceded by GW card\n"
-                  "with non-zero wire radius"), ERR_OK );
+            Stop( ERR_OK, _("GC card preceded by GW card\n"
+                  "with non-zero wire radius") );
 
         } /* if( strcmp(name, "GC") == 0 ) */
-        else Stop( _("No GW card before GC card"), ERR_OK );
+        else Stop( ERR_OK, _("No GW card before GC card") );
       }
       else /*** Editing a GW card ***/
       {
@@ -554,8 +553,8 @@ Wire_Editor( int action )
                 &iv[SPIN_COL_I3], &fv[WIRE_RLEN] );
             fv[WIRE_RDIA] = fv[WIRE_RLEN];
           }
-          else Stop( _("No GC card after a GW card\n"
-                "with a zero wire radius"), ERR_OK );
+          else Stop( ERR_OK, _("No GC card after a GW card\n"
+                "with a zero wire radius") );
 
         } /* if( fv[WIRE_DIA] == 0.0 ) */
         /* If radius != 0, next card should not be GC */
@@ -563,8 +562,8 @@ Wire_Editor( int action )
         {
           taper = FALSE;
           if( Check_Card_Name(geom_store, &iter_gc, NEXT, "GC") )
-            Stop( _("GC card follows a GW card\n"
-                  "with non-zero wire radius"), ERR_OK );
+            Stop( ERR_OK, _("GC card follows a GW card\n"
+                  "with non-zero wire radius") );
         }
 
       } /* if( strcmp(name, "GC") == 0 ) */
@@ -942,8 +941,8 @@ Patch_Editor( int action )
           /* Warn user if SP card with arbitrary
            * patch is followed by an SC card */
           if( ptype == PATCH_ARBT )
-            Stop( _("SC card preceded by SP card\n"
-                  "with arbitrary patch type"), ERR_OK );
+            Stop( ERR_OK, _("SC card preceded by SP card\n"
+                  "with arbitrary patch type") );
 
         } /* if( Check_Card_Name(geom_store, &iter_sp, PREVIOUS, "SP") ) */
         else /* Look for a previous SM card */
@@ -954,7 +953,7 @@ Patch_Editor( int action )
             Get_Geometry_Data( geom_store, &iter_sp, iv, fv );
             ptype = PATCH_SURF;
           }
-          else Stop( _("No SP or SM card before SC card"), ERR_OK );
+          else Stop( ERR_OK, _("No SP or SM card before SC card") );
         }
       } /* if( strcmp(name, "SC") == 0 ) */
       else /*** Editing an SP|SM card ***/
@@ -974,15 +973,15 @@ Patch_Editor( int action )
             else
             {
               ptype = PATCH_ARBT;
-              Stop( _("No SC card after an SP card\n"
-                    "with non-arbitrary patch type"), ERR_OK );
+              Stop( ERR_OK, _("No SC card after an SP card\n"
+                    "with non-arbitrary patch type") );
             }
 
           } /* if( ptype != PATCH_ARBT ) */
           /* If patch type arbitrary, no SC card should follow */
           else if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
-            Stop( _("SC card follows an SP card\n"
-                  "with arbitrary patch type"), ERR_OK );
+            Stop( ERR_OK, _("SC card follows an SP card\n"
+                  "with arbitrary patch type") );
         } /* if( strcmp(name, "SP") == 0 ) */
         else /* SM card */
         {
@@ -994,7 +993,7 @@ Patch_Editor( int action )
           if( Check_Card_Name(geom_store, &iter_sc, NEXT, "SC") )
             Get_Geometry_Data( geom_store, &iter_sc,
                 &iv[SPIN_COL_I3], &fv[PATCH_X3] );
-          else Stop( _("No SC card after an SM card"), ERR_OK );
+          else Stop( ERR_OK, _("No SC card after an SM card") );
 
         } /* if( strcmp(name, "SP") == 0 ) */
 
@@ -1226,10 +1225,9 @@ Arc_Editor( int action )
   /* Abort if FR cards have not been processed */
   if( calc_data.FR_cards < 1 )
   {
-    Stop(
+    Stop( ERR_OK,
         "Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first.",
-        ERR_OK );
+        "You may need to save the NEC2 Editor data first." );
     return;
   }
 
@@ -1469,10 +1467,9 @@ Helix_Editor( int action )
   /* Abort if FR cards have not been processed */
   if( calc_data.FR_cards < 1 )
   {
-    Stop(
+    Stop( ERR_OK,
         "Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first.",
-        ERR_OK );
+        "You may need to save the NEC2 Editor data first." );
     return;
   }
 
@@ -1866,8 +1863,8 @@ Get_Geometry_Int_Data( GtkListStore *store, GtkTreeIter *iter, int *iv )
                          &iv[idi - GEOM_COL_I1], -1);
     }
   }
-  else Stop( _("Error reading row data\n"
-        "Invalid list iterator"), ERR_OK );
+  else Stop( ERR_OK, _("Error reading row data\n"
+        "Invalid list iterator") );
 
 } /* Get_Geometry_Int_Data() */
 
@@ -2109,8 +2106,8 @@ Scale_Editor( int action )
             &iter_gs, GEOM_COL_F1, &scale, -1);
       }
       else
-        Stop( _("Error reading row data\n"
-              "Invalid list iterator"), ERR_OK );
+        Stop( ERR_OK, _("Error reading row data\n"
+              "Invalid list iterator") );
 
       /* Enter tag from-to data to scale editor */
       for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
@@ -2491,8 +2488,8 @@ Gend_Editor( int action )
             Builder_Get_Object(gend_editor_builder, rdbutton[idx]) );
         gtk_toggle_button_set_active( toggle, TRUE );
       }
-      else Stop( _("Error reading row data\n"
-            "Invalid list iterator"), ERR_OK );
+      else Stop( ERR_OK, _("Error reading row data\n"
+            "Invalid list iterator") );
       break;
 
     case EDITOR_CANCEL: /* Cancel transform editor */
@@ -2582,7 +2579,7 @@ Give_Up( gboolean *busy, GtkWidget *widget )
   /* Abort if NEC2 editor window is closed */
   if( nec2_edit_window == NULL )
   {
-    Stop( _("NEC2 editor window not open"), ERR_OK );
+    Stop( ERR_OK, _("NEC2 editor window not open") );
     Gtk_Widget_Destroy( &widget );
     *busy = FALSE;
     return( TRUE );
