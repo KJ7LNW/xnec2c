@@ -1,0 +1,3643 @@
+# Turkish translations for xnec2c package.
+# Copyright (C) 2025 Neoklis Kyriazis nkcyham@yahoo.com
+# This file is distributed under the same license as the xnec2c package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xnec2c 4.4.18\n"
+"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
+"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"PO-Revision-Date: 2025-12-27 16:01-0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/calculations.c:117 src/calculations.c:1276
+#, c-format
+msgid "segment connection error for segment %5d\n"
+msgstr "segment %5d için segment bağlantı hatası\n"
+
+#: src/calculations.c:118
+msgid "Segment connection error in tbf()"
+msgstr "tbf() içinde segment bağlantı hatası"
+
+#: src/calculations.c:890
+#, c-format
+msgid "step size limited at z= %10.5f\n"
+msgstr "z= %10.5f konumunda adım boyutu sınırlandırıldı\n"
+
+#: src/calculations.c:1054
+#, c-format
+msgid "segment connection error for segment %d\n"
+msgstr "segment %d için segment bağlantı hatası\n"
+
+#: src/calculations.c:1055
+msgid "Segment connection error in sbf()"
+msgstr "sbf() içinde segment bağlantı hatası"
+
+#: src/calculations.c:1277
+msgid "Segment connection error in trio()"
+msgstr "trio() içinde segment bağlantı hatası"
+
+#: src/callback_func.c:263
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to end the calculation?"
+msgstr ""
+"Frekans döngüsü çalışıyor\n"
+"Hesaplamayı sonlandırmak istediğinizden emin misiniz?"
+
+#: src/callback_func.c:267
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to close this window?"
+msgstr ""
+"Frekans döngüsü çalışıyor\n"
+"Bu pencereyi kapatmak istediğinizden emin misiniz?"
+
+#: src/callback_func.c:512
+#, c-format
+msgid ""
+"Frequency plots window closed: excitation type %d is incompatible.\n"
+"Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
+msgstr ""
+"Frekans grafikleri penceresi kapatıldı: uyarma türü %d uyumsuz.\n"
+"Bunun yerine tür 0 (Uygulanan E Alanı) veya 5 (Akım Süreksizliği) kullanın."
+
+#: src/callback_func.c:518
+#, c-format
+msgid ""
+"Frequency plots are not available with excitation type %d.\n"
+"This model uses Incident Field or Elementary Current Source excitation.\n"
+"Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
+msgstr ""
+"Frekans grafikleri, uyarma türü %d ile kullanılamaz.\n"
+"Bu model Gelen Alan veya Temel Akım Kaynağı uyarması kullanıyor.\n"
+"EX kartını tür 0 (Uygulanan E Alanı) veya 5 (Akım Süreksizliği) olarak "
+"değiştirin."
+
+#: src/callback_func.c:697
+msgid "View Currents"
+msgstr "Akımları Görüntüle"
+
+#: src/callback_func.c:719 src/callback_func.c:778
+msgid "View Geometry"
+msgstr "Geometriyi Görüntüle"
+
+#: src/callback_func.c:756
+msgid "View Charges"
+msgstr "Yükleri Görüntüle"
+
+#: src/callback_func.c:821
+msgid "PNG images (*.png)"
+msgstr "PNG görüntüleri (*.png)"
+
+#: src/callback_func.c:823
+msgid "GNUplot files (*.gplot)"
+msgstr "GNUplot dosyaları (*.gplot)"
+
+#: src/callback_func.c:825
+msgid "NEC2 files (*.nec)"
+msgstr "NEC2 dosyaları (*.nec)"
+
+#: src/callback_func.c:827
+msgid "Touchstone 1-port files (*.s1p)"
+msgstr "Touchstone 1-port dosyaları (*.s1p)"
+
+#: src/callback_func.c:829
+msgid "Touchstone 2-port files (*.s2p)"
+msgstr "Touchstone 2-port dosyaları (*.s2p)"
+
+#: src/callback_func.c:831
+msgid "Comma-separated CSV files (*.csv)"
+msgstr "Virgülle ayrılmış CSV dosyaları (*.csv)"
+
+#: src/callbacks.c:88 src/callbacks.c:371 src/callbacks.c:1813
+#: src/callbacks.c:2174
+msgid "Are you sure you wish to quit xnec2c?"
+msgstr "xnec2c'den çıkmak istediğinizden emin misiniz?"
+
+#: src/callbacks.c:131
+msgid ""
+"A new NEC2 input file may not be created\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Frekans Döngüsü çalışırken\n"
+"yeni bir NEC2 girdi dosyası oluşturulamaz"
+
+#: src/callbacks.c:171
+msgid ""
+"A new NEC2 input file may not be opened\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Frekans Döngüsü çalışırken\n"
+"yeni bir NEC2 girdi dosyası açılamaz"
+
+#: src/callbacks.c:291
+msgid "xnec2c geometry optimizer"
+msgstr "xnec2c geometri optimize edici"
+
+#: src/callbacks.c:292
+msgid ""
+"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr ""
+"xnec2c inotify desteği olmadan derlendi: optimize edici etkinleştirilemez."
+
+#: src/callbacks.c:316
+msgid "Xnec2c Optimizer"
+msgstr "Xnec2c Optimize Edici"
+
+#: src/callbacks.c:316
+msgid ""
+"No files are selected for writing. However, xnec2c will still reload and "
+"recalculate the input file on modification when triggered by inotify.Select "
+"files for writing in \"File->Optimization Settings\"."
+msgstr ""
+"Yazma için dosya seçilmedi. Ancak xnec2c, inotify tarafından tetiklendiğinde "
+"girdi dosyasını değişiklik üzerine yeniden yükleyecek ve hesaplayacaktır. "
+"\"Dosya->Optimizasyon Ayarları\" bölümünden yazılacak dosyaları seçin."
+
+#: src/callbacks.c:327
+msgid "failed to create Optimizer Output thread\n"
+msgstr "Optimize Edici Çıktı iş parçacığı oluşturulamadı\n"
+
+#: src/callbacks.c:1031 src/callbacks.c:1347 src/callbacks.c:2200
+msgid "Are you sure you wish to close this window?"
+msgstr "Bu pencereyi kapatmak istediğinizden emin misiniz?"
+
+#: src/callbacks.c:2138
+msgid "No open NEC2 input file"
+msgstr "Açık NEC2 girdi dosyası yok"
+
+#: src/callbacks.c:2231 src/callbacks.c:2261
+msgid ""
+"NEC2 Editor's data may not be saved\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Frekans Döngüsü çalışırken\n"
+"NEC2 Düzenleyici verileri kaydedilemez"
+
+#: src/callbacks.c:2243 src/callbacks.c:2269
+msgid "untitled.nec"
+msgstr "isimsiz.nec"
+
+#: src/callbacks.c:2734 src/callbacks.c:2754 src/callbacks.c:2774
+#: src/geom_edit.c:413 src/geom_edit.c:1229 src/geom_edit.c:1471
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Frekans (FR) kartları henüz işlenmedi.\n"
+"Önce NEC2 Düzenleyici verilerini kaydetmeniz gerekebilir."
+
+#: src/cmnd_edit.c:72
+msgid ""
+"Get_Command_Data(): Error reading\n"
+"row data: Invalid list iterator"
+msgstr ""
+"Get_Command_Data(): Satır verisi okuma hatası:\n"
+"Geçersiz liste yineleyici"
+
+#: src/cmnd_edit.c:105
+msgid ""
+"Set_Command_Data(): Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Set_Command_Data(): Satır verisi yazma hatası\n"
+"Lütfen satırı yeniden seçin"
+
+#: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
+#: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
+msgid "Tag Number"
+msgstr "Etiket Numarası"
+
+#: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
+msgid "Segment Number"
+msgstr "Segment Numarası"
+
+#: src/cmnd_edit.c:422
+msgid "Voltage Real Part"
+msgstr "Gerilim Gerçek Kısmı"
+
+#: src/cmnd_edit.c:423
+msgid "Voltage Imaginary Part"
+msgstr "Gerilim Sanal Kısmı"
+
+#: src/cmnd_edit.c:424 src/cmnd_edit.c:1579
+msgid "Normalization Factor"
+msgstr "Normalizasyon Faktörü"
+
+#: src/cmnd_edit.c:425 src/cmnd_edit.c:426 src/cmnd_edit.c:427
+#: src/cmnd_edit.c:463 src/cmnd_edit.c:464 src/cmnd_edit.c:1814
+#: src/cmnd_edit.c:1825 src/cmnd_edit.c:1826
+msgid "  ** NOT USED **"
+msgstr "  ** KULLANILMIYOR **"
+
+#: src/cmnd_edit.c:445
+msgid "Num of Theta Angles"
+msgstr "Theta Açı Sayısı"
+
+#: src/cmnd_edit.c:446
+msgid "Num of Phi Angles"
+msgstr "Phi Açı Sayısı"
+
+#: src/cmnd_edit.c:447
+msgid "Theta Angle (deg)"
+msgstr "Theta Açısı (derece)"
+
+#: src/cmnd_edit.c:448
+msgid "Phi Angle (deg)"
+msgstr "Phi Açısı (derece)"
+
+#: src/cmnd_edit.c:449
+msgid "Eta Angle (deg)"
+msgstr "Eta Açısı (derece)"
+
+#: src/cmnd_edit.c:450
+msgid "Theta Increment (deg)"
+msgstr "Theta Artışı (derece)"
+
+#: src/cmnd_edit.c:451
+msgid "Phi Increment (deg)"
+msgstr "Phi Artışı (derece)"
+
+#: src/cmnd_edit.c:452
+msgid "Minor/Major Axis"
+msgstr "Küçük/Büyük Eksen"
+
+#: src/cmnd_edit.c:465
+msgid "X Position (m)"
+msgstr "X Konumu (m)"
+
+#: src/cmnd_edit.c:466
+msgid "Y Position (m)"
+msgstr "Y Konumu (m)"
+
+#: src/cmnd_edit.c:467
+msgid "Z Position (m)"
+msgstr "Z Konumu (m)"
+
+#: src/cmnd_edit.c:468
+msgid "alpha Angle (deg)"
+msgstr "Alpha Açısı (derece)"
+
+#: src/cmnd_edit.c:469
+msgid "beta Angle (deg)"
+msgstr "Beta Açısı (derece)"
+
+#: src/cmnd_edit.c:470
+msgid "Current Moment (A.m)"
+msgstr "Akım Momenti (A.m)"
+
+#: src/cmnd_edit.c:1556
+msgid "Points in Z"
+msgstr "Z'deki Noktalar"
+
+#: src/cmnd_edit.c:1557
+msgid "Initial Z (m)"
+msgstr "Başlangıç Z (m)"
+
+#: src/cmnd_edit.c:1558
+msgid "Increment in Z"
+msgstr "Z Artışı"
+
+#: src/cmnd_edit.c:1559
+msgid "Field Point R (m)"
+msgstr "Alan Noktası R (m)"
+
+#: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
+msgid "Points in Phi"
+msgstr "Phi'deki Noktalar"
+
+#: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
+msgid "Initial Theta (deg)"
+msgstr "Başlangıç Theta (derece)"
+
+#: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
+msgid "Increment in Theta"
+msgstr "Theta Artışı"
+
+#: src/cmnd_edit.c:1570
+msgid "R (m) (Optional)"
+msgstr "R (m) (İsteğe Bağlı)"
+
+#: src/cmnd_edit.c:1583
+msgid "** NOT USED **"
+msgstr "** KULLANILMIYOR **"
+
+#: src/cmnd_edit.c:1788 src/cmnd_edit.c:1812
+msgid "Resistance Ohm"
+msgstr "Direnç Ohm"
+
+#: src/cmnd_edit.c:1789
+msgid "Inductance uH"
+msgstr "Endüktans uH"
+
+#: src/cmnd_edit.c:1790
+msgid "Capacitance pF"
+msgstr "Kapasitans pF"
+
+#: src/cmnd_edit.c:1800
+msgid "Resistance Ohm/m"
+msgstr "Direnç Ohm/m"
+
+#: src/cmnd_edit.c:1801
+msgid "Inductance uH/m"
+msgstr "Endüktans uH/m"
+
+#: src/cmnd_edit.c:1802
+msgid "Capacitance pF/m"
+msgstr "Kapasitans pF/m"
+
+#: src/cmnd_edit.c:1813
+msgid "Reactance Ohm"
+msgstr "Reaktans Ohm"
+
+#: src/cmnd_edit.c:1824 resources/xnec2c.glade:480 resources/xnec2c.glade:4012
+#: resources/xnec2c.glade:14578
+msgid "Conductivity S/m"
+msgstr "İletkenlik S/m"
+
+#: src/cmnd_edit.c:2453
+msgid "Points in X-axis"
+msgstr "X Eksenindeki Noktalar"
+
+#: src/cmnd_edit.c:2454
+msgid "Points in Y-axis"
+msgstr "Y Eksenindeki Noktalar"
+
+#: src/cmnd_edit.c:2455
+msgid "Points in Z-axis"
+msgstr "Z Eksenindeki Noktalar"
+
+#: src/cmnd_edit.c:2456
+msgid "First Point X (m)"
+msgstr "İlk Nokta X (m)"
+
+#: src/cmnd_edit.c:2457
+msgid "First Point Y (m)"
+msgstr "İlk Nokta Y (m)"
+
+#: src/cmnd_edit.c:2458
+msgid "First Point Z (m)"
+msgstr "İlk Nokta Z (m)"
+
+#: src/cmnd_edit.c:2459
+msgid "Increment in X (m)"
+msgstr "X Artışı (m)"
+
+#: src/cmnd_edit.c:2460
+msgid "Increment in Y (m)"
+msgstr "Y Artışı (m)"
+
+#: src/cmnd_edit.c:2461
+msgid "Increment in Z (m)"
+msgstr "Z Artışı (m)"
+
+#: src/cmnd_edit.c:2469
+msgid "Points along R"
+msgstr "R Boyunca Noktalar"
+
+#: src/cmnd_edit.c:2470
+msgid "Points along Phi"
+msgstr "Phi Boyunca Noktalar"
+
+#: src/cmnd_edit.c:2471
+msgid "Points along Theta"
+msgstr "Theta Boyunca Noktalar"
+
+#: src/cmnd_edit.c:2472
+msgid "First Point R (m)"
+msgstr "İlk Nokta R (m)"
+
+#: src/cmnd_edit.c:2473
+msgid "First Point Phi"
+msgstr "İlk Nokta Phi"
+
+#: src/cmnd_edit.c:2474
+msgid "First Point Theta"
+msgstr "İlk Nokta Theta"
+
+#: src/cmnd_edit.c:2475
+msgid "Increment in R (m)"
+msgstr "R Artışı (m)"
+
+#: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
+msgid "Increment in Phi"
+msgstr "Phi Artışı"
+
+#: src/draw_radiation.c:28
+msgid ""
+"Animation requires near field data.\n"
+"\n"
+"E-field animation: Add NE card to NEC file\n"
+"H-field animation: Add NH card to NEC file\n"
+"Poynting vector: Add both NE and NH cards"
+msgstr ""
+"Animasyon yakın alan verisi gerektirir.\n"
+"\n"
+"E-alan animasyonu: NEC dosyasına NE kartı ekleyin\n"
+"H-alan animasyonu: NEC dosyasına NH kartı ekleyin\n"
+"Poynting vektörü: Hem NE hem de NH kartlarını ekleyin"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
+msgid "Near Field Animation"
+msgstr "Yakın Alan Animasyonu"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 src/geometry.c:812
+#: src/input.c:1570 src/input.c:1571 src/utils.c:509 src/utils.c:555
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/draw_radiation.c:1052
+msgid "Total Gain"
+msgstr "Toplam Kazanç"
+
+#: src/draw_radiation.c:1053
+msgid "Horizontal Polarization"
+msgstr "Yatay Polarizasyon"
+
+#: src/draw_radiation.c:1054
+msgid "Vertical Polarization"
+msgstr "Dikey Polarizasyon"
+
+#: src/draw_radiation.c:1055
+msgid "RH Circular Polarization"
+msgstr "Sağ El Dairesel Polarizasyon"
+
+#: src/draw_radiation.c:1056
+msgid "LH Circular Polarization"
+msgstr "Sol El Dairesel Polarizasyon"
+
+#: src/draw_radiation.c:1061
+msgid "Linear Power"
+msgstr "Doğrusal Güç"
+
+#: src/draw_radiation.c:1062
+msgid "Linear Voltage"
+msgstr "Doğrusal Gerilim"
+
+#: src/draw_radiation.c:1063
+msgid "ARRL Scale"
+msgstr "ARRL Ölçeği"
+
+#: src/draw_radiation.c:1064
+msgid "Logarithmic Scale"
+msgstr "Logaritmik Ölçek"
+
+#: src/draw_radiation.c:1073 resources/xnec2c.glade:12710
+msgid "Radiation Patterns"
+msgstr "Işınım Örüntüleri"
+
+#: src/draw_radiation.c:1076
+msgid "Radiation Pattern: - "
+msgstr "Işınım Örüntüsü: - "
+
+#: src/draw_radiation.c:1083
+msgid "Near Fields:"
+msgstr "Yakın Alanlar:"
+
+#: src/draw_radiation.c:1085
+msgid " - E Field"
+msgstr " - E Alanı"
+
+#: src/draw_radiation.c:1087
+msgid " - H Field"
+msgstr " - H Alanı"
+
+#: src/draw_radiation.c:1089
+msgid " - Poynting Vector"
+msgstr " - Poynting Vektörü"
+
+#: src/draw_radiation.c:1099
+msgid "Frequency Data Plots - "
+msgstr "Frekans Veri Grafikleri - "
+
+#: src/draw_radiation.c:1307
+#, c-format
+msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
+msgstr "fstep=%d sınırların dışında. calc_data.steps_total=%d"
+
+#: src/geom_edit.c:76 src/geom_edit.c:1866 src/geom_edit.c:2109
+#: src/geom_edit.c:2491
+msgid ""
+"Error reading row data\n"
+"Invalid list iterator"
+msgstr ""
+"Satır verisi okuma hatası\n"
+"Geçersiz liste yineleyici"
+
+#: src/geom_edit.c:109 src/geom_edit.c:139
+msgid ""
+"Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Satır verisi yazma hatası\n"
+"Lütfen satırı yeniden seçin"
+
+#: src/geom_edit.c:528
+msgid ""
+"GC card preceded by GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GC kartından önce sıfır olmayan\n"
+"tel yarıçaplı GW kartı var"
+
+#: src/geom_edit.c:532
+msgid "No GW card before GC card"
+msgstr "GC kartından önce GW kartı yok"
+
+#: src/geom_edit.c:556
+msgid ""
+"No GC card after a GW card\n"
+"with a zero wire radius"
+msgstr ""
+"Sıfır tel yarıçaplı GW kartından\n"
+"sonra GC kartı yok"
+
+#: src/geom_edit.c:565
+msgid ""
+"GC card follows a GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GC kartı, sıfır olmayan tel yarıçaplı\n"
+"GW kartını takip ediyor"
+
+#: src/geom_edit.c:944
+msgid ""
+"SC card preceded by SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SC kartından önce keyfi yama tipli\n"
+"SP kartı var"
+
+#: src/geom_edit.c:956
+msgid "No SP or SM card before SC card"
+msgstr "SC kartından önce SP veya SM kartı yok"
+
+#: src/geom_edit.c:976
+msgid ""
+"No SC card after an SP card\n"
+"with non-arbitrary patch type"
+msgstr ""
+"Keyfi olmayan yama tipli SP kartından\n"
+"sonra SC kartı yok"
+
+#: src/geom_edit.c:983
+msgid ""
+"SC card follows an SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SC kartı, keyfi yama tipli\n"
+"SP kartını takip ediyor"
+
+#: src/geom_edit.c:996
+msgid "No SC card after an SM card"
+msgstr "SM kartından sonra SC kartı yok"
+
+#: src/geom_edit.c:1066 resources/xnec2c.glade:7685
+msgid "Center - X"
+msgstr "Merkez - X"
+
+#: src/geom_edit.c:1068 resources/xnec2c.glade:7749
+msgid "Center - Y"
+msgstr "Merkez - Y"
+
+#: src/geom_edit.c:1070 resources/xnec2c.glade:7813
+msgid "Center - Z"
+msgstr "Merkez - Z"
+
+#: src/geom_edit.c:1072 resources/xnec2c.glade:7717
+msgid "Normal - Elev."
+msgstr "Normal - Yüks."
+
+#: src/geom_edit.c:1074 resources/xnec2c.glade:7781
+msgid "Normal - Azim."
+msgstr "Normal - Azim."
+
+#: src/geom_edit.c:1076 resources/xnec2c.glade:7845
+msgid "Patch Area"
+msgstr "Yama Alanı"
+
+#: src/geom_edit.c:1081
+msgid "Corner 1 - X"
+msgstr "Köşe 1 - X"
+
+#: src/geom_edit.c:1083
+msgid "Corner 1 - Y"
+msgstr "Köşe 1 - Y"
+
+#: src/geom_edit.c:1085
+msgid "Corner 1 - Z"
+msgstr "Köşe 1 - Z"
+
+#: src/geom_edit.c:1087
+msgid "Corner 2 - X"
+msgstr "Köşe 2 - X"
+
+#: src/geom_edit.c:1089
+msgid "Corner 2 - Y"
+msgstr "Köşe 2 - Y"
+
+#: src/geom_edit.c:1091
+msgid "Corner 2 - Z"
+msgstr "Köşe 2 - Z"
+
+#: src/geom_edit.c:2582
+msgid "NEC2 editor window not open"
+msgstr "NEC2 düzenleyici penceresi açık değil"
+
+#: src/geometry.c:97
+msgid "Number of segments < 1"
+msgstr "Segment sayısı < 1"
+
+#: src/geometry.c:148
+msgid "Arc angle exceeds 360 degrees"
+msgstr "Yay açısı 360 dereceyi aşıyor"
+
+#: src/geometry.c:309
+msgid "Error in conect(): np > n"
+msgstr "conect() içinde hata: np > n"
+
+#: src/geometry.c:343 src/geometry.c:391
+#, c-format
+msgid "geometry data error: segment %d extends below ground\n"
+msgstr "geometri veri hatası: segment %d toprak altına uzanıyor\n"
+
+#: src/geometry.c:344 src/geometry.c:392
+msgid ""
+"Geometry data error\n"
+"Segment extends below ground"
+msgstr ""
+"Geometri veri hatası\n"
+"Segment toprak altına uzanıyor"
+
+#: src/geometry.c:401
+#, c-format
+msgid "geometry data error: segment %d lies in ground plane\n"
+msgstr "geometri veri hatası: segment %d toprak düzleminde bulunuyor\n"
+
+#: src/geometry.c:402
+msgid ""
+"Geometry data error\n"
+"Segment lies in ground plane"
+msgstr ""
+"Geometri veri hatası\n"
+"Segment toprak düzleminde bulunuyor"
+
+#: src/geometry.c:492
+msgid "ipsym = 0\n"
+msgstr "ipsym = 0\n"
+
+#: src/geometry.c:493
+msgid "Error: ipsym = 0"
+msgstr "Hata: ipsym = 0"
+
+#: src/geometry.c:549
+#, c-format
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
+"segj.maxcon=%lu\n"
+msgstr ""
+"Segment bağlantı sayısı tam bir örgüyü aşıyor, bu olası değil: data.n=%ld "
+"segj.maxcon=%lu\n"
+
+#: src/geometry.c:551
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely!\n"
+"Check for overlapping or nearly-connected segments\n"
+msgstr ""
+"Segment bağlantı sayısı tam bir örgüyü aşıyor, bu olası değil!\n"
+"Örtüşen veya neredeyse bağlı segmentleri kontrol edin\n"
+
+#: src/geometry.c:764
+msgid ""
+"check data, parameter specifying segment: position in a group of equal tags "
+"must not be zero\n"
+msgstr ""
+"veriyi kontrol edin, segmenti belirten parametre: eşit etiket grubundaki "
+"konum sıfır olmamalı\n"
+
+#: src/geometry.c:765
+msgid ""
+"Parameter specifying segment\n"
+"position in a group of equal tags is zero"
+msgstr ""
+"Segmenti belirten parametre\n"
+"eşit etiket grubundaki konum sıfır"
+
+#: src/geometry.c:797
+#, c-format
+msgid "no segment has an itag of %d\n"
+msgstr "itag değeri %d olan segment yok\n"
+
+#: src/geometry.c:801
+msgid ""
+"Segment tag number error: Tag 0 is reserved and cannot be used.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are "
+"valid.\n"
+"For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
+msgstr ""
+"Segment etiket numarası hatası: Etiket 0 ayrılmış ve kullanılamaz.\n"
+"Etiket değerlerinin geçerli olduğundan emin olmak için geometri kartlarınızı "
+"(özellikle GM kartları) kontrol edin.\n"
+"GM kartları için: 'başlangıç etiketi' ve 'etiket artışı'nın etiket 0 "
+"oluşturmadığını doğrulayın."
+
+#: src/geometry.c:809
+#, c-format
+msgid ""
+"Segment tag number error: No segment found with tag %d.\n"
+"You are referencing an unknown tag or segment in a control card.\n"
+"Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."
+msgstr ""
+"Segment etiket numarası hatası: %d etiketli segment bulunamadı.\n"
+"Bir kontrol kartında bilinmeyen bir etiket veya segmente başvuruyorsunuz.\n"
+"Geometrinizde geçerli etiketler GW/GA/GH/SP kartlarına atanmış olanlardır."
+
+#: src/geometry.c:1123
+msgid "corners of quadrilateral: patch do not lie in a plane\n"
+msgstr "dörtgenin köşeleri: yama bir düzlemde bulunmuyor\n"
+
+#: src/geometry.c:1124
+msgid ""
+"Corners of quadrilateral\n"
+"patch do not lie in a plane"
+msgstr ""
+"Dörtgen yamanın köşeleri\n"
+"bir düzlemde bulunmuyor"
+
+#: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
+#, c-format
+msgid "geometry data error: segment %d lies in plane of symmetry\n"
+msgstr "geometri veri hatası: segment %d simetri düzleminde bulunuyor\n"
+
+#: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
+msgid ""
+"Geometry data error\n"
+"Segment lies in plane of symmetry"
+msgstr ""
+"Geometri veri hatası\n"
+"Segment simetri düzleminde bulunuyor"
+
+#: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
+#, c-format
+msgid "geometry data error: patch %d lies in plane of symmetry\n"
+msgstr "geometri veri hatası: yama %d simetri düzleminde bulunuyor\n"
+
+#: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
+msgid ""
+"Geometry data error\n"
+"Patch lies in plane of symmetry"
+msgstr ""
+"Geometri veri hatası\n"
+"Yama simetri düzleminde bulunuyor"
+
+#: src/geometry.c:1642
+#, c-format
+msgid ""
+"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
+"threshold=%.3e); segment will connect to itself\n"
+msgstr ""
+"tag=%d/seg=%d: uç nokta mesafesi=%.3e çok yakın (bağlantı eşiği=%.3e "
+"altında); segment kendine bağlanacak\n"
+
+#: src/geometry.c:1647
+#, c-format
+msgid "tag=%d: suppressing additional self-connection warnings\n"
+msgstr "tag=%d: ek kendine bağlanma uyarıları bastırılıyor\n"
+
+#: src/geometry.c:1692
+#, c-format
+msgid ""
+"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
+"threshold %.3e; unintended connections possible\n"
+msgstr ""
+"tag=%1$d/seg=%2$d: tag=%4$d/seg=%5$d mesafesi=%3$.3e, 2x bağlantı eşiği "
+"%6$.3e'den yakın; istenmeyen bağlantılar olası\n"
+
+#: src/geometry.c:1697
+#, c-format
+msgid "tag=%d: suppressing additional overlap warnings\n"
+msgstr "tag=%d: ek örtüşme uyarıları bastırılıyor\n"
+
+#: src/geometry.c:1757
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
+"length=%.3e that connection detection may fail or short\n"
+msgstr ""
+"tag=%d/seg=%d: uzunluk=%.3e, tag=%d/seg=%d uzunluk=%.3e için çok kısa (ve "
+"yeterince yakın), bağlantı tespiti başarısız olabilir veya kısa devre "
+"yapabilir\n"
+
+#: src/geometry.c:1762
+#, c-format
+msgid ""
+"tag=%d: suppressing additional connection detection may fail or short "
+"warnings\n"
+msgstr ""
+"tag=%d: ek bağlantı tespiti başarısız olabilir veya kısa devre uyarıları "
+"bastırılıyor\n"
+
+#: src/geometry.c:1794
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
+"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
+"recommended <= 0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: uzunluk/dalga boyu oranı %.3f < 0.001; akım bileşenlerinin "
+"benzerliği sayısal hatalara yol açar (min=0.001, iyi=0.05, önerilen <= 0.1)\n"
+
+#: src/geometry.c:1799
+#, c-format
+msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
+msgstr "tag=%d: ek kısa dalga boyu oranı hataları bastırılıyor\n"
+
+#: src/geometry.c:1812
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
+"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
+"0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: uzunluk/dalga boyu oranı %.3f > 0.1; akım örnekleme "
+"çözünürlüğü segment aralığıyla sınırlı (min=0.001, iyi=0.05, önerilen <= "
+"0.1)\n"
+
+#: src/geometry.c:1817
+#, c-format
+msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
+msgstr "tag=%d: ek uzun dalga boyu oranı uyarıları bastırılıyor\n"
+
+#: src/geometry.c:1830
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
+"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
+"recommended <=0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: uzunluk/dalga boyu oranı %.3f > 0.05; hızlı akım değişimi "
+"bölgelerinde daha kısa segmentler doğruluğu artırır (min=0.001, iyi=0.05, "
+"önerilen <=0.1)\n"
+
+#: src/geometry.c:1835
+#, c-format
+msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
+msgstr "tag=%d: ek doğruluk iyileştirme önerileri bastırılıyor\n"
+
+#: src/geometry.c:1865
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 2.0; standart ince tel çekirdeği "
+"alan hatası %%1'i büyük farkla aşıyor (min=2.0, %%1doğru=8.0)\n"
+
+#: src/geometry.c:1870
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
+msgstr "tag=%d: ek standart çekirdek oranı hataları bastırılıyor\n"
+
+#: src/geometry.c:1883
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
+"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 8.0; standart ince tel çekirdeği "
+"alan hatası %%1'i aşıyor (min=2.0, %%1doğru=8.0)\n"
+
+#: src/geometry.c:1888
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
+msgstr "tag=%d: ek standart çekirdek oranı uyarıları bastırılıyor\n"
+
+#: src/geometry.c:1903
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 0.5; genişletilmiş ince tel "
+"çekirdeği alan hatası %%1'i büyük farkla aşıyor (min=0.5, %%1doğru=2.0)\n"
+
+#: src/geometry.c:1908
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
+msgstr "tag=%d: ek genişletilmiş çekirdek oranı hataları bastırılıyor\n"
+
+#: src/geometry.c:1921
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
+"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 2.0; genişletilmiş ince tel "
+"çekirdeği alan hatası %%1'i aşıyor (min=0.5, %%1doğru=2.0)\n"
+
+#: src/geometry.c:1926
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
+msgstr "tag=%d: ek genişletilmiş çekirdek oranı uyarıları bastırılıyor\n"
+
+#: src/geometry.c:1942
+#, c-format
+msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
+msgstr ""
+"%d segment için örtüşme kontrolü atlanıyor (etkinleştirmek için --force-"
+"verify kullanın)\n"
+
+#: src/geometry.c:1946
+#, c-format
+msgid "Forcing overlap check for %d segments\n"
+msgstr "%d segment için örtüşme kontrolü zorlanıyor\n"
+
+#: src/geometry.c:1957
+msgid ""
+"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr ""
+"verify_segments() frekansa bağlı kontrolleri atlıyor - frekans verisi yok\n"
+
+#: src/gnuplot.c:46
+msgid "Gnuplot Data"
+msgstr "Gnuplot Verisi"
+
+#: src/gnuplot.c:46 src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Cannot save data while frequency loop is running"
+msgstr "Frekans döngüsü çalışırken veri kaydedilemez"
+
+#: src/gnuplot.c:60
+#, c-format
+msgid "# Reference impedance Z0 = %.2f Ohm\n"
+msgstr "# Referans empedans Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:62
+#, c-format
+msgid ""
+"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
+"zreal and zimag:\n"
+msgstr ""
+"# Gnuplot'ta çizmek için bu komutu değiştirebilirsiniz. Şu anda MHz - zreal "
+"ve zimag çiziyor:\n"
+
+#: src/gnuplot.c:63
+#, c-format
+msgid ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+msgstr ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+
+#: src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Touchstone Data"
+msgstr "Touchstone Verisi"
+
+#: src/gnuplot.c:102
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! Referans empedans Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:130
+#, c-format
+msgid "This should never happen. touchstone type=%d\n"
+msgstr "Bu asla olmamalı. touchstone type=%d\n"
+
+#: src/gnuplot.c:227
+#, c-format
+msgid "# Near E field\n"
+msgstr "# Yakın E alanı\n"
+
+#: src/gnuplot.c:250
+#, c-format
+msgid "# Near H field\n"
+msgstr "# Yakın H alanı\n"
+
+#: src/gnuplot.c:297
+#, c-format
+msgid "# Poynting Vector\n"
+msgstr "# Poynting Vektörü\n"
+
+#: src/gnuplot.c:369
+#, c-format
+msgid "# Radiation Pattern\n"
+msgstr "# Işınım Örüntüsü\n"
+
+#: src/gnuplot.c:505
+#, c-format
+msgid "# structure patch segments\n"
+msgstr "# yapı yama segmentleri\n"
+
+#: src/gnuplot.c:530
+#, c-format
+msgid "# structure wire segments\n"
+msgstr "# yapı tel segmentleri\n"
+
+#: src/gnuplot.c:565
+msgid "Save Currents and Charges to CSV"
+msgstr "Akımları ve Yükleri CSV'ye Kaydet"
+
+#: src/ground.c:90
+msgid "b less than a"
+msgstr "b, a'dan küçük"
+
+#: src/ground.c:215
+#, c-format
+msgid "step size limited at z = %12.5E\n"
+msgstr "adım boyutu z = %12.5E'de sınırlandı\n"
+
+#: src/input.c:84
+msgid ""
+"Error reading Comments\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"Yorumları okuma hatası\n"
+"Beklenmeyen EOF (Dosya Sonu)"
+
+#: src/input.c:98
+msgid ""
+"Error reading Comments\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"Yorumları okuma hatası\n"
+"Yorum anımsatıcısı kısa veya eksik"
+
+#: src/input.c:109
+msgid ""
+"Read_Comments():\n"
+" Error reading input file\n"
+"Comment mnemonic incorrect"
+msgstr ""
+"Read_Comments():\n"
+" Girdi dosyası okuma hatası\n"
+"Yorum anımsatıcısı yanlış"
+
+#: src/input.c:148
+msgid ""
+"Geometry data error\n"
+"Tag number is less than 1"
+msgstr ""
+"Geometri veri hatası\n"
+"Etiket numarası 1'den küçük"
+
+#: src/input.c:155
+msgid ""
+"Geometry data error\n"
+"Number of segments is less than 1"
+msgstr ""
+"Geometri veri hatası\n"
+"Segment sayısı 1'den küçük"
+
+#: src/input.c:162
+msgid "warning - number of segments is greater than 1000000\n"
+msgstr "uyarı - segment sayısı 1000000'dan büyük\n"
+
+#: src/input.c:210
+#, c-format
+msgid "%s data card error: Spurious character '%c' at column %d\n"
+msgstr "%s veri kartı hatası: beklenmeyen karakter '%c' %d sütununda\n"
+
+#: src/input.c:212
+msgid ""
+"Data card error\n"
+"Spurious character in card"
+msgstr ""
+"Veri kartı hatası\n"
+"Kartta beklenmeyen karakter"
+
+#: src/input.c:262
+#, c-format
+msgid "%s: expression evaluation failed for \"%s\"\n"
+msgstr "%s: \"%s\" için ifade değerlendirmesi başarısız oldu\n"
+
+#: src/input.c:300
+msgid "SY card: no line content available\n"
+msgstr "SY kartı: satır içeriği mevcut değil\n"
+
+#: src/input.c:301
+msgid "SY card: no line content available"
+msgstr "SY kartı: satır içeriği mevcut değil"
+
+#: src/input.c:318
+msgid "SY card: missing '=' in definition\n"
+msgstr "SY kartı: tanımda '=' eksik\n"
+
+#: src/input.c:319
+msgid "SY card: missing '=' in definition"
+msgstr "SY kartı: tanımda '=' eksik"
+
+#: src/input.c:352
+#, c-format
+msgid "SY card: expression evaluation failed for %s=%s\n"
+msgstr "SY kartı: %s=%s için ifade değerlendirmesi başarısız oldu\n"
+
+#: src/input.c:358
+#, c-format
+msgid "SY card: symbol definition failed for %s\n"
+msgstr "SY kartı: %s için sembol tanımı başarısız oldu\n"
+
+#: src/input.c:438
+msgid ""
+"Geometry data error\n"
+"No GC card for tapered wire"
+msgstr ""
+"Geometri veri hatası\n"
+"Konik tel için GC kartı yok"
+
+#: src/input.c:445
+msgid "Geometry GC data card error"
+msgstr "Geometri GC veri kartı hatası"
+
+#: src/input.c:461
+msgid "Geometry GX data card error"
+msgstr "Geometri GX veri kartı hatası"
+
+#: src/input.c:484
+msgid "Geometry GR data card error"
+msgstr "Geometri GR veri kartı hatası"
+
+#: src/input.c:541
+msgid "No geometry data cards"
+msgstr "Geometri veri kartı yok"
+
+#: src/input.c:550
+msgid "Probable invalid segment geometry.\n"
+msgstr "Muhtemelen geçersiz segment geometrisi.\n"
+
+#: src/input.c:551
+msgid ""
+"Invalid segment geometry.\n"
+"See warnings in the console for detail.\n"
+"Trying to continue..."
+msgstr ""
+"Geçersiz segment geometrisi.\n"
+"Ayrıntılar için konsoldaki uyarılara bakın.\n"
+"Devam etmeye çalışılıyor..."
+
+#: src/input.c:556
+msgid "Read_Geometry: verify_segments() passed\n"
+msgstr "Read_Geometry: verify_segments() başarılı\n"
+
+#: src/input.c:602
+#, c-format
+msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
+msgstr "segment veri hatası: tag=%d si=%lf, bi=%lf\n"
+
+#: src/input.c:604
+msgid "Segment data error, zero-length line?  See console."
+msgstr "Segment veri hatası, sıfır uzunluklu çizgi mi? Konsola bakın."
+
+#: src/input.c:639
+msgid "Move GM data card error"
+msgstr "Taşıma GM veri kartı hatası"
+
+#: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
+#: src/input.c:739
+msgid "Patch data card error"
+msgstr "Patch veri kartı hatası"
+
+#: src/input.c:677
+msgid "Patch data error"
+msgstr "Patch veri hatası"
+
+#: src/input.c:786
+msgid ""
+"\"GF\" card (NGF solution)\n"
+"is not supported"
+msgstr ""
+"\"GF\" kartı (NGF çözümü)\n"
+"desteklenmiyor"
+
+#: src/input.c:791
+msgid "Ignoring CM card in geometry"
+msgstr "Geometride CM kartı yoksayılıyor"
+
+#: src/input.c:804
+#, c-format
+msgid "geometry data card error (nwire=%d)\n"
+msgstr "geometri veri kartı hatası (nwire=%d)\n"
+
+#: src/input.c:805
+#, c-format
+msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+
+#: src/input.c:808
+msgid "Geometry data card error"
+msgstr "Geometri veri kartı hatası"
+
+#: src/input.c:833
+msgid "Failed to initialize symbol table\n"
+msgstr "Sembol tablosu başlatılamadı\n"
+
+#: src/input.c:834
+msgid "Failed to initialize symbol table"
+msgstr "Sembol tablosu başlatılamadı"
+
+#: src/input.c:1002
+msgid "ignoring CM card in commands\n"
+msgstr "komutlarda CM kartı yoksayılıyor\n"
+
+#: src/input.c:1003
+msgid "Ignoring CM card in commands"
+msgstr "Komutlarda CM kartı yoksayılıyor"
+
+#: src/input.c:1007
+msgid ""
+"CP card is ignored\n"
+"Coupling calculation not implemented"
+msgstr ""
+"CP kartı yoksayılıyor\n"
+"Bağlaşım hesaplaması uygulanmadı"
+
+#: src/input.c:1185
+msgid "Max frequency <= Min frequency in FR card\n"
+msgstr "FR kartında maksimum frekans <= minimum frekans\n"
+
+#: src/input.c:1186
+msgid ""
+"Max frequency <= Min frequency in FR card\n"
+"Please check FR card data and correct"
+msgstr ""
+"FR kartında maksimum frekans <= minimum frekans\n"
+"Lütfen FR kartı verilerini kontrol edip düzeltin"
+
+#: src/input.c:1209
+msgid ""
+"Fix the GE/GN cards:\n"
+"The GE card specifies that a ground is present, but the GN indicates "
+"otherwise."
+msgstr ""
+"GE/GN kartlarını düzeltin:\n"
+"GE kartı bir toprak düzlemi olduğunu belirtiyor, ancak GN aksini gösteriyor."
+
+#: src/input.c:1223
+msgid "theta > 90 deg. with ground specified\n"
+msgstr "toprak düzlemi belirtilmiş durumda theta > 90 derece\n"
+
+#: src/input.c:1224 src/radiation.c:656
+msgid ""
+"Theta > 90 deg with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Toprak düzlemi belirtilmiş durumda theta > 90 derece\n"
+"Lütfen RP kartı verilerini kontrol edip düzeltin"
+
+#: src/input.c:1233
+msgid ""
+"radial wire g.s. approximation: may not be used with Sommerfeld ground "
+"option\n"
+msgstr ""
+"radyal tel toprak sistemi yaklaşımı: Sommerfeld toprak seçeneği ile "
+"kullanılamaz\n"
+
+#: src/input.c:1234
+msgid ""
+"radial wire g.s. approximation\n"
+"may not be used with Sommerfeld ground option"
+msgstr ""
+"radyal tel toprak sistemi yaklaşımı\n"
+"Sommerfeld toprak seçeneği ile kullanılamaz"
+
+#: src/input.c:1285
+#, c-format
+msgid ""
+"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
+"%d\n"
+msgstr ""
+"yükleme kartı no %d üzerinde veri hatası: itag step1 %d, itag step2 %d "
+"değerinden büyük\n"
+
+#: src/input.c:1287
+msgid ""
+"Data fault on loading card\n"
+"itag step1 is greater than itag step2"
+msgstr ""
+"Yükleme kartında veri hatası\n"
+"itag step1, itag step2 değerinden büyük"
+
+#: src/input.c:1420
+msgid ""
+"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr ""
+"İletim hattı empedansı = 0: geçerli değil. Lütfen NT veya TL kartını "
+"düzeltin\n"
+
+#: src/input.c:1421
+msgid ""
+"Transmission Line impedance = 0\n"
+"is not valid. Please correct NT or TL card"
+msgstr ""
+"İletim hattı empedansı = 0\n"
+"geçerli değil. Lütfen NT veya TL kartını düzeltin"
+
+#: src/input.c:1430
+msgid "Segment number error in TL or NT card\n"
+msgstr "TL veya NT kartında segment numarası hatası\n"
+
+#: src/input.c:1431
+msgid ""
+"Segment number\n"
+"error in NT or TL card"
+msgstr ""
+"NT veya TL kartında\n"
+"segment numarası hatası"
+
+#: src/input.c:1452
+msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
+msgstr "PQ ve PT kartları yoksayılıyor: Dosyaya yazdırma uygulanmadı\n"
+
+#: src/input.c:1453
+msgid ""
+"PQ and PT cards are ignored\n"
+"Printing to file not implemented"
+msgstr ""
+"PQ ve PT kartları yoksayılıyor\n"
+"Dosyaya yazdırma uygulanmadı"
+
+#: src/input.c:1460
+msgid "Surface wave option (I1=1): of RP command not implemented\n"
+msgstr "Yüzey dalgası seçeneği (I1=1): RP komutu uygulanmadı\n"
+
+#: src/input.c:1461
+msgid ""
+"Surface wave option (I1=1)\n"
+"of RP command not implemented"
+msgstr ""
+"Yüzey dalgası seçeneği (I1=1)\n"
+"RP komutu uygulanmadı"
+
+#: src/input.c:1484
+msgid ""
+"Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
+"xnec2c renders radiation patterns graphically instead of text tables.\n"
+"Pattern calculations proceed normally; use GUI to view results."
+msgstr ""
+"Kazanç ortalaması (XNDA ***1 veya ***2) metin çıktı biçimlendirmesini "
+"kontrol eder.\n"
+"xnec2c ışınım örüntülerini metin tabloları yerine grafiksel olarak "
+"oluşturur.\n"
+"Örüntü hesaplamaları normal şekilde devam eder; sonuçları görüntülemek için "
+"GUI'yi kullanın."
+
+#: src/input.c:1502
+msgid ""
+"Theta > 90 deg. with ground specified: Please check RP card data and "
+"correct\n"
+msgstr ""
+"Toprak düzlemi belirtilmiş durumda theta > 90 derece: Lütfen RP kartı "
+"verilerini kontrol edip düzeltin\n"
+
+#: src/input.c:1503
+msgid ""
+"Theta > 90 deg. with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Toprak düzlemi belirtilmiş durumda theta > 90 derece\n"
+"Lütfen RP kartı verilerini kontrol edip düzeltin"
+
+#: src/input.c:1568
+msgid "Faulty data card"
+msgstr "Hatalı veri kartı"
+
+#: src/input.c:1578
+msgid ""
+"Missing or surface-wave RP card: Radiation pattern and gain calculations "
+"disabled\n"
+msgstr ""
+"Eksik veya yüzey dalgası RP kartı: Işınım örüntüsü ve kazanç hesaplamaları "
+"devre dışı\n"
+
+#: src/input.c:1595
+msgid "Unexpected exit from while loop"
+msgstr "While döngüsünden beklenmeyen çıkış"
+
+#: src/input.c:1653
+msgid ""
+"command data card error: Unexpected EOF while reading input file - appending "
+"EN card\n"
+msgstr ""
+"komut veri kartı hatası: Girdi dosyası okunurken beklenmeyen EOF - EN kartı "
+"ekleniyor\n"
+
+#: src/input.c:1654
+msgid ""
+"Command data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default EN card"
+msgstr ""
+"Komut veri kartı hatası\n"
+"Girdi dosyası okunurken beklenmeyen EOF\n"
+"Varsayılan EN kartı ekleniyor"
+
+#: src/input.c:1668
+msgid "command data card error: card's mnemonic code too short or missing\n"
+msgstr "komut veri kartı hatası: kartın mnemonik kodu çok kısa veya eksik\n"
+
+#: src/input.c:1669
+msgid ""
+"Command data card error\n"
+"Mnemonic code too short or missing"
+msgstr ""
+"Komut veri kartı hatası\n"
+"Mnemonik kod çok kısa veya eksik"
+
+#: src/input.c:1829
+msgid ""
+"geometry data card error: Unexpected EOF while reading input file - "
+"appending GE card\n"
+msgstr ""
+"geometri veri kartı hatası: Girdi dosyası okunurken beklenmeyen EOF - GE "
+"kartı ekleniyor\n"
+
+#: src/input.c:1830
+msgid ""
+"Geometry data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default GE card"
+msgstr ""
+"Geometri veri kartı hatası\n"
+"Girdi dosyası okunurken beklenmeyen EOF\n"
+"Varsayılan GE kartı ekleniyor"
+
+#: src/input.c:1844
+msgid "geometry data card error: card's mnemonic code too short or missing\n"
+msgstr "geometri veri kartı hatası: kartın mnemonik kodu çok kısa veya eksik\n"
+
+#: src/input.c:1845
+msgid ""
+"Geometry data card error\n"
+"Card's mnemonic code too short or missing"
+msgstr ""
+"Geometri veri kartı hatası\n"
+"Kartın mnemonik kodu çok kısa veya eksik"
+
+#: src/main.c:125
+#, c-format
+msgid "%s requires a positive integer argument\n"
+msgstr "%s pozitif bir tamsayı argümanı gerektirir\n"
+
+#: src/main.c:183
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "%d CPU algılandı\n"
+
+#: src/main.c:194
+msgid "config file path too long\n"
+msgstr "yapılandırma dosyası yolu çok uzun\n"
+
+#: src/main.c:213
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "yapılandırma dosyası mevcut değil veya okunamıyor: %s\n"
+
+#: src/main.c:222
+#, c-format
+msgid "config file path too long ( > %d char )\n"
+msgstr "yapılandırma dosyası yolu çok uzun ( > %d karakter )\n"
+
+#: src/main.c:234
+#, c-format
+msgid "input file name too long ( > %d char )\n"
+msgstr "girdi dosyası adı çok uzun ( > %d karakter )\n"
+
+#: src/main.c:261
+msgid "Forking disabled!\n"
+msgstr "Çatallama devre dışı!\n"
+
+#: src/main.c:269
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop devre dışı!\n"
+
+#: src/main.c:273
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "toplu mod etkin, ilk döngüden sonra çıkılacak\n"
+
+#: src/main.c:331
+msgid "verify segments check disabled\n"
+msgstr "segment doğrulama kontrolü devre dışı\n"
+
+#: src/main.c:336
+msgid "forcing overlap check on large models\n"
+msgstr "büyük modellerde örtüşme kontrolü zorlanıyor\n"
+
+#: src/main.c:350
+msgid "--batch and --optimize are mutual exclusive.\n"
+msgstr "--batch ve --optimize birbirini dışlar.\n"
+
+#: src/main.c:366
+#, c-format
+msgid "input file path name too long ( > %d char )\n"
+msgstr "girdi dosyası yol adı çok uzun ( > %d karakter )\n"
+
+#: src/main.c:373
+#, c-format
+msgid "unexpected argument '%s' does not appear to be a .nec file\n"
+msgstr "beklenmeyen argüman '%s' bir .nec dosyası gibi görünmüyor\n"
+
+#: src/main.c:380
+#, c-format
+msgid "unexpected argument: %s\n"
+msgstr "beklenmeyen argüman: %s\n"
+
+#: src/main.c:386
+msgid "batch mode requires an input file\n"
+msgstr "toplu mod bir girdi dosyası gerektirir\n"
+
+#: src/main.c:407
+#, c-format
+msgid "Forking %d jobs.\n"
+msgstr "%d iş çatallanıyor.\n"
+
+#: src/main.c:416 src/main.c:424
+msgid "exiting after fatal error: pipe() failed"
+msgstr "ölümcül hatadan sonra çıkılıyor: pipe() başarısız oldu"
+
+#: src/main.c:433
+msgid "exiting after fatal error: fork() failed"
+msgstr "ölümcül hatadan sonra çıkılıyor: fork() başarısız oldu"
+
+#: src/main.c:778
+msgid "exiting via user interrupt\n"
+msgstr "kullanıcı kesintisi ile çıkılıyor\n"
+
+#: src/main.c:782
+msgid "segmentation fault, exiting\n"
+msgstr "segmentasyon hatası, çıkılıyor\n"
+
+#: src/main.c:786
+msgid "floating point exception, exiting\n"
+msgstr "kayan nokta istisnası, çıkılıyor\n"
+
+#: src/main.c:790
+msgid "abort signal received, exiting\n"
+msgstr "iptal sinyali alındı, çıkılıyor\n"
+
+#: src/main.c:794
+msgid "termination request received, exiting\n"
+msgstr "sonlandırma isteği alındı, çıkılıyor\n"
+
+#: src/main.c:804
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "fork edilmedi, pid %d'den gelen SIGCHLD yoksayılıyor\n"
+
+#: src/main.c:812
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "alt işlem pid %d çıkış yaptı\n"
+
+#: src/main.c:821
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "sinyal ile varsayılan çıkış: %d\n"
+
+#: src/matrix.c:1216
+#, c-format
+msgid "pivot(%d)= %16.8E\n"
+msgstr "pivot(%d)= %16.8E\n"
+
+#: src/matrix.c:1250
+#, c-format
+msgid "LU Decomposition Failed: %d\n"
+msgstr "LU Ayrıştırma Başarısız: %d\n"
+
+#: src/matrix.c:1306
+#, c-format
+msgid "symmetry error - nrow:%d ncol:%d\n"
+msgstr "simetri hatası - nrow:%d ncol:%d\n"
+
+#: src/matrix.c:1307
+msgid "Symmetry error"
+msgstr "Simetri hatası"
+
+#: src/matrix.c:1414
+#, c-format
+msgid "Solving Failed: %d\n"
+msgstr "Çözüm Başarısız: %d\n"
+
+#: src/nec2_model.c:111 src/nec2_model.c:115 src/nec2_model.c:119
+msgid "Card"
+msgstr "Kart"
+
+#: src/nec2_model.c:111 resources/xnec2c.glade:6183
+msgid "Comments"
+msgstr "Açıklamalar"
+
+#: src/nec2_model.c:188
+msgid "--- NEC2 Input File created or edited by "
+msgstr "--- NEC2 Girdi Dosyası oluşturan veya düzenleyen "
+
+#: src/nec2_model.c:205
+msgid "--- End Comments ---"
+msgstr "--- Açıklamalar Sonu ---"
+
+#: src/nec2_model.c:344
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"List_Comments():\n"
+"Girdi dosyası okunurken hata\n"
+"Beklenmeyen EOF (Dosya Sonu)"
+
+#: src/nec2_model.c:351
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"List_Comments():\n"
+"Girdi dosyası okunurken hata\n"
+"Açıklama anımsatıcısı kısa veya eksik"
+
+#: src/nec2_model.c:594
+msgid "End Comments"
+msgstr "Açıklamalar Sonu"
+
+#: src/nec2_model.c:648
+msgid ""
+"Cannot save treeview data\n"
+"Please use the Save button\n"
+"to specify a file path"
+msgstr ""
+"Ağaç görünümü verileri kaydedilemiyor\n"
+"Lütfen bir dosya yolu belirtmek için\n"
+"Kaydet düğmesini kullanın"
+
+#: src/network.c:648
+#, c-format
+msgid "improper load type chosen, requested type is %d\n"
+msgstr "uygun olmayan yük türü seçildi, istenen tür %d\n"
+
+#: src/network.c:649
+msgid "Improper load type chose"
+msgstr "Uygun olmayan yük türü seçildi"
+
+#: src/network.c:737
+#, c-format
+msgid "loading data card error, no segment has an itag = %d\n"
+msgstr "veri kartı yükleme hatası, itag = %d olan segment yok\n"
+
+#: src/network.c:738
+msgid ""
+"Loading data card\n"
+"Tag number mismatch error"
+msgstr ""
+"Veri kartı yükleniyor\n"
+"Etiket numarası uyuşmazlık hatası"
+
+#: src/plot_freqdata.c:132
+#, c-format
+msgid ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+msgstr ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+
+#: src/plot_freqdata.c:148
+#, c-format
+msgid ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+msgstr ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+
+#: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
+msgid "memory allocation for points failed\n"
+msgstr "noktalar için bellek ayırma başarısız\n"
+
+#: src/plot_freqdata.c:832 src/plot_freqdata.c:1299
+msgid "Draw_Graph():Memory allocation for points failed"
+msgstr "Draw_Graph():Noktalar için bellek ayırma başarısız"
+
+#: src/plot_freqdata.c:1260
+msgid "Smith Chart"
+msgstr "Smith Diyagramı"
+
+#: src/plot_freqdata.c:1452 src/plot_freqdata.c:1471 src/plot_freqdata.c:1496
+msgid "Raw Gain dBi"
+msgstr "Ham Kazanç dBi"
+
+#: src/plot_freqdata.c:1455
+msgid "Max Gain & Net Gain vs Frequency"
+msgstr "Maksimum Kazanç & Net Kazanç - Frekans"
+
+#: src/plot_freqdata.c:1456
+msgid "Net Gain dBi"
+msgstr "Net Kazanç dBi"
+
+#: src/plot_freqdata.c:1462 src/plot_freqdata.c:1472
+msgid "Max Gain & F/B Ratio vs Frequency"
+msgstr "Maksimum Kazanç & Ö/A Oranı - Frekans"
+
+#: src/plot_freqdata.c:1473
+msgid "F/B Ratio dB"
+msgstr "Ö/A Oranı dB"
+
+#: src/plot_freqdata.c:1482
+msgid "Rad Angle - deg"
+msgstr "Işınım Açısı - derece"
+
+#: src/plot_freqdata.c:1483
+msgid "Max Gain Direction vs Frequency"
+msgstr "Maksimum Kazanç Yönü - Frekans"
+
+#: src/plot_freqdata.c:1484
+msgid "Phi - deg"
+msgstr "Phi - derece"
+
+#: src/plot_freqdata.c:1497
+msgid "Gain in Viewer Direction vs Frequency"
+msgstr "Görüntüleyici Yönünde Kazanç - Frekans"
+
+#: src/plot_freqdata.c:1520
+msgid "Net gain dBi"
+msgstr "Net kazanç dBi"
+
+#: src/plot_freqdata.c:1538 resources/xnec2c.glade:9909
+#: resources/xnec2c.glade:10119
+msgid "VSWR"
+msgstr "VSWR"
+
+#: src/plot_freqdata.c:1541
+msgid "VSWR & S11 vs Frequency"
+msgstr "VSWR & S11 - Frekans"
+
+#: src/plot_freqdata.c:1542
+msgid "S11 dB"
+msgstr "S11 dB"
+
+#: src/plot_freqdata.c:1546
+msgid "VSWR vs Frequency"
+msgstr "VSWR - Frekans"
+
+#: src/plot_freqdata.c:1560
+msgid "memory allocation for vswr/s11 failed\n"
+msgstr "vswr/s11 için bellek ayırma başarısız\n"
+
+#: src/plot_freqdata.c:1561
+msgid "Plot_Frequency_Data():Memory allocation for vswr/s11 failed"
+msgstr "Plot_Frequency_Data():vswr/s11 için bellek ayırma başarısız"
+
+#: src/plot_freqdata.c:1591 resources/xnec2c.glade:10084
+msgid "Z-real"
+msgstr "Z-gerçel"
+
+#: src/plot_freqdata.c:1592 src/plot_freqdata.c:1605
+msgid "Impedance vs Frequency"
+msgstr "Empedans - Frekans"
+
+#: src/plot_freqdata.c:1593 resources/xnec2c.glade:10049
+msgid "Z-imag"
+msgstr "Z-sanal"
+
+#: src/plot_freqdata.c:1604
+msgid "Z-magn"
+msgstr "Z-genlik"
+
+#: src/plot_freqdata.c:1606
+msgid "Z-phase"
+msgstr "Z-faz"
+
+#: src/plot_freqdata.c:1855
+#, c-format
+msgid "mouse button: unknown button %d\n"
+msgstr "fare düğmesi: bilinmeyen düğme %d\n"
+
+#: src/somnec.c:238
+msgid "Hankel not valid for z = 0"
+msgstr "z = 0 için Hankel geçerli değil"
+
+#: src/somnec.c:749
+msgid "No convergence"
+msgstr "Yakınsama yok"
+
+#: src/utils.c:103 src/utils.c:108
+#, c-format
+msgid ""
+"\n"
+"=== Notice: %s ===\n"
+"%s\n"
+"\n"
+msgstr ""
+"\n"
+"=== Uyarı: %s ===\n"
+"%s\n"
+"\n"
+
+#: src/utils.c:150
+#, c-format
+msgid "Stop: %s\n"
+msgstr "Durdur: %s\n"
+
+#: src/utils.c:157 src/utils.c:161 src/utils.c:171 src/utils.c:173
+#, c-format
+msgid "%s\n"
+msgstr "%s\n"
+
+#: src/utils.c:354
+#, c-format
+msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
+msgstr "iş başına %d OpenMP iş parçacığı kullanılıyor (%d/%d CPU)\n"
+
+#: src/utils.c:370
+#, c-format
+msgid "%s[%d]: %f seconds\n"
+msgstr "%s[%d]: %f saniye\n"
+
+#: src/utils.c:422
+#, c-format
+msgid ""
+"mem_obj_t at %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+msgstr ""
+"mem_obj_t, %p konumunda:\n"
+"  boyut: %lu\n"
+"  kullanılan: %lu\n"
+"  adres: %p\n"
+
+#: src/utils.c:441
+#, c-format
+msgid "mem_backtrace(%p):\n"
+msgstr "mem_backtrace(%p):\n"
+
+#: src/utils.c:443
+msgid "  m->backtrace is null, no backtrace data\n"
+msgstr "  m->backtrace boş, geri izleme verisi yok\n"
+
+#: src/utils.c:507
+#, c-format
+msgid "Memory re-allocation denied %s\n"
+msgstr "Bellek yeniden tahsisi reddedildi %s\n"
+
+#: src/utils.c:508
+#, c-format
+msgid "%s: Memory requested %lu\n"
+msgstr "%s: İstenen bellek %lu\n"
+
+#: src/utils.c:554
+#, c-format
+msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
+msgstr "xnec2c[%d]: %s: Dosya açılamadı: %s\n"
+
+#: src/utils.c:559
+#, c-format
+msgid "%s: %s\n"
+msgstr "%s: %s\n"
+
+#: src/utils.c:927
+msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
+msgstr ""
+"Optimize edici döngüsü tamamlanmadı, ışınım örüntüsü yeniden çizimi "
+"atlanıyor.\n"
+
+#: src/utils.c:934
+msgid "Optimizer loop incomplete, skipping structure redraw.\n"
+msgstr "Optimize edici döngüsü tamamlanmadı, yapı yeniden çizimi atlanıyor.\n"
+
+#: src/utils.c:949
+msgid "  Backtrace:\n"
+msgstr "  Geri İzleme:\n"
+
+#: src/utils.c:951
+#, c-format
+msgid "    %d. %s\n"
+msgstr "    %d. %s\n"
+
+#: src/utils.c:978
+#, c-format
+msgid "%s:\n"
+msgstr "%s:\n"
+
+#: src/xnec2c.c:185
+#, c-format
+msgid ""
+"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
+"%+12.5Ej\n"
+msgstr ""
+"dosyadan karmaşık dielektrik sabiti: %12.5E%+12.5Ej, istenen: %12.5E"
+"%+12.5Ej\n"
+
+#: src/xnec2c.c:188
+msgid "Ground_Parameters():Error in ground parameters"
+msgstr "Ground_Parameters():Toprak parametrelerinde hata"
+
+#: src/xnec2c.c:490
+#, c-format
+msgid "%.6f MHz: %f seconds. (%s)\n"
+msgstr "%.6f MHz: %f saniye. (%s)\n"
+
+#: src/xnec2c.c:781
+msgid "Failed to read data from forked child\n"
+msgstr "Fork edilmiş alt işlemden veri okunamadı\n"
+
+#: src/xnec2c.c:817
+#, c-format
+msgid ""
+"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr ""
+"Frequency_Loop tüm adımları tamamladı ancak num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+
+#: src/xnec2c.c:824
+#, c-format
+msgid "  busy job[%d]: fstep=%d freq=%f\n"
+msgstr "  meşgul iş[%d]: fstep=%d freq=%f\n"
+
+#: src/xnec2c.c:886
+#, c-format
+msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
+msgstr "Frekans döngüsü geçen süre: %f saniye. (%s)\n"
+
+#: src/xnec2c.c:1029
+msgid "failed to start Frequency_Loop_Thread\n"
+msgstr "Frequency_Loop_Thread başlatılamadı\n"
+
+#: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1964
+msgid "xnec2c"
+msgstr "xnec2c"
+
+#: files/xnec2c.desktop.in:4
+msgid "NEC2 Simulator"
+msgstr "NEC2 Simülatörü"
+
+#: files/xnec2c.desktop.in:5
+msgid "Numerical Electromagnetics Code software"
+msgstr "Sayısal Elektromanyetik Kod yazılımı"
+
+#: files/xnec2c.desktop.in:11
+msgid "nec2;em;simulator;"
+msgstr "nec2;em;simülatör;"
+
+#: resources/xnec2c.glade:14
+msgid "(C) 2007-2022 Neoklis Kyriazis"
+msgstr "(C) 2007-2022 Neoklis Kyriazis"
+
+#: resources/xnec2c.glade:15
+msgid ""
+"xnec2c is an interactive graphical wrapper around a modified version of "
+"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
+"Numerical Electromagnetics Code.\n"
+"\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
+"etc) in a graphical format. It can also display radiation pattern data in a "
+"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
+"format.\n"
+"\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
+"or edit antenna description files and specify NEC2 commands.\n"
+"\n"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
+"fully compatible with NEC2 input files and it works in different ways!"
+msgstr ""
+"xnec2c, orijinal FORTRAN NEC2 Sayısal Elektromanyetik Kod'un C'ye çevrilmiş "
+"hali olan nec2c'nin değiştirilmiş bir sürümü etrafında etkileşimli bir "
+"grafiksel arayüzdür.\n"
+"\n"
+"xnec2c frekansa bağlı verileri (kazanç, giriş empedansı, VSWR vb.) grafiksel "
+"biçimde görüntüleyebilir. Ayrıca ışınım örüntüsü verilerini döndürülebilir "
+"tel kafes biçiminde ve yakın alan verilerini (E, H, S vektörleri) ızgara "
+"biçiminde görüntüleyebilir.\n"
+"\n"
+"xnec2c, anten tanımlama dosyalarını oluşturmayı veya düzenlemeyi ve NEC2 "
+"komutlarını belirlemeyi kolaylaştıran yerleşik bir NEC2 girdi dosyası "
+"düzenleyicisine sahiptir.\n"
+"\n"
+"LÜTFEN doc/ alt dizinindeki belgeleri okuyun çünkü xnec2c, NEC2 girdi "
+"dosyalarıyla tam uyumlu değildir ve farklı şekillerde çalışır!"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: resources/xnec2c.glade:27
+msgid "translator-credits"
+msgstr "çevirmen-katkıları"
+
+#: resources/xnec2c.glade:159
+msgid "Steps/Cycle"
+msgstr "Adım/Döngü"
+
+#: resources/xnec2c.glade:172
+msgid "Animate Freq (Hz)"
+msgstr "Animasyon Frekansı (Hz)"
+
+#: resources/xnec2c.glade:286
+msgid "Arc Element (GA card)"
+msgstr "Yay Elemanı (GA kartı)"
+
+#: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
+msgid "No. Segments"
+msgstr "Segment Sayısı"
+
+#: resources/xnec2c.glade:340 resources/xnec2c.glade:3802
+#: resources/xnec2c.glade:14417
+msgid "Segs % lambda"
+msgstr "Segment % lambda"
+
+#: resources/xnec2c.glade:353 resources/xnec2c.glade:3815
+#: resources/xnec2c.glade:14513
+msgid "Wire Diameter"
+msgstr "Tel Çapı"
+
+#: resources/xnec2c.glade:441
+msgid "Radius from Y"
+msgstr "Y'den Yarıçap"
+
+#: resources/xnec2c.glade:454
+msgid "End 1 Angle"
+msgstr "Uç 1 Açısı"
+
+#: resources/xnec2c.glade:467
+msgid "End 2 Angle"
+msgstr "Uç 2 Açısı"
+
+#: resources/xnec2c.glade:578
+msgid "Wire Arc Data"
+msgstr "Tel Yay Verileri"
+
+#: resources/xnec2c.glade:640 resources/xnec2c.glade:876
+#: resources/xnec2c.glade:1676 resources/xnec2c.glade:1899
+#: resources/xnec2c.glade:2357 resources/xnec2c.glade:2549
+#: resources/xnec2c.glade:2860 resources/xnec2c.glade:3546
+#: resources/xnec2c.glade:4346 resources/xnec2c.glade:4545
+#: resources/xnec2c.glade:4706 resources/xnec2c.glade:5238
+#: resources/xnec2c.glade:5874 resources/xnec2c.glade:7290
+#: resources/xnec2c.glade:8197 resources/xnec2c.glade:9203
+#: resources/xnec2c.glade:9476 resources/xnec2c.glade:12919
+#: resources/xnec2c.glade:13432 resources/xnec2c.glade:14031
+#: resources/xnec2c.glade:14867 resources/xnec2c.glade:15067
+msgid "Delete Card"
+msgstr "Kartı Sil"
+
+#: resources/xnec2c.glade:718
+msgid "Cylindrical Structure (GR card)"
+msgstr "Silindirik Yapı (GR kartı)"
+
+#: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
+msgid "Tag Number Increment"
+msgstr "Etiket Numarası Artışı"
+
+#: resources/xnec2c.glade:761
+msgid "Number of Structures"
+msgstr "Yapı Sayısı"
+
+#: resources/xnec2c.glade:815
+msgid "Cylindrical Structure"
+msgstr "Silindirik Yapı"
+
+#: resources/xnec2c.glade:941
+msgid "Xnec2c Error"
+msgstr "Xnec2c Hatası"
+
+#: resources/xnec2c.glade:1049
+msgid "Error"
+msgstr "Hata"
+
+#: resources/xnec2c.glade:1128
+msgid "Excitation Command (EX Card)"
+msgstr "Uyarım Komutu (EX Kartı)"
+
+#: resources/xnec2c.glade:1154
+msgid "Incident LH Wave"
+msgstr "Gelen Sol El Dalgası"
+
+#: resources/xnec2c.glade:1170
+msgid "Incident Linear Wave "
+msgstr "Gelen Doğrusal Dalga "
+
+#: resources/xnec2c.glade:1186
+msgid "Current Source"
+msgstr "Akım Kaynağı"
+
+#: resources/xnec2c.glade:1202
+msgid "Incident RH Wave"
+msgstr "Gelen Sağ El Dalgası"
+
+#: resources/xnec2c.glade:1218
+msgid "Current Slope Discontinuity"
+msgstr "Akım Eğimi Süreksizliği"
+
+#: resources/xnec2c.glade:1234
+msgid "Voltage Source"
+msgstr "Gerilim Kaynağı"
+
+#: resources/xnec2c.glade:1256
+msgid "Excitation Type"
+msgstr "Uyarım Türü"
+
+#: resources/xnec2c.glade:1281
+msgid "Maximum Admittance Matrix Asymmetry"
+msgstr "Maksimum Admitans Matrisi Asimetrisi"
+
+#: resources/xnec2c.glade:1297
+msgid "Impedance of Source Segment"
+msgstr "Kaynak Segmenti Empedansı"
+
+#: resources/xnec2c.glade:1319
+msgid "Print Control"
+msgstr "Yazdırma Kontrolü"
+
+#: resources/xnec2c.glade:1411
+msgid "Voltage - Real Part"
+msgstr "Gerilim - Reel Kısım"
+
+#: resources/xnec2c.glade:1424
+msgid "Voltage - Imaginary Part"
+msgstr "Gerilim - İmajiner Kısım"
+
+#: resources/xnec2c.glade:1437
+msgid "Eta"
+msgstr "Eta"
+
+#: resources/xnec2c.glade:1507
+msgid "Theta"
+msgstr "Theta"
+
+#: resources/xnec2c.glade:1520
+msgid "Phi"
+msgstr "Phi"
+
+#: resources/xnec2c.glade:1533
+msgid "Ratio"
+msgstr "Oran"
+
+#: resources/xnec2c.glade:1614
+msgid "Excitation Parameters"
+msgstr "Uyarım Parametreleri"
+
+#: resources/xnec2c.glade:1741
+msgid "Execute Command (XQ Card)"
+msgstr "Çalıştırma Komutu (XQ Kartı)"
+
+#: resources/xnec2c.glade:1768
+msgid "No Pattern Cuts"
+msgstr "Örüntü Kesiti Yok"
+
+#: resources/xnec2c.glade:1784
+msgid "Pattern in XZ Plane"
+msgstr "XZ Düzleminde Örüntü"
+
+#: resources/xnec2c.glade:1800
+msgid "Pattern in YZ Plane"
+msgstr "YZ Düzleminde Örüntü"
+
+#: resources/xnec2c.glade:1816
+msgid "Both XZ/YZ Patterns"
+msgstr "Her İki XZ/YZ Örüntüsü"
+
+#: resources/xnec2c.glade:1838
+msgid "Execute Command"
+msgstr "Çalıştırma Komutu"
+
+#: resources/xnec2c.glade:2069
+msgid "Frequency Command (FR Card)"
+msgstr "Frekans Komutu (FR Kartı)"
+
+#: resources/xnec2c.glade:2094
+msgid "Additive Stepping"
+msgstr "Toplamalı Adımlama"
+
+#: resources/xnec2c.glade:2111
+msgid "Multiplicative Stepping"
+msgstr "Çarpmalı Adımlama"
+
+#: resources/xnec2c.glade:2134
+msgid "Frequency Stepping"
+msgstr "Frekans Adımlaması"
+
+#: resources/xnec2c.glade:2164
+msgid "No. Frequency Points"
+msgstr "Frekans Noktası Sayısı"
+
+#: resources/xnec2c.glade:2195
+msgid "Start Frequency (MHz)"
+msgstr "Başlangıç Frekansı (MHz)"
+
+#: resources/xnec2c.glade:2227
+msgid "Frequency Step (MHz)"
+msgstr "Frekans Adımı (MHz)"
+
+#: resources/xnec2c.glade:2260
+msgid "End Frequency (MHz)"
+msgstr "Bitiş Frekansı (MHz)"
+
+#: resources/xnec2c.glade:2296
+msgid "Frequency Stepping Parameters"
+msgstr "Frekans Adımlama Parametreleri"
+
+#: resources/xnec2c.glade:2422
+msgid "Geometry End (GE Card)"
+msgstr "Geometri Sonu (GE Kartı)"
+
+#: resources/xnec2c.glade:2447
+msgid "No Ground, Free Space condition"
+msgstr "Toprak Yok, Serbest Uzay koşulu"
+
+#: resources/xnec2c.glade:2464
+msgid "Ground present, Structure reflection"
+msgstr "Toprak mevcut, Yapı yansıması"
+
+#: resources/xnec2c.glade:2481
+msgid "Ground present, no Structure reflection"
+msgstr "Toprak mevcut, Yapı yansıması yok"
+
+#: resources/xnec2c.glade:2504
+msgid "Ground Plane type"
+msgstr "Toprak Düzlemi türü"
+
+#: resources/xnec2c.glade:2638
+msgid "Ground Parameters (GD Card)"
+msgstr "Toprak Parametreleri (GD Kartı)"
+
+#: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
+#: resources/xnec2c.glade:3222
+msgid "Relative Dielectric Const."
+msgstr "Bağıl Dielektrik Sabiti"
+
+#: resources/xnec2c.glade:2699 resources/xnec2c.glade:3255
+msgid "Distance to 2nd Medium"
+msgstr "2. Ortama Mesafe"
+
+#: resources/xnec2c.glade:2731 resources/xnec2c.glade:3168
+#: resources/xnec2c.glade:3287
+msgid "Ground Conductivity S/m"
+msgstr "Toprak İletkenliği S/m"
+
+#: resources/xnec2c.glade:2763 resources/xnec2c.glade:3319
+msgid "Dist. below 1st Medium"
+msgstr "1. Ortamın Altındaki Mesafe"
+
+#: resources/xnec2c.glade:2799 resources/xnec2c.glade:3355
+msgid "2nd Medium Parameters"
+msgstr "2. Ortam Parametreleri"
+
+#: resources/xnec2c.glade:2980
+msgid "Ground Parameters (GN & GD Cards)"
+msgstr "Toprak Parametreleri (GN & GD Kartları)"
+
+#: resources/xnec2c.glade:3007
+msgid "Perfect Ground"
+msgstr "Mükemmel Toprak"
+
+#: resources/xnec2c.glade:3023
+msgid "Sommerfeld/Norton"
+msgstr "Sommerfeld/Norton"
+
+#: resources/xnec2c.glade:3039
+msgid "Radial Ground Screen"
+msgstr "Radyal Toprak Perdesi"
+
+#: resources/xnec2c.glade:3054
+msgid "Reflection Coeff. Approx"
+msgstr "Yansıma Katsayısı Yaklaşımı"
+
+#: resources/xnec2c.glade:3070
+msgid "Nullify Previous Params"
+msgstr "Önceki Parametreleri Sıfırla"
+
+#: resources/xnec2c.glade:3086
+msgid "Second Medium (Cliff)"
+msgstr "İkinci Ortam (Uçurum)"
+
+#: resources/xnec2c.glade:3107
+msgid "Ground Type"
+msgstr "Toprak Türü"
+
+#: resources/xnec2c.glade:3235
+msgid "0.00000"
+msgstr "0.00000"
+
+#: resources/xnec2c.glade:3386
+msgid "Number of Radials"
+msgstr "Radyal Sayısı"
+
+#: resources/xnec2c.glade:3399
+msgid "Radial Screen Radius"
+msgstr "Radyal Perde Yarıçapı"
+
+#: resources/xnec2c.glade:3449
+msgid "Radial Wire Diameter"
+msgstr "Radyal Tel Çapı"
+
+#: resources/xnec2c.glade:3485
+msgid "Radial Screen Parameters"
+msgstr "Radyal Perde Parametreleri"
+
+#: resources/xnec2c.glade:3685
+msgid "Helical Element (GA card)"
+msgstr "Helisel Eleman (GA kartı)"
+
+#: resources/xnec2c.glade:3710
+msgid "Right Hand Helix"
+msgstr "Sağ El Heliksi"
+
+#: resources/xnec2c.glade:3726
+msgid "Left Hand Helix"
+msgstr "Sol El Heliksi"
+
+#: resources/xnec2c.glade:3742
+msgid "Right Hand Spiral"
+msgstr "Sağ El Spirali"
+
+#: resources/xnec2c.glade:3758
+msgid "Left Hand Spiral"
+msgstr "Sol El Spirali"
+
+#: resources/xnec2c.glade:3789
+msgid "Segments/Turn"
+msgstr "Segment/Sarım"
+
+#: resources/xnec2c.glade:3828
+msgid "0.0100"
+msgstr "0.0100"
+
+#: resources/xnec2c.glade:3849
+msgid "5.00"
+msgstr "5.00"
+
+#: resources/xnec2c.glade:3870
+msgid "8"
+msgstr "8"
+
+#: resources/xnec2c.glade:3890 resources/xnec2c.glade:11417
+#: resources/xnec2c.glade:12489
+msgid "1"
+msgstr "1"
+
+#: resources/xnec2c.glade:3910
+msgid "Number of Turns"
+msgstr "Sarım Sayısı"
+
+#: resources/xnec2c.glade:3923
+msgid "8.0000"
+msgstr "8.0000"
+
+#: resources/xnec2c.glade:3944
+msgid "Helix Length (HL)"
+msgstr "Heliks Uzunluğu (HL)"
+
+#: resources/xnec2c.glade:3957
+msgid "5.0000"
+msgstr "5.0000"
+
+#: resources/xnec2c.glade:3978
+msgid "Turns Spacing"
+msgstr "Sarım Aralığı"
+
+#: resources/xnec2c.glade:3991 resources/xnec2c.glade:4103
+#: resources/xnec2c.glade:4156 resources/xnec2c.glade:4209
+#: resources/xnec2c.glade:4257
+msgid "1.0000"
+msgstr "1.0000"
+
+#: resources/xnec2c.glade:4025
+msgid "0.0000"
+msgstr "0.0000"
+
+#: resources/xnec2c.glade:4045
+msgid "Radius in X (A1)"
+msgstr "X'de Yarıçap (A1)"
+
+#: resources/xnec2c.glade:4058
+msgid "Radius in Y (B1)"
+msgstr "Y'de Yarıçap (B1)"
+
+#: resources/xnec2c.glade:4071
+msgid "Radius in X (A2)"
+msgstr "X'de Yarıçap (A2)"
+
+#: resources/xnec2c.glade:4084
+msgid "Radius in Y (B2)"
+msgstr "Y'de Yarıçap (B2)"
+
+#: resources/xnec2c.glade:4282
+msgid "GH Card"
+msgstr "GH Kartı"
+
+#: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
+msgid "Interaction Approx Range (KH Card)"
+msgstr "Etkileşim Yaklaşım Aralığı (KH Kartı)"
+
+#: resources/xnec2c.glade:4446
+msgid "Approximation Range (W/lengths)"
+msgstr "Yaklaşım Aralığı (Dalga Boyları)"
+
+#: resources/xnec2c.glade:4484
+msgid "Interaction Approximation Range"
+msgstr "Etkileşim Yaklaşım Aralığı"
+
+#: resources/xnec2c.glade:4610
+msgid "Thin Wire Kernel (EK Card)"
+msgstr "İnce Tel Çekirdeği (EK Kartı)"
+
+#: resources/xnec2c.glade:4628
+msgid "Extended Thin Wire Kernel"
+msgstr "Genişletilmiş İnce Tel Çekirdeği"
+
+#: resources/xnec2c.glade:4645
+msgid "Thin Wire Kernel"
+msgstr "İnce Tel Çekirdeği"
+
+#: resources/xnec2c.glade:4808
+msgid "Loading Command (LD Card)"
+msgstr "Yükleme Komutu (LD Kartı)"
+
+#: resources/xnec2c.glade:4834
+msgid "Short all Loads (Nulls previous Loading Cards)"
+msgstr "Tüm Yükleri Kısa Devre Yap (Önceki Yükleme Kartlarını Sıfırlar)"
+
+#: resources/xnec2c.glade:4851
+msgid "Series, Lumped"
+msgstr "Seri, Toplu"
+
+#: resources/xnec2c.glade:4867
+msgid "Parallel, Distributed"
+msgstr "Paralel, Dağıtık"
+
+#: resources/xnec2c.glade:4883
+msgid "Parallel, Lumped"
+msgstr "Paralel, Toplu"
+
+#: resources/xnec2c.glade:4899
+msgid "Resistance & Reactance"
+msgstr "Direnç & Reaktans"
+
+#: resources/xnec2c.glade:4915
+msgid "Series, Distributed"
+msgstr "Seri, Dağıtık"
+
+#: resources/xnec2c.glade:4931
+msgid "Wire Conductivity"
+msgstr "Tel İletkenliği"
+
+#: resources/xnec2c.glade:4953
+msgid "Loading Type"
+msgstr "Yükleme Türü"
+
+#: resources/xnec2c.glade:4983
+msgid "Load Tag Number"
+msgstr "Yük Tag Numarası"
+
+#: resources/xnec2c.glade:5014
+msgid "Resistance"
+msgstr "Direnç"
+
+#: resources/xnec2c.glade:5046
+msgid "From Segment #"
+msgstr "Başlangıç Segment #"
+
+#: resources/xnec2c.glade:5077
+msgid "Inductance"
+msgstr "İndüktans"
+
+#: resources/xnec2c.glade:5109
+msgid "To Segment #"
+msgstr "Bitiş Segment #"
+
+#: resources/xnec2c.glade:5140
+msgid "Capacitance"
+msgstr "Kapasitans"
+
+#: resources/xnec2c.glade:5176
+msgid "Loading Parameters"
+msgstr "Yükleme Parametreleri"
+
+#: resources/xnec2c.glade:5391
+msgid "Near Fields Command (NE/NH Cards)"
+msgstr "Yakın Alan Komutu (NE/NH Kartları)"
+
+#: resources/xnec2c.glade:5418
+msgid "Near Electric Field"
+msgstr "Yakın Elektrik Alanı"
+
+#: resources/xnec2c.glade:5434
+msgid "Rectangular Co-ordinates"
+msgstr "Dikdörtgen Koordinatlar"
+
+#: resources/xnec2c.glade:5450
+msgid "Near Magnetic Field"
+msgstr "Yakın Manyetik Alan"
+
+#: resources/xnec2c.glade:5465
+msgid "Spherical Co-ordinates"
+msgstr "Küresel Koordinatlar"
+
+#: resources/xnec2c.glade:5493
+msgid "Field Type & Co-ordinates"
+msgstr "Alan Tipi ve Koordinatlar"
+
+#: resources/xnec2c.glade:5523
+msgid "NX"
+msgstr "NX"
+
+#: resources/xnec2c.glade:5554 resources/xnec2c.glade:10989
+#: resources/xnec2c.glade:12083
+msgid "X"
+msgstr "X"
+
+#: resources/xnec2c.glade:5586
+msgid "DX"
+msgstr "DX"
+
+#: resources/xnec2c.glade:5618
+msgid "NY"
+msgstr "NY"
+
+#: resources/xnec2c.glade:5649 resources/xnec2c.glade:11004
+#: resources/xnec2c.glade:12098
+msgid "Y"
+msgstr "Y"
+
+#: resources/xnec2c.glade:5681
+msgid "DY"
+msgstr "DY"
+
+#: resources/xnec2c.glade:5713
+msgid "NZ"
+msgstr "NZ"
+
+#: resources/xnec2c.glade:5744 resources/xnec2c.glade:11019
+#: resources/xnec2c.glade:12113
+msgid "Z"
+msgstr "Z"
+
+#: resources/xnec2c.glade:5776
+msgid "DZ"
+msgstr "DZ"
+
+#: resources/xnec2c.glade:5812
+msgid "Field Pattern Parameters"
+msgstr "Alan Örüntüsü Parametreleri"
+
+#: resources/xnec2c.glade:5939
+msgid "Xnec2c: NEC2 Input File Editor"
+msgstr "Xnec2c: NEC2 Girdi Dosyası Düzenleyicisi"
+
+#: resources/xnec2c.glade:6026
+msgid "Manage Cards"
+msgstr "Kartları Yönet"
+
+#: resources/xnec2c.glade:6123
+msgid "File Save"
+msgstr "Dosya Kaydet"
+
+#: resources/xnec2c.glade:6210
+msgid "Wire"
+msgstr "Tel"
+
+#: resources/xnec2c.glade:6224
+msgid "Arc"
+msgstr "Yay"
+
+#: resources/xnec2c.glade:6238
+msgid "Helix"
+msgstr "Sarmal"
+
+#: resources/xnec2c.glade:6252
+msgid "Patch"
+msgstr "Patch"
+
+#: resources/xnec2c.glade:6266
+msgid "Cylinder"
+msgstr "Silindir"
+
+#: resources/xnec2c.glade:6280
+msgid "Move"
+msgstr "Taşı"
+
+#: resources/xnec2c.glade:6294
+msgid "Reflect"
+msgstr "Yansıt"
+
+#: resources/xnec2c.glade:6308
+msgid "Scale"
+msgstr "Ölçekle"
+
+#: resources/xnec2c.glade:6328
+msgid "Edit Geometry Data"
+msgstr "Geometri Verisini Düzenle"
+
+#: resources/xnec2c.glade:6382
+msgid "Geometry"
+msgstr "Geometri"
+
+#: resources/xnec2c.glade:6409
+msgid "Excitation"
+msgstr "Uyarım"
+
+#: resources/xnec2c.glade:6423
+msgid "Radiation"
+msgstr "Işınım"
+
+#: resources/xnec2c.glade:6437
+msgid "Frequency"
+msgstr "Frekans"
+
+#: resources/xnec2c.glade:6451
+msgid "Near Fields"
+msgstr "Yakın Alanlar"
+
+#: resources/xnec2c.glade:6465
+msgid "Ground (GN)"
+msgstr "Toprak (GN)"
+
+#: resources/xnec2c.glade:6479
+msgid "Ground (GD)"
+msgstr "Toprak (GD)"
+
+#: resources/xnec2c.glade:6493
+msgid "Loading"
+msgstr "Yükleme"
+
+#: resources/xnec2c.glade:6507
+msgid "Kernel"
+msgstr "Çekirdek"
+
+#: resources/xnec2c.glade:6521
+msgid "Network"
+msgstr "Ağ"
+
+#: resources/xnec2c.glade:6535
+msgid "Interaction"
+msgstr "Etkileşim"
+
+#: resources/xnec2c.glade:6549
+msgid "Transm. Line"
+msgstr "İletim Hattı"
+
+#: resources/xnec2c.glade:6564
+msgid "Execute"
+msgstr "Çalıştır"
+
+#: resources/xnec2c.glade:6578
+msgid "Zo"
+msgstr "Zo"
+
+#: resources/xnec2c.glade:6598
+msgid "Edit Control Commands"
+msgstr "Kontrol Komutlarını Düzenle"
+
+#: resources/xnec2c.glade:6652
+msgid "Commands"
+msgstr "Komutlar"
+
+#: resources/xnec2c.glade:6671
+msgid "Unsaved Data"
+msgstr "Kaydedilmemiş Veri"
+
+#: resources/xnec2c.glade:6747
+msgid ""
+"Unsaved data in NEC2 Editor.\n"
+"Save NEC2 Editor data first?\n"
+msgstr ""
+"NEC2 Düzenleyicisinde kaydedilmemiş veri var.\n"
+"Önce NEC2 Düzenleyicisi verisi kaydedilsin mi?\n"
+
+#: resources/xnec2c.glade:6846
+msgid "Network Command (NT Card)"
+msgstr "Ağ Komutu (NT Kartı)"
+
+#: resources/xnec2c.glade:6875
+msgid "Tag Number, Port 1  "
+msgstr "Tag Numarası, Port 1  "
+
+#: resources/xnec2c.glade:6906
+msgid "Tag Number, Port 2  "
+msgstr "Tag Numarası, Port 2  "
+
+#: resources/xnec2c.glade:6937
+msgid "Segment Num, Port 1"
+msgstr "Segment No, Port 1"
+
+#: resources/xnec2c.glade:6968
+msgid "Segment Num, Port 2"
+msgstr "Segment No, Port 2"
+
+#: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
+msgid "Segment Identity"
+msgstr "Segment Kimliği"
+
+#: resources/xnec2c.glade:7033
+msgid "Element 1,1 Real Part"
+msgstr "Eleman 1,1 Reel Kısım"
+
+#: resources/xnec2c.glade:7065
+msgid "Element 1,2 Real Part"
+msgstr "Eleman 1,2 Reel Kısım"
+
+#: resources/xnec2c.glade:7097
+msgid "Element 2,2 Real Part"
+msgstr "Eleman 2,2 Reel Kısım"
+
+#: resources/xnec2c.glade:7129
+msgid "Element 1,1 Imag Part"
+msgstr "Eleman 1,1 İmajiner Kısım"
+
+#: resources/xnec2c.glade:7161
+msgid "Element 1,2 Imag Part"
+msgstr "Eleman 1,2 İmajiner Kısım"
+
+#: resources/xnec2c.glade:7193
+msgid "Element 2,2 Imag Part"
+msgstr "Eleman 2,2 İmajiner Kısım"
+
+#: resources/xnec2c.glade:7229
+msgid "Admittance Matrix Elements"
+msgstr "Admitans Matris Elemanları"
+
+#: resources/xnec2c.glade:7444
+msgid "Patch Element (SP & SC Cards)"
+msgstr "Patch Elemanı (SP ve SC Kartları)"
+
+#: resources/xnec2c.glade:7468
+msgid "Arbitrary"
+msgstr "Keyfi"
+
+#: resources/xnec2c.glade:7485
+msgid "Rectangle"
+msgstr "Dikdörtgen"
+
+#: resources/xnec2c.glade:7502
+msgid "Triangle"
+msgstr "Üçgen"
+
+#: resources/xnec2c.glade:7519
+msgid "Quadrilateral"
+msgstr "Dörtgen"
+
+#: resources/xnec2c.glade:7536
+msgid "Surface"
+msgstr "Yüzey"
+
+#: resources/xnec2c.glade:7559
+msgid "Patch Type"
+msgstr "Patch Tipi"
+
+#: resources/xnec2c.glade:7589
+msgid "Corners 1-2 sub-division (NX)"
+msgstr "Köşe 1-2 alt bölümü (NX)"
+
+#: resources/xnec2c.glade:7620
+msgid "Corners 2-3 sub-division (NY)"
+msgstr "Köşe 2-3 alt bölümü (NY)"
+
+#: resources/xnec2c.glade:7655
+msgid "Surface Sub-division"
+msgstr "Yüzey Alt Bölümü"
+
+#: resources/xnec2c.glade:7881
+msgid "SP/SM Cards"
+msgstr "SP/SM Kartları"
+
+#: resources/xnec2c.glade:7917
+msgid "Corner 3 - X"
+msgstr "Köşe 3 - X"
+
+#: resources/xnec2c.glade:7949
+msgid "Corner 3 - Y"
+msgstr "Köşe 3 - Y"
+
+#: resources/xnec2c.glade:7981
+msgid "Corner 3 - Z"
+msgstr "Köşe 3 - Z"
+
+#: resources/xnec2c.glade:8029
+msgid "Corner 4 - X"
+msgstr "Köşe 4 - X"
+
+#: resources/xnec2c.glade:8061
+msgid "Corner 4 - Y"
+msgstr "Köşe 4 - Y"
+
+#: resources/xnec2c.glade:8093
+msgid "Corner 4 - Z"
+msgstr "Köşe 4 - Z"
+
+#: resources/xnec2c.glade:8136
+msgid "SC Card"
+msgstr "SC Kartı"
+
+#: resources/xnec2c.glade:8352
+msgid "Quit xnec2c?"
+msgstr "xnec2c'den çıkılsın mı?"
+
+#: resources/xnec2c.glade:8431
+msgid "Radiation Pattern (RP Card)"
+msgstr "Işınım Örüntüsü (RP Kartı)"
+
+#: resources/xnec2c.glade:8458
+msgid "Normal (Space) Wave"
+msgstr "Normal (Uzay) Dalga"
+
+#: resources/xnec2c.glade:8474
+msgid "Space + Ground Wave"
+msgstr "Uzay + Yer Dalgası"
+
+#: resources/xnec2c.glade:8490
+msgid "Linear Cliff"
+msgstr "Doğrusal Uçurum"
+
+#: resources/xnec2c.glade:8506
+msgid "Radial wire screen"
+msgstr "Radyal tel ekran"
+
+#: resources/xnec2c.glade:8522
+msgid "Circular Cliff + Radials"
+msgstr "Dairesel Uçurum + Radyaller"
+
+#: resources/xnec2c.glade:8538
+msgid "Circular Cliff"
+msgstr "Dairesel Uçurum"
+
+#: resources/xnec2c.glade:8554
+msgid "Linear Cliff + Radials"
+msgstr "Doğrusal Uçurum + Radyaller"
+
+#: resources/xnec2c.glade:8572
+msgid "<b>See GN/GD Card Documentation</b>"
+msgstr "<b>GN/GD Kartı Belgelerine Bakın</b>"
+
+#: resources/xnec2c.glade:8590
+msgid "Wave Type and Ground (I1)"
+msgstr "Dalga Tipi ve Toprak (I1)"
+
+#: resources/xnec2c.glade:8618
+msgid "Major & Minor Axis & Total Gain"
+msgstr "Ana ve Yan Eksen ve Toplam Kazanç"
+
+#: resources/xnec2c.glade:8634
+msgid "Vertical, Horizontal & Total Gain"
+msgstr "Dikey, Yatay ve Toplam Kazanç"
+
+#: resources/xnec2c.glade:8650
+msgid "Major Axis Gain Normalized"
+msgstr "Ana Eksen Kazancı Normalleştirilmiş"
+
+#: resources/xnec2c.glade:8666
+msgid "Vertical Axis Gain Normalized"
+msgstr "Dikey Eksen Kazancı Normalleştirilmiş"
+
+#: resources/xnec2c.glade:8682
+msgid "Total Gain Normalized"
+msgstr "Toplam Kazanç Normalleştirilmiş"
+
+#: resources/xnec2c.glade:8698
+msgid "Print/Normalize Directive Gain"
+msgstr "Yönlendirici Kazancı Yazdır/Normalize Et"
+
+#: resources/xnec2c.glade:8714
+msgid "No Normalized Gain"
+msgstr "Normalize Edilmiş Kazanç Yok"
+
+#: resources/xnec2c.glade:8730
+msgid "Minor Axis Gain Normalized"
+msgstr "Küçük Eksen Kazancı Normalize Edildi"
+
+#: resources/xnec2c.glade:8746
+msgid "Horizontal Axis Gain Normalized"
+msgstr "Yatay Eksen Kazancı Normalize Edildi"
+
+#: resources/xnec2c.glade:8762
+msgid "Print/Normalize Power Gain"
+msgstr "Güç Kazancını Yazdır/Normalize Et"
+
+#: resources/xnec2c.glade:8778
+msgid "No Gain Averaging"
+msgstr "Kazanç Ortalaması Yok"
+
+#: resources/xnec2c.glade:8794
+msgid "Points in Average Not Printed"
+msgstr "Ortalamadaki Noktalar Yazdırılmadı"
+
+#: resources/xnec2c.glade:8810
+msgid "Average Gain Computed"
+msgstr "Ortalama Kazanç Hesaplandı"
+
+#: resources/xnec2c.glade:8828
+msgid "<b>See RP Card Documentation</b>"
+msgstr "<b>RP Kartı Belgelerine Bakın</b>"
+
+#: resources/xnec2c.glade:8846
+msgid "Data Output Control (XNDA)"
+msgstr "Veri Çıkış Kontrolü (XNDA)"
+
+#: resources/xnec2c.glade:8876
+msgid "Points in Theta"
+msgstr "Theta Noktaları"
+
+#: resources/xnec2c.glade:8985
+msgid "Initial Phi (deg)"
+msgstr "Başlangıç Phi (derece)"
+
+#: resources/xnec2c.glade:9067
+msgid "Field Point Distance"
+msgstr "Alan Noktası Mesafesi"
+
+#: resources/xnec2c.glade:9099
+msgid "Gain Normalization"
+msgstr "Kazanç Normalizasyonu"
+
+#: resources/xnec2c.glade:9141
+msgid "Radiation Pattern Parameters"
+msgstr "Işınım Örüntüsü Parametreleri"
+
+#: resources/xnec2c.glade:9301
+msgid "Reflect Structure (GX card)"
+msgstr "Yapıyı Yansıt (GX kartı)"
+
+#: resources/xnec2c.glade:9329
+msgid "Reflect in YZ plane"
+msgstr "YZ düzleminde yansıt"
+
+#: resources/xnec2c.glade:9344
+msgid "Reflect in XY plane"
+msgstr "XY düzleminde yansıt"
+
+#: resources/xnec2c.glade:9359
+msgid "Reflect in XZ plane"
+msgstr "XZ düzleminde yansıt"
+
+#: resources/xnec2c.glade:9415
+msgid "Reflect Options"
+msgstr "Yansıtma Seçenekleri"
+
+#: resources/xnec2c.glade:9546
+msgid "Xnec2c: Frequency Data Plots"
+msgstr "Xnec2c: Frekans Veri Grafikleri"
+
+#: resources/xnec2c.glade:9571 resources/xnec2c.glade:10386
+#: resources/xnec2c.glade:11663
+msgid "_File"
+msgstr "_Dosya"
+
+#: resources/xnec2c.glade:9633 resources/xnec2c.glade:10448
+#: resources/xnec2c.glade:11725
+msgid "Save as _gnuplot"
+msgstr "_gnuplot olarak kaydet"
+
+#: resources/xnec2c.glade:9644 resources/xnec2c.glade:11735
+msgid "Save as _CSV"
+msgstr "_CSV olarak kaydet"
+
+#: resources/xnec2c.glade:9656
+msgid "Save as _Touchstone (.SnP)"
+msgstr "_Touchstone (.SnP) olarak kaydet"
+
+#: resources/xnec2c.glade:9663
+msgid "Save as S_1P: Reflection Only"
+msgstr "S_1P olarak kaydet: Yalnızca Yansıma"
+
+#: resources/xnec2c.glade:9673
+msgid "Save as S2P: _Max Gain (S21)"
+msgstr "S2P olarak kaydet: _Maksimum Kazanç (S21)"
+
+#: resources/xnec2c.glade:9683
+msgid "Save as S2P: _Viewer Gain (S21)"
+msgstr "S2P olarak kaydet: _Görüntüleyici Kazancı (S21)"
+
+#: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
+#: resources/xnec2c.glade:11769
+msgid "_View"
+msgstr "_Görünüm"
+
+#: resources/xnec2c.glade:9729 resources/xnec2c.glade:10826
+#: resources/xnec2c.glade:11779
+msgid "_Polarization"
+msgstr "_Polarizasyon"
+
+#: resources/xnec2c.glade:9745 resources/xnec2c.glade:10842
+#: resources/xnec2c.glade:11795
+msgid "_Total"
+msgstr "_Toplam"
+
+#: resources/xnec2c.glade:9756 resources/xnec2c.glade:10853
+#: resources/xnec2c.glade:11806
+msgid "_Horizontal"
+msgstr "_Yatay"
+
+#: resources/xnec2c.glade:9767 resources/xnec2c.glade:10864
+#: resources/xnec2c.glade:11817
+msgid "_Vertical"
+msgstr "_Dikey"
+
+#: resources/xnec2c.glade:9778 resources/xnec2c.glade:10875
+#: resources/xnec2c.glade:11828
+msgid "_Right Hand"
+msgstr "_Sağ El"
+
+#: resources/xnec2c.glade:9789 resources/xnec2c.glade:10886
+#: resources/xnec2c.glade:11839
+msgid "_Left Hand"
+msgstr "_Sol El"
+
+#: resources/xnec2c.glade:9804
+msgid "_Net Gain"
+msgstr "_Net Kazanç"
+
+#: resources/xnec2c.glade:9813
+msgid "Show _Min/Max Values"
+msgstr "_Min/Maks Değerleri Göster"
+
+#: resources/xnec2c.glade:9822
+msgid "Show _S11 (dB) Values"
+msgstr "_S11 (dB) Değerlerini Göster"
+
+#: resources/xnec2c.glade:9831
+msgid "Clamp _VSWR Graph to 10"
+msgstr "_VSWR Grafiğini 10'a Sabitle"
+
+#: resources/xnec2c.glade:9840
+msgid "Round _X Axis Frequency Values"
+msgstr "_X Ekseni Frekans Değerlerini Yuvarla"
+
+#: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
+msgid "Max Gain"
+msgstr "Maks Kazanç"
+
+#: resources/xnec2c.glade:9879
+msgid "Direction"
+msgstr "Yön"
+
+#: resources/xnec2c.glade:9894
+msgid "Viewer"
+msgstr "Görüntüleyici"
+
+#: resources/xnec2c.glade:9924
+msgid "Zr/Zi"
+msgstr "Zr/Zi"
+
+#: resources/xnec2c.glade:9939
+msgid "Zm/Zph"
+msgstr "Zm/Zph"
+
+#: resources/xnec2c.glade:9954
+msgid "Smith"
+msgstr "Smith"
+
+#: resources/xnec2c.glade:9998 resources/xnec2c.glade:10033
+#: resources/xnec2c.glade:10068 resources/xnec2c.glade:10103
+#: resources/xnec2c.glade:12644
+msgid " - - -"
+msgstr " - - -"
+
+#: resources/xnec2c.glade:10139
+msgid " - - - - "
+msgstr " - - - - "
+
+#: resources/xnec2c.glade:10155
+msgid "Freq MHz"
+msgstr "Frekans MHz"
+
+#: resources/xnec2c.glade:10194
+msgid "Tx Line Zo"
+msgstr "İletim Hattı Zo"
+
+#: resources/xnec2c.glade:10208 resources/xnec2c.glade:11432
+#: resources/xnec2c.glade:12520
+msgid "Freq Loop"
+msgstr "Frekans Döngüsü"
+
+#: resources/xnec2c.glade:10342
+msgid "Frequency Data Plots"
+msgstr "Frekans Veri Grafikleri"
+
+#: resources/xnec2c.glade:10459
+msgid "Save _Currents/Charges as CSV"
+msgstr "_Akımları/Yükleri CSV olarak kaydet"
+
+#: resources/xnec2c.glade:10478
+msgid "Optimization Settings"
+msgstr "Optimizasyon Ayarları"
+
+#: resources/xnec2c.glade:10493
+msgid "Reload and write data on .NEC file changes"
+msgstr ".NEC dosya değişikliklerinde verileri yeniden yükle ve yaz"
+
+#: resources/xnec2c.glade:10500
+msgid "_Write files selected below, now."
+msgstr "Aşağıda seçilen dosyaları şimdi _yaz."
+
+#: resources/xnec2c.glade:10515
+msgid "After calculation, write <file>.csv"
+msgstr "Hesaplamadan sonra <file>.csv yaz"
+
+#: resources/xnec2c.glade:10524
+msgid "After calculation, write <file>.s_1p"
+msgstr "Hesaplamadan sonra <file>.s_1p yaz"
+
+#: resources/xnec2c.glade:10533
+msgid "After calculation, write <file>-_maxgain.s2p"
+msgstr "Hesaplamadan sonra <file>-_maxgain.s2p yaz"
+
+#: resources/xnec2c.glade:10542
+msgid "After calculation, write <file>-_viewergain.s2p"
+msgstr "Hesaplamadan sonra <file>-_viewergain.s2p yaz"
+
+#: resources/xnec2c.glade:10551
+msgid "After calculation, write <file>-_radpattern.csv"
+msgstr "Hesaplamadan sonra <file>-_radpattern.csv yaz"
+
+#: resources/xnec2c.glade:10560
+msgid "After calculation, write <file>-_currents.csv"
+msgstr "Hesaplamadan sonra <file>-_currents.csv yaz"
+
+#: resources/xnec2c.glade:10575
+msgid "_Math Libraries"
+msgstr "_Matematik Kütüphaneleri"
+
+#: resources/xnec2c.glade:10584
+msgid "_Interactive"
+msgstr "_Etkileşimli"
+
+#: resources/xnec2c.glade:10604
+msgid "_Batch"
+msgstr "_Toplu İşlem"
+
+#: resources/xnec2c.glade:10630
+msgid "Mathlib _Help"
+msgstr "Mathlib _Yardım"
+
+#: resources/xnec2c.glade:10643
+msgid "Mathlib _Benchmarks"
+msgstr "Mathlib _Karşılaştırmaları"
+
+#: resources/xnec2c.glade:10654
+msgid "_Selected Mathlibs"
+msgstr "_Seçili Mathlib'ler"
+
+#: resources/xnec2c.glade:10668
+msgid "Select All/None"
+msgstr "Tümünü Seç/Hiçbiri"
+
+#: resources/xnec2c.glade:10693
+msgid "_Parallel (-j N):\t\tO(N/J)"
+msgstr "_Paralel (-j N):\t\tO(N/J)"
+
+#: resources/xnec2c.glade:10702
+msgid "_Single Job (-j 1):\tO(N)"
+msgstr "_Tek İş (-j 1):\tO(N)"
+
+#: resources/xnec2c.glade:10711
+msgid "_Iterate -j N/=2:\tO(N*log2(J))"
+msgstr "_Yinele -j N/=2:\tO(N*log2(J))"
+
+#: resources/xnec2c.glade:10720
+msgid "_Iterate -j N-=1:\tO(N*J)"
+msgstr "_Yinele -j N-=1:\tO(N*J)"
+
+#: resources/xnec2c.glade:10735
+msgid "Benchmark _Help"
+msgstr "Karşılaştırma _Yardımı"
+
+#: resources/xnec2c.glade:10754
+msgid "Begin Frequency Loop at Startup"
+msgstr "Başlangıçta Frekans Döngüsünü Başlat"
+
+#: resources/xnec2c.glade:10765
+msgid "Confirm Quit"
+msgstr "Çıkışı Onayla"
+
+#: resources/xnec2c.glade:10806
+msgid "_Radiation Pattern"
+msgstr "_Işınım Örüntüsü"
+
+#: resources/xnec2c.glade:10816
+msgid "_Frequency Plots"
+msgstr "_Frekans Grafikleri"
+
+#: resources/xnec2c.glade:10901 resources/xnec2c.glade:12009
+msgid "Common _Projection"
+msgstr "Ortak _Projeksiyon"
+
+#: resources/xnec2c.glade:10911 resources/xnec2c.glade:12019
+msgid "Common _Frequency"
+msgstr "Ortak _Frekans"
+
+#: resources/xnec2c.glade:10923
+msgid "_Help"
+msgstr "_Yardım"
+
+#: resources/xnec2c.glade:10932
+msgid "_About"
+msgstr "_Hakkında"
+
+#: resources/xnec2c.glade:10959
+msgid "Currents"
+msgstr "Akımlar"
+
+#: resources/xnec2c.glade:10974
+msgid "Charges"
+msgstr "Yükler"
+
+#: resources/xnec2c.glade:11155
+msgid " Zoom"
+msgstr " Yakınlaştır"
+
+#: resources/xnec2c.glade:11277 resources/xnec2c.glade:12456
+msgid "Gain"
+msgstr "Kazanç"
+
+#: resources/xnec2c.glade:11292 resources/xnec2c.glade:11308
+#: resources/xnec2c.glade:12469 resources/xnec2c.glade:12626
+msgid "0.0"
+msgstr "0.0"
+
+#: resources/xnec2c.glade:11342
+msgid "- - - "
+msgstr "- - - "
+
+#: resources/xnec2c.glade:11384 resources/xnec2c.glade:12612
+msgid "dB"
+msgstr "dB"
+
+#: resources/xnec2c.glade:11398 resources/xnec2c.glade:12505
+msgid "Step"
+msgstr "Adım"
+
+#: resources/xnec2c.glade:11545 resources/xnec2c.glade:12553
+msgid "Apply"
+msgstr "Uygula"
+
+#: resources/xnec2c.glade:11565
+msgid "Frequency Mhz"
+msgstr "Frekans MHz"
+
+#: resources/xnec2c.glade:11618
+msgid "Structure Geometry"
+msgstr "Yapı Geometrisi"
+
+#: resources/xnec2c.glade:11637
+msgid "Xnec2c: Radiation Patterns"
+msgstr "Xnec2c: Işınım Örüntüleri"
+
+#: resources/xnec2c.glade:11854
+msgid "_Gain Scaling"
+msgstr "_Kazanç Ölçekleme"
+
+#: resources/xnec2c.glade:11869
+msgid "Linear _Power"
+msgstr "Doğrusal _Güç"
+
+#: resources/xnec2c.glade:11880
+msgid "Linear _Voltage"
+msgstr "Doğrusal _Gerilim"
+
+#: resources/xnec2c.glade:11891
+msgid "_ARRL Style"
+msgstr "_ARRL Stili"
+
+#: resources/xnec2c.glade:11902
+msgid "_Logarithmic"
+msgstr "_Logaritmik"
+
+#: resources/xnec2c.glade:11917
+msgid "_Near Field"
+msgstr "_Yakın Alan"
+
+#: resources/xnec2c.glade:11932
+msgid "Near _E Field"
+msgstr "Yakın _E Alanı"
+
+#: resources/xnec2c.glade:11942
+msgid "Near _H Field"
+msgstr "Yakın _H Alanı"
+
+#: resources/xnec2c.glade:11952
+msgid "_Poynting Vector"
+msgstr "_Poynting Vektörü"
+
+#: resources/xnec2c.glade:11961
+msgid "_Animate Dialog"
+msgstr "_Animasyon İletişim Kutusu"
+
+#: resources/xnec2c.glade:11970
+msgid "_Total Field"
+msgstr "_Toplam Alan"
+
+#: resources/xnec2c.glade:11979
+msgid "_Peak Value"
+msgstr "_Tepe Değeri"
+
+#: resources/xnec2c.glade:11990
+msgid "_Snapshot"
+msgstr "_Anlık Görüntü"
+
+#: resources/xnec2c.glade:12029
+msgid "_Overlay Structure"
+msgstr "_Yapıyı Kapla"
+
+#: resources/xnec2c.glade:12053
+msgid "Gain Pattern"
+msgstr "Kazanç Örüntüsü"
+
+#: resources/xnec2c.glade:12068
+msgid "E/H Fields"
+msgstr "E/H Alanları"
+
+#: resources/xnec2c.glade:12251
+msgid "Zoom % "
+msgstr "Yakınlaştırma % "
+
+#: resources/xnec2c.glade:12572
+msgid "Frequency MHz"
+msgstr "Frekans MHz"
+
+#: resources/xnec2c.glade:12589
+msgid "0.010"
+msgstr "0.010"
+
+#: resources/xnec2c.glade:12745
+msgid "Scale Structure (GS card)"
+msgstr "Yapıyı Ölçekle (GS kartı)"
+
+#: resources/xnec2c.glade:12776
+msgid "Structure Scale Factor"
+msgstr "Yapı Ölçek Faktörü"
+
+#: resources/xnec2c.glade:12789
+msgid "From Tag No."
+msgstr "Başlangıç Tag No."
+
+#: resources/xnec2c.glade:12839
+msgid "To Tag No."
+msgstr "Bitiş Tag No."
+
+#: resources/xnec2c.glade:12874
+msgid "Scale Structure"
+msgstr "Yapıyı Ölçekle"
+
+#: resources/xnec2c.glade:13051
+msgid "Co-ordinate Transformation (GM card)"
+msgstr "Koordinat Dönüşümü (GM kartı)"
+
+#: resources/xnec2c.glade:13081
+msgid "Tag Increment"
+msgstr "Tag Artışı"
+
+#: resources/xnec2c.glade:13112
+msgid "Rotate about X"
+msgstr "X Etrafında Döndür"
+
+#: resources/xnec2c.glade:13144
+msgid "Move along X"
+msgstr "X Boyunca Taşı"
+
+#: resources/xnec2c.glade:13176
+msgid "New Structures"
+msgstr "Yeni Yapılar"
+
+#: resources/xnec2c.glade:13207
+msgid "Rotate about Y"
+msgstr "Y Etrafında Döndür"
+
+#: resources/xnec2c.glade:13239
+msgid "Move along Y"
+msgstr "Y Boyunca Taşı"
+
+#: resources/xnec2c.glade:13271
+msgid "Start From Tag"
+msgstr "Başlangıç Tag"
+
+#: resources/xnec2c.glade:13303
+msgid "Rotate about Z"
+msgstr "Z Etrafında Döndür"
+
+#: resources/xnec2c.glade:13335
+msgid "Move along Z"
+msgstr "Z Boyunca Taşı"
+
+#: resources/xnec2c.glade:13371
+msgid "Co-ordinate Transformation Data"
+msgstr "Koordinat Dönüşüm Verileri"
+
+#: resources/xnec2c.glade:13567
+msgid "Trans. Line Command (TL Card)"
+msgstr "İletim Hattı Komutu (TL Kartı)"
+
+#: resources/xnec2c.glade:13597
+msgid "Tag Number, End 1  "
+msgstr "Tag Numarası, Uç 1  "
+
+#: resources/xnec2c.glade:13629
+msgid "Tag Number, End 2  "
+msgstr "Tag Numarası, Uç 2  "
+
+#: resources/xnec2c.glade:13660
+msgid "Segment Num, End 1"
+msgstr "Segment No, Uç 1"
+
+#: resources/xnec2c.glade:13692
+msgid "Segment Num, End 2"
+msgstr "Segment No, Uç 2"
+
+#: resources/xnec2c.glade:13756
+msgid "Crossed Transmission Line"
+msgstr "Çapraz İletim Hattı"
+
+#: resources/xnec2c.glade:13774
+msgid "Characteristic Impedance"
+msgstr "Karakteristik Empedans"
+
+#: resources/xnec2c.glade:13806
+msgid "End 1 Y Real Part (S)"
+msgstr "Uç 1 Y Reel Kısım (S)"
+
+#: resources/xnec2c.glade:13838
+msgid "End 2 Y Real Part (S)"
+msgstr "Uç 2 Y Reel Kısım (S)"
+
+#: resources/xnec2c.glade:13870
+msgid "Length of Tx Line (m)"
+msgstr "İletim Hattı Uzunluğu (m)"
+
+#: resources/xnec2c.glade:13902
+msgid "End 1 Y Imag Part (S)"
+msgstr "Uç 1 Y Sanal Kısım (S)"
+
+#: resources/xnec2c.glade:13934
+msgid "End 2 Y Imag Part (S)"
+msgstr "Uç 2 Y Sanal Kısım (S)"
+
+#: resources/xnec2c.glade:13970
+msgid "Transmission Line"
+msgstr "İletim Hattı"
+
+#: resources/xnec2c.glade:14197
+msgid "Wire Element (GW & GC cards)"
+msgstr "Tel Elemanı (GW ve GC kartları)"
+
+#: resources/xnec2c.glade:14257
+msgid "Wire X1"
+msgstr "Tel X1"
+
+#: resources/xnec2c.glade:14289
+msgid "Wire X2"
+msgstr "Tel X2"
+
+#: resources/xnec2c.glade:14352
+msgid "Wire Y1"
+msgstr "Tel Y1"
+
+#: resources/xnec2c.glade:14385
+msgid "Wire Y2"
+msgstr "Tel Y2"
+
+#: resources/xnec2c.glade:14449
+msgid "Wire Z1"
+msgstr "Tel Z1"
+
+#: resources/xnec2c.glade:14481
+msgid "Wire Z2"
+msgstr "Tel Z2"
+
+#: resources/xnec2c.glade:14546
+msgid "Wire Length"
+msgstr "Tel Uzunluğu"
+
+#: resources/xnec2c.glade:14617
+msgid "Wire Data"
+msgstr "Tel Verileri"
+
+#: resources/xnec2c.glade:14629
+msgid "Tapered Wire"
+msgstr "Konik Tel"
+
+#: resources/xnec2c.glade:14671
+msgid "Length Taper"
+msgstr "Koniklik Uzunluğu"
+
+#: resources/xnec2c.glade:14703
+msgid "Diameter Seg 1"
+msgstr "Çap Segment 1"
+
+#: resources/xnec2c.glade:14735
+msgid "Diameter Seg N"
+msgstr "Çap Segment N"
+
+#: resources/xnec2c.glade:14767
+msgid "Diam. Taper"
+msgstr "Çap Konikliği"
+
+#: resources/xnec2c.glade:14803
+msgid "Wire Taper Data"
+msgstr "Tel Koniklik Verileri"
+
+#: resources/xnec2c.glade:14968
+msgid "Impedance (Zo) Ohm"
+msgstr "Empedans (Zo) Ohm"
+
+#: resources/xnec2c.glade:14983
+msgid "50.00"
+msgstr "50.00"
+
+#: resources/xnec2c.glade:15006
+msgid "Transmission Line Impedance (Zo)"
+msgstr "İletim Hattı Empedansı (Zo)"
+
+#~ msgid ""
+#~ "Not available for Incident Field or\n"
+#~ "Elementary Current Source Excitation.\n"
+#~ "(Excitation Types 1 to 4)"
+#~ msgstr ""
+#~ "Gelen Alan veya\n"
+#~ "Temel Akım Kaynağı Uyarımı için kullanılamaz.\n"
+#~ "(Uyarım Türleri 1 - 4)"
+
+#~ msgid "number of segments less than 1 (ns < 1)\n"
+#~ msgstr "segment sayısı 1'den az (ns < 1)\n"
+
+#~ msgid "arc angle exceeds 360 degrees\n"
+#~ msgstr "yay açısı 360 dereceyi aşıyor\n"
+
+#~ msgid "np > n\n"
+#~ msgstr "np > n\n"
+
+#~ msgid "b less than a\n"
+#~ msgstr "b, a'dan küçük\n"
+
+#~ msgid "unexpected EOF (End of File)\n"
+#~ msgstr "beklenmeyen EOF (Dosya Sonu)\n"
+
+#~ msgid "error reading Comments: Comment mnemonic short or missing\n"
+#~ msgstr "Yorumları okuma hatası: Yorum anımsatıcısı kısa veya eksik\n"
+
+#~ msgid "geometry data card error - tag number is less than 1\n"
+#~ msgstr "geometri veri kartı hatası - etiket numarası 1'den küçük\n"
+
+#~ msgid "geometry data card error - number of segments is less than 1\n"
+#~ msgstr "geometri veri kartı hatası - segment sayısı 1'den küçük\n"
+
+#~ msgid "geometry data card error no GC card for tapered wire\n"
+#~ msgstr "geometri veri kartı hatası konik tel için GC kartı yok\n"
+
+#~ msgid "geometry GC data card error\n"
+#~ msgstr "geometri GC veri kartı hatası\n"
+
+#~ msgid "geometry GX data card error\n"
+#~ msgstr "geometri GX veri kartı hatası\n"
+
+#~ msgid "geometry GR data card error\n"
+#~ msgstr "geometri GR veri kartı hatası\n"
+
+#~ msgid "move GM data card error\n"
+#~ msgstr "taşıma GM veri kartı hatası\n"
+
+#~ msgid "patch data card error\n"
+#~ msgstr "patch veri kartı hatası\n"
+
+#~ msgid "patch data error\n"
+#~ msgstr "patch veri hatası\n"
+
+#~ msgid "patch card data error\n"
+#~ msgstr "patch kartı veri hatası\n"
+
+#~ msgid "\"GF\" card (NGF solution) is not supported\n"
+#~ msgstr "\"GF\" kartı (NGF çözümü) desteklenmiyor\n"
+
+#~ msgid "ignoring CM card in geometry\n"
+#~ msgstr "geometride CM kartı yoksayılıyor\n"
+
+#~ msgid ""
+#~ "Theta > 90 deg with ground specified: Please check RP card data and "
+#~ "correct\n"
+#~ msgstr ""
+#~ "Toprak belirtilmiş iken Theta > 90 derece: Lütfen RP kart verilerini "
+#~ "kontrol edin ve düzeltin\n"
+
+#~ msgid "Hankel not valid for z = 0\n"
+#~ msgstr "z = 0 için Hankel geçerli değil\n"
+
+#~ msgid "No convergence\n"
+#~ msgstr "Yakınsama yok\n"
+
+#, c-format
+#~ msgid ""
+#~ "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
+#~ msgstr ""
+#~ "geometri veri kartı \"%1$s\" hatası: %3$d sütununda sahte karakter "
+#~ "'%2$c'\n"
+
+#~ msgid ""
+#~ "Geometry data card error\n"
+#~ "Spurious character in command card"
+#~ msgstr ""
+#~ "Geometri veri kartı hatası\n"
+#~ "Komut kartında sahte karakter"
+
+#, c-format
+#~ msgid "geometry data: expression evaluation failed for \"%s\"\n"
+#~ msgstr "geometri verisi: \"%s\" için ifade değerlendirmesi başarısız oldu\n"

@@ -1,0 +1,3630 @@
+# Japanese translations for xnec2c package.
+# Copyright (C) 2025 Neoklis Kyriazis nkcyham@yahoo.com
+# This file is distributed under the same license as the xnec2c package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xnec2c 4.4.18\n"
+"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
+"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"PO-Revision-Date: 2025-12-27 16:01-0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/calculations.c:117 src/calculations.c:1276
+#, c-format
+msgid "segment connection error for segment %5d\n"
+msgstr "セグメント %5d のセグメント接続エラー\n"
+
+#: src/calculations.c:118
+msgid "Segment connection error in tbf()"
+msgstr "tbf() でのセグメント接続エラー"
+
+#: src/calculations.c:890
+#, c-format
+msgid "step size limited at z= %10.5f\n"
+msgstr "z= %10.5f でステップサイズが制限されました\n"
+
+#: src/calculations.c:1054
+#, c-format
+msgid "segment connection error for segment %d\n"
+msgstr "セグメント %d のセグメント接続エラー\n"
+
+#: src/calculations.c:1055
+msgid "Segment connection error in sbf()"
+msgstr "sbf() でのセグメント接続エラー"
+
+#: src/calculations.c:1277
+msgid "Segment connection error in trio()"
+msgstr "trio() でのセグメント接続エラー"
+
+#: src/callback_func.c:263
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to end the calculation?"
+msgstr ""
+"周波数ループが実行中です\n"
+"計算を終了してもよろしいですか？"
+
+#: src/callback_func.c:267
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to close this window?"
+msgstr ""
+"周波数ループが実行中です\n"
+"このウィンドウを閉じてもよろしいですか？"
+
+#: src/callback_func.c:512
+#, c-format
+msgid ""
+"Frequency plots window closed: excitation type %d is incompatible.\n"
+"Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
+msgstr ""
+"周波数プロットウィンドウが閉じられました：励振タイプ %d は互換性がありませ"
+"ん。\n"
+"代わりにタイプ 0（印加電界）または 5（電流不連続）を使用してください。"
+
+#: src/callback_func.c:518
+#, c-format
+msgid ""
+"Frequency plots are not available with excitation type %d.\n"
+"This model uses Incident Field or Elementary Current Source excitation.\n"
+"Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
+msgstr ""
+"励振タイプ %d では周波数プロットを使用できません。\n"
+"このモデルは入射界または基本電流源励振を使用しています。\n"
+"EX カードをタイプ 0（印加電界）または 5（電流不連続）に変更してください。"
+
+#: src/callback_func.c:697
+msgid "View Currents"
+msgstr "電流を表示"
+
+#: src/callback_func.c:719 src/callback_func.c:778
+msgid "View Geometry"
+msgstr "ジオメトリを表示"
+
+#: src/callback_func.c:756
+msgid "View Charges"
+msgstr "電荷を表示"
+
+#: src/callback_func.c:821
+msgid "PNG images (*.png)"
+msgstr "PNG画像 (*.png)"
+
+#: src/callback_func.c:823
+msgid "GNUplot files (*.gplot)"
+msgstr "GNUplotファイル (*.gplot)"
+
+#: src/callback_func.c:825
+msgid "NEC2 files (*.nec)"
+msgstr "NEC2ファイル (*.nec)"
+
+#: src/callback_func.c:827
+msgid "Touchstone 1-port files (*.s1p)"
+msgstr "Touchstone 1ポートファイル (*.s1p)"
+
+#: src/callback_func.c:829
+msgid "Touchstone 2-port files (*.s2p)"
+msgstr "Touchstone 2ポートファイル (*.s2p)"
+
+#: src/callback_func.c:831
+msgid "Comma-separated CSV files (*.csv)"
+msgstr "カンマ区切りCSVファイル (*.csv)"
+
+#: src/callbacks.c:88 src/callbacks.c:371 src/callbacks.c:1813
+#: src/callbacks.c:2174
+msgid "Are you sure you wish to quit xnec2c?"
+msgstr "xnec2c を終了してもよろしいですか？"
+
+#: src/callbacks.c:131
+msgid ""
+"A new NEC2 input file may not be created\n"
+"while the Frequency Loop is running"
+msgstr ""
+"周波数ループの実行中は\n"
+"新しいNEC2入力ファイルを作成できません"
+
+#: src/callbacks.c:171
+msgid ""
+"A new NEC2 input file may not be opened\n"
+"while the Frequency Loop is running"
+msgstr ""
+"周波数ループの実行中は\n"
+"新しいNEC2入力ファイルを開くことができません"
+
+#: src/callbacks.c:291
+msgid "xnec2c geometry optimizer"
+msgstr "xnec2c ジオメトリオプティマイザ"
+
+#: src/callbacks.c:292
+msgid ""
+"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr ""
+"xnec2c は inotify サポートなしでビルドされています: オプティマイザを有効にで"
+"きません。"
+
+#: src/callbacks.c:316
+msgid "Xnec2c Optimizer"
+msgstr "Xnec2c オプティマイザ"
+
+#: src/callbacks.c:316
+msgid ""
+"No files are selected for writing. However, xnec2c will still reload and "
+"recalculate the input file on modification when triggered by inotify.Select "
+"files for writing in \"File->Optimization Settings\"."
+msgstr ""
+"書き込み用のファイルが選択されていません。ただし、inotify によってトリガーさ"
+"れた場合、xnec2c は変更時に入力ファイルを再読み込みして再計算します。「ファイ"
+"ル->最適化設定」で書き込み用のファイルを選択してください。"
+
+#: src/callbacks.c:327
+msgid "failed to create Optimizer Output thread\n"
+msgstr "オプティマイザ出力スレッドの作成に失敗しました\n"
+
+#: src/callbacks.c:1031 src/callbacks.c:1347 src/callbacks.c:2200
+msgid "Are you sure you wish to close this window?"
+msgstr "このウィンドウを閉じてもよろしいですか？"
+
+#: src/callbacks.c:2138
+msgid "No open NEC2 input file"
+msgstr "NEC2入力ファイルが開かれていません"
+
+#: src/callbacks.c:2231 src/callbacks.c:2261
+msgid ""
+"NEC2 Editor's data may not be saved\n"
+"while the Frequency Loop is running"
+msgstr ""
+"周波数ループの実行中は\n"
+"NEC2エディタのデータを保存できません"
+
+#: src/callbacks.c:2243 src/callbacks.c:2269
+msgid "untitled.nec"
+msgstr "untitled.nec"
+
+#: src/callbacks.c:2734 src/callbacks.c:2754 src/callbacks.c:2774
+#: src/geom_edit.c:413 src/geom_edit.c:1229 src/geom_edit.c:1471
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"周波数 (FR) カードはまだ処理されていません。\n"
+"先にNEC2エディタのデータを保存する必要があります。"
+
+#: src/cmnd_edit.c:72
+msgid ""
+"Get_Command_Data(): Error reading\n"
+"row data: Invalid list iterator"
+msgstr ""
+"Get_Command_Data(): 行データの読み取りエラー:\n"
+"無効なリストイテレータ"
+
+#: src/cmnd_edit.c:105
+msgid ""
+"Set_Command_Data(): Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Set_Command_Data(): 行データの書き込みエラー\n"
+"行を再選択してください"
+
+#: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
+#: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
+msgid "Tag Number"
+msgstr "タグ番号"
+
+#: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
+msgid "Segment Number"
+msgstr "セグメント番号"
+
+#: src/cmnd_edit.c:422
+msgid "Voltage Real Part"
+msgstr "電圧実数部"
+
+#: src/cmnd_edit.c:423
+msgid "Voltage Imaginary Part"
+msgstr "電圧虚数部"
+
+#: src/cmnd_edit.c:424 src/cmnd_edit.c:1579
+msgid "Normalization Factor"
+msgstr "正規化係数"
+
+#: src/cmnd_edit.c:425 src/cmnd_edit.c:426 src/cmnd_edit.c:427
+#: src/cmnd_edit.c:463 src/cmnd_edit.c:464 src/cmnd_edit.c:1814
+#: src/cmnd_edit.c:1825 src/cmnd_edit.c:1826
+msgid "  ** NOT USED **"
+msgstr "  ** 未使用 **"
+
+#: src/cmnd_edit.c:445
+msgid "Num of Theta Angles"
+msgstr "Theta角の数"
+
+#: src/cmnd_edit.c:446
+msgid "Num of Phi Angles"
+msgstr "Phi角の数"
+
+#: src/cmnd_edit.c:447
+msgid "Theta Angle (deg)"
+msgstr "Theta角 (deg)"
+
+#: src/cmnd_edit.c:448
+msgid "Phi Angle (deg)"
+msgstr "Phi角 (deg)"
+
+#: src/cmnd_edit.c:449
+msgid "Eta Angle (deg)"
+msgstr "Eta角 (deg)"
+
+#: src/cmnd_edit.c:450
+msgid "Theta Increment (deg)"
+msgstr "Theta増分 (deg)"
+
+#: src/cmnd_edit.c:451
+msgid "Phi Increment (deg)"
+msgstr "Phi増分 (deg)"
+
+#: src/cmnd_edit.c:452
+msgid "Minor/Major Axis"
+msgstr "短軸/長軸"
+
+#: src/cmnd_edit.c:465
+msgid "X Position (m)"
+msgstr "X位置 (m)"
+
+#: src/cmnd_edit.c:466
+msgid "Y Position (m)"
+msgstr "Y位置 (m)"
+
+#: src/cmnd_edit.c:467
+msgid "Z Position (m)"
+msgstr "Z位置 (m)"
+
+#: src/cmnd_edit.c:468
+msgid "alpha Angle (deg)"
+msgstr "alpha角 (deg)"
+
+#: src/cmnd_edit.c:469
+msgid "beta Angle (deg)"
+msgstr "beta角 (deg)"
+
+#: src/cmnd_edit.c:470
+msgid "Current Moment (A.m)"
+msgstr "電流モーメント (A.m)"
+
+#: src/cmnd_edit.c:1556
+msgid "Points in Z"
+msgstr "Z方向の点数"
+
+#: src/cmnd_edit.c:1557
+msgid "Initial Z (m)"
+msgstr "初期Z (m)"
+
+#: src/cmnd_edit.c:1558
+msgid "Increment in Z"
+msgstr "Zの増分"
+
+#: src/cmnd_edit.c:1559
+msgid "Field Point R (m)"
+msgstr "フィールド点R (m)"
+
+#: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
+msgid "Points in Phi"
+msgstr "Phi方向の点数"
+
+#: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
+msgid "Initial Theta (deg)"
+msgstr "初期Theta (deg)"
+
+#: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
+msgid "Increment in Theta"
+msgstr "Thetaの増分"
+
+#: src/cmnd_edit.c:1570
+msgid "R (m) (Optional)"
+msgstr "R (m) (オプション)"
+
+#: src/cmnd_edit.c:1583
+msgid "** NOT USED **"
+msgstr "** 未使用 **"
+
+#: src/cmnd_edit.c:1788 src/cmnd_edit.c:1812
+msgid "Resistance Ohm"
+msgstr "抵抗 Ω"
+
+#: src/cmnd_edit.c:1789
+msgid "Inductance uH"
+msgstr "インダクタンス uH"
+
+#: src/cmnd_edit.c:1790
+msgid "Capacitance pF"
+msgstr "静電容量 pF"
+
+#: src/cmnd_edit.c:1800
+msgid "Resistance Ohm/m"
+msgstr "抵抗 Ω/m"
+
+#: src/cmnd_edit.c:1801
+msgid "Inductance uH/m"
+msgstr "インダクタンス uH/m"
+
+#: src/cmnd_edit.c:1802
+msgid "Capacitance pF/m"
+msgstr "静電容量 pF/m"
+
+#: src/cmnd_edit.c:1813
+msgid "Reactance Ohm"
+msgstr "リアクタンス Ω"
+
+#: src/cmnd_edit.c:1824 resources/xnec2c.glade:480 resources/xnec2c.glade:4012
+#: resources/xnec2c.glade:14578
+msgid "Conductivity S/m"
+msgstr "導電率 S/m"
+
+#: src/cmnd_edit.c:2453
+msgid "Points in X-axis"
+msgstr "X軸方向の点数"
+
+#: src/cmnd_edit.c:2454
+msgid "Points in Y-axis"
+msgstr "Y軸方向の点数"
+
+#: src/cmnd_edit.c:2455
+msgid "Points in Z-axis"
+msgstr "Z軸方向の点数"
+
+#: src/cmnd_edit.c:2456
+msgid "First Point X (m)"
+msgstr "始点X (m)"
+
+#: src/cmnd_edit.c:2457
+msgid "First Point Y (m)"
+msgstr "始点Y (m)"
+
+#: src/cmnd_edit.c:2458
+msgid "First Point Z (m)"
+msgstr "始点Z (m)"
+
+#: src/cmnd_edit.c:2459
+msgid "Increment in X (m)"
+msgstr "Xの増分 (m)"
+
+#: src/cmnd_edit.c:2460
+msgid "Increment in Y (m)"
+msgstr "Yの増分 (m)"
+
+#: src/cmnd_edit.c:2461
+msgid "Increment in Z (m)"
+msgstr "Zの増分 (m)"
+
+#: src/cmnd_edit.c:2469
+msgid "Points along R"
+msgstr "R方向の点数"
+
+#: src/cmnd_edit.c:2470
+msgid "Points along Phi"
+msgstr "Phi方向の点数"
+
+#: src/cmnd_edit.c:2471
+msgid "Points along Theta"
+msgstr "Theta方向の点数"
+
+#: src/cmnd_edit.c:2472
+msgid "First Point R (m)"
+msgstr "始点R (m)"
+
+#: src/cmnd_edit.c:2473
+msgid "First Point Phi"
+msgstr "始点Phi"
+
+#: src/cmnd_edit.c:2474
+msgid "First Point Theta"
+msgstr "始点Theta"
+
+#: src/cmnd_edit.c:2475
+msgid "Increment in R (m)"
+msgstr "Rの増分 (m)"
+
+#: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
+msgid "Increment in Phi"
+msgstr "Phiの増分"
+
+#: src/draw_radiation.c:28
+msgid ""
+"Animation requires near field data.\n"
+"\n"
+"E-field animation: Add NE card to NEC file\n"
+"H-field animation: Add NH card to NEC file\n"
+"Poynting vector: Add both NE and NH cards"
+msgstr ""
+"アニメーションには近傍界データが必要です。\n"
+"\n"
+"電界アニメーション: NEカードをNECファイルに追加\n"
+"磁界アニメーション: NHカードをNECファイルに追加\n"
+"ポインティングベクトル: NEとNHの両方のカードを追加"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
+msgid "Near Field Animation"
+msgstr "近傍界アニメーション"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 src/geometry.c:812
+#: src/input.c:1570 src/input.c:1571 src/utils.c:509 src/utils.c:555
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/draw_radiation.c:1052
+msgid "Total Gain"
+msgstr "総合利得"
+
+#: src/draw_radiation.c:1053
+msgid "Horizontal Polarization"
+msgstr "水平偏波"
+
+#: src/draw_radiation.c:1054
+msgid "Vertical Polarization"
+msgstr "垂直偏波"
+
+#: src/draw_radiation.c:1055
+msgid "RH Circular Polarization"
+msgstr "右旋円偏波"
+
+#: src/draw_radiation.c:1056
+msgid "LH Circular Polarization"
+msgstr "左旋円偏波"
+
+#: src/draw_radiation.c:1061
+msgid "Linear Power"
+msgstr "リニア電力"
+
+#: src/draw_radiation.c:1062
+msgid "Linear Voltage"
+msgstr "リニア電圧"
+
+#: src/draw_radiation.c:1063
+msgid "ARRL Scale"
+msgstr "ARRLスケール"
+
+#: src/draw_radiation.c:1064
+msgid "Logarithmic Scale"
+msgstr "対数スケール"
+
+#: src/draw_radiation.c:1073 resources/xnec2c.glade:12710
+msgid "Radiation Patterns"
+msgstr "放射パターン"
+
+#: src/draw_radiation.c:1076
+msgid "Radiation Pattern: - "
+msgstr "放射パターン: - "
+
+#: src/draw_radiation.c:1083
+msgid "Near Fields:"
+msgstr "近傍電磁界:"
+
+#: src/draw_radiation.c:1085
+msgid " - E Field"
+msgstr " - E界"
+
+#: src/draw_radiation.c:1087
+msgid " - H Field"
+msgstr " - H界"
+
+#: src/draw_radiation.c:1089
+msgid " - Poynting Vector"
+msgstr " - ポインティングベクトル"
+
+#: src/draw_radiation.c:1099
+msgid "Frequency Data Plots - "
+msgstr "周波数データプロット - "
+
+#: src/draw_radiation.c:1307
+#, c-format
+msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
+msgstr "fstep=%d が範囲外です。calc_data.steps_total=%d"
+
+#: src/geom_edit.c:76 src/geom_edit.c:1866 src/geom_edit.c:2109
+#: src/geom_edit.c:2491
+msgid ""
+"Error reading row data\n"
+"Invalid list iterator"
+msgstr ""
+"行データの読み取りエラー\n"
+"無効なリストイテレータ"
+
+#: src/geom_edit.c:109 src/geom_edit.c:139
+msgid ""
+"Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"行データの書き込みエラー\n"
+"行を再選択してください"
+
+#: src/geom_edit.c:528
+msgid ""
+"GC card preceded by GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GCカードの前にワイヤ半径が\n"
+"非ゼロのGWカードがあります"
+
+#: src/geom_edit.c:532
+msgid "No GW card before GC card"
+msgstr "GCカードの前にGWカードがありません"
+
+#: src/geom_edit.c:556
+msgid ""
+"No GC card after a GW card\n"
+"with a zero wire radius"
+msgstr ""
+"ワイヤ半径がゼロのGWカードの後に\n"
+"GCカードがありません"
+
+#: src/geom_edit.c:565
+msgid ""
+"GC card follows a GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GCカードがワイヤ半径が非ゼロの\n"
+"GWカードの後にあります"
+
+#: src/geom_edit.c:944
+msgid ""
+"SC card preceded by SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SCカードの前に任意パッチタイプの\n"
+"SPカードがあります"
+
+#: src/geom_edit.c:956
+msgid "No SP or SM card before SC card"
+msgstr "SCカードの前にSPまたはSMカードがありません"
+
+#: src/geom_edit.c:976
+msgid ""
+"No SC card after an SP card\n"
+"with non-arbitrary patch type"
+msgstr ""
+"非任意パッチタイプのSPカードの後に\n"
+"SCカードがありません"
+
+#: src/geom_edit.c:983
+msgid ""
+"SC card follows an SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SCカードが任意パッチタイプの\n"
+"SPカードの後にあります"
+
+#: src/geom_edit.c:996
+msgid "No SC card after an SM card"
+msgstr "SMカードの後にSCカードがありません"
+
+#: src/geom_edit.c:1066 resources/xnec2c.glade:7685
+msgid "Center - X"
+msgstr "中心 - X"
+
+#: src/geom_edit.c:1068 resources/xnec2c.glade:7749
+msgid "Center - Y"
+msgstr "中心 - Y"
+
+#: src/geom_edit.c:1070 resources/xnec2c.glade:7813
+msgid "Center - Z"
+msgstr "中心 - Z"
+
+#: src/geom_edit.c:1072 resources/xnec2c.glade:7717
+msgid "Normal - Elev."
+msgstr "法線 - 仰角"
+
+#: src/geom_edit.c:1074 resources/xnec2c.glade:7781
+msgid "Normal - Azim."
+msgstr "法線 - 方位角"
+
+#: src/geom_edit.c:1076 resources/xnec2c.glade:7845
+msgid "Patch Area"
+msgstr "パッチ面積"
+
+#: src/geom_edit.c:1081
+msgid "Corner 1 - X"
+msgstr "コーナー1 - X"
+
+#: src/geom_edit.c:1083
+msgid "Corner 1 - Y"
+msgstr "コーナー1 - Y"
+
+#: src/geom_edit.c:1085
+msgid "Corner 1 - Z"
+msgstr "コーナー1 - Z"
+
+#: src/geom_edit.c:1087
+msgid "Corner 2 - X"
+msgstr "コーナー2 - X"
+
+#: src/geom_edit.c:1089
+msgid "Corner 2 - Y"
+msgstr "コーナー2 - Y"
+
+#: src/geom_edit.c:1091
+msgid "Corner 2 - Z"
+msgstr "コーナー2 - Z"
+
+#: src/geom_edit.c:2582
+msgid "NEC2 editor window not open"
+msgstr "NEC2エディタウィンドウが開いていません"
+
+#: src/geometry.c:97
+msgid "Number of segments < 1"
+msgstr "セグメント数 < 1"
+
+#: src/geometry.c:148
+msgid "Arc angle exceeds 360 degrees"
+msgstr "円弧角度が360度を超えています"
+
+#: src/geometry.c:309
+msgid "Error in conect(): np > n"
+msgstr "conect()でエラー: np > n"
+
+#: src/geometry.c:343 src/geometry.c:391
+#, c-format
+msgid "geometry data error: segment %d extends below ground\n"
+msgstr ""
+"ジオメトリデータエラー: セグメント %d がグラウンドより下に延びています\n"
+
+#: src/geometry.c:344 src/geometry.c:392
+msgid ""
+"Geometry data error\n"
+"Segment extends below ground"
+msgstr ""
+"ジオメトリデータエラー\n"
+"セグメントがグラウンドより下に延びています"
+
+#: src/geometry.c:401
+#, c-format
+msgid "geometry data error: segment %d lies in ground plane\n"
+msgstr ""
+"ジオメトリデータエラー: セグメント %d がグラウンドプレーン内にあります\n"
+
+#: src/geometry.c:402
+msgid ""
+"Geometry data error\n"
+"Segment lies in ground plane"
+msgstr ""
+"ジオメトリデータエラー\n"
+"セグメントがグラウンドプレーン内にあります"
+
+#: src/geometry.c:492
+msgid "ipsym = 0\n"
+msgstr "ipsym = 0\n"
+
+#: src/geometry.c:493
+msgid "Error: ipsym = 0"
+msgstr "エラー: ipsym = 0"
+
+#: src/geometry.c:549
+#, c-format
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
+"segj.maxcon=%lu\n"
+msgstr ""
+"セグメント接続数がフルメッシュを超えています（通常ありえません）: data.n=%ld "
+"segj.maxcon=%lu\n"
+
+#: src/geometry.c:551
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely!\n"
+"Check for overlapping or nearly-connected segments\n"
+msgstr ""
+"セグメント接続数がフルメッシュを超えています（通常ありえません）！\n"
+"重複または近接しているセグメントを確認してください\n"
+
+#: src/geometry.c:764
+msgid ""
+"check data, parameter specifying segment: position in a group of equal tags "
+"must not be zero\n"
+msgstr ""
+"データを確認してください、セグメント指定パラメータ: 同一タググループ内の位置"
+"はゼロであってはなりません\n"
+
+#: src/geometry.c:765
+msgid ""
+"Parameter specifying segment\n"
+"position in a group of equal tags is zero"
+msgstr ""
+"セグメント位置を指定するパラメータが\n"
+"同一タググループ内でゼロです"
+
+#: src/geometry.c:797
+#, c-format
+msgid "no segment has an itag of %d\n"
+msgstr "itag %d を持つセグメントがありません\n"
+
+#: src/geometry.c:801
+msgid ""
+"Segment tag number error: Tag 0 is reserved and cannot be used.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are "
+"valid.\n"
+"For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
+msgstr ""
+"セグメントタグ番号エラー: タグ0は予約されており使用できません。\n"
+"ジオメトリカード（特にGMカード）でタグ値が有効であることを確認してくださ"
+"い。\n"
+"GMカードの場合:「開始タグ」と「タグ増分」がタグ0を作成しないことを確認してく"
+"ださい。"
+
+#: src/geometry.c:809
+#, c-format
+msgid ""
+"Segment tag number error: No segment found with tag %d.\n"
+"You are referencing an unknown tag or segment in a control card.\n"
+"Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."
+msgstr ""
+"セグメントタグ番号エラー: タグ %d を持つセグメントが見つかりません。\n"
+"制御カードで不明なタグまたはセグメントを参照しています。\n"
+"ジオメトリ内の有効なタグはGW/GA/GH/SPカードに割り当てられたものです。"
+
+#: src/geometry.c:1123
+msgid "corners of quadrilateral: patch do not lie in a plane\n"
+msgstr "四辺形パッチのコーナーが同一平面上にありません\n"
+
+#: src/geometry.c:1124
+msgid ""
+"Corners of quadrilateral\n"
+"patch do not lie in a plane"
+msgstr ""
+"四辺形パッチのコーナーが\n"
+"同一平面上にありません"
+
+#: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
+#, c-format
+msgid "geometry data error: segment %d lies in plane of symmetry\n"
+msgstr "ジオメトリデータエラー: セグメント %d が対称面内にあります\n"
+
+#: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
+msgid ""
+"Geometry data error\n"
+"Segment lies in plane of symmetry"
+msgstr ""
+"ジオメトリデータエラー\n"
+"セグメントが対称面内にあります"
+
+#: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
+#, c-format
+msgid "geometry data error: patch %d lies in plane of symmetry\n"
+msgstr "ジオメトリデータエラー: パッチ %d が対称面内にあります\n"
+
+#: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
+msgid ""
+"Geometry data error\n"
+"Patch lies in plane of symmetry"
+msgstr ""
+"ジオメトリデータエラー\n"
+"パッチが対称面内にあります"
+
+#: src/geometry.c:1642
+#, c-format
+msgid ""
+"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
+"threshold=%.3e); segment will connect to itself\n"
+msgstr ""
+"tag=%d/seg=%d: 端点距離=%.3eが近すぎます（接続閾値=%.3e未満）; セグメントが自"
+"己接続します\n"
+
+#: src/geometry.c:1647
+#, c-format
+msgid "tag=%d: suppressing additional self-connection warnings\n"
+msgstr "tag=%d: 追加の自己接続警告を抑制しています\n"
+
+#: src/geometry.c:1692
+#, c-format
+msgid ""
+"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
+"threshold %.3e; unintended connections possible\n"
+msgstr ""
+"tag=%d/seg=%d: 距離=%.3e（tag=%d/seg=%dまで）が接続閾値%.3eの2倍より近いで"
+"す; 意図しない接続の可能性があります\n"
+
+#: src/geometry.c:1697
+#, c-format
+msgid "tag=%d: suppressing additional overlap warnings\n"
+msgstr "tag=%d: 追加の重複警告を抑制しています\n"
+
+#: src/geometry.c:1757
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
+"length=%.3e that connection detection may fail or short\n"
+msgstr ""
+"tag=%d/seg=%d: 長さ=%.3eが短すぎ（かつ十分近い）tag=%d/seg=%d 長さ=%.3eに対し"
+"て接続検出が失敗またはショートする可能性があります\n"
+
+#: src/geometry.c:1762
+#, c-format
+msgid ""
+"tag=%d: suppressing additional connection detection may fail or short "
+"warnings\n"
+msgstr "tag=%d: 追加の接続検出失敗またはショート警告を抑制しています\n"
+
+#: src/geometry.c:1794
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
+"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
+"recommended <= 0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: 長さ/波長比 %.3f < 0.001; 電流成分の類似性が数値的不正確さを引"
+"き起こします (min=0.001, fine=0.05, recommended <= 0.1)\n"
+
+#: src/geometry.c:1799
+#, c-format
+msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
+msgstr "tag=%d: 追加の短波長比エラーを抑制しています\n"
+
+#: src/geometry.c:1812
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
+"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
+"0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: 長さ/波長比 %.3f > 0.1; 電流サンプリング解像度がセグメント間隔"
+"により制限されています (min=0.001, fine=0.05, recommended <= 0.1)\n"
+
+#: src/geometry.c:1817
+#, c-format
+msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
+msgstr "tag=%d: 追加の長波長比警告を抑制しています\n"
+
+#: src/geometry.c:1830
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
+"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
+"recommended <=0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: 長さ/波長比 %.3f > 0.05; 電流変化が急速な領域では短いセグメン"
+"トが精度を向上させます (min=0.001, fine=0.05, recommended <=0.1)\n"
+
+#: src/geometry.c:1835
+#, c-format
+msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
+msgstr "tag=%d: 追加の精度改善提案を抑制しています\n"
+
+#: src/geometry.c:1865
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: 長さ/半径比 %.1f < 2.0; 標準細線カーネルの電界誤差が1%%を大幅"
+"に超えています (min=2.0, 1%%accurate=8.0)\n"
+
+#: src/geometry.c:1870
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
+msgstr "tag=%d: 追加の標準カーネル比エラーを抑制しています\n"
+
+#: src/geometry.c:1883
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
+"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: 長さ/半径比 %.1f < 8.0; 標準細線カーネルの電界誤差が1%%を超え"
+"ています (min=2.0, 1%%accurate=8.0)\n"
+
+#: src/geometry.c:1888
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
+msgstr "tag=%d: 追加の標準カーネル比警告を抑制しています\n"
+
+#: src/geometry.c:1903
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: 長さ/半径比 %.1f < 0.5; 拡張細線カーネルの電界誤差が1%%を大幅"
+"に超えています (min=0.5, 1%%accurate=2.0)\n"
+
+#: src/geometry.c:1908
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
+msgstr "tag=%d: 追加の拡張カーネル比エラーを抑制しています\n"
+
+#: src/geometry.c:1921
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
+"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: 長さ/半径比 %.1f < 2.0; 拡張細線カーネルの電界誤差が1%%を超え"
+"ています (min=0.5, 1%%accurate=2.0)\n"
+
+#: src/geometry.c:1926
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
+msgstr "tag=%d: 追加の拡張カーネル比警告を抑制しています\n"
+
+#: src/geometry.c:1942
+#, c-format
+msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
+msgstr ""
+"%d セグメントの重複チェックをスキップしています（--force-verifyで有効化）\n"
+
+#: src/geometry.c:1946
+#, c-format
+msgid "Forcing overlap check for %d segments\n"
+msgstr "%d セグメントの重複チェックを強制実行しています\n"
+
+#: src/geometry.c:1957
+msgid ""
+"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr ""
+"verify_segments() 周波数依存チェックをスキップ - 周波数データがありません\n"
+
+#: src/gnuplot.c:46
+msgid "Gnuplot Data"
+msgstr "Gnuplotデータ"
+
+#: src/gnuplot.c:46 src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Cannot save data while frequency loop is running"
+msgstr "周波数ループの実行中はデータを保存できません"
+
+#: src/gnuplot.c:60
+#, c-format
+msgid "# Reference impedance Z0 = %.2f Ohm\n"
+msgstr "# 基準インピーダンス Z0 = %.2f Ω\n"
+
+#: src/gnuplot.c:62
+#, c-format
+msgid ""
+"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
+"zreal and zimag:\n"
+msgstr ""
+"# gnuplotでプロットするにはこのコマンドを変更できます。現在はMHz対zrealと"
+"zimagをプロットします:\n"
+
+#: src/gnuplot.c:63
+#, c-format
+msgid ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+msgstr ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+
+#: src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Touchstone Data"
+msgstr "Touchstoneデータ"
+
+#: src/gnuplot.c:102
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! 基準インピーダンス Z0 = %.2f Ω\n"
+
+#: src/gnuplot.c:130
+#, c-format
+msgid "This should never happen. touchstone type=%d\n"
+msgstr "これは発生してはいけません。touchstone type=%d\n"
+
+#: src/gnuplot.c:227
+#, c-format
+msgid "# Near E field\n"
+msgstr "# 近傍E界\n"
+
+#: src/gnuplot.c:250
+#, c-format
+msgid "# Near H field\n"
+msgstr "# 近傍H界\n"
+
+#: src/gnuplot.c:297
+#, c-format
+msgid "# Poynting Vector\n"
+msgstr "# ポインティングベクトル\n"
+
+#: src/gnuplot.c:369
+#, c-format
+msgid "# Radiation Pattern\n"
+msgstr "# 放射パターン\n"
+
+#: src/gnuplot.c:505
+#, c-format
+msgid "# structure patch segments\n"
+msgstr "# 構造パッチセグメント\n"
+
+#: src/gnuplot.c:530
+#, c-format
+msgid "# structure wire segments\n"
+msgstr "# 構造ワイヤセグメント\n"
+
+#: src/gnuplot.c:565
+msgid "Save Currents and Charges to CSV"
+msgstr "電流と電荷をCSVに保存"
+
+#: src/ground.c:90
+msgid "b less than a"
+msgstr "bがa未満です"
+
+#: src/ground.c:215
+#, c-format
+msgid "step size limited at z = %12.5E\n"
+msgstr "z = %12.5E でステップサイズが制限されました\n"
+
+#: src/input.c:84
+msgid ""
+"Error reading Comments\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"コメント読み取りエラー\n"
+"予期しないEOF（ファイル終端）"
+
+#: src/input.c:98
+msgid ""
+"Error reading Comments\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"コメント読み取りエラー\n"
+"コメントニーモニックが短いか欠落しています"
+
+#: src/input.c:109
+msgid ""
+"Read_Comments():\n"
+" Error reading input file\n"
+"Comment mnemonic incorrect"
+msgstr ""
+"Read_Comments():\n"
+" 入力ファイル読み取りエラー\n"
+"コメントニーモニックが不正です"
+
+#: src/input.c:148
+msgid ""
+"Geometry data error\n"
+"Tag number is less than 1"
+msgstr ""
+"ジオメトリデータエラー\n"
+"タグ番号が1未満です"
+
+#: src/input.c:155
+msgid ""
+"Geometry data error\n"
+"Number of segments is less than 1"
+msgstr ""
+"ジオメトリデータエラー\n"
+"セグメント数が1未満です"
+
+#: src/input.c:162
+msgid "warning - number of segments is greater than 1000000\n"
+msgstr "警告 - セグメント数が1000000を超えています\n"
+
+#: src/input.c:210
+#, c-format
+msgid "%s data card error: Spurious character '%c' at column %d\n"
+msgstr "%sデータカードエラー: 不正な文字'%c'が列%dに\n"
+
+#: src/input.c:212
+msgid ""
+"Data card error\n"
+"Spurious character in card"
+msgstr ""
+"データカードエラー\n"
+"カードに不正な文字があります"
+
+#: src/input.c:262
+#, c-format
+msgid "%s: expression evaluation failed for \"%s\"\n"
+msgstr "%s: \"%s\"の式の評価に失敗しました\n"
+
+#: src/input.c:300
+msgid "SY card: no line content available\n"
+msgstr "SYカード: 行の内容がありません\n"
+
+#: src/input.c:301
+msgid "SY card: no line content available"
+msgstr "SYカード: 行の内容がありません"
+
+#: src/input.c:318
+msgid "SY card: missing '=' in definition\n"
+msgstr "SYカード: 定義に'='がありません\n"
+
+#: src/input.c:319
+msgid "SY card: missing '=' in definition"
+msgstr "SYカード: 定義に'='がありません"
+
+#: src/input.c:352
+#, c-format
+msgid "SY card: expression evaluation failed for %s=%s\n"
+msgstr "SYカード: %s=%sの式の評価に失敗しました\n"
+
+#: src/input.c:358
+#, c-format
+msgid "SY card: symbol definition failed for %s\n"
+msgstr "SYカード: %sのシンボル定義に失敗しました\n"
+
+#: src/input.c:438
+msgid ""
+"Geometry data error\n"
+"No GC card for tapered wire"
+msgstr ""
+"ジオメトリデータエラー\n"
+"テーパワイヤ用のGCカードがありません"
+
+#: src/input.c:445
+msgid "Geometry GC data card error"
+msgstr "ジオメトリGCデータカードエラー"
+
+#: src/input.c:461
+msgid "Geometry GX data card error"
+msgstr "ジオメトリGXデータカードエラー"
+
+#: src/input.c:484
+msgid "Geometry GR data card error"
+msgstr "ジオメトリGRデータカードエラー"
+
+#: src/input.c:541
+msgid "No geometry data cards"
+msgstr "ジオメトリデータカードがありません"
+
+#: src/input.c:550
+msgid "Probable invalid segment geometry.\n"
+msgstr "セグメントジオメトリが無効である可能性があります。\n"
+
+#: src/input.c:551
+msgid ""
+"Invalid segment geometry.\n"
+"See warnings in the console for detail.\n"
+"Trying to continue..."
+msgstr ""
+"無効なセグメントジオメトリです。\n"
+"詳細はコンソールの警告を参照してください。\n"
+"続行を試みています..."
+
+#: src/input.c:556
+msgid "Read_Geometry: verify_segments() passed\n"
+msgstr "Read_Geometry: verify_segments()が成功しました\n"
+
+#: src/input.c:602
+#, c-format
+msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
+msgstr "セグメントデータエラー: tag=%d si=%lf, bi=%lf\n"
+
+#: src/input.c:604
+msgid "Segment data error, zero-length line?  See console."
+msgstr "セグメントデータエラー、長さゼロの線分? コンソールを参照してください。"
+
+#: src/input.c:639
+msgid "Move GM data card error"
+msgstr "移動GMデータカードエラー"
+
+#: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
+#: src/input.c:739
+msgid "Patch data card error"
+msgstr "パッチデータカードエラー"
+
+#: src/input.c:677
+msgid "Patch data error"
+msgstr "パッチデータエラー"
+
+#: src/input.c:786
+msgid ""
+"\"GF\" card (NGF solution)\n"
+"is not supported"
+msgstr ""
+"\"GF\"カード（NGFソリューション）は\n"
+"サポートされていません"
+
+#: src/input.c:791
+msgid "Ignoring CM card in geometry"
+msgstr "ジオメトリ内のCMカードを無視しています"
+
+#: src/input.c:804
+#, c-format
+msgid "geometry data card error (nwire=%d)\n"
+msgstr "ジオメトリデータカードエラー (nwire=%d)\n"
+
+#: src/input.c:805
+#, c-format
+msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+
+#: src/input.c:808
+msgid "Geometry data card error"
+msgstr "ジオメトリデータカードエラー"
+
+#: src/input.c:833
+msgid "Failed to initialize symbol table\n"
+msgstr "シンボルテーブルの初期化に失敗しました\n"
+
+#: src/input.c:834
+msgid "Failed to initialize symbol table"
+msgstr "シンボルテーブルの初期化に失敗しました"
+
+#: src/input.c:1002
+msgid "ignoring CM card in commands\n"
+msgstr "コマンド内のCMカードを無視しています\n"
+
+#: src/input.c:1003
+msgid "Ignoring CM card in commands"
+msgstr "コマンド内のCMカードを無視しています"
+
+#: src/input.c:1007
+msgid ""
+"CP card is ignored\n"
+"Coupling calculation not implemented"
+msgstr ""
+"CPカードは無視されます\n"
+"カップリング計算は実装されていません"
+
+#: src/input.c:1185
+msgid "Max frequency <= Min frequency in FR card\n"
+msgstr "FRカードで最大周波数 <= 最小周波数\n"
+
+#: src/input.c:1186
+msgid ""
+"Max frequency <= Min frequency in FR card\n"
+"Please check FR card data and correct"
+msgstr ""
+"FRカードで最大周波数 <= 最小周波数\n"
+"FRカードのデータを確認して修正してください"
+
+#: src/input.c:1209
+msgid ""
+"Fix the GE/GN cards:\n"
+"The GE card specifies that a ground is present, but the GN indicates "
+"otherwise."
+msgstr ""
+"GE/GNカードを修正してください:\n"
+"GEカードはグラウンドが存在すると指定していますが、GNカードはそうではありませ"
+"ん。"
+
+#: src/input.c:1223
+msgid "theta > 90 deg. with ground specified\n"
+msgstr "グラウンド指定時にtheta > 90度\n"
+
+#: src/input.c:1224 src/radiation.c:656
+msgid ""
+"Theta > 90 deg with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"グラウンド指定時にTheta > 90度\n"
+"RPカードのデータを確認して修正してください"
+
+#: src/input.c:1233
+msgid ""
+"radial wire g.s. approximation: may not be used with Sommerfeld ground "
+"option\n"
+msgstr ""
+"ラジアルワイヤg.s.近似: Sommerfeldグラウンドオプションとは併用できません\n"
+
+#: src/input.c:1234
+msgid ""
+"radial wire g.s. approximation\n"
+"may not be used with Sommerfeld ground option"
+msgstr ""
+"ラジアルワイヤg.s.近似は\n"
+"Sommerfeldグラウンドオプションとは併用できません"
+
+#: src/input.c:1285
+#, c-format
+msgid ""
+"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
+"%d\n"
+msgstr ""
+"ロードカード番号%dでデータ障害: itag step1 %dがitag step2 %dより大きいです\n"
+
+#: src/input.c:1287
+msgid ""
+"Data fault on loading card\n"
+"itag step1 is greater than itag step2"
+msgstr ""
+"ロードカードでデータ障害\n"
+"itag step1がitag step2より大きいです"
+
+#: src/input.c:1420
+msgid ""
+"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr ""
+"伝送線路インピーダンス = 0: 無効です。NTまたはTLカードを修正してください\n"
+
+#: src/input.c:1421
+msgid ""
+"Transmission Line impedance = 0\n"
+"is not valid. Please correct NT or TL card"
+msgstr ""
+"伝送線路インピーダンス = 0は\n"
+"無効です。NTまたはTLカードを修正してください"
+
+#: src/input.c:1430
+msgid "Segment number error in TL or NT card\n"
+msgstr "TLまたはNTカードでセグメント番号エラー\n"
+
+#: src/input.c:1431
+msgid ""
+"Segment number\n"
+"error in NT or TL card"
+msgstr ""
+"NTまたはTLカードで\n"
+"セグメント番号エラー"
+
+#: src/input.c:1452
+msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
+msgstr "PQおよびPTカードは無視されます: ファイルへの出力は実装されていません\n"
+
+#: src/input.c:1453
+msgid ""
+"PQ and PT cards are ignored\n"
+"Printing to file not implemented"
+msgstr ""
+"PQおよびPTカードは無視されます\n"
+"ファイルへの出力は実装されていません"
+
+#: src/input.c:1460
+msgid "Surface wave option (I1=1): of RP command not implemented\n"
+msgstr "表面波オプション (I1=1): RPコマンドでは実装されていません\n"
+
+#: src/input.c:1461
+msgid ""
+"Surface wave option (I1=1)\n"
+"of RP command not implemented"
+msgstr ""
+"表面波オプション (I1=1)\n"
+"RPコマンドでは実装されていません"
+
+#: src/input.c:1484
+msgid ""
+"Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
+"xnec2c renders radiation patterns graphically instead of text tables.\n"
+"Pattern calculations proceed normally; use GUI to view results."
+msgstr ""
+"ゲイン平均化 (XNDA ***1または***2) はテキスト出力フォーマットを制御します。\n"
+"xnec2cは放射パターンをテキストテーブルではなくグラフィカルに描画します。\n"
+"パターン計算は正常に進行します。結果を見るにはGUIを使用してください。"
+
+#: src/input.c:1502
+msgid ""
+"Theta > 90 deg. with ground specified: Please check RP card data and "
+"correct\n"
+msgstr ""
+"グラウンド指定時にTheta > 90度: RPカードのデータを確認して修正してください\n"
+
+#: src/input.c:1503
+msgid ""
+"Theta > 90 deg. with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"グラウンド指定時にTheta > 90度\n"
+"RPカードのデータを確認して修正してください"
+
+#: src/input.c:1568
+msgid "Faulty data card"
+msgstr "不正なデータカード"
+
+#: src/input.c:1578
+msgid ""
+"Missing or surface-wave RP card: Radiation pattern and gain calculations "
+"disabled\n"
+msgstr ""
+"RPカードが見つからないか表面波です: 放射パターンとゲイン計算が無効になりまし"
+"た\n"
+
+#: src/input.c:1595
+msgid "Unexpected exit from while loop"
+msgstr "whileループからの予期しない終了"
+
+#: src/input.c:1653
+msgid ""
+"command data card error: Unexpected EOF while reading input file - appending "
+"EN card\n"
+msgstr ""
+"コマンドデータカードエラー: 入力ファイル読み取り中に予期しないEOF - ENカード"
+"を追加しています\n"
+
+#: src/input.c:1654
+msgid ""
+"Command data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default EN card"
+msgstr ""
+"コマンドデータカードエラー\n"
+"入力ファイル読み取り中に予期しないEOF\n"
+"デフォルトのENカードを追加しています"
+
+#: src/input.c:1668
+msgid "command data card error: card's mnemonic code too short or missing\n"
+msgstr ""
+"コマンドデータカードエラー: カードのニーモニックコードが短すぎるか見つかりま"
+"せん\n"
+
+#: src/input.c:1669
+msgid ""
+"Command data card error\n"
+"Mnemonic code too short or missing"
+msgstr ""
+"コマンドデータカードエラー\n"
+"ニーモニックコードが短すぎるか見つかりません"
+
+#: src/input.c:1829
+msgid ""
+"geometry data card error: Unexpected EOF while reading input file - "
+"appending GE card\n"
+msgstr ""
+"ジオメトリデータカードエラー: 入力ファイル読み取り中に予期しないEOF - GEカー"
+"ドを追加しています\n"
+
+#: src/input.c:1830
+msgid ""
+"Geometry data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default GE card"
+msgstr ""
+"ジオメトリデータカードエラー\n"
+"入力ファイル読み取り中に予期しないEOF\n"
+"デフォルトのGEカードを追加しています"
+
+#: src/input.c:1844
+msgid "geometry data card error: card's mnemonic code too short or missing\n"
+msgstr ""
+"ジオメトリデータカードエラー: カードのニーモニックコードが短すぎるか見つかり"
+"ません\n"
+
+#: src/input.c:1845
+msgid ""
+"Geometry data card error\n"
+"Card's mnemonic code too short or missing"
+msgstr ""
+"ジオメトリデータカードエラー\n"
+"カードのニーモニックコードが短すぎるか見つかりません"
+
+#: src/main.c:125
+#, c-format
+msgid "%s requires a positive integer argument\n"
+msgstr "%sには正の整数引数が必要です\n"
+
+#: src/main.c:183
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "%d個のCPUを検出しました\n"
+
+#: src/main.c:194
+msgid "config file path too long\n"
+msgstr "設定ファイルのパスが長すぎます\n"
+
+#: src/main.c:213
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "設定ファイルが存在しないか読み取れません: %s\n"
+
+#: src/main.c:222
+#, c-format
+msgid "config file path too long ( > %d char )\n"
+msgstr "設定ファイルのパスが長すぎます ( > %d文字 )\n"
+
+#: src/main.c:234
+#, c-format
+msgid "input file name too long ( > %d char )\n"
+msgstr "入力ファイル名が長すぎます ( > %d文字 )\n"
+
+#: src/main.c:261
+msgid "Forking disabled!\n"
+msgstr "フォークが無効です！\n"
+
+#: src/main.c:269
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloopが無効です！\n"
+
+#: src/main.c:273
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "バッチモードが有効です、最初のループ後に終了します\n"
+
+#: src/main.c:331
+msgid "verify segments check disabled\n"
+msgstr "セグメント検証チェックが無効です\n"
+
+#: src/main.c:336
+msgid "forcing overlap check on large models\n"
+msgstr "大規模モデルで重複チェックを強制します\n"
+
+#: src/main.c:350
+msgid "--batch and --optimize are mutual exclusive.\n"
+msgstr "--batchと--optimizeは相互排他的です。\n"
+
+#: src/main.c:366
+#, c-format
+msgid "input file path name too long ( > %d char )\n"
+msgstr "入力ファイルのパス名が長すぎます ( > %d文字 )\n"
+
+#: src/main.c:373
+#, c-format
+msgid "unexpected argument '%s' does not appear to be a .nec file\n"
+msgstr "予期しない引数'%s'は.necファイルではないようです\n"
+
+#: src/main.c:380
+#, c-format
+msgid "unexpected argument: %s\n"
+msgstr "予期しない引数: %s\n"
+
+#: src/main.c:386
+msgid "batch mode requires an input file\n"
+msgstr "バッチモードには入力ファイルが必要です\n"
+
+#: src/main.c:407
+#, c-format
+msgid "Forking %d jobs.\n"
+msgstr "%d個のジョブをフォークしています。\n"
+
+#: src/main.c:416 src/main.c:424
+msgid "exiting after fatal error: pipe() failed"
+msgstr "致命的エラーのため終了: pipe()が失敗しました"
+
+#: src/main.c:433
+msgid "exiting after fatal error: fork() failed"
+msgstr "致命的エラーのため終了: fork()が失敗しました"
+
+#: src/main.c:778
+msgid "exiting via user interrupt\n"
+msgstr "ユーザー割り込みにより終了します\n"
+
+#: src/main.c:782
+msgid "segmentation fault, exiting\n"
+msgstr "セグメンテーション違反、終了します\n"
+
+#: src/main.c:786
+msgid "floating point exception, exiting\n"
+msgstr "浮動小数点例外、終了します\n"
+
+#: src/main.c:790
+msgid "abort signal received, exiting\n"
+msgstr "中止シグナルを受信、終了します\n"
+
+#: src/main.c:794
+msgid "termination request received, exiting\n"
+msgstr "終了要求を受信、終了します\n"
+
+#: src/main.c:804
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "フォークされていません、pid %d からの SIGCHLD を無視します\n"
+
+#: src/main.c:812
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "子プロセス pid %d が終了しました\n"
+
+#: src/main.c:821
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "シグナル %d でデフォルト終了\n"
+
+#: src/matrix.c:1216
+#, c-format
+msgid "pivot(%d)= %16.8E\n"
+msgstr "pivot(%d)= %16.8E\n"
+
+#: src/matrix.c:1250
+#, c-format
+msgid "LU Decomposition Failed: %d\n"
+msgstr "LU分解に失敗しました: %d\n"
+
+#: src/matrix.c:1306
+#, c-format
+msgid "symmetry error - nrow:%d ncol:%d\n"
+msgstr "対称性エラー - nrow:%d ncol:%d\n"
+
+#: src/matrix.c:1307
+msgid "Symmetry error"
+msgstr "対称性エラー"
+
+#: src/matrix.c:1414
+#, c-format
+msgid "Solving Failed: %d\n"
+msgstr "求解に失敗しました: %d\n"
+
+#: src/nec2_model.c:111 src/nec2_model.c:115 src/nec2_model.c:119
+msgid "Card"
+msgstr "カード"
+
+#: src/nec2_model.c:111 resources/xnec2c.glade:6183
+msgid "Comments"
+msgstr "コメント"
+
+#: src/nec2_model.c:188
+msgid "--- NEC2 Input File created or edited by "
+msgstr "--- NEC2 入力ファイル作成または編集: "
+
+#: src/nec2_model.c:205
+msgid "--- End Comments ---"
+msgstr "--- コメント終了 ---"
+
+#: src/nec2_model.c:344
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"List_Comments():\n"
+"入力ファイルの読み取りエラー\n"
+"予期しないEOF (ファイル終端)"
+
+#: src/nec2_model.c:351
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"List_Comments():\n"
+"入力ファイルの読み取りエラー\n"
+"コメントニーモニックが短いか欠落しています"
+
+#: src/nec2_model.c:594
+msgid "End Comments"
+msgstr "コメント終了"
+
+#: src/nec2_model.c:648
+msgid ""
+"Cannot save treeview data\n"
+"Please use the Save button\n"
+"to specify a file path"
+msgstr ""
+"ツリービューデータを保存できません\n"
+"ファイルパスを指定するには\n"
+"保存ボタンを使用してください"
+
+#: src/network.c:648
+#, c-format
+msgid "improper load type chosen, requested type is %d\n"
+msgstr "不適切な負荷タイプが選択されました、要求されたタイプは %d です\n"
+
+#: src/network.c:649
+msgid "Improper load type chose"
+msgstr "不適切な負荷タイプが選択されました"
+
+#: src/network.c:737
+#, c-format
+msgid "loading data card error, no segment has an itag = %d\n"
+msgstr "データカード読み込みエラー、itag = %d を持つセグメントがありません\n"
+
+#: src/network.c:738
+msgid ""
+"Loading data card\n"
+"Tag number mismatch error"
+msgstr ""
+"データカード読み込み\n"
+"タグ番号不一致エラー"
+
+#: src/plot_freqdata.c:132
+#, c-format
+msgid ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+msgstr ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+
+#: src/plot_freqdata.c:148
+#, c-format
+msgid ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+msgstr ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+
+#: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
+msgid "memory allocation for points failed\n"
+msgstr "ポイントのメモリ割り当てに失敗しました\n"
+
+#: src/plot_freqdata.c:832 src/plot_freqdata.c:1299
+msgid "Draw_Graph():Memory allocation for points failed"
+msgstr "Draw_Graph(): ポイントのメモリ割り当てに失敗しました"
+
+#: src/plot_freqdata.c:1260
+msgid "Smith Chart"
+msgstr "スミスチャート"
+
+#: src/plot_freqdata.c:1452 src/plot_freqdata.c:1471 src/plot_freqdata.c:1496
+msgid "Raw Gain dBi"
+msgstr "生利得 dBi"
+
+#: src/plot_freqdata.c:1455
+msgid "Max Gain & Net Gain vs Frequency"
+msgstr "最大利得 & 正味利得 vs 周波数"
+
+#: src/plot_freqdata.c:1456
+msgid "Net Gain dBi"
+msgstr "正味利得 dBi"
+
+#: src/plot_freqdata.c:1462 src/plot_freqdata.c:1472
+msgid "Max Gain & F/B Ratio vs Frequency"
+msgstr "最大利得 & F/B比 vs 周波数"
+
+#: src/plot_freqdata.c:1473
+msgid "F/B Ratio dB"
+msgstr "F/B比 dB"
+
+#: src/plot_freqdata.c:1482
+msgid "Rad Angle - deg"
+msgstr "放射角度 - deg"
+
+#: src/plot_freqdata.c:1483
+msgid "Max Gain Direction vs Frequency"
+msgstr "最大利得方向 vs 周波数"
+
+#: src/plot_freqdata.c:1484
+msgid "Phi - deg"
+msgstr "Phi - deg"
+
+#: src/plot_freqdata.c:1497
+msgid "Gain in Viewer Direction vs Frequency"
+msgstr "視点方向の利得 vs 周波数"
+
+#: src/plot_freqdata.c:1520
+msgid "Net gain dBi"
+msgstr "正味利得 dBi"
+
+#: src/plot_freqdata.c:1538 resources/xnec2c.glade:9909
+#: resources/xnec2c.glade:10119
+msgid "VSWR"
+msgstr "VSWR"
+
+#: src/plot_freqdata.c:1541
+msgid "VSWR & S11 vs Frequency"
+msgstr "VSWR & S11 vs 周波数"
+
+#: src/plot_freqdata.c:1542
+msgid "S11 dB"
+msgstr "S11 dB"
+
+#: src/plot_freqdata.c:1546
+msgid "VSWR vs Frequency"
+msgstr "VSWR vs 周波数"
+
+#: src/plot_freqdata.c:1560
+msgid "memory allocation for vswr/s11 failed\n"
+msgstr "vswr/s11 のメモリ割り当てに失敗しました\n"
+
+#: src/plot_freqdata.c:1561
+msgid "Plot_Frequency_Data():Memory allocation for vswr/s11 failed"
+msgstr "Plot_Frequency_Data(): vswr/s11 のメモリ割り当てに失敗しました"
+
+#: src/plot_freqdata.c:1591 resources/xnec2c.glade:10084
+msgid "Z-real"
+msgstr "Z-実部"
+
+#: src/plot_freqdata.c:1592 src/plot_freqdata.c:1605
+msgid "Impedance vs Frequency"
+msgstr "インピーダンス vs 周波数"
+
+#: src/plot_freqdata.c:1593 resources/xnec2c.glade:10049
+msgid "Z-imag"
+msgstr "Z-虚部"
+
+#: src/plot_freqdata.c:1604
+msgid "Z-magn"
+msgstr "Z-振幅"
+
+#: src/plot_freqdata.c:1606
+msgid "Z-phase"
+msgstr "Z-位相"
+
+#: src/plot_freqdata.c:1855
+#, c-format
+msgid "mouse button: unknown button %d\n"
+msgstr "マウスボタン: 不明なボタン %d\n"
+
+#: src/somnec.c:238
+msgid "Hankel not valid for z = 0"
+msgstr "z = 0 ではハンケル関数は無効です"
+
+#: src/somnec.c:749
+msgid "No convergence"
+msgstr "収束しません"
+
+#: src/utils.c:103 src/utils.c:108
+#, c-format
+msgid ""
+"\n"
+"=== Notice: %s ===\n"
+"%s\n"
+"\n"
+msgstr ""
+"\n"
+"=== 通知: %s ===\n"
+"%s\n"
+"\n"
+
+#: src/utils.c:150
+#, c-format
+msgid "Stop: %s\n"
+msgstr "停止: %s\n"
+
+#: src/utils.c:157 src/utils.c:161 src/utils.c:171 src/utils.c:173
+#, c-format
+msgid "%s\n"
+msgstr "%s\n"
+
+#: src/utils.c:354
+#, c-format
+msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
+msgstr "ジョブごとに %d OpenMP スレッドを使用 (%d/%d CPU)\n"
+
+#: src/utils.c:370
+#, c-format
+msgid "%s[%d]: %f seconds\n"
+msgstr "%s[%d]: %f 秒\n"
+
+#: src/utils.c:422
+#, c-format
+msgid ""
+"mem_obj_t at %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+msgstr ""
+"mem_obj_t at %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+
+#: src/utils.c:441
+#, c-format
+msgid "mem_backtrace(%p):\n"
+msgstr "mem_backtrace(%p):\n"
+
+#: src/utils.c:443
+msgid "  m->backtrace is null, no backtrace data\n"
+msgstr "  m->backtrace が null、バックトレースデータがありません\n"
+
+#: src/utils.c:507
+#, c-format
+msgid "Memory re-allocation denied %s\n"
+msgstr "メモリ再割り当てが拒否されました %s\n"
+
+#: src/utils.c:508
+#, c-format
+msgid "%s: Memory requested %lu\n"
+msgstr "%s: 要求メモリ %lu\n"
+
+#: src/utils.c:554
+#, c-format
+msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
+msgstr "xnec2c[%d]: %s: ファイルを開けませんでした: %s\n"
+
+#: src/utils.c:559
+#, c-format
+msgid "%s: %s\n"
+msgstr "%s: %s\n"
+
+#: src/utils.c:927
+msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
+msgstr "オプティマイザループ未完了、放射パターンの再描画をスキップします。\n"
+
+#: src/utils.c:934
+msgid "Optimizer loop incomplete, skipping structure redraw.\n"
+msgstr "オプティマイザループ未完了、構造の再描画をスキップします。\n"
+
+#: src/utils.c:949
+msgid "  Backtrace:\n"
+msgstr "  バックトレース:\n"
+
+#: src/utils.c:951
+#, c-format
+msgid "    %d. %s\n"
+msgstr "    %d. %s\n"
+
+#: src/utils.c:978
+#, c-format
+msgid "%s:\n"
+msgstr "%s:\n"
+
+#: src/xnec2c.c:185
+#, c-format
+msgid ""
+"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
+"%+12.5Ej\n"
+msgstr "ファイルからの複素誘電率: %12.5E%+12.5Ej、要求値: %12.5E%+12.5Ej\n"
+
+#: src/xnec2c.c:188
+msgid "Ground_Parameters():Error in ground parameters"
+msgstr "Ground_Parameters(): 接地パラメータにエラーがあります"
+
+#: src/xnec2c.c:490
+#, c-format
+msgid "%.6f MHz: %f seconds. (%s)\n"
+msgstr "%.6f MHz: %f 秒 (%s)\n"
+
+#: src/xnec2c.c:781
+msgid "Failed to read data from forked child\n"
+msgstr "フォークされた子プロセスからのデータ読み取りに失敗しました\n"
+
+#: src/xnec2c.c:817
+#, c-format
+msgid ""
+"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr ""
+"Frequency_Loop はすべてのステップを完了しましたが num_busy_procs=%d です "
+"(calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+
+#: src/xnec2c.c:824
+#, c-format
+msgid "  busy job[%d]: fstep=%d freq=%f\n"
+msgstr "  実行中のジョブ[%d]: fstep=%d freq=%f\n"
+
+#: src/xnec2c.c:886
+#, c-format
+msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
+msgstr "周波数ループ経過時間: %f 秒 (%s)\n"
+
+#: src/xnec2c.c:1029
+msgid "failed to start Frequency_Loop_Thread\n"
+msgstr "Frequency_Loop_Thread の開始に失敗しました\n"
+
+#: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1964
+msgid "xnec2c"
+msgstr "xnec2c"
+
+#: files/xnec2c.desktop.in:4
+msgid "NEC2 Simulator"
+msgstr "NEC2 シミュレータ"
+
+#: files/xnec2c.desktop.in:5
+msgid "Numerical Electromagnetics Code software"
+msgstr "数値電磁界コードソフトウェア"
+
+#: files/xnec2c.desktop.in:11
+msgid "nec2;em;simulator;"
+msgstr "nec2;em;simulator;"
+
+#: resources/xnec2c.glade:14
+msgid "(C) 2007-2022 Neoklis Kyriazis"
+msgstr "(C) 2007-2022 Neoklis Kyriazis"
+
+#: resources/xnec2c.glade:15
+msgid ""
+"xnec2c is an interactive graphical wrapper around a modified version of "
+"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
+"Numerical Electromagnetics Code.\n"
+"\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
+"etc) in a graphical format. It can also display radiation pattern data in a "
+"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
+"format.\n"
+"\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
+"or edit antenna description files and specify NEC2 commands.\n"
+"\n"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
+"fully compatible with NEC2 input files and it works in different ways!"
+msgstr ""
+"xnec2c は、nec2c の改良版を対話的にグラフィカル操作するラッパーです。nec2c 自"
+"体は、オリジナルの FORTRAN NEC2 数値電磁界コードを C 言語に移植したもので"
+"す。\n"
+"\n"
+"xnec2c は周波数依存データ（利得、入力インピーダンス、VSWR など）をグラフ形式"
+"で表示できます。また、放射パターンデータを回転可能なワイヤフレーム形式で、近"
+"傍界（E、H、S ベクトル）をグリッド形式で表示できます。\n"
+"\n"
+"xnec2c には組み込みの NEC2 入力ファイルエディタがあり、アンテナ記述ファイルの"
+"作成・編集や NEC2 コマンドの指定が容易になります。\n"
+"\n"
+"xnec2c は NEC2 入力ファイルと完全には互換性がなく、動作方法も異なりますので、"
+"doc/ サブディレクトリのドキュメントを必ずお読みください！"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: resources/xnec2c.glade:27
+msgid "translator-credits"
+msgstr "translator-credits"
+
+#: resources/xnec2c.glade:159
+msgid "Steps/Cycle"
+msgstr "ステップ/サイクル"
+
+#: resources/xnec2c.glade:172
+msgid "Animate Freq (Hz)"
+msgstr "アニメーション周波数 (Hz)"
+
+#: resources/xnec2c.glade:286
+msgid "Arc Element (GA card)"
+msgstr "アークエレメント (GA カード)"
+
+#: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
+msgid "No. Segments"
+msgstr "セグメント数"
+
+#: resources/xnec2c.glade:340 resources/xnec2c.glade:3802
+#: resources/xnec2c.glade:14417
+msgid "Segs % lambda"
+msgstr "セグメント % λ"
+
+#: resources/xnec2c.glade:353 resources/xnec2c.glade:3815
+#: resources/xnec2c.glade:14513
+msgid "Wire Diameter"
+msgstr "ワイヤ直径"
+
+#: resources/xnec2c.glade:441
+msgid "Radius from Y"
+msgstr "Y軸からの半径"
+
+#: resources/xnec2c.glade:454
+msgid "End 1 Angle"
+msgstr "端点1の角度"
+
+#: resources/xnec2c.glade:467
+msgid "End 2 Angle"
+msgstr "端点2の角度"
+
+#: resources/xnec2c.glade:578
+msgid "Wire Arc Data"
+msgstr "ワイヤアークデータ"
+
+#: resources/xnec2c.glade:640 resources/xnec2c.glade:876
+#: resources/xnec2c.glade:1676 resources/xnec2c.glade:1899
+#: resources/xnec2c.glade:2357 resources/xnec2c.glade:2549
+#: resources/xnec2c.glade:2860 resources/xnec2c.glade:3546
+#: resources/xnec2c.glade:4346 resources/xnec2c.glade:4545
+#: resources/xnec2c.glade:4706 resources/xnec2c.glade:5238
+#: resources/xnec2c.glade:5874 resources/xnec2c.glade:7290
+#: resources/xnec2c.glade:8197 resources/xnec2c.glade:9203
+#: resources/xnec2c.glade:9476 resources/xnec2c.glade:12919
+#: resources/xnec2c.glade:13432 resources/xnec2c.glade:14031
+#: resources/xnec2c.glade:14867 resources/xnec2c.glade:15067
+msgid "Delete Card"
+msgstr "カードを削除"
+
+#: resources/xnec2c.glade:718
+msgid "Cylindrical Structure (GR card)"
+msgstr "円筒構造 (GRカード)"
+
+#: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
+msgid "Tag Number Increment"
+msgstr "タグ番号増分"
+
+#: resources/xnec2c.glade:761
+msgid "Number of Structures"
+msgstr "構造数"
+
+#: resources/xnec2c.glade:815
+msgid "Cylindrical Structure"
+msgstr "円筒構造"
+
+#: resources/xnec2c.glade:941
+msgid "Xnec2c Error"
+msgstr "Xnec2c エラー"
+
+#: resources/xnec2c.glade:1049
+msgid "Error"
+msgstr "エラー"
+
+#: resources/xnec2c.glade:1128
+msgid "Excitation Command (EX Card)"
+msgstr "励振コマンド (EXカード)"
+
+#: resources/xnec2c.glade:1154
+msgid "Incident LH Wave"
+msgstr "入射左旋円偏波"
+
+#: resources/xnec2c.glade:1170
+msgid "Incident Linear Wave "
+msgstr "入射直線偏波 "
+
+#: resources/xnec2c.glade:1186
+msgid "Current Source"
+msgstr "電流源"
+
+#: resources/xnec2c.glade:1202
+msgid "Incident RH Wave"
+msgstr "入射右旋円偏波"
+
+#: resources/xnec2c.glade:1218
+msgid "Current Slope Discontinuity"
+msgstr "電流傾斜不連続"
+
+#: resources/xnec2c.glade:1234
+msgid "Voltage Source"
+msgstr "電圧源"
+
+#: resources/xnec2c.glade:1256
+msgid "Excitation Type"
+msgstr "励振タイプ"
+
+#: resources/xnec2c.glade:1281
+msgid "Maximum Admittance Matrix Asymmetry"
+msgstr "アドミタンス行列の最大非対称性"
+
+#: resources/xnec2c.glade:1297
+msgid "Impedance of Source Segment"
+msgstr "ソースセグメントのインピーダンス"
+
+#: resources/xnec2c.glade:1319
+msgid "Print Control"
+msgstr "印刷制御"
+
+#: resources/xnec2c.glade:1411
+msgid "Voltage - Real Part"
+msgstr "電圧 - 実部"
+
+#: resources/xnec2c.glade:1424
+msgid "Voltage - Imaginary Part"
+msgstr "電圧 - 虚部"
+
+#: resources/xnec2c.glade:1437
+msgid "Eta"
+msgstr "Eta"
+
+#: resources/xnec2c.glade:1507
+msgid "Theta"
+msgstr "Theta"
+
+#: resources/xnec2c.glade:1520
+msgid "Phi"
+msgstr "Phi"
+
+#: resources/xnec2c.glade:1533
+msgid "Ratio"
+msgstr "比率"
+
+#: resources/xnec2c.glade:1614
+msgid "Excitation Parameters"
+msgstr "励振パラメータ"
+
+#: resources/xnec2c.glade:1741
+msgid "Execute Command (XQ Card)"
+msgstr "実行コマンド (XQカード)"
+
+#: resources/xnec2c.glade:1768
+msgid "No Pattern Cuts"
+msgstr "パターンカットなし"
+
+#: resources/xnec2c.glade:1784
+msgid "Pattern in XZ Plane"
+msgstr "XZ平面パターン"
+
+#: resources/xnec2c.glade:1800
+msgid "Pattern in YZ Plane"
+msgstr "YZ平面パターン"
+
+#: resources/xnec2c.glade:1816
+msgid "Both XZ/YZ Patterns"
+msgstr "XZ/YZ両方のパターン"
+
+#: resources/xnec2c.glade:1838
+msgid "Execute Command"
+msgstr "実行コマンド"
+
+#: resources/xnec2c.glade:2069
+msgid "Frequency Command (FR Card)"
+msgstr "周波数コマンド (FRカード)"
+
+#: resources/xnec2c.glade:2094
+msgid "Additive Stepping"
+msgstr "加算ステッピング"
+
+#: resources/xnec2c.glade:2111
+msgid "Multiplicative Stepping"
+msgstr "乗算ステッピング"
+
+#: resources/xnec2c.glade:2134
+msgid "Frequency Stepping"
+msgstr "周波数ステッピング"
+
+#: resources/xnec2c.glade:2164
+msgid "No. Frequency Points"
+msgstr "周波数ポイント数"
+
+#: resources/xnec2c.glade:2195
+msgid "Start Frequency (MHz)"
+msgstr "開始周波数 (MHz)"
+
+#: resources/xnec2c.glade:2227
+msgid "Frequency Step (MHz)"
+msgstr "周波数ステップ (MHz)"
+
+#: resources/xnec2c.glade:2260
+msgid "End Frequency (MHz)"
+msgstr "終了周波数 (MHz)"
+
+#: resources/xnec2c.glade:2296
+msgid "Frequency Stepping Parameters"
+msgstr "周波数ステッピングパラメータ"
+
+#: resources/xnec2c.glade:2422
+msgid "Geometry End (GE Card)"
+msgstr "ジオメトリ終了 (GEカード)"
+
+#: resources/xnec2c.glade:2447
+msgid "No Ground, Free Space condition"
+msgstr "グラウンドなし、自由空間条件"
+
+#: resources/xnec2c.glade:2464
+msgid "Ground present, Structure reflection"
+msgstr "グラウンドあり、構造反射あり"
+
+#: resources/xnec2c.glade:2481
+msgid "Ground present, no Structure reflection"
+msgstr "グラウンドあり、構造反射なし"
+
+#: resources/xnec2c.glade:2504
+msgid "Ground Plane type"
+msgstr "グラウンドプレーンタイプ"
+
+#: resources/xnec2c.glade:2638
+msgid "Ground Parameters (GD Card)"
+msgstr "グラウンドパラメータ (GDカード)"
+
+#: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
+#: resources/xnec2c.glade:3222
+msgid "Relative Dielectric Const."
+msgstr "比誘電率"
+
+#: resources/xnec2c.glade:2699 resources/xnec2c.glade:3255
+msgid "Distance to 2nd Medium"
+msgstr "第2媒質までの距離"
+
+#: resources/xnec2c.glade:2731 resources/xnec2c.glade:3168
+#: resources/xnec2c.glade:3287
+msgid "Ground Conductivity S/m"
+msgstr "グラウンド導電率 S/m"
+
+#: resources/xnec2c.glade:2763 resources/xnec2c.glade:3319
+msgid "Dist. below 1st Medium"
+msgstr "第1媒質下の距離"
+
+#: resources/xnec2c.glade:2799 resources/xnec2c.glade:3355
+msgid "2nd Medium Parameters"
+msgstr "第2媒質パラメータ"
+
+#: resources/xnec2c.glade:2980
+msgid "Ground Parameters (GN & GD Cards)"
+msgstr "グラウンドパラメータ (GN & GDカード)"
+
+#: resources/xnec2c.glade:3007
+msgid "Perfect Ground"
+msgstr "完全グラウンド"
+
+#: resources/xnec2c.glade:3023
+msgid "Sommerfeld/Norton"
+msgstr "Sommerfeld/Norton"
+
+#: resources/xnec2c.glade:3039
+msgid "Radial Ground Screen"
+msgstr "ラジアルグラウンドスクリーン"
+
+#: resources/xnec2c.glade:3054
+msgid "Reflection Coeff. Approx"
+msgstr "反射係数近似"
+
+#: resources/xnec2c.glade:3070
+msgid "Nullify Previous Params"
+msgstr "前のパラメータを無効化"
+
+#: resources/xnec2c.glade:3086
+msgid "Second Medium (Cliff)"
+msgstr "第2媒質 (クリフ)"
+
+#: resources/xnec2c.glade:3107
+msgid "Ground Type"
+msgstr "グラウンドタイプ"
+
+#: resources/xnec2c.glade:3235
+msgid "0.00000"
+msgstr "0.00000"
+
+#: resources/xnec2c.glade:3386
+msgid "Number of Radials"
+msgstr "ラジアル数"
+
+#: resources/xnec2c.glade:3399
+msgid "Radial Screen Radius"
+msgstr "ラジアルスクリーン半径"
+
+#: resources/xnec2c.glade:3449
+msgid "Radial Wire Diameter"
+msgstr "ラジアルワイヤ直径"
+
+#: resources/xnec2c.glade:3485
+msgid "Radial Screen Parameters"
+msgstr "ラジアルスクリーンパラメータ"
+
+#: resources/xnec2c.glade:3685
+msgid "Helical Element (GA card)"
+msgstr "ヘリカルエレメント (GAカード)"
+
+#: resources/xnec2c.glade:3710
+msgid "Right Hand Helix"
+msgstr "右巻きヘリックス"
+
+#: resources/xnec2c.glade:3726
+msgid "Left Hand Helix"
+msgstr "左巻きヘリックス"
+
+#: resources/xnec2c.glade:3742
+msgid "Right Hand Spiral"
+msgstr "右巻きスパイラル"
+
+#: resources/xnec2c.glade:3758
+msgid "Left Hand Spiral"
+msgstr "左巻きスパイラル"
+
+#: resources/xnec2c.glade:3789
+msgid "Segments/Turn"
+msgstr "セグメント/ターン"
+
+#: resources/xnec2c.glade:3828
+msgid "0.0100"
+msgstr "0.0100"
+
+#: resources/xnec2c.glade:3849
+msgid "5.00"
+msgstr "5.00"
+
+#: resources/xnec2c.glade:3870
+msgid "8"
+msgstr "8"
+
+#: resources/xnec2c.glade:3890 resources/xnec2c.glade:11417
+#: resources/xnec2c.glade:12489
+msgid "1"
+msgstr "1"
+
+#: resources/xnec2c.glade:3910
+msgid "Number of Turns"
+msgstr "ターン数"
+
+#: resources/xnec2c.glade:3923
+msgid "8.0000"
+msgstr "8.0000"
+
+#: resources/xnec2c.glade:3944
+msgid "Helix Length (HL)"
+msgstr "ヘリックス長 (HL)"
+
+#: resources/xnec2c.glade:3957
+msgid "5.0000"
+msgstr "5.0000"
+
+#: resources/xnec2c.glade:3978
+msgid "Turns Spacing"
+msgstr "ターン間隔"
+
+#: resources/xnec2c.glade:3991 resources/xnec2c.glade:4103
+#: resources/xnec2c.glade:4156 resources/xnec2c.glade:4209
+#: resources/xnec2c.glade:4257
+msgid "1.0000"
+msgstr "1.0000"
+
+#: resources/xnec2c.glade:4025
+msgid "0.0000"
+msgstr "0.0000"
+
+#: resources/xnec2c.glade:4045
+msgid "Radius in X (A1)"
+msgstr "X方向半径 (A1)"
+
+#: resources/xnec2c.glade:4058
+msgid "Radius in Y (B1)"
+msgstr "Y方向半径 (B1)"
+
+#: resources/xnec2c.glade:4071
+msgid "Radius in X (A2)"
+msgstr "X方向半径 (A2)"
+
+#: resources/xnec2c.glade:4084
+msgid "Radius in Y (B2)"
+msgstr "Y方向半径 (B2)"
+
+#: resources/xnec2c.glade:4282
+msgid "GH Card"
+msgstr "GHカード"
+
+#: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
+msgid "Interaction Approx Range (KH Card)"
+msgstr "相互作用近似範囲 (KHカード)"
+
+#: resources/xnec2c.glade:4446
+msgid "Approximation Range (W/lengths)"
+msgstr "近似範囲 (波長)"
+
+#: resources/xnec2c.glade:4484
+msgid "Interaction Approximation Range"
+msgstr "相互作用近似範囲"
+
+#: resources/xnec2c.glade:4610
+msgid "Thin Wire Kernel (EK Card)"
+msgstr "細線カーネル (EKカード)"
+
+#: resources/xnec2c.glade:4628
+msgid "Extended Thin Wire Kernel"
+msgstr "拡張細線カーネル"
+
+#: resources/xnec2c.glade:4645
+msgid "Thin Wire Kernel"
+msgstr "細線カーネル"
+
+#: resources/xnec2c.glade:4808
+msgid "Loading Command (LD Card)"
+msgstr "負荷コマンド (LDカード)"
+
+#: resources/xnec2c.glade:4834
+msgid "Short all Loads (Nulls previous Loading Cards)"
+msgstr "全負荷を短絡 (前の負荷カードを無効化)"
+
+#: resources/xnec2c.glade:4851
+msgid "Series, Lumped"
+msgstr "直列、集中定数"
+
+#: resources/xnec2c.glade:4867
+msgid "Parallel, Distributed"
+msgstr "並列、分布定数"
+
+#: resources/xnec2c.glade:4883
+msgid "Parallel, Lumped"
+msgstr "並列、集中定数"
+
+#: resources/xnec2c.glade:4899
+msgid "Resistance & Reactance"
+msgstr "抵抗 & リアクタンス"
+
+#: resources/xnec2c.glade:4915
+msgid "Series, Distributed"
+msgstr "直列、分布定数"
+
+#: resources/xnec2c.glade:4931
+msgid "Wire Conductivity"
+msgstr "ワイヤ導電率"
+
+#: resources/xnec2c.glade:4953
+msgid "Loading Type"
+msgstr "負荷タイプ"
+
+#: resources/xnec2c.glade:4983
+msgid "Load Tag Number"
+msgstr "負荷タグ番号"
+
+#: resources/xnec2c.glade:5014
+msgid "Resistance"
+msgstr "抵抗"
+
+#: resources/xnec2c.glade:5046
+msgid "From Segment #"
+msgstr "開始セグメント番号"
+
+#: resources/xnec2c.glade:5077
+msgid "Inductance"
+msgstr "インダクタンス"
+
+#: resources/xnec2c.glade:5109
+msgid "To Segment #"
+msgstr "終了セグメント番号"
+
+#: resources/xnec2c.glade:5140
+msgid "Capacitance"
+msgstr "キャパシタンス"
+
+#: resources/xnec2c.glade:5176
+msgid "Loading Parameters"
+msgstr "負荷パラメータ"
+
+#: resources/xnec2c.glade:5391
+msgid "Near Fields Command (NE/NH Cards)"
+msgstr "近傍界コマンド (NE/NHカード)"
+
+#: resources/xnec2c.glade:5418
+msgid "Near Electric Field"
+msgstr "近傍電界"
+
+#: resources/xnec2c.glade:5434
+msgid "Rectangular Co-ordinates"
+msgstr "直交座標"
+
+#: resources/xnec2c.glade:5450
+msgid "Near Magnetic Field"
+msgstr "近傍磁界"
+
+#: resources/xnec2c.glade:5465
+msgid "Spherical Co-ordinates"
+msgstr "球座標"
+
+#: resources/xnec2c.glade:5493
+msgid "Field Type & Co-ordinates"
+msgstr "界の種類と座標系"
+
+#: resources/xnec2c.glade:5523
+msgid "NX"
+msgstr "NX"
+
+#: resources/xnec2c.glade:5554 resources/xnec2c.glade:10989
+#: resources/xnec2c.glade:12083
+msgid "X"
+msgstr "X"
+
+#: resources/xnec2c.glade:5586
+msgid "DX"
+msgstr "DX"
+
+#: resources/xnec2c.glade:5618
+msgid "NY"
+msgstr "NY"
+
+#: resources/xnec2c.glade:5649 resources/xnec2c.glade:11004
+#: resources/xnec2c.glade:12098
+msgid "Y"
+msgstr "Y"
+
+#: resources/xnec2c.glade:5681
+msgid "DY"
+msgstr "DY"
+
+#: resources/xnec2c.glade:5713
+msgid "NZ"
+msgstr "NZ"
+
+#: resources/xnec2c.glade:5744 resources/xnec2c.glade:11019
+#: resources/xnec2c.glade:12113
+msgid "Z"
+msgstr "Z"
+
+#: resources/xnec2c.glade:5776
+msgid "DZ"
+msgstr "DZ"
+
+#: resources/xnec2c.glade:5812
+msgid "Field Pattern Parameters"
+msgstr "電界パターンパラメータ"
+
+#: resources/xnec2c.glade:5939
+msgid "Xnec2c: NEC2 Input File Editor"
+msgstr "Xnec2c: NEC2入力ファイルエディタ"
+
+#: resources/xnec2c.glade:6026
+msgid "Manage Cards"
+msgstr "カード管理"
+
+#: resources/xnec2c.glade:6123
+msgid "File Save"
+msgstr "ファイル保存"
+
+#: resources/xnec2c.glade:6210
+msgid "Wire"
+msgstr "ワイヤ"
+
+#: resources/xnec2c.glade:6224
+msgid "Arc"
+msgstr "アーク"
+
+#: resources/xnec2c.glade:6238
+msgid "Helix"
+msgstr "ヘリックス"
+
+#: resources/xnec2c.glade:6252
+msgid "Patch"
+msgstr "パッチ"
+
+#: resources/xnec2c.glade:6266
+msgid "Cylinder"
+msgstr "シリンダ"
+
+#: resources/xnec2c.glade:6280
+msgid "Move"
+msgstr "移動"
+
+#: resources/xnec2c.glade:6294
+msgid "Reflect"
+msgstr "反転"
+
+#: resources/xnec2c.glade:6308
+msgid "Scale"
+msgstr "スケール"
+
+#: resources/xnec2c.glade:6328
+msgid "Edit Geometry Data"
+msgstr "ジオメトリデータ編集"
+
+#: resources/xnec2c.glade:6382
+msgid "Geometry"
+msgstr "ジオメトリ"
+
+#: resources/xnec2c.glade:6409
+msgid "Excitation"
+msgstr "励振"
+
+#: resources/xnec2c.glade:6423
+msgid "Radiation"
+msgstr "放射"
+
+#: resources/xnec2c.glade:6437
+msgid "Frequency"
+msgstr "周波数"
+
+#: resources/xnec2c.glade:6451
+msgid "Near Fields"
+msgstr "近傍界"
+
+#: resources/xnec2c.glade:6465
+msgid "Ground (GN)"
+msgstr "グラウンド (GN)"
+
+#: resources/xnec2c.glade:6479
+msgid "Ground (GD)"
+msgstr "グラウンド (GD)"
+
+#: resources/xnec2c.glade:6493
+msgid "Loading"
+msgstr "負荷"
+
+#: resources/xnec2c.glade:6507
+msgid "Kernel"
+msgstr "カーネル"
+
+#: resources/xnec2c.glade:6521
+msgid "Network"
+msgstr "ネットワーク"
+
+#: resources/xnec2c.glade:6535
+msgid "Interaction"
+msgstr "相互作用"
+
+#: resources/xnec2c.glade:6549
+msgid "Transm. Line"
+msgstr "伝送線路"
+
+#: resources/xnec2c.glade:6564
+msgid "Execute"
+msgstr "実行"
+
+#: resources/xnec2c.glade:6578
+msgid "Zo"
+msgstr "Zo"
+
+#: resources/xnec2c.glade:6598
+msgid "Edit Control Commands"
+msgstr "制御コマンド編集"
+
+#: resources/xnec2c.glade:6652
+msgid "Commands"
+msgstr "コマンド"
+
+#: resources/xnec2c.glade:6671
+msgid "Unsaved Data"
+msgstr "未保存データ"
+
+#: resources/xnec2c.glade:6747
+msgid ""
+"Unsaved data in NEC2 Editor.\n"
+"Save NEC2 Editor data first?\n"
+msgstr ""
+"NEC2エディタに未保存のデータがあります。\n"
+"先にNEC2エディタのデータを保存しますか？\n"
+
+#: resources/xnec2c.glade:6846
+msgid "Network Command (NT Card)"
+msgstr "ネットワークコマンド (NTカード)"
+
+#: resources/xnec2c.glade:6875
+msgid "Tag Number, Port 1  "
+msgstr "タグ番号、ポート1  "
+
+#: resources/xnec2c.glade:6906
+msgid "Tag Number, Port 2  "
+msgstr "タグ番号、ポート2  "
+
+#: resources/xnec2c.glade:6937
+msgid "Segment Num, Port 1"
+msgstr "セグメント番号、ポート1"
+
+#: resources/xnec2c.glade:6968
+msgid "Segment Num, Port 2"
+msgstr "セグメント番号、ポート2"
+
+#: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
+msgid "Segment Identity"
+msgstr "セグメント識別"
+
+#: resources/xnec2c.glade:7033
+msgid "Element 1,1 Real Part"
+msgstr "要素1,1 実部"
+
+#: resources/xnec2c.glade:7065
+msgid "Element 1,2 Real Part"
+msgstr "要素1,2 実部"
+
+#: resources/xnec2c.glade:7097
+msgid "Element 2,2 Real Part"
+msgstr "要素2,2 実部"
+
+#: resources/xnec2c.glade:7129
+msgid "Element 1,1 Imag Part"
+msgstr "要素1,1 虚部"
+
+#: resources/xnec2c.glade:7161
+msgid "Element 1,2 Imag Part"
+msgstr "要素1,2 虚部"
+
+#: resources/xnec2c.glade:7193
+msgid "Element 2,2 Imag Part"
+msgstr "要素2,2 虚部"
+
+#: resources/xnec2c.glade:7229
+msgid "Admittance Matrix Elements"
+msgstr "アドミタンス行列要素"
+
+#: resources/xnec2c.glade:7444
+msgid "Patch Element (SP & SC Cards)"
+msgstr "パッチ要素 (SP & SCカード)"
+
+#: resources/xnec2c.glade:7468
+msgid "Arbitrary"
+msgstr "任意"
+
+#: resources/xnec2c.glade:7485
+msgid "Rectangle"
+msgstr "長方形"
+
+#: resources/xnec2c.glade:7502
+msgid "Triangle"
+msgstr "三角形"
+
+#: resources/xnec2c.glade:7519
+msgid "Quadrilateral"
+msgstr "四辺形"
+
+#: resources/xnec2c.glade:7536
+msgid "Surface"
+msgstr "サーフェス"
+
+#: resources/xnec2c.glade:7559
+msgid "Patch Type"
+msgstr "パッチタイプ"
+
+#: resources/xnec2c.glade:7589
+msgid "Corners 1-2 sub-division (NX)"
+msgstr "コーナー1-2分割数 (NX)"
+
+#: resources/xnec2c.glade:7620
+msgid "Corners 2-3 sub-division (NY)"
+msgstr "コーナー2-3分割数 (NY)"
+
+#: resources/xnec2c.glade:7655
+msgid "Surface Sub-division"
+msgstr "サーフェス分割"
+
+#: resources/xnec2c.glade:7881
+msgid "SP/SM Cards"
+msgstr "SP/SMカード"
+
+#: resources/xnec2c.glade:7917
+msgid "Corner 3 - X"
+msgstr "コーナー3 - X"
+
+#: resources/xnec2c.glade:7949
+msgid "Corner 3 - Y"
+msgstr "コーナー3 - Y"
+
+#: resources/xnec2c.glade:7981
+msgid "Corner 3 - Z"
+msgstr "コーナー3 - Z"
+
+#: resources/xnec2c.glade:8029
+msgid "Corner 4 - X"
+msgstr "コーナー4 - X"
+
+#: resources/xnec2c.glade:8061
+msgid "Corner 4 - Y"
+msgstr "コーナー4 - Y"
+
+#: resources/xnec2c.glade:8093
+msgid "Corner 4 - Z"
+msgstr "コーナー4 - Z"
+
+#: resources/xnec2c.glade:8136
+msgid "SC Card"
+msgstr "SCカード"
+
+#: resources/xnec2c.glade:8352
+msgid "Quit xnec2c?"
+msgstr "xnec2cを終了しますか？"
+
+#: resources/xnec2c.glade:8431
+msgid "Radiation Pattern (RP Card)"
+msgstr "放射パターン (RPカード)"
+
+#: resources/xnec2c.glade:8458
+msgid "Normal (Space) Wave"
+msgstr "通常（空間）波"
+
+#: resources/xnec2c.glade:8474
+msgid "Space + Ground Wave"
+msgstr "空間波 + 地表波"
+
+#: resources/xnec2c.glade:8490
+msgid "Linear Cliff"
+msgstr "線形クリフ"
+
+#: resources/xnec2c.glade:8506
+msgid "Radial wire screen"
+msgstr "ラジアルワイヤスクリーン"
+
+#: resources/xnec2c.glade:8522
+msgid "Circular Cliff + Radials"
+msgstr "円形クリフ + ラジアル"
+
+#: resources/xnec2c.glade:8538
+msgid "Circular Cliff"
+msgstr "円形クリフ"
+
+#: resources/xnec2c.glade:8554
+msgid "Linear Cliff + Radials"
+msgstr "線形クリフ + ラジアル"
+
+#: resources/xnec2c.glade:8572
+msgid "<b>See GN/GD Card Documentation</b>"
+msgstr "<b>GN/GDカードのドキュメントを参照</b>"
+
+#: resources/xnec2c.glade:8590
+msgid "Wave Type and Ground (I1)"
+msgstr "波の種類とグラウンド (I1)"
+
+#: resources/xnec2c.glade:8618
+msgid "Major & Minor Axis & Total Gain"
+msgstr "長軸・短軸・総合利得"
+
+#: resources/xnec2c.glade:8634
+msgid "Vertical, Horizontal & Total Gain"
+msgstr "垂直・水平・総合利得"
+
+#: resources/xnec2c.glade:8650
+msgid "Major Axis Gain Normalized"
+msgstr "長軸利得（正規化）"
+
+#: resources/xnec2c.glade:8666
+msgid "Vertical Axis Gain Normalized"
+msgstr "垂直軸利得（正規化）"
+
+#: resources/xnec2c.glade:8682
+msgid "Total Gain Normalized"
+msgstr "総合利得（正規化）"
+
+#: resources/xnec2c.glade:8698
+msgid "Print/Normalize Directive Gain"
+msgstr "指向性利得の印刷/正規化"
+
+#: resources/xnec2c.glade:8714
+msgid "No Normalized Gain"
+msgstr "正規化なし"
+
+#: resources/xnec2c.glade:8730
+msgid "Minor Axis Gain Normalized"
+msgstr "短軸利得で正規化"
+
+#: resources/xnec2c.glade:8746
+msgid "Horizontal Axis Gain Normalized"
+msgstr "水平軸利得で正規化"
+
+#: resources/xnec2c.glade:8762
+msgid "Print/Normalize Power Gain"
+msgstr "電力利得の印刷/正規化"
+
+#: resources/xnec2c.glade:8778
+msgid "No Gain Averaging"
+msgstr "利得平均なし"
+
+#: resources/xnec2c.glade:8794
+msgid "Points in Average Not Printed"
+msgstr "平均の点数を印刷しない"
+
+#: resources/xnec2c.glade:8810
+msgid "Average Gain Computed"
+msgstr "平均利得を計算"
+
+#: resources/xnec2c.glade:8828
+msgid "<b>See RP Card Documentation</b>"
+msgstr "<b>RPカードのドキュメントを参照</b>"
+
+#: resources/xnec2c.glade:8846
+msgid "Data Output Control (XNDA)"
+msgstr "データ出力制御 (XNDA)"
+
+#: resources/xnec2c.glade:8876
+msgid "Points in Theta"
+msgstr "シータの点数"
+
+#: resources/xnec2c.glade:8985
+msgid "Initial Phi (deg)"
+msgstr "初期ファイ (deg)"
+
+#: resources/xnec2c.glade:9067
+msgid "Field Point Distance"
+msgstr "電界点距離"
+
+#: resources/xnec2c.glade:9099
+msgid "Gain Normalization"
+msgstr "利得の正規化"
+
+#: resources/xnec2c.glade:9141
+msgid "Radiation Pattern Parameters"
+msgstr "放射パターンパラメータ"
+
+#: resources/xnec2c.glade:9301
+msgid "Reflect Structure (GX card)"
+msgstr "構造の反射 (GXカード)"
+
+#: resources/xnec2c.glade:9329
+msgid "Reflect in YZ plane"
+msgstr "YZ平面で反射"
+
+#: resources/xnec2c.glade:9344
+msgid "Reflect in XY plane"
+msgstr "XY平面で反射"
+
+#: resources/xnec2c.glade:9359
+msgid "Reflect in XZ plane"
+msgstr "XZ平面で反射"
+
+#: resources/xnec2c.glade:9415
+msgid "Reflect Options"
+msgstr "反射オプション"
+
+#: resources/xnec2c.glade:9546
+msgid "Xnec2c: Frequency Data Plots"
+msgstr "Xnec2c: 周波数データプロット"
+
+#: resources/xnec2c.glade:9571 resources/xnec2c.glade:10386
+#: resources/xnec2c.glade:11663
+msgid "_File"
+msgstr "ファイル(_F)"
+
+#: resources/xnec2c.glade:9633 resources/xnec2c.glade:10448
+#: resources/xnec2c.glade:11725
+msgid "Save as _gnuplot"
+msgstr "_gnuplotとして保存"
+
+#: resources/xnec2c.glade:9644 resources/xnec2c.glade:11735
+msgid "Save as _CSV"
+msgstr "_CSVとして保存"
+
+#: resources/xnec2c.glade:9656
+msgid "Save as _Touchstone (.SnP)"
+msgstr "_Touchstoneとして保存 (.SnP)"
+
+#: resources/xnec2c.glade:9663
+msgid "Save as S_1P: Reflection Only"
+msgstr "S_1Pとして保存: 反射のみ"
+
+#: resources/xnec2c.glade:9673
+msgid "Save as S2P: _Max Gain (S21)"
+msgstr "S2Pとして保存: 最大利得(_M) (S21)"
+
+#: resources/xnec2c.glade:9683
+msgid "Save as S2P: _Viewer Gain (S21)"
+msgstr "S2Pとして保存: ビューア利得(_V) (S21)"
+
+#: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
+#: resources/xnec2c.glade:11769
+msgid "_View"
+msgstr "表示(_V)"
+
+#: resources/xnec2c.glade:9729 resources/xnec2c.glade:10826
+#: resources/xnec2c.glade:11779
+msgid "_Polarization"
+msgstr "偏波(_P)"
+
+#: resources/xnec2c.glade:9745 resources/xnec2c.glade:10842
+#: resources/xnec2c.glade:11795
+msgid "_Total"
+msgstr "全体(_T)"
+
+#: resources/xnec2c.glade:9756 resources/xnec2c.glade:10853
+#: resources/xnec2c.glade:11806
+msgid "_Horizontal"
+msgstr "水平(_H)"
+
+#: resources/xnec2c.glade:9767 resources/xnec2c.glade:10864
+#: resources/xnec2c.glade:11817
+msgid "_Vertical"
+msgstr "垂直(_V)"
+
+#: resources/xnec2c.glade:9778 resources/xnec2c.glade:10875
+#: resources/xnec2c.glade:11828
+msgid "_Right Hand"
+msgstr "右旋(_R)"
+
+#: resources/xnec2c.glade:9789 resources/xnec2c.glade:10886
+#: resources/xnec2c.glade:11839
+msgid "_Left Hand"
+msgstr "左旋(_L)"
+
+#: resources/xnec2c.glade:9804
+msgid "_Net Gain"
+msgstr "正味利得(_N)"
+
+#: resources/xnec2c.glade:9813
+msgid "Show _Min/Max Values"
+msgstr "最小/最大値を表示(_M)"
+
+#: resources/xnec2c.glade:9822
+msgid "Show _S11 (dB) Values"
+msgstr "_S11 (dB) 値を表示"
+
+#: resources/xnec2c.glade:9831
+msgid "Clamp _VSWR Graph to 10"
+msgstr "_VSWRグラフを10に制限"
+
+#: resources/xnec2c.glade:9840
+msgid "Round _X Axis Frequency Values"
+msgstr "_X軸周波数値を丸める"
+
+#: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
+msgid "Max Gain"
+msgstr "最大利得"
+
+#: resources/xnec2c.glade:9879
+msgid "Direction"
+msgstr "方向"
+
+#: resources/xnec2c.glade:9894
+msgid "Viewer"
+msgstr "ビューア"
+
+#: resources/xnec2c.glade:9924
+msgid "Zr/Zi"
+msgstr "Zr/Zi"
+
+#: resources/xnec2c.glade:9939
+msgid "Zm/Zph"
+msgstr "Zm/Zph"
+
+#: resources/xnec2c.glade:9954
+msgid "Smith"
+msgstr "スミス"
+
+#: resources/xnec2c.glade:9998 resources/xnec2c.glade:10033
+#: resources/xnec2c.glade:10068 resources/xnec2c.glade:10103
+#: resources/xnec2c.glade:12644
+msgid " - - -"
+msgstr " - - -"
+
+#: resources/xnec2c.glade:10139
+msgid " - - - - "
+msgstr " - - - - "
+
+#: resources/xnec2c.glade:10155
+msgid "Freq MHz"
+msgstr "周波数 MHz"
+
+#: resources/xnec2c.glade:10194
+msgid "Tx Line Zo"
+msgstr "伝送線路 Zo"
+
+#: resources/xnec2c.glade:10208 resources/xnec2c.glade:11432
+#: resources/xnec2c.glade:12520
+msgid "Freq Loop"
+msgstr "周波数ループ"
+
+#: resources/xnec2c.glade:10342
+msgid "Frequency Data Plots"
+msgstr "周波数データプロット"
+
+#: resources/xnec2c.glade:10459
+msgid "Save _Currents/Charges as CSV"
+msgstr "電流/電荷をCSVとして保存(_C)"
+
+#: resources/xnec2c.glade:10478
+msgid "Optimization Settings"
+msgstr "最適化設定"
+
+#: resources/xnec2c.glade:10493
+msgid "Reload and write data on .NEC file changes"
+msgstr ".NECファイル変更時にデータを再読込みして書き込む"
+
+#: resources/xnec2c.glade:10500
+msgid "_Write files selected below, now."
+msgstr "以下で選択したファイルを今すぐ書き込む(_W)"
+
+#: resources/xnec2c.glade:10515
+msgid "After calculation, write <file>.csv"
+msgstr "計算後、<file>.csvを書き込む"
+
+#: resources/xnec2c.glade:10524
+msgid "After calculation, write <file>.s_1p"
+msgstr "計算後、<file>.s_1pを書き込む"
+
+#: resources/xnec2c.glade:10533
+msgid "After calculation, write <file>-_maxgain.s2p"
+msgstr "計算後、<file>-_maxgain.s2pを書き込む"
+
+#: resources/xnec2c.glade:10542
+msgid "After calculation, write <file>-_viewergain.s2p"
+msgstr "計算後、<file>-_viewergain.s2pを書き込む"
+
+#: resources/xnec2c.glade:10551
+msgid "After calculation, write <file>-_radpattern.csv"
+msgstr "計算後、<file>-_radpattern.csvを書き込む"
+
+#: resources/xnec2c.glade:10560
+msgid "After calculation, write <file>-_currents.csv"
+msgstr "計算後、<file>-_currents.csvを書き込む"
+
+#: resources/xnec2c.glade:10575
+msgid "_Math Libraries"
+msgstr "数学ライブラリ(_M)"
+
+#: resources/xnec2c.glade:10584
+msgid "_Interactive"
+msgstr "対話型(_I)"
+
+#: resources/xnec2c.glade:10604
+msgid "_Batch"
+msgstr "バッチ(_B)"
+
+#: resources/xnec2c.glade:10630
+msgid "Mathlib _Help"
+msgstr "Mathlibヘルプ(_H)"
+
+#: resources/xnec2c.glade:10643
+msgid "Mathlib _Benchmarks"
+msgstr "Mathlibベンチマーク(_B)"
+
+#: resources/xnec2c.glade:10654
+msgid "_Selected Mathlibs"
+msgstr "選択されたMathlib(_S)"
+
+#: resources/xnec2c.glade:10668
+msgid "Select All/None"
+msgstr "すべて選択/選択解除"
+
+#: resources/xnec2c.glade:10693
+msgid "_Parallel (-j N):\t\tO(N/J)"
+msgstr "並列(_P) (-j N):\t\tO(N/J)"
+
+#: resources/xnec2c.glade:10702
+msgid "_Single Job (-j 1):\tO(N)"
+msgstr "シングルジョブ(_S) (-j 1):\tO(N)"
+
+#: resources/xnec2c.glade:10711
+msgid "_Iterate -j N/=2:\tO(N*log2(J))"
+msgstr "反復(_I) -j N/=2:\tO(N*log2(J))"
+
+#: resources/xnec2c.glade:10720
+msgid "_Iterate -j N-=1:\tO(N*J)"
+msgstr "反復(_I) -j N-=1:\tO(N*J)"
+
+#: resources/xnec2c.glade:10735
+msgid "Benchmark _Help"
+msgstr "ベンチマークヘルプ(_H)"
+
+#: resources/xnec2c.glade:10754
+msgid "Begin Frequency Loop at Startup"
+msgstr "起動時に周波数ループを開始"
+
+#: resources/xnec2c.glade:10765
+msgid "Confirm Quit"
+msgstr "終了の確認"
+
+#: resources/xnec2c.glade:10806
+msgid "_Radiation Pattern"
+msgstr "放射パターン(_R)"
+
+#: resources/xnec2c.glade:10816
+msgid "_Frequency Plots"
+msgstr "周波数プロット(_F)"
+
+#: resources/xnec2c.glade:10901 resources/xnec2c.glade:12009
+msgid "Common _Projection"
+msgstr "共通投影(_P)"
+
+#: resources/xnec2c.glade:10911 resources/xnec2c.glade:12019
+msgid "Common _Frequency"
+msgstr "共通周波数(_F)"
+
+#: resources/xnec2c.glade:10923
+msgid "_Help"
+msgstr "ヘルプ(_H)"
+
+#: resources/xnec2c.glade:10932
+msgid "_About"
+msgstr "バージョン情報(_A)"
+
+#: resources/xnec2c.glade:10959
+msgid "Currents"
+msgstr "電流"
+
+#: resources/xnec2c.glade:10974
+msgid "Charges"
+msgstr "電荷"
+
+#: resources/xnec2c.glade:11155
+msgid " Zoom"
+msgstr " ズーム"
+
+#: resources/xnec2c.glade:11277 resources/xnec2c.glade:12456
+msgid "Gain"
+msgstr "利得"
+
+#: resources/xnec2c.glade:11292 resources/xnec2c.glade:11308
+#: resources/xnec2c.glade:12469 resources/xnec2c.glade:12626
+msgid "0.0"
+msgstr "0.0"
+
+#: resources/xnec2c.glade:11342
+msgid "- - - "
+msgstr "- - - "
+
+#: resources/xnec2c.glade:11384 resources/xnec2c.glade:12612
+msgid "dB"
+msgstr "dB"
+
+#: resources/xnec2c.glade:11398 resources/xnec2c.glade:12505
+msgid "Step"
+msgstr "ステップ"
+
+#: resources/xnec2c.glade:11545 resources/xnec2c.glade:12553
+msgid "Apply"
+msgstr "適用"
+
+#: resources/xnec2c.glade:11565
+msgid "Frequency Mhz"
+msgstr "周波数 MHz"
+
+#: resources/xnec2c.glade:11618
+msgid "Structure Geometry"
+msgstr "構造形状"
+
+#: resources/xnec2c.glade:11637
+msgid "Xnec2c: Radiation Patterns"
+msgstr "Xnec2c: 放射パターン"
+
+#: resources/xnec2c.glade:11854
+msgid "_Gain Scaling"
+msgstr "利得スケーリング(_G)"
+
+#: resources/xnec2c.glade:11869
+msgid "Linear _Power"
+msgstr "線形電力(_P)"
+
+#: resources/xnec2c.glade:11880
+msgid "Linear _Voltage"
+msgstr "線形電圧(_V)"
+
+#: resources/xnec2c.glade:11891
+msgid "_ARRL Style"
+msgstr "_ARRLスタイル"
+
+#: resources/xnec2c.glade:11902
+msgid "_Logarithmic"
+msgstr "対数(_L)"
+
+#: resources/xnec2c.glade:11917
+msgid "_Near Field"
+msgstr "近傍界(_N)"
+
+#: resources/xnec2c.glade:11932
+msgid "Near _E Field"
+msgstr "近傍_E界"
+
+#: resources/xnec2c.glade:11942
+msgid "Near _H Field"
+msgstr "近傍_H界"
+
+#: resources/xnec2c.glade:11952
+msgid "_Poynting Vector"
+msgstr "_ポインティングベクトル"
+
+#: resources/xnec2c.glade:11961
+msgid "_Animate Dialog"
+msgstr "_アニメーションダイアログ"
+
+#: resources/xnec2c.glade:11970
+msgid "_Total Field"
+msgstr "_全界"
+
+#: resources/xnec2c.glade:11979
+msgid "_Peak Value"
+msgstr "_ピーク値"
+
+#: resources/xnec2c.glade:11990
+msgid "_Snapshot"
+msgstr "_スナップショット"
+
+#: resources/xnec2c.glade:12029
+msgid "_Overlay Structure"
+msgstr "_構造オーバーレイ"
+
+#: resources/xnec2c.glade:12053
+msgid "Gain Pattern"
+msgstr "ゲインパターン"
+
+#: resources/xnec2c.glade:12068
+msgid "E/H Fields"
+msgstr "E/H界"
+
+#: resources/xnec2c.glade:12251
+msgid "Zoom % "
+msgstr "ズーム % "
+
+#: resources/xnec2c.glade:12572
+msgid "Frequency MHz"
+msgstr "周波数 MHz"
+
+#: resources/xnec2c.glade:12589
+msgid "0.010"
+msgstr "0.010"
+
+#: resources/xnec2c.glade:12745
+msgid "Scale Structure (GS card)"
+msgstr "構造スケール (GSカード)"
+
+#: resources/xnec2c.glade:12776
+msgid "Structure Scale Factor"
+msgstr "構造スケール係数"
+
+#: resources/xnec2c.glade:12789
+msgid "From Tag No."
+msgstr "開始タグ番号"
+
+#: resources/xnec2c.glade:12839
+msgid "To Tag No."
+msgstr "終了タグ番号"
+
+#: resources/xnec2c.glade:12874
+msgid "Scale Structure"
+msgstr "構造スケール"
+
+#: resources/xnec2c.glade:13051
+msgid "Co-ordinate Transformation (GM card)"
+msgstr "座標変換 (GMカード)"
+
+#: resources/xnec2c.glade:13081
+msgid "Tag Increment"
+msgstr "タグ増分"
+
+#: resources/xnec2c.glade:13112
+msgid "Rotate about X"
+msgstr "X軸回転"
+
+#: resources/xnec2c.glade:13144
+msgid "Move along X"
+msgstr "X方向移動"
+
+#: resources/xnec2c.glade:13176
+msgid "New Structures"
+msgstr "新規構造数"
+
+#: resources/xnec2c.glade:13207
+msgid "Rotate about Y"
+msgstr "Y軸回転"
+
+#: resources/xnec2c.glade:13239
+msgid "Move along Y"
+msgstr "Y方向移動"
+
+#: resources/xnec2c.glade:13271
+msgid "Start From Tag"
+msgstr "開始タグ"
+
+#: resources/xnec2c.glade:13303
+msgid "Rotate about Z"
+msgstr "Z軸回転"
+
+#: resources/xnec2c.glade:13335
+msgid "Move along Z"
+msgstr "Z方向移動"
+
+#: resources/xnec2c.glade:13371
+msgid "Co-ordinate Transformation Data"
+msgstr "座標変換データ"
+
+#: resources/xnec2c.glade:13567
+msgid "Trans. Line Command (TL Card)"
+msgstr "伝送線路コマンド (TLカード)"
+
+#: resources/xnec2c.glade:13597
+msgid "Tag Number, End 1  "
+msgstr "タグ番号、端点1  "
+
+#: resources/xnec2c.glade:13629
+msgid "Tag Number, End 2  "
+msgstr "タグ番号、端点2  "
+
+#: resources/xnec2c.glade:13660
+msgid "Segment Num, End 1"
+msgstr "セグメント番号、端点1"
+
+#: resources/xnec2c.glade:13692
+msgid "Segment Num, End 2"
+msgstr "セグメント番号、端点2"
+
+#: resources/xnec2c.glade:13756
+msgid "Crossed Transmission Line"
+msgstr "交差伝送線路"
+
+#: resources/xnec2c.glade:13774
+msgid "Characteristic Impedance"
+msgstr "特性インピーダンス"
+
+#: resources/xnec2c.glade:13806
+msgid "End 1 Y Real Part (S)"
+msgstr "端点1 Y実部 (S)"
+
+#: resources/xnec2c.glade:13838
+msgid "End 2 Y Real Part (S)"
+msgstr "端点2 Y実部 (S)"
+
+#: resources/xnec2c.glade:13870
+msgid "Length of Tx Line (m)"
+msgstr "伝送線路長 (m)"
+
+#: resources/xnec2c.glade:13902
+msgid "End 1 Y Imag Part (S)"
+msgstr "端点1 Y虚部 (S)"
+
+#: resources/xnec2c.glade:13934
+msgid "End 2 Y Imag Part (S)"
+msgstr "端点2 Y虚部 (S)"
+
+#: resources/xnec2c.glade:13970
+msgid "Transmission Line"
+msgstr "伝送線路"
+
+#: resources/xnec2c.glade:14197
+msgid "Wire Element (GW & GC cards)"
+msgstr "ワイヤ要素 (GW & GCカード)"
+
+#: resources/xnec2c.glade:14257
+msgid "Wire X1"
+msgstr "ワイヤ X1"
+
+#: resources/xnec2c.glade:14289
+msgid "Wire X2"
+msgstr "ワイヤ X2"
+
+#: resources/xnec2c.glade:14352
+msgid "Wire Y1"
+msgstr "ワイヤ Y1"
+
+#: resources/xnec2c.glade:14385
+msgid "Wire Y2"
+msgstr "ワイヤ Y2"
+
+#: resources/xnec2c.glade:14449
+msgid "Wire Z1"
+msgstr "ワイヤ Z1"
+
+#: resources/xnec2c.glade:14481
+msgid "Wire Z2"
+msgstr "ワイヤ Z2"
+
+#: resources/xnec2c.glade:14546
+msgid "Wire Length"
+msgstr "ワイヤ長"
+
+#: resources/xnec2c.glade:14617
+msgid "Wire Data"
+msgstr "ワイヤデータ"
+
+#: resources/xnec2c.glade:14629
+msgid "Tapered Wire"
+msgstr "テーパワイヤ"
+
+#: resources/xnec2c.glade:14671
+msgid "Length Taper"
+msgstr "長さテーパ"
+
+#: resources/xnec2c.glade:14703
+msgid "Diameter Seg 1"
+msgstr "直径 セグメント1"
+
+#: resources/xnec2c.glade:14735
+msgid "Diameter Seg N"
+msgstr "直径 セグメントN"
+
+#: resources/xnec2c.glade:14767
+msgid "Diam. Taper"
+msgstr "直径テーパ"
+
+#: resources/xnec2c.glade:14803
+msgid "Wire Taper Data"
+msgstr "ワイヤテーパデータ"
+
+#: resources/xnec2c.glade:14968
+msgid "Impedance (Zo) Ohm"
+msgstr "インピーダンス (Zo) Ω"
+
+#: resources/xnec2c.glade:14983
+msgid "50.00"
+msgstr "50.00"
+
+#: resources/xnec2c.glade:15006
+msgid "Transmission Line Impedance (Zo)"
+msgstr "伝送線路インピーダンス (Zo)"
+
+#~ msgid ""
+#~ "Not available for Incident Field or\n"
+#~ "Elementary Current Source Excitation.\n"
+#~ "(Excitation Types 1 to 4)"
+#~ msgstr ""
+#~ "入射電界または\n"
+#~ "基本電流源励振には使用できません。\n"
+#~ "(励振タイプ 1 から 4)"
+
+#~ msgid "number of segments less than 1 (ns < 1)\n"
+#~ msgstr "セグメント数が1未満です (ns < 1)\n"
+
+#~ msgid "arc angle exceeds 360 degrees\n"
+#~ msgstr "円弧角度が360度を超えています\n"
+
+#~ msgid "np > n\n"
+#~ msgstr "np > n\n"
+
+#~ msgid "b less than a\n"
+#~ msgstr "bがa未満です\n"
+
+#~ msgid "unexpected EOF (End of File)\n"
+#~ msgstr "予期しないEOF（ファイル終端）\n"
+
+#~ msgid "error reading Comments: Comment mnemonic short or missing\n"
+#~ msgstr ""
+#~ "コメント読み取りエラー: コメントニーモニックが短いか欠落しています\n"
+
+#~ msgid "geometry data card error - tag number is less than 1\n"
+#~ msgstr "ジオメトリデータカードエラー - タグ番号が1未満です\n"
+
+#~ msgid "geometry data card error - number of segments is less than 1\n"
+#~ msgstr "ジオメトリデータカードエラー - セグメント数が1未満です\n"
+
+#~ msgid "geometry data card error no GC card for tapered wire\n"
+#~ msgstr "ジオメトリデータカードエラー テーパワイヤ用のGCカードがありません\n"
+
+#~ msgid "geometry GC data card error\n"
+#~ msgstr "ジオメトリGCデータカードエラー\n"
+
+#~ msgid "geometry GX data card error\n"
+#~ msgstr "ジオメトリGXデータカードエラー\n"
+
+#~ msgid "geometry GR data card error\n"
+#~ msgstr "ジオメトリGRデータカードエラー\n"
+
+#~ msgid "move GM data card error\n"
+#~ msgstr "移動GMデータカードエラー\n"
+
+#~ msgid "patch data card error\n"
+#~ msgstr "パッチデータカードエラー\n"
+
+#~ msgid "patch data error\n"
+#~ msgstr "パッチデータエラー\n"
+
+#~ msgid "patch card data error\n"
+#~ msgstr "パッチカードデータエラー\n"
+
+#~ msgid "\"GF\" card (NGF solution) is not supported\n"
+#~ msgstr "\"GF\"カード（NGFソリューション）はサポートされていません\n"
+
+#~ msgid "ignoring CM card in geometry\n"
+#~ msgstr "ジオメトリ内のCMカードを無視しています\n"
+
+#~ msgid ""
+#~ "Theta > 90 deg with ground specified: Please check RP card data and "
+#~ "correct\n"
+#~ msgstr ""
+#~ "接地指定時に Theta > 90度: RP カードデータを確認し修正してください\n"
+
+#~ msgid "Hankel not valid for z = 0\n"
+#~ msgstr "z = 0 ではハンケル関数は無効です\n"
+
+#~ msgid "No convergence\n"
+#~ msgstr "収束しません\n"
+
+#, c-format
+#~ msgid ""
+#~ "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
+#~ msgstr "ジオメトリデータカード\"%1$s\"エラー: 列%3$dに不正な文字'%2$c'\n"
+
+#~ msgid ""
+#~ "Geometry data card error\n"
+#~ "Spurious character in command card"
+#~ msgstr ""
+#~ "ジオメトリデータカードエラー\n"
+#~ "コマンドカードに不正な文字があります"
+
+#, c-format
+#~ msgid "geometry data: expression evaluation failed for \"%s\"\n"
+#~ msgstr "ジオメトリデータ: \"%s\"の式の評価に失敗しました\n"

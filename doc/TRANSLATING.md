@@ -49,6 +49,38 @@ xnec2c is electromagnetic simulation software for antenna and radio frequency (R
 | load | weight/burden | electrical impedance |
 | radials | pertaining to radius | horizontal ground plane wires |
 
+### Context-Dependent Disambiguation
+
+The table above indicates **which semantic sense** to use for ambiguous terms. It does **not** require adding qualifiers absent in the source text.
+
+**General Principle:** Specialized software context disambiguates terms for domain-expert users. Translators select the correct technical meaning without adding explanatory qualifiers that are absent in the English source.
+
+**Policy:**
+- The disambiguation table shows which meaning to choose (electrical vs temporal "current")
+- It does not mandate adding clarifying text ("electrical currents" vs "currents")
+- Match the source text's level of qualification while selecting the correct technical sense
+
+**Evaluation criteria for any language:**
+- ✓ Does translation use correct technical sense from disambiguation table?
+- ✗ Does translation add context markers (qualifiers, adjectives) absent in source?
+
+The electromagnetic simulation application provides implicit disambiguation. Users opening "View Currents" in xnec2c understand this refers to electrical current.
+
+**Examples (illustrative, applies to all languages):**
+
+| English Source | Correct (any language) | Incorrect (over-qualified) |
+|----------------|------------------------|---------------------------|
+| View Currents | Domain term for electrical currents | Domain term + "electrical" qualifier |
+| View Charges | Domain term for electrical charges | Domain term + "electrical" qualifier |
+| Ground Plane | Domain term for RF ground plane | Domain term + "electrical" qualifier |
+
+**Concrete examples:**
+- Afrikaans: "Bekyk Strome" ✓ (not "Bekyk Elektriese Strome")
+- German: "Groundplane" ✓ (not "Elektrische Groundplane")
+- Spanish: "Ver Corrientes" ✓ (not "Ver Corrientes Eléctricas")
+
+All language translations follow this principle: use the correct technical sense without adding qualifiers.
+
 ---
 
 ## Translatable Strings (from POT file)
@@ -81,6 +113,62 @@ Full translation, context-aware:
 "Frequency Plots" → electromagnetic frequency
 "Radiation Pattern" → antenna radiation
 ```
+
+---
+
+## Format Specifiers
+
+### Critical Requirement
+
+Messages containing format specifiers (printf-style placeholders) MUST preserve all specifiers in identical order.
+
+**Format Specifiers:**
+- `%s` — string argument
+- `%d` — integer argument
+- `%f` — floating-point argument
+- `%c` — character argument
+- `%%` — literal percent sign
+
+### Order Preservation
+
+Format specifiers correspond to numbered arguments passed at runtime. Changing specifier order causes:
+- Fatal compilation errors
+- Runtime crashes
+- Incorrect data display
+
+**Rule:** msgstr specifiers MUST appear in same order as msgid, regardless of target language sentence structure.
+
+### Target Language Adaptation
+
+Restructure sentence around fixed specifier positions while maintaining natural target language flow.
+
+**English source:**
+```
+"%s data card error: Spurious character '%c' at column %d\n"
+```
+
+**Traditional Chinese — WRONG (specifiers reordered):**
+```
+"%s 資料卡錯誤：第 %d 欄有無效字元 '%c'\n"
+```
+Swaps arguments 2 and 3; compilation fails with format mismatch error.
+
+**Traditional Chinese — CORRECT (specifiers in order):**
+```
+"%s 資料卡錯誤：無效字元 '%c' 於第 %d 欄\n"
+```
+Maintains `%s`, `%c`, `%d` sequence; adapts sentence structure to natural Chinese while respecting argument positions.
+
+### Language-Specific Considerations
+
+**SOV languages (Japanese, Korean, Turkish, Hindi, etc.):**
+Verb-final structure requires careful specifier placement; restructure clauses to maintain specifier order.
+
+**RTL languages (Arabic, Hebrew, Urdu):**
+Format specifiers remain LTR; surrounding text flows RTL; specifier order unchanged from source.
+
+**Free word-order languages:**
+Leverage flexibility to position specifiers naturally while preserving argument sequence.
 
 ---
 

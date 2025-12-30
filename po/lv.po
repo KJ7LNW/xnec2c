@@ -1,0 +1,3628 @@
+# Latvian translations for xnec2c package.
+# Copyright (C) 2025 Neoklis Kyriazis nkcyham@yahoo.com
+# This file is distributed under the same license as the xnec2c package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xnec2c 4.4.18\n"
+"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
+"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"PO-Revision-Date: 2025-12-28 20:37-0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+#: src/calculations.c:117 src/calculations.c:1276
+#, c-format
+msgid "segment connection error for segment %5d\n"
+msgstr "segmenta savienojuma kļūda segmentam %5d\n"
+
+#: src/calculations.c:118
+msgid "Segment connection error in tbf()"
+msgstr "Segmenta savienojuma kļūda funkcijā tbf()"
+
+#: src/calculations.c:890
+#, c-format
+msgid "step size limited at z= %10.5f\n"
+msgstr "soļa izmērs ierobežots pie z= %10.5f\n"
+
+#: src/calculations.c:1054
+#, c-format
+msgid "segment connection error for segment %d\n"
+msgstr "segmenta savienojuma kļūda segmentam %d\n"
+
+#: src/calculations.c:1055
+msgid "Segment connection error in sbf()"
+msgstr "Segmenta savienojuma kļūda funkcijā sbf()"
+
+#: src/calculations.c:1277
+msgid "Segment connection error in trio()"
+msgstr "Segmenta savienojuma kļūda funkcijā trio()"
+
+#: src/callback_func.c:263
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to end the calculation?"
+msgstr ""
+"Frekvences cikls darbojas\n"
+"Vai tiešām vēlaties beigt aprēķinu?"
+
+#: src/callback_func.c:267
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to close this window?"
+msgstr ""
+"Frekvences cikls darbojas\n"
+"Vai tiešām vēlaties aizvērt šo logu?"
+
+#: src/callback_func.c:512
+#, c-format
+msgid ""
+"Frequency plots window closed: excitation type %d is incompatible.\n"
+"Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
+msgstr ""
+"Frekvenču grafiku logs aizvērts: ierosmes tips %d nav saderīgs.\n"
+"Tā vietā izmantojiet tipu 0 (Pieliktais E lauks) vai 5 (Strāvas pārrāvums)."
+
+#: src/callback_func.c:518
+#, c-format
+msgid ""
+"Frequency plots are not available with excitation type %d.\n"
+"This model uses Incident Field or Elementary Current Source excitation.\n"
+"Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
+msgstr ""
+"Frekvenču grafiki nav pieejami ar ierosmes tipu %d.\n"
+"Šis modelis izmanto Krītošā lauka vai Elementārā strāvas avota ierosmi.\n"
+"Mainiet EX karti uz tipu 0 (Pieliktais E lauks) vai 5 (Strāvas pārrāvums)."
+
+#: src/callback_func.c:697
+msgid "View Currents"
+msgstr "Skatīt strāvas"
+
+#: src/callback_func.c:719 src/callback_func.c:778
+msgid "View Geometry"
+msgstr "Skatīt ģeometriju"
+
+#: src/callback_func.c:756
+msgid "View Charges"
+msgstr "Skatīt lādiņus"
+
+#: src/callback_func.c:821
+msgid "PNG images (*.png)"
+msgstr "PNG attēli (*.png)"
+
+#: src/callback_func.c:823
+msgid "GNUplot files (*.gplot)"
+msgstr "GNUplot faili (*.gplot)"
+
+#: src/callback_func.c:825
+msgid "NEC2 files (*.nec)"
+msgstr "NEC2 faili (*.nec)"
+
+#: src/callback_func.c:827
+msgid "Touchstone 1-port files (*.s1p)"
+msgstr "Touchstone 1 porta faili (*.s1p)"
+
+#: src/callback_func.c:829
+msgid "Touchstone 2-port files (*.s2p)"
+msgstr "Touchstone 2 portu faili (*.s2p)"
+
+#: src/callback_func.c:831
+msgid "Comma-separated CSV files (*.csv)"
+msgstr "Ar komatu atdalīti CSV faili (*.csv)"
+
+#: src/callbacks.c:88 src/callbacks.c:371 src/callbacks.c:1813
+#: src/callbacks.c:2174
+msgid "Are you sure you wish to quit xnec2c?"
+msgstr "Vai tiešām vēlaties iziet no xnec2c?"
+
+#: src/callbacks.c:131
+msgid ""
+"A new NEC2 input file may not be created\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Jaunu NEC2 ievades failu nevar izveidot,\n"
+"kamēr darbojas frekvences cikls"
+
+#: src/callbacks.c:171
+msgid ""
+"A new NEC2 input file may not be opened\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Jaunu NEC2 ievades failu nevar atvērt,\n"
+"kamēr darbojas frekvences cikls"
+
+#: src/callbacks.c:291
+msgid "xnec2c geometry optimizer"
+msgstr "xnec2c ģeometrijas optimizētājs"
+
+#: src/callbacks.c:292
+msgid ""
+"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr "xnec2c ir kompilēts bez inotify atbalsta: optimizētāju nevar iespējot."
+
+#: src/callbacks.c:316
+msgid "Xnec2c Optimizer"
+msgstr "Xnec2c optimizētājs"
+
+#: src/callbacks.c:316
+msgid ""
+"No files are selected for writing. However, xnec2c will still reload and "
+"recalculate the input file on modification when triggered by inotify.Select "
+"files for writing in \"File->Optimization Settings\"."
+msgstr ""
+"Nav atlasīti faili ierakstīšanai. Tomēr xnec2c joprojām pārlādēs un "
+"pārrēķinās ievades failu pēc modificēšanas, kad to aktivizēs inotify. "
+"Atlasiet failus ierakstīšanai sadaļā \"Fails->Optimizācijas iestatījumi\"."
+
+#: src/callbacks.c:327
+msgid "failed to create Optimizer Output thread\n"
+msgstr "neizdevās izveidot optimizētāja izvades pavedienu\n"
+
+#: src/callbacks.c:1031 src/callbacks.c:1347 src/callbacks.c:2200
+msgid "Are you sure you wish to close this window?"
+msgstr "Vai tiešām vēlaties aizvērt šo logu?"
+
+#: src/callbacks.c:2138
+msgid "No open NEC2 input file"
+msgstr "Nav atvērts NEC2 ievades fails"
+
+#: src/callbacks.c:2231 src/callbacks.c:2261
+msgid ""
+"NEC2 Editor's data may not be saved\n"
+"while the Frequency Loop is running"
+msgstr ""
+"NEC2 redaktora datus nevar saglabāt,\n"
+"kamēr darbojas frekvences cikls"
+
+#: src/callbacks.c:2243 src/callbacks.c:2269
+msgid "untitled.nec"
+msgstr "untitled.nec"
+
+#: src/callbacks.c:2734 src/callbacks.c:2754 src/callbacks.c:2774
+#: src/geom_edit.c:413 src/geom_edit.c:1229 src/geom_edit.c:1471
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Frekvences (FR) kartes vēl nav apstrādātas.\n"
+"Varbūt vispirms jāsaglabā NEC2 redaktora dati."
+
+#: src/cmnd_edit.c:72
+msgid ""
+"Get_Command_Data(): Error reading\n"
+"row data: Invalid list iterator"
+msgstr ""
+"Get_Command_Data(): Kļūda lasot\n"
+"rindas datus: Nederīgs saraksta iterators"
+
+#: src/cmnd_edit.c:105
+msgid ""
+"Set_Command_Data(): Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Set_Command_Data(): Kļūda ierakstot rindas datus\n"
+"Lūdzu, atlasiet rindu vēlreiz"
+
+#: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
+#: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
+msgid "Tag Number"
+msgstr "Birkas numurs"
+
+#: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
+msgid "Segment Number"
+msgstr "Segmenta numurs"
+
+#: src/cmnd_edit.c:422
+msgid "Voltage Real Part"
+msgstr "Sprieguma reālā daļa"
+
+#: src/cmnd_edit.c:423
+msgid "Voltage Imaginary Part"
+msgstr "Sprieguma imaginārā daļa"
+
+#: src/cmnd_edit.c:424 src/cmnd_edit.c:1579
+msgid "Normalization Factor"
+msgstr "Normalizācijas faktors"
+
+#: src/cmnd_edit.c:425 src/cmnd_edit.c:426 src/cmnd_edit.c:427
+#: src/cmnd_edit.c:463 src/cmnd_edit.c:464 src/cmnd_edit.c:1814
+#: src/cmnd_edit.c:1825 src/cmnd_edit.c:1826
+msgid "  ** NOT USED **"
+msgstr "  ** NETIEK LIETOTS **"
+
+#: src/cmnd_edit.c:445
+msgid "Num of Theta Angles"
+msgstr "Teta leņķu skaits"
+
+#: src/cmnd_edit.c:446
+msgid "Num of Phi Angles"
+msgstr "Fi leņķu skaits"
+
+#: src/cmnd_edit.c:447
+msgid "Theta Angle (deg)"
+msgstr "Teta leņķis (grādi)"
+
+#: src/cmnd_edit.c:448
+msgid "Phi Angle (deg)"
+msgstr "Fi leņķis (grādi)"
+
+#: src/cmnd_edit.c:449
+msgid "Eta Angle (deg)"
+msgstr "Eta leņķis (grādi)"
+
+#: src/cmnd_edit.c:450
+msgid "Theta Increment (deg)"
+msgstr "Teta pieaugums (grādi)"
+
+#: src/cmnd_edit.c:451
+msgid "Phi Increment (deg)"
+msgstr "Fi pieaugums (grādi)"
+
+#: src/cmnd_edit.c:452
+msgid "Minor/Major Axis"
+msgstr "Mazā/lielā ass"
+
+#: src/cmnd_edit.c:465
+msgid "X Position (m)"
+msgstr "X pozīcija (m)"
+
+#: src/cmnd_edit.c:466
+msgid "Y Position (m)"
+msgstr "Y pozīcija (m)"
+
+#: src/cmnd_edit.c:467
+msgid "Z Position (m)"
+msgstr "Z pozīcija (m)"
+
+#: src/cmnd_edit.c:468
+msgid "alpha Angle (deg)"
+msgstr "Alfa leņķis (grādi)"
+
+#: src/cmnd_edit.c:469
+msgid "beta Angle (deg)"
+msgstr "Beta leņķis (grādi)"
+
+#: src/cmnd_edit.c:470
+msgid "Current Moment (A.m)"
+msgstr "Strāvas moments (A·m)"
+
+#: src/cmnd_edit.c:1556
+msgid "Points in Z"
+msgstr "Punkti Z virzienā"
+
+#: src/cmnd_edit.c:1557
+msgid "Initial Z (m)"
+msgstr "Sākotnējais Z (m)"
+
+#: src/cmnd_edit.c:1558
+msgid "Increment in Z"
+msgstr "Z pieaugums"
+
+#: src/cmnd_edit.c:1559
+msgid "Field Point R (m)"
+msgstr "Lauka punkta R (m)"
+
+#: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
+msgid "Points in Phi"
+msgstr "Punkti Fi virzienā"
+
+#: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
+msgid "Initial Theta (deg)"
+msgstr "Sākotnējais Teta (grādi)"
+
+#: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
+msgid "Increment in Theta"
+msgstr "Teta pieaugums"
+
+#: src/cmnd_edit.c:1570
+msgid "R (m) (Optional)"
+msgstr "R (m) (neobligāts)"
+
+#: src/cmnd_edit.c:1583
+msgid "** NOT USED **"
+msgstr "** NETIEK LIETOTS **"
+
+#: src/cmnd_edit.c:1788 src/cmnd_edit.c:1812
+msgid "Resistance Ohm"
+msgstr "Pretestība Ω"
+
+#: src/cmnd_edit.c:1789
+msgid "Inductance uH"
+msgstr "Induktivitāte μH"
+
+#: src/cmnd_edit.c:1790
+msgid "Capacitance pF"
+msgstr "Kapacitāte pF"
+
+#: src/cmnd_edit.c:1800
+msgid "Resistance Ohm/m"
+msgstr "Pretestība Ω/m"
+
+#: src/cmnd_edit.c:1801
+msgid "Inductance uH/m"
+msgstr "Induktivitāte μH/m"
+
+#: src/cmnd_edit.c:1802
+msgid "Capacitance pF/m"
+msgstr "Kapacitāte pF/m"
+
+#: src/cmnd_edit.c:1813
+msgid "Reactance Ohm"
+msgstr "Reaktance Ω"
+
+#: src/cmnd_edit.c:1824 resources/xnec2c.glade:480 resources/xnec2c.glade:4012
+#: resources/xnec2c.glade:14578
+msgid "Conductivity S/m"
+msgstr "Vadītspēja S/m"
+
+#: src/cmnd_edit.c:2453
+msgid "Points in X-axis"
+msgstr "Punkti X asī"
+
+#: src/cmnd_edit.c:2454
+msgid "Points in Y-axis"
+msgstr "Punkti Y asī"
+
+#: src/cmnd_edit.c:2455
+msgid "Points in Z-axis"
+msgstr "Punkti Z asī"
+
+#: src/cmnd_edit.c:2456
+msgid "First Point X (m)"
+msgstr "Pirmā punkta X (m)"
+
+#: src/cmnd_edit.c:2457
+msgid "First Point Y (m)"
+msgstr "Pirmā punkta Y (m)"
+
+#: src/cmnd_edit.c:2458
+msgid "First Point Z (m)"
+msgstr "Pirmā punkta Z (m)"
+
+#: src/cmnd_edit.c:2459
+msgid "Increment in X (m)"
+msgstr "X pieaugums (m)"
+
+#: src/cmnd_edit.c:2460
+msgid "Increment in Y (m)"
+msgstr "Y pieaugums (m)"
+
+#: src/cmnd_edit.c:2461
+msgid "Increment in Z (m)"
+msgstr "Z pieaugums (m)"
+
+#: src/cmnd_edit.c:2469
+msgid "Points along R"
+msgstr "Punkti gar R"
+
+#: src/cmnd_edit.c:2470
+msgid "Points along Phi"
+msgstr "Punkti gar Fi"
+
+#: src/cmnd_edit.c:2471
+msgid "Points along Theta"
+msgstr "Punkti gar Teta"
+
+#: src/cmnd_edit.c:2472
+msgid "First Point R (m)"
+msgstr "Pirmā punkta R (m)"
+
+#: src/cmnd_edit.c:2473
+msgid "First Point Phi"
+msgstr "Pirmā punkta Fi"
+
+#: src/cmnd_edit.c:2474
+msgid "First Point Theta"
+msgstr "Pirmā punkta Teta"
+
+#: src/cmnd_edit.c:2475
+msgid "Increment in R (m)"
+msgstr "R pieaugums (m)"
+
+#: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
+msgid "Increment in Phi"
+msgstr "Fi pieaugums"
+
+#: src/draw_radiation.c:28
+msgid ""
+"Animation requires near field data.\n"
+"\n"
+"E-field animation: Add NE card to NEC file\n"
+"H-field animation: Add NH card to NEC file\n"
+"Poynting vector: Add both NE and NH cards"
+msgstr ""
+"Animācijai nepieciešami tuvā lauka dati.\n"
+"\n"
+"E-lauka animācija: Pievienojiet NE karti NEC failam\n"
+"H-lauka animācija: Pievienojiet NH karti NEC failam\n"
+"Pointinga vektors: Pievienojiet gan NE, gan NH kartes"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
+msgid "Near Field Animation"
+msgstr "Tuvā lauka animācija"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 src/geometry.c:812
+#: src/input.c:1570 src/input.c:1571 src/utils.c:509 src/utils.c:555
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/draw_radiation.c:1052
+msgid "Total Gain"
+msgstr "Kopējais pastiprinājums"
+
+#: src/draw_radiation.c:1053
+msgid "Horizontal Polarization"
+msgstr "Horizontālā polarizācija"
+
+#: src/draw_radiation.c:1054
+msgid "Vertical Polarization"
+msgstr "Vertikālā polarizācija"
+
+#: src/draw_radiation.c:1055
+msgid "RH Circular Polarization"
+msgstr "Labās puses cirkulārā polarizācija"
+
+#: src/draw_radiation.c:1056
+msgid "LH Circular Polarization"
+msgstr "Kreisās puses cirkulārā polarizācija"
+
+#: src/draw_radiation.c:1061
+msgid "Linear Power"
+msgstr "Lineārā jauda"
+
+#: src/draw_radiation.c:1062
+msgid "Linear Voltage"
+msgstr "Lineārais spriegums"
+
+#: src/draw_radiation.c:1063
+msgid "ARRL Scale"
+msgstr "ARRL skala"
+
+#: src/draw_radiation.c:1064
+msgid "Logarithmic Scale"
+msgstr "Logaritmiskā skala"
+
+#: src/draw_radiation.c:1073 resources/xnec2c.glade:12710
+msgid "Radiation Patterns"
+msgstr "Starojuma diagrammas"
+
+#: src/draw_radiation.c:1076
+msgid "Radiation Pattern: - "
+msgstr "Starojuma diagramma: - "
+
+#: src/draw_radiation.c:1083
+msgid "Near Fields:"
+msgstr "Tuvie lauki:"
+
+#: src/draw_radiation.c:1085
+msgid " - E Field"
+msgstr " - E lauks"
+
+#: src/draw_radiation.c:1087
+msgid " - H Field"
+msgstr " - H lauks"
+
+#: src/draw_radiation.c:1089
+msgid " - Poynting Vector"
+msgstr " - Pointinga vektors"
+
+#: src/draw_radiation.c:1099
+msgid "Frequency Data Plots - "
+msgstr "Frekvences datu grafiki - "
+
+#: src/draw_radiation.c:1307
+#, c-format
+msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
+msgstr "fstep=%d ir ārpus robežām. calc_data.steps_total=%d"
+
+#: src/geom_edit.c:76 src/geom_edit.c:1866 src/geom_edit.c:2109
+#: src/geom_edit.c:2491
+msgid ""
+"Error reading row data\n"
+"Invalid list iterator"
+msgstr ""
+"Kļūda lasot rindas datus\n"
+"Nederīgs saraksta iterators"
+
+#: src/geom_edit.c:109 src/geom_edit.c:139
+msgid ""
+"Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Kļūda rakstot rindas datus\n"
+"Lūdzu, atkārtoti atlasiet rindu"
+
+#: src/geom_edit.c:528
+msgid ""
+"GC card preceded by GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GC kartei priekšā ir GW karte\n"
+"ar stieples rādiusu, kas nav nulle"
+
+#: src/geom_edit.c:532
+msgid "No GW card before GC card"
+msgstr "Nav GW kartes pirms GC kartes"
+
+#: src/geom_edit.c:556
+msgid ""
+"No GC card after a GW card\n"
+"with a zero wire radius"
+msgstr ""
+"Nav GC kartes pēc GW kartes\n"
+"ar nulles stieples rādiusu"
+
+#: src/geom_edit.c:565
+msgid ""
+"GC card follows a GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GC karte seko GW kartei\n"
+"ar stieples rādiusu, kas nav nulle"
+
+#: src/geom_edit.c:944
+msgid ""
+"SC card preceded by SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SC kartei priekšā ir SP karte\n"
+"ar patvaļīgu plākstera tipu"
+
+#: src/geom_edit.c:956
+msgid "No SP or SM card before SC card"
+msgstr "Nav SP vai SM kartes pirms SC kartes"
+
+#: src/geom_edit.c:976
+msgid ""
+"No SC card after an SP card\n"
+"with non-arbitrary patch type"
+msgstr ""
+"Nav SC kartes pēc SP kartes\n"
+"ar nepatvaļīgu plākstera tipu"
+
+#: src/geom_edit.c:983
+msgid ""
+"SC card follows an SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SC karte seko SP kartei\n"
+"ar patvaļīgu plākstera tipu"
+
+#: src/geom_edit.c:996
+msgid "No SC card after an SM card"
+msgstr "Nav SC kartes pēc SM kartes"
+
+#: src/geom_edit.c:1066 resources/xnec2c.glade:7685
+msgid "Center - X"
+msgstr "Centrs - X"
+
+#: src/geom_edit.c:1068 resources/xnec2c.glade:7749
+msgid "Center - Y"
+msgstr "Centrs - Y"
+
+#: src/geom_edit.c:1070 resources/xnec2c.glade:7813
+msgid "Center - Z"
+msgstr "Centrs - Z"
+
+#: src/geom_edit.c:1072 resources/xnec2c.glade:7717
+msgid "Normal - Elev."
+msgstr "Normāle - Elev."
+
+#: src/geom_edit.c:1074 resources/xnec2c.glade:7781
+msgid "Normal - Azim."
+msgstr "Normāle - Azim."
+
+#: src/geom_edit.c:1076 resources/xnec2c.glade:7845
+msgid "Patch Area"
+msgstr "Plākstera laukums"
+
+#: src/geom_edit.c:1081
+msgid "Corner 1 - X"
+msgstr "Stūris 1 - X"
+
+#: src/geom_edit.c:1083
+msgid "Corner 1 - Y"
+msgstr "Stūris 1 - Y"
+
+#: src/geom_edit.c:1085
+msgid "Corner 1 - Z"
+msgstr "Stūris 1 - Z"
+
+#: src/geom_edit.c:1087
+msgid "Corner 2 - X"
+msgstr "Stūris 2 - X"
+
+#: src/geom_edit.c:1089
+msgid "Corner 2 - Y"
+msgstr "Stūris 2 - Y"
+
+#: src/geom_edit.c:1091
+msgid "Corner 2 - Z"
+msgstr "Stūris 2 - Z"
+
+#: src/geom_edit.c:2582
+msgid "NEC2 editor window not open"
+msgstr "NEC2 redaktora logs nav atvērts"
+
+#: src/geometry.c:97
+msgid "Number of segments < 1"
+msgstr "Segmentu skaits < 1"
+
+#: src/geometry.c:148
+msgid "Arc angle exceeds 360 degrees"
+msgstr "Loka leņķis pārsniedz 360 grādus"
+
+#: src/geometry.c:309
+msgid "Error in conect(): np > n"
+msgstr "Kļūda conect(): np > n"
+
+#: src/geometry.c:343 src/geometry.c:391
+#, c-format
+msgid "geometry data error: segment %d extends below ground\n"
+msgstr "ģeometrijas datu kļūda: segments %d sniedzas zem zemes plaknes\n"
+
+#: src/geometry.c:344 src/geometry.c:392
+msgid ""
+"Geometry data error\n"
+"Segment extends below ground"
+msgstr ""
+"Ģeometrijas datu kļūda\n"
+"Segments sniedzas zem zemes plaknes"
+
+#: src/geometry.c:401
+#, c-format
+msgid "geometry data error: segment %d lies in ground plane\n"
+msgstr "ģeometrijas datu kļūda: segments %d atrodas zemes plaknē\n"
+
+#: src/geometry.c:402
+msgid ""
+"Geometry data error\n"
+"Segment lies in ground plane"
+msgstr ""
+"Ģeometrijas datu kļūda\n"
+"Segments atrodas zemes plaknē"
+
+#: src/geometry.c:492
+msgid "ipsym = 0\n"
+msgstr "ipsym = 0\n"
+
+#: src/geometry.c:493
+msgid "Error: ipsym = 0"
+msgstr "Kļūda: ipsym = 0"
+
+#: src/geometry.c:549
+#, c-format
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
+"segj.maxcon=%lu\n"
+msgstr ""
+"Segmentu savienojumu skaits pārsniedz pilnu režģi, kas ir maz ticams: data.n="
+"%ld segj.maxcon=%lu\n"
+
+#: src/geometry.c:551
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely!\n"
+"Check for overlapping or nearly-connected segments\n"
+msgstr ""
+"Segmentu savienojumu skaits pārsniedz pilnu režģi, kas ir maz ticams!\n"
+"Pārbaudiet, vai nav pārklājošos vai gandrīz savienotu segmentu\n"
+
+#: src/geometry.c:764
+msgid ""
+"check data, parameter specifying segment: position in a group of equal tags "
+"must not be zero\n"
+msgstr ""
+"pārbaudiet datus, segmenta norādīšanas parametrs: pozīcija vienādu tagu "
+"grupā nedrīkst būt nulle\n"
+
+#: src/geometry.c:765
+msgid ""
+"Parameter specifying segment\n"
+"position in a group of equal tags is zero"
+msgstr ""
+"Segmenta norādīšanas parametrs\n"
+"pozīcija vienādu tagu grupā ir nulle"
+
+#: src/geometry.c:797
+#, c-format
+msgid "no segment has an itag of %d\n"
+msgstr "nevienam segmentam nav itag %d\n"
+
+#: src/geometry.c:801
+msgid ""
+"Segment tag number error: Tag 0 is reserved and cannot be used.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are "
+"valid.\n"
+"For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
+msgstr ""
+"Segmenta taga numura kļūda: Tags 0 ir rezervēts un to nevar izmantot.\n"
+"Pārbaudiet savas ģeometrijas kartes (īpaši GM kartes), lai pārliecinātos, ka "
+"tagu vērtības ir derīgas.\n"
+"GM kartēm: pārbaudiet, vai 'sākt no taga' un 'taga pieaugums' neveido tagu 0."
+
+#: src/geometry.c:809
+#, c-format
+msgid ""
+"Segment tag number error: No segment found with tag %d.\n"
+"You are referencing an unknown tag or segment in a control card.\n"
+"Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."
+msgstr ""
+"Segmenta taga numura kļūda: Nav atrasts segments ar tagu %d.\n"
+"Jūs atsaucaties uz nezināmu tagu vai segmentu vadības kartē.\n"
+"Derīgi tagi jūsu ģeometrijā ir tie, kas piešķirti GW/GA/GH/SP kartēm."
+
+#: src/geometry.c:1123
+msgid "corners of quadrilateral: patch do not lie in a plane\n"
+msgstr "četrstūra plākstera stūri neatrodas vienā plaknē\n"
+
+#: src/geometry.c:1124
+msgid ""
+"Corners of quadrilateral\n"
+"patch do not lie in a plane"
+msgstr ""
+"Četrstūra plākstera stūri\n"
+"neatrodas vienā plaknē"
+
+#: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
+#, c-format
+msgid "geometry data error: segment %d lies in plane of symmetry\n"
+msgstr "ģeometrijas datu kļūda: segments %d atrodas simetrijas plaknē\n"
+
+#: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
+msgid ""
+"Geometry data error\n"
+"Segment lies in plane of symmetry"
+msgstr ""
+"Ģeometrijas datu kļūda\n"
+"Segments atrodas simetrijas plaknē"
+
+#: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
+#, c-format
+msgid "geometry data error: patch %d lies in plane of symmetry\n"
+msgstr "ģeometrijas datu kļūda: plāksteris %d atrodas simetrijas plaknē\n"
+
+#: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
+msgid ""
+"Geometry data error\n"
+"Patch lies in plane of symmetry"
+msgstr ""
+"Ģeometrijas datu kļūda\n"
+"Plāksteris atrodas simetrijas plaknē"
+
+#: src/geometry.c:1642
+#, c-format
+msgid ""
+"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
+"threshold=%.3e); segment will connect to itself\n"
+msgstr ""
+"tag=%d/seg=%d: galapunktu attālums=%.3e ir pārāk mazs (zem savienojuma "
+"sliekšņa=%.3e); segments savienosies pats ar sevi\n"
+
+#: src/geometry.c:1647
+#, c-format
+msgid "tag=%d: suppressing additional self-connection warnings\n"
+msgstr "tag=%d: papildu paššavienojuma brīdinājumi tiek apslāpēti\n"
+
+#: src/geometry.c:1692
+#, c-format
+msgid ""
+"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
+"threshold %.3e; unintended connections possible\n"
+msgstr ""
+"tag=%d/seg=%d: attālums=%.3e līdz tag=%d/seg=%d ir mazāks par 2x savienojuma "
+"slieksni %.3e; iespējami netīši savienojumi\n"
+
+#: src/geometry.c:1697
+#, c-format
+msgid "tag=%d: suppressing additional overlap warnings\n"
+msgstr "tag=%d: papildu pārklāšanās brīdinājumi tiek apslāpēti\n"
+
+#: src/geometry.c:1757
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
+"length=%.3e that connection detection may fail or short\n"
+msgstr ""
+"tag=%d/seg=%d: garums=%.3e ir pārāk īss (un pietiekami tuvu) tag=%d/seg=%d "
+"garumam=%.3e, lai savienojuma noteikšana varētu neizdoties vai būt "
+"nepilnīga\n"
+
+#: src/geometry.c:1762
+#, c-format
+msgid ""
+"tag=%d: suppressing additional connection detection may fail or short "
+"warnings\n"
+msgstr ""
+"tag=%d: papildu brīdinājumi par savienojuma noteikšanas kļūmēm tiek "
+"apslāpēti\n"
+
+#: src/geometry.c:1794
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
+"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
+"recommended <= 0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: garuma/viļņa garuma attiecība %.3f < 0.001; strāvas "
+"komponentu līdzība rada skaitliskas neprecizitātes (min=0.001, labs=0.05, "
+"ieteicams <= 0.1)\n"
+
+#: src/geometry.c:1799
+#, c-format
+msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
+msgstr "tag=%d: papildu īsā viļņa garuma attiecības kļūdas tiek apslāpētas\n"
+
+#: src/geometry.c:1812
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
+"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
+"0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: garuma/viļņa garuma attiecība %.3f > 0.1; strāvas "
+"izšķirtspēja ir ierobežota ar segmentu atstatumu (min=0.001, labs=0.05, "
+"ieteicams <= 0.1)\n"
+
+#: src/geometry.c:1817
+#, c-format
+msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
+msgstr ""
+"tag=%d: papildu garā viļņa garuma attiecības brīdinājumi tiek apslāpēti\n"
+
+#: src/geometry.c:1830
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
+"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
+"recommended <=0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: garuma/viļņa garuma attiecība %.3f > 0.05; īsāki segmenti "
+"palielina precizitāti straujas strāvas izmaiņu reģionos (min=0.001, "
+"labs=0.05, ieteicams <=0.1)\n"
+
+#: src/geometry.c:1835
+#, c-format
+msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
+msgstr "tag=%d: papildu precizitātes uzlabošanas ieteikumi tiek apslāpēti\n"
+
+#: src/geometry.c:1865
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 2.0; standarta plānās "
+"stieples kodola lauka kļūda ievērojami pārsniedz 1%% (min=2.0, "
+"1%%precīzs=8.0)\n"
+
+#: src/geometry.c:1870
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
+msgstr "tag=%d: papildu standarta kodola attiecības kļūdas tiek apslāpētas\n"
+
+#: src/geometry.c:1883
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
+"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 8.0; standarta plānās "
+"stieples kodola lauka kļūda pārsniedz 1%% (min=2.0, 1%%precīzs=8.0)\n"
+
+#: src/geometry.c:1888
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
+msgstr ""
+"tag=%d: papildu standarta kodola attiecības brīdinājumi tiek apslāpēti\n"
+
+#: src/geometry.c:1903
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 0.5; paplašinātā plānās "
+"stieples kodola lauka kļūda ievērojami pārsniedz 1%% (min=0.5, "
+"1%%precīzs=2.0)\n"
+
+#: src/geometry.c:1908
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
+msgstr "tag=%d: papildu paplašinātā kodola attiecības kļūdas tiek apslāpētas\n"
+
+#: src/geometry.c:1921
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
+"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 2.0; paplašinātā plānās "
+"stieples kodola lauka kļūda pārsniedz 1%% (min=0.5, 1%%precīzs=2.0)\n"
+
+#: src/geometry.c:1926
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
+msgstr ""
+"tag=%d: papildu paplašinātā kodola attiecības brīdinājumi tiek apslāpēti\n"
+
+#: src/geometry.c:1942
+#, c-format
+msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
+msgstr ""
+"Izlaižam pārklāšanās pārbaudi %d segmentiem (izmantojiet --force-verify, lai "
+"iespējotu)\n"
+
+#: src/geometry.c:1946
+#, c-format
+msgid "Forcing overlap check for %d segments\n"
+msgstr "Piespiedu pārklāšanās pārbaude %d segmentiem\n"
+
+#: src/geometry.c:1957
+msgid ""
+"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr ""
+"verify_segments() izlaiž no frekvences atkarīgās pārbaudes - nav frekvences "
+"datu\n"
+
+#: src/gnuplot.c:46
+msgid "Gnuplot Data"
+msgstr "Gnuplot dati"
+
+#: src/gnuplot.c:46 src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Cannot save data while frequency loop is running"
+msgstr "Datus nevar saglabāt, kamēr darbojas frekvences cikls"
+
+#: src/gnuplot.c:60
+#, c-format
+msgid "# Reference impedance Z0 = %.2f Ohm\n"
+msgstr "# Atsauces pretestība Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:62
+#, c-format
+msgid ""
+"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
+"zreal and zimag:\n"
+msgstr ""
+"# Lai attēlotu gnuplot, varat modificēt šo komandu. Pašlaik tā attēlo MHz "
+"pret zreal un zimag:\n"
+
+#: src/gnuplot.c:63
+#, c-format
+msgid ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+msgstr ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+
+#: src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Touchstone Data"
+msgstr "Touchstone dati"
+
+#: src/gnuplot.c:102
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! Atsauces pretestība Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:130
+#, c-format
+msgid "This should never happen. touchstone type=%d\n"
+msgstr "Tam nevajadzētu notikt. touchstone type=%d\n"
+
+#: src/gnuplot.c:227
+#, c-format
+msgid "# Near E field\n"
+msgstr "# Tuvais E lauks\n"
+
+#: src/gnuplot.c:250
+#, c-format
+msgid "# Near H field\n"
+msgstr "# Tuvais H lauks\n"
+
+#: src/gnuplot.c:297
+#, c-format
+msgid "# Poynting Vector\n"
+msgstr "# Pointinga vektors\n"
+
+#: src/gnuplot.c:369
+#, c-format
+msgid "# Radiation Pattern\n"
+msgstr "# Starojuma diagramma\n"
+
+#: src/gnuplot.c:505
+#, c-format
+msgid "# structure patch segments\n"
+msgstr "# struktūras plākstera segmenti\n"
+
+#: src/gnuplot.c:530
+#, c-format
+msgid "# structure wire segments\n"
+msgstr "# struktūras stieples segmenti\n"
+
+#: src/gnuplot.c:565
+msgid "Save Currents and Charges to CSV"
+msgstr "Saglabāt strāvas un lādiņus CSV failā"
+
+#: src/ground.c:90
+msgid "b less than a"
+msgstr "b mazāks par a"
+
+#: src/ground.c:215
+#, c-format
+msgid "step size limited at z = %12.5E\n"
+msgstr "soļa izmērs ierobežots pie z = %12.5E\n"
+
+#: src/input.c:84
+msgid ""
+"Error reading Comments\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"Kļūda lasot komentārus\n"
+"Negaidīts EOF (faila beigas)"
+
+#: src/input.c:98
+msgid ""
+"Error reading Comments\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"Kļūda lasot komentārus\n"
+"Komentāra mnemonika ir īsa vai trūkst"
+
+#: src/input.c:109
+msgid ""
+"Read_Comments():\n"
+" Error reading input file\n"
+"Comment mnemonic incorrect"
+msgstr ""
+"Read_Comments():\n"
+" Kļūda lasot ievades failu\n"
+"Komentāra mnemonika ir nepareiza"
+
+#: src/input.c:148
+msgid ""
+"Geometry data error\n"
+"Tag number is less than 1"
+msgstr ""
+"Ģeometrijas datu kļūda\n"
+"Birkas numurs ir mazāks par 1"
+
+#: src/input.c:155
+msgid ""
+"Geometry data error\n"
+"Number of segments is less than 1"
+msgstr ""
+"Ģeometrijas datu kļūda\n"
+"Segmentu skaits ir mazāks par 1"
+
+#: src/input.c:162
+msgid "warning - number of segments is greater than 1000000\n"
+msgstr "brīdinājums - segmentu skaits ir lielāks par 1000000\n"
+
+#: src/input.c:210
+#, c-format
+msgid "%s data card error: Spurious character '%c' at column %d\n"
+msgstr "%s datu kartes kļūda: neparedzēta rakstzīme '%c' kolonnā %d\n"
+
+#: src/input.c:212
+msgid ""
+"Data card error\n"
+"Spurious character in card"
+msgstr ""
+"Datu kartes kļūda\n"
+"Neparedzēta rakstzīme kartē"
+
+#: src/input.c:262
+#, c-format
+msgid "%s: expression evaluation failed for \"%s\"\n"
+msgstr "%s: izteiksmes novērtēšana neizdevās \"%s\"\n"
+
+#: src/input.c:300
+msgid "SY card: no line content available\n"
+msgstr "SY karte: nav pieejams rindas saturs\n"
+
+#: src/input.c:301
+msgid "SY card: no line content available"
+msgstr "SY karte: nav pieejams rindas saturs"
+
+#: src/input.c:318
+msgid "SY card: missing '=' in definition\n"
+msgstr "SY karte: definīcijā trūkst '='\n"
+
+#: src/input.c:319
+msgid "SY card: missing '=' in definition"
+msgstr "SY karte: definīcijā trūkst '='"
+
+#: src/input.c:352
+#, c-format
+msgid "SY card: expression evaluation failed for %s=%s\n"
+msgstr "SY karte: izteiksmes novērtēšana neizdevās %s=%s\n"
+
+#: src/input.c:358
+#, c-format
+msgid "SY card: symbol definition failed for %s\n"
+msgstr "SY karte: simbola definīcija neizdevās %s\n"
+
+#: src/input.c:438
+msgid ""
+"Geometry data error\n"
+"No GC card for tapered wire"
+msgstr ""
+"Ģeometrijas datu kļūda\n"
+"Nav GC kartes konusveida vadam"
+
+#: src/input.c:445
+msgid "Geometry GC data card error"
+msgstr "Ģeometrijas GC datu kartes kļūda"
+
+#: src/input.c:461
+msgid "Geometry GX data card error"
+msgstr "Ģeometrijas GX datu kartes kļūda"
+
+#: src/input.c:484
+msgid "Geometry GR data card error"
+msgstr "Ģeometrijas GR datu kartes kļūda"
+
+#: src/input.c:541
+msgid "No geometry data cards"
+msgstr "Nav ģeometrijas datu karšu"
+
+#: src/input.c:550
+msgid "Probable invalid segment geometry.\n"
+msgstr "Iespējams nederīga segmenta ģeometrija.\n"
+
+#: src/input.c:551
+msgid ""
+"Invalid segment geometry.\n"
+"See warnings in the console for detail.\n"
+"Trying to continue..."
+msgstr ""
+"Nederīga segmenta ģeometrija.\n"
+"Skatiet brīdinājumus konsolē.\n"
+"Mēģina turpināt..."
+
+#: src/input.c:556
+msgid "Read_Geometry: verify_segments() passed\n"
+msgstr "Read_Geometry: verify_segments() izpildīts\n"
+
+#: src/input.c:602
+#, c-format
+msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
+msgstr "segmenta datu kļūda: tag=%d si=%lf, bi=%lf\n"
+
+#: src/input.c:604
+msgid "Segment data error, zero-length line?  See console."
+msgstr "Segmenta datu kļūda, nulles garuma līnija? Skatiet konsoli."
+
+#: src/input.c:639
+msgid "Move GM data card error"
+msgstr "Pārvietošanas GM datu kartes kļūda"
+
+#: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
+#: src/input.c:739
+msgid "Patch data card error"
+msgstr "Laukuma datu kartes kļūda"
+
+#: src/input.c:677
+msgid "Patch data error"
+msgstr "Laukuma datu kļūda"
+
+#: src/input.c:786
+msgid ""
+"\"GF\" card (NGF solution)\n"
+"is not supported"
+msgstr ""
+"\"GF\" karte (NGF risinājums)\n"
+"netiek atbalstīta"
+
+#: src/input.c:791
+msgid "Ignoring CM card in geometry"
+msgstr "CM karte ģeometrijā tiek ignorēta"
+
+#: src/input.c:804
+#, c-format
+msgid "geometry data card error (nwire=%d)\n"
+msgstr "ģeometrijas datu kartes kļūda (nwire=%d)\n"
+
+#: src/input.c:805
+#, c-format
+msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+
+#: src/input.c:808
+msgid "Geometry data card error"
+msgstr "Ģeometrijas datu kartes kļūda"
+
+#: src/input.c:833
+msgid "Failed to initialize symbol table\n"
+msgstr "Neizdevās inicializēt simbolu tabulu\n"
+
+#: src/input.c:834
+msgid "Failed to initialize symbol table"
+msgstr "Neizdevās inicializēt simbolu tabulu"
+
+#: src/input.c:1002
+msgid "ignoring CM card in commands\n"
+msgstr "CM karte komandās tiek ignorēta\n"
+
+#: src/input.c:1003
+msgid "Ignoring CM card in commands"
+msgstr "CM karte komandās tiek ignorēta"
+
+#: src/input.c:1007
+msgid ""
+"CP card is ignored\n"
+"Coupling calculation not implemented"
+msgstr ""
+"CP karte tiek ignorēta\n"
+"Saites aprēķins nav implementēts"
+
+#: src/input.c:1185
+msgid "Max frequency <= Min frequency in FR card\n"
+msgstr "Maksimālā frekvence <= minimālā frekvence FR kartē\n"
+
+#: src/input.c:1186
+msgid ""
+"Max frequency <= Min frequency in FR card\n"
+"Please check FR card data and correct"
+msgstr ""
+"Maksimālā frekvence <= minimālā frekvence FR kartē\n"
+"Lūdzu pārbaudiet FR kartes datus un izlabojiet"
+
+#: src/input.c:1209
+msgid ""
+"Fix the GE/GN cards:\n"
+"The GE card specifies that a ground is present, but the GN indicates "
+"otherwise."
+msgstr ""
+"Izlabojiet GE/GN kartes:\n"
+"GE karte norāda, ka ir zemējums, bet GN norāda pretēji."
+
+#: src/input.c:1223
+msgid "theta > 90 deg. with ground specified\n"
+msgstr "theta > 90 grādi ar norādītu zemējumu\n"
+
+#: src/input.c:1224 src/radiation.c:656
+msgid ""
+"Theta > 90 deg with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 grādi ar norādītu zemējumu\n"
+"Lūdzu pārbaudiet RP kartes datus un izlabojiet"
+
+#: src/input.c:1233
+msgid ""
+"radial wire g.s. approximation: may not be used with Sommerfeld ground "
+"option\n"
+msgstr ""
+"radiālo vadu g.s. aproksimācija: nevar izmantot ar Sommerfeld zemējuma "
+"opciju\n"
+
+#: src/input.c:1234
+msgid ""
+"radial wire g.s. approximation\n"
+"may not be used with Sommerfeld ground option"
+msgstr ""
+"radiālo vadu g.s. aproksimācija\n"
+"nevar izmantot ar Sommerfeld zemējuma opciju"
+
+#: src/input.c:1285
+#, c-format
+msgid ""
+"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
+"%d\n"
+msgstr ""
+"datu kļūda slodzes kartē nr. %d: itag step1 %d ir lielāks par itag step2 %d\n"
+
+#: src/input.c:1287
+msgid ""
+"Data fault on loading card\n"
+"itag step1 is greater than itag step2"
+msgstr ""
+"Datu kļūda slodzes kartē\n"
+"itag step1 ir lielāks par itag step2"
+
+#: src/input.c:1420
+msgid ""
+"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr ""
+"Pārvades līnijas pretestība = 0: nav derīga. Lūdzu izlabojiet NT vai TL "
+"karti\n"
+
+#: src/input.c:1421
+msgid ""
+"Transmission Line impedance = 0\n"
+"is not valid. Please correct NT or TL card"
+msgstr ""
+"Pārvades līnijas pretestība = 0\n"
+"nav derīga. Lūdzu izlabojiet NT vai TL karti"
+
+#: src/input.c:1430
+msgid "Segment number error in TL or NT card\n"
+msgstr "Segmenta numura kļūda TL vai NT kartē\n"
+
+#: src/input.c:1431
+msgid ""
+"Segment number\n"
+"error in NT or TL card"
+msgstr ""
+"Segmenta numura\n"
+"kļūda NT vai TL kartē"
+
+#: src/input.c:1452
+msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
+msgstr "PQ un PT kartes tiek ignorētas: drukāšana failā nav implementēta\n"
+
+#: src/input.c:1453
+msgid ""
+"PQ and PT cards are ignored\n"
+"Printing to file not implemented"
+msgstr ""
+"PQ un PT kartes tiek ignorētas\n"
+"Drukāšana failā nav implementēta"
+
+#: src/input.c:1460
+msgid "Surface wave option (I1=1): of RP command not implemented\n"
+msgstr "Virsmas viļņa opcija (I1=1): RP komandai nav implementēta\n"
+
+#: src/input.c:1461
+msgid ""
+"Surface wave option (I1=1)\n"
+"of RP command not implemented"
+msgstr ""
+"Virsmas viļņa opcija (I1=1)\n"
+"RP komandai nav implementēta"
+
+#: src/input.c:1484
+msgid ""
+"Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
+"xnec2c renders radiation patterns graphically instead of text tables.\n"
+"Pattern calculations proceed normally; use GUI to view results."
+msgstr ""
+"Pastiprinājuma vidējošana (XNDA ***1 vai ***2) kontrolē teksta izvades "
+"formatējumu.\n"
+"xnec2c attēlo starojuma diagrammas grafiski, nevis teksta tabulās.\n"
+"Diagrammu aprēķini notiek normāli; izmantojiet GUI, lai skatītu rezultātus."
+
+#: src/input.c:1502
+msgid ""
+"Theta > 90 deg. with ground specified: Please check RP card data and "
+"correct\n"
+msgstr ""
+"Theta > 90 grādi ar norādītu zemējumu: Lūdzu pārbaudiet RP kartes datus un "
+"izlabojiet\n"
+
+#: src/input.c:1503
+msgid ""
+"Theta > 90 deg. with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 grādi ar norādītu zemējumu\n"
+"Lūdzu pārbaudiet RP kartes datus un izlabojiet"
+
+#: src/input.c:1568
+msgid "Faulty data card"
+msgstr "Kļūdaina datu karte"
+
+#: src/input.c:1578
+msgid ""
+"Missing or surface-wave RP card: Radiation pattern and gain calculations "
+"disabled\n"
+msgstr ""
+"Trūkst vai virsmas viļņa RP karte: starojuma diagrammas un pastiprinājuma "
+"aprēķini atspējoti\n"
+
+#: src/input.c:1595
+msgid "Unexpected exit from while loop"
+msgstr "Negaidīta iziešana no while cikla"
+
+#: src/input.c:1653
+msgid ""
+"command data card error: Unexpected EOF while reading input file - appending "
+"EN card\n"
+msgstr ""
+"komandas datu kartes kļūda: negaidīts EOF lasot ievades failu - pievieno EN "
+"karti\n"
+
+#: src/input.c:1654
+msgid ""
+"Command data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default EN card"
+msgstr ""
+"Komandas datu kartes kļūda\n"
+"Negaidīts EOF lasot ievades failu\n"
+"Pievieno noklusējuma EN karti"
+
+#: src/input.c:1668
+msgid "command data card error: card's mnemonic code too short or missing\n"
+msgstr ""
+"komandas datu kartes kļūda: kartes mnemoniskais kods pārāk īss vai trūkst\n"
+
+#: src/input.c:1669
+msgid ""
+"Command data card error\n"
+"Mnemonic code too short or missing"
+msgstr ""
+"Komandas datu kartes kļūda\n"
+"Mnemoniskais kods pārāk īss vai trūkst"
+
+#: src/input.c:1829
+msgid ""
+"geometry data card error: Unexpected EOF while reading input file - "
+"appending GE card\n"
+msgstr ""
+"ģeometrijas datu kartes kļūda: negaidīts EOF lasot ievades failu - pievieno "
+"GE karti\n"
+
+#: src/input.c:1830
+msgid ""
+"Geometry data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default GE card"
+msgstr ""
+"Ģeometrijas datu kartes kļūda\n"
+"Negaidīts EOF lasot ievades failu\n"
+"Pievieno noklusējuma GE karti"
+
+#: src/input.c:1844
+msgid "geometry data card error: card's mnemonic code too short or missing\n"
+msgstr ""
+"ģeometrijas datu kartes kļūda: kartes mnemoniskais kods pārāk īss vai "
+"trūkst\n"
+
+#: src/input.c:1845
+msgid ""
+"Geometry data card error\n"
+"Card's mnemonic code too short or missing"
+msgstr ""
+"Ģeometrijas datu kartes kļūda\n"
+"Kartes mnemoniskais kods pārāk īss vai trūkst"
+
+#: src/main.c:125
+#, c-format
+msgid "%s requires a positive integer argument\n"
+msgstr "%s pieprasa pozitīvu vesela skaitļa argumentu\n"
+
+#: src/main.c:183
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "Konstatēti %d CPU\n"
+
+#: src/main.c:194
+msgid "config file path too long\n"
+msgstr "konfigurācijas faila ceļš pārāk garš\n"
+
+#: src/main.c:213
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "konfigurācijas fails neeksistē vai nav lasāms: %s\n"
+
+#: src/main.c:222
+#, c-format
+msgid "config file path too long ( > %d char )\n"
+msgstr "konfigurācijas faila ceļš pārāk garš ( > %d rakstzīmes )\n"
+
+#: src/main.c:234
+#, c-format
+msgid "input file name too long ( > %d char )\n"
+msgstr "ievades faila nosaukums pārāk garš ( > %d rakstzīmes )\n"
+
+#: src/main.c:261
+msgid "Forking disabled!\n"
+msgstr "Sazarošana atspējota!\n"
+
+#: src/main.c:269
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop atspējots!\n"
+
+#: src/main.c:273
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "pakešu režīms iespējots, izies pēc pirmā cikla\n"
+
+#: src/main.c:331
+msgid "verify segments check disabled\n"
+msgstr "segmentu pārbaudes verifikācija atspējota\n"
+
+#: src/main.c:336
+msgid "forcing overlap check on large models\n"
+msgstr "piespiedu pārklāšanās pārbaude lieliem modeļiem\n"
+
+#: src/main.c:350
+msgid "--batch and --optimize are mutual exclusive.\n"
+msgstr "--batch un --optimize ir savstarpēji izslēdzoši.\n"
+
+#: src/main.c:366
+#, c-format
+msgid "input file path name too long ( > %d char )\n"
+msgstr "ievades faila ceļa nosaukums pārāk garš ( > %d rakstzīmes )\n"
+
+#: src/main.c:373
+#, c-format
+msgid "unexpected argument '%s' does not appear to be a .nec file\n"
+msgstr "neparedzēts arguments '%s' nešķiet .nec fails\n"
+
+#: src/main.c:380
+#, c-format
+msgid "unexpected argument: %s\n"
+msgstr "neparedzēts arguments: %s\n"
+
+#: src/main.c:386
+msgid "batch mode requires an input file\n"
+msgstr "pakešu režīmam nepieciešams ievades fails\n"
+
+#: src/main.c:407
+#, c-format
+msgid "Forking %d jobs.\n"
+msgstr "Sazaro %d darbus.\n"
+
+#: src/main.c:416 src/main.c:424
+msgid "exiting after fatal error: pipe() failed"
+msgstr "iziet pēc fatālas kļūdas: pipe() neizdevās"
+
+#: src/main.c:433
+msgid "exiting after fatal error: fork() failed"
+msgstr "iziet pēc fatālas kļūdas: fork() neizdevās"
+
+#: src/main.c:778
+msgid "exiting via user interrupt\n"
+msgstr "iziet pēc lietotāja pārtraukuma\n"
+
+#: src/main.c:782
+msgid "segmentation fault, exiting\n"
+msgstr "segmentācijas kļūda, iziet\n"
+
+#: src/main.c:786
+msgid "floating point exception, exiting\n"
+msgstr "peldošā komata izņēmums, iziešana\n"
+
+#: src/main.c:790
+msgid "abort signal received, exiting\n"
+msgstr "saņemts pārtraukšanas signāls, iziešana\n"
+
+#: src/main.c:794
+msgid "termination request received, exiting\n"
+msgstr "saņemts beigšanas pieprasījums, iziešana\n"
+
+#: src/main.c:804
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "nav atdalīts, ignorē SIGCHLD no pid %d\n"
+
+#: src/main.c:812
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "bērnprocess pid %d beidzies\n"
+
+#: src/main.c:821
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "noklusējuma izeja ar signālu: %d\n"
+
+#: src/matrix.c:1216
+#, c-format
+msgid "pivot(%d)= %16.8E\n"
+msgstr "pivot(%d)= %16.8E\n"
+
+#: src/matrix.c:1250
+#, c-format
+msgid "LU Decomposition Failed: %d\n"
+msgstr "LU dekompozīcija neizdevās: %d\n"
+
+#: src/matrix.c:1306
+#, c-format
+msgid "symmetry error - nrow:%d ncol:%d\n"
+msgstr "simetrijas kļūda - nrow:%d ncol:%d\n"
+
+#: src/matrix.c:1307
+msgid "Symmetry error"
+msgstr "Simetrijas kļūda"
+
+#: src/matrix.c:1414
+#, c-format
+msgid "Solving Failed: %d\n"
+msgstr "Risināšana neizdevās: %d\n"
+
+#: src/nec2_model.c:111 src/nec2_model.c:115 src/nec2_model.c:119
+msgid "Card"
+msgstr "Karte"
+
+#: src/nec2_model.c:111 resources/xnec2c.glade:6183
+msgid "Comments"
+msgstr "Komentāri"
+
+#: src/nec2_model.c:188
+msgid "--- NEC2 Input File created or edited by "
+msgstr "--- NEC2 ievades failu izveidoja vai rediģēja "
+
+#: src/nec2_model.c:205
+msgid "--- End Comments ---"
+msgstr "--- Komentāru beigas ---"
+
+#: src/nec2_model.c:344
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"List_Comments():\n"
+"Kļūda lasot ievades failu\n"
+"Negaidīts EOF (faila beigas)"
+
+#: src/nec2_model.c:351
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"List_Comments():\n"
+"Kļūda lasot ievades failu\n"
+"Komentāra mnemonika īsa vai trūkst"
+
+#: src/nec2_model.c:594
+msgid "End Comments"
+msgstr "Komentāru beigas"
+
+#: src/nec2_model.c:648
+msgid ""
+"Cannot save treeview data\n"
+"Please use the Save button\n"
+"to specify a file path"
+msgstr ""
+"Nevar saglabāt koka skata datus\n"
+"Lūdzu, izmantojiet pogu Saglabāt,\n"
+"lai norādītu faila ceļu"
+
+#: src/network.c:648
+#, c-format
+msgid "improper load type chosen, requested type is %d\n"
+msgstr "izvēlēts nepareizs slodzes tips, pieprasītais tips ir %d\n"
+
+#: src/network.c:649
+msgid "Improper load type chose"
+msgstr "Izvēlēts nepareizs slodzes tips"
+
+#: src/network.c:737
+#, c-format
+msgid "loading data card error, no segment has an itag = %d\n"
+msgstr "datu kartes ielādes kļūda, nevienam segmentam nav itag = %d\n"
+
+#: src/network.c:738
+msgid ""
+"Loading data card\n"
+"Tag number mismatch error"
+msgstr ""
+"Datu kartes ielāde\n"
+"Birkas numura neatbilstības kļūda"
+
+#: src/plot_freqdata.c:132
+#, c-format
+msgid ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+msgstr ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+
+#: src/plot_freqdata.c:148
+#, c-format
+msgid ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+msgstr ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+
+#: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
+msgid "memory allocation for points failed\n"
+msgstr "atmiņas piešķiršana punktiem neizdevās\n"
+
+#: src/plot_freqdata.c:832 src/plot_freqdata.c:1299
+msgid "Draw_Graph():Memory allocation for points failed"
+msgstr "Draw_Graph():Atmiņas piešķiršana punktiem neizdevās"
+
+#: src/plot_freqdata.c:1260
+msgid "Smith Chart"
+msgstr "Smita diagramma"
+
+#: src/plot_freqdata.c:1452 src/plot_freqdata.c:1471 src/plot_freqdata.c:1496
+msgid "Raw Gain dBi"
+msgstr "Neapstrādāts pastiprinājums dBi"
+
+#: src/plot_freqdata.c:1455
+msgid "Max Gain & Net Gain vs Frequency"
+msgstr "Maks. pastiprinājums un neto pastiprinājums pret frekvenci"
+
+#: src/plot_freqdata.c:1456
+msgid "Net Gain dBi"
+msgstr "Neto pastiprinājums dBi"
+
+#: src/plot_freqdata.c:1462 src/plot_freqdata.c:1472
+msgid "Max Gain & F/B Ratio vs Frequency"
+msgstr "Maks. pastiprinājums un F/B attiecība pret frekvenci"
+
+#: src/plot_freqdata.c:1473
+msgid "F/B Ratio dB"
+msgstr "F/B attiecība dB"
+
+#: src/plot_freqdata.c:1482
+msgid "Rad Angle - deg"
+msgstr "Starojuma leņķis - grādi"
+
+#: src/plot_freqdata.c:1483
+msgid "Max Gain Direction vs Frequency"
+msgstr "Maks. pastiprinājuma virziens pret frekvenci"
+
+#: src/plot_freqdata.c:1484
+msgid "Phi - deg"
+msgstr "Phi - grādi"
+
+#: src/plot_freqdata.c:1497
+msgid "Gain in Viewer Direction vs Frequency"
+msgstr "Pastiprinājums skatītāja virzienā pret frekvenci"
+
+#: src/plot_freqdata.c:1520
+msgid "Net gain dBi"
+msgstr "Neto pastiprinājums dBi"
+
+#: src/plot_freqdata.c:1538 resources/xnec2c.glade:9909
+#: resources/xnec2c.glade:10119
+msgid "VSWR"
+msgstr "VSWR"
+
+#: src/plot_freqdata.c:1541
+msgid "VSWR & S11 vs Frequency"
+msgstr "VSWR un S11 pret frekvenci"
+
+#: src/plot_freqdata.c:1542
+msgid "S11 dB"
+msgstr "S11 dB"
+
+#: src/plot_freqdata.c:1546
+msgid "VSWR vs Frequency"
+msgstr "VSWR pret frekvenci"
+
+#: src/plot_freqdata.c:1560
+msgid "memory allocation for vswr/s11 failed\n"
+msgstr "atmiņas piešķiršana vswr/s11 neizdevās\n"
+
+#: src/plot_freqdata.c:1561
+msgid "Plot_Frequency_Data():Memory allocation for vswr/s11 failed"
+msgstr "Plot_Frequency_Data():Atmiņas piešķiršana vswr/s11 neizdevās"
+
+#: src/plot_freqdata.c:1591 resources/xnec2c.glade:10084
+msgid "Z-real"
+msgstr "Z-reālā"
+
+#: src/plot_freqdata.c:1592 src/plot_freqdata.c:1605
+msgid "Impedance vs Frequency"
+msgstr "Impedance pret frekvenci"
+
+#: src/plot_freqdata.c:1593 resources/xnec2c.glade:10049
+msgid "Z-imag"
+msgstr "Z-imagin."
+
+#: src/plot_freqdata.c:1604
+msgid "Z-magn"
+msgstr "Z-magn."
+
+#: src/plot_freqdata.c:1606
+msgid "Z-phase"
+msgstr "Z-fāze"
+
+#: src/plot_freqdata.c:1855
+#, c-format
+msgid "mouse button: unknown button %d\n"
+msgstr "peles poga: nezināma poga %d\n"
+
+#: src/somnec.c:238
+msgid "Hankel not valid for z = 0"
+msgstr "Hankel nav derīgs, ja z = 0"
+
+#: src/somnec.c:749
+msgid "No convergence"
+msgstr "Nav konverģences"
+
+#: src/utils.c:103 src/utils.c:108
+#, c-format
+msgid ""
+"\n"
+"=== Notice: %s ===\n"
+"%s\n"
+"\n"
+msgstr ""
+"\n"
+"=== Paziņojums: %s ===\n"
+"%s\n"
+"\n"
+
+#: src/utils.c:150
+#, c-format
+msgid "Stop: %s\n"
+msgstr "Apturēt: %s\n"
+
+#: src/utils.c:157 src/utils.c:161 src/utils.c:171 src/utils.c:173
+#, c-format
+msgid "%s\n"
+msgstr "%s\n"
+
+#: src/utils.c:354
+#, c-format
+msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
+msgstr "izmanto %d OpenMP pavedienus katram darbam (%d/%d CPU)\n"
+
+#: src/utils.c:370
+#, c-format
+msgid "%s[%d]: %f seconds\n"
+msgstr "%s[%d]: %f sekundes\n"
+
+#: src/utils.c:422
+#, c-format
+msgid ""
+"mem_obj_t at %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+msgstr ""
+"mem_obj_t pie %p:\n"
+"  izmērs: %lu\n"
+"  izmantots: %lu\n"
+"  adrese: %p\n"
+
+#: src/utils.c:441
+#, c-format
+msgid "mem_backtrace(%p):\n"
+msgstr "mem_backtrace(%p):\n"
+
+#: src/utils.c:443
+msgid "  m->backtrace is null, no backtrace data\n"
+msgstr "  m->backtrace ir null, nav izsekošanas datu\n"
+
+#: src/utils.c:507
+#, c-format
+msgid "Memory re-allocation denied %s\n"
+msgstr "Atmiņas pārpiešķiršana noraidīta %s\n"
+
+#: src/utils.c:508
+#, c-format
+msgid "%s: Memory requested %lu\n"
+msgstr "%s: Pieprasīta atmiņa %lu\n"
+
+#: src/utils.c:554
+#, c-format
+msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
+msgstr "xnec2c[%d]: %s: Neizdevās atvērt failu: %s\n"
+
+#: src/utils.c:559
+#, c-format
+msgid "%s: %s\n"
+msgstr "%s: %s\n"
+
+#: src/utils.c:927
+msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
+msgstr ""
+"Optimizētāja cikls nav pabeigts, izlaižam starojuma diagrammas pārzīmēšanu.\n"
+
+#: src/utils.c:934
+msgid "Optimizer loop incomplete, skipping structure redraw.\n"
+msgstr "Optimizētāja cikls nav pabeigts, izlaižam struktūras pārzīmēšanu.\n"
+
+#: src/utils.c:949
+msgid "  Backtrace:\n"
+msgstr "  Izsekošana:\n"
+
+#: src/utils.c:951
+#, c-format
+msgid "    %d. %s\n"
+msgstr "    %d. %s\n"
+
+#: src/utils.c:978
+#, c-format
+msgid "%s:\n"
+msgstr "%s:\n"
+
+#: src/xnec2c.c:185
+#, c-format
+msgid ""
+"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
+"%+12.5Ej\n"
+msgstr ""
+"kompleksā dielektriskā konstante no faila: %12.5E%+12.5Ej, pieprasītā: %12.5E"
+"%+12.5Ej\n"
+
+#: src/xnec2c.c:188
+msgid "Ground_Parameters():Error in ground parameters"
+msgstr "Ground_Parameters():Kļūda zemes parametros"
+
+#: src/xnec2c.c:490
+#, c-format
+msgid "%.6f MHz: %f seconds. (%s)\n"
+msgstr "%.6f MHz: %f sekundes. (%s)\n"
+
+#: src/xnec2c.c:781
+msgid "Failed to read data from forked child\n"
+msgstr "Neizdevās nolasīt datus no atdalītā bērnprocesa\n"
+
+#: src/xnec2c.c:817
+#, c-format
+msgid ""
+"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr ""
+"Frequency_Loop ir pabeidzis visus soļus, bet num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+
+#: src/xnec2c.c:824
+#, c-format
+msgid "  busy job[%d]: fstep=%d freq=%f\n"
+msgstr "  aizņemts darbs[%d]: fstep=%d freq=%f\n"
+
+#: src/xnec2c.c:886
+#, c-format
+msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
+msgstr "Frekvences cikla pagājušais laiks: %f sekundes. (%s)\n"
+
+#: src/xnec2c.c:1029
+msgid "failed to start Frequency_Loop_Thread\n"
+msgstr "neizdevās palaist Frequency_Loop_Thread\n"
+
+#: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1964
+msgid "xnec2c"
+msgstr "xnec2c"
+
+#: files/xnec2c.desktop.in:4
+msgid "NEC2 Simulator"
+msgstr "NEC2 simulators"
+
+#: files/xnec2c.desktop.in:5
+msgid "Numerical Electromagnetics Code software"
+msgstr "Skaitliskā elektromagnētikas koda programmatūra"
+
+#: files/xnec2c.desktop.in:11
+msgid "nec2;em;simulator;"
+msgstr "nec2;em;simulators;"
+
+#: resources/xnec2c.glade:14
+msgid "(C) 2007-2022 Neoklis Kyriazis"
+msgstr "(C) 2007-2022 Neoklis Kyriazis"
+
+#: resources/xnec2c.glade:15
+msgid ""
+"xnec2c is an interactive graphical wrapper around a modified version of "
+"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
+"Numerical Electromagnetics Code.\n"
+"\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
+"etc) in a graphical format. It can also display radiation pattern data in a "
+"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
+"format.\n"
+"\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
+"or edit antenna description files and specify NEC2 commands.\n"
+"\n"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
+"fully compatible with NEC2 input files and it works in different ways!"
+msgstr ""
+"xnec2c ir interaktīvs grafiskais apvalks ap modificētu nec2c versiju, kas "
+"pati ir oriģinālā FORTRAN NEC2 skaitliskā elektromagnētikas koda tulkojums C "
+"valodā.\n"
+"\n"
+"xnec2c var attēlot no frekvences atkarīgus datus (pastiprinājums, ieejas "
+"impedance, VSWR utt.) grafiskā formātā. Tas var arī attēlot starojuma "
+"diagrammas datus rotējamā stiepļu rāmja formātā un tuvā lauka (E, H, S "
+"vektori) režģa formātā.\n"
+"\n"
+"xnec2c ir iebūvēts NEC2 ievades failu redaktors, kas atvieglo antenas "
+"apraksta failu izveidi vai rediģēšanu un NEC2 komandu norādīšanu.\n"
+"\n"
+"LŪDZU izlasiet dokumentāciju doc/ apakšdirektorijā, jo xnec2c nav pilnībā "
+"savietojams ar NEC2 ievades failiem un tas darbojas atšķirīgi!"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: resources/xnec2c.glade:27
+msgid "translator-credits"
+msgstr "translator-credits"
+
+#: resources/xnec2c.glade:159
+msgid "Steps/Cycle"
+msgstr "Soļi/ciklā"
+
+#: resources/xnec2c.glade:172
+msgid "Animate Freq (Hz)"
+msgstr "Animācijas frekvence (Hz)"
+
+#: resources/xnec2c.glade:286
+msgid "Arc Element (GA card)"
+msgstr "Loka elements (GA karte)"
+
+#: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
+msgid "No. Segments"
+msgstr "Segmentu skaits"
+
+#: resources/xnec2c.glade:340 resources/xnec2c.glade:3802
+#: resources/xnec2c.glade:14417
+msgid "Segs % lambda"
+msgstr "Segm. % lambda"
+
+#: resources/xnec2c.glade:353 resources/xnec2c.glade:3815
+#: resources/xnec2c.glade:14513
+msgid "Wire Diameter"
+msgstr "Vada diametrs"
+
+#: resources/xnec2c.glade:441
+msgid "Radius from Y"
+msgstr "Rādiuss no Y"
+
+#: resources/xnec2c.glade:454
+msgid "End 1 Angle"
+msgstr "1. gala leņķis"
+
+#: resources/xnec2c.glade:467
+msgid "End 2 Angle"
+msgstr "2. gala leņķis"
+
+#: resources/xnec2c.glade:578
+msgid "Wire Arc Data"
+msgstr "Vada loka dati"
+
+#: resources/xnec2c.glade:640 resources/xnec2c.glade:876
+#: resources/xnec2c.glade:1676 resources/xnec2c.glade:1899
+#: resources/xnec2c.glade:2357 resources/xnec2c.glade:2549
+#: resources/xnec2c.glade:2860 resources/xnec2c.glade:3546
+#: resources/xnec2c.glade:4346 resources/xnec2c.glade:4545
+#: resources/xnec2c.glade:4706 resources/xnec2c.glade:5238
+#: resources/xnec2c.glade:5874 resources/xnec2c.glade:7290
+#: resources/xnec2c.glade:8197 resources/xnec2c.glade:9203
+#: resources/xnec2c.glade:9476 resources/xnec2c.glade:12919
+#: resources/xnec2c.glade:13432 resources/xnec2c.glade:14031
+#: resources/xnec2c.glade:14867 resources/xnec2c.glade:15067
+msgid "Delete Card"
+msgstr "Dzēst karti"
+
+#: resources/xnec2c.glade:718
+msgid "Cylindrical Structure (GR card)"
+msgstr "Cilindriska struktūra (GR karte)"
+
+#: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
+msgid "Tag Number Increment"
+msgstr "Birkas numura pieaugums"
+
+#: resources/xnec2c.glade:761
+msgid "Number of Structures"
+msgstr "Struktūru skaits"
+
+#: resources/xnec2c.glade:815
+msgid "Cylindrical Structure"
+msgstr "Cilindriska struktūra"
+
+#: resources/xnec2c.glade:941
+msgid "Xnec2c Error"
+msgstr "Xnec2c kļūda"
+
+#: resources/xnec2c.glade:1049
+msgid "Error"
+msgstr "Kļūda"
+
+#: resources/xnec2c.glade:1128
+msgid "Excitation Command (EX Card)"
+msgstr "Ierosmes komanda (EX karte)"
+
+#: resources/xnec2c.glade:1154
+msgid "Incident LH Wave"
+msgstr "Krītošais LH vilnis"
+
+#: resources/xnec2c.glade:1170
+msgid "Incident Linear Wave "
+msgstr "Krītošais lineārais vilnis "
+
+#: resources/xnec2c.glade:1186
+msgid "Current Source"
+msgstr "Strāvas avots"
+
+#: resources/xnec2c.glade:1202
+msgid "Incident RH Wave"
+msgstr "Krītošais RH vilnis"
+
+#: resources/xnec2c.glade:1218
+msgid "Current Slope Discontinuity"
+msgstr "Strāvas slīpuma pārtraukums"
+
+#: resources/xnec2c.glade:1234
+msgid "Voltage Source"
+msgstr "Sprieguma avots"
+
+#: resources/xnec2c.glade:1256
+msgid "Excitation Type"
+msgstr "Ierosmes veids"
+
+#: resources/xnec2c.glade:1281
+msgid "Maximum Admittance Matrix Asymmetry"
+msgstr "Maksimālā admitances matricas asimetrija"
+
+#: resources/xnec2c.glade:1297
+msgid "Impedance of Source Segment"
+msgstr "Avota segmenta impedance"
+
+#: resources/xnec2c.glade:1319
+msgid "Print Control"
+msgstr "Drukas vadība"
+
+#: resources/xnec2c.glade:1411
+msgid "Voltage - Real Part"
+msgstr "Spriegums - reālā daļa"
+
+#: resources/xnec2c.glade:1424
+msgid "Voltage - Imaginary Part"
+msgstr "Spriegums - imaginārā daļa"
+
+#: resources/xnec2c.glade:1437
+msgid "Eta"
+msgstr "Eta"
+
+#: resources/xnec2c.glade:1507
+msgid "Theta"
+msgstr "Teta"
+
+#: resources/xnec2c.glade:1520
+msgid "Phi"
+msgstr "Fi"
+
+#: resources/xnec2c.glade:1533
+msgid "Ratio"
+msgstr "Attiecība"
+
+#: resources/xnec2c.glade:1614
+msgid "Excitation Parameters"
+msgstr "Ierosmes parametri"
+
+#: resources/xnec2c.glade:1741
+msgid "Execute Command (XQ Card)"
+msgstr "Izpildes komanda (XQ karte)"
+
+#: resources/xnec2c.glade:1768
+msgid "No Pattern Cuts"
+msgstr "Nav diagrammas griezumu"
+
+#: resources/xnec2c.glade:1784
+msgid "Pattern in XZ Plane"
+msgstr "Diagramma XZ plaknē"
+
+#: resources/xnec2c.glade:1800
+msgid "Pattern in YZ Plane"
+msgstr "Diagramma YZ plaknē"
+
+#: resources/xnec2c.glade:1816
+msgid "Both XZ/YZ Patterns"
+msgstr "Abas XZ/YZ diagrammas"
+
+#: resources/xnec2c.glade:1838
+msgid "Execute Command"
+msgstr "Izpildes komanda"
+
+#: resources/xnec2c.glade:2069
+msgid "Frequency Command (FR Card)"
+msgstr "Frekvences komanda (FR karte)"
+
+#: resources/xnec2c.glade:2094
+msgid "Additive Stepping"
+msgstr "Aditīvais solis"
+
+#: resources/xnec2c.glade:2111
+msgid "Multiplicative Stepping"
+msgstr "Multiplikatīvais solis"
+
+#: resources/xnec2c.glade:2134
+msgid "Frequency Stepping"
+msgstr "Frekvences soļošana"
+
+#: resources/xnec2c.glade:2164
+msgid "No. Frequency Points"
+msgstr "Frekvences punktu skaits"
+
+#: resources/xnec2c.glade:2195
+msgid "Start Frequency (MHz)"
+msgstr "Sākuma frekvence (MHz)"
+
+#: resources/xnec2c.glade:2227
+msgid "Frequency Step (MHz)"
+msgstr "Frekvences solis (MHz)"
+
+#: resources/xnec2c.glade:2260
+msgid "End Frequency (MHz)"
+msgstr "Beigu frekvence (MHz)"
+
+#: resources/xnec2c.glade:2296
+msgid "Frequency Stepping Parameters"
+msgstr "Frekvences soļošanas parametri"
+
+#: resources/xnec2c.glade:2422
+msgid "Geometry End (GE Card)"
+msgstr "Ģeometrijas beigas (GE karte)"
+
+#: resources/xnec2c.glade:2447
+msgid "No Ground, Free Space condition"
+msgstr "Bez zemes, brīvās telpas nosacījums"
+
+#: resources/xnec2c.glade:2464
+msgid "Ground present, Structure reflection"
+msgstr "Zeme klātesoša, struktūras atstarošana"
+
+#: resources/xnec2c.glade:2481
+msgid "Ground present, no Structure reflection"
+msgstr "Zeme klātesoša, bez struktūras atstarošanas"
+
+#: resources/xnec2c.glade:2504
+msgid "Ground Plane type"
+msgstr "Zemes plaknes veids"
+
+#: resources/xnec2c.glade:2638
+msgid "Ground Parameters (GD Card)"
+msgstr "Zemes parametri (GD karte)"
+
+#: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
+#: resources/xnec2c.glade:3222
+msgid "Relative Dielectric Const."
+msgstr "Relatīvā dielektriskā konst."
+
+#: resources/xnec2c.glade:2699 resources/xnec2c.glade:3255
+msgid "Distance to 2nd Medium"
+msgstr "Attālums līdz 2. videi"
+
+#: resources/xnec2c.glade:2731 resources/xnec2c.glade:3168
+#: resources/xnec2c.glade:3287
+msgid "Ground Conductivity S/m"
+msgstr "Zemes vadītspēja S/m"
+
+#: resources/xnec2c.glade:2763 resources/xnec2c.glade:3319
+msgid "Dist. below 1st Medium"
+msgstr "Attāl. zem 1. vides"
+
+#: resources/xnec2c.glade:2799 resources/xnec2c.glade:3355
+msgid "2nd Medium Parameters"
+msgstr "2. vides parametri"
+
+#: resources/xnec2c.glade:2980
+msgid "Ground Parameters (GN & GD Cards)"
+msgstr "Zemes parametri (GN un GD kartes)"
+
+#: resources/xnec2c.glade:3007
+msgid "Perfect Ground"
+msgstr "Ideāla zeme"
+
+#: resources/xnec2c.glade:3023
+msgid "Sommerfeld/Norton"
+msgstr "Sommerfeld/Norton"
+
+#: resources/xnec2c.glade:3039
+msgid "Radial Ground Screen"
+msgstr "Radiālais zemes ekrāns"
+
+#: resources/xnec2c.glade:3054
+msgid "Reflection Coeff. Approx"
+msgstr "Atstarošanas koef. aproks."
+
+#: resources/xnec2c.glade:3070
+msgid "Nullify Previous Params"
+msgstr "Anulēt iepriekšējos param."
+
+#: resources/xnec2c.glade:3086
+msgid "Second Medium (Cliff)"
+msgstr "Otrā vide (kraujas)"
+
+#: resources/xnec2c.glade:3107
+msgid "Ground Type"
+msgstr "Zemes veids"
+
+#: resources/xnec2c.glade:3235
+msgid "0.00000"
+msgstr "0.00000"
+
+#: resources/xnec2c.glade:3386
+msgid "Number of Radials"
+msgstr "Radiāļu skaits"
+
+#: resources/xnec2c.glade:3399
+msgid "Radial Screen Radius"
+msgstr "Radiālā ekrāna rādiuss"
+
+#: resources/xnec2c.glade:3449
+msgid "Radial Wire Diameter"
+msgstr "Radiālā vada diametrs"
+
+#: resources/xnec2c.glade:3485
+msgid "Radial Screen Parameters"
+msgstr "Radiālā ekrāna parametri"
+
+#: resources/xnec2c.glade:3685
+msgid "Helical Element (GA card)"
+msgstr "Spirālveida elements (GA karte)"
+
+#: resources/xnec2c.glade:3710
+msgid "Right Hand Helix"
+msgstr "Labās puses spirāle"
+
+#: resources/xnec2c.glade:3726
+msgid "Left Hand Helix"
+msgstr "Kreisās puses spirāle"
+
+#: resources/xnec2c.glade:3742
+msgid "Right Hand Spiral"
+msgstr "Labās puses plakana spirāle"
+
+#: resources/xnec2c.glade:3758
+msgid "Left Hand Spiral"
+msgstr "Kreisās puses plakana spirāle"
+
+#: resources/xnec2c.glade:3789
+msgid "Segments/Turn"
+msgstr "Segmenti/vijums"
+
+#: resources/xnec2c.glade:3828
+msgid "0.0100"
+msgstr "0.0100"
+
+#: resources/xnec2c.glade:3849
+msgid "5.00"
+msgstr "5.00"
+
+#: resources/xnec2c.glade:3870
+msgid "8"
+msgstr "8"
+
+#: resources/xnec2c.glade:3890 resources/xnec2c.glade:11417
+#: resources/xnec2c.glade:12489
+msgid "1"
+msgstr "1"
+
+#: resources/xnec2c.glade:3910
+msgid "Number of Turns"
+msgstr "Vijumu skaits"
+
+#: resources/xnec2c.glade:3923
+msgid "8.0000"
+msgstr "8.0000"
+
+#: resources/xnec2c.glade:3944
+msgid "Helix Length (HL)"
+msgstr "Spirāles garums (HL)"
+
+#: resources/xnec2c.glade:3957
+msgid "5.0000"
+msgstr "5.0000"
+
+#: resources/xnec2c.glade:3978
+msgid "Turns Spacing"
+msgstr "Vijumu atstarpe"
+
+#: resources/xnec2c.glade:3991 resources/xnec2c.glade:4103
+#: resources/xnec2c.glade:4156 resources/xnec2c.glade:4209
+#: resources/xnec2c.glade:4257
+msgid "1.0000"
+msgstr "1.0000"
+
+#: resources/xnec2c.glade:4025
+msgid "0.0000"
+msgstr "0.0000"
+
+#: resources/xnec2c.glade:4045
+msgid "Radius in X (A1)"
+msgstr "Rādiuss X (A1)"
+
+#: resources/xnec2c.glade:4058
+msgid "Radius in Y (B1)"
+msgstr "Rādiuss Y (B1)"
+
+#: resources/xnec2c.glade:4071
+msgid "Radius in X (A2)"
+msgstr "Rādiuss X (A2)"
+
+#: resources/xnec2c.glade:4084
+msgid "Radius in Y (B2)"
+msgstr "Rādiuss Y (B2)"
+
+#: resources/xnec2c.glade:4282
+msgid "GH Card"
+msgstr "GH karte"
+
+#: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
+msgid "Interaction Approx Range (KH Card)"
+msgstr "Mijiedarbības aproks. diapazons (KH karte)"
+
+#: resources/xnec2c.glade:4446
+msgid "Approximation Range (W/lengths)"
+msgstr "Aproksimācijas diapazons (viļņu garumi)"
+
+#: resources/xnec2c.glade:4484
+msgid "Interaction Approximation Range"
+msgstr "Mijiedarbības aproksimācijas diapazons"
+
+#: resources/xnec2c.glade:4610
+msgid "Thin Wire Kernel (EK Card)"
+msgstr "Plānā vada kodols (EK karte)"
+
+#: resources/xnec2c.glade:4628
+msgid "Extended Thin Wire Kernel"
+msgstr "Paplašinātais plānā vada kodols"
+
+#: resources/xnec2c.glade:4645
+msgid "Thin Wire Kernel"
+msgstr "Plānā vada kodols"
+
+#: resources/xnec2c.glade:4808
+msgid "Loading Command (LD Card)"
+msgstr "Slodzes komanda (LD karte)"
+
+#: resources/xnec2c.glade:4834
+msgid "Short all Loads (Nulls previous Loading Cards)"
+msgstr "Īssavienot visas slodzes (anulē iepriekšējās slodzes kartes)"
+
+#: resources/xnec2c.glade:4851
+msgid "Series, Lumped"
+msgstr "Virkne, diskrēta"
+
+#: resources/xnec2c.glade:4867
+msgid "Parallel, Distributed"
+msgstr "Paralēli, sadalīta"
+
+#: resources/xnec2c.glade:4883
+msgid "Parallel, Lumped"
+msgstr "Paralēli, diskrēta"
+
+#: resources/xnec2c.glade:4899
+msgid "Resistance & Reactance"
+msgstr "Pretestība un reaktance"
+
+#: resources/xnec2c.glade:4915
+msgid "Series, Distributed"
+msgstr "Virkne, sadalīta"
+
+#: resources/xnec2c.glade:4931
+msgid "Wire Conductivity"
+msgstr "Vada vadītspēja"
+
+#: resources/xnec2c.glade:4953
+msgid "Loading Type"
+msgstr "Slodzes veids"
+
+#: resources/xnec2c.glade:4983
+msgid "Load Tag Number"
+msgstr "Slodzes birkas numurs"
+
+#: resources/xnec2c.glade:5014
+msgid "Resistance"
+msgstr "Pretestība"
+
+#: resources/xnec2c.glade:5046
+msgid "From Segment #"
+msgstr "No segmenta Nr."
+
+#: resources/xnec2c.glade:5077
+msgid "Inductance"
+msgstr "Induktivitāte"
+
+#: resources/xnec2c.glade:5109
+msgid "To Segment #"
+msgstr "Uz segmentu Nr."
+
+#: resources/xnec2c.glade:5140
+msgid "Capacitance"
+msgstr "Kapacitāte"
+
+#: resources/xnec2c.glade:5176
+msgid "Loading Parameters"
+msgstr "Slodzes parametri"
+
+#: resources/xnec2c.glade:5391
+msgid "Near Fields Command (NE/NH Cards)"
+msgstr "Tuvā lauka komanda (NE/NH kartes)"
+
+#: resources/xnec2c.glade:5418
+msgid "Near Electric Field"
+msgstr "Tuvais elektriskais lauks"
+
+#: resources/xnec2c.glade:5434
+msgid "Rectangular Co-ordinates"
+msgstr "Taisnstūra koordinātas"
+
+#: resources/xnec2c.glade:5450
+msgid "Near Magnetic Field"
+msgstr "Tuvais magnētiskais lauks"
+
+#: resources/xnec2c.glade:5465
+msgid "Spherical Co-ordinates"
+msgstr "Sfēriskās koordinātas"
+
+#: resources/xnec2c.glade:5493
+msgid "Field Type & Co-ordinates"
+msgstr "Lauka tips un koordinātas"
+
+#: resources/xnec2c.glade:5523
+msgid "NX"
+msgstr "NX"
+
+#: resources/xnec2c.glade:5554 resources/xnec2c.glade:10989
+#: resources/xnec2c.glade:12083
+msgid "X"
+msgstr "X"
+
+#: resources/xnec2c.glade:5586
+msgid "DX"
+msgstr "DX"
+
+#: resources/xnec2c.glade:5618
+msgid "NY"
+msgstr "NY"
+
+#: resources/xnec2c.glade:5649 resources/xnec2c.glade:11004
+#: resources/xnec2c.glade:12098
+msgid "Y"
+msgstr "Y"
+
+#: resources/xnec2c.glade:5681
+msgid "DY"
+msgstr "DY"
+
+#: resources/xnec2c.glade:5713
+msgid "NZ"
+msgstr "NZ"
+
+#: resources/xnec2c.glade:5744 resources/xnec2c.glade:11019
+#: resources/xnec2c.glade:12113
+msgid "Z"
+msgstr "Z"
+
+#: resources/xnec2c.glade:5776
+msgid "DZ"
+msgstr "DZ"
+
+#: resources/xnec2c.glade:5812
+msgid "Field Pattern Parameters"
+msgstr "Lauka diagrammas parametri"
+
+#: resources/xnec2c.glade:5939
+msgid "Xnec2c: NEC2 Input File Editor"
+msgstr "Xnec2c: NEC2 ievades failu redaktors"
+
+#: resources/xnec2c.glade:6026
+msgid "Manage Cards"
+msgstr "Pārvaldīt kartes"
+
+#: resources/xnec2c.glade:6123
+msgid "File Save"
+msgstr "Saglabāt failu"
+
+#: resources/xnec2c.glade:6210
+msgid "Wire"
+msgstr "Vads"
+
+#: resources/xnec2c.glade:6224
+msgid "Arc"
+msgstr "Loks"
+
+#: resources/xnec2c.glade:6238
+msgid "Helix"
+msgstr "Spirāle"
+
+#: resources/xnec2c.glade:6252
+msgid "Patch"
+msgstr "Plāksteris"
+
+#: resources/xnec2c.glade:6266
+msgid "Cylinder"
+msgstr "Cilindrs"
+
+#: resources/xnec2c.glade:6280
+msgid "Move"
+msgstr "Pārvietot"
+
+#: resources/xnec2c.glade:6294
+msgid "Reflect"
+msgstr "Atspoguļot"
+
+#: resources/xnec2c.glade:6308
+msgid "Scale"
+msgstr "Mērogot"
+
+#: resources/xnec2c.glade:6328
+msgid "Edit Geometry Data"
+msgstr "Rediģēt ģeometrijas datus"
+
+#: resources/xnec2c.glade:6382
+msgid "Geometry"
+msgstr "Ģeometrija"
+
+#: resources/xnec2c.glade:6409
+msgid "Excitation"
+msgstr "Ierosme"
+
+#: resources/xnec2c.glade:6423
+msgid "Radiation"
+msgstr "Starojums"
+
+#: resources/xnec2c.glade:6437
+msgid "Frequency"
+msgstr "Frekvence"
+
+#: resources/xnec2c.glade:6451
+msgid "Near Fields"
+msgstr "Tuvie lauki"
+
+#: resources/xnec2c.glade:6465
+msgid "Ground (GN)"
+msgstr "Zeme (GN)"
+
+#: resources/xnec2c.glade:6479
+msgid "Ground (GD)"
+msgstr "Zeme (GD)"
+
+#: resources/xnec2c.glade:6493
+msgid "Loading"
+msgstr "Slodze"
+
+#: resources/xnec2c.glade:6507
+msgid "Kernel"
+msgstr "Kodols"
+
+#: resources/xnec2c.glade:6521
+msgid "Network"
+msgstr "Tīkls"
+
+#: resources/xnec2c.glade:6535
+msgid "Interaction"
+msgstr "Mijiedarbība"
+
+#: resources/xnec2c.glade:6549
+msgid "Transm. Line"
+msgstr "Pārr. līnija"
+
+#: resources/xnec2c.glade:6564
+msgid "Execute"
+msgstr "Izpildīt"
+
+#: resources/xnec2c.glade:6578
+msgid "Zo"
+msgstr "Zo"
+
+#: resources/xnec2c.glade:6598
+msgid "Edit Control Commands"
+msgstr "Rediģēt vadības komandas"
+
+#: resources/xnec2c.glade:6652
+msgid "Commands"
+msgstr "Komandas"
+
+#: resources/xnec2c.glade:6671
+msgid "Unsaved Data"
+msgstr "Nesaglabāti dati"
+
+#: resources/xnec2c.glade:6747
+msgid ""
+"Unsaved data in NEC2 Editor.\n"
+"Save NEC2 Editor data first?\n"
+msgstr ""
+"Nesaglabāti dati NEC2 redaktorā.\n"
+"Vai vispirms saglabāt NEC2 redaktora datus?\n"
+
+#: resources/xnec2c.glade:6846
+msgid "Network Command (NT Card)"
+msgstr "Tīkla komanda (NT karte)"
+
+#: resources/xnec2c.glade:6875
+msgid "Tag Number, Port 1  "
+msgstr "Birkas numurs, ports 1  "
+
+#: resources/xnec2c.glade:6906
+msgid "Tag Number, Port 2  "
+msgstr "Birkas numurs, ports 2  "
+
+#: resources/xnec2c.glade:6937
+msgid "Segment Num, Port 1"
+msgstr "Segmenta nr., ports 1"
+
+#: resources/xnec2c.glade:6968
+msgid "Segment Num, Port 2"
+msgstr "Segmenta nr., ports 2"
+
+#: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
+msgid "Segment Identity"
+msgstr "Segmenta identifikators"
+
+#: resources/xnec2c.glade:7033
+msgid "Element 1,1 Real Part"
+msgstr "Elements 1,1 reālā daļa"
+
+#: resources/xnec2c.glade:7065
+msgid "Element 1,2 Real Part"
+msgstr "Elements 1,2 reālā daļa"
+
+#: resources/xnec2c.glade:7097
+msgid "Element 2,2 Real Part"
+msgstr "Elements 2,2 reālā daļa"
+
+#: resources/xnec2c.glade:7129
+msgid "Element 1,1 Imag Part"
+msgstr "Elements 1,1 imagināra daļa"
+
+#: resources/xnec2c.glade:7161
+msgid "Element 1,2 Imag Part"
+msgstr "Elements 1,2 imagināra daļa"
+
+#: resources/xnec2c.glade:7193
+msgid "Element 2,2 Imag Part"
+msgstr "Elements 2,2 imagināra daļa"
+
+#: resources/xnec2c.glade:7229
+msgid "Admittance Matrix Elements"
+msgstr "Pilnās vadītspējas matricas elementi"
+
+#: resources/xnec2c.glade:7444
+msgid "Patch Element (SP & SC Cards)"
+msgstr "Plākstera elements (SP un SC kartes)"
+
+#: resources/xnec2c.glade:7468
+msgid "Arbitrary"
+msgstr "Patvaļīgs"
+
+#: resources/xnec2c.glade:7485
+msgid "Rectangle"
+msgstr "Taisnstūris"
+
+#: resources/xnec2c.glade:7502
+msgid "Triangle"
+msgstr "Trīsstūris"
+
+#: resources/xnec2c.glade:7519
+msgid "Quadrilateral"
+msgstr "Četrstūris"
+
+#: resources/xnec2c.glade:7536
+msgid "Surface"
+msgstr "Virsma"
+
+#: resources/xnec2c.glade:7559
+msgid "Patch Type"
+msgstr "Plākstera tips"
+
+#: resources/xnec2c.glade:7589
+msgid "Corners 1-2 sub-division (NX)"
+msgstr "Stūru 1-2 iedalījums (NX)"
+
+#: resources/xnec2c.glade:7620
+msgid "Corners 2-3 sub-division (NY)"
+msgstr "Stūru 2-3 iedalījums (NY)"
+
+#: resources/xnec2c.glade:7655
+msgid "Surface Sub-division"
+msgstr "Virsmas iedalījums"
+
+#: resources/xnec2c.glade:7881
+msgid "SP/SM Cards"
+msgstr "SP/SM kartes"
+
+#: resources/xnec2c.glade:7917
+msgid "Corner 3 - X"
+msgstr "Stūris 3 - X"
+
+#: resources/xnec2c.glade:7949
+msgid "Corner 3 - Y"
+msgstr "Stūris 3 - Y"
+
+#: resources/xnec2c.glade:7981
+msgid "Corner 3 - Z"
+msgstr "Stūris 3 - Z"
+
+#: resources/xnec2c.glade:8029
+msgid "Corner 4 - X"
+msgstr "Stūris 4 - X"
+
+#: resources/xnec2c.glade:8061
+msgid "Corner 4 - Y"
+msgstr "Stūris 4 - Y"
+
+#: resources/xnec2c.glade:8093
+msgid "Corner 4 - Z"
+msgstr "Stūris 4 - Z"
+
+#: resources/xnec2c.glade:8136
+msgid "SC Card"
+msgstr "SC karte"
+
+#: resources/xnec2c.glade:8352
+msgid "Quit xnec2c?"
+msgstr "Iziet no xnec2c?"
+
+#: resources/xnec2c.glade:8431
+msgid "Radiation Pattern (RP Card)"
+msgstr "Starojuma diagramma (RP karte)"
+
+#: resources/xnec2c.glade:8458
+msgid "Normal (Space) Wave"
+msgstr "Normāls (telpas) vilnis"
+
+#: resources/xnec2c.glade:8474
+msgid "Space + Ground Wave"
+msgstr "Telpas + zemes vilnis"
+
+#: resources/xnec2c.glade:8490
+msgid "Linear Cliff"
+msgstr "Lineāra klints"
+
+#: resources/xnec2c.glade:8506
+msgid "Radial wire screen"
+msgstr "Radiāls vadu ekrāns"
+
+#: resources/xnec2c.glade:8522
+msgid "Circular Cliff + Radials"
+msgstr "Apļveida klints + radiāļi"
+
+#: resources/xnec2c.glade:8538
+msgid "Circular Cliff"
+msgstr "Apļveida klints"
+
+#: resources/xnec2c.glade:8554
+msgid "Linear Cliff + Radials"
+msgstr "Lineāra klints + radiāļi"
+
+#: resources/xnec2c.glade:8572
+msgid "<b>See GN/GD Card Documentation</b>"
+msgstr "<b>Skatīt GN/GD karšu dokumentāciju</b>"
+
+#: resources/xnec2c.glade:8590
+msgid "Wave Type and Ground (I1)"
+msgstr "Viļņa tips un zeme (I1)"
+
+#: resources/xnec2c.glade:8618
+msgid "Major & Minor Axis & Total Gain"
+msgstr "Lielā un mazā ass un kopējais pastiprinājums"
+
+#: resources/xnec2c.glade:8634
+msgid "Vertical, Horizontal & Total Gain"
+msgstr "Vertikālais, horizontālais un kopējais pastiprinājums"
+
+#: resources/xnec2c.glade:8650
+msgid "Major Axis Gain Normalized"
+msgstr "Lielās ass pastiprinājums normalizēts"
+
+#: resources/xnec2c.glade:8666
+msgid "Vertical Axis Gain Normalized"
+msgstr "Vertikālās ass pastiprinājums normalizēts"
+
+#: resources/xnec2c.glade:8682
+msgid "Total Gain Normalized"
+msgstr "Kopējais pastiprinājums normalizēts"
+
+#: resources/xnec2c.glade:8698
+msgid "Print/Normalize Directive Gain"
+msgstr "Drukāt/normalizēt virziena pastiprinājumu"
+
+#: resources/xnec2c.glade:8714
+msgid "No Normalized Gain"
+msgstr "Nav normalizēta pastiprinājuma"
+
+#: resources/xnec2c.glade:8730
+msgid "Minor Axis Gain Normalized"
+msgstr "Mazās ass pastiprinājums normalizēts"
+
+#: resources/xnec2c.glade:8746
+msgid "Horizontal Axis Gain Normalized"
+msgstr "Horizontālās ass pastiprinājums normalizēts"
+
+#: resources/xnec2c.glade:8762
+msgid "Print/Normalize Power Gain"
+msgstr "Drukāt/Normalizēt jaudas pastiprinājumu"
+
+#: resources/xnec2c.glade:8778
+msgid "No Gain Averaging"
+msgstr "Bez pastiprinājuma vidējošanas"
+
+#: resources/xnec2c.glade:8794
+msgid "Points in Average Not Printed"
+msgstr "Vidējie punkti nav drukāti"
+
+#: resources/xnec2c.glade:8810
+msgid "Average Gain Computed"
+msgstr "Vidējais pastiprinājums aprēķināts"
+
+#: resources/xnec2c.glade:8828
+msgid "<b>See RP Card Documentation</b>"
+msgstr "<b>Skatīt RP kartes dokumentāciju</b>"
+
+#: resources/xnec2c.glade:8846
+msgid "Data Output Control (XNDA)"
+msgstr "Datu izvades vadība (XNDA)"
+
+#: resources/xnec2c.glade:8876
+msgid "Points in Theta"
+msgstr "Punkti Theta"
+
+#: resources/xnec2c.glade:8985
+msgid "Initial Phi (deg)"
+msgstr "Sākotnējais Phi (grādi)"
+
+#: resources/xnec2c.glade:9067
+msgid "Field Point Distance"
+msgstr "Lauka punkta attālums"
+
+#: resources/xnec2c.glade:9099
+msgid "Gain Normalization"
+msgstr "Pastiprinājuma normalizēšana"
+
+#: resources/xnec2c.glade:9141
+msgid "Radiation Pattern Parameters"
+msgstr "Starojuma diagrammas parametri"
+
+#: resources/xnec2c.glade:9301
+msgid "Reflect Structure (GX card)"
+msgstr "Atspoguļot struktūru (GX karte)"
+
+#: resources/xnec2c.glade:9329
+msgid "Reflect in YZ plane"
+msgstr "Atspoguļot YZ plaknē"
+
+#: resources/xnec2c.glade:9344
+msgid "Reflect in XY plane"
+msgstr "Atspoguļot XY plaknē"
+
+#: resources/xnec2c.glade:9359
+msgid "Reflect in XZ plane"
+msgstr "Atspoguļot XZ plaknē"
+
+#: resources/xnec2c.glade:9415
+msgid "Reflect Options"
+msgstr "Atspoguļošanas opcijas"
+
+#: resources/xnec2c.glade:9546
+msgid "Xnec2c: Frequency Data Plots"
+msgstr "Xnec2c: Frekvences datu grafiki"
+
+#: resources/xnec2c.glade:9571 resources/xnec2c.glade:10386
+#: resources/xnec2c.glade:11663
+msgid "_File"
+msgstr "_Fails"
+
+#: resources/xnec2c.glade:9633 resources/xnec2c.glade:10448
+#: resources/xnec2c.glade:11725
+msgid "Save as _gnuplot"
+msgstr "Saglabāt kā _gnuplot"
+
+#: resources/xnec2c.glade:9644 resources/xnec2c.glade:11735
+msgid "Save as _CSV"
+msgstr "Saglabāt kā _CSV"
+
+#: resources/xnec2c.glade:9656
+msgid "Save as _Touchstone (.SnP)"
+msgstr "Saglabāt kā _Touchstone (.SnP)"
+
+#: resources/xnec2c.glade:9663
+msgid "Save as S_1P: Reflection Only"
+msgstr "Saglabāt kā S_1P: Tikai atstarošana"
+
+#: resources/xnec2c.glade:9673
+msgid "Save as S2P: _Max Gain (S21)"
+msgstr "Saglabāt kā S2P: _Maks. pastiprinājums (S21)"
+
+#: resources/xnec2c.glade:9683
+msgid "Save as S2P: _Viewer Gain (S21)"
+msgstr "Saglabāt kā S2P: _Skatītāja pastiprinājums (S21)"
+
+#: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
+#: resources/xnec2c.glade:11769
+msgid "_View"
+msgstr "_Skats"
+
+#: resources/xnec2c.glade:9729 resources/xnec2c.glade:10826
+#: resources/xnec2c.glade:11779
+msgid "_Polarization"
+msgstr "_Polarizācija"
+
+#: resources/xnec2c.glade:9745 resources/xnec2c.glade:10842
+#: resources/xnec2c.glade:11795
+msgid "_Total"
+msgstr "_Kopējais"
+
+#: resources/xnec2c.glade:9756 resources/xnec2c.glade:10853
+#: resources/xnec2c.glade:11806
+msgid "_Horizontal"
+msgstr "_Horizontālais"
+
+#: resources/xnec2c.glade:9767 resources/xnec2c.glade:10864
+#: resources/xnec2c.glade:11817
+msgid "_Vertical"
+msgstr "_Vertikālais"
+
+#: resources/xnec2c.glade:9778 resources/xnec2c.glade:10875
+#: resources/xnec2c.glade:11828
+msgid "_Right Hand"
+msgstr "_Labās rokas"
+
+#: resources/xnec2c.glade:9789 resources/xnec2c.glade:10886
+#: resources/xnec2c.glade:11839
+msgid "_Left Hand"
+msgstr "_Kreisās rokas"
+
+#: resources/xnec2c.glade:9804
+msgid "_Net Gain"
+msgstr "_Tīrais pastiprinājums"
+
+#: resources/xnec2c.glade:9813
+msgid "Show _Min/Max Values"
+msgstr "Rādīt _Min/Maks vērtības"
+
+#: resources/xnec2c.glade:9822
+msgid "Show _S11 (dB) Values"
+msgstr "Rādīt _S11 (dB) vērtības"
+
+#: resources/xnec2c.glade:9831
+msgid "Clamp _VSWR Graph to 10"
+msgstr "Ierobežot _VSWR grafiku līdz 10"
+
+#: resources/xnec2c.glade:9840
+msgid "Round _X Axis Frequency Values"
+msgstr "Noapaļot _X ass frekvences vērtības"
+
+#: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
+msgid "Max Gain"
+msgstr "Maks. pastiprinājums"
+
+#: resources/xnec2c.glade:9879
+msgid "Direction"
+msgstr "Virziens"
+
+#: resources/xnec2c.glade:9894
+msgid "Viewer"
+msgstr "Skatītājs"
+
+#: resources/xnec2c.glade:9924
+msgid "Zr/Zi"
+msgstr "Zr/Zi"
+
+#: resources/xnec2c.glade:9939
+msgid "Zm/Zph"
+msgstr "Zm/Zph"
+
+#: resources/xnec2c.glade:9954
+msgid "Smith"
+msgstr "Smith"
+
+#: resources/xnec2c.glade:9998 resources/xnec2c.glade:10033
+#: resources/xnec2c.glade:10068 resources/xnec2c.glade:10103
+#: resources/xnec2c.glade:12644
+msgid " - - -"
+msgstr " - - -"
+
+#: resources/xnec2c.glade:10139
+msgid " - - - - "
+msgstr " - - - - "
+
+#: resources/xnec2c.glade:10155
+msgid "Freq MHz"
+msgstr "Frekv. MHz"
+
+#: resources/xnec2c.glade:10194
+msgid "Tx Line Zo"
+msgstr "Tx līnijas Zo"
+
+#: resources/xnec2c.glade:10208 resources/xnec2c.glade:11432
+#: resources/xnec2c.glade:12520
+msgid "Freq Loop"
+msgstr "Frekv. cikls"
+
+#: resources/xnec2c.glade:10342
+msgid "Frequency Data Plots"
+msgstr "Frekvences datu grafiki"
+
+#: resources/xnec2c.glade:10459
+msgid "Save _Currents/Charges as CSV"
+msgstr "Saglabāt _Strāvas/Lādiņus kā CSV"
+
+#: resources/xnec2c.glade:10478
+msgid "Optimization Settings"
+msgstr "Optimizācijas iestatījumi"
+
+#: resources/xnec2c.glade:10493
+msgid "Reload and write data on .NEC file changes"
+msgstr "Pārlādēt un rakstīt datus pie .NEC faila izmaiņām"
+
+#: resources/xnec2c.glade:10500
+msgid "_Write files selected below, now."
+msgstr "_Rakstīt zemāk atlasītos failus tagad."
+
+#: resources/xnec2c.glade:10515
+msgid "After calculation, write <file>.csv"
+msgstr "Pēc aprēķina rakstīt <file>.csv"
+
+#: resources/xnec2c.glade:10524
+msgid "After calculation, write <file>.s_1p"
+msgstr "Pēc aprēķina rakstīt <file>.s_1p"
+
+#: resources/xnec2c.glade:10533
+msgid "After calculation, write <file>-_maxgain.s2p"
+msgstr "Pēc aprēķina rakstīt <file>-_maxgain.s2p"
+
+#: resources/xnec2c.glade:10542
+msgid "After calculation, write <file>-_viewergain.s2p"
+msgstr "Pēc aprēķina rakstīt <file>-_viewergain.s2p"
+
+#: resources/xnec2c.glade:10551
+msgid "After calculation, write <file>-_radpattern.csv"
+msgstr "Pēc aprēķina rakstīt <file>-_radpattern.csv"
+
+#: resources/xnec2c.glade:10560
+msgid "After calculation, write <file>-_currents.csv"
+msgstr "Pēc aprēķina rakstīt <file>-_currents.csv"
+
+#: resources/xnec2c.glade:10575
+msgid "_Math Libraries"
+msgstr "_Matemātikas bibliotēkas"
+
+#: resources/xnec2c.glade:10584
+msgid "_Interactive"
+msgstr "_Interaktīvs"
+
+#: resources/xnec2c.glade:10604
+msgid "_Batch"
+msgstr "_Pakešu režīms"
+
+#: resources/xnec2c.glade:10630
+msgid "Mathlib _Help"
+msgstr "Mathlib _Palīdzība"
+
+#: resources/xnec2c.glade:10643
+msgid "Mathlib _Benchmarks"
+msgstr "Mathlib _Veiktspējas testi"
+
+#: resources/xnec2c.glade:10654
+msgid "_Selected Mathlibs"
+msgstr "_Atlasītās Mathlib"
+
+#: resources/xnec2c.glade:10668
+msgid "Select All/None"
+msgstr "Atlasīt visas/Nevienu"
+
+#: resources/xnec2c.glade:10693
+msgid "_Parallel (-j N):\t\tO(N/J)"
+msgstr "_Paralēli (-j N):\t\tO(N/J)"
+
+#: resources/xnec2c.glade:10702
+msgid "_Single Job (-j 1):\tO(N)"
+msgstr "_Viens darbs (-j 1):\tO(N)"
+
+#: resources/xnec2c.glade:10711
+msgid "_Iterate -j N/=2:\tO(N*log2(J))"
+msgstr "_Iterēt -j N/=2:\tO(N*log2(J))"
+
+#: resources/xnec2c.glade:10720
+msgid "_Iterate -j N-=1:\tO(N*J)"
+msgstr "_Iterēt -j N-=1:\tO(N*J)"
+
+#: resources/xnec2c.glade:10735
+msgid "Benchmark _Help"
+msgstr "Veiktspējas testu _Palīdzība"
+
+#: resources/xnec2c.glade:10754
+msgid "Begin Frequency Loop at Startup"
+msgstr "Sākt frekvences ciklu pie palaišanas"
+
+#: resources/xnec2c.glade:10765
+msgid "Confirm Quit"
+msgstr "Apstiprināt iziešanu"
+
+#: resources/xnec2c.glade:10806
+msgid "_Radiation Pattern"
+msgstr "_Starojuma diagramma"
+
+#: resources/xnec2c.glade:10816
+msgid "_Frequency Plots"
+msgstr "_Frekvences grafiki"
+
+#: resources/xnec2c.glade:10901 resources/xnec2c.glade:12009
+msgid "Common _Projection"
+msgstr "Kopīgā _Projekcija"
+
+#: resources/xnec2c.glade:10911 resources/xnec2c.glade:12019
+msgid "Common _Frequency"
+msgstr "Kopīgā _Frekvence"
+
+#: resources/xnec2c.glade:10923
+msgid "_Help"
+msgstr "_Palīdzība"
+
+#: resources/xnec2c.glade:10932
+msgid "_About"
+msgstr "_Par programmu"
+
+#: resources/xnec2c.glade:10959
+msgid "Currents"
+msgstr "Strāvas"
+
+#: resources/xnec2c.glade:10974
+msgid "Charges"
+msgstr "Lādiņi"
+
+#: resources/xnec2c.glade:11155
+msgid " Zoom"
+msgstr " Tālummaiņa"
+
+#: resources/xnec2c.glade:11277 resources/xnec2c.glade:12456
+msgid "Gain"
+msgstr "Pastiprinājums"
+
+#: resources/xnec2c.glade:11292 resources/xnec2c.glade:11308
+#: resources/xnec2c.glade:12469 resources/xnec2c.glade:12626
+msgid "0.0"
+msgstr "0.0"
+
+#: resources/xnec2c.glade:11342
+msgid "- - - "
+msgstr "- - - "
+
+#: resources/xnec2c.glade:11384 resources/xnec2c.glade:12612
+msgid "dB"
+msgstr "dB"
+
+#: resources/xnec2c.glade:11398 resources/xnec2c.glade:12505
+msgid "Step"
+msgstr "Solis"
+
+#: resources/xnec2c.glade:11545 resources/xnec2c.glade:12553
+msgid "Apply"
+msgstr "Lietot"
+
+#: resources/xnec2c.glade:11565
+msgid "Frequency Mhz"
+msgstr "Frekvence MHz"
+
+#: resources/xnec2c.glade:11618
+msgid "Structure Geometry"
+msgstr "Struktūras ģeometrija"
+
+#: resources/xnec2c.glade:11637
+msgid "Xnec2c: Radiation Patterns"
+msgstr "Xnec2c: Starojuma diagrammas"
+
+#: resources/xnec2c.glade:11854
+msgid "_Gain Scaling"
+msgstr "_Pastiprinājuma mērogošana"
+
+#: resources/xnec2c.glade:11869
+msgid "Linear _Power"
+msgstr "Lineārā _Jauda"
+
+#: resources/xnec2c.glade:11880
+msgid "Linear _Voltage"
+msgstr "Lineārais _Spriegums"
+
+#: resources/xnec2c.glade:11891
+msgid "_ARRL Style"
+msgstr "_ARRL stils"
+
+#: resources/xnec2c.glade:11902
+msgid "_Logarithmic"
+msgstr "_Logaritmisks"
+
+#: resources/xnec2c.glade:11917
+msgid "_Near Field"
+msgstr "_Tuvais lauks"
+
+#: resources/xnec2c.glade:11932
+msgid "Near _E Field"
+msgstr "Tuvais _E lauks"
+
+#: resources/xnec2c.glade:11942
+msgid "Near _H Field"
+msgstr "Tuvais _H lauks"
+
+#: resources/xnec2c.glade:11952
+msgid "_Poynting Vector"
+msgstr "_Pointinga vektors"
+
+#: resources/xnec2c.glade:11961
+msgid "_Animate Dialog"
+msgstr "_Animācijas dialogs"
+
+#: resources/xnec2c.glade:11970
+msgid "_Total Field"
+msgstr "_Kopējais lauks"
+
+#: resources/xnec2c.glade:11979
+msgid "_Peak Value"
+msgstr "_Maksimālā vērtība"
+
+#: resources/xnec2c.glade:11990
+msgid "_Snapshot"
+msgstr "_Momentuzņēmums"
+
+#: resources/xnec2c.glade:12029
+msgid "_Overlay Structure"
+msgstr "_Pārklāt struktūru"
+
+#: resources/xnec2c.glade:12053
+msgid "Gain Pattern"
+msgstr "Pastiprinājuma diagramma"
+
+#: resources/xnec2c.glade:12068
+msgid "E/H Fields"
+msgstr "E/H lauki"
+
+#: resources/xnec2c.glade:12251
+msgid "Zoom % "
+msgstr "Tālummaiņa % "
+
+#: resources/xnec2c.glade:12572
+msgid "Frequency MHz"
+msgstr "Frekvence MHz"
+
+#: resources/xnec2c.glade:12589
+msgid "0.010"
+msgstr "0.010"
+
+#: resources/xnec2c.glade:12745
+msgid "Scale Structure (GS card)"
+msgstr "Mērogot struktūru (GS karte)"
+
+#: resources/xnec2c.glade:12776
+msgid "Structure Scale Factor"
+msgstr "Struktūras mēroga koeficients"
+
+#: resources/xnec2c.glade:12789
+msgid "From Tag No."
+msgstr "No birkas Nr."
+
+#: resources/xnec2c.glade:12839
+msgid "To Tag No."
+msgstr "Līdz birkas Nr."
+
+#: resources/xnec2c.glade:12874
+msgid "Scale Structure"
+msgstr "Mērogot struktūru"
+
+#: resources/xnec2c.glade:13051
+msgid "Co-ordinate Transformation (GM card)"
+msgstr "Koordinātu transformācija (GM karte)"
+
+#: resources/xnec2c.glade:13081
+msgid "Tag Increment"
+msgstr "Birkas pieaugums"
+
+#: resources/xnec2c.glade:13112
+msgid "Rotate about X"
+msgstr "Rotēt ap X"
+
+#: resources/xnec2c.glade:13144
+msgid "Move along X"
+msgstr "Pārvietot pa X"
+
+#: resources/xnec2c.glade:13176
+msgid "New Structures"
+msgstr "Jaunas struktūras"
+
+#: resources/xnec2c.glade:13207
+msgid "Rotate about Y"
+msgstr "Rotēt ap Y"
+
+#: resources/xnec2c.glade:13239
+msgid "Move along Y"
+msgstr "Pārvietot pa Y"
+
+#: resources/xnec2c.glade:13271
+msgid "Start From Tag"
+msgstr "Sākt no birkas"
+
+#: resources/xnec2c.glade:13303
+msgid "Rotate about Z"
+msgstr "Rotēt ap Z"
+
+#: resources/xnec2c.glade:13335
+msgid "Move along Z"
+msgstr "Pārvietot pa Z"
+
+#: resources/xnec2c.glade:13371
+msgid "Co-ordinate Transformation Data"
+msgstr "Koordinātu transformācijas dati"
+
+#: resources/xnec2c.glade:13567
+msgid "Trans. Line Command (TL Card)"
+msgstr "Pārvades līnijas komanda (TL karte)"
+
+#: resources/xnec2c.glade:13597
+msgid "Tag Number, End 1  "
+msgstr "Birkas numurs, 1. gals  "
+
+#: resources/xnec2c.glade:13629
+msgid "Tag Number, End 2  "
+msgstr "Birkas numurs, 2. gals  "
+
+#: resources/xnec2c.glade:13660
+msgid "Segment Num, End 1"
+msgstr "Segmenta Nr., 1. gals"
+
+#: resources/xnec2c.glade:13692
+msgid "Segment Num, End 2"
+msgstr "Segmenta Nr., 2. gals"
+
+#: resources/xnec2c.glade:13756
+msgid "Crossed Transmission Line"
+msgstr "Šķērsota pārvades līnija"
+
+#: resources/xnec2c.glade:13774
+msgid "Characteristic Impedance"
+msgstr "Raksturīgā impedance"
+
+#: resources/xnec2c.glade:13806
+msgid "End 1 Y Real Part (S)"
+msgstr "1. gala Y reālā daļa (S)"
+
+#: resources/xnec2c.glade:13838
+msgid "End 2 Y Real Part (S)"
+msgstr "2. gala Y reālā daļa (S)"
+
+#: resources/xnec2c.glade:13870
+msgid "Length of Tx Line (m)"
+msgstr "Pārvades līnijas garums (m)"
+
+#: resources/xnec2c.glade:13902
+msgid "End 1 Y Imag Part (S)"
+msgstr "1. gala Y imaginārā daļa (S)"
+
+#: resources/xnec2c.glade:13934
+msgid "End 2 Y Imag Part (S)"
+msgstr "2. gala Y imaginārā daļa (S)"
+
+#: resources/xnec2c.glade:13970
+msgid "Transmission Line"
+msgstr "Pārvades līnija"
+
+#: resources/xnec2c.glade:14197
+msgid "Wire Element (GW & GC cards)"
+msgstr "Vada elements (GW un GC kartes)"
+
+#: resources/xnec2c.glade:14257
+msgid "Wire X1"
+msgstr "Vads X1"
+
+#: resources/xnec2c.glade:14289
+msgid "Wire X2"
+msgstr "Vads X2"
+
+#: resources/xnec2c.glade:14352
+msgid "Wire Y1"
+msgstr "Vads Y1"
+
+#: resources/xnec2c.glade:14385
+msgid "Wire Y2"
+msgstr "Vads Y2"
+
+#: resources/xnec2c.glade:14449
+msgid "Wire Z1"
+msgstr "Vads Z1"
+
+#: resources/xnec2c.glade:14481
+msgid "Wire Z2"
+msgstr "Vads Z2"
+
+#: resources/xnec2c.glade:14546
+msgid "Wire Length"
+msgstr "Vada garums"
+
+#: resources/xnec2c.glade:14617
+msgid "Wire Data"
+msgstr "Vada dati"
+
+#: resources/xnec2c.glade:14629
+msgid "Tapered Wire"
+msgstr "Konisks vads"
+
+#: resources/xnec2c.glade:14671
+msgid "Length Taper"
+msgstr "Garuma sašaurināšanās"
+
+#: resources/xnec2c.glade:14703
+msgid "Diameter Seg 1"
+msgstr "1. segmenta diametrs"
+
+#: resources/xnec2c.glade:14735
+msgid "Diameter Seg N"
+msgstr "N segmenta diametrs"
+
+#: resources/xnec2c.glade:14767
+msgid "Diam. Taper"
+msgstr "Diametra sašaur."
+
+#: resources/xnec2c.glade:14803
+msgid "Wire Taper Data"
+msgstr "Vada sašaurināšanās dati"
+
+#: resources/xnec2c.glade:14968
+msgid "Impedance (Zo) Ohm"
+msgstr "Impedance (Zo) Ohm"
+
+#: resources/xnec2c.glade:14983
+msgid "50.00"
+msgstr "50.00"
+
+#: resources/xnec2c.glade:15006
+msgid "Transmission Line Impedance (Zo)"
+msgstr "Pārvades līnijas impedance (Zo)"
+
+#~ msgid ""
+#~ "Not available for Incident Field or\n"
+#~ "Elementary Current Source Excitation.\n"
+#~ "(Excitation Types 1 to 4)"
+#~ msgstr ""
+#~ "Nav pieejams krītošā lauka vai\n"
+#~ "elementāra strāvas avota ierosmes gadījumā.\n"
+#~ "(Ierosmes tipi no 1 līdz 4)"
+
+#~ msgid "number of segments less than 1 (ns < 1)\n"
+#~ msgstr "segmentu skaits mazāks par 1 (ns < 1)\n"
+
+#~ msgid "arc angle exceeds 360 degrees\n"
+#~ msgstr "loka leņķis pārsniedz 360 grādus\n"
+
+#~ msgid "np > n\n"
+#~ msgstr "np > n\n"
+
+#~ msgid "b less than a\n"
+#~ msgstr "b mazāks par a\n"
+
+#~ msgid "unexpected EOF (End of File)\n"
+#~ msgstr "negaidīts EOF (faila beigas)\n"
+
+#~ msgid "error reading Comments: Comment mnemonic short or missing\n"
+#~ msgstr "kļūda lasot komentārus: komentāra mnemonika ir īsa vai trūkst\n"
+
+#~ msgid "geometry data card error - tag number is less than 1\n"
+#~ msgstr "ģeometrijas datu kartes kļūda - birkas numurs ir mazāks par 1\n"
+
+#~ msgid "geometry data card error - number of segments is less than 1\n"
+#~ msgstr "ģeometrijas datu kartes kļūda - segmentu skaits ir mazāks par 1\n"
+
+#~ msgid "geometry data card error no GC card for tapered wire\n"
+#~ msgstr "ģeometrijas datu kartes kļūda - nav GC kartes konusveida vadam\n"
+
+#~ msgid "geometry GC data card error\n"
+#~ msgstr "ģeometrijas GC datu kartes kļūda\n"
+
+#~ msgid "geometry GX data card error\n"
+#~ msgstr "ģeometrijas GX datu kartes kļūda\n"
+
+#~ msgid "geometry GR data card error\n"
+#~ msgstr "ģeometrijas GR datu kartes kļūda\n"
+
+#~ msgid "move GM data card error\n"
+#~ msgstr "pārvietošanas GM datu kartes kļūda\n"
+
+#~ msgid "patch data card error\n"
+#~ msgstr "laukuma datu kartes kļūda\n"
+
+#~ msgid "patch data error\n"
+#~ msgstr "laukuma datu kļūda\n"
+
+#~ msgid "patch card data error\n"
+#~ msgstr "laukuma kartes datu kļūda\n"
+
+#~ msgid "\"GF\" card (NGF solution) is not supported\n"
+#~ msgstr "\"GF\" karte (NGF risinājums) netiek atbalstīta\n"
+
+#~ msgid "ignoring CM card in geometry\n"
+#~ msgstr "CM karte ģeometrijā tiek ignorēta\n"
+
+#~ msgid ""
+#~ "Theta > 90 deg with ground specified: Please check RP card data and "
+#~ "correct\n"
+#~ msgstr ""
+#~ "Theta > 90 grādi ar norādītu zemi: Lūdzu, pārbaudiet RP kartes datus un "
+#~ "izlabojiet\n"
+
+#~ msgid "Hankel not valid for z = 0\n"
+#~ msgstr "Hankel nav derīgs, ja z = 0\n"
+
+#~ msgid "No convergence\n"
+#~ msgstr "Nav konverģences\n"

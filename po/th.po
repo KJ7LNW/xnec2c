@@ -1,0 +1,3591 @@
+# Thai translations for xnec2c package.
+# Copyright (C) 2025 Neoklis Kyriazis nkcyham@yahoo.com
+# This file is distributed under the same license as the xnec2c package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xnec2c 4.4.18\n"
+"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
+"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"PO-Revision-Date: 2025-12-28 20:37-0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/calculations.c:117 src/calculations.c:1276
+#, c-format
+msgid "segment connection error for segment %5d\n"
+msgstr "ข้อผิดพลาดการเชื่อมต่อ segment สำหรับ segment %5d\n"
+
+#: src/calculations.c:118
+msgid "Segment connection error in tbf()"
+msgstr "ข้อผิดพลาดการเชื่อมต่อ segment ใน tbf()"
+
+#: src/calculations.c:890
+#, c-format
+msgid "step size limited at z= %10.5f\n"
+msgstr "ขนาดขั้นถูกจำกัดที่ z= %10.5f\n"
+
+#: src/calculations.c:1054
+#, c-format
+msgid "segment connection error for segment %d\n"
+msgstr "ข้อผิดพลาดการเชื่อมต่อ segment สำหรับ segment %d\n"
+
+#: src/calculations.c:1055
+msgid "Segment connection error in sbf()"
+msgstr "ข้อผิดพลาดการเชื่อมต่อ segment ใน sbf()"
+
+#: src/calculations.c:1277
+msgid "Segment connection error in trio()"
+msgstr "ข้อผิดพลาดการเชื่อมต่อ segment ใน trio()"
+
+#: src/callback_func.c:263
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to end the calculation?"
+msgstr ""
+"ลูปความถี่กำลังทำงานอยู่\n"
+"คุณแน่ใจหรือไม่ว่าต้องการสิ้นสุดการคำนวณ?"
+
+#: src/callback_func.c:267
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to close this window?"
+msgstr ""
+"ลูปความถี่กำลังทำงานอยู่\n"
+"คุณแน่ใจหรือไม่ว่าต้องการปิดหน้าต่างนี้?"
+
+#: src/callback_func.c:512
+#, c-format
+msgid ""
+"Frequency plots window closed: excitation type %d is incompatible.\n"
+"Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
+msgstr ""
+"หน้าต่างกราฟความถี่ถูกปิด: ประเภทการกระตุ้น %d ไม่เข้ากัน\n"
+"ใช้ประเภท 0 (Applied E Field) หรือ 5 (Current Discontinuity) แทน"
+
+#: src/callback_func.c:518
+#, c-format
+msgid ""
+"Frequency plots are not available with excitation type %d.\n"
+"This model uses Incident Field or Elementary Current Source excitation.\n"
+"Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
+msgstr ""
+"กราฟความถี่ไม่สามารถใช้งานได้กับประเภทการกระตุ้น %d\n"
+"โมเดลนี้ใช้การกระตุ้นแบบ Incident Field หรือ Elementary Current Source\n"
+"เปลี่ยนการ์ด EX เป็นประเภท 0 (Applied E Field) หรือ 5 (Current Discontinuity)"
+
+#: src/callback_func.c:697
+msgid "View Currents"
+msgstr "ดูกระแส"
+
+#: src/callback_func.c:719 src/callback_func.c:778
+msgid "View Geometry"
+msgstr "ดูเรขาคณิต"
+
+#: src/callback_func.c:756
+msgid "View Charges"
+msgstr "ดูประจุ"
+
+#: src/callback_func.c:821
+msgid "PNG images (*.png)"
+msgstr "ภาพ PNG (*.png)"
+
+#: src/callback_func.c:823
+msgid "GNUplot files (*.gplot)"
+msgstr "ไฟล์ GNUplot (*.gplot)"
+
+#: src/callback_func.c:825
+msgid "NEC2 files (*.nec)"
+msgstr "ไฟล์ NEC2 (*.nec)"
+
+#: src/callback_func.c:827
+msgid "Touchstone 1-port files (*.s1p)"
+msgstr "ไฟล์ Touchstone 1-port (*.s1p)"
+
+#: src/callback_func.c:829
+msgid "Touchstone 2-port files (*.s2p)"
+msgstr "ไฟล์ Touchstone 2-port (*.s2p)"
+
+#: src/callback_func.c:831
+msgid "Comma-separated CSV files (*.csv)"
+msgstr "ไฟล์ CSV คั่นด้วยจุลภาค (*.csv)"
+
+#: src/callbacks.c:88 src/callbacks.c:371 src/callbacks.c:1813
+#: src/callbacks.c:2174
+msgid "Are you sure you wish to quit xnec2c?"
+msgstr "คุณแน่ใจหรือไม่ว่าต้องการออกจาก xnec2c?"
+
+#: src/callbacks.c:131
+msgid ""
+"A new NEC2 input file may not be created\n"
+"while the Frequency Loop is running"
+msgstr ""
+"ไม่สามารถสร้างไฟล์ข้อมูลนำเข้า NEC2 ใหม่ได้\n"
+"ขณะที่ลูปความถี่กำลังทำงานอยู่"
+
+#: src/callbacks.c:171
+msgid ""
+"A new NEC2 input file may not be opened\n"
+"while the Frequency Loop is running"
+msgstr ""
+"ไม่สามารถเปิดไฟล์ข้อมูลนำเข้า NEC2 ใหม่ได้\n"
+"ขณะที่ลูปความถี่กำลังทำงานอยู่"
+
+#: src/callbacks.c:291
+msgid "xnec2c geometry optimizer"
+msgstr "ตัวปรับแต่งเรขาคณิต xnec2c"
+
+#: src/callbacks.c:292
+msgid ""
+"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr "xnec2c ถูกสร้างโดยไม่มีการสนับสนุน inotify: ไม่สามารถเปิดใช้งานตัวปรับแต่งได้"
+
+#: src/callbacks.c:316
+msgid "Xnec2c Optimizer"
+msgstr "ตัวปรับแต่ง Xnec2c"
+
+#: src/callbacks.c:316
+msgid ""
+"No files are selected for writing. However, xnec2c will still reload and "
+"recalculate the input file on modification when triggered by inotify.Select "
+"files for writing in \"File->Optimization Settings\"."
+msgstr ""
+"ไม่มีไฟล์ที่เลือกสำหรับการเขียน อย่างไรก็ตาม xnec2c "
+"จะยังคงโหลดใหม่และคำนวณไฟล์ข้อมูลนำเข้าใหม่เมื่อมีการแก้ไขเมื่อถูกกระตุ้นโดย inotify "
+"เลือกไฟล์สำหรับเขียนใน \"ไฟล์->การตั้งค่าการเพิ่มประสิทธิภาพ\""
+
+#: src/callbacks.c:327
+msgid "failed to create Optimizer Output thread\n"
+msgstr "ไม่สามารถสร้างเธรดเอาต์พุตตัวปรับแต่งได้\n"
+
+#: src/callbacks.c:1031 src/callbacks.c:1347 src/callbacks.c:2200
+msgid "Are you sure you wish to close this window?"
+msgstr "คุณแน่ใจหรือไม่ว่าต้องการปิดหน้าต่างนี้?"
+
+#: src/callbacks.c:2138
+msgid "No open NEC2 input file"
+msgstr "ไม่มีไฟล์ข้อมูลนำเข้า NEC2 ที่เปิดอยู่"
+
+#: src/callbacks.c:2231 src/callbacks.c:2261
+msgid ""
+"NEC2 Editor's data may not be saved\n"
+"while the Frequency Loop is running"
+msgstr ""
+"ข้อมูลตัวแก้ไข NEC2 อาจไม่สามารถบันทึกได้\n"
+"ขณะที่ลูปความถี่กำลังทำงานอยู่"
+
+#: src/callbacks.c:2243 src/callbacks.c:2269
+msgid "untitled.nec"
+msgstr "untitled.nec"
+
+#: src/callbacks.c:2734 src/callbacks.c:2754 src/callbacks.c:2774
+#: src/geom_edit.c:413 src/geom_edit.c:1229 src/geom_edit.c:1471
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"การ์ดความถี่ (FR) ยังไม่ได้ประมวลผล\n"
+"คุณอาจต้องบันทึกข้อมูลตัวแก้ไข NEC2 ก่อน"
+
+#: src/cmnd_edit.c:72
+msgid ""
+"Get_Command_Data(): Error reading\n"
+"row data: Invalid list iterator"
+msgstr ""
+"Get_Command_Data(): ข้อผิดพลาดในการอ่าน\n"
+"ข้อมูลแถว: ตัววนซ้ำรายการไม่ถูกต้อง"
+
+#: src/cmnd_edit.c:105
+msgid ""
+"Set_Command_Data(): Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Set_Command_Data(): ข้อผิดพลาดในการเขียนข้อมูลแถว\n"
+"กรุณาเลือกแถวใหม่"
+
+#: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
+#: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
+msgid "Tag Number"
+msgstr "หมายเลข Tag"
+
+#: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
+msgid "Segment Number"
+msgstr "หมายเลข Segment"
+
+#: src/cmnd_edit.c:422
+msgid "Voltage Real Part"
+msgstr "ส่วนจริงของแรงดัน"
+
+#: src/cmnd_edit.c:423
+msgid "Voltage Imaginary Part"
+msgstr "ส่วนจินตภาพของแรงดัน"
+
+#: src/cmnd_edit.c:424 src/cmnd_edit.c:1579
+msgid "Normalization Factor"
+msgstr "ตัวประกอบนอร์มัลไลเซชัน"
+
+#: src/cmnd_edit.c:425 src/cmnd_edit.c:426 src/cmnd_edit.c:427
+#: src/cmnd_edit.c:463 src/cmnd_edit.c:464 src/cmnd_edit.c:1814
+#: src/cmnd_edit.c:1825 src/cmnd_edit.c:1826
+msgid "  ** NOT USED **"
+msgstr "  ** ไม่ใช้ **"
+
+#: src/cmnd_edit.c:445
+msgid "Num of Theta Angles"
+msgstr "จำนวนมุม Theta"
+
+#: src/cmnd_edit.c:446
+msgid "Num of Phi Angles"
+msgstr "จำนวนมุม Phi"
+
+#: src/cmnd_edit.c:447
+msgid "Theta Angle (deg)"
+msgstr "มุม Theta (deg)"
+
+#: src/cmnd_edit.c:448
+msgid "Phi Angle (deg)"
+msgstr "มุม Phi (deg)"
+
+#: src/cmnd_edit.c:449
+msgid "Eta Angle (deg)"
+msgstr "มุม Eta (deg)"
+
+#: src/cmnd_edit.c:450
+msgid "Theta Increment (deg)"
+msgstr "ค่าเพิ่ม Theta (deg)"
+
+#: src/cmnd_edit.c:451
+msgid "Phi Increment (deg)"
+msgstr "ค่าเพิ่ม Phi (deg)"
+
+#: src/cmnd_edit.c:452
+msgid "Minor/Major Axis"
+msgstr "แกนรอง/แกนหลัก"
+
+#: src/cmnd_edit.c:465
+msgid "X Position (m)"
+msgstr "ตำแหน่ง X (m)"
+
+#: src/cmnd_edit.c:466
+msgid "Y Position (m)"
+msgstr "ตำแหน่ง Y (m)"
+
+#: src/cmnd_edit.c:467
+msgid "Z Position (m)"
+msgstr "ตำแหน่ง Z (m)"
+
+#: src/cmnd_edit.c:468
+msgid "alpha Angle (deg)"
+msgstr "มุม alpha (deg)"
+
+#: src/cmnd_edit.c:469
+msgid "beta Angle (deg)"
+msgstr "มุม beta (deg)"
+
+#: src/cmnd_edit.c:470
+msgid "Current Moment (A.m)"
+msgstr "โมเมนต์กระแส (A.m)"
+
+#: src/cmnd_edit.c:1556
+msgid "Points in Z"
+msgstr "จุดใน Z"
+
+#: src/cmnd_edit.c:1557
+msgid "Initial Z (m)"
+msgstr "Z เริ่มต้น (m)"
+
+#: src/cmnd_edit.c:1558
+msgid "Increment in Z"
+msgstr "ค่าเพิ่มใน Z"
+
+#: src/cmnd_edit.c:1559
+msgid "Field Point R (m)"
+msgstr "จุดสนาม R (m)"
+
+#: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
+msgid "Points in Phi"
+msgstr "จุดใน Phi"
+
+#: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
+msgid "Initial Theta (deg)"
+msgstr "Theta เริ่มต้น (deg)"
+
+#: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
+msgid "Increment in Theta"
+msgstr "ค่าเพิ่มใน Theta"
+
+#: src/cmnd_edit.c:1570
+msgid "R (m) (Optional)"
+msgstr "R (m) (ทางเลือก)"
+
+#: src/cmnd_edit.c:1583
+msgid "** NOT USED **"
+msgstr "** ไม่ใช้ **"
+
+#: src/cmnd_edit.c:1788 src/cmnd_edit.c:1812
+msgid "Resistance Ohm"
+msgstr "ความต้านทาน Ohm"
+
+#: src/cmnd_edit.c:1789
+msgid "Inductance uH"
+msgstr "ความเหนี่ยวนำ uH"
+
+#: src/cmnd_edit.c:1790
+msgid "Capacitance pF"
+msgstr "ความจุ pF"
+
+#: src/cmnd_edit.c:1800
+msgid "Resistance Ohm/m"
+msgstr "ความต้านทาน Ohm/m"
+
+#: src/cmnd_edit.c:1801
+msgid "Inductance uH/m"
+msgstr "ความเหนี่ยวนำ uH/m"
+
+#: src/cmnd_edit.c:1802
+msgid "Capacitance pF/m"
+msgstr "ความจุ pF/m"
+
+#: src/cmnd_edit.c:1813
+msgid "Reactance Ohm"
+msgstr "รีแอคแตนซ์ Ohm"
+
+#: src/cmnd_edit.c:1824 resources/xnec2c.glade:480 resources/xnec2c.glade:4012
+#: resources/xnec2c.glade:14578
+msgid "Conductivity S/m"
+msgstr "สภาพนำไฟฟ้า S/m"
+
+#: src/cmnd_edit.c:2453
+msgid "Points in X-axis"
+msgstr "จุดในแกน X"
+
+#: src/cmnd_edit.c:2454
+msgid "Points in Y-axis"
+msgstr "จุดในแกน Y"
+
+#: src/cmnd_edit.c:2455
+msgid "Points in Z-axis"
+msgstr "จุดในแกน Z"
+
+#: src/cmnd_edit.c:2456
+msgid "First Point X (m)"
+msgstr "จุดแรก X (m)"
+
+#: src/cmnd_edit.c:2457
+msgid "First Point Y (m)"
+msgstr "จุดแรก Y (m)"
+
+#: src/cmnd_edit.c:2458
+msgid "First Point Z (m)"
+msgstr "จุดแรก Z (m)"
+
+#: src/cmnd_edit.c:2459
+msgid "Increment in X (m)"
+msgstr "ค่าเพิ่มใน X (m)"
+
+#: src/cmnd_edit.c:2460
+msgid "Increment in Y (m)"
+msgstr "ค่าเพิ่มใน Y (m)"
+
+#: src/cmnd_edit.c:2461
+msgid "Increment in Z (m)"
+msgstr "ค่าเพิ่มใน Z (m)"
+
+#: src/cmnd_edit.c:2469
+msgid "Points along R"
+msgstr "จุดตาม R"
+
+#: src/cmnd_edit.c:2470
+msgid "Points along Phi"
+msgstr "จุดตาม Phi"
+
+#: src/cmnd_edit.c:2471
+msgid "Points along Theta"
+msgstr "จุดตาม Theta"
+
+#: src/cmnd_edit.c:2472
+msgid "First Point R (m)"
+msgstr "จุดแรก R (m)"
+
+#: src/cmnd_edit.c:2473
+msgid "First Point Phi"
+msgstr "จุดแรก Phi"
+
+#: src/cmnd_edit.c:2474
+msgid "First Point Theta"
+msgstr "จุดแรก Theta"
+
+#: src/cmnd_edit.c:2475
+msgid "Increment in R (m)"
+msgstr "ค่าเพิ่มใน R (m)"
+
+#: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
+msgid "Increment in Phi"
+msgstr "ค่าเพิ่มใน Phi"
+
+#: src/draw_radiation.c:28
+msgid ""
+"Animation requires near field data.\n"
+"\n"
+"E-field animation: Add NE card to NEC file\n"
+"H-field animation: Add NH card to NEC file\n"
+"Poynting vector: Add both NE and NH cards"
+msgstr ""
+"แอนิเมชันต้องการข้อมูลสนามใกล้\n"
+"\n"
+"แอนิเมชันสนาม E: เพิ่มการ์ด NE ในไฟล์ NEC\n"
+"แอนิเมชันสนาม H: เพิ่มการ์ด NH ในไฟล์ NEC\n"
+"เวกเตอร์พอยน์ติง: เพิ่มการ์ด NE และ NH ทั้งคู่"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
+msgid "Near Field Animation"
+msgstr "แอนิเมชันสนามใกล้"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 src/geometry.c:812
+#: src/input.c:1570 src/input.c:1571 src/utils.c:509 src/utils.c:555
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/draw_radiation.c:1052
+msgid "Total Gain"
+msgstr "อัตราขยายรวม"
+
+#: src/draw_radiation.c:1053
+msgid "Horizontal Polarization"
+msgstr "โพลาไรเซชันแนวนอน"
+
+#: src/draw_radiation.c:1054
+msgid "Vertical Polarization"
+msgstr "โพลาไรเซชันแนวตั้ง"
+
+#: src/draw_radiation.c:1055
+msgid "RH Circular Polarization"
+msgstr "โพลาไรเซชันวงกลมขวา"
+
+#: src/draw_radiation.c:1056
+msgid "LH Circular Polarization"
+msgstr "โพลาไรเซชันวงกลมซ้าย"
+
+#: src/draw_radiation.c:1061
+msgid "Linear Power"
+msgstr "กำลังเชิงเส้น"
+
+#: src/draw_radiation.c:1062
+msgid "Linear Voltage"
+msgstr "แรงดันเชิงเส้น"
+
+#: src/draw_radiation.c:1063
+msgid "ARRL Scale"
+msgstr "สเกล ARRL"
+
+#: src/draw_radiation.c:1064
+msgid "Logarithmic Scale"
+msgstr "สเกลลอการิทึม"
+
+#: src/draw_radiation.c:1073 resources/xnec2c.glade:12710
+msgid "Radiation Patterns"
+msgstr "แบบรูปการแผ่พลังงาน"
+
+#: src/draw_radiation.c:1076
+msgid "Radiation Pattern: - "
+msgstr "แบบรูปการแผ่พลังงาน: - "
+
+#: src/draw_radiation.c:1083
+msgid "Near Fields:"
+msgstr "สนามใกล้:"
+
+#: src/draw_radiation.c:1085
+msgid " - E Field"
+msgstr " - สนาม E"
+
+#: src/draw_radiation.c:1087
+msgid " - H Field"
+msgstr " - สนาม H"
+
+#: src/draw_radiation.c:1089
+msgid " - Poynting Vector"
+msgstr " - เวกเตอร์พอยน์ติง"
+
+#: src/draw_radiation.c:1099
+msgid "Frequency Data Plots - "
+msgstr "กราฟข้อมูลความถี่ - "
+
+#: src/draw_radiation.c:1307
+#, c-format
+msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
+msgstr "fstep=%d อยู่นอกขอบเขต calc_data.steps_total=%d"
+
+#: src/geom_edit.c:76 src/geom_edit.c:1866 src/geom_edit.c:2109
+#: src/geom_edit.c:2491
+msgid ""
+"Error reading row data\n"
+"Invalid list iterator"
+msgstr ""
+"ข้อผิดพลาดในการอ่านข้อมูลแถว\n"
+"ตัววนซ้ำรายการไม่ถูกต้อง"
+
+#: src/geom_edit.c:109 src/geom_edit.c:139
+msgid ""
+"Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"ข้อผิดพลาดในการเขียนข้อมูลแถว\n"
+"กรุณาเลือกแถวใหม่"
+
+#: src/geom_edit.c:528
+msgid ""
+"GC card preceded by GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"การ์ด GC นำหน้าด้วยการ์ด GW\n"
+"ที่มีรัศมีสายไม่เป็นศูนย์"
+
+#: src/geom_edit.c:532
+msgid "No GW card before GC card"
+msgstr "ไม่มีการ์ด GW ก่อนการ์ด GC"
+
+#: src/geom_edit.c:556
+msgid ""
+"No GC card after a GW card\n"
+"with a zero wire radius"
+msgstr ""
+"ไม่มีการ์ด GC หลังการ์ด GW\n"
+"ที่มีรัศมีสายเป็นศูนย์"
+
+#: src/geom_edit.c:565
+msgid ""
+"GC card follows a GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"การ์ด GC ตามหลังการ์ด GW\n"
+"ที่มีรัศมีสายไม่เป็นศูนย์"
+
+#: src/geom_edit.c:944
+msgid ""
+"SC card preceded by SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"การ์ด SC นำหน้าด้วยการ์ด SP\n"
+"ที่มีประเภทแผ่นปะแบบกำหนดเอง"
+
+#: src/geom_edit.c:956
+msgid "No SP or SM card before SC card"
+msgstr "ไม่มีการ์ด SP หรือ SM ก่อนการ์ด SC"
+
+#: src/geom_edit.c:976
+msgid ""
+"No SC card after an SP card\n"
+"with non-arbitrary patch type"
+msgstr ""
+"ไม่มีการ์ด SC หลังการ์ด SP\n"
+"ที่มีประเภทแผ่นปะแบบไม่กำหนดเอง"
+
+#: src/geom_edit.c:983
+msgid ""
+"SC card follows an SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"การ์ด SC ตามหลังการ์ด SP\n"
+"ที่มีประเภทแผ่นปะแบบกำหนดเอง"
+
+#: src/geom_edit.c:996
+msgid "No SC card after an SM card"
+msgstr "ไม่มีการ์ด SC หลังการ์ด SM"
+
+#: src/geom_edit.c:1066 resources/xnec2c.glade:7685
+msgid "Center - X"
+msgstr "ศูนย์กลาง - X"
+
+#: src/geom_edit.c:1068 resources/xnec2c.glade:7749
+msgid "Center - Y"
+msgstr "ศูนย์กลาง - Y"
+
+#: src/geom_edit.c:1070 resources/xnec2c.glade:7813
+msgid "Center - Z"
+msgstr "ศูนย์กลาง - Z"
+
+#: src/geom_edit.c:1072 resources/xnec2c.glade:7717
+msgid "Normal - Elev."
+msgstr "เส้นปกติ - มุมยกสูง"
+
+#: src/geom_edit.c:1074 resources/xnec2c.glade:7781
+msgid "Normal - Azim."
+msgstr "เส้นปกติ - มุมอะซิมัท"
+
+#: src/geom_edit.c:1076 resources/xnec2c.glade:7845
+msgid "Patch Area"
+msgstr "พื้นที่แผ่นปะ"
+
+#: src/geom_edit.c:1081
+msgid "Corner 1 - X"
+msgstr "มุม 1 - X"
+
+#: src/geom_edit.c:1083
+msgid "Corner 1 - Y"
+msgstr "มุม 1 - Y"
+
+#: src/geom_edit.c:1085
+msgid "Corner 1 - Z"
+msgstr "มุม 1 - Z"
+
+#: src/geom_edit.c:1087
+msgid "Corner 2 - X"
+msgstr "มุม 2 - X"
+
+#: src/geom_edit.c:1089
+msgid "Corner 2 - Y"
+msgstr "มุม 2 - Y"
+
+#: src/geom_edit.c:1091
+msgid "Corner 2 - Z"
+msgstr "มุม 2 - Z"
+
+#: src/geom_edit.c:2582
+msgid "NEC2 editor window not open"
+msgstr "หน้าต่างตัวแก้ไข NEC2 ไม่ได้เปิด"
+
+#: src/geometry.c:97
+msgid "Number of segments < 1"
+msgstr "จำนวนเซกเมนต์ < 1"
+
+#: src/geometry.c:148
+msgid "Arc angle exceeds 360 degrees"
+msgstr "มุมส่วนโค้งเกิน 360 องศา"
+
+#: src/geometry.c:309
+msgid "Error in conect(): np > n"
+msgstr "ข้อผิดพลาดใน conect(): np > n"
+
+#: src/geometry.c:343 src/geometry.c:391
+#, c-format
+msgid "geometry data error: segment %d extends below ground\n"
+msgstr "ข้อผิดพลาดข้อมูลเรขาคณิต: เซกเมนต์ %d ยื่นต่ำกว่าระนาบกราวด์\n"
+
+#: src/geometry.c:344 src/geometry.c:392
+msgid ""
+"Geometry data error\n"
+"Segment extends below ground"
+msgstr ""
+"ข้อผิดพลาดข้อมูลเรขาคณิต\n"
+"เซกเมนต์ยื่นต่ำกว่าระนาบกราวด์"
+
+#: src/geometry.c:401
+#, c-format
+msgid "geometry data error: segment %d lies in ground plane\n"
+msgstr "ข้อผิดพลาดข้อมูลเรขาคณิต: เซกเมนต์ %d อยู่ในระนาบกราวด์\n"
+
+#: src/geometry.c:402
+msgid ""
+"Geometry data error\n"
+"Segment lies in ground plane"
+msgstr ""
+"ข้อผิดพลาดข้อมูลเรขาคณิต\n"
+"เซกเมนต์อยู่ในระนาบกราวด์"
+
+#: src/geometry.c:492
+msgid "ipsym = 0\n"
+msgstr "ipsym = 0\n"
+
+#: src/geometry.c:493
+msgid "Error: ipsym = 0"
+msgstr "ข้อผิดพลาด: ipsym = 0"
+
+#: src/geometry.c:549
+#, c-format
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
+"segj.maxcon=%lu\n"
+msgstr ""
+"จำนวนการเชื่อมต่อเซกเมนต์เกินตาข่ายเต็ม ซึ่งไม่น่าจะเป็นไปได้: data.n=%ld segj.maxcon="
+"%lu\n"
+
+#: src/geometry.c:551
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely!\n"
+"Check for overlapping or nearly-connected segments\n"
+msgstr ""
+"จำนวนการเชื่อมต่อเซกเมนต์เกินตาข่ายเต็ม ซึ่งไม่น่าจะเป็นไปได้!\n"
+"ตรวจสอบเซกเมนต์ที่ซ้อนทับหรือเกือบเชื่อมต่อกัน\n"
+
+#: src/geometry.c:764
+msgid ""
+"check data, parameter specifying segment: position in a group of equal tags "
+"must not be zero\n"
+msgstr "ตรวจสอบข้อมูล พารามิเตอร์ระบุเซกเมนต์: ตำแหน่งในกลุ่มแท็กที่เท่ากันต้องไม่เป็นศูนย์\n"
+
+#: src/geometry.c:765
+msgid ""
+"Parameter specifying segment\n"
+"position in a group of equal tags is zero"
+msgstr ""
+"พารามิเตอร์ระบุเซกเมนต์\n"
+"ตำแหน่งในกลุ่มแท็กที่เท่ากันเป็นศูนย์"
+
+#: src/geometry.c:797
+#, c-format
+msgid "no segment has an itag of %d\n"
+msgstr "ไม่มีเซกเมนต์ที่มี itag เป็น %d\n"
+
+#: src/geometry.c:801
+msgid ""
+"Segment tag number error: Tag 0 is reserved and cannot be used.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are "
+"valid.\n"
+"For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
+msgstr ""
+"ข้อผิดพลาดหมายเลขแท็กเซกเมนต์: แท็ก 0 ถูกสงวนไว้และไม่สามารถใช้ได้\n"
+"ตรวจสอบการ์ดเรขาคณิตของคุณ (โดยเฉพาะการ์ด GM) เพื่อให้แน่ใจว่าค่าแท็กถูกต้อง\n"
+"สำหรับการ์ด GM: ตรวจสอบว่า 'เริ่มจากแท็ก' และ 'การเพิ่มแท็ก' ไม่สร้างแท็ก 0"
+
+#: src/geometry.c:809
+#, c-format
+msgid ""
+"Segment tag number error: No segment found with tag %d.\n"
+"You are referencing an unknown tag or segment in a control card.\n"
+"Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."
+msgstr ""
+"ข้อผิดพลาดหมายเลขแท็กเซกเมนต์: ไม่พบเซกเมนต์ที่มีแท็ก %d\n"
+"คุณกำลังอ้างอิงแท็กหรือเซกเมนต์ที่ไม่รู้จักในการ์ดควบคุม\n"
+"แท็กที่ถูกต้องในเรขาคณิตของคุณคือแท็กที่กำหนดให้กับการ์ด GW/GA/GH/SP"
+
+#: src/geometry.c:1123
+msgid "corners of quadrilateral: patch do not lie in a plane\n"
+msgstr "มุมของรูปสี่เหลี่ยม: แผ่นปะไม่อยู่ในระนาบ\n"
+
+#: src/geometry.c:1124
+msgid ""
+"Corners of quadrilateral\n"
+"patch do not lie in a plane"
+msgstr ""
+"มุมของรูปสี่เหลี่ยม\n"
+"แผ่นปะไม่อยู่ในระนาบ"
+
+#: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
+#, c-format
+msgid "geometry data error: segment %d lies in plane of symmetry\n"
+msgstr "ข้อผิดพลาดข้อมูลเรขาคณิต: เซกเมนต์ %d อยู่ในระนาบสมมาตร\n"
+
+#: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
+msgid ""
+"Geometry data error\n"
+"Segment lies in plane of symmetry"
+msgstr ""
+"ข้อผิดพลาดข้อมูลเรขาคณิต\n"
+"เซกเมนต์อยู่ในระนาบสมมาตร"
+
+#: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
+#, c-format
+msgid "geometry data error: patch %d lies in plane of symmetry\n"
+msgstr "ข้อผิดพลาดข้อมูลเรขาคณิต: แผ่นปะ %d อยู่ในระนาบสมมาตร\n"
+
+#: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
+msgid ""
+"Geometry data error\n"
+"Patch lies in plane of symmetry"
+msgstr ""
+"ข้อผิดพลาดข้อมูลเรขาคณิต\n"
+"แผ่นปะอยู่ในระนาบสมมาตร"
+
+#: src/geometry.c:1642
+#, c-format
+msgid ""
+"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
+"threshold=%.3e); segment will connect to itself\n"
+msgstr ""
+"tag=%d/seg=%d: ระยะจุดปลาย=%.3e ใกล้เกินไป (ต่ำกว่าเกณฑ์การเชื่อมต่อ=%.3e); "
+"เซกเมนต์จะเชื่อมต่อกับตัวเอง\n"
+
+#: src/geometry.c:1647
+#, c-format
+msgid "tag=%d: suppressing additional self-connection warnings\n"
+msgstr "tag=%d: ระงับคำเตือนการเชื่อมต่อตัวเองเพิ่มเติม\n"
+
+#: src/geometry.c:1692
+#, c-format
+msgid ""
+"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
+"threshold %.3e; unintended connections possible\n"
+msgstr ""
+"tag=%d/seg=%d: ระยะทาง=%.3e ถึง tag=%d/seg=%d ใกล้กว่า 2 เท่าของเกณฑ์การเชื่อมต่อ "
+"%.3e; อาจมีการเชื่อมต่อที่ไม่ตั้งใจ\n"
+
+#: src/geometry.c:1697
+#, c-format
+msgid "tag=%d: suppressing additional overlap warnings\n"
+msgstr "tag=%d: ระงับคำเตือนการซ้อนทับเพิ่มเติม\n"
+
+#: src/geometry.c:1757
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
+"length=%.3e that connection detection may fail or short\n"
+msgstr ""
+"tag=%d/seg=%d: ความยาว=%.3e สั้นเกินไป (และใกล้พอ) กับ tag=%d/seg=%d ความยาว=%.3e "
+"ซึ่งการตรวจจับการเชื่อมต่ออาจล้มเหลวหรือลัดวงจร\n"
+
+#: src/geometry.c:1762
+#, c-format
+msgid ""
+"tag=%d: suppressing additional connection detection may fail or short "
+"warnings\n"
+msgstr "tag=%d: ระงับคำเตือนการตรวจจับการเชื่อมต่ออาจล้มเหลวหรือลัดวงจรเพิ่มเติม\n"
+
+#: src/geometry.c:1794
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
+"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
+"recommended <= 0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: อัตราส่วนความยาว/ความยาวคลื่น %.3f < 0.001; "
+"ความคล้ายคลึงของส่วนประกอบกระแสนำไปสู่ความไม่แม่นยำเชิงตัวเลข (ต่ำสุด=0.001, ดี=0.05, "
+"แนะนำ <= 0.1)\n"
+
+#: src/geometry.c:1799
+#, c-format
+msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
+msgstr "tag=%d: ระงับข้อผิดพลาดอัตราส่วนความยาวคลื่นสั้นเพิ่มเติม\n"
+
+#: src/geometry.c:1812
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
+"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
+"0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: อัตราส่วนความยาว/ความยาวคลื่น %.3f > 0.1; "
+"ความละเอียดการสุ่มตัวอย่างกระแสถูกจำกัดโดยระยะห่างเซกเมนต์ (ต่ำสุด=0.001, ดี=0.05, แนะนำ "
+"<= 0.1)\n"
+
+#: src/geometry.c:1817
+#, c-format
+msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
+msgstr "tag=%d: ระงับคำเตือนอัตราส่วนความยาวคลื่นยาวเพิ่มเติม\n"
+
+#: src/geometry.c:1830
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
+"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
+"recommended <=0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: อัตราส่วนความยาว/ความยาวคลื่น %.3f > 0.05; "
+"เซกเมนต์สั้นกว่าเพิ่มความแม่นยำในบริเวณที่กระแสเปลี่ยนแปลงเร็ว (ต่ำสุด=0.001, ดี=0.05, แนะนำ "
+"<=0.1)\n"
+
+#: src/geometry.c:1835
+#, c-format
+msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
+msgstr "tag=%d: ระงับข้อเสนอแนะการปรับปรุงความแม่นยำเพิ่มเติม\n"
+
+#: src/geometry.c:1865
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 2.0; "
+"ข้อผิดพลาดสนามเคอร์เนลสายบางมาตรฐานเกิน 1%% อย่างมาก (ต่ำสุด=2.0, แม่นยำ 1%%=8.0)\n"
+
+#: src/geometry.c:1870
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
+msgstr "tag=%d: ระงับข้อผิดพลาดอัตราส่วนเคอร์เนลมาตรฐานเพิ่มเติม\n"
+
+#: src/geometry.c:1883
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
+"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 8.0; "
+"ข้อผิดพลาดสนามเคอร์เนลสายบางมาตรฐานเกิน 1%% (ต่ำสุด=2.0, แม่นยำ 1%%=8.0)\n"
+
+#: src/geometry.c:1888
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
+msgstr "tag=%d: ระงับคำเตือนอัตราส่วนเคอร์เนลมาตรฐานเพิ่มเติม\n"
+
+#: src/geometry.c:1903
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 0.5; "
+"ข้อผิดพลาดสนามเคอร์เนลสายบางขยายเกิน 1%% อย่างมาก (ต่ำสุด=0.5, แม่นยำ 1%%=2.0)\n"
+
+#: src/geometry.c:1908
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
+msgstr "tag=%d: ระงับข้อผิดพลาดอัตราส่วนเคอร์เนลขยายเพิ่มเติม\n"
+
+#: src/geometry.c:1921
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
+"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 2.0; "
+"ข้อผิดพลาดสนามเคอร์เนลสายบางขยายเกิน 1%% (ต่ำสุด=0.5, แม่นยำ 1%%=2.0)\n"
+
+#: src/geometry.c:1926
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
+msgstr "tag=%d: ระงับคำเตือนอัตราส่วนเคอร์เนลขยายเพิ่มเติม\n"
+
+#: src/geometry.c:1942
+#, c-format
+msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
+msgstr ""
+"ข้ามการตรวจสอบการซ้อนทับสำหรับ %d เซกเมนต์ (ใช้ --force-verify เพื่อเปิดใช้งาน)\n"
+
+#: src/geometry.c:1946
+#, c-format
+msgid "Forcing overlap check for %d segments\n"
+msgstr "บังคับตรวจสอบการซ้อนทับสำหรับ %d เซกเมนต์\n"
+
+#: src/geometry.c:1957
+msgid ""
+"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() ข้ามการตรวจสอบที่ขึ้นกับความถี่ - ไม่มีข้อมูลความถี่\n"
+
+#: src/gnuplot.c:46
+msgid "Gnuplot Data"
+msgstr "ข้อมูล Gnuplot"
+
+#: src/gnuplot.c:46 src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Cannot save data while frequency loop is running"
+msgstr "ไม่สามารถบันทึกข้อมูลขณะที่ลูปความถี่กำลังทำงานอยู่"
+
+#: src/gnuplot.c:60
+#, c-format
+msgid "# Reference impedance Z0 = %.2f Ohm\n"
+msgstr "# อิมพีแดนซ์อ้างอิง Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:62
+#, c-format
+msgid ""
+"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
+"zreal and zimag:\n"
+msgstr ""
+"# หากต้องการพล็อตใน gnuplot คุณสามารถปรับแต่งคำสั่งนี้ได้ ปัจจุบันพล็อต MHz กับ zreal และ "
+"zimag:\n"
+
+#: src/gnuplot.c:63
+#, c-format
+msgid ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+msgstr ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+
+#: src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Touchstone Data"
+msgstr "ข้อมูล Touchstone"
+
+#: src/gnuplot.c:102
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! อิมพีแดนซ์อ้างอิง Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:130
+#, c-format
+msgid "This should never happen. touchstone type=%d\n"
+msgstr "สิ่งนี้ไม่ควรเกิดขึ้น touchstone type=%d\n"
+
+#: src/gnuplot.c:227
+#, c-format
+msgid "# Near E field\n"
+msgstr "# สนาม E ใกล้\n"
+
+#: src/gnuplot.c:250
+#, c-format
+msgid "# Near H field\n"
+msgstr "# สนาม H ใกล้\n"
+
+#: src/gnuplot.c:297
+#, c-format
+msgid "# Poynting Vector\n"
+msgstr "# เวกเตอร์พอยน์ติง\n"
+
+#: src/gnuplot.c:369
+#, c-format
+msgid "# Radiation Pattern\n"
+msgstr "# แบบรูปการแผ่คลื่น\n"
+
+#: src/gnuplot.c:505
+#, c-format
+msgid "# structure patch segments\n"
+msgstr "# เซกเมนต์แผ่นปะโครงสร้าง\n"
+
+#: src/gnuplot.c:530
+#, c-format
+msgid "# structure wire segments\n"
+msgstr "# เซกเมนต์สายโครงสร้าง\n"
+
+#: src/gnuplot.c:565
+msgid "Save Currents and Charges to CSV"
+msgstr "บันทึกกระแสและประจุเป็น CSV"
+
+#: src/ground.c:90
+msgid "b less than a"
+msgstr "b น้อยกว่า a"
+
+#: src/ground.c:215
+#, c-format
+msgid "step size limited at z = %12.5E\n"
+msgstr "ขนาดขั้นถูกจำกัดที่ z = %12.5E\n"
+
+#: src/input.c:84
+msgid ""
+"Error reading Comments\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"ข้อผิดพลาดในการอ่านความคิดเห็น\n"
+"EOF (สิ้นสุดไฟล์) ที่ไม่คาดคิด"
+
+#: src/input.c:98
+msgid ""
+"Error reading Comments\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"ข้อผิดพลาดในการอ่านความคิดเห็น\n"
+"ตัวช่วยจำความคิดเห็นสั้นหรือหายไป"
+
+#: src/input.c:109
+msgid ""
+"Read_Comments():\n"
+" Error reading input file\n"
+"Comment mnemonic incorrect"
+msgstr ""
+"Read_Comments():\n"
+" ข้อผิดพลาดในการอ่านไฟล์อินพุต\n"
+"ตัวช่วยจำความคิดเห็นไม่ถูกต้อง"
+
+#: src/input.c:148
+msgid ""
+"Geometry data error\n"
+"Tag number is less than 1"
+msgstr ""
+"ข้อผิดพลาดข้อมูลเรขาคณิต\n"
+"หมายเลขแท็กน้อยกว่า 1"
+
+#: src/input.c:155
+msgid ""
+"Geometry data error\n"
+"Number of segments is less than 1"
+msgstr ""
+"ข้อผิดพลาดข้อมูลเรขาคณิต\n"
+"จำนวนเซกเมนต์น้อยกว่า 1"
+
+#: src/input.c:162
+msgid "warning - number of segments is greater than 1000000\n"
+msgstr "คำเตือน - จำนวนเซกเมนต์มากกว่า 1000000\n"
+
+#: src/input.c:210
+#, c-format
+msgid "%s data card error: Spurious character '%c' at column %d\n"
+msgstr "ข้อผิดพลาดการ์ดข้อมูล %s: อักขระที่ไม่ถูกต้อง '%c' ที่คอลัมน์ %d\n"
+
+#: src/input.c:212
+msgid ""
+"Data card error\n"
+"Spurious character in card"
+msgstr ""
+"ข้อผิดพลาดการ์ดข้อมูล\n"
+"อักขระที่ไม่ถูกต้องในการ์ด"
+
+#: src/input.c:262
+#, c-format
+msgid "%s: expression evaluation failed for \"%s\"\n"
+msgstr "%s: การประเมินนิพจน์ล้มเหลวสำหรับ \"%s\"\n"
+
+#: src/input.c:300
+msgid "SY card: no line content available\n"
+msgstr "การ์ด SY: ไม่มีเนื้อหาบรรทัด\n"
+
+#: src/input.c:301
+msgid "SY card: no line content available"
+msgstr "การ์ด SY: ไม่มีเนื้อหาบรรทัด"
+
+#: src/input.c:318
+msgid "SY card: missing '=' in definition\n"
+msgstr "การ์ด SY: ไม่มี '=' ในการกำหนดค่า\n"
+
+#: src/input.c:319
+msgid "SY card: missing '=' in definition"
+msgstr "การ์ด SY: ไม่มี '=' ในการกำหนดค่า"
+
+#: src/input.c:352
+#, c-format
+msgid "SY card: expression evaluation failed for %s=%s\n"
+msgstr "การ์ด SY: การประเมินนิพจน์ล้มเหลวสำหรับ %s=%s\n"
+
+#: src/input.c:358
+#, c-format
+msgid "SY card: symbol definition failed for %s\n"
+msgstr "การ์ด SY: การกำหนดสัญลักษณ์ล้มเหลวสำหรับ %s\n"
+
+#: src/input.c:438
+msgid ""
+"Geometry data error\n"
+"No GC card for tapered wire"
+msgstr ""
+"ข้อผิดพลาดข้อมูลเรขาคณิต\n"
+"ไม่มีการ์ด GC สำหรับสายลวดเรียว"
+
+#: src/input.c:445
+msgid "Geometry GC data card error"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต GC"
+
+#: src/input.c:461
+msgid "Geometry GX data card error"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต GX"
+
+#: src/input.c:484
+msgid "Geometry GR data card error"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต GR"
+
+#: src/input.c:541
+msgid "No geometry data cards"
+msgstr "ไม่มีการ์ดข้อมูลเรขาคณิต"
+
+#: src/input.c:550
+msgid "Probable invalid segment geometry.\n"
+msgstr "เรขาคณิตเซกเมนต์อาจไม่ถูกต้อง\n"
+
+#: src/input.c:551
+msgid ""
+"Invalid segment geometry.\n"
+"See warnings in the console for detail.\n"
+"Trying to continue..."
+msgstr ""
+"เรขาคณิตเซกเมนต์ไม่ถูกต้อง\n"
+"ดูคำเตือนในคอนโซลสำหรับรายละเอียด\n"
+"กำลังพยายามดำเนินการต่อ..."
+
+#: src/input.c:556
+msgid "Read_Geometry: verify_segments() passed\n"
+msgstr "Read_Geometry: verify_segments() ผ่าน\n"
+
+#: src/input.c:602
+#, c-format
+msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
+msgstr "ข้อผิดพลาดข้อมูลเซกเมนต์: tag=%d si=%lf, bi=%lf\n"
+
+#: src/input.c:604
+msgid "Segment data error, zero-length line?  See console."
+msgstr "ข้อผิดพลาดข้อมูลเซกเมนต์ เส้นความยาวศูนย์? ดูคอนโซล"
+
+#: src/input.c:639
+msgid "Move GM data card error"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลย้าย GM"
+
+#: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
+#: src/input.c:739
+msgid "Patch data card error"
+msgstr "ข้อผิดพลาดการ์ดข้อมูล Patch"
+
+#: src/input.c:677
+msgid "Patch data error"
+msgstr "ข้อผิดพลาดข้อมูล Patch"
+
+#: src/input.c:786
+msgid ""
+"\"GF\" card (NGF solution)\n"
+"is not supported"
+msgstr ""
+"การ์ด \"GF\" (โซลูชัน NGF)\n"
+"ไม่รองรับ"
+
+#: src/input.c:791
+msgid "Ignoring CM card in geometry"
+msgstr "ละเว้นการ์ด CM ในเรขาคณิต"
+
+#: src/input.c:804
+#, c-format
+msgid "geometry data card error (nwire=%d)\n"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต (nwire=%d)\n"
+
+#: src/input.c:805
+#, c-format
+msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+
+#: src/input.c:808
+msgid "Geometry data card error"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต"
+
+#: src/input.c:833
+msgid "Failed to initialize symbol table\n"
+msgstr "ล้มเหลวในการเริ่มต้นตารางสัญลักษณ์\n"
+
+#: src/input.c:834
+msgid "Failed to initialize symbol table"
+msgstr "ล้มเหลวในการเริ่มต้นตารางสัญลักษณ์"
+
+#: src/input.c:1002
+msgid "ignoring CM card in commands\n"
+msgstr "ละเว้นการ์ด CM ในคำสั่ง\n"
+
+#: src/input.c:1003
+msgid "Ignoring CM card in commands"
+msgstr "ละเว้นการ์ด CM ในคำสั่ง"
+
+#: src/input.c:1007
+msgid ""
+"CP card is ignored\n"
+"Coupling calculation not implemented"
+msgstr ""
+"การ์ด CP ถูกละเว้น\n"
+"การคำนวณการคัปปลิ้งไม่ได้ถูกนำมาใช้"
+
+#: src/input.c:1185
+msgid "Max frequency <= Min frequency in FR card\n"
+msgstr "ความถี่สูงสุด <= ความถี่ต่ำสุดในการ์ด FR\n"
+
+#: src/input.c:1186
+msgid ""
+"Max frequency <= Min frequency in FR card\n"
+"Please check FR card data and correct"
+msgstr ""
+"ความถี่สูงสุด <= ความถี่ต่ำสุดในการ์ด FR\n"
+"กรุณาตรวจสอบข้อมูลการ์ด FR และแก้ไข"
+
+#: src/input.c:1209
+msgid ""
+"Fix the GE/GN cards:\n"
+"The GE card specifies that a ground is present, but the GN indicates "
+"otherwise."
+msgstr ""
+"แก้ไขการ์ด GE/GN:\n"
+"การ์ด GE ระบุว่ามีกราวด์อยู่ แต่ GN ระบุเป็นอย่างอื่น"
+
+#: src/input.c:1223
+msgid "theta > 90 deg. with ground specified\n"
+msgstr "theta > 90 องศา โดยมีการระบุกราวด์\n"
+
+#: src/input.c:1224 src/radiation.c:656
+msgid ""
+"Theta > 90 deg with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 องศา โดยมีการระบุกราวด์\n"
+"กรุณาตรวจสอบข้อมูลการ์ด RP และแก้ไข"
+
+#: src/input.c:1233
+msgid ""
+"radial wire g.s. approximation: may not be used with Sommerfeld ground "
+"option\n"
+msgstr "การประมาณค่า radial wire g.s.: ไม่สามารถใช้กับตัวเลือกกราวด์ Sommerfeld ได้\n"
+
+#: src/input.c:1234
+msgid ""
+"radial wire g.s. approximation\n"
+"may not be used with Sommerfeld ground option"
+msgstr ""
+"การประมาณค่า radial wire g.s.\n"
+"ไม่สามารถใช้กับตัวเลือกกราวด์ Sommerfeld ได้"
+
+#: src/input.c:1285
+#, c-format
+msgid ""
+"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
+"%d\n"
+msgstr "ข้อผิดพลาดข้อมูลบนการ์ดโหลดหมายเลข %d: itag step1 %d มากกว่า itag step2 %d\n"
+
+#: src/input.c:1287
+msgid ""
+"Data fault on loading card\n"
+"itag step1 is greater than itag step2"
+msgstr ""
+"ข้อผิดพลาดข้อมูลบนการ์ดโหลด\n"
+"itag step1 มากกว่า itag step2"
+
+#: src/input.c:1420
+msgid ""
+"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "อิมพีแดนซ์สายส่ง = 0: ไม่ถูกต้อง กรุณาแก้ไขการ์ด NT หรือ TL\n"
+
+#: src/input.c:1421
+msgid ""
+"Transmission Line impedance = 0\n"
+"is not valid. Please correct NT or TL card"
+msgstr ""
+"อิมพีแดนซ์สายส่ง = 0\n"
+"ไม่ถูกต้อง กรุณาแก้ไขการ์ด NT หรือ TL"
+
+#: src/input.c:1430
+msgid "Segment number error in TL or NT card\n"
+msgstr "ข้อผิดพลาดหมายเลขเซกเมนต์ในการ์ด TL หรือ NT\n"
+
+#: src/input.c:1431
+msgid ""
+"Segment number\n"
+"error in NT or TL card"
+msgstr ""
+"ข้อผิดพลาดหมายเลขเซกเมนต์\n"
+"ในการ์ด NT หรือ TL"
+
+#: src/input.c:1452
+msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
+msgstr "การ์ด PQ และ PT ถูกละเว้น: ไม่ได้นำการพิมพ์ไปยังไฟล์มาใช้\n"
+
+#: src/input.c:1453
+msgid ""
+"PQ and PT cards are ignored\n"
+"Printing to file not implemented"
+msgstr ""
+"การ์ด PQ และ PT ถูกละเว้น\n"
+"ไม่ได้นำการพิมพ์ไปยังไฟล์มาใช้"
+
+#: src/input.c:1460
+msgid "Surface wave option (I1=1): of RP command not implemented\n"
+msgstr "ตัวเลือกคลื่นผิว (I1=1): ของคำสั่ง RP ไม่ได้ถูกนำมาใช้\n"
+
+#: src/input.c:1461
+msgid ""
+"Surface wave option (I1=1)\n"
+"of RP command not implemented"
+msgstr ""
+"ตัวเลือกคลื่นผิว (I1=1)\n"
+"ของคำสั่ง RP ไม่ได้ถูกนำมาใช้"
+
+#: src/input.c:1484
+msgid ""
+"Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
+"xnec2c renders radiation patterns graphically instead of text tables.\n"
+"Pattern calculations proceed normally; use GUI to view results."
+msgstr ""
+"การหาค่าเฉลี่ยเกน (XNDA ***1 หรือ ***2) ควบคุมรูปแบบการแสดงผลข้อความ\n"
+"xnec2c แสดงแพทเทิร์นการแผ่คลื่นแบบกราฟิกแทนตารางข้อความ\n"
+"การคำนวณแพทเทิร์นดำเนินการตามปกติ ใช้ GUI เพื่อดูผลลัพธ์"
+
+#: src/input.c:1502
+msgid ""
+"Theta > 90 deg. with ground specified: Please check RP card data and "
+"correct\n"
+msgstr "Theta > 90 องศา โดยมีการระบุกราวด์: กรุณาตรวจสอบข้อมูลการ์ด RP และแก้ไข\n"
+
+#: src/input.c:1503
+msgid ""
+"Theta > 90 deg. with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 องศา โดยมีการระบุกราวด์\n"
+"กรุณาตรวจสอบข้อมูลการ์ด RP และแก้ไข"
+
+#: src/input.c:1568
+msgid "Faulty data card"
+msgstr "การ์ดข้อมูลผิดพลาด"
+
+#: src/input.c:1578
+msgid ""
+"Missing or surface-wave RP card: Radiation pattern and gain calculations "
+"disabled\n"
+msgstr "ไม่มีการ์ด RP หรือเป็นการ์ดคลื่นผิว: การคำนวณแพทเทิร์นการแผ่คลื่นและเกนถูกปิดใช้งาน\n"
+
+#: src/input.c:1595
+msgid "Unexpected exit from while loop"
+msgstr "ออกจากลูป while โดยไม่คาดคิด"
+
+#: src/input.c:1653
+msgid ""
+"command data card error: Unexpected EOF while reading input file - appending "
+"EN card\n"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลคำสั่ง: พบ EOF ที่ไม่คาดคิดขณะอ่านไฟล์อินพุต - กำลังเพิ่มการ์ด EN\n"
+
+#: src/input.c:1654
+msgid ""
+"Command data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default EN card"
+msgstr ""
+"ข้อผิดพลาดการ์ดข้อมูลคำสั่ง\n"
+"พบ EOF ที่ไม่คาดคิดขณะอ่านไฟล์อินพุต\n"
+"กำลังเพิ่มการ์ด EN เริ่มต้น"
+
+#: src/input.c:1668
+msgid "command data card error: card's mnemonic code too short or missing\n"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลคำสั่ง: รหัสช่วยจำของการ์ดสั้นเกินไปหรือไม่มี\n"
+
+#: src/input.c:1669
+msgid ""
+"Command data card error\n"
+"Mnemonic code too short or missing"
+msgstr ""
+"ข้อผิดพลาดการ์ดข้อมูลคำสั่ง\n"
+"รหัสช่วยจำสั้นเกินไปหรือไม่มี"
+
+#: src/input.c:1829
+msgid ""
+"geometry data card error: Unexpected EOF while reading input file - "
+"appending GE card\n"
+msgstr ""
+"ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต: พบ EOF ที่ไม่คาดคิดขณะอ่านไฟล์อินพุต - กำลังเพิ่มการ์ด GE\n"
+
+#: src/input.c:1830
+msgid ""
+"Geometry data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default GE card"
+msgstr ""
+"ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต\n"
+"พบ EOF ที่ไม่คาดคิดขณะอ่านไฟล์อินพุต\n"
+"กำลังเพิ่มการ์ด GE เริ่มต้น"
+
+#: src/input.c:1844
+msgid "geometry data card error: card's mnemonic code too short or missing\n"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต: รหัสช่วยจำของการ์ดสั้นเกินไปหรือไม่มี\n"
+
+#: src/input.c:1845
+msgid ""
+"Geometry data card error\n"
+"Card's mnemonic code too short or missing"
+msgstr ""
+"ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต\n"
+"รหัสช่วยจำของการ์ดสั้นเกินไปหรือไม่มี"
+
+#: src/main.c:125
+#, c-format
+msgid "%s requires a positive integer argument\n"
+msgstr "%s ต้องการอาร์กิวเมนต์จำนวนเต็มบวก\n"
+
+#: src/main.c:183
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "ตรวจพบ %d CPUs\n"
+
+#: src/main.c:194
+msgid "config file path too long\n"
+msgstr "เส้นทางไฟล์กำหนดค่ายาวเกินไป\n"
+
+#: src/main.c:213
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "ไฟล์กำหนดค่าไม่มีอยู่หรือไม่สามารถอ่านได้: %s\n"
+
+#: src/main.c:222
+#, c-format
+msgid "config file path too long ( > %d char )\n"
+msgstr "เส้นทางไฟล์กำหนดค่ายาวเกินไป ( > %d อักขระ )\n"
+
+#: src/main.c:234
+#, c-format
+msgid "input file name too long ( > %d char )\n"
+msgstr "ชื่อไฟล์อินพุตยาวเกินไป ( > %d อักขระ )\n"
+
+#: src/main.c:261
+msgid "Forking disabled!\n"
+msgstr "ปิดใช้งานการ fork!\n"
+
+#: src/main.c:269
+msgid "pthread freqloop disabled!\n"
+msgstr "ปิดใช้งาน pthread freqloop!\n"
+
+#: src/main.c:273
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "เปิดใช้งานโหมด batch จะออกหลังจากลูปแรก\n"
+
+#: src/main.c:331
+msgid "verify segments check disabled\n"
+msgstr "ปิดใช้งานการตรวจสอบเซกเมนต์\n"
+
+#: src/main.c:336
+msgid "forcing overlap check on large models\n"
+msgstr "บังคับตรวจสอบการทับซ้อนบนโมเดลขนาดใหญ่\n"
+
+#: src/main.c:350
+msgid "--batch and --optimize are mutual exclusive.\n"
+msgstr "--batch และ --optimize ใช้พร้อมกันไม่ได้\n"
+
+#: src/main.c:366
+#, c-format
+msgid "input file path name too long ( > %d char )\n"
+msgstr "เส้นทางไฟล์อินพุตยาวเกินไป ( > %d อักขระ )\n"
+
+#: src/main.c:373
+#, c-format
+msgid "unexpected argument '%s' does not appear to be a .nec file\n"
+msgstr "อาร์กิวเมนต์ที่ไม่คาดคิด '%s' ดูเหมือนไม่ใช่ไฟล์ .nec\n"
+
+#: src/main.c:380
+#, c-format
+msgid "unexpected argument: %s\n"
+msgstr "อาร์กิวเมนต์ที่ไม่คาดคิด: %s\n"
+
+#: src/main.c:386
+msgid "batch mode requires an input file\n"
+msgstr "โหมด batch ต้องการไฟล์อินพุต\n"
+
+#: src/main.c:407
+#, c-format
+msgid "Forking %d jobs.\n"
+msgstr "กำลัง fork %d งาน\n"
+
+#: src/main.c:416 src/main.c:424
+msgid "exiting after fatal error: pipe() failed"
+msgstr "ออกหลังจากข้อผิดพลาดร้ายแรง: pipe() ล้มเหลว"
+
+#: src/main.c:433
+msgid "exiting after fatal error: fork() failed"
+msgstr "ออกหลังจากข้อผิดพลาดร้ายแรง: fork() ล้มเหลว"
+
+#: src/main.c:778
+msgid "exiting via user interrupt\n"
+msgstr "ออกตามการขัดจังหวะของผู้ใช้\n"
+
+#: src/main.c:782
+msgid "segmentation fault, exiting\n"
+msgstr "segmentation fault กำลังออก\n"
+
+#: src/main.c:786
+msgid "floating point exception, exiting\n"
+msgstr "ข้อผิดพลาดจุดทศนิยมลอยตัว กำลังออก\n"
+
+#: src/main.c:790
+msgid "abort signal received, exiting\n"
+msgstr "ได้รับสัญญาณยกเลิก กำลังออก\n"
+
+#: src/main.c:794
+msgid "termination request received, exiting\n"
+msgstr "ได้รับคำขอยุติการทำงาน กำลังออก\n"
+
+#: src/main.c:804
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "ไม่ได้ fork ละเว้น SIGCHLD จาก pid %d\n"
+
+#: src/main.c:812
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "โปรเซสลูก pid %d ออกแล้ว\n"
+
+#: src/main.c:821
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "ออกตามค่าเริ่มต้นด้วยสัญญาณ: %d\n"
+
+#: src/matrix.c:1216
+#, c-format
+msgid "pivot(%d)= %16.8E\n"
+msgstr "pivot(%d)= %16.8E\n"
+
+#: src/matrix.c:1250
+#, c-format
+msgid "LU Decomposition Failed: %d\n"
+msgstr "การแยก LU ล้มเหลว: %d\n"
+
+#: src/matrix.c:1306
+#, c-format
+msgid "symmetry error - nrow:%d ncol:%d\n"
+msgstr "ข้อผิดพลาดสมมาตร - nrow:%d ncol:%d\n"
+
+#: src/matrix.c:1307
+msgid "Symmetry error"
+msgstr "ข้อผิดพลาดสมมาตร"
+
+#: src/matrix.c:1414
+#, c-format
+msgid "Solving Failed: %d\n"
+msgstr "การแก้สมการล้มเหลว: %d\n"
+
+#: src/nec2_model.c:111 src/nec2_model.c:115 src/nec2_model.c:119
+msgid "Card"
+msgstr "การ์ด"
+
+#: src/nec2_model.c:111 resources/xnec2c.glade:6183
+msgid "Comments"
+msgstr "ความคิดเห็น"
+
+#: src/nec2_model.c:188
+msgid "--- NEC2 Input File created or edited by "
+msgstr "--- ไฟล์อินพุต NEC2 สร้างหรือแก้ไขโดย "
+
+#: src/nec2_model.c:205
+msgid "--- End Comments ---"
+msgstr "--- จบความคิดเห็น ---"
+
+#: src/nec2_model.c:344
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"List_Comments():\n"
+"ข้อผิดพลาดในการอ่านไฟล์อินพุต\n"
+"พบ EOF (สิ้นสุดไฟล์) โดยไม่คาดคิด"
+
+#: src/nec2_model.c:351
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"List_Comments():\n"
+"ข้อผิดพลาดในการอ่านไฟล์อินพุต\n"
+"ตัวช่วยจำการ์ดความคิดเห็นสั้นหรือหายไป"
+
+#: src/nec2_model.c:594
+msgid "End Comments"
+msgstr "จบความคิดเห็น"
+
+#: src/nec2_model.c:648
+msgid ""
+"Cannot save treeview data\n"
+"Please use the Save button\n"
+"to specify a file path"
+msgstr ""
+"ไม่สามารถบันทึกข้อมูล treeview\n"
+"โปรดใช้ปุ่มบันทึก\n"
+"เพื่อระบุเส้นทางไฟล์"
+
+#: src/network.c:648
+#, c-format
+msgid "improper load type chosen, requested type is %d\n"
+msgstr "เลือกประเภทโหลดไม่ถูกต้อง ประเภทที่ร้องขอคือ %d\n"
+
+#: src/network.c:649
+msgid "Improper load type chose"
+msgstr "เลือกประเภทโหลดไม่ถูกต้อง"
+
+#: src/network.c:737
+#, c-format
+msgid "loading data card error, no segment has an itag = %d\n"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลการโหลด ไม่มีเซกเมนต์ที่มี itag = %d\n"
+
+#: src/network.c:738
+msgid ""
+"Loading data card\n"
+"Tag number mismatch error"
+msgstr ""
+"การโหลดการ์ดข้อมูล\n"
+"ข้อผิดพลาดหมายเลขแท็กไม่ตรงกัน"
+
+#: src/plot_freqdata.c:132
+#, c-format
+msgid ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+msgstr ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+
+#: src/plot_freqdata.c:148
+#, c-format
+msgid ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+msgstr ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+
+#: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
+msgid "memory allocation for points failed\n"
+msgstr "การจัดสรรหน่วยความจำสำหรับจุดล้มเหลว\n"
+
+#: src/plot_freqdata.c:832 src/plot_freqdata.c:1299
+msgid "Draw_Graph():Memory allocation for points failed"
+msgstr "Draw_Graph():การจัดสรรหน่วยความจำสำหรับจุดล้มเหลว"
+
+#: src/plot_freqdata.c:1260
+msgid "Smith Chart"
+msgstr "แผนภูมิสมิธ"
+
+#: src/plot_freqdata.c:1452 src/plot_freqdata.c:1471 src/plot_freqdata.c:1496
+msgid "Raw Gain dBi"
+msgstr "อัตราขยายดิบ dBi"
+
+#: src/plot_freqdata.c:1455
+msgid "Max Gain & Net Gain vs Frequency"
+msgstr "อัตราขยายสูงสุด & อัตราขยายสุทธิ vs ความถี่"
+
+#: src/plot_freqdata.c:1456
+msgid "Net Gain dBi"
+msgstr "อัตราขยายสุทธิ dBi"
+
+#: src/plot_freqdata.c:1462 src/plot_freqdata.c:1472
+msgid "Max Gain & F/B Ratio vs Frequency"
+msgstr "อัตราขยายสูงสุด & อัตราส่วน F/B vs ความถี่"
+
+#: src/plot_freqdata.c:1473
+msgid "F/B Ratio dB"
+msgstr "อัตราส่วน F/B dB"
+
+#: src/plot_freqdata.c:1482
+msgid "Rad Angle - deg"
+msgstr "มุมการแผ่รังสี - องศา"
+
+#: src/plot_freqdata.c:1483
+msgid "Max Gain Direction vs Frequency"
+msgstr "ทิศทางอัตราขยายสูงสุด vs ความถี่"
+
+#: src/plot_freqdata.c:1484
+msgid "Phi - deg"
+msgstr "Phi - องศา"
+
+#: src/plot_freqdata.c:1497
+msgid "Gain in Viewer Direction vs Frequency"
+msgstr "อัตราขยายในทิศทางผู้ชม vs ความถี่"
+
+#: src/plot_freqdata.c:1520
+msgid "Net gain dBi"
+msgstr "อัตราขยายสุทธิ dBi"
+
+#: src/plot_freqdata.c:1538 resources/xnec2c.glade:9909
+#: resources/xnec2c.glade:10119
+msgid "VSWR"
+msgstr "VSWR"
+
+#: src/plot_freqdata.c:1541
+msgid "VSWR & S11 vs Frequency"
+msgstr "VSWR & S11 vs ความถี่"
+
+#: src/plot_freqdata.c:1542
+msgid "S11 dB"
+msgstr "S11 dB"
+
+#: src/plot_freqdata.c:1546
+msgid "VSWR vs Frequency"
+msgstr "VSWR vs ความถี่"
+
+#: src/plot_freqdata.c:1560
+msgid "memory allocation for vswr/s11 failed\n"
+msgstr "การจัดสรรหน่วยความจำสำหรับ vswr/s11 ล้มเหลว\n"
+
+#: src/plot_freqdata.c:1561
+msgid "Plot_Frequency_Data():Memory allocation for vswr/s11 failed"
+msgstr "Plot_Frequency_Data():การจัดสรรหน่วยความจำสำหรับ vswr/s11 ล้มเหลว"
+
+#: src/plot_freqdata.c:1591 resources/xnec2c.glade:10084
+msgid "Z-real"
+msgstr "Z-จริง"
+
+#: src/plot_freqdata.c:1592 src/plot_freqdata.c:1605
+msgid "Impedance vs Frequency"
+msgstr "อิมพีแดนซ์ vs ความถี่"
+
+#: src/plot_freqdata.c:1593 resources/xnec2c.glade:10049
+msgid "Z-imag"
+msgstr "Z-จินตภาพ"
+
+#: src/plot_freqdata.c:1604
+msgid "Z-magn"
+msgstr "Z-ขนาด"
+
+#: src/plot_freqdata.c:1606
+msgid "Z-phase"
+msgstr "Z-เฟส"
+
+#: src/plot_freqdata.c:1855
+#, c-format
+msgid "mouse button: unknown button %d\n"
+msgstr "ปุ่มเมาส์: ปุ่มที่ไม่รู้จัก %d\n"
+
+#: src/somnec.c:238
+msgid "Hankel not valid for z = 0"
+msgstr "Hankel ไม่ถูกต้องสำหรับ z = 0"
+
+#: src/somnec.c:749
+msgid "No convergence"
+msgstr "ไม่ลู่เข้า"
+
+#: src/utils.c:103 src/utils.c:108
+#, c-format
+msgid ""
+"\n"
+"=== Notice: %s ===\n"
+"%s\n"
+"\n"
+msgstr ""
+"\n"
+"=== ประกาศ: %s ===\n"
+"%s\n"
+"\n"
+
+#: src/utils.c:150
+#, c-format
+msgid "Stop: %s\n"
+msgstr "หยุด: %s\n"
+
+#: src/utils.c:157 src/utils.c:161 src/utils.c:171 src/utils.c:173
+#, c-format
+msgid "%s\n"
+msgstr "%s\n"
+
+#: src/utils.c:354
+#, c-format
+msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
+msgstr "ใช้ %d เธรด OpenMP ต่องาน (%d/%d CPUs)\n"
+
+#: src/utils.c:370
+#, c-format
+msgid "%s[%d]: %f seconds\n"
+msgstr "%s[%d]: %f วินาที\n"
+
+#: src/utils.c:422
+#, c-format
+msgid ""
+"mem_obj_t at %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+msgstr ""
+"mem_obj_t ที่ %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+
+#: src/utils.c:441
+#, c-format
+msgid "mem_backtrace(%p):\n"
+msgstr "mem_backtrace(%p):\n"
+
+#: src/utils.c:443
+msgid "  m->backtrace is null, no backtrace data\n"
+msgstr "  m->backtrace เป็น null ไม่มีข้อมูล backtrace\n"
+
+#: src/utils.c:507
+#, c-format
+msgid "Memory re-allocation denied %s\n"
+msgstr "การจัดสรรหน่วยความจำใหม่ถูกปฏิเสธ %s\n"
+
+#: src/utils.c:508
+#, c-format
+msgid "%s: Memory requested %lu\n"
+msgstr "%s: หน่วยความจำที่ร้องขอ %lu\n"
+
+#: src/utils.c:554
+#, c-format
+msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
+msgstr "xnec2c[%d]: %s: ไม่สามารถเปิดไฟล์: %s\n"
+
+#: src/utils.c:559
+#, c-format
+msgid "%s: %s\n"
+msgstr "%s: %s\n"
+
+#: src/utils.c:927
+msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
+msgstr "การวนซ้ำตัวปรับแต่งไม่สมบูรณ์ ข้ามการวาดแบบรูปการแผ่คลื่นใหม่\n"
+
+#: src/utils.c:934
+msgid "Optimizer loop incomplete, skipping structure redraw.\n"
+msgstr "การวนซ้ำตัวปรับแต่งไม่สมบูรณ์ ข้ามการวาดโครงสร้างใหม่\n"
+
+#: src/utils.c:949
+msgid "  Backtrace:\n"
+msgstr "  Backtrace:\n"
+
+#: src/utils.c:951
+#, c-format
+msgid "    %d. %s\n"
+msgstr "    %d. %s\n"
+
+#: src/utils.c:978
+#, c-format
+msgid "%s:\n"
+msgstr "%s:\n"
+
+#: src/xnec2c.c:185
+#, c-format
+msgid ""
+"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
+"%+12.5Ej\n"
+msgstr "ค่าคงที่ไดอิเล็กตริกเชิงซ้อนจากไฟล์: %12.5E%+12.5Ej ที่ร้องขอ: %12.5E%+12.5Ej\n"
+
+#: src/xnec2c.c:188
+msgid "Ground_Parameters():Error in ground parameters"
+msgstr "Ground_Parameters():ข้อผิดพลาดในพารามิเตอร์กราวด์"
+
+#: src/xnec2c.c:490
+#, c-format
+msgid "%.6f MHz: %f seconds. (%s)\n"
+msgstr "%.6f MHz: %f วินาที (%s)\n"
+
+#: src/xnec2c.c:781
+msgid "Failed to read data from forked child\n"
+msgstr "ไม่สามารถอ่านข้อมูลจากโปรเซสลูกที่ fork\n"
+
+#: src/xnec2c.c:817
+#, c-format
+msgid ""
+"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr ""
+"Frequency_Loop เสร็จสิ้นทุกขั้นตอนแล้วแต่ num_busy_procs=%d (calc_data.freq_step=%d "
+"calc_data.steps_total=%d)?\n"
+
+#: src/xnec2c.c:824
+#, c-format
+msgid "  busy job[%d]: fstep=%d freq=%f\n"
+msgstr "  งานที่กำลังทำ[%d]: fstep=%d freq=%f\n"
+
+#: src/xnec2c.c:886
+#, c-format
+msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
+msgstr "เวลาที่ใช้ในลูปความถี่: %f วินาที (%s)\n"
+
+#: src/xnec2c.c:1029
+msgid "failed to start Frequency_Loop_Thread\n"
+msgstr "ไม่สามารถเริ่ม Frequency_Loop_Thread\n"
+
+#: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1964
+msgid "xnec2c"
+msgstr "xnec2c"
+
+#: files/xnec2c.desktop.in:4
+msgid "NEC2 Simulator"
+msgstr "โปรแกรมจำลอง NEC2"
+
+#: files/xnec2c.desktop.in:5
+msgid "Numerical Electromagnetics Code software"
+msgstr "ซอฟต์แวร์รหัสแม่เหล็กไฟฟ้าเชิงตัวเลข"
+
+#: files/xnec2c.desktop.in:11
+msgid "nec2;em;simulator;"
+msgstr "nec2;em;simulator;"
+
+#: resources/xnec2c.glade:14
+msgid "(C) 2007-2022 Neoklis Kyriazis"
+msgstr "(C) 2007-2022 Neoklis Kyriazis"
+
+#: resources/xnec2c.glade:15
+msgid ""
+"xnec2c is an interactive graphical wrapper around a modified version of "
+"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
+"Numerical Electromagnetics Code.\n"
+"\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
+"etc) in a graphical format. It can also display radiation pattern data in a "
+"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
+"format.\n"
+"\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
+"or edit antenna description files and specify NEC2 commands.\n"
+"\n"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
+"fully compatible with NEC2 input files and it works in different ways!"
+msgstr ""
+"xnec2c เป็นส่วนต่อประสานกราฟิกแบบโต้ตอบที่ครอบคลุม nec2c เวอร์ชันดัดแปลง ซึ่ง nec2c "
+"เองเป็นการแปลงเป็นภาษา C จากรหัส NEC2 Numerical Electromagnetics Code "
+"ต้นฉบับที่เขียนด้วย FORTRAN\n"
+"\n"
+"xnec2c สามารถแสดงข้อมูลที่ขึ้นกับความถี่ (อัตราขยาย อิมพีแดนซ์อินพุต vswr ฯลฯ) ในรูปแบบกราฟิก "
+"นอกจากนี้ยังสามารถแสดงข้อมูลแบบรูปการแผ่คลื่นในรูปแบบโครงลวดที่หมุนได้ และสนามใกล้ (เวกเตอร์ "
+"E, H, S) ในรูปแบบตาราง\n"
+"\n"
+"xnec2c มีตัวแก้ไขไฟล์อินพุต NEC2 "
+"ในตัวที่ทำให้ง่ายต่อการสร้างหรือแก้ไขไฟล์คำอธิบายสายอากาศและระบุคำสั่ง NEC2\n"
+"\n"
+"โปรดอ่านเอกสารในไดเรกทอรีย่อย doc/ เนื่องจาก xnec2c ไม่เข้ากันได้อย่างสมบูรณ์กับไฟล์อินพุต "
+"NEC2 และทำงานในวิธีที่แตกต่างกัน!"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: resources/xnec2c.glade:27
+msgid "translator-credits"
+msgstr "translator-credits"
+
+#: resources/xnec2c.glade:159
+msgid "Steps/Cycle"
+msgstr "ขั้นตอน/รอบ"
+
+#: resources/xnec2c.glade:172
+msgid "Animate Freq (Hz)"
+msgstr "ความถี่แอนิเมชัน (Hz)"
+
+#: resources/xnec2c.glade:286
+msgid "Arc Element (GA card)"
+msgstr "องค์ประกอบส่วนโค้ง (การ์ด GA)"
+
+#: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
+msgid "No. Segments"
+msgstr "จำนวนเซกเมนต์"
+
+#: resources/xnec2c.glade:340 resources/xnec2c.glade:3802
+#: resources/xnec2c.glade:14417
+msgid "Segs % lambda"
+msgstr "เซกเมนต์ % แลมบ์ดา"
+
+#: resources/xnec2c.glade:353 resources/xnec2c.glade:3815
+#: resources/xnec2c.glade:14513
+msgid "Wire Diameter"
+msgstr "เส้นผ่านศูนย์กลางสาย"
+
+#: resources/xnec2c.glade:441
+msgid "Radius from Y"
+msgstr "รัศมีจาก Y"
+
+#: resources/xnec2c.glade:454
+msgid "End 1 Angle"
+msgstr "มุมปลาย 1"
+
+#: resources/xnec2c.glade:467
+msgid "End 2 Angle"
+msgstr "มุมปลาย 2"
+
+#: resources/xnec2c.glade:578
+msgid "Wire Arc Data"
+msgstr "ข้อมูลส่วนโค้งสาย"
+
+#: resources/xnec2c.glade:640 resources/xnec2c.glade:876
+#: resources/xnec2c.glade:1676 resources/xnec2c.glade:1899
+#: resources/xnec2c.glade:2357 resources/xnec2c.glade:2549
+#: resources/xnec2c.glade:2860 resources/xnec2c.glade:3546
+#: resources/xnec2c.glade:4346 resources/xnec2c.glade:4545
+#: resources/xnec2c.glade:4706 resources/xnec2c.glade:5238
+#: resources/xnec2c.glade:5874 resources/xnec2c.glade:7290
+#: resources/xnec2c.glade:8197 resources/xnec2c.glade:9203
+#: resources/xnec2c.glade:9476 resources/xnec2c.glade:12919
+#: resources/xnec2c.glade:13432 resources/xnec2c.glade:14031
+#: resources/xnec2c.glade:14867 resources/xnec2c.glade:15067
+msgid "Delete Card"
+msgstr "ลบการ์ด"
+
+#: resources/xnec2c.glade:718
+msgid "Cylindrical Structure (GR card)"
+msgstr "โครงสร้างทรงกระบอก (การ์ด GR)"
+
+#: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
+msgid "Tag Number Increment"
+msgstr "การเพิ่มหมายเลขแท็ก"
+
+#: resources/xnec2c.glade:761
+msgid "Number of Structures"
+msgstr "จำนวนโครงสร้าง"
+
+#: resources/xnec2c.glade:815
+msgid "Cylindrical Structure"
+msgstr "โครงสร้างทรงกระบอก"
+
+#: resources/xnec2c.glade:941
+msgid "Xnec2c Error"
+msgstr "ข้อผิดพลาด Xnec2c"
+
+#: resources/xnec2c.glade:1049
+msgid "Error"
+msgstr "ข้อผิดพลาด"
+
+#: resources/xnec2c.glade:1128
+msgid "Excitation Command (EX Card)"
+msgstr "คำสั่งกระตุ้น (EX Card)"
+
+#: resources/xnec2c.glade:1154
+msgid "Incident LH Wave"
+msgstr "คลื่นตกกระทบหมุนซ้าย"
+
+#: resources/xnec2c.glade:1170
+msgid "Incident Linear Wave "
+msgstr "คลื่นตกกระทบเชิงเส้น "
+
+#: resources/xnec2c.glade:1186
+msgid "Current Source"
+msgstr "แหล่งจ่ายกระแส"
+
+#: resources/xnec2c.glade:1202
+msgid "Incident RH Wave"
+msgstr "คลื่นตกกระทบหมุนขวา"
+
+#: resources/xnec2c.glade:1218
+msgid "Current Slope Discontinuity"
+msgstr "ความไม่ต่อเนื่องของความชันกระแส"
+
+#: resources/xnec2c.glade:1234
+msgid "Voltage Source"
+msgstr "แหล่งจ่ายแรงดัน"
+
+#: resources/xnec2c.glade:1256
+msgid "Excitation Type"
+msgstr "ประเภทการกระตุ้น"
+
+#: resources/xnec2c.glade:1281
+msgid "Maximum Admittance Matrix Asymmetry"
+msgstr "ความไม่สมมาตรสูงสุดของเมทริกซ์แอดมิตแตนซ์"
+
+#: resources/xnec2c.glade:1297
+msgid "Impedance of Source Segment"
+msgstr "อิมพีแดนซ์ของเซกเมนต์แหล่งจ่าย"
+
+#: resources/xnec2c.glade:1319
+msgid "Print Control"
+msgstr "การควบคุมการพิมพ์"
+
+#: resources/xnec2c.glade:1411
+msgid "Voltage - Real Part"
+msgstr "แรงดัน - ส่วนจริง"
+
+#: resources/xnec2c.glade:1424
+msgid "Voltage - Imaginary Part"
+msgstr "แรงดัน - ส่วนจินตภาพ"
+
+#: resources/xnec2c.glade:1437
+msgid "Eta"
+msgstr "อีตา"
+
+#: resources/xnec2c.glade:1507
+msgid "Theta"
+msgstr "ทีตา"
+
+#: resources/xnec2c.glade:1520
+msgid "Phi"
+msgstr "ฟาย"
+
+#: resources/xnec2c.glade:1533
+msgid "Ratio"
+msgstr "อัตราส่วน"
+
+#: resources/xnec2c.glade:1614
+msgid "Excitation Parameters"
+msgstr "พารามิเตอร์การกระตุ้น"
+
+#: resources/xnec2c.glade:1741
+msgid "Execute Command (XQ Card)"
+msgstr "คำสั่งดำเนินการ (XQ Card)"
+
+#: resources/xnec2c.glade:1768
+msgid "No Pattern Cuts"
+msgstr "ไม่มีการตัดแพตเทิร์น"
+
+#: resources/xnec2c.glade:1784
+msgid "Pattern in XZ Plane"
+msgstr "แพตเทิร์นในระนาบ XZ"
+
+#: resources/xnec2c.glade:1800
+msgid "Pattern in YZ Plane"
+msgstr "แพตเทิร์นในระนาบ YZ"
+
+#: resources/xnec2c.glade:1816
+msgid "Both XZ/YZ Patterns"
+msgstr "แพตเทิร์นทั้ง XZ/YZ"
+
+#: resources/xnec2c.glade:1838
+msgid "Execute Command"
+msgstr "คำสั่งดำเนินการ"
+
+#: resources/xnec2c.glade:2069
+msgid "Frequency Command (FR Card)"
+msgstr "คำสั่งความถี่ (FR Card)"
+
+#: resources/xnec2c.glade:2094
+msgid "Additive Stepping"
+msgstr "การเพิ่มแบบบวก"
+
+#: resources/xnec2c.glade:2111
+msgid "Multiplicative Stepping"
+msgstr "การเพิ่มแบบคูณ"
+
+#: resources/xnec2c.glade:2134
+msgid "Frequency Stepping"
+msgstr "การเพิ่มความถี่"
+
+#: resources/xnec2c.glade:2164
+msgid "No. Frequency Points"
+msgstr "จำนวนจุดความถี่"
+
+#: resources/xnec2c.glade:2195
+msgid "Start Frequency (MHz)"
+msgstr "ความถี่เริ่มต้น (MHz)"
+
+#: resources/xnec2c.glade:2227
+msgid "Frequency Step (MHz)"
+msgstr "ขั้นความถี่ (MHz)"
+
+#: resources/xnec2c.glade:2260
+msgid "End Frequency (MHz)"
+msgstr "ความถี่สิ้นสุด (MHz)"
+
+#: resources/xnec2c.glade:2296
+msgid "Frequency Stepping Parameters"
+msgstr "พารามิเตอร์การเพิ่มความถี่"
+
+#: resources/xnec2c.glade:2422
+msgid "Geometry End (GE Card)"
+msgstr "สิ้นสุดเรขาคณิต (GE Card)"
+
+#: resources/xnec2c.glade:2447
+msgid "No Ground, Free Space condition"
+msgstr "ไม่มีกราวด์ สภาวะพื้นที่อิสระ"
+
+#: resources/xnec2c.glade:2464
+msgid "Ground present, Structure reflection"
+msgstr "มีกราวด์ มีการสะท้อนโครงสร้าง"
+
+#: resources/xnec2c.glade:2481
+msgid "Ground present, no Structure reflection"
+msgstr "มีกราวด์ ไม่มีการสะท้อนโครงสร้าง"
+
+#: resources/xnec2c.glade:2504
+msgid "Ground Plane type"
+msgstr "ประเภทระนาบกราวด์"
+
+#: resources/xnec2c.glade:2638
+msgid "Ground Parameters (GD Card)"
+msgstr "พารามิเตอร์กราวด์ (GD Card)"
+
+#: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
+#: resources/xnec2c.glade:3222
+msgid "Relative Dielectric Const."
+msgstr "ค่าคงที่ไดอิเล็กทริกสัมพัทธ์"
+
+#: resources/xnec2c.glade:2699 resources/xnec2c.glade:3255
+msgid "Distance to 2nd Medium"
+msgstr "ระยะทางถึงตัวกลางที่ 2"
+
+#: resources/xnec2c.glade:2731 resources/xnec2c.glade:3168
+#: resources/xnec2c.glade:3287
+msgid "Ground Conductivity S/m"
+msgstr "ค่าการนำไฟฟ้ากราวด์ S/m"
+
+#: resources/xnec2c.glade:2763 resources/xnec2c.glade:3319
+msgid "Dist. below 1st Medium"
+msgstr "ระยะใต้ตัวกลางที่ 1"
+
+#: resources/xnec2c.glade:2799 resources/xnec2c.glade:3355
+msgid "2nd Medium Parameters"
+msgstr "พารามิเตอร์ตัวกลางที่ 2"
+
+#: resources/xnec2c.glade:2980
+msgid "Ground Parameters (GN & GD Cards)"
+msgstr "พารามิเตอร์กราวด์ (GN & GD Cards)"
+
+#: resources/xnec2c.glade:3007
+msgid "Perfect Ground"
+msgstr "กราวด์สมบูรณ์"
+
+#: resources/xnec2c.glade:3023
+msgid "Sommerfeld/Norton"
+msgstr "Sommerfeld/Norton"
+
+#: resources/xnec2c.glade:3039
+msgid "Radial Ground Screen"
+msgstr "ตะแกรงกราวด์แบบรัศมี"
+
+#: resources/xnec2c.glade:3054
+msgid "Reflection Coeff. Approx"
+msgstr "ค่าประมาณสัมประสิทธิ์การสะท้อน"
+
+#: resources/xnec2c.glade:3070
+msgid "Nullify Previous Params"
+msgstr "ยกเลิกพารามิเตอร์ก่อนหน้า"
+
+#: resources/xnec2c.glade:3086
+msgid "Second Medium (Cliff)"
+msgstr "ตัวกลางที่สอง (หน้าผา)"
+
+#: resources/xnec2c.glade:3107
+msgid "Ground Type"
+msgstr "ประเภทกราวด์"
+
+#: resources/xnec2c.glade:3235
+msgid "0.00000"
+msgstr "0.00000"
+
+#: resources/xnec2c.glade:3386
+msgid "Number of Radials"
+msgstr "จำนวนเส้นรัศมี"
+
+#: resources/xnec2c.glade:3399
+msgid "Radial Screen Radius"
+msgstr "รัศมีตะแกรงรัศมี"
+
+#: resources/xnec2c.glade:3449
+msgid "Radial Wire Diameter"
+msgstr "เส้นผ่านศูนย์กลางสายรัศมี"
+
+#: resources/xnec2c.glade:3485
+msgid "Radial Screen Parameters"
+msgstr "พารามิเตอร์ตะแกรงรัศมี"
+
+#: resources/xnec2c.glade:3685
+msgid "Helical Element (GA card)"
+msgstr "เอลิเมนต์เกลียว (GA card)"
+
+#: resources/xnec2c.glade:3710
+msgid "Right Hand Helix"
+msgstr "เกลียวมือขวา"
+
+#: resources/xnec2c.glade:3726
+msgid "Left Hand Helix"
+msgstr "เกลียวมือซ้าย"
+
+#: resources/xnec2c.glade:3742
+msgid "Right Hand Spiral"
+msgstr "เกลียวก้นหอยมือขวา"
+
+#: resources/xnec2c.glade:3758
+msgid "Left Hand Spiral"
+msgstr "เกลียวก้นหอยมือซ้าย"
+
+#: resources/xnec2c.glade:3789
+msgid "Segments/Turn"
+msgstr "เซกเมนต์/รอบ"
+
+#: resources/xnec2c.glade:3828
+msgid "0.0100"
+msgstr "0.0100"
+
+#: resources/xnec2c.glade:3849
+msgid "5.00"
+msgstr "5.00"
+
+#: resources/xnec2c.glade:3870
+msgid "8"
+msgstr "8"
+
+#: resources/xnec2c.glade:3890 resources/xnec2c.glade:11417
+#: resources/xnec2c.glade:12489
+msgid "1"
+msgstr "1"
+
+#: resources/xnec2c.glade:3910
+msgid "Number of Turns"
+msgstr "จำนวนรอบ"
+
+#: resources/xnec2c.glade:3923
+msgid "8.0000"
+msgstr "8.0000"
+
+#: resources/xnec2c.glade:3944
+msgid "Helix Length (HL)"
+msgstr "ความยาวเกลียว (HL)"
+
+#: resources/xnec2c.glade:3957
+msgid "5.0000"
+msgstr "5.0000"
+
+#: resources/xnec2c.glade:3978
+msgid "Turns Spacing"
+msgstr "ระยะห่างระหว่างรอบ"
+
+#: resources/xnec2c.glade:3991 resources/xnec2c.glade:4103
+#: resources/xnec2c.glade:4156 resources/xnec2c.glade:4209
+#: resources/xnec2c.glade:4257
+msgid "1.0000"
+msgstr "1.0000"
+
+#: resources/xnec2c.glade:4025
+msgid "0.0000"
+msgstr "0.0000"
+
+#: resources/xnec2c.glade:4045
+msgid "Radius in X (A1)"
+msgstr "รัศมีใน X (A1)"
+
+#: resources/xnec2c.glade:4058
+msgid "Radius in Y (B1)"
+msgstr "รัศมีใน Y (B1)"
+
+#: resources/xnec2c.glade:4071
+msgid "Radius in X (A2)"
+msgstr "รัศมีใน X (A2)"
+
+#: resources/xnec2c.glade:4084
+msgid "Radius in Y (B2)"
+msgstr "รัศมีใน Y (B2)"
+
+#: resources/xnec2c.glade:4282
+msgid "GH Card"
+msgstr "GH Card"
+
+#: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
+msgid "Interaction Approx Range (KH Card)"
+msgstr "ช่วงการประมาณอันตรกิริยา (KH Card)"
+
+#: resources/xnec2c.glade:4446
+msgid "Approximation Range (W/lengths)"
+msgstr "ช่วงการประมาณ (ความยาวคลื่น)"
+
+#: resources/xnec2c.glade:4484
+msgid "Interaction Approximation Range"
+msgstr "ช่วงการประมาณอันตรกิริยา"
+
+#: resources/xnec2c.glade:4610
+msgid "Thin Wire Kernel (EK Card)"
+msgstr "เคอร์เนลสายบาง (EK Card)"
+
+#: resources/xnec2c.glade:4628
+msgid "Extended Thin Wire Kernel"
+msgstr "เคอร์เนลสายบางแบบขยาย"
+
+#: resources/xnec2c.glade:4645
+msgid "Thin Wire Kernel"
+msgstr "เคอร์เนลสายบาง"
+
+#: resources/xnec2c.glade:4808
+msgid "Loading Command (LD Card)"
+msgstr "คำสั่งโหลด (LD Card)"
+
+#: resources/xnec2c.glade:4834
+msgid "Short all Loads (Nulls previous Loading Cards)"
+msgstr "ลัดวงจรโหลดทั้งหมด (ยกเลิก Loading Cards ก่อนหน้า)"
+
+#: resources/xnec2c.glade:4851
+msgid "Series, Lumped"
+msgstr "อนุกรม แบบรวม"
+
+#: resources/xnec2c.glade:4867
+msgid "Parallel, Distributed"
+msgstr "ขนาน แบบกระจาย"
+
+#: resources/xnec2c.glade:4883
+msgid "Parallel, Lumped"
+msgstr "ขนาน แบบรวม"
+
+#: resources/xnec2c.glade:4899
+msgid "Resistance & Reactance"
+msgstr "ความต้านทานและรีแอกแตนซ์"
+
+#: resources/xnec2c.glade:4915
+msgid "Series, Distributed"
+msgstr "อนุกรม แบบกระจาย"
+
+#: resources/xnec2c.glade:4931
+msgid "Wire Conductivity"
+msgstr "ค่าการนำไฟฟ้าของสาย"
+
+#: resources/xnec2c.glade:4953
+msgid "Loading Type"
+msgstr "ประเภทโหลด"
+
+#: resources/xnec2c.glade:4983
+msgid "Load Tag Number"
+msgstr "หมายเลขแท็กโหลด"
+
+#: resources/xnec2c.glade:5014
+msgid "Resistance"
+msgstr "ความต้านทาน"
+
+#: resources/xnec2c.glade:5046
+msgid "From Segment #"
+msgstr "จากเซกเมนต์ #"
+
+#: resources/xnec2c.glade:5077
+msgid "Inductance"
+msgstr "ความเหนี่ยวนำ"
+
+#: resources/xnec2c.glade:5109
+msgid "To Segment #"
+msgstr "ถึงเซกเมนต์ #"
+
+#: resources/xnec2c.glade:5140
+msgid "Capacitance"
+msgstr "ความจุไฟฟ้า"
+
+#: resources/xnec2c.glade:5176
+msgid "Loading Parameters"
+msgstr "พารามิเตอร์โหลด"
+
+#: resources/xnec2c.glade:5391
+msgid "Near Fields Command (NE/NH Cards)"
+msgstr "คำสั่งสนามใกล้ (การ์ด NE/NH)"
+
+#: resources/xnec2c.glade:5418
+msgid "Near Electric Field"
+msgstr "สนามไฟฟ้าใกล้"
+
+#: resources/xnec2c.glade:5434
+msgid "Rectangular Co-ordinates"
+msgstr "พิกัดฉาก"
+
+#: resources/xnec2c.glade:5450
+msgid "Near Magnetic Field"
+msgstr "สนามแม่เหล็กใกล้"
+
+#: resources/xnec2c.glade:5465
+msgid "Spherical Co-ordinates"
+msgstr "พิกัดทรงกลม"
+
+#: resources/xnec2c.glade:5493
+msgid "Field Type & Co-ordinates"
+msgstr "ชนิดสนาม & พิกัด"
+
+#: resources/xnec2c.glade:5523
+msgid "NX"
+msgstr "NX"
+
+#: resources/xnec2c.glade:5554 resources/xnec2c.glade:10989
+#: resources/xnec2c.glade:12083
+msgid "X"
+msgstr "X"
+
+#: resources/xnec2c.glade:5586
+msgid "DX"
+msgstr "DX"
+
+#: resources/xnec2c.glade:5618
+msgid "NY"
+msgstr "NY"
+
+#: resources/xnec2c.glade:5649 resources/xnec2c.glade:11004
+#: resources/xnec2c.glade:12098
+msgid "Y"
+msgstr "Y"
+
+#: resources/xnec2c.glade:5681
+msgid "DY"
+msgstr "DY"
+
+#: resources/xnec2c.glade:5713
+msgid "NZ"
+msgstr "NZ"
+
+#: resources/xnec2c.glade:5744 resources/xnec2c.glade:11019
+#: resources/xnec2c.glade:12113
+msgid "Z"
+msgstr "Z"
+
+#: resources/xnec2c.glade:5776
+msgid "DZ"
+msgstr "DZ"
+
+#: resources/xnec2c.glade:5812
+msgid "Field Pattern Parameters"
+msgstr "พารามิเตอร์แบบรูปสนาม"
+
+#: resources/xnec2c.glade:5939
+msgid "Xnec2c: NEC2 Input File Editor"
+msgstr "Xnec2c: ตัวแก้ไขไฟล์อินพุต NEC2"
+
+#: resources/xnec2c.glade:6026
+msgid "Manage Cards"
+msgstr "จัดการการ์ด"
+
+#: resources/xnec2c.glade:6123
+msgid "File Save"
+msgstr "บันทึกไฟล์"
+
+#: resources/xnec2c.glade:6210
+msgid "Wire"
+msgstr "ลวด"
+
+#: resources/xnec2c.glade:6224
+msgid "Arc"
+msgstr "ส่วนโค้ง"
+
+#: resources/xnec2c.glade:6238
+msgid "Helix"
+msgstr "เกลียว"
+
+#: resources/xnec2c.glade:6252
+msgid "Patch"
+msgstr "Patch"
+
+#: resources/xnec2c.glade:6266
+msgid "Cylinder"
+msgstr "ทรงกระบอก"
+
+#: resources/xnec2c.glade:6280
+msgid "Move"
+msgstr "ย้าย"
+
+#: resources/xnec2c.glade:6294
+msgid "Reflect"
+msgstr "สะท้อน"
+
+#: resources/xnec2c.glade:6308
+msgid "Scale"
+msgstr "มาตราส่วน"
+
+#: resources/xnec2c.glade:6328
+msgid "Edit Geometry Data"
+msgstr "แก้ไขข้อมูลเรขาคณิต"
+
+#: resources/xnec2c.glade:6382
+msgid "Geometry"
+msgstr "เรขาคณิต"
+
+#: resources/xnec2c.glade:6409
+msgid "Excitation"
+msgstr "การกระตุ้น"
+
+#: resources/xnec2c.glade:6423
+msgid "Radiation"
+msgstr "การแผ่รังสี"
+
+#: resources/xnec2c.glade:6437
+msgid "Frequency"
+msgstr "ความถี่"
+
+#: resources/xnec2c.glade:6451
+msgid "Near Fields"
+msgstr "สนามใกล้"
+
+#: resources/xnec2c.glade:6465
+msgid "Ground (GN)"
+msgstr "กราวด์ (GN)"
+
+#: resources/xnec2c.glade:6479
+msgid "Ground (GD)"
+msgstr "กราวด์ (GD)"
+
+#: resources/xnec2c.glade:6493
+msgid "Loading"
+msgstr "โหลด"
+
+#: resources/xnec2c.glade:6507
+msgid "Kernel"
+msgstr "เคอร์เนล"
+
+#: resources/xnec2c.glade:6521
+msgid "Network"
+msgstr "เครือข่าย"
+
+#: resources/xnec2c.glade:6535
+msgid "Interaction"
+msgstr "อันตรกิริยา"
+
+#: resources/xnec2c.glade:6549
+msgid "Transm. Line"
+msgstr "สายส่ง"
+
+#: resources/xnec2c.glade:6564
+msgid "Execute"
+msgstr "ดำเนินการ"
+
+#: resources/xnec2c.glade:6578
+msgid "Zo"
+msgstr "Zo"
+
+#: resources/xnec2c.glade:6598
+msgid "Edit Control Commands"
+msgstr "แก้ไขคำสั่งควบคุม"
+
+#: resources/xnec2c.glade:6652
+msgid "Commands"
+msgstr "คำสั่ง"
+
+#: resources/xnec2c.glade:6671
+msgid "Unsaved Data"
+msgstr "ข้อมูลที่ยังไม่ได้บันทึก"
+
+#: resources/xnec2c.glade:6747
+msgid ""
+"Unsaved data in NEC2 Editor.\n"
+"Save NEC2 Editor data first?\n"
+msgstr ""
+"ข้อมูลที่ยังไม่ได้บันทึกในตัวแก้ไข NEC2\n"
+"บันทึกข้อมูลตัวแก้ไข NEC2 ก่อนหรือไม่?\n"
+
+#: resources/xnec2c.glade:6846
+msgid "Network Command (NT Card)"
+msgstr "คำสั่งเครือข่าย (การ์ด NT)"
+
+#: resources/xnec2c.glade:6875
+msgid "Tag Number, Port 1  "
+msgstr "หมายเลขแท็ก, พอร์ต 1  "
+
+#: resources/xnec2c.glade:6906
+msgid "Tag Number, Port 2  "
+msgstr "หมายเลขแท็ก, พอร์ต 2  "
+
+#: resources/xnec2c.glade:6937
+msgid "Segment Num, Port 1"
+msgstr "หมายเลขเซกเมนต์, พอร์ต 1"
+
+#: resources/xnec2c.glade:6968
+msgid "Segment Num, Port 2"
+msgstr "หมายเลขเซกเมนต์, พอร์ต 2"
+
+#: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
+msgid "Segment Identity"
+msgstr "ข้อมูลระบุเซกเมนต์"
+
+#: resources/xnec2c.glade:7033
+msgid "Element 1,1 Real Part"
+msgstr "องค์ประกอบ 1,1 ส่วนจริง"
+
+#: resources/xnec2c.glade:7065
+msgid "Element 1,2 Real Part"
+msgstr "องค์ประกอบ 1,2 ส่วนจริง"
+
+#: resources/xnec2c.glade:7097
+msgid "Element 2,2 Real Part"
+msgstr "องค์ประกอบ 2,2 ส่วนจริง"
+
+#: resources/xnec2c.glade:7129
+msgid "Element 1,1 Imag Part"
+msgstr "องค์ประกอบ 1,1 ส่วนจินตภาพ"
+
+#: resources/xnec2c.glade:7161
+msgid "Element 1,2 Imag Part"
+msgstr "องค์ประกอบ 1,2 ส่วนจินตภาพ"
+
+#: resources/xnec2c.glade:7193
+msgid "Element 2,2 Imag Part"
+msgstr "องค์ประกอบ 2,2 ส่วนจินตภาพ"
+
+#: resources/xnec2c.glade:7229
+msgid "Admittance Matrix Elements"
+msgstr "องค์ประกอบเมทริกซ์แอดมิตแตนซ์"
+
+#: resources/xnec2c.glade:7444
+msgid "Patch Element (SP & SC Cards)"
+msgstr "องค์ประกอบ Patch (การ์ด SP & SC)"
+
+#: resources/xnec2c.glade:7468
+msgid "Arbitrary"
+msgstr "กำหนดเอง"
+
+#: resources/xnec2c.glade:7485
+msgid "Rectangle"
+msgstr "สี่เหลี่ยมผืนผ้า"
+
+#: resources/xnec2c.glade:7502
+msgid "Triangle"
+msgstr "สามเหลี่ยม"
+
+#: resources/xnec2c.glade:7519
+msgid "Quadrilateral"
+msgstr "สี่เหลี่ยมด้านไม่เท่า"
+
+#: resources/xnec2c.glade:7536
+msgid "Surface"
+msgstr "พื้นผิว"
+
+#: resources/xnec2c.glade:7559
+msgid "Patch Type"
+msgstr "ชนิด Patch"
+
+#: resources/xnec2c.glade:7589
+msgid "Corners 1-2 sub-division (NX)"
+msgstr "การแบ่งย่อยมุม 1-2 (NX)"
+
+#: resources/xnec2c.glade:7620
+msgid "Corners 2-3 sub-division (NY)"
+msgstr "การแบ่งย่อยมุม 2-3 (NY)"
+
+#: resources/xnec2c.glade:7655
+msgid "Surface Sub-division"
+msgstr "การแบ่งย่อยพื้นผิว"
+
+#: resources/xnec2c.glade:7881
+msgid "SP/SM Cards"
+msgstr "การ์ด SP/SM"
+
+#: resources/xnec2c.glade:7917
+msgid "Corner 3 - X"
+msgstr "มุม 3 - X"
+
+#: resources/xnec2c.glade:7949
+msgid "Corner 3 - Y"
+msgstr "มุม 3 - Y"
+
+#: resources/xnec2c.glade:7981
+msgid "Corner 3 - Z"
+msgstr "มุม 3 - Z"
+
+#: resources/xnec2c.glade:8029
+msgid "Corner 4 - X"
+msgstr "มุม 4 - X"
+
+#: resources/xnec2c.glade:8061
+msgid "Corner 4 - Y"
+msgstr "มุม 4 - Y"
+
+#: resources/xnec2c.glade:8093
+msgid "Corner 4 - Z"
+msgstr "มุม 4 - Z"
+
+#: resources/xnec2c.glade:8136
+msgid "SC Card"
+msgstr "การ์ด SC"
+
+#: resources/xnec2c.glade:8352
+msgid "Quit xnec2c?"
+msgstr "ออกจาก xnec2c?"
+
+#: resources/xnec2c.glade:8431
+msgid "Radiation Pattern (RP Card)"
+msgstr "แบบรูปการแผ่รังสี (การ์ด RP)"
+
+#: resources/xnec2c.glade:8458
+msgid "Normal (Space) Wave"
+msgstr "คลื่นปกติ (อวกาศ)"
+
+#: resources/xnec2c.glade:8474
+msgid "Space + Ground Wave"
+msgstr "คลื่นอวกาศ + คลื่นดิน"
+
+#: resources/xnec2c.glade:8490
+msgid "Linear Cliff"
+msgstr "หน้าผาเชิงเส้น"
+
+#: resources/xnec2c.glade:8506
+msgid "Radial wire screen"
+msgstr "ตะแกรงลวดแนวรัศมี"
+
+#: resources/xnec2c.glade:8522
+msgid "Circular Cliff + Radials"
+msgstr "หน้าผาวงกลม + เรเดียล"
+
+#: resources/xnec2c.glade:8538
+msgid "Circular Cliff"
+msgstr "หน้าผาวงกลม"
+
+#: resources/xnec2c.glade:8554
+msgid "Linear Cliff + Radials"
+msgstr "หน้าผาเชิงเส้น + เรเดียล"
+
+#: resources/xnec2c.glade:8572
+msgid "<b>See GN/GD Card Documentation</b>"
+msgstr "<b>ดูเอกสารการ์ด GN/GD</b>"
+
+#: resources/xnec2c.glade:8590
+msgid "Wave Type and Ground (I1)"
+msgstr "ชนิดคลื่นและกราวด์ (I1)"
+
+#: resources/xnec2c.glade:8618
+msgid "Major & Minor Axis & Total Gain"
+msgstr "แกนหลัก & แกนรอง & อัตราขยายรวม"
+
+#: resources/xnec2c.glade:8634
+msgid "Vertical, Horizontal & Total Gain"
+msgstr "แนวตั้ง, แนวนอน & อัตราขยายรวม"
+
+#: resources/xnec2c.glade:8650
+msgid "Major Axis Gain Normalized"
+msgstr "อัตราขยายแกนหลักนอร์มัลไลซ์"
+
+#: resources/xnec2c.glade:8666
+msgid "Vertical Axis Gain Normalized"
+msgstr "อัตราขยายแกนตั้งนอร์มัลไลซ์"
+
+#: resources/xnec2c.glade:8682
+msgid "Total Gain Normalized"
+msgstr "อัตราขยายรวมนอร์มัลไลซ์"
+
+#: resources/xnec2c.glade:8698
+msgid "Print/Normalize Directive Gain"
+msgstr "พิมพ์/นอร์มัลไลซ์อัตราขยายทิศทาง"
+
+#: resources/xnec2c.glade:8714
+msgid "No Normalized Gain"
+msgstr "ไม่นอร์มัลไลซ์อัตราขยาย"
+
+#: resources/xnec2c.glade:8730
+msgid "Minor Axis Gain Normalized"
+msgstr "อัตราขยายแกนรองนอร์มัลไลซ์"
+
+#: resources/xnec2c.glade:8746
+msgid "Horizontal Axis Gain Normalized"
+msgstr "อัตราขยายแกนนอนนอร์มัลไลซ์"
+
+#: resources/xnec2c.glade:8762
+msgid "Print/Normalize Power Gain"
+msgstr "พิมพ์/นอร์มัลไลซ์อัตราขยายกำลัง"
+
+#: resources/xnec2c.glade:8778
+msgid "No Gain Averaging"
+msgstr "ไม่มีการเฉลี่ยอัตราขยาย"
+
+#: resources/xnec2c.glade:8794
+msgid "Points in Average Not Printed"
+msgstr "ไม่พิมพ์จุดในค่าเฉลี่ย"
+
+#: resources/xnec2c.glade:8810
+msgid "Average Gain Computed"
+msgstr "คำนวณอัตราขยายเฉลี่ยแล้ว"
+
+#: resources/xnec2c.glade:8828
+msgid "<b>See RP Card Documentation</b>"
+msgstr "<b>ดูเอกสาร RP Card</b>"
+
+#: resources/xnec2c.glade:8846
+msgid "Data Output Control (XNDA)"
+msgstr "การควบคุมเอาต์พุตข้อมูล (XNDA)"
+
+#: resources/xnec2c.glade:8876
+msgid "Points in Theta"
+msgstr "จุดใน Theta"
+
+#: resources/xnec2c.glade:8985
+msgid "Initial Phi (deg)"
+msgstr "Phi เริ่มต้น (องศา)"
+
+#: resources/xnec2c.glade:9067
+msgid "Field Point Distance"
+msgstr "ระยะจุดสนาม"
+
+#: resources/xnec2c.glade:9099
+msgid "Gain Normalization"
+msgstr "การนอร์มัลไลซ์อัตราขยาย"
+
+#: resources/xnec2c.glade:9141
+msgid "Radiation Pattern Parameters"
+msgstr "พารามิเตอร์แบบรูปการแผ่คลื่น"
+
+#: resources/xnec2c.glade:9301
+msgid "Reflect Structure (GX card)"
+msgstr "สะท้อนโครงสร้าง (GX card)"
+
+#: resources/xnec2c.glade:9329
+msgid "Reflect in YZ plane"
+msgstr "สะท้อนในระนาบ YZ"
+
+#: resources/xnec2c.glade:9344
+msgid "Reflect in XY plane"
+msgstr "สะท้อนในระนาบ XY"
+
+#: resources/xnec2c.glade:9359
+msgid "Reflect in XZ plane"
+msgstr "สะท้อนในระนาบ XZ"
+
+#: resources/xnec2c.glade:9415
+msgid "Reflect Options"
+msgstr "ตัวเลือกการสะท้อน"
+
+#: resources/xnec2c.glade:9546
+msgid "Xnec2c: Frequency Data Plots"
+msgstr "Xnec2c: กราฟข้อมูลความถี่"
+
+#: resources/xnec2c.glade:9571 resources/xnec2c.glade:10386
+#: resources/xnec2c.glade:11663
+msgid "_File"
+msgstr "_ไฟล์"
+
+#: resources/xnec2c.glade:9633 resources/xnec2c.glade:10448
+#: resources/xnec2c.glade:11725
+msgid "Save as _gnuplot"
+msgstr "บันทึกเป็น _gnuplot"
+
+#: resources/xnec2c.glade:9644 resources/xnec2c.glade:11735
+msgid "Save as _CSV"
+msgstr "บันทึกเป็น _CSV"
+
+#: resources/xnec2c.glade:9656
+msgid "Save as _Touchstone (.SnP)"
+msgstr "บันทึกเป็น _Touchstone (.SnP)"
+
+#: resources/xnec2c.glade:9663
+msgid "Save as S_1P: Reflection Only"
+msgstr "บันทึกเป็น S_1P: การสะท้อนเท่านั้น"
+
+#: resources/xnec2c.glade:9673
+msgid "Save as S2P: _Max Gain (S21)"
+msgstr "บันทึกเป็น S2P: อัตราขยาย_สูงสุด (S21)"
+
+#: resources/xnec2c.glade:9683
+msgid "Save as S2P: _Viewer Gain (S21)"
+msgstr "บันทึกเป็น S2P: อัตราขยาย_มุมมอง (S21)"
+
+#: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
+#: resources/xnec2c.glade:11769
+msgid "_View"
+msgstr "_มุมมอง"
+
+#: resources/xnec2c.glade:9729 resources/xnec2c.glade:10826
+#: resources/xnec2c.glade:11779
+msgid "_Polarization"
+msgstr "_โพลาไรเซชัน"
+
+#: resources/xnec2c.glade:9745 resources/xnec2c.glade:10842
+#: resources/xnec2c.glade:11795
+msgid "_Total"
+msgstr "_รวม"
+
+#: resources/xnec2c.glade:9756 resources/xnec2c.glade:10853
+#: resources/xnec2c.glade:11806
+msgid "_Horizontal"
+msgstr "_แนวนอน"
+
+#: resources/xnec2c.glade:9767 resources/xnec2c.glade:10864
+#: resources/xnec2c.glade:11817
+msgid "_Vertical"
+msgstr "_แนวตั้ง"
+
+#: resources/xnec2c.glade:9778 resources/xnec2c.glade:10875
+#: resources/xnec2c.glade:11828
+msgid "_Right Hand"
+msgstr "มือ_ขวา"
+
+#: resources/xnec2c.glade:9789 resources/xnec2c.glade:10886
+#: resources/xnec2c.glade:11839
+msgid "_Left Hand"
+msgstr "มือ_ซ้าย"
+
+#: resources/xnec2c.glade:9804
+msgid "_Net Gain"
+msgstr "อัตราขยาย_สุทธิ"
+
+#: resources/xnec2c.glade:9813
+msgid "Show _Min/Max Values"
+msgstr "แสดงค่า_ต่ำสุด/สูงสุด"
+
+#: resources/xnec2c.glade:9822
+msgid "Show _S11 (dB) Values"
+msgstr "แสดงค่า _S11 (dB)"
+
+#: resources/xnec2c.glade:9831
+msgid "Clamp _VSWR Graph to 10"
+msgstr "จำกัดกราฟ _VSWR ที่ 10"
+
+#: resources/xnec2c.glade:9840
+msgid "Round _X Axis Frequency Values"
+msgstr "ปัดเศษค่าความถี่แกน _X"
+
+#: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
+msgid "Max Gain"
+msgstr "อัตราขยายสูงสุด"
+
+#: resources/xnec2c.glade:9879
+msgid "Direction"
+msgstr "ทิศทาง"
+
+#: resources/xnec2c.glade:9894
+msgid "Viewer"
+msgstr "มุมมอง"
+
+#: resources/xnec2c.glade:9924
+msgid "Zr/Zi"
+msgstr "Zr/Zi"
+
+#: resources/xnec2c.glade:9939
+msgid "Zm/Zph"
+msgstr "Zm/Zph"
+
+#: resources/xnec2c.glade:9954
+msgid "Smith"
+msgstr "Smith"
+
+#: resources/xnec2c.glade:9998 resources/xnec2c.glade:10033
+#: resources/xnec2c.glade:10068 resources/xnec2c.glade:10103
+#: resources/xnec2c.glade:12644
+msgid " - - -"
+msgstr " - - -"
+
+#: resources/xnec2c.glade:10139
+msgid " - - - - "
+msgstr " - - - - "
+
+#: resources/xnec2c.glade:10155
+msgid "Freq MHz"
+msgstr "ความถี่ MHz"
+
+#: resources/xnec2c.glade:10194
+msgid "Tx Line Zo"
+msgstr "Zo สายส่ง"
+
+#: resources/xnec2c.glade:10208 resources/xnec2c.glade:11432
+#: resources/xnec2c.glade:12520
+msgid "Freq Loop"
+msgstr "วนรอบความถี่"
+
+#: resources/xnec2c.glade:10342
+msgid "Frequency Data Plots"
+msgstr "กราฟข้อมูลความถี่"
+
+#: resources/xnec2c.glade:10459
+msgid "Save _Currents/Charges as CSV"
+msgstr "บันทึก_กระแส/ประจุเป็น CSV"
+
+#: resources/xnec2c.glade:10478
+msgid "Optimization Settings"
+msgstr "การตั้งค่าการปรับแต่ง"
+
+#: resources/xnec2c.glade:10493
+msgid "Reload and write data on .NEC file changes"
+msgstr "โหลดใหม่และเขียนข้อมูลเมื่อไฟล์ .NEC เปลี่ยนแปลง"
+
+#: resources/xnec2c.glade:10500
+msgid "_Write files selected below, now."
+msgstr "_เขียนไฟล์ที่เลือกด้านล่างทันที"
+
+#: resources/xnec2c.glade:10515
+msgid "After calculation, write <file>.csv"
+msgstr "หลังการคำนวณ เขียน <file>.csv"
+
+#: resources/xnec2c.glade:10524
+msgid "After calculation, write <file>.s_1p"
+msgstr "หลังการคำนวณ เขียน <file>.s_1p"
+
+#: resources/xnec2c.glade:10533
+msgid "After calculation, write <file>-_maxgain.s2p"
+msgstr "หลังการคำนวณ เขียน <file>-_maxgain.s2p"
+
+#: resources/xnec2c.glade:10542
+msgid "After calculation, write <file>-_viewergain.s2p"
+msgstr "หลังการคำนวณ เขียน <file>-_viewergain.s2p"
+
+#: resources/xnec2c.glade:10551
+msgid "After calculation, write <file>-_radpattern.csv"
+msgstr "หลังการคำนวณ เขียน <file>-_radpattern.csv"
+
+#: resources/xnec2c.glade:10560
+msgid "After calculation, write <file>-_currents.csv"
+msgstr "หลังการคำนวณ เขียน <file>-_currents.csv"
+
+#: resources/xnec2c.glade:10575
+msgid "_Math Libraries"
+msgstr "_ไลบรารีคณิตศาสตร์"
+
+#: resources/xnec2c.glade:10584
+msgid "_Interactive"
+msgstr "_โต้ตอบ"
+
+#: resources/xnec2c.glade:10604
+msgid "_Batch"
+msgstr "_แบตช์"
+
+#: resources/xnec2c.glade:10630
+msgid "Mathlib _Help"
+msgstr "_ช่วยเหลือ Mathlib"
+
+#: resources/xnec2c.glade:10643
+msgid "Mathlib _Benchmarks"
+msgstr "_เบนช์มาร์ก Mathlib"
+
+#: resources/xnec2c.glade:10654
+msgid "_Selected Mathlibs"
+msgstr "Mathlib ที่_เลือก"
+
+#: resources/xnec2c.glade:10668
+msgid "Select All/None"
+msgstr "เลือกทั้งหมด/ไม่เลือก"
+
+#: resources/xnec2c.glade:10693
+msgid "_Parallel (-j N):\t\tO(N/J)"
+msgstr "_ขนาน (-j N):\t\tO(N/J)"
+
+#: resources/xnec2c.glade:10702
+msgid "_Single Job (-j 1):\tO(N)"
+msgstr "_งานเดี่ยว (-j 1):\tO(N)"
+
+#: resources/xnec2c.glade:10711
+msgid "_Iterate -j N/=2:\tO(N*log2(J))"
+msgstr "_วนซ้ำ -j N/=2:\tO(N*log2(J))"
+
+#: resources/xnec2c.glade:10720
+msgid "_Iterate -j N-=1:\tO(N*J)"
+msgstr "_วนซ้ำ -j N-=1:\tO(N*J)"
+
+#: resources/xnec2c.glade:10735
+msgid "Benchmark _Help"
+msgstr "_ช่วยเหลือเบนช์มาร์ก"
+
+#: resources/xnec2c.glade:10754
+msgid "Begin Frequency Loop at Startup"
+msgstr "เริ่มวนรอบความถี่เมื่อเริ่มต้นโปรแกรม"
+
+#: resources/xnec2c.glade:10765
+msgid "Confirm Quit"
+msgstr "ยืนยันการออก"
+
+#: resources/xnec2c.glade:10806
+msgid "_Radiation Pattern"
+msgstr "_แบบรูปการแผ่คลื่น"
+
+#: resources/xnec2c.glade:10816
+msgid "_Frequency Plots"
+msgstr "_กราฟความถี่"
+
+#: resources/xnec2c.glade:10901 resources/xnec2c.glade:12009
+msgid "Common _Projection"
+msgstr "การ_ฉายภาพร่วม"
+
+#: resources/xnec2c.glade:10911 resources/xnec2c.glade:12019
+msgid "Common _Frequency"
+msgstr "_ความถี่ร่วม"
+
+#: resources/xnec2c.glade:10923
+msgid "_Help"
+msgstr "_ช่วยเหลือ"
+
+#: resources/xnec2c.glade:10932
+msgid "_About"
+msgstr "_เกี่ยวกับ"
+
+#: resources/xnec2c.glade:10959
+msgid "Currents"
+msgstr "กระแส"
+
+#: resources/xnec2c.glade:10974
+msgid "Charges"
+msgstr "ประจุ"
+
+#: resources/xnec2c.glade:11155
+msgid " Zoom"
+msgstr " ซูม"
+
+#: resources/xnec2c.glade:11277 resources/xnec2c.glade:12456
+msgid "Gain"
+msgstr "อัตราขยาย"
+
+#: resources/xnec2c.glade:11292 resources/xnec2c.glade:11308
+#: resources/xnec2c.glade:12469 resources/xnec2c.glade:12626
+msgid "0.0"
+msgstr "0.0"
+
+#: resources/xnec2c.glade:11342
+msgid "- - - "
+msgstr "- - - "
+
+#: resources/xnec2c.glade:11384 resources/xnec2c.glade:12612
+msgid "dB"
+msgstr "dB"
+
+#: resources/xnec2c.glade:11398 resources/xnec2c.glade:12505
+msgid "Step"
+msgstr "ขั้น"
+
+#: resources/xnec2c.glade:11545 resources/xnec2c.glade:12553
+msgid "Apply"
+msgstr "นำไปใช้"
+
+#: resources/xnec2c.glade:11565
+msgid "Frequency Mhz"
+msgstr "ความถี่ MHz"
+
+#: resources/xnec2c.glade:11618
+msgid "Structure Geometry"
+msgstr "เรขาคณิตโครงสร้าง"
+
+#: resources/xnec2c.glade:11637
+msgid "Xnec2c: Radiation Patterns"
+msgstr "Xnec2c: แบบรูปการแผ่คลื่น"
+
+#: resources/xnec2c.glade:11854
+msgid "_Gain Scaling"
+msgstr "_มาตราส่วนอัตราขยาย"
+
+#: resources/xnec2c.glade:11869
+msgid "Linear _Power"
+msgstr "_กำลังเชิงเส้น"
+
+#: resources/xnec2c.glade:11880
+msgid "Linear _Voltage"
+msgstr "_แรงดันเชิงเส้น"
+
+#: resources/xnec2c.glade:11891
+msgid "_ARRL Style"
+msgstr "รูปแบบ _ARRL"
+
+#: resources/xnec2c.glade:11902
+msgid "_Logarithmic"
+msgstr "_ลอการิทึม"
+
+#: resources/xnec2c.glade:11917
+msgid "_Near Field"
+msgstr "_สนามใกล้"
+
+#: resources/xnec2c.glade:11932
+msgid "Near _E Field"
+msgstr "สนาม _E ใกล้"
+
+#: resources/xnec2c.glade:11942
+msgid "Near _H Field"
+msgstr "สนาม _H ใกล้"
+
+#: resources/xnec2c.glade:11952
+msgid "_Poynting Vector"
+msgstr "_เวกเตอร์พอยน์ติง"
+
+#: resources/xnec2c.glade:11961
+msgid "_Animate Dialog"
+msgstr "_ไดอะล็อกแอนิเมชัน"
+
+#: resources/xnec2c.glade:11970
+msgid "_Total Field"
+msgstr "_สนามรวม"
+
+#: resources/xnec2c.glade:11979
+msgid "_Peak Value"
+msgstr "_ค่าสูงสุด"
+
+#: resources/xnec2c.glade:11990
+msgid "_Snapshot"
+msgstr "_ภาพนิ่ง"
+
+#: resources/xnec2c.glade:12029
+msgid "_Overlay Structure"
+msgstr "_ซ้อนทับโครงสร้าง"
+
+#: resources/xnec2c.glade:12053
+msgid "Gain Pattern"
+msgstr "รูปแบบอัตราขยาย"
+
+#: resources/xnec2c.glade:12068
+msgid "E/H Fields"
+msgstr "สนาม E/H"
+
+#: resources/xnec2c.glade:12251
+msgid "Zoom % "
+msgstr "ซูม % "
+
+#: resources/xnec2c.glade:12572
+msgid "Frequency MHz"
+msgstr "ความถี่ MHz"
+
+#: resources/xnec2c.glade:12589
+msgid "0.010"
+msgstr "0.010"
+
+#: resources/xnec2c.glade:12745
+msgid "Scale Structure (GS card)"
+msgstr "ปรับขนาดโครงสร้าง (GS card)"
+
+#: resources/xnec2c.glade:12776
+msgid "Structure Scale Factor"
+msgstr "ตัวคูณขนาดโครงสร้าง"
+
+#: resources/xnec2c.glade:12789
+msgid "From Tag No."
+msgstr "จากหมายเลขแท็ก"
+
+#: resources/xnec2c.glade:12839
+msgid "To Tag No."
+msgstr "ถึงหมายเลขแท็ก"
+
+#: resources/xnec2c.glade:12874
+msgid "Scale Structure"
+msgstr "ปรับขนาดโครงสร้าง"
+
+#: resources/xnec2c.glade:13051
+msgid "Co-ordinate Transformation (GM card)"
+msgstr "การแปลงพิกัด (GM card)"
+
+#: resources/xnec2c.glade:13081
+msgid "Tag Increment"
+msgstr "การเพิ่มแท็ก"
+
+#: resources/xnec2c.glade:13112
+msgid "Rotate about X"
+msgstr "หมุนรอบแกน X"
+
+#: resources/xnec2c.glade:13144
+msgid "Move along X"
+msgstr "เลื่อนตามแกน X"
+
+#: resources/xnec2c.glade:13176
+msgid "New Structures"
+msgstr "โครงสร้างใหม่"
+
+#: resources/xnec2c.glade:13207
+msgid "Rotate about Y"
+msgstr "หมุนรอบแกน Y"
+
+#: resources/xnec2c.glade:13239
+msgid "Move along Y"
+msgstr "เลื่อนตามแกน Y"
+
+#: resources/xnec2c.glade:13271
+msgid "Start From Tag"
+msgstr "เริ่มจากแท็ก"
+
+#: resources/xnec2c.glade:13303
+msgid "Rotate about Z"
+msgstr "หมุนรอบแกน Z"
+
+#: resources/xnec2c.glade:13335
+msgid "Move along Z"
+msgstr "เลื่อนตามแกน Z"
+
+#: resources/xnec2c.glade:13371
+msgid "Co-ordinate Transformation Data"
+msgstr "ข้อมูลการแปลงพิกัด"
+
+#: resources/xnec2c.glade:13567
+msgid "Trans. Line Command (TL Card)"
+msgstr "คำสั่งสายส่ง (TL Card)"
+
+#: resources/xnec2c.glade:13597
+msgid "Tag Number, End 1  "
+msgstr "หมายเลขแท็ก, ปลาย 1  "
+
+#: resources/xnec2c.glade:13629
+msgid "Tag Number, End 2  "
+msgstr "หมายเลขแท็ก, ปลาย 2  "
+
+#: resources/xnec2c.glade:13660
+msgid "Segment Num, End 1"
+msgstr "หมายเลขเซกเมนต์, ปลาย 1"
+
+#: resources/xnec2c.glade:13692
+msgid "Segment Num, End 2"
+msgstr "หมายเลขเซกเมนต์, ปลาย 2"
+
+#: resources/xnec2c.glade:13756
+msgid "Crossed Transmission Line"
+msgstr "สายส่งไขว้"
+
+#: resources/xnec2c.glade:13774
+msgid "Characteristic Impedance"
+msgstr "อิมพีแดนซ์คุณลักษณะ"
+
+#: resources/xnec2c.glade:13806
+msgid "End 1 Y Real Part (S)"
+msgstr "ส่วนจริง Y ปลาย 1 (S)"
+
+#: resources/xnec2c.glade:13838
+msgid "End 2 Y Real Part (S)"
+msgstr "ส่วนจริง Y ปลาย 2 (S)"
+
+#: resources/xnec2c.glade:13870
+msgid "Length of Tx Line (m)"
+msgstr "ความยาวสายส่ง (m)"
+
+#: resources/xnec2c.glade:13902
+msgid "End 1 Y Imag Part (S)"
+msgstr "ส่วนจินตภาพ Y ปลาย 1 (S)"
+
+#: resources/xnec2c.glade:13934
+msgid "End 2 Y Imag Part (S)"
+msgstr "ส่วนจินตภาพ Y ปลาย 2 (S)"
+
+#: resources/xnec2c.glade:13970
+msgid "Transmission Line"
+msgstr "สายส่ง"
+
+#: resources/xnec2c.glade:14197
+msgid "Wire Element (GW & GC cards)"
+msgstr "องค์ประกอบเส้นลวด (GW & GC cards)"
+
+#: resources/xnec2c.glade:14257
+msgid "Wire X1"
+msgstr "เส้นลวด X1"
+
+#: resources/xnec2c.glade:14289
+msgid "Wire X2"
+msgstr "เส้นลวด X2"
+
+#: resources/xnec2c.glade:14352
+msgid "Wire Y1"
+msgstr "เส้นลวด Y1"
+
+#: resources/xnec2c.glade:14385
+msgid "Wire Y2"
+msgstr "เส้นลวด Y2"
+
+#: resources/xnec2c.glade:14449
+msgid "Wire Z1"
+msgstr "เส้นลวด Z1"
+
+#: resources/xnec2c.glade:14481
+msgid "Wire Z2"
+msgstr "เส้นลวด Z2"
+
+#: resources/xnec2c.glade:14546
+msgid "Wire Length"
+msgstr "ความยาวเส้นลวด"
+
+#: resources/xnec2c.glade:14617
+msgid "Wire Data"
+msgstr "ข้อมูลเส้นลวด"
+
+#: resources/xnec2c.glade:14629
+msgid "Tapered Wire"
+msgstr "เส้นลวดเรียว"
+
+#: resources/xnec2c.glade:14671
+msgid "Length Taper"
+msgstr "ความยาวส่วนเรียว"
+
+#: resources/xnec2c.glade:14703
+msgid "Diameter Seg 1"
+msgstr "เส้นผ่านศูนย์กลางเซกเมนต์ 1"
+
+#: resources/xnec2c.glade:14735
+msgid "Diameter Seg N"
+msgstr "เส้นผ่านศูนย์กลางเซกเมนต์ N"
+
+#: resources/xnec2c.glade:14767
+msgid "Diam. Taper"
+msgstr "เส้นผ่านศูนย์กลางส่วนเรียว"
+
+#: resources/xnec2c.glade:14803
+msgid "Wire Taper Data"
+msgstr "ข้อมูลเส้นลวดเรียว"
+
+#: resources/xnec2c.glade:14968
+msgid "Impedance (Zo) Ohm"
+msgstr "อิมพีแดนซ์ (Zo) Ohm"
+
+#: resources/xnec2c.glade:14983
+msgid "50.00"
+msgstr "50.00"
+
+#: resources/xnec2c.glade:15006
+msgid "Transmission Line Impedance (Zo)"
+msgstr "อิมพีแดนซ์สายส่ง (Zo)"
+
+#~ msgid ""
+#~ "Not available for Incident Field or\n"
+#~ "Elementary Current Source Excitation.\n"
+#~ "(Excitation Types 1 to 4)"
+#~ msgstr ""
+#~ "ไม่พร้อมใช้งานสำหรับสนามตกกระทบหรือ\n"
+#~ "การกระตุ้นแหล่งกำเนิดกระแสพื้นฐาน\n"
+#~ "(ประเภทการกระตุ้น 1 ถึง 4)"
+
+#~ msgid "number of segments less than 1 (ns < 1)\n"
+#~ msgstr "จำนวนเซกเมนต์น้อยกว่า 1 (ns < 1)\n"
+
+#~ msgid "arc angle exceeds 360 degrees\n"
+#~ msgstr "มุมส่วนโค้งเกิน 360 องศา\n"
+
+#~ msgid "np > n\n"
+#~ msgstr "np > n\n"
+
+#~ msgid "b less than a\n"
+#~ msgstr "b น้อยกว่า a\n"
+
+#~ msgid "unexpected EOF (End of File)\n"
+#~ msgstr "EOF (สิ้นสุดไฟล์) ที่ไม่คาดคิด\n"
+
+#~ msgid "error reading Comments: Comment mnemonic short or missing\n"
+#~ msgstr "ข้อผิดพลาดในการอ่านความคิดเห็น: ตัวช่วยจำความคิดเห็นสั้นหรือหายไป\n"
+
+#~ msgid "geometry data card error - tag number is less than 1\n"
+#~ msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต - หมายเลขแท็กน้อยกว่า 1\n"
+
+#~ msgid "geometry data card error - number of segments is less than 1\n"
+#~ msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต - จำนวนเซกเมนต์น้อยกว่า 1\n"
+
+#~ msgid "geometry data card error no GC card for tapered wire\n"
+#~ msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต ไม่มีการ์ด GC สำหรับสายลวดเรียว\n"
+
+#~ msgid "geometry GC data card error\n"
+#~ msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต GC\n"
+
+#~ msgid "geometry GX data card error\n"
+#~ msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต GX\n"
+
+#~ msgid "geometry GR data card error\n"
+#~ msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต GR\n"
+
+#~ msgid "move GM data card error\n"
+#~ msgstr "ข้อผิดพลาดการ์ดข้อมูลย้าย GM\n"
+
+#~ msgid "patch data card error\n"
+#~ msgstr "ข้อผิดพลาดการ์ดข้อมูล patch\n"
+
+#~ msgid "patch data error\n"
+#~ msgstr "ข้อผิดพลาดข้อมูล patch\n"
+
+#~ msgid "patch card data error\n"
+#~ msgstr "ข้อผิดพลาดข้อมูลการ์ด patch\n"
+
+#~ msgid "\"GF\" card (NGF solution) is not supported\n"
+#~ msgstr "การ์ด \"GF\" (โซลูชัน NGF) ไม่รองรับ\n"
+
+#~ msgid "ignoring CM card in geometry\n"
+#~ msgstr "ละเว้นการ์ด CM ในเรขาคณิต\n"
+
+#~ msgid ""
+#~ "Theta > 90 deg with ground specified: Please check RP card data and "
+#~ "correct\n"
+#~ msgstr "Theta > 90 องศา โดยมีการระบุกราวด์: โปรดตรวจสอบข้อมูลการ์ด RP และแก้ไข\n"
+
+#~ msgid "Hankel not valid for z = 0\n"
+#~ msgstr "Hankel ไม่ถูกต้องสำหรับ z = 0\n"
+
+#~ msgid "No convergence\n"
+#~ msgstr "ไม่ลู่เข้า\n"

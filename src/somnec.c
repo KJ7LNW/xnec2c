@@ -746,7 +746,7 @@ gshank( complex double start, complex double dela,
   } /* for( intx = 1; intx <= maxh; intx++ ) */
 
   /* No convergence */
-  Stop( ERR_STOP, _("No convergencn") );
+  Stop( ERR_STOP, _("No convergence") );
   return;
 }
 

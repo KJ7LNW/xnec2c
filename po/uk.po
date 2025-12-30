@@ -1,0 +1,3647 @@
+# Ukrainian translations for xnec2c package.
+# Copyright (C) 2025 Neoklis Kyriazis nkcyham@yahoo.com
+# This file is distributed under the same license as the xnec2c package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xnec2c 4.4.18\n"
+"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
+"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"PO-Revision-Date: 2025-12-28 20:37-0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/calculations.c:117 src/calculations.c:1276
+#, c-format
+msgid "segment connection error for segment %5d\n"
+msgstr "помилка з'єднання сегмента для сегмента %5d\n"
+
+#: src/calculations.c:118
+msgid "Segment connection error in tbf()"
+msgstr "Помилка з'єднання сегмента в tbf()"
+
+#: src/calculations.c:890
+#, c-format
+msgid "step size limited at z= %10.5f\n"
+msgstr "розмір кроку обмежено при z= %10.5f\n"
+
+#: src/calculations.c:1054
+#, c-format
+msgid "segment connection error for segment %d\n"
+msgstr "помилка з'єднання сегмента для сегмента %d\n"
+
+#: src/calculations.c:1055
+msgid "Segment connection error in sbf()"
+msgstr "Помилка з'єднання сегмента в sbf()"
+
+#: src/calculations.c:1277
+msgid "Segment connection error in trio()"
+msgstr "Помилка з'єднання сегмента в trio()"
+
+#: src/callback_func.c:263
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to end the calculation?"
+msgstr ""
+"Цикл частоти виконується\n"
+"Ви впевнені, що хочете завершити обчислення?"
+
+#: src/callback_func.c:267
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to close this window?"
+msgstr ""
+"Цикл частоти виконується\n"
+"Ви впевнені, що хочете закрити це вікно?"
+
+#: src/callback_func.c:512
+#, c-format
+msgid ""
+"Frequency plots window closed: excitation type %d is incompatible.\n"
+"Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
+msgstr ""
+"Вікно графіків частоти закрито: тип збудження %d є несумісним.\n"
+"Використовуйте тип 0 (Applied E Field) або 5 (Current Discontinuity) замість "
+"цього."
+
+#: src/callback_func.c:518
+#, c-format
+msgid ""
+"Frequency plots are not available with excitation type %d.\n"
+"This model uses Incident Field or Elementary Current Source excitation.\n"
+"Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
+msgstr ""
+"Графіки частоти недоступні для типу збудження %d.\n"
+"Ця модель використовує збудження Incident Field або Elementary Current "
+"Source.\n"
+"Змініть картку EX на тип 0 (Applied E Field) або 5 (Current Discontinuity)."
+
+#: src/callback_func.c:697
+msgid "View Currents"
+msgstr "Перегляд струмів"
+
+#: src/callback_func.c:719 src/callback_func.c:778
+msgid "View Geometry"
+msgstr "Перегляд геометрії"
+
+#: src/callback_func.c:756
+msgid "View Charges"
+msgstr "Перегляд зарядів"
+
+#: src/callback_func.c:821
+msgid "PNG images (*.png)"
+msgstr "Зображення PNG (*.png)"
+
+#: src/callback_func.c:823
+msgid "GNUplot files (*.gplot)"
+msgstr "Файли GNUplot (*.gplot)"
+
+#: src/callback_func.c:825
+msgid "NEC2 files (*.nec)"
+msgstr "Файли NEC2 (*.nec)"
+
+#: src/callback_func.c:827
+msgid "Touchstone 1-port files (*.s1p)"
+msgstr "Файли Touchstone 1-порт (*.s1p)"
+
+#: src/callback_func.c:829
+msgid "Touchstone 2-port files (*.s2p)"
+msgstr "Файли Touchstone 2-порт (*.s2p)"
+
+#: src/callback_func.c:831
+msgid "Comma-separated CSV files (*.csv)"
+msgstr "Файли CSV з розділенням комами (*.csv)"
+
+#: src/callbacks.c:88 src/callbacks.c:371 src/callbacks.c:1813
+#: src/callbacks.c:2174
+msgid "Are you sure you wish to quit xnec2c?"
+msgstr "Ви впевнені, що хочете вийти з xnec2c?"
+
+#: src/callbacks.c:131
+msgid ""
+"A new NEC2 input file may not be created\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Новий вхідний файл NEC2 не може бути створено\n"
+"під час виконання циклу частоти"
+
+#: src/callbacks.c:171
+msgid ""
+"A new NEC2 input file may not be opened\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Новий вхідний файл NEC2 не може бути відкрито\n"
+"під час виконання циклу частоти"
+
+#: src/callbacks.c:291
+msgid "xnec2c geometry optimizer"
+msgstr "Оптимізатор геометрії xnec2c"
+
+#: src/callbacks.c:292
+msgid ""
+"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr ""
+"xnec2c було зібрано без підтримки inotify: оптимізатор не може бути "
+"увімкнено."
+
+#: src/callbacks.c:316
+msgid "Xnec2c Optimizer"
+msgstr "Оптимізатор Xnec2c"
+
+#: src/callbacks.c:316
+msgid ""
+"No files are selected for writing. However, xnec2c will still reload and "
+"recalculate the input file on modification when triggered by inotify.Select "
+"files for writing in \"File->Optimization Settings\"."
+msgstr ""
+"Файли для запису не вибрано. Однак xnec2c все одно перезавантажить і "
+"перерахує вхідний файл при зміні, коли це буде ініційовано inotify. Виберіть "
+"файли для запису в «Файл->Налаштування оптимізації»."
+
+#: src/callbacks.c:327
+msgid "failed to create Optimizer Output thread\n"
+msgstr "не вдалося створити потік виводу оптимізатора\n"
+
+#: src/callbacks.c:1031 src/callbacks.c:1347 src/callbacks.c:2200
+msgid "Are you sure you wish to close this window?"
+msgstr "Ви впевнені, що хочете закрити це вікно?"
+
+#: src/callbacks.c:2138
+msgid "No open NEC2 input file"
+msgstr "Немає відкритого вхідного файлу NEC2"
+
+#: src/callbacks.c:2231 src/callbacks.c:2261
+msgid ""
+"NEC2 Editor's data may not be saved\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Дані редактора NEC2 не можуть бути збережені\n"
+"під час виконання циклу частоти"
+
+#: src/callbacks.c:2243 src/callbacks.c:2269
+msgid "untitled.nec"
+msgstr "untitled.nec"
+
+#: src/callbacks.c:2734 src/callbacks.c:2754 src/callbacks.c:2774
+#: src/geom_edit.c:413 src/geom_edit.c:1229 src/geom_edit.c:1471
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Картки частоти (FR) ще не оброблено.\n"
+"Можливо, спочатку потрібно зберегти дані редактора NEC2."
+
+#: src/cmnd_edit.c:72
+msgid ""
+"Get_Command_Data(): Error reading\n"
+"row data: Invalid list iterator"
+msgstr ""
+"Get_Command_Data(): Помилка читання\n"
+"даних рядка: Недійсний ітератор списку"
+
+#: src/cmnd_edit.c:105
+msgid ""
+"Set_Command_Data(): Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Set_Command_Data(): Помилка запису даних рядка\n"
+"Будь ласка, виберіть рядок повторно"
+
+#: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
+#: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
+msgid "Tag Number"
+msgstr "Номер мітки"
+
+#: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
+msgid "Segment Number"
+msgstr "Номер сегмента"
+
+#: src/cmnd_edit.c:422
+msgid "Voltage Real Part"
+msgstr "Дійсна частина напруги"
+
+#: src/cmnd_edit.c:423
+msgid "Voltage Imaginary Part"
+msgstr "Уявна частина напруги"
+
+#: src/cmnd_edit.c:424 src/cmnd_edit.c:1579
+msgid "Normalization Factor"
+msgstr "Коефіцієнт нормалізації"
+
+#: src/cmnd_edit.c:425 src/cmnd_edit.c:426 src/cmnd_edit.c:427
+#: src/cmnd_edit.c:463 src/cmnd_edit.c:464 src/cmnd_edit.c:1814
+#: src/cmnd_edit.c:1825 src/cmnd_edit.c:1826
+msgid "  ** NOT USED **"
+msgstr "  ** НЕ ВИКОРИСТОВУЄТЬСЯ **"
+
+#: src/cmnd_edit.c:445
+msgid "Num of Theta Angles"
+msgstr "Кількість кутів Theta"
+
+#: src/cmnd_edit.c:446
+msgid "Num of Phi Angles"
+msgstr "Кількість кутів Phi"
+
+#: src/cmnd_edit.c:447
+msgid "Theta Angle (deg)"
+msgstr "Кут Theta (град)"
+
+#: src/cmnd_edit.c:448
+msgid "Phi Angle (deg)"
+msgstr "Кут Phi (град)"
+
+#: src/cmnd_edit.c:449
+msgid "Eta Angle (deg)"
+msgstr "Кут Eta (град)"
+
+#: src/cmnd_edit.c:450
+msgid "Theta Increment (deg)"
+msgstr "Приріст Theta (град)"
+
+#: src/cmnd_edit.c:451
+msgid "Phi Increment (deg)"
+msgstr "Приріст Phi (град)"
+
+#: src/cmnd_edit.c:452
+msgid "Minor/Major Axis"
+msgstr "Мала/Велика вісь"
+
+#: src/cmnd_edit.c:465
+msgid "X Position (m)"
+msgstr "Позиція X (м)"
+
+#: src/cmnd_edit.c:466
+msgid "Y Position (m)"
+msgstr "Позиція Y (м)"
+
+#: src/cmnd_edit.c:467
+msgid "Z Position (m)"
+msgstr "Позиція Z (м)"
+
+#: src/cmnd_edit.c:468
+msgid "alpha Angle (deg)"
+msgstr "Кут alpha (град)"
+
+#: src/cmnd_edit.c:469
+msgid "beta Angle (deg)"
+msgstr "Кут beta (град)"
+
+#: src/cmnd_edit.c:470
+msgid "Current Moment (A.m)"
+msgstr "Момент струму (А·м)"
+
+#: src/cmnd_edit.c:1556
+msgid "Points in Z"
+msgstr "Точки по Z"
+
+#: src/cmnd_edit.c:1557
+msgid "Initial Z (m)"
+msgstr "Початкова Z (м)"
+
+#: src/cmnd_edit.c:1558
+msgid "Increment in Z"
+msgstr "Приріст Z"
+
+#: src/cmnd_edit.c:1559
+msgid "Field Point R (m)"
+msgstr "Точка поля R (м)"
+
+#: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
+msgid "Points in Phi"
+msgstr "Точки по Phi"
+
+#: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
+msgid "Initial Theta (deg)"
+msgstr "Початковий Theta (град)"
+
+#: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
+msgid "Increment in Theta"
+msgstr "Приріст Theta"
+
+#: src/cmnd_edit.c:1570
+msgid "R (m) (Optional)"
+msgstr "R (м) (Необов'язково)"
+
+#: src/cmnd_edit.c:1583
+msgid "** NOT USED **"
+msgstr "** НЕ ВИКОРИСТОВУЄТЬСЯ **"
+
+#: src/cmnd_edit.c:1788 src/cmnd_edit.c:1812
+msgid "Resistance Ohm"
+msgstr "Опір Ом"
+
+#: src/cmnd_edit.c:1789
+msgid "Inductance uH"
+msgstr "Індуктивність мкГн"
+
+#: src/cmnd_edit.c:1790
+msgid "Capacitance pF"
+msgstr "Ємність пФ"
+
+#: src/cmnd_edit.c:1800
+msgid "Resistance Ohm/m"
+msgstr "Опір Ом/м"
+
+#: src/cmnd_edit.c:1801
+msgid "Inductance uH/m"
+msgstr "Індуктивність мкГн/м"
+
+#: src/cmnd_edit.c:1802
+msgid "Capacitance pF/m"
+msgstr "Ємність пФ/м"
+
+#: src/cmnd_edit.c:1813
+msgid "Reactance Ohm"
+msgstr "Реактивний опір Ом"
+
+#: src/cmnd_edit.c:1824 resources/xnec2c.glade:480 resources/xnec2c.glade:4012
+#: resources/xnec2c.glade:14578
+msgid "Conductivity S/m"
+msgstr "Провідність См/м"
+
+#: src/cmnd_edit.c:2453
+msgid "Points in X-axis"
+msgstr "Точки по осі X"
+
+#: src/cmnd_edit.c:2454
+msgid "Points in Y-axis"
+msgstr "Точки по осі Y"
+
+#: src/cmnd_edit.c:2455
+msgid "Points in Z-axis"
+msgstr "Точки по осі Z"
+
+#: src/cmnd_edit.c:2456
+msgid "First Point X (m)"
+msgstr "Перша точка X (м)"
+
+#: src/cmnd_edit.c:2457
+msgid "First Point Y (m)"
+msgstr "Перша точка Y (м)"
+
+#: src/cmnd_edit.c:2458
+msgid "First Point Z (m)"
+msgstr "Перша точка Z (м)"
+
+#: src/cmnd_edit.c:2459
+msgid "Increment in X (m)"
+msgstr "Приріст X (м)"
+
+#: src/cmnd_edit.c:2460
+msgid "Increment in Y (m)"
+msgstr "Приріст Y (м)"
+
+#: src/cmnd_edit.c:2461
+msgid "Increment in Z (m)"
+msgstr "Приріст Z (м)"
+
+#: src/cmnd_edit.c:2469
+msgid "Points along R"
+msgstr "Точки вздовж R"
+
+#: src/cmnd_edit.c:2470
+msgid "Points along Phi"
+msgstr "Точки вздовж Phi"
+
+#: src/cmnd_edit.c:2471
+msgid "Points along Theta"
+msgstr "Точки вздовж Theta"
+
+#: src/cmnd_edit.c:2472
+msgid "First Point R (m)"
+msgstr "Перша точка R (м)"
+
+#: src/cmnd_edit.c:2473
+msgid "First Point Phi"
+msgstr "Перша точка Phi"
+
+#: src/cmnd_edit.c:2474
+msgid "First Point Theta"
+msgstr "Перша точка Theta"
+
+#: src/cmnd_edit.c:2475
+msgid "Increment in R (m)"
+msgstr "Приріст R (м)"
+
+#: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
+msgid "Increment in Phi"
+msgstr "Приріст Phi"
+
+#: src/draw_radiation.c:28
+msgid ""
+"Animation requires near field data.\n"
+"\n"
+"E-field animation: Add NE card to NEC file\n"
+"H-field animation: Add NH card to NEC file\n"
+"Poynting vector: Add both NE and NH cards"
+msgstr ""
+"Анімація потребує даних ближнього поля.\n"
+"\n"
+"Анімація E-поля: Додайте картку NE до файлу NEC\n"
+"Анімація H-поля: Додайте картку NH до файлу NEC\n"
+"Вектор Пойнтінга: Додайте обидві картки NE та NH"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
+msgid "Near Field Animation"
+msgstr "Анімація ближнього поля"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 src/geometry.c:812
+#: src/input.c:1570 src/input.c:1571 src/utils.c:509 src/utils.c:555
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/draw_radiation.c:1052
+msgid "Total Gain"
+msgstr "Загальне підсилення"
+
+#: src/draw_radiation.c:1053
+msgid "Horizontal Polarization"
+msgstr "Горизонтальна поляризація"
+
+#: src/draw_radiation.c:1054
+msgid "Vertical Polarization"
+msgstr "Вертикальна поляризація"
+
+#: src/draw_radiation.c:1055
+msgid "RH Circular Polarization"
+msgstr "Правостороння кругова поляризація"
+
+#: src/draw_radiation.c:1056
+msgid "LH Circular Polarization"
+msgstr "Лівостороння кругова поляризація"
+
+#: src/draw_radiation.c:1061
+msgid "Linear Power"
+msgstr "Лінійна потужність"
+
+#: src/draw_radiation.c:1062
+msgid "Linear Voltage"
+msgstr "Лінійна напруга"
+
+#: src/draw_radiation.c:1063
+msgid "ARRL Scale"
+msgstr "Шкала ARRL"
+
+#: src/draw_radiation.c:1064
+msgid "Logarithmic Scale"
+msgstr "Логарифмічна шкала"
+
+#: src/draw_radiation.c:1073 resources/xnec2c.glade:12710
+msgid "Radiation Patterns"
+msgstr "Діаграми випромінювання"
+
+#: src/draw_radiation.c:1076
+msgid "Radiation Pattern: - "
+msgstr "Діаграма випромінювання: - "
+
+#: src/draw_radiation.c:1083
+msgid "Near Fields:"
+msgstr "Ближні поля:"
+
+#: src/draw_radiation.c:1085
+msgid " - E Field"
+msgstr " - Поле E"
+
+#: src/draw_radiation.c:1087
+msgid " - H Field"
+msgstr " - Поле H"
+
+#: src/draw_radiation.c:1089
+msgid " - Poynting Vector"
+msgstr " - Вектор Пойнтінга"
+
+#: src/draw_radiation.c:1099
+msgid "Frequency Data Plots - "
+msgstr "Графіки частотних даних - "
+
+#: src/draw_radiation.c:1307
+#, c-format
+msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
+msgstr "fstep=%d виходить за межі. calc_data.steps_total=%d"
+
+#: src/geom_edit.c:76 src/geom_edit.c:1866 src/geom_edit.c:2109
+#: src/geom_edit.c:2491
+msgid ""
+"Error reading row data\n"
+"Invalid list iterator"
+msgstr ""
+"Помилка читання даних рядка\n"
+"Недійсний ітератор списку"
+
+#: src/geom_edit.c:109 src/geom_edit.c:139
+msgid ""
+"Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Помилка запису даних рядка\n"
+"Будь ласка, виберіть рядок повторно"
+
+#: src/geom_edit.c:528
+msgid ""
+"GC card preceded by GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"Картка GC передує картці GW\n"
+"з ненульовим радіусом дроту"
+
+#: src/geom_edit.c:532
+msgid "No GW card before GC card"
+msgstr "Немає картки GW перед карткою GC"
+
+#: src/geom_edit.c:556
+msgid ""
+"No GC card after a GW card\n"
+"with a zero wire radius"
+msgstr ""
+"Немає картки GC після картки GW\n"
+"з нульовим радіусом дроту"
+
+#: src/geom_edit.c:565
+msgid ""
+"GC card follows a GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"Картка GC слідує за карткою GW\n"
+"з ненульовим радіусом дроту"
+
+#: src/geom_edit.c:944
+msgid ""
+"SC card preceded by SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"Картка SC передує картці SP\n"
+"з довільним типом патча"
+
+#: src/geom_edit.c:956
+msgid "No SP or SM card before SC card"
+msgstr "Немає картки SP або SM перед карткою SC"
+
+#: src/geom_edit.c:976
+msgid ""
+"No SC card after an SP card\n"
+"with non-arbitrary patch type"
+msgstr ""
+"Немає картки SC після картки SP\n"
+"з недовільним типом патча"
+
+#: src/geom_edit.c:983
+msgid ""
+"SC card follows an SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"Картка SC слідує за карткою SP\n"
+"з довільним типом патча"
+
+#: src/geom_edit.c:996
+msgid "No SC card after an SM card"
+msgstr "Немає картки SC після картки SM"
+
+#: src/geom_edit.c:1066 resources/xnec2c.glade:7685
+msgid "Center - X"
+msgstr "Центр - X"
+
+#: src/geom_edit.c:1068 resources/xnec2c.glade:7749
+msgid "Center - Y"
+msgstr "Центр - Y"
+
+#: src/geom_edit.c:1070 resources/xnec2c.glade:7813
+msgid "Center - Z"
+msgstr "Центр - Z"
+
+#: src/geom_edit.c:1072 resources/xnec2c.glade:7717
+msgid "Normal - Elev."
+msgstr "Нормаль - Елев."
+
+#: src/geom_edit.c:1074 resources/xnec2c.glade:7781
+msgid "Normal - Azim."
+msgstr "Нормаль - Азим."
+
+#: src/geom_edit.c:1076 resources/xnec2c.glade:7845
+msgid "Patch Area"
+msgstr "Площа патча"
+
+#: src/geom_edit.c:1081
+msgid "Corner 1 - X"
+msgstr "Кут 1 - X"
+
+#: src/geom_edit.c:1083
+msgid "Corner 1 - Y"
+msgstr "Кут 1 - Y"
+
+#: src/geom_edit.c:1085
+msgid "Corner 1 - Z"
+msgstr "Кут 1 - Z"
+
+#: src/geom_edit.c:1087
+msgid "Corner 2 - X"
+msgstr "Кут 2 - X"
+
+#: src/geom_edit.c:1089
+msgid "Corner 2 - Y"
+msgstr "Кут 2 - Y"
+
+#: src/geom_edit.c:1091
+msgid "Corner 2 - Z"
+msgstr "Кут 2 - Z"
+
+#: src/geom_edit.c:2582
+msgid "NEC2 editor window not open"
+msgstr "Вікно редактора NEC2 не відкрито"
+
+#: src/geometry.c:97
+msgid "Number of segments < 1"
+msgstr "Кількість сегментів < 1"
+
+#: src/geometry.c:148
+msgid "Arc angle exceeds 360 degrees"
+msgstr "Кут дуги перевищує 360 градусів"
+
+#: src/geometry.c:309
+msgid "Error in conect(): np > n"
+msgstr "Помилка в conect(): np > n"
+
+#: src/geometry.c:343 src/geometry.c:391
+#, c-format
+msgid "geometry data error: segment %d extends below ground\n"
+msgstr "помилка геометричних даних: сегмент %d виходить нижче землі\n"
+
+#: src/geometry.c:344 src/geometry.c:392
+msgid ""
+"Geometry data error\n"
+"Segment extends below ground"
+msgstr ""
+"Помилка геометричних даних\n"
+"Сегмент виходить нижче землі"
+
+#: src/geometry.c:401
+#, c-format
+msgid "geometry data error: segment %d lies in ground plane\n"
+msgstr "помилка геометричних даних: сегмент %d лежить у площині землі\n"
+
+#: src/geometry.c:402
+msgid ""
+"Geometry data error\n"
+"Segment lies in ground plane"
+msgstr ""
+"Помилка геометричних даних\n"
+"Сегмент лежить у площині землі"
+
+#: src/geometry.c:492
+msgid "ipsym = 0\n"
+msgstr "ipsym = 0\n"
+
+#: src/geometry.c:493
+msgid "Error: ipsym = 0"
+msgstr "Помилка: ipsym = 0"
+
+#: src/geometry.c:549
+#, c-format
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
+"segj.maxcon=%lu\n"
+msgstr ""
+"Кількість з'єднань сегментів перевищує повну сітку, що малоймовірно: data.n="
+"%ld segj.maxcon=%lu\n"
+
+#: src/geometry.c:551
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely!\n"
+"Check for overlapping or nearly-connected segments\n"
+msgstr ""
+"Кількість з'єднань сегментів перевищує повну сітку, що малоймовірно!\n"
+"Перевірте наявність сегментів, що перекриваються або майже з'єднані\n"
+
+#: src/geometry.c:764
+msgid ""
+"check data, parameter specifying segment: position in a group of equal tags "
+"must not be zero\n"
+msgstr ""
+"перевірте дані, параметр, що вказує сегмент: позиція в групі однакових тегів "
+"не повинна бути нульовою\n"
+
+#: src/geometry.c:765
+msgid ""
+"Parameter specifying segment\n"
+"position in a group of equal tags is zero"
+msgstr ""
+"Параметр, що вказує позицію сегмента\n"
+"в групі однакових тегів, дорівнює нулю"
+
+#: src/geometry.c:797
+#, c-format
+msgid "no segment has an itag of %d\n"
+msgstr "жоден сегмент не має itag %d\n"
+
+#: src/geometry.c:801
+msgid ""
+"Segment tag number error: Tag 0 is reserved and cannot be used.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are "
+"valid.\n"
+"For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
+msgstr ""
+"Помилка номера тега сегмента: Тег 0 зарезервований і не може "
+"використовуватися.\n"
+"Перевірте картки геометрії (особливо картки GM), щоб переконатися, що "
+"значення тегів дійсні.\n"
+"Для карток GM: перевірте, що 'початковий тег' та 'приріст тега' не створюють "
+"тег 0."
+
+#: src/geometry.c:809
+#, c-format
+msgid ""
+"Segment tag number error: No segment found with tag %d.\n"
+"You are referencing an unknown tag or segment in a control card.\n"
+"Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."
+msgstr ""
+"Помилка номера тега сегмента: Сегмент з тегом %d не знайдено.\n"
+"Ви посилаєтесь на невідомий тег або сегмент у картці керування.\n"
+"Дійсні теги у вашій геометрії — це ті, що призначені карткам GW/GA/GH/SP."
+
+#: src/geometry.c:1123
+msgid "corners of quadrilateral: patch do not lie in a plane\n"
+msgstr "кути чотирикутника: патч не лежить в одній площині\n"
+
+#: src/geometry.c:1124
+msgid ""
+"Corners of quadrilateral\n"
+"patch do not lie in a plane"
+msgstr ""
+"Кути чотирикутника\n"
+"патч не лежить в одній площині"
+
+#: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
+#, c-format
+msgid "geometry data error: segment %d lies in plane of symmetry\n"
+msgstr "помилка геометричних даних: сегмент %d лежить у площині симетрії\n"
+
+#: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
+msgid ""
+"Geometry data error\n"
+"Segment lies in plane of symmetry"
+msgstr ""
+"Помилка геометричних даних\n"
+"Сегмент лежить у площині симетрії"
+
+#: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
+#, c-format
+msgid "geometry data error: patch %d lies in plane of symmetry\n"
+msgstr "помилка геометричних даних: патч %d лежить у площині симетрії\n"
+
+#: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
+msgid ""
+"Geometry data error\n"
+"Patch lies in plane of symmetry"
+msgstr ""
+"Помилка геометричних даних\n"
+"Патч лежить у площині симетрії"
+
+#: src/geometry.c:1642
+#, c-format
+msgid ""
+"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
+"threshold=%.3e); segment will connect to itself\n"
+msgstr ""
+"tag=%d/seg=%d: відстань кінцевої точки=%.3e занадто мала (нижче порогу "
+"з'єднання=%.3e); сегмент з'єднається сам із собою\n"
+
+#: src/geometry.c:1647
+#, c-format
+msgid "tag=%d: suppressing additional self-connection warnings\n"
+msgstr "tag=%d: придушення додаткових попереджень про самоз'єднання\n"
+
+#: src/geometry.c:1692
+#, c-format
+msgid ""
+"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
+"threshold %.3e; unintended connections possible\n"
+msgstr ""
+"tag=%d/seg=%d: відстань=%.3e до tag=%d/seg=%d менша за 2x поріг з'єднання "
+"%.3e; можливі ненавмисні з'єднання\n"
+
+#: src/geometry.c:1697
+#, c-format
+msgid "tag=%d: suppressing additional overlap warnings\n"
+msgstr "tag=%d: придушення додаткових попереджень про перекриття\n"
+
+#: src/geometry.c:1757
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
+"length=%.3e that connection detection may fail or short\n"
+msgstr ""
+"tag=%d/seg=%d: довжина=%.3e занадто коротка (і достатньо близька) до tag=%d/"
+"seg=%d довжина=%.3e, що виявлення з'єднання може не спрацювати або "
+"закоротити\n"
+
+#: src/geometry.c:1762
+#, c-format
+msgid ""
+"tag=%d: suppressing additional connection detection may fail or short "
+"warnings\n"
+msgstr ""
+"tag=%d: придушення додаткових попереджень про можливу невдачу виявлення "
+"з'єднання або закорочення\n"
+
+#: src/geometry.c:1794
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
+"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
+"recommended <= 0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: співвідношення довжина/довжина хвилі %.3f < 0.001; подібність "
+"компонентів струму призводить до числових неточностей (мін=0.001, "
+"добре=0.05, рекомендовано <= 0.1)\n"
+
+#: src/geometry.c:1799
+#, c-format
+msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
+msgstr ""
+"tag=%d: придушення додаткових помилок короткого співвідношення довжини "
+"хвилі\n"
+
+#: src/geometry.c:1812
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
+"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
+"0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: співвідношення довжина/довжина хвилі %.3f > 0.1; роздільна "
+"здатність вибірки струму обмежена відстанню між сегментами (мін=0.001, "
+"добре=0.05, рекомендовано <= 0.1)\n"
+
+#: src/geometry.c:1817
+#, c-format
+msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
+msgstr ""
+"tag=%d: придушення додаткових попереджень про довге співвідношення довжини "
+"хвилі\n"
+
+#: src/geometry.c:1830
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
+"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
+"recommended <=0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: співвідношення довжина/довжина хвилі %.3f > 0.05; коротші "
+"сегменти підвищують точність у областях швидкої зміни струму (мін=0.001, "
+"добре=0.05, рекомендовано <=0.1)\n"
+
+#: src/geometry.c:1835
+#, c-format
+msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
+msgstr "tag=%d: придушення додаткових пропозицій щодо покращення точності\n"
+
+#: src/geometry.c:1865
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 2.0; похибка поля "
+"стандартного ядра тонкого дроту значно перевищує 1%% (мін=2.0, 1%% "
+"точність=8.0)\n"
+
+#: src/geometry.c:1870
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
+msgstr ""
+"tag=%d: придушення додаткових помилок співвідношення стандартного ядра\n"
+
+#: src/geometry.c:1883
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
+"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 8.0; похибка поля "
+"стандартного ядра тонкого дроту перевищує 1%% (мін=2.0, 1%% точність=8.0)\n"
+
+#: src/geometry.c:1888
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
+msgstr ""
+"tag=%d: придушення додаткових попереджень співвідношення стандартного ядра\n"
+
+#: src/geometry.c:1903
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 0.5; похибка поля "
+"розширеного ядра тонкого дроту значно перевищує 1%% (мін=0.5, 1%% "
+"точність=2.0)\n"
+
+#: src/geometry.c:1908
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
+msgstr ""
+"tag=%d: придушення додаткових помилок співвідношення розширеного ядра\n"
+
+#: src/geometry.c:1921
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
+"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 2.0; похибка поля "
+"розширеного ядра тонкого дроту перевищує 1%% (мін=0.5, 1%% точність=2.0)\n"
+
+#: src/geometry.c:1926
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
+msgstr ""
+"tag=%d: придушення додаткових попереджень співвідношення розширеного ядра\n"
+
+#: src/geometry.c:1942
+#, c-format
+msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
+msgstr ""
+"Пропуск перевірки перекриття для %d сегментів (використовуйте --force-verify "
+"для увімкнення)\n"
+
+#: src/geometry.c:1946
+#, c-format
+msgid "Forcing overlap check for %d segments\n"
+msgstr "Примусова перевірка перекриття для %d сегментів\n"
+
+#: src/geometry.c:1957
+msgid ""
+"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr ""
+"verify_segments() пропускає частотно-залежні перевірки - немає даних про "
+"частоту\n"
+
+#: src/gnuplot.c:46
+msgid "Gnuplot Data"
+msgstr "Дані Gnuplot"
+
+#: src/gnuplot.c:46 src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Cannot save data while frequency loop is running"
+msgstr "Неможливо зберегти дані під час виконання циклу частоти"
+
+#: src/gnuplot.c:60
+#, c-format
+msgid "# Reference impedance Z0 = %.2f Ohm\n"
+msgstr "# Опорний імпеданс Z0 = %.2f Ом\n"
+
+#: src/gnuplot.c:62
+#, c-format
+msgid ""
+"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
+"zreal and zimag:\n"
+msgstr ""
+"# Для побудови графіка в gnuplot ви можете змінити цю команду. Зараз вона "
+"будує МГц vs zreal та zimag:\n"
+
+#: src/gnuplot.c:63
+#, c-format
+msgid ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+msgstr ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+
+#: src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Touchstone Data"
+msgstr "Дані Touchstone"
+
+#: src/gnuplot.c:102
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! Опорний імпеданс Z0 = %.2f Ом\n"
+
+#: src/gnuplot.c:130
+#, c-format
+msgid "This should never happen. touchstone type=%d\n"
+msgstr "Це ніколи не повинно статися. тип touchstone=%d\n"
+
+#: src/gnuplot.c:227
+#, c-format
+msgid "# Near E field\n"
+msgstr "# Ближнє поле E\n"
+
+#: src/gnuplot.c:250
+#, c-format
+msgid "# Near H field\n"
+msgstr "# Ближнє поле H\n"
+
+#: src/gnuplot.c:297
+#, c-format
+msgid "# Poynting Vector\n"
+msgstr "# Вектор Пойнтінга\n"
+
+#: src/gnuplot.c:369
+#, c-format
+msgid "# Radiation Pattern\n"
+msgstr "# Діаграма випромінювання\n"
+
+#: src/gnuplot.c:505
+#, c-format
+msgid "# structure patch segments\n"
+msgstr "# сегменти патчів структури\n"
+
+#: src/gnuplot.c:530
+#, c-format
+msgid "# structure wire segments\n"
+msgstr "# сегменти дротів структури\n"
+
+#: src/gnuplot.c:565
+msgid "Save Currents and Charges to CSV"
+msgstr "Зберегти струми та заряди у CSV"
+
+#: src/ground.c:90
+msgid "b less than a"
+msgstr "b менше за a"
+
+#: src/ground.c:215
+#, c-format
+msgid "step size limited at z = %12.5E\n"
+msgstr "розмір кроку обмежено при z = %12.5E\n"
+
+#: src/input.c:84
+msgid ""
+"Error reading Comments\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"Помилка читання коментарів\n"
+"Неочікуваний EOF (кінець файлу)"
+
+#: src/input.c:98
+msgid ""
+"Error reading Comments\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"Помилка читання коментарів\n"
+"Мнемоніка коментаря коротка або відсутня"
+
+#: src/input.c:109
+msgid ""
+"Read_Comments():\n"
+" Error reading input file\n"
+"Comment mnemonic incorrect"
+msgstr ""
+"Read_Comments():\n"
+" Помилка читання вхідного файлу\n"
+"Неправильна мнемоніка коментаря"
+
+#: src/input.c:148
+msgid ""
+"Geometry data error\n"
+"Tag number is less than 1"
+msgstr ""
+"Помилка геометричних даних\n"
+"Номер тегу менше 1"
+
+#: src/input.c:155
+msgid ""
+"Geometry data error\n"
+"Number of segments is less than 1"
+msgstr ""
+"Помилка геометричних даних\n"
+"Кількість сегментів менше 1"
+
+#: src/input.c:162
+msgid "warning - number of segments is greater than 1000000\n"
+msgstr "попередження - кількість сегментів перевищує 1000000\n"
+
+#: src/input.c:210
+#, c-format
+msgid "%s data card error: Spurious character '%c' at column %d\n"
+msgstr "помилка картки даних %s: зайвий символ '%c' у стовпці %d\n"
+
+#: src/input.c:212
+msgid ""
+"Data card error\n"
+"Spurious character in card"
+msgstr ""
+"Помилка картки даних\n"
+"Зайвий символ у картці"
+
+#: src/input.c:262
+#, c-format
+msgid "%s: expression evaluation failed for \"%s\"\n"
+msgstr "%s: не вдалося обчислити вираз для \"%s\"\n"
+
+#: src/input.c:300
+msgid "SY card: no line content available\n"
+msgstr "картка SY: вміст рядка недоступний\n"
+
+#: src/input.c:301
+msgid "SY card: no line content available"
+msgstr "картка SY: вміст рядка недоступний"
+
+#: src/input.c:318
+msgid "SY card: missing '=' in definition\n"
+msgstr "картка SY: відсутній '=' у визначенні\n"
+
+#: src/input.c:319
+msgid "SY card: missing '=' in definition"
+msgstr "картка SY: відсутній '=' у визначенні"
+
+#: src/input.c:352
+#, c-format
+msgid "SY card: expression evaluation failed for %s=%s\n"
+msgstr "картка SY: не вдалося обчислити вираз для %s=%s\n"
+
+#: src/input.c:358
+#, c-format
+msgid "SY card: symbol definition failed for %s\n"
+msgstr "картка SY: не вдалося визначити символ для %s\n"
+
+#: src/input.c:438
+msgid ""
+"Geometry data error\n"
+"No GC card for tapered wire"
+msgstr ""
+"Помилка геометричних даних\n"
+"Відсутня картка GC для конічного дроту"
+
+#: src/input.c:445
+msgid "Geometry GC data card error"
+msgstr "Помилка картки геометричних даних GC"
+
+#: src/input.c:461
+msgid "Geometry GX data card error"
+msgstr "Помилка картки геометричних даних GX"
+
+#: src/input.c:484
+msgid "Geometry GR data card error"
+msgstr "Помилка картки геометричних даних GR"
+
+#: src/input.c:541
+msgid "No geometry data cards"
+msgstr "Немає карток геометричних даних"
+
+#: src/input.c:550
+msgid "Probable invalid segment geometry.\n"
+msgstr "Ймовірно недійсна геометрія сегмента.\n"
+
+#: src/input.c:551
+msgid ""
+"Invalid segment geometry.\n"
+"See warnings in the console for detail.\n"
+"Trying to continue..."
+msgstr ""
+"Недійсна геометрія сегмента.\n"
+"Дивіться попередження в консолі для деталей.\n"
+"Спроба продовжити..."
+
+#: src/input.c:556
+msgid "Read_Geometry: verify_segments() passed\n"
+msgstr "Read_Geometry: verify_segments() пройдено\n"
+
+#: src/input.c:602
+#, c-format
+msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
+msgstr "помилка даних сегмента: tag=%d si=%lf, bi=%lf\n"
+
+#: src/input.c:604
+msgid "Segment data error, zero-length line?  See console."
+msgstr "Помилка даних сегмента, лінія нульової довжини? Дивіться консоль."
+
+#: src/input.c:639
+msgid "Move GM data card error"
+msgstr "Помилка картки даних переміщення GM"
+
+#: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
+#: src/input.c:739
+msgid "Patch data card error"
+msgstr "Помилка картки даних патча"
+
+#: src/input.c:677
+msgid "Patch data error"
+msgstr "Помилка даних патча"
+
+#: src/input.c:786
+msgid ""
+"\"GF\" card (NGF solution)\n"
+"is not supported"
+msgstr ""
+"картка \"GF\" (рішення NGF)\n"
+"не підтримується"
+
+#: src/input.c:791
+msgid "Ignoring CM card in geometry"
+msgstr "Ігнорування картки CM у геометрії"
+
+#: src/input.c:804
+#, c-format
+msgid "geometry data card error (nwire=%d)\n"
+msgstr "помилка картки геометричних даних (nwire=%d)\n"
+
+#: src/input.c:805
+#, c-format
+msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+
+#: src/input.c:808
+msgid "Geometry data card error"
+msgstr "Помилка картки геометричних даних"
+
+#: src/input.c:833
+msgid "Failed to initialize symbol table\n"
+msgstr "Не вдалося ініціалізувати таблицю символів\n"
+
+#: src/input.c:834
+msgid "Failed to initialize symbol table"
+msgstr "Не вдалося ініціалізувати таблицю символів"
+
+#: src/input.c:1002
+msgid "ignoring CM card in commands\n"
+msgstr "ігнорування картки CM у командах\n"
+
+#: src/input.c:1003
+msgid "Ignoring CM card in commands"
+msgstr "Ігнорування картки CM у командах"
+
+#: src/input.c:1007
+msgid ""
+"CP card is ignored\n"
+"Coupling calculation not implemented"
+msgstr ""
+"Картка CP ігнорується\n"
+"Обчислення зв'язку не реалізовано"
+
+#: src/input.c:1185
+msgid "Max frequency <= Min frequency in FR card\n"
+msgstr "Макс. частота <= Мін. частота в картці FR\n"
+
+#: src/input.c:1186
+msgid ""
+"Max frequency <= Min frequency in FR card\n"
+"Please check FR card data and correct"
+msgstr ""
+"Макс. частота <= Мін. частота в картці FR\n"
+"Будь ласка, перевірте дані картки FR та виправте"
+
+#: src/input.c:1209
+msgid ""
+"Fix the GE/GN cards:\n"
+"The GE card specifies that a ground is present, but the GN indicates "
+"otherwise."
+msgstr ""
+"Виправте картки GE/GN:\n"
+"Картка GE вказує на наявність землі, але картка GN вказує інше."
+
+#: src/input.c:1223
+msgid "theta > 90 deg. with ground specified\n"
+msgstr "theta > 90 град. при вказаній землі\n"
+
+#: src/input.c:1224 src/radiation.c:656
+msgid ""
+"Theta > 90 deg with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 град. при вказаній землі\n"
+"Будь ласка, перевірте дані картки RP та виправте"
+
+#: src/input.c:1233
+msgid ""
+"radial wire g.s. approximation: may not be used with Sommerfeld ground "
+"option\n"
+msgstr ""
+"апроксимація радіальних дротів g.s.: не може використовуватися з опцією "
+"землі Зоммерфельда\n"
+
+#: src/input.c:1234
+msgid ""
+"radial wire g.s. approximation\n"
+"may not be used with Sommerfeld ground option"
+msgstr ""
+"апроксимація радіальних дротів g.s.\n"
+"не може використовуватися з опцією землі Зоммерфельда"
+
+#: src/input.c:1285
+#, c-format
+msgid ""
+"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
+"%d\n"
+msgstr ""
+"помилка даних у картці навантаження № %d: itag step1 %d більше за itag step2 "
+"%d\n"
+
+#: src/input.c:1287
+msgid ""
+"Data fault on loading card\n"
+"itag step1 is greater than itag step2"
+msgstr ""
+"Помилка даних у картці навантаження\n"
+"itag step1 більше за itag step2"
+
+#: src/input.c:1420
+msgid ""
+"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr ""
+"Імпеданс лінії передачі = 0: недійсний. Будь ласка, виправте картку NT або "
+"TL\n"
+
+#: src/input.c:1421
+msgid ""
+"Transmission Line impedance = 0\n"
+"is not valid. Please correct NT or TL card"
+msgstr ""
+"Імпеданс лінії передачі = 0\n"
+"недійсний. Будь ласка, виправте картку NT або TL"
+
+#: src/input.c:1430
+msgid "Segment number error in TL or NT card\n"
+msgstr "Помилка номера сегмента в картці TL або NT\n"
+
+#: src/input.c:1431
+msgid ""
+"Segment number\n"
+"error in NT or TL card"
+msgstr ""
+"Помилка номера\n"
+"сегмента в картці NT або TL"
+
+#: src/input.c:1452
+msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
+msgstr "Картки PQ та PT ігноруються: друк у файл не реалізовано\n"
+
+#: src/input.c:1453
+msgid ""
+"PQ and PT cards are ignored\n"
+"Printing to file not implemented"
+msgstr ""
+"Картки PQ та PT ігноруються\n"
+"Друк у файл не реалізовано"
+
+#: src/input.c:1460
+msgid "Surface wave option (I1=1): of RP command not implemented\n"
+msgstr "Опція поверхневої хвилі (I1=1): команди RP не реалізована\n"
+
+#: src/input.c:1461
+msgid ""
+"Surface wave option (I1=1)\n"
+"of RP command not implemented"
+msgstr ""
+"Опція поверхневої хвилі (I1=1)\n"
+"команди RP не реалізована"
+
+#: src/input.c:1484
+msgid ""
+"Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
+"xnec2c renders radiation patterns graphically instead of text tables.\n"
+"Pattern calculations proceed normally; use GUI to view results."
+msgstr ""
+"Усереднення підсилення (XNDA ***1 або ***2) керує форматуванням текстового "
+"виводу.\n"
+"xnec2c відображає діаграми випромінювання графічно замість текстових "
+"таблиць.\n"
+"Обчислення діаграм виконуються нормально; використовуйте GUI для перегляду "
+"результатів."
+
+#: src/input.c:1502
+msgid ""
+"Theta > 90 deg. with ground specified: Please check RP card data and "
+"correct\n"
+msgstr ""
+"Theta > 90 град. при вказаній землі: Будь ласка, перевірте дані картки RP та "
+"виправте\n"
+
+#: src/input.c:1503
+msgid ""
+"Theta > 90 deg. with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 град. при вказаній землі\n"
+"Будь ласка, перевірте дані картки RP та виправте"
+
+#: src/input.c:1568
+msgid "Faulty data card"
+msgstr "Пошкоджена картка даних"
+
+#: src/input.c:1578
+msgid ""
+"Missing or surface-wave RP card: Radiation pattern and gain calculations "
+"disabled\n"
+msgstr ""
+"Відсутня або поверхнево-хвильова картка RP: обчислення діаграми "
+"випромінювання та підсилення вимкнено\n"
+
+#: src/input.c:1595
+msgid "Unexpected exit from while loop"
+msgstr "Неочікуваний вихід з циклу while"
+
+#: src/input.c:1653
+msgid ""
+"command data card error: Unexpected EOF while reading input file - appending "
+"EN card\n"
+msgstr ""
+"помилка картки даних команд: неочікуваний кінець файлу під час читання "
+"вхідного файлу - додавання картки EN\n"
+
+#: src/input.c:1654
+msgid ""
+"Command data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default EN card"
+msgstr ""
+"Помилка картки даних команд\n"
+"Неочікуваний кінець файлу під час читання вхідного файлу\n"
+"Додавання картки EN за замовчуванням"
+
+#: src/input.c:1668
+msgid "command data card error: card's mnemonic code too short or missing\n"
+msgstr ""
+"помилка картки даних команд: мнемонічний код картки занадто короткий або "
+"відсутній\n"
+
+#: src/input.c:1669
+msgid ""
+"Command data card error\n"
+"Mnemonic code too short or missing"
+msgstr ""
+"Помилка картки даних команд\n"
+"Мнемонічний код занадто короткий або відсутній"
+
+#: src/input.c:1829
+msgid ""
+"geometry data card error: Unexpected EOF while reading input file - "
+"appending GE card\n"
+msgstr ""
+"помилка картки геометричних даних: неочікуваний кінець файлу під час читання "
+"вхідного файлу - додавання картки GE\n"
+
+#: src/input.c:1830
+msgid ""
+"Geometry data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default GE card"
+msgstr ""
+"Помилка картки геометричних даних\n"
+"Неочікуваний кінець файлу під час читання вхідного файлу\n"
+"Додавання картки GE за замовчуванням"
+
+#: src/input.c:1844
+msgid "geometry data card error: card's mnemonic code too short or missing\n"
+msgstr ""
+"помилка картки геометричних даних: мнемонічний код картки занадто короткий "
+"або відсутній\n"
+
+#: src/input.c:1845
+msgid ""
+"Geometry data card error\n"
+"Card's mnemonic code too short or missing"
+msgstr ""
+"Помилка картки геометричних даних\n"
+"Мнемонічний код картки занадто короткий або відсутній"
+
+#: src/main.c:125
+#, c-format
+msgid "%s requires a positive integer argument\n"
+msgstr "%s потребує додатного цілочисельного аргументу\n"
+
+#: src/main.c:183
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "Виявлено %d ЦП\n"
+
+#: src/main.c:194
+msgid "config file path too long\n"
+msgstr "шлях до файлу конфігурації занадто довгий\n"
+
+#: src/main.c:213
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "файл конфігурації не існує або недоступний для читання: %s\n"
+
+#: src/main.c:222
+#, c-format
+msgid "config file path too long ( > %d char )\n"
+msgstr "шлях до файлу конфігурації занадто довгий ( > %d символів )\n"
+
+#: src/main.c:234
+#, c-format
+msgid "input file name too long ( > %d char )\n"
+msgstr "ім'я вхідного файлу занадто довге ( > %d символів )\n"
+
+#: src/main.c:261
+msgid "Forking disabled!\n"
+msgstr "Розгалуження вимкнено!\n"
+
+#: src/main.c:269
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop вимкнено!\n"
+
+#: src/main.c:273
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "пакетний режим увімкнено, вихід після першого циклу\n"
+
+#: src/main.c:331
+msgid "verify segments check disabled\n"
+msgstr "перевірку сегментів вимкнено\n"
+
+#: src/main.c:336
+msgid "forcing overlap check on large models\n"
+msgstr "примусова перевірка перекриття для великих моделей\n"
+
+#: src/main.c:350
+msgid "--batch and --optimize are mutual exclusive.\n"
+msgstr "--batch та --optimize є взаємовиключними.\n"
+
+#: src/main.c:366
+#, c-format
+msgid "input file path name too long ( > %d char )\n"
+msgstr "шлях до вхідного файлу занадто довгий ( > %d символів )\n"
+
+#: src/main.c:373
+#, c-format
+msgid "unexpected argument '%s' does not appear to be a .nec file\n"
+msgstr "неочікуваний аргумент '%s' не схожий на файл .nec\n"
+
+#: src/main.c:380
+#, c-format
+msgid "unexpected argument: %s\n"
+msgstr "неочікуваний аргумент: %s\n"
+
+#: src/main.c:386
+msgid "batch mode requires an input file\n"
+msgstr "пакетний режим потребує вхідного файлу\n"
+
+#: src/main.c:407
+#, c-format
+msgid "Forking %d jobs.\n"
+msgstr "Розгалуження %d завдань.\n"
+
+#: src/main.c:416 src/main.c:424
+msgid "exiting after fatal error: pipe() failed"
+msgstr "завершення після критичної помилки: pipe() не вдався"
+
+#: src/main.c:433
+msgid "exiting after fatal error: fork() failed"
+msgstr "завершення після критичної помилки: fork() не вдався"
+
+#: src/main.c:778
+msgid "exiting via user interrupt\n"
+msgstr "завершення за запитом користувача\n"
+
+#: src/main.c:782
+msgid "segmentation fault, exiting\n"
+msgstr "помилка сегментації, завершення\n"
+
+#: src/main.c:786
+msgid "floating point exception, exiting\n"
+msgstr "виняток з плаваючою комою, вихід\n"
+
+#: src/main.c:790
+msgid "abort signal received, exiting\n"
+msgstr "отримано сигнал переривання, вихід\n"
+
+#: src/main.c:794
+msgid "termination request received, exiting\n"
+msgstr "отримано запит на завершення, вихід\n"
+
+#: src/main.c:804
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "не розгалужено, ігнорування SIGCHLD від pid %d\n"
+
+#: src/main.c:812
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "дочірній процес pid %d завершився\n"
+
+#: src/main.c:821
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "вихід за замовчуванням із сигналом: %d\n"
+
+#: src/matrix.c:1216
+#, c-format
+msgid "pivot(%d)= %16.8E\n"
+msgstr "pivot(%d)= %16.8E\n"
+
+#: src/matrix.c:1250
+#, c-format
+msgid "LU Decomposition Failed: %d\n"
+msgstr "LU-розклад не вдався: %d\n"
+
+#: src/matrix.c:1306
+#, c-format
+msgid "symmetry error - nrow:%d ncol:%d\n"
+msgstr "помилка симетрії - nrow:%d ncol:%d\n"
+
+#: src/matrix.c:1307
+msgid "Symmetry error"
+msgstr "Помилка симетрії"
+
+#: src/matrix.c:1414
+#, c-format
+msgid "Solving Failed: %d\n"
+msgstr "Розв'язання не вдалося: %d\n"
+
+#: src/nec2_model.c:111 src/nec2_model.c:115 src/nec2_model.c:119
+msgid "Card"
+msgstr "Картка"
+
+#: src/nec2_model.c:111 resources/xnec2c.glade:6183
+msgid "Comments"
+msgstr "Коментарі"
+
+#: src/nec2_model.c:188
+msgid "--- NEC2 Input File created or edited by "
+msgstr "--- Вхідний файл NEC2 створено або відредаговано "
+
+#: src/nec2_model.c:205
+msgid "--- End Comments ---"
+msgstr "--- Кінець коментарів ---"
+
+#: src/nec2_model.c:344
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"List_Comments():\n"
+"Помилка читання вхідного файлу\n"
+"Неочікуваний EOF (кінець файлу)"
+
+#: src/nec2_model.c:351
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"List_Comments():\n"
+"Помилка читання вхідного файлу\n"
+"Мнемоніка коментаря скорочена або відсутня"
+
+#: src/nec2_model.c:594
+msgid "End Comments"
+msgstr "Кінець коментарів"
+
+#: src/nec2_model.c:648
+msgid ""
+"Cannot save treeview data\n"
+"Please use the Save button\n"
+"to specify a file path"
+msgstr ""
+"Неможливо зберегти дані деревовидного перегляду\n"
+"Будь ласка, використовуйте кнопку Зберегти\n"
+"щоб вказати шлях до файлу"
+
+#: src/network.c:648
+#, c-format
+msgid "improper load type chosen, requested type is %d\n"
+msgstr "обрано неправильний тип навантаження, запитаний тип %d\n"
+
+#: src/network.c:649
+msgid "Improper load type chose"
+msgstr "Обрано неправильний тип навантаження"
+
+#: src/network.c:737
+#, c-format
+msgid "loading data card error, no segment has an itag = %d\n"
+msgstr "помилка картки даних навантаження, жоден сегмент не має itag = %d\n"
+
+#: src/network.c:738
+msgid ""
+"Loading data card\n"
+"Tag number mismatch error"
+msgstr ""
+"Картка даних навантаження\n"
+"Помилка невідповідності номера тегу"
+
+#: src/plot_freqdata.c:132
+#, c-format
+msgid ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+msgstr ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+
+#: src/plot_freqdata.c:148
+#, c-format
+msgid ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+msgstr ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+
+#: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
+msgid "memory allocation for points failed\n"
+msgstr "не вдалося виділити пам'ять для точок\n"
+
+#: src/plot_freqdata.c:832 src/plot_freqdata.c:1299
+msgid "Draw_Graph():Memory allocation for points failed"
+msgstr "Draw_Graph():Не вдалося виділити пам'ять для точок"
+
+#: src/plot_freqdata.c:1260
+msgid "Smith Chart"
+msgstr "Діаграма Сміта"
+
+#: src/plot_freqdata.c:1452 src/plot_freqdata.c:1471 src/plot_freqdata.c:1496
+msgid "Raw Gain dBi"
+msgstr "Необроблене підсилення dBi"
+
+#: src/plot_freqdata.c:1455
+msgid "Max Gain & Net Gain vs Frequency"
+msgstr "Макс. підсилення та чисте підсилення від частоти"
+
+#: src/plot_freqdata.c:1456
+msgid "Net Gain dBi"
+msgstr "Чисте підсилення dBi"
+
+#: src/plot_freqdata.c:1462 src/plot_freqdata.c:1472
+msgid "Max Gain & F/B Ratio vs Frequency"
+msgstr "Макс. підсилення та коефіцієнт F/B від частоти"
+
+#: src/plot_freqdata.c:1473
+msgid "F/B Ratio dB"
+msgstr "Коефіцієнт F/B dB"
+
+#: src/plot_freqdata.c:1482
+msgid "Rad Angle - deg"
+msgstr "Кут випром. - град"
+
+#: src/plot_freqdata.c:1483
+msgid "Max Gain Direction vs Frequency"
+msgstr "Напрямок макс. підсилення від частоти"
+
+#: src/plot_freqdata.c:1484
+msgid "Phi - deg"
+msgstr "Phi - град"
+
+#: src/plot_freqdata.c:1497
+msgid "Gain in Viewer Direction vs Frequency"
+msgstr "Підсилення в напрямку спостерігача від частоти"
+
+#: src/plot_freqdata.c:1520
+msgid "Net gain dBi"
+msgstr "Чисте підсилення dBi"
+
+#: src/plot_freqdata.c:1538 resources/xnec2c.glade:9909
+#: resources/xnec2c.glade:10119
+msgid "VSWR"
+msgstr "VSWR"
+
+#: src/plot_freqdata.c:1541
+msgid "VSWR & S11 vs Frequency"
+msgstr "VSWR та S11 від частоти"
+
+#: src/plot_freqdata.c:1542
+msgid "S11 dB"
+msgstr "S11 dB"
+
+#: src/plot_freqdata.c:1546
+msgid "VSWR vs Frequency"
+msgstr "VSWR від частоти"
+
+#: src/plot_freqdata.c:1560
+msgid "memory allocation for vswr/s11 failed\n"
+msgstr "не вдалося виділити пам'ять для vswr/s11\n"
+
+#: src/plot_freqdata.c:1561
+msgid "Plot_Frequency_Data():Memory allocation for vswr/s11 failed"
+msgstr "Plot_Frequency_Data():Не вдалося виділити пам'ять для vswr/s11"
+
+#: src/plot_freqdata.c:1591 resources/xnec2c.glade:10084
+msgid "Z-real"
+msgstr "Z-дійсна"
+
+#: src/plot_freqdata.c:1592 src/plot_freqdata.c:1605
+msgid "Impedance vs Frequency"
+msgstr "Імпеданс від частоти"
+
+#: src/plot_freqdata.c:1593 resources/xnec2c.glade:10049
+msgid "Z-imag"
+msgstr "Z-уявна"
+
+#: src/plot_freqdata.c:1604
+msgid "Z-magn"
+msgstr "Z-модуль"
+
+#: src/plot_freqdata.c:1606
+msgid "Z-phase"
+msgstr "Z-фаза"
+
+#: src/plot_freqdata.c:1855
+#, c-format
+msgid "mouse button: unknown button %d\n"
+msgstr "кнопка миші: невідома кнопка %d\n"
+
+#: src/somnec.c:238
+msgid "Hankel not valid for z = 0"
+msgstr "Ханкель недійсний для z = 0"
+
+#: src/somnec.c:749
+msgid "No convergence"
+msgstr "Немає збіжності"
+
+#: src/utils.c:103 src/utils.c:108
+#, c-format
+msgid ""
+"\n"
+"=== Notice: %s ===\n"
+"%s\n"
+"\n"
+msgstr ""
+"\n"
+"=== Повідомлення: %s ===\n"
+"%s\n"
+"\n"
+
+#: src/utils.c:150
+#, c-format
+msgid "Stop: %s\n"
+msgstr "Зупинка: %s\n"
+
+#: src/utils.c:157 src/utils.c:161 src/utils.c:171 src/utils.c:173
+#, c-format
+msgid "%s\n"
+msgstr "%s\n"
+
+#: src/utils.c:354
+#, c-format
+msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
+msgstr "використовується %d потоків OpenMP на завдання (%d/%d ЦП)\n"
+
+#: src/utils.c:370
+#, c-format
+msgid "%s[%d]: %f seconds\n"
+msgstr "%s[%d]: %f секунд\n"
+
+#: src/utils.c:422
+#, c-format
+msgid ""
+"mem_obj_t at %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+msgstr ""
+"mem_obj_t за адресою %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+
+#: src/utils.c:441
+#, c-format
+msgid "mem_backtrace(%p):\n"
+msgstr "mem_backtrace(%p):\n"
+
+#: src/utils.c:443
+msgid "  m->backtrace is null, no backtrace data\n"
+msgstr "  m->backtrace є null, немає даних зворотного трасування\n"
+
+#: src/utils.c:507
+#, c-format
+msgid "Memory re-allocation denied %s\n"
+msgstr "Повторне виділення пам'яті відхилено %s\n"
+
+#: src/utils.c:508
+#, c-format
+msgid "%s: Memory requested %lu\n"
+msgstr "%s: Запитано пам'яті %lu\n"
+
+#: src/utils.c:554
+#, c-format
+msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
+msgstr "xnec2c[%d]: %s: Не вдалося відкрити файл: %s\n"
+
+#: src/utils.c:559
+#, c-format
+msgid "%s: %s\n"
+msgstr "%s: %s\n"
+
+#: src/utils.c:927
+msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
+msgstr ""
+"Цикл оптимізатора незавершений, пропуск перемальовування діаграми "
+"випромінювання.\n"
+
+#: src/utils.c:934
+msgid "Optimizer loop incomplete, skipping structure redraw.\n"
+msgstr "Цикл оптимізатора незавершений, пропуск перемальовування структури.\n"
+
+#: src/utils.c:949
+msgid "  Backtrace:\n"
+msgstr "  Зворотне трасування:\n"
+
+#: src/utils.c:951
+#, c-format
+msgid "    %d. %s\n"
+msgstr "    %d. %s\n"
+
+#: src/utils.c:978
+#, c-format
+msgid "%s:\n"
+msgstr "%s:\n"
+
+#: src/xnec2c.c:185
+#, c-format
+msgid ""
+"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
+"%+12.5Ej\n"
+msgstr ""
+"комплексна діелектрична стала з файлу: %12.5E%+12.5Ej, запитана: %12.5E"
+"%+12.5Ej\n"
+
+#: src/xnec2c.c:188
+msgid "Ground_Parameters():Error in ground parameters"
+msgstr "Ground_Parameters():Помилка в параметрах землі"
+
+#: src/xnec2c.c:490
+#, c-format
+msgid "%.6f MHz: %f seconds. (%s)\n"
+msgstr "%.6f MHz: %f секунд. (%s)\n"
+
+#: src/xnec2c.c:781
+msgid "Failed to read data from forked child\n"
+msgstr "Не вдалося прочитати дані з дочірнього процесу\n"
+
+#: src/xnec2c.c:817
+#, c-format
+msgid ""
+"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr ""
+"Frequency_Loop завершив усі кроки, але num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+
+#: src/xnec2c.c:824
+#, c-format
+msgid "  busy job[%d]: fstep=%d freq=%f\n"
+msgstr "  зайняте завдання[%d]: fstep=%d freq=%f\n"
+
+#: src/xnec2c.c:886
+#, c-format
+msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
+msgstr "Час виконання циклу частот: %f секунд. (%s)\n"
+
+#: src/xnec2c.c:1029
+msgid "failed to start Frequency_Loop_Thread\n"
+msgstr "не вдалося запустити Frequency_Loop_Thread\n"
+
+#: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1964
+msgid "xnec2c"
+msgstr "xnec2c"
+
+#: files/xnec2c.desktop.in:4
+msgid "NEC2 Simulator"
+msgstr "Симулятор NEC2"
+
+#: files/xnec2c.desktop.in:5
+msgid "Numerical Electromagnetics Code software"
+msgstr "Програмне забезпечення чисельного електромагнітного коду"
+
+#: files/xnec2c.desktop.in:11
+msgid "nec2;em;simulator;"
+msgstr "nec2;em;симулятор;"
+
+#: resources/xnec2c.glade:14
+msgid "(C) 2007-2022 Neoklis Kyriazis"
+msgstr "(C) 2007-2022 Neoklis Kyriazis"
+
+#: resources/xnec2c.glade:15
+msgid ""
+"xnec2c is an interactive graphical wrapper around a modified version of "
+"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
+"Numerical Electromagnetics Code.\n"
+"\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
+"etc) in a graphical format. It can also display radiation pattern data in a "
+"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
+"format.\n"
+"\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
+"or edit antenna description files and specify NEC2 commands.\n"
+"\n"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
+"fully compatible with NEC2 input files and it works in different ways!"
+msgstr ""
+"xnec2c — це інтерактивна графічна оболонка навколо модифікованої версії "
+"nec2c, яка сама є перекладом на C оригінального FORTRAN NEC2 Numerical "
+"Electromagnetics Code.\n"
+"\n"
+"xnec2c може відображати частотно-залежні дані (підсилення, вхідний імпеданс, "
+"VSWR тощо) у графічному форматі. Він також може відображати дані діаграми "
+"випромінювання в форматі обертової каркасної моделі та ближнє поле (вектори "
+"E, H, S) у форматі сітки.\n"
+"\n"
+"xnec2c має вбудований редактор вхідних файлів NEC2, який полегшує створення "
+"або редагування файлів опису антен та вказування команд NEC2.\n"
+"\n"
+"БУДЬ ЛАСКА, прочитайте документацію в підкаталозі doc/, оскільки xnec2c не "
+"повністю сумісний з вхідними файлами NEC2 і працює по-іншому!"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: resources/xnec2c.glade:27
+msgid "translator-credits"
+msgstr "translator-credits"
+
+#: resources/xnec2c.glade:159
+msgid "Steps/Cycle"
+msgstr "Кроків/цикл"
+
+#: resources/xnec2c.glade:172
+msgid "Animate Freq (Hz)"
+msgstr "Частота анімації (Гц)"
+
+#: resources/xnec2c.glade:286
+msgid "Arc Element (GA card)"
+msgstr "Елемент дуги (картка GA)"
+
+#: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
+msgid "No. Segments"
+msgstr "К-сть сегментів"
+
+#: resources/xnec2c.glade:340 resources/xnec2c.glade:3802
+#: resources/xnec2c.glade:14417
+msgid "Segs % lambda"
+msgstr "Сегм. % lambda"
+
+#: resources/xnec2c.glade:353 resources/xnec2c.glade:3815
+#: resources/xnec2c.glade:14513
+msgid "Wire Diameter"
+msgstr "Діаметр дроту"
+
+#: resources/xnec2c.glade:441
+msgid "Radius from Y"
+msgstr "Радіус від Y"
+
+#: resources/xnec2c.glade:454
+msgid "End 1 Angle"
+msgstr "Кут кінця 1"
+
+#: resources/xnec2c.glade:467
+msgid "End 2 Angle"
+msgstr "Кут кінця 2"
+
+#: resources/xnec2c.glade:578
+msgid "Wire Arc Data"
+msgstr "Дані дуги дроту"
+
+#: resources/xnec2c.glade:640 resources/xnec2c.glade:876
+#: resources/xnec2c.glade:1676 resources/xnec2c.glade:1899
+#: resources/xnec2c.glade:2357 resources/xnec2c.glade:2549
+#: resources/xnec2c.glade:2860 resources/xnec2c.glade:3546
+#: resources/xnec2c.glade:4346 resources/xnec2c.glade:4545
+#: resources/xnec2c.glade:4706 resources/xnec2c.glade:5238
+#: resources/xnec2c.glade:5874 resources/xnec2c.glade:7290
+#: resources/xnec2c.glade:8197 resources/xnec2c.glade:9203
+#: resources/xnec2c.glade:9476 resources/xnec2c.glade:12919
+#: resources/xnec2c.glade:13432 resources/xnec2c.glade:14031
+#: resources/xnec2c.glade:14867 resources/xnec2c.glade:15067
+msgid "Delete Card"
+msgstr "Видалити картку"
+
+#: resources/xnec2c.glade:718
+msgid "Cylindrical Structure (GR card)"
+msgstr "Циліндрична структура (картка GR)"
+
+#: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
+msgid "Tag Number Increment"
+msgstr "Приріст номера тегу"
+
+#: resources/xnec2c.glade:761
+msgid "Number of Structures"
+msgstr "Кількість структур"
+
+#: resources/xnec2c.glade:815
+msgid "Cylindrical Structure"
+msgstr "Циліндрична структура"
+
+#: resources/xnec2c.glade:941
+msgid "Xnec2c Error"
+msgstr "Помилка Xnec2c"
+
+#: resources/xnec2c.glade:1049
+msgid "Error"
+msgstr "Помилка"
+
+#: resources/xnec2c.glade:1128
+msgid "Excitation Command (EX Card)"
+msgstr "Команда збудження (картка EX)"
+
+#: resources/xnec2c.glade:1154
+msgid "Incident LH Wave"
+msgstr "Падаюча лівополяризована хвиля"
+
+#: resources/xnec2c.glade:1170
+msgid "Incident Linear Wave "
+msgstr "Падаюча лінійно поляризована хвиля "
+
+#: resources/xnec2c.glade:1186
+msgid "Current Source"
+msgstr "Джерело струму"
+
+#: resources/xnec2c.glade:1202
+msgid "Incident RH Wave"
+msgstr "Падаюча правополяризована хвиля"
+
+#: resources/xnec2c.glade:1218
+msgid "Current Slope Discontinuity"
+msgstr "Розрив нахилу струму"
+
+#: resources/xnec2c.glade:1234
+msgid "Voltage Source"
+msgstr "Джерело напруги"
+
+#: resources/xnec2c.glade:1256
+msgid "Excitation Type"
+msgstr "Тип збудження"
+
+#: resources/xnec2c.glade:1281
+msgid "Maximum Admittance Matrix Asymmetry"
+msgstr "Максимальна асиметрія матриці провідності"
+
+#: resources/xnec2c.glade:1297
+msgid "Impedance of Source Segment"
+msgstr "Імпеданс сегмента джерела"
+
+#: resources/xnec2c.glade:1319
+msgid "Print Control"
+msgstr "Керування виводом"
+
+#: resources/xnec2c.glade:1411
+msgid "Voltage - Real Part"
+msgstr "Напруга - дійсна частина"
+
+#: resources/xnec2c.glade:1424
+msgid "Voltage - Imaginary Part"
+msgstr "Напруга - уявна частина"
+
+#: resources/xnec2c.glade:1437
+msgid "Eta"
+msgstr "Ета"
+
+#: resources/xnec2c.glade:1507
+msgid "Theta"
+msgstr "Тета"
+
+#: resources/xnec2c.glade:1520
+msgid "Phi"
+msgstr "Фі"
+
+#: resources/xnec2c.glade:1533
+msgid "Ratio"
+msgstr "Співвідношення"
+
+#: resources/xnec2c.glade:1614
+msgid "Excitation Parameters"
+msgstr "Параметри збудження"
+
+#: resources/xnec2c.glade:1741
+msgid "Execute Command (XQ Card)"
+msgstr "Команда виконання (картка XQ)"
+
+#: resources/xnec2c.glade:1768
+msgid "No Pattern Cuts"
+msgstr "Без перерізів діаграми"
+
+#: resources/xnec2c.glade:1784
+msgid "Pattern in XZ Plane"
+msgstr "Діаграма в площині XZ"
+
+#: resources/xnec2c.glade:1800
+msgid "Pattern in YZ Plane"
+msgstr "Діаграма в площині YZ"
+
+#: resources/xnec2c.glade:1816
+msgid "Both XZ/YZ Patterns"
+msgstr "Обидві діаграми XZ/YZ"
+
+#: resources/xnec2c.glade:1838
+msgid "Execute Command"
+msgstr "Команда виконання"
+
+#: resources/xnec2c.glade:2069
+msgid "Frequency Command (FR Card)"
+msgstr "Команда частоти (картка FR)"
+
+#: resources/xnec2c.glade:2094
+msgid "Additive Stepping"
+msgstr "Адитивний крок"
+
+#: resources/xnec2c.glade:2111
+msgid "Multiplicative Stepping"
+msgstr "Мультиплікативний крок"
+
+#: resources/xnec2c.glade:2134
+msgid "Frequency Stepping"
+msgstr "Крок частоти"
+
+#: resources/xnec2c.glade:2164
+msgid "No. Frequency Points"
+msgstr "Кількість точок частоти"
+
+#: resources/xnec2c.glade:2195
+msgid "Start Frequency (MHz)"
+msgstr "Початкова частота (МГц)"
+
+#: resources/xnec2c.glade:2227
+msgid "Frequency Step (MHz)"
+msgstr "Крок частоти (МГц)"
+
+#: resources/xnec2c.glade:2260
+msgid "End Frequency (MHz)"
+msgstr "Кінцева частота (МГц)"
+
+#: resources/xnec2c.glade:2296
+msgid "Frequency Stepping Parameters"
+msgstr "Параметри кроку частоти"
+
+#: resources/xnec2c.glade:2422
+msgid "Geometry End (GE Card)"
+msgstr "Кінець геометрії (картка GE)"
+
+#: resources/xnec2c.glade:2447
+msgid "No Ground, Free Space condition"
+msgstr "Без землі, умови вільного простору"
+
+#: resources/xnec2c.glade:2464
+msgid "Ground present, Structure reflection"
+msgstr "Земля присутня, відбиття структури"
+
+#: resources/xnec2c.glade:2481
+msgid "Ground present, no Structure reflection"
+msgstr "Земля присутня, без відбиття структури"
+
+#: resources/xnec2c.glade:2504
+msgid "Ground Plane type"
+msgstr "Тип площини землі"
+
+#: resources/xnec2c.glade:2638
+msgid "Ground Parameters (GD Card)"
+msgstr "Параметри землі (картка GD)"
+
+#: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
+#: resources/xnec2c.glade:3222
+msgid "Relative Dielectric Const."
+msgstr "Відносна діелектрична стала"
+
+#: resources/xnec2c.glade:2699 resources/xnec2c.glade:3255
+msgid "Distance to 2nd Medium"
+msgstr "Відстань до 2-го середовища"
+
+#: resources/xnec2c.glade:2731 resources/xnec2c.glade:3168
+#: resources/xnec2c.glade:3287
+msgid "Ground Conductivity S/m"
+msgstr "Провідність землі См/м"
+
+#: resources/xnec2c.glade:2763 resources/xnec2c.glade:3319
+msgid "Dist. below 1st Medium"
+msgstr "Відст. під 1-м середовищем"
+
+#: resources/xnec2c.glade:2799 resources/xnec2c.glade:3355
+msgid "2nd Medium Parameters"
+msgstr "Параметри 2-го середовища"
+
+#: resources/xnec2c.glade:2980
+msgid "Ground Parameters (GN & GD Cards)"
+msgstr "Параметри землі (картки GN та GD)"
+
+#: resources/xnec2c.glade:3007
+msgid "Perfect Ground"
+msgstr "Ідеальна земля"
+
+#: resources/xnec2c.glade:3023
+msgid "Sommerfeld/Norton"
+msgstr "Sommerfeld/Norton"
+
+#: resources/xnec2c.glade:3039
+msgid "Radial Ground Screen"
+msgstr "Радіальний екран землі"
+
+#: resources/xnec2c.glade:3054
+msgid "Reflection Coeff. Approx"
+msgstr "Набл. коеф. відбиття"
+
+#: resources/xnec2c.glade:3070
+msgid "Nullify Previous Params"
+msgstr "Скасувати попередні параметри"
+
+#: resources/xnec2c.glade:3086
+msgid "Second Medium (Cliff)"
+msgstr "Друге середовище (обрив)"
+
+#: resources/xnec2c.glade:3107
+msgid "Ground Type"
+msgstr "Тип землі"
+
+#: resources/xnec2c.glade:3235
+msgid "0.00000"
+msgstr "0.00000"
+
+#: resources/xnec2c.glade:3386
+msgid "Number of Radials"
+msgstr "Кількість радіалів"
+
+#: resources/xnec2c.glade:3399
+msgid "Radial Screen Radius"
+msgstr "Радіус радіального екрана"
+
+#: resources/xnec2c.glade:3449
+msgid "Radial Wire Diameter"
+msgstr "Діаметр радіального дроту"
+
+#: resources/xnec2c.glade:3485
+msgid "Radial Screen Parameters"
+msgstr "Параметри радіального екрана"
+
+#: resources/xnec2c.glade:3685
+msgid "Helical Element (GA card)"
+msgstr "Спіральний елемент (картка GA)"
+
+#: resources/xnec2c.glade:3710
+msgid "Right Hand Helix"
+msgstr "Правостороння спіраль"
+
+#: resources/xnec2c.glade:3726
+msgid "Left Hand Helix"
+msgstr "Лівостороння спіраль"
+
+#: resources/xnec2c.glade:3742
+msgid "Right Hand Spiral"
+msgstr "Правостороння плоска спіраль"
+
+#: resources/xnec2c.glade:3758
+msgid "Left Hand Spiral"
+msgstr "Лівостороння плоска спіраль"
+
+#: resources/xnec2c.glade:3789
+msgid "Segments/Turn"
+msgstr "Сегментів/виток"
+
+#: resources/xnec2c.glade:3828
+msgid "0.0100"
+msgstr "0.0100"
+
+#: resources/xnec2c.glade:3849
+msgid "5.00"
+msgstr "5.00"
+
+#: resources/xnec2c.glade:3870
+msgid "8"
+msgstr "8"
+
+#: resources/xnec2c.glade:3890 resources/xnec2c.glade:11417
+#: resources/xnec2c.glade:12489
+msgid "1"
+msgstr "1"
+
+#: resources/xnec2c.glade:3910
+msgid "Number of Turns"
+msgstr "Кількість витків"
+
+#: resources/xnec2c.glade:3923
+msgid "8.0000"
+msgstr "8.0000"
+
+#: resources/xnec2c.glade:3944
+msgid "Helix Length (HL)"
+msgstr "Довжина спіралі (HL)"
+
+#: resources/xnec2c.glade:3957
+msgid "5.0000"
+msgstr "5.0000"
+
+#: resources/xnec2c.glade:3978
+msgid "Turns Spacing"
+msgstr "Відстань між витками"
+
+#: resources/xnec2c.glade:3991 resources/xnec2c.glade:4103
+#: resources/xnec2c.glade:4156 resources/xnec2c.glade:4209
+#: resources/xnec2c.glade:4257
+msgid "1.0000"
+msgstr "1.0000"
+
+#: resources/xnec2c.glade:4025
+msgid "0.0000"
+msgstr "0.0000"
+
+#: resources/xnec2c.glade:4045
+msgid "Radius in X (A1)"
+msgstr "Радіус по X (A1)"
+
+#: resources/xnec2c.glade:4058
+msgid "Radius in Y (B1)"
+msgstr "Радіус по Y (B1)"
+
+#: resources/xnec2c.glade:4071
+msgid "Radius in X (A2)"
+msgstr "Радіус по X (A2)"
+
+#: resources/xnec2c.glade:4084
+msgid "Radius in Y (B2)"
+msgstr "Радіус по Y (B2)"
+
+#: resources/xnec2c.glade:4282
+msgid "GH Card"
+msgstr "Картка GH"
+
+#: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
+msgid "Interaction Approx Range (KH Card)"
+msgstr "Діапазон наближення взаємодії (картка KH)"
+
+#: resources/xnec2c.glade:4446
+msgid "Approximation Range (W/lengths)"
+msgstr "Діапазон наближення (довжин хвиль)"
+
+#: resources/xnec2c.glade:4484
+msgid "Interaction Approximation Range"
+msgstr "Діапазон наближення взаємодії"
+
+#: resources/xnec2c.glade:4610
+msgid "Thin Wire Kernel (EK Card)"
+msgstr "Ядро тонкого дроту (картка EK)"
+
+#: resources/xnec2c.glade:4628
+msgid "Extended Thin Wire Kernel"
+msgstr "Розширене ядро тонкого дроту"
+
+#: resources/xnec2c.glade:4645
+msgid "Thin Wire Kernel"
+msgstr "Ядро тонкого дроту"
+
+#: resources/xnec2c.glade:4808
+msgid "Loading Command (LD Card)"
+msgstr "Команда навантаження (картка LD)"
+
+#: resources/xnec2c.glade:4834
+msgid "Short all Loads (Nulls previous Loading Cards)"
+msgstr "Закоротити всі навантаження (скасовує попередні картки навантаження)"
+
+#: resources/xnec2c.glade:4851
+msgid "Series, Lumped"
+msgstr "Послідовне, зосереджене"
+
+#: resources/xnec2c.glade:4867
+msgid "Parallel, Distributed"
+msgstr "Паралельне, розподілене"
+
+#: resources/xnec2c.glade:4883
+msgid "Parallel, Lumped"
+msgstr "Паралельне, зосереджене"
+
+#: resources/xnec2c.glade:4899
+msgid "Resistance & Reactance"
+msgstr "Опір та реактанс"
+
+#: resources/xnec2c.glade:4915
+msgid "Series, Distributed"
+msgstr "Послідовне, розподілене"
+
+#: resources/xnec2c.glade:4931
+msgid "Wire Conductivity"
+msgstr "Провідність дроту"
+
+#: resources/xnec2c.glade:4953
+msgid "Loading Type"
+msgstr "Тип навантаження"
+
+#: resources/xnec2c.glade:4983
+msgid "Load Tag Number"
+msgstr "Номер мітки навантаження"
+
+#: resources/xnec2c.glade:5014
+msgid "Resistance"
+msgstr "Опір"
+
+#: resources/xnec2c.glade:5046
+msgid "From Segment #"
+msgstr "Від сегмента №"
+
+#: resources/xnec2c.glade:5077
+msgid "Inductance"
+msgstr "Індуктивність"
+
+#: resources/xnec2c.glade:5109
+msgid "To Segment #"
+msgstr "До сегмента №"
+
+#: resources/xnec2c.glade:5140
+msgid "Capacitance"
+msgstr "Ємність"
+
+#: resources/xnec2c.glade:5176
+msgid "Loading Parameters"
+msgstr "Параметри навантаження"
+
+#: resources/xnec2c.glade:5391
+msgid "Near Fields Command (NE/NH Cards)"
+msgstr "Команда ближніх полів (картки NE/NH)"
+
+#: resources/xnec2c.glade:5418
+msgid "Near Electric Field"
+msgstr "Ближнє електричне поле"
+
+#: resources/xnec2c.glade:5434
+msgid "Rectangular Co-ordinates"
+msgstr "Прямокутні координати"
+
+#: resources/xnec2c.glade:5450
+msgid "Near Magnetic Field"
+msgstr "Ближнє магнітне поле"
+
+#: resources/xnec2c.glade:5465
+msgid "Spherical Co-ordinates"
+msgstr "Сферичні координати"
+
+#: resources/xnec2c.glade:5493
+msgid "Field Type & Co-ordinates"
+msgstr "Тип поля та координати"
+
+#: resources/xnec2c.glade:5523
+msgid "NX"
+msgstr "NX"
+
+#: resources/xnec2c.glade:5554 resources/xnec2c.glade:10989
+#: resources/xnec2c.glade:12083
+msgid "X"
+msgstr "X"
+
+#: resources/xnec2c.glade:5586
+msgid "DX"
+msgstr "DX"
+
+#: resources/xnec2c.glade:5618
+msgid "NY"
+msgstr "NY"
+
+#: resources/xnec2c.glade:5649 resources/xnec2c.glade:11004
+#: resources/xnec2c.glade:12098
+msgid "Y"
+msgstr "Y"
+
+#: resources/xnec2c.glade:5681
+msgid "DY"
+msgstr "DY"
+
+#: resources/xnec2c.glade:5713
+msgid "NZ"
+msgstr "NZ"
+
+#: resources/xnec2c.glade:5744 resources/xnec2c.glade:11019
+#: resources/xnec2c.glade:12113
+msgid "Z"
+msgstr "Z"
+
+#: resources/xnec2c.glade:5776
+msgid "DZ"
+msgstr "DZ"
+
+#: resources/xnec2c.glade:5812
+msgid "Field Pattern Parameters"
+msgstr "Параметри діаграми поля"
+
+#: resources/xnec2c.glade:5939
+msgid "Xnec2c: NEC2 Input File Editor"
+msgstr "Xnec2c: Редактор вхідних файлів NEC2"
+
+#: resources/xnec2c.glade:6026
+msgid "Manage Cards"
+msgstr "Керування картками"
+
+#: resources/xnec2c.glade:6123
+msgid "File Save"
+msgstr "Зберегти файл"
+
+#: resources/xnec2c.glade:6210
+msgid "Wire"
+msgstr "Провід"
+
+#: resources/xnec2c.glade:6224
+msgid "Arc"
+msgstr "Дуга"
+
+#: resources/xnec2c.glade:6238
+msgid "Helix"
+msgstr "Спіраль"
+
+#: resources/xnec2c.glade:6252
+msgid "Patch"
+msgstr "Patch"
+
+#: resources/xnec2c.glade:6266
+msgid "Cylinder"
+msgstr "Циліндр"
+
+#: resources/xnec2c.glade:6280
+msgid "Move"
+msgstr "Переміщення"
+
+#: resources/xnec2c.glade:6294
+msgid "Reflect"
+msgstr "Відображення"
+
+#: resources/xnec2c.glade:6308
+msgid "Scale"
+msgstr "Масштаб"
+
+#: resources/xnec2c.glade:6328
+msgid "Edit Geometry Data"
+msgstr "Редагувати дані геометрії"
+
+#: resources/xnec2c.glade:6382
+msgid "Geometry"
+msgstr "Геометрія"
+
+#: resources/xnec2c.glade:6409
+msgid "Excitation"
+msgstr "Збудження"
+
+#: resources/xnec2c.glade:6423
+msgid "Radiation"
+msgstr "Випромінювання"
+
+#: resources/xnec2c.glade:6437
+msgid "Frequency"
+msgstr "Частота"
+
+#: resources/xnec2c.glade:6451
+msgid "Near Fields"
+msgstr "Ближні поля"
+
+#: resources/xnec2c.glade:6465
+msgid "Ground (GN)"
+msgstr "Земля (GN)"
+
+#: resources/xnec2c.glade:6479
+msgid "Ground (GD)"
+msgstr "Земля (GD)"
+
+#: resources/xnec2c.glade:6493
+msgid "Loading"
+msgstr "Навантаження"
+
+#: resources/xnec2c.glade:6507
+msgid "Kernel"
+msgstr "Ядро"
+
+#: resources/xnec2c.glade:6521
+msgid "Network"
+msgstr "Мережа"
+
+#: resources/xnec2c.glade:6535
+msgid "Interaction"
+msgstr "Взаємодія"
+
+#: resources/xnec2c.glade:6549
+msgid "Transm. Line"
+msgstr "Лінія передачі"
+
+#: resources/xnec2c.glade:6564
+msgid "Execute"
+msgstr "Виконати"
+
+#: resources/xnec2c.glade:6578
+msgid "Zo"
+msgstr "Zo"
+
+#: resources/xnec2c.glade:6598
+msgid "Edit Control Commands"
+msgstr "Редагувати керуючі команди"
+
+#: resources/xnec2c.glade:6652
+msgid "Commands"
+msgstr "Команди"
+
+#: resources/xnec2c.glade:6671
+msgid "Unsaved Data"
+msgstr "Незбережені дані"
+
+#: resources/xnec2c.glade:6747
+msgid ""
+"Unsaved data in NEC2 Editor.\n"
+"Save NEC2 Editor data first?\n"
+msgstr ""
+"Незбережені дані в редакторі NEC2.\n"
+"Спочатку зберегти дані редактора NEC2?\n"
+
+#: resources/xnec2c.glade:6846
+msgid "Network Command (NT Card)"
+msgstr "Команда мережі (картка NT)"
+
+#: resources/xnec2c.glade:6875
+msgid "Tag Number, Port 1  "
+msgstr "Номер тегу, порт 1  "
+
+#: resources/xnec2c.glade:6906
+msgid "Tag Number, Port 2  "
+msgstr "Номер тегу, порт 2  "
+
+#: resources/xnec2c.glade:6937
+msgid "Segment Num, Port 1"
+msgstr "Номер сегмента, порт 1"
+
+#: resources/xnec2c.glade:6968
+msgid "Segment Num, Port 2"
+msgstr "Номер сегмента, порт 2"
+
+#: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
+msgid "Segment Identity"
+msgstr "Ідентифікатор сегмента"
+
+#: resources/xnec2c.glade:7033
+msgid "Element 1,1 Real Part"
+msgstr "Елемент 1,1 дійсна частина"
+
+#: resources/xnec2c.glade:7065
+msgid "Element 1,2 Real Part"
+msgstr "Елемент 1,2 дійсна частина"
+
+#: resources/xnec2c.glade:7097
+msgid "Element 2,2 Real Part"
+msgstr "Елемент 2,2 дійсна частина"
+
+#: resources/xnec2c.glade:7129
+msgid "Element 1,1 Imag Part"
+msgstr "Елемент 1,1 уявна частина"
+
+#: resources/xnec2c.glade:7161
+msgid "Element 1,2 Imag Part"
+msgstr "Елемент 1,2 уявна частина"
+
+#: resources/xnec2c.glade:7193
+msgid "Element 2,2 Imag Part"
+msgstr "Елемент 2,2 уявна частина"
+
+#: resources/xnec2c.glade:7229
+msgid "Admittance Matrix Elements"
+msgstr "Елементи матриці адмітансу"
+
+#: resources/xnec2c.glade:7444
+msgid "Patch Element (SP & SC Cards)"
+msgstr "Елемент Patch (картки SP та SC)"
+
+#: resources/xnec2c.glade:7468
+msgid "Arbitrary"
+msgstr "Довільний"
+
+#: resources/xnec2c.glade:7485
+msgid "Rectangle"
+msgstr "Прямокутник"
+
+#: resources/xnec2c.glade:7502
+msgid "Triangle"
+msgstr "Трикутник"
+
+#: resources/xnec2c.glade:7519
+msgid "Quadrilateral"
+msgstr "Чотирикутник"
+
+#: resources/xnec2c.glade:7536
+msgid "Surface"
+msgstr "Поверхня"
+
+#: resources/xnec2c.glade:7559
+msgid "Patch Type"
+msgstr "Тип Patch"
+
+#: resources/xnec2c.glade:7589
+msgid "Corners 1-2 sub-division (NX)"
+msgstr "Поділ кутів 1-2 (NX)"
+
+#: resources/xnec2c.glade:7620
+msgid "Corners 2-3 sub-division (NY)"
+msgstr "Поділ кутів 2-3 (NY)"
+
+#: resources/xnec2c.glade:7655
+msgid "Surface Sub-division"
+msgstr "Поділ поверхні"
+
+#: resources/xnec2c.glade:7881
+msgid "SP/SM Cards"
+msgstr "Картки SP/SM"
+
+#: resources/xnec2c.glade:7917
+msgid "Corner 3 - X"
+msgstr "Вершина 3 - X"
+
+#: resources/xnec2c.glade:7949
+msgid "Corner 3 - Y"
+msgstr "Вершина 3 - Y"
+
+#: resources/xnec2c.glade:7981
+msgid "Corner 3 - Z"
+msgstr "Вершина 3 - Z"
+
+#: resources/xnec2c.glade:8029
+msgid "Corner 4 - X"
+msgstr "Вершина 4 - X"
+
+#: resources/xnec2c.glade:8061
+msgid "Corner 4 - Y"
+msgstr "Вершина 4 - Y"
+
+#: resources/xnec2c.glade:8093
+msgid "Corner 4 - Z"
+msgstr "Вершина 4 - Z"
+
+#: resources/xnec2c.glade:8136
+msgid "SC Card"
+msgstr "Картка SC"
+
+#: resources/xnec2c.glade:8352
+msgid "Quit xnec2c?"
+msgstr "Вийти з xnec2c?"
+
+#: resources/xnec2c.glade:8431
+msgid "Radiation Pattern (RP Card)"
+msgstr "Діаграма випромінювання (картка RP)"
+
+#: resources/xnec2c.glade:8458
+msgid "Normal (Space) Wave"
+msgstr "Нормальна (просторова) хвиля"
+
+#: resources/xnec2c.glade:8474
+msgid "Space + Ground Wave"
+msgstr "Просторова + земна хвиля"
+
+#: resources/xnec2c.glade:8490
+msgid "Linear Cliff"
+msgstr "Лінійний уступ"
+
+#: resources/xnec2c.glade:8506
+msgid "Radial wire screen"
+msgstr "Радіальна дротова сітка"
+
+#: resources/xnec2c.glade:8522
+msgid "Circular Cliff + Radials"
+msgstr "Круговий уступ + радіали"
+
+#: resources/xnec2c.glade:8538
+msgid "Circular Cliff"
+msgstr "Круговий уступ"
+
+#: resources/xnec2c.glade:8554
+msgid "Linear Cliff + Radials"
+msgstr "Лінійний уступ + радіали"
+
+#: resources/xnec2c.glade:8572
+msgid "<b>See GN/GD Card Documentation</b>"
+msgstr "<b>Див. документацію карток GN/GD</b>"
+
+#: resources/xnec2c.glade:8590
+msgid "Wave Type and Ground (I1)"
+msgstr "Тип хвилі та земля (I1)"
+
+#: resources/xnec2c.glade:8618
+msgid "Major & Minor Axis & Total Gain"
+msgstr "Головна та мала осі та загальне підсилення"
+
+#: resources/xnec2c.glade:8634
+msgid "Vertical, Horizontal & Total Gain"
+msgstr "Вертикальне, горизонтальне та загальне підсилення"
+
+#: resources/xnec2c.glade:8650
+msgid "Major Axis Gain Normalized"
+msgstr "Нормоване підсилення головної осі"
+
+#: resources/xnec2c.glade:8666
+msgid "Vertical Axis Gain Normalized"
+msgstr "Нормоване підсилення вертикальної осі"
+
+#: resources/xnec2c.glade:8682
+msgid "Total Gain Normalized"
+msgstr "Нормоване загальне підсилення"
+
+#: resources/xnec2c.glade:8698
+msgid "Print/Normalize Directive Gain"
+msgstr "Друк/нормування спрямованого підсилення"
+
+#: resources/xnec2c.glade:8714
+msgid "No Normalized Gain"
+msgstr "Без нормованого підсилення"
+
+#: resources/xnec2c.glade:8730
+msgid "Minor Axis Gain Normalized"
+msgstr "Нормалізоване підсилення за малою віссю"
+
+#: resources/xnec2c.glade:8746
+msgid "Horizontal Axis Gain Normalized"
+msgstr "Нормалізоване підсилення за горизонтальною віссю"
+
+#: resources/xnec2c.glade:8762
+msgid "Print/Normalize Power Gain"
+msgstr "Друк/Нормалізація підсилення потужності"
+
+#: resources/xnec2c.glade:8778
+msgid "No Gain Averaging"
+msgstr "Без усереднення підсилення"
+
+#: resources/xnec2c.glade:8794
+msgid "Points in Average Not Printed"
+msgstr "Точки усереднення не друкуються"
+
+#: resources/xnec2c.glade:8810
+msgid "Average Gain Computed"
+msgstr "Обчислено середнє підсилення"
+
+#: resources/xnec2c.glade:8828
+msgid "<b>See RP Card Documentation</b>"
+msgstr "<b>Див. документацію картки RP</b>"
+
+#: resources/xnec2c.glade:8846
+msgid "Data Output Control (XNDA)"
+msgstr "Керування виведенням даних (XNDA)"
+
+#: resources/xnec2c.glade:8876
+msgid "Points in Theta"
+msgstr "Точки по Theta"
+
+#: resources/xnec2c.glade:8985
+msgid "Initial Phi (deg)"
+msgstr "Початковий Phi (град)"
+
+#: resources/xnec2c.glade:9067
+msgid "Field Point Distance"
+msgstr "Відстань до точки поля"
+
+#: resources/xnec2c.glade:9099
+msgid "Gain Normalization"
+msgstr "Нормалізація підсилення"
+
+#: resources/xnec2c.glade:9141
+msgid "Radiation Pattern Parameters"
+msgstr "Параметри діаграми випромінювання"
+
+#: resources/xnec2c.glade:9301
+msgid "Reflect Structure (GX card)"
+msgstr "Відобразити структуру (картка GX)"
+
+#: resources/xnec2c.glade:9329
+msgid "Reflect in YZ plane"
+msgstr "Відобразити в площині YZ"
+
+#: resources/xnec2c.glade:9344
+msgid "Reflect in XY plane"
+msgstr "Відобразити в площині XY"
+
+#: resources/xnec2c.glade:9359
+msgid "Reflect in XZ plane"
+msgstr "Відобразити в площині XZ"
+
+#: resources/xnec2c.glade:9415
+msgid "Reflect Options"
+msgstr "Параметри відображення"
+
+#: resources/xnec2c.glade:9546
+msgid "Xnec2c: Frequency Data Plots"
+msgstr "Xnec2c: Графіки частотних даних"
+
+#: resources/xnec2c.glade:9571 resources/xnec2c.glade:10386
+#: resources/xnec2c.glade:11663
+msgid "_File"
+msgstr "_Файл"
+
+#: resources/xnec2c.glade:9633 resources/xnec2c.glade:10448
+#: resources/xnec2c.glade:11725
+msgid "Save as _gnuplot"
+msgstr "Зберегти як _gnuplot"
+
+#: resources/xnec2c.glade:9644 resources/xnec2c.glade:11735
+msgid "Save as _CSV"
+msgstr "Зберегти як _CSV"
+
+#: resources/xnec2c.glade:9656
+msgid "Save as _Touchstone (.SnP)"
+msgstr "Зберегти як _Touchstone (.SnP)"
+
+#: resources/xnec2c.glade:9663
+msgid "Save as S_1P: Reflection Only"
+msgstr "Зберегти як S_1P: лише відбиття"
+
+#: resources/xnec2c.glade:9673
+msgid "Save as S2P: _Max Gain (S21)"
+msgstr "Зберегти як S2P: _Макс. підсилення (S21)"
+
+#: resources/xnec2c.glade:9683
+msgid "Save as S2P: _Viewer Gain (S21)"
+msgstr "Зберегти як S2P: підсилення _оглядача (S21)"
+
+#: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
+#: resources/xnec2c.glade:11769
+msgid "_View"
+msgstr "_Вигляд"
+
+#: resources/xnec2c.glade:9729 resources/xnec2c.glade:10826
+#: resources/xnec2c.glade:11779
+msgid "_Polarization"
+msgstr "_Поляризація"
+
+#: resources/xnec2c.glade:9745 resources/xnec2c.glade:10842
+#: resources/xnec2c.glade:11795
+msgid "_Total"
+msgstr "_Загальна"
+
+#: resources/xnec2c.glade:9756 resources/xnec2c.glade:10853
+#: resources/xnec2c.glade:11806
+msgid "_Horizontal"
+msgstr "_Горизонтальна"
+
+#: resources/xnec2c.glade:9767 resources/xnec2c.glade:10864
+#: resources/xnec2c.glade:11817
+msgid "_Vertical"
+msgstr "_Вертикальна"
+
+#: resources/xnec2c.glade:9778 resources/xnec2c.glade:10875
+#: resources/xnec2c.glade:11828
+msgid "_Right Hand"
+msgstr "_Права кругова"
+
+#: resources/xnec2c.glade:9789 resources/xnec2c.glade:10886
+#: resources/xnec2c.glade:11839
+msgid "_Left Hand"
+msgstr "_Ліва кругова"
+
+#: resources/xnec2c.glade:9804
+msgid "_Net Gain"
+msgstr "_Чисте підсилення"
+
+#: resources/xnec2c.glade:9813
+msgid "Show _Min/Max Values"
+msgstr "Показати значення _Мін/Макс"
+
+#: resources/xnec2c.glade:9822
+msgid "Show _S11 (dB) Values"
+msgstr "Показати значення _S11 (дБ)"
+
+#: resources/xnec2c.glade:9831
+msgid "Clamp _VSWR Graph to 10"
+msgstr "Обмежити графік _VSWR до 10"
+
+#: resources/xnec2c.glade:9840
+msgid "Round _X Axis Frequency Values"
+msgstr "Округлити значення частоти по осі _X"
+
+#: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
+msgid "Max Gain"
+msgstr "Макс. підсилення"
+
+#: resources/xnec2c.glade:9879
+msgid "Direction"
+msgstr "Напрямок"
+
+#: resources/xnec2c.glade:9894
+msgid "Viewer"
+msgstr "Оглядач"
+
+#: resources/xnec2c.glade:9924
+msgid "Zr/Zi"
+msgstr "Zr/Zi"
+
+#: resources/xnec2c.glade:9939
+msgid "Zm/Zph"
+msgstr "Zm/Zph"
+
+#: resources/xnec2c.glade:9954
+msgid "Smith"
+msgstr "Сміта"
+
+#: resources/xnec2c.glade:9998 resources/xnec2c.glade:10033
+#: resources/xnec2c.glade:10068 resources/xnec2c.glade:10103
+#: resources/xnec2c.glade:12644
+msgid " - - -"
+msgstr " - - -"
+
+#: resources/xnec2c.glade:10139
+msgid " - - - - "
+msgstr " - - - - "
+
+#: resources/xnec2c.glade:10155
+msgid "Freq MHz"
+msgstr "Частота МГц"
+
+#: resources/xnec2c.glade:10194
+msgid "Tx Line Zo"
+msgstr "Zo лінії передачі"
+
+#: resources/xnec2c.glade:10208 resources/xnec2c.glade:11432
+#: resources/xnec2c.glade:12520
+msgid "Freq Loop"
+msgstr "Цикл частоти"
+
+#: resources/xnec2c.glade:10342
+msgid "Frequency Data Plots"
+msgstr "Графіки частотних даних"
+
+#: resources/xnec2c.glade:10459
+msgid "Save _Currents/Charges as CSV"
+msgstr "Зберегти _струми/заряди як CSV"
+
+#: resources/xnec2c.glade:10478
+msgid "Optimization Settings"
+msgstr "Налаштування оптимізації"
+
+#: resources/xnec2c.glade:10493
+msgid "Reload and write data on .NEC file changes"
+msgstr "Перезавантажити та записати дані при зміні файлу .NEC"
+
+#: resources/xnec2c.glade:10500
+msgid "_Write files selected below, now."
+msgstr "_Записати вибрані нижче файли зараз."
+
+#: resources/xnec2c.glade:10515
+msgid "After calculation, write <file>.csv"
+msgstr "Після обчислення записати <file>.csv"
+
+#: resources/xnec2c.glade:10524
+msgid "After calculation, write <file>.s_1p"
+msgstr "Після обчислення записати <file>.s_1p"
+
+#: resources/xnec2c.glade:10533
+msgid "After calculation, write <file>-_maxgain.s2p"
+msgstr "Після обчислення записати <file>-_maxgain.s2p"
+
+#: resources/xnec2c.glade:10542
+msgid "After calculation, write <file>-_viewergain.s2p"
+msgstr "Після обчислення записати <file>-_viewergain.s2p"
+
+#: resources/xnec2c.glade:10551
+msgid "After calculation, write <file>-_radpattern.csv"
+msgstr "Після обчислення записати <file>-_radpattern.csv"
+
+#: resources/xnec2c.glade:10560
+msgid "After calculation, write <file>-_currents.csv"
+msgstr "Після обчислення записати <file>-_currents.csv"
+
+#: resources/xnec2c.glade:10575
+msgid "_Math Libraries"
+msgstr "_Математичні бібліотеки"
+
+#: resources/xnec2c.glade:10584
+msgid "_Interactive"
+msgstr "_Інтерактивний"
+
+#: resources/xnec2c.glade:10604
+msgid "_Batch"
+msgstr "_Пакетний"
+
+#: resources/xnec2c.glade:10630
+msgid "Mathlib _Help"
+msgstr "_Довідка Mathlib"
+
+#: resources/xnec2c.glade:10643
+msgid "Mathlib _Benchmarks"
+msgstr "_Тести Mathlib"
+
+#: resources/xnec2c.glade:10654
+msgid "_Selected Mathlibs"
+msgstr "_Вибрані Mathlib"
+
+#: resources/xnec2c.glade:10668
+msgid "Select All/None"
+msgstr "Вибрати все/нічого"
+
+#: resources/xnec2c.glade:10693
+msgid "_Parallel (-j N):\t\tO(N/J)"
+msgstr "_Паралельно (-j N):\t\tO(N/J)"
+
+#: resources/xnec2c.glade:10702
+msgid "_Single Job (-j 1):\tO(N)"
+msgstr "_Одне завдання (-j 1):\tO(N)"
+
+#: resources/xnec2c.glade:10711
+msgid "_Iterate -j N/=2:\tO(N*log2(J))"
+msgstr "_Ітерація -j N/=2:\tO(N*log2(J))"
+
+#: resources/xnec2c.glade:10720
+msgid "_Iterate -j N-=1:\tO(N*J)"
+msgstr "_Ітерація -j N-=1:\tO(N*J)"
+
+#: resources/xnec2c.glade:10735
+msgid "Benchmark _Help"
+msgstr "_Довідка тестів"
+
+#: resources/xnec2c.glade:10754
+msgid "Begin Frequency Loop at Startup"
+msgstr "Почати цикл частоти при запуску"
+
+#: resources/xnec2c.glade:10765
+msgid "Confirm Quit"
+msgstr "Підтвердити вихід"
+
+#: resources/xnec2c.glade:10806
+msgid "_Radiation Pattern"
+msgstr "_Діаграма випромінювання"
+
+#: resources/xnec2c.glade:10816
+msgid "_Frequency Plots"
+msgstr "_Графіки частоти"
+
+#: resources/xnec2c.glade:10901 resources/xnec2c.glade:12009
+msgid "Common _Projection"
+msgstr "Спільна _проекція"
+
+#: resources/xnec2c.glade:10911 resources/xnec2c.glade:12019
+msgid "Common _Frequency"
+msgstr "Спільна _частота"
+
+#: resources/xnec2c.glade:10923
+msgid "_Help"
+msgstr "_Довідка"
+
+#: resources/xnec2c.glade:10932
+msgid "_About"
+msgstr "_Про програму"
+
+#: resources/xnec2c.glade:10959
+msgid "Currents"
+msgstr "Струми"
+
+#: resources/xnec2c.glade:10974
+msgid "Charges"
+msgstr "Заряди"
+
+#: resources/xnec2c.glade:11155
+msgid " Zoom"
+msgstr " Масштаб"
+
+#: resources/xnec2c.glade:11277 resources/xnec2c.glade:12456
+msgid "Gain"
+msgstr "Підсилення"
+
+#: resources/xnec2c.glade:11292 resources/xnec2c.glade:11308
+#: resources/xnec2c.glade:12469 resources/xnec2c.glade:12626
+msgid "0.0"
+msgstr "0.0"
+
+#: resources/xnec2c.glade:11342
+msgid "- - - "
+msgstr "- - - "
+
+#: resources/xnec2c.glade:11384 resources/xnec2c.glade:12612
+msgid "dB"
+msgstr "дБ"
+
+#: resources/xnec2c.glade:11398 resources/xnec2c.glade:12505
+msgid "Step"
+msgstr "Крок"
+
+#: resources/xnec2c.glade:11545 resources/xnec2c.glade:12553
+msgid "Apply"
+msgstr "Застосувати"
+
+#: resources/xnec2c.glade:11565
+msgid "Frequency Mhz"
+msgstr "Частота МГц"
+
+#: resources/xnec2c.glade:11618
+msgid "Structure Geometry"
+msgstr "Геометрія структури"
+
+#: resources/xnec2c.glade:11637
+msgid "Xnec2c: Radiation Patterns"
+msgstr "Xnec2c: Діаграми випромінювання"
+
+#: resources/xnec2c.glade:11854
+msgid "_Gain Scaling"
+msgstr "_Масштаб підсилення"
+
+#: resources/xnec2c.glade:11869
+msgid "Linear _Power"
+msgstr "Лінійна _потужність"
+
+#: resources/xnec2c.glade:11880
+msgid "Linear _Voltage"
+msgstr "Лінійна _напруга"
+
+#: resources/xnec2c.glade:11891
+msgid "_ARRL Style"
+msgstr "Стиль _ARRL"
+
+#: resources/xnec2c.glade:11902
+msgid "_Logarithmic"
+msgstr "_Логарифмічний"
+
+#: resources/xnec2c.glade:11917
+msgid "_Near Field"
+msgstr "_Ближнє поле"
+
+#: resources/xnec2c.glade:11932
+msgid "Near _E Field"
+msgstr "Ближнє поле _E"
+
+#: resources/xnec2c.glade:11942
+msgid "Near _H Field"
+msgstr "Ближнє поле _H"
+
+#: resources/xnec2c.glade:11952
+msgid "_Poynting Vector"
+msgstr "_Вектор Пойнтінга"
+
+#: resources/xnec2c.glade:11961
+msgid "_Animate Dialog"
+msgstr "_Діалог анімації"
+
+#: resources/xnec2c.glade:11970
+msgid "_Total Field"
+msgstr "_Повне поле"
+
+#: resources/xnec2c.glade:11979
+msgid "_Peak Value"
+msgstr "_Пікове значення"
+
+#: resources/xnec2c.glade:11990
+msgid "_Snapshot"
+msgstr "_Знімок"
+
+#: resources/xnec2c.glade:12029
+msgid "_Overlay Structure"
+msgstr "_Накласти структуру"
+
+#: resources/xnec2c.glade:12053
+msgid "Gain Pattern"
+msgstr "Діаграма підсилення"
+
+#: resources/xnec2c.glade:12068
+msgid "E/H Fields"
+msgstr "Поля E/H"
+
+#: resources/xnec2c.glade:12251
+msgid "Zoom % "
+msgstr "Масштаб % "
+
+#: resources/xnec2c.glade:12572
+msgid "Frequency MHz"
+msgstr "Частота МГц"
+
+#: resources/xnec2c.glade:12589
+msgid "0.010"
+msgstr "0.010"
+
+#: resources/xnec2c.glade:12745
+msgid "Scale Structure (GS card)"
+msgstr "Масштабування структури (картка GS)"
+
+#: resources/xnec2c.glade:12776
+msgid "Structure Scale Factor"
+msgstr "Коефіцієнт масштабу структури"
+
+#: resources/xnec2c.glade:12789
+msgid "From Tag No."
+msgstr "Від тегу №"
+
+#: resources/xnec2c.glade:12839
+msgid "To Tag No."
+msgstr "До тегу №"
+
+#: resources/xnec2c.glade:12874
+msgid "Scale Structure"
+msgstr "Масштабувати структуру"
+
+#: resources/xnec2c.glade:13051
+msgid "Co-ordinate Transformation (GM card)"
+msgstr "Перетворення координат (картка GM)"
+
+#: resources/xnec2c.glade:13081
+msgid "Tag Increment"
+msgstr "Приріст тегу"
+
+#: resources/xnec2c.glade:13112
+msgid "Rotate about X"
+msgstr "Обертання навколо X"
+
+#: resources/xnec2c.glade:13144
+msgid "Move along X"
+msgstr "Переміщення вздовж X"
+
+#: resources/xnec2c.glade:13176
+msgid "New Structures"
+msgstr "Нові структури"
+
+#: resources/xnec2c.glade:13207
+msgid "Rotate about Y"
+msgstr "Обертання навколо Y"
+
+#: resources/xnec2c.glade:13239
+msgid "Move along Y"
+msgstr "Переміщення вздовж Y"
+
+#: resources/xnec2c.glade:13271
+msgid "Start From Tag"
+msgstr "Починати з тегу"
+
+#: resources/xnec2c.glade:13303
+msgid "Rotate about Z"
+msgstr "Обертання навколо Z"
+
+#: resources/xnec2c.glade:13335
+msgid "Move along Z"
+msgstr "Переміщення вздовж Z"
+
+#: resources/xnec2c.glade:13371
+msgid "Co-ordinate Transformation Data"
+msgstr "Дані перетворення координат"
+
+#: resources/xnec2c.glade:13567
+msgid "Trans. Line Command (TL Card)"
+msgstr "Команда лінії передачі (картка TL)"
+
+#: resources/xnec2c.glade:13597
+msgid "Tag Number, End 1  "
+msgstr "Номер тегу, кінець 1  "
+
+#: resources/xnec2c.glade:13629
+msgid "Tag Number, End 2  "
+msgstr "Номер тегу, кінець 2  "
+
+#: resources/xnec2c.glade:13660
+msgid "Segment Num, End 1"
+msgstr "Номер сегмента, кінець 1"
+
+#: resources/xnec2c.glade:13692
+msgid "Segment Num, End 2"
+msgstr "Номер сегмента, кінець 2"
+
+#: resources/xnec2c.glade:13756
+msgid "Crossed Transmission Line"
+msgstr "Перехресна лінія передачі"
+
+#: resources/xnec2c.glade:13774
+msgid "Characteristic Impedance"
+msgstr "Характеристичний імпеданс"
+
+#: resources/xnec2c.glade:13806
+msgid "End 1 Y Real Part (S)"
+msgstr "Кінець 1 Y дійсна частина (См)"
+
+#: resources/xnec2c.glade:13838
+msgid "End 2 Y Real Part (S)"
+msgstr "Кінець 2 Y дійсна частина (См)"
+
+#: resources/xnec2c.glade:13870
+msgid "Length of Tx Line (m)"
+msgstr "Довжина лінії передачі (м)"
+
+#: resources/xnec2c.glade:13902
+msgid "End 1 Y Imag Part (S)"
+msgstr "Кінець 1 Y уявна частина (См)"
+
+#: resources/xnec2c.glade:13934
+msgid "End 2 Y Imag Part (S)"
+msgstr "Кінець 2 Y уявна частина (См)"
+
+#: resources/xnec2c.glade:13970
+msgid "Transmission Line"
+msgstr "Лінія передачі"
+
+#: resources/xnec2c.glade:14197
+msgid "Wire Element (GW & GC cards)"
+msgstr "Елемент дроту (картки GW та GC)"
+
+#: resources/xnec2c.glade:14257
+msgid "Wire X1"
+msgstr "Дріт X1"
+
+#: resources/xnec2c.glade:14289
+msgid "Wire X2"
+msgstr "Дріт X2"
+
+#: resources/xnec2c.glade:14352
+msgid "Wire Y1"
+msgstr "Дріт Y1"
+
+#: resources/xnec2c.glade:14385
+msgid "Wire Y2"
+msgstr "Дріт Y2"
+
+#: resources/xnec2c.glade:14449
+msgid "Wire Z1"
+msgstr "Дріт Z1"
+
+#: resources/xnec2c.glade:14481
+msgid "Wire Z2"
+msgstr "Дріт Z2"
+
+#: resources/xnec2c.glade:14546
+msgid "Wire Length"
+msgstr "Довжина дроту"
+
+#: resources/xnec2c.glade:14617
+msgid "Wire Data"
+msgstr "Дані дроту"
+
+#: resources/xnec2c.glade:14629
+msgid "Tapered Wire"
+msgstr "Конічний дріт"
+
+#: resources/xnec2c.glade:14671
+msgid "Length Taper"
+msgstr "Конусність довжини"
+
+#: resources/xnec2c.glade:14703
+msgid "Diameter Seg 1"
+msgstr "Діаметр сегмента 1"
+
+#: resources/xnec2c.glade:14735
+msgid "Diameter Seg N"
+msgstr "Діаметр сегмента N"
+
+#: resources/xnec2c.glade:14767
+msgid "Diam. Taper"
+msgstr "Конусність діаметра"
+
+#: resources/xnec2c.glade:14803
+msgid "Wire Taper Data"
+msgstr "Дані конусності дроту"
+
+#: resources/xnec2c.glade:14968
+msgid "Impedance (Zo) Ohm"
+msgstr "Імпеданс (Zo) Ом"
+
+#: resources/xnec2c.glade:14983
+msgid "50.00"
+msgstr "50.00"
+
+#: resources/xnec2c.glade:15006
+msgid "Transmission Line Impedance (Zo)"
+msgstr "Імпеданс лінії передачі (Zo)"
+
+#~ msgid ""
+#~ "Not available for Incident Field or\n"
+#~ "Elementary Current Source Excitation.\n"
+#~ "(Excitation Types 1 to 4)"
+#~ msgstr ""
+#~ "Недоступно для збудження падаючим полем або\n"
+#~ "елементарним джерелом струму.\n"
+#~ "(Типи збудження від 1 до 4)"
+
+#~ msgid "number of segments less than 1 (ns < 1)\n"
+#~ msgstr "кількість сегментів менше 1 (ns < 1)\n"
+
+#~ msgid "arc angle exceeds 360 degrees\n"
+#~ msgstr "кут дуги перевищує 360 градусів\n"
+
+#~ msgid "np > n\n"
+#~ msgstr "np > n\n"
+
+#~ msgid "b less than a\n"
+#~ msgstr "b менше за a\n"
+
+#~ msgid "unexpected EOF (End of File)\n"
+#~ msgstr "неочікуваний EOF (кінець файлу)\n"
+
+#~ msgid "error reading Comments: Comment mnemonic short or missing\n"
+#~ msgstr ""
+#~ "помилка читання коментарів: мнемоніка коментаря коротка або відсутня\n"
+
+#~ msgid "geometry data card error - tag number is less than 1\n"
+#~ msgstr "помилка картки геометричних даних - номер тегу менше 1\n"
+
+#~ msgid "geometry data card error - number of segments is less than 1\n"
+#~ msgstr "помилка картки геометричних даних - кількість сегментів менше 1\n"
+
+#~ msgid "geometry data card error no GC card for tapered wire\n"
+#~ msgstr ""
+#~ "помилка картки геометричних даних: відсутня картка GC для конічного "
+#~ "дроту\n"
+
+#~ msgid "geometry GC data card error\n"
+#~ msgstr "помилка картки геометричних даних GC\n"
+
+#~ msgid "geometry GX data card error\n"
+#~ msgstr "помилка картки геометричних даних GX\n"
+
+#~ msgid "geometry GR data card error\n"
+#~ msgstr "помилка картки геометричних даних GR\n"
+
+#~ msgid "move GM data card error\n"
+#~ msgstr "помилка картки даних переміщення GM\n"
+
+#~ msgid "patch data card error\n"
+#~ msgstr "помилка картки даних патча\n"
+
+#~ msgid "patch data error\n"
+#~ msgstr "помилка даних патча\n"
+
+#~ msgid "patch card data error\n"
+#~ msgstr "помилка даних картки патча\n"
+
+#~ msgid "\"GF\" card (NGF solution) is not supported\n"
+#~ msgstr "картка \"GF\" (рішення NGF) не підтримується\n"
+
+#~ msgid "ignoring CM card in geometry\n"
+#~ msgstr "ігнорування картки CM у геометрії\n"
+
+#~ msgid ""
+#~ "Theta > 90 deg with ground specified: Please check RP card data and "
+#~ "correct\n"
+#~ msgstr ""
+#~ "Theta > 90 град із вказаною землею: будь ласка, перевірте дані картки RP "
+#~ "та виправте\n"
+
+#~ msgid "Hankel not valid for z = 0\n"
+#~ msgstr "Ханкель недійсний для z = 0\n"
+
+#~ msgid "No convergence\n"
+#~ msgstr "Немає збіжності\n"

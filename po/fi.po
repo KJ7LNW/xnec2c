@@ -1,0 +1,3623 @@
+# Finnish translations for xnec2c package.
+# Copyright (C) 2025 Neoklis Kyriazis nkcyham@yahoo.com
+# This file is distributed under the same license as the xnec2c package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xnec2c 4.4.18\n"
+"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
+"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"PO-Revision-Date: 2025-12-28 20:37-0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/calculations.c:117 src/calculations.c:1276
+#, c-format
+msgid "segment connection error for segment %5d\n"
+msgstr "segmentin liitäntävirhe segmentille %5d\n"
+
+#: src/calculations.c:118
+msgid "Segment connection error in tbf()"
+msgstr "Segmentin liitäntävirhe funktiossa tbf()"
+
+#: src/calculations.c:890
+#, c-format
+msgid "step size limited at z= %10.5f\n"
+msgstr "askelkoko rajoitettu kohdassa z= %10.5f\n"
+
+#: src/calculations.c:1054
+#, c-format
+msgid "segment connection error for segment %d\n"
+msgstr "segmentin liitäntävirhe segmentille %d\n"
+
+#: src/calculations.c:1055
+msgid "Segment connection error in sbf()"
+msgstr "Segmentin liitäntävirhe funktiossa sbf()"
+
+#: src/calculations.c:1277
+msgid "Segment connection error in trio()"
+msgstr "Segmentin liitäntävirhe funktiossa trio()"
+
+#: src/callback_func.c:263
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to end the calculation?"
+msgstr ""
+"Taajuussilmukka on käynnissä\n"
+"Haluatko varmasti lopettaa laskennan?"
+
+#: src/callback_func.c:267
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to close this window?"
+msgstr ""
+"Taajuussilmukka on käynnissä\n"
+"Haluatko varmasti sulkea tämän ikkunan?"
+
+#: src/callback_func.c:512
+#, c-format
+msgid ""
+"Frequency plots window closed: excitation type %d is incompatible.\n"
+"Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
+msgstr ""
+"Taajuuskuvaajien ikkuna suljettu: herätystyyppi %d on yhteensopimaton.\n"
+"Käytä sen sijaan tyyppiä 0 (Applied E Field) tai 5 (Current Discontinuity)."
+
+#: src/callback_func.c:518
+#, c-format
+msgid ""
+"Frequency plots are not available with excitation type %d.\n"
+"This model uses Incident Field or Elementary Current Source excitation.\n"
+"Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
+msgstr ""
+"Taajuuskuvaajat eivät ole käytettävissä herätystyypin %d kanssa.\n"
+"Tämä malli käyttää Incident Field- tai Elementary Current Source -"
+"herätystä.\n"
+"Vaihda EX-kortti tyyppiin 0 (Applied E Field) tai 5 (Current Discontinuity)."
+
+#: src/callback_func.c:697
+msgid "View Currents"
+msgstr "Näytä virrat"
+
+#: src/callback_func.c:719 src/callback_func.c:778
+msgid "View Geometry"
+msgstr "Näytä geometria"
+
+#: src/callback_func.c:756
+msgid "View Charges"
+msgstr "Näytä varaukset"
+
+#: src/callback_func.c:821
+msgid "PNG images (*.png)"
+msgstr "PNG-kuvat (*.png)"
+
+#: src/callback_func.c:823
+msgid "GNUplot files (*.gplot)"
+msgstr "GNUplot-tiedostot (*.gplot)"
+
+#: src/callback_func.c:825
+msgid "NEC2 files (*.nec)"
+msgstr "NEC2-tiedostot (*.nec)"
+
+#: src/callback_func.c:827
+msgid "Touchstone 1-port files (*.s1p)"
+msgstr "Touchstone 1-porttitiedostot (*.s1p)"
+
+#: src/callback_func.c:829
+msgid "Touchstone 2-port files (*.s2p)"
+msgstr "Touchstone 2-porttitiedostot (*.s2p)"
+
+#: src/callback_func.c:831
+msgid "Comma-separated CSV files (*.csv)"
+msgstr "Pilkuilla erotetut CSV-tiedostot (*.csv)"
+
+#: src/callbacks.c:88 src/callbacks.c:371 src/callbacks.c:1813
+#: src/callbacks.c:2174
+msgid "Are you sure you wish to quit xnec2c?"
+msgstr "Haluatko varmasti lopettaa xnec2c:n?"
+
+#: src/callbacks.c:131
+msgid ""
+"A new NEC2 input file may not be created\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Uutta NEC2-syötetiedostoa ei voi luoda\n"
+"taajuussilmukan ollessa käynnissä"
+
+#: src/callbacks.c:171
+msgid ""
+"A new NEC2 input file may not be opened\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Uutta NEC2-syötetiedostoa ei voi avata\n"
+"taajuussilmukan ollessa käynnissä"
+
+#: src/callbacks.c:291
+msgid "xnec2c geometry optimizer"
+msgstr "xnec2c-geometriaoptimoija"
+
+#: src/callbacks.c:292
+msgid ""
+"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr ""
+"xnec2c käännettiin ilman inotify-tukea: optimoijaa ei voi ottaa käyttöön."
+
+#: src/callbacks.c:316
+msgid "Xnec2c Optimizer"
+msgstr "Xnec2c-optimoija"
+
+#: src/callbacks.c:316
+msgid ""
+"No files are selected for writing. However, xnec2c will still reload and "
+"recalculate the input file on modification when triggered by inotify.Select "
+"files for writing in \"File->Optimization Settings\"."
+msgstr ""
+"Tiedostoja ei ole valittu kirjoitettavaksi. Xnec2c kuitenkin lataa ja laskee "
+"syötetiedoston uudelleen muutoksesta, kun inotify käynnistää sen. Valitse "
+"kirjoitettavat tiedostot kohdasta \"Tiedosto->Optimointiasetukset\"."
+
+#: src/callbacks.c:327
+msgid "failed to create Optimizer Output thread\n"
+msgstr "Optimoijan tulostesäikeen luominen epäonnistui\n"
+
+#: src/callbacks.c:1031 src/callbacks.c:1347 src/callbacks.c:2200
+msgid "Are you sure you wish to close this window?"
+msgstr "Haluatko varmasti sulkea tämän ikkunan?"
+
+#: src/callbacks.c:2138
+msgid "No open NEC2 input file"
+msgstr "Ei avointa NEC2-syötetiedostoa"
+
+#: src/callbacks.c:2231 src/callbacks.c:2261
+msgid ""
+"NEC2 Editor's data may not be saved\n"
+"while the Frequency Loop is running"
+msgstr ""
+"NEC2-editorin tietoja ei voi tallentaa\n"
+"taajuussilmukan ollessa käynnissä"
+
+#: src/callbacks.c:2243 src/callbacks.c:2269
+msgid "untitled.nec"
+msgstr "nimetön.nec"
+
+#: src/callbacks.c:2734 src/callbacks.c:2754 src/callbacks.c:2774
+#: src/geom_edit.c:413 src/geom_edit.c:1229 src/geom_edit.c:1471
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Taajuuskortteja (FR) ei ole vielä käsitelty.\n"
+"NEC2-editorin tiedot on ehkä tallennettava ensin."
+
+#: src/cmnd_edit.c:72
+msgid ""
+"Get_Command_Data(): Error reading\n"
+"row data: Invalid list iterator"
+msgstr ""
+"Get_Command_Data(): Virhe luettaessa\n"
+"rivitietoja: Virheellinen luetteloiteraattori"
+
+#: src/cmnd_edit.c:105
+msgid ""
+"Set_Command_Data(): Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Set_Command_Data(): Virhe kirjoitettaessa rivitietoja\n"
+"Valitse rivi uudelleen"
+
+#: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
+#: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
+msgid "Tag Number"
+msgstr "Tunnistenumero"
+
+#: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
+msgid "Segment Number"
+msgstr "Segmenttinumero"
+
+#: src/cmnd_edit.c:422
+msgid "Voltage Real Part"
+msgstr "Jännitteen reaaliosa"
+
+#: src/cmnd_edit.c:423
+msgid "Voltage Imaginary Part"
+msgstr "Jännitteen imaginaariosa"
+
+#: src/cmnd_edit.c:424 src/cmnd_edit.c:1579
+msgid "Normalization Factor"
+msgstr "Normalisointikerroin"
+
+#: src/cmnd_edit.c:425 src/cmnd_edit.c:426 src/cmnd_edit.c:427
+#: src/cmnd_edit.c:463 src/cmnd_edit.c:464 src/cmnd_edit.c:1814
+#: src/cmnd_edit.c:1825 src/cmnd_edit.c:1826
+msgid "  ** NOT USED **"
+msgstr "  ** EI KÄYTÖSSÄ **"
+
+#: src/cmnd_edit.c:445
+msgid "Num of Theta Angles"
+msgstr "Theta-kulmien lukumäärä"
+
+#: src/cmnd_edit.c:446
+msgid "Num of Phi Angles"
+msgstr "Phi-kulmien lukumäärä"
+
+#: src/cmnd_edit.c:447
+msgid "Theta Angle (deg)"
+msgstr "Theta-kulma (deg)"
+
+#: src/cmnd_edit.c:448
+msgid "Phi Angle (deg)"
+msgstr "Phi-kulma (deg)"
+
+#: src/cmnd_edit.c:449
+msgid "Eta Angle (deg)"
+msgstr "Eta-kulma (deg)"
+
+#: src/cmnd_edit.c:450
+msgid "Theta Increment (deg)"
+msgstr "Theta-lisäys (deg)"
+
+#: src/cmnd_edit.c:451
+msgid "Phi Increment (deg)"
+msgstr "Phi-lisäys (deg)"
+
+#: src/cmnd_edit.c:452
+msgid "Minor/Major Axis"
+msgstr "Pieni/suuri akseli"
+
+#: src/cmnd_edit.c:465
+msgid "X Position (m)"
+msgstr "X-sijainti (m)"
+
+#: src/cmnd_edit.c:466
+msgid "Y Position (m)"
+msgstr "Y-sijainti (m)"
+
+#: src/cmnd_edit.c:467
+msgid "Z Position (m)"
+msgstr "Z-sijainti (m)"
+
+#: src/cmnd_edit.c:468
+msgid "alpha Angle (deg)"
+msgstr "alfa-kulma (deg)"
+
+#: src/cmnd_edit.c:469
+msgid "beta Angle (deg)"
+msgstr "beeta-kulma (deg)"
+
+#: src/cmnd_edit.c:470
+msgid "Current Moment (A.m)"
+msgstr "Virtamomentti (A.m)"
+
+#: src/cmnd_edit.c:1556
+msgid "Points in Z"
+msgstr "Pisteitä Z:ssa"
+
+#: src/cmnd_edit.c:1557
+msgid "Initial Z (m)"
+msgstr "Alku-Z (m)"
+
+#: src/cmnd_edit.c:1558
+msgid "Increment in Z"
+msgstr "Z-lisäys"
+
+#: src/cmnd_edit.c:1559
+msgid "Field Point R (m)"
+msgstr "Kenttäpiste R (m)"
+
+#: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
+msgid "Points in Phi"
+msgstr "Pisteitä Phi:ssä"
+
+#: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
+msgid "Initial Theta (deg)"
+msgstr "Alku-Theta (deg)"
+
+#: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
+msgid "Increment in Theta"
+msgstr "Theta-lisäys"
+
+#: src/cmnd_edit.c:1570
+msgid "R (m) (Optional)"
+msgstr "R (m) (valinnainen)"
+
+#: src/cmnd_edit.c:1583
+msgid "** NOT USED **"
+msgstr "** EI KÄYTÖSSÄ **"
+
+#: src/cmnd_edit.c:1788 src/cmnd_edit.c:1812
+msgid "Resistance Ohm"
+msgstr "Resistanssi Ohm"
+
+#: src/cmnd_edit.c:1789
+msgid "Inductance uH"
+msgstr "Induktanssi uH"
+
+#: src/cmnd_edit.c:1790
+msgid "Capacitance pF"
+msgstr "Kapasitanssi pF"
+
+#: src/cmnd_edit.c:1800
+msgid "Resistance Ohm/m"
+msgstr "Resistanssi Ohm/m"
+
+#: src/cmnd_edit.c:1801
+msgid "Inductance uH/m"
+msgstr "Induktanssi uH/m"
+
+#: src/cmnd_edit.c:1802
+msgid "Capacitance pF/m"
+msgstr "Kapasitanssi pF/m"
+
+#: src/cmnd_edit.c:1813
+msgid "Reactance Ohm"
+msgstr "Reaktanssi Ohm"
+
+#: src/cmnd_edit.c:1824 resources/xnec2c.glade:480 resources/xnec2c.glade:4012
+#: resources/xnec2c.glade:14578
+msgid "Conductivity S/m"
+msgstr "Johtavuus S/m"
+
+#: src/cmnd_edit.c:2453
+msgid "Points in X-axis"
+msgstr "Pisteitä X-akselilla"
+
+#: src/cmnd_edit.c:2454
+msgid "Points in Y-axis"
+msgstr "Pisteitä Y-akselilla"
+
+#: src/cmnd_edit.c:2455
+msgid "Points in Z-axis"
+msgstr "Pisteitä Z-akselilla"
+
+#: src/cmnd_edit.c:2456
+msgid "First Point X (m)"
+msgstr "Ensimmäinen piste X (m)"
+
+#: src/cmnd_edit.c:2457
+msgid "First Point Y (m)"
+msgstr "Ensimmäinen piste Y (m)"
+
+#: src/cmnd_edit.c:2458
+msgid "First Point Z (m)"
+msgstr "Ensimmäinen piste Z (m)"
+
+#: src/cmnd_edit.c:2459
+msgid "Increment in X (m)"
+msgstr "X-lisäys (m)"
+
+#: src/cmnd_edit.c:2460
+msgid "Increment in Y (m)"
+msgstr "Y-lisäys (m)"
+
+#: src/cmnd_edit.c:2461
+msgid "Increment in Z (m)"
+msgstr "Z-lisäys (m)"
+
+#: src/cmnd_edit.c:2469
+msgid "Points along R"
+msgstr "Pisteitä R:n suunnassa"
+
+#: src/cmnd_edit.c:2470
+msgid "Points along Phi"
+msgstr "Pisteitä Phi:n suunnassa"
+
+#: src/cmnd_edit.c:2471
+msgid "Points along Theta"
+msgstr "Pisteitä Theta:n suunnassa"
+
+#: src/cmnd_edit.c:2472
+msgid "First Point R (m)"
+msgstr "Ensimmäinen piste R (m)"
+
+#: src/cmnd_edit.c:2473
+msgid "First Point Phi"
+msgstr "Ensimmäinen piste Phi"
+
+#: src/cmnd_edit.c:2474
+msgid "First Point Theta"
+msgstr "Ensimmäinen piste Theta"
+
+#: src/cmnd_edit.c:2475
+msgid "Increment in R (m)"
+msgstr "R-lisäys (m)"
+
+#: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
+msgid "Increment in Phi"
+msgstr "Phi-lisäys"
+
+#: src/draw_radiation.c:28
+msgid ""
+"Animation requires near field data.\n"
+"\n"
+"E-field animation: Add NE card to NEC file\n"
+"H-field animation: Add NH card to NEC file\n"
+"Poynting vector: Add both NE and NH cards"
+msgstr ""
+"Animaatio vaatii lähikentän tiedot.\n"
+"\n"
+"E-kenttäanimaatio: Lisää NE-kortti NEC-tiedostoon\n"
+"H-kenttäanimaatio: Lisää NH-kortti NEC-tiedostoon\n"
+"Poyntingin vektori: Lisää sekä NE- että NH-kortit"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
+msgid "Near Field Animation"
+msgstr "Lähikentän animaatio"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 src/geometry.c:812
+#: src/input.c:1570 src/input.c:1571 src/utils.c:509 src/utils.c:555
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/draw_radiation.c:1052
+msgid "Total Gain"
+msgstr "Kokonaisvahvistus"
+
+#: src/draw_radiation.c:1053
+msgid "Horizontal Polarization"
+msgstr "Vaakapolarisaatio"
+
+#: src/draw_radiation.c:1054
+msgid "Vertical Polarization"
+msgstr "Pystypolarisaatio"
+
+#: src/draw_radiation.c:1055
+msgid "RH Circular Polarization"
+msgstr "Oikeakätinen ympyräpolarisaatio"
+
+#: src/draw_radiation.c:1056
+msgid "LH Circular Polarization"
+msgstr "Vasenkätinen ympyräpolarisaatio"
+
+#: src/draw_radiation.c:1061
+msgid "Linear Power"
+msgstr "Lineaarinen teho"
+
+#: src/draw_radiation.c:1062
+msgid "Linear Voltage"
+msgstr "Lineaarinen jännite"
+
+#: src/draw_radiation.c:1063
+msgid "ARRL Scale"
+msgstr "ARRL-asteikko"
+
+#: src/draw_radiation.c:1064
+msgid "Logarithmic Scale"
+msgstr "Logaritminen asteikko"
+
+#: src/draw_radiation.c:1073 resources/xnec2c.glade:12710
+msgid "Radiation Patterns"
+msgstr "Säteilykuviot"
+
+#: src/draw_radiation.c:1076
+msgid "Radiation Pattern: - "
+msgstr "Säteilykuvio: - "
+
+#: src/draw_radiation.c:1083
+msgid "Near Fields:"
+msgstr "Lähikentät:"
+
+#: src/draw_radiation.c:1085
+msgid " - E Field"
+msgstr " - E-kenttä"
+
+#: src/draw_radiation.c:1087
+msgid " - H Field"
+msgstr " - H-kenttä"
+
+#: src/draw_radiation.c:1089
+msgid " - Poynting Vector"
+msgstr " - Poyntingin vektori"
+
+#: src/draw_radiation.c:1099
+msgid "Frequency Data Plots - "
+msgstr "Taajuustietokuvaajat - "
+
+#: src/draw_radiation.c:1307
+#, c-format
+msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
+msgstr "fstep=%d on rajojen ulkopuolella. calc_data.steps_total=%d"
+
+#: src/geom_edit.c:76 src/geom_edit.c:1866 src/geom_edit.c:2109
+#: src/geom_edit.c:2491
+msgid ""
+"Error reading row data\n"
+"Invalid list iterator"
+msgstr ""
+"Virhe rivitietojen lukemisessa\n"
+"Virheellinen lista-iteraattori"
+
+#: src/geom_edit.c:109 src/geom_edit.c:139
+msgid ""
+"Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Virhe rivitietojen kirjoittamisessa\n"
+"Valitse rivi uudelleen"
+
+#: src/geom_edit.c:528
+msgid ""
+"GC card preceded by GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GC-korttia edeltää GW-kortti\n"
+"jolla on nollasta poikkeava lankasäde"
+
+#: src/geom_edit.c:532
+msgid "No GW card before GC card"
+msgstr "Ei GW-korttia ennen GC-korttia"
+
+#: src/geom_edit.c:556
+msgid ""
+"No GC card after a GW card\n"
+"with a zero wire radius"
+msgstr ""
+"Ei GC-korttia GW-kortin jälkeen\n"
+"jolla on nolla lankasäde"
+
+#: src/geom_edit.c:565
+msgid ""
+"GC card follows a GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GC-kortti seuraa GW-korttia\n"
+"jolla on nollasta poikkeava lankasäde"
+
+#: src/geom_edit.c:944
+msgid ""
+"SC card preceded by SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SC-korttia edeltää SP-kortti\n"
+"mielivaltaisella pinta-alatyypillä"
+
+#: src/geom_edit.c:956
+msgid "No SP or SM card before SC card"
+msgstr "Ei SP- tai SM-korttia ennen SC-korttia"
+
+#: src/geom_edit.c:976
+msgid ""
+"No SC card after an SP card\n"
+"with non-arbitrary patch type"
+msgstr ""
+"Ei SC-korttia SP-kortin jälkeen\n"
+"ei-mielivaltaisella pinta-alatyypillä"
+
+#: src/geom_edit.c:983
+msgid ""
+"SC card follows an SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SC-kortti seuraa SP-korttia\n"
+"mielivaltaisella pinta-alatyypillä"
+
+#: src/geom_edit.c:996
+msgid "No SC card after an SM card"
+msgstr "Ei SC-korttia SM-kortin jälkeen"
+
+#: src/geom_edit.c:1066 resources/xnec2c.glade:7685
+msgid "Center - X"
+msgstr "Keskipiste - X"
+
+#: src/geom_edit.c:1068 resources/xnec2c.glade:7749
+msgid "Center - Y"
+msgstr "Keskipiste - Y"
+
+#: src/geom_edit.c:1070 resources/xnec2c.glade:7813
+msgid "Center - Z"
+msgstr "Keskipiste - Z"
+
+#: src/geom_edit.c:1072 resources/xnec2c.glade:7717
+msgid "Normal - Elev."
+msgstr "Normaali - Korkeuskulma"
+
+#: src/geom_edit.c:1074 resources/xnec2c.glade:7781
+msgid "Normal - Azim."
+msgstr "Normaali - Atsimuutti"
+
+#: src/geom_edit.c:1076 resources/xnec2c.glade:7845
+msgid "Patch Area"
+msgstr "Pinta-ala"
+
+#: src/geom_edit.c:1081
+msgid "Corner 1 - X"
+msgstr "Kulma 1 - X"
+
+#: src/geom_edit.c:1083
+msgid "Corner 1 - Y"
+msgstr "Kulma 1 - Y"
+
+#: src/geom_edit.c:1085
+msgid "Corner 1 - Z"
+msgstr "Kulma 1 - Z"
+
+#: src/geom_edit.c:1087
+msgid "Corner 2 - X"
+msgstr "Kulma 2 - X"
+
+#: src/geom_edit.c:1089
+msgid "Corner 2 - Y"
+msgstr "Kulma 2 - Y"
+
+#: src/geom_edit.c:1091
+msgid "Corner 2 - Z"
+msgstr "Kulma 2 - Z"
+
+#: src/geom_edit.c:2582
+msgid "NEC2 editor window not open"
+msgstr "NEC2-editori-ikkuna ei ole auki"
+
+#: src/geometry.c:97
+msgid "Number of segments < 1"
+msgstr "Segmenttien määrä < 1"
+
+#: src/geometry.c:148
+msgid "Arc angle exceeds 360 degrees"
+msgstr "Kaaren kulma ylittää 360 astetta"
+
+#: src/geometry.c:309
+msgid "Error in conect(): np > n"
+msgstr "Virhe funktiossa conect(): np > n"
+
+#: src/geometry.c:343 src/geometry.c:391
+#, c-format
+msgid "geometry data error: segment %d extends below ground\n"
+msgstr "geometriatietovirhe: segmentti %d ulottuu maatason alapuolelle\n"
+
+#: src/geometry.c:344 src/geometry.c:392
+msgid ""
+"Geometry data error\n"
+"Segment extends below ground"
+msgstr ""
+"Geometriatietovirhe\n"
+"Segmentti ulottuu maatason alapuolelle"
+
+#: src/geometry.c:401
+#, c-format
+msgid "geometry data error: segment %d lies in ground plane\n"
+msgstr "geometriatietovirhe: segmentti %d sijaitsee maatasossa\n"
+
+#: src/geometry.c:402
+msgid ""
+"Geometry data error\n"
+"Segment lies in ground plane"
+msgstr ""
+"Geometriatietovirhe\n"
+"Segmentti sijaitsee maatasossa"
+
+#: src/geometry.c:492
+msgid "ipsym = 0\n"
+msgstr "ipsym = 0\n"
+
+#: src/geometry.c:493
+msgid "Error: ipsym = 0"
+msgstr "Virhe: ipsym = 0"
+
+#: src/geometry.c:549
+#, c-format
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
+"segj.maxcon=%lu\n"
+msgstr ""
+"Segmenttiliitäntöjen määrä ylittää täyden verkon, mikä on epätodennäköistä: "
+"data.n=%ld segj.maxcon=%lu\n"
+
+#: src/geometry.c:551
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely!\n"
+"Check for overlapping or nearly-connected segments\n"
+msgstr ""
+"Segmenttiliitäntöjen määrä ylittää täyden verkon, mikä on epätodennäköistä!\n"
+"Tarkista päällekkäiset tai lähes yhdistetyt segmentit\n"
+
+#: src/geometry.c:764
+msgid ""
+"check data, parameter specifying segment: position in a group of equal tags "
+"must not be zero\n"
+msgstr ""
+"tarkista tiedot, segmentin sijaintia määrittävä parametri: sijainti "
+"samantunnuksisten ryhmässä ei saa olla nolla\n"
+
+#: src/geometry.c:765
+msgid ""
+"Parameter specifying segment\n"
+"position in a group of equal tags is zero"
+msgstr ""
+"Segmentin sijaintia määrittävä\n"
+"parametri samantunnuksisten ryhmässä on nolla"
+
+#: src/geometry.c:797
+#, c-format
+msgid "no segment has an itag of %d\n"
+msgstr "millään segmentillä ei ole itag-arvoa %d\n"
+
+#: src/geometry.c:801
+msgid ""
+"Segment tag number error: Tag 0 is reserved and cannot be used.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are "
+"valid.\n"
+"For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
+msgstr ""
+"Segmentin tunnusnumerovirhe: Tunniste 0 on varattu eikä sitä voi käyttää.\n"
+"Tarkista geometriakortit (erityisesti GM-kortit) varmistaaksesi "
+"tunnusarvojen kelvollisuuden.\n"
+"GM-korteille: varmista etteivät 'aloitustunniste' ja 'tunnuslisäys' luo "
+"tunnistetta 0."
+
+#: src/geometry.c:809
+#, c-format
+msgid ""
+"Segment tag number error: No segment found with tag %d.\n"
+"You are referencing an unknown tag or segment in a control card.\n"
+"Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."
+msgstr ""
+"Segmentin tunnusnumerovirhe: Segmenttiä tunnisteella %d ei löytynyt.\n"
+"Viittaat tuntemattomaan tunnisteeseen tai segmenttiin ohjauskortissa.\n"
+"Kelvolliset tunnisteet geometriassasi ovat GW/GA/GH/SP-korteille määritetyt."
+
+#: src/geometry.c:1123
+msgid "corners of quadrilateral: patch do not lie in a plane\n"
+msgstr "nelikulmion kulmat: pinta-ala ei sijaitse tasossa\n"
+
+#: src/geometry.c:1124
+msgid ""
+"Corners of quadrilateral\n"
+"patch do not lie in a plane"
+msgstr ""
+"Nelikulmion pinta-alan\n"
+"kulmat eivät sijaitse tasossa"
+
+#: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
+#, c-format
+msgid "geometry data error: segment %d lies in plane of symmetry\n"
+msgstr "geometriatietovirhe: segmentti %d sijaitsee symmetriatasossa\n"
+
+#: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
+msgid ""
+"Geometry data error\n"
+"Segment lies in plane of symmetry"
+msgstr ""
+"Geometriatietovirhe\n"
+"Segmentti sijaitsee symmetriatasossa"
+
+#: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
+#, c-format
+msgid "geometry data error: patch %d lies in plane of symmetry\n"
+msgstr "geometriatietovirhe: pinta-ala %d sijaitsee symmetriatasossa\n"
+
+#: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
+msgid ""
+"Geometry data error\n"
+"Patch lies in plane of symmetry"
+msgstr ""
+"Geometriatietovirhe\n"
+"Pinta-ala sijaitsee symmetriatasossa"
+
+#: src/geometry.c:1642
+#, c-format
+msgid ""
+"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
+"threshold=%.3e); segment will connect to itself\n"
+msgstr ""
+"tag=%d/seg=%d: päätepisteen etäisyys=%.3e on liian lähellä (alle "
+"liitäntäkynnyksen=%.3e); segmentti yhdistyy itseensä\n"
+
+#: src/geometry.c:1647
+#, c-format
+msgid "tag=%d: suppressing additional self-connection warnings\n"
+msgstr "tag=%d: estetään lisää itseyhdistämisvaroituksia\n"
+
+#: src/geometry.c:1692
+#, c-format
+msgid ""
+"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
+"threshold %.3e; unintended connections possible\n"
+msgstr ""
+"tag=%d/seg=%d: etäisyys=%.3e kohteeseen tag=%d/seg=%d lähempänä kuin 2x "
+"liitäntäkynnys %.3e; tahattomat yhdistämiset mahdollisia\n"
+
+#: src/geometry.c:1697
+#, c-format
+msgid "tag=%d: suppressing additional overlap warnings\n"
+msgstr "tag=%d: estetään lisää päällekkäisyysvaroituksia\n"
+
+#: src/geometry.c:1757
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
+"length=%.3e that connection detection may fail or short\n"
+msgstr ""
+"tag=%d/seg=%d: pituus=%.3e on liian lyhyt (ja tarpeeksi lähellä) kohteeseen "
+"tag=%d/seg=%d pituus=%.3e, liitännän tunnistus voi epäonnistua tai "
+"oikosulkea\n"
+
+#: src/geometry.c:1762
+#, c-format
+msgid ""
+"tag=%d: suppressing additional connection detection may fail or short "
+"warnings\n"
+msgstr ""
+"tag=%d: estetään lisää liitännän tunnistus voi epäonnistua tai oikosulkea -"
+"varoituksia\n"
+
+#: src/geometry.c:1794
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
+"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
+"recommended <= 0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: pituus/aallonpituus-suhde %.3f < 0.001; virtakomponenttien "
+"samankaltaisuus johtaa numeerisiin epätarkkuuksiin (min=0.001, hyvä=0.05, "
+"suositeltu <= 0.1)\n"
+
+#: src/geometry.c:1799
+#, c-format
+msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
+msgstr "tag=%d: estetään lisää lyhyen aallonpituussuhteen virheitä\n"
+
+#: src/geometry.c:1812
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
+"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
+"0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: pituus/aallonpituus-suhde %.3f > 0.1; virran "
+"näytteenottotarkkuus rajoitettu segmenttivälistyksen mukaan (min=0.001, "
+"hyvä=0.05, suositeltu <= 0.1)\n"
+
+#: src/geometry.c:1817
+#, c-format
+msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
+msgstr "tag=%d: estetään lisää pitkän aallonpituussuhteen varoituksia\n"
+
+#: src/geometry.c:1830
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
+"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
+"recommended <=0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: pituus/aallonpituus-suhde %.3f > 0.05; lyhyemmät segmentit "
+"lisäävät tarkkuutta nopean virranmuutoksen alueilla (min=0.001, hyvä=0.05, "
+"suositeltu <=0.1)\n"
+
+#: src/geometry.c:1835
+#, c-format
+msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
+msgstr "tag=%d: estetään lisää tarkkuuden parannusehdotuksia\n"
+
+#: src/geometry.c:1865
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: pituus/säde-suhde %.1f < 2.0; standardin ohutlankaytimen "
+"kenttävirhe ylittää 1%% huomattavasti (min=2.0, 1%%-tarkka=8.0)\n"
+
+#: src/geometry.c:1870
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
+msgstr "tag=%d: estetään lisää standardiytimen suhdevirheitä\n"
+
+#: src/geometry.c:1883
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
+"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: pituus/säde-suhde %.1f < 8.0; standardin ohutlankaytimen "
+"kenttävirhe ylittää 1%% (min=2.0, 1%%-tarkka=8.0)\n"
+
+#: src/geometry.c:1888
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
+msgstr "tag=%d: estetään lisää standardiytimen suhdevaroituksia\n"
+
+#: src/geometry.c:1903
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: pituus/säde-suhde %.1f < 0.5; laajennetun ohutlankaytimen "
+"kenttävirhe ylittää 1%% huomattavasti (min=0.5, 1%%-tarkka=2.0)\n"
+
+#: src/geometry.c:1908
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
+msgstr "tag=%d: estetään lisää laajennetun ytimen suhdevirheitä\n"
+
+#: src/geometry.c:1921
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
+"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: pituus/säde-suhde %.1f < 2.0; laajennetun ohutlankaytimen "
+"kenttävirhe ylittää 1%% (min=0.5, 1%%-tarkka=2.0)\n"
+
+#: src/geometry.c:1926
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
+msgstr "tag=%d: estetään lisää laajennetun ytimen suhdevaroituksia\n"
+
+#: src/geometry.c:1942
+#, c-format
+msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
+msgstr ""
+"Ohitetaan päällekkäisyystarkistus %d segmentille (käytä --force-verify "
+"ottaaksesi käyttöön)\n"
+
+#: src/geometry.c:1946
+#, c-format
+msgid "Forcing overlap check for %d segments\n"
+msgstr "Pakotetaan päällekkäisyystarkistus %d segmentille\n"
+
+#: src/geometry.c:1957
+msgid ""
+"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr ""
+"verify_segments() ohittaa taajuusriippuvaiset tarkistukset - ei "
+"taajuustietoja\n"
+
+#: src/gnuplot.c:46
+msgid "Gnuplot Data"
+msgstr "Gnuplot-tiedot"
+
+#: src/gnuplot.c:46 src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Cannot save data while frequency loop is running"
+msgstr "Tietoja ei voi tallentaa taajuussilmukan ollessa käynnissä"
+
+#: src/gnuplot.c:60
+#, c-format
+msgid "# Reference impedance Z0 = %.2f Ohm\n"
+msgstr "# Referenssi-impedanssi Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:62
+#, c-format
+msgid ""
+"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
+"zreal and zimag:\n"
+msgstr ""
+"# Piirtääksesi gnuplotissa voit muokata tätä komentoa. Tällä hetkellä se "
+"piirtää MHz vs zreal ja zimag:\n"
+
+#: src/gnuplot.c:63
+#, c-format
+msgid ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+msgstr ""
+"#    plot for [i=2:3]  'tiedostonimi.gplot' using 1:i with lines smooth "
+"bezier title columnhead(i);\n"
+
+#: src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Touchstone Data"
+msgstr "Touchstone-tiedot"
+
+#: src/gnuplot.c:102
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! Referenssi-impedanssi Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:130
+#, c-format
+msgid "This should never happen. touchstone type=%d\n"
+msgstr "Tämän ei pitäisi koskaan tapahtua. touchstone type=%d\n"
+
+#: src/gnuplot.c:227
+#, c-format
+msgid "# Near E field\n"
+msgstr "# Lähi-E-kenttä\n"
+
+#: src/gnuplot.c:250
+#, c-format
+msgid "# Near H field\n"
+msgstr "# Lähi-H-kenttä\n"
+
+#: src/gnuplot.c:297
+#, c-format
+msgid "# Poynting Vector\n"
+msgstr "# Poyntingin vektori\n"
+
+#: src/gnuplot.c:369
+#, c-format
+msgid "# Radiation Pattern\n"
+msgstr "# Säteilykuvio\n"
+
+#: src/gnuplot.c:505
+#, c-format
+msgid "# structure patch segments\n"
+msgstr "# rakenteen pinta-alasegmentit\n"
+
+#: src/gnuplot.c:530
+#, c-format
+msgid "# structure wire segments\n"
+msgstr "# rakenteen lankasegmentit\n"
+
+#: src/gnuplot.c:565
+msgid "Save Currents and Charges to CSV"
+msgstr "Tallenna virrat ja varaukset CSV-tiedostoon"
+
+#: src/ground.c:90
+msgid "b less than a"
+msgstr "b pienempi kuin a"
+
+#: src/ground.c:215
+#, c-format
+msgid "step size limited at z = %12.5E\n"
+msgstr "askelpituus rajoitettu kohdassa z = %12.5E\n"
+
+#: src/input.c:84
+msgid ""
+"Error reading Comments\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"Virhe kommenttien lukemisessa\n"
+"Odottamaton EOF (tiedoston loppu)"
+
+#: src/input.c:98
+msgid ""
+"Error reading Comments\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"Virhe kommenttien lukemisessa\n"
+"Kommenttitunniste lyhyt tai puuttuu"
+
+#: src/input.c:109
+msgid ""
+"Read_Comments():\n"
+" Error reading input file\n"
+"Comment mnemonic incorrect"
+msgstr ""
+"Read_Comments():\n"
+" Virhe syötetiedoston lukemisessa\n"
+"Kommenttitunniste virheellinen"
+
+#: src/input.c:148
+msgid ""
+"Geometry data error\n"
+"Tag number is less than 1"
+msgstr ""
+"Geometriatietojen virhe\n"
+"Tunnistenumero on pienempi kuin 1"
+
+#: src/input.c:155
+msgid ""
+"Geometry data error\n"
+"Number of segments is less than 1"
+msgstr ""
+"Geometriatietojen virhe\n"
+"Segmenttien määrä on pienempi kuin 1"
+
+#: src/input.c:162
+msgid "warning - number of segments is greater than 1000000\n"
+msgstr "varoitus - segmenttien määrä on suurempi kuin 1000000\n"
+
+#: src/input.c:210
+#, c-format
+msgid "%s data card error: Spurious character '%c' at column %d\n"
+msgstr "%s-tietokortin virhe: Ylimääräinen merkki '%c' sarakkeessa %d\n"
+
+#: src/input.c:212
+msgid ""
+"Data card error\n"
+"Spurious character in card"
+msgstr ""
+"Tietokortin virhe\n"
+"Ylimääräinen merkki kortissa"
+
+#: src/input.c:262
+#, c-format
+msgid "%s: expression evaluation failed for \"%s\"\n"
+msgstr "%s: lausekkeen evaluointi epäonnistui: \"%s\"\n"
+
+#: src/input.c:300
+msgid "SY card: no line content available\n"
+msgstr "SY-kortti: rivisisältöä ei saatavilla\n"
+
+#: src/input.c:301
+msgid "SY card: no line content available"
+msgstr "SY-kortti: rivisisältöä ei saatavilla"
+
+#: src/input.c:318
+msgid "SY card: missing '=' in definition\n"
+msgstr "SY-kortti: '=' puuttuu määrittelystä\n"
+
+#: src/input.c:319
+msgid "SY card: missing '=' in definition"
+msgstr "SY-kortti: '=' puuttuu määrittelystä"
+
+#: src/input.c:352
+#, c-format
+msgid "SY card: expression evaluation failed for %s=%s\n"
+msgstr "SY-kortti: lausekkeen evaluointi epäonnistui: %s=%s\n"
+
+#: src/input.c:358
+#, c-format
+msgid "SY card: symbol definition failed for %s\n"
+msgstr "SY-kortti: symbolin määrittely epäonnistui: %s\n"
+
+#: src/input.c:438
+msgid ""
+"Geometry data error\n"
+"No GC card for tapered wire"
+msgstr ""
+"Geometriatietojen virhe\n"
+"GC-kortti puuttuu kavennetulle langalle"
+
+#: src/input.c:445
+msgid "Geometry GC data card error"
+msgstr "Geometrian GC-tietokortin virhe"
+
+#: src/input.c:461
+msgid "Geometry GX data card error"
+msgstr "Geometrian GX-tietokortin virhe"
+
+#: src/input.c:484
+msgid "Geometry GR data card error"
+msgstr "Geometrian GR-tietokortin virhe"
+
+#: src/input.c:541
+msgid "No geometry data cards"
+msgstr "Ei geometriatietokortteja"
+
+#: src/input.c:550
+msgid "Probable invalid segment geometry.\n"
+msgstr "Todennäköisesti virheellinen segmenttigeometria.\n"
+
+#: src/input.c:551
+msgid ""
+"Invalid segment geometry.\n"
+"See warnings in the console for detail.\n"
+"Trying to continue..."
+msgstr ""
+"Virheellinen segmenttigeometria.\n"
+"Katso varoitukset konsolista lisätietoja varten.\n"
+"Yritetään jatkaa..."
+
+#: src/input.c:556
+msgid "Read_Geometry: verify_segments() passed\n"
+msgstr "Read_Geometry: verify_segments() läpäisty\n"
+
+#: src/input.c:602
+#, c-format
+msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
+msgstr "segmenttitietojen virhe: tag=%d si=%lf, bi=%lf\n"
+
+#: src/input.c:604
+msgid "Segment data error, zero-length line?  See console."
+msgstr "Segmenttitietojen virhe, nollapituinen viiva? Katso konsoli."
+
+#: src/input.c:639
+msgid "Move GM data card error"
+msgstr "Siirron GM-tietokortin virhe"
+
+#: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
+#: src/input.c:739
+msgid "Patch data card error"
+msgstr "Patch-tietokortin virhe"
+
+#: src/input.c:677
+msgid "Patch data error"
+msgstr "Patch-tietojen virhe"
+
+#: src/input.c:786
+msgid ""
+"\"GF\" card (NGF solution)\n"
+"is not supported"
+msgstr ""
+"\"GF\"-korttia (NGF-ratkaisu)\n"
+"ei tueta"
+
+#: src/input.c:791
+msgid "Ignoring CM card in geometry"
+msgstr "Ohitetaan CM-kortti geometriassa"
+
+#: src/input.c:804
+#, c-format
+msgid "geometry data card error (nwire=%d)\n"
+msgstr "geometriatietokortin virhe (nwire=%d)\n"
+
+#: src/input.c:805
+#, c-format
+msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+
+#: src/input.c:808
+msgid "Geometry data card error"
+msgstr "Geometriatietokortin virhe"
+
+#: src/input.c:833
+msgid "Failed to initialize symbol table\n"
+msgstr "Symbolitaulun alustus epäonnistui\n"
+
+#: src/input.c:834
+msgid "Failed to initialize symbol table"
+msgstr "Symbolitaulun alustus epäonnistui"
+
+#: src/input.c:1002
+msgid "ignoring CM card in commands\n"
+msgstr "ohitetaan CM-kortti komennoissa\n"
+
+#: src/input.c:1003
+msgid "Ignoring CM card in commands"
+msgstr "Ohitetaan CM-kortti komennoissa"
+
+#: src/input.c:1007
+msgid ""
+"CP card is ignored\n"
+"Coupling calculation not implemented"
+msgstr ""
+"CP-kortti ohitetaan\n"
+"Kytkentälaskentaa ei ole toteutettu"
+
+#: src/input.c:1185
+msgid "Max frequency <= Min frequency in FR card\n"
+msgstr "Maksimitaajuus <= minimitaajuus FR-kortissa\n"
+
+#: src/input.c:1186
+msgid ""
+"Max frequency <= Min frequency in FR card\n"
+"Please check FR card data and correct"
+msgstr ""
+"Maksimitaajuus <= minimitaajuus FR-kortissa\n"
+"Tarkista FR-kortin tiedot ja korjaa"
+
+#: src/input.c:1209
+msgid ""
+"Fix the GE/GN cards:\n"
+"The GE card specifies that a ground is present, but the GN indicates "
+"otherwise."
+msgstr ""
+"Korjaa GE/GN-kortit:\n"
+"GE-kortti määrittää maatason olevan läsnä, mutta GN osoittaa toisin."
+
+#: src/input.c:1223
+msgid "theta > 90 deg. with ground specified\n"
+msgstr "theta > 90 astetta maatason kanssa\n"
+
+#: src/input.c:1224 src/radiation.c:656
+msgid ""
+"Theta > 90 deg with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 astetta maatason kanssa\n"
+"Tarkista RP-kortin tiedot ja korjaa"
+
+#: src/input.c:1233
+msgid ""
+"radial wire g.s. approximation: may not be used with Sommerfeld ground "
+"option\n"
+msgstr ""
+"säteittäislangan maajärjestelmäapproksimaatio: ei voi käyttää Sommerfeld-"
+"maavaihtoehdon kanssa\n"
+
+#: src/input.c:1234
+msgid ""
+"radial wire g.s. approximation\n"
+"may not be used with Sommerfeld ground option"
+msgstr ""
+"säteittäislangan maajärjestelmäapproksimaatio\n"
+"ei voi käyttää Sommerfeld-maavaihtoehdon kanssa"
+
+#: src/input.c:1285
+#, c-format
+msgid ""
+"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
+"%d\n"
+msgstr ""
+"tietovirhe kuormituskortissa nro %d: itag step1 %d on suurempi kuin itag "
+"step2 %d\n"
+
+#: src/input.c:1287
+msgid ""
+"Data fault on loading card\n"
+"itag step1 is greater than itag step2"
+msgstr ""
+"Tietovirhe kuormituskortissa\n"
+"itag step1 on suurempi kuin itag step2"
+
+#: src/input.c:1420
+msgid ""
+"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "Siirtolinjan impedanssi = 0: ei kelpaa. Korjaa NT- tai TL-kortti\n"
+
+#: src/input.c:1421
+msgid ""
+"Transmission Line impedance = 0\n"
+"is not valid. Please correct NT or TL card"
+msgstr ""
+"Siirtolinjan impedanssi = 0\n"
+"ei kelpaa. Korjaa NT- tai TL-kortti"
+
+#: src/input.c:1430
+msgid "Segment number error in TL or NT card\n"
+msgstr "Segmenttinumerovirhe TL- tai NT-kortissa\n"
+
+#: src/input.c:1431
+msgid ""
+"Segment number\n"
+"error in NT or TL card"
+msgstr ""
+"Segmenttinumero-\n"
+"virhe NT- tai TL-kortissa"
+
+#: src/input.c:1452
+msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
+msgstr "PQ- ja PT-kortit ohitetaan: Tiedostoon tulostusta ei ole toteutettu\n"
+
+#: src/input.c:1453
+msgid ""
+"PQ and PT cards are ignored\n"
+"Printing to file not implemented"
+msgstr ""
+"PQ- ja PT-kortit ohitetaan\n"
+"Tiedostoon tulostusta ei ole toteutettu"
+
+#: src/input.c:1460
+msgid "Surface wave option (I1=1): of RP command not implemented\n"
+msgstr "Pinta-aaltovaihtoehto (I1=1): RP-komennossa ei toteutettu\n"
+
+#: src/input.c:1461
+msgid ""
+"Surface wave option (I1=1)\n"
+"of RP command not implemented"
+msgstr ""
+"Pinta-aaltovaihtoehto (I1=1)\n"
+"RP-komennossa ei toteutettu"
+
+#: src/input.c:1484
+msgid ""
+"Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
+"xnec2c renders radiation patterns graphically instead of text tables.\n"
+"Pattern calculations proceed normally; use GUI to view results."
+msgstr ""
+"Vahvistuksen keskiarvoistus (XNDA ***1 tai ***2) ohjaa tekstitulosteen "
+"muotoilua.\n"
+"xnec2c piirtää säteilykuviot graafisesti tekstitaulukoiden sijaan.\n"
+"Kuvioiden laskenta etenee normaalisti; käytä käyttöliittymää tulosten "
+"tarkasteluun."
+
+#: src/input.c:1502
+msgid ""
+"Theta > 90 deg. with ground specified: Please check RP card data and "
+"correct\n"
+msgstr ""
+"Theta > 90 astetta maatason kanssa: Tarkista RP-kortin tiedot ja korjaa\n"
+
+#: src/input.c:1503
+msgid ""
+"Theta > 90 deg. with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 astetta maatason kanssa\n"
+"Tarkista RP-kortin tiedot ja korjaa"
+
+#: src/input.c:1568
+msgid "Faulty data card"
+msgstr "Virheellinen tietokortti"
+
+#: src/input.c:1578
+msgid ""
+"Missing or surface-wave RP card: Radiation pattern and gain calculations "
+"disabled\n"
+msgstr ""
+"Puuttuva tai pinta-aalto-RP-kortti: Säteilykuvio- ja vahvistuslaskennat "
+"poistettu käytöstä\n"
+
+#: src/input.c:1595
+msgid "Unexpected exit from while loop"
+msgstr "Odottamaton poistuminen while-silmukasta"
+
+#: src/input.c:1653
+msgid ""
+"command data card error: Unexpected EOF while reading input file - appending "
+"EN card\n"
+msgstr ""
+"komentotietokortin virhe: Odottamaton EOF luettaessa syötetiedostoa - "
+"lisätään EN-kortti\n"
+
+#: src/input.c:1654
+msgid ""
+"Command data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default EN card"
+msgstr ""
+"Komentotietokortin virhe\n"
+"Odottamaton EOF luettaessa syötetiedostoa\n"
+"Lisätään oletus-EN-kortti"
+
+#: src/input.c:1668
+msgid "command data card error: card's mnemonic code too short or missing\n"
+msgstr "komentotietokortin virhe: kortin muistikoodi liian lyhyt tai puuttuu\n"
+
+#: src/input.c:1669
+msgid ""
+"Command data card error\n"
+"Mnemonic code too short or missing"
+msgstr ""
+"Komentotietokortin virhe\n"
+"Muistikoodi liian lyhyt tai puuttuu"
+
+#: src/input.c:1829
+msgid ""
+"geometry data card error: Unexpected EOF while reading input file - "
+"appending GE card\n"
+msgstr ""
+"geometriatietokortin virhe: Odottamaton EOF luettaessa syötetiedostoa - "
+"lisätään GE-kortti\n"
+
+#: src/input.c:1830
+msgid ""
+"Geometry data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default GE card"
+msgstr ""
+"Geometriatietokortin virhe\n"
+"Odottamaton EOF luettaessa syötetiedostoa\n"
+"Lisätään oletus-GE-kortti"
+
+#: src/input.c:1844
+msgid "geometry data card error: card's mnemonic code too short or missing\n"
+msgstr ""
+"geometriatietokortin virhe: kortin muistikoodi liian lyhyt tai puuttuu\n"
+
+#: src/input.c:1845
+msgid ""
+"Geometry data card error\n"
+"Card's mnemonic code too short or missing"
+msgstr ""
+"Geometriatietokortin virhe\n"
+"Kortin muistikoodi liian lyhyt tai puuttuu"
+
+#: src/main.c:125
+#, c-format
+msgid "%s requires a positive integer argument\n"
+msgstr "%s vaatii positiivisen kokonaislukuargumentin\n"
+
+#: src/main.c:183
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "Havaittu %d CPU:ta\n"
+
+#: src/main.c:194
+msgid "config file path too long\n"
+msgstr "asetustiedoston polku liian pitkä\n"
+
+#: src/main.c:213
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "asetustiedostoa ei ole tai se ei ole luettavissa: %s\n"
+
+#: src/main.c:222
+#, c-format
+msgid "config file path too long ( > %d char )\n"
+msgstr "asetustiedoston polku liian pitkä ( > %d merkkiä )\n"
+
+#: src/main.c:234
+#, c-format
+msgid "input file name too long ( > %d char )\n"
+msgstr "syötetiedoston nimi liian pitkä ( > %d merkkiä )\n"
+
+#: src/main.c:261
+msgid "Forking disabled!\n"
+msgstr "Haaroitus poistettu käytöstä!\n"
+
+#: src/main.c:269
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread-taajuussilmukka poistettu käytöstä!\n"
+
+#: src/main.c:273
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "erätila käytössä, poistutaan ensimmäisen silmukan jälkeen\n"
+
+#: src/main.c:331
+msgid "verify segments check disabled\n"
+msgstr "segmenttien tarkistus poistettu käytöstä\n"
+
+#: src/main.c:336
+msgid "forcing overlap check on large models\n"
+msgstr "pakotetaan päällekkäisyystarkistus suurille malleille\n"
+
+#: src/main.c:350
+msgid "--batch and --optimize are mutual exclusive.\n"
+msgstr "--batch ja --optimize ovat toisensa poissulkevia.\n"
+
+#: src/main.c:366
+#, c-format
+msgid "input file path name too long ( > %d char )\n"
+msgstr "syötetiedoston polun nimi liian pitkä ( > %d merkkiä )\n"
+
+#: src/main.c:373
+#, c-format
+msgid "unexpected argument '%s' does not appear to be a .nec file\n"
+msgstr "odottamaton argumentti '%s' ei vaikuta olevan .nec-tiedosto\n"
+
+#: src/main.c:380
+#, c-format
+msgid "unexpected argument: %s\n"
+msgstr "odottamaton argumentti: %s\n"
+
+#: src/main.c:386
+msgid "batch mode requires an input file\n"
+msgstr "erätila vaatii syötetiedoston\n"
+
+#: src/main.c:407
+#, c-format
+msgid "Forking %d jobs.\n"
+msgstr "Haarautetaan %d työtä.\n"
+
+#: src/main.c:416 src/main.c:424
+msgid "exiting after fatal error: pipe() failed"
+msgstr "poistutaan vakavan virheen jälkeen: pipe() epäonnistui"
+
+#: src/main.c:433
+msgid "exiting after fatal error: fork() failed"
+msgstr "poistutaan vakavan virheen jälkeen: fork() epäonnistui"
+
+#: src/main.c:778
+msgid "exiting via user interrupt\n"
+msgstr "poistutaan käyttäjän keskeytyksen vuoksi\n"
+
+#: src/main.c:782
+msgid "segmentation fault, exiting\n"
+msgstr "segmentointivirhe, poistutaan\n"
+
+#: src/main.c:786
+msgid "floating point exception, exiting\n"
+msgstr "liukulukupoikkeus, poistutaan\n"
+
+#: src/main.c:790
+msgid "abort signal received, exiting\n"
+msgstr "keskeytyskäsky vastaanotettu, poistutaan\n"
+
+#: src/main.c:794
+msgid "termination request received, exiting\n"
+msgstr "lopetuspyyntö vastaanotettu, poistutaan\n"
+
+#: src/main.c:804
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "ei haaroitettu, ohitetaan SIGCHLD prosessilta pid %d\n"
+
+#: src/main.c:812
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "lapsiprosessi pid %d poistui\n"
+
+#: src/main.c:821
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "oletuspoistuminen signaalilla: %d\n"
+
+#: src/matrix.c:1216
+#, c-format
+msgid "pivot(%d)= %16.8E\n"
+msgstr "pivot(%d)= %16.8E\n"
+
+#: src/matrix.c:1250
+#, c-format
+msgid "LU Decomposition Failed: %d\n"
+msgstr "LU-hajotelma epäonnistui: %d\n"
+
+#: src/matrix.c:1306
+#, c-format
+msgid "symmetry error - nrow:%d ncol:%d\n"
+msgstr "symmetriavirhe - nrow:%d ncol:%d\n"
+
+#: src/matrix.c:1307
+msgid "Symmetry error"
+msgstr "Symmetriavirhe"
+
+#: src/matrix.c:1414
+#, c-format
+msgid "Solving Failed: %d\n"
+msgstr "Ratkaisu epäonnistui: %d\n"
+
+#: src/nec2_model.c:111 src/nec2_model.c:115 src/nec2_model.c:119
+msgid "Card"
+msgstr "Kortti"
+
+#: src/nec2_model.c:111 resources/xnec2c.glade:6183
+msgid "Comments"
+msgstr "Kommentit"
+
+#: src/nec2_model.c:188
+msgid "--- NEC2 Input File created or edited by "
+msgstr "--- NEC2-syötetiedosto luotu tai muokattu: "
+
+#: src/nec2_model.c:205
+msgid "--- End Comments ---"
+msgstr "--- Kommentit päättyvät ---"
+
+#: src/nec2_model.c:344
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"List_Comments():\n"
+"Virhe syötetiedoston lukemisessa\n"
+"Odottamaton EOF (tiedoston loppu)"
+
+#: src/nec2_model.c:351
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"List_Comments():\n"
+"Virhe syötetiedoston lukemisessa\n"
+"Kommenttitunniste puuttuu tai on liian lyhyt"
+
+#: src/nec2_model.c:594
+msgid "End Comments"
+msgstr "Kommentit päättyvät"
+
+#: src/nec2_model.c:648
+msgid ""
+"Cannot save treeview data\n"
+"Please use the Save button\n"
+"to specify a file path"
+msgstr ""
+"Puunäkymätietoja ei voi tallentaa\n"
+"Käytä Tallenna-painiketta\n"
+"määrittääksesi tiedostopolun"
+
+#: src/network.c:648
+#, c-format
+msgid "improper load type chosen, requested type is %d\n"
+msgstr "virheellinen kuormatyyppi valittu, pyydetty tyyppi on %d\n"
+
+#: src/network.c:649
+msgid "Improper load type chose"
+msgstr "Virheellinen kuormatyyppi valittu"
+
+#: src/network.c:737
+#, c-format
+msgid "loading data card error, no segment has an itag = %d\n"
+msgstr "kuormitustietokortin virhe, millään segmentillä ei ole itag = %d\n"
+
+#: src/network.c:738
+msgid ""
+"Loading data card\n"
+"Tag number mismatch error"
+msgstr ""
+"Kuormitustietokortti\n"
+"Tunnistenumerovirhe"
+
+#: src/plot_freqdata.c:132
+#, c-format
+msgid ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+msgstr ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+
+#: src/plot_freqdata.c:148
+#, c-format
+msgid ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+msgstr ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+
+#: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
+msgid "memory allocation for points failed\n"
+msgstr "muistin varaus pisteille epäonnistui\n"
+
+#: src/plot_freqdata.c:832 src/plot_freqdata.c:1299
+msgid "Draw_Graph():Memory allocation for points failed"
+msgstr "Draw_Graph():Muistin varaus pisteille epäonnistui"
+
+#: src/plot_freqdata.c:1260
+msgid "Smith Chart"
+msgstr "Smith-diagrammi"
+
+#: src/plot_freqdata.c:1452 src/plot_freqdata.c:1471 src/plot_freqdata.c:1496
+msgid "Raw Gain dBi"
+msgstr "Raakavahvistus dBi"
+
+#: src/plot_freqdata.c:1455
+msgid "Max Gain & Net Gain vs Frequency"
+msgstr "Maksimivahvistus ja nettovahvistus vs taajuus"
+
+#: src/plot_freqdata.c:1456
+msgid "Net Gain dBi"
+msgstr "Nettovahvistus dBi"
+
+#: src/plot_freqdata.c:1462 src/plot_freqdata.c:1472
+msgid "Max Gain & F/B Ratio vs Frequency"
+msgstr "Maksimivahvistus ja E/T-suhde vs taajuus"
+
+#: src/plot_freqdata.c:1473
+msgid "F/B Ratio dB"
+msgstr "E/T-suhde dB"
+
+#: src/plot_freqdata.c:1482
+msgid "Rad Angle - deg"
+msgstr "Säteilykulma - deg"
+
+#: src/plot_freqdata.c:1483
+msgid "Max Gain Direction vs Frequency"
+msgstr "Maksimivahvistuksen suunta vs taajuus"
+
+#: src/plot_freqdata.c:1484
+msgid "Phi - deg"
+msgstr "Phi - deg"
+
+#: src/plot_freqdata.c:1497
+msgid "Gain in Viewer Direction vs Frequency"
+msgstr "Vahvistus katselusuunnassa vs taajuus"
+
+#: src/plot_freqdata.c:1520
+msgid "Net gain dBi"
+msgstr "Nettovahvistus dBi"
+
+#: src/plot_freqdata.c:1538 resources/xnec2c.glade:9909
+#: resources/xnec2c.glade:10119
+msgid "VSWR"
+msgstr "VSWR"
+
+#: src/plot_freqdata.c:1541
+msgid "VSWR & S11 vs Frequency"
+msgstr "VSWR ja S11 vs taajuus"
+
+#: src/plot_freqdata.c:1542
+msgid "S11 dB"
+msgstr "S11 dB"
+
+#: src/plot_freqdata.c:1546
+msgid "VSWR vs Frequency"
+msgstr "VSWR vs taajuus"
+
+#: src/plot_freqdata.c:1560
+msgid "memory allocation for vswr/s11 failed\n"
+msgstr "muistin varaus vswr/s11:lle epäonnistui\n"
+
+#: src/plot_freqdata.c:1561
+msgid "Plot_Frequency_Data():Memory allocation for vswr/s11 failed"
+msgstr "Plot_Frequency_Data():Muistin varaus vswr/s11:lle epäonnistui"
+
+#: src/plot_freqdata.c:1591 resources/xnec2c.glade:10084
+msgid "Z-real"
+msgstr "Z-real"
+
+#: src/plot_freqdata.c:1592 src/plot_freqdata.c:1605
+msgid "Impedance vs Frequency"
+msgstr "Impedanssi vs taajuus"
+
+#: src/plot_freqdata.c:1593 resources/xnec2c.glade:10049
+msgid "Z-imag"
+msgstr "Z-imag"
+
+#: src/plot_freqdata.c:1604
+msgid "Z-magn"
+msgstr "Z-magn"
+
+#: src/plot_freqdata.c:1606
+msgid "Z-phase"
+msgstr "Z-phase"
+
+#: src/plot_freqdata.c:1855
+#, c-format
+msgid "mouse button: unknown button %d\n"
+msgstr "hiiren painike: tuntematon painike %d\n"
+
+#: src/somnec.c:238
+msgid "Hankel not valid for z = 0"
+msgstr "Hankel ei kelpaa kun z = 0"
+
+#: src/somnec.c:749
+msgid "No convergence"
+msgstr "Ei suppenemista"
+
+#: src/utils.c:103 src/utils.c:108
+#, c-format
+msgid ""
+"\n"
+"=== Notice: %s ===\n"
+"%s\n"
+"\n"
+msgstr ""
+"\n"
+"=== Huomautus: %s ===\n"
+"%s\n"
+"\n"
+
+#: src/utils.c:150
+#, c-format
+msgid "Stop: %s\n"
+msgstr "Pysäytys: %s\n"
+
+#: src/utils.c:157 src/utils.c:161 src/utils.c:171 src/utils.c:173
+#, c-format
+msgid "%s\n"
+msgstr "%s\n"
+
+#: src/utils.c:354
+#, c-format
+msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
+msgstr "käytetään %d OpenMP-säiettä työtä kohden (%d/%d CPU:ta)\n"
+
+#: src/utils.c:370
+#, c-format
+msgid "%s[%d]: %f seconds\n"
+msgstr "%s[%d]: %f sekuntia\n"
+
+#: src/utils.c:422
+#, c-format
+msgid ""
+"mem_obj_t at %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+msgstr ""
+"mem_obj_t osoitteessa %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+
+#: src/utils.c:441
+#, c-format
+msgid "mem_backtrace(%p):\n"
+msgstr "mem_backtrace(%p):\n"
+
+#: src/utils.c:443
+msgid "  m->backtrace is null, no backtrace data\n"
+msgstr "  m->backtrace on null, ei jäljitystietoja\n"
+
+#: src/utils.c:507
+#, c-format
+msgid "Memory re-allocation denied %s\n"
+msgstr "Muistin uudelleenvaraus evätty %s\n"
+
+#: src/utils.c:508
+#, c-format
+msgid "%s: Memory requested %lu\n"
+msgstr "%s: Muistia pyydetty %lu\n"
+
+#: src/utils.c:554
+#, c-format
+msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
+msgstr "xnec2c[%d]: %s: Tiedoston avaus epäonnistui: %s\n"
+
+#: src/utils.c:559
+#, c-format
+msgid "%s: %s\n"
+msgstr "%s: %s\n"
+
+#: src/utils.c:927
+msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
+msgstr "Optimointisilmukka kesken, ohitetaan säteilykuvion uudelleenpiirto.\n"
+
+#: src/utils.c:934
+msgid "Optimizer loop incomplete, skipping structure redraw.\n"
+msgstr "Optimointisilmukka kesken, ohitetaan rakenteen uudelleenpiirto.\n"
+
+#: src/utils.c:949
+msgid "  Backtrace:\n"
+msgstr "  Jäljitys:\n"
+
+#: src/utils.c:951
+#, c-format
+msgid "    %d. %s\n"
+msgstr "    %d. %s\n"
+
+#: src/utils.c:978
+#, c-format
+msgid "%s:\n"
+msgstr "%s:\n"
+
+#: src/xnec2c.c:185
+#, c-format
+msgid ""
+"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
+"%+12.5Ej\n"
+msgstr ""
+"kompleksinen dielektrisyysvakio tiedostosta: %12.5E%+12.5Ej, pyydetty: %12.5E"
+"%+12.5Ej\n"
+
+#: src/xnec2c.c:188
+msgid "Ground_Parameters():Error in ground parameters"
+msgstr "Ground_Parameters():Virhe maaparametreissa"
+
+#: src/xnec2c.c:490
+#, c-format
+msgid "%.6f MHz: %f seconds. (%s)\n"
+msgstr "%.6f MHz: %f sekuntia. (%s)\n"
+
+#: src/xnec2c.c:781
+msgid "Failed to read data from forked child\n"
+msgstr "Tietojen luku haaroitetulta lapsiprosessilta epäonnistui\n"
+
+#: src/xnec2c.c:817
+#, c-format
+msgid ""
+"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr ""
+"Frequency_Loop on valmis kaikkien vaiheiden kanssa mutta num_busy_procs=%d "
+"(calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+
+#: src/xnec2c.c:824
+#, c-format
+msgid "  busy job[%d]: fstep=%d freq=%f\n"
+msgstr "  varattu työ[%d]: fstep=%d freq=%f\n"
+
+#: src/xnec2c.c:886
+#, c-format
+msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
+msgstr "Taajuussilmukan kulunut aika: %f sekuntia. (%s)\n"
+
+#: src/xnec2c.c:1029
+msgid "failed to start Frequency_Loop_Thread\n"
+msgstr "Frequency_Loop_Thread-säikeen käynnistys epäonnistui\n"
+
+#: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1964
+msgid "xnec2c"
+msgstr "xnec2c"
+
+#: files/xnec2c.desktop.in:4
+msgid "NEC2 Simulator"
+msgstr "NEC2-simulaattori"
+
+#: files/xnec2c.desktop.in:5
+msgid "Numerical Electromagnetics Code software"
+msgstr "Numeerinen sähkömagnetiikkakoodiohjelmisto"
+
+#: files/xnec2c.desktop.in:11
+msgid "nec2;em;simulator;"
+msgstr "nec2;em;simulaattori;"
+
+#: resources/xnec2c.glade:14
+msgid "(C) 2007-2022 Neoklis Kyriazis"
+msgstr "(C) 2007-2022 Neoklis Kyriazis"
+
+#: resources/xnec2c.glade:15
+msgid ""
+"xnec2c is an interactive graphical wrapper around a modified version of "
+"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
+"Numerical Electromagnetics Code.\n"
+"\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
+"etc) in a graphical format. It can also display radiation pattern data in a "
+"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
+"format.\n"
+"\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
+"or edit antenna description files and specify NEC2 commands.\n"
+"\n"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
+"fully compatible with NEC2 input files and it works in different ways!"
+msgstr ""
+"xnec2c on interaktiivinen graafinen käyttöliittymä muokatulle nec2c-"
+"versiolle, joka on itsessään käännös alkuperäisestä FORTRAN NEC2 -"
+"sähkömagnetiikkakoodista C-kielelle.\n"
+"\n"
+"xnec2c voi näyttää taajuusriippuvaista dataa (vahvistus, tuloimpedanssi, "
+"VSWR jne.) graafisessa muodossa. Se voi myös näyttää säteilykuviotietoja "
+"pyöritettävässä rautalankamallissa ja lähikenttää (E, H, S-vektorit) "
+"ruudukkomuodossa.\n"
+"\n"
+"xnec2c:ssä on sisäänrakennettu NEC2-syötetiedostoeditori, joka helpottaa "
+"antennimäärittelytiedostojen luomista tai muokkausta sekä NEC2-komentojen "
+"määrittelyä.\n"
+"\n"
+"LUE dokumentaatio doc/-alihakemistosta, sillä xnec2c ei ole täysin "
+"yhteensopiva NEC2-syötetiedostojen kanssa ja se toimii eri tavoin!"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: resources/xnec2c.glade:27
+msgid "translator-credits"
+msgstr "Suomennos: xnec2c-käännöstiimi"
+
+#: resources/xnec2c.glade:159
+msgid "Steps/Cycle"
+msgstr "Askelta/jakso"
+
+#: resources/xnec2c.glade:172
+msgid "Animate Freq (Hz)"
+msgstr "Animaatiotaajuus (Hz)"
+
+#: resources/xnec2c.glade:286
+msgid "Arc Element (GA card)"
+msgstr "Kaarielementti (GA-kortti)"
+
+#: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
+msgid "No. Segments"
+msgstr "Segmenttien lkm"
+
+#: resources/xnec2c.glade:340 resources/xnec2c.glade:3802
+#: resources/xnec2c.glade:14417
+msgid "Segs % lambda"
+msgstr "Segm. % lambda"
+
+#: resources/xnec2c.glade:353 resources/xnec2c.glade:3815
+#: resources/xnec2c.glade:14513
+msgid "Wire Diameter"
+msgstr "Langan halkaisija"
+
+#: resources/xnec2c.glade:441
+msgid "Radius from Y"
+msgstr "Säde Y:stä"
+
+#: resources/xnec2c.glade:454
+msgid "End 1 Angle"
+msgstr "Pään 1 kulma"
+
+#: resources/xnec2c.glade:467
+msgid "End 2 Angle"
+msgstr "Pään 2 kulma"
+
+#: resources/xnec2c.glade:578
+msgid "Wire Arc Data"
+msgstr "Johdinkaaren tiedot"
+
+#: resources/xnec2c.glade:640 resources/xnec2c.glade:876
+#: resources/xnec2c.glade:1676 resources/xnec2c.glade:1899
+#: resources/xnec2c.glade:2357 resources/xnec2c.glade:2549
+#: resources/xnec2c.glade:2860 resources/xnec2c.glade:3546
+#: resources/xnec2c.glade:4346 resources/xnec2c.glade:4545
+#: resources/xnec2c.glade:4706 resources/xnec2c.glade:5238
+#: resources/xnec2c.glade:5874 resources/xnec2c.glade:7290
+#: resources/xnec2c.glade:8197 resources/xnec2c.glade:9203
+#: resources/xnec2c.glade:9476 resources/xnec2c.glade:12919
+#: resources/xnec2c.glade:13432 resources/xnec2c.glade:14031
+#: resources/xnec2c.glade:14867 resources/xnec2c.glade:15067
+msgid "Delete Card"
+msgstr "Poista kortti"
+
+#: resources/xnec2c.glade:718
+msgid "Cylindrical Structure (GR card)"
+msgstr "Sylinterirakenne (GR-kortti)"
+
+#: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
+msgid "Tag Number Increment"
+msgstr "Tunnistenumeron lisäys"
+
+#: resources/xnec2c.glade:761
+msgid "Number of Structures"
+msgstr "Rakenteiden lukumäärä"
+
+#: resources/xnec2c.glade:815
+msgid "Cylindrical Structure"
+msgstr "Lieriörakenne"
+
+#: resources/xnec2c.glade:941
+msgid "Xnec2c Error"
+msgstr "Xnec2c-virhe"
+
+#: resources/xnec2c.glade:1049
+msgid "Error"
+msgstr "Virhe"
+
+#: resources/xnec2c.glade:1128
+msgid "Excitation Command (EX Card)"
+msgstr "Herätekäsky (EX-kortti)"
+
+#: resources/xnec2c.glade:1154
+msgid "Incident LH Wave"
+msgstr "Saapuva vasenkätinen aalto"
+
+#: resources/xnec2c.glade:1170
+msgid "Incident Linear Wave "
+msgstr "Saapuva lineaarinen aalto "
+
+#: resources/xnec2c.glade:1186
+msgid "Current Source"
+msgstr "Virtalähde"
+
+#: resources/xnec2c.glade:1202
+msgid "Incident RH Wave"
+msgstr "Saapuva oikeakätinen aalto"
+
+#: resources/xnec2c.glade:1218
+msgid "Current Slope Discontinuity"
+msgstr "Virran kaltevuuden epäjatkuvuus"
+
+#: resources/xnec2c.glade:1234
+msgid "Voltage Source"
+msgstr "Jännitelähde"
+
+#: resources/xnec2c.glade:1256
+msgid "Excitation Type"
+msgstr "Herätteen tyyppi"
+
+#: resources/xnec2c.glade:1281
+msgid "Maximum Admittance Matrix Asymmetry"
+msgstr "Admittanssimatriisin suurin epäsymmetria"
+
+#: resources/xnec2c.glade:1297
+msgid "Impedance of Source Segment"
+msgstr "Lähdesegmentin impedanssi"
+
+#: resources/xnec2c.glade:1319
+msgid "Print Control"
+msgstr "Tulostuksen hallinta"
+
+#: resources/xnec2c.glade:1411
+msgid "Voltage - Real Part"
+msgstr "Jännite - Reaaliosa"
+
+#: resources/xnec2c.glade:1424
+msgid "Voltage - Imaginary Part"
+msgstr "Jännite - Imaginaariosa"
+
+#: resources/xnec2c.glade:1437
+msgid "Eta"
+msgstr "Eta"
+
+#: resources/xnec2c.glade:1507
+msgid "Theta"
+msgstr "Theta"
+
+#: resources/xnec2c.glade:1520
+msgid "Phi"
+msgstr "Phi"
+
+#: resources/xnec2c.glade:1533
+msgid "Ratio"
+msgstr "Suhde"
+
+#: resources/xnec2c.glade:1614
+msgid "Excitation Parameters"
+msgstr "Heräteparametrit"
+
+#: resources/xnec2c.glade:1741
+msgid "Execute Command (XQ Card)"
+msgstr "Suorituskäsky (XQ-kortti)"
+
+#: resources/xnec2c.glade:1768
+msgid "No Pattern Cuts"
+msgstr "Ei kuvioleikkauksia"
+
+#: resources/xnec2c.glade:1784
+msgid "Pattern in XZ Plane"
+msgstr "Kuvio XZ-tasossa"
+
+#: resources/xnec2c.glade:1800
+msgid "Pattern in YZ Plane"
+msgstr "Kuvio YZ-tasossa"
+
+#: resources/xnec2c.glade:1816
+msgid "Both XZ/YZ Patterns"
+msgstr "Molemmat XZ/YZ-kuviot"
+
+#: resources/xnec2c.glade:1838
+msgid "Execute Command"
+msgstr "Suorituskäsky"
+
+#: resources/xnec2c.glade:2069
+msgid "Frequency Command (FR Card)"
+msgstr "Taajuuskäsky (FR-kortti)"
+
+#: resources/xnec2c.glade:2094
+msgid "Additive Stepping"
+msgstr "Additiivinen askelnus"
+
+#: resources/xnec2c.glade:2111
+msgid "Multiplicative Stepping"
+msgstr "Multiplikatiivinen askelnus"
+
+#: resources/xnec2c.glade:2134
+msgid "Frequency Stepping"
+msgstr "Taajuusaskelnus"
+
+#: resources/xnec2c.glade:2164
+msgid "No. Frequency Points"
+msgstr "Taajuuspisteiden lkm."
+
+#: resources/xnec2c.glade:2195
+msgid "Start Frequency (MHz)"
+msgstr "Alkutaajuus (MHz)"
+
+#: resources/xnec2c.glade:2227
+msgid "Frequency Step (MHz)"
+msgstr "Taajuusaskel (MHz)"
+
+#: resources/xnec2c.glade:2260
+msgid "End Frequency (MHz)"
+msgstr "Lopputaajuus (MHz)"
+
+#: resources/xnec2c.glade:2296
+msgid "Frequency Stepping Parameters"
+msgstr "Taajuusaskelluksen parametrit"
+
+#: resources/xnec2c.glade:2422
+msgid "Geometry End (GE Card)"
+msgstr "Geometrian loppu (GE-kortti)"
+
+#: resources/xnec2c.glade:2447
+msgid "No Ground, Free Space condition"
+msgstr "Ei maatasoa, vapaan tilan ehto"
+
+#: resources/xnec2c.glade:2464
+msgid "Ground present, Structure reflection"
+msgstr "Maataso, rakenteen heijastus"
+
+#: resources/xnec2c.glade:2481
+msgid "Ground present, no Structure reflection"
+msgstr "Maataso, ei rakenteen heijastusta"
+
+#: resources/xnec2c.glade:2504
+msgid "Ground Plane type"
+msgstr "Maatason tyyppi"
+
+#: resources/xnec2c.glade:2638
+msgid "Ground Parameters (GD Card)"
+msgstr "Maaparametrit (GD-kortti)"
+
+#: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
+#: resources/xnec2c.glade:3222
+msgid "Relative Dielectric Const."
+msgstr "Suhteellinen permittiivisyys"
+
+#: resources/xnec2c.glade:2699 resources/xnec2c.glade:3255
+msgid "Distance to 2nd Medium"
+msgstr "Etäisyys 2. väliaineeseen"
+
+#: resources/xnec2c.glade:2731 resources/xnec2c.glade:3168
+#: resources/xnec2c.glade:3287
+msgid "Ground Conductivity S/m"
+msgstr "Maan johtavuus S/m"
+
+#: resources/xnec2c.glade:2763 resources/xnec2c.glade:3319
+msgid "Dist. below 1st Medium"
+msgstr "Etäisyys 1. väliaineen alapuolella"
+
+#: resources/xnec2c.glade:2799 resources/xnec2c.glade:3355
+msgid "2nd Medium Parameters"
+msgstr "2. väliaineen parametrit"
+
+#: resources/xnec2c.glade:2980
+msgid "Ground Parameters (GN & GD Cards)"
+msgstr "Maaparametrit (GN- ja GD-kortit)"
+
+#: resources/xnec2c.glade:3007
+msgid "Perfect Ground"
+msgstr "Ideaalinen maataso"
+
+#: resources/xnec2c.glade:3023
+msgid "Sommerfeld/Norton"
+msgstr "Sommerfeld/Norton"
+
+#: resources/xnec2c.glade:3039
+msgid "Radial Ground Screen"
+msgstr "Säteittäinen maaverkko"
+
+#: resources/xnec2c.glade:3054
+msgid "Reflection Coeff. Approx"
+msgstr "Heijastuskertoimen approksimaatio"
+
+#: resources/xnec2c.glade:3070
+msgid "Nullify Previous Params"
+msgstr "Nollaa aiemmat parametrit"
+
+#: resources/xnec2c.glade:3086
+msgid "Second Medium (Cliff)"
+msgstr "Toinen väliaine (jyrkänne)"
+
+#: resources/xnec2c.glade:3107
+msgid "Ground Type"
+msgstr "Maatason tyyppi"
+
+#: resources/xnec2c.glade:3235
+msgid "0.00000"
+msgstr "0.00000"
+
+#: resources/xnec2c.glade:3386
+msgid "Number of Radials"
+msgstr "Radiaalien lukumäärä"
+
+#: resources/xnec2c.glade:3399
+msgid "Radial Screen Radius"
+msgstr "Säteittäisverkon säde"
+
+#: resources/xnec2c.glade:3449
+msgid "Radial Wire Diameter"
+msgstr "Radiaalijohdon halkaisija"
+
+#: resources/xnec2c.glade:3485
+msgid "Radial Screen Parameters"
+msgstr "Säteittäisverkon parametrit"
+
+#: resources/xnec2c.glade:3685
+msgid "Helical Element (GA card)"
+msgstr "Kierukkaelementti (GA-kortti)"
+
+#: resources/xnec2c.glade:3710
+msgid "Right Hand Helix"
+msgstr "Oikeakätinen kierukka"
+
+#: resources/xnec2c.glade:3726
+msgid "Left Hand Helix"
+msgstr "Vasenkätinen kierukka"
+
+#: resources/xnec2c.glade:3742
+msgid "Right Hand Spiral"
+msgstr "Oikeakätinen spiraali"
+
+#: resources/xnec2c.glade:3758
+msgid "Left Hand Spiral"
+msgstr "Vasenkätinen spiraali"
+
+#: resources/xnec2c.glade:3789
+msgid "Segments/Turn"
+msgstr "Segmenttiä/kierros"
+
+#: resources/xnec2c.glade:3828
+msgid "0.0100"
+msgstr "0.0100"
+
+#: resources/xnec2c.glade:3849
+msgid "5.00"
+msgstr "5.00"
+
+#: resources/xnec2c.glade:3870
+msgid "8"
+msgstr "8"
+
+#: resources/xnec2c.glade:3890 resources/xnec2c.glade:11417
+#: resources/xnec2c.glade:12489
+msgid "1"
+msgstr "1"
+
+#: resources/xnec2c.glade:3910
+msgid "Number of Turns"
+msgstr "Kierrosten lukumäärä"
+
+#: resources/xnec2c.glade:3923
+msgid "8.0000"
+msgstr "8.0000"
+
+#: resources/xnec2c.glade:3944
+msgid "Helix Length (HL)"
+msgstr "Kierukan pituus (HL)"
+
+#: resources/xnec2c.glade:3957
+msgid "5.0000"
+msgstr "5.0000"
+
+#: resources/xnec2c.glade:3978
+msgid "Turns Spacing"
+msgstr "Kierrosväli"
+
+#: resources/xnec2c.glade:3991 resources/xnec2c.glade:4103
+#: resources/xnec2c.glade:4156 resources/xnec2c.glade:4209
+#: resources/xnec2c.glade:4257
+msgid "1.0000"
+msgstr "1.0000"
+
+#: resources/xnec2c.glade:4025
+msgid "0.0000"
+msgstr "0.0000"
+
+#: resources/xnec2c.glade:4045
+msgid "Radius in X (A1)"
+msgstr "Säde X-suunnassa (A1)"
+
+#: resources/xnec2c.glade:4058
+msgid "Radius in Y (B1)"
+msgstr "Säde Y-suunnassa (B1)"
+
+#: resources/xnec2c.glade:4071
+msgid "Radius in X (A2)"
+msgstr "Säde X-suunnassa (A2)"
+
+#: resources/xnec2c.glade:4084
+msgid "Radius in Y (B2)"
+msgstr "Säde Y-suunnassa (B2)"
+
+#: resources/xnec2c.glade:4282
+msgid "GH Card"
+msgstr "GH-kortti"
+
+#: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
+msgid "Interaction Approx Range (KH Card)"
+msgstr "Vuorovaikutuksen approksimaatioalue (KH-kortti)"
+
+#: resources/xnec2c.glade:4446
+msgid "Approximation Range (W/lengths)"
+msgstr "Approksimaatioalue (aallonpituudet)"
+
+#: resources/xnec2c.glade:4484
+msgid "Interaction Approximation Range"
+msgstr "Vuorovaikutuksen approksimaatioalue"
+
+#: resources/xnec2c.glade:4610
+msgid "Thin Wire Kernel (EK Card)"
+msgstr "Ohuen johdon ydin (EK-kortti)"
+
+#: resources/xnec2c.glade:4628
+msgid "Extended Thin Wire Kernel"
+msgstr "Laajennettu ohuen johdon ydin"
+
+#: resources/xnec2c.glade:4645
+msgid "Thin Wire Kernel"
+msgstr "Ohuen johdon ydin"
+
+#: resources/xnec2c.glade:4808
+msgid "Loading Command (LD Card)"
+msgstr "Kuormituskäsky (LD-kortti)"
+
+#: resources/xnec2c.glade:4834
+msgid "Short all Loads (Nulls previous Loading Cards)"
+msgstr "Oikosulje kaikki kuormat (nollaa aiemmat kuormituskortit)"
+
+#: resources/xnec2c.glade:4851
+msgid "Series, Lumped"
+msgstr "Sarja, keskitetty"
+
+#: resources/xnec2c.glade:4867
+msgid "Parallel, Distributed"
+msgstr "Rinnan, hajautettu"
+
+#: resources/xnec2c.glade:4883
+msgid "Parallel, Lumped"
+msgstr "Rinnan, keskitetty"
+
+#: resources/xnec2c.glade:4899
+msgid "Resistance & Reactance"
+msgstr "Resistanssi ja reaktanssi"
+
+#: resources/xnec2c.glade:4915
+msgid "Series, Distributed"
+msgstr "Sarja, hajautettu"
+
+#: resources/xnec2c.glade:4931
+msgid "Wire Conductivity"
+msgstr "Johdinmateriaalin johtavuus"
+
+#: resources/xnec2c.glade:4953
+msgid "Loading Type"
+msgstr "Kuormitustyyppi"
+
+#: resources/xnec2c.glade:4983
+msgid "Load Tag Number"
+msgstr "Kuorman tunnistenumero"
+
+#: resources/xnec2c.glade:5014
+msgid "Resistance"
+msgstr "Resistanssi"
+
+#: resources/xnec2c.glade:5046
+msgid "From Segment #"
+msgstr "Segmentistä #"
+
+#: resources/xnec2c.glade:5077
+msgid "Inductance"
+msgstr "Induktanssi"
+
+#: resources/xnec2c.glade:5109
+msgid "To Segment #"
+msgstr "Segmenttiin #"
+
+#: resources/xnec2c.glade:5140
+msgid "Capacitance"
+msgstr "Kapasitanssi"
+
+#: resources/xnec2c.glade:5176
+msgid "Loading Parameters"
+msgstr "Kuormitusparametrit"
+
+#: resources/xnec2c.glade:5391
+msgid "Near Fields Command (NE/NH Cards)"
+msgstr "Lähikenttäkomento (NE/NH-kortit)"
+
+#: resources/xnec2c.glade:5418
+msgid "Near Electric Field"
+msgstr "Lähisähkökenttä"
+
+#: resources/xnec2c.glade:5434
+msgid "Rectangular Co-ordinates"
+msgstr "Suorakulmaiset koordinaatit"
+
+#: resources/xnec2c.glade:5450
+msgid "Near Magnetic Field"
+msgstr "Lähimagnettikenttä"
+
+#: resources/xnec2c.glade:5465
+msgid "Spherical Co-ordinates"
+msgstr "Pallokoordinaatit"
+
+#: resources/xnec2c.glade:5493
+msgid "Field Type & Co-ordinates"
+msgstr "Kentän tyyppi ja koordinaatit"
+
+#: resources/xnec2c.glade:5523
+msgid "NX"
+msgstr "NX"
+
+#: resources/xnec2c.glade:5554 resources/xnec2c.glade:10989
+#: resources/xnec2c.glade:12083
+msgid "X"
+msgstr "X"
+
+#: resources/xnec2c.glade:5586
+msgid "DX"
+msgstr "DX"
+
+#: resources/xnec2c.glade:5618
+msgid "NY"
+msgstr "NY"
+
+#: resources/xnec2c.glade:5649 resources/xnec2c.glade:11004
+#: resources/xnec2c.glade:12098
+msgid "Y"
+msgstr "Y"
+
+#: resources/xnec2c.glade:5681
+msgid "DY"
+msgstr "DY"
+
+#: resources/xnec2c.glade:5713
+msgid "NZ"
+msgstr "NZ"
+
+#: resources/xnec2c.glade:5744 resources/xnec2c.glade:11019
+#: resources/xnec2c.glade:12113
+msgid "Z"
+msgstr "Z"
+
+#: resources/xnec2c.glade:5776
+msgid "DZ"
+msgstr "DZ"
+
+#: resources/xnec2c.glade:5812
+msgid "Field Pattern Parameters"
+msgstr "Kenttäkuvion parametrit"
+
+#: resources/xnec2c.glade:5939
+msgid "Xnec2c: NEC2 Input File Editor"
+msgstr "Xnec2c: NEC2-syötetiedoston muokkain"
+
+#: resources/xnec2c.glade:6026
+msgid "Manage Cards"
+msgstr "Hallitse kortteja"
+
+#: resources/xnec2c.glade:6123
+msgid "File Save"
+msgstr "Tallenna tiedosto"
+
+#: resources/xnec2c.glade:6210
+msgid "Wire"
+msgstr "Lanka"
+
+#: resources/xnec2c.glade:6224
+msgid "Arc"
+msgstr "Kaari"
+
+#: resources/xnec2c.glade:6238
+msgid "Helix"
+msgstr "Kierre"
+
+#: resources/xnec2c.glade:6252
+msgid "Patch"
+msgstr "Patch"
+
+#: resources/xnec2c.glade:6266
+msgid "Cylinder"
+msgstr "Sylinteri"
+
+#: resources/xnec2c.glade:6280
+msgid "Move"
+msgstr "Siirrä"
+
+#: resources/xnec2c.glade:6294
+msgid "Reflect"
+msgstr "Peilaa"
+
+#: resources/xnec2c.glade:6308
+msgid "Scale"
+msgstr "Skaalaa"
+
+#: resources/xnec2c.glade:6328
+msgid "Edit Geometry Data"
+msgstr "Muokkaa geometriatietoja"
+
+#: resources/xnec2c.glade:6382
+msgid "Geometry"
+msgstr "Geometria"
+
+#: resources/xnec2c.glade:6409
+msgid "Excitation"
+msgstr "Herätys"
+
+#: resources/xnec2c.glade:6423
+msgid "Radiation"
+msgstr "Säteily"
+
+#: resources/xnec2c.glade:6437
+msgid "Frequency"
+msgstr "Taajuus"
+
+#: resources/xnec2c.glade:6451
+msgid "Near Fields"
+msgstr "Lähikentät"
+
+#: resources/xnec2c.glade:6465
+msgid "Ground (GN)"
+msgstr "Maa (GN)"
+
+#: resources/xnec2c.glade:6479
+msgid "Ground (GD)"
+msgstr "Maa (GD)"
+
+#: resources/xnec2c.glade:6493
+msgid "Loading"
+msgstr "Kuormitus"
+
+#: resources/xnec2c.glade:6507
+msgid "Kernel"
+msgstr "Ydin"
+
+#: resources/xnec2c.glade:6521
+msgid "Network"
+msgstr "Verkko"
+
+#: resources/xnec2c.glade:6535
+msgid "Interaction"
+msgstr "Vuorovaikutus"
+
+#: resources/xnec2c.glade:6549
+msgid "Transm. Line"
+msgstr "Siirtolinja"
+
+#: resources/xnec2c.glade:6564
+msgid "Execute"
+msgstr "Suorita"
+
+#: resources/xnec2c.glade:6578
+msgid "Zo"
+msgstr "Zo"
+
+#: resources/xnec2c.glade:6598
+msgid "Edit Control Commands"
+msgstr "Muokkaa ohjauskomentoja"
+
+#: resources/xnec2c.glade:6652
+msgid "Commands"
+msgstr "Komennot"
+
+#: resources/xnec2c.glade:6671
+msgid "Unsaved Data"
+msgstr "Tallentamaton data"
+
+#: resources/xnec2c.glade:6747
+msgid ""
+"Unsaved data in NEC2 Editor.\n"
+"Save NEC2 Editor data first?\n"
+msgstr ""
+"Tallentamatonta dataa NEC2-editorissa.\n"
+"Tallennetaanko NEC2-editorin data ensin?\n"
+
+#: resources/xnec2c.glade:6846
+msgid "Network Command (NT Card)"
+msgstr "Verkkokomento (NT-kortti)"
+
+#: resources/xnec2c.glade:6875
+msgid "Tag Number, Port 1  "
+msgstr "Tag-numero, portti 1  "
+
+#: resources/xnec2c.glade:6906
+msgid "Tag Number, Port 2  "
+msgstr "Tag-numero, portti 2  "
+
+#: resources/xnec2c.glade:6937
+msgid "Segment Num, Port 1"
+msgstr "Segmentin nro, portti 1"
+
+#: resources/xnec2c.glade:6968
+msgid "Segment Num, Port 2"
+msgstr "Segmentin nro, portti 2"
+
+#: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
+msgid "Segment Identity"
+msgstr "Segmentin tunniste"
+
+#: resources/xnec2c.glade:7033
+msgid "Element 1,1 Real Part"
+msgstr "Elementti 1,1 reaaliosa"
+
+#: resources/xnec2c.glade:7065
+msgid "Element 1,2 Real Part"
+msgstr "Elementti 1,2 reaaliosa"
+
+#: resources/xnec2c.glade:7097
+msgid "Element 2,2 Real Part"
+msgstr "Elementti 2,2 reaaliosa"
+
+#: resources/xnec2c.glade:7129
+msgid "Element 1,1 Imag Part"
+msgstr "Elementti 1,1 imaginaariosa"
+
+#: resources/xnec2c.glade:7161
+msgid "Element 1,2 Imag Part"
+msgstr "Elementti 1,2 imaginaariosa"
+
+#: resources/xnec2c.glade:7193
+msgid "Element 2,2 Imag Part"
+msgstr "Elementti 2,2 imaginaariosa"
+
+#: resources/xnec2c.glade:7229
+msgid "Admittance Matrix Elements"
+msgstr "Admittanssimatriisin elementit"
+
+#: resources/xnec2c.glade:7444
+msgid "Patch Element (SP & SC Cards)"
+msgstr "Patch-elementti (SP- ja SC-kortit)"
+
+#: resources/xnec2c.glade:7468
+msgid "Arbitrary"
+msgstr "Vapaamuotoinen"
+
+#: resources/xnec2c.glade:7485
+msgid "Rectangle"
+msgstr "Suorakaide"
+
+#: resources/xnec2c.glade:7502
+msgid "Triangle"
+msgstr "Kolmio"
+
+#: resources/xnec2c.glade:7519
+msgid "Quadrilateral"
+msgstr "Nelikulmio"
+
+#: resources/xnec2c.glade:7536
+msgid "Surface"
+msgstr "Pinta"
+
+#: resources/xnec2c.glade:7559
+msgid "Patch Type"
+msgstr "Patch-tyyppi"
+
+#: resources/xnec2c.glade:7589
+msgid "Corners 1-2 sub-division (NX)"
+msgstr "Kulmien 1-2 jako (NX)"
+
+#: resources/xnec2c.glade:7620
+msgid "Corners 2-3 sub-division (NY)"
+msgstr "Kulmien 2-3 jako (NY)"
+
+#: resources/xnec2c.glade:7655
+msgid "Surface Sub-division"
+msgstr "Pinnan jako"
+
+#: resources/xnec2c.glade:7881
+msgid "SP/SM Cards"
+msgstr "SP/SM-kortit"
+
+#: resources/xnec2c.glade:7917
+msgid "Corner 3 - X"
+msgstr "Kulma 3 - X"
+
+#: resources/xnec2c.glade:7949
+msgid "Corner 3 - Y"
+msgstr "Kulma 3 - Y"
+
+#: resources/xnec2c.glade:7981
+msgid "Corner 3 - Z"
+msgstr "Kulma 3 - Z"
+
+#: resources/xnec2c.glade:8029
+msgid "Corner 4 - X"
+msgstr "Kulma 4 - X"
+
+#: resources/xnec2c.glade:8061
+msgid "Corner 4 - Y"
+msgstr "Kulma 4 - Y"
+
+#: resources/xnec2c.glade:8093
+msgid "Corner 4 - Z"
+msgstr "Kulma 4 - Z"
+
+#: resources/xnec2c.glade:8136
+msgid "SC Card"
+msgstr "SC-kortti"
+
+#: resources/xnec2c.glade:8352
+msgid "Quit xnec2c?"
+msgstr "Lopetetaanko xnec2c?"
+
+#: resources/xnec2c.glade:8431
+msgid "Radiation Pattern (RP Card)"
+msgstr "Säteilykuvio (RP-kortti)"
+
+#: resources/xnec2c.glade:8458
+msgid "Normal (Space) Wave"
+msgstr "Normaali (avaruus)aalto"
+
+#: resources/xnec2c.glade:8474
+msgid "Space + Ground Wave"
+msgstr "Avaruus- ja maa-aalto"
+
+#: resources/xnec2c.glade:8490
+msgid "Linear Cliff"
+msgstr "Lineaarinen jyrkänne"
+
+#: resources/xnec2c.glade:8506
+msgid "Radial wire screen"
+msgstr "Säteittäinen lankaverkko"
+
+#: resources/xnec2c.glade:8522
+msgid "Circular Cliff + Radials"
+msgstr "Ympyrämäinen jyrkänne + säteet"
+
+#: resources/xnec2c.glade:8538
+msgid "Circular Cliff"
+msgstr "Ympyrämäinen jyrkänne"
+
+#: resources/xnec2c.glade:8554
+msgid "Linear Cliff + Radials"
+msgstr "Lineaarinen jyrkänne + säteet"
+
+#: resources/xnec2c.glade:8572
+msgid "<b>See GN/GD Card Documentation</b>"
+msgstr "<b>Katso GN/GD-kortin dokumentaatio</b>"
+
+#: resources/xnec2c.glade:8590
+msgid "Wave Type and Ground (I1)"
+msgstr "Aaltotyyppi ja maa (I1)"
+
+#: resources/xnec2c.glade:8618
+msgid "Major & Minor Axis & Total Gain"
+msgstr "Pää- ja sivuakseli ja kokonaisvahvistus"
+
+#: resources/xnec2c.glade:8634
+msgid "Vertical, Horizontal & Total Gain"
+msgstr "Pysty-, vaaka- ja kokonaisvahvistus"
+
+#: resources/xnec2c.glade:8650
+msgid "Major Axis Gain Normalized"
+msgstr "Pääakselin vahvistus normalisoitu"
+
+#: resources/xnec2c.glade:8666
+msgid "Vertical Axis Gain Normalized"
+msgstr "Pystyakselin vahvistus normalisoitu"
+
+#: resources/xnec2c.glade:8682
+msgid "Total Gain Normalized"
+msgstr "Kokonaisvahvistus normalisoitu"
+
+#: resources/xnec2c.glade:8698
+msgid "Print/Normalize Directive Gain"
+msgstr "Tulosta/normalisoi suuntavahvistus"
+
+#: resources/xnec2c.glade:8714
+msgid "No Normalized Gain"
+msgstr "Ei normalisoitua vahvistusta"
+
+#: resources/xnec2c.glade:8730
+msgid "Minor Axis Gain Normalized"
+msgstr "Pienakselin vahvistus normalisoitu"
+
+#: resources/xnec2c.glade:8746
+msgid "Horizontal Axis Gain Normalized"
+msgstr "Vaakaakselin vahvistus normalisoitu"
+
+#: resources/xnec2c.glade:8762
+msgid "Print/Normalize Power Gain"
+msgstr "Tulosta/Normalisoi tehovahvistus"
+
+#: resources/xnec2c.glade:8778
+msgid "No Gain Averaging"
+msgstr "Ei vahvistuksen keskiarvoa"
+
+#: resources/xnec2c.glade:8794
+msgid "Points in Average Not Printed"
+msgstr "Keskiarvon pisteitä ei tulosteta"
+
+#: resources/xnec2c.glade:8810
+msgid "Average Gain Computed"
+msgstr "Keskimääräinen vahvistus laskettu"
+
+#: resources/xnec2c.glade:8828
+msgid "<b>See RP Card Documentation</b>"
+msgstr "<b>Katso RP-kortin dokumentaatio</b>"
+
+#: resources/xnec2c.glade:8846
+msgid "Data Output Control (XNDA)"
+msgstr "Tiedon tulostuksen hallinta (XNDA)"
+
+#: resources/xnec2c.glade:8876
+msgid "Points in Theta"
+msgstr "Pisteitä Theta-kulmassa"
+
+#: resources/xnec2c.glade:8985
+msgid "Initial Phi (deg)"
+msgstr "Alkukulma Phi (deg)"
+
+#: resources/xnec2c.glade:9067
+msgid "Field Point Distance"
+msgstr "Kenttäpisteen etäisyys"
+
+#: resources/xnec2c.glade:9099
+msgid "Gain Normalization"
+msgstr "Vahvistuksen normalisointi"
+
+#: resources/xnec2c.glade:9141
+msgid "Radiation Pattern Parameters"
+msgstr "Säteilykuvion parametrit"
+
+#: resources/xnec2c.glade:9301
+msgid "Reflect Structure (GX card)"
+msgstr "Peilaa rakenne (GX-kortti)"
+
+#: resources/xnec2c.glade:9329
+msgid "Reflect in YZ plane"
+msgstr "Peilaa YZ-tasossa"
+
+#: resources/xnec2c.glade:9344
+msgid "Reflect in XY plane"
+msgstr "Peilaa XY-tasossa"
+
+#: resources/xnec2c.glade:9359
+msgid "Reflect in XZ plane"
+msgstr "Peilaa XZ-tasossa"
+
+#: resources/xnec2c.glade:9415
+msgid "Reflect Options"
+msgstr "Peilausasetukset"
+
+#: resources/xnec2c.glade:9546
+msgid "Xnec2c: Frequency Data Plots"
+msgstr "Xnec2c: Taajuustietokuvaajat"
+
+#: resources/xnec2c.glade:9571 resources/xnec2c.glade:10386
+#: resources/xnec2c.glade:11663
+msgid "_File"
+msgstr "_Tiedosto"
+
+#: resources/xnec2c.glade:9633 resources/xnec2c.glade:10448
+#: resources/xnec2c.glade:11725
+msgid "Save as _gnuplot"
+msgstr "Tallenna _gnuplot-muodossa"
+
+#: resources/xnec2c.glade:9644 resources/xnec2c.glade:11735
+msgid "Save as _CSV"
+msgstr "Tallenna _CSV-muodossa"
+
+#: resources/xnec2c.glade:9656
+msgid "Save as _Touchstone (.SnP)"
+msgstr "Tallenna _Touchstone-muodossa (.SnP)"
+
+#: resources/xnec2c.glade:9663
+msgid "Save as S_1P: Reflection Only"
+msgstr "Tallenna S_1P: Vain heijastus"
+
+#: resources/xnec2c.glade:9673
+msgid "Save as S2P: _Max Gain (S21)"
+msgstr "Tallenna S2P: _Maksimivahvistus (S21)"
+
+#: resources/xnec2c.glade:9683
+msgid "Save as S2P: _Viewer Gain (S21)"
+msgstr "Tallenna S2P: _Katselijan vahvistus (S21)"
+
+#: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
+#: resources/xnec2c.glade:11769
+msgid "_View"
+msgstr "_Näytä"
+
+#: resources/xnec2c.glade:9729 resources/xnec2c.glade:10826
+#: resources/xnec2c.glade:11779
+msgid "_Polarization"
+msgstr "_Polarisaatio"
+
+#: resources/xnec2c.glade:9745 resources/xnec2c.glade:10842
+#: resources/xnec2c.glade:11795
+msgid "_Total"
+msgstr "_Kokonais"
+
+#: resources/xnec2c.glade:9756 resources/xnec2c.glade:10853
+#: resources/xnec2c.glade:11806
+msgid "_Horizontal"
+msgstr "_Vaakasuora"
+
+#: resources/xnec2c.glade:9767 resources/xnec2c.glade:10864
+#: resources/xnec2c.glade:11817
+msgid "_Vertical"
+msgstr "_Pystysuora"
+
+#: resources/xnec2c.glade:9778 resources/xnec2c.glade:10875
+#: resources/xnec2c.glade:11828
+msgid "_Right Hand"
+msgstr "_Oikeakätinen"
+
+#: resources/xnec2c.glade:9789 resources/xnec2c.glade:10886
+#: resources/xnec2c.glade:11839
+msgid "_Left Hand"
+msgstr "_Vasenkätinen"
+
+#: resources/xnec2c.glade:9804
+msgid "_Net Gain"
+msgstr "_Nettovahvistus"
+
+#: resources/xnec2c.glade:9813
+msgid "Show _Min/Max Values"
+msgstr "Näytä _min/max-arvot"
+
+#: resources/xnec2c.glade:9822
+msgid "Show _S11 (dB) Values"
+msgstr "Näytä _S11 (dB) -arvot"
+
+#: resources/xnec2c.glade:9831
+msgid "Clamp _VSWR Graph to 10"
+msgstr "Rajoita _VSWR-kuvaaja arvoon 10"
+
+#: resources/xnec2c.glade:9840
+msgid "Round _X Axis Frequency Values"
+msgstr "Pyöristä _X-akselin taajuusarvot"
+
+#: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
+msgid "Max Gain"
+msgstr "Maksimivahvistus"
+
+#: resources/xnec2c.glade:9879
+msgid "Direction"
+msgstr "Suunta"
+
+#: resources/xnec2c.glade:9894
+msgid "Viewer"
+msgstr "Katselija"
+
+#: resources/xnec2c.glade:9924
+msgid "Zr/Zi"
+msgstr "Zr/Zi"
+
+#: resources/xnec2c.glade:9939
+msgid "Zm/Zph"
+msgstr "Zm/Zph"
+
+#: resources/xnec2c.glade:9954
+msgid "Smith"
+msgstr "Smith"
+
+#: resources/xnec2c.glade:9998 resources/xnec2c.glade:10033
+#: resources/xnec2c.glade:10068 resources/xnec2c.glade:10103
+#: resources/xnec2c.glade:12644
+msgid " - - -"
+msgstr " - - -"
+
+#: resources/xnec2c.glade:10139
+msgid " - - - - "
+msgstr " - - - - "
+
+#: resources/xnec2c.glade:10155
+msgid "Freq MHz"
+msgstr "Taajuus MHz"
+
+#: resources/xnec2c.glade:10194
+msgid "Tx Line Zo"
+msgstr "Siirtolinjan Zo"
+
+#: resources/xnec2c.glade:10208 resources/xnec2c.glade:11432
+#: resources/xnec2c.glade:12520
+msgid "Freq Loop"
+msgstr "Taajuussilmukka"
+
+#: resources/xnec2c.glade:10342
+msgid "Frequency Data Plots"
+msgstr "Taajuustietokuvaajat"
+
+#: resources/xnec2c.glade:10459
+msgid "Save _Currents/Charges as CSV"
+msgstr "Tallenna _virrat/varaukset CSV-muodossa"
+
+#: resources/xnec2c.glade:10478
+msgid "Optimization Settings"
+msgstr "Optimointiasetukset"
+
+#: resources/xnec2c.glade:10493
+msgid "Reload and write data on .NEC file changes"
+msgstr "Lataa uudelleen ja kirjoita tiedot .NEC-tiedoston muuttuessa"
+
+#: resources/xnec2c.glade:10500
+msgid "_Write files selected below, now."
+msgstr "_Kirjoita alla valitut tiedostot nyt."
+
+#: resources/xnec2c.glade:10515
+msgid "After calculation, write <file>.csv"
+msgstr "Laskennan jälkeen kirjoita <file>.csv"
+
+#: resources/xnec2c.glade:10524
+msgid "After calculation, write <file>.s_1p"
+msgstr "Laskennan jälkeen kirjoita <file>.s_1p"
+
+#: resources/xnec2c.glade:10533
+msgid "After calculation, write <file>-_maxgain.s2p"
+msgstr "Laskennan jälkeen kirjoita <file>-_maxgain.s2p"
+
+#: resources/xnec2c.glade:10542
+msgid "After calculation, write <file>-_viewergain.s2p"
+msgstr "Laskennan jälkeen kirjoita <file>-_viewergain.s2p"
+
+#: resources/xnec2c.glade:10551
+msgid "After calculation, write <file>-_radpattern.csv"
+msgstr "Laskennan jälkeen kirjoita <file>-_radpattern.csv"
+
+#: resources/xnec2c.glade:10560
+msgid "After calculation, write <file>-_currents.csv"
+msgstr "Laskennan jälkeen kirjoita <file>-_currents.csv"
+
+#: resources/xnec2c.glade:10575
+msgid "_Math Libraries"
+msgstr "_Matematiikkakirjastot"
+
+#: resources/xnec2c.glade:10584
+msgid "_Interactive"
+msgstr "_Vuorovaikutteinen"
+
+#: resources/xnec2c.glade:10604
+msgid "_Batch"
+msgstr "_Eräajo"
+
+#: resources/xnec2c.glade:10630
+msgid "Mathlib _Help"
+msgstr "Matematiikkakirjaston _ohje"
+
+#: resources/xnec2c.glade:10643
+msgid "Mathlib _Benchmarks"
+msgstr "Matematiikkakirjaston _suorituskykytestit"
+
+#: resources/xnec2c.glade:10654
+msgid "_Selected Mathlibs"
+msgstr "_Valitut matematiikkakirjastot"
+
+#: resources/xnec2c.glade:10668
+msgid "Select All/None"
+msgstr "Valitse kaikki/ei mitään"
+
+#: resources/xnec2c.glade:10693
+msgid "_Parallel (-j N):\t\tO(N/J)"
+msgstr "_Rinnakkainen (-j N):\t\tO(N/J)"
+
+#: resources/xnec2c.glade:10702
+msgid "_Single Job (-j 1):\tO(N)"
+msgstr "_Yksittäinen työ (-j 1):\tO(N)"
+
+#: resources/xnec2c.glade:10711
+msgid "_Iterate -j N/=2:\tO(N*log2(J))"
+msgstr "_Iteroi -j N/=2:\tO(N*log2(J))"
+
+#: resources/xnec2c.glade:10720
+msgid "_Iterate -j N-=1:\tO(N*J)"
+msgstr "_Iteroi -j N-=1:\tO(N*J)"
+
+#: resources/xnec2c.glade:10735
+msgid "Benchmark _Help"
+msgstr "Suorituskykytestin _ohje"
+
+#: resources/xnec2c.glade:10754
+msgid "Begin Frequency Loop at Startup"
+msgstr "Aloita taajuussilmukka käynnistyksessä"
+
+#: resources/xnec2c.glade:10765
+msgid "Confirm Quit"
+msgstr "Vahvista lopetus"
+
+#: resources/xnec2c.glade:10806
+msgid "_Radiation Pattern"
+msgstr "_Säteilykuvio"
+
+#: resources/xnec2c.glade:10816
+msgid "_Frequency Plots"
+msgstr "_Taajuuskuvaajat"
+
+#: resources/xnec2c.glade:10901 resources/xnec2c.glade:12009
+msgid "Common _Projection"
+msgstr "Yhteinen _projektio"
+
+#: resources/xnec2c.glade:10911 resources/xnec2c.glade:12019
+msgid "Common _Frequency"
+msgstr "Yhteinen _taajuus"
+
+#: resources/xnec2c.glade:10923
+msgid "_Help"
+msgstr "_Ohje"
+
+#: resources/xnec2c.glade:10932
+msgid "_About"
+msgstr "_Tietoja"
+
+#: resources/xnec2c.glade:10959
+msgid "Currents"
+msgstr "Virrat"
+
+#: resources/xnec2c.glade:10974
+msgid "Charges"
+msgstr "Varaukset"
+
+#: resources/xnec2c.glade:11155
+msgid " Zoom"
+msgstr " Zoomaus"
+
+#: resources/xnec2c.glade:11277 resources/xnec2c.glade:12456
+msgid "Gain"
+msgstr "Vahvistus"
+
+#: resources/xnec2c.glade:11292 resources/xnec2c.glade:11308
+#: resources/xnec2c.glade:12469 resources/xnec2c.glade:12626
+msgid "0.0"
+msgstr "0.0"
+
+#: resources/xnec2c.glade:11342
+msgid "- - - "
+msgstr "- - - "
+
+#: resources/xnec2c.glade:11384 resources/xnec2c.glade:12612
+msgid "dB"
+msgstr "dB"
+
+#: resources/xnec2c.glade:11398 resources/xnec2c.glade:12505
+msgid "Step"
+msgstr "Askel"
+
+#: resources/xnec2c.glade:11545 resources/xnec2c.glade:12553
+msgid "Apply"
+msgstr "Käytä"
+
+#: resources/xnec2c.glade:11565
+msgid "Frequency Mhz"
+msgstr "Taajuus MHz"
+
+#: resources/xnec2c.glade:11618
+msgid "Structure Geometry"
+msgstr "Rakenteen geometria"
+
+#: resources/xnec2c.glade:11637
+msgid "Xnec2c: Radiation Patterns"
+msgstr "Xnec2c: Säteilykuviot"
+
+#: resources/xnec2c.glade:11854
+msgid "_Gain Scaling"
+msgstr "_Vahvistuksen skaalaus"
+
+#: resources/xnec2c.glade:11869
+msgid "Linear _Power"
+msgstr "Lineaarinen _teho"
+
+#: resources/xnec2c.glade:11880
+msgid "Linear _Voltage"
+msgstr "Lineaarinen _jännite"
+
+#: resources/xnec2c.glade:11891
+msgid "_ARRL Style"
+msgstr "_ARRL-tyyli"
+
+#: resources/xnec2c.glade:11902
+msgid "_Logarithmic"
+msgstr "_Logaritminen"
+
+#: resources/xnec2c.glade:11917
+msgid "_Near Field"
+msgstr "_Lähikenttä"
+
+#: resources/xnec2c.glade:11932
+msgid "Near _E Field"
+msgstr "Lähi-_E-kenttä"
+
+#: resources/xnec2c.glade:11942
+msgid "Near _H Field"
+msgstr "Lähi-_H-kenttä"
+
+#: resources/xnec2c.glade:11952
+msgid "_Poynting Vector"
+msgstr "_Poyntingin vektori"
+
+#: resources/xnec2c.glade:11961
+msgid "_Animate Dialog"
+msgstr "_Animaatiovalintaikkuna"
+
+#: resources/xnec2c.glade:11970
+msgid "_Total Field"
+msgstr "_Kokonaiskenttä"
+
+#: resources/xnec2c.glade:11979
+msgid "_Peak Value"
+msgstr "_Huippuarvo"
+
+#: resources/xnec2c.glade:11990
+msgid "_Snapshot"
+msgstr "_Tilannekuva"
+
+#: resources/xnec2c.glade:12029
+msgid "_Overlay Structure"
+msgstr "_Näytä rakenne päällä"
+
+#: resources/xnec2c.glade:12053
+msgid "Gain Pattern"
+msgstr "Vahvistuskuvio"
+
+#: resources/xnec2c.glade:12068
+msgid "E/H Fields"
+msgstr "E/H-kentät"
+
+#: resources/xnec2c.glade:12251
+msgid "Zoom % "
+msgstr "Zoomaus % "
+
+#: resources/xnec2c.glade:12572
+msgid "Frequency MHz"
+msgstr "Taajuus MHz"
+
+#: resources/xnec2c.glade:12589
+msgid "0.010"
+msgstr "0.010"
+
+#: resources/xnec2c.glade:12745
+msgid "Scale Structure (GS card)"
+msgstr "Skaalaa rakenne (GS-kortti)"
+
+#: resources/xnec2c.glade:12776
+msgid "Structure Scale Factor"
+msgstr "Rakenteen skaalauskerroin"
+
+#: resources/xnec2c.glade:12789
+msgid "From Tag No."
+msgstr "Tunnistenumerosta"
+
+#: resources/xnec2c.glade:12839
+msgid "To Tag No."
+msgstr "Tunnistenumeroon"
+
+#: resources/xnec2c.glade:12874
+msgid "Scale Structure"
+msgstr "Skaalaa rakenne"
+
+#: resources/xnec2c.glade:13051
+msgid "Co-ordinate Transformation (GM card)"
+msgstr "Koordinaattimuunnos (GM-kortti)"
+
+#: resources/xnec2c.glade:13081
+msgid "Tag Increment"
+msgstr "Tunnisteen lisäys"
+
+#: resources/xnec2c.glade:13112
+msgid "Rotate about X"
+msgstr "Kierrä X:n ympäri"
+
+#: resources/xnec2c.glade:13144
+msgid "Move along X"
+msgstr "Siirrä X-suunnassa"
+
+#: resources/xnec2c.glade:13176
+msgid "New Structures"
+msgstr "Uudet rakenteet"
+
+#: resources/xnec2c.glade:13207
+msgid "Rotate about Y"
+msgstr "Kierrä Y:n ympäri"
+
+#: resources/xnec2c.glade:13239
+msgid "Move along Y"
+msgstr "Siirrä Y-suunnassa"
+
+#: resources/xnec2c.glade:13271
+msgid "Start From Tag"
+msgstr "Aloita tunnisteesta"
+
+#: resources/xnec2c.glade:13303
+msgid "Rotate about Z"
+msgstr "Kierrä Z:n ympäri"
+
+#: resources/xnec2c.glade:13335
+msgid "Move along Z"
+msgstr "Siirrä Z-suunnassa"
+
+#: resources/xnec2c.glade:13371
+msgid "Co-ordinate Transformation Data"
+msgstr "Koordinaattimuunnostiedot"
+
+#: resources/xnec2c.glade:13567
+msgid "Trans. Line Command (TL Card)"
+msgstr "Siirtojohtokomento (TL-kortti)"
+
+#: resources/xnec2c.glade:13597
+msgid "Tag Number, End 1  "
+msgstr "Tunnistenumero, pää 1  "
+
+#: resources/xnec2c.glade:13629
+msgid "Tag Number, End 2  "
+msgstr "Tunnistenumero, pää 2  "
+
+#: resources/xnec2c.glade:13660
+msgid "Segment Num, End 1"
+msgstr "Segmenttinumero, pää 1"
+
+#: resources/xnec2c.glade:13692
+msgid "Segment Num, End 2"
+msgstr "Segmenttinumero, pää 2"
+
+#: resources/xnec2c.glade:13756
+msgid "Crossed Transmission Line"
+msgstr "Ristikkäinen siirtojohto"
+
+#: resources/xnec2c.glade:13774
+msgid "Characteristic Impedance"
+msgstr "Ominaisimpedanssi"
+
+#: resources/xnec2c.glade:13806
+msgid "End 1 Y Real Part (S)"
+msgstr "Pää 1 Y reaaliosa (S)"
+
+#: resources/xnec2c.glade:13838
+msgid "End 2 Y Real Part (S)"
+msgstr "Pää 2 Y reaaliosa (S)"
+
+#: resources/xnec2c.glade:13870
+msgid "Length of Tx Line (m)"
+msgstr "Siirtojohtopituus (m)"
+
+#: resources/xnec2c.glade:13902
+msgid "End 1 Y Imag Part (S)"
+msgstr "Pää 1 Y imaginaariosa (S)"
+
+#: resources/xnec2c.glade:13934
+msgid "End 2 Y Imag Part (S)"
+msgstr "Pää 2 Y imaginaariosa (S)"
+
+#: resources/xnec2c.glade:13970
+msgid "Transmission Line"
+msgstr "Siirtojohto"
+
+#: resources/xnec2c.glade:14197
+msgid "Wire Element (GW & GC cards)"
+msgstr "Johdinelementti (GW- ja GC-kortit)"
+
+#: resources/xnec2c.glade:14257
+msgid "Wire X1"
+msgstr "Johdin X1"
+
+#: resources/xnec2c.glade:14289
+msgid "Wire X2"
+msgstr "Johdin X2"
+
+#: resources/xnec2c.glade:14352
+msgid "Wire Y1"
+msgstr "Johdin Y1"
+
+#: resources/xnec2c.glade:14385
+msgid "Wire Y2"
+msgstr "Johdin Y2"
+
+#: resources/xnec2c.glade:14449
+msgid "Wire Z1"
+msgstr "Johdin Z1"
+
+#: resources/xnec2c.glade:14481
+msgid "Wire Z2"
+msgstr "Johdin Z2"
+
+#: resources/xnec2c.glade:14546
+msgid "Wire Length"
+msgstr "Johtimen pituus"
+
+#: resources/xnec2c.glade:14617
+msgid "Wire Data"
+msgstr "Johdintiedot"
+
+#: resources/xnec2c.glade:14629
+msgid "Tapered Wire"
+msgstr "Kapeneva johdin"
+
+#: resources/xnec2c.glade:14671
+msgid "Length Taper"
+msgstr "Pituuden kapeneminen"
+
+#: resources/xnec2c.glade:14703
+msgid "Diameter Seg 1"
+msgstr "Halkaisija Seg 1"
+
+#: resources/xnec2c.glade:14735
+msgid "Diameter Seg N"
+msgstr "Halkaisija Seg N"
+
+#: resources/xnec2c.glade:14767
+msgid "Diam. Taper"
+msgstr "Halkaisijan kapeneminen"
+
+#: resources/xnec2c.glade:14803
+msgid "Wire Taper Data"
+msgstr "Johtimen kapenemistiedot"
+
+#: resources/xnec2c.glade:14968
+msgid "Impedance (Zo) Ohm"
+msgstr "Impedanssi (Zo) Ohm"
+
+#: resources/xnec2c.glade:14983
+msgid "50.00"
+msgstr "50.00"
+
+#: resources/xnec2c.glade:15006
+msgid "Transmission Line Impedance (Zo)"
+msgstr "Siirtojohtoimpedanssi (Zo)"
+
+#~ msgid ""
+#~ "Not available for Incident Field or\n"
+#~ "Elementary Current Source Excitation.\n"
+#~ "(Excitation Types 1 to 4)"
+#~ msgstr ""
+#~ "Ei käytettävissä saapuvalle kentälle tai\n"
+#~ "alkeisvirtalähteen herätteelle.\n"
+#~ "(Herätetyypit 1–4)"
+
+#~ msgid "number of segments less than 1 (ns < 1)\n"
+#~ msgstr "segmenttien määrä pienempi kuin 1 (ns < 1)\n"
+
+#~ msgid "arc angle exceeds 360 degrees\n"
+#~ msgstr "kaaren kulma ylittää 360 astetta\n"
+
+#~ msgid "np > n\n"
+#~ msgstr "np > n\n"
+
+#~ msgid "b less than a\n"
+#~ msgstr "b pienempi kuin a\n"
+
+#~ msgid "unexpected EOF (End of File)\n"
+#~ msgstr "odottamaton EOF (tiedoston loppu)\n"
+
+#~ msgid "error reading Comments: Comment mnemonic short or missing\n"
+#~ msgstr ""
+#~ "virhe kommenttien lukemisessa: Kommenttitunniste lyhyt tai puuttuu\n"
+
+#~ msgid "geometry data card error - tag number is less than 1\n"
+#~ msgstr "geometriatietokortin virhe - tunnistenumero on pienempi kuin 1\n"
+
+#~ msgid "geometry data card error - number of segments is less than 1\n"
+#~ msgstr "geometriatietokortin virhe - segmenttien määrä on pienempi kuin 1\n"
+
+#~ msgid "geometry data card error no GC card for tapered wire\n"
+#~ msgstr ""
+#~ "geometriatietokortin virhe: GC-kortti puuttuu kavennetulle langalle\n"
+
+#~ msgid "geometry GC data card error\n"
+#~ msgstr "geometrian GC-tietokortin virhe\n"
+
+#~ msgid "geometry GX data card error\n"
+#~ msgstr "geometrian GX-tietokortin virhe\n"
+
+#~ msgid "geometry GR data card error\n"
+#~ msgstr "geometrian GR-tietokortin virhe\n"
+
+#~ msgid "move GM data card error\n"
+#~ msgstr "siirron GM-tietokortin virhe\n"
+
+#~ msgid "patch data card error\n"
+#~ msgstr "patch-tietokortin virhe\n"
+
+#~ msgid "patch data error\n"
+#~ msgstr "patch-tietojen virhe\n"
+
+#~ msgid "patch card data error\n"
+#~ msgstr "patch-kortin tietovirhe\n"
+
+#~ msgid "\"GF\" card (NGF solution) is not supported\n"
+#~ msgstr "\"GF\"-korttia (NGF-ratkaisu) ei tueta\n"
+
+#~ msgid "ignoring CM card in geometry\n"
+#~ msgstr "ohitetaan CM-kortti geometriassa\n"
+
+#~ msgid ""
+#~ "Theta > 90 deg with ground specified: Please check RP card data and "
+#~ "correct\n"
+#~ msgstr ""
+#~ "Theta > 90 deg maatason kanssa: Tarkista RP-kortin tiedot ja korjaa\n"
+
+#~ msgid "Hankel not valid for z = 0\n"
+#~ msgstr "Hankel ei kelpaa kun z = 0\n"
+
+#~ msgid "No convergence\n"
+#~ msgstr "Ei suppenemista\n"

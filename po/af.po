@@ -1,0 +1,3638 @@
+# Afrikaans translations for xnec2c package.
+# Copyright (C) 2025 Neoklis Kyriazis nkcyham@yahoo.com
+# This file is distributed under the same license as the xnec2c package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xnec2c 4.4.18\n"
+"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
+"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"PO-Revision-Date: 2025-12-28 20:37-0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: af\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/calculations.c:117 src/calculations.c:1276
+#, c-format
+msgid "segment connection error for segment %5d\n"
+msgstr "segmentverbindingsfout vir segment %5d\n"
+
+#: src/calculations.c:118
+msgid "Segment connection error in tbf()"
+msgstr "Segmentverbindingsfout in tbf()"
+
+#: src/calculations.c:890
+#, c-format
+msgid "step size limited at z= %10.5f\n"
+msgstr "stapgrootte beperk by z= %10.5f\n"
+
+#: src/calculations.c:1054
+#, c-format
+msgid "segment connection error for segment %d\n"
+msgstr "segmentverbindingsfout vir segment %d\n"
+
+#: src/calculations.c:1055
+msgid "Segment connection error in sbf()"
+msgstr "Segmentverbindingsfout in sbf()"
+
+#: src/calculations.c:1277
+msgid "Segment connection error in trio()"
+msgstr "Segmentverbindingsfout in trio()"
+
+#: src/callback_func.c:263
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to end the calculation?"
+msgstr ""
+"Die frekwensielus loop tans\n"
+"Is jy seker jy wil die berekening beëindig?"
+
+#: src/callback_func.c:267
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to close this window?"
+msgstr ""
+"Die frekwensielus loop tans\n"
+"Is jy seker jy wil hierdie venster sluit?"
+
+#: src/callback_func.c:512
+#, c-format
+msgid ""
+"Frequency plots window closed: excitation type %d is incompatible.\n"
+"Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
+msgstr ""
+"Frekwensiegrafieke-venster gesluit: opwekkingstipe %d is onversoenbaar.\n"
+"Gebruik tipe 0 (Toegepaste E-veld) of 5 (Stroomdiskontinuïteit) in plaas "
+"daarvan."
+
+#: src/callback_func.c:518
+#, c-format
+msgid ""
+"Frequency plots are not available with excitation type %d.\n"
+"This model uses Incident Field or Elementary Current Source excitation.\n"
+"Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
+msgstr ""
+"Frekwensiegrafieke is nie beskikbaar met opwekkingstipe %d nie.\n"
+"Hierdie model gebruik Invalsveld of Elementêre Stroombron opwekking.\n"
+"Verander die EX-kaart na tipe 0 (Toegepaste E-veld) of 5 "
+"(Stroomdiskontinuïteit)."
+
+#: src/callback_func.c:697
+msgid "View Currents"
+msgstr "Bekyk Strome"
+
+#: src/callback_func.c:719 src/callback_func.c:778
+msgid "View Geometry"
+msgstr "Bekyk Geometrie"
+
+#: src/callback_func.c:756
+msgid "View Charges"
+msgstr "Bekyk Ladings"
+
+#: src/callback_func.c:821
+msgid "PNG images (*.png)"
+msgstr "PNG-beelde (*.png)"
+
+#: src/callback_func.c:823
+msgid "GNUplot files (*.gplot)"
+msgstr "GNUplot-lêers (*.gplot)"
+
+#: src/callback_func.c:825
+msgid "NEC2 files (*.nec)"
+msgstr "NEC2-lêers (*.nec)"
+
+#: src/callback_func.c:827
+msgid "Touchstone 1-port files (*.s1p)"
+msgstr "Touchstone 1-poort lêers (*.s1p)"
+
+#: src/callback_func.c:829
+msgid "Touchstone 2-port files (*.s2p)"
+msgstr "Touchstone 2-poort lêers (*.s2p)"
+
+#: src/callback_func.c:831
+msgid "Comma-separated CSV files (*.csv)"
+msgstr "Komma-geskeide CSV-lêers (*.csv)"
+
+#: src/callbacks.c:88 src/callbacks.c:371 src/callbacks.c:1813
+#: src/callbacks.c:2174
+msgid "Are you sure you wish to quit xnec2c?"
+msgstr "Is jy seker jy wil xnec2c verlaat?"
+
+#: src/callbacks.c:131
+msgid ""
+"A new NEC2 input file may not be created\n"
+"while the Frequency Loop is running"
+msgstr ""
+"'n Nuwe NEC2-invoerlêer kan nie geskep word nie\n"
+"terwyl die Frekwensielus loop"
+
+#: src/callbacks.c:171
+msgid ""
+"A new NEC2 input file may not be opened\n"
+"while the Frequency Loop is running"
+msgstr ""
+"'n Nuwe NEC2-invoerlêer kan nie oopgemaak word nie\n"
+"terwyl die Frekwensielus loop"
+
+#: src/callbacks.c:291
+msgid "xnec2c geometry optimizer"
+msgstr "xnec2c geometrie-optimeerder"
+
+#: src/callbacks.c:292
+msgid ""
+"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr ""
+"xnec2c is gebou sonder inotify-ondersteuning: die optimeerder kan nie "
+"geaktiveer word nie."
+
+#: src/callbacks.c:316
+msgid "Xnec2c Optimizer"
+msgstr "Xnec2c Optimeerder"
+
+#: src/callbacks.c:316
+msgid ""
+"No files are selected for writing. However, xnec2c will still reload and "
+"recalculate the input file on modification when triggered by inotify.Select "
+"files for writing in \"File->Optimization Settings\"."
+msgstr ""
+"Geen lêers is gekies vir skryf nie. Xnec2c sal egter steeds die invoerlêer "
+"herlaai en herbereken by wysiging wanneer dit deur inotify geaktiveer word. "
+"Kies lêers vir skryf in \"Lêer->Optimeringsinstellings\"."
+
+#: src/callbacks.c:327
+msgid "failed to create Optimizer Output thread\n"
+msgstr "kon nie Optimeerder-uitvoerdraad skep nie\n"
+
+#: src/callbacks.c:1031 src/callbacks.c:1347 src/callbacks.c:2200
+msgid "Are you sure you wish to close this window?"
+msgstr "Is jy seker jy wil hierdie venster sluit?"
+
+#: src/callbacks.c:2138
+msgid "No open NEC2 input file"
+msgstr "Geen oop NEC2-invoerlêer nie"
+
+#: src/callbacks.c:2231 src/callbacks.c:2261
+msgid ""
+"NEC2 Editor's data may not be saved\n"
+"while the Frequency Loop is running"
+msgstr ""
+"NEC2-redigeerder se data kan nie gestoor word nie\n"
+"terwyl die Frekwensielus loop"
+
+#: src/callbacks.c:2243 src/callbacks.c:2269
+msgid "untitled.nec"
+msgstr "naamloos.nec"
+
+#: src/callbacks.c:2734 src/callbacks.c:2754 src/callbacks.c:2774
+#: src/geom_edit.c:413 src/geom_edit.c:1229 src/geom_edit.c:1471
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Frekwensie (FR) kaarte nog nie verwerk nie.\n"
+"NEC2-redigeerder se data moet dalk eers gestoor word."
+
+#: src/cmnd_edit.c:72
+msgid ""
+"Get_Command_Data(): Error reading\n"
+"row data: Invalid list iterator"
+msgstr ""
+"Get_Command_Data(): Fout met lees van\n"
+"rydata: Ongeldige lysiterator"
+
+#: src/cmnd_edit.c:105
+msgid ""
+"Set_Command_Data(): Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Set_Command_Data(): Fout met skryf van rydata\n"
+"Herkies asseblief die ry"
+
+#: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
+#: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
+msgid "Tag Number"
+msgstr "Etiket Nommer"
+
+#: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
+msgid "Segment Number"
+msgstr "Segment Nommer"
+
+#: src/cmnd_edit.c:422
+msgid "Voltage Real Part"
+msgstr "Spanning Reële Deel"
+
+#: src/cmnd_edit.c:423
+msgid "Voltage Imaginary Part"
+msgstr "Spanning Imaginêre Deel"
+
+#: src/cmnd_edit.c:424 src/cmnd_edit.c:1579
+msgid "Normalization Factor"
+msgstr "Normaliseringsfaktor"
+
+#: src/cmnd_edit.c:425 src/cmnd_edit.c:426 src/cmnd_edit.c:427
+#: src/cmnd_edit.c:463 src/cmnd_edit.c:464 src/cmnd_edit.c:1814
+#: src/cmnd_edit.c:1825 src/cmnd_edit.c:1826
+msgid "  ** NOT USED **"
+msgstr "  ** NIE GEBRUIK NIE **"
+
+#: src/cmnd_edit.c:445
+msgid "Num of Theta Angles"
+msgstr "Aantal Theta-hoeke"
+
+#: src/cmnd_edit.c:446
+msgid "Num of Phi Angles"
+msgstr "Aantal Phi-hoeke"
+
+#: src/cmnd_edit.c:447
+msgid "Theta Angle (deg)"
+msgstr "Theta-hoek (deg)"
+
+#: src/cmnd_edit.c:448
+msgid "Phi Angle (deg)"
+msgstr "Phi-hoek (deg)"
+
+#: src/cmnd_edit.c:449
+msgid "Eta Angle (deg)"
+msgstr "Eta-hoek (deg)"
+
+#: src/cmnd_edit.c:450
+msgid "Theta Increment (deg)"
+msgstr "Theta-inkrement (deg)"
+
+#: src/cmnd_edit.c:451
+msgid "Phi Increment (deg)"
+msgstr "Phi-inkrement (deg)"
+
+#: src/cmnd_edit.c:452
+msgid "Minor/Major Axis"
+msgstr "Klein/Groot As"
+
+#: src/cmnd_edit.c:465
+msgid "X Position (m)"
+msgstr "X-posisie (m)"
+
+#: src/cmnd_edit.c:466
+msgid "Y Position (m)"
+msgstr "Y-posisie (m)"
+
+#: src/cmnd_edit.c:467
+msgid "Z Position (m)"
+msgstr "Z-posisie (m)"
+
+#: src/cmnd_edit.c:468
+msgid "alpha Angle (deg)"
+msgstr "alfa-hoek (deg)"
+
+#: src/cmnd_edit.c:469
+msgid "beta Angle (deg)"
+msgstr "beta-hoek (deg)"
+
+#: src/cmnd_edit.c:470
+msgid "Current Moment (A.m)"
+msgstr "Stroommoment (A.m)"
+
+#: src/cmnd_edit.c:1556
+msgid "Points in Z"
+msgstr "Punte in Z"
+
+#: src/cmnd_edit.c:1557
+msgid "Initial Z (m)"
+msgstr "Aanvanklike Z (m)"
+
+#: src/cmnd_edit.c:1558
+msgid "Increment in Z"
+msgstr "Inkrement in Z"
+
+#: src/cmnd_edit.c:1559
+msgid "Field Point R (m)"
+msgstr "Veldpunt R (m)"
+
+#: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
+msgid "Points in Phi"
+msgstr "Punte in Phi"
+
+#: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
+msgid "Initial Theta (deg)"
+msgstr "Aanvanklike Theta (deg)"
+
+#: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
+msgid "Increment in Theta"
+msgstr "Inkrement in Theta"
+
+#: src/cmnd_edit.c:1570
+msgid "R (m) (Optional)"
+msgstr "R (m) (Opsioneel)"
+
+#: src/cmnd_edit.c:1583
+msgid "** NOT USED **"
+msgstr "** NIE GEBRUIK NIE **"
+
+#: src/cmnd_edit.c:1788 src/cmnd_edit.c:1812
+msgid "Resistance Ohm"
+msgstr "Weerstand Ohm"
+
+#: src/cmnd_edit.c:1789
+msgid "Inductance uH"
+msgstr "Induktansie uH"
+
+#: src/cmnd_edit.c:1790
+msgid "Capacitance pF"
+msgstr "Kapasitansie pF"
+
+#: src/cmnd_edit.c:1800
+msgid "Resistance Ohm/m"
+msgstr "Weerstand Ohm/m"
+
+#: src/cmnd_edit.c:1801
+msgid "Inductance uH/m"
+msgstr "Induktansie uH/m"
+
+#: src/cmnd_edit.c:1802
+msgid "Capacitance pF/m"
+msgstr "Kapasitansie pF/m"
+
+#: src/cmnd_edit.c:1813
+msgid "Reactance Ohm"
+msgstr "Reaktansie Ohm"
+
+#: src/cmnd_edit.c:1824 resources/xnec2c.glade:480 resources/xnec2c.glade:4012
+#: resources/xnec2c.glade:14578
+msgid "Conductivity S/m"
+msgstr "Geleidingsvermoë S/m"
+
+#: src/cmnd_edit.c:2453
+msgid "Points in X-axis"
+msgstr "Punte in X-as"
+
+#: src/cmnd_edit.c:2454
+msgid "Points in Y-axis"
+msgstr "Punte in Y-as"
+
+#: src/cmnd_edit.c:2455
+msgid "Points in Z-axis"
+msgstr "Punte in Z-as"
+
+#: src/cmnd_edit.c:2456
+msgid "First Point X (m)"
+msgstr "Eerste Punt X (m)"
+
+#: src/cmnd_edit.c:2457
+msgid "First Point Y (m)"
+msgstr "Eerste Punt Y (m)"
+
+#: src/cmnd_edit.c:2458
+msgid "First Point Z (m)"
+msgstr "Eerste Punt Z (m)"
+
+#: src/cmnd_edit.c:2459
+msgid "Increment in X (m)"
+msgstr "Inkrement in X (m)"
+
+#: src/cmnd_edit.c:2460
+msgid "Increment in Y (m)"
+msgstr "Inkrement in Y (m)"
+
+#: src/cmnd_edit.c:2461
+msgid "Increment in Z (m)"
+msgstr "Inkrement in Z (m)"
+
+#: src/cmnd_edit.c:2469
+msgid "Points along R"
+msgstr "Punte langs R"
+
+#: src/cmnd_edit.c:2470
+msgid "Points along Phi"
+msgstr "Punte langs Phi"
+
+#: src/cmnd_edit.c:2471
+msgid "Points along Theta"
+msgstr "Punte langs Theta"
+
+#: src/cmnd_edit.c:2472
+msgid "First Point R (m)"
+msgstr "Eerste Punt R (m)"
+
+#: src/cmnd_edit.c:2473
+msgid "First Point Phi"
+msgstr "Eerste Punt Phi"
+
+#: src/cmnd_edit.c:2474
+msgid "First Point Theta"
+msgstr "Eerste Punt Theta"
+
+#: src/cmnd_edit.c:2475
+msgid "Increment in R (m)"
+msgstr "Inkrement in R (m)"
+
+#: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
+msgid "Increment in Phi"
+msgstr "Inkrement in Phi"
+
+#: src/draw_radiation.c:28
+msgid ""
+"Animation requires near field data.\n"
+"\n"
+"E-field animation: Add NE card to NEC file\n"
+"H-field animation: Add NH card to NEC file\n"
+"Poynting vector: Add both NE and NH cards"
+msgstr ""
+"Animasie vereis nabyevelddata.\n"
+"\n"
+"E-veld animasie: Voeg NE-kaart by NEC-lêer\n"
+"H-veld animasie: Voeg NH-kaart by NEC-lêer\n"
+"Poynting-vektor: Voeg beide NE- en NH-kaarte by"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
+msgid "Near Field Animation"
+msgstr "Nabyeveld-animasie"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 src/geometry.c:812
+#: src/input.c:1570 src/input.c:1571 src/utils.c:509 src/utils.c:555
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/draw_radiation.c:1052
+msgid "Total Gain"
+msgstr "Totale Aanwins"
+
+#: src/draw_radiation.c:1053
+msgid "Horizontal Polarization"
+msgstr "Horisontale Polarisasie"
+
+#: src/draw_radiation.c:1054
+msgid "Vertical Polarization"
+msgstr "Vertikale Polarisasie"
+
+#: src/draw_radiation.c:1055
+msgid "RH Circular Polarization"
+msgstr "RH Sirkulêre Polarisasie"
+
+#: src/draw_radiation.c:1056
+msgid "LH Circular Polarization"
+msgstr "LH Sirkulêre Polarisasie"
+
+#: src/draw_radiation.c:1061
+msgid "Linear Power"
+msgstr "Lineêre Drywing"
+
+#: src/draw_radiation.c:1062
+msgid "Linear Voltage"
+msgstr "Lineêre Spanning"
+
+#: src/draw_radiation.c:1063
+msgid "ARRL Scale"
+msgstr "ARRL-skaal"
+
+#: src/draw_radiation.c:1064
+msgid "Logarithmic Scale"
+msgstr "Logaritmiese Skaal"
+
+#: src/draw_radiation.c:1073 resources/xnec2c.glade:12710
+msgid "Radiation Patterns"
+msgstr "Stralingspatrone"
+
+#: src/draw_radiation.c:1076
+msgid "Radiation Pattern: - "
+msgstr "Stralingspatroon: - "
+
+#: src/draw_radiation.c:1083
+msgid "Near Fields:"
+msgstr "Nabye Velde:"
+
+#: src/draw_radiation.c:1085
+msgid " - E Field"
+msgstr " - E-veld"
+
+#: src/draw_radiation.c:1087
+msgid " - H Field"
+msgstr " - H-veld"
+
+#: src/draw_radiation.c:1089
+msgid " - Poynting Vector"
+msgstr " - Poynting-vektor"
+
+#: src/draw_radiation.c:1099
+msgid "Frequency Data Plots - "
+msgstr "Frekwensie Data Grafieke - "
+
+#: src/draw_radiation.c:1307
+#, c-format
+msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
+msgstr "fstep=%d is buite perke. calc_data.steps_total=%d"
+
+#: src/geom_edit.c:76 src/geom_edit.c:1866 src/geom_edit.c:2109
+#: src/geom_edit.c:2491
+msgid ""
+"Error reading row data\n"
+"Invalid list iterator"
+msgstr ""
+"Fout met lees van ry data\n"
+"Ongeldige lys-iterator"
+
+#: src/geom_edit.c:109 src/geom_edit.c:139
+msgid ""
+"Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Fout met skryf van ry data\n"
+"Kies asseblief ry weer"
+
+#: src/geom_edit.c:528
+msgid ""
+"GC card preceded by GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GC-kaart voorafgegaan deur GW-kaart\n"
+"met nie-nul draadradius"
+
+#: src/geom_edit.c:532
+msgid "No GW card before GC card"
+msgstr "Geen GW-kaart voor GC-kaart nie"
+
+#: src/geom_edit.c:556
+msgid ""
+"No GC card after a GW card\n"
+"with a zero wire radius"
+msgstr ""
+"Geen GC-kaart na 'n GW-kaart\n"
+"met 'n nul draadradius nie"
+
+#: src/geom_edit.c:565
+msgid ""
+"GC card follows a GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GC-kaart volg 'n GW-kaart\n"
+"met nie-nul draadradius"
+
+#: src/geom_edit.c:944
+msgid ""
+"SC card preceded by SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SC-kaart voorafgegaan deur SP-kaart\n"
+"met arbitrêre patch-tipe"
+
+#: src/geom_edit.c:956
+msgid "No SP or SM card before SC card"
+msgstr "Geen SP- of SM-kaart voor SC-kaart nie"
+
+#: src/geom_edit.c:976
+msgid ""
+"No SC card after an SP card\n"
+"with non-arbitrary patch type"
+msgstr ""
+"Geen SC-kaart na 'n SP-kaart\n"
+"met nie-arbitrêre patch-tipe nie"
+
+#: src/geom_edit.c:983
+msgid ""
+"SC card follows an SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SC-kaart volg 'n SP-kaart\n"
+"met arbitrêre patch-tipe"
+
+#: src/geom_edit.c:996
+msgid "No SC card after an SM card"
+msgstr "Geen SC-kaart na 'n SM-kaart nie"
+
+#: src/geom_edit.c:1066 resources/xnec2c.glade:7685
+msgid "Center - X"
+msgstr "Middelpunt - X"
+
+#: src/geom_edit.c:1068 resources/xnec2c.glade:7749
+msgid "Center - Y"
+msgstr "Middelpunt - Y"
+
+#: src/geom_edit.c:1070 resources/xnec2c.glade:7813
+msgid "Center - Z"
+msgstr "Middelpunt - Z"
+
+#: src/geom_edit.c:1072 resources/xnec2c.glade:7717
+msgid "Normal - Elev."
+msgstr "Normaal - Elev."
+
+#: src/geom_edit.c:1074 resources/xnec2c.glade:7781
+msgid "Normal - Azim."
+msgstr "Normaal - Asim."
+
+#: src/geom_edit.c:1076 resources/xnec2c.glade:7845
+msgid "Patch Area"
+msgstr "Patch-oppervlakte"
+
+#: src/geom_edit.c:1081
+msgid "Corner 1 - X"
+msgstr "Hoek 1 - X"
+
+#: src/geom_edit.c:1083
+msgid "Corner 1 - Y"
+msgstr "Hoek 1 - Y"
+
+#: src/geom_edit.c:1085
+msgid "Corner 1 - Z"
+msgstr "Hoek 1 - Z"
+
+#: src/geom_edit.c:1087
+msgid "Corner 2 - X"
+msgstr "Hoek 2 - X"
+
+#: src/geom_edit.c:1089
+msgid "Corner 2 - Y"
+msgstr "Hoek 2 - Y"
+
+#: src/geom_edit.c:1091
+msgid "Corner 2 - Z"
+msgstr "Hoek 2 - Z"
+
+#: src/geom_edit.c:2582
+msgid "NEC2 editor window not open"
+msgstr "NEC2-redigeerdervenster nie oop nie"
+
+#: src/geometry.c:97
+msgid "Number of segments < 1"
+msgstr "Aantal segmente < 1"
+
+#: src/geometry.c:148
+msgid "Arc angle exceeds 360 degrees"
+msgstr "Booghoek oorskry 360 grade"
+
+#: src/geometry.c:309
+msgid "Error in conect(): np > n"
+msgstr "Fout in conect(): np > n"
+
+#: src/geometry.c:343 src/geometry.c:391
+#, c-format
+msgid "geometry data error: segment %d extends below ground\n"
+msgstr "geometrie data fout: segment %d strek onder grond\n"
+
+#: src/geometry.c:344 src/geometry.c:392
+msgid ""
+"Geometry data error\n"
+"Segment extends below ground"
+msgstr ""
+"Geometrie data fout\n"
+"Segment strek onder grond"
+
+#: src/geometry.c:401
+#, c-format
+msgid "geometry data error: segment %d lies in ground plane\n"
+msgstr "geometrie data fout: segment %d lê in grondvlak\n"
+
+#: src/geometry.c:402
+msgid ""
+"Geometry data error\n"
+"Segment lies in ground plane"
+msgstr ""
+"Geometrie data fout\n"
+"Segment lê in grondvlak"
+
+#: src/geometry.c:492
+msgid "ipsym = 0\n"
+msgstr "ipsym = 0\n"
+
+#: src/geometry.c:493
+msgid "Error: ipsym = 0"
+msgstr "Fout: ipsym = 0"
+
+#: src/geometry.c:549
+#, c-format
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
+"segj.maxcon=%lu\n"
+msgstr ""
+"Segmentverbindingstelling oorskry 'n volle maas, wat onwaarskynlik is: data."
+"n=%ld segj.maxcon=%lu\n"
+
+#: src/geometry.c:551
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely!\n"
+"Check for overlapping or nearly-connected segments\n"
+msgstr ""
+"Segmentverbindingstelling oorskry 'n volle maas, wat onwaarskynlik is!\n"
+"Kontroleer vir oorvleuelende of byna-verbinde segmente\n"
+
+#: src/geometry.c:764
+msgid ""
+"check data, parameter specifying segment: position in a group of equal tags "
+"must not be zero\n"
+msgstr ""
+"kontroleer data, parameter wat segment spesifiseer: posisie in 'n groep van "
+"gelyke etikette mag nie nul wees nie\n"
+
+#: src/geometry.c:765
+msgid ""
+"Parameter specifying segment\n"
+"position in a group of equal tags is zero"
+msgstr ""
+"Parameter wat segment spesifiseer\n"
+"posisie in 'n groep van gelyke etikette is nul"
+
+#: src/geometry.c:797
+#, c-format
+msgid "no segment has an itag of %d\n"
+msgstr "geen segment het 'n itag van %d nie\n"
+
+#: src/geometry.c:801
+msgid ""
+"Segment tag number error: Tag 0 is reserved and cannot be used.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are "
+"valid.\n"
+"For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
+msgstr ""
+"Segment-etiketnommerfout: Etiket 0 is gereserveer en kan nie gebruik word "
+"nie.\n"
+"Kontroleer jou geometriekaarte (veral GM-kaarte) om te verseker "
+"etiketwaardes is geldig.\n"
+"Vir GM-kaarte: verifieer 'begin vanaf etiket' en 'etiketinkrement' skep nie "
+"etiket 0 nie."
+
+#: src/geometry.c:809
+#, c-format
+msgid ""
+"Segment tag number error: No segment found with tag %d.\n"
+"You are referencing an unknown tag or segment in a control card.\n"
+"Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."
+msgstr ""
+"Segment-etiketnommerfout: Geen segment gevind met etiket %d nie.\n"
+"Jy verwys na 'n onbekende etiket of segment in 'n beheerkaart.\n"
+"Geldige etikette in jou geometrie is dié wat aan GW/GA/GH/SP-kaarte toegeken "
+"is."
+
+#: src/geometry.c:1123
+msgid "corners of quadrilateral: patch do not lie in a plane\n"
+msgstr "hoeke van vierhoek: patch lê nie in 'n vlak nie\n"
+
+#: src/geometry.c:1124
+msgid ""
+"Corners of quadrilateral\n"
+"patch do not lie in a plane"
+msgstr ""
+"Hoeke van vierhoek\n"
+"patch lê nie in 'n vlak nie"
+
+#: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
+#, c-format
+msgid "geometry data error: segment %d lies in plane of symmetry\n"
+msgstr "geometrie data fout: segment %d lê in simmetrievlak\n"
+
+#: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
+msgid ""
+"Geometry data error\n"
+"Segment lies in plane of symmetry"
+msgstr ""
+"Geometrie data fout\n"
+"Segment lê in simmetrievlak"
+
+#: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
+#, c-format
+msgid "geometry data error: patch %d lies in plane of symmetry\n"
+msgstr "geometrie data fout: patch %d lê in simmetrievlak\n"
+
+#: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
+msgid ""
+"Geometry data error\n"
+"Patch lies in plane of symmetry"
+msgstr ""
+"Geometrie data fout\n"
+"Patch lê in simmetrievlak"
+
+#: src/geometry.c:1642
+#, c-format
+msgid ""
+"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
+"threshold=%.3e); segment will connect to itself\n"
+msgstr ""
+"tag=%d/seg=%d: eindpuntafstand=%.3e is te naby (onder verbindingsdrempel="
+"%.3e); segment sal met homself verbind\n"
+
+#: src/geometry.c:1647
+#, c-format
+msgid "tag=%d: suppressing additional self-connection warnings\n"
+msgstr "tag=%d: onderdruk addisionele selfverbindingswaarskuwings\n"
+
+#: src/geometry.c:1692
+#, c-format
+msgid ""
+"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
+"threshold %.3e; unintended connections possible\n"
+msgstr ""
+"tag=%d/seg=%d: afstand=%.3e na tag=%d/seg=%d nader as 2x verbindingsdrempel "
+"%.3e; onbedoelde verbindings moontlik\n"
+
+#: src/geometry.c:1697
+#, c-format
+msgid "tag=%d: suppressing additional overlap warnings\n"
+msgstr "tag=%d: onderdruk addisionele oorvleuelingswaarskuwings\n"
+
+#: src/geometry.c:1757
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
+"length=%.3e that connection detection may fail or short\n"
+msgstr ""
+"tag=%d/seg=%d: lengte=%.3e is te kort (en naby genoeg) aan tag=%d/seg=%d "
+"lengte=%.3e dat verbindingsopsporing kan misluk of kortsluit\n"
+
+#: src/geometry.c:1762
+#, c-format
+msgid ""
+"tag=%d: suppressing additional connection detection may fail or short "
+"warnings\n"
+msgstr ""
+"tag=%d: onderdruk addisionele verbindingsopsporing kan misluk of kortsluit "
+"waarskuwings\n"
+
+#: src/geometry.c:1794
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
+"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
+"recommended <= 0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: lengte/golflengte-verhouding van %.3f < 0.001; ooreenkoms van "
+"stroomkomponente lei tot numeriese onakkuraathede (min=0.001, fyn=0.05, "
+"aanbeveel <= 0.1)\n"
+
+#: src/geometry.c:1799
+#, c-format
+msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
+msgstr "tag=%d: onderdruk addisionele kort golflengteverhouding foute\n"
+
+#: src/geometry.c:1812
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
+"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
+"0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: lengte/golflengte-verhouding van %.3f > 0.1; "
+"stroombemonsteringsresolusie beperk deur segmentspasiëring (min=0.001, "
+"fyn=0.05, aanbeveel <= 0.1)\n"
+
+#: src/geometry.c:1817
+#, c-format
+msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
+msgstr "tag=%d: onderdruk addisionele lang golflengteverhouding waarskuwings\n"
+
+#: src/geometry.c:1830
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
+"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
+"recommended <=0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: lengte/golflengte-verhouding van %.3f > 0.05; korter segmente "
+"verhoog akkuraatheid in gebiede van vinnige stroomverandering (min=0.001, "
+"fyn=0.05, aanbeveel <=0.1)\n"
+
+#: src/geometry.c:1835
+#, c-format
+msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
+msgstr "tag=%d: onderdruk addisionele akkuraatheidsverbeteringsvoorstelle\n"
+
+#: src/geometry.c:1865
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: lengte/radius-verhouding van %.1f < 2.0; standaard "
+"dundraadkern veldfout oorskry 1%% met 'n groot marge (min=2.0, "
+"1%%akkuraat=8.0)\n"
+
+#: src/geometry.c:1870
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
+msgstr "tag=%d: onderdruk addisionele standaardkernverhouding foute\n"
+
+#: src/geometry.c:1883
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
+"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: lengte/radius-verhouding van %.1f < 8.0; standaard "
+"dundraadkern veldfout oorskry 1%% (min=2.0, 1%%akkuraat=8.0)\n"
+
+#: src/geometry.c:1888
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
+msgstr "tag=%d: onderdruk addisionele standaardkernverhouding waarskuwings\n"
+
+#: src/geometry.c:1903
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: lengte/radius-verhouding van %.1f < 0.5; uitgebreide "
+"dundraadkern veldfout oorskry 1%% met 'n groot marge (min=0.5, "
+"1%%akkuraat=2.0)\n"
+
+#: src/geometry.c:1908
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
+msgstr "tag=%d: onderdruk addisionele uitgebreide kernverhouding foute\n"
+
+#: src/geometry.c:1921
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
+"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: lengte/radius-verhouding van %.1f < 2.0; uitgebreide "
+"dundraadkern veldfout oorskry 1%% (min=0.5, 1%%akkuraat=2.0)\n"
+
+#: src/geometry.c:1926
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
+msgstr ""
+"tag=%d: onderdruk addisionele uitgebreide kernverhouding waarskuwings\n"
+
+#: src/geometry.c:1942
+#, c-format
+msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
+msgstr ""
+"Slaan oorvleuelingskontrole oor vir %d segmente (gebruik --force-verify om "
+"te aktiveer)\n"
+
+#: src/geometry.c:1946
+#, c-format
+msgid "Forcing overlap check for %d segments\n"
+msgstr "Dwing oorvleuelingskontrole vir %d segmente\n"
+
+#: src/geometry.c:1957
+msgid ""
+"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr ""
+"verify_segments() slaan frekwensie-afhanklike kontroles oor - geen "
+"frekwensie data nie\n"
+
+#: src/gnuplot.c:46
+msgid "Gnuplot Data"
+msgstr "Gnuplot Data"
+
+#: src/gnuplot.c:46 src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Cannot save data while frequency loop is running"
+msgstr "Kan nie data stoor terwyl frekwensielus loop nie"
+
+#: src/gnuplot.c:60
+#, c-format
+msgid "# Reference impedance Z0 = %.2f Ohm\n"
+msgstr "# Verwysingsimpedansie Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:62
+#, c-format
+msgid ""
+"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
+"zreal and zimag:\n"
+msgstr ""
+"# Om in gnuplot te plot kan jy hierdie opdrag wysig. Tans plot dit MHz vs "
+"zreal en zimag:\n"
+
+#: src/gnuplot.c:63
+#, c-format
+msgid ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+msgstr ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+
+#: src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Touchstone Data"
+msgstr "Touchstone Data"
+
+#: src/gnuplot.c:102
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! Verwysingsimpedansie Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:130
+#, c-format
+msgid "This should never happen. touchstone type=%d\n"
+msgstr "Dit behoort nooit te gebeur nie. touchstone type=%d\n"
+
+#: src/gnuplot.c:227
+#, c-format
+msgid "# Near E field\n"
+msgstr "# Nabye E-veld\n"
+
+#: src/gnuplot.c:250
+#, c-format
+msgid "# Near H field\n"
+msgstr "# Nabye H-veld\n"
+
+#: src/gnuplot.c:297
+#, c-format
+msgid "# Poynting Vector\n"
+msgstr "# Poynting-vektor\n"
+
+#: src/gnuplot.c:369
+#, c-format
+msgid "# Radiation Pattern\n"
+msgstr "# Stralingspatroon\n"
+
+#: src/gnuplot.c:505
+#, c-format
+msgid "# structure patch segments\n"
+msgstr "# struktuur patch segmente\n"
+
+#: src/gnuplot.c:530
+#, c-format
+msgid "# structure wire segments\n"
+msgstr "# struktuur draad segmente\n"
+
+#: src/gnuplot.c:565
+msgid "Save Currents and Charges to CSV"
+msgstr "Stoor Strome en Ladings na CSV"
+
+#: src/ground.c:90
+msgid "b less than a"
+msgstr "b minder as a"
+
+#: src/ground.c:215
+#, c-format
+msgid "step size limited at z = %12.5E\n"
+msgstr "stapgrootte beperk by z = %12.5E\n"
+
+#: src/input.c:84
+msgid ""
+"Error reading Comments\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"Fout met lees van Kommentaar\n"
+"Onverwagte EOF (Einde van Lêer)"
+
+#: src/input.c:98
+msgid ""
+"Error reading Comments\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"Fout met lees van Kommentaar\n"
+"Kommentaar-mnemoniese kort of ontbreek"
+
+#: src/input.c:109
+msgid ""
+"Read_Comments():\n"
+" Error reading input file\n"
+"Comment mnemonic incorrect"
+msgstr ""
+"Read_Comments():\n"
+" Fout met lees van invoerlêer\n"
+"Kommentaar-mnemoniese verkeerd"
+
+#: src/input.c:148
+msgid ""
+"Geometry data error\n"
+"Tag number is less than 1"
+msgstr ""
+"Geometrie data fout\n"
+"Etiketnommer is minder as 1"
+
+#: src/input.c:155
+msgid ""
+"Geometry data error\n"
+"Number of segments is less than 1"
+msgstr ""
+"Geometrie data fout\n"
+"Aantal segmente is minder as 1"
+
+#: src/input.c:162
+msgid "warning - number of segments is greater than 1000000\n"
+msgstr "waarskuwing - aantal segmente is groter as 1000000\n"
+
+#: src/input.c:210
+#, c-format
+msgid "%s data card error: Spurious character '%c' at column %d\n"
+msgstr "%s datakaart fout: Ongewenste karakter '%c' by kolom %d\n"
+
+#: src/input.c:212
+msgid ""
+"Data card error\n"
+"Spurious character in card"
+msgstr ""
+"Datakaart fout\n"
+"Ongewenste karakter in kaart"
+
+#: src/input.c:262
+#, c-format
+msgid "%s: expression evaluation failed for \"%s\"\n"
+msgstr "%s: uitdrukking-evaluering het misluk vir \"%s\"\n"
+
+#: src/input.c:300
+msgid "SY card: no line content available\n"
+msgstr "SY kaart: geen lyninhoud beskikbaar nie\n"
+
+#: src/input.c:301
+msgid "SY card: no line content available"
+msgstr "SY kaart: geen lyninhoud beskikbaar nie"
+
+#: src/input.c:318
+msgid "SY card: missing '=' in definition\n"
+msgstr "SY kaart: ontbrekende '=' in definisie\n"
+
+#: src/input.c:319
+msgid "SY card: missing '=' in definition"
+msgstr "SY kaart: ontbrekende '=' in definisie"
+
+#: src/input.c:352
+#, c-format
+msgid "SY card: expression evaluation failed for %s=%s\n"
+msgstr "SY kaart: uitdrukking-evaluering het misluk vir %s=%s\n"
+
+#: src/input.c:358
+#, c-format
+msgid "SY card: symbol definition failed for %s\n"
+msgstr "SY kaart: simbooldefinisie het misluk vir %s\n"
+
+#: src/input.c:438
+msgid ""
+"Geometry data error\n"
+"No GC card for tapered wire"
+msgstr ""
+"Geometrie data fout\n"
+"Geen GC kaart vir tapse draad nie"
+
+#: src/input.c:445
+msgid "Geometry GC data card error"
+msgstr "Geometrie GC datakaart fout"
+
+#: src/input.c:461
+msgid "Geometry GX data card error"
+msgstr "Geometrie GX datakaart fout"
+
+#: src/input.c:484
+msgid "Geometry GR data card error"
+msgstr "Geometrie GR datakaart fout"
+
+#: src/input.c:541
+msgid "No geometry data cards"
+msgstr "Geen geometrie datakaarte nie"
+
+#: src/input.c:550
+msgid "Probable invalid segment geometry.\n"
+msgstr "Waarskynlik ongeldige segment geometrie.\n"
+
+#: src/input.c:551
+msgid ""
+"Invalid segment geometry.\n"
+"See warnings in the console for detail.\n"
+"Trying to continue..."
+msgstr ""
+"Ongeldige segment geometrie.\n"
+"Sien waarskuwings in die konsole vir besonderhede.\n"
+"Probeer om voort te gaan..."
+
+#: src/input.c:556
+msgid "Read_Geometry: verify_segments() passed\n"
+msgstr "Read_Geometry: verify_segments() geslaag\n"
+
+#: src/input.c:602
+#, c-format
+msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
+msgstr "segment data fout: tag=%d si=%lf, bi=%lf\n"
+
+#: src/input.c:604
+msgid "Segment data error, zero-length line?  See console."
+msgstr "Segment data fout, nul-lengte lyn? Sien konsole."
+
+#: src/input.c:639
+msgid "Move GM data card error"
+msgstr "Skuif GM datakaart fout"
+
+#: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
+#: src/input.c:739
+msgid "Patch data card error"
+msgstr "Patch datakaart fout"
+
+#: src/input.c:677
+msgid "Patch data error"
+msgstr "Patch data fout"
+
+#: src/input.c:786
+msgid ""
+"\"GF\" card (NGF solution)\n"
+"is not supported"
+msgstr ""
+"\"GF\" kaart (NGF oplossing)\n"
+"word nie ondersteun nie"
+
+#: src/input.c:791
+msgid "Ignoring CM card in geometry"
+msgstr "Ignoreer CM kaart in geometrie"
+
+#: src/input.c:804
+#, c-format
+msgid "geometry data card error (nwire=%d)\n"
+msgstr "geometrie datakaart fout (nwire=%d)\n"
+
+#: src/input.c:805
+#, c-format
+msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+
+#: src/input.c:808
+msgid "Geometry data card error"
+msgstr "Geometrie datakaart fout"
+
+#: src/input.c:833
+msgid "Failed to initialize symbol table\n"
+msgstr "Kon nie simbooltabel inisialiseer nie\n"
+
+#: src/input.c:834
+msgid "Failed to initialize symbol table"
+msgstr "Kon nie simbooltabel inisialiseer nie"
+
+#: src/input.c:1002
+msgid "ignoring CM card in commands\n"
+msgstr "ignoreer CM kaart in opdragte\n"
+
+#: src/input.c:1003
+msgid "Ignoring CM card in commands"
+msgstr "Ignoreer CM kaart in opdragte"
+
+#: src/input.c:1007
+msgid ""
+"CP card is ignored\n"
+"Coupling calculation not implemented"
+msgstr ""
+"CP kaart word geïgnoreer\n"
+"Koppelingsberekening nie geïmplementeer nie"
+
+#: src/input.c:1185
+msgid "Max frequency <= Min frequency in FR card\n"
+msgstr "Maks frekwensie <= Min frekwensie in FR kaart\n"
+
+#: src/input.c:1186
+msgid ""
+"Max frequency <= Min frequency in FR card\n"
+"Please check FR card data and correct"
+msgstr ""
+"Maks frekwensie <= Min frekwensie in FR kaart\n"
+"Kontroleer asseblief FR kaart data en korrigeer"
+
+#: src/input.c:1209
+msgid ""
+"Fix the GE/GN cards:\n"
+"The GE card specifies that a ground is present, but the GN indicates "
+"otherwise."
+msgstr ""
+"Herstel die GE/GN kaarte:\n"
+"Die GE kaart spesifiseer dat 'n grondvlak teenwoordig is, maar die GN dui "
+"anders aan."
+
+#: src/input.c:1223
+msgid "theta > 90 deg. with ground specified\n"
+msgstr "theta > 90 grade met grondvlak gespesifiseer\n"
+
+#: src/input.c:1224 src/radiation.c:656
+msgid ""
+"Theta > 90 deg with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 grade met grondvlak gespesifiseer\n"
+"Kontroleer asseblief RP kaart data en korrigeer"
+
+#: src/input.c:1233
+msgid ""
+"radial wire g.s. approximation: may not be used with Sommerfeld ground "
+"option\n"
+msgstr ""
+"radiale draad g.s. benadering: mag nie met Sommerfeld grondopsie gebruik "
+"word nie\n"
+
+#: src/input.c:1234
+msgid ""
+"radial wire g.s. approximation\n"
+"may not be used with Sommerfeld ground option"
+msgstr ""
+"radiale draad g.s. benadering\n"
+"mag nie met Sommerfeld grondopsie gebruik word nie"
+
+#: src/input.c:1285
+#, c-format
+msgid ""
+"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
+"%d\n"
+msgstr ""
+"data fout op ladingskaart nr %d: itag stap1 %d is groter as itag stap2 %d\n"
+
+#: src/input.c:1287
+msgid ""
+"Data fault on loading card\n"
+"itag step1 is greater than itag step2"
+msgstr ""
+"Data fout op ladingskaart\n"
+"itag stap1 is groter as itag stap2"
+
+#: src/input.c:1420
+msgid ""
+"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr ""
+"Transmissielyn impedansie = 0: is nie geldig nie. Korrigeer asseblief NT of "
+"TL kaart\n"
+
+#: src/input.c:1421
+msgid ""
+"Transmission Line impedance = 0\n"
+"is not valid. Please correct NT or TL card"
+msgstr ""
+"Transmissielyn impedansie = 0\n"
+"is nie geldig nie. Korrigeer asseblief NT of TL kaart"
+
+#: src/input.c:1430
+msgid "Segment number error in TL or NT card\n"
+msgstr "Segment nommer fout in TL of NT kaart\n"
+
+#: src/input.c:1431
+msgid ""
+"Segment number\n"
+"error in NT or TL card"
+msgstr ""
+"Segment nommer\n"
+"fout in NT of TL kaart"
+
+#: src/input.c:1452
+msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
+msgstr "PQ en PT kaarte word geïgnoreer: Druk na lêer nie geïmplementeer nie\n"
+
+#: src/input.c:1453
+msgid ""
+"PQ and PT cards are ignored\n"
+"Printing to file not implemented"
+msgstr ""
+"PQ en PT kaarte word geïgnoreer\n"
+"Druk na lêer nie geïmplementeer nie"
+
+#: src/input.c:1460
+msgid "Surface wave option (I1=1): of RP command not implemented\n"
+msgstr "Oppervlakgolf opsie (I1=1): van RP opdrag nie geïmplementeer nie\n"
+
+#: src/input.c:1461
+msgid ""
+"Surface wave option (I1=1)\n"
+"of RP command not implemented"
+msgstr ""
+"Oppervlakgolf opsie (I1=1)\n"
+"van RP opdrag nie geïmplementeer nie"
+
+#: src/input.c:1484
+msgid ""
+"Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
+"xnec2c renders radiation patterns graphically instead of text tables.\n"
+"Pattern calculations proceed normally; use GUI to view results."
+msgstr ""
+"Aanwins-gemiddeld (XNDA ***1 of ***2) beheer teks uitvoer formatering.\n"
+"xnec2c vertoon stralingspatrone grafies in plaas van teks tabelle.\n"
+"Patroon berekeninge gaan normaalweg voort; gebruik GUI om resultate te sien."
+
+#: src/input.c:1502
+msgid ""
+"Theta > 90 deg. with ground specified: Please check RP card data and "
+"correct\n"
+msgstr ""
+"Theta > 90 grade met grondvlak gespesifiseer: Kontroleer asseblief RP kaart "
+"data en korrigeer\n"
+
+#: src/input.c:1503
+msgid ""
+"Theta > 90 deg. with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 grade met grondvlak gespesifiseer\n"
+"Kontroleer asseblief RP kaart data en korrigeer"
+
+#: src/input.c:1568
+msgid "Faulty data card"
+msgstr "Foutiewe datakaart"
+
+#: src/input.c:1578
+msgid ""
+"Missing or surface-wave RP card: Radiation pattern and gain calculations "
+"disabled\n"
+msgstr ""
+"Ontbrekende of oppervlakgolf RP kaart: Stralingspatroon en aanwins "
+"berekeninge gedeaktiveer\n"
+
+#: src/input.c:1595
+msgid "Unexpected exit from while loop"
+msgstr "Onverwagte uitgang van while-lus"
+
+#: src/input.c:1653
+msgid ""
+"command data card error: Unexpected EOF while reading input file - appending "
+"EN card\n"
+msgstr ""
+"opdrag datakaart fout: Onverwagte EOF tydens lees van invoerlêer - voeg EN "
+"kaart by\n"
+
+#: src/input.c:1654
+msgid ""
+"Command data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default EN card"
+msgstr ""
+"Opdrag datakaart fout\n"
+"Onverwagte EOF tydens lees van invoerlêer\n"
+"Voeg 'n verstek EN kaart by"
+
+#: src/input.c:1668
+msgid "command data card error: card's mnemonic code too short or missing\n"
+msgstr "opdrag datakaart fout: kaart se mnemoniese kode te kort of ontbreek\n"
+
+#: src/input.c:1669
+msgid ""
+"Command data card error\n"
+"Mnemonic code too short or missing"
+msgstr ""
+"Opdrag datakaart fout\n"
+"Mnemoniese kode te kort of ontbreek"
+
+#: src/input.c:1829
+msgid ""
+"geometry data card error: Unexpected EOF while reading input file - "
+"appending GE card\n"
+msgstr ""
+"geometrie datakaart fout: Onverwagte EOF tydens lees van invoerlêer - voeg "
+"GE kaart by\n"
+
+#: src/input.c:1830
+msgid ""
+"Geometry data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default GE card"
+msgstr ""
+"Geometrie datakaart fout\n"
+"Onverwagte EOF tydens lees van invoerlêer\n"
+"Voeg 'n verstek GE kaart by"
+
+#: src/input.c:1844
+msgid "geometry data card error: card's mnemonic code too short or missing\n"
+msgstr ""
+"geometrie datakaart fout: kaart se mnemoniese kode te kort of ontbreek\n"
+
+#: src/input.c:1845
+msgid ""
+"Geometry data card error\n"
+"Card's mnemonic code too short or missing"
+msgstr ""
+"Geometrie datakaart fout\n"
+"Kaart se mnemoniese kode te kort of ontbreek"
+
+#: src/main.c:125
+#, c-format
+msgid "%s requires a positive integer argument\n"
+msgstr "%s vereis 'n positiewe heelgetal argument\n"
+
+#: src/main.c:183
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "%d SVE's bespeur\n"
+
+#: src/main.c:194
+msgid "config file path too long\n"
+msgstr "konfigurasielêer pad te lank\n"
+
+#: src/main.c:213
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "konfigurasielêer bestaan nie of is nie leesbaar nie: %s\n"
+
+#: src/main.c:222
+#, c-format
+msgid "config file path too long ( > %d char )\n"
+msgstr "konfigurasielêer pad te lank ( > %d karakters )\n"
+
+#: src/main.c:234
+#, c-format
+msgid "input file name too long ( > %d char )\n"
+msgstr "invoerlêer naam te lank ( > %d karakters )\n"
+
+#: src/main.c:261
+msgid "Forking disabled!\n"
+msgstr "Forking gedeaktiveer!\n"
+
+#: src/main.c:269
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop gedeaktiveer!\n"
+
+#: src/main.c:273
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "bondelmodus geaktiveer, sal na eerste lus afsluit\n"
+
+#: src/main.c:331
+msgid "verify segments check disabled\n"
+msgstr "verifieer segmente kontrole gedeaktiveer\n"
+
+#: src/main.c:336
+msgid "forcing overlap check on large models\n"
+msgstr "forseer oorvleuelingskontrole op groot modelle\n"
+
+#: src/main.c:350
+msgid "--batch and --optimize are mutual exclusive.\n"
+msgstr "--batch en --optimize is wedersyds uitsluitend.\n"
+
+#: src/main.c:366
+#, c-format
+msgid "input file path name too long ( > %d char )\n"
+msgstr "invoerlêer padnaam te lank ( > %d karakters )\n"
+
+#: src/main.c:373
+#, c-format
+msgid "unexpected argument '%s' does not appear to be a .nec file\n"
+msgstr "onverwagte argument '%s' blyk nie 'n .nec lêer te wees nie\n"
+
+#: src/main.c:380
+#, c-format
+msgid "unexpected argument: %s\n"
+msgstr "onverwagte argument: %s\n"
+
+#: src/main.c:386
+msgid "batch mode requires an input file\n"
+msgstr "bondelmodus vereis 'n invoerlêer\n"
+
+#: src/main.c:407
+#, c-format
+msgid "Forking %d jobs.\n"
+msgstr "Fork %d take.\n"
+
+#: src/main.c:416 src/main.c:424
+msgid "exiting after fatal error: pipe() failed"
+msgstr "sluit af na fatale fout: pipe() het misluk"
+
+#: src/main.c:433
+msgid "exiting after fatal error: fork() failed"
+msgstr "sluit af na fatale fout: fork() het misluk"
+
+#: src/main.c:778
+msgid "exiting via user interrupt\n"
+msgstr "sluit af via gebruiker onderbreking\n"
+
+#: src/main.c:782
+msgid "segmentation fault, exiting\n"
+msgstr "segmentasiefout, sluit af\n"
+
+#: src/main.c:786
+msgid "floating point exception, exiting\n"
+msgstr "drywende punt uitsondering, verlaat\n"
+
+#: src/main.c:790
+msgid "abort signal received, exiting\n"
+msgstr "aborteer sein ontvang, verlaat\n"
+
+#: src/main.c:794
+msgid "termination request received, exiting\n"
+msgstr "beëindigingsversoek ontvang, verlaat\n"
+
+#: src/main.c:804
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "nie gevurk nie, ignoreer SIGCHLD van pid %d\n"
+
+#: src/main.c:812
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "kindproses pid %d het verlaat\n"
+
+#: src/main.c:821
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "verstekuitgang met sein: %d\n"
+
+#: src/matrix.c:1216
+#, c-format
+msgid "pivot(%d)= %16.8E\n"
+msgstr "pivot(%d)= %16.8E\n"
+
+#: src/matrix.c:1250
+#, c-format
+msgid "LU Decomposition Failed: %d\n"
+msgstr "LU-ontbinding het misluk: %d\n"
+
+#: src/matrix.c:1306
+#, c-format
+msgid "symmetry error - nrow:%d ncol:%d\n"
+msgstr "simmetriefout - nry:%d nkol:%d\n"
+
+#: src/matrix.c:1307
+msgid "Symmetry error"
+msgstr "Simmetriefout"
+
+#: src/matrix.c:1414
+#, c-format
+msgid "Solving Failed: %d\n"
+msgstr "Oplossing het misluk: %d\n"
+
+#: src/nec2_model.c:111 src/nec2_model.c:115 src/nec2_model.c:119
+msgid "Card"
+msgstr "Kaart"
+
+#: src/nec2_model.c:111 resources/xnec2c.glade:6183
+msgid "Comments"
+msgstr "Kommentaar"
+
+#: src/nec2_model.c:188
+msgid "--- NEC2 Input File created or edited by "
+msgstr "--- NEC2 Invoerlêer geskep of geredigeer deur "
+
+#: src/nec2_model.c:205
+msgid "--- End Comments ---"
+msgstr "--- Einde Kommentaar ---"
+
+#: src/nec2_model.c:344
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"List_Comments():\n"
+"Fout met lees van invoerlêer\n"
+"Onverwagte EOF (Einde van Lêer)"
+
+#: src/nec2_model.c:351
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"List_Comments():\n"
+"Fout met lees van invoerlêer\n"
+"Kommentaar-mnemoniese kort of ontbreek"
+
+#: src/nec2_model.c:594
+msgid "End Comments"
+msgstr "Einde Kommentaar"
+
+#: src/nec2_model.c:648
+msgid ""
+"Cannot save treeview data\n"
+"Please use the Save button\n"
+"to specify a file path"
+msgstr ""
+"Kan nie boomsigdata stoor nie\n"
+"Gebruik asseblief die Stoor-knoppie\n"
+"om 'n lêerpad te spesifiseer"
+
+#: src/network.c:648
+#, c-format
+msgid "improper load type chosen, requested type is %d\n"
+msgstr "onbehoorlike lastipe gekies, versoekte tipe is %d\n"
+
+#: src/network.c:649
+msgid "Improper load type chose"
+msgstr "Onbehoorlike lastipe gekies"
+
+#: src/network.c:737
+#, c-format
+msgid "loading data card error, no segment has an itag = %d\n"
+msgstr "laai datakaart fout, geen segment het 'n itag = %d\n"
+
+#: src/network.c:738
+msgid ""
+"Loading data card\n"
+"Tag number mismatch error"
+msgstr ""
+"Laai datakaart\n"
+"Etiketnommer-wanpassing fout"
+
+#: src/plot_freqdata.c:132
+#, c-format
+msgid ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+msgstr ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+
+#: src/plot_freqdata.c:148
+#, c-format
+msgid ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+msgstr ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+
+#: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
+msgid "memory allocation for points failed\n"
+msgstr "geheue-toewysing vir punte het misluk\n"
+
+#: src/plot_freqdata.c:832 src/plot_freqdata.c:1299
+msgid "Draw_Graph():Memory allocation for points failed"
+msgstr "Draw_Graph():Geheue-toewysing vir punte het misluk"
+
+#: src/plot_freqdata.c:1260
+msgid "Smith Chart"
+msgstr "Smith-kaart"
+
+#: src/plot_freqdata.c:1452 src/plot_freqdata.c:1471 src/plot_freqdata.c:1496
+msgid "Raw Gain dBi"
+msgstr "Rou Aanwins dBi"
+
+#: src/plot_freqdata.c:1455
+msgid "Max Gain & Net Gain vs Frequency"
+msgstr "Maks Aanwins & Netto Aanwins vs Frekwensie"
+
+#: src/plot_freqdata.c:1456
+msgid "Net Gain dBi"
+msgstr "Netto Aanwins dBi"
+
+#: src/plot_freqdata.c:1462 src/plot_freqdata.c:1472
+msgid "Max Gain & F/B Ratio vs Frequency"
+msgstr "Maks Aanwins & V/A Verhouding vs Frekwensie"
+
+#: src/plot_freqdata.c:1473
+msgid "F/B Ratio dB"
+msgstr "V/A Verhouding dB"
+
+#: src/plot_freqdata.c:1482
+msgid "Rad Angle - deg"
+msgstr "Stralingshoek - grade"
+
+#: src/plot_freqdata.c:1483
+msgid "Max Gain Direction vs Frequency"
+msgstr "Maks Aanwinsrigting vs Frekwensie"
+
+#: src/plot_freqdata.c:1484
+msgid "Phi - deg"
+msgstr "Phi - grade"
+
+#: src/plot_freqdata.c:1497
+msgid "Gain in Viewer Direction vs Frequency"
+msgstr "Aanwins in Kykerrigting vs Frekwensie"
+
+#: src/plot_freqdata.c:1520
+msgid "Net gain dBi"
+msgstr "Netto aanwins dBi"
+
+#: src/plot_freqdata.c:1538 resources/xnec2c.glade:9909
+#: resources/xnec2c.glade:10119
+msgid "VSWR"
+msgstr "VSWR"
+
+#: src/plot_freqdata.c:1541
+msgid "VSWR & S11 vs Frequency"
+msgstr "VSWR & S11 vs Frekwensie"
+
+#: src/plot_freqdata.c:1542
+msgid "S11 dB"
+msgstr "S11 dB"
+
+#: src/plot_freqdata.c:1546
+msgid "VSWR vs Frequency"
+msgstr "VSWR vs Frekwensie"
+
+#: src/plot_freqdata.c:1560
+msgid "memory allocation for vswr/s11 failed\n"
+msgstr "geheue-toewysing vir vswr/s11 het misluk\n"
+
+#: src/plot_freqdata.c:1561
+msgid "Plot_Frequency_Data():Memory allocation for vswr/s11 failed"
+msgstr "Plot_Frequency_Data():Geheue-toewysing vir vswr/s11 het misluk"
+
+#: src/plot_freqdata.c:1591 resources/xnec2c.glade:10084
+msgid "Z-real"
+msgstr "Z-reëel"
+
+#: src/plot_freqdata.c:1592 src/plot_freqdata.c:1605
+msgid "Impedance vs Frequency"
+msgstr "Impedansie vs Frekwensie"
+
+#: src/plot_freqdata.c:1593 resources/xnec2c.glade:10049
+msgid "Z-imag"
+msgstr "Z-imag"
+
+#: src/plot_freqdata.c:1604
+msgid "Z-magn"
+msgstr "Z-magn"
+
+#: src/plot_freqdata.c:1606
+msgid "Z-phase"
+msgstr "Z-fase"
+
+#: src/plot_freqdata.c:1855
+#, c-format
+msgid "mouse button: unknown button %d\n"
+msgstr "muisknoppie: onbekende knoppie %d\n"
+
+#: src/somnec.c:238
+msgid "Hankel not valid for z = 0"
+msgstr "Hankel nie geldig vir z = 0 nie"
+
+#: src/somnec.c:749
+msgid "No convergence"
+msgstr "Geen konvergensie"
+
+#: src/utils.c:103 src/utils.c:108
+#, c-format
+msgid ""
+"\n"
+"=== Notice: %s ===\n"
+"%s\n"
+"\n"
+msgstr ""
+"\n"
+"=== Kennisgewing: %s ===\n"
+"%s\n"
+"\n"
+
+#: src/utils.c:150
+#, c-format
+msgid "Stop: %s\n"
+msgstr "Stop: %s\n"
+
+#: src/utils.c:157 src/utils.c:161 src/utils.c:171 src/utils.c:173
+#, c-format
+msgid "%s\n"
+msgstr "%s\n"
+
+#: src/utils.c:354
+#, c-format
+msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
+msgstr "gebruik %d OpenMP-drade per taak (%d/%d SVE's)\n"
+
+#: src/utils.c:370
+#, c-format
+msgid "%s[%d]: %f seconds\n"
+msgstr "%s[%d]: %f sekondes\n"
+
+#: src/utils.c:422
+#, c-format
+msgid ""
+"mem_obj_t at %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+msgstr ""
+"mem_obj_t by %p:\n"
+"  grootte: %lu\n"
+"  gebruik: %lu\n"
+"  adres: %p\n"
+
+#: src/utils.c:441
+#, c-format
+msgid "mem_backtrace(%p):\n"
+msgstr "mem_backtrace(%p):\n"
+
+#: src/utils.c:443
+msgid "  m->backtrace is null, no backtrace data\n"
+msgstr "  m->backtrace is nul, geen terugspoordata nie\n"
+
+#: src/utils.c:507
+#, c-format
+msgid "Memory re-allocation denied %s\n"
+msgstr "Geheue-hertoewysing geweier %s\n"
+
+#: src/utils.c:508
+#, c-format
+msgid "%s: Memory requested %lu\n"
+msgstr "%s: Geheue versoek %lu\n"
+
+#: src/utils.c:554
+#, c-format
+msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
+msgstr "xnec2c[%d]: %s: Kon nie lêer oopmaak nie: %s\n"
+
+#: src/utils.c:559
+#, c-format
+msgid "%s: %s\n"
+msgstr "%s: %s\n"
+
+#: src/utils.c:927
+msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
+msgstr "Optimeerder-lus onvolledig, slaan stralingspatroon-hertekening oor.\n"
+
+#: src/utils.c:934
+msgid "Optimizer loop incomplete, skipping structure redraw.\n"
+msgstr "Optimeerder-lus onvolledig, slaan struktuur-hertekening oor.\n"
+
+#: src/utils.c:949
+msgid "  Backtrace:\n"
+msgstr "  Terugspoor:\n"
+
+#: src/utils.c:951
+#, c-format
+msgid "    %d. %s\n"
+msgstr "    %d. %s\n"
+
+#: src/utils.c:978
+#, c-format
+msgid "%s:\n"
+msgstr "%s:\n"
+
+#: src/xnec2c.c:185
+#, c-format
+msgid ""
+"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
+"%+12.5Ej\n"
+msgstr ""
+"komplekse diëlektriese konstante vanaf lêer: %12.5E%+12.5Ej, versoek: %12.5E"
+"%+12.5Ej\n"
+
+#: src/xnec2c.c:188
+msgid "Ground_Parameters():Error in ground parameters"
+msgstr "Ground_Parameters():Fout in grondparameters"
+
+#: src/xnec2c.c:490
+#, c-format
+msgid "%.6f MHz: %f seconds. (%s)\n"
+msgstr "%.6f MHz: %f sekondes. (%s)\n"
+
+#: src/xnec2c.c:781
+msgid "Failed to read data from forked child\n"
+msgstr "Kon nie data van gevurkte kindproses lees nie\n"
+
+#: src/xnec2c.c:817
+#, c-format
+msgid ""
+"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr ""
+"Frequency_Loop is klaar met alle stappe maar num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+
+#: src/xnec2c.c:824
+#, c-format
+msgid "  busy job[%d]: fstep=%d freq=%f\n"
+msgstr "  besige taak[%d]: fstep=%d freq=%f\n"
+
+#: src/xnec2c.c:886
+#, c-format
+msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
+msgstr "Frekwensielus verstreke tyd: %f sekondes. (%s)\n"
+
+#: src/xnec2c.c:1029
+msgid "failed to start Frequency_Loop_Thread\n"
+msgstr "kon nie Frequency_Loop_Thread begin nie\n"
+
+#: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1964
+msgid "xnec2c"
+msgstr "xnec2c"
+
+#: files/xnec2c.desktop.in:4
+msgid "NEC2 Simulator"
+msgstr "NEC2-simuleerder"
+
+#: files/xnec2c.desktop.in:5
+msgid "Numerical Electromagnetics Code software"
+msgstr "Numeriese Elektromagnetika Kode sagteware"
+
+#: files/xnec2c.desktop.in:11
+msgid "nec2;em;simulator;"
+msgstr "nec2;em;simuleerder;"
+
+#: resources/xnec2c.glade:14
+msgid "(C) 2007-2022 Neoklis Kyriazis"
+msgstr "(C) 2007-2022 Neoklis Kyriazis"
+
+#: resources/xnec2c.glade:15
+msgid ""
+"xnec2c is an interactive graphical wrapper around a modified version of "
+"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
+"Numerical Electromagnetics Code.\n"
+"\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
+"etc) in a graphical format. It can also display radiation pattern data in a "
+"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
+"format.\n"
+"\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
+"or edit antenna description files and specify NEC2 commands.\n"
+"\n"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
+"fully compatible with NEC2 input files and it works in different ways!"
+msgstr ""
+"xnec2c is 'n interaktiewe grafiese omhulsel rondom 'n gewysigde weergawe van "
+"nec2c, wat self 'n vertaling na C is van die oorspronklike FORTRAN NEC2 "
+"Numeriese Elektromagnetika Kode.\n"
+"\n"
+"xnec2c kan frekwensie-afhanklike data (aanwins, ingangsimpedansie, vswr "
+"ens.) in 'n grafiese formaat vertoon. Dit kan ook stralingspatroondata in 'n "
+"draaibare draadraaamformaat en nabye veld (E, H, S vektore) in 'n "
+"roosterformaat vertoon.\n"
+"\n"
+"xnec2c het 'n ingeboude NEC2-invoerlêerredigeerder wat dit makliker maak om "
+"antennabeskrywingslêers te skep of te redigeer en NEC2-opdragte te "
+"spesifiseer.\n"
+"\n"
+"LEES asseblief die dokumentasie in die doc/ subgids aangesien xnec2c nie ten "
+"volle versoenbaar is met NEC2-invoerlêers nie en dit op verskillende maniere "
+"werk!"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: resources/xnec2c.glade:27
+msgid "translator-credits"
+msgstr "vertaler-krediete"
+
+#: resources/xnec2c.glade:159
+msgid "Steps/Cycle"
+msgstr "Stappe/Siklus"
+
+#: resources/xnec2c.glade:172
+msgid "Animate Freq (Hz)"
+msgstr "Animeer Frekwensie (Hz)"
+
+#: resources/xnec2c.glade:286
+msgid "Arc Element (GA card)"
+msgstr "Boogelement (GA-kaart)"
+
+#: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
+msgid "No. Segments"
+msgstr "Aantal Segmente"
+
+#: resources/xnec2c.glade:340 resources/xnec2c.glade:3802
+#: resources/xnec2c.glade:14417
+msgid "Segs % lambda"
+msgstr "Segmente % lambda"
+
+#: resources/xnec2c.glade:353 resources/xnec2c.glade:3815
+#: resources/xnec2c.glade:14513
+msgid "Wire Diameter"
+msgstr "Draaddeursnee"
+
+#: resources/xnec2c.glade:441
+msgid "Radius from Y"
+msgstr "Radius vanaf Y"
+
+#: resources/xnec2c.glade:454
+msgid "End 1 Angle"
+msgstr "Einde 1 Hoek"
+
+#: resources/xnec2c.glade:467
+msgid "End 2 Angle"
+msgstr "Einde 2 Hoek"
+
+#: resources/xnec2c.glade:578
+msgid "Wire Arc Data"
+msgstr "Draadboogdata"
+
+#: resources/xnec2c.glade:640 resources/xnec2c.glade:876
+#: resources/xnec2c.glade:1676 resources/xnec2c.glade:1899
+#: resources/xnec2c.glade:2357 resources/xnec2c.glade:2549
+#: resources/xnec2c.glade:2860 resources/xnec2c.glade:3546
+#: resources/xnec2c.glade:4346 resources/xnec2c.glade:4545
+#: resources/xnec2c.glade:4706 resources/xnec2c.glade:5238
+#: resources/xnec2c.glade:5874 resources/xnec2c.glade:7290
+#: resources/xnec2c.glade:8197 resources/xnec2c.glade:9203
+#: resources/xnec2c.glade:9476 resources/xnec2c.glade:12919
+#: resources/xnec2c.glade:13432 resources/xnec2c.glade:14031
+#: resources/xnec2c.glade:14867 resources/xnec2c.glade:15067
+msgid "Delete Card"
+msgstr "Skrap Kaart"
+
+#: resources/xnec2c.glade:718
+msgid "Cylindrical Structure (GR card)"
+msgstr "Silindriese Struktuur (GR-kaart)"
+
+#: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
+msgid "Tag Number Increment"
+msgstr "Etiketnommer-inkrement"
+
+#: resources/xnec2c.glade:761
+msgid "Number of Structures"
+msgstr "Aantal Strukture"
+
+#: resources/xnec2c.glade:815
+msgid "Cylindrical Structure"
+msgstr "Silindriese Struktuur"
+
+#: resources/xnec2c.glade:941
+msgid "Xnec2c Error"
+msgstr "Xnec2c Fout"
+
+#: resources/xnec2c.glade:1049
+msgid "Error"
+msgstr "Fout"
+
+#: resources/xnec2c.glade:1128
+msgid "Excitation Command (EX Card)"
+msgstr "Opwekkingsopdrag (EX-kaart)"
+
+#: resources/xnec2c.glade:1154
+msgid "Incident LH Wave"
+msgstr "Invallende LH-golf"
+
+#: resources/xnec2c.glade:1170
+msgid "Incident Linear Wave "
+msgstr "Invallende Lineêre Golf "
+
+#: resources/xnec2c.glade:1186
+msgid "Current Source"
+msgstr "Stroombron"
+
+#: resources/xnec2c.glade:1202
+msgid "Incident RH Wave"
+msgstr "Invallende RH-golf"
+
+#: resources/xnec2c.glade:1218
+msgid "Current Slope Discontinuity"
+msgstr "Stroomhelling Diskontinuïteit"
+
+#: resources/xnec2c.glade:1234
+msgid "Voltage Source"
+msgstr "Spanningsbron"
+
+#: resources/xnec2c.glade:1256
+msgid "Excitation Type"
+msgstr "Opwekkingstipe"
+
+#: resources/xnec2c.glade:1281
+msgid "Maximum Admittance Matrix Asymmetry"
+msgstr "Maksimum Admittansiematriks Asimmetrie"
+
+#: resources/xnec2c.glade:1297
+msgid "Impedance of Source Segment"
+msgstr "Impedansie van Bronsegment"
+
+#: resources/xnec2c.glade:1319
+msgid "Print Control"
+msgstr "Drukbeheer"
+
+#: resources/xnec2c.glade:1411
+msgid "Voltage - Real Part"
+msgstr "Spanning - Reële Deel"
+
+#: resources/xnec2c.glade:1424
+msgid "Voltage - Imaginary Part"
+msgstr "Spanning - Imaginêre Deel"
+
+#: resources/xnec2c.glade:1437
+msgid "Eta"
+msgstr "Eta"
+
+#: resources/xnec2c.glade:1507
+msgid "Theta"
+msgstr "Theta"
+
+#: resources/xnec2c.glade:1520
+msgid "Phi"
+msgstr "Phi"
+
+#: resources/xnec2c.glade:1533
+msgid "Ratio"
+msgstr "Verhouding"
+
+#: resources/xnec2c.glade:1614
+msgid "Excitation Parameters"
+msgstr "Opwekkingsparameters"
+
+#: resources/xnec2c.glade:1741
+msgid "Execute Command (XQ Card)"
+msgstr "Uitvoeropdrag (XQ-kaart)"
+
+#: resources/xnec2c.glade:1768
+msgid "No Pattern Cuts"
+msgstr "Geen Patroonssnitte"
+
+#: resources/xnec2c.glade:1784
+msgid "Pattern in XZ Plane"
+msgstr "Patroon in XZ-vlak"
+
+#: resources/xnec2c.glade:1800
+msgid "Pattern in YZ Plane"
+msgstr "Patroon in YZ-vlak"
+
+#: resources/xnec2c.glade:1816
+msgid "Both XZ/YZ Patterns"
+msgstr "Beide XZ/YZ-patrone"
+
+#: resources/xnec2c.glade:1838
+msgid "Execute Command"
+msgstr "Uitvoeropdrag"
+
+#: resources/xnec2c.glade:2069
+msgid "Frequency Command (FR Card)"
+msgstr "Frekwensieopdrag (FR-kaart)"
+
+#: resources/xnec2c.glade:2094
+msgid "Additive Stepping"
+msgstr "Additiewe Stapping"
+
+#: resources/xnec2c.glade:2111
+msgid "Multiplicative Stepping"
+msgstr "Vermenigvuldigende Stapping"
+
+#: resources/xnec2c.glade:2134
+msgid "Frequency Stepping"
+msgstr "Frekwensiestapping"
+
+#: resources/xnec2c.glade:2164
+msgid "No. Frequency Points"
+msgstr "Aantal Frekwensiepunte"
+
+#: resources/xnec2c.glade:2195
+msgid "Start Frequency (MHz)"
+msgstr "Beginfrekwensie (MHz)"
+
+#: resources/xnec2c.glade:2227
+msgid "Frequency Step (MHz)"
+msgstr "Frekwensiestappe (MHz)"
+
+#: resources/xnec2c.glade:2260
+msgid "End Frequency (MHz)"
+msgstr "Eindfrekwensie (MHz)"
+
+#: resources/xnec2c.glade:2296
+msgid "Frequency Stepping Parameters"
+msgstr "Frekwensiestappingsparameters"
+
+#: resources/xnec2c.glade:2422
+msgid "Geometry End (GE Card)"
+msgstr "Geometrie-einde (GE-kaart)"
+
+#: resources/xnec2c.glade:2447
+msgid "No Ground, Free Space condition"
+msgstr "Geen Grond, Vrye Ruimte toestand"
+
+#: resources/xnec2c.glade:2464
+msgid "Ground present, Structure reflection"
+msgstr "Grond teenwoordig, Struktuurweerkaatsing"
+
+#: resources/xnec2c.glade:2481
+msgid "Ground present, no Structure reflection"
+msgstr "Grond teenwoordig, geen Struktuurweerkaatsing"
+
+#: resources/xnec2c.glade:2504
+msgid "Ground Plane type"
+msgstr "Grondvlaktipe"
+
+#: resources/xnec2c.glade:2638
+msgid "Ground Parameters (GD Card)"
+msgstr "Grondparameters (GD-kaart)"
+
+#: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
+#: resources/xnec2c.glade:3222
+msgid "Relative Dielectric Const."
+msgstr "Relatiewe Diëlektriese Konst."
+
+#: resources/xnec2c.glade:2699 resources/xnec2c.glade:3255
+msgid "Distance to 2nd Medium"
+msgstr "Afstand na 2de Medium"
+
+#: resources/xnec2c.glade:2731 resources/xnec2c.glade:3168
+#: resources/xnec2c.glade:3287
+msgid "Ground Conductivity S/m"
+msgstr "Grondgeleidingsvermoë S/m"
+
+#: resources/xnec2c.glade:2763 resources/xnec2c.glade:3319
+msgid "Dist. below 1st Medium"
+msgstr "Afst. onder 1ste Medium"
+
+#: resources/xnec2c.glade:2799 resources/xnec2c.glade:3355
+msgid "2nd Medium Parameters"
+msgstr "2de Medium Parameters"
+
+#: resources/xnec2c.glade:2980
+msgid "Ground Parameters (GN & GD Cards)"
+msgstr "Grondparameters (GN & GD-kaarte)"
+
+#: resources/xnec2c.glade:3007
+msgid "Perfect Ground"
+msgstr "Perfekte Grond"
+
+#: resources/xnec2c.glade:3023
+msgid "Sommerfeld/Norton"
+msgstr "Sommerfeld/Norton"
+
+#: resources/xnec2c.glade:3039
+msgid "Radial Ground Screen"
+msgstr "Radiale Grondskerm"
+
+#: resources/xnec2c.glade:3054
+msgid "Reflection Coeff. Approx"
+msgstr "Weerkaatsingskoëff. Benad."
+
+#: resources/xnec2c.glade:3070
+msgid "Nullify Previous Params"
+msgstr "Kanselleer Vorige Params"
+
+#: resources/xnec2c.glade:3086
+msgid "Second Medium (Cliff)"
+msgstr "Tweede Medium (Krans)"
+
+#: resources/xnec2c.glade:3107
+msgid "Ground Type"
+msgstr "Grondtipe"
+
+#: resources/xnec2c.glade:3235
+msgid "0.00000"
+msgstr "0,00000"
+
+#: resources/xnec2c.glade:3386
+msgid "Number of Radials"
+msgstr "Aantal Radiale"
+
+#: resources/xnec2c.glade:3399
+msgid "Radial Screen Radius"
+msgstr "Radiale Skermradius"
+
+#: resources/xnec2c.glade:3449
+msgid "Radial Wire Diameter"
+msgstr "Radiale Draaddiameter"
+
+#: resources/xnec2c.glade:3485
+msgid "Radial Screen Parameters"
+msgstr "Radiale Skermparameters"
+
+#: resources/xnec2c.glade:3685
+msgid "Helical Element (GA card)"
+msgstr "Heliese Element (GA-kaart)"
+
+#: resources/xnec2c.glade:3710
+msgid "Right Hand Helix"
+msgstr "Regterhand Heliks"
+
+#: resources/xnec2c.glade:3726
+msgid "Left Hand Helix"
+msgstr "Linkerhand Heliks"
+
+#: resources/xnec2c.glade:3742
+msgid "Right Hand Spiral"
+msgstr "Regterhand Spiraal"
+
+#: resources/xnec2c.glade:3758
+msgid "Left Hand Spiral"
+msgstr "Linkerhand Spiraal"
+
+#: resources/xnec2c.glade:3789
+msgid "Segments/Turn"
+msgstr "Segmente/Draai"
+
+#: resources/xnec2c.glade:3828
+msgid "0.0100"
+msgstr "0,0100"
+
+#: resources/xnec2c.glade:3849
+msgid "5.00"
+msgstr "5,00"
+
+#: resources/xnec2c.glade:3870
+msgid "8"
+msgstr "8"
+
+#: resources/xnec2c.glade:3890 resources/xnec2c.glade:11417
+#: resources/xnec2c.glade:12489
+msgid "1"
+msgstr "1"
+
+#: resources/xnec2c.glade:3910
+msgid "Number of Turns"
+msgstr "Aantal Draaie"
+
+#: resources/xnec2c.glade:3923
+msgid "8.0000"
+msgstr "8,0000"
+
+#: resources/xnec2c.glade:3944
+msgid "Helix Length (HL)"
+msgstr "Helikslengte (HL)"
+
+#: resources/xnec2c.glade:3957
+msgid "5.0000"
+msgstr "5,0000"
+
+#: resources/xnec2c.glade:3978
+msgid "Turns Spacing"
+msgstr "Draaispasiëring"
+
+#: resources/xnec2c.glade:3991 resources/xnec2c.glade:4103
+#: resources/xnec2c.glade:4156 resources/xnec2c.glade:4209
+#: resources/xnec2c.glade:4257
+msgid "1.0000"
+msgstr "1,0000"
+
+#: resources/xnec2c.glade:4025
+msgid "0.0000"
+msgstr "0,0000"
+
+#: resources/xnec2c.glade:4045
+msgid "Radius in X (A1)"
+msgstr "Radius in X (A1)"
+
+#: resources/xnec2c.glade:4058
+msgid "Radius in Y (B1)"
+msgstr "Radius in Y (B1)"
+
+#: resources/xnec2c.glade:4071
+msgid "Radius in X (A2)"
+msgstr "Radius in X (A2)"
+
+#: resources/xnec2c.glade:4084
+msgid "Radius in Y (B2)"
+msgstr "Radius in Y (B2)"
+
+#: resources/xnec2c.glade:4282
+msgid "GH Card"
+msgstr "GH-kaart"
+
+#: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
+msgid "Interaction Approx Range (KH Card)"
+msgstr "Interaksiebenad. Bereik (KH-kaart)"
+
+#: resources/xnec2c.glade:4446
+msgid "Approximation Range (W/lengths)"
+msgstr "Benaderingsbereik (Golflengtes)"
+
+#: resources/xnec2c.glade:4484
+msgid "Interaction Approximation Range"
+msgstr "Interaksiebenadering Bereik"
+
+#: resources/xnec2c.glade:4610
+msgid "Thin Wire Kernel (EK Card)"
+msgstr "Dundraadkern (EK-kaart)"
+
+#: resources/xnec2c.glade:4628
+msgid "Extended Thin Wire Kernel"
+msgstr "Uitgebreide Dundraadkern"
+
+#: resources/xnec2c.glade:4645
+msgid "Thin Wire Kernel"
+msgstr "Dundraadkern"
+
+#: resources/xnec2c.glade:4808
+msgid "Loading Command (LD Card)"
+msgstr "Beladingsopdrag (LD-kaart)"
+
+#: resources/xnec2c.glade:4834
+msgid "Short all Loads (Nulls previous Loading Cards)"
+msgstr "Kortsluiting alle Laste (Kanselleer vorige Beladingskaarte)"
+
+#: resources/xnec2c.glade:4851
+msgid "Series, Lumped"
+msgstr "Serie, Gekonsentreerd"
+
+#: resources/xnec2c.glade:4867
+msgid "Parallel, Distributed"
+msgstr "Parallel, Versprei"
+
+#: resources/xnec2c.glade:4883
+msgid "Parallel, Lumped"
+msgstr "Parallel, Gekonsentreerd"
+
+#: resources/xnec2c.glade:4899
+msgid "Resistance & Reactance"
+msgstr "Weerstand & Reaktansie"
+
+#: resources/xnec2c.glade:4915
+msgid "Series, Distributed"
+msgstr "Serie, Versprei"
+
+#: resources/xnec2c.glade:4931
+msgid "Wire Conductivity"
+msgstr "Draadgeleidingsvermoë"
+
+#: resources/xnec2c.glade:4953
+msgid "Loading Type"
+msgstr "Beladingstipe"
+
+#: resources/xnec2c.glade:4983
+msgid "Load Tag Number"
+msgstr "Las Etiket Nommer"
+
+#: resources/xnec2c.glade:5014
+msgid "Resistance"
+msgstr "Weerstand"
+
+#: resources/xnec2c.glade:5046
+msgid "From Segment #"
+msgstr "Van Segment #"
+
+#: resources/xnec2c.glade:5077
+msgid "Inductance"
+msgstr "Induktansie"
+
+#: resources/xnec2c.glade:5109
+msgid "To Segment #"
+msgstr "Na Segment #"
+
+#: resources/xnec2c.glade:5140
+msgid "Capacitance"
+msgstr "Kapasitansie"
+
+#: resources/xnec2c.glade:5176
+msgid "Loading Parameters"
+msgstr "Belastingsparameters"
+
+#: resources/xnec2c.glade:5391
+msgid "Near Fields Command (NE/NH Cards)"
+msgstr "Nabyeveld-opdrag (NE/NH-kaarte)"
+
+#: resources/xnec2c.glade:5418
+msgid "Near Electric Field"
+msgstr "Nabye E-veld"
+
+#: resources/xnec2c.glade:5434
+msgid "Rectangular Co-ordinates"
+msgstr "Reghoekige Koördinate"
+
+#: resources/xnec2c.glade:5450
+msgid "Near Magnetic Field"
+msgstr "Nabye H-veld"
+
+#: resources/xnec2c.glade:5465
+msgid "Spherical Co-ordinates"
+msgstr "Sferiese Koördinate"
+
+#: resources/xnec2c.glade:5493
+msgid "Field Type & Co-ordinates"
+msgstr "Veldtipe & Koördinate"
+
+#: resources/xnec2c.glade:5523
+msgid "NX"
+msgstr "NX"
+
+#: resources/xnec2c.glade:5554 resources/xnec2c.glade:10989
+#: resources/xnec2c.glade:12083
+msgid "X"
+msgstr "X"
+
+#: resources/xnec2c.glade:5586
+msgid "DX"
+msgstr "DX"
+
+#: resources/xnec2c.glade:5618
+msgid "NY"
+msgstr "NY"
+
+#: resources/xnec2c.glade:5649 resources/xnec2c.glade:11004
+#: resources/xnec2c.glade:12098
+msgid "Y"
+msgstr "Y"
+
+#: resources/xnec2c.glade:5681
+msgid "DY"
+msgstr "DY"
+
+#: resources/xnec2c.glade:5713
+msgid "NZ"
+msgstr "NZ"
+
+#: resources/xnec2c.glade:5744 resources/xnec2c.glade:11019
+#: resources/xnec2c.glade:12113
+msgid "Z"
+msgstr "Z"
+
+#: resources/xnec2c.glade:5776
+msgid "DZ"
+msgstr "DZ"
+
+#: resources/xnec2c.glade:5812
+msgid "Field Pattern Parameters"
+msgstr "Veldpatroonparameters"
+
+#: resources/xnec2c.glade:5939
+msgid "Xnec2c: NEC2 Input File Editor"
+msgstr "Xnec2c: NEC2 Invoerlêerredigeerder"
+
+#: resources/xnec2c.glade:6026
+msgid "Manage Cards"
+msgstr "Bestuur Kaarte"
+
+#: resources/xnec2c.glade:6123
+msgid "File Save"
+msgstr "Lêer Stoor"
+
+#: resources/xnec2c.glade:6210
+msgid "Wire"
+msgstr "Draad"
+
+#: resources/xnec2c.glade:6224
+msgid "Arc"
+msgstr "Boog"
+
+#: resources/xnec2c.glade:6238
+msgid "Helix"
+msgstr "Heliks"
+
+#: resources/xnec2c.glade:6252
+msgid "Patch"
+msgstr "Patch"
+
+#: resources/xnec2c.glade:6266
+msgid "Cylinder"
+msgstr "Silinder"
+
+#: resources/xnec2c.glade:6280
+msgid "Move"
+msgstr "Skuif"
+
+#: resources/xnec2c.glade:6294
+msgid "Reflect"
+msgstr "Reflekteer"
+
+#: resources/xnec2c.glade:6308
+msgid "Scale"
+msgstr "Skaal"
+
+#: resources/xnec2c.glade:6328
+msgid "Edit Geometry Data"
+msgstr "Wysig Geometriedata"
+
+#: resources/xnec2c.glade:6382
+msgid "Geometry"
+msgstr "Geometrie"
+
+#: resources/xnec2c.glade:6409
+msgid "Excitation"
+msgstr "Opwekking"
+
+#: resources/xnec2c.glade:6423
+msgid "Radiation"
+msgstr "Straling"
+
+#: resources/xnec2c.glade:6437
+msgid "Frequency"
+msgstr "Frekwensie"
+
+#: resources/xnec2c.glade:6451
+msgid "Near Fields"
+msgstr "Nabyevelde"
+
+#: resources/xnec2c.glade:6465
+msgid "Ground (GN)"
+msgstr "Grond (GN)"
+
+#: resources/xnec2c.glade:6479
+msgid "Ground (GD)"
+msgstr "Grond (GD)"
+
+#: resources/xnec2c.glade:6493
+msgid "Loading"
+msgstr "Belasting"
+
+#: resources/xnec2c.glade:6507
+msgid "Kernel"
+msgstr "Kern"
+
+#: resources/xnec2c.glade:6521
+msgid "Network"
+msgstr "Netwerk"
+
+#: resources/xnec2c.glade:6535
+msgid "Interaction"
+msgstr "Interaksie"
+
+#: resources/xnec2c.glade:6549
+msgid "Transm. Line"
+msgstr "Transm. Lyn"
+
+#: resources/xnec2c.glade:6564
+msgid "Execute"
+msgstr "Voer uit"
+
+#: resources/xnec2c.glade:6578
+msgid "Zo"
+msgstr "Zo"
+
+#: resources/xnec2c.glade:6598
+msgid "Edit Control Commands"
+msgstr "Wysig Beheeropdragte"
+
+#: resources/xnec2c.glade:6652
+msgid "Commands"
+msgstr "Opdragte"
+
+#: resources/xnec2c.glade:6671
+msgid "Unsaved Data"
+msgstr "Ongestoorde Data"
+
+#: resources/xnec2c.glade:6747
+msgid ""
+"Unsaved data in NEC2 Editor.\n"
+"Save NEC2 Editor data first?\n"
+msgstr ""
+"Ongestoorde data in NEC2-redigeerder.\n"
+"Stoor NEC2-redigeerderdata eers?\n"
+
+#: resources/xnec2c.glade:6846
+msgid "Network Command (NT Card)"
+msgstr "Netwerkopdrag (NT-kaart)"
+
+#: resources/xnec2c.glade:6875
+msgid "Tag Number, Port 1  "
+msgstr "Etiketnommer, Poort 1  "
+
+#: resources/xnec2c.glade:6906
+msgid "Tag Number, Port 2  "
+msgstr "Etiketnommer, Poort 2  "
+
+#: resources/xnec2c.glade:6937
+msgid "Segment Num, Port 1"
+msgstr "Segmentnr., Poort 1"
+
+#: resources/xnec2c.glade:6968
+msgid "Segment Num, Port 2"
+msgstr "Segmentnr., Poort 2"
+
+#: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
+msgid "Segment Identity"
+msgstr "Segmentidentiteit"
+
+#: resources/xnec2c.glade:7033
+msgid "Element 1,1 Real Part"
+msgstr "Element 1,1 Reële Deel"
+
+#: resources/xnec2c.glade:7065
+msgid "Element 1,2 Real Part"
+msgstr "Element 1,2 Reële Deel"
+
+#: resources/xnec2c.glade:7097
+msgid "Element 2,2 Real Part"
+msgstr "Element 2,2 Reële Deel"
+
+#: resources/xnec2c.glade:7129
+msgid "Element 1,1 Imag Part"
+msgstr "Element 1,1 Imag. Deel"
+
+#: resources/xnec2c.glade:7161
+msgid "Element 1,2 Imag Part"
+msgstr "Element 1,2 Imag. Deel"
+
+#: resources/xnec2c.glade:7193
+msgid "Element 2,2 Imag Part"
+msgstr "Element 2,2 Imag. Deel"
+
+#: resources/xnec2c.glade:7229
+msgid "Admittance Matrix Elements"
+msgstr "Admittansiematrikselemente"
+
+#: resources/xnec2c.glade:7444
+msgid "Patch Element (SP & SC Cards)"
+msgstr "Patch-element (SP- & SC-kaarte)"
+
+#: resources/xnec2c.glade:7468
+msgid "Arbitrary"
+msgstr "Arbitrêr"
+
+#: resources/xnec2c.glade:7485
+msgid "Rectangle"
+msgstr "Reghoek"
+
+#: resources/xnec2c.glade:7502
+msgid "Triangle"
+msgstr "Driehoek"
+
+#: resources/xnec2c.glade:7519
+msgid "Quadrilateral"
+msgstr "Vierhoek"
+
+#: resources/xnec2c.glade:7536
+msgid "Surface"
+msgstr "Oppervlak"
+
+#: resources/xnec2c.glade:7559
+msgid "Patch Type"
+msgstr "Patch-tipe"
+
+#: resources/xnec2c.glade:7589
+msgid "Corners 1-2 sub-division (NX)"
+msgstr "Hoeke 1-2 onderverdeling (NX)"
+
+#: resources/xnec2c.glade:7620
+msgid "Corners 2-3 sub-division (NY)"
+msgstr "Hoeke 2-3 onderverdeling (NY)"
+
+#: resources/xnec2c.glade:7655
+msgid "Surface Sub-division"
+msgstr "Oppervlak-onderverdeling"
+
+#: resources/xnec2c.glade:7881
+msgid "SP/SM Cards"
+msgstr "SP/SM-kaarte"
+
+#: resources/xnec2c.glade:7917
+msgid "Corner 3 - X"
+msgstr "Hoek 3 - X"
+
+#: resources/xnec2c.glade:7949
+msgid "Corner 3 - Y"
+msgstr "Hoek 3 - Y"
+
+#: resources/xnec2c.glade:7981
+msgid "Corner 3 - Z"
+msgstr "Hoek 3 - Z"
+
+#: resources/xnec2c.glade:8029
+msgid "Corner 4 - X"
+msgstr "Hoek 4 - X"
+
+#: resources/xnec2c.glade:8061
+msgid "Corner 4 - Y"
+msgstr "Hoek 4 - Y"
+
+#: resources/xnec2c.glade:8093
+msgid "Corner 4 - Z"
+msgstr "Hoek 4 - Z"
+
+#: resources/xnec2c.glade:8136
+msgid "SC Card"
+msgstr "SC-kaart"
+
+#: resources/xnec2c.glade:8352
+msgid "Quit xnec2c?"
+msgstr "Verlaat xnec2c?"
+
+#: resources/xnec2c.glade:8431
+msgid "Radiation Pattern (RP Card)"
+msgstr "Stralingspatroon (RP-kaart)"
+
+#: resources/xnec2c.glade:8458
+msgid "Normal (Space) Wave"
+msgstr "Normale (Ruimte) Golf"
+
+#: resources/xnec2c.glade:8474
+msgid "Space + Ground Wave"
+msgstr "Ruimte + Grondgolf"
+
+#: resources/xnec2c.glade:8490
+msgid "Linear Cliff"
+msgstr "Lineêre Krans"
+
+#: resources/xnec2c.glade:8506
+msgid "Radial wire screen"
+msgstr "Radiale draadskerm"
+
+#: resources/xnec2c.glade:8522
+msgid "Circular Cliff + Radials"
+msgstr "Sirkulêre Krans + Radiale"
+
+#: resources/xnec2c.glade:8538
+msgid "Circular Cliff"
+msgstr "Sirkulêre Krans"
+
+#: resources/xnec2c.glade:8554
+msgid "Linear Cliff + Radials"
+msgstr "Lineêre Krans + Radiale"
+
+#: resources/xnec2c.glade:8572
+msgid "<b>See GN/GD Card Documentation</b>"
+msgstr "<b>Sien GN/GD-kaartdokumentasie</b>"
+
+#: resources/xnec2c.glade:8590
+msgid "Wave Type and Ground (I1)"
+msgstr "Golftipe en Grond (I1)"
+
+#: resources/xnec2c.glade:8618
+msgid "Major & Minor Axis & Total Gain"
+msgstr "Hoof- & Minoras & Totale Aanwins"
+
+#: resources/xnec2c.glade:8634
+msgid "Vertical, Horizontal & Total Gain"
+msgstr "Vertikale, Horisontale & Totale Aanwins"
+
+#: resources/xnec2c.glade:8650
+msgid "Major Axis Gain Normalized"
+msgstr "Hoofas-aanwins Genormaliseer"
+
+#: resources/xnec2c.glade:8666
+msgid "Vertical Axis Gain Normalized"
+msgstr "Vertikale As-aanwins Genormaliseer"
+
+#: resources/xnec2c.glade:8682
+msgid "Total Gain Normalized"
+msgstr "Totale Aanwins Genormaliseer"
+
+#: resources/xnec2c.glade:8698
+msgid "Print/Normalize Directive Gain"
+msgstr "Druk/Normaliseer Rigtingaanwins"
+
+#: resources/xnec2c.glade:8714
+msgid "No Normalized Gain"
+msgstr "Geen Genormaliseerde Aanwins"
+
+#: resources/xnec2c.glade:8730
+msgid "Minor Axis Gain Normalized"
+msgstr "Minoras Aanwins Genormaliseer"
+
+#: resources/xnec2c.glade:8746
+msgid "Horizontal Axis Gain Normalized"
+msgstr "Horisontale As Aanwins Genormaliseer"
+
+#: resources/xnec2c.glade:8762
+msgid "Print/Normalize Power Gain"
+msgstr "Druk/Normaliseer Drywingsaanwins"
+
+#: resources/xnec2c.glade:8778
+msgid "No Gain Averaging"
+msgstr "Geen Aanwins Gemiddeld"
+
+#: resources/xnec2c.glade:8794
+msgid "Points in Average Not Printed"
+msgstr "Punte in Gemiddeld Nie Gedruk"
+
+#: resources/xnec2c.glade:8810
+msgid "Average Gain Computed"
+msgstr "Gemiddelde Aanwins Bereken"
+
+#: resources/xnec2c.glade:8828
+msgid "<b>See RP Card Documentation</b>"
+msgstr "<b>Sien RP Kaart Dokumentasie</b>"
+
+#: resources/xnec2c.glade:8846
+msgid "Data Output Control (XNDA)"
+msgstr "Data Uitset Beheer (XNDA)"
+
+#: resources/xnec2c.glade:8876
+msgid "Points in Theta"
+msgstr "Punte in Theta"
+
+#: resources/xnec2c.glade:8985
+msgid "Initial Phi (deg)"
+msgstr "Aanvanklike Phi (grade)"
+
+#: resources/xnec2c.glade:9067
+msgid "Field Point Distance"
+msgstr "Veldpunt Afstand"
+
+#: resources/xnec2c.glade:9099
+msgid "Gain Normalization"
+msgstr "Aanwins Normalisering"
+
+#: resources/xnec2c.glade:9141
+msgid "Radiation Pattern Parameters"
+msgstr "Stralingspatroon Parameters"
+
+#: resources/xnec2c.glade:9301
+msgid "Reflect Structure (GX card)"
+msgstr "Weerspieël Struktuur (GX kaart)"
+
+#: resources/xnec2c.glade:9329
+msgid "Reflect in YZ plane"
+msgstr "Weerspieël in YZ vlak"
+
+#: resources/xnec2c.glade:9344
+msgid "Reflect in XY plane"
+msgstr "Weerspieël in XY vlak"
+
+#: resources/xnec2c.glade:9359
+msgid "Reflect in XZ plane"
+msgstr "Weerspieël in XZ vlak"
+
+#: resources/xnec2c.glade:9415
+msgid "Reflect Options"
+msgstr "Weerspieël Opsies"
+
+#: resources/xnec2c.glade:9546
+msgid "Xnec2c: Frequency Data Plots"
+msgstr "Xnec2c: Frekwensie Data Grafieke"
+
+#: resources/xnec2c.glade:9571 resources/xnec2c.glade:10386
+#: resources/xnec2c.glade:11663
+msgid "_File"
+msgstr "_Lêer"
+
+#: resources/xnec2c.glade:9633 resources/xnec2c.glade:10448
+#: resources/xnec2c.glade:11725
+msgid "Save as _gnuplot"
+msgstr "Stoor as _gnuplot"
+
+#: resources/xnec2c.glade:9644 resources/xnec2c.glade:11735
+msgid "Save as _CSV"
+msgstr "Stoor as _CSV"
+
+#: resources/xnec2c.glade:9656
+msgid "Save as _Touchstone (.SnP)"
+msgstr "Stoor as _Touchstone (.SnP)"
+
+#: resources/xnec2c.glade:9663
+msgid "Save as S_1P: Reflection Only"
+msgstr "Stoor as S_1P: Slegs Weerkaatsing"
+
+#: resources/xnec2c.glade:9673
+msgid "Save as S2P: _Max Gain (S21)"
+msgstr "Stoor as S2P: _Maks Aanwins (S21)"
+
+#: resources/xnec2c.glade:9683
+msgid "Save as S2P: _Viewer Gain (S21)"
+msgstr "Stoor as S2P: _Kyker Aanwins (S21)"
+
+#: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
+#: resources/xnec2c.glade:11769
+msgid "_View"
+msgstr "_Bekyk"
+
+#: resources/xnec2c.glade:9729 resources/xnec2c.glade:10826
+#: resources/xnec2c.glade:11779
+msgid "_Polarization"
+msgstr "_Polarisasie"
+
+#: resources/xnec2c.glade:9745 resources/xnec2c.glade:10842
+#: resources/xnec2c.glade:11795
+msgid "_Total"
+msgstr "_Totaal"
+
+#: resources/xnec2c.glade:9756 resources/xnec2c.glade:10853
+#: resources/xnec2c.glade:11806
+msgid "_Horizontal"
+msgstr "_Horisontaal"
+
+#: resources/xnec2c.glade:9767 resources/xnec2c.glade:10864
+#: resources/xnec2c.glade:11817
+msgid "_Vertical"
+msgstr "_Vertikaal"
+
+#: resources/xnec2c.glade:9778 resources/xnec2c.glade:10875
+#: resources/xnec2c.glade:11828
+msgid "_Right Hand"
+msgstr "_Regterhand"
+
+#: resources/xnec2c.glade:9789 resources/xnec2c.glade:10886
+#: resources/xnec2c.glade:11839
+msgid "_Left Hand"
+msgstr "_Linkerhand"
+
+#: resources/xnec2c.glade:9804
+msgid "_Net Gain"
+msgstr "_Netto Aanwins"
+
+#: resources/xnec2c.glade:9813
+msgid "Show _Min/Max Values"
+msgstr "Wys _Min/Maks Waardes"
+
+#: resources/xnec2c.glade:9822
+msgid "Show _S11 (dB) Values"
+msgstr "Wys _S11 (dB) Waardes"
+
+#: resources/xnec2c.glade:9831
+msgid "Clamp _VSWR Graph to 10"
+msgstr "Beperk _VSWR Grafiek tot 10"
+
+#: resources/xnec2c.glade:9840
+msgid "Round _X Axis Frequency Values"
+msgstr "Rond _X As Frekwensie Waardes Af"
+
+#: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
+msgid "Max Gain"
+msgstr "Maks Aanwins"
+
+#: resources/xnec2c.glade:9879
+msgid "Direction"
+msgstr "Rigting"
+
+#: resources/xnec2c.glade:9894
+msgid "Viewer"
+msgstr "Kyker"
+
+#: resources/xnec2c.glade:9924
+msgid "Zr/Zi"
+msgstr "Zr/Zi"
+
+#: resources/xnec2c.glade:9939
+msgid "Zm/Zph"
+msgstr "Zm/Zph"
+
+#: resources/xnec2c.glade:9954
+msgid "Smith"
+msgstr "Smith"
+
+#: resources/xnec2c.glade:9998 resources/xnec2c.glade:10033
+#: resources/xnec2c.glade:10068 resources/xnec2c.glade:10103
+#: resources/xnec2c.glade:12644
+msgid " - - -"
+msgstr " - - -"
+
+#: resources/xnec2c.glade:10139
+msgid " - - - - "
+msgstr " - - - - "
+
+#: resources/xnec2c.glade:10155
+msgid "Freq MHz"
+msgstr "Frek MHz"
+
+#: resources/xnec2c.glade:10194
+msgid "Tx Line Zo"
+msgstr "Tx Lyn Zo"
+
+#: resources/xnec2c.glade:10208 resources/xnec2c.glade:11432
+#: resources/xnec2c.glade:12520
+msgid "Freq Loop"
+msgstr "Frek Lus"
+
+#: resources/xnec2c.glade:10342
+msgid "Frequency Data Plots"
+msgstr "Frekwensie Data Grafieke"
+
+#: resources/xnec2c.glade:10459
+msgid "Save _Currents/Charges as CSV"
+msgstr "Stoor _Strome/Ladings as CSV"
+
+#: resources/xnec2c.glade:10478
+msgid "Optimization Settings"
+msgstr "Optimalisering Instellings"
+
+#: resources/xnec2c.glade:10493
+msgid "Reload and write data on .NEC file changes"
+msgstr "Herlaai en skryf data by .NEC lêer veranderinge"
+
+#: resources/xnec2c.glade:10500
+msgid "_Write files selected below, now."
+msgstr "_Skryf lêers hieronder gekies, nou."
+
+#: resources/xnec2c.glade:10515
+msgid "After calculation, write <file>.csv"
+msgstr "Na berekening, skryf <file>.csv"
+
+#: resources/xnec2c.glade:10524
+msgid "After calculation, write <file>.s_1p"
+msgstr "Na berekening, skryf <file>.s_1p"
+
+#: resources/xnec2c.glade:10533
+msgid "After calculation, write <file>-_maxgain.s2p"
+msgstr "Na berekening, skryf <file>-_maxgain.s2p"
+
+#: resources/xnec2c.glade:10542
+msgid "After calculation, write <file>-_viewergain.s2p"
+msgstr "Na berekening, skryf <file>-_viewergain.s2p"
+
+#: resources/xnec2c.glade:10551
+msgid "After calculation, write <file>-_radpattern.csv"
+msgstr "Na berekening, skryf <file>-_radpattern.csv"
+
+#: resources/xnec2c.glade:10560
+msgid "After calculation, write <file>-_currents.csv"
+msgstr "Na berekening, skryf <file>-_currents.csv"
+
+#: resources/xnec2c.glade:10575
+msgid "_Math Libraries"
+msgstr "_Wiskunde Biblioteke"
+
+#: resources/xnec2c.glade:10584
+msgid "_Interactive"
+msgstr "_Interaktief"
+
+#: resources/xnec2c.glade:10604
+msgid "_Batch"
+msgstr "_Bondel"
+
+#: resources/xnec2c.glade:10630
+msgid "Mathlib _Help"
+msgstr "Mathlib _Hulp"
+
+#: resources/xnec2c.glade:10643
+msgid "Mathlib _Benchmarks"
+msgstr "Mathlib _Maatstawwe"
+
+#: resources/xnec2c.glade:10654
+msgid "_Selected Mathlibs"
+msgstr "_Gekose Mathlibs"
+
+#: resources/xnec2c.glade:10668
+msgid "Select All/None"
+msgstr "Kies Alles/Geen"
+
+#: resources/xnec2c.glade:10693
+msgid "_Parallel (-j N):\t\tO(N/J)"
+msgstr "_Parallel (-j N):\t\tO(N/J)"
+
+#: resources/xnec2c.glade:10702
+msgid "_Single Job (-j 1):\tO(N)"
+msgstr "_Enkel Taak (-j 1):\tO(N)"
+
+#: resources/xnec2c.glade:10711
+msgid "_Iterate -j N/=2:\tO(N*log2(J))"
+msgstr "_Itereer -j N/=2:\tO(N*log2(J))"
+
+#: resources/xnec2c.glade:10720
+msgid "_Iterate -j N-=1:\tO(N*J)"
+msgstr "_Itereer -j N-=1:\tO(N*J)"
+
+#: resources/xnec2c.glade:10735
+msgid "Benchmark _Help"
+msgstr "Maatstaf _Hulp"
+
+#: resources/xnec2c.glade:10754
+msgid "Begin Frequency Loop at Startup"
+msgstr "Begin Frekwensie Lus by Opstart"
+
+#: resources/xnec2c.glade:10765
+msgid "Confirm Quit"
+msgstr "Bevestig Verlaat"
+
+#: resources/xnec2c.glade:10806
+msgid "_Radiation Pattern"
+msgstr "_Stralingspatroon"
+
+#: resources/xnec2c.glade:10816
+msgid "_Frequency Plots"
+msgstr "_Frekwensie Grafieke"
+
+#: resources/xnec2c.glade:10901 resources/xnec2c.glade:12009
+msgid "Common _Projection"
+msgstr "Gemeenskaplike _Projeksie"
+
+#: resources/xnec2c.glade:10911 resources/xnec2c.glade:12019
+msgid "Common _Frequency"
+msgstr "Gemeenskaplike _Frekwensie"
+
+#: resources/xnec2c.glade:10923
+msgid "_Help"
+msgstr "_Hulp"
+
+#: resources/xnec2c.glade:10932
+msgid "_About"
+msgstr "_Aangaande"
+
+#: resources/xnec2c.glade:10959
+msgid "Currents"
+msgstr "Strome"
+
+#: resources/xnec2c.glade:10974
+msgid "Charges"
+msgstr "Ladings"
+
+#: resources/xnec2c.glade:11155
+msgid " Zoom"
+msgstr " Zoem"
+
+#: resources/xnec2c.glade:11277 resources/xnec2c.glade:12456
+msgid "Gain"
+msgstr "Aanwins"
+
+#: resources/xnec2c.glade:11292 resources/xnec2c.glade:11308
+#: resources/xnec2c.glade:12469 resources/xnec2c.glade:12626
+msgid "0.0"
+msgstr "0,0"
+
+#: resources/xnec2c.glade:11342
+msgid "- - - "
+msgstr "- - - "
+
+#: resources/xnec2c.glade:11384 resources/xnec2c.glade:12612
+msgid "dB"
+msgstr "dB"
+
+#: resources/xnec2c.glade:11398 resources/xnec2c.glade:12505
+msgid "Step"
+msgstr "Stap"
+
+#: resources/xnec2c.glade:11545 resources/xnec2c.glade:12553
+msgid "Apply"
+msgstr "Pas Toe"
+
+#: resources/xnec2c.glade:11565
+msgid "Frequency Mhz"
+msgstr "Frekwensie MHz"
+
+#: resources/xnec2c.glade:11618
+msgid "Structure Geometry"
+msgstr "Struktuur Geometrie"
+
+#: resources/xnec2c.glade:11637
+msgid "Xnec2c: Radiation Patterns"
+msgstr "Xnec2c: Stralingspatrone"
+
+#: resources/xnec2c.glade:11854
+msgid "_Gain Scaling"
+msgstr "_Aanwins Skaling"
+
+#: resources/xnec2c.glade:11869
+msgid "Linear _Power"
+msgstr "Lineêre _Drywing"
+
+#: resources/xnec2c.glade:11880
+msgid "Linear _Voltage"
+msgstr "Lineêre _Spanning"
+
+#: resources/xnec2c.glade:11891
+msgid "_ARRL Style"
+msgstr "_ARRL Styl"
+
+#: resources/xnec2c.glade:11902
+msgid "_Logarithmic"
+msgstr "_Logaritmies"
+
+#: resources/xnec2c.glade:11917
+msgid "_Near Field"
+msgstr "_Nabye Veld"
+
+#: resources/xnec2c.glade:11932
+msgid "Near _E Field"
+msgstr "Nabye _E Veld"
+
+#: resources/xnec2c.glade:11942
+msgid "Near _H Field"
+msgstr "Nabye _H Veld"
+
+#: resources/xnec2c.glade:11952
+msgid "_Poynting Vector"
+msgstr "_Poynting-vektor"
+
+#: resources/xnec2c.glade:11961
+msgid "_Animate Dialog"
+msgstr "_Animeer Dialoog"
+
+#: resources/xnec2c.glade:11970
+msgid "_Total Field"
+msgstr "_Totale Veld"
+
+#: resources/xnec2c.glade:11979
+msgid "_Peak Value"
+msgstr "_Piekwaarde"
+
+#: resources/xnec2c.glade:11990
+msgid "_Snapshot"
+msgstr "_Momentopname"
+
+#: resources/xnec2c.glade:12029
+msgid "_Overlay Structure"
+msgstr "_Oorleg Struktuur"
+
+#: resources/xnec2c.glade:12053
+msgid "Gain Pattern"
+msgstr "Aanwinspatroon"
+
+#: resources/xnec2c.glade:12068
+msgid "E/H Fields"
+msgstr "E/H-velde"
+
+#: resources/xnec2c.glade:12251
+msgid "Zoom % "
+msgstr "Zoem % "
+
+#: resources/xnec2c.glade:12572
+msgid "Frequency MHz"
+msgstr "Frekwensie MHz"
+
+#: resources/xnec2c.glade:12589
+msgid "0.010"
+msgstr "0,010"
+
+#: resources/xnec2c.glade:12745
+msgid "Scale Structure (GS card)"
+msgstr "Skaal Struktuur (GS-kaart)"
+
+#: resources/xnec2c.glade:12776
+msgid "Structure Scale Factor"
+msgstr "Struktuur Skaalfaktor"
+
+#: resources/xnec2c.glade:12789
+msgid "From Tag No."
+msgstr "Van Etiket Nr."
+
+#: resources/xnec2c.glade:12839
+msgid "To Tag No."
+msgstr "Tot Etiket Nr."
+
+#: resources/xnec2c.glade:12874
+msgid "Scale Structure"
+msgstr "Skaal Struktuur"
+
+#: resources/xnec2c.glade:13051
+msgid "Co-ordinate Transformation (GM card)"
+msgstr "Koördinaattransformasie (GM-kaart)"
+
+#: resources/xnec2c.glade:13081
+msgid "Tag Increment"
+msgstr "Etiket Inkrement"
+
+#: resources/xnec2c.glade:13112
+msgid "Rotate about X"
+msgstr "Roteer om X"
+
+#: resources/xnec2c.glade:13144
+msgid "Move along X"
+msgstr "Skuif langs X"
+
+#: resources/xnec2c.glade:13176
+msgid "New Structures"
+msgstr "Nuwe Strukture"
+
+#: resources/xnec2c.glade:13207
+msgid "Rotate about Y"
+msgstr "Roteer om Y"
+
+#: resources/xnec2c.glade:13239
+msgid "Move along Y"
+msgstr "Skuif langs Y"
+
+#: resources/xnec2c.glade:13271
+msgid "Start From Tag"
+msgstr "Begin Van Etiket"
+
+#: resources/xnec2c.glade:13303
+msgid "Rotate about Z"
+msgstr "Roteer om Z"
+
+#: resources/xnec2c.glade:13335
+msgid "Move along Z"
+msgstr "Skuif langs Z"
+
+#: resources/xnec2c.glade:13371
+msgid "Co-ordinate Transformation Data"
+msgstr "Koördinaattransformasie Data"
+
+#: resources/xnec2c.glade:13567
+msgid "Trans. Line Command (TL Card)"
+msgstr "Trans. Lyn Opdrag (TL-kaart)"
+
+#: resources/xnec2c.glade:13597
+msgid "Tag Number, End 1  "
+msgstr "Etiketnommer, Einde 1  "
+
+#: resources/xnec2c.glade:13629
+msgid "Tag Number, End 2  "
+msgstr "Etiketnommer, Einde 2  "
+
+#: resources/xnec2c.glade:13660
+msgid "Segment Num, End 1"
+msgstr "Segment Nr., Einde 1"
+
+#: resources/xnec2c.glade:13692
+msgid "Segment Num, End 2"
+msgstr "Segment Nr., Einde 2"
+
+#: resources/xnec2c.glade:13756
+msgid "Crossed Transmission Line"
+msgstr "Gekruiste Transmissielyn"
+
+#: resources/xnec2c.glade:13774
+msgid "Characteristic Impedance"
+msgstr "Karakteristieke Impedansie"
+
+#: resources/xnec2c.glade:13806
+msgid "End 1 Y Real Part (S)"
+msgstr "Einde 1 Y Reële Deel (S)"
+
+#: resources/xnec2c.glade:13838
+msgid "End 2 Y Real Part (S)"
+msgstr "Einde 2 Y Reële Deel (S)"
+
+#: resources/xnec2c.glade:13870
+msgid "Length of Tx Line (m)"
+msgstr "Lengte van Tx-lyn (m)"
+
+#: resources/xnec2c.glade:13902
+msgid "End 1 Y Imag Part (S)"
+msgstr "Einde 1 Y Imaginêre Deel (S)"
+
+#: resources/xnec2c.glade:13934
+msgid "End 2 Y Imag Part (S)"
+msgstr "Einde 2 Y Imaginêre Deel (S)"
+
+#: resources/xnec2c.glade:13970
+msgid "Transmission Line"
+msgstr "Transmissielyn"
+
+#: resources/xnec2c.glade:14197
+msgid "Wire Element (GW & GC cards)"
+msgstr "Draadelement (GW & GC-kaarte)"
+
+#: resources/xnec2c.glade:14257
+msgid "Wire X1"
+msgstr "Draad X1"
+
+#: resources/xnec2c.glade:14289
+msgid "Wire X2"
+msgstr "Draad X2"
+
+#: resources/xnec2c.glade:14352
+msgid "Wire Y1"
+msgstr "Draad Y1"
+
+#: resources/xnec2c.glade:14385
+msgid "Wire Y2"
+msgstr "Draad Y2"
+
+#: resources/xnec2c.glade:14449
+msgid "Wire Z1"
+msgstr "Draad Z1"
+
+#: resources/xnec2c.glade:14481
+msgid "Wire Z2"
+msgstr "Draad Z2"
+
+#: resources/xnec2c.glade:14546
+msgid "Wire Length"
+msgstr "Draadlengte"
+
+#: resources/xnec2c.glade:14617
+msgid "Wire Data"
+msgstr "Draaddata"
+
+#: resources/xnec2c.glade:14629
+msgid "Tapered Wire"
+msgstr "Tapse Draad"
+
+#: resources/xnec2c.glade:14671
+msgid "Length Taper"
+msgstr "Lengte Taps"
+
+#: resources/xnec2c.glade:14703
+msgid "Diameter Seg 1"
+msgstr "Diameter Seg 1"
+
+#: resources/xnec2c.glade:14735
+msgid "Diameter Seg N"
+msgstr "Diameter Seg N"
+
+#: resources/xnec2c.glade:14767
+msgid "Diam. Taper"
+msgstr "Diam. Taps"
+
+#: resources/xnec2c.glade:14803
+msgid "Wire Taper Data"
+msgstr "Draad Tapsdata"
+
+#: resources/xnec2c.glade:14968
+msgid "Impedance (Zo) Ohm"
+msgstr "Impedansie (Zo) Ohm"
+
+#: resources/xnec2c.glade:14983
+msgid "50.00"
+msgstr "50,00"
+
+#: resources/xnec2c.glade:15006
+msgid "Transmission Line Impedance (Zo)"
+msgstr "Transmissielyn Impedansie (Zo)"
+
+#~ msgid ""
+#~ "You must enable current data by clicking \"Currents\" or \"Charges\"in "
+#~ "the main xnec2c window."
+#~ msgstr ""
+#~ "U moet stroomdata aktiveer deur op \"Strome\" of \"Ladings\" in die hoof "
+#~ "xnec2c-venster te klik."
+
+#~ msgid ""
+#~ "Not available for Incident Field or\n"
+#~ "Elementary Current Source Excitation.\n"
+#~ "(Excitation Types 1 to 4)"
+#~ msgstr ""
+#~ "Nie beskikbaar vir Invallende Veld of\n"
+#~ "Elementêre Stroombron-opwekking nie.\n"
+#~ "(Opwekkingstipes 1 tot 4)"
+
+#~ msgid "number of segments less than 1 (ns < 1)\n"
+#~ msgstr "aantal segmente minder as 1 (ns < 1)\n"
+
+#~ msgid "arc angle exceeds 360 degrees\n"
+#~ msgstr "booghoek oorskry 360 grade\n"
+
+#~ msgid "np > n\n"
+#~ msgstr "np > n\n"
+
+#~ msgid "b less than a\n"
+#~ msgstr "b minder as a\n"
+
+#~ msgid "unexpected EOF (End of File)\n"
+#~ msgstr "onverwagte EOF (Einde van Lêer)\n"
+
+#~ msgid "error reading Comments: Comment mnemonic short or missing\n"
+#~ msgstr ""
+#~ "fout met lees van Kommentaar: Kommentaar-mnemoniese kort of ontbreek\n"
+
+#~ msgid "geometry data card error - tag number is less than 1\n"
+#~ msgstr "geometrie datakaart fout - merkernommer is minder as 1\n"
+
+#~ msgid "geometry data card error - number of segments is less than 1\n"
+#~ msgstr "geometrie datakaart fout - aantal segmente is minder as 1\n"
+
+#~ msgid "geometry data card error no GC card for tapered wire\n"
+#~ msgstr "geometrie datakaart fout geen GC kaart vir tapse draad nie\n"
+
+#~ msgid "geometry GC data card error\n"
+#~ msgstr "geometrie GC datakaart fout\n"
+
+#~ msgid "geometry GX data card error\n"
+#~ msgstr "geometrie GX datakaart fout\n"
+
+#~ msgid "geometry GR data card error\n"
+#~ msgstr "geometrie GR datakaart fout\n"
+
+#~ msgid "move GM data card error\n"
+#~ msgstr "skuif GM datakaart fout\n"
+
+#~ msgid "patch data card error\n"
+#~ msgstr "patch datakaart fout\n"
+
+#~ msgid "patch data error\n"
+#~ msgstr "patch data fout\n"
+
+#~ msgid "patch card data error\n"
+#~ msgstr "patch kaart data fout\n"
+
+#~ msgid "\"GF\" card (NGF solution) is not supported\n"
+#~ msgstr "\"GF\" kaart (NGF oplossing) word nie ondersteun nie\n"
+
+#~ msgid "ignoring CM card in geometry\n"
+#~ msgstr "ignoreer CM kaart in geometrie\n"
+
+#~ msgid ""
+#~ "Theta > 90 deg with ground specified: Please check RP card data and "
+#~ "correct\n"
+#~ msgstr ""
+#~ "Theta > 90 grade met grond gespesifiseer: Kontroleer asseblief RP-"
+#~ "kaartdata en korrigeer\n"
+
+#~ msgid "Hankel not valid for z = 0\n"
+#~ msgstr "Hankel nie geldig vir z = 0 nie\n"
+
+#~ msgid "No convergence\n"
+#~ msgstr "Geen konvergensie\n"

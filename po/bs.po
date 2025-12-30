@@ -1,0 +1,3637 @@
+# Bosnian translations for xnec2c package.
+# Copyright (C) 2025 Neoklis Kyriazis nkcyham@yahoo.com
+# This file is distributed under the same license as the xnec2c package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xnec2c 4.4.18\n"
+"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
+"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"PO-Revision-Date: 2025-12-28 20:37-0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: bs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/calculations.c:117 src/calculations.c:1276
+#, c-format
+msgid "segment connection error for segment %5d\n"
+msgstr "greška veze segmenta za segment %5d\n"
+
+#: src/calculations.c:118
+msgid "Segment connection error in tbf()"
+msgstr "Greška veze segmenta u tbf()"
+
+#: src/calculations.c:890
+#, c-format
+msgid "step size limited at z= %10.5f\n"
+msgstr "veličina koraka ograničena na z= %10.5f\n"
+
+#: src/calculations.c:1054
+#, c-format
+msgid "segment connection error for segment %d\n"
+msgstr "greška veze segmenta za segment %d\n"
+
+#: src/calculations.c:1055
+msgid "Segment connection error in sbf()"
+msgstr "Greška veze segmenta u sbf()"
+
+#: src/calculations.c:1277
+msgid "Segment connection error in trio()"
+msgstr "Greška veze segmenta u trio()"
+
+#: src/callback_func.c:263
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to end the calculation?"
+msgstr ""
+"Frekvencijska petlja je aktivna\n"
+"Jeste li sigurni da želite prekinuti proračun?"
+
+#: src/callback_func.c:267
+msgid ""
+"The frequency loop is running\n"
+"Are you sure you wish to close this window?"
+msgstr ""
+"Frekvencijska petlja je aktivna\n"
+"Jeste li sigurni da želite zatvoriti ovaj prozor?"
+
+#: src/callback_func.c:512
+#, c-format
+msgid ""
+"Frequency plots window closed: excitation type %d is incompatible.\n"
+"Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
+msgstr ""
+"Prozor frekventnih grafova zatvoren: tip pobude %d nije kompatibilan.\n"
+"Koristite tip 0 (Primijenjeno E polje) ili 5 (Diskontinuitet struje) umjesto "
+"toga."
+
+#: src/callback_func.c:518
+#, c-format
+msgid ""
+"Frequency plots are not available with excitation type %d.\n"
+"This model uses Incident Field or Elementary Current Source excitation.\n"
+"Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
+msgstr ""
+"Frekventni grafovi nisu dostupni s tipom pobude %d.\n"
+"Ovaj model koristi pobudu upadnim poljem ili elementarnim izvorom struje.\n"
+"Promijenite EX karticu na tip 0 (Primijenjeno E polje) ili 5 (Diskontinuitet "
+"struje)."
+
+#: src/callback_func.c:697
+msgid "View Currents"
+msgstr "Prikaži struje"
+
+#: src/callback_func.c:719 src/callback_func.c:778
+msgid "View Geometry"
+msgstr "Prikaži geometriju"
+
+#: src/callback_func.c:756
+msgid "View Charges"
+msgstr "Prikaži naboje"
+
+#: src/callback_func.c:821
+msgid "PNG images (*.png)"
+msgstr "PNG slike (*.png)"
+
+#: src/callback_func.c:823
+msgid "GNUplot files (*.gplot)"
+msgstr "GNUplot datoteke (*.gplot)"
+
+#: src/callback_func.c:825
+msgid "NEC2 files (*.nec)"
+msgstr "NEC2 datoteke (*.nec)"
+
+#: src/callback_func.c:827
+msgid "Touchstone 1-port files (*.s1p)"
+msgstr "Touchstone datoteke s 1 portom (*.s1p)"
+
+#: src/callback_func.c:829
+msgid "Touchstone 2-port files (*.s2p)"
+msgstr "Touchstone datoteke s 2 porta (*.s2p)"
+
+#: src/callback_func.c:831
+msgid "Comma-separated CSV files (*.csv)"
+msgstr "CSV datoteke razdvojene zarezom (*.csv)"
+
+#: src/callbacks.c:88 src/callbacks.c:371 src/callbacks.c:1813
+#: src/callbacks.c:2174
+msgid "Are you sure you wish to quit xnec2c?"
+msgstr "Jeste li sigurni da želite izaći iz xnec2c?"
+
+#: src/callbacks.c:131
+msgid ""
+"A new NEC2 input file may not be created\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Nova NEC2 ulazna datoteka se ne može kreirati\n"
+"dok je frekvencijska petlja aktivna"
+
+#: src/callbacks.c:171
+msgid ""
+"A new NEC2 input file may not be opened\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Nova NEC2 ulazna datoteka se ne može otvoriti\n"
+"dok je frekvencijska petlja aktivna"
+
+#: src/callbacks.c:291
+msgid "xnec2c geometry optimizer"
+msgstr "xnec2c optimizator geometrije"
+
+#: src/callbacks.c:292
+msgid ""
+"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr ""
+"xnec2c je izgrađen bez inotify podrške: optimizator se ne može omogućiti."
+
+#: src/callbacks.c:316
+msgid "Xnec2c Optimizer"
+msgstr "Xnec2c optimizator"
+
+#: src/callbacks.c:316
+msgid ""
+"No files are selected for writing. However, xnec2c will still reload and "
+"recalculate the input file on modification when triggered by inotify.Select "
+"files for writing in \"File->Optimization Settings\"."
+msgstr ""
+"Nijedna datoteka nije odabrana za pisanje. Međutim, xnec2c će i dalje ponovo "
+"učitati i preračunati ulaznu datoteku pri izmjeni kada to pokrene inotify. "
+"Odaberite datoteke za pisanje u \"Datoteka->Postavke optimizacije\"."
+
+#: src/callbacks.c:327
+msgid "failed to create Optimizer Output thread\n"
+msgstr "kreiranje niti izlaza optimizatora nije uspjelo\n"
+
+#: src/callbacks.c:1031 src/callbacks.c:1347 src/callbacks.c:2200
+msgid "Are you sure you wish to close this window?"
+msgstr "Jeste li sigurni da želite zatvoriti ovaj prozor?"
+
+#: src/callbacks.c:2138
+msgid "No open NEC2 input file"
+msgstr "Nema otvorene NEC2 ulazne datoteke"
+
+#: src/callbacks.c:2231 src/callbacks.c:2261
+msgid ""
+"NEC2 Editor's data may not be saved\n"
+"while the Frequency Loop is running"
+msgstr ""
+"Podaci NEC2 uređivača se ne mogu sačuvati\n"
+"dok je frekvencijska petlja aktivna"
+
+#: src/callbacks.c:2243 src/callbacks.c:2269
+msgid "untitled.nec"
+msgstr "untitled.nec"
+
+#: src/callbacks.c:2734 src/callbacks.c:2754 src/callbacks.c:2774
+#: src/geom_edit.c:413 src/geom_edit.c:1229 src/geom_edit.c:1471
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Frekvencijske (FR) kartice još nisu obrađene.\n"
+"Možda trebate prvo sačuvati podatke NEC2 uređivača."
+
+#: src/cmnd_edit.c:72
+msgid ""
+"Get_Command_Data(): Error reading\n"
+"row data: Invalid list iterator"
+msgstr ""
+"Get_Command_Data(): Greška pri čitanju\n"
+"podataka reda: Nevažeći iterator liste"
+
+#: src/cmnd_edit.c:105
+msgid ""
+"Set_Command_Data(): Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Set_Command_Data(): Greška pri pisanju podataka reda\n"
+"Molimo ponovo odaberite red"
+
+#: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
+#: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
+msgid "Tag Number"
+msgstr "Broj oznake"
+
+#: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
+msgid "Segment Number"
+msgstr "Broj segmenta"
+
+#: src/cmnd_edit.c:422
+msgid "Voltage Real Part"
+msgstr "Realni dio napona"
+
+#: src/cmnd_edit.c:423
+msgid "Voltage Imaginary Part"
+msgstr "Imaginarni dio napona"
+
+#: src/cmnd_edit.c:424 src/cmnd_edit.c:1579
+msgid "Normalization Factor"
+msgstr "Faktor normalizacije"
+
+#: src/cmnd_edit.c:425 src/cmnd_edit.c:426 src/cmnd_edit.c:427
+#: src/cmnd_edit.c:463 src/cmnd_edit.c:464 src/cmnd_edit.c:1814
+#: src/cmnd_edit.c:1825 src/cmnd_edit.c:1826
+msgid "  ** NOT USED **"
+msgstr "  ** NE KORISTI SE **"
+
+#: src/cmnd_edit.c:445
+msgid "Num of Theta Angles"
+msgstr "Broj Theta uglova"
+
+#: src/cmnd_edit.c:446
+msgid "Num of Phi Angles"
+msgstr "Broj Phi uglova"
+
+#: src/cmnd_edit.c:447
+msgid "Theta Angle (deg)"
+msgstr "Theta ugao (deg)"
+
+#: src/cmnd_edit.c:448
+msgid "Phi Angle (deg)"
+msgstr "Phi ugao (deg)"
+
+#: src/cmnd_edit.c:449
+msgid "Eta Angle (deg)"
+msgstr "Eta ugao (deg)"
+
+#: src/cmnd_edit.c:450
+msgid "Theta Increment (deg)"
+msgstr "Theta inkrement (deg)"
+
+#: src/cmnd_edit.c:451
+msgid "Phi Increment (deg)"
+msgstr "Phi inkrement (deg)"
+
+#: src/cmnd_edit.c:452
+msgid "Minor/Major Axis"
+msgstr "Manja/veća osa"
+
+#: src/cmnd_edit.c:465
+msgid "X Position (m)"
+msgstr "X pozicija (m)"
+
+#: src/cmnd_edit.c:466
+msgid "Y Position (m)"
+msgstr "Y pozicija (m)"
+
+#: src/cmnd_edit.c:467
+msgid "Z Position (m)"
+msgstr "Z pozicija (m)"
+
+#: src/cmnd_edit.c:468
+msgid "alpha Angle (deg)"
+msgstr "alpha ugao (deg)"
+
+#: src/cmnd_edit.c:469
+msgid "beta Angle (deg)"
+msgstr "beta ugao (deg)"
+
+#: src/cmnd_edit.c:470
+msgid "Current Moment (A.m)"
+msgstr "Strujni moment (A.m)"
+
+#: src/cmnd_edit.c:1556
+msgid "Points in Z"
+msgstr "Tačke u Z"
+
+#: src/cmnd_edit.c:1557
+msgid "Initial Z (m)"
+msgstr "Početni Z (m)"
+
+#: src/cmnd_edit.c:1558
+msgid "Increment in Z"
+msgstr "Inkrement u Z"
+
+#: src/cmnd_edit.c:1559
+msgid "Field Point R (m)"
+msgstr "Tačka polja R (m)"
+
+#: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
+msgid "Points in Phi"
+msgstr "Tačke u Phi"
+
+#: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
+msgid "Initial Theta (deg)"
+msgstr "Početni Theta (deg)"
+
+#: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
+msgid "Increment in Theta"
+msgstr "Inkrement u Theta"
+
+#: src/cmnd_edit.c:1570
+msgid "R (m) (Optional)"
+msgstr "R (m) (opciono)"
+
+#: src/cmnd_edit.c:1583
+msgid "** NOT USED **"
+msgstr "** NE KORISTI SE **"
+
+#: src/cmnd_edit.c:1788 src/cmnd_edit.c:1812
+msgid "Resistance Ohm"
+msgstr "Otpor Ohm"
+
+#: src/cmnd_edit.c:1789
+msgid "Inductance uH"
+msgstr "Induktivnost uH"
+
+#: src/cmnd_edit.c:1790
+msgid "Capacitance pF"
+msgstr "Kapacitivnost pF"
+
+#: src/cmnd_edit.c:1800
+msgid "Resistance Ohm/m"
+msgstr "Otpor Ohm/m"
+
+#: src/cmnd_edit.c:1801
+msgid "Inductance uH/m"
+msgstr "Induktivnost uH/m"
+
+#: src/cmnd_edit.c:1802
+msgid "Capacitance pF/m"
+msgstr "Kapacitivnost pF/m"
+
+#: src/cmnd_edit.c:1813
+msgid "Reactance Ohm"
+msgstr "Reaktansa Ohm"
+
+#: src/cmnd_edit.c:1824 resources/xnec2c.glade:480 resources/xnec2c.glade:4012
+#: resources/xnec2c.glade:14578
+msgid "Conductivity S/m"
+msgstr "Provodljivost S/m"
+
+#: src/cmnd_edit.c:2453
+msgid "Points in X-axis"
+msgstr "Tačke na X-osi"
+
+#: src/cmnd_edit.c:2454
+msgid "Points in Y-axis"
+msgstr "Tačke na Y-osi"
+
+#: src/cmnd_edit.c:2455
+msgid "Points in Z-axis"
+msgstr "Tačke na Z-osi"
+
+#: src/cmnd_edit.c:2456
+msgid "First Point X (m)"
+msgstr "Prva tačka X (m)"
+
+#: src/cmnd_edit.c:2457
+msgid "First Point Y (m)"
+msgstr "Prva tačka Y (m)"
+
+#: src/cmnd_edit.c:2458
+msgid "First Point Z (m)"
+msgstr "Prva tačka Z (m)"
+
+#: src/cmnd_edit.c:2459
+msgid "Increment in X (m)"
+msgstr "Inkrement u X (m)"
+
+#: src/cmnd_edit.c:2460
+msgid "Increment in Y (m)"
+msgstr "Inkrement u Y (m)"
+
+#: src/cmnd_edit.c:2461
+msgid "Increment in Z (m)"
+msgstr "Inkrement u Z (m)"
+
+#: src/cmnd_edit.c:2469
+msgid "Points along R"
+msgstr "Tačke duž R"
+
+#: src/cmnd_edit.c:2470
+msgid "Points along Phi"
+msgstr "Tačke duž Phi"
+
+#: src/cmnd_edit.c:2471
+msgid "Points along Theta"
+msgstr "Tačke duž Theta"
+
+#: src/cmnd_edit.c:2472
+msgid "First Point R (m)"
+msgstr "Prva tačka R (m)"
+
+#: src/cmnd_edit.c:2473
+msgid "First Point Phi"
+msgstr "Prva tačka Phi"
+
+#: src/cmnd_edit.c:2474
+msgid "First Point Theta"
+msgstr "Prva tačka Theta"
+
+#: src/cmnd_edit.c:2475
+msgid "Increment in R (m)"
+msgstr "Inkrement u R (m)"
+
+#: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
+msgid "Increment in Phi"
+msgstr "Inkrement u Phi"
+
+#: src/draw_radiation.c:28
+msgid ""
+"Animation requires near field data.\n"
+"\n"
+"E-field animation: Add NE card to NEC file\n"
+"H-field animation: Add NH card to NEC file\n"
+"Poynting vector: Add both NE and NH cards"
+msgstr ""
+"Animacija zahtijeva podatke bliskog polja.\n"
+"\n"
+"Animacija E-polja: Dodajte NE karticu u NEC datoteku\n"
+"Animacija H-polja: Dodajte NH karticu u NEC datoteku\n"
+"Poyntingov vektor: Dodajte obje NE i NH kartice"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
+msgid "Near Field Animation"
+msgstr "Animacija bliskog polja"
+
+#: src/draw_radiation.c:668 src/draw_radiation.c:678 src/geometry.c:812
+#: src/input.c:1570 src/input.c:1571 src/utils.c:509 src/utils.c:555
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/draw_radiation.c:1052
+msgid "Total Gain"
+msgstr "Ukupno pojačanje"
+
+#: src/draw_radiation.c:1053
+msgid "Horizontal Polarization"
+msgstr "Horizontalna polarizacija"
+
+#: src/draw_radiation.c:1054
+msgid "Vertical Polarization"
+msgstr "Vertikalna polarizacija"
+
+#: src/draw_radiation.c:1055
+msgid "RH Circular Polarization"
+msgstr "Desna kružna polarizacija"
+
+#: src/draw_radiation.c:1056
+msgid "LH Circular Polarization"
+msgstr "Lijeva kružna polarizacija"
+
+#: src/draw_radiation.c:1061
+msgid "Linear Power"
+msgstr "Linearna snaga"
+
+#: src/draw_radiation.c:1062
+msgid "Linear Voltage"
+msgstr "Linearni napon"
+
+#: src/draw_radiation.c:1063
+msgid "ARRL Scale"
+msgstr "ARRL skala"
+
+#: src/draw_radiation.c:1064
+msgid "Logarithmic Scale"
+msgstr "Logaritamska skala"
+
+#: src/draw_radiation.c:1073 resources/xnec2c.glade:12710
+msgid "Radiation Patterns"
+msgstr "Dijagrami zračenja"
+
+#: src/draw_radiation.c:1076
+msgid "Radiation Pattern: - "
+msgstr "Dijagram zračenja: - "
+
+#: src/draw_radiation.c:1083
+msgid "Near Fields:"
+msgstr "Bliska polja:"
+
+#: src/draw_radiation.c:1085
+msgid " - E Field"
+msgstr " - E polje"
+
+#: src/draw_radiation.c:1087
+msgid " - H Field"
+msgstr " - H polje"
+
+#: src/draw_radiation.c:1089
+msgid " - Poynting Vector"
+msgstr " - Poynting-ov vektor"
+
+#: src/draw_radiation.c:1099
+msgid "Frequency Data Plots - "
+msgstr "Grafikoni frekvencijskih podataka - "
+
+#: src/draw_radiation.c:1307
+#, c-format
+msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
+msgstr "fstep=%d je izvan granica. calc_data.steps_total=%d"
+
+#: src/geom_edit.c:76 src/geom_edit.c:1866 src/geom_edit.c:2109
+#: src/geom_edit.c:2491
+msgid ""
+"Error reading row data\n"
+"Invalid list iterator"
+msgstr ""
+"Greška pri čitanju podataka reda\n"
+"Nevažeći iterator liste"
+
+#: src/geom_edit.c:109 src/geom_edit.c:139
+msgid ""
+"Error writing row data\n"
+"Please re-select row"
+msgstr ""
+"Greška pri pisanju podataka reda\n"
+"Molimo ponovo odaberite red"
+
+#: src/geom_edit.c:528
+msgid ""
+"GC card preceded by GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GC kartici prethodi GW kartica\n"
+"sa nenultim radijusom žice"
+
+#: src/geom_edit.c:532
+msgid "No GW card before GC card"
+msgstr "Nema GW kartice prije GC kartice"
+
+#: src/geom_edit.c:556
+msgid ""
+"No GC card after a GW card\n"
+"with a zero wire radius"
+msgstr ""
+"Nema GC kartice nakon GW kartice\n"
+"sa nultim radijusom žice"
+
+#: src/geom_edit.c:565
+msgid ""
+"GC card follows a GW card\n"
+"with non-zero wire radius"
+msgstr ""
+"GC kartica slijedi GW karticu\n"
+"sa nenultim radijusom žice"
+
+#: src/geom_edit.c:944
+msgid ""
+"SC card preceded by SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SC kartici prethodi SP kartica\n"
+"sa proizvoljnim tipom zakrpe"
+
+#: src/geom_edit.c:956
+msgid "No SP or SM card before SC card"
+msgstr "Nema SP ili SM kartice prije SC kartice"
+
+#: src/geom_edit.c:976
+msgid ""
+"No SC card after an SP card\n"
+"with non-arbitrary patch type"
+msgstr ""
+"Nema SC kartice nakon SP kartice\n"
+"sa neproizvoljnim tipom zakrpe"
+
+#: src/geom_edit.c:983
+msgid ""
+"SC card follows an SP card\n"
+"with arbitrary patch type"
+msgstr ""
+"SC kartica slijedi SP karticu\n"
+"sa proizvoljnim tipom zakrpe"
+
+#: src/geom_edit.c:996
+msgid "No SC card after an SM card"
+msgstr "Nema SC kartice nakon SM kartice"
+
+#: src/geom_edit.c:1066 resources/xnec2c.glade:7685
+msgid "Center - X"
+msgstr "Centar - X"
+
+#: src/geom_edit.c:1068 resources/xnec2c.glade:7749
+msgid "Center - Y"
+msgstr "Centar - Y"
+
+#: src/geom_edit.c:1070 resources/xnec2c.glade:7813
+msgid "Center - Z"
+msgstr "Centar - Z"
+
+#: src/geom_edit.c:1072 resources/xnec2c.glade:7717
+msgid "Normal - Elev."
+msgstr "Normala - Elev."
+
+#: src/geom_edit.c:1074 resources/xnec2c.glade:7781
+msgid "Normal - Azim."
+msgstr "Normala - Azim."
+
+#: src/geom_edit.c:1076 resources/xnec2c.glade:7845
+msgid "Patch Area"
+msgstr "Površina zakrpe"
+
+#: src/geom_edit.c:1081
+msgid "Corner 1 - X"
+msgstr "Ugao 1 - X"
+
+#: src/geom_edit.c:1083
+msgid "Corner 1 - Y"
+msgstr "Ugao 1 - Y"
+
+#: src/geom_edit.c:1085
+msgid "Corner 1 - Z"
+msgstr "Ugao 1 - Z"
+
+#: src/geom_edit.c:1087
+msgid "Corner 2 - X"
+msgstr "Ugao 2 - X"
+
+#: src/geom_edit.c:1089
+msgid "Corner 2 - Y"
+msgstr "Ugao 2 - Y"
+
+#: src/geom_edit.c:1091
+msgid "Corner 2 - Z"
+msgstr "Ugao 2 - Z"
+
+#: src/geom_edit.c:2582
+msgid "NEC2 editor window not open"
+msgstr "NEC2 prozor editora nije otvoren"
+
+#: src/geometry.c:97
+msgid "Number of segments < 1"
+msgstr "Broj segmenata < 1"
+
+#: src/geometry.c:148
+msgid "Arc angle exceeds 360 degrees"
+msgstr "Ugao luka prelazi 360 stepeni"
+
+#: src/geometry.c:309
+msgid "Error in conect(): np > n"
+msgstr "Greška u conect(): np > n"
+
+#: src/geometry.c:343 src/geometry.c:391
+#, c-format
+msgid "geometry data error: segment %d extends below ground\n"
+msgstr ""
+"greška geometrijskih podataka: segment %d se proteže ispod uzemljenja\n"
+
+#: src/geometry.c:344 src/geometry.c:392
+msgid ""
+"Geometry data error\n"
+"Segment extends below ground"
+msgstr ""
+"Greška geometrijskih podataka\n"
+"Segment se proteže ispod uzemljenja"
+
+#: src/geometry.c:401
+#, c-format
+msgid "geometry data error: segment %d lies in ground plane\n"
+msgstr "greška geometrijskih podataka: segment %d leži u ravni uzemljenja\n"
+
+#: src/geometry.c:402
+msgid ""
+"Geometry data error\n"
+"Segment lies in ground plane"
+msgstr ""
+"Greška geometrijskih podataka\n"
+"Segment leži u ravni uzemljenja"
+
+#: src/geometry.c:492
+msgid "ipsym = 0\n"
+msgstr "ipsym = 0\n"
+
+#: src/geometry.c:493
+msgid "Error: ipsym = 0"
+msgstr "Greška: ipsym = 0"
+
+#: src/geometry.c:549
+#, c-format
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
+"segj.maxcon=%lu\n"
+msgstr ""
+"Broj veza segmenata prelazi punu mrežu, što je malo vjerovatno: data.n=%ld "
+"segj.maxcon=%lu\n"
+
+#: src/geometry.c:551
+msgid ""
+"Segment connection count exceeds a full mesh, which is unlikely!\n"
+"Check for overlapping or nearly-connected segments\n"
+msgstr ""
+"Broj veza segmenata prelazi punu mrežu, što je malo vjerovatno!\n"
+"Provjerite preklapajuće ili skoro povezane segmente\n"
+
+#: src/geometry.c:764
+msgid ""
+"check data, parameter specifying segment: position in a group of equal tags "
+"must not be zero\n"
+msgstr ""
+"provjerite podatke, parametar koji specificira segment: pozicija u grupi "
+"jednakih oznaka ne smije biti nula\n"
+
+#: src/geometry.c:765
+msgid ""
+"Parameter specifying segment\n"
+"position in a group of equal tags is zero"
+msgstr ""
+"Parametar koji specificira poziciju\n"
+"segmenta u grupi jednakih oznaka je nula"
+
+#: src/geometry.c:797
+#, c-format
+msgid "no segment has an itag of %d\n"
+msgstr "nijedan segment nema itag od %d\n"
+
+#: src/geometry.c:801
+msgid ""
+"Segment tag number error: Tag 0 is reserved and cannot be used.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are "
+"valid.\n"
+"For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
+msgstr ""
+"Greška broja oznake segmenta: Oznaka 0 je rezervirana i ne može se "
+"koristiti.\n"
+"Provjerite vaše geometrijske kartice (posebno GM kartice) da osigurate da su "
+"vrijednosti oznaka važeće.\n"
+"Za GM kartice: provjerite da 'počni od oznake' i 'inkrement oznake' ne "
+"stvaraju oznaku 0."
+
+#: src/geometry.c:809
+#, c-format
+msgid ""
+"Segment tag number error: No segment found with tag %d.\n"
+"You are referencing an unknown tag or segment in a control card.\n"
+"Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."
+msgstr ""
+"Greška broja oznake segmenta: Nije pronađen segment sa oznakom %d.\n"
+"Referencirate nepoznatu oznaku ili segment u kontrolnoj kartici.\n"
+"Važeće oznake u vašoj geometriji su one dodijeljene GW/GA/GH/SP karticama."
+
+#: src/geometry.c:1123
+msgid "corners of quadrilateral: patch do not lie in a plane\n"
+msgstr "uglovi četverokuta: zakrpa ne leži u ravni\n"
+
+#: src/geometry.c:1124
+msgid ""
+"Corners of quadrilateral\n"
+"patch do not lie in a plane"
+msgstr ""
+"Uglovi četverokutne\n"
+"zakrpe ne leže u ravni"
+
+#: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
+#, c-format
+msgid "geometry data error: segment %d lies in plane of symmetry\n"
+msgstr "greška geometrijskih podataka: segment %d leži u ravni simetrije\n"
+
+#: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
+msgid ""
+"Geometry data error\n"
+"Segment lies in plane of symmetry"
+msgstr ""
+"Greška geometrijskih podataka\n"
+"Segment leži u ravni simetrije"
+
+#: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
+#, c-format
+msgid "geometry data error: patch %d lies in plane of symmetry\n"
+msgstr "greška geometrijskih podataka: zakrpa %d leži u ravni simetrije\n"
+
+#: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
+msgid ""
+"Geometry data error\n"
+"Patch lies in plane of symmetry"
+msgstr ""
+"Greška geometrijskih podataka\n"
+"Zakrpa leži u ravni simetrije"
+
+#: src/geometry.c:1642
+#, c-format
+msgid ""
+"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
+"threshold=%.3e); segment will connect to itself\n"
+msgstr ""
+"tag=%d/seg=%d: udaljenost krajnje tačke=%.3e je preblizu (ispod praga "
+"povezivanja=%.3e); segment će se povezati sam sa sobom\n"
+
+#: src/geometry.c:1647
+#, c-format
+msgid "tag=%d: suppressing additional self-connection warnings\n"
+msgstr "tag=%d: potiskivanje dodatnih upozorenja o samo-povezivanju\n"
+
+#: src/geometry.c:1692
+#, c-format
+msgid ""
+"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
+"threshold %.3e; unintended connections possible\n"
+msgstr ""
+"tag=%d/seg=%d: udaljenost=%.3e do tag=%d/seg=%d bliža od 2x praga "
+"povezivanja %.3e; moguće nenamjerne veze\n"
+
+#: src/geometry.c:1697
+#, c-format
+msgid "tag=%d: suppressing additional overlap warnings\n"
+msgstr "tag=%d: potiskivanje dodatnih upozorenja o preklapanju\n"
+
+#: src/geometry.c:1757
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
+"length=%.3e that connection detection may fail or short\n"
+msgstr ""
+"tag=%d/seg=%d: dužina=%.3e je prekratka (i dovoljno blizu) do tag=%d/seg=%d "
+"dužine=%.3e da detekcija veze može otkazati ili kratko spojiti\n"
+
+#: src/geometry.c:1762
+#, c-format
+msgid ""
+"tag=%d: suppressing additional connection detection may fail or short "
+"warnings\n"
+msgstr ""
+"tag=%d: potiskivanje dodatnih upozorenja o mogućem otkazu detekcije veze ili "
+"kratkom spoju\n"
+
+#: src/geometry.c:1794
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
+"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
+"recommended <= 0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: odnos dužina/talasna dužina od %.3f < 0.001; sličnost "
+"komponenti struje dovodi do numeričkih netačnosti (min=0.001, fino=0.05, "
+"preporučeno <= 0.1)\n"
+
+#: src/geometry.c:1799
+#, c-format
+msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
+msgstr "tag=%d: potiskivanje dodatnih grešaka kratkog odnosa talasne dužine\n"
+
+#: src/geometry.c:1812
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
+"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
+"0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: odnos dužina/talasna dužina od %.3f > 0.1; rezolucija "
+"uzorkovanja struje ograničena razmakom segmenata (min=0.001, fino=0.05, "
+"preporučeno <= 0.1)\n"
+
+#: src/geometry.c:1817
+#, c-format
+msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
+msgstr "tag=%d: potiskivanje dodatnih upozorenja dugog odnosa talasne dužine\n"
+
+#: src/geometry.c:1830
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
+"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
+"recommended <=0.1)\n"
+msgstr ""
+"tag=%d/seg=%d: odnos dužina/talasna dužina od %.3f > 0.05; kraći segmenti "
+"povećavaju tačnost u područjima brze promjene struje (min=0.001, fino=0.05, "
+"preporučeno <=0.1)\n"
+
+#: src/geometry.c:1835
+#, c-format
+msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
+msgstr "tag=%d: potiskivanje dodatnih prijedloga za poboljšanje tačnosti\n"
+
+#: src/geometry.c:1865
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: odnos dužina/radijus od %.1f < 2.0; greška polja standardnog "
+"jezgra tanke žice prelazi 1%% za veliku marginu (min=2.0, 1%%-tačno=8.0)\n"
+
+#: src/geometry.c:1870
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
+msgstr "tag=%d: potiskivanje dodatnih grešaka odnosa standardnog jezgra\n"
+
+#: src/geometry.c:1883
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
+"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr ""
+"tag=%d/seg=%d: odnos dužina/radijus od %.1f < 8.0; greška polja standardnog "
+"jezgra tanke žice prelazi 1%% (min=2.0, 1%%-tačno=8.0)\n"
+
+#: src/geometry.c:1888
+#, c-format
+msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
+msgstr "tag=%d: potiskivanje dodatnih upozorenja odnosa standardnog jezgra\n"
+
+#: src/geometry.c:1903
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
+"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: odnos dužina/radijus od %.1f < 0.5; greška polja proširenog "
+"jezgra tanke žice prelazi 1%% za veliku marginu (min=0.5, 1%%-tačno=2.0)\n"
+
+#: src/geometry.c:1908
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
+msgstr "tag=%d: potiskivanje dodatnih grešaka odnosa proširenog jezgra\n"
+
+#: src/geometry.c:1921
+#, c-format
+msgid ""
+"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
+"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr ""
+"tag=%d/seg=%d: odnos dužina/radijus od %.1f < 2.0; greška polja proširenog "
+"jezgra tanke žice prelazi 1%% (min=0.5, 1%%-tačno=2.0)\n"
+
+#: src/geometry.c:1926
+#, c-format
+msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
+msgstr "tag=%d: potiskivanje dodatnih upozorenja odnosa proširenog jezgra\n"
+
+#: src/geometry.c:1942
+#, c-format
+msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
+msgstr ""
+"Preskakanje provjere preklapanja za %d segmenata (koristite --force-verify "
+"za omogućavanje)\n"
+
+#: src/geometry.c:1946
+#, c-format
+msgid "Forcing overlap check for %d segments\n"
+msgstr "Prisilna provjera preklapanja za %d segmenata\n"
+
+#: src/geometry.c:1957
+msgid ""
+"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr ""
+"verify_segments() preskače provjere ovisne o frekvenciji - nema podataka o "
+"frekvenciji\n"
+
+#: src/gnuplot.c:46
+msgid "Gnuplot Data"
+msgstr "Gnuplot podaci"
+
+#: src/gnuplot.c:46 src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Cannot save data while frequency loop is running"
+msgstr "Podaci se ne mogu sačuvati dok je frekvencijska petlja aktivna"
+
+#: src/gnuplot.c:60
+#, c-format
+msgid "# Reference impedance Z0 = %.2f Ohm\n"
+msgstr "# Referentna impedansa Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:62
+#, c-format
+msgid ""
+"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
+"zreal and zimag:\n"
+msgstr ""
+"# Za crtanje u gnuplot-u možete modificirati ovu naredbu. Trenutno crta MHz "
+"naspram zreal i zimag:\n"
+
+#: src/gnuplot.c:63
+#, c-format
+msgid ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+msgstr ""
+"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
+"title columnhead(i);\n"
+
+#: src/gnuplot.c:88 src/gnuplot.c:169
+msgid "Touchstone Data"
+msgstr "Touchstone podaci"
+
+#: src/gnuplot.c:102
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! Referentna impedansa Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:130
+#, c-format
+msgid "This should never happen. touchstone type=%d\n"
+msgstr "Ovo se nikada ne bi trebalo desiti. touchstone tip=%d\n"
+
+#: src/gnuplot.c:227
+#, c-format
+msgid "# Near E field\n"
+msgstr "# Blisko E polje\n"
+
+#: src/gnuplot.c:250
+#, c-format
+msgid "# Near H field\n"
+msgstr "# Blisko H polje\n"
+
+#: src/gnuplot.c:297
+#, c-format
+msgid "# Poynting Vector\n"
+msgstr "# Poynting-ov vektor\n"
+
+#: src/gnuplot.c:369
+#, c-format
+msgid "# Radiation Pattern\n"
+msgstr "# Dijagram zračenja\n"
+
+#: src/gnuplot.c:505
+#, c-format
+msgid "# structure patch segments\n"
+msgstr "# segmenti zakrpa strukture\n"
+
+#: src/gnuplot.c:530
+#, c-format
+msgid "# structure wire segments\n"
+msgstr "# segmenti žice strukture\n"
+
+#: src/gnuplot.c:565
+msgid "Save Currents and Charges to CSV"
+msgstr "Sačuvaj struje i naboje u CSV"
+
+#: src/ground.c:90
+msgid "b less than a"
+msgstr "b manje od a"
+
+#: src/ground.c:215
+#, c-format
+msgid "step size limited at z = %12.5E\n"
+msgstr "veličina koraka ograničena na z = %12.5E\n"
+
+#: src/input.c:84
+msgid ""
+"Error reading Comments\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"Greška pri čitanju komentara\n"
+"Neočekivan EOF (Kraj datoteke)"
+
+#: src/input.c:98
+msgid ""
+"Error reading Comments\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"Greška pri čitanju komentara\n"
+"Mnemonik komentara kratak ili nedostaje"
+
+#: src/input.c:109
+msgid ""
+"Read_Comments():\n"
+" Error reading input file\n"
+"Comment mnemonic incorrect"
+msgstr ""
+"Read_Comments():\n"
+" Greška pri čitanju ulazne datoteke\n"
+"Mnemonik komentara netačan"
+
+#: src/input.c:148
+msgid ""
+"Geometry data error\n"
+"Tag number is less than 1"
+msgstr ""
+"Greška geometrijskih podataka\n"
+"Broj oznake je manji od 1"
+
+#: src/input.c:155
+msgid ""
+"Geometry data error\n"
+"Number of segments is less than 1"
+msgstr ""
+"Greška geometrijskih podataka\n"
+"Broj segmenata je manji od 1"
+
+#: src/input.c:162
+msgid "warning - number of segments is greater than 1000000\n"
+msgstr "upozorenje - broj segmenata je veći od 1000000\n"
+
+#: src/input.c:210
+#, c-format
+msgid "%s data card error: Spurious character '%c' at column %d\n"
+msgstr "greška kartice podataka %s: neispravan znak '%c' u koloni %d\n"
+
+#: src/input.c:212
+msgid ""
+"Data card error\n"
+"Spurious character in card"
+msgstr ""
+"Greška kartice podataka\n"
+"Neispravan znak u kartici"
+
+#: src/input.c:262
+#, c-format
+msgid "%s: expression evaluation failed for \"%s\"\n"
+msgstr "%s: evaluacija izraza nije uspjela za \"%s\"\n"
+
+#: src/input.c:300
+msgid "SY card: no line content available\n"
+msgstr "SY kartica: sadržaj linije nije dostupan\n"
+
+#: src/input.c:301
+msgid "SY card: no line content available"
+msgstr "SY kartica: sadržaj linije nije dostupan"
+
+#: src/input.c:318
+msgid "SY card: missing '=' in definition\n"
+msgstr "SY kartica: nedostaje '=' u definiciji\n"
+
+#: src/input.c:319
+msgid "SY card: missing '=' in definition"
+msgstr "SY kartica: nedostaje '=' u definiciji"
+
+#: src/input.c:352
+#, c-format
+msgid "SY card: expression evaluation failed for %s=%s\n"
+msgstr "SY kartica: evaluacija izraza nije uspjela za %s=%s\n"
+
+#: src/input.c:358
+#, c-format
+msgid "SY card: symbol definition failed for %s\n"
+msgstr "SY kartica: definicija simbola nije uspjela za %s\n"
+
+#: src/input.c:438
+msgid ""
+"Geometry data error\n"
+"No GC card for tapered wire"
+msgstr ""
+"Greška geometrijskih podataka\n"
+"Nema GC kartice za konusnu žicu"
+
+#: src/input.c:445
+msgid "Geometry GC data card error"
+msgstr "Greška GC kartice geometrijskih podataka"
+
+#: src/input.c:461
+msgid "Geometry GX data card error"
+msgstr "Greška GX kartice geometrijskih podataka"
+
+#: src/input.c:484
+msgid "Geometry GR data card error"
+msgstr "Greška GR kartice geometrijskih podataka"
+
+#: src/input.c:541
+msgid "No geometry data cards"
+msgstr "Nema kartica geometrijskih podataka"
+
+#: src/input.c:550
+msgid "Probable invalid segment geometry.\n"
+msgstr "Vjerovatno neispravna geometrija segmenta.\n"
+
+#: src/input.c:551
+msgid ""
+"Invalid segment geometry.\n"
+"See warnings in the console for detail.\n"
+"Trying to continue..."
+msgstr ""
+"Neispravna geometrija segmenta.\n"
+"Pogledajte upozorenja u konzoli za detalje.\n"
+"Pokušavam nastaviti..."
+
+#: src/input.c:556
+msgid "Read_Geometry: verify_segments() passed\n"
+msgstr "Read_Geometry: verify_segments() uspješno\n"
+
+#: src/input.c:602
+#, c-format
+msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
+msgstr "greška podataka segmenta: tag=%d si=%lf, bi=%lf\n"
+
+#: src/input.c:604
+msgid "Segment data error, zero-length line?  See console."
+msgstr "Greška podataka segmenta, linija nulte dužine? Pogledajte konzolu."
+
+#: src/input.c:639
+msgid "Move GM data card error"
+msgstr "Greška GM kartice podataka za pomjeranje"
+
+#: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
+#: src/input.c:739
+msgid "Patch data card error"
+msgstr "Greška kartice podataka zakrpe"
+
+#: src/input.c:677
+msgid "Patch data error"
+msgstr "Greška podataka zakrpe"
+
+#: src/input.c:786
+msgid ""
+"\"GF\" card (NGF solution)\n"
+"is not supported"
+msgstr ""
+"\"GF\" kartica (NGF rješenje)\n"
+"nije podržana"
+
+#: src/input.c:791
+msgid "Ignoring CM card in geometry"
+msgstr "Ignorisanje CM kartice u geometriji"
+
+#: src/input.c:804
+#, c-format
+msgid "geometry data card error (nwire=%d)\n"
+msgstr "greška kartice geometrijskih podataka (nwire=%d)\n"
+
+#: src/input.c:805
+#, c-format
+msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+
+#: src/input.c:808
+msgid "Geometry data card error"
+msgstr "Greška kartice geometrijskih podataka"
+
+#: src/input.c:833
+msgid "Failed to initialize symbol table\n"
+msgstr "Inicijalizacija tabele simbola nije uspjela\n"
+
+#: src/input.c:834
+msgid "Failed to initialize symbol table"
+msgstr "Inicijalizacija tabele simbola nije uspjela"
+
+#: src/input.c:1002
+msgid "ignoring CM card in commands\n"
+msgstr "ignorisanje CM kartice u komandama\n"
+
+#: src/input.c:1003
+msgid "Ignoring CM card in commands"
+msgstr "Ignorisanje CM kartice u komandama"
+
+#: src/input.c:1007
+msgid ""
+"CP card is ignored\n"
+"Coupling calculation not implemented"
+msgstr ""
+"CP kartica je ignorisana\n"
+"Proračun sprege nije implementiran"
+
+#: src/input.c:1185
+msgid "Max frequency <= Min frequency in FR card\n"
+msgstr "Maksimalna frekvencija <= minimalna frekvencija u FR kartici\n"
+
+#: src/input.c:1186
+msgid ""
+"Max frequency <= Min frequency in FR card\n"
+"Please check FR card data and correct"
+msgstr ""
+"Maksimalna frekvencija <= minimalna frekvencija u FR kartici\n"
+"Molimo provjerite podatke FR kartice i ispravite"
+
+#: src/input.c:1209
+msgid ""
+"Fix the GE/GN cards:\n"
+"The GE card specifies that a ground is present, but the GN indicates "
+"otherwise."
+msgstr ""
+"Ispravite GE/GN kartice:\n"
+"GE kartica specificira da je uzemljenje prisutno, ali GN ukazuje suprotno."
+
+#: src/input.c:1223
+msgid "theta > 90 deg. with ground specified\n"
+msgstr "theta > 90 stepeni sa specificiranim uzemljenjem\n"
+
+#: src/input.c:1224 src/radiation.c:656
+msgid ""
+"Theta > 90 deg with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 stepeni sa specificiranim uzemljenjem\n"
+"Molimo provjerite podatke RP kartice i ispravite"
+
+#: src/input.c:1233
+msgid ""
+"radial wire g.s. approximation: may not be used with Sommerfeld ground "
+"option\n"
+msgstr ""
+"aproksimacija radijalne žice g.s.: ne može se koristiti sa Sommerfeld "
+"opcijom uzemljenja\n"
+
+#: src/input.c:1234
+msgid ""
+"radial wire g.s. approximation\n"
+"may not be used with Sommerfeld ground option"
+msgstr ""
+"aproksimacija radijalne žice g.s.\n"
+"ne može se koristiti sa Sommerfeld opcijom uzemljenja"
+
+#: src/input.c:1285
+#, c-format
+msgid ""
+"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
+"%d\n"
+msgstr ""
+"greška podataka na kartici opterećenja br. %d: itag step1 %d je veći od itag "
+"step2 %d\n"
+
+#: src/input.c:1287
+msgid ""
+"Data fault on loading card\n"
+"itag step1 is greater than itag step2"
+msgstr ""
+"Greška podataka na kartici opterećenja\n"
+"itag step1 je veći od itag step2"
+
+#: src/input.c:1420
+msgid ""
+"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr ""
+"Impedansa prenosne linije = 0: nije ispravna. Molimo ispravite NT ili TL "
+"karticu\n"
+
+#: src/input.c:1421
+msgid ""
+"Transmission Line impedance = 0\n"
+"is not valid. Please correct NT or TL card"
+msgstr ""
+"Impedansa prenosne linije = 0\n"
+"nije ispravna. Molimo ispravite NT ili TL karticu"
+
+#: src/input.c:1430
+msgid "Segment number error in TL or NT card\n"
+msgstr "Greška broja segmenta u TL ili NT kartici\n"
+
+#: src/input.c:1431
+msgid ""
+"Segment number\n"
+"error in NT or TL card"
+msgstr ""
+"Greška broja segmenta\n"
+"u NT ili TL kartici"
+
+#: src/input.c:1452
+msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
+msgstr ""
+"PQ i PT kartice su ignorisane: Štampanje u datoteku nije implementirano\n"
+
+#: src/input.c:1453
+msgid ""
+"PQ and PT cards are ignored\n"
+"Printing to file not implemented"
+msgstr ""
+"PQ i PT kartice su ignorisane\n"
+"Štampanje u datoteku nije implementirano"
+
+#: src/input.c:1460
+msgid "Surface wave option (I1=1): of RP command not implemented\n"
+msgstr "Opcija površinskog vala (I1=1): RP komande nije implementirana\n"
+
+#: src/input.c:1461
+msgid ""
+"Surface wave option (I1=1)\n"
+"of RP command not implemented"
+msgstr ""
+"Opcija površinskog vala (I1=1)\n"
+"RP komande nije implementirana"
+
+#: src/input.c:1484
+msgid ""
+"Gain averaging (XNDA ***1 or ***2) controls text output formatting.\n"
+"xnec2c renders radiation patterns graphically instead of text tables.\n"
+"Pattern calculations proceed normally; use GUI to view results."
+msgstr ""
+"Usrednjavanje pojačanja (XNDA ***1 ili ***2) kontroliše formatiranje "
+"tekstualnog izlaza.\n"
+"xnec2c prikazuje dijagrame zračenja grafički umjesto tekstualnih tabela.\n"
+"Proračuni dijagrama se odvijaju normalno; koristite GUI za pregled rezultata."
+
+#: src/input.c:1502
+msgid ""
+"Theta > 90 deg. with ground specified: Please check RP card data and "
+"correct\n"
+msgstr ""
+"Theta > 90 stepeni sa specificiranim uzemljenjem: Molimo provjerite podatke "
+"RP kartice i ispravite\n"
+
+#: src/input.c:1503
+msgid ""
+"Theta > 90 deg. with ground specified\n"
+"Please check RP card data and correct"
+msgstr ""
+"Theta > 90 stepeni sa specificiranim uzemljenjem\n"
+"Molimo provjerite podatke RP kartice i ispravite"
+
+#: src/input.c:1568
+msgid "Faulty data card"
+msgstr "Neispravna kartica podataka"
+
+#: src/input.c:1578
+msgid ""
+"Missing or surface-wave RP card: Radiation pattern and gain calculations "
+"disabled\n"
+msgstr ""
+"Nedostaje ili površinski val RP kartica: Proračuni dijagrama zračenja i "
+"pojačanja su onemogućeni\n"
+
+#: src/input.c:1595
+msgid "Unexpected exit from while loop"
+msgstr "Neočekivani izlaz iz while petlje"
+
+#: src/input.c:1653
+msgid ""
+"command data card error: Unexpected EOF while reading input file - appending "
+"EN card\n"
+msgstr ""
+"greška kartice podataka komande: Neočekivani EOF pri čitanju ulazne datoteke "
+"- dodavanje EN kartice\n"
+
+#: src/input.c:1654
+msgid ""
+"Command data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default EN card"
+msgstr ""
+"Greška kartice podataka komande\n"
+"Neočekivani EOF pri čitanju ulazne datoteke\n"
+"Dodavanje podrazumijevane EN kartice"
+
+#: src/input.c:1668
+msgid "command data card error: card's mnemonic code too short or missing\n"
+msgstr ""
+"greška kartice podataka komande: mnemonički kod kartice je prekratak ili "
+"nedostaje\n"
+
+#: src/input.c:1669
+msgid ""
+"Command data card error\n"
+"Mnemonic code too short or missing"
+msgstr ""
+"Greška kartice podataka komande\n"
+"Mnemonički kod je prekratak ili nedostaje"
+
+#: src/input.c:1829
+msgid ""
+"geometry data card error: Unexpected EOF while reading input file - "
+"appending GE card\n"
+msgstr ""
+"greška kartice geometrijskih podataka: Neočekivani EOF pri čitanju ulazne "
+"datoteke - dodavanje GE kartice\n"
+
+#: src/input.c:1830
+msgid ""
+"Geometry data card error\n"
+"Unexpected EOF while reading input file\n"
+"Appending a default GE card"
+msgstr ""
+"Greška kartice geometrijskih podataka\n"
+"Neočekivani EOF pri čitanju ulazne datoteke\n"
+"Dodavanje podrazumijevane GE kartice"
+
+#: src/input.c:1844
+msgid "geometry data card error: card's mnemonic code too short or missing\n"
+msgstr ""
+"greška kartice geometrijskih podataka: mnemonički kod kartice je prekratak "
+"ili nedostaje\n"
+
+#: src/input.c:1845
+msgid ""
+"Geometry data card error\n"
+"Card's mnemonic code too short or missing"
+msgstr ""
+"Greška kartice geometrijskih podataka\n"
+"Mnemonički kod kartice je prekratak ili nedostaje"
+
+#: src/main.c:125
+#, c-format
+msgid "%s requires a positive integer argument\n"
+msgstr "%s zahtijeva pozitivan cjelobrojni argument\n"
+
+#: src/main.c:183
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "Detektovano %d CPU-ova\n"
+
+#: src/main.c:194
+msgid "config file path too long\n"
+msgstr "putanja konfiguracijske datoteke je predugačka\n"
+
+#: src/main.c:213
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "konfiguracijska datoteka ne postoji ili nije čitljiva: %s\n"
+
+#: src/main.c:222
+#, c-format
+msgid "config file path too long ( > %d char )\n"
+msgstr "putanja konfiguracijske datoteke je predugačka ( > %d znakova )\n"
+
+#: src/main.c:234
+#, c-format
+msgid "input file name too long ( > %d char )\n"
+msgstr "ime ulazne datoteke je predugačko ( > %d znakova )\n"
+
+#: src/main.c:261
+msgid "Forking disabled!\n"
+msgstr "Forkovanje onemogućeno!\n"
+
+#: src/main.c:269
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop onemogućen!\n"
+
+#: src/main.c:273
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "batch način rada omogućen, izlaz nakon prve petlje\n"
+
+#: src/main.c:331
+msgid "verify segments check disabled\n"
+msgstr "provjera verifikacije segmenata onemogućena\n"
+
+#: src/main.c:336
+msgid "forcing overlap check on large models\n"
+msgstr "prisilna provjera preklapanja na velikim modelima\n"
+
+#: src/main.c:350
+msgid "--batch and --optimize are mutual exclusive.\n"
+msgstr "--batch i --optimize su međusobno isključivi.\n"
+
+#: src/main.c:366
+#, c-format
+msgid "input file path name too long ( > %d char )\n"
+msgstr "putanja ulazne datoteke je predugačka ( > %d znakova )\n"
+
+#: src/main.c:373
+#, c-format
+msgid "unexpected argument '%s' does not appear to be a .nec file\n"
+msgstr "neočekivani argument '%s' ne izgleda kao .nec datoteka\n"
+
+#: src/main.c:380
+#, c-format
+msgid "unexpected argument: %s\n"
+msgstr "neočekivani argument: %s\n"
+
+#: src/main.c:386
+msgid "batch mode requires an input file\n"
+msgstr "batch način rada zahtijeva ulaznu datoteku\n"
+
+#: src/main.c:407
+#, c-format
+msgid "Forking %d jobs.\n"
+msgstr "Forkovanje %d poslova.\n"
+
+#: src/main.c:416 src/main.c:424
+msgid "exiting after fatal error: pipe() failed"
+msgstr "izlaz nakon fatalne greške: pipe() nije uspio"
+
+#: src/main.c:433
+msgid "exiting after fatal error: fork() failed"
+msgstr "izlaz nakon fatalne greške: fork() nije uspio"
+
+#: src/main.c:778
+msgid "exiting via user interrupt\n"
+msgstr "izlaz putem korisničkog prekida\n"
+
+#: src/main.c:782
+msgid "segmentation fault, exiting\n"
+msgstr "greška segmentacije, izlaz\n"
+
+#: src/main.c:786
+msgid "floating point exception, exiting\n"
+msgstr "izuzetak s pomičnim zarezom, izlazak\n"
+
+#: src/main.c:790
+msgid "abort signal received, exiting\n"
+msgstr "primljen signal za prekid, izlazak\n"
+
+#: src/main.c:794
+msgid "termination request received, exiting\n"
+msgstr "primljen zahtjev za prekid, izlazak\n"
+
+#: src/main.c:804
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "nije račvano, ignorisanje SIGCHLD od pid %d\n"
+
+#: src/main.c:812
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "podproces pid %d završio\n"
+
+#: src/main.c:821
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "podrazumijevani izlaz sa signalom: %d\n"
+
+#: src/matrix.c:1216
+#, c-format
+msgid "pivot(%d)= %16.8E\n"
+msgstr "pivot(%d)= %16.8E\n"
+
+#: src/matrix.c:1250
+#, c-format
+msgid "LU Decomposition Failed: %d\n"
+msgstr "LU dekompozicija nije uspjela: %d\n"
+
+#: src/matrix.c:1306
+#, c-format
+msgid "symmetry error - nrow:%d ncol:%d\n"
+msgstr "greška simetrije - nrow:%d ncol:%d\n"
+
+#: src/matrix.c:1307
+msgid "Symmetry error"
+msgstr "Greška simetrije"
+
+#: src/matrix.c:1414
+#, c-format
+msgid "Solving Failed: %d\n"
+msgstr "Rješavanje nije uspjelo: %d\n"
+
+#: src/nec2_model.c:111 src/nec2_model.c:115 src/nec2_model.c:119
+msgid "Card"
+msgstr "Kartica"
+
+#: src/nec2_model.c:111 resources/xnec2c.glade:6183
+msgid "Comments"
+msgstr "Komentari"
+
+#: src/nec2_model.c:188
+msgid "--- NEC2 Input File created or edited by "
+msgstr "--- NEC2 ulazna datoteka kreirana ili uređena od "
+
+#: src/nec2_model.c:205
+msgid "--- End Comments ---"
+msgstr "--- Kraj komentara ---"
+
+#: src/nec2_model.c:344
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Unexpected EOF (End of File)"
+msgstr ""
+"List_Comments():\n"
+"Greška pri čitanju ulazne datoteke\n"
+"Neočekivan EOF (kraj datoteke)"
+
+#: src/nec2_model.c:351
+msgid ""
+"List_Comments():\n"
+"Error reading input file\n"
+"Comment mnemonic short or missing"
+msgstr ""
+"List_Comments():\n"
+"Greška pri čitanju ulazne datoteke\n"
+"Mnemonik komentara prekratak ili nedostaje"
+
+#: src/nec2_model.c:594
+msgid "End Comments"
+msgstr "Kraj komentara"
+
+#: src/nec2_model.c:648
+msgid ""
+"Cannot save treeview data\n"
+"Please use the Save button\n"
+"to specify a file path"
+msgstr ""
+"Nije moguće sačuvati podatke stabla\n"
+"Molimo koristite dugme Sačuvaj\n"
+"za određivanje putanje datoteke"
+
+#: src/network.c:648
+#, c-format
+msgid "improper load type chosen, requested type is %d\n"
+msgstr "odabran nepravilan tip opterećenja, traženi tip je %d\n"
+
+#: src/network.c:649
+msgid "Improper load type chose"
+msgstr "Odabran nepravilan tip opterećenja"
+
+#: src/network.c:737
+#, c-format
+msgid "loading data card error, no segment has an itag = %d\n"
+msgstr ""
+"greška pri učitavanju kartice podataka, nijedan segment nema itag = %d\n"
+
+#: src/network.c:738
+msgid ""
+"Loading data card\n"
+"Tag number mismatch error"
+msgstr ""
+"Učitavanje kartice podataka\n"
+"Greška nepodudaranja broja oznake"
+
+#: src/plot_freqdata.c:132
+#, c-format
+msgid ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+msgstr ""
+"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
+"%d fr=%d posn=%d valid=%d\n"
+
+#: src/plot_freqdata.c:148
+#, c-format
+msgid ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+msgstr ""
+"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
+"%d]\n"
+
+#: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
+msgid "memory allocation for points failed\n"
+msgstr "dodjela memorije za tačke nije uspjela\n"
+
+#: src/plot_freqdata.c:832 src/plot_freqdata.c:1299
+msgid "Draw_Graph():Memory allocation for points failed"
+msgstr "Draw_Graph():Dodjela memorije za tačke nije uspjela"
+
+#: src/plot_freqdata.c:1260
+msgid "Smith Chart"
+msgstr "Smithov dijagram"
+
+#: src/plot_freqdata.c:1452 src/plot_freqdata.c:1471 src/plot_freqdata.c:1496
+msgid "Raw Gain dBi"
+msgstr "Sirovo pojačanje dBi"
+
+#: src/plot_freqdata.c:1455
+msgid "Max Gain & Net Gain vs Frequency"
+msgstr "Maks. pojačanje i neto pojačanje vs frekvencija"
+
+#: src/plot_freqdata.c:1456
+msgid "Net Gain dBi"
+msgstr "Neto pojačanje dBi"
+
+#: src/plot_freqdata.c:1462 src/plot_freqdata.c:1472
+msgid "Max Gain & F/B Ratio vs Frequency"
+msgstr "Maks. pojačanje i F/B odnos vs frekvencija"
+
+#: src/plot_freqdata.c:1473
+msgid "F/B Ratio dB"
+msgstr "F/B odnos dB"
+
+#: src/plot_freqdata.c:1482
+msgid "Rad Angle - deg"
+msgstr "Ugao zračenja - deg"
+
+#: src/plot_freqdata.c:1483
+msgid "Max Gain Direction vs Frequency"
+msgstr "Smjer maks. pojačanja vs frekvencija"
+
+#: src/plot_freqdata.c:1484
+msgid "Phi - deg"
+msgstr "Phi - deg"
+
+#: src/plot_freqdata.c:1497
+msgid "Gain in Viewer Direction vs Frequency"
+msgstr "Pojačanje u smjeru posmatrača vs frekvencija"
+
+#: src/plot_freqdata.c:1520
+msgid "Net gain dBi"
+msgstr "Neto pojačanje dBi"
+
+#: src/plot_freqdata.c:1538 resources/xnec2c.glade:9909
+#: resources/xnec2c.glade:10119
+msgid "VSWR"
+msgstr "VSWR"
+
+#: src/plot_freqdata.c:1541
+msgid "VSWR & S11 vs Frequency"
+msgstr "VSWR i S11 vs frekvencija"
+
+#: src/plot_freqdata.c:1542
+msgid "S11 dB"
+msgstr "S11 dB"
+
+#: src/plot_freqdata.c:1546
+msgid "VSWR vs Frequency"
+msgstr "VSWR vs frekvencija"
+
+#: src/plot_freqdata.c:1560
+msgid "memory allocation for vswr/s11 failed\n"
+msgstr "dodjela memorije za vswr/s11 nije uspjela\n"
+
+#: src/plot_freqdata.c:1561
+msgid "Plot_Frequency_Data():Memory allocation for vswr/s11 failed"
+msgstr "Plot_Frequency_Data():Dodjela memorije za vswr/s11 nije uspjela"
+
+#: src/plot_freqdata.c:1591 resources/xnec2c.glade:10084
+msgid "Z-real"
+msgstr "Z-realno"
+
+#: src/plot_freqdata.c:1592 src/plot_freqdata.c:1605
+msgid "Impedance vs Frequency"
+msgstr "Impedansa vs frekvencija"
+
+#: src/plot_freqdata.c:1593 resources/xnec2c.glade:10049
+msgid "Z-imag"
+msgstr "Z-imaginarno"
+
+#: src/plot_freqdata.c:1604
+msgid "Z-magn"
+msgstr "Z-modul"
+
+#: src/plot_freqdata.c:1606
+msgid "Z-phase"
+msgstr "Z-faza"
+
+#: src/plot_freqdata.c:1855
+#, c-format
+msgid "mouse button: unknown button %d\n"
+msgstr "tipka miša: nepoznata tipka %d\n"
+
+#: src/somnec.c:238
+msgid "Hankel not valid for z = 0"
+msgstr "Hankel nije validan za z = 0"
+
+#: src/somnec.c:749
+msgid "No convergence"
+msgstr "Nema konvergencije"
+
+#: src/utils.c:103 src/utils.c:108
+#, c-format
+msgid ""
+"\n"
+"=== Notice: %s ===\n"
+"%s\n"
+"\n"
+msgstr ""
+"\n"
+"=== Obavještenje: %s ===\n"
+"%s\n"
+"\n"
+
+#: src/utils.c:150
+#, c-format
+msgid "Stop: %s\n"
+msgstr "Stop: %s\n"
+
+#: src/utils.c:157 src/utils.c:161 src/utils.c:171 src/utils.c:173
+#, c-format
+msgid "%s\n"
+msgstr "%s\n"
+
+#: src/utils.c:354
+#, c-format
+msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
+msgstr "koristi se %d OpenMP niti po poslu (%d/%d CPU-a)\n"
+
+#: src/utils.c:370
+#, c-format
+msgid "%s[%d]: %f seconds\n"
+msgstr "%s[%d]: %f sekundi\n"
+
+#: src/utils.c:422
+#, c-format
+msgid ""
+"mem_obj_t at %p:\n"
+"  size: %lu\n"
+"  used: %lu\n"
+"  addr: %p\n"
+msgstr ""
+"mem_obj_t na %p:\n"
+"  veličina: %lu\n"
+"  korišteno: %lu\n"
+"  adresa: %p\n"
+
+#: src/utils.c:441
+#, c-format
+msgid "mem_backtrace(%p):\n"
+msgstr "mem_backtrace(%p):\n"
+
+#: src/utils.c:443
+msgid "  m->backtrace is null, no backtrace data\n"
+msgstr "  m->backtrace je null, nema podataka o praćenju\n"
+
+#: src/utils.c:507
+#, c-format
+msgid "Memory re-allocation denied %s\n"
+msgstr "Ponovna dodjela memorije odbijena %s\n"
+
+#: src/utils.c:508
+#, c-format
+msgid "%s: Memory requested %lu\n"
+msgstr "%s: Zatraženo memorije %lu\n"
+
+#: src/utils.c:554
+#, c-format
+msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
+msgstr "xnec2c[%d]: %s: Neuspjelo otvaranje datoteke: %s\n"
+
+#: src/utils.c:559
+#, c-format
+msgid "%s: %s\n"
+msgstr "%s: %s\n"
+
+#: src/utils.c:927
+msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
+msgstr ""
+"Petlja optimizatora nepotpuna, preskakanje ponovnog crtanja dijagrama "
+"zračenja.\n"
+
+#: src/utils.c:934
+msgid "Optimizer loop incomplete, skipping structure redraw.\n"
+msgstr ""
+"Petlja optimizatora nepotpuna, preskakanje ponovnog crtanja strukture.\n"
+
+#: src/utils.c:949
+msgid "  Backtrace:\n"
+msgstr "  Praćenje:\n"
+
+#: src/utils.c:951
+#, c-format
+msgid "    %d. %s\n"
+msgstr "    %d. %s\n"
+
+#: src/utils.c:978
+#, c-format
+msgid "%s:\n"
+msgstr "%s:\n"
+
+#: src/xnec2c.c:185
+#, c-format
+msgid ""
+"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
+"%+12.5Ej\n"
+msgstr ""
+"kompleksna dielektrična konstanta iz datoteke: %12.5E%+12.5Ej, zatraženo: "
+"%12.5E%+12.5Ej\n"
+
+#: src/xnec2c.c:188
+msgid "Ground_Parameters():Error in ground parameters"
+msgstr "Ground_Parameters():Greška u parametrima uzemljenja"
+
+#: src/xnec2c.c:490
+#, c-format
+msgid "%.6f MHz: %f seconds. (%s)\n"
+msgstr "%.6f MHz: %f sekundi. (%s)\n"
+
+#: src/xnec2c.c:781
+msgid "Failed to read data from forked child\n"
+msgstr "Neuspjelo čitanje podataka od račvanog podprocesa\n"
+
+#: src/xnec2c.c:817
+#, c-format
+msgid ""
+"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr ""
+"Frequency_Loop je završio sve korake ali num_busy_procs=%d (calc_data."
+"freq_step=%d calc_data.steps_total=%d)?\n"
+
+#: src/xnec2c.c:824
+#, c-format
+msgid "  busy job[%d]: fstep=%d freq=%f\n"
+msgstr "  zauzet posao[%d]: fstep=%d freq=%f\n"
+
+#: src/xnec2c.c:886
+#, c-format
+msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
+msgstr "Proteklo vrijeme petlje frekvencije: %f sekundi. (%s)\n"
+
+#: src/xnec2c.c:1029
+msgid "failed to start Frequency_Loop_Thread\n"
+msgstr "neuspjelo pokretanje Frequency_Loop_Thread\n"
+
+#: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1964
+msgid "xnec2c"
+msgstr "xnec2c"
+
+#: files/xnec2c.desktop.in:4
+msgid "NEC2 Simulator"
+msgstr "NEC2 Simulator"
+
+#: files/xnec2c.desktop.in:5
+msgid "Numerical Electromagnetics Code software"
+msgstr "Softver za numerički elektromagnetski kod"
+
+#: files/xnec2c.desktop.in:11
+msgid "nec2;em;simulator;"
+msgstr "nec2;em;simulator;"
+
+#: resources/xnec2c.glade:14
+msgid "(C) 2007-2022 Neoklis Kyriazis"
+msgstr "(C) 2007-2022 Neoklis Kyriazis"
+
+#: resources/xnec2c.glade:15
+msgid ""
+"xnec2c is an interactive graphical wrapper around a modified version of "
+"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
+"Numerical Electromagnetics Code.\n"
+"\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
+"etc) in a graphical format. It can also display radiation pattern data in a "
+"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
+"format.\n"
+"\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
+"or edit antenna description files and specify NEC2 commands.\n"
+"\n"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
+"fully compatible with NEC2 input files and it works in different ways!"
+msgstr ""
+"xnec2c je interaktivni grafički omotač oko modificirane verzije nec2c, koji "
+"je sam po sebi prijevod originalne FORTRAN NEC2 Numeričke elektromagnetske "
+"kodne baze na C.\n"
+"\n"
+"xnec2c može prikazati podatke ovisne o frekvenciji (pojačanje, ulazna "
+"impedansa, vswr itd.) u grafičkom formatu. Također može prikazati podatke "
+"dijagrama zračenja u rotabilnom žičanom okviru i bliskog polja (E, H, S "
+"vektori) u mrežnom formatu.\n"
+"\n"
+"xnec2c ima ugrađeni editor NEC2 ulaznih datoteka koji olakšava kreiranje ili "
+"uređivanje datoteka opisa antena i specifikaciju NEC2 naredbi.\n"
+"\n"
+"MOLIMO pročitajte dokumentaciju u doc/ poddirektoriju jer xnec2c nije "
+"potpuno kompatibilan sa NEC2 ulaznim datotekama i radi na različite načine!"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: resources/xnec2c.glade:27
+msgid "translator-credits"
+msgstr "translator-credits"
+
+#: resources/xnec2c.glade:159
+msgid "Steps/Cycle"
+msgstr "Koraka/Ciklus"
+
+#: resources/xnec2c.glade:172
+msgid "Animate Freq (Hz)"
+msgstr "Animiraj frekv. (Hz)"
+
+#: resources/xnec2c.glade:286
+msgid "Arc Element (GA card)"
+msgstr "Element luka (GA kartica)"
+
+#: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
+msgid "No. Segments"
+msgstr "Br. segmenata"
+
+#: resources/xnec2c.glade:340 resources/xnec2c.glade:3802
+#: resources/xnec2c.glade:14417
+msgid "Segs % lambda"
+msgstr "Segm. % lambda"
+
+#: resources/xnec2c.glade:353 resources/xnec2c.glade:3815
+#: resources/xnec2c.glade:14513
+msgid "Wire Diameter"
+msgstr "Prečnik žice"
+
+#: resources/xnec2c.glade:441
+msgid "Radius from Y"
+msgstr "Radijus od Y"
+
+#: resources/xnec2c.glade:454
+msgid "End 1 Angle"
+msgstr "Ugao kraja 1"
+
+#: resources/xnec2c.glade:467
+msgid "End 2 Angle"
+msgstr "Ugao kraja 2"
+
+#: resources/xnec2c.glade:578
+msgid "Wire Arc Data"
+msgstr "Podaci luka žice"
+
+#: resources/xnec2c.glade:640 resources/xnec2c.glade:876
+#: resources/xnec2c.glade:1676 resources/xnec2c.glade:1899
+#: resources/xnec2c.glade:2357 resources/xnec2c.glade:2549
+#: resources/xnec2c.glade:2860 resources/xnec2c.glade:3546
+#: resources/xnec2c.glade:4346 resources/xnec2c.glade:4545
+#: resources/xnec2c.glade:4706 resources/xnec2c.glade:5238
+#: resources/xnec2c.glade:5874 resources/xnec2c.glade:7290
+#: resources/xnec2c.glade:8197 resources/xnec2c.glade:9203
+#: resources/xnec2c.glade:9476 resources/xnec2c.glade:12919
+#: resources/xnec2c.glade:13432 resources/xnec2c.glade:14031
+#: resources/xnec2c.glade:14867 resources/xnec2c.glade:15067
+msgid "Delete Card"
+msgstr "Obriši karticu"
+
+#: resources/xnec2c.glade:718
+msgid "Cylindrical Structure (GR card)"
+msgstr "Cilindrična struktura (GR kartica)"
+
+#: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
+msgid "Tag Number Increment"
+msgstr "Inkrement broja oznake"
+
+#: resources/xnec2c.glade:761
+msgid "Number of Structures"
+msgstr "Broj struktura"
+
+#: resources/xnec2c.glade:815
+msgid "Cylindrical Structure"
+msgstr "Cilindrična struktura"
+
+#: resources/xnec2c.glade:941
+msgid "Xnec2c Error"
+msgstr "Xnec2c greška"
+
+#: resources/xnec2c.glade:1049
+msgid "Error"
+msgstr "Greška"
+
+#: resources/xnec2c.glade:1128
+msgid "Excitation Command (EX Card)"
+msgstr "Naredba pobude (EX kartica)"
+
+#: resources/xnec2c.glade:1154
+msgid "Incident LH Wave"
+msgstr "Upadni LH talas"
+
+#: resources/xnec2c.glade:1170
+msgid "Incident Linear Wave "
+msgstr "Upadni linearni talas "
+
+#: resources/xnec2c.glade:1186
+msgid "Current Source"
+msgstr "Izvor struje"
+
+#: resources/xnec2c.glade:1202
+msgid "Incident RH Wave"
+msgstr "Upadni RH talas"
+
+#: resources/xnec2c.glade:1218
+msgid "Current Slope Discontinuity"
+msgstr "Diskontinuitet nagiba struje"
+
+#: resources/xnec2c.glade:1234
+msgid "Voltage Source"
+msgstr "Izvor napona"
+
+#: resources/xnec2c.glade:1256
+msgid "Excitation Type"
+msgstr "Tip pobude"
+
+#: resources/xnec2c.glade:1281
+msgid "Maximum Admittance Matrix Asymmetry"
+msgstr "Maksimalna asimetrija matrice admitancije"
+
+#: resources/xnec2c.glade:1297
+msgid "Impedance of Source Segment"
+msgstr "Impedansa izvornog segmenta"
+
+#: resources/xnec2c.glade:1319
+msgid "Print Control"
+msgstr "Kontrola ispisa"
+
+#: resources/xnec2c.glade:1411
+msgid "Voltage - Real Part"
+msgstr "Napon - Realni dio"
+
+#: resources/xnec2c.glade:1424
+msgid "Voltage - Imaginary Part"
+msgstr "Napon - Imaginarni dio"
+
+#: resources/xnec2c.glade:1437
+msgid "Eta"
+msgstr "Eta"
+
+#: resources/xnec2c.glade:1507
+msgid "Theta"
+msgstr "Theta"
+
+#: resources/xnec2c.glade:1520
+msgid "Phi"
+msgstr "Phi"
+
+#: resources/xnec2c.glade:1533
+msgid "Ratio"
+msgstr "Omjer"
+
+#: resources/xnec2c.glade:1614
+msgid "Excitation Parameters"
+msgstr "Parametri pobude"
+
+#: resources/xnec2c.glade:1741
+msgid "Execute Command (XQ Card)"
+msgstr "Naredba izvršenja (XQ kartica)"
+
+#: resources/xnec2c.glade:1768
+msgid "No Pattern Cuts"
+msgstr "Bez presjeka dijagrama"
+
+#: resources/xnec2c.glade:1784
+msgid "Pattern in XZ Plane"
+msgstr "Dijagram u XZ ravnini"
+
+#: resources/xnec2c.glade:1800
+msgid "Pattern in YZ Plane"
+msgstr "Dijagram u YZ ravnini"
+
+#: resources/xnec2c.glade:1816
+msgid "Both XZ/YZ Patterns"
+msgstr "Oba XZ/YZ dijagrama"
+
+#: resources/xnec2c.glade:1838
+msgid "Execute Command"
+msgstr "Naredba izvršenja"
+
+#: resources/xnec2c.glade:2069
+msgid "Frequency Command (FR Card)"
+msgstr "Naredba frekvencije (FR kartica)"
+
+#: resources/xnec2c.glade:2094
+msgid "Additive Stepping"
+msgstr "Aditivni korak"
+
+#: resources/xnec2c.glade:2111
+msgid "Multiplicative Stepping"
+msgstr "Multiplikativni korak"
+
+#: resources/xnec2c.glade:2134
+msgid "Frequency Stepping"
+msgstr "Korak frekvencije"
+
+#: resources/xnec2c.glade:2164
+msgid "No. Frequency Points"
+msgstr "Broj frekventnih tačaka"
+
+#: resources/xnec2c.glade:2195
+msgid "Start Frequency (MHz)"
+msgstr "Početna frekvencija (MHz)"
+
+#: resources/xnec2c.glade:2227
+msgid "Frequency Step (MHz)"
+msgstr "Korak frekvencije (MHz)"
+
+#: resources/xnec2c.glade:2260
+msgid "End Frequency (MHz)"
+msgstr "Krajnja frekvencija (MHz)"
+
+#: resources/xnec2c.glade:2296
+msgid "Frequency Stepping Parameters"
+msgstr "Parametri koraka frekvencije"
+
+#: resources/xnec2c.glade:2422
+msgid "Geometry End (GE Card)"
+msgstr "Kraj geometrije (GE kartica)"
+
+#: resources/xnec2c.glade:2447
+msgid "No Ground, Free Space condition"
+msgstr "Bez uzemljenja, uvjet slobodnog prostora"
+
+#: resources/xnec2c.glade:2464
+msgid "Ground present, Structure reflection"
+msgstr "Uzemljenje prisutno, refleksija strukture"
+
+#: resources/xnec2c.glade:2481
+msgid "Ground present, no Structure reflection"
+msgstr "Uzemljenje prisutno, bez refleksije strukture"
+
+#: resources/xnec2c.glade:2504
+msgid "Ground Plane type"
+msgstr "Tip ravnine tla"
+
+#: resources/xnec2c.glade:2638
+msgid "Ground Parameters (GD Card)"
+msgstr "Parametri tla (GD kartica)"
+
+#: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
+#: resources/xnec2c.glade:3222
+msgid "Relative Dielectric Const."
+msgstr "Relativna dielektrična konst."
+
+#: resources/xnec2c.glade:2699 resources/xnec2c.glade:3255
+msgid "Distance to 2nd Medium"
+msgstr "Udaljenost do 2. medija"
+
+#: resources/xnec2c.glade:2731 resources/xnec2c.glade:3168
+#: resources/xnec2c.glade:3287
+msgid "Ground Conductivity S/m"
+msgstr "Provodljivost tla S/m"
+
+#: resources/xnec2c.glade:2763 resources/xnec2c.glade:3319
+msgid "Dist. below 1st Medium"
+msgstr "Udal. ispod 1. medija"
+
+#: resources/xnec2c.glade:2799 resources/xnec2c.glade:3355
+msgid "2nd Medium Parameters"
+msgstr "Parametri 2. medija"
+
+#: resources/xnec2c.glade:2980
+msgid "Ground Parameters (GN & GD Cards)"
+msgstr "Parametri tla (GN i GD kartice)"
+
+#: resources/xnec2c.glade:3007
+msgid "Perfect Ground"
+msgstr "Savršeno uzemljenje"
+
+#: resources/xnec2c.glade:3023
+msgid "Sommerfeld/Norton"
+msgstr "Sommerfeld/Norton"
+
+#: resources/xnec2c.glade:3039
+msgid "Radial Ground Screen"
+msgstr "Radijalni uzemljeni ekran"
+
+#: resources/xnec2c.glade:3054
+msgid "Reflection Coeff. Approx"
+msgstr "Aproks. koef. refleksije"
+
+#: resources/xnec2c.glade:3070
+msgid "Nullify Previous Params"
+msgstr "Poništi prethodne param."
+
+#: resources/xnec2c.glade:3086
+msgid "Second Medium (Cliff)"
+msgstr "Drugi medij (Litica)"
+
+#: resources/xnec2c.glade:3107
+msgid "Ground Type"
+msgstr "Tip tla"
+
+#: resources/xnec2c.glade:3235
+msgid "0.00000"
+msgstr "0.00000"
+
+#: resources/xnec2c.glade:3386
+msgid "Number of Radials"
+msgstr "Broj radijala"
+
+#: resources/xnec2c.glade:3399
+msgid "Radial Screen Radius"
+msgstr "Radijus radijalnog ekrana"
+
+#: resources/xnec2c.glade:3449
+msgid "Radial Wire Diameter"
+msgstr "Promjer radijalne žice"
+
+#: resources/xnec2c.glade:3485
+msgid "Radial Screen Parameters"
+msgstr "Parametri radijalnog ekrana"
+
+#: resources/xnec2c.glade:3685
+msgid "Helical Element (GA card)"
+msgstr "Helikalni element (GA kartica)"
+
+#: resources/xnec2c.glade:3710
+msgid "Right Hand Helix"
+msgstr "Desnosmjerna zavojnica"
+
+#: resources/xnec2c.glade:3726
+msgid "Left Hand Helix"
+msgstr "Lijevosmjerna zavojnica"
+
+#: resources/xnec2c.glade:3742
+msgid "Right Hand Spiral"
+msgstr "Desnosmjerna spirala"
+
+#: resources/xnec2c.glade:3758
+msgid "Left Hand Spiral"
+msgstr "Lijevosmjerna spirala"
+
+#: resources/xnec2c.glade:3789
+msgid "Segments/Turn"
+msgstr "Segmenata/Navoju"
+
+#: resources/xnec2c.glade:3828
+msgid "0.0100"
+msgstr "0.0100"
+
+#: resources/xnec2c.glade:3849
+msgid "5.00"
+msgstr "5.00"
+
+#: resources/xnec2c.glade:3870
+msgid "8"
+msgstr "8"
+
+#: resources/xnec2c.glade:3890 resources/xnec2c.glade:11417
+#: resources/xnec2c.glade:12489
+msgid "1"
+msgstr "1"
+
+#: resources/xnec2c.glade:3910
+msgid "Number of Turns"
+msgstr "Broj navoja"
+
+#: resources/xnec2c.glade:3923
+msgid "8.0000"
+msgstr "8.0000"
+
+#: resources/xnec2c.glade:3944
+msgid "Helix Length (HL)"
+msgstr "Dužina zavojnice (HL)"
+
+#: resources/xnec2c.glade:3957
+msgid "5.0000"
+msgstr "5.0000"
+
+#: resources/xnec2c.glade:3978
+msgid "Turns Spacing"
+msgstr "Razmak navoja"
+
+#: resources/xnec2c.glade:3991 resources/xnec2c.glade:4103
+#: resources/xnec2c.glade:4156 resources/xnec2c.glade:4209
+#: resources/xnec2c.glade:4257
+msgid "1.0000"
+msgstr "1.0000"
+
+#: resources/xnec2c.glade:4025
+msgid "0.0000"
+msgstr "0.0000"
+
+#: resources/xnec2c.glade:4045
+msgid "Radius in X (A1)"
+msgstr "Radijus u X (A1)"
+
+#: resources/xnec2c.glade:4058
+msgid "Radius in Y (B1)"
+msgstr "Radijus u Y (B1)"
+
+#: resources/xnec2c.glade:4071
+msgid "Radius in X (A2)"
+msgstr "Radijus u X (A2)"
+
+#: resources/xnec2c.glade:4084
+msgid "Radius in Y (B2)"
+msgstr "Radijus u Y (B2)"
+
+#: resources/xnec2c.glade:4282
+msgid "GH Card"
+msgstr "GH kartica"
+
+#: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
+msgid "Interaction Approx Range (KH Card)"
+msgstr "Opseg aproks. interakcije (KH kartica)"
+
+#: resources/xnec2c.glade:4446
+msgid "Approximation Range (W/lengths)"
+msgstr "Opseg aproksimacije (talasne dužine)"
+
+#: resources/xnec2c.glade:4484
+msgid "Interaction Approximation Range"
+msgstr "Opseg aproksimacije interakcije"
+
+#: resources/xnec2c.glade:4610
+msgid "Thin Wire Kernel (EK Card)"
+msgstr "Jezgro tanke žice (EK kartica)"
+
+#: resources/xnec2c.glade:4628
+msgid "Extended Thin Wire Kernel"
+msgstr "Prošireno jezgro tanke žice"
+
+#: resources/xnec2c.glade:4645
+msgid "Thin Wire Kernel"
+msgstr "Jezgro tanke žice"
+
+#: resources/xnec2c.glade:4808
+msgid "Loading Command (LD Card)"
+msgstr "Naredba opterećenja (LD kartica)"
+
+#: resources/xnec2c.glade:4834
+msgid "Short all Loads (Nulls previous Loading Cards)"
+msgstr "Kratko spoji sva opterećenja (Poništava prethodne LD kartice)"
+
+#: resources/xnec2c.glade:4851
+msgid "Series, Lumped"
+msgstr "Serijski, koncentrirano"
+
+#: resources/xnec2c.glade:4867
+msgid "Parallel, Distributed"
+msgstr "Paralelno, distribuirano"
+
+#: resources/xnec2c.glade:4883
+msgid "Parallel, Lumped"
+msgstr "Paralelno, koncentrirano"
+
+#: resources/xnec2c.glade:4899
+msgid "Resistance & Reactance"
+msgstr "Otpor i reaktansa"
+
+#: resources/xnec2c.glade:4915
+msgid "Series, Distributed"
+msgstr "Serijski, distribuirano"
+
+#: resources/xnec2c.glade:4931
+msgid "Wire Conductivity"
+msgstr "Provodljivost žice"
+
+#: resources/xnec2c.glade:4953
+msgid "Loading Type"
+msgstr "Tip opterećenja"
+
+#: resources/xnec2c.glade:4983
+msgid "Load Tag Number"
+msgstr "Broj oznake opterećenja"
+
+#: resources/xnec2c.glade:5014
+msgid "Resistance"
+msgstr "Otpor"
+
+#: resources/xnec2c.glade:5046
+msgid "From Segment #"
+msgstr "Od segmenta #"
+
+#: resources/xnec2c.glade:5077
+msgid "Inductance"
+msgstr "Induktivnost"
+
+#: resources/xnec2c.glade:5109
+msgid "To Segment #"
+msgstr "Do segmenta #"
+
+#: resources/xnec2c.glade:5140
+msgid "Capacitance"
+msgstr "Kapacitivnost"
+
+#: resources/xnec2c.glade:5176
+msgid "Loading Parameters"
+msgstr "Parametri opterećenja"
+
+#: resources/xnec2c.glade:5391
+msgid "Near Fields Command (NE/NH Cards)"
+msgstr "Naredba za bliska polja (NE/NH kartice)"
+
+#: resources/xnec2c.glade:5418
+msgid "Near Electric Field"
+msgstr "Blisko električno polje"
+
+#: resources/xnec2c.glade:5434
+msgid "Rectangular Co-ordinates"
+msgstr "Pravokutne koordinate"
+
+#: resources/xnec2c.glade:5450
+msgid "Near Magnetic Field"
+msgstr "Blisko magnetno polje"
+
+#: resources/xnec2c.glade:5465
+msgid "Spherical Co-ordinates"
+msgstr "Sferne koordinate"
+
+#: resources/xnec2c.glade:5493
+msgid "Field Type & Co-ordinates"
+msgstr "Tip polja i koordinate"
+
+#: resources/xnec2c.glade:5523
+msgid "NX"
+msgstr "NX"
+
+#: resources/xnec2c.glade:5554 resources/xnec2c.glade:10989
+#: resources/xnec2c.glade:12083
+msgid "X"
+msgstr "X"
+
+#: resources/xnec2c.glade:5586
+msgid "DX"
+msgstr "DX"
+
+#: resources/xnec2c.glade:5618
+msgid "NY"
+msgstr "NY"
+
+#: resources/xnec2c.glade:5649 resources/xnec2c.glade:11004
+#: resources/xnec2c.glade:12098
+msgid "Y"
+msgstr "Y"
+
+#: resources/xnec2c.glade:5681
+msgid "DY"
+msgstr "DY"
+
+#: resources/xnec2c.glade:5713
+msgid "NZ"
+msgstr "NZ"
+
+#: resources/xnec2c.glade:5744 resources/xnec2c.glade:11019
+#: resources/xnec2c.glade:12113
+msgid "Z"
+msgstr "Z"
+
+#: resources/xnec2c.glade:5776
+msgid "DZ"
+msgstr "DZ"
+
+#: resources/xnec2c.glade:5812
+msgid "Field Pattern Parameters"
+msgstr "Parametri dijagrama polja"
+
+#: resources/xnec2c.glade:5939
+msgid "Xnec2c: NEC2 Input File Editor"
+msgstr "Xnec2c: Uređivač NEC2 ulazne datoteke"
+
+#: resources/xnec2c.glade:6026
+msgid "Manage Cards"
+msgstr "Upravljanje karticama"
+
+#: resources/xnec2c.glade:6123
+msgid "File Save"
+msgstr "Sačuvaj datoteku"
+
+#: resources/xnec2c.glade:6210
+msgid "Wire"
+msgstr "Žica"
+
+#: resources/xnec2c.glade:6224
+msgid "Arc"
+msgstr "Luk"
+
+#: resources/xnec2c.glade:6238
+msgid "Helix"
+msgstr "Zavojnica"
+
+#: resources/xnec2c.glade:6252
+msgid "Patch"
+msgstr "Patch"
+
+#: resources/xnec2c.glade:6266
+msgid "Cylinder"
+msgstr "Cilindar"
+
+#: resources/xnec2c.glade:6280
+msgid "Move"
+msgstr "Pomakni"
+
+#: resources/xnec2c.glade:6294
+msgid "Reflect"
+msgstr "Reflektiraj"
+
+#: resources/xnec2c.glade:6308
+msgid "Scale"
+msgstr "Skaliraj"
+
+#: resources/xnec2c.glade:6328
+msgid "Edit Geometry Data"
+msgstr "Uredi podatke geometrije"
+
+#: resources/xnec2c.glade:6382
+msgid "Geometry"
+msgstr "Geometrija"
+
+#: resources/xnec2c.glade:6409
+msgid "Excitation"
+msgstr "Pobuda"
+
+#: resources/xnec2c.glade:6423
+msgid "Radiation"
+msgstr "Zračenje"
+
+#: resources/xnec2c.glade:6437
+msgid "Frequency"
+msgstr "Frekvencija"
+
+#: resources/xnec2c.glade:6451
+msgid "Near Fields"
+msgstr "Bliska polja"
+
+#: resources/xnec2c.glade:6465
+msgid "Ground (GN)"
+msgstr "Uzemljenje (GN)"
+
+#: resources/xnec2c.glade:6479
+msgid "Ground (GD)"
+msgstr "Uzemljenje (GD)"
+
+#: resources/xnec2c.glade:6493
+msgid "Loading"
+msgstr "Opterećenje"
+
+#: resources/xnec2c.glade:6507
+msgid "Kernel"
+msgstr "Kernel"
+
+#: resources/xnec2c.glade:6521
+msgid "Network"
+msgstr "Mreža"
+
+#: resources/xnec2c.glade:6535
+msgid "Interaction"
+msgstr "Interakcija"
+
+#: resources/xnec2c.glade:6549
+msgid "Transm. Line"
+msgstr "Prijenos. linija"
+
+#: resources/xnec2c.glade:6564
+msgid "Execute"
+msgstr "Izvrši"
+
+#: resources/xnec2c.glade:6578
+msgid "Zo"
+msgstr "Zo"
+
+#: resources/xnec2c.glade:6598
+msgid "Edit Control Commands"
+msgstr "Uredi kontrolne naredbe"
+
+#: resources/xnec2c.glade:6652
+msgid "Commands"
+msgstr "Naredbe"
+
+#: resources/xnec2c.glade:6671
+msgid "Unsaved Data"
+msgstr "Nespremljeni podaci"
+
+#: resources/xnec2c.glade:6747
+msgid ""
+"Unsaved data in NEC2 Editor.\n"
+"Save NEC2 Editor data first?\n"
+msgstr ""
+"Nespremljeni podaci u NEC2 uređivaču.\n"
+"Želite li prvo spremiti podatke NEC2 uređivača?\n"
+
+#: resources/xnec2c.glade:6846
+msgid "Network Command (NT Card)"
+msgstr "Naredba mreže (NT kartica)"
+
+#: resources/xnec2c.glade:6875
+msgid "Tag Number, Port 1  "
+msgstr "Broj oznake, Port 1  "
+
+#: resources/xnec2c.glade:6906
+msgid "Tag Number, Port 2  "
+msgstr "Broj oznake, Port 2  "
+
+#: resources/xnec2c.glade:6937
+msgid "Segment Num, Port 1"
+msgstr "Broj segmenta, Port 1"
+
+#: resources/xnec2c.glade:6968
+msgid "Segment Num, Port 2"
+msgstr "Broj segmenta, Port 2"
+
+#: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
+msgid "Segment Identity"
+msgstr "Identitet segmenta"
+
+#: resources/xnec2c.glade:7033
+msgid "Element 1,1 Real Part"
+msgstr "Element 1,1 realni dio"
+
+#: resources/xnec2c.glade:7065
+msgid "Element 1,2 Real Part"
+msgstr "Element 1,2 realni dio"
+
+#: resources/xnec2c.glade:7097
+msgid "Element 2,2 Real Part"
+msgstr "Element 2,2 realni dio"
+
+#: resources/xnec2c.glade:7129
+msgid "Element 1,1 Imag Part"
+msgstr "Element 1,1 imaginarni dio"
+
+#: resources/xnec2c.glade:7161
+msgid "Element 1,2 Imag Part"
+msgstr "Element 1,2 imaginarni dio"
+
+#: resources/xnec2c.glade:7193
+msgid "Element 2,2 Imag Part"
+msgstr "Element 2,2 imaginarni dio"
+
+#: resources/xnec2c.glade:7229
+msgid "Admittance Matrix Elements"
+msgstr "Elementi matrice admitancije"
+
+#: resources/xnec2c.glade:7444
+msgid "Patch Element (SP & SC Cards)"
+msgstr "Patch element (SP i SC kartice)"
+
+#: resources/xnec2c.glade:7468
+msgid "Arbitrary"
+msgstr "Proizvoljno"
+
+#: resources/xnec2c.glade:7485
+msgid "Rectangle"
+msgstr "Pravokutnik"
+
+#: resources/xnec2c.glade:7502
+msgid "Triangle"
+msgstr "Trokut"
+
+#: resources/xnec2c.glade:7519
+msgid "Quadrilateral"
+msgstr "Četverokut"
+
+#: resources/xnec2c.glade:7536
+msgid "Surface"
+msgstr "Površina"
+
+#: resources/xnec2c.glade:7559
+msgid "Patch Type"
+msgstr "Tip patch-a"
+
+#: resources/xnec2c.glade:7589
+msgid "Corners 1-2 sub-division (NX)"
+msgstr "Podjela uglova 1-2 (NX)"
+
+#: resources/xnec2c.glade:7620
+msgid "Corners 2-3 sub-division (NY)"
+msgstr "Podjela uglova 2-3 (NY)"
+
+#: resources/xnec2c.glade:7655
+msgid "Surface Sub-division"
+msgstr "Podjela površine"
+
+#: resources/xnec2c.glade:7881
+msgid "SP/SM Cards"
+msgstr "SP/SM kartice"
+
+#: resources/xnec2c.glade:7917
+msgid "Corner 3 - X"
+msgstr "Ugao 3 - X"
+
+#: resources/xnec2c.glade:7949
+msgid "Corner 3 - Y"
+msgstr "Ugao 3 - Y"
+
+#: resources/xnec2c.glade:7981
+msgid "Corner 3 - Z"
+msgstr "Ugao 3 - Z"
+
+#: resources/xnec2c.glade:8029
+msgid "Corner 4 - X"
+msgstr "Ugao 4 - X"
+
+#: resources/xnec2c.glade:8061
+msgid "Corner 4 - Y"
+msgstr "Ugao 4 - Y"
+
+#: resources/xnec2c.glade:8093
+msgid "Corner 4 - Z"
+msgstr "Ugao 4 - Z"
+
+#: resources/xnec2c.glade:8136
+msgid "SC Card"
+msgstr "SC kartica"
+
+#: resources/xnec2c.glade:8352
+msgid "Quit xnec2c?"
+msgstr "Izaći iz xnec2c?"
+
+#: resources/xnec2c.glade:8431
+msgid "Radiation Pattern (RP Card)"
+msgstr "Dijagram zračenja (RP kartica)"
+
+#: resources/xnec2c.glade:8458
+msgid "Normal (Space) Wave"
+msgstr "Normalni (prostorni) val"
+
+#: resources/xnec2c.glade:8474
+msgid "Space + Ground Wave"
+msgstr "Prostorni + prizemni val"
+
+#: resources/xnec2c.glade:8490
+msgid "Linear Cliff"
+msgstr "Linearni greben"
+
+#: resources/xnec2c.glade:8506
+msgid "Radial wire screen"
+msgstr "Radijalna žičana mreža"
+
+#: resources/xnec2c.glade:8522
+msgid "Circular Cliff + Radials"
+msgstr "Kružni greben + radijali"
+
+#: resources/xnec2c.glade:8538
+msgid "Circular Cliff"
+msgstr "Kružni greben"
+
+#: resources/xnec2c.glade:8554
+msgid "Linear Cliff + Radials"
+msgstr "Linearni greben + radijali"
+
+#: resources/xnec2c.glade:8572
+msgid "<b>See GN/GD Card Documentation</b>"
+msgstr "<b>Pogledajte dokumentaciju GN/GD kartica</b>"
+
+#: resources/xnec2c.glade:8590
+msgid "Wave Type and Ground (I1)"
+msgstr "Tip vala i uzemljenje (I1)"
+
+#: resources/xnec2c.glade:8618
+msgid "Major & Minor Axis & Total Gain"
+msgstr "Glavna i sporedna os i ukupno pojačanje"
+
+#: resources/xnec2c.glade:8634
+msgid "Vertical, Horizontal & Total Gain"
+msgstr "Vertikalno, horizontalno i ukupno pojačanje"
+
+#: resources/xnec2c.glade:8650
+msgid "Major Axis Gain Normalized"
+msgstr "Normalizirano pojačanje glavne osi"
+
+#: resources/xnec2c.glade:8666
+msgid "Vertical Axis Gain Normalized"
+msgstr "Normalizirano pojačanje vertikalne osi"
+
+#: resources/xnec2c.glade:8682
+msgid "Total Gain Normalized"
+msgstr "Normalizirano ukupno pojačanje"
+
+#: resources/xnec2c.glade:8698
+msgid "Print/Normalize Directive Gain"
+msgstr "Ispiši/normaliziraj usmjereno pojačanje"
+
+#: resources/xnec2c.glade:8714
+msgid "No Normalized Gain"
+msgstr "Bez normaliziranog pojačanja"
+
+#: resources/xnec2c.glade:8730
+msgid "Minor Axis Gain Normalized"
+msgstr "Pojačanje manje ose normalizirano"
+
+#: resources/xnec2c.glade:8746
+msgid "Horizontal Axis Gain Normalized"
+msgstr "Pojačanje horizontalne ose normalizirano"
+
+#: resources/xnec2c.glade:8762
+msgid "Print/Normalize Power Gain"
+msgstr "Ispiši/Normaliziraj pojačanje snage"
+
+#: resources/xnec2c.glade:8778
+msgid "No Gain Averaging"
+msgstr "Bez usrednjavanja pojačanja"
+
+#: resources/xnec2c.glade:8794
+msgid "Points in Average Not Printed"
+msgstr "Tačke u prosjeku nisu ispisane"
+
+#: resources/xnec2c.glade:8810
+msgid "Average Gain Computed"
+msgstr "Prosječno pojačanje izračunato"
+
+#: resources/xnec2c.glade:8828
+msgid "<b>See RP Card Documentation</b>"
+msgstr "<b>Pogledajte dokumentaciju RP kartice</b>"
+
+#: resources/xnec2c.glade:8846
+msgid "Data Output Control (XNDA)"
+msgstr "Kontrola izlaza podataka (XNDA)"
+
+#: resources/xnec2c.glade:8876
+msgid "Points in Theta"
+msgstr "Tačke u Theta"
+
+#: resources/xnec2c.glade:8985
+msgid "Initial Phi (deg)"
+msgstr "Početni Phi (deg)"
+
+#: resources/xnec2c.glade:9067
+msgid "Field Point Distance"
+msgstr "Udaljenost tačke polja"
+
+#: resources/xnec2c.glade:9099
+msgid "Gain Normalization"
+msgstr "Normalizacija pojačanja"
+
+#: resources/xnec2c.glade:9141
+msgid "Radiation Pattern Parameters"
+msgstr "Parametri dijagrama zračenja"
+
+#: resources/xnec2c.glade:9301
+msgid "Reflect Structure (GX card)"
+msgstr "Reflektiraj strukturu (GX kartica)"
+
+#: resources/xnec2c.glade:9329
+msgid "Reflect in YZ plane"
+msgstr "Reflektiraj u YZ ravni"
+
+#: resources/xnec2c.glade:9344
+msgid "Reflect in XY plane"
+msgstr "Reflektiraj u XY ravni"
+
+#: resources/xnec2c.glade:9359
+msgid "Reflect in XZ plane"
+msgstr "Reflektiraj u XZ ravni"
+
+#: resources/xnec2c.glade:9415
+msgid "Reflect Options"
+msgstr "Opcije refleksije"
+
+#: resources/xnec2c.glade:9546
+msgid "Xnec2c: Frequency Data Plots"
+msgstr "Xnec2c: Grafovi frekvencijskih podataka"
+
+#: resources/xnec2c.glade:9571 resources/xnec2c.glade:10386
+#: resources/xnec2c.glade:11663
+msgid "_File"
+msgstr "_Datoteka"
+
+#: resources/xnec2c.glade:9633 resources/xnec2c.glade:10448
+#: resources/xnec2c.glade:11725
+msgid "Save as _gnuplot"
+msgstr "Sačuvaj kao _gnuplot"
+
+#: resources/xnec2c.glade:9644 resources/xnec2c.glade:11735
+msgid "Save as _CSV"
+msgstr "Sačuvaj kao _CSV"
+
+#: resources/xnec2c.glade:9656
+msgid "Save as _Touchstone (.SnP)"
+msgstr "Sačuvaj kao _Touchstone (.SnP)"
+
+#: resources/xnec2c.glade:9663
+msgid "Save as S_1P: Reflection Only"
+msgstr "Sačuvaj kao S_1P: Samo refleksija"
+
+#: resources/xnec2c.glade:9673
+msgid "Save as S2P: _Max Gain (S21)"
+msgstr "Sačuvaj kao S2P: _Maks. pojačanje (S21)"
+
+#: resources/xnec2c.glade:9683
+msgid "Save as S2P: _Viewer Gain (S21)"
+msgstr "Sačuvaj kao S2P: Pojačanje _posmatrača (S21)"
+
+#: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
+#: resources/xnec2c.glade:11769
+msgid "_View"
+msgstr "_Prikaz"
+
+#: resources/xnec2c.glade:9729 resources/xnec2c.glade:10826
+#: resources/xnec2c.glade:11779
+msgid "_Polarization"
+msgstr "_Polarizacija"
+
+#: resources/xnec2c.glade:9745 resources/xnec2c.glade:10842
+#: resources/xnec2c.glade:11795
+msgid "_Total"
+msgstr "_Ukupno"
+
+#: resources/xnec2c.glade:9756 resources/xnec2c.glade:10853
+#: resources/xnec2c.glade:11806
+msgid "_Horizontal"
+msgstr "_Horizontalno"
+
+#: resources/xnec2c.glade:9767 resources/xnec2c.glade:10864
+#: resources/xnec2c.glade:11817
+msgid "_Vertical"
+msgstr "_Vertikalno"
+
+#: resources/xnec2c.glade:9778 resources/xnec2c.glade:10875
+#: resources/xnec2c.glade:11828
+msgid "_Right Hand"
+msgstr "_Desna ruka"
+
+#: resources/xnec2c.glade:9789 resources/xnec2c.glade:10886
+#: resources/xnec2c.glade:11839
+msgid "_Left Hand"
+msgstr "_Lijeva ruka"
+
+#: resources/xnec2c.glade:9804
+msgid "_Net Gain"
+msgstr "_Neto pojačanje"
+
+#: resources/xnec2c.glade:9813
+msgid "Show _Min/Max Values"
+msgstr "Prikaži _Min/Maks vrijednosti"
+
+#: resources/xnec2c.glade:9822
+msgid "Show _S11 (dB) Values"
+msgstr "Prikaži _S11 (dB) vrijednosti"
+
+#: resources/xnec2c.glade:9831
+msgid "Clamp _VSWR Graph to 10"
+msgstr "Ograniči _VSWR graf na 10"
+
+#: resources/xnec2c.glade:9840
+msgid "Round _X Axis Frequency Values"
+msgstr "Zaokruži vrijednosti frekvencije _X ose"
+
+#: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
+msgid "Max Gain"
+msgstr "Maks. pojačanje"
+
+#: resources/xnec2c.glade:9879
+msgid "Direction"
+msgstr "Smjer"
+
+#: resources/xnec2c.glade:9894
+msgid "Viewer"
+msgstr "Posmatrač"
+
+#: resources/xnec2c.glade:9924
+msgid "Zr/Zi"
+msgstr "Zr/Zi"
+
+#: resources/xnec2c.glade:9939
+msgid "Zm/Zph"
+msgstr "Zm/Zph"
+
+#: resources/xnec2c.glade:9954
+msgid "Smith"
+msgstr "Smith"
+
+#: resources/xnec2c.glade:9998 resources/xnec2c.glade:10033
+#: resources/xnec2c.glade:10068 resources/xnec2c.glade:10103
+#: resources/xnec2c.glade:12644
+msgid " - - -"
+msgstr " - - -"
+
+#: resources/xnec2c.glade:10139
+msgid " - - - - "
+msgstr " - - - - "
+
+#: resources/xnec2c.glade:10155
+msgid "Freq MHz"
+msgstr "Frekv. MHz"
+
+#: resources/xnec2c.glade:10194
+msgid "Tx Line Zo"
+msgstr "Tx linija Zo"
+
+#: resources/xnec2c.glade:10208 resources/xnec2c.glade:11432
+#: resources/xnec2c.glade:12520
+msgid "Freq Loop"
+msgstr "Frekv. petlja"
+
+#: resources/xnec2c.glade:10342
+msgid "Frequency Data Plots"
+msgstr "Grafovi frekvencijskih podataka"
+
+#: resources/xnec2c.glade:10459
+msgid "Save _Currents/Charges as CSV"
+msgstr "Sačuvaj _struje/naboje kao CSV"
+
+#: resources/xnec2c.glade:10478
+msgid "Optimization Settings"
+msgstr "Postavke optimizacije"
+
+#: resources/xnec2c.glade:10493
+msgid "Reload and write data on .NEC file changes"
+msgstr "Ponovo učitaj i upiši podatke pri promjenama .NEC datoteke"
+
+#: resources/xnec2c.glade:10500
+msgid "_Write files selected below, now."
+msgstr "_Upiši datoteke odabrane ispod, sada."
+
+#: resources/xnec2c.glade:10515
+msgid "After calculation, write <file>.csv"
+msgstr "Nakon proračuna, upiši <file>.csv"
+
+#: resources/xnec2c.glade:10524
+msgid "After calculation, write <file>.s_1p"
+msgstr "Nakon proračuna, upiši <file>.s_1p"
+
+#: resources/xnec2c.glade:10533
+msgid "After calculation, write <file>-_maxgain.s2p"
+msgstr "Nakon proračuna, upiši <file>-_maxgain.s2p"
+
+#: resources/xnec2c.glade:10542
+msgid "After calculation, write <file>-_viewergain.s2p"
+msgstr "Nakon proračuna, upiši <file>-_viewergain.s2p"
+
+#: resources/xnec2c.glade:10551
+msgid "After calculation, write <file>-_radpattern.csv"
+msgstr "Nakon proračuna, upiši <file>-_radpattern.csv"
+
+#: resources/xnec2c.glade:10560
+msgid "After calculation, write <file>-_currents.csv"
+msgstr "Nakon proračuna, upiši <file>-_currents.csv"
+
+#: resources/xnec2c.glade:10575
+msgid "_Math Libraries"
+msgstr "_Matematičke biblioteke"
+
+#: resources/xnec2c.glade:10584
+msgid "_Interactive"
+msgstr "_Interaktivno"
+
+#: resources/xnec2c.glade:10604
+msgid "_Batch"
+msgstr "_Paketno"
+
+#: resources/xnec2c.glade:10630
+msgid "Mathlib _Help"
+msgstr "Mathlib _pomoć"
+
+#: resources/xnec2c.glade:10643
+msgid "Mathlib _Benchmarks"
+msgstr "Mathlib _mjerila performansi"
+
+#: resources/xnec2c.glade:10654
+msgid "_Selected Mathlibs"
+msgstr "_Odabrane Mathlib biblioteke"
+
+#: resources/xnec2c.glade:10668
+msgid "Select All/None"
+msgstr "Odaberi sve/ništa"
+
+#: resources/xnec2c.glade:10693
+msgid "_Parallel (-j N):\t\tO(N/J)"
+msgstr "_Paralelno (-j N):\t\tO(N/J)"
+
+#: resources/xnec2c.glade:10702
+msgid "_Single Job (-j 1):\tO(N)"
+msgstr "_Pojedinačni posao (-j 1):\tO(N)"
+
+#: resources/xnec2c.glade:10711
+msgid "_Iterate -j N/=2:\tO(N*log2(J))"
+msgstr "_Iteriraj -j N/=2:\tO(N*log2(J))"
+
+#: resources/xnec2c.glade:10720
+msgid "_Iterate -j N-=1:\tO(N*J)"
+msgstr "_Iteriraj -j N-=1:\tO(N*J)"
+
+#: resources/xnec2c.glade:10735
+msgid "Benchmark _Help"
+msgstr "Mjerilo performansi _pomoć"
+
+#: resources/xnec2c.glade:10754
+msgid "Begin Frequency Loop at Startup"
+msgstr "Započni frekvencijsku petlju pri pokretanju"
+
+#: resources/xnec2c.glade:10765
+msgid "Confirm Quit"
+msgstr "Potvrdi izlaz"
+
+#: resources/xnec2c.glade:10806
+msgid "_Radiation Pattern"
+msgstr "_Dijagram zračenja"
+
+#: resources/xnec2c.glade:10816
+msgid "_Frequency Plots"
+msgstr "_Frekvencijski grafovi"
+
+#: resources/xnec2c.glade:10901 resources/xnec2c.glade:12009
+msgid "Common _Projection"
+msgstr "Zajednička _projekcija"
+
+#: resources/xnec2c.glade:10911 resources/xnec2c.glade:12019
+msgid "Common _Frequency"
+msgstr "Zajednička _frekvencija"
+
+#: resources/xnec2c.glade:10923
+msgid "_Help"
+msgstr "_Pomoć"
+
+#: resources/xnec2c.glade:10932
+msgid "_About"
+msgstr "_O programu"
+
+#: resources/xnec2c.glade:10959
+msgid "Currents"
+msgstr "Struje"
+
+#: resources/xnec2c.glade:10974
+msgid "Charges"
+msgstr "Naboji"
+
+#: resources/xnec2c.glade:11155
+msgid " Zoom"
+msgstr " Zum"
+
+#: resources/xnec2c.glade:11277 resources/xnec2c.glade:12456
+msgid "Gain"
+msgstr "Pojačanje"
+
+#: resources/xnec2c.glade:11292 resources/xnec2c.glade:11308
+#: resources/xnec2c.glade:12469 resources/xnec2c.glade:12626
+msgid "0.0"
+msgstr "0.0"
+
+#: resources/xnec2c.glade:11342
+msgid "- - - "
+msgstr "- - - "
+
+#: resources/xnec2c.glade:11384 resources/xnec2c.glade:12612
+msgid "dB"
+msgstr "dB"
+
+#: resources/xnec2c.glade:11398 resources/xnec2c.glade:12505
+msgid "Step"
+msgstr "Korak"
+
+#: resources/xnec2c.glade:11545 resources/xnec2c.glade:12553
+msgid "Apply"
+msgstr "Primijeni"
+
+#: resources/xnec2c.glade:11565
+msgid "Frequency Mhz"
+msgstr "Frekvencija MHz"
+
+#: resources/xnec2c.glade:11618
+msgid "Structure Geometry"
+msgstr "Geometrija strukture"
+
+#: resources/xnec2c.glade:11637
+msgid "Xnec2c: Radiation Patterns"
+msgstr "Xnec2c: Dijagrami zračenja"
+
+#: resources/xnec2c.glade:11854
+msgid "_Gain Scaling"
+msgstr "_Skaliranje pojačanja"
+
+#: resources/xnec2c.glade:11869
+msgid "Linear _Power"
+msgstr "Linearna _snaga"
+
+#: resources/xnec2c.glade:11880
+msgid "Linear _Voltage"
+msgstr "Linearni _napon"
+
+#: resources/xnec2c.glade:11891
+msgid "_ARRL Style"
+msgstr "_ARRL stil"
+
+#: resources/xnec2c.glade:11902
+msgid "_Logarithmic"
+msgstr "_Logaritamski"
+
+#: resources/xnec2c.glade:11917
+msgid "_Near Field"
+msgstr "_Blisko polje"
+
+#: resources/xnec2c.glade:11932
+msgid "Near _E Field"
+msgstr "Blisko _E polje"
+
+#: resources/xnec2c.glade:11942
+msgid "Near _H Field"
+msgstr "Blisko _H polje"
+
+#: resources/xnec2c.glade:11952
+msgid "_Poynting Vector"
+msgstr "_Poyntingov vektor"
+
+#: resources/xnec2c.glade:11961
+msgid "_Animate Dialog"
+msgstr "_Dijalog animacije"
+
+#: resources/xnec2c.glade:11970
+msgid "_Total Field"
+msgstr "_Ukupno polje"
+
+#: resources/xnec2c.glade:11979
+msgid "_Peak Value"
+msgstr "_Vršna vrijednost"
+
+#: resources/xnec2c.glade:11990
+msgid "_Snapshot"
+msgstr "_Snimak"
+
+#: resources/xnec2c.glade:12029
+msgid "_Overlay Structure"
+msgstr "_Preklapanje strukture"
+
+#: resources/xnec2c.glade:12053
+msgid "Gain Pattern"
+msgstr "Dijagram pojačanja"
+
+#: resources/xnec2c.glade:12068
+msgid "E/H Fields"
+msgstr "E/H polja"
+
+#: resources/xnec2c.glade:12251
+msgid "Zoom % "
+msgstr "Uvećanje % "
+
+#: resources/xnec2c.glade:12572
+msgid "Frequency MHz"
+msgstr "Frekvencija MHz"
+
+#: resources/xnec2c.glade:12589
+msgid "0.010"
+msgstr "0.010"
+
+#: resources/xnec2c.glade:12745
+msgid "Scale Structure (GS card)"
+msgstr "Skaliranje strukture (GS kartica)"
+
+#: resources/xnec2c.glade:12776
+msgid "Structure Scale Factor"
+msgstr "Faktor skaliranja strukture"
+
+#: resources/xnec2c.glade:12789
+msgid "From Tag No."
+msgstr "Od oznake br."
+
+#: resources/xnec2c.glade:12839
+msgid "To Tag No."
+msgstr "Do oznake br."
+
+#: resources/xnec2c.glade:12874
+msgid "Scale Structure"
+msgstr "Skaliraj strukturu"
+
+#: resources/xnec2c.glade:13051
+msgid "Co-ordinate Transformation (GM card)"
+msgstr "Transformacija koordinata (GM kartica)"
+
+#: resources/xnec2c.glade:13081
+msgid "Tag Increment"
+msgstr "Inkrement oznake"
+
+#: resources/xnec2c.glade:13112
+msgid "Rotate about X"
+msgstr "Rotacija oko X"
+
+#: resources/xnec2c.glade:13144
+msgid "Move along X"
+msgstr "Pomak duž X"
+
+#: resources/xnec2c.glade:13176
+msgid "New Structures"
+msgstr "Nove strukture"
+
+#: resources/xnec2c.glade:13207
+msgid "Rotate about Y"
+msgstr "Rotacija oko Y"
+
+#: resources/xnec2c.glade:13239
+msgid "Move along Y"
+msgstr "Pomak duž Y"
+
+#: resources/xnec2c.glade:13271
+msgid "Start From Tag"
+msgstr "Počni od oznake"
+
+#: resources/xnec2c.glade:13303
+msgid "Rotate about Z"
+msgstr "Rotacija oko Z"
+
+#: resources/xnec2c.glade:13335
+msgid "Move along Z"
+msgstr "Pomak duž Z"
+
+#: resources/xnec2c.glade:13371
+msgid "Co-ordinate Transformation Data"
+msgstr "Podaci transformacije koordinata"
+
+#: resources/xnec2c.glade:13567
+msgid "Trans. Line Command (TL Card)"
+msgstr "Naredba prijenosne linije (TL kartica)"
+
+#: resources/xnec2c.glade:13597
+msgid "Tag Number, End 1  "
+msgstr "Broj oznake, kraj 1  "
+
+#: resources/xnec2c.glade:13629
+msgid "Tag Number, End 2  "
+msgstr "Broj oznake, kraj 2  "
+
+#: resources/xnec2c.glade:13660
+msgid "Segment Num, End 1"
+msgstr "Broj segmenta, kraj 1"
+
+#: resources/xnec2c.glade:13692
+msgid "Segment Num, End 2"
+msgstr "Broj segmenta, kraj 2"
+
+#: resources/xnec2c.glade:13756
+msgid "Crossed Transmission Line"
+msgstr "Ukrštena prijenosna linija"
+
+#: resources/xnec2c.glade:13774
+msgid "Characteristic Impedance"
+msgstr "Karakteristična impedansa"
+
+#: resources/xnec2c.glade:13806
+msgid "End 1 Y Real Part (S)"
+msgstr "Kraj 1 Y realni dio (S)"
+
+#: resources/xnec2c.glade:13838
+msgid "End 2 Y Real Part (S)"
+msgstr "Kraj 2 Y realni dio (S)"
+
+#: resources/xnec2c.glade:13870
+msgid "Length of Tx Line (m)"
+msgstr "Dužina Tx linije (m)"
+
+#: resources/xnec2c.glade:13902
+msgid "End 1 Y Imag Part (S)"
+msgstr "Kraj 1 Y imaginarni dio (S)"
+
+#: resources/xnec2c.glade:13934
+msgid "End 2 Y Imag Part (S)"
+msgstr "Kraj 2 Y imaginarni dio (S)"
+
+#: resources/xnec2c.glade:13970
+msgid "Transmission Line"
+msgstr "Prijenosna linija"
+
+#: resources/xnec2c.glade:14197
+msgid "Wire Element (GW & GC cards)"
+msgstr "Element žice (GW i GC kartice)"
+
+#: resources/xnec2c.glade:14257
+msgid "Wire X1"
+msgstr "Žica X1"
+
+#: resources/xnec2c.glade:14289
+msgid "Wire X2"
+msgstr "Žica X2"
+
+#: resources/xnec2c.glade:14352
+msgid "Wire Y1"
+msgstr "Žica Y1"
+
+#: resources/xnec2c.glade:14385
+msgid "Wire Y2"
+msgstr "Žica Y2"
+
+#: resources/xnec2c.glade:14449
+msgid "Wire Z1"
+msgstr "Žica Z1"
+
+#: resources/xnec2c.glade:14481
+msgid "Wire Z2"
+msgstr "Žica Z2"
+
+#: resources/xnec2c.glade:14546
+msgid "Wire Length"
+msgstr "Dužina žice"
+
+#: resources/xnec2c.glade:14617
+msgid "Wire Data"
+msgstr "Podaci žice"
+
+#: resources/xnec2c.glade:14629
+msgid "Tapered Wire"
+msgstr "Konusna žica"
+
+#: resources/xnec2c.glade:14671
+msgid "Length Taper"
+msgstr "Konusnost dužine"
+
+#: resources/xnec2c.glade:14703
+msgid "Diameter Seg 1"
+msgstr "Prečnik segmenta 1"
+
+#: resources/xnec2c.glade:14735
+msgid "Diameter Seg N"
+msgstr "Prečnik segmenta N"
+
+#: resources/xnec2c.glade:14767
+msgid "Diam. Taper"
+msgstr "Konusnost prečnika"
+
+#: resources/xnec2c.glade:14803
+msgid "Wire Taper Data"
+msgstr "Podaci konusnosti žice"
+
+#: resources/xnec2c.glade:14968
+msgid "Impedance (Zo) Ohm"
+msgstr "Impedansa (Zo) Ohm"
+
+#: resources/xnec2c.glade:14983
+msgid "50.00"
+msgstr "50.00"
+
+#: resources/xnec2c.glade:15006
+msgid "Transmission Line Impedance (Zo)"
+msgstr "Impedansa prijenosne linije (Zo)"
+
+#~ msgid ""
+#~ "Not available for Incident Field or\n"
+#~ "Elementary Current Source Excitation.\n"
+#~ "(Excitation Types 1 to 4)"
+#~ msgstr ""
+#~ "Nije dostupno za upadna polja ili\n"
+#~ "pobudu elementarnog izvora struje.\n"
+#~ "(Tipovi pobude 1 do 4)"
+
+#~ msgid "number of segments less than 1 (ns < 1)\n"
+#~ msgstr "broj segmenata manji od 1 (ns < 1)\n"
+
+#~ msgid "arc angle exceeds 360 degrees\n"
+#~ msgstr "ugao luka prelazi 360 stepeni\n"
+
+#~ msgid "np > n\n"
+#~ msgstr "np > n\n"
+
+#~ msgid "b less than a\n"
+#~ msgstr "b manje od a\n"
+
+#~ msgid "unexpected EOF (End of File)\n"
+#~ msgstr "neočekivan EOF (Kraj datoteke)\n"
+
+#~ msgid "error reading Comments: Comment mnemonic short or missing\n"
+#~ msgstr ""
+#~ "greška pri čitanju komentara: Mnemonik komentara kratak ili nedostaje\n"
+
+#~ msgid "geometry data card error - tag number is less than 1\n"
+#~ msgstr "greška kartice geometrijskih podataka - broj oznake je manji od 1\n"
+
+#~ msgid "geometry data card error - number of segments is less than 1\n"
+#~ msgstr ""
+#~ "greška kartice geometrijskih podataka - broj segmenata je manji od 1\n"
+
+#~ msgid "geometry data card error no GC card for tapered wire\n"
+#~ msgstr ""
+#~ "greška kartice geometrijskih podataka nema GC kartice za konusnu žicu\n"
+
+#~ msgid "geometry GC data card error\n"
+#~ msgstr "greška GC kartice geometrijskih podataka\n"
+
+#~ msgid "geometry GX data card error\n"
+#~ msgstr "greška GX kartice geometrijskih podataka\n"
+
+#~ msgid "geometry GR data card error\n"
+#~ msgstr "greška GR kartice geometrijskih podataka\n"
+
+#~ msgid "move GM data card error\n"
+#~ msgstr "greška GM kartice podataka za pomjeranje\n"
+
+#~ msgid "patch data card error\n"
+#~ msgstr "greška kartice podataka zakrpe\n"
+
+#~ msgid "patch data error\n"
+#~ msgstr "greška podataka zakrpe\n"
+
+#~ msgid "patch card data error\n"
+#~ msgstr "greška podataka kartice zakrpe\n"
+
+#~ msgid "\"GF\" card (NGF solution) is not supported\n"
+#~ msgstr "\"GF\" kartica (NGF rješenje) nije podržana\n"
+
+#~ msgid "ignoring CM card in geometry\n"
+#~ msgstr "ignorisanje CM kartice u geometriji\n"
+
+#~ msgid ""
+#~ "Theta > 90 deg with ground specified: Please check RP card data and "
+#~ "correct\n"
+#~ msgstr ""
+#~ "Theta > 90 deg sa specificiranim uzemljenjem: Molimo provjerite podatke "
+#~ "RP kartice i ispravite\n"
+
+#~ msgid "Hankel not valid for z = 0\n"
+#~ msgstr "Hankel nije validan za z = 0\n"
+
+#~ msgid "No convergence\n"
+#~ msgstr "Nema konvergencije\n"
