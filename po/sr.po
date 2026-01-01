@@ -170,8 +170,8 @@ msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
 msgstr ""
-"Подаци NEC2 уређивача можда неће бити сачувани\n"
-"док је петља фреквенције у току"
+"Подаци NEC2 уређивача не могу бити сачувани\n"
+"док је фреквенцијска петља покренута"
 
 #: src/callbacks.c:2243 src/callbacks.c:2269
 msgid "untitled.nec"
@@ -275,11 +275,11 @@ msgstr "Z позиција (m)"
 
 #: src/cmnd_edit.c:468
 msgid "alpha Angle (deg)"
-msgstr "Угао алфа (deg)"
+msgstr "alpha угао (deg)"
 
 #: src/cmnd_edit.c:469
 msgid "beta Angle (deg)"
-msgstr "Угао бета (deg)"
+msgstr "beta угао (deg)"
 
 #: src/cmnd_edit.c:470
 msgid "Current Moment (A.m)"
@@ -500,7 +500,7 @@ msgstr " - Е поље"
 
 #: src/draw_radiation.c:1087
 msgid " - H Field"
-msgstr " - Х поље"
+msgstr " - H поље"
 
 #: src/draw_radiation.c:1089
 msgid " - Poynting Vector"
@@ -938,7 +938,7 @@ msgstr "# Блиско Е поље\n"
 #: src/gnuplot.c:250
 #, c-format
 msgid "# Near H field\n"
-msgstr "# Блиско Х поље\n"
+msgstr "# Блиско H поље\n"
 
 #: src/gnuplot.c:297
 #, c-format
@@ -1467,15 +1467,15 @@ msgstr "грешка сегментације, излазак\n"
 
 #: src/main.c:786
 msgid "floating point exception, exiting\n"
-msgstr "грешка са покретним зарезом, излазим\n"
+msgstr "грешка са покретним зарезом, излазак\n"
 
 #: src/main.c:790
 msgid "abort signal received, exiting\n"
-msgstr "примљен сигнал за прекид, излазим\n"
+msgstr "примљен сигнал за прекид, излазак\n"
 
 #: src/main.c:794
 msgid "termination request received, exiting\n"
-msgstr "примљен захтев за завршетак, излазим\n"
+msgstr "примљен захтев за завршетак, излазак\n"
 
 #: src/main.c:804
 #, c-format
@@ -2588,7 +2588,7 @@ msgstr "Оптерећење"
 
 #: resources/xnec2c.glade:6507
 msgid "Kernel"
-msgstr "Kernel"
+msgstr "Кернел"
 
 #: resources/xnec2c.glade:6521
 msgid "Network"
@@ -2860,11 +2860,11 @@ msgstr "Контрола излаза података (XNDA)"
 
 #: resources/xnec2c.glade:8876
 msgid "Points in Theta"
-msgstr "Тачке у тета"
+msgstr "Тачке по Theta"
 
 #: resources/xnec2c.glade:8985
 msgid "Initial Phi (deg)"
-msgstr "Почетни фи (deg)"
+msgstr "Почетни Phi (deg)"
 
 #: resources/xnec2c.glade:9067
 msgid "Field Point Distance"

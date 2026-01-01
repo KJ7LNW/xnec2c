@@ -287,7 +287,7 @@ msgstr "Virtamomentti (A.m)"
 
 #: src/cmnd_edit.c:1556
 msgid "Points in Z"
-msgstr "Pisteitä Z:ssa"
+msgstr "Pisteitä Z:ssä"
 
 #: src/cmnd_edit.c:1557
 msgid "Initial Z (m)"
@@ -566,7 +566,7 @@ msgid ""
 "with arbitrary patch type"
 msgstr ""
 "SC-korttia edeltää SP-kortti\n"
-"mielivaltaisella pinta-alatyypillä"
+"mielivaltaisella Patch-tyypillä"
 
 #: src/geom_edit.c:956
 msgid "No SP or SM card before SC card"
@@ -578,7 +578,7 @@ msgid ""
 "with non-arbitrary patch type"
 msgstr ""
 "Ei SC-korttia SP-kortin jälkeen\n"
-"ei-mielivaltaisella pinta-alatyypillä"
+"ei-mielivaltaisella Patch-tyypillä"
 
 #: src/geom_edit.c:983
 msgid ""
@@ -586,7 +586,7 @@ msgid ""
 "with arbitrary patch type"
 msgstr ""
 "SC-kortti seuraa SP-korttia\n"
-"mielivaltaisella pinta-alatyypillä"
+"mielivaltaisella Patch-tyypillä"
 
 #: src/geom_edit.c:996
 msgid "No SC card after an SM card"
@@ -743,14 +743,14 @@ msgstr ""
 
 #: src/geometry.c:1123
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
-msgstr "nelikulmion kulmat: pinta-ala ei sijaitse tasossa\n"
+msgstr "nelikulmion kulmat: Patch ei sijaitse tasossa\n"
 
 #: src/geometry.c:1124
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
 msgstr ""
-"Nelikulmion pinta-alan\n"
+"Nelikulmaisen Patchin\n"
 "kulmat eivät sijaitse tasossa"
 
 #: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
@@ -769,7 +769,7 @@ msgstr ""
 #: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
-msgstr "geometriatietovirhe: pinta-ala %d sijaitsee symmetriatasossa\n"
+msgstr "geometriatietovirhe: Patch %d sijaitsee symmetriatasossa\n"
 
 #: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
 msgid ""
@@ -777,7 +777,7 @@ msgid ""
 "Patch lies in plane of symmetry"
 msgstr ""
 "Geometriatietovirhe\n"
-"Pinta-ala sijaitsee symmetriatasossa"
+"Patch sijaitsee symmetriatasossa"
 
 #: src/geometry.c:1642
 #, c-format
@@ -953,7 +953,7 @@ msgstr "# Säteilykuvio\n"
 #: src/gnuplot.c:505
 #, c-format
 msgid "# structure patch segments\n"
-msgstr "# rakenteen pinta-alasegmentit\n"
+msgstr "# rakenteen patch-segmentit\n"
 
 #: src/gnuplot.c:530
 #, c-format
@@ -2636,11 +2636,11 @@ msgstr "Verkkokomento (NT-kortti)"
 
 #: resources/xnec2c.glade:6875
 msgid "Tag Number, Port 1  "
-msgstr "Tag-numero, portti 1  "
+msgstr "Tunnistenumero, portti 1  "
 
 #: resources/xnec2c.glade:6906
 msgid "Tag Number, Port 2  "
-msgstr "Tag-numero, portti 2  "
+msgstr "Tunnistenumero, portti 2  "
 
 #: resources/xnec2c.glade:6937
 msgid "Segment Num, Port 1"

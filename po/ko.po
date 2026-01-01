@@ -492,7 +492,7 @@ msgstr "방사 패턴: - "
 
 #: src/draw_radiation.c:1083
 msgid "Near Fields:"
-msgstr "근거리 필드:"
+msgstr "근접장:"
 
 #: src/draw_radiation.c:1085
 msgid " - E Field"
@@ -966,7 +966,7 @@ msgstr "전류 및 전하를 CSV로 저장"
 
 #: src/gnuplot.c:566
 msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
-msgstr "메인 xnec2c 창에서 \"Currents\" 또는 \"Charges\"를 클릭하여 전류 데이터를 활성화해야 합니다."
+msgstr "메인 xnec2c 창에서 \"전류\" 또는 \"전하\"를 클릭하여 전류 데이터를 활성화해야 합니다."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1293,7 +1293,7 @@ msgid ""
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
 "이득 평균화 (XNDA ***1 또는 ***2)는 텍스트 출력 형식을 제어합니다.\n"
-"xnec2c는 텍스트 테이블 대신 복사 패턴을 그래픽으로 렌더링합니다.\n"
+"xnec2c는 텍스트 테이블 대신 방사 패턴을 그래픽으로 렌더링합니다.\n"
 "패턴 계산은 정상적으로 진행됩니다. GUI를 사용하여 결과를 확인하십시오."
 
 #: src/input.c:1502
@@ -1314,7 +1314,7 @@ msgstr "잘못된 데이터 카드"
 
 #: src/input.c:1578
 msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
-msgstr "RP 카드 누락 또는 표면파: 복사 패턴 및 이득 계산이 비활성화됨\n"
+msgstr "RP 카드 누락 또는 표면파: 방사 패턴 및 이득 계산이 비활성화됨\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
@@ -1632,7 +1632,7 @@ msgstr "전후방비 dB"
 
 #: src/plot_freqdata.c:1482
 msgid "Rad Angle - deg"
-msgstr "복사 각도 - deg"
+msgstr "방사 각도 - deg"
 
 #: src/plot_freqdata.c:1483
 msgid "Max Gain Direction vs Frequency"
@@ -1770,7 +1770,7 @@ msgstr ""
 "  --write-s1p             <파일이름>  - S-파라미터 S1P 파일 기록\n"
 "  --write-s2p-max-gain    <파일이름>  - S2P 파일 기록, port-2는 최대 이득\n"
 "  --write-s2p-viewer-gain <파일이름>  - S2P 파일 기록, port-2는 뷰어 이득\n"
-"  --write-rdpat           <파일이름>  - 복사 패턴 CSV 기록\n"
+"  --write-rdpat           <파일이름>  - 방사 패턴 CSV 기록\n"
 "  --write-currents        <파일이름>  - 전류 및 전하 CSV 기록\n"
 
 #: src/utils.c:103 src/utils.c:108
@@ -2564,7 +2564,7 @@ msgstr "여기"
 
 #: resources/xnec2c.glade:6423
 msgid "Radiation"
-msgstr "복사"
+msgstr "방사"
 
 #: resources/xnec2c.glade:6437
 msgid "Frequency"
@@ -2760,7 +2760,7 @@ msgstr "xnec2c를 종료하시겠습니까?"
 
 #: resources/xnec2c.glade:8431
 msgid "Radiation Pattern (RP Card)"
-msgstr "복사 패턴 (RP 카드)"
+msgstr "방사 패턴 (RP 카드)"
 
 #: resources/xnec2c.glade:8458
 msgid "Normal (Space) Wave"

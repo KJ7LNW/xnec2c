@@ -20,11 +20,11 @@ msgstr ""
 #: src/calculations.c:117 src/calculations.c:1276
 #, c-format
 msgid "segment connection error for segment %5d\n"
-msgstr "段 %5d 的段连接错误\n"
+msgstr "分段 %5d 的分段连接错误\n"
 
 #: src/calculations.c:118
 msgid "Segment connection error in tbf()"
-msgstr "tbf() 中的段连接错误"
+msgstr "tbf() 中的分段连接错误"
 
 #: src/calculations.c:890
 #, c-format
@@ -34,15 +34,15 @@ msgstr "步长限制于 z= %10.5f\n"
 #: src/calculations.c:1054
 #, c-format
 msgid "segment connection error for segment %d\n"
-msgstr "段 %d 的段连接错误\n"
+msgstr "分段 %d 的分段连接错误\n"
 
 #: src/calculations.c:1055
 msgid "Segment connection error in sbf()"
-msgstr "sbf() 中的段连接错误"
+msgstr "sbf() 中的分段连接错误"
 
 #: src/calculations.c:1277
 msgid "Segment connection error in trio()"
-msgstr "trio() 中的段连接错误"
+msgstr "trio() 中的分段连接错误"
 
 #: src/callback_func.c:263
 msgid ""
@@ -170,8 +170,8 @@ msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
 msgstr ""
-"NEC2 编辑器的数据可能无法保存\n"
-"因为频率循环正在运行"
+"频率循环运行期间\n"
+"NEC2 编辑器的数据无法保存"
 
 #: src/callbacks.c:2243 src/callbacks.c:2269
 msgid "untitled.nec"
@@ -205,11 +205,11 @@ msgstr ""
 #: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
 #: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
 msgid "Tag Number"
-msgstr "Tag 编号"
+msgstr "标签编号"
 
 #: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
 msgid "Segment Number"
-msgstr "Segment 编号"
+msgstr "分段编号"
 
 #: src/cmnd_edit.c:422
 msgid "Voltage Real Part"
@@ -580,7 +580,7 @@ msgid ""
 "with arbitrary patch type"
 msgstr ""
 "SC 卡跟随在具有任意\n"
-"贴片类型的 SP 卡之后"
+"面片类型的 SP 卡之后"
 
 #: src/geom_edit.c:996
 msgid "No SC card after an SM card"
@@ -608,7 +608,7 @@ msgstr "法向 - 方位角"
 
 #: src/geom_edit.c:1076 resources/xnec2c.glade:7845
 msgid "Patch Area"
-msgstr "贴片面积"
+msgstr "面片面积"
 
 #: src/geom_edit.c:1081
 msgid "Corner 1 - X"
@@ -750,7 +750,7 @@ msgstr ""
 #: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
-msgstr "几何数据错误：段 %d 位于对称平面内\n"
+msgstr "几何数据错误：分段 %d 位于对称平面内\n"
 
 #: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
 msgid ""
@@ -1572,7 +1572,7 @@ msgstr "选择了不正确的负载类型"
 #: src/network.c:737
 #, c-format
 msgid "loading data card error, no segment has an itag = %d\n"
-msgstr "加载数据卡片错误，没有 itag = %d 的段\n"
+msgstr "加载数据卡片错误，没有 itag = %d 的分段\n"
 
 #: src/network.c:738
 msgid ""
@@ -1955,12 +1955,12 @@ msgstr "圆弧元素（GA 卡片）"
 
 #: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
 msgid "No. Segments"
-msgstr "段数"
+msgstr "分段数"
 
 #: resources/xnec2c.glade:340 resources/xnec2c.glade:3802
 #: resources/xnec2c.glade:14417
 msgid "Segs % lambda"
-msgstr "段数 % 波长"
+msgstr "分段数 % 波长"
 
 #: resources/xnec2c.glade:353 resources/xnec2c.glade:3815
 #: resources/xnec2c.glade:14513
@@ -2059,7 +2059,7 @@ msgstr "最大导纳矩阵不对称度"
 
 #: resources/xnec2c.glade:1297
 msgid "Impedance of Source Segment"
-msgstr "源段阻抗"
+msgstr "源分段阻抗"
 
 #: resources/xnec2c.glade:1319
 msgid "Print Control"
@@ -2273,7 +2273,7 @@ msgstr "左旋螺线"
 
 #: resources/xnec2c.glade:3789
 msgid "Segments/Turn"
-msgstr "段数/圈"
+msgstr "分段数/圈"
 
 #: resources/xnec2c.glade:3828
 msgid "0.0100"
@@ -2412,7 +2412,7 @@ msgstr "电阻"
 
 #: resources/xnec2c.glade:5046
 msgid "From Segment #"
-msgstr "起始段号"
+msgstr "起始分段号"
 
 #: resources/xnec2c.glade:5077
 msgid "Inductance"
@@ -2420,7 +2420,7 @@ msgstr "电感"
 
 #: resources/xnec2c.glade:5109
 msgid "To Segment #"
-msgstr "终止段号"
+msgstr "终止分段号"
 
 #: resources/xnec2c.glade:5140
 msgid "Capacitance"
@@ -2635,15 +2635,15 @@ msgstr "标签号，端口 2  "
 
 #: resources/xnec2c.glade:6937
 msgid "Segment Num, Port 1"
-msgstr "段号，端口 1"
+msgstr "分段号，端口 1"
 
 #: resources/xnec2c.glade:6968
 msgid "Segment Num, Port 2"
-msgstr "段号，端口 2"
+msgstr "分段号，端口 2"
 
 #: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
 msgid "Segment Identity"
-msgstr "段标识"
+msgstr "分段标识"
 
 #: resources/xnec2c.glade:7033
 msgid "Element 1,1 Real Part"
@@ -3352,11 +3352,11 @@ msgstr "标签号，端点 2  "
 
 #: resources/xnec2c.glade:13660
 msgid "Segment Num, End 1"
-msgstr "段号，端点 1"
+msgstr "分段号，端点 1"
 
 #: resources/xnec2c.glade:13692
 msgid "Segment Num, End 2"
-msgstr "段号，端点 2"
+msgstr "分段号，端点 2"
 
 #: resources/xnec2c.glade:13756
 msgid "Crossed Transmission Line"
@@ -3436,11 +3436,11 @@ msgstr "长度渐变"
 
 #: resources/xnec2c.glade:14703
 msgid "Diameter Seg 1"
-msgstr "段 1 直径"
+msgstr "分段 1 直径"
 
 #: resources/xnec2c.glade:14735
 msgid "Diameter Seg N"
-msgstr "段 N 直径"
+msgstr "分段 N 直径"
 
 #: resources/xnec2c.glade:14767
 msgid "Diam. Taper"

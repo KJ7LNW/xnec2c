@@ -1199,23 +1199,23 @@ msgid ""
 "The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "Korrigieren Sie die GE/GN-Karten:\n"
-"Die GE-Karte gibt an, dass ein Ground vorhanden ist, aber die GN-Karte zeigt etwas anderes an."
+"Die GE-Karte gibt an, dass eine Masse vorhanden ist, aber die GN-Karte zeigt etwas anderes an."
 
 #: src/input.c:1223
 msgid "theta > 90 deg. with ground specified\n"
-msgstr "Theta > 90 Grad mit angegebenem Ground\n"
+msgstr "Theta > 90 Grad mit angegebener Masse\n"
 
 #: src/input.c:1224 src/radiation.c:656
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
 msgstr ""
-"Theta > 90 Grad mit angegebenem Ground\n"
+"Theta > 90 Grad mit angegebener Masse\n"
 "Bitte überprüfen Sie die RP-Kartendaten und korrigieren Sie diese"
 
 #: src/input.c:1233
 msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
-msgstr "Radial-Draht-G.S.-Näherung: darf nicht mit Sommerfeld-Ground-Option verwendet werden\n"
+msgstr "Radial-Draht-G.S.-Näherung: darf nicht mit Sommerfeld-Masse-Option verwendet werden\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1223,7 +1223,7 @@ msgid ""
 "may not be used with Sommerfeld ground option"
 msgstr ""
 "Radial-Draht-G.S.-Näherung\n"
-"darf nicht mit Sommerfeld-Ground-Option verwendet werden"
+"darf nicht mit Sommerfeld-Masse-Option verwendet werden"
 
 #: src/input.c:1285
 #, c-format
@@ -1298,14 +1298,14 @@ msgstr ""
 
 #: src/input.c:1502
 msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
-msgstr "Theta > 90 Grad mit angegebenem Ground: Bitte überprüfen Sie die RP-Kartendaten und korrigieren Sie diese\n"
+msgstr "Theta > 90 Grad mit angegebener Masse: Bitte überprüfen Sie die RP-Kartendaten und korrigieren Sie diese\n"
 
 #: src/input.c:1503
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
 msgstr ""
-"Theta > 90 Grad mit angegebenem Ground\n"
+"Theta > 90 Grad mit angegebener Masse\n"
 "Bitte überprüfen Sie die RP-Kartendaten und korrigieren Sie diese"
 
 #: src/input.c:1568
@@ -1960,7 +1960,7 @@ msgstr "Animationsfrequenz (Hz)"
 
 #: resources/xnec2c.glade:286
 msgid "Arc Element (GA card)"
-msgstr "Bogenelement (GA-Karte)"
+msgstr "Bogenelement (GA Card)"
 
 #: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
 msgid "No. Segments"
@@ -2168,15 +2168,15 @@ msgstr "Geometrieende (GE Card)"
 
 #: resources/xnec2c.glade:2447
 msgid "No Ground, Free Space condition"
-msgstr "Kein Ground, Freiraumbedingung"
+msgstr "Keine Masse, Freiraumbedingung"
 
 #: resources/xnec2c.glade:2464
 msgid "Ground present, Structure reflection"
-msgstr "Ground vorhanden, Strukturreflexion"
+msgstr "Masse vorhanden, Strukturreflexion"
 
 #: resources/xnec2c.glade:2481
 msgid "Ground present, no Structure reflection"
-msgstr "Ground vorhanden, keine Strukturreflexion"
+msgstr "Masse vorhanden, keine Strukturreflexion"
 
 #: resources/xnec2c.glade:2504
 msgid "Ground Plane type"
@@ -2184,7 +2184,7 @@ msgstr "Groundplane-Typ"
 
 #: resources/xnec2c.glade:2638
 msgid "Ground Parameters (GD Card)"
-msgstr "Ground-Parameter (GD Card)"
+msgstr "Masse-Parameter (GD Card)"
 
 #: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
 #: resources/xnec2c.glade:3222
@@ -2198,7 +2198,7 @@ msgstr "Abstand zum 2. Medium"
 #: resources/xnec2c.glade:2731 resources/xnec2c.glade:3168
 #: resources/xnec2c.glade:3287
 msgid "Ground Conductivity S/m"
-msgstr "Ground-Leitfähigkeit S/m"
+msgstr "Masse-Leitfähigkeit S/m"
 
 #: resources/xnec2c.glade:2763 resources/xnec2c.glade:3319
 msgid "Dist. below 1st Medium"
@@ -2210,11 +2210,11 @@ msgstr "Parameter des 2. Mediums"
 
 #: resources/xnec2c.glade:2980
 msgid "Ground Parameters (GN & GD Cards)"
-msgstr "Ground-Parameter (GN & GD Cards)"
+msgstr "Masse-Parameter (GN & GD Cards)"
 
 #: resources/xnec2c.glade:3007
 msgid "Perfect Ground"
-msgstr "Perfekter Ground"
+msgstr "Perfekte Masse"
 
 #: resources/xnec2c.glade:3023
 msgid "Sommerfeld/Norton"
@@ -2222,7 +2222,7 @@ msgstr "Sommerfeld/Norton"
 
 #: resources/xnec2c.glade:3039
 msgid "Radial Ground Screen"
-msgstr "Radiales Ground-Netz"
+msgstr "Radiales Massenetz"
 
 #: resources/xnec2c.glade:3054
 msgid "Reflection Coeff. Approx"
@@ -2238,7 +2238,7 @@ msgstr "Zweites Medium (Klippe)"
 
 #: resources/xnec2c.glade:3107
 msgid "Ground Type"
-msgstr "Ground-Typ"
+msgstr "Masse-Typ"
 
 #: resources/xnec2c.glade:3235
 msgid "0.00000"
@@ -2576,11 +2576,11 @@ msgstr "Nahfelder"
 
 #: resources/xnec2c.glade:6465
 msgid "Ground (GN)"
-msgstr "Ground (GN)"
+msgstr "Masse (GN)"
 
 #: resources/xnec2c.glade:6479
 msgid "Ground (GD)"
-msgstr "Ground (GD)"
+msgstr "Masse (GD)"
 
 #: resources/xnec2c.glade:6493
 msgid "Loading"
@@ -2796,7 +2796,7 @@ msgstr "<b>Siehe GN/GD Card-Dokumentation</b>"
 
 #: resources/xnec2c.glade:8590
 msgid "Wave Type and Ground (I1)"
-msgstr "Wellentyp und Ground (I1)"
+msgstr "Wellentyp und Masse (I1)"
 
 #: resources/xnec2c.glade:8618
 msgid "Major & Minor Axis & Total Gain"
@@ -2852,7 +2852,7 @@ msgstr "Durchschnittsgewinn berechnet"
 
 #: resources/xnec2c.glade:8828
 msgid "<b>See RP Card Documentation</b>"
-msgstr "<b>Siehe RP-Karten-Dokumentation</b>"
+msgstr "<b>Siehe RP Card-Dokumentation</b>"
 
 #: resources/xnec2c.glade:8846
 msgid "Data Output Control (XNDA)"
@@ -2880,7 +2880,7 @@ msgstr "Strahlungsdiagramm-Parameter"
 
 #: resources/xnec2c.glade:9301
 msgid "Reflect Structure (GX card)"
-msgstr "Struktur spiegeln (GX-Karte)"
+msgstr "Struktur spiegeln (GX Card)"
 
 #: resources/xnec2c.glade:9329
 msgid "Reflect in YZ plane"
@@ -3285,7 +3285,7 @@ msgstr "0.010"
 
 #: resources/xnec2c.glade:12745
 msgid "Scale Structure (GS card)"
-msgstr "Struktur skalieren (GS-Karte)"
+msgstr "Struktur skalieren (GS Card)"
 
 #: resources/xnec2c.glade:12776
 msgid "Structure Scale Factor"
@@ -3305,7 +3305,7 @@ msgstr "Struktur skalieren"
 
 #: resources/xnec2c.glade:13051
 msgid "Co-ordinate Transformation (GM card)"
-msgstr "Koordinatentransformation (GM-Karte)"
+msgstr "Koordinatentransformation (GM Card)"
 
 #: resources/xnec2c.glade:13081
 msgid "Tag Increment"
@@ -3349,7 +3349,7 @@ msgstr "Koordinatentransformationsdaten"
 
 #: resources/xnec2c.glade:13567
 msgid "Trans. Line Command (TL Card)"
-msgstr "Übertragungsleitungsbefehl (TL-Karte)"
+msgstr "Übertragungsleitungsbefehl (TL Card)"
 
 #: resources/xnec2c.glade:13597
 msgid "Tag Number, End 1  "
@@ -3401,7 +3401,7 @@ msgstr "Übertragungsleitung"
 
 #: resources/xnec2c.glade:14197
 msgid "Wire Element (GW & GC cards)"
-msgstr "Drahtelement (GW- & GC-Karten)"
+msgstr "Drahtelement (GW & GC Cards)"
 
 #: resources/xnec2c.glade:14257
 msgid "Wire X1"

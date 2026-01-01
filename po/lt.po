@@ -443,7 +443,7 @@ msgstr ""
 "\n"
 "E-lauko animacija: Pridėkite NE kortelę į NEC failą\n"
 "H-lauko animacija: Pridėkite NH kortelę į NEC failą\n"
-"Pointingo vektorius: Pridėkite abi NE ir NH korteles"
+"Poynting vektorius: Pridėkite abi NE ir NH korteles"
 
 #: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
 msgid "Near Field Animation"
@@ -513,7 +513,7 @@ msgstr " - H laukas"
 
 #: src/draw_radiation.c:1089
 msgid " - Poynting Vector"
-msgstr " - Pointingo vektorius"
+msgstr " - Poynting vektorius"
 
 #: src/draw_radiation.c:1099
 msgid "Frequency Data Plots - "
@@ -1026,7 +1026,7 @@ msgstr "# Artimasis H laukas\n"
 #: src/gnuplot.c:297
 #, c-format
 msgid "# Poynting Vector\n"
-msgstr "# Pointingo vektorius\n"
+msgstr "# Poynting vektorius\n"
 
 #: src/gnuplot.c:369
 #, c-format
@@ -1734,7 +1734,7 @@ msgstr "Draw_Graph():Atminties paskirstymas taškams nepavyko"
 
 #: src/plot_freqdata.c:1260
 msgid "Smith Chart"
-msgstr "Smito diagrama"
+msgstr "Smith diagrama"
 
 #: src/plot_freqdata.c:1452 src/plot_freqdata.c:1471 src/plot_freqdata.c:1496
 msgid "Raw Gain dBi"
@@ -1896,7 +1896,7 @@ msgstr ""
 "  --write-s1p             <failo-pavadinimas>  - įrašyti S1P failą su S-parametrais\n"
 "  --write-s2p-max-gain    <failo-pavadinimas>  - įrašyti S2P failą, prievadas-2 yra maks-stiprinimas\n"
 "  --write-s2p-viewer-gain <failo-pavadinimas>  - įrašyti S2P failą, prievadas-2 yra peržiūros-stiprinimas\n"
-"  --write-rdpat           <failo-pavadinimas>  - įrašyti CSV su spinduliavimo diagrama\n"
+"  --write-rdpat           <failo-pavadinimas>  - įrašyti CSV su spinduliuotės diagrama\n"
 "  --write-currents        <failo-pavadinimas>  - įrašyti CSV su srovėmis ir krūviais\n"
 
 #: src/utils.c:103 src/utils.c:108
@@ -1977,7 +1977,7 @@ msgstr "%s: %s\n"
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
 msgstr ""
-"Optimizatoriaus ciklas nebaigtas, praleidžiamas spinduliavimo diagramos "
+"Optimizatoriaus ciklas nebaigtas, praleidžiamas spinduliuotės diagramos "
 "perpiešimas.\n"
 
 #: src/utils.c:934
@@ -2076,7 +2076,7 @@ msgid ""
 msgstr ""
 "xnec2c yra interaktyvi grafinė sąsaja aplink modifikuotą nec2c versiją, kuri pati yra originalaus FORTRAN NEC2 skaitmeninės elektromagnetikos kodo vertimas į C.\n"
 "\n"
-"xnec2c gali rodyti nuo dažnio priklausomus duomenis (stiprinimą, įėjimo varžą, VSWR ir kt.) grafiniu formatu. Taip pat gali rodyti spinduliavimo diagramos duomenis sukamame vielinio karkaso formate ir artimojo lauko (E, H, S vektorius) tinklelio formate.\n"
+"xnec2c gali rodyti nuo dažnio priklausomus duomenis (stiprinimą, įėjimo varžą, VSWR ir kt.) grafiniu formatu. Taip pat gali rodyti spinduliuotės diagramos duomenis sukamame vielinio karkaso formate ir artimojo lauko (E, H, S vektorius) tinklelio formate.\n"
 "\n"
 "xnec2c turi integruotą NEC2 įvesties failų redaktorių, kuris palengvina antenos aprašymo failų kūrimą ar redagavimą ir NEC2 komandų nurodymą.\n"
 "\n"
@@ -3378,7 +3378,7 @@ msgstr "Artimasis _H laukas"
 
 #: resources/xnec2c.glade:11952
 msgid "_Poynting Vector"
-msgstr "_Pointingo vektorius"
+msgstr "_Poynting vektorius"
 
 #: resources/xnec2c.glade:11961
 msgid "_Animate Dialog"

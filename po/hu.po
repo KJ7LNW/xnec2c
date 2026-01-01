@@ -192,7 +192,7 @@ msgid ""
 "row data: Invalid list iterator"
 msgstr ""
 "Get_Command_Data(): Hiba a soradatok\n"
-"olvasásakor: Érvénytelen lista iterátor"
+"olvasásakor: Érvénytelen listaiterátor"
 
 #: src/cmnd_edit.c:105
 msgid ""
@@ -205,11 +205,11 @@ msgstr ""
 #: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
 #: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
 msgid "Tag Number"
-msgstr "Címke szám"
+msgstr "Címkeszám"
 
 #: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
 msgid "Segment Number"
-msgstr "Szegmens szám"
+msgstr "Szegmensszám"
 
 #: src/cmnd_edit.c:422
 msgid "Voltage Real Part"
@@ -522,7 +522,7 @@ msgid ""
 "Invalid list iterator"
 msgstr ""
 "Hiba a soradatok olvasásakor\n"
-"Érvénytelen lista iterátor"
+"Érvénytelen listaiterátor"
 
 #: src/geom_edit.c:109 src/geom_edit.c:139
 msgid ""
@@ -1292,7 +1292,7 @@ msgid ""
 "xnec2c renders radiation patterns graphically instead of text tables.\n"
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
-"Az erősítés átlagolás (XNDA ***1 vagy ***2) a szöveges kimenet formázását szabályozza.\n"
+"Az erősítésátlagolás (XNDA ***1 vagy ***2) a szöveges kimenet formázását szabályozza.\n"
 "Az xnec2c a sugárzási diagramokat grafikusan jeleníti meg szöveges táblázatok helyett.\n"
 "A diagram számítások normálisan folynak; használja a grafikus felületet az eredmények megtekintéséhez."
 
@@ -1569,24 +1569,24 @@ msgstr ""
 #: src/network.c:648
 #, c-format
 msgid "improper load type chosen, requested type is %d\n"
-msgstr "helytelen terhelés típus kiválasztva, a kért típus: %d\n"
+msgstr "helytelen terheléstípus kiválasztva, a kért típus: %d\n"
 
 #: src/network.c:649
 msgid "Improper load type chose"
-msgstr "Helytelen terhelés típus kiválasztva"
+msgstr "Helytelen terheléstípus kiválasztva"
 
 #: src/network.c:737
 #, c-format
 msgid "loading data card error, no segment has an itag = %d\n"
-msgstr "adat kártya betöltési hiba, nincs szegmens itag = %d értékkel\n"
+msgstr "terhelési adatkártya hiba, nincs szegmens itag = %d értékkel\n"
 
 #: src/network.c:738
 msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
 msgstr ""
-"Adat kártya betöltése\n"
-"Címke szám eltérési hiba"
+"Terhelési adatkártya\n"
+"Címkeszám-eltérési hiba"
 
 #: src/plot_freqdata.c:132
 #, c-format
@@ -1974,7 +1974,7 @@ msgstr "Szegmensek % lambda"
 #: resources/xnec2c.glade:353 resources/xnec2c.glade:3815
 #: resources/xnec2c.glade:14513
 msgid "Wire Diameter"
-msgstr "Huzal átmérő"
+msgstr "Huzalátmérő"
 
 #: resources/xnec2c.glade:441
 msgid "Radius from Y"
@@ -1982,15 +1982,15 @@ msgstr "Sugár Y-tól"
 
 #: resources/xnec2c.glade:454
 msgid "End 1 Angle"
-msgstr "1. végpont szög"
+msgstr "1. végpontszög"
 
 #: resources/xnec2c.glade:467
 msgid "End 2 Angle"
-msgstr "2. végpont szög"
+msgstr "2. végpontszög"
 
 #: resources/xnec2c.glade:578
 msgid "Wire Arc Data"
-msgstr "Huzal ív adatok"
+msgstr "Huzalív-adatok"
 
 #: resources/xnec2c.glade:640 resources/xnec2c.glade:876
 #: resources/xnec2c.glade:1676 resources/xnec2c.glade:1899
@@ -2012,7 +2012,7 @@ msgstr "Hengeres struktúra (GR kártya)"
 
 #: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
 msgid "Tag Number Increment"
-msgstr "Címke szám növekmény"
+msgstr "Címkeszám-növekmény"
 
 #: resources/xnec2c.glade:761
 msgid "Number of Structures"
@@ -2254,7 +2254,7 @@ msgstr "Radiális ernyő sugara"
 
 #: resources/xnec2c.glade:3449
 msgid "Radial Wire Diameter"
-msgstr "Radiális huzal átmérő"
+msgstr "Radiális huzalátmérő"
 
 #: resources/xnec2c.glade:3485
 msgid "Radial Screen Parameters"
@@ -2409,7 +2409,7 @@ msgstr "Huzal vezetőképessége"
 
 #: resources/xnec2c.glade:4953
 msgid "Loading Type"
-msgstr "Terhelés típusa"
+msgstr "Terheléstípus"
 
 #: resources/xnec2c.glade:4983
 msgid "Load Tag Number"
@@ -2636,23 +2636,23 @@ msgstr "Hálózat parancs (NT kártya)"
 
 #: resources/xnec2c.glade:6875
 msgid "Tag Number, Port 1  "
-msgstr "Címke szám, 1. port  "
+msgstr "Címkeszám, 1. port  "
 
 #: resources/xnec2c.glade:6906
 msgid "Tag Number, Port 2  "
-msgstr "Címke szám, 2. port  "
+msgstr "Címkeszám, 2. port  "
 
 #: resources/xnec2c.glade:6937
 msgid "Segment Num, Port 1"
-msgstr "Szegmens szám, 1. port"
+msgstr "Szegmensszám, 1. port"
 
 #: resources/xnec2c.glade:6968
 msgid "Segment Num, Port 2"
-msgstr "Szegmens szám, 2. port"
+msgstr "Szegmensszám, 2. port"
 
 #: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
 msgid "Segment Identity"
-msgstr "Szegmens azonosító"
+msgstr "Szegmensazonosító"
 
 #: resources/xnec2c.glade:7033
 msgid "Element 1,1 Real Part"
@@ -2720,7 +2720,7 @@ msgstr "2-3. sarkok felosztása (NY)"
 
 #: resources/xnec2c.glade:7655
 msgid "Surface Sub-division"
-msgstr "Felület felosztás"
+msgstr "Felületfelosztás"
 
 #: resources/xnec2c.glade:7881
 msgid "SP/SM Cards"
@@ -2840,7 +2840,7 @@ msgstr "Teljesítményerősítés nyomtatása/normalizálása"
 
 #: resources/xnec2c.glade:8778
 msgid "No Gain Averaging"
-msgstr "Nincs erősítés átlagolás"
+msgstr "Nincs erősítésátlagolás"
 
 #: resources/xnec2c.glade:8794
 msgid "Points in Average Not Printed"
@@ -2868,15 +2868,15 @@ msgstr "Kezdő Phi (fok)"
 
 #: resources/xnec2c.glade:9067
 msgid "Field Point Distance"
-msgstr "Mezőpont távolság"
+msgstr "Mezőponttávolság"
 
 #: resources/xnec2c.glade:9099
 msgid "Gain Normalization"
-msgstr "Erősítés normalizálás"
+msgstr "Erősítésnormalizálás"
 
 #: resources/xnec2c.glade:9141
 msgid "Radiation Pattern Parameters"
-msgstr "Sugárzási diagram paraméterek"
+msgstr "Sugárzásidiagram-paraméterek"
 
 #: resources/xnec2c.glade:9301
 msgid "Reflect Structure (GX card)"
@@ -3201,7 +3201,7 @@ msgstr "Frekvencia MHz"
 
 #: resources/xnec2c.glade:11618
 msgid "Structure Geometry"
-msgstr "Struktúra geometria"
+msgstr "Struktúrageometria"
 
 #: resources/xnec2c.glade:11637
 msgid "Xnec2c: Radiation Patterns"
@@ -3353,11 +3353,11 @@ msgstr "Tápvonal parancs (TL kártya)"
 
 #: resources/xnec2c.glade:13597
 msgid "Tag Number, End 1  "
-msgstr "Címke szám, 1. vég  "
+msgstr "Címkeszám, 1. vég  "
 
 #: resources/xnec2c.glade:13629
 msgid "Tag Number, End 2  "
-msgstr "Címke szám, 2. vég  "
+msgstr "Címkeszám, 2. vég  "
 
 #: resources/xnec2c.glade:13660
 msgid "Segment Num, End 1"

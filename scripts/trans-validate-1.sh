@@ -3,12 +3,18 @@
 l="$1"
 
 MODEL=opus
+fraction='(1/4) fourth'
 
 claude-auto --model $MODEL "@doc/TRANSLATING.md ; $l has `wc -l $l` lines:
 
-read $l Use three requests that are approximately one-third of the file, Evaluate the necessary changes, make the changes, and then load the next third of the file.
+Read $l Use three requests that are approximately one $fraction of the file, Evaluate the necessary changes, make the changes, and then load the next $fraction of the file.
 
-Before each response, before each file read, restate the requirements. The file is too large to load at once; so, read it in thirds.
+NOTICE: 
+- $l is the ONLY file you may Read/Edit.  
+- You MUST ONLY Read/Edit $l because all other tools are forbidden.
+- Evaluation tasks operate on $l only: Do not create auxiliary scripts, test harnesses, or tooling
+
+Before each response, before each file read, restate the requirements. The file is too large to load at once; so, read it in $fractions.
 
 	### Context-Dependent Disambiguation
 
@@ -35,14 +41,18 @@ The steps of each phase are enumerated below. Do not combine multiple steps into
 
 ## Phase 1: evaluation
 
-1. List all standards of writing with respect to the language being translated for the purpose of a technical computer program interface ($l)
-2. List all informality/formality terms and how they map to the cultural expectation of the society that will be using the technical program. 
+Your responses to each evaluation section must not duplicate any meaning from an earlier section. Meaning within 1.1-1.3 must contain no intersection. 
+
+1. List native language charectar set/symbology standards and expectations
+2. List all standards of writing with respect to the language being translated for the purpose of a technical computer program interface ($l)
+3. List all informality/formality terms and how they map to the cultural expectation of the society that will be using a technical program interface
+4. Map these as appropriate to the specific NEC2 EM simulator domain for this language and culture
 
 ## Phase 2: inspection
 
-1. Read 1/3 of the file
-2. Verify translations properly map the propper meaning
-3. Verify that all translations map onto the enumerated lists you provided in #1 and #2
+1. Read $fraction of the file
+2. Verify translations: each msgstr must match the meaning of each msgid including any nuance appropriate to the target language
+3. Verify that all translations map onto the enumerated lists you provided in Phase 1: 1.1-1.4
 4. Validate #2 and #3 again: does it follow all best practices considering computer user interface requirements for this particular language ($l)? This is critically important to avoid potential insult. 
 5. List priorities, in order:
 	a. Valid translation meaning
@@ -56,7 +66,7 @@ The steps of each phase are enumerated below. Do not combine multiple steps into
 6. List all violations in #2-5
 7. Add all violations from #6 using TodoWrite - include line numbers or ranges as a reminder
 8. Based on your findings, consider additional validation issues that are similar to the ones you discovered, because the similar errors may have happened multiple times. If any, goto #6
-9. Goto 1, read next 1/3 of file
+9. Goto 1, read next $fraction of file
 
 ## Phase 3: Update
 
@@ -67,6 +77,7 @@ The steps of each phase are enumerated below. Do not combine multiple steps into
 1. After all 3/3 changes, perform final analsis: At this point, all three of the files will have been loaded and used as an opportunity to review and think about them all together to make sure Phase 2-4 are complete. 
 	- If you applied a modification and the modification was successful, then you do not need to check if it changed. The tool succeeded. If the tool succeeded, then you do not need to check if it changed. 
 	- The purpose of this is for you to think really hard about the file content that was loaded and the modifications you made and evaluate if there's anything else that should be considered to follow the required rule set and the phase procedures. 
+	- Verify consistency: Perform searches to see if there are any common, similar, or repeating violations that were not detected based on the known violations from Phase 2. You MUST combine searches into one or more large regular expression unions to minimize the number of requests and reduce latency.
 2. List all violations in #1
 3. Add all violations from #2 using TodoWrite - include line numbers or ranges as a reminder
 

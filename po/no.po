@@ -1008,7 +1008,7 @@ msgid ""
 "Geometry data error\n"
 "Tag number is less than 1"
 msgstr ""
-"Geometri-datafeil\n"
+"Geometridatafeil\n"
 "Taggnummer er mindre enn 1"
 
 #: src/input.c:155
@@ -1016,7 +1016,7 @@ msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
 msgstr ""
-"Geometri-datafeil\n"
+"Geometridatafeil\n"
 "Antall segmenter er mindre enn 1"
 
 #: src/input.c:162
@@ -1072,7 +1072,7 @@ msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
 msgstr ""
-"Geometri-datafeil\n"
+"Geometridatafeil\n"
 "Ingen GC-kort for avsmalende tråd"
 
 #: src/input.c:445
@@ -1089,11 +1089,11 @@ msgstr "Geometri GR-datakortfeil"
 
 #: src/input.c:541
 msgid "No geometry data cards"
-msgstr "Ingen geometri-datakort"
+msgstr "Ingen geometridatakort"
 
 #: src/input.c:550
 msgid "Probable invalid segment geometry.\n"
-msgstr "Sannsynlig ugyldig segmentgeometri.\n"
+msgstr "Sannsynligvis ugyldig segmentgeometri.\n"
 
 #: src/input.c:551
 msgid ""
@@ -1146,7 +1146,7 @@ msgstr "Ignorerer CM-kort i geometri"
 #: src/input.c:804
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
-msgstr "geometri-datakortfeil (nwire=%d)\n"
+msgstr "geometridatakortfeil (nwire=%d)\n"
 
 #: src/input.c:805
 #, c-format
@@ -1155,7 +1155,7 @@ msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 
 #: src/input.c:808
 msgid "Geometry data card error"
-msgstr "Geometri-datakortfeil"
+msgstr "Geometridatakortfeil"
 
 #: src/input.c:833
 msgid "Failed to initialize symbol table\n"
@@ -1322,7 +1322,7 @@ msgstr "Uventet avslutning fra while-løkke"
 
 #: src/input.c:1653
 msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
-msgstr "kommando-datakortfeil: Uventet EOF under lesing av inndatafil - legger til EN-kort\n"
+msgstr "kommandodatakortfeil: Uventet EOF under lesing av inndatafil - legger til EN-kort\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1330,25 +1330,25 @@ msgid ""
 "Unexpected EOF while reading input file\n"
 "Appending a default EN card"
 msgstr ""
-"Kommando-datakortfeil\n"
+"Kommandodatakortfeil\n"
 "Uventet EOF under lesing av inndatafil\n"
 "Legger til et standard EN-kort"
 
 #: src/input.c:1668
 msgid "command data card error: card's mnemonic code too short or missing\n"
-msgstr "kommando-datakortfeil: kortets mnemoniske kode er for kort eller mangler\n"
+msgstr "kommandodatakortfeil: kortets mnemoniske kode er for kort eller mangler\n"
 
 #: src/input.c:1669
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
 msgstr ""
-"Kommando-datakortfeil\n"
+"Kommandodatakortfeil\n"
 "Mnemonisk kode er for kort eller mangler"
 
 #: src/input.c:1829
 msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
-msgstr "geometri-datakortfeil: Uventet EOF under lesing av inndatafil - legger til GE-kort\n"
+msgstr "geometridatakortfeil: Uventet EOF under lesing av inndatafil - legger til GE-kort\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1356,20 +1356,20 @@ msgid ""
 "Unexpected EOF while reading input file\n"
 "Appending a default GE card"
 msgstr ""
-"Geometri-datakortfeil\n"
+"Geometridatakortfeil\n"
 "Uventet EOF under lesing av inndatafil\n"
 "Legger til et standard GE-kort"
 
 #: src/input.c:1844
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr "geometri-datakortfeil: kortets mnemoniske kode er for kort eller mangler\n"
+msgstr "geometridatakortfeil: kortets mnemoniske kode er for kort eller mangler\n"
 
 #: src/input.c:1845
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
 msgstr ""
-"Geometri-datakortfeil\n"
+"Geometridatakortfeil\n"
 "Kortets mnemoniske kode er for kort eller mangler"
 
 #: src/main.c:125
@@ -1550,7 +1550,7 @@ msgid ""
 msgstr ""
 "List_Comments():\n"
 "Feil ved lesing av inndatafil\n"
-"Kommentarmnemonikk kort eller mangler"
+"Kommentarmnemonic kort eller mangler"
 
 #: src/nec2_model.c:594
 msgid "End Comments"
@@ -1770,7 +1770,7 @@ msgstr ""
 "  --write-s1p             <filnavn>  - skriv S1P-fil med S-parametre\n"
 "  --write-s2p-max-gain    <filnavn>  - skriv S2P-fil, port-2 er maks-forsterkning\n"
 "  --write-s2p-viewer-gain <filnavn>  - skriv S2P-fil, port-2 er visningsforsterkning\n"
-"  --write-rdpat           <filnavn>  - skriv CSV med strålingsmønsteret\n"
+"  --write-rdpat           <filnavn>  - skriv CSV med strålingsdiagrammet\n"
 "  --write-currents        <filnavn>  - skriv CSV med strømmer og ladninger\n"
 
 #: src/utils.c:103 src/utils.c:108
@@ -2365,15 +2365,15 @@ msgstr "Interaksjonsapproksimasjonsrekkevidde"
 
 #: resources/xnec2c.glade:4610
 msgid "Thin Wire Kernel (EK Card)"
-msgstr "Tynn tråd-kjerne (EK-kort)"
+msgstr "Tynntrådkjerne (EK-kort)"
 
 #: resources/xnec2c.glade:4628
 msgid "Extended Thin Wire Kernel"
-msgstr "Utvidet tynn tråd-kjerne"
+msgstr "Utvidet tynntrådkjerne"
 
 #: resources/xnec2c.glade:4645
 msgid "Thin Wire Kernel"
-msgstr "Tynn tråd-kjerne"
+msgstr "Tynntrådkjerne"
 
 #: resources/xnec2c.glade:4808
 msgid "Loading Command (LD Card)"
@@ -2508,7 +2508,7 @@ msgstr "Feltmønsterparametere"
 
 #: resources/xnec2c.glade:5939
 msgid "Xnec2c: NEC2 Input File Editor"
-msgstr "Xnec2c: NEC2-inndatafilredigering"
+msgstr "Xnec2c: NEC2-inndatafilredigerer"
 
 #: resources/xnec2c.glade:6026
 msgid "Manage Cards"
@@ -2760,7 +2760,7 @@ msgstr "Avslutte xnec2c?"
 
 #: resources/xnec2c.glade:8431
 msgid "Radiation Pattern (RP Card)"
-msgstr "Strålingsmønster (RP-kort)"
+msgstr "Strålingsdiagram (RP-kort)"
 
 #: resources/xnec2c.glade:8458
 msgid "Normal (Space) Wave"
@@ -2864,7 +2864,7 @@ msgstr "Punkter i theta"
 
 #: resources/xnec2c.glade:8985
 msgid "Initial Phi (deg)"
-msgstr "Start-phi (grader)"
+msgstr "Start-phi (deg)"
 
 #: resources/xnec2c.glade:9067
 msgid "Field Point Distance"
@@ -2876,7 +2876,7 @@ msgstr "Forsterkningsnormalisering"
 
 #: resources/xnec2c.glade:9141
 msgid "Radiation Pattern Parameters"
-msgstr "Strålemønsterparametere"
+msgstr "Strålingsdiagramparametere"
 
 #: resources/xnec2c.glade:9301
 msgid "Reflect Structure (GX card)"
@@ -3136,7 +3136,7 @@ msgstr "Bekreft avslutning"
 
 #: resources/xnec2c.glade:10806
 msgid "_Radiation Pattern"
-msgstr "_Strålemønster"
+msgstr "_Strålingsdiagram"
 
 #: resources/xnec2c.glade:10816
 msgid "_Frequency Plots"

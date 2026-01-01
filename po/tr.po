@@ -1526,7 +1526,7 @@ msgstr "Açıklamalar"
 
 #: src/nec2_model.c:188
 msgid "--- NEC2 Input File created or edited by "
-msgstr "--- NEC2 Girdi Dosyası oluşturan veya düzenleyen "
+msgstr "--- NEC2 Girdi Dosyası - Oluşturan veya düzenleyen: "
 
 #: src/nec2_model.c:205
 msgid "--- End Comments ---"
@@ -1770,7 +1770,7 @@ msgstr ""
 "  --write-s1p             <dosyaadı>  - S-parametrelerinin S1P dosyasını yaz\n"
 "  --write-s2p-max-gain    <dosyaadı>  - S2P dosyası yaz, port-2 maksimum kazanç\n"
 "  --write-s2p-viewer-gain <dosyaadı>  - S2P dosyası yaz, port-2 görüntüleyici kazancı\n"
-"  --write-rdpat           <dosyaadı>  - ışıma örüntüsünün CSV'sini yaz\n"
+"  --write-rdpat           <dosyaadı>  - ışınım örüntüsünün CSV'sini yaz\n"
 "  --write-currents        <dosyaadı>  - akımlar ve yüklerin CSV'sini yaz\n"
 
 #: src/utils.c:103 src/utils.c:108
@@ -2413,7 +2413,7 @@ msgstr "Yükleme Türü"
 
 #: resources/xnec2c.glade:4983
 msgid "Load Tag Number"
-msgstr "Yük Tag Numarası"
+msgstr "Yük Etiket Numarası"
 
 #: resources/xnec2c.glade:5014
 msgid "Resistance"
@@ -2636,11 +2636,11 @@ msgstr "Ağ Komutu (NT Kartı)"
 
 #: resources/xnec2c.glade:6875
 msgid "Tag Number, Port 1  "
-msgstr "Tag Numarası, Port 1  "
+msgstr "Etiket Numarası, Port 1  "
 
 #: resources/xnec2c.glade:6906
 msgid "Tag Number, Port 2  "
-msgstr "Tag Numarası, Port 2  "
+msgstr "Etiket Numarası, Port 2  "
 
 #: resources/xnec2c.glade:6937
 msgid "Segment Num, Port 1"
@@ -3293,11 +3293,11 @@ msgstr "Yapı Ölçek Faktörü"
 
 #: resources/xnec2c.glade:12789
 msgid "From Tag No."
-msgstr "Başlangıç Tag No."
+msgstr "Başlangıç Etiket No."
 
 #: resources/xnec2c.glade:12839
 msgid "To Tag No."
-msgstr "Bitiş Tag No."
+msgstr "Bitiş Etiket No."
 
 #: resources/xnec2c.glade:12874
 msgid "Scale Structure"
@@ -3309,7 +3309,7 @@ msgstr "Koordinat Dönüşümü (GM kartı)"
 
 #: resources/xnec2c.glade:13081
 msgid "Tag Increment"
-msgstr "Tag Artışı"
+msgstr "Etiket Artışı"
 
 #: resources/xnec2c.glade:13112
 msgid "Rotate about X"
@@ -3333,7 +3333,7 @@ msgstr "Y Boyunca Taşı"
 
 #: resources/xnec2c.glade:13271
 msgid "Start From Tag"
-msgstr "Başlangıç Tag"
+msgstr "Başlangıç Etiket"
 
 #: resources/xnec2c.glade:13303
 msgid "Rotate about Z"
@@ -3353,11 +3353,11 @@ msgstr "İletim Hattı Komutu (TL Kartı)"
 
 #: resources/xnec2c.glade:13597
 msgid "Tag Number, End 1  "
-msgstr "Tag Numarası, Uç 1  "
+msgstr "Etiket Numarası, Uç 1  "
 
 #: resources/xnec2c.glade:13629
 msgid "Tag Number, End 2  "
-msgstr "Tag Numarası, Uç 2  "
+msgstr "Etiket Numarası, Uç 2  "
 
 #: resources/xnec2c.glade:13660
 msgid "Segment Num, End 1"

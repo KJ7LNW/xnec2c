@@ -1169,7 +1169,7 @@ msgid ""
 "No GC card for tapered wire"
 msgstr ""
 "Eroare date geometrie\n"
-"Lipsește cardul GC pentru conductor conic"
+"Lipsește cardul GC pentru fir conic"
 
 #: src/input.c:445
 msgid "Geometry GC data card error"
@@ -1221,11 +1221,11 @@ msgstr "Eroare card date mutare GM"
 #: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
 #: src/input.c:739
 msgid "Patch data card error"
-msgstr "Eroare card date suprafață"
+msgstr "Eroare card date patch"
 
 #: src/input.c:677
 msgid "Patch data error"
-msgstr "Eroare date suprafață"
+msgstr "Eroare date patch"
 
 #: src/input.c:786
 msgid ""
@@ -1314,7 +1314,7 @@ msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
 msgstr ""
-"aproximarea g.s. cu conductori radiali: nu poate fi utilizată cu opțiunea de"
+"aproximarea g.s. cu fire radiale: nu poate fi utilizată cu opțiunea de"
 " sol Sommerfeld\n"
 
 #: src/input.c:1234
@@ -1322,7 +1322,7 @@ msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
 msgstr ""
-"aproximarea g.s. cu conductori radiali\n"
+"aproximarea g.s. cu fire radiale\n"
 "nu poate fi utilizată cu opțiunea de sol Sommerfeld"
 
 #: src/input.c:1285
@@ -1903,8 +1903,8 @@ msgstr ""
 "\n"
 "Următoarele argumente scriu într-un fișier de ieșire după finalizarea buclei\n"
 "de frecvență. Acestea sunt utile în combinație cu --batch; Dacă doriți să\n"
-"specificați nume de fișiere fără modul --batch, atunci activați File->Optimizer\n"
-"Settings, altfel fișierele specificate în linia de comandă nu vor fi scrise.\n"
+"specificați nume de fișiere fără modul --batch, atunci activați Fișier->Setări\n"
+"Optimizare, altfel fișierele specificate în linia de comandă nu vor fi scrise.\n"
 "\n"
 "  --write-csv             <nume_fișier>  - scrie fișier CSV cu măsurători\n"
 "  --write-s1p             <nume_fișier>  - scrie fișier S1P cu parametri S\n"
@@ -3552,43 +3552,43 @@ msgstr "Linie de transmisie"
 
 #: resources/xnec2c.glade:14197
 msgid "Wire Element (GW & GC cards)"
-msgstr "Element conductor (carduri GW & GC)"
+msgstr "Element fir (carduri GW & GC)"
 
 #: resources/xnec2c.glade:14257
 msgid "Wire X1"
-msgstr "Conductor X1"
+msgstr "Fir X1"
 
 #: resources/xnec2c.glade:14289
 msgid "Wire X2"
-msgstr "Conductor X2"
+msgstr "Fir X2"
 
 #: resources/xnec2c.glade:14352
 msgid "Wire Y1"
-msgstr "Conductor Y1"
+msgstr "Fir Y1"
 
 #: resources/xnec2c.glade:14385
 msgid "Wire Y2"
-msgstr "Conductor Y2"
+msgstr "Fir Y2"
 
 #: resources/xnec2c.glade:14449
 msgid "Wire Z1"
-msgstr "Conductor Z1"
+msgstr "Fir Z1"
 
 #: resources/xnec2c.glade:14481
 msgid "Wire Z2"
-msgstr "Conductor Z2"
+msgstr "Fir Z2"
 
 #: resources/xnec2c.glade:14546
 msgid "Wire Length"
-msgstr "Lungime conductor"
+msgstr "Lungime fir"
 
 #: resources/xnec2c.glade:14617
 msgid "Wire Data"
-msgstr "Date conductor"
+msgstr "Date fir"
 
 #: resources/xnec2c.glade:14629
 msgid "Tapered Wire"
-msgstr "Conductor conic"
+msgstr "Fir conic"
 
 #: resources/xnec2c.glade:14671
 msgid "Length Taper"
@@ -3608,7 +3608,7 @@ msgstr "Conicitate diam."
 
 #: resources/xnec2c.glade:14803
 msgid "Wire Taper Data"
-msgstr "Date conicitate conductor"
+msgstr "Date conicitate fir"
 
 #: resources/xnec2c.glade:14968
 msgid "Impedance (Zo) Ohm"

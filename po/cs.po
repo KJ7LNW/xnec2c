@@ -205,7 +205,7 @@ msgstr ""
 #: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
 #: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
 msgid "Tag Number"
-msgstr "Číslo značky"
+msgstr "Číslo tag"
 
 #: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
 msgid "Segment Number"
@@ -566,7 +566,7 @@ msgid ""
 "with arbitrary patch type"
 msgstr ""
 "Kartě SC předchází karta SP\n"
-"s libovolným typem plochy"
+"s libovolným typem patch"
 
 #: src/geom_edit.c:956
 msgid "No SP or SM card before SC card"
@@ -578,7 +578,7 @@ msgid ""
 "with non-arbitrary patch type"
 msgstr ""
 "Za kartou SP chybí karta SC\n"
-"s nelibovolným typem plochy"
+"s nelibovolným typem patch"
 
 #: src/geom_edit.c:983
 msgid ""
@@ -586,7 +586,7 @@ msgid ""
 "with arbitrary patch type"
 msgstr ""
 "Karta SC následuje po kartě SP\n"
-"s libovolným typem plochy"
+"s libovolným typem patch"
 
 #: src/geom_edit.c:996
 msgid "No SC card after an SM card"
@@ -614,7 +614,7 @@ msgstr "Normála - Azimut"
 
 #: src/geom_edit.c:1076 resources/xnec2c.glade:7845
 msgid "Patch Area"
-msgstr "Plocha segmentu"
+msgstr "Plocha patch"
 
 #: src/geom_edit.c:1081
 msgid "Corner 1 - X"
@@ -705,7 +705,7 @@ msgstr ""
 
 #: src/geometry.c:764
 msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
-msgstr "Zkontrolujte data, parametr určující segment: pozice ve skupině stejných značek nesmí být nula\n"
+msgstr "Zkontrolujte data, parametr určující segment: pozice ve skupině stejných tagů nesmí být nula\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -713,7 +713,7 @@ msgid ""
 "position in a group of equal tags is zero"
 msgstr ""
 "Parametr určující segment\n"
-"pozice ve skupině stejných značek je nula"
+"pozice ve skupině stejných tagů je nula"
 
 #: src/geometry.c:797
 #, c-format
@@ -726,9 +726,9 @@ msgid ""
 "Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
-"Chyba čísla značky segmentu: Značka 0 je rezervována a nelze ji použít.\n"
-"Zkontrolujte karty geometrie (zejména karty GM), aby hodnoty značek byly platné.\n"
-"Pro karty GM: ověřte, že 'počáteční značka' a 'přírůstek značky' nevytvářejí značku 0."
+"Chyba čísla tag segmentu: Tag 0 je rezervován a nelze jej použít.\n"
+"Zkontrolujte karty geometrie (zejména karty GM), aby hodnoty tagů byly platné.\n"
+"Pro karty GM: ověřte, že 'počáteční tag' a 'přírůstek tag' nevytvářejí tag 0."
 
 #: src/geometry.c:809
 #, c-format
@@ -737,21 +737,21 @@ msgid ""
 "You are referencing an unknown tag or segment in a control card.\n"
 "Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."
 msgstr ""
-"Chyba čísla značky segmentu: Nebyl nalezen segment se značkou %d.\n"
-"Odkazujete na neznámou značku nebo segment v řídicí kartě.\n"
-"Platné značky ve vaší geometrii jsou ty přiřazené kartám GW/GA/GH/SP."
+"Chyba čísla tag segmentu: Nebyl nalezen segment s tagem %d.\n"
+"Odkazujete na neznámý tag nebo segment v řídicí kartě.\n"
+"Platné tagy ve vaší geometrii jsou ty přiřazené kartám GW/GA/GH/SP."
 
 #: src/geometry.c:1123
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
-msgstr "Rohy čtyřúhelníkové plochy neleží v jedné rovině\n"
+msgstr "Rohy čtyřúhelníkového patch neleží v jedné rovině\n"
 
 #: src/geometry.c:1124
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
 msgstr ""
-"Rohy čtyřúhelníkové\n"
-"plochy neleží v jedné rovině"
+"Rohy čtyřúhelníkového\n"
+"patch neleží v jedné rovině"
 
 #: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
 #, c-format
@@ -769,7 +769,7 @@ msgstr ""
 #: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
-msgstr "Chyba geometrických dat: plocha %d leží v rovině symetrie\n"
+msgstr "Chyba geometrických dat: patch %d leží v rovině symetrie\n"
 
 #: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
 msgid ""
@@ -777,107 +777,107 @@ msgid ""
 "Patch lies in plane of symmetry"
 msgstr ""
 "Chyba geometrických dat\n"
-"Plocha leží v rovině symetrie"
+"Patch leží v rovině symetrie"
 
 #: src/geometry.c:1642
 #, c-format
 msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
-msgstr "Tag=%d/seg=%d: vzdálenost koncového bodu=%.3e je příliš malá (pod prahem spojení=%.3e); segment se spojí sám se sebou\n"
+msgstr "tag=%d/seg=%d: vzdálenost koncového bodu=%.3e je příliš malá (pod prahem spojení=%.3e); segment se spojí sám se sebou\n"
 
 #: src/geometry.c:1647
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
-msgstr "Tag=%d: potlačení dalších varování o spojení se sebou\n"
+msgstr "tag=%d: potlačení dalších varování o spojení se sebou\n"
 
 #: src/geometry.c:1692
 #, c-format
 msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
-msgstr "Tag=%d/seg=%d: vzdálenost=%.3e k tag=%d/seg=%d je menší než 2x práh spojení %.3e; možná nechtěná spojení\n"
+msgstr "tag=%d/seg=%d: vzdálenost=%.3e k tag=%d/seg=%d je menší než 2x práh spojení %.3e; možná nechtěná spojení\n"
 
 #: src/geometry.c:1697
 #, c-format
 msgid "tag=%d: suppressing additional overlap warnings\n"
-msgstr "Tag=%d: potlačení dalších varování o překrytí\n"
+msgstr "tag=%d: potlačení dalších varování o překrytí\n"
 
 #: src/geometry.c:1757
 #, c-format
 msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
-msgstr "Tag=%d/seg=%d: délka=%.3e je příliš krátká (a dostatečně blízko) k tag=%d/seg=%d délka=%.3e, detekce spojení může selhat nebo zkratovat\n"
+msgstr "tag=%d/seg=%d: délka=%.3e je příliš krátká (a dostatečně blízko) k tag=%d/seg=%d délka=%.3e, detekce spojení může selhat nebo zkratovat\n"
 
 #: src/geometry.c:1762
 #, c-format
 msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
-msgstr "Tag=%d: potlačení dalších varování o možném selhání detekce spojení nebo zkratu\n"
+msgstr "tag=%d: potlačení dalších varování o možném selhání detekce spojení nebo zkratu\n"
 
 #: src/geometry.c:1794
 #, c-format
 msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
-msgstr "Tag=%d/seg=%d: poměr délka/vlnová délka %.3f < 0.001; podobnost proudových složek vede k numerickým nepřesnostem (min=0.001, v pořádku=0.05, doporučeno <= 0.1)\n"
+msgstr "tag=%d/seg=%d: poměr délka/vlnová délka %.3f < 0.001; podobnost proudových složek vede k numerickým nepřesnostem (min=0.001, v pořádku=0.05, doporučeno <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
-msgstr "Tag=%d: potlačení dalších chyb krátkého poměru vlnové délky\n"
+msgstr "tag=%d: potlačení dalších chyb krátkého poměru vlnové délky\n"
 
 #: src/geometry.c:1812
 #, c-format
 msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
-msgstr "Tag=%d/seg=%d: poměr délka/vlnová délka %.3f > 0.1; rozlišení vzorkování proudu omezeno rozestupem segmentů (min=0.001, v pořádku=0.05, doporučeno <= 0.1)\n"
+msgstr "tag=%d/seg=%d: poměr délka/vlnová délka %.3f > 0.1; rozlišení vzorkování proudu omezeno rozestupem segmentů (min=0.001, v pořádku=0.05, doporučeno <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
-msgstr "Tag=%d: potlačení dalších varování dlouhého poměru vlnové délky\n"
+msgstr "tag=%d: potlačení dalších varování dlouhého poměru vlnové délky\n"
 
 #: src/geometry.c:1830
 #, c-format
 msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
-msgstr "Tag=%d/seg=%d: poměr délka/vlnová délka %.3f > 0.05; kratší segmenty zvyšují přesnost v oblastech rychlé změny proudu (min=0.001, v pořádku=0.05, doporučeno <=0.1)\n"
+msgstr "tag=%d/seg=%d: poměr délka/vlnová délka %.3f > 0.05; kratší segmenty zvyšují přesnost v oblastech rychlé změny proudu (min=0.001, v pořádku=0.05, doporučeno <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
-msgstr "Tag=%d: potlačení dalších návrhů na zlepšení přesnosti\n"
+msgstr "tag=%d: potlačení dalších návrhů na zlepšení přesnosti\n"
 
 #: src/geometry.c:1865
 #, c-format
 msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr "Tag=%d/seg=%d: poměr délka/poloměr %.1f < 2.0; chyba pole standardního jádra tenkého drátu výrazně přesahuje 1%% (min=2.0, 1%% přesnost=8.0)\n"
+msgstr "tag=%d/seg=%d: poměr délka/poloměr %.1f < 2.0; chyba pole standardního jádra tenkého drátu výrazně přesahuje 1%% (min=2.0, 1%% přesnost=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
-msgstr "Tag=%d: potlačení dalších chyb poměru standardního jádra\n"
+msgstr "tag=%d: potlačení dalších chyb poměru standardního jádra\n"
 
 #: src/geometry.c:1883
 #, c-format
 msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr "Tag=%d/seg=%d: poměr délka/poloměr %.1f < 8.0; chyba pole standardního jádra tenkého drátu přesahuje 1%% (min=2.0, 1%% přesnost=8.0)\n"
+msgstr "tag=%d/seg=%d: poměr délka/poloměr %.1f < 8.0; chyba pole standardního jádra tenkého drátu přesahuje 1%% (min=2.0, 1%% přesnost=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
-msgstr "Tag=%d: potlačení dalších varování poměru standardního jádra\n"
+msgstr "tag=%d: potlačení dalších varování poměru standardního jádra\n"
 
 #: src/geometry.c:1903
 #, c-format
 msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr "Tag=%d/seg=%d: poměr délka/poloměr %.1f < 0.5; chyba pole rozšířeného jádra tenkého drátu výrazně přesahuje 1%% (min=0.5, 1%% přesnost=2.0)\n"
+msgstr "tag=%d/seg=%d: poměr délka/poloměr %.1f < 0.5; chyba pole rozšířeného jádra tenkého drátu výrazně přesahuje 1%% (min=0.5, 1%% přesnost=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
-msgstr "Tag=%d: potlačení dalších chyb poměru rozšířeného jádra\n"
+msgstr "tag=%d: potlačení dalších chyb poměru rozšířeného jádra\n"
 
 #: src/geometry.c:1921
 #, c-format
 msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr "Tag=%d/seg=%d: poměr délka/poloměr %.1f < 2.0; chyba pole rozšířeného jádra tenkého drátu přesahuje 1%% (min=0.5, 1%% přesnost=2.0)\n"
+msgstr "tag=%d/seg=%d: poměr délka/poloměr %.1f < 2.0; chyba pole rozšířeného jádra tenkého drátu přesahuje 1%% (min=0.5, 1%% přesnost=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
-msgstr "Tag=%d: potlačení dalších varování poměru rozšířeného jádra\n"
+msgstr "tag=%d: potlačení dalších varování poměru rozšířeného jádra\n"
 
 #: src/geometry.c:1942
 #, c-format
@@ -953,7 +953,7 @@ msgstr "# Vyzařovací diagram\n"
 #: src/gnuplot.c:505
 #, c-format
 msgid "# structure patch segments\n"
-msgstr "# plošné segmenty struktury\n"
+msgstr "# patch segmenty struktury\n"
 
 #: src/gnuplot.c:530
 #, c-format
@@ -1009,7 +1009,7 @@ msgid ""
 "Tag number is less than 1"
 msgstr ""
 "Chyba dat geometrie\n"
-"Číslo značky je menší než 1"
+"Číslo tag je menší než 1"
 
 #: src/input.c:155
 msgid ""
@@ -1125,11 +1125,11 @@ msgstr "Chyba datové karty přesunu GM"
 #: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
 #: src/input.c:739
 msgid "Patch data card error"
-msgstr "Chyba datové karty plochy"
+msgstr "Chyba datové karty patch"
 
 #: src/input.c:677
 msgid "Patch data error"
-msgstr "Chyba dat plochy"
+msgstr "Chyba dat patch"
 
 #: src/input.c:786
 msgid ""
@@ -2413,7 +2413,7 @@ msgstr "Typ zatížení"
 
 #: resources/xnec2c.glade:4983
 msgid "Load Tag Number"
-msgstr "Číslo značky zatížení"
+msgstr "Číslo tag zatížení"
 
 #: resources/xnec2c.glade:5014
 msgid "Resistance"
@@ -2636,11 +2636,11 @@ msgstr "Příkaz sítě (karta NT)"
 
 #: resources/xnec2c.glade:6875
 msgid "Tag Number, Port 1  "
-msgstr "Číslo značky, port 1  "
+msgstr "Číslo tag, port 1  "
 
 #: resources/xnec2c.glade:6906
 msgid "Tag Number, Port 2  "
-msgstr "Číslo značky, port 2  "
+msgstr "Číslo tag, port 2  "
 
 #: resources/xnec2c.glade:6937
 msgid "Segment Num, Port 1"

@@ -151,7 +151,7 @@ msgstr "Xnec2c Optimizer"
 
 #: src/callbacks.c:316
 msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
-msgstr "Er zijn geen bestanden geselecteerd voor schrijven. Xnec2c zal echter het invoerbestand nog steeds herladen en opnieuw berekenen bij wijziging wanneer getriggerd door inotify. Selecteer bestanden voor schrijven in \"Bestand->Optimalisatie-instellingen\"."
+msgstr "Er zijn geen bestanden geselecteerd voor schrijven. Xnec2c zal echter het invoerbestand nog steeds herladen en opnieuw berekenen bij wijziging wanneer geactiveerd door inotify. Selecteer bestanden voor schrijven in \"Bestand->Optimalisatie-instellingen\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -1314,7 +1314,7 @@ msgstr "Foutieve gegevenskaart"
 
 #: src/input.c:1578
 msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
-msgstr "Ontbrekende of oppervlaktegolf-RP-kaart: Stralingspatroon- en winstberekeningen uitgeschakeld\n"
+msgstr "Ontbrekende of oppervlaktegolf-RP-kaart: Stralingspatroon- en versterkingsberekeningen uitgeschakeld\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
@@ -1419,7 +1419,7 @@ msgstr "segmentverificatiecontrole uitgeschakeld\n"
 
 #: src/main.c:336
 msgid "forcing overlap check on large models\n"
-msgstr "overlappingscontrole geforceerd voor grote modellen\n"
+msgstr "overlapcontrole geforceerd voor grote modellen\n"
 
 #: src/main.c:350
 msgid "--batch and --optimize are mutual exclusive.\n"
@@ -2354,7 +2354,7 @@ msgstr "GH Card"
 
 #: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
 msgid "Interaction Approx Range (KH Card)"
-msgstr "Interactiebenadering bereik (KH Card)"
+msgstr "Interactiebenaderingsbereik (KH Card)"
 
 #: resources/xnec2c.glade:4446
 msgid "Approximation Range (W/lengths)"
@@ -2442,7 +2442,7 @@ msgstr "Belastingsparameters"
 
 #: resources/xnec2c.glade:5391
 msgid "Near Fields Command (NE/NH Cards)"
-msgstr "Nabije velden commando (NE/NH-kaarten)"
+msgstr "Nabije velden opdracht (NE/NH-kaarten)"
 
 #: resources/xnec2c.glade:5418
 msgid "Near Electric Field"
@@ -2613,7 +2613,7 @@ msgstr "Zo"
 
 #: resources/xnec2c.glade:6598
 msgid "Edit Control Commands"
-msgstr "Besturingscommando's bewerken"
+msgstr "Besturingsopdrachten bewerken"
 
 #: resources/xnec2c.glade:6652
 msgid "Commands"
@@ -2633,7 +2633,7 @@ msgstr ""
 
 #: resources/xnec2c.glade:6846
 msgid "Network Command (NT Card)"
-msgstr "Netwerkcommando (NT-kaart)"
+msgstr "Netwerkopdracht (NT-kaart)"
 
 #: resources/xnec2c.glade:6875
 msgid "Tag Number, Port 1  "
@@ -2813,7 +2813,7 @@ msgstr "Hoofdas-versterking genormaliseerd"
 
 #: resources/xnec2c.glade:8666
 msgid "Vertical Axis Gain Normalized"
-msgstr "Verticale as-versterking genormaliseerd"
+msgstr "Verticale-as-versterking genormaliseerd"
 
 #: resources/xnec2c.glade:8682
 msgid "Total Gain Normalized"
@@ -2829,11 +2829,11 @@ msgstr "Geen genormaliseerde versterking"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "Genormaliseerde versterking kleine as"
+msgstr "Kleine-as-versterking genormaliseerd"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "Genormaliseerde versterking horizontale as"
+msgstr "Horizontale-as-versterking genormaliseerd"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"
@@ -3350,7 +3350,7 @@ msgstr "Coördinatentransformatiegegevens"
 
 #: resources/xnec2c.glade:13567
 msgid "Trans. Line Command (TL Card)"
-msgstr "Transmissielijn commando (TL Card)"
+msgstr "Transmissielijn opdracht (TL Card)"
 
 #: resources/xnec2c.glade:13597
 msgid "Tag Number, End 1  "

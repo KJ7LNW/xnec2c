@@ -200,7 +200,7 @@ msgid ""
 "Please re-select row"
 msgstr ""
 "Set_Command_Data(): Chyba pri zápise údajov riadku\n"
-"Prosím, znovu vyberte riadok"
+"Prosím, znova vyberte riadok"
 
 #: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
 #: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
@@ -566,7 +566,7 @@ msgid ""
 "with arbitrary patch type"
 msgstr ""
 "Karte SC predchádza karta SP\n"
-"s ľubovoľným typom plochy"
+"s ľubovoľným typom patchu"
 
 #: src/geom_edit.c:956
 msgid "No SP or SM card before SC card"
@@ -578,7 +578,7 @@ msgid ""
 "with non-arbitrary patch type"
 msgstr ""
 "Žiadna karta SC po karte SP\n"
-"s neľubovoľným typom plochy"
+"s neľubovoľným typom patchu"
 
 #: src/geom_edit.c:983
 msgid ""
@@ -586,7 +586,7 @@ msgid ""
 "with arbitrary patch type"
 msgstr ""
 "Karta SC nasleduje po karte SP\n"
-"s ľubovoľným typom plochy"
+"s ľubovoľným typom patchu"
 
 #: src/geom_edit.c:996
 msgid "No SC card after an SM card"
@@ -953,7 +953,7 @@ msgstr "# Vyžarovací diagram\n"
 #: src/gnuplot.c:505
 #, c-format
 msgid "# structure patch segments\n"
-msgstr "# segmenty plošných prvkov štruktúry\n"
+msgstr "# segmenty patchov štruktúry\n"
 
 #: src/gnuplot.c:530
 #, c-format
@@ -1125,11 +1125,11 @@ msgstr "Chyba GM karty pre presun"
 #: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
 #: src/input.c:739
 msgid "Patch data card error"
-msgstr "Chyba karty údajov plochy"
+msgstr "Chyba karty údajov patchu"
 
 #: src/input.c:677
 msgid "Patch data error"
-msgstr "Chyba údajov plochy"
+msgstr "Chyba údajov patchu"
 
 #: src/input.c:786
 msgid ""
@@ -1550,7 +1550,7 @@ msgid ""
 msgstr ""
 "List_Comments():\n"
 "Chyba pri čítaní vstupného súboru\n"
-"Mnemotechnická značka komentára je krátka alebo chýba"
+"Mnemonika komentára je krátka alebo chýba"
 
 #: src/nec2_model.c:594
 msgid "End Comments"
@@ -2528,11 +2528,11 @@ msgstr "Oblúk"
 
 #: resources/xnec2c.glade:6238
 msgid "Helix"
-msgstr "Špirála"
+msgstr "Závitnica"
 
 #: resources/xnec2c.glade:6252
 msgid "Patch"
-msgstr "Ploška"
+msgstr "Patch"
 
 #: resources/xnec2c.glade:6266
 msgid "Cylinder"
@@ -2684,7 +2684,7 @@ msgstr "Prvky admitančnej matice"
 
 #: resources/xnec2c.glade:7444
 msgid "Patch Element (SP & SC Cards)"
-msgstr "Plošný prvok (karty SP a SC)"
+msgstr "Patch prvok (karty SP a SC)"
 
 #: resources/xnec2c.glade:7468
 msgid "Arbitrary"
@@ -2708,7 +2708,7 @@ msgstr "Povrch"
 
 #: resources/xnec2c.glade:7559
 msgid "Patch Type"
-msgstr "Typ plošky"
+msgstr "Typ patchu"
 
 #: resources/xnec2c.glade:7589
 msgid "Corners 1-2 sub-division (NX)"

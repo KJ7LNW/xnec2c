@@ -521,7 +521,7 @@ msgid ""
 "Error reading row data\n"
 "Invalid list iterator"
 msgstr ""
-"Greška pri čitanju podataka retka\n"
+"Pogreška pri čitanju podataka retka\n"
 "Nevažeći iterator liste"
 
 #: src/geom_edit.c:109 src/geom_edit.c:139
@@ -529,7 +529,7 @@ msgid ""
 "Error writing row data\n"
 "Please re-select row"
 msgstr ""
-"Greška pri pisanju podataka retka\n"
+"Pogreška pri pisanju podataka retka\n"
 "Molimo ponovno odaberite redak"
 
 #: src/geom_edit.c:528
@@ -654,32 +654,32 @@ msgstr "Kut luka prelazi 360 stupnjeva"
 
 #: src/geometry.c:309
 msgid "Error in conect(): np > n"
-msgstr "Greška u conect(): np > n"
+msgstr "Pogreška u conect(): np > n"
 
 #: src/geometry.c:343 src/geometry.c:391
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
-msgstr "greška geometrijskih podataka: segment %d se proteže ispod tla\n"
+msgstr "pogreška geometrijskih podataka: segment %d se proteže ispod tla\n"
 
 #: src/geometry.c:344 src/geometry.c:392
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
 msgstr ""
-"Greška geometrijskih podataka\n"
+"Pogreška geometrijskih podataka\n"
 "Segment se proteže ispod tla"
 
 #: src/geometry.c:401
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
-msgstr "greška geometrijskih podataka: segment %d leži u ravnini tla\n"
+msgstr "pogreška geometrijskih podataka: segment %d leži u ravnini tla\n"
 
 #: src/geometry.c:402
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
 msgstr ""
-"Greška geometrijskih podataka\n"
+"Pogreška geometrijskih podataka\n"
 "Segment leži u ravnini tla"
 
 #: src/geometry.c:492
@@ -688,7 +688,7 @@ msgstr "ipsym = 0\n"
 
 #: src/geometry.c:493
 msgid "Error: ipsym = 0"
-msgstr "Greška: ipsym = 0"
+msgstr "Pogreška: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
@@ -726,7 +726,7 @@ msgid ""
 "Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
-"Greška broja oznake segmenta: Oznaka 0 je rezervirana i ne može se koristiti.\n"
+"Pogreška broja oznake segmenta: Oznaka 0 je rezervirana i ne može se koristiti.\n"
 "Provjerite svoje geometrijske kartice (posebno GM kartice) da biste osigurali da su vrijednosti oznaka valjane.\n"
 "Za GM kartice: provjerite da 'početna oznaka' i 'inkrement oznake' ne stvaraju oznaku 0."
 
@@ -737,7 +737,7 @@ msgid ""
 "You are referencing an unknown tag or segment in a control card.\n"
 "Valid tags in your geometry are those assigned to GW/GA/GH/SP cards."
 msgstr ""
-"Greška broja oznake segmenta: Nije pronađen segment s oznakom %d.\n"
+"Pogreška broja oznake segmenta: Nije pronađen segment s oznakom %d.\n"
 "Referirate nepoznatu oznaku ili segment u kontrolnoj kartici.\n"
 "Valjane oznake u vašoj geometriji su one dodijeljene GW/GA/GH/SP karticama."
 
@@ -756,27 +756,27 @@ msgstr ""
 #: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
-msgstr "greška geometrijskih podataka: segment %d leži u ravnini simetrije\n"
+msgstr "pogreška geometrijskih podataka: segment %d leži u ravnini simetrije\n"
 
 #: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
 msgstr ""
-"Greška geometrijskih podataka\n"
+"Pogreška geometrijskih podataka\n"
 "Segment leži u ravnini simetrije"
 
 #: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
-msgstr "greška geometrijskih podataka: zakrpa %d leži u ravnini simetrije\n"
+msgstr "pogreška geometrijskih podataka: zakrpa %d leži u ravnini simetrije\n"
 
 #: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
 msgstr ""
-"Greška geometrijskih podataka\n"
+"Pogreška geometrijskih podataka\n"
 "Zakrpa leži u ravnini simetrije"
 
 #: src/geometry.c:1642
@@ -982,7 +982,7 @@ msgid ""
 "Error reading Comments\n"
 "Unexpected EOF (End of File)"
 msgstr ""
-"Greška pri čitanju komentara\n"
+"Pogreška pri čitanju komentara\n"
 "Neočekivani EOF (kraj datoteke)"
 
 #: src/input.c:98
@@ -990,7 +990,7 @@ msgid ""
 "Error reading Comments\n"
 "Comment mnemonic short or missing"
 msgstr ""
-"Greška pri čitanju komentara\n"
+"Pogreška pri čitanju komentara\n"
 "Mnemonik komentara je prekratak ili nedostaje"
 
 #: src/input.c:109
@@ -1000,7 +1000,7 @@ msgid ""
 "Comment mnemonic incorrect"
 msgstr ""
 "Read_Comments():\n"
-" Greška pri čitanju ulazne datoteke\n"
+" Pogreška pri čitanju ulazne datoteke\n"
 "Mnemonik komentara je neispravan"
 
 #: src/input.c:148
@@ -1008,7 +1008,7 @@ msgid ""
 "Geometry data error\n"
 "Tag number is less than 1"
 msgstr ""
-"Greška geometrijskih podataka\n"
+"Pogreška geometrijskih podataka\n"
 "Broj oznake je manji od 1"
 
 #: src/input.c:155
@@ -1016,7 +1016,7 @@ msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
 msgstr ""
-"Greška geometrijskih podataka\n"
+"Pogreška geometrijskih podataka\n"
 "Broj segmenata je manji od 1"
 
 #: src/input.c:162
@@ -1026,14 +1026,14 @@ msgstr "upozorenje - broj segmenata je veći od 1000000\n"
 #: src/input.c:210
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
-msgstr "greška kartice podataka %s: neispravan znak '%c' u stupcu %d\n"
+msgstr "pogreška kartice podataka %s: neispravan znak '%c' u stupcu %d\n"
 
 #: src/input.c:212
 msgid ""
 "Data card error\n"
 "Spurious character in card"
 msgstr ""
-"Greška kartice podataka\n"
+"Pogreška kartice podataka\n"
 "Neispravan znak u kartici"
 
 #: src/input.c:262
@@ -1072,20 +1072,20 @@ msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
 msgstr ""
-"Greška geometrijskih podataka\n"
+"Pogreška geometrijskih podataka\n"
 "Nema GC kartice za koničnu žicu"
 
 #: src/input.c:445
 msgid "Geometry GC data card error"
-msgstr "Greška GC kartice geometrijskih podataka"
+msgstr "Pogreška GC kartice geometrijskih podataka"
 
 #: src/input.c:461
 msgid "Geometry GX data card error"
-msgstr "Greška GX kartice geometrijskih podataka"
+msgstr "Pogreška GX kartice geometrijskih podataka"
 
 #: src/input.c:484
 msgid "Geometry GR data card error"
-msgstr "Greška GR kartice geometrijskih podataka"
+msgstr "Pogreška GR kartice geometrijskih podataka"
 
 #: src/input.c:541
 msgid "No geometry data cards"
@@ -1112,24 +1112,24 @@ msgstr "Read_Geometry: verify_segments() prošao\n"
 #: src/input.c:602
 #, c-format
 msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
-msgstr "greška podataka segmenta: tag=%d si=%lf, bi=%lf\n"
+msgstr "pogreška podataka segmenta: tag=%d si=%lf, bi=%lf\n"
 
 #: src/input.c:604
 msgid "Segment data error, zero-length line?  See console."
-msgstr "Greška podataka segmenta, linija nulte duljine? Pogledajte konzolu."
+msgstr "Pogreška podataka segmenta, linija nulte duljine? Pogledajte konzolu."
 
 #: src/input.c:639
 msgid "Move GM data card error"
-msgstr "Greška GM kartice pomaka"
+msgstr "Pogreška GM kartice pomaka"
 
 #: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
 #: src/input.c:739
 msgid "Patch data card error"
-msgstr "Greška kartice podataka zakrpe"
+msgstr "Pogreška kartice podataka zakrpe"
 
 #: src/input.c:677
 msgid "Patch data error"
-msgstr "Greška podataka zakrpe"
+msgstr "Pogreška podataka zakrpe"
 
 #: src/input.c:786
 msgid ""
@@ -1146,7 +1146,7 @@ msgstr "Zanemarivanje CM kartice u geometriji"
 #: src/input.c:804
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
-msgstr "greška kartice geometrijskih podataka (nwire=%d)\n"
+msgstr "pogreška kartice geometrijskih podataka (nwire=%d)\n"
 
 #: src/input.c:805
 #, c-format
@@ -1155,7 +1155,7 @@ msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 
 #: src/input.c:808
 msgid "Geometry data card error"
-msgstr "Greška kartice geometrijskih podataka"
+msgstr "Pogreška kartice geometrijskih podataka"
 
 #: src/input.c:833
 msgid "Failed to initialize symbol table\n"
@@ -1228,14 +1228,14 @@ msgstr ""
 #: src/input.c:1285
 #, c-format
 msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
-msgstr "greška podataka na kartici opterećenja br. %d: itag step1 %d je veći od itag step2 %d\n"
+msgstr "pogreška podataka na kartici opterećenja br. %d: itag step1 %d je veći od itag step2 %d\n"
 
 #: src/input.c:1287
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
 msgstr ""
-"Greška podataka na kartici opterećenja\n"
+"Pogreška podataka na kartici opterećenja\n"
 "itag step1 je veći od itag step2"
 
 #: src/input.c:1420
@@ -1252,14 +1252,14 @@ msgstr ""
 
 #: src/input.c:1430
 msgid "Segment number error in TL or NT card\n"
-msgstr "Greška broja segmenta u TL ili NT kartici\n"
+msgstr "Pogreška broja segmenta u TL ili NT kartici\n"
 
 #: src/input.c:1431
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
 msgstr ""
-"Greška broja segmenta\n"
+"Pogreška broja segmenta\n"
 "u NT ili TL kartici"
 
 #: src/input.c:1452
@@ -1322,7 +1322,7 @@ msgstr "Neočekivani izlazak iz while petlje"
 
 #: src/input.c:1653
 msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
-msgstr "greška kartice naredbi: Neočekivani EOF prilikom čitanja ulazne datoteke - dodavanje EN kartice\n"
+msgstr "pogreška kartice naredbi: Neočekivani EOF prilikom čitanja ulazne datoteke - dodavanje EN kartice\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1330,25 +1330,25 @@ msgid ""
 "Unexpected EOF while reading input file\n"
 "Appending a default EN card"
 msgstr ""
-"Greška kartice naredbi\n"
+"Pogreška kartice naredbi\n"
 "Neočekivani EOF prilikom čitanja ulazne datoteke\n"
 "Dodavanje zadane EN kartice"
 
 #: src/input.c:1668
 msgid "command data card error: card's mnemonic code too short or missing\n"
-msgstr "greška kartice naredbi: mnemonički kod kartice prekratak ili nedostaje\n"
+msgstr "pogreška kartice naredbi: mnemonički kod kartice prekratak ili nedostaje\n"
 
 #: src/input.c:1669
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
 msgstr ""
-"Greška kartice naredbi\n"
+"Pogreška kartice naredbi\n"
 "Mnemonički kod prekratak ili nedostaje"
 
 #: src/input.c:1829
 msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
-msgstr "greška kartice geometrijskih podataka: Neočekivani EOF prilikom čitanja ulazne datoteke - dodavanje GE kartice\n"
+msgstr "pogreška kartice geometrijskih podataka: Neočekivani EOF prilikom čitanja ulazne datoteke - dodavanje GE kartice\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1356,20 +1356,20 @@ msgid ""
 "Unexpected EOF while reading input file\n"
 "Appending a default GE card"
 msgstr ""
-"Greška kartice geometrijskih podataka\n"
+"Pogreška kartice geometrijskih podataka\n"
 "Neočekivani EOF prilikom čitanja ulazne datoteke\n"
 "Dodavanje zadane GE kartice"
 
 #: src/input.c:1844
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr "greška kartice geometrijskih podataka: mnemonički kod kartice prekratak ili nedostaje\n"
+msgstr "pogreška kartice geometrijskih podataka: mnemonički kod kartice prekratak ili nedostaje\n"
 
 #: src/input.c:1845
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
 msgstr ""
-"Greška kartice geometrijskih podataka\n"
+"Pogreška kartice geometrijskih podataka\n"
 "Mnemonički kod kartice prekratak ili nedostaje"
 
 #: src/main.c:125
@@ -1505,11 +1505,11 @@ msgstr "LU dekompozicija nije uspjela: %d\n"
 #: src/matrix.c:1306
 #, c-format
 msgid "symmetry error - nrow:%d ncol:%d\n"
-msgstr "greška simetrije - nrow:%d ncol:%d\n"
+msgstr "pogreška simetrije - nrow:%d ncol:%d\n"
 
 #: src/matrix.c:1307
 msgid "Symmetry error"
-msgstr "Greška simetrije"
+msgstr "Pogreška simetrije"
 
 #: src/matrix.c:1414
 #, c-format
@@ -1539,7 +1539,7 @@ msgid ""
 "Unexpected EOF (End of File)"
 msgstr ""
 "List_Comments():\n"
-"Greška pri čitanju ulazne datoteke\n"
+"Pogreška pri čitanju ulazne datoteke\n"
 "Neočekivani EOF (kraj datoteke)"
 
 #: src/nec2_model.c:351
@@ -1549,7 +1549,7 @@ msgid ""
 "Comment mnemonic short or missing"
 msgstr ""
 "List_Comments():\n"
-"Greška pri čitanju ulazne datoteke\n"
+"Pogreška pri čitanju ulazne datoteke\n"
 "Mnemonik komentara prekratak ili nedostaje"
 
 #: src/nec2_model.c:594
@@ -1578,7 +1578,7 @@ msgstr "Odabran nepravilan tip opterećenja"
 #: src/network.c:737
 #, c-format
 msgid "loading data card error, no segment has an itag = %d\n"
-msgstr "greška učitavanja podatkovne kartice, nijedan segment nema itag = %d\n"
+msgstr "pogreška učitavanja podatkovne kartice, nijedan segment nema itag = %d\n"
 
 #: src/network.c:738
 msgid ""
@@ -1586,7 +1586,7 @@ msgid ""
 "Tag number mismatch error"
 msgstr ""
 "Učitavanje podatkovne kartice\n"
-"Greška nepodudaranja broja oznake"
+"Pogreška nepodudaranja broja oznake"
 
 #: src/plot_freqdata.c:132
 #, c-format
@@ -1877,7 +1877,7 @@ msgstr "kompleksna dielektrična konstanta iz datoteke: %12.5E%+12.5Ej, zatraže
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
-msgstr "Ground_Parameters():Greška u parametrima uzemljenja"
+msgstr "Ground_Parameters():Pogreška u parametrima uzemljenja"
 
 #: src/xnec2c.c:490
 #, c-format
@@ -1939,7 +1939,7 @@ msgid ""
 msgstr ""
 "xnec2c je interaktivno grafičko sučelje oko modificirane verzije nec2c, koji je sam prijevod na C izvornog FORTRAN NEC2 numeričkog elektromagnetskog koda.\n"
 "\n"
-"xnec2c može prikazati frekvencijski ovisne podatke (pojačanje, ulaznu impedanciju, VSWR itd.) u grafičkom formatu. Može također prikazati podatke dijagrama zračenja u rotirajućem žičanom okviru i bliskog polja (E, H, S vektori) u rešetkastom formatu.\n"
+"xnec2c može prikazati frekvencijski ovisne podatke (dobitak, ulaznu impedanciju, VSWR itd.) u grafičkom formatu. Može također prikazati podatke dijagrama zračenja u rotirajućem žičanom okviru i bliskog polja (E, H, S vektori) u rešetkastom formatu.\n"
 "\n"
 "xnec2c ima ugrađeni uređivač NEC2 ulaznih datoteka koji olakšava stvaranje ili uređivanje datoteka opisa antena i određivanje NEC2 naredbi.\n"
 "\n"
@@ -2024,11 +2024,11 @@ msgstr "Cilindrična struktura"
 
 #: resources/xnec2c.glade:941
 msgid "Xnec2c Error"
-msgstr "Xnec2c greška"
+msgstr "Xnec2c pogreška"
 
 #: resources/xnec2c.glade:1049
 msgid "Error"
-msgstr "Greška"
+msgstr "Pogreška"
 
 #: resources/xnec2c.glade:1128
 msgid "Excitation Command (EX Card)"
@@ -3229,15 +3229,15 @@ msgstr "_Logaritamski"
 
 #: resources/xnec2c.glade:11917
 msgid "_Near Field"
-msgstr "_Bliže polje"
+msgstr "_Blisko polje"
 
 #: resources/xnec2c.glade:11932
 msgid "Near _E Field"
-msgstr "Bliže _E polje"
+msgstr "Blisko _E polje"
 
 #: resources/xnec2c.glade:11942
 msgid "Near _H Field"
-msgstr "Bliže _H polje"
+msgstr "Blisko _H polje"
 
 #: resources/xnec2c.glade:11952
 msgid "_Poynting Vector"
@@ -3496,37 +3496,37 @@ msgstr "Impedancija prijenosne linije (Zo)"
 #~ msgstr "neočekivani EOF (kraj datoteke)\n"
 
 #~ msgid "error reading Comments: Comment mnemonic short or missing\n"
-#~ msgstr "greška pri čitanju komentara: mnemonik komentara je prekratak ili nedostaje\n"
+#~ msgstr "pogreška pri čitanju komentara: mnemonik komentara je prekratak ili nedostaje\n"
 
 #~ msgid "geometry data card error - tag number is less than 1\n"
-#~ msgstr "greška kartice geometrijskih podataka - broj oznake je manji od 1\n"
+#~ msgstr "pogreška kartice geometrijskih podataka - broj oznake je manji od 1\n"
 
 #~ msgid "geometry data card error - number of segments is less than 1\n"
-#~ msgstr "greška kartice geometrijskih podataka - broj segmenata je manji od 1\n"
+#~ msgstr "pogreška kartice geometrijskih podataka - broj segmenata je manji od 1\n"
 
 #~ msgid "geometry data card error no GC card for tapered wire\n"
-#~ msgstr "greška kartice geometrijskih podataka: nema GC kartice za koničnu žicu\n"
+#~ msgstr "pogreška kartice geometrijskih podataka: nema GC kartice za koničnu žicu\n"
 
 #~ msgid "geometry GC data card error\n"
-#~ msgstr "greška GC kartice geometrijskih podataka\n"
+#~ msgstr "pogreška GC kartice geometrijskih podataka\n"
 
 #~ msgid "geometry GX data card error\n"
-#~ msgstr "greška GX kartice geometrijskih podataka\n"
+#~ msgstr "pogreška GX kartice geometrijskih podataka\n"
 
 #~ msgid "geometry GR data card error\n"
-#~ msgstr "greška GR kartice geometrijskih podataka\n"
+#~ msgstr "pogreška GR kartice geometrijskih podataka\n"
 
 #~ msgid "move GM data card error\n"
-#~ msgstr "greška GM kartice pomaka\n"
+#~ msgstr "pogreška GM kartice pomaka\n"
 
 #~ msgid "patch data card error\n"
-#~ msgstr "greška kartice podataka zakrpe\n"
+#~ msgstr "pogreška kartice podataka zakrpe\n"
 
 #~ msgid "patch data error\n"
-#~ msgstr "greška podataka zakrpe\n"
+#~ msgstr "pogreška podataka zakrpe\n"
 
 #~ msgid "patch card data error\n"
-#~ msgstr "greška podataka kartice zakrpe\n"
+#~ msgstr "pogreška podataka kartice zakrpe\n"
 
 #~ msgid "\"GF\" card (NGF solution) is not supported\n"
 #~ msgstr "\"GF\" kartica (NGF rješenje) nije podržana\n"

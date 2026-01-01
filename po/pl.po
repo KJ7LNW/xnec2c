@@ -323,11 +323,11 @@ msgstr "** NIE UŻYWANE **"
 
 #: src/cmnd_edit.c:1788 src/cmnd_edit.c:1812
 msgid "Resistance Ohm"
-msgstr "Rezystancja Ohm"
+msgstr "Rezystancja Ω"
 
 #: src/cmnd_edit.c:1789
 msgid "Inductance uH"
-msgstr "Indukcyjność uH"
+msgstr "Indukcyjność µH"
 
 #: src/cmnd_edit.c:1790
 msgid "Capacitance pF"
@@ -335,11 +335,11 @@ msgstr "Pojemność pF"
 
 #: src/cmnd_edit.c:1800
 msgid "Resistance Ohm/m"
-msgstr "Rezystancja Ohm/m"
+msgstr "Rezystancja Ω/m"
 
 #: src/cmnd_edit.c:1801
 msgid "Inductance uH/m"
-msgstr "Indukcyjność uH/m"
+msgstr "Indukcyjność µH/m"
 
 #: src/cmnd_edit.c:1802
 msgid "Capacitance pF/m"
@@ -347,7 +347,7 @@ msgstr "Pojemność pF/m"
 
 #: src/cmnd_edit.c:1813
 msgid "Reactance Ohm"
-msgstr "Reaktancja Ohm"
+msgstr "Reaktancja Ω"
 
 #: src/cmnd_edit.c:1824 resources/xnec2c.glade:480 resources/xnec2c.glade:4012
 #: resources/xnec2c.glade:14578
@@ -966,7 +966,7 @@ msgstr "Zapisz prądy i ładunki do CSV"
 
 #: src/gnuplot.c:566
 msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
-msgstr "Musisz włączyć dane prądów, klikając \"Currents\" lub \"Charges\" w głównym oknie xnec2c."
+msgstr "Musisz włączyć dane prądów, klikając \"Prądy\" lub \"Ładunki\" w głównym oknie xnec2c."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1009,7 +1009,7 @@ msgid ""
 "Tag number is less than 1"
 msgstr ""
 "Błąd danych geometrii\n"
-"Numer tag jest mniejszy niż 1"
+"Numer znacznika jest mniejszy niż 1"
 
 #: src/input.c:155
 msgid ""
@@ -1125,11 +1125,11 @@ msgstr "Błąd karty danych przesunięcia GM"
 #: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
 #: src/input.c:739
 msgid "Patch data card error"
-msgstr "Błąd karty danych patch"
+msgstr "Błąd karty danych płata"
 
 #: src/input.c:677
 msgid "Patch data error"
-msgstr "Błąd danych patch"
+msgstr "Błąd danych płata"
 
 #: src/input.c:786
 msgid ""
@@ -2532,7 +2532,7 @@ msgstr "Helisa"
 
 #: resources/xnec2c.glade:6252
 msgid "Patch"
-msgstr "Patch"
+msgstr "Płat"
 
 #: resources/xnec2c.glade:6266
 msgid "Cylinder"
@@ -2576,11 +2576,11 @@ msgstr "Pola bliskie"
 
 #: resources/xnec2c.glade:6465
 msgid "Ground (GN)"
-msgstr "Uziemienie (GN)"
+msgstr "Ziemia (GN)"
 
 #: resources/xnec2c.glade:6479
 msgid "Ground (GD)"
-msgstr "Uziemienie (GD)"
+msgstr "Ziemia (GD)"
 
 #: resources/xnec2c.glade:6493
 msgid "Loading"
@@ -2684,7 +2684,7 @@ msgstr "Elementy macierzy admitancji"
 
 #: resources/xnec2c.glade:7444
 msgid "Patch Element (SP & SC Cards)"
-msgstr "Element patch (karty SP i SC)"
+msgstr "Element płata (karty SP i SC)"
 
 #: resources/xnec2c.glade:7468
 msgid "Arbitrary"
@@ -2708,7 +2708,7 @@ msgstr "Powierzchnia"
 
 #: resources/xnec2c.glade:7559
 msgid "Patch Type"
-msgstr "Typ patch"
+msgstr "Typ płata"
 
 #: resources/xnec2c.glade:7589
 msgid "Corners 1-2 sub-division (NX)"
@@ -3461,7 +3461,7 @@ msgstr "Dane zwężenia przewodu"
 
 #: resources/xnec2c.glade:14968
 msgid "Impedance (Zo) Ohm"
-msgstr "Impedancja (Zo) Ohm"
+msgstr "Impedancja (Zo) Ω"
 
 #: resources/xnec2c.glade:14983
 msgid "50.00"

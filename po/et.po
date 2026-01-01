@@ -400,7 +400,7 @@ msgstr "Punktide arv piki Fii-d"
 
 #: src/cmnd_edit.c:2471
 msgid "Points along Theta"
-msgstr "Punktide arv piki teetat"
+msgstr "Punktide arv piki Teetat"
 
 #: src/cmnd_edit.c:2472
 msgid "First Point R (m)"
@@ -705,7 +705,7 @@ msgstr ""
 
 #: src/geometry.c:764
 msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
-msgstr "kontrollige andmeid, segmenti määrav parameeter: positsioon võrdsete siltide grupis ei tohi olla null\n"
+msgstr "kontrollige andmeid, segmenti määrav parameeter: positsioon võrdsete märgendite grupis ei tohi olla null\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -713,7 +713,7 @@ msgid ""
 "position in a group of equal tags is zero"
 msgstr ""
 "Segmendi positsiooni määrav parameeter\n"
-"võrdsete siltide grupis on null"
+"võrdsete märgendite grupis on null"
 
 #: src/geometry.c:797
 #, c-format
@@ -1640,7 +1640,7 @@ msgstr "Maks võimenduse suund vs sagedus"
 
 #: src/plot_freqdata.c:1484
 msgid "Phi - deg"
-msgstr "Phi - deg"
+msgstr "Fii - deg"
 
 #: src/plot_freqdata.c:1497
 msgid "Gain in Viewer Direction vs Frequency"
@@ -1763,8 +1763,8 @@ msgstr ""
 "\n"
 "Järgmised argumendid kirjutavad väljundfaili pärast sagedustsükli\n"
 "lõppu.  Need on kasulikud koos --batch valikuga; Kui soovite määrata\n"
-"failinimed kirjutamiseks ilma --batch režiimita, siis lubage File->Optimizer\n"
-"Settings, vastasel juhul käsureal määratud faile ei kirjutata.\n"
+"failinimed kirjutamiseks ilma --batch režiimita, siis lubage Fail->Optimeerija\n"
+"seaded, vastasel juhul käsureal määratud faile ei kirjutata.\n"
 "\n"
 "  --write-csv             <failinimi>  - kirjuta mõõtmiste CSV-fail\n"
 "  --write-s1p             <failinimi>  - kirjuta S-parameetrite S1P-fail\n"
@@ -2084,15 +2084,15 @@ msgstr "Pinge - imaginaarne osa"
 
 #: resources/xnec2c.glade:1437
 msgid "Eta"
-msgstr "Eta"
+msgstr "Eeta"
 
 #: resources/xnec2c.glade:1507
 msgid "Theta"
-msgstr "Theta"
+msgstr "Teeta"
 
 #: resources/xnec2c.glade:1520
 msgid "Phi"
-msgstr "Phi"
+msgstr "Fii"
 
 #: resources/xnec2c.glade:1533
 msgid "Ratio"
@@ -2262,7 +2262,7 @@ msgstr "Radiaalekraani parameetrid"
 
 #: resources/xnec2c.glade:3685
 msgid "Helical Element (GA card)"
-msgstr "Spiraalelement (GA kaart)"
+msgstr "Heelikselement (GA kaart)"
 
 #: resources/xnec2c.glade:3710
 msgid "Right Hand Helix"
@@ -2528,7 +2528,7 @@ msgstr "Kaar"
 
 #: resources/xnec2c.glade:6238
 msgid "Helix"
-msgstr "Spiraal"
+msgstr "Heelikas"
 
 #: resources/xnec2c.glade:6252
 msgid "Patch"
@@ -2860,11 +2860,11 @@ msgstr "Andmeväljundi juhtimine (XNDA)"
 
 #: resources/xnec2c.glade:8876
 msgid "Points in Theta"
-msgstr "Punkte Theta suunas"
+msgstr "Punkte Teeta suunas"
 
 #: resources/xnec2c.glade:8985
 msgid "Initial Phi (deg)"
-msgstr "Algne Phi (kraadi)"
+msgstr "Algne Fii (kraadi)"
 
 #: resources/xnec2c.glade:9067
 msgid "Field Point Distance"
