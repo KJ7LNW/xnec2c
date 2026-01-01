@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,8 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
 #: src/calculations.c:117 src/calculations.c:1276
 #, c-format
@@ -143,8 +142,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c ģeometrijas optimizētājs"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c ir kompilēts bez inotify atbalsta: optimizētāju nevar iespējot."
 
 #: src/callbacks.c:316
@@ -152,14 +150,8 @@ msgid "Xnec2c Optimizer"
 msgstr "Xnec2c optimizētājs"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"Nav atlasīti faili ierakstīšanai. Tomēr xnec2c joprojām pārlādēs un "
-"pārrēķinās ievades failu pēc modificēšanas, kad to aktivizēs inotify. "
-"Atlasiet failus ierakstīšanai sadaļā \"Fails->Optimizācijas iestatījumi\"."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "Nav atlasīti faili ierakstīšanai. Tomēr xnec2c joprojām pārlādēs un pārrēķinās ievades failu pēc modificēšanas, kad to aktivizēs inotify. Atlasiet failus ierakstīšanai sadaļā \"Fails->Optimizācijas iestatījumi\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -700,12 +692,8 @@ msgstr "Kļūda: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"Segmentu savienojumu skaits pārsniedz pilnu režģi, kas ir maz ticams: data.n="
-"%ld segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "Segmentu savienojumu skaits pārsniedz pilnu režģi, kas ir maz ticams: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -716,12 +704,8 @@ msgstr ""
 "Pārbaudiet, vai nav pārklājošos vai gandrīz savienotu segmentu\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"pārbaudiet datus, segmenta norādīšanas parametrs: pozīcija vienādu tagu "
-"grupā nedrīkst būt nulle\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "pārbaudiet datus, segmenta norādīšanas parametrs: pozīcija vienādu tagu grupā nedrīkst būt nulle\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -739,13 +723,11 @@ msgstr "nevienam segmentam nav itag %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "Segmenta taga numura kļūda: Tags 0 ir rezervēts un to nevar izmantot.\n"
-"Pārbaudiet savas ģeometrijas kartes (īpaši GM kartes), lai pārliecinātos, ka "
-"tagu vērtības ir derīgas.\n"
+"Pārbaudiet savas ģeometrijas kartes (īpaši GM kartes), lai pārliecinātos, ka tagu vērtības ir derīgas.\n"
 "GM kartēm: pārbaudiet, vai 'sākt no taga' un 'taga pieaugums' neveido tagu 0."
 
 #: src/geometry.c:809
@@ -799,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: galapunktu attālums=%.3e ir pārāk mazs (zem savienojuma "
-"sliekšņa=%.3e); segments savienosies pats ar sevi\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: galapunktu attālums=%.3e ir pārāk mazs (zem savienojuma sliekšņa=%.3e); segments savienosies pats ar sevi\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -813,12 +791,8 @@ msgstr "tag=%d: papildu paššavienojuma brīdinājumi tiek apslāpēti\n"
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: attālums=%.3e līdz tag=%d/seg=%d ir mazāks par 2x savienojuma "
-"slieksni %.3e; iespējami netīši savienojumi\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: attālums=%.3e līdz tag=%d/seg=%d ir mazāks par 2x savienojuma slieksni %.3e; iespējami netīši savienojumi\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -827,33 +801,18 @@ msgstr "tag=%d: papildu pārklāšanās brīdinājumi tiek apslāpēti\n"
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: garums=%.3e ir pārāk īss (un pietiekami tuvu) tag=%d/seg=%d "
-"garumam=%.3e, lai savienojuma noteikšana varētu neizdoties vai būt "
-"nepilnīga\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: garums=%.3e ir pārāk īss (un pietiekami tuvu) tag=%d/seg=%d garumam=%.3e, lai savienojuma noteikšana varētu neizdoties vai būt nepilnīga\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
-msgstr ""
-"tag=%d: papildu brīdinājumi par savienojuma noteikšanas kļūmēm tiek "
-"apslāpēti\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
+msgstr "tag=%d: papildu brīdinājumi par savienojuma noteikšanas kļūmēm tiek apslāpēti\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: garuma/viļņa garuma attiecība %.3f < 0.001; strāvas "
-"komponentu līdzība rada skaitliskas neprecizitātes (min=0.001, labs=0.05, "
-"ieteicams <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: garuma/viļņa garuma attiecība %.3f < 0.001; strāvas komponentu līdzība rada skaitliskas neprecizitātes (min=0.001, labs=0.05, ieteicams <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -862,31 +821,18 @@ msgstr "tag=%d: papildu īsā viļņa garuma attiecības kļūdas tiek apslāpē
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: garuma/viļņa garuma attiecība %.3f > 0.1; strāvas "
-"izšķirtspēja ir ierobežota ar segmentu atstatumu (min=0.001, labs=0.05, "
-"ieteicams <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: garuma/viļņa garuma attiecība %.3f > 0.1; strāvas izšķirtspēja ir ierobežota ar segmentu atstatumu (min=0.001, labs=0.05, ieteicams <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
-msgstr ""
-"tag=%d: papildu garā viļņa garuma attiecības brīdinājumi tiek apslāpēti\n"
+msgstr "tag=%d: papildu garā viļņa garuma attiecības brīdinājumi tiek apslāpēti\n"
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: garuma/viļņa garuma attiecība %.3f > 0.05; īsāki segmenti "
-"palielina precizitāti straujas strāvas izmaiņu reģionos (min=0.001, "
-"labs=0.05, ieteicams <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: garuma/viļņa garuma attiecība %.3f > 0.05; īsāki segmenti palielina precizitāti straujas strāvas izmaiņu reģionos (min=0.001, labs=0.05, ieteicams <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -895,13 +841,8 @@ msgstr "tag=%d: papildu precizitātes uzlabošanas ieteikumi tiek apslāpēti\n"
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 2.0; standarta plānās "
-"stieples kodola lauka kļūda ievērojami pārsniedz 1%% (min=2.0, "
-"1%%precīzs=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 2.0; standarta plānās stieples kodola lauka kļūda ievērojami pārsniedz 1%% (min=2.0, 1%%precīzs=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -910,28 +851,18 @@ msgstr "tag=%d: papildu standarta kodola attiecības kļūdas tiek apslāpētas\
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 8.0; standarta plānās "
-"stieples kodola lauka kļūda pārsniedz 1%% (min=2.0, 1%%precīzs=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 8.0; standarta plānās stieples kodola lauka kļūda pārsniedz 1%% (min=2.0, 1%%precīzs=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
-msgstr ""
-"tag=%d: papildu standarta kodola attiecības brīdinājumi tiek apslāpēti\n"
+msgstr "tag=%d: papildu standarta kodola attiecības brīdinājumi tiek apslāpēti\n"
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 0.5; paplašinātā plānās "
-"stieples kodola lauka kļūda ievērojami pārsniedz 1%% (min=0.5, "
-"1%%precīzs=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 0.5; paplašinātā plānās stieples kodola lauka kļūda ievērojami pārsniedz 1%% (min=0.5, 1%%precīzs=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -940,25 +871,18 @@ msgstr "tag=%d: papildu paplašinātā kodola attiecības kļūdas tiek apslāp�
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 2.0; paplašinātā plānās "
-"stieples kodola lauka kļūda pārsniedz 1%% (min=0.5, 1%%precīzs=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: garuma/rādiusa attiecība %.1f < 2.0; paplašinātā plānās stieples kodola lauka kļūda pārsniedz 1%% (min=0.5, 1%%precīzs=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
-msgstr ""
-"tag=%d: papildu paplašinātā kodola attiecības brīdinājumi tiek apslāpēti\n"
+msgstr "tag=%d: papildu paplašinātā kodola attiecības brīdinājumi tiek apslāpēti\n"
 
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"Izlaižam pārklāšanās pārbaudi %d segmentiem (izmantojiet --force-verify, lai "
-"iespējotu)\n"
+msgstr "Izlaižam pārklāšanās pārbaudi %d segmentiem (izmantojiet --force-verify, lai iespējotu)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -966,11 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Piespiedu pārklāšanās pārbaude %d segmentiem\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() izlaiž no frekvences atkarīgās pārbaudes - nav frekvences "
-"datu\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() izlaiž no frekvences atkarīgās pārbaudes - nav frekvences datu\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -987,21 +908,13 @@ msgstr "# Atsauces pretestība Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# Lai attēlotu gnuplot, varat modificēt šo komandu. Pašlaik tā attēlo MHz "
-"pret zreal un zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# Lai attēlotu gnuplot, varat modificēt šo komandu. Pašlaik tā attēlo MHz pret zreal un zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1050,6 +963,10 @@ msgstr "# struktūras stieples segmenti\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "Saglabāt strāvas un lādiņus CSV failā"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "Jums jāiespējo strāvas dati, noklikšķinot uz \"Currents\" vai \"Charges\" galvenajā xnec2c logā."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1279,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "Izlabojiet GE/GN kartes:\n"
 "GE karte norāda, ka ir zemējums, bet GN norāda pretēji."
@@ -1298,12 +1214,8 @@ msgstr ""
 "Lūdzu pārbaudiet RP kartes datus un izlabojiet"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"radiālo vadu g.s. aproksimācija: nevar izmantot ar Sommerfeld zemējuma "
-"opciju\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "radiālo vadu g.s. aproksimācija: nevar izmantot ar Sommerfeld zemējuma opciju\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1315,11 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"datu kļūda slodzes kartē nr. %d: itag step1 %d ir lielāks par itag step2 %d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "datu kļūda slodzes kartē nr. %d: itag step1 %d ir lielāks par itag step2 %d\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1330,11 +1239,8 @@ msgstr ""
 "itag step1 ir lielāks par itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr ""
-"Pārvades līnijas pretestība = 0: nav derīga. Lūdzu izlabojiet NT vai TL "
-"karti\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "Pārvades līnijas pretestība = 0: nav derīga. Lūdzu izlabojiet NT vai TL karti\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1386,18 +1292,13 @@ msgid ""
 "xnec2c renders radiation patterns graphically instead of text tables.\n"
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
-"Pastiprinājuma vidējošana (XNDA ***1 vai ***2) kontrolē teksta izvades "
-"formatējumu.\n"
+"Pastiprinājuma vidējošana (XNDA ***1 vai ***2) kontrolē teksta izvades formatējumu.\n"
 "xnec2c attēlo starojuma diagrammas grafiski, nevis teksta tabulās.\n"
 "Diagrammu aprēķini notiek normāli; izmantojiet GUI, lai skatītu rezultātus."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Theta > 90 grādi ar norādītu zemējumu: Lūdzu pārbaudiet RP kartes datus un "
-"izlabojiet\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Theta > 90 grādi ar norādītu zemējumu: Lūdzu pārbaudiet RP kartes datus un izlabojiet\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1412,24 +1313,16 @@ msgid "Faulty data card"
 msgstr "Kļūdaina datu karte"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"Trūkst vai virsmas viļņa RP karte: starojuma diagrammas un pastiprinājuma "
-"aprēķini atspējoti\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "Trūkst vai virsmas viļņa RP karte: starojuma diagrammas un pastiprinājuma aprēķini atspējoti\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "Negaidīta iziešana no while cikla"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"komandas datu kartes kļūda: negaidīts EOF lasot ievades failu - pievieno EN "
-"karti\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "komandas datu kartes kļūda: negaidīts EOF lasot ievades failu - pievieno EN karti\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1443,8 +1336,7 @@ msgstr ""
 
 #: src/input.c:1668
 msgid "command data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"komandas datu kartes kļūda: kartes mnemoniskais kods pārāk īss vai trūkst\n"
+msgstr "komandas datu kartes kļūda: kartes mnemoniskais kods pārāk īss vai trūkst\n"
 
 #: src/input.c:1669
 msgid ""
@@ -1455,12 +1347,8 @@ msgstr ""
 "Mnemoniskais kods pārāk īss vai trūkst"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"ģeometrijas datu kartes kļūda: negaidīts EOF lasot ievades failu - pievieno "
-"GE karti\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "ģeometrijas datu kartes kļūda: negaidīts EOF lasot ievades failu - pievieno GE karti\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1474,9 +1362,7 @@ msgstr ""
 
 #: src/input.c:1844
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"ģeometrijas datu kartes kļūda: kartes mnemoniskais kods pārāk īss vai "
-"trūkst\n"
+msgstr "ģeometrijas datu kartes kļūda: kartes mnemoniskais kods pārāk īss vai trūkst\n"
 
 #: src/input.c:1845
 msgid ""
@@ -1704,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1830,6 +1708,71 @@ msgstr "Hankel nav derīgs, ja z = 0"
 msgid "No convergence"
 msgstr "Nav konverģences"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"Lietojums: xnec2c [opcijas] [<ievades-faila-nosaukums>]\n"
+"  -i|--input         <ievades-faila-nosaukums>\n"
+"  -c|--config        <konfigurācijas-faila-ceļš>     - failam jāeksistē\n"
+"  -C|--new-config    <jauna-konfigurācijas-faila-ceļš> - izveido failu, ja tas neeksistē\n"
+"  -j|--jobs  <procesoru skaits SMP mašīnā> (-j0 atspējo sazarošanu)\n"
+"     --openblas-threads <n>  iestatīt OpenBLAS pavedienu skaitu (noklusējums: 1)\n"
+"     --mkl-threads <n>       iestatīt Intel MKL pavedienu skaitu (noklusējums: 1)\n"
+"     --omp-threads <n>       iestatīt OpenMP pavedienu skaitu (noklusējums: 1)\n"
+"  -b|--batch:        iespējot pakešu režīmu, iziet pēc frekvenču cikla izpildes\n"
+"  -P|--no-pthreads:  atspējot pthreads un izmantot GTK ciklu atkļūdošanai\n"
+"  -h|--help:         parādīt lietošanas informāciju un iziet\n"
+"  -V|--version:      parādīt xnec2c versijas numuru un iziet\n"
+"  -v|--verbose:      palielināt detalizāciju, var norādīt vairākas reizes\n"
+"  -d|--debug:        iespējot atkļūdošanas izvadi (-dd iekļauj izsaukumu izsekošanu)\n"
+"  -d|--quiet:        apslāpēt atkļūdošanas/detalizēto izvadi\n"
+"\n"
+"  --optimize:        Nekavējoties aktivizēt optimizētāju.\n"
+"  --skip-verify:     izlaist ģeometrijas verifikācijas pārbaudes\n"
+"\n"
+"Šie argumenti raksta izvades failā pēc frekvenču cikla pabeigšanas.\n"
+"Tos ir noderīgi kombinēt ar --batch; Ja vēlaties norādīt failu\n"
+"nosaukumus rakstīšanai bez --batch režīma, tad iespējojiet File->Optimizer\n"
+"Settings, pretējā gadījumā komandrindā norādītie faili netiks rakstīti.\n"
+"\n"
+"  --write-csv             <faila_nosaukums>  - rakstīt CSV failu ar mērījumiem\n"
+"  --write-s1p             <faila_nosaukums>  - rakstīt S1P failu ar S-parametriem\n"
+"  --write-s2p-max-gain    <faila_nosaukums>  - rakstīt S2P failu, port-2 ir maksimālais pastiprinājums\n"
+"  --write-s2p-viewer-gain <faila_nosaukums>  - rakstīt S2P failu, port-2 ir skatītāja pastiprinājums\n"
+"  --write-rdpat           <faila_nosaukums>  - rakstīt CSV ar starojuma diagrammu\n"
+"  --write-currents        <faila_nosaukums>  - rakstīt CSV ar strāvām un lādiņiem\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1907,8 +1850,7 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr ""
-"Optimizētāja cikls nav pabeigts, izlaižam starojuma diagrammas pārzīmēšanu.\n"
+msgstr "Optimizētāja cikls nav pabeigts, izlaižam starojuma diagrammas pārzīmēšanu.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
@@ -1930,12 +1872,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"kompleksā dielektriskā konstante no faila: %12.5E%+12.5Ej, pieprasītā: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "kompleksā dielektriskā konstante no faila: %12.5E%+12.5Ej, pieprasītā: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1952,12 +1890,8 @@ msgstr "Neizdevās nolasīt datus no atdalītā bērnprocesa\n"
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop ir pabeidzis visus soļus, bet num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop ir pabeidzis visus soļus, bet num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1995,35 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c ir interaktīvs grafiskais apvalks ap modificētu nec2c versiju, kas "
-"pati ir oriģinālā FORTRAN NEC2 skaitliskā elektromagnētikas koda tulkojums C "
-"valodā.\n"
+"xnec2c ir interaktīvs grafiskais apvalks ap modificētu nec2c versiju, kas pati ir oriģinālā FORTRAN NEC2 skaitliskā elektromagnētikas koda tulkojums C valodā.\n"
 "\n"
-"xnec2c var attēlot no frekvences atkarīgus datus (pastiprinājums, ieejas "
-"impedance, VSWR utt.) grafiskā formātā. Tas var arī attēlot starojuma "
-"diagrammas datus rotējamā stiepļu rāmja formātā un tuvā lauka (E, H, S "
-"vektori) režģa formātā.\n"
+"xnec2c var attēlot no frekvences atkarīgus datus (pastiprinājums, ieejas impedance, VSWR utt.) grafiskā formātā. Tas var arī attēlot starojuma diagrammas datus rotējamā stiepļu rāmja formātā un tuvā lauka (E, H, S vektori) režģa formātā.\n"
 "\n"
-"xnec2c ir iebūvēts NEC2 ievades failu redaktors, kas atvieglo antenas "
-"apraksta failu izveidi vai rediģēšanu un NEC2 komandu norādīšanu.\n"
+"xnec2c ir iebūvēts NEC2 ievades failu redaktors, kas atvieglo antenas apraksta failu izveidi vai rediģēšanu un NEC2 komandu norādīšanu.\n"
 "\n"
-"LŪDZU izlasiet dokumentāciju doc/ apakšdirektorijā, jo xnec2c nav pilnībā "
-"savietojams ar NEC2 ievades failiem un tas darbojas atšķirīgi!"
+"LŪDZU izlasiet dokumentāciju doc/ apakšdirektorijā, jo xnec2c nav pilnībā savietojams ar NEC2 ievades failiem un tas darbojas atšķirīgi!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3614,12 +3534,8 @@ msgstr "Pārvades līnijas impedance (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "CM karte ģeometrijā tiek ignorēta\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta > 90 grādi ar norādītu zemi: Lūdzu, pārbaudiet RP kartes datus un "
-#~ "izlabojiet\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta > 90 grādi ar norādītu zemi: Lūdzu, pārbaudiet RP kartes datus un izlabojiet\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "Hankel nav derīgs, ja z = 0\n"

@@ -20,6 +20,7 @@
 #include <ctype.h>
 #include "interface.h"
 #include "shared.h"
+#include "i18n.h"
 
 /*------------------------------------------------------------------*/
 
@@ -112,25 +113,25 @@ Update_Window_Titles( void )
 
   if( main_window != NULL )
   {
-    snprintf( title, sizeof(title), "xnec2c Main: %s", display_text );
+    snprintf( title, sizeof(title), _("xnec2c Main: %s"), display_text );
     gtk_window_set_title( GTK_WINDOW(main_window), title );
   }
 
   if( nec2_edit_window != NULL )
   {
-    snprintf( title, sizeof(title), "xnec2c Editor: %s", display_text );
+    snprintf( title, sizeof(title), _("xnec2c Editor: %s"), display_text );
     gtk_window_set_title( GTK_WINDOW(nec2_edit_window), title );
   }
 
   if( freqplots_window != NULL )
   {
-    snprintf( title, sizeof(title), "xnec2c Frequency Plots: %s", display_text );
+    snprintf( title, sizeof(title), _("xnec2c Frequency Plots: %s"), display_text );
     gtk_window_set_title( GTK_WINDOW(freqplots_window), title );
   }
 
   if( rdpattern_window != NULL )
   {
-    snprintf( title, sizeof(title), "xnec2c Radiation Pattern: %s", display_text );
+    snprintf( title, sizeof(title), _("xnec2c Radiation Pattern: %s"), display_text );
     gtk_window_set_title( GTK_WINDOW(rdpattern_window), title );
   }
 

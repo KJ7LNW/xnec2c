@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -77,8 +77,7 @@ msgid ""
 "Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
 msgstr ""
 "Biểu đồ tần số không khả dụng với loại kích thích %d.\n"
-"Mô hình này sử dụng kích thích Incident Field hoặc Elementary Current "
-"Source.\n"
+"Mô hình này sử dụng kích thích Incident Field hoặc Elementary Current Source.\n"
 "Thay đổi thẻ EX sang loại 0 (Applied E Field) hoặc 5 (Current Discontinuity)."
 
 #: src/callback_func.c:697
@@ -143,25 +142,16 @@ msgid "xnec2c geometry optimizer"
 msgstr "Trình tối ưu hóa hình học xnec2c"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
-msgstr ""
-"xnec2c được xây dựng không có hỗ trợ inotify: không thể kích hoạt trình tối "
-"ưu hóa."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr "xnec2c được xây dựng không có hỗ trợ inotify: không thể kích hoạt trình tối ưu hóa."
 
 #: src/callbacks.c:316
 msgid "Xnec2c Optimizer"
 msgstr "Trình tối ưu hóa Xnec2c"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"Không có tệp nào được chọn để ghi. Tuy nhiên, xnec2c vẫn sẽ tải lại và tính "
-"toán lại tệp đầu vào khi có thay đổi được kích hoạt bởi inotify. Chọn tệp để "
-"ghi trong \"File->Optimization Settings\"."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "Không có tệp nào được chọn để ghi. Tuy nhiên, xnec2c vẫn sẽ tải lại và tính toán lại tệp đầu vào khi có thay đổi được kích hoạt bởi inotify. Chọn tệp để ghi trong \"File->Optimization Settings\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -702,12 +692,8 @@ msgstr "Lỗi: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"Số kết nối đoạn vượt quá lưới đầy đủ, điều này khó xảy ra: data.n=%ld segj."
-"maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "Số kết nối đoạn vượt quá lưới đầy đủ, điều này khó xảy ra: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -718,12 +704,8 @@ msgstr ""
 "Kiểm tra các đoạn chồng chéo hoặc gần kết nối\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"kiểm tra dữ liệu, tham số xác định đoạn: vị trí trong nhóm các tag bằng nhau "
-"không được bằng không\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "kiểm tra dữ liệu, tham số xác định đoạn: vị trí trong nhóm các tag bằng nhau không được bằng không\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -741,13 +723,11 @@ msgstr "không có đoạn nào có itag là %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "Lỗi số tag đoạn: Tag 0 được dành riêng và không thể sử dụng.\n"
-"Kiểm tra các thẻ hình học (đặc biệt là thẻ GM) để đảm bảo giá trị tag hợp "
-"lệ.\n"
+"Kiểm tra các thẻ hình học (đặc biệt là thẻ GM) để đảm bảo giá trị tag hợp lệ.\n"
 "Đối với thẻ GM: xác minh 'bắt đầu từ tag' và 'gia số tag' không tạo ra tag 0."
 
 #: src/geometry.c:809
@@ -759,8 +739,7 @@ msgid ""
 msgstr ""
 "Lỗi số tag đoạn: Không tìm thấy đoạn nào với tag %d.\n"
 "Bạn đang tham chiếu đến tag hoặc đoạn không xác định trong thẻ điều khiển.\n"
-"Các tag hợp lệ trong hình học của bạn là những tag được gán cho thẻ GW/GA/GH/"
-"SP."
+"Các tag hợp lệ trong hình học của bạn là những tag được gán cho thẻ GW/GA/GH/SP."
 
 #: src/geometry.c:1123
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
@@ -802,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: khoảng cách điểm cuối=%.3e quá gần (dưới ngưỡng kết nối="
-"%.3e); đoạn sẽ kết nối với chính nó\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: khoảng cách điểm cuối=%.3e quá gần (dưới ngưỡng kết nối=%.3e); đoạn sẽ kết nối với chính nó\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -816,12 +791,8 @@ msgstr "tag=%d: ẩn các cảnh báo tự kết nối bổ sung\n"
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: khoảng cách=%.3e đến tag=%d/seg=%d gần hơn 2 lần ngưỡng kết "
-"nối %.3e; có thể xảy ra kết nối ngoài ý muốn\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: khoảng cách=%.3e đến tag=%d/seg=%d gần hơn 2 lần ngưỡng kết nối %.3e; có thể xảy ra kết nối ngoài ý muốn\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -830,32 +801,18 @@ msgstr "tag=%d: ẩn các cảnh báo chồng chéo bổ sung\n"
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: độ dài=%.3e quá ngắn (và đủ gần) với tag=%d/seg=%d độ dài="
-"%.3e nên phát hiện kết nối có thể thất bại hoặc ngắn mạch\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: độ dài=%.3e quá ngắn (và đủ gần) với tag=%d/seg=%d độ dài=%.3e nên phát hiện kết nối có thể thất bại hoặc ngắn mạch\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
-msgstr ""
-"tag=%d: ẩn các cảnh báo phát hiện kết nối có thể thất bại hoặc ngắn mạch bổ "
-"sung\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
+msgstr "tag=%d: ẩn các cảnh báo phát hiện kết nối có thể thất bại hoặc ngắn mạch bổ sung\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: tỷ lệ độ dài/bước sóng %.3f < 0.001; sự tương đồng của các "
-"thành phần dòng điện dẫn đến sai số số học (min=0.001, tốt=0.05, khuyến nghị "
-"<= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: tỷ lệ độ dài/bước sóng %.3f < 0.001; sự tương đồng của các thành phần dòng điện dẫn đến sai số số học (min=0.001, tốt=0.05, khuyến nghị <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -864,14 +821,8 @@ msgstr "tag=%d: ẩn các lỗi tỷ lệ bước sóng ngắn bổ sung\n"
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: tỷ lệ độ dài/bước sóng %.3f > 0.1; độ phân giải lấy mẫu dòng "
-"điện bị giới hạn bởi khoảng cách đoạn (min=0.001, tốt=0.05, khuyến nghị <= "
-"0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: tỷ lệ độ dài/bước sóng %.3f > 0.1; độ phân giải lấy mẫu dòng điện bị giới hạn bởi khoảng cách đoạn (min=0.001, tốt=0.05, khuyến nghị <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -880,14 +831,8 @@ msgstr "tag=%d: ẩn các cảnh báo tỷ lệ bước sóng dài bổ sung\n"
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: tỷ lệ độ dài/bước sóng %.3f > 0.05; các đoạn ngắn hơn tăng độ "
-"chính xác trong vùng dòng điện thay đổi nhanh (min=0.001, tốt=0.05, khuyến "
-"nghị <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: tỷ lệ độ dài/bước sóng %.3f > 0.05; các đoạn ngắn hơn tăng độ chính xác trong vùng dòng điện thay đổi nhanh (min=0.001, tốt=0.05, khuyến nghị <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -896,12 +841,8 @@ msgstr "tag=%d: ẩn các gợi ý cải thiện độ chính xác bổ sung\n"
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: tỷ lệ độ dài/bán kính %.1f < 2.0; sai số trường nhân dây mỏng "
-"tiêu chuẩn vượt quá 1%% với biên độ lớn (min=2.0, chính xác 1%%=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: tỷ lệ độ dài/bán kính %.1f < 2.0; sai số trường nhân dây mỏng tiêu chuẩn vượt quá 1%% với biên độ lớn (min=2.0, chính xác 1%%=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -910,12 +851,8 @@ msgstr "tag=%d: ẩn các lỗi tỷ lệ nhân tiêu chuẩn bổ sung\n"
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: tỷ lệ độ dài/bán kính %.1f < 8.0; sai số trường nhân dây mỏng "
-"tiêu chuẩn vượt quá 1%% (min=2.0, chính xác 1%%=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: tỷ lệ độ dài/bán kính %.1f < 8.0; sai số trường nhân dây mỏng tiêu chuẩn vượt quá 1%% (min=2.0, chính xác 1%%=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -924,12 +861,8 @@ msgstr "tag=%d: ẩn các cảnh báo tỷ lệ nhân tiêu chuẩn bổ sung\n"
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: tỷ lệ độ dài/bán kính %.1f < 0.5; sai số trường nhân dây mỏng "
-"mở rộng vượt quá 1%% với biên độ lớn (min=0.5, chính xác 1%%=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: tỷ lệ độ dài/bán kính %.1f < 0.5; sai số trường nhân dây mỏng mở rộng vượt quá 1%% với biên độ lớn (min=0.5, chính xác 1%%=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -938,12 +871,8 @@ msgstr "tag=%d: ẩn các lỗi tỷ lệ nhân mở rộng bổ sung\n"
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: tỷ lệ độ dài/bán kính %.1f < 2.0; sai số trường nhân dây mỏng "
-"mở rộng vượt quá 1%% (min=0.5, chính xác 1%%=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: tỷ lệ độ dài/bán kính %.1f < 2.0; sai số trường nhân dây mỏng mở rộng vượt quá 1%% (min=0.5, chính xác 1%%=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -953,8 +882,7 @@ msgstr "tag=%d: ẩn các cảnh báo tỷ lệ nhân mở rộng bổ sung\n"
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"Bỏ qua kiểm tra chồng chéo cho %d đoạn (sử dụng --force-verify để bật)\n"
+msgstr "Bỏ qua kiểm tra chồng chéo cho %d đoạn (sử dụng --force-verify để bật)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -962,11 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Buộc kiểm tra chồng chéo cho %d đoạn\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() bỏ qua kiểm tra phụ thuộc tần số - không có dữ liệu tần "
-"số\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() bỏ qua kiểm tra phụ thuộc tần số - không có dữ liệu tần số\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -983,21 +908,13 @@ msgstr "# Trở kháng tham chiếu Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# Để vẽ đồ thị trong gnuplot bạn có thể sửa đổi lệnh này. Hiện tại nó vẽ MHz "
-"so với zreal và zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# Để vẽ đồ thị trong gnuplot bạn có thể sửa đổi lệnh này. Hiện tại nó vẽ MHz so với zreal và zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1046,6 +963,10 @@ msgstr "# các đoạn dây cấu trúc\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "Lưu Dòng điện và Điện tích ra CSV"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "Bạn phải bật dữ liệu dòng điện bằng cách nhấp vào \"Dòng điện\" hoặc \"Điện tích\" trong cửa sổ chính của xnec2c."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1195,8 +1116,7 @@ msgstr "lỗi dữ liệu phân đoạn: tag=%d si=%lf, bi=%lf\n"
 
 #: src/input.c:604
 msgid "Segment data error, zero-length line?  See console."
-msgstr ""
-"Lỗi dữ liệu phân đoạn, đường có độ dài bằng không? Xem bảng điều khiển."
+msgstr "Lỗi dữ liệu phân đoạn, đường có độ dài bằng không? Xem bảng điều khiển."
 
 #: src/input.c:639
 msgid "Move GM data card error"
@@ -1276,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "Sửa các thẻ GE/GN:\n"
 "Thẻ GE chỉ định có mặt phẳng đất, nhưng thẻ GN chỉ định ngược lại."
@@ -1295,11 +1214,8 @@ msgstr ""
 "Vui lòng kiểm tra dữ liệu thẻ RP và sửa"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"xấp xỉ g.s. dây radial: không thể sử dụng với tùy chọn mặt đất Sommerfeld\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "xấp xỉ g.s. dây radial: không thể sử dụng với tùy chọn mặt đất Sommerfeld\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1311,9 +1227,7 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
 msgstr "lỗi dữ liệu trên thẻ tải số %d: itag step1 %d lớn hơn itag step2 %d\n"
 
 #: src/input.c:1287
@@ -1325,10 +1239,8 @@ msgstr ""
 "itag step1 lớn hơn itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr ""
-"Trở kháng đường truyền = 0: không hợp lệ. Vui lòng sửa thẻ NT hoặc TL\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "Trở kháng đường truyền = 0: không hợp lệ. Vui lòng sửa thẻ NT hoặc TL\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1380,18 +1292,13 @@ msgid ""
 "xnec2c renders radiation patterns graphically instead of text tables.\n"
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
-"Trung bình hóa độ lợi (XNDA ***1 hoặc ***2) điều khiển định dạng đầu ra văn "
-"bản.\n"
+"Trung bình hóa độ lợi (XNDA ***1 hoặc ***2) điều khiển định dạng đầu ra văn bản.\n"
 "xnec2c hiển thị đồ thị bức xạ dạng đồ họa thay vì bảng văn bản.\n"
 "Tính toán đồ thị bức xạ tiến hành bình thường; sử dụng GUI để xem kết quả."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Theta > 90 độ với mặt phẳng đất được chỉ định: Vui lòng kiểm tra dữ liệu thẻ "
-"RP và sửa\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Theta > 90 độ với mặt phẳng đất được chỉ định: Vui lòng kiểm tra dữ liệu thẻ RP và sửa\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1406,23 +1313,16 @@ msgid "Faulty data card"
 msgstr "Thẻ dữ liệu bị lỗi"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"Thiếu hoặc thẻ RP sóng mặt: Tính toán đồ thị bức xạ và độ lợi bị vô hiệu "
-"hóa\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "Thiếu hoặc thẻ RP sóng mặt: Tính toán đồ thị bức xạ và độ lợi bị vô hiệu hóa\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "Thoát không mong đợi khỏi vòng lặp while"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"lỗi thẻ dữ liệu lệnh: EOF không mong đợi khi đọc tệp đầu vào - thêm thẻ EN\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "lỗi thẻ dữ liệu lệnh: EOF không mong đợi khi đọc tệp đầu vào - thêm thẻ EN\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1447,12 +1347,8 @@ msgstr ""
 "Mã gợi nhớ quá ngắn hoặc thiếu"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"lỗi thẻ dữ liệu hình học: EOF không mong đợi khi đọc tệp đầu vào - thêm thẻ "
-"GE\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "lỗi thẻ dữ liệu hình học: EOF không mong đợi khi đọc tệp đầu vào - thêm thẻ GE\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1694,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1820,6 +1708,68 @@ msgstr "Hankel không hợp lệ cho z = 0"
 msgid "No convergence"
 msgstr "Không hội tụ"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"Cách dùng: xnec2c [tùy chọn] [<tên-tệp-đầu-vào>]\n"
+"  -i|--input         <tên-tệp-đầu-vào>\n"
+"  -c|--config        <đường-dẫn-tệp-cấu-hình>     - tệp phải tồn tại\n"
+"  -C|--new-config    <đường-dẫn-tệp-cấu-hình-mới> - tạo tệp khi chưa có\n"
+"  -j|--jobs  <số bộ xử lý trong máy SMP> (-j0 vô hiệu hóa forking)\n"
+"     --openblas-threads <n>  đặt số luồng OpenBLAS (mặc định: 1)\n"
+"     --mkl-threads <n>       đặt số luồng Intel MKL (mặc định: 1)\n"
+"     --omp-threads <n>       đặt số luồng OpenMP (mặc định: 1)\n"
+"  -b|--batch:        bật chế độ batch, thoát sau khi vòng lặp tần số chạy xong\n"
+"  -P|--no-pthreads:  vô hiệu hóa pthreads và dùng vòng lặp GTK để gỡ lỗi\n"
+"  -h|--help:         in thông tin cách dùng và thoát\n"
+"  -V|--version:      in số phiên bản xnec2c và thoát\n"
+"  -v|--verbose:      tăng mức chi tiết, có thể chỉ định nhiều lần\n"
+"  -d|--debug:        bật đầu ra gỡ lỗi (-dd bao gồm backtraces)\n"
+"  -d|--quiet:        ẩn đầu ra gỡ lỗi/chi tiết\n"
+"\n"
+"  --optimize:        Kích hoạt bộ tối ưu hóa ngay lập tức.\n"
+"  --skip-verify:     bỏ qua kiểm tra xác minh hình học\n"
+"\n"
+"Các đối số sau ghi vào tệp đầu ra sau khi vòng lặp tần số hoàn thành. Chúng hữu ích khi kết hợp với --batch; Nếu bạn muốn chỉ định tên tệp để ghi mà không có chế độ --batch thì hãy bật Tệp->Cài đặt Bộ tối ưu hóa hoặc các tệp bạn chỉ định trên dòng lệnh sẽ không được ghi.\n"
+"\n"
+"  --write-csv             <tên-tệp>  - ghi tệp CSV của các phép đo\n"
+"  --write-s1p             <tên-tệp>  - ghi tệp S1P của S-parameters\n"
+"  --write-s2p-max-gain    <tên-tệp>  - ghi tệp S2P, cổng-2 là max-gain\n"
+"  --write-s2p-viewer-gain <tên-tệp>  - ghi tệp S2P, cổng-2 là viewer-gain\n"
+"  --write-rdpat           <tên-tệp>  - ghi CSV của đồ thị bức xạ\n"
+"  --write-currents        <tên-tệp>  - ghi CSV của dòng điện và điện tích\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1919,11 +1869,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"hằng số điện môi phức từ tệp: %12.5E%+12.5Ej, yêu cầu: %12.5E%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "hằng số điện môi phức từ tệp: %12.5E%+12.5Ej, yêu cầu: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1940,12 +1887,8 @@ msgstr "Không thể đọc dữ liệu từ tiến trình con đã fork\n"
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop đã hoàn thành tất cả các bước nhưng num_busy_procs=%d "
-"(calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop đã hoàn thành tất cả các bước nhưng num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1983,35 +1926,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c là giao diện đồ họa tương tác bao bọc phiên bản sửa đổi của nec2c, "
-"bản thân nó là bản dịch sang C từ mã FORTRAN NEC2 Numerical Electromagnetics "
-"Code gốc.\n"
+"xnec2c là giao diện đồ họa tương tác bao bọc phiên bản sửa đổi của nec2c, bản thân nó là bản dịch sang C từ mã FORTRAN NEC2 Numerical Electromagnetics Code gốc.\n"
 "\n"
-"xnec2c có thể hiển thị dữ liệu phụ thuộc tần số (độ lợi, trở kháng đầu vào, "
-"vswr, v.v.) ở định dạng đồ họa. Nó cũng có thể hiển thị dữ liệu biểu đồ bức "
-"xạ ở định dạng khung dây xoay được và trường gần (vector E, H, S) ở định "
-"dạng lưới.\n"
+"xnec2c có thể hiển thị dữ liệu phụ thuộc tần số (độ lợi, trở kháng đầu vào, vswr, v.v.) ở định dạng đồ họa. Nó cũng có thể hiển thị dữ liệu biểu đồ bức xạ ở định dạng khung dây xoay được và trường gần (vector E, H, S) ở định dạng lưới.\n"
 "\n"
-"xnec2c có trình soạn thảo tệp đầu vào NEC2 tích hợp giúp dễ dàng tạo hoặc "
-"chỉnh sửa tệp mô tả anten và chỉ định các lệnh NEC2.\n"
+"xnec2c có trình soạn thảo tệp đầu vào NEC2 tích hợp giúp dễ dàng tạo hoặc chỉnh sửa tệp mô tả anten và chỉ định các lệnh NEC2.\n"
 "\n"
-"VUI LÒNG đọc tài liệu trong thư mục con doc/ vì xnec2c không hoàn toàn tương "
-"thích với tệp đầu vào NEC2 và nó hoạt động theo những cách khác nhau!"
+"VUI LÒNG đọc tài liệu trong thư mục con doc/ vì xnec2c không hoàn toàn tương thích với tệp đầu vào NEC2 và nó hoạt động theo những cách khác nhau!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3602,12 +3531,8 @@ msgstr "Trở kháng đường truyền (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "bỏ qua thẻ CM trong hình học\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta > 90 deg với mặt đất được chỉ định: Vui lòng kiểm tra dữ liệu card "
-#~ "RP và sửa\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta > 90 deg với mặt đất được chỉ định: Vui lòng kiểm tra dữ liệu card RP và sửa\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "Hankel không hợp lệ cho z = 0\n"

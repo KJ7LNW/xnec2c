@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -66,10 +66,8 @@ msgid ""
 "Frequency plots window closed: excitation type %d is incompatible.\n"
 "Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
 msgstr ""
-"Το παράθυρο γραφημάτων συχνότητας έκλεισε: ο τύπος διέγερσης %d δεν είναι "
-"συμβατός.\n"
-"Χρησιμοποιήστε τύπο 0 (Applied E Field) ή 5 (Current Discontinuity) αντί "
-"αυτού."
+"Το παράθυρο γραφημάτων συχνότητας έκλεισε: ο τύπος διέγερσης %d δεν είναι συμβατός.\n"
+"Χρησιμοποιήστε τύπο 0 (Applied E Field) ή 5 (Current Discontinuity) αντί αυτού."
 
 #: src/callback_func.c:518
 #, c-format
@@ -79,8 +77,7 @@ msgid ""
 "Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
 msgstr ""
 "Τα γραφήματα συχνότητας δεν είναι διαθέσιμα με τύπο διέγερσης %d.\n"
-"Αυτό το μοντέλο χρησιμοποιεί διέγερση Incident Field ή Elementary Current "
-"Source.\n"
+"Αυτό το μοντέλο χρησιμοποιεί διέγερση Incident Field ή Elementary Current Source.\n"
 "Αλλάξτε την κάρτα EX σε τύπο 0 (Applied E Field) ή 5 (Current Discontinuity)."
 
 #: src/callback_func.c:697
@@ -145,26 +142,16 @@ msgid "xnec2c geometry optimizer"
 msgstr "Βελτιστοποιητής γεωμετρίας xnec2c"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
-msgstr ""
-"Το xnec2c δημιουργήθηκε χωρίς υποστήριξη inotify: ο βελτιστοποιητής δεν "
-"μπορεί να ενεργοποιηθεί."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr "Το xnec2c δημιουργήθηκε χωρίς υποστήριξη inotify: ο βελτιστοποιητής δεν μπορεί να ενεργοποιηθεί."
 
 #: src/callbacks.c:316
 msgid "Xnec2c Optimizer"
 msgstr "Βελτιστοποιητής Xnec2c"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"Δεν έχουν επιλεγεί αρχεία για εγγραφή. Ωστόσο, το xnec2c θα επαναφορτώσει "
-"και θα επανυπολογίσει το αρχείο εισόδου κατά την τροποποίηση όταν "
-"ενεργοποιηθεί από το inotify. Επιλέξτε αρχεία για εγγραφή στο \"Αρχείο-"
-">Ρυθμίσεις Βελτιστοποίησης\"."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "Δεν έχουν επιλεγεί αρχεία για εγγραφή. Ωστόσο, το xnec2c θα επαναφορτώσει και θα επανυπολογίσει το αρχείο εισόδου κατά την τροποποίηση όταν ενεργοποιηθεί από το inotify. Επιλέξτε αρχεία για εγγραφή στο \"Αρχείο->Ρυθμίσεις Βελτιστοποίησης\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -672,8 +659,7 @@ msgstr "Σφάλμα στη conect(): np > n"
 #: src/geometry.c:343 src/geometry.c:391
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
-msgstr ""
-"σφάλμα δεδομένων γεωμετρίας: το segment %d εκτείνεται κάτω από το έδαφος\n"
+msgstr "σφάλμα δεδομένων γεωμετρίας: το segment %d εκτείνεται κάτω από το έδαφος\n"
 
 #: src/geometry.c:344 src/geometry.c:392
 msgid ""
@@ -686,8 +672,7 @@ msgstr ""
 #: src/geometry.c:401
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
-msgstr ""
-"σφάλμα δεδομένων γεωμετρίας: το segment %d βρίσκεται στο επίπεδο γείωσης\n"
+msgstr "σφάλμα δεδομένων γεωμετρίας: το segment %d βρίσκεται στο επίπεδο γείωσης\n"
 
 #: src/geometry.c:402
 msgid ""
@@ -707,29 +692,20 @@ msgstr "Σφάλμα: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"Ο αριθμός συνδέσεων segment υπερβαίνει ένα πλήρες πλέγμα, το οποίο είναι "
-"απίθανο: data.n=%ld segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "Ο αριθμός συνδέσεων segment υπερβαίνει ένα πλήρες πλέγμα, το οποίο είναι απίθανο: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
 msgstr ""
-"Ο αριθμός συνδέσεων segment υπερβαίνει ένα πλήρες πλέγμα, το οποίο είναι "
-"απίθανο!\n"
+"Ο αριθμός συνδέσεων segment υπερβαίνει ένα πλήρες πλέγμα, το οποίο είναι απίθανο!\n"
 "Ελέγξτε για επικαλυπτόμενα ή σχεδόν συνδεδεμένα segments\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"ελέγξτε τα δεδομένα, η παράμετρος που καθορίζει segment: η θέση σε ομάδα "
-"ίσων tags δεν πρέπει να είναι μηδέν\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "ελέγξτε τα δεδομένα, η παράμετρος που καθορίζει segment: η θέση σε ομάδα ίσων tags δεν πρέπει να είναι μηδέν\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -747,16 +723,12 @@ msgstr "κανένα segment δεν έχει itag %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
-"Σφάλμα αριθμού tag segment: Το tag 0 είναι δεσμευμένο και δεν μπορεί να "
-"χρησιμοποιηθεί.\n"
-"Ελέγξτε τις κάρτες γεωμετρίας σας (ειδικά τις κάρτες GM) για να βεβαιωθείτε "
-"ότι οι τιμές tags είναι έγκυρες.\n"
-"Για κάρτες GM: επαληθεύστε ότι το 'αρχικό tag' και η 'αύξηση tag' δεν "
-"δημιουργούν tag 0."
+"Σφάλμα αριθμού tag segment: Το tag 0 είναι δεσμευμένο και δεν μπορεί να χρησιμοποιηθεί.\n"
+"Ελέγξτε τις κάρτες γεωμετρίας σας (ειδικά τις κάρτες GM) για να βεβαιωθείτε ότι οι τιμές tags είναι έγκυρες.\n"
+"Για κάρτες GM: επαληθεύστε ότι το 'αρχικό tag' και η 'αύξηση tag' δεν δημιουργούν tag 0."
 
 #: src/geometry.c:809
 #, c-format
@@ -767,8 +739,7 @@ msgid ""
 msgstr ""
 "Σφάλμα αριθμού tag segment: Δεν βρέθηκε segment με tag %d.\n"
 "Αναφέρεστε σε άγνωστο tag ή segment σε κάρτα ελέγχου.\n"
-"Τα έγκυρα tags στη γεωμετρία σας είναι αυτά που έχουν εκχωρηθεί σε κάρτες GW/"
-"GA/GH/SP."
+"Τα έγκυρα tags στη γεωμετρία σας είναι αυτά που έχουν εκχωρηθεί σε κάρτες GW/GA/GH/SP."
 
 #: src/geometry.c:1123
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
@@ -785,8 +756,7 @@ msgstr ""
 #: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
-msgstr ""
-"σφάλμα δεδομένων γεωμετρίας: το segment %d βρίσκεται στο επίπεδο συμμετρίας\n"
+msgstr "σφάλμα δεδομένων γεωμετρίας: το segment %d βρίσκεται στο επίπεδο συμμετρίας\n"
 
 #: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
 msgid ""
@@ -799,8 +769,7 @@ msgstr ""
 #: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
-msgstr ""
-"σφάλμα δεδομένων γεωμετρίας: το patch %d βρίσκεται στο επίπεδο συμμετρίας\n"
+msgstr "σφάλμα δεδομένων γεωμετρίας: το patch %d βρίσκεται στο επίπεδο συμμετρίας\n"
 
 #: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
 msgid ""
@@ -812,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: η απόσταση άκρου=%.3e είναι πολύ κοντά (κάτω από το όριο "
-"σύνδεσης=%.3e)· το segment θα συνδεθεί με τον εαυτό του\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: η απόσταση άκρου=%.3e είναι πολύ κοντά (κάτω από το όριο σύνδεσης=%.3e)· το segment θα συνδεθεί με τον εαυτό του\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -826,12 +791,8 @@ msgstr "tag=%d: καταστολή επιπλέον προειδοποιήσεω
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: απόσταση=%.3e προς tag=%d/seg=%d πιο κοντά από 2x όριο "
-"σύνδεσης %.3e· πιθανές ακούσιες συνδέσεις\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: απόσταση=%.3e προς tag=%d/seg=%d πιο κοντά από 2x όριο σύνδεσης %.3e· πιθανές ακούσιες συνδέσεις\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -840,33 +801,18 @@ msgstr "tag=%d: καταστολή επιπλέον προειδοποιήσεω
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: μήκος=%.3e είναι πολύ μικρό (και αρκετά κοντά) στο tag=%d/seg="
-"%d μήκος=%.3e ώστε η ανίχνευση σύνδεσης μπορεί να αποτύχει ή να "
-"βραχυκυκλώσει\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: μήκος=%.3e είναι πολύ μικρό (και αρκετά κοντά) στο tag=%d/seg=%d μήκος=%.3e ώστε η ανίχνευση σύνδεσης μπορεί να αποτύχει ή να βραχυκυκλώσει\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
-msgstr ""
-"tag=%d: καταστολή επιπλέον προειδοποιήσεων αποτυχίας ανίχνευσης σύνδεσης ή "
-"βραχυκυκλώματος\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
+msgstr "tag=%d: καταστολή επιπλέον προειδοποιήσεων αποτυχίας ανίχνευσης σύνδεσης ή βραχυκυκλώματος\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: λόγος μήκους/μήκους κύματος %.3f < 0.001· η ομοιότητα "
-"συνιστωσών ρεύματος οδηγεί σε αριθμητικές ανακρίβειες (ελάχ=0.001, "
-"καλό=0.05, συνιστώμενο <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: λόγος μήκους/μήκους κύματος %.3f < 0.001· η ομοιότητα συνιστωσών ρεύματος οδηγεί σε αριθμητικές ανακρίβειες (ελάχ=0.001, καλό=0.05, συνιστώμενο <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -875,31 +821,18 @@ msgstr "tag=%d: καταστολή επιπλέον σφαλμάτων μικρ�
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: λόγος μήκους/μήκους κύματος %.3f > 0.1· η ανάλυση "
-"δειγματοληψίας ρεύματος περιορίζεται από την απόσταση segments (ελάχ=0.001, "
-"καλό=0.05, συνιστώμενο <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: λόγος μήκους/μήκους κύματος %.3f > 0.1· η ανάλυση δειγματοληψίας ρεύματος περιορίζεται από την απόσταση segments (ελάχ=0.001, καλό=0.05, συνιστώμενο <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
-msgstr ""
-"tag=%d: καταστολή επιπλέον προειδοποιήσεων μεγάλου λόγου μήκους κύματος\n"
+msgstr "tag=%d: καταστολή επιπλέον προειδοποιήσεων μεγάλου λόγου μήκους κύματος\n"
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: λόγος μήκους/μήκους κύματος %.3f > 0.05· μικρότερα segments "
-"αυξάνουν την ακρίβεια σε περιοχές ταχείας μεταβολής ρεύματος (ελάχ=0.001, "
-"καλό=0.05, συνιστώμενο <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: λόγος μήκους/μήκους κύματος %.3f > 0.05· μικρότερα segments αυξάνουν την ακρίβεια σε περιοχές ταχείας μεταβολής ρεύματος (ελάχ=0.001, καλό=0.05, συνιστώμενο <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -908,13 +841,8 @@ msgstr "tag=%d: καταστολή επιπλέον προτάσεων βελτ�
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: λόγος μήκους/ακτίνας %.1f < 2.0· το σφάλμα πεδίου τυπικού "
-"πυρήνα λεπτού αγωγού υπερβαίνει το 1%% κατά πολύ (ελάχ=2.0, "
-"1%%ακρίβεια=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: λόγος μήκους/ακτίνας %.1f < 2.0· το σφάλμα πεδίου τυπικού πυρήνα λεπτού αγωγού υπερβαίνει το 1%% κατά πολύ (ελάχ=2.0, 1%%ακρίβεια=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -923,12 +851,8 @@ msgstr "tag=%d: καταστολή επιπλέον σφαλμάτων λόγο�
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: λόγος μήκους/ακτίνας %.1f < 8.0· το σφάλμα πεδίου τυπικού "
-"πυρήνα λεπτού αγωγού υπερβαίνει το 1%% (ελάχ=2.0, 1%%ακρίβεια=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: λόγος μήκους/ακτίνας %.1f < 8.0· το σφάλμα πεδίου τυπικού πυρήνα λεπτού αγωγού υπερβαίνει το 1%% (ελάχ=2.0, 1%%ακρίβεια=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -937,13 +861,8 @@ msgstr "tag=%d: καταστολή επιπλέον προειδοποιήσεω
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: λόγος μήκους/ακτίνας %.1f < 0.5· το σφάλμα πεδίου επεκταμένου "
-"πυρήνα λεπτού αγωγού υπερβαίνει το 1%% κατά πολύ (ελάχ=0.5, "
-"1%%ακρίβεια=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: λόγος μήκους/ακτίνας %.1f < 0.5· το σφάλμα πεδίου επεκταμένου πυρήνα λεπτού αγωγού υπερβαίνει το 1%% κατά πολύ (ελάχ=0.5, 1%%ακρίβεια=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -952,12 +871,8 @@ msgstr "tag=%d: καταστολή επιπλέον σφαλμάτων λόγο�
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: λόγος μήκους/ακτίνας %.1f < 2.0· το σφάλμα πεδίου επεκταμένου "
-"πυρήνα λεπτού αγωγού υπερβαίνει το 1%% (ελάχ=0.5, 1%%ακρίβεια=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: λόγος μήκους/ακτίνας %.1f < 2.0· το σφάλμα πεδίου επεκταμένου πυρήνα λεπτού αγωγού υπερβαίνει το 1%% (ελάχ=0.5, 1%%ακρίβεια=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -967,9 +882,7 @@ msgstr "tag=%d: καταστολή επιπλέον προειδοποιήσεω
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"Παράλειψη ελέγχου επικάλυψης για %d segments (χρησιμοποιήστε --force-verify "
-"για ενεργοποίηση)\n"
+msgstr "Παράλειψη ελέγχου επικάλυψης για %d segments (χρησιμοποιήστε --force-verify για ενεργοποίηση)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -977,11 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Επιβολή ελέγχου επικάλυψης για %d segments\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() παράλειψη ελέγχων εξαρτώμενων από συχνότητα - δεν υπάρχουν "
-"δεδομένα συχνότητας\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() παράλειψη ελέγχων εξαρτώμενων από συχνότητα - δεν υπάρχουν δεδομένα συχνότητας\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -989,8 +899,7 @@ msgstr "Δεδομένα Gnuplot"
 
 #: src/gnuplot.c:46 src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Cannot save data while frequency loop is running"
-msgstr ""
-"Δεν είναι δυνατή η αποθήκευση δεδομένων ενώ εκτελείται ο βρόχος συχνότητας"
+msgstr "Δεν είναι δυνατή η αποθήκευση δεδομένων ενώ εκτελείται ο βρόχος συχνότητας"
 
 #: src/gnuplot.c:60
 #, c-format
@@ -999,21 +908,13 @@ msgstr "# Σύνθετη αντίσταση αναφοράς Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# Για σχεδίαση στο gnuplot μπορείτε να τροποποιήσετε αυτή την εντολή. Αυτή "
-"τη στιγμή σχεδιάζει MHz έναντι zreal και zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# Για σχεδίαση στο gnuplot μπορείτε να τροποποιήσετε αυτή την εντολή. Αυτή τη στιγμή σχεδιάζει MHz έναντι zreal και zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1062,6 +963,10 @@ msgstr "# wire segments δομής\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "Αποθήκευση Ρευμάτων και Φορτίων σε CSV"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "Πρέπει να ενεργοποιήσετε τα δεδομένα ρεύματος κάνοντας κλικ στο \"Ρεύματα\" ή \"Φορτία\" στο κύριο παράθυρο του xnec2c."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1291,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "Διορθώστε τις κάρτες GE/GN:\n"
 "Η κάρτα GE καθορίζει ότι υπάρχει γείωση, αλλά η GN υποδεικνύει το αντίθετο."
@@ -1310,12 +1214,8 @@ msgstr ""
 "Παρακαλώ ελέγξτε τα δεδομένα της κάρτας RP και διορθώστε"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"προσέγγιση ακτινωτών αγωγών g.s.: δεν μπορεί να χρησιμοποιηθεί με την "
-"επιλογή γείωσης Sommerfeld\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "προσέγγιση ακτινωτών αγωγών g.s.: δεν μπορεί να χρησιμοποιηθεί με την επιλογή γείωσης Sommerfeld\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1327,12 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"σφάλμα δεδομένων στην κάρτα φόρτισης αρ. %d: το itag step1 %d είναι "
-"μεγαλύτερο από το itag step2 %d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "σφάλμα δεδομένων στην κάρτα φόρτισης αρ. %d: το itag step1 %d είναι μεγαλύτερο από το itag step2 %d\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1343,11 +1239,8 @@ msgstr ""
 "το itag step1 είναι μεγαλύτερο από το itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr ""
-"Σύνθετη αντίσταση γραμμής μεταφοράς = 0: δεν είναι έγκυρη. Παρακαλώ "
-"διορθώστε την κάρτα NT ή TL\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "Σύνθετη αντίσταση γραμμής μεταφοράς = 0: δεν είναι έγκυρη. Παρακαλώ διορθώστε την κάρτα NT ή TL\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1371,8 +1264,7 @@ msgstr ""
 
 #: src/input.c:1452
 msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
-msgstr ""
-"Οι κάρτες PQ και PT αγνοούνται: Η εκτύπωση σε αρχείο δεν έχει υλοποιηθεί\n"
+msgstr "Οι κάρτες PQ και PT αγνοούνται: Η εκτύπωση σε αρχείο δεν έχει υλοποιηθεί\n"
 
 #: src/input.c:1453
 msgid ""
@@ -1384,8 +1276,7 @@ msgstr ""
 
 #: src/input.c:1460
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
-msgstr ""
-"Επιλογή επιφανειακού κύματος (I1=1): της εντολής RP δεν έχει υλοποιηθεί\n"
+msgstr "Επιλογή επιφανειακού κύματος (I1=1): της εντολής RP δεν έχει υλοποιηθεί\n"
 
 #: src/input.c:1461
 msgid ""
@@ -1401,20 +1292,13 @@ msgid ""
 "xnec2c renders radiation patterns graphically instead of text tables.\n"
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
-"Ο μέσος όρος κέρδους (XNDA ***1 ή ***2) ελέγχει τη μορφοποίηση εξόδου "
-"κειμένου.\n"
-"Το xnec2c αποδίδει τα διαγράμματα ακτινοβολίας γραφικά αντί για πίνακες "
-"κειμένου.\n"
-"Οι υπολογισμοί διαγράμματος προχωρούν κανονικά· χρησιμοποιήστε το γραφικό "
-"περιβάλλον για να δείτε τα αποτελέσματα."
+"Ο μέσος όρος κέρδους (XNDA ***1 ή ***2) ελέγχει τη μορφοποίηση εξόδου κειμένου.\n"
+"Το xnec2c αποδίδει τα διαγράμματα ακτινοβολίας γραφικά αντί για πίνακες κειμένου.\n"
+"Οι υπολογισμοί διαγράμματος προχωρούν κανονικά· χρησιμοποιήστε το γραφικό περιβάλλον για να δείτε τα αποτελέσματα."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Theta > 90 μοίρες με καθορισμένη γείωση: Παρακαλώ ελέγξτε τα δεδομένα της "
-"κάρτας RP και διορθώστε\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Theta > 90 μοίρες με καθορισμένη γείωση: Παρακαλώ ελέγξτε τα δεδομένα της κάρτας RP και διορθώστε\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1429,24 +1313,16 @@ msgid "Faulty data card"
 msgstr "Ελαττωματική κάρτα δεδομένων"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"Λείπει ή υπάρχει κάρτα RP επιφανειακού κύματος: Οι υπολογισμοί διαγράμματος "
-"ακτινοβολίας και κέρδους απενεργοποιήθηκαν\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "Λείπει ή υπάρχει κάρτα RP επιφανειακού κύματος: Οι υπολογισμοί διαγράμματος ακτινοβολίας και κέρδους απενεργοποιήθηκαν\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "Μη αναμενόμενη έξοδος από βρόχο while"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"σφάλμα κάρτας δεδομένων εντολής: Μη αναμενόμενο EOF κατά την ανάγνωση του "
-"αρχείου εισόδου - προσθήκη κάρτας EN\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "σφάλμα κάρτας δεδομένων εντολής: Μη αναμενόμενο EOF κατά την ανάγνωση του αρχείου εισόδου - προσθήκη κάρτας EN\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1460,9 +1336,7 @@ msgstr ""
 
 #: src/input.c:1668
 msgid "command data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"σφάλμα κάρτας δεδομένων εντολής: ο μνημονικός κωδικός της κάρτας είναι πολύ "
-"σύντομος ή λείπει\n"
+msgstr "σφάλμα κάρτας δεδομένων εντολής: ο μνημονικός κωδικός της κάρτας είναι πολύ σύντομος ή λείπει\n"
 
 #: src/input.c:1669
 msgid ""
@@ -1473,12 +1347,8 @@ msgstr ""
 "Ο μνημονικός κωδικός είναι πολύ σύντομος ή λείπει"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"σφάλμα κάρτας δεδομένων γεωμετρίας: Μη αναμενόμενο EOF κατά την ανάγνωση του "
-"αρχείου εισόδου - προσθήκη κάρτας GE\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "σφάλμα κάρτας δεδομένων γεωμετρίας: Μη αναμενόμενο EOF κατά την ανάγνωση του αρχείου εισόδου - προσθήκη κάρτας GE\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1492,9 +1362,7 @@ msgstr ""
 
 #: src/input.c:1844
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"σφάλμα κάρτας δεδομένων γεωμετρίας: ο μνημονικός κωδικός της κάρτας είναι "
-"πολύ σύντομος ή λείπει\n"
+msgstr "σφάλμα κάρτας δεδομένων γεωμετρίας: ο μνημονικός κωδικός της κάρτας είναι πολύ σύντομος ή λείπει\n"
 
 #: src/input.c:1845
 msgid ""
@@ -1543,8 +1411,7 @@ msgstr "Ο βρόχος συχνότητας pthread απενεργοποιήθ�
 
 #: src/main.c:273
 msgid "batch mode enabled, will exit after first loop\n"
-msgstr ""
-"η λειτουργία δέσμης ενεργοποιήθηκε, θα γίνει έξοδος μετά τον πρώτο βρόχο\n"
+msgstr "η λειτουργία δέσμης ενεργοποιήθηκε, θα γίνει έξοδος μετά τον πρώτο βρόχο\n"
 
 #: src/main.c:331
 msgid "verify segments check disabled\n"
@@ -1723,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1849,6 +1708,72 @@ msgstr "Hankel μη έγκυρο για z = 0"
 msgid "No convergence"
 msgstr "Χωρίς σύγκλιση"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"Χρήση: xnec2c [επιλογές] [<όνομα-αρχείου-εισόδου>]\n"
+"  -i|--input         <όνομα-αρχείου-εισόδου>\n"
+"  -c|--config        <διαδρομή-αρχείου-ρυθμίσεων>     - το αρχείο πρέπει να υπάρχει\n"
+"  -C|--new-config    <διαδρομή-νέου-αρχείου-ρυθμίσεων> - δημιουργεί το αρχείο αν λείπει\n"
+"  -j|--jobs  <αριθμός επεξεργαστών σε μηχανή SMP> (-j0 απενεργοποιεί το forking)\n"
+"     --openblas-threads <n>  ορισμός αριθμού νημάτων OpenBLAS (προεπιλογή: 1)\n"
+"     --mkl-threads <n>       ορισμός αριθμού νημάτων Intel MKL (προεπιλογή: 1)\n"
+"     --omp-threads <n>       ορισμός αριθμού νημάτων OpenMP (προεπιλογή: 1)\n"
+"  -b|--batch:        ενεργοποίηση λειτουργίας δέσμης, έξοδος μετά την εκτέλεση του βρόχου συχνότητας\n"
+"  -P|--no-pthreads:  απενεργοποίηση pthreads και χρήση του βρόχου GTK για αποσφαλμάτωση\n"
+"  -h|--help:         εμφάνιση πληροφοριών χρήσης και έξοδος\n"
+"  -V|--version:      εμφάνιση αριθμού έκδοσης xnec2c και έξοδος\n"
+"  -v|--verbose:      αύξηση λεπτομέρειας, μπορεί να καθοριστεί πολλές φορές\n"
+"  -d|--debug:        ενεργοποίηση εξόδου αποσφαλμάτωσης (-dd περιλαμβάνει backtraces)\n"
+"  -d|--quiet:        καταστολή εξόδου αποσφαλμάτωσης/λεπτομέρειας\n"
+"\n"
+"  --optimize:        Ενεργοποίηση του βελτιστοποιητή αμέσως.\n"
+"  --skip-verify:     παράλειψη ελέγχων επαλήθευσης γεωμετρίας\n"
+"\n"
+"Τα ακόλουθα ορίσματα γράφουν σε αρχείο εξόδου μετά την ολοκλήρωση του βρόχου\n"
+"συχνότητας.  Αυτά είναι χρήσιμα σε συνδυασμό με --batch· Αν θέλετε να καθορίσετε\n"
+"ονόματα αρχείων για εγγραφή χωρίς λειτουργία --batch τότε ενεργοποιήστε τις Ρυθμίσεις\n"
+"Βελτιστοποιητή από το μενού Αρχείο διαφορετικά τα αρχεία που καθορίζετε στη γραμμή\n"
+"εντολών δεν θα εγγραφούν.\n"
+"\n"
+"  --write-csv             <όνομα αρχείου>  - εγγραφή αρχείου CSV μετρήσεων\n"
+"  --write-s1p             <όνομα αρχείου>  - εγγραφή αρχείου S1P παραμέτρων S\n"
+"  --write-s2p-max-gain    <όνομα αρχείου>  - εγγραφή αρχείου S2P, η θύρα-2 είναι μέγιστο κέρδος\n"
+"  --write-s2p-viewer-gain <όνομα αρχείου>  - εγγραφή αρχείου S2P, η θύρα-2 είναι κέρδος παρατηρητή\n"
+"  --write-rdpat           <όνομα αρχείου>  - εγγραφή CSV διαγράμματος ακτινοβολίας\n"
+"  --write-currents        <όνομα αρχείου>  - εγγραφή CSV ρευμάτων και φορτίων\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1926,14 +1851,11 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr ""
-"Ο βρόχος βελτιστοποίησης είναι ημιτελής, παράλειψη επανασχεδίασης "
-"διαγράμματος ακτινοβολίας.\n"
+msgstr "Ο βρόχος βελτιστοποίησης είναι ημιτελής, παράλειψη επανασχεδίασης διαγράμματος ακτινοβολίας.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
-msgstr ""
-"Ο βρόχος βελτιστοποίησης είναι ημιτελής, παράλειψη επανασχεδίασης δομής.\n"
+msgstr "Ο βρόχος βελτιστοποίησης είναι ημιτελής, παράλειψη επανασχεδίασης δομής.\n"
 
 #: src/utils.c:949
 msgid "  Backtrace:\n"
@@ -1951,12 +1873,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"μιγαδική διηλεκτρική σταθερά από αρχείο: %12.5E%+12.5Ej, ζητούμενη: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "μιγαδική διηλεκτρική σταθερά από αρχείο: %12.5E%+12.5Ej, ζητούμενη: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1973,12 +1891,8 @@ msgstr "Αποτυχία ανάγνωσης δεδομένων από διακλ
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Ο Frequency_Loop ολοκλήρωσε όλα τα βήματα αλλά num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d);\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Ο Frequency_Loop ολοκλήρωσε όλα τα βήματα αλλά num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d);\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -2016,37 +1930,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"Το xnec2c είναι ένα διαδραστικό γραφικό περιβάλλον γύρω από μια "
-"τροποποιημένη έκδοση του nec2c, το οποίο είναι μετάφραση σε C του αρχικού "
-"NEC2 Numerical Electromagnetics Code σε FORTRAN.\n"
+"Το xnec2c είναι ένα διαδραστικό γραφικό περιβάλλον γύρω από μια τροποποιημένη έκδοση του nec2c, το οποίο είναι μετάφραση σε C του αρχικού NEC2 Numerical Electromagnetics Code σε FORTRAN.\n"
 "\n"
-"Το xnec2c μπορεί να εμφανίσει δεδομένα εξαρτώμενα από τη συχνότητα (κέρδος, "
-"σύνθετη αντίσταση εισόδου, vswr κλπ) σε γραφική μορφή. Μπορεί επίσης να "
-"εμφανίσει δεδομένα διαγράμματος ακτινοβολίας σε περιστρεφόμενη μορφή "
-"πλέγματος και κοντινό πεδίο (διανύσματα E, H, S) σε μορφή πλέγματος.\n"
+"Το xnec2c μπορεί να εμφανίσει δεδομένα εξαρτώμενα από τη συχνότητα (κέρδος, σύνθετη αντίσταση εισόδου, vswr κλπ) σε γραφική μορφή. Μπορεί επίσης να εμφανίσει δεδομένα διαγράμματος ακτινοβολίας σε περιστρεφόμενη μορφή πλέγματος και κοντινό πεδίο (διανύσματα E, H, S) σε μορφή πλέγματος.\n"
 "\n"
-"Το xnec2c διαθέτει ενσωματωμένο επεξεργαστή αρχείων εισόδου NEC2 που "
-"διευκολύνει τη δημιουργία ή επεξεργασία αρχείων περιγραφής κεραίας και τον "
-"καθορισμό εντολών NEC2.\n"
+"Το xnec2c διαθέτει ενσωματωμένο επεξεργαστή αρχείων εισόδου NEC2 που διευκολύνει τη δημιουργία ή επεξεργασία αρχείων περιγραφής κεραίας και τον καθορισμό εντολών NEC2.\n"
 "\n"
-"ΠΑΡΑΚΑΛΩ διαβάστε την τεκμηρίωση στον υποκατάλογο doc/ καθώς το xnec2c δεν "
-"είναι πλήρως συμβατό με αρχεία εισόδου NEC2 και λειτουργεί με διαφορετικούς "
-"τρόπους!"
+"ΠΑΡΑΚΑΛΩ διαβάστε την τεκμηρίωση στον υποκατάλογο doc/ καθώς το xnec2c δεν είναι πλήρως συμβατό με αρχεία εισόδου NEC2 και λειτουργεί με διαφορετικούς τρόπους!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3602,19 +3500,13 @@ msgstr "Εμπέδηση Γραμμής Μεταφοράς (Zo)"
 #~ msgstr "σφάλμα ανάγνωσης Σχολίων: Μνημονικό σχολίου σύντομο ή λείπει\n"
 
 #~ msgid "geometry data card error - tag number is less than 1\n"
-#~ msgstr ""
-#~ "σφάλμα κάρτας δεδομένων γεωμετρίας - ο αριθμός tag είναι μικρότερος από "
-#~ "1\n"
+#~ msgstr "σφάλμα κάρτας δεδομένων γεωμετρίας - ο αριθμός tag είναι μικρότερος από 1\n"
 
 #~ msgid "geometry data card error - number of segments is less than 1\n"
-#~ msgstr ""
-#~ "σφάλμα κάρτας δεδομένων γεωμετρίας - ο αριθμός segments είναι μικρότερος "
-#~ "από 1\n"
+#~ msgstr "σφάλμα κάρτας δεδομένων γεωμετρίας - ο αριθμός segments είναι μικρότερος από 1\n"
 
 #~ msgid "geometry data card error no GC card for tapered wire\n"
-#~ msgstr ""
-#~ "σφάλμα κάρτας δεδομένων γεωμετρίας: δεν υπάρχει κάρτα GC για κωνικό "
-#~ "αγωγό\n"
+#~ msgstr "σφάλμα κάρτας δεδομένων γεωμετρίας: δεν υπάρχει κάρτα GC για κωνικό αγωγό\n"
 
 #~ msgid "geometry GC data card error\n"
 #~ msgstr "σφάλμα κάρτας δεδομένων γεωμετρίας GC\n"
@@ -3643,12 +3535,8 @@ msgstr "Εμπέδηση Γραμμής Μεταφοράς (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "αγνόηση κάρτας CM στη γεωμετρία\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta > 90 deg με καθορισμένη γείωση: Παρακαλώ ελέγξτε τα δεδομένα της "
-#~ "κάρτας RP και διορθώστε\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta > 90 deg με καθορισμένη γείωση: Παρακαλώ ελέγξτε τα δεδομένα της κάρτας RP και διορθώστε\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "Hankel μη έγκυρο για z = 0\n"
@@ -3657,11 +3545,8 @@ msgstr "Εμπέδηση Γραμμής Μεταφοράς (Zo)"
 #~ msgstr "Χωρίς σύγκλιση\n"
 
 #, c-format
-#~ msgid ""
-#~ "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
-#~ msgstr ""
-#~ "σφάλμα κάρτας δεδομένων γεωμετρίας \"%s\": Παράξενος χαρακτήρας '%c' στη "
-#~ "στήλη %d\n"
+#~ msgid "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
+#~ msgstr "σφάλμα κάρτας δεδομένων γεωμετρίας \"%s\": Παράξενος χαρακτήρας '%c' στη στήλη %d\n"
 
 #~ msgid ""
 #~ "Geometry data card error\n"

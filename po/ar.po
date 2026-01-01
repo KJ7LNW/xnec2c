@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,8 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
 
 #: src/calculations.c:117 src/calculations.c:1276
 #, c-format
@@ -143,8 +142,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "محسّن هندسة xnec2c"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "تم بناء xnec2c بدون دعم inotify: لا يمكن تفعيل المحسّن."
 
 #: src/callbacks.c:316
@@ -152,14 +150,8 @@ msgid "Xnec2c Optimizer"
 msgstr "محسّن Xnec2c"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"لم يتم تحديد ملفات للكتابة. ومع ذلك، سيقوم xnec2c بإعادة تحميل وإعادة حساب "
-"ملف الإدخال عند التعديل عندما يتم تشغيله بواسطة inotify. حدد ملفات للكتابة "
-"في \"ملف->إعدادات التحسين\"."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "لم يتم تحديد ملفات للكتابة. ومع ذلك، سيقوم xnec2c بإعادة تحميل وإعادة حساب ملف الإدخال عند التعديل عندما يتم تشغيله بواسطة inotify. حدد ملفات للكتابة في \"ملف->إعدادات التحسين\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -700,12 +692,8 @@ msgstr "خطأ: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"عدد اتصالات segment يتجاوز شبكة كاملة، وهذا غير محتمل: data.n=%ld segj."
-"maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "عدد اتصالات segment يتجاوز شبكة كاملة، وهذا غير محتمل: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -716,12 +704,8 @@ msgstr ""
 "تحقق من segments المتداخلة أو شبه المتصلة\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"تحقق من البيانات، معامل تحديد segment: الموضع في مجموعة من tags المتساوية "
-"يجب ألا يكون صفراً\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "تحقق من البيانات، معامل تحديد segment: الموضع في مجموعة من tags المتساوية يجب ألا يكون صفراً\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -739,8 +723,7 @@ msgstr "لا يوجد segment بـ itag تساوي %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "خطأ في رقم tag لـ segment: tag 0 محجوز ولا يمكن استخدامه.\n"
@@ -798,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: مسافة نقطة النهاية=%.3e قريبة جداً (أقل من عتبة الاتصال=%.3e)؛ "
-"segment سيتصل بنفسه\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: مسافة نقطة النهاية=%.3e قريبة جداً (أقل من عتبة الاتصال=%.3e)؛ segment سيتصل بنفسه\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -812,12 +791,8 @@ msgstr "tag=%d: إيقاف تحذيرات الاتصال الذاتي الإضا
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: المسافة=%.3e إلى tag=%d/seg=%d أقرب من ضعف عتبة الاتصال %.3e؛ "
-"احتمال وجود اتصالات غير مقصودة\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: المسافة=%.3e إلى tag=%d/seg=%d أقرب من ضعف عتبة الاتصال %.3e؛ احتمال وجود اتصالات غير مقصودة\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -826,29 +801,18 @@ msgstr "tag=%d: إيقاف تحذيرات التداخل الإضافية\n"
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: الطول=%.3e قصير جداً (وقريب بما يكفي) من tag=%d/seg=%d الطول="
-"%.3e مما قد يؤدي إلى فشل أو قصر في كشف الاتصال\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: الطول=%.3e قصير جداً (وقريب بما يكفي) من tag=%d/seg=%d الطول=%.3e مما قد يؤدي إلى فشل أو قصر في كشف الاتصال\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
 msgstr "tag=%d: إيقاف تحذيرات فشل أو قصر كشف الاتصال الإضافية\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: نسبة الطول/الطول الموجي %.3f < 0.001؛ تشابه مكونات التيار "
-"يؤدي إلى عدم دقة عددية (الحد الأدنى=0.001، جيد=0.05، موصى به <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: نسبة الطول/الطول الموجي %.3f < 0.001؛ تشابه مكونات التيار يؤدي إلى عدم دقة عددية (الحد الأدنى=0.001، جيد=0.05، موصى به <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -857,13 +821,8 @@ msgstr "tag=%d: إيقاف أخطاء نسبة الطول الموجي القص�
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: نسبة الطول/الطول الموجي %.3f > 0.1؛ دقة أخذ عينات التيار "
-"محدودة بتباعد segments (الحد الأدنى=0.001، جيد=0.05، موصى به <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: نسبة الطول/الطول الموجي %.3f > 0.1؛ دقة أخذ عينات التيار محدودة بتباعد segments (الحد الأدنى=0.001، جيد=0.05، موصى به <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -872,14 +831,8 @@ msgstr "tag=%d: إيقاف تحذيرات نسبة الطول الموجي ال�
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: نسبة الطول/الطول الموجي %.3f > 0.05؛ segments الأقصر تزيد "
-"الدقة في مناطق التغير السريع للتيار (الحد الأدنى=0.001، جيد=0.05، موصى به "
-"<=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: نسبة الطول/الطول الموجي %.3f > 0.05؛ segments الأقصر تزيد الدقة في مناطق التغير السريع للتيار (الحد الأدنى=0.001، جيد=0.05، موصى به <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -888,12 +841,8 @@ msgstr "tag=%d: إيقاف اقتراحات تحسين الدقة الإضافي
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 2.0؛ خطأ حقل نواة السلك الرفيع "
-"القياسية يتجاوز 1%% بهامش كبير (الحد الأدنى=2.0، دقة 1%%=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 2.0؛ خطأ حقل نواة السلك الرفيع القياسية يتجاوز 1%% بهامش كبير (الحد الأدنى=2.0، دقة 1%%=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -902,12 +851,8 @@ msgstr "tag=%d: إيقاف أخطاء نسبة النواة القياسية ا�
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 8.0؛ خطأ حقل نواة السلك الرفيع "
-"القياسية يتجاوز 1%% (الحد الأدنى=2.0، دقة 1%%=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 8.0؛ خطأ حقل نواة السلك الرفيع القياسية يتجاوز 1%% (الحد الأدنى=2.0، دقة 1%%=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -916,12 +861,8 @@ msgstr "tag=%d: إيقاف تحذيرات نسبة النواة القياسية
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 0.5؛ خطأ حقل نواة السلك الرفيع "
-"الموسعة يتجاوز 1%% بهامش كبير (الحد الأدنى=0.5، دقة 1%%=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 0.5؛ خطأ حقل نواة السلك الرفيع الموسعة يتجاوز 1%% بهامش كبير (الحد الأدنى=0.5، دقة 1%%=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -930,12 +871,8 @@ msgstr "tag=%d: إيقاف أخطاء نسبة النواة الموسعة ال�
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 2.0؛ خطأ حقل نواة السلك الرفيع "
-"الموسعة يتجاوز 1%% (الحد الأدنى=0.5، دقة 1%%=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 2.0؛ خطأ حقل نواة السلك الرفيع الموسعة يتجاوز 1%% (الحد الأدنى=0.5، دقة 1%%=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -953,10 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "فرض فحص التداخل لـ %d segment\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() تخطي الفحوصات المعتمدة على التردد - لا توجد بيانات تردد\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() تخطي الفحوصات المعتمدة على التردد - لا توجد بيانات تردد\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -973,21 +908,13 @@ msgstr "# ممانعة مرجعية Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# للرسم في gnuplot يمكنك تعديل هذا الأمر. حالياً يرسم MHz مقابل zreal و "
-"zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# للرسم في gnuplot يمكنك تعديل هذا الأمر. حالياً يرسم MHz مقابل zreal و zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1036,6 +963,10 @@ msgstr "# segments سلك الهيكل\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "حفظ التيارات والشحنات إلى CSV"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "يجب تمكين بيانات التيار بالنقر على \"Currents\" أو \"Charges\" في نافذة xnec2c الرئيسية."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1265,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "أصلح بطاقات GE/GN:\n"
 "بطاقة GE تحدد وجود أرضي، لكن GN تشير إلى خلاف ذلك."
@@ -1284,11 +1214,8 @@ msgstr ""
 "يرجى التحقق من بيانات بطاقة RP وتصحيحها"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"تقريب الأسلاك الشعاعية g.s.: لا يمكن استخدامه مع خيار أرضي Sommerfeld\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "تقريب الأسلاك الشعاعية g.s.: لا يمكن استخدامه مع خيار أرضي Sommerfeld\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1300,11 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"خطأ في بيانات بطاقة التحميل رقم %d: itag step1 %d أكبر من itag step2 %d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "خطأ في بيانات بطاقة التحميل رقم %d: itag step1 %d أكبر من itag step2 %d\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1315,8 +1239,7 @@ msgstr ""
 "itag step1 أكبر من itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr "ممانعة خط النقل = 0: غير صالحة. يرجى تصحيح بطاقة NT أو TL\n"
 
 #: src/input.c:1421
@@ -1374,11 +1297,8 @@ msgstr ""
 "حسابات النمط تتم بشكل طبيعي؛ استخدم واجهة المستخدم لعرض النتائج."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Theta > 90 درجة مع تحديد الأرضي: يرجى التحقق من بيانات بطاقة RP وتصحيحها\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Theta > 90 درجة مع تحديد الأرضي: يرجى التحقق من بيانات بطاقة RP وتصحيحها\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1393,23 +1313,16 @@ msgid "Faulty data card"
 msgstr "بطاقة بيانات خاطئة"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"بطاقة RP مفقودة أو للموجة السطحية: تم تعطيل حسابات نمط الإشعاع والكسب\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "بطاقة RP مفقودة أو للموجة السطحية: تم تعطيل حسابات نمط الإشعاع والكسب\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "خروج غير متوقع من حلقة while"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"خطأ في بطاقة بيانات الأوامر: نهاية ملف غير متوقعة أثناء قراءة ملف الإدخال - "
-"إضافة بطاقة EN\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "خطأ في بطاقة بيانات الأوامر: نهاية ملف غير متوقعة أثناء قراءة ملف الإدخال - إضافة بطاقة EN\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1434,12 +1347,8 @@ msgstr ""
 "الرمز التذكيري قصير جداً أو مفقود"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"خطأ في بطاقة بيانات الهندسة: نهاية ملف غير متوقعة أثناء قراءة ملف الإدخال - "
-"إضافة بطاقة GE\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "خطأ في بطاقة بيانات الهندسة: نهاية ملف غير متوقعة أثناء قراءة ملف الإدخال - إضافة بطاقة GE\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1681,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1807,6 +1708,71 @@ msgstr "Hankel غير صالح لـ z = 0"
 msgid "No convergence"
 msgstr "لا يوجد تقارب"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"الاستخدام: xnec2c [خيارات] [<اسم-ملف-الإدخال>]\n"
+"  -i|--input         <اسم-ملف-الإدخال>\n"
+"  -c|--config        <مسار-ملف-الإعدادات>     - يجب أن يكون الملف موجوداً\n"
+"  -C|--new-config    <مسار-ملف-إعدادات-جديد> - ينشئ الملف إذا لم يكن موجوداً\n"
+"  -j|--jobs  <عدد المعالجات في جهاز SMP> (-j0 يعطّل التفرع)\n"
+"     --openblas-threads <n>  تعيين عدد خيوط OpenBLAS (الافتراضي: 1)\n"
+"     --mkl-threads <n>       تعيين عدد خيوط Intel MKL (الافتراضي: 1)\n"
+"     --omp-threads <n>       تعيين عدد خيوط OpenMP (الافتراضي: 1)\n"
+"  -b|--batch:        تمكين وضع الدُفعات، الخروج بعد اكتمال حلقة التردد\n"
+"  -P|--no-pthreads:  تعطيل pthreads واستخدام حلقة GTK لتصحيح الأخطاء\n"
+"  -h|--help:         طباعة معلومات الاستخدام والخروج\n"
+"  -V|--version:      طباعة رقم إصدار xnec2c والخروج\n"
+"  -v|--verbose:      زيادة التفصيل، يمكن تحديده عدة مرات\n"
+"  -d|--debug:        تمكين مخرجات التصحيح (-dd يتضمن تتبع المكدس)\n"
+"  -d|--quiet:        إخفاء مخرجات التصحيح/التفصيل\n"
+"\n"
+"  --optimize:        تفعيل المُحسِّن فوراً.\n"
+"  --skip-verify:     تخطي فحوصات التحقق من الهندسة\n"
+"\n"
+"الوسائط التالية تكتب إلى ملف إخراج بعد اكتمال حلقة التردد.\n"
+"هذه مفيدة للدمج مع --batch؛ إذا كنت ترغب في تحديد\n"
+"أسماء ملفات للكتابة بدون وضع --batch فقم بتمكين File->Optimizer\n"
+"Settings وإلا فإن الملفات التي تحددها في سطر الأوامر لن تُكتب.\n"
+"\n"
+"  --write-csv             <اسم الملف>  - كتابة ملف CSV للقياسات\n"
+"  --write-s1p             <اسم الملف>  - كتابة ملف S1P لمعاملات S\n"
+"  --write-s2p-max-gain    <اسم الملف>  - كتابة ملف S2P، المنفذ-2 هو أقصى كسب\n"
+"  --write-s2p-viewer-gain <اسم الملف>  - كتابة ملف S2P، المنفذ-2 هو كسب العارض\n"
+"  --write-rdpat           <اسم الملف>  - كتابة CSV لنمط الإشعاع\n"
+"  --write-currents        <اسم الملف>  - كتابة CSV للتيارات والشحنات\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1906,12 +1872,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"ثابت العزل الكهربائي المركب من الملف: %12.5E%+12.5Ej، المطلوب: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "ثابت العزل الكهربائي المركب من الملف: %12.5E%+12.5Ej، المطلوب: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1928,12 +1890,8 @@ msgstr "فشل قراءة البيانات من العملية الفرعية\n"
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"انتهت Frequency_Loop من جميع الخطوات لكن num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)؟\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "انتهت Frequency_Loop من جميع الخطوات لكن num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)؟\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1971,33 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c هو واجهة رسومية تفاعلية حول نسخة معدلة من nec2c، وهو بدوره ترجمة إلى "
-"C من شفرة NEC2 الكهرومغناطيسية العددية الأصلية بلغة FORTRAN.\n"
+"xnec2c هو واجهة رسومية تفاعلية حول نسخة معدلة من nec2c، وهو بدوره ترجمة إلى C من شفرة NEC2 الكهرومغناطيسية العددية الأصلية بلغة FORTRAN.\n"
 "\n"
-"يمكن لـ xnec2c عرض البيانات المعتمدة على التردد (الكسب، ممانعة الإدخال، "
-"VSWR، إلخ) بتنسيق رسومي. كما يمكنه عرض بيانات نمط الإشعاع بتنسيق إطار سلكي "
-"قابل للدوران والحقل القريب (متجهات E، H، S) بتنسيق شبكي.\n"
+"يمكن لـ xnec2c عرض البيانات المعتمدة على التردد (الكسب، ممانعة الإدخال، VSWR، إلخ) بتنسيق رسومي. كما يمكنه عرض بيانات نمط الإشعاع بتنسيق إطار سلكي قابل للدوران والحقل القريب (متجهات E، H، S) بتنسيق شبكي.\n"
 "\n"
-"يحتوي xnec2c على محرر ملفات إدخال NEC2 مدمج يسهّل إنشاء أو تحرير ملفات وصف "
-"الهوائي وتحديد أوامر NEC2.\n"
+"يحتوي xnec2c على محرر ملفات إدخال NEC2 مدمج يسهّل إنشاء أو تحرير ملفات وصف الهوائي وتحديد أوامر NEC2.\n"
 "\n"
-"يرجى قراءة الوثائق في المجلد الفرعي doc/ حيث أن xnec2c ليس متوافقاً بالكامل "
-"مع ملفات إدخال NEC2 ويعمل بطرق مختلفة!"
+"يرجى قراءة الوثائق في المجلد الفرعي doc/ حيث أن xnec2c ليس متوافقاً بالكامل مع ملفات إدخال NEC2 ويعمل بطرق مختلفة!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3588,12 +3534,8 @@ msgstr "ممانعة خط النقل (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "تجاهل بطاقة CM في الهندسة\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta أكبر من 90 درجة مع تحديد الأرضي: يرجى التحقق من بيانات بطاقة RP "
-#~ "وتصحيحها\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta أكبر من 90 درجة مع تحديد الأرضي: يرجى التحقق من بيانات بطاقة RP وتصحيحها\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "Hankel غير صالح لـ z = 0\n"
@@ -3602,10 +3544,8 @@ msgstr "ممانعة خط النقل (Zo)"
 #~ msgstr "لا يوجد تقارب\n"
 
 #, c-format
-#~ msgid ""
-#~ "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
-#~ msgstr ""
-#~ "خطأ في بطاقة بيانات الهندسة \"%1$s\": حرف زائد '%2$c' في العمود %3$d\n"
+#~ msgid "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
+#~ msgstr "خطأ في بطاقة بيانات الهندسة \"%1$s\": حرف زائد '%2$c' في العمود %3$d\n"
 
 #~ msgid ""
 #~ "Geometry data card error\n"

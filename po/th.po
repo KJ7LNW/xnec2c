@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -142,8 +142,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "ตัวปรับแต่งเรขาคณิต xnec2c"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c ถูกสร้างโดยไม่มีการสนับสนุน inotify: ไม่สามารถเปิดใช้งานตัวปรับแต่งได้"
 
 #: src/callbacks.c:316
@@ -151,14 +150,8 @@ msgid "Xnec2c Optimizer"
 msgstr "ตัวปรับแต่ง Xnec2c"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"ไม่มีไฟล์ที่เลือกสำหรับการเขียน อย่างไรก็ตาม xnec2c "
-"จะยังคงโหลดใหม่และคำนวณไฟล์ข้อมูลนำเข้าใหม่เมื่อมีการแก้ไขเมื่อถูกกระตุ้นโดย inotify "
-"เลือกไฟล์สำหรับเขียนใน \"ไฟล์->การตั้งค่าการเพิ่มประสิทธิภาพ\""
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "ไม่มีไฟล์ที่เลือกสำหรับการเขียน อย่างไรก็ตาม xnec2c จะยังคงโหลดใหม่และคำนวณไฟล์ข้อมูลนำเข้าใหม่เมื่อมีการแก้ไขเมื่อถูกกระตุ้นโดย inotify เลือกไฟล์สำหรับเขียนใน \"ไฟล์->การตั้งค่าการเพิ่มประสิทธิภาพ\""
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -699,12 +692,8 @@ msgstr "ข้อผิดพลาด: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"จำนวนการเชื่อมต่อเซกเมนต์เกินตาข่ายเต็ม ซึ่งไม่น่าจะเป็นไปได้: data.n=%ld segj.maxcon="
-"%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "จำนวนการเชื่อมต่อเซกเมนต์เกินตาข่ายเต็ม ซึ่งไม่น่าจะเป็นไปได้: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -715,9 +704,7 @@ msgstr ""
 "ตรวจสอบเซกเมนต์ที่ซ้อนทับหรือเกือบเชื่อมต่อกัน\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
 msgstr "ตรวจสอบข้อมูล พารามิเตอร์ระบุเซกเมนต์: ตำแหน่งในกลุ่มแท็กที่เท่ากันต้องไม่เป็นศูนย์\n"
 
 #: src/geometry.c:765
@@ -736,8 +723,7 @@ msgstr "ไม่มีเซกเมนต์ที่มี itag เป็น
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "ข้อผิดพลาดหมายเลขแท็กเซกเมนต์: แท็ก 0 ถูกสงวนไว้และไม่สามารถใช้ได้\n"
@@ -795,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: ระยะจุดปลาย=%.3e ใกล้เกินไป (ต่ำกว่าเกณฑ์การเชื่อมต่อ=%.3e); "
-"เซกเมนต์จะเชื่อมต่อกับตัวเอง\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: ระยะจุดปลาย=%.3e ใกล้เกินไป (ต่ำกว่าเกณฑ์การเชื่อมต่อ=%.3e); เซกเมนต์จะเชื่อมต่อกับตัวเอง\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -809,12 +791,8 @@ msgstr "tag=%d: ระงับคำเตือนการเชื่อม�
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: ระยะทาง=%.3e ถึง tag=%d/seg=%d ใกล้กว่า 2 เท่าของเกณฑ์การเชื่อมต่อ "
-"%.3e; อาจมีการเชื่อมต่อที่ไม่ตั้งใจ\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: ระยะทาง=%.3e ถึง tag=%d/seg=%d ใกล้กว่า 2 เท่าของเกณฑ์การเชื่อมต่อ %.3e; อาจมีการเชื่อมต่อที่ไม่ตั้งใจ\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -823,30 +801,18 @@ msgstr "tag=%d: ระงับคำเตือนการซ้อนทั�
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: ความยาว=%.3e สั้นเกินไป (และใกล้พอ) กับ tag=%d/seg=%d ความยาว=%.3e "
-"ซึ่งการตรวจจับการเชื่อมต่ออาจล้มเหลวหรือลัดวงจร\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: ความยาว=%.3e สั้นเกินไป (และใกล้พอ) กับ tag=%d/seg=%d ความยาว=%.3e ซึ่งการตรวจจับการเชื่อมต่ออาจล้มเหลวหรือลัดวงจร\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
 msgstr "tag=%d: ระงับคำเตือนการตรวจจับการเชื่อมต่ออาจล้มเหลวหรือลัดวงจรเพิ่มเติม\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: อัตราส่วนความยาว/ความยาวคลื่น %.3f < 0.001; "
-"ความคล้ายคลึงของส่วนประกอบกระแสนำไปสู่ความไม่แม่นยำเชิงตัวเลข (ต่ำสุด=0.001, ดี=0.05, "
-"แนะนำ <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: อัตราส่วนความยาว/ความยาวคลื่น %.3f < 0.001; ความคล้ายคลึงของส่วนประกอบกระแสนำไปสู่ความไม่แม่นยำเชิงตัวเลข (ต่ำสุด=0.001, ดี=0.05, แนะนำ <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -855,14 +821,8 @@ msgstr "tag=%d: ระงับข้อผิดพลาดอัตราส�
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: อัตราส่วนความยาว/ความยาวคลื่น %.3f > 0.1; "
-"ความละเอียดการสุ่มตัวอย่างกระแสถูกจำกัดโดยระยะห่างเซกเมนต์ (ต่ำสุด=0.001, ดี=0.05, แนะนำ "
-"<= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: อัตราส่วนความยาว/ความยาวคลื่น %.3f > 0.1; ความละเอียดการสุ่มตัวอย่างกระแสถูกจำกัดโดยระยะห่างเซกเมนต์ (ต่ำสุด=0.001, ดี=0.05, แนะนำ <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -871,14 +831,8 @@ msgstr "tag=%d: ระงับคำเตือนอัตราส่วน�
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: อัตราส่วนความยาว/ความยาวคลื่น %.3f > 0.05; "
-"เซกเมนต์สั้นกว่าเพิ่มความแม่นยำในบริเวณที่กระแสเปลี่ยนแปลงเร็ว (ต่ำสุด=0.001, ดี=0.05, แนะนำ "
-"<=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: อัตราส่วนความยาว/ความยาวคลื่น %.3f > 0.05; เซกเมนต์สั้นกว่าเพิ่มความแม่นยำในบริเวณที่กระแสเปลี่ยนแปลงเร็ว (ต่ำสุด=0.001, ดี=0.05, แนะนำ <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -887,12 +841,8 @@ msgstr "tag=%d: ระงับข้อเสนอแนะการปรั�
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 2.0; "
-"ข้อผิดพลาดสนามเคอร์เนลสายบางมาตรฐานเกิน 1%% อย่างมาก (ต่ำสุด=2.0, แม่นยำ 1%%=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 2.0; ข้อผิดพลาดสนามเคอร์เนลสายบางมาตรฐานเกิน 1%% อย่างมาก (ต่ำสุด=2.0, แม่นยำ 1%%=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -901,12 +851,8 @@ msgstr "tag=%d: ระงับข้อผิดพลาดอัตราส�
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 8.0; "
-"ข้อผิดพลาดสนามเคอร์เนลสายบางมาตรฐานเกิน 1%% (ต่ำสุด=2.0, แม่นยำ 1%%=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 8.0; ข้อผิดพลาดสนามเคอร์เนลสายบางมาตรฐานเกิน 1%% (ต่ำสุด=2.0, แม่นยำ 1%%=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -915,12 +861,8 @@ msgstr "tag=%d: ระงับคำเตือนอัตราส่วน�
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 0.5; "
-"ข้อผิดพลาดสนามเคอร์เนลสายบางขยายเกิน 1%% อย่างมาก (ต่ำสุด=0.5, แม่นยำ 1%%=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 0.5; ข้อผิดพลาดสนามเคอร์เนลสายบางขยายเกิน 1%% อย่างมาก (ต่ำสุด=0.5, แม่นยำ 1%%=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -929,12 +871,8 @@ msgstr "tag=%d: ระงับข้อผิดพลาดอัตราส�
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 2.0; "
-"ข้อผิดพลาดสนามเคอร์เนลสายบางขยายเกิน 1%% (ต่ำสุด=0.5, แม่นยำ 1%%=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: อัตราส่วนความยาว/รัศมี %.1f < 2.0; ข้อผิดพลาดสนามเคอร์เนลสายบางขยายเกิน 1%% (ต่ำสุด=0.5, แม่นยำ 1%%=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -944,8 +882,7 @@ msgstr "tag=%d: ระงับคำเตือนอัตราส่วน�
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"ข้ามการตรวจสอบการซ้อนทับสำหรับ %d เซกเมนต์ (ใช้ --force-verify เพื่อเปิดใช้งาน)\n"
+msgstr "ข้ามการตรวจสอบการซ้อนทับสำหรับ %d เซกเมนต์ (ใช้ --force-verify เพื่อเปิดใช้งาน)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -953,8 +890,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "บังคับตรวจสอบการซ้อนทับสำหรับ %d เซกเมนต์\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() ข้ามการตรวจสอบที่ขึ้นกับความถี่ - ไม่มีข้อมูลความถี่\n"
 
 #: src/gnuplot.c:46
@@ -972,21 +908,13 @@ msgstr "# อิมพีแดนซ์อ้างอิง Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# หากต้องการพล็อตใน gnuplot คุณสามารถปรับแต่งคำสั่งนี้ได้ ปัจจุบันพล็อต MHz กับ zreal และ "
-"zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# หากต้องการพล็อตใน gnuplot คุณสามารถปรับแต่งคำสั่งนี้ได้ ปัจจุบันพล็อต MHz กับ zreal และ zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1035,6 +963,10 @@ msgstr "# เซกเมนต์สายโครงสร้าง\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "บันทึกกระแสและประจุเป็น CSV"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "คุณต้องเปิดใช้งานข้อมูลกระแสโดยคลิก \"Currents\" หรือ \"Charges\" ในหน้าต่างหลักของ xnec2c"
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1264,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "แก้ไขการ์ด GE/GN:\n"
 "การ์ด GE ระบุว่ามีกราวด์อยู่ แต่ GN ระบุเป็นอย่างอื่น"
@@ -1283,9 +1214,7 @@ msgstr ""
 "กรุณาตรวจสอบข้อมูลการ์ด RP และแก้ไข"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
 msgstr "การประมาณค่า radial wire g.s.: ไม่สามารถใช้กับตัวเลือกกราวด์ Sommerfeld ได้\n"
 
 #: src/input.c:1234
@@ -1298,9 +1227,7 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
 msgstr "ข้อผิดพลาดข้อมูลบนการ์ดโหลดหมายเลข %d: itag step1 %d มากกว่า itag step2 %d\n"
 
 #: src/input.c:1287
@@ -1312,8 +1239,7 @@ msgstr ""
 "itag step1 มากกว่า itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr "อิมพีแดนซ์สายส่ง = 0: ไม่ถูกต้อง กรุณาแก้ไขการ์ด NT หรือ TL\n"
 
 #: src/input.c:1421
@@ -1371,9 +1297,7 @@ msgstr ""
 "การคำนวณแพทเทิร์นดำเนินการตามปกติ ใช้ GUI เพื่อดูผลลัพธ์"
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
 msgstr "Theta > 90 องศา โดยมีการระบุกราวด์: กรุณาตรวจสอบข้อมูลการ์ด RP และแก้ไข\n"
 
 #: src/input.c:1503
@@ -1389,9 +1313,7 @@ msgid "Faulty data card"
 msgstr "การ์ดข้อมูลผิดพลาด"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
 msgstr "ไม่มีการ์ด RP หรือเป็นการ์ดคลื่นผิว: การคำนวณแพทเทิร์นการแผ่คลื่นและเกนถูกปิดใช้งาน\n"
 
 #: src/input.c:1595
@@ -1399,9 +1321,7 @@ msgid "Unexpected exit from while loop"
 msgstr "ออกจากลูป while โดยไม่คาดคิด"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
 msgstr "ข้อผิดพลาดการ์ดข้อมูลคำสั่ง: พบ EOF ที่ไม่คาดคิดขณะอ่านไฟล์อินพุต - กำลังเพิ่มการ์ด EN\n"
 
 #: src/input.c:1654
@@ -1427,11 +1347,8 @@ msgstr ""
 "รหัสช่วยจำสั้นเกินไปหรือไม่มี"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต: พบ EOF ที่ไม่คาดคิดขณะอ่านไฟล์อินพุต - กำลังเพิ่มการ์ด GE\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต: พบ EOF ที่ไม่คาดคิดขณะอ่านไฟล์อินพุต - กำลังเพิ่มการ์ด GE\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1673,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1799,6 +1708,71 @@ msgstr "Hankel ไม่ถูกต้องสำหรับ z = 0"
 msgid "No convergence"
 msgstr "ไม่ลู่เข้า"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"การใช้งาน: xnec2c [ตัวเลือก] [<ชื่อไฟล์อินพุต>]\n"
+"  -i|--input         <ชื่อไฟล์อินพุต>\n"
+"  -c|--config        <พาธไฟล์คอนฟิก>     - ไฟล์ต้องมีอยู่\n"
+"  -C|--new-config    <พาธไฟล์คอนฟิกใหม่> - สร้างไฟล์เมื่อไม่มี\n"
+"  -j|--jobs  <จำนวนโปรเซสเซอร์ในเครื่อง SMP> (-j0 ปิดใช้งาน forking)\n"
+"     --openblas-threads <n>  ตั้งค่าจำนวนเธรด OpenBLAS (ค่าเริ่มต้น: 1)\n"
+"     --mkl-threads <n>       ตั้งค่าจำนวนเธรด Intel MKL (ค่าเริ่มต้น: 1)\n"
+"     --omp-threads <n>       ตั้งค่าจำนวนเธรด OpenMP (ค่าเริ่มต้น: 1)\n"
+"  -b|--batch:        เปิดใช้งานโหมดแบตช์ ออกหลังจากลูปความถี่ทำงานเสร็จ\n"
+"  -P|--no-pthreads:  ปิดใช้งาน pthreads และใช้ลูป GTK สำหรับการดีบัก\n"
+"  -h|--help:         แสดงข้อมูลการใช้งานและออก\n"
+"  -V|--version:      แสดงหมายเลขเวอร์ชัน xnec2c และออก\n"
+"  -v|--verbose:      เพิ่มความละเอียดของข้อความ สามารถระบุได้หลายครั้ง\n"
+"  -d|--debug:        เปิดใช้งานเอาต์พุตดีบัก (-dd รวม backtrace)\n"
+"  -d|--quiet:        ระงับเอาต์พุตดีบัก/verbose\n"
+"\n"
+"  --optimize:        เปิดใช้งานตัวปรับแต่งทันที\n"
+"  --skip-verify:     ข้ามการตรวจสอบเรขาคณิต\n"
+"\n"
+"อาร์กิวเมนต์ต่อไปนี้เขียนไปยังไฟล์เอาต์พุตหลังจากลูปความถี่เสร็จสิ้น\n"
+"สิ่งเหล่านี้มีประโยชน์เมื่อใช้ร่วมกับ --batch; หากคุณต้องการระบุ\n"
+"ชื่อไฟล์ที่จะเขียนโดยไม่ใช้โหมด --batch ให้เปิดใช้งาน File->Optimizer\n"
+"Settings มิฉะนั้นไฟล์ที่คุณระบุในบรรทัดคำสั่งจะไม่ถูกเขียน\n"
+"\n"
+"  --write-csv             <ชื่อไฟล์>  - เขียนไฟล์ CSV ของการวัด\n"
+"  --write-s1p             <ชื่อไฟล์>  - เขียนไฟล์ S1P ของ S-parameters\n"
+"  --write-s2p-max-gain    <ชื่อไฟล์>  - เขียนไฟล์ S2P, port-2 คือ max-gain\n"
+"  --write-s2p-viewer-gain <ชื่อไฟล์>  - เขียนไฟล์ S2P, port-2 คือ viewer-gain\n"
+"  --write-rdpat           <ชื่อไฟล์>  - เขียน CSV ของแบบรูปการแผ่คลื่น\n"
+"  --write-currents        <ชื่อไฟล์>  - เขียน CSV ของกระแสและประจุ\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1898,9 +1872,7 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
 msgstr "ค่าคงที่ไดอิเล็กตริกเชิงซ้อนจากไฟล์: %12.5E%+12.5Ej ที่ร้องขอ: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
@@ -1918,12 +1890,8 @@ msgstr "ไม่สามารถอ่านข้อมูลจากโป
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop เสร็จสิ้นทุกขั้นตอนแล้วแต่ num_busy_procs=%d (calc_data.freq_step=%d "
-"calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop เสร็จสิ้นทุกขั้นตอนแล้วแต่ num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1961,34 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c เป็นส่วนต่อประสานกราฟิกแบบโต้ตอบที่ครอบคลุม nec2c เวอร์ชันดัดแปลง ซึ่ง nec2c "
-"เองเป็นการแปลงเป็นภาษา C จากรหัส NEC2 Numerical Electromagnetics Code "
-"ต้นฉบับที่เขียนด้วย FORTRAN\n"
+"xnec2c เป็นส่วนต่อประสานกราฟิกแบบโต้ตอบที่ครอบคลุม nec2c เวอร์ชันดัดแปลง ซึ่ง nec2c เองเป็นการแปลงเป็นภาษา C จากรหัส NEC2 Numerical Electromagnetics Code ต้นฉบับที่เขียนด้วย FORTRAN\n"
 "\n"
-"xnec2c สามารถแสดงข้อมูลที่ขึ้นกับความถี่ (อัตราขยาย อิมพีแดนซ์อินพุต vswr ฯลฯ) ในรูปแบบกราฟิก "
-"นอกจากนี้ยังสามารถแสดงข้อมูลแบบรูปการแผ่คลื่นในรูปแบบโครงลวดที่หมุนได้ และสนามใกล้ (เวกเตอร์ "
-"E, H, S) ในรูปแบบตาราง\n"
+"xnec2c สามารถแสดงข้อมูลที่ขึ้นกับความถี่ (อัตราขยาย อิมพีแดนซ์อินพุต vswr ฯลฯ) ในรูปแบบกราฟิก นอกจากนี้ยังสามารถแสดงข้อมูลแบบรูปการแผ่คลื่นในรูปแบบโครงลวดที่หมุนได้ และสนามใกล้ (เวกเตอร์ E, H, S) ในรูปแบบตาราง\n"
 "\n"
-"xnec2c มีตัวแก้ไขไฟล์อินพุต NEC2 "
-"ในตัวที่ทำให้ง่ายต่อการสร้างหรือแก้ไขไฟล์คำอธิบายสายอากาศและระบุคำสั่ง NEC2\n"
+"xnec2c มีตัวแก้ไขไฟล์อินพุต NEC2 ในตัวที่ทำให้ง่ายต่อการสร้างหรือแก้ไขไฟล์คำอธิบายสายอากาศและระบุคำสั่ง NEC2\n"
 "\n"
-"โปรดอ่านเอกสารในไดเรกทอรีย่อย doc/ เนื่องจาก xnec2c ไม่เข้ากันได้อย่างสมบูรณ์กับไฟล์อินพุต "
-"NEC2 และทำงานในวิธีที่แตกต่างกัน!"
+"โปรดอ่านเอกสารในไดเรกทอรีย่อย doc/ เนื่องจาก xnec2c ไม่เข้ากันได้อย่างสมบูรณ์กับไฟล์อินพุต NEC2 และทำงานในวิธีที่แตกต่างกัน!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3579,9 +3534,7 @@ msgstr "อิมพีแดนซ์สายส่ง (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "ละเว้นการ์ด CM ในเรขาคณิต\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
 #~ msgstr "Theta > 90 องศา โดยมีการระบุกราวด์: โปรดตรวจสอบข้อมูลการ์ด RP และแก้ไข\n"
 
 #~ msgid "Hankel not valid for z = 0\n"

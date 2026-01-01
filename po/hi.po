@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -142,8 +142,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c ज्यामिति अनुकूलक"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c बिना inotify समर्थन के बनाया गया था: अनुकूलक सक्षम नहीं किया जा सकता।"
 
 #: src/callbacks.c:316
@@ -151,14 +150,8 @@ msgid "Xnec2c Optimizer"
 msgstr "Xnec2c अनुकूलक"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"लिखने के लिए कोई फ़ाइल चयनित नहीं है। हालाँकि, inotify द्वारा ट्रिगर होने पर xnec2c "
-"संशोधन पर इनपुट फ़ाइल को पुनः लोड और पुनर्गणना करेगा। \"File->Optimization Settings"
-"\" में लिखने के लिए फ़ाइलें चुनें।"
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "लिखने के लिए कोई फ़ाइल चयनित नहीं है। हालाँकि, inotify द्वारा ट्रिगर होने पर xnec2c संशोधन पर इनपुट फ़ाइल को पुनः लोड और पुनर्गणना करेगा। \"File->Optimization Settings\" में लिखने के लिए फ़ाइलें चुनें।"
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -699,11 +692,8 @@ msgstr "त्रुटि: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"सेगमेंट कनेक्शन गणना पूर्ण मेश से अधिक है, जो असंभव है: data.n=%ld segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "सेगमेंट कनेक्शन गणना पूर्ण मेश से अधिक है, जो असंभव है: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -714,12 +704,8 @@ msgstr ""
 "ओवरलैपिंग या लगभग-जुड़े सेगमेंट की जाँच करें\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"डेटा जाँचें, सेगमेंट निर्दिष्ट करने वाला पैरामीटर: समान टैग के समूह में स्थिति शून्य नहीं होनी "
-"चाहिए\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "डेटा जाँचें, सेगमेंट निर्दिष्ट करने वाला पैरामीटर: समान टैग के समूह में स्थिति शून्य नहीं होनी चाहिए\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -737,14 +723,12 @@ msgstr "किसी सेगमेंट का itag %d नहीं है\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "सेगमेंट टैग संख्या त्रुटि: टैग 0 आरक्षित है और उपयोग नहीं किया जा सकता।\n"
 "अपने ज्यामिति कार्ड (विशेषकर GM कार्ड) की जाँच करें कि टैग मान मान्य हैं।\n"
-"GM कार्ड के लिए: सत्यापित करें कि 'start from tag' और 'tag increment' टैग 0 नहीं "
-"बनाते।"
+"GM कार्ड के लिए: सत्यापित करें कि 'start from tag' और 'tag increment' टैग 0 नहीं बनाते।"
 
 #: src/geometry.c:809
 #, c-format
@@ -797,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: अंतिम बिंदु दूरी=%.3e बहुत निकट है (कनेक्शन थ्रेशोल्ड=%.3e से नीचे); सेगमेंट "
-"स्वयं से जुड़ जाएगा\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: अंतिम बिंदु दूरी=%.3e बहुत निकट है (कनेक्शन थ्रेशोल्ड=%.3e से नीचे); सेगमेंट स्वयं से जुड़ जाएगा\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -811,12 +791,8 @@ msgstr "tag=%d: अतिरिक्त स्व-कनेक्शन चे�
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: दूरी=%.3e से tag=%d/seg=%d 2x कनेक्शन थ्रेशोल्ड %.3e से निकट है; "
-"अनपेक्षित कनेक्शन संभव\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: दूरी=%.3e से tag=%d/seg=%d 2x कनेक्शन थ्रेशोल्ड %.3e से निकट है; अनपेक्षित कनेक्शन संभव\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -825,29 +801,18 @@ msgstr "tag=%d: अतिरिक्त ओवरलैप चेतावन�
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: लंबाई=%.3e बहुत छोटी है (और पर्याप्त निकट) tag=%d/seg=%d लंबाई=%.3e "
-"के लिए कि कनेक्शन पहचान विफल या शॉर्ट हो सकती है\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: लंबाई=%.3e बहुत छोटी है (और पर्याप्त निकट) tag=%d/seg=%d लंबाई=%.3e के लिए कि कनेक्शन पहचान विफल या शॉर्ट हो सकती है\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
 msgstr "tag=%d: अतिरिक्त कनेक्शन पहचान विफल या शॉर्ट चेतावनियाँ दबाई जा रही हैं\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: लंबाई/तरंगदैर्घ्य अनुपात %.3f < 0.001; धारा घटकों की समानता संख्यात्मक "
-"अशुद्धियों का कारण बनती है (न्यूनतम=0.001, उत्तम=0.05, अनुशंसित <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: लंबाई/तरंगदैर्घ्य अनुपात %.3f < 0.001; धारा घटकों की समानता संख्यात्मक अशुद्धियों का कारण बनती है (न्यूनतम=0.001, उत्तम=0.05, अनुशंसित <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -856,13 +821,8 @@ msgstr "tag=%d: अतिरिक्त लघु तरंगदैर्घ�
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: लंबाई/तरंगदैर्घ्य अनुपात %.3f > 0.1; धारा सैंपलिंग रिज़ॉल्यूशन सेगमेंट अंतराल "
-"द्वारा सीमित (न्यूनतम=0.001, उत्तम=0.05, अनुशंसित <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: लंबाई/तरंगदैर्घ्य अनुपात %.3f > 0.1; धारा सैंपलिंग रिज़ॉल्यूशन सेगमेंट अंतराल द्वारा सीमित (न्यूनतम=0.001, उत्तम=0.05, अनुशंसित <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -871,13 +831,8 @@ msgstr "tag=%d: अतिरिक्त दीर्घ तरंगदैर�
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: लंबाई/तरंगदैर्घ्य अनुपात %.3f > 0.05; तीव्र धारा परिवर्तन क्षेत्रों में छोटे "
-"सेगमेंट सटीकता बढ़ाते हैं (न्यूनतम=0.001, उत्तम=0.05, अनुशंसित <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: लंबाई/तरंगदैर्घ्य अनुपात %.3f > 0.05; तीव्र धारा परिवर्तन क्षेत्रों में छोटे सेगमेंट सटीकता बढ़ाते हैं (न्यूनतम=0.001, उत्तम=0.05, अनुशंसित <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -886,12 +841,8 @@ msgstr "tag=%d: अतिरिक्त सटीकता सुधार स�
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: लंबाई/त्रिज्या अनुपात %.1f < 2.0; मानक पतले-तार कर्नेल क्षेत्र त्रुटि 1%% "
-"से बहुत अधिक है (न्यूनतम=2.0, 1%%सटीक=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: लंबाई/त्रिज्या अनुपात %.1f < 2.0; मानक पतले-तार कर्नेल क्षेत्र त्रुटि 1%% से बहुत अधिक है (न्यूनतम=2.0, 1%%सटीक=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -900,12 +851,8 @@ msgstr "tag=%d: अतिरिक्त मानक कर्नेल अन�
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: लंबाई/त्रिज्या अनुपात %.1f < 8.0; मानक पतले-तार कर्नेल क्षेत्र त्रुटि 1%% "
-"से अधिक है (न्यूनतम=2.0, 1%%सटीक=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: लंबाई/त्रिज्या अनुपात %.1f < 8.0; मानक पतले-तार कर्नेल क्षेत्र त्रुटि 1%% से अधिक है (न्यूनतम=2.0, 1%%सटीक=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -914,12 +861,8 @@ msgstr "tag=%d: अतिरिक्त मानक कर्नेल अन�
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: लंबाई/त्रिज्या अनुपात %.1f < 0.5; विस्तारित पतले-तार कर्नेल क्षेत्र त्रुटि "
-"1%% से बहुत अधिक है (न्यूनतम=0.5, 1%%सटीक=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: लंबाई/त्रिज्या अनुपात %.1f < 0.5; विस्तारित पतले-तार कर्नेल क्षेत्र त्रुटि 1%% से बहुत अधिक है (न्यूनतम=0.5, 1%%सटीक=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -928,12 +871,8 @@ msgstr "tag=%d: अतिरिक्त विस्तारित कर्�
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: लंबाई/त्रिज्या अनुपात %.1f < 2.0; विस्तारित पतले-तार कर्नेल क्षेत्र त्रुटि "
-"1%% से अधिक है (न्यूनतम=0.5, 1%%सटीक=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: लंबाई/त्रिज्या अनुपात %.1f < 2.0; विस्तारित पतले-तार कर्नेल क्षेत्र त्रुटि 1%% से अधिक है (न्यूनतम=0.5, 1%%सटीक=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -943,9 +882,7 @@ msgstr "tag=%d: अतिरिक्त विस्तारित कर्�
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"%d सेगमेंट के लिए ओवरलैप जाँच छोड़ी जा रही है (सक्षम करने के लिए --force-verify उपयोग "
-"करें)\n"
+msgstr "%d सेगमेंट के लिए ओवरलैप जाँच छोड़ी जा रही है (सक्षम करने के लिए --force-verify उपयोग करें)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -953,8 +890,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "%d सेगमेंट के लिए ओवरलैप जाँच बाध्य की जा रही है\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() आवृत्ति-निर्भर जाँचें छोड़ रहा है - कोई आवृत्ति डेटा नहीं\n"
 
 #: src/gnuplot.c:46
@@ -972,21 +908,13 @@ msgstr "# संदर्भ प्रतिबाधा Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# gnuplot में प्लॉट करने के लिए आप इस कमांड को संशोधित कर सकते हैं। वर्तमान में यह MHz vs "
-"zreal और zimag प्लॉट करता है:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# gnuplot में प्लॉट करने के लिए आप इस कमांड को संशोधित कर सकते हैं। वर्तमान में यह MHz vs zreal और zimag प्लॉट करता है:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1035,6 +963,10 @@ msgstr "# संरचना तार सेगमेंट\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "धाराओं और आवेशों को CSV में सहेजें"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "आपको मुख्य xnec2c विंडो में \"Currents\" या \"Charges\" पर क्लिक करके धारा डेटा सक्षम करना होगा।"
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1264,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "GE/GN कार्ड को ठीक करें:\n"
 "GE कार्ड इंगित करता है कि ग्राउंड मौजूद है, लेकिन GN अन्यथा इंगित करता है।"
@@ -1283,12 +1214,8 @@ msgstr ""
 "कृपया RP कार्ड डेटा की जाँच करें और सही करें"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"रेडियल वायर g.s. सन्निकटन: Sommerfeld ग्राउंड विकल्प के साथ उपयोग नहीं किया जा "
-"सकता\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "रेडियल वायर g.s. सन्निकटन: Sommerfeld ग्राउंड विकल्प के साथ उपयोग नहीं किया जा सकता\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1300,9 +1227,7 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
 msgstr "लोडिंग कार्ड संख्या %d पर डेटा दोष: itag step1 %d, itag step2 %d से अधिक है\n"
 
 #: src/input.c:1287
@@ -1314,8 +1239,7 @@ msgstr ""
 "itag step1, itag step2 से अधिक है"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr "ट्रांसमिशन लाइन प्रतिबाधा = 0: मान्य नहीं है। कृपया NT या TL कार्ड सही करें\n"
 
 #: src/input.c:1421
@@ -1373,11 +1297,8 @@ msgstr ""
 "पैटर्न गणनाएँ सामान्य रूप से आगे बढ़ती हैं; परिणाम देखने के लिए GUI का उपयोग करें।"
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"ग्राउंड निर्दिष्ट होने पर Theta > 90 डिग्री: कृपया RP कार्ड डेटा की जाँच करें और सही करें\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "ग्राउंड निर्दिष्ट होने पर Theta > 90 डिग्री: कृपया RP कार्ड डेटा की जाँच करें और सही करें\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1392,9 +1313,7 @@ msgid "Faulty data card"
 msgstr "दोषपूर्ण डेटा कार्ड"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
 msgstr "गायब या सरफेस-वेव RP कार्ड: रेडिएशन पैटर्न और गेन गणनाएँ अक्षम\n"
 
 #: src/input.c:1595
@@ -1402,11 +1321,8 @@ msgid "Unexpected exit from while loop"
 msgstr "while लूप से अप्रत्याशित निकास"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"कमांड डेटा कार्ड त्रुटि: इनपुट फ़ाइल पढ़ते समय अप्रत्याशित EOF - EN कार्ड जोड़ा जा रहा है\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "कमांड डेटा कार्ड त्रुटि: इनपुट फ़ाइल पढ़ते समय अप्रत्याशित EOF - EN कार्ड जोड़ा जा रहा है\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1431,12 +1347,8 @@ msgstr ""
 "निमोनिक कोड बहुत छोटा है या गायब है"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"ज्यामिति डेटा कार्ड त्रुटि: इनपुट फ़ाइल पढ़ते समय अप्रत्याशित EOF - GE कार्ड जोड़ा जा रहा "
-"है\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "ज्यामिति डेटा कार्ड त्रुटि: इनपुट फ़ाइल पढ़ते समय अप्रत्याशित EOF - GE कार्ड जोड़ा जा रहा है\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1678,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1804,6 +1708,71 @@ msgstr "Hankel z = 0 के लिए मान्य नहीं है"
 msgid "No convergence"
 msgstr "अभिसरण नहीं हुआ"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"उपयोग: xnec2c [विकल्प] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - फ़ाइल मौजूद होनी चाहिए\n"
+"  -C|--new-config    <new-config-file-path> - गायब होने पर फ़ाइल बनाता है\n"
+"  -j|--jobs  <SMP मशीन में प्रोसेसर की संख्या> (-j0 forking अक्षम करता है)\n"
+"     --openblas-threads <n>  OpenBLAS थ्रेड संख्या सेट करें (डिफ़ॉल्ट: 1)\n"
+"     --mkl-threads <n>       Intel MKL थ्रेड संख्या सेट करें (डिफ़ॉल्ट: 1)\n"
+"     --omp-threads <n>       OpenMP थ्रेड संख्या सेट करें (डिफ़ॉल्ट: 1)\n"
+"  -b|--batch:        बैच मोड सक्षम करें, आवृत्ति लूप चलने के बाद बाहर निकलें\n"
+"  -P|--no-pthreads:  डिबगिंग के लिए pthreads अक्षम करें और GTK लूप का उपयोग करें\n"
+"  -h|--help:         उपयोग जानकारी प्रिंट करें और बाहर निकलें\n"
+"  -V|--version:      xnec2c संस्करण संख्या प्रिंट करें और बाहर निकलें\n"
+"  -v|--verbose:      वर्बोसिटी बढ़ाएं, कई बार निर्दिष्ट किया जा सकता है\n"
+"  -d|--debug:        डिबग आउटपुट सक्षम करें (-dd में बैकट्रेस शामिल हैं)\n"
+"  -d|--quiet:        डिबग/वर्बोस आउटपुट दबाएं\n"
+"\n"
+"  --optimize:        ऑप्टिमाइज़र को तुरंत सक्रिय करें।\n"
+"  --skip-verify:     ज्यामिति सत्यापन जाँच छोड़ें\n"
+"\n"
+"निम्नलिखित आर्गुमेंट आवृत्ति लूप पूरा होने के बाद आउटपुट फ़ाइल में लिखते हैं।\n"
+"ये --batch के साथ संयोजन में उपयोगी हैं; यदि आप --batch मोड के बिना\n"
+"लिखने के लिए फ़ाइलनाम निर्दिष्ट करना चाहते हैं तो File->Optimizer\n"
+"Settings सक्षम करें अन्यथा कमांड लाइन पर निर्दिष्ट फ़ाइलें नहीं लिखी जाएंगी।\n"
+"\n"
+"  --write-csv             <filename>  - माप की CSV फ़ाइल लिखें\n"
+"  --write-s1p             <filename>  - S-parameters की S1P फ़ाइल लिखें\n"
+"  --write-s2p-max-gain    <filename>  - S2P फ़ाइल लिखें, port-2 max-gain है\n"
+"  --write-s2p-viewer-gain <filename>  - S2P फ़ाइल लिखें, port-2 viewer-gain है\n"
+"  --write-rdpat           <filename>  - विकिरण पैटर्न की CSV लिखें\n"
+"  --write-currents        <filename>  - धाराओं और आवेशों की CSV लिखें\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1903,9 +1872,7 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
 msgstr "फ़ाइल से जटिल परावैद्युत स्थिरांक: %12.5E%+12.5Ej, अनुरोधित: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
@@ -1923,12 +1890,8 @@ msgstr "फोर्क किए गए चाइल्ड से डेटा 
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop सभी चरणों के साथ पूर्ण है लेकिन num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop सभी चरणों के साथ पूर्ण है लेकिन num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1966,33 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c, nec2c के एक संशोधित संस्करण के चारों ओर एक इंटरैक्टिव ग्राफिकल रैपर है, जो स्वयं "
-"मूल FORTRAN NEC2 संख्यात्मक विद्युतचुंबकीय कोड का C में अनुवाद है।\n"
+"xnec2c, nec2c के एक संशोधित संस्करण के चारों ओर एक इंटरैक्टिव ग्राफिकल रैपर है, जो स्वयं मूल FORTRAN NEC2 संख्यात्मक विद्युतचुंबकीय कोड का C में अनुवाद है।\n"
 "\n"
-"xnec2c आवृत्ति-निर्भर डेटा(गेन, इनपुट प्रतिबाधा, vswr आदि) को ग्राफिकल प्रारूप में "
-"प्रदर्शित कर सकता है। यह विकिरण पैटर्न डेटा को घूमने योग्य वायर फ्रेम प्रारूप में और निकट-"
-"क्षेत्र (E, H, S वेक्टर) को ग्रिड प्रारूप में भी प्रदर्शित कर सकता है।\n"
+"xnec2c आवृत्ति-निर्भर डेटा(गेन, इनपुट प्रतिबाधा, vswr आदि) को ग्राफिकल प्रारूप में प्रदर्शित कर सकता है। यह विकिरण पैटर्न डेटा को घूमने योग्य वायर फ्रेम प्रारूप में और निकट-क्षेत्र (E, H, S वेक्टर) को ग्रिड प्रारूप में भी प्रदर्शित कर सकता है।\n"
 "\n"
-"xnec2c में एक अंतर्निहित NEC2 इनपुट फ़ाइल संपादक है जो एंटीना विवरण फ़ाइलें बनाना या "
-"संपादित करना और NEC2 कमांड निर्दिष्ट करना आसान बनाता है।\n"
+"xnec2c में एक अंतर्निहित NEC2 इनपुट फ़ाइल संपादक है जो एंटीना विवरण फ़ाइलें बनाना या संपादित करना और NEC2 कमांड निर्दिष्ट करना आसान बनाता है।\n"
 "\n"
-"कृपया doc/ उप-निर्देशिका में दस्तावेज़ पढ़ें क्योंकि xnec2c NEC2 इनपुट फ़ाइलों के साथ पूर्णतः "
-"संगत नहीं है और यह अलग तरीकों से काम करता है!"
+"कृपया doc/ उप-निर्देशिका में दस्तावेज़ पढ़ें क्योंकि xnec2c NEC2 इनपुट फ़ाइलों के साथ पूर्णतः संगत नहीं है और यह अलग तरीकों से काम करता है!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3583,9 +3534,7 @@ msgstr "ट्रांसमिशन लाइन प्रतिबाधा 
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "ज्यामिति में CM कार्ड को अनदेखा किया जा रहा है\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
 #~ msgstr "भूमि निर्दिष्ट होने पर Theta > 90 deg: कृपया RP कार्ड डेटा जाँचें और सही करें\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
@@ -3595,8 +3544,7 @@ msgstr "ट्रांसमिशन लाइन प्रतिबाधा 
 #~ msgstr "अभिसरण नहीं हुआ\n"
 
 #, c-format
-#~ msgid ""
-#~ "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
+#~ msgid "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
 #~ msgstr "ज्यामिति डेटा कार्ड \"%1$s\" त्रुटि: कॉलम %3$d पर अनावश्यक वर्ण '%2$c'\n"
 
 #~ msgid ""

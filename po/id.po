@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -67,8 +67,7 @@ msgid ""
 "Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
 msgstr ""
 "Jendela plot frekuensi ditutup: tipe eksitasi %d tidak kompatibel.\n"
-"Gunakan tipe 0 (Applied E Field) atau 5 (Current Discontinuity) sebagai "
-"gantinya."
+"Gunakan tipe 0 (Applied E Field) atau 5 (Current Discontinuity) sebagai gantinya."
 
 #: src/callback_func.c:518
 #, c-format
@@ -78,8 +77,7 @@ msgid ""
 "Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
 msgstr ""
 "Plot frekuensi tidak tersedia dengan tipe eksitasi %d.\n"
-"Model ini menggunakan eksitasi Incident Field atau Elementary Current "
-"Source.\n"
+"Model ini menggunakan eksitasi Incident Field atau Elementary Current Source.\n"
 "Ubah kartu EX ke tipe 0 (Applied E Field) atau 5 (Current Discontinuity)."
 
 #: src/callback_func.c:697
@@ -144,24 +142,16 @@ msgid "xnec2c geometry optimizer"
 msgstr "pengoptimal geometri xnec2c"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
-msgstr ""
-"xnec2c dibangun tanpa dukungan inotify: pengoptimal tidak dapat diaktifkan."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr "xnec2c dibangun tanpa dukungan inotify: pengoptimal tidak dapat diaktifkan."
 
 #: src/callbacks.c:316
 msgid "Xnec2c Optimizer"
 msgstr "Pengoptimal Xnec2c"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"Tidak ada file yang dipilih untuk ditulis. Namun, xnec2c akan tetap memuat "
-"ulang dan menghitung ulang file input saat dimodifikasi ketika dipicu oleh "
-"inotify. Pilih file untuk ditulis di \"File->Pengaturan Optimisasi\"."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "Tidak ada file yang dipilih untuk ditulis. Namun, xnec2c akan tetap memuat ulang dan menghitung ulang file input saat dimodifikasi ketika dipicu oleh inotify. Pilih file untuk ditulis di \"File->Pengaturan Optimisasi\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -702,12 +692,8 @@ msgstr "Kesalahan: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"Jumlah koneksi segmen melebihi mesh penuh, yang tidak mungkin: data.n=%ld "
-"segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "Jumlah koneksi segmen melebihi mesh penuh, yang tidak mungkin: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -718,12 +704,8 @@ msgstr ""
 "Periksa segmen yang tumpang tindih atau hampir terhubung\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"periksa data, parameter yang menentukan segmen: posisi dalam grup tag yang "
-"sama tidak boleh nol\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "periksa data, parameter yang menentukan segmen: posisi dalam grup tag yang sama tidak boleh nol\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -741,15 +723,12 @@ msgstr "tidak ada segmen dengan itag %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "Kesalahan nomor tag segmen: Tag 0 dicadangkan dan tidak dapat digunakan.\n"
-"Periksa kartu geometri Anda (terutama kartu GM) untuk memastikan nilai tag "
-"valid.\n"
-"Untuk kartu GM: verifikasi 'mulai dari tag' dan 'penambahan tag' tidak "
-"menghasilkan tag 0."
+"Periksa kartu geometri Anda (terutama kartu GM) untuk memastikan nilai tag valid.\n"
+"Untuk kartu GM: verifikasi 'mulai dari tag' dan 'penambahan tag' tidak menghasilkan tag 0."
 
 #: src/geometry.c:809
 #, c-format
@@ -760,8 +739,7 @@ msgid ""
 msgstr ""
 "Kesalahan nomor tag segmen: Tidak ditemukan segmen dengan tag %d.\n"
 "Anda mereferensikan tag atau segmen yang tidak dikenal dalam kartu kontrol.\n"
-"Tag yang valid dalam geometri Anda adalah yang ditetapkan ke kartu GW/GA/GH/"
-"SP."
+"Tag yang valid dalam geometri Anda adalah yang ditetapkan ke kartu GW/GA/GH/SP."
 
 #: src/geometry.c:1123
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
@@ -803,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: jarak ujung=%.3e terlalu dekat (di bawah ambang koneksi="
-"%.3e); segmen akan terhubung ke dirinya sendiri\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: jarak ujung=%.3e terlalu dekat (di bawah ambang koneksi=%.3e); segmen akan terhubung ke dirinya sendiri\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -817,12 +791,8 @@ msgstr "tag=%d: menekan peringatan koneksi-diri tambahan\n"
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: jarak=%.3e ke tag=%d/seg=%d lebih dekat dari 2x ambang "
-"koneksi %.3e; koneksi tidak disengaja mungkin terjadi\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: jarak=%.3e ke tag=%d/seg=%d lebih dekat dari 2x ambang koneksi %.3e; koneksi tidak disengaja mungkin terjadi\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -831,32 +801,18 @@ msgstr "tag=%d: menekan peringatan tumpang tindih tambahan\n"
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: panjang=%.3e terlalu pendek (dan cukup dekat) ke tag=%d/seg="
-"%d panjang=%.3e sehingga deteksi koneksi mungkin gagal atau hubung singkat\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: panjang=%.3e terlalu pendek (dan cukup dekat) ke tag=%d/seg=%d panjang=%.3e sehingga deteksi koneksi mungkin gagal atau hubung singkat\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
-msgstr ""
-"tag=%d: menekan peringatan deteksi koneksi mungkin gagal atau hubung singkat "
-"tambahan\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
+msgstr "tag=%d: menekan peringatan deteksi koneksi mungkin gagal atau hubung singkat tambahan\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: rasio panjang/panjang gelombang %.3f < 0.001; kemiripan "
-"komponen arus menyebabkan ketidakakuratan numerik (min=0.001, baik=0.05, "
-"disarankan <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: rasio panjang/panjang gelombang %.3f < 0.001; kemiripan komponen arus menyebabkan ketidakakuratan numerik (min=0.001, baik=0.05, disarankan <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -865,13 +821,8 @@ msgstr "tag=%d: menekan kesalahan rasio panjang gelombang pendek tambahan\n"
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: rasio panjang/panjang gelombang %.3f > 0.1; resolusi sampling "
-"arus dibatasi oleh jarak segmen (min=0.001, baik=0.05, disarankan <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: rasio panjang/panjang gelombang %.3f > 0.1; resolusi sampling arus dibatasi oleh jarak segmen (min=0.001, baik=0.05, disarankan <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -880,14 +831,8 @@ msgstr "tag=%d: menekan peringatan rasio panjang gelombang panjang tambahan\n"
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: rasio panjang/panjang gelombang %.3f > 0.05; segmen lebih "
-"pendek meningkatkan akurasi di area perubahan arus cepat (min=0.001, "
-"baik=0.05, disarankan <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: rasio panjang/panjang gelombang %.3f > 0.05; segmen lebih pendek meningkatkan akurasi di area perubahan arus cepat (min=0.001, baik=0.05, disarankan <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -896,12 +841,8 @@ msgstr "tag=%d: menekan saran peningkatan akurasi tambahan\n"
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: rasio panjang/radius %.1f < 2.0; kesalahan medan kernel kawat "
-"tipis standar melebihi 1%% dengan margin besar (min=2.0, akurat 1%%=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: rasio panjang/radius %.1f < 2.0; kesalahan medan kernel kawat tipis standar melebihi 1%% dengan margin besar (min=2.0, akurat 1%%=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -910,12 +851,8 @@ msgstr "tag=%d: menekan kesalahan rasio kernel standar tambahan\n"
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: rasio panjang/radius %.1f < 8.0; kesalahan medan kernel kawat "
-"tipis standar melebihi 1%% (min=2.0, akurat 1%%=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: rasio panjang/radius %.1f < 8.0; kesalahan medan kernel kawat tipis standar melebihi 1%% (min=2.0, akurat 1%%=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -924,12 +861,8 @@ msgstr "tag=%d: menekan peringatan rasio kernel standar tambahan\n"
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: rasio panjang/radius %.1f < 0.5; kesalahan medan kernel kawat "
-"tipis diperluas melebihi 1%% dengan margin besar (min=0.5, akurat 1%%=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: rasio panjang/radius %.1f < 0.5; kesalahan medan kernel kawat tipis diperluas melebihi 1%% dengan margin besar (min=0.5, akurat 1%%=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -938,12 +871,8 @@ msgstr "tag=%d: menekan kesalahan rasio kernel diperluas tambahan\n"
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: rasio panjang/radius %.1f < 2.0; kesalahan medan kernel kawat "
-"tipis diperluas melebihi 1%% (min=0.5, akurat 1%%=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: rasio panjang/radius %.1f < 2.0; kesalahan medan kernel kawat tipis diperluas melebihi 1%% (min=0.5, akurat 1%%=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -953,9 +882,7 @@ msgstr "tag=%d: menekan peringatan rasio kernel diperluas tambahan\n"
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"Melewati pemeriksaan tumpang tindih untuk %d segmen (gunakan --force-verify "
-"untuk mengaktifkan)\n"
+msgstr "Melewati pemeriksaan tumpang tindih untuk %d segmen (gunakan --force-verify untuk mengaktifkan)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -963,11 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Memaksa pemeriksaan tumpang tindih untuk %d segmen\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() melewati pemeriksaan bergantung frekuensi - tidak ada data "
-"frekuensi\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() melewati pemeriksaan bergantung frekuensi - tidak ada data frekuensi\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -984,21 +908,13 @@ msgstr "# Impedansi referensi Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# Untuk memplot di gnuplot Anda dapat memodifikasi perintah ini. Saat ini "
-"memplot MHz vs zreal dan zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# Untuk memplot di gnuplot Anda dapat memodifikasi perintah ini. Saat ini memplot MHz vs zreal dan zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1047,6 +963,10 @@ msgstr "# segmen kawat struktur\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "Simpan Arus dan Muatan ke CSV"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "Anda harus mengaktifkan data arus dengan mengklik \"Currents\" atau \"Charges\" di jendela utama xnec2c."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1276,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "Perbaiki kartu GE/GN:\n"
 "Kartu GE menentukan bahwa ground ada, tetapi GN menunjukkan sebaliknya."
@@ -1295,12 +1214,8 @@ msgstr ""
 "Silakan periksa data kartu RP dan perbaiki"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"aproksimasi g.s. kawat radial: tidak dapat digunakan dengan opsi ground "
-"Sommerfeld\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "aproksimasi g.s. kawat radial: tidak dapat digunakan dengan opsi ground Sommerfeld\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1312,12 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"kesalahan data pada kartu loading no %d: itag step1 %d lebih besar dari itag "
-"step2 %d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "kesalahan data pada kartu loading no %d: itag step1 %d lebih besar dari itag step2 %d\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1328,11 +1239,8 @@ msgstr ""
 "itag step1 lebih besar dari itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr ""
-"Impedansi Transmission Line = 0: tidak valid. Silakan perbaiki kartu NT atau "
-"TL\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "Impedansi Transmission Line = 0: tidak valid. Silakan perbaiki kartu NT atau TL\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1356,8 +1264,7 @@ msgstr ""
 
 #: src/input.c:1452
 msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
-msgstr ""
-"Kartu PQ dan PT diabaikan: Pencetakan ke file tidak diimplementasikan\n"
+msgstr "Kartu PQ dan PT diabaikan: Pencetakan ke file tidak diimplementasikan\n"
 
 #: src/input.c:1453
 msgid ""
@@ -1369,8 +1276,7 @@ msgstr ""
 
 #: src/input.c:1460
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
-msgstr ""
-"Opsi gelombang permukaan (I1=1): dari perintah RP tidak diimplementasikan\n"
+msgstr "Opsi gelombang permukaan (I1=1): dari perintah RP tidak diimplementasikan\n"
 
 #: src/input.c:1461
 msgid ""
@@ -1391,12 +1297,8 @@ msgstr ""
 "Perhitungan pola berjalan normal; gunakan GUI untuk melihat hasil."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Theta > 90 derajat dengan ground yang ditentukan: Silakan periksa data kartu "
-"RP dan perbaiki\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Theta > 90 derajat dengan ground yang ditentukan: Silakan periksa data kartu RP dan perbaiki\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1411,24 +1313,16 @@ msgid "Faulty data card"
 msgstr "Kartu data rusak"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"Kartu RP tidak ada atau gelombang permukaan: Perhitungan pola radiasi dan "
-"gain dinonaktifkan\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "Kartu RP tidak ada atau gelombang permukaan: Perhitungan pola radiasi dan gain dinonaktifkan\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "Keluar tak terduga dari while loop"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"kesalahan kartu data perintah: EOF tak terduga saat membaca file input - "
-"menambahkan kartu EN\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "kesalahan kartu data perintah: EOF tak terduga saat membaca file input - menambahkan kartu EN\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1442,9 +1336,7 @@ msgstr ""
 
 #: src/input.c:1668
 msgid "command data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"kesalahan kartu data perintah: kode mnemonik kartu terlalu pendek atau tidak "
-"ada\n"
+msgstr "kesalahan kartu data perintah: kode mnemonik kartu terlalu pendek atau tidak ada\n"
 
 #: src/input.c:1669
 msgid ""
@@ -1455,12 +1347,8 @@ msgstr ""
 "Kode mnemonik terlalu pendek atau tidak ada"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"kesalahan kartu data geometri: EOF tak terduga saat membaca file input - "
-"menambahkan kartu GE\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "kesalahan kartu data geometri: EOF tak terduga saat membaca file input - menambahkan kartu GE\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1474,9 +1362,7 @@ msgstr ""
 
 #: src/input.c:1844
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"kesalahan kartu data geometri: kode mnemonik kartu terlalu pendek atau tidak "
-"ada\n"
+msgstr "kesalahan kartu data geometri: kode mnemonik kartu terlalu pendek atau tidak ada\n"
 
 #: src/input.c:1845
 msgid ""
@@ -1704,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1830,6 +1708,71 @@ msgstr "Hankel tidak valid untuk z = 0"
 msgid "No convergence"
 msgstr "Tidak ada konvergensi"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"Penggunaan: xnec2c [opsi] [<nama-file-input>]\n"
+"  -i|--input         <nama-file-input>\n"
+"  -c|--config        <path-file-konfigurasi>     - file harus ada\n"
+"  -C|--new-config    <path-file-konfigurasi-baru> - membuat file jika tidak ada\n"
+"  -j|--jobs  <jumlah prosesor di mesin SMP> (-j0 menonaktifkan forking)\n"
+"     --openblas-threads <n>  atur jumlah thread OpenBLAS (default: 1)\n"
+"     --mkl-threads <n>       atur jumlah thread Intel MKL (default: 1)\n"
+"     --omp-threads <n>       atur jumlah thread OpenMP (default: 1)\n"
+"  -b|--batch:        aktifkan mode batch, keluar setelah loop frekuensi selesai\n"
+"  -P|--no-pthreads:  nonaktifkan pthreads dan gunakan loop GTK untuk debugging\n"
+"  -h|--help:         tampilkan informasi penggunaan dan keluar\n"
+"  -V|--version:      tampilkan nomor versi xnec2c dan keluar\n"
+"  -v|--verbose:      tingkatkan verbositas, dapat ditentukan beberapa kali\n"
+"  -d|--debug:        aktifkan output debug (-dd menyertakan backtrace)\n"
+"  -d|--quiet:        sembunyikan output debug/verbose\n"
+"\n"
+"  --optimize:        Aktifkan optimizer segera.\n"
+"  --skip-verify:     lewati pemeriksaan verifikasi geometri\n"
+"\n"
+"Argumen berikut menulis ke file output setelah loop frekuensi selesai.\n"
+"Ini berguna untuk dikombinasikan dengan --batch; Jika Anda ingin menentukan\n"
+"nama file untuk ditulis tanpa mode --batch maka aktifkan File->Optimizer\n"
+"Settings atau file yang Anda tentukan di baris perintah tidak akan ditulis.\n"
+"\n"
+"  --write-csv             <namafile>  - tulis file CSV pengukuran\n"
+"  --write-s1p             <namafile>  - tulis file S1P S-parameter\n"
+"  --write-s2p-max-gain    <namafile>  - tulis file S2P, port-2 adalah max-gain\n"
+"  --write-s2p-viewer-gain <namafile>  - tulis file S2P, port-2 adalah viewer-gain\n"
+"  --write-rdpat           <namafile>  - tulis CSV pola radiasi\n"
+"  --write-currents        <namafile>  - tulis CSV arus dan muatan\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1907,8 +1850,7 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr ""
-"Loop optimizer belum selesai, melewati penggambaran ulang pola radiasi.\n"
+msgstr "Loop optimizer belum selesai, melewati penggambaran ulang pola radiasi.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
@@ -1930,12 +1872,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"konstanta dielektrik kompleks dari file: %12.5E%+12.5Ej, diminta: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "konstanta dielektrik kompleks dari file: %12.5E%+12.5Ej, diminta: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1952,12 +1890,8 @@ msgstr "Gagal membaca data dari proses anak yang di-fork\n"
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop telah selesai dengan semua langkah tetapi num_busy_procs=%d "
-"(calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop telah selesai dengan semua langkah tetapi num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1995,36 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c adalah antarmuka grafis interaktif untuk versi modifikasi dari nec2c, "
-"yang merupakan terjemahan ke bahasa C dari kode FORTRAN NEC2 Numerical "
-"Electromagnetics Code asli.\n"
+"xnec2c adalah antarmuka grafis interaktif untuk versi modifikasi dari nec2c, yang merupakan terjemahan ke bahasa C dari kode FORTRAN NEC2 Numerical Electromagnetics Code asli.\n"
 "\n"
-"xnec2c dapat menampilkan data yang bergantung pada frekuensi (penguatan, "
-"impedansi input, vswr dll) dalam format grafis. Juga dapat menampilkan data "
-"pola radiasi dalam format wireframe yang dapat diputar dan medan dekat "
-"(vektor E, H, S) dalam format grid.\n"
+"xnec2c dapat menampilkan data yang bergantung pada frekuensi (penguatan, impedansi input, vswr dll) dalam format grafis. Juga dapat menampilkan data pola radiasi dalam format wireframe yang dapat diputar dan medan dekat (vektor E, H, S) dalam format grid.\n"
 "\n"
-"xnec2c memiliki editor file input NEC2 bawaan yang memudahkan pembuatan atau "
-"pengeditan file deskripsi antena dan menentukan perintah NEC2.\n"
+"xnec2c memiliki editor file input NEC2 bawaan yang memudahkan pembuatan atau pengeditan file deskripsi antena dan menentukan perintah NEC2.\n"
 "\n"
-"SILAKAN baca dokumentasi di sub-direktori doc/ karena xnec2c tidak "
-"sepenuhnya kompatibel dengan file input NEC2 dan bekerja dengan cara yang "
-"berbeda!"
+"SILAKAN baca dokumentasi di sub-direktori doc/ karena xnec2c tidak sepenuhnya kompatibel dengan file input NEC2 dan bekerja dengan cara yang berbeda!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3586,8 +3505,7 @@ msgstr "Impedansi Saluran Transmisi (Zo)"
 #~ msgstr "kesalahan kartu data geometri - jumlah segmen kurang dari 1\n"
 
 #~ msgid "geometry data card error no GC card for tapered wire\n"
-#~ msgstr ""
-#~ "kesalahan kartu data geometri tidak ada kartu GC untuk kawat tirus\n"
+#~ msgstr "kesalahan kartu data geometri tidak ada kartu GC untuk kawat tirus\n"
 
 #~ msgid "geometry GC data card error\n"
 #~ msgstr "kesalahan kartu data geometri GC\n"
@@ -3616,12 +3534,8 @@ msgstr "Impedansi Saluran Transmisi (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "mengabaikan kartu CM dalam geometri\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta > 90 deg dengan ground ditentukan: Silakan periksa data kartu RP "
-#~ "dan koreksi\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta > 90 deg dengan ground ditentukan: Silakan periksa data kartu RP dan koreksi\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "Hankel tidak valid untuk z = 0\n"

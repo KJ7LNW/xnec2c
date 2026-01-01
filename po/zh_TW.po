@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -142,8 +142,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c 幾何最佳化器"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c 編譯時未包含 inotify 支援：無法啟用最佳化器。"
 
 #: src/callbacks.c:316
@@ -151,13 +150,8 @@ msgid "Xnec2c Optimizer"
 msgstr "Xnec2c 最佳化器"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"未選擇要寫入的檔案。但是，當 inotify 觸發時，xnec2c 仍會在檔案修改後重新載入"
-"並重新計算輸入檔案。請在「檔案->最佳化設定」中選擇要寫入的檔案。"
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "未選擇要寫入的檔案。但是，當 inotify 觸發時，xnec2c 仍會在檔案修改後重新載入並重新計算輸入檔案。請在「檔案->最佳化設定」中選擇要寫入的檔案。"
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -698,9 +692,7 @@ msgstr "錯誤：ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
 msgstr "線段連接數量超過完整網格，這不太可能：data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
@@ -712,9 +704,7 @@ msgstr ""
 "請檢查重疊或接近連接的線段\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
 msgstr "檢查資料，指定線段的參數：相同標籤群組中的位置不能為零\n"
 
 #: src/geometry.c:765
@@ -733,8 +723,7 @@ msgstr "沒有線段的 itag 為 %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "線段標籤編號錯誤：標籤 0 為保留值，無法使用。\n"
@@ -792,11 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d：端點距離=%.3e 太近（低於連接閾值=%.3e）；線段將連接到自身\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d：端點距離=%.3e 太近（低於連接閾值=%.3e）；線段將連接到自身\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -805,12 +791,8 @@ msgstr "tag=%d：抑制額外的自連接警告\n"
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d：距離=%.3e 到 tag=%d/seg=%d 小於連接閾值 %.3e 的 2 倍；可能產生"
-"非預期的連接\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d：距離=%.3e 到 tag=%d/seg=%d 小於連接閾值 %.3e 的 2 倍；可能產生非預期的連接\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -819,29 +801,18 @@ msgstr "tag=%d：抑制額外的重疊警告\n"
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d：長度=%.3e 太短（且足夠接近）於 tag=%d/seg=%d 長度=%.3e，連接檢"
-"測可能失敗或短路\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d：長度=%.3e 太短（且足夠接近）於 tag=%d/seg=%d 長度=%.3e，連接檢測可能失敗或短路\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
 msgstr "tag=%d：抑制額外的連接檢測可能失敗或短路警告\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d：長度/波長比 %.3f < 0.001；電流分量的相似性導致數值不準確（最小"
-"值=0.001，良好=0.05，建議 <= 0.1）\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d：長度/波長比 %.3f < 0.001；電流分量的相似性導致數值不準確（最小值=0.001，良好=0.05，建議 <= 0.1）\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -850,13 +821,8 @@ msgstr "tag=%d：抑制額外的短波長比錯誤\n"
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d：長度/波長比 %.3f > 0.1；電流取樣解析度受限於線段間距（最小值"
-"=0.001，良好=0.05，建議 <= 0.1）\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d：長度/波長比 %.3f > 0.1；電流取樣解析度受限於線段間距（最小值=0.001，良好=0.05，建議 <= 0.1）\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -865,13 +831,8 @@ msgstr "tag=%d：抑制額外的長波長比警告\n"
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d：長度/波長比 %.3f > 0.05；較短的線段可在電流快速變化區域提高準"
-"確度（最小值=0.001，良好=0.05，建議 <=0.1）\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d：長度/波長比 %.3f > 0.05；較短的線段可在電流快速變化區域提高準確度（最小值=0.001，良好=0.05，建議 <=0.1）\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -880,12 +841,8 @@ msgstr "tag=%d：抑制額外的準確度改善建議\n"
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d：長度/半徑比 %.1f < 2.0；標準細線核心場誤差大幅超過 1%%（最小值"
-"=2.0，1%% 準確=8.0）\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d：長度/半徑比 %.1f < 2.0；標準細線核心場誤差大幅超過 1%%（最小值=2.0，1%% 準確=8.0）\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -894,12 +851,8 @@ msgstr "tag=%d：抑制額外的標準核心比錯誤\n"
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d：長度/半徑比 %.1f < 8.0；標準細線核心場誤差超過 1%%（最小值"
-"=2.0，1%% 準確=8.0）\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d：長度/半徑比 %.1f < 8.0；標準細線核心場誤差超過 1%%（最小值=2.0，1%% 準確=8.0）\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -908,12 +861,8 @@ msgstr "tag=%d：抑制額外的標準核心比警告\n"
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d：長度/半徑比 %.1f < 0.5；擴展細線核心場誤差大幅超過 1%%（最小值"
-"=0.5，1%% 準確=2.0）\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d：長度/半徑比 %.1f < 0.5；擴展細線核心場誤差大幅超過 1%%（最小值=0.5，1%% 準確=2.0）\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -922,12 +871,8 @@ msgstr "tag=%d：抑制額外的擴展核心比錯誤\n"
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d：長度/半徑比 %.1f < 2.0；擴展細線核心場誤差超過 1%%（最小值"
-"=0.5，1%% 準確=2.0）\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d：長度/半徑比 %.1f < 2.0；擴展細線核心場誤差超過 1%%（最小值=0.5，1%% 準確=2.0）\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -945,8 +890,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "強制執行 %d 個線段的重疊檢查\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() 跳過頻率相關檢查 - 無頻率資料\n"
 
 #: src/gnuplot.c:46
@@ -964,20 +908,13 @@ msgstr "# 參考阻抗 Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# 要在 gnuplot 中繪圖，您可以修改此命令。目前繪製 MHz 對 zreal 和 zimag：\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# 要在 gnuplot 中繪圖，您可以修改此命令。目前繪製 MHz 對 zreal 和 zimag：\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1026,6 +963,10 @@ msgstr "# 結構導線線段\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "儲存電流與電荷至 CSV"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "您必須在 xnec2c 主視窗中點擊「電流」或「電荷」來啟用電流資料。"
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1255,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "請修正 GE/GN 卡：\n"
 "GE 卡指定存在接地面，但 GN 卡顯示並非如此。"
@@ -1274,9 +1214,7 @@ msgstr ""
 "請檢查 RP 卡資料並修正"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
 msgstr "徑向線接地近似：不可與 Sommerfeld 接地選項一起使用\n"
 
 #: src/input.c:1234
@@ -1289,9 +1227,7 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
 msgstr "載入卡 %d 資料錯誤：itag step1 %d 大於 itag step2 %d\n"
 
 #: src/input.c:1287
@@ -1303,8 +1239,7 @@ msgstr ""
 "itag step1 大於 itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr "傳輸線阻抗 = 0：無效。請修正 NT 或 TL 卡\n"
 
 #: src/input.c:1421
@@ -1362,9 +1297,7 @@ msgstr ""
 "場型計算正常進行；請使用 GUI 檢視結果。"
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
 msgstr "指定接地時 Theta > 90 度：請檢查 RP 卡資料並修正\n"
 
 #: src/input.c:1503
@@ -1380,9 +1313,7 @@ msgid "Faulty data card"
 msgstr "錯誤的資料卡"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
 msgstr "缺少或為表面波 RP 卡：輻射場型和增益計算已停用\n"
 
 #: src/input.c:1595
@@ -1390,9 +1321,7 @@ msgid "Unexpected exit from while loop"
 msgstr "意外跳出 while 迴圈"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
 msgstr "命令資料卡錯誤：讀取輸入檔案時遇到意外的 EOF - 附加 EN 卡\n"
 
 #: src/input.c:1654
@@ -1418,9 +1347,7 @@ msgstr ""
 "助記碼太短或缺少"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
 msgstr "幾何資料卡錯誤：讀取輸入檔案時遇到意外的 EOF - 附加 GE 卡\n"
 
 #: src/input.c:1830
@@ -1663,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1789,6 +1708,68 @@ msgstr "Hankel 在 z = 0 時無效"
 msgid "No convergence"
 msgstr "未收斂"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"用法：xnec2c [選項] [<輸入檔案名稱>]\n"
+"  -i|--input         <輸入檔案名稱>\n"
+"  -c|--config        <設定檔路徑>     - 檔案必須存在\n"
+"  -C|--new-config    <新設定檔路徑> - 若不存在則建立檔案\n"
+"  -j|--jobs  <SMP 機器的處理器數量> (-j0 停用 forking)\n"
+"     --openblas-threads <n>  設定 OpenBLAS 執行緒數量（預設值：1）\n"
+"     --mkl-threads <n>       設定 Intel MKL 執行緒數量（預設值：1）\n"
+"     --omp-threads <n>       設定 OpenMP 執行緒數量（預設值：1）\n"
+"  -b|--batch:        啟用批次模式，頻率迴圈執行後結束\n"
+"  -P|--no-pthreads:  停用 pthreads 並使用 GTK 迴圈進行除錯\n"
+"  -h|--help:         顯示用法資訊並結束\n"
+"  -V|--version:      顯示 xnec2c 版本號碼並結束\n"
+"  -v|--verbose:      增加詳細程度，可多次指定\n"
+"  -d|--debug:        啟用除錯輸出（-dd 包含回溯追蹤）\n"
+"  -d|--quiet:        抑制除錯/詳細輸出\n"
+"\n"
+"  --optimize:        立即啟動最佳化器。\n"
+"  --skip-verify:     略過幾何驗證檢查\n"
+"\n"
+"以下參數在頻率迴圈完成後寫入輸出檔案。這些適合與 --batch 結合使用；若您希望在非 --batch 模式下指定要寫入的檔案名稱，請啟用「檔案->最佳化器設定」，否則您在命令列指定的檔案將不會被寫入。\n"
+"\n"
+"  --write-csv             <檔案名稱>  - 寫入測量值的 CSV 檔案\n"
+"  --write-s1p             <檔案名稱>  - 寫入 S 參數的 S1P 檔案\n"
+"  --write-s2p-max-gain    <檔案名稱>  - 寫入 S2P 檔案，port-2 為最大增益\n"
+"  --write-s2p-viewer-gain <檔案名稱>  - 寫入 S2P 檔案，port-2 為觀察者增益\n"
+"  --write-rdpat           <檔案名稱>  - 寫入輻射場型的 CSV 檔案\n"
+"  --write-currents        <檔案名稱>  - 寫入電流與電荷的 CSV 檔案\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1888,9 +1869,7 @@ msgstr "%s：\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
 msgstr "來自檔案的複數介電常數：%12.5E%+12.5Ej，請求的：%12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
@@ -1908,12 +1887,8 @@ msgstr "無法從子程序讀取資料\n"
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop 已完成所有步驟但 num_busy_procs=%d（calc_data.freq_step=%d "
-"calc_data.steps_total=%d）？\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop 已完成所有步驟但 num_busy_procs=%d（calc_data.freq_step=%d calc_data.steps_total=%d）？\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1951,32 +1926,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c 是一個互動式圖形介面，包裝了修改版的 nec2c，而 nec2c 本身是將原始 "
-"FORTRAN NEC2 數值電磁學程式碼翻譯成 C 語言的版本。\n"
+"xnec2c 是一個互動式圖形介面，包裝了修改版的 nec2c，而 nec2c 本身是將原始 FORTRAN NEC2 數值電磁學程式碼翻譯成 C 語言的版本。\n"
 "\n"
-"xnec2c 可以圖形化顯示頻率相關資料（增益、輸入阻抗、VSWR 等）。它也可以以可旋"
-"轉的線框格式顯示輻射場型資料，以及以網格格式顯示近場（E、H、S 向量）。\n"
+"xnec2c 可以圖形化顯示頻率相關資料（增益、輸入阻抗、VSWR 等）。它也可以以可旋轉的線框格式顯示輻射場型資料，以及以網格格式顯示近場（E、H、S 向量）。\n"
 "\n"
-"xnec2c 內建 NEC2 輸入檔案編輯器，讓建立或編輯天線描述檔案和指定 NEC2 指令更加"
-"容易。\n"
+"xnec2c 內建 NEC2 輸入檔案編輯器，讓建立或編輯天線描述檔案和指定 NEC2 指令更加容易。\n"
 "\n"
-"請務必閱讀 doc/ 子目錄中的文件，因為 xnec2c 與 NEC2 輸入檔案並非完全相容，且"
-"運作方式有所不同！"
+"請務必閱讀 doc/ 子目錄中的文件，因為 xnec2c 與 NEC2 輸入檔案並非完全相容，且運作方式有所不同！"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3567,9 +3531,7 @@ msgstr "傳輸線阻抗 (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "忽略幾何中的 CM 卡\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
 #~ msgstr "Theta > 90 度且已指定接地面：請檢查 RP 卡片資料並更正\n"
 
 #~ msgid "Hankel not valid for z = 0\n"

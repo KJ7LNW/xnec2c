@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,8 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/calculations.c:117 src/calculations.c:1276
 #, c-format
@@ -68,8 +67,7 @@ msgid ""
 "Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
 msgstr ""
 "Вікно графіків частоти закрито: тип збудження %d є несумісним.\n"
-"Використовуйте тип 0 (Applied E Field) або 5 (Current Discontinuity) замість "
-"цього."
+"Використовуйте тип 0 (Applied E Field) або 5 (Current Discontinuity) замість цього."
 
 #: src/callback_func.c:518
 #, c-format
@@ -79,8 +77,7 @@ msgid ""
 "Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
 msgstr ""
 "Графіки частоти недоступні для типу збудження %d.\n"
-"Ця модель використовує збудження Incident Field або Elementary Current "
-"Source.\n"
+"Ця модель використовує збудження Incident Field або Elementary Current Source.\n"
 "Змініть картку EX на тип 0 (Applied E Field) або 5 (Current Discontinuity)."
 
 #: src/callback_func.c:697
@@ -145,25 +142,16 @@ msgid "xnec2c geometry optimizer"
 msgstr "Оптимізатор геометрії xnec2c"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
-msgstr ""
-"xnec2c було зібрано без підтримки inotify: оптимізатор не може бути "
-"увімкнено."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr "xnec2c було зібрано без підтримки inotify: оптимізатор не може бути увімкнено."
 
 #: src/callbacks.c:316
 msgid "Xnec2c Optimizer"
 msgstr "Оптимізатор Xnec2c"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"Файли для запису не вибрано. Однак xnec2c все одно перезавантажить і "
-"перерахує вхідний файл при зміні, коли це буде ініційовано inotify. Виберіть "
-"файли для запису в «Файл->Налаштування оптимізації»."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "Файли для запису не вибрано. Однак xnec2c все одно перезавантажить і перерахує вхідний файл при зміні, коли це буде ініційовано inotify. Виберіть файли для запису в «Файл->Налаштування оптимізації»."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -704,12 +692,8 @@ msgstr "Помилка: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"Кількість з'єднань сегментів перевищує повну сітку, що малоймовірно: data.n="
-"%ld segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "Кількість з'єднань сегментів перевищує повну сітку, що малоймовірно: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -720,12 +704,8 @@ msgstr ""
 "Перевірте наявність сегментів, що перекриваються або майже з'єднані\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"перевірте дані, параметр, що вказує сегмент: позиція в групі однакових тегів "
-"не повинна бути нульовою\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "перевірте дані, параметр, що вказує сегмент: позиція в групі однакових тегів не повинна бути нульовою\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -743,16 +723,12 @@ msgstr "жоден сегмент не має itag %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
-"Помилка номера тега сегмента: Тег 0 зарезервований і не може "
-"використовуватися.\n"
-"Перевірте картки геометрії (особливо картки GM), щоб переконатися, що "
-"значення тегів дійсні.\n"
-"Для карток GM: перевірте, що 'початковий тег' та 'приріст тега' не створюють "
-"тег 0."
+"Помилка номера тега сегмента: Тег 0 зарезервований і не може використовуватися.\n"
+"Перевірте картки геометрії (особливо картки GM), щоб переконатися, що значення тегів дійсні.\n"
+"Для карток GM: перевірте, що 'початковий тег' та 'приріст тега' не створюють тег 0."
 
 #: src/geometry.c:809
 #, c-format
@@ -805,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: відстань кінцевої точки=%.3e занадто мала (нижче порогу "
-"з'єднання=%.3e); сегмент з'єднається сам із собою\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: відстань кінцевої точки=%.3e занадто мала (нижче порогу з'єднання=%.3e); сегмент з'єднається сам із собою\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -819,12 +791,8 @@ msgstr "tag=%d: придушення додаткових попереджень
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: відстань=%.3e до tag=%d/seg=%d менша за 2x поріг з'єднання "
-"%.3e; можливі ненавмисні з'єднання\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: відстань=%.3e до tag=%d/seg=%d менша за 2x поріг з'єднання %.3e; можливі ненавмисні з'єднання\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -833,69 +801,38 @@ msgstr "tag=%d: придушення додаткових попереджень
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: довжина=%.3e занадто коротка (і достатньо близька) до tag=%d/"
-"seg=%d довжина=%.3e, що виявлення з'єднання може не спрацювати або "
-"закоротити\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: довжина=%.3e занадто коротка (і достатньо близька) до tag=%d/seg=%d довжина=%.3e, що виявлення з'єднання може не спрацювати або закоротити\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
-msgstr ""
-"tag=%d: придушення додаткових попереджень про можливу невдачу виявлення "
-"з'єднання або закорочення\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
+msgstr "tag=%d: придушення додаткових попереджень про можливу невдачу виявлення з'єднання або закорочення\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: співвідношення довжина/довжина хвилі %.3f < 0.001; подібність "
-"компонентів струму призводить до числових неточностей (мін=0.001, "
-"добре=0.05, рекомендовано <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: співвідношення довжина/довжина хвилі %.3f < 0.001; подібність компонентів струму призводить до числових неточностей (мін=0.001, добре=0.05, рекомендовано <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
-msgstr ""
-"tag=%d: придушення додаткових помилок короткого співвідношення довжини "
-"хвилі\n"
+msgstr "tag=%d: придушення додаткових помилок короткого співвідношення довжини хвилі\n"
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: співвідношення довжина/довжина хвилі %.3f > 0.1; роздільна "
-"здатність вибірки струму обмежена відстанню між сегментами (мін=0.001, "
-"добре=0.05, рекомендовано <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: співвідношення довжина/довжина хвилі %.3f > 0.1; роздільна здатність вибірки струму обмежена відстанню між сегментами (мін=0.001, добре=0.05, рекомендовано <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
-msgstr ""
-"tag=%d: придушення додаткових попереджень про довге співвідношення довжини "
-"хвилі\n"
+msgstr "tag=%d: придушення додаткових попереджень про довге співвідношення довжини хвилі\n"
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: співвідношення довжина/довжина хвилі %.3f > 0.05; коротші "
-"сегменти підвищують точність у областях швидкої зміни струму (мін=0.001, "
-"добре=0.05, рекомендовано <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: співвідношення довжина/довжина хвилі %.3f > 0.05; коротші сегменти підвищують точність у областях швидкої зміни струму (мін=0.001, добре=0.05, рекомендовано <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -904,72 +841,48 @@ msgstr "tag=%d: придушення додаткових пропозицій �
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 2.0; похибка поля "
-"стандартного ядра тонкого дроту значно перевищує 1%% (мін=2.0, 1%% "
-"точність=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 2.0; похибка поля стандартного ядра тонкого дроту значно перевищує 1%% (мін=2.0, 1%% точність=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
-msgstr ""
-"tag=%d: придушення додаткових помилок співвідношення стандартного ядра\n"
+msgstr "tag=%d: придушення додаткових помилок співвідношення стандартного ядра\n"
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 8.0; похибка поля "
-"стандартного ядра тонкого дроту перевищує 1%% (мін=2.0, 1%% точність=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 8.0; похибка поля стандартного ядра тонкого дроту перевищує 1%% (мін=2.0, 1%% точність=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
-msgstr ""
-"tag=%d: придушення додаткових попереджень співвідношення стандартного ядра\n"
+msgstr "tag=%d: придушення додаткових попереджень співвідношення стандартного ядра\n"
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 0.5; похибка поля "
-"розширеного ядра тонкого дроту значно перевищує 1%% (мін=0.5, 1%% "
-"точність=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 0.5; похибка поля розширеного ядра тонкого дроту значно перевищує 1%% (мін=0.5, 1%% точність=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
-msgstr ""
-"tag=%d: придушення додаткових помилок співвідношення розширеного ядра\n"
+msgstr "tag=%d: придушення додаткових помилок співвідношення розширеного ядра\n"
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 2.0; похибка поля "
-"розширеного ядра тонкого дроту перевищує 1%% (мін=0.5, 1%% точність=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: співвідношення довжина/радіус %.1f < 2.0; похибка поля розширеного ядра тонкого дроту перевищує 1%% (мін=0.5, 1%% точність=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
-msgstr ""
-"tag=%d: придушення додаткових попереджень співвідношення розширеного ядра\n"
+msgstr "tag=%d: придушення додаткових попереджень співвідношення розширеного ядра\n"
 
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"Пропуск перевірки перекриття для %d сегментів (використовуйте --force-verify "
-"для увімкнення)\n"
+msgstr "Пропуск перевірки перекриття для %d сегментів (використовуйте --force-verify для увімкнення)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -977,11 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Примусова перевірка перекриття для %d сегментів\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() пропускає частотно-залежні перевірки - немає даних про "
-"частоту\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() пропускає частотно-залежні перевірки - немає даних про частоту\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -998,21 +908,13 @@ msgstr "# Опорний імпеданс Z0 = %.2f Ом\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# Для побудови графіка в gnuplot ви можете змінити цю команду. Зараз вона "
-"будує МГц vs zreal та zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# Для побудови графіка в gnuplot ви можете змінити цю команду. Зараз вона будує МГц vs zreal та zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1061,6 +963,10 @@ msgstr "# сегменти дротів структури\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "Зберегти струми та заряди у CSV"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "Вам потрібно увімкнути дані струмів, натиснувши «Струми» або «Заряди» в головному вікні xnec2c."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1290,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "Виправте картки GE/GN:\n"
 "Картка GE вказує на наявність землі, але картка GN вказує інше."
@@ -1309,12 +1214,8 @@ msgstr ""
 "Будь ласка, перевірте дані картки RP та виправте"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"апроксимація радіальних дротів g.s.: не може використовуватися з опцією "
-"землі Зоммерфельда\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "апроксимація радіальних дротів g.s.: не може використовуватися з опцією землі Зоммерфельда\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1326,12 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"помилка даних у картці навантаження № %d: itag step1 %d більше за itag step2 "
-"%d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "помилка даних у картці навантаження № %d: itag step1 %d більше за itag step2 %d\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1342,11 +1239,8 @@ msgstr ""
 "itag step1 більше за itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr ""
-"Імпеданс лінії передачі = 0: недійсний. Будь ласка, виправте картку NT або "
-"TL\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "Імпеданс лінії передачі = 0: недійсний. Будь ласка, виправте картку NT або TL\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1398,20 +1292,13 @@ msgid ""
 "xnec2c renders radiation patterns graphically instead of text tables.\n"
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
-"Усереднення підсилення (XNDA ***1 або ***2) керує форматуванням текстового "
-"виводу.\n"
-"xnec2c відображає діаграми випромінювання графічно замість текстових "
-"таблиць.\n"
-"Обчислення діаграм виконуються нормально; використовуйте GUI для перегляду "
-"результатів."
+"Усереднення підсилення (XNDA ***1 або ***2) керує форматуванням текстового виводу.\n"
+"xnec2c відображає діаграми випромінювання графічно замість текстових таблиць.\n"
+"Обчислення діаграм виконуються нормально; використовуйте GUI для перегляду результатів."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Theta > 90 град. при вказаній землі: Будь ласка, перевірте дані картки RP та "
-"виправте\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Theta > 90 град. при вказаній землі: Будь ласка, перевірте дані картки RP та виправте\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1426,24 +1313,16 @@ msgid "Faulty data card"
 msgstr "Пошкоджена картка даних"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"Відсутня або поверхнево-хвильова картка RP: обчислення діаграми "
-"випромінювання та підсилення вимкнено\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "Відсутня або поверхнево-хвильова картка RP: обчислення діаграми випромінювання та підсилення вимкнено\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "Неочікуваний вихід з циклу while"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"помилка картки даних команд: неочікуваний кінець файлу під час читання "
-"вхідного файлу - додавання картки EN\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "помилка картки даних команд: неочікуваний кінець файлу під час читання вхідного файлу - додавання картки EN\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1457,9 +1336,7 @@ msgstr ""
 
 #: src/input.c:1668
 msgid "command data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"помилка картки даних команд: мнемонічний код картки занадто короткий або "
-"відсутній\n"
+msgstr "помилка картки даних команд: мнемонічний код картки занадто короткий або відсутній\n"
 
 #: src/input.c:1669
 msgid ""
@@ -1470,12 +1347,8 @@ msgstr ""
 "Мнемонічний код занадто короткий або відсутній"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"помилка картки геометричних даних: неочікуваний кінець файлу під час читання "
-"вхідного файлу - додавання картки GE\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "помилка картки геометричних даних: неочікуваний кінець файлу під час читання вхідного файлу - додавання картки GE\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1489,9 +1362,7 @@ msgstr ""
 
 #: src/input.c:1844
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"помилка картки геометричних даних: мнемонічний код картки занадто короткий "
-"або відсутній\n"
+msgstr "помилка картки геометричних даних: мнемонічний код картки занадто короткий або відсутній\n"
 
 #: src/input.c:1845
 msgid ""
@@ -1719,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1845,6 +1708,71 @@ msgstr "Ханкель недійсний для z = 0"
 msgid "No convergence"
 msgstr "Немає збіжності"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"Використання: xnec2c [параметри] [<ім'я-вхідного-файлу>]\n"
+"  -i|--input         <ім'я-вхідного-файлу>\n"
+"  -c|--config        <шлях-до-файлу-конфігурації>     - файл повинен існувати\n"
+"  -C|--new-config    <шлях-до-нового-файлу-конфігурації> - створює файл, якщо він відсутній\n"
+"  -j|--jobs  <кількість процесорів у SMP-машині> (-j0 вимикає розгалуження)\n"
+"     --openblas-threads <n>  встановити кількість потоків OpenBLAS (за замовчуванням: 1)\n"
+"     --mkl-threads <n>       встановити кількість потоків Intel MKL (за замовчуванням: 1)\n"
+"     --omp-threads <n>       встановити кількість потоків OpenMP (за замовчуванням: 1)\n"
+"  -b|--batch:        увімкнути пакетний режим, вийти після завершення циклу частот\n"
+"  -P|--no-pthreads:  вимкнути pthreads і використовувати цикл GTK для налагодження\n"
+"  -h|--help:         вивести інформацію про використання і вийти\n"
+"  -V|--version:      вивести номер версії xnec2c і вийти\n"
+"  -v|--verbose:      збільшити детальність, можна вказати кілька разів\n"
+"  -d|--debug:        увімкнути налагоджувальний вивід (-dd включає трасування стеку)\n"
+"  -d|--quiet:        приховати налагоджувальний/детальний вивід\n"
+"\n"
+"  --optimize:        Негайно активувати оптимізатор.\n"
+"  --skip-verify:     пропустити перевірку геометрії\n"
+"\n"
+"Наступні аргументи записують у вихідний файл після завершення циклу частот.\n"
+"Їх зручно поєднувати з --batch; якщо ви хочете вказати імена файлів для\n"
+"запису без режиму --batch, увімкніть Файл->Налаштування оптимізатора,\n"
+"інакше вказані вами в командному рядку файли не будуть записані.\n"
+"\n"
+"  --write-csv             <ім'я-файлу>  - записати CSV-файл вимірювань\n"
+"  --write-s1p             <ім'я-файлу>  - записати S1P-файл S-параметрів\n"
+"  --write-s2p-max-gain    <ім'я-файлу>  - записати S2P-файл, порт-2 — максимальне підсилення\n"
+"  --write-s2p-viewer-gain <ім'я-файлу>  - записати S2P-файл, порт-2 — підсилення спостерігача\n"
+"  --write-rdpat           <ім'я-файлу>  - записати CSV діаграми спрямованості\n"
+"  --write-currents        <ім'я-файлу>  - записати CSV струмів і зарядів\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1922,9 +1850,7 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr ""
-"Цикл оптимізатора незавершений, пропуск перемальовування діаграми "
-"випромінювання.\n"
+msgstr "Цикл оптимізатора незавершений, пропуск перемальовування діаграми випромінювання.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
@@ -1946,12 +1872,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"комплексна діелектрична стала з файлу: %12.5E%+12.5Ej, запитана: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "комплексна діелектрична стала з файлу: %12.5E%+12.5Ej, запитана: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1968,12 +1890,8 @@ msgstr "Не вдалося прочитати дані з дочірнього 
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop завершив усі кроки, але num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop завершив усі кроки, але num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -2011,35 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c — це інтерактивна графічна оболонка навколо модифікованої версії "
-"nec2c, яка сама є перекладом на C оригінального FORTRAN NEC2 Numerical "
-"Electromagnetics Code.\n"
+"xnec2c — це інтерактивна графічна оболонка навколо модифікованої версії nec2c, яка сама є перекладом на C оригінального FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c може відображати частотно-залежні дані (підсилення, вхідний імпеданс, "
-"VSWR тощо) у графічному форматі. Він також може відображати дані діаграми "
-"випромінювання в форматі обертової каркасної моделі та ближнє поле (вектори "
-"E, H, S) у форматі сітки.\n"
+"xnec2c може відображати частотно-залежні дані (підсилення, вхідний імпеданс, VSWR тощо) у графічному форматі. Він також може відображати дані діаграми випромінювання в форматі обертової каркасної моделі та ближнє поле (вектори E, H, S) у форматі сітки.\n"
 "\n"
-"xnec2c має вбудований редактор вхідних файлів NEC2, який полегшує створення "
-"або редагування файлів опису антен та вказування команд NEC2.\n"
+"xnec2c має вбудований редактор вхідних файлів NEC2, який полегшує створення або редагування файлів опису антен та вказування команд NEC2.\n"
 "\n"
-"БУДЬ ЛАСКА, прочитайте документацію в підкаталозі doc/, оскільки xnec2c не "
-"повністю сумісний з вхідними файлами NEC2 і працює по-іншому!"
+"БУДЬ ЛАСКА, прочитайте документацію в підкаталозі doc/, оскільки xnec2c не повністю сумісний з вхідними файлами NEC2 і працює по-іншому!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3592,8 +3496,7 @@ msgstr "Імпеданс лінії передачі (Zo)"
 #~ msgstr "неочікуваний EOF (кінець файлу)\n"
 
 #~ msgid "error reading Comments: Comment mnemonic short or missing\n"
-#~ msgstr ""
-#~ "помилка читання коментарів: мнемоніка коментаря коротка або відсутня\n"
+#~ msgstr "помилка читання коментарів: мнемоніка коментаря коротка або відсутня\n"
 
 #~ msgid "geometry data card error - tag number is less than 1\n"
 #~ msgstr "помилка картки геометричних даних - номер тегу менше 1\n"
@@ -3602,9 +3505,7 @@ msgstr "Імпеданс лінії передачі (Zo)"
 #~ msgstr "помилка картки геометричних даних - кількість сегментів менше 1\n"
 
 #~ msgid "geometry data card error no GC card for tapered wire\n"
-#~ msgstr ""
-#~ "помилка картки геометричних даних: відсутня картка GC для конічного "
-#~ "дроту\n"
+#~ msgstr "помилка картки геометричних даних: відсутня картка GC для конічного дроту\n"
 
 #~ msgid "geometry GC data card error\n"
 #~ msgstr "помилка картки геометричних даних GC\n"
@@ -3633,12 +3534,8 @@ msgstr "Імпеданс лінії передачі (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "ігнорування картки CM у геометрії\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta > 90 град із вказаною землею: будь ласка, перевірте дані картки RP "
-#~ "та виправте\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta > 90 град із вказаною землею: будь ласка, перевірте дані картки RP та виправте\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "Ханкель недійсний для z = 0\n"

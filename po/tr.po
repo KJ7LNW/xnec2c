@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -78,8 +78,7 @@ msgid ""
 msgstr ""
 "Frekans grafikleri, uyarma türü %d ile kullanılamaz.\n"
 "Bu model Gelen Alan veya Temel Akım Kaynağı uyarması kullanıyor.\n"
-"EX kartını tür 0 (Uygulanan E Alanı) veya 5 (Akım Süreksizliği) olarak "
-"değiştirin."
+"EX kartını tür 0 (Uygulanan E Alanı) veya 5 (Akım Süreksizliği) olarak değiştirin."
 
 #: src/callback_func.c:697
 msgid "View Currents"
@@ -143,24 +142,16 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c geometri optimize edici"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
-msgstr ""
-"xnec2c inotify desteği olmadan derlendi: optimize edici etkinleştirilemez."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr "xnec2c inotify desteği olmadan derlendi: optimize edici etkinleştirilemez."
 
 #: src/callbacks.c:316
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c Optimize Edici"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"Yazma için dosya seçilmedi. Ancak xnec2c, inotify tarafından tetiklendiğinde "
-"girdi dosyasını değişiklik üzerine yeniden yükleyecek ve hesaplayacaktır. "
-"\"Dosya->Optimizasyon Ayarları\" bölümünden yazılacak dosyaları seçin."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "Yazma için dosya seçilmedi. Ancak xnec2c, inotify tarafından tetiklendiğinde girdi dosyasını değişiklik üzerine yeniden yükleyecek ve hesaplayacaktır. \"Dosya->Optimizasyon Ayarları\" bölümünden yazılacak dosyaları seçin."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -701,12 +692,8 @@ msgstr "Hata: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"Segment bağlantı sayısı tam bir örgüyü aşıyor, bu olası değil: data.n=%ld "
-"segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "Segment bağlantı sayısı tam bir örgüyü aşıyor, bu olası değil: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -717,12 +704,8 @@ msgstr ""
 "Örtüşen veya neredeyse bağlı segmentleri kontrol edin\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"veriyi kontrol edin, segmenti belirten parametre: eşit etiket grubundaki "
-"konum sıfır olmamalı\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "veriyi kontrol edin, segmenti belirten parametre: eşit etiket grubundaki konum sıfır olmamalı\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -740,15 +723,12 @@ msgstr "itag değeri %d olan segment yok\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "Segment etiket numarası hatası: Etiket 0 ayrılmış ve kullanılamaz.\n"
-"Etiket değerlerinin geçerli olduğundan emin olmak için geometri kartlarınızı "
-"(özellikle GM kartları) kontrol edin.\n"
-"GM kartları için: 'başlangıç etiketi' ve 'etiket artışı'nın etiket 0 "
-"oluşturmadığını doğrulayın."
+"Etiket değerlerinin geçerli olduğundan emin olmak için geometri kartlarınızı (özellikle GM kartları) kontrol edin.\n"
+"GM kartları için: 'başlangıç etiketi' ve 'etiket artışı'nın etiket 0 oluşturmadığını doğrulayın."
 
 #: src/geometry.c:809
 #, c-format
@@ -801,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: uç nokta mesafesi=%.3e çok yakın (bağlantı eşiği=%.3e "
-"altında); segment kendine bağlanacak\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: uç nokta mesafesi=%.3e çok yakın (bağlantı eşiği=%.3e altında); segment kendine bağlanacak\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -815,12 +791,8 @@ msgstr "tag=%d: ek kendine bağlanma uyarıları bastırılıyor\n"
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%1$d/seg=%2$d: tag=%4$d/seg=%5$d mesafesi=%3$.3e, 2x bağlantı eşiği "
-"%6$.3e'den yakın; istenmeyen bağlantılar olası\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%1$d/seg=%2$d: tag=%4$d/seg=%5$d mesafesi=%3$.3e, 2x bağlantı eşiği %6$.3e'den yakın; istenmeyen bağlantılar olası\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -829,32 +801,18 @@ msgstr "tag=%d: ek örtüşme uyarıları bastırılıyor\n"
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: uzunluk=%.3e, tag=%d/seg=%d uzunluk=%.3e için çok kısa (ve "
-"yeterince yakın), bağlantı tespiti başarısız olabilir veya kısa devre "
-"yapabilir\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: uzunluk=%.3e, tag=%d/seg=%d uzunluk=%.3e için çok kısa (ve yeterince yakın), bağlantı tespiti başarısız olabilir veya kısa devre yapabilir\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
-msgstr ""
-"tag=%d: ek bağlantı tespiti başarısız olabilir veya kısa devre uyarıları "
-"bastırılıyor\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
+msgstr "tag=%d: ek bağlantı tespiti başarısız olabilir veya kısa devre uyarıları bastırılıyor\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: uzunluk/dalga boyu oranı %.3f < 0.001; akım bileşenlerinin "
-"benzerliği sayısal hatalara yol açar (min=0.001, iyi=0.05, önerilen <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: uzunluk/dalga boyu oranı %.3f < 0.001; akım bileşenlerinin benzerliği sayısal hatalara yol açar (min=0.001, iyi=0.05, önerilen <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -863,14 +821,8 @@ msgstr "tag=%d: ek kısa dalga boyu oranı hataları bastırılıyor\n"
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: uzunluk/dalga boyu oranı %.3f > 0.1; akım örnekleme "
-"çözünürlüğü segment aralığıyla sınırlı (min=0.001, iyi=0.05, önerilen <= "
-"0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: uzunluk/dalga boyu oranı %.3f > 0.1; akım örnekleme çözünürlüğü segment aralığıyla sınırlı (min=0.001, iyi=0.05, önerilen <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -879,14 +831,8 @@ msgstr "tag=%d: ek uzun dalga boyu oranı uyarıları bastırılıyor\n"
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: uzunluk/dalga boyu oranı %.3f > 0.05; hızlı akım değişimi "
-"bölgelerinde daha kısa segmentler doğruluğu artırır (min=0.001, iyi=0.05, "
-"önerilen <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: uzunluk/dalga boyu oranı %.3f > 0.05; hızlı akım değişimi bölgelerinde daha kısa segmentler doğruluğu artırır (min=0.001, iyi=0.05, önerilen <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -895,12 +841,8 @@ msgstr "tag=%d: ek doğruluk iyileştirme önerileri bastırılıyor\n"
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 2.0; standart ince tel çekirdeği "
-"alan hatası %%1'i büyük farkla aşıyor (min=2.0, %%1doğru=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 2.0; standart ince tel çekirdeği alan hatası %%1'i büyük farkla aşıyor (min=2.0, %%1doğru=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -909,12 +851,8 @@ msgstr "tag=%d: ek standart çekirdek oranı hataları bastırılıyor\n"
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 8.0; standart ince tel çekirdeği "
-"alan hatası %%1'i aşıyor (min=2.0, %%1doğru=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 8.0; standart ince tel çekirdeği alan hatası %%1'i aşıyor (min=2.0, %%1doğru=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -923,12 +861,8 @@ msgstr "tag=%d: ek standart çekirdek oranı uyarıları bastırılıyor\n"
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 0.5; genişletilmiş ince tel "
-"çekirdeği alan hatası %%1'i büyük farkla aşıyor (min=0.5, %%1doğru=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 0.5; genişletilmiş ince tel çekirdeği alan hatası %%1'i büyük farkla aşıyor (min=0.5, %%1doğru=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -937,12 +871,8 @@ msgstr "tag=%d: ek genişletilmiş çekirdek oranı hataları bastırılıyor\n"
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 2.0; genişletilmiş ince tel "
-"çekirdeği alan hatası %%1'i aşıyor (min=0.5, %%1doğru=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: uzunluk/yarıçap oranı %.1f < 2.0; genişletilmiş ince tel çekirdeği alan hatası %%1'i aşıyor (min=0.5, %%1doğru=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -952,9 +882,7 @@ msgstr "tag=%d: ek genişletilmiş çekirdek oranı uyarıları bastırılıyor\
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"%d segment için örtüşme kontrolü atlanıyor (etkinleştirmek için --force-"
-"verify kullanın)\n"
+msgstr "%d segment için örtüşme kontrolü atlanıyor (etkinleştirmek için --force-verify kullanın)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -962,10 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "%d segment için örtüşme kontrolü zorlanıyor\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() frekansa bağlı kontrolleri atlıyor - frekans verisi yok\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() frekansa bağlı kontrolleri atlıyor - frekans verisi yok\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -982,21 +908,13 @@ msgstr "# Referans empedans Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# Gnuplot'ta çizmek için bu komutu değiştirebilirsiniz. Şu anda MHz - zreal "
-"ve zimag çiziyor:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# Gnuplot'ta çizmek için bu komutu değiştirebilirsiniz. Şu anda MHz - zreal ve zimag çiziyor:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1045,6 +963,10 @@ msgstr "# yapı tel segmentleri\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "Akımları ve Yükleri CSV'ye Kaydet"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "Ana xnec2c penceresinde \"Akımlar\" veya \"Yükler\"e tıklayarak akım verilerini etkinleştirmelisiniz."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1274,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "GE/GN kartlarını düzeltin:\n"
 "GE kartı bir toprak düzlemi olduğunu belirtiyor, ancak GN aksini gösteriyor."
@@ -1293,12 +1214,8 @@ msgstr ""
 "Lütfen RP kartı verilerini kontrol edip düzeltin"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"radyal tel toprak sistemi yaklaşımı: Sommerfeld toprak seçeneği ile "
-"kullanılamaz\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "radyal tel toprak sistemi yaklaşımı: Sommerfeld toprak seçeneği ile kullanılamaz\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1310,12 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"yükleme kartı no %d üzerinde veri hatası: itag step1 %d, itag step2 %d "
-"değerinden büyük\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "yükleme kartı no %d üzerinde veri hatası: itag step1 %d, itag step2 %d değerinden büyük\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1326,11 +1239,8 @@ msgstr ""
 "itag step1, itag step2 değerinden büyük"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr ""
-"İletim hattı empedansı = 0: geçerli değil. Lütfen NT veya TL kartını "
-"düzeltin\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "İletim hattı empedansı = 0: geçerli değil. Lütfen NT veya TL kartını düzeltin\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1382,20 +1292,13 @@ msgid ""
 "xnec2c renders radiation patterns graphically instead of text tables.\n"
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
-"Kazanç ortalaması (XNDA ***1 veya ***2) metin çıktı biçimlendirmesini "
-"kontrol eder.\n"
-"xnec2c ışınım örüntülerini metin tabloları yerine grafiksel olarak "
-"oluşturur.\n"
-"Örüntü hesaplamaları normal şekilde devam eder; sonuçları görüntülemek için "
-"GUI'yi kullanın."
+"Kazanç ortalaması (XNDA ***1 veya ***2) metin çıktı biçimlendirmesini kontrol eder.\n"
+"xnec2c ışınım örüntülerini metin tabloları yerine grafiksel olarak oluşturur.\n"
+"Örüntü hesaplamaları normal şekilde devam eder; sonuçları görüntülemek için GUI'yi kullanın."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Toprak düzlemi belirtilmiş durumda theta > 90 derece: Lütfen RP kartı "
-"verilerini kontrol edip düzeltin\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Toprak düzlemi belirtilmiş durumda theta > 90 derece: Lütfen RP kartı verilerini kontrol edip düzeltin\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1410,24 +1313,16 @@ msgid "Faulty data card"
 msgstr "Hatalı veri kartı"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"Eksik veya yüzey dalgası RP kartı: Işınım örüntüsü ve kazanç hesaplamaları "
-"devre dışı\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "Eksik veya yüzey dalgası RP kartı: Işınım örüntüsü ve kazanç hesaplamaları devre dışı\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "While döngüsünden beklenmeyen çıkış"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"komut veri kartı hatası: Girdi dosyası okunurken beklenmeyen EOF - EN kartı "
-"ekleniyor\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "komut veri kartı hatası: Girdi dosyası okunurken beklenmeyen EOF - EN kartı ekleniyor\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1452,12 +1347,8 @@ msgstr ""
 "Mnemonik kod çok kısa veya eksik"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"geometri veri kartı hatası: Girdi dosyası okunurken beklenmeyen EOF - GE "
-"kartı ekleniyor\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "geometri veri kartı hatası: Girdi dosyası okunurken beklenmeyen EOF - GE kartı ekleniyor\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1699,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1825,6 +1708,71 @@ msgstr "z = 0 için Hankel geçerli değil"
 msgid "No convergence"
 msgstr "Yakınsama yok"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"Kullanım: xnec2c [seçenekler] [<girdi-dosya-adı>]\n"
+"  -i|--input         <girdi-dosya-adı>\n"
+"  -c|--config        <yapılandırma-dosya-yolu>     - dosya mevcut olmalı\n"
+"  -C|--new-config    <yeni-yapılandırma-dosya-yolu> - eksikse dosyayı oluşturur\n"
+"  -j|--jobs  <SMP makinesindeki işlemci sayısı> (-j0 çatallamayı devre dışı bırakır)\n"
+"     --openblas-threads <n>  OpenBLAS iş parçacığı sayısını ayarla (varsayılan: 1)\n"
+"     --mkl-threads <n>       Intel MKL iş parçacığı sayısını ayarla (varsayılan: 1)\n"
+"     --omp-threads <n>       OpenMP iş parçacığı sayısını ayarla (varsayılan: 1)\n"
+"  -b|--batch:        toplu iş modunu etkinleştir, frekans döngüsü çalıştıktan sonra çık\n"
+"  -P|--no-pthreads:  pthreads'i devre dışı bırak ve hata ayıklama için GTK döngüsünü kullan\n"
+"  -h|--help:         kullanım bilgisini yazdır ve çık\n"
+"  -V|--version:      xnec2c sürüm numarasını yazdır ve çık\n"
+"  -v|--verbose:      ayrıntı düzeyini artır, birden fazla kez belirtilebilir\n"
+"  -d|--debug:        hata ayıklama çıktısını etkinleştir (-dd geri izlemeleri içerir)\n"
+"  -d|--quiet:        hata ayıklama/ayrıntılı çıktıyı bastır\n"
+"\n"
+"  --optimize:        Optimize ediciyi hemen etkinleştir.\n"
+"  --skip-verify:     geometri doğrulama kontrollerini atla\n"
+"\n"
+"Aşağıdaki argümanlar frekans döngüsü tamamlandıktan sonra bir çıktı dosyasına\n"
+"yazar.  Bunlar --batch ile birleştirmek için yararlıdır; --batch modu olmadan\n"
+"dosya adları belirtmek istiyorsanız Dosya->Optimize Edici Ayarları'nı\n"
+"etkinleştirin, aksi takdirde komut satırında belirttiğiniz dosyalar yazılmayacaktır.\n"
+"\n"
+"  --write-csv             <dosyaadı>  - ölçümlerin CSV dosyasını yaz\n"
+"  --write-s1p             <dosyaadı>  - S-parametrelerinin S1P dosyasını yaz\n"
+"  --write-s2p-max-gain    <dosyaadı>  - S2P dosyası yaz, port-2 maksimum kazanç\n"
+"  --write-s2p-viewer-gain <dosyaadı>  - S2P dosyası yaz, port-2 görüntüleyici kazancı\n"
+"  --write-rdpat           <dosyaadı>  - ışıma örüntüsünün CSV'sini yaz\n"
+"  --write-currents        <dosyaadı>  - akımlar ve yüklerin CSV'sini yaz\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1902,9 +1850,7 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr ""
-"Optimize edici döngüsü tamamlanmadı, ışınım örüntüsü yeniden çizimi "
-"atlanıyor.\n"
+msgstr "Optimize edici döngüsü tamamlanmadı, ışınım örüntüsü yeniden çizimi atlanıyor.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
@@ -1926,12 +1872,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"dosyadan karmaşık dielektrik sabiti: %12.5E%+12.5Ej, istenen: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "dosyadan karmaşık dielektrik sabiti: %12.5E%+12.5Ej, istenen: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1948,12 +1890,8 @@ msgstr "Fork edilmiş alt işlemden veri okunamadı\n"
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop tüm adımları tamamladı ancak num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop tüm adımları tamamladı ancak num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1991,36 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c, orijinal FORTRAN NEC2 Sayısal Elektromanyetik Kod'un C'ye çevrilmiş "
-"hali olan nec2c'nin değiştirilmiş bir sürümü etrafında etkileşimli bir "
-"grafiksel arayüzdür.\n"
+"xnec2c, orijinal FORTRAN NEC2 Sayısal Elektromanyetik Kod'un C'ye çevrilmiş hali olan nec2c'nin değiştirilmiş bir sürümü etrafında etkileşimli bir grafiksel arayüzdür.\n"
 "\n"
-"xnec2c frekansa bağlı verileri (kazanç, giriş empedansı, VSWR vb.) grafiksel "
-"biçimde görüntüleyebilir. Ayrıca ışınım örüntüsü verilerini döndürülebilir "
-"tel kafes biçiminde ve yakın alan verilerini (E, H, S vektörleri) ızgara "
-"biçiminde görüntüleyebilir.\n"
+"xnec2c frekansa bağlı verileri (kazanç, giriş empedansı, VSWR vb.) grafiksel biçimde görüntüleyebilir. Ayrıca ışınım örüntüsü verilerini döndürülebilir tel kafes biçiminde ve yakın alan verilerini (E, H, S vektörleri) ızgara biçiminde görüntüleyebilir.\n"
 "\n"
-"xnec2c, anten tanımlama dosyalarını oluşturmayı veya düzenlemeyi ve NEC2 "
-"komutlarını belirlemeyi kolaylaştıran yerleşik bir NEC2 girdi dosyası "
-"düzenleyicisine sahiptir.\n"
+"xnec2c, anten tanımlama dosyalarını oluşturmayı veya düzenlemeyi ve NEC2 komutlarını belirlemeyi kolaylaştıran yerleşik bir NEC2 girdi dosyası düzenleyicisine sahiptir.\n"
 "\n"
-"LÜTFEN doc/ alt dizinindeki belgeleri okuyun çünkü xnec2c, NEC2 girdi "
-"dosyalarıyla tam uyumlu değildir ve farklı şekillerde çalışır!"
+"LÜTFEN doc/ alt dizinindeki belgeleri okuyun çünkü xnec2c, NEC2 girdi dosyalarıyla tam uyumlu değildir ve farklı şekillerde çalışır!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3611,12 +3534,8 @@ msgstr "İletim Hattı Empedansı (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "geometride CM kartı yoksayılıyor\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Toprak belirtilmiş iken Theta > 90 derece: Lütfen RP kart verilerini "
-#~ "kontrol edin ve düzeltin\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Toprak belirtilmiş iken Theta > 90 derece: Lütfen RP kart verilerini kontrol edin ve düzeltin\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "z = 0 için Hankel geçerli değil\n"
@@ -3625,11 +3544,8 @@ msgstr "İletim Hattı Empedansı (Zo)"
 #~ msgstr "Yakınsama yok\n"
 
 #, c-format
-#~ msgid ""
-#~ "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
-#~ msgstr ""
-#~ "geometri veri kartı \"%1$s\" hatası: %3$d sütununda sahte karakter "
-#~ "'%2$c'\n"
+#~ msgid "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
+#~ msgstr "geometri veri kartı \"%1$s\" hatası: %3$d sütununda sahte karakter '%2$c'\n"
 
 #~ msgid ""
 #~ "Geometry data card error\n"

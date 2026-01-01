@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -77,8 +77,7 @@ msgid ""
 "Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
 msgstr ""
 "Taajuuskuvaajat eivät ole käytettävissä herätystyypin %d kanssa.\n"
-"Tämä malli käyttää Incident Field- tai Elementary Current Source -"
-"herätystä.\n"
+"Tämä malli käyttää Incident Field- tai Elementary Current Source -herätystä.\n"
 "Vaihda EX-kortti tyyppiin 0 (Applied E Field) tai 5 (Current Discontinuity)."
 
 #: src/callback_func.c:697
@@ -143,24 +142,16 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c-geometriaoptimoija"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
-msgstr ""
-"xnec2c käännettiin ilman inotify-tukea: optimoijaa ei voi ottaa käyttöön."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr "xnec2c käännettiin ilman inotify-tukea: optimoijaa ei voi ottaa käyttöön."
 
 #: src/callbacks.c:316
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c-optimoija"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"Tiedostoja ei ole valittu kirjoitettavaksi. Xnec2c kuitenkin lataa ja laskee "
-"syötetiedoston uudelleen muutoksesta, kun inotify käynnistää sen. Valitse "
-"kirjoitettavat tiedostot kohdasta \"Tiedosto->Optimointiasetukset\"."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "Tiedostoja ei ole valittu kirjoitettavaksi. Xnec2c kuitenkin lataa ja laskee syötetiedoston uudelleen muutoksesta, kun inotify käynnistää sen. Valitse kirjoitettavat tiedostot kohdasta \"Tiedosto->Optimointiasetukset\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -701,12 +692,8 @@ msgstr "Virhe: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"Segmenttiliitäntöjen määrä ylittää täyden verkon, mikä on epätodennäköistä: "
-"data.n=%ld segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "Segmenttiliitäntöjen määrä ylittää täyden verkon, mikä on epätodennäköistä: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -717,12 +704,8 @@ msgstr ""
 "Tarkista päällekkäiset tai lähes yhdistetyt segmentit\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"tarkista tiedot, segmentin sijaintia määrittävä parametri: sijainti "
-"samantunnuksisten ryhmässä ei saa olla nolla\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "tarkista tiedot, segmentin sijaintia määrittävä parametri: sijainti samantunnuksisten ryhmässä ei saa olla nolla\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -740,15 +723,12 @@ msgstr "millään segmentillä ei ole itag-arvoa %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "Segmentin tunnusnumerovirhe: Tunniste 0 on varattu eikä sitä voi käyttää.\n"
-"Tarkista geometriakortit (erityisesti GM-kortit) varmistaaksesi "
-"tunnusarvojen kelvollisuuden.\n"
-"GM-korteille: varmista etteivät 'aloitustunniste' ja 'tunnuslisäys' luo "
-"tunnistetta 0."
+"Tarkista geometriakortit (erityisesti GM-kortit) varmistaaksesi tunnusarvojen kelvollisuuden.\n"
+"GM-korteille: varmista etteivät 'aloitustunniste' ja 'tunnuslisäys' luo tunnistetta 0."
 
 #: src/geometry.c:809
 #, c-format
@@ -801,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: päätepisteen etäisyys=%.3e on liian lähellä (alle "
-"liitäntäkynnyksen=%.3e); segmentti yhdistyy itseensä\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: päätepisteen etäisyys=%.3e on liian lähellä (alle liitäntäkynnyksen=%.3e); segmentti yhdistyy itseensä\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -815,12 +791,8 @@ msgstr "tag=%d: estetään lisää itseyhdistämisvaroituksia\n"
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: etäisyys=%.3e kohteeseen tag=%d/seg=%d lähempänä kuin 2x "
-"liitäntäkynnys %.3e; tahattomat yhdistämiset mahdollisia\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: etäisyys=%.3e kohteeseen tag=%d/seg=%d lähempänä kuin 2x liitäntäkynnys %.3e; tahattomat yhdistämiset mahdollisia\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -829,33 +801,18 @@ msgstr "tag=%d: estetään lisää päällekkäisyysvaroituksia\n"
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: pituus=%.3e on liian lyhyt (ja tarpeeksi lähellä) kohteeseen "
-"tag=%d/seg=%d pituus=%.3e, liitännän tunnistus voi epäonnistua tai "
-"oikosulkea\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: pituus=%.3e on liian lyhyt (ja tarpeeksi lähellä) kohteeseen tag=%d/seg=%d pituus=%.3e, liitännän tunnistus voi epäonnistua tai oikosulkea\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
-msgstr ""
-"tag=%d: estetään lisää liitännän tunnistus voi epäonnistua tai oikosulkea -"
-"varoituksia\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
+msgstr "tag=%d: estetään lisää liitännän tunnistus voi epäonnistua tai oikosulkea -varoituksia\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: pituus/aallonpituus-suhde %.3f < 0.001; virtakomponenttien "
-"samankaltaisuus johtaa numeerisiin epätarkkuuksiin (min=0.001, hyvä=0.05, "
-"suositeltu <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: pituus/aallonpituus-suhde %.3f < 0.001; virtakomponenttien samankaltaisuus johtaa numeerisiin epätarkkuuksiin (min=0.001, hyvä=0.05, suositeltu <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -864,14 +821,8 @@ msgstr "tag=%d: estetään lisää lyhyen aallonpituussuhteen virheitä\n"
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: pituus/aallonpituus-suhde %.3f > 0.1; virran "
-"näytteenottotarkkuus rajoitettu segmenttivälistyksen mukaan (min=0.001, "
-"hyvä=0.05, suositeltu <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: pituus/aallonpituus-suhde %.3f > 0.1; virran näytteenottotarkkuus rajoitettu segmenttivälistyksen mukaan (min=0.001, hyvä=0.05, suositeltu <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -880,14 +831,8 @@ msgstr "tag=%d: estetään lisää pitkän aallonpituussuhteen varoituksia\n"
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: pituus/aallonpituus-suhde %.3f > 0.05; lyhyemmät segmentit "
-"lisäävät tarkkuutta nopean virranmuutoksen alueilla (min=0.001, hyvä=0.05, "
-"suositeltu <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: pituus/aallonpituus-suhde %.3f > 0.05; lyhyemmät segmentit lisäävät tarkkuutta nopean virranmuutoksen alueilla (min=0.001, hyvä=0.05, suositeltu <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -896,12 +841,8 @@ msgstr "tag=%d: estetään lisää tarkkuuden parannusehdotuksia\n"
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: pituus/säde-suhde %.1f < 2.0; standardin ohutlankaytimen "
-"kenttävirhe ylittää 1%% huomattavasti (min=2.0, 1%%-tarkka=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: pituus/säde-suhde %.1f < 2.0; standardin ohutlankaytimen kenttävirhe ylittää 1%% huomattavasti (min=2.0, 1%%-tarkka=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -910,12 +851,8 @@ msgstr "tag=%d: estetään lisää standardiytimen suhdevirheitä\n"
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: pituus/säde-suhde %.1f < 8.0; standardin ohutlankaytimen "
-"kenttävirhe ylittää 1%% (min=2.0, 1%%-tarkka=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: pituus/säde-suhde %.1f < 8.0; standardin ohutlankaytimen kenttävirhe ylittää 1%% (min=2.0, 1%%-tarkka=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -924,12 +861,8 @@ msgstr "tag=%d: estetään lisää standardiytimen suhdevaroituksia\n"
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: pituus/säde-suhde %.1f < 0.5; laajennetun ohutlankaytimen "
-"kenttävirhe ylittää 1%% huomattavasti (min=0.5, 1%%-tarkka=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: pituus/säde-suhde %.1f < 0.5; laajennetun ohutlankaytimen kenttävirhe ylittää 1%% huomattavasti (min=0.5, 1%%-tarkka=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -938,12 +871,8 @@ msgstr "tag=%d: estetään lisää laajennetun ytimen suhdevirheitä\n"
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: pituus/säde-suhde %.1f < 2.0; laajennetun ohutlankaytimen "
-"kenttävirhe ylittää 1%% (min=0.5, 1%%-tarkka=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: pituus/säde-suhde %.1f < 2.0; laajennetun ohutlankaytimen kenttävirhe ylittää 1%% (min=0.5, 1%%-tarkka=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -953,9 +882,7 @@ msgstr "tag=%d: estetään lisää laajennetun ytimen suhdevaroituksia\n"
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"Ohitetaan päällekkäisyystarkistus %d segmentille (käytä --force-verify "
-"ottaaksesi käyttöön)\n"
+msgstr "Ohitetaan päällekkäisyystarkistus %d segmentille (käytä --force-verify ottaaksesi käyttöön)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -963,11 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Pakotetaan päällekkäisyystarkistus %d segmentille\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() ohittaa taajuusriippuvaiset tarkistukset - ei "
-"taajuustietoja\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() ohittaa taajuusriippuvaiset tarkistukset - ei taajuustietoja\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -984,21 +908,13 @@ msgstr "# Referenssi-impedanssi Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# Piirtääksesi gnuplotissa voit muokata tätä komentoa. Tällä hetkellä se "
-"piirtää MHz vs zreal ja zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# Piirtääksesi gnuplotissa voit muokata tätä komentoa. Tällä hetkellä se piirtää MHz vs zreal ja zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'tiedostonimi.gplot' using 1:i with lines smooth "
-"bezier title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'tiedostonimi.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1047,6 +963,10 @@ msgstr "# rakenteen lankasegmentit\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "Tallenna virrat ja varaukset CSV-tiedostoon"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "Sinun on otettava virtatiedot käyttöön napsauttamalla \"Virrat\" tai \"Varaukset\" xnec2c:n pääikkunassa."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1276,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "Korjaa GE/GN-kortit:\n"
 "GE-kortti määrittää maatason olevan läsnä, mutta GN osoittaa toisin."
@@ -1295,12 +1214,8 @@ msgstr ""
 "Tarkista RP-kortin tiedot ja korjaa"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"säteittäislangan maajärjestelmäapproksimaatio: ei voi käyttää Sommerfeld-"
-"maavaihtoehdon kanssa\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "säteittäislangan maajärjestelmäapproksimaatio: ei voi käyttää Sommerfeld-maavaihtoehdon kanssa\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1312,12 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"tietovirhe kuormituskortissa nro %d: itag step1 %d on suurempi kuin itag "
-"step2 %d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "tietovirhe kuormituskortissa nro %d: itag step1 %d on suurempi kuin itag step2 %d\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1328,8 +1239,7 @@ msgstr ""
 "itag step1 on suurempi kuin itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr "Siirtolinjan impedanssi = 0: ei kelpaa. Korjaa NT- tai TL-kortti\n"
 
 #: src/input.c:1421
@@ -1382,18 +1292,13 @@ msgid ""
 "xnec2c renders radiation patterns graphically instead of text tables.\n"
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
-"Vahvistuksen keskiarvoistus (XNDA ***1 tai ***2) ohjaa tekstitulosteen "
-"muotoilua.\n"
+"Vahvistuksen keskiarvoistus (XNDA ***1 tai ***2) ohjaa tekstitulosteen muotoilua.\n"
 "xnec2c piirtää säteilykuviot graafisesti tekstitaulukoiden sijaan.\n"
-"Kuvioiden laskenta etenee normaalisti; käytä käyttöliittymää tulosten "
-"tarkasteluun."
+"Kuvioiden laskenta etenee normaalisti; käytä käyttöliittymää tulosten tarkasteluun."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Theta > 90 astetta maatason kanssa: Tarkista RP-kortin tiedot ja korjaa\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Theta > 90 astetta maatason kanssa: Tarkista RP-kortin tiedot ja korjaa\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1408,24 +1313,16 @@ msgid "Faulty data card"
 msgstr "Virheellinen tietokortti"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"Puuttuva tai pinta-aalto-RP-kortti: Säteilykuvio- ja vahvistuslaskennat "
-"poistettu käytöstä\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "Puuttuva tai pinta-aalto-RP-kortti: Säteilykuvio- ja vahvistuslaskennat poistettu käytöstä\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "Odottamaton poistuminen while-silmukasta"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"komentotietokortin virhe: Odottamaton EOF luettaessa syötetiedostoa - "
-"lisätään EN-kortti\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "komentotietokortin virhe: Odottamaton EOF luettaessa syötetiedostoa - lisätään EN-kortti\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1450,12 +1347,8 @@ msgstr ""
 "Muistikoodi liian lyhyt tai puuttuu"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"geometriatietokortin virhe: Odottamaton EOF luettaessa syötetiedostoa - "
-"lisätään GE-kortti\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "geometriatietokortin virhe: Odottamaton EOF luettaessa syötetiedostoa - lisätään GE-kortti\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1469,8 +1362,7 @@ msgstr ""
 
 #: src/input.c:1844
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"geometriatietokortin virhe: kortin muistikoodi liian lyhyt tai puuttuu\n"
+msgstr "geometriatietokortin virhe: kortin muistikoodi liian lyhyt tai puuttuu\n"
 
 #: src/input.c:1845
 msgid ""
@@ -1698,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1824,6 +1708,71 @@ msgstr "Hankel ei kelpaa kun z = 0"
 msgid "No convergence"
 msgstr "Ei suppenemista"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"Käyttö: xnec2c [valitsimet] [<syötetiedoston-nimi>]\n"
+"  -i|--input         <syötetiedoston-nimi>\n"
+"  -c|--config        <asetustiedoston-polku>     - tiedoston on oltava olemassa\n"
+"  -C|--new-config    <uuden-asetustiedoston-polku> - luo tiedoston, jos se puuttuu\n"
+"  -j|--jobs  <prosessorien määrä SMP-koneessa> (-j0 poistaa haaroituksen käytöstä)\n"
+"     --openblas-threads <n>  aseta OpenBLAS-säikeiden määrä (oletus: 1)\n"
+"     --mkl-threads <n>       aseta Intel MKL -säikeiden määrä (oletus: 1)\n"
+"     --omp-threads <n>       aseta OpenMP-säikeiden määrä (oletus: 1)\n"
+"  -b|--batch:        ota erätila käyttöön, lopeta taajuussilmukan jälkeen\n"
+"  -P|--no-pthreads:  poista pthreads käytöstä ja käytä GTK-silmukkaa virheenkorjaukseen\n"
+"  -h|--help:         tulosta käyttöohjeet ja lopeta\n"
+"  -V|--version:      tulosta xnec2c:n versionumero ja lopeta\n"
+"  -v|--verbose:      lisää yksityiskohtaisuutta, voidaan määrittää useita kertoja\n"
+"  -d|--debug:        ota virheenkorjaustulostus käyttöön (-dd sisältää pinojäljitykset)\n"
+"  -d|--quiet:        estä virheenkorjaus-/yksityiskohtainen tulostus\n"
+"\n"
+"  --optimize:        Aktivoi optimoija välittömästi.\n"
+"  --skip-verify:     ohita geometrian tarkistukset\n"
+"\n"
+"Seuraavat argumentit kirjoittavat tulostiedostoon taajuussilmukan\n"
+"valmistuttua. Nämä ovat hyödyllisiä yhdessä --batch-tilan kanssa. Jos haluat\n"
+"määrittää tiedostonimet ilman --batch-tilaa, ota käyttöön Tiedosto->Optimoijan\n"
+"asetukset, muuten komentorivillä määritettyjä tiedostoja ei kirjoiteta.\n"
+"\n"
+"  --write-csv             <tiedostonimi>  - kirjoita mittausten CSV-tiedosto\n"
+"  --write-s1p             <tiedostonimi>  - kirjoita S-parametrien S1P-tiedosto\n"
+"  --write-s2p-max-gain    <tiedostonimi>  - kirjoita S2P-tiedosto, portti 2 on maksimivahvistus\n"
+"  --write-s2p-viewer-gain <tiedostonimi>  - kirjoita S2P-tiedosto, portti 2 on katseluvahvistus\n"
+"  --write-rdpat           <tiedostonimi>  - kirjoita säteilykuvion CSV-tiedosto\n"
+"  --write-currents        <tiedostonimi>  - kirjoita virtojen ja varausten CSV-tiedosto\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1923,12 +1872,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"kompleksinen dielektrisyysvakio tiedostosta: %12.5E%+12.5Ej, pyydetty: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "kompleksinen dielektrisyysvakio tiedostosta: %12.5E%+12.5Ej, pyydetty: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1945,12 +1890,8 @@ msgstr "Tietojen luku haaroitetulta lapsiprosessilta epäonnistui\n"
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop on valmis kaikkien vaiheiden kanssa mutta num_busy_procs=%d "
-"(calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop on valmis kaikkien vaiheiden kanssa mutta num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1988,36 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c on interaktiivinen graafinen käyttöliittymä muokatulle nec2c-"
-"versiolle, joka on itsessään käännös alkuperäisestä FORTRAN NEC2 -"
-"sähkömagnetiikkakoodista C-kielelle.\n"
+"xnec2c on interaktiivinen graafinen käyttöliittymä muokatulle nec2c-versiolle, joka on itsessään käännös alkuperäisestä FORTRAN NEC2 -sähkömagnetiikkakoodista C-kielelle.\n"
 "\n"
-"xnec2c voi näyttää taajuusriippuvaista dataa (vahvistus, tuloimpedanssi, "
-"VSWR jne.) graafisessa muodossa. Se voi myös näyttää säteilykuviotietoja "
-"pyöritettävässä rautalankamallissa ja lähikenttää (E, H, S-vektorit) "
-"ruudukkomuodossa.\n"
+"xnec2c voi näyttää taajuusriippuvaista dataa (vahvistus, tuloimpedanssi, VSWR jne.) graafisessa muodossa. Se voi myös näyttää säteilykuviotietoja pyöritettävässä rautalankamallissa ja lähikenttää (E, H, S-vektorit) ruudukkomuodossa.\n"
 "\n"
-"xnec2c:ssä on sisäänrakennettu NEC2-syötetiedostoeditori, joka helpottaa "
-"antennimäärittelytiedostojen luomista tai muokkausta sekä NEC2-komentojen "
-"määrittelyä.\n"
+"xnec2c:ssä on sisäänrakennettu NEC2-syötetiedostoeditori, joka helpottaa antennimäärittelytiedostojen luomista tai muokkausta sekä NEC2-komentojen määrittelyä.\n"
 "\n"
-"LUE dokumentaatio doc/-alihakemistosta, sillä xnec2c ei ole täysin "
-"yhteensopiva NEC2-syötetiedostojen kanssa ja se toimii eri tavoin!"
+"LUE dokumentaatio doc/-alihakemistosta, sillä xnec2c ei ole täysin yhteensopiva NEC2-syötetiedostojen kanssa ja se toimii eri tavoin!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3570,8 +3496,7 @@ msgstr "Siirtojohtoimpedanssi (Zo)"
 #~ msgstr "odottamaton EOF (tiedoston loppu)\n"
 
 #~ msgid "error reading Comments: Comment mnemonic short or missing\n"
-#~ msgstr ""
-#~ "virhe kommenttien lukemisessa: Kommenttitunniste lyhyt tai puuttuu\n"
+#~ msgstr "virhe kommenttien lukemisessa: Kommenttitunniste lyhyt tai puuttuu\n"
 
 #~ msgid "geometry data card error - tag number is less than 1\n"
 #~ msgstr "geometriatietokortin virhe - tunnistenumero on pienempi kuin 1\n"
@@ -3580,8 +3505,7 @@ msgstr "Siirtojohtoimpedanssi (Zo)"
 #~ msgstr "geometriatietokortin virhe - segmenttien määrä on pienempi kuin 1\n"
 
 #~ msgid "geometry data card error no GC card for tapered wire\n"
-#~ msgstr ""
-#~ "geometriatietokortin virhe: GC-kortti puuttuu kavennetulle langalle\n"
+#~ msgstr "geometriatietokortin virhe: GC-kortti puuttuu kavennetulle langalle\n"
 
 #~ msgid "geometry GC data card error\n"
 #~ msgstr "geometrian GC-tietokortin virhe\n"
@@ -3610,11 +3534,8 @@ msgstr "Siirtojohtoimpedanssi (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "ohitetaan CM-kortti geometriassa\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta > 90 deg maatason kanssa: Tarkista RP-kortin tiedot ja korjaa\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta > 90 deg maatason kanssa: Tarkista RP-kortin tiedot ja korjaa\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "Hankel ei kelpaa kun z = 0\n"

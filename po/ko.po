@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -78,8 +78,7 @@ msgid ""
 msgstr ""
 "여기 유형 %d에서는 주파수 플롯을 사용할 수 없습니다.\n"
 "이 모델은 Incident Field 또는 Elementary Current Source 여기를 사용합니다.\n"
-"EX 카드를 유형 0 (Applied E Field) 또는 5 (Current Discontinuity)로 변경하십"
-"시오."
+"EX 카드를 유형 0 (Applied E Field) 또는 5 (Current Discontinuity)로 변경하십시오."
 
 #: src/callback_func.c:697
 msgid "View Currents"
@@ -143,24 +142,16 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c 기하 최적화기"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
-msgstr ""
-"xnec2c가 inotify 지원 없이 빌드되었습니다: 최적화기를 활성화할 수 없습니다."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr "xnec2c가 inotify 지원 없이 빌드되었습니다: 최적화기를 활성화할 수 없습니다."
 
 #: src/callbacks.c:316
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c 최적화기"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"쓰기용으로 선택된 파일이 없습니다. 그러나 xnec2c는 inotify에 의해 트리거될 "
-"때 수정 시 입력 파일을 다시 로드하고 재계산합니다. \"파일->최적화 설정\"에서 "
-"쓰기용 파일을 선택하십시오."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "쓰기용으로 선택된 파일이 없습니다. 그러나 xnec2c는 inotify에 의해 트리거될 때 수정 시 입력 파일을 다시 로드하고 재계산합니다. \"파일->최적화 설정\"에서 쓰기용 파일을 선택하십시오."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -701,12 +692,8 @@ msgstr "오류: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"세그먼트 연결 수가 전체 메시를 초과하여 가능성이 낮습니다: data.n=%ld segj."
-"maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "세그먼트 연결 수가 전체 메시를 초과하여 가능성이 낮습니다: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -717,12 +704,8 @@ msgstr ""
 "중첩되거나 거의 연결된 세그먼트를 확인하십시오\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"데이터 확인, 세그먼트 지정 매개변수: 동일 태그 그룹 내 위치는 0이 될 수 없습"
-"니다\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "데이터 확인, 세그먼트 지정 매개변수: 동일 태그 그룹 내 위치는 0이 될 수 없습니다\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -740,14 +723,12 @@ msgstr "itag가 %d인 세그먼트가 없습니다\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "세그먼트 태그 번호 오류: 태그 0은 예약되어 있어 사용할 수 없습니다.\n"
 "기하 카드(특히 GM 카드)에서 태그 값이 유효한지 확인하십시오.\n"
-"GM 카드의 경우: '시작 태그'와 '태그 증분'이 태그 0을 생성하지 않는지 확인하십"
-"시오."
+"GM 카드의 경우: '시작 태그'와 '태그 증분'이 태그 0을 생성하지 않는지 확인하십시오."
 
 #: src/geometry.c:809
 #, c-format
@@ -800,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: 끝점 거리=%.3e이(가) 너무 가깝습니다 (연결 임계값=%.3e 미만); "
-"세그먼트가 자기 자신에 연결됩니다\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: 끝점 거리=%.3e이(가) 너무 가깝습니다 (연결 임계값=%.3e 미만); 세그먼트가 자기 자신에 연결됩니다\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -814,12 +791,8 @@ msgstr "tag=%d: 추가 자기 연결 경고를 표시하지 않습니다\n"
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: 거리=%.3e에서 tag=%d/seg=%d까지가 연결 임계값 %.3e의 2배보다 "
-"가깝습니다; 의도하지 않은 연결이 발생할 수 있습니다\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: 거리=%.3e에서 tag=%d/seg=%d까지가 연결 임계값 %.3e의 2배보다 가깝습니다; 의도하지 않은 연결이 발생할 수 있습니다\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -828,29 +801,18 @@ msgstr "tag=%d: 추가 중첩 경고를 표시하지 않습니다\n"
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: 길이=%.3e이(가) 너무 짧고 tag=%d/seg=%d 길이=%.3e에 충분히 가"
-"까워 연결 감지가 실패하거나 단락될 수 있습니다\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: 길이=%.3e이(가) 너무 짧고 tag=%d/seg=%d 길이=%.3e에 충분히 가까워 연결 감지가 실패하거나 단락될 수 있습니다\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
 msgstr "tag=%d: 추가 연결 감지 실패 또는 단락 경고를 표시하지 않습니다\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: 길이/파장 비율 %.3f < 0.001; 전류 성분의 유사성으로 수치 부정"
-"확성이 발생합니다 (최소=0.001, 양호=0.05, 권장 <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: 길이/파장 비율 %.3f < 0.001; 전류 성분의 유사성으로 수치 부정확성이 발생합니다 (최소=0.001, 양호=0.05, 권장 <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -859,13 +821,8 @@ msgstr "tag=%d: 추가 짧은 파장 비율 오류를 표시하지 않습니다\
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: 길이/파장 비율 %.3f > 0.1; 전류 샘플링 해상도가 세그먼트 간격"
-"에 의해 제한됩니다 (최소=0.001, 양호=0.05, 권장 <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: 길이/파장 비율 %.3f > 0.1; 전류 샘플링 해상도가 세그먼트 간격에 의해 제한됩니다 (최소=0.001, 양호=0.05, 권장 <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -874,13 +831,8 @@ msgstr "tag=%d: 추가 긴 파장 비율 경고를 표시하지 않습니다\n"
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: 길이/파장 비율 %.3f > 0.05; 전류 변화가 빠른 영역에서는 짧은 "
-"세그먼트가 정확도를 높입니다 (최소=0.001, 양호=0.05, 권장 <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: 길이/파장 비율 %.3f > 0.05; 전류 변화가 빠른 영역에서는 짧은 세그먼트가 정확도를 높입니다 (최소=0.001, 양호=0.05, 권장 <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -889,12 +841,8 @@ msgstr "tag=%d: 추가 정확도 개선 제안을 표시하지 않습니다\n"
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: 길이/반경 비율 %.1f < 2.0; 표준 세선 커널 필드 오차가 1%%를 크"
-"게 초과합니다 (최소=2.0, 1%% 정확=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: 길이/반경 비율 %.1f < 2.0; 표준 세선 커널 필드 오차가 1%%를 크게 초과합니다 (최소=2.0, 1%% 정확=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -903,12 +851,8 @@ msgstr "tag=%d: 추가 표준 커널 비율 오류를 표시하지 않습니다\
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: 길이/반경 비율 %.1f < 8.0; 표준 세선 커널 필드 오차가 1%%를 초"
-"과합니다 (최소=2.0, 1%% 정확=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: 길이/반경 비율 %.1f < 8.0; 표준 세선 커널 필드 오차가 1%%를 초과합니다 (최소=2.0, 1%% 정확=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -917,12 +861,8 @@ msgstr "tag=%d: 추가 표준 커널 비율 경고를 표시하지 않습니다\
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: 길이/반경 비율 %.1f < 0.5; 확장 세선 커널 필드 오차가 1%%를 크"
-"게 초과합니다 (최소=0.5, 1%% 정확=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: 길이/반경 비율 %.1f < 0.5; 확장 세선 커널 필드 오차가 1%%를 크게 초과합니다 (최소=0.5, 1%% 정확=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -931,12 +871,8 @@ msgstr "tag=%d: 추가 확장 커널 비율 오류를 표시하지 않습니다\
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: 길이/반경 비율 %.1f < 2.0; 확장 세선 커널 필드 오차가 1%%를 초"
-"과합니다 (최소=0.5, 1%% 정확=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: 길이/반경 비율 %.1f < 2.0; 확장 세선 커널 필드 오차가 1%%를 초과합니다 (최소=0.5, 1%% 정확=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -946,9 +882,7 @@ msgstr "tag=%d: 추가 확장 커널 비율 경고를 표시하지 않습니다\
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"%d개 세그먼트에 대한 중첩 검사를 건너뜁니다 (활성화하려면 --force-verify 사"
-"용)\n"
+msgstr "%d개 세그먼트에 대한 중첩 검사를 건너뜁니다 (활성화하려면 --force-verify 사용)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -956,8 +890,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "%d개 세그먼트에 대한 중첩 검사를 강제 실행합니다\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() 주파수 의존 검사 건너뜀 - 주파수 데이터 없음\n"
 
 #: src/gnuplot.c:46
@@ -975,21 +908,13 @@ msgstr "# 기준 임피던스 Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# gnuplot에서 플롯하려면 이 명령을 수정할 수 있습니다. 현재 MHz 대 zreal 및 "
-"zimag를 플롯합니다:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# gnuplot에서 플롯하려면 이 명령을 수정할 수 있습니다. 현재 MHz 대 zreal 및 zimag를 플롯합니다:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1038,6 +963,10 @@ msgstr "# 구조 와이어 세그먼트\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "전류 및 전하를 CSV로 저장"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "메인 xnec2c 창에서 \"Currents\" 또는 \"Charges\"를 클릭하여 전류 데이터를 활성화해야 합니다."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1267,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "GE/GN 카드를 수정하십시오:\n"
 "GE 카드는 접지가 있다고 지정하지만 GN은 그렇지 않습니다."
@@ -1286,11 +1214,8 @@ msgstr ""
 "RP 카드 데이터를 확인하고 수정하십시오"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"래디얼 와이어 g.s. 근사: Sommerfeld 접지 옵션과 함께 사용할 수 없습니다\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "래디얼 와이어 g.s. 근사: Sommerfeld 접지 옵션과 함께 사용할 수 없습니다\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1302,11 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"로딩 카드 번호 %d의 데이터 오류: itag step1 %d가 itag step2 %d보다 큽니다\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "로딩 카드 번호 %d의 데이터 오류: itag step1 %d가 itag step2 %d보다 큽니다\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1317,10 +1239,8 @@ msgstr ""
 "itag step1이 itag step2보다 큽니다"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr ""
-"전송선 임피던스 = 0: 유효하지 않습니다. NT 또는 TL 카드를 수정하십시오\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "전송선 임피던스 = 0: 유효하지 않습니다. NT 또는 TL 카드를 수정하십시오\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1377,11 +1297,8 @@ msgstr ""
 "패턴 계산은 정상적으로 진행됩니다. GUI를 사용하여 결과를 확인하십시오."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"접지가 지정된 상태에서 Theta > 90도: RP 카드 데이터를 확인하고 수정하십시오\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "접지가 지정된 상태에서 Theta > 90도: RP 카드 데이터를 확인하고 수정하십시오\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1396,9 +1313,7 @@ msgid "Faulty data card"
 msgstr "잘못된 데이터 카드"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
 msgstr "RP 카드 누락 또는 표면파: 복사 패턴 및 이득 계산이 비활성화됨\n"
 
 #: src/input.c:1595
@@ -1406,11 +1321,8 @@ msgid "Unexpected exit from while loop"
 msgstr "while 루프에서 예기치 않은 종료"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"명령 데이터 카드 오류: 입력 파일을 읽는 중 예기치 않은 EOF - EN 카드 추가\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "명령 데이터 카드 오류: 입력 파일을 읽는 중 예기치 않은 EOF - EN 카드 추가\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1435,11 +1347,8 @@ msgstr ""
 "니모닉 코드가 너무 짧거나 누락됨"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"기하 데이터 카드 오류: 입력 파일을 읽는 중 예기치 않은 EOF - GE 카드 추가\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "기하 데이터 카드 오류: 입력 파일을 읽는 중 예기치 않은 EOF - GE 카드 추가\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1681,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1807,6 +1708,71 @@ msgstr "z = 0에서 Hankel 유효하지 않음"
 msgid "No convergence"
 msgstr "수렴 실패"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"사용법: xnec2c [옵션] [<입력-파일-이름>]\n"
+"  -i|--input         <입력-파일-이름>\n"
+"  -c|--config        <설정-파일-경로>     - 파일이 존재해야 함\n"
+"  -C|--new-config    <새-설정-파일-경로> - 파일이 없으면 생성\n"
+"  -j|--jobs  <SMP 머신의 프로세서 수> (-j0은 포킹 비활성화)\n"
+"     --openblas-threads <n>  OpenBLAS 스레드 수 설정 (기본값: 1)\n"
+"     --mkl-threads <n>       Intel MKL 스레드 수 설정 (기본값: 1)\n"
+"     --omp-threads <n>       OpenMP 스레드 수 설정 (기본값: 1)\n"
+"  -b|--batch:        배치 모드 활성화, 주파수 루프 실행 후 종료\n"
+"  -P|--no-pthreads:  pthreads 비활성화 및 디버깅용 GTK 루프 사용\n"
+"  -h|--help:         사용법 정보 출력 후 종료\n"
+"  -V|--version:      xnec2c 버전 번호 출력 후 종료\n"
+"  -v|--verbose:      상세 출력 증가, 여러 번 지정 가능\n"
+"  -d|--debug:        디버그 출력 활성화 (-dd는 역추적 포함)\n"
+"  -d|--quiet:        디버그/상세 출력 억제\n"
+"\n"
+"  --optimize:        최적화 프로그램 즉시 활성화\n"
+"  --skip-verify:     형상 검증 확인 건너뛰기\n"
+"\n"
+"다음 인수들은 주파수 루프 완료 후 출력 파일에 기록합니다. --batch와\n"
+"함께 사용하면 유용합니다. --batch 모드 없이 파일 이름을 지정하려면\n"
+"파일->최적화 설정을 활성화하십시오. 그렇지 않으면 명령줄에서 지정한\n"
+"파일이 기록되지 않습니다.\n"
+"\n"
+"  --write-csv             <파일이름>  - 측정값 CSV 파일 기록\n"
+"  --write-s1p             <파일이름>  - S-파라미터 S1P 파일 기록\n"
+"  --write-s2p-max-gain    <파일이름>  - S2P 파일 기록, port-2는 최대 이득\n"
+"  --write-s2p-viewer-gain <파일이름>  - S2P 파일 기록, port-2는 뷰어 이득\n"
+"  --write-rdpat           <파일이름>  - 복사 패턴 CSV 기록\n"
+"  --write-currents        <파일이름>  - 전류 및 전하 CSV 기록\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1906,9 +1872,7 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
 msgstr "파일의 복소 유전 상수: %12.5E%+12.5Ej, 요청됨: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
@@ -1926,12 +1890,8 @@ msgstr "포크된 자식 프로세스에서 데이터 읽기 실패\n"
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop가 모든 단계를 완료했지만 num_busy_procs=%d입니다 (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop가 모든 단계를 완료했지만 num_busy_procs=%d입니다 (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1969,33 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c는 nec2c의 수정 버전을 감싸는 대화형 그래픽 래퍼입니다. nec2c 자체는 원"
-"래 FORTRAN NEC2 수치 전자기학 코드를 C로 변환한 것입니다.\n"
+"xnec2c는 nec2c의 수정 버전을 감싸는 대화형 그래픽 래퍼입니다. nec2c 자체는 원래 FORTRAN NEC2 수치 전자기학 코드를 C로 변환한 것입니다.\n"
 "\n"
-"xnec2c는 주파수 의존 데이터(이득, 입력 임피던스, VSWR 등)를 그래픽 형식으로 "
-"표시할 수 있습니다. 또한 회전 가능한 와이어프레임 형식의 방사 패턴 데이터와 "
-"그리드 형식의 근접장(E, H, S 벡터)을 표시할 수 있습니다.\n"
+"xnec2c는 주파수 의존 데이터(이득, 입력 임피던스, VSWR 등)를 그래픽 형식으로 표시할 수 있습니다. 또한 회전 가능한 와이어프레임 형식의 방사 패턴 데이터와 그리드 형식의 근접장(E, H, S 벡터)을 표시할 수 있습니다.\n"
 "\n"
-"xnec2c에는 안테나 설명 파일을 쉽게 작성하거나 편집하고 NEC2 명령을 지정할 수 "
-"있는 내장 NEC2 입력 파일 편집기가 있습니다.\n"
+"xnec2c에는 안테나 설명 파일을 쉽게 작성하거나 편집하고 NEC2 명령을 지정할 수 있는 내장 NEC2 입력 파일 편집기가 있습니다.\n"
 "\n"
-"xnec2c는 NEC2 입력 파일과 완전히 호환되지 않으며 다르게 작동하므로 doc/ 하위 "
-"디렉터리의 문서를 반드시 읽으십시오!"
+"xnec2c는 NEC2 입력 파일과 완전히 호환되지 않으며 다르게 작동하므로 doc/ 하위 디렉터리의 문서를 반드시 읽으십시오!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3557,8 +3505,7 @@ msgstr "전송선 임피던스 (Zo)"
 #~ msgstr "지오메트리 데이터 카드 오류 - 세그먼트 수가 1 미만입니다\n"
 
 #~ msgid "geometry data card error no GC card for tapered wire\n"
-#~ msgstr ""
-#~ "지오메트리 데이터 카드 오류 테이퍼 와이어에 대한 GC 카드가 없습니다\n"
+#~ msgstr "지오메트리 데이터 카드 오류 테이퍼 와이어에 대한 GC 카드가 없습니다\n"
 
 #~ msgid "geometry GC data card error\n"
 #~ msgstr "기하 GC 데이터 카드 오류\n"
@@ -3587,11 +3534,8 @@ msgstr "전송선 임피던스 (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "기하에서 CM 카드 무시\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta > 90 deg, 접지면 지정됨: RP 카드 데이터를 확인하고 수정하십시오\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta > 90 deg, 접지면 지정됨: RP 카드 데이터를 확인하고 수정하십시오\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "z = 0에서 Hankel 유효하지 않음\n"
@@ -3600,10 +3544,8 @@ msgstr "전송선 임피던스 (Zo)"
 #~ msgstr "수렴 실패\n"
 
 #, c-format
-#~ msgid ""
-#~ "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
-#~ msgstr ""
-#~ "지오메트리 데이터 카드 \"%1$s\" 오류: 열 %3$d에 잘못된 문자 '%2$c'\n"
+#~ msgid "geometry data card \"%s\" error: Spurious character '%c' at column %d\n"
+#~ msgstr "지오메트리 데이터 카드 \"%1$s\" 오류: 열 %3$d에 잘못된 문자 '%2$c'\n"
 
 #~ msgid ""
 #~ "Geometry data card error\n"

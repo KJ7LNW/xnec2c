@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,8 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/calculations.c:117 src/calculations.c:1276
 #, c-format
@@ -79,8 +78,7 @@ msgid ""
 msgstr ""
 "Фреквенцијски графикони нису доступни са типом побуде %d.\n"
 "Овај модел користи побуду упадног поља или елементарног извора струје.\n"
-"Промените EX картицу на тип 0 (примењено E поље) или 5 (дисконтинуитет "
-"струје)."
+"Промените EX картицу на тип 0 (примењено E поље) или 5 (дисконтинуитет струје)."
 
 #: src/callback_func.c:697
 msgid "View Currents"
@@ -144,24 +142,16 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c оптимизатор геометрије"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
-msgstr ""
-"xnec2c је изграђен без подршке за inotify: оптимизатор не може бити омогућен."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgstr "xnec2c је изграђен без подршке за inotify: оптимизатор не може бити омогућен."
 
 #: src/callbacks.c:316
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c оптимизатор"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"Нису изабране датотеке за писање. Међутим, xnec2c ће и даље поново учитати и "
-"прерачунати улазну датотеку при измени када је покренуто од стране inotify."
-"Изаберите датотеке за писање у \"Датотека->Подешавања оптимизације\"."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "Нису изабране датотеке за писање. Међутим, xnec2c ће и даље поново учитати и прерачунати улазну датотеку при измени када је покренуто од стране inotify.Изаберите датотеке за писање у \"Датотека->Подешавања оптимизације\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -702,12 +692,8 @@ msgstr "Грешка: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"Број веза сегмената премашује пуну мрежу, што је мало вероватно: data.n=%ld "
-"segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "Број веза сегмената премашује пуну мрежу, што је мало вероватно: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -718,12 +704,8 @@ msgstr ""
 "Проверите да ли има преклапајућих или скоро спојених сегмената\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"проверите податке, параметар који одређује сегмент: позиција у групи "
-"једнаких ознака не сме бити нула\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "проверите податке, параметар који одређује сегмент: позиција у групи једнаких ознака не сме бити нула\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -741,16 +723,12 @@ msgstr "ниједан сегмент нема itag од %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
-"Грешка у броју ознаке сегмента: Ознака 0 је резервисана и не може се "
-"користити.\n"
-"Проверите ваше геометријске картице (нарочито GM картице) да бисте осигурали "
-"да су вредности ознака важеће.\n"
-"За GM картице: проверите да 'почетна ознака' и 'инкремент ознаке' не "
-"стварају ознаку 0."
+"Грешка у броју ознаке сегмента: Ознака 0 је резервисана и не може се користити.\n"
+"Проверите ваше геометријске картице (нарочито GM картице) да бисте осигурали да су вредности ознака важеће.\n"
+"За GM картице: проверите да 'почетна ознака' и 'инкремент ознаке' не стварају ознаку 0."
 
 #: src/geometry.c:809
 #, c-format
@@ -803,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tag=%d/seg=%d: растојање крајње тачке=%.3e је превише близу (испод прага "
-"повезивања=%.3e); сегмент ће се повезати сам са собом\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tag=%d/seg=%d: растојање крајње тачке=%.3e је превише близу (испод прага повезивања=%.3e); сегмент ће се повезати сам са собом\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -817,12 +791,8 @@ msgstr "tag=%d: потискивање додатних упозорења о с
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tag=%d/seg=%d: растојање=%.3e до tag=%d/seg=%d ближе од 2x прага повезивања "
-"%.3e; могуће ненамерне везе\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tag=%d/seg=%d: растојање=%.3e до tag=%d/seg=%d ближе од 2x прага повезивања %.3e; могуће ненамерне везе\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -831,32 +801,18 @@ msgstr "tag=%d: потискивање додатних упозорења о п
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tag=%d/seg=%d: дужина=%.3e је прекратка (и довољно близу) до tag=%d/seg=%d "
-"дужине=%.3e да детекција повезивања може да не успе или скрати\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tag=%d/seg=%d: дужина=%.3e је прекратка (и довољно близу) до tag=%d/seg=%d дужине=%.3e да детекција повезивања може да не успе или скрати\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
-msgstr ""
-"tag=%d: потискивање додатних упозорења да детекција повезивања може да не "
-"успе или скрати\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
+msgstr "tag=%d: потискивање додатних упозорења да детекција повезивања може да не успе или скрати\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: однос дужина/таласна дужина од %.3f < 0.001; сличност "
-"компоненти струје доводи до нумеричких нетачности (мин=0.001, добро=0.05, "
-"препоручено <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: однос дужина/таласна дужина од %.3f < 0.001; сличност компоненти струје доводи до нумеричких нетачности (мин=0.001, добро=0.05, препоручено <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -865,14 +821,8 @@ msgstr "tag=%d: потискивање додатних грешака крат�
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: однос дужина/таласна дужина од %.3f > 0.1; резолуција "
-"узорковања струје ограничена размаком сегмената (мин=0.001, добро=0.05, "
-"препоручено <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tag=%d/seg=%d: однос дужина/таласна дужина од %.3f > 0.1; резолуција узорковања струје ограничена размаком сегмената (мин=0.001, добро=0.05, препоручено <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -881,14 +831,8 @@ msgstr "tag=%d: потискивање додатних упозорења ду�
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tag=%d/seg=%d: однос дужина/таласна дужина од %.3f > 0.05; краћи сегменти "
-"повећавају тачност у областима брзе промене струје (мин=0.001, добро=0.05, "
-"препоручено <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tag=%d/seg=%d: однос дужина/таласна дужина од %.3f > 0.05; краћи сегменти повећавају тачност у областима брзе промене струје (мин=0.001, добро=0.05, препоручено <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -897,12 +841,8 @@ msgstr "tag=%d: потискивање додатних предлога за п
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: однос дужина/радијус од %.1f < 2.0; грешка поља стандардног "
-"језгра танке жице премашује 1%% за велику маргину (мин=2.0, 1%% тачно=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: однос дужина/радијус од %.1f < 2.0; грешка поља стандардног језгра танке жице премашује 1%% за велику маргину (мин=2.0, 1%% тачно=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -911,12 +851,8 @@ msgstr "tag=%d: потискивање додатних грешака одно�
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tag=%d/seg=%d: однос дужина/радијус од %.1f < 8.0; грешка поља стандардног "
-"језгра танке жице премашује 1%% (мин=2.0, 1%% тачно=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tag=%d/seg=%d: однос дужина/радијус од %.1f < 8.0; грешка поља стандардног језгра танке жице премашује 1%% (мин=2.0, 1%% тачно=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -925,12 +861,8 @@ msgstr "tag=%d: потискивање додатних упозорења од�
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: однос дужина/радијус од %.1f < 0.5; грешка поља проширеног "
-"језгра танке жице премашује 1%% за велику маргину (мин=0.5, 1%% тачно=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: однос дужина/радијус од %.1f < 0.5; грешка поља проширеног језгра танке жице премашује 1%% за велику маргину (мин=0.5, 1%% тачно=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -939,12 +871,8 @@ msgstr "tag=%d: потискивање додатних грешака одно�
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tag=%d/seg=%d: однос дужина/радијус од %.1f < 2.0; грешка поља проширеног "
-"језгра танке жице премашује 1%% (мин=0.5, 1%% тачно=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tag=%d/seg=%d: однос дужина/радијус од %.1f < 2.0; грешка поља проширеног језгра танке жице премашује 1%% (мин=0.5, 1%% тачно=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -954,9 +882,7 @@ msgstr "tag=%d: потискивање додатних упозорења од�
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"Прескакање провере преклапања за %d сегмената (користите --force-verify да "
-"омогућите)\n"
+msgstr "Прескакање провере преклапања за %d сегмената (користите --force-verify да омогућите)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -964,11 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Принудна провера преклапања за %d сегмената\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() прескаче фреквенцијски зависне провере - нема "
-"фреквенцијских података\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() прескаче фреквенцијски зависне провере - нема фреквенцијских података\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -985,21 +908,13 @@ msgstr "# Референтна импеданса Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# За исцртавање у gnuplot-у можете модификовати ову команду. Тренутно "
-"исцртава MHz наспрам zreal и zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# За исцртавање у gnuplot-у можете модификовати ову команду. Тренутно исцртава MHz наспрам zreal и zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1048,6 +963,10 @@ msgstr "# сегменти жице структуре\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "Сачувај струје и наелектрисања у CSV"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "Морате омогућити податке о струјама кликом на \"Струје\" или \"Наелектрисања\" у главном xnec2c прозору."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1277,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "Исправите GE/GN картице:\n"
 "GE картица наводи да је присутно уземљење, али GN показује супротно."
@@ -1296,12 +1214,8 @@ msgstr ""
 "Молимо проверите податке RP картице и исправите"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"апроксимација радијалних жица: не може се користити са Sommerfeld опцијом "
-"уземљења\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "апроксимација радијалних жица: не може се користити са Sommerfeld опцијом уземљења\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1313,12 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"грешка података на картици оптерећења бр. %d: itag step1 %d је већи од itag "
-"step2 %d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "грешка података на картици оптерећења бр. %d: itag step1 %d је већи од itag step2 %d\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1329,11 +1239,8 @@ msgstr ""
 "itag step1 је већи од itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr ""
-"Импеданса преносне линије = 0: није исправно. Молимо исправите NT или TL "
-"картицу\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "Импеданса преносне линије = 0: није исправно. Молимо исправите NT или TL картицу\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1357,8 +1264,7 @@ msgstr ""
 
 #: src/input.c:1452
 msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
-msgstr ""
-"PQ и PT картице су игнорисане: Штампање у датотеку није имплементирано\n"
+msgstr "PQ и PT картице су игнорисане: Штампање у датотеку није имплементирано\n"
 
 #: src/input.c:1453
 msgid ""
@@ -1386,18 +1292,13 @@ msgid ""
 "xnec2c renders radiation patterns graphically instead of text tables.\n"
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
-"Усредњавање појачања (XNDA ***1 или ***2) контролише форматирање текстуалног "
-"излаза.\n"
+"Усредњавање појачања (XNDA ***1 или ***2) контролише форматирање текстуалног излаза.\n"
 "xnec2c приказује дијаграме зрачења графички уместо текстуалних табела.\n"
 "Прорачуни дијаграма настављају нормално; користите GUI за преглед резултата."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Theta > 90 степени са наведеним уземљењем: Молимо проверите податке RP "
-"картице и исправите\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Theta > 90 степени са наведеним уземљењем: Молимо проверите податке RP картице и исправите\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1412,24 +1313,16 @@ msgid "Faulty data card"
 msgstr "Неисправна картица података"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"Недостаје или површински-таласна RP картица: Прорачуни дијаграма зрачења и "
-"појачања су онемогућени\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "Недостаје или површински-таласна RP картица: Прорачуни дијаграма зрачења и појачања су онемогућени\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "Неочекивани излазак из while петље"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"грешка картице командних података: Неочекивани EOF при читању улазне "
-"датотеке - додавање EN картице\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "грешка картице командних података: Неочекивани EOF при читању улазне датотеке - додавање EN картице\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1443,9 +1336,7 @@ msgstr ""
 
 #: src/input.c:1668
 msgid "command data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"грешка картице командних података: мнемонички код картице је прекратак или "
-"недостаје\n"
+msgstr "грешка картице командних података: мнемонички код картице је прекратак или недостаје\n"
 
 #: src/input.c:1669
 msgid ""
@@ -1456,12 +1347,8 @@ msgstr ""
 "Мнемонички код је прекратак или недостаје"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"грешка картице геометријских података: Неочекивани EOF при читању улазне "
-"датотеке - додавање GE картице\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "грешка картице геометријских података: Неочекивани EOF при читању улазне датотеке - додавање GE картице\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1475,9 +1362,7 @@ msgstr ""
 
 #: src/input.c:1844
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"грешка картице геометријских података: мнемонички код картице је прекратак "
-"или недостаје\n"
+msgstr "грешка картице геометријских података: мнемонички код картице је прекратак или недостаје\n"
 
 #: src/input.c:1845
 msgid ""
@@ -1705,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1831,6 +1708,71 @@ msgstr "Hankel није валидан за z = 0"
 msgid "No convergence"
 msgstr "Нема конвергенције"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"Употреба: xnec2c [опције] [<име-улазне-датотеке>]\n"
+"  -i|--input         <име-улазне-датотеке>\n"
+"  -c|--config        <путања-конфиг-датотеке>     - датотека мора да постоји\n"
+"  -C|--new-config    <путања-нове-конфиг-датотеке> - креира датотеку ако недостаје\n"
+"  -j|--jobs  <број процесора у SMP машини> (-j0 онемогућава форковање)\n"
+"     --openblas-threads <n>  подеси број OpenBLAS нити (подразумевано: 1)\n"
+"     --mkl-threads <n>       подеси број Intel MKL нити (подразумевано: 1)\n"
+"     --omp-threads <n>       подеси број OpenMP нити (подразумевано: 1)\n"
+"  -b|--batch:        омогући batch режим, изађи након извршавања фреквентне петље\n"
+"  -P|--no-pthreads:  онемогући pthreads и користи GTK петљу за отклањање грешака\n"
+"  -h|--help:         прикажи информације о употреби и изађи\n"
+"  -V|--version:      прикажи број верзије xnec2c и изађи\n"
+"  -v|--verbose:      повећај опширност, може се навести више пута\n"
+"  -d|--debug:        омогући debug излаз (-dd укључује backtraces)\n"
+"  -d|--quiet:        потисни debug/verbose излаз\n"
+"\n"
+"  --optimize:        Одмах активирај оптимизатор.\n"
+"  --skip-verify:     прескочи провере верификације геометрије\n"
+"\n"
+"Следећи аргументи уписују у излазну датотеку након завршетка фреквентне петље.\n"
+"Ово је корисно комбиновати са --batch; Ако желите да наведете имена датотека\n"
+"за упис без --batch режима, омогућите File->Optimizer Settings или датотеке\n"
+"које наведете у командној линији неће бити уписане.\n"
+"\n"
+"  --write-csv             <име-датотеке>  - упиши CSV датотеку мерења\n"
+"  --write-s1p             <име-датотеке>  - упиши S1P датотеку S-параметара\n"
+"  --write-s2p-max-gain    <име-датотеке>  - упиши S2P датотеку, port-2 је max-gain\n"
+"  --write-s2p-viewer-gain <име-датотеке>  - упиши S2P датотеку, port-2 је viewer-gain\n"
+"  --write-rdpat           <име-датотеке>  - упиши CSV дијаграма зрачења\n"
+"  --write-currents        <име-датотеке>  - упиши CSV струја и наелектрисања\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1908,14 +1850,11 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr ""
-"Петља оптимизатора није завршена, прескачем поновно исцртавање дијаграма "
-"зрачења.\n"
+msgstr "Петља оптимизатора није завршена, прескачем поновно исцртавање дијаграма зрачења.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
-msgstr ""
-"Петља оптимизатора није завршена, прескачем поновно исцртавање структуре.\n"
+msgstr "Петља оптимизатора није завршена, прескачем поновно исцртавање структуре.\n"
 
 #: src/utils.c:949
 msgid "  Backtrace:\n"
@@ -1933,12 +1872,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"комплексна диелектрична константа из датотеке: %12.5E%+12.5Ej, захтевана: "
-"%12.5E%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "комплексна диелектрична константа из датотеке: %12.5E%+12.5Ej, захтевана: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1955,12 +1890,8 @@ msgstr "Није успело читање података од форкова�
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop је завршио све кораке али num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop је завршио све кораке али num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1998,35 +1929,21 @@ msgstr "© 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c је интерактивни графички омотач око модификоване верзије nec2c, који "
-"је сам по себи превод на C оригиналног FORTRAN NEC2 кода за нумеричку "
-"електромагнетику.\n"
+"xnec2c је интерактивни графички омотач око модификоване верзије nec2c, који је сам по себи превод на C оригиналног FORTRAN NEC2 кода за нумеричку електромагнетику.\n"
 "\n"
-"xnec2c може приказати податке зависне од фреквенције (појачање, улазна "
-"импеданса, VSWR итд.) у графичком формату. Такође може приказати податке "
-"дијаграма зрачења у ротирајућем жичаном оквиру и блиско поље (E, H, S "
-"вектори) у формату мреже.\n"
+"xnec2c може приказати податке зависне од фреквенције (појачање, улазна импеданса, VSWR итд.) у графичком формату. Такође може приказати податке дијаграма зрачења у ротирајућем жичаном оквиру и блиско поље (E, H, S вектори) у формату мреже.\n"
 "\n"
-"xnec2c има уграђени уређивач NEC2 улазних датотека који олакшава креирање "
-"или уређивање датотека описа антена и спецификацију NEC2 команди.\n"
+"xnec2c има уграђени уређивач NEC2 улазних датотека који олакшава креирање или уређивање датотека описа антена и спецификацију NEC2 команди.\n"
 "\n"
-"МОЛИМО прочитајте документацију у doc/ поддиректоријуму јер xnec2c није "
-"потпуно компатибилан са NEC2 улазним датотекама и ради на различите начине!"
+"МОЛИМО прочитајте документацију у doc/ поддиректоријуму јер xnec2c није потпуно компатибилан са NEC2 улазним датотекама и ради на различите начине!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3570,19 +3487,16 @@ msgstr "Импеданса преносне линије (Zo)"
 #~ msgstr "неочекивани EOF (крај датотеке)\n"
 
 #~ msgid "error reading Comments: Comment mnemonic short or missing\n"
-#~ msgstr ""
-#~ "грешка при читању коментара: мнемоника коментара кратка или недостаје\n"
+#~ msgstr "грешка при читању коментара: мнемоника коментара кратка или недостаје\n"
 
 #~ msgid "geometry data card error - tag number is less than 1\n"
 #~ msgstr "greška kartice geometrijskih podataka - broj oznake je manji od 1\n"
 
 #~ msgid "geometry data card error - number of segments is less than 1\n"
-#~ msgstr ""
-#~ "greška kartice geometrijskih podataka - broj segmenata je manji od 1\n"
+#~ msgstr "greška kartice geometrijskih podataka - broj segmenata je manji od 1\n"
 
 #~ msgid "geometry data card error no GC card for tapered wire\n"
-#~ msgstr ""
-#~ "greška kartice geometrijskih podataka nema GC kartice za konusnu žicu\n"
+#~ msgstr "greška kartice geometrijskih podataka nema GC kartice za konusnu žicu\n"
 
 #~ msgid "geometry GC data card error\n"
 #~ msgstr "greška GC kartice geometrijskih podataka\n"
@@ -3611,12 +3525,8 @@ msgstr "Импеданса преносне линије (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "ignorisanje CM kartice u geometriji\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta > 90 deg са наведеним уземљењем: Молимо проверите податке RP "
-#~ "картице и исправите\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta > 90 deg са наведеним уземљењем: Молимо проверите податке RP картице и исправите\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "Hankel није валидан за z = 0\n"

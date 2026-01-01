@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -142,8 +142,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "Optimalizátor geometrie xnec2c"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c byl sestaven bez podpory inotify: optimalizátor nelze povolit."
 
 #: src/callbacks.c:316
@@ -151,14 +150,8 @@ msgid "Xnec2c Optimizer"
 msgstr "Optimalizátor Xnec2c"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"Nejsou vybrány žádné soubory pro zápis. xnec2c však stále načte a přepočítá "
-"vstupní soubor při úpravě, když je spuštěn inotify. Vyberte soubory pro "
-"zápis v \"Soubor->Nastavení optimalizace\"."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "Nejsou vybrány žádné soubory pro zápis. xnec2c však stále načte a přepočítá vstupní soubor při úpravě, když je spuštěn inotify. Vyberte soubory pro zápis v \"Soubor->Nastavení optimalizace\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -699,12 +692,8 @@ msgstr "Chyba: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"Počet spojení segmentů přesahuje plnou síť, což je nepravděpodobné: data.n="
-"%ld segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "Počet spojení segmentů přesahuje plnou síť, což je nepravděpodobné: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
@@ -715,12 +704,8 @@ msgstr ""
 "Zkontrolujte překrývající se nebo téměř spojené segmenty\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"Zkontrolujte data, parametr určující segment: pozice ve skupině stejných "
-"značek nesmí být nula\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "Zkontrolujte data, parametr určující segment: pozice ve skupině stejných značek nesmí být nula\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -738,15 +723,12 @@ msgstr "Žádný segment nemá itag %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "Chyba čísla značky segmentu: Značka 0 je rezervována a nelze ji použít.\n"
-"Zkontrolujte karty geometrie (zejména karty GM), aby hodnoty značek byly "
-"platné.\n"
-"Pro karty GM: ověřte, že 'počáteční značka' a 'přírůstek značky' nevytvářejí "
-"značku 0."
+"Zkontrolujte karty geometrie (zejména karty GM), aby hodnoty značek byly platné.\n"
+"Pro karty GM: ověřte, že 'počáteční značka' a 'přírůstek značky' nevytvářejí značku 0."
 
 #: src/geometry.c:809
 #, c-format
@@ -799,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"Tag=%d/seg=%d: vzdálenost koncového bodu=%.3e je příliš malá (pod prahem "
-"spojení=%.3e); segment se spojí sám se sebou\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "Tag=%d/seg=%d: vzdálenost koncového bodu=%.3e je příliš malá (pod prahem spojení=%.3e); segment se spojí sám se sebou\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -813,12 +791,8 @@ msgstr "Tag=%d: potlačení dalších varování o spojení se sebou\n"
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"Tag=%d/seg=%d: vzdálenost=%.3e k tag=%d/seg=%d je menší než 2x práh spojení "
-"%.3e; možná nechtěná spojení\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "Tag=%d/seg=%d: vzdálenost=%.3e k tag=%d/seg=%d je menší než 2x práh spojení %.3e; možná nechtěná spojení\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -827,32 +801,18 @@ msgstr "Tag=%d: potlačení dalších varování o překrytí\n"
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"Tag=%d/seg=%d: délka=%.3e je příliš krátká (a dostatečně blízko) k tag=%d/"
-"seg=%d délka=%.3e, detekce spojení může selhat nebo zkratovat\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "Tag=%d/seg=%d: délka=%.3e je příliš krátká (a dostatečně blízko) k tag=%d/seg=%d délka=%.3e, detekce spojení může selhat nebo zkratovat\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
-msgstr ""
-"Tag=%d: potlačení dalších varování o možném selhání detekce spojení nebo "
-"zkratu\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
+msgstr "Tag=%d: potlačení dalších varování o možném selhání detekce spojení nebo zkratu\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"Tag=%d/seg=%d: poměr délka/vlnová délka %.3f < 0.001; podobnost proudových "
-"složek vede k numerickým nepřesnostem (min=0.001, v pořádku=0.05, doporučeno "
-"<= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "Tag=%d/seg=%d: poměr délka/vlnová délka %.3f < 0.001; podobnost proudových složek vede k numerickým nepřesnostem (min=0.001, v pořádku=0.05, doporučeno <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
@@ -861,14 +821,8 @@ msgstr "Tag=%d: potlačení dalších chyb krátkého poměru vlnové délky\n"
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"Tag=%d/seg=%d: poměr délka/vlnová délka %.3f > 0.1; rozlišení vzorkování "
-"proudu omezeno rozestupem segmentů (min=0.001, v pořádku=0.05, doporučeno <= "
-"0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "Tag=%d/seg=%d: poměr délka/vlnová délka %.3f > 0.1; rozlišení vzorkování proudu omezeno rozestupem segmentů (min=0.001, v pořádku=0.05, doporučeno <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
@@ -877,14 +831,8 @@ msgstr "Tag=%d: potlačení dalších varování dlouhého poměru vlnové délk
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"Tag=%d/seg=%d: poměr délka/vlnová délka %.3f > 0.05; kratší segmenty zvyšují "
-"přesnost v oblastech rychlé změny proudu (min=0.001, v pořádku=0.05, "
-"doporučeno <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "Tag=%d/seg=%d: poměr délka/vlnová délka %.3f > 0.05; kratší segmenty zvyšují přesnost v oblastech rychlé změny proudu (min=0.001, v pořádku=0.05, doporučeno <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -893,12 +841,8 @@ msgstr "Tag=%d: potlačení dalších návrhů na zlepšení přesnosti\n"
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"Tag=%d/seg=%d: poměr délka/poloměr %.1f < 2.0; chyba pole standardního jádra "
-"tenkého drátu výrazně přesahuje 1%% (min=2.0, 1%% přesnost=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "Tag=%d/seg=%d: poměr délka/poloměr %.1f < 2.0; chyba pole standardního jádra tenkého drátu výrazně přesahuje 1%% (min=2.0, 1%% přesnost=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -907,12 +851,8 @@ msgstr "Tag=%d: potlačení dalších chyb poměru standardního jádra\n"
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"Tag=%d/seg=%d: poměr délka/poloměr %.1f < 8.0; chyba pole standardního jádra "
-"tenkého drátu přesahuje 1%% (min=2.0, 1%% přesnost=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "Tag=%d/seg=%d: poměr délka/poloměr %.1f < 8.0; chyba pole standardního jádra tenkého drátu přesahuje 1%% (min=2.0, 1%% přesnost=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -921,12 +861,8 @@ msgstr "Tag=%d: potlačení dalších varování poměru standardního jádra\n"
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"Tag=%d/seg=%d: poměr délka/poloměr %.1f < 0.5; chyba pole rozšířeného jádra "
-"tenkého drátu výrazně přesahuje 1%% (min=0.5, 1%% přesnost=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "Tag=%d/seg=%d: poměr délka/poloměr %.1f < 0.5; chyba pole rozšířeného jádra tenkého drátu výrazně přesahuje 1%% (min=0.5, 1%% přesnost=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -935,12 +871,8 @@ msgstr "Tag=%d: potlačení dalších chyb poměru rozšířeného jádra\n"
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"Tag=%d/seg=%d: poměr délka/poloměr %.1f < 2.0; chyba pole rozšířeného jádra "
-"tenkého drátu přesahuje 1%% (min=0.5, 1%% přesnost=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "Tag=%d/seg=%d: poměr délka/poloměr %.1f < 2.0; chyba pole rozšířeného jádra tenkého drátu přesahuje 1%% (min=0.5, 1%% přesnost=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -950,9 +882,7 @@ msgstr "Tag=%d: potlačení dalších varování poměru rozšířeného jádra\
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"Přeskakování kontroly překrytí pro %d segmentů (použijte --force-verify pro "
-"povolení)\n"
+msgstr "Přeskakování kontroly překrytí pro %d segmentů (použijte --force-verify pro povolení)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -960,11 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Vynucení kontroly překrytí pro %d segmentů\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() přeskakuje frekvenčně závislé kontroly - žádná frekvenční "
-"data\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() přeskakuje frekvenčně závislé kontroly - žádná frekvenční data\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -981,21 +908,13 @@ msgstr "# Referenční impedance Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# Pro vykreslení v gnuplot můžete upravit tento příkaz. Nyní vykresluje MHz "
-"vs zreal a zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# Pro vykreslení v gnuplot můžete upravit tento příkaz. Nyní vykresluje MHz vs zreal a zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1044,6 +963,10 @@ msgstr "# drátové segmenty struktury\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "Uložit proudy a náboje do CSV"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "Musíte povolit data proudů kliknutím na \"Proudy\" nebo \"Náboje\" v hlavním okně xnec2c."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1273,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "Opravte karty GE/GN:\n"
 "Karta GE specifikuje přítomnost země, ale karta GN uvádí opak."
@@ -1292,11 +1214,8 @@ msgstr ""
 "Prosím zkontrolujte data karty RP a opravte"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"Aproximace radiálních vodičů g.s.: nelze použít s volbou Sommerfeldovy země\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "Aproximace radiálních vodičů g.s.: nelze použít s volbou Sommerfeldovy země\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1308,11 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"Chyba dat na kartě zátěže č. %d: itag step1 %d je větší než itag step2 %d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "Chyba dat na kartě zátěže č. %d: itag step1 %d je větší než itag step2 %d\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1323,11 +1239,8 @@ msgstr ""
 "itag step1 je větší než itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr ""
-"Impedance přenosového vedení = 0: není platná. Prosím opravte kartu NT nebo "
-"TL\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "Impedance přenosového vedení = 0: není platná. Prosím opravte kartu NT nebo TL\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1384,12 +1297,8 @@ msgstr ""
 "Výpočty diagramu probíhají normálně; použijte GUI pro zobrazení výsledků."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Theta > 90 stupňů se specifikovanou zemí: Prosím zkontrolujte data karty RP "
-"a opravte\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Theta > 90 stupňů se specifikovanou zemí: Prosím zkontrolujte data karty RP a opravte\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1404,24 +1313,16 @@ msgid "Faulty data card"
 msgstr "Chybná datová karta"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"Chybějící nebo povrchově-vlnová karta RP: Výpočty vyzařovacího diagramu a "
-"zisku jsou zakázány\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "Chybějící nebo povrchově-vlnová karta RP: Výpočty vyzařovacího diagramu a zisku jsou zakázány\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "Neočekávaný výstup ze smyčky while"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"Chyba datové karty příkazu: neočekávaný EOF při čtení vstupního souboru - "
-"přidávám kartu EN\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "Chyba datové karty příkazu: neočekávaný EOF při čtení vstupního souboru - přidávám kartu EN\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1435,9 +1336,7 @@ msgstr ""
 
 #: src/input.c:1668
 msgid "command data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"Chyba datové karty příkazu: mnemonický kód karty je příliš krátký nebo "
-"chybí\n"
+msgstr "Chyba datové karty příkazu: mnemonický kód karty je příliš krátký nebo chybí\n"
 
 #: src/input.c:1669
 msgid ""
@@ -1448,12 +1347,8 @@ msgstr ""
 "Mnemonický kód je příliš krátký nebo chybí"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"Chyba datové karty geometrie: neočekávaný EOF při čtení vstupního souboru - "
-"přidávám kartu GE\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "Chyba datové karty geometrie: neočekávaný EOF při čtení vstupního souboru - přidávám kartu GE\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1467,9 +1362,7 @@ msgstr ""
 
 #: src/input.c:1844
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"Chyba datové karty geometrie: mnemonický kód karty je příliš krátký nebo "
-"chybí\n"
+msgstr "Chyba datové karty geometrie: mnemonický kód karty je příliš krátký nebo chybí\n"
 
 #: src/input.c:1845
 msgid ""
@@ -1697,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1823,6 +1708,71 @@ msgstr "Hankel není platný pro z = 0"
 msgid "No convergence"
 msgstr "Bez konvergence"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"Použití: xnec2c [volby] [<název-vstupního-souboru>]\n"
+"  -i|--input         <název-vstupního-souboru>\n"
+"  -c|--config        <cesta-konfiguračního-souboru>     - soubor musí existovat\n"
+"  -C|--new-config    <cesta-nového-konfiguračního-souboru> - vytvoří soubor, pokud chybí\n"
+"  -j|--jobs  <počet procesorů v SMP stroji> (-j0 zakáže forkování)\n"
+"     --openblas-threads <n>  nastavit počet vláken OpenBLAS (výchozí: 1)\n"
+"     --mkl-threads <n>       nastavit počet vláken Intel MKL (výchozí: 1)\n"
+"     --omp-threads <n>       nastavit počet vláken OpenMP (výchozí: 1)\n"
+"  -b|--batch:        povolit dávkový režim, ukončit po dokončení frekvenční smyčky\n"
+"  -P|--no-pthreads:  zakázat pthreads a použít GTK smyčku pro ladění\n"
+"  -h|--help:         vypsat informace o použití a ukončit\n"
+"  -V|--version:      vypsat číslo verze xnec2c a ukončit\n"
+"  -v|--verbose:      zvýšit podrobnost, lze zadat vícekrát\n"
+"  -d|--debug:        povolit ladicí výstup (-dd zahrnuje zásobníky volání)\n"
+"  -d|--quiet:        potlačit ladicí/podrobný výstup\n"
+"\n"
+"  --optimize:        Okamžitě aktivovat optimalizátor.\n"
+"  --skip-verify:     přeskočit kontroly ověření geometrie\n"
+"\n"
+"Následující argumenty zapisují do výstupního souboru po dokončení frekvenční\n"
+"smyčky. Jsou užitečné v kombinaci s --batch; Pokud chcete zadat názvy souborů\n"
+"k zápisu bez režimu --batch, povolte Soubor->Nastavení optimalizátoru, jinak\n"
+"soubory zadané na příkazovém řádku nebudou zapsány.\n"
+"\n"
+"  --write-csv             <název-souboru>  - zapsat CSV soubor měření\n"
+"  --write-s1p             <název-souboru>  - zapsat S1P soubor S-parametrů\n"
+"  --write-s2p-max-gain    <název-souboru>  - zapsat S2P soubor, port-2 je max-gain\n"
+"  --write-s2p-viewer-gain <název-souboru>  - zapsat S2P soubor, port-2 je viewer-gain\n"
+"  --write-rdpat           <název-souboru>  - zapsat CSV vyzařovacího diagramu\n"
+"  --write-currents        <název-souboru>  - zapsat CSV proudů a nábojů\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1900,9 +1850,7 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr ""
-"Smyčka optimalizátoru neúplná, přeskakuji překreslení vyzařovacího "
-"diagramu.\n"
+msgstr "Smyčka optimalizátoru neúplná, přeskakuji překreslení vyzařovacího diagramu.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
@@ -1924,12 +1872,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"komplexní dielektrická konstanta ze souboru: %12.5E%+12.5Ej, požadováno: "
-"%12.5E%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "komplexní dielektrická konstanta ze souboru: %12.5E%+12.5Ej, požadováno: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1946,12 +1890,8 @@ msgstr "Nepodařilo se přečíst data z podřízeného procesu\n"
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop dokončil všechny kroky, ale num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop dokončil všechny kroky, ale num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1989,35 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c je interaktivní grafická nadstavba nad modifikovanou verzí nec2c, což "
-"je překlad původního FORTRANového NEC2 Numerical Electromagnetics Code do "
-"jazyka C.\n"
+"xnec2c je interaktivní grafická nadstavba nad modifikovanou verzí nec2c, což je překlad původního FORTRANového NEC2 Numerical Electromagnetics Code do jazyka C.\n"
 "\n"
-"xnec2c může zobrazovat frekvenčně závislá data (zisk, vstupní impedanci, "
-"vswr atd.) v grafickém formátu. Může také zobrazovat data vyzařovacího "
-"diagramu v rotovatelném drátovém modelu a blízké pole (vektory E, H, S) ve "
-"formátu mřížky.\n"
+"xnec2c může zobrazovat frekvenčně závislá data (zisk, vstupní impedanci, vswr atd.) v grafickém formátu. Může také zobrazovat data vyzařovacího diagramu v rotovatelném drátovém modelu a blízké pole (vektory E, H, S) ve formátu mřížky.\n"
 "\n"
-"xnec2c má vestavěný editor vstupních souborů NEC2, který usnadňuje vytváření "
-"nebo úpravu souborů s popisem antény a specifikaci příkazů NEC2.\n"
+"xnec2c má vestavěný editor vstupních souborů NEC2, který usnadňuje vytváření nebo úpravu souborů s popisem antény a specifikaci příkazů NEC2.\n"
 "\n"
-"PROSÍM přečtěte si dokumentaci v podadresáři doc/, protože xnec2c není plně "
-"kompatibilní se vstupními soubory NEC2 a pracuje odlišným způsobem!"
+"PROSÍM přečtěte si dokumentaci v podadresáři doc/, protože xnec2c není plně kompatibilní se vstupními soubory NEC2 a pracuje odlišným způsobem!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3570,8 +3496,7 @@ msgstr "Impedance přenosové linky (Zo)"
 #~ msgstr "neočekávaný EOF (konec souboru)\n"
 
 #~ msgid "error reading Comments: Comment mnemonic short or missing\n"
-#~ msgstr ""
-#~ "chyba při čtení komentářů: Mnemonika komentáře je krátká nebo chybí\n"
+#~ msgstr "chyba při čtení komentářů: Mnemonika komentáře je krátká nebo chybí\n"
 
 #~ msgid "geometry data card error - tag number is less than 1\n"
 #~ msgstr "chyba datové karty geometrie - číslo značky je menší než 1\n"
@@ -3580,8 +3505,7 @@ msgstr "Impedance přenosové linky (Zo)"
 #~ msgstr "chyba datové karty geometrie - počet segmentů je menší než 1\n"
 
 #~ msgid "geometry data card error no GC card for tapered wire\n"
-#~ msgstr ""
-#~ "chyba datové karty geometrie - chybí karta GC pro zužující se vodič\n"
+#~ msgstr "chyba datové karty geometrie - chybí karta GC pro zužující se vodič\n"
 
 #~ msgid "geometry GC data card error\n"
 #~ msgstr "chyba datové karty geometrie GC\n"
@@ -3610,12 +3534,8 @@ msgstr "Impedance přenosové linky (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "ignoruji kartu CM v geometrii\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta > 90 deg se zadanou zemí: Zkontrolujte prosím data karty RP a "
-#~ "opravte\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta > 90 deg se zadanou zemí: Zkontrolujte prosím data karty RP a opravte\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "Hankel není platný pro z = 0\n"

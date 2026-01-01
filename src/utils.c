@@ -42,7 +42,7 @@ void _print_backtrace(char **strings);
   void
 usage(void)
 {
-  fprintf(stdout, "Usage: xnec2c [options] [<input-file-name>]\n"
+  fprintf(stdout, _("Usage: xnec2c [options] [<input-file-name>]\n"
 		"  -i|--input         <input-file-name>\n"
 		"  -c|--config        <config-file-path>     - file must exist\n"
 		"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
@@ -71,7 +71,7 @@ usage(void)
 		"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
 		"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
 		"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-		"  --write-currents        <filename>  - write CSV of currents and charges\n");
+		"  --write-currents        <filename>  - write CSV of currents and charges\n"));
 
 } /* end of usage() */
 

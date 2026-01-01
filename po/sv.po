@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2025-12-29 23:07-0800\n"
+"POT-Creation-Date: 2025-12-29 23:29-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -77,8 +77,7 @@ msgid ""
 "Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
 msgstr ""
 "Frekvensdiagram är inte tillgängliga med excitationstyp %d.\n"
-"Denna modell använder excitation med infallande fält eller elementär "
-"strömkälla.\n"
+"Denna modell använder excitation med infallande fält eller elementär strömkälla.\n"
 "Ändra EX-kortet till typ 0 (Applicerat E-fält) eller 5 (Strömdiskontinuitet)."
 
 #: src/callback_func.c:697
@@ -143,8 +142,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c geometrioptimerare"
 
 #: src/callbacks.c:292
-msgid ""
-"xnec2c was built without inotify support: the optimizer cannot be enabled."
+msgid "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c byggdes utan inotify-stöd: optimeraren kan inte aktiveras."
 
 #: src/callbacks.c:316
@@ -152,14 +150,8 @@ msgid "Xnec2c Optimizer"
 msgstr "Xnec2c Optimerare"
 
 #: src/callbacks.c:316
-msgid ""
-"No files are selected for writing. However, xnec2c will still reload and "
-"recalculate the input file on modification when triggered by inotify.Select "
-"files for writing in \"File->Optimization Settings\"."
-msgstr ""
-"Inga filer är valda för skrivning. Xnec2c kommer dock fortfarande att ladda "
-"om och beräkna om indatafilen vid ändring när den triggas av inotify. Välj "
-"filer för skrivning i \"Arkiv->Optimeringsinställningar\"."
+msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
+msgstr "Inga filer är valda för skrivning. Xnec2c kommer dock fortfarande att ladda om och beräkna om indatafilen vid ändring när den triggas av inotify. Välj filer för skrivning i \"Arkiv->Optimeringsinställningar\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -700,29 +692,20 @@ msgstr "Fel: ipsym = 0"
 
 #: src/geometry.c:549
 #, c-format
-msgid ""
-"Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
-"segj.maxcon=%lu\n"
-msgstr ""
-"Segmentanslutningsantal överstiger ett fullständigt nät, vilket är "
-"osannolikt: data.n=%ld segj.maxcon=%lu\n"
+msgid "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n"
+msgstr "Segmentanslutningsantal överstiger ett fullständigt nät, vilket är osannolikt: data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:551
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
 msgstr ""
-"Segmentanslutningsantal överstiger ett fullständigt nät, vilket är "
-"osannolikt!\n"
+"Segmentanslutningsantal överstiger ett fullständigt nät, vilket är osannolikt!\n"
 "Kontrollera överlappande eller nästan anslutna segment\n"
 
 #: src/geometry.c:764
-msgid ""
-"check data, parameter specifying segment: position in a group of equal tags "
-"must not be zero\n"
-msgstr ""
-"kontrollera data, parameter som anger segment: position i en grupp med lika "
-"taggar får inte vara noll\n"
+msgid "check data, parameter specifying segment: position in a group of equal tags must not be zero\n"
+msgstr "kontrollera data, parameter som anger segment: position i en grupp med lika taggar får inte vara noll\n"
 
 #: src/geometry.c:765
 msgid ""
@@ -740,15 +723,12 @@ msgstr "inget segment har itag %d\n"
 #: src/geometry.c:801
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
-"Check your geometry cards (especially GM cards) to ensure tag values are "
-"valid.\n"
+"Check your geometry cards (especially GM cards) to ensure tag values are valid.\n"
 "For GM cards: verify 'start from tag' and 'tag increment' don't create tag 0."
 msgstr ""
 "Segmenttagnummerfel: Tagg 0 är reserverad och kan inte användas.\n"
-"Kontrollera dina geometrikort (särskilt GM-kort) för att säkerställa att "
-"taggvärden är giltiga.\n"
-"För GM-kort: verifiera att 'börja från tagg' och 'tagginkrement' inte skapar "
-"tagg 0."
+"Kontrollera dina geometrikort (särskilt GM-kort) för att säkerställa att taggvärden är giltiga.\n"
+"För GM-kort: verifiera att 'börja från tagg' och 'tagginkrement' inte skapar tagg 0."
 
 #: src/geometry.c:809
 #, c-format
@@ -801,12 +781,8 @@ msgstr ""
 
 #: src/geometry.c:1642
 #, c-format
-msgid ""
-"tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
-"threshold=%.3e); segment will connect to itself\n"
-msgstr ""
-"tagg=%d/seg=%d: ändpunktsavstånd=%.3e är för nära (under anslutningströskel="
-"%.3e); segmentet kommer att anslutas till sig själv\n"
+msgid "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection threshold=%.3e); segment will connect to itself\n"
+msgstr "tagg=%d/seg=%d: ändpunktsavstånd=%.3e är för nära (under anslutningströskel=%.3e); segmentet kommer att anslutas till sig själv\n"
 
 #: src/geometry.c:1647
 #, c-format
@@ -815,12 +791,8 @@ msgstr "tagg=%d: undertrycker ytterligare varningar om självanslutning\n"
 
 #: src/geometry.c:1692
 #, c-format
-msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
-msgstr ""
-"tagg=%d/seg=%d: avstånd=%.3e till tagg=%d/seg=%d närmare än 2x "
-"anslutningströskel %.3e; oavsiktliga anslutningar möjliga\n"
+msgid "tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n"
+msgstr "tagg=%d/seg=%d: avstånd=%.3e till tagg=%d/seg=%d närmare än 2x anslutningströskel %.3e; oavsiktliga anslutningar möjliga\n"
 
 #: src/geometry.c:1697
 #, c-format
@@ -829,66 +801,38 @@ msgstr "tagg=%d: undertrycker ytterligare överlappningsvarningar\n"
 
 #: src/geometry.c:1757
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
-"length=%.3e that connection detection may fail or short\n"
-msgstr ""
-"tagg=%d/seg=%d: längd=%.3e är för kort (och tillräckligt nära) tagg=%d/seg="
-"%d längd=%.3e att anslutningsdetektering kan misslyckas eller kortsluta\n"
+msgid "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d length=%.3e that connection detection may fail or short\n"
+msgstr "tagg=%d/seg=%d: längd=%.3e är för kort (och tillräckligt nära) tagg=%d/seg=%d längd=%.3e att anslutningsdetektering kan misslyckas eller kortsluta\n"
 
 #: src/geometry.c:1762
 #, c-format
-msgid ""
-"tag=%d: suppressing additional connection detection may fail or short "
-"warnings\n"
-msgstr ""
-"tagg=%d: undertrycker ytterligare varningar om att anslutningsdetektering "
-"kan misslyckas eller kortsluta\n"
+msgid "tag=%d: suppressing additional connection detection may fail or short warnings\n"
+msgstr "tagg=%d: undertrycker ytterligare varningar om att anslutningsdetektering kan misslyckas eller kortsluta\n"
 
 #: src/geometry.c:1794
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
-"current components leads to numerical inaccuracies (min=0.001, fine=0.05, "
-"recommended <= 0.1)\n"
-msgstr ""
-"tagg=%d/seg=%d: längd/våglängd-förhållande på %.3f < 0.001; likhet mellan "
-"strömkomponenter leder till numeriska felaktigheter (min=0.001, bra=0.05, "
-"rekommenderat <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of current components leads to numerical inaccuracies (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tagg=%d/seg=%d: längd/våglängd-förhållande på %.3f < 0.001; likhet mellan strömkomponenter leder till numeriska felaktigheter (min=0.001, bra=0.05, rekommenderat <= 0.1)\n"
 
 #: src/geometry.c:1799
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
-msgstr ""
-"tagg=%d: undertrycker ytterligare fel för korta våglängdsförhållanden\n"
+msgstr "tagg=%d: undertrycker ytterligare fel för korta våglängdsförhållanden\n"
 
 #: src/geometry.c:1812
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
-"resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= "
-"0.1)\n"
-msgstr ""
-"tagg=%d/seg=%d: längd/våglängd-förhållande på %.3f > 0.1; "
-"strömprovtagningsupplösning begränsad av segmentavstånd (min=0.001, "
-"bra=0.05, rekommenderat <= 0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling resolution limited by segment spacing (min=0.001, fine=0.05, recommended <= 0.1)\n"
+msgstr "tagg=%d/seg=%d: längd/våglängd-förhållande på %.3f > 0.1; strömprovtagningsupplösning begränsad av segmentavstånd (min=0.001, bra=0.05, rekommenderat <= 0.1)\n"
 
 #: src/geometry.c:1817
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
-msgstr ""
-"tagg=%d: undertrycker ytterligare varningar för långa våglängdsförhållanden\n"
+msgstr "tagg=%d: undertrycker ytterligare varningar för långa våglängdsförhållanden\n"
 
 #: src/geometry.c:1830
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
-"increase accuracy in regions of rapid current change (min=0.001, fine=0.05, "
-"recommended <=0.1)\n"
-msgstr ""
-"tagg=%d/seg=%d: längd/våglängd-förhållande på %.3f > 0.05; kortare segment "
-"ökar noggrannheten i områden med snabba strömförändringar (min=0.001, "
-"bra=0.05, rekommenderat <=0.1)\n"
+msgid "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments increase accuracy in regions of rapid current change (min=0.001, fine=0.05, recommended <=0.1)\n"
+msgstr "tagg=%d/seg=%d: längd/våglängd-förhållande på %.3f > 0.05; kortare segment ökar noggrannheten i områden med snabba strömförändringar (min=0.001, bra=0.05, rekommenderat <=0.1)\n"
 
 #: src/geometry.c:1835
 #, c-format
@@ -897,12 +841,8 @@ msgstr "tagg=%d: undertrycker ytterligare förslag på noggrannhetsförbättring
 
 #: src/geometry.c:1865
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tagg=%d/seg=%d: längd/radie-förhållande på %.1f < 2.0; standard tunntråds-"
-"kärnfältfel överstiger 1%% med stor marginal (min=2.0, 1%%-noggrann=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tagg=%d/seg=%d: längd/radie-förhållande på %.1f < 2.0; standard tunntråds-kärnfältfel överstiger 1%% med stor marginal (min=2.0, 1%%-noggrann=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -911,27 +851,18 @@ msgstr "tagg=%d: undertrycker ytterligare fel för standardkärnförhållande\n"
 
 #: src/geometry.c:1883
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
-"field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr ""
-"tagg=%d/seg=%d: längd/radie-förhållande på %.1f < 8.0; standard tunntråds-"
-"kärnfältfel överstiger 1%% (min=2.0, 1%%-noggrann=8.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
+msgstr "tagg=%d/seg=%d: längd/radie-förhållande på %.1f < 8.0; standard tunntråds-kärnfältfel överstiger 1%% (min=2.0, 1%%-noggrann=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
-msgstr ""
-"tagg=%d: undertrycker ytterligare varningar för standardkärnförhållande\n"
+msgstr "tagg=%d: undertrycker ytterligare varningar för standardkärnförhållande\n"
 
 #: src/geometry.c:1903
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
-"field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tagg=%d/seg=%d: längd/radie-förhållande på %.1f < 0.5; utökad tunntråds-"
-"kärnfältfel överstiger 1%% med stor marginal (min=0.5, 1%%-noggrann=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tagg=%d/seg=%d: längd/radie-förhållande på %.1f < 0.5; utökad tunntråds-kärnfältfel överstiger 1%% med stor marginal (min=0.5, 1%%-noggrann=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -940,25 +871,18 @@ msgstr "tagg=%d: undertrycker ytterligare fel för utökat kärnförhållande\n"
 
 #: src/geometry.c:1921
 #, c-format
-msgid ""
-"tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
-"field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr ""
-"tagg=%d/seg=%d: längd/radie-förhållande på %.1f < 2.0; utökad tunntråds-"
-"kärnfältfel överstiger 1%% (min=0.5, 1%%-noggrann=2.0)\n"
+msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
+msgstr "tagg=%d/seg=%d: längd/radie-förhållande på %.1f < 2.0; utökad tunntråds-kärnfältfel överstiger 1%% (min=0.5, 1%%-noggrann=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
-msgstr ""
-"tagg=%d: undertrycker ytterligare varningar för utökat kärnförhållande\n"
+msgstr "tagg=%d: undertrycker ytterligare varningar för utökat kärnförhållande\n"
 
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr ""
-"Hoppar över överlappningskontroll för %d segment (använd --force-verify för "
-"att aktivera)\n"
+msgstr "Hoppar över överlappningskontroll för %d segment (använd --force-verify för att aktivera)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -966,11 +890,8 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Tvingar överlappningskontroll för %d segment\n"
 
 #: src/geometry.c:1957
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() hoppar över frekvensberoende kontroller - ingen "
-"frekvensdata\n"
+msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgstr "verify_segments() hoppar över frekvensberoende kontroller - ingen frekvensdata\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -987,21 +908,13 @@ msgstr "# Referensimpedans Z0 = %.2f Ohm\n"
 
 #: src/gnuplot.c:62
 #, c-format
-msgid ""
-"# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
-"zreal and zimag:\n"
-msgstr ""
-"# För att plotta i gnuplot kan du modifiera detta kommando. För närvarande "
-"plottar det MHz mot zreal och zimag:\n"
+msgid "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs zreal and zimag:\n"
+msgstr "# För att plotta i gnuplot kan du modifiera detta kommando. För närvarande plottar det MHz mot zreal och zimag:\n"
 
 #: src/gnuplot.c:63
 #, c-format
-msgid ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
-msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
+msgid "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
+msgstr "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier title columnhead(i);\n"
 
 #: src/gnuplot.c:88 src/gnuplot.c:169
 msgid "Touchstone Data"
@@ -1050,6 +963,10 @@ msgstr "# struktur trådsegment\n"
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
 msgstr "Spara strömmar och laddningar till CSV"
+
+#: src/gnuplot.c:566
+msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
+msgstr "Du måste aktivera strömdata genom att klicka på \"Strömmar\" eller \"Laddningar\" i huvudfönstret för xnec2c."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -1279,8 +1196,7 @@ msgstr ""
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
-"The GE card specifies that a ground is present, but the GN indicates "
-"otherwise."
+"The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "Fixa GE/GN-korten:\n"
 "GE-kortet anger att en jordplan finns, men GN indikerar motsatsen."
@@ -1298,12 +1214,8 @@ msgstr ""
 "Kontrollera RP-kortdata och korrigera"
 
 #: src/input.c:1233
-msgid ""
-"radial wire g.s. approximation: may not be used with Sommerfeld ground "
-"option\n"
-msgstr ""
-"radiell tråd g.s.-approximation: kan inte användas med Sommerfeld-"
-"jordalternativ\n"
+msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
+msgstr "radiell tråd g.s.-approximation: kan inte användas med Sommerfeld-jordalternativ\n"
 
 #: src/input.c:1234
 msgid ""
@@ -1315,11 +1227,8 @@ msgstr ""
 
 #: src/input.c:1285
 #, c-format
-msgid ""
-"data fault on loading card no %d: itag step1 %d is greater than itag step2 "
-"%d\n"
-msgstr ""
-"datafel på belastningskort nr %d: itag step1 %d är större än itag step2 %d\n"
+msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
+msgstr "datafel på belastningskort nr %d: itag step1 %d är större än itag step2 %d\n"
 
 #: src/input.c:1287
 msgid ""
@@ -1330,10 +1239,8 @@ msgstr ""
 "itag step1 är större än itag step2"
 
 #: src/input.c:1420
-msgid ""
-"Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr ""
-"Transmissionsledningsimpedans = 0: är ogiltigt. Korrigera NT- eller TL-kort\n"
+msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
+msgstr "Transmissionsledningsimpedans = 0: är ogiltigt. Korrigera NT- eller TL-kort\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1385,18 +1292,13 @@ msgid ""
 "xnec2c renders radiation patterns graphically instead of text tables.\n"
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
-"Förstärkningsmedelvärde (XNDA ***1 eller ***2) styr "
-"textutmatningsformatering.\n"
+"Förstärkningsmedelvärde (XNDA ***1 eller ***2) styr textutmatningsformatering.\n"
 "xnec2c renderar strålningsdiagram grafiskt istället för texttabeller.\n"
 "Diagramberäkningar fortskrider normalt; använd GUI för att visa resultat."
 
 #: src/input.c:1502
-msgid ""
-"Theta > 90 deg. with ground specified: Please check RP card data and "
-"correct\n"
-msgstr ""
-"Theta > 90 grader med angiven jordplan: Kontrollera RP-kortdata och "
-"korrigera\n"
+msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
+msgstr "Theta > 90 grader med angiven jordplan: Kontrollera RP-kortdata och korrigera\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1411,24 +1313,16 @@ msgid "Faulty data card"
 msgstr "Felaktigt datakort"
 
 #: src/input.c:1578
-msgid ""
-"Missing or surface-wave RP card: Radiation pattern and gain calculations "
-"disabled\n"
-msgstr ""
-"Saknat eller ytvågs-RP-kort: Strålningsdiagram och förstärkningsberäkningar "
-"inaktiverade\n"
+msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
+msgstr "Saknat eller ytvågs-RP-kort: Strålningsdiagram och förstärkningsberäkningar inaktiverade\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
 msgstr "Oväntat avslut från while-loop"
 
 #: src/input.c:1653
-msgid ""
-"command data card error: Unexpected EOF while reading input file - appending "
-"EN card\n"
-msgstr ""
-"fel på kommandodatakort: Oväntat filslut vid läsning av indatafil - lägger "
-"till EN-kort\n"
+msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
+msgstr "fel på kommandodatakort: Oväntat filslut vid läsning av indatafil - lägger till EN-kort\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1442,8 +1336,7 @@ msgstr ""
 
 #: src/input.c:1668
 msgid "command data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"fel på kommandodatakort: kortets mnemoniska kod för kort eller saknas\n"
+msgstr "fel på kommandodatakort: kortets mnemoniska kod för kort eller saknas\n"
 
 #: src/input.c:1669
 msgid ""
@@ -1454,12 +1347,8 @@ msgstr ""
 "Mnemonisk kod för kort eller saknas"
 
 #: src/input.c:1829
-msgid ""
-"geometry data card error: Unexpected EOF while reading input file - "
-"appending GE card\n"
-msgstr ""
-"fel på geometridatakort: Oväntat filslut vid läsning av indatafil - lägger "
-"till GE-kort\n"
+msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "fel på geometridatakort: Oväntat filslut vid läsning av indatafil - lägger till GE-kort\n"
 
 #: src/input.c:1830
 msgid ""
@@ -1473,8 +1362,7 @@ msgstr ""
 
 #: src/input.c:1844
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr ""
-"fel på geometridatakort: kortets mnemoniska kod för kort eller saknas\n"
+msgstr "fel på geometridatakort: kortets mnemoniska kod för kort eller saknas\n"
 
 #: src/input.c:1845
 msgid ""
@@ -1702,21 +1590,13 @@ msgstr ""
 
 #: src/plot_freqdata.c:132
 #, c-format
-msgid ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
-msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph="
-"%d fr=%d posn=%d valid=%d\n"
+msgid "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
+msgstr "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d calc_data.ngraph=%d fr=%d posn=%d valid=%d\n"
 
 #: src/plot_freqdata.c:148
 #, c-format
-msgid ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
-msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
+msgid "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
+msgstr "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n=%d]\n"
 
 #: src/plot_freqdata.c:831 src/plot_freqdata.c:1298
 msgid "memory allocation for points failed\n"
@@ -1828,6 +1708,71 @@ msgstr "Hankel ej giltig för z = 0"
 msgid "No convergence"
 msgstr "Ingen konvergens"
 
+#: src/utils.c:45
+#, c-format
+msgid ""
+"Usage: xnec2c [options] [<input-file-name>]\n"
+"  -i|--input         <input-file-name>\n"
+"  -c|--config        <config-file-path>     - file must exist\n"
+"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
+"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
+"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
+"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
+"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
+"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
+"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
+"  -h|--help:         print usage information and exit\n"
+"  -V|--version:      print xnec2c version number and exit\n"
+"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
+"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
+"  -d|--quiet:        suppress debug/verbose output\n"
+"\n"
+"  --optimize:        Activate the optimizer immediately.\n"
+"  --skip-verify:     skip geometry verification checks\n"
+"\n"
+"The following arguments write to an output file after the frequency loop\n"
+"completes.  These are useful to combine with --batch; If you wish to specify\n"
+"filenames to write without --batch mode then enable the File->Optimizer\n"
+"Settings or the files you specify on the command line will not be written.\n"
+"\n"
+"  --write-csv             <filename>  - write CSV file of measurements\n"
+"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
+"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
+"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
+"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
+"  --write-currents        <filename>  - write CSV of currents and charges\n"
+msgstr ""
+"Användning: xnec2c [alternativ] [<indatafilnamn>]\n"
+"  -i|--input         <indatafilnamn>\n"
+"  -c|--config        <konfigurationsfilsökväg>     - filen måste finnas\n"
+"  -C|--new-config    <ny-konfigurationsfilsökväg> - skapar filen om den saknas\n"
+"  -j|--jobs  <antal processorer i SMP-maskin> (-j0 inaktiverar forking)\n"
+"     --openblas-threads <n>  ange OpenBLAS-trådantal (standard: 1)\n"
+"     --mkl-threads <n>       ange Intel MKL-trådantal (standard: 1)\n"
+"     --omp-threads <n>       ange OpenMP-trådantal (standard: 1)\n"
+"  -b|--batch:        aktivera batch-läge, avsluta efter frekvensslingan körs\n"
+"  -P|--no-pthreads:  inaktivera pthreads och använd GTK-loopen för felsökning\n"
+"  -h|--help:         visa användningsinformation och avsluta\n"
+"  -V|--version:      visa xnec2c-versionsnummer och avsluta\n"
+"  -v|--verbose:      öka utförlighet, kan anges flera gånger\n"
+"  -d|--debug:        aktivera felsökningsutdata (-dd inkluderar bakåtspårningar)\n"
+"  -d|--quiet:        undertryck felsöknings-/utförlig utdata\n"
+"\n"
+"  --optimize:        Aktivera optimeraren omedelbart.\n"
+"  --skip-verify:     hoppa över geometriverifieringskontroller\n"
+"\n"
+"Följande argument skriver till en utdatafil efter att frekvensslingan\n"
+"har slutförts. Dessa är användbara att kombinera med --batch; Om du vill ange\n"
+"filnamn att skriva utan --batch-läge, aktivera Arkiv->Optimerarinställningar\n"
+"annars kommer filerna du anger på kommandoraden inte att skrivas.\n"
+"\n"
+"  --write-csv             <filnamn>  - skriv CSV-fil med mätningar\n"
+"  --write-s1p             <filnamn>  - skriv S1P-fil med S-parametrar\n"
+"  --write-s2p-max-gain    <filnamn>  - skriv S2P-fil, port-2 är maxförstärkning\n"
+"  --write-s2p-viewer-gain <filnamn>  - skriv S2P-fil, port-2 är visarförstärkning\n"
+"  --write-rdpat           <filnamn>  - skriv CSV av strålningsmönstret\n"
+"  --write-currents        <filnamn>  - skriv CSV av strömmar och laddningar\n"
+
 #: src/utils.c:103 src/utils.c:108
 #, c-format
 msgid ""
@@ -1905,8 +1850,7 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr ""
-"Optimeringsloop ofullständig, hoppar över omritning av strålningsdiagram.\n"
+msgstr "Optimeringsloop ofullständig, hoppar över omritning av strålningsdiagram.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
@@ -1928,12 +1872,8 @@ msgstr "%s:\n"
 
 #: src/xnec2c.c:185
 #, c-format
-msgid ""
-"complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
-"%+12.5Ej\n"
-msgstr ""
-"komplex dielektricitetskonstant från fil: %12.5E%+12.5Ej, begärd: %12.5E"
-"%+12.5Ej\n"
+msgid "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E%+12.5Ej\n"
+msgstr "komplex dielektricitetskonstant från fil: %12.5E%+12.5Ej, begärd: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:188
 msgid "Ground_Parameters():Error in ground parameters"
@@ -1950,12 +1890,8 @@ msgstr "Kunde inte läsa data från förgrenad barnprocess\n"
 
 #: src/xnec2c.c:817
 #, c-format
-msgid ""
-"Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
-msgstr ""
-"Frequency_Loop är klar med alla steg men num_busy_procs=%d (calc_data."
-"freq_step=%d calc_data.steps_total=%d)?\n"
+msgid "Frequency_Loop is done with all steps but num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
+msgstr "Frequency_Loop är klar med alla steg men num_busy_procs=%d (calc_data.freq_step=%d calc_data.steps_total=%d)?\n"
 
 #: src/xnec2c.c:824
 #, c-format
@@ -1993,34 +1929,21 @@ msgstr "(C) 2007-2022 Neoklis Kyriazis"
 
 #: resources/xnec2c.glade:15
 msgid ""
-"xnec2c is an interactive graphical wrapper around a modified version of "
-"nec2c, which is itself a translation to C of the original FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c is an interactive graphical wrapper around a modified version of nec2c, which is itself a translation to C of the original FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c can display frequency-dependent data (gain, input impedance, vswr "
-"etc) in a graphical format. It can also display radiation pattern data in a "
-"rotatable wire frame format and near-field (E, H, S vectors) in a grid "
-"format.\n"
+"xnec2c can display frequency-dependent data (gain, input impedance, vswr etc) in a graphical format. It can also display radiation pattern data in a rotatable wire frame format and near-field (E, H, S vectors) in a grid format.\n"
 "\n"
-"xnec2c has a built-in NEC2 input file editor that makes it easier to create "
-"or edit antenna description files and specify NEC2 commands.\n"
+"xnec2c has a built-in NEC2 input file editor that makes it easier to create or edit antenna description files and specify NEC2 commands.\n"
 "\n"
-"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not "
-"fully compatible with NEC2 input files and it works in different ways!"
+"PLEASE read the documentation in the doc/ sub-directory as xnec2c is not fully compatible with NEC2 input files and it works in different ways!"
 msgstr ""
-"xnec2c är ett interaktivt grafiskt gränssnitt för en modifierad version av "
-"nec2c, som i sig är en översättning till C av det ursprungliga FORTRAN NEC2 "
-"Numerical Electromagnetics Code.\n"
+"xnec2c är ett interaktivt grafiskt gränssnitt för en modifierad version av nec2c, som i sig är en översättning till C av det ursprungliga FORTRAN NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c kan visa frekvensberoende data (förstärkning, inimpedans, vswr etc) i "
-"grafiskt format. Det kan också visa strålningsdiagramdata i ett roterbart "
-"trådramformat och närfält (E, H, S-vektorer) i ett rutnätsformat.\n"
+"xnec2c kan visa frekvensberoende data (förstärkning, inimpedans, vswr etc) i grafiskt format. Det kan också visa strålningsdiagramdata i ett roterbart trådramformat och närfält (E, H, S-vektorer) i ett rutnätsformat.\n"
 "\n"
-"xnec2c har en inbyggd NEC2-indatafileditor som gör det enklare att skapa "
-"eller redigera antennbeskrivningsfiler och specificera NEC2-kommandon.\n"
+"xnec2c har en inbyggd NEC2-indatafileditor som gör det enklare att skapa eller redigera antennbeskrivningsfiler och specificera NEC2-kommandon.\n"
 "\n"
-"Läs dokumentationen i underkatalogen doc/ eftersom xnec2c inte är fullt "
-"kompatibelt med NEC2-indatafiler och fungerar på olika sätt!"
+"Läs dokumentationen i underkatalogen doc/ eftersom xnec2c inte är fullt kompatibelt med NEC2-indatafiler och fungerar på olika sätt!"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
@@ -3573,8 +3496,7 @@ msgstr "Transmissionsledningsimpedans (Zo)"
 #~ msgstr "oväntat filslut (EOF)\n"
 
 #~ msgid "error reading Comments: Comment mnemonic short or missing\n"
-#~ msgstr ""
-#~ "fel vid läsning av kommentarer: Kommentarmnemonik kort eller saknas\n"
+#~ msgstr "fel vid läsning av kommentarer: Kommentarmnemonik kort eller saknas\n"
 
 #~ msgid "geometry data card error - tag number is less than 1\n"
 #~ msgstr "fel på geometridatakort - taggnummer är mindre än 1\n"
@@ -3612,12 +3534,8 @@ msgstr "Transmissionsledningsimpedans (Zo)"
 #~ msgid "ignoring CM card in geometry\n"
 #~ msgstr "ignorerar CM-kort i geometri\n"
 
-#~ msgid ""
-#~ "Theta > 90 deg with ground specified: Please check RP card data and "
-#~ "correct\n"
-#~ msgstr ""
-#~ "Theta > 90 grader med mark specificerad: Kontrollera RP-kortdata och "
-#~ "korrigera\n"
+#~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
+#~ msgstr "Theta > 90 grader med mark specificerad: Kontrollera RP-kortdata och korrigera\n"
 
 #~ msgid "Hankel not valid for z = 0\n"
 #~ msgstr "Hankel ej giltig för z = 0\n"
