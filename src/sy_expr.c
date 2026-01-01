@@ -70,6 +70,27 @@ typedef struct
   gdouble value;
 } sy_constant_t;
 
+/* Symbol value structure
+ * Stores numeric value with metadata for validation and override support
+ *
+ * current_value:   Active value used in expression evaluation
+ * is_calculated:   TRUE if derived from calculation, FALSE if terminal (sy_define)
+ * min_value:       Minimum allowed value (default: current_value * 0.5)
+ * max_value:       Maximum allowed value (default: current_value * 2.0)
+ * override_value:  Temporary override value (NaN when not active)
+ *                  When not NaN, this value replaces current_value during evaluation
+ * expression:      Source expression string for calculated symbols (empty if terminal)
+ */
+typedef struct
+{
+  gdouble current_value;
+  gboolean is_calculated;
+  gdouble min_value;
+  gdouble max_value;
+  gdouble override_value;
+  gchar expression[128];
+} sy_value_t;
+
 /* Symbol table stores user-defined variables */
 static GHashTable *symbol_table = NULL;
 
@@ -672,8 +693,10 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
         }
         else
         {
-          val1 = (gdouble *)g_hash_table_lookup(symbol_table, upper_name);
-          if( val1 == NULL )
+          sy_value_t *val_struct;
+
+          val_struct = (sy_value_t *)g_hash_table_lookup(symbol_table, upper_name);
+          if( val_struct == NULL )
           {
             gchar err_msg[128];
             snprintf(err_msg, sizeof(err_msg), _("Undefined symbol: %s"), upper_name);
@@ -685,7 +708,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
           else
           {
             res = g_new(gdouble, 1);
-            *res = *val1;
+            *res = val_struct->current_value;
             g_queue_push_head(stack, res);
           }
         }
@@ -855,6 +878,29 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
 /* Public interface implementations */
 
 gboolean
+sy_get_bounds(const gchar *name, gdouble *min, gdouble *max)
+{
+  gchar upper_name[32];
+  sy_value_t *val;
+
+  if( symbol_table == NULL )
+    return FALSE;
+
+  if( name == NULL || min == NULL || max == NULL )
+    return FALSE;
+
+  sy_normalize_name(name, upper_name, sizeof(upper_name));
+  val = (sy_value_t *)g_hash_table_lookup(symbol_table, upper_name);
+
+  if( val == NULL )
+    return FALSE;
+
+  *min = val->min_value;
+  *max = val->max_value;
+  return TRUE;
+}
+
+gboolean
 sy_init(void)
 {
   if( symbol_table != NULL )
@@ -887,7 +933,7 @@ sy_define(const gchar *name, gdouble value)
 {
   gchar *upper_name;
   gchar temp_name[64];
-  gdouble *val_ptr;
+  sy_value_t *val_ptr;
 
   if( symbol_table == NULL )
   {
@@ -899,8 +945,13 @@ sy_define(const gchar *name, gdouble value)
     sy_normalize_name(name, temp_name, sizeof(temp_name));
     upper_name = g_strdup(temp_name);
 
-    val_ptr = g_new(gdouble, 1);
-    *val_ptr = value;
+    val_ptr = g_new(sy_value_t, 1);
+    val_ptr->current_value = value;
+    val_ptr->is_calculated = FALSE;
+    val_ptr->min_value = value * 0.5;
+    val_ptr->max_value = value * 2.0;
+    val_ptr->override_value = NAN;
+    val_ptr->expression[0] = '\0';
 
     g_hash_table_insert(symbol_table, upper_name, val_ptr);
     return TRUE;

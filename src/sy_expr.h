@@ -22,6 +22,14 @@
 
 #include <glib.h>
 
+/* Get bounds for a symbol
+ * name: symbol name
+ * min: pointer to store minimum value
+ * max: pointer to store maximum value
+ * Returns: TRUE on success, FALSE if symbol not found or parameters NULL
+ */
+gboolean sy_get_bounds(const gchar *name, gdouble *min, gdouble *max);
+
 /* Initialize symbol table and expression evaluator */
 gboolean sy_init(void);
 
