@@ -272,6 +272,9 @@ nobase_dist_pkgdata_DATA += examples/data/2m_xpol_omni_stack.csv
 nobase_dist_pkgdata_DATA += examples/2m_yagi.nec
 nobase_dist_pkgdata_DATA += examples/data/2m_yagi.csv
 
+nobase_dist_pkgdata_DATA += examples/2m_yagi_SY_parametric.nec
+nobase_dist_pkgdata_DATA += examples/data/2m_yagi_SY_parametric.csv
+
 nobase_dist_pkgdata_DATA += examples/2m_yagi_stack.nec
 nobase_dist_pkgdata_DATA += examples/data/2m_yagi_stack.csv
 
