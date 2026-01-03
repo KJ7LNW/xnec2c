@@ -144,8 +144,8 @@ int inotify_open(struct pollfd *pfd)
     strcpy(watch_dir, ".");
   }
 
-  /* Create a directory watch descriptor. IN_MOVED_TO catches atomic renames. */
-  wd = inotify_add_watch( fd, watch_dir, IN_CLOSE_WRITE | IN_MOVED_TO );
+  /* Create a directory watch descriptor. Track MODIFY, CLOSE_WRITE, and MOVED_TO. */
+  wd = inotify_add_watch( fd, watch_dir, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO );
   if( wd == -1 )
   {
     pr_err("Unable to configure file modification detection to %s: %s\n", watch_dir,
@@ -161,8 +161,59 @@ int inotify_open(struct pollfd *pfd)
   return fd;
 }
 
-// Watches the NEC2 (.nec) input file for a save using the
-// inotify system and re-reads the input file for re-processing
+/* Optimizer_Output()
+ *
+ * Watches the NEC2 (.nec) input file for modifications using inotify and
+ * re-reads the file for re-processing when changes are detected.
+ *
+ * INOTIFY FILE MODIFICATION DETECTION CHALLENGE:
+ *
+ * Different editors use different save strategies that generate different
+ * inotify event sequences. We must handle both atomic writes and direct
+ * writes without false positives from intermediate states.
+ *
+ * EDITOR BEHAVIORS:
+ *
+ * Pluma/Gedit (atomic write via temp file + rename):
+ *   1. CLOSE_WRITE on target (old inode closing - STALE DATA)
+ *   2. MOVED_TO on target (rename complete - FRESH DATA)
+ *   3. CLOSE_WRITE on target (spurious, skipped by FREQ_LOOP_RUNNING)
+ *
+ * Vi (atomic write via backup + in-place modification):
+ *   1. MODIFY on target (content changing)
+ *   2. MODIFY on target (continued writes)
+ *   3. CLOSE_WRITE on target (write complete - FRESH DATA)
+ *
+ * Echo/printf (direct write):
+ *   1. MODIFY on target (content changing)
+ *   2. CLOSE_WRITE on target (write complete - FRESH DATA)
+ *
+ * THE PROBLEM:
+ *
+ * IN_CLOSE_WRITE is ambiguous - it fires both when:
+ *   a) The old inode closes (before atomic rename) - contains STALE data
+ *   b) A direct write completes - contains FRESH data
+ *
+ * Reading on first CLOSE_WRITE causes reload with stale data when using
+ * editors that perform atomic writes (Pluma, Vi, most modern editors).
+ *
+ * SOLUTION - STATE MACHINE:
+ *
+ * Track whether IN_MODIFY occurred for the target file. This distinguishes:
+ *   - Spurious CLOSE_WRITE (no prior MODIFY) = old inode closing, SKIP
+ *   - Real CLOSE_WRITE (after MODIFY) = direct write complete, RELOAD
+ *   - IN_MOVED_TO (anytime) = atomic write complete, RELOAD
+ *
+ * State transitions:
+ *   modify_seen = FALSE (initial state)
+ *   IN_MODIFY        → modify_seen = TRUE, continue (don't reload yet)
+ *   IN_MOVED_TO      → RELOAD, modify_seen = FALSE
+ *   IN_CLOSE_WRITE   → if modify_seen: RELOAD, modify_seen = FALSE
+ *                       else: SKIP (spurious close from old inode)
+ *
+ * This ensures we only reload when file content is actually complete and
+ * consistent, regardless of which editor or save strategy is used.
+ */
   void *
 Optimizer_Output( void *arg )
 {
@@ -172,6 +223,10 @@ Optimizer_Output( void *arg )
   char buf[256] __attribute__ ((aligned(__alignof__(struct inotify_event))));
   const struct inotify_event *event;
   ssize_t len;
+  char *ptr;
+
+  /* State machine: track whether target file was modified (vs just closed) */
+  gboolean modify_seen = FALSE;
 
   char prev_input_file[sizeof(rc_config.input_file)] = {0};
 
@@ -229,59 +284,150 @@ Optimizer_Output( void *arg )
           exit( -1 );
         }
 
+		pr_debug("inotify: read %zd bytes from inotify fd\n", len);
+
 		if ( isFlagSet(FREQ_LOOP_RUNNING | FREQ_LOOP_INIT | INPUT_PENDING)|| isFlagClear(FREQ_LOOP_DONE))
+		{
+			pr_debug("inotify: SKIP all events (flags) - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT=%d INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n",
+				isFlagSet(FREQ_LOOP_RUNNING) ? 1 : 0,
+				isFlagSet(FREQ_LOOP_INIT) ? 1 : 0,
+				isFlagSet(INPUT_PENDING) ? 1 : 0,
+				isFlagSet(FREQ_LOOP_DONE) ? 1 : 0);
 			continue;
+		}
 
 		num_busy_procs = 0;
 		for (job_num = 0; job_num < calc_data.num_jobs; job_num++)
-			if (forked_proc_data != NULL && forked_proc_data[job_num] != NULL && forked_proc_data[job_num]->busy) 
+			if (forked_proc_data != NULL && forked_proc_data[job_num] != NULL && forked_proc_data[job_num]->busy)
 				num_busy_procs++;
 
 		if (num_busy_procs)
 		{
-			pr_warn("%d child jobs are running, skipping optimization\n",
-                                num_busy_procs);
+			pr_debug("inotify: SKIP all events (%d busy children)\n", num_busy_procs);
 			usleep(100000);
 			continue;
 		}
 
-		int done = 0;
-		struct stat st;
+		const char *target_filename = strrchr(rc_config.input_file, '/');
+		target_filename = target_filename ? target_filename + 1 : rc_config.input_file;
 
-		// This fixes a crash when inotify reports the file is closed but the
-		// file content is empty.  Interestingly, just calling `stat` on the
-		// file seems to be enough to prevent the bug, but the code is here
-		// just in case:
-		do
+		for (ptr = buf; ptr < buf + len; )
 		{
-			errno = 0;
-			int stat_ret = stat(rc_config.input_file, &st);
-			done = (stat_ret == 0 && st.st_size > 0);
-			if (!done)
+			int done;
+			struct stat st;
+			gboolean flag;
+
+			event = (const struct inotify_event *) ptr;
+
+			pr_debug("inotify: EVENT @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n",
+				(long)(ptr - buf), event->mask, event->cookie, event->len,
+				event->len ? event->name : "(none)");
+
+			pr_debug("inotify: EVENT flags: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d IN_CREATE=%d IN_DELETE=%d IN_MODIFY=%d\n",
+				(event->mask & IN_CLOSE_WRITE) ? 1 : 0,
+				(event->mask & IN_MOVED_TO) ? 1 : 0,
+				(event->mask & IN_MOVED_FROM) ? 1 : 0,
+				(event->mask & IN_CREATE) ? 1 : 0,
+				(event->mask & IN_DELETE) ? 1 : 0,
+				(event->mask & IN_MODIFY) ? 1 : 0);
+
+			pr_debug("inotify: FILTER: target='%s' event_name='%s' match=%d\n",
+				target_filename,
+				event->len ? event->name : "(none)",
+				(event->len && strcmp(event->name, target_filename) == 0) ? 1 : 0);
+
+			if (!event->len || strcmp(event->name, target_filename) != 0)
 			{
-				pr_warn("%s: file is zero bytes, retrying (%s)\n", strerror(errno));
-				usleep(100000);
+				pr_debug("inotify: SKIP event (filename mismatch)\n");
+				ptr += sizeof(struct inotify_event) + event->len;
+				continue;
 			}
-		} while (!done);
 
-        event = (const struct inotify_event *) buf;
+			if (event->mask & IN_MODIFY)
+			{
+				pr_debug("inotify: IN_MODIFY on target, setting modify_seen=TRUE\n");
+				modify_seen = TRUE;
+				ptr += sizeof(struct inotify_event) + event->len;
+				continue;
+			}
 
-        /* Filter events to match only our target file */
-        const char *target_filename = strrchr(rc_config.input_file, '/');
-        target_filename = target_filename ? target_filename + 1 : rc_config.input_file;
+			if (event->mask & IN_MOVED_TO)
+			{
+				pr_debug("inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n");
 
-        /* Read input file and re-process */
-        if( event->len && strcmp(event->name, target_filename) == 0 &&
-            (event->mask & (IN_CLOSE_WRITE | IN_MOVED_TO)) )
-        {
-          gboolean flag = FALSE;
+				done = 0;
 
-		  // Prevent queuing a file change while locked:
-		  g_mutex_lock(&global_lock);
-          g_idle_add( Open_Input_File, (gpointer) &flag );
-		  g_mutex_unlock(&global_lock);
+				do
+				{
+					errno = 0;
+					int stat_ret = stat(rc_config.input_file, &st);
+					done = (stat_ret == 0 && st.st_size > 0);
+					if (!done)
+					{
+						pr_warn("inotify: file stat failed or zero bytes (ret=%d size=%ld errno=%s), retrying\n",
+							stat_ret, (long)st.st_size, strerror(errno));
+						usleep(100000);
+					}
+					else
+					{
+						pr_debug("inotify: file stat OK - size=%ld bytes\n", (long)st.st_size);
+					}
+				} while (!done);
 
-        }
+				flag = FALSE;
+				g_mutex_lock(&global_lock);
+				g_idle_add( Open_Input_File, (gpointer) &flag );
+				g_mutex_unlock(&global_lock);
+
+				modify_seen = FALSE;
+				ptr += sizeof(struct inotify_event) + event->len;
+				continue;
+			}
+
+			if (event->mask & IN_CLOSE_WRITE)
+			{
+				if (modify_seen)
+				{
+					pr_debug("inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), triggering reload\n");
+
+					done = 0;
+
+					do
+					{
+						errno = 0;
+						int stat_ret = stat(rc_config.input_file, &st);
+						done = (stat_ret == 0 && st.st_size > 0);
+						if (!done)
+						{
+							pr_warn("inotify: file stat failed or zero bytes (ret=%d size=%ld errno=%s), retrying\n",
+								stat_ret, (long)st.st_size, strerror(errno));
+							usleep(100000);
+						}
+						else
+						{
+							pr_debug("inotify: file stat OK - size=%ld bytes\n", (long)st.st_size);
+						}
+					} while (!done);
+
+					gboolean flag = FALSE;
+					g_mutex_lock(&global_lock);
+					g_idle_add( Open_Input_File, (gpointer) &flag );
+					g_mutex_unlock(&global_lock);
+
+					modify_seen = FALSE;
+				}
+				else
+				{
+					pr_debug("inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), skipping\n");
+				}
+
+				ptr += sizeof(struct inotify_event) + event->len;
+				continue;
+			}
+
+			pr_debug("inotify: SKIP event (not MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n", event->mask);
+			ptr += sizeof(struct inotify_event) + event->len;
+		}
       }
     } // if( poll_num > 0 )
   } // while( TRUE )
