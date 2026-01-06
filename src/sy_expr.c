@@ -644,7 +644,6 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
 
     if( token->type == SY_TOKEN_NUMBER )
     {
-      pr_debug("NUMBER: %.9f\n", token->value.number);
       res = g_new(gdouble, 1);
       *res = token->value.number;
       g_queue_push_head(stack, res);
@@ -658,7 +657,6 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
 
       if( sy_lookup_constant(upper_name, &tmp) )
       {
-        pr_debug("SYMBOL '%s' from CONST = %.9f\n", upper_name, tmp);
         res = g_new(gdouble, 1);
         *res = tmp;
         g_queue_push_head(stack, res);
@@ -686,7 +684,6 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
           }
           else
           {
-            pr_debug("SYMBOL '%s' from TABLE = %.9f\n", upper_name, *val1);
             res = g_new(gdouble, 1);
             *res = *val1;
             g_queue_push_head(stack, res);
@@ -748,8 +745,6 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
       }
 
       *res = op_entry->eval(*val1, *val2);
-      pr_debug("OP '%c': %.9f %c %.9f = %.9f\n",
-               token->value.op, *val1, token->value.op, *val2, *res);
       g_free(val1);
       g_free(val2);
       g_queue_push_head(stack, res);
@@ -785,7 +780,6 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
             val1 = (gdouble *)g_queue_pop_head(stack);
             res = g_new(gdouble, 1);
             *res = func->func1(*val1);
-            pr_debug("FUNC '%s(1)': %.9f = %.9f\n", token->value.name, *val1, *res);
             g_free(val1);
             g_queue_push_head(stack, res);
           }
@@ -815,8 +809,6 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
 
           res = g_new(gdouble, 1);
           *res = func->func2(*val1, *val2);
-          pr_debug("FUNC '%s(2)': %.9f, %.9f = %.9f\n",
-                   token->value.name, *val1, *val2, *res);
           g_free(val1);
           g_free(val2);
           g_queue_push_head(stack, res);
@@ -941,47 +933,6 @@ sy_evaluate(const gchar *expr, gdouble *result)
         return FALSE;
       else
       {
-        /* RPN queue visualization for debugging */
-        if( rpn != NULL )
-        {
-          GList *iter;
-          sy_token_t *t;
-          gint idx;
-
-          pr_debug("RPN queue (%d tokens):\n", g_queue_get_length(rpn));
-          iter = rpn->head;
-          idx = 0;
-
-          while( iter != NULL )
-          {
-            t = (sy_token_t *)iter->data;
-
-            if( t->type == SY_TOKEN_NUMBER )
-            {
-              pr_debug("  [%d] NUMBER: %.9f\n", idx, t->value.number);
-            }
-            else if( t->type == SY_TOKEN_SYMBOL )
-            {
-              pr_debug("  [%d] SYMBOL: '%s'\n", idx, t->value.name);
-            }
-            else if( t->type == SY_TOKEN_OPERATOR )
-            {
-              pr_debug("  [%d] OP: '%c'\n", idx, t->value.op);
-            }
-            else if( t->type == SY_TOKEN_FUNCTION )
-            {
-              pr_debug("  [%d] FUNC: '%s'\n", idx, t->value.name);
-            }
-            else
-            {
-              pr_debug("  [%d] TOKEN: type=%d\n", idx, t->type);
-            }
-
-            iter = iter->next;
-            idx++;
-          }
-        }
-
         success = sy_evaluate_rpn(rpn, result);
         g_queue_free_full(rpn, g_free);
         return success;
