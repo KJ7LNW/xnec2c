@@ -117,6 +117,64 @@ void *Optimizer_Output( void *arg ) { pr_err("xnec2c was built without inotify.\
 #include <sys/inotify.h>
 #include <sys/stat.h>
 
+/* File extensions to watch - both trigger the same reload handler */
+static const char *watch_extensions[] = { ".nec", ".sy", NULL };
+
+/* Derive companion filename by replacing extension
+ * Returns static buffer - not thread safe, caller must use immediately
+ */
+static const char *get_companion_basename(const char *nec_basename, const char *new_ext)
+{
+  static char companion[PATH_MAX];
+  const char *dot = strrchr(nec_basename, '.');
+
+  if (dot == NULL)
+  {
+    snprintf(companion, sizeof(companion), "%s%s", nec_basename, new_ext);
+  }
+  else
+  {
+    size_t base_len = dot - nec_basename;
+    snprintf(companion, sizeof(companion), "%.*s%s", (int)base_len, nec_basename, new_ext);
+  }
+
+  return companion;
+}
+
+/* Check if event filename matches any watched file
+ * Returns TRUE if filename matches .nec or .sy variant
+ */
+static gboolean is_watched_file(const char *event_name, const char *nec_basename)
+{
+  gboolean matched = FALSE;
+
+  if (event_name == NULL || nec_basename == NULL)
+  {
+    matched = FALSE;
+  }
+  else if (strcmp(event_name, nec_basename) == 0)
+  {
+    matched = TRUE;
+  }
+  else
+  {
+    for (const char **ext = watch_extensions; *ext != NULL && !matched; ext++)
+    {
+      if (strcmp(*ext, ".nec") != 0)
+      {
+        const char *companion = get_companion_basename(nec_basename, *ext);
+        if (strcmp(event_name, companion) == 0)
+        {
+          pr_debug("inotify: matched companion file: %s\n", companion);
+          matched = TRUE;
+        }
+      }
+    }
+  }
+
+  return matched;
+}
+
 int inotify_open(struct pollfd *pfd)
 {
   int wd, fd;
@@ -334,9 +392,9 @@ Optimizer_Output( void *arg )
 			pr_debug("inotify: FILTER: target='%s' event_name='%s' match=%d\n",
 				target_filename,
 				event->len ? event->name : "(none)",
-				(event->len && strcmp(event->name, target_filename) == 0) ? 1 : 0);
+				(event->len && is_watched_file(event->name, target_filename)) ? 1 : 0);
 
-			if (!event->len || strcmp(event->name, target_filename) != 0)
+			if (!event->len || !is_watched_file(event->name, target_filename))
 			{
 				pr_debug("inotify: SKIP event (filename mismatch)\n");
 				ptr += sizeof(struct inotify_event) + event->len;
