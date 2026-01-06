@@ -56,4 +56,12 @@ gboolean sy_evaluate(const gchar *expr, gdouble *result);
  */
 gboolean sy_is_expression(const gchar *field);
 
+/* Load symbol overrides from .sy file
+ * filename: path to .sy file (e.g., "model.sy")
+ * Returns: TRUE if file loaded, FALSE if file missing or empty
+ * Silently returns FALSE if file does not exist
+ * Uses pr_err for malformed lines, continues processing
+ */
+gboolean sy_load_overrides(const gchar *filename);
+
 #endif

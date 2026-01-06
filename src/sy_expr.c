@@ -73,17 +73,17 @@ typedef struct
 /* Symbol value structure
  * Stores numeric value with metadata for validation and override support
  *
- * current_value:   Active value used in expression evaluation
+ * value:           Active value used in expression evaluation
  * is_calculated:   TRUE if derived from calculation, FALSE if terminal (sy_define)
- * min_value:       Minimum allowed value (default: current_value * 0.5)
- * max_value:       Maximum allowed value (default: current_value * 2.0)
+ * min_value:       Minimum allowed value (default: value * 0.5)
+ * max_value:       Maximum allowed value (default: value * 2.0)
  * override_value:  Temporary override value (NaN when not active)
- *                  When not NaN, this value replaces current_value during evaluation
+ *                  When not NaN, this value replaces value during evaluation
  * expression:      Source expression string for calculated symbols (empty if terminal)
  */
 typedef struct
 {
-  gdouble current_value;
+  gdouble value;
   gboolean is_calculated;
   gdouble min_value;
   gdouble max_value;
@@ -643,12 +643,12 @@ sy_infix_to_rpn(GArray *tokens)
 }
 
 /* Get effective value from symbol structure
- * Returns override_value if override_active, otherwise current_value
+ * Returns override_value if override_active, otherwise value
  */
 static gdouble
 sy_get_value(const sy_value_t *val)
 {
-  return val->override_active ? val->override_value : val->current_value;
+  return val->override_active ? val->override_value : val->value;
 }
 
 /* Evaluate RPN expression from queue
@@ -945,49 +945,70 @@ sy_define(const gchar *name, const gchar *value_or_expr)
   gchar temp_name[64];
   sy_value_t *val_ptr;
   gdouble value;
+  gboolean is_expr;
 
   if( symbol_table == NULL )
   {
     Stop(ERR_OK, _("Symbol table not initialized"));
     return FALSE;
   }
+
+  sy_normalize_name(name, temp_name, sizeof(temp_name));
+  is_expr = sy_is_expression(value_or_expr);
+
+  if( is_expr )
+  {
+    if( !sy_evaluate(value_or_expr, &value) )
+      return FALSE;
+  }
   else
   {
-    sy_normalize_name(name, temp_name, sizeof(temp_name));
-    upper_name = g_strdup(temp_name);
+    value = Strtod((gchar *)value_or_expr, NULL);
+  }
 
-    val_ptr = g_new(sy_value_t, 1);
+  /* Check for existing symbol (from .sy file override load) */
+  val_ptr = (sy_value_t *)g_hash_table_lookup(symbol_table, temp_name);
 
-    if( sy_is_expression(value_or_expr) )
-    {
-      if( !sy_evaluate(value_or_expr, &value) )
-      {
-        g_free(upper_name);
-        g_free(val_ptr);
-        return FALSE;
-      }
-      else
-      {
-        val_ptr->is_calculated = TRUE;
-        g_strlcpy(val_ptr->expression, value_or_expr, sizeof(val_ptr->expression));
-      }
-    }
+  if( val_ptr != NULL )
+  {
+    /* Symbol exists: preserve override fields, update value fields */
+    val_ptr->value = value;
+    val_ptr->is_calculated = is_expr;
+
+    if( is_expr )
+      g_strlcpy(val_ptr->expression, value_or_expr, sizeof(val_ptr->expression));
     else
-    {
-      value = Strtod((gchar *)value_or_expr, NULL);
-      val_ptr->is_calculated = FALSE;
       val_ptr->expression[0] = '\0';
-    }
 
-    val_ptr->current_value = value;
-    val_ptr->min_value = value * 0.5;
-    val_ptr->max_value = value * 2.0;
-    val_ptr->override_value = NAN;
-    val_ptr->override_active = FALSE;
+    /* Apply value-based defaults if not set in .sy file */
+    if( isnan(val_ptr->min_value) )
+      val_ptr->min_value = value * 0.5;
 
-    g_hash_table_insert(symbol_table, upper_name, val_ptr);
+    if( isnan(val_ptr->max_value) )
+      val_ptr->max_value = value * 2.0;
+
     return TRUE;
   }
+
+  /* New symbol: create with defaults */
+  upper_name = g_strdup(temp_name);
+  val_ptr = g_new(sy_value_t, 1);
+
+  val_ptr->value = value;
+  val_ptr->is_calculated = is_expr;
+
+  if( is_expr )
+    g_strlcpy(val_ptr->expression, value_or_expr, sizeof(val_ptr->expression));
+  else
+    val_ptr->expression[0] = '\0';
+
+  val_ptr->min_value = value * 0.5;
+  val_ptr->max_value = value * 2.0;
+  val_ptr->override_value = NAN;
+  val_ptr->override_active = FALSE;
+
+  g_hash_table_insert(symbol_table, upper_name, val_ptr);
+  return TRUE;
 }
 
 gboolean
@@ -1075,4 +1096,141 @@ sy_is_expression(const gchar *field)
 
     return FALSE;
   }
+}
+
+/* sy_load_overrides()
+ *
+ * Load symbol override values from .sy file
+ * Format: VARNAME: min_value=X max_value=Y override_value=Z override_active=N
+ * Creates partial sy_value_t entries with value=NAN for later sy_define() merge
+ */
+gboolean
+sy_load_overrides(const gchar *filename)
+{
+  FILE *fp;
+  char line[512];
+  char name[64];
+  char upper_name[64];
+  char *colon, *p, *eq;
+  sy_value_t *val_ptr;
+  gchar *key_name;
+  int count = 0;
+
+  if( filename == NULL )
+    return FALSE;
+
+  fp = fopen(filename, "r");
+  if( fp == NULL )
+    return FALSE;
+
+  if( symbol_table == NULL )
+  {
+    fclose(fp);
+    return FALSE;
+  }
+
+  while( fgets(line, sizeof(line), fp) != NULL )
+  {
+    /* Skip empty lines and comments */
+    p = line;
+    while( isspace((int)*p) )
+      p++;
+
+    if( *p == '\0' || *p == '#' )
+      continue;
+
+    /* Find colon separating name from key=value pairs */
+    colon = strchr(p, ':');
+    if( colon == NULL )
+    {
+      pr_err("sy_load_overrides: malformed line (no colon): %s", line);
+      continue;
+    }
+
+    /* Extract symbol name */
+    size_t name_len = (size_t)(colon - p);
+    if( name_len >= sizeof(name) )
+      name_len = sizeof(name) - 1;
+
+    memcpy(name, p, name_len);
+    name[name_len] = '\0';
+
+    /* Trim trailing whitespace from name */
+    while( name_len > 0 && isspace((int)name[name_len - 1]) )
+      name[--name_len] = '\0';
+
+    sy_normalize_name(name, upper_name, sizeof(upper_name));
+
+    /* Create partial sy_value_t with NAN sentinels for unset fields */
+    val_ptr = g_new(sy_value_t, 1);
+    val_ptr->value = NAN;
+    val_ptr->is_calculated = FALSE;
+    val_ptr->expression[0] = '\0';
+    val_ptr->min_value = NAN;
+    val_ptr->max_value = NAN;
+    val_ptr->override_value = NAN;
+    val_ptr->override_active = FALSE;
+
+    /* Parse key=value pairs after colon */
+    p = colon + 1;
+
+    while( *p != '\0' )
+    {
+      while( isspace((int)*p) )
+        p++;
+
+      if( *p == '\0' )
+        break;
+
+      eq = strchr(p, '=');
+      if( eq == NULL )
+        break;
+
+      /* Extract key */
+      size_t key_len = (size_t)(eq - p);
+      char key[32];
+      if( key_len >= sizeof(key) )
+        key_len = sizeof(key) - 1;
+
+      memcpy(key, p, key_len);
+      key[key_len] = '\0';
+
+      /* Extract value */
+      p = eq + 1;
+      char *val_end = p;
+
+      while( *val_end != '\0' && !isspace((int)*val_end) )
+        val_end++;
+
+      char val_str[64];
+      size_t val_len = (size_t)(val_end - p);
+      if( val_len >= sizeof(val_str) )
+        val_len = sizeof(val_str) - 1;
+
+      memcpy(val_str, p, val_len);
+      val_str[val_len] = '\0';
+      p = val_end;
+
+      /* Assign to appropriate field */
+      if( strcmp(key, "min_value") == 0 )
+        val_ptr->min_value = Strtod(val_str, NULL);
+      else if( strcmp(key, "max_value") == 0 )
+        val_ptr->max_value = Strtod(val_str, NULL);
+      else if( strcmp(key, "override_value") == 0 )
+        val_ptr->override_value = Strtod(val_str, NULL);
+      else if( strcmp(key, "override_active") == 0 )
+        val_ptr->override_active = (atoi(val_str) != 0);
+    }
+
+    key_name = g_strdup(upper_name);
+    g_hash_table_insert(symbol_table, key_name, val_ptr);
+    count++;
+  }
+
+  fclose(fp);
+
+  if( count > 0 )
+    pr_info("Loaded %d symbol overrides from %s\n", count, filename);
+
+  return (count > 0);
 }

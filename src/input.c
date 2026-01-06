@@ -827,16 +827,34 @@ Read_Geometry( void )
     Stop( ERR_OK, _("Failed to initialize symbol table") );
     return( FALSE );
   }
-  else
+
+  /* Load symbol overrides from .sy file if it exists */
   {
-    /* Moved here from Read_Commands() */
-    matpar.imat=0;
-    data.n = data.m = 0;
-    if( !datagn() )
-    {
-      sy_cleanup();
-      return( FALSE );
-    }
+    char sy_path[FILENAME_LEN];
+    char *ext;
+
+    g_strlcpy(sy_path, rc_config.input_file, sizeof(sy_path));
+    ext = strstr(sy_path, ".nec");
+
+    if( ext == NULL )
+      ext = strstr(sy_path, ".NEC");
+
+    if( ext != NULL )
+      strcpy(ext, ".sy");
+    else
+      g_strlcat(sy_path, ".sy", sizeof(sy_path));
+
+    sy_load_overrides(sy_path);
+  }
+
+  /* Moved here from Read_Commands() */
+  matpar.imat=0;
+  data.n = data.m = 0;
+
+  if( !datagn() )
+  {
+    sy_cleanup();
+    return( FALSE );
   }
 
   /* Memory allocation for temporary buffers */
