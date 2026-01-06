@@ -292,7 +292,6 @@ parse_sy_card(const char *line_content)
   char *p, *eq, *comma;
   char name[64];
   char expr[256];
-  double value;
   int name_len, expr_len;
 
   if( line_content == NULL )
@@ -347,15 +346,9 @@ parse_sy_card(const char *line_content)
     while( expr_len > 0 && isspace((int)expr[expr_len - 1]) )
       expr[--expr_len] = '\0';
 
-    if( !sy_evaluate(expr, &value) )
+    if( !sy_define(name, expr) )
     {
-      pr_err("SY card: expression evaluation failed for %s=%s\n", name, expr);
-      return FALSE;
-    }
-
-    if( !sy_define(name, value) )
-    {
-      pr_err("SY card: symbol definition failed for %s\n", name);
+      pr_err("SY card: symbol definition failed for %s=%s\n", name, expr);
       return FALSE;
     }
 

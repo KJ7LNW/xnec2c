@@ -178,14 +178,14 @@ test_symbols(void)
 
   sy_init();
 
-  g_assert(sy_define("H", 0.5));
+  g_assert(sy_define("H", "0.5"));
   g_assert(sy_evaluate("H", &result));
   assert_double_eq("H", result, 0.5, 1e-9);
 
   g_assert(sy_evaluate("H*2", &result));
   assert_double_eq("H*2", result, 1.0, 1e-9);
 
-  g_assert(sy_define("fp", 0.0135));
+  g_assert(sy_define("fp", "0.0135"));
   g_assert(sy_evaluate("H+fp", &result));
   assert_double_eq("H+fp", result, 0.5135, 1e-9);
 

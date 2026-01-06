@@ -88,6 +88,7 @@ typedef struct
   gdouble min_value;
   gdouble max_value;
   gdouble override_value;
+  gboolean override_active;
   gchar expression[128];
 } sy_value_t;
 
@@ -641,6 +642,15 @@ sy_infix_to_rpn(GArray *tokens)
   return output;
 }
 
+/* Get effective value from symbol structure
+ * Returns override_value if override_active, otherwise current_value
+ */
+static gdouble
+sy_get_value(const sy_value_t *val)
+{
+  return val->override_active ? val->override_value : val->current_value;
+}
+
 /* Evaluate RPN expression from queue
  * Uses value stack to process numbers, operators, and functions
  * Looks up symbols from symbol table and constants from constant table
@@ -708,7 +718,7 @@ sy_evaluate_rpn(GQueue *rpn, gdouble *result)
           else
           {
             res = g_new(gdouble, 1);
-            *res = val_struct->current_value;
+            *res = sy_get_value(val_struct);
             g_queue_push_head(stack, res);
           }
         }
@@ -929,11 +939,12 @@ sy_cleanup(void)
 }
 
 gboolean
-sy_define(const gchar *name, gdouble value)
+sy_define(const gchar *name, const gchar *value_or_expr)
 {
   gchar *upper_name;
   gchar temp_name[64];
   sy_value_t *val_ptr;
+  gdouble value;
 
   if( symbol_table == NULL )
   {
@@ -946,12 +957,33 @@ sy_define(const gchar *name, gdouble value)
     upper_name = g_strdup(temp_name);
 
     val_ptr = g_new(sy_value_t, 1);
+
+    if( sy_is_expression(value_or_expr) )
+    {
+      if( !sy_evaluate(value_or_expr, &value) )
+      {
+        g_free(upper_name);
+        g_free(val_ptr);
+        return FALSE;
+      }
+      else
+      {
+        val_ptr->is_calculated = TRUE;
+        g_strlcpy(val_ptr->expression, value_or_expr, sizeof(val_ptr->expression));
+      }
+    }
+    else
+    {
+      value = Strtod((gchar *)value_or_expr, NULL);
+      val_ptr->is_calculated = FALSE;
+      val_ptr->expression[0] = '\0';
+    }
+
     val_ptr->current_value = value;
-    val_ptr->is_calculated = FALSE;
     val_ptr->min_value = value * 0.5;
     val_ptr->max_value = value * 2.0;
     val_ptr->override_value = NAN;
-    val_ptr->expression[0] = '\0';
+    val_ptr->override_active = FALSE;
 
     g_hash_table_insert(symbol_table, upper_name, val_ptr);
     return TRUE;

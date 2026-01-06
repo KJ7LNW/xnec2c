@@ -11,7 +11,7 @@ static void test_sy_value_bounds_initialized(void)
   gdouble min, max;
 
   sy_init();
-  g_assert(sy_define("TEST", 10.0));
+  g_assert(sy_define("TEST", "10.0"));
   g_assert(sy_get_bounds("TEST", &min, &max));
   g_assert_cmpfloat(min, ==, 5.0);
   g_assert_cmpfloat(max, ==, 20.0);
@@ -23,7 +23,7 @@ static void test_sy_value_zero_bounds(void)
   gdouble min, max;
 
   sy_init();
-  g_assert(sy_define("ZERO", 0.0));
+  g_assert(sy_define("ZERO", "0.0"));
   g_assert(sy_get_bounds("ZERO", &min, &max));
   g_assert_cmpfloat(min, ==, 0.0);
   g_assert_cmpfloat(max, ==, 0.0);
@@ -35,7 +35,7 @@ static void test_sy_value_negative_bounds(void)
   gdouble min, max;
 
   sy_init();
-  g_assert(sy_define("NEG", -10.0));
+  g_assert(sy_define("NEG", "-10.0"));
   g_assert(sy_get_bounds("NEG", &min, &max));
   g_assert_cmpfloat(min, ==, -5.0);
   g_assert_cmpfloat(max, ==, -20.0);
@@ -47,7 +47,7 @@ static void test_sy_value_small_value_bounds(void)
   gdouble min, max;
 
   sy_init();
-  g_assert(sy_define("SMALL", 1e-10));
+  g_assert(sy_define("SMALL", "1e-10"));
   g_assert(sy_get_bounds("SMALL", &min, &max));
   g_assert_cmpfloat(min, ==, 5e-11);
   g_assert_cmpfloat(max, ==, 2e-10);
@@ -68,7 +68,7 @@ static void test_sy_get_bounds_null_parameters(void)
   gdouble min, max;
 
   sy_init();
-  g_assert(sy_define("TEST", 10.0));
+  g_assert(sy_define("TEST", "10.0"));
   g_assert(!sy_get_bounds(NULL, &min, &max));
   g_assert(!sy_get_bounds("TEST", NULL, &max));
   g_assert(!sy_get_bounds("TEST", &min, NULL));
@@ -80,7 +80,7 @@ static void test_sy_value_evaluation_unchanged(void)
   gdouble result;
 
   sy_init();
-  g_assert(sy_define("X", 15.0));
+  g_assert(sy_define("X", "15.0"));
   g_assert(sy_evaluate("X", &result));
   g_assert_cmpfloat(result, ==, 15.0);
   g_assert(sy_evaluate("X*2", &result));

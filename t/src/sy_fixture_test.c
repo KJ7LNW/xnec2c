@@ -67,17 +67,9 @@ parse_sy_line(const gchar *line)
     gchar *name = g_strstrip(def);
     gchar *expr = g_strstrip(eq + 1);
 
-    gdouble value;
-    if( !sy_evaluate(expr, &value) )
+    if( !sy_define(name, expr) )
     {
-      fprintf(stderr, "Failed to evaluate: %s = %s\n", name, expr);
-      result = FALSE;
-      break;
-    }
-
-    if( !sy_define(name, value) )
-    {
-      fprintf(stderr, "Failed to define: %s\n", name);
+      fprintf(stderr, "Failed to define: %s = %s\n", name, expr);
       result = FALSE;
       break;
     }

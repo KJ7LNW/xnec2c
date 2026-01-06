@@ -29,3 +29,9 @@ Stop(int err, const char *format, ...)
   fprintf(stderr, "Stop called: %s (err=%d)\n", mesg, err);
   return 0;
 }
+
+double
+Strtod(char *nptr, char **endptr)
+{
+  return strtod(nptr, endptr);
+}

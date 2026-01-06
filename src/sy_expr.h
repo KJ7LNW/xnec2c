@@ -36,12 +36,12 @@ gboolean sy_init(void);
 /* Cleanup symbol table and free resources */
 void sy_cleanup(void);
 
-/* Define or update a symbol with given value
+/* Define or update a symbol with given value or expression
  * name: symbol name (will be normalized to uppercase for case-insensitive lookup)
- * value: numeric value to store
+ * value_or_expr: numeric string or expression to evaluate and store
  * Returns: TRUE on success, FALSE on error
  */
-gboolean sy_define(const gchar *name, gdouble value);
+gboolean sy_define(const gchar *name, const gchar *value_or_expr);
 
 /* Evaluate an expression and return result
  * expr: expression string (e.g., "H+fp*2", "sin(45)", "2*PI")

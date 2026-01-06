@@ -47,13 +47,13 @@ test_basic_symbols(void)
 
   sy_init();
 
-  result = sy_define("H", 0.5);
+  result = sy_define("H", "0.5");
   test_result("Define symbol H=0.5", result == 1);
 
   result = sy_evaluate("H", &value);
   test_result("Evaluate H", result == 1 && fabs(value - 0.5) < EPSILON);
 
-  result = sy_define("fp", 0.0135);
+  result = sy_define("fp", "0.0135");
   test_result("Define symbol fp=0.0135", result == 1);
 
   result = sy_evaluate("fp", &value);
@@ -69,8 +69,8 @@ test_arithmetic_operators(void)
   int result;
 
   sy_init();
-  sy_define("A", 10.0);
-  sy_define("B", 3.0);
+  sy_define("A", "10.0");
+  sy_define("B", "3.0");
 
   result = sy_evaluate("A+B", &value);
   test_result("Addition A+B=13", result == 1 && fabs(value - 13.0) < EPSILON);
@@ -258,8 +258,8 @@ test_complex_expression(void)
   int result;
 
   sy_init();
-  sy_define("H", 0.5);
-  sy_define("fp", 0.0135);
+  sy_define("H", "0.5");
+  sy_define("fp", "0.0135");
 
   result = sy_evaluate("H+fp", &value);
   test_result("Complex: H+fp", result == 1 && fabs(value - 0.5135) < EPSILON);
@@ -330,7 +330,7 @@ test_edge_cases(void)
   int result;
 
   sy_init();
-  sy_define("X", 5.0);
+  sy_define("X", "5.0");
 
   result = sy_evaluate("-X", &value);
   test_result("Unary minus -X=-5", result == 1 && fabs(value + 5.0) < EPSILON);
@@ -341,7 +341,7 @@ test_edge_cases(void)
   result = sy_evaluate("2^-1", &value);
   test_result("Negative exponent 2^-1=0.5", result == 1 && fabs(value - 0.5) < EPSILON);
 
-  sy_define("x", 10.0);
+  sy_define("x", "10.0");
   result = sy_evaluate("X", &value);
   test_result("Case insensitivity x vs X", result == 1 && fabs(value - 10.0) < EPSILON);
 
@@ -413,9 +413,9 @@ test_multi_symbol_expressions(void)
   int result;
 
   sy_init();
-  sy_define("A", 10.0);
-  sy_define("B", 5.0);
-  sy_define("C", 2.0);
+  sy_define("A", "10.0");
+  sy_define("B", "5.0");
+  sy_define("C", "2.0");
 
   result = sy_evaluate("A+B+C", &value);
   test_result("Multi-symbol A+B+C=17", result == 1 && fabs(value - 17.0) < EPSILON);
@@ -485,11 +485,11 @@ test_symbol_redefinition(void)
 
   sy_init();
 
-  sy_define("X", 10.0);
+  sy_define("X", "10.0");
   result = sy_evaluate("X", &value);
   test_result("Initial X=10", result == 1 && fabs(value - 10.0) < EPSILON);
 
-  sy_define("X", 20.0);
+  sy_define("X", "20.0");
   result = sy_evaluate("X", &value);
   test_result("Redefined X=20", result == 1 && fabs(value - 20.0) < EPSILON);
 
@@ -566,9 +566,9 @@ test_complex_nested_expressions(void)
   int result;
 
   sy_init();
-  sy_define("H", 0.5);
-  sy_define("fp", 0.0135);
-  sy_define("sll", 0.068);
+  sy_define("H", "0.5");
+  sy_define("fp", "0.0135");
+  sy_define("sll", "0.068");
 
   result = sy_evaluate("H+fp+sll*3", &value);
   test_result("Complex nested: H+fp+sll*3", result == 1 && fabs(value - 0.7175) < 1e-6);
