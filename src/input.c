@@ -45,6 +45,7 @@
 #include "input.h"
 #include "shared.h"
 #include "geometry.h"
+#include "sy_overrides.h"
 
 // For use if you need to pr_debug based on line number in readgm()
 static int readgm_line_count = 0;
@@ -911,6 +912,9 @@ Read_Geometry( void )
       save.bitemp[j] = data.pbi[idx];
     }
 
+  /* Refresh SY overrides window if visible */
+  sy_overrides_refresh();
+
   return( TRUE );
 } /* Read_Geometry() */
 
@@ -1596,13 +1600,10 @@ Read_Commands( void )
       SetFlag( ENABLE_RDPAT );
     }
 
-    /* Cleanup symbol table before normal exit */
-    sy_cleanup();
+    /* Symbol table persists for UI access after file load */
     return( TRUE );
   } /* while( TRUE ) */
 
-  /* Cleanup on error paths */
-  sy_cleanup();
   Stop(ERR_OK, _("Unexpected exit from while loop"));
   return( FALSE );
 

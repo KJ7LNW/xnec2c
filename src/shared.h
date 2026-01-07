@@ -122,7 +122,8 @@ extern GtkWidget
   *main_window,
   *freqplots_window,
   *rdpattern_window,
-  *nec2_edit_window;
+  *nec2_edit_window,
+  *sy_overrides_window;
 
 extern GtkBuilder
   *main_window_builder,
@@ -153,7 +154,8 @@ extern GtkBuilder
   *transform_editor_builder,
   *gend_editor_builder,
   *nec2_editor_builder,
-  *nec2_save_dialog_builder;
+  *nec2_save_dialog_builder,
+  *sy_overrides_builder;
 
 /* Drawing area widgets */
 extern GtkWidget

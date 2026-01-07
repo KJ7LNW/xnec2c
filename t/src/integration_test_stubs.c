@@ -223,3 +223,9 @@ Strlcpy(char *dst, const char *src, size_t siz)
     dst[copy_len] = '\0';
   }
 }
+
+/* Stub for SY overrides window refresh */
+void
+sy_overrides_refresh(void)
+{
+}

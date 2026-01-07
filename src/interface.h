@@ -688,6 +688,17 @@ NULL
 "structure_drawingarea", \
 "structure_frame", \
 "struct_label", \
+"show_sy_overrides", \
+NULL
+
+#define SY_OVERRIDES_WINDOW_IDS \
+"sy_overrides_window", \
+"sy_overrides_vbox", \
+"sy_overrides_scroll", \
+"sy_overrides_content", \
+"sy_overrides_apply", \
+"sy_overrides_cancel", \
+"sy_overrides_close", \
 NULL
 
 #define TRANSFORM_EDITOR_IDS \

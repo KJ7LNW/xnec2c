@@ -64,4 +64,42 @@ gboolean sy_is_expression(const gchar *field);
  */
 gboolean sy_load_overrides(const gchar *filename);
 
+/* Callback function type for sy_foreach iteration */
+typedef void (*sy_foreach_func)(const gchar *name, gdouble value,
+    gboolean is_calculated, const gchar *expression,
+    gdouble min_value, gdouble max_value,
+    gdouble override_value, gboolean override_active,
+    gpointer user_data);
+
+/* Iterate over all symbols in the symbol table
+ * func: callback function called for each symbol
+ * user_data: passed to callback
+ */
+void sy_foreach(sy_foreach_func func, gpointer user_data);
+
+/* Set override value and active state for a symbol
+ * name: symbol name
+ * override_value: new override value
+ * active: whether override is active
+ * Returns: TRUE on success, FALSE if symbol not found
+ */
+gboolean sy_set_override(const gchar *name, gdouble override_value, gboolean active);
+
+/* Set bounds for a symbol
+ * name: symbol name
+ * min: new minimum value
+ * max: new maximum value
+ * Returns: TRUE on success, FALSE if symbol not found
+ */
+gboolean sy_set_bounds(const gchar *name, gdouble min, gdouble max);
+
+/* Save symbol overrides to .sy file
+ * filename: path to .sy file
+ * Returns: TRUE on success, FALSE on error
+ */
+gboolean sy_save_overrides(const gchar *filename);
+
+/* Get count of symbols in symbol table */
+guint sy_get_count(void);
+
 #endif

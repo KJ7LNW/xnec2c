@@ -83,10 +83,11 @@ GtkTreeView
 
 /* Main, frequency plots and radiation pattern windows */
 GtkWidget
-  *main_window      = NULL,
-  *freqplots_window = NULL,
-  *rdpattern_window = NULL,
-  *nec2_edit_window = NULL;
+  *main_window        = NULL,
+  *freqplots_window   = NULL,
+  *rdpattern_window   = NULL,
+  *nec2_edit_window   = NULL,
+  *sy_overrides_window = NULL;
 
 /* Drawing area widgets */
 GtkWidget
@@ -134,7 +135,8 @@ GtkBuilder
   *transform_editor_builder  = NULL,
   *gend_editor_builder       = NULL,
   *nec2_editor_builder       = NULL,
-  *nec2_save_dialog_builder  = NULL;
+  *nec2_save_dialog_builder  = NULL,
+  *sy_overrides_builder      = NULL;
 
 /* Motion event handler id */
 gulong rdpattern_motion_handler;

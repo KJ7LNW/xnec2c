@@ -26,6 +26,7 @@ EXTRA_DIST += m4-include/pkg.m4
 EXTRA_DIST += resources/link.svg
 EXTRA_DIST += resources/unlink.svg
 EXTRA_DIST += resources/xnec2c.glade
+EXTRA_DIST += resources/sy_overrides.glade
 EXTRA_DIST += resources/xnec2c.gresource.xml
 
 SED_CMDS  =

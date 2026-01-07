@@ -38,6 +38,7 @@ xnec2c_SOURCES = \
     shared.c        shared.h \
     somnec.c        somnec.h \
     sy_expr.c       sy_expr.h \
+    sy_overrides.c  sy_overrides.h \
     common.h        editors.h
 
 xnec2c_CPPFLAGS  =

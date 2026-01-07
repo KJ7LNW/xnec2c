@@ -1234,3 +1234,125 @@ sy_load_overrides(const gchar *filename)
 
   return (count > 0);
 }
+
+/* Helper struct for sy_foreach iteration */
+typedef struct
+{
+  sy_foreach_func func;
+  gpointer user_data;
+} sy_foreach_data_t;
+
+/* Hash table foreach callback wrapper */
+static void
+sy_foreach_wrapper(gpointer key, gpointer value, gpointer user_data)
+{
+  const gchar *name = (const gchar *)key;
+  sy_value_t *val = (sy_value_t *)value;
+  sy_foreach_data_t *data = (sy_foreach_data_t *)user_data;
+
+  data->func(name, val->value, val->is_calculated, val->expression,
+      val->min_value, val->max_value,
+      val->override_value, val->override_active,
+      data->user_data);
+}
+
+void
+sy_foreach(sy_foreach_func func, gpointer user_data)
+{
+  sy_foreach_data_t data;
+
+  if( symbol_table == NULL || func == NULL )
+    return;
+
+  data.func = func;
+  data.user_data = user_data;
+  g_hash_table_foreach(symbol_table, sy_foreach_wrapper, &data);
+}
+
+gboolean
+sy_set_override(const gchar *name, gdouble override_value, gboolean active)
+{
+  gchar upper_name[64];
+  sy_value_t *val;
+
+  if( symbol_table == NULL || name == NULL )
+    return FALSE;
+
+  sy_normalize_name(name, upper_name, sizeof(upper_name));
+  val = (sy_value_t *)g_hash_table_lookup(symbol_table, upper_name);
+
+  if( val == NULL )
+    return FALSE;
+
+  val->override_value = override_value;
+  val->override_active = active;
+  return TRUE;
+}
+
+gboolean
+sy_set_bounds(const gchar *name, gdouble min, gdouble max)
+{
+  gchar upper_name[64];
+  sy_value_t *val;
+
+  if( symbol_table == NULL || name == NULL )
+    return FALSE;
+
+  sy_normalize_name(name, upper_name, sizeof(upper_name));
+  val = (sy_value_t *)g_hash_table_lookup(symbol_table, upper_name);
+
+  if( val == NULL )
+    return FALSE;
+
+  val->min_value = min;
+  val->max_value = max;
+  return TRUE;
+}
+
+gboolean
+sy_save_overrides(const gchar *filename)
+{
+  FILE *fp;
+  GHashTableIter iter;
+  gpointer key, value;
+  int count = 0;
+
+  if( filename == NULL || symbol_table == NULL )
+    return FALSE;
+
+  fp = fopen(filename, "w");
+  if( fp == NULL )
+  {
+    pr_err("sy_save_overrides: cannot open %s for writing: %s\n",
+        filename, strerror(errno));
+    return FALSE;
+  }
+
+  fprintf(fp, "# Symbol overrides file\n");
+  fprintf(fp, "# Format: VARNAME: min_value=X max_value=Y override_value=Z override_active=N\n\n");
+
+  g_hash_table_iter_init(&iter, symbol_table);
+  while( g_hash_table_iter_next(&iter, &key, &value) )
+  {
+    const gchar *name = (const gchar *)key;
+    sy_value_t *val = (sy_value_t *)value;
+
+    fprintf(fp, "%s: min_value=%g max_value=%g override_value=%g override_active=%d\n",
+        name, val->min_value, val->max_value,
+        val->override_value, val->override_active ? 1 : 0);
+    count++;
+  }
+
+  fclose(fp);
+  pr_info("Saved %d symbol overrides to %s\n", count, filename);
+  return TRUE;
+}
+
+guint
+sy_get_count(void)
+{
+  if( symbol_table == NULL )
+    return 0;
+
+  return g_hash_table_size(symbol_table);
+}

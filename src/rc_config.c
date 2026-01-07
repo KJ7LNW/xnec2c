@@ -207,6 +207,11 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Radiation Pattern Window window is open", .format = "%d",
 		.vars = { &rc_config.rdpattern_is_open } },
+
+	{ .desc = "Show Symbol Overrides Window", .format = "%d",
+		.vars = { &rc_config.show_sy_overrides },
+		.builder_window = &main_window_builder,
+		.builder_check_menu_item_id = "show_sy_overrides" },
 };
 
 
@@ -510,6 +515,9 @@ Create_Default_Config( void )
   rc_config.freqplots_net_gain = 0;
   rc_config.freqplots_min_max = 0;
   rc_config.freqplots_s11 = 0;
+
+  /* Symbol overrides window */
+  rc_config.show_sy_overrides = 0;
   rc_config.freqplots_clamp_vswr = 1;
   rc_config.freqplots_round_x_axis = 0;
 

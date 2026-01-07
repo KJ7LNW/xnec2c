@@ -363,6 +363,9 @@ typedef struct
   char *filename_s2p_viewer_gain;
   char *filename_rdpat;
   char *filename_currents;
+
+  /* Symbol overrides window visibility */
+  int show_sy_overrides;
 } rc_config_t;
 
 typedef struct {
