@@ -29,7 +29,7 @@ msgstr "Segmentforbindelsesfeil i tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "trinnstørrelse begrenset ved z= %10.5f\n"
+msgstr "trinnstørrelse begrenset ved Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -231,31 +231,31 @@ msgstr "  ** IKKE I BRUK **"
 
 #: src/cmnd_edit.c:445
 msgid "Num of Theta Angles"
-msgstr "Antall theta-vinkler"
+msgstr "Antall Theta-vinkler"
 
 #: src/cmnd_edit.c:446
 msgid "Num of Phi Angles"
-msgstr "Antall phi-vinkler"
+msgstr "Antall Phi-vinkler"
 
 #: src/cmnd_edit.c:447
 msgid "Theta Angle (deg)"
-msgstr "theta-vinkel (deg)"
+msgstr "Theta-vinkel (deg)"
 
 #: src/cmnd_edit.c:448
 msgid "Phi Angle (deg)"
-msgstr "phi-vinkel (deg)"
+msgstr "Phi-vinkel (deg)"
 
 #: src/cmnd_edit.c:449
 msgid "Eta Angle (deg)"
-msgstr "eta-vinkel (deg)"
+msgstr "Eta-vinkel (deg)"
 
 #: src/cmnd_edit.c:450
 msgid "Theta Increment (deg)"
-msgstr "theta-inkrement (deg)"
+msgstr "Theta-inkrement (deg)"
 
 #: src/cmnd_edit.c:451
 msgid "Phi Increment (deg)"
-msgstr "phi-inkrement (deg)"
+msgstr "Phi-inkrement (deg)"
 
 #: src/cmnd_edit.c:452
 msgid "Minor/Major Axis"
@@ -303,15 +303,15 @@ msgstr "Feltpunkt R (m)"
 
 #: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
 msgid "Points in Phi"
-msgstr "Punkter i phi"
+msgstr "Punkter i Phi"
 
 #: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
 msgid "Initial Theta (deg)"
-msgstr "Start-theta (deg)"
+msgstr "Start-Theta (deg)"
 
 #: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
 msgid "Increment in Theta"
-msgstr "Inkrement i theta"
+msgstr "Inkrement i Theta"
 
 #: src/cmnd_edit.c:1570
 msgid "R (m) (Optional)"
@@ -396,11 +396,11 @@ msgstr "Punkter langs R"
 
 #: src/cmnd_edit.c:2470
 msgid "Points along Phi"
-msgstr "Punkter langs phi"
+msgstr "Punkter langs Phi"
 
 #: src/cmnd_edit.c:2471
 msgid "Points along Theta"
-msgstr "Punkter langs theta"
+msgstr "Punkter langs Theta"
 
 #: src/cmnd_edit.c:2472
 msgid "First Point R (m)"
@@ -408,11 +408,11 @@ msgstr "Første punkt R (m)"
 
 #: src/cmnd_edit.c:2473
 msgid "First Point Phi"
-msgstr "Første punkt phi"
+msgstr "Første punkt Phi"
 
 #: src/cmnd_edit.c:2474
 msgid "First Point Theta"
-msgstr "Første punkt theta"
+msgstr "Første punkt Theta"
 
 #: src/cmnd_edit.c:2475
 msgid "Increment in R (m)"
@@ -420,7 +420,7 @@ msgstr "Inkrement i R (m)"
 
 #: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
 msgid "Increment in Phi"
-msgstr "Inkrement i phi"
+msgstr "Inkrement i Phi"
 
 #: src/draw_radiation.c:28
 msgid ""
@@ -975,7 +975,7 @@ msgstr "b mindre enn a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "stegstørrelse begrenset ved z = %12.5E\n"
+msgstr "stegstørrelse begrenset ved Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1009,7 +1009,7 @@ msgid ""
 "Tag number is less than 1"
 msgstr ""
 "Geometridatafeil\n"
-"Taggnummer er mindre enn 1"
+"Tagnummer er mindre enn 1"
 
 #: src/input.c:155
 msgid ""
@@ -1702,7 +1702,7 @@ msgstr "museknapp: ukjent knapp %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel ugyldig for z = 0"
+msgstr "Hankel ugyldig for Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1750,7 +1750,7 @@ msgstr ""
 "     --openblas-threads <n>  angi OpenBLAS-trådantall (standard: 1)\n"
 "     --mkl-threads <n>       angi Intel MKL-trådantall (standard: 1)\n"
 "     --omp-threads <n>       angi OpenMP-trådantall (standard: 1)\n"
-"  -b|--batch:        aktiver satsvis modus, avslutt etter frekvenssløyfen kjører\n"
+"  -b|--batch:        aktiver batch-modus, avslutt etter frekvenssløyfen kjører\n"
 "  -P|--no-pthreads:  deaktiver pthreads og bruk GTK-løkken for feilsøking\n"
 "  -h|--help:         skriv ut bruksinformasjon og avslutt\n"
 "  -V|--version:      skriv ut xnec2c-versjonsnummer og avslutt\n"
@@ -2852,7 +2852,7 @@ msgstr "Gjennomsnittlig forsterkning beregnet"
 
 #: resources/xnec2c.glade:8828
 msgid "<b>See RP Card Documentation</b>"
-msgstr "<b>Se RP-kort dokumentasjon</b>"
+msgstr "<b>Se RP-kortdokumentasjon</b>"
 
 #: resources/xnec2c.glade:8846
 msgid "Data Output Control (XNDA)"
@@ -2860,11 +2860,11 @@ msgstr "Datautgangskontroll (XNDA)"
 
 #: resources/xnec2c.glade:8876
 msgid "Points in Theta"
-msgstr "Punkter i theta"
+msgstr "Punkter i Theta"
 
 #: resources/xnec2c.glade:8985
 msgid "Initial Phi (deg)"
-msgstr "Start-phi (deg)"
+msgstr "Start-Phi (deg)"
 
 #: resources/xnec2c.glade:9067
 msgid "Field Point Distance"
@@ -3205,7 +3205,7 @@ msgstr "Strukturgeometri"
 
 #: resources/xnec2c.glade:11637
 msgid "Xnec2c: Radiation Patterns"
-msgstr "Xnec2c: Strålemønstre"
+msgstr "Xnec2c: Strålingsdiagrammer"
 
 #: resources/xnec2c.glade:11854
 msgid "_Gain Scaling"
@@ -3499,7 +3499,7 @@ msgstr "Transmisjonslinjeimpedans (Zo)"
 #~ msgstr "feil ved lesing av kommentarer: Kommentarmnemonic kort eller mangler\n"
 
 #~ msgid "geometry data card error - tag number is less than 1\n"
-#~ msgstr "geometri-datakortfeil - taggnummer er mindre enn 1\n"
+#~ msgstr "geometri-datakortfeil - tagnummer er mindre enn 1\n"
 
 #~ msgid "geometry data card error - number of segments is less than 1\n"
 #~ msgstr "geometri-datakortfeil - antall segmenter er mindre enn 1\n"

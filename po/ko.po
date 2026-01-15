@@ -29,7 +29,7 @@ msgstr "tbf()에서 세그먼트 연결 오류"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "z= %10.5f에서 스텝 크기 제한됨\n"
+msgstr "Z= %10.5f에서 스텝 크기 제한됨\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -192,7 +192,7 @@ msgid ""
 "row data: Invalid list iterator"
 msgstr ""
 "Get_Command_Data(): 행 데이터 읽기 오류:\n"
-"잘못된 목록 반복자"
+"잘못된 리스트 반복자"
 
 #: src/cmnd_edit.c:105
 msgid ""
@@ -975,7 +975,7 @@ msgstr "b가 a보다 작습니다"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "z = %12.5E에서 스텝 크기가 제한되었습니다\n"
+msgstr "Z = %12.5E에서 스텝 크기가 제한되었습니다\n"
 
 #: src/input.c:84
 msgid ""
@@ -1419,7 +1419,7 @@ msgstr "세그먼트 확인 검사가 비활성화됨\n"
 
 #: src/main.c:336
 msgid "forcing overlap check on large models\n"
-msgstr "대형 모델에서 오버랩 검사 강제 적용\n"
+msgstr "대형 모델에서 중첩 검사 강제 적용\n"
 
 #: src/main.c:350
 msgid "--batch and --optimize are mutual exclusive.\n"
@@ -1702,7 +1702,7 @@ msgstr "마우스 버튼: 알 수 없는 버튼 %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "z = 0에서 Hankel 유효하지 않음"
+msgstr "Z = 0에서 Hankel 유효하지 않음"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1759,7 +1759,7 @@ msgstr ""
 "  -d|--quiet:        디버그/상세 출력 억제\n"
 "\n"
 "  --optimize:        최적화 프로그램 즉시 활성화\n"
-"  --skip-verify:     형상 검증 확인 건너뛰기\n"
+"  --skip-verify:     기하 검증 확인 건너뛰기\n"
 "\n"
 "다음 인수들은 주파수 루프 완료 후 출력 파일에 기록합니다. --batch와\n"
 "함께 사용하면 유용합니다. --batch 모드 없이 파일 이름을 지정하려면\n"
@@ -2164,7 +2164,7 @@ msgstr "주파수 스테핑 매개변수"
 
 #: resources/xnec2c.glade:2422
 msgid "Geometry End (GE Card)"
-msgstr "형상 종료 (GE 카드)"
+msgstr "기하 종료 (GE 카드)"
 
 #: resources/xnec2c.glade:2447
 msgid "No Ground, Free Space condition"
@@ -2552,11 +2552,11 @@ msgstr "스케일"
 
 #: resources/xnec2c.glade:6328
 msgid "Edit Geometry Data"
-msgstr "형상 데이터 편집"
+msgstr "기하 데이터 편집"
 
 #: resources/xnec2c.glade:6382
 msgid "Geometry"
-msgstr "형상"
+msgstr "기하"
 
 #: resources/xnec2c.glade:6409
 msgid "Excitation"

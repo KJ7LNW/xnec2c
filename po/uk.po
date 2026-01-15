@@ -29,7 +29,7 @@ msgstr "Помилка з'єднання сегмента в tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "розмір кроку обмежено при z= %10.5f\n"
+msgstr "розмір кроку обмежено при Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -537,7 +537,7 @@ msgid ""
 "GC card preceded by GW card\n"
 "with non-zero wire radius"
 msgstr ""
-"Картка GC передує картці GW\n"
+"Перед карткою GC йде картка GW\n"
 "з ненульовим радіусом дроту"
 
 #: src/geom_edit.c:532
@@ -565,7 +565,7 @@ msgid ""
 "SC card preceded by SP card\n"
 "with arbitrary patch type"
 msgstr ""
-"Картка SC передує картці SP\n"
+"Перед карткою SC йде картка SP\n"
 "з довільним типом патча"
 
 #: src/geom_edit.c:956
@@ -975,7 +975,7 @@ msgstr "b менше за a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "розмір кроку обмежено при z = %12.5E\n"
+msgstr "розмір кроку обмежено при Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1702,7 +1702,7 @@ msgstr "кнопка миші: невідома кнопка %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Ханкель недійсний для z = 0"
+msgstr "Ханкель недійсний для Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1770,7 +1770,7 @@ msgstr ""
 "  --write-s1p             <ім'я-файлу>  - записати S1P-файл S-параметрів\n"
 "  --write-s2p-max-gain    <ім'я-файлу>  - записати S2P-файл, порт-2 — максимальне підсилення\n"
 "  --write-s2p-viewer-gain <ім'я-файлу>  - записати S2P-файл, порт-2 — підсилення спостерігача\n"
-"  --write-rdpat           <ім'я-файлу>  - записати CSV діаграми спрямованості\n"
+"  --write-rdpat           <ім'я-файлу>  - записати CSV діаграми випромінювання\n"
 "  --write-currents        <ім'я-файлу>  - записати CSV струмів і зарядів\n"
 
 #: src/utils.c:103 src/utils.c:108
@@ -2084,15 +2084,15 @@ msgstr "Напруга - уявна частина"
 
 #: resources/xnec2c.glade:1437
 msgid "Eta"
-msgstr "Ета"
+msgstr "Eta"
 
 #: resources/xnec2c.glade:1507
 msgid "Theta"
-msgstr "Тета"
+msgstr "Theta"
 
 #: resources/xnec2c.glade:1520
 msgid "Phi"
-msgstr "Фі"
+msgstr "Phi"
 
 #: resources/xnec2c.glade:1533
 msgid "Ratio"
@@ -2828,11 +2828,11 @@ msgstr "Без нормованого підсилення"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "Нормалізоване підсилення за малою віссю"
+msgstr "Нормоване підсилення за малою віссю"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "Нормалізоване підсилення за горизонтальною віссю"
+msgstr "Нормоване підсилення за горизонтальною віссю"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"

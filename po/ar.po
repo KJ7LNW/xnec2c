@@ -29,7 +29,7 @@ msgstr "خطأ اتصال segment في tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "حجم الخطوة محدود عند z= %10.5f\n"
+msgstr "حجم الخطوة محدود عند Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -522,7 +522,7 @@ msgid ""
 "Invalid list iterator"
 msgstr ""
 "خطأ في قراءة بيانات الصف\n"
-"مُكرِّر قائمة غير صالح"
+"مكرر قائمة غير صالح"
 
 #: src/geom_edit.c:109 src/geom_edit.c:139
 msgid ""
@@ -975,7 +975,7 @@ msgstr "b أقل من a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "حجم الخطوة محدود عند z = %12.5E\n"
+msgstr "حجم الخطوة محدود عند Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1702,7 +1702,7 @@ msgstr "زر الفأرة: زر غير معروف %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel غير صالح لـ z = 0"
+msgstr "Hankel غير صالح لـ Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1758,13 +1758,13 @@ msgstr ""
 "  -d|--debug:        تمكين مخرجات التصحيح (-dd يتضمن تتبع المكدس)\n"
 "  -d|--quiet:        إخفاء مخرجات التصحيح/التفصيل\n"
 "\n"
-"  --optimize:        تفعيل المُحسِّن فوراً.\n"
+"  --optimize:        تفعيل المحسّن فوراً.\n"
 "  --skip-verify:     تخطي فحوصات التحقق من الهندسة\n"
 "\n"
 "الوسائط التالية تكتب إلى ملف إخراج بعد اكتمال حلقة التردد.\n"
 "هذه مفيدة للدمج مع --batch؛ إذا كنت ترغب في تحديد\n"
-"أسماء ملفات للكتابة بدون وضع --batch فقم بتمكين File->Optimizer\n"
-"Settings وإلا فإن الملفات التي تحددها في سطر الأوامر لن تُكتب.\n"
+"أسماء ملفات للكتابة بدون وضع --batch فقم بتمكين ملف->إعدادات\n"
+"التحسين وإلا فإن الملفات التي تحددها في سطر الأوامر لن تُكتب.\n"
 "\n"
 "  --write-csv             <اسم الملف>  - كتابة ملف CSV للقياسات\n"
 "  --write-s1p             <اسم الملف>  - كتابة ملف S1P لمعاملات S\n"
@@ -1850,11 +1850,11 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr "حلقة المُحسِّن غير مكتملة، تخطي إعادة رسم نمط الإشعاع.\n"
+msgstr "حلقة المحسّن غير مكتملة، تخطي إعادة رسم نمط الإشعاع.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
-msgstr "حلقة المُحسِّن غير مكتملة، تخطي إعادة رسم الهيكل.\n"
+msgstr "حلقة المحسّن غير مكتملة، تخطي إعادة رسم الهيكل.\n"
 
 #: src/utils.c:949
 msgid "  Backtrace:\n"
@@ -2808,15 +2808,15 @@ msgstr "الكسب الرأسي والأفقي والكلي"
 
 #: resources/xnec2c.glade:8650
 msgid "Major Axis Gain Normalized"
-msgstr "كسب المحور الرئيسي المُطبَّع"
+msgstr "كسب المحور الرئيسي المطبّع"
 
 #: resources/xnec2c.glade:8666
 msgid "Vertical Axis Gain Normalized"
-msgstr "كسب المحور الرأسي المُطبَّع"
+msgstr "كسب المحور الرأسي المطبّع"
 
 #: resources/xnec2c.glade:8682
 msgid "Total Gain Normalized"
-msgstr "الكسب الكلي المُطبَّع"
+msgstr "الكسب الكلي المطبّع"
 
 #: resources/xnec2c.glade:8698
 msgid "Print/Normalize Directive Gain"
@@ -2824,15 +2824,15 @@ msgstr "طباعة/تطبيع الكسب التوجيهي"
 
 #: resources/xnec2c.glade:8714
 msgid "No Normalized Gain"
-msgstr "بدون كسب مُطبَّع"
+msgstr "بدون كسب مطبّع"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "كسب المحور الثانوي مُطبَّع"
+msgstr "كسب المحور الثانوي مطبّع"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "كسب المحور الأفقي مُطبَّع"
+msgstr "كسب المحور الأفقي مطبّع"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"

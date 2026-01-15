@@ -29,7 +29,7 @@ msgstr "Error de conexión de segmento en tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "tamaño de paso limitado en z= %10.5f\n"
+msgstr "tamaño de paso limitado en Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -283,7 +283,7 @@ msgstr "Ángulo beta (deg)"
 
 #: src/cmnd_edit.c:470
 msgid "Current Moment (A.m)"
-msgstr "Momento de Corriente (A.m)"
+msgstr "Momento de corriente (A.m)"
 
 #: src/cmnd_edit.c:1556
 msgid "Points in Z"
@@ -299,7 +299,7 @@ msgstr "Incremento en Z"
 
 #: src/cmnd_edit.c:1559
 msgid "Field Point R (m)"
-msgstr "Punto de Campo R (m)"
+msgstr "Punto de campo R (m)"
 
 #: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
 msgid "Points in Phi"
@@ -438,7 +438,7 @@ msgstr ""
 
 #: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
 msgid "Near Field Animation"
-msgstr "Animación de Campo Cercano"
+msgstr "Animación de campo cercano"
 
 #: src/draw_radiation.c:668 src/draw_radiation.c:678 src/geometry.c:812
 #: src/input.c:1570 src/input.c:1571 src/utils.c:509 src/utils.c:555
@@ -538,7 +538,7 @@ msgid ""
 "with non-zero wire radius"
 msgstr ""
 "Tarjeta GC precedida por tarjeta GW\n"
-"con radio de cable distinto de cero"
+"con radio de alambre distinto de cero"
 
 #: src/geom_edit.c:532
 msgid "No GW card before GC card"
@@ -550,7 +550,7 @@ msgid ""
 "with a zero wire radius"
 msgstr ""
 "No hay tarjeta GC después de una tarjeta GW\n"
-"con radio de cable igual a cero"
+"con radio de alambre igual a cero"
 
 #: src/geom_edit.c:565
 msgid ""
@@ -558,7 +558,7 @@ msgid ""
 "with non-zero wire radius"
 msgstr ""
 "La tarjeta GC sigue a una tarjeta GW\n"
-"con radio de cable distinto de cero"
+"con radio de alambre distinto de cero"
 
 #: src/geom_edit.c:944
 msgid ""
@@ -614,7 +614,7 @@ msgstr "Normal - Azim."
 
 #: src/geom_edit.c:1076 resources/xnec2c.glade:7845
 msgid "Patch Area"
-msgstr "Área del Parche"
+msgstr "Área del parche"
 
 #: src/geom_edit.c:1081
 msgid "Corner 1 - X"
@@ -842,7 +842,7 @@ msgstr "etiqueta=%d: suprimiendo sugerencias adicionales de mejora de precisión
 #: src/geometry.c:1865
 #, c-format
 msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel field error exceeds 1%% by a large margin (min=2.0, 1%%accurate=8.0)\n"
-msgstr "etiqueta=%d/seg=%d: relación longitud/radio de %.1f < 2.0; el error de campo del kernel estándar de cable delgado excede 1%% por un gran margen (mín=2.0, 1%%preciso=8.0)\n"
+msgstr "etiqueta=%d/seg=%d: relación longitud/radio de %.1f < 2.0; el error de campo del kernel estándar de alambre delgado excede 1%% por un gran margen (mín=2.0, 1%%preciso=8.0)\n"
 
 #: src/geometry.c:1870
 #, c-format
@@ -852,7 +852,7 @@ msgstr "etiqueta=%d: suprimiendo errores adicionales de relación de kernel est�
 #: src/geometry.c:1883
 #, c-format
 msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel field error exceeds 1%% (min=2.0, 1%%accurate=8.0)\n"
-msgstr "etiqueta=%d/seg=%d: relación longitud/radio de %.1f < 8.0; el error de campo del kernel estándar de cable delgado excede 1%% (mín=2.0, 1%%preciso=8.0)\n"
+msgstr "etiqueta=%d/seg=%d: relación longitud/radio de %.1f < 8.0; el error de campo del kernel estándar de alambre delgado excede 1%% (mín=2.0, 1%%preciso=8.0)\n"
 
 #: src/geometry.c:1888
 #, c-format
@@ -862,7 +862,7 @@ msgstr "etiqueta=%d: suprimiendo advertencias adicionales de relación de kernel
 #: src/geometry.c:1903
 #, c-format
 msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel field error exceeds 1%% by a large margin (min=0.5, 1%%accurate=2.0)\n"
-msgstr "etiqueta=%d/seg=%d: relación longitud/radio de %.1f < 0.5; el error de campo del kernel extendido de cable delgado excede 1%% por un gran margen (mín=0.5, 1%%preciso=2.0)\n"
+msgstr "etiqueta=%d/seg=%d: relación longitud/radio de %.1f < 0.5; el error de campo del kernel extendido de alambre delgado excede 1%% por un gran margen (mín=0.5, 1%%preciso=2.0)\n"
 
 #: src/geometry.c:1908
 #, c-format
@@ -872,7 +872,7 @@ msgstr "etiqueta=%d: suprimiendo errores adicionales de relación de kernel exte
 #: src/geometry.c:1921
 #, c-format
 msgid "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel field error exceeds 1%% (min=0.5, 1%%accurate=2.0)\n"
-msgstr "etiqueta=%d/seg=%d: relación longitud/radio de %.1f < 2.0; el error de campo del kernel extendido de cable delgado excede 1%% (mín=0.5, 1%%preciso=2.0)\n"
+msgstr "etiqueta=%d/seg=%d: relación longitud/radio de %.1f < 2.0; el error de campo del kernel extendido de alambre delgado excede 1%% (mín=0.5, 1%%preciso=2.0)\n"
 
 #: src/geometry.c:1926
 #, c-format
@@ -958,7 +958,7 @@ msgstr "# segmentos de parche de estructura\n"
 #: src/gnuplot.c:530
 #, c-format
 msgid "# structure wire segments\n"
-msgstr "# segmentos de cable de estructura\n"
+msgstr "# segmentos de alambre de estructura\n"
 
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
@@ -975,7 +975,7 @@ msgstr "b menor que a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "tamaño de paso limitado en z = %12.5E\n"
+msgstr "tamaño de paso limitado en Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1073,7 +1073,7 @@ msgid ""
 "No GC card for tapered wire"
 msgstr ""
 "Error en datos de geometría\n"
-"No hay tarjeta GC para cable cónico"
+"No hay tarjeta GC para alambre cónico"
 
 #: src/input.c:445
 msgid "Geometry GC data card error"
@@ -1215,14 +1215,14 @@ msgstr ""
 
 #: src/input.c:1233
 msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
-msgstr "aproximación g.s. de cable radial: no puede usarse con la opción de plano de tierra Sommerfeld\n"
+msgstr "aproximación g.s. de alambre radial: no puede usarse con la opción de plano de tierra Sommerfeld\n"
 
 #: src/input.c:1234
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
 msgstr ""
-"aproximación g.s. de cable radial\n"
+"aproximación g.s. de alambre radial\n"
 "no puede usarse con la opción de plano de tierra Sommerfeld"
 
 #: src/input.c:1285
@@ -1530,7 +1530,7 @@ msgstr "--- Archivo de entrada NEC2 creado o editado por "
 
 #: src/nec2_model.c:205
 msgid "--- End Comments ---"
-msgstr "--- Fin de Comentarios ---"
+msgstr "--- Fin de comentarios ---"
 
 #: src/nec2_model.c:344
 msgid ""
@@ -1554,7 +1554,7 @@ msgstr ""
 
 #: src/nec2_model.c:594
 msgid "End Comments"
-msgstr "Fin de Comentarios"
+msgstr "Fin de comentarios"
 
 #: src/nec2_model.c:648
 msgid ""
@@ -1702,7 +1702,7 @@ msgstr "botón del ratón: botón desconocido %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel no válido para z = 0"
+msgstr "Hankel no válido para Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -2198,7 +2198,7 @@ msgstr "Distancia al 2.º medio"
 #: resources/xnec2c.glade:2731 resources/xnec2c.glade:3168
 #: resources/xnec2c.glade:3287
 msgid "Ground Conductivity S/m"
-msgstr "Conductividad de Tierra S/m"
+msgstr "Conductividad de tierra S/m"
 
 #: resources/xnec2c.glade:2763 resources/xnec2c.glade:3319
 msgid "Dist. below 1st Medium"
@@ -2303,7 +2303,7 @@ msgstr "1"
 
 #: resources/xnec2c.glade:3910
 msgid "Number of Turns"
-msgstr "Número de Vueltas"
+msgstr "Número de vueltas"
 
 #: resources/xnec2c.glade:3923
 msgid "8.0000"
@@ -2311,7 +2311,7 @@ msgstr "8.0000"
 
 #: resources/xnec2c.glade:3944
 msgid "Helix Length (HL)"
-msgstr "Longitud de Hélice (HL)"
+msgstr "Longitud de hélice (HL)"
 
 #: resources/xnec2c.glade:3957
 msgid "5.0000"
@@ -2319,7 +2319,7 @@ msgstr "5.0000"
 
 #: resources/xnec2c.glade:3978
 msgid "Turns Spacing"
-msgstr "Espaciado de Vueltas"
+msgstr "Espaciado de vueltas"
 
 #: resources/xnec2c.glade:3991 resources/xnec2c.glade:4103
 #: resources/xnec2c.glade:4156 resources/xnec2c.glade:4209
@@ -2353,11 +2353,11 @@ msgstr "Tarjeta GH"
 
 #: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
 msgid "Interaction Approx Range (KH Card)"
-msgstr "Rango de Aprox. de Interacción (Tarjeta KH)"
+msgstr "Rango de aprox. de interacción (tarjeta KH)"
 
 #: resources/xnec2c.glade:4446
 msgid "Approximation Range (W/lengths)"
-msgstr "Rango de Aproximación (Longitudes de Onda)"
+msgstr "Rango de aproximación (longitudes de onda)"
 
 #: resources/xnec2c.glade:4484
 msgid "Interaction Approximation Range"
@@ -2508,7 +2508,7 @@ msgstr "Parámetros del patrón de campo"
 
 #: resources/xnec2c.glade:5939
 msgid "Xnec2c: NEC2 Input File Editor"
-msgstr "Xnec2c: Editor de Archivo de Entrada NEC2"
+msgstr "Xnec2c: Editor de archivo de entrada NEC2"
 
 #: resources/xnec2c.glade:6026
 msgid "Manage Cards"
@@ -2552,7 +2552,7 @@ msgstr "Escalar"
 
 #: resources/xnec2c.glade:6328
 msgid "Edit Geometry Data"
-msgstr "Editar Datos de Geometría"
+msgstr "Editar datos de geometría"
 
 #: resources/xnec2c.glade:6382
 msgid "Geometry"
@@ -2600,7 +2600,7 @@ msgstr "Interacción"
 
 #: resources/xnec2c.glade:6549
 msgid "Transm. Line"
-msgstr "Línea de Transm."
+msgstr "Línea de transm."
 
 #: resources/xnec2c.glade:6564
 msgid "Execute"
@@ -2612,7 +2612,7 @@ msgstr "Zo"
 
 #: resources/xnec2c.glade:6598
 msgid "Edit Control Commands"
-msgstr "Editar Comandos de Control"
+msgstr "Editar comandos de control"
 
 #: resources/xnec2c.glade:6652
 msgid "Commands"
@@ -2926,7 +2926,7 @@ msgstr "Guardar como S_1P: Solo Reflexión"
 
 #: resources/xnec2c.glade:9673
 msgid "Save as S2P: _Max Gain (S21)"
-msgstr "Guardar como S2P: Ganancia _Máxima (S21)"
+msgstr "Guardar como S2P: Ganancia _máxima (S21)"
 
 #: resources/xnec2c.glade:9683
 msgid "Save as S2P: _Viewer Gain (S21)"
@@ -2960,36 +2960,36 @@ msgstr "_Vertical"
 #: resources/xnec2c.glade:9778 resources/xnec2c.glade:10875
 #: resources/xnec2c.glade:11828
 msgid "_Right Hand"
-msgstr "Mano _Derecha"
+msgstr "Mano _derecha"
 
 #: resources/xnec2c.glade:9789 resources/xnec2c.glade:10886
 #: resources/xnec2c.glade:11839
 msgid "_Left Hand"
-msgstr "Mano _Izquierda"
+msgstr "Mano _izquierda"
 
 #: resources/xnec2c.glade:9804
 msgid "_Net Gain"
-msgstr "Ganancia _Neta"
+msgstr "Ganancia _neta"
 
 #: resources/xnec2c.glade:9813
 msgid "Show _Min/Max Values"
-msgstr "Mostrar Valores _Mín/Máx"
+msgstr "Mostrar valores _mín/máx"
 
 #: resources/xnec2c.glade:9822
 msgid "Show _S11 (dB) Values"
-msgstr "Mostrar Valores _S11 (dB)"
+msgstr "Mostrar valores _S11 (dB)"
 
 #: resources/xnec2c.glade:9831
 msgid "Clamp _VSWR Graph to 10"
-msgstr "Limitar Gráfico _VSWR a 10"
+msgstr "Limitar gráfico _VSWR a 10"
 
 #: resources/xnec2c.glade:9840
 msgid "Round _X Axis Frequency Values"
-msgstr "Redondear Valores de Frecuencia del Eje _X"
+msgstr "Redondear valores de frecuencia del eje _X"
 
 #: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
 msgid "Max Gain"
-msgstr "Ganancia Máx"
+msgstr "Ganancia máx"
 
 #: resources/xnec2c.glade:9879
 msgid "Direction"
@@ -3040,11 +3040,11 @@ msgstr "Gráficos de datos de frecuencia"
 
 #: resources/xnec2c.glade:10459
 msgid "Save _Currents/Charges as CSV"
-msgstr "Guardar _Corrientes/Cargas como CSV"
+msgstr "Guardar _corrientes/cargas como CSV"
 
 #: resources/xnec2c.glade:10478
 msgid "Optimization Settings"
-msgstr "Configuración de Optimización"
+msgstr "Configuración de optimización"
 
 #: resources/xnec2c.glade:10493
 msgid "Reload and write data on .NEC file changes"
@@ -3080,7 +3080,7 @@ msgstr "Después del cálculo, escribir <file>-_currents.csv"
 
 #: resources/xnec2c.glade:10575
 msgid "_Math Libraries"
-msgstr "Bibliotecas _Matemáticas"
+msgstr "Bibliotecas _matemáticas"
 
 #: resources/xnec2c.glade:10584
 msgid "_Interactive"
@@ -3096,11 +3096,11 @@ msgstr "_Ayuda de Mathlib"
 
 #: resources/xnec2c.glade:10643
 msgid "Mathlib _Benchmarks"
-msgstr "_Pruebas de Rendimiento de Mathlib"
+msgstr "_Pruebas de rendimiento de Mathlib"
 
 #: resources/xnec2c.glade:10654
 msgid "_Selected Mathlibs"
-msgstr "Mathlibs _Seleccionadas"
+msgstr "Mathlibs _seleccionadas"
 
 #: resources/xnec2c.glade:10668
 msgid "Select All/None"
@@ -3112,7 +3112,7 @@ msgstr "_Paralelo (-j N):\t\tO(N/J)"
 
 #: resources/xnec2c.glade:10702
 msgid "_Single Job (-j 1):\tO(N)"
-msgstr "Trabajo _Único (-j 1):\tO(N)"
+msgstr "Trabajo _único (-j 1):\tO(N)"
 
 #: resources/xnec2c.glade:10711
 msgid "_Iterate -j N/=2:\tO(N*log2(J))"
@@ -3124,7 +3124,7 @@ msgstr "_Iterar -j N-=1:\tO(N*J)"
 
 #: resources/xnec2c.glade:10735
 msgid "Benchmark _Help"
-msgstr "_Ayuda de Pruebas de Rendimiento"
+msgstr "_Ayuda de pruebas de rendimiento"
 
 #: resources/xnec2c.glade:10754
 msgid "Begin Frequency Loop at Startup"
@@ -3229,15 +3229,15 @@ msgstr "_Logarítmico"
 
 #: resources/xnec2c.glade:11917
 msgid "_Near Field"
-msgstr "Campo _Cercano"
+msgstr "Campo _cercano"
 
 #: resources/xnec2c.glade:11932
 msgid "Near _E Field"
-msgstr "Campo _E Cercano"
+msgstr "Campo _E cercano"
 
 #: resources/xnec2c.glade:11942
 msgid "Near _H Field"
-msgstr "Campo _H Cercano"
+msgstr "Campo _H cercano"
 
 #: resources/xnec2c.glade:11952
 msgid "_Poynting Vector"
@@ -3249,11 +3249,11 @@ msgstr "Diálogo de _Animación"
 
 #: resources/xnec2c.glade:11970
 msgid "_Total Field"
-msgstr "Campo _Total"
+msgstr "Campo _total"
 
 #: resources/xnec2c.glade:11979
 msgid "_Peak Value"
-msgstr "Valor _Pico"
+msgstr "Valor _pico"
 
 #: resources/xnec2c.glade:11990
 msgid "_Snapshot"
@@ -3261,11 +3261,11 @@ msgstr "_Instantánea"
 
 #: resources/xnec2c.glade:12029
 msgid "_Overlay Structure"
-msgstr "_Superponer Estructura"
+msgstr "_Superponer estructura"
 
 #: resources/xnec2c.glade:12053
 msgid "Gain Pattern"
-msgstr "Patrón de Ganancia"
+msgstr "Patrón de ganancia"
 
 #: resources/xnec2c.glade:12068
 msgid "E/H Fields"
@@ -3469,7 +3469,7 @@ msgstr "50.00"
 
 #: resources/xnec2c.glade:15006
 msgid "Transmission Line Impedance (Zo)"
-msgstr "Impedancia de Línea de Transmisión (Zo)"
+msgstr "Impedancia de línea de transmisión (Zo)"
 
 #~ msgid ""
 #~ "Not available for Incident Field or\n"

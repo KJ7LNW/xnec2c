@@ -29,7 +29,7 @@ msgstr "tbf()-এ সেগমেন্ট সংযোগ ত্রুটি"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "z= %10.5f-এ ধাপের আকার সীমিত\n"
+msgstr "Z= %10.5f-এ ধাপের আকার সীমিত\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -66,7 +66,7 @@ msgid ""
 "Frequency plots window closed: excitation type %d is incompatible.\n"
 "Use type 0 (Applied E Field) or 5 (Current Discontinuity) instead."
 msgstr ""
-"ফ্রিকোয়েন্সি প্লট উইন্ডো বন্ধ: উত্তেজন ধরন %d অসঙ্গতিপূর্ণ।\n"
+"ফ্রিকোয়েন্সি প্লট উইন্ডো বন্ধ: এক্সাইটেশন ধরন %d অসঙ্গতিপূর্ণ।\n"
 "পরিবর্তে ধরন 0 (Applied E Field) বা 5 (Current Discontinuity) ব্যবহার করুন।"
 
 #: src/callback_func.c:518
@@ -76,8 +76,8 @@ msgid ""
 "This model uses Incident Field or Elementary Current Source excitation.\n"
 "Change the EX card to type 0 (Applied E Field) or 5 (Current Discontinuity)."
 msgstr ""
-"উত্তেজন ধরন %d এর সাথে ফ্রিকোয়েন্সি প্লট উপলব্ধ নয়।\n"
-"এই মডেলটি Incident Field বা Elementary Current Source উত্তেজন ব্যবহার করে।\n"
+"এক্সাইটেশন ধরন %d এর সাথে ফ্রিকোয়েন্সি প্লট উপলব্ধ নয়।\n"
+"এই মডেলটি Incident Field বা Elementary Current Source এক্সাইটেশন ব্যবহার করে।\n"
 "EX কার্ড ধরন 0 (Applied E Field) বা 5 (Current Discontinuity) এ পরিবর্তন করুন।"
 
 #: src/callback_func.c:697
@@ -537,8 +537,8 @@ msgid ""
 "GC card preceded by GW card\n"
 "with non-zero wire radius"
 msgstr ""
-"GC কার্ড অশূন্য তার ব্যাসার্ধ সহ\n"
-"GW কার্ডের আগে রয়েছে"
+"অশূন্য তার ব্যাসার্ধ সহ GW কার্ডের\n"
+"পরে GC কার্ড রয়েছে"
 
 #: src/geom_edit.c:532
 msgid "No GW card before GC card"
@@ -565,8 +565,8 @@ msgid ""
 "SC card preceded by SP card\n"
 "with arbitrary patch type"
 msgstr ""
-"SC কার্ড স্বেচ্ছাচারী প্যাচ প্রকার সহ\n"
-"SP কার্ডের আগে রয়েছে"
+"স্বেচ্ছাচারী প্যাচ প্রকার সহ SP কার্ডের\n"
+"পরে SC কার্ড রয়েছে"
 
 #: src/geom_edit.c:956
 msgid "No SP or SM card before SC card"
@@ -642,7 +642,7 @@ msgstr "কোণ 2 - Z"
 
 #: src/geom_edit.c:2582
 msgid "NEC2 editor window not open"
-msgstr "NEC2 সম্পাদক উইন্ডো খোলা নেই"
+msgstr "NEC2 এডিটর উইন্ডো খোলা নেই"
 
 #: src/geometry.c:97
 msgid "Number of segments < 1"
@@ -975,7 +975,7 @@ msgstr "b, a-এর চেয়ে ছোট"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "z = %12.5E-এ ধাপের আকার সীমিত\n"
+msgstr "Z = %12.5E-এ ধাপের আকার সীমিত\n"
 
 #: src/input.c:84
 msgid ""
@@ -991,7 +991,7 @@ msgid ""
 "Comment mnemonic short or missing"
 msgstr ""
 "মন্তব্য পড়তে ত্রুটি\n"
-"মন্তব্য নেমোনিক ছোট বা অনুপস্থিত"
+"মন্তব্য মেমোনিক ছোট বা অনুপস্থিত"
 
 #: src/input.c:109
 msgid ""
@@ -1001,7 +1001,7 @@ msgid ""
 msgstr ""
 "Read_Comments():\n"
 " ইনপুট ফাইল পড়তে ত্রুটি\n"
-"মন্তব্য নেমোনিক ভুল"
+"মন্তব্য মেমোনিক ভুল"
 
 #: src/input.c:148
 msgid ""
@@ -1293,7 +1293,7 @@ msgid ""
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
 "গেইন গড় (XNDA ***1 বা ***2) টেক্সট আউটপুট ফর্ম্যাটিং নিয়ন্ত্রণ করে।\n"
-"xnec2c টেক্সটটেবিলের পরিবর্তে গ্রাফিক্যালি রেডিয়েশন প্যাটার্ন রেন্ডার করে।\n"
+"xnec2c টেক্সট টেবিলের পরিবর্তে গ্রাফিক্যালি রেডিয়েশন প্যাটার্ন রেন্ডার করে।\n"
 "প্যাটার্ন গণনা স্বাভাবিকভাবে চলে; ফলাফল দেখতে GUI ব্যবহার করুন।"
 
 #: src/input.c:1502
@@ -1550,7 +1550,7 @@ msgid ""
 msgstr ""
 "List_Comments():\n"
 "ইনপুট ফাইল পড়তে ত্রুটি\n"
-"মন্তব্য নেমোনিক সংক্ষিপ্ত বা অনুপস্থিত"
+"মন্তব্য মেমোনিক সংক্ষিপ্ত বা অনুপস্থিত"
 
 #: src/nec2_model.c:594
 msgid "End Comments"
@@ -1702,7 +1702,7 @@ msgstr "মাউস বোতাম: অজানা বোতাম %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "z = 0 এর জন্য Hankel বৈধ নয়"
+msgstr "Z = 0 এর জন্য Hankel বৈধ নয়"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1941,7 +1941,7 @@ msgstr ""
 "\n"
 "xnec2c ফ্রিকোয়েন্সি-নির্ভর ডেটা (গেইন, ইনপুট ইম্পিড্যান্স, vswr ইত্যাদি) গ্রাফিক্যাল ফরম্যাটে প্রদর্শন করতে পারে। এটি ঘূর্ণনযোগ্য ওয়্যার ফ্রেম ফরম্যাটে বিকিরণ প্যাটার্ন ডেটা এবং গ্রিড ফরম্যাটে নিকট-ক্ষেত্র (E, H, S ভেক্টর) প্রদর্শন করতে পারে।\n"
 "\n"
-"xnec2c-তে একটি অন্তর্নির্মিত NEC2 ইনপুট ফাইল সম্পাদক রয়েছে যা অ্যান্টেনা বিবরণ ফাইল তৈরি বা সম্পাদনা করা এবং NEC2 কমান্ড নির্দিষ্ট করা সহজ করে।\n"
+"xnec2c-তে একটি অন্তর্নির্মিত NEC2 ইনপুট ফাইল এডিটর রয়েছে যা অ্যান্টেনা বিবরণ ফাইল তৈরি বা সম্পাদনা করা এবং NEC2 কমান্ড নির্দিষ্ট করা সহজ করে।\n"
 "\n"
 "অনুগ্রহ করে doc/ সাব-ডিরেক্টরিতে ডকুমেন্টেশন পড়ুন কারণ xnec2c NEC2 ইনপুট ফাইলগুলির সাথে সম্পূর্ণ সামঞ্জস্যপূর্ণ নয় এবং এটি বিভিন্ন উপায়ে কাজ করে!"
 
@@ -2824,15 +2824,15 @@ msgstr "প্রিন্ট/নির্দেশমূলক গেইন স
 
 #: resources/xnec2c.glade:8714
 msgid "No Normalized Gain"
-msgstr "স্বাভাবিকীকৃত গেইন নেই"
+msgstr "নরমালাইজড গেইন নেই"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "ক্ষুদ্র অক্ষ গেইন স্বাভাবিকীকৃত"
+msgstr "গৌণ অক্ষ গেইন নরমালাইজড"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "অনুভূমিক অক্ষ গেইন স্বাভাবিকীকৃত"
+msgstr "অনুভূমিক অক্ষ গেইন নরমালাইজড"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"

@@ -29,7 +29,7 @@ msgstr "שגיאת חיבור מקטע ב-tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "גודל צעד מוגבל ב-z= %10.5f\n"
+msgstr "גודל צעד מוגבל ב-Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -882,7 +882,7 @@ msgstr "tag=%d: מדכא אזהרות נוספות של יחס גרעין מור
 #: src/geometry.c:1942
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
-msgstr "מדלג על בדיקת חפיפה עבור %d מקטעים (השתמש ב---force-verify להפעלה)\n"
+msgstr "מדלג על בדיקת חפיפה עבור %d מקטעים (השתמש ב--force-verify להפעלה)\n"
 
 #: src/geometry.c:1946
 #, c-format
@@ -975,7 +975,7 @@ msgstr "b קטן מ-a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "גודל צעד מוגבל ב-z = %12.5E\n"
+msgstr "גודל צעד מוגבל ב-Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1009,7 +1009,7 @@ msgid ""
 "Tag number is less than 1"
 msgstr ""
 "שגיאת נתוני גאומטריה\n"
-"מספר תג קטן מ-1"
+"מספר תגית קטן מ-1"
 
 #: src/input.c:155
 msgid ""
@@ -1423,7 +1423,7 @@ msgstr "מכריח בדיקת חפיפה על מודלים גדולים\n"
 
 #: src/main.c:350
 msgid "--batch and --optimize are mutual exclusive.\n"
-msgstr "--batch ו---optimize הם בלעדיים הדדית.\n"
+msgstr "--batch ו--optimize הם בלעדיים הדדית.\n"
 
 #: src/main.c:366
 #, c-format
@@ -1702,7 +1702,7 @@ msgstr "לחצן עכבר: לחצן לא מוכר %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel לא תקף עבור z = 0"
+msgstr "Hankel לא תקף עבור Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -2413,7 +2413,7 @@ msgstr "סוג עומס"
 
 #: resources/xnec2c.glade:4983
 msgid "Load Tag Number"
-msgstr "מספר תג עומס"
+msgstr "מספר תגית עומס"
 
 #: resources/xnec2c.glade:5014
 msgid "Resistance"
@@ -2429,7 +2429,7 @@ msgstr "השראות"
 
 #: resources/xnec2c.glade:5109
 msgid "To Segment #"
-msgstr "לקטע מספר #"
+msgstr "למקטע מספר #"
 
 #: resources/xnec2c.glade:5140
 msgid "Capacitance"
@@ -2576,11 +2576,11 @@ msgstr "שדות קרובים"
 
 #: resources/xnec2c.glade:6465
 msgid "Ground (GN)"
-msgstr "קרקע (GN)"
+msgstr "הארקה (GN)"
 
 #: resources/xnec2c.glade:6479
 msgid "Ground (GD)"
-msgstr "קרקע (GD)"
+msgstr "הארקה (GD)"
 
 #: resources/xnec2c.glade:6493
 msgid "Loading"
@@ -2636,23 +2636,23 @@ msgstr "פקודת רשת (כרטיס NT)"
 
 #: resources/xnec2c.glade:6875
 msgid "Tag Number, Port 1  "
-msgstr "מספר תג, פורט 1  "
+msgstr "מספר תגית, פורט 1  "
 
 #: resources/xnec2c.glade:6906
 msgid "Tag Number, Port 2  "
-msgstr "מספר תג, פורט 2  "
+msgstr "מספר תגית, פורט 2  "
 
 #: resources/xnec2c.glade:6937
 msgid "Segment Num, Port 1"
-msgstr "מספר קטע, פורט 1"
+msgstr "מספר מקטע, פורט 1"
 
 #: resources/xnec2c.glade:6968
 msgid "Segment Num, Port 2"
-msgstr "מספר קטע, פורט 2"
+msgstr "מספר מקטע, פורט 2"
 
 #: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
 msgid "Segment Identity"
-msgstr "זיהוי קטע"
+msgstr "זיהוי מקטע"
 
 #: resources/xnec2c.glade:7033
 msgid "Element 1,1 Real Part"
@@ -2820,27 +2820,27 @@ msgstr "הגבר כולל מנורמל"
 
 #: resources/xnec2c.glade:8698
 msgid "Print/Normalize Directive Gain"
-msgstr "הדפס/נרמל רווח כיווני"
+msgstr "הדפס/נרמל הגבר כיווני"
 
 #: resources/xnec2c.glade:8714
 msgid "No Normalized Gain"
-msgstr "ללא רווח מנורמל"
+msgstr "ללא הגבר מנורמל"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "רווח ציר משני מנורמל"
+msgstr "הגבר ציר משני מנורמל"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "רווח ציר אופקי מנורמל"
+msgstr "הגבר ציר אופקי מנורמל"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"
-msgstr "הדפס/נרמל רווח הספק"
+msgstr "הדפס/נרמל הגבר הספק"
 
 #: resources/xnec2c.glade:8778
 msgid "No Gain Averaging"
-msgstr "ללא ממוצע רווח"
+msgstr "ללא ממוצע הגבר"
 
 #: resources/xnec2c.glade:8794
 msgid "Points in Average Not Printed"
@@ -2848,7 +2848,7 @@ msgstr "נקודות בממוצע לא מודפסות"
 
 #: resources/xnec2c.glade:8810
 msgid "Average Gain Computed"
-msgstr "רווח ממוצע מחושב"
+msgstr "הגבר ממוצע מחושב"
 
 #: resources/xnec2c.glade:8828
 msgid "<b>See RP Card Documentation</b>"
@@ -2872,7 +2872,7 @@ msgstr "מרחק נקודת שדה"
 
 #: resources/xnec2c.glade:9099
 msgid "Gain Normalization"
-msgstr "נרמול רווח"
+msgstr "נרמול הגבר"
 
 #: resources/xnec2c.glade:9141
 msgid "Radiation Pattern Parameters"
@@ -2926,11 +2926,11 @@ msgstr "שמור כ-S_1P: החזרה בלבד"
 
 #: resources/xnec2c.glade:9673
 msgid "Save as S2P: _Max Gain (S21)"
-msgstr "שמור כ-S2P: רווח _מרבי (S21)"
+msgstr "שמור כ-S2P: הגבר _מרבי (S21)"
 
 #: resources/xnec2c.glade:9683
 msgid "Save as S2P: _Viewer Gain (S21)"
-msgstr "שמור כ-S2P: רווח _צופה (S21)"
+msgstr "שמור כ-S2P: הגבר _צופה (S21)"
 
 #: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
 #: resources/xnec2c.glade:11769
@@ -2969,7 +2969,7 @@ msgstr "יד _שמאל"
 
 #: resources/xnec2c.glade:9804
 msgid "_Net Gain"
-msgstr "רווח _נקי"
+msgstr "הגבר _נטו"
 
 #: resources/xnec2c.glade:9813
 msgid "Show _Min/Max Values"
@@ -2989,7 +2989,7 @@ msgstr "עגל ערכי תדר בציר _X"
 
 #: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
 msgid "Max Gain"
-msgstr "רווח מרבי"
+msgstr "הגבר מרבי"
 
 #: resources/xnec2c.glade:9879
 msgid "Direction"
@@ -3172,7 +3172,7 @@ msgstr " זום"
 
 #: resources/xnec2c.glade:11277 resources/xnec2c.glade:12456
 msgid "Gain"
-msgstr "רווח"
+msgstr "הגבר"
 
 #: resources/xnec2c.glade:11292 resources/xnec2c.glade:11308
 #: resources/xnec2c.glade:12469 resources/xnec2c.glade:12626
@@ -3201,7 +3201,7 @@ msgstr "תדר MHz"
 
 #: resources/xnec2c.glade:11618
 msgid "Structure Geometry"
-msgstr "גיאומטריית מבנה"
+msgstr "גאומטריית מבנה"
 
 #: resources/xnec2c.glade:11637
 msgid "Xnec2c: Radiation Patterns"
@@ -3209,7 +3209,7 @@ msgstr "Xnec2c: תבניות קרינה"
 
 #: resources/xnec2c.glade:11854
 msgid "_Gain Scaling"
-msgstr "_קנה מידת רווח"
+msgstr "_קנה מידת הגבר"
 
 #: resources/xnec2c.glade:11869
 msgid "Linear _Power"
@@ -3293,11 +3293,11 @@ msgstr "מקדם קנה מידה למבנה"
 
 #: resources/xnec2c.glade:12789
 msgid "From Tag No."
-msgstr "מתג מס׳"
+msgstr "מתגית מס׳"
 
 #: resources/xnec2c.glade:12839
 msgid "To Tag No."
-msgstr "עד תג מס׳"
+msgstr "עד תגית מס׳"
 
 #: resources/xnec2c.glade:12874
 msgid "Scale Structure"
@@ -3309,7 +3309,7 @@ msgstr "המרת קואורדינטות (כרטיס GM)"
 
 #: resources/xnec2c.glade:13081
 msgid "Tag Increment"
-msgstr "תוספת תג"
+msgstr "תוספת תגית"
 
 #: resources/xnec2c.glade:13112
 msgid "Rotate about X"
@@ -3333,7 +3333,7 @@ msgstr "הזזה לאורך Y"
 
 #: resources/xnec2c.glade:13271
 msgid "Start From Tag"
-msgstr "התחל מתג"
+msgstr "התחל מתגית"
 
 #: resources/xnec2c.glade:13303
 msgid "Rotate about Z"
@@ -3353,11 +3353,11 @@ msgstr "פקודת קו תמסורת (כרטיס TL)"
 
 #: resources/xnec2c.glade:13597
 msgid "Tag Number, End 1  "
-msgstr "מספר תג, קצה 1  "
+msgstr "מספר תגית, קצה 1  "
 
 #: resources/xnec2c.glade:13629
 msgid "Tag Number, End 2  "
-msgstr "מספר תג, קצה 2  "
+msgstr "מספר תגית, קצה 2  "
 
 #: resources/xnec2c.glade:13660
 msgid "Segment Num, End 1"

@@ -29,7 +29,7 @@ msgstr "Грешка повезивања сегмента у tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "величина корака ограничена на z= %10.5f\n"
+msgstr "величина корака ограничена на Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -432,8 +432,8 @@ msgid ""
 msgstr ""
 "Анимација захтева податке блиског поља.\n"
 "\n"
-"Анимација Е-поља: Додајте NE картицу у NEC фајл\n"
-"Анимација H-поља: Додајте NH картицу у NEC фајл\n"
+"Анимација Е-поља: Додајте NE картицу у NEC датотеку\n"
+"Анимација H-поља: Додајте NH картицу у NEC датотеку\n"
 "Појнтингов вектор: Додајте и NE и NH картице"
 
 #: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
@@ -975,7 +975,7 @@ msgstr "b мање од a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "величина корака ограничена на z = %12.5E\n"
+msgstr "величина корака ограничена на Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1702,7 +1702,7 @@ msgstr "дугме миша: непознато дугме %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel није валидан за z = 0"
+msgstr "Hankel није валидан за Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1750,7 +1750,7 @@ msgstr ""
 "     --openblas-threads <n>  подеси број OpenBLAS нити (подразумевано: 1)\n"
 "     --mkl-threads <n>       подеси број Intel MKL нити (подразумевано: 1)\n"
 "     --omp-threads <n>       подеси број OpenMP нити (подразумевано: 1)\n"
-"  -b|--batch:        омогући batch режим, изађи након извршавања фреквентне петље\n"
+"  -b|--batch:        омогући batch режим, изађи након извршавања фреквенцијске петље\n"
 "  -P|--no-pthreads:  онемогући pthreads и користи GTK петљу за отклањање грешака\n"
 "  -h|--help:         прикажи информације о употреби и изађи\n"
 "  -V|--version:      прикажи број верзије xnec2c и изађи\n"
@@ -1761,9 +1761,9 @@ msgstr ""
 "  --optimize:        Одмах активирај оптимизатор.\n"
 "  --skip-verify:     прескочи провере верификације геометрије\n"
 "\n"
-"Следећи аргументи уписују у излазну датотеку након завршетка фреквентне петље.\n"
+"Следећи аргументи уписују у излазну датотеку након завршетка фреквенцијске петље.\n"
 "Ово је корисно комбиновати са --batch; Ако желите да наведете имена датотека\n"
-"за упис без --batch режима, омогућите File->Optimizer Settings или датотеке\n"
+"за упис без --batch режима, омогућите Датотека->Подешавања оптимизације или датотеке\n"
 "које наведете у командној линији неће бити уписане.\n"
 "\n"
 "  --write-csv             <име-датотеке>  - упиши CSV датотеку мерења\n"
@@ -2900,7 +2900,7 @@ msgstr "Опције рефлексије"
 
 #: resources/xnec2c.glade:9546
 msgid "Xnec2c: Frequency Data Plots"
-msgstr "Xnec2c: Графикони фреквентних података"
+msgstr "Xnec2c: Графикони фреквенцијских података"
 
 #: resources/xnec2c.glade:9571 resources/xnec2c.glade:10386
 #: resources/xnec2c.glade:11663
@@ -3036,7 +3036,7 @@ msgstr "Фрекв петља"
 
 #: resources/xnec2c.glade:10342
 msgid "Frequency Data Plots"
-msgstr "Графикони фреквентних података"
+msgstr "Графикони фреквенцијских података"
 
 #: resources/xnec2c.glade:10459
 msgid "Save _Currents/Charges as CSV"
@@ -3128,7 +3128,7 @@ msgstr "Помоћ за _тестове перформанси"
 
 #: resources/xnec2c.glade:10754
 msgid "Begin Frequency Loop at Startup"
-msgstr "Покрени фреквентну петљу при покретању"
+msgstr "Покрени фреквенцијску петљу при покретању"
 
 #: resources/xnec2c.glade:10765
 msgid "Confirm Quit"

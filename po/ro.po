@@ -29,7 +29,7 @@ msgstr "Eroare de conexiune a segmentului în tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "dimensiunea pasului limitată la z= %10.5f\n"
+msgstr "dimensiunea pasului limitată la Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -802,7 +802,7 @@ msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
 "threshold=%.3e); segment will connect to itself\n"
 msgstr ""
-"tag=%d/seg=%d: distanța endpoint=%.3e este prea mică (sub pragul de "
+"tag=%d/seg=%d: distanța punctului final=%.3e este prea mică (sub pragul de "
 "conexiune=%.3e); segmentul se va conecta la el însuși\n"
 
 #: src/geometry.c:1647
@@ -1071,7 +1071,7 @@ msgstr "b mai mic decât a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "dimensiunea pasului limitată la z = %12.5E\n"
+msgstr "dimensiunea pasului limitată la Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1680,7 +1680,7 @@ msgid ""
 msgstr ""
 "List_Comments():\n"
 "Eroare la citirea fișierului de intrare\n"
-"Mnemonica comentariului este scurtă sau lipsește"
+"Mnemonicul comentariului scurt sau lipsă"
 
 #: src/nec2_model.c:594
 msgid "End Comments"
@@ -1841,7 +1841,7 @@ msgstr "buton mouse: buton necunoscut %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel nu este valid pentru z = 0"
+msgstr "Hankel nu este valid pentru Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"

@@ -29,7 +29,7 @@ msgstr "tbf() でのセグメント接続エラー"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "z= %10.5f でステップサイズが制限されました\n"
+msgstr "Z= %10.5f でステップサイズが制限されました\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -975,7 +975,7 @@ msgstr "bがa未満です"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "z = %12.5E でステップサイズが制限されました\n"
+msgstr "Z = %12.5E でステップサイズが制限されました\n"
 
 #: src/input.c:84
 msgid ""
@@ -1292,7 +1292,7 @@ msgid ""
 "xnec2c renders radiation patterns graphically instead of text tables.\n"
 "Pattern calculations proceed normally; use GUI to view results."
 msgstr ""
-"ゲイン平均化 (XNDA ***1または***2) はテキスト出力フォーマットを制御します。\n"
+"利得平均化 (XNDA ***1または***2) はテキスト出力フォーマットを制御します。\n"
 "xnec2cは放射パターンをテキストテーブルではなくグラフィカルに描画します。\n"
 "パターン計算は正常に進行します。結果を見るにはGUIを使用してください。"
 
@@ -1314,7 +1314,7 @@ msgstr "不正なデータカード"
 
 #: src/input.c:1578
 msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
-msgstr "RPカードが見つからないか表面波です: 放射パターンとゲイン計算が無効になりました\n"
+msgstr "RPカードが見つからないか表面波です: 放射パターンと利得計算が無効になりました\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
@@ -1768,8 +1768,8 @@ msgstr ""
 "\n"
 "  --write-csv             <ファイル名>  - 測定値のCSVファイルを書き込む\n"
 "  --write-s1p             <ファイル名>  - SパラメータのS1Pファイルを書き込む\n"
-"  --write-s2p-max-gain    <ファイル名>  - S2Pファイルを書き込む。ポート2は最大ゲイン\n"
-"  --write-s2p-viewer-gain <ファイル名>  - S2Pファイルを書き込む。ポート2はビューアゲイン\n"
+"  --write-s2p-max-gain    <ファイル名>  - S2Pファイルを書き込む。ポート2は最大利得\n"
+"  --write-s2p-viewer-gain <ファイル名>  - S2Pファイルを書き込む。ポート2はビューア利得\n"
 "  --write-rdpat           <ファイル名>  - 放射パターンのCSVを書き込む\n"
 "  --write-currents        <ファイル名>  - 電流と電荷のCSVを書き込む\n"
 
@@ -3265,7 +3265,7 @@ msgstr "_構造オーバーレイ"
 
 #: resources/xnec2c.glade:12053
 msgid "Gain Pattern"
-msgstr "ゲインパターン"
+msgstr "利得パターン"
 
 #: resources/xnec2c.glade:12068
 msgid "E/H Fields"

@@ -29,7 +29,7 @@ msgstr "Σφάλμα σύνδεσης segment στην tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "το μέγεθος βήματος περιορίστηκε στο z= %10.5f\n"
+msgstr "το μέγεθος βήματος περιορίστηκε στο Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -614,7 +614,7 @@ msgstr "Κάθετος - Αζιμ."
 
 #: src/geom_edit.c:1076 resources/xnec2c.glade:7845
 msgid "Patch Area"
-msgstr "Εμβαδόν Επιφάνειας"
+msgstr "Εμβαδόν Patch"
 
 #: src/geom_edit.c:1081
 msgid "Corner 1 - X"
@@ -975,7 +975,7 @@ msgstr "b μικρότερο από a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "το μέγεθος βήματος περιορίστηκε στο z = %12.5E\n"
+msgstr "το μέγεθος βήματος περιορίστηκε στο Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1403,7 +1403,7 @@ msgstr "το όνομα αρχείου εισόδου είναι πολύ μεγ
 
 #: src/main.c:261
 msgid "Forking disabled!\n"
-msgstr "Η διχάλωση απενεργοποιήθηκε!\n"
+msgstr "Η διακλάδωση απενεργοποιήθηκε!\n"
 
 #: src/main.c:269
 msgid "pthread freqloop disabled!\n"
@@ -1447,7 +1447,7 @@ msgstr "η λειτουργία δέσμης απαιτεί αρχείο εισ�
 #: src/main.c:407
 #, c-format
 msgid "Forking %d jobs.\n"
-msgstr "Διχάλωση %d εργασιών.\n"
+msgstr "Διακλάδωση %d εργασιών.\n"
 
 #: src/main.c:416 src/main.c:424
 msgid "exiting after fatal error: pipe() failed"
@@ -1702,7 +1702,7 @@ msgstr "κουμπί ποντικιού: άγνωστο κουμπί %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel μη έγκυρο για z = 0"
+msgstr "Hankel μη έγκυρο για Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"

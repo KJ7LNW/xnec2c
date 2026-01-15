@@ -20,29 +20,29 @@ msgstr ""
 #: src/calculations.c:117 src/calculations.c:1276
 #, c-format
 msgid "segment connection error for segment %5d\n"
-msgstr "Lỗi kết nối phân đoạn cho phân đoạn %5d\n"
+msgstr "Lỗi kết nối đoạn cho đoạn %5d\n"
 
 #: src/calculations.c:118
 msgid "Segment connection error in tbf()"
-msgstr "Lỗi kết nối phân đoạn trong tbf()"
+msgstr "Lỗi kết nối đoạn trong tbf()"
 
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "Kích thước bước bị giới hạn tại z= %10.5f\n"
+msgstr "Kích thước bước bị giới hạn tại Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
 msgid "segment connection error for segment %d\n"
-msgstr "Lỗi kết nối phân đoạn cho phân đoạn %d\n"
+msgstr "Lỗi kết nối đoạn cho đoạn %d\n"
 
 #: src/calculations.c:1055
 msgid "Segment connection error in sbf()"
-msgstr "Lỗi kết nối phân đoạn trong sbf()"
+msgstr "Lỗi kết nối đoạn trong sbf()"
 
 #: src/calculations.c:1277
 msgid "Segment connection error in trio()"
-msgstr "Lỗi kết nối phân đoạn trong trio()"
+msgstr "Lỗi kết nối đoạn trong trio()"
 
 #: src/callback_func.c:263
 msgid ""
@@ -209,7 +209,7 @@ msgstr "Số tag"
 
 #: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
 msgid "Segment Number"
-msgstr "Số phân đoạn"
+msgstr "Số đoạn"
 
 #: src/cmnd_edit.c:422
 msgid "Voltage Real Part"
@@ -948,7 +948,7 @@ msgstr "# Vectơ Poynting\n"
 #: src/gnuplot.c:369
 #, c-format
 msgid "# Radiation Pattern\n"
-msgstr "# Giản đồ bức xạ\n"
+msgstr "# Đồ thị bức xạ\n"
 
 #: src/gnuplot.c:505
 #, c-format
@@ -975,7 +975,7 @@ msgstr "b nhỏ hơn a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "kích thước bước bị giới hạn tại z = %12.5E\n"
+msgstr "kích thước bước bị giới hạn tại Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1017,11 +1017,11 @@ msgid ""
 "Number of segments is less than 1"
 msgstr ""
 "Lỗi dữ liệu hình học\n"
-"Số phân đoạn nhỏ hơn 1"
+"Số đoạn nhỏ hơn 1"
 
 #: src/input.c:162
 msgid "warning - number of segments is greater than 1000000\n"
-msgstr "cảnh báo - số phân đoạn lớn hơn 1000000\n"
+msgstr "cảnh báo - số đoạn lớn hơn 1000000\n"
 
 #: src/input.c:210
 #, c-format
@@ -1093,7 +1093,7 @@ msgstr "Không có thẻ dữ liệu hình học"
 
 #: src/input.c:550
 msgid "Probable invalid segment geometry.\n"
-msgstr "Có thể hình học phân đoạn không hợp lệ.\n"
+msgstr "Có thể hình học đoạn không hợp lệ.\n"
 
 #: src/input.c:551
 msgid ""
@@ -1101,7 +1101,7 @@ msgid ""
 "See warnings in the console for detail.\n"
 "Trying to continue..."
 msgstr ""
-"Hình học phân đoạn không hợp lệ.\n"
+"Hình học đoạn không hợp lệ.\n"
 "Xem cảnh báo trong bảng điều khiển để biết chi tiết.\n"
 "Đang cố gắng tiếp tục..."
 
@@ -1112,11 +1112,11 @@ msgstr "Read_Geometry: verify_segments() đã thành công\n"
 #: src/input.c:602
 #, c-format
 msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
-msgstr "lỗi dữ liệu phân đoạn: tag=%d si=%lf, bi=%lf\n"
+msgstr "lỗi dữ liệu đoạn: tag=%d si=%lf, bi=%lf\n"
 
 #: src/input.c:604
 msgid "Segment data error, zero-length line?  See console."
-msgstr "Lỗi dữ liệu phân đoạn, đường có độ dài bằng không? Xem bảng điều khiển."
+msgstr "Lỗi dữ liệu đoạn, đường có độ dài bằng không? Xem bảng điều khiển."
 
 #: src/input.c:639
 msgid "Move GM data card error"
@@ -1125,11 +1125,11 @@ msgstr "Lỗi thẻ dữ liệu di chuyển GM"
 #: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
 #: src/input.c:739
 msgid "Patch data card error"
-msgstr "Lỗi thẻ dữ liệu patch"
+msgstr "Lỗi thẻ dữ liệu mảnh"
 
 #: src/input.c:677
 msgid "Patch data error"
-msgstr "Lỗi dữ liệu patch"
+msgstr "Lỗi dữ liệu mảnh"
 
 #: src/input.c:786
 msgid ""
@@ -1252,14 +1252,14 @@ msgstr ""
 
 #: src/input.c:1430
 msgid "Segment number error in TL or NT card\n"
-msgstr "Lỗi số phân đoạn trong thẻ TL hoặc NT\n"
+msgstr "Lỗi số đoạn trong thẻ TL hoặc NT\n"
 
 #: src/input.c:1431
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
 msgstr ""
-"Số phân đoạn\n"
+"Số đoạn\n"
 "lỗi trong thẻ NT hoặc TL"
 
 #: src/input.c:1452
@@ -1415,11 +1415,11 @@ msgstr "chế độ batch được bật, sẽ thoát sau vòng lặp đầu ti�
 
 #: src/main.c:331
 msgid "verify segments check disabled\n"
-msgstr "kiểm tra xác minh phân đoạn bị vô hiệu hóa\n"
+msgstr "kiểm tra xác minh đoạn bị vô hiệu hóa\n"
 
 #: src/main.c:336
 msgid "forcing overlap check on large models\n"
-msgstr "buộc kiểm tra chồng lấp trên mô hình lớn\n"
+msgstr "buộc kiểm tra chồng chéo trên mô hình lớn\n"
 
 #: src/main.c:350
 msgid "--batch and --optimize are mutual exclusive.\n"
@@ -1550,7 +1550,7 @@ msgid ""
 msgstr ""
 "List_Comments():\n"
 "Lỗi đọc tệp đầu vào\n"
-"Mã ghi chú bị thiếu hoặc quá ngắn"
+"Mã gợi nhớ chú thích bị thiếu hoặc quá ngắn"
 
 #: src/nec2_model.c:594
 msgid "End Comments"
@@ -1578,14 +1578,14 @@ msgstr "Loại tải điện được chọn không hợp lệ"
 #: src/network.c:737
 #, c-format
 msgid "loading data card error, no segment has an itag = %d\n"
-msgstr "lỗi thẻ dữ liệu tải, không có phân đoạn nào có itag = %d\n"
+msgstr "lỗi thẻ dữ liệu tải, không có đoạn nào có itag = %d\n"
 
 #: src/network.c:738
 msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
 msgstr ""
-"Nạp thẻ dữ liệu\n"
+"Thẻ dữ liệu tải\n"
 "Lỗi không khớp số tag"
 
 #: src/plot_freqdata.c:132
@@ -1702,7 +1702,7 @@ msgstr "nút chuột: nút không xác định %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel không hợp lệ cho z = 0"
+msgstr "Hankel không hợp lệ cho Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1847,7 +1847,7 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr "Vòng lặp tối ưu hóa chưa hoàn tất, bỏ qua vẽ lại mẫu bức xạ.\n"
+msgstr "Vòng lặp tối ưu hóa chưa hoàn tất, bỏ qua vẽ lại đồ thị bức xạ.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
@@ -1961,7 +1961,7 @@ msgstr "Phần tử cung (thẻ GA)"
 
 #: resources/xnec2c.glade:327 resources/xnec2c.glade:14321
 msgid "No. Segments"
-msgstr "Số phân đoạn"
+msgstr "Số đoạn"
 
 #: resources/xnec2c.glade:340 resources/xnec2c.glade:3802
 #: resources/xnec2c.glade:14417
@@ -2065,7 +2065,7 @@ msgstr "Bất đối xứng ma trận dẫn nạp cực đại"
 
 #: resources/xnec2c.glade:1297
 msgid "Impedance of Source Segment"
-msgstr "Trở kháng của phân đoạn nguồn"
+msgstr "Trở kháng của đoạn nguồn"
 
 #: resources/xnec2c.glade:1319
 msgid "Print Control"
@@ -2362,15 +2362,15 @@ msgstr "Phạm vi xấp xỉ tương tác"
 
 #: resources/xnec2c.glade:4610
 msgid "Thin Wire Kernel (EK Card)"
-msgstr "Hạt nhân dây mảnh (Thẻ EK)"
+msgstr "Nhân dây mỏng (Thẻ EK)"
 
 #: resources/xnec2c.glade:4628
 msgid "Extended Thin Wire Kernel"
-msgstr "Hạt nhân dây mảnh mở rộng"
+msgstr "Nhân dây mỏng mở rộng"
 
 #: resources/xnec2c.glade:4645
 msgid "Thin Wire Kernel"
-msgstr "Hạt nhân dây mảnh"
+msgstr "Nhân dây mỏng"
 
 #: resources/xnec2c.glade:4808
 msgid "Loading Command (LD Card)"
@@ -2418,7 +2418,7 @@ msgstr "Điện trở"
 
 #: resources/xnec2c.glade:5046
 msgid "From Segment #"
-msgstr "Từ phân đoạn #"
+msgstr "Từ đoạn #"
 
 #: resources/xnec2c.glade:5077
 msgid "Inductance"
@@ -2426,7 +2426,7 @@ msgstr "Điện cảm"
 
 #: resources/xnec2c.glade:5109
 msgid "To Segment #"
-msgstr "Đến phân đoạn #"
+msgstr "Đến đoạn #"
 
 #: resources/xnec2c.glade:5140
 msgid "Capacitance"
@@ -2529,7 +2529,7 @@ msgstr "Xoắn ốc"
 
 #: resources/xnec2c.glade:6252
 msgid "Patch"
-msgstr "Patch"
+msgstr "Mảnh"
 
 #: resources/xnec2c.glade:6266
 msgid "Cylinder"
@@ -2641,15 +2641,15 @@ msgstr "Số tag, cổng 2  "
 
 #: resources/xnec2c.glade:6937
 msgid "Segment Num, Port 1"
-msgstr "Số phân đoạn, cổng 1"
+msgstr "Số đoạn, cổng 1"
 
 #: resources/xnec2c.glade:6968
 msgid "Segment Num, Port 2"
-msgstr "Số phân đoạn, cổng 2"
+msgstr "Số đoạn, cổng 2"
 
 #: resources/xnec2c.glade:7003 resources/xnec2c.glade:13727
 msgid "Segment Identity"
-msgstr "Định danh phân đoạn"
+msgstr "Định danh đoạn"
 
 #: resources/xnec2c.glade:7033
 msgid "Element 1,1 Real Part"
@@ -2681,7 +2681,7 @@ msgstr "Phần tử ma trận dẫn nạp"
 
 #: resources/xnec2c.glade:7444
 msgid "Patch Element (SP & SC Cards)"
-msgstr "Phần tử patch (thẻ SP & SC)"
+msgstr "Phần tử mảnh (thẻ SP & SC)"
 
 #: resources/xnec2c.glade:7468
 msgid "Arbitrary"
@@ -2705,7 +2705,7 @@ msgstr "Bề mặt"
 
 #: resources/xnec2c.glade:7559
 msgid "Patch Type"
-msgstr "Loại patch"
+msgstr "Loại mảnh"
 
 #: resources/xnec2c.glade:7589
 msgid "Corners 1-2 sub-division (NX)"
@@ -2757,7 +2757,7 @@ msgstr "Thoát xnec2c?"
 
 #: resources/xnec2c.glade:8431
 msgid "Radiation Pattern (RP Card)"
-msgstr "Mẫu bức xạ (Thẻ RP)"
+msgstr "Đồ thị bức xạ (Thẻ RP)"
 
 #: resources/xnec2c.glade:8458
 msgid "Normal (Space) Wave"
@@ -2861,7 +2861,7 @@ msgstr "Số điểm theo Theta"
 
 #: resources/xnec2c.glade:8985
 msgid "Initial Phi (deg)"
-msgstr "Phi ban đầu (độ)"
+msgstr "Phi ban đầu (deg)"
 
 #: resources/xnec2c.glade:9067
 msgid "Field Point Distance"
@@ -2873,7 +2873,7 @@ msgstr "Chuẩn hóa độ lợi"
 
 #: resources/xnec2c.glade:9141
 msgid "Radiation Pattern Parameters"
-msgstr "Tham số mẫu bức xạ"
+msgstr "Tham số đồ thị bức xạ"
 
 #: resources/xnec2c.glade:9301
 msgid "Reflect Structure (GX card)"
@@ -3133,7 +3133,7 @@ msgstr "Xác nhận thoát"
 
 #: resources/xnec2c.glade:10806
 msgid "_Radiation Pattern"
-msgstr "_Mẫu bức xạ"
+msgstr "_Đồ thị bức xạ"
 
 #: resources/xnec2c.glade:10816
 msgid "_Frequency Plots"
@@ -3202,7 +3202,7 @@ msgstr "Hình học cấu trúc"
 
 #: resources/xnec2c.glade:11637
 msgid "Xnec2c: Radiation Patterns"
-msgstr "Xnec2c: Mẫu bức xạ"
+msgstr "Xnec2c: Đồ thị bức xạ"
 
 #: resources/xnec2c.glade:11854
 msgid "_Gain Scaling"
@@ -3290,11 +3290,11 @@ msgstr "Hệ số tỷ lệ cấu trúc"
 
 #: resources/xnec2c.glade:12789
 msgid "From Tag No."
-msgstr "Từ số thẻ"
+msgstr "Từ số tag"
 
 #: resources/xnec2c.glade:12839
 msgid "To Tag No."
-msgstr "Đến số thẻ"
+msgstr "Đến số tag"
 
 #: resources/xnec2c.glade:12874
 msgid "Scale Structure"
@@ -3306,7 +3306,7 @@ msgstr "Biến đổi tọa độ (thẻ GM)"
 
 #: resources/xnec2c.glade:13081
 msgid "Tag Increment"
-msgstr "Bước tăng thẻ"
+msgstr "Số gia tag"
 
 #: resources/xnec2c.glade:13112
 msgid "Rotate about X"
@@ -3330,7 +3330,7 @@ msgstr "Di chuyển dọc Y"
 
 #: resources/xnec2c.glade:13271
 msgid "Start From Tag"
-msgstr "Bắt đầu từ thẻ"
+msgstr "Bắt đầu từ tag"
 
 #: resources/xnec2c.glade:13303
 msgid "Rotate about Z"
@@ -3350,19 +3350,19 @@ msgstr "Lệnh đường truyền (thẻ TL)"
 
 #: resources/xnec2c.glade:13597
 msgid "Tag Number, End 1  "
-msgstr "Số thẻ, đầu 1  "
+msgstr "Số tag, đầu 1  "
 
 #: resources/xnec2c.glade:13629
 msgid "Tag Number, End 2  "
-msgstr "Số thẻ, đầu 2  "
+msgstr "Số tag, đầu 2  "
 
 #: resources/xnec2c.glade:13660
 msgid "Segment Num, End 1"
-msgstr "Số phân đoạn, đầu 1"
+msgstr "Số đoạn, đầu 1"
 
 #: resources/xnec2c.glade:13692
 msgid "Segment Num, End 2"
-msgstr "Số phân đoạn, đầu 2"
+msgstr "Số đoạn, đầu 2"
 
 #: resources/xnec2c.glade:13756
 msgid "Crossed Transmission Line"
@@ -3442,11 +3442,11 @@ msgstr "Độ côn chiều dài"
 
 #: resources/xnec2c.glade:14703
 msgid "Diameter Seg 1"
-msgstr "Đường kính phân đoạn 1"
+msgstr "Đường kính đoạn 1"
 
 #: resources/xnec2c.glade:14735
 msgid "Diameter Seg N"
-msgstr "Đường kính phân đoạn N"
+msgstr "Đường kính đoạn N"
 
 #: resources/xnec2c.glade:14767
 msgid "Diam. Taper"

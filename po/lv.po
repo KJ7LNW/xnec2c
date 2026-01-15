@@ -29,7 +29,7 @@ msgstr "Segmenta savienojuma kļūda funkcijā tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "soļa izmērs ierobežots pie z= %10.5f\n"
+msgstr "soļa izmērs ierobežots pie Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -205,7 +205,7 @@ msgstr ""
 #: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
 #: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
 msgid "Tag Number"
-msgstr "Birkas numurs"
+msgstr "Taga numurs"
 
 #: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
 msgid "Segment Number"
@@ -787,7 +787,7 @@ msgstr "tag=%d/seg=%d: galapunktu attālums=%.3e ir pārāk mazs (zem savienojum
 #: src/geometry.c:1647
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
-msgstr "tag=%d: papildu paššavienojuma brīdinājumi tiek apslāpēti\n"
+msgstr "tag=%d: papildu pašsavienojuma brīdinājumi tiek apslāpēti\n"
 
 #: src/geometry.c:1692
 #, c-format
@@ -975,7 +975,7 @@ msgstr "b mazāks par a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "soļa izmērs ierobežots pie z = %12.5E\n"
+msgstr "soļa izmērs ierobežots pie Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1009,7 +1009,7 @@ msgid ""
 "Tag number is less than 1"
 msgstr ""
 "Ģeometrijas datu kļūda\n"
-"Birkas numurs ir mazāks par 1"
+"Taga numurs ir mazāks par 1"
 
 #: src/input.c:155
 msgid ""
@@ -1586,7 +1586,7 @@ msgid ""
 "Tag number mismatch error"
 msgstr ""
 "Datu kartes ielāde\n"
-"Birkas numura neatbilstības kļūda"
+"Taga numura neatbilstības kļūda"
 
 #: src/plot_freqdata.c:132
 #, c-format
@@ -1702,7 +1702,7 @@ msgstr "peles poga: nezināma poga %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel nav derīgs, ja z = 0"
+msgstr "Hankel nav derīgs, ja Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1763,8 +1763,8 @@ msgstr ""
 "\n"
 "Šie argumenti raksta izvades failā pēc frekvenču cikla pabeigšanas.\n"
 "Tos ir noderīgi kombinēt ar --batch; Ja vēlaties norādīt failu\n"
-"nosaukumus rakstīšanai bez --batch režīma, tad iespējojiet File->Optimizer\n"
-"Settings, pretējā gadījumā komandrindā norādītie faili netiks rakstīti.\n"
+"nosaukumus rakstīšanai bez --batch režīma, tad iespējojiet Fails->Optimizācijas\n"
+"iestatījumi, pretējā gadījumā komandrindā norādītie faili netiks rakstīti.\n"
 "\n"
 "  --write-csv             <faila_nosaukums>  - rakstīt CSV failu ar mērījumiem\n"
 "  --write-s1p             <faila_nosaukums>  - rakstīt S1P failu ar S-parametriem\n"
@@ -2012,7 +2012,7 @@ msgstr "Cilindriska struktūra (GR karte)"
 
 #: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
 msgid "Tag Number Increment"
-msgstr "Birkas numura pieaugums"
+msgstr "Taga numura pieaugums"
 
 #: resources/xnec2c.glade:761
 msgid "Number of Structures"
@@ -2413,7 +2413,7 @@ msgstr "Slodzes veids"
 
 #: resources/xnec2c.glade:4983
 msgid "Load Tag Number"
-msgstr "Slodzes birkas numurs"
+msgstr "Slodzes taga numurs"
 
 #: resources/xnec2c.glade:5014
 msgid "Resistance"
@@ -2636,11 +2636,11 @@ msgstr "Tīkla komanda (NT karte)"
 
 #: resources/xnec2c.glade:6875
 msgid "Tag Number, Port 1  "
-msgstr "Birkas numurs, ports 1  "
+msgstr "Taga numurs, ports 1  "
 
 #: resources/xnec2c.glade:6906
 msgid "Tag Number, Port 2  "
-msgstr "Birkas numurs, ports 2  "
+msgstr "Taga numurs, ports 2  "
 
 #: resources/xnec2c.glade:6937
 msgid "Segment Num, Port 1"
@@ -2969,7 +2969,7 @@ msgstr "_Kreisās rokas"
 
 #: resources/xnec2c.glade:9804
 msgid "_Net Gain"
-msgstr "_Tīrais pastiprinājums"
+msgstr "_Neto pastiprinājums"
 
 #: resources/xnec2c.glade:9813
 msgid "Show _Min/Max Values"
@@ -3293,11 +3293,11 @@ msgstr "Struktūras mēroga koeficients"
 
 #: resources/xnec2c.glade:12789
 msgid "From Tag No."
-msgstr "No birkas Nr."
+msgstr "No taga Nr."
 
 #: resources/xnec2c.glade:12839
 msgid "To Tag No."
-msgstr "Līdz birkas Nr."
+msgstr "Līdz taga Nr."
 
 #: resources/xnec2c.glade:12874
 msgid "Scale Structure"
@@ -3309,7 +3309,7 @@ msgstr "Koordinātu transformācija (GM karte)"
 
 #: resources/xnec2c.glade:13081
 msgid "Tag Increment"
-msgstr "Birkas pieaugums"
+msgstr "Taga pieaugums"
 
 #: resources/xnec2c.glade:13112
 msgid "Rotate about X"
@@ -3333,7 +3333,7 @@ msgstr "Pārvietot pa Y"
 
 #: resources/xnec2c.glade:13271
 msgid "Start From Tag"
-msgstr "Sākt no birkas"
+msgstr "Sākt no taga"
 
 #: resources/xnec2c.glade:13303
 msgid "Rotate about Z"
@@ -3353,11 +3353,11 @@ msgstr "Pārvades līnijas komanda (TL karte)"
 
 #: resources/xnec2c.glade:13597
 msgid "Tag Number, End 1  "
-msgstr "Birkas numurs, 1. gals  "
+msgstr "Taga numurs, 1. gals  "
 
 #: resources/xnec2c.glade:13629
 msgid "Tag Number, End 2  "
-msgstr "Birkas numurs, 2. gals  "
+msgstr "Taga numurs, 2. gals  "
 
 #: resources/xnec2c.glade:13660
 msgid "Segment Num, End 1"
@@ -3499,7 +3499,7 @@ msgstr "Pārvades līnijas impedance (Zo)"
 #~ msgstr "kļūda lasot komentārus: komentāra mnemonika ir īsa vai trūkst\n"
 
 #~ msgid "geometry data card error - tag number is less than 1\n"
-#~ msgstr "ģeometrijas datu kartes kļūda - birkas numurs ir mazāks par 1\n"
+#~ msgstr "ģeometrijas datu kartes kļūda - taga numurs ir mazāks par 1\n"
 
 #~ msgid "geometry data card error - number of segments is less than 1\n"
 #~ msgstr "ģeometrijas datu kartes kļūda - segmentu skaits ir mazāks par 1\n"

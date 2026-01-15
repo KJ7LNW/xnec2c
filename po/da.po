@@ -29,7 +29,7 @@ msgstr "Segmentforbindelsesfejl i tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "trinstørrelse begrænset ved z= %10.5f\n"
+msgstr "trinstørrelse begrænset ved Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -231,11 +231,11 @@ msgstr "  ** BRUGES IKKE **"
 
 #: src/cmnd_edit.c:445
 msgid "Num of Theta Angles"
-msgstr "Antal theta-vinkler"
+msgstr "Antal Theta-vinkler"
 
 #: src/cmnd_edit.c:446
 msgid "Num of Phi Angles"
-msgstr "Antal phi-vinkler"
+msgstr "Antal Phi-vinkler"
 
 #: src/cmnd_edit.c:447
 msgid "Theta Angle (deg)"
@@ -303,15 +303,15 @@ msgstr "Feltpunkt R (m)"
 
 #: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
 msgid "Points in Phi"
-msgstr "Punkter i phi"
+msgstr "Punkter i Phi"
 
 #: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
 msgid "Initial Theta (deg)"
-msgstr "Start-theta (deg)"
+msgstr "Start-Theta (deg)"
 
 #: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
 msgid "Increment in Theta"
-msgstr "Forøgelse i theta"
+msgstr "Forøgelse i Theta"
 
 #: src/cmnd_edit.c:1570
 msgid "R (m) (Optional)"
@@ -396,11 +396,11 @@ msgstr "Punkter langs R"
 
 #: src/cmnd_edit.c:2470
 msgid "Points along Phi"
-msgstr "Punkter langs phi"
+msgstr "Punkter langs Phi"
 
 #: src/cmnd_edit.c:2471
 msgid "Points along Theta"
-msgstr "Punkter langs theta"
+msgstr "Punkter langs Theta"
 
 #: src/cmnd_edit.c:2472
 msgid "First Point R (m)"
@@ -408,11 +408,11 @@ msgstr "Første punkt R (m)"
 
 #: src/cmnd_edit.c:2473
 msgid "First Point Phi"
-msgstr "Første punkt phi"
+msgstr "Første punkt Phi"
 
 #: src/cmnd_edit.c:2474
 msgid "First Point Theta"
-msgstr "Første punkt theta"
+msgstr "Første punkt Theta"
 
 #: src/cmnd_edit.c:2475
 msgid "Increment in R (m)"
@@ -420,7 +420,7 @@ msgstr "Forøgelse i R (m)"
 
 #: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
 msgid "Increment in Phi"
-msgstr "Forøgelse i phi"
+msgstr "Forøgelse i Phi"
 
 #: src/draw_radiation.c:28
 msgid ""
@@ -975,7 +975,7 @@ msgstr "b mindre end a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "trinstørrelse begrænset ved z = %12.5E\n"
+msgstr "trinstørrelse begrænset ved Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1203,7 +1203,7 @@ msgstr ""
 
 #: src/input.c:1223
 msgid "theta > 90 deg. with ground specified\n"
-msgstr "theta > 90 grader med jord angivet\n"
+msgstr "Theta > 90 grader med jord angivet\n"
 
 #: src/input.c:1224 src/radiation.c:656
 msgid ""
@@ -1702,7 +1702,7 @@ msgstr "museknap: ukendt knap %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel ikke gyldig for z = 0"
+msgstr "Hankel ikke gyldig for Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -2032,7 +2032,7 @@ msgstr "Fejl"
 
 #: resources/xnec2c.glade:1128
 msgid "Excitation Command (EX Card)"
-msgstr "Excitationskommando (EX Card)"
+msgstr "Excitationskommando (EX-kort)"
 
 #: resources/xnec2c.glade:1154
 msgid "Incident LH Wave"
@@ -2104,7 +2104,7 @@ msgstr "Excitationsparametre"
 
 #: resources/xnec2c.glade:1741
 msgid "Execute Command (XQ Card)"
-msgstr "Udførelseskommando (XQ Card)"
+msgstr "Udførelseskommando (XQ-kort)"
 
 #: resources/xnec2c.glade:1768
 msgid "No Pattern Cuts"
@@ -2128,7 +2128,7 @@ msgstr "Udførelseskommando"
 
 #: resources/xnec2c.glade:2069
 msgid "Frequency Command (FR Card)"
-msgstr "Frekvenskommando (FR Card)"
+msgstr "Frekvenskommando (FR-kort)"
 
 #: resources/xnec2c.glade:2094
 msgid "Additive Stepping"
@@ -2164,7 +2164,7 @@ msgstr "Frekvenstrinsparametre"
 
 #: resources/xnec2c.glade:2422
 msgid "Geometry End (GE Card)"
-msgstr "Geometri slut (GE Card)"
+msgstr "Geometri slut (GE-kort)"
 
 #: resources/xnec2c.glade:2447
 msgid "No Ground, Free Space condition"
@@ -2184,7 +2184,7 @@ msgstr "Jordplantype"
 
 #: resources/xnec2c.glade:2638
 msgid "Ground Parameters (GD Card)"
-msgstr "Jordparametre (GD Card)"
+msgstr "Jordparametre (GD-kort)"
 
 #: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
 #: resources/xnec2c.glade:3222
@@ -2210,7 +2210,7 @@ msgstr "2. medie-parametre"
 
 #: resources/xnec2c.glade:2980
 msgid "Ground Parameters (GN & GD Cards)"
-msgstr "Jordparametre (GN & GD Cards)"
+msgstr "Jordparametre (GN- og GD-kort)"
 
 #: resources/xnec2c.glade:3007
 msgid "Perfect Ground"
@@ -2349,11 +2349,11 @@ msgstr "Radius i Y (B2)"
 
 #: resources/xnec2c.glade:4282
 msgid "GH Card"
-msgstr "GH Card"
+msgstr "GH-kort"
 
 #: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
 msgid "Interaction Approx Range (KH Card)"
-msgstr "Interaktionsapproks.-område (KH Card)"
+msgstr "Interaktionsapproks.-område (KH-kort)"
 
 #: resources/xnec2c.glade:4446
 msgid "Approximation Range (W/lengths)"
@@ -2365,7 +2365,7 @@ msgstr "Interaktionsapproksimationsområde"
 
 #: resources/xnec2c.glade:4610
 msgid "Thin Wire Kernel (EK Card)"
-msgstr "Tyndtrådskerne (EK Card)"
+msgstr "Tyndtrådskerne (EK-kort)"
 
 #: resources/xnec2c.glade:4628
 msgid "Extended Thin Wire Kernel"
@@ -2377,7 +2377,7 @@ msgstr "Tyndtrådskerne"
 
 #: resources/xnec2c.glade:4808
 msgid "Loading Command (LD Card)"
-msgstr "Belastningskommando (LD Card)"
+msgstr "Belastningskommando (LD-kort)"
 
 #: resources/xnec2c.glade:4834
 msgid "Short all Loads (Nulls previous Loading Cards)"
@@ -2828,11 +2828,11 @@ msgstr "Ingen normaliseret forstærkning"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "Normaliseret forstærkning for lilleakse"
+msgstr "Biakseforstærkning normaliseret"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "Normaliseret forstærkning for horisontal akse"
+msgstr "Horisontalakseforstærkning normaliseret"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"
@@ -2860,11 +2860,11 @@ msgstr "Dataudgangskontrol (XNDA)"
 
 #: resources/xnec2c.glade:8876
 msgid "Points in Theta"
-msgstr "Punkter i theta"
+msgstr "Punkter i Theta"
 
 #: resources/xnec2c.glade:8985
 msgid "Initial Phi (deg)"
-msgstr "Start-phi (deg)"
+msgstr "Start-Phi (deg)"
 
 #: resources/xnec2c.glade:9067
 msgid "Field Point Distance"

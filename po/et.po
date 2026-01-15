@@ -29,7 +29,7 @@ msgstr "Segmendi ühenduse viga funktsioonis tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "sammu suurus piiratud kohal z= %10.5f\n"
+msgstr "sammu suurus piiratud kohal Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -82,15 +82,15 @@ msgstr ""
 
 #: src/callback_func.c:697
 msgid "View Currents"
-msgstr "Vaata voole"
+msgstr "Vaadake voole"
 
 #: src/callback_func.c:719 src/callback_func.c:778
 msgid "View Geometry"
-msgstr "Vaata geomeetriat"
+msgstr "Vaadake geomeetriat"
 
 #: src/callback_func.c:756
 msgid "View Charges"
-msgstr "Vaata laenguid"
+msgstr "Vaadake laenguid"
 
 #: src/callback_func.c:821
 msgid "PNG images (*.png)"
@@ -275,11 +275,11 @@ msgstr "Z asukoht (m)"
 
 #: src/cmnd_edit.c:468
 msgid "alpha Angle (deg)"
-msgstr "Alfa nurk (kraadi)"
+msgstr "alfa nurk (kraadi)"
 
 #: src/cmnd_edit.c:469
 msgid "beta Angle (deg)"
-msgstr "Beeta nurk (kraadi)"
+msgstr "beeta nurk (kraadi)"
 
 #: src/cmnd_edit.c:470
 msgid "Current Moment (A.m)"
@@ -307,7 +307,7 @@ msgstr "Punktide arv Fii-s"
 
 #: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
 msgid "Initial Theta (deg)"
-msgstr "Algne teeta (kraadi)"
+msgstr "Algne Teeta (kraadi)"
 
 #: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
 msgid "Increment in Theta"
@@ -412,7 +412,7 @@ msgstr "Esimese punkti Fii"
 
 #: src/cmnd_edit.c:2474
 msgid "First Point Theta"
-msgstr "Esimese punkti teeta"
+msgstr "Esimese punkti Teeta"
 
 #: src/cmnd_edit.c:2475
 msgid "Increment in R (m)"
@@ -975,7 +975,7 @@ msgstr "b väiksem kui a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "sammu suurus piiratud kohal z = %12.5E\n"
+msgstr "sammu suurus piiratud kohal Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1411,7 +1411,7 @@ msgstr "pthread sagedussilmus keelatud!\n"
 
 #: src/main.c:273
 msgid "batch mode enabled, will exit after first loop\n"
-msgstr "pakettrežiim lubatud, väljutakse pärast esimest tsüklit\n"
+msgstr "pakkrežiim lubatud, väljutakse pärast esimest tsüklit\n"
 
 #: src/main.c:331
 msgid "verify segments check disabled\n"
@@ -1442,7 +1442,7 @@ msgstr "ootamatu argument: %s\n"
 
 #: src/main.c:386
 msgid "batch mode requires an input file\n"
-msgstr "pakettrežiim nõuab sisendfaili\n"
+msgstr "pakkrežiim nõuab sisendfaili\n"
 
 #: src/main.c:407
 #, c-format
@@ -1702,7 +1702,7 @@ msgstr "hiirenupp: tundmatu nupp %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel ei kehti z = 0 korral"
+msgstr "Hankel ei kehti Z = 0 korral"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -2532,7 +2532,7 @@ msgstr "Heelikas"
 
 #: resources/xnec2c.glade:6252
 msgid "Patch"
-msgstr "Patch"
+msgstr "Pind"
 
 #: resources/xnec2c.glade:6266
 msgid "Cylinder"
@@ -2684,7 +2684,7 @@ msgstr "Admitantsmaatriksi elemendid"
 
 #: resources/xnec2c.glade:7444
 msgid "Patch Element (SP & SC Cards)"
-msgstr "Patch-element (SP ja SC kaardid)"
+msgstr "Pinnaelement (SP ja SC kaardid)"
 
 #: resources/xnec2c.glade:7468
 msgid "Arbitrary"
@@ -2708,7 +2708,7 @@ msgstr "Pind"
 
 #: resources/xnec2c.glade:7559
 msgid "Patch Type"
-msgstr "Patch'i tüüp"
+msgstr "Pinna tüüp"
 
 #: resources/xnec2c.glade:7589
 msgid "Corners 1-2 sub-division (NX)"
@@ -2792,7 +2792,7 @@ msgstr "Lineaarne järsak + radiaalid"
 
 #: resources/xnec2c.glade:8572
 msgid "<b>See GN/GD Card Documentation</b>"
-msgstr "<b>Vaata GN/GD kaardi dokumentatsiooni</b>"
+msgstr "<b>Vaadake GN/GD kaardi dokumentatsiooni</b>"
 
 #: resources/xnec2c.glade:8590
 msgid "Wave Type and Ground (I1)"
@@ -2852,7 +2852,7 @@ msgstr "Keskmine võimendus arvutatud"
 
 #: resources/xnec2c.glade:8828
 msgid "<b>See RP Card Documentation</b>"
-msgstr "<b>Vaata RP kaardi dokumentatsiooni</b>"
+msgstr "<b>Vaadake RP kaardi dokumentatsiooni</b>"
 
 #: resources/xnec2c.glade:8846
 msgid "Data Output Control (XNDA)"
@@ -3461,7 +3461,7 @@ msgstr "Traadi koonilisuse andmed"
 
 #: resources/xnec2c.glade:14968
 msgid "Impedance (Zo) Ohm"
-msgstr "Impedants (Zo) Ω"
+msgstr "Impedants (Zo) Ohm"
 
 #: resources/xnec2c.glade:14983
 msgid "50.00"

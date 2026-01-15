@@ -275,11 +275,11 @@ msgstr "Posição Z (m)"
 
 #: src/cmnd_edit.c:468
 msgid "alpha Angle (deg)"
-msgstr "Ângulo alfa (deg)"
+msgstr "Ângulo Alfa (deg)"
 
 #: src/cmnd_edit.c:469
 msgid "beta Angle (deg)"
-msgstr "Ângulo beta (deg)"
+msgstr "Ângulo Beta (deg)"
 
 #: src/cmnd_edit.c:470
 msgid "Current Moment (A.m)"
@@ -928,7 +928,7 @@ msgstr "! Impedância de referência Z0 = %.2f Ohm\n"
 #: src/gnuplot.c:130
 #, c-format
 msgid "This should never happen. touchstone type=%d\n"
-msgstr "Isso nunca deveria acontecer. tipo touchstone=%d\n"
+msgstr "Isso nunca deveria acontecer. tipo Touchstone=%d\n"
 
 #: src/gnuplot.c:227
 #, c-format
@@ -1585,7 +1585,7 @@ msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
 msgstr ""
-"Carregando cartão de dados\n"
+"Cartão de dados de carga\n"
 "Erro de incompatibilidade do número de tag"
 
 #: src/plot_freqdata.c:132
@@ -1771,7 +1771,7 @@ msgstr ""
 "  --write-s1p             <nome-do-arquivo>  - escreve arquivo S1P de parâmetros-S\n"
 "  --write-s2p-max-gain    <nome-do-arquivo>  - escreve arquivo S2P, porta-2 é ganho máximo\n"
 "  --write-s2p-viewer-gain <nome-do-arquivo>  - escreve arquivo S2P, porta-2 é ganho do visualizador\n"
-"  --write-rdpat           <nome-do-arquivo>  - escreve CSV do padrão de radiação\n"
+"  --write-rdpat           <nome-do-arquivo>  - escreve CSV do diagrama de radiação\n"
 "  --write-currents        <nome-do-arquivo>  - escreve CSV de correntes e cargas\n"
 
 #: src/utils.c:103 src/utils.c:108
@@ -1851,7 +1851,7 @@ msgstr "%s: %s\n"
 
 #: src/utils.c:927
 msgid "Optimizer loop incomplete, skipping radiation pattern redraw.\n"
-msgstr "Loop do otimizador incompleto, ignorando redesenho do padrão de radiação.\n"
+msgstr "Loop do otimizador incompleto, ignorando redesenho do diagrama de radiação.\n"
 
 #: src/utils.c:934
 msgid "Optimizer loop incomplete, skipping structure redraw.\n"
@@ -1940,7 +1940,7 @@ msgid ""
 msgstr ""
 "xnec2c é uma interface gráfica interativa em torno de uma versão modificada do nec2c, que é uma tradução para C do código FORTRAN original NEC2 Numerical Electromagnetics Code.\n"
 "\n"
-"xnec2c pode exibir dados dependentes de frequência (ganho, impedância de entrada, vswr etc) em formato gráfico. Também pode exibir dados de padrão de radiação em formato de estrutura de arame rotacionável e campo próximo (vetores E, H, S) em formato de grade.\n"
+"xnec2c pode exibir dados dependentes de frequência (ganho, impedância de entrada, vswr etc) em formato gráfico. Também pode exibir dados de diagrama de radiação em formato de estrutura de arame rotacionável e campo próximo (vetores E, H, S) em formato de grade.\n"
 "\n"
 "xnec2c possui um editor de arquivo de entrada NEC2 integrado que facilita criar ou editar arquivos de descrição de antena e especificar comandos NEC2.\n"
 "\n"
@@ -2773,23 +2773,23 @@ msgstr "Onda Espacial + Onda de Terra"
 
 #: resources/xnec2c.glade:8490
 msgid "Linear Cliff"
-msgstr "Penhasco Linear"
+msgstr "Falésia Linear"
 
 #: resources/xnec2c.glade:8506
 msgid "Radial wire screen"
-msgstr "Tela de fios radiais"
+msgstr "Tela de Fios Radiais"
 
 #: resources/xnec2c.glade:8522
 msgid "Circular Cliff + Radials"
-msgstr "Penhasco Circular + Radiais"
+msgstr "Falésia Circular + Radiais"
 
 #: resources/xnec2c.glade:8538
 msgid "Circular Cliff"
-msgstr "Penhasco Circular"
+msgstr "Falésia Circular"
 
 #: resources/xnec2c.glade:8554
 msgid "Linear Cliff + Radials"
-msgstr "Penhasco Linear + Radiais"
+msgstr "Falésia Linear + Radiais"
 
 #: resources/xnec2c.glade:8572
 msgid "<b>See GN/GD Card Documentation</b>"
@@ -2865,7 +2865,7 @@ msgstr "Pontos em Theta"
 
 #: resources/xnec2c.glade:8985
 msgid "Initial Phi (deg)"
-msgstr "Phi Inicial (graus)"
+msgstr "Phi Inicial (deg)"
 
 #: resources/xnec2c.glade:9067
 msgid "Field Point Distance"

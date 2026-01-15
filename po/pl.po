@@ -29,7 +29,7 @@ msgstr "Błąd połączenia segmentu w tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "rozmiar kroku ograniczony przy z= %10.5f\n"
+msgstr "rozmiar kroku ograniczony przy Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -975,7 +975,7 @@ msgstr "b mniejsze niż a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "rozmiar kroku ograniczony przy z = %12.5E\n"
+msgstr "rozmiar kroku ograniczony przy Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1314,7 +1314,7 @@ msgstr "Wadliwa karta danych"
 
 #: src/input.c:1578
 msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
-msgstr "Brakująca lub fali powierzchniowej karta RP: Obliczenia charakterystyki promieniowania i zysku wyłączone\n"
+msgstr "Brak karty RP lub karta fali powierzchniowej: Obliczenia charakterystyki promieniowania i zysku wyłączone\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
@@ -1702,7 +1702,7 @@ msgstr "przycisk myszy: nieznany przycisk %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel nieprawidłowy dla z = 0"
+msgstr "Hankel nieprawidłowy dla Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -2520,7 +2520,7 @@ msgstr "Zapisz plik"
 
 #: resources/xnec2c.glade:6210
 msgid "Wire"
-msgstr "Drut"
+msgstr "Przewód"
 
 #: resources/xnec2c.glade:6224
 msgid "Arc"
@@ -2872,7 +2872,7 @@ msgstr "Odległość punktu pola"
 
 #: resources/xnec2c.glade:9099
 msgid "Gain Normalization"
-msgstr "Normalizacja wzmocnienia"
+msgstr "Normalizacja zysku"
 
 #: resources/xnec2c.glade:9141
 msgid "Radiation Pattern Parameters"
@@ -3209,7 +3209,7 @@ msgstr "Xnec2c: Charakterystyki promieniowania"
 
 #: resources/xnec2c.glade:11854
 msgid "_Gain Scaling"
-msgstr "_Skalowanie wzmocnienia"
+msgstr "_Skalowanie zysku"
 
 #: resources/xnec2c.glade:11869
 msgid "Linear _Power"
@@ -3265,7 +3265,7 @@ msgstr "_Nałóż strukturę"
 
 #: resources/xnec2c.glade:12053
 msgid "Gain Pattern"
-msgstr "Charakterystyka wzmocnienia"
+msgstr "Charakterystyka zysku"
 
 #: resources/xnec2c.glade:12068
 msgid "E/H Fields"

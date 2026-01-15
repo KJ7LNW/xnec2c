@@ -29,7 +29,7 @@ msgstr "tbf() میں سیگمنٹ کنکشن کی خرابی"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "z= %10.5f پر قدم کا سائز محدود\n"
+msgstr "Z= %10.5f پر قدم کا سائز محدود\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -975,7 +975,7 @@ msgstr "b، a سے کم ہے"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "z = %12.5E پر قدم کا سائز محدود ہے\n"
+msgstr "Z = %12.5E پر قدم کا سائز محدود ہے\n"
 
 #: src/input.c:84
 msgid ""
@@ -1505,11 +1505,11 @@ msgstr "LU ڈیکمپوزیشن ناکام: %d\n"
 #: src/matrix.c:1306
 #, c-format
 msgid "symmetry error - nrow:%d ncol:%d\n"
-msgstr "ہم آہنگی ایرر - nrow:%d ncol:%d\n"
+msgstr "ہم آہنگی کی خرابی - nrow:%d ncol:%d\n"
 
 #: src/matrix.c:1307
 msgid "Symmetry error"
-msgstr "ہم آہنگی ایرر"
+msgstr "ہم آہنگی کی خرابی"
 
 #: src/matrix.c:1414
 #, c-format
@@ -1578,7 +1578,7 @@ msgstr "غلط لوڈ ٹائپ منتخب"
 #: src/network.c:737
 #, c-format
 msgid "loading data card error, no segment has an itag = %d\n"
-msgstr "ڈیٹا کارڈ لوڈنگ ایرر، کسی سیگمنٹ کا itag = %d نہیں ہے\n"
+msgstr "ڈیٹا کارڈ لوڈنگ کی خرابی، کسی سیگمنٹ کا itag = %d نہیں ہے\n"
 
 #: src/network.c:738
 msgid ""
@@ -1586,7 +1586,7 @@ msgid ""
 "Tag number mismatch error"
 msgstr ""
 "ڈیٹا کارڈ لوڈنگ\n"
-"ٹیگ نمبر مماثلت ایرر"
+"ٹیگ نمبر مماثلت کی خرابی"
 
 #: src/plot_freqdata.c:132
 #, c-format
@@ -1702,7 +1702,7 @@ msgstr "ماؤس بٹن: نامعلوم بٹن %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "z = 0 کے لیے Hankel درست نہیں"
+msgstr "Z = 0 کے لیے Hankel درست نہیں"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1956,7 +1956,7 @@ msgstr "مراحل/سائیکل"
 
 #: resources/xnec2c.glade:172
 msgid "Animate Freq (Hz)"
-msgstr "اینیمیٹ فریق (Hz)"
+msgstr "اینیمیٹ فریکوئنسی (Hz)"
 
 #: resources/xnec2c.glade:286
 msgid "Arc Element (GA card)"
@@ -1978,7 +1978,7 @@ msgstr "تار کا قطر"
 
 #: resources/xnec2c.glade:441
 msgid "Radius from Y"
-msgstr "Y سے رداس"
+msgstr "Y سے ریڈیئس"
 
 #: resources/xnec2c.glade:454
 msgid "End 1 Angle"
@@ -2828,11 +2828,11 @@ msgstr "کوئی نارملائزڈ گین نہیں"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "مائنر ایکسس گین نارملائزڈ"
+msgstr "چھوٹے محور کا نارملائزڈ گین"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "افقی ایکسس گین نارملائزڈ"
+msgstr "افقی محور کا نارملائزڈ گین"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"
@@ -2985,7 +2985,7 @@ msgstr "_VSWR گراف کو 10 تک محدود کریں"
 
 #: resources/xnec2c.glade:9840
 msgid "Round _X Axis Frequency Values"
-msgstr "_X ایکسس فریکوئنسی اقدار راؤنڈ کریں"
+msgstr "_X محور فریکوئنسی اقدار راؤنڈ کریں"
 
 #: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
 msgid "Max Gain"

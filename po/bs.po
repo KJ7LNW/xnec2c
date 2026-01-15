@@ -29,7 +29,7 @@ msgstr "Greška veze segmenta u tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "veličina koraka ograničena na z= %10.5f\n"
+msgstr "veličina koraka ograničena na Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -434,7 +434,7 @@ msgstr ""
 "\n"
 "Animacija E-polja: Dodajte NE karticu u NEC datoteku\n"
 "Animacija H-polja: Dodajte NH karticu u NEC datoteku\n"
-"Poyntingov vektor: Dodajte obje NE i NH kartice"
+"Poynting-ov vektor: Dodajte obje NE i NH kartice"
 
 #: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
 msgid "Near Field Animation"
@@ -642,7 +642,7 @@ msgstr "Ugao 2 - Z"
 
 #: src/geom_edit.c:2582
 msgid "NEC2 editor window not open"
-msgstr "NEC2 prozor editora nije otvoren"
+msgstr "NEC2 prozor uređivača nije otvoren"
 
 #: src/geometry.c:97
 msgid "Number of segments < 1"
@@ -975,7 +975,7 @@ msgstr "b manje od a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "veličina koraka ograničena na z = %12.5E\n"
+msgstr "veličina koraka ograničena na Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1240,14 +1240,14 @@ msgstr ""
 
 #: src/input.c:1420
 msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr "Impedansa prenosne linije = 0: nije ispravna. Molimo ispravite NT ili TL karticu\n"
+msgstr "Impedansa prijenosne linije = 0: nije ispravna. Molimo ispravite NT ili TL karticu\n"
 
 #: src/input.c:1421
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
 msgstr ""
-"Impedansa prenosne linije = 0\n"
+"Impedansa prijenosne linije = 0\n"
 "nije ispravna. Molimo ispravite NT ili TL karticu"
 
 #: src/input.c:1430
@@ -1702,7 +1702,7 @@ msgstr "tipka miša: nepoznata tipka %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel nije validan za z = 0"
+msgstr "Hankel nije validan za Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1763,7 +1763,7 @@ msgstr ""
 "\n"
 "Sljedeći argumenti zapisuju u izlaznu datoteku nakon završetka frekventne\n"
 "petlje. Korisni su u kombinaciji sa --batch; Ako želite navesti imena datoteka\n"
-"za pisanje bez --batch načina, omogućite File->Optimizer Settings ili datoteke\n"
+"za pisanje bez --batch načina, omogućite Datoteka->Postavke optimizacije ili datoteke\n"
 "koje navedete u komandnoj liniji neće biti zapisane.\n"
 "\n"
 "  --write-csv             <ime-datoteke>  - zapiši CSV datoteku mjerenja\n"
@@ -1941,7 +1941,7 @@ msgstr ""
 "\n"
 "xnec2c može prikazati podatke ovisne o frekvenciji (pojačanje, ulazna impedansa, vswr itd.) u grafičkom formatu. Također može prikazati podatke dijagrama zračenja u rotabilnom žičanom okviru i bliskog polja (E, H, S vektori) u mrežnom formatu.\n"
 "\n"
-"xnec2c ima ugrađeni editor NEC2 ulaznih datoteka koji olakšava kreiranje ili uređivanje datoteka opisa antena i specifikaciju NEC2 naredbi.\n"
+"xnec2c ima ugrađeni uređivač NEC2 ulaznih datoteka koji olakšava kreiranje ili uređivanje datoteka opisa antena i specifikaciju NEC2 naredbi.\n"
 "\n"
 "MOLIMO pročitajte dokumentaciju u doc/ poddirektoriju jer xnec2c nije potpuno kompatibilan sa NEC2 ulaznim datotekama i radi na različite načine!"
 
@@ -3241,7 +3241,7 @@ msgstr "Blisko _H polje"
 
 #: resources/xnec2c.glade:11952
 msgid "_Poynting Vector"
-msgstr "_Poyntingov vektor"
+msgstr "_Poynting-ov vektor"
 
 #: resources/xnec2c.glade:11961
 msgid "_Animate Dialog"

@@ -29,7 +29,7 @@ msgstr "Segmentverbindingsfout in tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "stapgrootte beperk by z= %10.5f\n"
+msgstr "stapgrootte beperk by Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -205,11 +205,11 @@ msgstr ""
 #: src/cmnd_edit.c:420 resources/xnec2c.glade:314 resources/xnec2c.glade:1349
 #: resources/xnec2c.glade:3776 resources/xnec2c.glade:14226
 msgid "Tag Number"
-msgstr "Etiket Nommer"
+msgstr "Etiketnommer"
 
 #: src/cmnd_edit.c:421 resources/xnec2c.glade:1362
 msgid "Segment Number"
-msgstr "Segment Nommer"
+msgstr "Segmentnommer"
 
 #: src/cmnd_edit.c:422
 msgid "Voltage Real Part"
@@ -480,7 +480,7 @@ msgstr "ARRL-skaal"
 
 #: src/draw_radiation.c:1064
 msgid "Logarithmic Scale"
-msgstr "Logaritmiese Skaal"
+msgstr "Logaritmiese skaal"
 
 #: src/draw_radiation.c:1073 resources/xnec2c.glade:12710
 msgid "Radiation Patterns"
@@ -492,7 +492,7 @@ msgstr "Stralingspatroon: - "
 
 #: src/draw_radiation.c:1083
 msgid "Near Fields:"
-msgstr "Nabye Velde:"
+msgstr "Nabyevelde:"
 
 #: src/draw_radiation.c:1085
 msgid " - E Field"
@@ -508,7 +508,7 @@ msgstr " - Poynting-vektor"
 
 #: src/draw_radiation.c:1099
 msgid "Frequency Data Plots - "
-msgstr "Frekwensie Data Grafieke - "
+msgstr "Frekwensiedatagrafieke - "
 
 #: src/draw_radiation.c:1307
 #, c-format
@@ -521,16 +521,16 @@ msgid ""
 "Error reading row data\n"
 "Invalid list iterator"
 msgstr ""
-"Fout met lees van ry data\n"
-"Ongeldige lys-iterator"
+"Fout met lees van rydata\n"
+"Ongeldige lysiterator"
 
 #: src/geom_edit.c:109 src/geom_edit.c:139
 msgid ""
 "Error writing row data\n"
 "Please re-select row"
 msgstr ""
-"Fout met skryf van ry data\n"
-"Kies asseblief ry weer"
+"Fout met skryf van rydata\n"
+"Kies asseblief die ry weer"
 
 #: src/geom_edit.c:528
 msgid ""
@@ -658,28 +658,28 @@ msgstr "Fout in conect(): np > n"
 
 #: src/geometry.c:343 src/geometry.c:391
 #, c-format
-msgid "geometry data error: segment %d extends below ground\n"
-msgstr "geometrie data fout: segment %d strek onder grond\n"
+msgid "geometrydata error: segment %d extends below ground\n"
+msgstr "geometriedatafout: segment %d strek onder grond\n"
 
 #: src/geometry.c:344 src/geometry.c:392
 msgid ""
-"Geometry data error\n"
+"Geometrydata error\n"
 "Segment extends below ground"
 msgstr ""
-"Geometrie data fout\n"
+"Geometriedatafout\n"
 "Segment strek onder grond"
 
 #: src/geometry.c:401
 #, c-format
-msgid "geometry data error: segment %d lies in ground plane\n"
-msgstr "geometrie data fout: segment %d lê in grondvlak\n"
+msgid "geometrydata error: segment %d lies in ground plane\n"
+msgstr "geometriedatafout: segment %d lê in grondvlak\n"
 
 #: src/geometry.c:402
 msgid ""
-"Geometry data error\n"
+"Geometrydata error\n"
 "Segment lies in ground plane"
 msgstr ""
-"Geometrie data fout\n"
+"Geometriedatafout\n"
 "Segment lê in grondvlak"
 
 #: src/geometry.c:492
@@ -755,28 +755,28 @@ msgstr ""
 
 #: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
 #, c-format
-msgid "geometry data error: segment %d lies in plane of symmetry\n"
-msgstr "geometrie data fout: segment %d lê in simmetrievlak\n"
+msgid "geometrydata error: segment %d lies in plane of symmetry\n"
+msgstr "geometriedatafout: segment %d lê in simmetrievlak\n"
 
 #: src/geometry.c:1255 src/geometry.c:1355 src/geometry.c:1457
 msgid ""
-"Geometry data error\n"
+"Geometrydata error\n"
 "Segment lies in plane of symmetry"
 msgstr ""
-"Geometrie data fout\n"
+"Geometriedatafout\n"
 "Segment lê in simmetrievlak"
 
 #: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
 #, c-format
-msgid "geometry data error: patch %d lies in plane of symmetry\n"
-msgstr "geometrie data fout: patch %d lê in simmetrievlak\n"
+msgid "geometrydata error: patch %d lies in plane of symmetry\n"
+msgstr "geometriedatafout: patch %d lê in simmetrievlak\n"
 
 #: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
 msgid ""
-"Geometry data error\n"
+"Geometrydata error\n"
 "Patch lies in plane of symmetry"
 msgstr ""
-"Geometrie data fout\n"
+"Geometriedatafout\n"
 "Patch lê in simmetrievlak"
 
 #: src/geometry.c:1642
@@ -891,7 +891,7 @@ msgstr "Dwing oorvleuelingskontrole vir %d segmente\n"
 
 #: src/geometry.c:1957
 msgid "verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr "verify_segments() slaan frekwensie-afhanklike kontroles oor - geen frekwensie data nie\n"
+msgstr "verify_segments() slaan frekwensie-afhanklike kontroles oor - geen frekwensiedata nie\n"
 
 #: src/gnuplot.c:46
 msgid "Gnuplot Data"
@@ -953,12 +953,12 @@ msgstr "# Stralingspatroon\n"
 #: src/gnuplot.c:505
 #, c-format
 msgid "# structure patch segments\n"
-msgstr "# struktuur patch segmente\n"
+msgstr "# struktuur-patchsegmente\n"
 
 #: src/gnuplot.c:530
 #, c-format
 msgid "# structure wire segments\n"
-msgstr "# struktuur draad segmente\n"
+msgstr "# struktuur-draadsegmente\n"
 
 #: src/gnuplot.c:565
 msgid "Save Currents and Charges to CSV"
@@ -975,7 +975,7 @@ msgstr "b minder as a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "stapgrootte beperk by z = %12.5E\n"
+msgstr "stapgrootte beperk by Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -991,7 +991,7 @@ msgid ""
 "Comment mnemonic short or missing"
 msgstr ""
 "Fout met lees van Kommentaar\n"
-"Kommentaar-mnemoniese kort of ontbreek"
+"Kommentaar-mnemoniek is kort of ontbreek"
 
 #: src/input.c:109
 msgid ""
@@ -1001,22 +1001,22 @@ msgid ""
 msgstr ""
 "Read_Comments():\n"
 " Fout met lees van invoerlêer\n"
-"Kommentaar-mnemoniese verkeerd"
+"Kommentaar-mnemoniek is verkeerd"
 
 #: src/input.c:148
 msgid ""
-"Geometry data error\n"
+"Geometrydata error\n"
 "Tag number is less than 1"
 msgstr ""
-"Geometrie data fout\n"
+"Geometriedatafout\n"
 "Etiketnommer is minder as 1"
 
 #: src/input.c:155
 msgid ""
-"Geometry data error\n"
+"Geometrydata error\n"
 "Number of segments is less than 1"
 msgstr ""
-"Geometrie data fout\n"
+"Geometriedatafout\n"
 "Aantal segmente is minder as 1"
 
 #: src/input.c:162
@@ -1026,14 +1026,14 @@ msgstr "waarskuwing - aantal segmente is groter as 1000000\n"
 #: src/input.c:210
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
-msgstr "%s datakaart fout: Ongewenste karakter '%c' by kolom %d\n"
+msgstr "%s datakaartfout: Ongewenste karakter '%c' by kolom %d\n"
 
 #: src/input.c:212
 msgid ""
 "Data card error\n"
 "Spurious character in card"
 msgstr ""
-"Datakaart fout\n"
+"Datakaartfout\n"
 "Ongewenste karakter in kaart"
 
 #: src/input.c:262
@@ -1043,57 +1043,57 @@ msgstr "%s: uitdrukking-evaluering het misluk vir \"%s\"\n"
 
 #: src/input.c:300
 msgid "SY card: no line content available\n"
-msgstr "SY kaart: geen lyninhoud beskikbaar nie\n"
+msgstr "SY-kaart: geen lyninhoud beskikbaar nie\n"
 
 #: src/input.c:301
 msgid "SY card: no line content available"
-msgstr "SY kaart: geen lyninhoud beskikbaar nie"
+msgstr "SY-kaart: geen lyninhoud beskikbaar nie"
 
 #: src/input.c:318
 msgid "SY card: missing '=' in definition\n"
-msgstr "SY kaart: ontbrekende '=' in definisie\n"
+msgstr "SY-kaart: ontbrekende '=' in definisie\n"
 
 #: src/input.c:319
 msgid "SY card: missing '=' in definition"
-msgstr "SY kaart: ontbrekende '=' in definisie"
+msgstr "SY-kaart: ontbrekende '=' in definisie"
 
 #: src/input.c:352
 #, c-format
 msgid "SY card: expression evaluation failed for %s=%s\n"
-msgstr "SY kaart: uitdrukking-evaluering het misluk vir %s=%s\n"
+msgstr "SY-kaart: uitdrukking-evaluering het misluk vir %s=%s\n"
 
 #: src/input.c:358
 #, c-format
 msgid "SY card: symbol definition failed for %s\n"
-msgstr "SY kaart: simbooldefinisie het misluk vir %s\n"
+msgstr "SY-kaart: simbooldefinisie het misluk vir %s\n"
 
 #: src/input.c:438
 msgid ""
-"Geometry data error\n"
+"Geometrydata error\n"
 "No GC card for tapered wire"
 msgstr ""
-"Geometrie data fout\n"
-"Geen GC kaart vir tapse draad nie"
+"Geometriedatafout\n"
+"Geen GC-kaart vir tapse draad nie"
 
 #: src/input.c:445
 msgid "Geometry GC data card error"
-msgstr "Geometrie GC datakaart fout"
+msgstr "Geometrie GC datakaartfout"
 
 #: src/input.c:461
 msgid "Geometry GX data card error"
-msgstr "Geometrie GX datakaart fout"
+msgstr "Geometrie GX datakaartfout"
 
 #: src/input.c:484
 msgid "Geometry GR data card error"
-msgstr "Geometrie GR datakaart fout"
+msgstr "Geometrie GR datakaartfout"
 
 #: src/input.c:541
-msgid "No geometry data cards"
+msgid "No geometrydata cards"
 msgstr "Geen geometrie datakaarte nie"
 
 #: src/input.c:550
 msgid "Probable invalid segment geometry.\n"
-msgstr "Waarskynlik ongeldige segment geometrie.\n"
+msgstr "Waarskynlik ongeldige segmentgeometrie.\n"
 
 #: src/input.c:551
 msgid ""
@@ -1101,7 +1101,7 @@ msgid ""
 "See warnings in the console for detail.\n"
 "Trying to continue..."
 msgstr ""
-"Ongeldige segment geometrie.\n"
+"Ongeldige segmentgeometrie.\n"
 "Sien waarskuwings in die konsole vir besonderhede.\n"
 "Probeer om voort te gaan..."
 
@@ -1112,24 +1112,24 @@ msgstr "Read_Geometry: verify_segments() geslaag\n"
 #: src/input.c:602
 #, c-format
 msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
-msgstr "segment data fout: tag=%d si=%lf, bi=%lf\n"
+msgstr "segmentdatafout: tag=%d si=%lf, bi=%lf\n"
 
 #: src/input.c:604
 msgid "Segment data error, zero-length line?  See console."
-msgstr "Segment data fout, nul-lengte lyn? Sien konsole."
+msgstr "Segmentdatafout, nul-lengte lyn? Sien konsole."
 
 #: src/input.c:639
 msgid "Move GM data card error"
-msgstr "Skuif GM datakaart fout"
+msgstr "Skuif GM datakaartfout"
 
 #: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
 #: src/input.c:739
 msgid "Patch data card error"
-msgstr "Patch datakaart fout"
+msgstr "Patch datakaartfout"
 
 #: src/input.c:677
 msgid "Patch data error"
-msgstr "Patch data fout"
+msgstr "Patchdatafout"
 
 #: src/input.c:786
 msgid ""
@@ -1141,12 +1141,12 @@ msgstr ""
 
 #: src/input.c:791
 msgid "Ignoring CM card in geometry"
-msgstr "Ignoreer CM kaart in geometrie"
+msgstr "Ignoreer CM-kaart in geometrie"
 
 #: src/input.c:804
 #, c-format
-msgid "geometry data card error (nwire=%d)\n"
-msgstr "geometrie datakaart fout (nwire=%d)\n"
+msgid "geometrydata card error (nwire=%d)\n"
+msgstr "geometrie datakaartfout (nwire=%d)\n"
 
 #: src/input.c:805
 #, c-format
@@ -1154,8 +1154,8 @@ msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 
 #: src/input.c:808
-msgid "Geometry data card error"
-msgstr "Geometrie datakaart fout"
+msgid "Geometrydata card error"
+msgstr "Geometrie datakaartfout"
 
 #: src/input.c:833
 msgid "Failed to initialize symbol table\n"
@@ -1167,39 +1167,39 @@ msgstr "Kon nie simbooltabel inisialiseer nie"
 
 #: src/input.c:1002
 msgid "ignoring CM card in commands\n"
-msgstr "ignoreer CM kaart in opdragte\n"
+msgstr "ignoreer CM-kaart in opdragte\n"
 
 #: src/input.c:1003
 msgid "Ignoring CM card in commands"
-msgstr "Ignoreer CM kaart in opdragte"
+msgstr "Ignoreer CM-kaart in opdragte"
 
 #: src/input.c:1007
 msgid ""
 "CP card is ignored\n"
 "Coupling calculation not implemented"
 msgstr ""
-"CP kaart word geïgnoreer\n"
+"CP-kaart word geïgnoreer\n"
 "Koppelingsberekening nie geïmplementeer nie"
 
 #: src/input.c:1185
 msgid "Max frequency <= Min frequency in FR card\n"
-msgstr "Maks frekwensie <= Min frekwensie in FR kaart\n"
+msgstr "Maks frekwensie <= Min frekwensie in FR-kaart\n"
 
 #: src/input.c:1186
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
 msgstr ""
-"Maks frekwensie <= Min frekwensie in FR kaart\n"
-"Kontroleer asseblief FR kaart data en korrigeer"
+"Maks frekwensie <= Min frekwensie in FR-kaart\n"
+"Kontroleer asseblief FR-kaart data en korrigeer"
 
 #: src/input.c:1209
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
-"Herstel die GE/GN kaarte:\n"
-"Die GE kaart spesifiseer dat 'n grondvlak teenwoordig is, maar die GN dui anders aan."
+"Herstel die GE-/GN-kaarte:\n"
+"Die GE-kaart spesifiseer dat 'n grondvlak teenwoordig is, maar die GN dui anders aan."
 
 #: src/input.c:1223
 msgid "theta > 90 deg. with ground specified\n"
@@ -1211,7 +1211,7 @@ msgid ""
 "Please check RP card data and correct"
 msgstr ""
 "Theta > 90 grade met grondvlak gespesifiseer\n"
-"Kontroleer asseblief RP kaart data en korrigeer"
+"Kontroleer asseblief RP-kaart data en korrigeer"
 
 #: src/input.c:1233
 msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
@@ -1228,19 +1228,19 @@ msgstr ""
 #: src/input.c:1285
 #, c-format
 msgid "data fault on loading card no %d: itag step1 %d is greater than itag step2 %d\n"
-msgstr "data fout op ladingskaart nr %d: itag stap1 %d is groter as itag stap2 %d\n"
+msgstr "datafout op ladingskaart nr %d: itag stap1 %d is groter as itag stap2 %d\n"
 
 #: src/input.c:1287
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
 msgstr ""
-"Data fout op ladingskaart\n"
+"Datafout op ladingskaart\n"
 "itag stap1 is groter as itag stap2"
 
 #: src/input.c:1420
 msgid "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
-msgstr "Transmissielyn impedansie = 0: is nie geldig nie. Korrigeer asseblief NT of TL kaart\n"
+msgstr "Transmissielyn impedansie = 0: is nie geldig nie. Korrigeer asseblief NT of TL-kaart\n"
 
 #: src/input.c:1421
 msgid ""
@@ -1248,30 +1248,30 @@ msgid ""
 "is not valid. Please correct NT or TL card"
 msgstr ""
 "Transmissielyn impedansie = 0\n"
-"is nie geldig nie. Korrigeer asseblief NT of TL kaart"
+"is nie geldig nie. Korrigeer asseblief NT of TL-kaart"
 
 #: src/input.c:1430
 msgid "Segment number error in TL or NT card\n"
-msgstr "Segment nommer fout in TL of NT kaart\n"
+msgstr "Segmentnommerfout in TL of NT-kaart\n"
 
 #: src/input.c:1431
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
 msgstr ""
-"Segment nommer\n"
-"fout in NT of TL kaart"
+"Segmentnommer-\n"
+"fout in NT of TL-kaart"
 
 #: src/input.c:1452
 msgid "PQ and PT cards are ignored: Printing to file not implemented\n"
-msgstr "PQ en PT kaarte word geïgnoreer: Druk na lêer nie geïmplementeer nie\n"
+msgstr "PQ- en PT-kaarte word geïgnoreer: Druk na lêer nie geïmplementeer nie\n"
 
 #: src/input.c:1453
 msgid ""
 "PQ and PT cards are ignored\n"
 "Printing to file not implemented"
 msgstr ""
-"PQ en PT kaarte word geïgnoreer\n"
+"PQ- en PT-kaarte word geïgnoreer\n"
 "Druk na lêer nie geïmplementeer nie"
 
 #: src/input.c:1460
@@ -1298,7 +1298,7 @@ msgstr ""
 
 #: src/input.c:1502
 msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
-msgstr "Theta > 90 grade met grondvlak gespesifiseer: Kontroleer asseblief RP kaart data en korrigeer\n"
+msgstr "Theta > 90 grade met grondvlak gespesifiseer: Kontroleer asseblief RP-kaart data en korrigeer\n"
 
 #: src/input.c:1503
 msgid ""
@@ -1306,7 +1306,7 @@ msgid ""
 "Please check RP card data and correct"
 msgstr ""
 "Theta > 90 grade met grondvlak gespesifiseer\n"
-"Kontroleer asseblief RP kaart data en korrigeer"
+"Kontroleer asseblief RP-kaart data en korrigeer"
 
 #: src/input.c:1568
 msgid "Faulty data card"
@@ -1314,7 +1314,7 @@ msgstr "Foutiewe datakaart"
 
 #: src/input.c:1578
 msgid "Missing or surface-wave RP card: Radiation pattern and gain calculations disabled\n"
-msgstr "Ontbrekende of oppervlakgolf RP kaart: Stralingspatroon en aanwins berekeninge gedeaktiveer\n"
+msgstr "Ontbrekende of oppervlakgolf RP-kaart: Stralingspatroon en aanwins berekeninge gedeaktiveer\n"
 
 #: src/input.c:1595
 msgid "Unexpected exit from while loop"
@@ -1322,7 +1322,7 @@ msgstr "Onverwagte uitgang van while-lus"
 
 #: src/input.c:1653
 msgid "command data card error: Unexpected EOF while reading input file - appending EN card\n"
-msgstr "opdrag datakaart fout: Onverwagte EOF tydens lees van invoerlêer - voeg EN kaart by\n"
+msgstr "opdrag datakaartfout: Onverwagte EOF tydens lees van invoerlêer - voeg EN-kaart by\n"
 
 #: src/input.c:1654
 msgid ""
@@ -1330,47 +1330,47 @@ msgid ""
 "Unexpected EOF while reading input file\n"
 "Appending a default EN card"
 msgstr ""
-"Opdrag datakaart fout\n"
+"Opdrag datakaartfout\n"
 "Onverwagte EOF tydens lees van invoerlêer\n"
-"Voeg 'n verstek EN kaart by"
+"Voeg 'n verstek EN-kaart by"
 
 #: src/input.c:1668
 msgid "command data card error: card's mnemonic code too short or missing\n"
-msgstr "opdrag datakaart fout: kaart se mnemoniese kode te kort of ontbreek\n"
+msgstr "opdrag datakaartfout: kaart se mnemonieke kode te kort of ontbreek\n"
 
 #: src/input.c:1669
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
 msgstr ""
-"Opdrag datakaart fout\n"
+"Opdrag datakaartfout\n"
 "Mnemoniese kode te kort of ontbreek"
 
 #: src/input.c:1829
-msgid "geometry data card error: Unexpected EOF while reading input file - appending GE card\n"
-msgstr "geometrie datakaart fout: Onverwagte EOF tydens lees van invoerlêer - voeg GE kaart by\n"
+msgid "geometrydata card error: Unexpected EOF while reading input file - appending GE card\n"
+msgstr "geometrie datakaartfout: Onverwagte EOF tydens lees van invoerlêer - voeg GE-kaart by\n"
 
 #: src/input.c:1830
 msgid ""
-"Geometry data card error\n"
+"Geometrydata card error\n"
 "Unexpected EOF while reading input file\n"
 "Appending a default GE card"
 msgstr ""
-"Geometrie datakaart fout\n"
+"Geometrie datakaartfout\n"
 "Onverwagte EOF tydens lees van invoerlêer\n"
-"Voeg 'n verstek GE kaart by"
+"Voeg 'n verstek GE-kaart by"
 
 #: src/input.c:1844
-msgid "geometry data card error: card's mnemonic code too short or missing\n"
-msgstr "geometrie datakaart fout: kaart se mnemoniese kode te kort of ontbreek\n"
+msgid "geometrydata card error: card's mnemonic code too short or missing\n"
+msgstr "geometrie datakaartfout: kaart se mnemonieke kode te kort of ontbreek\n"
 
 #: src/input.c:1845
 msgid ""
-"Geometry data card error\n"
+"Geometrydata card error\n"
 "Card's mnemonic code too short or missing"
 msgstr ""
-"Geometrie datakaart fout\n"
-"Kaart se mnemoniese kode te kort of ontbreek"
+"Geometrie datakaartfout\n"
+"Kaart se mnemonieke kode te kort of ontbreek"
 
 #: src/main.c:125
 #, c-format
@@ -1384,7 +1384,7 @@ msgstr "%d SVE's bespeur\n"
 
 #: src/main.c:194
 msgid "config file path too long\n"
-msgstr "konfigurasielêer pad te lank\n"
+msgstr "konfigurasielêerpad te lank\n"
 
 #: src/main.c:213
 #, c-format
@@ -1394,12 +1394,12 @@ msgstr "konfigurasielêer bestaan nie of is nie leesbaar nie: %s\n"
 #: src/main.c:222
 #, c-format
 msgid "config file path too long ( > %d char )\n"
-msgstr "konfigurasielêer pad te lank ( > %d karakters )\n"
+msgstr "konfigurasielêerpad te lank ( > %d karakters )\n"
 
 #: src/main.c:234
 #, c-format
 msgid "input file name too long ( > %d char )\n"
-msgstr "invoerlêer naam te lank ( > %d karakters )\n"
+msgstr "invoerlêernaam te lank ( > %d karakters )\n"
 
 #: src/main.c:261
 msgid "Forking disabled!\n"
@@ -1550,7 +1550,7 @@ msgid ""
 msgstr ""
 "List_Comments():\n"
 "Fout met lees van invoerlêer\n"
-"Kommentaar-mnemoniese kort of ontbreek"
+"Kommentaar-mnemoniek is kort of ontbreek"
 
 #: src/nec2_model.c:594
 msgid "End Comments"
@@ -1578,7 +1578,7 @@ msgstr "Onbehoorlike lastipe gekies"
 #: src/network.c:737
 #, c-format
 msgid "loading data card error, no segment has an itag = %d\n"
-msgstr "laai datakaart fout, geen segment het 'n itag = %d\n"
+msgstr "laai datakaartfout, geen segment het 'n itag = %d\n"
 
 #: src/network.c:738
 msgid ""
@@ -1586,7 +1586,7 @@ msgid ""
 "Tag number mismatch error"
 msgstr ""
 "Laai datakaart\n"
-"Etiketnommer-wanpassing fout"
+"Etiketnommer-wanpassingsfout"
 
 #: src/plot_freqdata.c:132
 #, c-format
@@ -1702,7 +1702,7 @@ msgstr "muisknoppie: onbekende knoppie %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel nie geldig vir z = 0 nie"
+msgstr "Hankel nie geldig vir Z = 0 nie"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1940,7 +1940,7 @@ msgid ""
 msgstr ""
 "xnec2c is 'n interaktiewe grafiese omhulsel rondom 'n gewysigde weergawe van nec2c, wat self 'n vertaling na C is van die oorspronklike FORTRAN NEC2 Numeriese Elektromagnetika Kode.\n"
 "\n"
-"xnec2c kan frekwensie-afhanklike data (aanwins, ingangsimpedansie, vswr ens.) in 'n grafiese formaat vertoon. Dit kan ook stralingspatroondata in 'n draaibare draadraaamformaat en nabye veld (E, H, S vektore) in 'n roosterformaat vertoon.\n"
+"xnec2c kan frekwensie-afhanklike data (aanwins, ingangsimpedansie, vswr ens.) in 'n grafiese formaat vertoon. Dit kan ook stralingspatroondata in 'n draaibare draadraamformaat en nabye veld (E, H, S vektore) in 'n roosterformaat vertoon.\n"
 "\n"
 "xnec2c het 'n ingeboude NEC2-invoerlêerredigeerder wat dit makliker maak om antennabeskrywingslêers te skep of te redigeer en NEC2-opdragte te spesifiseer.\n"
 "\n"
@@ -2041,7 +2041,7 @@ msgstr "Invallende LH-golf"
 
 #: resources/xnec2c.glade:1170
 msgid "Incident Linear Wave "
-msgstr "Invallende Lineêre Golf "
+msgstr "Invallende lineêre golf "
 
 #: resources/xnec2c.glade:1186
 msgid "Current Source"
@@ -2053,7 +2053,7 @@ msgstr "Invallende RH-golf"
 
 #: resources/xnec2c.glade:1218
 msgid "Current Slope Discontinuity"
-msgstr "Stroomhelling Diskontinuïteit"
+msgstr "Stroomhelling-diskontinuïteit"
 
 #: resources/xnec2c.glade:1234
 msgid "Voltage Source"
@@ -2267,19 +2267,19 @@ msgstr "Heliese Element (GA-kaart)"
 
 #: resources/xnec2c.glade:3710
 msgid "Right Hand Helix"
-msgstr "Regterhand Heliks"
+msgstr "Regterhand-heliks"
 
 #: resources/xnec2c.glade:3726
 msgid "Left Hand Helix"
-msgstr "Linkerhand Heliks"
+msgstr "Linkerhand-heliks"
 
 #: resources/xnec2c.glade:3742
 msgid "Right Hand Spiral"
-msgstr "Regterhand Spiraal"
+msgstr "Regterhand-spiraal"
 
 #: resources/xnec2c.glade:3758
 msgid "Left Hand Spiral"
-msgstr "Linkerhand Spiraal"
+msgstr "Linkerhand-spiraal"
 
 #: resources/xnec2c.glade:3789
 msgid "Segments/Turn"
@@ -2414,7 +2414,7 @@ msgstr "Beladingstipe"
 
 #: resources/xnec2c.glade:4983
 msgid "Load Tag Number"
-msgstr "Las Etiket Nommer"
+msgstr "Las-etiketnommer"
 
 #: resources/xnec2c.glade:5014
 msgid "Resistance"
@@ -2809,15 +2809,15 @@ msgstr "Vertikale, Horisontale & Totale Aanwins"
 
 #: resources/xnec2c.glade:8650
 msgid "Major Axis Gain Normalized"
-msgstr "Hoofas-aanwins Genormaliseer"
+msgstr "Hoofas-aanwins genormaliseer"
 
 #: resources/xnec2c.glade:8666
 msgid "Vertical Axis Gain Normalized"
-msgstr "Vertikale As-aanwins Genormaliseer"
+msgstr "Vertikale as-aanwins genormaliseer"
 
 #: resources/xnec2c.glade:8682
 msgid "Total Gain Normalized"
-msgstr "Totale Aanwins Genormaliseer"
+msgstr "Totale aanwins genormaliseer"
 
 #: resources/xnec2c.glade:8698
 msgid "Print/Normalize Directive Gain"
@@ -2829,11 +2829,11 @@ msgstr "Geen Genormaliseerde Aanwins"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "Minoras Aanwins Genormaliseer"
+msgstr "Minoras-aanwins genormaliseer"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "Horisontale As Aanwins Genormaliseer"
+msgstr "Horisontale as-aanwins genormaliseer"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"
@@ -2877,23 +2877,23 @@ msgstr "Aanwins Normalisering"
 
 #: resources/xnec2c.glade:9141
 msgid "Radiation Pattern Parameters"
-msgstr "Stralingspatroon Parameters"
+msgstr "Stralingspatroonparameters"
 
 #: resources/xnec2c.glade:9301
 msgid "Reflect Structure (GX card)"
-msgstr "Weerspieël Struktuur (GX kaart)"
+msgstr "Weerspieël Struktuur (GX-kaart)"
 
 #: resources/xnec2c.glade:9329
 msgid "Reflect in YZ plane"
-msgstr "Weerspieël in YZ vlak"
+msgstr "Weerspieël in YZ-vlak"
 
 #: resources/xnec2c.glade:9344
 msgid "Reflect in XY plane"
-msgstr "Weerspieël in XY vlak"
+msgstr "Weerspieël in XY-vlak"
 
 #: resources/xnec2c.glade:9359
 msgid "Reflect in XZ plane"
-msgstr "Weerspieël in XZ vlak"
+msgstr "Weerspieël in XZ-vlak"
 
 #: resources/xnec2c.glade:9415
 msgid "Reflect Options"
@@ -2901,7 +2901,7 @@ msgstr "Weerspieël Opsies"
 
 #: resources/xnec2c.glade:9546
 msgid "Xnec2c: Frequency Data Plots"
-msgstr "Xnec2c: Frekwensie Data Grafieke"
+msgstr "Xnec2c: Frekwensiedatagrafieke"
 
 #: resources/xnec2c.glade:9571 resources/xnec2c.glade:10386
 #: resources/xnec2c.glade:11663
@@ -3037,7 +3037,7 @@ msgstr "Frek Lus"
 
 #: resources/xnec2c.glade:10342
 msgid "Frequency Data Plots"
-msgstr "Frekwensie Data Grafieke"
+msgstr "Frekwensiedatagrafieke"
 
 #: resources/xnec2c.glade:10459
 msgid "Save _Currents/Charges as CSV"
@@ -3202,7 +3202,7 @@ msgstr "Frekwensie MHz"
 
 #: resources/xnec2c.glade:11618
 msgid "Structure Geometry"
-msgstr "Struktuur Geometrie"
+msgstr "Struktuurgeometrie"
 
 #: resources/xnec2c.glade:11637
 msgid "Xnec2c: Radiation Patterns"
@@ -3230,15 +3230,15 @@ msgstr "_Logaritmies"
 
 #: resources/xnec2c.glade:11917
 msgid "_Near Field"
-msgstr "_Nabye Veld"
+msgstr "_Nabyeveld"
 
 #: resources/xnec2c.glade:11932
 msgid "Near _E Field"
-msgstr "Nabye _E Veld"
+msgstr "Nabye _E-veld"
 
 #: resources/xnec2c.glade:11942
 msgid "Near _H Field"
-msgstr "Nabye _H Veld"
+msgstr "Nabye _H-veld"
 
 #: resources/xnec2c.glade:11952
 msgid "_Poynting Vector"
@@ -3290,7 +3290,7 @@ msgstr "Skaal Struktuur (GS-kaart)"
 
 #: resources/xnec2c.glade:12776
 msgid "Structure Scale Factor"
-msgstr "Struktuur Skaalfaktor"
+msgstr "Struktuurskaalfaktor"
 
 #: resources/xnec2c.glade:12789
 msgid "From Tag No."
@@ -3310,7 +3310,7 @@ msgstr "Koördinaattransformasie (GM-kaart)"
 
 #: resources/xnec2c.glade:13081
 msgid "Tag Increment"
-msgstr "Etiket Inkrement"
+msgstr "Etiketinkrement"
 
 #: resources/xnec2c.glade:13112
 msgid "Rotate about X"
@@ -3346,7 +3346,7 @@ msgstr "Skuif langs Z"
 
 #: resources/xnec2c.glade:13371
 msgid "Co-ordinate Transformation Data"
-msgstr "Koördinaattransformasie Data"
+msgstr "Koördinaattransformasiedata"
 
 #: resources/xnec2c.glade:13567
 msgid "Trans. Line Command (TL Card)"
@@ -3458,7 +3458,7 @@ msgstr "Diam. Taps"
 
 #: resources/xnec2c.glade:14803
 msgid "Wire Taper Data"
-msgstr "Draad Tapsdata"
+msgstr "Draadtapsdata"
 
 #: resources/xnec2c.glade:14968
 msgid "Impedance (Zo) Ohm"
@@ -3470,7 +3470,7 @@ msgstr "50,00"
 
 #: resources/xnec2c.glade:15006
 msgid "Transmission Line Impedance (Zo)"
-msgstr "Transmissielyn Impedansie (Zo)"
+msgstr "Transmisselynimpedansie (Zo)"
 
 #~ msgid ""
 #~ "Not available for Incident Field or\n"
@@ -3499,29 +3499,29 @@ msgstr "Transmissielyn Impedansie (Zo)"
 #~ msgid "error reading Comments: Comment mnemonic short or missing\n"
 #~ msgstr "fout met lees van Kommentaar: Kommentaar-mnemoniese kort of ontbreek\n"
 
-#~ msgid "geometry data card error - tag number is less than 1\n"
-#~ msgstr "geometrie datakaart fout - merkernommer is minder as 1\n"
+#~ msgid "geometrydata card error - tag number is less than 1\n"
+#~ msgstr "geometrie datakaartfout - merkernommer is minder as 1\n"
 
-#~ msgid "geometry data card error - number of segments is less than 1\n"
-#~ msgstr "geometrie datakaart fout - aantal segmente is minder as 1\n"
+#~ msgid "geometrydata card error - number of segments is less than 1\n"
+#~ msgstr "geometrie datakaartfout - aantal segmente is minder as 1\n"
 
-#~ msgid "geometry data card error no GC card for tapered wire\n"
-#~ msgstr "geometrie datakaart fout geen GC kaart vir tapse draad nie\n"
+#~ msgid "geometrydata card error no GC card for tapered wire\n"
+#~ msgstr "geometrie datakaartfout geen GC-kaart vir tapse draad nie\n"
 
 #~ msgid "geometry GC data card error\n"
-#~ msgstr "geometrie GC datakaart fout\n"
+#~ msgstr "geometrie GC datakaartfout\n"
 
 #~ msgid "geometry GX data card error\n"
-#~ msgstr "geometrie GX datakaart fout\n"
+#~ msgstr "geometrie GX datakaartfout\n"
 
 #~ msgid "geometry GR data card error\n"
-#~ msgstr "geometrie GR datakaart fout\n"
+#~ msgstr "geometrie GR datakaartfout\n"
 
 #~ msgid "move GM data card error\n"
-#~ msgstr "skuif GM datakaart fout\n"
+#~ msgstr "skuif GM datakaartfout\n"
 
 #~ msgid "patch data card error\n"
-#~ msgstr "patch datakaart fout\n"
+#~ msgstr "patch datakaartfout\n"
 
 #~ msgid "patch data error\n"
 #~ msgstr "patch data fout\n"
@@ -3533,7 +3533,7 @@ msgstr "Transmissielyn Impedansie (Zo)"
 #~ msgstr "\"GF\" kaart (NGF oplossing) word nie ondersteun nie\n"
 
 #~ msgid "ignoring CM card in geometry\n"
-#~ msgstr "ignoreer CM kaart in geometrie\n"
+#~ msgstr "ignoreer CM-kaart in geometrie\n"
 
 #~ msgid "Theta > 90 deg with ground specified: Please check RP card data and correct\n"
 #~ msgstr "Theta > 90 grade met grond gespesifiseer: Kontroleer asseblief RP-kaartdata en korrigeer\n"

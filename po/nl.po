@@ -29,7 +29,7 @@ msgstr "Segmentverbindingsfout in tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "stapgrootte beperkt bij z= %10.5f\n"
+msgstr "stapgrootte beperkt bij Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -106,11 +106,11 @@ msgstr "NEC2-bestanden (*.nec)"
 
 #: src/callback_func.c:827
 msgid "Touchstone 1-port files (*.s1p)"
-msgstr "Touchstone 1-poort bestanden (*.s1p)"
+msgstr "Touchstone 1-poort-bestanden (*.s1p)"
 
 #: src/callback_func.c:829
 msgid "Touchstone 2-port files (*.s2p)"
-msgstr "Touchstone 2-poort bestanden (*.s2p)"
+msgstr "Touchstone 2-poort-bestanden (*.s2p)"
 
 #: src/callback_func.c:831
 msgid "Comma-separated CSV files (*.csv)"
@@ -303,15 +303,15 @@ msgstr "Veldpunt R (m)"
 
 #: src/cmnd_edit.c:1567 resources/xnec2c.glade:8972
 msgid "Points in Phi"
-msgstr "Punten in phi"
+msgstr "Punten in Phi"
 
 #: src/cmnd_edit.c:1568 resources/xnec2c.glade:8890
 msgid "Initial Theta (deg)"
-msgstr "Initiële theta (deg)"
+msgstr "Initiële Theta (deg)"
 
 #: src/cmnd_edit.c:1569 src/cmnd_edit.c:2477 resources/xnec2c.glade:8903
 msgid "Increment in Theta"
-msgstr "Increment in theta"
+msgstr "Increment in Theta"
 
 #: src/cmnd_edit.c:1570
 msgid "R (m) (Optional)"
@@ -396,11 +396,11 @@ msgstr "Punten langs R"
 
 #: src/cmnd_edit.c:2470
 msgid "Points along Phi"
-msgstr "Punten langs phi"
+msgstr "Punten langs Phi"
 
 #: src/cmnd_edit.c:2471
 msgid "Points along Theta"
-msgstr "Punten langs theta"
+msgstr "Punten langs Theta"
 
 #: src/cmnd_edit.c:2472
 msgid "First Point R (m)"
@@ -408,11 +408,11 @@ msgstr "Eerste punt R (m)"
 
 #: src/cmnd_edit.c:2473
 msgid "First Point Phi"
-msgstr "Eerste punt phi"
+msgstr "Eerste punt Phi"
 
 #: src/cmnd_edit.c:2474
 msgid "First Point Theta"
-msgstr "Eerste punt theta"
+msgstr "Eerste punt Theta"
 
 #: src/cmnd_edit.c:2475
 msgid "Increment in R (m)"
@@ -420,7 +420,7 @@ msgstr "Increment in R (m)"
 
 #: src/cmnd_edit.c:2476 resources/xnec2c.glade:8998
 msgid "Increment in Phi"
-msgstr "Increment in phi"
+msgstr "Increment in Phi"
 
 #: src/draw_radiation.c:28
 msgid ""
@@ -975,7 +975,7 @@ msgstr "b kleiner dan a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "stapgrootte beperkt bij z = %12.5E\n"
+msgstr "stapgrootte beperkt bij Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1702,7 +1702,7 @@ msgstr "muisknop: onbekende knop %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel niet geldig voor z = 0"
+msgstr "Hankel niet geldig voor Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -2033,7 +2033,7 @@ msgstr "Fout"
 
 #: resources/xnec2c.glade:1128
 msgid "Excitation Command (EX Card)"
-msgstr "Excitatieopdracht (EX Card)"
+msgstr "Excitatieopdracht (EX-kaart)"
 
 #: resources/xnec2c.glade:1154
 msgid "Incident LH Wave"
@@ -2105,7 +2105,7 @@ msgstr "Excitatieparameters"
 
 #: resources/xnec2c.glade:1741
 msgid "Execute Command (XQ Card)"
-msgstr "Uitvoeropdracht (XQ Card)"
+msgstr "Uitvoeropdracht (XQ-kaart)"
 
 #: resources/xnec2c.glade:1768
 msgid "No Pattern Cuts"
@@ -2129,7 +2129,7 @@ msgstr "Uitvoeropdracht"
 
 #: resources/xnec2c.glade:2069
 msgid "Frequency Command (FR Card)"
-msgstr "Frequentieopdracht (FR Card)"
+msgstr "Frequentieopdracht (FR-kaart)"
 
 #: resources/xnec2c.glade:2094
 msgid "Additive Stepping"
@@ -2165,7 +2165,7 @@ msgstr "Frequentiestapparameters"
 
 #: resources/xnec2c.glade:2422
 msgid "Geometry End (GE Card)"
-msgstr "Geometrie-einde (GE Card)"
+msgstr "Geometrie-einde (GE-kaart)"
 
 #: resources/xnec2c.glade:2447
 msgid "No Ground, Free Space condition"
@@ -2185,7 +2185,7 @@ msgstr "Grondvlaktype"
 
 #: resources/xnec2c.glade:2638
 msgid "Ground Parameters (GD Card)"
-msgstr "Grondparameters (GD Card)"
+msgstr "Grondparameters (GD-kaart)"
 
 #: resources/xnec2c.glade:2667 resources/xnec2c.glade:3136
 #: resources/xnec2c.glade:3222
@@ -2211,7 +2211,7 @@ msgstr "2e mediumparameters"
 
 #: resources/xnec2c.glade:2980
 msgid "Ground Parameters (GN & GD Cards)"
-msgstr "Grondparameters (GN & GD Cards)"
+msgstr "Grondparameters (GN- en GD-kaarten)"
 
 #: resources/xnec2c.glade:3007
 msgid "Perfect Ground"
@@ -2263,7 +2263,7 @@ msgstr "Radiaal schermparameters"
 
 #: resources/xnec2c.glade:3685
 msgid "Helical Element (GA card)"
-msgstr "Helixelement (GA Card)"
+msgstr "Helixelement (GA-kaart)"
 
 #: resources/xnec2c.glade:3710
 msgid "Right Hand Helix"
@@ -2350,11 +2350,11 @@ msgstr "Straal in Y (B2)"
 
 #: resources/xnec2c.glade:4282
 msgid "GH Card"
-msgstr "GH Card"
+msgstr "GH-kaart"
 
 #: resources/xnec2c.glade:4419 resources/xnec2c.glade:14941
 msgid "Interaction Approx Range (KH Card)"
-msgstr "Interactiebenaderingsbereik (KH Card)"
+msgstr "Interactiebenaderingsbereik (KH-kaart)"
 
 #: resources/xnec2c.glade:4446
 msgid "Approximation Range (W/lengths)"
@@ -2366,7 +2366,7 @@ msgstr "Interactiebenaderingsbereik"
 
 #: resources/xnec2c.glade:4610
 msgid "Thin Wire Kernel (EK Card)"
-msgstr "Dunne-draadkernel (EK Card)"
+msgstr "Dunne-draadkernel (EK-kaart)"
 
 #: resources/xnec2c.glade:4628
 msgid "Extended Thin Wire Kernel"
@@ -2378,11 +2378,11 @@ msgstr "Dunne-draadkernel"
 
 #: resources/xnec2c.glade:4808
 msgid "Loading Command (LD Card)"
-msgstr "Belastingopdracht (LD Card)"
+msgstr "Belastingopdracht (LD-kaart)"
 
 #: resources/xnec2c.glade:4834
 msgid "Short all Loads (Nulls previous Loading Cards)"
-msgstr "Kortsluit alle belastingen (annuleert vorige LD Cards)"
+msgstr "Kortsluit alle belastingen (annuleert vorige LD-kaarten)"
 
 #: resources/xnec2c.glade:4851
 msgid "Series, Lumped"
@@ -3286,7 +3286,7 @@ msgstr "0.010"
 
 #: resources/xnec2c.glade:12745
 msgid "Scale Structure (GS card)"
-msgstr "Structuur schalen (GS card)"
+msgstr "Structuur schalen (GS-kaart)"
 
 #: resources/xnec2c.glade:12776
 msgid "Structure Scale Factor"
@@ -3306,7 +3306,7 @@ msgstr "Structuur schalen"
 
 #: resources/xnec2c.glade:13051
 msgid "Co-ordinate Transformation (GM card)"
-msgstr "Coördinatentransformatie (GM card)"
+msgstr "Coördinatentransformatie (GM-kaart)"
 
 #: resources/xnec2c.glade:13081
 msgid "Tag Increment"
@@ -3350,7 +3350,7 @@ msgstr "Coördinatentransformatiegegevens"
 
 #: resources/xnec2c.glade:13567
 msgid "Trans. Line Command (TL Card)"
-msgstr "Transmissielijn opdracht (TL Card)"
+msgstr "Transmissielijn-opdracht (TL-kaart)"
 
 #: resources/xnec2c.glade:13597
 msgid "Tag Number, End 1  "
@@ -3402,7 +3402,7 @@ msgstr "Transmissielijn"
 
 #: resources/xnec2c.glade:14197
 msgid "Wire Element (GW & GC cards)"
-msgstr "Draadelement (GW & GC cards)"
+msgstr "Draadelement (GW- en GC-kaarten)"
 
 #: resources/xnec2c.glade:14257
 msgid "Wire X1"

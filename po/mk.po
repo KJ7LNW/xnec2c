@@ -29,7 +29,7 @@ msgstr "Грешка во поврзување на сегмент во tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "големина на чекор ограничена на z= %10.5f\n"
+msgstr "големина на чекор ограничена на Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -444,7 +444,7 @@ msgstr ""
 "\n"
 "Анимација на E-поле: Додајте NE картичка во NEC датотека\n"
 "Анимација на H-поле: Додајте NH картичка во NEC датотека\n"
-"Poynting вектор: Додајте и NE и NH картички"
+"Појнтингов вектор: Додајте и NE и NH картички"
 
 #: src/draw_radiation.c:668 src/draw_radiation.c:678 resources/xnec2c.glade:69
 msgid "Near Field Animation"
@@ -506,15 +506,15 @@ msgstr "Блиски полиња:"
 
 #: src/draw_radiation.c:1085
 msgid " - E Field"
-msgstr " - Е поле"
+msgstr " - E поле"
 
 #: src/draw_radiation.c:1087
 msgid " - H Field"
-msgstr " - Н поле"
+msgstr " - H поле"
 
 #: src/draw_radiation.c:1089
 msgid " - Poynting Vector"
-msgstr " - Поинтингов вектор"
+msgstr " - Појнтингов вектор"
 
 #: src/draw_radiation.c:1099
 msgid "Frequency Data Plots - "
@@ -1032,17 +1032,17 @@ msgstr "Ова никогаш не треба да се случи. touchstone t
 #: src/gnuplot.c:227
 #, c-format
 msgid "# Near E field\n"
-msgstr "# Блиско Е поле\n"
+msgstr "# Блиско E поле\n"
 
 #: src/gnuplot.c:250
 #, c-format
 msgid "# Near H field\n"
-msgstr "# Блиско Н поле\n"
+msgstr "# Блиско H поле\n"
 
 #: src/gnuplot.c:297
 #, c-format
 msgid "# Poynting Vector\n"
-msgstr "# Поинтингов вектор\n"
+msgstr "# Појнтингов вектор\n"
 
 #: src/gnuplot.c:369
 #, c-format
@@ -1079,7 +1079,7 @@ msgstr "b помало од a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "чекорот е ограничен при z = %12.5E\n"
+msgstr "чекорот е ограничен при Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1850,7 +1850,7 @@ msgstr "копче на глушец: непознато копче %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Ханкел не е валиден за z = 0"
+msgstr "Ханкел не е валиден за Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -2194,7 +2194,7 @@ msgstr "Грешка"
 
 #: resources/xnec2c.glade:1128
 msgid "Excitation Command (EX Card)"
-msgstr "Команда за ексцитација (EX картичка)"
+msgstr "Команда за побуда (EX картичка)"
 
 #: resources/xnec2c.glade:1154
 msgid "Incident LH Wave"
@@ -2222,7 +2222,7 @@ msgstr "Извор на напон"
 
 #: resources/xnec2c.glade:1256
 msgid "Excitation Type"
-msgstr "Тип на ексцитација"
+msgstr "Тип на побуда"
 
 #: resources/xnec2c.glade:1281
 msgid "Maximum Admittance Matrix Asymmetry"
@@ -2262,7 +2262,7 @@ msgstr "Однос"
 
 #: resources/xnec2c.glade:1614
 msgid "Excitation Parameters"
-msgstr "Параметри на ексцитација"
+msgstr "Параметри на побуда"
 
 #: resources/xnec2c.glade:1741
 msgid "Execute Command (XQ Card)"
@@ -2987,23 +2987,23 @@ msgstr "Печати/Нормализирај директивен добито�
 
 #: resources/xnec2c.glade:8714
 msgid "No Normalized Gain"
-msgstr "Без нормализирана добивка"
+msgstr "Без нормализиран добиток"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "Нормализирана добивка на мала оска"
+msgstr "Нормализиран добиток на мала оска"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "Нормализирана добивка на хоризонтална оска"
+msgstr "Нормализиран добиток на хоризонтална оска"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"
-msgstr "Печати/Нормализирај моќносна добивка"
+msgstr "Печати/Нормализирај моќносен добиток"
 
 #: resources/xnec2c.glade:8778
 msgid "No Gain Averaging"
-msgstr "Без просечна добивка"
+msgstr "Без просечен добиток"
 
 #: resources/xnec2c.glade:8794
 msgid "Points in Average Not Printed"
@@ -3011,7 +3011,7 @@ msgstr "Точките во просек не се печатат"
 
 #: resources/xnec2c.glade:8810
 msgid "Average Gain Computed"
-msgstr "Пресметана просечна добивка"
+msgstr "Пресметан просечен добиток"
 
 #: resources/xnec2c.glade:8828
 msgid "<b>See RP Card Documentation</b>"
@@ -3035,7 +3035,7 @@ msgstr "Растојание на точка на поле"
 
 #: resources/xnec2c.glade:9099
 msgid "Gain Normalization"
-msgstr "Нормализација на добивка"
+msgstr "Нормализација на добиток"
 
 #: resources/xnec2c.glade:9141
 msgid "Radiation Pattern Parameters"
@@ -3089,11 +3089,11 @@ msgstr "Зачувај како S_1P: Само рефлексија"
 
 #: resources/xnec2c.glade:9673
 msgid "Save as S2P: _Max Gain (S21)"
-msgstr "Зачувај како S2P: _Макс добивка (S21)"
+msgstr "Зачувај како S2P: _Макс добиток (S21)"
 
 #: resources/xnec2c.glade:9683
 msgid "Save as S2P: _Viewer Gain (S21)"
-msgstr "Зачувај како S2P: Добивка на _прегледувач (S21)"
+msgstr "Зачувај како S2P: Добиток на _прегледувач (S21)"
 
 #: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
 #: resources/xnec2c.glade:11769
@@ -3132,7 +3132,7 @@ msgstr "_Лева рака"
 
 #: resources/xnec2c.glade:9804
 msgid "_Net Gain"
-msgstr "_Нето добивка"
+msgstr "_Нето добиток"
 
 #: resources/xnec2c.glade:9813
 msgid "Show _Min/Max Values"
@@ -3152,7 +3152,7 @@ msgstr "Заокружи фреквенциски вредности на _X о�
 
 #: resources/xnec2c.glade:9864 resources/xnec2c.glade:10014
 msgid "Max Gain"
-msgstr "Макс добивка"
+msgstr "Макс добиток"
 
 #: resources/xnec2c.glade:9879
 msgid "Direction"
@@ -3335,7 +3335,7 @@ msgstr " Зум"
 
 #: resources/xnec2c.glade:11277 resources/xnec2c.glade:12456
 msgid "Gain"
-msgstr "Добивка"
+msgstr "Добиток"
 
 #: resources/xnec2c.glade:11292 resources/xnec2c.glade:11308
 #: resources/xnec2c.glade:12469 resources/xnec2c.glade:12626
@@ -3372,7 +3372,7 @@ msgstr "Xnec2c: Дијаграми на зрачење"
 
 #: resources/xnec2c.glade:11854
 msgid "_Gain Scaling"
-msgstr "_Скалирање на добивка"
+msgstr "_Скалирање на добиток"
 
 #: resources/xnec2c.glade:11869
 msgid "Linear _Power"

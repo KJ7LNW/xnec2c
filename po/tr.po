@@ -29,7 +29,7 @@ msgstr "tbf() içinde segment bağlantı hatası"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "z= %10.5f konumunda adım boyutu sınırlandırıldı\n"
+msgstr "Z= %10.5f konumunda adım boyutu sınırlandırıldı\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -975,7 +975,7 @@ msgstr "b, a'dan küçük"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "adım boyutu z = %12.5E'de sınırlandı\n"
+msgstr "adım boyutu Z = %12.5E'de sınırlandı\n"
 
 #: src/input.c:84
 msgid ""
@@ -1125,11 +1125,11 @@ msgstr "Taşıma GM veri kartı hatası"
 #: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
 #: src/input.c:739
 msgid "Patch data card error"
-msgstr "Patch veri kartı hatası"
+msgstr "Yama veri kartı hatası"
 
 #: src/input.c:677
 msgid "Patch data error"
-msgstr "Patch veri hatası"
+msgstr "Yama veri hatası"
 
 #: src/input.c:786
 msgid ""
@@ -1199,18 +1199,18 @@ msgid ""
 "The GE card specifies that a ground is present, but the GN indicates otherwise."
 msgstr ""
 "GE/GN kartlarını düzeltin:\n"
-"GE kartı bir toprak düzlemi olduğunu belirtiyor, ancak GN aksini gösteriyor."
+"GE kartı toprak olduğunu belirtiyor, ancak GN aksini gösteriyor."
 
 #: src/input.c:1223
 msgid "theta > 90 deg. with ground specified\n"
-msgstr "toprak düzlemi belirtilmiş durumda theta > 90 derece\n"
+msgstr "toprak belirtilmiş durumda theta > 90 derece\n"
 
 #: src/input.c:1224 src/radiation.c:656
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
 msgstr ""
-"Toprak düzlemi belirtilmiş durumda theta > 90 derece\n"
+"Toprak belirtilmiş durumda theta > 90 derece\n"
 "Lütfen RP kartı verilerini kontrol edip düzeltin"
 
 #: src/input.c:1233
@@ -1298,14 +1298,14 @@ msgstr ""
 
 #: src/input.c:1502
 msgid "Theta > 90 deg. with ground specified: Please check RP card data and correct\n"
-msgstr "Toprak düzlemi belirtilmiş durumda theta > 90 derece: Lütfen RP kartı verilerini kontrol edip düzeltin\n"
+msgstr "Toprak belirtilmiş durumda theta > 90 derece: Lütfen RP kartı verilerini kontrol edip düzeltin\n"
 
 #: src/input.c:1503
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
 msgstr ""
-"Toprak düzlemi belirtilmiş durumda theta > 90 derece\n"
+"Toprak belirtilmiş durumda theta > 90 derece\n"
 "Lütfen RP kartı verilerini kontrol edip düzeltin"
 
 #: src/input.c:1568
@@ -1585,7 +1585,7 @@ msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
 msgstr ""
-"Veri kartı yükleniyor\n"
+"Yükleme veri kartı\n"
 "Etiket numarası uyuşmazlık hatası"
 
 #: src/plot_freqdata.c:132
@@ -1702,7 +1702,7 @@ msgstr "fare düğmesi: bilinmeyen düğme %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "z = 0 için Hankel geçerli değil"
+msgstr "Z = 0 için Hankel geçerli değil"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -2532,7 +2532,7 @@ msgstr "Sarmal"
 
 #: resources/xnec2c.glade:6252
 msgid "Patch"
-msgstr "Patch"
+msgstr "Yama"
 
 #: resources/xnec2c.glade:6266
 msgid "Cylinder"
@@ -2684,7 +2684,7 @@ msgstr "Admitans Matris Elemanları"
 
 #: resources/xnec2c.glade:7444
 msgid "Patch Element (SP & SC Cards)"
-msgstr "Patch Elemanı (SP ve SC Kartları)"
+msgstr "Yama Elemanı (SP ve SC Kartları)"
 
 #: resources/xnec2c.glade:7468
 msgid "Arbitrary"
@@ -2708,7 +2708,7 @@ msgstr "Yüzey"
 
 #: resources/xnec2c.glade:7559
 msgid "Patch Type"
-msgstr "Patch Tipi"
+msgstr "Yama Tipi"
 
 #: resources/xnec2c.glade:7589
 msgid "Corners 1-2 sub-division (NX)"
@@ -2824,15 +2824,15 @@ msgstr "Yönlendirici Kazancı Yazdır/Normalize Et"
 
 #: resources/xnec2c.glade:8714
 msgid "No Normalized Gain"
-msgstr "Normalize Edilmiş Kazanç Yok"
+msgstr "Normalleştirilmiş Kazanç Yok"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "Küçük Eksen Kazancı Normalize Edildi"
+msgstr "Küçük Eksen Kazancı Normalleştirilmiş"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "Yatay Eksen Kazancı Normalize Edildi"
+msgstr "Yatay Eksen Kazancı Normalleştirilmiş"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"

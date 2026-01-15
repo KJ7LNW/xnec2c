@@ -29,7 +29,7 @@ msgstr "Chyba prepojenia segmentu v tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "veľkosť kroku obmedzená pri z= %10.5f\n"
+msgstr "veľkosť kroku obmedzená pri Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -975,7 +975,7 @@ msgstr "b menšie ako a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "veľkosť kroku obmedzená pri z = %12.5E\n"
+msgstr "veľkosť kroku obmedzená pri Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1008,7 +1008,7 @@ msgid ""
 "Geometry data error\n"
 "Tag number is less than 1"
 msgstr ""
-"Chyba geometrických dát\n"
+"Chyba geometrických údajov\n"
 "Číslo značky je menšie ako 1"
 
 #: src/input.c:155
@@ -1016,7 +1016,7 @@ msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
 msgstr ""
-"Chyba geometrických dát\n"
+"Chyba geometrických údajov\n"
 "Počet segmentov je menší ako 1"
 
 #: src/input.c:162
@@ -1072,7 +1072,7 @@ msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
 msgstr ""
-"Chyba geometrických dát\n"
+"Chyba geometrických údajov\n"
 "Chýba GC karta pre kónický vodič"
 
 #: src/input.c:445
@@ -1191,7 +1191,7 @@ msgid ""
 "Please check FR card data and correct"
 msgstr ""
 "Max frekvencia <= Min frekvencia v FR karte\n"
-"Skontrolujte dáta FR karty a opravte"
+"Skontrolujte údaje FR karty a opravte"
 
 #: src/input.c:1209
 msgid ""
@@ -1211,7 +1211,7 @@ msgid ""
 "Please check RP card data and correct"
 msgstr ""
 "Theta > 90 stupňov so špecifikovanou zemou\n"
-"Skontrolujte dáta RP karty a opravte"
+"Skontrolujte údaje RP karty a opravte"
 
 #: src/input.c:1233
 msgid "radial wire g.s. approximation: may not be used with Sommerfeld ground option\n"
@@ -1235,7 +1235,7 @@ msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
 msgstr ""
-"Chyba dát na zaťažovacej karte\n"
+"Chyba údajov na zaťažovacej karte\n"
 "itag step1 je väčší ako itag step2"
 
 #: src/input.c:1420
@@ -1306,7 +1306,7 @@ msgid ""
 "Please check RP card data and correct"
 msgstr ""
 "Theta > 90 stupňov so špecifikovanou zemou\n"
-"Skontrolujte dáta RP karty a opravte"
+"Skontrolujte údaje RP karty a opravte"
 
 #: src/input.c:1568
 msgid "Faulty data card"
@@ -1356,7 +1356,7 @@ msgid ""
 "Unexpected EOF while reading input file\n"
 "Appending a default GE card"
 msgstr ""
-"Chyba karty geometrických dát\n"
+"Chyba karty geometrických údajov\n"
 "Neočakávaný EOF pri čítaní vstupného súboru\n"
 "Pridávam predvolenú GE kartu"
 
@@ -1369,7 +1369,7 @@ msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
 msgstr ""
-"Chyba karty geometrických dát\n"
+"Chyba karty geometrických údajov\n"
 "Mnemonický kód karty príliš krátky alebo chýba"
 
 #: src/main.c:125
@@ -1702,7 +1702,7 @@ msgstr "tlačidlo myši: neznáme tlačidlo %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel nie je platný pre z = 0"
+msgstr "Hankel nie je platný pre Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -2008,7 +2008,7 @@ msgstr "Odstrániť kartu"
 
 #: resources/xnec2c.glade:718
 msgid "Cylindrical Structure (GR card)"
-msgstr "Cylindrická štruktúra (karta GR)"
+msgstr "Valcová štruktúra (karta GR)"
 
 #: resources/xnec2c.glade:748 resources/xnec2c.glade:9376
 msgid "Tag Number Increment"
@@ -3499,34 +3499,34 @@ msgstr "Impedancia prenosového vedenia (Zo)"
 #~ msgstr "chyba pri čítaní komentárov: mnemonika komentára je krátka alebo chýba\n"
 
 #~ msgid "geometry data card error - tag number is less than 1\n"
-#~ msgstr "chyba karty geometrických dát - číslo značky je menšie ako 1\n"
+#~ msgstr "chyba karty geometrických údajov - číslo značky je menšie ako 1\n"
 
 #~ msgid "geometry data card error - number of segments is less than 1\n"
-#~ msgstr "chyba karty geometrických dát - počet segmentov je menší ako 1\n"
+#~ msgstr "chyba karty geometrických údajov - počet segmentov je menší ako 1\n"
 
 #~ msgid "geometry data card error no GC card for tapered wire\n"
-#~ msgstr "chyba karty geometrických dát - chýba GC karta pre kónický vodič\n"
+#~ msgstr "chyba karty geometrických údajov - chýba GC karta pre kónický vodič\n"
 
 #~ msgid "geometry GC data card error\n"
-#~ msgstr "chyba GC karty geometrických dát\n"
+#~ msgstr "chyba GC karty geometrických údajov\n"
 
 #~ msgid "geometry GX data card error\n"
-#~ msgstr "chyba GX karty geometrických dát\n"
+#~ msgstr "chyba GX karty geometrických údajov\n"
 
 #~ msgid "geometry GR data card error\n"
-#~ msgstr "chyba GR karty geometrických dát\n"
+#~ msgstr "chyba GR karty geometrických údajov\n"
 
 #~ msgid "move GM data card error\n"
 #~ msgstr "chyba GM karty pre presun\n"
 
 #~ msgid "patch data card error\n"
-#~ msgstr "chyba karty dát plochy\n"
+#~ msgstr "chyba karty údajov plochy\n"
 
 #~ msgid "patch data error\n"
-#~ msgstr "chyba dát plochy\n"
+#~ msgstr "chyba údajov plochy\n"
 
 #~ msgid "patch card data error\n"
-#~ msgstr "chyba dát karty plochy\n"
+#~ msgstr "chyba údajov karty plochy\n"
 
 #~ msgid "\"GF\" card (NGF solution) is not supported\n"
 #~ msgstr "\"GF\" karta (NGF riešenie) nie je podporovaná\n"

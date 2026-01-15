@@ -29,7 +29,7 @@ msgstr "Segmentanslutningsfel i tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "stegstorlek begränsad vid z= %10.5f\n"
+msgstr "stegstorlek begränsad vid Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -743,15 +743,15 @@ msgstr ""
 
 #: src/geometry.c:1123
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
-msgstr "hörnen på fyrhörnings-patch ligger inte i ett plan\n"
+msgstr "hörnen på fyrhörningspatch ligger inte i ett plan\n"
 
 #: src/geometry.c:1124
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
 msgstr ""
-"Hörnen på fyrhörnings-\n"
-"patch ligger inte i ett plan"
+"Hörnen på fyrhörningspatch\n"
+"ligger inte i ett plan"
 
 #: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
 #, c-format
@@ -953,7 +953,7 @@ msgstr "# Strålningsdiagram\n"
 #: src/gnuplot.c:505
 #, c-format
 msgid "# structure patch segments\n"
-msgstr "# struktur patch-segment\n"
+msgstr "# struktur patchsegment\n"
 
 #: src/gnuplot.c:530
 #, c-format
@@ -975,7 +975,7 @@ msgstr "b mindre än a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "stegstorlek begränsad vid z = %12.5E\n"
+msgstr "stegstorlek begränsad vid Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1125,11 +1125,11 @@ msgstr "Fel vid flytt av GM-datakort"
 #: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
 #: src/input.c:739
 msgid "Patch data card error"
-msgstr "Fel på patch-datakort"
+msgstr "Fel på patchdatakort"
 
 #: src/input.c:677
 msgid "Patch data error"
-msgstr "Fel på patch-data"
+msgstr "Fel på patchdata"
 
 #: src/input.c:786
 msgid ""
@@ -1415,7 +1415,7 @@ msgstr "batchläge aktiverat, avslutar efter första slingan\n"
 
 #: src/main.c:331
 msgid "verify segments check disabled\n"
-msgstr "verifiera segment-kontroll inaktiverad\n"
+msgstr "segmentkontroll inaktiverad\n"
 
 #: src/main.c:336
 msgid "forcing overlap check on large models\n"
@@ -1702,7 +1702,7 @@ msgstr "musknapp: okänd knapp %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel ej giltig för z = 0"
+msgstr "Hankel ej giltig för Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1750,7 +1750,7 @@ msgstr ""
 "     --openblas-threads <n>  ange OpenBLAS-trådantal (standard: 1)\n"
 "     --mkl-threads <n>       ange Intel MKL-trådantal (standard: 1)\n"
 "     --omp-threads <n>       ange OpenMP-trådantal (standard: 1)\n"
-"  -b|--batch:        aktivera batch-läge, avsluta efter frekvensslingan körs\n"
+"  -b|--batch:        aktivera batchläge, avsluta efter frekvensslingan körs\n"
 "  -P|--no-pthreads:  inaktivera pthreads och använd GTK-loopen för felsökning\n"
 "  -h|--help:         visa användningsinformation och avsluta\n"
 "  -V|--version:      visa xnec2c-versionsnummer och avsluta\n"
@@ -1763,13 +1763,13 @@ msgstr ""
 "\n"
 "Följande argument skriver till en utdatafil efter att frekvensslingan\n"
 "har slutförts. Dessa är användbara att kombinera med --batch; Om du vill ange\n"
-"filnamn att skriva utan --batch-läge, aktivera Arkiv->Optimerarinställningar\n"
+"filnamn att skriva utan --batchläge, aktivera Arkiv->Optimerarinställningar\n"
 "annars kommer filerna du anger på kommandoraden inte att skrivas.\n"
 "\n"
 "  --write-csv             <filnamn>  - skriv CSV-fil med mätningar\n"
 "  --write-s1p             <filnamn>  - skriv S1P-fil med S-parametrar\n"
 "  --write-s2p-max-gain    <filnamn>  - skriv S2P-fil, port-2 är maxförstärkning\n"
-"  --write-s2p-viewer-gain <filnamn>  - skriv S2P-fil, port-2 är visarförstärkning\n"
+"  --write-s2p-viewer-gain <filnamn>  - skriv S2P-fil, port-2 är betraktarförstärkning\n"
 "  --write-rdpat           <filnamn>  - skriv CSV av strålningsmönstret\n"
 "  --write-currents        <filnamn>  - skriv CSV av strömmar och laddningar\n"
 
@@ -2684,7 +2684,7 @@ msgstr "Admittansmatriselement"
 
 #: resources/xnec2c.glade:7444
 msgid "Patch Element (SP & SC Cards)"
-msgstr "Patch-element (SP- & SC-kort)"
+msgstr "Patchelement (SP- & SC-kort)"
 
 #: resources/xnec2c.glade:7468
 msgid "Arbitrary"
@@ -2708,7 +2708,7 @@ msgstr "Yta"
 
 #: resources/xnec2c.glade:7559
 msgid "Patch Type"
-msgstr "Patch-typ"
+msgstr "Patchtyp"
 
 #: resources/xnec2c.glade:7589
 msgid "Corners 1-2 sub-division (NX)"
@@ -2930,7 +2930,7 @@ msgstr "Spara som S2P: _Maxförstärkning (S21)"
 
 #: resources/xnec2c.glade:9683
 msgid "Save as S2P: _Viewer Gain (S21)"
-msgstr "Spara som S2P: _Visarförstärkning (S21)"
+msgstr "Spara som S2P: _Betraktarförstärkning (S21)"
 
 #: resources/xnec2c.glade:9720 resources/xnec2c.glade:10796
 #: resources/xnec2c.glade:11769
@@ -2997,7 +2997,7 @@ msgstr "Riktning"
 
 #: resources/xnec2c.glade:9894
 msgid "Viewer"
-msgstr "Visare"
+msgstr "Betraktare"
 
 #: resources/xnec2c.glade:9924
 msgid "Zr/Zi"

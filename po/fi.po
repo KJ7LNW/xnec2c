@@ -29,7 +29,7 @@ msgstr "Segmentin liitäntävirhe funktiossa tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "askelkoko rajoitettu kohdassa z= %10.5f\n"
+msgstr "askelkoko rajoitettu kohdassa Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -566,7 +566,7 @@ msgid ""
 "with arbitrary patch type"
 msgstr ""
 "SC-korttia edeltää SP-kortti\n"
-"mielivaltaisella Patch-tyypillä"
+"mielivaltaisella patch-tyypillä"
 
 #: src/geom_edit.c:956
 msgid "No SP or SM card before SC card"
@@ -578,7 +578,7 @@ msgid ""
 "with non-arbitrary patch type"
 msgstr ""
 "Ei SC-korttia SP-kortin jälkeen\n"
-"ei-mielivaltaisella Patch-tyypillä"
+"ei-mielivaltaisella patch-tyypillä"
 
 #: src/geom_edit.c:983
 msgid ""
@@ -586,7 +586,7 @@ msgid ""
 "with arbitrary patch type"
 msgstr ""
 "SC-kortti seuraa SP-korttia\n"
-"mielivaltaisella Patch-tyypillä"
+"mielivaltaisella patch-tyypillä"
 
 #: src/geom_edit.c:996
 msgid "No SC card after an SM card"
@@ -743,14 +743,14 @@ msgstr ""
 
 #: src/geometry.c:1123
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
-msgstr "nelikulmion kulmat: Patch ei sijaitse tasossa\n"
+msgstr "nelikulmion kulmat: patch ei sijaitse tasossa\n"
 
 #: src/geometry.c:1124
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
 msgstr ""
-"Nelikulmaisen Patchin\n"
+"Nelikulmaisen patchin\n"
 "kulmat eivät sijaitse tasossa"
 
 #: src/geometry.c:1254 src/geometry.c:1354 src/geometry.c:1456
@@ -769,7 +769,7 @@ msgstr ""
 #: src/geometry.c:1303 src/geometry.c:1403 src/geometry.c:1503
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
-msgstr "geometriatietovirhe: Patch %d sijaitsee symmetriatasossa\n"
+msgstr "geometriatietovirhe: patch %d sijaitsee symmetriatasossa\n"
 
 #: src/geometry.c:1304 src/geometry.c:1404 src/geometry.c:1504
 msgid ""
@@ -777,7 +777,7 @@ msgid ""
 "Patch lies in plane of symmetry"
 msgstr ""
 "Geometriatietovirhe\n"
-"Patch sijaitsee symmetriatasossa"
+"patch sijaitsee symmetriatasossa"
 
 #: src/geometry.c:1642
 #, c-format
@@ -975,7 +975,7 @@ msgstr "b pienempi kuin a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "askelpituus rajoitettu kohdassa z = %12.5E\n"
+msgstr "askelpituus rajoitettu kohdassa Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1125,11 +1125,11 @@ msgstr "Siirron GM-tietokortin virhe"
 #: src/input.c:655 src/input.c:696 src/input.c:713 src/input.c:731
 #: src/input.c:739
 msgid "Patch data card error"
-msgstr "Patch-tietokortin virhe"
+msgstr "patch-tietokortin virhe"
 
 #: src/input.c:677
 msgid "Patch data error"
-msgstr "Patch-tietojen virhe"
+msgstr "patch-tietojen virhe"
 
 #: src/input.c:786
 msgid ""
@@ -1702,7 +1702,7 @@ msgstr "hiiren painike: tuntematon painike %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel ei kelpaa kun z = 0"
+msgstr "Hankel ei kelpaa kun Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"

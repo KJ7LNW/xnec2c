@@ -29,7 +29,7 @@ msgstr "Kesalahan koneksi segmen di tbf()"
 #: src/calculations.c:890
 #, c-format
 msgid "step size limited at z= %10.5f\n"
-msgstr "ukuran langkah dibatasi pada z= %10.5f\n"
+msgstr "ukuran langkah dibatasi pada Z= %10.5f\n"
 
 #: src/calculations.c:1054
 #, c-format
@@ -151,7 +151,7 @@ msgstr "Pengoptimal Xnec2c"
 
 #: src/callbacks.c:316
 msgid "No files are selected for writing. However, xnec2c will still reload and recalculate the input file on modification when triggered by inotify.Select files for writing in \"File->Optimization Settings\"."
-msgstr "Tidak ada file yang dipilih untuk ditulis. Namun, xnec2c akan tetap memuat ulang dan menghitung ulang file input saat dimodifikasi ketika dipicu oleh inotify. Pilih file untuk ditulis di \"File->Pengaturan Optimisasi\"."
+msgstr "Tidak ada file yang dipilih untuk ditulis. Namun, xnec2c akan tetap memuat ulang dan menghitung ulang file input saat dimodifikasi ketika dipicu oleh inotify. Pilih file untuk ditulis di \"Berkas->Pengaturan Optimisasi\"."
 
 #: src/callbacks.c:327
 msgid "failed to create Optimizer Output thread\n"
@@ -213,7 +213,7 @@ msgstr "Nomor Segmen"
 
 #: src/cmnd_edit.c:422
 msgid "Voltage Real Part"
-msgstr "Bagian Nyata Tegangan"
+msgstr "Bagian Riil Tegangan"
 
 #: src/cmnd_edit.c:423
 msgid "Voltage Imaginary Part"
@@ -448,7 +448,7 @@ msgstr "%s"
 
 #: src/draw_radiation.c:1052
 msgid "Total Gain"
-msgstr "Gain Total"
+msgstr "Penguatan Total"
 
 #: src/draw_radiation.c:1053
 msgid "Horizontal Polarization"
@@ -966,7 +966,7 @@ msgstr "Simpan Arus dan Muatan ke CSV"
 
 #: src/gnuplot.c:566
 msgid "You must enable current data by clicking \"Currents\" or \"Charges\"in the main xnec2c window."
-msgstr "Anda harus mengaktifkan data arus dengan mengklik \"Currents\" atau \"Charges\" di jendela utama xnec2c."
+msgstr "Anda harus mengaktifkan data arus dengan mengklik \"Arus\" atau \"Muatan\" di jendela utama xnec2c."
 
 #: src/ground.c:90
 msgid "b less than a"
@@ -975,7 +975,7 @@ msgstr "b kurang dari a"
 #: src/ground.c:215
 #, c-format
 msgid "step size limited at z = %12.5E\n"
-msgstr "ukuran langkah dibatasi pada z = %12.5E\n"
+msgstr "ukuran langkah dibatasi pada Z = %12.5E\n"
 
 #: src/input.c:84
 msgid ""
@@ -1526,7 +1526,7 @@ msgstr "Komentar"
 
 #: src/nec2_model.c:188
 msgid "--- NEC2 Input File created or edited by "
-msgstr "--- File Input NEC2 dibuat atau diedit oleh "
+msgstr "--- Berkas Input NEC2 dibuat atau diedit oleh "
 
 #: src/nec2_model.c:205
 msgid "--- End Comments ---"
@@ -1702,7 +1702,7 @@ msgstr "tombol mouse: tombol tidak dikenal %d\n"
 
 #: src/somnec.c:238
 msgid "Hankel not valid for z = 0"
-msgstr "Hankel tidak valid untuk z = 0"
+msgstr "Hankel tidak valid untuk Z = 0"
 
 #: src/somnec.c:749
 msgid "No convergence"
@@ -1763,8 +1763,8 @@ msgstr ""
 "\n"
 "Argumen berikut menulis ke file output setelah loop frekuensi selesai.\n"
 "Ini berguna untuk dikombinasikan dengan --batch; Jika Anda ingin menentukan\n"
-"nama file untuk ditulis tanpa mode --batch maka aktifkan File->Optimizer\n"
-"Settings atau file yang Anda tentukan di baris perintah tidak akan ditulis.\n"
+"nama file untuk ditulis tanpa mode --batch maka aktifkan File->Pengaturan\n"
+"Optimizer atau file yang Anda tentukan di baris perintah tidak akan ditulis.\n"
 "\n"
 "  --write-csv             <namafile>  - tulis file CSV pengukuran\n"
 "  --write-s1p             <namafile>  - tulis file S1P S-parameter\n"
@@ -2656,15 +2656,15 @@ msgstr "Identitas Segmen"
 
 #: resources/xnec2c.glade:7033
 msgid "Element 1,1 Real Part"
-msgstr "Elemen 1,1 Bagian Real"
+msgstr "Elemen 1,1 Bagian Riil"
 
 #: resources/xnec2c.glade:7065
 msgid "Element 1,2 Real Part"
-msgstr "Elemen 1,2 Bagian Real"
+msgstr "Elemen 1,2 Bagian Riil"
 
 #: resources/xnec2c.glade:7097
 msgid "Element 2,2 Real Part"
-msgstr "Elemen 2,2 Bagian Real"
+msgstr "Elemen 2,2 Bagian Riil"
 
 #: resources/xnec2c.glade:7129
 msgid "Element 1,1 Imag Part"
@@ -2800,39 +2800,39 @@ msgstr "Tipe Gelombang dan Ground (I1)"
 
 #: resources/xnec2c.glade:8618
 msgid "Major & Minor Axis & Total Gain"
-msgstr "Sumbu Mayor & Minor & Gain Total"
+msgstr "Sumbu Mayor & Minor & Penguatan Total"
 
 #: resources/xnec2c.glade:8634
 msgid "Vertical, Horizontal & Total Gain"
-msgstr "Gain Vertikal, Horizontal & Total"
+msgstr "Penguatan Vertikal, Horizontal & Total"
 
 #: resources/xnec2c.glade:8650
 msgid "Major Axis Gain Normalized"
-msgstr "Gain Sumbu Mayor Ternormalisasi"
+msgstr "Penguatan Sumbu Mayor Ternormalisasi"
 
 #: resources/xnec2c.glade:8666
 msgid "Vertical Axis Gain Normalized"
-msgstr "Gain Sumbu Vertikal Ternormalisasi"
+msgstr "Penguatan Sumbu Vertikal Ternormalisasi"
 
 #: resources/xnec2c.glade:8682
 msgid "Total Gain Normalized"
-msgstr "Gain Total Ternormalisasi"
+msgstr "Penguatan Total Ternormalisasi"
 
 #: resources/xnec2c.glade:8698
 msgid "Print/Normalize Directive Gain"
-msgstr "Cetak/Normalisasi Gain Direktif"
+msgstr "Cetak/Normalisasi Penguatan Direktif"
 
 #: resources/xnec2c.glade:8714
 msgid "No Normalized Gain"
-msgstr "Tanpa Gain Ternormalisasi"
+msgstr "Tanpa Penguatan Ternormalisasi"
 
 #: resources/xnec2c.glade:8730
 msgid "Minor Axis Gain Normalized"
-msgstr "Gain Sumbu Minor Ternormalisasi"
+msgstr "Penguatan Sumbu Minor Ternormalisasi"
 
 #: resources/xnec2c.glade:8746
 msgid "Horizontal Axis Gain Normalized"
-msgstr "Gain Sumbu Horizontal Ternormalisasi"
+msgstr "Penguatan Sumbu Horizontal Ternormalisasi"
 
 #: resources/xnec2c.glade:8762
 msgid "Print/Normalize Power Gain"
