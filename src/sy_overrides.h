@@ -43,5 +43,6 @@ gboolean on_sy_overrides_window_delete_event(GtkWidget *widget, GdkEvent *event,
 void on_sy_overrides_apply_clicked(GtkButton *button, gpointer user_data);
 void on_sy_overrides_cancel_clicked(GtkButton *button, gpointer user_data);
 void on_sy_overrides_close_clicked(GtkButton *button, gpointer user_data);
+void on_sy_show_defaults_toggled(GtkToggleButton *button, gpointer user_data);
 
 #endif
