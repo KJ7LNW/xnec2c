@@ -24,6 +24,9 @@
 #include "interface.h"
 #include "callbacks.h"
 
+/* Character width for numeric input fields */
+#define SY_NUMERIC_WIDTH_CHARS 8
+
 /* Row widget structure for each symbol */
 typedef struct
 {
@@ -32,9 +35,9 @@ typedef struct
   GtkWidget *value_label;
   GtkWidget *override_entry;
   GtkWidget *override_check;
-  GtkWidget *min_spin;
+  GtkWidget *min_entry;
   GtkWidget *slider;
-  GtkWidget *max_spin;
+  GtkWidget *max_entry;
   GtkWidget *expr_label;
   GtkAdjustment *adjustment;
   gdouble original_value;
@@ -133,21 +136,23 @@ on_slider_value_changed(GtkRange *range, gpointer user_data)
   (void)range;
 
   val = gtk_adjustment_get_value(row->adjustment);
-  min_val = gtk_spin_button_get_value(GTK_SPIN_BUTTON(row->min_spin));
-  max_val = gtk_spin_button_get_value(GTK_SPIN_BUTTON(row->max_spin));
+  min_val = g_strtod(gtk_entry_get_text(GTK_ENTRY(row->min_entry)), NULL);
+  max_val = g_strtod(gtk_entry_get_text(GTK_ENTRY(row->max_entry)), NULL);
 
   /* Auto-adjust bounds if value exceeds current limits */
   if( val < min_val )
   {
     /* Recalculate min as half of current value */
     min_val = val * 0.5;
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(row->min_spin), min_val);
+    snprintf(buf, sizeof(buf), "%.3f", min_val);
+    gtk_entry_set_text(GTK_ENTRY(row->min_entry), buf);
   }
   else if( val > max_val )
   {
     /* Recalculate max as twice current value */
     max_val = val * 2.0;
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(row->max_spin), max_val);
+    snprintf(buf, sizeof(buf), "%.3f", max_val);
+    gtk_entry_set_text(GTK_ENTRY(row->max_entry), buf);
   }
   else
   {
@@ -155,7 +160,7 @@ on_slider_value_changed(GtkRange *range, gpointer user_data)
   }
 
   /* Update override entry to match slider */
-  snprintf(buf, sizeof(buf), "%g", val);
+  snprintf(buf, sizeof(buf), "%.3f", val);
   gtk_entry_set_text(GTK_ENTRY(row->override_entry), buf);
   dirty = TRUE;
 }
@@ -193,29 +198,57 @@ on_override_entry_changed(GtkEditable *editable, gpointer user_data)
 
 /*------------------------------------------------------------------------*/
 
-/* Signal: min spinbutton changed */
+/* Signal: min entry changed */
 static void
-on_min_spin_changed(GtkSpinButton *button, gpointer user_data)
+on_min_entry_changed(GtkEditable *editable, gpointer user_data)
 {
   sy_row_t *row = (sy_row_t *)user_data;
+  const gchar *text;
   gdouble min_val;
+  gchar *endptr;
 
-  min_val = gtk_spin_button_get_value(button);
-  gtk_adjustment_set_lower(row->adjustment, min_val);
+  (void)editable;
+
+  text = gtk_entry_get_text(GTK_ENTRY(row->min_entry));
+  min_val = g_strtod(text, &endptr);
+
+  if( endptr != text && *endptr == '\0' )
+  {
+    gtk_adjustment_set_lower(row->adjustment, min_val);
+  }
+  else
+  {
+    /* Invalid input: adjustment unchanged */
+  }
+
   dirty = TRUE;
 }
 
 /*------------------------------------------------------------------------*/
 
-/* Signal: max spinbutton changed */
+/* Signal: max entry changed */
 static void
-on_max_spin_changed(GtkSpinButton *button, gpointer user_data)
+on_max_entry_changed(GtkEditable *editable, gpointer user_data)
 {
   sy_row_t *row = (sy_row_t *)user_data;
+  const gchar *text;
   gdouble max_val;
+  gchar *endptr;
 
-  max_val = gtk_spin_button_get_value(button);
-  gtk_adjustment_set_upper(row->adjustment, max_val);
+  (void)editable;
+
+  text = gtk_entry_get_text(GTK_ENTRY(row->max_entry));
+  max_val = g_strtod(text, &endptr);
+
+  if( endptr != text && *endptr == '\0' )
+  {
+    gtk_adjustment_set_upper(row->adjustment, max_val);
+  }
+  else
+  {
+    /* Invalid input: adjustment unchanged */
+  }
+
   dirty = TRUE;
 }
 
@@ -239,8 +272,8 @@ is_default_row(sy_row_t *row)
   if( active )
     return FALSE;
 
-  min_val = gtk_spin_button_get_value(GTK_SPIN_BUTTON(row->min_spin));
-  max_val = gtk_spin_button_get_value(GTK_SPIN_BUTTON(row->max_spin));
+  min_val = g_strtod(gtk_entry_get_text(GTK_ENTRY(row->min_entry)), NULL);
+  max_val = g_strtod(gtk_entry_get_text(GTK_ENTRY(row->max_entry)), NULL);
   expected_min = row->original_value * 0.5;
   expected_max = row->original_value * 2.0;
 
@@ -260,9 +293,9 @@ set_row_visible(sy_row_t *row, gboolean visible)
   gtk_widget_set_visible(row->value_label, visible);
   gtk_widget_set_visible(row->override_entry, visible);
   gtk_widget_set_visible(row->override_check, visible);
-  gtk_widget_set_visible(row->min_spin, visible);
+  gtk_widget_set_visible(row->min_entry, visible);
   gtk_widget_set_visible(row->slider, visible);
-  gtk_widget_set_visible(row->max_spin, visible);
+  gtk_widget_set_visible(row->max_entry, visible);
 
   if( row->expr_label != NULL )
     gtk_widget_set_visible(row->expr_label, visible);
@@ -368,19 +401,24 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_label_set_xalign(GTK_LABEL(row->name_label), 0.0);
   gtk_grid_attach(grid, row->name_label, 0, row_index, 1, 1);
 
-  /* Value label (column 1, fixed width) */
-  snprintf(buf, sizeof(buf), "%g", row->original_value);
+  /* Value label (column 1, fixed width, 3 decimal places) */
+  snprintf(buf, sizeof(buf), "%.3f", row->original_value);
   row->value_label = gtk_label_new(buf);
-  gtk_widget_set_size_request(row->value_label, 90, -1);
+  gtk_label_set_width_chars(GTK_LABEL(row->value_label), SY_NUMERIC_WIDTH_CHARS);
+  gtk_label_set_max_width_chars(GTK_LABEL(row->value_label), SY_NUMERIC_WIDTH_CHARS);
+  gtk_widget_set_hexpand(row->value_label, FALSE);
   gtk_label_set_xalign(GTK_LABEL(row->value_label), 1.0);
   gtk_grid_attach(grid, row->value_label, 1, row_index, 1, 1);
 
-  /* Override entry (column 2, fixed width) */
+  /* Override entry (column 2, fixed width, 3 decimal places, right-justified) */
   row->override_entry = gtk_entry_new();
-  gtk_widget_set_size_request(row->override_entry, 90, -1);
+  gtk_entry_set_width_chars(GTK_ENTRY(row->override_entry), SY_NUMERIC_WIDTH_CHARS);
+  gtk_entry_set_max_width_chars(GTK_ENTRY(row->override_entry), SY_NUMERIC_WIDTH_CHARS);
+  gtk_widget_set_hexpand(row->override_entry, FALSE);
+  gtk_entry_set_alignment(GTK_ENTRY(row->override_entry), 1.0);
   if( !isnan(override_value) )
   {
-    snprintf(buf, sizeof(buf), "%g", override_value);
+    snprintf(buf, sizeof(buf), "%.3f", override_value);
     gtk_entry_set_text(GTK_ENTRY(row->override_entry), buf);
   }
   else
@@ -395,11 +433,15 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(row->override_check), override_active);
   gtk_grid_attach(grid, row->override_check, 3, row_index, 1, 1);
 
-  /* Min spinbutton (column 4, fixed width) */
-  row->min_spin = gtk_spin_button_new_with_range(-1e9, 1e9, 0.1);
-  gtk_widget_set_size_request(row->min_spin, 90, -1);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(row->min_spin), row->min_value);
-  gtk_grid_attach(grid, row->min_spin, 4, row_index, 1, 1);
+  /* Min entry (column 4, fixed width, 3 decimal places, right-justified) */
+  row->min_entry = gtk_entry_new();
+  gtk_entry_set_width_chars(GTK_ENTRY(row->min_entry), SY_NUMERIC_WIDTH_CHARS);
+  gtk_entry_set_max_width_chars(GTK_ENTRY(row->min_entry), SY_NUMERIC_WIDTH_CHARS);
+  gtk_widget_set_hexpand(row->min_entry, FALSE);
+  gtk_entry_set_alignment(GTK_ENTRY(row->min_entry), 1.0);
+  snprintf(buf, sizeof(buf), "%.3f", row->min_value);
+  gtk_entry_set_text(GTK_ENTRY(row->min_entry), buf);
+  gtk_grid_attach(grid, row->min_entry, 4, row_index, 1, 1);
 
   /* Slider adjustment and widget (column 5, fixed width, no expand) */
   slider_value = isnan(override_value) ? row->original_value : override_value;
@@ -412,11 +454,15 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_widget_set_hexpand(row->slider, FALSE);
   gtk_grid_attach(grid, row->slider, 5, row_index, 1, 1);
 
-  /* Max spinbutton (column 6, fixed width) */
-  row->max_spin = gtk_spin_button_new_with_range(-1e9, 1e9, 0.1);
-  gtk_widget_set_size_request(row->max_spin, 90, -1);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(row->max_spin), row->max_value);
-  gtk_grid_attach(grid, row->max_spin, 6, row_index, 1, 1);
+  /* Max entry (column 6, fixed width, 3 decimal places, right-justified) */
+  row->max_entry = gtk_entry_new();
+  gtk_entry_set_width_chars(GTK_ENTRY(row->max_entry), SY_NUMERIC_WIDTH_CHARS);
+  gtk_entry_set_max_width_chars(GTK_ENTRY(row->max_entry), SY_NUMERIC_WIDTH_CHARS);
+  gtk_widget_set_hexpand(row->max_entry, FALSE);
+  gtk_entry_set_alignment(GTK_ENTRY(row->max_entry), 1.0);
+  snprintf(buf, sizeof(buf), "%.3f", row->max_value);
+  gtk_entry_set_text(GTK_ENTRY(row->max_entry), buf);
+  gtk_grid_attach(grid, row->max_entry, 6, row_index, 1, 1);
 
   /* Expression label (column 7, expanding) */
   if( row->is_calculated && expression != NULL && expression[0] != '\0' )
@@ -439,10 +485,10 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
       G_CALLBACK(on_slider_value_changed), row);
   g_signal_connect(row->override_entry, "changed",
       G_CALLBACK(on_override_entry_changed), row);
-  g_signal_connect(row->min_spin, "value-changed",
-      G_CALLBACK(on_min_spin_changed), row);
-  g_signal_connect(row->max_spin, "value-changed",
-      G_CALLBACK(on_max_spin_changed), row);
+  g_signal_connect(row->min_entry, "changed",
+      G_CALLBACK(on_min_entry_changed), row);
+  g_signal_connect(row->max_entry, "changed",
+      G_CALLBACK(on_max_entry_changed), row);
 
   /* Apply initial strikethrough if override is active */
   update_strikethrough(row);
@@ -451,9 +497,9 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_widget_show_all(row->value_label);
   gtk_widget_show_all(row->override_entry);
   gtk_widget_show_all(row->override_check);
-  gtk_widget_show_all(row->min_spin);
+  gtk_widget_show_all(row->min_entry);
   gtk_widget_show_all(row->slider);
-  gtk_widget_show_all(row->max_spin);
+  gtk_widget_show_all(row->max_entry);
 
   if( row->expr_label != NULL )
   {
@@ -498,9 +544,9 @@ clear_rows(void)
     gtk_widget_destroy(row->value_label);
     gtk_widget_destroy(row->override_entry);
     gtk_widget_destroy(row->override_check);
-    gtk_widget_destroy(row->min_spin);
+    gtk_widget_destroy(row->min_entry);
     gtk_widget_destroy(row->slider);
-    gtk_widget_destroy(row->max_spin);
+    gtk_widget_destroy(row->max_entry);
 
     if( row->expr_label != NULL )
     {
@@ -808,8 +854,8 @@ on_sy_overrides_apply_clicked(GtkButton *button, gpointer user_data)
     text = gtk_entry_get_text(GTK_ENTRY(row->override_entry));
     override_val = g_strtod(text, NULL);
     active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(row->override_check));
-    min_val = gtk_spin_button_get_value(GTK_SPIN_BUTTON(row->min_spin));
-    max_val = gtk_spin_button_get_value(GTK_SPIN_BUTTON(row->max_spin));
+    min_val = g_strtod(gtk_entry_get_text(GTK_ENTRY(row->min_entry)), NULL);
+    max_val = g_strtod(gtk_entry_get_text(GTK_ENTRY(row->max_entry)), NULL);
 
     sy_set_override(row->name, override_val, active);
     sy_set_bounds(row->name, min_val, max_val);
