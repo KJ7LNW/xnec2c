@@ -208,10 +208,14 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Radiation Pattern Window window is open", .format = "%d",
 		.vars = { &rc_config.rdpattern_is_open } },
 
-	{ .desc = "Show Symbol Overrides Window", .format = "%d",
-		.vars = { &rc_config.show_sy_overrides },
-		.builder_window = &main_window_builder,
-		.builder_check_menu_item_id = "show_sy_overrides" },
+	{ .desc = "Symbol Overrides Window is open", .format = "%d",
+		.vars = { &rc_config.sy_overrides_is_open } },
+
+	{ .desc = "Symbol Overrides Window Size, in pixels", .format = "%d,%d",
+		.vars = { &rc_config.sy_overrides_width, &rc_config.sy_overrides_height } },
+
+	{ .desc = "Symbol Overrides Window Position (root x and y)", .format = "%d,%d",
+		.vars = { &rc_config.sy_overrides_x, &rc_config.sy_overrides_y } },
 };
 
 
@@ -517,7 +521,12 @@ Create_Default_Config( void )
   rc_config.freqplots_s11 = 0;
 
   /* Symbol overrides window */
-  rc_config.show_sy_overrides = 0;
+  rc_config.sy_overrides_is_open = 0;
+  rc_config.sy_overrides_width = 0;
+  rc_config.sy_overrides_height = 0;
+  rc_config.sy_overrides_x = -1;
+  rc_config.sy_overrides_y = -1;
+
   rc_config.freqplots_clamp_vswr = 1;
   rc_config.freqplots_round_x_axis = 0;
 
@@ -581,9 +590,16 @@ Restore_Windows( gpointer dat )
   }
 
   /* Open radiation pattern window if state data available */
-  if( rc_config.rdpattern_is_open && rc_config.freqplots_width && rc_config.freqplots_height)
+  if( rc_config.rdpattern_is_open && rc_config.rdpattern_width && rc_config.rdpattern_height)
   {
     widget = Builder_Get_Object( main_window_builder, "main_rdpattern" );
+    gtk_menu_item_activate( GTK_MENU_ITEM(widget) );
+  }
+
+  /* Open symbol overrides window if state data available */
+  if( rc_config.sy_overrides_is_open && rc_config.sy_overrides_width && rc_config.sy_overrides_height)
+  {
+    widget = Builder_Get_Object( main_window_builder, "show_sy_overrides" );
     gtk_menu_item_activate( GTK_MENU_ITEM(widget) );
   }
 
@@ -974,6 +990,11 @@ Get_GUI_State( void )
   Get_Window_Geometry( nec2_edit_window,
       &(rc_config.nec2_edit_x), &(rc_config.nec2_edit_y),
       &(rc_config.nec2_edit_width), &(rc_config.nec2_edit_height) );
+
+  /* Get geometry of Symbol Overrides window */
+  rc_config.sy_overrides_is_open = Get_Window_Geometry( sy_overrides_window,
+      &(rc_config.sy_overrides_x), &(rc_config.sy_overrides_y),
+      &(rc_config.sy_overrides_width), &(rc_config.sy_overrides_height) );
 
 } /* Get_GUI_State */
 

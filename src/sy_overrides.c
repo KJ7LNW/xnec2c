@@ -405,6 +405,11 @@ sy_overrides_show(void)
       return;
   }
 
+  /* Restore window geometry from config */
+  Set_Window_Geometry(sy_overrides_window,
+      rc_config.sy_overrides_x, rc_config.sy_overrides_y,
+      rc_config.sy_overrides_width, rc_config.sy_overrides_height);
+
   sy_overrides_refresh();
   gtk_widget_show(sy_overrides_window);
   gtk_window_present(GTK_WINDOW(sy_overrides_window));
@@ -467,13 +472,9 @@ sy_overrides_cleanup(void)
 void
 on_show_sy_overrides_activate(GtkMenuItem *menuitem, gpointer user_data)
 {
-  gboolean active;
-
   (void)user_data;
 
-  active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem));
-
-  if( active )
+  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
     sy_overrides_show();
   else
     sy_overrides_hide();
@@ -495,7 +496,7 @@ on_sy_overrides_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer
   menu_item = Builder_Get_Object(main_window_builder, "show_sy_overrides");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item), FALSE);
 
-  sy_overrides_hide();
+  sy_overrides_cleanup();
   return TRUE;
 }
 

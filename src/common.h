@@ -364,8 +364,12 @@ typedef struct
   char *filename_rdpat;
   char *filename_currents;
 
-  /* Symbol overrides window visibility */
-  int show_sy_overrides;
+  /* Symbol overrides window */
+  int sy_overrides_is_open;
+  int sy_overrides_x;
+  int sy_overrides_y;
+  int sy_overrides_width;
+  int sy_overrides_height;
 } rc_config_t;
 
 typedef struct {
