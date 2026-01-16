@@ -64,7 +64,7 @@ typedef struct
 /* Window state */
 static GPtrArray *rows = NULL;
 static GtkWidget *content_grid = NULL;
-static GtkWidget *input_header = NULL;
+static GtkWidget *input_expander = NULL;
 static GtkWidget *input_col_headers[8] = {NULL};
 static GtkWidget *calc_expander = NULL;
 static GtkWidget *calc_col_headers[8] = {NULL};
@@ -82,7 +82,7 @@ static void set_row_visible(sy_row_t *row, gboolean visible);
 static gint compare_rows_by_calculated(gconstpointer a, gconstpointer b);
 static GtkWidget *create_section_header(const gchar *text);
 static void create_column_headers(GtkWidget **header_widgets, GtkGrid *grid, gint row_index, gint num_columns);
-static void on_calc_expander_notify_expanded(GObject *object, GParamSpec *pspec, gpointer user_data);
+static void on_expander_notify_expanded(GObject *object, GParamSpec *pspec, gpointer user_data);
 
 /*------------------------------------------------------------------------*/
 
@@ -297,27 +297,35 @@ apply_visibility_filter(void)
 {
   guint i;
   sy_row_t *row;
-  gboolean expander_expanded;
+  gboolean input_expanded;
+  gboolean calc_expanded;
 
   if( rows == NULL )
     return;
 
-  expander_expanded = calc_expander != NULL && gtk_expander_get_expanded(GTK_EXPANDER(calc_expander));
+  input_expanded = input_expander != NULL && gtk_expander_get_expanded(GTK_EXPANDER(input_expander));
+  calc_expanded = calc_expander != NULL && gtk_expander_get_expanded(GTK_EXPANDER(calc_expander));
 
   for( i = 0; i < rows->len; i++ )
   {
     row = g_ptr_array_index(rows, i);
 
     if( row->is_calculated )
-      set_row_visible(row, expander_expanded);
+      set_row_visible(row, calc_expanded);
     else
-      set_row_visible(row, TRUE);
+      set_row_visible(row, input_expanded);
+  }
+
+  for( i = 0; i < 8; i++ )
+  {
+    if( input_col_headers[i] != NULL )
+      gtk_widget_set_visible(input_col_headers[i], input_expanded);
   }
 
   for( i = 0; i < 8; i++ )
   {
     if( calc_col_headers[i] != NULL )
-      gtk_widget_set_visible(calc_col_headers[i], expander_expanded);
+      gtk_widget_set_visible(calc_col_headers[i], calc_expanded);
   }
 }
 
@@ -325,7 +333,7 @@ apply_visibility_filter(void)
 
 /* Signal: expander expanded state changed */
 static void
-on_calc_expander_notify_expanded(GObject *object, GParamSpec *pspec, gpointer user_data)
+on_expander_notify_expanded(GObject *object, GParamSpec *pspec, gpointer user_data)
 {
   (void)object;
   (void)pspec;
@@ -383,11 +391,21 @@ create_column_headers(GtkWidget **header_widgets, GtkGrid *grid, gint row_index,
   const gchar *labels[] = {"Symbol", "Value", "Override", "✓", "Min", "", "Max", "Expression"};
   GtkSizeGroup *groups[] = {sg.name, sg.value, sg.override, sg.check, sg.min, sg.slider, sg.max, sg.expr};
   gfloat xaligns[] = {0.0, 1.0, 1.0, 0.5, 1.0, 0.0, 1.0, 0.0};
+  gchar *markup;
   gint i;
 
   for( i = 0; i < num_columns; i++ )
   {
-    label = gtk_label_new(labels[i]);
+    label = gtk_label_new(NULL);
+
+    /* Apply markup only to non-empty labels; slider column label is empty */
+    if( labels[i][0] != '\0' )
+    {
+      markup = g_markup_printf_escaped("<b><u>%s</u></b>", labels[i]);
+      gtk_label_set_markup(GTK_LABEL(label), markup);
+      g_free(markup);
+    }
+
     gtk_label_set_xalign(GTK_LABEL(label), xaligns[i]);
     context = gtk_widget_get_style_context(label);
     gtk_style_context_add_class(context, "header");
@@ -606,10 +624,10 @@ clear_rows(void)
 
   g_ptr_array_set_size(rows, 0);
 
-  if( input_header != NULL )
+  if( input_expander != NULL )
   {
-    gtk_widget_destroy(input_header);
-    input_header = NULL;
+    gtk_widget_destroy(input_expander);
+    input_expander = NULL;
   }
 
   for( i = 0; i < 8; i++ )
@@ -734,7 +752,6 @@ sy_overrides_refresh(void)
   sy_collect_t *data;
   sy_row_t *row;
   gint grid_row;
-  gboolean in_input_section;
 
   if( sy_overrides_window == NULL )
     return;
@@ -754,35 +771,30 @@ sy_overrides_refresh(void)
   g_ptr_array_sort(collect_array, compare_rows_by_calculated);
 
   grid_row = 0;
-  in_input_section = FALSE;
 
   for( i = 0; i < collect_array->len; i++ )
   {
     data = g_ptr_array_index(collect_array, i);
 
-    if( !data->is_calculated && input_header == NULL )
+    if( !data->is_calculated && input_expander == NULL )
     {
-      input_header = create_section_header("Input Symbols");
-      gtk_grid_attach(GTK_GRID(content_grid), input_header, 0, grid_row, 8, 1);
-      gtk_widget_show_all(input_header);
+      input_expander = gtk_expander_new("Input Symbols");
+      gtk_expander_set_expanded(GTK_EXPANDER(input_expander), TRUE);
+      gtk_widget_set_margin_top(input_expander, 6);
+      gtk_widget_set_margin_bottom(input_expander, 2);
+      gtk_grid_attach(GTK_GRID(content_grid), input_expander, 0, grid_row, 8, 1);
+      gtk_widget_show_all(input_expander);
+
+      g_signal_connect(input_expander, "notify::expanded",
+          G_CALLBACK(on_expander_notify_expanded), NULL);
+
       grid_row++;
 
       create_column_headers(input_col_headers, GTK_GRID(content_grid), grid_row, 7);
       grid_row++;
-
-      in_input_section = TRUE;
     }
     else if( data->is_calculated && calc_expander == NULL )
     {
-      if( in_input_section )
-      {
-        grid_row++;
-      }
-      else
-      {
-        /* No input section preceded: no spacer needed */
-      }
-
       calc_expander = gtk_expander_new("Calculated Symbols");
       gtk_expander_set_expanded(GTK_EXPANDER(calc_expander), FALSE);
       gtk_widget_set_margin_top(calc_expander, 6);
@@ -791,18 +803,16 @@ sy_overrides_refresh(void)
       gtk_widget_show_all(calc_expander);
 
       g_signal_connect(calc_expander, "notify::expanded",
-          G_CALLBACK(on_calc_expander_notify_expanded), NULL);
+          G_CALLBACK(on_expander_notify_expanded), NULL);
 
       grid_row++;
 
       create_column_headers(calc_col_headers, GTK_GRID(content_grid), grid_row, 8);
       grid_row++;
-
-      in_input_section = FALSE;
     }
     else
     {
-      /* Cases: input row within input section, or calculated row after calculated header */
+      /* Rows within existing section: no header creation needed */
     }
 
     row = g_new0(sy_row_t, 1);
@@ -864,7 +874,7 @@ sy_overrides_cleanup(void)
 
   sy_overrides_window = NULL;
   content_grid = NULL;
-  input_header = NULL;
+  input_expander = NULL;
   calc_expander = NULL;
 }
 
