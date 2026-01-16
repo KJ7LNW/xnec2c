@@ -27,8 +27,19 @@
 /* Character width for numeric input fields */
 #define SY_NUMERIC_WIDTH_CHARS 8
 
-/* Number of columns in the grid for size group alignment */
-#define SY_NUM_COLUMNS 8
+
+/* Size group collection for column alignment */
+typedef struct
+{
+  GtkSizeGroup *name;
+  GtkSizeGroup *value;
+  GtkSizeGroup *override;
+  GtkSizeGroup *check;
+  GtkSizeGroup *min;
+  GtkSizeGroup *slider;
+  GtkSizeGroup *max;
+  GtkSizeGroup *expr;
+} sy_size_groups_t;
 
 /* Row widget structure for each symbol */
 typedef struct
@@ -54,9 +65,11 @@ typedef struct
 static GPtrArray *rows = NULL;
 static GtkWidget *content_grid = NULL;
 static GtkWidget *input_header = NULL;
+static GtkWidget *input_col_headers[8] = {NULL};
 static GtkWidget *calc_expander = NULL;
+static GtkWidget *calc_col_headers[8] = {NULL};
 static GtkCssProvider *css_provider = NULL;
-static GtkSizeGroup *column_size_groups[SY_NUM_COLUMNS] = {NULL};
+static sy_size_groups_t sg = {0};
 static gboolean dirty = FALSE;
 
 /* Forward declarations */
@@ -68,6 +81,7 @@ static void update_strikethrough(sy_row_t *row);
 static void set_row_visible(sy_row_t *row, gboolean visible);
 static gint compare_rows_by_calculated(gconstpointer a, gconstpointer b);
 static GtkWidget *create_section_header(const gchar *text);
+static void create_column_headers(GtkWidget **header_widgets, GtkGrid *grid, gint row_index, gint num_columns);
 static void on_calc_expander_notify_expanded(GObject *object, GParamSpec *pspec, gpointer user_data);
 
 /*------------------------------------------------------------------------*/
@@ -299,6 +313,12 @@ apply_visibility_filter(void)
     else
       set_row_visible(row, TRUE);
   }
+
+  for( i = 0; i < 8; i++ )
+  {
+    if( calc_col_headers[i] != NULL )
+      gtk_widget_set_visible(calc_col_headers[i], expander_expanded);
+  }
 }
 
 /*------------------------------------------------------------------------*/
@@ -354,6 +374,32 @@ create_section_header(const gchar *text)
 
 /*------------------------------------------------------------------------*/
 
+/* Create column header row and attach to grid */
+static void
+create_column_headers(GtkWidget **header_widgets, GtkGrid *grid, gint row_index, gint num_columns)
+{
+  GtkWidget *label;
+  GtkStyleContext *context;
+  const gchar *labels[] = {"Symbol", "Value", "Override", "✓", "Min", "", "Max", "Expression"};
+  GtkSizeGroup *groups[] = {sg.name, sg.value, sg.override, sg.check, sg.min, sg.slider, sg.max, sg.expr};
+  gfloat xaligns[] = {0.0, 1.0, 1.0, 0.5, 1.0, 0.0, 1.0, 0.0};
+  gint i;
+
+  for( i = 0; i < num_columns; i++ )
+  {
+    label = gtk_label_new(labels[i]);
+    gtk_label_set_xalign(GTK_LABEL(label), xaligns[i]);
+    context = gtk_widget_get_style_context(label);
+    gtk_style_context_add_class(context, "header");
+    gtk_grid_attach(grid, label, i, row_index, 1, 1);
+    gtk_size_group_add_widget(groups[i], label);
+    gtk_widget_show_all(label);
+    header_widgets[i] = label;
+  }
+}
+
+/*------------------------------------------------------------------------*/
+
 /* Update strikethrough style on value label */
 static void
 update_strikethrough(sy_row_t *row)
@@ -387,7 +433,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_widget_set_size_request(row->name_label, 90, -1);
   gtk_label_set_xalign(GTK_LABEL(row->name_label), 0.0);
   gtk_grid_attach(grid, row->name_label, 0, row_index, 1, 1);
-  gtk_size_group_add_widget(column_size_groups[0], row->name_label);
+  gtk_size_group_add_widget(sg.name, row->name_label);
 
   /* Value label (column 1, fixed width, 3 decimal places) */
   snprintf(buf, sizeof(buf), "%.3f", row->original_value);
@@ -397,7 +443,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_widget_set_hexpand(row->value_label, FALSE);
   gtk_label_set_xalign(GTK_LABEL(row->value_label), 1.0);
   gtk_grid_attach(grid, row->value_label, 1, row_index, 1, 1);
-  gtk_size_group_add_widget(column_size_groups[1], row->value_label);
+  gtk_size_group_add_widget(sg.value, row->value_label);
 
   /* Override entry (column 2, fixed width, 3 decimal places, right-justified) */
   row->override_entry = gtk_entry_new();
@@ -415,14 +461,14 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
     /* No override value: leave entry empty */
   }
   gtk_grid_attach(grid, row->override_entry, 2, row_index, 1, 1);
-  gtk_size_group_add_widget(column_size_groups[2], row->override_entry);
+  gtk_size_group_add_widget(sg.override, row->override_entry);
 
   /* Override checkbox (column 3, fixed width) */
   row->override_check = gtk_check_button_new();
   gtk_widget_set_size_request(row->override_check, 30, -1);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(row->override_check), override_active);
   gtk_grid_attach(grid, row->override_check, 3, row_index, 1, 1);
-  gtk_size_group_add_widget(column_size_groups[3], row->override_check);
+  gtk_size_group_add_widget(sg.check, row->override_check);
 
   /* Min entry (column 4, fixed width, 3 decimal places, right-justified) */
   row->min_entry = gtk_entry_new();
@@ -433,7 +479,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   snprintf(buf, sizeof(buf), "%.3f", row->min_value);
   gtk_entry_set_text(GTK_ENTRY(row->min_entry), buf);
   gtk_grid_attach(grid, row->min_entry, 4, row_index, 1, 1);
-  gtk_size_group_add_widget(column_size_groups[4], row->min_entry);
+  gtk_size_group_add_widget(sg.min, row->min_entry);
 
   /* Slider adjustment and widget (column 5, fixed width, no expand) */
   slider_value = isnan(override_value) ? row->original_value : override_value;
@@ -445,7 +491,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_widget_set_size_request(row->slider, 200, -1);
   gtk_widget_set_hexpand(row->slider, FALSE);
   gtk_grid_attach(grid, row->slider, 5, row_index, 1, 1);
-  gtk_size_group_add_widget(column_size_groups[5], row->slider);
+  gtk_size_group_add_widget(sg.slider, row->slider);
 
   /* Max entry (column 6, fixed width, 3 decimal places, right-justified) */
   row->max_entry = gtk_entry_new();
@@ -456,7 +502,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   snprintf(buf, sizeof(buf), "%.3f", row->max_value);
   gtk_entry_set_text(GTK_ENTRY(row->max_entry), buf);
   gtk_grid_attach(grid, row->max_entry, 6, row_index, 1, 1);
-  gtk_size_group_add_widget(column_size_groups[6], row->max_entry);
+  gtk_size_group_add_widget(sg.max, row->max_entry);
 
   /* Expression label (column 7, expanding) */
   if( row->is_calculated && expression != NULL && expression[0] != '\0' )
@@ -466,7 +512,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
     gtk_label_set_xalign(GTK_LABEL(row->expr_label), 0.0);
     gtk_widget_set_hexpand(row->expr_label, TRUE);
     gtk_grid_attach(grid, row->expr_label, 7, row_index, 1, 1);
-    gtk_size_group_add_widget(column_size_groups[7], row->expr_label);
+    gtk_size_group_add_widget(sg.expr, row->expr_label);
   }
   else
   {
@@ -566,10 +612,28 @@ clear_rows(void)
     input_header = NULL;
   }
 
+  for( i = 0; i < 8; i++ )
+  {
+    if( input_col_headers[i] != NULL )
+    {
+      gtk_widget_destroy(input_col_headers[i]);
+      input_col_headers[i] = NULL;
+    }
+  }
+
   if( calc_expander != NULL )
   {
     gtk_widget_destroy(calc_expander);
     calc_expander = NULL;
+  }
+
+  for( i = 0; i < 8; i++ )
+  {
+    if( calc_col_headers[i] != NULL )
+    {
+      gtk_widget_destroy(calc_col_headers[i]);
+      calc_col_headers[i] = NULL;
+    }
   }
 }
 
@@ -579,8 +643,6 @@ gboolean
 sy_overrides_init(void)
 {
   GError *gerror = NULL;
-  const gchar *css_data = ".strikethrough { text-decoration: line-through; }";
-  gint i;
 
   if( sy_overrides_window != NULL )
     return TRUE;
@@ -611,15 +673,19 @@ sy_overrides_init(void)
   /* Initialize rows array */
   rows = g_ptr_array_new();
 
-  /* Initialize column size groups for alignment between grids */
-  for( i = 0; i < SY_NUM_COLUMNS; i++ )
-  {
-    column_size_groups[i] = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
-  }
+  /* Load size groups from glade */
+  sg.name = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_name"));
+  sg.value = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_value"));
+  sg.override = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_override"));
+  sg.check = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_check"));
+  sg.min = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_min"));
+  sg.slider = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_slider"));
+  sg.max = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_max"));
+  sg.expr = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_expr"));
 
   /* Setup CSS provider for strikethrough */
   css_provider = gtk_css_provider_new();
-  gtk_css_provider_load_from_data(css_provider, css_data, -1, NULL);
+  gtk_css_provider_load_from_resource(css_provider, "/sy_overrides.css");
   gtk_style_context_add_provider_for_screen(
       gdk_screen_get_default(),
       GTK_STYLE_PROVIDER(css_provider),
@@ -700,6 +766,10 @@ sy_overrides_refresh(void)
       gtk_grid_attach(GTK_GRID(content_grid), input_header, 0, grid_row, 8, 1);
       gtk_widget_show_all(input_header);
       grid_row++;
+
+      create_column_headers(input_col_headers, GTK_GRID(content_grid), grid_row, 7);
+      grid_row++;
+
       in_input_section = TRUE;
     }
     else if( data->is_calculated && calc_expander == NULL )
@@ -724,6 +794,10 @@ sy_overrides_refresh(void)
           G_CALLBACK(on_calc_expander_notify_expanded), NULL);
 
       grid_row++;
+
+      create_column_headers(calc_col_headers, GTK_GRID(content_grid), grid_row, 8);
+      grid_row++;
+
       in_input_section = FALSE;
     }
     else
@@ -766,8 +840,6 @@ sy_overrides_refresh(void)
 void
 sy_overrides_cleanup(void)
 {
-  gint i;
-
   clear_rows();
 
   if( rows != NULL )
@@ -782,14 +854,7 @@ sy_overrides_cleanup(void)
     css_provider = NULL;
   }
 
-  for( i = 0; i < SY_NUM_COLUMNS; i++ )
-  {
-    if( column_size_groups[i] != NULL )
-    {
-      g_object_unref(column_size_groups[i]);
-      column_size_groups[i] = NULL;
-    }
-  }
+  memset(&sg, 0, sizeof(sg));
 
   if( sy_overrides_builder != NULL )
   {
