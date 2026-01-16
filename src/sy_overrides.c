@@ -27,6 +27,9 @@
 /* Character width for numeric input fields */
 #define SY_NUMERIC_WIDTH_CHARS 8
 
+/* Number of columns in the grid for size group alignment */
+#define SY_NUM_COLUMNS 8
+
 /* Row widget structure for each symbol */
 typedef struct
 {
@@ -50,23 +53,22 @@ typedef struct
 /* Window state */
 static GPtrArray *rows = NULL;
 static GtkWidget *content_grid = NULL;
-static GtkWidget *show_defaults_toggle = NULL;
 static GtkWidget *input_header = NULL;
-static GtkWidget *calc_header = NULL;
+static GtkWidget *calc_expander = NULL;
 static GtkCssProvider *css_provider = NULL;
+static GtkSizeGroup *column_size_groups[SY_NUM_COLUMNS] = {NULL};
 static gboolean dirty = FALSE;
 
 /* Forward declarations */
 static void populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
-    const gchar *expression, gdouble override_value, gboolean override_active);
+    const gchar *expression, gdouble override_value, gboolean override_active, gboolean show_widgets);
 static void sy_row_free(sy_row_t *row);
 static void clear_rows(void);
 static void update_strikethrough(sy_row_t *row);
-static gboolean is_default_row(sy_row_t *row);
 static void set_row_visible(sy_row_t *row, gboolean visible);
-static void apply_visibility_filter(void);
 static gint compare_rows_by_calculated(gconstpointer a, gconstpointer b);
 static GtkWidget *create_section_header(const gchar *text);
+static void on_calc_expander_notify_expanded(GObject *object, GParamSpec *pspec, gpointer user_data);
 
 /*------------------------------------------------------------------------*/
 
@@ -254,34 +256,6 @@ on_max_entry_changed(GtkEditable *editable, gpointer user_data)
 
 /*------------------------------------------------------------------------*/
 
-/* Check if row has default values (epsilon for floating point comparison) */
-static gboolean
-is_default_row(sy_row_t *row)
-{
-  gboolean active;
-  gdouble min_val;
-  gdouble max_val;
-  gdouble expected_min;
-  gdouble expected_max;
-  const gdouble epsilon = 1e-9;
-
-  if( row == NULL )
-    return FALSE;
-
-  active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(row->override_check));
-  if( active )
-    return FALSE;
-
-  min_val = g_strtod(gtk_entry_get_text(GTK_ENTRY(row->min_entry)), NULL);
-  max_val = g_strtod(gtk_entry_get_text(GTK_ENTRY(row->max_entry)), NULL);
-  expected_min = row->original_value * 0.5;
-  expected_max = row->original_value * 2.0;
-
-  return fabs(min_val - expected_min) < epsilon && fabs(max_val - expected_max) < epsilon;
-}
-
-/*------------------------------------------------------------------------*/
-
 /* Set visibility for all widgets in a row */
 static void
 set_row_visible(sy_row_t *row, gboolean visible)
@@ -303,28 +277,41 @@ set_row_visible(sy_row_t *row, gboolean visible)
 
 /*------------------------------------------------------------------------*/
 
-/* Apply visibility filter based on show_defaults toggle */
+/* Apply visibility filter based on expander state */
 static void
 apply_visibility_filter(void)
 {
   guint i;
   sy_row_t *row;
-  gboolean show_defaults;
+  gboolean expander_expanded;
 
-  if( rows == NULL || show_defaults_toggle == NULL )
+  if( rows == NULL )
     return;
 
-  show_defaults = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(show_defaults_toggle));
+  expander_expanded = calc_expander != NULL && gtk_expander_get_expanded(GTK_EXPANDER(calc_expander));
 
   for( i = 0; i < rows->len; i++ )
   {
     row = g_ptr_array_index(rows, i);
 
-    if( show_defaults )
-      set_row_visible(row, TRUE);
+    if( row->is_calculated )
+      set_row_visible(row, expander_expanded);
     else
-      set_row_visible(row, !is_default_row(row));
+      set_row_visible(row, TRUE);
   }
+}
+
+/*------------------------------------------------------------------------*/
+
+/* Signal: expander expanded state changed */
+static void
+on_calc_expander_notify_expanded(GObject *object, GParamSpec *pspec, gpointer user_data)
+{
+  (void)object;
+  (void)pspec;
+  (void)user_data;
+
+  apply_visibility_filter();
 }
 
 /*------------------------------------------------------------------------*/
@@ -388,7 +375,7 @@ update_strikethrough(sy_row_t *row)
 /* Populate widgets for an existing row structure and attach to grid */
 static void
 populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
-    const gchar *expression, gdouble override_value, gboolean override_active)
+    const gchar *expression, gdouble override_value, gboolean override_active, gboolean show_widgets)
 {
   gchar buf[64];
   gdouble slider_value;
@@ -400,6 +387,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_widget_set_size_request(row->name_label, 90, -1);
   gtk_label_set_xalign(GTK_LABEL(row->name_label), 0.0);
   gtk_grid_attach(grid, row->name_label, 0, row_index, 1, 1);
+  gtk_size_group_add_widget(column_size_groups[0], row->name_label);
 
   /* Value label (column 1, fixed width, 3 decimal places) */
   snprintf(buf, sizeof(buf), "%.3f", row->original_value);
@@ -409,6 +397,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_widget_set_hexpand(row->value_label, FALSE);
   gtk_label_set_xalign(GTK_LABEL(row->value_label), 1.0);
   gtk_grid_attach(grid, row->value_label, 1, row_index, 1, 1);
+  gtk_size_group_add_widget(column_size_groups[1], row->value_label);
 
   /* Override entry (column 2, fixed width, 3 decimal places, right-justified) */
   row->override_entry = gtk_entry_new();
@@ -426,12 +415,14 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
     /* No override value: leave entry empty */
   }
   gtk_grid_attach(grid, row->override_entry, 2, row_index, 1, 1);
+  gtk_size_group_add_widget(column_size_groups[2], row->override_entry);
 
   /* Override checkbox (column 3, fixed width) */
   row->override_check = gtk_check_button_new();
   gtk_widget_set_size_request(row->override_check, 30, -1);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(row->override_check), override_active);
   gtk_grid_attach(grid, row->override_check, 3, row_index, 1, 1);
+  gtk_size_group_add_widget(column_size_groups[3], row->override_check);
 
   /* Min entry (column 4, fixed width, 3 decimal places, right-justified) */
   row->min_entry = gtk_entry_new();
@@ -442,6 +433,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   snprintf(buf, sizeof(buf), "%.3f", row->min_value);
   gtk_entry_set_text(GTK_ENTRY(row->min_entry), buf);
   gtk_grid_attach(grid, row->min_entry, 4, row_index, 1, 1);
+  gtk_size_group_add_widget(column_size_groups[4], row->min_entry);
 
   /* Slider adjustment and widget (column 5, fixed width, no expand) */
   slider_value = isnan(override_value) ? row->original_value : override_value;
@@ -453,6 +445,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_widget_set_size_request(row->slider, 200, -1);
   gtk_widget_set_hexpand(row->slider, FALSE);
   gtk_grid_attach(grid, row->slider, 5, row_index, 1, 1);
+  gtk_size_group_add_widget(column_size_groups[5], row->slider);
 
   /* Max entry (column 6, fixed width, 3 decimal places, right-justified) */
   row->max_entry = gtk_entry_new();
@@ -463,6 +456,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   snprintf(buf, sizeof(buf), "%.3f", row->max_value);
   gtk_entry_set_text(GTK_ENTRY(row->max_entry), buf);
   gtk_grid_attach(grid, row->max_entry, 6, row_index, 1, 1);
+  gtk_size_group_add_widget(column_size_groups[6], row->max_entry);
 
   /* Expression label (column 7, expanding) */
   if( row->is_calculated && expression != NULL && expression[0] != '\0' )
@@ -472,6 +466,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
     gtk_label_set_xalign(GTK_LABEL(row->expr_label), 0.0);
     gtk_widget_set_hexpand(row->expr_label, TRUE);
     gtk_grid_attach(grid, row->expr_label, 7, row_index, 1, 1);
+    gtk_size_group_add_widget(column_size_groups[7], row->expr_label);
   }
   else
   {
@@ -493,21 +488,24 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   /* Apply initial strikethrough if override is active */
   update_strikethrough(row);
 
-  gtk_widget_show_all(row->name_label);
-  gtk_widget_show_all(row->value_label);
-  gtk_widget_show_all(row->override_entry);
-  gtk_widget_show_all(row->override_check);
-  gtk_widget_show_all(row->min_entry);
-  gtk_widget_show_all(row->slider);
-  gtk_widget_show_all(row->max_entry);
-
-  if( row->expr_label != NULL )
+  if( show_widgets )
   {
-    gtk_widget_show_all(row->expr_label);
+    gtk_widget_show_all(row->name_label);
+    gtk_widget_show_all(row->value_label);
+    gtk_widget_show_all(row->override_entry);
+    gtk_widget_show_all(row->override_check);
+    gtk_widget_show_all(row->min_entry);
+    gtk_widget_show_all(row->slider);
+    gtk_widget_show_all(row->max_entry);
+
+    if( row->expr_label != NULL )
+    {
+      gtk_widget_show_all(row->expr_label);
+    }
   }
   else
   {
-    /* No expression label for input symbols */
+    /* Widgets hidden initially; shown when expander is expanded */
   }
 }
 
@@ -568,10 +566,10 @@ clear_rows(void)
     input_header = NULL;
   }
 
-  if( calc_header != NULL )
+  if( calc_expander != NULL )
   {
-    gtk_widget_destroy(calc_header);
-    calc_header = NULL;
+    gtk_widget_destroy(calc_expander);
+    calc_expander = NULL;
   }
 }
 
@@ -582,6 +580,7 @@ sy_overrides_init(void)
 {
   GError *gerror = NULL;
   const gchar *css_data = ".strikethrough { text-decoration: line-through; }";
+  gint i;
 
   if( sy_overrides_window != NULL )
     return TRUE;
@@ -602,10 +601,8 @@ sy_overrides_init(void)
       gtk_builder_get_object(sy_overrides_builder, "sy_overrides_window"));
   content_grid = GTK_WIDGET(
       gtk_builder_get_object(sy_overrides_builder, "sy_overrides_content"));
-  show_defaults_toggle = GTK_WIDGET(
-      gtk_builder_get_object(sy_overrides_builder, "sy_show_defaults"));
 
-  if( sy_overrides_window == NULL || content_grid == NULL || show_defaults_toggle == NULL )
+  if( sy_overrides_window == NULL || content_grid == NULL )
   {
     pr_err("sy_overrides_init: failed to get widgets from glade\n");
     return FALSE;
@@ -613,6 +610,12 @@ sy_overrides_init(void)
 
   /* Initialize rows array */
   rows = g_ptr_array_new();
+
+  /* Initialize column size groups for alignment between grids */
+  for( i = 0; i < SY_NUM_COLUMNS; i++ )
+  {
+    column_size_groups[i] = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
+  }
 
   /* Setup CSS provider for strikethrough */
   css_provider = gtk_css_provider_new();
@@ -699,7 +702,7 @@ sy_overrides_refresh(void)
       grid_row++;
       in_input_section = TRUE;
     }
-    else if( data->is_calculated && calc_header == NULL )
+    else if( data->is_calculated && calc_expander == NULL )
     {
       if( in_input_section )
       {
@@ -710,9 +713,16 @@ sy_overrides_refresh(void)
         /* No input section preceded: no spacer needed */
       }
 
-      calc_header = create_section_header("Calculated Symbols");
-      gtk_grid_attach(GTK_GRID(content_grid), calc_header, 0, grid_row, 8, 1);
-      gtk_widget_show_all(calc_header);
+      calc_expander = gtk_expander_new("Calculated Symbols");
+      gtk_expander_set_expanded(GTK_EXPANDER(calc_expander), FALSE);
+      gtk_widget_set_margin_top(calc_expander, 6);
+      gtk_widget_set_margin_bottom(calc_expander, 2);
+      gtk_grid_attach(GTK_GRID(content_grid), calc_expander, 0, grid_row, 8, 1);
+      gtk_widget_show_all(calc_expander);
+
+      g_signal_connect(calc_expander, "notify::expanded",
+          G_CALLBACK(on_calc_expander_notify_expanded), NULL);
+
       grid_row++;
       in_input_section = FALSE;
     }
@@ -729,10 +739,12 @@ sy_overrides_refresh(void)
     row->is_calculated = data->is_calculated;
 
     populate_row_widgets(row, GTK_GRID(content_grid), grid_row,
-        data->expression, data->override_value, data->override_active);
+        data->expression, data->override_value, data->override_active,
+        !data->is_calculated);
+
+    grid_row++;
 
     g_ptr_array_add(rows, row);
-    grid_row++;
   }
 
   for( i = 0; i < collect_array->len; i++ )
@@ -754,6 +766,8 @@ sy_overrides_refresh(void)
 void
 sy_overrides_cleanup(void)
 {
+  gint i;
+
   clear_rows();
 
   if( rows != NULL )
@@ -768,6 +782,15 @@ sy_overrides_cleanup(void)
     css_provider = NULL;
   }
 
+  for( i = 0; i < SY_NUM_COLUMNS; i++ )
+  {
+    if( column_size_groups[i] != NULL )
+    {
+      g_object_unref(column_size_groups[i]);
+      column_size_groups[i] = NULL;
+    }
+  }
+
   if( sy_overrides_builder != NULL )
   {
     g_object_unref(sy_overrides_builder);
@@ -776,9 +799,8 @@ sy_overrides_cleanup(void)
 
   sy_overrides_window = NULL;
   content_grid = NULL;
-  show_defaults_toggle = NULL;
   input_header = NULL;
-  calc_header = NULL;
+  calc_expander = NULL;
 }
 
 /*------------------------------------------------------------------------*/
@@ -793,18 +815,6 @@ on_show_sy_overrides_activate(GtkMenuItem *menuitem, gpointer user_data)
     sy_overrides_show();
   else
     sy_overrides_hide();
-}
-
-/*------------------------------------------------------------------------*/
-
-/* Signal handler: Show defaults toggle */
-void
-on_sy_show_defaults_toggled(GtkToggleButton *button, gpointer user_data)
-{
-  (void)button;
-  (void)user_data;
-
-  apply_visibility_filter();
 }
 
 /*------------------------------------------------------------------------*/
