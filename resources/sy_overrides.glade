@@ -78,6 +78,31 @@
             <property name="layout-style">end</property>
             <property name="spacing">6</property>
             <child>
+              <object class="GtkCheckButton" id="sy_overrides_auto_apply">
+                <property name="label" translatable="yes">_Auto</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="use-underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinner" id="sy_overrides_busy_spinner">
+                <property name="visible">False</property>
+                <property name="can-focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkButton" id="sy_overrides_apply">
                 <property name="label" translatable="yes">_Apply</property>
                 <property name="visible">True</property>
@@ -89,7 +114,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">0</property>
+                <property name="position">2</property>
               </packing>
             </child>
             <child>
@@ -104,7 +129,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">3</property>
               </packing>
             </child>
             <child>
@@ -119,7 +144,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">4</property>
               </packing>
             </child>
           </object>
