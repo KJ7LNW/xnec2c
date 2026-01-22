@@ -582,7 +582,7 @@ Restore_Windows( gpointer dat )
   GtkWidget *widget;
 
   /* Open frequency plots window if state data available */
-  if( rc_config.main_loop_start || isFlagSet(OPTIMIZER_OUTPUT) ||
+  if( rc_config.main_loop_start || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS) ||
 	  (rc_config.freqplots_is_open && rc_config.freqplots_width && rc_config.freqplots_height))
   {
     widget = Builder_Get_Object( main_window_builder, "main_freqplots" );

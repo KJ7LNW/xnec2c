@@ -608,6 +608,7 @@ on_auto_apply_toggled(GtkToggleButton *button, gpointer user_data)
 
   if( auto_apply_enabled )
   {
+    SetFlag( SUPPRESS_INTERMEDIATE_REDRAWS );
     try_auto_apply();
   }
   else
@@ -617,10 +618,6 @@ on_auto_apply_toggled(GtkToggleButton *button, gpointer user_data)
       g_source_remove(debounce_timer_id);
       debounce_timer_id = 0;
     }
-    else
-    {
-      /* No timer to cancel */
-    }
 
     pending_apply = FALSE;
 
@@ -629,9 +626,12 @@ on_auto_apply_toggled(GtkToggleButton *button, gpointer user_data)
       gtk_spinner_stop(GTK_SPINNER(busy_spinner));
       gtk_widget_hide(busy_spinner);
     }
-    else
+
+    // Optimizer menu active: keep flag set
+    GtkWidget *optimizer_menu = Builder_Get_Object(main_window_builder, "optimizer_output");
+    if( optimizer_menu == NULL || !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(optimizer_menu)) )
     {
-      /* Spinner not available */
+      ClearFlag( SUPPRESS_INTERMEDIATE_REDRAWS );
     }
   }
 

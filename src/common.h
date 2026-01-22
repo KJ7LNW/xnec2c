@@ -218,8 +218,8 @@ typedef struct Segment
 /* Signal start of xnec2c */
 #define XNEC2C_START        0x0040000000000000ll
 
-// Enable Optimizer Output
-#define OPTIMIZER_OUTPUT    0x0080000000000000ll
+// Suppress intermediate redraws during frequency loops
+#define SUPPRESS_INTERMEDIATE_REDRAWS    0x0080000000000000ll
 
 #define ALL_FLAGS           0xFFFFFFFFFFFFFFFFll
 

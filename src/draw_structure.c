@@ -675,7 +675,7 @@ New_Structure_Projection_Angle(void)
   /* Trigger a redraw of plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) &&
       isFlagSet(PLOT_GVIEWER) &&
-      isFlagClear(OPTIMIZER_OUTPUT) )
+      isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
   {
     xnec2_widget_queue_draw( freqplots_drawingarea );
   }

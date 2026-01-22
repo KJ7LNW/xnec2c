@@ -300,7 +300,7 @@ Optimizer_Output( void *arg )
       fd = inotify_open( &pfd );
       if (fd < 0)
       {
-        ClearFlag( OPTIMIZER_OUTPUT );
+        ClearFlag( SUPPRESS_INTERMEDIATE_REDRAWS );
         return( NULL );
       }
 
@@ -308,7 +308,7 @@ Optimizer_Output( void *arg )
 	}
 
     // Exit thread if optimizer output has been cancelled
-    if( isFlagClear(OPTIMIZER_OUTPUT))
+    if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS))
     {
       pr_debug("Exited optimizer thread.\n");
       break;

@@ -139,7 +139,7 @@ on_new_activate(
   calc_data.FR_index    = 0;
   calc_data.steps_total = 0;
   calc_data.last_step   = 0;
-  if( isFlagClear(OPTIMIZER_OUTPUT) )
+  if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
   {
     calc_data.fmhz_save = 0.0;
     ClearFlag( PLOT_FREQ_LINE );
@@ -175,7 +175,7 @@ on_open_input_activate(
   SetFlag( OPEN_INPUT );
 
   /* Reset on opening new file */
-  if( isFlagClear(OPTIMIZER_OUTPUT) )
+  if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
   {
     calc_data.fmhz_save = 0.0;
     ClearFlag( PLOT_FREQ_LINE );
@@ -290,7 +290,7 @@ on_optimizer_output_toggled(
 
     Notice(GTK_BUTTONS_OK, _("xnec2c geometry optimizer"),
         _("xnec2c was built without inotify support: the optimizer cannot be enabled."));
-    ClearFlag( OPTIMIZER_OUTPUT );
+    ClearFlag( SUPPRESS_INTERMEDIATE_REDRAWS );
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), FALSE);
     return;
 #endif
@@ -300,7 +300,7 @@ on_optimizer_output_toggled(
     GtkWidget *w = Builder_Get_Object(main_window_builder, "main_freqplots");
 
     // Enable frequency data output to Optimizer's file
-    SetFlag( OPTIMIZER_OUTPUT );
+    SetFlag( SUPPRESS_INTERMEDIATE_REDRAWS );
 
     if (!gtk_check_menu_item_get_active( GTK_CHECK_MENU_ITEM(w)))
         gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(w), TRUE);
@@ -330,7 +330,25 @@ on_optimizer_output_toggled(
     }
   }
   else
-    ClearFlag( OPTIMIZER_OUTPUT );
+  {
+    GtkWidget *auto_checkbox = NULL;
+    gboolean auto_active = FALSE;
+
+    if( sy_overrides_builder != NULL )
+    {
+      auto_checkbox = Builder_Get_Object(sy_overrides_builder, "sy_overrides_auto_apply");
+      if( auto_checkbox != NULL )
+      {
+        auto_active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(auto_checkbox));
+      }
+    }
+
+    // Auto-apply active: keep flag set
+    if( !auto_active )
+    {
+      ClearFlag( SUPPRESS_INTERMEDIATE_REDRAWS );
+    }
+  }
 }
 
 
@@ -626,7 +644,7 @@ on_main_freqplots_activate(
         gtk_widget_hide( box );
       }
 
-      if( (rc_config.main_loop_start || isFlagSet(OPTIMIZER_OUTPUT)) && isFlagClear(FREQ_LOOP_DONE))
+      if( (rc_config.main_loop_start || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS)) && isFlagClear(FREQ_LOOP_DONE))
         Start_Frequency_Loop();
 
     } /* if( Main_Freqplots_Activate() */
@@ -1677,7 +1695,7 @@ on_rdpattern_freq_spinbutton_value_changed(
   /* Frequency spinbutton value changed by frequency loop */
   if( isFlagSet(FREQ_LOOP_RUNNING) && isFlagSet(DRAW_ENABLED) )
   {
-    if( isFlagClear(OPTIMIZER_OUTPUT) )
+    if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
       xnec2_widget_queue_draw( rdpattern_drawingarea );
   }
   else

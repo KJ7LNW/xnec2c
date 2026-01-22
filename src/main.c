@@ -285,7 +285,7 @@ main (int argc, char *argv[])
         break;
 
       case OPT_ENABLE_OPTIMIZE:
-          SetFlag( OPTIMIZER_OUTPUT );
+          SetFlag( SUPPRESS_INTERMEDIATE_REDRAWS );
           break;
 
       case OPT_OPENBLAS_THREADS:
@@ -345,7 +345,7 @@ main (int argc, char *argv[])
     } /* switch( option ) */
   } /* while( (option = getopt(argc, argv, "i:o:hv") ) != -1 ) */
 
-  if (rc_config.batch_mode && isFlagSet(OPTIMIZER_OUTPUT))
+  if (rc_config.batch_mode && isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS))
   {
 	  pr_crit("--batch and --optimize are mutual exclusive.\n");
 	  exit(1);
@@ -531,7 +531,7 @@ main (int argc, char *argv[])
 
   init_mathlib_menu();
 
-  if (isFlagSet(OPTIMIZER_OUTPUT))
+  if (isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS))
 	  g_idle_add_once((GSourceOnceFunc)opt_start_optimizer_thread, NULL);
 
   gtk_main ();
@@ -648,7 +648,7 @@ Open_Input_File( gpointer arg )
   /* Set projection at 45 deg rotation and
    * inclination if NEC2 editor window is not open, but
    * not while optimizing because so the view stays where it is */
-  if( (nec2_edit_window == NULL) && isFlagClear(OPTIMIZER_OUTPUT) )
+  if( (nec2_edit_window == NULL) && isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
   {
     New_Viewer_Angle( 45.0, 45.0, rotate_structure,
         incline_structure, &structure_proj_params );
@@ -669,7 +669,7 @@ Open_Input_File( gpointer arg )
   /* Set input file to NEC2 editor. It will only
    * happen if the NEC2 editor window is open */
   new = *( (gboolean *)arg );
-  if( new && isFlagClear(OPTIMIZER_OUTPUT) )
+  if( new && isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
     Nec2_Input_File_Treeview( NEC2_EDITOR_CLEAR );
   else
     Nec2_Input_File_Treeview( NEC2_EDITOR_RELOAD );
@@ -678,7 +678,7 @@ Open_Input_File( gpointer arg )
   if( rdpattern_window != NULL )
   {
     // Don't reset the zoom during optimization:
-    if( isFlagClear(OPTIMIZER_OUTPUT) )
+    if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
     {
       widget = Builder_Get_Object(
           rdpattern_window_builder, "rdpattern_zoom_spinbutton" );
@@ -688,18 +688,18 @@ Open_Input_File( gpointer arg )
     }
 
     /* Simulate activation of main rdpattern button */
-    if( isFlagClear(OPTIMIZER_OUTPUT) && !rc_config.main_loop_start)
+    if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) && !rc_config.main_loop_start)
       Main_Rdpattern_Activate( FALSE );
 
     /* Select display of radiation or EH pattern */
     if( isFlagSet(DRAW_GAIN) )
     {
-      if( isFlagClear(OPTIMIZER_OUTPUT) && !rc_config.main_loop_start)
+      if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) && !rc_config.main_loop_start)
         Rdpattern_Gain_Togglebutton_Toggled( TRUE );
     }
     else if( isFlagSet(DRAW_EHFIELD) )
     {
-      if( isFlagClear(OPTIMIZER_OUTPUT) )
+      if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
         Rdpattern_EH_Togglebutton_Toggled( TRUE );
     }
     else
@@ -717,7 +717,7 @@ Open_Input_File( gpointer arg )
   {
     GtkWidget *box = Builder_Get_Object( freqplots_window_builder, "freqplots_box" );
     gtk_widget_show( box );
-    if( rc_config.main_loop_start || isFlagSet(OPTIMIZER_OUTPUT) )
+    if( rc_config.main_loop_start || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS) )
     {
       Main_Freqplots_Activate();
       Start_Frequency_Loop();

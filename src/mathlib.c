@@ -835,7 +835,7 @@ void mathlib_benchmark(int slow)
 	int i, best_num_jobs = 0;
 	double best_elapsed = 0;
 
-	if (isFlagSet(OPTIMIZER_OUTPUT))
+	if (isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS))
 	{
 		Notice(GTK_BUTTONS_OK, _("Mathlib Benchmark"),
 			_("Benchmarks are disabled while optimization is activated."));
