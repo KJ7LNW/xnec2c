@@ -354,6 +354,7 @@ typedef struct
   int opt_write_s2p_viewer_gain;
   int opt_write_rdpat;
   int opt_write_currents;
+  int opt_write_gnuplot_structure;
 
   /* If for example --write-csv <file> is added to the cmdline then write
    * the file after each frequency iteration */
@@ -363,6 +364,7 @@ typedef struct
   char *filename_s2p_viewer_gain;
   char *filename_rdpat;
   char *filename_currents;
+  char *filename_gnuplot_structure;
 
   /* Symbol overrides window */
   int sy_overrides_is_open;

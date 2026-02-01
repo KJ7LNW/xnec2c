@@ -31,6 +31,7 @@ int opt_have_files_to_save(void)
         rc_config.opt_write_s2p_viewer_gain ||
 		rc_config.opt_write_rdpat ||
 		rc_config.opt_write_currents ||
+		rc_config.opt_write_gnuplot_structure ||
 
 		// Files:
 		rc_config.filename_csv ||
@@ -38,7 +39,8 @@ int opt_have_files_to_save(void)
 		rc_config.filename_s2p_max_gain ||
 		rc_config.filename_s2p_viewer_gain ||
 		rc_config.filename_rdpat ||
-		rc_config.filename_currents
+		rc_config.filename_currents ||
+		rc_config.filename_gnuplot_structure
 	);
 }
 
@@ -69,6 +71,9 @@ _Write_Optimizer_Data( void )
   if (rc_config.opt_write_currents)
 	  Save_Currents_CSV(str_append(filename, rc_config.input_file, "-currents.csv", n));
 
+  if (rc_config.opt_write_gnuplot_structure)
+	  Save_Struct_Gnuplot_Data(str_append(filename, rc_config.input_file, "-structure.gplot", n));
+
 
   // from the cmdline:
   if (rc_config.filename_csv)
@@ -93,6 +98,12 @@ _Write_Optimizer_Data( void )
   {
 	pr_debug("saving currents: %s\n", rc_config.filename_currents);
 	Save_Currents_CSV(rc_config.filename_currents);
+  }
+
+  if (rc_config.filename_gnuplot_structure)
+  {
+	pr_debug("saving gnuplot structure: %s\n", rc_config.filename_gnuplot_structure);
+	Save_Struct_Gnuplot_Data(rc_config.filename_gnuplot_structure);
   }
 
 } // Write_Optimizer_Data()

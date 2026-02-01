@@ -44,6 +44,7 @@ enum XNEC2C_OPTS {
 	OPT_WRITE_S2P_VIEWER_GAIN,
 	OPT_WRITE_RDPAT,
 	OPT_WRITE_CURRENTS,
+	OPT_WRITE_GNUPLOT_STRUCTURE,
 	OPT_SKIP_VERIFY,
 	OPT_FORCE_VERIFY,
 
@@ -75,6 +76,7 @@ static struct option long_options[] = {
 		{  "write-s2p-viewer-gain",  required_argument,   NULL,  OPT_WRITE_S2P_VIEWER_GAIN  },
 		{  "write-rdpat",            required_argument,   NULL,  OPT_WRITE_RDPAT            },
 		{  "write-currents",         required_argument,   NULL,  OPT_WRITE_CURRENTS         },
+		{  "write-gnuplot-structure", required_argument,  NULL,  OPT_WRITE_GNUPLOT_STRUCTURE },
 		{  "skip-verify",            no_argument,         NULL,  OPT_SKIP_VERIFY            },
 		{  "force-verify",           no_argument,         NULL,  OPT_FORCE_VERIFY           },
 
@@ -325,6 +327,10 @@ main (int argc, char *argv[])
 
       case OPT_WRITE_CURRENTS:
         rc_config.filename_currents = optarg;
+        break;
+
+      case OPT_WRITE_GNUPLOT_STRUCTURE:
+        rc_config.filename_gnuplot_structure = optarg;
         break;
 
       case OPT_SKIP_VERIFY:

@@ -71,7 +71,8 @@ usage(void)
 		"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
 		"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
 		"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-		"  --write-currents        <filename>  - write CSV of currents and charges\n"));
+		"  --write-currents        <filename>  - write CSV of currents and charges\n"
+		"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"));
 
 } /* end of usage() */
 
