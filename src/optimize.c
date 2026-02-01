@@ -21,91 +21,67 @@
 
 /*------------------------------------------------------------------------*/
 
+// Dispatch table entry for optimizer save operations
+typedef struct
+{
+	int *opt_flag;
+	char **filename;
+	char *suffix;
+	char *debug_name;
+	void (*save_fn)(char *);
+} optimizer_save_entry_t;
+
+static optimizer_save_entry_t save_entries[] =
+{
+	{ &rc_config.opt_write_csv, &rc_config.filename_csv,
+	  ".csv", NULL, Save_FreqPlots_CSV },
+	{ &rc_config.opt_write_s1p, &rc_config.filename_s1p,
+	  ".s1p", NULL, Save_FreqPlots_S1P },
+	{ &rc_config.opt_write_s2p_max_gain, &rc_config.filename_s2p_max_gain,
+	  "-maxgain.s2p", NULL, Save_FreqPlots_S2P_Max_Gain },
+	{ &rc_config.opt_write_s2p_viewer_gain, &rc_config.filename_s2p_viewer_gain,
+	  "-viewergain.s2p", NULL, Save_FreqPlots_S2P_Viewer_Gain },
+	{ &rc_config.opt_write_rdpat, &rc_config.filename_rdpat,
+	  "-radpattern.csv", "rdpat", Save_RadPattern_CSV },
+	{ &rc_config.opt_write_currents, &rc_config.filename_currents,
+	  "-currents.csv", "currents", Save_Currents_CSV },
+	{ &rc_config.opt_write_gnuplot_structure, &rc_config.filename_gnuplot_structure,
+	  "-structure.gplot", "gnuplot structure", Save_Struct_Gnuplot_Data },
+	{ NULL, NULL, NULL, NULL, NULL }
+};
+
 int opt_have_files_to_save(void)
 {
-	return (
-		// Flags
-		rc_config.opt_write_csv ||
-        rc_config.opt_write_s1p ||
-        rc_config.opt_write_s2p_max_gain ||
-        rc_config.opt_write_s2p_viewer_gain ||
-		rc_config.opt_write_rdpat ||
-		rc_config.opt_write_currents ||
-		rc_config.opt_write_gnuplot_structure ||
-
-		// Files:
-		rc_config.filename_csv ||
-		rc_config.filename_s1p ||
-		rc_config.filename_s2p_max_gain ||
-		rc_config.filename_s2p_viewer_gain ||
-		rc_config.filename_rdpat ||
-		rc_config.filename_currents ||
-		rc_config.filename_gnuplot_structure
-	);
+	for (optimizer_save_entry_t *e = save_entries; e->save_fn != NULL; e++)
+	{
+		if ((e->opt_flag && *e->opt_flag) || (e->filename && *e->filename))
+			return 1;
+	}
+	return 0;
 }
 
 /* Writes out frequency-dependent
  * data for the external Optimizer */
-  void
-_Write_Optimizer_Data( void )
+void
+_Write_Optimizer_Data(void)
 {
-  char filename[FILENAME_LEN];
-  size_t n = sizeof( filename );
+	char filename[FILENAME_LEN];
+	size_t n = sizeof(filename);
 
-  // from the menu:
-  if (rc_config.opt_write_csv)
-	  Save_FreqPlots_CSV(str_append(filename, rc_config.input_file, ".csv", n));
+	for (optimizer_save_entry_t *e = save_entries; e->save_fn != NULL; e++)
+	{
+		// Menu checkbox path: auto-generate filename from input_file
+		if (e->opt_flag && *e->opt_flag)
+			e->save_fn(str_append(filename, rc_config.input_file, e->suffix, n));
 
-  if (rc_config.opt_write_s1p)
-	  Save_FreqPlots_S1P(str_append(filename, rc_config.input_file, ".s1p", n));
-
-  if (rc_config.opt_write_s2p_max_gain)
-	  Save_FreqPlots_S2P_Max_Gain(str_append(filename, rc_config.input_file, "-maxgain.s2p", n));
-
-  if (rc_config.opt_write_s2p_viewer_gain)
-	  Save_FreqPlots_S2P_Viewer_Gain(str_append(filename, rc_config.input_file, "-viewergain.s2p", n));
-
-  if (rc_config.opt_write_rdpat)
-	  Save_RadPattern_CSV(str_append(filename, rc_config.input_file, "-radpattern.csv", n));
-
-  if (rc_config.opt_write_currents)
-	  Save_Currents_CSV(str_append(filename, rc_config.input_file, "-currents.csv", n));
-
-  if (rc_config.opt_write_gnuplot_structure)
-	  Save_Struct_Gnuplot_Data(str_append(filename, rc_config.input_file, "-structure.gplot", n));
-
-
-  // from the cmdline:
-  if (rc_config.filename_csv)
-	  Save_FreqPlots_CSV(rc_config.filename_csv);
-
-  if (rc_config.filename_s1p)
-	  Save_FreqPlots_S1P(rc_config.filename_s1p);
-
-  if (rc_config.filename_s2p_max_gain)
-	  Save_FreqPlots_S2P_Max_Gain(rc_config.filename_s2p_max_gain);
-
-  if (rc_config.filename_s2p_viewer_gain)
-	  Save_FreqPlots_S2P_Viewer_Gain(rc_config.filename_s2p_viewer_gain);
-
-  if (rc_config.filename_rdpat)
-  {
-	pr_debug("saving rdpat: %s\n", rc_config.filename_rdpat);
-	Save_RadPattern_CSV(rc_config.filename_rdpat);
-  }
-
-  if (rc_config.filename_currents)
-  {
-	pr_debug("saving currents: %s\n", rc_config.filename_currents);
-	Save_Currents_CSV(rc_config.filename_currents);
-  }
-
-  if (rc_config.filename_gnuplot_structure)
-  {
-	pr_debug("saving gnuplot structure: %s\n", rc_config.filename_gnuplot_structure);
-	Save_Struct_Gnuplot_Data(rc_config.filename_gnuplot_structure);
-  }
-
+		// CLI path: use user-specified filename
+		if (e->filename && *e->filename)
+		{
+			if (e->debug_name)
+				pr_debug("saving %s: %s\n", e->debug_name, *e->filename);
+			e->save_fn(*e->filename);
+		}
+	}
 } // Write_Optimizer_Data()
 
 void Write_Optimizer_Data( void )
