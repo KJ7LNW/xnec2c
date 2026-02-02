@@ -579,6 +579,13 @@ rdpat( void )
   double  prad, gcon, gcop;
   double phi, pha, thet;
   double tha, ethm2, ethm;
+
+  /* Average power gain integration variables */
+  double pint = 0.0;
+  double total_omega = 0.0;
+  double da;
+  double dph_rad, dth_half;
+  double th_lo, th_hi;
   double etha, ephm2, ephm, epha, tilta, emajr2, eminr2;
   double dfaz, axrat, dfaz2, cdfaz, tstor1=0.0, tstor2;
   double gnmn, stilta, gnmj, gnv, gnh, gtot;
@@ -614,8 +621,12 @@ rdpat( void )
     if( fpat.ipd != 0)
       gcon= gcon* fpat.pinr/ prad;
   }
-  else gcon=4.0* M_PI/(1.0+ calc_data.xpr6* calc_data.xpr6);
-  /*** Incident field source ***/
+  else
+  {
+    /*** Incident field source ***/
+    gcon=4.0* M_PI/(1.0+ calc_data.xpr6* calc_data.xpr6);
+    gcop= gcon;
+  }
 
   phi  = fpat.phis - fpat.dph;
 
@@ -637,6 +648,10 @@ rdpat( void )
 
   /* Signal new rad pattern data */
   SetFlag( DRAW_NEW_RDPAT );
+
+  /* Initialize for average power gain calculation */
+  dph_rad = fpat.dph * TORAD;
+  dth_half = 0.5 * fpat.dth * TORAD;
 
   /* Step over theta and phi angles */
   idx = 0;
@@ -788,12 +803,53 @@ rdpat( void )
 
         } /* for( pol = 0; pol < NUM_POL; pol++ ) */
 
+        /* Accumulate for average power gain: weight by solid angle element */
+        if( fpat.iavp )
+        {
+          double linear_gain = gcop * (ethm2 + ephm2);
+
+          th_lo = tha - dth_half;
+          th_hi = tha + dth_half;
+          if( kth == 1 )
+            th_lo = tha;
+          if( kth == fpat.nth )
+            th_hi = tha;
+
+          da = fabs( dph_rad * (cos(th_lo) - cos(th_hi)) );
+          if( kph == 1 || kph == fpat.nph )
+            da *= 0.5;
+
+          pint += linear_gain * da;
+          total_omega += da;
+        }
+
         idx++;
         continue;
       } /* if( gnd.ifar != 1) */
 
     } /* for( kth = 1; kth <= fpat.nth; kth++ ) */
   } /* for( kph = 1; kph <= fpat.nph; kph++ ) */
+
+  /* Output average gain ratio: normalize by accumulated solid angle */
+  if( fpat.iavp && total_omega > 1.0e-20 )
+  {
+    pint = pint / total_omega;
+    double avg_gain_dbi = 10.0 * log10(pint);
+
+    /* Efficiency: ratio of actual gain to theoretical maximum */
+    double expected_gain = (4.0 * M_PI) / total_omega;
+    double efficiency_pct = (pint / expected_gain) * 100.0;
+
+    /* Warn if gain exceeds expected: indicates RP theta/phi range issue */
+    if( pint > expected_gain * 1.01 )
+    {
+      pr_warn(_("Average gain %.4f exceeds expected %.4f; check RP theta/phi ranges\n"),
+          pint, expected_gain);
+    }
+
+    pr_notice(_("Average gain: %.4f (%.2f dBi), efficiency: %.1f%%, solid angle: %.4f * pi sr\n"),
+        pint, avg_gain_dbi, efficiency_pct, total_omega / M_PI);
+  }
 
   return;
 
