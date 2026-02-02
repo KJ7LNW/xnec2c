@@ -355,6 +355,7 @@ typedef struct
   int opt_write_rdpat;
   int opt_write_currents;
   int opt_write_gnuplot_structure;
+  int opt_write_patch_currents;
 
   /* If for example --write-csv <file> is added to the cmdline then write
    * the file after each frequency iteration */
@@ -365,6 +366,7 @@ typedef struct
   char *filename_rdpat;
   char *filename_currents;
   char *filename_gnuplot_structure;
+  char *filename_patch_currents;
 
   /* Symbol overrides window */
   int sy_overrides_is_open;
@@ -1427,6 +1429,7 @@ void Save_RadPattern_Gnuplot_Data(char *filename);
 void Save_RadPattern_CSV(char *filename);
 void Save_Struct_Gnuplot_Data(char *filename);
 void Save_Currents_CSV(char *filename);
+void Save_Patch_Currents_CSV(char *filename);
 /* ground.c */
 void rom2(double a, double b, _Complex double *sum, double dmin);
 void sflds(double t, _Complex double *e);

@@ -47,6 +47,8 @@ static optimizer_save_entry_t save_entries[] =
 	  "-currents.csv", "currents", Save_Currents_CSV },
 	{ &rc_config.opt_write_gnuplot_structure, &rc_config.filename_gnuplot_structure,
 	  "-structure.gplot", "gnuplot structure", Save_Struct_Gnuplot_Data },
+	{ &rc_config.opt_write_patch_currents, &rc_config.filename_patch_currents,
+	  "-patch-currents.csv", "patch currents", Save_Patch_Currents_CSV },
 	{ NULL, NULL, NULL, NULL, NULL }
 };
 

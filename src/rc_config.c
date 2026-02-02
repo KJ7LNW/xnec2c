@@ -206,6 +206,10 @@ rc_config_vars_t rc_config_vars[] = {
 		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_gnuplot_structure",
 		.vars = { &rc_config.opt_write_gnuplot_structure} },
 
+	{ .desc = "Optimizer Write Patch Currents", .format = "%d", .batch_mode_skip = TRUE,
+		.builder_window = &main_window_builder, .builder_check_menu_item_id = "optimizer_write_patch_currents",
+		.vars = { &rc_config.opt_write_patch_currents} },
+
 	{ .desc = "Frequency Plots window is open", .format = "%d",
 		.vars = { &rc_config.freqplots_is_open } },
 

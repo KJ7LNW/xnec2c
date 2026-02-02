@@ -609,3 +609,79 @@ void Save_Currents_CSV(char *filename)
 	setlocale(LC_NUMERIC, orig_numeric_locale);
 	fclose(fp);
 }
+
+
+/*-----------------------------------------------------------------------*/
+
+/* Save_Patch_Currents_CSV()
+ *
+ * Saves surface patch current data to a CSV file
+ */
+void Save_Patch_Currents_CSV(char *filename)
+{
+	FILE *fp = NULL;
+
+	if (!crnt.valid)
+	{
+		Notice(GTK_BUTTONS_OK, _("Save Patch Currents to CSV"),
+			_("You must enable current data by clicking \"Currents\" or \"Charges\" "
+			"in the main xnec2c window."));
+		return;
+	}
+
+	if (data.m == 0)
+	{
+		Notice(GTK_BUTTONS_OK, _("Save Patch Currents to CSV"),
+			_("No surface patches in this model."));
+		return;
+	}
+
+	if (!Open_File(&fp, filename, "w"))
+		return;
+
+	setlocale(LC_NUMERIC, "C");
+
+	fprintf(fp, "mhz,patch,area,"
+		"px,py,pz,"
+		"cx_real,cx_imag,cy_real,cy_imag,cz_real,cz_imag,"
+		"ct1_mag,ct2_mag\n");
+
+	int idx, j;
+	complex double cx, cy, cz, ct1, ct2;
+
+	for (idx = 0; idx < data.m; idx++)
+	{
+		/* Patch current stored as 3 consecutive xyz components starting at data.n */
+		j = data.n + idx * 3;
+		cx = crnt.cur[j];
+		cy = crnt.cur[j + 1];
+		cz = crnt.cur[j + 2];
+
+		/* Project current onto t1 and t2 tangent vectors */
+		ct1 = cx * (double)data.t1x[idx] +
+		      cy * (double)data.t1y[idx] +
+		      cz * (double)data.t1z[idx];
+		ct2 = cx * (double)data.t2x[idx] +
+		      cy * (double)data.t2y[idx] +
+		      cz * (double)data.t2z[idx];
+
+		fprintf(fp, "%.6f,%d,%.17g,"
+			"%.17g,%.17g,%.17g,"
+			"%.17g,%.17g,%.17g,%.17g,%.17g,%.17g,"
+			"%.17g,%.17g\n",
+			calc_data.freq_mhz,
+			idx + 1,
+			(double)data.pbi[idx],
+			(double)data.px[idx],
+			(double)data.py[idx],
+			(double)data.pz[idx],
+			creal(cx), cimag(cx),
+			creal(cy), cimag(cy),
+			creal(cz), cimag(cz),
+			cabs(ct1),
+			cabs(ct2));
+	}
+
+	setlocale(LC_NUMERIC, orig_numeric_locale);
+	fclose(fp);
+}
