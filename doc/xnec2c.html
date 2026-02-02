@@ -464,8 +464,12 @@ pre code {
   color: inherit;
 }
 
-/* File Paths */
-.filepath {
+/* File Paths and Extensions
+ * filepath: auto-linked to GitHub repository
+ * fileext: same styling, not auto-linked (for extension-only references)
+ */
+.filepath,
+.fileext {
   background-color: var(--color-base-200);
   color: var(--color-success);
   padding: 0.1rem 0.3rem;
@@ -1089,6 +1093,7 @@ Window</a></li>
 <li><a href="#Nec2Treeview">NEC2 Input File Editor</a></li>
 <li><a href="#Optimization">Antenna Geometry Optimization (ie, high gain, low VSWR)</a></li>
 <li><a href="#Optimizers">External Optimizers</a></li>
+<li><a href="#SymbolicVariables">Symbolic Variables (SY) and Live Parameter Tuning</a></li>
 </ul>
 </li>
 <li><a href="#InputFile">Input File Considerations and NEC2 Card Reference</a></li>
@@ -1349,7 +1354,7 @@ filenames to write without <code>--batch</code> mode then enable the <span class
 <p><strong>&lt;<var>input-file-name</var>&gt;</strong>: Specify a NEC2 input file to
 be opened at start-up. If the <code>-i</code> option is omitted, xnec2c will
 take the last argument to be the input file path name, but will
-only open it if it has the <span class="filepath">.nec</span> extension.</p>
+only open it if it has the <span class="fileext">.nec</span> extension.</p>
 <p><strong>&lt;<var>number of child processes to spawn</var>&gt;</strong>: Since
 <span class="version-tag">v1.0</span> xnec2c can run multi-threaded on SMP machines. This
 option specifies the number of child processes to spawn by forking,
@@ -1427,7 +1432,7 @@ menu.</p>
 as a data file for the <code>gnuplot</code> plotting program. This is done by
 using the <span class="menu-path">File → Save As gnuplot</span> menu item, to open a file
 chooser dialog. If only the stem of the file name is given, xnec2c
-will automatically add the <span class="filepath">.gplot</span> extension. Plotting in gnuplot is
+will automatically add the <span class="fileext">.gplot</span> extension. Plotting in gnuplot is
 done with the <code class="language-gnuplot">splot &lt;<var>filename</var>&gt; with lines</code> command, although
 the plot can be enhanced with some of the style etc commands
 available in gnuplot.</p>
@@ -1572,7 +1577,7 @@ overwriting will occur if the same input file is opened.</p>
 and near E/H field display as a data file for the <code>gnuplot</code>
 plotting program. This is done by using the <span class="menu-path">File → Save As gnuplot</span> menu item, to open a file chooser dialog. If only the
 stem of the filename is given, xnec2c will automatically add the
-<span class="filepath">.gplot</span> extension. Plotting in gnuplot is done with the <code class="language-gnuplot">splot
+<span class="fileext">.gplot</span> extension. Plotting in gnuplot is done with the <code class="language-gnuplot">splot
 &lt;<var>filename</var>&gt; with lines</code> command, although the plot can be
 enhanced with some of the style etc commands available in
 gnuplot.</p>
@@ -1679,7 +1684,7 @@ mouse pointer, Rotate/Incline spin buttons etc).</p>
 dependent functions as a data file for the <code>gnuplot</code> plotting
 program. This is done by using the <span class="menu-path">File → Save As gnuplot</span>
 menu item, to open a file chooser dialog. If only the stem of the
-filename is given, xnec2c will automatically add the <span class="filepath">.gplot</span>
+filename is given, xnec2c will automatically add the <span class="fileext">.gplot</span>
 extension. Plotting in gnuplot is done with the <code class="language-gnuplot">plot for [i=2:3] 'filename.gplot' using 1:i with lines smooth bezier title columnhead(i)</code>
 command at the gnuplot console, although the plot can be enhanced with
 some of the style etc commands available in gnuplot. In this example
@@ -1691,21 +1696,21 @@ graph very busy.</p>
 <p>
 Touchstone files (or SnP files) are used by professional RF software
 packages like Microwave Office, Sonnet, and others.   Now xnec2c can
-export <span class="filepath">.s1p</span> and <span class="filepath">.s2p</span> files to be used with those software packages.
-S<sub>11</sub> is the same as return loss, reflection and <span class="filepath">.s1p</span> files provide
+export <span class="fileext">.s1p</span> and <span class="fileext">.s2p</span> files to be used with those software packages.
+S<sub>11</sub> is the same as return loss, reflection and <span class="fileext">.s1p</span> files provide
 single-port data.  You can export Touchstone files from the Frequency
 Plots with <span class="menu-path">File → Save as Touchstone (.SnP)</span>.
 </p>
 
 <p>
-For <span class="filepath">.s2p</span> files gain is used as S<sub>21</sub> and S<sub>12</sub>: we assume the antenna is
+For <span class="fileext">.s2p</span> files gain is used as S<sub>21</sub> and S<sub>12</sub>: we assume the antenna is
 passive so <code>S<sub>21</sub>&nbsp;==&nbsp;S<sub>12</sub></code>.  S<sub>22</sub> is a bit of a mystery, so we assume
 that all S<sub>22</sub> behavior is normalized into S<sub>11</sub> and thus S<sub>22</sub> is deminimus
 and set it to −100&nbsp;dB.  This may not be a correct assumption, so please
 provide a suggestion here if you know a better way.
 </p>
 <p>
-The S<sub>21</sub> and S<sub>12</sub> values in the <span class="filepath">.s2p</span> come in two types: Max Gain and
+The S<sub>21</sub> and S<sub>12</sub> values in the <span class="fileext">.s2p</span> come in two types: Max Gain and
 Viewer Gain.  Max gain is the maximum gain of the antenna, whereas,
 viewer gain is the current gain of the antenna pointing toward the
 viewport of xnec2c.  For a directional antenna, pointing the main antenna
@@ -1713,7 +1718,7 @@ lobe toward the xnec2c viewport would give the same (or nearly the same)
 values as max gain.
 </p>
 <p>
-Once you have your <span class="filepath">.s2p</span> or <span class="filepath">.s1p</span> files you can design a matching circuit
+Once you have your <span class="fileext">.s2p</span> or <span class="fileext">.s1p</span> files you can design a matching circuit
 or other RF behavior in your favorite RF design software.
 </p>
 
@@ -1877,16 +1882,16 @@ Neoklis, 5B4AZ explains Antenna Optimization in xnec2c on his page <a target="_b
 href="https://www.5b4az.org/pages/antenna_designs.html">here</a> as follows:</p>
 
 <blockquote>
-<p>Xnec2c monitors its <span class="filepath">.nec</span> input file for changes and re-runs the frequency
-stepping loop which recalculates new data and prints to the <span class="filepath">.csv</span> file. It is
-therefore possible to arrange the optimizer program to read the <span class="filepath">.csv</span> data file,
-recalculate antenna parameters and save them to the <span class="filepath">.nec</span> input file. xnec2c
-will then recalculate and save new frequency-dependent data to the <span class="filepath">.csv</span> file.</p>
+<p>Xnec2c monitors its <span class="fileext">.nec</span> input file for changes and re-runs the frequency
+stepping loop which recalculates new data and prints to the <span class="fileext">.csv</span> file. It is
+therefore possible to arrange the optimizer program to read the <span class="fileext">.csv</span> data file,
+recalculate antenna parameters and save them to the <span class="fileext">.nec</span> input file. xnec2c
+will then recalculate and save new frequency-dependent data to the <span class="fileext">.csv</span> file.</p>
 
-<p>If the optimizer program is arranged to monitor changes to the <span class="filepath">.csv</span> file, then
+<p>If the optimizer program is arranged to monitor changes to the <span class="fileext">.csv</span> file, then
 a continuous loop can be created in which new antenna parameters are calculated
-and saved to the <span class="filepath">.nec</span> file, new frequency dependent data are calculated and
-saved to the <span class="filepath">.csv</span> file and the loop repeated until the desired results
+and saved to the <span class="fileext">.nec</span> file, new frequency dependent data are calculated and
+saved to the <span class="fileext">.csv</span> file and the loop repeated until the desired results
 (optimization) are obtained.</p>
 
 <footer><cite>Neoklis, 5B4AZ</cite></footer>
@@ -1918,15 +1923,15 @@ of the packages for more information:
 		is written in Perl by <span class="contact" data-callsign="KJ7LNW" data-role="maintainer">Eric Wheeler</span> and hosted on github.</li>
 	</ul>
 
-<h4>Activating <span class="filepath">.NEC</span> File Monitoring for Optimization</h4>
+<h4>Activating <span class="fileext">.NEC</span> File Monitoring for Optimization</h4>
 
 <p>
-Xnec2c will monitor the currently open <span class="filepath">.NEC</span> file when you select
-<span class="menu-path">File → Optimization Settings</span> and select "Reload and write data on <span class="filepath">.NEC</span> file
+Xnec2c will monitor the currently open <span class="fileext">.NEC</span> file when you select
+<span class="menu-path">File → Optimization Settings</span> and select "Reload and write data on <span class="fileext">.NEC</span> file
 changes".  Additionally, you need to tell xnec2c where to write its output
 file.  You can do that with one of the <code>--write-*</code> command-line options
 or by checking one of the boxes in <span class="menu-path">File → Optimization Settings</span> such as
-"After calculation, write &lt;file&gt;<span class="filepath">.csv</span>".</p>
+"After calculation, write &lt;file&gt;<span class="fileext">.csv</span>".</p>
 
 <p>
 Finally you need to enable the frequency sweep if it is not already turned on as follows:
@@ -1969,6 +1974,143 @@ verbosity.  For example, with <code>-vv</code> using <span class="filepath">exam
 [notice] Frequency loop elapsed time: 0.467847 seconds. (ATLAS, Threaded)
 </code></pre>
 
+</p>
+
+<h3 id="SymbolicVariables">Symbolic Variables (SY) and Live Parameter Tuning</h3>
+<figure>
+<img src="images/sy_overrides.png" class="float-left" alt="Symbol Overrides window tuning wire radius on a parametric Yagi" loading="lazy">
+<figcaption>Symbol Overrides window tuning wire radius on a parametric Yagi</figcaption>
+</figure>
+
+<p>
+Antenna design often begins with a target frequency and a set of proportions—element lengths
+expressed as fractions of wavelength, spacing ratios derived from empirical data or simulation
+refinement. The <code class="nec-card">SY</code> card transforms these relationships from scattered
+numeric literals into a coherent symbolic framework where changing one value ripples through
+the entire model. This 4nec2-compatible extension brings parametric modeling to xnec2c,
+enabling rapid exploration of design variations without manually editing dozens of coordinate
+values.
+</p>
+
+<h4>SY Card Syntax</h4>
+<p>
+Symbol definitions appear in either the geometry or command section of the input file.
+Each <code class="nec-card">SY</code> card declares one or more variables using the format:
+</p>
+
+<pre><code class="language-nec">SY name=value
+SY name=expression
+SY a=1, b=a*2, c=b+1</code></pre>
+
+<p>
+Comma separation allows multiple definitions on a single line, evaluated left-to-right
+so that later symbols can reference earlier ones. Symbol names are case-insensitive;
+<code>FREQ</code>, <code>Freq</code>, and <code>freq</code> all resolve to the same value.
+</p>
+
+<p>
+Expressions support standard arithmetic operators (<code>+</code>, <code>-</code>,
+<code>*</code>, <code>/</code>, <code>^</code>) with conventional precedence.
+Mathematical functions include trigonometric operations (<code>SIN</code>, <code>COS</code>,
+<code>TAN</code>, <code>ATN</code>—note that angles are in degrees), square root
+(<code>SQR</code>), exponential and logarithmic functions (<code>EXP</code>, <code>LOG</code>,
+<code>LOG10</code>), and utility functions (<code>ABS</code>, <code>SGN</code>, <code>INT</code>,
+<code>FIX</code>, <code>MOD</code>, <code>MAX</code>, <code>MIN</code>).
+</p>
+
+<p>
+Predefined constants eliminate magic numbers from antenna descriptions:
+</p>
+
+<dl class="command-options">
+<dt><code>PI</code></dt>
+<dd>3.14159265358979...</dd>
+
+<dt><code>MM</code>, <code>CM</code>, <code>IN</code>, <code>FT</code></dt>
+<dd>Unit conversion factors to meters (1E-3, 1E-2, 2.54E-2, 0.3048)</dd>
+
+<dt><code>PF</code>, <code>NF</code>, <code>UF</code></dt>
+<dd>Capacitance multipliers (1E-12, 1E-9, 1E-6)</dd>
+
+<dt><code>NH</code>, <code>UH</code></dt>
+<dd>Inductance multipliers (1E-9, 1E-6)</dd>
+
+<dt><code>AWG_0</code> through <code>AWG_20</code></dt>
+<dd>Wire radii in meters for American Wire Gauge sizes</dd>
+</dl>
+
+<p>
+The included example <span class="filepath">examples/2m_yagi_SY_parametric.nec</span> demonstrates
+how symbols cascade through a model:
+</p>
+
+<pre><code class="language-nec">SY FREQ=146, C=299.792458, LAMBDA=C/FREQ
+SY L_REF=0.492*LAMBDA, L_DRV=0.468*LAMBDA
+SY X_DRV=0.193*LAMBDA, RADIUS=AWG_10
+GW 1 25 0 L_REF/2 0 0 -L_REF/2 0 RADIUS
+GW 2 25 X_DRV L_DRV/2 0 X_DRV -L_DRV/2 0 RADIUS
+FR 0 21 0 0 FREQ-5 0.5</code></pre>
+
+<p>
+Changing <code>FREQ</code> recalculates wavelength, which propagates to element lengths
+and positions—the entire antenna scales to a new band through a single edit.
+</p>
+
+<h4>Symbol Overrides Window</h4>
+<p>
+Select <span class="menu-path">View → Symbol Overrides</span> to open the tuning interface.
+The window displays all defined symbols in two collapsible sections: <strong>Input Symbols</strong>
+contain direct assignments from <code class="nec-card">SY</code> cards, while
+<strong>Calculated Symbols</strong> derive their values from expressions referencing other symbols.
+</p>
+
+<p>
+Each row presents:
+</p>
+
+<ul>
+<li><strong>Symbol name</strong> and its current evaluated value</li>
+<li><strong>Override entry</strong> with checkbox—when enabled, this value supersedes the
+original definition during simulation</li>
+<li><strong>Min/Max bounds</strong> defining the slider range</li>
+<li><strong>Slider</strong> for continuous adjustment within bounds</li>
+<li><strong>Expression</strong> (for calculated symbols) showing the source formula</li>
+</ul>
+
+<p>
+When an override activates, the original value displays with strikethrough styling,
+providing visual confirmation that the symbol now draws from the override rather than its
+definition. Bounds auto-expand if slider movement or direct entry exceeds current limits—drag
+the slider past the maximum and the ceiling rises to accommodate the new value.
+</p>
+
+<h4>Auto-Apply Parameter Tuning</h4>
+<p>
+The <strong>Auto Apply</strong> checkbox transforms the Symbol Overrides window into a real-time
+tuning console. With this mode active, each slider adjustment or value change triggers an
+automatic sequence: a 300-millisecond pause allows rapid successive adjustments to coalesce,
+then xnec2c saves the override state, reloads the model, and recalculates all frequency points.
+A spinner indicates when calculations are in progress; additional changes queue until the
+current computation completes.
+</p>
+
+<p>
+This mechanism integrates seamlessly with the optimization workflow. External scripts can
+modify the companion <span class="fileext">.sy</span> file directly—xnec2c monitors both
+<span class="fileext">.nec</span> and <span class="fileext">.sy</span> files for changes,
+reloading automatically when either updates. The override file format stores symbol state
+in a straightforward text structure:
+</p>
+
+<pre><code class="language-text"># Symbol overrides file
+FREQ: min_value=100 max_value=200 override_value=146 override_active=1
+LAMBDA: min_value=1.0 max_value=4.0 override_value=2.05 override_active=0</code></pre>
+
+<p>
+Override persistence means tuning sessions survive application restarts. The
+<span class="fileext">.sy</span> file loads before <code class="nec-card">SY</code> card
+processing begins, pre-populating bounds and override values so that subsequent symbol
+definitions merge with existing tuning state rather than replacing it.
 </p>
 
 <h2 id="InputFile">Input File Considerations</h2>
@@ -2014,6 +2156,9 @@ Here is a list of commands or command options not supported by xnec2c:
 
 <dt><code class="nec-card">RP</code></dt>
 <dd>The surface wave option (<var>I1</var> = 1) is not supported.</dd>
+
+<dt><code class="nec-card">SY</code></dt>
+<dd>Symbolic variable definition for parametric modeling, compatible with 4nec2. Defines named constants and expressions that substitute into geometry and command card fields. See <a href="#SymbolicVariables">SY Symbolic Variables and Parameter Tuning</a> for full documentation.</dd>
 
 <dt><code class="nec-card">ZO</code></dt>
 <dd>As of <span class="version-tag">v3.7-beta</span>, this is a new "card" addition to the input file, which I have incorporated to allow the Transmission Line Z<sub>0</sub> to be specified in the NEC2 antenna description file.</dd>
@@ -2254,8 +2399,8 @@ maintenance items, with a few new features as well:
 <li>UI Features:
 	<ul>
 	<li>Added <span class="menu-path">File → Save-as CSV</span> in the Frequency Plots window</li>
-	<li>Added optimizer output config checkboxes for csv, s1p, and/or s2p.  Now you can auto-generate <span class="filepath">.csv</span>, <span class="filepath">.s1p</span>, or <span class="filepath">.s2p</span> files when the input <span class="filepath">.nec</span> file is modified by an external program.</li>
-	<li>Pre-processed CSV data for each example <span class="filepath">.nec</span> file and placed them in <span class="filepath">examples/data/</span>.  You can view these with any spreadsheet program and graph columns as you like; the data is useful for regression testing, too.</li>
+	<li>Added optimizer output config checkboxes for csv, s1p, and/or s2p.  Now you can auto-generate <span class="fileext">.csv</span>, <span class="fileext">.s1p</span>, or <span class="fileext">.s2p</span> files when the input <span class="fileext">.nec</span> file is modified by an external program.</li>
+	<li>Pre-processed CSV data for each example <span class="fileext">.nec</span> file and placed them in <span class="filepath">examples/data/</span>.  You can view these with any spreadsheet program and graph columns as you like; the data is useful for regression testing, too.</li>
 	<li>Updated optimization documentation.</li>
 	</ul>
 </li>
@@ -2272,7 +2417,7 @@ maintenance items, with a few new features as well:
 	<ul>
 	<li>Fixed octal representation of <code>0755</code> when creating <span class="filepath">~/.xnec2c/</span></li>
 	<li>Added directory permission hotfix for users affected by <span class="commit-hash">4e62893b</span></li>
-	<li>Do not invalidate current data when radiation pattern is enabled; Thanks to <span class="contact">Gian Luigi</span> for reporting this bug and providing <span class="filepath">.nec</span> file samples to reproduce the problem.</li>
+	<li>Do not invalidate current data when radiation pattern is enabled; Thanks to <span class="contact">Gian Luigi</span> for reporting this bug and providing <span class="fileext">.nec</span> file samples to reproduce the problem.</li>
 	<li>Check if radiation pattern was calculated before using the <code class="nec-card">RP</code> data,  Thanks to <span class="contact">Gian Luigi</span> for reporting this bug, too.</li>
 	<li>Added fallback PATH_MAX if undefined, like for GNU/Hurd.</li>
 	<li>optimizer: prevent loading zero-byte files</li>
@@ -2305,17 +2450,17 @@ maintenance items, with a few new features as well:
 a brief summary, see the git commit log for detail:
 <ul>
 <li>Updated icons and file associations so you can double-click to open
-<span class="filepath">.nec</span> files in most desktop environments.  Just <code>make desktop-install</code>
+<span class="fileext">.nec</span> files in most desktop environments.  Just <code>make desktop-install</code>
 after <code>make install</code> to set it up!  Distribution maintainers: see the
 <span class="filepath">PACKAGING</span> file for details.</li>
-<li>Added <span class="filepath">.so.0</span> filenames names for OpenBLAS detection in CentOS when
+<li>Added <span class="fileext">.so.0</span> filenames names for OpenBLAS detection in CentOS when
 the <code>-devel</code> package is not installed.</li>
 <li>Added the <span class="filepath">debian/upstream/metadata</span> file as recommended by Debian
 for package info.</li>
 <li>Added <span class="filepath">xnec2c.spec</span> for RPM-based builds!  Just <code>rpmbuild -bb xnec2c.spec</code> to create an RPM.  You will need to place the latest
-<span class="filepath">.tar.gz</span> file in <span class="filepath">~/rpmbuild/SOURCES</span> or run <code>spectool -g -R xnec2c.spec</code>
+<span class="fileext">.tar.gz</span> file in <span class="filepath">~/rpmbuild/SOURCES</span> or run <code>spectool -g -R xnec2c.spec</code>
 to download them for you. Thanks to <span class="contact" data-callsign="KF5OIM">Richard Shaw</span> for reviewing
-the <span class="filepath">.spec</span> file!</li>
+the <span class="fileext">.spec</span> file!</li>
 <li>Added include of <code>locale.h</code> to fix building under <code>musl-libc</code>. Thanks
 to <span class="contact" data-callsign="DL1JBE" data-role="Gentoo maintainer">Tom</span> for pointing this out and testing the fix!</li>
 </ul>
@@ -2348,7 +2493,7 @@ decimal point to another with comma for decimal point, or vice-versa.
 <li>Fixed buffer overflow in the temp string used in <code class="language-c">mem_write_format()</code>,
 thanks to <span class="contact" data-callsign="EA4CIV">Juan Pablo García</span> for reporting the bug while testing
 touchstone file output.</li>
-<li>Changed default Save-As filenames to resemble the original <span class="filepath">.nec</span> filename where appropriate.</li>
+<li>Changed default Save-As filenames to resemble the original <span class="fileext">.nec</span> filename where appropriate.</li>
 <li>Avoid EM calculation if the selected frequency step (when you
 right-click on a graph) has already been calculated. Note that, at the
 moment, it must always calculate if left-clicking the graph or when
@@ -2360,16 +2505,16 @@ moment, it must always calculate if left-clicking the graph or when
 <h3>Version <span class="version-tag">4.4.7</span></h3>
 <p>This release has a few minor features added:
 <ul>
-<li>Touchstone 1- and 2-port files (<span class="filepath">.s1p</span>, <span class="filepath">.s2p</span>) can be exported from the
+<li>Touchstone 1- and 2-port files (<span class="fileext">.s1p</span>, <span class="fileext">.s2p</span>) can be exported from the
 frequency plots window.  Touchstone files are used by professional RF
 software packages like Microwave Office, Sonnet, and others.   Now xnec2c
-can export <span class="filepath">.s1p</span> and <span class="filepath">.s2p</span> files to be used with those software packages.
-S<sub>11</sub> is the same as return loss, reflection and <span class="filepath">.s1p</span> files provide
+can export <span class="fileext">.s1p</span> and <span class="fileext">.s2p</span> files to be used with those software packages.
+S<sub>11</sub> is the same as return loss, reflection and <span class="fileext">.s1p</span> files provide
 single-port data.  Thanks to <span class="contact" data-callsign="EA4CIV">Juan Pablo García</span> for suggesting this
 feature.
 </li>
 <li>Converted frequency plot gnuplot output to include all columns. Now
-all columns are available in the <span class="filepath">.gnuplot</span> file.  Thanks to <span class="contact" data-github="scaramacai">scaramacai</span>
+all columns are available in the <span class="fileext">.gnuplot</span> file.  Thanks to <span class="contact" data-github="scaramacai">scaramacai</span>
 on github for the initial work on this conversion.</li>
 <li>Added auto-detection of <code>musl-libc</code> so it will compile for users
 with <code>musl-libc</code>. Thanks to <span class="contact" data-callsign="DL1JBE" data-role="Gentoo maintainer">Tom</span> at Gentoo for suggesting and testing
@@ -2502,8 +2647,8 @@ remove extra whitespace and increase precision of the NEC2 data.  See git log fo
 
 <h3>Version <span class="version-tag">4.3.2</span></h3>
 <p>Additional optimizer trigger and inotify cleanup.  Also xnec2c writes
-the <span class="filepath">.csv</span> file as soon as the checkbox is selected to trigger any external optimizers waiting for
-the <span class="filepath">.csv</span> to be modified.
+the <span class="fileext">.csv</span> file as soon as the checkbox is selected to trigger any external optimizers waiting for
+the <span class="fileext">.csv</span> to be modified.
 </p>
 
 
@@ -2516,7 +2661,7 @@ the <span class="filepath">.csv</span> to be modified.
 xnec2c has always clamped to 10 so this option defaults enabled.  If you want to see the
 entire VSWR curve no matter how big VSWR is, then see <span class="menu-path">Frequency Plots → View → Clamp VSWR to 10</span>.
 </li>
-<li>Fixed deadlock while optimizing when inotify receives a <span class="filepath">.nec</span> change before xnec2c
+<li>Fixed deadlock while optimizing when inotify receives a <span class="fileext">.nec</span> change before xnec2c
 is done writing the <span class="filepath">.nec.csv</span> file.</li>
 </ul>
 
@@ -2558,7 +2703,7 @@ is done writing the <span class="filepath">.nec.csv</span> file.</li>
 	<ul>
 		<li>Fixed parallel job child communication races and better EINTR
 		  handling</li>
-		<li>Fixed multiple crashes when inotify detects a change of the <span class="filepath">.nec</span>
+		<li>Fixed multiple crashes when inotify detects a change of the <span class="fileext">.nec</span>
 		  file while the frequency loop is running.</li>
 		<li>Fixed uninitialized data program-wide by calling memset(0) in
 		  mem_alloc().</li>
@@ -2593,7 +2738,7 @@ spiral to be rounded to the nearest integer. Both bugs have been
 fixed in this version.</p>
 <p>Further, to aid <span class="contact" data-callsign="KJ7LNW" data-role="maintainer">Eric Wheeler</span> to develop his Simplex
 automatic Optimizer, I added code to monitor, with inotify, the
-<span class="filepath">.nec</span> input file and to trigger recalculation and plotting of
+<span class="fileext">.nec</span> input file and to trigger recalculation and plotting of
 frequency dependent data, while at the same time printing to file
 results (VSWR, max gain, F/B ratio etc). Also added code so that if
 the user clicks on the Frequency Plots drawing area, the underlying
@@ -2817,7 +2962,7 @@ some spelling errors (arbitrary to arbitrary).</p>
 
 <h3>Version <span class="version-tag">2.8</span></h3>
 <p>Fixed a bug in the <code class="nec-card">GN</code> card editor function
-which caused xnec2c to save the <code class="nec-card">GN</code> card parameters in the <span class="filepath">.nec</span>
+which caused xnec2c to save the <code class="nec-card">GN</code> card parameters in the <span class="fileext">.nec</span>
 antenna description file without clearing the number of radials to
 zero. This resulted in the <code class="nec-card">GN</code> card editor window to open with
 confusing and incorrect defaults for the radial screen, when the
@@ -2825,9 +2970,9 @@ Reflection Coefficient Approximation method was selected for
 specifying ground parameters.</p>
 <p>Also fixed some bugs (missing variable initializations) in the
 Ground Parameters calculation functions which resulted in incorrect
-Radiation Pattern calculations. This would happen if a <span class="filepath">.nec</span> file,
+Radiation Pattern calculations. This would happen if a <span class="fileext">.nec</span> file,
 with Perfect Ground (<code>iperf = 1</code>) specified in the <code class="nec-card">GN</code> card, was
-opened after a <span class="filepath">.nec</span> file, with a Radial Ground Screen specified in
+opened after a <span class="fileext">.nec</span> file, with a Radial Ground Screen specified in
 the <code class="nec-card">GN</code> card, was processed.</p>
 
 
@@ -2956,7 +3101,7 @@ time.</p>
 <p>Changed the handling of command line
 arguments so that the input file name may be specified without the
 use of the <code>-i</code> option. In this case xnec2c will take the last
-argument to be the input file name, but only if it has the <span class="filepath">.nec</span>
+argument to be the input file name, but only if it has the <span class="fileext">.nec</span>
 extension.Got rid of some variables that were set but not used, according to
 warnings given by gcc.Applied a patch supplied by <span class="contact" data-callsign="AB1KW" data-github="rikvanriel">Rik van Riel</span> to allow the calculation
 of front to back ratios when the antenna is modeled over
