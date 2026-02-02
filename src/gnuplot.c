@@ -504,19 +504,17 @@ Save_Struct_Gnuplot_Data( char *filename )
     /* Output segments data */
     fprintf( fp, _("# structure patch segments\n") );
 
-    /* Output first segment outside loop to enable separation of wires */
-    fprintf( fp, "%10.3E %10.3E %10.3E\n%10.3E %10.3E %10.3E\n",
-        (double)data.px1[0], (double)data.py1[0], (double)data.pz1[0],
-        (double)data.px2[0], (double)data.py2[0], (double)data.pz2[0] );
-
-    /* Start from second segment and check for connection of ends */
+    /* Output all patch segments with blank line after each */
     m2 = data.m * 2;
-    for( idx = 1; idx < m2; idx++ )
+    for( idx = 0; idx < m2; idx++ )
     {
       fprintf( fp, "%10.3E %10.3E %10.3E\n%10.3E %10.3E %10.3E\n",
           (double)data.px1[idx], (double)data.py1[idx], (double)data.pz1[idx],
           (double)data.px2[idx], (double)data.py2[idx], (double)data.pz2[idx] );
-    } /* for( idx = 1; idx < m2; idx++ ) */
+
+      /* Two blank lines after each segment prevents gnuplot splot connecting non-adjacent points */
+      fprintf( fp, "\n\n" );
+    } /* for( idx = 0; idx < m2; idx++ ) */
 
     fprintf( fp, "\n\n" );
   } /* if( data.m && isFlagSet(INPUT_PENDING) ) */
@@ -552,6 +550,8 @@ Save_Struct_Gnuplot_Data( char *filename )
 
   setlocale(LC_NUMERIC, orig_numeric_locale);
   fclose( fp );
+
+  pr_notice("View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse close\"\n", filename);
 } /* Save_Struct_Gnuplot_Data() */
 
 /*-----------------------------------------------------------------------*/
