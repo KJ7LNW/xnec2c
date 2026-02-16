@@ -1266,6 +1266,48 @@ sy_overrides_refresh(void)
 
 /*------------------------------------------------------------------------*/
 
+/* Uncheck menu item and destroy window */
+static void
+uncheck_menu_and_destroy_window(void)
+{
+  GtkWidget *menu_item;
+
+  if( sy_overrides_window == NULL )
+    return;
+
+  menu_item = Builder_Get_Object(main_window_builder, "show_sy_overrides");
+  if( menu_item != NULL )
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item), FALSE);
+  }
+  else
+  {
+    /* Menu item not available */
+  }
+
+  Gtk_Widget_Destroy(&sy_overrides_window);
+}
+
+/*------------------------------------------------------------------------*/
+
+void
+sy_overrides_close_if_empty(void)
+{
+  if( sy_overrides_window == NULL )
+    return;
+
+  if( sy_get_count() == 0 )
+  {
+    uncheck_menu_and_destroy_window();
+  }
+  else
+  {
+    /* Symbols exist: window remains open */
+  }
+}
+
+/*------------------------------------------------------------------------*/
+
 void
 sy_overrides_cleanup(void)
 {
@@ -1317,18 +1359,24 @@ on_show_sy_overrides_activate(GtkMenuItem *menuitem, gpointer user_data)
 gboolean
 on_sy_overrides_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
-  GtkWidget *menu_item;
-
   (void)widget;
   (void)event;
   (void)user_data;
 
-  /* Uncheck menu item */
-  menu_item = Builder_Get_Object(main_window_builder, "show_sy_overrides");
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item), FALSE);
+  uncheck_menu_and_destroy_window();
+  return TRUE;
+}
+
+/*------------------------------------------------------------------------*/
+
+/* Signal handler: window destroy event */
+void
+on_sy_overrides_window_destroy(GObject *object, gpointer user_data)
+{
+  (void)object;
+  (void)user_data;
 
   sy_overrides_cleanup();
-  return TRUE;
 }
 
 /*------------------------------------------------------------------------*/

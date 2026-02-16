@@ -777,6 +777,9 @@ Open_Input_File( gpointer arg )
   if( isFlagSet(DRAW_CHARGES) )
     Main_Charges_Togglebutton_Toggled( TRUE );
 
+  /* Close symbol overrides window if no symbols defined */
+  sy_overrides_close_if_empty();
+
   return( FALSE );
 } /* Open_Input_File() */
 

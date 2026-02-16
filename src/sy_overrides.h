@@ -34,12 +34,16 @@ void sy_overrides_hide(void);
 /* Refresh the symbol overrides display from symbol table */
 void sy_overrides_refresh(void);
 
+/* Close window if no symbols exist */
+void sy_overrides_close_if_empty(void);
+
 /* Cleanup resources */
 void sy_overrides_cleanup(void);
 
 /* Signal handlers called from glade */
 void on_show_sy_overrides_activate(GtkMenuItem *menuitem, gpointer user_data);
 gboolean on_sy_overrides_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+void on_sy_overrides_window_destroy(GObject *object, gpointer user_data);
 void on_sy_overrides_apply_clicked(GtkButton *button, gpointer user_data);
 void on_sy_overrides_cancel_clicked(GtkButton *button, gpointer user_data);
 void on_sy_overrides_close_clicked(GtkButton *button, gpointer user_data);
