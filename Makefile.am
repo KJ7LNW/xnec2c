@@ -352,7 +352,7 @@ CLEANFILES += examples-srcdir.lst
 check-local: check-examples-file-list
 check-examples-file-list:
 	@for f in $(nobase_dist_pkgdata_DATA); do echo "$$f"; done | sort > examples-automake.lst
-	@(cd $(srcdir) && find examples -type f) | sort > examples-srcdir.lst
+	@(cd $(srcdir) && find examples -type f -not -name '*.sy' -not -name '*.SY') | sort > examples-srcdir.lst
 	@if cmp examples-automake.lst examples-srcdir.lst > /dev/null; then :; else \
 	  echo "Error: Makefile.am nobase_dist_pkgdata_DATA and examples/ dir are inconsistent:"; \
 	  diff examples-automake.lst examples-srcdir.lst | grep -v '^[0-9]'; \
