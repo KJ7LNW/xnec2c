@@ -1,8 +1,8 @@
 # Test suite for xnec2c
 # Defines unit tests for symbol expression evaluation
 
-check_PROGRAMS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test
-TESTS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test
+check_PROGRAMS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test
+TESTS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test
 
 bin_sy_expr_test_SOURCES = src/sy_expr_test.c \
 	src/test_stubs.c \
@@ -71,6 +71,12 @@ bin_pso_test_SOURCES = src/pso_test.c \
 	$(top_srcdir)/src/optimizers/particleswarm_engine.c
 bin_pso_test_CPPFLAGS = -I$(top_srcdir)/src/optimizers $(GSL_CFLAGS)
 bin_pso_test_LDADD = $(GSL_LIBS) -lm
+
+bin_simplex_test_SOURCES = src/simplex_test.c \
+	$(top_srcdir)/src/optimizers/simplex.c \
+	$(top_srcdir)/src/optimizers/simplex_engine.c
+bin_simplex_test_CPPFLAGS = -I$(top_srcdir)/src/optimizers $(GSL_CFLAGS)
+bin_simplex_test_LDADD = $(GSL_LIBS) -lm
 
 EXTRA_DIST = fixtures src
 
