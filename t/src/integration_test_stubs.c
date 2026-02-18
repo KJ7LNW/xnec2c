@@ -167,6 +167,12 @@ isFlagSet(unsigned long long int flag)
   return FALSE;
 }
 
+gboolean
+isFlagClear(unsigned long long int flag)
+{
+  return TRUE;
+}
+
 void
 SetFlag(unsigned long long int flag)
 {

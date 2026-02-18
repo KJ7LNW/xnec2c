@@ -772,20 +772,22 @@ on_expander_notify_expanded(GObject *object, GParamSpec *pspec, gpointer user_da
 
 /*------------------------------------------------------------------------*/
 
-/* Compare function for sorting collected data: inputs first, calculated second */
+/* Compare function for sorting collected data: inputs first, calculated second, then by name */
 static gint
 compare_rows_by_calculated(gconstpointer a, gconstpointer b)
 {
   const sy_collect_t *data_a = *(const sy_collect_t **)a;
   const sy_collect_t *data_b = *(const sy_collect_t **)b;
 
-  if( data_a->is_calculated == data_b->is_calculated )
-    return 0;
+  if( data_a->is_calculated != data_b->is_calculated )
+  {
+    if( data_a->is_calculated )
+      return 1;
+    else
+      return -1;
+  }
 
-  if( data_a->is_calculated )
-    return 1;
-  else
-    return -1;
+  return g_strcmp0(data_a->name, data_b->name);
 }
 
 /*------------------------------------------------------------------------*/

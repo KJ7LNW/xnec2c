@@ -541,10 +541,17 @@ datagn( void )
         {
           if( !verify_segments() )
           {
-            Notice( GTK_BUTTONS_OK, _("Probable invalid segment geometry.\n"),
-                  _("Invalid segment geometry.\n"
-                  "See warnings in the console for detail.\n"
-                  "Trying to continue...") );
+            if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
+            {
+              Notice( GTK_BUTTONS_OK, _("Probable invalid segment geometry.\n"),
+                    _("Invalid segment geometry.\n"
+                    "See warnings in the console for detail.\n"
+                    "Trying to continue...") );
+            }
+            else
+            {
+              pr_warn("Probable invalid segment geometry (see above)\n");
+            }
           }
           else
             pr_info("Read_Geometry: verify_segments() passed\n");
