@@ -579,6 +579,10 @@ static gboolean check_opt_complete(gpointer user_data)
 		}
 	}
 
+	/* Restore green line (fmhz_save) display state that was skipped
+	 * during optimization to avoid deadlock in Frequency_Loop. */
+	restore_fmhz_save_display();
+
 	/* Final status: preserve full running metrics, append completion */
 	opt_ui_update_status();
 

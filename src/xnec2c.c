@@ -525,6 +525,46 @@ int update_fmhz_save_spin_button_value(GtkSpinButton *w)
 	return FALSE;
 }
 
+/**
+ * restore_fmhz_save_display - restore the green line frequency selection
+ *
+ * Re-applies the user's saved frequency (fmhz_save) to spinbuttons and
+ * sets PLOT_FREQ_LINE so the green line reappears.  Must be called on the
+ * GTK main thread.  Bounds-checks fmhz_save against the current FR card
+ * frequency range.
+ */
+void restore_fmhz_save_display(void)
+{
+	double max_freq, min_freq;
+
+	if (!(int)calc_data.fmhz_save || calc_data.FR_cards == 0)
+	{
+		return;
+	}
+
+	max_freq = calc_data.freq_loop_data[calc_data.FR_cards - 1].max_freq;
+	min_freq = calc_data.freq_loop_data[0].min_freq;
+
+	if (calc_data.fmhz_save < min_freq || calc_data.fmhz_save > max_freq)
+	{
+		return;
+	}
+
+	calc_data.freq_mhz = calc_data.fmhz_save;
+	update_freq_mhz_spin_button_value(mainwin_frequency);
+
+	if (isFlagSet(DRAW_ENABLED) && rdpattern_frequency != NULL)
+	{
+		update_fmhz_save_spin_button_value(rdpattern_frequency);
+	}
+
+	if (isFlagSet(PLOT_ENABLED))
+	{
+		SetFlag(PLOT_FREQ_LINE);
+		update_freqplots_fmhz_entry(NULL);
+	}
+}
+
 /* Frequency_Loop()
  *
  * Loops over frequency if calculations over a frequency range is
@@ -894,38 +934,17 @@ gboolean Frequency_Loop( gpointer udata )
 				(FORKED ? get_mathlib_by_id(rc_config.mathlib_batch_id)->name : current_mathlib->name));
 
     /* After the loop is finished, re-set the saved frequency
-     * that the user clicked on in the frequency plots window */
-    double max_freq = calc_data.freq_loop_data[calc_data.FR_cards-1].max_freq;
-    double min_freq = calc_data.freq_loop_data[0].min_freq;
-    if( (int)calc_data.fmhz_save &&
-		calc_data.fmhz_save >= min_freq &&
-		calc_data.fmhz_save <= max_freq)
-    {
-	  // There are multiple changes here that will trigger New_Frequency() but 
-	  // the New_Frequency() function is smart enough to calculate only once.
-      calc_data.freq_mhz = calc_data.fmhz_save;
-      
-	  // Call this from the Frequency_Loop thread to keep it from happening in the GTK thread:
-	  //  -- Actually this causes the rdpattern to draw the wrong frequency when the optimizer
-	  //  is turned on and there is a fmhz_save frequency selected.  It draws the first freq
-	  //  instead of the selected freq.  Why?
-	  //New_Frequency();
-
-      /* Set main window frequency spinbutton.
-	   * This will trigger New_Frequency() via Redo_Currents(). */
-      g_idle_add_once_sync((GSourceOnceFunc)update_freq_mhz_spin_button_value, mainwin_frequency);
-
-      /* Set Radiation pattern window frequency spinbutton.
-	   * This will trigger New_Frequency() via Redo_Radiation_Pattern,. */
-      if( isFlagSet(DRAW_ENABLED) )
-        g_idle_add_once_sync((GSourceOnceFunc)update_fmhz_save_spin_button_value, rdpattern_frequency);
-
-      if( isFlagSet(PLOT_ENABLED) )
-      {
-        SetFlag( PLOT_FREQ_LINE );
-        g_idle_add_once_sync((GSourceOnceFunc)update_freqplots_fmhz_entry, NULL);
-      }
-    }
+     * that the user clicked on in the frequency plots window.
+     *
+     * Skip when the internal optimizer is active: these sync GTK calls
+     * block the freq loop thread waiting for the main loop, but the
+     * optimizer (woken by nec2_eval_signal above) may have already
+     * scheduled eval_apply_and_reload => Open_Input_File =>
+     * Stop_Frequency_Loop => pthread_join on this thread, blocking
+     * the main loop.  The optimizer restores fmhz_save after it
+     * finishes via restore_fmhz_save_display(). */
+    if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
+      g_idle_add_once_sync((GSourceOnceFunc)restore_fmhz_save_display, NULL);
 
     /* Re-draw drawing areas at end of loop */
     if( isFlagSet(PLOT_ENABLED) )

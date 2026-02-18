@@ -1554,6 +1554,7 @@ void print_backtrace(char *msg);
 void Update_Window_Titles(void);
 
 /* xnec2c.c */
+void restore_fmhz_save_display(void);
 void Near_Field_Pattern(void);
 void New_Frequency(void);
 void New_Frequency_Reset_Prev(void);
