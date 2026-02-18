@@ -76,6 +76,8 @@ typedef struct
 
 	pso_log_func_t log_func;   /**< Optional: called each iteration with best state */
 	void *log_func_ctx;        /**< Opaque context passed to log_func */
+
+	const volatile int *cancel_flag; /**< External cancellation flag (NULL = disabled) */
 } pso_config_t;
 
 /** Opaque PSO optimizer handle */

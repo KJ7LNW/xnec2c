@@ -223,6 +223,12 @@ static double _swarm(pso_t *pso, int iterations)
 {
 	for (int iter = 1; iter <= iterations; iter++)
 	{
+		/* Check external cancellation flag */
+		if (pso->config.cancel_flag != NULL && *pso->config.cancel_flag)
+		{
+			break;
+		}
+
 		pso->iter_count++;
 
 		double exit_val;

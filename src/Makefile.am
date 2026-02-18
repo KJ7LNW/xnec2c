@@ -39,6 +39,21 @@ xnec2c_SOURCES = \
     somnec.c        somnec.h \
     sy_expr.c       sy_expr.h \
     sy_overrides.c  sy_overrides.h \
+    opt_ui.c        opt_ui.h \
+    optimizers/opt_fitness.c   optimizers/opt_fitness.h \
+    optimizers/opt_nec2_eval.c optimizers/opt_nec2_eval.h \
+    optimizers/opt_session.c   optimizers/opt_session.h \
+    optimizers/opt_simple.c    optimizers/opt_simple.h \
+    optimizers/opt_simple_internal.h \
+    optimizers/opt_simple_var.c \
+    optimizers/opt_simple_engine.c \
+    optimizers/optimizer.c     optimizers/optimizer.h \
+    optimizers/simplex.c       optimizers/simplex.h \
+    optimizers/simplex_internal.h \
+    optimizers/simplex_engine.c \
+    optimizers/particleswarm.c optimizers/particleswarm.h \
+    optimizers/particleswarm_internal.h \
+    optimizers/particleswarm_engine.c \
     common.h        editors.h
 
 xnec2c_CPPFLAGS  =
@@ -81,6 +96,9 @@ xnec2c_CPPFLAGS += $(GTK_CFLAGS)
 xnec2c_LDADD    += $(GTK_LIBS)
 
 xnec2c_LDADD    += $(INTLLIBS)
+
+xnec2c_CPPFLAGS += $(GSL_CFLAGS)
+xnec2c_LDADD    += $(GSL_LIBS)
 
 
 ########################################################################

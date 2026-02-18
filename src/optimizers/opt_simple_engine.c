@@ -267,9 +267,9 @@ static void _log_common(simple_t *s, double ssize)
 
 	double minima = s->best_minima;
 
-	/* Stagnation detection */
+	/* Stagnation detection: best_minima only decreases, so check
+	 * whether the improvement since last log is below tolerance. */
 	if (s->stagnant_minima_count > 0 && isfinite(s->prev_minima)
-		&& s->prev_minima < minima
 		&& fabs(s->prev_minima - minima) < s->stagnant_minima_tolerance)
 	{
 		s->prev_minima_count++;

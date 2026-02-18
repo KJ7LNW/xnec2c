@@ -69,6 +69,7 @@ typedef void (*sy_foreach_func)(const gchar *name, gdouble value,
     gboolean is_calculated, const gchar *expression,
     gdouble min_value, gdouble max_value,
     gdouble override_value, gboolean override_active,
+    gboolean opt_active,
     gpointer user_data);
 
 /* Iterate over all symbols in the symbol table
@@ -92,6 +93,13 @@ gboolean sy_set_override(const gchar *name, gdouble override_value, gboolean act
  * Returns: TRUE on success, FALSE if symbol not found
  */
 gboolean sy_set_bounds(const gchar *name, gdouble min, gdouble max);
+
+/* Set optimization flag for a symbol
+ * name: symbol name
+ * active: whether symbol is flagged for optimization
+ * Returns: TRUE on success, FALSE if symbol not found
+ */
+gboolean sy_set_opt(const gchar *name, gboolean active);
 
 /* Save symbol overrides to .sy file
  * filename: path to .sy file

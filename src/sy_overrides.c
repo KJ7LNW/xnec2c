@@ -24,6 +24,10 @@
 #include "interface.h"
 #include "callbacks.h"
 
+#include <gsl/gsl_vector.h>
+
+#include "opt_ui.h"
+
 /* Character width for numeric input fields */
 #define SY_NUMERIC_WIDTH_CHARS 12
 
@@ -38,6 +42,7 @@ typedef struct
   GtkSizeGroup *value;
   GtkSizeGroup *override;
   GtkSizeGroup *check;
+  GtkSizeGroup *opt;
   GtkSizeGroup *min;
   GtkSizeGroup *slider;
   GtkSizeGroup *max;
@@ -52,6 +57,7 @@ typedef struct
   GtkWidget *value_label;
   GtkWidget *override_entry;
   GtkWidget *override_check;
+  GtkWidget *opt_check;
   GtkWidget *min_entry;
   GtkWidget *slider;
   GtkWidget *max_entry;
@@ -68,9 +74,9 @@ typedef struct
 static GPtrArray *rows = NULL;
 static GtkWidget *content_grid = NULL;
 static GtkWidget *input_expander = NULL;
-static GtkWidget *input_col_headers[8] = {NULL};
+static GtkWidget *input_col_headers[9] = {NULL};
 static GtkWidget *calc_expander = NULL;
-static GtkWidget *calc_col_headers[8] = {NULL};
+static GtkWidget *calc_col_headers[9] = {NULL};
 static GtkCssProvider *css_provider = NULL;
 static sy_size_groups_t sg = {0};
 static gboolean dirty = FALSE;
@@ -92,7 +98,6 @@ static void clear_rows(void);
 static void update_strikethrough(sy_row_t *row);
 static void set_row_visible(sy_row_t *row, gboolean visible);
 static gint compare_rows_by_calculated(gconstpointer a, gconstpointer b);
-static GtkWidget *create_section_header(const gchar *text);
 static void create_column_headers(GtkWidget **header_widgets, GtkGrid *grid, gint row_index, gint num_columns);
 static void on_expander_notify_expanded(GObject *object, GParamSpec *pspec, gpointer user_data);
 static guint compute_override_hash(void);
@@ -106,6 +111,7 @@ static void on_override_value_changed(GtkWidget *widget, gpointer user_data);
 static gboolean on_override_entry_focus_out(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 static void set_row_sensitivity(sy_row_t *row, gboolean sensitive);
 static void set_entry_value(GtkEntry *entry, gdouble val);
+static void on_opt_check_toggled(GtkToggleButton *button, gpointer user_data);
 
 /*------------------------------------------------------------------------*/
 
@@ -119,6 +125,7 @@ typedef struct
   gdouble max_value;
   gdouble override_value;
   gboolean override_active;
+  gboolean opt_active;
   gboolean is_calculated;
 } sy_collect_t;
 
@@ -128,6 +135,7 @@ populate_row_callback(const gchar *name, gdouble value,
     gboolean is_calculated, const gchar *expression,
     gdouble min_value, gdouble max_value,
     gdouble override_value, gboolean override_active,
+    gboolean opt_active,
     gpointer user_data)
 {
   GPtrArray *collect_array = (GPtrArray *)user_data;
@@ -141,6 +149,7 @@ populate_row_callback(const gchar *name, gdouble value,
   data->max_value = max_value;
   data->override_value = override_value;
   data->override_active = override_active;
+  data->opt_active = opt_active;
   data->is_calculated = is_calculated;
 
   g_ptr_array_add(collect_array, data);
@@ -372,6 +381,12 @@ set_row_visible(sy_row_t *row, gboolean visible)
   gtk_widget_set_visible(row->slider, visible);
   gtk_widget_set_visible(row->max_entry, visible);
 
+  /* Opt checkbox visible only for input (non-calculated) symbols */
+  if( !row->is_calculated )
+  {
+    gtk_widget_set_visible(row->opt_check, visible);
+  }
+
   if( row->expr_label != NULL )
     gtk_widget_set_visible(row->expr_label, visible);
 }
@@ -486,6 +501,13 @@ apply_overrides_to_symbols(void)
 
     sy_set_override(row->name, override_val, active);
     sy_set_bounds(row->name, min_val, max_val);
+
+    /* Save optimization flag */
+    if( !row->is_calculated )
+    {
+      sy_set_opt(row->name,
+          gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(row->opt_check)));
+    }
   }
 
   if( strlen(rc_config.input_file) > 0 )
@@ -508,6 +530,17 @@ apply_overrides_to_symbols(void)
   {
     /* No input file to derive .sy filename from */
   }
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * sy_overrides_save_state - save current UI state to .sy file
+ */
+void
+sy_overrides_save_state(void)
+{
+  apply_overrides_to_symbols();
 }
 
 /*------------------------------------------------------------------------*/
@@ -696,13 +729,13 @@ apply_visibility_filter(void)
       set_row_visible(row, input_expanded);
   }
 
-  for( i = 0; i < 8; i++ )
+  for( i = 0; i < 9; i++ )
   {
     if( input_col_headers[i] != NULL )
       gtk_widget_set_visible(input_col_headers[i], input_expanded);
   }
 
-  for( i = 0; i < 8; i++ )
+  for( i = 0; i < 9; i++ )
   {
     if( calc_col_headers[i] != NULL )
       gtk_widget_set_visible(calc_col_headers[i], calc_expanded);
@@ -742,35 +775,15 @@ compare_rows_by_calculated(gconstpointer a, gconstpointer b)
 
 /*------------------------------------------------------------------------*/
 
-/* Create a section header label */
-static GtkWidget *
-create_section_header(const gchar *text)
-{
-  GtkWidget *label;
-  gchar *markup;
-
-  label = gtk_label_new(NULL);
-  markup = g_markup_printf_escaped("<b>%s</b>", text);
-  gtk_label_set_markup(GTK_LABEL(label), markup);
-  g_free(markup);
-  gtk_label_set_xalign(GTK_LABEL(label), 0.0);
-  gtk_widget_set_margin_top(label, 6);
-  gtk_widget_set_margin_bottom(label, 2);
-
-  return label;
-}
-
-/*------------------------------------------------------------------------*/
-
 /* Create column header row and attach to grid */
 static void
 create_column_headers(GtkWidget **header_widgets, GtkGrid *grid, gint row_index, gint num_columns)
 {
   GtkWidget *label;
   GtkStyleContext *context;
-  const gchar *labels[] = {"Symbol", "Value", "Override", "✓", "Min", "", "Max", "Expression"};
-  GtkSizeGroup *groups[] = {sg.name, sg.value, sg.override, sg.check, sg.min, sg.slider, sg.max, sg.expr};
-  gfloat xaligns[] = {0.0, 0.5, 0.5, 0.5, 0.5, 0.0, 0.5, 0.0};
+  const gchar *labels[] = {"Symbol", "Value", "Override", "✓", "Opt", "Min", "", "Max", "Expression"};
+  GtkSizeGroup *groups[] = {sg.name, sg.value, sg.override, sg.check, sg.opt, sg.min, sg.slider, sg.max, sg.expr};
+  gfloat xaligns[] = {0.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.0, 0.5, 0.0};
   gchar *markup;
   gint i;
 
@@ -868,6 +881,19 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_grid_attach(grid, row->override_check, 3, row_index, 1, 1);
   gtk_size_group_add_widget(sg.check, row->override_check);
 
+  /* Opt checkbox (column 4, fixed width, input symbols only) */
+  row->opt_check = gtk_check_button_new();
+  gtk_widget_set_size_request(row->opt_check, 30, -1);
+  gtk_widget_set_halign(row->opt_check, GTK_ALIGN_CENTER);
+  gtk_grid_attach(grid, row->opt_check, 4, row_index, 1, 1);
+  gtk_size_group_add_widget(sg.opt, row->opt_check);
+
+  if( row->is_calculated )
+  {
+    gtk_widget_set_visible(row->opt_check, FALSE);
+    gtk_widget_set_sensitive(row->opt_check, FALSE);
+  }
+
   /* Determine effective slider value and adjust bounds if needed */
   slider_value = isnan(override_value) ? row->original_value : override_value;
 
@@ -880,17 +906,17 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
     row->max_value = slider_value;
   }
 
-  /* Min entry (column 4, fixed width, 5 decimal places, right-justified) */
+  /* Min entry (column 5, fixed width, 5 decimal places, right-justified) */
   row->min_entry = gtk_entry_new();
   gtk_entry_set_width_chars(GTK_ENTRY(row->min_entry), SY_NUMERIC_WIDTH_CHARS);
   gtk_entry_set_max_width_chars(GTK_ENTRY(row->min_entry), SY_NUMERIC_WIDTH_CHARS);
   gtk_widget_set_hexpand(row->min_entry, FALSE);
   gtk_entry_set_alignment(GTK_ENTRY(row->min_entry), 1.0);
   set_entry_value(GTK_ENTRY(row->min_entry), row->min_value);
-  gtk_grid_attach(grid, row->min_entry, 4, row_index, 1, 1);
+  gtk_grid_attach(grid, row->min_entry, 5, row_index, 1, 1);
   gtk_size_group_add_widget(sg.min, row->min_entry);
 
-  /* Slider adjustment and widget (column 5, fixed width, no expand) */
+  /* Slider adjustment and widget (column 6, fixed width, no expand) */
   row->adjustment = gtk_adjustment_new(slider_value, row->min_value, row->max_value,
       (row->max_value - row->min_value) / 100.0,
       (row->max_value - row->min_value) / 10.0, 0);
@@ -898,30 +924,30 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   gtk_scale_set_draw_value(GTK_SCALE(row->slider), FALSE);
   gtk_widget_set_size_request(row->slider, 200, -1);
   gtk_widget_set_hexpand(row->slider, FALSE);
-  gtk_grid_attach(grid, row->slider, 5, row_index, 1, 1);
+  gtk_grid_attach(grid, row->slider, 6, row_index, 1, 1);
   gtk_size_group_add_widget(sg.slider, row->slider);
 
-  /* Max entry (column 6, fixed width, 5 decimal places, right-justified) */
+  /* Max entry (column 7, fixed width, 5 decimal places, right-justified) */
   row->max_entry = gtk_entry_new();
   gtk_entry_set_width_chars(GTK_ENTRY(row->max_entry), SY_NUMERIC_WIDTH_CHARS);
   gtk_entry_set_max_width_chars(GTK_ENTRY(row->max_entry), SY_NUMERIC_WIDTH_CHARS);
   gtk_widget_set_hexpand(row->max_entry, FALSE);
   gtk_entry_set_alignment(GTK_ENTRY(row->max_entry), 1.0);
   set_entry_value(GTK_ENTRY(row->max_entry), row->max_value);
-  gtk_grid_attach(grid, row->max_entry, 6, row_index, 1, 1);
+  gtk_grid_attach(grid, row->max_entry, 7, row_index, 1, 1);
   gtk_size_group_add_widget(sg.max, row->max_entry);
 
   /* Set initial sensitivity based on override checkbox state */
   set_row_sensitivity(row, override_active);
 
-  /* Expression label (column 7, expanding) */
+  /* Expression label (column 8, expanding) */
   if( row->is_calculated && expression != NULL && expression[0] != '\0' )
   {
     snprintf(buf, sizeof(buf), "= %s", expression);
     row->expr_label = gtk_label_new(buf);
     gtk_label_set_xalign(GTK_LABEL(row->expr_label), 0.0);
     gtk_widget_set_hexpand(row->expr_label, TRUE);
-    gtk_grid_attach(grid, row->expr_label, 7, row_index, 1, 1);
+    gtk_grid_attach(grid, row->expr_label, 8, row_index, 1, 1);
     gtk_size_group_add_widget(sg.expr, row->expr_label);
   }
   else
@@ -943,6 +969,10 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   g_signal_connect(row->max_entry, "changed",
       G_CALLBACK(on_max_entry_changed), row);
 
+  /* Connect Opt checkbox signal */
+  g_signal_connect(row->opt_check, "toggled",
+      G_CALLBACK(on_opt_check_toggled), row);
+
   /* Connect auto-apply signals */
   g_signal_connect(row->override_entry, "changed",
       G_CALLBACK(on_override_value_changed), NULL);
@@ -958,6 +988,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
     gtk_widget_show_all(row->value_label);
     gtk_widget_show_all(row->override_entry);
     gtk_widget_show_all(row->override_check);
+    gtk_widget_show_all(row->opt_check);
     gtk_widget_show_all(row->min_entry);
     gtk_widget_show_all(row->slider);
     gtk_widget_show_all(row->max_entry);
@@ -1006,6 +1037,7 @@ clear_rows(void)
     gtk_widget_destroy(row->value_label);
     gtk_widget_destroy(row->override_entry);
     gtk_widget_destroy(row->override_check);
+    gtk_widget_destroy(row->opt_check);
     gtk_widget_destroy(row->min_entry);
     gtk_widget_destroy(row->slider);
     gtk_widget_destroy(row->max_entry);
@@ -1030,7 +1062,7 @@ clear_rows(void)
     input_expander = NULL;
   }
 
-  for( i = 0; i < 8; i++ )
+  for( i = 0; i < 9; i++ )
   {
     if( input_col_headers[i] != NULL )
     {
@@ -1045,7 +1077,7 @@ clear_rows(void)
     calc_expander = NULL;
   }
 
-  for( i = 0; i < 8; i++ )
+  for( i = 0; i < 9; i++ )
   {
     if( calc_col_headers[i] != NULL )
     {
@@ -1096,6 +1128,7 @@ sy_overrides_init(void)
   sg.value = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_value"));
   sg.override = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_override"));
   sg.check = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_check"));
+  sg.opt = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_opt"));
   sg.min = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_min"));
   sg.slider = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_slider"));
   sg.max = GTK_SIZE_GROUP(gtk_builder_get_object(sy_overrides_builder, "column_sg_max"));
@@ -1126,6 +1159,9 @@ sy_overrides_init(void)
   {
     /* Auto-apply checkbox not found in glade */
   }
+
+  /* Initialize optimizer panel widgets from builder */
+  opt_ui_init(sy_overrides_builder);
 
   return TRUE;
 }
@@ -1200,7 +1236,7 @@ sy_overrides_refresh(void)
       gtk_expander_set_expanded(GTK_EXPANDER(input_expander), TRUE);
       gtk_widget_set_margin_top(input_expander, 6);
       gtk_widget_set_margin_bottom(input_expander, 2);
-      gtk_grid_attach(GTK_GRID(content_grid), input_expander, 0, grid_row, 8, 1);
+      gtk_grid_attach(GTK_GRID(content_grid), input_expander, 0, grid_row, 9, 1);
       gtk_widget_show_all(input_expander);
 
       g_signal_connect(input_expander, "notify::expanded",
@@ -1208,7 +1244,7 @@ sy_overrides_refresh(void)
 
       grid_row++;
 
-      create_column_headers(input_col_headers, GTK_GRID(content_grid), grid_row, 7);
+      create_column_headers(input_col_headers, GTK_GRID(content_grid), grid_row, 9);
       grid_row++;
     }
     else if( data->is_calculated && calc_expander == NULL )
@@ -1217,7 +1253,7 @@ sy_overrides_refresh(void)
       gtk_expander_set_expanded(GTK_EXPANDER(calc_expander), FALSE);
       gtk_widget_set_margin_top(calc_expander, 6);
       gtk_widget_set_margin_bottom(calc_expander, 2);
-      gtk_grid_attach(GTK_GRID(content_grid), calc_expander, 0, grid_row, 8, 1);
+      gtk_grid_attach(GTK_GRID(content_grid), calc_expander, 0, grid_row, 9, 1);
       gtk_widget_show_all(calc_expander);
 
       g_signal_connect(calc_expander, "notify::expanded",
@@ -1225,7 +1261,7 @@ sy_overrides_refresh(void)
 
       grid_row++;
 
-      create_column_headers(calc_col_headers, GTK_GRID(content_grid), grid_row, 8);
+      create_column_headers(calc_col_headers, GTK_GRID(content_grid), grid_row, 9);
       grid_row++;
     }
     else
@@ -1243,6 +1279,12 @@ sy_overrides_refresh(void)
     populate_row_widgets(row, GTK_GRID(content_grid), grid_row,
         data->expression, data->override_value, data->override_active,
         !data->is_calculated);
+
+    /* Restore optimization flag from symbol table */
+    if( !data->is_calculated && data->opt_active )
+    {
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(row->opt_check), TRUE);
+    }
 
     grid_row++;
 
@@ -1311,6 +1353,7 @@ sy_overrides_close_if_empty(void)
 void
 sy_overrides_cleanup(void)
 {
+  opt_ui_cleanup();
   clear_rows();
 
   if( rows != NULL )
@@ -1425,4 +1468,192 @@ on_sy_overrides_close_clicked(GtkButton *button, gpointer user_data)
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item), FALSE);
 
   sy_overrides_hide();
+}
+
+/*------------------------------------------------------------------------*/
+
+/* Signal handler: Opt checkbox toggled.
+ * When Opt is checked, force override checked and insensitive.
+ * When Opt is unchecked, restore override sensitivity. */
+static void
+on_opt_check_toggled(GtkToggleButton *button, gpointer user_data)
+{
+  sy_row_t *row = (sy_row_t *)user_data;
+  gboolean opt_active;
+
+  (void)button;
+
+  opt_active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(row->opt_check));
+
+  if( opt_active )
+  {
+    /* Force override on and lock it */
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(row->override_check), TRUE);
+    gtk_widget_set_sensitive(row->override_check, FALSE);
+    set_row_sensitivity(row, TRUE);
+  }
+  else
+  {
+    /* Restore override checkbox to user control */
+    gtk_widget_set_sensitive(row->override_check, TRUE);
+    set_row_sensitivity(row,
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(row->override_check)));
+  }
+
+  dirty = TRUE;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * sy_overrides_get_opt_vars - build simple_var_t array from Opt-checked rows
+ */
+int
+sy_overrides_get_opt_vars(simple_var_t **vars_out)
+{
+  guint i;
+  int count;
+  int idx;
+  sy_row_t *row;
+  simple_var_t *vars;
+  const gchar *text;
+  gdouble val;
+  gdouble min_val;
+  gdouble max_val;
+
+  *vars_out = NULL;
+
+  if( rows == NULL || rows->len == 0 )
+  {
+    return 0;
+  }
+
+  /* Count Opt-checked input rows */
+  count = 0;
+  for( i = 0; i < rows->len; i++ )
+  {
+    row = g_ptr_array_index(rows, i);
+    if( !row->is_calculated &&
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(row->opt_check)) )
+    {
+      count++;
+    }
+  }
+
+  if( count == 0 )
+  {
+    return 0;
+  }
+
+  vars = g_new0(simple_var_t, count);
+  idx = 0;
+
+  for( i = 0; i < rows->len; i++ )
+  {
+    row = g_ptr_array_index(rows, i);
+    if( row->is_calculated ||
+        !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(row->opt_check)) )
+    {
+      continue;
+    }
+
+    text = gtk_entry_get_text(GTK_ENTRY(row->override_entry));
+    val = g_strtod(text, NULL);
+    min_val = g_strtod(gtk_entry_get_text(GTK_ENTRY(row->min_entry)), NULL);
+    max_val = g_strtod(gtk_entry_get_text(GTK_ENTRY(row->max_entry)), NULL);
+
+    vars[idx].name = row->name;
+    vars[idx].values = gsl_vector_alloc(1);
+    gsl_vector_set(vars[idx].values, 0, val);
+
+    vars[idx].min = gsl_vector_alloc(1);
+    gsl_vector_set(vars[idx].min, 0, min_val);
+
+    vars[idx].max = gsl_vector_alloc(1);
+    gsl_vector_set(vars[idx].max, 0, max_val);
+
+    vars[idx].enabled = NULL;
+    vars[idx].perturb_scale = NULL;
+    vars[idx].round_each = NULL;
+    vars[idx].round_result = NULL;
+
+    idx++;
+  }
+
+  *vars_out = vars;
+  return count;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * sy_overrides_free_opt_vars - free array returned by sy_overrides_get_opt_vars
+ */
+void
+sy_overrides_free_opt_vars(simple_var_t *vars, int num_vars)
+{
+  int i;
+
+  if( vars == NULL )
+  {
+    return;
+  }
+
+  for( i = 0; i < num_vars; i++ )
+  {
+    if( vars[i].values != NULL )
+    {
+      gsl_vector_free(vars[i].values);
+    }
+
+    if( vars[i].min != NULL )
+    {
+      gsl_vector_free(vars[i].min);
+    }
+
+    if( vars[i].max != NULL )
+    {
+      gsl_vector_free(vars[i].max);
+    }
+  }
+
+  g_free(vars);
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * sy_overrides_set_opt_results - update override entries from optimizer results
+ */
+void
+sy_overrides_set_opt_results(const simple_var_t *vars, int num_vars)
+{
+  int v;
+  guint i;
+  sy_row_t *row;
+
+  if( rows == NULL || vars == NULL )
+  {
+    return;
+  }
+
+  for( v = 0; v < num_vars; v++ )
+  {
+    if( vars[v].name == NULL || vars[v].values == NULL )
+    {
+      continue;
+    }
+
+    /* Find matching row by name */
+    for( i = 0; i < rows->len; i++ )
+    {
+      row = g_ptr_array_index(rows, i);
+      if( g_strcmp0(row->name, vars[v].name) == 0 )
+      {
+        set_entry_value(GTK_ENTRY(row->override_entry),
+            gsl_vector_get(vars[v].values, 0));
+        break;
+      }
+    }
+  }
 }

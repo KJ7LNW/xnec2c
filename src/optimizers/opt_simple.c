@@ -13,6 +13,7 @@
  */
 
 #include "opt_simple_internal.h"
+#include "../console.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -131,6 +132,7 @@ static optimizer_t *_build_pso_optimizer(simple_t *s, gsl_vector *initial)
 	cfg.fit_func_ctx   = s;
 	cfg.log_func       = simple_pso_log_trampoline;
 	cfg.log_func_ctx   = s;
+	cfg.cancel_flag    = &s->cancel;
 
 	return optimizer_new_pso(&cfg);
 }
@@ -276,6 +278,10 @@ void simple_config_init(simple_config_t *cfg, enum optimizer_algo algo)
 
 		case OPT_PSO:
 			pso_config_init(&cfg->opts.pso_cfg);
+			break;
+
+		default:
+			pr_err("simple_config_init: unknown algorithm %d\n", algo);
 			break;
 	}
 }

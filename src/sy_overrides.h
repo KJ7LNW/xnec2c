@@ -21,6 +21,7 @@
 #define SY_OVERRIDES_H    1
 
 #include "common.h"
+#include "optimizers/opt_simple.h"
 
 /* Initialize the symbol overrides window */
 gboolean sy_overrides_init(void);
@@ -48,5 +49,38 @@ void on_sy_overrides_apply_clicked(GtkButton *button, gpointer user_data);
 void on_sy_overrides_cancel_clicked(GtkButton *button, gpointer user_data);
 void on_sy_overrides_close_clicked(GtkButton *button, gpointer user_data);
 void on_sy_show_defaults_toggled(GtkToggleButton *button, gpointer user_data);
+
+/**
+ * sy_overrides_save_state - save current UI state to .sy file
+ *
+ * Applies all override values from UI entries to the symbol table
+ * and writes the .sy file.  Does not trigger Open_Input_File.
+ * Called before starting optimizer to persist non-optimizer overrides.
+ */
+void sy_overrides_save_state(void);
+
+/* Optimizer variable accessors */
+
+/**
+ * sy_overrides_get_opt_vars - build simple_var_t array from Opt-checked rows
+ * @vars_out: output pointer, caller frees with sy_overrides_free_opt_vars
+ *
+ * Returns number of variables, or 0 if none flagged for optimization.
+ */
+int sy_overrides_get_opt_vars(simple_var_t **vars_out);
+
+/**
+ * sy_overrides_free_opt_vars - free array returned by sy_overrides_get_opt_vars
+ * @vars: array to free
+ * @num_vars: length
+ */
+void sy_overrides_free_opt_vars(simple_var_t *vars, int num_vars);
+
+/**
+ * sy_overrides_set_opt_results - update override entries from optimizer results
+ * @vars: result variable array from simple_get_result
+ * @num_vars: length
+ */
+void sy_overrides_set_opt_results(const simple_var_t *vars, int num_vars);
 
 #endif

@@ -22,6 +22,9 @@
 #include "xnec2c.h"
 #include "shared.h"
 #include "mathlib.h"
+/* Only nec2_eval_signal() is called from xnec2c.c; avoid pulling
+ * gsl headers (via opt_simple.h) which conflict with openblas cblas. */
+extern void nec2_eval_signal(void);
 
 static pthread_t *pth_freq_loop = NULL;
 
@@ -881,6 +884,9 @@ gboolean Frequency_Loop( gpointer udata )
   {
     ClearFlag( FREQ_LOOP_RUNNING );
     SetFlag( FREQ_LOOP_DONE );
+
+    /* Wake optimizer thread blocked in nec2_eval_run() */
+    nec2_eval_signal();
 
 	clock_gettime(CLOCK_MONOTONIC, &end);
 	pr_notice("Frequency loop elapsed time: %f seconds. (%s)\n",

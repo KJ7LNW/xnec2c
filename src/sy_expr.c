@@ -89,6 +89,7 @@ typedef struct
   gdouble max_value;
   gdouble override_value;
   gboolean override_active;
+  gboolean opt_active;
   gchar expression[128];
 } sy_value_t;
 
@@ -1006,6 +1007,7 @@ sy_define(const gchar *name, const gchar *value_or_expr)
   val_ptr->max_value = value * 2.0;
   val_ptr->override_value = NAN;
   val_ptr->override_active = FALSE;
+  val_ptr->opt_active = FALSE;
 
   g_hash_table_insert(symbol_table, upper_name, val_ptr);
   return TRUE;
@@ -1170,6 +1172,7 @@ sy_load_overrides(const gchar *filename)
     val_ptr->max_value = NAN;
     val_ptr->override_value = NAN;
     val_ptr->override_active = FALSE;
+    val_ptr->opt_active = FALSE;
 
     /* Parse key=value pairs after colon */
     p = colon + 1;
@@ -1220,6 +1223,8 @@ sy_load_overrides(const gchar *filename)
         val_ptr->override_value = Strtod(val_str, NULL);
       else if( strcmp(key, "override_active") == 0 )
         val_ptr->override_active = (atoi(val_str) != 0);
+      else if( strcmp(key, "opt_active") == 0 )
+        val_ptr->opt_active = (atoi(val_str) != 0);
     }
 
     key_name = g_strdup(upper_name);
@@ -1253,6 +1258,7 @@ sy_foreach_wrapper(gpointer key, gpointer value, gpointer user_data)
   data->func(name, val->value, val->is_calculated, val->expression,
       val->min_value, val->max_value,
       val->override_value, val->override_active,
+      val->opt_active,
       data->user_data);
 }
 
@@ -1310,6 +1316,29 @@ sy_set_bounds(const gchar *name, gdouble min, gdouble max)
 }
 
 gboolean
+sy_set_opt(const gchar *name, gboolean active)
+{
+  gchar upper_name[64];
+  sy_value_t *val;
+
+  if( symbol_table == NULL || name == NULL )
+  {
+    return FALSE;
+  }
+
+  sy_normalize_name(name, upper_name, sizeof(upper_name));
+  val = (sy_value_t *)g_hash_table_lookup(symbol_table, upper_name);
+
+  if( val == NULL )
+  {
+    return FALSE;
+  }
+
+  val->opt_active = active;
+  return TRUE;
+}
+
+gboolean
 sy_save_overrides(const gchar *filename)
 {
   FILE *fp;
@@ -1329,7 +1358,7 @@ sy_save_overrides(const gchar *filename)
   }
 
   fprintf(fp, "# Symbol overrides file\n");
-  fprintf(fp, "# Format: VARNAME: min_value=X max_value=Y override_value=Z override_active=N\n\n");
+  fprintf(fp, "# Format: VARNAME: min_value=X max_value=Y override_value=Z override_active=N opt_active=N\n\n");
 
   g_hash_table_iter_init(&iter, symbol_table);
   while( g_hash_table_iter_next(&iter, &key, &value) )
@@ -1337,9 +1366,10 @@ sy_save_overrides(const gchar *filename)
     const gchar *name = (const gchar *)key;
     sy_value_t *val = (sy_value_t *)value;
 
-    fprintf(fp, "%s: min_value=%g max_value=%g override_value=%g override_active=%d\n",
+    fprintf(fp, "%s: min_value=%g max_value=%g override_value=%g override_active=%d opt_active=%d\n",
         name, val->min_value, val->max_value,
-        val->override_value, val->override_active ? 1 : 0);
+        val->override_value, val->override_active ? 1 : 0,
+        val->opt_active ? 1 : 0);
     count++;
   }
 

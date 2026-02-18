@@ -1,8 +1,8 @@
 # Test suite for xnec2c
 # Defines unit tests for symbol expression evaluation
 
-check_PROGRAMS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test
-TESTS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test
+check_PROGRAMS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test
+TESTS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test
 
 bin_sy_expr_test_SOURCES = src/sy_expr_test.c \
 	src/test_stubs.c \
@@ -79,6 +79,7 @@ bin_simplex_test_CPPFLAGS = -I$(top_srcdir)/src/optimizers $(GSL_CFLAGS)
 bin_simplex_test_LDADD = $(GSL_LIBS) -lm
 
 bin_opt_simple_test_SOURCES = src/opt_simple_test.c \
+	src/optimizer_test_stubs.c \
 	$(top_srcdir)/src/optimizers/opt_simple.c \
 	$(top_srcdir)/src/optimizers/opt_simple_var.c \
 	$(top_srcdir)/src/optimizers/opt_simple_engine.c \
@@ -86,9 +87,17 @@ bin_opt_simple_test_SOURCES = src/opt_simple_test.c \
 	$(top_srcdir)/src/optimizers/simplex.c \
 	$(top_srcdir)/src/optimizers/simplex_engine.c \
 	$(top_srcdir)/src/optimizers/particleswarm.c \
-	$(top_srcdir)/src/optimizers/particleswarm_engine.c
-bin_opt_simple_test_CPPFLAGS = -I$(top_srcdir)/src/optimizers $(GSL_CFLAGS)
-bin_opt_simple_test_LDADD = $(GSL_LIBS) -lm
+	$(top_srcdir)/src/optimizers/particleswarm_engine.c \
+	$(top_srcdir)/src/console.c
+bin_opt_simple_test_CPPFLAGS = -I$(top_srcdir)/src -I$(top_srcdir)/src/optimizers $(GTK_CFLAGS) $(GSL_CFLAGS)
+bin_opt_simple_test_LDADD = $(GTK_LIBS) $(GSL_LIBS) -lm
+
+bin_opt_fitness_test_SOURCES = src/opt_fitness_test.c \
+	src/optimizer_test_stubs.c \
+	$(top_srcdir)/src/optimizers/opt_fitness.c \
+	$(top_srcdir)/src/console.c
+bin_opt_fitness_test_CPPFLAGS = -I$(top_srcdir)/src -I$(top_srcdir)/src/optimizers $(GTK_CFLAGS)
+bin_opt_fitness_test_LDADD = $(GTK_LIBS) -lm
 
 EXTRA_DIST = fixtures src
 

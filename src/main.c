@@ -735,6 +735,11 @@ Open_Input_File( gpointer arg )
       Start_Frequency_Loop();
     }
   }
+  else if( isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS) )
+  {
+    /* Optimizer active: start freq loop without freq plots window */
+    Start_Frequency_Loop();
+  }
 
   /* Restore main window projection settings */
   if( isFlagSet(XNEC2C_START) )

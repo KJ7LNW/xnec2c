@@ -1,4 +1,9 @@
-// The enum, and the struct measurement_t values must be in 
+#ifndef MEASUREMENTS_H
+#define MEASUREMENTS_H 1
+
+#include <stdio.h>
+
+// The enum, and the struct measurement_t values must be in
 // the same order or this will not work!
 enum MEASUREMENT_INDEXES
 {
@@ -26,10 +31,10 @@ enum MEASUREMENT_INDEXES
 // Defined in measurements.c:
 extern const char *meas_names[];
 
-typedef struct 
+typedef struct
 {
 	union {
-		struct 
+		struct
 		{
 			double mhz;
 			double zreal, zimag;
@@ -43,7 +48,7 @@ typedef struct
 			double fb_ratio;
 		};
 
-		double a[MEAS_COUNT*sizeof(double)];
+		double a[MEAS_COUNT];
 	};
 
 } measurement_t;
@@ -59,3 +64,5 @@ void meas_write_data(FILE *fp, char *delim);
 
 void meas_write_header_enc(FILE *fp, char *delim, char *left, char *right);
 void meas_write_data_enc(FILE *fp, char *delim, char *left, char *right);
+
+#endif
