@@ -33,12 +33,14 @@ static opt_goal_row_t goal_rows[FIT_METRIC_COUNT];
 static GtkWidget *algo_combo = NULL;
 
 /* Simplex-specific */
+static GtkWidget *simplex_label = NULL;
 static GtkWidget *simplex_box = NULL;
 static GtkWidget *ssize_entry = NULL;
 static GtkWidget *simplex_min_size_entry = NULL;
 static GtkWidget *simplex_temp_entry = NULL;
 
 /* PSO-specific */
+static GtkWidget *pso_label = NULL;
 static GtkWidget *pso_box = NULL;
 static GtkWidget *pso_particles_entry = NULL;
 static GtkWidget *pso_neighbors_entry = NULL;
@@ -261,11 +263,13 @@ void opt_ui_init(GtkBuilder *builder)
 	goals_container       = lookup_widget(builder, "opt_goals_container");
 	algo_combo            = lookup_widget(builder, "opt_algo_combo");
 
+	simplex_label         = lookup_widget(builder, "opt_simplex_label");
 	simplex_box           = lookup_widget(builder, "opt_simplex_box");
 	ssize_entry           = lookup_widget(builder, "opt_simplex_sizes_entry");
 	simplex_min_size_entry = lookup_widget(builder, "opt_simplex_min_size_entry");
 	simplex_temp_entry    = lookup_widget(builder, "opt_simplex_temp_entry");
 
+	pso_label             = lookup_widget(builder, "opt_pso_label");
 	pso_box               = lookup_widget(builder, "opt_pso_box");
 	pso_particles_entry   = lookup_widget(builder, "opt_pso_particles_entry");
 	pso_neighbors_entry   = lookup_widget(builder, "opt_pso_neighbors_entry");
@@ -305,9 +309,11 @@ void opt_ui_cleanup(void)
 	goals_container = NULL;
 	algo_combo = NULL;
 	ssize_entry = NULL;
+	simplex_label = NULL;
 	simplex_box = NULL;
 	simplex_min_size_entry = NULL;
 	simplex_temp_entry = NULL;
+	pso_label = NULL;
 	pso_box = NULL;
 	pso_particles_entry = NULL;
 	pso_neighbors_entry = NULL;
@@ -651,12 +657,16 @@ static void on_algo_changed(GtkComboBox *combo, gpointer user_data)
 	/* Combo box index maps to optimizer_algo enum: 0=OPT_SIMPLEX, 1=OPT_PSO */
 	if (active == 0)
 	{
+		gtk_widget_show(simplex_label);
 		gtk_widget_show_all(simplex_box);
+		gtk_widget_hide(pso_label);
 		gtk_widget_hide(pso_box);
 	}
 	else
 	{
+		gtk_widget_hide(simplex_label);
 		gtk_widget_hide(simplex_box);
+		gtk_widget_show(pso_label);
 		gtk_widget_show(pso_box);
 	}
 }
