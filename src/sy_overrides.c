@@ -68,6 +68,7 @@ typedef struct
   gdouble max_value;
   gboolean is_calculated;
   gint grid_row;
+  gulong slider_handler_id;
 } sy_row_t;
 
 /* Window state */
@@ -237,6 +238,20 @@ on_slider_value_changed(GtkRange *range, gpointer user_data)
   dirty = TRUE;
 }
 
+/* Block slider value-changed signal */
+static void
+block_slider_signal(sy_row_t *row)
+{
+  g_signal_handler_block(row->slider, row->slider_handler_id);
+}
+
+/* Unblock slider value-changed signal */
+static void
+unblock_slider_signal(sy_row_t *row)
+{
+  g_signal_handler_unblock(row->slider, row->slider_handler_id);
+}
+
 /*------------------------------------------------------------------------*/
 
 /* Signal: override entry changed */
@@ -256,9 +271,9 @@ on_override_entry_changed(GtkEditable *editable, gpointer user_data)
   if( endptr != text && *endptr == '\0' )
   {
     /* Valid number: update slider position */
-    g_signal_handlers_block_by_func(row->slider, on_slider_value_changed, row);
+    block_slider_signal(row);
     gtk_adjustment_set_value(row->adjustment, val);
-    g_signal_handlers_unblock_by_func(row->slider, on_slider_value_changed, row);
+    unblock_slider_signal(row);
   }
   else
   {
@@ -958,7 +973,7 @@ populate_row_widgets(sy_row_t *row, GtkGrid *grid, gint row_index,
   /* Connect signals */
   g_signal_connect(row->override_check, "toggled",
       G_CALLBACK(on_override_check_toggled), row);
-  g_signal_connect(row->slider, "value-changed",
+  row->slider_handler_id = g_signal_connect(row->slider, "value-changed",
       G_CALLBACK(on_slider_value_changed), row);
   g_signal_connect(row->override_entry, "changed",
       G_CALLBACK(on_override_entry_changed), row);
