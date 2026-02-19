@@ -192,7 +192,7 @@
                                 <property name="max-width-chars">8</property>
                                 <property name="xalign">1</property>
                                 <property name="text">30</property>
-                                <property name="tooltip-text">Cancel after this many consecutive iterations with no improvement (0 = disabled)</property>
+                                <property name="tooltip-text">Stop after this many iterations without improvement. Higher values continue longer, search more thoroughly. (0 = disabled)</property>
                               </object>
                               <packing>
                                 <property name="left-attach">1</property>
@@ -219,7 +219,7 @@
                                 <property name="max-width-chars">8</property>
                                 <property name="xalign">1</property>
                                 <property name="text">0.001</property>
-                                <property name="tooltip-text">Stagnation threshold: minimum fitness improvement to reset stagnation counter</property>
+                                <property name="tooltip-text">Minimum fitness improvement to count as progress. Smaller values treat tiny improvements as progress (runs longer).</property>
                               </object>
                               <packing>
                                 <property name="left-attach">3</property>
@@ -246,7 +246,7 @@
                                 <property name="max-width-chars">8</property>
                                 <property name="xalign">1</property>
                                 <property name="text">100</property>
-                                <property name="tooltip-text">Maximum iterations per optimization pass (0 = 1000)</property>
+                                <property name="tooltip-text">Maximum iterations per pass. Higher values evaluate more, run longer. Each iteration evaluates model once per particle/vertex. (0 = 1000)</property>
                               </object>
                               <packing>
                                 <property name="left-attach">1</property>
@@ -336,7 +336,7 @@
                                     <property name="max-width-chars">8</property>
                                     <property name="xalign">1</property>
                                     <property name="text">1e-6</property>
-                                    <property name="tooltip-text">Convergence threshold: stop when simplex size shrinks below this value</property>
+                                    <property name="tooltip-text">Stop when simplex refinement step size shrinks below this value. Smaller values continue refining longer, achieve higher precision.</property>
                                   </object>
                                   <packing>
                                     <property name="left-attach">1</property>
@@ -434,7 +434,7 @@
                                     <property name="max-width-chars">8</property>
                                     <property name="xalign">1</property>
                                     <property name="text">0</property>
-                                    <property name="tooltip-text">Swarm size: number of particles exploring the search space (0 = auto: dimensions × 10)</property>
+                                    <property name="tooltip-text">Number of particles exploring simultaneously. Higher values enable more parallel exploration but slower iterations. (0 = auto: dimensions × 3)</property>
                                   </object>
                                   <packing>
                                     <property name="left-attach">1</property>
@@ -461,7 +461,7 @@
                                     <property name="max-width-chars">8</property>
                                     <property name="xalign">1</property>
                                     <property name="text">0</property>
-                                    <property name="tooltip-text">Neighborhood size: particles influenced by this many nearest neighbors (0 = auto: √particles)</property>
+                                    <property name="tooltip-text">How many nearby particles influence each other. Higher values create stronger group consensus but risk premature convergence to local minima. (0 = auto: √particles)</property>
                                   </object>
                                   <packing>
                                     <property name="left-attach">3</property>
@@ -488,7 +488,7 @@
                                     <property name="max-width-chars">8</property>
                                     <property name="xalign">1</property>
                                     <property name="text">0.9</property>
-                                    <property name="tooltip-text">Previous velocity carry-over coefficient (0.0-1.0). Higher values maintain momentum.</property>
+                                    <property name="tooltip-text">Momentum: how much each particle continues in its current direction. Higher values maintain search direction longer, explore further before changing course.</property>
                                   </object>
                                   <packing>
                                     <property name="left-attach">1</property>
@@ -515,7 +515,7 @@
                                     <property name="max-width-chars">8</property>
                                     <property name="xalign">1</property>
                                     <property name="text">0.5</property>
-                                    <property name="tooltip-text">Cognitive component: weight given to particle's own best-found position</property>
+                                    <property name="tooltip-text">Personal memory strength: pull toward each particle's own best find. Higher values prioritize individual discoveries. Normalized with social and inertia weights.</property>
                                   </object>
                                   <packing>
                                     <property name="left-attach">3</property>
@@ -542,7 +542,7 @@
                                     <property name="max-width-chars">8</property>
                                     <property name="xalign">1</property>
                                     <property name="text">0.5</property>
-                                    <property name="tooltip-text">Social influence: weight given to neighborhood best-found position</property>
+                                    <property name="tooltip-text">Social influence strength: pull toward neighbors' best finds. Higher values create stronger group coordination but faster consensus. Normalized with cognitive and inertia weights.</property>
                                   </object>
                                   <packing>
                                     <property name="left-attach">1</property>
@@ -568,8 +568,8 @@
                                     <property name="width-chars">8</property>
                                     <property name="max-width-chars">8</property>
                                     <property name="xalign">1</property>
-                                    <property name="text">-1</property>
-                                    <property name="tooltip-text">Search range scale around initial guess (negative = disabled, use full pos_min/pos_max bounds)</property>
+                                    <property name="text">0.25</property>
+                                    <property name="tooltip-text">Initial search radius as fraction of each dimension's range (0.25 = within ±25% of range around starting point). Spawns particles randomly in this radius. Negative values spawn uniformly across full range. Stalled particles respawn within same fraction around their best position.</property>
                                   </object>
                                   <packing>
                                     <property name="left-attach">3</property>

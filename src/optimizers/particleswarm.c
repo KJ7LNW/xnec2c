@@ -42,7 +42,7 @@ void pso_config_init(pso_config_t *config)
 	memset(config, 0, sizeof(*config));
 	config->pos_min = -100.0;
 	config->pos_max = 100.0;
-	config->search_size = -1.0;
+	config->search_size = 0.25;
 	config->stall_speed = 1e-9;
 	config->stall_search_scale = 1.0;
 	config->me_weight = 0.5;
@@ -108,7 +108,7 @@ pso_t *pso_new(const pso_config_t *config)
 	/* Computed defaults for swarm topology */
 	if (pso->config.num_particles <= 0)
 	{
-		pso->config.num_particles = d * 10;
+		pso->config.num_particles = d * 3;
 	}
 	if (pso->config.num_neighbors <= 0)
 	{
