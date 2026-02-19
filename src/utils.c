@@ -171,13 +171,27 @@ Stop( int err, const char *format, ... )
   {
     if( err )
       pr_crit("%s\n", mesg);
-    else 
+    else
       pr_err("%s\n", mesg);
 
     SetFlag(FREQ_LOOP_STOP);
     if (!locked)
       Stop_Frequency_Loop();
     gtk_main_quit();
+    return( err );
+  }
+
+  /* During freq loop, allow loop to complete with error state */
+  if (isFlagSet(FREQ_LOOP_RUNNING))
+  {
+    if( err )
+      pr_crit("Stop during freq loop, deadlock prevented: %s\n", mesg);
+    else
+      pr_err("Stop during freq loop, deadlock prevented: %s\n", mesg);
+
+    SetFlag(FREQ_LOOP_STOP);
+    if (!locked)
+      Stop_Frequency_Loop();
     return( err );
   }
 
