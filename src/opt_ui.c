@@ -59,11 +59,18 @@ static GtkWidget *start_button = NULL;
 static GtkWidget *cancel_button = NULL;
 static GtkWidget *status_label = NULL;
 
+/* Formula display */
+static GtkWidget *formula_display = NULL;
+static GtkWidget *formula_help_button = NULL;
+
 /* Forward declarations */
 static void on_opt_start_clicked(GtkButton *button, gpointer user_data);
 static void on_opt_cancel_clicked(GtkButton *button, gpointer user_data);
 static void on_algo_changed(GtkComboBox *combo, gpointer user_data);
+static void on_opt_formula_help_clicked(GtkButton *button, gpointer user_data);
+static void on_goal_toggled(GtkToggleButton *togglebutton, gpointer user_data);
 static gboolean check_opt_complete(gpointer user_data);
+static void opt_ui_update_formula(void);
 
 /*------------------------------------------------------------------------*/
 
@@ -171,6 +178,8 @@ static void build_goals_grid(void)
 		gtk_toggle_button_set_active(
 			GTK_TOGGLE_BUTTON(gr->enabled_check),
 			defaults.obj[m].enabled);
+		g_signal_connect(gr->enabled_check, "toggled",
+			G_CALLBACK(on_goal_toggled), NULL);
 		gtk_grid_attach(GTK_GRID(grid), gr->enabled_check,
 			col, row, 1, 1);
 
@@ -286,6 +295,9 @@ void opt_ui_init(GtkBuilder *builder)
 	cancel_button         = lookup_widget(builder, "opt_cancel_button");
 	status_label          = lookup_widget(builder, "opt_status_label");
 
+	formula_display       = lookup_widget(builder, "opt_formula_display");
+	formula_help_button   = lookup_widget(builder, "opt_formula_help_button");
+
 	/* Build fitness goals grid programmatically into container */
 	build_goals_grid();
 
@@ -296,6 +308,11 @@ void opt_ui_init(GtkBuilder *builder)
 		G_CALLBACK(on_opt_start_clicked), NULL);
 	g_signal_connect(cancel_button, "clicked",
 		G_CALLBACK(on_opt_cancel_clicked), NULL);
+	g_signal_connect(formula_help_button, "clicked",
+		G_CALLBACK(on_opt_formula_help_clicked), NULL);
+
+	/* Initialize formula display */
+	opt_ui_update_formula();
 }
 
 /*------------------------------------------------------------------------*/
@@ -327,6 +344,8 @@ void opt_ui_cleanup(void)
 	start_button = NULL;
 	cancel_button = NULL;
 	status_label = NULL;
+	formula_display = NULL;
+	formula_help_button = NULL;
 
 	memset(goal_rows, 0, sizeof(goal_rows));
 }
@@ -669,6 +688,272 @@ static void on_algo_changed(GtkComboBox *combo, gpointer user_data)
 		gtk_widget_show(pso_label);
 		gtk_widget_show(pso_box);
 	}
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * on_goal_toggled - handle fitness goal checkbox toggle
+ */
+static void on_goal_toggled(GtkToggleButton *togglebutton, gpointer user_data)
+{
+	(void)togglebutton;
+	(void)user_data;
+
+	opt_ui_update_formula();
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * opt_ui_update_formula - update formula display with current enabled goals
+ */
+static void opt_ui_update_formula(void)
+{
+	GString *markup;
+	int m;
+	int term_count;
+	fitness_config_t cfg;
+
+	if (formula_display == NULL)
+	{
+		return;
+	}
+
+	opt_ui_get_fitness_config(&cfg);
+
+	/* Actual values line */
+	markup = g_string_new("<b>Current Configuration:</b> F = ");
+	term_count = 0;
+
+	for (m = 0; m < FIT_METRIC_COUNT; m++)
+	{
+		const fitness_metric_info_t *info;
+		const fitness_objective_t *obj;
+		const gchar *reduce_name;
+		gchar weight_str[32];
+		gchar exp_str[32];
+		gchar target_str[32];
+		const gchar *metric_abbrev;
+
+		obj = &cfg.obj[m];
+
+		if (!obj->enabled)
+		{
+			continue;
+		}
+
+		info = &fitness_metric_info[m];
+
+		if (term_count > 0)
+		{
+			g_string_append(markup, " + ");
+		}
+
+		/* Abbreviations for common metrics */
+		switch (info->metric)
+		{
+			case FIT_VSWR:
+				metric_abbrev = "VSWR";
+				break;
+
+			case FIT_GAIN_MAX:
+				metric_abbrev = "G<sub>max</sub>";
+				break;
+
+			case FIT_FB_RATIO:
+				metric_abbrev = "FB";
+				break;
+
+			case FIT_GAIN_NET:
+				metric_abbrev = "G<sub>net</sub>";
+				break;
+
+			case FIT_GAIN_VIEWER:
+				metric_abbrev = "G<sub>view</sub>";
+				break;
+
+			case FIT_S11:
+				metric_abbrev = "S11";
+				break;
+
+			case FIT_GAIN_THETA:
+				metric_abbrev = "θ<sub>gain</sub>";
+				break;
+
+			case FIT_GAIN_PHI:
+				metric_abbrev = "φ<sub>gain</sub>";
+				break;
+
+			case FIT_GAIN_FLAT:
+				metric_abbrev = "G<sub>flat</sub>";
+				break;
+
+			default:
+				metric_abbrev = info->name;
+				break;
+		}
+
+		reduce_name = fitness_reduce_names[obj->reduce];
+
+		snprintf(weight_str, sizeof(weight_str), "%.4g", obj->weight);
+		snprintf(exp_str, sizeof(exp_str), "%.4g", obj->exponent);
+		snprintf(target_str, sizeof(target_str), "%.4g", obj->target);
+
+		/* Build term based on direction */
+		if (info->direction == FIT_DIR_MINIMIZE)
+		{
+			/* (value/target)^exp */
+			g_string_append_printf(markup, "<b>%s</b>·%s((%s/<b>%s</b>)<sup><b>%s</b></sup>)",
+				weight_str, reduce_name,
+				metric_abbrev, target_str, exp_str);
+		}
+		else if (info->direction == FIT_DIR_MAXIMIZE)
+		{
+			/* (target/value)^exp */
+			g_string_append_printf(markup, "<b>%s</b>·%s((<b>%s</b>/%s)<sup><b>%s</b></sup>)",
+				weight_str, reduce_name,
+				target_str, metric_abbrev, exp_str);
+		}
+		else
+		{
+			/* |value - target|^exp */
+			g_string_append_printf(markup, "<b>%s</b>·%s(|%s−<b>%s</b>|<sup><b>%s</b></sup>)",
+				weight_str, reduce_name,
+				metric_abbrev, target_str, exp_str);
+		}
+
+		term_count++;
+	}
+
+	if (term_count == 0)
+	{
+		g_string_assign(markup, "<i>No goals enabled</i>");
+	}
+	else
+	{
+		g_string_append(markup, "\n<small><i>Optimizer minimizes this value</i></small>");
+	}
+
+	gtk_label_set_markup(GTK_LABEL(formula_display), markup->str);
+	g_string_free(markup, TRUE);
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * on_opt_formula_help_clicked - show formula help dialog
+ */
+static void on_opt_formula_help_clicked(GtkButton *button, gpointer user_data)
+{
+	GtkWidget *dialog;
+	GtkWidget *content_area;
+	GtkWidget *scrolled;
+	const gchar *help_text;
+
+	(void)button;
+	(void)user_data;
+
+	help_text =
+		"<span size='large' weight='bold'>Transform Directions</span>\n\n"
+		"<b>minimize:</b> Lower values are better\n"
+		"    Penalty = (value/target)ᵉˣᵖ\n"
+		"    <i>Use for VSWR, noise, or metrics where smaller is optimal</i>\n\n"
+		"<b>maximize:</b> Higher values are better\n"
+		"    Penalty = (target/value)ᵉˣᵖ\n"
+		"    <i>Use for gain, efficiency, F/B ratio</i>\n\n"
+		"<b>deviate:</b> Target a specific value\n"
+		"    Penalty = |value − target|ᵉˣᵖ\n"
+		"    <i>Use for angle, impedance, or frequency alignment</i>\n\n\n"
+		"<span size='large' weight='bold'>Reduction Functions</span>\n\n"
+		"<b>avg:</b> Average penalty across band\n"
+		"    <i>Balances all frequencies equally</i>\n\n"
+		"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+		"    <i>Optimizer improves the worst frequency first\n"
+		"    \"No point on the band can exceed X\"</i>\n\n"
+		"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+		"    <i>Optimizer improves the best frequency, ignores others\n"
+		"    Rarely useful (creates narrow-band solution)</i>\n\n"
+		"<b>diff:</b> Returns penalty range (variation)\n"
+		"    <i>Makes metric consistent across band</i>\n\n"
+		"<b>sum:</b> Total penalty sum across all frequencies\n"
+		"    <i>Emphasizes overall error magnitude</i>\n\n"
+		"<b>mag:</b> Root mean square magnitude\n"
+		"    sqrt(sum(penalty²))\n"
+		"    <i>Emphasizes large deviations more than average</i>\n\n\n"
+		"<span size='large' weight='bold'>VSWR Reduction Choices</span>\n\n"
+		"<b>avg</b> (default): Average penalty across band\n"
+		"  Formula: sum((VSWR/target)ᵉˣᵖ) / n\n"
+		"  Effect: Balances all frequencies equally\n\n"
+		"<b>max:</b> Returns highest penalty (worst VSWR frequency)\n"
+		"  Formula: max((VSWR/target)ᵉˣᵖ)\n"
+		"  Effect: Optimizer improves the worst frequency point first\n"
+		"  \"No point on the band can exceed VSWR=X\"\n\n"
+		"<b>min:</b> Returns lowest penalty (best VSWR frequency)\n"
+		"  Formula: min((VSWR/target)ᵉˣᵖ)\n"
+		"  Effect: Optimizer improves the best frequency, ignores others\n"
+		"  <i>Rarely useful (creates narrow-band solution)</i>\n\n"
+		"<b>diff:</b> Returns penalty range (variation)\n"
+		"  Formula: max(penalty) − min(penalty)\n"
+		"  Effect: Makes VSWR consistent across band\n\n\n"
+		"<span size='large' weight='bold'>Gain Reduction Choices</span>\n\n"
+		"<b>avg</b> (default): Average penalty across band\n"
+		"  Formula: sum((target/gain)ᵉˣᵖ) / n\n"
+		"  Effect: Balanced performance across band\n\n"
+		"<b>max:</b> Returns highest penalty (lowest gain frequency)\n"
+		"  Formula: max((target/gain)ᵉˣᵖ)\n"
+		"  Effect: Optimizer raises the minimum gain floor\n"
+		"  \"Every frequency must have at least X dBi\"\n\n"
+		"<b>min:</b> Returns lowest penalty (highest gain frequency)\n"
+		"  Formula: min((target/gain)ᵉˣᵖ)\n"
+		"  Effect: Optimizer increases peak gain further\n\n"
+		"<b>diff:</b> Returns penalty range (variation)\n"
+		"  Formula: max(penalty) − min(penalty)\n"
+		"  Effect: Keeps gain consistent across band";
+
+	dialog = gtk_dialog_new_with_buttons(
+		"Fitness Formula Help",
+		GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(button))),
+		GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+		"_Close", GTK_RESPONSE_CLOSE,
+		NULL);
+
+	gtk_window_set_default_size(GTK_WINDOW(dialog), 600, 500);
+
+	content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+
+	scrolled = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled),
+		GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_container_set_border_width(GTK_CONTAINER(scrolled), 6);
+
+	/* Use GtkLabel with markup for proper formatting */
+	{
+		GtkWidget *label;
+		GtkWidget *viewport;
+
+		label = gtk_label_new(NULL);
+		gtk_label_set_markup(GTK_LABEL(label), help_text);
+		gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+		gtk_label_set_line_wrap_mode(GTK_LABEL(label), PANGO_WRAP_WORD);
+		gtk_label_set_xalign(GTK_LABEL(label), 0.0);
+		gtk_label_set_yalign(GTK_LABEL(label), 0.0);
+		gtk_label_set_selectable(GTK_LABEL(label), TRUE);
+		gtk_widget_set_margin_start(label, 12);
+		gtk_widget_set_margin_end(label, 12);
+		gtk_widget_set_margin_top(label, 12);
+		gtk_widget_set_margin_bottom(label, 12);
+
+		viewport = gtk_viewport_new(NULL, NULL);
+		gtk_container_add(GTK_CONTAINER(viewport), label);
+		gtk_container_add(GTK_CONTAINER(scrolled), viewport);
+	}
+
+	gtk_box_pack_start(GTK_BOX(content_area), scrolled, TRUE, TRUE, 0);
+
+	gtk_widget_show_all(dialog);
+	gtk_dialog_run(GTK_DIALOG(dialog));
+	gtk_widget_destroy(dialog);
 }
 
 /*------------------------------------------------------------------------*/
