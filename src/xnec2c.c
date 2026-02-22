@@ -22,6 +22,7 @@
 #include "xnec2c.h"
 #include "shared.h"
 #include "mathlib.h"
+#include "opt_ui.h"
 /* Only nec2_eval_signal() is called from xnec2c.c; avoid pulling
  * gsl headers (via opt_simple.h) which conflict with openblas cblas. */
 extern void nec2_eval_signal(void);
@@ -925,14 +926,29 @@ gboolean Frequency_Loop( gpointer udata )
     ClearFlag( FREQ_LOOP_RUNNING );
     SetFlag( FREQ_LOOP_DONE );
 
-    /* Wake optimizer thread blocked in nec2_eval_run() */
-    nec2_eval_signal();
-
 	clock_gettime(CLOCK_MONOTONIC, &end);
 	pr_notice("Frequency loop elapsed time: %f seconds. (%s)\n",
                 (end.tv_sec + (double)end.tv_nsec / 1e9) - (start.tv_sec + (double)start.tv_nsec / 1e9),
 				(FORKED ? get_mathlib_by_id(rc_config.mathlib_batch_id)->name : current_mathlib->name));
 
+  } // if( !retval && !num_busy_procs )
+
+  /* Release global_lock before any g_idle_add_once_sync calls.
+   * The sync call's flush loop can dispatch callbacks (such as
+   * eval_apply_and_reload) that also need global_lock, which
+   * would deadlock if we still held it here. */
+  g_mutex_unlock(&global_lock);
+
+  /* Wake optimizer thread blocked in nec2_eval_run().
+   * Placed after global_lock release: nec2_eval_signal acquires
+   * eval_mutex, which the optimizer thread holds while waiting for
+   * the GTK main thread — which needs global_lock in
+   * eval_apply_and_reload.  Holding both causes a deadlock cycle. */
+  if( !retval && !num_busy_procs )
+    nec2_eval_signal();
+
+  if( !retval && !num_busy_procs )
+  {
     /* After the loop is finished, re-set the saved frequency
      * that the user clicked on in the frequency plots window.
      *
@@ -944,7 +960,14 @@ gboolean Frequency_Loop( gpointer udata )
      * the main loop.  The optimizer restores fmhz_save after it
      * finishes via restore_fmhz_save_display(). */
     if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
+    {
       g_idle_add_once_sync((GSourceOnceFunc)restore_fmhz_save_display, NULL);
+
+      /* Update optimizer Value/Score labels after freq loop completes.
+       * Async dispatch: opt_ui_update_values calls GTK widget functions
+       * that are not thread-safe. */
+      g_idle_add_once((GSourceOnceFunc)opt_ui_update_values, NULL);
+    }
 
     /* Re-draw drawing areas at end of loop */
     if( isFlagSet(PLOT_ENABLED) )
@@ -960,9 +983,7 @@ gboolean Frequency_Loop( gpointer udata )
     {
       g_idle_add_once_sync((GSourceOnceFunc)Write_Optimizer_Data, NULL);
     }
-  } // if( !retval && !num_busy_procs )
-
-  g_mutex_unlock(&global_lock);
+  }
 
   return( retval );
 } /* Frequency_Loop() */

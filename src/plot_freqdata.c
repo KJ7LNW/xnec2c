@@ -1866,6 +1866,9 @@ _Set_Frequency_On_Click( GdkEvent *e)
 	  /* Save frequency for later use when the graph plots after the NEC2 run */
 	  calc_data.fmhz_save = fmhz;
 
+	  /* Update optimizer Value/Score labels for the selected frequency */
+	  opt_ui_update_values();
+
 	  /* Set frequency spinbuttons on new freq */
 	  if( isFlagClear(FREQ_LOOP_RUNNING) && fmhz != calc_data.freq_mhz )
 	  {

@@ -58,6 +58,16 @@ typedef struct
 	double           best_fitness;               /**< Best fitness found */
 	simple_log_state_t last_log;                 /**< Most recent log state */
 	gboolean         has_log;                    /**< TRUE after first log */
+
+	/* Snapshot of measurements from the best evaluation so far.
+	 * Written by optimizer thread under best_lock, read by GTK
+	 * main thread via opt_get_best_measurements (trylock). */
+	measurement_t    best_meas[OPT_MAX_FREQ_STEPS]; /**< Best meas snapshot */
+	double           best_freq[OPT_MAX_FREQ_STEPS]; /**< Best freq snapshot */
+	int              best_num_steps;             /**< Steps in best snapshot */
+	double           best_snap_fitness;           /**< Fitness of snapshot */
+	GMutex           best_lock;                  /**< Guards best_meas/freq */
+	gboolean         has_best_meas;              /**< TRUE after first best */
 } opt_session_t;
 
 /**
@@ -100,6 +110,19 @@ double opt_get_best_fitness(void);
  * Pointer valid until session is freed.
  */
 const simple_log_state_t *opt_get_log_state(void);
+
+/**
+ * opt_get_best_measurements - copy best-so-far measurements via trylock
+ * @meas_out: caller buffer, at least OPT_MAX_FREQ_STEPS entries
+ * @freq_out: caller buffer, at least OPT_MAX_FREQ_STEPS entries
+ * @num_steps_out: receives number of valid entries copied
+ *
+ * Attempts a non-blocking lock on the best-measurement snapshot.
+ * Returns TRUE and copies data if lock acquired and snapshot exists.
+ * Returns FALSE without blocking if lock is contended or no data yet.
+ */
+gboolean opt_get_best_measurements(measurement_t *meas_out,
+	double *freq_out, int *num_steps_out);
 
 /**
  * opt_get_result - return result variables from completed optimization

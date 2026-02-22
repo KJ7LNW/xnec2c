@@ -2,7 +2,7 @@
  *  Optimizer configuration UI panel.
  *
  *  Looks up widgets from the sy_overrides GtkBuilder and populates
- *  the fitness goals grid programmatically from fitness_metric_info[].
+ *  the fitness goals grid programmatically from meas_fitness_defaults[].
  *  Provides Start/Cancel buttons and status display.
  *
  *  Copyright (C) 2025 eWheeler, Inc. <https://www.linuxglobal.com/>
@@ -49,5 +49,24 @@ void opt_ui_get_fitness_config(fitness_config_t *cfg);
  * Safe to call when no optimizer is running (displays idle state).
  */
 void opt_ui_update_status(void);
+
+/**
+ * opt_ui_update_values - refresh Value, Score, and formula total from NEC2 data
+ *
+ * When the optimizer is running, attempts to refresh from the
+ * best-so-far measurement snapshot (non-blocking trylock via
+ * opt_get_best_measurements).  If the lock is contended or no
+ * snapshot exists yet, leaves labels untouched to avoid flashing
+ * dashes.
+ *
+ * When idle, finds the frequency index matching calc_data.fmhz_save,
+ * computes measurements via meas_calc(), updates each goal row's
+ * Value/Score labels, and shows the total fitness score in the
+ * formula display as "F = ... = Score".
+ *
+ * Called on the GTK main thread.  Safe to call when no goals exist
+ * or when frequency data is unavailable.
+ */
+void opt_ui_update_values(void);
 
 #endif

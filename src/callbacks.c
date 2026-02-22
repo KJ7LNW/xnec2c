@@ -19,6 +19,7 @@
 
 #include "callbacks.h"
 #include "shared.h"
+#include "opt_ui.h"
 #include <pthread.h>
 
 /* Action flag for NEC2 "card" editors */
@@ -912,6 +913,8 @@ on_main_freq_spinbutton_value_changed(
         isFlagSet(MAIN_NEW_FREQ) )
       gtk_spin_button_set_value( rdpattern_frequency, fmhz );
 
+    calc_data.fmhz_save = (double)fmhz;
+    opt_ui_update_values();
     xnec2_widget_queue_draw( structure_drawingarea );
   } /* else */
 
@@ -1718,6 +1721,8 @@ on_rdpattern_freq_spinbutton_value_changed(
       if( isFlagSet(COMMON_FREQUENCY) )
         gtk_spin_button_set_value( mainwin_frequency, fmhz );
     }
+    calc_data.fmhz_save = (double)fmhz;
+    opt_ui_update_values();
   } /* else */
 
   gtk_spin_button_update( spinbutton );

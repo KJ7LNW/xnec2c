@@ -25,24 +25,8 @@
 /** Guard value for denominators approaching zero */
 #define FITNESS_EPSILON 1e-12
 
-/**
- * Fitness metrics corresponding to measurement_t fields.
- * Order determines UI display order.
- */
-enum fitness_metric
-{
-	FIT_VSWR,
-	FIT_GAIN_MAX,
-	FIT_GAIN_NET,
-	FIT_GAIN_VIEWER,
-	FIT_FB_RATIO,
-	FIT_S11,
-	FIT_GAIN_THETA,
-	FIT_GAIN_PHI,
-	FIT_GAIN_FLAT,
-
-	FIT_METRIC_COUNT
-};
+/** Initial allocation capacity for dynamic objective list */
+#define FITNESS_OBJ_INIT_CAP 4
 
 /**
  * Internal direction mode, determined by the metric.
@@ -62,7 +46,9 @@ enum fitness_direction
 {
 	FIT_DIR_MINIMIZE,
 	FIT_DIR_MAXIMIZE,
-	FIT_DIR_DEVIATE
+	FIT_DIR_DEVIATE,
+
+	FIT_DIR_COUNT
 };
 
 /**
@@ -81,59 +67,108 @@ enum fitness_reduce
 };
 
 /**
- * Compile-time metadata for each fitness metric.
- * Populated in opt_fitness.c as a const array.
+ * Per-measurement default fitness parameters.
+ * Indexed by MEASUREMENT_INDEXES.  Populated in opt_fitness.c.
  */
 typedef struct
 {
-	const char              *name;
-	enum fitness_metric      metric;
 	enum fitness_direction   direction;
 	enum fitness_reduce      default_reduce;
-	int                      meas_index;
 	double                   default_target;
 	double                   default_weight;
 	double                   default_exponent;
-} fitness_metric_info_t;
+} meas_fitness_default_t;
 
-/** Compile-time metric info table, indexed by enum fitness_metric */
-extern const fitness_metric_info_t fitness_metric_info[FIT_METRIC_COUNT];
+/** Per-measurement fitness defaults, indexed by MEASUREMENT_INDEXES */
+extern const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT];
 
 /** Reduction name strings, indexed by enum fitness_reduce */
 extern const char *fitness_reduce_names[FIT_REDUCE_COUNT];
 
+/** Direction name strings, indexed by enum fitness_direction */
+extern const char *fitness_direction_names[FIT_DIR_COUNT];
+
+/** Direction tooltip strings, indexed by enum fitness_direction */
+extern const char *fitness_direction_tooltips[FIT_DIR_COUNT];
+
+/** Reduction tooltip strings, indexed by enum fitness_reduce */
+extern const char *fitness_reduce_tooltips[FIT_REDUCE_COUNT];
+
 /**
  * Per-objective user configuration.
- * One entry per metric in the fitness config.
+ * Each objective selects a measurement via meas_index.
  */
 typedef struct
 {
+	int                  meas_index; /**< MEASUREMENT_INDEXES value */
 	int                  enabled;
 	double               weight;
 	double               exponent;
 	double               target;
+	enum fitness_direction direction;
 	enum fitness_reduce  reduce;
 	double               mhz_min;   /**< NAN = use all FR card freqs */
 	double               mhz_max;   /**< NAN = use all FR card freqs */
 } fitness_objective_t;
 
 /**
- * Complete fitness configuration.
- * Array of objectives indexed by enum fitness_metric.
+ * Dynamic fitness configuration.
+ * Variable-length array of objectives.
  */
 typedef struct
 {
-	fitness_objective_t obj[FIT_METRIC_COUNT];
+	fitness_objective_t *obj;
+	int                  num_obj;
+	int                  capacity;
 } fitness_config_t;
 
 /**
- * fitness_config_init - populate config with defaults from metric_info table
- * @cfg: config to initialize
- *
- * Sets each objective's weight, exponent, target, and reduce from the
- * compile-time defaults.  VSWR and GAIN_MAX are enabled; all others disabled.
+ * fitness_config_init - populate config with default objectives
+ * @cfg: config to initialize (zeroed, then VSWR + gain_max added)
  */
 void fitness_config_init(fitness_config_t *cfg);
+
+/**
+ * fitness_config_add - append an objective using measurement defaults
+ * @cfg: config to modify
+ * @meas_index: MEASUREMENT_INDEXES value for the new objective
+ *
+ * Returns pointer to the new objective for further customization.
+ */
+fitness_objective_t *fitness_config_add(fitness_config_t *cfg, int meas_index);
+
+/**
+ * fitness_config_remove - remove objective at given index
+ * @cfg: config to modify
+ * @idx: index into obj array to remove
+ */
+void fitness_config_remove(fitness_config_t *cfg, int idx);
+
+/**
+ * fitness_config_copy - deep copy src into dst
+ * @dst: destination (will be initialized)
+ * @src: source config
+ */
+void fitness_config_copy(fitness_config_t *dst, const fitness_config_t *src);
+
+/**
+ * fitness_config_free - release dynamic memory in config
+ * @cfg: config to free (zeroed after free)
+ */
+void fitness_config_free(fitness_config_t *cfg);
+
+/**
+ * fitness_compute_objective - evaluate one objective's weighted contribution
+ * @obj: single objective to evaluate
+ * @meas: array of measurement_t, one per frequency step
+ * @num_steps: length of meas array
+ * @freq_mhz: array of frequency values in MHz, one per step
+ *
+ * Returns weight * reduce(transform(...)) for this objective,
+ * or 0.0 if disabled or no valid steps.
+ */
+double fitness_compute_objective(const fitness_objective_t *obj,
+	const measurement_t *meas, int num_steps, const double *freq_mhz);
 
 /**
  * fitness_compute - evaluate fitness across frequency steps

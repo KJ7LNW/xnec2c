@@ -2,7 +2,8 @@
  *  Unit tests for opt_fitness.c
  *
  *  Tests fitness_transform(), reduce_values (via fitness_compute),
- *  and full fitness_compute() with synthetic measurement_t arrays.
+ *  fitness_config dynamic operations, and full fitness_compute()
+ *  with synthetic measurement_t arrays.
  *
  *  Copyright (C) 2025 eWheeler, Inc. <https://www.linuxglobal.com/>
  */
@@ -52,7 +53,6 @@ static int tests_failed = 0;
  * @n: number of steps
  * @field_idx: MEAS_* index to populate
  * @values: array of n values for the field
- * @freq: array of n frequencies in MHz
  * @out: output measurement_t array (caller allocated)
  *
  * Initializes all fields to -1, then sets the specified field.
@@ -159,22 +159,84 @@ static void test_config_init(void)
 
 	fitness_config_init(&cfg);
 
-	ASSERT_TRUE(cfg.obj[FIT_VSWR].enabled == 1, "VSWR enabled by default");
-	ASSERT_TRUE(cfg.obj[FIT_GAIN_MAX].enabled == 1, "GAIN_MAX enabled by default");
-	ASSERT_TRUE(cfg.obj[FIT_FB_RATIO].enabled == 1, "FB_RATIO enabled by default");
-	ASSERT_TRUE(cfg.obj[FIT_GAIN_THETA].enabled == 0, "GAIN_THETA disabled by default");
-	ASSERT_TRUE(cfg.obj[FIT_GAIN_PHI].enabled == 0, "GAIN_PHI disabled by default");
-	ASSERT_TRUE(cfg.obj[FIT_S11].enabled == 0, "S11 disabled by default");
+	/* Default: 2 objectives — VSWR, gain_max */
+	ASSERT_TRUE(cfg.num_obj == 2, "default config has 2 objectives");
 
-	ASSERT_NEAR(cfg.obj[FIT_VSWR].target, 1.5, 1e-10, "VSWR default target");
-	ASSERT_NEAR(cfg.obj[FIT_VSWR].weight, 5.0, 1e-10, "VSWR default weight");
-	ASSERT_NEAR(cfg.obj[FIT_VSWR].exponent, 2.0, 1e-10, "VSWR default exponent");
+	ASSERT_TRUE(cfg.obj[0].meas_index == MEAS_VSWR, "obj[0] is VSWR");
+	ASSERT_TRUE(cfg.obj[0].enabled == 1, "VSWR enabled by default");
+	ASSERT_NEAR(cfg.obj[0].target, 1.5, 1e-10, "VSWR default target");
+	ASSERT_NEAR(cfg.obj[0].weight, 5.0, 1e-10, "VSWR default weight");
+	ASSERT_NEAR(cfg.obj[0].exponent, 2.0, 1e-10, "VSWR default exponent");
+	ASSERT_TRUE(cfg.obj[0].direction == FIT_DIR_MINIMIZE, "VSWR direction minimize");
+	ASSERT_TRUE(isnan(cfg.obj[0].mhz_min), "mhz_min defaults to NAN");
+	ASSERT_TRUE(isnan(cfg.obj[0].mhz_max), "mhz_max defaults to NAN");
 
-	ASSERT_NEAR(cfg.obj[FIT_GAIN_MAX].target, 8.0, 1e-10, "GAIN_MAX default target");
-	ASSERT_NEAR(cfg.obj[FIT_GAIN_MAX].weight, 10.0, 1e-10, "GAIN_MAX default weight");
+	ASSERT_TRUE(cfg.obj[1].meas_index == MEAS_GAIN_MAX, "obj[1] is gain_max");
+	ASSERT_TRUE(cfg.obj[1].enabled == 1, "gain_max enabled by default");
+	ASSERT_NEAR(cfg.obj[1].target, 8.0, 1e-10, "gain_max default target");
+	ASSERT_NEAR(cfg.obj[1].weight, 10.0, 1e-10, "gain_max default weight");
+	ASSERT_TRUE(cfg.obj[1].direction == FIT_DIR_MAXIMIZE, "gain_max direction maximize");
 
-	ASSERT_TRUE(isnan(cfg.obj[FIT_VSWR].mhz_min), "mhz_min defaults to NAN");
-	ASSERT_TRUE(isnan(cfg.obj[FIT_VSWR].mhz_max), "mhz_max defaults to NAN");
+	fitness_config_free(&cfg);
+}
+
+/*------------------------------------------------------------------------*/
+
+static void test_config_add_remove(void)
+{
+	fitness_config_t cfg;
+	fitness_objective_t *obj;
+
+	fitness_config_init(&cfg);
+	ASSERT_TRUE(cfg.num_obj == 2, "init has 2 objectives");
+
+	/* Add a third objective */
+	obj = fitness_config_add(&cfg, MEAS_S11);
+	obj->enabled = 1;
+	ASSERT_TRUE(cfg.num_obj == 3, "after add: 3 objectives");
+	ASSERT_TRUE(cfg.obj[2].meas_index == MEAS_S11, "added s11");
+
+	/* Add duplicate measurement */
+	obj = fitness_config_add(&cfg, MEAS_VSWR);
+	obj->enabled = 1;
+	obj->reduce = FIT_REDUCE_MAX;
+	obj->target = 2.0;
+	ASSERT_TRUE(cfg.num_obj == 4, "after duplicate add: 4 objectives");
+	ASSERT_TRUE(cfg.obj[3].meas_index == MEAS_VSWR, "duplicate VSWR");
+	ASSERT_TRUE(cfg.obj[3].reduce == FIT_REDUCE_MAX, "duplicate has max reduce");
+
+	/* Remove middle objective (index 1 = gain_max) */
+	fitness_config_remove(&cfg, 1);
+	ASSERT_TRUE(cfg.num_obj == 3, "after remove: 3 objectives");
+	ASSERT_TRUE(cfg.obj[0].meas_index == MEAS_VSWR, "obj[0] still VSWR");
+	ASSERT_TRUE(cfg.obj[1].meas_index == MEAS_S11, "obj[1] shifted to s11");
+	ASSERT_TRUE(cfg.obj[2].meas_index == MEAS_VSWR, "obj[2] shifted to duplicate VSWR");
+
+	fitness_config_free(&cfg);
+}
+
+/*------------------------------------------------------------------------*/
+
+static void test_config_copy(void)
+{
+	fitness_config_t src;
+	fitness_config_t dst;
+
+	fitness_config_init(&src);
+
+	fitness_config_copy(&dst, &src);
+
+	ASSERT_TRUE(dst.num_obj == src.num_obj, "copy has same count");
+	ASSERT_TRUE(dst.obj != src.obj, "copy has different pointer");
+	ASSERT_TRUE(dst.obj[0].meas_index == MEAS_VSWR, "copy obj[0] is VSWR");
+	ASSERT_TRUE(dst.obj[1].meas_index == MEAS_GAIN_MAX, "copy obj[1] is gain_max");
+
+	/* Modify src; dst must be independent */
+	src.obj[0].target = 999.0;
+	ASSERT_NEAR(dst.obj[0].target, 1.5, 1e-10, "copy is independent");
+
+	fitness_config_free(&src);
+	fitness_config_free(&dst);
 }
 
 /*------------------------------------------------------------------------*/
@@ -190,8 +252,8 @@ static void test_compute_vswr_only(void)
 
 	fitness_config_init(&cfg);
 
-	/* Disable gain, keep only VSWR */
-	cfg.obj[FIT_GAIN_MAX].enabled = 0;
+	/* Disable gain (obj[1]), keep only VSWR (obj[0]) */
+	cfg.obj[1].enabled = 0;
 
 	build_meas(4, MEAS_VSWR, vswr_vals, meas);
 
@@ -207,6 +269,8 @@ static void test_compute_vswr_only(void)
 	 */
 	expected = 5.0 * (1.0 + pow(2.0/1.5, 2.0) + pow(1.8/1.5, 2.0) + 1.0) / 4.0;
 	ASSERT_NEAR(result, expected, 1e-6, "VSWR-only compute");
+
+	fitness_config_free(&cfg);
 }
 
 /*------------------------------------------------------------------------*/
@@ -222,8 +286,8 @@ static void test_compute_gain_only(void)
 
 	fitness_config_init(&cfg);
 
-	/* Disable VSWR, keep only gain */
-	cfg.obj[FIT_VSWR].enabled = 0;
+	/* Disable VSWR (obj[0]), keep only gain (obj[1]) */
+	cfg.obj[0].enabled = 0;
 
 	build_meas(3, MEAS_GAIN_MAX, gain_vals, meas);
 
@@ -238,6 +302,8 @@ static void test_compute_gain_only(void)
 	 */
 	expected = 10.0 * (pow(8.0/8.0, 0.5) + pow(8.0/10.0, 0.5) + pow(8.0/6.0, 0.5)) / 3.0;
 	ASSERT_NEAR(result, expected, 1e-6, "GAIN-only compute");
+
+	fitness_config_free(&cfg);
 }
 
 /*------------------------------------------------------------------------*/
@@ -276,6 +342,8 @@ static void test_compute_combined(void)
 	gain_contrib = 10.0 * (pow(8.0/8.0, 0.5) + pow(8.0/10.0, 0.5)) / 2.0;
 
 	ASSERT_NEAR(result, vswr_contrib + gain_contrib, 1e-6, "combined VSWR+gain");
+
+	fitness_config_free(&cfg);
 }
 
 /*------------------------------------------------------------------------*/
@@ -290,7 +358,7 @@ static void test_compute_mhz_range(void)
 	double result_band;
 
 	fitness_config_init(&cfg);
-	cfg.obj[FIT_GAIN_MAX].enabled = 0;
+	cfg.obj[1].enabled = 0;
 
 	build_meas(5, MEAS_VSWR, vswr_vals, meas);
 
@@ -298,13 +366,15 @@ static void test_compute_mhz_range(void)
 	result_all = fitness_compute(&cfg, meas, 5, freq);
 
 	/* Restrict to 144-148 MHz */
-	cfg.obj[FIT_VSWR].mhz_min = 144.0;
-	cfg.obj[FIT_VSWR].mhz_max = 148.0;
+	cfg.obj[0].mhz_min = 144.0;
+	cfg.obj[0].mhz_max = 148.0;
 
 	result_band = fitness_compute(&cfg, meas, 5, freq);
 
 	/* Band result excludes the 5.0 VSWR outliers */
 	ASSERT_TRUE(result_band < result_all, "MHz range excludes outliers");
+
+	fitness_config_free(&cfg);
 }
 
 /*------------------------------------------------------------------------*/
@@ -315,14 +385,13 @@ static void test_compute_invalid_measurements(void)
 	measurement_t meas[3];
 	double freq[3] = { 144.0, 146.0, 148.0 };
 	double result;
-
-	fitness_config_init(&cfg);
-	cfg.obj[FIT_GAIN_MAX].enabled = 0;
-
-	/* All fields set to -1 (invalid sentinel) */
 	int i;
 	int j;
 
+	fitness_config_init(&cfg);
+	cfg.obj[1].enabled = 0;
+
+	/* All fields set to -1 (invalid sentinel) */
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < MEAS_COUNT; j++)
@@ -335,6 +404,8 @@ static void test_compute_invalid_measurements(void)
 
 	/* No valid steps: result is 0 (no contributions) */
 	ASSERT_NEAR(result, 0.0, 1e-10, "all invalid measurements yield 0");
+
+	fitness_config_free(&cfg);
 }
 
 /*------------------------------------------------------------------------*/
@@ -346,31 +417,41 @@ static void test_reduce_diff(void)
 	double freq[4] = { 144.0, 145.0, 146.0, 147.0 };
 	double gain_vals[4] = { 6.0, 8.0, 10.0, 7.0 };
 	double result;
+	fitness_objective_t *obj;
 
 	fitness_config_init(&cfg);
 
-	/* Enable only gain flatness with diff reduce */
-	cfg.obj[FIT_VSWR].enabled = 0;
-	cfg.obj[FIT_GAIN_MAX].enabled = 0;
-	cfg.obj[FIT_GAIN_FLAT].enabled = 1;
+	/* Disable defaults, add gain_max with diff reduce (gain flatness) */
+	cfg.obj[0].enabled = 0;
+	cfg.obj[1].enabled = 0;
+
+	obj = fitness_config_add(&cfg, MEAS_GAIN_MAX);
+	obj->enabled = 1;
+	obj->direction = FIT_DIR_MINIMIZE;
+	obj->reduce = FIT_REDUCE_DIFF;
+	obj->target = 3.0;
+	obj->weight = 1.0;
+	obj->exponent = 1.0;
 
 	build_meas(4, MEAS_GAIN_MAX, gain_vals, meas);
 
 	result = fitness_compute(&cfg, meas, 4, freq);
 
 	/* diff reduce: max - min of transformed values
-	 * FIT_GAIN_FLAT uses MINIMIZE direction, target=3.0, exp=1.0
+	 * MINIMIZE direction, target=3.0, exp=1.0
 	 * transformed: 6/3=2.0, 8/3=2.667, 10/3=3.333, 7/3=2.333
 	 * diff = 3.333 - 2.0 = 1.333
 	 * weight = 1.0 * 1.333
 	 */
-	double t0 = 6.0 / 3.0;
-	double t1 = 8.0 / 3.0;
-	double t2 = 10.0 / 3.0;
-	double t3 = 7.0 / 3.0;
-	double expected = 1.0 * (t2 - t0);
+	{
+		double t0 = 6.0 / 3.0;
+		double t2 = 10.0 / 3.0;
+		double expected = 1.0 * (t2 - t0);
 
-	ASSERT_NEAR(result, expected, 1e-6, "diff reduce for gain flatness");
+		ASSERT_NEAR(result, expected, 1e-6, "diff reduce for gain flatness");
+	}
+
+	fitness_config_free(&cfg);
 }
 
 /*------------------------------------------------------------------------*/
@@ -385,8 +466,8 @@ static void test_reduce_max(void)
 	double expected;
 
 	fitness_config_init(&cfg);
-	cfg.obj[FIT_GAIN_MAX].enabled = 0;
-	cfg.obj[FIT_VSWR].reduce = FIT_REDUCE_MAX;
+	cfg.obj[1].enabled = 0;
+	cfg.obj[0].reduce = FIT_REDUCE_MAX;
 
 	build_meas(3, MEAS_VSWR, vswr_vals, meas);
 
@@ -396,23 +477,24 @@ static void test_reduce_max(void)
 	expected = 5.0 * pow(3.0 / 1.5, 2.0);
 
 	ASSERT_NEAR(result, expected, 1e-6, "max reduce picks worst VSWR");
+
+	fitness_config_free(&cfg);
 }
 
 /*------------------------------------------------------------------------*/
 
-static void test_metric_info_table(void)
+static void test_defaults_table(void)
 {
 	int i;
 
-	for (i = 0; i < FIT_METRIC_COUNT; i++)
+	/* Verify all measurement defaults have sensible values */
+	for (i = 0; i < MEAS_COUNT; i++)
 	{
-		ASSERT_TRUE(fitness_metric_info[i].name != NULL,
-			"metric_info name non-NULL");
-		ASSERT_TRUE(fitness_metric_info[i].metric == i,
-			"metric_info index matches enum");
-		ASSERT_TRUE(fitness_metric_info[i].meas_index >= 0 &&
-			fitness_metric_info[i].meas_index < MEAS_COUNT,
-			"metric_info meas_index in range");
+		ASSERT_TRUE(meas_fitness_defaults[i].default_exponent > 0.0,
+			"default exponent positive");
+		ASSERT_TRUE(meas_fitness_defaults[i].default_reduce >= 0
+			&& meas_fitness_defaults[i].default_reduce < FIT_REDUCE_COUNT,
+			"default reduce in range");
 	}
 
 	/* Verify reduce names table */
@@ -421,6 +503,8 @@ static void test_metric_info_table(void)
 		ASSERT_TRUE(fitness_reduce_names[i] != NULL,
 			"reduce name non-NULL");
 	}
+
+	/* meas_names and meas_descriptions are tested via measurements_test */
 }
 
 /*------------------------------------------------------------------------*/
@@ -434,14 +518,58 @@ static void test_zero_weight_skipped(void)
 	double result;
 
 	fitness_config_init(&cfg);
-	cfg.obj[FIT_GAIN_MAX].enabled = 0;
-	cfg.obj[FIT_VSWR].weight = 0.0;
+	cfg.obj[1].enabled = 0;
+	cfg.obj[0].weight = 0.0;
 
 	build_meas(2, MEAS_VSWR, vswr_vals, meas);
 
 	result = fitness_compute(&cfg, meas, 2, freq);
 
 	ASSERT_NEAR(result, 0.0, 1e-10, "zero weight contributes nothing");
+
+	fitness_config_free(&cfg);
+}
+
+/*------------------------------------------------------------------------*/
+
+static void test_duplicate_measurement(void)
+{
+	fitness_config_t cfg;
+	measurement_t meas[3];
+	double freq[3] = { 144.0, 146.0, 148.0 };
+	double vswr_vals[3] = { 1.5, 3.0, 1.8 };
+	double result;
+	double avg_contrib;
+	double max_contrib;
+	fitness_objective_t *obj;
+
+	fitness_config_init(&cfg);
+
+	/* Disable gain_max */
+	cfg.obj[1].enabled = 0;
+
+	/* Add second VSWR objective with max reduce and different target */
+	obj = fitness_config_add(&cfg, MEAS_VSWR);
+	obj->enabled = 1;
+	obj->reduce = FIT_REDUCE_MAX;
+	obj->target = 2.0;
+	obj->weight = 8.0;
+	obj->exponent = 2.0;
+
+	build_meas(3, MEAS_VSWR, vswr_vals, meas);
+
+	result = fitness_compute(&cfg, meas, 3, freq);
+
+	/* First VSWR: avg reduce, target=1.5, weight=5, exp=2 */
+	avg_contrib = 5.0 * (pow(1.5/1.5, 2.0) + pow(3.0/1.5, 2.0) + pow(1.8/1.5, 2.0)) / 3.0;
+
+	/* Second VSWR: max reduce, target=2.0, weight=8, exp=2 */
+	max_contrib = 8.0 * pow(3.0/2.0, 2.0);
+
+	ASSERT_NEAR(result, avg_contrib + max_contrib, 1e-6,
+		"duplicate VSWR with different reduce/target");
+
+	fitness_config_free(&cfg);
 }
 
 /*------------------------------------------------------------------------*/
@@ -454,6 +582,8 @@ int main(void)
 	test_transform_maximize();
 	test_transform_deviate();
 	test_config_init();
+	test_config_add_remove();
+	test_config_copy();
 	test_compute_vswr_only();
 	test_compute_gain_only();
 	test_compute_combined();
@@ -461,8 +591,9 @@ int main(void)
 	test_compute_invalid_measurements();
 	test_reduce_diff();
 	test_reduce_max();
-	test_metric_info_table();
+	test_defaults_table();
 	test_zero_weight_skipped();
+	test_duplicate_measurement();
 
 	printf("\nopt_fitness_test: %d tests, %d passed, %d failed\n",
 		tests_run, tests_passed, tests_failed);

@@ -36,6 +36,7 @@ static double opt_fitness_callback(const simple_var_t *vars, int num_vars,
 {
 	opt_session_t *session = (opt_session_t *)ctx;
 	int steps;
+	double fitness;
 
 	steps = nec2_eval_run(vars, num_vars,
 		session->meas, OPT_MAX_FREQ_STEPS);
@@ -48,8 +49,27 @@ static double opt_fitness_callback(const simple_var_t *vars, int num_vars,
 	session->num_steps = steps;
 	nec2_eval_get_freq(session->freq, OPT_MAX_FREQ_STEPS);
 
-	return fitness_compute(&session->fitness_cfg,
+	fitness = fitness_compute(&session->fitness_cfg,
 		session->meas, steps, session->freq);
+
+	/* Snapshot measurements when this evaluation improves on the
+	 * best snapshot seen so far.  Uses best_snap_fitness rather
+	 * than best_fitness which is only updated by the log callback
+	 * once per iteration and would allow worse evals to overwrite. */
+	if (fitness < session->best_snap_fitness)
+	{
+		g_mutex_lock(&session->best_lock);
+		memcpy(session->best_meas, session->meas,
+			steps * sizeof(measurement_t));
+		memcpy(session->best_freq, session->freq,
+			steps * sizeof(double));
+		session->best_num_steps = steps;
+		session->best_snap_fitness = fitness;
+		session->has_best_meas = TRUE;
+		g_mutex_unlock(&session->best_lock);
+	}
+
+	return fitness;
 }
 
 /*------------------------------------------------------------------------*/
@@ -130,7 +150,7 @@ int opt_start(simple_var_t *vars, int num_vars,
 	enum optimizer_algo algo, const opt_algo_params_t *algo_params,
 	int max_iter, int stagnant_count, double stagnant_tol)
 {
-	opt_session_t *session;
+	opt_session_t *session = NULL;
 	int ret;
 
 	if (active_session != NULL && active_session->running)
@@ -143,18 +163,22 @@ int opt_start(simple_var_t *vars, int num_vars,
 	if (active_session != NULL)
 	{
 		simple_free(active_session->simple);
+		fitness_config_free(&active_session->fitness_cfg);
 		if (active_session->simple_cfg.algorithm == OPT_SIMPLEX)
 		{
-			g_free(active_session->simple_cfg.opts.simplex.ssize);
+			free_ptr((void **)&active_session->simple_cfg.opts.simplex.ssize);
 		}
-		g_free(active_session);
+		g_mutex_clear(&active_session->best_lock);
+		free_ptr((void **)&active_session);
 		active_session = NULL;
 	}
 
-	session = g_new0(opt_session_t, 1);
-	session->fitness_cfg = *fitness_cfg;
+	mem_alloc((void **)&session, sizeof(opt_session_t), __LOCATION__);
+	g_mutex_init(&session->best_lock);
+	fitness_config_copy(&session->fitness_cfg, fitness_cfg);
 	session->running = TRUE;
 	session->best_fitness = INFINITY;
+	session->best_snap_fitness = INFINITY;
 
 	/* Configure simple optimizer */
 	simple_config_init(&session->simple_cfg, algo);
@@ -178,9 +202,11 @@ int opt_start(simple_var_t *vars, int num_vars,
 		if (algo_params->simplex.ssize != NULL
 			&& algo_params->simplex.num_ssize > 0)
 		{
-			double *ssize_copy;
+			double *ssize_copy = NULL;
 
-			ssize_copy = g_new(double, algo_params->simplex.num_ssize);
+			mem_alloc((void **)&ssize_copy,
+				algo_params->simplex.num_ssize * sizeof(double),
+				__LOCATION__);
 			memcpy(ssize_copy, algo_params->simplex.ssize,
 				algo_params->simplex.num_ssize * sizeof(double));
 			session->simple_cfg.opts.simplex.ssize = ssize_copy;
@@ -219,9 +245,9 @@ cleanup:
 	session->running = FALSE;
 	if (algo == OPT_SIMPLEX)
 	{
-		g_free(session->simple_cfg.opts.simplex.ssize);
+		free_ptr((void **)&session->simple_cfg.opts.simplex.ssize);
 	}
-	g_free(session);
+	free_ptr((void **)&session);
 	return -1;
 }
 
@@ -283,6 +309,48 @@ const simple_log_state_t *opt_get_log_state(void)
 	}
 
 	return &active_session->last_log;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * opt_get_best_measurements - copy best-so-far measurements via trylock
+ * @meas_out: caller buffer, at least OPT_MAX_FREQ_STEPS entries
+ * @freq_out: caller buffer, at least OPT_MAX_FREQ_STEPS entries
+ * @num_steps_out: receives number of valid entries copied
+ *
+ * Non-blocking: uses g_mutex_trylock so the GTK main thread never
+ * stalls waiting on the optimizer thread.
+ */
+gboolean opt_get_best_measurements(measurement_t *meas_out,
+	double *freq_out, int *num_steps_out)
+{
+	opt_session_t *s = active_session;
+
+	if (s == NULL)
+	{
+		return FALSE;
+	}
+
+	if (!g_mutex_trylock(&s->best_lock))
+	{
+		return FALSE;
+	}
+
+	if (!s->has_best_meas || s->best_num_steps <= 0)
+	{
+		g_mutex_unlock(&s->best_lock);
+		return FALSE;
+	}
+
+	int n = s->best_num_steps;
+
+	memcpy(meas_out, s->best_meas, n * sizeof(measurement_t));
+	memcpy(freq_out, s->best_freq, n * sizeof(double));
+	*num_steps_out = n;
+
+	g_mutex_unlock(&s->best_lock);
+	return TRUE;
 }
 
 /*------------------------------------------------------------------------*/

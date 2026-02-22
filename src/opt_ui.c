@@ -14,22 +14,40 @@
 #include "sy_overrides.h"
 #include "shared.h"
 
-/* Per-metric row widgets */
+/* Column indices for goal row widget array.
+ * Order matches the computation pipeline left-to-right:
+ * Measurement -> Transform(Target, Exp) -> Reduce -> Weight */
+enum goal_row_col
+{
+	GR_ENABLED,
+	GR_METRIC,
+	GR_VALUE,
+	GR_TRANSFORM,
+	GR_TARGET,
+	GR_EXP,
+	GR_REDUCE,
+	GR_WEIGHT,
+	GR_MHZ_MIN,
+	GR_MHZ_MAX,
+	GR_SCORE,
+	GR_REMOVE,
+
+	GR_NUM_COLS
+};
+
+/* Per-objective row widgets, indexed by goal_row_col */
 typedef struct
 {
-	GtkWidget *enabled_check;
-	GtkWidget *weight_entry;
-	GtkWidget *exp_entry;
-	GtkWidget *target_entry;
-	GtkWidget *reduce_combo;
-	GtkWidget *mhz_min_entry;
-	GtkWidget *mhz_max_entry;
+	GtkWidget *w[GR_NUM_COLS];
 } opt_goal_row_t;
+
+/* Dynamic goal row list */
+static GList *goal_row_list = NULL;
 
 /* Panel state — all widgets owned by builder, not freed here */
 static GtkWidget *opt_expander = NULL;
 static GtkWidget *goals_container = NULL;
-static opt_goal_row_t goal_rows[FIT_METRIC_COUNT];
+static GtkWidget *goals_grid = NULL;
 static GtkWidget *algo_combo = NULL;
 
 /* Simplex-specific */
@@ -63,14 +81,30 @@ static GtkWidget *status_label = NULL;
 static GtkWidget *formula_display = NULL;
 static GtkWidget *formula_help_button = NULL;
 
+/* Cached formula markup (expression only, without score suffix) */
+static GString *formula_base_markup = NULL;
+
 /* Forward declarations */
 static void on_opt_start_clicked(GtkButton *button, gpointer user_data);
 static void on_opt_cancel_clicked(GtkButton *button, gpointer user_data);
 static void on_algo_changed(GtkComboBox *combo, gpointer user_data);
 static void on_opt_formula_help_clicked(GtkButton *button, gpointer user_data);
 static void on_goal_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+static void on_add_metric_clicked(GtkButton *button, gpointer user_data);
+static void on_remove_row_clicked(GtkButton *button, gpointer user_data);
+static void on_metric_changed(GtkComboBox *combo, gpointer user_data);
+static void on_goal_param_changed(GtkWidget *widget, gpointer user_data);
 static gboolean check_opt_complete(gpointer user_data);
+static void set_formula_with_score(double total_score);
+static gboolean read_objective_from_row(opt_goal_row_t *gr,
+	fitness_objective_t *obj);
+static double update_goal_rows(const measurement_t *meas,
+	const double *freq, int steps);
 static void opt_ui_update_formula(void);
+
+/* Pre-allocated buffers for timer-driven best-measurement display */
+static measurement_t *timer_meas = NULL;
+static double *timer_freq = NULL;
 
 /*------------------------------------------------------------------------*/
 
@@ -123,34 +157,274 @@ static GtkWidget *make_entry(const gchar *text, gint width)
 #define OPT_UI_ENTRY_WIDTH 8
 
 /**
- * build_goals_grid - create fitness goals grid and pack into container
+ * metric_combo_index_to_meas - map combo box index to MEASUREMENT_INDEXES
  *
- * Programmatically builds one row per fitness_metric_info[] entry.
+ * The dropdown skips MEAS_MHZ (index 0), so combo index 0 = MEAS_ZREAL (1).
+ */
+static int metric_combo_index_to_meas(int combo_idx)
+{
+	return combo_idx + 1;
+}
+
+/**
+ * meas_to_metric_combo_index - map MEASUREMENT_INDEXES to combo box index
+ */
+static int meas_to_metric_combo_index(int meas_index)
+{
+	return meas_index - 1;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * rebuild_grid_rows - remove all rows from grid and re-add from list
+ *
+ * Row 0 is always the header.  Goal rows start at row 1.
+ * The add-metric button is placed after the last row.
+ */
+static void rebuild_grid_rows(void)
+{
+	GList *iter;
+	int row;
+	int col;
+
+	if (goals_grid == NULL)
+	{
+		return;
+	}
+
+	/* Remove all goal row widgets from grid (header stays at row 0) */
+	for (iter = goal_row_list; iter != NULL; iter = iter->next)
+	{
+		opt_goal_row_t *gr = (opt_goal_row_t *)iter->data;
+
+		for (col = 0; col < GR_NUM_COLS; col++)
+		{
+			g_object_ref(gr->w[col]);
+			gtk_container_remove(GTK_CONTAINER(goals_grid), gr->w[col]);
+		}
+	}
+
+	/* Re-attach in order */
+	row = 1;
+	for (iter = goal_row_list; iter != NULL; iter = iter->next)
+	{
+		opt_goal_row_t *gr = (opt_goal_row_t *)iter->data;
+
+		for (col = 0; col < GR_NUM_COLS; col++)
+		{
+			gtk_grid_attach(GTK_GRID(goals_grid),
+				gr->w[col], col, row, 1, 1);
+			g_object_unref(gr->w[col]);
+		}
+
+		row++;
+	}
+
+	gtk_widget_show_all(goals_grid);
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * create_goal_row - allocate and populate a goal row for a measurement
+ * @meas_index: MEASUREMENT_INDEXES value
+ * @enabled: whether the checkbox starts active
+ *
+ * Creates all widgets, connects signals, sets defaults from
+ * meas_fitness_defaults[].
+ */
+static opt_goal_row_t *create_goal_row(int meas_index, int enabled)
+{
+	opt_goal_row_t *gr = NULL;
+	const meas_fitness_default_t *def;
+	gchar buf[32];
+	int i;
+
+	mem_alloc((void **)&gr, sizeof(opt_goal_row_t), __LOCATION__);
+	def = &meas_fitness_defaults[meas_index];
+
+	/* Enabled checkbox */
+	gr->w[GR_ENABLED] = gtk_check_button_new();
+	gtk_toggle_button_set_active(
+		GTK_TOGGLE_BUTTON(gr->w[GR_ENABLED]), enabled);
+	g_signal_connect(gr->w[GR_ENABLED], "toggled",
+		G_CALLBACK(on_goal_toggled), NULL);
+
+	/* Measurement dropdown (skips MEAS_MHZ) */
+	gr->w[GR_METRIC] = gtk_combo_box_text_new();
+	for (i = 1; i < MEAS_COUNT; i++)
+	{
+		gtk_combo_box_text_append_text(
+			GTK_COMBO_BOX_TEXT(gr->w[GR_METRIC]),
+			meas_display_names[i]);
+	}
+	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_METRIC]),
+		meas_to_metric_combo_index(meas_index));
+	gtk_widget_set_tooltip_text(gr->w[GR_METRIC],
+		meas_descriptions[meas_index]);
+	g_signal_connect(gr->w[GR_METRIC], "changed",
+		G_CALLBACK(on_metric_changed), gr);
+
+	/* Value display (read-only, shows current NEC2 value) */
+	gr->w[GR_VALUE] = gtk_label_new("\xe2\x80\x94");
+	gtk_label_set_xalign(GTK_LABEL(gr->w[GR_VALUE]), 1.0);
+	gtk_label_set_width_chars(GTK_LABEL(gr->w[GR_VALUE]), OPT_UI_ENTRY_WIDTH);
+	gtk_widget_set_tooltip_text(gr->w[GR_VALUE],
+		"Current NEC2 value at the frequency spinner position");
+
+	/* Transform dropdown */
+	gr->w[GR_TRANSFORM] = gtk_combo_box_text_new();
+	for (i = 0; i < FIT_DIR_COUNT; i++)
+	{
+		gtk_combo_box_text_append_text(
+			GTK_COMBO_BOX_TEXT(gr->w[GR_TRANSFORM]),
+			fitness_direction_names[i]);
+	}
+	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_TRANSFORM]),
+		def->direction);
+	gtk_widget_set_tooltip_text(gr->w[GR_TRANSFORM],
+		fitness_direction_tooltips[def->direction]);
+	g_signal_connect(gr->w[GR_TRANSFORM], "changed",
+		G_CALLBACK(on_goal_param_changed), gr);
+
+	/* Target */
+	snprintf(buf, sizeof(buf), "%.4g", def->default_target);
+	gr->w[GR_TARGET] = make_entry(buf, OPT_UI_ENTRY_WIDTH);
+	gtk_widget_set_tooltip_text(gr->w[GR_TARGET],
+		"Goal value for the measurement");
+	g_signal_connect(gr->w[GR_TARGET], "changed",
+		G_CALLBACK(on_goal_param_changed), gr);
+
+	/* Exponent */
+	snprintf(buf, sizeof(buf), "%.4g", def->default_exponent);
+	gr->w[GR_EXP] = make_entry(buf, OPT_UI_ENTRY_WIDTH);
+	gtk_widget_set_tooltip_text(gr->w[GR_EXP],
+		"Exponent applied to the transform result");
+	g_signal_connect(gr->w[GR_EXP], "changed",
+		G_CALLBACK(on_goal_param_changed), gr);
+
+	/* Reduce combo */
+	gr->w[GR_REDUCE] = gtk_combo_box_text_new();
+	for (i = 0; i < FIT_REDUCE_COUNT; i++)
+	{
+		gtk_combo_box_text_append_text(
+			GTK_COMBO_BOX_TEXT(gr->w[GR_REDUCE]),
+			fitness_reduce_names[i]);
+	}
+	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_REDUCE]),
+		def->default_reduce);
+	gtk_widget_set_tooltip_text(gr->w[GR_REDUCE],
+		fitness_reduce_tooltips[def->default_reduce]);
+	g_signal_connect(gr->w[GR_REDUCE], "changed",
+		G_CALLBACK(on_goal_param_changed), gr);
+
+	/* Weight */
+	snprintf(buf, sizeof(buf), "%.4g", def->default_weight);
+	gr->w[GR_WEIGHT] = make_entry(buf, OPT_UI_ENTRY_WIDTH);
+	gtk_widget_set_tooltip_text(gr->w[GR_WEIGHT],
+		"Multiplier applied after reduction");
+	g_signal_connect(gr->w[GR_WEIGHT], "changed",
+		G_CALLBACK(on_goal_param_changed), gr);
+
+	/* MHz min */
+	gr->w[GR_MHZ_MIN] = make_entry("", OPT_UI_ENTRY_WIDTH);
+	gtk_widget_set_tooltip_text(gr->w[GR_MHZ_MIN],
+		"Lower frequency bound (empty = all frequencies)");
+	g_signal_connect(gr->w[GR_MHZ_MIN], "changed",
+		G_CALLBACK(on_goal_param_changed), gr);
+
+	/* MHz max */
+	gr->w[GR_MHZ_MAX] = make_entry("", OPT_UI_ENTRY_WIDTH);
+	gtk_widget_set_tooltip_text(gr->w[GR_MHZ_MAX],
+		"Upper frequency bound (empty = all frequencies)");
+	g_signal_connect(gr->w[GR_MHZ_MAX], "changed",
+		G_CALLBACK(on_goal_param_changed), gr);
+
+	/* Score display (read-only, shows weight * reduce(transform(...))) */
+	gr->w[GR_SCORE] = gtk_label_new("\xe2\x80\x94");
+	gtk_label_set_xalign(GTK_LABEL(gr->w[GR_SCORE]), 1.0);
+	gtk_label_set_width_chars(GTK_LABEL(gr->w[GR_SCORE]), OPT_UI_ENTRY_WIDTH);
+	gtk_widget_set_tooltip_text(gr->w[GR_SCORE],
+		"Computed: weight \xc3\x97 reduce(transform(value, target, exp))");
+
+	/* Remove button */
+	gr->w[GR_REMOVE] = gtk_button_new_with_label("\xe2\x88\x92");
+	gtk_widget_set_tooltip_text(gr->w[GR_REMOVE], "Remove this objective");
+	g_signal_connect(gr->w[GR_REMOVE], "clicked",
+		G_CALLBACK(on_remove_row_clicked), gr);
+
+	return gr;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * destroy_goal_row - free a goal row and its widgets
+ */
+static void destroy_goal_row(opt_goal_row_t *gr)
+{
+	int col;
+
+	for (col = 0; col < GR_NUM_COLS; col++)
+	{
+		gtk_widget_destroy(gr->w[col]);
+	}
+
+	free_ptr((void **)&gr);
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * add_goal_row - create a row and append to the dynamic list
+ * @meas_index: MEASUREMENT_INDEXES value
+ * @enabled: whether the checkbox starts active
+ */
+static void add_goal_row(int meas_index, int enabled)
+{
+	opt_goal_row_t *gr;
+
+	gr = create_goal_row(meas_index, enabled);
+	goal_row_list = g_list_append(goal_row_list, gr);
+	rebuild_grid_rows();
+	opt_ui_update_formula();
+	opt_ui_update_values();
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * build_goals_grid - create fitness goals grid header and default rows
  */
 static void build_goals_grid(void)
 {
-	GtkWidget *grid;
 	GtkWidget *label;
-	gchar buf[32];
-	int m;
-	int row;
-	fitness_config_t defaults;
+	GtkWidget *add_button;
 
-	fitness_config_init(&defaults);
+	goals_grid = gtk_grid_new();
+	gtk_grid_set_row_spacing(GTK_GRID(goals_grid), 2);
+	gtk_grid_set_column_spacing(GTK_GRID(goals_grid), 4);
 
-	grid = gtk_grid_new();
-	gtk_grid_set_row_spacing(GTK_GRID(grid), 2);
-	gtk_grid_set_column_spacing(GTK_GRID(grid), 4);
-
-	/* Header row */
+	/* Header row — arrows show the computation pipeline */
 	{
-		const gchar *headers[] = {
-			"\u2713", "Metric", "Weight", "Exp",
-			"Target", "Reduce", "MHz min", "MHz max"
+		const gchar *headers[GR_NUM_COLS] = {
+			[GR_ENABLED]   = "\u2713",
+			[GR_METRIC]    = "Measurement",
+			[GR_VALUE]     = "Value",
+			[GR_TRANSFORM] = "Transform \xe2\x86\x92",
+			[GR_TARGET]    = "Target",
+			[GR_EXP]       = "Exp \xe2\x86\x92",
+			[GR_REDUCE]    = "Reduce \xe2\x86\x92",
+			[GR_WEIGHT]    = "Weight",
+			[GR_MHZ_MIN]   = "MHz lo",
+			[GR_MHZ_MAX]   = "MHz hi \xe2\x86\x92",
+			[GR_SCORE]     = "Score",
+			[GR_REMOVE]    = "",
 		};
 		int col;
 
-		for (col = 0; col < 8; col++)
+		for (col = 0; col < GR_NUM_COLS; col++)
 		{
 			gchar *markup;
 
@@ -159,90 +433,22 @@ static void build_goals_grid(void)
 				"<b><u>%s</u></b>", headers[col]);
 			gtk_label_set_markup(GTK_LABEL(label), markup);
 			g_free(markup);
-			gtk_grid_attach(GTK_GRID(grid), label, col, 0, 1, 1);
+			gtk_grid_attach(GTK_GRID(goals_grid), label, col, 0, 1, 1);
 		}
 	}
 
-	/* One row per metric */
-	for (m = 0; m < FIT_METRIC_COUNT; m++)
-	{
-		const fitness_metric_info_t *info = &fitness_metric_info[m];
-		opt_goal_row_t *gr = &goal_rows[m];
-		int col;
+	/* Default rows: VSWR, gain_max */
+	add_goal_row(MEAS_VSWR, 1);
+	add_goal_row(MEAS_GAIN_MAX, 1);
 
-		row = m + 1;
+	/* Add-metric button below the grid */
+	add_button = gtk_button_new_with_label("+ Add Metric");
+	g_signal_connect(add_button, "clicked",
+		G_CALLBACK(on_add_metric_clicked), NULL);
 
-		/* Enabled checkbox */
-		col = 0;
-		gr->enabled_check = gtk_check_button_new();
-		gtk_toggle_button_set_active(
-			GTK_TOGGLE_BUTTON(gr->enabled_check),
-			defaults.obj[m].enabled);
-		g_signal_connect(gr->enabled_check, "toggled",
-			G_CALLBACK(on_goal_toggled), NULL);
-		gtk_grid_attach(GTK_GRID(grid), gr->enabled_check,
-			col, row, 1, 1);
-
-		/* Metric name */
-		col = 1;
-		label = gtk_label_new(info->name);
-		gtk_label_set_xalign(GTK_LABEL(label), 0.0);
-		gtk_grid_attach(GTK_GRID(grid), label, col, row, 1, 1);
-
-		/* Weight */
-		col = 2;
-		snprintf(buf, sizeof(buf), "%.4g", info->default_weight);
-		gr->weight_entry = make_entry(buf, OPT_UI_ENTRY_WIDTH);
-		gtk_grid_attach(GTK_GRID(grid), gr->weight_entry,
-			col, row, 1, 1);
-
-		/* Exponent */
-		col = 3;
-		snprintf(buf, sizeof(buf), "%.4g", info->default_exponent);
-		gr->exp_entry = make_entry(buf, OPT_UI_ENTRY_WIDTH);
-		gtk_grid_attach(GTK_GRID(grid), gr->exp_entry,
-			col, row, 1, 1);
-
-		/* Target */
-		col = 4;
-		snprintf(buf, sizeof(buf), "%.4g", info->default_target);
-		gr->target_entry = make_entry(buf, OPT_UI_ENTRY_WIDTH);
-		gtk_grid_attach(GTK_GRID(grid), gr->target_entry,
-			col, row, 1, 1);
-
-		/* Reduce combo */
-		col = 5;
-		gr->reduce_combo = gtk_combo_box_text_new();
-		{
-			int r;
-
-			for (r = 0; r < FIT_REDUCE_COUNT; r++)
-			{
-				gtk_combo_box_text_append_text(
-					GTK_COMBO_BOX_TEXT(gr->reduce_combo),
-					fitness_reduce_names[r]);
-			}
-		}
-		gtk_combo_box_set_active(GTK_COMBO_BOX(gr->reduce_combo),
-			info->default_reduce);
-		gtk_grid_attach(GTK_GRID(grid), gr->reduce_combo,
-			col, row, 1, 1);
-
-		/* MHz min */
-		col = 6;
-		gr->mhz_min_entry = make_entry("", OPT_UI_ENTRY_WIDTH);
-		gtk_grid_attach(GTK_GRID(grid), gr->mhz_min_entry,
-			col, row, 1, 1);
-
-		/* MHz max */
-		col = 7;
-		gr->mhz_max_entry = make_entry("", OPT_UI_ENTRY_WIDTH);
-		gtk_grid_attach(GTK_GRID(grid), gr->mhz_max_entry,
-			col, row, 1, 1);
-	}
-
-	gtk_box_pack_start(GTK_BOX(goals_container), grid, FALSE, FALSE, 0);
-	gtk_widget_show_all(grid);
+	gtk_box_pack_start(GTK_BOX(goals_container), goals_grid, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(goals_container), add_button, FALSE, FALSE, 4);
+	gtk_widget_show_all(goals_container);
 }
 
 /*------------------------------------------------------------------------*/
@@ -311,6 +517,12 @@ void opt_ui_init(GtkBuilder *builder)
 	g_signal_connect(formula_help_button, "clicked",
 		G_CALLBACK(on_opt_formula_help_clicked), NULL);
 
+	/* Pre-allocate buffers for timer-driven best-measurement display */
+	mem_alloc((void **)&timer_meas,
+		OPT_MAX_FREQ_STEPS * sizeof(measurement_t), __LOCATION__);
+	mem_alloc((void **)&timer_freq,
+		OPT_MAX_FREQ_STEPS * sizeof(double), __LOCATION__);
+
 	/* Initialize formula display */
 	opt_ui_update_formula();
 }
@@ -322,8 +534,18 @@ void opt_ui_init(GtkBuilder *builder)
  */
 void opt_ui_cleanup(void)
 {
+	GList *iter;
+
+	for (iter = goal_row_list; iter != NULL; iter = iter->next)
+	{
+		destroy_goal_row((opt_goal_row_t *)iter->data);
+	}
+	g_list_free(goal_row_list);
+	goal_row_list = NULL;
+
 	opt_expander = NULL;
 	goals_container = NULL;
+	goals_grid = NULL;
 	algo_combo = NULL;
 	ssize_entry = NULL;
 	simplex_label = NULL;
@@ -347,7 +569,14 @@ void opt_ui_cleanup(void)
 	formula_display = NULL;
 	formula_help_button = NULL;
 
-	memset(goal_rows, 0, sizeof(goal_rows));
+	if (formula_base_markup != NULL)
+	{
+		g_string_free(formula_base_markup, TRUE);
+		formula_base_markup = NULL;
+	}
+
+	free_ptr((void **)&timer_meas);
+	free_ptr((void **)&timer_freq);
 }
 
 /*------------------------------------------------------------------------*/
@@ -357,23 +586,26 @@ void opt_ui_cleanup(void)
  */
 void opt_ui_get_fitness_config(fitness_config_t *cfg)
 {
-	int m;
+	GList *iter;
 
-	fitness_config_init(cfg);
+	memset(cfg, 0, sizeof(*cfg));
+	cfg->obj = NULL;
+	cfg->num_obj = 0;
+	cfg->capacity = 0;
 
-	for (m = 0; m < FIT_METRIC_COUNT; m++)
+	for (iter = goal_row_list; iter != NULL; iter = iter->next)
 	{
-		opt_goal_row_t *gr = &goal_rows[m];
+		opt_goal_row_t *gr = (opt_goal_row_t *)iter->data;
+		fitness_objective_t tmp;
+		fitness_objective_t *obj;
 
-		cfg->obj[m].enabled = gtk_toggle_button_get_active(
-			GTK_TOGGLE_BUTTON(gr->enabled_check));
-		cfg->obj[m].weight = get_entry_double(gr->weight_entry);
-		cfg->obj[m].exponent = get_entry_double(gr->exp_entry);
-		cfg->obj[m].target = get_entry_double(gr->target_entry);
-		cfg->obj[m].reduce = gtk_combo_box_get_active(
-			GTK_COMBO_BOX(gr->reduce_combo));
-		cfg->obj[m].mhz_min = get_entry_double(gr->mhz_min_entry);
-		cfg->obj[m].mhz_max = get_entry_double(gr->mhz_max_entry);
+		if (!read_objective_from_row(gr, &tmp))
+		{
+			continue;
+		}
+
+		obj = fitness_config_add(cfg, tmp.meas_index);
+		*obj = tmp;
 	}
 }
 
@@ -465,7 +697,7 @@ static void on_opt_start_clicked(GtkButton *button, gpointer user_data)
 		int have_goal = 0;
 		int g;
 
-		for (g = 0; g < FIT_METRIC_COUNT; g++)
+		for (g = 0; g < fit_cfg.num_obj; g++)
 		{
 			if (fit_cfg.obj[g].enabled)
 			{
@@ -477,6 +709,7 @@ static void on_opt_start_clicked(GtkButton *button, gpointer user_data)
 		if (!have_goal)
 		{
 			sy_overrides_free_opt_vars(vars, num_vars);
+			fitness_config_free(&fit_cfg);
 			Notice(GTK_BUTTONS_OK, "Optimization",
 				"No fitness goals are enabled.\n"
 				"Check at least one metric in the Fitness Goals grid.");
@@ -555,11 +788,13 @@ static void on_opt_start_clicked(GtkButton *button, gpointer user_data)
 
 	/* vars deep-copied by simple_new inside opt_start; free original */
 	sy_overrides_free_opt_vars(vars, num_vars);
+	fitness_config_free(&fit_cfg);
 
 	if (ret == 0)
 	{
 		gtk_widget_set_sensitive(start_button, FALSE);
 		gtk_widget_set_sensitive(cancel_button, TRUE);
+		sy_overrides_set_apply_enabled(FALSE);
 
 		if (status_label != NULL)
 		{
@@ -591,6 +826,7 @@ static gboolean check_opt_complete(gpointer user_data)
 	/* Optimization finished: update UI */
 	gtk_widget_set_sensitive(start_button, TRUE);
 	gtk_widget_set_sensitive(cancel_button, FALSE);
+	sy_overrides_set_apply_enabled(TRUE);
 
 	/* Apply results back to override entries */
 	{
@@ -631,6 +867,11 @@ static gboolean check_opt_complete(gpointer user_data)
 
 /**
  * opt_ui_update_status - refresh status label from optimizer log state
+ *
+ * Also updates the formula display with the current best fitness
+ * while the optimizer is running, avoiding the heavier
+ * opt_ui_update_values() path that could interfere with the
+ * frequency loop thread's synchronous GTK dispatches.
  */
 void opt_ui_update_status(void)
 {
@@ -658,6 +899,34 @@ void opt_ui_update_status(void)
 		log->cache_hits, log->cache_misses);
 
 	gtk_label_set_text(GTK_LABEL(status_label), buf);
+
+	/* Update per-row Value/Score from best measurement snapshot.
+	 * Uses pre-allocated buffers and trylock to avoid blocking
+	 * the GTK main thread or allocating on each timer tick. */
+	if (opt_is_running() && timer_meas != NULL)
+	{
+		int best_steps;
+		double total;
+
+		if (opt_get_best_measurements(timer_meas, timer_freq,
+			&best_steps))
+		{
+			total = update_goal_rows(timer_meas, timer_freq,
+				best_steps);
+			if (!isnan(total))
+			{
+				set_formula_with_score(total);
+			}
+			else
+			{
+				set_formula_with_score(log->best_minima);
+			}
+		}
+		else
+		{
+			set_formula_with_score(log->best_minima);
+		}
+	}
 }
 
 /*------------------------------------------------------------------------*/
@@ -701,18 +970,186 @@ static void on_goal_toggled(GtkToggleButton *togglebutton, gpointer user_data)
 	(void)user_data;
 
 	opt_ui_update_formula();
+	opt_ui_update_values();
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * on_goal_param_changed - handle any goal parameter widget change
+ *
+ * Triggers formula display refresh when weight, exponent, target,
+ * direction, reduce, or MHz range entries are modified.
+ */
+static void on_goal_param_changed(GtkWidget *widget, gpointer user_data)
+{
+	opt_goal_row_t *gr = (opt_goal_row_t *)user_data;
+	int dir_idx;
+	int red_idx;
+
+	(void)widget;
+
+	/* Update direction and reduce tooltips from current selection */
+	if (gr != NULL)
+	{
+		dir_idx = gtk_combo_box_get_active(
+			GTK_COMBO_BOX(gr->w[GR_TRANSFORM]));
+		if (dir_idx >= 0 && dir_idx < FIT_DIR_COUNT)
+		{
+			gtk_widget_set_tooltip_text(gr->w[GR_TRANSFORM],
+				fitness_direction_tooltips[dir_idx]);
+		}
+
+		red_idx = gtk_combo_box_get_active(
+			GTK_COMBO_BOX(gr->w[GR_REDUCE]));
+		if (red_idx >= 0 && red_idx < FIT_REDUCE_COUNT)
+		{
+			gtk_widget_set_tooltip_text(gr->w[GR_REDUCE],
+				fitness_reduce_tooltips[red_idx]);
+		}
+	}
+
+	opt_ui_update_formula();
+	opt_ui_update_values();
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * on_metric_changed - handle metric dropdown selection change
+ *
+ * Updates tooltip and auto-fills defaults from meas_fitness_defaults[].
+ */
+static void on_metric_changed(GtkComboBox *combo, gpointer user_data)
+{
+	opt_goal_row_t *gr = (opt_goal_row_t *)user_data;
+	int combo_idx;
+	int meas_index;
+	const meas_fitness_default_t *def;
+	gchar buf[32];
+
+	combo_idx = gtk_combo_box_get_active(combo);
+	if (combo_idx < 0)
+	{
+		return;
+	}
+
+	meas_index = metric_combo_index_to_meas(combo_idx);
+	def = &meas_fitness_defaults[meas_index];
+
+	/* Update tooltip to show measurement description */
+	gtk_widget_set_tooltip_text(GTK_WIDGET(combo),
+		meas_descriptions[meas_index]);
+
+	/* Auto-fill defaults */
+	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_TRANSFORM]),
+		def->direction);
+	gtk_widget_set_tooltip_text(gr->w[GR_TRANSFORM],
+		fitness_direction_tooltips[def->direction]);
+
+	snprintf(buf, sizeof(buf), "%.4g", def->default_weight);
+	gtk_entry_set_text(GTK_ENTRY(gr->w[GR_WEIGHT]), buf);
+
+	snprintf(buf, sizeof(buf), "%.4g", def->default_exponent);
+	gtk_entry_set_text(GTK_ENTRY(gr->w[GR_EXP]), buf);
+
+	snprintf(buf, sizeof(buf), "%.4g", def->default_target);
+	gtk_entry_set_text(GTK_ENTRY(gr->w[GR_TARGET]), buf);
+
+	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_REDUCE]),
+		def->default_reduce);
+	gtk_widget_set_tooltip_text(gr->w[GR_REDUCE],
+		fitness_reduce_tooltips[def->default_reduce]);
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * on_add_metric_clicked - add a new metric row with VSWR defaults
+ */
+static void on_add_metric_clicked(GtkButton *button, gpointer user_data)
+{
+	(void)button;
+	(void)user_data;
+
+	add_goal_row(MEAS_VSWR, 0);
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * on_remove_row_clicked - remove the row associated with this button
+ */
+static void on_remove_row_clicked(GtkButton *button, gpointer user_data)
+{
+	opt_goal_row_t *gr = (opt_goal_row_t *)user_data;
+	GList *link;
+
+	(void)button;
+
+	link = g_list_find(goal_row_list, gr);
+	if (link == NULL)
+	{
+		return;
+	}
+
+	goal_row_list = g_list_delete_link(goal_row_list, link);
+	destroy_goal_row(gr);
+	rebuild_grid_rows();
+	opt_ui_update_formula();
+	opt_ui_update_values();
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * set_formula_with_score - set formula label to base markup with score suffix
+ * @total_score: total fitness score, or NAN if unavailable
+ *
+ * Combines the cached formula_base_markup with a score suffix.
+ * When total_score is NAN, shows formula without score.
+ */
+static void set_formula_with_score(double total_score)
+{
+	GString *full;
+
+	if (formula_display == NULL || formula_base_markup == NULL)
+	{
+		return;
+	}
+
+	full = g_string_new(formula_base_markup->str);
+
+	if (!isnan(total_score))
+	{
+		gchar score_str[32];
+
+		snprintf(score_str, sizeof(score_str), "%.6g", total_score);
+		g_string_append_printf(full,
+			" = <b>%s</b>", score_str);
+	}
+
+	g_string_append(full,
+		"\n<small><i>Optimizer minimizes this value</i></small>");
+
+	gtk_label_set_markup(GTK_LABEL(formula_display), full->str);
+	g_string_free(full, TRUE);
 }
 
 /*------------------------------------------------------------------------*/
 
 /**
  * opt_ui_update_formula - update formula display with current enabled goals
+ *
+ * Builds the formula expression markup and caches it in
+ * formula_base_markup.  Calls set_formula_with_score(NAN) to display
+ * the formula without a computed score; the score is appended later
+ * by opt_ui_update_values() when NEC2 data is available.
  */
 static void opt_ui_update_formula(void)
 {
-	GString *markup;
-	int m;
 	int term_count;
+	int m;
 	fitness_config_t cfg;
 
 	if (formula_display == NULL)
@@ -722,19 +1159,24 @@ static void opt_ui_update_formula(void)
 
 	opt_ui_get_fitness_config(&cfg);
 
-	/* Actual values line */
-	markup = g_string_new("<b>Current Configuration:</b> F = ");
+	/* Initialize or reset cached base markup */
+	if (formula_base_markup == NULL)
+	{
+		formula_base_markup = g_string_new(NULL);
+	}
+
+	g_string_assign(formula_base_markup,
+		"<b>Current Configuration:</b> F = ");
 	term_count = 0;
 
-	for (m = 0; m < FIT_METRIC_COUNT; m++)
+	for (m = 0; m < cfg.num_obj; m++)
 	{
-		const fitness_metric_info_t *info;
 		const fitness_objective_t *obj;
-		const gchar *reduce_name;
+		const char *reduce_name;
+		const char *metric_name;
 		gchar weight_str[32];
 		gchar exp_str[32];
 		gchar target_str[32];
-		const gchar *metric_abbrev;
 
 		obj = &cfg.obj[m];
 
@@ -743,57 +1185,12 @@ static void opt_ui_update_formula(void)
 			continue;
 		}
 
-		info = &fitness_metric_info[m];
-
 		if (term_count > 0)
 		{
-			g_string_append(markup, " + ");
+			g_string_append(formula_base_markup, " + ");
 		}
 
-		/* Abbreviations for common metrics */
-		switch (info->metric)
-		{
-			case FIT_VSWR:
-				metric_abbrev = "VSWR";
-				break;
-
-			case FIT_GAIN_MAX:
-				metric_abbrev = "G<sub>max</sub>";
-				break;
-
-			case FIT_FB_RATIO:
-				metric_abbrev = "FB";
-				break;
-
-			case FIT_GAIN_NET:
-				metric_abbrev = "G<sub>net</sub>";
-				break;
-
-			case FIT_GAIN_VIEWER:
-				metric_abbrev = "G<sub>view</sub>";
-				break;
-
-			case FIT_S11:
-				metric_abbrev = "S11";
-				break;
-
-			case FIT_GAIN_THETA:
-				metric_abbrev = "θ<sub>gain</sub>";
-				break;
-
-			case FIT_GAIN_PHI:
-				metric_abbrev = "φ<sub>gain</sub>";
-				break;
-
-			case FIT_GAIN_FLAT:
-				metric_abbrev = "G<sub>flat</sub>";
-				break;
-
-			default:
-				metric_abbrev = info->name;
-				break;
-		}
-
+		metric_name = meas_display_names[obj->meas_index];
 		reduce_name = fitness_reduce_names[obj->reduce];
 
 		snprintf(weight_str, sizeof(weight_str), "%.4g", obj->weight);
@@ -801,26 +1198,29 @@ static void opt_ui_update_formula(void)
 		snprintf(target_str, sizeof(target_str), "%.4g", obj->target);
 
 		/* Build term based on direction */
-		if (info->direction == FIT_DIR_MINIMIZE)
+		if (obj->direction == FIT_DIR_MINIMIZE)
 		{
-			/* (value/target)^exp */
-			g_string_append_printf(markup, "<b>%s</b>·%s((%s/<b>%s</b>)<sup><b>%s</b></sup>)",
+			g_string_append_printf(formula_base_markup,
+				"<b>%s</b>\xc2\xb7%s((%s/<b>%s</b>)"
+				"<sup><b>%s</b></sup>)",
 				weight_str, reduce_name,
-				metric_abbrev, target_str, exp_str);
+				metric_name, target_str, exp_str);
 		}
-		else if (info->direction == FIT_DIR_MAXIMIZE)
+		else if (obj->direction == FIT_DIR_MAXIMIZE)
 		{
-			/* (target/value)^exp */
-			g_string_append_printf(markup, "<b>%s</b>·%s((<b>%s</b>/%s)<sup><b>%s</b></sup>)",
+			g_string_append_printf(formula_base_markup,
+				"<b>%s</b>\xc2\xb7%s((<b>%s</b>/%s)"
+				"<sup><b>%s</b></sup>)",
 				weight_str, reduce_name,
-				target_str, metric_abbrev, exp_str);
+				target_str, metric_name, exp_str);
 		}
 		else
 		{
-			/* |value - target|^exp */
-			g_string_append_printf(markup, "<b>%s</b>·%s(|%s−<b>%s</b>|<sup><b>%s</b></sup>)",
+			g_string_append_printf(formula_base_markup,
+				"<b>%s</b>\xc2\xb7%s(|%s\xe2\x88\x92<b>%s</b>|"
+				"<sup><b>%s</b></sup>)",
 				weight_str, reduce_name,
-				metric_abbrev, target_str, exp_str);
+				metric_name, target_str, exp_str);
 		}
 
 		term_count++;
@@ -828,15 +1228,250 @@ static void opt_ui_update_formula(void)
 
 	if (term_count == 0)
 	{
-		g_string_assign(markup, "<i>No goals enabled</i>");
+		g_string_assign(formula_base_markup, "<i>No goals enabled</i>");
+		gtk_label_set_markup(GTK_LABEL(formula_display),
+			formula_base_markup->str);
 	}
 	else
 	{
-		g_string_append(markup, "\n<small><i>Optimizer minimizes this value</i></small>");
+		/* Display formula without score; score added by
+		 * opt_ui_update_values() when data is available */
+		set_formula_with_score(NAN);
 	}
 
-	gtk_label_set_markup(GTK_LABEL(formula_display), markup->str);
-	g_string_free(markup, TRUE);
+	fitness_config_free(&cfg);
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * read_objective_from_row - populate fitness objective from goal row widgets
+ * @gr: goal row to read
+ * @obj: output objective (fully populated on success)
+ *
+ * Reads metric, direction, weight, exponent, target, reduce, and MHz
+ * range from the row's widgets.  Falls back to defaults for invalid
+ * combo box selections.  Returns TRUE if the metric combo is valid.
+ */
+static gboolean read_objective_from_row(opt_goal_row_t *gr,
+	fitness_objective_t *obj)
+{
+	int combo_idx;
+	int meas_index;
+	const meas_fitness_default_t *def;
+
+	combo_idx = gtk_combo_box_get_active(
+		GTK_COMBO_BOX(gr->w[GR_METRIC]));
+	if (combo_idx < 0)
+	{
+		return FALSE;
+	}
+
+	meas_index = metric_combo_index_to_meas(combo_idx);
+	def = &meas_fitness_defaults[meas_index];
+
+	obj->meas_index = meas_index;
+	obj->enabled = gtk_toggle_button_get_active(
+		GTK_TOGGLE_BUTTON(gr->w[GR_ENABLED]));
+	obj->direction = gtk_combo_box_get_active(
+		GTK_COMBO_BOX(gr->w[GR_TRANSFORM]));
+	obj->weight = get_entry_double(gr->w[GR_WEIGHT]);
+	obj->exponent = get_entry_double(gr->w[GR_EXP]);
+	obj->target = get_entry_double(gr->w[GR_TARGET]);
+	obj->reduce = gtk_combo_box_get_active(
+		GTK_COMBO_BOX(gr->w[GR_REDUCE]));
+	obj->mhz_min = get_entry_double(gr->w[GR_MHZ_MIN]);
+	obj->mhz_max = get_entry_double(gr->w[GR_MHZ_MAX]);
+
+	/* Fall back to defaults for invalid combo selections */
+	if (obj->direction < 0 || obj->direction >= FIT_DIR_COUNT)
+	{
+		obj->direction = def->direction;
+	}
+
+	if (obj->reduce < 0 || obj->reduce >= FIT_REDUCE_COUNT)
+	{
+		obj->reduce = def->default_reduce;
+	}
+
+	return TRUE;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * update_goal_rows - update Value/Score labels from measurement arrays
+ * @meas: measurement array, one per frequency step
+ * @freq: frequency array in MHz
+ * @steps: number of frequency steps
+ *
+ * Finds the frequency closest to calc_data.fmhz_save for the Value
+ * column, computes per-objective scores via fitness_compute_objective,
+ * and updates each goal row's labels.  Returns accumulated total
+ * score for enabled objectives, or NAN if frequency data unavailable.
+ */
+static double update_goal_rows(const measurement_t *meas,
+	const double *freq, int steps)
+{
+	GList *iter;
+	int idx;
+	int best_idx;
+	double best_diff;
+	double total_score;
+	gchar buf[32];
+
+	if (goal_row_list == NULL || steps <= 0
+		|| calc_data.fmhz_save <= 0.0)
+	{
+		return NAN;
+	}
+
+	/* Find frequency index closest to fmhz_save */
+	best_idx = 0;
+	best_diff = fabs(freq[0] - calc_data.fmhz_save);
+
+	for (idx = 1; idx < steps; idx++)
+	{
+		double diff = fabs(freq[idx] - calc_data.fmhz_save);
+
+		if (diff < best_diff)
+		{
+			best_diff = diff;
+			best_idx = idx;
+		}
+	}
+
+	/* Update each row's Value and Score labels, accumulate total */
+	total_score = 0.0;
+	for (iter = goal_row_list; iter != NULL; iter = iter->next)
+	{
+		opt_goal_row_t *gr = (opt_goal_row_t *)iter->data;
+		fitness_objective_t obj;
+		double raw_value;
+		double score;
+
+		if (!read_objective_from_row(gr, &obj))
+		{
+			continue;
+		}
+
+		raw_value = meas[best_idx].a[obj.meas_index];
+
+		/* Update Value label */
+		if (raw_value == -1.0)
+		{
+			gtk_label_set_text(GTK_LABEL(gr->w[GR_VALUE]),
+				"\xe2\x80\x94");
+		}
+		else
+		{
+			snprintf(buf, sizeof(buf), "%.4g", raw_value);
+			gtk_label_set_text(GTK_LABEL(gr->w[GR_VALUE]), buf);
+		}
+
+		score = fitness_compute_objective(&obj, meas, steps, freq);
+
+		if (obj.enabled)
+		{
+			snprintf(buf, sizeof(buf), "%.4g", score);
+			total_score += score;
+		}
+		else
+		{
+			snprintf(buf, sizeof(buf), "(%.4g)", score);
+		}
+		gtk_label_set_text(GTK_LABEL(gr->w[GR_SCORE]), buf);
+	}
+
+	return total_score;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * opt_ui_update_values - refresh Value and Score labels from NEC2 data
+ *
+ * When the optimizer is running, attempts to refresh from the
+ * best-so-far measurement snapshot (non-blocking trylock).
+ * If the lock is contended or no snapshot exists yet, leaves
+ * labels untouched to avoid flashing dashes.
+ *
+ * When idle, computes per-row values from NEC2 data via meas_calc()
+ * and shows the total fitness score in the formula display.
+ */
+void opt_ui_update_values(void)
+{
+	GList *iter;
+	measurement_t *meas_all = NULL;
+	double *freq_all = NULL;
+	int idx;
+	int steps;
+	double total_score;
+
+	if (goal_row_list == NULL)
+	{
+		return;
+	}
+
+	/* During optimization: try to refresh from best snapshot.
+	 * If trylock fails, leave labels untouched to avoid flashing
+	 * dashes when UI interactions trigger this function. */
+	if (opt_is_running())
+	{
+		if (timer_meas != NULL)
+		{
+			int best_steps;
+
+			if (opt_get_best_measurements(timer_meas, timer_freq,
+				&best_steps))
+			{
+				total_score = update_goal_rows(timer_meas,
+					timer_freq, best_steps);
+				if (!isnan(total_score))
+				{
+					set_formula_with_score(total_score);
+				}
+				else
+				{
+					set_formula_with_score(
+						opt_get_best_fitness());
+				}
+			}
+		}
+		return;
+	}
+
+	if (calc_data.steps_total <= 0)
+	{
+		return;
+	}
+
+	if (calc_data.fmhz_save <= 0.0)
+	{
+		return;
+	}
+
+	steps = calc_data.steps_total;
+
+	/* Build measurement array for all steps */
+	mem_alloc((void **)&meas_all, steps * sizeof(measurement_t), __LOCATION__);
+	mem_alloc((void **)&freq_all, steps * sizeof(double), __LOCATION__);
+
+	for (idx = 0; idx < steps; idx++)
+	{
+		meas_calc(&meas_all[idx], idx);
+		freq_all[idx] = save.freq[idx];
+	}
+
+	total_score = update_goal_rows(meas_all, freq_all, steps);
+
+	if (!isnan(total_score))
+	{
+		set_formula_with_score(total_score);
+	}
+
+	free_ptr((void **)&meas_all);
+	free_ptr((void **)&freq_all);
 }
 
 /*------------------------------------------------------------------------*/
@@ -857,13 +1492,13 @@ static void on_opt_formula_help_clicked(GtkButton *button, gpointer user_data)
 	help_text =
 		"<span size='large' weight='bold'>Transform Directions</span>\n\n"
 		"<b>minimize:</b> Lower values are better\n"
-		"    Penalty = (value/target)ᵉˣᵖ\n"
+		"    Penalty = (value/target)\xe1\xb5\x89\xcb\xa3\xe1\xb5\x96\n"
 		"    <i>Use for VSWR, noise, or metrics where smaller is optimal</i>\n\n"
 		"<b>maximize:</b> Higher values are better\n"
-		"    Penalty = (target/value)ᵉˣᵖ\n"
+		"    Penalty = (target/value)\xe1\xb5\x89\xcb\xa3\xe1\xb5\x96\n"
 		"    <i>Use for gain, efficiency, F/B ratio</i>\n\n"
 		"<b>deviate:</b> Target a specific value\n"
-		"    Penalty = |value − target|ᵉˣᵖ\n"
+		"    Penalty = |value \xe2\x88\x92 target|\xe1\xb5\x89\xcb\xa3\xe1\xb5\x96\n"
 		"    <i>Use for angle, impedance, or frequency alignment</i>\n\n\n"
 		"<span size='large' weight='bold'>Reduction Functions</span>\n\n"
 		"<b>avg:</b> Average penalty across band\n"
@@ -875,45 +1510,27 @@ static void on_opt_formula_help_clicked(GtkButton *button, gpointer user_data)
 		"    <i>Optimizer improves the best frequency, ignores others\n"
 		"    Rarely useful (creates narrow-band solution)</i>\n\n"
 		"<b>diff:</b> Returns penalty range (variation)\n"
-		"    <i>Makes metric consistent across band</i>\n\n"
+		"    <i>Makes metric consistent across band\n"
+		"    Use with gain_max for gain flatness</i>\n\n"
 		"<b>sum:</b> Total penalty sum across all frequencies\n"
 		"    <i>Emphasizes overall error magnitude</i>\n\n"
 		"<b>mag:</b> Root mean square magnitude\n"
-		"    sqrt(sum(penalty²))\n"
+		"    sqrt(sum(penalty\xc2\xb2))\n"
 		"    <i>Emphasizes large deviations more than average</i>\n\n\n"
-		"<span size='large' weight='bold'>VSWR Reduction Choices</span>\n\n"
-		"<b>avg</b> (default): Average penalty across band\n"
-		"  Formula: sum((VSWR/target)ᵉˣᵖ) / n\n"
-		"  Effect: Balances all frequencies equally\n\n"
-		"<b>max:</b> Returns highest penalty (worst VSWR frequency)\n"
-		"  Formula: max((VSWR/target)ᵉˣᵖ)\n"
-		"  Effect: Optimizer improves the worst frequency point first\n"
-		"  \"No point on the band can exceed VSWR=X\"\n\n"
-		"<b>min:</b> Returns lowest penalty (best VSWR frequency)\n"
-		"  Formula: min((VSWR/target)ᵉˣᵖ)\n"
-		"  Effect: Optimizer improves the best frequency, ignores others\n"
-		"  <i>Rarely useful (creates narrow-band solution)</i>\n\n"
-		"<b>diff:</b> Returns penalty range (variation)\n"
-		"  Formula: max(penalty) − min(penalty)\n"
-		"  Effect: Makes VSWR consistent across band\n\n\n"
-		"<span size='large' weight='bold'>Gain Reduction Choices</span>\n\n"
-		"<b>avg</b> (default): Average penalty across band\n"
-		"  Formula: sum((target/gain)ᵉˣᵖ) / n\n"
-		"  Effect: Balanced performance across band\n\n"
-		"<b>max:</b> Returns highest penalty (lowest gain frequency)\n"
-		"  Formula: max((target/gain)ᵉˣᵖ)\n"
-		"  Effect: Optimizer raises the minimum gain floor\n"
-		"  \"Every frequency must have at least X dBi\"\n\n"
-		"<b>min:</b> Returns lowest penalty (highest gain frequency)\n"
-		"  Formula: min((target/gain)ᵉˣᵖ)\n"
-		"  Effect: Optimizer increases peak gain further\n\n"
-		"<b>diff:</b> Returns penalty range (variation)\n"
-		"  Formula: max(penalty) − min(penalty)\n"
-		"  Effect: Keeps gain consistent across band";
+		"<span size='large' weight='bold'>Gain Direction Metrics</span>\n\n"
+		"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+		"between peak gain direction and a coordinate axis.\n"
+		"Use direction=minimize with target near 0 to steer the beam.\n\n"
+		"    gain_dev_px: deviation from +X axis\n"
+		"    gain_dev_nx: deviation from -X axis\n"
+		"    gain_dev_py: deviation from +Y axis\n"
+		"    gain_dev_ny: deviation from -Y axis\n"
+		"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+		"    gain_dev_nz: deviation from -Z axis (nadir)\n";
 
 	dialog = gtk_dialog_new_with_buttons(
 		"Fitness Formula Help",
-		GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(button))),
+		GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(formula_help_button))),
 		GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 		"_Close", GTK_RESPONSE_CLOSE,
 		NULL);

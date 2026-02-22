@@ -24,12 +24,20 @@ enum MEASUREMENT_INDEXES
 	MEAS_GAIN_VIEWER,
 	MEAS_GAIN_VIEWER_NET,
 	MEAS_FB_RATIO,
+	MEAS_GAIN_DEV_PX,
+	MEAS_GAIN_DEV_NX,
+	MEAS_GAIN_DEV_PY,
+	MEAS_GAIN_DEV_NY,
+	MEAS_GAIN_DEV_PZ,
+	MEAS_GAIN_DEV_NZ,
 
 	MEAS_COUNT
 };
 
 // Defined in measurements.c:
 extern const char *meas_names[];
+extern const char *meas_display_names[];
+extern const char *meas_descriptions[];
 
 typedef struct
 {
@@ -46,6 +54,9 @@ typedef struct
 			double gain_max_theta, gain_max_phi;
 			double gain_viewer, gain_viewer_net;
 			double fb_ratio;
+			double gain_dev_px, gain_dev_nx;
+			double gain_dev_py, gain_dev_ny;
+			double gain_dev_pz, gain_dev_nz;
 		};
 
 		double a[MEAS_COUNT];

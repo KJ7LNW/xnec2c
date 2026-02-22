@@ -86,6 +86,7 @@ static gboolean dirty = FALSE;
 static guint debounce_timer_id = 0;
 static gboolean auto_apply_enabled = FALSE;
 static gboolean pending_apply = FALSE;
+static gboolean apply_suppressed = FALSE;
 static guint last_applied_hash = 0;
 static GtkWidget *busy_spinner = NULL;
 static GtkWidget *auto_apply_check = NULL;
@@ -566,6 +567,10 @@ try_auto_apply(void)
 {
   static gboolean new_flag = 0;
   guint current_hash;
+
+  /* Blocked during optimization to prevent deadlock */
+  if( apply_suppressed )
+    return;
 
   current_hash = compute_override_hash();
 
@@ -1450,6 +1455,10 @@ on_sy_overrides_apply_clicked(GtkButton *button, gpointer user_data)
   (void)button;
   (void)user_data;
 
+  /* Blocked during optimization to prevent deadlock */
+  if( apply_suppressed )
+    return;
+
   apply_overrides_to_symbols();
   last_applied_hash = compute_override_hash();
   dirty = FALSE;
@@ -1635,6 +1644,39 @@ sy_overrides_free_opt_vars(simple_var_t *vars, int num_vars)
   }
 
   g_free(vars);
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * sy_overrides_set_apply_enabled - suppress or restore apply/auto-apply
+ */
+void
+sy_overrides_set_apply_enabled(gboolean enabled)
+{
+  apply_suppressed = !enabled;
+
+  if( !enabled )
+  {
+    /* Cancel any pending debounce timer */
+    if( debounce_timer_id > 0 )
+    {
+      g_source_remove(debounce_timer_id);
+      debounce_timer_id = 0;
+    }
+
+    pending_apply = FALSE;
+  }
+
+  if( apply_button != NULL )
+  {
+    gtk_widget_set_sensitive(apply_button, enabled && !auto_apply_enabled);
+  }
+
+  if( auto_apply_check != NULL )
+  {
+    gtk_widget_set_sensitive(auto_apply_check, enabled);
+  }
 }
 
 /*------------------------------------------------------------------------*/

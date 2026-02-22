@@ -24,6 +24,66 @@ const char *meas_names[] = {
 	[MEAS_GAIN_VIEWER]      =  "gain_viewer",
 	[MEAS_GAIN_VIEWER_NET]  =  "gain_viewer_net",
 	[MEAS_FB_RATIO]         =  "fb_ratio",
+	[MEAS_GAIN_DEV_PX]     =  "gain_dev_px",
+	[MEAS_GAIN_DEV_NX]     =  "gain_dev_nx",
+	[MEAS_GAIN_DEV_PY]     =  "gain_dev_py",
+	[MEAS_GAIN_DEV_NY]     =  "gain_dev_ny",
+	[MEAS_GAIN_DEV_PZ]     =  "gain_dev_pz",
+	[MEAS_GAIN_DEV_NZ]     =  "gain_dev_nz",
+	[MEAS_COUNT]            =  NULL
+};
+
+const char *meas_display_names[] = {
+	[MEAS_MHZ]              =  "MHz",
+	[MEAS_ZREAL]            =  "Z Real",
+	[MEAS_ZIMAG]            =  "Z Imaginary",
+	[MEAS_ZMAG]             =  "Z Magnitude",
+	[MEAS_ZPHASE]           =  "Z Phase",
+	[MEAS_VSWR]             =  "VSWR",
+	[MEAS_S11]              =  "S11",
+	[MEAS_S11_REAL]         =  "S11 Real",
+	[MEAS_S11_IMAG]         =  "S11 Imaginary",
+	[MEAS_S11_ANG]          =  "S11 Angle",
+	[MEAS_GAIN_MAX]         =  "Max Gain",
+	[MEAS_GAIN_NET]         =  "Net Gain",
+	[MEAS_GAIN_THETA]       =  "Gain Theta",
+	[MEAS_GAIN_PHI]         =  "Gain Phi",
+	[MEAS_GAIN_VIEWER]      =  "Viewer Gain",
+	[MEAS_GAIN_VIEWER_NET]  =  "Viewer Net Gain",
+	[MEAS_FB_RATIO]         =  "F/B Ratio",
+	[MEAS_GAIN_DEV_PX]     =  "Gain Dev +X",
+	[MEAS_GAIN_DEV_NX]     =  "Gain Dev \xe2\x88\x92X",
+	[MEAS_GAIN_DEV_PY]     =  "Gain Dev +Y",
+	[MEAS_GAIN_DEV_NY]     =  "Gain Dev \xe2\x88\x92Y",
+	[MEAS_GAIN_DEV_PZ]     =  "Gain Dev +Z",
+	[MEAS_GAIN_DEV_NZ]     =  "Gain Dev \xe2\x88\x92Z",
+	[MEAS_COUNT]            =  NULL
+};
+
+const char *meas_descriptions[] = {
+	[MEAS_MHZ]              =  "Frequency in MHz (independent variable)",
+	[MEAS_ZREAL]            =  "Real part of feed-point impedance (ohms)",
+	[MEAS_ZIMAG]            =  "Imaginary part of feed-point impedance (ohms)",
+	[MEAS_ZMAG]             =  "Magnitude of feed-point impedance (ohms)",
+	[MEAS_ZPHASE]           =  "Phase angle of feed-point impedance (degrees)",
+	[MEAS_VSWR]             =  "Voltage standing wave ratio (1.0 = perfect match)",
+	[MEAS_S11]              =  "Return loss in dB (more negative = better match)",
+	[MEAS_S11_REAL]         =  "Real part of S11 in dB",
+	[MEAS_S11_IMAG]         =  "Imaginary part of S11 in dB",
+	[MEAS_S11_ANG]          =  "Phase angle of reflection coefficient (degrees)",
+	[MEAS_GAIN_MAX]         =  "Peak gain across all angles in dBi",
+	[MEAS_GAIN_NET]         =  "Peak gain adjusted for mismatch loss in dBi",
+	[MEAS_GAIN_THETA]       =  "Elevation angle of peak gain (degrees above horizon)",
+	[MEAS_GAIN_PHI]         =  "Azimuth angle of peak gain (degrees)",
+	[MEAS_GAIN_VIEWER]      =  "Gain toward current viewer angle in dBi",
+	[MEAS_GAIN_VIEWER_NET]  =  "Viewer gain adjusted for mismatch loss in dBi",
+	[MEAS_FB_RATIO]         =  "Front-to-back ratio in dB",
+	[MEAS_GAIN_DEV_PX]     =  "Angular deviation of peak gain from +X axis (degrees)",
+	[MEAS_GAIN_DEV_NX]     =  "Angular deviation of peak gain from -X axis (degrees)",
+	[MEAS_GAIN_DEV_PY]     =  "Angular deviation of peak gain from +Y axis (degrees)",
+	[MEAS_GAIN_DEV_NY]     =  "Angular deviation of peak gain from -Y axis (degrees)",
+	[MEAS_GAIN_DEV_PZ]     =  "Angular deviation of peak gain from +Z axis (degrees)",
+	[MEAS_GAIN_DEV_NZ]     =  "Angular deviation of peak gain from -Z axis (degrees)",
 	[MEAS_COUNT]            =  NULL
 };
 
@@ -108,6 +168,45 @@ void meas_calc(measurement_t *m, int idx)
 
 	m->gain_max_theta = 90.0 - rad_pattern[idx].max_gain_tht[pol];
 	m->gain_max_phi = rad_pattern[idx].max_gain_phi[pol];
+
+	// Gain deviation from axis directions (great-circle angular distance).
+	// NEC2 theta is from +Z axis; convert stored elevation back.
+	{
+		double nec_tht = (90.0 - m->gain_max_theta) * M_PI / 180.0;
+		double nec_phi = m->gain_max_phi * M_PI / 180.0;
+		double sin_tht = sin(nec_tht);
+		double cos_tht = cos(nec_tht);
+
+		// Axis target directions: {nec_theta, nec_phi} in radians
+		//   +X: (pi/2, 0)     -X: (pi/2, pi)
+		//   +Y: (pi/2, pi/2)  -Y: (pi/2, 3pi/2)
+		//   +Z: (0, 0)        -Z: (pi, 0)
+		static const double axis_tht[] = {
+			M_PI/2, M_PI/2, M_PI/2, M_PI/2, 0.0, M_PI
+		};
+		static const double axis_phi[] = {
+			0.0, M_PI, M_PI/2, 3*M_PI/2, 0.0, 0.0
+		};
+		int ax;
+
+		for (ax = 0; ax < 6; ax++)
+		{
+			double cos_delta = cos_tht * cos(axis_tht[ax])
+				+ sin_tht * sin(axis_tht[ax]) * cos(nec_phi - axis_phi[ax]);
+
+			// Clamp to [-1,1] for numerical safety
+			if (cos_delta > 1.0)
+			{
+				cos_delta = 1.0;
+			}
+			else if (cos_delta < -1.0)
+			{
+				cos_delta = -1.0;
+			}
+
+			m->a[MEAS_GAIN_DEV_PX + ax] = acos(cos_delta) * 180.0 / M_PI;
+		}
+	}
 
 	// Find F/B direction in theta
 	fbdir = 180.0 - rad_pattern[idx].max_gain_tht[pol];

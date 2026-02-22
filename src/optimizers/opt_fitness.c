@@ -13,122 +13,224 @@
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
+#include <string.h>
 
 #include "opt_fitness.h"
+#include "../common.h"
 #include "../console.h"
 
 /*------------------------------------------------------------------------*/
 
-/* Compile-time metric info table.
- * Order matches enum fitness_metric for direct indexing. */
-const fitness_metric_info_t fitness_metric_info[FIT_METRIC_COUNT] =
+/* Per-measurement fitness defaults, indexed by MEASUREMENT_INDEXES.
+ * Provides sensible direction, reduction, target, weight, and exponent
+ * for each measurement when first added to the objective list. */
+const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 {
-	[FIT_VSWR] =
+	[MEAS_MHZ] =
 	{
-		.name             = "VSWR",
-		.metric           = FIT_VSWR,
-		.direction        = FIT_DIR_MINIMIZE,
-		.default_reduce   = FIT_REDUCE_AVG,
-		.meas_index       = MEAS_VSWR,
-		.default_target   = 1.5,
-		.default_weight   = 5.0,
-		.default_exponent = 2.0,
-	},
-
-	[FIT_GAIN_MAX] =
-	{
-		.name             = "Max Gain",
-		.metric           = FIT_GAIN_MAX,
-		.direction        = FIT_DIR_MAXIMIZE,
-		.default_reduce   = FIT_REDUCE_AVG,
-		.meas_index       = MEAS_GAIN_MAX,
-		.default_target   = 8.0,
-		.default_weight   = 10.0,
-		.default_exponent = 0.5,
-	},
-
-	[FIT_GAIN_NET] =
-	{
-		.name             = "Net Gain",
-		.metric           = FIT_GAIN_NET,
-		.direction        = FIT_DIR_MAXIMIZE,
-		.default_reduce   = FIT_REDUCE_AVG,
-		.meas_index       = MEAS_GAIN_NET,
-		.default_target   = 6.0,
-		.default_weight   = 1.0,
-		.default_exponent = 1.0,
-	},
-
-	[FIT_GAIN_VIEWER] =
-	{
-		.name             = "Viewer Gain",
-		.metric           = FIT_GAIN_VIEWER,
-		.direction        = FIT_DIR_MAXIMIZE,
-		.default_reduce   = FIT_REDUCE_AVG,
-		.meas_index       = MEAS_GAIN_VIEWER,
-		.default_target   = 6.0,
-		.default_weight   = 1.0,
-		.default_exponent = 1.0,
-	},
-
-	[FIT_FB_RATIO] =
-	{
-		.name             = "F/B Ratio",
-		.metric           = FIT_FB_RATIO,
-		.direction        = FIT_DIR_MAXIMIZE,
-		.default_reduce   = FIT_REDUCE_AVG,
-		.meas_index       = MEAS_FB_RATIO,
-		.default_target   = 20.0,
-		.default_weight   = 1.0,
-		.default_exponent = 1.0,
-	},
-
-	[FIT_S11] =
-	{
-		.name             = "S11",
-		.metric           = FIT_S11,
-		.direction        = FIT_DIR_MAXIMIZE,
-		.default_reduce   = FIT_REDUCE_AVG,
-		.meas_index       = MEAS_S11,
-		.default_target   = -15.0,
-		.default_weight   = 1.0,
-		.default_exponent = 2.0,
-	},
-
-	[FIT_GAIN_THETA] =
-	{
-		.name             = "Gain Theta",
-		.metric           = FIT_GAIN_THETA,
 		.direction        = FIT_DIR_DEVIATE,
 		.default_reduce   = FIT_REDUCE_AVG,
-		.meas_index       = MEAS_GAIN_THETA,
-		.default_target   = 90.0,
+		.default_target   = 0.0,
+		.default_weight   = 0.0,
+		.default_exponent = 1.0,
+	},
+
+	[MEAS_ZREAL] =
+	{
+		.direction        = FIT_DIR_DEVIATE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 50.0,
 		.default_weight   = 1.0,
 		.default_exponent = 2.0,
 	},
 
-	[FIT_GAIN_PHI] =
+	[MEAS_ZIMAG] =
 	{
-		.name             = "Gain Phi",
-		.metric           = FIT_GAIN_PHI,
 		.direction        = FIT_DIR_DEVIATE,
 		.default_reduce   = FIT_REDUCE_AVG,
-		.meas_index       = MEAS_GAIN_PHI,
 		.default_target   = 0.0,
 		.default_weight   = 1.0,
 		.default_exponent = 2.0,
 	},
 
-	[FIT_GAIN_FLAT] =
+	[MEAS_ZMAG] =
 	{
-		.name             = "Gain Flatness",
-		.metric           = FIT_GAIN_FLAT,
+		.direction        = FIT_DIR_DEVIATE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 50.0,
+		.default_weight   = 1.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_ZPHASE] =
+	{
+		.direction        = FIT_DIR_DEVIATE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 0.0,
+		.default_weight   = 1.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_VSWR] =
+	{
 		.direction        = FIT_DIR_MINIMIZE,
-		.default_reduce   = FIT_REDUCE_DIFF,
-		.meas_index       = MEAS_GAIN_MAX,
-		.default_target   = 3.0,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 1.5,
+		.default_weight   = 5.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_S11] =
+	{
+		.direction        = FIT_DIR_MAXIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = -15.0,
+		.default_weight   = 1.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_S11_REAL] =
+	{
+		.direction        = FIT_DIR_MAXIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = -15.0,
+		.default_weight   = 1.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_S11_IMAG] =
+	{
+		.direction        = FIT_DIR_DEVIATE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 0.0,
+		.default_weight   = 1.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_S11_ANG] =
+	{
+		.direction        = FIT_DIR_DEVIATE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 0.0,
+		.default_weight   = 1.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_GAIN_MAX] =
+	{
+		.direction        = FIT_DIR_MAXIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 8.0,
+		.default_weight   = 10.0,
+		.default_exponent = 0.5,
+	},
+
+	[MEAS_GAIN_NET] =
+	{
+		.direction        = FIT_DIR_MAXIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 6.0,
 		.default_weight   = 1.0,
 		.default_exponent = 1.0,
+	},
+
+	[MEAS_GAIN_THETA] =
+	{
+		.direction        = FIT_DIR_DEVIATE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 90.0,
+		.default_weight   = 1.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_GAIN_PHI] =
+	{
+		.direction        = FIT_DIR_DEVIATE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 0.0,
+		.default_weight   = 1.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_GAIN_VIEWER] =
+	{
+		.direction        = FIT_DIR_MAXIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 6.0,
+		.default_weight   = 1.0,
+		.default_exponent = 1.0,
+	},
+
+	[MEAS_GAIN_VIEWER_NET] =
+	{
+		.direction        = FIT_DIR_MAXIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 6.0,
+		.default_weight   = 1.0,
+		.default_exponent = 1.0,
+	},
+
+	[MEAS_FB_RATIO] =
+	{
+		.direction        = FIT_DIR_MAXIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 20.0,
+		.default_weight   = 1.0,
+		.default_exponent = 1.0,
+	},
+
+	[MEAS_GAIN_DEV_PX] =
+	{
+		.direction        = FIT_DIR_MINIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 1.0,
+		.default_weight   = 3.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_GAIN_DEV_NX] =
+	{
+		.direction        = FIT_DIR_MINIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 1.0,
+		.default_weight   = 3.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_GAIN_DEV_PY] =
+	{
+		.direction        = FIT_DIR_MINIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 1.0,
+		.default_weight   = 3.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_GAIN_DEV_NY] =
+	{
+		.direction        = FIT_DIR_MINIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 1.0,
+		.default_weight   = 3.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_GAIN_DEV_PZ] =
+	{
+		.direction        = FIT_DIR_MINIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 1.0,
+		.default_weight   = 3.0,
+		.default_exponent = 2.0,
+	},
+
+	[MEAS_GAIN_DEV_NZ] =
+	{
+		.direction        = FIT_DIR_MINIMIZE,
+		.default_reduce   = FIT_REDUCE_AVG,
+		.default_target   = 1.0,
+		.default_weight   = 3.0,
+		.default_exponent = 2.0,
 	},
 };
 
@@ -145,30 +247,152 @@ const char *fitness_reduce_names[FIT_REDUCE_COUNT] =
 	[FIT_REDUCE_DIFF] = "diff",
 };
 
+/* Direction name strings for UI combo boxes */
+const char *fitness_direction_names[FIT_DIR_COUNT] =
+{
+	[FIT_DIR_MINIMIZE] = "min score",
+	[FIT_DIR_MAXIMIZE] = "max score",
+	[FIT_DIR_DEVIATE]  = "\xc2\xb1 target",
+};
+
+/* Direction tooltip strings for UI combo boxes */
+const char *fitness_direction_tooltips[FIT_DIR_COUNT] =
+{
+	[FIT_DIR_MINIMIZE] = "Score = (value / target)^exp\n"
+		"Lower measurement values produce lower scores",
+	[FIT_DIR_MAXIMIZE] = "Score = (target / value)^exp\n"
+		"Higher measurement values produce lower scores",
+	[FIT_DIR_DEVIATE]  = "Score = |value \xe2\x88\x92 target|^exp\n"
+		"Values closer to target produce lower scores",
+};
+
+/* Reduction tooltip strings for UI combo boxes */
+const char *fitness_reduce_tooltips[FIT_REDUCE_COUNT] =
+{
+	[FIT_REDUCE_SUM]  = "Adds the score from every NEC2 frequency step",
+	[FIT_REDUCE_AVG]  = "Averages the score across all NEC2 frequency steps",
+	[FIT_REDUCE_MIN]  = "Selects the smallest score among all frequency steps",
+	[FIT_REDUCE_MAX]  = "Selects the largest score among all frequency steps",
+	[FIT_REDUCE_MAG]  = "Root of summed squared scores: sqrt(sum(score\xc2\xb2))",
+	[FIT_REDUCE_DIFF] = "Spread between largest and smallest scores across frequency steps",
+};
+
 /*------------------------------------------------------------------------*/
 
 /**
- * fitness_config_init - populate config with defaults from metric_info table
+ * fitness_config_init - populate config with default objectives
  */
 void fitness_config_init(fitness_config_t *cfg)
 {
-	int i;
+	fitness_objective_t *obj;
 
-	for (i = 0; i < FIT_METRIC_COUNT; i++)
+	memset(cfg, 0, sizeof(*cfg));
+	mem_alloc((void **)&cfg->obj,
+		FITNESS_OBJ_INIT_CAP * sizeof(fitness_objective_t), __LOCATION__);
+	cfg->capacity = FITNESS_OBJ_INIT_CAP;
+	cfg->num_obj = 0;
+
+	/* Default goals: VSWR, Max Gain */
+	obj = fitness_config_add(cfg, MEAS_VSWR);
+	obj->enabled = 1;
+
+	obj = fitness_config_add(cfg, MEAS_GAIN_MAX);
+	obj->enabled = 1;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * fitness_config_add - append an objective using measurement defaults
+ */
+fitness_objective_t *fitness_config_add(fitness_config_t *cfg, int meas_index)
+{
+	fitness_objective_t *obj;
+	const meas_fitness_default_t *def;
+
+	if (meas_index < 0 || meas_index >= MEAS_COUNT)
 	{
-		cfg->obj[i].enabled  = 0;
-		cfg->obj[i].weight   = fitness_metric_info[i].default_weight;
-		cfg->obj[i].exponent = fitness_metric_info[i].default_exponent;
-		cfg->obj[i].target   = fitness_metric_info[i].default_target;
-		cfg->obj[i].reduce   = fitness_metric_info[i].default_reduce;
-		cfg->obj[i].mhz_min  = NAN;
-		cfg->obj[i].mhz_max  = NAN;
+		pr_err("fitness_config_add: invalid meas_index %d\n", meas_index);
+		abort();
 	}
 
-	/* Enable default goals: VSWR, Max Gain, F/B Ratio */
-	cfg->obj[FIT_VSWR].enabled = 1;
-	cfg->obj[FIT_GAIN_MAX].enabled = 1;
-	cfg->obj[FIT_FB_RATIO].enabled = 1;
+	/* Grow array if needed */
+	if (cfg->num_obj >= cfg->capacity)
+	{
+		int new_cap;
+
+		new_cap = (cfg->capacity > 0) ? cfg->capacity * 2 : FITNESS_OBJ_INIT_CAP;
+		mem_realloc((void **)&cfg->obj,
+			new_cap * sizeof(fitness_objective_t), __LOCATION__);
+		cfg->capacity = new_cap;
+	}
+
+	def = &meas_fitness_defaults[meas_index];
+	obj = &cfg->obj[cfg->num_obj];
+
+	obj->meas_index = meas_index;
+	obj->enabled    = 0;
+	obj->weight     = def->default_weight;
+	obj->exponent   = def->default_exponent;
+	obj->target     = def->default_target;
+	obj->direction  = def->direction;
+	obj->reduce     = def->default_reduce;
+	obj->mhz_min    = NAN;
+	obj->mhz_max    = NAN;
+
+	cfg->num_obj++;
+
+	return obj;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * fitness_config_remove - remove objective at given index
+ */
+void fitness_config_remove(fitness_config_t *cfg, int idx)
+{
+	if (idx < 0 || idx >= cfg->num_obj)
+	{
+		return;
+	}
+
+	/* Shift remaining objectives down */
+	memmove(&cfg->obj[idx], &cfg->obj[idx + 1],
+		(cfg->num_obj - idx - 1) * sizeof(fitness_objective_t));
+
+	cfg->num_obj--;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * fitness_config_copy - deep copy src into dst
+ */
+void fitness_config_copy(fitness_config_t *dst, const fitness_config_t *src)
+{
+	dst->num_obj = src->num_obj;
+	dst->capacity = src->num_obj;
+
+	dst->obj = NULL;
+	if (src->num_obj > 0)
+	{
+		mem_alloc((void **)&dst->obj,
+			src->num_obj * sizeof(fitness_objective_t), __LOCATION__);
+		memcpy(dst->obj, src->obj,
+			src->num_obj * sizeof(fitness_objective_t));
+	}
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * fitness_config_free - release dynamic memory in config
+ */
+void fitness_config_free(fitness_config_t *cfg)
+{
+	free_ptr((void **)&cfg->obj);
+	memset(cfg, 0, sizeof(*cfg));
 }
 
 /*------------------------------------------------------------------------*/
@@ -287,81 +511,88 @@ static double reduce_values(const double *values, int n,
 /*------------------------------------------------------------------------*/
 
 /**
+ * fitness_compute_objective - evaluate one objective's weighted contribution
+ */
+double fitness_compute_objective(const fitness_objective_t *obj,
+	const measurement_t *meas, int num_steps, const double *freq_mhz)
+{
+	double transformed[num_steps];
+	int i;
+	int step_count;
+	double raw;
+	double reduced;
+	double mhz_lo;
+	double mhz_hi;
+
+	if (!obj->enabled)
+	{
+		return 0.0;
+	}
+
+	if (obj->weight == 0.0)
+	{
+		return 0.0;
+	}
+
+	/* Determine MHz range for this objective */
+	mhz_lo = isnan(obj->mhz_min) ? -INFINITY : obj->mhz_min;
+	mhz_hi = isnan(obj->mhz_max) ? INFINITY : obj->mhz_max;
+
+	/* Collect and transform values within freq range */
+	step_count = 0;
+	for (i = 0; i < num_steps; i++)
+	{
+		if (freq_mhz[i] < mhz_lo || freq_mhz[i] > mhz_hi)
+		{
+			continue;
+		}
+
+		raw = meas[i].a[obj->meas_index];
+
+		/* Skip invalid measurements (meas_calc sets fields to -1) */
+		if (raw == -1.0)
+		{
+			continue;
+		}
+
+		transformed[step_count] = fitness_transform(
+			obj->direction, raw, obj->target, obj->exponent);
+
+		/* Clamp infinities and NaNs to a large penalty */
+		if (!isfinite(transformed[step_count]))
+		{
+			transformed[step_count] = 1e6;
+		}
+
+		step_count++;
+	}
+
+	if (step_count == 0)
+	{
+		return 0.0;
+	}
+
+	reduced = reduce_values(transformed, step_count, obj->reduce);
+	return obj->weight * reduced;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
  * fitness_compute - evaluate fitness across frequency steps
  */
 double fitness_compute(const fitness_config_t *cfg,
 	const measurement_t *meas, int num_steps, const double *freq_mhz)
 {
 	double total;
-	double transformed[num_steps];
-	int i;
 	int m;
-	int step_count;
-	double raw;
-	double reduced;
-	double mhz_lo;
-	double mhz_hi;
-	const fitness_objective_t *obj;
-	const fitness_metric_info_t *info;
 
 	total = 0.0;
 
-	for (m = 0; m < FIT_METRIC_COUNT; m++)
+	for (m = 0; m < cfg->num_obj; m++)
 	{
-		obj = &cfg->obj[m];
-
-		if (!obj->enabled)
-		{
-			continue;
-		}
-
-		if (obj->weight == 0.0)
-		{
-			continue;
-		}
-
-		info = &fitness_metric_info[m];
-
-		/* Determine MHz range for this objective */
-		mhz_lo = isnan(obj->mhz_min) ? -INFINITY : obj->mhz_min;
-		mhz_hi = isnan(obj->mhz_max) ? INFINITY : obj->mhz_max;
-
-		/* Collect and transform values within freq range */
-		step_count = 0;
-		for (i = 0; i < num_steps; i++)
-		{
-			if (freq_mhz[i] < mhz_lo || freq_mhz[i] > mhz_hi)
-			{
-				continue;
-			}
-
-			raw = meas[i].a[info->meas_index];
-
-			/* Skip invalid measurements (meas_calc initializes all fields to -1) */
-			if (raw == -1.0)
-			{
-				continue;
-			}
-
-			transformed[step_count] = fitness_transform(
-				info->direction, raw, obj->target, obj->exponent);
-
-			/* Clamp infinities and NaNs to a large penalty */
-			if (!isfinite(transformed[step_count]))
-			{
-				transformed[step_count] = 1e6;
-			}
-
-			step_count++;
-		}
-
-		if (step_count == 0)
-		{
-			continue;
-		}
-
-		reduced = reduce_values(transformed, step_count, obj->reduce);
-		total += obj->weight * reduced;
+		total += fitness_compute_objective(&cfg->obj[m],
+			meas, num_steps, freq_mhz);
 	}
 
 	return total;

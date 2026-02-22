@@ -83,4 +83,13 @@ void sy_overrides_free_opt_vars(simple_var_t *vars, int num_vars);
  */
 void sy_overrides_set_opt_results(const simple_var_t *vars, int num_vars);
 
+/**
+ * sy_overrides_set_apply_enabled - suppress or restore apply/auto-apply
+ * @enabled: FALSE to suppress (during optimization), TRUE to restore
+ *
+ * When suppressed: disables Apply button and Auto-apply checkbox,
+ * cancels pending debounce timers, and blocks try_auto_apply().
+ */
+void sy_overrides_set_apply_enabled(gboolean enabled);
+
 #endif
