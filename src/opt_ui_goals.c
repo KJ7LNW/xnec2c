@@ -409,7 +409,7 @@ static void on_add_metric_clicked(GtkButton *button, gpointer user_data)
 	(void)button;
 	(void)user_data;
 
-	add_goal_row(MEAS_VSWR, 0);
+	add_goal_row(MEAS_VSWR, 1);
 }
 
 /*------------------------------------------------------------------------*/

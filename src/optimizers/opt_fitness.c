@@ -75,7 +75,7 @@ const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 	{
 		.direction        = FIT_DIR_MINIMIZE,
 		.default_reduce   = FIT_REDUCE_AVG,
-		.default_target   = 1.5,
+		.default_target   = 1.0,
 		.default_weight   = 5.0,
 		.default_exponent = 2.0,
 	},
@@ -120,7 +120,7 @@ const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 	{
 		.direction        = FIT_DIR_MAXIMIZE,
 		.default_reduce   = FIT_REDUCE_AVG,
-		.default_target   = 8.0,
+		.default_target   = 12.0,
 		.default_weight   = 10.0,
 		.default_exponent = 0.5,
 	},
@@ -184,7 +184,7 @@ const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 		.direction        = FIT_DIR_MINIMIZE,
 		.default_reduce   = FIT_REDUCE_AVG,
 		.default_target   = 1.0,
-		.default_weight   = 3.0,
+		.default_weight   = 10.0,
 		.default_exponent = 2.0,
 	},
 
@@ -193,7 +193,7 @@ const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 		.direction        = FIT_DIR_MINIMIZE,
 		.default_reduce   = FIT_REDUCE_AVG,
 		.default_target   = 1.0,
-		.default_weight   = 3.0,
+		.default_weight   = 10.0,
 		.default_exponent = 2.0,
 	},
 
@@ -202,7 +202,7 @@ const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 		.direction        = FIT_DIR_MINIMIZE,
 		.default_reduce   = FIT_REDUCE_AVG,
 		.default_target   = 1.0,
-		.default_weight   = 3.0,
+		.default_weight   = 10.0,
 		.default_exponent = 2.0,
 	},
 
@@ -211,7 +211,7 @@ const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 		.direction        = FIT_DIR_MINIMIZE,
 		.default_reduce   = FIT_REDUCE_AVG,
 		.default_target   = 1.0,
-		.default_weight   = 3.0,
+		.default_weight   = 10.0,
 		.default_exponent = 2.0,
 	},
 
@@ -220,7 +220,7 @@ const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 		.direction        = FIT_DIR_MINIMIZE,
 		.default_reduce   = FIT_REDUCE_AVG,
 		.default_target   = 1.0,
-		.default_weight   = 3.0,
+		.default_weight   = 10.0,
 		.default_exponent = 2.0,
 	},
 
@@ -229,7 +229,7 @@ const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 		.direction        = FIT_DIR_MINIMIZE,
 		.default_reduce   = FIT_REDUCE_AVG,
 		.default_target   = 1.0,
-		.default_weight   = 3.0,
+		.default_weight   = 10.0,
 		.default_exponent = 2.0,
 	},
 };

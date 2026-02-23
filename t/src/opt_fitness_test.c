@@ -164,7 +164,7 @@ static void test_config_init(void)
 
 	ASSERT_TRUE(cfg.obj[0].meas_index == MEAS_VSWR, "obj[0] is VSWR");
 	ASSERT_TRUE(cfg.obj[0].enabled == 1, "VSWR enabled by default");
-	ASSERT_NEAR(cfg.obj[0].target, 1.5, 1e-10, "VSWR default target");
+	ASSERT_NEAR(cfg.obj[0].target, 1.0, 1e-10, "VSWR default target");
 	ASSERT_NEAR(cfg.obj[0].weight, 5.0, 1e-10, "VSWR default weight");
 	ASSERT_NEAR(cfg.obj[0].exponent, 2.0, 1e-10, "VSWR default exponent");
 	ASSERT_TRUE(cfg.obj[0].direction == FIT_DIR_MINIMIZE, "VSWR direction minimize");
@@ -173,7 +173,7 @@ static void test_config_init(void)
 
 	ASSERT_TRUE(cfg.obj[1].meas_index == MEAS_GAIN_MAX, "obj[1] is gain_max");
 	ASSERT_TRUE(cfg.obj[1].enabled == 1, "gain_max enabled by default");
-	ASSERT_NEAR(cfg.obj[1].target, 8.0, 1e-10, "gain_max default target");
+	ASSERT_NEAR(cfg.obj[1].target, 12.0, 1e-10, "gain_max default target");
 	ASSERT_NEAR(cfg.obj[1].weight, 10.0, 1e-10, "gain_max default weight");
 	ASSERT_TRUE(cfg.obj[1].direction == FIT_DIR_MAXIMIZE, "gain_max direction maximize");
 
@@ -233,7 +233,7 @@ static void test_config_copy(void)
 
 	/* Modify src; dst must be independent */
 	src.obj[0].target = 999.0;
-	ASSERT_NEAR(dst.obj[0].target, 1.5, 1e-10, "copy is independent");
+	ASSERT_NEAR(dst.obj[0].target, 1.0, 1e-10, "copy is independent");
 
 	fitness_config_free(&src);
 	fitness_config_free(&dst);
@@ -259,15 +259,15 @@ static void test_compute_vswr_only(void)
 
 	result = fitness_compute(&cfg, meas, 4, freq);
 
-	/* avg of pow(val/1.5, 2.0) for each step:
-	 * step 0: (1.5/1.5)^2 = 1.0
-	 * step 1: (2.0/1.5)^2 = 1.7778
-	 * step 2: (1.8/1.5)^2 = 1.44
-	 * step 3: (1.5/1.5)^2 = 1.0
-	 * avg = (1.0 + 1.7778 + 1.44 + 1.0) / 4 = 1.3044
-	 * weight 5.0 * 1.3044 = 6.5222
+	/* avg of pow(val/1.0, 2.0) for each step:
+	 * step 0: (1.5/1.0)^2 = 2.25
+	 * step 1: (2.0/1.0)^2 = 4.0
+	 * step 2: (1.8/1.0)^2 = 3.24
+	 * step 3: (1.5/1.0)^2 = 2.25
+	 * avg = (2.25 + 4.0 + 3.24 + 2.25) / 4 = 2.935
+	 * weight 5.0 * 2.935 = 14.675
 	 */
-	expected = 5.0 * (1.0 + pow(2.0/1.5, 2.0) + pow(1.8/1.5, 2.0) + 1.0) / 4.0;
+	expected = 5.0 * (pow(1.5/1.0, 2.0) + pow(2.0/1.0, 2.0) + pow(1.8/1.0, 2.0) + pow(1.5/1.0, 2.0)) / 4.0;
 	ASSERT_NEAR(result, expected, 1e-6, "VSWR-only compute");
 
 	fitness_config_free(&cfg);
@@ -293,14 +293,14 @@ static void test_compute_gain_only(void)
 
 	result = fitness_compute(&cfg, meas, 3, freq);
 
-	/* avg of pow(|8.0|/max(|val|,eps), 0.5):
-	 * step 0: (8/8)^0.5 = 1.0
-	 * step 1: (8/10)^0.5 = 0.8944
-	 * step 2: (8/6)^0.5 = 1.1547
-	 * avg = (1.0 + 0.8944 + 1.1547) / 3
+	/* avg of pow(|12.0|/max(|val|,eps), 0.5):
+	 * step 0: (12/8)^0.5 = 1.2247
+	 * step 1: (12/10)^0.5 = 1.0954
+	 * step 2: (12/6)^0.5 = 1.4142
+	 * avg = (1.2247 + 1.0954 + 1.4142) / 3
 	 * weight 10.0 * avg
 	 */
-	expected = 10.0 * (pow(8.0/8.0, 0.5) + pow(8.0/10.0, 0.5) + pow(8.0/6.0, 0.5)) / 3.0;
+	expected = 10.0 * (pow(12.0/8.0, 0.5) + pow(12.0/10.0, 0.5) + pow(12.0/6.0, 0.5)) / 3.0;
 	ASSERT_NEAR(result, expected, 1e-6, "GAIN-only compute");
 
 	fitness_config_free(&cfg);
@@ -338,8 +338,8 @@ static void test_compute_combined(void)
 
 	result = fitness_compute(&cfg, meas, 2, freq);
 
-	vswr_contrib = 5.0 * (pow(1.5/1.5, 2.0) + pow(2.0/1.5, 2.0)) / 2.0;
-	gain_contrib = 10.0 * (pow(8.0/8.0, 0.5) + pow(8.0/10.0, 0.5)) / 2.0;
+	vswr_contrib = 5.0 * (pow(1.5/1.0, 2.0) + pow(2.0/1.0, 2.0)) / 2.0;
+	gain_contrib = 10.0 * (pow(12.0/8.0, 0.5) + pow(12.0/10.0, 0.5)) / 2.0;
 
 	ASSERT_NEAR(result, vswr_contrib + gain_contrib, 1e-6, "combined VSWR+gain");
 
@@ -473,8 +473,8 @@ static void test_reduce_max(void)
 
 	result = fitness_compute(&cfg, meas, 3, freq);
 
-	/* max reduce picks worst VSWR: (3.0/1.5)^2 = 4.0 */
-	expected = 5.0 * pow(3.0 / 1.5, 2.0);
+	/* max reduce picks worst VSWR: (3.0/1.0)^2 = 9.0 */
+	expected = 5.0 * pow(3.0 / 1.0, 2.0);
 
 	ASSERT_NEAR(result, expected, 1e-6, "max reduce picks worst VSWR");
 
@@ -560,8 +560,8 @@ static void test_duplicate_measurement(void)
 
 	result = fitness_compute(&cfg, meas, 3, freq);
 
-	/* First VSWR: avg reduce, target=1.5, weight=5, exp=2 */
-	avg_contrib = 5.0 * (pow(1.5/1.5, 2.0) + pow(3.0/1.5, 2.0) + pow(1.8/1.5, 2.0)) / 3.0;
+	/* First VSWR: avg reduce, target=1.0, weight=5, exp=2 */
+	avg_contrib = 5.0 * (pow(1.5/1.0, 2.0) + pow(3.0/1.0, 2.0) + pow(1.8/1.0, 2.0)) / 3.0;
 
 	/* Second VSWR: max reduce, target=2.0, weight=8, exp=2 */
 	max_contrib = 8.0 * pow(3.0/2.0, 2.0);

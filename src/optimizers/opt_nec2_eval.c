@@ -126,6 +126,25 @@ static void apply_vars_as_overrides(const simple_var_t *vars, int num_vars)
 /*------------------------------------------------------------------------*/
 
 /**
+ * gtk_drain_pending - GTK main-thread callback: flush pending draw events
+ *
+ * Called via g_idle_add_once_sync after the frequency loop completes so
+ * that all queued redraws are processed before the optimizer schedules
+ * the next evaluation, reducing graph flicker.
+ */
+static void gtk_drain_pending(gpointer user_data)
+{
+	(void)user_data;
+
+	while (gtk_events_pending())
+	{
+		gtk_main_iteration_do(FALSE);
+	}
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
  * eval_apply_and_reload - GTK callback: set overrides, save .sy, reload
  * @user_data: pointer to eval_apply_ctx_t
  *
@@ -195,6 +214,10 @@ int nec2_eval_run(const simple_var_t *vars, int num_vars,
 	}
 
 	g_mutex_unlock(&eval_mutex);
+
+	/* Flush pending GTK draw events before the next evaluation to reduce
+	 * graph flicker caused by back-to-back frequency loop triggers */
+	g_idle_add_once_sync(gtk_drain_pending, NULL);
 
 	/* Collect measurements under freq_data_lock */
 	g_mutex_lock(&freq_data_lock);
