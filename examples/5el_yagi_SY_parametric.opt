@@ -1,0 +1,45 @@
+[optimizer]
+algorithm=simplex
+max_iter=100
+stagnant_count=30
+stagnant_tol=0.001
+
+[simplex]
+sizes=0.089999999999999997;0.074999999999999997;0.050000000000000003;0.025000000000000001;
+min_size=9.9999999999999995e-07
+temperature=0
+
+[pso]
+particles=0
+neighbors=0
+inertia=0.90000000000000002
+cognitive=0.5
+social=0.5
+search_size=0.25
+
+[goal 0]
+enabled=true
+metric=vswr
+direction=min score
+target=1
+exponent=2
+reduce=avg
+weight=5
+
+[goal 1]
+enabled=true
+metric=gain_max
+direction=max score
+target=12
+exponent=1
+reduce=avg
+weight=10
+
+[goal 2]
+enabled=true
+metric=gain_dev_px
+direction=min score
+target=1
+exponent=2
+reduce=avg
+weight=10
