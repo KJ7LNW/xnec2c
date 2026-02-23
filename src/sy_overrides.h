@@ -51,10 +51,11 @@ void on_sy_overrides_close_clicked(GtkButton *button, gpointer user_data);
 void on_sy_show_defaults_toggled(GtkToggleButton *button, gpointer user_data);
 
 /**
- * sy_overrides_save_state - save current UI state to .sy file
+ * sy_overrides_save_state - save current UI state to .sy and .opt files
  *
  * Applies all override values from UI entries to the symbol table
- * and writes the .sy file.  Does not trigger Open_Input_File.
+ * and writes the .sy file.  Also saves optimizer configuration to
+ * the .opt file.  Does not trigger Open_Input_File.
  * Called before starting optimizer to persist non-optimizer overrides.
  */
 void sy_overrides_save_state(void);

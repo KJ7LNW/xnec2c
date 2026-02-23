@@ -44,6 +44,7 @@ xnec2c_SOURCES = \
     opt_ui_goals.c \
     opt_ui_formula.c \
     opt_ui_session.c \
+    opt_file.c        opt_file.h \
     optimizers/opt_fitness.c   optimizers/opt_fitness.h \
     optimizers/opt_nec2_eval.c optimizers/opt_nec2_eval.h \
     optimizers/opt_session.c   optimizers/opt_session.h \

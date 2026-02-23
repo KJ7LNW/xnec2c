@@ -10,6 +10,7 @@
  */
 
 #include "opt_ui_internal.h"
+#include "opt_file.h"
 
 /* Forward declarations for signal callbacks referenced in create_goal_row
  * and build_goals_grid before their definitions. */
@@ -198,6 +199,31 @@ static opt_goal_row_t *create_goal_row(int meas_index, int enabled)
 	gtk_widget_set_tooltip_text(gr->w[GR_REMOVE], "Remove this objective");
 	g_signal_connect(gr->w[GR_REMOVE], "clicked",
 		G_CALLBACK(on_remove_row_clicked), gr);
+
+	/* Auto-save .opt on goal row changes */
+	{
+		static const struct
+		{
+			enum goal_row_col col;
+			void (*connect)(GtkWidget *);
+		} goal_save_map[] = {
+			{ GR_ENABLED,   opt_file_connect_check },
+			{ GR_METRIC,    opt_file_connect_combo },
+			{ GR_TRANSFORM, opt_file_connect_combo },
+			{ GR_TARGET,    opt_file_connect_entry },
+			{ GR_EXP,       opt_file_connect_entry },
+			{ GR_REDUCE,    opt_file_connect_combo },
+			{ GR_WEIGHT,    opt_file_connect_entry },
+			{ GR_MHZ_MIN,   opt_file_connect_entry },
+			{ GR_MHZ_MAX,   opt_file_connect_entry },
+		};
+		size_t s;
+
+		for (s = 0; s < sizeof(goal_save_map) / sizeof(goal_save_map[0]); s++)
+		{
+			goal_save_map[s].connect(gr->w[goal_save_map[s].col]);
+		}
+	}
 
 	return gr;
 }
@@ -402,6 +428,83 @@ static void on_metric_changed(GtkComboBox *combo, gpointer user_data)
 /*------------------------------------------------------------------------*/
 
 /**
+ * clear_goal_rows - remove all goal rows from the grid and list
+ *
+ * Destroys every goal row widget and empties goal_row_list.
+ * The grid header (row 0) and add-metric button are preserved.
+ */
+void clear_goal_rows(void)
+{
+	GList *iter;
+
+	for (iter = goal_row_list; iter != NULL; iter = iter->next)
+	{
+		opt_goal_row_t *gr = (opt_goal_row_t *)iter->data;
+
+		destroy_goal_row(gr);
+	}
+
+	g_list_free(goal_row_list);
+	goal_row_list = NULL;
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * add_goal_from_obj - create a goal row pre-populated from an objective
+ * @obj: fitness objective with all fields set
+ *
+ * Creates the row with the objective's metric and enabled state,
+ * then overwrites direction, target, exponent, reduce, weight,
+ * and MHz range widgets to match the objective.
+ */
+void add_goal_from_obj(const fitness_objective_t *obj)
+{
+	opt_goal_row_t *gr;
+	gchar buf[32];
+
+	gr = create_goal_row(obj->meas_index, obj->enabled);
+
+	/* Set direction */
+	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_TRANSFORM]),
+		obj->direction);
+
+	/* Set target */
+	snprintf(buf, sizeof(buf), "%.4g", obj->target);
+	gtk_entry_set_text(GTK_ENTRY(gr->w[GR_TARGET]), buf);
+
+	/* Set exponent */
+	snprintf(buf, sizeof(buf), "%.4g", obj->exponent);
+	gtk_entry_set_text(GTK_ENTRY(gr->w[GR_EXP]), buf);
+
+	/* Set reduce */
+	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_REDUCE]),
+		obj->reduce);
+
+	/* Set weight */
+	snprintf(buf, sizeof(buf), "%.4g", obj->weight);
+	gtk_entry_set_text(GTK_ENTRY(gr->w[GR_WEIGHT]), buf);
+
+	/* Set MHz range (empty string for NAN = all frequencies) */
+	if (!isnan(obj->mhz_min))
+	{
+		snprintf(buf, sizeof(buf), "%.4g", obj->mhz_min);
+		gtk_entry_set_text(GTK_ENTRY(gr->w[GR_MHZ_MIN]), buf);
+	}
+
+	if (!isnan(obj->mhz_max))
+	{
+		snprintf(buf, sizeof(buf), "%.4g", obj->mhz_max);
+		gtk_entry_set_text(GTK_ENTRY(gr->w[GR_MHZ_MAX]), buf);
+	}
+
+	goal_row_list = g_list_append(goal_row_list, gr);
+	rebuild_grid_rows();
+}
+
+/*------------------------------------------------------------------------*/
+
+/**
  * on_add_metric_clicked - add a new metric row with VSWR defaults
  */
 static void on_add_metric_clicked(GtkButton *button, gpointer user_data)
@@ -410,6 +513,7 @@ static void on_add_metric_clicked(GtkButton *button, gpointer user_data)
 	(void)user_data;
 
 	add_goal_row(MEAS_VSWR, 1);
+	opt_file_save();
 }
 
 /*------------------------------------------------------------------------*/
@@ -435,4 +539,5 @@ static void on_remove_row_clicked(GtkButton *button, gpointer user_data)
 	rebuild_grid_rows();
 	opt_ui_update_formula();
 	opt_ui_update_values();
+	opt_file_save();
 }

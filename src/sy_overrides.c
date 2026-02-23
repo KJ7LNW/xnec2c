@@ -27,6 +27,8 @@
 #include <gsl/gsl_vector.h>
 
 #include "opt_ui.h"
+#include "opt_file.h"
+#include "utils.h"
 
 /* Character width for numeric input fields */
 #define SY_NUMERIC_WIDTH_CHARS 12
@@ -503,7 +505,6 @@ apply_overrides_to_symbols(void)
   gdouble max_val;
   gboolean active;
   gchar sy_filename[FILENAME_LEN];
-  gchar *dot;
 
   for( i = 0; i < rows->len; i++ )
   {
@@ -526,37 +527,23 @@ apply_overrides_to_symbols(void)
     }
   }
 
-  if( strlen(rc_config.input_file) > 0 )
+  if( build_companion_path(rc_config.input_file, ".sy",
+        sy_filename, sizeof(sy_filename)) )
   {
-    Strlcpy(sy_filename, rc_config.input_file, sizeof(sy_filename));
-    dot = strrchr(sy_filename, '.');
-    if( dot != NULL )
-    {
-      *dot = '\0';
-    }
-    else
-    {
-      /* No extension found */
-    }
-
-    Strlcat(sy_filename, ".sy", sizeof(sy_filename));
     sy_save_overrides(sy_filename);
-  }
-  else
-  {
-    /* No input file to derive .sy filename from */
   }
 }
 
 /*------------------------------------------------------------------------*/
 
 /**
- * sy_overrides_save_state - save current UI state to .sy file
+ * sy_overrides_save_state - save current UI state to .sy and .opt files
  */
 void
 sy_overrides_save_state(void)
 {
   apply_overrides_to_symbols();
+  opt_file_save();
 }
 
 /*------------------------------------------------------------------------*/

@@ -81,9 +81,16 @@ int metric_combo_index_to_meas(int combo_idx);
 int meas_to_metric_combo_index(int meas_index);
 int parse_ssize_list(GtkWidget *entry, double *out, int max);
 
+/* Auto-save signal connections — opt_file.c */
+void opt_file_connect_entry(GtkWidget *entry);
+void opt_file_connect_combo(GtkWidget *combo);
+void opt_file_connect_check(GtkWidget *check);
+
 /* Goal row management — opt_ui_goals.c */
 void build_goals_grid(void);
 void destroy_goal_row(opt_goal_row_t *gr);
+void clear_goal_rows(void);
+void add_goal_from_obj(const fitness_objective_t *obj);
 
 /* Formula and scoring — opt_ui_formula.c */
 void opt_ui_update_formula(void);

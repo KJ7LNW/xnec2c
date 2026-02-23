@@ -27,5 +27,19 @@
 #define CR  0x0d
 #define LF  0x0a
 
+/**
+ * build_companion_path - replace file extension to derive companion path
+ * @src: source file path (e.g., "/path/to/model.nec")
+ * @ext: new extension including dot (e.g., ".opt")
+ * @buf: output buffer
+ * @buflen: size of output buffer
+ *
+ * Copies src, replaces everything after the last '.' with ext.
+ * If src has no extension, appends ext.
+ * Returns TRUE if src was non-empty and a path was built.
+ */
+gboolean build_companion_path(const char *src, const char *ext,
+    char *buf, size_t buflen);
+
 #endif
 

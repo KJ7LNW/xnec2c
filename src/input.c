@@ -46,6 +46,7 @@
 #include "shared.h"
 #include "geometry.h"
 #include "sy_overrides.h"
+#include "utils.h"
 
 // For use if you need to pr_debug based on line number in readgm()
 static int readgm_line_count = 0;
@@ -839,20 +840,12 @@ Read_Geometry( void )
   /* Load symbol overrides from .sy file if it exists */
   {
     char sy_path[FILENAME_LEN];
-    char *ext;
 
-    g_strlcpy(sy_path, rc_config.input_file, sizeof(sy_path));
-    ext = strstr(sy_path, ".nec");
-
-    if( ext == NULL )
-      ext = strstr(sy_path, ".NEC");
-
-    if( ext != NULL )
-      strcpy(ext, ".sy");
-    else
-      g_strlcat(sy_path, ".sy", sizeof(sy_path));
-
-    sy_load_overrides(sy_path);
+    if( build_companion_path(rc_config.input_file, ".sy",
+          sy_path, sizeof(sy_path)) )
+    {
+      sy_load_overrides(sy_path);
+    }
   }
 
   /* Moved here from Read_Commands() */

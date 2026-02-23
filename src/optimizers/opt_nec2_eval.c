@@ -15,6 +15,7 @@
 #include "../shared.h"
 #include "../sy_expr.h"
 #include "../console.h"
+#include "../utils.h"
 
 /* Synchronization for blocking the optimizer thread until freq loop completes */
 static GMutex eval_mutex;
@@ -157,20 +158,13 @@ static void eval_apply_and_reload(gpointer user_data)
 	eval_apply_ctx_t *ctx = (eval_apply_ctx_t *)user_data;
 	static gboolean reload_flag = FALSE;
 	char sy_filename[FILENAME_LEN];
-	char *dot;
 
 	apply_vars_as_overrides(ctx->vars, ctx->num_vars);
 
 	/* Persist overrides to .sy so sy_init + sy_load_overrides restores them */
-	if (strlen(rc_config.input_file) > 0)
+	if (build_companion_path(rc_config.input_file, ".sy",
+		sy_filename, sizeof(sy_filename)))
 	{
-		Strlcpy(sy_filename, rc_config.input_file, sizeof(sy_filename));
-		dot = strrchr(sy_filename, '.');
-		if (dot != NULL)
-		{
-			*dot = '\0';
-		}
-		Strlcat(sy_filename, ".sy", sizeof(sy_filename));
 		sy_save_overrides(sy_filename);
 	}
 

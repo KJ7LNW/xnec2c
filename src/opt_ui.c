@@ -10,6 +10,7 @@
  */
 
 #include "opt_ui_internal.h"
+#include "opt_file.h"
 #include "optimizers/opt_session.h"
 
 /* Dynamic goal row list */
@@ -202,13 +203,43 @@ void opt_ui_init(GtkBuilder *builder)
 	g_signal_connect(formula_help_button, "clicked",
 		G_CALLBACK(on_opt_formula_help_clicked), NULL);
 
+	/* Auto-save .opt on widget changes */
+	{
+		static const struct
+		{
+			GtkWidget **ptr;
+			void (*connect)(GtkWidget *);
+		} save_map[] = {
+			{ &algo_combo,             opt_file_connect_combo },
+			{ &max_iter_entry,         opt_file_connect_entry },
+			{ &stagnant_count_entry,   opt_file_connect_entry },
+			{ &stagnant_tol_entry,     opt_file_connect_entry },
+			{ &ssize_entry,            opt_file_connect_entry },
+			{ &simplex_min_size_entry, opt_file_connect_entry },
+			{ &simplex_temp_entry,     opt_file_connect_entry },
+			{ &pso_particles_entry,    opt_file_connect_entry },
+			{ &pso_neighbors_entry,    opt_file_connect_entry },
+			{ &pso_inertia_entry,      opt_file_connect_entry },
+			{ &pso_me_weight_entry,    opt_file_connect_entry },
+			{ &pso_them_weight_entry,  opt_file_connect_entry },
+			{ &pso_search_size_entry,  opt_file_connect_entry },
+		};
+		size_t s;
+
+		for (s = 0; s < sizeof(save_map) / sizeof(save_map[0]); s++)
+		{
+			save_map[s].connect(*save_map[s].ptr);
+		}
+	}
+
 	/* Pre-allocate buffers for timer-driven best-measurement display */
 	mem_alloc((void **)&timer_meas,
 		OPT_MAX_FREQ_STEPS * sizeof(measurement_t), __LOCATION__);
 	mem_alloc((void **)&timer_freq,
 		OPT_MAX_FREQ_STEPS * sizeof(double), __LOCATION__);
 
-	/* Initialize formula display */
+	/* Load saved configuration, then initialize formula display */
+	opt_file_load();
 	opt_ui_update_formula();
 }
 

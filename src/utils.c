@@ -1000,3 +1000,40 @@ void print_backtrace(char *msg)
 		free(strings);
 	}
 }
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * build_companion_path - replace file extension to derive companion path
+ * @src: source file path (e.g., "/path/to/model.nec")
+ * @ext: new extension including dot (e.g., ".opt")
+ * @buf: output buffer
+ * @buflen: size of output buffer
+ *
+ * Copies src, replaces everything after the last '.' with ext.
+ * If src has no extension, appends ext.
+ * Returns TRUE if src was non-empty and a path was built.
+ */
+gboolean build_companion_path(const char *src, const char *ext,
+    char *buf, size_t buflen)
+{
+  char *dot;
+  char *slash;
+
+  if (src == NULL || src[0] == '\0')
+  {
+    return FALSE;
+  }
+
+  g_strlcpy(buf, src, buflen);
+  dot = strrchr(buf, '.');
+  slash = strrchr(buf, '/');
+
+  if (dot != NULL && (slash == NULL || dot > slash))
+  {
+    *dot = '\0';
+  }
+
+  g_strlcat(buf, ext, buflen);
+  return TRUE;
+}

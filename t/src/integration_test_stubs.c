@@ -235,3 +235,31 @@ void
 sy_overrides_refresh(void)
 {
 }
+
+/**
+ * build_companion_path - real implementation for integration tests
+ *
+ * Duplicated here because utils.c cannot be linked due to
+ * Stop/Notice symbol conflicts with integration_test_stubs.
+ */
+gboolean
+build_companion_path(const char *src, const char *ext,
+	char *buf, size_t buflen)
+{
+	char *dot;
+
+	if (src == NULL || src[0] == '\0')
+	{
+		return FALSE;
+	}
+
+	g_strlcpy(buf, src, buflen);
+	dot = strrchr(buf, '.');
+	if (dot != NULL)
+	{
+		*dot = '\0';
+	}
+
+	g_strlcat(buf, ext, buflen);
+	return TRUE;
+}
