@@ -91,8 +91,10 @@ struct simple_s
 	int cache_hits;
 	int cache_misses;
 
-	/* Cancellation */
+	/* Cancellation: cancel is per-pass (stagnation or user); user_cancel
+	 * persists across passes and is set only by simple_cancel(). */
 	volatile int cancel;
+	volatile int user_cancel;
 
 	/* Timing */
 	double prev_time;

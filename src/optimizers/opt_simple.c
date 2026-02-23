@@ -472,6 +472,8 @@ double simple_optimize(simple_t *s)
 	s->cache_hits = 0;
 	s->cache_misses = 0;
 	s->prev_time = 0.0;
+	s->cancel = 0;
+	s->user_cancel = 0;
 
 	/* Free previous best_vars */
 	if (s->best_vars)
@@ -502,6 +504,11 @@ double simple_optimize(simple_t *s)
 		s->log_count = 0;
 
 		_optimize_single_pass(s);
+
+		if (s->user_cancel)
+		{
+			break;
+		}
 
 		/* Feed best result into next pass */
 		if (pass < num_passes - 1)
@@ -602,6 +609,7 @@ void simple_scale_ssize(simple_t *s, double scale)
  */
 void simple_cancel(simple_t *s)
 {
+	s->user_cancel = 1;
 	s->cancel = 1;
 }
 
