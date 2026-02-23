@@ -20,11 +20,12 @@ static void test_parabola(void)
 	pso_config_init(&cfg);
 	cfg.fit_func = fit_parabola;
 	cfg.dimensions = 1;
-	cfg.pos_min = -10.0;
-	cfg.pos_max = 10.0;
 	cfg.iterations = 500;
 
+	test_alloc_uniform_bounds(&cfg.pos_min, &cfg.pos_max, 1, -10.0, 10.0);
+
 	pso_t *pso = pso_new(&cfg);
+	test_free_bounds(&cfg.pos_min, &cfg.pos_max);
 	if (!pso)
 	{
 		printf("  FAIL: pso_new returned NULL\n");
@@ -50,11 +51,12 @@ static void test_sphere_3d(void)
 	pso_config_init(&cfg);
 	cfg.fit_func = fit_sphere;
 	cfg.dimensions = 3;
-	cfg.pos_min = -50.0;
-	cfg.pos_max = 50.0;
 	cfg.iterations = 1000;
 
+	test_alloc_uniform_bounds(&cfg.pos_min, &cfg.pos_max, 3, -50.0, 50.0);
+
 	pso_t *pso = pso_new(&cfg);
+	test_free_bounds(&cfg.pos_min, &cfg.pos_max);
 	if (!pso)
 	{
 		printf("  FAIL: pso_new returned NULL\n");
@@ -84,12 +86,13 @@ static void test_rosenbrock_2d(void)
 	pso_config_init(&cfg);
 	cfg.fit_func = fit_rosenbrock;
 	cfg.dimensions = 2;
-	cfg.pos_min = -5.0;
-	cfg.pos_max = 10.0;
 	cfg.iterations = 2000;
 	cfg.num_particles = 40;
 
+	test_alloc_uniform_bounds(&cfg.pos_min, &cfg.pos_max, 2, -5.0, 10.0);
+
 	pso_t *pso = pso_new(&cfg);
+	test_free_bounds(&cfg.pos_min, &cfg.pos_max);
 	if (!pso)
 	{
 		printf("  FAIL: pso_new returned NULL\n");
@@ -119,12 +122,13 @@ static void test_initial_guess(void)
 	cfg.fit_func = fit_parabola;
 	cfg.initial_guess = guess;
 	cfg.search_size = 0.3;
-	cfg.pos_min = -10.0;
-	cfg.pos_max = 10.0;
 	cfg.iterations = 200;
+
+	test_alloc_uniform_bounds(&cfg.pos_min, &cfg.pos_max, 1, -10.0, 10.0);
 
 	pso_t *pso = pso_new(&cfg);
 	gsl_vector_free(guess);
+	test_free_bounds(&cfg.pos_min, &cfg.pos_max);
 
 	if (!pso)
 	{
@@ -151,12 +155,13 @@ static void test_exit_fit(void)
 	pso_config_init(&cfg);
 	cfg.fit_func = fit_parabola;
 	cfg.dimensions = 1;
-	cfg.pos_min = -10.0;
-	cfg.pos_max = 10.0;
 	cfg.iterations = 5000;
 	cfg.exit_fit = -4.9;
 
+	test_alloc_uniform_bounds(&cfg.pos_min, &cfg.pos_max, 1, -10.0, 10.0);
+
 	pso_t *pso = pso_new(&cfg);
+	test_free_bounds(&cfg.pos_min, &cfg.pos_max);
 	if (!pso)
 	{
 		printf("  FAIL: pso_new returned NULL\n");
@@ -222,10 +227,10 @@ static void test_config_validation(void)
 
 	/* posMax <= posMin */
 	cfg.dimensions = 1;
-	cfg.pos_min = 10.0;
-	cfg.pos_max = -10.0;
+	test_alloc_uniform_bounds(&cfg.pos_min, &cfg.pos_max, 1, 10.0, -10.0);
 	test_count++;
 	pso = pso_new(&cfg);
+	test_free_bounds(&cfg.pos_min, &cfg.pos_max);
 	if (!pso)
 	{
 		printf("  PASS: posMax <= posMin rejected\n");

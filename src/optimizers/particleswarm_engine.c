@@ -97,8 +97,8 @@ void pso_calc_next_pos(pso_t *pso)
 		{
 			double pos = gsl_matrix_get(p->curr_pos, d, i)
 				+ gsl_matrix_get(p->velocity, d, i);
-			double lo = gsl_vector_get(pso->pos_min, d);
-			double hi = gsl_vector_get(pso->pos_max, d);
+			double lo = gsl_vector_get(pso->config.pos_min, d);
+			double hi = gsl_vector_get(pso->config.pos_max, d);
 
 			/* Zero velocity on out-of-bounds, then clip */
 			if (pos < lo || pos > hi)
@@ -145,48 +145,62 @@ void pso_init_particles(pso_t *pso, const gsl_vector *mask)
 		double stalls = gsl_vector_get(p->stalls, i) + 1.0;
 		gsl_vector_set(p->stalls, i, stalls);
 
-		/* Set bestPos, currPos, and velocity per dimension */
+		/* Clamp search size to 100% of range */
 		double ss = pso->config.search_size
 			* pow(pso->config.stall_search_scale, stalls);
+		if (ss > 1.0)
+		{
+			ss = 1.0;
+		}
 
 		for (int d = 0; d < dims; d++)
 		{
-			double lo = gsl_vector_get(pso->pos_min, d);
-			double hi = gsl_vector_get(pso->pos_max, d);
+			double lo = gsl_vector_get(pso->config.pos_min, d);
+			double hi = gsl_vector_get(pso->config.pos_max, d);
 
-			/* bestPos: initialGuess or random */
-			double bpos;
-			if (pso->config.initial_guess)
+			/* First init: set bestPos from initialGuess or random.
+			 * Stall reinit: preserve existing bestPos (particle memory). */
+			if (pso->iter_count == 0)
 			{
-				bpos = gsl_vector_get(pso->config.initial_guess, d);
+				double bpos;
+				if (pso->config.initial_guess)
+				{
+					bpos = gsl_vector_get(pso->config.initial_guess, d);
+				}
+				else
+				{
+					bpos = pso_rand_in_range(pso, lo, hi);
+				}
+				gsl_matrix_set(p->best_pos, d, i, bpos);
 			}
-			else
+
+			/* Center new search on preserved bestPos */
+			double guess = gsl_matrix_get(p->best_pos, d, i);
+			if (pso->config.initial_guess && pso->iter_count == 0)
 			{
-				bpos = pso_rand_in_range(pso, lo, hi);
+				guess = gsl_vector_get(pso->config.initial_guess, d);
 			}
-			gsl_matrix_set(p->best_pos, d, i, bpos);
 
 			/* currPos: searchSize-based or random */
 			double cpos;
 			if (pso->config.search_size >= 0.0)
 			{
-				double guess;
-				if (pso->config.initial_guess && pso->iter_count == 0)
-				{
-					guess = gsl_vector_get(pso->config.initial_guess, d);
-				}
-				else
-				{
-					guess = bpos;
-				}
-
-				/* Scale search range by stallSearchScale^stalls */
 				double r = pso_rand_in_range(pso, -1.0, 1.0);
 				cpos = guess + ss * (hi - lo) * r;
 			}
 			else
 			{
 				cpos = pso_rand_in_range(pso, lo, hi);
+			}
+
+			/* Clamp currPos to bounds before fitness evaluation */
+			if (cpos < lo)
+			{
+				cpos = lo;
+			}
+			else if (cpos > hi)
+			{
+				cpos = hi;
 			}
 			gsl_matrix_set(p->curr_pos, d, i, cpos);
 
@@ -204,8 +218,12 @@ void pso_init_particles(pso_t *pso, const gsl_vector *mask)
 		gsl_vector_const_view curr_col = gsl_matrix_const_column(p->curr_pos, i);
 		gsl_vector_set(p->curr_fit, i, pso_calc_fit(pso, &curr_col.vector));
 
-		gsl_vector_const_view best_col = gsl_matrix_const_column(p->best_pos, i);
-		gsl_vector_set(p->best_fit, i, pso_calc_fit(pso, &best_col.vector));
+		/* Only evaluate bestFit on first init; stall reinit preserves it */
+		if (pso->iter_count == 0)
+		{
+			gsl_vector_const_view best_col = gsl_matrix_const_column(p->best_pos, i);
+			gsl_vector_set(p->best_fit, i, pso_calc_fit(pso, &best_col.vector));
+		}
 	}
 
 }
@@ -298,10 +316,11 @@ void pso_update_velocities(pso_t *pso, int iter)
 
 		for (int d = 0; d < dims; d++)
 		{
+			/* Standard PSO: non-negative random factors U[0, weight] */
 			double me_r = pso_rand_in_range(pso,
-				-pso->config.me_weight, pso->config.me_weight);
+				0.0, pso->config.me_weight);
 			double them_r = pso_rand_in_range(pso,
-				-pso->config.them_weight, pso->config.them_weight);
+				0.0, pso->config.them_weight);
 
 			double curr = gsl_matrix_get(p->curr_pos, d, i);
 			double me_delta = gsl_matrix_get(p->best_pos, d, i) - curr;
@@ -321,7 +340,9 @@ void pso_update_velocities(pso_t *pso, int iter)
 	{
 		gsl_vector_const_view vel = gsl_matrix_const_column(p->velocity, i);
 		double vmag = gsl_blas_dnrm2(&vel.vector);
-		if (vmag < pso->config.stall_speed)
+
+		/* Scale threshold by sqrt(dims): L2 norm grows with dimensionality */
+		if (vmag < pso->config.stall_speed * sqrt((double)dims))
 		{
 			gsl_vector_set(stalled, i, 1.0);
 			any_stalled = 1;

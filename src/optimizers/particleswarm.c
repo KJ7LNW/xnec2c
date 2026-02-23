@@ -19,6 +19,7 @@
  */
 
 #include "particleswarm_internal.h"
+#include "optimizer_bounds.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -40,14 +41,16 @@ static double _swarm(pso_t *pso, int iterations);
 void pso_config_init(pso_config_t *config)
 {
 	memset(config, 0, sizeof(*config));
-	config->pos_min = -100.0;
-	config->pos_max = 100.0;
+	config->pos_min = NULL;
+	config->pos_max = NULL;
 	config->search_size = 0.25;
 	config->stall_speed = 1e-9;
 	config->stall_search_scale = 1.0;
-	config->me_weight = 0.5;
-	config->them_weight = 0.5;
-	config->inertia = 0.9;
+
+	/* Clerc & Kennedy constriction coefficients */
+	config->me_weight = 1.4962;
+	config->them_weight = 1.4962;
+	config->inertia = 0.7298;
 	config->exit_fit = NAN;
 }
 
@@ -72,10 +75,23 @@ pso_t *pso_new(const pso_config_t *config)
 		return NULL;
 	}
 
-	if (config->pos_max <= config->pos_min)
+	/* Determine dimensions early for bounds validation */
+	int d = config->dimensions;
+	if (d <= 0 && config->initial_guess)
 	{
-		fprintf(stderr, "pso_new: posMax (%g) must exceed posMin (%g)\n",
-			config->pos_max, config->pos_min);
+		d = (int)config->initial_guess->size;
+	}
+
+	/* PSO requires explicit per-dimension bounds */
+	if (!config->pos_min || !config->pos_max)
+	{
+		fprintf(stderr, "pso_new: pos_min and pos_max are required\n");
+		return NULL;
+	}
+
+	if (optimizer_validate_bounds(config->pos_min, config->pos_max,
+		d, 0, "pso_new") != 0)
+	{
 		return NULL;
 	}
 
@@ -87,14 +103,13 @@ pso_t *pso_new(const pso_config_t *config)
 
 	pso->config = *config;
 
-	/* Prevent pso_free from freeing caller's pointer before deep-copy */
+	/* Prevent pso_free from freeing caller's pointers before deep-copy */
 	pso->config.initial_guess = NULL;
+	pso->config.pos_min = NULL;
+	pso->config.pos_max = NULL;
 
-	/* Derive dimensions from initialGuess when not explicitly set */
-	if (pso->config.dimensions <= 0 && config->initial_guess)
-	{
-		pso->config.dimensions = (int)config->initial_guess->size;
-	}
+	/* Use pre-validated dimensions */
+	pso->config.dimensions = d;
 
 	/* Deep-copy initialGuess so caller can free theirs */
 	if (config->initial_guess)
@@ -103,12 +118,10 @@ pso_t *pso_new(const pso_config_t *config)
 		gsl_vector_memcpy(pso->config.initial_guess, config->initial_guess);
 	}
 
-	int d = pso->config.dimensions;
-
 	/* Computed defaults for swarm topology */
 	if (pso->config.num_particles <= 0)
 	{
-		pso->config.num_particles = d * 3;
+		pso->config.num_particles = d * 10;
 	}
 	if (pso->config.num_neighbors <= 0)
 	{
@@ -137,17 +150,9 @@ pso_t *pso_new(const pso_config_t *config)
 		pso->config.exit_plateau_burnin = (int)(pso->config.iterations * 0.5);
 	}
 
-	/* Normalize weights so they sum to 1.0 */
-	double tw = pso->config.inertia + pso->config.me_weight + pso->config.them_weight;
-	pso->config.inertia /= tw;
-	pso->config.me_weight /= tw;
-	pso->config.them_weight /= tw;
-
-	/* Broadcast scalar bounds to per-dimension vectors */
-	pso->pos_min = gsl_vector_alloc(d);
-	pso->pos_max = gsl_vector_alloc(d);
-	gsl_vector_set_all(pso->pos_min, pso->config.pos_min);
-	gsl_vector_set_all(pso->pos_max, pso->config.pos_max);
+	/* Deep-copy per-dimension bounds (validated non-NULL above) */
+	optimizer_deep_copy_bounds(&pso->config.pos_min, &pso->config.pos_max,
+		config->pos_min, config->pos_max);
 
 	pso->best_best_pos = gsl_vector_alloc(d);
 	pso->rng = gsl_rng_alloc(gsl_rng_mt19937);
@@ -333,9 +338,17 @@ void pso_free(pso_t *pso)
 	}
 
 	_free_particles(pso->prtcls);
-	gsl_vector_free(pso->pos_min);
-	gsl_vector_free(pso->pos_max);
 	gsl_vector_free(pso->best_best_pos);
+
+	if (pso->config.pos_min)
+	{
+		gsl_vector_free(pso->config.pos_min);
+	}
+
+	if (pso->config.pos_max)
+	{
+		gsl_vector_free(pso->config.pos_max);
+	}
 
 	if (pso->config.initial_guess)
 	{

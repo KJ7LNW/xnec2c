@@ -60,6 +60,36 @@ static double fit_sphere(const gsl_vector *pos, void *ctx)
 	return sum;
 }
 
+/**
+ * test_alloc_uniform_bounds - allocate uniform bound vectors
+ * @out_min: output lower bound vector (caller frees)
+ * @out_max: output upper bound vector (caller frees)
+ * @dims: number of dimensions
+ * @lo: lower bound value for all dimensions
+ * @hi: upper bound value for all dimensions
+ */
+static void test_alloc_uniform_bounds(gsl_vector **out_min, gsl_vector **out_max,
+	int dims, double lo, double hi)
+{
+	*out_min = gsl_vector_alloc(dims);
+	*out_max = gsl_vector_alloc(dims);
+	gsl_vector_set_all(*out_min, lo);
+	gsl_vector_set_all(*out_max, hi);
+}
+
+/**
+ * test_free_bounds - free bound vectors and NULL the pointers
+ * @bmin: pointer to lower bound vector pointer
+ * @bmax: pointer to upper bound vector pointer
+ */
+static void test_free_bounds(gsl_vector **bmin, gsl_vector **bmax)
+{
+	gsl_vector_free(*bmin);
+	gsl_vector_free(*bmax);
+	*bmin = NULL;
+	*bmax = NULL;
+}
+
 /** Rosenbrock: sum( 100*(x_{i+1} - x_i^2)^2 + (1 - x_i)^2 ) */
 static double fit_rosenbrock(const gsl_vector *pos, void *ctx)
 {

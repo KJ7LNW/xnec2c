@@ -491,19 +491,20 @@ double simple_clamp(double val, double lo, double hi)
 }
 
 /**
- * simple_compute_global_bounds - find extreme bounds across all vars
+ * simple_compute_packed_bounds - per-dimension bounds in packed coordinate space
  * @s: session handle
- * @out_min: receives min of all per-element mins
- * @out_max: receives max of all per-element maxes
+ * @out_min: output, newly allocated gsl_vector [total_dims] (caller frees)
+ * @out_max: output, newly allocated gsl_vector [total_dims] (caller frees)
  *
- * If any var lacks bounds, sets output to -INFINITY / INFINITY.
+ * Iterates the index map in the same order as simple_pack_vars.
+ * Each dimension's bound is divided by perturb_scale to match
+ * the packed value space the optimizer backend operates in.
  */
-void simple_compute_global_bounds(const simple_t *s,
-	double *out_min, double *out_max)
+void simple_compute_packed_bounds(const simple_t *s,
+	gsl_vector **out_min, gsl_vector **out_max)
 {
-	double gmin = INFINITY;
-	double gmax = -INFINITY;
-	int any_unbounded = 0;
+	gsl_vector *bmin = gsl_vector_alloc(s->total_dims);
+	gsl_vector *bmax = gsl_vector_alloc(s->total_dims);
 
 	for (int d = 0; d < s->total_dims; d++)
 	{
@@ -511,32 +512,25 @@ void simple_compute_global_bounds(const simple_t *s,
 		int ei = s->map_elem[d];
 		const simple_var_t *v = &s->vars[vi];
 
-		if (!v->min || !v->max)
+		/* Scale factor matching simple_pack_vars division */
+		double scale = 1.0;
+		if (v->perturb_scale)
 		{
-			any_unbounded = 1;
-			break;
+			scale = gsl_vector_get(v->perturb_scale, ei);
 		}
 
-		double lo = gsl_vector_get(v->min, ei);
-		double hi = gsl_vector_get(v->max, ei);
-		if (lo < gmin)
+		double lo = -INFINITY;
+		double hi = INFINITY;
+		if (v->min && v->max)
 		{
-			gmin = lo;
+			lo = gsl_vector_get(v->min, ei) / scale;
+			hi = gsl_vector_get(v->max, ei) / scale;
 		}
-		if (hi > gmax)
-		{
-			gmax = hi;
-		}
+
+		gsl_vector_set(bmin, d, lo);
+		gsl_vector_set(bmax, d, hi);
 	}
 
-	if (any_unbounded || s->total_dims == 0)
-	{
-		*out_min = -INFINITY;
-		*out_max = INFINITY;
-	}
-	else
-	{
-		*out_min = gmin;
-		*out_max = gmax;
-	}
+	*out_min = bmin;
+	*out_max = bmax;
 }

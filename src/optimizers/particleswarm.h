@@ -49,8 +49,8 @@ typedef struct
 	int num_neighbors;         /**< Neighborhood size (0 = sqrt(num_particles)) */
 	int iterations;            /**< Max iterations (0 = 1000) */
 
-	double pos_min;            /**< Lower bound, uniform across dimensions */
-	double pos_max;            /**< Upper bound, uniform across dimensions */
+	gsl_vector *pos_min;       /**< Per-dimension lower bound (required) */
+	gsl_vector *pos_max;       /**< Per-dimension upper bound (required) */
 
 	gsl_vector *initial_guess; /**< Starting position, NULL for random */
 	double search_size;        /**< Search range scale around guess, <0 = disabled */

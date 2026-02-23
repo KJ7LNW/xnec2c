@@ -139,11 +139,12 @@ static void test_bounded_parabola(void)
 	cfg.initial_guess = guess;
 	cfg.init_size = 3.0;
 	cfg.max_iter = 500;
-	cfg.pos_min = -5.0;
-	cfg.pos_max = 5.0;
+
+	test_alloc_uniform_bounds(&cfg.pos_min, &cfg.pos_max, 1, -5.0, 5.0);
 
 	simplex_t *s = simplex_new(&cfg);
 	gsl_vector_free(guess);
+	test_free_bounds(&cfg.pos_min, &cfg.pos_max);
 
 	if (!s)
 	{
@@ -258,10 +259,11 @@ static void test_config_validation(void)
 	gsl_vector *guess = gsl_vector_alloc(1);
 	gsl_vector_set(guess, 0, 0.0);
 	cfg.initial_guess = guess;
-	cfg.pos_min = 10.0;
-	cfg.pos_max = -10.0;
+
+	test_alloc_uniform_bounds(&cfg.pos_min, &cfg.pos_max, 1, 10.0, -10.0);
 	test_count++;
 	s = simplex_new(&cfg);
+	test_free_bounds(&cfg.pos_min, &cfg.pos_max);
 	if (!s)
 	{
 		printf("  PASS: posMax <= posMin rejected\n");

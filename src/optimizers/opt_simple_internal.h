@@ -182,13 +182,17 @@ double simple_nearest(double target, double val);
 double simple_clamp(double val, double lo, double hi);
 
 /**
- * simple_compute_global_bounds - compute min(all mins), max(all maxes)
+ * simple_compute_packed_bounds - per-dimension bounds in packed coordinate space
  * @s: session handle
- * @out_min: output global minimum (set to -INFINITY if any var unbounded)
- * @out_max: output global maximum (set to INFINITY if any var unbounded)
+ * @out_min: output gsl_vector* of length total_dims (caller frees)
+ * @out_max: output gsl_vector* of length total_dims (caller frees)
+ *
+ * Each dimension's min/max is divided by the corresponding perturb_scale
+ * to match the packed value space used by the optimizer backend.
+ * Dimensions with no bounds set to -INFINITY / INFINITY.
  */
-void simple_compute_global_bounds(const simple_t *s,
-	double *out_min, double *out_max);
+void simple_compute_packed_bounds(const simple_t *s,
+	gsl_vector **out_min, gsl_vector **out_max);
 
 /* ---- opt_simple_engine.c ---- */
 
@@ -199,20 +203,23 @@ void simple_compute_global_bounds(const simple_t *s,
 void simple_cache_clear(simple_cache_t *cache);
 
 /**
- * simple_cache_lookup - look up cached fitness value
+ * simple_cache_lookup - look up cached fitness for packed position
  * @s: session handle
+ * @vec: packed position vector from optimizer backend
  * @found: output, set to 1 if found
  *
- * Builds key from work_vars. Returns cached value if found.
+ * Builds key from packed vector with full precision. Returns cached value
+ * if found, avoiding the need to unpack on cache hits.
  */
-double simple_cache_lookup(simple_t *s, int *found);
+double simple_cache_lookup(simple_t *s, const gsl_vector *vec, int *found);
 
 /**
- * simple_cache_store - store fitness result in cache
+ * simple_cache_store - store fitness result keyed on packed position
  * @s: session handle
+ * @vec: packed position vector used as cache key
  * @value: fitness value to cache
  */
-void simple_cache_store(simple_t *s, double value);
+void simple_cache_store(simple_t *s, const gsl_vector *vec, double value);
 
 /**
  * simple_fitness_trampoline - fitness callback installed in backend

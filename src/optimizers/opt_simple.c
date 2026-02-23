@@ -88,8 +88,8 @@ static void _free_work_vars(simple_t *s)
 static optimizer_t *_build_simplex_optimizer(simple_t *s, double ssize,
 	gsl_vector *initial)
 {
-	double global_min, global_max;
-	simple_compute_global_bounds(s, &global_min, &global_max);
+	gsl_vector *bmin, *bmax;
+	simple_compute_packed_bounds(s, &bmin, &bmax);
 
 	/* Copy pre-initialized config, set per-pass fields */
 	simplex_config_t cfg = s->algo_opts.simplex.cfg;
@@ -97,15 +97,21 @@ static optimizer_t *_build_simplex_optimizer(simple_t *s, double ssize,
 	cfg.initial_guess  = initial;
 	cfg.init_size      = ssize;
 	cfg.max_iter       = s->max_iter;
-	cfg.pos_min        = global_min;
-	cfg.pos_max        = global_max;
+	cfg.pos_min        = bmin;
+	cfg.pos_max        = bmax;
 	cfg.exit_fit       = s->exit_fit;
 	cfg.fit_func       = simple_fitness_trampoline;
 	cfg.fit_func_ctx   = s;
 	cfg.log_func       = simple_simplex_log_trampoline;
 	cfg.log_func_ctx   = s;
 
-	return optimizer_new_simplex(&cfg);
+	optimizer_t *opt = optimizer_new_simplex(&cfg);
+
+	/* Backend deep-copies bounds; free our temporaries */
+	gsl_vector_free(bmin);
+	gsl_vector_free(bmax);
+
+	return opt;
 }
 
 /**
@@ -117,24 +123,31 @@ static optimizer_t *_build_simplex_optimizer(simple_t *s, double ssize,
  */
 static optimizer_t *_build_pso_optimizer(simple_t *s, gsl_vector *initial)
 {
-	double global_min, global_max;
-	simple_compute_global_bounds(s, &global_min, &global_max);
+	gsl_vector *bmin, *bmax;
+	simple_compute_packed_bounds(s, &bmin, &bmax);
 
 	/* Copy pre-initialized config, set per-pass fields */
 	pso_config_t cfg   = s->algo_opts.pso_cfg;
 	cfg.dimensions     = s->total_dims;
 	cfg.initial_guess  = initial;
 	cfg.iterations     = s->max_iter;
-	cfg.pos_min        = global_min;
-	cfg.pos_max        = global_max;
+	cfg.pos_min        = bmin;
+	cfg.pos_max        = bmax;
 	cfg.exit_fit       = s->exit_fit;
+	cfg.exit_plateau   = 0;
 	cfg.fit_func       = simple_fitness_trampoline;
 	cfg.fit_func_ctx   = s;
 	cfg.log_func       = simple_pso_log_trampoline;
 	cfg.log_func_ctx   = s;
 	cfg.cancel_flag    = &s->cancel;
 
-	return optimizer_new_pso(&cfg);
+	optimizer_t *opt = optimizer_new_pso(&cfg);
+
+	/* Backend deep-copies bounds; free our temporaries */
+	gsl_vector_free(bmin);
+	gsl_vector_free(bmax);
+
+	return opt;
 }
 
 /**

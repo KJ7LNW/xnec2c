@@ -28,9 +28,6 @@ struct simplex_s
 	gsl_vector *trial;       /**< Scratch: reflected or contracted point [dims] */
 	gsl_vector *trial2;      /**< Scratch: expanded point [dims] */
 
-	gsl_vector *pos_min;     /**< Per-dimension lower bound [dims] */
-	gsl_vector *pos_max;     /**< Per-dimension upper bound [dims] */
-
 	gsl_vector *best_pos;    /**< Best position found [dims], persistent for getter */
 	double best_fit;         /**< Best fitness found, INFINITY when unset */
 

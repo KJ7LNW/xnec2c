@@ -54,8 +54,8 @@ typedef struct
 	double min_size;             /**< Convergence: stop when simplex size < this */
 	int max_iter;                /**< Maximum iterations (0 = 1000) */
 
-	double pos_min;              /**< Lower bound, uniform across dimensions */
-	double pos_max;              /**< Upper bound, uniform across dimensions */
+	gsl_vector *pos_min;         /**< Per-dimension lower bound (NULL = unbounded) */
+	gsl_vector *pos_max;         /**< Per-dimension upper bound (NULL = unbounded) */
 
 	double temperature;          /**< Simulated annealing noise scale (0 = off) */
 	double exit_fit;             /**< Stop if fitness <= this value (NAN = disabled) */

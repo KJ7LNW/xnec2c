@@ -20,47 +20,30 @@
 /* ---- Cache ---- */
 
 /**
- * _cache_build_key - build cache key string from work_vars
- * @s: session handle
+ * _cache_build_key - build cache key string from packed position vector
+ * @vec: optimizer position vector in packed coordinate space
  *
- * Format: "name1=v0,v1;name2=v0;" with vars in sorted name order.
+ * Format: "v0,v1,v2,..." with full IEEE 754 precision (%.17g).
+ * Keyed on the packed vector directly to avoid perturb_scale round-trip
+ * drift and to enable cache lookup before unpacking.
  * Returns malloc'd string; caller frees.
  */
-static char *_cache_build_key(const simple_t *s)
+static char *_cache_build_key(const gsl_vector *vec)
 {
-	/* Compute exact buffer need: name + "=" + values + "," + ";" per var.
-	 * Each %g value is at most 24 chars; add per-var overhead for delimiters. */
-	int bufsize = 1;
-	for (int si = 0; si < s->num_vars; si++)
-	{
-		int vi = s->sorted_var_indices[si];
-		const simple_var_t *v = &s->work_vars[vi];
-		bufsize += (int)strlen(v->name) + 2;
-		bufsize += (int)v->values->size * 25;
-	}
-
+	/* Each %.17g value is at most 25 chars; add comma delimiter */
+	int dims = (int)vec->size;
+	int bufsize = dims * 26 + 1;
 	char *key = malloc(bufsize);
 	int pos = 0;
 
-	for (int si = 0; si < s->num_vars; si++)
+	for (int d = 0; d < dims; d++)
 	{
-		int vi = s->sorted_var_indices[si];
-		const simple_var_t *v = &s->work_vars[vi];
-		int n = (int)v->values->size;
-
-		pos += snprintf(key + pos, bufsize - pos, "%s=", v->name);
-
-		for (int e = 0; e < n; e++)
+		if (d > 0)
 		{
-			double val = gsl_vector_get(v->values, e);
-			if (e > 0)
-			{
-				pos += snprintf(key + pos, bufsize - pos, ",");
-			}
-			pos += snprintf(key + pos, bufsize - pos, "%g", val);
+			pos += snprintf(key + pos, bufsize - pos, ",");
 		}
-
-		pos += snprintf(key + pos, bufsize - pos, ";");
+		pos += snprintf(key + pos, bufsize - pos, "%.17g",
+			gsl_vector_get(vec, d));
 	}
 
 	return key;
@@ -86,13 +69,14 @@ void simple_cache_clear(simple_cache_t *cache)
 }
 
 /**
- * simple_cache_lookup - search cache for current work_vars
+ * simple_cache_lookup - search cache for packed position vector
  * @s: session handle
+ * @vec: packed position vector from optimizer backend
  * @found: output, set to 1 if cache hit
  *
  * Returns cached fitness on hit, NAN on miss.
  */
-double simple_cache_lookup(simple_t *s, int *found)
+double simple_cache_lookup(simple_t *s, const gsl_vector *vec, int *found)
 {
 	*found = 0;
 
@@ -102,7 +86,7 @@ double simple_cache_lookup(simple_t *s, int *found)
 		return NAN;
 	}
 
-	char *key = _cache_build_key(s);
+	char *key = _cache_build_key(vec);
 
 	for (int i = 0; i < s->cache.count; i++)
 	{
@@ -123,11 +107,10 @@ double simple_cache_lookup(simple_t *s, int *found)
 /**
  * simple_cache_store - store fitness result in cache
  * @s: session handle
+ * @vec: packed position vector used as cache key
  * @value: fitness to store
- *
- * Key built from current work_vars state.
  */
-void simple_cache_store(simple_t *s, double value)
+void simple_cache_store(simple_t *s, const gsl_vector *vec, double value)
 {
 	if (s->nocache)
 	{
@@ -143,7 +126,7 @@ void simple_cache_store(simple_t *s, double value)
 		s->cache.capacity = new_cap;
 	}
 
-	char *key = _cache_build_key(s);
+	char *key = _cache_build_key(vec);
 	s->cache.keys[s->cache.count]   = key;
 	s->cache.values[s->cache.count] = value;
 	s->cache.count++;
@@ -165,16 +148,17 @@ static double _get_time(void)
 
 /**
  * simple_fitness_trampoline - adapter between backend and user fitness
- * @pos: position vector from optimizer backend
+ * @pos: position vector from optimizer backend (packed coordinate space)
  * @ctx: simple_t* pointer
  *
  * 1. Check cancel -> return INFINITY
- * 2. Unpack pos into work_vars (scale, round, clamp)
- * 3. Check cache -> return cached if hit
- * 4. Call user's fit_func
- * 5. Store in cache
- * 6. Track best
- * 7. Convert NaN to INFINITY
+ * 2. Increment iter_count (cache hits counted as iterations)
+ * 3. Check cache on packed vector -> return cached if hit
+ * 4. Unpack pos into work_vars (scale, round, clamp) — only on cache miss
+ * 5. Call user's fit_func
+ * 6. Store in cache (keyed on packed vector)
+ * 7. Track best
+ * 8. Convert NaN to INFINITY
  */
 double simple_fitness_trampoline(const gsl_vector *pos, void *ctx)
 {
@@ -186,16 +170,18 @@ double simple_fitness_trampoline(const gsl_vector *pos, void *ctx)
 		return INFINITY;
 	}
 
-	simple_unpack_vec(s, pos);
 	s->iter_count++;
 
-	/* Cache lookup */
+	/* Cache lookup on packed vector (before unpack to avoid drift) */
 	int found;
-	double result = simple_cache_lookup(s, &found);
+	double result = simple_cache_lookup(s, pos, &found);
 	if (found)
 	{
 		return result;
 	}
+
+	/* Unpack only on cache miss */
+	simple_unpack_vec(s, pos);
 
 	/* Call user fitness function */
 	result = s->fit_func(s->work_vars, s->num_vars, s->fit_func_ctx);
@@ -206,7 +192,7 @@ double simple_fitness_trampoline(const gsl_vector *pos, void *ctx)
 		result = INFINITY;
 	}
 
-	simple_cache_store(s, result);
+	simple_cache_store(s, pos, result);
 
 	/* Track cross-pass best */
 	if (result < s->best_minima)

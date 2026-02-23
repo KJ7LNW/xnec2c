@@ -19,6 +19,7 @@
  */
 
 #include "simplex_internal.h"
+#include "optimizer_bounds.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -41,8 +42,8 @@ void simplex_config_init(simplex_config_t *config)
 	memset(config, 0, sizeof(*config));
 	config->init_size = 1.0;
 	config->min_size = 1e-6;
-	config->pos_min = -INFINITY;
-	config->pos_max = INFINITY;
+	config->pos_min = NULL;
+	config->pos_max = NULL;
 	config->exit_fit = NAN;
 }
 
@@ -67,15 +68,7 @@ simplex_t *simplex_new(const simplex_config_t *config)
 		return NULL;
 	}
 
-	if (isfinite(config->pos_min) && isfinite(config->pos_max)
-		&& config->pos_max <= config->pos_min)
-	{
-		fprintf(stderr, "simplex_new: pos_max (%g) must exceed pos_min (%g)\n",
-			config->pos_max, config->pos_min);
-		return NULL;
-	}
-
-	/* Derive dimensions */
+	/* Derive dimensions early for bounds validation */
 	int dims = config->dimensions;
 	if (dims <= 0 && config->initial_guess)
 	{
@@ -90,6 +83,22 @@ simplex_t *simplex_new(const simplex_config_t *config)
 	{
 		fprintf(stderr, "simplex_new: cannot determine dimensions\n");
 		return NULL;
+	}
+
+	/* Bounds: both or neither */
+	if ((config->pos_min != NULL) != (config->pos_max != NULL))
+	{
+		fprintf(stderr, "simplex_new: pos_min and pos_max must both be set or both NULL\n");
+		return NULL;
+	}
+
+	if (config->pos_min && config->pos_max)
+	{
+		if (optimizer_validate_bounds(config->pos_min, config->pos_max,
+			dims, 1, "simplex_new") != 0)
+		{
+			return NULL;
+		}
 	}
 
 	/* Validate initial_simplex shape */
@@ -117,6 +126,8 @@ simplex_t *simplex_new(const simplex_config_t *config)
 	/* Prevent simplex_free from freeing caller's pointers before deep-copy */
 	s->config.initial_guess = NULL;
 	s->config.initial_simplex = NULL;
+	s->config.pos_min = NULL;
+	s->config.pos_max = NULL;
 
 	s->config.dimensions = dims;
 
@@ -141,11 +152,19 @@ simplex_t *simplex_new(const simplex_config_t *config)
 		gsl_matrix_memcpy(s->config.initial_simplex, config->initial_simplex);
 	}
 
-	/* Broadcast scalar bounds to per-dimension vectors */
-	s->pos_min = gsl_vector_alloc(dims);
-	s->pos_max = gsl_vector_alloc(dims);
-	gsl_vector_set_all(s->pos_min, s->config.pos_min);
-	gsl_vector_set_all(s->pos_max, s->config.pos_max);
+	/* Deep-copy bounds, or default to unbounded */
+	if (config->pos_min && config->pos_max)
+	{
+		optimizer_deep_copy_bounds(&s->config.pos_min, &s->config.pos_max,
+			config->pos_min, config->pos_max);
+	}
+	else
+	{
+		s->config.pos_min = gsl_vector_alloc(dims);
+		gsl_vector_set_all(s->config.pos_min, -INFINITY);
+		s->config.pos_max = gsl_vector_alloc(dims);
+		gsl_vector_set_all(s->config.pos_max, INFINITY);
+	}
 
 	/* Scratch vectors */
 	s->centroid = gsl_vector_alloc(dims);
@@ -450,9 +469,17 @@ void simplex_free(simplex_t *s)
 	gsl_vector_free(s->centroid);
 	gsl_vector_free(s->trial);
 	gsl_vector_free(s->trial2);
-	gsl_vector_free(s->pos_min);
-	gsl_vector_free(s->pos_max);
 	gsl_vector_free(s->best_pos);
+
+	if (s->config.pos_min)
+	{
+		gsl_vector_free(s->config.pos_min);
+	}
+
+	if (s->config.pos_max)
+	{
+		gsl_vector_free(s->config.pos_max);
+	}
 
 	if (s->config.initial_guess)
 	{

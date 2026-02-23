@@ -36,8 +36,8 @@ void simplex_clamp_to_bounds(const simplex_t *s, gsl_vector *point)
 
 	for (int d = 0; d < dims; d++)
 	{
-		double lo = gsl_vector_get(s->pos_min, d);
-		double hi = gsl_vector_get(s->pos_max, d);
+		double lo = gsl_vector_get(s->config.pos_min, d);
+		double hi = gsl_vector_get(s->config.pos_max, d);
 		double v = gsl_vector_get(point, d);
 
 		if (v < lo)

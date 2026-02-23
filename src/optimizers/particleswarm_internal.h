@@ -37,8 +37,6 @@ struct pso_s
 	pso_config_t config;
 
 	pso_particles_t *prtcls;
-	gsl_vector *pos_min;         /**< Per-dimension lower bound [dimensions] */
-	gsl_vector *pos_max;         /**< Per-dimension upper bound [dimensions] */
 
 	double best_best;            /**< Global best fitness, INFINITY when unset */
 	gsl_vector *best_best_pos;   /**< Position of global best [dimensions] */
