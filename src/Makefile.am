@@ -40,6 +40,10 @@ xnec2c_SOURCES = \
     sy_expr.c       sy_expr.h \
     sy_overrides.c  sy_overrides.h \
     opt_ui.c        opt_ui.h \
+    opt_ui_internal.h \
+    opt_ui_goals.c \
+    opt_ui_formula.c \
+    opt_ui_session.c \
     optimizers/opt_fitness.c   optimizers/opt_fitness.h \
     optimizers/opt_nec2_eval.c optimizers/opt_nec2_eval.h \
     optimizers/opt_session.c   optimizers/opt_session.h \
