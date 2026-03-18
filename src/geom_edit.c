@@ -19,6 +19,8 @@
 
 #include "geom_edit.h"
 #include "shared.h"
+#include "expr_edit.h"
+#include "sy_expr.h"
 
 /*------------------------------------------------------------------------*/
 
@@ -46,9 +48,22 @@ Insert_GE_Card( GtkListStore *store, GtkTreeIter *iter )
 
 /*------------------------------------------------------------------------*/
 
+/* Shadow expression text populated by the most recent Get_Geometry_Data() call.
+ * Index 0-1: I1-I2 expression text; index 2-8: F1-F7 expression text.
+ * "" when the corresponding field is plain numeric. */
+static char geom_edit_iexprs[2][EXPR_FIELD_LEN];
+static char geom_edit_fexprs[7][EXPR_FIELD_LEN];
+
+/* Separate expression text for the SC card row in the patch editor.
+ * The SP and SC rows are separate treeview rows with independent shadow
+ * columns; geom_edit_fexprs holds SP's expressions only. */
+static char patch_sc_fexprs[7][EXPR_FIELD_LEN];
+
 /* Get_Geometry_Data()
  *
- * Gets geometry data from a treeview row
+ * Gets geometry data from a treeview row.  Also reads shadow expression
+ * columns into geom_edit_iexprs/geom_edit_fexprs so that card editors
+ * can display expressions in spinbuttons via expr_edit_write_field().
  */
 
   static void
@@ -58,6 +73,7 @@ Get_Geometry_Data(
     int *iv, double *fv )
 {
   gint idi, idf;
+  gchar *expr = NULL;
 
   /* Get data from tree view (I1,I2, F1-F7)*/
   if( gtk_list_store_iter_is_valid(store, iter) )
@@ -66,11 +82,27 @@ Get_Geometry_Data(
     {
       gtk_tree_model_get(GTK_TREE_MODEL(store), iter, idi,
                          &iv[idi - GEOM_COL_I1], -1);
+
+      /* Read shadow expression column */
+      gtk_tree_model_get(GTK_TREE_MODEL(store), iter,
+          GEOM_EXPR_COL(idi), &expr, -1);
+      g_strlcpy(geom_edit_iexprs[idi - GEOM_COL_I1],
+          expr != NULL ? expr : "", EXPR_FIELD_LEN);
+      g_free(expr);
+      expr = NULL;
     }
     for( idf = GEOM_COL_F1; idf <= GEOM_COL_F7; idf++ )
     {
       gtk_tree_model_get(
           GTK_TREE_MODEL(store), iter, idf, &fv[idf-GEOM_COL_F1], -1);
+
+      /* Read shadow expression column */
+      gtk_tree_model_get(GTK_TREE_MODEL(store), iter,
+          GEOM_EXPR_COL(idf), &expr, -1);
+      g_strlcpy(geom_edit_fexprs[idf - GEOM_COL_F1],
+          expr != NULL ? expr : "", EXPR_FIELD_LEN);
+      g_free(expr);
+      expr = NULL;
     }
   }
   else Stop( ERR_OK, _("Error reading row data\n"
@@ -82,7 +114,9 @@ Get_Geometry_Data(
 
 /* Set_Geometry_Data()
  *
- * Sets data into a geometry row
+ * Sets data into a geometry row.  Preserves existing shadow expression
+ * columns so that expressions loaded from file are not discarded when
+ * the card editor writes back unchanged fields.
  */
 
   static void
@@ -105,6 +139,14 @@ Set_Geometry_Data(
     {
       gtk_list_store_set( store, iter, idf, fv[idf - GEOM_COL_F1], -1 );
     }
+
+    /* Re-write shadow expression columns from last Get_Geometry_Data() read.
+     * Card editors that use expr_edit_save_field() will have updated
+     * geom_edit_iexprs/geom_edit_fexprs before calling Set_Geometry_Data(). */
+    expr_edit_write_exprs(store, iter,
+        GEOM_COL_EI1, geom_edit_iexprs, 2);
+    expr_edit_write_exprs(store, iter,
+        GEOM_COL_EF1, geom_edit_fexprs, 7);
   }
   else Stop( ERR_OK, _("Error writing row data\n"
         "Please re-select row") );
@@ -453,19 +495,32 @@ Wire_Editor( int action )
     save_data = load_wire = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
 
-  /* Read int data from the wire editor */
+  sy_errors_begin();
+
+  /* Read int data from the wire editor; capture expression text if present */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON( Builder_Get_Object(wire_editor_builder, ispin[idi]) );
-    iv[idi] = gtk_spin_button_get_value_as_int( spin );
+    expr_edit_save_field(spin, &val, geom_edit_iexprs[idi], EXPR_FIELD_LEN);
+    iv[idi] = (gint)val;
   }
 
-  /* Read float data from the wire editor */
+  /* Read float data from the wire editor; capture expression text if present.
+   * Indices 0-6 (F1-F7) have shadow columns; indices 7+ are derived/taper. */
   for( idx = WIRE_X1; idx <= WIRE_RES; idx++ )
   {
     spin = GTK_SPIN_BUTTON( Builder_Get_Object(wire_editor_builder, fspin[idx]) );
-    fv[idx] = gtk_spin_button_get_value( spin );
+
+    if( idx <= WIRE_DIA )
+      expr_edit_save_field(spin, &fv[idx], geom_edit_fexprs[idx], EXPR_FIELD_LEN);
+    else
+      fv[idx] = gtk_spin_button_get_value( spin );
   }
+
+  sy_errors_end();
+
   fv[WIRE_DIA]  /= 2.0;
   fv[WIRE_DIA1] /= 2.0;
   fv[WIRE_DIAN] /= 2.0;
@@ -743,21 +798,26 @@ Wire_Editor( int action )
         1.0/(double)(iv[SPIN_COL_I2]-1) );
   else newrdm = TRUE;
 
-  /* Write int data to the wire editor */
+  /* Write int data to the wire editor; show expression text when present */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(wire_editor_builder, ispin[idi]) );
-    gtk_spin_button_set_value( spin, iv[idi] );
+    expr_edit_write_field(spin, (gdouble)iv[idi], geom_edit_iexprs[idi]);
   }
 
-  /* Write float data to the wire editor (F1 to F7 and taper) */
+  /* Write float data to the wire editor (F1 to F7 and taper).
+   * Indices 0-6 (F1-F7) have shadow columns; indices 7+ are derived/taper. */
   fv[WIRE_DIA] *= 2.0; fv[WIRE_DIA1] *= 2.0; fv[WIRE_DIAN] *= 2.0;
   for( idx = WIRE_X1; idx <= WIRE_RES; idx++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(wire_editor_builder, fspin[idx]) );
-    gtk_spin_button_set_value( spin, fv[idx] );
+
+    if( idx <= WIRE_DIA )
+      expr_edit_write_field(spin, fv[idx], geom_edit_fexprs[idx]);
+    else
+      expr_edit_write_field(spin, fv[idx], "");
   }
   fv[WIRE_DIA] /= 2.0; fv[WIRE_DIA1] /= 2.0; fv[WIRE_DIAN] /= 2.0;
 
@@ -853,28 +913,40 @@ Patch_Editor( int action )
     iv[SPIN_COL_I1] = 0;     /* Not used in SP */
     iv[SPIN_COL_I2] = ptype; /* Patch type */
   }
-  else /* Set int data from the patch editor (SM card) */
+  else /* Set int data from the patch editor (SM card); capture expressions */
+  {
+    sy_errors_begin();
+
     for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
     {
+      gdouble val = 0.0;
+
       spin = GTK_SPIN_BUTTON(
           Builder_Get_Object(patch_editor_builder, ispin[idi]) );
-      double i = gtk_spin_button_get_value( spin );
-      iv[idi] = (gint)i;
+      expr_edit_save_field(spin, &val, geom_edit_iexprs[idi], EXPR_FIELD_LEN);
+      iv[idi] = (gint)val;
     }
+  }
 
-  /* Read float data from the patch editor */
+  sy_errors_begin();
+
+  /* Read float data from the patch editor; capture expression text.
+   * SP card: F1-F6 (PATCH_X1-PATCH_Z2) use geom_edit_fexprs.
+   * SC card: F1-F6 (PATCH_X3-PATCH_Z4) use patch_sc_fexprs. */
   for( idx = PATCH_X1; idx <= PATCH_Z2; idx++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(patch_editor_builder, fspin[idx]) );
-    fv[idx] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idx], geom_edit_fexprs[idx], EXPR_FIELD_LEN);
   }
   for( idx = PATCH_X3; idx <= PATCH_Z4; idx++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(patch_editor_builder, fspin[idx-1]) );
-    fv[idx] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idx], patch_sc_fexprs[idx-PATCH_X3], EXPR_FIELD_LEN);
   }
+
+  sy_errors_end();
 
   /* Save data to nec2 editor if appropriate */
   if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save_data) )
@@ -888,8 +960,17 @@ Patch_Editor( int action )
 
     /* Set SC card data to treeview if non arbitrary */
     if( ptype != PATCH_ARBT )
+    {
       Set_Geometry_Data(geom_store,
           &iter_sc, &iv[SPIN_COL_I3], &fv[PATCH_X3]);
+
+      /* Set_Geometry_Data wrote SP's expression arrays to SC row;
+       * overwrite with the correct SC-specific expressions. */
+      gtk_list_store_set(geom_store, &iter_sc,
+          GEOM_COL_EI1, "", GEOM_COL_EI2, "", -1);
+      expr_edit_write_exprs(geom_store, &iter_sc,
+          GEOM_COL_EF1, patch_sc_fexprs, 7);
+    }
 
     save_data = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
@@ -996,6 +1077,16 @@ Patch_Editor( int action )
           else Stop( ERR_OK, _("No SC card after an SM card") );
 
         } /* if( strcmp(name, "SP") == 0 ) */
+
+      /* Re-read expression arrays from correct iters after multiple
+       * Get_Geometry_Data calls that overwrite module statics. */
+      expr_edit_read_exprs(geom_store, &iter_sp,
+          GEOM_COL_EI1, geom_edit_iexprs, 2);
+      expr_edit_read_exprs(geom_store, &iter_sp,
+          GEOM_COL_EF1, geom_edit_fexprs, 7);
+      if( ptype != PATCH_ARBT )
+        expr_edit_read_exprs(geom_store, &iter_sc,
+            GEOM_COL_EF1, patch_sc_fexprs, 7);
 
       ptset = TRUE;
       break;
@@ -1137,32 +1228,39 @@ Patch_Editor( int action )
           Builder_Get_Object(patch_editor_builder, rbutton[ptype])), TRUE );
   }
 
+  /* Gray out patch type radio buttons when I2 carries an expression */
+  expr_edit_protect_widgets(patch_editor_builder,
+      (const char **)rbutton, 5,
+      geom_edit_iexprs[SPIN_COL_I2]);
+
   /* Set card name */
   Strlcpy( name, (ptype == PATCH_SURF ? "SM" : "SP"), sizeof(name) );
   if( gtk_list_store_iter_is_valid(geom_store, &iter_sp) && save_data )
     gtk_list_store_set( geom_store, &iter_sp, GEOM_COL_NAME, name, -1 );
 
-  /* Write int data for SM card */
+  /* Write int data for SM card; show expression text when present */
   if( ptype == PATCH_SURF )
     for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
     {
       spin = GTK_SPIN_BUTTON(
           Builder_Get_Object(patch_editor_builder, ispin[idi]) );
-      gtk_spin_button_set_value( spin, iv[idi] );
+      expr_edit_write_field(spin, (gdouble)iv[idi], geom_edit_iexprs[idi]);
     }
 
-  /* Write float data to the patch editor */
+  /* Write float data to the patch editor; show expression text when present.
+   * SP card: F1-F6 (PATCH_X1-PATCH_Z2) have shadow columns.
+   * SC card: F1-F6 (PATCH_X3-PATCH_Z4) use patch_sc_fexprs. */
   for( idx = PATCH_X1; idx <= PATCH_Z2; idx++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(patch_editor_builder, fspin[idx]) );
-    gtk_spin_button_set_value( spin, fv[idx] );
+    expr_edit_write_field(spin, fv[idx], geom_edit_fexprs[idx]);
   }
   for( idx = PATCH_X3; idx <= PATCH_Z4; idx++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(patch_editor_builder, fspin[idx-1]) );
-    gtk_spin_button_set_value( spin, fv[idx] );
+    expr_edit_write_field(spin, fv[idx], patch_sc_fexprs[idx-PATCH_X3]);
   }
 
   busy = FALSE;
@@ -1255,21 +1353,29 @@ Arc_Editor( int action )
     save_data = load_wire = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
 
-  /* Read int data from the arc editor */
+  sy_errors_begin();
+
+  /* Read int data from the arc editor; capture expression text */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(arc_editor_builder, ispin[idi]) );
-    iv[idi] = gtk_spin_button_get_value_as_int( spin );
+    expr_edit_save_field(spin, &val, geom_edit_iexprs[idi], EXPR_FIELD_LEN);
+    iv[idi] = (gint)val;
   }
 
-  /* Read float data from the arc editor */
+  /* Read float data from the arc editor; capture expression text */
   for( idx = ARC_RAD; idx <= ARC_PCL; idx++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(arc_editor_builder, fspin[idx]) );
-    fv[idx] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idx], geom_edit_fexprs[idx], EXPR_FIELD_LEN);
   }
+
+  sy_errors_end();
+
   fv[ARC_DIA] /= 2.0;
 
   /* Get wire conductivity */
@@ -1368,21 +1474,26 @@ Arc_Editor( int action )
   }
   else newpcl = TRUE;
 
-  /* Write int data to the arc editor */
+  /* Write int data to the arc editor; show expression text when present */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(arc_editor_builder, ispin[idi]) );
-    gtk_spin_button_set_value( spin, iv[idi] );
+    expr_edit_write_field(spin, (gdouble)iv[idi], geom_edit_iexprs[idi]);
   }
 
-  /* Write float data to the arc editor (F1 to F4 & pcl/resistance) */
+  /* Write float data to the arc editor.
+   * F1-F4 (ARC_RAD to ARC_DIA) have shadow columns; ARC_PCL is derived. */
   fv[ARC_DIA] *= 2.0;
   for( idx = ARC_RAD; idx <= ARC_PCL; idx++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(arc_editor_builder, fspin[idx]) );
-    gtk_spin_button_set_value( spin, fv[idx] );
+
+    if( idx < ARC_PCL )
+      expr_edit_write_field(spin, fv[idx], geom_edit_fexprs[idx]);
+    else
+      expr_edit_write_field(spin, fv[idx], "");
   }
   fv[ARC_DIA] /= 2.0;
 
@@ -1520,34 +1631,50 @@ Helix_Editor( int action )
     save_data = load_wire = FALSE;
   } /* if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save_data) */
 
-  /*** Read int data from the helix editor ***/
-  spin = GTK_SPIN_BUTTON(
-      Builder_Get_Object( helix_editor_builder, ispin[SPIN_COL_I1]) );
-  iv[SPIN_COL_I1] = gtk_spin_button_get_value_as_int( spin );
-  spin = GTK_SPIN_BUTTON(
-      Builder_Get_Object( helix_editor_builder, ispin[SPIN_COL_I2]) );
-  seg_turn = gtk_spin_button_get_value_as_int( spin );
+  sy_errors_begin();
 
-  /*** Read float data from the helix editor ***/
+  /*** Read int data from the helix editor; capture expression text ***/
+  {
+    gdouble val = 0.0;
+
+    spin = GTK_SPIN_BUTTON(
+        Builder_Get_Object( helix_editor_builder, ispin[SPIN_COL_I1]) );
+    expr_edit_save_field(spin, &val, geom_edit_iexprs[SPIN_COL_I1], EXPR_FIELD_LEN);
+    iv[SPIN_COL_I1] = (gint)val;
+
+    spin = GTK_SPIN_BUTTON(
+        Builder_Get_Object( helix_editor_builder, ispin[SPIN_COL_I2]) );
+    expr_edit_save_field(spin, &val, geom_edit_iexprs[SPIN_COL_I2], EXPR_FIELD_LEN);
+    seg_turn = (gint)val;
+  }
+
+  /*** Read float data from the helix editor; capture expression text ***/
   for( idx = HELIX_TSPACE; idx <= HELIX_RES; idx++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(helix_editor_builder, fspin[idx]) );
-    fv[idx] = gtk_spin_button_get_value( spin );
+
+    if( idx <= HELIX_DIA )
+      expr_edit_save_field(spin, &fv[idx], geom_edit_fexprs[idx], EXPR_FIELD_LEN);
+    else
+      fv[idx] = gtk_spin_button_get_value( spin );
   }
+
+  sy_errors_end();
+
   fv[HELIX_DIA] /= 2.0;
   helix_len = fv[SPIN_COL_F2];
 
-  /* Link a1-b1 radius spinbuttons */
-  if( link_a1b1 )
+  /* Link a1-b1 radius spinbuttons; skip if target carries an expression */
+  if( link_a1b1 && !expr_edit_field_protected(geom_edit_fexprs[HELIX_RYZO]) )
     fv[HELIX_RYZO] = fv[HELIX_RXZO];
 
   /* Link b1-a2 radius spinbuttons */
-  if( link_b1a2 )
+  if( link_b1a2 && !expr_edit_field_protected(geom_edit_fexprs[HELIX_RXZHL]) )
     fv[HELIX_RXZHL] = fv[HELIX_RYZO];
 
   /* Link a2-b2 radius spinbuttons */
-  if( link_a2b2 )
+  if( link_a2b2 && !expr_edit_field_protected(geom_edit_fexprs[HELIX_RYZHL]) )
     fv[HELIX_RYZHL] = fv[HELIX_RXZHL];
 
   /*** Respond to user action ***/
@@ -1816,15 +1943,18 @@ Helix_Editor( int action )
     else newtsp = FALSE;
   }
 
-  /* Write int data to the helix editor */
+  /* Write int data to the helix editor; show expression text when present */
   spin = GTK_SPIN_BUTTON(
       Builder_Get_Object(helix_editor_builder, ispin[SPIN_COL_I1]) );
-  gtk_spin_button_set_value( spin, iv[SPIN_COL_I1] );
+  expr_edit_write_field(spin, (gdouble)iv[SPIN_COL_I1],
+      geom_edit_iexprs[SPIN_COL_I1]);
   spin = GTK_SPIN_BUTTON(
       Builder_Get_Object(helix_editor_builder, ispin[SPIN_COL_I2]) );
-  gtk_spin_button_set_value( spin, seg_turn );
+  expr_edit_write_field(spin, seg_turn, geom_edit_iexprs[SPIN_COL_I2]);
 
-  /* Write float data to the helix editor */
+  /* Write float data to the helix editor.
+   * F1-F7 (HELIX_TSPACE to HELIX_DIA, indices 0-6) have shadow columns;
+   * HELIX_PCL(7), HELIX_NTURN(8), HELIX_RES(9) are derived. */
   ftmp = fv[HELIX_DIA];
   fv[HELIX_DIA] *= 2.0;
   fv[HELIX_LEN]  = helix_len;
@@ -1834,7 +1964,11 @@ Helix_Editor( int action )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(helix_editor_builder, fspin[idx]) );
-    gtk_spin_button_set_value( spin, fv[idx] );
+
+    if( idx <= HELIX_DIA )
+      expr_edit_write_field(spin, fv[idx], geom_edit_fexprs[idx]);
+    else
+      expr_edit_write_field(spin, fv[idx], "");
   }
   fv[HELIX_DIA] = ftmp;
 
@@ -1921,6 +2055,11 @@ Reflect_Editor( int action )
   if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save_data) )
   {
     Set_Geometry_Int_Data( geom_store, &iter_gx, iv );
+
+    /* Write shadow expression columns for I1 (I2 from checkbuttons) */
+    expr_edit_write_exprs(geom_store, &iter_gx,
+        GEOM_COL_EI1, geom_edit_iexprs, 2);
+
     save_data = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
 
@@ -1950,6 +2089,10 @@ Reflect_Editor( int action )
       /* Get reflect data from tree view */
       Get_Geometry_Int_Data( geom_store, &iter_gx, iv );
 
+      /* Read shadow expression columns */
+      expr_edit_read_exprs(geom_store, &iter_gx,
+          GEOM_COL_EI1, geom_edit_iexprs, 2);
+
       /* Set reflection axes check buttons */
       {
         ck = iv[SPIN_COL_I2];
@@ -1966,10 +2109,15 @@ Reflect_Editor( int action )
         }
       }
 
-      /* Set tag num increment */
+      /* Set tag num increment; show expression text when present */
       spin = GTK_SPIN_BUTTON(
           Builder_Get_Object(reflect_editor_builder, "reflect_taginc_spinbutton") );
-      gtk_spin_button_set_value( spin, iv[SPIN_COL_I1] );
+      expr_edit_write_field(spin, (gdouble)iv[SPIN_COL_I1], geom_edit_iexprs[SPIN_COL_I1]);
+
+      /* Gray out reflection axis checkbuttons when I2 carries an expression */
+      expr_edit_protect_widgets(reflect_editor_builder,
+          (const char **)ckbutton, 3,
+          geom_edit_iexprs[SPIN_COL_I2]);
       break;
 
     case EDITOR_CANCEL: /* Cancel reflect editor */
@@ -1998,10 +2146,19 @@ Reflect_Editor( int action )
     ck *= 10;
   }
 
-  /* Read tag inc from the reflect editor */
-  spin = GTK_SPIN_BUTTON(
-      Builder_Get_Object(reflect_editor_builder, "reflect_taginc_spinbutton") );
-  iv[SPIN_COL_I1] = gtk_spin_button_get_value_as_int( spin );
+  sy_errors_begin();
+
+  /* Read tag inc from the reflect editor; capture expression text */
+  {
+    gdouble val = 0.0;
+
+    spin = GTK_SPIN_BUTTON(
+        Builder_Get_Object(reflect_editor_builder, "reflect_taginc_spinbutton") );
+    expr_edit_save_field(spin, &val, geom_edit_iexprs[SPIN_COL_I1], EXPR_FIELD_LEN);
+    iv[SPIN_COL_I1] = (gint)val;
+  }
+
+  sy_errors_end();
 
   busy = FALSE;
 
@@ -2069,6 +2226,12 @@ Scale_Editor( int action )
     gtk_list_store_set(
         geom_store, &iter_gs, GEOM_COL_F1, scale, -1 );
 
+    /* Write shadow expression columns */
+    expr_edit_write_exprs(geom_store, &iter_gs,
+        GEOM_COL_EI1, geom_edit_iexprs, 2);
+    expr_edit_write_exprs(geom_store, &iter_gs,
+        GEOM_COL_EF1, geom_edit_fexprs, 7);
+
     save_data = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
 
@@ -2109,18 +2272,24 @@ Scale_Editor( int action )
         Stop( ERR_OK, _("Error reading row data\n"
               "Invalid list iterator") );
 
-      /* Enter tag from-to data to scale editor */
+      /* Read shadow expression columns */
+      expr_edit_read_exprs(geom_store, &iter_gs,
+          GEOM_COL_EI1, geom_edit_iexprs, 2);
+      expr_edit_read_exprs(geom_store, &iter_gs,
+          GEOM_COL_EF1, geom_edit_fexprs, 7);
+
+      /* Enter tag from-to data to scale editor; show expressions */
       for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(scale_editor_builder, ispin[idi]) );
-        gtk_spin_button_set_value( spin, iv[idi] );
+        expr_edit_write_field(spin, (gdouble)iv[idi], geom_edit_iexprs[idi]);
       }
 
-      /* Set scale factor to scale editor */
+      /* Set scale factor to scale editor; show expression */
       spin = GTK_SPIN_BUTTON( Builder_Get_Object(
             scale_editor_builder, "scale_factor_spinbutton") );
-      gtk_spin_button_set_value( spin, scale );
+      expr_edit_write_field(spin, scale, geom_edit_fexprs[0]);
       break;
 
     case EDITOR_CANCEL: /* Cancel scale editor */
@@ -2130,18 +2299,26 @@ Scale_Editor( int action )
       return;
 
     case EDITOR_DATA: /* Some data changed in editor window */
-      /* Read int data from the scale editor */
+      sy_errors_begin();
+
+      /* Read int data from the scale editor; capture expression text */
       for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
       {
+        gdouble val = 0.0;
+
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(scale_editor_builder, ispin[idi]) );
-        iv[idi] = gtk_spin_button_get_value_as_int( spin );
+        expr_edit_save_field(spin, &val, geom_edit_iexprs[idi], EXPR_FIELD_LEN);
+        iv[idi] = (gint)val;
       }
 
-      /* Read scale from the scale editor */
+      /* Read scale from the scale editor; capture expression text */
       spin = GTK_SPIN_BUTTON( Builder_Get_Object(
             scale_editor_builder, "scale_factor_spinbutton") );
-      scale = gtk_spin_button_get_value( spin );
+      expr_edit_save_field(spin, &scale, geom_edit_fexprs[0], EXPR_FIELD_LEN);
+
+      sy_errors_end();
+
       save_data = TRUE;
 
   } /* switch( action ) */
@@ -2201,6 +2378,11 @@ Cylinder_Editor( int action )
   if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save_data) )
   {
     Set_Geometry_Int_Data( geom_store, &iter_gr, iv );
+
+    /* Write shadow expression columns */
+    expr_edit_write_exprs(geom_store, &iter_gr,
+        GEOM_COL_EI1, geom_edit_iexprs, 2);
+
     save_data = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
 
@@ -2231,12 +2413,16 @@ Cylinder_Editor( int action )
       /* Get integer data from cylinder editor */
       Get_Geometry_Int_Data( geom_store, &iter_gr, iv );
 
-      /* Write int data to the cylinder editor */
+      /* Read shadow expression columns */
+      expr_edit_read_exprs(geom_store, &iter_gr,
+          GEOM_COL_EI1, geom_edit_iexprs, 2);
+
+      /* Write int data to the cylinder editor; show expressions */
       for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(cylinder_editor_builder, ispin[idi]));
-        gtk_spin_button_set_value( spin, iv[idi] );
+        expr_edit_write_field(spin, (gdouble)iv[idi], geom_edit_iexprs[idi]);
       }
       break;
 
@@ -2251,13 +2437,20 @@ Cylinder_Editor( int action )
 
   } /* switch( action ) */
 
-  /* Read int data from the cylinder editor */
+  sy_errors_begin();
+
+  /* Read int data from the cylinder editor; capture expression text */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I2; idi++ )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(cylinder_editor_builder, ispin[idi]));
-    iv[idi] = gtk_spin_button_get_value_as_int( spin );
+    expr_edit_save_field(spin, &val, geom_edit_iexprs[idi], EXPR_FIELD_LEN);
+    iv[idi] = (gint)val;
   }
+
+  sy_errors_end();
 
   busy = FALSE;
 
@@ -2357,20 +2550,25 @@ Transform_Editor( int action )
       /* Get integer data from transform editor */
       Get_Geometry_Data( geom_store, &iter_gm, iv, fv );
 
-      /* Write int data to the transform editor */
+      /* Write int data to the transform editor; show expressions when present.
+       * I1-I2 have shadow cols; I3 is stored in F7, no shadow col. */
       iv[SPIN_COL_I3] = (gint)fv[SPIN_COL_F7];
       for( idi = SPIN_COL_I1; idi <= SPIN_COL_I3; idi++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(transform_editor_builder, ispin[idi]));
-        gtk_spin_button_set_value( spin, iv[idi] );
+
+        if( idi < SPIN_COL_I3 )
+          expr_edit_write_field(spin, (gdouble)iv[idi], geom_edit_iexprs[idi]);
+        else
+          expr_edit_write_field(spin, (gdouble)iv[idi], "");
       }
-      /* Write float data to the transform editor */
+      /* Write float data to the transform editor; F1-F6 have shadow cols */
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(transform_editor_builder, fspin[idf]));
-        gtk_spin_button_set_value( spin, fv[idf] );
+        expr_edit_write_field(spin, fv[idf], geom_edit_fexprs[idf]);
       }
       break;
 
@@ -2385,20 +2583,34 @@ Transform_Editor( int action )
 
   } /* switch( action ) */
 
-  /* Read int data from the transform editor */
+  sy_errors_begin();
+
+  /* Read int data from the transform editor; capture expression text.
+   * I1-I2 have shadow columns; I3 is stored in F7, no shadow column. */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I3; idi++ )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(transform_editor_builder, ispin[idi]));
-    iv[idi] = gtk_spin_button_get_value_as_int( spin );
+
+    if( idi < SPIN_COL_I3 )
+      expr_edit_save_field(spin, &val, geom_edit_iexprs[idi], EXPR_FIELD_LEN);
+    else
+      val = gtk_spin_button_get_value( spin );
+    iv[idi] = (gint)val;
   }
-  /* Read float data from the transform editor */
+
+  /* Read float data from the transform editor; capture expression text */
   for( idx = 0; idx < 6; idx++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(transform_editor_builder, fspin[idx]));
-    fv[idx] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idx], geom_edit_fexprs[idx], EXPR_FIELD_LEN);
   }
+
+  sy_errors_end();
+
   fv[SPIN_COL_F7] = (gdouble)iv[SPIN_COL_I3];
 
   busy = FALSE;
@@ -2490,6 +2702,21 @@ Gend_Editor( int action )
       }
       else Stop( ERR_OK, _("Error reading row data\n"
             "Invalid list iterator") );
+
+      /* Gray out ground-end radios when I1 carries an expression.
+       * Gend_Editor does not use Get_Geometry_Data (which populates
+       * the geom_edit_iexprs module statics), so read shadow columns
+       * directly from the store into a local array. */
+      {
+        char ge_iexprs[1][EXPR_FIELD_LEN];
+
+        ge_iexprs[0][0] = '\0';
+        expr_edit_read_exprs(geom_store, &iter_ge,
+            GEOM_COL_EI1, ge_iexprs, 1);
+
+        expr_edit_protect_widgets(gend_editor_builder,
+            (const char **)rdbutton, GE_RDBTN, ge_iexprs[0]);
+      }
       break;
 
     case EDITOR_CANCEL: /* Cancel transform editor */
@@ -2515,6 +2742,167 @@ Gend_Editor( int action )
   busy = FALSE;
 
 } /* Gend_Editor() */
+
+/*------------------------------------------------------------------------*/
+
+/* Sy_Card_Editor()
+ *
+ * Edits an SY card's raw definition text via a programmatic dialog.
+ * SY cards can appear in either the geometry or command section;
+ * the editor determines which treeview holds the selected row.
+ */
+
+  void
+Sy_Card_Editor( int action )
+{
+  GtkTreeSelection *selection;
+  GtkTreeIter iter, sibling;
+  GtkListStore *store = NULL;
+  gchar *raw = NULL;
+  gint raw_col, name_col;
+  gboolean new_row = FALSE;
+
+  if( action != EDITOR_EDIT && action != EDITOR_NEW )
+    return;
+
+  /* For EDITOR_NEW, insert a new SY row in the appropriate store */
+  if( action == EDITOR_NEW )
+  {
+    if( selected_treeview == geom_treeview )
+    {
+      store    = geom_store;
+      raw_col  = GEOM_COL_RAW;
+      name_col = GEOM_COL_NAME;
+    }
+    else if( selected_treeview == cmnd_treeview )
+    {
+      store    = cmnd_store;
+      raw_col  = CMND_COL_RAW;
+      name_col = CMND_COL_NAME;
+    }
+    else
+    {
+      return;
+    }
+
+    /* Insert after last consecutive SY row at top of section,
+     * or prepend if no SY rows exist */
+    selection = gtk_tree_view_get_selection( selected_treeview );
+    {
+      GtkTreeIter scan;
+      gboolean have_sy = FALSE;
+
+      if( gtk_tree_model_get_iter_first(
+            GTK_TREE_MODEL(store), &scan) )
+      {
+        gchar *name = NULL;
+        do
+        {
+          gtk_tree_model_get( GTK_TREE_MODEL(store),
+              &scan, name_col, &name, -1 );
+          if( name != NULL && strcmp(name, "SY") == 0 )
+          {
+            sibling = scan;
+            have_sy = TRUE;
+            g_free(name);
+          }
+          else
+          {
+            g_free(name);
+            break;
+          }
+        }
+        while( gtk_tree_model_iter_next(
+              GTK_TREE_MODEL(store), &scan) );
+      }
+
+      if( have_sy )
+        gtk_list_store_insert_after( store, &iter, &sibling );
+      else
+        gtk_list_store_prepend( store, &iter );
+    }
+
+    /* Zero all columns and set card name */
+    Zero_Store( store, &iter,
+        store == geom_store ? GEOM_NUM_COLS : CMND_NUM_COLS,
+        0, -1 );
+    gtk_list_store_set( store, &iter, name_col, "SY", -1 );
+    gtk_tree_selection_select_iter( selection, &iter );
+    new_row = TRUE;
+  }
+  else
+  {
+    /* EDITOR_EDIT: determine which treeview has the selected SY row */
+    selection = gtk_tree_view_get_selection(geom_treeview);
+    if( gtk_tree_selection_get_selected(selection, NULL, &iter) )
+    {
+      store = geom_store;
+      raw_col = GEOM_COL_RAW;
+    }
+    else
+    {
+      selection = gtk_tree_view_get_selection(cmnd_treeview);
+      if( gtk_tree_selection_get_selected(selection, NULL, &iter) )
+      {
+        store = cmnd_store;
+        raw_col = CMND_COL_RAW;
+      }
+    }
+  }
+
+  if( store == NULL )
+    return;
+
+  /* Read current SY definition text */
+  gtk_tree_model_get(GTK_TREE_MODEL(store), &iter, raw_col, &raw, -1);
+
+  /* Build a dialog with a text entry for the SY definition */
+  GtkWidget *dialog = gtk_dialog_new_with_buttons(
+      _("SY Card Editor"),
+      GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(
+              store == geom_store ? geom_treeview : cmnd_treeview))),
+      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+      _("_Cancel"), GTK_RESPONSE_CANCEL,
+      _("_Apply"), GTK_RESPONSE_ACCEPT,
+      NULL);
+
+  GtkWidget *content = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+  GtkWidget *label = gtk_label_new(
+      _("SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"));
+  gtk_box_pack_start(GTK_BOX(content), label, FALSE, FALSE, 4);
+
+  GtkWidget *entry = gtk_entry_new();
+  gtk_entry_set_width_chars(GTK_ENTRY(entry), 60);
+
+  /* Enter key in entry commits the dialog */
+  gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
+  gtk_entry_set_activates_default(GTK_ENTRY(entry), TRUE);
+  if( raw != NULL && raw[0] != '\0' )
+    gtk_entry_set_text(GTK_ENTRY(entry), raw);
+  gtk_box_pack_start(GTK_BOX(content), entry, FALSE, FALSE, 4);
+  gtk_widget_show_all(content);
+
+  g_free(raw);
+
+  /* Run the dialog */
+  gint response = gtk_dialog_run(GTK_DIALOG(dialog));
+
+  if( response == GTK_RESPONSE_ACCEPT )
+  {
+    const gchar *text = gtk_entry_get_text(GTK_ENTRY(entry));
+
+    gtk_list_store_set(store, &iter, raw_col, text, -1);
+    SetFlag( NEC2_EDIT_SAVE );
+  }
+  else if( new_row )
+  {
+    /* Cancel on a newly inserted row: remove it */
+    gtk_list_store_remove(store, &iter);
+  }
+
+  gtk_widget_destroy(dialog);
+
+} /* Sy_Card_Editor() */
 
 /*------------------------------------------------------------------------*/
 

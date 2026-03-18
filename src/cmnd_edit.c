@@ -19,6 +19,8 @@
 
 #include "cmnd_edit.h"
 #include "shared.h"
+#include "expr_edit.h"
+#include "sy_expr.h"
 
 /*------------------------------------------------------------------------*/
 
@@ -42,9 +44,26 @@ Insert_EN_Card( GtkListStore *store, GtkTreeIter *iter )
 
 /*------------------------------------------------------------------------*/
 
+/* Shadow expression text populated by the most recent Get_Command_Data() call.
+ * "" when the corresponding field is plain numeric. */
+static char cmnd_edit_iexprs[4][EXPR_FIELD_LEN];
+static char cmnd_edit_fexprs[6][EXPR_FIELD_LEN];
+
+/* Separate expression text for the GD card row.
+ * The GN and GD rows are separate treeview rows with independent shadow
+ * columns; cmnd_edit_fexprs holds GN's expressions only. */
+static char gd_fexprs[4][EXPR_FIELD_LEN];
+
+/* GD integer fields are always zero per NEC2 spec;
+ * used to clear leaked GN expressions from GD shadow columns. */
+static char gd_iexprs[4][EXPR_FIELD_LEN];
+
 /* Get_Command_Data()
  *
- * Gets command data from a treeview row
+ * Gets command data from a treeview row.  Also reads shadow expression
+ * columns into cmnd_edit_iexprs/cmnd_edit_fexprs so that card editors
+ * can display expressions in
+ * spinbuttons via expr_edit_write_field().
  */
 
   static void
@@ -54,6 +73,7 @@ Get_Command_Data(
     int *iv, double *fv )
 {
   gint idc;
+  gchar *expr = NULL;
 
   /* Get data from tree view (I1-I4, F1-F6)*/
   if( gtk_list_store_iter_is_valid(store, iter) )
@@ -62,11 +82,27 @@ Get_Command_Data(
     {
       gtk_tree_model_get(GTK_TREE_MODEL(store), iter, idc,
                          &iv[idc - CMND_COL_I1], -1);
+
+      /* Read shadow expression column */
+      gtk_tree_model_get(GTK_TREE_MODEL(store), iter,
+          CMND_EXPR_COL(idc), &expr, -1);
+      g_strlcpy(cmnd_edit_iexprs[idc - CMND_COL_I1],
+          expr != NULL ? expr : "", EXPR_FIELD_LEN);
+      g_free(expr);
+      expr = NULL;
     }
     for( idc = CMND_COL_F1; idc <= CMND_COL_F6; idc++ )
     {
       gtk_tree_model_get(
           GTK_TREE_MODEL(store), iter, idc, &fv[idc-CMND_COL_F1], -1);
+
+      /* Read shadow expression column */
+      gtk_tree_model_get(GTK_TREE_MODEL(store), iter,
+          CMND_EXPR_COL(idc), &expr, -1);
+      g_strlcpy(cmnd_edit_fexprs[idc - CMND_COL_F1],
+          expr != NULL ? expr : "", EXPR_FIELD_LEN);
+      g_free(expr);
+      expr = NULL;
     }
   }
   else Stop( ERR_OK, _("Get_Command_Data(): Error reading\n"
@@ -78,7 +114,9 @@ Get_Command_Data(
 
 /* Set_Command_Data()
  *
- * Sets data into a command row
+ * Sets data into a command row.  Preserves existing shadow expression
+ * columns so that expressions loaded from file are not discarded when
+ * the card editor writes back unchanged fields.
  */
 
   static void
@@ -101,6 +139,14 @@ Set_Command_Data(
     {
       gtk_list_store_set( store, iter, idc, fv[idc - CMND_COL_F1], -1 );
     }
+
+    /* Re-write shadow expression columns from last Get_Command_Data() read.
+     * Card editors that use expr_edit_save_field() will have updated
+     * cmnd_edit_iexprs/cmnd_edit_fexprs before calling Set_Command_Data(). */
+    expr_edit_write_exprs(store, iter,
+        CMND_COL_EI1, cmnd_edit_iexprs, 4);
+    expr_edit_write_exprs(store, iter,
+        CMND_COL_EF1, cmnd_edit_fexprs, 6);
   }
   else Stop( ERR_OK, _("Set_Command_Data(): Error writing row data\n"
         "Please re-select row") );
@@ -310,20 +356,20 @@ Excitation_Command( int action )
       /* Get data from command editor */
       Get_Command_Data( cmnd_store, &iter_ex, iv, fv );
 
-      /* Write int data to the command editor */
+      /* Write int data to the command editor; show expression text when present */
       for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(excitation_editor_builder, ispin[idi - SPIN_COL_I2]) );
-        gtk_spin_button_set_value( spin, iv[idi] );
+        expr_edit_write_field(spin, (gdouble)iv[idi], cmnd_edit_iexprs[idi]);
       }
 
-      /* Write float data to the command editor */
+      /* Write float data to the command editor; show expression text when present */
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(excitation_editor_builder, fspin[idf]) );
-        gtk_spin_button_set_value( spin, fv[idf] );
+        expr_edit_write_field(spin, fv[idf], cmnd_edit_fexprs[idf]);
       }
 
       /* Set radio buttons */
@@ -345,6 +391,21 @@ Excitation_Command( int action )
         gtk_toggle_button_set_active( toggle, TRUE );
       else
         gtk_toggle_button_set_active( toggle, FALSE );
+
+      /* Gray out excitation type radios when I1 carries an expression */
+      expr_edit_protect_widgets(excitation_editor_builder,
+          (const char **)typrdbtn, EX_TYPRDBTN,
+          cmnd_edit_iexprs[SPIN_COL_I1]);
+
+      /* Gray out print control checkbuttons when I4 carries an expression */
+      {
+        const char *ex_checks[] = {
+          "excitation_i419_checkbutton",
+          "excitation_i420_checkbutton"
+        };
+        expr_edit_protect_widgets(excitation_editor_builder,
+            ex_checks, 2, cmnd_edit_iexprs[SPIN_COL_I4]);
+      }
 
       label = TRUE;
       break;
@@ -392,21 +453,28 @@ Excitation_Command( int action )
 
   } /* switch( action ) */
 
-  /* Read int data from the command editor */
+  sy_errors_begin();
+
+  /* Read int data from the command editor; capture expression text */
   for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(excitation_editor_builder, ispin[idi - SPIN_COL_I2]) );
-    iv[idi] = gtk_spin_button_get_value_as_int( spin );
+    expr_edit_save_field(spin, &val, cmnd_edit_iexprs[idi], EXPR_FIELD_LEN);
+    iv[idi] = (gint)val;
   }
 
-  /* Read float data from the command editor */
+  /* Read float data from the command editor; capture expression text */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(excitation_editor_builder, fspin[idf]) );
-    fv[idf] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
   }
+
+  sy_errors_end();
 
   /* Set spin button labels */
   if( label )
@@ -432,7 +500,7 @@ Excitation_Command( int action )
           {
             spin = GTK_SPIN_BUTTON(
                 Builder_Get_Object(excitation_editor_builder, fspin[idf]) );
-            gtk_spin_button_set_value( spin, 0 );
+            expr_edit_write_field(spin, 0.0, "");
           }
           Set_Labels( excitation_editor_builder, labels, text, EX_LABELS );
         }
@@ -475,7 +543,7 @@ Excitation_Command( int action )
           {
             spin = GTK_SPIN_BUTTON(
                 Builder_Get_Object(excitation_editor_builder, ispin[idx]) );
-            gtk_spin_button_set_value( spin, 0 );
+            expr_edit_write_field(spin, 0.0, "");
           }
           Set_Labels( excitation_editor_builder, labels, text, EX_LABELS );
         }
@@ -549,18 +617,27 @@ Frequency_Command( int action )
     save_data  = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
 
-  /* Read int data from the command editor */
-  spin = GTK_SPIN_BUTTON( Builder_Get_Object(
-        frequency_editor_builder, "frequency_num_spinbutton") );
-  iv[SPIN_COL_I2] = gtk_spin_button_get_value_as_int( spin );
+  sy_errors_begin();
 
-  /* Read float data from the command editor */
+  /* Read int data from the command editor; capture expression text */
+  {
+    gdouble val = 0.0;
+
+    spin = GTK_SPIN_BUTTON( Builder_Get_Object(
+          frequency_editor_builder, "frequency_num_spinbutton") );
+    expr_edit_save_field(spin, &val, cmnd_edit_iexprs[SPIN_COL_I2], EXPR_FIELD_LEN);
+    iv[SPIN_COL_I2] = (gint)val;
+  }
+
+  /* Read float data from the command editor; capture expression text */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(frequency_editor_builder, fspin[idf]) );
-    fv[idf] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
   }
+
+  sy_errors_end();
 
   /* Respond to user action */
   switch( action )
@@ -587,17 +664,19 @@ Frequency_Command( int action )
       /* Get data from command editor */
       Get_Command_Data( cmnd_store, &iter_fr, iv, fv );
 
-      /* Write int data to the command editor */
+      /* Write int data to the command editor; show expression text when present */
       spin = GTK_SPIN_BUTTON( Builder_Get_Object(
             frequency_editor_builder, "frequency_num_spinbutton") );
-      gtk_spin_button_set_value( spin, iv[SPIN_COL_I2] );
+      expr_edit_write_field(spin, (gdouble)iv[SPIN_COL_I2],
+          cmnd_edit_iexprs[SPIN_COL_I2]);
 
-      /* Write float data to the command editor */
+      /* Write float data to the command editor; F1-F2 have shadow columns;
+       * F3 (max freq) is derived and uses plain display. */
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F2; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(frequency_editor_builder, fspin[idf]) );
-        gtk_spin_button_set_value( spin, fv[idf] );
+        expr_edit_write_field(spin, fv[idf], cmnd_edit_fexprs[idf]);
       }
 
       /* Calculate and set end freq to editor */
@@ -612,7 +691,7 @@ Frequency_Command( int action )
 
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(frequency_editor_builder, fspin[SPIN_COL_F3]) );
-        gtk_spin_button_set_value( spin, fv[SPIN_COL_F3] );
+        expr_edit_write_field(spin, fv[SPIN_COL_F3], "");
       } /* if( iv[SPIN_COL_I2] > 1 ) */
 
       /* Set stepping type radio button */
@@ -624,6 +703,16 @@ Frequency_Command( int action )
         gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(Builder_Get_Object(
                 frequency_editor_builder, "frequency_mul_radiobutton")),
             TRUE );
+
+      /* Gray out stepping type radios when I1 carries an expression */
+      {
+        const char *fr_radios[] = {
+          "frequency_add_radiobutton",
+          "frequency_mul_radiobutton"
+        };
+        expr_edit_protect_widgets(frequency_editor_builder,
+            fr_radios, 2, cmnd_edit_iexprs[SPIN_COL_I1]);
+      }
       break;
 
     case EDITOR_CANCEL: /* Cancel frequency editor */
@@ -645,16 +734,20 @@ Frequency_Command( int action )
     case FREQUENCY_EDITOR_FSTEP: /* Frequency step changed */
       fstep = FALSE;
 
-      if( iv[SPIN_COL_I1] == 0 ) /* Additive stepping */
-        iv[SPIN_COL_I2] = (gint)((fv[SPIN_COL_F3] -
-              fv[SPIN_COL_F1])/fv[SPIN_COL_F2]) + 1;
-      else /* Multiplicative stepping */
-        iv[SPIN_COL_I2] = (gint)(log(fv[SPIN_COL_F3] /
-              fv[SPIN_COL_F1])/log(fv[SPIN_COL_F2])) + 1;
+      /* Recalculate I2 only when it has no SY expression */
+      if( !expr_edit_field_protected(cmnd_edit_iexprs[SPIN_COL_I2]) )
+      {
+        if( iv[SPIN_COL_I1] == 0 ) /* Additive stepping */
+          iv[SPIN_COL_I2] = (gint)((fv[SPIN_COL_F3] -
+                fv[SPIN_COL_F1])/fv[SPIN_COL_F2]) + 1;
+        else /* Multiplicative stepping */
+          iv[SPIN_COL_I2] = (gint)(log(fv[SPIN_COL_F3] /
+                fv[SPIN_COL_F1])/log(fv[SPIN_COL_F2])) + 1;
 
-      spin = GTK_SPIN_BUTTON( Builder_Get_Object(
-            frequency_editor_builder, "frequency_num_spinbutton") );
-      gtk_spin_button_set_value( spin, iv[SPIN_COL_I2] );
+        spin = GTK_SPIN_BUTTON( Builder_Get_Object(
+              frequency_editor_builder, "frequency_num_spinbutton") );
+        expr_edit_write_field(spin, (gdouble)iv[SPIN_COL_I2], "");
+      }
       save_data = TRUE;
       break;
 
@@ -663,8 +756,9 @@ Frequency_Command( int action )
 
   } /* switch( action ) */
 
-  /* Calculate and set freq step to editor */
-  if( fstep && (iv[SPIN_COL_I2] > 1 ))
+  /* Calculate and set freq step to editor; skip when F2 has SY expression */
+  if( fstep && (iv[SPIN_COL_I2] > 1) &&
+      !expr_edit_field_protected(cmnd_edit_fexprs[SPIN_COL_F2]) )
   {
     if( iv[SPIN_COL_I1] == 0 ) /* Additive stepping */
       fv[SPIN_COL_F2] = (fv[SPIN_COL_F3]-fv[SPIN_COL_F1]) /
@@ -675,7 +769,7 @@ Frequency_Command( int action )
 
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(frequency_editor_builder, fspin[SPIN_COL_F2]) );
-    gtk_spin_button_set_value( spin, fv[SPIN_COL_F2] );
+    expr_edit_write_field(spin, fv[SPIN_COL_F2], "");
   } /* if( fstep ) */
   else fstep = TRUE;
 
@@ -761,8 +855,21 @@ Ground_Command( int action )
   if( (action == EDITOR_APPLY) || ((action == EDITOR_NEW) && save_data) )
   {
     Set_Command_Data( cmnd_store, &iter_gn, iv, fv );
-    if( both ) Set_Command_Data(
-        cmnd_store, &iter_gd, &iv[CMND_NUM_ICOLS], &fv[CMND_NUM_FCOLS] );
+    if( both )
+    {
+      Set_Command_Data(
+          cmnd_store, &iter_gd, &iv[CMND_NUM_ICOLS], &fv[CMND_NUM_FCOLS] );
+
+      /* Overwrite GD shadow columns with GD-specific expressions;
+       * Set_Command_Data wrote GN's cmnd_edit_fexprs which are wrong */
+      expr_edit_write_exprs(cmnd_store, &iter_gd,
+          CMND_COL_EF1, gd_fexprs, 4);
+
+      /* GD integer fields are always zero per NEC2 spec;
+       * clear leaked GN expressions from shadow columns */
+      expr_edit_write_exprs(cmnd_store, &iter_gd,
+          CMND_COL_EI1, gd_iexprs, 4);
+    }
     save_data  = FALSE;
   } /* if( (action & EDITOR_SAVE) && save_data ) */
 
@@ -811,18 +918,25 @@ Ground_Command( int action )
       /* Get data from command editor */
       Get_Command_Data( cmnd_store, &iter_gn, iv, fv );
 
+      /* Preserve GN expressions; a subsequent GD Get_Command_Data
+       * will overwrite the module statics with the GD row's values. */
+      char gn_iexprs[4][EXPR_FIELD_LEN];
+      char gn_fexprs[6][EXPR_FIELD_LEN];
+      memcpy(gn_iexprs, cmnd_edit_iexprs, sizeof(gn_iexprs));
+      memcpy(gn_fexprs, cmnd_edit_fexprs, sizeof(gn_fexprs));
+
       /* Set ground type radio buttons */
       toggle = GTK_TOGGLE_BUTTON(
           Builder_Get_Object(ground_editor_builder, rdbutton[iv[SPIN_COL_I1]+1]) );
       gtk_toggle_button_set_active( toggle, TRUE );
 
-      /* Write 1st ground data to the command editor */
+      /* Write 1st ground data to the command editor; show expressions */
       if( (iv[SPIN_COL_I1] != 1) && (iv[SPIN_COL_I1] != -1) )
         for( idf = SPIN_COL_F1; idf <= SPIN_COL_F2; idf++ )
         {
           spin = GTK_SPIN_BUTTON(
               Builder_Get_Object(ground_editor_builder, fspin[idf]) );
-          gtk_spin_button_set_value( spin, fv[idf] );
+          expr_edit_write_field( spin, fv[idf], gn_fexprs[idf] );
         }
 
       /* Radial ground screen specified */
@@ -835,17 +949,18 @@ Ground_Command( int action )
               ground_editor_builder, "ground_radl_checkbutton") );
         gtk_toggle_button_set_active( toggle, TRUE );
 
-        /* Write num of radials to the command editor */
+        /* Write num of radials to the command editor; show expression */
         spin = GTK_SPIN_BUTTON( Builder_Get_Object(
               ground_editor_builder, "ground_nrad_spinbutton") );
-        gtk_spin_button_set_value( spin, iv[SPIN_COL_I2] );
+        expr_edit_write_field( spin, (gdouble)iv[SPIN_COL_I2],
+            gn_iexprs[SPIN_COL_I2] );
 
-        /* Write radial data to the command editor */
+        /* Write radial data to the command editor; show expressions */
         for( idf = SPIN_COL_F3; idf <= SPIN_COL_F4; idf++ )
         {
           spin = GTK_SPIN_BUTTON(
               Builder_Get_Object(ground_editor_builder, fspin[idf+4]) );
-          gtk_spin_button_set_value( spin, fv[idf] );
+          expr_edit_write_field( spin, fv[idf], gn_fexprs[idf] );
         }
 
         /* Check for a following GD card, read data */
@@ -854,16 +969,22 @@ Ground_Command( int action )
         {
           scmd = both = TRUE;
 
-          /* Write radial data to the command editor */
+          /* Write GD card data to the command editor; show expressions.
+           * Get_Command_Data overwrites cmnd_edit statics with GD values;
+           * gn_iexprs/gn_fexprs preserve the GN row's expressions. */
           Get_Command_Data( cmnd_store, &iter_gd,
               &iv[CMND_NUM_ICOLS], &fv[CMND_NUM_FCOLS] );
           for( idf = SPIN_COL_F1; idf <= SPIN_COL_F4; idf++ )
           {
             spin = GTK_SPIN_BUTTON(
                 Builder_Get_Object(ground_editor_builder, fspin[idf+2]) );
-            gtk_spin_button_set_value(
-                spin, fv[idf+CMND_NUM_FCOLS] );
+            expr_edit_write_field(
+                spin, fv[idf+CMND_NUM_FCOLS], cmnd_edit_fexprs[idf] );
           }
+
+          /* Restore GN expressions after GD Get_Command_Data overwrote statics */
+          memcpy(cmnd_edit_iexprs, gn_iexprs, sizeof(cmnd_edit_iexprs));
+          memcpy(cmnd_edit_fexprs, gn_fexprs, sizeof(cmnd_edit_fexprs));
 
           /* Set 2nd medium check button */
           toggle = GTK_TOGGLE_BUTTON( Builder_Get_Object(
@@ -882,15 +1003,29 @@ Ground_Command( int action )
               ground_editor_builder, "ground_secmd_checkbutton") );
         gtk_toggle_button_set_active( toggle, TRUE );
 
-        /* Write 2nd medium data to command editor */
+        /* Write 2nd medium data to command editor; show expressions */
         for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
         {
           spin = GTK_SPIN_BUTTON(
               Builder_Get_Object(ground_editor_builder, fspin[idf]) );
-          gtk_spin_button_set_value( spin, fv[idf] );
+          expr_edit_write_field( spin, fv[idf], gn_fexprs[idf] );
         }
 
       } /* if( (fv[SPIN_COL_F3] > 0) && (fv[SPIN_COL_F4] > 0) ) */
+
+      /* Gray out ground type radios and related checkbuttons
+       * when I1 carries an expression */
+      expr_edit_protect_widgets(ground_editor_builder,
+          (const char **)rdbutton, GN_RDBTN,
+          cmnd_edit_iexprs[SPIN_COL_I1]);
+      {
+        const char *gn_checks[] = {
+          "ground_radl_checkbutton",
+          "ground_secmd_checkbutton"
+        };
+        expr_edit_protect_widgets(ground_editor_builder,
+            gn_checks, 2, cmnd_edit_iexprs[SPIN_COL_I1]);
+      }
       break;
 
     case EDITOR_CANCEL: /* Cancel ground editor */
@@ -979,14 +1114,23 @@ Ground_Command( int action )
 
   /*** Calculate ground data ***/
 
-  /* Read num of radials from the command editor */
+  sy_errors_begin();
+
+  /* Read num of radials from the command editor; capture expression text */
   if( radl )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON( Builder_Get_Object(
           ground_editor_builder, "ground_nrad_spinbutton") );
-    iv[SPIN_COL_I2] = gtk_spin_button_get_value_as_int( spin );
+    expr_edit_save_field(spin, &val, cmnd_edit_iexprs[SPIN_COL_I2], EXPR_FIELD_LEN);
+    iv[SPIN_COL_I2] = (gint)val;
   }
-  else iv[SPIN_COL_I2] = 0;
+  else
+  {
+    iv[SPIN_COL_I2] = 0;
+    cmnd_edit_iexprs[SPIN_COL_I2][0] = '\0';
+  }
 
   /*** Read float data from the command editor ***/
 
@@ -994,41 +1138,49 @@ Ground_Command( int action )
   if( (iv[SPIN_COL_I1] == 1) || (iv[SPIN_COL_I1] == -1) )
   {
     for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
+    {
       fv[idf] = 0.0;
+      cmnd_edit_fexprs[idf][0] = '\0';
+    }
     iv[SPIN_COL_I2] = 0;
+    cmnd_edit_iexprs[SPIN_COL_I2][0] = '\0';
   }
   else /* Finite ground */
   {
-    /* Read 1st medium rel dielec const & conductivity */
+    /* Read 1st medium rel dielec const & conductivity; capture expressions */
     for( idf= SPIN_COL_F1; idf <= SPIN_COL_F2; idf++ )
     {
       spin = GTK_SPIN_BUTTON(
           Builder_Get_Object(ground_editor_builder, fspin[idf]) );
-      fv[idf] = gtk_spin_button_get_value( spin );
+      expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
     }
 
     /* If both radial and 2nd medium, GD card is needed */
     if( both )
     {
-      /* Read radial screen parameters */
+      /* Read radial screen parameters; capture expressions */
       for( idf = SPIN_COL_F3; idf <= SPIN_COL_F4; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(ground_editor_builder, fspin[idf+4]) );
-        fv[idf] = gtk_spin_button_get_value( spin );
+        expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
       }
 
       /* Set 1st medium & radial screen parameters to GN card */
       for( idf = SPIN_COL_F5; idf <= SPIN_COL_F6; idf++ )
+      {
         fv[idf] = 0.0;
+        cmnd_edit_fexprs[idf][0] = '\0';
+      }
 
-      /* Set 2nd medium parameters to GD card */
+      /* Set 2nd medium parameters to GD card; capture expressions */
       for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(ground_editor_builder, fspin[idf]) );
-        fv[idf - SPIN_COL_F3+CMND_NUM_FCOLS] =
-          gtk_spin_button_get_value( spin );
+        expr_edit_save_field(spin,
+            &fv[idf - SPIN_COL_F3 + CMND_NUM_FCOLS],
+            gd_fexprs[idf - SPIN_COL_F3], EXPR_FIELD_LEN);
       }
 
     }
@@ -1040,10 +1192,13 @@ Ground_Command( int action )
         {
           spin = GTK_SPIN_BUTTON(
               Builder_Get_Object(ground_editor_builder, fspin[idf+4]) );
-          fv[idf] = gtk_spin_button_get_value( spin );
+          expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
         }
         for( idf = SPIN_COL_F5; idf <= SPIN_COL_F6; idf++ )
+        {
           fv[idf] = 0.0;
+          cmnd_edit_fexprs[idf][0] = '\0';
+        }
       } /* if( radl ) */
       else if( scmd ) /* If second medium only, read parameters */
       {
@@ -1051,15 +1206,20 @@ Ground_Command( int action )
         {
           spin = GTK_SPIN_BUTTON(
               Builder_Get_Object(ground_editor_builder, fspin[idf]) );
-          fv[idf] = gtk_spin_button_get_value( spin );
+          expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
         }
       }
       else for( idf = SPIN_COL_F3; idf <= SPIN_COL_F6; idf++ )
+      {
         fv[idf] = 0.0;
+        cmnd_edit_fexprs[idf][0] = '\0';
+      }
 
     } /* else of if( both ) */
 
   } /* else (Finite ground) */
+
+  sy_errors_end();
 
   /* Show/hide parts (frames) of editor as needed */
   if( show )
@@ -1220,12 +1380,16 @@ Ground2_Command( int action )
       /* Get data from command editor */
       Get_Command_Data( cmnd_store, &iter_gd, iv, fv );
 
-      /* Write float data to the command editor */
+      /* GD integer fields are always zero; clear any leaked expressions */
+      for( idf = 0; idf < 4; idf++ )
+        cmnd_edit_iexprs[idf][0] = '\0';
+
+      /* Write float data to the command editor; F1-F4 have shadow columns */
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F4; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(ground2_editor_builder, fspin[idf]) );
-        gtk_spin_button_set_value( spin, fv[idf] );
+        expr_edit_write_field(spin, fv[idf], cmnd_edit_fexprs[idf]);
       }
       break;
 
@@ -1236,13 +1400,18 @@ Ground2_Command( int action )
       return;
 
     case EDITOR_DATA: /* Some data changed in editor window */
-      /* Read float data from the command editor */
+      sy_errors_begin();
+
+      /* Read float data from the command editor; capture expression text */
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F4; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(ground2_editor_builder, fspin[idf]) );
-        fv[idf] = gtk_spin_button_get_value( spin );
+        expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
       }
+
+      sy_errors_end();
+
       save_data = TRUE;
 
   } /* switch( action ) */
@@ -1438,21 +1607,40 @@ Radiation_Command( int action )
           Builder_Get_Object(radiation_editor_builder, ardbtn[idx]) );
       gtk_toggle_button_set_active( toggle, TRUE );
 
-      /* Write int data to the command editor (i2 & I3) */
+      /* Write int data to the command editor (I2 & I3); show expressions */
       for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(radiation_editor_builder, ispin[idi-SPIN_COL_I2]) );
-        gtk_spin_button_set_value( spin, iv[idi] );
+        expr_edit_write_field(spin, (gdouble)iv[idi], cmnd_edit_iexprs[idi]);
       }
 
-      /* Write float data to the command editor */
+      /* Write float data to the command editor; F1-F6 have shadow columns */
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(radiation_editor_builder, fspin[idf]) );
-        gtk_spin_button_set_value( spin, fv[idf] );
+        expr_edit_write_field(spin, fv[idf], cmnd_edit_fexprs[idf]);
       }
+      /* Gray out wave type radios when I1 carries an expression */
+      expr_edit_protect_widgets(radiation_editor_builder,
+          (const char **)wrdbtn, RP_WRDBTN,
+          cmnd_edit_iexprs[SPIN_COL_I1]);
+
+      /* Gray out XNDA radios when I4 carries an expression */
+      expr_edit_protect_widgets(radiation_editor_builder,
+          (const char **)xrdbtn, RP_XRDBTN,
+          cmnd_edit_iexprs[SPIN_COL_I4]);
+      expr_edit_protect_widgets(radiation_editor_builder,
+          (const char **)nrdbtn, RP_NRDBTN,
+          cmnd_edit_iexprs[SPIN_COL_I4]);
+      expr_edit_protect_widgets(radiation_editor_builder,
+          (const char **)drdbtn, RP_DRDBTN,
+          cmnd_edit_iexprs[SPIN_COL_I4]);
+      expr_edit_protect_widgets(radiation_editor_builder,
+          (const char **)ardbtn, RP_ARDBTN,
+          cmnd_edit_iexprs[SPIN_COL_I4]);
+
       label = TRUE;
       break;
 
@@ -1531,20 +1719,27 @@ Radiation_Command( int action )
 
   } /* switch( action ) */
 
-  /* Read int data from the command editor */
+  sy_errors_begin();
+
+  /* Read int data from the command editor; capture expression text */
   for( idi = SPIN_COL_I2; idi <= SPIN_COL_I3; idi++ )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(radiation_editor_builder, ispin[idi-SPIN_COL_I2]) );
-    iv[idi] = gtk_spin_button_get_value_as_int( spin );
+    expr_edit_save_field(spin, &val, cmnd_edit_iexprs[idi], EXPR_FIELD_LEN);
+    iv[idi] = (gint)val;
   }
-  /* Read float data from the command editor */
+  /* Read float data from the command editor; capture expression text */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(radiation_editor_builder, fspin[idf]) );
-    fv[idf] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
   }
+
+  sy_errors_end();
 
   /* Set labels according to wave/ground type */
   if( label )
@@ -1718,26 +1913,31 @@ Loading_Command( int action )
         fv[SPIN_COL_F3] /= 1.0E-12; /* Convert F to pF */
       }
 
-      /* Write int data to the command editor */
+      /* Write int data to the command editor (I2-I4); show expressions */
       for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(loading_editor_builder, ispin[idi-SPIN_COL_I2]) );
-        gtk_spin_button_set_value( spin, iv[idi] );
+        expr_edit_write_field(spin, (gdouble)iv[idi], cmnd_edit_iexprs[idi]);
       }
 
-      /* Write float data to the command editor */
+      /* Write float data to the command editor; F1-F3 have shadow columns */
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(loading_editor_builder, fspin[idf]) );
-        gtk_spin_button_set_value( spin, fv[idf] );
+        expr_edit_write_field(spin, fv[idf], cmnd_edit_fexprs[idf]);
       }
 
       /* Set active radio button */
       toggle = GTK_TOGGLE_BUTTON(
           Builder_Get_Object(loading_editor_builder, rdbutton[iv[SPIN_COL_I1]+1]) );
       gtk_toggle_button_set_active( toggle, TRUE );
+
+      /* Gray out loading type radios when I1 carries an expression */
+      expr_edit_protect_widgets(loading_editor_builder,
+          (const char **)rdbutton, LD_RDBTN,
+          cmnd_edit_iexprs[SPIN_COL_I1]);
 
       label = TRUE;
       break;
@@ -1833,30 +2033,43 @@ Loading_Command( int action )
     label = FALSE;
   } /* if( label ) */
 
-  /* Read int data from the command editor */
+  sy_errors_begin();
+
+  /* Read int data from the command editor; capture expression text */
   for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(loading_editor_builder, ispin[idi-SPIN_COL_I2]) );
-    iv[idi] = gtk_spin_button_get_value_as_int( spin );
+    expr_edit_save_field(spin, &val, cmnd_edit_iexprs[idi], EXPR_FIELD_LEN);
+    iv[idi] = (gint)val;
   }
 
-  /* Read float data from the command editor */
+  /* Read float data from the command editor; capture expression text */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(loading_editor_builder, fspin[idf]) );
-    fv[idf] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
   }
+
+  sy_errors_end();
 
   /* Clear or convert parameters to right units for NEC2 */
   switch( iv[SPIN_COL_I1] ) /* Loading type */
   {
     case -1: /* Short all loads */
       for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
+      {
         iv[idi] = 0;
+        cmnd_edit_iexprs[idi][0] = '\0';
+      }
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F3; idf++ )
+      {
         fv[idf] = 0.0;
+        cmnd_edit_fexprs[idf][0] = '\0';
+      }
       break;
 
     case 0: case 1: case 2: case 3: /* Lumped/Distributed loading */
@@ -1973,20 +2186,20 @@ Network_Command( int action )
       /* Get data from command editor */
       Get_Command_Data( cmnd_store, &iter_nt, iv, fv );
 
-      /* Write int data to the command editor */
+      /* Write int data to the command editor; I1-I4 have shadow columns */
       for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(network_editor_builder, ispin[idi]) );
-        gtk_spin_button_set_value( spin, iv[idi] );
+        expr_edit_write_field(spin, (gdouble)iv[idi], cmnd_edit_iexprs[idi]);
       }
 
-      /* Write float data to the command editor */
+      /* Write float data to the command editor; F1-F6 have shadow columns */
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(network_editor_builder, fspin[idf]) );
-        gtk_spin_button_set_value( spin, fv[idf] );
+        expr_edit_write_field(spin, fv[idf], cmnd_edit_fexprs[idf]);
       }
       break;
 
@@ -2001,21 +2214,28 @@ Network_Command( int action )
 
   } /* switch( action ) */
 
-  /* Read int data from the command editor */
+  sy_errors_begin();
+
+  /* Read int data from the command editor; capture expression text */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(network_editor_builder, ispin[idi]) );
-    iv[idi] = gtk_spin_button_get_value_as_int( spin );
+    expr_edit_save_field(spin, &val, cmnd_edit_iexprs[idi], EXPR_FIELD_LEN);
+    iv[idi] = (gint)val;
   }
 
-  /* Read float data from the command editor */
+  /* Read float data from the command editor; capture expression text */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(network_editor_builder, fspin[idf]) );
-    fv[idf] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
   }
+
+  sy_errors_end();
 
   busy = FALSE;
 
@@ -2134,20 +2354,20 @@ Txline_Command( int action )
             FALSE);
       }
 
-      /* Write int data to the command editor */
+      /* Write int data to the command editor; I1-I4 have shadow columns */
       for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(txline_editor_builder, ispin[idi]) );
-        gtk_spin_button_set_value( spin, iv[idi] );
+        expr_edit_write_field(spin, (gdouble)iv[idi], cmnd_edit_iexprs[idi]);
       }
 
-      /* Write float data to the command editor */
+      /* Write float data to the command editor; F1-F6 have shadow columns */
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(txline_editor_builder, fspin[idf]) );
-        gtk_spin_button_set_value( spin, fv[idf] );
+        expr_edit_write_field(spin, fv[idf], cmnd_edit_fexprs[idf]);
       }
 
       break;
@@ -2172,23 +2392,35 @@ Txline_Command( int action )
 
   } /* switch( action ) */
 
-  /* Read int data from the command editor */
+  sy_errors_begin();
+
+  /* Read int data from the command editor; capture expression text */
   for( idi = SPIN_COL_I1; idi <= SPIN_COL_I4; idi++ )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(txline_editor_builder, ispin[idi]) );
-    iv[idi] = gtk_spin_button_get_value_as_int( spin );
+    expr_edit_save_field(spin, &val, cmnd_edit_iexprs[idi], EXPR_FIELD_LEN);
+    iv[idi] = (gint)val;
   }
 
-  /* Read float data from the command editor */
+  /* Read float data from the command editor; capture expression text */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(txline_editor_builder, fspin[idf]) );
-    fv[idf] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
   }
+
+  sy_errors_end();
+
+  /* Crossed line negates F1; clear expression since sign is modified */
   if( crossed )
+  {
     fv[SPIN_COL_F1] = -fv[SPIN_COL_F1];
+    cmnd_edit_fexprs[0][0] = '\0';
+  }
 
   busy = FALSE;
 
@@ -2314,20 +2546,20 @@ Nearfield_Command( int action )
       /* Get data from command editor */
       Get_Command_Data( cmnd_store, &iter_ne, iv, fv );
 
-      /* Write int data to the command editor */
+      /* Write int data to the command editor (I2-I4); show expressions */
       for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(nearfield_editor_builder, ispin[idi-SPIN_COL_I2]) );
-        gtk_spin_button_set_value( spin, iv[idi] );
+        expr_edit_write_field(spin, (gdouble)iv[idi], cmnd_edit_iexprs[idi]);
       }
 
-      /* Write float data to the command editor */
+      /* Write float data to the command editor; F1-F6 have shadow columns */
       for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
       {
         spin = GTK_SPIN_BUTTON(
             Builder_Get_Object(nearfield_editor_builder, fspin[idf]) );
-        gtk_spin_button_set_value( spin, fv[idf] );
+        expr_edit_write_field(spin, fv[idf], cmnd_edit_fexprs[idf]);
       }
 
       /* Set radio buttons */
@@ -2482,21 +2714,28 @@ Nearfield_Command( int action )
 
   } /* if( label ) */
 
-  /* Read int data from the command editor */
+  sy_errors_begin();
+
+  /* Read int data from the command editor; capture expression text */
   for( idi = SPIN_COL_I2; idi <= SPIN_COL_I4; idi++ )
   {
+    gdouble val = 0.0;
+
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(nearfield_editor_builder, ispin[idi-SPIN_COL_I2]) );
-    iv[idi] = gtk_spin_button_get_value_as_int( spin );
+    expr_edit_save_field(spin, &val, cmnd_edit_iexprs[idi], EXPR_FIELD_LEN);
+    iv[idi] = (gint)val;
   }
 
-  /* Read float data from the command editor */
+  /* Read float data from the command editor; capture expression text */
   for( idf = SPIN_COL_F1; idf <= SPIN_COL_F6; idf++ )
   {
     spin = GTK_SPIN_BUTTON(
         Builder_Get_Object(nearfield_editor_builder, fspin[idf]) );
-    fv[idf] = gtk_spin_button_get_value( spin );
+    expr_edit_save_field(spin, &fv[idf], cmnd_edit_fexprs[idf], EXPR_FIELD_LEN);
   }
+
+  sy_errors_end();
 
   busy = FALSE;
 
