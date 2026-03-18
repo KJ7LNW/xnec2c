@@ -110,4 +110,22 @@ gboolean sy_save_overrides(const gchar *filename);
 /* Get count of symbols in symbol table */
 guint sy_get_count(void);
 
+/* Begin accumulating expression errors instead of showing individual dialogs.
+ * Nested calls increment a depth counter; errors accumulate until the
+ * outermost sy_errors_end() is called.
+ */
+void sy_errors_begin(void);
+
+/* End error accumulation and show a single consolidated dialog if any
+ * errors were recorded.  Returns TRUE if errors occurred, FALSE if clean.
+ * Only the outermost call (depth reaches zero) flushes the buffer.
+ */
+gboolean sy_errors_end(void);
+
+/* Discard accumulated errors without showing a dialog.
+ * Use in display paths where expression evaluation failures are expected
+ * (e.g. GTK spinbutton input handlers) and should not interrupt the user.
+ */
+void sy_errors_discard(void);
+
 #endif
