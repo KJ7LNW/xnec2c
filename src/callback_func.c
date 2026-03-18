@@ -361,6 +361,14 @@ Open_Editor( GtkTreeView *view )
       (strcmp(card, "CE") == 0) )
     return( TRUE );
 
+  /* SY cards use a dedicated text editor (no glade button) */
+  if( strcmp(card, "SY") == 0 )
+  {
+    Sy_Card_Editor( EDITOR_EDIT );
+    g_free(card);
+    return( TRUE );
+  }
+
   /* Some "cards" have common editors */
   if( strcmp(card, "GC") == 0 )
     Strlcpy( card, "GW", s );

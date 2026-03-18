@@ -1406,6 +1406,7 @@ void Scale_Editor(int action);
 void Cylinder_Editor(int action);
 void Transform_Editor(int action);
 void Gend_Editor(int action);
+void Sy_Card_Editor(int action);
 gboolean Check_Card_Name(GtkListStore *store, GtkTreeIter *iter, gboolean next, const gchar *name);
 gboolean Give_Up(gboolean *busy, GtkWidget *widget);
 void Remove_Row(GtkListStore *store, GtkTreeIter *iter);

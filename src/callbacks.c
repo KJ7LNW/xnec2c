@@ -3003,6 +3003,36 @@ on_xq_clicked(
 }
 
 
+/* on_sy_geom_clicked()
+ *
+ * Adds a new SY card in the geometry section.
+ */
+
+  void
+on_sy_geom_clicked(
+    GtkButton       *button,
+    gpointer         user_data)
+{
+  selected_treeview = geom_treeview;
+  Sy_Card_Editor( EDITOR_NEW );
+}
+
+
+/* on_sy_cmnd_clicked()
+ *
+ * Adds a new SY card in the command section.
+ */
+
+  void
+on_sy_cmnd_clicked(
+    GtkButton       *button,
+    gpointer         user_data)
+{
+  selected_treeview = cmnd_treeview;
+  Sy_Card_Editor( EDITOR_NEW );
+}
+
+
   void
 on_patch_data_spinbutton_value_changed(
     GtkSpinButton   *spinbutton,
