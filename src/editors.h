@@ -132,8 +132,29 @@ enum GEOM_CARD
   GEOM_COL_F5,
   GEOM_COL_F6,
   GEOM_COL_F7,
+
+  /* Shadow expression columns (not displayed; string type) */
+  GEOM_COL_EI1, /* expression text for I1, "" if plain numeric */
+  GEOM_COL_EI2, /* expression text for I2, "" if plain numeric */
+  GEOM_COL_EF1, /* expression text for F1, "" if plain numeric */
+  GEOM_COL_EF2,
+  GEOM_COL_EF3,
+  GEOM_COL_EF4,
+  GEOM_COL_EF5,
+  GEOM_COL_EF6,
+  GEOM_COL_EF7,
+
+  /* Raw SY card definition text, e.g. "FREQ=146, C=299.792458" */
+  GEOM_COL_RAW,
+
   GEOM_NUM_COLS
 };
+
+/* Number of visible (display) geometry columns */
+#define GEOM_NUM_VIS_COLS 10
+
+/* Map a visible geometry column to its shadow expression column */
+#define GEOM_EXPR_COL(col) ((col) - GEOM_COL_I1 + GEOM_COL_EI1)
 
 /* Control/Command "card" columns */
 enum CMND_CARD
@@ -149,8 +170,30 @@ enum CMND_CARD
   CMND_COL_F4,
   CMND_COL_F5,
   CMND_COL_F6,
+
+  /* Shadow expression columns (not displayed; string type) */
+  CMND_COL_EI1, /* expression text for I1, "" if plain numeric */
+  CMND_COL_EI2,
+  CMND_COL_EI3,
+  CMND_COL_EI4,
+  CMND_COL_EF1, /* expression text for F1, "" if plain numeric */
+  CMND_COL_EF2,
+  CMND_COL_EF3,
+  CMND_COL_EF4,
+  CMND_COL_EF5,
+  CMND_COL_EF6,
+
+  /* Raw SY card definition text */
+  CMND_COL_RAW,
+
   CMND_NUM_COLS
 };
+
+/* Number of visible (display) command columns */
+#define CMND_NUM_VIS_COLS 11
+
+/* Map a visible command column to its shadow expression column */
+#define CMND_EXPR_COL(col) ((col) - CMND_COL_I1 + CMND_COL_EI1)
 
 /* F1-F7 columns of GW & GC cards */
 enum GW_COLS

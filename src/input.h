@@ -22,6 +22,7 @@
 
 #include "common.h"
 #include "sy_expr.h"
+#include "expr_edit.h"
 #include <ctype.h>
 
 #define COMMANDS \
@@ -75,6 +76,43 @@ enum GEOM_MNM
   SY_GEOM,
   NUM_GEOMN
 };
+
+
+/*
+ * readgm_get_sy_line - return raw SY card text from most recent readgm() call
+ *
+ * Returns the content after the "SY" mnemonic, or NULL when the last card
+ * was not an SY card.
+ */
+const char *readgm_get_sy_line( void );
+
+/*
+ * readmn_get_sy_line - return raw SY card text from most recent readmn() call
+ *
+ * Returns the content after the "SY" mnemonic, or NULL when the last card
+ * was not an SY card.
+ */
+const char *readmn_get_sy_line( void );
+
+/*
+ * readgm_get_field_exprs - return expression text from most recent readgm() call
+ * @iexprs: char[2][EXPR_FIELD_LEN] — one slot per integer field (I1, I2)
+ * @fexprs: char[7][EXPR_FIELD_LEN] — one slot per float field (F1-F7)
+ *
+ * Each slot contains the original expression text or "" for plain numeric.
+ */
+void readgm_get_field_exprs( char iexprs[][EXPR_FIELD_LEN],
+    char fexprs[][EXPR_FIELD_LEN] );
+
+/*
+ * readmn_get_field_exprs - return expression text from most recent readmn() call
+ * @iexprs: char[4][EXPR_FIELD_LEN] — one slot per integer field (I1-I4)
+ * @fexprs: char[6][EXPR_FIELD_LEN] — one slot per float field (F1-F6)
+ *
+ * Each slot contains the original expression text or "" for plain numeric.
+ */
+void readmn_get_field_exprs( char iexprs[][EXPR_FIELD_LEN],
+    char fexprs[][EXPR_FIELD_LEN] );
 
 #endif
 

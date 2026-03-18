@@ -47,16 +47,16 @@
 #include "geometry.h"
 #include "sy_overrides.h"
 #include "utils.h"
+#include "sy_expr.h"
 
 // For use if you need to pr_debug based on line number in readgm()
 static int readgm_line_count = 0;
 
-/* Forward declarations for SY card helper functions */
+/* Forward declarations for internal helper functions */
 static gboolean parse_sy_card(const char *line_content);
-static const char *readgm_get_sy_line(void);
-static const char *readmn_get_sy_line(void);
 static gboolean validate_card_characters(const char *line_buf, int start_idx, int len, const char *card_type);
-static gboolean parse_field_with_expression(const char **line_ptr, char **endptr, double *result, const char *context);
+static gboolean parse_field_with_expression(const char **line_ptr, char **endptr, double *result,
+    const char *context, char *expr_out);
 
 /*------------------------------------------------------------------------*/
 
@@ -229,7 +229,8 @@ validate_card_characters(const char *line_buf, int start_idx, int len, const cha
  * Updates line_ptr to point past the parsed field
  */
 static gboolean
-parse_field_with_expression(const char **line_ptr, char **endptr, double *result, const char *context)
+parse_field_with_expression(const char **line_ptr, char **endptr, double *result,
+    const char *context, char *expr_out)
 {
   const char *line_buf = *line_ptr;
   char field_buf[256];
@@ -257,6 +258,10 @@ parse_field_with_expression(const char **line_ptr, char **endptr, double *result
   strncpy(field_buf, line_buf, (size_t)field_len);
   field_buf[field_len] = '\0';
 
+  /* Preserve original expression text for shadow column storage */
+  if( expr_out != NULL )
+    g_strlcpy(expr_out, field_buf, EXPR_FIELD_LEN);
+
   if( sy_is_expression(field_buf) )
   {
     if( !sy_evaluate(field_buf, result) )
@@ -268,6 +273,10 @@ parse_field_with_expression(const char **line_ptr, char **endptr, double *result
   else
   {
     *result = Strtod( field_buf, endptr );
+
+    /* Plain numeric is not an expression; clear the shadow text */
+    if( expr_out != NULL )
+      expr_out[0] = '\0';
   }
 
   *line_ptr = field_end;
@@ -852,11 +861,19 @@ Read_Geometry( void )
   matpar.imat=0;
   data.n = data.m = 0;
 
+  /* Accumulate expression errors during geometry parsing
+   * so all problems are reported in one dialog */
+  sy_errors_begin();
+
   if( !datagn() )
   {
-    sy_cleanup();
+    sy_errors_end();
+    /* Keep symbol table alive so editors can still display
+     * expression text; sy_init() will reset it on next load */
     return( FALSE );
   }
+
+  sy_errors_end();
 
   /* Memory allocation for temporary buffers */
   mreq = (size_t)data.npm * sizeof(double);
@@ -1628,6 +1645,11 @@ Read_Commands( void )
 /* Static buffer for preserving SY card line content in readmn */
 static char sy_line_buffer_cmnd[LINE_LEN];
 
+/* Per-call expression text for each integer and float field parsed by readmn().
+ * Populated by parse_field_with_expression(); "" when field is plain numeric. */
+static char cmnd_iexprs[4][EXPR_FIELD_LEN];
+static char cmnd_fexprs[6][EXPR_FIELD_LEN];
+
 /* readmn_get_sy_line()
  *
  * Returns preserved SY card line content (after mnemonic) for command cards
@@ -1637,6 +1659,28 @@ const char *
 readmn_get_sy_line(void)
 {
   return strlen(sy_line_buffer_cmnd) > 0 ? sy_line_buffer_cmnd : NULL;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/* readmn_get_field_exprs()
+ *
+ * Returns expression text arrays populated by the most recent readmn() call.
+ * iexprs: 4-element array, one entry per integer field (I1-I4).
+ * fexprs: 6-element array, one entry per float field (F1-F6).
+ * Each entry holds the original expression text or "" for plain numeric.
+ */
+void
+readmn_get_field_exprs( char iexprs[][EXPR_FIELD_LEN],
+    char fexprs[][EXPR_FIELD_LEN] )
+{
+  int i;
+
+  for( i = 0; i < CMND_NUM_ICOLS; i++ )
+    g_strlcpy(iexprs[i], cmnd_iexprs[i], EXPR_FIELD_LEN);
+
+  for( i = 0; i < CMND_NUM_FCOLS; i++ )
+    g_strlcpy(fexprs[i], cmnd_fexprs[i], EXPR_FIELD_LEN);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -1657,9 +1701,15 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   int eof; /* EOF error flag */
 
 
-  /* Clear return values */
+  /* Clear return values and expression shadow arrays */
   *i1 = *i2 = *i3 = *i4 = 0;
   *f1 = *f2 = *f3 = *f4 = *f5 = *f6 = 0.0;
+
+  for( i = 0; i < 4; i++ )
+    cmnd_iexprs[i][0] = '\0';
+
+  for( i = 0; i < 6; i++ )
+    cmnd_fexprs[i][0] = '\0';
 
   /* read a line from input file */
   mem_alloc((void **)&line_buf, LINE_LEN, "in readmn()");
@@ -1740,7 +1790,7 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   {
     const char *line_ptr = line_buf;
     double value;
-    if( !parse_field_with_expression(&line_ptr, &endptr, &value, "command data") )
+    if( !parse_field_with_expression(&line_ptr, &endptr, &value, "command data", cmnd_iexprs[i]) )
     {
       free_ptr( (void **)&startptr );
       return( FALSE );
@@ -1771,7 +1821,7 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   for( i = 0; i < nflt; i++ )
   {
     const char *line_ptr = line_buf;
-    if( !parse_field_with_expression(&line_ptr, &endptr, &rarr[i], "command data") )
+    if( !parse_field_with_expression(&line_ptr, &endptr, &rarr[i], "command data", cmnd_fexprs[i]) )
     {
       free_ptr( (void **)&startptr );
       return( FALSE );
@@ -1801,6 +1851,11 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
 /* Static buffer for preserving SY card line content */
 static char sy_line_buffer[LINE_LEN];
 
+/* Per-call expression text for each integer and float field parsed by readgm().
+ * Populated by parse_field_with_expression(); "" when field is plain numeric. */
+static char geom_iexprs[2][EXPR_FIELD_LEN];
+static char geom_fexprs[7][EXPR_FIELD_LEN];
+
 /* readgm_get_sy_line()
  *
  * Returns preserved SY card line content (after mnemonic)
@@ -1810,6 +1865,28 @@ const char *
 readgm_get_sy_line(void)
 {
   return strlen(sy_line_buffer) > 0 ? sy_line_buffer : NULL;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/* readgm_get_field_exprs()
+ *
+ * Returns expression text arrays populated by the most recent readgm() call.
+ * iexprs: 2-element array, one entry per integer field (I1, I2).
+ * fexprs: 7-element array, one entry per float field (F1-F7).
+ * Each entry holds the original expression text or "" for plain numeric.
+ */
+void
+readgm_get_field_exprs( char iexprs[][EXPR_FIELD_LEN],
+    char fexprs[][EXPR_FIELD_LEN] )
+{
+  int i;
+
+  for( i = 0; i < GEOM_NUM_ICOLS; i++ )
+    g_strlcpy(iexprs[i], geom_iexprs[i], EXPR_FIELD_LEN);
+
+  for( i = 0; i < GEOM_NUM_FCOLS; i++ )
+    g_strlcpy(fexprs[i], geom_fexprs[i], EXPR_FIELD_LEN);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -1830,9 +1907,15 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   int eof; /* EOF error flag */
 
 
-  /* Clear return values */
+  /* Clear return values and expression shadow arrays */
   *i1 = *i2 = 0;
   *x1 = *y1 = *z1 = *x2 = *y2 = *z2 = *rad = 0.0;
+
+  for( i = 0; i < 2; i++ )
+    geom_iexprs[i][0] = '\0';
+
+  for( i = 0; i < 7; i++ )
+    geom_fexprs[i][0] = '\0';
 
   /* read a line from input file */
   mem_alloc((void **)&line_buf, LINE_LEN, "in readgm()");
@@ -1917,7 +2000,7 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   {
     const char *line_ptr = line_buf;
     double value;
-    if( !parse_field_with_expression(&line_ptr, &endptr, &value, "geometry data") )
+    if( !parse_field_with_expression(&line_ptr, &endptr, &value, "geometry data", geom_iexprs[i]) )
     {
       free_ptr( (void **)&startptr );
       return( FALSE );
@@ -1947,7 +2030,7 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   for( i = 0; i < nflt; i++ )
   {
     const char *line_ptr = line_buf;
-    if( !parse_field_with_expression(&line_ptr, &endptr, &rarr[i], "geometry data") )
+    if( !parse_field_with_expression(&line_ptr, &endptr, &rarr[i], "geometry data", geom_fexprs[i]) )
     {
       free_ptr( (void **)&startptr );
       return( FALSE );

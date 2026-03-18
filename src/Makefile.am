@@ -39,6 +39,7 @@ xnec2c_SOURCES = \
     somnec.c        somnec.h \
     sy_expr.c       sy_expr.h \
     sy_overrides.c  sy_overrides.h \
+    expr_edit.c     expr_edit.h \
     opt_ui.c        opt_ui.h \
     opt_ui_internal.h \
     opt_ui_goals.c \
