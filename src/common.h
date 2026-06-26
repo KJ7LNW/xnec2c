@@ -313,6 +313,10 @@ typedef struct
     main_width,
     main_height;
 
+  /* Application-wide Wayland xdg-session cookie issued by the compositor;
+   * one token tracks every toplevel, each keyed by a stable name. */
+  char session_id[256];
+
   /* Main (structure) window state of widgets */
   int
     main_currents_togglebutton,

@@ -20,6 +20,7 @@
 #include "main.h"
 #include "shared.h"
 #include "gdk_scroll.h"
+#include "wl_session.h"
 #include "mathlib.h"
 #include "structure_ui.h"
 #include "opengl/opengl_structure.h"
@@ -218,6 +219,11 @@ main (int argc, char *argv[])
     else
       backend = type;
     pr_info("Detected %s windowing backend\n", backend);
+
+#ifndef HAVE_GDK_WAYLAND_GET_XDG_TOPLEVEL
+    if( g_strcmp0(type, "GdkWaylandDisplay") == 0 )
+      pr_notice("Wayland position restore needs GTK >= 3.24.53; ask your distribution to build GTK with gdk_wayland_window_get_xdg_toplevel\n");
+#endif
   }
 
   rc_config.input_file[0] = '\0';
@@ -528,6 +534,11 @@ main (int argc, char *argv[])
   /* Create the main window */
   main_window = create_main_window( &main_window_builder );
   gtk_window_set_title( GTK_WINDOW(main_window), PACKAGE_STRING );
+
+  /* Wire the session restore hook before the window realizes; the
+   * xdg-toplevel-realized signal fires once during the first map, so the
+   * connection must precede gtk_widget_show in Restore_GUI_State. */
+  wl_session_register_window( main_window, "main" );
 
   calc_data.zo = 50.0;
   calc_data.freq_loop_data = NULL;

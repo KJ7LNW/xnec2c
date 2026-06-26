@@ -111,7 +111,8 @@ xnec2c_SOURCES = \
     cairo/cairo_frame.c       cairo/cairo_frame.h \
     cairo/cairo_nearfield.c \
     cairo/cairo_structure.c \
-    common.h        editors.h
+    common.h        editors.h \
+    wl_session.c    wl_session.h
 
 xnec2c_CPPFLAGS  =
 xnec2c_CFLAGS    =
@@ -156,6 +157,12 @@ xnec2c_LDADD    += $(INTLLIBS)
 
 xnec2c_CPPFLAGS += $(GSL_CFLAGS)
 xnec2c_LDADD    += $(GSL_LIBS)
+
+if HAVE_WL_SESSION
+xnec2c_CPPFLAGS += $(WAYLAND_CFLAGS)
+xnec2c_LDADD    += $(WAYLAND_LIBS)
+xnec2c_CPPFLAGS += -I$(builddir)
+endif
 if HAVE_OPENGL
 xnec2c_SOURCES += \
   opengl/opengl_state.c opengl/opengl_state.h \
@@ -261,7 +268,51 @@ CLEANFILES     += xnec2c-resources.c
 xnec2c-resources.c: $(top_srcdir)/resources/xnec2c.gresource.xml $(top_srcdir)/resources/xnec2c.glade $(top_srcdir)/resources/settings/render_settings.glade $(top_srcdir)/resources/settings/opengl_settings.glade $(top_srcdir)/resources/settings/cairo_settings.glade $(top_srcdir)/resources/themes.ini $(top_srcdir)/resources/freqplots_widths.ini
 	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/resources --dependency-file=./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc --generate-phony-targets --target=xnec2c-resources.c --generate-source $(top_srcdir)/resources/xnec2c.gresource.xml
 
+# Generate the xdg-session-management client stubs from the stable
+# wayland-protocols XML; wl_session.c includes the generated header.
+# Only when the full Wayland session toolchain was found at configure time;
+# otherwise wl_session.c compiles its no-op path and needs no stubs.
+if HAVE_WL_SESSION
+WAYLAND_SESSION_XML    = $(WAYLAND_PROTOCOLS_DIR)/staging/xdg-session-management/xdg-session-management-v1.xml
+WAYLAND_XX_SESSION_XML = $(srcdir)/xx-session-management-v1.xml
+WAYLAND_XDG_SHELL_XML  = $(WAYLAND_PROTOCOLS_DIR)/stable/xdg-shell/xdg-shell.xml
+
+BUILT_SOURCES = xdg-session-management-v1-client.h \
+                xx-session-management-v1-client.h \
+                xdg-shell-client-protocol.h
+xnec2c_SOURCES += xdg-session-management-v1-protocol.c \
+                  xx-session-management-v1-protocol.c \
+                  xdg-shell-protocol.c
+CLEANFILES     += xdg-session-management-v1-client.h xdg-session-management-v1-protocol.c \
+                  xx-session-management-v1-client.h xx-session-management-v1-protocol.c \
+                  xdg-shell-client-protocol.h xdg-shell-protocol.c
+
+xdg-session-management-v1-client.h: $(WAYLAND_SESSION_XML)
+	$(AM_V_GEN)$(WAYLAND_SCANNER) client-header $< $@
+
+xdg-session-management-v1-protocol.c: $(WAYLAND_SESSION_XML)
+	$(AM_V_GEN)$(WAYLAND_SCANNER) private-code $< $@
+
+xx-session-management-v1-client.h: $(WAYLAND_XX_SESSION_XML)
+	$(AM_V_GEN)$(WAYLAND_SCANNER) client-header $< $@
+
+xx-session-management-v1-protocol.c: $(WAYLAND_XX_SESSION_XML)
+	$(AM_V_GEN)$(WAYLAND_SCANNER) private-code $< $@
+
+xdg-shell-client-protocol.h: $(WAYLAND_XDG_SHELL_XML)
+	$(AM_V_GEN)$(WAYLAND_SCANNER) client-header $< $@
+
+xdg-shell-protocol.c: $(WAYLAND_XDG_SHELL_XML)
+	$(AM_V_GEN)$(WAYLAND_SCANNER) private-code $< $@
+endif
+
 # Do not dist the generated source file so that building from tarball
 # will use glib-compile-resources together with compatible libraries.
 dist-hook:
 	rm -f $(distdir)/xnec2c-resources.c
+	rm -f $(distdir)/xdg-session-management-v1-protocol.c
+	rm -f $(distdir)/xdg-session-management-v1-client.h
+	rm -f $(distdir)/xx-session-management-v1-protocol.c
+	rm -f $(distdir)/xx-session-management-v1-client.h
+	rm -f $(distdir)/xdg-shell-protocol.c
+	rm -f $(distdir)/xdg-shell-client-protocol.h

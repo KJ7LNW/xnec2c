@@ -20,6 +20,7 @@
 #include "callbacks.h"
 #include "gdk_scroll.h"
 #include "shared.h"
+#include "wl_session.h"
 #include "opt_ui.h"
 #include "measurements.h"
 #include "themes/theme.h"
@@ -503,6 +504,7 @@ on_main_rdpattern_activate(
     }
 
     rdpattern_window = create_rdpattern_window( &rdpattern_window_builder );
+    wl_session_register_window( rdpattern_window, "rdpattern" );
 
     /* Spin widgets must be resolved before creating the GL widget:
      * opengl_rdpattern_create_widget() dereferences rdpattern_view,
@@ -778,6 +780,7 @@ on_main_freqplots_activate(
       }
 
       freqplots_window = create_freqplots_window( &freqplots_window_builder );
+      wl_session_register_window( freqplots_window, "freqplots" );
       GtkWidget *fp_da = Builder_Get_Object(
           freqplots_window_builder, "freqplots_drawingarea" );
       freqplots_main_view()->window      = freqplots_window;

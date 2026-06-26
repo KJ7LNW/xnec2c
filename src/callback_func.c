@@ -20,6 +20,7 @@
 #include "callback_func.h"
 #include "cairo/cairo_draw.h"
 #include "shared.h"
+#include "wl_session.h"
 #include "prerender/prerender_state.h"
 #include "prerender/prerender_color.h"
 #include "mem_track.h"
@@ -872,6 +873,7 @@ Filechooser_Response(
 Open_Nec2_Editor( int action )
 {
   nec2_edit_window = create_nec2_editor( &nec2_editor_builder );
+  wl_session_register_window( nec2_edit_window, "nec2_edit" );
   Set_Window_Geometry( nec2_edit_window,
       rc_config.nec2_edit_x, rc_config.nec2_edit_y,
       rc_config.nec2_edit_width, rc_config.nec2_edit_height );

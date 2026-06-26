@@ -20,6 +20,7 @@
 #include "sy_overrides.h"
 #include "sy_expr.h"
 #include "shared.h"
+#include "wl_session.h"
 #include "rc_config.h"
 #include "interface.h"
 #include "callbacks.h"
@@ -1107,6 +1108,7 @@ sy_overrides_init(void)
     pr_err("sy_overrides_init: failed to get widgets from glade\n");
     return FALSE;
   }
+  wl_session_register_window( sy_overrides_window, "sy_overrides" );
 
   /* Initialize rows array */
   rows = g_ptr_array_new();

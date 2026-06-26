@@ -148,6 +148,32 @@ PKG_CHECK_MODULES([GMODULE], [gmodule-2.0])
 PKG_CHECK_MODULES([GTK],     [gtk+-3.0 >= 3.18.0])
 PKG_CHECK_MODULES([GSL],     [gsl])
 
+# Wayland window position restore is optional. It needs three pieces, any
+# of which may be missing on a given system; absence disables the feature
+# and the build proceeds with size-only geometry restore:
+#   - wayland-client to issue protocol requests
+#   - wayland-scanner and wayland-protocols to generate the session stubs
+#   - a GTK that exports gdk_wayland_window_get_xdg_toplevel
+have_wl_session=no
+PKG_CHECK_MODULES([WAYLAND], [wayland-client],
+  [have_wayland_client=yes], [have_wayland_client=no])
+PKG_CHECK_VAR([WAYLAND_SCANNER], [wayland-scanner], [wayland_scanner],
+  [], [WAYLAND_SCANNER=])
+PKG_CHECK_VAR([WAYLAND_PROTOCOLS_DIR], [wayland-protocols], [pkgdatadir],
+  [], [WAYLAND_PROTOCOLS_DIR=])
+
+save_LIBS="$LIBS"; LIBS="$GTK_LIBS $LIBS"
+AC_CHECK_FUNC([gdk_wayland_window_get_xdg_toplevel],
+  [have_gdk_xdg_toplevel=yes], [have_gdk_xdg_toplevel=no])
+LIBS="$save_LIBS"
+
+AS_IF([test "x$have_wayland_client" = "xyes" && test "x$WAYLAND_SCANNER" != "x" && test "x$WAYLAND_PROTOCOLS_DIR" != "x" && test "x$have_gdk_xdg_toplevel" = "xyes"], [
+  AC_DEFINE([HAVE_GDK_WAYLAND_GET_XDG_TOPLEVEL], [1],
+    [Wayland xdg-session window position restore is available])
+  have_wl_session=yes
+])
+AM_CONDITIONAL([HAVE_WL_SESSION], [test "x$have_wl_session" = "xyes"])
+
 # OpenGL support (optional)
 AC_ARG_ENABLE([opengl],
   [AS_HELP_STRING([--disable-opengl],

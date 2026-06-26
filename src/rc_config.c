@@ -24,6 +24,7 @@
 #include "rc_config.h"
 #include "mathlib.h"
 #include "measurements.h"
+#include "wl_session.h"
 
 #include "opengl/opengl_structure.h"
 #include "opengl/opengl_msaa.h"
@@ -45,6 +46,9 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Current Working Directory", .format = "%s",
 		.vars = { rc_config.working_dir }, .size = FILENAME_LEN },
+
+	{ .desc = "Wayland Session ID", .format = "%s",
+		.vars = { rc_config.session_id }, .size = sizeof(rc_config.session_id) },
 
 	{ .desc = "Main Window Size, in pixels", .format = "%d,%d",
 		.vars = { &rc_config.main_width, &rc_config.main_height } },
@@ -740,7 +744,11 @@ Set_Window_Geometry(
   if (width && height)
     gtk_window_resize( GTK_WINDOW(window), width, height );
 
-  if (x >= 0 && y >= 0)
+  /* gtk_window_move is a no-op under Wayland, where the compositor owns
+   * placement; there position restores through the xdg-session cookie. */
+  GdkDisplay *display = gtk_widget_get_display( window );
+  const char *type = display ? G_OBJECT_TYPE_NAME(display) : NULL;
+  if (x >= 0 && y >= 0 && g_strcmp0(type, "GdkX11Display") == 0)
     gtk_window_move( GTK_WINDOW(window), x, y );
 
 } /* Set_Window_Geometry() */
@@ -1030,6 +1038,11 @@ Read_Config( void )
     rc_config.ant_temp_custom_t_sky = ANT_TEMP_CUSTOM_T_SKY_DEFAULT;
   if (rc_config.ant_temp_custom_t_earth <= ANT_TEMP_K_MIN)
     rc_config.ant_temp_custom_t_earth = ANT_TEMP_CUSTOM_T_EARTH_DEFAULT;
+
+  /* Open the Wayland session now that the persisted session_id cookie is
+   * parsed, and before Restore_GUI_State shows the main window: the realize
+   * hook wired at registration resolves the session as the window maps. */
+  wl_session_init();
 
   Restore_GUI_State();
 
