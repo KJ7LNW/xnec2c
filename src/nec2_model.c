@@ -510,7 +510,7 @@ List_Comments( void )
     gtk_tree_view_get_selection( cmnt_treeview );
 
   /* "Card" mnemonic and line buffer */
-  char ain[3], line_buf[LINE_LEN];
+  char ain[3], line_buf[LINE_LEN+1];
 
   /* Check that store is empty */
   ret = gtk_tree_model_get_iter_first(

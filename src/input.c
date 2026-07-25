@@ -137,7 +137,7 @@ input_data_free( void )
   gboolean
 Read_Comments( void )
 {
-  char ain[3], line_buf[LINE_LEN];
+  char ain[3], line_buf[LINE_LEN+1];
   int i;
   size_t line_len;
 
