@@ -595,10 +595,16 @@ Open_Input_File( gpointer arg )
     Gtk_Widget_Destroy( &rdpattern_window );
     Gtk_Widget_Destroy( &freqplots_window );
 
-    if( nec2_edit_window == NULL )
-      Open_Nec2_Editor( NEC2_EDITOR_RELOAD );
-    else
-      Nec2_Input_File_Treeview( NEC2_EDITOR_CLEAR );
+    /* Batch mode has no operator to dismiss the editor; Stop() already
+     * scheduled the quit, so opening it here only loops the read/allocate
+     * path headlessly. Restrict the editor to interactive sessions. */
+    if( !rc_config.batch_mode )
+    {
+      if( nec2_edit_window == NULL )
+        Open_Nec2_Editor( NEC2_EDITOR_RELOAD );
+      else
+        Nec2_Input_File_Treeview( NEC2_EDITOR_CLEAR );
+    }
 
     return( FALSE );
   } /* if( !ok ) */
