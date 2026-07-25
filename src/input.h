@@ -48,6 +48,7 @@ enum CMND_MNM
   TL, // 17
   XQ, // 18
   Z0, // 19
+  PL, // 20
   NUM_CMNDS
 };
 

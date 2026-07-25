@@ -469,6 +469,7 @@ static const char *const cmnd_mnemonics[] =
   [FR] = "FR", [GD] = "GD", [GN] = "GN", [KH] = "KH", [LD] = "LD",
   [NE] = "NE", [NH] = "NH", [NT] = "NT", [PQ] = "PQ", [PT] = "PT",
   [RP] = "RP", [SY] = "SY", [TL] = "TL", [XQ] = "XQ", [Z0] = "Z0",
+  [PL] = "PL",
   [NUM_CMNDS] = NULL,
 };
 
@@ -1223,9 +1224,14 @@ Read_Commands( void )
         Stop( ERR_OK, _("Ignoring CM card in commands") );
         continue;
 
+      /* CP requests an auxiliary maximum-coupling and isolation report
+       * between antenna feed segments. The reference computes it after
+       * the solve, reading only the solved current vector and source
+       * voltage; it feeds nothing back into the matrix fill, current
+       * solution, impedance, gain, or radiation pattern. Ignoring it
+       * omits that report alone and leaves every solved quantity intact. */
       case CP: /* "cp" card ignored, maximum coupling between antennas */
-        Stop( ERR_OK, _("CP card is ignored\n"
-              "Coupling calculation not implemented") );
+        pr_warn("CP card is ignored: coupling calculation not implemented\n");
         continue; /* continue card input loop */
 
       case EK: /* "ek" card,  extended thin wire kernel option */
@@ -1661,9 +1667,11 @@ Read_Commands( void )
         } /* case 12: case 17: */
 
       case PQ: case PT: /* "pq" and "pt" cards ignored, no printing */
-        pr_err("PQ and PT cards are ignored: Printing to file not implemented\n");
-        Stop( ERR_OK, _("PQ and PT cards are ignored\n"
-              "Printing to file not implemented") );
+        pr_warn("PQ and PT cards are ignored: printing to file not implemented\n");
+        continue; /* continue card input loop */
+
+      case PL: /* "pl" plot card ignored, plotting to file not supported */
+        pr_warn("PL card is ignored: plotting to file not supported\n");
         continue; /* continue card input loop */
 
       case RP: /* "rp" card, standard observation angle parameters */
@@ -1979,6 +1987,14 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
 
   /* extract card's mnemonic code */
   Strlcpy( mn, line_buf, 3 );
+
+  /* the PL plot card is not processed; it carries a trailing filename
+   * token, so skip field parsing and let the command switch ignore it */
+  if( strcmp( mn, "PL" ) == 0 )
+  {
+    mem_free(&startptr);
+    return( TRUE );
+  }
 
   /* Preserve full line for SY card parsing in command section */
   if( strcmp(mn, "SY") == 0 )
