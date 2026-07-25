@@ -767,8 +767,9 @@ Nec2_Input_File_Treeview( int action )
 
   } /* switch( action ) */
 
-  /* Rewind NEC2 input file */
-  rewind( input_fp );
+  /* Rewind NEC2 input file; batch and fork paths close and null the handle */
+  if( input_fp != NULL )
+    rewind( input_fp );
 
   /*** List Comment cards ***/
   List_Comments();
