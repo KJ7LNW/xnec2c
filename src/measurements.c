@@ -555,7 +555,12 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 	 * and the mismatch adjustment stays unset. */
 	double net_gain_adjust = NAN;
 
-	if (fpat_has_feedpoint())
+	/* The per-port impedance buffers are NULL for feedpoint-less
+	 * excitations; their allocation, not the excitation type alone,
+	 * authorizes reading impedance-derived fields. */
+	int have_impedance = fpat_has_feedpoint() && impedance_data[idx].zreal != NULL;
+
+	if (have_impedance)
 	{
 		/* Single-port consumers read the caller-selected excitation port. */
 		impedance_data_t *imp = &impedance_data[idx];
@@ -635,11 +640,11 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 		return;
 	}
 	m->gain_max = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
-	if (fpat_has_feedpoint())
+	if (have_impedance)
 		m->gain_net = m->gain_max + net_gain_adjust;
 
 	m->gain_viewer = Viewer_Gain(structure_view, idx);
-	if (fpat_has_feedpoint())
+	if (have_impedance)
 		m->gain_viewer_net = m->gain_viewer + net_gain_adjust;
 
 	m->gain_max_theta = 90.0 - rad_pattern[idx].max_gain_tht[pol];
