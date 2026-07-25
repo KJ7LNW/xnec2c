@@ -89,9 +89,6 @@ typedef struct
   float model_scale;
   unsigned int generation;
 
-  /* When TRUE, engine uses model_scale as-is (no overlay scale adjustment) */
-  gboolean scale_adj_locked;
-
   /* Centered text overlay rendered when no data to display; NULL = none */
   const char *status_message;
 

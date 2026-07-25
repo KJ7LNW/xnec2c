@@ -75,21 +75,6 @@ gl_overlay_get_alpha(void *ctx)
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_overlay_effective_scale() - Compute effective overlay model scale, applying user adjustment unless scale_adj_locked is set by the scene provider
- * @ovl: overlay context
- */
-  static inline float
-gl_overlay_effective_scale(const gl_overlay_ctx_t *ovl)
-{
-  if( ovl->ovl_content.scale_adj_locked )
-    return( ovl->ovl_content.model_scale );
-
-  return( ovl->ovl_content.model_scale * (float)rc_config.rdpattern_overlay_scale_adj );
-
-} /* gl_overlay_effective_scale() */
-
-/*-----------------------------------------------------------------------*/
-
 /** gl_overlay_prepare() - Upload overlay VBO and cache own MVP
  * @ctx: overlay context
  * @r_max: current maximum scene extent
@@ -139,7 +124,7 @@ gl_overlay_prepare(void *ctx, float r_max)
    * Projection parameters (near/far) shared with main render pass
    * so all renderables produce comparable depth values; only the
    * uniform model scale differs from the main-content pass. */
-  gl_view_build_mvp(view, gl_overlay_effective_scale(ovl),
+  gl_view_build_mvp(view, ovl->ovl_content.model_scale,
       ovl->cached_mvp, ovl->cached_mv);
 
 } /* gl_overlay_prepare() */
@@ -289,7 +274,7 @@ gl_overlay_far_extent(void *ctx, float r_max)
   if( ovl->ovl_content.batch_count <= 0 )
     return( r_max );
 
-  ovl_model_scale = gl_overlay_effective_scale(ovl);
+  ovl_model_scale = ovl->ovl_content.model_scale;
 
   scaled_extent = ovl->ovl_content.r_max * ovl_model_scale;
 

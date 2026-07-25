@@ -56,6 +56,26 @@ render_check_rdpat(void)
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * render_overlay_model_scale() - Resolve the effective overlay model scale
+ * @fstep: frequency step index
+ *
+ * Owns the derived product of the per-fstep prerender base scale and the
+ * interactive scale_adj; every engine consumes this value rather than
+ * recomputing it.
+ */
+float
+render_overlay_model_scale(int fstep)
+{
+  if( ff_pre == NULL || fstep < 0 )
+    return 1.0f;
+
+  return ff_pre[fstep].overlay_base_scale
+      * (float)rc_config.rdpattern_overlay_scale_adj;
+}
+
+/*-----------------------------------------------------------------------*/
+
   static const char *
 render_rdpattern_mode_message(void)
 {
@@ -316,12 +336,9 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
       ff_presentation_recompute(r.fstep);
       ff.pattern_radius = (ff_pre != NULL) ? ff_pre[r.fstep].pattern_radius : 1.0f;
 
-      /* model_scale maps structure-space meters to pattern-space units.
-       * Base scale from prerender; interactive scale_adj applied here. */
-      float base_scale = (ff_pre != NULL)
-          ? ff_pre[r.fstep].overlay_base_scale : 1.0f;
-      float model_scale = base_scale
-          * (float)rc_config.rdpattern_overlay_scale_adj;
+      /* model_scale maps structure-space meters to pattern-space units;
+       * resolved once by the render presentation layer. */
+      float model_scale = render_overlay_model_scale(r.fstep);
 
       /* Pre-scale excitation centroid from structure space to pattern space.
        * Zero coordinates produce identity transform when no excitation exists. */

@@ -150,6 +150,16 @@ render_check_result_t render_check(view_type_t view_type);
 const render_check_result_t *render_check_rdpat(void);
 
 /**
+ * render_overlay_model_scale() - Resolve the effective overlay model scale
+ * @fstep: frequency step index
+ *
+ * Folds the per-fstep prerender base scale and the interactive
+ * rc_config.rdpattern_overlay_scale_adj into the single authoritative product
+ * consumed by every engine.  Returns 1.0 when no far-field data exists.
+ */
+float render_overlay_model_scale(int fstep);
+
+/**
  * render() - Unified render entry point for all backends
  * @ctx:  backend context (cast to gl_view_content_t* for GL, cairo context for Cairo)
  * @ops:  backend vtable

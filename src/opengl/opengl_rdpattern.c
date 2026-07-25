@@ -473,22 +473,18 @@ rdpattern_overlay_generate(const gl_view_content_t *primary, gl_view_content_t *
   out->batch_count = geom->batch_count;
   out->vertex_stride = geom->vertex_stride;
 
-  /* Far-field: overlay_base_scale from prerender includes the default extent
-   * factor (FF_OVERLAY_DEFAULT_EXTENT); gl_overlay_effective_scale applies
-   * the interactive scale_adj on top.
+  /* Far-field: render_overlay_model_scale folds the prerender base scale and
+   * the interactive scale_adj into one resolved value.
    * Near-field: structure and field vectors share the same space (scale 1.0). */
   float structure_extent = (float)geom_pre.scene_radius;
   int fstep = rc->fstep;
-  if( rc->mode == RENDER_MODE_FARFIELD && structure_extent > 0.0f
-      && ff_pre != NULL && fstep >= 0 )
+  if( rc->mode == RENDER_MODE_FARFIELD && structure_extent > 0.0f )
   {
-    out->model_scale = ff_pre[fstep].overlay_base_scale;
-    out->scale_adj_locked = FALSE;
+    out->model_scale = render_overlay_model_scale(fstep);
   }
   else
   {
     out->model_scale = 1.0f;
-    out->scale_adj_locked = TRUE;
   }
 
   out->r_max = structure_extent;
