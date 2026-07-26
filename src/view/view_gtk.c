@@ -24,6 +24,8 @@
  * widgets with signal blocking to prevent feedback.  Project_on_Screen()
  * and Set_Gdk_Segment() are the Cairo rendering consumers.
  */
+#include <string.h>
+
 #include "view_core.h"
 
 #include "../callbacks.h"
@@ -41,6 +43,9 @@
   static void
 spin_write_blocked(GtkSpinButton *spin, GCallback handler, double value)
 {
+  if( spin == NULL )
+    return;
+
   if( handler != NULL )
     SIGNAL_BLOCK(spin, handler);
 
@@ -115,10 +120,12 @@ view_update_spin_display(view_t *v)
 
 /**
  * view_set_spin_handlers() - Bind spin-handler callback pointers
+ * @v:          view receiving the borrowed handlers
+ * @rotate_cb:  azimuth value-changed handler
+ * @incline_cb: elevation value-changed handler
  *
  * Pointers are borrowed; view_t does not take ownership.  Handlers
- * may be set independently; NULL entries are tolerated and simply
- * skip the block/unblock wrapper in view_update_spin_display().
+ * may be set independently; NULL entries skip signal blocking.
  */
   void
 view_set_spin_handlers(view_t *v, GCallback rotate_cb, GCallback incline_cb)
@@ -130,6 +137,37 @@ view_set_spin_handlers(view_t *v, GCallback rotate_cb, GCallback incline_cb)
   v->incline_spin_handler = incline_cb;
 
 } /* view_set_spin_handlers() */
+
+/**
+ * view_apply_fit() - Apply fitted zoom and pan as one view transition
+ * @v:   view receiving the fitted state
+ * @fit: fitted zoom and screen-space pan
+ *
+ * Synchronizes the zoom widget, then notifies observers once when the
+ * authoritative view state changes.
+ */
+  void
+view_apply_fit(view_t *v, const view_fit_t *fit)
+{
+  gboolean changed;
+
+  if( v == NULL || fit == NULL )
+    return;
+
+  changed = !fl_feq(v->zoom, fit->zoom)
+      || !fl_feq(v->pan_offset[0], fit->pan_offset[0])
+      || !fl_feq(v->pan_offset[1], fit->pan_offset[1]);
+
+  v->zoom = fit->zoom;
+  memcpy(v->pan_offset, fit->pan_offset, sizeof(v->pan_offset));
+
+  if( v->zoom_spin != NULL )
+    gtk_spin_button_set_value(v->zoom_spin, (double)fit->zoom * 100.0);
+
+  if( changed )
+    view_notify_change(v);
+
+} /* view_apply_fit() */
 
 /*-----------------------------------------------------------------------
  * Cairo consumers

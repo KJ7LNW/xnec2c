@@ -111,7 +111,10 @@ xnec2c_SOURCES = \
     prerender/presentation_cache_key.c prerender/presentation_cache_key.h \
     prerender/prerender_patch_arrow.c prerender/prerender_patch_arrow.h \
     render/render_dispatch.c        render/render_dispatch.h \
+    render/render_geometry.c        render/render_geometry.h \
     render/render_message.c         render/render_message.h \
+    render/render_fit.c             render/render_fit.h \
+    render/render_engine.c          render/render_engine.h \
     render/gradient_cache.c         render/gradient_cache.h \
     cairo/cairo_draw.h \
     cairo/cairo_axes.c \
@@ -119,6 +122,7 @@ xnec2c_SOURCES = \
     cairo/cairo_farfield.c \
     cairo/cairo_scenebuffer.c cairo/cairo_scenebuffer_flush.c \
     cairo/cairo_scenebuffer.h \
+    cairo/cairo_fit.c         cairo/cairo_fit.h \
     cairo/cairo_frame.c       cairo/cairo_frame.h \
     cairo/cairo_nearfield.c \
     cairo/cairo_structure.c \
@@ -175,6 +179,8 @@ xnec2c_SOURCES += \
   opengl-engine/opengl_renderer.c opengl-engine/opengl_renderer.h \
   opengl-engine/opengl_view.c opengl-engine/opengl_view.h \
   opengl-engine/opengl_view_render.c opengl-engine/opengl_view_render.h \
+  opengl-engine/opengl_view_fit.c opengl-engine/opengl_view_fit.h \
+  opengl-engine/opengl_view_fit_geometry.c opengl-engine/opengl_view_fit_geometry.h \
   opengl-engine/opengl_view_scene.c opengl-engine/opengl_view_scene.h \
   opengl-engine/opengl_view_overlay.c opengl-engine/opengl_view_overlay.h \
   opengl-engine/opengl_view_input.c opengl-engine/opengl_view_input.h \

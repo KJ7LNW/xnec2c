@@ -158,6 +158,7 @@ typedef void (*gl_generate_fn)(void *ctx);
 /* Returns current effective alpha for opaque/transparent classification.
  * Called each frame so the value always reflects rc_config. */
 typedef float (*gl_alpha_fn)(void *ctx);
+typedef const gl_view_content_t *(*gl_content_fn)(void *ctx);
 
 /* Unified renderable — all 3D objects implement this */
 typedef struct
@@ -167,6 +168,10 @@ typedef struct
   gl_destroy_fn destroy;
   gl_active_fn is_active;
   gl_extent_fn far_extent;
+
+  /* Returns model-space content for fit reduction; NULL when the
+   * renderable carries no foldable geometry */
+  gl_content_fn get_content;
 
   /* Called once per frame before far_extent; generates content for
    * renderables that must populate data before extent is known */

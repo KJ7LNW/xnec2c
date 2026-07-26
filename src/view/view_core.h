@@ -126,6 +126,13 @@ struct view_s
   GCallback incline_spin_handler;
 };
 
+typedef struct
+{
+  float zoom;
+  vec2  pan_offset;
+
+} view_fit_t;
+
 /*-----------------------------------------------------------------
  * Lifecycle
  *----------------------------------------------------------------*/
@@ -247,6 +254,12 @@ void view_update_spin_display(view_t *v);
 void view_set_spin_handlers(view_t *v,
                             GCallback rotate_cb,
                             GCallback incline_cb);
+
+/** view_apply_fit() - Apply fitted zoom and pan as one view transition
+ * @v:   view receiving the fitted state
+ * @fit: fitted zoom and screen-space pan
+ */
+void view_apply_fit(view_t *v, const view_fit_t *fit);
 
 /*-----------------------------------------------------------------
  * Rotation accessor and derived-at-use inlines

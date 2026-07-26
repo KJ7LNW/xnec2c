@@ -30,6 +30,7 @@
 #include "rc_config.h"
 #include "cairo/cairo_draw.h"
 #include "cairo/cairo_frame.h"
+#include "render/render_engine.h"
 #include <pthread.h>
 
 #include "opengl/opengl_structure.h"
@@ -5500,6 +5501,46 @@ on_zoom_reset_clicked(
 
   gtk_spin_button_set_value( z, 100.0 );
   view_reset_pan( target );
+}
+
+
+/**
+ * on_fit_view_clicked() - Fit the clicked window's active rendered content
+ * @button:     fit-view button identifying the target window
+ * @_user_data: unused Glade callback data
+ */
+  void
+on_fit_view_clicked(
+    GtkButton       *button,
+    gpointer         _user_data)
+{
+  view_t *target = NULL;
+  GCallback zoom_handler = NULL;
+  view_fit_t fit = {0};
+
+  (void)_user_data;
+
+  if( window_type_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW )
+  {
+    target = structure_view;
+    zoom_handler = G_CALLBACK(on_main_zoom_spinbutton_value_changed);
+  }
+  else
+  {
+    target = rdpattern_view;
+    zoom_handler = G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed);
+  }
+
+  if( target == NULL || !render_fit_view(target, &fit) )
+    return;
+
+  if( target->zoom_spin != NULL )
+    SIGNAL_BLOCK(target->zoom_spin, zoom_handler);
+
+  view_apply_fit(target, &fit);
+
+  if( target->zoom_spin != NULL )
+    SIGNAL_UNBLOCK(target->zoom_spin, zoom_handler);
 }
 
 

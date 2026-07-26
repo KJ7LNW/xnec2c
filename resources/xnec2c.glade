@@ -11520,6 +11520,30 @@ Save NEC2 Editor data first?
               </packing>
             </child>
             <child>
+              <object class="GtkButton" id="main_fit_view">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="hexpand">True</property>
+                <property name="tooltip-text">Fit view: scale and center the structure to fill the window.</property>
+                <signal name="clicked" handler="on_fit_view_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="resource">/fit_view.svg</property>
+                  </object>
+                </child>
+                <accelerator key="0" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="KP_0" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">14</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkToggleButton" id="main_ortho_button">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -11537,7 +11561,7 @@ Save NEC2 Editor data first?
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">14</property>
+                <property name="position">15</property>
               </packing>
             </child>
           </object>
@@ -12766,6 +12790,30 @@ Save NEC2 Editor data first?
               </packing>
             </child>
             <child>
+              <object class="GtkButton" id="rdpattern_fit_view">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="hexpand">True</property>
+                <property name="tooltip-text">Fit view: scale and center the radiation pattern and structure overlay to fill the window.</property>
+                <signal name="clicked" handler="on_fit_view_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="resource">/fit_view.svg</property>
+                  </object>
+                </child>
+                <accelerator key="0" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="KP_0" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">16</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkToggleButton" id="rdpattern_ortho_button">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -12783,7 +12831,7 @@ Save NEC2 Editor data first?
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">16</property>
+                <property name="position">17</property>
               </packing>
             </child>
           </object>

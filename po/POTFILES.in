@@ -10,6 +10,8 @@ src/branch_hints.h
 src/cairo/cairo_axes.c
 src/cairo/cairo_draw.h
 src/cairo/cairo_farfield.c
+src/cairo/cairo_fit.c
+src/cairo/cairo_fit.h
 src/cairo/cairo_frame.c
 src/cairo/cairo_frame.h
 src/cairo/cairo_nearfield.c
@@ -119,6 +121,10 @@ src/opengl-engine/opengl_math.h
 src/opengl-engine/opengl_renderer.c
 src/opengl-engine/opengl_renderer.h
 src/opengl-engine/opengl_view.c
+src/opengl-engine/opengl_view_fit.c
+src/opengl-engine/opengl_view_fit_geometry.c
+src/opengl-engine/opengl_view_fit_geometry.h
+src/opengl-engine/opengl_view_fit.h
 src/opengl-engine/opengl_view.h
 src/opengl-engine/opengl_view_input.c
 src/opengl-engine/opengl_view_input.h
@@ -205,6 +211,12 @@ src/render/gradient_cache.c
 src/render/gradient_cache.h
 src/render/render_dispatch.c
 src/render/render_dispatch.h
+src/render/render_engine.c
+src/render/render_engine.h
+src/render/render_fit.c
+src/render/render_fit.h
+src/render/render_geometry.c
+src/render/render_geometry.h
 src/render/render_message.c
 src/render/render_message.h
 src/settings/render_settings.c

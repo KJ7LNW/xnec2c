@@ -75,6 +75,17 @@ gl_overlay_get_alpha(void *ctx)
 
 /*-----------------------------------------------------------------------*/
 
+/** gl_overlay_get_content() - Overlay model-space content for fit reduction */
+static const gl_view_content_t *
+gl_overlay_get_content(void *ctx)
+{
+  gl_overlay_ctx_t *ovl = ctx;
+
+  return &ovl->ovl_content;
+}
+
+/*-----------------------------------------------------------------------*/
+
 /** gl_overlay_prepare() - Upload overlay VBO and cache own MVP
  * @ctx: overlay context
  * @r_max: current maximum scene extent
@@ -397,6 +408,7 @@ gl_view_overlay_renderable_new(gl_view_state_t *state)
     .is_active            = gl_overlay_is_active,
     .generate             = gl_overlay_generate,
     .far_extent           = gl_overlay_far_extent,
+    .get_content          = gl_overlay_get_content,
     .ctx                  = ovl,
     .get_alpha            = gl_overlay_get_alpha,
     .origin               = {0.0f, 0.0f, 0.0f},

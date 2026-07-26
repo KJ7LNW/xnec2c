@@ -29,6 +29,7 @@
  */
 
 #include "render_dispatch.h"
+#include "render_geometry.h"
 #include "gradient_cache.h"
 #include "../shared.h"
 #include "../chroma/chroma.h"
@@ -72,6 +73,37 @@ render_overlay_model_scale(int fstep)
 
   return ff_pre[fstep].overlay_base_scale
       * (float)rc_config.rdpattern_overlay_scale_adj;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * render_overlay_excitation_offset() - Resolve the far-field excitation translation
+ * @model_scale:    resolved overlay model scale for the fstep
+ * @overlay_active: whether the structure overlay is shown
+ * @ff:             receives the pattern-space offset in x,y,z and its length
+ *                  off_len; all zeroed when no excitation translation applies
+ *
+ * Owns the derived excitation centroid prescale so the pattern draw and the fit
+ * fold consume one authoritative translation.
+ */
+void
+render_overlay_excitation_offset(float model_scale, gboolean overlay_active,
+    ff_draw_params_t *ff)
+{
+  if( !overlay_active || !isFlagSet(ENABLE_EXCITN) )
+  {
+    ff->x = 0.0f;
+    ff->y = 0.0f;
+    ff->z = 0.0f;
+    ff->off_len = 0.0f;
+    return;
+  }
+
+  ff->x = (float)geom_pre.excitation_cx * model_scale;
+  ff->y = (float)geom_pre.excitation_cy * model_scale;
+  ff->z = (float)geom_pre.excitation_cz * model_scale;
+  ff->off_len = sqrtf(ff->x * ff->x + ff->y * ff->y + ff->z * ff->z);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -293,7 +325,7 @@ build_struct_draw_params(int fstep)
 render(void *ctx, const render_ops_t *ops, view_t *view)
 {
   render_check_result_t r;
-  gboolean ok;
+  gboolean ok = FALSE;
 
   if( view == NULL )
     return FALSE;
@@ -340,15 +372,8 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
        * resolved once by the render presentation layer. */
       float model_scale = render_overlay_model_scale(r.fstep);
 
-      /* Pre-scale excitation centroid from structure space to pattern space.
-       * Zero coordinates produce identity transform when no excitation exists. */
-      if( r.overlay_active && isFlagSet(ENABLE_EXCITN) )
-      {
-        ff.x = (float)geom_pre.excitation_cx * model_scale;
-        ff.y = (float)geom_pre.excitation_cy * model_scale;
-        ff.z = (float)geom_pre.excitation_cz * model_scale;
-        ff.off_len = sqrtf(ff.x * ff.x + ff.y * ff.y + ff.z * ff.z);
-      }
+      /* Excitation translation resolved once; shared with the Cairo fit fold. */
+      render_overlay_excitation_offset(model_scale, r.overlay_active, &ff);
 
       /* overlay_extent: structure-space extent that maps to the same pixel
        * positions as GL's model_scale matrix transform.
@@ -386,45 +411,9 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
     {
       near_field_t *nf = &near_field_fstep[r.fstep];
       int npts = fpat.nrx * fpat.nry * fpat.nrz;
-      nf_field_set_t fields[NF_FIELD_SETS_MAX];
-      int n_fields = 0;
+      nf_field_set_t fields[NF_FIELD_SETS_MAX] = {{0}};
+      int n_fields = render_nearfield_fields(r.fstep, fields);
       double dr = geom_pre.nf_dr_norm;
-
-      /* Resolve geometry and color at draw from the immutable phasor; the
-       * child ships no presentation, so the parent derives each active set. */
-      if( draw_efield_active() && (fpat.nfeh & NEAR_EFIELD) )
-      {
-        nf_frame_t e = chroma_proj_frame_nearfield(r.fstep, NF_CHAN_E);
-        if( e.vecs != NULL )
-        {
-          fields[n_fields].vecs   = e.vecs;
-          fields[n_fields].colors = e.colors;
-          n_fields++;
-        }
-      }
-
-      if( draw_hfield_active() && (fpat.nfeh & NEAR_HFIELD) )
-      {
-        nf_frame_t h = chroma_proj_frame_nearfield(r.fstep, NF_CHAN_H);
-        if( h.vecs != NULL )
-        {
-          fields[n_fields].vecs   = h.vecs;
-          fields[n_fields].colors = h.colors;
-          n_fields++;
-        }
-      }
-
-      if( draw_poynting_active() &&
-          (fpat.nfeh & NEAR_EFIELD) && (fpat.nfeh & NEAR_HFIELD) )
-      {
-        nf_frame_t p = chroma_proj_frame_nearfield(r.fstep, NF_CHAN_POV);
-        if( p.vecs != NULL )
-        {
-          fields[n_fields].vecs   = p.vecs;
-          fields[n_fields].colors = p.colors;
-          n_fields++;
-        }
-      }
 
       /* Near-field overlay: structure in meters, same space as field vectors */
       float nf_overlay_extent = (float)nf->r_max;
@@ -460,7 +449,8 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
       break;
     }
 
-    default:
+    case RENDER_MODE_NONE:
+    case RENDER_MODE_COUNT:
       BUG("render: unhandled mode %d\n", r.mode);
       ok = FALSE;
       break;

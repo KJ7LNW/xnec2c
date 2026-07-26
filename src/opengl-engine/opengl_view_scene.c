@@ -59,6 +59,15 @@ gl_scene_get_alpha(void *ctx)
       sc->view->content.batch_count);
 }
 
+/** gl_scene_get_content() - Primary model-space content for fit reduction */
+static const gl_view_content_t *
+gl_scene_get_content(void *ctx)
+{
+  gl_scene_ctx_t *sc = ctx;
+
+  return &sc->view->content;
+}
+
 /* Forward declarations for callbacks */
 static void gl_scene_prepare(void *ctx, float r_max);
 static void gl_scene_render(void *ctx, const gl_render_params_t *params);
@@ -335,6 +344,7 @@ gl_view_scene_renderable_new(gl_view_state_t *state)
     .destroy              = gl_scene_free,
     .is_active            = gl_scene_is_active,
     .far_extent           = gl_scene_far_extent,
+    .get_content          = gl_scene_get_content,
     .ctx                  = sc,
     .get_alpha            = gl_scene_get_alpha,
     .origin               = {0.0f, 0.0f, 0.0f},

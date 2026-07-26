@@ -35,7 +35,8 @@ typedef enum
   RENDER_MODE_NONE,
   RENDER_MODE_FARFIELD,
   RENDER_MODE_NEARFIELD,
-  RENDER_MODE_STRUCTURE
+  RENDER_MODE_STRUCTURE,
+  RENDER_MODE_COUNT
 } render_mode_t;
 
 /* Precondition check outcome */
@@ -49,7 +50,8 @@ typedef enum
   RENDER_NO_NF_FIELD,   /* near E/H field mode but no E/H/Poynting component selected */
   RENDER_NO_DATA,
   RENDER_NO_GEOMETRY,   /* VIEW_STRUCTURE with no geometry loaded (data.n == data.m == 0) */
-  RENDER_NO_MODE
+  RENDER_NO_MODE,
+  RENDER_STATUS_COUNT
 } render_status_t;
 
 /* Dispatch-resolved structure draw parameters — passed to draw_structure backends */
@@ -158,6 +160,18 @@ const render_check_result_t *render_check_rdpat(void);
  * consumed by every engine.  Returns 1.0 when no far-field data exists.
  */
 float render_overlay_model_scale(int fstep);
+
+/**
+ * render_overlay_excitation_offset() - Resolve the far-field excitation translation
+ * @model_scale:    resolved overlay model scale for the fstep
+ * @overlay_active: whether the structure overlay is shown
+ * @ff:             receives the pattern-space offset in x,y,z and its length
+ *                  off_len; all zeroed when no excitation translation applies
+ *
+ * The pattern draw and the fit fold share this one authoritative translation.
+ */
+void render_overlay_excitation_offset(float model_scale, gboolean overlay_active,
+    ff_draw_params_t *ff);
 
 /**
  * render() - Unified render entry point for all backends
