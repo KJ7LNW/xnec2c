@@ -26,6 +26,7 @@
 #include "chroma/chroma.h"
 #include "structure_ui.h"
 #include "mem/mem_track.h"
+#include "render/render_engine.h"
 
 #include "opengl/opengl_structure.h"
 #include "sy_expr.h"
@@ -40,22 +41,25 @@
   gboolean
 Save_Pixbuf( gpointer save_data )
 {
+  save_data_t *data = save_data;
   GdkPixbuf *pixbuf;
   GError *error = NULL;
-  GdkWindow *window = gtk_widget_get_window(
-      ((save_data_t *)save_data)->drawingarea );
 
-  /* Get image from pixbuf */
-  pixbuf = gdk_pixbuf_get_from_window( window, 0, 0,
-      ((save_data_t *)save_data)->width,
-      ((save_data_t *)save_data)->height );
+  pixbuf = render_capture_widget(data->drawingarea, data->width, data->height);
+  if( pixbuf == NULL )
+  {
+    pr_err("failed to capture image for %s\n", data->filename);
+    return FALSE;
+  }
 
-  /* Save image as PNG file */
-  gdk_pixbuf_save( pixbuf,
-      ((save_data_t *)save_data)->filename, "png", &error, NULL );
-  g_object_unref( pixbuf );
+  if( !gdk_pixbuf_save(pixbuf, data->filename, "png", &error, NULL) )
+  {
+    pr_err("failed to save image %s: %s\n", data->filename, error->message);
+    g_error_free(error);
+  }
 
-  return( FALSE );
+  g_object_unref(pixbuf);
+  return FALSE;
 
 } /* Save_Pixbuf() */
 

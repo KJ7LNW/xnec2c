@@ -212,6 +212,10 @@ gl_view_fit_view(view_t *view, view_fit_t *fit)
 /*-----------------------------------------------------------------------*/
 
 /* GL engine control-op vtable. */
-const render_engine_ops_t gl_engine_ops = { .fit_view = gl_view_fit_view };
+const render_engine_ops_t gl_engine_ops =
+{
+  .fit_view = gl_view_fit_view,
+  .capture = gl_view_capture_pixbuf,
+};
 
 #endif /* HAVE_OPENGL */

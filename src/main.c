@@ -63,6 +63,7 @@ enum XNEC2C_OPTS {
 	OPT_FORCE_VERIFY,
 	OPT_MEM_REPORT,
 	OPT_WRITE_VALIDATION_DIR,
+	OPT_WRITE_RDPAT_PNG,
 
 	OPT_MAX_OPTS
 };
@@ -98,6 +99,7 @@ static struct option long_options[] = {
 		{  "force-verify",           no_argument,         NULL,  OPT_FORCE_VERIFY           },
 		{  "mem-report",             no_argument,         NULL,  OPT_MEM_REPORT             },
 		{  "write-validation-dir",   required_argument,   NULL,  OPT_WRITE_VALIDATION_DIR   },
+		{  "write-rdpat-png",        required_argument,   NULL,  OPT_WRITE_RDPAT_PNG         },
 
 		{  NULL,                     0,                   NULL,  0                          }
 	};
@@ -389,6 +391,10 @@ main (int argc, char *argv[])
         break;
       case OPT_WRITE_VALIDATION_DIR:
         validation_dump_set_dir(optarg);
+        break;
+
+      case OPT_WRITE_RDPAT_PNG:
+        rc_config.filename_rdpat_png = optarg;
         break;
 
       case OPT_MEM_REPORT:

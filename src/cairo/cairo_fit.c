@@ -8,6 +8,7 @@
 #include <math.h>
 
 #include "cairo_fit.h"
+#include "cairo_frame.h"
 #include "../render/render_fit.h"
 #include "../render/render_geometry.h"
 #include "../shared.h"
@@ -129,4 +130,8 @@ cairo_fit_view(view_t *view, view_fit_t *fit)
 } /* cairo_fit_view() */
 
 /* Cairo engine control-operation vtable. */
-const render_engine_ops_t cairo_engine_ops = { .fit_view = cairo_fit_view };
+const render_engine_ops_t cairo_engine_ops =
+{
+  .fit_view = cairo_fit_view,
+  .capture = cairo_capture_pixbuf,
+};

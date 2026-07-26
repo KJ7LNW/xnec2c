@@ -31,6 +31,32 @@
 static cairo_scenebuffer_t structure_scenebuffer;
 static cairo_scenebuffer_t rdpattern_scenebuffer;
 
+/**
+ * cairo_capture_pixbuf() - Capture a Cairo drawing window into a pixbuf
+ * @widget: Cairo drawing widget
+ * @width: capture width in pixels
+ * @height: capture height in pixels
+ *
+ * Returns a newly allocated pixbuf, or NULL when the widget lacks a window.
+ */
+  GdkPixbuf *
+cairo_capture_pixbuf(GtkWidget *widget, int width, int height)
+{
+  GdkWindow *window;
+
+  if( widget == NULL || width <= 0 || height <= 0 )
+    return NULL;
+
+  window = gtk_widget_get_window(widget);
+  if( window == NULL )
+    return NULL;
+
+  return gdk_pixbuf_get_from_window(window, 0, 0, width, height);
+
+} /* cairo_capture_pixbuf() */
+
+/*-----------------------------------------------------------------------*/
+
 cairo_scenebuffer_t *
 cairo_frame_get_scenebuffer(view_type_t type)
 {

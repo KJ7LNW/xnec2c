@@ -387,6 +387,16 @@ GtkWidget* gl_view_create_widget(
 
 gl_view_state_t* gl_view_get_state(GtkWidget *widget);
 
+/**
+ * gl_view_capture_pixbuf() - Capture the resolved OpenGL frame
+ * @widget: OpenGL view wrapper or inner area
+ * @width: capture width in pixels
+ * @height: capture height in pixels
+ *
+ * Returns a newly allocated top-down RGBA pixbuf, or NULL on failure.
+ */
+GdkPixbuf *gl_view_capture_pixbuf(GtkWidget *widget, int width, int height);
+
 /* gl_view_get_gl_area() - Resolve a view widget handle to its GtkGLArea.
  * Accepts either the wrapper returned by gl_view_create_widget() or the
  * inner GtkGLArea.  Returns NULL for any other widget. */

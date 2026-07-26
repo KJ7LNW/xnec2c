@@ -74,3 +74,30 @@ render_fit_view(view_t *view, view_fit_t *fit)
 } /* render_fit_view() */
 
 /*-----------------------------------------------------------------------*/
+
+/** render_capture_widget() - Capture the active engine frame
+ * @widget: active engine drawing widget
+ * @width: capture width in pixels
+ * @height: capture height in pixels
+ *
+ * Returns a newly allocated pixbuf, or NULL when the active engine cannot
+ * capture the widget's rendered frame.
+ */
+  GdkPixbuf *
+render_capture_widget(GtkWidget *widget, int width, int height)
+{
+  const render_engine_ops_t *ops;
+
+  if( widget == NULL || width <= 0 || height <= 0 )
+    return NULL;
+
+  ops = render_engine_active();
+
+  if( ops->capture == NULL )
+    return NULL;
+
+  return ops->capture(widget, width, height);
+
+} /* render_capture_widget() */
+
+/*-----------------------------------------------------------------------*/

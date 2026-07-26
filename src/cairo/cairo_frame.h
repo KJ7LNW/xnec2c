@@ -21,6 +21,9 @@
 /* Cairo backend vtable; render() gates slot calls by mode */
 extern const render_ops_t cairo_ops;
 
+/** cairo_capture_pixbuf() - Capture a Cairo drawing window into a pixbuf */
+GdkPixbuf *cairo_capture_pixbuf(GtkWidget *widget, int width, int height);
+
 /** cairo_frame_get_scenebuffer() - Return per-view scenebuffer
  * @type: VIEW_STRUCTURE or VIEW_RDPATTERN
  */

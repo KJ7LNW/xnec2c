@@ -22,6 +22,7 @@
 #include "xnec2c.h"
 #include "callbacks.h"
 #include "shared.h"
+#include "render/render_engine.h"
 #include "measurements.h"
 #include "prerender/prerender_color.h"
 #include "prerender/prerender_farfield.h"
@@ -1232,40 +1233,62 @@ fmhz_save_apply_idle(gpointer data)
  * Returns TRUE when fmhz_save was reset, signalling the caller to skip
  * its normal display-step logic (user_set_frequency handles the UI update).
  */
-static gboolean
-fmhz_save_reset_if_stale(void)
+/**
+ * freq_min_vswr_step() - Find the populated step with the lowest VSWR
+ *
+ * Caller holds freq_data_lock when concurrent sweep updates are possible.
+ * Returns -1 when no populated step yields a finite non-negative VSWR.
+ */
+  static int
+freq_min_vswr_step(void)
 {
-  /* Repair only a green line that classifies stale: outside every FR card
-   * range and the populated display extent.  The classifier is the single
-   * authority shared with the seeding and display-routing sites. */
-  if (green_line_eval().cls != GREEN_LINE_STALE)
-    return FALSE;
+  double best_vswr = G_MAXDOUBLE;
+  int best_step = -1;
+  measurement_t measurement;
+  int idx;
 
-  /* fmhz_save is outside all FR card ranges; find lowest-VSWR step */
-  double best_vswr = 1e30;
-  int best_step = 0;
-  measurement_t meas;
-
-  for (int idx = 0; idx < calc_data.steps_total; idx++)
+  for( idx = 0; idx < calc_data.steps_total; idx++ )
   {
-    if (!save.fstep[idx])
+    if( !save.fstep[idx] )
       continue;
 
-    meas_calc(&meas, idx, calc_data.ex_port);
+    meas_calc(&measurement, idx, calc_data.ex_port);
 
-    if (!isnan(meas.vswr) && meas.vswr >= 0.0 && meas.vswr < best_vswr)
+    if( !isnan(measurement.vswr) && measurement.vswr >= 0.0
+        && measurement.vswr < best_vswr )
     {
-      best_vswr = meas.vswr;
+      best_vswr = measurement.vswr;
       best_step = idx;
     }
   }
 
-  /* No valid steps computed; leave fmhz_save unchanged */
-  if (best_vswr >= 1e30)
+  return best_step;
+
+} /* freq_min_vswr_step() */
+
+/*-----------------------------------------------------------------------*/
+
+static gboolean
+fmhz_save_reset_if_stale(void)
+{
+  int best_step;
+  measurement_t measurement;
+
+  /* Repair only a green line that classifies stale: outside every FR card
+   * range and the populated display extent.  The classifier is the single
+   * authority shared with the seeding and display-routing sites. */
+  if( green_line_eval().cls != GREEN_LINE_STALE )
     return FALSE;
 
+  best_step = freq_min_vswr_step();
+
+  /* No valid steps computed; leave fmhz_save unchanged */
+  if( best_step < 0 )
+    return FALSE;
+
+  meas_calc(&measurement, best_step, calc_data.ex_port);
   pr_notice("fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n",
-    calc_data.fmhz_save, save.freq[best_step], best_vswr);
+      calc_data.fmhz_save, save.freq[best_step], measurement.vswr);
 
   calc_data.fmhz_save = save.freq[best_step];
   /* Queue the full UI update on the GTK main thread via the single
@@ -1320,6 +1343,183 @@ freq_loop_finalize( freq_loop_state_t *state )
     g_idle_add_once((GSourceOnceFunc)Write_Optimizer_Data, NULL);
 }
 
+/*-----------------------------------------------------------------------*/
+
+#define BATCH_RDPAT_DEFAULT_PX 800
+
+/**
+ * batch_force_render() - Render the batch radiation pattern synchronously
+ * @widget: active radiation-pattern drawing widget
+ * @width: drawing width in pixels
+ * @height: drawing height in pixels
+ *
+ * Batch completion has no frame-clock iteration before teardown.  Drawing to
+ * an image surface fills the active renderer's capture source synchronously.
+ */
+  static void
+batch_force_render(GtkWidget *widget, int width, int height)
+{
+  GtkAllocation allocation = {0};
+  cairo_surface_t *surface;
+  cairo_t *context;
+
+  allocation.width = width;
+  allocation.height = height;
+  gtk_widget_size_allocate(widget, &allocation);
+
+  surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
+  context = cairo_create(surface);
+  gtk_widget_draw(widget, context);
+  cairo_destroy(context);
+  cairo_surface_destroy(surface);
+
+} /* batch_force_render() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_apply_rdpattern_fit() - Apply the existing fit transition to batch view
+ */
+  static void
+batch_apply_rdpattern_fit(void)
+{
+  view_fit_t fit = {0};
+
+  if( !render_fit_view(rdpattern_view, &fit) )
+    return;
+
+  SIGNAL_BLOCK(rdpattern_view->zoom_spin,
+      G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed));
+  view_apply_fit(rdpattern_view, &fit);
+  SIGNAL_UNBLOCK(rdpattern_view->zoom_spin,
+      G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed));
+
+} /* batch_apply_rdpattern_fit() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_write_rdpat_png() - Write the fitted radiation pattern PNG target
+ *
+ * Runs on the GTK main thread before batch teardown.  The active renderer
+ * owns capture through render_capture_widget().
+ */
+  static void
+batch_write_rdpat_png(void)
+{
+  GtkWidget *menu_item;
+  GtkAllocation allocation;
+  GdkPixbuf *pixbuf;
+  GError *error = NULL;
+  int width;
+  int height;
+  int step;
+
+  if( rc_config.filename_rdpat_png == NULL )
+    return;
+
+  if( rdpattern_window == NULL )
+  {
+    menu_item = Builder_Get_Object(main_window_builder, "main_rdpattern");
+    if( menu_item == NULL )
+    {
+      pr_err("radiation pattern PNG capture: no window menu for %s\n",
+          rc_config.filename_rdpat_png);
+      return;
+    }
+
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item), TRUE);
+  }
+
+  if( rdpattern_window == NULL || rdpattern_drawingarea == NULL
+      || rdpattern_view == NULL )
+  {
+    pr_err("radiation pattern PNG capture: no radiation pattern view for %s\n",
+        rc_config.filename_rdpat_png);
+    return;
+  }
+
+  width = rc_config.rdpattern_width;
+  height = rc_config.rdpattern_height;
+  if( width <= 1 || height <= 1 )
+  {
+    width = BATCH_RDPAT_DEFAULT_PX;
+    height = BATCH_RDPAT_DEFAULT_PX;
+  }
+
+  gtk_window_resize(GTK_WINDOW(rdpattern_window), width, height);
+  gtk_widget_show_now(rdpattern_window);
+
+  g_rec_mutex_lock(&freq_data_lock);
+  step = freq_min_vswr_step();
+  if( step < 0 )
+  {
+    int idx = 0;
+
+    /* Select the first computed step because current sources have no
+     * impedance-derived VSWR. */
+    while( step < 0 && idx < calc_data.steps_total )
+    {
+      if( save.fstep[idx] )
+        step = idx;
+
+      idx++;
+    }
+  }
+  g_rec_mutex_unlock(&freq_data_lock);
+
+  if( step < 0 )
+  {
+    pr_err("radiation pattern PNG capture: no computed step for %s\n",
+        rc_config.filename_rdpat_png);
+    return;
+  }
+
+  freq_step_update_ui(step, TRUE);
+  batch_force_render(rdpattern_drawingarea, width, height);
+  batch_apply_rdpattern_fit();
+  batch_force_render(rdpattern_drawingarea, width, height);
+
+  gtk_widget_get_allocation(rdpattern_drawingarea, &allocation);
+  pixbuf = render_capture_widget(rdpattern_drawingarea,
+      allocation.width, allocation.height);
+  if( pixbuf == NULL )
+  {
+    pr_err("radiation pattern PNG capture failed for %s\n",
+        rc_config.filename_rdpat_png);
+    return;
+  }
+
+  if( !gdk_pixbuf_save(pixbuf, rc_config.filename_rdpat_png, "png", &error,
+      NULL) )
+  {
+    pr_err("radiation pattern PNG save failed for %s: %s\n",
+        rc_config.filename_rdpat_png, error->message);
+    g_error_free(error);
+  }
+  else
+    pr_notice("wrote radiation pattern PNG: %s\n", rc_config.filename_rdpat_png);
+
+  g_object_unref(pixbuf);
+
+} /* batch_write_rdpat_png() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_capture_and_quit() - Capture the optional batch PNG before teardown
+ * @user_data: unused idle source data
+ */
+  static void
+batch_capture_and_quit(gpointer user_data)
+{
+  (void)user_data;
+
+  batch_write_rdpat_png();
+  xnec2c_quit(NULL);
+
+} /* batch_capture_and_quit() */
+
 /**
  * batch_finish_no_steps - graceful batch completion for a zero-step deck
  *
@@ -1342,6 +1542,7 @@ batch_finish_no_steps( void )
   if( opt_have_files_to_save() )
     Write_Optimizer_Data();
 
+  batch_write_rdpat_png();
   xnec2c_quit( NULL );
 }
 
@@ -1474,6 +1675,7 @@ Frequency_Loop( gpointer udata )
 void *Frequency_Loop_Thread(void *p)
 {
 	freq_loop_state_t *state = (freq_loop_state_t *)p;
+	gboolean batch_complete = FALSE;
 
 	// Don't draw the green line if in batch mode
 	if (rc_config.batch_mode)
@@ -1488,10 +1690,7 @@ void *Frequency_Loop_Thread(void *p)
 	// Exit if in batch mode
 	if (rc_config.batch_mode)
 	{
-		/* Batch teardown converges on the shared completion primitive; runs on
-		 * the loop thread, so it must not enter the coordinator (see
-		 * src/quit.c banner). */
-		g_idle_add_once_sync((GSourceOnceFunc)xnec2c_quit, NULL);
+		batch_complete = TRUE;
 		goto out;
 	}
 
@@ -1508,6 +1707,10 @@ void *Frequency_Loop_Thread(void *p)
 
 out:
 	ClearFlag(FREQ_LOOP_RUNNING);
+
+	if( batch_complete )
+		g_idle_add_once((GSourceOnceFunc)batch_capture_and_quit, NULL);
+
 	return NULL;
 }
 

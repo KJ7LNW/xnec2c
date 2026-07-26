@@ -413,6 +413,7 @@ typedef struct
   char *filename_currents;
   char *filename_gnuplot_structure;
   char *filename_patch_currents;
+  char *filename_rdpat_png;
 
   /* Symbol overrides window */
   int sy_overrides_is_open;

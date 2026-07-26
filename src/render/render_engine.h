@@ -33,6 +33,7 @@
 typedef struct
 {
   gboolean (*fit_view)(view_t *view, view_fit_t *fit);
+  GdkPixbuf *(*capture)(GtkWidget *widget, int width, int height);
 
 } render_engine_ops_t;
 
@@ -44,5 +45,15 @@ typedef struct
  * Returns FALSE when the active engine has no geometry to fit.
  */
 gboolean render_fit_view(view_t *view, view_fit_t *fit);
+
+/**
+ * render_capture_widget() - Capture the active engine frame
+ * @widget: active engine drawing widget
+ * @width: capture width in pixels
+ * @height: capture height in pixels
+ *
+ * Returns a newly allocated pixbuf, or NULL when capture is unavailable.
+ */
+GdkPixbuf *render_capture_widget(GtkWidget *widget, int width, int height);
 
 #endif /* __RENDER_ENGINE_H */

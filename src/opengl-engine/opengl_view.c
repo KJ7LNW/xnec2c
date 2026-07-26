@@ -29,6 +29,7 @@
 #include "opengl_cairo_overlay.h"
 #include "opengl_ground_plane.h"
 #include "../shared.h"
+#include "../mem/mem.h"
 
 #ifdef HAVE_OPENGL
 
@@ -578,6 +579,63 @@ gl_view_get_state(GtkWidget *widget)
   return( g_object_get_data(G_OBJECT(gl_area), "gl_state") );
 
 } /* gl_view_get_state() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * gl_view_capture_pixbuf() - Capture the resolved OpenGL frame
+ * @widget: OpenGL view wrapper or inner area
+ * @width: capture width in pixels
+ * @height: capture height in pixels
+ *
+ * Reads the engine-owned single-sample resolve framebuffer because GTK's
+ * default framebuffer has no stable format or sample-count contract.
+ */
+  GdkPixbuf *
+gl_view_capture_pixbuf(GtkWidget *widget, int width, int height)
+{
+  gl_view_state_t *state;
+  GtkWidget *gl_area;
+  GdkPixbuf *pixbuf;
+  GLint read_fbo;
+  guchar *pixels = NULL;
+  guchar *dst;
+  size_t row_bytes;
+  int row;
+
+  if( widget == NULL || width <= 0 || height <= 0 )
+    return NULL;
+
+  state = gl_view_get_state(widget);
+  gl_area = gl_view_get_gl_area(widget);
+  if( state == NULL || gl_area == NULL || state->resolve_fbo == 0 )
+    return NULL;
+
+  gtk_gl_area_make_current(GTK_GL_AREA(gl_area));
+  if( gtk_gl_area_get_error(GTK_GL_AREA(gl_area)) != NULL )
+    return NULL;
+
+  pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
+  if( pixbuf == NULL )
+    return NULL;
+
+  row_bytes = (size_t)width * 4;
+  mem_alloc(&pixels, row_bytes * (size_t)height);
+
+  glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &read_fbo);
+  glBindFramebuffer(GL_READ_FRAMEBUFFER, state->resolve_fbo);
+  glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+  glBindFramebuffer(GL_READ_FRAMEBUFFER, (GLuint)read_fbo);
+
+  dst = gdk_pixbuf_get_pixels(pixbuf);
+  for( row = 0; row < height; row++ )
+    memcpy(dst + (size_t)row * gdk_pixbuf_get_rowstride(pixbuf),
+        pixels + (size_t)(height - row - 1) * row_bytes, row_bytes);
+
+  mem_free(&pixels);
+  return pixbuf;
+
+} /* gl_view_capture_pixbuf() */
 
 /*-----------------------------------------------------------------------*/
 
