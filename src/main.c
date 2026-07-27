@@ -64,9 +64,80 @@ enum XNEC2C_OPTS {
 	OPT_MEM_REPORT,
 	OPT_WRITE_VALIDATION_DIR,
 	OPT_WRITE_RDPAT_PNG,
+	OPT_RDPAT_PNG_FORMAT,
 
 	OPT_MAX_OPTS
 };
+
+static const rdpat_png_format_spec_t rdpat_png_format_names[] = {
+  { .name = "x", .format = RDPAT_PNG_FORMAT_X },
+  { .name = "y", .format = RDPAT_PNG_FORMAT_Y },
+  { .name = "z", .format = RDPAT_PNG_FORMAT_Z },
+  { .name = "iso", .format = RDPAT_PNG_FORMAT_ISO },
+  { .name = "quad", .format = RDPAT_PNG_FORMAT_QUAD },
+};
+
+_Static_assert(G_N_ELEMENTS(rdpat_png_format_names) == RDPAT_PNG_FORMAT_COUNT,
+    "every radiation-pattern PNG format needs a command-line name");
+
+/**
+ * rdpat_png_format_parse() - Convert a command-line format name to its enum
+ * @name: command-line format value
+ * @format: destination for the resolved format
+ *
+ * Returns TRUE when @name names a supported radiation-pattern PNG format.
+ */
+static gboolean
+rdpat_png_format_parse(const char *name, rdpat_png_format_spec_t *format)
+{
+  size_t idx;
+
+  for( idx = 0; idx < G_N_ELEMENTS(rdpat_png_format_names); idx++ )
+  {
+    if( strcmp(name, rdpat_png_format_names[idx].name) == 0 )
+    {
+      *format = rdpat_png_format_names[idx];
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * rdpat_png_format_list_parse() - Parse radiation-pattern PNG format names
+ * @names: comma-separated radiation-pattern PNG format names
+ * @formats: destination for the resolved format array
+ *
+ * Returns TRUE when every name names a supported radiation-pattern PNG format.
+ */
+static gboolean
+rdpat_png_format_list_parse(const char *names,
+    rdpat_png_format_spec_t **formats)
+{
+  char **tokens;
+  gsize count;
+  gsize idx;
+  gboolean valid = TRUE;
+
+  tokens = g_strsplit(names, ",", -1);
+  count = g_strv_length(tokens);
+  mem_free(formats);
+  mem_array_realloc(formats, count);
+
+  for( idx = 0; idx < count; idx++ )
+  {
+    if( !rdpat_png_format_parse(tokens[idx], &(*formats)[idx]) )
+      valid = FALSE;
+  }
+
+  g_strfreev(tokens);
+
+  if( !valid )
+    mem_free(formats);
+
+  return valid;
+}
 
 static struct option long_options[] = {
 		{  "input",                  required_argument,   NULL,  'i'                        },
@@ -100,6 +171,7 @@ static struct option long_options[] = {
 		{  "mem-report",             no_argument,         NULL,  OPT_MEM_REPORT             },
 		{  "write-validation-dir",   required_argument,   NULL,  OPT_WRITE_VALIDATION_DIR   },
 		{  "write-rdpat-png",        required_argument,   NULL,  OPT_WRITE_RDPAT_PNG         },
+		{  "rdpat-png-format",       required_argument,   NULL,  OPT_RDPAT_PNG_FORMAT         },
 
 		{  NULL,                     0,                   NULL,  0                          }
 	};
@@ -395,6 +467,15 @@ main (int argc, char *argv[])
 
       case OPT_WRITE_RDPAT_PNG:
         rc_config.filename_rdpat_png = optarg;
+        break;
+
+      case OPT_RDPAT_PNG_FORMAT:
+        if( !rdpat_png_format_list_parse(optarg,
+            &rc_config.rdpat_png_formats) )
+        {
+          pr_crit("invalid radiation pattern PNG format: %s\n", optarg);
+          exit(1);
+        }
         break;
 
       case OPT_MEM_REPORT:

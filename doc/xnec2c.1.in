@@ -75,6 +75,8 @@ specify on the command line will not be written.
 .IP
 \-\-write\-rdpat\-png       <filename>  \- write PNG of the radiation pattern at the lowest\-VSWR step, or the first computed step when VSWR is unavailable
 .IP
+\-\-rdpat\-png\-format     <format[,format...]>  \- select x, y, z, iso, or quad views; defaults to iso. One format preserves <filename>; multiple formats write <filename>\-<format>.png
+.IP
 .SH "ENVIRONMENT"
 .TP
 .B LANGUAGE

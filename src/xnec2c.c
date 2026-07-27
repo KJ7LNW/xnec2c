@@ -32,6 +32,35 @@
 #include "plot_freqdata.h"
 #include "rdpattern_ui.h"
 #include "structure_ui.h"
+
+#define BATCH_RDPAT_DEFAULT_PX 800
+
+typedef struct {
+  int width;
+  int height;
+} batch_capture_size_t;
+
+typedef struct {
+  const char *button_id;
+  rdpat_png_format_t format;
+  int column;
+  int row;
+} batch_rdpattern_pane_t;
+
+static const batch_rdpattern_pane_t batch_rdpattern_panes[] = {
+  { .button_id = "rdpattern_x_axis", .format = RDPAT_PNG_FORMAT_X,
+    .column = 0, .row = 0 },
+  { .button_id = "rdpattern_y_axis", .format = RDPAT_PNG_FORMAT_Y,
+    .column = 1, .row = 0 },
+  { .button_id = "rdpattern_z_axis", .format = RDPAT_PNG_FORMAT_Z,
+    .column = 0, .row = 1 },
+  { .button_id = "rdpattern_default_view", .format = RDPAT_PNG_FORMAT_ISO,
+    .column = 1, .row = 1 },
+};
+
+_Static_assert(G_N_ELEMENTS(batch_rdpattern_panes) + 1 == RDPAT_PNG_FORMAT_COUNT,
+    "quad is the only radiation-pattern PNG format without a single pane");
+
 /* Only nec2_eval_signal() is called from xnec2c.c; avoid pulling
  * gsl headers (via opt_simple.h) which conflict with openblas cblas. */
 extern void nec2_eval_signal(void);
@@ -1345,11 +1374,9 @@ freq_loop_finalize( freq_loop_state_t *state )
 
 /*-----------------------------------------------------------------------*/
 
-#define BATCH_RDPAT_DEFAULT_PX 800
-
 /**
- * batch_force_render() - Render the batch radiation pattern synchronously
- * @widget: active radiation-pattern drawing widget
+ * batch_force_render() - Render a batch drawing widget synchronously
+ * @widget: active drawing widget
  * @width: drawing width in pixels
  * @height: drawing height in pixels
  *
@@ -1378,7 +1405,63 @@ batch_force_render(GtkWidget *widget, int width, int height)
 /*-----------------------------------------------------------------------*/
 
 /**
- * batch_apply_rdpattern_fit() - Apply the existing fit transition to batch view
+ * batch_rdpattern_capture_size() - Resolve native dimensions for batch panes
+ *
+ * Returns configured radiation-pattern dimensions, falling back to the
+ * established batch default when the configuration has no usable size.
+ */
+  static batch_capture_size_t
+batch_rdpattern_capture_size(void)
+{
+  batch_capture_size_t size = {
+    .width = rc_config.rdpattern_width,
+    .height = rc_config.rdpattern_height,
+  };
+
+  if( size.width <= 1 || size.height <= 1 )
+  {
+    size.width = BATCH_RDPAT_DEFAULT_PX;
+    size.height = BATCH_RDPAT_DEFAULT_PX;
+  }
+
+  return size;
+
+} /* batch_rdpattern_capture_size() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_select_capture_step() - Select the preferred computed sweep step
+ *
+ * Holds freq_data_lock while preferring the lowest VSWR step, then the first
+ * computed step when that measurement is unavailable.
+ */
+  static int
+batch_select_capture_step(void)
+{
+  int step;
+  int idx;
+
+  g_rec_mutex_lock(&freq_data_lock);
+  step = freq_min_vswr_step();
+  idx = 0;
+  while( step < 0 && idx < calc_data.steps_total )
+  {
+    if( save.fstep[idx] )
+      step = idx;
+
+    idx++;
+  }
+  g_rec_mutex_unlock(&freq_data_lock);
+
+  return step;
+
+} /* batch_select_capture_step() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_apply_rdpattern_fit() - Apply the fitted radiation-pattern view
  */
   static void
 batch_apply_rdpattern_fit(void)
@@ -1388,126 +1471,287 @@ batch_apply_rdpattern_fit(void)
   if( !render_fit_view(rdpattern_view, &fit) )
     return;
 
-  SIGNAL_BLOCK(rdpattern_view->zoom_spin,
-      G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed));
+  if( rdpattern_view->zoom_spin != NULL )
+    SIGNAL_BLOCK(rdpattern_view->zoom_spin,
+        G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed));
+
   view_apply_fit(rdpattern_view, &fit);
-  SIGNAL_UNBLOCK(rdpattern_view->zoom_spin,
-      G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed));
+
+  if( rdpattern_view->zoom_spin != NULL )
+    SIGNAL_UNBLOCK(rdpattern_view->zoom_spin,
+        G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed));
 
 } /* batch_apply_rdpattern_fit() */
 
 /*-----------------------------------------------------------------------*/
 
 /**
- * batch_write_rdpat_png() - Write the fitted radiation pattern PNG target
+ * batch_prepare_rdpattern_window() - Realize the radiation-pattern capture view
+ * @width: capture width in pixels
+ * @height: capture height in pixels
  *
- * Runs on the GTK main thread before batch teardown.  The active renderer
- * owns capture through render_capture_widget().
+ * Returns TRUE when the radiation-pattern view is available at capture size.
  */
-  static void
-batch_write_rdpat_png(void)
+  static gboolean
+batch_prepare_rdpattern_window(int width, int height)
 {
   GtkWidget *menu_item;
-  GtkAllocation allocation;
-  GdkPixbuf *pixbuf;
-  GError *error = NULL;
-  int width;
-  int height;
-  int step;
-
-  if( rc_config.filename_rdpat_png == NULL )
-    return;
 
   if( rdpattern_window == NULL )
   {
     menu_item = Builder_Get_Object(main_window_builder, "main_rdpattern");
     if( menu_item == NULL )
-    {
-      pr_err("radiation pattern PNG capture: no window menu for %s\n",
-          rc_config.filename_rdpat_png);
-      return;
-    }
+      return FALSE;
 
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item), TRUE);
   }
 
   if( rdpattern_window == NULL || rdpattern_drawingarea == NULL
-      || rdpattern_view == NULL )
-  {
-    pr_err("radiation pattern PNG capture: no radiation pattern view for %s\n",
-        rc_config.filename_rdpat_png);
-    return;
-  }
-
-  width = rc_config.rdpattern_width;
-  height = rc_config.rdpattern_height;
-  if( width <= 1 || height <= 1 )
-  {
-    width = BATCH_RDPAT_DEFAULT_PX;
-    height = BATCH_RDPAT_DEFAULT_PX;
-  }
+      || rdpattern_view == NULL || rdpattern_window_builder == NULL )
+    return FALSE;
 
   gtk_window_resize(GTK_WINDOW(rdpattern_window), width, height);
   gtk_widget_show_now(rdpattern_window);
 
-  g_rec_mutex_lock(&freq_data_lock);
-  step = freq_min_vswr_step();
-  if( step < 0 )
-  {
-    int idx = 0;
+  return TRUE;
 
-    /* Select the first computed step because current sources have no
-     * impedance-derived VSWR. */
-    while( step < 0 && idx < calc_data.steps_total )
-    {
-      if( save.fstep[idx] )
-        step = idx;
+} /* batch_prepare_rdpattern_window() */
 
-      idx++;
-    }
-  }
-  g_rec_mutex_unlock(&freq_data_lock);
+/*-----------------------------------------------------------------------*/
 
-  if( step < 0 )
-  {
-    pr_err("radiation pattern PNG capture: no computed step for %s\n",
-        rc_config.filename_rdpat_png);
-    return;
-  }
-
-  freq_step_update_ui(step, TRUE);
+/**
+ * batch_capture_fitted_rdpattern_pane() - Capture the fitted radiation pattern
+ * @width: capture width in pixels
+ * @height: capture height in pixels
+ *
+ * Returns an owned pixbuf from the prepared radiation-pattern view, or NULL
+ * when the active renderer cannot capture it.
+ */
+  static GdkPixbuf *
+batch_capture_fitted_rdpattern_pane(int width, int height)
+{
   batch_force_render(rdpattern_drawingarea, width, height);
   batch_apply_rdpattern_fit();
   batch_force_render(rdpattern_drawingarea, width, height);
 
-  gtk_widget_get_allocation(rdpattern_drawingarea, &allocation);
-  pixbuf = render_capture_widget(rdpattern_drawingarea,
-      allocation.width, allocation.height);
-  if( pixbuf == NULL )
+  return render_capture_widget(rdpattern_drawingarea, width, height);
+
+} /* batch_capture_fitted_rdpattern_pane() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_capture_rdpattern_preset_pane() - Capture a fitted preset view
+ * @button_id: builder ID for the required radiation-pattern preset button
+ * @width: capture width in pixels
+ * @height: capture height in pixels
+ *
+ * Returns an owned pixbuf, or NULL when the radiation-pattern view or active
+ * renderer cannot capture the selected preset.
+ */
+  static GdkPixbuf *
+batch_capture_rdpattern_preset_pane(const char *button_id, int width, int height)
+{
+  GtkWidget *button;
+
+  if( !batch_prepare_rdpattern_window(width, height) )
+    return NULL;
+
+  button = Builder_Get_Object(rdpattern_window_builder, button_id);
+  if( button == NULL )
+    return NULL;
+
+  gtk_button_clicked(GTK_BUTTON(button));
+
+  return batch_capture_fitted_rdpattern_pane(width, height);
+
+} /* batch_capture_rdpattern_preset_pane() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_prepare_rdpattern_capture() - Select the capture frequency and size
+ * @filename: destination PNG filename for diagnostics
+ * @size: destination for the resolved capture dimensions
+ *
+ * Returns TRUE when the radiation-pattern view can capture the selected step.
+ */
+  static gboolean
+batch_prepare_rdpattern_capture(const char *filename, batch_capture_size_t *size)
+{
+  int step;
+
+  step = batch_select_capture_step();
+  if( step < 0 )
   {
-    pr_err("radiation pattern PNG capture failed for %s\n",
-        rc_config.filename_rdpat_png);
-    return;
+    pr_err("radiation pattern PNG capture: no computed step for %s\n",
+        filename);
+    return FALSE;
   }
 
-  if( !gdk_pixbuf_save(pixbuf, rc_config.filename_rdpat_png, "png", &error,
-      NULL) )
+  *size = batch_rdpattern_capture_size();
+  freq_step_update_ui(step, TRUE);
+
+  return TRUE;
+
+} /* batch_prepare_rdpattern_capture() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_write_rdpat_png() - Write one radiation-pattern PNG target
+ * @format: selected radiation-pattern view format
+ * @filename: destination PNG filename
+ * @size: capture image dimensions
+ *
+ * Runs on the GTK main thread before batch teardown.  The active renderer
+ * owns capture through render_capture_widget().
+ */
+  static void
+batch_write_rdpat_png(rdpat_png_format_t format, const char *filename,
+    const batch_capture_size_t *size)
+{
+  GdkPixbuf *captures[G_N_ELEMENTS(batch_rdpattern_panes)] = { NULL };
+  GdkPixbuf *pixbuf = NULL;
+  GError *error = NULL;
+  gsize idx;
+
+  if( format == RDPAT_PNG_FORMAT_QUAD )
   {
-    pr_err("radiation pattern PNG save failed for %s: %s\n",
-        rc_config.filename_rdpat_png, error->message);
+    for( idx = 0; idx < G_N_ELEMENTS(batch_rdpattern_panes); idx++ )
+    {
+      const batch_rdpattern_pane_t *pane = &batch_rdpattern_panes[idx];
+
+      captures[idx] = batch_capture_rdpattern_preset_pane(pane->button_id,
+          size->width, size->height);
+      if( captures[idx] == NULL )
+        goto out_unref;
+    }
+
+    pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8,
+        size->width * 2, size->height * 2);
+    if( pixbuf == NULL )
+      goto out_unref;
+
+    for( idx = 0; idx < G_N_ELEMENTS(batch_rdpattern_panes); idx++ )
+    {
+      const batch_rdpattern_pane_t *pane = &batch_rdpattern_panes[idx];
+
+      gdk_pixbuf_copy_area(captures[idx], 0, 0, size->width, size->height,
+          pixbuf, pane->column * size->width, pane->row * size->height);
+    }
+  }
+  else
+  {
+    for( idx = 0; idx < G_N_ELEMENTS(batch_rdpattern_panes); idx++ )
+    {
+      const batch_rdpattern_pane_t *pane = &batch_rdpattern_panes[idx];
+
+      if( pane->format == format )
+      {
+        pixbuf = batch_capture_rdpattern_preset_pane(pane->button_id,
+            size->width, size->height);
+      }
+    }
+  }
+
+  if( pixbuf == NULL )
+  {
+    pr_err("radiation pattern PNG capture failed for %s\n", filename);
+    goto out_unref;
+  }
+
+  if( !gdk_pixbuf_save(pixbuf, filename, "png", &error, NULL) )
+  {
+    pr_err("radiation pattern PNG save failed for %s: %s\n", filename,
+        error->message);
     g_error_free(error);
   }
   else
-    pr_notice("wrote radiation pattern PNG: %s\n", rc_config.filename_rdpat_png);
+    pr_notice("wrote radiation pattern PNG: %s\n", filename);
 
-  g_object_unref(pixbuf);
+out_unref:
+  if( pixbuf != NULL )
+    g_object_unref(pixbuf);
+
+  for( idx = 0; idx < G_N_ELEMENTS(captures); idx++ )
+  {
+    if( captures[idx] != NULL )
+      g_object_unref(captures[idx]);
+  }
 
 } /* batch_write_rdpat_png() */
 
 /*-----------------------------------------------------------------------*/
 
 /**
- * batch_capture_and_quit() - Capture the optional batch PNG before teardown
+ * batch_write_rdpat_pngs() - Write every requested radiation-pattern PNG
+ *
+ * A multi-format request derives one filename per canonical format name.
+ */
+  static void
+batch_write_rdpat_pngs(void)
+{
+  const rdpat_png_format_spec_t default_format = {
+    .format = RDPAT_PNG_FORMAT_ISO,
+  };
+  const rdpat_png_format_spec_t *formats;
+  batch_capture_size_t size;
+  gsize count;
+  gsize idx;
+
+  if( rc_config.filename_rdpat_png == NULL )
+    return;
+
+  if( rc_config.rdpat_png_formats == NULL )
+  {
+    formats = &default_format;
+    count = 1;
+  }
+  else
+  {
+    formats = rc_config.rdpat_png_formats;
+    count = mem_array_count(rc_config.rdpat_png_formats);
+  }
+
+  if( count != 1 && !g_str_has_suffix(rc_config.filename_rdpat_png, ".png") )
+  {
+    pr_err("multiple radiation pattern PNG formats require a .png filename: %s\n",
+        rc_config.filename_rdpat_png);
+    return;
+  }
+
+  if( !batch_prepare_rdpattern_capture(rc_config.filename_rdpat_png, &size) )
+    return;
+
+  if( count == 1 )
+  {
+    batch_write_rdpat_png(formats[0].format, rc_config.filename_rdpat_png,
+        &size);
+  }
+  else
+  {
+    for( idx = 0; idx < count; idx++ )
+    {
+      char *stem = NULL;
+      char *filename = NULL;
+
+      stem = g_strndup(rc_config.filename_rdpat_png,
+          strlen(rc_config.filename_rdpat_png) - strlen(".png"));
+      filename = g_strdup_printf("%s-%s.png", stem, formats[idx].name);
+      g_free(stem);
+
+      batch_write_rdpat_png(formats[idx].format, filename, &size);
+      g_free(filename);
+    }
+  }
+
+} /* batch_write_rdpat_pngs() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_capture_and_quit() - Capture an optional batch PNG before teardown
  * @user_data: unused idle source data
  */
   static void
@@ -1515,13 +1759,13 @@ batch_capture_and_quit(gpointer user_data)
 {
   (void)user_data;
 
-  batch_write_rdpat_png();
+  batch_write_rdpat_pngs();
   xnec2c_quit(NULL);
 
 } /* batch_capture_and_quit() */
 
 /**
- * batch_finish_no_steps - graceful batch completion for a zero-step deck
+ * batch_finish_no_steps - gracefully complete a zero-step batch deck
  *
  * Runs on the GTK main thread from a g_idle_add_once source scheduled by
  * Open_Input_File when a batch deck carries no dispatchable frequency step
@@ -1542,7 +1786,7 @@ batch_finish_no_steps( void )
   if( opt_have_files_to_save() )
     Write_Optimizer_Data();
 
-  batch_write_rdpat_png();
+  batch_write_rdpat_pngs();
   xnec2c_quit( NULL );
 }
 

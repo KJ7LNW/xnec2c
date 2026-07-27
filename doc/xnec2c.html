@@ -1403,6 +1403,12 @@ filenames to write without <code>--batch</code> mode then enable the <span class
   <dd>Write a PNG image of the radiation pattern at the lowest-VSWR step, or
   the first computed step when VSWR is unavailable, captured from the active
   renderer at the current window resolution.</dd>
+
+  <dt><code>--rdpat-png-format &lt;format[,format...]&gt;</code></dt>
+  <dd>Select radiation-pattern PNG views: <code>x</code>, <code>y</code>,
+  <code>z</code>, <code>iso</code>, or <code>quad</code>. The default is
+  <code>iso</code>. One format preserves <code>&lt;filename&gt;</code>; multiple
+  formats write <code>&lt;filename&gt;-&lt;format&gt;.png</code>.</dd>
 </dl>
 <h4>Command Line Notes</h4>
 <p><strong>&lt;<var>input-file-name</var>&gt;</strong>: Specify a NEC2 input file to

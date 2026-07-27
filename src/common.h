@@ -267,6 +267,20 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 /* Maximum length for mathlib ID strings (including null terminator) */
 #define MATHLIB_ID_LEN 32
 
+typedef enum {
+  RDPAT_PNG_FORMAT_ISO,
+  RDPAT_PNG_FORMAT_X,
+  RDPAT_PNG_FORMAT_Y,
+  RDPAT_PNG_FORMAT_Z,
+  RDPAT_PNG_FORMAT_QUAD,
+  RDPAT_PNG_FORMAT_COUNT,
+} rdpat_png_format_t;
+
+typedef struct {
+  const char *name;
+  rdpat_png_format_t format;
+} rdpat_png_format_spec_t;
+
 /* Runtime configuration data */
 typedef struct
 {
@@ -414,6 +428,7 @@ typedef struct
   char *filename_gnuplot_structure;
   char *filename_patch_currents;
   char *filename_rdpat_png;
+  rdpat_png_format_spec_t *rdpat_png_formats;
 
   /* Symbol overrides window */
   int sy_overrides_is_open;
