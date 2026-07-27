@@ -316,7 +316,7 @@ nobase_dist_pkgdata_DATA += examples/satellite.nec
 # committed reference data under examples/data/*.csv stays in the list.
 CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
-check-local: check-examples-file-list check-potfiles-list check-po-catalogs
+check-local: update-po check-examples-file-list check-potfiles-list check-po-catalogs
 check-potfiles-list:
 	@$(srcdir)/scripts/trans-update.sh --check
 check-po-catalogs:
