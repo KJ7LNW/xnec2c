@@ -1,0 +1,50 @@
+/* Style the full-screen radiation-pattern view. */
+
+.gallery-zoom {
+  display: none;
+  z-index: 1100;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.gallery-zoom.gallery-zoom-open {
+  display: flex;
+}
+
+.gallery-zoom-image {
+  width: 95vw;
+  height: 95vh;
+}
+
+.gallery-zoom-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-primary-content);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--color-primary-content);
+  border-radius: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.gallery-zoom:hover .gallery-zoom-close,
+.gallery-zoom-close:focus-visible {
+  opacity: 1;
+}
+
+.gallery-zoom-caption {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.75rem;
+  font-family: monospace;
+  color: var(--color-primary-content);
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0.25rem;
+}

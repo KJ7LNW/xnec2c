@@ -134,6 +134,25 @@ dist_docimages_DATA += doc/images/web-heading.png
 dist_docimages_DATA += doc/images/web-heading.xcf
 dist_docimages_DATA += doc/images/wire.png
 
+doccssdir = $(docdir)/css
+dist_doccss_DATA  =
+dist_doccss_DATA += doc/css/gallery.css
+dist_doccss_DATA += doc/css/gallery-controls.css
+dist_doccss_DATA += doc/css/gallery-nec.css
+dist_doccss_DATA += doc/css/gallery-zoom.css
+dist_doccss_DATA += doc/css/mobile-styles.css
+
+docjsdir = $(docdir)/js
+dist_docjs_DATA  =
+dist_docjs_DATA += doc/js/gallery.js
+dist_docjs_DATA += doc/js/gallery-events.js
+dist_docjs_DATA += doc/js/gallery-nec.js
+dist_docjs_DATA += doc/js/gallery-render.js
+dist_docjs_DATA += doc/js/gallery-view.js
+dist_docjs_DATA += doc/js/manifest.js
+dist_docjs_DATA += doc/js/decks.js
+dist_docjs_DATA += doc/js/mobile-menu.js
+
 
 ########################################################################
 # dist and install examples/ files

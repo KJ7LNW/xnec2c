@@ -1,0 +1,35 @@
+/* Style highlighted Numerical Electromagnetics Code deck source. */
+
+.gallery-source {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: auto;
+  padding: 1rem;
+  background: var(--color-base-100);
+}
+
+.gallery-source.gallery-source-open {
+  display: block;
+}
+
+.gallery-source pre {
+  margin: 0;
+  font-family: monospace;
+  white-space: pre;
+}
+
+.gallery-nec-card {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.gallery-nec-comment {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.gallery-nec-num {
+  color: #b45309;
+}

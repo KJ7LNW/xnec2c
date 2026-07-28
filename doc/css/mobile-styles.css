@@ -28,6 +28,11 @@
   transform: scale(0.95);
 }
 
+/* Hide the menu toggle while the gallery modal owns the screen. */
+body.gallery-open #mobile-menu-toggle {
+  display: none;
+}
+
 .menu-icon {
   display: inline-block;
   width: 20px;

@@ -230,6 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
 :root {
   /* Primary gradient colors from antenna pattern */
   --color-primary: #1e40af;        /* Deep blue */
+  --color-primary-content: #ffffff;
   --color-primary-dark: #1e3a8a;
   --color-primary-light: #3b82f6;
 
@@ -973,8 +974,18 @@ figcaption {
   color: var(--color-base-content);
 }
 </style>
-<link rel="stylesheet" href="mobile-styles.css">
-<script src="mobile-menu.js" defer></script>
+<link rel="stylesheet" href="css/mobile-styles.css">
+<script src="js/mobile-menu.js" defer></script>
+<link rel="stylesheet" href="css/gallery.css">
+<link rel="stylesheet" href="css/gallery-controls.css">
+<link rel="stylesheet" href="css/gallery-nec.css">
+<link rel="stylesheet" href="css/gallery-zoom.css">
+<script src="images/gallery/manifest.js" defer></script>
+<script src="js/gallery-nec.js" defer></script>
+<script src="js/gallery-view.js" defer></script>
+<script src="js/gallery-render.js" defer></script>
+<script src="js/gallery-events.js" defer></script>
+<script src="js/gallery.js" defer></script>
 </head>
 <body>
 
@@ -989,6 +1000,8 @@ for Linux and UNIX operating systems.  The original FORTRAN version of
 NEC2 was ported to C by <a target="_blank" rel="noopener noreferrer" href="https://www.5b4az.org/"><span class="contact" data-callsign="5B4AZ" data-role="author">Neoklis Kyriazis</span></a> and released as nec2c.
 Later he wrote xnec2c, a graphical interface for ease of use with
 many more features:
+
+<div id="gallery-launch"></div>
 
 <h2>Xnec2c Quick Start Guide</h2>
 

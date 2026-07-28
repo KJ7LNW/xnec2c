@@ -1,0 +1,234 @@
+/* Style the static xnec2c documentation gallery. */
+
+.gallery-launch-button {
+  display: inline-block;
+  margin: 1rem 0;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  color: var(--color-primary-content);
+  background: var(--color-primary);
+  border: none;
+  border-radius: 0.375rem;
+}
+
+.gallery-launch-button,
+.gallery-modal button {
+  cursor: pointer;
+}
+
+/* Keep gallery controls beneath a stationary pointer. */
+.gallery-launch-button:hover,
+.gallery-modal button:hover {
+  transform: none;
+}
+
+.gallery-launch-button:hover {
+  filter: brightness(1.1);
+}
+
+#gallery-launch {
+  text-align: center;
+}
+
+#gallery-teaser {
+  margin: 1rem auto 0;
+  text-align: center;
+}
+
+.gallery-teaser-button {
+  display: inline-block;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.gallery-teaser-button img {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  border-radius: 0.375rem;
+}
+
+.gallery-modal,
+.gallery-zoom {
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
+.gallery-modal {
+  display: none;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.gallery-modal.gallery-modal-open {
+  display: block;
+}
+
+.gallery-dialog {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  color: var(--color-base-content);
+  background: var(--color-base-100);
+  border-radius: 0.5rem;
+}
+
+.gallery-modal :focus,
+.gallery-launch-button:focus,
+.gallery-teaser-button:focus {
+  outline: none;
+}
+
+.gallery-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-base-300);
+}
+
+.gallery-title {
+  flex: 1;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gallery-axis-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.gallery-axis-label {
+  margin-right: 0.35rem;
+}
+
+.gallery-body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.gallery-pane {
+  display: none;
+  width: 220px;
+  overflow-y: auto;
+  background: var(--color-base-200);
+  border-right: 1px solid var(--color-base-300);
+}
+
+.gallery-pane.gallery-pane-open {
+  display: block;
+}
+
+.gallery-pane ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery-pane-row {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.gallery-pane-row:hover {
+  background: var(--color-base-300);
+}
+
+.gallery-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  padding: 1rem;
+}
+
+.gallery-image-button,
+.gallery-zoom-image {
+  background: #000;
+}
+
+.gallery-image-button {
+  width: 100%;
+  height: calc(100% - 3rem);
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  cursor: zoom-in;
+}
+
+.gallery-image,
+.gallery-zoom-image {
+  object-fit: contain;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-chevron {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  padding: 0.5rem 0.75rem;
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--color-primary-content);
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 0.25rem;
+  opacity: 0.55;
+  transition: filter 0.15s ease;
+}
+
+.gallery-chevron-left {
+  left: 1rem;
+}
+
+.gallery-chevron-right {
+  right: 1rem;
+}
+
+.gallery-chevron:hover {
+  filter: brightness(1.6);
+}
+
+/* Preserve chevron centering while suppressing hover motion. */
+.gallery-modal .gallery-chevron:hover {
+  transform: translateY(-50%);
+}
+
+.gallery-nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.gallery-prev,
+.gallery-next {
+  padding: 0.4rem 1rem;
+}
