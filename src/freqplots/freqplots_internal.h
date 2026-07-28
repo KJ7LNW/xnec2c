@@ -155,6 +155,8 @@ int fp_panel_available(fp_panel_t panel);
  * render pass.  Defined one type per file (freqplots_<type>.c). */
 int      fp_gain_enabled(void);
 gboolean fp_gain_render(fp_plot_ctx_t *ctx);
+int      fp_agt_enabled(void);
+gboolean fp_agt_render(fp_plot_ctx_t *ctx);
 int      fp_viewer_enabled(void);
 gboolean fp_viewer_render(fp_plot_ctx_t *ctx);
 int      fp_vswr_enabled(void);
@@ -167,6 +169,7 @@ gboolean fp_ant_temp_render(fp_plot_ctx_t *ctx);
 /* Per-type trace-buffer release, called once at program exit through
  * freqplots_cleanup(). */
 void fp_gain_free(void);
+void fp_agt_free(void);
 void fp_viewer_free(void);
 void fp_vswr_free(void);
 void fp_impedance_free(void);

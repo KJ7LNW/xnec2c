@@ -56,6 +56,7 @@ void hook_freqplots_zrlzim(void);
 void hook_freqplots_zmgzph(void);
 void hook_freqplots_smith(void);
 void hook_freqplots_ant_temp(void);
+void hook_freqplots_agt(void);
 void hook_freqplots_net_gain(void);
 void hook_freqplots_min_max(void);
 void hook_freqplots_clamp_vswr(void);

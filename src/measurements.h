@@ -26,6 +26,9 @@ enum MEASUREMENT_INDEXES
 	MEAS_GAIN_VIEWER,
 	MEAS_GAIN_VIEWER_NET,
 	MEAS_FB_RATIO,
+	MEAS_FR_RATIO,
+	MEAS_AGT,
+	MEAS_AGT_EFFICIENCY,
 	MEAS_GAIN_DEV_PX,
 	MEAS_GAIN_DEV_NX,
 	MEAS_GAIN_DEV_PY,
@@ -264,6 +267,9 @@ typedef struct
 			double gain_max_theta, gain_max_phi;
 			double gain_viewer, gain_viewer_net;
 			double fb_ratio;
+			double fr_ratio;
+			double agt;
+			double agt_efficiency;
 			double gain_dev_px, gain_dev_nx;
 			double gain_dev_py, gain_dev_ny;
 			double gain_dev_pz, gain_dev_nz;

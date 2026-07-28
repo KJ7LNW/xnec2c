@@ -337,6 +337,7 @@ typedef struct
     freqplots_zmgzph_togglebutton,
     freqplots_smith_togglebutton,
     freqplots_ant_temp_togglebutton,
+    freqplots_agt_togglebutton,
     freqplots_show_ant_temp,
     freqplots_min_max,
     freqplots_s11,
@@ -797,6 +798,9 @@ typedef struct
     nph,
     ipd,
     iavp,
+    iavp_requested, /* raw RP-card A value before the always-on kernel
+                        diagnostic auto-enables iavp; reflects whether the
+                        USER explicitly asked for averaging (A=1 or A=2) */
     inor,
     iax,
     ixtyp;
@@ -1080,6 +1084,7 @@ typedef enum {
 	FP_PANEL_ALL = -1,
 	FP_PANEL_GAIN = 0, FP_PANEL_GAIN_DIR, FP_PANEL_VIEWER, FP_PANEL_VSWR,
 	FP_PANEL_ZRLZIM, FP_PANEL_ZMGZPH, FP_PANEL_SMITH, FP_PANEL_ANT_TEMP,
+	FP_PANEL_AGT,
 	FP_PANEL_COUNT
 } fp_panel_t;
 
@@ -1116,7 +1121,7 @@ typedef struct {
 
 /* Upper bound on selected-frequency readout columns per popup: a leading
  * frequency column plus the largest per-graph field set. */
-#define FP_READOUT_MAX 6
+#define FP_READOUT_MAX 8
 
 /* Per-window render and input context for the frequency plots.  The primary
  * window is the sole persistent instance; popups are heap instances holding a
@@ -1248,6 +1253,14 @@ typedef struct
 
   double
     efficiency;     /* Radiation efficiency = prad / pinr, per freq step */
+
+  double
+    agt_ratio,          /* Average Gain Test: linear ratio (1.0=free space
+                             ideal, 2.0=ideal over perfect ground) */
+    agt_efficiency_pct; /* Same, expressed as % of theoretical max gain */
+  int
+    agt_valid;          /* 1 if RP card had averaging (A=1/2) and total_omega
+                             was non-degenerate; 0 = not computed this step */
 
   double
     noise_scaled_max,  /* True max of Scale_Gain in noise mode (K/sr) */

@@ -458,6 +458,9 @@ const char *meas_names[] = {
 	[MEAS_GAIN_VIEWER]      =  "gain_viewer",
 	[MEAS_GAIN_VIEWER_NET]  =  "gain_viewer_net",
 	[MEAS_FB_RATIO]         =  "fb_ratio",
+	[MEAS_FR_RATIO]         =  "fr_ratio",
+	[MEAS_AGT]              =  "agt",
+	[MEAS_AGT_EFFICIENCY]   =  "agt_efficiency",
 	[MEAS_GAIN_DEV_PX]     =  "gain_dev_px",
 	[MEAS_GAIN_DEV_NX]     =  "gain_dev_nx",
 	[MEAS_GAIN_DEV_PY]     =  "gain_dev_py",
@@ -488,6 +491,9 @@ const char *meas_display_names[] = {
 	[MEAS_GAIN_VIEWER]      =  "Viewer Gain",
 	[MEAS_GAIN_VIEWER_NET]  =  "Viewer Net Gain",
 	[MEAS_FB_RATIO]         =  "F/B Ratio",
+	[MEAS_FR_RATIO]         =  "F/R Ratio",
+	[MEAS_AGT]              =  "Average Gain",
+	[MEAS_AGT_EFFICIENCY]   =  "AGT Efficiency",
 	[MEAS_GAIN_DEV_PX]     =  "Gain Dev +X",
 	[MEAS_GAIN_DEV_NX]     =  "Gain Dev −X",
 	[MEAS_GAIN_DEV_PY]     =  "Gain Dev +Y",
@@ -518,6 +524,9 @@ const char *meas_descriptions[] = {
 	[MEAS_GAIN_VIEWER]      =  "Gain toward current viewer angle in dBi",
 	[MEAS_GAIN_VIEWER_NET]  =  "Viewer gain adjusted for mismatch loss in dBi",
 	[MEAS_FB_RATIO]         =  "Front-to-back ratio in dB",
+	[MEAS_FR_RATIO]         =  "Front to worst-case rear-lobe ratio in dB (rear = >90 deg off boresight)",
+	[MEAS_AGT]              =  "Average Gain Test: linear ratio, ~1.0 in free space or ~2.0 over perfect ground for a lossless model (requires RP card averaging A=1 or A=2)",
+	[MEAS_AGT_EFFICIENCY]   =  "Average Gain Test result as % of theoretical maximum gain for the covered solid angle",
 	[MEAS_GAIN_DEV_PX]     =  "Angular deviation of peak gain from +X axis (degrees)",
 	[MEAS_GAIN_DEV_NX]     =  "Angular deviation of peak gain from -X axis (degrees)",
 	[MEAS_GAIN_DEV_PY]     =  "Angular deviation of peak gain from +Y axis (degrees)",
@@ -764,6 +773,61 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 		m->fb_ratio /= pow(10.0, (rad_pattern[idx].gtot[fbidx]
 						+ Polarization_Factor(pol, idx, fbidx)) / 10.0);
 		m->fb_ratio = 10.0 * log10(m->fb_ratio);
+
+		/* Front-to-Rear: worst-case (max gain) lobe anywhere more than
+		 * 90 degrees off boresight AZIMUTH, at the SAME take-off theta as
+		 * the main lobe -- i.e. the "rear half-plane" as conventionally
+		 * defined by AO/EZNEC and used in K6STI's published Yagi work
+		 * ("F/R is the ratio of forward power to that of the worst
+		 * backlobe in the rear half-plane"). A full 3D theta+phi search
+		 * is more thorough but no longer matches this standard metric,
+		 * since it can find weaker-rejection lobes off at other elevation
+		 * angles that the conventional definition deliberately excludes. */
+		{
+			double rear_gain_max = -1e30;
+			double main_phi = m->gain_max_phi;
+
+			for (int iph = 0; iph < fpat.nph; iph++)
+			{
+				double phi_cell = fpat.phis + iph * fpat.dph;
+				double dphi = fmod(fabs(phi_cell - main_phi), 360.0);
+				if (dphi > 180.0)
+					dphi = 360.0 - dphi;
+
+				/* "Rear" = more than 90 degrees off boresight azimuth */
+				if (dphi <= 90.0)
+					continue;
+
+				int cell = nth + iph * fpat.nth;
+				double g = rad_pattern[idx].gtot[cell]
+						+ Polarization_Factor(pol, idx, cell);
+				if (g > rear_gain_max)
+					rear_gain_max = g;
+			}
+
+			if (rear_gain_max > -1e30)
+			{
+				m->fr_ratio = pow(10.0, m->gain_max / 10.0);
+				m->fr_ratio /= pow(10.0, rear_gain_max / 10.0);
+				m->fr_ratio = 10.0 * log10(m->fr_ratio);
+			}
+			else
+				m->fr_ratio = -1;
+		}
+
+		/* Average Gain Test: only meaningful if the RP card requested
+		 * averaging (A=1 or A=2) for this run; sentinel -1 otherwise so
+		 * CSV/plot readers can tell "not computed" from a real 0.0. */
+		if (rad_pattern[idx].agt_valid)
+		{
+			m->agt            = rad_pattern[idx].agt_ratio;
+			m->agt_efficiency = rad_pattern[idx].agt_efficiency_pct;
+		}
+		else
+		{
+			m->agt            = -1;
+			m->agt_efficiency = -1;
+		}
 	}
 
 }

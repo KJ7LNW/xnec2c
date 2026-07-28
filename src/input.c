@@ -1686,6 +1686,7 @@ Read_Commands( void )
 
         fpat.ipd  = itmp4 / 10;
         fpat.iavp = itmp4 - fpat.ipd*10;
+        fpat.iavp_requested = fpat.iavp;   /* snapshot before auto-override */
         fpat.inor = fpat.ipd / 10;
         fpat.ipd  = fpat.ipd - fpat.inor*10;
         fpat.iax  = fpat.inor / 10;
@@ -1753,6 +1754,7 @@ Read_Commands( void )
         fpat.rfld = 0.0;
         fpat.ipd  = 0;
         fpat.iavp = 0;
+        fpat.iavp_requested = 0;
         fpat.inor = 0;
         fpat.iax  = 0;
         fpat.nth  = 91;

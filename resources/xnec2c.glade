@@ -9868,6 +9868,21 @@ Save NEC2 Editor data first?
                     <property name="position">7</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkToggleButton" id="freqplots_agt_togglebutton">
+                    <property name="label" translatable="yes">AGT</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">False</property>
+                    <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
+                    <accelerator key="a" signal="activate"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">8</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>

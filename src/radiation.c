@@ -873,6 +873,17 @@ rdpat( void )
     double expected_gain = (4.0 * M_PI) / total_omega;
     double efficiency_pct = (pint / expected_gain) * 100.0;
 
+    /* Persist for MEAS_AGT / MEAS_AGT_EFFICIENCY and CSV/plot readout;
+     * rdpat() itself has no notion of "which frequency step", so pull it
+     * from calc_data the same way Radiation_Pattern() does for efficiency. */
+    int fstep = calc_data.freq_step;
+    if( fstep >= 0 )
+    {
+      rad_pattern[fstep].agt_ratio          = pint;
+      rad_pattern[fstep].agt_efficiency_pct = efficiency_pct;
+      rad_pattern[fstep].agt_valid          = 1;
+    }
+
     /* Warn if gain exceeds expected: indicates RP theta/phi range issue */
     if( pint > expected_gain * 1.01 )
     {

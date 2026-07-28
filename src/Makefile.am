@@ -47,6 +47,7 @@ xnec2c_SOURCES = \
     freqplots/freqplots_xy.c \
     freqplots/graphs/smith_graph.c \
     freqplots/graphs/gain_graph.c \
+    freqplots/graphs/agt_graph.c \
     freqplots/graphs/viewer_graph.c \
     freqplots/graphs/vswr_graph.c \
     freqplots/graphs/impedance_graph.c \

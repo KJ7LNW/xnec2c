@@ -387,6 +387,11 @@ void hook_freqplots_ant_temp(void)
   freqplots_select_changed(rc_config.freqplots_ant_temp_togglebutton);
 }
 
+void hook_freqplots_agt(void)
+{
+  freqplots_select_changed(rc_config.freqplots_agt_togglebutton);
+}
+
 void
 hook_freqplots_net_gain(void)
 {

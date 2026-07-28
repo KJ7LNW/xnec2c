@@ -316,6 +316,9 @@ freq_fields_xfer(int fstep, int pipe_idx, pipe_fn_t pipe_fn)
     { rad_pattern[fstep].min_gain_idx, NULL,           NUM_POL * sizeof(int),    FREQ_COND_RDPAT  },
     { rad_pattern[fstep].sens,         size_nphth_int, 0,                        FREQ_COND_RDPAT  },
     { &rad_pattern[fstep].efficiency,  NULL,           sizeof(double),           FREQ_COND_RDPAT  },
+    { &rad_pattern[fstep].agt_ratio,          NULL,    sizeof(double),           FREQ_COND_RDPAT  },
+    { &rad_pattern[fstep].agt_efficiency_pct, NULL,    sizeof(double),           FREQ_COND_RDPAT  },
+    { &rad_pattern[fstep].agt_valid,          NULL,    sizeof(int),              FREQ_COND_RDPAT  },
     /* Per-fstep noise temperature table (allocated alongside rad_pattern[]) */
     { &noise_temp[fstep],              NULL,              sizeof(noise_temp_t),  FREQ_COND_RDPAT  },
     /* Per-fstep structure colors (patch flow + cmin/cmax range scalars) */

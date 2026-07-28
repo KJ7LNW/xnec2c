@@ -59,6 +59,7 @@ static const char *fp_panel_names[FP_PANEL_COUNT] = {
   [FP_PANEL_ZMGZPH]   = N_("Impedance (mag/phase)"),
   [FP_PANEL_SMITH]    = N_("Smith Chart"),
   [FP_PANEL_ANT_TEMP] = N_("Antenna Temperature"),
+  [FP_PANEL_AGT]      = N_("Average Gain Test"),
 };
 
 /* Per-panel selection and data-availability descriptor.  select_field points
@@ -89,6 +90,7 @@ static const fp_panel_desc_t fp_panel_desc[FP_PANEL_COUNT] = {
   [FP_PANEL_ZMGZPH]   = { &rc_config.freqplots_zmgzph_togglebutton,   "freqplots_zmgzph_togglebutton",   0,            TRUE,  TRUE,  NULL                         },
   [FP_PANEL_SMITH]    = { &rc_config.freqplots_smith_togglebutton,    "freqplots_smith_togglebutton",    0,            TRUE,  TRUE,  NULL                         },
   [FP_PANEL_ANT_TEMP] = { &rc_config.freqplots_ant_temp_togglebutton, "freqplots_ant_temp_togglebutton", ENABLE_RDPAT, FALSE, FALSE, NULL                         },
+  [FP_PANEL_AGT]      = { &rc_config.freqplots_agt_togglebutton,      "freqplots_agt_togglebutton",      ENABLE_RDPAT, FALSE, FALSE, NULL                         },
 };
 
 /* freqplots_panel_select_id()
@@ -153,6 +155,9 @@ static const fp_readout_field_t fp_rf_gain[] = {
   { MEAS_GAIN_MAX, FP_FIELD_ALWAYS,        "%.2f", " dBi", -1e30 },
   { MEAS_GAIN_NET, FP_FIELD_IF_NETGAIN,    "%.2f", " dBi", -1e30 },
   { MEAS_FB_RATIO, FP_FIELD_IF_NO_NETGAIN, "%.2f", " dB",  0.0   },
+  { MEAS_FR_RATIO, FP_FIELD_IF_NO_NETGAIN, "%.2f", " dB",  0.0   },
+  { MEAS_AGT,            FP_FIELD_ALWAYS, "%.4f", "",   0.0 },
+  { MEAS_AGT_EFFICIENCY, FP_FIELD_ALWAYS, "%.1f", "%",  0.0 },
   { -1, FP_FIELD_ALWAYS, NULL, NULL, 0.0 },
 };
 
@@ -200,6 +205,12 @@ static const fp_readout_field_t fp_rf_ant_temp[] = {
   { -1, FP_FIELD_ALWAYS, NULL, NULL, 0.0 },
 };
 
+static const fp_readout_field_t fp_rf_agt[] = {
+  { MEAS_AGT,            FP_FIELD_ALWAYS, "%.4f", "",  0.0 },
+  { MEAS_AGT_EFFICIENCY, FP_FIELD_ALWAYS, "%.1f", "%", 0.0 },
+  { -1, FP_FIELD_ALWAYS, NULL, NULL, 0.0 },
+};
+
 /* Per-graph readout field set, indexed by fp_panel_t.  This is the one place
  * naming which measurement values each popup graph displays. */
 static const fp_readout_field_t *const fp_panel_readout[FP_PANEL_COUNT] = {
@@ -211,6 +222,7 @@ static const fp_readout_field_t *const fp_panel_readout[FP_PANEL_COUNT] = {
   [FP_PANEL_ZMGZPH]   = fp_rf_zmgzph,
   [FP_PANEL_SMITH]    = fp_rf_smith,
   [FP_PANEL_ANT_TEMP] = fp_rf_ant_temp,
+  [FP_PANEL_AGT]      = fp_rf_agt,
 };
 
 /* True when the setting gating @cond currently selects its column.  Each arm
@@ -325,6 +337,7 @@ typedef struct
 /* Dispatch order fixes the top-to-bottom panel layout of the plots window. */
 static const fp_plot_dispatch_t fp_plot_dispatch[] = {
   { fp_gain_enabled,      fp_gain_render      },
+  { fp_agt_enabled,       fp_agt_render       },
   { fp_viewer_enabled,    fp_viewer_render    },
   { fp_vswr_enabled,      fp_vswr_render      },
   { fp_impedance_enabled, fp_impedance_render },
@@ -1179,6 +1192,7 @@ freqplots_cleanup( void )
   mem_array_free( &card_nfsteps );
 
   fp_gain_free();
+  fp_agt_free();
   fp_viewer_free();
   fp_vswr_free();
   fp_impedance_free();
