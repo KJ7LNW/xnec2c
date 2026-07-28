@@ -1361,6 +1361,7 @@ void on_struct_save_as_gnuplot_activate(GtkMenuItem *menuitem, gpointer user_dat
 void on_optimizer_output_toggled(GtkMenuItem *menuitem, gpointer user_data);
 void on_quit_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_main_rdpattern_activate(GtkMenuItem *menuitem, gpointer user_data);
+void on_main_show_seg_labels_toggled(GtkCheckMenuItem *menuitem, gpointer user_data);
 void on_main_freqplots_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_view_preset_clicked(GtkButton *button, gpointer user_data);
 void on_main_rotate_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);

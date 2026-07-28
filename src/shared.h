@@ -56,6 +56,7 @@ static inline int rdpat_ehfield_active(void)
 
 /* Flag to control verify_segments check */
 extern gboolean skip_verify_segments;
+extern gboolean show_seg_labels;
 
 extern char *orig_numeric_locale;
 

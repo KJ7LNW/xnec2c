@@ -10871,6 +10871,15 @@ Save NEC2 Editor data first?
                           </object>
                         </child>
                         <child>
+                          <object class="GtkCheckMenuItem" id="main_show_seg_labels">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Show Tag/_Seg Numbers</property>
+                            <property name="use-underline">True</property>
+                            <signal name="toggled" handler="on_main_show_seg_labels_toggled" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
                           <object class="GtkMenuItem" id="main_pol_menu">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>

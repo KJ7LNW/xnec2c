@@ -41,6 +41,14 @@ typedef struct
 
 #define AXIS_COUNT 3
 
+/* Deferred per-segment Tag/Seg number label (owns its formatted text,
+ * since (unlike axis labels) the string differs for every segment). */
+typedef struct
+{
+  int  x, y;       /* screen position (segment midpoint) */
+  char text[20];   /* e.g. "T12/S345" */
+} seg_label_t;
+
 typedef struct
 {
   /* Caller-provided frame resources */
@@ -51,6 +59,10 @@ typedef struct
   /* Render-internal fields (set during render(), consumed by render_cairo) */
   axis_label_t     axis_labels[AXIS_COUNT];
   int              n_axis_labels;
+  seg_label_t     *seg_labels;      /* malloc'd by cairo_draw_structure(),
+                                        freed by render_cairo() after flush */
+  int              n_seg_labels;
+  double           seg_label_font_pt; /* zoom-scaled font size for the above */
   const char      *status_message; /* deferred status text; painted after flush */
   cairo_surface_t *gradient;       /* resolved gradient legend; NULL = skip */
 } cairo_render_ctx_t;

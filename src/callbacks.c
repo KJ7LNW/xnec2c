@@ -220,6 +220,39 @@ on_main_window_key_press_event(
         return( TRUE );
     }
   }
+
+  /* Arrow keys pan the structure view (screen-space translate), matching
+   * the same view_apply_pan_delta() path middle-mouse-drag panning uses.
+   * Hold Shift for a larger step. Directions mirror drag: Right/Down
+   * move the structure the same way dragging the mouse right/down would. */
+  {
+    const float PAN_STEP_PX      = 15.0f;
+    const float PAN_STEP_PX_FAST = 60.0f;
+    float step = (event->state & GDK_SHIFT_MASK) ? PAN_STEP_PX_FAST : PAN_STEP_PX;
+
+    if( structure_view != NULL )
+    {
+      switch( event->keyval )
+      {
+        case GDK_KEY_Left:
+          view_apply_pan_delta( structure_view, -step, 0.0f );
+          return( TRUE );
+
+        case GDK_KEY_Right:
+          view_apply_pan_delta( structure_view, step, 0.0f );
+          return( TRUE );
+
+        case GDK_KEY_Up:
+          view_apply_pan_delta( structure_view, 0.0f, -step );
+          return( TRUE );
+
+        case GDK_KEY_Down:
+          view_apply_pan_delta( structure_view, 0.0f, step );
+          return( TRUE );
+      }
+    }
+  }
+
   return( FALSE );
 }
 
@@ -630,6 +663,16 @@ freqplots_connect_panel_buttons( GtkBuilder *builder )
         G_CALLBACK(freqplots_panel_button_press_cb),
         GINT_TO_POINTER(p) );
   }
+}
+
+
+  void
+on_main_show_seg_labels_toggled(
+    GtkCheckMenuItem *menuitem,
+    gpointer          user_data)
+{
+  show_seg_labels = gtk_check_menu_item_get_active( menuitem );
+  xnec2_widget_queue_draw( structure_drawingarea, TRUE );
 }
 
 

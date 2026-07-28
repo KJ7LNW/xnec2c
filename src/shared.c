@@ -190,6 +190,7 @@ GRecMutex freq_data_lock;
 
 /* Program forked flag */
 gboolean FORKED = FALSE;
+gboolean show_seg_labels = FALSE;
 
 /* Used to kill window deleted by user */
 GtkWidget *kill_window = NULL;

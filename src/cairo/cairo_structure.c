@@ -374,6 +374,53 @@ cairo_draw_structure(void *ctx, float extent,
   draw_surface_patches(cc->sb, v, scale, structure_segs + data.n, data.m, params);
   draw_wire_segments(cc->sb, v, structure_segs, data.n, params);
 
+  /* Deferred Tag/Seg number labels: one per wire segment, drawn after the
+   * scenebuffer flush (see render_cairo()) so text sits on top of lines
+   * regardless of depth-sort order. Skipped when the toggle is off, and
+   * silently skipped (not fatal) if the allocation fails. */
+  cc->seg_labels   = NULL;
+  cc->n_seg_labels = 0;
+  if( show_seg_labels && data.n > 0 )
+  {
+    seg_label_t *labels = malloc( (size_t)data.n * sizeof(seg_label_t) );
+    if( labels != NULL )
+    {
+      int idx;
+      int prev_tag    = -1;   /* sentinel: no real NEC tag is negative */
+      int seg_in_tag  = 0;    /* 1-based position within the current tag's run */
+
+      for( idx = 0; idx < data.n; idx++ )
+      {
+        int this_tag = data.segments[idx].itag;
+
+        /* Segments belonging to one GW card share a tag and are laid out
+         * contiguously, so a simple "reset on tag change" counter gives
+         * per-wire segment numbering (1, 2, 3...) without needing a
+         * hash/lookup table for the (uncommon) non-contiguous case. */
+        if( this_tag != prev_tag )
+        {
+          seg_in_tag = 1;
+          prev_tag   = this_tag;
+        }
+        else
+          seg_in_tag++;
+
+        labels[idx].x = (structure_segs[idx].x1 + structure_segs[idx].x2) / 2;
+        labels[idx].y = (structure_segs[idx].y1 + structure_segs[idx].y2) / 2;
+        snprintf( labels[idx].text, sizeof(labels[idx].text),
+            "T%d/S%d", this_tag, seg_in_tag );
+      }
+      cc->seg_labels   = labels;
+      cc->n_seg_labels = data.n;
+    }
+
+    /* Font size tracks zoom (100% -> 7pt baseline), clamped so labels stay
+     * legible at extreme zoom-out and don't overwhelm the view zoomed in. */
+    cc->seg_label_font_pt = 7.0 * (v->zoom / 100.0);
+    if( cc->seg_label_font_pt < 4.0)  cc->seg_label_font_pt = 4.0;
+    if( cc->seg_label_font_pt > 24.0) cc->seg_label_font_pt = 24.0;
+  }
+
   return TRUE;
 }
 

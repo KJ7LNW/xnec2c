@@ -134,6 +134,31 @@ render_cairo(cairo_render_ctx_t *ctx, const render_ops_t *ops)
     g_object_unref(layout);
   }
 
+  /* Draw deferred per-segment Tag/Seg number labels, then release the
+   * array allocated fresh each frame by cairo_draw_structure(). */
+  if( ctx->n_seg_labels > 0 && ctx->seg_labels != NULL )
+  {
+    PangoLayout *layout = gtk_widget_create_pango_layout(structure_drawingarea, NULL);
+    char font_str[16];
+    snprintf(font_str, sizeof(font_str), "Sans %.1f", ctx->seg_label_font_pt);
+    PangoFontDescription *pfd = pango_font_description_from_string(font_str);
+    int k;
+
+    pango_layout_set_font_description(layout, pfd);
+    cairo_set_source_rgb(cr, 1.0, 1.0, 0.0); /* yellow: readable over most wire colors */
+    for( k = 0; k < ctx->n_seg_labels; k++ )
+    {
+      pango_layout_set_text(layout, ctx->seg_labels[k].text, -1);
+      cairo_move_to(cr, (double)ctx->seg_labels[k].x,
+          (double)ctx->seg_labels[k].y);
+      pango_cairo_show_layout(cr, layout);
+    }
+    pango_font_description_free(pfd);
+    g_object_unref(layout);
+  }
+  free(ctx->seg_labels);
+  ctx->seg_labels = NULL;
+
   /* Gradient legend surface resolved by render() via set_gradient callback;
    * non-NULL only when farfield mode is active on the rdpattern view. */
   if( ctx->gradient != NULL )
