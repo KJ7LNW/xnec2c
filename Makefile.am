@@ -316,7 +316,7 @@ nobase_dist_pkgdata_DATA += examples/satellite.nec
 # committed reference data under examples/data/*.csv stays in the list.
 CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
-check-local: update-po check-examples-file-list check-potfiles-list check-po-catalogs
+check-local: update-po check-examples-file-list check-potfiles-list check-po-catalogs revert-line-only-po
 check-potfiles-list:
 	@$(srcdir)/scripts/trans-update.sh --check
 check-po-catalogs:
@@ -325,6 +325,11 @@ check-po-catalogs:
 	  $(srcdir)/scripts/trans-check.sh --review $(srcdir)/po/$$lang.po || exit 1; \
 	done
 .PHONY: check-po-catalogs
+# Drop reference-line and header-date churn left by update-po; depends on
+# update-po so the merge completes before the reversion reads the tree.
+revert-line-only-po: update-po
+	@$(top_srcdir)/scripts/trans-update.sh --revert-line-only
+.PHONY: revert-line-only-po
 check-examples-file-list:
 	@for f in $(nobase_dist_pkgdata_DATA); do echo "$$f"; done | sort > examples-automake.lst
 	@(cd $(srcdir) && find examples -type f -not -name '*.sy' -not -name '*.SY' -not \( -path 'examples/*.csv' ! -path 'examples/*/*.csv' \)) | sort > examples-srcdir.lst
