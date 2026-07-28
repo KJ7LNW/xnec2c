@@ -637,8 +637,6 @@ helix(
   data.np = data.n;
   data.mp = data.m;
   data.ipsym = 0;
-  if( b1 == 0.0) b1 = a1;
-  if( b2 == 0.0) b2 = a2;
   if( hl < 0.0 )
   {
     hl  = -hl;
@@ -661,6 +659,7 @@ helix(
 
       if( a2 == a1)
       {
+        if( b1 == 0.0) b1 = a1;
         data.segments[i].x1 = a1* cos(M_2PI* data.segments[i].z1 / tsp);
         data.segments[i].y1 = b1* sin(M_2PI* data.segments[i].z1 / tsp);
         data.segments[i].x2 = a1* cos(M_2PI* data.segments[i].z2 / tsp);
@@ -668,6 +667,7 @@ helix(
       }
       else
       {
+        if( b2 == 0.0) b2 = a2;
         data.segments[i].x1=( a1+( a2- a1)* data.segments[i].z1 / hl)*
           cos(M_2PI* data.segments[i].z1 / tsp);
         data.segments[i].y1=( b1+( b2- b1)* data.segments[i].z1 / hl)*
