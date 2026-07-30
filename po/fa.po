@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-29 14:00-0700\n"
+"POT-Creation-Date: 2026-07-30 14:29-0700\n"
 "PO-Revision-Date: 2026-06-26 14:17-0700\n"
 "Last-Translator: Auto-translated\n"
 "Language-Team: fa\n"
@@ -3151,11 +3151,7 @@ msgstr "نمودار اسمیت"
 msgid "fp_field_cond_active: unhandled cond %d\n"
 msgstr "fp_field_cond_active: شرط %d مدیریت‌نشده\n"
 
-#: src/freqplots/freqplots_core.c:247
-msgid "fp_readout_field_count: field set exceeds FP_READOUT_MAX\n"
-msgstr "fp_readout_field_count: مجموعه فیلد از FP_READOUT_MAX تجاوز کرد\n"
-
-#: src/freqplots/freqplots_core.c:447
+#: src/freqplots/freqplots_core.c:441
 #, c-format
 msgid ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
@@ -3164,7 +3160,7 @@ msgstr ""
 "fr_plot_sync_widths، current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
 "%d posn=%d valid=%d\n"
 
-#: src/freqplots/freqplots_core.c:463
+#: src/freqplots/freqplots_core.c:457
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
@@ -3173,7 +3169,7 @@ msgstr ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 
-#: src/freqplots/freqplots_core.c:761
+#: src/freqplots/freqplots_core.c:755
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3215,7 +3211,7 @@ msgstr ""
 "    • حداکثر بهرهٔ خام، جهت بهره، F/B\n"
 "    • دمای آنتن، G/T"
 
-#: src/freqplots/freqplots_core.c:794
+#: src/freqplots/freqplots_core.c:788
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3223,7 +3219,7 @@ msgstr ""
 "تنها یک پورت نقطه تغذیه تعریف شده است. برای انتخاب از میان چند پورت اینجا، "
 "کارت‌های تحریک EX بیشتری در مدل تعریف کنید."
 
-#: src/freqplots/freqplots_core.c:797
+#: src/freqplots/freqplots_core.c:791
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3231,7 +3227,7 @@ msgstr ""
 "برای انتخاب پورت، تنظیم نمودار بهره خالص را فعال کنید؛ بدون آن، این نمودار "
 "پورت را دنبال نمی‌کند."
 
-#: src/freqplots/freqplots_core.c:913
+#: src/freqplots/freqplots_core.c:907
 msgid "Not available: excitation defines no feedpoint"
 msgstr "در دسترس نیست: تحریک هیچ نقطه تغذیه‌ای تعریف نمی‌کند"
 
@@ -5230,7 +5226,7 @@ msgstr ""
 "OpenGL در این نمایشگر در دسترس نیست؛ تغییر به رندرر Cairo. «رندرر OpenGL» را "
 "در نمایش > تنظیمات رندر ببینید.\n"
 
-#: src/opengl/opengl_structure_geometry.c:249
+#: src/opengl/opengl_structure_geometry.c:244
 #, c-format
 msgid "generate_network_lines: unknown ntyp=%d\n"
 msgstr "generate_network_lines: ntyp=%d ناشناخته\n"
@@ -6206,18 +6202,3 @@ msgstr "چند قالب PNG الگوی تشعشع نیازمند نام پرون
 #: src/xnec2c.c:2010
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "راه‌اندازی Frequency_Loop_Thread ناموفق بود\n"
-
-#~ msgid "Zo"
-#~ msgstr "Zo"
-
-#~ msgid "Total field:"
-#~ msgstr "میدان کل:"
-
-#~ msgid "Choose peak-envelope or instantaneous (φ=0) near-field vectors."
-#~ msgstr "انتخاب بردارهای میدان نزدیک به‌صورت پوش اوج یا لحظه‌ای (φ=0)."
-
-#~ msgid "Peak value"
-#~ msgstr "مقدار اوج"
-
-#~ msgid "Instantaneous (φ=0)"
-#~ msgstr "لحظه‌ای (φ=0)"

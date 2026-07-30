@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-29 14:00-0700\n"
+"POT-Creation-Date: 2026-07-30 14:29-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3201,11 +3201,7 @@ msgstr "Carta de Smith"
 msgid "fp_field_cond_active: unhandled cond %d\n"
 msgstr "fp_field_cond_active: condición no gestionada %d\n"
 
-#: src/freqplots/freqplots_core.c:247
-msgid "fp_readout_field_count: field set exceeds FP_READOUT_MAX\n"
-msgstr "fp_readout_field_count: el conjunto de campos supera FP_READOUT_MAX\n"
-
-#: src/freqplots/freqplots_core.c:447
+#: src/freqplots/freqplots_core.c:441
 #, c-format
 msgid ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
@@ -3214,7 +3210,7 @@ msgstr ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
 "%d posn=%d valid=%d\n"
 
-#: src/freqplots/freqplots_core.c:463
+#: src/freqplots/freqplots_core.c:457
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
@@ -3223,7 +3219,7 @@ msgstr ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 
-#: src/freqplots/freqplots_core.c:761
+#: src/freqplots/freqplots_core.c:755
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3266,7 +3262,7 @@ msgstr ""
 "    • Ganancia máxima cruda, Dirección de ganancia, F/B\n"
 "    • Temperatura de antena, G/T"
 
-#: src/freqplots/freqplots_core.c:794
+#: src/freqplots/freqplots_core.c:788
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3274,7 +3270,7 @@ msgstr ""
 "Solo se define un puerto de alimentación. Defina tarjetas de excitación EX "
 "adicionales en el modelo para seleccionar entre múltiples puertos aquí."
 
-#: src/freqplots/freqplots_core.c:797
+#: src/freqplots/freqplots_core.c:791
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3282,7 +3278,7 @@ msgstr ""
 "Active la configuración del gráfico Ganancia neta para seleccionar un "
 "puerto; sin ella este gráfico no sigue al puerto."
 
-#: src/freqplots/freqplots_core.c:913
+#: src/freqplots/freqplots_core.c:907
 msgid "Not available: excitation defines no feedpoint"
 msgstr "No disponible: la excitación no define un punto de alimentación"
 
@@ -5357,7 +5353,7 @@ msgstr ""
 "OpenGL no está disponible en esta pantalla; cambiando al renderizador Cairo. "
 "Consulte 'OpenGL Renderer' en Ver > Configuración de renderizado.\n"
 
-#: src/opengl/opengl_structure_geometry.c:249
+#: src/opengl/opengl_structure_geometry.c:244
 #, c-format
 msgid "generate_network_lines: unknown ntyp=%d\n"
 msgstr "generate_network_lines: ntyp=%d desconocido\n"
@@ -6377,20 +6373,3 @@ msgstr ""
 #: src/xnec2c.c:2010
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "error al iniciar Frequency_Loop_Thread\n"
-
-#~ msgid "Zo"
-#~ msgstr "Zo"
-
-#~ msgid "Total field:"
-#~ msgstr "Campo total:"
-
-#~ msgid "Choose peak-envelope or instantaneous (φ=0) near-field vectors."
-#~ msgstr ""
-#~ "Elegir entre vectores de campo cercano de envolvente de pico o "
-#~ "instantáneos (φ=0)."
-
-#~ msgid "Peak value"
-#~ msgstr "Valor pico"
-
-#~ msgid "Instantaneous (φ=0)"
-#~ msgstr "Instantáneo (φ=0)"

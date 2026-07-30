@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-29 14:00-0700\n"
+"POT-Creation-Date: 2026-07-30 14:29-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3093,11 +3093,7 @@ msgstr "史密斯圆图"
 msgid "fp_field_cond_active: unhandled cond %d\n"
 msgstr "fp_field_cond_active：未处理的条件 %d\n"
 
-#: src/freqplots/freqplots_core.c:247
-msgid "fp_readout_field_count: field set exceeds FP_READOUT_MAX\n"
-msgstr "fp_readout_field_count：字段集超过 FP_READOUT_MAX\n"
-
-#: src/freqplots/freqplots_core.c:447
+#: src/freqplots/freqplots_core.c:441
 #, c-format
 msgid ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
@@ -3106,7 +3102,7 @@ msgstr ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
 "%d posn=%d valid=%d\n"
 
-#: src/freqplots/freqplots_core.c:463
+#: src/freqplots/freqplots_core.c:457
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
@@ -3115,7 +3111,7 @@ msgstr ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 
-#: src/freqplots/freqplots_core.c:761
+#: src/freqplots/freqplots_core.c:755
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3156,20 +3152,20 @@ msgstr ""
 "    • 原始最大增益、增益方向、前后比\n"
 "    • 天线温度、G/T"
 
-#: src/freqplots/freqplots_core.c:794
+#: src/freqplots/freqplots_core.c:788
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
 msgstr ""
 "仅定义了一个馈电点端口。请在模型中定义更多 EX 激励卡，以便在此选择多个端口。"
 
-#: src/freqplots/freqplots_core.c:797
+#: src/freqplots/freqplots_core.c:791
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
 msgstr "启用净增益图设置以选择端口；未启用时此图表不随端口变化。"
 
-#: src/freqplots/freqplots_core.c:913
+#: src/freqplots/freqplots_core.c:907
 msgid "Not available: excitation defines no feedpoint"
 msgstr "不可用：激励未定义馈电点"
 
@@ -5120,7 +5116,7 @@ msgstr ""
 "OpenGL 在此显示器上不可用；正在切换至 Cairo 渲染器。请在\"视图 > 渲染设置\"中"
 "查看\"OpenGL 渲染器\"。\n"
 
-#: src/opengl/opengl_structure_geometry.c:249
+#: src/opengl/opengl_structure_geometry.c:244
 #, c-format
 msgid "generate_network_lines: unknown ntyp=%d\n"
 msgstr "generate_network_lines：未知 ntyp=%d\n"
@@ -6069,18 +6065,3 @@ msgstr "多种辐射方向图 PNG 格式需要 .png 文件名：%s\n"
 #: src/xnec2c.c:2010
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "启动 Frequency_Loop_Thread 失败\n"
-
-#~ msgid "Zo"
-#~ msgstr "Zo"
-
-#~ msgid "Total field:"
-#~ msgstr "总场："
-
-#~ msgid "Choose peak-envelope or instantaneous (φ=0) near-field vectors."
-#~ msgstr "选择近场矢量为峰值包络还是瞬时值 (φ=0)。"
-
-#~ msgid "Peak value"
-#~ msgstr "峰值"
-
-#~ msgid "Instantaneous (φ=0)"
-#~ msgstr "瞬时值 (φ=0)"

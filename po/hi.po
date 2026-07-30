@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-29 14:00-0700\n"
+"POT-Creation-Date: 2026-07-30 14:29-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3147,11 +3147,7 @@ msgstr "स्मिथ चार्ट"
 msgid "fp_field_cond_active: unhandled cond %d\n"
 msgstr "fp_field_cond_active: unhandled cond %d\n"
 
-#: src/freqplots/freqplots_core.c:247
-msgid "fp_readout_field_count: field set exceeds FP_READOUT_MAX\n"
-msgstr "fp_readout_field_count: field set exceeds FP_READOUT_MAX\n"
-
-#: src/freqplots/freqplots_core.c:447
+#: src/freqplots/freqplots_core.c:441
 #, c-format
 msgid ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
@@ -3160,7 +3156,7 @@ msgstr ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
 "%d posn=%d valid=%d\n"
 
-#: src/freqplots/freqplots_core.c:463
+#: src/freqplots/freqplots_core.c:457
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
@@ -3169,7 +3165,7 @@ msgstr ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 
-#: src/freqplots/freqplots_core.c:761
+#: src/freqplots/freqplots_core.c:755
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3210,7 +3206,7 @@ msgstr ""
 "    • raw Max gain, Gain direction, F/B\n"
 "    • एंटीना तापमान, G/T"
 
-#: src/freqplots/freqplots_core.c:794
+#: src/freqplots/freqplots_core.c:788
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3218,7 +3214,7 @@ msgstr ""
 "केवल एक फ़ीडपॉइंट पोर्ट परिभाषित है। कई पोर्ट में से चुनने के लिए मॉडल में अतिरिक्त EX "
 "उत्तेजना कार्ड परिभाषित करें।"
 
-#: src/freqplots/freqplots_core.c:797
+#: src/freqplots/freqplots_core.c:791
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3226,7 +3222,7 @@ msgstr ""
 "पोर्ट चुनने के लिए Net Gain प्लॉट सेटिंग सक्षम करें; इसके बिना यह ग्राफ़ पोर्ट का अनुसरण "
 "नहीं करता।"
 
-#: src/freqplots/freqplots_core.c:913
+#: src/freqplots/freqplots_core.c:907
 msgid "Not available: excitation defines no feedpoint"
 msgstr "उपलब्ध नहीं: उत्तेजन कोई फ़ीडपॉइंट परिभाषित नहीं करता"
 
@@ -5212,7 +5208,7 @@ msgstr ""
 "इस डिस्प्ले पर OpenGL उपलब्ध नहीं है; Cairo renderer पर स्विच हो रहा है। 'OpenGL "
 "Renderer' देखें View > Rendering Settings में।\n"
 
-#: src/opengl/opengl_structure_geometry.c:249
+#: src/opengl/opengl_structure_geometry.c:244
 #, c-format
 msgid "generate_network_lines: unknown ntyp=%d\n"
 msgstr "generate_network_lines: unknown ntyp=%d\n"
@@ -6181,18 +6177,3 @@ msgstr "कई विकिरण प्रतिरूप PNG फ़ॉर्�
 #: src/xnec2c.c:2010
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread प्रारंभ करने में विफल\n"
-
-#~ msgid "Zo"
-#~ msgstr "Zo"
-
-#~ msgid "Total field:"
-#~ msgstr "कुल क्षेत्र:"
-
-#~ msgid "Choose peak-envelope or instantaneous (φ=0) near-field vectors."
-#~ msgstr "शिखर-एनवलप या तात्कालिक (φ=0) निकट-क्षेत्र सदिश चुनें।"
-
-#~ msgid "Peak value"
-#~ msgstr "शिखर मान"
-
-#~ msgid "Instantaneous (φ=0)"
-#~ msgstr "तात्कालिक (φ=0)"

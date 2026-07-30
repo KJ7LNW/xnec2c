@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-29 14:00-0700\n"
+"POT-Creation-Date: 2026-07-30 14:29-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3142,11 +3142,7 @@ msgstr "Smithov diagram"
 msgid "fp_field_cond_active: unhandled cond %d\n"
 msgstr "fp_field_cond_active: neobravnavani pogoj %d\n"
 
-#: src/freqplots/freqplots_core.c:247
-msgid "fp_readout_field_count: field set exceeds FP_READOUT_MAX\n"
-msgstr "fp_readout_field_count: nabor polj preseže FP_READOUT_MAX\n"
-
-#: src/freqplots/freqplots_core.c:447
+#: src/freqplots/freqplots_core.c:441
 #, c-format
 msgid ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
@@ -3155,7 +3151,7 @@ msgstr ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
 "%d posn=%d valid=%d\n"
 
-#: src/freqplots/freqplots_core.c:463
+#: src/freqplots/freqplots_core.c:457
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
@@ -3164,7 +3160,7 @@ msgstr ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 
-#: src/freqplots/freqplots_core.c:761
+#: src/freqplots/freqplots_core.c:755
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3206,7 +3202,7 @@ msgstr ""
 "    • surova maks. ojačitev, Smer ojačitve, F/B\n"
 "    • Temperatura antene, G/T"
 
-#: src/freqplots/freqplots_core.c:794
+#: src/freqplots/freqplots_core.c:788
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3214,7 +3210,7 @@ msgstr ""
 "Definirana so samo ena napajalna vrata. Za izbiro med več vrati tukaj "
 "dodajte dodatne kartice vzbujanja EX v model."
 
-#: src/freqplots/freqplots_core.c:797
+#: src/freqplots/freqplots_core.c:791
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3222,7 +3218,7 @@ msgstr ""
 "Omogoči nastavitev grafa Neto ojačitev za izbiro vrat; brez tega ta graf ne "
 "sledi vratom."
 
-#: src/freqplots/freqplots_core.c:913
+#: src/freqplots/freqplots_core.c:907
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Ni na voljo: vzbujanje ne določa napajalne točke"
 
@@ -5238,7 +5234,7 @@ msgstr ""
 "OpenGL ni na voljo na tem zaslonu; preklapljam na upodabljanje Cairo. Glejte "
 "'OpenGL Renderer' v Pogled > Nastavitve upodabljanja.\n"
 
-#: src/opengl/opengl_structure_geometry.c:249
+#: src/opengl/opengl_structure_geometry.c:244
 #, c-format
 msgid "generate_network_lines: unknown ntyp=%d\n"
 msgstr "generate_network_lines: neznani ntyp=%d\n"
@@ -6241,20 +6237,3 @@ msgstr "več oblik PNG sevalnega diagrama zahteva ime datoteke .png: %s\n"
 #: src/xnec2c.c:2010
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "zagon niti Frequency_Loop_Thread ni uspel\n"
-
-#~ msgid "Zo"
-#~ msgstr "Zo"
-
-#~ msgid "Total field:"
-#~ msgstr "Skupno polje:"
-
-#~ msgid "Choose peak-envelope or instantaneous (φ=0) near-field vectors."
-#~ msgstr ""
-#~ "Izberi vektorje bližnjega polja vrhovne ovojnice ali trenutne vrednosti "
-#~ "(φ=0)."
-
-#~ msgid "Peak value"
-#~ msgstr "Vrhovna vrednost"
-
-#~ msgid "Instantaneous (φ=0)"
-#~ msgstr "Trenutno (φ=0)"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-29 14:00-0700\n"
+"POT-Creation-Date: 2026-07-30 14:29-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3154,11 +3154,7 @@ msgstr "스미스 차트"
 msgid "fp_field_cond_active: unhandled cond %d\n"
 msgstr "fp_field_cond_active: 처리되지 않은 cond %d\n"
 
-#: src/freqplots/freqplots_core.c:247
-msgid "fp_readout_field_count: field set exceeds FP_READOUT_MAX\n"
-msgstr "fp_readout_field_count: 필드 세트가 FP_READOUT_MAX를 초과함\n"
-
-#: src/freqplots/freqplots_core.c:447
+#: src/freqplots/freqplots_core.c:441
 #, c-format
 msgid ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
@@ -3167,7 +3163,7 @@ msgstr ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
 "%d posn=%d valid=%d\n"
 
-#: src/freqplots/freqplots_core.c:463
+#: src/freqplots/freqplots_core.c:457
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
@@ -3176,7 +3172,7 @@ msgstr ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 
-#: src/freqplots/freqplots_core.c:761
+#: src/freqplots/freqplots_core.c:755
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3218,7 +3214,7 @@ msgstr ""
 "    • 원시 최대 이득, 이득 방향, F/B\n"
 "    • 안테나 온도, G/T"
 
-#: src/freqplots/freqplots_core.c:794
+#: src/freqplots/freqplots_core.c:788
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3226,7 +3222,7 @@ msgstr ""
 "급전점 포트가 하나만 정의되어 있습니다. 모델에 EX 여기 카드를 추가로 정의하"
 "면 여러 포트 중에서 선택할 수 있습니다."
 
-#: src/freqplots/freqplots_core.c:797
+#: src/freqplots/freqplots_core.c:791
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3234,7 +3230,7 @@ msgstr ""
 "포트를 선택하려면 순 이득 플롯 설정을 활성화하십시오. 활성화하지 않으면 이 그"
 "래프는 포트를 따르지 않습니다."
 
-#: src/freqplots/freqplots_core.c:913
+#: src/freqplots/freqplots_core.c:907
 msgid "Not available: excitation defines no feedpoint"
 msgstr "사용할 수 없음: 여기가 급전점을 정의하지 않음"
 
@@ -5227,7 +5223,7 @@ msgstr ""
 "이 디스플레이에서 OpenGL을 사용할 수 없습니다. Cairo 렌더러로 전환합니다. 보"
 "기 > 렌더링 설정에서 'OpenGL 렌더러'를 참조하십시오.\n"
 
-#: src/opengl/opengl_structure_geometry.c:249
+#: src/opengl/opengl_structure_geometry.c:244
 #, c-format
 msgid "generate_network_lines: unknown ntyp=%d\n"
 msgstr "generate_network_lines: 알 수 없는 ntyp=%d\n"
@@ -6187,18 +6183,3 @@ msgstr "여러 방사 패턴 PNG 형식은 .png 파일 이름이 필요합니다
 #: src/xnec2c.c:2010
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread 시작 실패\n"
-
-#~ msgid "Zo"
-#~ msgstr "Zo"
-
-#~ msgid "Total field:"
-#~ msgstr "전체 필드:"
-
-#~ msgid "Choose peak-envelope or instantaneous (φ=0) near-field vectors."
-#~ msgstr "피크 포락선 또는 순시값(φ=0) 근접장 벡터 중에서 선택합니다."
-
-#~ msgid "Peak value"
-#~ msgstr "피크값"
-
-#~ msgid "Instantaneous (φ=0)"
-#~ msgstr "순시값(φ=0)"
