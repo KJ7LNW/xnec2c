@@ -1130,10 +1130,6 @@ typedef struct {
 	uint64_t valid;
 } fr_plot_t;
 
-/* Upper bound on selected-frequency readout columns per popup: a leading
- * frequency column plus the largest per-graph field set. */
-#define FP_READOUT_MAX 6
-
 /* Per-window render and input context for the frequency plots.  The primary
  * window is the sole persistent instance; popups are heap instances holding a
  * single filtered graph.  Only genuinely per-window divergent state lives
@@ -1175,11 +1171,11 @@ typedef struct {
 	int         loci_n;
 
 	// Popup selected-frequency readout bar: one cell box and its value label
-	// per displayed field, refreshed each draw.  readout_n is 0 for the
-	// primary view, which uses the builder entry grid instead.
-	GtkWidget   *readout_field[FP_READOUT_MAX];
-	GtkWidget   *readout_value[FP_READOUT_MAX];
-	int          readout_n;
+	// per displayed field, refreshed each draw.  Managed arrays sized to the
+	// popup's column count; NULL for the primary view, which uses the builder
+	// entry grid instead.
+	GtkWidget  **readout_field;
+	GtkWidget  **readout_value;
 
 	// Popup excitation-port selection and its menu button; the primary view
 	// resolves its port from calc_data.ex_port and leaves ex_port unused.

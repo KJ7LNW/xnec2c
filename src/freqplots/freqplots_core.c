@@ -233,7 +233,7 @@ fp_field_cond_active(fp_field_cond_t cond)
 }
 
 /* Number of readout columns a popup of @filter shows: a leading frequency
- * column plus its per-graph field set, clamped to the widget array bound. */
+ * column plus its per-graph field set. */
   static int
 fp_readout_field_count(fp_panel_t filter)
 {
@@ -241,12 +241,6 @@ fp_readout_field_count(fp_panel_t filter)
   int n = 1;
 
   while( f != NULL && f->meas_idx >= 0 ) { n++; f++; }
-
-  if( n > FP_READOUT_MAX )
-  {
-    BUG("fp_readout_field_count: field set exceeds FP_READOUT_MAX\n");
-    n = FP_READOUT_MAX;
-  }
 
   return n;
 }
@@ -994,6 +988,8 @@ freqplots_readout_bar_new(freqplots_view_t *v)
   gtk_container_set_border_width( GTK_CONTAINER(bar), 4 );
 
   n = fp_readout_field_count( v->filter );
+  mem_array_alloc( &v->readout_field, n );
+  mem_array_alloc( &v->readout_value, n );
 
   for( i = 0; i < n; i++ )
   {
@@ -1015,8 +1011,6 @@ freqplots_readout_bar_new(freqplots_view_t *v)
     v->readout_value[i] = val;
   }
 
-  v->readout_n = n;
-
   return bar;
 }
 
@@ -1033,8 +1027,9 @@ freqplots_update_readout(freqplots_view_t *v)
 {
   measurement_t meas;
   int fstep, i;
+  int n = mem_array_count( v->readout_value );
 
-  if( v->readout_n <= 0 )
+  if( n <= 0 )
     return;
 
   fstep = fp_selected_fstep();
@@ -1044,7 +1039,7 @@ freqplots_update_readout(freqplots_view_t *v)
 
   meas_calc( &meas, fstep, fp_view_port(v) );
 
-  for( i = 0; i < v->readout_n; i++ )
+  for( i = 0; i < n; i++ )
   {
     const fp_readout_field_t *f = fp_readout_field_at( v->filter, i );
     gboolean active = fp_field_cond_active( f->cond );
@@ -1424,6 +1419,8 @@ void freqplots_close_panel(fp_panel_t panel)
 
 	fpv_popups[panel] = NULL;
 	mem_array_free(&v->fr_plots);
+	mem_array_free(&v->readout_field);
+	mem_array_free(&v->readout_value);
 	fp_locus_free(v);
 	mem_free(&v->prev_click_event);
 	if (v->text_layout != NULL)
