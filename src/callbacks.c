@@ -194,6 +194,44 @@ on_main_window_delete_event(
 }
 
 
+/* Pan_Views_On_Arrow_Key()
+ *
+ * Shared arrow-key panning for BOTH the structure and radiation pattern
+ * windows: each pans the SAME logical camera offset in both views
+ * together (not just its own), so panning in either window keeps the
+ * two views in sync with each other. Hold Shift for a 4x larger step.
+ * Called from both on_main_window_key_press_event() and
+ * on_rdpattern_window_key_press_event(); returns TRUE if the key was an
+ * arrow key and panning was applied, FALSE otherwise so the caller can
+ * fall through to its own unhandled-key behavior.
+ */
+  static gboolean
+Pan_Views_On_Arrow_Key( GdkEventKey *event )
+{
+  const float PAN_STEP_PX      = 15.0f;
+  const float PAN_STEP_PX_FAST = 60.0f;
+  float step = (event->state & GDK_SHIFT_MASK) ? PAN_STEP_PX_FAST : PAN_STEP_PX;
+  float dx = 0.0f, dy = 0.0f;
+
+  switch( event->keyval )
+  {
+    case GDK_KEY_Left:  dx = -step; break;
+    case GDK_KEY_Right: dx =  step; break;
+    case GDK_KEY_Up:    dy = -step; break;
+    case GDK_KEY_Down:  dy =  step; break;
+    default: return( FALSE );
+  }
+
+  if( structure_view != NULL )
+    view_apply_pan_delta( structure_view, dx, dy );
+
+  if( rdpattern_view != NULL )
+    view_apply_pan_delta( rdpattern_view, dx, dy );
+
+  return( TRUE );
+}
+
+
   gboolean
 on_main_window_key_press_event(
     GtkWidget    *widget,
@@ -221,6 +259,10 @@ on_main_window_key_press_event(
         return( TRUE );
     }
   }
+
+  if( Pan_Views_On_Arrow_Key( event ) )
+    return( TRUE );
+
   return( FALSE );
 }
 
@@ -2077,6 +2119,10 @@ on_rdpattern_window_key_press_event(
         return( TRUE );
     }
   }
+
+  if( Pan_Views_On_Arrow_Key( event ) )
+    return( TRUE );
+
   return( FALSE );
 }
 
