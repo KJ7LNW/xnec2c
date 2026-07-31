@@ -4975,6 +4975,33 @@ etc) and the Structure (Wires/Patches), including a color coded
 Current or Charge distribution.</p>
 
 
+<h3 id="ExampleGallery">Updating the Example Gallery (Maintainers)</h3>
+<p>The antenna radiation-pattern gallery shown on
+<a target="_blank" rel="noopener noreferrer" href="https://www.xnec2c.org/">xnec2c.org</a>
+is generated from the decks in the <span class="filepath">examples</span> directory
+rather than stored in the source tree. The rendered images and the browser data
+bundles (<span class="filepath">decks.js</span>, <span class="filepath">manifest.js</span>,
+and <span class="filepath">manifest.json</span>) are written under
+<span class="filepath">doc/images/gallery/</span>, which is excluded from git and ships
+with the website instead of the source tarball. Ordinary users and packagers need
+none of this; only a maintainer publishing the website does.</p>
+<p>The maintainer tooling lives in <span class="filepath">scripts/gallery/</span>:</p>
+<ul>
+	<li><code>make gallery</code> — rebuild every image set and data bundle from the
+	decks, then report whether the published website has drifted from the local
+	examples tree and needs to be republished.</li>
+	<li><code>make render-example-gallery</code> — render the radiation-pattern images
+	and rewrite the data bundles for the complete deck inventory.</li>
+	<li><code>make refresh-example-gallery</code> — rebuild only the browser data
+	bundles from the images already present on disk.</li>
+	<li><code>scripts/gallery/check-gallery-website.pl examples/*.nec</code> — the drift
+	check that <code>make gallery</code> runs; pass <code>--base-url</code> to inspect a
+	staging site.</li>
+</ul>
+<p>Rendering drives the <code>xnec2c</code> binary with the render configuration in
+<span class="filepath">scripts/gallery/gallery-render.conf</span>; select an alternative
+with the <code>--config</code> option of
+<span class="filepath">scripts/gallery/update-example-gallery.pl</span>.</p>
 <h2 id="Limitations">Limitations</h2>
 <p>Since xnec2c is interactive, it cannot operate in the same way
 as NEC2 or nec2c. Specifically, commands that cause execution in

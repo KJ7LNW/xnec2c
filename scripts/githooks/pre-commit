@@ -69,12 +69,12 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 		exit 1
 	fi
 
-	# Gate 4: Makefile.am example list must match the examples/ directory tree.
+	# Gate 4: examples/ tree must match the Makefile.am distribution list.
 	if [ -f Makefile ]; then
-		if ! check_output=$(make -s check-examples-file-list 2>&1); then
+		if ! check_output=$(make -s check-deck 2>&1); then
 			echo "$check_output"
 			echo ""
-			echo "❌ Pre-commit validation failed: make check-examples-file-list"
+			echo "❌ Pre-commit validation failed: make check-deck"
 			echo ""
 			echo "If you have determined this commit must proceed anyway:"
 			echo ""

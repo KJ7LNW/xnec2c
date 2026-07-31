@@ -149,9 +149,12 @@ dist_docjs_DATA += doc/js/gallery-events.js
 dist_docjs_DATA += doc/js/gallery-nec.js
 dist_docjs_DATA += doc/js/gallery-render.js
 dist_docjs_DATA += doc/js/gallery-view.js
-dist_docjs_DATA += doc/js/manifest.js
-dist_docjs_DATA += doc/js/decks.js
 dist_docjs_DATA += doc/js/mobile-menu.js
+
+docimagesgallerydir = $(docdir)/images/gallery
+nobase_dist_docimagesgallery_DATA  =
+nobase_dist_docimagesgallery_DATA += doc/images/gallery/manifest.json
+nobase_dist_docimagesgallery_DATA += $(wildcard $(srcdir)/doc/images/gallery/*/*.png)
 
 
 ########################################################################
@@ -349,7 +352,20 @@ check-po-catalogs:
 revert-line-only-po: update-po
 	@$(top_srcdir)/scripts/trans-update.sh --revert-line-only
 .PHONY: revert-line-only-po
-check-examples-file-list:
+# Authoritative gallery deck membership: every NEC deck under examples/.
+gallery_decks = $(patsubst $(srcdir)/%,%,$(wildcard $(srcdir)/examples/*.nec))
+render-example-gallery:
+	@cd $(srcdir) && $(PERL) scripts/gallery/update-example-gallery.pl render $(gallery_decks)
+refresh-example-gallery:
+	@cd $(srcdir) && $(PERL) scripts/gallery/update-example-gallery.pl refresh $(gallery_decks)
+.PHONY: render-example-gallery refresh-example-gallery
+# Rebuild the gallery data from the decks, then report whether the published
+# website has drifted from the local examples tree and needs a resync.
+gallery: refresh-example-gallery
+	@cd $(srcdir) && $(PERL) scripts/gallery/check-gallery-website.pl $(gallery_decks)
+.PHONY: gallery
+# Prove deck registration: the examples/ tree matches the automake dist list.
+check-deck:
 	@for f in $(nobase_dist_pkgdata_DATA); do echo "$$f"; done | sort > examples-automake.lst
 	@(cd $(srcdir) && find examples -type f -not -name '*.sy' -not -name '*.SY' -not \( -path 'examples/*.csv' ! -path 'examples/*/*.csv' \)) | sort > examples-srcdir.lst
 	@if cmp examples-automake.lst examples-srcdir.lst > /dev/null; then :; else \
@@ -364,6 +380,9 @@ check-examples-file-list:
 	  exit 1; \
 	fi
 	@rm -f examples-automake.lst examples-srcdir.lst
+.PHONY: check-deck
+# Deck registration gate
+check-local: check-deck
 
 
 ########################################################################
