@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 VERBOSE=0
 if [ "$1" = "-v" ] || [ "$1" = "--verbose" ]; then

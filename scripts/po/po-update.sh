@@ -4,17 +4,17 @@
 # regenerate translation catalogs.
 #
 # Usage:
-#   ./scripts/trans-update.sh          # regenerate POTFILES.in, make update-po, show stats
-#   ./scripts/trans-update.sh --check  # report differences without modifying files
-#   ./scripts/trans-update.sh --sync   # regenerate POTFILES.in only when it drifted
-#   ./scripts/trans-update.sh --revert-line-only  # restore catalogs whose only
+#   ./scripts/po/po-update.sh          # regenerate POTFILES.in, make update-po, show stats
+#   ./scripts/po/po-update.sh --check  # report differences without modifying files
+#   ./scripts/po/po-update.sh --sync   # regenerate POTFILES.in only when it drifted
+#   ./scripts/po/po-update.sh --revert-line-only  # restore catalogs whose only
 #                                                  # change is reference line
 #                                                  # numbers or the header date
 #
 
 set -euo pipefail
 
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 POTFILES_IN="po/POTFILES.in"
 
@@ -185,4 +185,4 @@ make update-po
 echo ""
 
 # Display translation statistics
-"$(dirname "$0")/trans-stats.sh"
+"$(dirname "$0")/po-stats.sh"

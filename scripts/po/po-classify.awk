@@ -12,7 +12,7 @@
 # msgid content concatenated across continuation lines. The header entry (empty
 # msgid with no msgctxt) is excluded.
 #
-# Owned by scripts/trans-check.sh (absolute reporting) and scripts/trans-delta.sh
+# Owned by scripts/po/po-check.sh (absolute reporting) and scripts/po/po-delta.sh
 # (base-vs-tip set difference); the single source of fuzzy/untranslated detection.
 
 # Return the text between the first and last double quote on a catalog line.

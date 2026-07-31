@@ -5,7 +5,7 @@
 # plus msgid), so update-po line-number churn never registers as a delta and a
 # pre-existing fuzzy or untranslated entry present at the base never reports.
 #
-# Usage: scripts/trans-delta.sh <base-ref> [--tip <tip-ref>] <po-path>
+# Usage: scripts/po/po-delta.sh <base-ref> [--tip <tip-ref>] <po-path>
 #
 # With --tip the tip catalog is the blob at <tip-ref>; without it the tip is
 # the work-tree file. The base catalog is the blob at <base-ref>, treated as
@@ -36,7 +36,7 @@ fi
 po=${1:-}
 [ -n "$po" ] || usage
 
-classifier="$(dirname "$0")/trans-classify.awk"
+classifier="$(dirname "$0")/po-classify.awk"
 
 # Classify the base blob; an absent blob classifies to no records.
 base_records=$(git show "$base:$po" 2>/dev/null | awk -f "$classifier" || true)

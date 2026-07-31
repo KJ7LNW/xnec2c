@@ -10,7 +10,7 @@
 #
 # Bypass:  FORCE_PUSH=true git push ...
 #
-# Installed by scripts/trans-update.sh --sync via core.hooksPath.
+# Installed by scripts/po/po-update.sh --sync via core.hooksPath.
 
 set -euo pipefail
 
@@ -55,7 +55,7 @@ while read -r local_ref local_sha remote_ref remote_sha; do
 		po="po/$lang.po"
 		# Skip languages whose catalog is absent at the pushed commit.
 		git cat-file -e "$local_sha:$po" 2>/dev/null || continue
-		if ! out=$(scripts/trans-delta.sh "$base" --tip "$local_sha" "$po"); then
+		if ! out=$(scripts/po/po-delta.sh "$base" --tip "$local_sha" "$po"); then
 			printf '%s\n' "$out"
 			rc=1
 		fi

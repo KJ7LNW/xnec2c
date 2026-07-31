@@ -2,7 +2,7 @@
 #
 # Validate a single .po catalog for release/commit readiness.
 #
-# Usage: scripts/trans-check.sh [--review] <po-file>
+# Usage: scripts/po/po-check.sh [--review] <po-file>
 #
 # Gates, each reported by name on failure:
 #   1. msgfmt -c --check-format: parses cleanly, valid header, and no
@@ -46,7 +46,7 @@ fi
 # tab-separated "state<TAB>line<TAB>key" record per fuzzy or untranslated
 # entry. Fuzzy records carry the "#, fuzzy" flag line and untranslated records
 # the msgid line, matching the per-gate reporting below.
-records=$(awk -f "$(dirname "$0")/trans-classify.awk" "$l")
+records=$(awk -f "$(dirname "$0")/po-classify.awk" "$l")
 
 # Gate 2: fuzzy entries, reported at the "#, fuzzy" flag line of each entry.
 fuzzy_lines=$(printf '%s\n' "$records" | awk -F'\t' '$1 == "fuzzy" { print $2 }')

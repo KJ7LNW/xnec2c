@@ -35,7 +35,7 @@ BUILT_SOURCES = potfiles-sync
 .PHONY: potfiles-sync
 potfiles-sync:
 	@if test -d $(top_srcdir)/.git; then \
-		$(top_srcdir)/scripts/trans-update.sh --sync; \
+		$(top_srcdir)/scripts/po/po-update.sh --sync; \
 	fi
 
 EXTRA_DIST += autogen.sh
@@ -338,19 +338,30 @@ nobase_dist_pkgdata_DATA += examples/satellite.nec
 # committed reference data under examples/data/*.csv stays in the list.
 CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
-check-local: update-po check-examples-file-list check-potfiles-list check-po-catalogs revert-line-only-po
+# PO catalog maintenance gate
+check-local: update-po check-potfiles-list check-po-catalogs po-refresh revert-line-only-po
 check-potfiles-list:
-	@$(srcdir)/scripts/trans-update.sh --check
+	@$(srcdir)/scripts/po/po-update.sh --check
 check-po-catalogs:
 	@lc=$$(grep -v '^[[:space:]]*#' $(srcdir)/po/LINGUAS | grep -v '^[[:space:]]*$$'); \
 	for lang in $$lc; do \
-	  $(srcdir)/scripts/trans-check.sh --review $(srcdir)/po/$$lang.po || exit 1; \
+	  $(srcdir)/scripts/po/po-check.sh --review $(srcdir)/po/$$lang.po || exit 1; \
 	done
 .PHONY: check-po-catalogs
-# Drop reference-line and header-date churn left by update-po; depends on
-# update-po so the merge completes before the reversion reads the tree.
-revert-line-only-po: update-po
-	@$(top_srcdir)/scripts/trans-update.sh --revert-line-only
+# Refresh every catalog through the single merge-and-strip point so no
+# generation path leaves an obsolete entry or a backup; depends on update-po
+# so the template is regenerated before the per-catalog sweep.
+po-refresh: update-po
+	@lc=$$(grep -v '^[[:space:]]*#' $(srcdir)/po/LINGUAS | grep -v '^[[:space:]]*$$'); \
+	for lang in $$lc; do \
+	  $(srcdir)/scripts/po/po-refresh.sh $(srcdir)/po/$$lang.po $(srcdir)/po/$(PACKAGE).pot || exit 1; \
+	done
+.PHONY: po-refresh
+# Drop reference-line and header-date churn left by the catalog sweep; depends
+# on po-refresh so the merge and obsolete strip complete before the
+# reversion reads the tree.
+revert-line-only-po: po-refresh
+	@$(top_srcdir)/scripts/po/po-update.sh --revert-line-only
 .PHONY: revert-line-only-po
 # Authoritative gallery deck membership: every NEC deck under examples/.
 gallery_decks = $(patsubst $(srcdir)/%,%,$(wildcard $(srcdir)/examples/*.nec))

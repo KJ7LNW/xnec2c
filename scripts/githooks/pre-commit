@@ -7,7 +7,7 @@
 #
 # Bypass:  FORCE_COMMIT=true git commit ...
 #
-# Installed by scripts/trans-update.sh --sync via core.hooksPath.
+# Installed by scripts/po/po-update.sh --sync via core.hooksPath.
 
 set -euo pipefail
 
@@ -16,7 +16,7 @@ cd "$(git rev-parse --show-toplevel)"
 if [ "${FORCE_COMMIT:-}" != "true" ]; then
 	# Gate 1: POTFILES.in must match the git-tracked source list.
 	# Show the drift listing only on failure; stay quiet when clean.
-	if ! check_output=$(./scripts/trans-update.sh --check 2>&1); then
+	if ! check_output=$(./scripts/po/po-update.sh --check 2>&1); then
 		echo "$check_output"
 		echo ""
 		echo "❌ Pre-commit validation failed"
@@ -25,7 +25,7 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 		echo ""
 		echo "Fix with:"
 		echo ""
-		echo "  ./scripts/trans-update.sh --sync"
+		echo "  ./scripts/po/po-update.sh --sync"
 		echo "  git add po/POTFILES.in"
 		echo ""
 		echo "If you have determined this commit must proceed anyway:"
@@ -45,6 +45,9 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 			echo ""
 			exit 1
 		fi
+		# Discard catalogs whose only post-merge change is reference-line
+		# or header-date churn, so Gate 3 blocks solely on genuine drift.
+		./scripts/po/po-update.sh --revert-line-only >/dev/null
 	else
 		echo "pre-commit: po/Makefile missing (tree not configured); update-po skipped." >&2
 	fi
