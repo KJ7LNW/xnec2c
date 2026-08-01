@@ -687,7 +687,7 @@ button:hover {
 }
 
 /* Accessibility */
-:focus {
+:focus-visible:not(button):not([role="button"]):not([data-gallery-open]) {
   outline: 3px solid var(--color-accent);
   outline-offset: 2px;
 }
@@ -991,15 +991,19 @@ figcaption {
 
 <div id="translate"></div>
 <h1>Xnec2c: Graphical NEC2 Antenna Simulation</h1>
-<figure>
-<a href="https://www.xnec2c.org/" target="_blank" rel="noopener noreferrer"><img src="images/web-heading.png" alt="Xnec2c logo and heading" loading="lazy"/></a>
-</figure>
 Xnec2c is a high-performance multi-threaded electromagnetic simulation
 package to model antenna near- and far-field radiation patterns
 for Linux and UNIX operating systems.  The original FORTRAN version of
 NEC2 was ported to C by <a target="_blank" rel="noopener noreferrer" href="https://www.5b4az.org/"><span class="contact" data-callsign="5B4AZ" data-role="author">Neoklis Kyriazis</span></a> and released as nec2c.
 Later he wrote xnec2c, a graphical interface for ease of use with
 many more features:
+
+<figure id="gallery-teaser">
+<button type="button" class="gallery-teaser-button" data-gallery-open data-gallery-example="airplane" aria-label="Open the antenna radiation-pattern gallery">
+<img src="images/airplane-hf-antenna.webp" alt="Aircraft HF antenna far-field radiation pattern rendered in xnec2c" loading="lazy"/>
+</button>
+<figcaption>Aircraft HF antenna far-field pattern rendered in xnec2c &mdash; click to browse the gallery.</figcaption>
+</figure>
 
 <div id="gallery-launch"></div>
 
@@ -1091,6 +1095,7 @@ If your name or country is not represented in the way that you would like to see
 <h2>User's Manual</h2>
 <nav role="navigation" aria-label="Table of Contents">
 <ol>
+<li><a href="#" data-gallery-open>Antenna Gallery</a></li>
 <li><a href="#Introduction">Introduction</a></li>
 <li><a href="#Features">Features</a>
 <ul>
