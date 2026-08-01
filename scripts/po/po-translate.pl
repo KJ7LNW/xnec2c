@@ -201,6 +201,11 @@ sub load_catalog
 
 	die "$path: Locale::PO failed to load catalog\n" if !defined $catalog;
 
+	# po-refresh.sh strips obsolete entries from every catalog it writes, so
+	# one reaching here means the catalog came from an unstripped path.
+	my $obsolete = grep { $_->obsolete } @{$catalog};
+	die "$path: $obsolete obsolete entries; run make po-refresh\n" if $obsolete != 0;
+
 	return $catalog;
 }
 

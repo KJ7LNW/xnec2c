@@ -2,11 +2,11 @@
 #
 # Block a push that introduces a new fuzzy or new untranslated catalog entry
 # relative to the shared-history base. Delta-scoped: pre-existing fuzzy or
-# untranslated entries on already-pushed history never block, and update-po
+# untranslated entries on already-pushed history never block, and po-refresh
 # line-number churn is ignored because entries are keyed by identity.
 #
 # Read-only: inspects catalog blobs at the pushed commit and at the base;
-# never runs update-po and never mutates the tree.
+# never runs po-refresh and never mutates the tree.
 #
 # Bypass:  FORCE_PUSH=true git push ...
 #

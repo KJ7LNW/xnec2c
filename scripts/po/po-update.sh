@@ -4,12 +4,9 @@
 # regenerate translation catalogs.
 #
 # Usage:
-#   ./scripts/po/po-update.sh          # regenerate POTFILES.in, make update-po, show stats
+#   ./scripts/po/po-update.sh          # regenerate POTFILES.in, make po-refresh, show stats
 #   ./scripts/po/po-update.sh --check  # report differences without modifying files
 #   ./scripts/po/po-update.sh --sync   # regenerate POTFILES.in only when it drifted
-#   ./scripts/po/po-update.sh --revert-line-only  # restore catalogs whose only
-#                                                  # change is reference line
-#                                                  # numbers or the header date
 #
 
 set -euo pipefail
@@ -20,20 +17,16 @@ POTFILES_IN="po/POTFILES.in"
 
 check_only=false
 sync_only=false
-revert_line_only=false
 case "${1:-}" in
     --check) check_only=true ;;
     --sync)  sync_only=true ;;
-    --revert-line-only) revert_line_only=true ;;
     "")      ;;
     *)
-        echo "Usage: $(basename "$0") [--check|--sync|--revert-line-only]"
+        echo "Usage: $(basename "$0") [--check|--sync]"
         echo ""
         echo "  --check             Report differences without modifying files"
-        echo "  --sync              Regenerate POTFILES.in only when it drifted; skip update-po"
-        echo "  --revert-line-only  Restore catalogs whose only change since the index is"
-        echo "                      reference line numbers or the header date (needs update-po first)"
-        echo "  (none)              Regenerate POTFILES.in, run make update-po, show stats"
+        echo "  --sync              Regenerate POTFILES.in only when it drifted; skip po-refresh"
+        echo "  (none)              Regenerate POTFILES.in, run make po-refresh, show stats"
         exit 1
         ;;
 esac
@@ -112,49 +105,7 @@ regenerate_potfiles() {
     echo "Regenerated $POTFILES_IN"
 }
 
-# Collapse the line number in every "#:" source-reference token to a fixed
-# placeholder and blank the generated POT-Creation-Date, so two catalogs
-# compare equal when they differ only by where a string now sits in the
-# sources. Referenced filenames, fuzzy flags, and all msgid/msgstr content
-# stay intact, so a genuine reference, flag, or translation change still shows.
-normalize_po_refs() {
-    sed -e '/^#:/ s/:[0-9][0-9]*/:LINE/g' \
-        -e '/^"POT-Creation-Date:/ s/.*/"POT-Creation-Date: DATE"/' "$1"
-}
-
-# Restore any catalog whose sole working-tree change against the index is that
-# reference-line and header-date churn. The index holds the pre-update state,
-# since update-po writes the working tree only.
-revert_line_only_catalogs() {
-    local f count=0
-
-    for f in $(git diff --name-only -- 'po/*.po' 'po/*.pot'); do
-        if diff -u \
-            <(git show ":$f" | normalize_po_refs /dev/stdin) \
-            <(normalize_po_refs "$f") > /dev/null; then
-            git checkout -- "$f"
-            echo "  reverted (line-only): $f"
-            count=$((count + 1))
-        fi
-    done
-
-    echo "Reverted $count catalog(s) with only reference/date churn."
-    return 0
-}
-
 # ---------------------------------------------------------------------------
-
-# Reference-churn reversion needs git as the pre-update baseline; a catalog
-# unpacked from a dist tarball carries no .git, so the mode is a no-op there.
-# update-po must already have run; this mode performs no merge of its own.
-if $revert_line_only; then
-    if [ ! -d .git ]; then
-        echo "No .git directory; skipping line-only reversion."
-        exit 0
-    fi
-    revert_line_only_catalogs
-    exit 0
-fi
 
 if $check_only; then
     check_potfiles
@@ -180,8 +131,8 @@ if ! check_potfiles; then
     echo ""
 fi
 
-echo "Running make update-po..."
-make update-po
+echo "Running make po-refresh..."
+make po-refresh
 echo ""
 
 # Display translation statistics

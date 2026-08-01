@@ -339,30 +339,32 @@ nobase_dist_pkgdata_DATA += examples/satellite.nec
 CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
 # PO catalog maintenance gate
-check-local: update-po check-potfiles-list check-po-catalogs po-refresh revert-line-only-po
+check-local: check-potfiles-list check-po-catalogs
 check-potfiles-list:
 	@$(srcdir)/scripts/po/po-update.sh --check
-check-po-catalogs:
+# Review the catalogs after the refresh sweep so the gate reads final tree
+# state rather than a pre-strip transient.
+check-po-catalogs: po-refresh
 	@lc=$$(grep -v '^[[:space:]]*#' $(srcdir)/po/LINGUAS | grep -v '^[[:space:]]*$$'); \
 	for lang in $$lc; do \
 	  $(srcdir)/scripts/po/po-check.sh --review $(srcdir)/po/$$lang.po || exit 1; \
 	done
 .PHONY: check-po-catalogs
+# Regenerate the template alone, then discard the creation-date churn xgettext
+# writes when no message changed.
+po-template:
+	@$(MAKE) -C po $(PACKAGE).pot-update
+	@$(srcdir)/scripts/po/po-revert-churn.sh $(srcdir)/po/$(PACKAGE).pot
+.PHONY: po-template
 # Refresh every catalog through the single merge-and-strip point so no
-# generation path leaves an obsolete entry or a backup; depends on update-po
+# generation path leaves an obsolete entry or a backup; depends on po-template
 # so the template is regenerated before the per-catalog sweep.
-po-refresh: update-po
+po-refresh: po-template
 	@lc=$$(grep -v '^[[:space:]]*#' $(srcdir)/po/LINGUAS | grep -v '^[[:space:]]*$$'); \
 	for lang in $$lc; do \
 	  $(srcdir)/scripts/po/po-refresh.sh $(srcdir)/po/$$lang.po $(srcdir)/po/$(PACKAGE).pot || exit 1; \
 	done
 .PHONY: po-refresh
-# Drop reference-line and header-date churn left by the catalog sweep; depends
-# on po-refresh so the merge and obsolete strip complete before the
-# reversion reads the tree.
-revert-line-only-po: po-refresh
-	@$(top_srcdir)/scripts/po/po-update.sh --revert-line-only
-.PHONY: revert-line-only-po
 # Authoritative gallery deck membership: every NEC deck under examples/.
 gallery_decks = $(patsubst $(srcdir)/%,%,$(wildcard $(srcdir)/examples/*.nec))
 render-example-gallery:
@@ -408,17 +410,6 @@ SUFFIXES += .spec.in .spec
 .spec.in.spec:
 	@$(MKDIR_P) $(@D)
 	$(AM_V_GEN)$(SED) $(SED_CMDS) < $< > $@
-
-########################################################################
-# Translation maintenance targets
-########################################################################
-
-# Per-file quietness lives in po/Makefile.in.in; make update-po V=1
-# shows the full gettext commands.
-update-po:
-	@$(MAKE) -C po update-po
-
-.PHONY: update-po
 
 ########################################################################
 # Create locale tree for running from source tree

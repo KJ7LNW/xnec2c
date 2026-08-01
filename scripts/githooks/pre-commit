@@ -2,8 +2,8 @@
 #
 # Reject commits while po/POTFILES.in drifts from git-tracked sources
 # or the po/ tree carries modifications not staged for this commit.
-# Runs make update-po first (idempotent: gettext leaves catalogs
-# byte-identical when nothing changed) so string-only drift surfaces.
+# Runs make po-refresh first (idempotent: the merge strips obsolete entries
+# and discards its own reference-line churn) so string-only drift surfaces.
 #
 # Bypass:  FORCE_COMMIT=true git commit ...
 #
@@ -36,20 +36,19 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 	fi
 
 	# Gate 2: refresh xnec2c.pot and merge .po catalogs so string-only
-	# changes land in the po/ tree before the staging check below.
+	# changes land in the po/ tree before the staging check below. Each
+	# producer discards its own churn, so Gate 3 blocks solely on genuine
+	# drift.
 	if [ -f po/Makefile ]; then
-		if ! po_output=$(make -s update-po 2>&1); then
+		if ! po_output=$(make -s po-refresh 2>&1); then
 			echo "$po_output"
 			echo ""
-			echo "❌ Pre-commit validation failed: make update-po failed"
+			echo "❌ Pre-commit validation failed: make po-refresh failed"
 			echo ""
 			exit 1
 		fi
-		# Discard catalogs whose only post-merge change is reference-line
-		# or header-date churn, so Gate 3 blocks solely on genuine drift.
-		./scripts/po/po-update.sh --revert-line-only >/dev/null
 	else
-		echo "pre-commit: po/Makefile missing (tree not configured); update-po skipped." >&2
+		echo "pre-commit: po/Makefile missing (tree not configured); po-refresh skipped." >&2
 	fi
 
 	# Gate 3: translation files must land with the commit that changed them.

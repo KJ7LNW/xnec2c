@@ -2,7 +2,7 @@
 #
 # Report catalog entries that are newly fuzzy or newly untranslated at a tip
 # revision relative to a base revision. Entries are keyed by identity (msgctxt
-# plus msgid), so update-po line-number churn never registers as a delta and a
+# plus msgid), so po-refresh line-number churn never registers as a delta and a
 # pre-existing fuzzy or untranslated entry present at the base never reports.
 #
 # Usage: scripts/po/po-delta.sh <base-ref> [--tip <tip-ref>] <po-path>
