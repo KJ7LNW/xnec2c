@@ -31,58 +31,6 @@
 
 /*------------------------------------------------------------------------*/
 
-/*  usage()
- *
- *  Prints usage information
- */
-
-  void
-usage(void)
-{
-  fprintf(stdout, _("Usage: xnec2c [options] [<input-file-name>]\n"
-		"  -i|--input         <input-file-name>\n"
-		"  -c|--config        <config-file-path>     - file must exist\n"
-		"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-		"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-		"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-		"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-		"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-		"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-		"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-		"  -h|--help:         print usage information and exit\n"
-		"  -V|--version:      print xnec2c version number and exit\n"
-		"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-		"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-		"  -q|--quiet:        suppress debug/verbose output\n"
-		"\n"
-		"  --optimize:        Activate the optimizer immediately.\n"
-		"  --skip-verify:     skip geometry verification checks\n"
-		"  --force-verify:    force overlap check on large models (>1000 segments)\n"
-		"  --mem-report:      report managed allocator live bytes per call site\n"
-		"\n"
-		"The following arguments write to an output file after the frequency loop\n"
-		"completes.  These are useful to combine with --batch; If you wish to specify\n"
-		"filenames to write without --batch mode then enable the File->Optimizer\n"
-		"Settings or the files you specify on the command line will not be written.\n"
-		"\n"
-		"  --write-csv             <filename>  - write CSV file of measurements\n"
-		"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-		"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-		"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-gain\n"
-		"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-		"  --write-currents        <filename>  - write CSV of currents and charges\n"
-		"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-		"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-		"  --write-validation-dir <directory> - write full validation data tree\n"
-		"  --write-rdpat-png      <filename>  - write PNG of the radiation pattern\n"
-		"  --rdpat-png-format     <format[,format...]> - x, y, z, iso, or quad views (default iso)\n"
-		"\n"
-		"  --freq-select <min-vswr|center|max-gain|MHz> - post-sweep selected frequency;\n"
-		"                          absent, keep the previous saved frequency, or center if none\n"));
-
-} /* end of usage() */
-
-
 // May return GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, ...
 int Notice(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...)
 {

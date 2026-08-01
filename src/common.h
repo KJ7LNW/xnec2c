@@ -1906,7 +1906,6 @@ gboolean Save_Config(void);
 void somnec(double epr, double sig, double fmhz);
 void fbar(complex double p, complex double *fbar);
 /* utils.c */
-void usage(void);
 int Stop(int err, const char *format, ...) __attribute__((format(printf, 2, 3)));
 int Notice(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...) __attribute__((format(printf, 3, 4)));
 void Notice_Deferred(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...) __attribute__((format(printf, 3, 4)));

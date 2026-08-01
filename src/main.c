@@ -18,6 +18,7 @@
  */
 
 #include "main.h"
+#include "args.h"
 #include "validation_dump.h"
 #include "shared.h"
 #include "gdk_scroll.h"
@@ -41,224 +42,6 @@ static void sig_handler(int signal);
 /* Child process pid returned by fork() */
 static pid_t child_pid = (pid_t)(-1);
 
-enum XNEC2C_OPTS {
-	// Start at 128 after all single-digit opts:
-	OPT_FIRST_OPT = 128,
-
-	OPT_ENABLE_OPTIMIZE,
-
-	OPT_OPENBLAS_THREADS,
-	OPT_MKL_THREADS,
-	OPT_OMP_THREADS,
-
-	OPT_WRITE_CSV,
-	OPT_WRITE_S1P,
-	OPT_WRITE_S2P_MAX_GAIN,
-	OPT_WRITE_S2P_VIEWER_GAIN,
-	OPT_WRITE_RDPAT,
-	OPT_WRITE_CURRENTS,
-	OPT_WRITE_GNUPLOT_STRUCTURE,
-	OPT_WRITE_PATCH_CURRENTS,
-	OPT_SKIP_VERIFY,
-	OPT_FORCE_VERIFY,
-	OPT_MEM_REPORT,
-	OPT_WRITE_VALIDATION_DIR,
-	OPT_WRITE_RDPAT_PNG,
-	OPT_RDPAT_PNG_FORMAT,
-	OPT_FREQ_SELECT,
-
-	OPT_MAX_OPTS
-};
-
-static const rdpat_png_format_spec_t rdpat_png_format_names[] = {
-  { .name = "x", .format = RDPAT_PNG_FORMAT_X },
-  { .name = "y", .format = RDPAT_PNG_FORMAT_Y },
-  { .name = "z", .format = RDPAT_PNG_FORMAT_Z },
-  { .name = "iso", .format = RDPAT_PNG_FORMAT_ISO },
-  { .name = "quad", .format = RDPAT_PNG_FORMAT_QUAD },
-};
-
-_Static_assert(G_N_ELEMENTS(rdpat_png_format_names) == RDPAT_PNG_FORMAT_COUNT,
-    "every radiation-pattern PNG format needs a command-line name");
-
-/**
- * rdpat_png_format_parse() - Convert a command-line format name to its enum
- * @name: command-line format value
- * @format: destination for the resolved format
- *
- * Returns TRUE when @name names a supported radiation-pattern PNG format.
- */
-static gboolean
-rdpat_png_format_parse(const char *name, rdpat_png_format_spec_t *format)
-{
-  size_t idx;
-
-  for( idx = 0; idx < G_N_ELEMENTS(rdpat_png_format_names); idx++ )
-  {
-    if( strcmp(name, rdpat_png_format_names[idx].name) == 0 )
-    {
-      *format = rdpat_png_format_names[idx];
-      return TRUE;
-    }
-  }
-
-  return FALSE;
-}
-
-/**
- * rdpat_png_format_list_parse() - Parse radiation-pattern PNG format names
- * @names: comma-separated radiation-pattern PNG format names
- * @formats: destination for the resolved format array
- *
- * Returns TRUE when every name names a supported radiation-pattern PNG format.
- */
-static gboolean
-rdpat_png_format_list_parse(const char *names,
-    rdpat_png_format_spec_t **formats)
-{
-  char **tokens;
-  gsize count;
-  gsize idx;
-  gboolean valid = TRUE;
-
-  tokens = g_strsplit(names, ",", -1);
-  count = g_strv_length(tokens);
-  mem_free(formats);
-  mem_array_realloc(formats, count);
-
-  for( idx = 0; idx < count; idx++ )
-  {
-    if( !rdpat_png_format_parse(tokens[idx], &(*formats)[idx]) )
-      valid = FALSE;
-  }
-
-  g_strfreev(tokens);
-
-  if( !valid )
-    mem_free(formats);
-
-  return valid;
-}
-
-static const struct { const char *name; freq_select_mode_t mode; }
-  freq_select_names[] = {
-    /* min-vswr is the documented spelling; min-swr is retained as an alias. */
-    { "min-vswr", FREQ_SELECT_MIN_SWR  },
-    { "min-swr",  FREQ_SELECT_MIN_SWR  },
-    { "center",   FREQ_SELECT_CENTER   },
-    { "max-gain", FREQ_SELECT_MAX_GAIN },
-  };
-
-/**
- * freq_select_keyword() - Resolve a batch capture frequency selector keyword
- * @name: command-line selector value
- * @mode: destination for the resolved selection mode
- *
- * Returns TRUE when @name names a keyword selector, leaving @mode set; FALSE
- * leaves @mode untouched for the caller to parse a numeric MHz value.
- */
-static gboolean
-freq_select_keyword(const char *name, freq_select_mode_t *mode)
-{
-  size_t idx;
-
-  for( idx = 0; idx < G_N_ELEMENTS(freq_select_names); idx++ )
-  {
-    if( strcmp(name, freq_select_names[idx].name) == 0 )
-    {
-      *mode = freq_select_names[idx].mode;
-      return TRUE;
-    }
-  }
-
-  return FALSE;
-}
-
-/**
- * freq_select_number() - Resolve a numeric MHz batch capture selector
- * @arg: command-line selector value
- * @mhz: destination for the parsed MHz target
- *
- * Exits when @arg is not a bare number.  Returns FREQ_SELECT_MHZ on success.
- */
-static freq_select_mode_t
-freq_select_number(const char *arg, double *mhz)
-{
-  char *endptr;
-  double val = strtod(arg, &endptr);
-
-  if( *endptr != '\0' || endptr == arg )
-  {
-    pr_crit("invalid frequency selector: %s\n", arg);
-    exit(1);
-  }
-
-  *mhz = val;
-  return FREQ_SELECT_MHZ;
-}
-
-static struct option long_options[] = {
-		{  "input",                  required_argument,   NULL,  'i'                        },
-		{  "config",                 required_argument,   NULL,  'c'                        },
-		{  "new-config",             required_argument,   NULL,  'C'                        },
-		{  "jobs",                   required_argument,   NULL,  'j'                        },
-		{  "help",                   no_argument,         NULL,  'h'                        },
-		{  "verbose",                no_argument,         NULL,  'v'                        },
-		{  "debug",                  no_argument,         NULL,  'd'                        },
-		{  "quiet",                  no_argument,         NULL,  'q'                        },
-		{  "version",                no_argument,         NULL,  'V'                        },
-		{  "no-pthreads",            no_argument,         NULL,  'P'                        },
-		{  "batch",                  no_argument,         NULL,  'b'                        },
-
-		{  "optimize",               no_argument,         NULL,  OPT_ENABLE_OPTIMIZE        },
-
-		{  "openblas-threads",       required_argument,   NULL,  OPT_OPENBLAS_THREADS       },
-		{  "mkl-threads",            required_argument,   NULL,  OPT_MKL_THREADS            },
-		{  "omp-threads",            required_argument,   NULL,  OPT_OMP_THREADS            },
-
-		{  "write-csv",              required_argument,   NULL,  OPT_WRITE_CSV              },
-		{  "write-s1p",              required_argument,   NULL,  OPT_WRITE_S1P              },
-		{  "write-s2p-max-gain",     required_argument,   NULL,  OPT_WRITE_S2P_MAX_GAIN     },
-		{  "write-s2p-viewer-gain",  required_argument,   NULL,  OPT_WRITE_S2P_VIEWER_GAIN  },
-		{  "write-rdpat",            required_argument,   NULL,  OPT_WRITE_RDPAT            },
-		{  "write-currents",         required_argument,   NULL,  OPT_WRITE_CURRENTS         },
-		{  "write-gnuplot-structure", required_argument,  NULL,  OPT_WRITE_GNUPLOT_STRUCTURE },
-		{  "write-patch-currents",   required_argument,   NULL,  OPT_WRITE_PATCH_CURRENTS   },
-		{  "skip-verify",            no_argument,         NULL,  OPT_SKIP_VERIFY            },
-		{  "force-verify",           no_argument,         NULL,  OPT_FORCE_VERIFY           },
-		{  "mem-report",             no_argument,         NULL,  OPT_MEM_REPORT             },
-		{  "write-validation-dir",   required_argument,   NULL,  OPT_WRITE_VALIDATION_DIR   },
-		{  "write-rdpat-png",        required_argument,   NULL,  OPT_WRITE_RDPAT_PNG         },
-		{  "rdpat-png-format",       required_argument,   NULL,  OPT_RDPAT_PNG_FORMAT         },
-		{  "freq-select",            required_argument,   NULL,  OPT_FREQ_SELECT             },
-
-		{  NULL,                     0,                   NULL,  0                          }
-	};
-
-static char *build_optstring(struct option *long_options)
-{
-	static char optstring[256] = {0};
-	char c[2] = {0,0};
-
-	int i;
-	for (i = 0; long_options[i].name != NULL; i++)
-	{
-		if (long_options[i].val < OPT_FIRST_OPT)
-			c[0] = (char)long_options[i].val;
-		else
-			continue;
-
-		strcat(optstring, c);
-
-		if (long_options[i].has_arg == required_argument)
-			strcat(optstring, ":");
-		else if (long_options[i].has_arg == optional_argument)
-			strcat(optstring, "::");
-	}
-
-	return optstring;
-}
-
 static gint opt_start_optimizer_thread(void)
 {
 	GtkWidget *w;
@@ -269,18 +52,6 @@ static gint opt_start_optimizer_thread(void)
 	return FALSE;
 }
 
-static void validate_thread_count(const char *option_name, const char *optarg)
-{
-	char *endptr;
-	long val = strtol(optarg, &endptr, 10);
-
-	if (*endptr != '\0' || endptr == optarg || val < 1)
-	{
-		pr_crit("%s requires a positive integer argument\n", option_name);
-		exit(1);
-	}
-}
-
 /*------------------------------------------------------------------------*/
 
 char *orig_numeric_locale = NULL;
@@ -288,9 +59,7 @@ char *orig_numeric_locale = NULL;
   int
 main (int argc, char *argv[])
 {
-  /* getopt() variables */
-  int option, idx, err;
-  int enable_forking = 1;
+  int idx, err;
 
   /*** Signal handler related code ***/
   /* new and old actions for sigaction() */
@@ -336,14 +105,6 @@ main (int argc, char *argv[])
   /* Create a default config if needed, abort on error */
   if( !Create_Default_Config() ) exit( -1 );
 
-  /* Process command line options */
-#ifdef HAVE_OPENMP
-  calc_data.num_jobs = omp_get_num_procs();
-  pr_info("Detected %d CPUs\n", calc_data.num_jobs);
-#else 
-  calc_data.num_jobs = 1;
-#endif
-
   /* Report the GDK windowing backend; the GL view gates its
    * native-window isolation on X11 (see gl_view_create_widget()). */
   {
@@ -361,200 +122,8 @@ main (int argc, char *argv[])
     pr_info("Detected %s windowing backend\n", backend);
   }
 
-  rc_config.input_file[0] = '\0';
-
-  /* Initialize default config file path */
-  char home[PATH_MAX];
-  get_conf_dir(home, sizeof(home));
-  if (snprintf(rc_config.config_file, sizeof(rc_config.config_file),
-        "%s/%s", home, DEFAULT_CONFIG_FILE) >= (int)sizeof(rc_config.config_file)) {
-    pr_err("config file path too long\n");
-    exit(EXIT_FAILURE);
-  }
-
-  // default to show warnings or more important errors.
-  rc_config.verbose = 4;
-
-  setenv("OPENBLAS_NUM_THREADS", "1", 0);
-  setenv("MKL_NUM_THREADS", "1", 0);
-  setenv("OMP_NUM_THREADS", "1", 0);
-
-  int option_index = 0;
-  while( (option = getopt_long(argc, argv, build_optstring(long_options), long_options, &option_index) ) != -1 )
-  {
-    switch( option )
-    {
-      case 'c': /* specify existing config file path */
-        if (access(optarg, R_OK) < 0) {
-          pr_crit("config file does not exist or is not readable: %s\n", optarg);
-          exit(-1);
-        }
-        /* fall through */
-      case 'C': /* specify new config file path */
-        {
-          size_t siz = sizeof( rc_config.config_file );
-          if( strlen(optarg) >= siz )
-          {
-            pr_crit("config file path too long ( > %d char )\n", (int)siz - 1);
-            exit(-1);
-          }
-          Strlcpy( rc_config.config_file, optarg, siz );
-        }
-        break;
-
-      case 'i': /* specify input file name */
-        {
-          size_t siz = sizeof( rc_config.input_file );
-          if( strlen(optarg) >= siz )
-          {
-            pr_crit("input file name too long ( > %d char )\n", (int)siz - 1);
-            exit(-1);
-          }
-          /* For null term. */
-          Strlcpy( rc_config.input_file, optarg, siz );
-        }
-        break;
-
-      case 'v': /* increase verbosity */
-        rc_config.verbose++;
-        break;
-
-      case 'd': /* debug */
-        rc_config.debug++;
-        rc_config.verbose += 3;
-        break;
-
-      case 'q': /* quiet */
-        rc_config.debug = 0;
-        rc_config.verbose = 0;
-        break;
-
-      case 'j': /* number of child processes = num of processors */
-        calc_data.num_jobs = atoi( optarg );
-
-        if (calc_data.num_jobs == 0)
-        {
-            pr_notice("Forking disabled!\n");
-            enable_forking = 0;
-            calc_data.num_jobs = 1;
-        }
-        break;
-
-      case 'P': /* disable pthread loop */
-        rc_config.disable_pthread_freqloop = 1;
-        pr_notice("pthread freqloop disabled!\n");
-        break;
-
-      case 'b': /* batch mode */
-        pr_notice("batch mode enabled, will exit after first loop\n");
-        rc_config.batch_mode = 1;
-        break;
-
-      case 'h': /* print usage and exit */
-        usage();
-        exit(0);
-        break;
-
-      case 'V': /* print xnec2c version */
-        puts( PACKAGE_STRING );
-        exit(0);
-        break;
-
-      case OPT_ENABLE_OPTIMIZE:
-          SetFlag( SUPPRESS_INTERMEDIATE_REDRAWS );
-          break;
-
-      case OPT_OPENBLAS_THREADS:
-        validate_thread_count("--openblas-threads", optarg);
-        setenv("OPENBLAS_NUM_THREADS", optarg, 1);
-        break;
-
-      case OPT_MKL_THREADS:
-        validate_thread_count("--mkl-threads", optarg);
-        setenv("MKL_NUM_THREADS", optarg, 1);
-        break;
-
-      case OPT_OMP_THREADS:
-        validate_thread_count("--omp-threads", optarg);
-        setenv("OMP_NUM_THREADS", optarg, 1);
-        break;
-
-      case OPT_WRITE_CSV:
-        rc_config.filename_csv = optarg;
-        break;
-
-      case OPT_WRITE_S1P:
-        rc_config.filename_s1p = optarg;
-        break;
-
-      case OPT_WRITE_S2P_MAX_GAIN:
-        rc_config.filename_s2p_max_gain = optarg;
-        break;
-
-      case OPT_WRITE_S2P_VIEWER_GAIN:
-        rc_config.filename_s2p_viewer_gain = optarg;
-        break;
-
-      case OPT_WRITE_RDPAT:
-        rc_config.filename_rdpat = optarg;
-        break;
-
-      case OPT_WRITE_CURRENTS:
-        rc_config.filename_currents = optarg;
-        break;
-
-      case OPT_WRITE_GNUPLOT_STRUCTURE:
-        rc_config.filename_gnuplot_structure = optarg;
-        break;
-
-      case OPT_WRITE_PATCH_CURRENTS:
-        rc_config.filename_patch_currents = optarg;
-        break;
-
-      case OPT_SKIP_VERIFY:
-        pr_notice("verify segments check disabled\n");
-        rc_config.skip_verify_segments = 1;
-        break;
-
-      case OPT_FORCE_VERIFY:
-        pr_notice("forcing overlap check on large models\n");
-        rc_config.force_verify_segments = 1;
-        break;
-      case OPT_WRITE_VALIDATION_DIR:
-        validation_dump_set_dir(optarg);
-        break;
-
-      case OPT_WRITE_RDPAT_PNG:
-        rc_config.filename_rdpat_png = optarg;
-        break;
-
-      case OPT_RDPAT_PNG_FORMAT:
-        if( !rdpat_png_format_list_parse(optarg,
-            &rc_config.rdpat_png_formats) )
-        {
-          pr_crit("invalid radiation pattern PNG format: %s\n", optarg);
-          exit(1);
-        }
-        break;
-
-      case OPT_FREQ_SELECT:
-        if( !freq_select_keyword(optarg, &rc_config.freq_select_mode) )
-          rc_config.freq_select_mode = freq_select_number(optarg,
-              &rc_config.freq_select_mhz);
-        break;
-
-      case OPT_MEM_REPORT:
-        pr_notice("managed allocator leak report enabled\n");
-        rc_config.mem_report_enabled = 1;
-        break;
-
-      default:
-        usage();
-        exit(0);
-        break;
-
-    } /* switch( option ) */
-  } /* while( (option = getopt(argc, argv, "i:o:hv") ) != -1 ) */
+  /* Process command line options */
+  args_parse(argc, argv);
 
   if (rc_config.batch_mode && isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS))
   {
@@ -623,7 +192,7 @@ main (int argc, char *argv[])
    * requested number of child processes = number of processors */
 
   /* Allocate buffers for fork data */
-  if( calc_data.num_jobs >= 1 && enable_forking )
+  if( calc_data.num_jobs > 0 )
   {
     mem_array_alloc(&child_procs, calc_data.num_jobs);
     for( idx = 0; idx < calc_data.num_jobs; idx++ )
@@ -678,12 +247,17 @@ main (int argc, char *argv[])
     } /* for( idx = 0; idx < calc_data.num_jobs; idx++ ) */
 
     FORKED = TRUE;
-  } /* if( calc_data.num_jobs > 1 ) */
+  } /* if( calc_data.num_jobs > 0 ) */
   else
   {
     /* No fork: one in-process worker. The length-one child_procs array holds
      * the parent's own slot so the serial path indexes child_procs[0] like the
      * forked path; pid=0 and -1 pipe fds mark it as non-forked. */
+
+    /* Resolve the no-fork request into the single worker count that every
+     * frequency-loop bound reads. */
+    calc_data.num_jobs = 1;
+
     mem_array_alloc(&child_procs, 1);
     child_procs[0] = NULL;
     mem_new(&child_procs[0]);

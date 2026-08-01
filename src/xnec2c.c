@@ -1853,9 +1853,6 @@ out_unref:
   static void
 batch_write_rdpat_pngs(void)
 {
-  const rdpat_png_format_spec_t default_format = {
-    .format = RDPAT_PNG_FORMAT_ISO,
-  };
   const rdpat_png_format_spec_t *formats;
   batch_capture_size_t size;
   gsize count;
@@ -1864,16 +1861,8 @@ batch_write_rdpat_pngs(void)
   if( rc_config.filename_rdpat_png == NULL )
     return;
 
-  if( rc_config.rdpat_png_formats == NULL )
-  {
-    formats = &default_format;
-    count = 1;
-  }
-  else
-  {
-    formats = rc_config.rdpat_png_formats;
-    count = mem_array_count(rc_config.rdpat_png_formats);
-  }
+  formats = rc_config.rdpat_png_formats;
+  count = mem_array_count(rc_config.rdpat_png_formats);
 
   if( count != 1 && !g_str_has_suffix(rc_config.filename_rdpat_png, ".png") )
   {
