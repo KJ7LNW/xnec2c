@@ -73,9 +73,11 @@ specify on the command line will not be written.
 .IP
 \-\-write\-validation\-dir  <directory> \- write full validation data tree
 .IP
-\-\-write\-rdpat\-png       <filename>  \- write PNG of the radiation pattern at the lowest\-VSWR step, or the first computed step when VSWR is unavailable
+\-\-write\-rdpat\-png       <filename>  \- write PNG of the radiation pattern at the configured saved frequency (see \-\-freq\-select)
 .IP
 \-\-rdpat\-png\-format     <format[,format...]>  \- select x, y, z, iso, or quad views; defaults to iso. One format preserves <filename>; multiple formats write <filename>\-<format>.png
+.IP
+\-\-freq\-select <min\-vswr|center|max\-gain|MHz>  \- select the frequency positioned after each sweep: minimum SWR, sweep center, maximum gain, or the computed step nearest the given MHz; absent, the previous saved frequency is kept, or the sweep center when none is available. This selection also drives the \-\-write\-rdpat\-png capture step
 .IP
 .SH "ENVIRONMENT"
 .TP

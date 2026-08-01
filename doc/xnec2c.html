@@ -1418,15 +1418,23 @@ filenames to write without <code>--batch</code> mode then enable the <span class
   <dd>Write the full validation data tree to the named directory.</dd>
 
   <dt><code>--write-rdpat-png &lt;filename&gt;</code></dt>
-  <dd>Write a PNG image of the radiation pattern at the lowest-VSWR step, or
-  the first computed step when VSWR is unavailable, captured from the active
-  renderer at the current window resolution.</dd>
+  <dd>Write a PNG image of the radiation pattern at the configured saved
+  frequency, captured from the active renderer at the current window
+  resolution.  Use <code>--freq-select</code> to capture a different step.</dd>
 
   <dt><code>--rdpat-png-format &lt;format[,format...]&gt;</code></dt>
   <dd>Select radiation-pattern PNG views: <code>x</code>, <code>y</code>,
   <code>z</code>, <code>iso</code>, or <code>quad</code>. The default is
   <code>iso</code>. One format preserves <code>&lt;filename&gt;</code>; multiple
   formats write <code>&lt;filename&gt;-&lt;format&gt;.png</code>.</dd>
+
+  <dt><code>--freq-select &lt;min-vswr|center|max-gain|MHz&gt;</code></dt>
+  <dd>Select the frequency positioned after each frequency sweep: the
+  minimum-SWR step, the sweep-center step, the maximum-gain step, or the
+  computed step nearest the given frequency in MHz.  When absent, the previous
+  saved frequency is kept, or the sweep center when none is available.  This
+  selection also drives the <code>--write-rdpat-png</code> capture step.  A nearest-MHz target more than
+  one hertz from a computed step warns and selects the nearest step.</dd>
 </dl>
 <h4>Command Line Notes</h4>
 <p><strong>&lt;<var>input-file-name</var>&gt;</strong>: Specify a NEC2 input file to

@@ -65,6 +65,7 @@ enum XNEC2C_OPTS {
 	OPT_WRITE_VALIDATION_DIR,
 	OPT_WRITE_RDPAT_PNG,
 	OPT_RDPAT_PNG_FORMAT,
+	OPT_FREQ_SELECT,
 
 	OPT_MAX_OPTS
 };
@@ -139,6 +140,63 @@ rdpat_png_format_list_parse(const char *names,
   return valid;
 }
 
+static const struct { const char *name; freq_select_mode_t mode; }
+  freq_select_names[] = {
+    /* min-vswr is the documented spelling; min-swr is retained as an alias. */
+    { "min-vswr", FREQ_SELECT_MIN_SWR  },
+    { "min-swr",  FREQ_SELECT_MIN_SWR  },
+    { "center",   FREQ_SELECT_CENTER   },
+    { "max-gain", FREQ_SELECT_MAX_GAIN },
+  };
+
+/**
+ * freq_select_keyword() - Resolve a batch capture frequency selector keyword
+ * @name: command-line selector value
+ * @mode: destination for the resolved selection mode
+ *
+ * Returns TRUE when @name names a keyword selector, leaving @mode set; FALSE
+ * leaves @mode untouched for the caller to parse a numeric MHz value.
+ */
+static gboolean
+freq_select_keyword(const char *name, freq_select_mode_t *mode)
+{
+  size_t idx;
+
+  for( idx = 0; idx < G_N_ELEMENTS(freq_select_names); idx++ )
+  {
+    if( strcmp(name, freq_select_names[idx].name) == 0 )
+    {
+      *mode = freq_select_names[idx].mode;
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * freq_select_number() - Resolve a numeric MHz batch capture selector
+ * @arg: command-line selector value
+ * @mhz: destination for the parsed MHz target
+ *
+ * Exits when @arg is not a bare number.  Returns FREQ_SELECT_MHZ on success.
+ */
+static freq_select_mode_t
+freq_select_number(const char *arg, double *mhz)
+{
+  char *endptr;
+  double val = strtod(arg, &endptr);
+
+  if( *endptr != '\0' || endptr == arg )
+  {
+    pr_crit("invalid frequency selector: %s\n", arg);
+    exit(1);
+  }
+
+  *mhz = val;
+  return FREQ_SELECT_MHZ;
+}
+
 static struct option long_options[] = {
 		{  "input",                  required_argument,   NULL,  'i'                        },
 		{  "config",                 required_argument,   NULL,  'c'                        },
@@ -172,6 +230,7 @@ static struct option long_options[] = {
 		{  "write-validation-dir",   required_argument,   NULL,  OPT_WRITE_VALIDATION_DIR   },
 		{  "write-rdpat-png",        required_argument,   NULL,  OPT_WRITE_RDPAT_PNG         },
 		{  "rdpat-png-format",       required_argument,   NULL,  OPT_RDPAT_PNG_FORMAT         },
+		{  "freq-select",            required_argument,   NULL,  OPT_FREQ_SELECT             },
 
 		{  NULL,                     0,                   NULL,  0                          }
 	};
@@ -478,6 +537,12 @@ main (int argc, char *argv[])
         }
         break;
 
+      case OPT_FREQ_SELECT:
+        if( !freq_select_keyword(optarg, &rc_config.freq_select_mode) )
+          rc_config.freq_select_mode = freq_select_number(optarg,
+              &rc_config.freq_select_mhz);
+        break;
+
       case OPT_MEM_REPORT:
         pr_notice("managed allocator leak report enabled\n");
         rc_config.mem_report_enabled = 1;
@@ -495,6 +560,15 @@ main (int argc, char *argv[])
   {
 	  pr_crit("--batch and --optimize are mutual exclusive.\n");
 	  exit(1);
+  }
+
+  /* The radiation-pattern PNG is written only on batch teardown; a target set
+   * without --batch is a false contract, so abort once all arguments are
+   * parsed, honoring --batch regardless of its position. */
+  if( rc_config.filename_rdpat_png != NULL && !rc_config.batch_mode )
+  {
+    pr_crit("--write-rdpat-png requires --batch\n");
+    exit(1);
   }
 
   /* Initialize the external math libraries */

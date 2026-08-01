@@ -281,6 +281,16 @@ typedef struct {
   rdpat_png_format_t format;
 } rdpat_png_format_spec_t;
 
+/* Batch radiation-pattern capture frequency selector */
+typedef enum {
+  FREQ_SELECT_NONE = 0,   /* keep configured fmhz_save step */
+  FREQ_SELECT_MIN_SWR,
+  FREQ_SELECT_CENTER,
+  FREQ_SELECT_MAX_GAIN,
+  FREQ_SELECT_MHZ,        /* nearest to freq_select_mhz */
+  FREQ_SELECT_COUNT
+} freq_select_mode_t;
+
 /* Runtime configuration data */
 typedef struct
 {
@@ -429,6 +439,8 @@ typedef struct
   char *filename_patch_currents;
   char *filename_rdpat_png;
   rdpat_png_format_spec_t *rdpat_png_formats;
+  freq_select_mode_t freq_select_mode;   /* zero = FREQ_SELECT_NONE */
+  double freq_select_mhz;                /* set iff mode == FREQ_SELECT_MHZ */
 
   /* Symbol overrides window */
   int sy_overrides_is_open;

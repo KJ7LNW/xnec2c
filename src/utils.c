@@ -53,10 +53,11 @@ usage(void)
 		"  -V|--version:      print xnec2c version number and exit\n"
 		"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
 		"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-		"  -d|--quiet:        suppress debug/verbose output\n"
+		"  -q|--quiet:        suppress debug/verbose output\n"
 		"\n"
 		"  --optimize:        Activate the optimizer immediately.\n"
 		"  --skip-verify:     skip geometry verification checks\n"
+		"  --force-verify:    force overlap check on large models (>1000 segments)\n"
 		"  --mem-report:      report managed allocator live bytes per call site\n"
 		"\n"
 		"The following arguments write to an output file after the frequency loop\n"
@@ -72,7 +73,12 @@ usage(void)
 		"  --write-currents        <filename>  - write CSV of currents and charges\n"
 		"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
 		"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-		"  --write-validation-dir <directory> - write full validation data tree\n"));
+		"  --write-validation-dir <directory> - write full validation data tree\n"
+		"  --write-rdpat-png      <filename>  - write PNG of the radiation pattern\n"
+		"  --rdpat-png-format     <format[,format...]> - x, y, z, iso, or quad views (default iso)\n"
+		"\n"
+		"  --freq-select <min-vswr|center|max-gain|MHz> - post-sweep selected frequency;\n"
+		"                          absent, keep the previous saved frequency, or center if none\n"));
 
 } /* end of usage() */
 

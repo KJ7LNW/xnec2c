@@ -1250,30 +1250,23 @@ fmhz_save_apply_idle(gpointer data)
   user_set_frequency(calc_data.fmhz_save);
 }
 
+/* Cost of a populated sweep step for selection; return NAN to exclude idx.
+ * The runner minimizes cost, so a maximized measure returns its negation. */
+typedef double (*step_cost_fn)(int idx, double target);
+
 /**
- * fmhz_save_reset_if_stale - reset stale green-line frequency to best-VSWR step
- *
- * When fmhz_save falls outside every FR card range (e.g. after loading a
- * different NEC2 file while the config retains the old frequency), replaces
- * it with the sweep frequency that has the lowest VSWR.
- *
- * Called from freq_loop_finalize after all sweep data is valid.
- *
- * Returns TRUE when fmhz_save was reset, signalling the caller to skip
- * its normal display-step logic (user_set_frequency handles the UI update).
- */
-/**
- * freq_min_vswr_step() - Find the populated step with the lowest VSWR
+ * freq_best_step() - Scan populated steps and return the lowest-cost one
+ * @cost:   per-step cost; NAN excludes the step from selection
+ * @target: target MHz passed to @cost; ignored by costs that need none
  *
  * Caller holds freq_data_lock when concurrent sweep updates are possible.
- * Returns -1 when no populated step yields a finite non-negative VSWR.
+ * Returns -1 when no populated step yields a finite cost.
  */
   static int
-freq_min_vswr_step(void)
+freq_best_step(step_cost_fn cost, double target)
 {
-  double best_vswr = G_MAXDOUBLE;
+  double best_cost = G_MAXDOUBLE;
   int best_step = -1;
-  measurement_t measurement;
   int idx;
 
   for( idx = 0; idx < calc_data.steps_total; idx++ )
@@ -1281,47 +1274,236 @@ freq_min_vswr_step(void)
     if( !save.fstep[idx] )
       continue;
 
-    meas_calc(&measurement, idx, calc_data.ex_port);
+    double step_cost = cost(idx, target);
+    if( isnan(step_cost) )
+      continue;
 
-    if( !isnan(measurement.vswr) && measurement.vswr >= 0.0
-        && measurement.vswr < best_vswr )
+    if( step_cost < best_cost )
     {
-      best_vswr = measurement.vswr;
+      best_cost = step_cost;
       best_step = idx;
     }
   }
 
   return best_step;
 
-} /* freq_min_vswr_step() */
+} /* freq_best_step() */
 
 /*-----------------------------------------------------------------------*/
 
-static gboolean
-fmhz_save_reset_if_stale(void)
+/* Selection cost: VSWR at idx; a negative or NaN VSWR excludes the step.
+ * target is unused; the uniform step_cost_fn signature carries it. */
+  static double
+step_vswr_cost(int idx, double _target)
 {
-  int best_step;
   measurement_t measurement;
 
-  /* Repair only a green line that classifies stale: outside every FR card
-   * range and the populated display extent.  The classifier is the single
-   * authority shared with the seeding and display-routing sites. */
-  if( green_line_eval().cls != GREEN_LINE_STALE )
+  meas_calc(&measurement, idx, calc_data.ex_port);
+  return (measurement.vswr >= 0.0) ? measurement.vswr : NAN;
+
+} /* step_vswr_cost() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Selection cost: negated maximum gain at idx so the minimizer maximizes gain.
+ * target is unused; the uniform step_cost_fn signature carries it. */
+  static double
+step_gain_cost(int idx, double _target)
+{
+  measurement_t measurement;
+
+  meas_calc(&measurement, idx, calc_data.ex_port);
+  return -measurement.gain_max;
+
+} /* step_gain_cost() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Selection cost: distance from the target MHz. */
+  static double
+step_freq_distance_cost(int idx, double target)
+{
+  return fabs(save.freq[idx] - target);
+
+} /* step_freq_distance_cost() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * sweep_center_mhz() - Midpoint frequency of the populated sweep range
+ *
+ * Caller holds freq_data_lock when concurrent sweep updates are possible.
+ * Returns NAN when no step is populated.
+ */
+  static double
+sweep_center_mhz(void)
+{
+  double lo = G_MAXDOUBLE;
+  double hi = -G_MAXDOUBLE;
+  gboolean found = FALSE;
+  int idx;
+
+  for( idx = 0; idx < calc_data.steps_total; idx++ )
+  {
+    if( !save.fstep[idx] )
+      continue;
+
+    found = TRUE;
+    if( save.freq[idx] < lo )
+      lo = save.freq[idx];
+    if( save.freq[idx] > hi )
+      hi = save.freq[idx];
+  }
+
+  if( !found )
+    return NAN;
+
+  return (lo + hi) / 2.0;
+
+} /* sweep_center_mhz() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Target source: the explicit --freq-select MHz value. */
+  static double
+config_select_mhz(void)
+{
+  return rc_config.freq_select_mhz;
+
+} /* config_select_mhz() */
+
+/*-----------------------------------------------------------------------*/
+
+/*
+ * A post-sweep frequency selection is one argopt over the populated steps:
+ * minimize a per-step cost, optionally toward a target frequency.  A NULL
+ * cost is the empty selection that keeps the previous slot.
+ */
+typedef struct
+{
+  step_cost_fn cost;             /* per-step cost; NAN excludes a step */
+  double     (*target)(void);    /* NULL unless the cost needs a target MHz */
+} freq_select_spec_t;
+
+/* One row per freq_select_mode_t; FREQ_SELECT_NONE is the empty policy row. */
+static const freq_select_spec_t freq_select_specs[FREQ_SELECT_COUNT] = {
+  [FREQ_SELECT_MIN_SWR]  = { step_vswr_cost,          NULL             },
+  [FREQ_SELECT_MAX_GAIN] = { step_gain_cost,          NULL             },
+  [FREQ_SELECT_CENTER]   = { step_freq_distance_cost, sweep_center_mhz  },
+  [FREQ_SELECT_MHZ]      = { step_freq_distance_cost, config_select_mhz },
+};
+
+/**
+ * freq_run_spec() - Resolve one selection spec to a sweep step
+ * @spec: selection criterion; a NULL cost keeps the previous slot
+ *
+ * Resolves the optional target source, then returns the lowest-cost populated
+ * step.  Caller holds freq_data_lock when concurrent sweep updates are
+ * possible.  Returns -1 to keep the previous frequency slot.
+ */
+  static int
+freq_run_spec(const freq_select_spec_t *spec)
+{
+  double target = 0.0;
+
+  if( spec->cost == NULL )
+    return -1;
+
+  if( spec->target != NULL )
+  {
+    target = spec->target();
+    if( isnan(target) )
+      return -1;
+  }
+
+  return freq_best_step(spec->cost, target);
+
+} /* freq_run_spec() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * freq_default_spec() - Green-line-keyed default selection (FREQ_SELECT_NONE)
+ *
+ * An unusable green line defaults to the neutral sweep center: an inactive line
+ * was never chosen, and a stale line fell out of range with no evidence of a
+ * prior VSWR preference.  A usable alias or in-range line keeps the previous
+ * slot.  Caller holds freq_data_lock when concurrent sweep updates are
+ * possible.
+ */
+  static const freq_select_spec_t *
+freq_default_spec(void)
+{
+  green_line_eval_t gl = green_line_eval();
+
+  switch( gl.cls )
+  {
+    case GREEN_LINE_INACTIVE:
+    case GREEN_LINE_STALE:
+      return &freq_select_specs[FREQ_SELECT_CENTER];
+
+    case GREEN_LINE_ALIAS:
+    case GREEN_LINE_EXTRA:
+      return &freq_select_specs[FREQ_SELECT_NONE];
+  }
+
+  BUG("green_line_eval returned unknown class %d\n", gl.cls);
+  return &freq_select_specs[FREQ_SELECT_NONE];
+
+} /* freq_default_spec() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * fmhz_save_apply_selection - position the post-sweep selected frequency
+ *
+ * Resolves rc_config.freq_select_mode to a selection spec: an explicit
+ * --freq-select target (minimum VSWR, sweep center, maximum gain, or the step
+ * nearest a requested MHz), else the green-line-keyed default.  Sets fmhz_save
+ * and queues the frequency change on the GTK main thread.  Shared by
+ * interactive loads and batch capture.
+ *
+ * Returns TRUE when fmhz_save was set, signalling the caller to skip its
+ * default display-step logic; FALSE keeps the previous frequency slot.
+ */
+static gboolean
+fmhz_save_apply_selection(void)
+{
+  measurement_t measurement;
+  freq_select_mode_t mode = rc_config.freq_select_mode;
+  const freq_select_spec_t *spec;
+  int step;
+
+  if( mode < 0 || mode >= FREQ_SELECT_COUNT )
+  {
+    BUG("invalid frequency selection mode %d\n", mode);
+    return FALSE;
+  }
+
+  spec = (mode == FREQ_SELECT_NONE)
+      ? freq_default_spec()
+      : &freq_select_specs[mode];
+
+  step = freq_run_spec(spec);
+
+  /* No populated step resolved; leave fmhz_save unchanged. */
+  if( step < 0 )
     return FALSE;
 
-  best_step = freq_min_vswr_step();
+  /* An explicit --freq-select MHz target warns when the nearest populated step
+     misses it; a derived target has no user expectation to violate. */
+  if( mode == FREQ_SELECT_MHZ
+      && !FREQ_EQ(save.freq[step], rc_config.freq_select_mhz) )
+    pr_warn("nearest step %g MHz differs from requested %g MHz\n",
+        save.freq[step], rc_config.freq_select_mhz);
 
-  /* No valid steps computed; leave fmhz_save unchanged */
-  if( best_step < 0 )
-    return FALSE;
+  meas_calc(&measurement, step, calc_data.ex_port);
+  pr_notice("post-sweep frequency set to %.4f MHz (VSWR %.2f)\n",
+      save.freq[step], measurement.vswr);
 
-  meas_calc(&measurement, best_step, calc_data.ex_port);
-  pr_notice("fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n",
-      calc_data.fmhz_save, save.freq[best_step], measurement.vswr);
-
-  calc_data.fmhz_save = save.freq[best_step];
-  /* Queue the full UI update on the GTK main thread via the single
-   * point of truth for user-selected frequency changes. */
+  calc_data.fmhz_save = save.freq[step];
+  /* Queue the full UI update on the GTK main thread; the idle handler applies
+     the user-selected frequency change. */
   g_idle_add_once((GSourceOnceFunc)fmhz_save_apply_idle, NULL);
   return TRUE;
 }
@@ -1354,10 +1536,13 @@ freq_loop_finalize( freq_loop_state_t *state )
   /* Wake optimizer thread waiting on eval_cond */
   nec2_eval_signal();
 
-  /* Reset stale green-line frequency to best-VSWR sweep step;
-   * when reset occurs, fmhz_save_reset_if_stale queues user_set_frequency
-   * on the GTK main thread which handles all UI updates. */
-  if( !fmhz_save_reset_if_stale() )
+  /* Position the post-sweep selected frequency: an explicit --freq-select
+   * target, else the green-line default (center when unavailable, lowest-VSWR
+   * when stale).  When it applies, fmhz_save_apply_selection queues
+   * user_set_frequency on the GTK main thread which handles all UI updates;
+   * otherwise keep the previous frequency slot and show the highest completed
+   * sweep step. */
+  if( !fmhz_save_apply_selection() )
   {
     int display = freq_loop_display_step();
     if( display >= 0 )
@@ -1427,36 +1612,6 @@ batch_rdpattern_capture_size(void)
   return size;
 
 } /* batch_rdpattern_capture_size() */
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * batch_select_capture_step() - Select the preferred computed sweep step
- *
- * Holds freq_data_lock while preferring the lowest VSWR step, then the first
- * computed step when that measurement is unavailable.
- */
-  static int
-batch_select_capture_step(void)
-{
-  int step;
-  int idx;
-
-  g_rec_mutex_lock(&freq_data_lock);
-  step = freq_min_vswr_step();
-  idx = 0;
-  while( step < 0 && idx < calc_data.steps_total )
-  {
-    if( save.fstep[idx] )
-      step = idx;
-
-    idx++;
-  }
-  g_rec_mutex_unlock(&freq_data_lock);
-
-  return step;
-
-} /* batch_select_capture_step() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -1570,18 +1725,25 @@ batch_capture_rdpattern_preset_pane(const char *button_id, int width, int height
 /*-----------------------------------------------------------------------*/
 
 /**
- * batch_prepare_rdpattern_capture() - Select the capture frequency and size
+ * batch_prepare_rdpattern_capture() - Resolve capture size at the selected step
  * @filename: destination PNG filename for diagnostics
  * @size: destination for the resolved capture dimensions
  *
- * Returns TRUE when the radiation-pattern view can capture the selected step.
+ * Reads calc_data.freq_step, the single post-sweep selection applied by
+ * freq_loop_finalize; performs no reselection.  Returns TRUE when that step
+ * holds computed data for the radiation-pattern view.
  */
   static gboolean
 batch_prepare_rdpattern_capture(const char *filename, batch_capture_size_t *size)
 {
   int step;
 
-  step = batch_select_capture_step();
+  g_rec_mutex_lock(&freq_data_lock);
+  step = calc_data.freq_step;
+  if( save.fstep == NULL || step < 0 || !save.fstep[step] )
+    step = -1;
+  g_rec_mutex_unlock(&freq_data_lock);
+
   if( step < 0 )
   {
     pr_err("radiation pattern PNG capture: no computed step for %s\n",
@@ -1590,7 +1752,6 @@ batch_prepare_rdpattern_capture(const char *filename, batch_capture_size_t *size
   }
 
   *size = batch_rdpattern_capture_size();
-  freq_step_update_ui(step, TRUE);
 
   return TRUE;
 
