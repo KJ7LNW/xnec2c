@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2026-05-25 01:51-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2537,6 +2537,262 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Uzatish liniyasi impedansi (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "Foydalanish: xnec2c [options] [<input-file-name>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "Ochish uchun NEC2 kirish fayli"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "fayl mavjud boʻlishi kerak"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "fayl mavjud boʻlmasa, uni yaratadi"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "bola jarayonlar; 0 fork qilishni oʻchiradi"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "paket rejimini yoqing, chastota sikli bajarilgach chiqing"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "paketli rejim yoqildi, birinchi sikldan keyin chiqiladi\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr ""
+"pthreads-ni oʻchirib, nosozliklarni tuzatish uchun GTK siklidan foydalaning"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread chastota sikli oʻchirildi!\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "foydalanish maʼlumotini chop eting va chiqing"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "xnec2c versiya raqamini chop eting va chiqing"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "batafsillikni oshiring, bir necha marta koʻrsatilishi mumkin"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr ""
+"nosozliklarni tuzatish chiqishini yoqing (-dd qaytish izlarini oʻz ichiga "
+"oladi)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "nosozliklarni tuzatish/batafsil chiqishni bostiring"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "OpenBLAS tola soni"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "Intel MKL tola soni"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "OpenMP tola soni"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "optimallashtirgichni darhol faollashtiring"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "geometriya tekshiruvlarini oʻtkazib yuboring"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "segmentlarni tekshirish oʻchirildi\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "katta modellarda (>1000 segment) qoplanish tekshiruvini majburlang"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "katta modellarda qoplashish tekshiruvini majburlab bajarish\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr ""
+"har bir chaqiruv joyi uchun boshqariladigan ajratuvchining faol baytlarini "
+"hisobot qiling"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "boshqariladigan ajratuvchi sizib chiqish hisoboti yoqildi\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"Quyidagi argumentlar chastota sikli tugagach chiqish fayliga yozadi.  Ularni "
+"--batch bilan birga ishlatish foydali; agar fayl nomlari --batchsiz "
+"koʻrsatilsa, File->Optimizer Settings-ni yoqing, aks holda ular yozilmaydi."
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "oʻlchovlarning CSV faylini yozing"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "S-parametrlarning S1P faylini yozing"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "S2P faylini yozing, port-2 eng yuqori kuchaytirishdir"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "S2P faylini yozing, port-2 koʻruvchi kuchaytirishidir"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "nurlanish diagrammasining CSV faylini yozing"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "toklar va zaryadlarning CSV faylini yozing"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "gnuplot tuzilma faylini yozing"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "patch sirt toklarining CSV faylini yozing"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "toʻliq tasdiqlash maʼlumotlari daraxtini yozing"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "nurlanish diagrammasining PNG faylini yozing"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "x, y, z, iso yoki quad koʻrinishlari"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"skanerlashdan keyingi tanlangan chastota; mavjud boʻlmasa, avvalgi saqlangan "
+"chastotani, u ham boʻlmasa markazni saqlang"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "konfiguratsiya fayl yoʻli juda uzun\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "%d protsessor aniqlandi\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr ""
+"foydalanish yozuvi --%s --%s parametrining identifikatorini takrorlaydi\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr ""
+"foydalanish yozuvi --%s 1..%d oraligʻidan tashqaridagi %d parametr "
+"identifikatorini oʻz ichiga oladi\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "foydalanish yozuvi --%s hech qanday yordam matniga ega emas\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr ""
+"foydalanish yozuvi --%s qabul qilmaydigan argument uchun standart qiymat "
+"belgilaydi\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr ""
+"foydalanish yozuvi --%s oʻzgaruvchisi bildirgan standart qiymatni aniqlaydi\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "foydalanish yozuvi --%s hech qanday qoʻllovchiga ega emas\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "foydalanish yozuvi %zu nomsiz parametr maydonlariga ega\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (standart qiymat: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "notoʻgʻri chastota tanlagichi: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%s uchun %d yoki undan katta butun argument talab qilinadi\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "--%s argumenti juda uzun ( > %d belgi )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "konfiguratsiya fayli mavjud emas yoki oʻqib boʻlmaydi: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "Tarmoqlash oʻchirildi!\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "notoʻgʻri nurlanish diagrammasi PNG formati: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3639,14 +3895,6 @@ msgstr ""
 "Siz boshqaruv kartasida nomaʼlum teg yoki segmentga murojaat qilyapsiz.\n"
 "Geometriyangizdagi toʻgʻri teglar GW/GA/GH/SP kartalariga tayinlanganlardir."
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "toʻrtburchak burchaklari: patch bir tekislikda yotmaydi\n"
@@ -4468,8 +4716,8 @@ msgstr "quruvchiga obʼektlar qoʻshishda muvaffaqiyatsizlik: %s\n"
 msgid "Listing Object Ids:\n"
 msgstr "Obʼekt identifikatorlari roʻyxati:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4492,142 +4740,88 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade yuklab boʻlmadi: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%s musbat butun son argumentini talab qiladi\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "%d protsessor aniqlandi\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s oyna tizimi aniqlandi\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "konfiguratsiya fayl yoʻli juda uzun\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "konfiguratsiya fayli mavjud emas yoki oʻqib boʻlmaydi: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "konfiguratsiya fayl yoʻli juda uzun ( > %d belgi )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "kirish fayl nomi juda uzun ( > %d belgi )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "Tarmoqlash oʻchirildi!\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread chastota sikli oʻchirildi!\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "paketli rejim yoqildi, birinchi sikldan keyin chiqiladi\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "segmentlarni tekshirish oʻchirildi\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "katta modellarda qoplashish tekshiruvini majburlab bajarish\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "notoʻgʻri nurlanish diagrammasi PNG formati: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "boshqariladigan ajratuvchi sizib chiqish hisoboti yoqildi\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch va --optimize oʻzaro mos kelmaydi.\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-png uchun --batch talab qilinadi\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "kirish fayl yoʻl nomi juda uzun ( > %d belgi )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "kutilmagan argument '%s' .nec fayli emas\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "kutilmagan argument: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "paketli rejim kirish faylini talab qiladi\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "displeyni ochib boʻlmaydi: ishlaydigan X11 yoki Wayland sessiyasi talab "
 "qilinadi\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "%d ish tarmoqlanmoqda.\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "jiddiy xatodan keyin chiqilmoqda: pipe() muvaffaqiyatsiz boʻldi"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "jiddiy xatodan keyin chiqilmoqda: fork() muvaffaqiyatsiz boʻldi"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "foydalanuvchi uzilishi orqali chiqilmoqda\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "segmentatsiya xatosi, chiqilmoqda\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "suzuvchi nuqta istisnosi, chiqilmoqda\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "toʻxtatish signali qabul qilindi, chiqilmoqda\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "tugatish soʻrovi qabul qilindi, chiqilmoqda\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "tarmoqlanmagan, pid %d dan SIGCHLD eʼtiborga olinmaydi\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "bola jarayoni pid %d chiqdi\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "signal bilan standart chiqish: %d\n"
@@ -4649,7 +4843,7 @@ msgstr "open_mathlib: lib NULL\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -6048,95 +6242,7 @@ msgstr "mavzu '%s' topilmadi, eskisi ishlatilmoqda\n"
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "kenglik '%s' notoʻgʻri, joriy qiymat saqlanmoqda\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"Foydalanish: xnec2c [parametrlar] [<kirish-fayl-nomi>]\n"
-"  -i|--input         <kirish-fayl-nomi>\n"
-"  -c|--config        <konfiguratsiya-fayl-yoli>     - fayl mavjud boʻlishi "
-"kerak\n"
-"  -C|--new-config    <yangi-konfiguratsiya-fayl-yoli> - yoʻq boʻlsa "
-"yaratadi\n"
-"  -j|--jobs  <SMP mashinasidagi protsessorlar soni> (-j0 forkni oʻchiradi)\n"
-"     --openblas-threads <n>  OpenBLAS ip sonini belgilash (standart: 1)\n"
-"     --mkl-threads <n>       Intel MKL ip sonini belgilash (standart: 1)\n"
-"     --omp-threads <n>       OpenMP ip sonini belgilash (standart: 1)\n"
-"  -b|--batch:        paketli rejimni yoqish, chastota sikli tugagach "
-"chiqish\n"
-"  -P|--no-pthreads:  pthreadsni oʻchirish va nosozlik tuzatish uchun GTK "
-"sikldan foydalanish\n"
-"  -h|--help:         foydalanish maʼlumotlarini chiqarish va chiqish\n"
-"  -V|--version:      xnec2c versiya raqamini chiqarish va chiqish\n"
-"  -v|--verbose:      tafsilotlilikni oshirish, bir necha marta belgilanishi "
-"mumkin\n"
-"  -d|--debug:        nosozlik tuzatish chiqishini yoqish (-dd orqa izlarni "
-"oʻz ichiga oladi)\n"
-"  -d|--quiet:        nosozlik tuzatish/tafsilotli chiqishni yashirish\n"
-"\n"
-"  --optimize:        Optimallashtiruvchini darhol faollashtirish.\n"
-"  --skip-verify:     geometriya tekshiruvlarini oʻtkazib yuborish\n"
-"  --mem-report:      har bir chaqiruv joyidagi boshqariladigan ajratuvchi "
-"baytlarini bildirish\n"
-"\n"
-"Quyidagi argumentlar chastota sikli tugagandan soʻng chiqish fayliga "
-"yozadi.\n"
-"Bular --batch bilan birlashtirishda foydali; Agar --batch rejimisiz\n"
-"fayl nomlarini belgilashni xohlasangiz, File->Optimizer\n"
-"Settings ni yoqing, aks holda buyruq satrida belgilangan fayllar "
-"yozilmaydi.\n"
-"\n"
-"  --write-csv             <fayl-nomi>  - oʻlchov CSV faylini yozish\n"
-"  --write-s1p             <fayl-nomi>  - S-parametrlar S1P faylini yozish\n"
-"  --write-s2p-max-gain    <fayl-nomi>  - S2P fayli yozish, port-2 maks-"
-"kuchaytirish\n"
-"  --write-s2p-viewer-gain <fayl-nomi>  - S2P fayli yozish, port-2 koʻruvchi-"
-"kuchaytirish\n"
-"  --write-rdpat           <fayl-nomi>  - nurlanish diagrammasi CSV ni "
-"yozish\n"
-"  --write-currents        <fayl-nomi>  - toklar va zaryadlar CSV ni yozish\n"
-"  --write-gnuplot-structure <fayl-nomi> - gnuplot tuzilma faylini yozish\n"
-"  --write-patch-currents  <fayl-nomi>  - patch sirt toklari CSV ni yozish\n"
-"  --write-validation-dir <katalog> - toʻliq tekshiruv maʼlumotlar daraxtini "
-"yozish\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6149,46 +6255,46 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "Toʻxtash: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Chastota siklida toʻxtash, deadlock oldini olindi: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "har bir ish uchun %d ta OpenMP ip ishlatilmoqda (%d/%d CPU)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f soniya\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Faylni ochib boʻlmadi: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr ""
 "Optimallashtiruvchi sikli tugallanmadi, oraliq qayta chizish yashirildi.\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  Qayta iz:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6260,7 +6366,7 @@ msgstr "Ground_Parameters(): Yer parametrlarida xato"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f soniya. (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval nomaʼlum sinf %d qaytardi\n"
@@ -6281,46 +6387,53 @@ msgstr "fork yigʻish paytida %d bola notoʻgʻri pipe fd ga ega\n"
 msgid "Failed to read data from forked child\n"
 msgstr "Fork qilingan boladan maʼlumot oʻqib boʻlmadi\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz FR karta diapazonlaridan tashqari; %.4f MHz ga qaytarildi "
-"(VSWR %.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "notoʻgʻri chastota tanlash rejimi %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "eng yaqin qadam %g MHz soʻralgan %g MHz dan farq qiladi\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "skanerlashdan keyingi chastota %.4f MHz ga oʻrnatildi (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Chastota sikli vaqti: %f soniya. (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "nurlanish diagrammasi PNG olish: %s uchun hisoblangan qadam yoʻq\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s uchun nurlanish diagrammasi PNG olinmadi\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s uchun nurlanish diagrammasi PNG saqlanmadi: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "nurlanish diagrammasi PNG yozildi: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "bir nechta nurlanish diagrammasi PNG formatlari .png fayl nomini talab "
 "qiladi: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread ni ishga tushirib boʻlmadi\n"

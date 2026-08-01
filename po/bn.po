@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2518,6 +2518,253 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "ট্রান্সমিশন লাইন ইম্পিড্যান্স (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "ব্যবহার: xnec2c [বিকল্প] [<ইনপুট-ফাইল-নাম>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "খোলার জন্য NEC2 ইনপুট ফাইল"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "ফাইলটি বিদ্যমান থাকতে হবে"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "না থাকলে ফাইল তৈরি করে"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "চাইল্ড প্রসেস; 0 ফর্কিং নিষ্ক্রিয় করে"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "ব্যাচ মোড সক্রিয় করুন, ফ্রিকোয়েন্সি লুপ চলার পরে প্রস্থান করুন"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "ব্যাচ মোড সক্রিয়, প্রথম লুপের পর প্রস্থান করবে\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "pthread নিষ্ক্রিয় করে ডিবাগিংয়ের জন্য GTK লুপ ব্যবহার করুন"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop অক্ষম!\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "ব্যবহারের তথ্য মুদ্রণ করে প্রস্থান করুন"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "xnec2c সংস্করণ নম্বর মুদ্রণ করে প্রস্থান করুন"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "বিস্তারিততা বাড়ান, একাধিকবার নির্দিষ্ট করা যায়"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "ডিবাগ আউটপুট সক্রিয় করুন (-dd ব্যাকট্রেস অন্তর্ভুক্ত করে)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "ডিবাগ/বিস্তারিত আউটপুট দমন করুন"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "OpenBLAS থ্রেড সংখ্যা"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "Intel MKL থ্রেড সংখ্যা"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "OpenMP থ্রেড সংখ্যা"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "অপটিমাইজার অবিলম্বে সক্রিয় করুন"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "জ্যামিতি যাচাইকরণ পরীক্ষা এড়িয়ে যান"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "সেগমেন্ট যাচাই পরীক্ষা অক্ষম\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "বড় মডেলে ওভারল্যাপ পরীক্ষা বাধ্যতামূলক করুন (>1000 সেগমেন্ট)"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "বড় মডেলে ওভারল্যাপ পরীক্ষা বাধ্যতামূলক করা হচ্ছে\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr "প্রতি কল সাইটে ম্যানেজড অ্যালোকেটরের সক্রিয় বাইট প্রতিবেদন করুন"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "ম্যানেজড অ্যালোকেটর লিক রিপোর্ট সক্রিয়\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"ফ্রিকোয়েন্সি লুপ সম্পন্ন হওয়ার পরে নিম্নলিখিত আর্গুমেন্টগুলো একটি আউটপুট ফাইলে লেখে।  "
+"এগুলো --batch-এর সঙ্গে মিলিয়ে ব্যবহার করা যায়; --batch ছাড়া ফাইলনাম নির্দিষ্ট করা "
+"হলে File->Optimizer Settings সক্রিয় করুন, নতুবা এগুলো লেখা হবে না।"
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "পরিমাপের CSV ফাইল লিখুন"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "S-parameters-এর S1P ফাইল লিখুন"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "S2P ফাইল লিখুন, পোর্ট-2 সর্বোচ্চ-গেইন"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "S2P ফাইল লিখুন, পোর্ট-2 ভিউয়ার-গেইন"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "বিকিরণ প্যাটার্নের CSV লিখুন"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "কারেন্ট ও চার্জের CSV লিখুন"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "gnuplot স্ট্রাকচার ফাইল লিখুন"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "প্যাচ পৃষ্ঠ কারেন্টের CSV লিখুন"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "সম্পূর্ণ ভ্যালিডেশন ডেটা ট্রি লিখুন"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "বিকিরণ প্যাটার্নের PNG লিখুন"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "x, y, z, iso, অথবা quad ভিউ"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"সুইপ-পরবর্তী নির্বাচিত ফ্রিকোয়েন্সি; অনুপস্থিত হলে পূর্বে সংরক্ষিত ফ্রিকোয়েন্সি রাখুন, না "
+"থাকলে কেন্দ্র"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "কনফিগ ফাইল পাথ অনেক দীর্ঘ\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "%d CPU সনাক্ত হয়েছে\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr "ব্যবহারের এন্ট্রি --%s, --%s-এর অপশন আইডি পুনরাবৃত্তি করে\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr "ব্যবহারের এন্ট্রি --%s, 1..%d-এর বাইরে অপশন আইডি %d বহন করে\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "ব্যবহার এন্ট্রি --%s-এ কোনো সহায়তা পাঠ্য নেই\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr "ব্যবহার এন্ট্রি --%s যে আর্গুমেন্ট নেয় না তার ডিফল্ট নির্ধারণ করে\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr ""
+"ব্যবহারের এন্ট্রি --%s একটি ডিফল্ট নির্ধারণ করে যা তার ভেরিয়েবল অবস্থাগুলি নির্ধারণ "
+"করে\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "ব্যবহার এন্ট্রি --%s-এ কোনো প্রয়োগকারী নেই\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "ব্যবহার এন্ট্রি %zu-এ নাম ছাড়া বিকল্প ক্ষেত্র রয়েছে\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (ডিফল্ট: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "অবৈধ ফ্রিকোয়েন্সি নির্বাচক: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%s-এর জন্য %d বা তার বেশি একটি পূর্ণসংখ্যা আর্গুমেন্ট প্রয়োজন\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "--%s আর্গুমেন্ট অতিদীর্ঘ ( > %d অক্ষর )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "কনফিগ ফাইল বিদ্যমান নেই বা পাঠযোগ্য নয়: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "ফর্কিং অক্ষম!\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "অবৈধ বিকিরণ প্যাটার্ন PNG বিন্যাস: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3607,14 +3854,6 @@ msgstr ""
 "আপনি একটি নিয়ন্ত্রণ কার্ডে অজানা ট্যাগ বা সেগমেন্ট উল্লেখ করছেন।\n"
 "আপনার জ্যামিতিতে বৈধ ট্যাগগুলি হল GW/GA/GH/SP কার্ডে নির্ধারিত।"
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "চতুর্ভুজ প্যাচের কোণগুলি একটি সমতলে অবস্থিত নয়\n"
@@ -4406,8 +4645,8 @@ msgstr "বিল্ডারে অবজেক্ট যোগ করতে �
 msgid "Listing Object Ids:\n"
 msgstr "অবজেক্ট আইডি তালিকা:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4429,140 +4668,86 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade লোড করতে ব্যর্থ: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%s-এর জন্য একটি ধনাত্মক পূর্ণসংখ্যা আর্গুমেন্ট প্রয়োজন\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "%d CPU সনাক্ত হয়েছে\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s উইন্ডোয়িং ব্যাকএন্ড সনাক্ত হয়েছে\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "কনফিগ ফাইল পাথ অনেক দীর্ঘ\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "কনফিগ ফাইল বিদ্যমান নেই বা পাঠযোগ্য নয়: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "কনফিগ ফাইল পাথ অনেক দীর্ঘ ( > %d অক্ষর )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "ইনপুট ফাইল নাম অনেক দীর্ঘ ( > %d অক্ষর )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "ফর্কিং অক্ষম!\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread freqloop অক্ষম!\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "ব্যাচ মোড সক্রিয়, প্রথম লুপের পর প্রস্থান করবে\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "সেগমেন্ট যাচাই পরীক্ষা অক্ষম\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "বড় মডেলে ওভারল্যাপ পরীক্ষা বাধ্যতামূলক করা হচ্ছে\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "অবৈধ বিকিরণ প্যাটার্ন PNG বিন্যাস: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "ম্যানেজড অ্যালোকেটর লিক রিপোর্ট সক্রিয়\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch এবং --optimize পারস্পরিক একচেটিয়া।\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-png-এর জন্য --batch প্রয়োজন\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "ইনপুট ফাইল পাথ নাম অনেক দীর্ঘ ( > %d অক্ষর )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "অপ্রত্যাশিত আর্গুমেন্ট '%s' একটি .nec ফাইল বলে মনে হচ্ছে না\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "অপ্রত্যাশিত আর্গুমেন্ট: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "ব্যাচ মোডে একটি ইনপুট ফাইল প্রয়োজন\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "ডিসপ্লে খোলা যাচ্ছে না: একটি চলমান X11 বা Wayland সেশন প্রয়োজন\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "%d জব ফর্ক করা হচ্ছে।\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "মারাত্মক ত্রুটির পর প্রস্থান: pipe() ব্যর্থ"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "মারাত্মক ত্রুটির পর প্রস্থান: fork() ব্যর্থ"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "ব্যবহারকারীর বাধার মাধ্যমে প্রস্থান করা হচ্ছে\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "সেগমেন্টেশন ফল্ট, প্রস্থান করা হচ্ছে\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "ফ্লোটিং পয়েন্ট এক্সেপশন, প্রস্থান করা হচ্ছে\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "অ্যাবর্ট সিগন্যাল পাওয়া গেছে, প্রস্থান করা হচ্ছে\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "সমাপ্তির অনুরোধ পাওয়া গেছে, প্রস্থান করা হচ্ছে\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "ফর্ক করা হয়নি, pid %d থেকে SIGCHLD উপেক্ষা করা হচ্ছে\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "চাইল্ড প্রসেস pid %d প্রস্থান করেছে\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "সিগন্যাল দিয়ে ডিফল্ট প্রস্থান: %d\n"
@@ -4584,7 +4769,7 @@ msgstr "open_mathlib: lib NULL\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -5944,86 +6129,7 @@ msgstr "theme '%s' পাওয়া যায়নি, লিগ্যাস�
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "width '%s' অবৈধ, বর্তমান মান রাখা হচ্ছে\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"ব্যবহার: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - ফাইলটি অবশ্যই বিদ্যমান থাকতে "
-"হবে\n"
-"  -C|--new-config    <new-config-file-path> - অনুপস্থিত থাকলে ফাইল তৈরি করে\n"
-"  -j|--jobs  <SMP মেশিনে প্রসেসরের সংখ্যা> (-j0 forking নিষ্ক্রিয় করে)\n"
-"     --openblas-threads <n>  OpenBLAS থ্রেড সংখ্যা সেট করুন (ডিফল্ট: 1)\n"
-"     --mkl-threads <n>       Intel MKL থ্রেড সংখ্যা সেট করুন (ডিফল্ট: 1)\n"
-"     --omp-threads <n>       OpenMP থ্রেড সংখ্যা সেট করুন (ডিফল্ট: 1)\n"
-"  -b|--batch:        ব্যাচ মোড সক্রিয় করুন, ফ্রিকোয়েন্সি লুপ চালানোর পর প্রস্থান "
-"করুন\n"
-"  -P|--no-pthreads:  pthreads নিষ্ক্রিয় করুন এবং ডিবাগিংয়ের জন্য GTK লুপ ব্যবহার "
-"করুন\n"
-"  -h|--help:         ব্যবহারের তথ্য প্রিন্ট করুন এবং প্রস্থান করুন\n"
-"  -V|--version:      xnec2c সংস্করণ নম্বর প্রিন্ট করুন এবং প্রস্থান করুন\n"
-"  -v|--verbose:      বিস্তারিত বাড়ান, একাধিকবার নির্দিষ্ট করা যায়\n"
-"  -d|--debug:        ডিবাগ আউটপুট সক্রিয় করুন (-dd backtraces অন্তর্ভুক্ত করে)\n"
-"  -d|--quiet:        ডিবাগ/বিস্তারিত আউটপুট দমন করুন\n"
-"\n"
-"  --optimize:        অবিলম্বে অপ্টিমাইজার সক্রিয় করুন।\n"
-"  --skip-verify:     জ্যামিতি যাচাইকরণ পরীক্ষা এড়িয়ে যান\n"
-"  --mem-report:      প্রতি কল সাইটে ম্যানেজড অ্যালোকেটর লাইভ বাইট রিপোর্ট করুন\n"
-"\n"
-"নিম্নলিখিত আর্গুমেন্টগুলি ফ্রিকোয়েন্সি লুপ সম্পন্ন হওয়ার পরে একটি আউটপুট ফাইলে লেখে।\n"
-"এগুলি --batch এর সাথে একত্রিত করতে কার্যকর; আপনি যদি --batch মোড ছাড়া\n"
-"লেখার জন্য ফাইলনাম নির্দিষ্ট করতে চান তাহলে File->Optimizer Settings সক্রিয় করুন\n"
-"অথবা কমান্ড লাইনে আপনি যে ফাইলগুলি নির্দিষ্ট করেছেন সেগুলি লেখা হবে না।\n"
-"\n"
-"  --write-csv             <filename>  - পরিমাপের CSV ফাইল লিখুন\n"
-"  --write-s1p             <filename>  - S-parameters এর S1P ফাইল লিখুন\n"
-"  --write-s2p-max-gain    <filename>  - S2P ফাইল লিখুন, port-2 হল max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - S2P ফাইল লিখুন, port-2 হল viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - বিকিরণ প্যাটার্নের CSV লিখুন\n"
-"  --write-currents        <filename>  - কারেন্ট এবং চার্জের CSV লিখুন\n"
-"  --write-gnuplot-structure <filename> - gnuplot স্ট্রাকচার ফাইল লিখুন\n"
-"  --write-patch-currents  <filename>  - প্যাচ সারফেস কারেন্টের CSV লিখুন\n"
-"  --write-validation-dir <directory> - সম্পূর্ণ ভ্যালিডেশন ডেটা ট্রি লিখুন\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6036,45 +6142,45 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "থামুন: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "ফ্রিকোয়েন্সি লুপের সময় থামুন, ডেডলক প্রতিরোধ করা হয়েছে: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "প্রতি কাজে %d OpenMP থ্রেড ব্যবহার করা হচ্ছে (%d/%d CPUs)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f সেকেন্ড\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: ফাইল খুলতে ব্যর্থ: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "অপ্টিমাইজার লুপ অসম্পূর্ণ, মধ্যবর্তী রিড্র দমন করা হচ্ছে।\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  ব্যাকট্রেস:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6144,7 +6250,7 @@ msgstr "Ground_Parameters():গ্রাউন্ড প্যারামিট
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f সেকেন্ড। (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval: অজানা শ্রেণী %d ফেরত দিয়েছে\n"
@@ -6166,43 +6272,51 @@ msgstr "চাইল্ড %d ফর্কড কালেক্টের সম
 msgid "Failed to read data from forked child\n"
 msgstr "ফর্ক করা চাইল্ড থেকে ডেটা পড়তে ব্যর্থ\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz FR কার্ড পরিসরের বাইরে; %.4f MHz-এ পুনরায় সেট (VSWR %.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "অবৈধ ফ্রিকোয়েন্সি নির্বাচন মোড %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "নিকটতম ধাপ %g MHz অনুরোধকৃত %g MHz থেকে ভিন্ন\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "সুইপ-পরবর্তী ফ্রিকোয়েন্সি %.4f MHz-এ নির্ধারিত (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "ফ্রিকোয়েন্সি লুপ অতিবাহিত সময়: %f সেকেন্ড। (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "বিকিরণ প্যাটার্ন PNG ক্যাপচার: %s-এর জন্য কোনো গণিতকৃত ধাপ নেই\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s-এর জন্য বিকিরণ প্যাটার্ন PNG ক্যাপচার ব্যর্থ হয়েছে\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s-এর জন্য বিকিরণ প্যাটার্ন PNG সংরক্ষণ ব্যর্থ হয়েছে: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "বিকিরণ প্যাটার্ন PNG লেখা হয়েছে: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "একাধিক বিকিরণ প্যাটার্ন PNG বিন্যাসের জন্য একটি .png ফাইলনাম প্রয়োজন: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread শুরু করতে ব্যর্থ\n"

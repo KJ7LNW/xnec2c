@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2547,6 +2547,258 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Εμπέδηση Γραμμής Μεταφοράς (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "Χρήση: xnec2c [επιλογές] [<input-file-name>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "Αρχείο εισόδου NEC2 για άνοιγμα"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "το αρχείο πρέπει να υπάρχει"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "δημιουργεί το αρχείο όταν λείπει"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "θυγατρικές διεργασίες; το 0 απενεργοποιεί το fork"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr ""
+"ενεργοποίηση λειτουργίας δέσμης, έξοδος μετά την εκτέλεση του βρόχου "
+"συχνότητας"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr ""
+"η λειτουργία δέσμης ενεργοποιήθηκε, θα γίνει έξοδος μετά τον πρώτο βρόχο\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "απενεργοποίηση pthreads και χρήση του βρόχου GTK για αποσφαλμάτωση"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "Ο βρόχος συχνότητας pthread απενεργοποιήθηκε!\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "εκτύπωση πληροφοριών χρήσης και έξοδος"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "εκτύπωση αριθμού έκδοσης xnec2c και έξοδος"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "αύξηση λεπτομέρειας εξόδου, μπορεί να καθοριστεί πολλές φορές"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "ενεργοποίηση εξόδου αποσφαλμάτωσης (-dd περιλαμβάνει ίχνη στοίβας)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "καταστολή εξόδου αποσφαλμάτωσης/λεπτομερειών"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "Αριθμός νημάτων OpenBLAS"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "Αριθμός νημάτων Intel MKL"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "Αριθμός νημάτων OpenMP"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "άμεση ενεργοποίηση του βελτιστοποιητή"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "παράλειψη ελέγχων επαλήθευσης γεωμετρίας"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "ο έλεγχος επαλήθευσης segments απενεργοποιήθηκε\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "εξαναγκασμός ελέγχου επικάλυψης σε μεγάλα μοντέλα (>1000 Τμήματα)"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "επιβολή ελέγχου επικάλυψης σε μεγάλα μοντέλα\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr "αναφορά ενεργών byte του διαχειριζόμενου εκχωρητή ανά θέση κλήσης"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "ενεργοποιήθηκε αναφορά διαρροών διαχειριζόμενου allocator\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"Τα ακόλουθα ορίσματα γράφουν σε αρχείο εξόδου μετά την ολοκλήρωση του βρόχου "
+"συχνότητας.  Είναι χρήσιμο να συνδυάζονται με --batch; αν καθοριστούν "
+"ονόματα αρχείων χωρίς --batch, ενεργοποιήστε File->Optimizer Settings, "
+"αλλιώς δεν θα γραφτούν."
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "εγγραφή αρχείου CSV μετρήσεων"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "εγγραφή αρχείου S1P με S-parameters"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "εγγραφή αρχείου S2P, η θύρα-2 είναι μέγιστο κέρδος"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "εγγραφή αρχείου S2P, η θύρα-2 είναι κέρδος σημείου θέασης"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "εγγραφή CSV του διαγράμματος ακτινοβολίας"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "εγγραφή CSV ρευμάτων και φορτίων"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "εγγραφή αρχείου δομής gnuplot"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "εγγραφή CSV επιφανειακών ρευμάτων Patch"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "εγγραφή πλήρους δέντρου δεδομένων επικύρωσης"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "εγγραφή PNG του διαγράμματος ακτινοβολίας"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "προβολές x, y, z, iso ή quad"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"επιλεγμένη συχνότητα μετά τη σάρωση· αν απουσιάζει, διατηρεί την προηγούμενη "
+"αποθηκευμένη συχνότητα ή το κέντρο αν δεν υπάρχει"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "η διαδρομή αρχείου ρυθμίσεων είναι πολύ μεγάλη\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "Εντοπίστηκαν %d επεξεργαστές\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr ""
+"Η καταχώριση χρήσης --%s επαναλαμβάνει το αναγνωριστικό επιλογής του --%s\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr ""
+"Η καταχώριση χρήσης --%s φέρει αναγνωριστικό επιλογής %d εκτός του 1..%d\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "η εγγραφή χρήσης --%s δεν φέρει κείμενο βοήθειας\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr "η εγγραφή χρήσης --%s ορίζει προεπιλεγμένο όρισμα που δεν δέχεται\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr ""
+"Η καταχώριση χρήσης --%s επιλύει μια προεπιλογή που δηλώνει η μεταβλητή της\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "η εγγραφή χρήσης --%s δεν φέρει εφαρμοστή\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "η εγγραφή χρήσης %zu φέρει πεδία επιλογής χωρίς όνομα\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (προεπιλογή: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "μη έγκυρος επιλογέας συχνότητας: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "το --%s απαιτεί ακέραιο όρισμα %d ή μεγαλύτερο\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "το όρισμα --%s είναι υπερβολικά μεγάλο ( > %d χαρακτήρες )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "το αρχείο ρυθμίσεων δεν υπάρχει ή δεν είναι αναγνώσιμο: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "Η διακλάδωση απενεργοποιήθηκε!\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "μη έγκυρη μορφή PNG διαγράμματος ακτινοβολίας: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3659,14 +3911,6 @@ msgstr ""
 "Τα έγκυρα tags στη γεωμετρία σας είναι αυτά που έχουν εκχωρηθεί σε κάρτες GW/"
 "GA/GH/SP."
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "οι γωνίες τετραπλεύρου: το patch δεν βρίσκεται σε επίπεδο\n"
@@ -4485,8 +4729,8 @@ msgstr "αποτυχία προσθήκης αντικειμένων στον bu
 msgid "Listing Object Ids:\n"
 msgstr "Λίστα αναγνωριστικών αντικειμένων:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4509,143 +4753,88 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: αποτυχία φόρτωσης animate.glade: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "το %s απαιτεί θετικό ακέραιο όρισμα\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "Εντοπίστηκαν %d επεξεργαστές\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Εντοπίστηκε σύστημα παραθύρων %s\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "η διαδρομή αρχείου ρυθμίσεων είναι πολύ μεγάλη\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "το αρχείο ρυθμίσεων δεν υπάρχει ή δεν είναι αναγνώσιμο: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "η διαδρομή αρχείου ρυθμίσεων είναι πολύ μεγάλη ( > %d χαρακτήρες )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "το όνομα αρχείου εισόδου είναι πολύ μεγάλο ( > %d χαρακτήρες )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "Η διακλάδωση απενεργοποιήθηκε!\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "Ο βρόχος συχνότητας pthread απενεργοποιήθηκε!\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr ""
-"η λειτουργία δέσμης ενεργοποιήθηκε, θα γίνει έξοδος μετά τον πρώτο βρόχο\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "ο έλεγχος επαλήθευσης segments απενεργοποιήθηκε\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "επιβολή ελέγχου επικάλυψης σε μεγάλα μοντέλα\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "μη έγκυρη μορφή PNG διαγράμματος ακτινοβολίας: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "ενεργοποιήθηκε αναφορά διαρροών διαχειριζόμενου allocator\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "οι επιλογές --batch και --optimize είναι αμοιβαία αποκλειόμενες.\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "το --write-rdpat-png απαιτεί --batch\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "η διαδρομή αρχείου εισόδου είναι πολύ μεγάλη ( > %d χαρακτήρες )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "το μη αναμενόμενο όρισμα '%s' δεν φαίνεται να είναι αρχείο .nec\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "μη αναμενόμενο όρισμα: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "η λειτουργία δέσμης απαιτεί αρχείο εισόδου\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "δεν είναι δυνατό το άνοιγμα οθόνης: απαιτείται ενεργή περίοδος λειτουργίας "
 "X11 ή Wayland\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "Διακλάδωση %d εργασιών.\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "έξοδος μετά από κρίσιμο σφάλμα: η pipe() απέτυχε"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "έξοδος μετά από κρίσιμο σφάλμα: η fork() απέτυχε"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "έξοδος μέσω διακοπής χρήστη\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "σφάλμα κατάτμησης, έξοδος\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "εξαίρεση κινητής υποδιαστολής, έξοδος\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "ελήφθη σήμα ματαίωσης, έξοδος\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "ελήφθη αίτημα τερματισμού, έξοδος\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "χωρίς διακλάδωση, αγνόηση SIGCHLD από pid %d\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "η θυγατρική διεργασία pid %d τερματίστηκε\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "προεπιλεγμένη έξοδος με σήμα: %d\n"
@@ -4667,7 +4856,7 @@ msgstr "open_mathlib: lib είναι NULL\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -6051,103 +6240,7 @@ msgstr "το θέμα '%s' δεν βρέθηκε, χρήση παλαιού\n"
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "το πλάτος '%s' δεν είναι έγκυρο, διατήρηση τρέχουσας τιμής\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"Χρήση: xnec2c [επιλογές] [<όνομα-αρχείου-εισόδου>]\n"
-"  -i|--input         <όνομα-αρχείου-εισόδου>\n"
-"  -c|--config        <διαδρομή-αρχείου-ρυθμίσεων>     - το αρχείο πρέπει να "
-"υπάρχει\n"
-"  -C|--new-config    <διαδρομή-νέου-αρχείου-ρυθμίσεων> - δημιουργεί το "
-"αρχείο αν λείπει\n"
-"  -j|--jobs  <αριθμός επεξεργαστών σε μηχανή SMP> (-j0 απενεργοποιεί το "
-"forking)\n"
-"     --openblas-threads <n>  ορισμός αριθμού νημάτων OpenBLAS (προεπιλογή: "
-"1)\n"
-"     --mkl-threads <n>       ορισμός αριθμού νημάτων Intel MKL (προεπιλογή: "
-"1)\n"
-"     --omp-threads <n>       ορισμός αριθμού νημάτων OpenMP (προεπιλογή: 1)\n"
-"  -b|--batch:        ενεργοποίηση λειτουργίας δέσμης, έξοδος μετά την "
-"εκτέλεση του βρόχου συχνότητας\n"
-"  -P|--no-pthreads:  απενεργοποίηση pthreads και χρήση του βρόχου GTK για "
-"αποσφαλμάτωση\n"
-"  -h|--help:         εμφάνιση πληροφοριών χρήσης και έξοδος\n"
-"  -V|--version:      εμφάνιση αριθμού έκδοσης xnec2c και έξοδος\n"
-"  -v|--verbose:      αύξηση λεπτομέρειας, μπορεί να καθοριστεί πολλές φορές\n"
-"  -d|--debug:        ενεργοποίηση εξόδου αποσφαλμάτωσης (-dd περιλαμβάνει "
-"backtraces)\n"
-"  -d|--quiet:        καταστολή εξόδου αποσφαλμάτωσης/λεπτομέρειας\n"
-"\n"
-"  --optimize:        Ενεργοποίηση του βελτιστοποιητή αμέσως.\n"
-"  --skip-verify:     παράλειψη ελέγχων επαλήθευσης γεωμετρίας\n"
-"  --mem-report:      αναφορά live bytes διαχειριζόμενου allocator ανά θέση "
-"κλήσης\n"
-"\n"
-"Τα ακόλουθα ορίσματα γράφουν σε αρχείο εξόδου μετά την ολοκλήρωση του "
-"βρόχου\n"
-"συχνότητας.  Αυτά είναι χρήσιμα σε συνδυασμό με --batch· Αν θέλετε να "
-"καθορίσετε\n"
-"ονόματα αρχείων για εγγραφή χωρίς λειτουργία --batch τότε ενεργοποιήστε τις "
-"Ρυθμίσεις\n"
-"Βελτιστοποιητή από το μενού Αρχείο διαφορετικά τα αρχεία που καθορίζετε στη "
-"γραμμή\n"
-"εντολών δεν θα εγγραφούν.\n"
-"\n"
-"  --write-csv             <όνομα αρχείου>  - εγγραφή αρχείου CSV μετρήσεων\n"
-"  --write-s1p             <όνομα αρχείου>  - εγγραφή αρχείου S1P παραμέτρων "
-"S\n"
-"  --write-s2p-max-gain    <όνομα αρχείου>  - εγγραφή αρχείου S2P, η θύρα-2 "
-"είναι μέγιστο κέρδος\n"
-"  --write-s2p-viewer-gain <όνομα αρχείου>  - εγγραφή αρχείου S2P, η θύρα-2 "
-"είναι κέρδος παρατηρητή\n"
-"  --write-rdpat           <όνομα αρχείου>  - εγγραφή CSV διαγράμματος "
-"ακτινοβολίας\n"
-"  --write-currents        <όνομα αρχείου>  - εγγραφή CSV ρευμάτων και "
-"φορτίων\n"
-"  --write-gnuplot-structure <όνομα αρχείου> - εγγραφή αρχείου δομής gnuplot\n"
-"  --write-patch-currents  <όνομα αρχείου>  - εγγραφή CSV ρευμάτων "
-"επιφανειακών patch\n"
-"  --write-validation-dir <κατάλογος> - εγγραφή πλήρους δέντρου δεδομένων "
-"επικύρωσης\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6160,47 +6253,47 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "Διακοπή: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Διακοπή κατά τον βρόχο συχνότητας, αποτράπηκε αδιέξοδο: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "χρήση %d νημάτων OpenMP ανά εργασία (%d/%d CPUs)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f δευτερόλεπτα\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Αποτυχία ανοίγματος αρχείου: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr ""
 "Ο βρόχος βελτιστοποίησης είναι ημιτελής, παράλειψη ενδιάμεσης "
 "επανασχεδίασης.\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  Backtrace:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6273,7 +6366,7 @@ msgstr "Ground_Parameters():Σφάλμα στις παραμέτρους γεί�
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f δευτερόλεπτα. (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval επέστρεψε άγνωστη κλάση %d\n"
@@ -6296,46 +6389,53 @@ msgstr ""
 msgid "Failed to read data from forked child\n"
 msgstr "Αποτυχία ανάγνωσης δεδομένων από διακλαδωμένη θυγατρική διεργασία\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz εκτός εύρους κάρτας FR· επαναφορά στα %.4f MHz (VSWR "
-"%.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "μη έγκυρη λειτουργία επιλογής συχνότητας %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "το πλησιέστερο βήμα %g MHz διαφέρει από το ζητούμενο %g MHz\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "η συχνότητα μετά τη σάρωση ορίστηκε σε %.4f MHz (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Χρόνος εκτέλεσης βρόχου συχνότητας: %f δευτερόλεπτα. (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "λήψη PNG διαγράμματος ακτινοβολίας: δεν υπολογίστηκε βήμα για %s\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "αποτυχία λήψης PNG διαγράμματος ακτινοβολίας για %s\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "αποτυχία αποθήκευσης PNG διαγράμματος ακτινοβολίας για %s: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "εγγράφηκε PNG διαγράμματος ακτινοβολίας: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "πολλαπλές μορφές PNG διαγράμματος ακτινοβολίας απαιτούν όνομα αρχείου .png: "
 "%s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "αποτυχία εκκίνησης Frequency_Loop_Thread\n"

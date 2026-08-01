@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2026-05-25 01:51-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2516,6 +2516,251 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "د انتقالي کرښې امپیدنس (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "کارونه: xnec2c [غوراوي] [<د ننوت دوتنې نوم>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "د پرانیستلو لپاره د NEC2 ننوت دوتنه"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "دوتنه باید موجوده وي"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "که ورکه وي، دوتنه جوړوي"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "د ماشوم بهیرونه؛ 0 فورک کول غیرفعالوي"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "بیچ حالت فعالوي، د فریکونسۍ د کړۍ تر چلېدو وروسته وځي"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "بیچ حالت فعال دی، د لومړي لوپ وروسته به وتل کیږي\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "pthreads غیرفعالوي او د GTK کړۍ د ډیبګ لپاره کاروي"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop غیر فعال دی!\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "د کارونې معلومات چاپوي او وځي"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "د xnec2c نسخه شمېره چاپوي او وځي"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "تفصیل زیاتوي، څو ځله ټاکل کېدای شي"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "د ډیبګ وتۍ فعالوي (-dd بیک‌ټریسونه لري)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "د ډیبګ/تفصیلي وتۍ ځپي"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "د OpenBLAS تريډ شمېر"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "د Intel MKL تريډ شمېر"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "د OpenMP تريډ شمېر"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "اپتیمایزر سمدستي فعالوي"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "د جیومیتري تایید پلټنې پرېږدي"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "د برخو تصدیق ازموینه غیر فعاله ده\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "په لویو ماډلونو (>1000 سیګمنټ) کې د پاس‌پاسه کېدو پلټنه جبري کوي"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "لویو ماډلونو کې د پوښنې ازموینه مجبوروي\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr "د هر غږ ځای لپاره د مدیریت شوي تخصیص کوونکي فعال بایټونه راپوروي"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "د مدیریت شوي مختص کوونکي د لیکیدلو راپور فعال دی\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"لاندې ارګومېنټونه د فریکونسۍ د کړۍ تر بشپړېدو وروسته یوې وتۍ دوتنې ته لیکي۔ "
+"دا له --batch سره یوځای ګټور دي؛ که دوتنې نومونه له --batch پرته ټاکل شوي "
+"وي، File->Optimizer Settings فعال کړئ، که نه ونه لیکل شي۔"
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "د اندازه‌ګیرو CSV دوتنه لیکي"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "د S-parameters S1P دوتنه لیکي"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "د S2P دوتنه لیکي، port-2 اعظمي ګټه ده"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "د S2P دوتنه لیکي، port-2 د لیدونکي ګټه ده"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "د تشعشع نمونې CSV لیکي"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "د جریانونو او چارجونو CSV لیکي"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "د gnuplot جوړښت دوتنه لیکي"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "د پیچ سطحې جریانونو CSV لیکي"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "د بشپړې اعتبارسنجونې د معلوماتو ونه لیکي"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "د تشعشع نمونې PNG لیکي"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "x، y، z، iso، یا quad لیدونه"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"له سویپ وروسته ټاکل شوې فریکونسي؛ که نه وي، پخوانۍ خوندي شوې فریکونسي ساتي، "
+"یا که هېڅ نه وي مرکز کاروي"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "د ترتیب فایل لار خورا اوږده ده\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "%d CPUونه وموندل شول\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr "د کارونې ننوتنه --%s د --%s غوراوي پېژند تکراروي\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr "د کارونې ننوتنه --%s د غوراوي پېژند %d د 1..%d څخه بهر لري\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "د کارونې ننوتنه --%s د مرستې متن لري نه\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr "د کارونې ننوتنه --%s هغه ارګومېنټ ډیفالټ کوي چې نه یې مني\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr "د کارونې ننوتنه --%s یو ډیفالټ حل کوي چې متغیر یې څرګندوي\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "د کارونې ننوتنه --%s پلي کوونکی لري نه\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "د کارونې ننوتنه %zu له نوم پرته د غوراوي ساحې لري\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (ډیفالټ: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "د فریکونسۍ ټاکونکی ناسم دی: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%s د %d یا تر هغه ډېر بشپړ ارګومېنټ غواړي\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "د --%s ارګومېنټ ډېر اوږد دی ( > %d توري )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "د ترتیب فایل شتون نه لري یا لوستل نه کیږي: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "فورکینګ غیر فعال دی!\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "د تشعشع نمونې PNG بڼه ناسمه ده: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3604,14 +3849,6 @@ msgstr ""
 "تاسو د کنټرول کارډ کې یو نامعلوم ټاګ یا برخه ته اشاره کوئ.\n"
 "ستاسو د جیومیتري کې سم ټاګونه هغه دي چې GW/GA/GH/SP کارډونو ته ټاکل شوي."
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "د چهارضلعي کنجونه: پیچ یوه سطحه کې نه دي\n"
@@ -4405,8 +4642,8 @@ msgstr "جوړونکي ته د آبجیکټونو اضافه کول ناکام �
 msgid "Listing Object Ids:\n"
 msgstr "د آبجیکټ IDونه لیست کول:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4428,140 +4665,86 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: د animate.glade بارول ناکام شو: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%s مثبت ټاکلی عدد استدلال ته اړتیا لري\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "%d CPUونه وموندل شول\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s د کړکۍ بیک-اینډ وموندل شو\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "د ترتیب فایل لار خورا اوږده ده\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "د ترتیب فایل شتون نه لري یا لوستل نه کیږي: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "د ترتیب فایل لار خورا اوږده ده ( > %d توري )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "د ننوتلو فایل نوم خورا اوږد دی ( > %d توري )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "فورکینګ غیر فعال دی!\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread freqloop غیر فعال دی!\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "بیچ حالت فعال دی، د لومړي لوپ وروسته به وتل کیږي\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "د برخو تصدیق ازموینه غیر فعاله ده\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "لویو ماډلونو کې د پوښنې ازموینه مجبوروي\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "د تشعشع نمونې PNG بڼه ناسمه ده: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "د مدیریت شوي مختص کوونکي د لیکیدلو راپور فعال دی\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch او --optimize سره بل سره ناسازګار دي.\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-png --batch غواړي\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "د ننوتلو فایل د لارې نوم خورا اوږد دی ( > %d توري )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "بې تمه استدلال '%s' د .nec فایل ښکاره نه کیږي\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "بې تمه استدلال: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "بیچ حالت د ننوتلو فایل ته اړتیا لري\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "ښودنه نه شي خلاصیدلی: د X11 یا Wayland روانه غونډه اړینه ده\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "%d دندې فورک کیږي.\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "د مهلکې تېروتنې وروسته وتل: pipe() ناکام شو"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "د مهلکې تېروتنې وروسته وتل: fork() ناکام شو"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "د کارونکي د مداخلې له لارې وتل\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "د حافظې غلطي، وتل\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "د شناور ټکي استثناء، وتل\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "د منقطع کولو سیګنل ترلاسه شو، وتل\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "د پای کولو غوښتنه ترلاسه شوه، وتل\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "فورک شوی نه دی، د pid %d نه SIGCHLD له پامه غورځول کیږي\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "د ماشوم پروسس pid %d ووت\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "د ډیفالټ وتل د سیګنل سره: %d\n"
@@ -4583,7 +4766,7 @@ msgstr "open_mathlib: lib NULL دی\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -5941,85 +6124,7 @@ msgstr "تیم '%s' ونه موندل شو، میراثي کارول کیږي\n"
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "پلنوالی '%s' ناسم دی، اوسنی ارزښت ساتل کیږي\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"کارونه: xnec2c [اختیارونه] [<د ننوتلو-فایل-نوم>]\n"
-"  -i|--input         <د ننوتلو-فایل-نوم>\n"
-"  -c|--config        <د ترتیب-فایل-لاره>     - فایل باید شتون ولري\n"
-"  -C|--new-config    <د نوي-ترتیب-فایل-لاره> - که نشته نو فایل جوړوي\n"
-"  -j|--jobs  <د SMP ماشین کې د پروسیسرونو شمیر> (-j0 فورکینګ غیر فعالوي)\n"
-"     --openblas-threads <n>  د OpenBLAS د تریډونو شمیر ټاکي (ډیفالټ: 1)\n"
-"     --mkl-threads <n>       د Intel MKL د تریډونو شمیر ټاکي (ډیفالټ: 1)\n"
-"     --omp-threads <n>       د OpenMP د تریډونو شمیر ټاکي (ډیفالټ: 1)\n"
-"  -b|--batch:        د بیچ حالت فعالوي، د فریکونسۍ حلقه وروسته وځي\n"
-"  -P|--no-pthreads:  pthreads غیر فعالوي او د ډیباګ لپاره GTK حلقه کاروي\n"
-"  -h|--help:         د کارولو معلومات چاپ کوي او وځي\n"
-"  -V|--version:      د xnec2c نسخه شمیره چاپ کوي او وځي\n"
-"  -v|--verbose:      تفصیل زیاتوي، کیدای شي ډیری ځله مشخص شي\n"
-"  -d|--debug:        د ډیباګ محصول فعالوي (-dd د بیک ټریسونو سره)\n"
-"  -d|--quiet:        د ډیباګ/تفصیل محصول مخنیوی کوي\n"
-"\n"
-"  --optimize:        اپتیمایزر سمدلاسه فعالوي.\n"
-"  --skip-verify:     د جیومیټري تصدیق چیکونه پریږدي\n"
-"  --mem-report:      د هر کال سایټ لپاره د مدیریت شوي اختصاص کوونکي ژوندي "
-"بایټونه راپور ورکوي\n"
-"\n"
-"لاندې دلیلونه د فریکونسۍ حلقه بشپړیدو وروسته محصول فایل ته لیکي.\n"
-"دا د --batch سره یوځای کارولو لپاره ګټور دي؛ که تاسو غواړئ\n"
-"د --batch حالت پرته د فایل نومونه ولیکئ نو File->Optimizer\n"
-"Settings فعال کړئ که نه هغه فایلونه چې تاسو د کمانډ کرښه کې ټاکئ نه لیکل "
-"کیږي.\n"
-"\n"
-"  --write-csv             <فایل نوم>  - د اندازه کولو CSV فایل لیکي\n"
-"  --write-s1p             <فایل نوم>  - د S-پیرامیټرونو S1P فایل لیکي\n"
-"  --write-s2p-max-gain    <فایل نوم>  - S2P فایل لیکي، port-2 اعظمي-ګټه دی\n"
-"  --write-s2p-viewer-gain <فایل نوم>  - S2P فایل لیکي، port-2 لیدونکي-ګټه "
-"دی\n"
-"  --write-rdpat           <فایل نوم>  - د وړانګو نمونې CSV لیکي\n"
-"  --write-currents        <فایل نوم>  - د جریانونو او بارونو CSV لیکي\n"
-"  --write-gnuplot-structure <فایل نوم> - د gnuplot جوړښت فایل لیکي\n"
-"  --write-patch-currents  <فایل نوم>  - د پیچ سطحي جریانونو CSV لیکي\n"
-"  --write-validation-dir <لارښود> - د بشپړ تایید ډاټا ونه لیکي\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6032,45 +6137,45 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "ودریدل: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "د فریکونسۍ حلقې پرمهال ودریدل، ډیډلاک مخنیوی شو: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "د هر کار لپاره %d OpenMP تریډونه کارول کیږي (%d/%d CPUs)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f ثانیې\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: فایل پرانستل ناکام شو: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "د اپتیمایزر حلقه نامکمله ده، منځمهاله بیا رسمول مخنیوی کیږي.\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  بیک ټریس:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6138,7 +6243,7 @@ msgstr "Ground_Parameters(): د ځمکني پیرامیټرونو کې غلطي"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f ثانیې. (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval ناپیژندلی کلاس %d بیرته راستانه کړ\n"
@@ -6158,44 +6263,51 @@ msgstr "فرعي پروسه %d د فورک شوي راټولولو پرمهال 
 msgid "Failed to read data from forked child\n"
 msgstr "د فورک شوي فرعي پروسې نه ډاټا لوستل ناکام شو\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz د FR کارت سلسلو بهر دی؛ %.4f MHz ته بیاتنظیم شو (VSWR "
-"%.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "د فریکونسۍ د ټاکنې حالت ناسم دی %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "تر ټولو نږدې ګام %g MHz له غوښتل شوي %g MHz سره توپیر لري\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "له سویپ وروسته فریکونسي %.4f MHz ته وټاکل شوه (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "د فریکونسۍ حلقې تیر شوی وخت: %f ثانیې. (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "د تشعشع نمونې PNG اخیستنه: د %s لپاره هېڅ محاسبه شوی ګام نشته\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "د %s لپاره د تشعشع نمونې PNG اخیستل ناکام شول\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "د %s لپاره د تشعشع نمونې PNG ساتل ناکام شول: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "د تشعشع نمونې PNG ولیکل شو: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "د تشعشع نمونې ډېری PNG بڼو ته د .png فایل نوم اړین دی: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread پیل کول ناکام شو\n"

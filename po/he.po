@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2507,6 +2507,251 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "עכבת קו תמסורת (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "שימוש: xnec2c [אפשרויות] [<שם־קובץ־קלט>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "קובץ קלט NEC2 לפתיחה"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "הקובץ חייב להתקיים"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "יצירת הקובץ כאשר הוא חסר"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "תהליכי־בן; 0 משבית fork"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "הפעלת מצב־אצווה, יציאה לאחר הפעלת לולאת התדר"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "מצב אצווה מופעל, ייצא לאחר לולאה ראשונה\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "השבתת pthreads ושימוש בלולאת GTK לניפוי שגיאות"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop מושבת!\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "הדפסת מידע שימוש ויציאה"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "הדפסת מספר גרסת xnec2c ויציאה"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "הגדלת רמת הפירוט, ניתן לציין מספר פעמים"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "הפעלת פלט ניפוי שגיאות (-dd כולל עקבות מחסנית)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "דיכוי פלט ניפוי שגיאות/מפורט"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "מספר תהליכוני OpenBLAS"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "מספר תהליכוני Intel MKL"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "מספר תהליכוני OpenMP"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "הפעלת הממטב מיידית"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "דילוג על בדיקות אימות גאומטריה"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "בדיקת אימות מקטעים מושבתת\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "אילוץ בדיקת חפיפה במודלים גדולים (>1000 מקטעים)"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "מכריח בדיקת חפיפה על מודלים גדולים\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr "דיווח על בתים חיים של המקצה המנוהל לכל אתר קריאה"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "דוח זליגת מקצה מנוהל מופעל\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"הארגומנטים הבאים כותבים לקובץ פלט לאחר השלמת לולאת התדר.  שימושי לשלבם עם --"
+"batch; אם מצוינים שמות קבצים ללא --batch, יש להפעיל File->Optimizer "
+"Settings, אחרת הם לא ייכתבו."
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "כתיבת קובץ CSV של מדידות"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "כתיבת קובץ S1P של S-parameters"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "כתיבת קובץ S2P, פורט-2 הוא הגבר מרבי"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "כתיבת קובץ S2P, פורט-2 הוא הגבר הצופה"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "כתיבת CSV של תבנית הקרינה"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "כתיבת CSV של זרמים ומטענים"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "כתיבת קובץ מבנה gnuplot"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "כתיבת CSV של זרמי פני טלאי"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "כתיבת עץ נתוני אימות מלא"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "כתיבת PNG של תבנית הקרינה"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "תצוגות x, y, z, iso או quad"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"תדר נבחר לאחר סריקה; בהיעדרו, שמירת התדר הקודם שנשמר, או התדר המרכזי אם אין "
+"כזה"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "נתיב קובץ תצורה ארוך מדי\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "זוהו %d מעבדים\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr "רשומת השימוש --%s חוזרת על מזהה האפשרות של --%s\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr "רשומת השימוש --%s נושאת מזהה אפשרות %d מחוץ לטווח 1..%d\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "רשומת השימוש --%s אינה כוללת טקסט עזרה\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr "רשומת השימוש --%s מגדירה ערך ברירת מחדל לארגומנט שאינה מקבלת\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr "רשומת השימוש --%s פותרת ברירת מחדל שהמשתנה שלה מצהיר עליה\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "רשומת השימוש --%s אינה כוללת מחיל\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "רשומת השימוש %zu כוללת שדות אפשרות ללא שם\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (ברירת מחדל: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "בורר תדר לא תקין: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%s דורש ארגומנט של מספר שלם בערך %d או יותר\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "הארגומנט של --%s ארוך מדי ( > %d תווים )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "קובץ תצורה לא קיים או לא ניתן לקריאה: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "פיצול (Forking) מושבת!\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "פורמט PNG של תבנית קרינה לא תקין: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3590,14 +3835,6 @@ msgstr ""
 "אתה מפנה לתגית או מקטע לא ידועים בכרטיס בקרה.\n"
 "תגיות חוקיות בגאומטריה שלך הן אלה שהוקצו לכרטיסי GW/GA/GH/SP."
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "פינות טלאי מרובע אינן נמצאות במישור אחד\n"
@@ -4378,8 +4615,8 @@ msgstr "נכשלה הוספת אובייקטים ל-builder: %s\n"
 msgid "Listing Object Ids:\n"
 msgstr "רשימת מזהי אובייקטים:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4400,140 +4637,86 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: נכשלה טעינת animate.glade: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%s דורש ארגומנט מספר שלם חיובי\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "זוהו %d מעבדים\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "זוהה ממשק חלונות %s\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "נתיב קובץ תצורה ארוך מדי\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "קובץ תצורה לא קיים או לא ניתן לקריאה: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "נתיב קובץ תצורה ארוך מדי ( > %d תווים )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "שם קובץ קלט ארוך מדי ( > %d תווים )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "פיצול (Forking) מושבת!\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread freqloop מושבת!\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "מצב אצווה מופעל, ייצא לאחר לולאה ראשונה\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "בדיקת אימות מקטעים מושבתת\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "מכריח בדיקת חפיפה על מודלים גדולים\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "פורמט PNG של תבנית קרינה לא תקין: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "דוח זליגת מקצה מנוהל מופעל\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch ו--optimize הם בלעדיים הדדית.\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-png דורש --batch\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "נתיב שם קובץ קלט ארוך מדי ( > %d תווים )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "ארגומנט בלתי צפוי '%s' לא נראה כקובץ .nec\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "ארגומנט בלתי צפוי: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "מצב אצווה דורש קובץ קלט\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "לא ניתן לפתוח תצוגה: נדרש סשן X11 או Wayland פעיל\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "מפצל %d משימות.\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "יוצא לאחר שגיאה חמורה: pipe() נכשל"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "יוצא לאחר שגיאה חמורה: fork() נכשל"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "יציאה באמצעות הפסקת משתמש\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "שגיאת סגמנטציה, יוצא\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "חריגת נקודה צפה, יוצא\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "התקבל אות ביטול, יוצא\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "התקבלה בקשת סיום, יוצא\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "לא בוצע fork, מתעלם מ-SIGCHLD מ-pid %d\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "תהליך בן pid %d יצא\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "יציאת ברירת מחדל עם אות: %d\n"
@@ -4555,7 +4738,7 @@ msgstr "open_mathlib: lib הוא NULL\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -5905,84 +6088,7 @@ msgstr "ערכת נושא '%s' לא נמצאה, משתמש במדור קודם\n
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "רוחב '%s' לא חוקי, שומר על הערך הנוכחי\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"שימוש: xnec2c [אפשרויות] [<שם-קובץ-קלט>]\n"
-"  -i|--input         <שם-קובץ-קלט>\n"
-"  -c|--config        <נתיב-קובץ-תצורה>     - הקובץ חייב להתקיים\n"
-"  -C|--new-config    <נתיב-קובץ-תצורה-חדש> - יוצר את הקובץ כאשר חסר\n"
-"  -j|--jobs  <מספר מעבדים במכונת SMP> (-j0 משבית forking)\n"
-"     --openblas-threads <n>  הגדר מספר תהליכונים של OpenBLAS (ברירת מחדל: "
-"1)\n"
-"     --mkl-threads <n>       הגדר מספר תהליכונים של Intel MKL (ברירת מחדל: "
-"1)\n"
-"     --omp-threads <n>       הגדר מספר תהליכונים של OpenMP (ברירת מחדל: 1)\n"
-"  -b|--batch:        הפעל מצב אצווה, צא לאחר סיום לולאת התדר\n"
-"  -P|--no-pthreads:  השבת pthreads והשתמש בלולאת GTK לניפוי שגיאות\n"
-"  -h|--help:         הדפס מידע שימוש וצא\n"
-"  -V|--version:      הדפס מספר גרסת xnec2c וצא\n"
-"  -v|--verbose:      הגבר פירוט, ניתן לציין מספר פעמים\n"
-"  -d|--debug:        הפעל פלט ניפוי שגיאות (-dd כולל מעקב קריאות)\n"
-"  -d|--quiet:        השתק פלט ניפוי/פירוט\n"
-"\n"
-"  --optimize:        הפעל את המייעל מיד.\n"
-"  --skip-verify:     דלג על בדיקות אימות גאומטריה\n"
-"  --mem-report:      דווח על בייטים חיים של מקצה מנוהל לכל אתר קריאה\n"
-"\n"
-"הארגומנטים הבאים כותבים לקובץ פלט לאחר השלמת לולאת התדר.\n"
-"אלה שימושיים בשילוב עם --batch; אם ברצונך לציין שמות קבצים\n"
-"לכתיבה ללא מצב --batch הפעל את File->Optimizer\n"
-"Settings אחרת הקבצים שציינת בשורת הפקודה לא ייכתבו.\n"
-"\n"
-"  --write-csv             <שם-קובץ>  - כתוב קובץ CSV של מדידות\n"
-"  --write-s1p             <שם-קובץ>  - כתוב קובץ S1P של S-parameters\n"
-"  --write-s2p-max-gain    <שם-קובץ>  - כתוב קובץ S2P, פורט-2 הוא הגבר מרבי\n"
-"  --write-s2p-viewer-gain <שם-קובץ>  - כתוב קובץ S2P, פורט-2 הוא הגבר צופה\n"
-"  --write-rdpat           <שם-קובץ>  - כתוב CSV של תבנית הקרינה\n"
-"  --write-currents        <שם-קובץ>  - כתוב CSV של זרמים ומטענים\n"
-"  --write-gnuplot-structure <שם-קובץ> - כתוב קובץ מבנה gnuplot\n"
-"  --write-patch-currents  <שם-קובץ>  - כתוב CSV של זרמי משטח טלאי\n"
-"  --write-validation-dir <תיקייה>  - כתוב עץ נתוני אימות מלא\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -5995,45 +6101,45 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "עצור: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "עצירה במהלך לולאת תדר, מניעת קפאון: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "משתמש ב-%d תהליכוני OpenMP לכל משימה (%d/%d מעבדים)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f שניות\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: נכשל בפתיחת קובץ: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "לולאת האופטימיזציה לא הושלמה, מונע ציור מחדש ביניים.\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  מעקב:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6098,7 +6204,7 @@ msgstr "Ground_Parameters(): שגיאה בפרמטרי הארקה"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f שניות. (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval החזיר מחלקה לא ידועה %d\n"
@@ -6118,42 +6224,51 @@ msgstr "תהליך בן %d כולל מתאר צינור לא תקין בעת א�
 msgid "Failed to read data from forked child\n"
 msgstr "נכשלה קריאת נתונים מתהליך בן\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr "fmhz_save %.4f MHz מחוץ לטווחי כרטיס FR; אופס ל-%.4f MHz (VSWR %.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "מצב בחירת תדר לא תקין %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "הצעד הקרוב ביותר %g MHz שונה מהמבוקש %g MHz\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "תדר לאחר סריקה הוגדר ל-%.4f MHz (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "זמן לולאת תדר שחלף: %f שניות. (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "לכידת PNG של תבנית קרינה: אין צעד מחושב עבור %s\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "לכידת PNG של תבנית קרינה נכשלה עבור %s\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "שמירת PNG של תבנית קרינה נכשלה עבור %s: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "נכתב PNG של תבנית קרינה: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "פורמטים מרובים של PNG של תבנית קרינה מחייבים שם קובץ .png: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "נכשל בהפעלת Frequency_Loop_Thread\n"

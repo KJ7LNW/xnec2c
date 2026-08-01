@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2537,6 +2537,253 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Ülekandeliini impedants (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "Kasutus: xnec2c [suvandid] [<sisendfaili-nimi>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "Avatav NEC2 sisendfail"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "fail peab olemas olema"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "loob faili, kui see puudub"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "alamprotsessid; 0 keelab fork-i"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "luba pakkrežiim, välju pärast sagedustsükli lõppu"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "pakkrežiim lubatud, väljutakse pärast esimest tsüklit\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "keela pthread-id ja kasuta silumiseks GTK tsüklit"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread sagedussilmus keelatud!\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "kuva kasutusteave ja välju"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "kuva xnec2c versiooninumber ja välju"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "suurenda üksikasjalikkust, saab määrata mitu korda"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "luba silumisväljund (-dd sisaldab tagasijälitusi)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "suru silumis- ja üksikasjalik väljund"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "OpenBLAS-i lõimede arv"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "Intel MKL-i lõimede arv"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "OpenMP lõimede arv"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "aktiveeri optimeerija kohe"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "jäta geomeetria kontrollid vahele"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "segmentide kontroll keelatud\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "sunni kattuvuse kontroll suurtes mudelites (>1000 segmenti)"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "suurte mudelite kattuvuse kontroll sunnitakse\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr "teata mäluhalduri aktiivsetest baitidest väljakutsekoha järgi"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "hallatava eraldaja lekke aruanne lubatud\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"Järgmised argumendid kirjutavad pärast sagedustsükli lõppu väljundfaili. "
+"Need on kasulikud koos --batch-ga; kui failinimed määratakse ilma --batch-"
+"ta, lubage File->Optimizer Settings, vastasel juhul neid ei kirjutata."
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "kirjuta mõõtmiste CSV-fail"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "kirjuta S-parameetrite S1P-fail"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "kirjuta S2P-fail, port-2 on maksimaalne võimendus"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "kirjuta S2P-fail, port-2 on vaataja võimendus"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "kirjuta kiirgusdiagrammi CSV"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "kirjuta voolude ja laengute CSV"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "kirjuta gnuplot-i struktuurifail"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "kirjuta pinnaplaatide pinnavoolude CSV"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "kirjuta täielik valideerimisandmete puu"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "kirjuta kiirgusdiagrammi PNG"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "x-, y-, z-, iso- või quad-vaated"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"pärast läbimist valitud sagedus; puudumisel säilita eelmine salvestatud "
+"sagedus või selle puudumisel keskväärtus"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "konfiguratsioonifaili tee on liiga pikk\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "Tuvastati %d protsessorit\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr "Kasutuskirje --%s kordab suvandi --%s ID-d\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr ""
+"Kasutuskirje --%s sisaldab suvandi ID-d %d, mis jääb vahemikust 1..%d välja\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "kasutuskirjel --%s puudub abitekst\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr ""
+"kasutuskirje --%s määrab vaikeväärtuse argumendile, mida see ei vastu võta\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr "Kasutuskirje --%s lahendab vaikeväärtuse, mille oleku määrab muutuja\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "kasutuskirjel --%s puudub rakendaja\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "kasutuskirjel %zu on nimeta suvandiväljad\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (vaikeväärtus: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "sobimatu sageduse valija: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%s nõuab täisarvulist argumenti väärtusega %d või rohkem\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "--%s argument on liiga pikk ( > %d märki )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "konfiguratsioonifail ei eksisteeri või ei ole loetav: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "Hargnemine keelatud!\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "vigane kiirgusdiagrammi PNG formaat: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3631,14 +3878,6 @@ msgstr ""
 "Kehtivad märgendid teie geomeetrias on need, mis on määratud GW/GA/GH/SP-"
 "kaartidele."
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "nelinurga nurgad: pind ei asu ühel tasandil\n"
@@ -4447,8 +4686,8 @@ msgstr "objektide lisamine ehitajasse ebaõnnestus: %s\n"
 msgid "Listing Object Ids:\n"
 msgstr "Objektide ID-de loend:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4471,140 +4710,86 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade laadimine ebaõnnestus: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%s nõuab positiivset täisarvu argumenti\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "Tuvastati %d protsessorit\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Tuvastati %s aknasüsteemi taustaprogramm\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "konfiguratsioonifaili tee on liiga pikk\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "konfiguratsioonifail ei eksisteeri või ei ole loetav: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "konfiguratsioonifaili tee on liiga pikk ( > %d märki )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "sisendfaili nimi on liiga pikk ( > %d märki )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "Hargnemine keelatud!\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread sagedussilmus keelatud!\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "pakkrežiim lubatud, väljutakse pärast esimest tsüklit\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "segmentide kontroll keelatud\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "suurte mudelite kattuvuse kontroll sunnitakse\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "vigane kiirgusdiagrammi PNG formaat: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "hallatava eraldaja lekke aruanne lubatud\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch ja --optimize on vastastikku välistavad.\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-png nõuab --batch\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "sisendfaili tee nimi on liiga pikk ( > %d märki )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "ootamatu argument '%s' ei näi olevat .nec fail\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "ootamatu argument: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "pakkrežiim nõuab sisendfaili\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "ekraani avamine ebaõnnestus: nõutav on töötav X11 või Wayland seanss\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "Hargneb %d tööd.\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "väljutakse pärast fataalset viga: pipe() ebaõnnestus"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "väljutakse pärast fataalset viga: fork() ebaõnnestus"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "väljutakse kasutaja katkestuse tõttu\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "segmenteerimisviga, väljutakse\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "ujukoma erand, väljumine\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "katkestussignaal vastu võetud, väljumine\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "lõpetamistaotlus vastu võetud, väljumine\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "pole hargnenud, ignoreeritakse SIGCHLD pid-lt %d\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "alamprotsess pid %d väljus\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "vaikimisi väljumine signaaliga: %d\n"
@@ -4626,7 +4811,7 @@ msgstr "open_mathlib: lib on NULL\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -6009,89 +6194,7 @@ msgstr "teemat '%s' ei leitud, kasutan pärandteemat\n"
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "laius '%s' on vigane, säilitan praeguse väärtuse\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"Kasutamine: xnec2c [valikud] [<sisendfaili-nimi>]\n"
-"  -i|--input         <sisendfaili-nimi>\n"
-"  -c|--config        <konfiguratsioonifaili-tee>     - fail peab olema "
-"olemas\n"
-"  -C|--new-config    <uue-konfiguratsioonifaili-tee> - loob faili, kui "
-"puudub\n"
-"  -j|--jobs  <protsessorite arv SMP masinas> (-j0 keelab hargnemise)\n"
-"     --openblas-threads <n>  määra OpenBLAS lõimede arv (vaikimisi: 1)\n"
-"     --mkl-threads <n>       määra Intel MKL lõimede arv (vaikimisi: 1)\n"
-"     --omp-threads <n>       määra OpenMP lõimede arv (vaikimisi: 1)\n"
-"  -b|--batch:        luba pakkrežiim, välju pärast sagedustsükli lõppu\n"
-"  -P|--no-pthreads:  keela pthreads ja kasuta silumiseks GTK tsüklit\n"
-"  -h|--help:         kuva kasutusteave ja välju\n"
-"  -V|--version:      kuva xnec2c versiooninumber ja välju\n"
-"  -v|--verbose:      suurenda üksikasjalikkust, saab määrata mitu korda\n"
-"  -d|--debug:        luba silumisväljund (-dd sisaldab tagasijälgi)\n"
-"  -d|--quiet:        summuta silumis-/üksikasjalik väljund\n"
-"\n"
-"  --optimize:        Aktiveeri optimeerija kohe.\n"
-"  --skip-verify:     jäta geomeetria kontroll vahele\n"
-"  --mem-report:      teatab hallatava eraldaja elusaid baite kutsekoha "
-"kohta\n"
-"\n"
-"Järgmised argumendid kirjutavad väljundfaili pärast sagedustsükli\n"
-"lõppu.  Need on kasulikud koos --batch valikuga; Kui soovite määrata\n"
-"failinimed kirjutamiseks ilma --batch režiimita, siis lubage Fail-"
-">Optimeerija\n"
-"seaded, vastasel juhul käsureal määratud faile ei kirjutata.\n"
-"\n"
-"  --write-csv             <failinimi>  - kirjuta mõõtmiste CSV-fail\n"
-"  --write-s1p             <failinimi>  - kirjuta S-parameetrite S1P-fail\n"
-"  --write-s2p-max-gain    <failinimi>  - kirjuta S2P-fail, port-2 on max-"
-"gain\n"
-"  --write-s2p-viewer-gain <failinimi>  - kirjuta S2P-fail, port-2 on viewer-"
-"gain\n"
-"  --write-rdpat           <failinimi>  - kirjuta kiirgusdiagrammi CSV\n"
-"  --write-currents        <failinimi>  - kirjuta voolude ja laengute CSV\n"
-"  --write-gnuplot-structure <failinimi> - kirjuta gnuplot struktuurifail\n"
-"  --write-patch-currents  <failinimi>  - kirjuta pinnvoolude CSV\n"
-"  --write-validation-dir <kataloog> - kirjuta täielik valideerimisandmete "
-"puu\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6104,46 +6207,46 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "Stopp: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Peatamine sagedustsükli ajal, tupik välditud: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "kasutatakse %d OpenMP lõime töö kohta (%d/%d CPU-d)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f sekundit\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Faili avamine ebaõnnestus: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr ""
 "Optimeerija tsükkel pooleli, struktuuri ümberjoonistamine vahele jäetud.\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  Tagasijälitus:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6216,7 +6319,7 @@ msgstr "Ground_Parameters():Viga maanduse parameetrites"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f sekundit. (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval tagastas tundmatu klassi %d\n"
@@ -6239,44 +6342,51 @@ msgstr ""
 msgid "Failed to read data from forked child\n"
 msgstr "Andmete lugemine hargnenud alamprotsessist ebaõnnestus\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz on väljaspool FR kaardi vahemikke; lähtestatud %.4f MHz-"
-"le (VSWR %.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "sobimatu sageduse valimise režiim %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "lähim samm %g MHz erineb soovitud väärtusest %g MHz\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "pärast läbimist määrati sageduseks %.4f MHz (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Sagedustsükli kulunud aeg: %f sekundit. (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "kiirgusdiagrammi PNG hõivamine: %s jaoks pole arvutatud sammu\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "kiirgusdiagrammi PNG hõivamine ebaõnnestus %s jaoks\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "kiirgusdiagrammi PNG salvestamine ebaõnnestus %s jaoks: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "kirjutati kiirgusdiagrammi PNG: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "mitu kiirgusdiagrammi PNG formaati nõuavad .png failinime: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread käivitamine ebaõnnestus\n"

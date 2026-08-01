@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2518,6 +2518,251 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "伝送線路インピーダンス (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "使用法: xnec2c [オプション] [<入力ファイル名>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "開くNEC2入力ファイル"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "ファイルが存在する必要があります"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "ファイルがない場合に作成します"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "子プロセス数; 0でフォークを無効化"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "バッチモードを有効化し、周波数ループの完了後に終了"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "バッチモードが有効です、最初のループ後に終了します\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "pthreadsを無効化し、デバッグにGTKループを使用"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloopが無効です！\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "使用情報を表示して終了"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "xnec2cのバージョン番号を表示して終了"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "詳細度を上げる（複数回指定可能）"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "デバッグ出力を有効化（-ddはバックトレースを含む）"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "デバッグ/詳細出力を抑制"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "OpenBLASスレッド数"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "Intel MKLスレッド数"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "OpenMPスレッド数"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "オプティマイザーを直ちに起動"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "ジオメトリ検証チェックを省略"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "セグメント検証チェックが無効です\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "大規模モデル（>1000セグメント）で重複チェックを強制"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "大規模モデルで重複チェックを強制します\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr "呼び出し箇所ごとの管理アロケータの使用中バイト数を報告"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "管理アロケータのリークレポートが有効です\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"次の引数は、周波数ループの完了後に出力ファイルへ書き込みます。--batchと組み合"
+"わせると有用です。--batchなしでファイル名を指定した場合は、File->Optimizer "
+"Settingsを有効にしないと書き込まれません。"
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "測定値のCSVファイルを書き込み"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "S-parametersのS1Pファイルを書き込み"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "S2Pファイルを書き込み、port-2は最大利得"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "S2Pファイルを書き込み、port-2はビューア利得"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "放射パターンのCSVを書き込み"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "電流と電荷のCSVを書き込み"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "gnuplot構造ファイルを書き込み"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "パッチ表面電流のCSVを書き込み"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "完全な検証データツリーを書き込み"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "放射パターンのPNGを書き込み"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "x、y、z、iso、またはquadビュー"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"スイープ後に選択する周波数; 未指定時は以前に保存した周波数を保持し、ない場合"
+"は中央周波数"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "設定ファイルのパスが長すぎます\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "%d個のCPUを検出しました\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr "使用エントリ--%sは--%sのオプションIDを繰り返しています\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr "使用エントリ--%sのオプションID %dは1..%dの範囲外です\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "使用エントリ--%sにヘルプテキストがありません\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr "使用エントリ--%sが受け取らない引数のデフォルト値を設定しています\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr "使用エントリ--%sは変数で指定されたデフォルトを解決します\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "使用エントリ--%sに適用関数がありません\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "使用エントリ%zuに名前のないオプションフィールドがあります\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s（デフォルト: %s）"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "無効な周波数セレクター: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%sには%d以上の整数引数が必要です\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "--%sの引数が長すぎます（> %d文字）\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "設定ファイルが存在しないか読み取れません: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "フォークが無効です！\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "無効な放射パターンPNG形式です: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3618,14 +3863,6 @@ msgstr ""
 "制御カードで不明なタグまたはセグメントを参照しています。\n"
 "ジオメトリ内の有効なタグはGW/GA/GH/SPカードに割り当てられたものです。"
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "四辺形パッチのコーナーが同一平面上にありません\n"
@@ -4421,8 +4658,8 @@ msgstr "ビルダーへのオブジェクト追加に失敗しました: %s\n"
 msgid "Listing Object Ids:\n"
 msgstr "オブジェクトIDの一覧:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4445,141 +4682,87 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade の読み込みに失敗しました: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%sには正の整数引数が必要です\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "%d個のCPUを検出しました\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s ウィンドウシステムバックエンドを検出しました\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "設定ファイルのパスが長すぎます\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "設定ファイルが存在しないか読み取れません: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "設定ファイルのパスが長すぎます ( > %d文字 )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "入力ファイル名が長すぎます ( > %d文字 )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "フォークが無効です！\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread freqloopが無効です！\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "バッチモードが有効です、最初のループ後に終了します\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "セグメント検証チェックが無効です\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "大規模モデルで重複チェックを強制します\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "無効な放射パターンPNG形式です: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "管理アロケータのリークレポートが有効です\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batchと--optimizeは相互排他的です。\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-pngには--batchが必要です\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "入力ファイルのパス名が長すぎます ( > %d文字 )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "予期しない引数'%s'は.necファイルではないようです\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "予期しない引数: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "バッチモードには入力ファイルが必要です\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "ディスプレイを開けません: 実行中の X11 または Wayland セッションが必要です\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "%d個のジョブをフォークしています。\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "致命的エラーのため終了: pipe()が失敗しました"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "致命的エラーのため終了: fork()が失敗しました"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "ユーザー割り込みにより終了します\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "セグメンテーション違反、終了します\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "浮動小数点例外、終了します\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "中止シグナルを受信、終了します\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "終了要求を受信、終了します\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "フォークされていません、pid %d からの SIGCHLD を無視します\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "子プロセス pid %d が終了しました\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "シグナル %d でデフォルト終了\n"
@@ -4601,7 +4784,7 @@ msgstr "open_mathlib: lib が NULL です\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -5969,89 +6152,7 @@ msgstr "テーマ '%s' が見つかりません。レガシーを使用します
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "幅 '%s' は無効です。現在の値を保持します\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"使用方法: xnec2c [オプション] [<入力ファイル名>]\n"
-"  -i|--input         <入力ファイル名>\n"
-"  -c|--config        <設定ファイルパス>     - ファイルが存在する必要がありま"
-"す\n"
-"  -C|--new-config    <新規設定ファイルパス> - ファイルがない場合は作成しま"
-"す\n"
-"  -j|--jobs  <SMPマシンのプロセッサ数> (-j0でフォークを無効化)\n"
-"     --openblas-threads <n>  OpenBLASスレッド数を設定 (デフォルト: 1)\n"
-"     --mkl-threads <n>       Intel MKLスレッド数を設定 (デフォルト: 1)\n"
-"     --omp-threads <n>       OpenMPスレッド数を設定 (デフォルト: 1)\n"
-"  -b|--batch:        バッチモードを有効にし、周波数ループ実行後に終了\n"
-"  -P|--no-pthreads:  pthreadsを無効にしてデバッグ用にGTKループを使用\n"
-"  -h|--help:         使用方法を表示して終了\n"
-"  -V|--version:      xnec2cのバージョン番号を表示して終了\n"
-"  -v|--verbose:      詳細度を上げる。複数回指定可能\n"
-"  -d|--debug:        デバッグ出力を有効にする (-ddでバックトレースを含む)\n"
-"  -d|--quiet:        デバッグ/詳細出力を抑制\n"
-"\n"
-"  --optimize:        オプティマイザを直ちに起動\n"
-"  --skip-verify:     ジオメトリ検証チェックをスキップ\n"
-"  --mem-report:      管理アロケータのコールサイト別ライブバイトを報告\n"
-"\n"
-"以下の引数は周波数ループ完了後に出力ファイルに書き込みます。\n"
-"これらは--batchと組み合わせると便利です。--batchモードなしで\n"
-"ファイル名を指定する場合は、ファイル→オプティマイザ設定を有効に\n"
-"してください。そうしないとコマンドラインで指定したファイルは書き込まれませ"
-"ん。\n"
-"\n"
-"  --write-csv             <ファイル名>  - 測定値のCSVファイルを書き込む\n"
-"  --write-s1p             <ファイル名>  - SパラメータのS1Pファイルを書き込"
-"む\n"
-"  --write-s2p-max-gain    <ファイル名>  - S2Pファイルを書き込む。ポート2は最"
-"大利得\n"
-"  --write-s2p-viewer-gain <ファイル名>  - S2Pファイルを書き込む。ポート2は"
-"ビューア利得\n"
-"  --write-rdpat           <ファイル名>  - 放射パターンのCSVを書き込む\n"
-"  --write-currents        <ファイル名>  - 電流と電荷のCSVを書き込む\n"
-"  --write-gnuplot-structure <ファイル名> - gnuplotストラクチャファイルを書き"
-"込む\n"
-"  --write-patch-currents  <ファイル名>  - パッチ表面電流のCSVを書き込む\n"
-"  --write-validation-dir <ディレクトリ> - 完全な検証データツリーを書き込む\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6064,45 +6165,45 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "停止: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "周波数ループ中の停止、デッドロックを防止: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "ジョブごとに %d OpenMP スレッドを使用 (%d/%d CPU)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f 秒\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: ファイルを開けませんでした: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "オプティマイザループ未完了、中間の再描画を抑制します。\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  バックトレース:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6168,7 +6269,7 @@ msgstr "Ground_Parameters(): グラウンドパラメータにエラーがあり
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f 秒 (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval: 不明なクラス %d が返されました\n"
@@ -6189,44 +6290,51 @@ msgstr "子プロセス %d はフォーク収集中に無効なパイプ fd を�
 msgid "Failed to read data from forked child\n"
 msgstr "フォークされた子プロセスからのデータ読み取りに失敗しました\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz が FR カード範囲外です; %.4f MHz にリセットします (VSWR "
-"%.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "無効な周波数選択モード%d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "最寄りのステップ%g MHzは要求された%g MHzと異なります\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "スイープ後の周波数を%.4f MHz（VSWR %.2f）に設定しました\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "周波数ループ経過時間: %f 秒 (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "放射パターンPNGキャプチャ: %s の計算済みステップがありません\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s の放射パターンPNGキャプチャに失敗しました\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s の放射パターンPNG保存に失敗しました: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "放射パターンPNGを書き込みました: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "複数の放射パターンPNG形式には.pngファイル名が必要です: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread の開始に失敗しました\n"

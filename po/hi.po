@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2513,6 +2513,251 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "ट्रांसमिशन लाइन प्रतिबाधा (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "उपयोग: xnec2c [विकल्प] [<इनपुट-फ़ाइल-नाम>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "खोलने के लिए NEC2 इनपुट फ़ाइल"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "फ़ाइल मौजूद होना अनिवार्य है"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "अनुपस्थित होने पर फ़ाइल बनाता है"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "चाइल्ड प्रक्रियाएँ; 0 fork को अक्षम करता है"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "बैच मोड सक्षम करें, आवृत्ति लूप चलने के बाद बाहर निकलें"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "बैच मोड सक्षम, पहले लूप के बाद बाहर निकलेगा\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "pthreads अक्षम करें और डिबगिंग के लिए GTK लूप का उपयोग करें"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop अक्षम!\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "उपयोग जानकारी मुद्रित करें और बाहर निकलें"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "xnec2c संस्करण संख्या मुद्रित करें और बाहर निकलें"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "वर्बोसिटी बढ़ाएँ, कई बार निर्दिष्ट किया जा सकता है"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "डिबग आउटपुट सक्षम करें (-dd में बैकट्रेस शामिल हैं)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "डिबग/वर्बोस आउटपुट दबाएँ"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "OpenBLAS थ्रेड संख्या"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "Intel MKL थ्रेड संख्या"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "OpenMP थ्रेड संख्या"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "ऑप्टिमाइज़र तुरंत सक्रिय करें"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "ज्यामिति जाँच छोड़ें"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "Segment सत्यापन जाँच अक्षम\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "बड़े मॉडलों पर ओवरलैप जाँच बलपूर्वक करें (>1000 segments)"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "बड़े मॉडल पर ओवरलैप जाँच बाध्य की जा रही है\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr "प्रति कॉल साइट प्रबंधित आवंटक के सक्रिय बाइट रिपोर्ट करें"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "managed allocator leak report enabled\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"निम्न तर्क आवृत्ति लूप पूरा होने के बाद आउटपुट फ़ाइल में लिखते हैं।  इन्हें --batch के साथ "
+"संयोजित करना उपयोगी है; यदि फ़ाइल नाम --batch के बिना निर्दिष्ट हैं, तो फ़ाइल-"
+">ऑप्टिमाइज़र सेटिंग्स सक्षम करें, अन्यथा वे लिखे नहीं जाएँगे।"
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "मापों की CSV फ़ाइल लिखें"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "S-पैरामीटरों की S1P फ़ाइल लिखें"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "S2P फ़ाइल लिखें, पोर्ट-2 अधिकतम-लाभ है"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "S2P फ़ाइल लिखें, पोर्ट-2 दर्शक-लाभ है"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "विकिरण प्रतिरूप की CSV लिखें"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "धाराओं और आवेशों की CSV लिखें"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "gnuplot संरचना फ़ाइल लिखें"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "patch सतह धाराओं की CSV लिखें"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "पूर्ण सत्यापन डेटा ट्री लिखें"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "विकिरण प्रतिरूप का PNG लिखें"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "x, y, z, iso, या quad दृश्य"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"स्वीप-पश्चात चयनित आवृत्ति; अनुपस्थित होने पर पिछली सहेजी आवृत्ति रखें, या कोई न होने पर "
+"केंद्र रखें"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "कॉन्फ़िग फ़ाइल पथ बहुत लंबा है\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "%d CPUs पाए गए\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr "उपयोग प्रविष्टि --%s, --%s की विकल्प पहचान दोहराती है\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr "उपयोग प्रविष्टि --%s में विकल्प पहचान %d, 1..%d के बाहर है\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "उपयोग प्रविष्टि --%s में कोई सहायता पाठ नहीं है\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr "उपयोग प्रविष्टि --%s उस तर्क का डिफ़ॉल्ट देता है जिसे यह नहीं लेती\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr "उपयोग प्रविष्टि --%s एक डिफ़ॉल्ट हल करती है जिसे उसका चर बताता है\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "उपयोग प्रविष्टि --%s में कोई अनुप्रयोगकर्ता नहीं है\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "उपयोग प्रविष्टि %zu में नाम के बिना विकल्प फ़ील्ड हैं\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (डिफ़ॉल्ट: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "अमान्य आवृत्ति चयनकर्ता: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%s के लिए %d या अधिक का पूर्णांक तर्क आवश्यक है\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "--%s तर्क बहुत लंबा है ( > %d वर्ण )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "कॉन्फ़िग फ़ाइल मौजूद नहीं है या पढ़ने योग्य नहीं है: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "फोर्किंग अक्षम!\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "अमान्य विकिरण प्रतिरूप PNG फ़ॉर्मेट: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3597,14 +3842,6 @@ msgstr ""
 "आप नियंत्रण कार्ड में अज्ञात tag या segment का संदर्भ दे रहे हैं।\n"
 "आपकी ज्यामिति में मान्य tag वे हैं जो GW/GA/GH/SP कार्ड को असाइन किए गए हैं।"
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "चतुर्भुज के कोने: patch एक समतल में नहीं हैं\n"
@@ -4392,8 +4629,8 @@ msgstr "builder में ऑब्जेक्ट जोड़ने में 
 msgid "Listing Object Ids:\n"
 msgstr "ऑब्जेक्ट ID सूचीबद्ध कर रहा है:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4414,140 +4651,86 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: failed to load animate.glade: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%s के लिए एक सकारात्मक पूर्णांक तर्क आवश्यक है\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "%d CPUs पाए गए\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "विंडोइंग बैकएंड पाया गया: %s\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "कॉन्फ़िग फ़ाइल पथ बहुत लंबा है\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "कॉन्फ़िग फ़ाइल मौजूद नहीं है या पढ़ने योग्य नहीं है: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "कॉन्फ़िग फ़ाइल पथ बहुत लंबा है ( > %d वर्ण )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "इनपुट फ़ाइल नाम बहुत लंबा है ( > %d वर्ण )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "फोर्किंग अक्षम!\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread freqloop अक्षम!\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "बैच मोड सक्षम, पहले लूप के बाद बाहर निकलेगा\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "Segment सत्यापन जाँच अक्षम\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "बड़े मॉडल पर ओवरलैप जाँच बाध्य की जा रही है\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "अमान्य विकिरण प्रतिरूप PNG फ़ॉर्मेट: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "managed allocator leak report enabled\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch और --optimize परस्पर अनन्य हैं।\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-png के लिए --batch आवश्यक है\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "इनपुट फ़ाइल पथ नाम बहुत लंबा है ( > %d वर्ण )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "अप्रत्याशित तर्क '%s' एक .nec फ़ाइल प्रतीत नहीं होती\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "अप्रत्याशित तर्क: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "बैच मोड के लिए एक इनपुट फ़ाइल आवश्यक है\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "डिस्प्ले नहीं खोला जा सकता: एक चालू X11 या Wayland सत्र आवश्यक है\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "%d कार्य फोर्क किए जा रहे हैं।\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "घातक त्रुटि के बाद बाहर निकल रहा है: pipe() विफल"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "घातक त्रुटि के बाद बाहर निकल रहा है: fork() विफल"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "उपयोगकर्ता इंटरप्ट द्वारा बाहर निकल रहा है\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "सेगमेंटेशन फॉल्ट, बाहर निकल रहा है\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "फ्लोटिंग पॉइंट अपवाद, बाहर निकल रहा है\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "एबॉर्ट सिग्नल प्राप्त हुआ, बाहर निकल रहा है\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "समाप्ति अनुरोध प्राप्त हुआ, बाहर निकल रहा है\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "फोर्क नहीं हुआ, pid %d से SIGCHLD को अनदेखा कर रहा है\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "चाइल्ड प्रोसेस pid %d बाहर निकला\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "सिग्नल के साथ डिफ़ॉल्ट निकास: %d\n"
@@ -4569,7 +4752,7 @@ msgstr "open_mathlib: lib NULL है\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -5921,83 +6104,7 @@ msgstr "theme '%s' not found, using legacy\n"
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "width '%s' invalid, keeping current value\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"उपयोग: xnec2c [विकल्प] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - फ़ाइल मौजूद होनी चाहिए\n"
-"  -C|--new-config    <new-config-file-path> - गायब होने पर फ़ाइल बनाता है\n"
-"  -j|--jobs  <SMP मशीन में प्रोसेसर की संख्या> (-j0 forking अक्षम करता है)\n"
-"     --openblas-threads <n>  OpenBLAS थ्रेड संख्या सेट करें (डिफ़ॉल्ट: 1)\n"
-"     --mkl-threads <n>       Intel MKL थ्रेड संख्या सेट करें (डिफ़ॉल्ट: 1)\n"
-"     --omp-threads <n>       OpenMP थ्रेड संख्या सेट करें (डिफ़ॉल्ट: 1)\n"
-"  -b|--batch:        बैच मोड सक्षम करें, आवृत्ति लूप चलने के बाद बाहर निकलें\n"
-"  -P|--no-pthreads:  डिबगिंग के लिए pthreads अक्षम करें और GTK लूप का उपयोग करें\n"
-"  -h|--help:         उपयोग जानकारी प्रिंट करें और बाहर निकलें\n"
-"  -V|--version:      xnec2c संस्करण संख्या प्रिंट करें और बाहर निकलें\n"
-"  -v|--verbose:      वर्बोसिटी बढ़ाएं, कई बार निर्दिष्ट किया जा सकता है\n"
-"  -d|--debug:        डिबग आउटपुट सक्षम करें (-dd में बैकट्रेस शामिल हैं)\n"
-"  -d|--quiet:        डिबग/वर्बोस आउटपुट दबाएं\n"
-"\n"
-"  --optimize:        ऑप्टिमाइज़र को तुरंत सक्रिय करें।\n"
-"  --skip-verify:     ज्यामिति सत्यापन जाँच छोड़ें\n"
-"  --mem-report:      प्रत्येक call site पर managed allocator की live bytes "
-"रिपोर्ट करें\n"
-"\n"
-"निम्नलिखित आर्गुमेंट आवृत्ति लूप पूरा होने के बाद आउटपुट फ़ाइल में लिखते हैं।\n"
-"ये --batch के साथ संयोजन में उपयोगी हैं; यदि आप --batch मोड के बिना\n"
-"लिखने के लिए फ़ाइलनाम निर्दिष्ट करना चाहते हैं तो File->Optimizer\n"
-"Settings सक्षम करें अन्यथा कमांड लाइन पर निर्दिष्ट फ़ाइलें नहीं लिखी जाएंगी।\n"
-"\n"
-"  --write-csv             <filename>  - माप की CSV फ़ाइल लिखें\n"
-"  --write-s1p             <filename>  - S-parameters की S1P फ़ाइल लिखें\n"
-"  --write-s2p-max-gain    <filename>  - S2P फ़ाइल लिखें, port-2 max-gain है\n"
-"  --write-s2p-viewer-gain <filename>  - S2P फ़ाइल लिखें, port-2 viewer-gain है\n"
-"  --write-rdpat           <filename>  - विकिरण प्रतिरूप की CSV लिखें\n"
-"  --write-currents        <filename>  - धाराओं और आवेशों की CSV लिखें\n"
-"  --write-gnuplot-structure <filename> - gnuplot संरचना फ़ाइल लिखें\n"
-"  --write-patch-currents  <filename>  - patch सरफेस धाराओं की CSV लिखें\n"
-"  --write-validation-dir <directory> - संपूर्ण सत्यापन डेटा ट्री लिखें\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6010,45 +6117,45 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "रोकें: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "आवृत्ति लूप के दौरान रोकें, डेडलॉक रोका गया: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "%d OpenMP थ्रेड प्रति जॉब का उपयोग कर रहा है (%d/%d CPUs)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f सेकंड\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: फ़ाइल खोलने में विफल: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "ऑप्टिमाइज़र लूप अपूर्ण, मध्यवर्ती पुनः चित्रण दबा रहा है।\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  Backtrace:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6116,7 +6223,7 @@ msgstr "Ground_Parameters(): ग्राउंड पैरामीटर म�
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f सेकंड। (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval returned unknown class %d\n"
@@ -6137,43 +6244,51 @@ msgstr "child %d का forked collect के दौरान अमान्य
 msgid "Failed to read data from forked child\n"
 msgstr "फोर्क किए गए चाइल्ड से डेटा पढ़ने में विफल\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz FR कार्ड सीमाओं के बाहर; %.4f MHz पर रीसेट (VSWR %.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "अमान्य आवृत्ति चयन मोड %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "निकटतम चरण %g MHz अनुरोधित %g MHz से भिन्न है\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "स्वीप-पश्चात आवृत्ति %.4f MHz पर सेट है (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "आवृत्ति लूप बीता समय: %f सेकंड। (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "विकिरण प्रतिरूप PNG कैप्चर: %s के लिए कोई परिकलित चरण नहीं\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s के लिए विकिरण प्रतिरूप PNG कैप्चर विफल\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s के लिए विकिरण प्रतिरूप PNG सहेजना विफल: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "विकिरण प्रतिरूप PNG लिखा गया: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "कई विकिरण प्रतिरूप PNG फ़ॉर्मेट के लिए .png फ़ाइलनाम आवश्यक है: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread प्रारंभ करने में विफल\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2539,6 +2539,256 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Übertragungsleitungsimpedanz (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "Verwendung: xnec2c [Optionen] [<Eingabedateiname>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "Zu öffnende NEC2-Eingabedatei"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "Datei muss vorhanden sein"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "erstellt die Datei, wenn sie fehlt"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "Kindprozesse; 0 deaktiviert Forking"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "Batch-Modus aktivieren, nach Abschluss der Frequenzschleife beenden"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "Batch-Modus aktiviert, Beenden nach erster Schleife\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "pthreads deaktivieren und GTK-Schleife zum Debuggen verwenden"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread-Frequenzschleife deaktiviert!\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "Verwendungsinformationen ausgeben und beenden"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "xnec2c-Versionsnummer ausgeben und beenden"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "Ausführlichkeit erhöhen, kann mehrfach angegeben werden"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "Debugausgabe aktivieren (-dd enthält Rückverfolgungen)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "Debug-/ausführliche Ausgabe unterdrücken"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "OpenBLAS-Thread-Anzahl"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "Intel-MKL-Thread-Anzahl"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "OpenMP-Thread-Anzahl"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "Optimierer sofort aktivieren"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "Geometrieüberprüfungen überspringen"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "Segmentüberprüfung deaktiviert\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "Überlappungsprüfung bei großen Modellen erzwingen (>1000 Segmente)"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "Überlappungsprüfung bei großen Modellen erzwungen\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr "Belegte Bytes des verwalteten Allokators je Aufrufstelle ausgeben"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "Bericht über Speicher-Allocator-Lecks aktiviert\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"Die folgenden Argumente schreiben nach Abschluss der Frequenzschleife in "
+"eine Ausgabedatei.  Sie lassen sich sinnvoll mit --batch kombinieren; werden "
+"Dateinamen ohne --batch angegeben, aktivieren Sie Datei-"
+">Optimierereinstellungen, sonst werden sie nicht geschrieben."
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "CSV-Datei mit Messwerten schreiben"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "S1P-Datei mit S-Parametern schreiben"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "S2P-Datei schreiben, Port 2 ist Maximalgewinn"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "S2P-Datei schreiben, Port 2 ist Betrachtergewinn"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "CSV-Datei des Strahlungsdiagramms schreiben"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "CSV-Datei mit Strömen und Ladungen schreiben"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "gnuplot-Strukturdatei schreiben"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "CSV-Datei mit Patch-Oberflächenströmen schreiben"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "Vollständigen Validierungsdatenbaum schreiben"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "PNG-Datei des Strahlungsdiagramms schreiben"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "x-, y-, z-, Iso- oder Vierfachansichten"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"Nach dem Durchlauf ausgewählte Frequenz; fehlt sie, die zuvor gespeicherte "
+"Frequenz beibehalten oder andernfalls zentrieren"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "Konfigurationsdateipfad zu lang\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "%d CPUs erkannt\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr "Verwendungseintrag --%s wiederholt die Options-ID von --%s\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr ""
+"Verwendungseintrag --%s enthält die Options-ID %d außerhalb von 1..%d\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "Verwendungseintrag --%s enthält keinen Hilfetext\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr ""
+"Verwendungseintrag --%s setzt ein Standardargument, das er nicht annimmt\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr ""
+"Verwendungseintrag --%s löst einen Standardwert auf, den seine Variable "
+"angibt\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "Verwendungseintrag --%s enthält keinen Anwender\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "Verwendungseintrag %zu enthält Optionsfelder ohne Namen\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (Standard: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "Ungültiger Frequenzwähler: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%s erfordert ein ganzzahliges Argument von %d oder mehr\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "Argument für --%s ist zu lang ( > %d Zeichen )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "Konfigurationsdatei existiert nicht oder ist nicht lesbar: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "Forking deaktiviert!\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "Ungültiges Strahlungsdiagramm-PNG-Format: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3641,14 +3891,6 @@ msgstr ""
 "Gültige Tags in Ihrer Geometrie sind diejenigen, die GW/GA/GH/SP-Karten "
 "zugewiesen sind."
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "Ecken des Vierecks: Patch liegt nicht in einer Ebene\n"
@@ -4467,8 +4709,8 @@ msgstr "Objekte konnten nicht zum Builder hinzugefügt werden: %s\n"
 msgid "Listing Object Ids:\n"
 msgstr "Auflistung der Objekt-IDs:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4491,142 +4733,88 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade konnte nicht geladen werden: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%s erfordert ein positives Ganzzahl-Argument\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "%d CPUs erkannt\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Erkanntes Fenster-Backend: %s\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "Konfigurationsdateipfad zu lang\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "Konfigurationsdatei existiert nicht oder ist nicht lesbar: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "Konfigurationsdateipfad zu lang ( > %d Zeichen )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "Eingabedateiname zu lang ( > %d Zeichen )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "Forking deaktiviert!\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread-Frequenzschleife deaktiviert!\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "Batch-Modus aktiviert, Beenden nach erster Schleife\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "Segmentüberprüfung deaktiviert\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "Überlappungsprüfung bei großen Modellen erzwungen\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "Ungültiges Strahlungsdiagramm-PNG-Format: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "Bericht über Speicher-Allocator-Lecks aktiviert\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch und --optimize schließen sich gegenseitig aus.\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-png erfordert --batch\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "Eingabedateipfadname zu lang ( > %d Zeichen )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "Unerwartetes Argument '%s' scheint keine .nec-Datei zu sein\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "Unerwartetes Argument: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "Batch-Modus erfordert eine Eingabedatei\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "Anzeige kann nicht geöffnet werden: eine laufende X11- oder Wayland-Sitzung "
 "ist erforderlich\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "%d Jobs werden geforkt.\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "Beenden nach schwerem Fehler: pipe() fehlgeschlagen"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "Beenden nach schwerem Fehler: fork() fehlgeschlagen"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "Beenden durch Benutzerunterbrechung\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "Speicherzugriffsfehler, Beenden\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "Gleitkomma-Ausnahme, Beenden\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "Abbruchsignal empfangen, Beenden\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "Beendigungsanforderung empfangen, Beenden\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "Nicht geforkt, SIGCHLD von PID %d wird ignoriert\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "Kindprozess PID %d beendet\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "Standardbeendigung mit Signal: %d\n"
@@ -4648,7 +4836,7 @@ msgstr "open_mathlib: lib ist NULL\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -6045,99 +6233,7 @@ msgstr "Theme '%s' nicht gefunden, verwende Legacy\n"
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "Breite '%s' ungültig, aktueller Wert wird beibehalten\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"Verwendung: xnec2c [Optionen] [<Eingabedateiname>]\n"
-"  -i|--input         <Eingabedateiname>\n"
-"  -c|--config        <Konfigurationsdateipfad>     - Datei muss existieren\n"
-"  -C|--new-config    <neuer-Konfigurationsdateipfad> - erstellt die Datei, "
-"wenn sie fehlt\n"
-"  -j|--jobs  <Anzahl der Prozessoren in SMP-Maschine> (-j0 deaktiviert "
-"Forking)\n"
-"     --openblas-threads <n>  OpenBLAS-Thread-Anzahl festlegen (Standard: 1)\n"
-"     --mkl-threads <n>       Intel MKL-Thread-Anzahl festlegen (Standard: "
-"1)\n"
-"     --omp-threads <n>       OpenMP-Thread-Anzahl festlegen (Standard: 1)\n"
-"  -b|--batch:        Batch-Modus aktivieren, nach der Frequenzschleife "
-"beenden\n"
-"  -P|--no-pthreads:  pthreads deaktivieren und GTK-Schleife zum Debuggen "
-"verwenden\n"
-"  -h|--help:         Verwendungsinformationen ausgeben und beenden\n"
-"  -V|--version:      xnec2c-Versionsnummer ausgeben und beenden\n"
-"  -v|--verbose:      Ausführlichkeit erhöhen, kann mehrfach angegeben "
-"werden\n"
-"  -d|--debug:        Debug-Ausgabe aktivieren (-dd enthält Backtraces)\n"
-"  -d|--quiet:        Debug-/Verbose-Ausgabe unterdrücken\n"
-"\n"
-"  --optimize:        Optimierer sofort aktivieren.\n"
-"  --skip-verify:     Geometrieprüfungen überspringen\n"
-"  --mem-report:      Verwaltete Allocator-Live-Bytes pro Aufrufstelle "
-"berichten\n"
-"\n"
-"Die folgenden Argumente schreiben nach Abschluss der Frequenzschleife in "
-"eine\n"
-"Ausgabedatei. Diese sind nützlich in Kombination mit --batch; Wenn Sie\n"
-"Dateinamen ohne --batch-Modus angeben möchten, aktivieren Sie Datei-"
-">Optimierer-\n"
-"Einstellungen, sonst werden die auf der Kommandozeile angegebenen Dateien "
-"nicht geschrieben.\n"
-"\n"
-"  --write-csv             <Dateiname>  - CSV-Datei mit Messwerten schreiben\n"
-"  --write-s1p             <Dateiname>  - S1P-Datei mit S-Parametern "
-"schreiben\n"
-"  --write-s2p-max-gain    <Dateiname>  - S2P-Datei schreiben, Port-2 ist Max-"
-"Gain\n"
-"  --write-s2p-viewer-gain <Dateiname>  - S2P-Datei schreiben, Port-2 ist "
-"Viewer-Gain\n"
-"  --write-rdpat           <Dateiname>  - CSV des Strahlungsdiagramms "
-"schreiben\n"
-"  --write-currents        <Dateiname>  - CSV von Strömen und Ladungen "
-"schreiben\n"
-"  --write-gnuplot-structure <Dateiname> - Gnuplot-Strukturdatei schreiben\n"
-"  --write-patch-currents  <Dateiname>  - CSV der Patch-Oberflächenströme "
-"schreiben\n"
-"  --write-validation-dir <Verzeichnis> - vollständigen Validierungsdatenbaum "
-"schreiben\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6150,46 +6246,46 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "Stop: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Stop während der Frequenzschleife, Deadlock verhindert: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "Verwende %d OpenMP-Threads pro Auftrag (%d/%d CPUs)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f Sekunden\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Datei konnte nicht geöffnet werden: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr ""
 "Optimierungsschleife unvollständig, Zwischenneuzeichnung wird unterdrückt.\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  Backtrace:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6262,7 +6358,7 @@ msgstr "Ground_Parameters():Fehler in Groundplane-Parametern"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f Sekunden. (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval hat unbekannte Klasse %d zurückgegeben\n"
@@ -6284,45 +6380,52 @@ msgstr "Kind-Prozess %d hat ungültige Pipe-FD beim Fork-Collect\n"
 msgid "Failed to read data from forked child\n"
 msgstr "Daten vom geforkten Kindprozess konnten nicht gelesen werden\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz außerhalb der FR-Kartenbereiche; auf %.4f MHz "
-"zurückgesetzt (VSWR %.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "Ungültiger Frequenzauswahlmodus %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "Nächstgelegener Schritt %g MHz weicht von angeforderten %g MHz ab\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "Frequenz nach dem Durchlauf auf %.4f MHz gesetzt (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Frequenzschleife verstrichene Zeit: %f Sekunden. (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "Strahlungsdiagramm-PNG-Erfassung: kein berechneter Schritt für %s\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "Strahlungsdiagramm-PNG-Erfassung für %s fehlgeschlagen\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "Speichern des Strahlungsdiagramm-PNG für %s fehlgeschlagen: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "Strahlungsdiagramm-PNG geschrieben: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "Mehrere Strahlungsdiagramm-PNG-Formate erfordern einen .png-Dateinamen: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread konnte nicht gestartet werden\n"

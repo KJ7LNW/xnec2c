@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2527,6 +2527,254 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Импеданса преносне линије (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "Употреба: xnec2c [опције] [<назив-улазне-датотеке>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "NEC2 улазна датотека за отварање"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "датотека мора да постоји"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "ствара датотеку када недостаје"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "подређени процеси; 0 онемогућава fork"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "укључује групни режим, излази по завршетку петље фреквенције"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "batch режим омогућен, излаз након прве петље\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "онемогућава pthreads и користи GTK петљу за отклањање грешака"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop онемогућен\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "исписује податке о употреби и излази"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "исписује број верзије xnec2c и излази"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "повећава опширност, може се задати више пута"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "укључује излаз за отклањање грешака (-dd укључује трагове позива)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "потискује излаз за отклањање грешака/опширан излаз"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "број OpenBLAS нити"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "број Intel MKL нити"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "број OpenMP нити"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "одмах активира оптимизатор"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "прескаче провере геометрије"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "провера сегмената онемогућена\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "намеће проверу преклапања на великим моделима (>1000 сегмената)"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "форсирање провере преклапања на великим моделима\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr "пријављује активне бајтове управљаног алокатора по месту позива"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "managed allocator leak report enabled\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"Следећи аргументи уписују у излазну датотеку по завршетку петље "
+"фреквенције.  Корисно их је комбиновати са --batch; ако су називи датотека "
+"задати без --batch, укључите Датотека->Поставке оптимизатора или неће бити "
+"уписани."
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "уписује CSV датотеку мерења"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "уписује S1P датотеку S-параметара"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "уписује S2P датотеку, порт-2 је највећи добитак"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "уписује S2P датотеку, порт-2 је добитак гледишта"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "уписује CSV дијаграма зрачења"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "уписује CSV струја и наелектрисања"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "уписује gnuplot датотеку структуре"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "уписује CSV површинских струја патчева"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "уписује цело стабло података верификације"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "уписује PNG дијаграма зрачења"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "прикази x, y, z, iso или quad"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"изабрана фреквенција након пролаза; ако није задата, задржава претходно "
+"сачувану фреквенцију или средишњу ако је нема"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "путања конфигурационе датотеке је предугачка\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "Детектовано %d процесора\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr "ставка употребе --%s понавља идентификатор опције од --%s\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr "ставка употребе --%s има идентификатор опције %d ван опсега 1..%d\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "унос употребе --%s нема текст помоћи\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr "унос употребе --%s има подразумевани аргумент који не прихвата\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr ""
+"ставка употребе --%s разрешава подразумевану вредност коју наводи њена "
+"променљива\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "унос употребе --%s нема примењивач\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "унос употребе %zu има поља опције без назива\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (подразумевано: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "неисправан бирач фреквенције: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%s захтева целобројни аргумент од %d или више\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "аргумент --%s је предуг ( > %d знакова )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "конфигурациона датотека не постоји или није читљива: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "Форковање онемогућено\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "неисправан PNG формат дијаграма зрачења: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3620,14 +3868,6 @@ msgstr ""
 "Референцирате непознату ознаку или сегмент у контролној картици.\n"
 "Важеће ознаке у вашој геометрији су оне додељене GW/GA/GH/SP картицама."
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "углови четвороугаоног патча не леже у равни\n"
@@ -4439,8 +4679,8 @@ msgstr "Није успело додавање објеката у builder: %s\n
 msgid "Listing Object Ids:\n"
 msgstr "Списак ID-ова објеката:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4463,141 +4703,87 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: није успело учитавање animate.glade: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%s захтева позитиван целобројни аргумент\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "Детектовано %d процесора\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Детектовано %s позадинско окружење прозора\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "путања конфигурационе датотеке је предугачка\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "конфигурациона датотека не постоји или није читљива: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "путања конфигурационе датотеке је предугачка ( > %d знакова )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "име улазне датотеке је предугачко ( > %d знакова )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "Форковање онемогућено\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread freqloop онемогућен\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "batch режим омогућен, излаз након прве петље\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "провера сегмената онемогућена\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "форсирање провере преклапања на великим моделима\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "неисправан PNG формат дијаграма зрачења: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "managed allocator leak report enabled\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch и --optimize су међусобно искључиви.\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-png захтева --batch\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "путања улазне датотеке је предугачка ( > %d знакова )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "неочекивани аргумент '%s' не изгледа као .nec датотека\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "неочекивани аргумент: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "batch режим захтева улазну датотеку\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "Није могуће отворити екран: потребна је активна X11 или Wayland сесија\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "Форковање %d послова.\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "излазак након фаталне грешке: pipe() није успео"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "излазак након фаталне грешке: fork() није успео"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "излазак прекидом корисника\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "грешка сегментације, излазак\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "грешка са покретним зарезом, излазак\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "примљен сигнал за прекид, излазак\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "примљен захтев за завршетак, излазак\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "није форковано, игноришем SIGCHLD од pid %d\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "подређени процес pid %d је завршен\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "подразумевани излаз са сигналом: %d\n"
@@ -4619,7 +4805,7 @@ msgstr "open_mathlib: lib је NULL\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -6006,96 +6192,7 @@ msgstr "тема '%s' није пронађена, користим наслеђ
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "ширина '%s' неважећа, задржавам тренутну вредност\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"Употреба: xnec2c [опције] [<име-улазне-датотеке>]\n"
-"  -i|--input         <име-улазне-датотеке>\n"
-"  -c|--config        <путања-конфиг-датотеке>     - датотека мора да "
-"постоји\n"
-"  -C|--new-config    <путања-нове-конфиг-датотеке> - креира датотеку ако "
-"недостаје\n"
-"  -j|--jobs  <број процесора у SMP машини> (-j0 онемогућава форковање)\n"
-"     --openblas-threads <n>  подеси број OpenBLAS нити (подразумевано: 1)\n"
-"     --mkl-threads <n>       подеси број Intel MKL нити (подразумевано: 1)\n"
-"     --omp-threads <n>       подеси број OpenMP нити (подразумевано: 1)\n"
-"  -b|--batch:        омогући batch режим, изађи након извршавања "
-"фреквенцијске петље\n"
-"  -P|--no-pthreads:  онемогући pthreads и користи GTK петљу за отклањање "
-"грешака\n"
-"  -h|--help:         прикажи информације о употреби и изађи\n"
-"  -V|--version:      прикажи број верзије xnec2c и изађи\n"
-"  -v|--verbose:      повећај опширност, може се навести више пута\n"
-"  -d|--debug:        омогући debug излаз (-dd укључује backtraces)\n"
-"  -d|--quiet:        потисни debug/verbose излаз\n"
-"\n"
-"  --optimize:        Одмах активирај оптимизатор.\n"
-"  --skip-verify:     прескочи провере верификације геометрије\n"
-"  --mem-report:      извештај о живим бајтовима управљаног алокатора по "
-"локацији позива\n"
-"\n"
-"Следећи аргументи уписују у излазну датотеку након завршетка фреквенцијске "
-"петље.\n"
-"Ово је корисно комбиновати са --batch; Ако желите да наведете имена "
-"датотека\n"
-"за упис без --batch режима, омогућите Датотека->Подешавања оптимизације или "
-"датотеке\n"
-"које наведете у командној линији неће бити уписане.\n"
-"\n"
-"  --write-csv             <име-датотеке>  - упиши CSV датотеку мерења\n"
-"  --write-s1p             <име-датотеке>  - упиши S1P датотеку S-параметара\n"
-"  --write-s2p-max-gain    <име-датотеке>  - упиши S2P датотеку, port-2 је "
-"max-gain\n"
-"  --write-s2p-viewer-gain <име-датотеке>  - упиши S2P датотеку, port-2 је "
-"viewer-gain\n"
-"  --write-rdpat           <име-датотеке>  - упиши CSV дијаграма зрачења\n"
-"  --write-currents        <име-датотеке>  - упиши CSV струја и "
-"наелектрисања\n"
-"  --write-gnuplot-structure <име-датотеке> - упиши gnuplot датотеку "
-"структуре\n"
-"  --write-patch-currents  <име-датотеке>  - упиши CSV патч површинских "
-"струја\n"
-"  --write-validation-dir <директоријум> - упиши потпуно дрво података "
-"верификације\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6108,45 +6205,45 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "Заустави: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Заустављање током фреквенцијске петље, deadlock спречен: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "користим %d OpenMP нити по послу (%d/%d процесора)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f секунди\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Није успело отварање датотеке: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Петља оптимизатора није завршена, прескачем привремено исцртавање.\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  Повратни траг:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6217,7 +6314,7 @@ msgstr "Ground_Parameters(): Грешка у параметрима уземље
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f секунди. (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval returned unknown class %d\n"
@@ -6239,45 +6336,52 @@ msgstr "подређени процес %d има неважећи pipe fd то�
 msgid "Failed to read data from forked child\n"
 msgstr "Није успело читање података од форкованог подређеног процеса\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz ван опсега FR картице; ресетовање на %.4f MHz (VSWR "
-"%.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "неисправан режим избора фреквенције %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "најближи корак %g MHz разликује се од захтеваног %g MHz\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "фреквенција након пролаза постављена је на %.4f MHz (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Протекло време петље фреквенције: %f секунди. (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "снимање PNG дијаграма зрачења: нема израчунатог корака за %s\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "неуспело снимање PNG дијаграма зрачења за %s\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "неуспело чување PNG дијаграма зрачења за %s: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "уписан PNG дијаграм зрачења: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "вишеструки PNG формати дијаграма зрачења захтевају назив датотеке .png: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "није успело покретање Frequency_Loop_Thread\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2527,6 +2527,255 @@ msgstr "50.00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Pārvades līnijas impedance (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "Lietojums: xnec2c [opcijas] [<ievades-faila-nosaukums>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "Atveramais NEC2 ievades fails"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "failam jāpastāv"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "izveido failu, ja tā nav"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "pakārtotie procesi; 0 atspējo fork"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "iespējot pakešrežīmu, iziet pēc frekvences cilpas pabeigšanas"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "pakešu režīms iespējots, izies pēc pirmā cikla\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "atspējot pthreads un izmantot GTK cilpu atkļūdošanai"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop atspējots!\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "izdrukāt lietošanas informāciju un iziet"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "izdrukāt xnec2c versijas numuru un iziet"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "palielināt detalizācijas pakāpi, var norādīt vairākas reizes"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "iespējot atkļūdošanas izvadi (-dd ietver izsaukumu stekus)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "apslāpēt atkļūdošanas/detalizēto izvadi"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "OpenBLAS pavedienu skaits"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "Intel MKL pavedienu skaits"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "OpenMP pavedienu skaits"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "nekavējoties aktivizēt optimizētāju"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "izlaist ģeometrijas verifikācijas pārbaudes"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "segmentu pārbaudes verifikācija atspējota\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "piespiedu kārtā pārbaudīt pārklāšanos lielos modeļos (>1000 segments)"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "piespiedu pārklāšanās pārbaude lieliem modeļiem\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr ""
+"ziņot pārvaldītā atmiņas piešķīrēja aktīvos baitus katrai izsaukuma vietai"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "iespējots pārvaldītā atmiņas piešķīrēja noplūdes ziņojums\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"Tālākie argumenti raksta izvades failā pēc frekvences cilpas pabeigšanas.  "
+"Tos ir lietderīgi kombinēt ar --batch; ja failu nosaukumi ir norādīti bez --"
+"batch, iespējojiet File->Optimizer Settings, pretējā gadījumā tie netiks "
+"ierakstīti."
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "rakstīt mērījumu CSV failu"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "rakstīt S-parametru S1P failu"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "rakstīt S2P failu, ports-2 ir maksimālais pastiprinājums"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "rakstīt S2P failu, ports-2 ir skatītāja pastiprinājums"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "rakstīt starojuma diagrammas CSV"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "rakstīt strāvu un lādiņu CSV"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "rakstīt gnuplot struktūras failu"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "rakstīt ielāpu virsmas strāvu CSV"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "rakstīt pilnu validācijas datu koku"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "rakstīt starojuma diagrammas PNG"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "x, y, z, iso vai quad skati"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"pēc pārgājiena atlasītā frekvence; ja tās nav, paturēt iepriekš saglabāto "
+"frekvenci vai centru, ja nav nevienas"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "konfigurācijas faila ceļš pārāk garš\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "Konstatēti %d CPU\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr "Lietošanas ieraksts --%s atkārto opcijas identifikatoru no --%s\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr "Lietošanas ieraksta --%s opcijas identifikators %d ir ārpus 1..%d\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "lietošanas ierakstam --%s nav palīdzības teksta\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr ""
+"lietošanas ieraksts --%s iestata noklusējuma argumentu, ko tas nepieņem\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr ""
+"Lietošanas ieraksts --%s nosaka noklusējuma vērtību, ko norāda tā mainīgais\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "lietošanas ierakstam --%s nav pielietotāja\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "lietošanas ierakstam %zu ir opcijas lauki bez nosaukuma\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (noklusējuma vērtība: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "nederīgs frekvences atlasītājs: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%s pieprasa vesela skaitļa argumentu %d vai lielāku\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "--%s arguments ir pārāk garš ( > %d rakstzīmes )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "konfigurācijas fails neeksistē vai nav lasāms: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "Sazarošana atspējota!\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "nederīgs starojuma diagrammas PNG formāts: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3622,14 +3871,6 @@ msgstr ""
 "Jūs atsaucaties uz nezināmu tagu vai segmentu vadības kartē.\n"
 "Derīgi tagi jūsu ģeometrijā ir tie, kas piešķirti GW/GA/GH/SP kartēm."
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "četrstūra plākstera stūri neatrodas vienā plaknē\n"
@@ -4441,8 +4682,8 @@ msgstr "neizdevās pievienot objektus veidotājam: %s\n"
 msgid "Listing Object Ids:\n"
 msgstr "Objektu ID saraksts:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4465,141 +4706,87 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: neizdevās ielādēt animate.glade: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%s pieprasa pozitīvu vesela skaitļa argumentu\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "Konstatēti %d CPU\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Konstatēta %s logu aizmugursistēma\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "konfigurācijas faila ceļš pārāk garš\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "konfigurācijas fails neeksistē vai nav lasāms: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "konfigurācijas faila ceļš pārāk garš ( > %d rakstzīmes )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "ievades faila nosaukums pārāk garš ( > %d rakstzīmes )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "Sazarošana atspējota!\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread freqloop atspējots!\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "pakešu režīms iespējots, izies pēc pirmā cikla\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "segmentu pārbaudes verifikācija atspējota\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "piespiedu pārklāšanās pārbaude lieliem modeļiem\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "nederīgs starojuma diagrammas PNG formāts: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "iespējots pārvaldītā atmiņas piešķīrēja noplūdes ziņojums\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch un --optimize ir savstarpēji izslēdzoši.\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-png pieprasa --batch\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "ievades faila ceļa nosaukums pārāk garš ( > %d rakstzīmes )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "neparedzēts arguments '%s' nešķiet .nec fails\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "neparedzēts arguments: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "pakešu režīmam nepieciešams ievades fails\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "nevar atvērt displeju: nepieciešama darbojošās X11 vai Wayland sesija\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "Sazaro %d darbus.\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "iziet pēc fatālas kļūdas: pipe() neizdevās"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "iziet pēc fatālas kļūdas: fork() neizdevās"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "iziet pēc lietotāja pārtraukuma\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "segmentācijas kļūda, iziet\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "peldošā komata izņēmums, iziešana\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "saņemts pārtraukšanas signāls, iziešana\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "saņemts beigšanas pieprasījums, iziešana\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "nav atdalīts, ignorē SIGCHLD no pid %d\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "bērnprocess pid %d beidzies\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "noklusējuma izeja ar signālu: %d\n"
@@ -4621,7 +4808,7 @@ msgstr "open_mathlib: lib ir NULL\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -6010,99 +6197,7 @@ msgstr "tēma '%s' nav atrasta, izmanto novecojušo\n"
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "platums '%s' nederīgs, saglabā pašreizējo vērtību\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"Lietojums: xnec2c [opcijas] [<ievades-faila-nosaukums>]\n"
-"  -i|--input         <ievades-faila-nosaukums>\n"
-"  -c|--config        <konfigurācijas-faila-ceļš>     - failam jāeksistē\n"
-"  -C|--new-config    <jauna-konfigurācijas-faila-ceļš> - izveido failu, ja "
-"tas neeksistē\n"
-"  -j|--jobs  <procesoru skaits SMP mašīnā> (-j0 atspējo sazarošanu)\n"
-"     --openblas-threads <n>  iestatīt OpenBLAS pavedienu skaitu "
-"(noklusējums: 1)\n"
-"     --mkl-threads <n>       iestatīt Intel MKL pavedienu skaitu "
-"(noklusējums: 1)\n"
-"     --omp-threads <n>       iestatīt OpenMP pavedienu skaitu (noklusējums: "
-"1)\n"
-"  -b|--batch:        iespējot pakešu režīmu, iziet pēc frekvenču cikla "
-"izpildes\n"
-"  -P|--no-pthreads:  atspējot pthreads un izmantot GTK ciklu atkļūdošanai\n"
-"  -h|--help:         parādīt lietošanas informāciju un iziet\n"
-"  -V|--version:      parādīt xnec2c versijas numuru un iziet\n"
-"  -v|--verbose:      palielināt detalizāciju, var norādīt vairākas reizes\n"
-"  -d|--debug:        iespējot atkļūdošanas izvadi (-dd iekļauj izsaukumu "
-"izsekošanu)\n"
-"  -d|--quiet:        apslāpēt atkļūdošanas/detalizēto izvadi\n"
-"\n"
-"  --optimize:        Nekavējoties aktivizēt optimizētāju.\n"
-"  --skip-verify:     izlaist ģeometrijas verifikācijas pārbaudes\n"
-"  --mem-report:      ziņot par pārvaldītā atmiņas piešķīrēja aktīvajiem "
-"baitiem katrā izsaukuma vietā\n"
-"\n"
-"Šie argumenti raksta izvades failā pēc frekvenču cikla pabeigšanas.\n"
-"Tos ir noderīgi kombinēt ar --batch; Ja vēlaties norādīt failu\n"
-"nosaukumus rakstīšanai bez --batch režīma, tad iespējojiet Fails-"
-">Optimizācijas\n"
-"iestatījumi, pretējā gadījumā komandrindā norādītie faili netiks rakstīti.\n"
-"\n"
-"  --write-csv             <faila_nosaukums>  - rakstīt CSV failu ar "
-"mērījumiem\n"
-"  --write-s1p             <faila_nosaukums>  - rakstīt S1P failu ar S-"
-"parametriem\n"
-"  --write-s2p-max-gain    <faila_nosaukums>  - rakstīt S2P failu, port-2 ir "
-"maksimālais pastiprinājums\n"
-"  --write-s2p-viewer-gain <faila_nosaukums>  - rakstīt S2P failu, port-2 ir "
-"skatītāja pastiprinājums\n"
-"  --write-rdpat           <faila_nosaukums>  - rakstīt CSV ar starojuma "
-"diagrammu\n"
-"  --write-currents        <faila_nosaukums>  - rakstīt CSV ar strāvām un "
-"lādiņiem\n"
-"  --write-gnuplot-structure <faila_nosaukums> - rakstīt gnuplot struktūras "
-"failu\n"
-"  --write-patch-currents  <faila_nosaukums>  - rakstīt CSV ar ielāpu virsmas "
-"strāvām\n"
-"  --write-validation-dir <direktorija> - rakstīt pilnu validācijas datu "
-"koku\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6115,45 +6210,45 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "Apturēt: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Apturēšana frekvences cikla laikā, strupceļš novērsts: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "izmanto %d OpenMP pavedienus katram darbam (%d/%d CPU)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f sekundes\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Neizdevās atvērt failu: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Optimizētāja cikls nav pabeigts, izlaižot starpposma pārzīmēšanu.\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  Izsekošana:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6228,7 +6323,7 @@ msgstr "Ground_Parameters():Kļūda zemes parametros"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f sekundes. (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval atgrieza nezināmu klasi %d\n"
@@ -6250,45 +6345,52 @@ msgstr "bērnprocess %d satur nederīgu cauruļvada fd atzarotajā vākšanā\n"
 msgid "Failed to read data from forked child\n"
 msgstr "Neizdevās nolasīt datus no atdalītā bērnprocesa\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz ārpus FR kartes diapazoniem; atiestatīts uz %.4f MHz "
-"(VSWR %.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "nederīgs frekvences atlases režīms %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "tuvākais solis %g MHz atšķiras no pieprasītā %g MHz\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "pēc pārgājiena frekvence iestatīta uz %.4f MHz (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Frekvences cikla pagājušais laiks: %f sekundes. (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "starojuma diagrammas PNG uzņemšana: nav aprēķināta soļa priekš %s\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "starojuma diagrammas PNG uzņemšana neizdevās priekš %s\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "starojuma diagrammas PNG saglabāšana neizdevās priekš %s: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "starojuma diagrammas PNG ierakstīts: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "vairāki starojuma diagrammas PNG formāti pieprasa .png faila nosaukumu: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "neizdevās palaist Frequency_Loop_Thread\n"

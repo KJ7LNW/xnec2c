@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-07-30 14:29-0700\n"
+"POT-Creation-Date: 2026-08-01 16:56-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2526,6 +2526,253 @@ msgstr "50,00"
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Impedancia prenosového vedenia (Zo)"
 
+#: src/args.c:124
+msgid "Usage: xnec2c [options] [<input-file-name>]"
+msgstr "Použitie: xnec2c [možnosti] [<názov-vstupného-súboru>]"
+
+#: src/args.c:129
+msgid "NEC2 input file to open"
+msgstr "Vstupný súbor NEC2 na otvorenie"
+
+#: src/args.c:133
+msgid "file must exist"
+msgstr "súbor musí existovať"
+
+#: src/args.c:137
+msgid "creates the file when missing"
+msgstr "vytvorí súbor, ak chýba"
+
+#: src/args.c:142
+msgid "child processes; 0 disables forking"
+msgstr "podradené procesy; 0 zakáže fork"
+
+#: src/args.c:146
+msgid "enable batch mode, exit after the frequency loop runs"
+msgstr "povoliť dávkový režim, ukončiť po prebehnutí frekvenčnej slučky"
+
+#: src/args.c:148
+msgid "batch mode enabled, will exit after first loop\n"
+msgstr "dávkový režim povolený, ukončí sa po prvom cykle\n"
+
+#: src/args.c:150
+msgid "disable pthreads and use the GTK loop for debugging"
+msgstr "zakázať pthreads a na ladenie použiť slučku GTK"
+
+#: src/args.c:152
+msgid "pthread freqloop disabled!\n"
+msgstr "pthread freqloop zakázaný!\n"
+
+#: src/args.c:154
+msgid "print usage information and exit"
+msgstr "vypísať informácie o použití a ukončiť"
+
+#: src/args.c:157
+msgid "print xnec2c version number and exit"
+msgstr "vypísať číslo verzie xnec2c a ukončiť"
+
+#: src/args.c:160
+msgid "increase verbosity, can be specified multiple times"
+msgstr "zvýšiť podrobnosť, možno zadať viackrát"
+
+#: src/args.c:163
+msgid "enable debug output (-dd includes backtraces)"
+msgstr "povoliť ladiaci výstup (-dd zahŕňa spätné sledovania)"
+
+#: src/args.c:166
+msgid "suppress debug/verbose output"
+msgstr "potlačiť ladiaci/podrobný výstup"
+
+#: src/args.c:172
+msgid "OpenBLAS thread count"
+msgstr "Počet vlákien OpenBLAS"
+
+#: src/args.c:177
+msgid "Intel MKL thread count"
+msgstr "Počet vlákien Intel MKL"
+
+#: src/args.c:182
+msgid "OpenMP thread count"
+msgstr "Počet vlákien OpenMP"
+
+#: src/args.c:188
+msgid "activate the optimizer immediately"
+msgstr "okamžite aktivovať optimalizátor"
+
+#: src/args.c:191
+msgid "skip geometry verification checks"
+msgstr "preskočiť kontroly overenia geometrie"
+
+#: src/args.c:193
+msgid "verify segments check disabled\n"
+msgstr "kontrola overenia segmentov zakázaná\n"
+
+#: src/args.c:195
+msgid "force overlap check on large models (>1000 segments)"
+msgstr "vynútiť kontrolu prekrytia pri veľkých modeloch (>1000 segmentov)"
+
+#: src/args.c:197
+msgid "forcing overlap check on large models\n"
+msgstr "vynútená kontrola prekrývania na veľkých modeloch\n"
+
+#: src/args.c:199
+msgid "report managed allocator live bytes per call site"
+msgstr "oznámiť aktívne bajty spravovaného alokátora pre každé miesto volania"
+
+#: src/args.c:201
+msgid "managed allocator leak report enabled\n"
+msgstr "správa úniku spravovaného alokátora povolená\n"
+
+#: src/args.c:204
+msgid ""
+"The following arguments write to an output file after the frequency loop "
+"completes.  These are useful to combine with --batch; if filenames are "
+"specified without --batch, enable File->Optimizer Settings or they will not "
+"be written."
+msgstr ""
+"Nasledujúce argumenty zapíšu do výstupného súboru po dokončení frekvenčnej "
+"slučky.  Je užitočné ich kombinovať s --batch; ak sú názvy súborov zadané "
+"bez --batch, povoľte Súbor->Nastavenia optimalizátora, inak nebudú zapísané."
+
+#: src/args.c:212
+msgid "write CSV file of measurements"
+msgstr "zapísať súbor CSV s meraniami"
+
+#: src/args.c:216
+msgid "write S1P file of S-parameters"
+msgstr "zapísať súbor S1P so S-parameters"
+
+#: src/args.c:220
+msgid "write S2P file, port-2 is max-gain"
+msgstr "zapísať súbor S2P, port-2 je maximálny zisk"
+
+#: src/args.c:224
+msgid "write S2P file, port-2 is viewer-gain"
+msgstr "zapísať súbor S2P, port-2 je zisk zobrazovača"
+
+#: src/args.c:228
+msgid "write CSV of the radiation pattern"
+msgstr "zapísať CSV vyžarovacieho diagramu"
+
+#: src/args.c:232
+msgid "write CSV of currents and charges"
+msgstr "zapísať CSV prúdov a nábojov"
+
+#: src/args.c:236
+msgid "write gnuplot structure file"
+msgstr "zapísať súbor štruktúry gnuplot"
+
+#: src/args.c:240
+msgid "write CSV of patch surface currents"
+msgstr "zapísať CSV povrchových prúdov plôšok"
+
+#: src/args.c:244
+msgid "write full validation data tree"
+msgstr "zapísať úplný strom údajov validácie"
+
+#: src/args.c:248
+msgid "write PNG of the radiation pattern"
+msgstr "zapísať PNG vyžarovacieho diagramu"
+
+#: src/args.c:252
+msgid "x, y, z, iso, or quad views"
+msgstr "pohľady x, y, z, iso alebo quad"
+
+#: src/args.c:259
+msgid ""
+"post-sweep selected frequency; absent, keep the previous saved frequency, or "
+"center if none"
+msgstr ""
+"frekvencia vybraná po prebehu; ak chýba, ponechať predchádzajúcu uloženú "
+"frekvenciu alebo stred, ak neexistuje"
+
+#: src/args.c:282
+msgid "config file path too long\n"
+msgstr "cesta ku konfiguračnému súboru je príliš dlhá\n"
+
+#: src/args.c:308
+#, c-format
+msgid "Detected %d CPUs\n"
+msgstr "Zistených %d CPU\n"
+
+#: src/args.c:448
+#, c-format
+msgid "usage entry --%s repeats the option id of --%s\n"
+msgstr "položka použitia --%s opakuje identifikátor voľby --%s\n"
+
+#: src/args.c:495
+#, c-format
+msgid "usage entry --%s carries option id %d outside 1..%d\n"
+msgstr ""
+"položka použitia --%s obsahuje identifikátor voľby %d mimo rozsahu 1..%d\n"
+
+#: src/args.c:502
+#, c-format
+msgid "usage entry --%s carries no help text\n"
+msgstr "položka použitia --%s neobsahuje text pomocníka\n"
+
+#: src/args.c:508
+#, c-format
+msgid "usage entry --%s defaults an argument it does not take\n"
+msgstr "položka použitia --%s nastavuje predvolený argument, ktorý neprijíma\n"
+
+#: src/args.c:514
+#, c-format
+msgid "usage entry --%s resolves a default its variable states\n"
+msgstr ""
+"položka použitia --%s určuje predvolenú hodnotu, ktorú uvádza jej premenná\n"
+
+#: src/args.c:520
+#, c-format
+msgid "usage entry --%s carries no applier\n"
+msgstr "položka použitia --%s neobsahuje aplikátor\n"
+
+#: src/args.c:530
+#, c-format
+msgid "usage entry %zu carries option fields without a name\n"
+msgstr "položka použitia %zu obsahuje polia možnosti bez názvu\n"
+
+#: src/args.c:649
+#, c-format
+msgid "%s (default: %s)"
+msgstr "%s (predvolené: %s)"
+
+#: src/args.c:817
+#, c-format
+msgid "invalid frequency selector: %s\n"
+msgstr "neplatný volič frekvencie: %s\n"
+
+#: src/args.c:842
+#, c-format
+msgid "--%s requires an integer argument of %d or more\n"
+msgstr "--%s vyžaduje celočíselný argument %d alebo väčší\n"
+
+#: src/args.c:877
+#, c-format
+msgid "--%s argument too long ( > %d char )\n"
+msgstr "argument --%s je príliš dlhý ( > %d znakov )\n"
+
+#: src/args.c:896
+#, c-format
+msgid "config file does not exist or is not readable: %s\n"
+msgstr "konfiguračný súbor neexistuje alebo nie je čitateľný: %s\n"
+
+#: src/args.c:910 src/geometry.c:771 src/input.c:1801 src/input.c:1802
+#: src/mathlib.c:752 src/mathlib.c:981 src/rdpattern_ui.c:329
+#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/sy_expr.c:172 src/utils.c:88 src/utils.c:406
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: src/args.c:940
+msgid "Forking disabled!\n"
+msgstr "Forkovanie zakázané!\n"
+
+#: src/args.c:1028
+#, c-format
+msgid "invalid radiation pattern PNG format: %s\n"
+msgstr "neplatný formát PNG vyžarovacieho diagramu: %s\n"
+
 #: src/cairo/cairo_fit.c:117
 #, c-format
 msgid ""
@@ -3618,14 +3865,6 @@ msgstr ""
 "Odkazujete na neznámy tag alebo segment v riadiacej karte.\n"
 "Platné tagy vo vašej geometrii sú tie priradené kartám GW/GA/GH/SP."
 
-#: src/geometry.c:771 src/input.c:1801 src/input.c:1802 src/mathlib.c:752
-#: src/mathlib.c:981 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344 src/sy_expr.c:142 src/sy_expr.c:172 src/utils.c:134
-#: src/utils.c:452
-#, c-format
-msgid "%s"
-msgstr "%s"
-
 #: src/geometry.c:1043
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "rohy štvoruholníkového patchu neležia v rovine\n"
@@ -4431,8 +4670,8 @@ msgstr "nepodarilo sa pridať objekty do builder: %s\n"
 msgid "Listing Object Ids:\n"
 msgstr "Zoznam ID objektov:\n"
 
-#: src/interface.c:200 src/utils.c:192 src/utils.c:196 src/utils.c:206
-#: src/utils.c:208
+#: src/interface.c:200 src/utils.c:146 src/utils.c:150 src/utils.c:160
+#: src/utils.c:162
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
@@ -4455,141 +4694,87 @@ msgstr "xnec2c %s: %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: nepodarilo sa načítať animate.glade: %s\n"
 
-#: src/main.c:220
-#, c-format
-msgid "%s requires a positive integer argument\n"
-msgstr "%s vyžaduje kladný celočíselný argument\n"
-
-#: src/main.c:283
-#, c-format
-msgid "Detected %d CPUs\n"
-msgstr "Zistených %d CPU\n"
-
-#: src/main.c:302
+#: src/main.c:122
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Zistený %s okenný backend\n"
 
-#: src/main.c:312
-msgid "config file path too long\n"
-msgstr "cesta ku konfiguračnému súboru je príliš dlhá\n"
-
-#: src/main.c:330
-#, c-format
-msgid "config file does not exist or is not readable: %s\n"
-msgstr "konfiguračný súbor neexistuje alebo nie je čitateľný: %s\n"
-
-#: src/main.c:339
-#, c-format
-msgid "config file path too long ( > %d char )\n"
-msgstr "cesta ku konfiguračnému súboru je príliš dlhá ( > %d znakov )\n"
-
-#: src/main.c:351
-#, c-format
-msgid "input file name too long ( > %d char )\n"
-msgstr "názov vstupného súboru je príliš dlhý ( > %d znakov )\n"
-
-#: src/main.c:378
-msgid "Forking disabled!\n"
-msgstr "Forkovanie zakázané!\n"
-
-#: src/main.c:386
-msgid "pthread freqloop disabled!\n"
-msgstr "pthread freqloop zakázaný!\n"
-
-#: src/main.c:390
-msgid "batch mode enabled, will exit after first loop\n"
-msgstr "dávkový režim povolený, ukončí sa po prvom cykle\n"
-
-#: src/main.c:456
-msgid "verify segments check disabled\n"
-msgstr "kontrola overenia segmentov zakázaná\n"
-
-#: src/main.c:461
-msgid "forcing overlap check on large models\n"
-msgstr "vynútená kontrola prekrývania na veľkých modeloch\n"
-
-#: src/main.c:476
-#, c-format
-msgid "invalid radiation pattern PNG format: %s\n"
-msgstr "neplatný formát PNG vyžarovacieho diagramu: %s\n"
-
-#: src/main.c:482
-msgid "managed allocator leak report enabled\n"
-msgstr "správa úniku spravovaného alokátora povolená\n"
-
-#: src/main.c:496
+#: src/main.c:130
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch a --optimize sa navzájom vylučujú.\n"
 
-#: src/main.c:512
+#: src/main.c:139
+msgid "--write-rdpat-png requires --batch\n"
+msgstr "--write-rdpat-png vyžaduje --batch\n"
+
+#: src/main.c:155
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "cesta vstupného súboru je príliš dlhá ( > %d znakov )\n"
 
-#: src/main.c:519
+#: src/main.c:162
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "neočakávaný argument '%s' nezdá sa byť .nec súbor\n"
 
-#: src/main.c:526
+#: src/main.c:169
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "neočakávaný argument: %s\n"
 
-#: src/main.c:532
+#: src/main.c:175
 msgid "batch mode requires an input file\n"
 msgstr "dávkový režim vyžaduje vstupný súbor\n"
 
-#: src/main.c:542
+#: src/main.c:185
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "nedá sa otvoriť displej: vyžaduje sa spustená relácia X11 alebo Wayland\n"
 
-#: src/main.c:561
+#: src/main.c:204
 #, c-format
 msgid "Forking %d jobs.\n"
 msgstr "Forkujem %d úloh.\n"
 
-#: src/main.c:573 src/main.c:581
+#: src/main.c:216 src/main.c:224
 msgid "exiting after fatal error: pipe() failed"
 msgstr "ukončenie po fatálnej chybe: pipe() zlyhalo"
 
-#: src/main.c:590
+#: src/main.c:233
 msgid "exiting after fatal error: fork() failed"
 msgstr "ukončenie po fatálnej chybe: fork() zlyhalo"
 
-#: src/main.c:1165
+#: src/main.c:813
 msgid "exiting via user interrupt\n"
 msgstr "ukončenie prerušením používateľa\n"
 
-#: src/main.c:1169
+#: src/main.c:817
 msgid "segmentation fault, exiting\n"
 msgstr "segmentation fault, ukončujem\n"
 
-#: src/main.c:1173
+#: src/main.c:821
 msgid "floating point exception, exiting\n"
 msgstr "výnimka pohyblivej rádovej čiarky, ukončujem\n"
 
-#: src/main.c:1177
+#: src/main.c:825
 msgid "abort signal received, exiting\n"
 msgstr "prijatý signál prerušenia, ukončujem\n"
 
-#: src/main.c:1181
+#: src/main.c:829
 msgid "termination request received, exiting\n"
 msgstr "prijatá požiadavka na ukončenie, ukončujem\n"
 
-#: src/main.c:1191
+#: src/main.c:839
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "nie je forknuté, ignorujem SIGCHLD z pid %d\n"
 
-#: src/main.c:1199
+#: src/main.c:847
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "podradený proces pid %d ukončený\n"
 
-#: src/main.c:1208
+#: src/main.c:856
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "predvolené ukončenie so signálom: %d\n"
@@ -4611,7 +4796,7 @@ msgstr "open_mathlib: lib je NULL\n"
 msgid "setenv(%s, %s): %s\n"
 msgstr "setenv(%s, %s): %s\n"
 
-#: src/mathlib.c:320 src/utils.c:456
+#: src/mathlib.c:320 src/utils.c:410
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s: %s\n"
@@ -5983,93 +6168,7 @@ msgstr "téma '%s' nenájdená, používam zastaranú\n"
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "šírka '%s' neplatná, ponechávam aktuálnu hodnotu\n"
 
-#: src/utils.c:42
-#, c-format
-msgid ""
-"Usage: xnec2c [options] [<input-file-name>]\n"
-"  -i|--input         <input-file-name>\n"
-"  -c|--config        <config-file-path>     - file must exist\n"
-"  -C|--new-config    <new-config-file-path> - creates the file when missing\n"
-"  -j|--jobs  <number of processors in SMP machine> (-j0 disables forking)\n"
-"     --openblas-threads <n>  set OpenBLAS thread count (default: 1)\n"
-"     --mkl-threads <n>       set Intel MKL thread count (default: 1)\n"
-"     --omp-threads <n>       set OpenMP thread count (default: 1)\n"
-"  -b|--batch:        enable batch mode, exit after the frequency loop runs\n"
-"  -P|--no-pthreads:  disable pthreads and use the GTK loop for debugging\n"
-"  -h|--help:         print usage information and exit\n"
-"  -V|--version:      print xnec2c version number and exit\n"
-"  -v|--verbose:      increase verbosity, can be specified multiple times\n"
-"  -d|--debug:        enable debug output (-dd includes backtraces)\n"
-"  -d|--quiet:        suppress debug/verbose output\n"
-"\n"
-"  --optimize:        Activate the optimizer immediately.\n"
-"  --skip-verify:     skip geometry verification checks\n"
-"  --mem-report:      report managed allocator live bytes per call site\n"
-"\n"
-"The following arguments write to an output file after the frequency loop\n"
-"completes.  These are useful to combine with --batch; If you wish to "
-"specify\n"
-"filenames to write without --batch mode then enable the File->Optimizer\n"
-"Settings or the files you specify on the command line will not be written.\n"
-"\n"
-"  --write-csv             <filename>  - write CSV file of measurements\n"
-"  --write-s1p             <filename>  - write S1P file of S-parameters\n"
-"  --write-s2p-max-gain    <filename>  - write S2P file, port-2 is max-gain\n"
-"  --write-s2p-viewer-gain <filename>  - write S2P file, port-2 is viewer-"
-"gain\n"
-"  --write-rdpat           <filename>  - write CSV of the radiation pattern\n"
-"  --write-currents        <filename>  - write CSV of currents and charges\n"
-"  --write-gnuplot-structure <filename> - write gnuplot structure file\n"
-"  --write-patch-currents  <filename>  - write CSV of patch surface currents\n"
-"  --write-validation-dir <directory> - write full validation data tree\n"
-msgstr ""
-"Použitie: xnec2c [voľby] [<názov-vstupného-súboru>]\n"
-"  -i|--input         <názov-vstupného-súboru>\n"
-"  -c|--config        <cesta-konfiguračného-súboru>     - súbor musí "
-"existovať\n"
-"  -C|--new-config    <cesta-nového-konfiguračného-súboru> - vytvorí súbor ak "
-"chýba\n"
-"  -j|--jobs  <počet procesorov v SMP stroji> (-j0 zakáže forkovanie)\n"
-"     --openblas-threads <n>  nastaviť počet vlákien OpenBLAS (predvolené: "
-"1)\n"
-"     --mkl-threads <n>       nastaviť počet vlákien Intel MKL (predvolené: "
-"1)\n"
-"     --omp-threads <n>       nastaviť počet vlákien OpenMP (predvolené: 1)\n"
-"  -b|--batch:        povoliť dávkový režim, ukončiť po dokončení frekvenčnej "
-"slučky\n"
-"  -P|--no-pthreads:  zakázať pthreads a použiť GTK slučku pre ladenie\n"
-"  -h|--help:         vypísať informácie o použití a ukončiť\n"
-"  -V|--version:      vypísať číslo verzie xnec2c a ukončiť\n"
-"  -v|--verbose:      zvýšiť podrobnosť, možno zadať viackrát\n"
-"  -d|--debug:        povoliť ladiaci výstup (-dd vrátane spätných "
-"sledovaní)\n"
-"  -d|--quiet:        potlačiť ladiaci/podrobný výstup\n"
-"\n"
-"  --optimize:        Okamžite aktivovať optimalizátor.\n"
-"  --skip-verify:     preskočiť kontroly overenia geometrie\n"
-"  --mem-report:      hlásiť živé bajty spravovaného alokátora na miesto "
-"volania\n"
-"\n"
-"Nasledujúce argumenty zapisujú do výstupného súboru po dokončení "
-"frekvenčnej\n"
-"slučky. Tieto sú užitočné v kombinácii s --batch; Ak chcete zadať názvy "
-"súborov\n"
-"na zápis bez režimu --batch, povoľte Súbor->Nastavenia optimalizátora, inak\n"
-"súbory zadané na príkazovom riadku nebudú zapísané.\n"
-"\n"
-"  --write-csv             <súbor>  - zapísať CSV súbor meraní\n"
-"  --write-s1p             <súbor>  - zapísať S1P súbor S-parametrov\n"
-"  --write-s2p-max-gain    <súbor>  - zapísať S2P súbor, port-2 je max-zisk\n"
-"  --write-s2p-viewer-gain <súbor>  - zapísať S2P súbor, port-2 je zisk-"
-"zobrazovača\n"
-"  --write-rdpat           <súbor>  - zapísať CSV vyžarovacieho diagramu\n"
-"  --write-currents        <súbor>  - zapísať CSV prúdov a nábojov\n"
-"  --write-gnuplot-structure <súbor> - zapísať súbor gnuplot štruktúry\n"
-"  --write-patch-currents  <súbor>  - zapísať CSV prúdov povrchových patchov\n"
-"  --write-validation-dir <adresár>    - zapísať kompletný strom validačných "
-"údajov\n"
-
-#: src/utils.c:99 src/utils.c:104
+#: src/utils.c:53 src/utils.c:58
 #, c-format
 msgid ""
 "\n"
@@ -6082,45 +6181,45 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:185
+#: src/utils.c:139
 #, c-format
 msgid "Stop: %s\n"
 msgstr "Zastaviť: %s\n"
 
-#: src/utils.c:224 src/utils.c:226
+#: src/utils.c:178 src/utils.c:180
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Zastavenie počas frekvenčnej slučky, zabránené uviaznutiu: %s\n"
 
-#: src/utils.c:410
+#: src/utils.c:364
 #, c-format
 msgid "using %d OpenMP threads per job (%d/%d CPUs)\n"
 msgstr "používa sa %d OpenMP vlákien na úlohu (%d/%d CPU)\n"
 
-#: src/utils.c:426
+#: src/utils.c:380
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f sekúnd\n"
 
-#: src/utils.c:451
+#: src/utils.c:405
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Nepodarilo sa otvoriť súbor: %s\n"
 
-#: src/utils.c:850
+#: src/utils.c:804
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Slučka optimalizátora neukončená, potláča sa priebežné prekreslenie.\n"
 
-#: src/utils.c:866
+#: src/utils.c:820
 msgid "  Backtrace:\n"
 msgstr "  Spätné sledovanie:\n"
 
-#: src/utils.c:868
+#: src/utils.c:822
 #, c-format
 msgid "    %d. %s\n"
 msgstr "    %d. %s\n"
 
-#: src/utils.c:895
+#: src/utils.c:849
 #, c-format
 msgid "%s:\n"
 msgstr "%s:\n"
@@ -6193,7 +6292,7 @@ msgstr "Ground_Parameters():Chyba v parametroch zeme"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f sekúnd. (%s)\n"
 
-#: src/xnec2c.c:988
+#: src/xnec2c.c:988 src/xnec2c.c:1450
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval vrátil neznámu triedu %d\n"
@@ -6214,44 +6313,52 @@ msgstr "child %d má neplatný pipe fd počas forknúteho zberu\n"
 msgid "Failed to read data from forked child\n"
 msgstr "Nepodarilo sa prečítať údaje z podprocesu\n"
 
-#: src/xnec2c.c:1319
+#: src/xnec2c.c:1479
 #, c-format
-msgid ""
-"fmhz_save %.4f MHz outside FR card ranges; reset to %.4f MHz (VSWR %.2f)\n"
-msgstr ""
-"fmhz_save %.4f MHz mimo rozsahov karty FR; reset na %.4f MHz (VSWR %.2f)\n"
+msgid "invalid frequency selection mode %d\n"
+msgstr "neplatný režim výberu frekvencie %d\n"
 
-#: src/xnec2c.c:1348
+#: src/xnec2c.c:1497
+#, c-format
+msgid "nearest step %g MHz differs from requested %g MHz\n"
+msgstr "najbližší krok %g MHz sa líši od požadovaného %g MHz\n"
+
+#: src/xnec2c.c:1501
+#, c-format
+msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
+msgstr "frekvencia po prebehu nastavená na %.4f MHz (VSWR %.2f)\n"
+
+#: src/xnec2c.c:1530
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Uplynutý čas frekvenčnej slučky: %f sekúnd. (%s)\n"
 
-#: src/xnec2c.c:1587
+#: src/xnec2c.c:1749
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "zachytenie PNG vyžarovacieho diagramu: žiadny vypočítaný krok pre %s\n"
 
-#: src/xnec2c.c:1660
+#: src/xnec2c.c:1821
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "zachytenie PNG vyžarovacieho diagramu zlyhalo pre %s\n"
 
-#: src/xnec2c.c:1666
+#: src/xnec2c.c:1827
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "uloženie PNG vyžarovacieho diagramu zlyhalo pre %s: %s\n"
 
-#: src/xnec2c.c:1671
+#: src/xnec2c.c:1832
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "zapísaný PNG vyžarovacieho diagramu: %s\n"
 
-#: src/xnec2c.c:1719
+#: src/xnec2c.c:1869
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "viacero formátov PNG vyžarovacieho diagramu vyžaduje názov súboru .png: %s\n"
 
-#: src/xnec2c.c:2010
+#: src/xnec2c.c:2160
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "nepodarilo sa spustiť Frequency_Loop_Thread\n"
