@@ -146,9 +146,12 @@ docjsdir = $(docdir)/js
 dist_docjs_DATA  =
 dist_docjs_DATA += doc/js/gallery.js
 dist_docjs_DATA += doc/js/gallery-events.js
+dist_docjs_DATA += doc/js/gallery-launch.js
 dist_docjs_DATA += doc/js/gallery-nec.js
 dist_docjs_DATA += doc/js/gallery-render.js
 dist_docjs_DATA += doc/js/gallery-view.js
+dist_docjs_DATA += doc/js/gallery-warm.js
+dist_docjs_DATA += doc/js/gallery-warm-queue.js
 dist_docjs_DATA += doc/js/mobile-menu.js
 
 docimagesgallerydir = $(docdir)/images/gallery

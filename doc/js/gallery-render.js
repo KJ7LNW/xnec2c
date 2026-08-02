@@ -7,6 +7,7 @@ const GALLERY_DECK_REQUEST_FAILED = Symbol();
 /** Create the gallery renderer and lazy deck-source loader. */
 function create_gallery_renderer(manifest, state, view, gallery_data) {
   let deck_request = GALLERY_DECK_REQUEST_IDLE;
+  let rendered_source = null;
 
   /** Repaint after the deck bundle loads. */
   function handle_deck_load() {
@@ -88,9 +89,12 @@ function create_gallery_renderer(manifest, state, view, gallery_data) {
 
     render_axes(entry, axis);
     view.title.textContent = entry.name;
-    view.image.src = source;
+    if (rendered_source !== source) {
+      rendered_source = source;
+      view.image.src = source;
+      view.zoom_image.src = source;
+    }
     view.image.alt = description;
-    view.zoom_image.src = source;
     view.zoom_image.alt = description;
     view.zoom_caption.textContent = entry.deck;
     view.pane_controls.forEach(function render_row(control) {
@@ -110,7 +114,7 @@ function create_gallery_renderer(manifest, state, view, gallery_data) {
     view.zoom.setAttribute("aria-hidden", String(!state.zoom_open));
   }
 
-  return { render_gallery };
+  return { render_gallery, request_decks };
 }
 
 window.XNEC2C_GALLERY_RENDER = { create_gallery_renderer };

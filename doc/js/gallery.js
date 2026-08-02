@@ -60,26 +60,14 @@ function build_gallery(manifest) {
     view,
     GALLERY_DATA,
   );
-  const prefetched_sources = new Set();
+  const warm = window.XNEC2C_GALLERY_WARM.create_gallery_warm({
+    manifest,
+    state,
+    view,
+    gallery_data: GALLERY_DATA,
+    request_decks: renderer.request_decks,
+  });
   let return_focus = null;
-
-  /** Warm adjacent images without delaying navigation. */
-  function prefetch_neighbors() {
-    const count = manifest.examples.length;
-    [state.index - 1, state.index + 1].forEach(function prefetch_neighbor(neighbor_index) {
-      const entry = manifest.examples[(neighbor_index + count) % count];
-      const image = GALLERY_DATA.find_gallery_image(entry, state.axis);
-      const source = GALLERY_DATA.gallery_image_source(image);
-      if (prefetched_sources.has(source)) {
-        return;
-      }
-      prefetched_sources.add(source);
-      const warm_image = new Image();
-      warm_image.decoding = "async";
-      warm_image.fetchPriority = "low";
-      warm_image.src = source;
-    });
-  }
 
   /** Commit navigation to an adjacent example. */
   function navigate(delta) {
@@ -88,7 +76,7 @@ function build_gallery(manifest) {
     state.preview_index = null;
     state.preview_axis = null;
     renderer.render_gallery();
-    prefetch_neighbors();
+    warm.refresh();
   }
 
   /** Commit an axis selection. */
@@ -97,6 +85,7 @@ function build_gallery(manifest) {
     state.preview_axis = null;
     state.source_open = false;
     renderer.render_gallery();
+    warm.refresh();
   }
 
   /** Commit an example selection. */
@@ -105,19 +94,21 @@ function build_gallery(manifest) {
     state.preview_index = null;
     state.preview_axis = null;
     renderer.render_gallery();
-    prefetch_neighbors();
+    warm.refresh();
   }
 
   /** Set the preview axis and repaint the gallery. */
   function set_axis_preview(axis) {
     state.preview_axis = axis;
     renderer.render_gallery();
+    warm.defer();
   }
 
   /** Set the preview example and repaint the gallery. */
   function set_example_preview(index) {
     state.preview_index = index;
     renderer.render_gallery();
+    warm.defer();
   }
 
   /** Cycle through the selected example's available axes. */
@@ -132,7 +123,7 @@ function build_gallery(manifest) {
       .map(function axis_key(axis) {
         return axis.key;
       });
-    const current = GALLERY_DATA.find_gallery_image(entry, state.axis).format;
+    const current = find_gallery_image(entry, state.axis).format;
     const position = keys.indexOf(current);
     select_axis(keys[(position + delta + keys.length) % keys.length]);
   }
@@ -210,7 +201,8 @@ function build_gallery(manifest) {
     document.addEventListener("keydown", events.handle_key);
     renderer.render_gallery();
     view.dialog.focus();
-    prefetch_neighbors();
+    warm.observe();
+    warm.refresh();
   }
 
   /** Close the gallery modal and restore launcher focus. */
@@ -219,6 +211,7 @@ function build_gallery(manifest) {
     view.modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("gallery-open");
     document.removeEventListener("keydown", events.handle_key);
+    warm.release();
     return_focus?.focus();
     return_focus = null;
   }
@@ -232,45 +225,10 @@ function build_gallery(manifest) {
     close_deepest_surface, close_gallery,
     get_focus_surface,
   });
-  return { open_gallery };
+  return { open_gallery, warm_example: warm.warm_example };
 }
 
-/** Mount the gallery launcher when its generated data is available. */
-function mount_gallery() {
-  const manifest = window.XNEC2C_GALLERY;
-  if (manifest === undefined || manifest === null) {
-    return;
-  }
-  if (!Array.isArray(manifest.examples) || manifest.examples.length === 0) {
-    return;
-  }
-  const mount = document.getElementById("gallery-launch");
-  if (mount === null) {
-    return;
-  }
-
-  const gallery = build_gallery(manifest);
-  const launch = document.createElement("button");
-  launch.type = "button";
-  launch.className = "gallery-launch-button";
-  launch.textContent = "Browse Antenna Gallery";
-  launch.dataset.galleryOpen = "";
-  mount.appendChild(launch);
-
-  document.addEventListener("click", function open_gallery_from_control(event) {
-    const opener = event.target.closest("[data-gallery-open]");
-    if (opener === null) {
-      return;
-    }
-    event.preventDefault();
-    const name = opener.dataset.galleryExample;
-    const index = name === undefined
-      ? GALLERY_INITIAL_STATE.index
-      : manifest.examples.findIndex(function match_example(entry) {
-          return entry.name === name;
-        });
-    gallery.open_gallery(index);
-  });
-}
-
-document.addEventListener("DOMContentLoaded", mount_gallery);
+window.XNEC2C_GALLERY_CONTROLLER = {
+  build_gallery,
+  default_index: GALLERY_INITIAL_STATE.index,
+};
