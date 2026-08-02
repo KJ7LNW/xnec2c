@@ -246,17 +246,18 @@ static void dump_patch_currents(FILE *fp)
 	}
 }
 
-/* nearfield_points.csv
- * Per-fstep near field from near_field_fstep[].points (AoS layout).
- * mhz, fstep, point, px, py, pz,
- * er, erx, ery, erz, hr, hrx, hry, hrz, max_er, max_hr, r_max */
+/**
+ * dump_nearfield_points - write stored near-field phasors
+ * @fp: destination CSV stream
+ *
+ * Write one row per point and enabled electric or magnetic channel. Magnitudes
+ * and radian phases come directly from the saved near-field point.
+ */
 static void dump_nearfield_points(FILE *fp)
 {
-	fprintf(fp, "mhz,fstep,point,"
+	fprintf(fp, "mhz,fstep,channel,point,"
 		"px,py,pz,"
-		"er,erx,ery,erz,"
-		"hr,hrx,hry,hrz,"
-		"max_er,max_hr,r_max\n");
+		"fx_mag,fx_ang,fy_mag,fy_ang,fz_mag,fz_ang\n");
 
 	int npts = fpat.nrx * fpat.nry * fpat.nrz;
 
@@ -266,39 +267,47 @@ static void dump_nearfield_points(FILE *fp)
 			continue;
 
 		near_field_t *nf = &near_field_fstep[fs];
-
-		/* Frame magnitude maxima over the static real vectors */
-		double max_er = 0.0, max_hr = 0.0;
-		for (int i = 0; i < npts; i++)
+		for (nf_channel_t channel = NF_CHAN_E;
+			channel <= NF_CHAN_H; channel++)
 		{
-			double e[3], h[3];
-			double er = nf_real_vector(&nf->points[i], NF_CHAN_E,
-				FALSE, 0.0, rc_config.nf_static_mode, e);
-			double hr = nf_real_vector(&nf->points[i], NF_CHAN_H,
-				FALSE, 0.0, rc_config.nf_static_mode, h);
-			if (er > max_er) max_er = er;
-			if (hr > max_hr) max_hr = hr;
-		}
+			int enabled;
+			if (channel == NF_CHAN_E)
+				enabled = fpat.nfeh & NEAR_EFIELD;
+			else
+				enabled = fpat.nfeh & NEAR_HFIELD;
+			if (!enabled)
+				continue;
 
-		for (int i = 0; i < npts; i++)
-		{
-			near_field_point_t *pt = &nf->points[i];
-			double e[3], h[3];
-			double er = nf_real_vector(pt, NF_CHAN_E, FALSE, 0.0,
-				rc_config.nf_static_mode, e);
-			double hr = nf_real_vector(pt, NF_CHAN_H, FALSE, 0.0,
-				rc_config.nf_static_mode, h);
+			for (int i = 0; i < npts; i++)
+			{
+				near_field_point_t *pt = &nf->points[i];
+				double fx_mag, fx_ang, fy_mag, fy_ang, fz_mag, fz_ang;
+				if (channel == NF_CHAN_E)
+				{
+					fx_mag = pt->ex;
+					fx_ang = pt->fex;
+					fy_mag = pt->ey;
+					fy_ang = pt->fey;
+					fz_mag = pt->ez;
+					fz_ang = pt->fez;
+				}
+				else
+				{
+					fx_mag = pt->hx;
+					fx_ang = pt->fhx;
+					fy_mag = pt->hy;
+					fy_ang = pt->fhy;
+					fz_mag = pt->hz;
+					fz_ang = pt->fhz;
+				}
 
-			fprintf(fp, "%.6f,%d,%d,"
-				"%.17g,%.17g,%.17g,"
-				"%.17g,%.17g,%.17g,%.17g,"
-				"%.17g,%.17g,%.17g,%.17g,"
-				"%.17g,%.17g,%.17g\n",
-				save.freq[fs], fs, i,
-				pt->px, pt->py, pt->pz,
-				er, e[0], e[1], e[2],
-				hr, h[0], h[1], h[2],
-				max_er, max_hr, nf->r_max);
+				fprintf(fp, "%.6f,%d,%d,%d,"
+					"%.17g,%.17g,%.17g,"
+					"%.17g,%.17g,%.17g,%.17g,%.17g,%.17g\n",
+					save.freq[fs], fs, channel, i,
+					pt->px, pt->py, pt->pz,
+					fx_mag, fx_ang, fy_mag, fy_ang, fz_mag, fz_ang);
+			}
 		}
 	}
 }
