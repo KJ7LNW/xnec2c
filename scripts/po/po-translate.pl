@@ -357,13 +357,24 @@ sub translated_catalog
 	return $catalog;
 }
 
-# Save joined translations into their authoritative catalog.
+# Canonicalize one translated catalog through the shared refresh transaction.
+sub refresh_catalog
+{
+	my ($path) = @_;
+	my $status = system('scripts/po/po-refresh.sh', $path);
+
+	assert_command_status("$path: scripts/po/po-refresh.sh", $status);
+}
+
+# Save and canonicalize joined translations in their authoritative catalog.
 sub inject_language
 {
 	my ($lang, $translations) = @_;
+	my $path = "po/$lang.po";
 	my $catalog = translated_catalog($lang, $translations);
 
-	Locale::PO->save_file_fromarray("po/$lang.po", $catalog, 'utf8');
+	Locale::PO->save_file_fromarray($path, $catalog, 'utf8');
+	refresh_catalog($path);
 }
 
 # Propagate a child command failure with its process outcome.
