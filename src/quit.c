@@ -22,11 +22,10 @@
  *
  *  Interactive entry points (Quit menu, window delete, Ctrl-Q, error
  *  dialog, confirm dialog) route through the one coordinator
- *  xnec2c_request_quit().  Batch teardown (Frequency_Loop_Thread and the
- *  Stop() batch branch) run on the loop thread and deliver the completion
- *  primitive xnec2c_quit() directly via g_idle_add_once_sync; they must not
- *  enter the coordinator, whose Stop_Frequency_Loop() would pthread_join the
- *  blocked loop thread and deadlock.
+ *  xnec2c_request_quit().  Successful batch completion from either
+ *  frequency-loop driver posts capture and teardown to the GTK main thread.
+ *  That endpoint delivers xnec2c_quit() after the sweep has quiesced;
+ *  it does not re-enter the interactive coordinator.
  *
  *  MAIN_QUIT is the single quit-state datum.  It is set as intent at the
  *  interactive boundary (Nec2_Edit_Save and the confirm-dialog re-prompt read
@@ -65,13 +64,12 @@
 
 /*-----------------------------------------------------------------------*/
 
-/* xnec2c_quit()
+/**
+ * xnec2c_quit - complete application shutdown on the GTK main thread
+ * @user_data: unused callback data
  *
- * The one completion primitive.  Delivered by the coordinator's idle branch,
- * by opt_finished when it resolves a pending quit, and by the two batch sites
- * through g_idle_add_once_sync.  Destroying main_window here enters the normal
- * quit chain (on_main_window_destroy -> Gtk_Quit -> parent_cleanup) with no
- * worker still reading engine data.
+ * The coordinator, optimizer completion, successful normal-batch completion,
+ * and the synchronous batch-error path converge here after workers quiesce.
  */
   void
 xnec2c_quit( gpointer user_data )

@@ -742,7 +742,7 @@ typedef struct
   int              idle_top;     /* Index of top entry; -1 = empty */
 } freq_loop_state_t;
 
-/* Per-sweep state; allocated by Start_Frequency_Loop(), freed by thread/Stop */
+/* Per-sweep state; released by the idle driver or Stop_Frequency_Loop(). */
 static freq_loop_state_t *floop_state = NULL;
 
 /*
@@ -2060,10 +2060,68 @@ Frequency_Loop( gpointer udata )
 /*-----------------------------------------------------------------------*/
 
 
+/**
+ * freq_loop_state_free - release the current sweep state
+ * @state: address of the authoritative state pointer
+ *
+ * Releases the managed idle stack before releasing and nulling its owning
+ * state pointer.
+ */
+static void
+freq_loop_state_free( freq_loop_state_t **state )
+{
+  if( *state == NULL )
+    return;
+
+  mem_array_free( &(*state)->idle_stack );
+  mem_free( state );
+}
+
+/**
+ * freq_loop_complete - publish frequency-loop driver completion
+ *
+ * Clear the running state after either driver finishes.  A successful batch
+ * sweep posts its capture-and-quit endpoint to the GTK main thread.
+ */
+static void
+freq_loop_complete( void )
+{
+  int stopped = isFlagSet(FREQ_LOOP_STOP);
+
+  switch( stopped )
+  {
+    case TRUE:
+      break;
+
+    case FALSE:
+      switch( rc_config.batch_mode )
+      {
+        case TRUE:
+          g_idle_add_once( (GSourceOnceFunc)batch_capture_and_quit, NULL );
+          break;
+
+        case FALSE:
+          break;
+
+        default:
+          BUG("freq_loop_complete: invalid batch_mode=%d\n", rc_config.batch_mode);
+          break;
+      }
+      break;
+
+    default:
+      BUG("freq_loop_complete: invalid stopped=%d\n", stopped);
+      break;
+  }
+
+  ClearFlag( FREQ_LOOP_RUNNING );
+}
+
+/*-----------------------------------------------------------------------*/
+
 void *Frequency_Loop_Thread(void *p)
 {
 	freq_loop_state_t *state = (freq_loop_state_t *)p;
-	gboolean batch_complete = FALSE;
 
 	// Don't draw the green line if in batch mode
 	if (rc_config.batch_mode)
@@ -2072,39 +2130,44 @@ void *Frequency_Loop_Thread(void *p)
 	// Run the loop; Frequency_Loop() returns FALSE when done or stopped
 	while( Frequency_Loop(state) );
 
-	if (isFlagSet(FREQ_LOOP_STOP))
-		goto out;
-
-	// Exit if in batch mode
-	if (rc_config.batch_mode)
-	{
-		batch_complete = TRUE;
-		goto out;
-	}
-
-	/*
-		Prevent deadlock waiting for Stop_Frequency_Loop()=>pthread_join()
-		in Open_Input_File() triggered by Optimizer_Output() because
-		g_idle_add_once_sync won't allow this Frequency_Loop_Thread()
-		thread to exit until Open_Input_File() returns for GTK to make
-		progress, but Open_Input_File() is waiting for pthread_join()
-		to return when this thread exits.
-	*/
-	if ( isFlagSet(INPUT_PENDING) )
-		goto out;
-
-out:
-	ClearFlag(FREQ_LOOP_RUNNING);
-
-	if( batch_complete )
-		g_idle_add_once((GSourceOnceFunc)batch_capture_and_quit, NULL);
+	freq_loop_complete();
 
 	return NULL;
 }
 
 
+/*-----------------------------------------------------------------------*/
+
 /**
- * freq_loop_start_internal - allocate state and launch the loop thread
+ * freq_loop_idle - drive a frequency sweep from the GTK main loop
+ * @udata: address of the module-owned current sweep state
+ *
+ * Return: G_SOURCE_CONTINUE while the sweep runs, G_SOURCE_REMOVE after
+ * natural completion releases the authoritative state slot.
+ */
+static gboolean
+freq_loop_idle( gpointer udata )
+{
+  freq_loop_state_t **state = udata;
+  gboolean source_status;
+
+  if( Frequency_Loop(*state) )
+  {
+    source_status = G_SOURCE_CONTINUE;
+  }
+  else
+  {
+    floop_tag = 0;
+    freq_loop_complete();
+    freq_loop_state_free( state );
+    source_status = G_SOURCE_REMOVE;
+  }
+
+  return source_status;
+}
+
+/**
+ * freq_loop_start_internal - allocate state and launch the loop driver
  *
  * Caller has already invalidated the desired save.fstep[] entries.
  * Returns TRUE on success, FALSE if preconditions are not met.
@@ -2158,7 +2221,7 @@ freq_loop_start_internal( void )
   }
   else
   {
-    floop_tag = g_idle_add( Frequency_Loop, floop_state );
+    floop_tag = g_idle_add( freq_loop_idle, &floop_state );
   }
 
   return TRUE;
@@ -2202,6 +2265,20 @@ Start_Frequency_Loop_Greenline( void )
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * freq_loop_cancel_complete - publish canceled sweep completion
+ *
+ * Clear loop state after driver resources are released.  Threaded teardown
+ * commits this transition before flushing GTK work so a sweep started during
+ * that flush retains its state.
+ */
+static void
+freq_loop_cancel_complete( void )
+{
+  ClearFlag( FREQ_LOOP_RUNNING );
+  ClearFlag( FREQ_LOOP_STOP );
+}
+
 /* Stop_Frequency_Loop()
  *
  * Stops and resets freq loop
@@ -2209,44 +2286,33 @@ Start_Frequency_Loop_Greenline( void )
   void
 Stop_Frequency_Loop( void )
 {
-  // Clearing this flag will cause the Frequency_Loop pthread to exit when it is done:
-  ClearFlag( FREQ_LOOP_RUNNING );
   SetFlag(FREQ_LOOP_STOP);
 
-  if (!rc_config.disable_pthread_freqloop)
+  if( !rc_config.disable_pthread_freqloop )
   {
-	  // Wait for the thread to exit:
-	  if (pth_freq_loop != NULL)
-	  {
-		  pthread_join(*pth_freq_loop, NULL);
-		  mem_free(&pth_freq_loop);
+    if( pth_freq_loop != NULL )
+    {
+      pthread_join(*pth_freq_loop, NULL);
+      mem_free(&pth_freq_loop);
+    }
 
-		  if( floop_state != NULL )
-		  {
-		    mem_array_free(&floop_state->idle_stack);
-		    mem_free(&floop_state);
-		  }
-	  }
+    freq_loop_state_free(&floop_state);
+    freq_loop_cancel_complete();
 
-	  ClearFlag(FREQ_LOOP_STOP);
-
-	  // Flush any pending GTK events. This is critical because any pending
-	  // events that may work upon GtkWidget's that change (or close) upon exit
-	  // from this function will fail.
-	  while( g_main_context_iteration(NULL, FALSE) ) {}
+    /* Flush pending GTK work after publishing cancellation so a sweep
+     * started re-entrantly during the flush retains its state. */
+    while( g_main_context_iteration(NULL, FALSE) ) {}
   }
-  else if( floop_tag > 0 )
+  else
   {
-	g_source_remove( floop_tag );
-	floop_tag = 0;
-	ClearFlag(FREQ_LOOP_STOP);
+    if( floop_tag > 0 )
+    {
+      g_source_remove(floop_tag);
+      floop_tag = 0;
+    }
 
-	/* Both paths free state here; g_idle source was removed above */
-	if( floop_state != NULL )
-	{
-	  mem_array_free(&floop_state->idle_stack);
-	  mem_free(&floop_state);
-	}
+    freq_loop_state_free(&floop_state);
+    freq_loop_cancel_complete();
   }
 } /* Stop_Frequency_Loop() */
 
