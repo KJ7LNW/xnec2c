@@ -304,9 +304,9 @@ Main_Freqplots_Activate( void )
  * Config post_apply hook for rc_config.rdpattern_mode.  Runs at window
  * create, on restore, and on every field-mode toggle change; the enum
  * member selects far-field gain, near E/H field, or neither.  Near-field
- * prep (buffer allocation and the stale-data flag) precedes the fetch so
- * the fetch sees allocated buffers; without valid card data the renderer
- * shows the status message on the queued redraw.
+ * buffer allocation precedes the fetch so the fetch sees allocated buffers;
+ * without valid card data the renderer shows the status message on the
+ * queued redraw.
  */
   void
 rdpattern_mode_apply( void )
@@ -321,21 +321,21 @@ rdpattern_mode_apply( void )
     Free_Draw_Buffers();
     have_data = ( fpat.nfeh != 0 );
 
-    /* Delegate near field calculations to child processes if forked, then
-     * mark the near field stale; the flag is set inside the same guard as
-     * fetch_freq_data */
-    if( have_data )
-    {
-      if( FORKED )
-        Alloc_Nearfield_Buffers( fpat.nrx, fpat.nry, fpat.nrz );
-      if( isFlagSet(DRAW_ENABLED) && isFlagClear(FREQ_LOOP_RUNNING) )
-        SetFlag( DRAW_NEW_EHFIELD );
-    }
+    /* Delegate near field calculations to child processes if forked. */
+    if( have_data && FORKED )
+      Alloc_Nearfield_Buffers( fpat.nrx, fpat.nry, fpat.nrz );
   }
-  else /* RDPAT_FIELD_DISABLED: neither field selected */
+  else if( rc_config.rdpattern_mode == RDPAT_FIELD_DISABLED )
   {
     /* Release the far-field draw buffers; the queued redraw shows the
      * no-mode status message */
+    Free_Draw_Buffers();
+    have_data = FALSE;
+  }
+  else
+  {
+    BUG("rdpattern_mode_apply: invalid rdpattern_mode=%d\n",
+        rc_config.rdpattern_mode);
     Free_Draw_Buffers();
     have_data = FALSE;
   }

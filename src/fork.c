@@ -525,9 +525,6 @@ Get_Freq_Data( int idx, int fstep )
   if (!freq_fields_xfer(fstep, idx, PRead_Pipe))
     return 0;
 
-  if (isFlagSet(ENABLE_RDPAT))
-    SetFlag(DRAW_NEW_RDPAT);
-
   return 1;
 } /* Get_Freq_Data() */
 

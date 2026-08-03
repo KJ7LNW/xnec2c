@@ -532,20 +532,10 @@ Set_Gain_Style( int gs )
  *
  *  Queues a redraw of the radiation drawingarea (and the plot area
  *  when viewer-gain or antenna-temperature plots are visible).
- *
- *  Called by rdpattern_view observers.  Noise modes require
- *  full vertex recomputation since the scaled min/max depend
- *  on the viewing angle; DRAW_NEW_RDPAT is set to force it.
  */
   void
 Queue_Radiation_Redraw(void)
 {
-  /* Noise modes require full recomputation of scaled min/max */
-  if (IS_NOISE_MODE(rc_config.gain_style))
-  {
-    SetFlag( DRAW_NEW_RDPAT );
-  }
-
   /* Trigger a redraw of radiation drawingarea */
   if( isFlagSet(DRAW_ENABLED) )
   {

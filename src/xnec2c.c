@@ -85,8 +85,6 @@ int set_freq_step(void)
 	int fr, step;
 	double freq;
 
-	int prev_freq_step = calc_data.freq_step;
-
 	int idx = 0;
 	int found = 0;
 	for (fr = 0; !found && fr < calc_data.FR_cards && save.fstep[idx]; fr++)
@@ -121,9 +119,6 @@ int set_freq_step(void)
 		/* save.freq[steps_total] is written only by freq_loop_dispatch;
 		 * CRNT_FSTEP_AVAILABLE guards consumers until data is valid. */
 	}
-
-	if (calc_data.freq_step != prev_freq_step)
-		SetFlag( DRAW_NEW_RDPAT );
 
 	// If we found the index, then no need to re-run New_Frequency because it is
 	// in the index.
@@ -873,7 +868,6 @@ freq_step_update_ui( int new_step, gboolean force )
 
   calc_data.freq_step = new_step;
   calc_data.freq_mhz  = save.freq[new_step];
-  SetFlag( DRAW_NEW_RDPAT );
   SetFlag( FREQ_LOOP_READY );
 
   /* Block value-changed callbacks during programmatic spinbutton updates;

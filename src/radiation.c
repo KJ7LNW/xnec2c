@@ -679,9 +679,6 @@ rdpat( void )
     rad_pattern[fstep].max_gain_phi[pol] = 0;
   }
 
-  /* Signal new rad pattern data */
-  SetFlag( DRAW_NEW_RDPAT );
-
   /* Initialize for average power gain calculation */
   dph_rad = fpat.dph * TORAD;
   dth_half = 0.5 * fpat.dth * TORAD;

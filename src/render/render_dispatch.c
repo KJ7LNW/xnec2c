@@ -427,8 +427,6 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
         ops->draw_structure(ctx, nf_overlay_extent, &sparams);
       }
 
-      ClearFlag(DRAW_NEW_EHFIELD);
-
       if( n_fields > 0 )
       {
         ok = ops->draw_nearfield(ctx, nf->points, npts,

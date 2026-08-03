@@ -1830,20 +1830,6 @@ opengl_set_renderer(gboolean enable)
       Queue_Radiation_Redraw();
     }
 
-    /* Signal pattern data needs refresh */
-    if(rdpat_gain_active())
-    {
-      SetFlag( DRAW_NEW_RDPAT );
-    }
-    else if(rdpat_ehfield_active())
-    {
-      SetFlag( DRAW_NEW_EHFIELD );
-    }
-    else
-    {
-      /* No active pattern mode; redraw will show empty state */
-    }
-
     xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
   }
 

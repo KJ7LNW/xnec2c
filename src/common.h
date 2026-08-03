@@ -196,16 +196,12 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 /* Radiation Pattern Control flags */
 #define DRAW_ENABLED        0x0000000008000000ll
 #define DRAW_QUIT           0x0000000010000000ll
-#define DRAW_NEW_RDPAT      0x0000000020000000ll
-#define DRAW_NEW_EHFIELD    0x0000000040000000ll
 #define ANIMATE             0x0000000200000000ll
 #define ENABLE_RDPAT        0x0000000400000000ll
 #define ENABLE_NEAREH       0x0000000800000000ll
 #define DRAW_FLAGS ( \
   DRAW_ENABLED      | \
   DRAW_QUIT         | \
-  DRAW_NEW_RDPAT    | \
-  DRAW_NEW_EHFIELD  | \
   ANIMATE )
 
 /*** Filechooser response related flags ***/
