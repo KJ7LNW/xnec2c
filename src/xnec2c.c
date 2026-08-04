@@ -1166,10 +1166,8 @@ freq_loop_collect_pending( freq_loop_state_t *state )
   }
 
   /* Non-forked path: no pipe fds (n==0); dispatch() computed synchronously
-   * but left the child off the idle stack with assigned_step set.
-   * Collect results and return child to the idle stack. */
-  /* Non-forked path: New_Frequency already saved under freq_data_lock;
-   * collect results and return children to the idle stack. */
+   * under freq_data_lock but left the child off the idle stack with
+   * assigned_step set.  Collect results and return children to it. */
   if( n == 0 )
   {
     for( idx = 0; idx < calc_data.num_jobs; idx++ )
@@ -1199,7 +1197,7 @@ freq_loop_collect_pending( freq_loop_state_t *state )
   }
 
   g_rec_mutex_lock(&freq_data_lock);
-  for( idx = 0; idx < num_child_procs; idx++ )
+  for( idx = 0; idx < calc_data.num_jobs; idx++ )
   {
     if( child_procs[idx]->assigned_step == -1 )
       continue;
