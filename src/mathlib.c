@@ -889,9 +889,9 @@ void mathlib_benchmark(int slow)
 		 "  * OMP_NUM_THREADS=N\t\t# OpenMP thread limit\n"
 		 "  * MKL_NUM_THREADS=N\t\t# Intel MKL thread limit\n"
 		 "\n"
-		 "Click OK to proceed, this dialog will close when complete."));
+		 "Click Yes to proceed, this dialog will close when complete."));
 
-	if (response != GTK_RESPONSE_OK)
+	if (response != GTK_RESPONSE_YES)
 		return;
 
 	
