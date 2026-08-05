@@ -201,7 +201,8 @@ main (int argc, char *argv[])
       mem_new(&child_procs[idx]);
     }
 
-    pr_info("Forking %d jobs.\n", calc_data.num_jobs);
+    pr_info("Forking %d jobs across %d processors.\n",
+        calc_data.num_jobs, xnec2c_num_procs());
     /* Fork child processes */
     for( idx = 0; idx < calc_data.num_jobs; idx++ )
     {

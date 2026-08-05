@@ -612,6 +612,20 @@ Load_Line( char *buff, FILE *pfile )
 
 /*------------------------------------------------------------------------*/
 
+/**
+ * xnec2c_num_procs() - Report the processors this process may compute on
+ *
+ * Return: processor count, at least one.
+ */
+int xnec2c_num_procs(void)
+{
+#ifdef HAVE_OPENMP
+	return omp_get_num_procs();
+#else
+	return 1;
+#endif
+}
+
 // Scale the OpenMP resources based on the number of parallel forked jobs.
 // If you fork 25 jobs and have 100 CPUs then OMP can run 4 CPUs per fork:
 void xnec2c_set_omp_cpus(void)
@@ -629,7 +643,7 @@ void xnec2c_set_omp_cpus(void)
 	if (env_num_procs > 0)
 		n = env_num_procs;
 	else
-		n = omp_get_num_procs();
+		n = xnec2c_num_procs();
 
 	if (CHILD)
 	{
@@ -639,9 +653,8 @@ void xnec2c_set_omp_cpus(void)
 			cpus_per_job = 1;
 
 		omp_set_num_threads(cpus_per_job);
-		pr_info("using %d OpenMP threads per job (%d/%d CPUs)\n",
-			getpid(),
-			cpus_per_job, omp_get_num_threads(), omp_get_num_procs());
+		pr_info("using %d of %d CPUs as OpenMP threads per job\n",
+			cpus_per_job, xnec2c_num_procs());
 	}
 	else
 		omp_set_num_threads(n);

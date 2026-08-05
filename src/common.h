@@ -1908,6 +1908,7 @@ int Notice_Question(GtkButtonsType buttons, const char *title, const char *quest
 void Notice_Deferred(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...) __attribute__((format(printf, 3, 4)));
 gboolean Nec2_Save_Warn(const gchar *mesg);
 int Load_Line(char *buff, FILE *pfile);
+int xnec2c_num_procs(void);
 void xnec2c_set_omp_cpus(void);
 void clock_print_elapsed(char *msg, clockid_t clk_id, struct timespec *start);
 void clock_print_elapsed_when(char *msg, clockid_t clk_id, struct timespec *start, float min_sec);

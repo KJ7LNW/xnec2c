@@ -301,14 +301,10 @@ static char *jobs_default(void)
 	if( jobs[0] != '\0' )
 		return jobs;
 
-#ifdef HAVE_OPENMP
-	int procs = omp_get_num_procs();
+	int procs = xnec2c_num_procs();
 
 	snprintf(jobs, sizeof(jobs), "%d", procs);
 	pr_info("Detected %d CPUs\n", procs);
-#else
-	Strlcpy(jobs, "1", sizeof(jobs));
-#endif
 
 	return jobs;
 }
