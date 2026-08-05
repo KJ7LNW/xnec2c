@@ -31,17 +31,225 @@
 
 /*------------------------------------------------------------------------*/
 
-// May return GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, ...
-int Notice(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...)
+/* Bounds of the notice message body: the column count the text wraps at and
+ * the share of the monitor work area it may occupy before it scrolls. */
+#define NOTICE_WRAP_CHARS 80
+#define NOTICE_SCREEN_FRACTION 0.6
+
+/**
+ * notice_format_message() - format a message into a buffer sized to hold it
+ * @msg_fmt: printf-style format string
+ * @args:    argument list matching @msg_fmt
+ *
+ * Return: managed buffer holding the complete formatted text, released by
+ * the caller.
+ */
+static char *notice_format_message(const char *msg_fmt, va_list args)
 {
-	char message[1024];
-	va_list args;
+	char *message = NULL;
+	va_list measure;
+	int len;
+
+	/* Measure against a copy so the caller's list stays positioned for the
+	 * formatting pass below. */
+	va_copy(measure, args);
+	len = vsnprintf(NULL, 0, msg_fmt, measure);
+	va_end(measure);
+
+	if (len < 0)
+	{
+		BUG("notice_format_message: vsnprintf failed for \"%s\"\n", msg_fmt);
+		len = 0;
+	}
+
+	mem_alloc(&message, (size_t)len + 1);
+	vsnprintf(message, (size_t)len + 1, msg_fmt, args);
+
+	return message;
+}
+
+/**
+ * notice_longest_line() - measure the widest line of a message in characters
+ * @message: text the notice presents
+ *
+ * Return: character count of the longest newline-delimited line.
+ */
+static int notice_longest_line(const char *message)
+{
+	const char *line = message;
+	size_t longest = 0;
+
+	while (line != NULL)
+	{
+		const char *end = strchr(line, '\n');
+		size_t len = (end != NULL ? (size_t)(end - line) : strlen(line));
+
+		longest = MAX(longest, len);
+		line = (end != NULL ? end + 1 : NULL);
+	}
+
+	return (int)longest;
+}
+
+/**
+ * notice_set_monospace() - put a fixed-width face in a widget's style context
+ * @widget: widget whose face decides its character width
+ *
+ * Column alignment in reports such as the mathlib benchmark survives only in
+ * a fixed-width face.  Styling the widget rather than its text puts that face
+ * in the style context, which is where GTK reads the character width it sizes
+ * a label by.
+ */
+static void notice_set_monospace(GtkWidget *widget)
+{
+	GtkCssProvider *css = gtk_css_provider_new();
+
+	gtk_css_provider_load_from_data(css, "* { font-family: monospace; }", -1, NULL);
+	gtk_style_context_add_provider(gtk_widget_get_style_context(widget),
+		GTK_STYLE_PROVIDER(css), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	g_object_unref(css);
+}
+
+/**
+ * notice_area_add() - place a widget in the message area of a notice
+ * @dialog: dialog under construction
+ * @child:  widget appended below whatever the area already holds
+ */
+static void notice_area_add(GtkWidget *dialog, GtkWidget *child)
+{
+	gtk_container_add(
+		GTK_CONTAINER(gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(dialog))),
+		child);
+}
+
+/**
+ * notice_body_height_limit() - height a notice body may reach before scrolling
+ *
+ * Measuring against the monitor rather than a fixed number of pixels lets a
+ * large display show a long report whole, and keeps a small display from
+ * being handed a dialog taller than itself.
+ *
+ * Return: height limit in pixels.
+ */
+static int notice_body_height_limit(void)
+{
+	GdkRectangle workarea;
+
+	/* GTK 3.22 moved this query from the screen onto a monitor object and
+	 * deprecated the screen form, which the 3.18 floor still needs; both
+	 * spellings answer the same question, so the build takes the one its
+	 * headers offer without complaint. */
+#if GTK_CHECK_VERSION(3, 22, 0)
+	GdkDisplay *display = gdk_display_get_default();
+	GdkMonitor *primary = gdk_display_get_primary_monitor(display);
+
+	/* Wayland leaves the primary monitor unset; the first monitor stands in */
+	GdkMonitor *monitor = (primary != NULL) ? primary : gdk_display_get_monitor(display, 0);
+
+	gdk_monitor_get_workarea(monitor, &workarea);
+#else
+	GdkScreen *screen = gdk_screen_get_default();
+
+	/* An unset primary monitor reports as monitor zero, which stands in */
+	gdk_screen_get_monitor_workarea(screen, gdk_screen_get_primary_monitor(screen), &workarea);
+#endif
+
+	return (int)(workarea.height * NOTICE_SCREEN_FRACTION);
+}
+
+/**
+ * notice_add_message_body() - attach the scrolling monospace body of a notice
+ * @dialog:  dialog under construction
+ * @message: text the notice presents
+ *
+ * Sizes the body from the text it holds: a message narrower than the wrap
+ * limit keeps its own width and a wider one wraps at the limit, while a
+ * message within the height limit is shown whole and a taller one is held at
+ * the limit and scrolls.
+ */
+static void notice_add_message_body(GtkWidget *dialog, const char *message)
+{
+	GtkWidget *scrolled = gtk_scrolled_window_new(NULL, NULL);
+	GtkWidget *label = gtk_label_new(message);
+	int columns = MIN(notice_longest_line(message), NOTICE_WRAP_CHARS);
+	int limit = notice_body_height_limit();
+	gboolean scrolls;
+	int height;
+
+	notice_set_monospace(label);
+
+	/* Requesting the same count as both the floor and the ceiling fixes the
+	 * label at that many columns; the widest line decides the count, so a
+	 * short message stays narrow and a long one stops at the wrap limit. */
+	gtk_label_set_width_chars(GTK_LABEL(label), columns);
+	gtk_label_set_max_width_chars(GTK_LABEL(label), columns);
+	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+	gtk_label_set_selectable(GTK_LABEL(label), TRUE);
+	gtk_label_set_xalign(GTK_LABEL(label), 0.0);
+
+	gtk_container_add(GTK_CONTAINER(scrolled), label);
+	notice_area_add(dialog, scrolled);
+
+	/* Height follows from the columns the label settled on, and the font
+	 * deciding it belongs to the style context the label inherits, so it is
+	 * measured only once the body belongs to the dialog. */
+	gtk_widget_get_preferred_height(label, NULL, &height);
+
+	scrolls = (height > limit);
+
+	/* Wrapping leaves nothing to reach sideways, so that axis is denied
+	 * outright.  A body within the limit shows every line and carries no bar
+	 * at all; a taller one keeps its bar on view, where the run of the thumb
+	 * reports how much text lies past the edge. */
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled),
+		GTK_POLICY_NEVER, scrolls ? GTK_POLICY_ALWAYS : GTK_POLICY_NEVER);
+
+	/* An overlay bar fades out of sight, which would leave a body that
+	 * scrolls looking like one that does not. */
+	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(scrolled), FALSE);
+
+	gtk_scrolled_window_set_min_content_height(
+		GTK_SCROLLED_WINDOW(scrolled), MIN(height, limit));
+}
+
+/**
+ * notice_add_question() - attach the prompt the notice buttons answer
+ * @dialog:   dialog under construction
+ * @question: prompt, NULL when the notice only informs
+ *
+ * Placed after the body so it reads directly above the buttons and stays out
+ * of the scrolling region.
+ */
+static void notice_add_question(GtkWidget *dialog, const char *question)
+{
+	if (question == NULL)
+		return;
+
+	GtkWidget *label = gtk_label_new(question);
+
+	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+	gtk_label_set_max_width_chars(GTK_LABEL(label), NOTICE_WRAP_CHARS);
+	gtk_label_set_xalign(GTK_LABEL(label), 0.0);
+
+	notice_area_add(dialog, label);
+}
+
+/**
+ * notice_run() - present one notice and report the button pressed
+ * @buttons:  button set the dialog offers
+ * @title:    heading of the dialog
+ * @question: prompt the buttons answer, NULL when the notice only informs
+ * @message:  body text
+ *
+ * Return: GTK response of the button pressed, or 0 when the notice reached
+ * the terminal instead of the screen.
+ */
+static int notice_run(GtkButtonsType buttons, const char *title,
+	const char *question, const char *message)
+{
+	GtkWidget *notice;
 	int response;
 	int locked = 0;
-
-	va_start(args, msg_fmt);
-	vsnprintf(message, sizeof(message), msg_fmt, args);
-	va_end(args);
 
 	if (!g_rec_mutex_trylock(&freq_data_lock))
 		locked = 1;
@@ -57,16 +265,85 @@ int Notice(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...)
 
 	pr_notice("\n=== Notice: %s ===\n%s\n\n", title, message);
 
-	GtkWidget *notice = gtk_message_dialog_new(GTK_WINDOW(main_window),
+	notice = gtk_message_dialog_new(GTK_WINDOW(main_window),
 		GTK_DIALOG_MODAL, GTK_MESSAGE_INFO,
 		buttons,
 		"%s", title);
 
-	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(notice), "%s", message);
+	gtk_window_set_title(GTK_WINDOW(notice), title);
+
+	notice_add_message_body(notice, message);
+	notice_add_question(notice, question);
+
+	gtk_widget_show_all(notice);
 
 	response = gtk_dialog_run(GTK_DIALOG(notice));
 
 	gtk_widget_destroy(notice);
+
+	return response;
+}
+
+/**
+ * notice_vrun() - format the body of a notice and present it
+ * @buttons:  button set the dialog offers
+ * @title:    heading of the dialog
+ * @question: prompt the buttons answer, NULL when the notice only informs
+ * @msg_fmt:  printf-style format string of the body
+ * @args:     argument list matching @msg_fmt
+ *
+ * Return: GTK response of the button pressed.
+ */
+static int notice_vrun(GtkButtonsType buttons, const char *title,
+	const char *question, const char *msg_fmt, va_list args)
+{
+	char *message = notice_format_message(msg_fmt, args);
+	int response = notice_run(buttons, title, question, message);
+
+	mem_free(&message);
+
+	return response;
+}
+
+/**
+ * Notice() - present a notice the user acknowledges
+ * @buttons: button set the dialog offers
+ * @title:   heading of the dialog
+ * @msg_fmt: printf-style format string of the body
+ *
+ * Return: GTK response of the button pressed, such as GTK_RESPONSE_OK or
+ * GTK_RESPONSE_CANCEL, drawn from the set @buttons names.
+ */
+int Notice(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...)
+{
+	va_list args;
+	int response;
+
+	va_start(args, msg_fmt);
+	response = notice_vrun(buttons, title, NULL, msg_fmt, args);
+	va_end(args);
+
+	return response;
+}
+
+/**
+ * Notice_Question() - present a notice whose buttons answer a prompt
+ * @buttons:  button set the dialog offers
+ * @title:    heading of the dialog
+ * @question: prompt placed below the body and above the buttons
+ * @msg_fmt:  printf-style format string of the body
+ *
+ * Return: GTK response of the button pressed.
+ */
+int Notice_Question(GtkButtonsType buttons, const char *title,
+	const char *question, const char *msg_fmt, ...)
+{
+	va_list args;
+	int response;
+
+	va_start(args, msg_fmt);
+	response = notice_vrun(buttons, title, question, msg_fmt, args);
+	va_end(args);
 
 	return response;
 }
@@ -79,13 +356,14 @@ typedef struct
 {
 	GtkButtonsType buttons;
 	char title[128];
-	char message[1024];
+	char *message;
 } deferred_notice_t;
 
 static void _deferred_notice_cb(gpointer user_data)
 {
 	deferred_notice_t *dn = (deferred_notice_t *)user_data;
 	Notice(dn->buttons, dn->title, "%s", dn->message);
+	mem_free(&dn->message);
 	mem_free(&dn);
 }
 
@@ -109,7 +387,7 @@ void Notice_Deferred(GtkButtonsType buttons, const char *title,
 
 	va_list args;
 	va_start(args, msg_fmt);
-	vsnprintf(dn->message, sizeof(dn->message), msg_fmt, args);
+	dn->message = notice_format_message(msg_fmt, args);
 	va_end(args);
 
 	g_idle_add_once(_deferred_notice_cb, dn);

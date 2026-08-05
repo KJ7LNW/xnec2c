@@ -871,7 +871,8 @@ void mathlib_benchmark(int slow)
 		return;
 	}
 
-	response = Notice(GTK_BUTTONS_YES_NO, _("Mathlib Benchmark"),
+	response = Notice_Question(GTK_BUTTONS_YES_NO, _("Mathlib Benchmark"),
+		 _("Run the benchmark now?"),
 		 _("This will run a frequency loop benchmark for each detected linear algebra library and then provide a summary.  It "
 		 "may take some time to complete depending on how big and how many frequencies your NEC2 will use. "
 		 "Detailed timing will be provided in the terminal.\n"
@@ -889,7 +890,7 @@ void mathlib_benchmark(int slow)
 		 "  * OMP_NUM_THREADS=N\t\t# OpenMP thread limit\n"
 		 "  * MKL_NUM_THREADS=N\t\t# Intel MKL thread limit\n"
 		 "\n"
-		 "Click Yes to proceed, this dialog will close when complete."));
+		 "This dialog will close when the benchmark completes."));
 
 	if (response != GTK_RESPONSE_YES)
 		return;
