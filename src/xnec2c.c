@@ -2076,6 +2076,33 @@ freq_loop_state_free( freq_loop_state_t **state )
 }
 
 /**
+ * freq_loop_begin - construct per-sweep state and publish sweep start
+ *
+ * Sizes the idle stack for the current job count and populates the display
+ * extent on the GTK thread before the sweep worker runs freq_populate_steps;
+ * green-line classification reads the extent via fmhz_within_display_range
+ * and the worker must only read these fields.
+ *
+ * Return: the new sweep state, owned by the caller
+ */
+static freq_loop_state_t *
+freq_loop_begin( void )
+{
+  freq_loop_state_t *state = NULL;
+
+  mem_new(&state);
+  state->idle_top = -1;
+  mem_array_alloc(&state->idle_stack, calc_data.num_jobs);
+
+  freqplots_update_fscale_extents();
+
+  SetFlag( FREQ_LOOP_INIT );
+  SetFlag( FREQ_LOOP_RUNNING );
+
+  return state;
+}
+
+/**
  * freq_loop_complete - publish frequency-loop driver completion
  *
  * Clear the running state after either driver finishes.  A successful batch
@@ -2117,6 +2144,20 @@ freq_loop_complete( void )
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * freq_loop_drive - iterate a sweep to completion and publish the outcome
+ * @state: sweep state owned by the caller
+ *
+ * Frequency_Loop() returns FALSE once the sweep is done or stopped.
+ */
+static void
+freq_loop_drive( freq_loop_state_t *state )
+{
+  while( Frequency_Loop(state) );
+
+  freq_loop_complete();
+}
+
 void *Frequency_Loop_Thread(void *p)
 {
 	freq_loop_state_t *state = (freq_loop_state_t *)p;
@@ -2125,10 +2166,7 @@ void *Frequency_Loop_Thread(void *p)
 	if (rc_config.batch_mode)
 		calc_data.fmhz_save = 0.0;
 
-	// Run the loop; Frequency_Loop() returns FALSE when done or stopped
-	while( Frequency_Loop(state) );
-
-	freq_loop_complete();
+	freq_loop_drive( state );
 
 	return NULL;
 }
@@ -2165,6 +2203,19 @@ freq_loop_idle( gpointer udata )
 }
 
 /**
+ * freq_loop_deck_ready - report whether the loaded deck carries a sweep
+ *
+ * Return: TRUE when frequency loop data, an FR card, and steps are present
+ */
+static gboolean
+freq_loop_deck_ready( void )
+{
+  return calc_data.freq_loop_data != NULL &&
+         calc_data.FR_cards > 0           &&
+         calc_data.steps_total > 0;
+}
+
+/**
  * freq_loop_start_internal - allocate state and launch the loop driver
  *
  * Caller has already invalidated the desired save.fstep[] entries.
@@ -2173,12 +2224,7 @@ freq_loop_idle( gpointer udata )
 static gboolean
 freq_loop_start_internal( void )
 {
-  if( calc_data.freq_loop_data == NULL )
-    return FALSE;
-
-  if( isFlagSet(FREQ_LOOP_RUNNING) ||
-      calc_data.FR_cards < 1       ||
-      calc_data.steps_total < 1 )
+  if( !freq_loop_deck_ready() || isFlagSet(FREQ_LOOP_RUNNING) )
     return FALSE;
 
   /* Join previous thread if it exited naturally but was never joined.
@@ -2190,17 +2236,7 @@ freq_loop_start_internal( void )
   if( isFlagSet(FREQ_LOOP_RUNNING) )
     return FALSE;
 
-  mem_new(&floop_state);
-  floop_state->idle_top = -1;
-  mem_array_alloc(&floop_state->idle_stack, calc_data.num_jobs);
-
-  /* Populate the display extent on the GTK thread before the sweep worker
-   * runs freq_populate_steps; green-line classification reads the extent via
-   * fmhz_within_display_range and the worker must only read these fields. */
-  freqplots_update_fscale_extents();
-
-  SetFlag( FREQ_LOOP_INIT );
-  SetFlag( FREQ_LOOP_RUNNING );
+  floop_state = freq_loop_begin();
 
   /* Intermediate-step draws use force=FALSE and are gated by
    * SUPPRESS_INTERMEDIATE_REDRAWS inside xnec2_widget_queue_draw. */
@@ -2226,10 +2262,12 @@ freq_loop_start_internal( void )
 }
 
 /**
- * Start_Frequency_Loop - invalidate all steps and start a full sweep
+ * freq_steps_invalidate_all - mark every sweep step for recomputation
+ *
+ * Return: TRUE when the step array is present and carries steps
  */
-gboolean
-Start_Frequency_Loop( void )
+static gboolean
+freq_steps_invalidate_all( void )
 {
   if( save.fstep == NULL || calc_data.steps_total < 1 )
     return FALSE;
@@ -2239,7 +2277,52 @@ Start_Frequency_Loop( void )
     save.fstep[i] = 0;
   g_rec_mutex_unlock(&freq_data_lock);
 
+  return TRUE;
+}
+
+/**
+ * Start_Frequency_Loop - invalidate all steps and start a full sweep
+ */
+gboolean
+Start_Frequency_Loop( void )
+{
+  if( !freq_steps_invalidate_all() )
+    return FALSE;
+
   return freq_loop_start_internal();
+}
+
+/**
+ * freq_loop_run_sync - run a full sweep to completion on the calling thread
+ *
+ * The sweep runs inline rather than through the thread or idle driver, so the
+ * call returns only once the sweep has finished and its state is released.
+ *
+ * Return: TRUE when a sweep ran, FALSE when the deck carries no sweep
+ */
+gboolean
+freq_loop_run_sync( void )
+{
+  freq_loop_state_t *state = NULL;
+
+  if( !freq_loop_deck_ready() )
+    return FALSE;
+
+  if( !freq_steps_invalidate_all() )
+    return FALSE;
+
+  /* Retire a driver-owned sweep so this call owns the only sweep state; the
+   * GTK flush inside Stop_Frequency_Loop stays out of the sync sweep's own
+   * start and end transitions. */
+  if( isFlagSet(FREQ_LOOP_RUNNING) )
+    Stop_Frequency_Loop();
+
+  state = freq_loop_begin();
+
+  freq_loop_drive( state );
+  freq_loop_state_free( &state );
+
+  return TRUE;
 }
 
 /**

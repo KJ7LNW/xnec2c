@@ -930,11 +930,13 @@ void mathlib_benchmark(int slow)
 			New_Frequency_Reset_Prev();
 			calc_data.fmhz_save = 0;
 
-			SetFlag(FREQ_LOOP_INIT);
-
 			clock_gettime(CLOCK_MONOTONIC, &start);
-			while (Frequency_Loop(NULL));
+			gboolean swept = freq_loop_run_sync();
 			clock_gettime(CLOCK_MONOTONIC, &end);
+
+			if (!swept)
+				pr_err("Benchmark sweep did not run: FR_cards=%d steps_total=%d\n",
+					calc_data.FR_cards, calc_data.steps_total);
 
 			double elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
 
