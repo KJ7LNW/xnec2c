@@ -86,6 +86,7 @@ typedef struct mathlib_t
 void init_mathlib(void);
 void init_mathlib_menu(void);
 mathlib_t *get_mathlib_by_id(const char *id);
+int mathlib_load(mathlib_t *lib);
 void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib);
 
 void mathlib_lock_intel_interactive(const char *locked_id);

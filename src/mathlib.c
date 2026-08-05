@@ -583,6 +583,42 @@ int mathlib_config_benchmark_save(rc_config_vars_t *v, FILE *fp)
 
 
 
+/**
+ * mathlib_load() - Adopt a library as the one this process computes with
+ * @lib: library to adopt
+ *
+ * Closes the library in use, takes @lib in its place, and opens it.  Child
+ * processes load this way; set_mathlib_interactive() adds the menu and
+ * configuration bookkeeping the parent keeps.
+ *
+ * Returns: 1 when @lib is the library in use on return, 0 when it is not
+ */
+int mathlib_load(mathlib_t *lib)
+{
+	if (lib == NULL)
+	{
+		BUG("mathlib_load: lib == NULL\n");
+		return 0;
+	}
+
+	if (current_mathlib == lib)
+		return 1;
+
+	if (!lib->available)
+	{
+		pr_err("mathlib_load[%d]: mathlib.available=0, skipping: %s\n",
+		        getpid(), lib->name);
+		return 0;
+	}
+
+	close_mathlib(current_mathlib);
+	current_mathlib = lib;
+
+	open_mathlib(lib);
+
+	return 1;
+}
+
 /////////////////////////////////////////////////////////////////////
 //                                                      GTK FUNCTIONS
 
@@ -591,23 +627,11 @@ void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib)
 	if (widget != NULL && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)))
 		return;
 
-	if (lib == NULL)
+	if (!mathlib_load(lib))
 	{
-		BUG("set_mathlib_interactive: lib == NULL\n");
-		return;
-	}
-
-	if (current_mathlib == lib)
-		return;
-
-	if (!lib->available)
-	{
-		pr_err("set_mathlib_interactive[%d]: mathlib.available=0, skipping: %s\n",
-		        getpid(), lib->name);
-
-		// If the library is unavailable for some reason then clear the one that was
-		// just set and reset the active one:
-		if (!CHILD)
+		// The selection did not take, so clear the item just set and restore
+		// the one naming the library still in use:
+		if (widget != NULL && !CHILD)
 		{
 			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(widget), FALSE);
 			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(current_mathlib->interactive_widget), TRUE);
@@ -615,13 +639,7 @@ void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib)
 		return;
 	}
 
-	close_mathlib(current_mathlib);
-	current_mathlib = lib;
-
 	update_mathlib_selection(rc_config.mathlib_id, lib->id);
-
-	open_mathlib(lib);
-
 }
 
 // Set batch mathlib, this will only be used by child processes so

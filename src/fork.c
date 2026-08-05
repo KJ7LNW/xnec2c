@@ -402,9 +402,7 @@ Child_Process( int num_child )
         if (strcmp(current_mathlib->id, rc_config.mathlib_batch_id) != 0)
             New_Frequency_Reset_Prev();
 
-        // This says "interactive" mathlib, but since we are forked it is running
-        // as a batch from the parent.
-        set_mathlib_interactive(NULL, get_mathlib_by_id(rc_config.mathlib_batch_id));
+        mathlib_load(get_mathlib_by_id(rc_config.mathlib_batch_id));
         break;
 
       case INFILE: /* Read input file */
