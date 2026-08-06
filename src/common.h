@@ -473,6 +473,7 @@ typedef struct
 
   /* Main window common projection toggle */
   int main_common_projection;
+  int common_pan;
 
   /* Rdpattern overlay structure toggle */
   int rdpattern_overlay_structure;
