@@ -736,6 +736,7 @@ New_Frequency( void )
 typedef struct
 {
   int              max_step;     /* Highest dispatchable index (steps_total or steps_total-1) */
+  int              threads;      /* Math library thread budget of each worker */
   int              next_scan;    /* Resume point for dispatch step scan */
   struct timespec  t0;           /* Wall-clock start time */
   child_proc_t   **idle_stack;   /* LIFO stack of idle child pointers */
@@ -1069,6 +1070,35 @@ freq_loop_validate_result( freq_loop_state_t *state, child_proc_t *child )
 }
 
 /*
+ * freq_loop_derive_workers - resolve the concurrency of one sweep
+ * @max_step: highest dispatchable step index of this sweep
+ *
+ * A zero validity marker is what the dispatch scan looks for, so the steps
+ * carrying one are the work this sweep places on workers.  A sweep occupies
+ * no more workers than it has such steps nor more than the job count grants,
+ * and the no-fork configuration resolves to the single in-process worker.
+ *
+ * Returns the number of computations the sweep runs at the same time.
+ */
+static int
+freq_loop_derive_workers( int max_step )
+{
+  int workers = 0;
+
+  for( int idx = 0; idx <= max_step; idx++ )
+    if( save.fstep[idx] == 0 )
+      workers++;
+
+  if( workers > calc_data.num_jobs )
+    workers = calc_data.num_jobs;
+
+  if( workers < 1 )
+    workers = 1;
+
+  return workers;
+}
+
+/*
  * freq_loop_dispatch - send one frequency step to a child or compute inline
  * @state: loop state; idle_stack updated for non-forked path
  * @child: child process descriptor
@@ -1107,9 +1137,13 @@ freq_loop_dispatch( freq_loop_state_t *state, child_proc_t *child,
     else
       mathlib_lock_intel_interactive( mathlib_id );
 
+    /* The budget travels with the library it configures, so the child holds
+     * both before it computes.  See MATHLIB in Child_Process(). */
     len = strlen( fork_commands[MATHLIB] );
     Write_Pipe( child->idx, fork_commands[MATHLIB], (ssize_t)len, TRUE );
     Write_Pipe( child->idx, (char *)mathlib_id, (ssize_t)MATHLIB_ID_LEN, TRUE );
+    buff = (char *)&state->threads;
+    Write_Pipe( child->idx, buff, (ssize_t)sizeof(int), TRUE );
 
     len = strlen( fork_commands[FRQDATA] );
     Write_Pipe( child->idx, fork_commands[FRQDATA], (ssize_t)len, TRUE );
@@ -1117,6 +1151,10 @@ freq_loop_dispatch( freq_loop_state_t *state, child_proc_t *child,
     Write_Pipe( child->idx, buff, (ssize_t)sizeof(double), TRUE );
     return;
   }
+
+  /* Non-forked: this process is the worker, so it applies its own budget
+   * where a child would have applied the relayed one. */
+  mathlib_set_num_threads( current_mathlib, state->threads );
 
   /* Non-forked: write freq_mhz and freq_step for the NEC engine here;
    * freq_step_update_ui overwrites both on the GTK thread for display.
@@ -1955,6 +1993,15 @@ Frequency_Loop( gpointer udata )
     state->idle_top     = -1;
     state->next_scan    = 0;
     state->max_step     = freq_populate_steps();
+
+    /* Steps are marked valid or invalid before the sweep starts, so the work
+     * this sweep places, and the share of the processors each of its workers
+     * receives, are known once the step extent is. */
+    int workers         = freq_loop_derive_workers( state->max_step );
+
+    state->threads      = xnec2c_threads_per_worker( workers );
+
+    pr_info("sweep runs %d workers of %d threads each\n", workers, state->threads);
 
     /* Per-step validity is managed by Start_Frequency_Loop;
      * INIT resets the dedup cache and loop infrastructure. */

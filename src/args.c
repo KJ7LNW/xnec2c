@@ -18,6 +18,7 @@
  */
 
 #include "args.h"
+#include "mathlib.h"
 #include "rc_config.h"
 #include "validation_dump.h"
 
@@ -40,7 +41,6 @@ typedef struct usage_entry_t usage_entry_t;
  * @text: option help, or standalone prose when @name is NULL
  * @default_arg: argument applied before parsing and rendered as the default
  * @default_resolve: computes the default in place of @default_arg
- * @env: environment variable the option owns; its exported setting is the default
  * @target: configuration datum the applier writes
  * @apply: writes one resolved argument into the configuration
  * @notice: message announcing the applied option
@@ -56,21 +56,10 @@ struct usage_entry_t {
 	const char *text;
 	char *default_arg;
 	char *(*default_resolve)(void);
-	const char *env;
 	void *target;
 	void (*apply)(const usage_entry_t *entry, char *arg);
 	const char *notice;
 };
-
-/**
- * usage_default_t - One resolved option default and where it came from
- * @arg: resolved default argument, NULL when the option has none
- * @from_env: the environment already carries this setting
- */
-typedef struct {
-	char *arg;
-	gboolean from_env;
-} usage_default_t;
 
 enum XNEC2C_OPTS {
 	// Start at 128 after all single-digit opts:
@@ -78,9 +67,7 @@ enum XNEC2C_OPTS {
 
 	OPT_ENABLE_OPTIMIZE,
 
-	OPT_OPENBLAS_THREADS,
-	OPT_MKL_THREADS,
-	OPT_OMP_THREADS,
+	OPT_NUM_THREADS,
 
 	OPT_WRITE_CSV,
 	OPT_WRITE_S1P,
@@ -108,7 +95,7 @@ static void apply_string_ref(const usage_entry_t *entry, char *arg);
 static void apply_filename(const usage_entry_t *entry, char *arg);
 static void apply_config_file(const usage_entry_t *entry, char *arg);
 static void apply_flag(const usage_entry_t *entry, char *arg);
-static void apply_thread_env(const usage_entry_t *entry, char *arg);
+static void apply_threads(const usage_entry_t *entry, char *arg);
 static void apply_jobs(const usage_entry_t *entry, char *arg);
 static void apply_verbose(const usage_entry_t *entry, char *arg);
 static void apply_debug(const usage_entry_t *entry, char *arg);
@@ -167,21 +154,10 @@ static const usage_entry_t usage_entries[] = {
 	  .apply = apply_quiet },
 	{ 0 },
 
-	{ .name = "openblas-threads",                       .id = OPT_OPENBLAS_THREADS,
+	{ .name = "threads",                                .id = OPT_NUM_THREADS,
 	  .metavar = "<n>",
-	  .text = N_("OpenBLAS thread count"),
-	  .default_arg = "1",                               .env = "OPENBLAS_NUM_THREADS",
-	  .apply = apply_thread_env },
-	{ .name = "mkl-threads",                            .id = OPT_MKL_THREADS,
-	  .metavar = "<n>",
-	  .text = N_("Intel MKL thread count"),
-	  .default_arg = "1",                               .env = "MKL_NUM_THREADS",
-	  .apply = apply_thread_env },
-	{ .name = "omp-threads",                            .id = OPT_OMP_THREADS,
-	  .metavar = "<n>",
-	  .text = N_("OpenMP thread count"),
-	  .default_arg = "1",                               .env = "OMP_NUM_THREADS",
-	  .apply = apply_thread_env },
+	  .text = N_("math library threads per job (default: processors / jobs)"),
+	  .target = &calc_data.num_threads,                 .apply = apply_threads },
 	{ 0 },
 
 	{ .name = "optimize",                               .id = OPT_ENABLE_OPTIMIZE,
@@ -344,29 +320,22 @@ static gboolean usage_entry_is_short(const usage_entry_t *entry)
  * usage_entry_default() - Resolve the default argument of one option
  * @entry: option row to resolve
  *
- * The process that exported a variable owns the setting it carries, so an
- * exported setting supersedes the built-in value, which fills only an unset
- * variable.  Both the pre-parse application and the rendered usage default
- * read this one resolution, so the shown value is the value applied.
+ * A row states its default as a literal argument or as a computation of one.
+ * Both the pre-parse application and the rendered usage default read this one
+ * resolution, so the shown value is the value applied.
  *
- * Returns the resolved argument beside the provenance of that argument.
+ * Returns the resolved argument, NULL when the option carries no default.
  */
-static usage_default_t usage_entry_default(const usage_entry_t *entry)
+static char *usage_entry_default(const usage_entry_t *entry)
 {
-	usage_default_t dflt = {0};
-	char *exported = entry->env != NULL ? getenv(entry->env) : NULL;
+	char *arg;
 
-	if( exported != NULL )
-	{
-		dflt.arg = exported;
-		dflt.from_env = TRUE;
-	}
-	else if( entry->default_resolve != NULL )
-		dflt.arg = entry->default_resolve();
+	if( entry->default_resolve != NULL )
+		arg = entry->default_resolve();
 	else
-		dflt.arg = entry->default_arg;
+		arg = entry->default_arg;
 
-	return dflt;
+	return arg;
 }
 
 /*------------------------------------------------------------------------*/
@@ -505,12 +474,6 @@ static int usage_entry_validate(const usage_entry_t *entry, size_t idx)
 			faults++;
 		}
 
-		if( entry->env != NULL && entry->default_resolve != NULL )
-		{
-			BUG("usage entry --%s resolves a default its variable states\n", entry->name);
-			faults++;
-		}
-
 		if( entry->apply == NULL )
 		{
 			BUG("usage entry --%s carries no applier\n", entry->name);
@@ -520,7 +483,7 @@ static int usage_entry_validate(const usage_entry_t *entry, size_t idx)
 	else
 	{
 		if( entry->id != 0 || entry->metavar != NULL || has_default ||
-		    entry->env != NULL || entry->target != NULL ||
+		    entry->target != NULL ||
 		    entry->apply != NULL || entry->notice != NULL )
 		{
 			BUG("usage entry %zu carries option fields without a name\n", idx);
@@ -615,7 +578,7 @@ static void print_usage_option(FILE *out, const usage_entry_t *entry)
 {
 	char *label = NULL;
 	char *help = NULL;
-	usage_default_t dflt = usage_entry_default(entry);
+	char *dflt = usage_entry_default(entry);
 	int len;
 
 	if( usage_entry_is_short(entry) )
@@ -641,8 +604,8 @@ static void print_usage_option(FILE *out, const usage_entry_t *entry)
 	else
 		fprintf(out, "\n%*s", USAGE_HELP_COL, "");
 
-	if( dflt.arg != NULL )
-		help = g_strdup_printf(_("%s (default: %s)"), _(entry->text), dflt.arg);
+	if( dflt != NULL )
+		help = g_strdup_printf(_("%s (default: %s)"), _(entry->text), dflt);
 	else
 		help = g_strdup(_(entry->text));
 
@@ -908,14 +871,29 @@ static void apply_flag(const usage_entry_t *entry, char *_arg)
 }
 
 /**
- * apply_thread_env() - Export a validated thread count to a math library
- * @entry: option row naming the environment variable
- * @arg: thread count to export
+ * apply_threads() - Set the math library thread budget of one job
+ * @entry: option row naming the thread count
+ * @arg: requested threads per job
+ *
+ * A stated budget overrides the division of the processors among the
+ * concurrent workers that xnec2c_threads_per_worker() performs otherwise.
+ * The row carries no default, so this applier runs only for a stated argument.
+ *
+ * An exported thread-count variable states the same datum, and one of the two
+ * settings would silently lose, so the user resolves the conflict.
  */
-static void apply_thread_env(const usage_entry_t *entry, char *arg)
+static void apply_threads(const usage_entry_t *entry, char *arg)
 {
-	parse_count(entry, arg, 1);
-	setenv(entry->env, arg, 1);
+	const char *env = mathlib_threads_env_conflict();
+
+	if( env != NULL )
+	{
+		pr_crit("--threads and %s=%s both state a thread count, unset one\n",
+			env, getenv(env));
+		exit(1);
+	}
+
+	*(int *)entry->target = parse_count(entry, arg, 1);
 }
 
 /**
@@ -1070,14 +1048,12 @@ static void apply_option_defaults(void)
 	for( idx = 0; idx < G_N_ELEMENTS(usage_entries); idx++ )
 	{
 		const usage_entry_t *entry = &usage_entries[idx];
-		usage_default_t dflt = usage_entry_default(entry);
+		char *dflt = usage_entry_default(entry);
 
-		/* an exported setting is already in force, so only a built-in
-		 * value reaches the applier here */
-		if( dflt.arg == NULL || dflt.from_env )
+		if( dflt == NULL )
 			continue;
 
-		entry->apply(entry, dflt.arg);
+		entry->apply(entry, dflt);
 	}
 }
 

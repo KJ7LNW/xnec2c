@@ -24,7 +24,8 @@ enum MATHLIB_TYPES {
 	MATHLIB_ATLAS,
 	MATHLIB_OPENBLAS,
 	MATHLIB_INTEL,
-	MATHLIB_NEC2
+	MATHLIB_NEC2,
+	MATHLIB_COUNT
 };
 
 enum MATHLIB_FUNCTIONS {
@@ -68,9 +69,10 @@ typedef struct mathlib_t
 	// Function pointers, one for each function in MATHLIB_FUNCTIONS.
 	void **functions;
 
-	// Pointer to environment variables that should be set before dlopen() is called.
-	// env[0] is the name, env[1] is the value.
-	char *env[2];
+	// Runtime thread-count setter bound from the handle by open_mathlib().  NULL
+	// for libraries whose thread count is fixed when they are built.  Cleared by
+	// close_mathlib() because it addresses the closed handle.
+	void (*set_threads)(int);
 
 	// Reference to the menu item under File->Math Libraries.
 	GtkWidget
@@ -95,6 +97,9 @@ void mathlib_lock_intel_batch(const char *locked_id);
 void mathlib_config_init(rc_config_vars_t *v, char *line);
 int mathlib_config_benchmark_parse(rc_config_vars_t *v, char *line);
 int mathlib_config_benchmark_save(rc_config_vars_t *v, FILE *fp);
+
+void mathlib_set_num_threads(mathlib_t *lib, int threads);
+const char *mathlib_threads_env_conflict(void);
 
 void mathlib_mkl_set_threading_intel(mathlib_t *lib);
 void mathlib_mkl_set_threading_sequential(mathlib_t *lib);

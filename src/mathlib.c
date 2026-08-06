@@ -30,6 +30,7 @@
 
 void mathlib_mkl_set_threading_intel(mathlib_t *lib);
 void set_mathlib_batch(GtkWidget *widget, mathlib_t *lib);
+static void mathlib_resolve_set_threads(mathlib_t *lib);
 
 // Legacy index mapping for backwards compatibility with integer-based configs.
 // Maps old integer indices (0-11) to stable IDs.
@@ -135,6 +136,32 @@ static mathlib_t mathlibs[] = {
 };
 
 mathlib_t *current_mathlib = NULL;
+
+/**
+ * mathlib_threading_t - How one family of libraries states its thread count
+ * @setter: symbol of the runtime setter, NULL when the count is fixed at build
+ * @env: variables the family honors, highest precedence first, NULL terminated
+ */
+typedef struct
+{
+	const char *setter;
+	const char *env[4];
+} mathlib_threading_t;
+
+static const mathlib_threading_t mathlib_threading[] = {
+	[MATHLIB_ATLAS] = { .setter = NULL },
+	[MATHLIB_OPENBLAS] = {
+		.setter = "openblas_set_num_threads",
+		.env = { "OPENBLAS_NUM_THREADS", "GOTO_NUM_THREADS", "OMP_NUM_THREADS" } },
+	[MATHLIB_INTEL] = {
+		.setter = "MKL_Set_Num_Threads",
+		.env = { "MKL_NUM_THREADS", "OMP_NUM_THREADS" } },
+	[MATHLIB_NEC2] = {
+		.env = { "OMP_NUM_THREADS" } },
+};
+
+_Static_assert(G_N_ELEMENTS(mathlib_threading) == MATHLIB_COUNT,
+	"every library type states how its thread count is set");
 
 // To add a new mathfunc:
 //   * Update the enum in mathlib.h if the calling convention differs
@@ -252,19 +279,17 @@ static void validate_mathlib_ids(void)
 
 		if (!found)
 		{
-			fprintf(stderr,
-				"FATAL: Legacy index %d maps to '%s' but no mathlib has that ID\n",
+			BUG("legacy index %d maps to '%s' but no mathlib has that ID\n",
 				k, legacy_index_to_id[k]);
-			abort();
+			exit(1);
 		}
 	}
 
 	if (NUM_LEGACY_INDICES != 12)
 	{
-		fprintf(stderr,
-			"FATAL: Legacy mapping has %zu entries, expected 12\n",
+		BUG("legacy mapping has %zu entries, expected 12\n",
 			(size_t)NUM_LEGACY_INDICES);
-		abort();
+		exit(1);
 	}
 }
 
@@ -281,8 +306,8 @@ void close_mathlib(mathlib_t *lib)
 		lib->handle = NULL;
 	}
 
-	if (lib->env[0] != NULL)
-		unsetenv(lib->env[0]);
+	// The setter addresses code inside the handle just closed.
+	lib->set_threads = NULL;
 }
 
 int open_mathlib(mathlib_t *lib)
@@ -300,10 +325,6 @@ int open_mathlib(mathlib_t *lib)
 	// Builtin NEC2 Gaussian Elimination isn't a .so, just return success.
 	if (lib->type == MATHLIB_NEC2)
 		return 1;
-
-	// Set environment if configured:
-	if (lib->env[0] != NULL && setenv(lib->env[0], lib->env[1], 1) < 0)
-			pr_debug("setenv(%s, %s): %s\n", lib->env[0], lib->env[1], strerror(errno));
 
 	// Clear any error state
 	dlerror();
@@ -362,7 +383,10 @@ int open_mathlib(mathlib_t *lib)
 	}
 
 	if (lib->handle != NULL)
+	{
+		mathlib_resolve_set_threads(lib);
 		return 1;
+	}
 	else
 		return 0;
 }
@@ -371,8 +395,17 @@ int open_mathlib(mathlib_t *lib)
 void init_mathlib(void)
 {
 	int libidx;
+	const char *env;
 
 	validate_mathlib_ids();
+
+	/* An exported variable states the thread count of every library that honors
+	 * it, so the processors are no longer divided among the concurrent jobs. */
+	env = mathlib_threads_env_conflict();
+
+	if (!CHILD && env != NULL)
+		pr_warn("%s=%s is set, so thread counts are not chosen per job, which affects performance\n",
+			env, getenv(env));
 
 	for (libidx = 0; libidx < num_mathlibs; libidx++)
 	{
@@ -807,11 +840,10 @@ void mathlib_benchmark_help(void)
 		_(
 		"Jobs are forked and run in parallel by xnec2c, "
 		"whereas threads are used by the mathlib implementation to parallelize the linear "
-		"algebra calculation of one job.  For parallel algorithms you can reduce the number of threads "
-		"in use by the algorithm with the following environment variables:\n"
-		 "  * OPENBLAS_NUM_THREADS=N\t# OpenBLAS thread limit\n"
-		 "  * OMP_NUM_THREADS=N\t\t# OpenMP thread limit\n"
-		 "  * MKL_NUM_THREADS=N\t\t# Intel MKL thread limit\n"
+		"algebra calculation of one job.  Each job receives an equal share of the processors as its "
+		"thread count, and the --threads N option states a count of its own instead.  An exported "
+		"thread-count variable states the count itself and overrides both; xnec2c names "
+		"that variable at startup and refuses --threads while one is set.\n"
 		"\n"
 		"Each benchmark specifies a complexity to indicate approximately how long it will take "
 		"to run.  For example, O(N) means the time will scale with N and O(N*J) means it will "
@@ -903,10 +935,10 @@ void mathlib_benchmark(int slow)
 		 "benchmarking to find what library works best with a mix of forking and threading; you can use `top` to monitor your CPU usage"
 		 "and if it reaches 0%% idle then you might consider reducing -j N.\n"
 		 "\n"
-		 "You may wish to experiment setting these environment variables:\n"
-		 "  * OPENBLAS_NUM_THREADS=N\t# OpenBLAS thread limit\n"
-		 "  * OMP_NUM_THREADS=N\t\t# OpenMP thread limit\n"
-		 "  * MKL_NUM_THREADS=N\t\t# Intel MKL thread limit\n"
+		 "Consider experimenting with the --threads N option, which states the thread count of "
+		 "each job in place of the equal share of the processors it receives otherwise.  An "
+		 "exported thread-count variable states that count itself and overrides both, and "
+		 "--threads is refused while one is set.\n"
 		 "\n"
 		 "This dialog will close when the benchmark completes."));
 
@@ -1202,6 +1234,115 @@ int32_t zgetrs(int32_t order, int32_t trans, int32_t lda, int32_t nrhs,
 #define MKL_THREADING_PGI           2 // Only for PGI compiler, not implemented here.
 #define MKL_THREADING_GNU           3
 #define MKL_THREADING_TBB           4
+
+/**
+ * threads_env_scan() - Find the first exported variable of one list
+ * @env: NULL terminated variable names in precedence order
+ *
+ * Return: name of the highest precedence variable found set, NULL when none is.
+ */
+static const char *threads_env_scan(const char *const *env)
+{
+	const char *found = NULL;
+	int idx;
+
+	for (idx = 0; found == NULL && env[idx] != NULL; idx++)
+		if (getenv(env[idx]) != NULL)
+			found = env[idx];
+
+	return found;
+}
+
+/**
+ * mathlib_threads_env() - Report the variable governing one library's threads
+ * @lib: library whose family names the variables
+ *
+ * Return: name of the variable in force, NULL when the count is xnec2c's to set.
+ */
+static const char *mathlib_threads_env(const mathlib_t *lib)
+{
+	if (lib == NULL)
+	{
+		BUG("%s: lib is NULL\n", __func__);
+		return NULL;
+	}
+
+	return threads_env_scan(mathlib_threading[lib->type].env);
+}
+
+/**
+ * mathlib_threads_env_conflict() - Report any exported thread-count variable
+ *
+ * Every family is scanned rather than the active one alone, because the library
+ * in use is selected long after the command line states a thread count.
+ *
+ * Return: name of the first variable found set, NULL when none is.
+ */
+const char *mathlib_threads_env_conflict(void)
+{
+	const char *found = NULL;
+	size_t type;
+
+	for (type = 0; found == NULL && type < G_N_ELEMENTS(mathlib_threading); type++)
+		found = threads_env_scan(mathlib_threading[type].env);
+
+	return found;
+}
+
+/**
+ * mathlib_resolve_set_threads() - Bind the runtime thread-count setter
+ * @lib: library holding the handle opened by open_mathlib()
+ *
+ * A family that states a setter symbol expects to find it, so a failure to
+ * bind is reported: the library runs its own thread count while xnec2c forks
+ * jobs against the same processors.
+ */
+static void mathlib_resolve_set_threads(mathlib_t *lib)
+{
+	const char *sym = mathlib_threading[lib->type].setter;
+
+	if (sym == NULL)
+		return;
+
+	dlerror();
+	*(void **) (&lib->set_threads) = dlsym(lib->handle, sym);
+
+	if (lib->set_threads == NULL)
+		pr_err("%s: thread count cannot be bounded, dlsym(%s): %s\n",
+			lib->name, sym, dlerror());
+}
+
+/**
+ * mathlib_set_num_threads() - Tell a library how many threads it is entitled to
+ * @lib:     library holding the setter bound by open_mathlib()
+ * @threads: thread budget of the process making the call
+ *
+ * Applies the budget to the OpenMP runtime that OpenMP-linked libraries draw
+ * from, then to the library's own thread pool.  An exported variable overrides
+ * the budget for the library that honors it, so that library keeps the count
+ * the user stated.
+ */
+void mathlib_set_num_threads(mathlib_t *lib, int threads)
+{
+	if (lib == NULL)
+	{
+		BUG("%s: lib is NULL\n", __func__);
+		return;
+	}
+
+	if (threads < 1)
+	{
+		BUG("%s: thread count is %d\n", __func__, threads);
+		threads = 1;
+	}
+
+	xnec2c_set_omp_threads(threads);
+
+	/* An exported variable states the count of the library that honors it, and
+	 * a library whose count is fixed when it is built has no setter to call. */
+	if (mathlib_threads_env(lib) == NULL && lib->set_threads != NULL)
+		lib->set_threads(threads);
+}
 
 void mathlib_mkl_set_threading(mathlib_t *lib, int code)
 {

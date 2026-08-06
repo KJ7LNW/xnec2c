@@ -1212,7 +1212,8 @@ typedef struct
     ngraph,     /* Number of graphs to be plotted */
     pol_type,   /* User-specified Polarization type for plots and patterns */
     ex_port,    /* Selected excitation port (0-based) for single-port consumers */
-    num_jobs;   /* Number of child processes (jobs) to fork */
+    num_jobs,   /* Number of child processes (jobs) to fork */
+    num_threads; /* Math library threads per worker, 0 divides the processors */
 
   double
     *zlr,
@@ -1909,7 +1910,8 @@ void Notice_Deferred(GtkButtonsType buttons, const char *title, const char *msg_
 gboolean Nec2_Save_Warn(const gchar *mesg);
 int Load_Line(char *buff, FILE *pfile);
 int xnec2c_num_procs(void);
-void xnec2c_set_omp_cpus(void);
+int xnec2c_threads_per_worker(int workers);
+void xnec2c_set_omp_threads(int threads);
 void clock_print_elapsed(char *msg, clockid_t clk_id, struct timespec *start);
 void clock_print_elapsed_when(char *msg, clockid_t clk_id, struct timespec *start, float min_sec);
 gboolean Open_File(FILE **fp, char *fname, const char *mode);

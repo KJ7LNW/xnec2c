@@ -626,38 +626,66 @@ int xnec2c_num_procs(void)
 #endif
 }
 
-// Scale the OpenMP resources based on the number of parallel forked jobs.
-// If you fork 25 jobs and have 100 CPUs then OMP can run 4 CPUs per fork:
-void xnec2c_set_omp_cpus(void)
+/**
+ * xnec2c_threads_per_worker() - Divide the processors among concurrent workers
+ * @workers: number of computations that run at the same time
+ *
+ * Workers and their library threads draw on the same processors, so each
+ * worker is entitled to an equal share: eight workers on a thirty-two
+ * processor machine receive four threads each.  The --threads option states
+ * a budget of its own and overrides the division.
+ *
+ * Return: thread count one worker is entitled to, at least one.
+ */
+int xnec2c_threads_per_worker(int workers)
+{
+	int threads;
+
+	if (workers < 1)
+	{
+		BUG("%s: worker count is %d\n", __func__, workers);
+		workers = 1;
+	}
+
+	/* A zero count is the request to divide the processors. */
+	if (calc_data.num_threads > 0)
+		threads = calc_data.num_threads;
+	else
+		threads = xnec2c_num_procs() / workers;
+
+	if (threads < 1)
+		threads = 1;
+
+	return threads;
+}
+
+/**
+ * xnec2c_set_omp_threads() - Apply a thread budget to the OpenMP runtime
+ * @threads: thread count this process is entitled to
+ *
+ * OMP_NUM_THREADS states the count of every OpenMP runtime in the process, so
+ * an exported setting overrides this applier, which then sets nothing.
+ */
+void xnec2c_set_omp_threads(int threads)
 {
 #ifdef HAVE_OPENMP
-	int cpus_per_job;
-	int n;
+	static int applied = 0;
 
-	int env_num_procs = 0;
-
-	// Respect OMP_NUM_THREADS
 	if (getenv("OMP_NUM_THREADS") != NULL)
-		env_num_procs = atoi(getenv("OMP_NUM_THREADS"));
+		return;
 
-	if (env_num_procs > 0)
-		n = env_num_procs;
-	else
-		n = xnec2c_num_procs();
+	omp_set_num_threads(threads);
 
-	if (CHILD)
+	/* The budget is applied for every worker the sweep dispatches, so the
+	 * count is announced where it changes. */
+	if (applied != threads)
 	{
-		cpus_per_job = n / calc_data.num_jobs;
-
-		if (cpus_per_job <= 0)
-			cpus_per_job = 1;
-
-		omp_set_num_threads(cpus_per_job);
-		pr_info("using %d of %d CPUs as OpenMP threads per job\n",
-			cpus_per_job, xnec2c_num_procs());
+		applied = threads;
+		pr_info("applying an OpenMP budget of %d threads\n", threads);
 	}
-	else
-		omp_set_num_threads(n);
+#else
+	/* This build carries no OpenMP runtime to receive the budget. */
+	(void)threads;
 #endif
 }
 

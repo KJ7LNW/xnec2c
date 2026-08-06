@@ -377,13 +377,11 @@ Child_Process( int num_child )
   char cmnd[8];     /* Command string received from parent */
   char *buff;       /* Passes address of variables to read()/write() */
   size_t cnt;       /* Size of data buffers for read()/write() */
+  int threads = 0;  /* Thread budget relayed with each mathlib command */
 
   /* Close unwanted pipe ends */
   close( child_procs[num_child]->to_child[WRITE] );
   close( child_procs[num_child]->from_child[READ] );
-
-  // Scale the OpenMP resources based on the number of parallel forked jobs.
-  xnec2c_set_omp_cpus();
 
   /* Loop around select() in Read_Pipe() waiting for commands/data */
   while( TRUE )
@@ -398,11 +396,17 @@ Child_Process( int num_child )
 			rc_config.mathlib_batch_id,
 			MATHLIB_ID_LEN, FALSE );
 
+        buff = (char *) &threads;
+        cnt = sizeof( int );
+        Read_Pipe( num_child, buff, (ssize_t)cnt, TRUE );
+
         // Clear the previous frequency cache to prevent false values from benchmarking:
         if (strcmp(current_mathlib->id, rc_config.mathlib_batch_id) != 0)
             New_Frequency_Reset_Prev();
 
         mathlib_load(get_mathlib_by_id(rc_config.mathlib_batch_id));
+
+        mathlib_set_num_threads(current_mathlib, threads);
         break;
 
       case INFILE: /* Read input file */

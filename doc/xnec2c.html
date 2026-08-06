@@ -1339,14 +1339,8 @@ xnec2c.</p>
   <dt><code>-j|--jobs &lt;n&gt;</code></dt>
   <dd>Number of processors in SMP machine, where <var>n</var> is the number of processors (<code>-j0</code> disables forking).</dd>
 
-  <dt><code>--openblas-threads &lt;n&gt;</code></dt>
-  <dd>Set OpenBLAS thread count (default: 1).</dd>
-
-  <dt><code>--mkl-threads &lt;n&gt;</code></dt>
-  <dd>Set Intel MKL thread count (default: 1).</dd>
-
-  <dt><code>--omp-threads &lt;n&gt;</code></dt>
-  <dd>Set OpenMP thread count (default: 1).</dd>
+  <dt><code>--threads &lt;n&gt;</code></dt>
+  <dd>Math library threads per job (default: processors / jobs).</dd>
 
   <dt><code>-b|--batch</code></dt>
   <dd>Enable batch mode, exit after the frequency loop runs.</dd>
@@ -3895,7 +3889,7 @@ visualization, and internationalization support.</p>
 
 	<li>Features:
 		<ul>
-			<li>Thread count control via CLI options (<code>--openblas-threads</code>, <code>--mkl-threads</code>, <code>--omp-threads</code>)</li>
+			<li>Thread count control via the <code>--threads</code> CLI option</li>
 			<li>MacOS MacPorts OpenBLAS support</li>
 			<li>Mathlib ID-based configuration for stable config persistence across version upgrades</li>
 		</ul>
