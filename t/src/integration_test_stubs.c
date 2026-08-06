@@ -113,12 +113,6 @@ Gtk_Widget_Destroy(GtkWidget **widget)
 {
 }
 
-/* Stub for nearfield buffer allocation */
-void
-Alloc_Nearfield_Buffers(int nrx, int nry, int nrz)
-{
-}
-
 /* Stub for per-frequency-step crnt buffer allocation */
 void
 Alloc_Crnt_Fstep_Buffers(int nfrq)
@@ -130,13 +124,6 @@ void
 Free_Crnt_Fstep_Buffers(void)
 {
 }
-
-/* Stub for per-frequency-step crnt save */
-void
-Save_Crnt_Data(int fstep)
-{
-}
-
 
 /* Stub for per-frequency-step nearfield buffer allocation */
 void
@@ -150,18 +137,39 @@ Free_Nearfield_Fstep_Buffers(void)
 {
 }
 
-/* Stub for per-frequency-step nearfield save */
-void
-Save_Nearfield_Data(int fstep)
-{
-}
-
-
 /* Stub for frequency loop */
 gboolean
 Frequency_Loop(gpointer udata)
 {
   return FALSE;
+}
+
+/* Stub for synchronous sweep; mathlib.c benchmark path only */
+gboolean
+freq_loop_run_sync(void)
+{
+  return FALSE;
+}
+
+/* Stub for the prompting notice; declines so the benchmark never starts */
+int
+Notice_Question(GtkButtonsType buttons, const char *title,
+    const char *question, const char *msg_fmt, ...)
+{
+  return GTK_RESPONSE_NO;
+}
+
+/* Stub for the processor budget; parsing tests run single threaded */
+int
+xnec2c_num_procs(void)
+{
+  return 1;
+}
+
+/* Stub for the OpenMP thread budget */
+void
+xnec2c_set_omp_threads(int threads)
+{
 }
 
 /* Stub for frequency reset */
