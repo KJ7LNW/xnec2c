@@ -1019,11 +1019,6 @@ guint _g_idle_add_once(GSourceOnceFunc function, gpointer data, int lock)
 
 	mem_new(&cbdata);
 
-	// Don't do a locked sync if -P is specified because GTK
-	// is already running synchronously.
-	if (rc_config.disable_pthread_freqloop)
-		lock = 0;
-
 	// A synchronous wait issued from the thread that owns the GTK main
 	// context would block the dispatcher that must run the scheduled
 	// callback, deadlocking.  Stop() reaches its batch teardown this way
