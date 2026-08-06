@@ -785,6 +785,36 @@ opengl_common_projection_sync(void)
     view_unshare_master( rdpattern_view );
 }
 
+/* Common_Pan_Sync()
+ *
+ * Public entry point (mirrors opengl_common_projection_sync() above,
+ * called the same way from main.c on new file load) applying the
+ * persisted common-pan preference. Unlike projection, pan isn't a
+ * live master/follower link -- Pan_View_On_Arrow_Key() already keeps
+ * both views moving together going forward once enabled by mirroring
+ * every arrow-key delta to both. What's still needed is the one-time
+ * "snap to match" the moment the setting turns on (or a new file
+ * loads with it already on), same as toggling Common Projection
+ * immediately re-aligns the rdpattern view rather than waiting for
+ * the next rotation. Only the rdpattern view is moved to match
+ * structure_view; the reverse direction has no natural default since
+ * either view could be "correct" -- structure_view is treated as the
+ * reference the same way it's the master for projection sharing.
+ */
+  void
+Common_Pan_Sync(void)
+{
+  if( !rc_config.common_pan )
+    return;
+
+  if( rdpattern_view == NULL || structure_view == NULL )
+    return;
+
+  rdpattern_view->pan_offset[0] = structure_view->pan_offset[0];
+  rdpattern_view->pan_offset[1] = structure_view->pan_offset[1];
+  view_notify_change( rdpattern_view );
+}
+
 /*-----------------------------------------------------------------------*/
 
 /* view_presets - indexed by preset id: 0=X axis, 1=Y axis, 2=Z axis, 3=default */

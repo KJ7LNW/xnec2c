@@ -34,6 +34,7 @@ void config_hooks_init(void);
 
 void hook_polarization(void);
 void hook_common_projection(void);
+void hook_common_pan(void);
 void hook_flow_direction(void);
 void hook_color_vis(void);
 void hook_color_family(void);

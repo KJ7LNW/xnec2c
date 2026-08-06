@@ -273,7 +273,7 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Common Pan (couple structure/rdpattern arrow-key panning)", .format = "%d",
 		.vars = { &rc_config.common_pan }, .def = { { .i = 0 } },
-		.widgets = CONFIG_WIDGET_TREE( .post_apply = NULL,
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_common_pan,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &main_window_builder,
 					.elements = CONFIG_WIDGETS(

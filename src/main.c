@@ -723,6 +723,12 @@ Open_Input_File( gpointer arg )
     }
     /* Preserve existing view when re-opening same file */
 #endif
+
+    /* Snap rdpattern pan to match structure on new file load, same
+     * condition as projection sync above -- renderer-agnostic, so
+     * outside the HAVE_OPENGL guard. */
+    if( !same_file )
+      Common_Pan_Sync();
   }
 
   /* Re-initiate frequency plots if window open */
