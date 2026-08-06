@@ -177,14 +177,23 @@ static char *mathfuncs[] = {
 static int num_mathlibs = sizeof(mathlibs) / sizeof(mathlib_t);
 static int num_mathfuncs = sizeof(mathfuncs) / sizeof(char *);
 
-/* Job count progression of each benchmark mode, indexed by enum
- * MATHLIB_BENCHMARKS.  Each row states whether its first pass runs one job or
- * the -j count, and how the following passes advance that count. */
+/* Engine count each benchmark progression walks, indexed by enum
+ * MATHLIB_VARIED. */
+static const mathlib_varied_t mathlib_varied[MATHLIB_VARIED_COUNT] = {
+	[MATHLIB_VARIED_JOBS]    = { .value = &calc_data.num_jobs, .label = "-j" },
+	[MATHLIB_VARIED_THREADS] = { .value = &calc_data.num_threads, .label = "--threads",
+	                             .needs_setter = TRUE },
+};
+
+/* Count progression of each benchmark mode, indexed by enum MATHLIB_BENCHMARKS.
+ * Each row states which count it walks, whether its first pass runs one job or
+ * the -j count, and how the following passes advance the walked count. */
 static const mathlib_benchmark_spec_t mathlib_benchmark_specs[MATHLIB_BENCHMARK_COUNT] = {
-	[MATHLIB_BENCHMARK_PARALLEL] = { 0 },
-	[MATHLIB_BENCHMARK_SINGLE]   = { .single_job = TRUE },
-	[MATHLIB_BENCHMARK_NLOG2]    = { .shift = 1 },
-	[MATHLIB_BENCHMARK_NJ]       = { .decrement = 1 },
+	[MATHLIB_BENCHMARK_PARALLEL] = { .varied = MATHLIB_VARIED_JOBS },
+	[MATHLIB_BENCHMARK_SINGLE]   = { .varied = MATHLIB_VARIED_JOBS, .single_job = TRUE },
+	[MATHLIB_BENCHMARK_NLOG2]    = { .varied = MATHLIB_VARIED_JOBS, .shift = 1 },
+	[MATHLIB_BENCHMARK_NJ]       = { .varied = MATHLIB_VARIED_JOBS, .decrement = 1 },
+	[MATHLIB_BENCHMARK_THREADS]  = { .varied = MATHLIB_VARIED_THREADS, .single_job = TRUE, .shift = 1 },
 };
 
 mathlib_t *get_mathlib_by_id(const char *id)
@@ -861,6 +870,7 @@ void mathlib_benchmark_help(void)
 		"  * N is the number of mathlibs selected here:\n"
 		"      File->Mathlib Benchmarks->Selected Mathlibs\n"
 		"  * J is the number of jobs specified on the command line with -j (eg, -j 8)\n"
+		"  * T is the number of threads one job gives the linear algebra library\n"
 		"\n"
 		"Higher complexity options run more benchmarks to provide additional information about how you "
 		"might optimize your xnec2c runtime.  The benchmark menu options are as follows:  \n"
@@ -880,7 +890,13 @@ void mathlib_benchmark_help(void)
 		"library as modified by the environment variables listed above.\n"
 		"\n"
 		"* Iterate -j N-=2: O(N*J) time: Same as -j N/=2 above, but instead decrement the number of jobs "
-		"by 1.  This takes the longest to run.\n"));
+		"by 1.  This takes the longest to run.\n"
+		"\n"
+		"* Threads (-j 1, --threads N/=2): O(N*log2(T)) time: Benchmark each mathlib with a single job, "
+		"starting with every processor given to the linear algebra library and halving the thread count "
+		"for each subsequent iteration until one thread remains.  This finds the thread count beyond "
+		"which one matrix solve stops gaining, which is the count that matters when a sweep has fewer "
+		"frequencies left to compute than you have processors.\n"));
 }
 
 /**
@@ -921,9 +937,11 @@ void mathlib_benchmark(int slow)
 	mathlib_t *mathlib_batch_before_benchmark = get_mathlib_by_id(rc_config.mathlib_batch_id);
 	mathlib_t *best_mathlib = NULL, *active_mathlib = NULL;
 	const mathlib_benchmark_spec_t *spec;
+	const mathlib_varied_t *varied;
+	const char *threads_env;
 	int response;
 	char *m = NULL;
-	int i, best_num_jobs = 0;
+	int i, best_count = 0;
 	double best_elapsed = 0;
 
 	if (slow < 0 || slow >= MATHLIB_BENCHMARK_COUNT)
@@ -933,6 +951,18 @@ void mathlib_benchmark(int slow)
 	}
 
 	spec = &mathlib_benchmark_specs[slow];
+	varied = &mathlib_varied[spec->varied];
+	threads_env = mathlib_threads_env_conflict();
+
+	if (varied->needs_setter && threads_env != NULL)
+	{
+		Notice(GTK_BUTTONS_OK, _("Mathlib Benchmark"),
+			_("%s=%s states the thread count of every library that honors it, "
+			  "so a thread benchmark measures the same count on every pass.  "
+			  "Unset it and restart to benchmark thread counts."),
+			threads_env, getenv(threads_env));
+		return;
+	}
 
 	if (isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS))
 	{
@@ -997,6 +1027,7 @@ void mathlib_benchmark(int slow)
 
 	
 	int orig_jobs = calc_data.num_jobs;
+	int orig_threads = calc_data.num_threads;
 
 	for (i = 0; i < num_mathlibs; i++)
 	{
@@ -1019,10 +1050,21 @@ void mathlib_benchmark(int slow)
 
 		calc_data.num_jobs = spec->single_job ? 1 : orig_jobs;
 
-		while (calc_data.num_jobs >= 1)
+		/* A library family exposing no runtime setter computes with the thread
+		 * count it was built with, so a walked budget never reaches it. */
+		gboolean count_fixed = varied->needs_setter &&
+			(mathlib_threading[active_mathlib->type].setter == NULL);
+
+		/* A thread count of zero divides the processors among the concurrent
+		 * jobs, so a single-job walk starts at every processor. */
+		int count = (*varied->value > 0 ? *varied->value : xnec2c_num_procs());
+
+		while (count >= 1)
 		{
-			pr_info("Starting %s benchmark (-j %d)\n",
-				active_mathlib->name, calc_data.num_jobs);
+			*varied->value = count;
+
+			pr_info("Starting %s benchmark (%s %d)\n",
+				active_mathlib->name, varied->label, count);
 
 			New_Frequency_Reset_Prev();
 			calc_data.fmhz_save = 0;
@@ -1037,9 +1079,10 @@ void mathlib_benchmark(int slow)
 
 			double elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
 
-			bench_append(&m, "   %f seconds (-j %2d) %c\n",
+			bench_append(&m, "   %f seconds (%s %2d) %c\n",
 				elapsed,
-				calc_data.num_jobs,
+				varied->label,
+				count,
 				(dl_fgt(elapsed, elapsed_prev) ? ' ' : '<')
 				);
 
@@ -1047,20 +1090,25 @@ void mathlib_benchmark(int slow)
 			{
 				best_mathlib = active_mathlib;
 				best_elapsed = elapsed;
-				best_num_jobs = calc_data.num_jobs;
+				best_count = count;
 			}
 
 			elapsed_prev = elapsed;
 
-			/* A mode that advances no count measures the one job count it
-			 * started with, so its progression ends after this pass. */
-			if (spec->shift == 0 && spec->decrement == 0)
-				calc_data.num_jobs = 0;
+			/* End the progression once one pass has measured all this library
+			 * offers: a mode that advances no count, or a library that computes
+			 * the same way at every rung of the walked count. */
+			if ((spec->shift == 0 && spec->decrement == 0) || count_fixed)
+				count = 0;
 
 			// Step multi-pass modes toward the loop's lower bound:
 			else
-				calc_data.num_jobs = (calc_data.num_jobs >> spec->shift) - spec->decrement;
+				count = (count >> spec->shift) - spec->decrement;
 		}
+
+		if (count_fixed)
+			bench_append(&m, "   %s\n",
+				_("measured once: this library keeps the thread count it was built with"));
 	}
 
 	if (FORKED)
@@ -1069,10 +1117,11 @@ void mathlib_benchmark(int slow)
 		set_mathlib_interactive(NULL, mathlib_before_benchmark);
 
 	calc_data.num_jobs = orig_jobs;
+	calc_data.num_threads = orig_threads;
 
 	if (best_mathlib != NULL)
-		bench_append(&m, "\nBest Mathlib: %s (-j %d): %f seconds\n",
-			best_mathlib->name, best_num_jobs, best_elapsed);
+		bench_append(&m, "\nBest Mathlib: %s (%s %d): %f seconds\n",
+			best_mathlib->name, varied->label, best_count, best_elapsed);
 	else
 		bench_append(&m, "\nNo result found?  This is a bug.");
 
@@ -1099,6 +1148,11 @@ void mathlib_benchmark_nlog2(void)
 void mathlib_benchmark_nj(void)
 {
 	mathlib_benchmark(MATHLIB_BENCHMARK_NJ);
+}
+
+void mathlib_benchmark_threads(void)
+{
+	mathlib_benchmark(MATHLIB_BENCHMARK_THREADS);
 }
 
 void mathlib_lock_intel(const char *locked_id, int batch)

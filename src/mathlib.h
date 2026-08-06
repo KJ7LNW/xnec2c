@@ -39,20 +39,44 @@ enum MATHLIB_BENCHMARKS
 	MATHLIB_BENCHMARK_SINGLE,
 	MATHLIB_BENCHMARK_NLOG2,
 	MATHLIB_BENCHMARK_NJ,
+	MATHLIB_BENCHMARK_THREADS,
 	MATHLIB_BENCHMARK_COUNT
 };
 
+enum MATHLIB_VARIED
+{
+	MATHLIB_VARIED_JOBS,
+	MATHLIB_VARIED_THREADS,
+	MATHLIB_VARIED_COUNT
+};
+
 /**
- * mathlib_benchmark_spec_t - Job count progression of one benchmark mode
+ * mathlib_varied_t - Engine count a benchmark progression walks
+ * @value: Engine field holding the count
+ * @label: Command-line option stating @value, named in the summary
+ * @needs_setter: The count reaches a library only through the runtime thread
+ *                setter its family exposes
+ */
+typedef struct
+{
+	int *value;
+	const char *label;
+	gboolean needs_setter;
+} mathlib_varied_t;
+
+/**
+ * mathlib_benchmark_spec_t - Count progression of one benchmark mode
+ * @varied: Count the progression walks
  * @single_job: Run every pass at one job instead of the -j count
- * @shift: Right-shift applied to the job count after each sweep
- * @decrement: Amount subtracted from the job count after each sweep
+ * @shift: Right-shift applied to the walked count after each sweep
+ * @decrement: Amount subtracted from the walked count after each sweep
  *
  * A row advancing the count by neither shift nor decrement runs one sweep and
  * ends the progression.
  */
 typedef struct
 {
+	enum MATHLIB_VARIED varied;
 	gboolean single_job;
 	int shift;
 	int decrement;
