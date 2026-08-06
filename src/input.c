@@ -1158,7 +1158,7 @@ Read_Commands( void )
   fpat.nfeh  = 0;
   fpat.nrx   = 0;
   fpat.nry   = 0;
-  fpat.nry   = 0;
+  fpat.nrz   = 0;
   fpat.nth   = 0;
   fpat.nph   = 0;
   fpat.near = -1;
