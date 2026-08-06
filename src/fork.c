@@ -26,6 +26,113 @@
 
 /*-----------------------------------------------------------------------*/
 
+/* Pipe primitives are defined below their first use in this file */
+static ssize_t Write_Pipe( int idx, char *str, ssize_t len );
+
+/* Wire names of the parent/child commands, indexed by enum P2CH_COMND.
+ * The row width holds every tag to FORK_CMD_LEN bytes, so a wider name
+ * fails to compile. */
+static const char fork_cmd_names[NUM_FKCMNDS][FORK_CMD_LEN + 1] = {
+  [INFILE]  = "inpfile",
+  [FRQDATA] = "frqdata",
+};
+
+/* One command payload field: the address transferred and its width */
+typedef struct {
+  void   *ptr;
+  size_t  size;
+} fork_field_t;
+
+typedef ssize_t (*pipe_fn_t)(int, char *, ssize_t);
+
+/* fork_fields_xfer()
+ *
+ * Transfers @nfields payload fields over child @idx's pipe in the direction
+ * named by @pipe_fn.  Parent and child walk the same description, so neither
+ * side can deviate from the other's byte stream.  A failed transfer never
+ * returns here: both directions exit the process at the fault.
+ */
+static void
+fork_fields_xfer( int idx, const fork_field_t *fields, int nfields,
+                  pipe_fn_t pipe_fn )
+{
+  for( int i = 0; i < nfields; i++ )
+    pipe_fn( idx, fields[i].ptr, (ssize_t)fields[i].size );
+}
+
+/* fork_xfer_infile()
+ *
+ * Transfers the INFILE payload over child @idx's pipe: the NEC2 input file
+ * path, held by rc_config on both sides.
+ */
+static void
+fork_xfer_infile( int idx, pipe_fn_t pipe_fn )
+{
+  fork_field_t fields[] = {
+    { rc_config.input_file, sizeof(rc_config.input_file) },
+  };
+
+  fork_fields_xfer( idx, fields, (int)G_N_ELEMENTS(fields), pipe_fn );
+}
+
+/* fork_xfer_frqdata()
+ *
+ * Transfers the FRQDATA payload in @frq over child @idx's pipe: math library
+ * id, thread budget, and the frequency to solve.
+ */
+static void
+fork_xfer_frqdata( int idx, fork_frqdata_t *frq, pipe_fn_t pipe_fn )
+{
+  fork_field_t fields[] = {
+    { frq->mathlib_id, sizeof(frq->mathlib_id) },
+    { &frq->threads,   sizeof(frq->threads)    },
+    { &frq->freq_mhz,  sizeof(frq->freq_mhz)   },
+  };
+
+  fork_fields_xfer( idx, fields, (int)G_N_ELEMENTS(fields), pipe_fn );
+}
+
+/* fork_send_cmd()
+ *
+ * Writes the wire tag of command @cmd to child @idx, ahead of its payload.
+ */
+  static void
+fork_send_cmd( int idx, enum P2CH_COMND cmd )
+{
+  Write_Pipe( idx, (char *)fork_cmd_names[cmd], FORK_CMD_LEN );
+
+} /* fork_send_cmd() */
+
+/*------------------------------------------------------------------------*/
+
+/* fork_send_infile()
+ *
+ * Sends the INFILE command tag and its payload to child @idx.
+ */
+  void
+fork_send_infile( int idx )
+{
+  fork_send_cmd( idx, INFILE );
+  fork_xfer_infile( idx, Write_Pipe );
+
+} /* fork_send_infile() */
+
+/*------------------------------------------------------------------------*/
+
+/* fork_send_frqdata()
+ *
+ * Sends the FRQDATA command tag and the payload in @frq to child @idx.
+ */
+  void
+fork_send_frqdata( int idx, fork_frqdata_t *frq )
+{
+  fork_send_cmd( idx, FRQDATA );
+  fork_xfer_frqdata( idx, frq, Write_Pipe );
+
+} /* fork_send_frqdata() */
+
+/*------------------------------------------------------------------------*/
+
 /* Child_Input_File()
  *
  * Opens NEC2 input file for child processes
@@ -65,7 +172,7 @@ Fork_Command( const char *cdstr )
   int idx;
 
   for( idx = 0; idx < NUM_FKCMNDS; idx++ )
-    if( strcmp(fork_commands[idx], cdstr) == 0 )
+    if( strcmp(fork_cmd_names[idx], cdstr) == 0 )
       break;
 
   return( idx );
@@ -74,7 +181,7 @@ Fork_Command( const char *cdstr )
 
 /*------------------------------------------------------------------------*/
 
-int write_exact(int fd, char *buf, int size)
+static int write_exact(int fd, char *buf, int size)
 {
 	int len = 0;
 	int offset = 0;
@@ -101,7 +208,7 @@ int write_exact(int fd, char *buf, int size)
 }
 
 
-int read_exact(int fd, char *buf, int size)
+static int read_exact(int fd, char *buf, int size)
 {
 	int len = 0;
 	int offset = 0;
@@ -193,7 +300,7 @@ pipe_fail_exit( void )
  * Reads data from a pipe (child and parent processes)
  */
   static ssize_t
-Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
+Read_Pipe( int idx, char *str, ssize_t len)
 {
   ssize_t retval;
   int pipefd;
@@ -224,7 +331,7 @@ Read_Pipe( int idx, char *str, ssize_t len, gboolean err )
    * path below so a child that dies mid-run still surfaces. */
   if( CHILD && retval == 0 ) child_exit();
 
-  if( (retval == -1) || ((retval != len) && err ) )
+  if( (retval == -1) || (retval != len ) )
   {
     perror( "read()" );
     pr_err("child %d  length %d  return %d\n", idx, (int)len, (int)retval);
@@ -249,8 +356,6 @@ typedef struct {
   size_t size;
   int cond;
 } freq_field_t;
-
-typedef ssize_t (*pipe_fn_t)(int, char *, ssize_t, gboolean);
 
 static size_t size_npm_dbl(void)        { return (size_t)data.npm  * sizeof(double); }
 static size_t size_np3m_cdbl(void)      { return (size_t)data.np3m * sizeof(complex double); }
@@ -341,7 +446,7 @@ freq_fields_xfer(int fstep, int pipe_idx, pipe_fn_t pipe_fn)
 
     size_t sz = fields[i].get_size ? fields[i].get_size() : fields[i].size;
 
-    if (pipe_fn(pipe_idx, fields[i].ptr, (ssize_t)sz, TRUE) < 0)
+    if (pipe_fn(pipe_idx, fields[i].ptr, (ssize_t)sz) < 0)
       return 0;
   }
 
@@ -373,11 +478,8 @@ void Child_Process( int num_child ) __attribute__ ((noreturn));
   void
 Child_Process( int num_child )
 {
-  ssize_t retval;   /* Return from select()/read() etc */
-  char cmnd[8];     /* Command string received from parent */
-  char *buff;       /* Passes address of variables to read()/write() */
-  size_t cnt;       /* Size of data buffers for read()/write() */
-  int threads = 0;  /* Thread budget relayed with each mathlib command */
+  char cmnd[FORK_CMD_LEN + 1];  /* Command string received from parent */
+  fork_frqdata_t frq = { 0 };   /* FRQDATA payload received from parent */
 
   /* Close unwanted pipe ends */
   close( child_procs[num_child]->to_child[WRITE] );
@@ -386,44 +488,30 @@ Child_Process( int num_child )
   /* Loop around select() in Read_Pipe() waiting for commands/data */
   while( TRUE )
   {
-    retval = Read_Pipe( num_child, cmnd, 7, TRUE );
-    cmnd[retval]='\0';
+    Read_Pipe( num_child, cmnd, FORK_CMD_LEN);
+    cmnd[FORK_CMD_LEN] = '\0';
 
     switch( Fork_Command(cmnd) )
     {
-      case MATHLIB:
-        Read_Pipe( num_child,
-			rc_config.mathlib_batch_id,
-			MATHLIB_ID_LEN, FALSE );
-
-        buff = (char *) &threads;
-        cnt = sizeof( int );
-        Read_Pipe( num_child, buff, (ssize_t)cnt, TRUE );
-
-        // Clear the previous frequency cache to prevent false values from benchmarking:
-        if (strcmp(current_mathlib->id, rc_config.mathlib_batch_id) != 0)
-            New_Frequency_Reset_Prev();
-
-        mathlib_load(get_mathlib_by_id(rc_config.mathlib_batch_id));
-
-        mathlib_set_num_threads(current_mathlib, threads);
-        break;
-
       case INFILE: /* Read input file */
-        retval = Read_Pipe( num_child, rc_config.input_file, sizeof(rc_config.input_file), FALSE );
-        rc_config.input_file[retval-1] = '\0';
+        fork_xfer_infile( num_child, Read_Pipe );
+        rc_config.input_file[sizeof(rc_config.input_file) - 1] = '\0';
         Child_Input_File();
         break;
 
-      case FRQDATA: /* Calculate currents and pass on */
+      case FRQDATA: /* Adopt the dispatched library, calculate currents and pass on */
+        fork_xfer_frqdata( num_child, &frq, Read_Pipe );
+
+        /* The budget arrives with the library it configures, so both land
+         * before this frequency is solved. */
+        mathlib_load( get_mathlib_by_id(frq.mathlib_id) );
+        mathlib_set_num_threads( current_mathlib, frq.threads );
+
         /* Dedup cache persists across sweeps in child address space;
          * reset ensures every dispatched frequency is recomputed */
         New_Frequency_Reset_Prev();
 
-        /* Get new frequency */
-        buff = (char *) &calc_data.freq_mhz;
-        cnt = sizeof( double );
-        Read_Pipe( num_child, buff, (ssize_t)cnt, TRUE );
+        calc_data.freq_mhz = frq.freq_mhz;
 
         /* Frequency buffers in children are for current frequency only */
         calc_data.freq_step = 0;
@@ -434,6 +522,10 @@ Child_Process( int num_child )
         /* Calculate freq data */
         New_Frequency();
         Pass_Freq_Data();
+        break;
+
+      default:
+        BUG( "unrecognized command \"%s\" from parent\n", cmnd );
         break;
 
     } /* switch( Command(cmnd) ) */
@@ -447,8 +539,8 @@ Child_Process( int num_child )
  *
  * Writes data to a pipe (child and parent processes)
  */
-  ssize_t
-Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
+  static ssize_t
+Write_Pipe( int idx, char *str, ssize_t len )
 {
   ssize_t retval;
   int pipefd;
@@ -474,7 +566,7 @@ Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
 
 
   retval = write_exact( pipefd, str, (size_t)len );
-  if( (retval == -1) || ((retval != len) && err) )
+  if( (retval == -1) || (retval != len) )
   {
     perror( "write()" );
     pipe_fail_exit();
@@ -490,7 +582,7 @@ Write_Pipe( int idx, char *str, ssize_t len, gboolean err )
  *
  * Reads data from a pipe (used by parent process)
  */
-static ssize_t PRead_Pipe(int idx, char *str, ssize_t len, gboolean err)
+static ssize_t PRead_Pipe(int idx, char *str, ssize_t len)
 {
 	ssize_t retval;
 

@@ -22,18 +22,29 @@
 
 #include "common.h"
 
-/* Parent/child commands
- * Note: these must be 7 bytes long.  This is hard-coded!
- */
-#define FORK_CMNDS { "inpfile", "frqdata", "mathlib" }
+/* Wire width of a parent/child command tag */
+#define FORK_CMD_LEN 7
 
 /* Indices for parent/child commands */
 enum P2CH_COMND
 {
   INFILE = 0,
   FRQDATA,
-  MATHLIB,
   NUM_FKCMNDS
 };
+
+/* FRQDATA payload: the math library the child adopts, the thread budget it
+ * runs that library with, and the frequency it solves.  The widest member
+ * sits last so the structure closes within one cache line; the transfer
+ * walks each member by its own width, so padding never reaches the wire. */
+typedef struct
+{
+  char   mathlib_id[MATHLIB_ID_LEN];
+  int    threads;
+  double freq_mhz;
+} fork_frqdata_t;
+
+void fork_send_infile( int idx );
+void fork_send_frqdata( int idx, fork_frqdata_t *frq );
 
 #endif

@@ -173,9 +173,6 @@ GtkEntry *structure_fstep_entry = NULL;
 /* Motion event handler id */
 gulong structure_motion_handler;
 
-/* Commands between parent and child processes */
-char *fork_commands[] = FORK_CMNDS;
-
 /* Child process descriptors */
 child_proc_t **child_procs = NULL;
 

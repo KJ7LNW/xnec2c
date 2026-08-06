@@ -106,9 +106,6 @@ extern GtkSpinButton
 /* Motion event handler id */
 extern gulong structure_motion_handler;
 
-/* Commands between parent and child processes */
-extern char *fork_commands[];
-
 /* Child process descriptors */
 extern child_proc_t **child_procs;
 

@@ -1760,7 +1760,6 @@ void pcint(double xi, double yi, double zi, double cabi, double sabi, double sal
 void unere(double xob, double yob, double zob);
 /* fork.c */
 void Child_Process(int num_child);
-ssize_t Write_Pipe(int idx, char *str, ssize_t len, gboolean err);
 int Get_Freq_Data(int idx, int fstep);
 /* geom_edit.c */
 void Wire_Editor(int action);

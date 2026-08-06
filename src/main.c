@@ -623,15 +623,9 @@ Open_Input_File( gpointer arg )
   if( FORKED )
   {
     int idx;
-    size_t lenc, leni;
 
-    lenc = strlen( fork_commands[INFILE] );
-    leni = sizeof( rc_config.input_file );
     for( idx = 0; idx < num_child_procs; idx++ )
-    {
-      Write_Pipe( idx, fork_commands[INFILE], (ssize_t)lenc, TRUE );
-      Write_Pipe( idx, rc_config.input_file,  (ssize_t)leni, TRUE );
-    }
+      fork_send_infile( idx );
   } /* if( FORKED ) */
 
   /* Initialize xnec2c */
