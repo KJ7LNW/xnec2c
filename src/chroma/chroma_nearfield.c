@@ -163,6 +163,7 @@ chroma_proj_frame_nearfield(int fstep, nf_channel_t chan)
   want = (color_edge_t){ .fstep = fstep, .chan = (int)chan, .fam = (int)fam,
       .proj = (int)mode, .flags = live ? 1u : 0u, .phase = phase,
       .param = tp.param, .flr = tp.floor_ratio,
+      .freq_mhz = calc_data.freq_mhz, .gen_a = nf->content_generation,
       .palette = color_palette_generation() };
 
   if( nf_gate[chan].valid && color_edge_eq(&nf_gate[chan].edge, &want) )

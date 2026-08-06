@@ -1292,6 +1292,10 @@ typedef struct
 
   near_field_point_t *points;
 
+  /* Publication token of the saved content; identifies one completed
+   * save so a replacement at an unchanged step and frequency differs */
+  uint32_t content_generation;
+
 } near_field_t;
 
 /* Child process descriptor */

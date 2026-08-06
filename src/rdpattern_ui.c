@@ -32,6 +32,9 @@
 
 
 
+/* Monotonic near-field publication sequence, local to this process */
+static uint32_t near_field_generation;
+
 static const char *nearfield_animation_error_msg =
   N_("Animation requires near field data.\n\n"
      "E-field animation: Add NE card to NEC file\n"
@@ -695,6 +698,9 @@ Save_Nearfield_Data( int fstep )
 
   /* Spatial extent; the magnitude maxima derive at draw in the resolver */
   near_field_fstep[fstep].r_max = near_field.r_max;
+
+  /* Stamp identity last so the token names complete saved content */
+  near_field_fstep[fstep].content_generation = ++near_field_generation;
 
 } /* Save_Nearfield_Data() */
 
