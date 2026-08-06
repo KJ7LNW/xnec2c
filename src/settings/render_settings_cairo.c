@@ -20,6 +20,7 @@
 #include "../shared.h"
 #include "render_settings_common.h"
 #include "render_settings_internal.h"
+#include "../structure_ui.h"
 
 /*------------------------------------------------------------------------*/
 
@@ -56,6 +57,6 @@ on_cairo_tab_reset_clicked(GtkButton *button, gpointer user_data)
   (void)user_data;
 
   config_reset_tab_user(SETTINGS_TAB_CAIRO);
-  xnec2_widget_queue_draw(structure_drawingarea, TRUE);
+  Queue_Structure_Redraw( TRUE );
   xnec2_widget_queue_draw(rdpattern_drawingarea, TRUE);
 }

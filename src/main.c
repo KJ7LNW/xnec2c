@@ -792,10 +792,7 @@ Open_Input_File( gpointer arg )
    * to prevent expose-driven rebuilds seeing freq_step=-1 (gray flash). */
   if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
   {
-#ifdef HAVE_OPENGL
-    opengl_structure_invalidate();
-#endif
-    Queue_Structure_Redraw();
+    Queue_Structure_Rebuild( TRUE );
   }
 
   /* Close symbol overrides window if no symbols defined */

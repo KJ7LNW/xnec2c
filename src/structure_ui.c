@@ -29,6 +29,7 @@
 #include "config_hooks.h"
 #include "callbacks.h"
 #include "cairo/cairo_draw.h"
+#include "opengl/opengl_structure.h"
 #include "prerender/prerender_aggregate.h"
 #include "prerender/prerender_color.h"
 #include "view/view_core.h"
@@ -200,28 +201,49 @@ Alloc_Crnt_Fstep_Buffers( int nfrq )
 
 /*-----------------------------------------------------------------------*/
 
+/*  Queue_Structure_Rebuild()
+ *  @force:  bypass the intermediate-redraw suppression gate
+ *
+ *  Drops the baked structure geometry cache held by the OpenGL backend,
+ *  then queues the redraw that rebuilds it from the current NEC2 data.
+ *
+ *  Called when the source data behind the baked buffers changed: a new
+ *  deck, a new frequency step, or a change of visualized quantity.
+ */
+  void
+Queue_Structure_Rebuild(gboolean force)
+{
+  opengl_structure_invalidate();
+  Queue_Structure_Redraw( force );
+
+} /* Queue_Structure_Rebuild() */
+
+/*-----------------------------------------------------------------------*/
+
 /*  Queue_Structure_Redraw()
+ *  @force:  bypass the intermediate-redraw suppression gate
  *
  *  Queues a redraw of the structure drawingarea and, when a
  *  "viewer gain" plot is active, the frequency-plot area.
  *
- *  Called by view_t observers when rotation, pan or zoom change.
+ *  Called wherever a view-only change needs a repaint; a change of the
+ *  source data behind the baked buffers uses Queue_Structure_Rebuild().
  *  No projection-cache state is maintained here: view_R(), the
  *  pan_offset and the zoom are read directly at draw time.
  */
   void
-Queue_Structure_Redraw(void)
+Queue_Structure_Redraw(gboolean force)
 {
   /* Trigger a redraw of structure drawingarea */
   if( structure_drawingarea )
-    xnec2_widget_queue_draw( structure_drawingarea, TRUE );
+    xnec2_widget_queue_draw( structure_drawingarea, force );
 
   /* Trigger a redraw of plots drawingarea */
   if( isFlagSet(PLOT_ENABLED) &&
       (rc_config.freqplots_gviewer_togglebutton || freqplots_popup_open(FP_PANEL_VIEWER)) &&
       isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
   {
-    freqplots_redraw_all(TRUE);
+    freqplots_redraw_all(force);
   }
 
 } /* Queue_Structure_Redraw() */
@@ -244,7 +266,7 @@ structure_view_changed_cb(view_t *v, gpointer _user_data)
   (void)_user_data;
 
   view_update_spin_display( v );
-  Queue_Structure_Redraw();
+  Queue_Structure_Redraw( TRUE );
 
 } /* structure_view_changed_cb() */
 
@@ -289,7 +311,7 @@ Animate_Phase(gpointer _udata)
   void
 apply_animation_phase(void)
 {
-  xnec2_widget_queue_draw( structure_drawingarea, TRUE );
+  Queue_Structure_Redraw( TRUE );
 
   /* Queue rdpattern for near-field visualization or structure overlay */
   if(rdpat_ehfield_active() || overlay_struct_active() )

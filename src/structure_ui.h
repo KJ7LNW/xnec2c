@@ -26,7 +26,8 @@
 void Draw_Structure_UI(void);
 void Show_Viewer_Gain(GtkBuilder *builder, gchar *widget, view_t *v);
 void Alloc_Crnt_Fstep_Buffers(int nfrq);
-void Queue_Structure_Redraw(void);
+void Queue_Structure_Redraw(gboolean force);
+void Queue_Structure_Rebuild(gboolean force);
 void structure_view_changed_cb(view_t *v, gpointer user_data);
 void Init_Struct_Drawing(void);
 gboolean Animate_Phase(gpointer udata);

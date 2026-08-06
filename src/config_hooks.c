@@ -24,9 +24,8 @@
 #include "structure_ui.h"
 #include "color/color_palette.h"
 
-#ifdef HAVE_OPENGL
+/* flow_direction_mode_t enumerators for the animatable-mode test */
 #include "opengl/opengl_structure.h"
-#endif
 
 /*------------------------------------------------------------------------*/
 
@@ -51,10 +50,7 @@ hook_flow_direction(void)
 {
   gboolean animatable;
 
-#ifdef HAVE_OPENGL
-  opengl_structure_invalidate();
-#endif
-  Queue_Structure_Redraw();
+  Queue_Structure_Rebuild( TRUE );
   Queue_Radiation_Redraw();
 
   /* Wire color animates in every flow mode; patch arrows animate only in
@@ -119,11 +115,7 @@ anim_overlay_sensitivity(void)
 void
 hook_color_vis(void)
 {
-#ifdef HAVE_OPENGL
-  opengl_structure_invalidate();
-#endif
-
-  Queue_Structure_Redraw();
+  Queue_Structure_Rebuild( TRUE );
   Queue_Radiation_Redraw();
 
   /* The legend strip lives outside the structure drawing area */
@@ -241,7 +233,7 @@ hook_orthographic(void)
       gtk_image_set_from_resource(GTK_IMAGE(img), icon);
   }
 
-  Queue_Structure_Redraw();
+  Queue_Structure_Redraw( TRUE );
   Queue_Radiation_Redraw();
 }
 

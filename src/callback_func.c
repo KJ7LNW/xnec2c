@@ -28,7 +28,6 @@
 #include "mem/mem_track.h"
 #include "render/render_engine.h"
 
-#include "opengl/opengl_structure.h"
 #include "sy_expr.h"
 #include "optimizers/opt_session.h"
 
@@ -374,14 +373,14 @@ structure_view_apply( void )
     /* Geometry view: redraw the structure if a frequency loop is not
      * running */
     if( isFlagClear(FREQ_LOOP_RUNNING) )
-      xnec2_widget_queue_draw( structure_drawingarea, TRUE );
+      Queue_Structure_Rebuild( TRUE );
   }
   else
   {
     /* Currents or charges: fetch the step data and redraw the structure
      * when the fetch reports fresh data */
     if( fetch_freq_data() )
-      xnec2_widget_queue_draw( structure_drawingarea, TRUE );
+      Queue_Structure_Rebuild( TRUE );
   }
 
   /* The rad-pattern structure overlay tracks the structure view */

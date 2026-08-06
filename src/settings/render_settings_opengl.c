@@ -59,7 +59,7 @@ void
 hook_set_msaa(void)
 {
   Set_MSAA_Samples(rc_config.opengl_msaa_samples);
-  Queue_Structure_Redraw();
+  Queue_Structure_Redraw( TRUE );
   Queue_Radiation_Redraw();
 }
 
@@ -68,7 +68,7 @@ void
 hook_set_radius_scale(void)
 {
   opengl_structure_set_radius_scale(rc_config.opengl_cylinder_radius_scale);
-  Queue_Structure_Redraw();
+  Queue_Structure_Redraw( TRUE );
   Queue_Radiation_Redraw();
 }
 
@@ -115,7 +115,6 @@ on_opengl_tab_reset_clicked(GtkButton *button, gpointer user_data)
   (void)user_data;
 
   config_reset_tab_user(SETTINGS_TAB_OPENGL);
-  opengl_structure_invalidate();
-  Queue_Structure_Redraw();
+  Queue_Structure_Rebuild( TRUE );
   Queue_Radiation_Redraw();
 }

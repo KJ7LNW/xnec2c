@@ -64,9 +64,6 @@ _Static_assert(G_N_ELEMENTS(batch_rdpattern_panes) + 1 == RDPAT_PNG_FORMAT_COUNT
 /* Only nec2_eval_signal() is called from xnec2c.c; avoid pulling
  * gsl headers (via opt_simple.h) which conflict with openblas cblas. */
 extern void nec2_eval_signal(void);
-/* opengl_structure_invalidate() is called here; forward-declared to avoid
- * pulling opengl_structure.h (and its GL/GLEW chain) into the NEC engine file. */
-extern void opengl_structure_invalidate(void);
 
 static pthread_t *pth_freq_loop = NULL;
 
@@ -910,13 +907,8 @@ freq_step_update_ui( int new_step, gboolean force )
     freqplots_redraw_all(force);
   }
 
-  /* Vertex colors are baked per freq_step; invalidate so the next render
-   * rebuilds them from crnt_fstep[new_step] rather than cached stale data. */
-#ifdef HAVE_OPENGL
-  opengl_structure_invalidate();
-#endif
-
-  xnec2_widget_queue_draw( structure_drawingarea, force );
+  /* Vertex colors are baked per freq_step, so rebuild against crnt_fstep[new_step]. */
+  Queue_Structure_Rebuild( force );
 
   if( isFlagSet(DRAW_ENABLED) )
   {

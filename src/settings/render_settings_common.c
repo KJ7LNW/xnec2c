@@ -54,7 +54,7 @@ void *const *render_tab_fields[SETTINGS_TAB_COUNT] = {
 void
 hook_render_redraw(void)
 {
-  Queue_Structure_Redraw();
+  Queue_Structure_Redraw( TRUE );
   Queue_Radiation_Redraw();
 }
 

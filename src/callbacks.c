@@ -33,7 +33,6 @@
 #include "render/render_engine.h"
 #include <pthread.h>
 
-#include "opengl/opengl_structure.h"
 #include "opengl/opengl_state.h"
 #include "settings/render_settings.h"
 #include "settings/render_settings_common.h"
@@ -1852,7 +1851,7 @@ opengl_set_renderer(gboolean enable)
       structure_drawingarea = structure_cairo_da;
     }
 
-    xnec2_widget_queue_draw( structure_drawingarea, TRUE );
+    Queue_Structure_Rebuild( TRUE );
   }
 #endif
 }
