@@ -467,17 +467,18 @@ void cabc( complex double *curx)
   int i, is, j, jx, jco1, jco2;
   double ar, ai, sh;
   complex double curd, cs1, cs2;
+  crnt_t *crnt_step = &crnt_fstep[calc_data.freq_step];
 
   if( data.n != 0)
   {
     for( i = 0; i < data.n; i++ )
     {
-      crnt.air[i]=0.0;
-      crnt.aii[i]=0.0;
-      crnt.bir[i]=0.0;
-      crnt.bii[i]=0.0;
-      crnt.cir[i]=0.0;
-      crnt.cii[i]=0.0;
+      crnt_step->air[i]=0.0;
+      crnt_step->aii[i]=0.0;
+      crnt_step->bir[i]=0.0;
+      crnt_step->bii[i]=0.0;
+      crnt_step->cir[i]=0.0;
+      crnt_step->cii[i]=0.0;
     }
 
     for( i = 0; i < data.n; i++ )
@@ -489,12 +490,12 @@ void cabc( complex double *curx)
       for( jx = 0; jx < segj.jsno; jx++ )
       {
         j= segj.jco[jx]-1;
-        crnt.air[j] += segj.ax[jx]* ar;
-        crnt.aii[j] += segj.ax[jx]* ai;
-        crnt.bir[j] += segj.bx[jx]* ar;
-        crnt.bii[j] += segj.bx[jx]* ai;
-        crnt.cir[j] += segj.cx[jx]* ar;
-        crnt.cii[j] += segj.cx[jx]* ai;
+        crnt_step->air[j] += segj.ax[jx]* ar;
+        crnt_step->aii[j] += segj.ax[jx]* ai;
+        crnt_step->bir[j] += segj.bx[jx]* ar;
+        crnt_step->bii[j] += segj.bx[jx]* ai;
+        crnt_step->cir[j] += segj.cx[jx]* ar;
+        crnt_step->cii[j] += segj.cx[jx]* ai;
       }
 
     } /* for( i = 0; i < n; i++ ) */
@@ -518,12 +519,12 @@ void cabc( complex double *curx)
         for( jx = 0; jx < segj.jsno; jx++ )
         {
           j= segj.jco[jx]-1;
-          crnt.air[j]= crnt.air[j]+ segj.ax[jx]* ar;
-          crnt.aii[j]= crnt.aii[j]+ segj.ax[jx]* ai;
-          crnt.bir[j]= crnt.bir[j]+ segj.bx[jx]* ar;
-          crnt.bii[j]= crnt.bii[j]+ segj.bx[jx]* ai;
-          crnt.cir[j]= crnt.cir[j]+ segj.cx[jx]* ar;
-          crnt.cii[j]= crnt.cii[j]+ segj.cx[jx]* ai;
+          crnt_step->air[j]= crnt_step->air[j]+ segj.ax[jx]* ar;
+          crnt_step->aii[j]= crnt_step->aii[j]+ segj.ax[jx]* ai;
+          crnt_step->bir[j]= crnt_step->bir[j]+ segj.bx[jx]* ar;
+          crnt_step->bii[j]= crnt_step->bii[j]+ segj.bx[jx]* ai;
+          crnt_step->cir[j]= crnt_step->cir[j]+ segj.cx[jx]* ar;
+          crnt_step->cii[j]= crnt_step->cii[j]+ segj.cx[jx]* ai;
         }
 
       } /* for( is = 0; is < vsorc.nqds; is++ ) */
@@ -531,7 +532,8 @@ void cabc( complex double *curx)
     } /* if( vsorc.nqds != 0) */
 
     for( i = 0; i < data.n; i++ )
-      curx[i]= cmplx( crnt.air[i]+crnt.cir[i], crnt.aii[i]+crnt.cii[i] );
+      curx[i]= cmplx( crnt_step->air[i]+crnt_step->cir[i],
+          crnt_step->aii[i]+crnt_step->cii[i] );
 
   } /* if( n != 0) */
 

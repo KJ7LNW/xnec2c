@@ -228,10 +228,6 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 #define INPUT_PENDING       0x0000200000000000ll
 #define ENABLE_EXCITN       0x0000400000000000ll
 
-/* Allocation control flags */
-#define ALLOC_NEAREH_BUFF   0x0000800000000000ll
-#define ALLOC_RDPAT_BUFF    0x0001000000000000ll
-
 /* Force editors to quit */
 #define EDITOR_QUIT         0x0004000000000000ll
 
@@ -1287,9 +1283,6 @@ typedef struct
   /* Max distance from xyz origin */
   double r_max;
 
-  /* Animation step in rads */
-  double anim_step;
-
   near_field_point_t *points;
 
   /* Publication token of the saved content; identifies one completed
@@ -1359,7 +1352,6 @@ gboolean xnec2c_quit_if_pending(void);
 void input_data_free(void);
 void geometry_data_free(void);
 void ggrid_free(void);
-void near_field_data_free(void);
 void calc_data_free(void);
 void matrix_data_free(void);
 void fields_data_free(void);
@@ -1745,10 +1737,8 @@ double Viewer_Noise_Value(view_t *v, int fstep);
 void Rdpattern_Window_Killed(void);
 void Set_Window_Labels(void);
 void Alloc_Rdpattern_Buffers(int nfrq, int nth, int nph);
-void Alloc_Nearfield_Buffers(int n1, int n2, int n3);
 void Alloc_Nearfield_Fstep_Buffers(int nfrq);
 void Free_Nearfield_Fstep_Buffers(void);
-void Save_Nearfield_Data(int fstep);
 void Free_Draw_Buffers(void);
 double Scale_Gain( double gain, int fstep, int idx );
 /* fields.c */

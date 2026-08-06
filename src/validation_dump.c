@@ -200,9 +200,9 @@ static void dump_currents(FILE *fp)
  * Per-fstep patch currents from crnt_fstep[].  Patch center (px,py,pz) and
  * area come from the unscaled template save.{x,y,z,bi}temp[], one entry per
  * patch at n+i; tangents (t1,t2) are frequency-independent in data.patches[].
- * crnt.cur stores each patch as three rectangular (x,y,z) complex current
- * components at n+3*i, the layout the far-field integrator reads (fflds in
- * radiation.c, the patch loop in fields.c); the tangential surface currents
+ * crnt_fstep[].cur stores each patch as three rectangular (x,y,z) complex
+ * current components at n+3*i, the layout the far-field integrator reads
+ * (fflds in radiation.c, the patch loop in fields.c); the tangential currents
  * are the projections of that vector onto t1 and t2.
  * mhz, fstep, patch, area,
  * px, py, pz, t1x, t1y, t1z, t2x, t2y, t2z,
@@ -602,10 +602,10 @@ void Save_Validation_Tree(void)
 
 	/* The frequency loop populates near_field_fstep[] per step: New_Frequency()
 	 * runs the full single-frequency solve for every step in the non-forked
-	 * path and calls Near_Field_Pattern() (gated only on ENABLE_NEAREH) plus
-	 * Save_Nearfield_Data() (xnec2c.c). No batch recompute is needed; a
-	 * re-solve here would overwrite the global netcx.zped at stale post-loop
-	 * frequency state and corrupt the impedance dump. */
+	 * path and calls Near_Field_Pattern() (xnec2c.c, gated only on
+	 * ENABLE_NEAREH), which writes the step's slot. No batch recompute is
+	 * needed; a re-solve here would overwrite the global netcx.zped at stale
+	 * post-loop frequency state and corrupt the impedance dump. */
 
 	char *orig = setlocale(LC_NUMERIC, "C");
 

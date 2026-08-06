@@ -91,14 +91,6 @@ input_data_free( void )
   mem_array_free( &save.freq );
   mem_array_free( &save.fstep );
 
-  mem_array_free( &crnt.air );
-  mem_array_free( &crnt.aii );
-  mem_array_free( &crnt.bir );
-  mem_array_free( &crnt.bii );
-  mem_array_free( &crnt.cir );
-  mem_array_free( &crnt.cii );
-  mem_array_free( &crnt.cur );
-
   mem_array_free( &zload.zarray );
   mem_array_free( &zload.ldsegn );
   mem_array_free( &zload.ldtype );
@@ -1072,13 +1064,6 @@ Read_Geometry( void )
     mem_array_realloc(&save.sitemp, data.n);
   }
   mem_array_realloc(&cm, (data.np2m * (data.np + 2 * data.mp)));
-  mem_array_realloc(&crnt.air, data.npm);
-  mem_array_realloc(&crnt.aii, data.npm);
-  mem_array_realloc(&crnt.bir, data.npm);
-  mem_array_realloc(&crnt.bii, data.npm);
-  mem_array_realloc(&crnt.cir, data.npm);
-  mem_array_realloc(&crnt.cii, data.npm);
-  mem_array_realloc(&crnt.cur, data.np3m);
   mem_array_realloc(&zload.zarray, data.npm);
 
   /* Save segment and patch data for freq scaling */
@@ -1604,7 +1589,6 @@ Read_Commands( void )
             (fpat.near != -1) )
         {
           SetFlag( ENABLE_NEAREH );
-          SetFlag( ALLOC_NEAREH_BUFF );
         }
 
         /* Because of the interactive GUI, program
@@ -1817,6 +1801,7 @@ Read_Commands( void )
      * Each allocator self-gates its inner buffers by its own dimensions. */
     Alloc_Rdpattern_Buffers( calc_data.steps_total + 1, fpat.nth, fpat.nph );
     Alloc_Crnt_Fstep_Buffers( calc_data.steps_total + 1 );
+    Alloc_Nearfield_Fstep_Buffers( calc_data.steps_total + 1 );
     prerender_state_alloc( calc_data.steps_total + 1 );
 
     /* Feedpoint-port count is known only after EX cards parse; size the
@@ -1828,12 +1813,9 @@ Read_Commands( void )
      * cannot index past this model's port span. */
     calc_data.ex_port = 0;
 
-    /* Near-field storage and normalization track the NE/NH cards alone. */
+    /* Near-field normalization tracks the NE/NH cards alone. */
     if( isFlagSet(ENABLE_NEAREH) )
     {
-      Alloc_Nearfield_Buffers( fpat.nrx, fpat.nry, fpat.nrz );
-      Alloc_Nearfield_Fstep_Buffers( calc_data.steps_total + 1 );
-
       /* nf_dr_norm reads fpat NF fields set by NE/NH cards above; the
        * parent's draw-time near-field resolver scales displacement by it. */
       compute_nf_dr_norm();

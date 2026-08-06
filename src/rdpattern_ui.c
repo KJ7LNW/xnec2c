@@ -32,9 +32,6 @@
 
 
 
-/* Monotonic near-field publication sequence, local to this process */
-static uint32_t near_field_generation;
-
 static const char *nearfield_animation_error_msg =
   N_("Animation requires near field data.\n\n"
      "E-field animation: Add NE card to NEC file\n"
@@ -637,8 +634,8 @@ free_near_step(void *elem)
  *
  * @nfrq: Number of frequency steps (steps_total + 1)
  *
- * Allocates near_field_fstep[] array so each frequency step can store
- * its computed near E/H field data for later restoration.
+ * Allocates near_field_fstep[] array so each frequency step holds the
+ * near E/H field data nfpat() writes.
  */
   void
 Alloc_Nearfield_Fstep_Buffers( int nfrq )
@@ -647,11 +644,13 @@ Alloc_Nearfield_Fstep_Buffers( int nfrq )
    * entries keep their point buffers for reuse by the inner alloc loop. */
   mem_array_resize(&near_field_fstep, nfrq, free_near_step);
 
+  /* Absent NE/NH cards the outer array still exists and only the per-step
+   * point buffers are skipped. */
   size_t npts = (size_t)fpat.nrx * fpat.nry * fpat.nrz;
-
-  for( int i = 0; i < nfrq; i++ )
+  if( npts > 0 )
   {
-    mem_array_realloc(&near_field_fstep[i].points, npts);
+    for( int i = 0; i < nfrq; i++ )
+      mem_array_realloc(&near_field_fstep[i].points, npts);
   }
 
 } /* Alloc_Nearfield_Fstep_Buffers() */
@@ -674,37 +673,6 @@ Free_Nearfield_Fstep_Buffers( void )
   mem_array_free(&near_field_fstep);
 
 } /* Free_Nearfield_Fstep_Buffers() */
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * Save_Nearfield_Data() - Save current near field data for a frequency step
- *
- * @fstep: Frequency step index
- *
- * Copies the global near_field struct arrays into near_field_fstep[fstep].
- */
-  void
-Save_Nearfield_Data( int fstep )
-{
-  if( isFlagClear(ENABLE_NEAREH)
-      || near_field_fstep == NULL
-      || fstep < 0 || fstep > calc_data.steps_total
-      || near_field_fstep[fstep].points == NULL)
-    return;
-
-  size_t nbytes = (size_t)fpat.nrx * fpat.nry * fpat.nrz * sizeof(near_field_point_t);
-  memcpy(near_field_fstep[fstep].points, near_field.points, nbytes);
-
-  /* Spatial extent; the magnitude maxima derive at draw in the resolver */
-  near_field_fstep[fstep].r_max = near_field.r_max;
-
-  /* Stamp identity last so the token names complete saved content */
-  near_field_fstep[fstep].content_generation = ++near_field_generation;
-
-} /* Save_Nearfield_Data() */
-
-/*-----------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------*/
 
@@ -924,34 +892,6 @@ void Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
 	_Alloc_Rdpattern_Buffers(nfrq, nth, nph);
 	g_rec_mutex_unlock(&freq_data_lock);
 }
-
-/*-----------------------------------------------------------------------*/
-
-/* Alloc_Nearfield_Buffers
- *
- * Allocates memory to the radiation pattern buffers
- */
-  void
-Alloc_Nearfield_Buffers( int n1, int n2, int n3 )
-{
-  if( isFlagClear(ALLOC_NEAREH_BUFF) ) return;
-  ClearFlag( ALLOC_NEAREH_BUFF );
-  mem_array_realloc(&near_field.points, (n1 * n2 * n3));
-
-} /* Alloc_Nearfield_Buffers() */
-
-/*-----------------------------------------------------------------------*/
-
-/* near_field_data_free()
- *
- * Releases the near E/H field point array.
- */
-  void
-near_field_data_free( void )
-{
-  mem_array_free( &near_field.points );
-
-} /* near_field_data_free() */
 
 /*-----------------------------------------------------------------------*/
 

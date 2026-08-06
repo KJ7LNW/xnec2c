@@ -197,17 +197,20 @@ guint anim_tag = 0;
 /* Shared flow phase advanced by unified tick, read by all backends */
 float flow_phase = 0.0f;
 
+/* Radians added to flow_phase by each animation tick */
+double flow_phase_step = 0.0;
+
 /* Frequency loop idle function tag */
 guint floop_tag = 0;
 
 /* Radiation pattern data */
 rad_pattern_t *rad_pattern = NULL;
 
-/* Near E/H field data */
-near_field_t near_field;
-
 /* Per-frequency-step near field storage */
 near_field_t *near_field_fstep = NULL;
+
+/* Monotonic near-field publication sequence, local to this process */
+uint32_t near_field_generation = 0;
 
 /* Global tag number for geometry editors */
 gint tag_num = 0;
@@ -228,15 +231,6 @@ impedance_data_t *impedance_data = NULL;
 /* Data for various calculations */
 calc_data_t calc_data;
 data_t data;
-
-/* Magnitude of seg/patch current/charge */
-double
-  *cmag = NULL,
-  *ct1m = NULL,
-  *ct2m = NULL;
-
-/* common  /crnt/ */
-crnt_t crnt;
 
 /* Per-frequency-step crnt storage */
 crnt_t *crnt_fstep = NULL;

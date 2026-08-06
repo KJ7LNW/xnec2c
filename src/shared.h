@@ -235,17 +235,20 @@ extern guint anim_tag;
 /* Shared flow phase advanced by unified tick, read by all backends */
 extern float flow_phase;
 
+/* Radians added to flow_phase by each animation tick */
+extern double flow_phase_step;
+
 /* Frequency loop idle function tag */
 extern guint floop_tag;
 
 /* Radiation pattern data */
 extern rad_pattern_t *rad_pattern ;
 
-/* Near E/H field data */
-extern near_field_t near_field;
-
 /* Per-frequency-step near field storage */
 extern near_field_t *near_field_fstep;
+
+/* Monotonic near-field publication sequence, local to this process */
+extern uint32_t near_field_generation;
 
 /* Global tag number for geometry editors */
 extern gint tag_num;
@@ -271,12 +274,6 @@ extern impedance_data_t *impedance_data;
 
 /* Data for various calculations */
 extern calc_data_t calc_data;
-
-/* Magnitude of seg/patch current/charge */
-extern double *cmag, *ct1m, *ct2m;
-
-/* common  /crnt/ */
-extern crnt_t crnt;
 
 /* Per-frequency-step crnt storage */
 extern crnt_t *crnt_fstep;

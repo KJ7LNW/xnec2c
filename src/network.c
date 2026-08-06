@@ -567,14 +567,16 @@ netwk( complex double *cmx, int *ip, complex double *einc )
 
   } /* if( vsorc.nsant != 0) */
 
+  crnt_t *crnt_step = &crnt_fstep[calc_data.freq_step];
+
   if( vsorc.nvqd != 0)
     for( i = 0; i < vsorc.nvqd; i++ )
     {
       isc1= vsorc.ivqd[i]-1;
       vlt= vsorc.vqd[i];
-      cux= cmplx( crnt.air[isc1], crnt.aii[isc1]);
-      ymit= cmplx( crnt.bir[isc1], crnt.bii[isc1]);
-      netcx.zped= cmplx( crnt.cir[isc1], crnt.cii[isc1]);
+      cux= cmplx( crnt_step->air[isc1], crnt_step->aii[isc1]);
+      ymit= cmplx( crnt_step->bir[isc1], crnt_step->bii[isc1]);
+      netcx.zped= cmplx( crnt_step->cir[isc1], crnt_step->cii[isc1]);
       pwr= data.segments[isc1].si * M_2PI*.5;
       cux=( cux- ymit* sin( pwr) +
           netcx.zped* cos( pwr))* data.wlam;

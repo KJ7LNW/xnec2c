@@ -1209,6 +1209,7 @@ nefld( double xob, double yob,
   int i, ix, ipr, iprx, jc, ipa;
   double zp, xi, ax;
   complex double acx, bcx, ccx;
+  crnt_t *crnt_step = &crnt_fstep[calc_data.freq_step];
 
   *ex=CPLX_00;
   *ey=CPLX_00;
@@ -1362,9 +1363,9 @@ nefld( double xob, double yob,
       } /* if( dataj.iexk != 0) */
 
       efld( xob, yob, zob, ax,1);
-      acx= cmplx( crnt.air[i], crnt.aii[i]);
-      bcx= cmplx( crnt.bir[i], crnt.bii[i]);
-      ccx= cmplx( crnt.cir[i], crnt.cii[i]);
+      acx= cmplx( crnt_step->air[i], crnt_step->aii[i]);
+      bcx= cmplx( crnt_step->bir[i], crnt_step->bii[i]);
+      ccx= cmplx( crnt_step->cir[i], crnt_step->cii[i]);
       *ex += dataj.exk* acx+ dataj.exs* bcx+ dataj.exc* ccx;
       *ey += dataj.eyk* acx+ dataj.eys* bcx+ dataj.eyc* ccx;
       *ez += dataj.ezk* acx+ dataj.ezs* bcx+ dataj.ezc* ccx;
@@ -1390,10 +1391,10 @@ nefld( double xob, double yob,
     dataj.t2yj= data.patches[i].t2y;
     dataj.t2zj= data.patches[i].t2z;
     jc += 3;
-    acx= dataj.t1xj* crnt.cur[jc-2]+ dataj.t1yj *
-      crnt.cur[jc-1]+ dataj.t1zj* crnt.cur[jc];
-    bcx= dataj.t2xj* crnt.cur[jc-2]+ dataj.t2yj *
-      crnt.cur[jc-1]+ dataj.t2zj* crnt.cur[jc];
+    acx= dataj.t1xj* crnt_step->cur[jc-2]+ dataj.t1yj *
+      crnt_step->cur[jc-1]+ dataj.t1zj* crnt_step->cur[jc];
+    bcx= dataj.t2xj* crnt_step->cur[jc-2]+ dataj.t2yj *
+      crnt_step->cur[jc-1]+ dataj.t2zj* crnt_step->cur[jc];
 
     for( ipa = 0; ipa < gnd.ksymp; ipa++ )
     {
@@ -1422,6 +1423,7 @@ nhfld( double xob, double yob,
   int i, jc;
   double ax, zp;
   complex double acx, bcx, ccx;
+  crnt_t *crnt_step = &crnt_fstep[calc_data.freq_step];
 
   *hx=CPLX_00;
   *hy=CPLX_00;
@@ -1463,9 +1465,9 @@ nhfld( double xob, double yob,
       dataj.sabj= data.segments[i].sab;
       dataj.salpj= data.segments[i].salp;
       hsfld( xob, yob, zob, ax);
-      acx= cmplx( crnt.air[i], crnt.aii[i]);
-      bcx= cmplx( crnt.bir[i], crnt.bii[i]);
-      ccx= cmplx( crnt.cir[i], crnt.cii[i]);
+      acx= cmplx( crnt_step->air[i], crnt_step->aii[i]);
+      bcx= cmplx( crnt_step->bir[i], crnt_step->bii[i]);
+      ccx= cmplx( crnt_step->cir[i], crnt_step->cii[i]);
       *hx += dataj.exk* acx+ dataj.exs* bcx+ dataj.exc* ccx;
       *hy += dataj.eyk* acx+ dataj.eys* bcx+ dataj.eyc* ccx;
       *hz += dataj.ezk* acx+ dataj.ezs* bcx+ dataj.ezc* ccx;
@@ -1491,10 +1493,10 @@ nhfld( double xob, double yob,
     dataj.t2zj= data.patches[i].t2z;
     hintg( xob, yob, zob);
     jc += 3;
-    acx= dataj.t1xj* crnt.cur[jc-2]+ dataj.t1yj *
-      crnt.cur[jc-1]+ dataj.t1zj* crnt.cur[jc];
-    bcx= dataj.t2xj* crnt.cur[jc-2]+ dataj.t2yj *
-      crnt.cur[jc-1]+ dataj.t2zj* crnt.cur[jc];
+    acx= dataj.t1xj* crnt_step->cur[jc-2]+ dataj.t1yj *
+      crnt_step->cur[jc-1]+ dataj.t1zj* crnt_step->cur[jc];
+    bcx= dataj.t2xj* crnt_step->cur[jc-2]+ dataj.t2yj *
+      crnt_step->cur[jc-1]+ dataj.t2zj* crnt_step->cur[jc];
     *hx= *hx+ acx* dataj.exk+ bcx* dataj.exs;
     *hy= *hy+ acx* dataj.eyk+ bcx* dataj.eys;
     *hz= *hz+ acx* dataj.ezk+ bcx* dataj.ezs;
@@ -1551,11 +1553,9 @@ nfpat( int nfeh )
   double xnrt, xob,zob, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
   complex double ex, ey, ez;
   double r; /* Distance of field point from xyz origin */
+  near_field_t *nf = &near_field_fstep[calc_data.freq_step];
 
-
-  Alloc_Nearfield_Buffers( fpat.nrx, fpat.nry, fpat.nrz );
-
-  near_field.r_max = 0.0;
+  nf->r_max = 0.0;
 
   idx = 0;
   znrt= fpat.znr- fpat.dznr;
@@ -1605,16 +1605,16 @@ nfpat( int nfeh )
           nefld( tmp1, tmp2, tmp3, &ex, &ey, &ez);
 
         /* Save field point co-ordinates */
-        near_field.points[idx].px = (double)xob;
-        near_field.points[idx].py = (double)yob;
-        near_field.points[idx].pz = (double)zob;
+        nf->points[idx].px = (double)xob;
+        nf->points[idx].py = (double)yob;
+        nf->points[idx].pz = (double)zob;
 
         /* Find max distance from xyz origin */
-        r = sqrt(near_field.points[idx].px * near_field.points[idx].px +
-                 near_field.points[idx].py * near_field.points[idx].py +
-                 near_field.points[idx].pz * near_field.points[idx].pz);
-        if( near_field.r_max < r )
-          near_field.r_max = r;
+        r = sqrt(nf->points[idx].px * nf->points[idx].px +
+                 nf->points[idx].py * nf->points[idx].py +
+                 nf->points[idx].pz * nf->points[idx].pz);
+        if( nf->r_max < r )
+          nf->r_max = r;
 
         tmp1= cabs(ex);
         tmp2= cang (ex);
@@ -1625,21 +1625,21 @@ nfpat( int nfeh )
 
         if( nfeh == 1 ) /* Magnetic field */
         {
-          near_field.points[idx].hx  = (double)tmp1;
-          near_field.points[idx].hy  = (double)tmp3;
-          near_field.points[idx].hz  = (double)tmp5;
-          near_field.points[idx].fhx = (double)(tmp2 * TORAD);
-          near_field.points[idx].fhy = (double)(tmp4 * TORAD);
-          near_field.points[idx].fhz = (double)(tmp6 * TORAD);
+          nf->points[idx].hx  = (double)tmp1;
+          nf->points[idx].hy  = (double)tmp3;
+          nf->points[idx].hz  = (double)tmp5;
+          nf->points[idx].fhx = (double)(tmp2 * TORAD);
+          nf->points[idx].fhy = (double)(tmp4 * TORAD);
+          nf->points[idx].fhz = (double)(tmp6 * TORAD);
         }
         else /* Electric field */
         {
-          near_field.points[idx].ex  = (double)tmp1;
-          near_field.points[idx].ey  = (double)tmp3;
-          near_field.points[idx].ez  = (double)tmp5;
-          near_field.points[idx].fex = (double)(tmp2 * TORAD);
-          near_field.points[idx].fey = (double)(tmp4 * TORAD);
-          near_field.points[idx].fez = (double)(tmp6 * TORAD);
+          nf->points[idx].ex  = (double)tmp1;
+          nf->points[idx].ey  = (double)tmp3;
+          nf->points[idx].ez  = (double)tmp5;
+          nf->points[idx].fex = (double)(tmp2 * TORAD);
+          nf->points[idx].fey = (double)(tmp4 * TORAD);
+          nf->points[idx].fez = (double)(tmp6 * TORAD);
         }
 
         idx++;

@@ -396,13 +396,13 @@ freq_fields_xfer(int fstep, int pipe_idx, pipe_fn_t pipe_fn)
   /* Local (non-static) array; runtime pointer values go directly in initializers */
   freq_field_t fields[] = {
     /* Current and charge data */
-    { crnt.air,                        size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
-    { crnt.aii,                        size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
-    { crnt.bir,                        size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
-    { crnt.bii,                        size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
-    { crnt.cir,                        size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
-    { crnt.cii,                        size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
-    { crnt.cur,                        size_np3m_cdbl, 0,                        FREQ_COND_ALWAYS },
+    { crnt_fstep[fstep].air,           size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
+    { crnt_fstep[fstep].aii,           size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
+    { crnt_fstep[fstep].bir,           size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
+    { crnt_fstep[fstep].bii,           size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
+    { crnt_fstep[fstep].cir,           size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
+    { crnt_fstep[fstep].cii,           size_npm_dbl,   0,                        FREQ_COND_ALWAYS },
+    { crnt_fstep[fstep].cur,           size_np3m_cdbl, 0,                        FREQ_COND_ALWAYS },
     /* Per-port impedance data (fstep=0 on child, fstep=N on parent); each
      * member spans Num_Feedpoint_Ports() doubles, identical parent and child. */
     { impedance_data[fstep].zreal,     size_n_ports_dbl, 0,                      FREQ_COND_ALWAYS },
@@ -433,8 +433,8 @@ freq_fields_xfer(int fstep, int pipe_idx, pipe_fn_t pipe_fn)
     { &struct_colors[fstep].patch_crnt_cmax, NULL,         sizeof(float),       FREQ_COND_ALWAYS },
     /* Near field data: the phasor and spatial extent only; color and
      * geometry derive in the parent at draw and never cross the pipe */
-    { near_field.points,               size_nf_points, 0,                        FREQ_COND_NEAREH },
-    { &near_field.r_max,               NULL,           sizeof(double),           FREQ_COND_NEAREH },
+    { near_field_fstep[fstep].points,  size_nf_points, 0,                        FREQ_COND_NEAREH },
+    { &near_field_fstep[fstep].r_max,  NULL,           sizeof(double),           FREQ_COND_NEAREH },
   };
 
   int nfields = (int)(sizeof(fields) / sizeof(fields[0]));
@@ -618,6 +618,11 @@ Get_Freq_Data( int idx, int fstep )
 {
   if (!freq_fields_xfer(fstep, idx, PRead_Pipe))
     return 0;
+
+  /* Parent publication point: the child's counter never crosses the pipe,
+   * so the parent stamps its own token once the slot content is complete */
+  if( isFlagSet(ENABLE_NEAREH) )
+    near_field_fstep[fstep].content_generation = ++near_field_generation;
 
   return 1;
 } /* Get_Freq_Data() */

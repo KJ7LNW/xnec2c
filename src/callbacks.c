@@ -2584,7 +2584,7 @@ update_animation_parameters(void)
       Builder_Get_Object(animate_dialog_builder, "animate_steps_spinbutton") );
   fps = gtk_spin_button_get_value( spinbutton );
   intval = (guint)(1000.0 / fps);
-  near_field.anim_step = (double)M_2PI * freq / fps;
+  flow_phase_step = (double)M_2PI * freq / fps;
 
   if( anim_tag > 0 )
     g_source_remove( anim_tag );

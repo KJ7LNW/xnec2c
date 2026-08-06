@@ -141,6 +141,7 @@ ffld( double thet, double phi,
   complex double rrh1=CPLX_00, rrv2=CPLX_00, rrh2=CPLX_00;
   complex double tix, tiy, tiz, zscrn, ex=CPLX_00;
   complex double ey=CPLX_00, ez=CPLX_00, gx, gy, gz;
+  crnt_t *crnt_step = &crnt_fstep[calc_data.freq_step];
 
   phx= -sin( phi);
   phy= cos( phi);
@@ -228,8 +229,8 @@ ffld( double thet, double phi,
 
         b= el*( boo- too);
         c= el*( boo+ too);
-        rr= a* crnt.air[i]+ b* crnt.bii[i]+ c* crnt.cir[i];
-        ri= a* crnt.aii[i]- b* crnt.bir[i]+ c* crnt.cii[i];
+        rr= a* crnt_step->air[i]+ b* crnt_step->bii[i]+ c* crnt_step->cir[i];
+        ri= a* crnt_step->aii[i]- b* crnt_step->bir[i]+ c* crnt_step->cii[i];
         arg= M_2PI*(data.segments[i].x * rox+ data.segments[i].y * roy+ data.segments[i].z * roz);
 
         if( (k != 1) || (gnd.ifar < 2) )
@@ -382,7 +383,7 @@ ffld( double thet, double phi,
   {
     rfl= -rfl;
     rrz= roz* rfl;
-    fflds( rox, roy, rrz, &crnt.cur[data.n], &gx, &gy, &gz);
+    fflds( rox, roy, rrz, &crnt_step->cur[data.n], &gx, &gy, &gz);
 
     if( ip != 1 )
     {
@@ -445,6 +446,7 @@ gfld( double rho, double phi, double rz,
   double top, bot, a, too, boo, c, rr, ri;
   complex double cix, ciy, ciz, exa, erv;
   complex double ezv, erh, eph, ezh, ex, ey;
+  crnt_t *crnt_step = &crnt_fstep[calc_data.freq_step];
 
   r= sqrt( rho*rho+ rz*rz );
   if( (ksymp == 1) || (cabs(ux) > .5) || (r > 1.0e5) )
@@ -548,10 +550,10 @@ gfld( double rho, double phi, double rz,
 
       b= el*( boo- too);
       c= el*( boo+ too);
-      rr= a* crnt.air[i] +
-        b* crnt.bii[i]+ c* crnt.cir[i];
-      ri= a* crnt.aii[i] -
-        b* crnt.bir[i]+ c* crnt.cii[i];
+      rr= a* crnt_step->air[i] +
+        b* crnt_step->bii[i]+ c* crnt_step->cir[i];
+      ri= a* crnt_step->aii[i] -
+        b* crnt_step->bir[i]+ c* crnt_step->cii[i];
       arg= M_2PI*(data.segments[i].x *
                   rnx+ data.segments[i].y * rny+ data.segments[i].z * rnz* rfl);
       exa= cmplx( cos( arg), sin( arg))* cmplx( rr, ri)/ M_2PI;

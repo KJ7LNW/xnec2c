@@ -303,10 +303,8 @@ Main_Freqplots_Activate( void )
  *
  * Config post_apply hook for rc_config.rdpattern_mode.  Runs at window
  * create, on restore, and on every field-mode toggle change; the enum
- * member selects far-field gain, near E/H field, or neither.  Near-field
- * buffer allocation precedes the fetch so the fetch sees allocated buffers;
- * without valid card data the renderer shows the status message on the
- * queued redraw.
+ * member selects far-field gain, near E/H field, or neither.  Without valid
+ * card data the renderer shows the status message on the queued redraw.
  */
   void
 rdpattern_mode_apply( void )
@@ -320,10 +318,6 @@ rdpattern_mode_apply( void )
     /* Release the gain far-field draw buffers before near-field prep */
     Free_Draw_Buffers();
     have_data = ( fpat.nfeh != 0 );
-
-    /* Delegate near field calculations to child processes if forked. */
-    if( have_data && FORKED )
-      Alloc_Nearfield_Buffers( fpat.nrx, fpat.nry, fpat.nrz );
   }
   else if( rc_config.rdpattern_mode == RDPAT_FIELD_DISABLED )
   {
@@ -353,51 +347,12 @@ rdpattern_mode_apply( void )
 
 /*-----------------------------------------------------------------------*/
 
-/* Alloc_Crnt_Buffs()
- *
- * Allocates memory for current/charge draw buffers
- */
-  static void
-Alloc_Crnt_Buffs( void )
-{
-  /* Patch currents buffer */
-  if( data.m > 0 )
-  {
-    mem_array_realloc(&ct1m, data.m);
-    mem_array_realloc(&ct2m, data.m);
-  }
-
-  /* Segment currents buffer */
-  if( data.n > 0 )
-  {
-    mem_array_realloc(&cmag, data.n);
-  }
-
-} /* Alloc_Crnt_Buffs() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Free_Crnt_Buffs()
- *
- * Frees current/charge draw buffers
- */
-  static void
-Free_Crnt_Buffs( void )
-{
-  mem_array_free(&ct1m);
-  mem_array_free(&ct2m);
-  mem_array_free(&cmag);
-} /* Free_Crnt_Buffs() */
-
-/*-----------------------------------------------------------------------*/
-
 /** structure_view_apply() - Apply the main-window structure view
  *
  * Config post_apply hook for rc_config.structure_view.  Runs at window
  * create, on restore, and on every view radio change; the enum member
- * selects geometry, charges, or currents.  Geometry releases the draw
- * buffers; currents and charges allocate them and fetch the step data.
- * The rad-pattern structure overlay tracks the same view.
+ * selects geometry, charges, or currents.  Currents and charges fetch the
+ * step data.  The rad-pattern structure overlay tracks the same view.
  */
   void
 structure_view_apply( void )
@@ -416,17 +371,15 @@ structure_view_apply( void )
 
   if( rc_config.structure_view == STRUCT_VIEW_DISABLED )
   {
-    /* Geometry view: release the current/charge draw buffers, then redraw
-     * the structure if a frequency loop is not running */
-    Free_Crnt_Buffs();
+    /* Geometry view: redraw the structure if a frequency loop is not
+     * running */
     if( isFlagClear(FREQ_LOOP_RUNNING) )
       xnec2_widget_queue_draw( structure_drawingarea, TRUE );
   }
   else
   {
-    /* Currents or charges: allocate the draw buffers, fetch the step data,
-     * and redraw the structure when the fetch reports fresh data */
-    Alloc_Crnt_Buffs();
+    /* Currents or charges: fetch the step data and redraw the structure
+     * when the fetch reports fresh data */
     if( fetch_freq_data() )
       xnec2_widget_queue_draw( structure_drawingarea, TRUE );
   }
@@ -725,7 +678,6 @@ engine_buffers_free( void )
   input_data_free();
   geometry_data_free();
   ggrid_free();
-  near_field_data_free();
   calc_data_free();
 
   /* Free the engine scratch buffers kept in file-scope statics. */

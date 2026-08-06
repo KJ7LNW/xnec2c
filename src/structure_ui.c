@@ -172,8 +172,8 @@ free_crnt_step(void *elem)
  *
  * @nfrq: Number of frequency steps (steps_total + 1)
  *
- * Allocates crnt_fstep[] array so each frequency step can store
- * its computed current/charge data for later restoration.
+ * Allocates crnt_fstep[] array so each frequency step holds the
+ * current/charge data its solve writes.
  */
   void
 Alloc_Crnt_Fstep_Buffers( int nfrq )
@@ -197,38 +197,6 @@ Alloc_Crnt_Fstep_Buffers( int nfrq )
   alloc_struct_colors(nfrq);
 
 } /* Alloc_Crnt_Fstep_Buffers() */
-
-/*-----------------------------------------------------------------------*/
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * Save_Crnt_Data() - Save current crnt data for a frequency step
- *
- * @fstep: Frequency step index
- *
- * Copies the global crnt struct arrays into crnt_fstep[fstep].
- */
-  void
-Save_Crnt_Data( int fstep )
-{
-  if( crnt_fstep == NULL
-      || fstep < 0 || fstep > calc_data.steps_total
-      || crnt_fstep[fstep].cur == NULL )
-    return;
-
-  size_t npm = (size_t)data.npm;
-  size_t np3m = (size_t)data.np3m;
-
-  memcpy( crnt_fstep[fstep].air, crnt.air, npm * sizeof(double) );
-  memcpy( crnt_fstep[fstep].aii, crnt.aii, npm * sizeof(double) );
-  memcpy( crnt_fstep[fstep].bir, crnt.bir, npm * sizeof(double) );
-  memcpy( crnt_fstep[fstep].bii, crnt.bii, npm * sizeof(double) );
-  memcpy( crnt_fstep[fstep].cir, crnt.cir, npm * sizeof(double) );
-  memcpy( crnt_fstep[fstep].cii, crnt.cii, npm * sizeof(double) );
-  memcpy( crnt_fstep[fstep].cur, crnt.cur, np3m * sizeof(complex double) );
-
-} /* Save_Crnt_Data() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -286,7 +254,7 @@ structure_view_changed_cb(view_t *v, gpointer _user_data)
  * @_udata: unused
  *
  * Returns G_SOURCE_REMOVE immediately when ANIMATE is cleared.
- * Otherwise advances flow_phase by one anim_step, dispatches to all
+ * Otherwise advances flow_phase by one flow_phase_step, dispatches to all
  * active animation consumers, then queues redraws.  Animate_Phase owns
  * all queue decisions.
  */
@@ -299,7 +267,7 @@ Animate_Phase(gpointer _udata)
     return( G_SOURCE_REMOVE );
   }
 
-  flow_phase += (float)near_field.anim_step;
+  flow_phase += (float)flow_phase_step;
   if( flow_phase >= (float)M_2PI )
     flow_phase -= (float)M_2PI;
 

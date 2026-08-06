@@ -392,7 +392,8 @@ Set_Excitation( void )
   } /* if( (fpat.ixtyp >= 1) && (fpat.ixtyp <= 4) ) */
 
   /* fills e field right-hand matrix */
-  etmns( tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, fpat.ixtyp, crnt.cur );
+  etmns( tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, fpat.ixtyp,
+      crnt_fstep[calc_data.freq_step].cur );
 
 } /* Set_Excitation() */
 
@@ -444,7 +445,7 @@ Set_Network_Data( void )
   } /* if( netcx.nonet != 0 ) */
 
   /* Set network data */
-  netwk( cm, save.ip, crnt.cur );
+  netwk( cm, save.ip, crnt_fstep[calc_data.freq_step].cur );
   netcx.ntsol = 1;
 
   /* Save impedance data for normalization */
@@ -565,6 +566,7 @@ Power_Loss( void )
   int i;
   double cmg;
   complex double curi;
+  crnt_t *crnt_step = &crnt_fstep[calc_data.freq_step];
 
 
   /* No wire/segments in structure */
@@ -575,7 +577,7 @@ Power_Loss( void )
   for( i = 0; i < data.n; i++ )
   {
     /* Calculate segment current (mag/phase) */
-    curi= crnt.cur[i]* data.wlam;
+    curi= crnt_step->cur[i]* data.wlam;
     cmg= cabs( curi);
 
     /* Calculate power loss in segment */
@@ -631,6 +633,11 @@ Near_Field_Pattern( void )
   if( fpat.nfeh & NEAR_HFIELD )
     nfpat(1);
 
+  /* Local-compute publication point: both field passes have finished
+   * writing this step's slot */
+  near_field_fstep[calc_data.freq_step].content_generation =
+    ++near_field_generation;
+
 } /* Near_Field_Pattern() */
 
 /*-----------------------------------------------------------------------*/
@@ -666,6 +673,14 @@ New_Frequency( void )
   if( (save.last_freq == calc_data.freq_mhz) ||
       isFlagClear(ENABLE_EXCITN) )
     return;
+
+  /* Every producer below writes crnt_fstep[freq_step], and under ENABLE_NEAREH
+   * near_field_fstep[freq_step]; without a slot there is nowhere to solve into */
+  if( calc_data.freq_step < 0 || crnt_fstep == NULL )
+  {
+    BUG("New_Frequency: no destination slot (freq_step=%d)\n", calc_data.freq_step);
+    return;
+  }
 
   g_rec_mutex_lock(&freq_data_lock);
 
@@ -704,11 +719,6 @@ New_Frequency( void )
   /* Per-fstep noise temperature table: frequency is fixed here, so all
    * sky/earth model × method combinations are deterministic and hoistable. */
   ant_temp_fill_fstep( calc_data.freq_step );
-
-  /* Save per-step results before prerender so struct_colors_fill_fstep
-   * reads current crnt_fstep / near_field_fstep data. */
-  Save_Crnt_Data( calc_data.freq_step );
-  Save_Nearfield_Data( calc_data.freq_step );
 
   /* Child-deterministic per-fstep prerender: no user-mutable inputs enter
    * these functions. */
@@ -984,22 +994,6 @@ freq_populate_steps( void )
   return calc_data.steps_total - 1;
 }
 
-/*
- * freq_loop_collect - save per-step results into shared arrays
- * @fstep: step index to store results at
- *
- * Called under freq_data_lock.  For the forked path the caller has already
- * read raw data via Get_Freq_Data(); for the non-forked path the data is
- * already in memory from New_Frequency().
- */
-static void
-freq_loop_collect( int fstep )
-{
-  Save_Crnt_Data( fstep );
-  Save_Nearfield_Data( fstep );
-  save.fstep[fstep] = 1;
-}
-
 static inline gboolean
 idle_stack_empty( const freq_loop_state_t *state )
 { return state->idle_top < 0; }
@@ -1209,7 +1203,7 @@ freq_loop_collect_pending( freq_loop_state_t *state )
       if( !freq_loop_validate_result( state, child_procs[idx] ) )
         continue;
 
-      freq_loop_collect( child_procs[idx]->assigned_step );
+      save.fstep[child_procs[idx]->assigned_step] = 1;
       child_procs[idx]->assigned_step = -1;
       idle_stack_push( state, child_procs[idx] );
     }
@@ -1252,7 +1246,7 @@ freq_loop_collect_pending( freq_loop_state_t *state )
     if( !freq_loop_validate_result( state, child_procs[idx] ) )
       continue;
 
-    freq_loop_collect( child_fstep );
+    save.fstep[child_fstep] = 1;
     child_procs[idx]->assigned_step = -1;
     idle_stack_push( state, child_procs[idx] );
   }
