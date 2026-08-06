@@ -154,11 +154,6 @@ dist_docjs_DATA += doc/js/gallery-warm.js
 dist_docjs_DATA += doc/js/gallery-warm-queue.js
 dist_docjs_DATA += doc/js/mobile-menu.js
 
-docimagesgallerydir = $(docdir)/images/gallery
-nobase_dist_docimagesgallery_DATA  =
-nobase_dist_docimagesgallery_DATA += doc/images/gallery/manifest.json
-nobase_dist_docimagesgallery_DATA += $(wildcard $(srcdir)/doc/images/gallery/*/*.png)
-
 
 ########################################################################
 # dist and install examples/ files
