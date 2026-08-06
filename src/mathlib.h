@@ -38,8 +38,25 @@ enum MATHLIB_BENCHMARKS
 	MATHLIB_BENCHMARK_PARALLEL,
 	MATHLIB_BENCHMARK_SINGLE,
 	MATHLIB_BENCHMARK_NLOG2,
-	MATHLIB_BENCHMARK_NJ
+	MATHLIB_BENCHMARK_NJ,
+	MATHLIB_BENCHMARK_COUNT
 };
+
+/**
+ * mathlib_benchmark_spec_t - Job count progression of one benchmark mode
+ * @single_job: Run every pass at one job instead of the -j count
+ * @shift: Right-shift applied to the job count after each sweep
+ * @decrement: Amount subtracted from the job count after each sweep
+ *
+ * A row advancing the count by neither shift nor decrement runs one sweep and
+ * ends the progression.
+ */
+typedef struct
+{
+	gboolean single_job;
+	int shift;
+	int decrement;
+} mathlib_benchmark_spec_t;
 
 typedef struct mathlib_t
 {

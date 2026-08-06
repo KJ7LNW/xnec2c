@@ -177,6 +177,16 @@ static char *mathfuncs[] = {
 static int num_mathlibs = sizeof(mathlibs) / sizeof(mathlib_t);
 static int num_mathfuncs = sizeof(mathfuncs) / sizeof(char *);
 
+/* Job count progression of each benchmark mode, indexed by enum
+ * MATHLIB_BENCHMARKS.  Each row states whether its first pass runs one job or
+ * the -j count, and how the following passes advance that count. */
+static const mathlib_benchmark_spec_t mathlib_benchmark_specs[MATHLIB_BENCHMARK_COUNT] = {
+	[MATHLIB_BENCHMARK_PARALLEL] = { 0 },
+	[MATHLIB_BENCHMARK_SINGLE]   = { .single_job = TRUE },
+	[MATHLIB_BENCHMARK_NLOG2]    = { .shift = 1 },
+	[MATHLIB_BENCHMARK_NJ]       = { .decrement = 1 },
+};
+
 mathlib_t *get_mathlib_by_id(const char *id)
 {
 	int i;
@@ -873,16 +883,56 @@ void mathlib_benchmark_help(void)
 		"by 1.  This takes the longest to run.\n"));
 }
 
+/**
+ * bench_append() - append formatted text to the benchmark summary
+ * @text: address of the managed summary buffer, NULL before the first append
+ * @fmt:  printf-style format string
+ *
+ * Grows the buffer to hold the text already present plus the new fragment.
+ */
+__attribute__((format(printf, 2, 3)))
+static void bench_append(char **text, const char *fmt, ...)
+{
+	size_t len = (*text != NULL ? strlen(*text) : 0);
+	va_list args;
+	int add;
+
+	va_start(args, fmt);
+	add = vsnprintf(NULL, 0, fmt, args);
+	va_end(args);
+
+	if (add < 0)
+	{
+		BUG("bench_append: vsnprintf failed for \"%s\"\n", fmt);
+		return;
+	}
+
+	mem_realloc(text, len + (size_t)add + 1);
+
+	va_start(args, fmt);
+	vsnprintf(*text + len, (size_t)add + 1, fmt, args);
+	va_end(args);
+}
+
 void mathlib_benchmark(int slow)
 {
 	struct timespec start, end;
 	mathlib_t *mathlib_before_benchmark = current_mathlib;
 	mathlib_t *mathlib_batch_before_benchmark = get_mathlib_by_id(rc_config.mathlib_batch_id);
 	mathlib_t *best_mathlib = NULL, *active_mathlib = NULL;
+	const mathlib_benchmark_spec_t *spec;
 	int response;
-	char m[10240] = {0};
+	char *m = NULL;
 	int i, best_num_jobs = 0;
 	double best_elapsed = 0;
+
+	if (slow < 0 || slow >= MATHLIB_BENCHMARK_COUNT)
+	{
+		BUG("mathlib_benchmark: invalid mode=%d\n", slow);
+		return;
+	}
+
+	spec = &mathlib_benchmark_specs[slow];
 
 	if (isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS))
 	{
@@ -898,7 +948,7 @@ void mathlib_benchmark(int slow)
 		return;
 	}
 
-	if (calc_data.num_jobs == 1 && slow != MATHLIB_BENCHMARK_SINGLE)
+	if (calc_data.num_jobs == 1 && !spec->single_job)
 		Notice(GTK_BUTTONS_OK, _("Mathlib Benchmark"),
 			_("Choosing a benchmark other than \"Single Job\" has no effect "
 			  "unless -j is specified on the command line."));
@@ -963,14 +1013,11 @@ void mathlib_benchmark(int slow)
 		// Sleep to let the threads settle before the next test:
 		usleep(100000);
 
-		snprintf(m + strlen(m), sizeof(m)-strlen(m)-1, "%s:\n", mathlibs[i].name);
+		bench_append(&m, "%s:\n", mathlibs[i].name);
 
 		double elapsed_prev = 0;
 
-		if (slow == MATHLIB_BENCHMARK_SINGLE)
-			calc_data.num_jobs = 1;
-		else
-			calc_data.num_jobs = orig_jobs;
+		calc_data.num_jobs = spec->single_job ? 1 : orig_jobs;
 
 		while (calc_data.num_jobs >= 1)
 		{
@@ -990,13 +1037,13 @@ void mathlib_benchmark(int slow)
 
 			double elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
 
-			snprintf(m + strlen(m), sizeof(m)-strlen(m)-1, "   %f seconds (-j %2d) %c\n",
+			bench_append(&m, "   %f seconds (-j %2d) %c\n",
 				elapsed,
 				calc_data.num_jobs,
-				(elapsed > elapsed_prev ? ' ' : '<')
+				(dl_fgt(elapsed, elapsed_prev) ? ' ' : '<')
 				);
 
-			if (best_mathlib == NULL || elapsed < best_elapsed)
+			if (best_mathlib == NULL || dl_flt(elapsed, best_elapsed))
 			{
 				best_mathlib = active_mathlib;
 				best_elapsed = elapsed;
@@ -1005,16 +1052,14 @@ void mathlib_benchmark(int slow)
 
 			elapsed_prev = elapsed;
 
-			// These only iterate once with the same -j option:
-			if (slow == MATHLIB_BENCHMARK_SINGLE || slow == MATHLIB_BENCHMARK_PARALLEL)
-				break;
+			/* A mode that advances no count measures the one job count it
+			 * started with, so its progression ends after this pass. */
+			if (spec->shift == 0 && spec->decrement == 0)
+				calc_data.num_jobs = 0;
 
-			// These iterate multiple times by reducing the number of jobs each time:
-			if (slow == MATHLIB_BENCHMARK_NLOG2)
-				calc_data.num_jobs >>= 1;
-
-			else if (slow == MATHLIB_BENCHMARK_NJ)
-				calc_data.num_jobs--;
+			// Step multi-pass modes toward the loop's lower bound:
+			else
+				calc_data.num_jobs = (calc_data.num_jobs >> spec->shift) - spec->decrement;
 		}
 	}
 
@@ -1026,12 +1071,14 @@ void mathlib_benchmark(int slow)
 	calc_data.num_jobs = orig_jobs;
 
 	if (best_mathlib != NULL)
-		snprintf(m + strlen(m), sizeof(m)-strlen(m)-1, "\nBest Mathlib: %s (-j %d): %f seconds\n",
+		bench_append(&m, "\nBest Mathlib: %s (-j %d): %f seconds\n",
 			best_mathlib->name, best_num_jobs, best_elapsed);
 	else
-		snprintf(m + strlen(m), sizeof(m)-strlen(m)-1, "\nNo result found?  This is a bug.");
+		bench_append(&m, "\nNo result found?  This is a bug.");
 
 	Notice(GTK_BUTTONS_OK, _("Mathlib Benchmark"), "%s", m);
+
+	mem_free(&m);
 }
 
 void mathlib_benchmark_parallel(void)
