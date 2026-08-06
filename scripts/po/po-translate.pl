@@ -484,6 +484,122 @@ sub cmd_generate
 	}
 }
 
+# Decode one quoted PO string line through the catalog's own dequoting, so a
+# parsed identity matches the identity Locale::PO derives for the same entry.
+sub unquote_po_line
+{
+	my ($quoted) = @_;
+
+	return Locale::PO->dequote($quoted);
+}
+
+# Index every generated catalog entry by its starting line and map record key.
+sub lint_key_index
+{
+	my ($path, $translations) = @_;
+	my %key_by_identity = map { $_ => $translations->{$_}{key} }
+		keys %{$translations};
+	my @entries;
+	my %entry;
+	my $line_number = 0;
+
+	for my $line (split /\n/, read_utf8_file($path), -1)
+	{
+		$line_number++;
+		if ($line =~ /\A\s*\z/)
+		{
+			push @entries, {%entry} if exists $entry{start};
+			%entry = ();
+			next;
+		}
+
+		$entry{start} = $line_number if !exists $entry{start};
+		if ($line =~ /\Amsgctxt[ \t]+(".*")[ \t]*\z/)
+		{
+			$entry{field} = 'C';
+			$entry{C} = unquote_po_line($1);
+		}
+		elsif ($line =~ /\Amsgid[ \t]+(".*")[ \t]*\z/)
+		{
+			$entry{field} = 'S';
+			$entry{S} = unquote_po_line($1);
+		}
+		elsif ($line =~ /\A(".*")[ \t]*\z/ && defined $entry{field})
+		{
+			$entry{$entry{field}} .= unquote_po_line($1);
+		}
+		else
+		{
+			delete $entry{field};
+		}
+	}
+	push @entries, {%entry} if exists $entry{start};
+
+	for my $found (@entries)
+	{
+		my $identity = join("\x04", $found->{C} // '', $found->{S} // '');
+		$found->{key} = $key_by_identity{$identity};
+	}
+
+	return [sort { $a->{start} <=> $b->{start} } @entries];
+}
+
+# Name the map record owning one generated catalog line.
+sub lint_line_origin
+{
+	my ($index, $out_path, $line_number) = @_;
+	my $found;
+
+	for my $entry (@{$index})
+	{
+		last if $entry->{start} > $line_number;
+		$found = $entry;
+	}
+
+	return $out_path if !defined $found;
+	return "$out_path K $found->{key}" if defined $found->{key};
+
+	my $source = substr($found->{S} // '', 0, 60);
+	utf8::encode($source);
+
+	return "$out_path (no record; catalog msgid \"$source\")";
+}
+
+# Run the shared gate on a generated catalog, recasting each reported line
+# number as the output-map record that produced it.
+sub lint_check
+{
+	my ($lint_path, $out_path, $index) = @_;
+	my $pid = open my $output, '-|';
+
+	die "$lint_path: unable to fork scripts/po/po-check.sh: $!\n"
+		if !defined $pid;
+
+	if ($pid == 0)
+	{
+		open STDERR, '>&', \*STDOUT
+			or die "$lint_path: unable to merge check output: $!\n";
+		exec 'scripts/po/po-check.sh', $lint_path
+			or die "$lint_path: unable to run scripts/po/po-check.sh: $!\n";
+	}
+
+	my @lines = <$output>;
+	close $output;
+	my $status = $?;
+
+	for my $line (@lines)
+	{
+		$line =~ s{\Q$lint_path\E:([0-9]+):}
+			{lint_line_origin($index, $out_path, $1) . ':'}ge;
+		$line =~ s{at line ([0-9]+)}
+			{'at ' . lint_line_origin($index, $out_path, $1)}ge;
+		$line =~ s/\Q$lint_path\E/$out_path/g;
+		print $line;
+	}
+
+	return $status;
+}
+
 # Lint one output map through a temporary translated catalog.
 sub cmd_lint
 {
@@ -492,10 +608,13 @@ sub cmd_lint
 	my $translations = joined_translations($lang);
 	my $catalog = translated_catalog($lang, $translations);
 	my $lint_path = "$AI_DIR/$lang.lint.po";
+	my $out_path = "$AI_DIR/$lang.out.map";
 
 	Locale::PO->save_file_fromarray($lint_path, $catalog, 'utf8');
-	trans_check($lint_path);
+	my $status = lint_check($lint_path, $out_path,
+		lint_key_index($lint_path, $translations));
 	unlink $lint_path or die "$lint_path: unable to remove lint catalog: $!\n";
+	assert_command_status("$out_path: scripts/po/po-check.sh", $status);
 	print "$lang: output map passes translation checks\n";
 }
 
