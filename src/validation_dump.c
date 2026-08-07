@@ -177,6 +177,10 @@ static void dump_currents(FILE *fp)
 
 		crnt_t *c = &crnt_fstep[fs];
 
+		/* The solver holds the segment current wavelength-normalized; the
+		 * printed form every presentation path emits is amps. */
+		double wlam = CVEL / save.freq[fs];
+
 		for (int idx = 0; idx < data.n; idx++)
 		{
 			wire_segment_t *seg = &data.segments[idx];
@@ -189,7 +193,7 @@ static void dump_currents(FILE *fp)
 				c->air[idx], c->aii[idx],
 				c->bir[idx], c->bii[idx],
 				c->cir[idx], c->cii[idx],
-				creal(c->cur[idx]), cimag(c->cur[idx]),
+				creal(c->cur[idx]) * wlam, cimag(c->cur[idx]) * wlam,
 				seg->x1, seg->y1, seg->z1,
 				seg->x2, seg->y2, seg->z2);
 		}
@@ -224,6 +228,10 @@ static void dump_patch_currents(FILE *fp)
 
 		crnt_t *c = &crnt_fstep[fs];
 
+		/* The solver holds the patch current wavelength-normalized, the same
+		 * form the segment current carries; the printed form is amps. */
+		double wlam = CVEL / save.freq[fs];
+
 		for (int i = 0; i < data.m; i++)
 		{
 			surface_patch_t *p = &data.patches[i];
@@ -239,9 +247,9 @@ static void dump_patch_currents(FILE *fp)
 				save.xtemp[gi], save.ytemp[gi], save.ztemp[gi],
 				p->t1x, p->t1y, p->t1z,
 				p->t2x, p->t2y, p->t2z,
-				creal(c->cur[cc]),   cimag(c->cur[cc]),
-				creal(c->cur[cc+1]), cimag(c->cur[cc+1]),
-				creal(c->cur[cc+2]), cimag(c->cur[cc+2]));
+				creal(c->cur[cc])   * wlam, cimag(c->cur[cc])   * wlam,
+				creal(c->cur[cc+1]) * wlam, cimag(c->cur[cc+1]) * wlam,
+				creal(c->cur[cc+2]) * wlam, cimag(c->cur[cc+2]) * wlam);
 		}
 	}
 }
