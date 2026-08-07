@@ -22,13 +22,12 @@
 #define THEME_DATA_BASE         "theme_base"
 #define THEME_DATA_INVERT_ITEM  "theme_invert_item"
 
-/* Frequency-plots color theme: one immutable struct binding every themable
- * plot role to a color.  Roles are defined by visual function, not by plot
- * type, so every plot type resolves the same role set through the same
- * accessor and no role has a per-type color path.  Line width is not a theme
- * role; it is the separate global fp_width_t axis below.  name and display are
- * identity/meta; the colors array is indexed by theme_role_e, and theme.c's
- * theme_role_key[] binds each slot to its INI key. */
+/* Bind every themable visual role to one immutable rendering color theme.
+ * Define roles by visual function and resolve each through the indexed colors
+ * array.  Supply backend leaf functions with plain colors from their frame
+ * owner.  Keep line width on the separate global fp_width_t axis below.  Treat
+ * name and display as identity metadata, index colors by theme_role_e, and bind
+ * each slot to its INI key through theme.c's theme_role_key[]. */
 typedef enum
 {
   THEME_ROLE_BACKGROUND,
@@ -46,6 +45,8 @@ typedef enum
   THEME_ROLE_LABEL_AXIS,
   THEME_ROLE_TEXT_PRIMARY,   /* legible readout text over the view background */
   THEME_ROLE_TEXT_MUTED,     /* de-emphasized readout text */
+  THEME_ROLE_VIEW_AXIS,
+  THEME_ROLE_VIEW_AXIS_LABEL,
   THEME_ROLE_MARKER_EXTREME,
   THEME_ROLE_CURSOR,
   THEME_ROLE_GRAD_0,   /* magnitude low / cold pole / phase seam (legacy magenta) */

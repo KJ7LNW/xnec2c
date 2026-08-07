@@ -69,7 +69,7 @@ gl_scene_get_content(void *ctx)
 }
 
 /* Forward declarations for callbacks */
-static void gl_scene_prepare(void *ctx, float r_max);
+static void gl_scene_prepare(void *ctx, const gl_render_params_t *_params);
 static void gl_scene_render(void *ctx, const gl_render_params_t *params);
 static gboolean gl_scene_is_active(void *ctx);
 static float gl_scene_far_extent(void *ctx, float r_max);
@@ -79,16 +79,16 @@ static void gl_scene_free(void *ctx);
 
 /** gl_scene_prepare() - Upload scene vertex data on generation change
  * @ctx: scene context
- * @r_max: unused
+ * @_params: unused uniform render parameters
  */
   static void
-gl_scene_prepare(void *ctx, float r_max)
+gl_scene_prepare(void *ctx, const gl_render_params_t *_params)
 {
   gl_scene_ctx_t *sc = ctx;
   gl_view_state_t *view = sc->view;
   gl_view_content_t *c = &view->content;
 
-  (void)r_max;
+  (void)_params;
 
   if( c->generation == view->last_generation )
     return;

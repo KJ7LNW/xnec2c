@@ -26,7 +26,6 @@
 #include "cairo_scenebuffer.h"
 #include "../shared.h"
 #include "../render/render_dispatch.h"
-#include "../themes/theme.h"
 
 /* Per-view scenebuffers for Cairo rendering */
 static cairo_scenebuffer_t structure_scenebuffer;
@@ -98,7 +97,7 @@ const render_ops_t cairo_ops =
 
 /**
  * render_cairo() - Cairo draw path shared by both glade draw handlers
- * @ctx: caller-built rendering context with cr, view, and sb
+ * @ctx: caller-built rendering context with frame resources and resolved colors
  * @ops: Cairo backend vtable resolved by the calling glade handler
  *
  * Applies Cairo settings from rc_config, calls the presentation-layer
@@ -117,10 +116,8 @@ render_cairo(cairo_render_ctx_t *ctx, const render_ops_t *ops)
   cairo_set_antialias(cr, rc_config.cairo_antialias);
   cairo_set_line_cap(cr, rc_config.cairo_line_cap);
 
-  const theme_t *th = theme_active();
-
   /* Clear drawing surface */
-  cairo_set_source_rgb_f(cr, th->colors[THEME_ROLE_BACKGROUND]);
+  cairo_set_source_rgb_f(cr, ctx->background);
   cairo_rectangle(cr, 0.0, 0.0, (double)v->width, (double)v->height);
   cairo_fill(cr);
 
@@ -152,7 +149,7 @@ render_cairo(cairo_render_ctx_t *ctx, const render_ops_t *ops)
     PangoLayout *layout = gtk_widget_create_pango_layout(da, NULL);
     int k;
 
-    cairo_set_source_rgb_f(cr, th->colors[THEME_ROLE_AXIS]);
+    cairo_set_source_rgb_f(cr, ctx->view_axis_label);
     for( k = 0; k < ctx->n_axis_labels; k++ )
     {
       pango_layout_set_text(layout, ctx->axis_labels[k].text, -1);

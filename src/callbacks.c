@@ -998,6 +998,11 @@ on_structure_drawingarea_motion_notify_event(
 }
 
 
+/** on_structure_drawingarea_draw() - Render the structure view with active theme colors
+ * @widget: structure drawing area
+ * @cr: Cairo context for the current frame
+ * @user_data: unused callback data
+ */
   gboolean
 on_structure_drawingarea_draw(
     GtkWidget       *widget,
@@ -1007,9 +1012,13 @@ on_structure_drawingarea_draw(
   (void)widget;
   (void)user_data;
 
+  const theme_t *active_theme = theme_active();
   cairo_render_ctx_t ctx =
   {
-    .cr      = cr,
+    .cr              = cr,
+    .background      = active_theme->colors[THEME_ROLE_BACKGROUND],
+    .view_axis       = active_theme->colors[THEME_ROLE_VIEW_AXIS],
+    .view_axis_label = active_theme->colors[THEME_ROLE_VIEW_AXIS_LABEL],
     .view    = structure_view,
     .sb      = cairo_frame_get_scenebuffer(VIEW_STRUCTURE),
   };
@@ -2033,6 +2042,11 @@ on_rdpattern_drawingarea_configure_event(
 }
 
 
+/** on_rdpattern_drawingarea_draw() - Render the radiation-pattern view with active theme colors
+ * @widget: radiation-pattern drawing area
+ * @cr: Cairo context for the current frame
+ * @user_data: unused callback data
+ */
   gboolean
 on_rdpattern_drawingarea_draw(
     GtkWidget       *widget,
@@ -2042,9 +2056,13 @@ on_rdpattern_drawingarea_draw(
   (void)widget;
   (void)user_data;
 
+  const theme_t *active_theme = theme_active();
   cairo_render_ctx_t ctx =
   {
-    .cr      = cr,
+    .cr              = cr,
+    .background      = active_theme->colors[THEME_ROLE_BACKGROUND],
+    .view_axis       = active_theme->colors[THEME_ROLE_VIEW_AXIS],
+    .view_axis_label = active_theme->colors[THEME_ROLE_VIEW_AXIS_LABEL],
     .view    = rdpattern_view,
     .sb      = cairo_frame_get_scenebuffer(VIEW_RDPATTERN),
   };

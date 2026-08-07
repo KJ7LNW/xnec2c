@@ -330,11 +330,9 @@ gl_view_set_peel_uniforms(const gl_peel_uniform_locs_t *locs,
 /** gl_view_peel_render() - Run depth-peel transparency passes
  * @state: view state with peel FBO resources
  * @active_fbo: opaque-pass FBO (source for depth blit, target for final composite)
- * @mvp: model-view-projection matrix
- * @mv: model-view matrix (no projection)
+ * @render_params: frame parameter snapshot copied for transparent pass mutation
  * @items: sorted transparent items (index, alpha, sort_order, depth)
  * @count: number of transparent items
- * @r_max: maximum radius for renderable prepare callbacks
  *
  * Prepares each transparent renderable, then runs PEEL_PASSES front-to-back
  * depth-peel iterations.  Each pass extracts the next-nearest depth layer,
@@ -343,10 +341,9 @@ gl_view_set_peel_uniforms(const gl_peel_uniform_locs_t *locs,
  */
   void
 gl_view_peel_render(gl_view_state_t *state, GLuint active_fbo,
-    mat4 mvp, mat4 mv,
-    const gl_trans_item_t *items, int count, float r_max)
+    gl_render_params_t render_params,
+    const gl_trans_item_t *items, int count)
 {
-  gl_render_params_t render_params;
   gboolean use_ms;
   int pw, ph;
   int j, k;
@@ -361,7 +358,9 @@ gl_view_peel_render(gl_view_state_t *state, GLuint active_fbo,
     gl_renderable_t *r = &g_array_index(
         state->renderables, gl_renderable_t, items[j].index);
 
-    r->prepare(r->ctx, r_max);
+    render_params.alpha = items[j].alpha;
+    render_params.peel_pass = 0;
+    r->prepare(r->ctx, &render_params);
   }
 
   /* Clear accumulation buffer to fully transparent */
@@ -417,11 +416,8 @@ gl_view_peel_render(gl_view_state_t *state, GLuint active_fbo,
     glBindTexture(GL_TEXTURE_2D, state->peel_depth_tex[prev]);
     glActiveTexture(GL_TEXTURE0);
 
-    /* Common render params for both sub-passes */
-    glm_mat4_copy(mvp, render_params.mvp);
-    glm_mat4_copy(mv, render_params.mv);
+    /* Select this layer for both sub-passes. */
     render_params.peel_pass = k;
-    render_params.flow_phase = flow_phase;
 
     /* --- Sub-pass A: depth discovery ---
      * Color mask OFF, depth write ON, GL_LESS.

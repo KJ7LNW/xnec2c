@@ -42,7 +42,7 @@ typedef struct
 
 opengl_ground_plane_t* opengl_ground_plane_new(void);
 void opengl_ground_plane_free(void *ctx);
-void opengl_ground_plane_prepare(void *ctx, float r_max);
+void opengl_ground_plane_prepare(void *ctx, const gl_render_params_t *params);
 void opengl_ground_plane_render(void *ctx, const gl_render_params_t *params);
 float opengl_ground_plane_far_extent(void *ctx, float r_max);
 float opengl_ground_plane_get_alpha(void *ctx);

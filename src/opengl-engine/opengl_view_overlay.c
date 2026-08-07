@@ -50,7 +50,7 @@ typedef struct
 } gl_overlay_ctx_t;
 
 /* Forward declarations for callbacks */
-static void gl_overlay_prepare(void *ctx, float r_max);
+static void gl_overlay_prepare(void *ctx, const gl_render_params_t *_params);
 static void gl_overlay_render(void *ctx, const gl_render_params_t *params);
 static gboolean gl_overlay_is_active(void *ctx);
 static void gl_overlay_generate(void *ctx);
@@ -88,16 +88,18 @@ gl_overlay_get_content(void *ctx)
 
 /** gl_overlay_prepare() - Upload overlay VBO and cache own MVP
  * @ctx: overlay context
- * @r_max: current maximum scene extent
+ * @_params: unused uniform render parameters
  *
  * ovl_content is pre-populated by gl_overlay_generate_and_extent during
  * the active survey — no overlay_generate call here.
  */
   static void
-gl_overlay_prepare(void *ctx, float r_max)
+gl_overlay_prepare(void *ctx, const gl_render_params_t *_params)
 {
   gl_overlay_ctx_t *ovl = ctx;
   gl_view_state_t *view = ovl->view;
+
+  (void)_params;
 
   if( !ovl->initialized )
     return;

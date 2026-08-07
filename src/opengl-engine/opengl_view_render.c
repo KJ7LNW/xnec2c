@@ -181,6 +181,13 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
     gl_view_build_mvp(state, state->content.model_scale, mvp, mv);
   }
 
+  glm_mat4_copy(mvp, render_params.mvp);
+  glm_mat4_copy(mv, render_params.mv);
+  render_params.r_max = state->content.r_max;
+  render_params.view_axis = state->content.view_axis;
+  render_params.view_axis_label = state->content.view_axis_label;
+  render_params.flow_phase = flow_phase;
+
   /* Framebuffer setup */
   glGetIntegerv(GL_FRAMEBUFFER_BINDING, &default_fbo);
 
@@ -207,14 +214,10 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
     if( eff_alpha < 1.0f || r->force_peel )
       continue;
 
-    r->prepare(r->ctx, state->content.r_max);
-
     /* Opaque pass: peel_pass=0 (no discard in shader) */
-    glm_mat4_copy(mvp, render_params.mvp);
-    glm_mat4_copy(mv, render_params.mv);
     render_params.alpha = eff_alpha;
     render_params.peel_pass = 0;
-    render_params.flow_phase = flow_phase;
+    r->prepare(r->ctx, &render_params);
     r->render(r->ctx, &render_params);
   }
 
@@ -288,8 +291,8 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
       active_fbo = state->msaa_fbo
         ? state->msaa_fbo : (GLuint)default_fbo;
 
-      gl_view_peel_render(state, active_fbo, mvp, mv,
-          items, trans_count, state->content.r_max);
+      gl_view_peel_render(state, active_fbo, render_params,
+          items, trans_count);
     }
     else if( trans_count > 0 )
     {

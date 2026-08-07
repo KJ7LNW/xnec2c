@@ -21,10 +21,18 @@
 #define OPENGL_AXES_H 1
 
 #include "common.h"
-#include "themes/theme.h"
+#include "opengl_view.h"
 
 #ifdef HAVE_OPENGL
 #include "opengl_renderer.h"
+
+/* Captures the inputs that produce cached axis vertex buffers. */
+typedef struct
+{
+  float r_max;
+  rgb_f_t axis;
+
+} axes_build_key_t;
 
 typedef struct
 {
@@ -47,19 +55,15 @@ typedef struct
   GLint label_pos_loc;
   GLint label_uv_loc;
 
-  /* Theme whose axis color is in the line buffer; a switch rebuilds it */
-  const theme_t *theme;
-
-  float r_max;
+  axes_build_key_t built;
   gboolean initialized;
 
 } opengl_axes_t;
 
 opengl_axes_t* opengl_axes_new(void);
 void opengl_axes_free(void *ctx);
-void opengl_axes_prepare(void *ctx, float r_max);
-struct gl_render_params_s;
-void opengl_axes_render(void *ctx, const struct gl_render_params_s *params);
+void opengl_axes_prepare(void *ctx, const gl_render_params_t *params);
+void opengl_axes_render(void *ctx, const gl_render_params_t *params);
 gboolean opengl_axes_is_active(void *ctx);
 float opengl_axes_far_extent(void *ctx, float r_max);
 float opengl_axes_get_alpha(void *ctx);

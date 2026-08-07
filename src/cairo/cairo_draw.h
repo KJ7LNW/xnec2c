@@ -45,6 +45,12 @@ typedef struct
 {
   /* Caller-provided frame resources */
   cairo_t                *cr;
+
+  /* Carries colors resolved by the frame constructor. */
+  rgb_f_t                 background;
+  rgb_f_t                 view_axis;
+  rgb_f_t                 view_axis_label;
+
   view_t                 *view;
   cairo_scenebuffer_t    *sb;       /* caller-owned scenebuffer */
 

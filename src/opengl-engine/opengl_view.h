@@ -92,6 +92,10 @@ typedef struct
   /* Frame clear color supplied by the scene generator */
   rgb_f_t background;
 
+  /* Supplies 3D axis colors resolved by the scene generator. */
+  rgb_f_t view_axis;
+  rgb_f_t view_axis_label;
+
   /* Centered text overlay rendered when no data to display; NULL = none */
   const char *status_message;
 
@@ -119,11 +123,17 @@ typedef struct
 
 } gl_overlay_config_t;
 
-/* Per-frame render parameters passed to each renderable's render callback */
+/* Per-frame render parameters passed to each renderable callback */
 typedef struct gl_render_params_s
 {
   mat4 mvp;
   mat4 mv;
+
+  /* Carries frame-constant scene data into backend callbacks. */
+  float r_max;
+  rgb_f_t view_axis;
+  rgb_f_t view_axis_label;
+
   float alpha;
   int peel_pass;
 
@@ -149,7 +159,7 @@ typedef struct
 
 /* Renderable interface callback types */
 typedef void (*gl_render_fn)(void *ctx, const gl_render_params_t *params);
-typedef void (*gl_prepare_fn)(void *ctx, float r_max);
+typedef void (*gl_prepare_fn)(void *ctx, const gl_render_params_t *params);
 typedef void (*gl_destroy_fn)(void *ctx);
 typedef gboolean (*gl_active_fn)(void *ctx);
 typedef float (*gl_extent_fn)(void *ctx, float r_max);

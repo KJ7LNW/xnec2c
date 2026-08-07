@@ -182,8 +182,6 @@ opengl_axes_new(void)
     glGenBuffers(1, &axes->labels_vbo);
 
     axes->label_texture = generate_label_texture();
-
-    axes->r_max = 0.0f;
     axes->initialized = TRUE;
 
     pr_debug("Axes renderer initialized\n");
@@ -246,37 +244,38 @@ setup_vertex_attrib(GLint loc, GLint size, size_t stride, size_t offset)
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_axes_prepare() - Update axis scale and regenerate buffers
+/** opengl_axes_prepare() - Rebuild axis buffers when their inputs change
  * @ctx: axes context
- * @r_max: maximum radius for axis scaling
+ * @params: per-frame parameters carrying axis geometry and line color
  */
   void
-opengl_axes_prepare(void *ctx, float r_max)
+opengl_axes_prepare(void *ctx, const gl_render_params_t *params)
 {
   opengl_axes_t *axes = ctx;
+  axes_build_key_t key;
   color_point_t lines[NUM_AXES * 2];
   text_vertex_t labels[NUM_AXES * 6];
-  float label_offset;
   int i;
 
   if( !axes || !axes->initialized )
     return;
 
-  const theme_t *th = theme_active();
+  key = (axes_build_key_t){
+    .r_max = params->r_max,
+    .axis = params->view_axis,
+  };
 
-  if( axes->r_max == r_max && axes->theme == th )
+  if( memcmp(&axes->built, &key, sizeof(key)) == 0 )
     return;
 
-  axes->r_max = r_max;
-  axes->theme = th;
+  rgba_f_t line_color = {
+    key.axis.r, key.axis.g, key.axis.b, 1.0f
+  };
+  float axis_length = key.r_max * AXIS_LENGTH_SCALE;
+  float label_offset = key.r_max * LABEL_OFFSET_SCALE;
+  float label_half_size = key.r_max * LABEL_SIZE_SCALE;
 
-  rgba_f_t line_color = { th->colors[THEME_ROLE_AXIS].r,
-      th->colors[THEME_ROLE_AXIS].g, th->colors[THEME_ROLE_AXIS].b, 1.0f };
-
-  float axis_length = r_max * AXIS_LENGTH_SCALE;
-  label_offset = r_max * LABEL_OFFSET_SCALE;
-  float label_half_size = r_max * LABEL_SIZE_SCALE;
-
+  /* Build colored axis line vertices. */
   for( i = 0; i < NUM_AXES; i++ )
   {
     int line_idx = i * 2;
@@ -296,6 +295,7 @@ opengl_axes_prepare(void *ctx, float r_max)
     end_coord[i] = axis_length;
   }
 
+  /* Upload axis line geometry. */
   glBindVertexArray(axes->lines_vao);
   glBindBuffer(GL_ARRAY_BUFFER, axes->lines_vbo);
   glBufferData(GL_ARRAY_BUFFER, sizeof(lines), lines, GL_STATIC_DRAW);
@@ -306,6 +306,7 @@ opengl_axes_prepare(void *ctx, float r_max)
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
 
+  /* Build label quads from the shared texture atlas. */
   for( i = 0; i < NUM_AXES; i++ )
   {
     int vtx_idx = i * 6;
@@ -328,6 +329,7 @@ opengl_axes_prepare(void *ctx, float r_max)
     }
   }
 
+  /* Upload label geometry. */
   glBindVertexArray(axes->labels_vao);
   glBindBuffer(GL_ARRAY_BUFFER, axes->labels_vbo);
   glBufferData(GL_ARRAY_BUFFER, sizeof(labels), labels, GL_STATIC_DRAW);
@@ -337,6 +339,8 @@ opengl_axes_prepare(void *ctx, float r_max)
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
+
+  axes->built = key;
 
 } /* opengl_axes_prepare() */
 
@@ -373,14 +377,14 @@ opengl_axes_far_extent(void *ctx, float r_max)
 
 /** opengl_axes_render() - Render axes lines and labels
  * @ctx: axes context
- * @params: per-frame render parameters (axes use only mvp)
+ * @params: per-frame render parameters carrying transforms and label color
  */
   void
 opengl_axes_render(void *ctx, const gl_render_params_t *params)
 {
   opengl_axes_t *axes = ctx;
 
-  if( !axes || !axes->initialized || axes->r_max == 0.0f )
+  if( !axes || !axes->initialized || fl_feq(axes->built.r_max, 0.0f) )
     return;
 
   /* Render axis lines */
@@ -402,9 +406,9 @@ opengl_axes_render(void *ctx, const gl_render_params_t *params)
   glUniformMatrix4fv(axes->label_mvp_loc, 1, GL_FALSE, (float*)params->mvp);
   glUniform1i(axes->label_tex_loc, 0);
   glUniform3f(axes->label_u_color_loc,
-      axes->theme->colors[THEME_ROLE_AXIS].r,
-      axes->theme->colors[THEME_ROLE_AXIS].g,
-      axes->theme->colors[THEME_ROLE_AXIS].b);
+      params->view_axis_label.r,
+      params->view_axis_label.g,
+      params->view_axis_label.b);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, axes->label_texture);

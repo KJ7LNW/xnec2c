@@ -64,8 +64,8 @@ void gl_view_set_peel_uniforms(const gl_peel_uniform_locs_t *locs,
  * over the opaque framebuffer bound to active_fbo.
  */
 void gl_view_peel_render(gl_view_state_t *state, GLuint active_fbo,
-    mat4 mvp, mat4 mv,
-    const gl_trans_item_t *items, int count, float r_max);
+    gl_render_params_t render_params,
+    const gl_trans_item_t *items, int count);
 
 #endif /* HAVE_OPENGL */
 #endif /* OPENGL_VIEW_PEEL_H */

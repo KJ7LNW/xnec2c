@@ -245,9 +245,14 @@ gl_draw_structure(void *ctx, float extent, const struct_draw_params_t *params)
   static gboolean
 structure_scene_generate(gl_view_state_t *state)
 {
+  const theme_t *active_theme = theme_active();
+
   state->content.status_message = NULL;
   state->content.gradient = (gradient_result_t){NULL, 0};
-  state->content.background = theme_active()->colors[THEME_ROLE_BACKGROUND];
+  state->content.background = active_theme->colors[THEME_ROLE_BACKGROUND];
+  state->content.view_axis = active_theme->colors[THEME_ROLE_VIEW_AXIS];
+  state->content.view_axis_label =
+      active_theme->colors[THEME_ROLE_VIEW_AXIS_LABEL];
 
   opengl_structure_show_ctrl_notice(structure_gl_widget);
 

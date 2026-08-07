@@ -182,23 +182,25 @@ opengl_ground_plane_free(void *ctx)
 
 /** opengl_ground_plane_prepare() - Regenerate ground plane vertices scaled to r_max
  * @ctx: pointer to opengl_ground_plane_t
- * @r_max: scene geometry extent used to scale the ground plane
+ * @params: per-frame parameters carrying the scene geometry extent
  *
- * Skips VBO update if scale is unchanged since last call.
+ * Skip the VBO update when the scale remains equal within float tolerance.
  */
   void
-opengl_ground_plane_prepare(void *ctx, float r_max)
+opengl_ground_plane_prepare(void *ctx, const gl_render_params_t *params)
 {
   opengl_ground_plane_t *gp = ctx;
   lit_color_point_t vertices[GROUND_PLANE_VERTICES];
+  const float minimum_extent = 0.001f;
+  float r_max = params->r_max;
 
   if( !gp || !gp->initialized )
     return;
 
-  if( r_max < 0.001f )
-    r_max = 1.0f;
+  /* Normalize tiny extents to unit scale so the ground plane remains visible. */
+  r_max = fl_flt(r_max, minimum_extent) ? 1.0f : r_max;
 
-  if( gp->scale == r_max )
+  if( fl_feq(gp->scale, r_max) )
     return;
 
   gp->scale = r_max;
