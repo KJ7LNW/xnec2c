@@ -23,7 +23,8 @@
  * and comparing against current authoritative state on each update call.
  */
 #include "gradient_cache.h"
-#include "../color/color_ramp.h"
+#include "../color/color_palette.h"
+#include "../themes/theme.h"
 #include "../shared.h"
 #include "../rdpattern_ui.h"
 
@@ -46,9 +47,10 @@ Draw_Color_Legend_Overlay( cairo_t *cr, int fstep )
 {
   /* Declare all variables at start */
   int i, x, y;
-  double red, grn, blu;
   char txt[16];
   int pol = calc_data.pol_type;
+  const theme_t *th = theme_active();
+  const palette_t *ramp = palette_get(PALETTE_RAMP);
 
   /* Get drawable area dimensions via clip extents.
    * Works for both image surfaces (OpenGL overlay) and
@@ -158,7 +160,7 @@ Draw_Color_Legend_Overlay( cairo_t *cr, int fstep )
   {
     /* Draw headings */
     int noise_mode = IS_NOISE_MODE(rc_config.gain_style);
-    cairo_set_source_rgb(cr, WHITE);
+    cairo_set_source_rgb_f(cr, th->colors[THEME_ROLE_TEXT_PRIMARY]);
     cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
 
     if (!noise_mode)
@@ -186,14 +188,13 @@ Draw_Color_Legend_Overlay( cairo_t *cr, int fstep )
       /* Convert to color; guard zero range from degenerate data */
       double color_frac = (scaled_range > 0.0)
           ? (scaled_val - scaled_min) / scaled_range : 0.0;
-      Value_to_Color(&red, &grn, &blu, color_frac, 1.0);
-      cairo_set_source_rgb(cr, red, grn, blu);
+      cairo_set_source_rgb_f(cr, palette_lookup_scaled(ramp, color_frac, 1.0));
       cairo_rectangle(cr, x, y + i, width, 1);
       cairo_fill(cr);
     }
 
     /* Draw border around gradient */
-    cairo_set_source_rgb(cr, WHITE);
+    cairo_set_source_rgb_f(cr, th->colors[THEME_ROLE_TEXT_PRIMARY]);
     cairo_set_line_width(cr, LINE_WIDTH);
     cairo_rectangle(cr, x, y-(LINE_WIDTH/2), width, height+2*(LINE_WIDTH/2));
     cairo_stroke(cr);
@@ -211,8 +212,7 @@ Draw_Color_Legend_Overlay( cairo_t *cr, int fstep )
       db_val = Inverse_Scale_Gain(scaled_val);
 
       /* Draw graduation mark with matching color */
-      Value_to_Color(&red, &grn, &blu, grad_pos, 1.0);
-      cairo_set_source_rgb(cr, red, grn, blu);
+      cairo_set_source_rgb_f(cr, palette_lookup_scaled(ramp, grad_pos, 1.0));
 
       int grad_y = y + (i * height) / (num_graduations - 1);
       cairo_move_to(cr, x + width - (LINE_WIDTH/2), grad_y);
@@ -232,7 +232,7 @@ Draw_Color_Legend_Overlay( cairo_t *cr, int fstep )
         snprintf(txt, sizeof(txt)-1, "%.0f", db_val);
       else
         snprintf(txt, sizeof(txt)-1, "%.2f", db_val);
-      cairo_set_source_rgb(cr, WHITE);
+      cairo_set_source_rgb_f(cr, th->colors[THEME_ROLE_TEXT_PRIMARY]);
       /* Right-justify absolute gain values with normal weight */
       cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
 
@@ -246,14 +246,13 @@ Draw_Color_Legend_Overlay( cairo_t *cr, int fstep )
       int mark_y = y + (int)((1.0 - positions[i]) * (height - 1));
 
       /* Draw mark */
-      Value_to_Color(&red, &grn, &blu, positions[i], 1.0);
-      cairo_set_source_rgb(cr, red, grn, blu);
+      cairo_set_source_rgb_f(cr, palette_lookup_scaled(ramp, positions[i], 1.0));
       cairo_move_to(cr, x - TEXT_GRADIENT_SPACING, mark_y);
       cairo_line_to(cr, x, mark_y);
       cairo_stroke(cr);
 
       /* Show value */
-      cairo_set_source_rgb(cr, WHITE);
+      cairo_set_source_rgb_f(cr, th->colors[THEME_ROLE_TEXT_PRIMARY]);
       if (i == 0) {  /* -3dB point */
         /* Ensure -3dB is bold */
         cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);

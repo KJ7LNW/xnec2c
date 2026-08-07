@@ -15,6 +15,7 @@
 #ifndef PRESENTATION_CACHE_KEY_H
 #define PRESENTATION_CACHE_KEY_H 1
 
+#include <stdint.h>
 #include <string.h>
 
 /**
@@ -44,6 +45,7 @@ typedef struct
   int    ant_temp_sky;
   int    ant_temp_earth;
   int    ant_temp_interp;
+  uint32_t palette_gen;       /* color_palette_generation(); re-themes color caches */
 } presentation_cache_key_t;
 
 /**
@@ -79,8 +81,8 @@ presentation_cache_key_invalidate(presentation_cache_key_t *key)
  * @b: second key
  *
  * Returns 1 when all fields match, 0 on any mismatch.
- * Uses memcmp over the full struct including any trailing padding
- * (4 bytes on 64-bit after ant_temp_interp).  Correctness relies on
+ * Uses memcmp over the full struct; the six trailing 4-byte members
+ * fill the 8-byte alignment, leaving no tail pad.  Correctness relies on
  * compilers preserving padding through struct assignment; GCC and
  * clang do so (struct = compiles to memcpy of sizeof).  Both keys
  * must be zero-initialized via = {0} before populating.

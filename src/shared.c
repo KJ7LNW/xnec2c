@@ -22,11 +22,8 @@
 /*------------------------------------------------------------------------*/
 
 /* Named color constants for cairo rendering (declared in common.h) */
-const rgb_f_t COLOR_WHITE      = {1.0f, 1.0f, 1.0f};
 const rgb_f_t COLOR_CYAN       = {0.0f, 1.0f, 1.0f};
 const rgb_f_t COLOR_MAGENTA    = {1.0f, 0.0f, 1.0f};
-const rgb_f_t COLOR_GREY       = {0.5f, 0.5f, 0.5f};
-const rgb_f_t COLOR_BLACK      = {0.0f, 0.0f, 0.0f};
 
 /*------------------------------------------------------------------------*/
 

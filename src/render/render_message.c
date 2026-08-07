@@ -19,6 +19,7 @@
 
 #include "render_message.h"
 #include "../shared.h"
+#include "../themes/theme.h"
 
 /*-----------------------------------------------------------------------*/
 
@@ -38,8 +39,8 @@ Draw_Centered_Message(cairo_t *cr, int width, int height, const char *msg)
 
   pango_layout_get_pixel_size(layout, &text_w, &text_h);
 
-  /* Gray text centered in the drawable */
-  cairo_set_source_rgb(cr, GREY);
+  /* De-emphasized text centered in the drawable */
+  cairo_set_source_rgb_f(cr, theme_active()->colors[THEME_ROLE_TEXT_MUTED]);
   cairo_move_to(cr,
       (double)(width  - text_w) / 2.0,
       (double)(height - text_h) / 2.0);

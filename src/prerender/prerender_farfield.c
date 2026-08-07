@@ -28,7 +28,7 @@
  */
 #include "prerender_farfield.h"
 #include "prerender_color.h"
-#include "../color/color_ramp.h"
+#include "../color/color_palette.h"
 #include "../shared.h"
 #include "../measurements.h"
 
@@ -38,7 +38,7 @@
 /*-----------------------------------------------------------------------*/
 
 /**
- * color_edges() - Assign rainbow colors to an edge color array from vertex radii
+ * color_edges() - Assign themed ramp colors to an edge color array from vertex radii
  * @topo:    topology array with va/vb vertex indices
  * @colors:  output color array, parallel to topo; must be pre-allocated
  * @count:   number of edges
@@ -50,11 +50,12 @@ static void
 color_edges(ff_edge_topo_t *topo, rgb_f_t *colors, int count,
     point_3d_t *verts, double r_min, double r_range)
 {
+  const palette_t *ramp = palette_get(PALETTE_RAMP);
   int i;
   for( i = 0; i < count; i++ )
   {
     double avg_r = (verts[topo[i].va].r + verts[topo[i].vb].r) / 2.0;
-    colors[i] = color_from_value((avg_r - r_min) / r_range, 1.0);
+    colors[i] = palette_lookup_scaled(ramp, (avg_r - r_min) / r_range, 1.0);
   }
 }
 
@@ -193,8 +194,9 @@ ff_presentation_recompute(int fstep)
   double r_range = r_max - r_min;
   if( r_range <= 0.0 )
     r_range = 1.0;
+  const palette_t *ramp = palette_get(PALETTE_RAMP);
   for( int i = 0; i < total; i++ )
-    fp->vertex_rgb[i] = color_from_value(
+    fp->vertex_rgb[i] = palette_lookup_scaled(ramp,
         (fp->vertices[i].r - r_min) / r_range, 1.0);
 
   /* Edge colors from averaged vertex radii */

@@ -67,8 +67,6 @@ static const float quad_uvs[6][2] = {
   {0.0f, 1.0f}, {1.0f, 0.0f}, {0.0f, 0.0f}
 };
 
-static const rgba_f_t axis_color = {1.0f, 1.0f, 1.0f, 1.0f};
-
 /*-----------------------------------------------------------------------*/
 
 /** generate_label_texture() - Creates a texture atlas with X, Y, Z labels using Cairo
@@ -175,6 +173,8 @@ opengl_axes_new(void)
   {
     axes->label_mvp_loc = glGetUniformLocation(axes->label_shader.program, "mvp");
     axes->label_tex_loc = glGetUniformLocation(axes->label_shader.program, "tex");
+    axes->label_u_color_loc =
+      glGetUniformLocation(axes->label_shader.program, "u_color");
     axes->label_pos_loc = glGetAttribLocation(axes->label_shader.program, "position");
     axes->label_uv_loc = glGetAttribLocation(axes->label_shader.program, "texcoord");
 
@@ -262,10 +262,17 @@ opengl_axes_prepare(void *ctx, float r_max)
   if( !axes || !axes->initialized )
     return;
 
-  if( axes->r_max == r_max )
+  const theme_t *th = theme_active();
+
+  if( axes->r_max == r_max && axes->theme == th )
     return;
 
   axes->r_max = r_max;
+  axes->theme = th;
+
+  rgba_f_t line_color = { th->colors[THEME_ROLE_AXIS].r,
+      th->colors[THEME_ROLE_AXIS].g, th->colors[THEME_ROLE_AXIS].b, 1.0f };
+
   float axis_length = r_max * AXIS_LENGTH_SCALE;
   label_offset = r_max * LABEL_OFFSET_SCALE;
   float label_half_size = r_max * LABEL_SIZE_SCALE;
@@ -276,8 +283,8 @@ opengl_axes_prepare(void *ctx, float r_max)
     float *origin_coord = (float*)&lines[line_idx].point;
     float *end_coord = (float*)&lines[line_idx + 1].point;
 
-    lines[line_idx].color = axis_color;
-    lines[line_idx + 1].color = axis_color;
+    lines[line_idx].color = line_color;
+    lines[line_idx + 1].color = line_color;
 
     origin_coord[0] = 0.0f;
     origin_coord[1] = 0.0f;
@@ -394,6 +401,10 @@ opengl_axes_render(void *ctx, const gl_render_params_t *params)
   glUseProgram(axes->label_shader.program);
   glUniformMatrix4fv(axes->label_mvp_loc, 1, GL_FALSE, (float*)params->mvp);
   glUniform1i(axes->label_tex_loc, 0);
+  glUniform3f(axes->label_u_color_loc,
+      axes->theme->colors[THEME_ROLE_AXIS].r,
+      axes->theme->colors[THEME_ROLE_AXIS].g,
+      axes->theme->colors[THEME_ROLE_AXIS].b);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, axes->label_texture);

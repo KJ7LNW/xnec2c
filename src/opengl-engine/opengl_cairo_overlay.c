@@ -64,6 +64,8 @@ cairo_gl_overlay_new(void)
 
   overlay->mvp_location = glGetUniformLocation(overlay->shader.program, "mvp");
   overlay->tex_location = glGetUniformLocation(overlay->shader.program, "tex");
+  overlay->color_location =
+    glGetUniformLocation(overlay->shader.program, "u_color");
   overlay->position_location = glGetAttribLocation(overlay->shader.program, "position");
   overlay->texcoord_location = glGetAttribLocation(overlay->shader.program, "texcoord");
 
@@ -204,6 +206,9 @@ cairo_gl_overlay_render(cairo_gl_overlay_t *overlay)
   glUseProgram(overlay->shader.program);
   glUniformMatrix4fv(overlay->mvp_location, 1, GL_FALSE, (float*)ortho);
   glUniform1i(overlay->tex_location, 0);
+
+  /* Identity tint: the Cairo surface already carries its own colors */
+  glUniform3f(overlay->color_location, 1.0f, 1.0f, 1.0f);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, overlay->texture);

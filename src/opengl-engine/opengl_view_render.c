@@ -187,7 +187,8 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
   if( state->msaa_fbo )
     glBindFramebuffer(GL_FRAMEBUFFER, state->msaa_fbo);
 
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  glClearColor(state->content.background.r, state->content.background.g,
+      state->content.background.b, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glEnable(GL_DEPTH_TEST);

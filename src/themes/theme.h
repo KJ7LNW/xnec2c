@@ -44,6 +44,8 @@ typedef enum
   THEME_ROLE_LABEL_PRIMARY,
   THEME_ROLE_LABEL_SECONDARY,
   THEME_ROLE_LABEL_AXIS,
+  THEME_ROLE_TEXT_PRIMARY,   /* legible readout text over the view background */
+  THEME_ROLE_TEXT_MUTED,     /* de-emphasized readout text */
   THEME_ROLE_MARKER_EXTREME,
   THEME_ROLE_CURSOR,
   THEME_ROLE_GRAD_0,   /* magnitude low / cold pole / phase seam (legacy magenta) */

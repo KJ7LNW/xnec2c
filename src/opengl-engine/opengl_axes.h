@@ -21,6 +21,7 @@
 #define OPENGL_AXES_H 1
 
 #include "common.h"
+#include "themes/theme.h"
 
 #ifdef HAVE_OPENGL
 #include "opengl_renderer.h"
@@ -42,8 +43,12 @@ typedef struct
   gl_shader_t label_shader;
   GLint label_mvp_loc;
   GLint label_tex_loc;
+  GLint label_u_color_loc;
   GLint label_pos_loc;
   GLint label_uv_loc;
+
+  /* Theme whose axis color is in the line buffer; a switch rebuilds it */
+  const theme_t *theme;
 
   float r_max;
   gboolean initialized;

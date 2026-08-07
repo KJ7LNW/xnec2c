@@ -278,7 +278,7 @@ fill_tri_vertex(
  * @nph: number of phi samples
  * @vertex_rgb: precomputed per-vertex colors [nth * nph]
  *
- * Per-vertex color derived from normalized radius via color_from_value.
+ * Per-vertex color derived from normalized radius through the themed ramp palette.
  * Returns triangle count, or -1 on invalid input.
  */
   int

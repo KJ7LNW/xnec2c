@@ -28,6 +28,7 @@
 #include "opengl_state.h"
 #include "../settings/render_settings.h"
 #include "../opengl-engine/opengl_view.h"
+#include "../themes/theme.h"
 #include "../opengl-engine/opengl_view_notice.h"
 #include "../render/render_dispatch.h"
 #include "../rdpattern_ui.h"
@@ -246,6 +247,7 @@ structure_scene_generate(gl_view_state_t *state)
 {
   state->content.status_message = NULL;
   state->content.gradient = (gradient_result_t){NULL, 0};
+  state->content.background = theme_active()->colors[THEME_ROLE_BACKGROUND];
 
   opengl_structure_show_ctrl_notice(structure_gl_widget);
 

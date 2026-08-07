@@ -37,7 +37,6 @@ typedef struct save_data
 /* Gain colorcode strip size */
 #define COLORCODE_WIDTH     96
 #define COLORCODE_HEIGHT    24
-#define COLORCODE_MAX       768.0  /* Max value, 8 x COLORCODE_WIDTH */
 
 #endif
 

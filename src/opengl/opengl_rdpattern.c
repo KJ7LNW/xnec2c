@@ -32,6 +32,7 @@
 #ifdef HAVE_OPENGL
 
 #include "../opengl-engine/opengl_view.h"
+#include "../themes/theme.h"
 #include "../opengl-engine/opengl_gradient_overlay.h"
 #include "../opengl-engine/opengl_view_notice.h"
 #include "../render/render_dispatch.h"
@@ -369,6 +370,7 @@ rdpattern_scene_generate(gl_view_state_t *state)
 {
   state->content.status_message = NULL;
   state->content.gradient = (gradient_result_t){NULL, 0};
+  state->content.background = theme_active()->colors[THEME_ROLE_BACKGROUND];
 
   /* Lazy-create gradient overlay on first frame (GL context is active) */
   if( state->overlay == NULL )

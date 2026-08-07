@@ -20,8 +20,6 @@
 #ifndef COLOR_RAMP_H
 #define COLOR_RAMP_H  1
 
-#include "../common.h"
-
 /**
  * Value_to_Color() - Map a scalar value to an RGB color
  * @red:   output red channel [0..1]
@@ -36,25 +34,5 @@
 void Value_to_Color(
     double *red, double *grn, double *blu,
     double val, double max);
-
-/**
- * color_from_value() - Map a scalar to an rgb_f_t via the rainbow ramp
- * @val: value to map (0..max)
- * @max: normalization maximum; returns black when max <= 0
- *
- * Single point of truth for the Value_to_Color -> rgb_f_t conversion used
- * by the radiation-pattern prerender.
- */
-static inline rgb_f_t
-color_from_value(double val, double max)
-{
-  rgb_f_t c;
-  double r, g, b;
-  Value_to_Color(&r, &g, &b, val, max);
-  c.r = (float)r;
-  c.g = (float)g;
-  c.b = (float)b;
-  return c;
-}
 
 #endif

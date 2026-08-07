@@ -13,6 +13,7 @@
  */
 
 #include "presentation_cache_key.h"
+#include "../color/color_palette.h"
 #include "../shared.h"
 
 /**
@@ -38,6 +39,7 @@ presentation_cache_key_build(int fstep)
   k.ant_temp_custom_t_sky  = rc_config.ant_temp_custom_t_sky;
   k.ant_temp_custom_t_earth = rc_config.ant_temp_custom_t_earth;
   k.freq_mhz               = calc_data.freq_mhz;
+  k.palette_gen            = color_palette_generation();
 
   /* max/min gain detect child-process data updates at same fstep.
    * When rad_pattern is unavailable, zeros from {0} init retained. */

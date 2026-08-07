@@ -47,6 +47,7 @@ typedef struct
   gl_shader_t shader;
   GLint mvp_location;
   GLint tex_location;
+  GLint color_location;
   GLint position_location;
   GLint texcoord_location;
   int width;

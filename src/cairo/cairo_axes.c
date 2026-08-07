@@ -23,6 +23,7 @@
 #include "cairo_draw.h"
 #include "cairo_scenebuffer.h"
 #include "../shared.h"
+#include "../themes/theme.h"
 
 /*-----------------------------------------------------------------------*/
 
@@ -65,7 +66,7 @@ cairo_draw_axes(void *ctx, float extent)
         axis_table[idx].oz * (double)extent,
         &seg.z_mid);
 
-    seg_set_color(&seg, COLOR_WHITE);
+    seg_set_color(&seg, theme_active()->colors[THEME_ROLE_AXIS]);
     seg.width = 1.0f;
     scenebuffer_add(cc->sb, &seg);
 

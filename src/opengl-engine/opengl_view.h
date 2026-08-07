@@ -89,6 +89,9 @@ typedef struct
   float model_scale;
   unsigned int generation;
 
+  /* Frame clear color supplied by the scene generator */
+  rgb_f_t background;
+
   /* Centered text overlay rendered when no data to display; NULL = none */
   const char *status_message;
 

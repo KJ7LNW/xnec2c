@@ -126,16 +126,19 @@ typedef struct Segment
 typedef struct { float r, g, b; } rgb_f_t;
 
 /* Named color constants for rendering */
-extern const rgb_f_t COLOR_WHITE;
 extern const rgb_f_t COLOR_CYAN;
 extern const rgb_f_t COLOR_MAGENTA;
-extern const rgb_f_t COLOR_GREY;
-extern const rgb_f_t COLOR_BLACK;
 
-/* Comma-separated expansion for legacy cairo_set_source_rgb(cr, COLOR) calls */
-#define WHITE      (double)(COLOR_WHITE.r),      (double)(COLOR_WHITE.g),      (double)(COLOR_WHITE.b)
-#define GREY       (double)(COLOR_GREY.r),       (double)(COLOR_GREY.g),       (double)(COLOR_GREY.b)
-#define BLACK      (double)(COLOR_BLACK.r),      (double)(COLOR_BLACK.g),      (double)(COLOR_BLACK.b)
+/**
+ * cairo_set_source_rgb_f() - Set the Cairo source from a float color
+ * @cr: target Cairo context
+ * @c:  color to widen to Cairo's double channels
+ */
+static inline void
+cairo_set_source_rgb_f(cairo_t *cr, rgb_f_t c)
+{
+  cairo_set_source_rgb(cr, (double)c.r, (double)c.g, (double)c.b);
+}
 
 /**
  * seg_set_color() - Assign a named color to a Segment_t

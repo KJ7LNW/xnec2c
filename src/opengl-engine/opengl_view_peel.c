@@ -549,7 +549,8 @@ gl_view_peel_render(gl_view_state_t *state, GLuint active_fbo,
   glEnable(GL_DEPTH_TEST);
   glDepthMask(GL_TRUE);
   glDisable(GL_BLEND);
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  glClearColor(state->content.background.r, state->content.background.g,
+      state->content.background.b, 1.0f);
 
 } /* gl_view_peel_render() */
 

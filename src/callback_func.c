@@ -22,7 +22,7 @@
 #include "shared.h"
 #include "prerender/prerender_state.h"
 #include "prerender/prerender_color.h"
-#include "color/color_ramp.h"
+#include "color/color_palette.h"
 #include "chroma/chroma.h"
 #include "structure_ui.h"
 #include "mem/mem_track.h"
@@ -757,22 +757,27 @@ child_cleanup( void )
 
 /*-----------------------------------------------------------------------*/
 
-/* Draw_Colorcode( cairo_t *cr )
+/**
+ * Draw_Colorcode() - Draw the radiation pattern gain legend strip
+ * @cr: cairo context of the radiation-pattern color-code drawing area
  *
- * Draws the color code bar fopr structure
- * currents and radiation pattern gain range
+ * Sweeps the magnitude ramp linearly across the strip so each column
+ * carries the color the far-field surface shows at that fraction of its
+ * gain range.
  */
   void
 Draw_Colorcode( cairo_t *cr )
 {
-  double red = 0.0, grn = 0.0, blu = 0.0;
+  const palette_t *ramp = palette_get( PALETTE_RAMP );
   int idx;
 
-  /* Draw color-code bar in main window */
   for( idx = 0; idx < COLORCODE_WIDTH; idx++ )
   {
-    Value_to_Color( &red, &grn, &blu, (double)(8 * idx), COLORCODE_MAX );
-    cairo_set_source_rgb( cr, red, grn, blu );
+    double gain_fraction =
+      (double)idx / (double)(COLORCODE_WIDTH - 1);
+
+    cairo_set_source_rgb_f( cr,
+        palette_lookup_scaled( ramp, gain_fraction, 1.0 ) );
     Cairo_Draw_Line( cr, idx, 0, idx, COLORCODE_HEIGHT );
   }
 
