@@ -101,7 +101,8 @@ opengl_structure_set_radius_scale(double scale)
 /*-----------------------------------------------------------------------*/
 
 /** opengl_structure_on_ctrl_scroll() - Ctrl+scroll handler for adjusting cylinder radius scale
- * @widget: source scroll widget
+ * @_widget: source scroll widget; unused because the radius-scale config
+ *           hook repaints both windows through their drawing-area globals
  * @event: scroll event
  * @view_state: pointer to gl_view_state_t
  *
@@ -109,12 +110,14 @@ opengl_structure_set_radius_scale(double scale)
  */
   gboolean
 opengl_structure_on_ctrl_scroll(
-    GtkWidget *widget, GdkEventScroll *event, gpointer view_state)
+    GtkWidget *_widget, GdkEventScroll *event, gpointer view_state)
 {
   gl_view_state_t *state;
   double scale, new_scale;
 
   scroll_step_t s;
+
+  (void)_widget;
 
   state = (gl_view_state_t *)view_state;
 
@@ -158,21 +161,12 @@ opengl_structure_on_ctrl_scroll(
     }
   }
 
-  opengl_structure_set_radius_scale(new_scale);
+  /* The registered post_apply hook owns the clamp, the backend apply, and
+   * the repaint of both windows */
+  rc_config.opengl_cylinder_radius_scale = new_scale;
+  hook_set_radius_scale();
+
   render_settings_sync_from_config();
-
-  /* Queue redraw on the event source widget */
-  xnec2_widget_queue_draw(widget, TRUE);
-
-  /* Queue redraw on cross-window GL areas */
-  if( structure_gl_widget && widget != structure_gl_widget )
-    xnec2_widget_queue_draw(structure_gl_widget, TRUE);
-
-  {
-    GtkWidget *rdpat_w = opengl_rdpattern_get_widget();
-    if( rdpat_w && widget != rdpat_w )
-      xnec2_widget_queue_draw(rdpat_w, TRUE);
-  }
 
   return( TRUE );
 

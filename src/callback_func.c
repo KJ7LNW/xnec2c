@@ -313,23 +313,13 @@ rdpattern_mode_apply( void )
   if( rc_config.rdpattern_mode == RDPAT_FIELD_GAIN )
     have_data = isFlagSet( ENABLE_RDPAT );
   else if( rc_config.rdpattern_mode == RDPAT_FIELD_EHFIELD )
-  {
-    /* Release the gain far-field draw buffers before near-field prep */
-    Free_Draw_Buffers();
     have_data = ( fpat.nfeh != 0 );
-  }
   else if( rc_config.rdpattern_mode == RDPAT_FIELD_DISABLED )
-  {
-    /* Release the far-field draw buffers; the queued redraw shows the
-     * no-mode status message */
-    Free_Draw_Buffers();
     have_data = FALSE;
-  }
   else
   {
     BUG("rdpattern_mode_apply: invalid rdpattern_mode=%d\n",
         rc_config.rdpattern_mode);
-    Free_Draw_Buffers();
     have_data = FALSE;
   }
 
@@ -339,7 +329,7 @@ rdpattern_mode_apply( void )
       fetch_freq_data();
   }
   else
-    xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
+    Queue_Radiation_Redraw( TRUE );
 
   Set_Window_Labels();
 } /* rdpattern_mode_apply() */
@@ -377,15 +367,14 @@ structure_view_apply( void )
   }
   else
   {
-    /* Currents or charges: fetch the step data and redraw the structure
-     * when the fetch reports fresh data */
-    if( fetch_freq_data() )
-      Queue_Structure_Rebuild( TRUE );
+    /* Currents or charges: fetch the step data; a cache hit rebuilds the
+     * structure through freq_step_update_ui() */
+    fetch_freq_data();
   }
 
   /* The rad-pattern structure overlay tracks the structure view */
   if( overlay_struct_active() )
-    xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
+    Queue_Radiation_Redraw( TRUE );
 
 } /* structure_view_apply() */
 

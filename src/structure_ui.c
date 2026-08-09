@@ -243,8 +243,8 @@ Queue_Structure_Rebuild(gboolean force)
 /*  Queue_Structure_Redraw()
  *  @force:  bypass the intermediate-redraw suppression gate
  *
- *  Queues a redraw of the structure drawingarea and, when a
- *  "viewer gain" plot is active, the frequency-plot area.
+ *  Queues a redraw of the structure drawingarea.  Callers that also change
+ *  a frequency-plot input repaint the plots at their own edge.
  *
  *  Called wherever a view-only change needs a repaint; a change of the
  *  source data behind the baked buffers uses Queue_Structure_Rebuild().
@@ -258,14 +258,6 @@ Queue_Structure_Redraw(gboolean force)
   if( structure_drawingarea )
     xnec2_widget_queue_draw( structure_drawingarea, force );
 
-  /* Trigger a redraw of plots drawingarea */
-  if( isFlagSet(PLOT_ENABLED) &&
-      (rc_config.freqplots_gviewer_togglebutton || freqplots_popup_open(FP_PANEL_VIEWER)) &&
-      isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
-  {
-    freqplots_redraw_all(force);
-  }
-
 } /* Queue_Structure_Redraw() */
 
 /*-----------------------------------------------------------------------*/
@@ -276,8 +268,9 @@ Queue_Structure_Redraw(gboolean force)
  *
  * Invoked by view_notify_change() whenever rotation, pan, zoom, or extent
  * changes.  Refreshes the WR/WI spin display and viewer readout, then queues
- * a structure redraw.  The frequency-step readouts are view-independent and
- * stay untouched here.  Propagation to the rdpattern view under
+ * a structure redraw and the view-dependent frequency plots.  The
+ * frequency-step readouts are view-independent and stay untouched here.
+ * Propagation to the rdpattern view under
  * common-projection sharing is handled internally by view_t via the
  * rotation_follower link established by view_share_master().  Bound as
  * changed_cb at view_new() in main.c.
@@ -285,11 +278,16 @@ Queue_Structure_Redraw(gboolean force)
   void
 structure_view_changed_cb(view_t *v, gpointer _user_data)
 {
+  /* The viewer-gain panel plots the gain in the view direction, so a view
+   * change moves its trace */
+  static const fp_panel_t view_panels[] = { FP_PANEL_VIEWER, FP_PANEL_COUNT };
+
   (void)_user_data;
 
   view_update_spin_display( v );
   structure_viewer_readout();
   Queue_Structure_Redraw( TRUE );
+  freqplots_redraw_if_showing( view_panels );
 
 } /* structure_view_changed_cb() */
 
@@ -338,7 +336,7 @@ apply_animation_phase(void)
 
   /* Queue rdpattern for near-field visualization or structure overlay */
   if(rdpat_ehfield_active() || overlay_struct_active() )
-    xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
+    Queue_Radiation_Redraw(TRUE);
 
   /* Update the phase readout from flow_phase without moving the slider, whose
    * position stays static while the timer animation runs.  The readout is

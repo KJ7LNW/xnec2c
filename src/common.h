@@ -1740,7 +1740,7 @@ double Scale_Gain_Resolved(double gain, int fstep, int idx,
 double Polarization_Factor(int pol_type, int fstep, int idx);
 void Set_Polarization(int pol);
 void Set_Gain_Style(int gs);
-void Queue_Radiation_Redraw(void);
+void Queue_Radiation_Redraw(gboolean force);
 void Update_Rdpattern_UI(void);
 double Viewer_Gain(view_t *v, int fstep);
 double Viewer_Noise_Value(view_t *v, int fstep);
@@ -1749,7 +1749,6 @@ void Set_Window_Labels(void);
 void Alloc_Rdpattern_Buffers(int nfrq, int nth, int nph);
 void Alloc_Nearfield_Fstep_Buffers(int nfrq);
 void Free_Nearfield_Fstep_Buffers(void);
-void Free_Draw_Buffers(void);
 double Scale_Gain( double gain, int fstep, int idx );
 /* fields.c */
 void efld(double xi, double yi, double zi, double ai, int ij);
@@ -1886,6 +1885,7 @@ void freqplots_open_panel(fp_panel_t panel);
 void freqplots_close_panel(fp_panel_t panel);
 void freqplots_destroy_all_popups(void);
 gboolean freqplots_popup_open(fp_panel_t panel);
+void freqplots_redraw_if_showing(const fp_panel_t *panels);
 void on_freqplots_popup_destroy(GtkWidget *widget, gpointer user_data);
 gboolean on_freqplots_popup_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 /* radiation.c */

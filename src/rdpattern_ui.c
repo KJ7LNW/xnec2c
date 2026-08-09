@@ -558,29 +558,16 @@ Set_Gain_Style( int gs )
 /*-----------------------------------------------------------------------*/
 
 /*  Queue_Radiation_Redraw()
+ *  @force:  bypass the intermediate-redraw suppression gate
  *
- *  Queues a redraw of the radiation drawingarea (and the plot area
- *  when viewer-gain or antenna-temperature plots are visible).
+ *  Queues a redraw of the radiation drawingarea.  Callers that also change
+ *  a frequency-plot input repaint the plots at their own edge.
  */
   void
-Queue_Radiation_Redraw(void)
+Queue_Radiation_Redraw(gboolean force)
 {
-  /* Trigger a redraw of radiation drawingarea */
   if( isFlagSet(DRAW_ENABLED) )
-  {
-    xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
-  }
-
-  /* Trigger a redraw of plots drawingarea if doing "viewer" gain
-   * or antenna temperature (noise env / elevation changes affect Ta) */
-  if( isFlagSet(PLOT_ENABLED) &&
-      (rc_config.freqplots_gviewer_togglebutton || rc_config.freqplots_ant_temp_togglebutton ||
-       freqplots_popup_open(FP_PANEL_VIEWER) ||
-       freqplots_popup_open(FP_PANEL_ANT_TEMP)) &&
-      isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
-  {
-    freqplots_redraw_all(TRUE);
-  }
+    xnec2_widget_queue_draw( rdpattern_drawingarea, force );
 
 } /* Queue_Radiation_Redraw() */
 
@@ -592,20 +579,26 @@ Queue_Radiation_Redraw(void)
  *
  * Invoked by view_notify_change() whenever rotation, pan, zoom, or extent
  * changes.  Refreshes the WR/WI spin display and viewer readout, then queues
- * a radiation pattern redraw.  The frequency-step readouts are
- * view-independent and stay untouched here.  Bound as changed_cb at
- * view_new() in callbacks.c; when sharing is active the master
- * (structure_view) reaches this callback via its rotation_follower link
- * inside view_notify_change().
+ * a radiation pattern redraw and the view-dependent frequency plots.  The
+ * frequency-step readouts are view-independent and stay untouched here.
+ * Bound as changed_cb at view_new() in callbacks.c; when sharing is active
+ * the master (structure_view) reaches this callback via its
+ * rotation_follower link inside view_notify_change().
  */
   void
 rdpattern_view_changed_cb(view_t *v, gpointer _user_data)
 {
+  /* The viewer-gain and antenna-temperature panels plot the value in the
+   * view direction, so a view change moves their traces */
+  static const fp_panel_t view_panels[] =
+    { FP_PANEL_VIEWER, FP_PANEL_ANT_TEMP, FP_PANEL_COUNT };
+
   (void)_user_data;
 
   view_update_spin_display( v );
   rdpattern_viewer_readout();
-  Queue_Radiation_Redraw();
+  Queue_Radiation_Redraw( TRUE );
+  freqplots_redraw_if_showing( view_panels );
 
 } /* rdpattern_view_changed_cb() */
 
@@ -641,7 +634,7 @@ rdpattern_overlay_shift_scroll(GdkScrollDirection dir,
   else
     return FALSE;
 
-  xnec2_widget_queue_draw(rdpattern_drawingarea, TRUE);
+  Queue_Radiation_Redraw(TRUE);
 
   return TRUE;
 }
@@ -767,7 +760,6 @@ Rdpattern_Window_Killed( void )
     rdpattern_drawingarea = NULL;
     g_object_unref( rdpattern_window_builder );
     rdpattern_window_builder = NULL;
-    Free_Draw_Buffers();
 
     gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
           Builder_Get_Object( main_window_builder, "main_rdpattern")), FALSE );
@@ -1060,20 +1052,6 @@ Viewer_Noise_Value(view_t *v, int fstep)
 
 	return Inverse_Scale_Gain(Scale_Gain(gain, fstep, idx));
 }
-
-/*-----------------------------------------------------------------------*/
-
-/* Free_Draw_Buffers()
- *
- * Frees the buffers used for drawing.
- * Vertex data now lives in ff_pre[].vertices (prerender_state). */
-  void
-Free_Draw_Buffers( void )
-{
-}
-
-/*-----------------------------------------------------------------------*/
-
 
 /*-----------------------------------------------------------------------*/
 

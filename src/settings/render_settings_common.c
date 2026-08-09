@@ -55,7 +55,7 @@ void
 hook_render_redraw(void)
 {
   Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw();
+  Queue_Radiation_Redraw(TRUE);
 }
 
 /*------------------------------------------------------------------------*/

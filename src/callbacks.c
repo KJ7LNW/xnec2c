@@ -1930,10 +1930,10 @@ opengl_set_renderer(gboolean enable)
       gtk_widget_hide( rdpattern_gl_area );
       gtk_widget_show( rdpattern_cairo_da );
       rdpattern_drawingarea = rdpattern_cairo_da;
-
-      Queue_Radiation_Redraw();
     }
 
+    /* Paint the freshly swapped widget during setup, before DRAW_ENABLED
+     * gates Queue_Radiation_Redraw() */
     xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
   }
 

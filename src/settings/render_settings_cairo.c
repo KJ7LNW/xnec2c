@@ -58,5 +58,5 @@ on_cairo_tab_reset_clicked(GtkButton *button, gpointer user_data)
 
   config_reset_tab_user(SETTINGS_TAB_CAIRO);
   Queue_Structure_Redraw( TRUE );
-  xnec2_widget_queue_draw(rdpattern_drawingarea, TRUE);
+  Queue_Radiation_Redraw(TRUE);
 }

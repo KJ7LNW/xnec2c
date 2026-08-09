@@ -887,7 +887,7 @@ freq_step_refresh_ui( gboolean force )
   if( isFlagSet(DRAW_ENABLED) )
   {
     Update_Rdpattern_UI();
-    xnec2_widget_queue_draw( rdpattern_drawingarea, force );
+    Queue_Radiation_Redraw( force );
   }
 
   opt_ui_update_values();

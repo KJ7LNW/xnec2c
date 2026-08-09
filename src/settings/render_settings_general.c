@@ -44,7 +44,7 @@ hook_set_renderer(void)
 {
   opengl_set_renderer(rc_config.use_opengl_renderer);
   Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw();
+  Queue_Radiation_Redraw(TRUE);
 }
 
 /** hook_set_constrained - Apply constrained-rotation mode, then redraw */
@@ -53,7 +53,7 @@ hook_set_constrained(void)
 {
   opengl_set_constrained_rotation(rc_config.view_drag_constrained);
   Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw();
+  Queue_Radiation_Redraw(TRUE);
 }
 
 /*------------------------------------------------------------------------*/
@@ -83,5 +83,5 @@ on_general_reset_clicked(GtkButton *button, gpointer user_data)
 
   config_reset_tab_user(SETTINGS_TAB_GENERAL);
   Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw();
+  Queue_Radiation_Redraw(TRUE);
 }

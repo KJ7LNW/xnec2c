@@ -59,7 +59,7 @@ hook_flow_direction(void)
   gboolean animatable;
 
   Queue_Structure_Rebuild( TRUE );
-  Queue_Radiation_Redraw();
+  Queue_Radiation_Redraw(TRUE);
 
   /* Wire color animates in every flow mode; patch arrows animate only in
    * the phase-variant modes, so grey the Animate menu item only for a
@@ -249,7 +249,7 @@ hook_orthographic(void)
   }
 
   Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw();
+  Queue_Radiation_Redraw(TRUE);
 }
 
 /*------------------------------------------------------------------------*/
@@ -282,7 +282,7 @@ hook_rdpat_e_field(void)
 {
   Set_Window_Labels();
   if( rdpat_ehfield_active() )
-    xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
+    Queue_Radiation_Redraw(TRUE);
 }
 
 void
@@ -290,7 +290,7 @@ hook_rdpat_h_field(void)
 {
   Set_Window_Labels();
   if( rdpat_ehfield_active() )
-    xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
+    Queue_Radiation_Redraw(TRUE);
 }
 
 void
@@ -298,25 +298,25 @@ hook_rdpat_poynting(void)
 {
   Set_Window_Labels();
   if( rdpat_ehfield_active() )
-    xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
+    Queue_Radiation_Redraw(TRUE);
 }
 
 void
 hook_rdpat_overlay(void)
 {
-  xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
+  Queue_Radiation_Redraw(TRUE);
 }
 
 void
 hook_rdpat_gradient_key(void)
 {
-  xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
+  Queue_Radiation_Redraw(TRUE);
 }
 
 void
 hook_rdpat_draw_style(void)
 {
-  Queue_Radiation_Redraw();
+  Queue_Radiation_Redraw(TRUE);
 }
 
 /*------------------------------------------------------------------------*/
