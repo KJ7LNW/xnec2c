@@ -222,22 +222,32 @@ gl_rdpat_draw_farfield(void *ctx, int fstep, const ff_draw_params_t *ff)
     points_to_use = rdpat_translated_points;
   }
 
+  gboolean need_tris =
+    (rc_config.rdpattern_draw_style == RDPAT_STYLE_SURFACE ||
+     rc_config.rdpattern_draw_style == RDPAT_STYLE_BOTH);
+  gboolean need_lines =
+    (rc_config.rdpattern_draw_style == RDPAT_STYLE_WIREFRAME ||
+     rc_config.rdpattern_draw_style == RDPAT_STYLE_BOTH);
+  int cached_tri_count, cached_line_count;
+
+  opengl_rdpattern_get_triangles(&cached_tri_count);
+  opengl_rdpattern_get_lines(&cached_line_count);
+
   rdpat_mesh_cache_t cur =
       rdpat_mesh_cache_capture(fstep, current_gen, ff->off_len);
 
   /* Regenerate geometry on data change, translation change, draw style change,
    * or frequency step change.  fp->generation is a per-slot counter and is not
    * globally unique, so switching to a slot whose generation coincides with the
-   * last rendered slot must still force a rebuild. */
-  if( !rdpat_mesh_cache_match(&mesh_cache, &cur) )
+   * last rendered slot must still force a rebuild.  A matching key records only
+   * the inputs the last tessellation ran on; closing the window frees the mesh
+   * buffers through opengl_rdpattern_geometry_cleanup() while this key
+   * survives, so read the buffer counts to confirm the meshes the active draw
+   * style needs are still resident. */
+  if( !rdpat_mesh_cache_match(&mesh_cache, &cur) ||
+      (need_tris && cached_tri_count == 0) ||
+      (need_lines && cached_line_count == 0) )
   {
-    gboolean need_tris =
-      (rc_config.rdpattern_draw_style == RDPAT_STYLE_SURFACE ||
-       rc_config.rdpattern_draw_style == RDPAT_STYLE_BOTH);
-    gboolean need_lines =
-      (rc_config.rdpattern_draw_style == RDPAT_STYLE_WIREFRAME ||
-       rc_config.rdpattern_draw_style == RDPAT_STYLE_BOTH);
-
     if( need_tris )
     {
       int tri_count = opengl_rdpattern_generate_triangles(
