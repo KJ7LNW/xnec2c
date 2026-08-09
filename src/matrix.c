@@ -1064,7 +1064,20 @@ etmns( double p1, double p2, double p3, double p4,
 
     rs= pxl* pxl+ pyl* pyl+ pzl* pzl;
     if( rs < 1.0e-30)
+    {
+      /* Zero the coincident element: the source supplies no field at
+       * its own point and the solver reads every right hand side row.
+       */
+      if( i < data.n )
+        e[i]= CPLX_00;
+      else
+      {
+        e[i1]= CPLX_00;
+        e[i2]= CPLX_00;
+      }
+
       continue;
+    }
 
     r= sqrt( rs);
     pxl= pxl/ r;
