@@ -415,6 +415,11 @@ GdkPixbuf *gl_view_capture_pixbuf(GtkWidget *widget, int width, int height);
  * inner GtkGLArea.  Returns NULL for any other widget. */
 GtkWidget* gl_view_get_gl_area(GtkWidget *widget);
 
+/* gl_view_queue_render() - Request a frame from a view's GtkGLArea.
+ * Accepts either the wrapper returned by gl_view_create_widget() or the
+ * inner GtkGLArea.  No-op for any other widget. */
+void gl_view_queue_render(GtkWidget *widget);
+
 /* gl_view_build_mvp() - Compose model/view/projection matrix for a frame.
  *
  * Reads rotation from view_R(state->view), pan from view->pan_offset

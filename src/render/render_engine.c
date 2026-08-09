@@ -30,6 +30,7 @@
 #include "../shared.h"
 #ifdef HAVE_OPENGL
 #include "../opengl-engine/opengl_view_fit.h"
+#include "../opengl-engine/opengl_view.h"
 #endif
 
 /*-----------------------------------------------------------------------*/
@@ -99,5 +100,28 @@ render_capture_widget(GtkWidget *widget, int width, int height)
   return ops->capture(widget, width, height);
 
 } /* render_capture_widget() */
+
+/*-----------------------------------------------------------------------*/
+
+/** render_queue_widget_redraw() - Schedule a widget repaint by widget class
+ * @widget: drawing widget, GL view wrapper, or inner GtkGLArea
+ *
+ * Resolution is by widget class rather than by the active engine: the
+ * frequency plots and the save-as preview stay Cairo drawing areas while
+ * the OpenGL engine renders the structure and radiation pattern views.
+ * A GtkGLArea runs with auto-render disabled and repaints its cached frame
+ * on a plain draw queue, so it takes a render request instead.
+ */
+  void
+render_queue_widget_redraw(GtkWidget *widget)
+{
+#ifdef HAVE_OPENGL
+  if( gl_view_get_gl_area(widget) != NULL )
+    gl_view_queue_render(widget);
+  else
+#endif
+    gtk_widget_queue_draw(widget);
+
+} /* render_queue_widget_redraw() */
 
 /*-----------------------------------------------------------------------*/

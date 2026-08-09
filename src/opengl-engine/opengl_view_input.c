@@ -53,7 +53,7 @@ on_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
     view_begin_drag(state->view, button, (float)event->x, (float)event->y);
 
     state->drag_active = TRUE;
-    gtk_widget_queue_draw(widget);
+    gl_view_queue_render(widget);
 
     return( TRUE );
   }
@@ -82,7 +82,7 @@ on_button_release(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
   view_end_drag(state->view);
 
   state->drag_active = FALSE;
-  gtk_widget_queue_draw(widget);
+  gl_view_queue_render(widget);
 
   return( TRUE );
 
@@ -114,7 +114,7 @@ on_motion(GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
     return( FALSE );
 
   view_update_drag(state->view, (float)event->x, (float)event->y);
-  gtk_widget_queue_draw(widget);
+  gl_view_queue_render(widget);
 
   return( TRUE );
 

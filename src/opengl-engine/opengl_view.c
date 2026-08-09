@@ -317,6 +317,10 @@ on_realize(GtkGLArea *area, gpointer user_data)
     }
   }
 
+  /* Auto-render is disabled, so the first frame of a realized context
+   * comes from this request. */
+  gl_view_queue_render(GTK_WIDGET(area));
+
 } /* on_realize() */
 
 /*-----------------------------------------------------------------------*/
@@ -371,7 +375,7 @@ on_resize(GtkGLArea *area, int width, int height, gpointer user_data)
   if( width == state->msaa_width && height == state->msaa_height )
   {
     glViewport(0, 0, width, height);
-    gtk_widget_queue_draw(GTK_WIDGET(area));
+    gl_view_queue_render(GTK_WIDGET(area));
     return;
   }
 
@@ -394,7 +398,7 @@ on_resize(GtkGLArea *area, int width, int height, gpointer user_data)
   glViewport(0, 0, width, height);
 
   /* Force redraw so the window does not remain black after resize */
-  gtk_widget_queue_draw(GTK_WIDGET(area));
+  gl_view_queue_render(GTK_WIDGET(area));
 
 } /* on_resize() */
 
@@ -481,7 +485,9 @@ gl_view_create_widget(
   gl_area = gtk_gl_area_new();
 
   gtk_gl_area_set_has_depth_buffer(GTK_GL_AREA(gl_area), TRUE);
-  gtk_gl_area_set_auto_render(GTK_GL_AREA(gl_area), TRUE);
+  /* Frames are produced only on explicit request; unrelated exposes
+   * present the cached frame instead of re-running the scene pass. */
+  gtk_gl_area_set_auto_render(GTK_GL_AREA(gl_area), FALSE);
 
   gtk_widget_set_hexpand(gl_area, TRUE);
   gtk_widget_set_vexpand(gl_area, TRUE);
@@ -561,6 +567,29 @@ gl_view_get_gl_area(GtkWidget *widget)
   return( NULL );
 
 } /* gl_view_get_gl_area() */
+
+/*-----------------------------------------------------------------------*/
+
+/** gl_view_queue_render() - Request a frame from a view's GtkGLArea
+ * @widget: either the wrapper returned by gl_view_create_widget() or the
+ *          inner GtkGLArea itself
+ *
+ * The GL areas run with auto-render disabled, so a frame is produced only
+ * on request.  Widgets that carry no GtkGLArea have no render signal to
+ * request and are left untouched.
+ */
+  void
+gl_view_queue_render(GtkWidget *widget)
+{
+  GtkWidget *area;
+
+  area = gl_view_get_gl_area(widget);
+  if( !area )
+    return;
+
+  gtk_gl_area_queue_render(GTK_GL_AREA(area));
+
+} /* gl_view_queue_render() */
 
 /*-----------------------------------------------------------------------*/
 

@@ -201,7 +201,7 @@ notice_update_callback(gpointer user_data)
   if( elapsed_ms < state->notice_hold_ms )
   {
     state->notice_alpha = 1.0;
-    gtk_widget_queue_draw(widget);
+    gl_view_queue_render(widget);
     return( TRUE );
   }
 
@@ -213,14 +213,14 @@ notice_update_callback(gpointer user_data)
     state->notice_active = FALSE;
     state->notice_alpha = 0.0;
     state->notice_timeout_id = 0;
-    gtk_widget_queue_draw(widget);
+    gl_view_queue_render(widget);
     return( FALSE );
   }
 
   /* Linear fade from 1.0 to 0.0 */
   state->notice_alpha = 1.0 - progress;
 
-  gtk_widget_queue_draw(widget);
+  gl_view_queue_render(widget);
 
   return( TRUE );
 }
@@ -266,7 +266,7 @@ gl_view_show_notice(GtkWidget *widget, const char *text,
   if( duration_ms > 0 )
     state->notice_timeout_id = g_timeout_add(16, notice_update_callback, widget);
 
-  gtk_widget_queue_draw(widget);
+  gl_view_queue_render(widget);
 
 } /* gl_view_show_notice() */
 
@@ -294,7 +294,7 @@ gl_view_hide_notice(GtkWidget *widget)
   state->notice_active = FALSE;
   state->notice_alpha = 0.0;
 
-  gtk_widget_queue_draw(widget);
+  gl_view_queue_render(widget);
 
 } /* gl_view_hide_notice() */
 

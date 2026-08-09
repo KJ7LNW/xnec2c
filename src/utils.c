@@ -27,6 +27,7 @@
 
 #include "utils.h"
 #include "shared.h"
+#include "render/render_engine.h"
 
 
 /*------------------------------------------------------------------------*/
@@ -1093,19 +1094,19 @@ guint g_idle_add_once_sync(GSourceOnceFunc function, gpointer data)
  * when OpenGL rendering is enabled, so a direct call on any structure or
  * rdpattern GL area bypasses this gate.
  *
- * Exception: the opengl-engine/ view layer (opengl_view.c,
- * opengl_view_input.c, opengl_view_notice.c) calls gtk_widget_queue_draw()
- * directly because it redraws its own GL area for engine-internal reasons
- * (MSAA rebuild, input event repaints) that are below this gate's
- * abstraction level.
+ * GL areas render on request only, so this path resolves them to a render
+ * request through render_queue_widget_redraw().  The opengl-engine/ view
+ * layer requests its own frames directly through gl_view_queue_render()
+ * for engine-internal reasons (MSAA rebuild, input event repaints, notice
+ * fade) that are below this gate's abstraction level.
  */
-/* GSourceFunc wrapper for gtk_widget_queue_draw.
+/* GSourceFunc wrapper for the widget-class redraw router.
  * Used by xnec2_widget_queue_draw via g_main_context_invoke_full
  * so that main-thread callers mark the widget dirty synchronously
  * while background-thread callers marshal at GDK_PRIORITY_REDRAW. */
 static gboolean queue_draw_cb(gpointer w)
 {
-	gtk_widget_queue_draw(GTK_WIDGET(w));
+	render_queue_widget_redraw(GTK_WIDGET(w));
 	return G_SOURCE_REMOVE;
 }
 

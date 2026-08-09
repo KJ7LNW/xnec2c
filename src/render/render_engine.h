@@ -56,4 +56,14 @@ gboolean render_fit_view(view_t *view, view_fit_t *fit);
  */
 GdkPixbuf *render_capture_widget(GtkWidget *widget, int width, int height);
 
+/**
+ * render_queue_widget_redraw() - Schedule a widget repaint by widget class
+ * @widget: drawing widget, GL view wrapper, or inner GtkGLArea
+ *
+ * A GtkGLArea under manual render mode repaints its cached frame on a
+ * plain draw queue, so GL handles route to a render request while every
+ * other widget takes the ordinary draw queue.
+ */
+void render_queue_widget_redraw(GtkWidget *widget);
+
 #endif /* __RENDER_ENGINE_H */
