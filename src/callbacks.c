@@ -1355,6 +1355,11 @@ on_rdpattern_window_destroy(
    * references the rdpattern view that is about to be freed. */
   if( rdpattern_view != NULL && rdpattern_view->rotation_master != NULL )
     view_unshare_master( rdpattern_view );
+
+  /* Release in reverse acquisition order: the GL view state borrows
+   * rdpattern_view for resize, render and button handling, so the widget
+   * holding that pointer dies before the view it reads. */
+  opengl_rdpattern_cleanup();
 #endif
 
   view_free( &rdpattern_view );

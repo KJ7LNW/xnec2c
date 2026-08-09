@@ -562,13 +562,15 @@ opengl_rdpattern_create_widget_impl(void)
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_rdpattern_cleanup_impl() - Free rdpattern GL resources
+/** opengl_rdpattern_cleanup_impl() - Destroy the rdpattern GL widget
+ *
+ * Unrealizing the widget drives gl_view_state_free(), which releases the
+ * view state and invokes the scene provider's cleanup callback.
  */
   static void
 opengl_rdpattern_cleanup_impl(void)
 {
-  rdpattern_scene_cleanup();
-  rdpattern_gl_widget = NULL;
+  Gtk_Widget_Destroy( &rdpattern_gl_widget );
 }
 
 /*-----------------------------------------------------------------------*/
