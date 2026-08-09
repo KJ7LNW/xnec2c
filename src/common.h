@@ -1727,6 +1727,12 @@ void Project_on_Screen(view_t *v, double x, double y, double z, double *xs, doub
      && save.fstep != NULL && save.fstep[(fs)] \
      && near_field_fstep != NULL && near_field_fstep[(fs)].points != NULL)
 
+#define RDPAT_FSTEP_AVAILABLE(fs) \
+    ((fs) >= 0 && (fs) <= calc_data.steps_total \
+     && rad_pattern != NULL && rad_pattern[(fs)].gtot != NULL \
+     && rad_pattern[(fs)].max_gain != NULL \
+     && rad_pattern[(fs)].min_gain != NULL)
+
 /* rdpattern_ui.c */
 gboolean Validate_Nearfield_Animation(void);
 double Scale_Gain_Resolved(double gain, int fstep, int idx,
@@ -1935,6 +1941,7 @@ void Window_Title_Subject(char *buf, size_t len);
 void Update_Window_Titles(void);
 
 /* xnec2c.c */
+void freq_step_refresh_ui(gboolean force);
 void freq_step_update_ui(int new_step, gboolean force);
 void Near_Field_Pattern(void);
 void Frequency_Scale_Geometry(void);

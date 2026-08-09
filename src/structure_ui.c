@@ -37,19 +37,37 @@
 /*-----------------------------------------------------------------------*/
 
 /**
- * Draw_Structure_UI() - Update structure-window UI readouts
+ * structure_viewer_readout() - Refresh the structure viewer-gain readout
  *
- * Writes the viewer-gain entry, frequency-step label, and color-code
- * max label for the main window.  Called under freq_data_lock by
- * render() after dispatching to the backend.
+ * Writes the gain in the current structure-view direction.
  */
-  void
-Draw_Structure_UI(void)
+static void
+structure_viewer_readout(void)
 {
+  g_rec_mutex_lock(&freq_data_lock);
+
   Show_Viewer_Gain(
       main_window_builder,
       "main_gain_entry",
       structure_view );
+
+  g_rec_mutex_unlock(&freq_data_lock);
+}
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * Draw_Structure_UI() - Update frequency-step structure readouts
+ *
+ * Writes the viewer-gain entry, frequency-step label, and color-code
+ * labels for the active frequency step.
+ */
+  void
+Draw_Structure_UI(void)
+{
+  g_rec_mutex_lock(&freq_data_lock);
+
+  structure_viewer_readout();
 
   if( calc_data.freq_step >= 0 )
     Display_Fstep( structure_fstep_entry, calc_data.freq_step );
@@ -118,6 +136,8 @@ Draw_Structure_UI(void)
     }
   }
   /* else no current data: labels retain previous values */
+
+  g_rec_mutex_unlock(&freq_data_lock);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -138,7 +158,7 @@ Show_Viewer_Gain(
       isFlagSet(FREQ_LOOP_RUNNING) )
   {
     char txt[16];
-    if( isFlagSet(ENABLE_RDPAT) && (calc_data.freq_step >= 0) )
+    if( isFlagSet(ENABLE_RDPAT) && RDPAT_FSTEP_AVAILABLE(calc_data.freq_step) )
     {
       snprintf( txt, sizeof(txt)-1, "%.2f", Viewer_Gain(v, calc_data.freq_step) );
       gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(builder, widget)), txt );
@@ -255,10 +275,12 @@ Queue_Structure_Redraw(gboolean force)
  * @_user_data:  unused
  *
  * Invoked by view_notify_change() whenever rotation, pan, zoom, or extent
- * changes.  Refreshes the WR/WI spin display and queues a structure redraw.
- * Propagation to the rdpattern view under common-projection sharing is
- * handled internally by view_t via the rotation_follower link established
- * by view_share_master().  Bound as changed_cb at view_new() in main.c.
+ * changes.  Refreshes the WR/WI spin display and viewer readout, then queues
+ * a structure redraw.  The frequency-step readouts are view-independent and
+ * stay untouched here.  Propagation to the rdpattern view under
+ * common-projection sharing is handled internally by view_t via the
+ * rotation_follower link established by view_share_master().  Bound as
+ * changed_cb at view_new() in main.c.
  */
   void
 structure_view_changed_cb(view_t *v, gpointer _user_data)
@@ -266,6 +288,7 @@ structure_view_changed_cb(view_t *v, gpointer _user_data)
   (void)_user_data;
 
   view_update_spin_display( v );
+  structure_viewer_readout();
   Queue_Structure_Redraw( TRUE );
 
 } /* structure_view_changed_cb() */

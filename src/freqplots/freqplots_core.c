@@ -689,7 +689,7 @@ fp_port_apply( freqplots_view_t *v, int p )
     if( calc_data.iped == 1 )
       Rescan_Zpnorm();
 
-    freq_step_update_ui( calc_data.freq_step, TRUE );
+    freq_step_refresh_ui( TRUE );
   }
   else
   {

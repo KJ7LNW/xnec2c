@@ -355,7 +355,6 @@ draw_surface_patches(cairo_scenebuffer_t *sb, view_t *v, double scale, Segment_t
  * @params: dispatch-resolved draw parameters
  *
  * Projects geometry, draws axes, segments, and patches.
- * Post-render UI updates are handled by render().
  * Returns TRUE.
  */
   gboolean

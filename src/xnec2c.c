@@ -861,12 +861,49 @@ freq_loop_display_step( void )
 }
 
 /**
+ * freq_step_refresh_ui() - repaint every consumer derived from the active step
+ * @force: bypass the intermediate-redraw suppression gate
+ *
+ * Refreshes the structure and radiation readouts, rebakes the structure
+ * colors, and repaints both windows and the frequency plots from the
+ * frequency step already in effect.  Selects no step and writes no frequency
+ * widget, so a presentation change (theme, color projection, tone family)
+ * leaves the frequency the operator entered in place.
+ * Must be called on the GTK main thread.
+ */
+void
+freq_step_refresh_ui( gboolean force )
+{
+  g_rec_mutex_lock(&freq_data_lock);
+
+  if( isFlagSet(PLOT_ENABLED) )
+    freqplots_redraw_all(force);
+
+  Draw_Structure_UI();
+
+  /* Vertex colors are baked per freq_step, so rebuild against crnt_fstep[]. */
+  Queue_Structure_Rebuild( force );
+
+  if( isFlagSet(DRAW_ENABLED) )
+  {
+    Update_Rdpattern_UI();
+    xnec2_widget_queue_draw( rdpattern_drawingarea, force );
+  }
+
+  opt_ui_update_values();
+
+  g_rec_mutex_unlock(&freq_data_lock);
+}
+
+/**
  * freq_step_update_ui - apply a frequency step change to all UI consumers
  * @new_step: frequency step index to activate (0..steps_total)
+ * @force: bypass the intermediate-redraw suppression gate
  *
- * Sets calc_data.freq_step and all derived display state, then queues
- * redraws for every frequency-dependent window.  Unconditional and
- * idempotent.  Must be called on the GTK main thread.
+ * Sets calc_data.freq_step and the frequency widgets it owns, then refreshes
+ * every step-derived consumer.  Unconditional and idempotent.  Must be called
+ * on the GTK main thread.  Returns without effect before frequency data
+ * loads or when @new_step falls outside the allocated step range.
  */
 void
 freq_step_update_ui( int new_step, gboolean force )
@@ -875,7 +912,7 @@ freq_step_update_ui( int new_step, gboolean force )
 
   g_rec_mutex_lock(&freq_data_lock);
 
-  if( save.freq == NULL )
+  if( save.freq == NULL || new_step < 0 || new_step > calc_data.steps_total )
   {
     g_rec_mutex_unlock(&freq_data_lock);
     return;
@@ -903,19 +940,9 @@ freq_step_update_ui( int new_step, gboolean force )
     snprintf( txt, sizeof(txt), "%.3f", calc_data.freq_mhz );
     gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(
         freqplots_window_builder, "freqplots_fmhz_entry")), txt );
-
-    freqplots_redraw_all(force);
   }
 
-  /* Vertex colors are baked per freq_step, so rebuild against crnt_fstep[new_step]. */
-  Queue_Structure_Rebuild( force );
-
-  if( isFlagSet(DRAW_ENABLED) )
-  {
-    xnec2_widget_queue_draw( rdpattern_drawingarea, force );
-  }
-
-  opt_ui_update_values();
+  freq_step_refresh_ui( force );
 
   g_rec_mutex_unlock(&freq_data_lock);
 }

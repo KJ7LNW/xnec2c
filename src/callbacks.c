@@ -1624,7 +1624,7 @@ on_noise_sky_activate(GtkCheckMenuItem *item, gpointer user_data)
   int idx = GPOINTER_TO_INT(user_data);
   rc_config.ant_temp_sky = idx;
   noise_interp_auto_switch(sky_models[idx].method);
-  freq_step_update_ui(calc_data.freq_step, TRUE);
+  freq_step_refresh_ui(TRUE);
 }
 
 static void
@@ -1636,7 +1636,7 @@ on_noise_earth_activate(GtkCheckMenuItem *item, gpointer user_data)
   int idx = GPOINTER_TO_INT(user_data);
   rc_config.ant_temp_earth = idx;
   noise_interp_auto_switch(earth_models[idx].method);
-  freq_step_update_ui(calc_data.freq_step, TRUE);
+  freq_step_refresh_ui(TRUE);
 }
 
 static void
@@ -1646,7 +1646,7 @@ on_noise_interp_activate(GtkCheckMenuItem *item, gpointer user_data)
     return;
 
   rc_config.ant_temp_interp = GPOINTER_TO_INT(user_data);
-  freq_step_update_ui(calc_data.freq_step, TRUE);
+  freq_step_refresh_ui(TRUE);
 }
 
 /* Side context bound by the sky and earth focus-out handlers.
@@ -1710,7 +1710,7 @@ ant_temp_entry_commit(GtkWidget *widget, ant_temp_commit_ctx_t c)
     *c.custom_store = val;
     *c.model_sel = c.custom_enum;
     noise_interp_auto_switch(ANT_TEMP_SNAP);
-    freq_step_update_ui(calc_data.freq_step, TRUE);
+    freq_step_refresh_ui(TRUE);
   }
 }
 
@@ -1875,7 +1875,7 @@ on_rdpattern_elevation_spinbutton_value_changed(
     GtkSpinButton *spinbutton, gpointer user_data)
 {
   rc_config.ant_temp_elevation = gtk_spin_button_get_value(spinbutton);
-  freq_step_update_ui(calc_data.freq_step, TRUE);
+  freq_step_refresh_ui(TRUE);
 }
 
 

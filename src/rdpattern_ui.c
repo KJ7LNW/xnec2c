@@ -202,9 +202,57 @@ ant_temp_entry_set_unresolved(GtkWidget *entry)
 
 /*-----------------------------------------------------------------------*/
 
-/* Update_Rdpattern_UI()
+/**
+ * rdpattern_viewer_readout() - Refresh the viewer-direction radiation readout
  *
- * Updates radiation pattern window UI elements
+ * Writes gain or noise density for the current view and frequency step.
+ * Called when either the view or active frequency step changes.
+ */
+static void
+rdpattern_viewer_readout(void)
+{
+  int fstep;
+  gchar txt[16];
+
+  g_rec_mutex_lock(&freq_data_lock);
+
+  fstep = calc_data.freq_step;
+
+  /* The view outlives its window: under shared projection a structure
+   * rotation reaches this callback after Rdpattern_Window_Killed()
+   * released the builder these entries resolve through. */
+  if( isFlagClear(DRAW_ENABLED) || !RDPAT_FSTEP_AVAILABLE(fstep) )
+  {
+    g_rec_mutex_unlock(&freq_data_lock);
+    return;
+  }
+
+  /* Show gain (dBi) or noise density (K/sr) in direction of viewer */
+  if (IS_NOISE_MODE(rc_config.gain_style))
+  {
+    double ksr = Viewer_Noise_Value(rdpattern_view, fstep);
+    snprintf(txt, sizeof(txt) - 1, "%.2f", ksr);
+    gtk_entry_set_text(GTK_ENTRY(Builder_Get_Object(
+            rdpattern_window_builder, "rdpattern_viewer_gain")), txt);
+  }
+  else
+  {
+    Show_Viewer_Gain(
+        rdpattern_window_builder,
+        "rdpattern_viewer_gain",
+        rdpattern_view);
+  }
+
+  g_rec_mutex_unlock(&freq_data_lock);
+}
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * Update_Rdpattern_UI() - Refresh frequency-step radiation readouts
+ *
+ * Updates color-code labels, viewer gain, frequency, and antenna-temperature
+ * entries for the active frequency step.
  */
   void
 Update_Rdpattern_UI(void)
@@ -212,17 +260,16 @@ Update_Rdpattern_UI(void)
   int fstep, pol;
   gchar txt[16];
 
+  g_rec_mutex_lock(&freq_data_lock);
+
   fstep = calc_data.freq_step;
-  if( fstep < 0 || !rad_pattern )
+  if( isFlagClear(DRAW_ENABLED) || !RDPAT_FSTEP_AVAILABLE(fstep) )
+  {
+    g_rec_mutex_unlock(&freq_data_lock);
     return;
+  }
 
   pol = calc_data.pol_type;
-
-  if( fstep > calc_data.steps_total )
-    return;
-
-  if( !rad_pattern[fstep].max_gain || !rad_pattern[fstep].min_gain )
-    return;
 
   /* Show max and min on color code bar; values are noise density (K/sr)
    * in noise mode, gain (dBi) otherwise */
@@ -257,21 +304,7 @@ Update_Rdpattern_UI(void)
         txt);
   }
 
-  /* Show gain (dBi) or noise density (K/sr) in direction of viewer */
-  if (IS_NOISE_MODE(rc_config.gain_style))
-  {
-    double ksr = Viewer_Noise_Value(rdpattern_view, fstep);
-    snprintf(txt, sizeof(txt) - 1, "%.2f", ksr);
-    gtk_entry_set_text(GTK_ENTRY(Builder_Get_Object(
-            rdpattern_window_builder, "rdpattern_viewer_gain")), txt);
-  }
-  else
-  {
-    Show_Viewer_Gain(
-        rdpattern_window_builder,
-        "rdpattern_viewer_gain",
-        rdpattern_view);
-  }
+  rdpattern_viewer_readout();
 
   /* Display frequency step */
   if( calc_data.freq_step >= 0 )
@@ -315,6 +348,8 @@ Update_Rdpattern_UI(void)
       ant_temp_entry_set_unresolved(sky_entry);
     }
   }
+
+  g_rec_mutex_unlock(&freq_data_lock);
 
 } /* Update_Rdpattern_UI() */
 
@@ -413,13 +448,7 @@ Set_Polarization( int pol )
 {
   calc_data.pol_type = pol;
   Set_Window_Labels();
-
-  /* Show gain in direction of viewer */
-  g_rec_mutex_lock(&freq_data_lock);
-  Show_Viewer_Gain( main_window_builder, "main_gain_entry", structure_view );
-  g_rec_mutex_unlock(&freq_data_lock);
-
-  freq_step_update_ui(calc_data.freq_step, TRUE);
+  freq_step_refresh_ui(TRUE);
 
 } /* Set_Polarization() */
 
@@ -522,7 +551,7 @@ Set_Gain_Style( int gs )
 
   Set_Window_Labels();
 
-  freq_step_update_ui(calc_data.freq_step, TRUE);
+  freq_step_refresh_ui(TRUE);
 
 } /* Set_Gain_Style() */
 
@@ -562,10 +591,12 @@ Queue_Radiation_Redraw(void)
  * @_user_data:  unused
  *
  * Invoked by view_notify_change() whenever rotation, pan, zoom, or extent
- * changes.  Refreshes the WR/WI spin display and queues a radiation pattern
- * redraw.  Bound as changed_cb at view_new() in callbacks.c; when sharing is
- * active the master (structure_view) reaches this callback via its
- * rotation_follower link inside view_notify_change().
+ * changes.  Refreshes the WR/WI spin display and viewer readout, then queues
+ * a radiation pattern redraw.  The frequency-step readouts are
+ * view-independent and stay untouched here.  Bound as changed_cb at
+ * view_new() in callbacks.c; when sharing is active the master
+ * (structure_view) reaches this callback via its rotation_follower link
+ * inside view_notify_change().
  */
   void
 rdpattern_view_changed_cb(view_t *v, gpointer _user_data)
@@ -573,6 +604,7 @@ rdpattern_view_changed_cb(view_t *v, gpointer _user_data)
   (void)_user_data;
 
   view_update_spin_display( v );
+  rdpattern_viewer_readout();
   Queue_Radiation_Redraw();
 
 } /* rdpattern_view_changed_cb() */

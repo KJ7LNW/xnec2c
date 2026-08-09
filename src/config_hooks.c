@@ -118,18 +118,26 @@ anim_overlay_sensitivity(void)
 }
 
 /** hook_color_vis() - Rebake baked colors and redraw after a
- * color projection or scale change, including the legend strip.
+ * color projection or scale change, including the legend strips.
+ *
+ * The projection and tone family also select the structure color-code label
+ * format, so the rebake and redraw run through the step-derived refresh path
+ * that owns those readouts.  The frequency step is unchanged here, so the
+ * frequency widgets keep the value the operator entered.
  */
 void
 hook_color_vis(void)
 {
-  Queue_Structure_Rebuild( TRUE );
-  Queue_Radiation_Redraw();
+  freq_step_refresh_ui( TRUE );
 
-  /* The legend strip lives outside the structure drawing area */
+  /* The legend strips live outside the structure and pattern drawing areas */
   if( main_window_builder != NULL )
     xnec2_widget_queue_draw( Builder_Get_Object(main_window_builder,
         "main_colorcode_drawingarea"), TRUE );
+
+  if( rdpattern_window_builder != NULL )
+    xnec2_widget_queue_draw( Builder_Get_Object(rdpattern_window_builder,
+        "rdpattern_colorcode_drawingarea"), TRUE );
 
   /* Track the animate dialog's projection selector label and formula to
    * the selected row and refresh the dialog's copy of the legend strip */
@@ -204,7 +212,6 @@ hook_theme_change(void)
 {
   palette_registry_init();
   hook_color_vis();
-  freq_step_update_ui(calc_data.freq_step, TRUE);
 }
 
 /*------------------------------------------------------------------------*/

@@ -35,7 +35,6 @@
 #include "../chroma/chroma.h"
 #include "../chroma/chroma_nearfield.h"
 #include "../prerender/prerender_farfield.h"
-#include "../rdpattern_ui.h"
 #include "../structure_ui.h"
 
 /* Last render_check result for the rdpattern view; updated by render() on every call */
@@ -479,16 +478,6 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
         : STATUS_MSG_START_FREQLOOP);
     g_rec_mutex_unlock(&freq_data_lock);
     return TRUE;
-  }
-
-  /* Post-render UI updates (under lock, main thread) */
-  if( view->type == VIEW_STRUCTURE )
-  {
-    Draw_Structure_UI();
-  }
-  else if( r.mode == RENDER_MODE_FARFIELD )
-  {
-    Update_Rdpattern_UI();
   }
 
   g_rec_mutex_unlock(&freq_data_lock);
