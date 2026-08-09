@@ -481,16 +481,17 @@ Set_Gain_Style( int gs )
   widget = Builder_Get_Object( rdpattern_window_builder, scale_widget_names[rc_config.gain_style] );
   gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(widget), TRUE );
 
+  gboolean noise = IS_NOISE_MODE(gs);
+
   /* Update units label and row label for noise vs gain modes */
   widget = Builder_Get_Object( rdpattern_window_builder, "rdpattern_gain_units_label" );
   if (widget)
-    gtk_label_set_text( GTK_LABEL(widget),
-        IS_NOISE_MODE(gs) ? "K/sr" : "dB" );
+    gtk_label_set_text( GTK_LABEL(widget), noise ? "K/sr" : "dB" );
 
   widget = Builder_Get_Object( rdpattern_window_builder, "rdpattern_gain_row_label" );
   if (widget)
   {
-    if (IS_NOISE_MODE(gs))
+    if (noise)
     {
       gtk_label_set_markup( GTK_LABEL(widget),
           "T<sub>b</sub>(θ,φ)" );
@@ -501,8 +502,30 @@ Set_Gain_Style( int gs )
     }
   }
 
+  /* Declare the viewer readout row as viewer-direction specific */
+  static const char *const viewer_row_ids[] = {
+    "rdpattern_gain_row_label",
+    "rdpattern_viewer_gain",
+    "rdpattern_gain_units_label",
+    NULL
+  };
+
+  static const char *viewer_row_gain_tip =
+    N_("Gain in the direction of the viewer, for the current view angles.");
+  static const char *viewer_row_noise_tip =
+    N_("Brightness temperature in the direction of the viewer, "
+       "for the current view angles.");
+
+  const char *viewer_row_tip = noise ? _(viewer_row_noise_tip) : _(viewer_row_gain_tip);
+  for (int i = 0; viewer_row_ids[i] != NULL; i++)
+  {
+    widget = Builder_Get_Object(
+        rdpattern_window_builder, (gchar *)viewer_row_ids[i] );
+    if (widget)
+      gtk_widget_set_tooltip_text( widget, viewer_row_tip );
+  }
+
   /* Desensitize noise-specific controls when not in noise mode */
-  gboolean noise = IS_NOISE_MODE(gs);
 
   static const struct {
     const char *widget_id;
