@@ -61,7 +61,7 @@ msaa_update_view(GtkWidget *(*get_widget)(void), int samples)
     gl_view_peel_recreate(state, state->msaa_width, state->msaa_height,
         state->msaa_samples);
 
-  xnec2_widget_queue_draw(w, TRUE);
+  gl_view_queue_render(gl_area);
 
 } /* msaa_update_view() */
 

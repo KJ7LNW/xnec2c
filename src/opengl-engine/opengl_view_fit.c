@@ -45,8 +45,7 @@
   static gl_view_state_t *
 gl_fit_state_for_view(view_t *view)
 {
-  GtkWidget *widget = (view->type == VIEW_RDPATTERN)
-      ? rdpattern_drawingarea : structure_drawingarea;
+  GtkWidget *widget = canvas_widget( canvas_of_view(view->type) );
 
   if( widget == NULL )
     return( NULL );
@@ -216,6 +215,7 @@ const render_engine_ops_t gl_engine_ops =
 {
   .fit_view = gl_view_fit_view,
   .capture = gl_view_capture_pixbuf,
+  .queue_redraw = gl_view_queue_render,
 };
 
 #endif /* HAVE_OPENGL */

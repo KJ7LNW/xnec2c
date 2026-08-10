@@ -144,8 +144,7 @@ render_cairo(cairo_render_ctx_t *ctx, const render_ops_t *ops)
   /* Draw deferred axis labels on top of flushed segments */
   if( ctx->n_axis_labels > 0 )
   {
-    GtkWidget *da = (v->type == VIEW_RDPATTERN)
-      ? rdpattern_drawingarea : structure_drawingarea;
+    GtkWidget *da = canvas_widget( canvas_of_view(v->type) );
     PangoLayout *layout = gtk_widget_create_pango_layout(da, NULL);
     int k;
 

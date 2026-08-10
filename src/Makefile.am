@@ -115,7 +115,9 @@ xnec2c_SOURCES = \
     render/render_geometry.c        render/render_geometry.h \
     render/render_message.c         render/render_message.h \
     render/render_fit.c             render/render_fit.h \
-    render/render_engine.c          render/render_engine.h \
+    render/render_canvas.c          render/render_canvas.h \
+    render/render_redraw.c          render/render_redraw.h \
+    render/render_engine.h \
     render/gradient_cache.c         render/gradient_cache.h \
     cairo/cairo_draw.h \
     cairo/cairo_axes.c \

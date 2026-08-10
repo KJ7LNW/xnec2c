@@ -51,6 +51,8 @@
 #include "mem/mem.h"
 #include "i18n.h"
 #include "view/view_core.h"
+#include "render/render_canvas.h"
+#include "render/render_redraw.h"
 #include "color/color_tone.h"
 
 // Define GSourceOnceFunc if compiling against an older version of GLIB:
@@ -1931,7 +1933,6 @@ void Strlcat(char *dest, const char *src, size_t n);
 double Strtod(char *nptr, char **endptr);
 char *str_append(char *dst, char *a, char *b, size_t n);
 void Get_Dirname(char *fpath, char *dirname, int *fname_idx);
-void xnec2_widget_queue_draw(GtkWidget *w, gboolean force);
 #if GLIB_VERSION_CUR_STABLE < G_ENCODE_VERSION(2,74)
 guint g_idle_add_once(GSourceOnceFunc function, gpointer data);
 #endif

@@ -25,8 +25,9 @@
 /*
  * render_engine: engine control-op vtable, distinct from the per-frame
  * render_ops_t drawing vtable.  Control ops are one-shot capabilities outside
- * the draw path; fit-to-view is the first.  render_engine_active() selects the
- * active engine's vtable from rc_config.use_opengl_renderer.
+ * the draw path: fit-to-view, frame capture, and the frame request.  This
+ * header declares the contract alone; each canvas names the vtable of the
+ * engine producing its frames, so nothing here selects between engines.
  */
 
 /* Engine control-op vtable: capabilities outside the per-frame draw path. */
@@ -35,35 +36,12 @@ typedef struct
   gboolean (*fit_view)(view_t *view, view_fit_t *fit);
   GdkPixbuf *(*capture)(GtkWidget *widget, int width, int height);
 
+  /* Request a new frame from the engine's drawing widget.  A Cairo area
+   * produces its frame during ::draw, while a GtkGLArea under manual render
+   * mode re-presents its cached frame until a render request marks that
+   * frame stale, so each engine names the primitive that suits it. */
+  void (*queue_redraw)(GtkWidget *widget);
+
 } render_engine_ops_t;
-
-/**
- * render_fit_view() - Resolve fitted state through the active engine
- * @view: view whose drawn content defines the fit
- * @fit:  receives fitted zoom and screen-space pan
- *
- * Returns FALSE when the active engine has no geometry to fit.
- */
-gboolean render_fit_view(view_t *view, view_fit_t *fit);
-
-/**
- * render_capture_widget() - Capture the active engine frame
- * @widget: active engine drawing widget
- * @width: capture width in pixels
- * @height: capture height in pixels
- *
- * Returns a newly allocated pixbuf, or NULL when capture is unavailable.
- */
-GdkPixbuf *render_capture_widget(GtkWidget *widget, int width, int height);
-
-/**
- * render_queue_widget_redraw() - Schedule a widget repaint by widget class
- * @widget: drawing widget, GL view wrapper, or inner GtkGLArea
- *
- * A GtkGLArea under manual render mode repaints its cached frame on a
- * plain draw queue, so GL handles route to a render request while every
- * other widget takes the ordinary draw queue.
- */
-void render_queue_widget_redraw(GtkWidget *widget);
 
 #endif /* __RENDER_ENGINE_H */

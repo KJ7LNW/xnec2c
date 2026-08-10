@@ -134,4 +134,5 @@ const render_engine_ops_t cairo_engine_ops =
 {
   .fit_view = cairo_fit_view,
   .capture = cairo_capture_pixbuf,
+  .queue_redraw = gtk_widget_queue_draw,
 };

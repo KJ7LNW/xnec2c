@@ -254,9 +254,7 @@ Queue_Structure_Rebuild(gboolean force)
   void
 Queue_Structure_Redraw(gboolean force)
 {
-  /* Trigger a redraw of structure drawingarea */
-  if( structure_drawingarea )
-    xnec2_widget_queue_draw( structure_drawingarea, force );
+  canvas_queue_redraw( CANVAS_STRUCTURE, force );
 
 } /* Queue_Structure_Redraw() */
 

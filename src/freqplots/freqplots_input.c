@@ -55,6 +55,7 @@ Plots_Window_Killed( void )
           Builder_Get_Object(main_window_builder, "main_freqplots")), FALSE );
   }
   freqplots_window = NULL;
+  canvas_clear( CANVAS_FREQPLOTS );
   kill_window = NULL;
 
   // Release heap tables, then zero the whole view so the resize caches

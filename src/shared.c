@@ -95,21 +95,10 @@ GtkWidget
   *nec2_edit_window   = NULL,
   *sy_overrides_window = NULL;
 
-/* Structure drawing widgets */
-GtkWidget
-  *structure_drawingarea = NULL,
-  *structure_cairo_da    = NULL,
-  *structure_gl_area     = NULL;
+/* Canvas whose surface the pending save-as image captures */
+canvas_id_t saveas_canvas = CANVAS_STRUCTURE;
 
-/* Radiation pattern drawing widgets */
-GtkWidget
-  *rdpattern_drawingarea = NULL,
-  *rdpattern_gl_area     = NULL,
-  *rdpattern_cairo_da    = NULL;
-
-GtkWidget *saveas_drawingarea = NULL;
-
-/* Sizes of above */
+/* Sizes of the structure and radiation pattern canvases */
 int
   structure_width,
   structure_height,

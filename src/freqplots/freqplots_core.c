@@ -1391,14 +1391,14 @@ void freqplots_redraw_if_showing(const fp_panel_t *panels)
 }
 
 /* Queue a redraw for the primary window and every open popup so one data or
- * parameter mutation refreshes all frequency-plot views.  Routed through
- * xnec2_widget_queue_draw to keep the main-thread g_idle guarantee. */
+ * parameter mutation refreshes all frequency-plot views.  The primary window
+ * is a registered canvas; the popups no canvas presents take the plain widget
+ * route.  Both keep the main-thread marshal of the redraw scheduler. */
 void freqplots_redraw_all(gboolean force)
 {
 	int p;
 
-	if (fpv_main.drawingarea != NULL)
-		xnec2_widget_queue_draw(fpv_main.drawingarea, force);
+	canvas_queue_redraw(CANVAS_FREQPLOTS, force);
 
 	for (p = 0; p < FP_PANEL_COUNT; p++)
 		if (fpv_popups[p] != NULL && fpv_popups[p]->drawingarea != NULL)

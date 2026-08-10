@@ -432,7 +432,7 @@ rdpattern_scene_cleanup(void)
 rdpattern_on_shift_scroll(GtkWidget *_widget, GdkEventScroll *event, gpointer view_state)
 {
   /* _widget unused: gl_scene_provider_t.on_shift_scroll interface mandates the parameter;
-   * the shared handler queues rdpattern_drawingarea (swapped global) instead. */
+   * the shared handler queues the radiation canvas instead. */
   gl_view_state_t *state = (gl_view_state_t *)view_state;
   scroll_step_t s;
 

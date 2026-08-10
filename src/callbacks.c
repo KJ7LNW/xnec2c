@@ -30,7 +30,7 @@
 #include "rc_config.h"
 #include "cairo/cairo_draw.h"
 #include "cairo/cairo_frame.h"
-#include "render/render_engine.h"
+#include "cairo/cairo_fit.h"
 #include <pthread.h>
 
 #include "opengl/opengl_state.h"
@@ -38,6 +38,7 @@
 #include "settings/render_settings_common.h"
 #ifdef HAVE_OPENGL
 #include "opengl-engine/opengl_view.h"
+#include "opengl-engine/opengl_view_fit.h"
 #include "opengl/opengl_rdpattern.h"
 #include "opengl/opengl_msaa.h"
 #endif
@@ -381,7 +382,7 @@ on_main_save_activate(
     snprintf( saveas, s, "%s-%s_%03d.%s",
         rc_config.input_file, "geometry", ++cgm, "png" );
 
-  saveas_drawingarea = structure_drawingarea;
+  saveas_canvas = CANVAS_STRUCTURE;
   saveas_width  = structure_width;
   saveas_height = structure_height;
 
@@ -398,7 +399,7 @@ on_main_save_as_activate(
     gpointer         user_data)
 {
   char newfn[PATH_MAX];
-  saveas_drawingarea = structure_drawingarea;
+  saveas_canvas = CANVAS_STRUCTURE;
   saveas_width  = structure_width;
   saveas_height = structure_height;
 
@@ -586,29 +587,27 @@ on_main_rdpattern_activate(
               ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
     }
 
+    canvas_add_surface( CANVAS_RDPATTERN, Builder_Get_Object(
+          rdpattern_window_builder, "rdpattern_drawingarea" ),
+        &cairo_engine_ops );
+
 #ifdef HAVE_OPENGL
     {
       GtkWidget *box = Builder_Get_Object(
         rdpattern_window_builder, "rdpattern_box");
 
-      rdpattern_cairo_da = Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_drawingarea");
-
-      rdpattern_gl_area = opengl_rdpattern_create_widget();
-      gtk_box_pack_start(GTK_BOX(box), rdpattern_gl_area, TRUE, TRUE, 0);
+      GtkWidget *gl_area = opengl_rdpattern_create_widget();
+      gtk_box_pack_start(GTK_BOX(box), gl_area, TRUE, TRUE, 0);
+      canvas_add_surface( CANVAS_RDPATTERN, gl_area, &gl_engine_ops );
 
       opengl_set_renderer(rc_config.use_opengl_renderer);
     }
 #else
-    rdpattern_drawingarea = Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_drawingarea" );
-    rdpattern_cairo_da = NULL;
-    rdpattern_gl_area = NULL;
-    rc_config.use_opengl_renderer = 0;
+    canvas_set_engine( CANVAS_RDPATTERN, &cairo_engine_ops );
 
     hide_widget_by_id(rdpattern_window_builder, "rdpattern_ortho_button");
 #endif
-    gtk_widget_get_allocation( rdpattern_drawingarea, &alloc );
+    gtk_widget_get_allocation( canvas_widget(CANVAS_RDPATTERN), &alloc );
     rdpattern_width  = alloc.width;
     rdpattern_height = alloc.height;
 
@@ -717,6 +716,8 @@ on_main_freqplots_activate(
           freqplots_window_builder, "freqplots_drawingarea" );
       freqplots_main_view()->window      = freqplots_window;
       freqplots_main_view()->drawingarea = fp_da;
+      canvas_add_surface( CANVAS_FREQPLOTS, fp_da, &cairo_engine_ops );
+      canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine_ops );
       freqplots_main_view()->filter      = FP_PANEL_ALL;
       g_object_set_data( G_OBJECT(fp_da), "fp_view", freqplots_main_view() );
       freqplots_connect_panel_buttons( freqplots_window_builder );
@@ -1092,7 +1093,7 @@ on_freqplots_save_activate(
       isFlagClear(PLOT_SELECT) )
     return;
 
-  saveas_drawingarea = freqplots_main_view()->drawingarea;
+  saveas_canvas = CANVAS_FREQPLOTS;
   saveas_width  = freqplots_main_view()->width;
   saveas_height = freqplots_main_view()->height;
 
@@ -1114,7 +1115,7 @@ on_freqplots_save_as_activate(
     gpointer         user_data)
 {
   char newfn[PATH_MAX];
-  saveas_drawingarea = freqplots_main_view()->drawingarea;
+  saveas_canvas = CANVAS_FREQPLOTS;
   saveas_width  = freqplots_main_view()->width;
   saveas_height = freqplots_main_view()->height;
 
@@ -1401,7 +1402,7 @@ on_rdpattern_save_activate(
 
   if( strlen(rc_config.input_file) == 0 ) return;
 
-  saveas_drawingarea = rdpattern_drawingarea;
+  saveas_canvas = CANVAS_RDPATTERN;
   saveas_width  = rdpattern_width;
   saveas_height = rdpattern_height;
 
@@ -1428,7 +1429,7 @@ on_rdpattern_save_as_activate(
     gpointer         user_data)
 {
   char newfn[PATH_MAX];
-  saveas_drawingarea = rdpattern_drawingarea;
+  saveas_canvas = CANVAS_RDPATTERN;
   saveas_width  = rdpattern_width;
   saveas_height = rdpattern_height;
 
@@ -1888,14 +1889,16 @@ on_rdpattern_elevation_spinbutton_value_changed(
 opengl_set_renderer(gboolean enable)
 {
 #ifdef HAVE_OPENGL
-  rc_config.use_opengl_renderer = enable ? 1 : 0;
-
-  /* Refuse to enable OpenGL when context creation already failed */
+  /* A display whose GL context creation failed cannot present the GL engine,
+   * so the request resolves to Cairo before the setting and the canvases
+   * are written from it. */
   if( enable && opengl_gl_context_failed() )
   {
     pr_warn("OpenGL is not available on this display; cannot enable renderer.\n");
-    return;
+    enable = FALSE;
   }
+
+  rc_config.use_opengl_renderer = enable ? 1 : 0;
 
   /* Renderer toggle is the authoritative drag-neutral point.  Cairo
    * Motion_Event writes drag_button as a side effect of every processed
@@ -1911,53 +1914,19 @@ opengl_set_renderer(gboolean enable)
     view_end_drag( rdpattern_view );
   ClearFlag( BLOCK_MOTION_EV );
 
+  const render_engine_ops_t *engine = enable ? &gl_engine_ops : &cairo_engine_ops;
+
   /* Swap renderer if radiation pattern window is open */
-  if( rdpattern_window != NULL &&
-      rdpattern_gl_area != NULL &&
-      rdpattern_cairo_da != NULL )
+  if( canvas_set_engine( CANVAS_RDPATTERN, engine ) )
   {
-    if( rc_config.use_opengl_renderer )
-    {
-      gtk_widget_hide( rdpattern_cairo_da );
-      gtk_widget_show( rdpattern_gl_area );
-      rdpattern_drawingarea = rdpattern_gl_area;
-
-      /* Force aspect ratio update after showing GL area */
-      gtk_widget_queue_resize(rdpattern_gl_area);
-    }
-    else
-    {
-      gtk_widget_hide( rdpattern_gl_area );
-      gtk_widget_show( rdpattern_cairo_da );
-      rdpattern_drawingarea = rdpattern_cairo_da;
-    }
-
     /* Paint the freshly swapped widget during setup, before DRAW_ENABLED
      * gates Queue_Radiation_Redraw() */
-    xnec2_widget_queue_draw( rdpattern_drawingarea, TRUE );
+    canvas_queue_redraw( CANVAS_RDPATTERN, TRUE );
   }
 
   /* Swap renderer for structure view in main window */
-  if( structure_gl_area != NULL && structure_cairo_da != NULL )
-  {
-    if( rc_config.use_opengl_renderer )
-    {
-      gtk_widget_hide( structure_cairo_da );
-      gtk_widget_show( structure_gl_area );
-      structure_drawingarea = structure_gl_area;
-
-      /* Force aspect ratio update after showing GL area */
-      gtk_widget_queue_resize(structure_gl_area);
-    }
-    else
-    {
-      gtk_widget_hide( structure_gl_area );
-      gtk_widget_show( structure_cairo_da );
-      structure_drawingarea = structure_cairo_da;
-    }
-
+  if( canvas_set_engine( CANVAS_STRUCTURE, engine ) )
     Queue_Structure_Rebuild( TRUE );
-  }
 #endif
 }
 
@@ -5629,7 +5598,7 @@ Fit_View( view_t *target, GCallback zoom_handler )
 {
   view_fit_t fit = {0};
 
-  if( target == NULL || !render_fit_view(target, &fit) )
+  if( target == NULL || !canvas_fit_view(target, &fit) )
     return;
 
   if( target->zoom_spin != NULL )

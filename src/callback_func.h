@@ -29,7 +29,7 @@
 
 typedef struct save_data
 {
-  GtkWidget *drawingarea;
+  canvas_id_t canvas;
   int width, height;
   char filename[LINE_LEN];
 } save_data_t;

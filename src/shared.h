@@ -147,21 +147,8 @@ extern GtkWidget
   *nec2_edit_window,
   *sy_overrides_window;
 
-/* Structure drawing widgets */
-extern GtkWidget
-  *structure_drawingarea,
-  *structure_cairo_da,
-  *structure_gl_area;
-
-/* Radiation pattern drawing widgets */
-extern GtkWidget
-  *rdpattern_drawingarea,
-  *rdpattern_gl_area,
-  *rdpattern_cairo_da;
-
-/* Frequency plots and save-as */
-extern GtkWidget
-  *saveas_drawingarea;
+/* Canvas whose surface the pending save-as image captures */
+extern canvas_id_t saveas_canvas;
 
 extern GtkBuilder
   *main_window_builder,
@@ -196,15 +183,7 @@ extern GtkBuilder
   *sy_overrides_builder,
   *render_settings_builder;
 
-/* Drawing area widgets */
-extern GtkWidget
-  *rdpattern_drawingarea,
-  *rdpattern_gl_area,
-  *rdpattern_cairo_da;
-
-extern GtkWidget *saveas_drawingarea;
-
-/* Sizes of above */
+/* Sizes of the structure and radiation pattern canvases */
 extern int
   structure_width,
   structure_height,

@@ -27,7 +27,6 @@
 
 #include "utils.h"
 #include "shared.h"
-#include "render/render_engine.h"
 
 
 /*------------------------------------------------------------------------*/
@@ -1080,50 +1079,6 @@ guint g_idle_add_once_sync(GSourceOnceFunc function, gpointer data)
 }
 
 
-/**
- * xnec2_widget_queue_draw - schedule a widget redraw through the optimizer gate
- * @w:     widget to redraw
- * @force: TRUE for user-interaction draws that must always render;
- *         FALSE for intermediate frequency-sweep draws that are
- *         suppressed during optimizer runs to avoid screen flicker
- *
- * Centralizes redraw scheduling so SUPPRESS_INTERMEDIATE_REDRAWS applies
- * uniformly to all widgets.  All callers operating on structure_drawingarea
- * or rdpattern_drawingarea must use this function rather than calling
- * gtk_widget_queue_draw() directly: those globals are swapped to GL widgets
- * when OpenGL rendering is enabled, so a direct call on any structure or
- * rdpattern GL area bypasses this gate.
- *
- * GL areas render on request only, so this path resolves them to a render
- * request through render_queue_widget_redraw().  The opengl-engine/ view
- * layer requests its own frames directly through gl_view_queue_render()
- * for engine-internal reasons (MSAA rebuild, input event repaints, notice
- * fade) that are below this gate's abstraction level.
- */
-/* GSourceFunc wrapper for the widget-class redraw router.
- * Used by xnec2_widget_queue_draw via g_main_context_invoke_full
- * so that main-thread callers mark the widget dirty synchronously
- * while background-thread callers marshal at GDK_PRIORITY_REDRAW. */
-static gboolean queue_draw_cb(gpointer w)
-{
-	render_queue_widget_redraw(GTK_WIDGET(w));
-	return G_SOURCE_REMOVE;
-}
-
-void xnec2_widget_queue_draw(GtkWidget *w, gboolean force)
-{
-	if( !force &&
-	    isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS) &&
-	    isFlagSet(FREQ_LOOP_RUNNING) )
-	{
-		pr_debug("Optimizer loop incomplete, suppressing intermediate redraw.\n");
-		return;
-	}
-
-	g_main_context_invoke_full(NULL, GDK_PRIORITY_REDRAW,
-			queue_draw_cb, w, NULL);
-}
-/*------------------------------------------------------------------*/
 
 
 /*

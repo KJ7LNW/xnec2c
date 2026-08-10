@@ -590,7 +590,7 @@ Set_Gain_Style( int gs )
 Queue_Radiation_Redraw(gboolean force)
 {
   if( isFlagSet(DRAW_ENABLED) )
-    xnec2_widget_queue_draw( rdpattern_drawingarea, force );
+    canvas_queue_redraw( CANVAS_RDPATTERN, force );
 
 } /* Queue_Radiation_Redraw() */
 
@@ -780,7 +780,6 @@ Rdpattern_Window_Killed( void )
   if( isFlagSet(DRAW_ENABLED) )
   {
     ClearFlag( DRAW_FLAGS );
-    rdpattern_drawingarea = NULL;
     g_object_unref( rdpattern_window_builder );
     rdpattern_window_builder = NULL;
 
@@ -788,6 +787,7 @@ Rdpattern_Window_Killed( void )
           Builder_Get_Object( main_window_builder, "main_rdpattern")), FALSE );
   }
   rdpattern_window = NULL;
+  canvas_clear( CANVAS_RDPATTERN );
   kill_window = NULL;
 
 } /* Rdpattern_Window_Killed() */

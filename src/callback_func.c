@@ -26,7 +26,6 @@
 #include "chroma/chroma.h"
 #include "structure_ui.h"
 #include "mem/mem_track.h"
-#include "render/render_engine.h"
 
 #include "sy_expr.h"
 #include "optimizers/opt_session.h"
@@ -44,7 +43,7 @@ Save_Pixbuf( gpointer save_data )
   GdkPixbuf *pixbuf;
   GError *error = NULL;
 
-  pixbuf = render_capture_widget(data->drawingarea, data->width, data->height);
+  pixbuf = canvas_capture(data->canvas, data->width, data->height);
   if( pixbuf == NULL )
   {
     pr_err("failed to capture image for %s\n", data->filename);
@@ -510,9 +509,9 @@ Filechooser_Response(
       /* Save screen shots after redraw and when GTK is finished tasks */
       static save_data_t save_data;
 
-      xnec2_widget_queue_draw( saveas_drawingarea, TRUE );
+      canvas_queue_redraw( saveas_canvas, TRUE );
 
-      save_data.drawingarea = saveas_drawingarea;
+      save_data.canvas = saveas_canvas;
       save_data.width  = saveas_width;
       save_data.height = saveas_height;
       Strlcpy( save_data.filename, filename, sizeof(save_data.filename) );

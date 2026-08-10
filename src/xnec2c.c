@@ -22,7 +22,7 @@
 #include "xnec2c.h"
 #include "callbacks.h"
 #include "shared.h"
-#include "render/render_engine.h"
+#include "render/render_canvas.h"
 #include "measurements.h"
 #include "prerender/prerender_color.h"
 #include "prerender/prerender_farfield.h"
@@ -1608,17 +1608,20 @@ freq_loop_finalize( freq_loop_state_t *state )
 /*-----------------------------------------------------------------------*/
 
 /**
- * batch_force_render() - Render a batch drawing widget synchronously
- * @widget: active drawing widget
+ * batch_force_render() - Render a batch canvas synchronously
+ * @id: canvas to render
  * @width: drawing width in pixels
  * @height: drawing height in pixels
  *
  * Batch completion has no frame-clock iteration before teardown.  Drawing to
- * an image surface fills the active renderer's capture source synchronously.
+ * an image surface fills the bound engine's capture source synchronously.
+ * The frame request precedes the draw at capture size, so a GL area produces
+ * a frame from current geometry instead of presenting the one it holds.
  */
   static void
-batch_force_render(GtkWidget *widget, int width, int height)
+batch_force_render(canvas_id_t id, int width, int height)
 {
+  GtkWidget *widget = canvas_widget(id);
   GtkAllocation allocation = {0};
   cairo_surface_t *surface;
   cairo_t *context;
@@ -1626,6 +1629,8 @@ batch_force_render(GtkWidget *widget, int width, int height)
   allocation.width = width;
   allocation.height = height;
   gtk_widget_size_allocate(widget, &allocation);
+
+  canvas_invalidate(id);
 
   surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
   context = cairo_create(surface);
@@ -1671,7 +1676,7 @@ batch_apply_rdpattern_fit(void)
 {
   view_fit_t fit = {0};
 
-  if( !render_fit_view(rdpattern_view, &fit) )
+  if( !canvas_fit_view(rdpattern_view, &fit) )
     return;
 
   if( rdpattern_view->zoom_spin != NULL )
@@ -1709,7 +1714,7 @@ batch_prepare_rdpattern_window(int width, int height)
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item), TRUE);
   }
 
-  if( rdpattern_window == NULL || rdpattern_drawingarea == NULL
+  if( rdpattern_window == NULL || !canvas_bound(CANVAS_RDPATTERN)
       || rdpattern_view == NULL || rdpattern_window_builder == NULL )
     return FALSE;
 
@@ -1733,11 +1738,11 @@ batch_prepare_rdpattern_window(int width, int height)
   static GdkPixbuf *
 batch_capture_fitted_rdpattern_pane(int width, int height)
 {
-  batch_force_render(rdpattern_drawingarea, width, height);
+  batch_force_render(CANVAS_RDPATTERN, width, height);
   batch_apply_rdpattern_fit();
-  batch_force_render(rdpattern_drawingarea, width, height);
+  batch_force_render(CANVAS_RDPATTERN, width, height);
 
-  return render_capture_widget(rdpattern_drawingarea, width, height);
+  return canvas_capture(CANVAS_RDPATTERN, width, height);
 
 } /* batch_capture_fitted_rdpattern_pane() */
 
@@ -1814,7 +1819,7 @@ batch_prepare_rdpattern_capture(const char *filename, batch_capture_size_t *size
  * @size: capture image dimensions
  *
  * Runs on the GTK main thread before batch teardown.  The active renderer
- * owns capture through render_capture_widget().
+ * owns capture through canvas_capture().
  */
   static void
 batch_write_rdpat_png(rdpat_png_format_t format, const char *filename,
@@ -2304,7 +2309,7 @@ freq_loop_start_internal( void )
   floop_state = freq_loop_begin();
 
   /* Intermediate-step draws use force=FALSE and are gated by
-   * SUPPRESS_INTERMEDIATE_REDRAWS inside xnec2_widget_queue_draw. */
+   * SUPPRESS_INTERMEDIATE_REDRAWS inside redraw_schedule(). */
 
   if( !rc_config.disable_pthread_freqloop )
   {
