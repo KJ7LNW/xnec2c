@@ -1149,9 +1149,9 @@ typedef struct {
 	GtkWidget *window;
 
 	// render target, hit-test, font source
-	GtkWidget *drawingarea;
+	canvas_id_t canvas;
 
-	// base font source for text runs, 1:1 with drawingarea
+	// base font source for text runs, 1:1 with the canvas surface
 	PangoLayout *text_layout;
 
 	// this area's pixel size

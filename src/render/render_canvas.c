@@ -149,6 +149,46 @@ canvas_add_surface(canvas_id_t id, GtkWidget *widget,
 /*-----------------------------------------------------------------------*/
 
 /**
+ * canvas_create() - Register a surface under a handle from the pool
+ * @widget: surface taking part in layout and capture
+ * @engine: control-op vtable of the engine drawing into @widget
+ *
+ * Serves a window built at runtime, which registers its one surface and
+ * carries the handle for its lifetime.  canvas_clear() returns the handle to
+ * the pool.  Returns CANVAS_NONE when the pool is exhausted.
+ */
+  canvas_id_t
+canvas_create(GtkWidget *widget, const render_engine_ops_t *engine)
+{
+  canvas_id_t found = CANVAS_NONE;
+  canvas_id_t id = CANVAS_RESERVED_COUNT;
+
+  /* A pooled handle is free while it presents nothing: canvas_create()
+   * presents at once and canvas_clear() drops the surfaces together. */
+  while( found == CANVAS_NONE && id < CANVAS_COUNT )
+  {
+    if( !canvas_bound(id) )
+      found = id;
+
+    id++;
+  }
+
+  if( found == CANVAS_NONE )
+  {
+    BUG("canvas pool holds %d created canvases already\n", CANVAS_CREATED_MAX);
+    return CANVAS_NONE;
+  }
+
+  canvas_add_surface( found, widget, engine );
+  canvas_set_engine( found, engine );
+
+  return( found );
+
+} /* canvas_create() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
  * canvas_set_engine() - Present the surface of the named engine
  * @id:     canvas to switch
  * @engine: engine whose registered surface becomes the visible one

@@ -455,11 +455,11 @@ Plot_Graph_Smith(
   /* Pango layout size */
   static int layout_width, layout_height, width1, height;
 
-  pango_text_size(v->drawingarea, &layout_width, &layout_height, "000000");
+  pango_text_size(canvas_widget(v->canvas), &layout_width, &layout_height, "000000");
 
   /* Horizontal margin sized to the real-axis endpoint label plus a small gap
    * so the chart fills the width while ∞ Ω and 0 Ω stay off the window edge */
-  pango_text_size(v->drawingarea, &ohm_w, &ohm_h, _("∞ Ω"));
+  pango_text_size(canvas_widget(v->canvas), &ohm_w, &ohm_h, _("∞ Ω"));
 
   /* Available height for each graph.
    * (np=number of graphs to be plotted) */
@@ -473,7 +473,7 @@ Plot_Graph_Smith(
   plot_rect.height = plot_height - 8 - 2 * layout_height;
 
   /* Reserve vertical space for the chart title row */
-  pango_text_size(v->drawingarea, &width1, &height, _("Smith Chart") );
+  pango_text_size(canvas_widget(v->canvas), &width1, &height, _("Smith Chart") );
   plot_rect.y += height;
 
   x0 = plot_rect.x + plot_rect.width  / 2;
@@ -496,7 +496,7 @@ Plot_Graph_Smith(
   fp_style_t        style = { .theme = th, .width = w, .density = density };
 
   /* Draw smith background grid */
-  smith_draw_grid( fp, v->drawingarea, x0, y0, scale, &style );
+  smith_draw_grid( fp, canvas_widget(v->canvas), x0, y0, scale, &style );
 
   /* Corner overlays annotate the plot frame rather than the chart geometry,
    * so they hold base size regardless of how many graphs share the window;

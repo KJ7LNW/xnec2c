@@ -53,8 +53,8 @@ void redraw_schedule(GSourceFunc callback, gpointer data, gboolean force);
  *         FALSE for intermediate frequency-sweep draws that are
  *         suppressed during optimizer runs to avoid screen flicker
  *
- * Serves the colorcode legend strips, the frequency-plot popups and the
- * animate dialog.  A canvas surface takes canvas_queue_redraw() instead, so
+ * Serves the colorcode legend strips and the animate dialog.  A canvas
+ * surface takes canvas_queue_redraw() instead, so
  * that a GL area receives a render request rather than a draw of the frame
  * it already holds.
  */

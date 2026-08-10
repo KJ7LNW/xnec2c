@@ -25,6 +25,7 @@
 #include "i18n.h"
 #include "themes/theme.h"
 #include "color/color_palette.h"
+#include "cairo/cairo_fit.h"
 
 /*------------------------------------------------------------------*/
 
@@ -301,8 +302,7 @@ create_freqplots_popup_window( freqplots_view_t *view, const char *graph_name )
       GDK_BUTTON_PRESS_MASK | GDK_SCROLL_MASK | GDK_SMOOTH_SCROLL_MASK |
       GDK_BUTTON_MOTION_MASK );
 
-  view->window      = win;
-  view->drawingarea = da;
+  view->window = win;
   g_object_set_data( G_OBJECT(da), "fp_view", view );
 
   g_signal_connect( da, "draw",
@@ -319,6 +319,10 @@ create_freqplots_popup_window( freqplots_view_t *view, const char *graph_name )
       G_CALLBACK(on_freqplots_popup_destroy), view );
   g_signal_connect( win, "key-press-event",
       G_CALLBACK(on_freqplots_popup_key_press_event), NULL );
+
+  /* Present the surface once its handlers are attached, so the show and
+   * resize this triggers reach the draw and configure callbacks. */
+  view->canvas = canvas_create( da, &cairo_engine_ops );
 
   return( win );
 }

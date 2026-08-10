@@ -33,18 +33,27 @@
  * engine from a widget's GTK class or from the renderer setting.
  *
  * Two canvases carry a view_t scene; the frequency plots carry none and are
- * registered for capture and frame requests alone.
+ * registered for capture and frame requests alone.  Windows built at runtime
+ * take a handle from canvas_create() and carry it for their lifetime.
  */
 
-/* canvas_id_t - which drawing surface of the layout. */
+/* canvas_id_t - handle naming one drawing surface set.  The windows present
+ * from program start hold reserved handles; canvas_create() serves the rest. */
 typedef enum
 {
-  CANVAS_STRUCTURE = 0,
+  CANVAS_NONE = 0,                    /* a zeroed record names no canvas */
+  CANVAS_STRUCTURE,
   CANVAS_RDPATTERN,
   CANVAS_FREQPLOTS,
-  CANVAS_COUNT                        /* member count; canvas array bound */
+  CANVAS_RESERVED_COUNT               /* first handle canvas_create() takes */
 
 } canvas_id_t;
+
+/* Handles canvas_create() holds at once, one per runtime-built window. */
+#define CANVAS_CREATED_MAX 16
+
+/* Canvas array bound: the reserved handles and the created pool. */
+#define CANVAS_COUNT (CANVAS_RESERVED_COUNT + CANVAS_CREATED_MAX)
 
 /**
  * canvas_add_surface() - Register the surface an engine draws into
@@ -58,6 +67,19 @@ typedef enum
  */
 void canvas_add_surface(canvas_id_t id, GtkWidget *widget,
                         const render_engine_ops_t *engine);
+
+/**
+ * canvas_create() - Register a surface under a handle from the pool
+ * @widget: surface taking part in layout and capture
+ * @engine: control-op vtable of the engine drawing into @widget
+ *
+ * Called by a window built at runtime, which holds the returned handle for
+ * its lifetime and hands it back through canvas_clear() at teardown.  The
+ * surface is presented at once, so the window draws without a further call.
+ * Returns CANVAS_NONE when the pool is exhausted.
+ */
+canvas_id_t canvas_create(GtkWidget *widget,
+                          const render_engine_ops_t *engine);
 
 /**
  * canvas_set_engine() - Present the surface of the named engine

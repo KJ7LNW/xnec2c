@@ -90,8 +90,8 @@ redraw_schedule(GSourceFunc callback, gpointer data, gboolean force)
  * @w:     widget presented by no canvas
  * @force: bypass the intermediate-redraw suppression gate
  *
- * Serves the colorcode legend strips, the frequency-plot popups and the
- * animate dialog.  The opengl-engine/ view layer requests its own frames
+ * Serves the colorcode legend strips and the animate dialog.  The
+ * opengl-engine/ view layer requests its own frames
  * through gl_view_queue_render() for engine-internal reasons (MSAA rebuild,
  * input event repaints, notice fade) that sit below this gate's abstraction
  * level.

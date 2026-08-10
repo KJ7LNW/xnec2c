@@ -694,7 +694,7 @@ fp_port_apply( freqplots_view_t *v, int p )
   else
   {
     v->ex_port = p;
-    xnec2_widget_queue_draw( v->drawingarea, TRUE );
+    canvas_queue_redraw( v->canvas, TRUE );
   }
 }
 
@@ -1227,7 +1227,7 @@ _Plot_Frequency_Data( freqplots_view_t *v, cairo_t *cr )
    * deferred text, flushed together after all panels are drawn. */
   /* Bind this view's own base font; created once, freed at view teardown. */
   if( v->text_layout == NULL )
-    v->text_layout = gtk_widget_create_pango_layout(v->drawingarea, NULL);
+    v->text_layout = gtk_widget_create_pango_layout(canvas_widget(v->canvas), NULL);
   fp_render_reset( &fp, cr, v->text_layout );
 
   /* Build compact index list; out-of-order arrivals appear immediately.
@@ -1391,9 +1391,9 @@ void freqplots_redraw_if_showing(const fp_panel_t *panels)
 }
 
 /* Queue a redraw for the primary window and every open popup so one data or
- * parameter mutation refreshes all frequency-plot views.  The primary window
- * is a registered canvas; the popups no canvas presents take the plain widget
- * route.  Both keep the main-thread marshal of the redraw scheduler. */
+ * parameter mutation refreshes all frequency-plot views.  Every view names its
+ * own canvas, so each request takes the same suppression gate and main-thread
+ * marshal from the redraw scheduler. */
 void freqplots_redraw_all(gboolean force)
 {
 	int p;
@@ -1401,8 +1401,8 @@ void freqplots_redraw_all(gboolean force)
 	canvas_queue_redraw(CANVAS_FREQPLOTS, force);
 
 	for (p = 0; p < FP_PANEL_COUNT; p++)
-		if (fpv_popups[p] != NULL && fpv_popups[p]->drawingarea != NULL)
-			xnec2_widget_queue_draw(fpv_popups[p]->drawingarea, force);
+		if (fpv_popups[p] != NULL)
+			canvas_queue_redraw(fpv_popups[p]->canvas, force);
 }
 
 /* Open the popup for graph type @panel, or raise it if already open.  A new
@@ -1446,6 +1446,11 @@ void freqplots_close_panel(fp_panel_t panel)
 		return;
 
 	fpv_popups[panel] = NULL;
+
+	/* The window took its drawing area down with it, so the surface
+	 * registration goes before the view holding the handle. */
+	canvas_clear(v->canvas);
+
 	mem_array_free(&v->fr_plots);
 	mem_array_free(&v->readout_field);
 	mem_array_free(&v->readout_value);

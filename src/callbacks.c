@@ -715,7 +715,7 @@ on_main_freqplots_activate(
       GtkWidget *fp_da = Builder_Get_Object(
           freqplots_window_builder, "freqplots_drawingarea" );
       freqplots_main_view()->window      = freqplots_window;
-      freqplots_main_view()->drawingarea = fp_da;
+      freqplots_main_view()->canvas      = CANVAS_FREQPLOTS;
       canvas_add_surface( CANVAS_FREQPLOTS, fp_da, &cairo_engine_ops );
       canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine_ops );
       freqplots_main_view()->filter      = FP_PANEL_ALL;
