@@ -11166,6 +11166,17 @@ Save NEC2 Editor data first?
                         </child>
 
                         <child>
+                          <object class="GtkCheckMenuItem" id="main_common_pan">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Common _Pan</property>
+                            <property name="use-underline">True</property>
+                            <property name="tooltip-text">When enabled, arrow-key panning moves both the structure and radiation pattern windows together instead of only the active window</property>
+                            <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
+                          </object>
+                        </child>
+
+                        <child>
                           <object class="GtkSeparatorMenuItem">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
@@ -12426,6 +12437,17 @@ Save NEC2 Editor data first?
                             <property name="can-focus">False</property>
                             <property name="label" translatable="yes">Common _Projection</property>
                             <property name="use-underline">True</property>
+                            <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
+                          </object>
+                        </child>
+
+                        <child>
+                          <object class="GtkCheckMenuItem" id="rdpattern_common_pan">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Common _Pan</property>
+                            <property name="use-underline">True</property>
+                            <property name="tooltip-text">When enabled, arrow-key panning moves both the structure and radiation pattern windows together instead of only the active window</property>
                             <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
                           </object>
                         </child>

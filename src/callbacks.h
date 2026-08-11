@@ -32,6 +32,7 @@
 
 /* OpenGL common projection sync */
 void opengl_common_projection_sync(void);
+void Common_Pan_Sync(void);
 
 #ifndef HAVE_OPENGL
 /* Hide a widget by builder id; removes OpenGL-only toolbar buttons */

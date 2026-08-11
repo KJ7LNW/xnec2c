@@ -46,6 +46,14 @@ hook_common_projection(void)
 /*------------------------------------------------------------------------*/
 
 void
+hook_common_pan(void)
+{
+  Common_Pan_Sync();
+}
+
+/*------------------------------------------------------------------------*/
+
+void
 hook_flow_direction(void)
 {
   gboolean animatable;

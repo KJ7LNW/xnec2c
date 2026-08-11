@@ -193,6 +193,57 @@ on_main_window_delete_event(
 }
 
 
+/* Forward declaration: full definition sits near on_fit_view_clicked()
+ * later in this file, shared by that mouse handler and the Home-key
+ * handling in on_main_window_key_press_event()/
+ * on_rdpattern_window_key_press_event() below. */
+static void Fit_View( view_t *target, GCallback zoom_handler );
+
+/* Pan_View_On_Arrow_Key()
+ *
+ * Shared arrow-key panning logic for the structure and radiation pattern
+ * windows. By default each pans ONLY its own view (the window the key
+ * was pressed in) -- users may want to frame each view differently. If
+ * rc_config.common_pan is enabled (View menu: "Common Pan", off by
+ * default, mirroring the existing "Common Projection" toggle), the same
+ * delta is also applied to the OTHER window's view, keeping both in
+ * sync. The two window key-press handlers share this one implementation
+ * rather than duplicating the pan-delta logic. Hold Shift for a 4x
+ * larger step. Returns TRUE if the key was an arrow key and panning was
+ * applied, FALSE otherwise so the caller can fall through to its own
+ * unhandled-key behavior.
+ */
+  static gboolean
+Pan_View_On_Arrow_Key( view_t *v, GdkEventKey *event )
+{
+  const float PAN_STEP_PX      = 15.0f;
+  const float PAN_STEP_PX_FAST = 60.0f;
+  float step = (event->state & GDK_SHIFT_MASK) ? PAN_STEP_PX_FAST : PAN_STEP_PX;
+  float dx = 0.0f, dy = 0.0f;
+
+  switch( event->keyval )
+  {
+    case GDK_KEY_Left:  dx = -step; break;
+    case GDK_KEY_Right: dx =  step; break;
+    case GDK_KEY_Up:    dy = -step; break;
+    case GDK_KEY_Down:  dy =  step; break;
+    default: return( FALSE );
+  }
+
+  if( v != NULL )
+    view_apply_pan_delta( v, dx, dy );
+
+  if( rc_config.common_pan )
+  {
+    view_t *other = (v == structure_view) ? rdpattern_view : structure_view;
+    if( other != NULL )
+      view_apply_pan_delta( other, dx, dy );
+  }
+
+  return( TRUE );
+}
+
+
   gboolean
 on_main_window_key_press_event(
     GtkWidget    *widget,
@@ -220,6 +271,16 @@ on_main_window_key_press_event(
         return( TRUE );
     }
   }
+
+  if( event->keyval == GDK_KEY_Home )
+  {
+    Fit_View( structure_view, G_CALLBACK(on_main_zoom_spinbutton_value_changed) );
+    return( TRUE );
+  }
+
+  if( Pan_View_On_Arrow_Key( structure_view, event ) )
+    return( TRUE );
+
   return( FALSE );
 }
 
@@ -721,6 +782,36 @@ opengl_common_projection_sync(void)
     view_share_master( rdpattern_view, structure_view );
   else
     view_unshare_master( rdpattern_view );
+}
+
+/* Common_Pan_Sync()
+ *
+ * Public entry point (mirrors opengl_common_projection_sync() above,
+ * called the same way from main.c on new file load) applying the
+ * persisted common-pan preference. Unlike projection, pan isn't a
+ * live master/follower link -- Pan_View_On_Arrow_Key() already keeps
+ * both views moving together going forward once enabled by mirroring
+ * every arrow-key delta to both. What's still needed is the one-time
+ * "snap to match" the moment the setting turns on (or a new file
+ * loads with it already on), same as toggling Common Projection
+ * immediately re-aligns the rdpattern view rather than waiting for
+ * the next rotation. Only the rdpattern view is moved to match
+ * structure_view; the reverse direction has no natural default since
+ * either view could be "correct" -- structure_view is treated as the
+ * reference the same way it's the master for projection sharing.
+ */
+  void
+Common_Pan_Sync(void)
+{
+  if( !rc_config.common_pan )
+    return;
+
+  if( rdpattern_view == NULL || structure_view == NULL )
+    return;
+
+  rdpattern_view->pan_offset[0] = structure_view->pan_offset[0];
+  rdpattern_view->pan_offset[1] = structure_view->pan_offset[1];
+  view_notify_change( rdpattern_view );
 }
 
 /*-----------------------------------------------------------------------*/
@@ -2062,6 +2153,16 @@ on_rdpattern_window_key_press_event(
         return( TRUE );
     }
   }
+
+  if( event->keyval == GDK_KEY_Home )
+  {
+    Fit_View( rdpattern_view, G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed) );
+    return( TRUE );
+  }
+
+  if( Pan_View_On_Arrow_Key( rdpattern_view, event ) )
+    return( TRUE );
+
   return( FALSE );
 }
 
@@ -5490,6 +5591,35 @@ on_zoom_reset_clicked(
 
 
 /**
+ * Fit_View() - Fit a view's active rendered content, syncing its zoom spinbutton
+ * @target:       the view_t to fit (structure_view or rdpattern_view)
+ * @zoom_handler: that view's zoom spinbutton value-changed callback, blocked
+ *                during the fit so it doesn't re-trigger on the resulting
+ *                zoom change
+ *
+ * Shared by on_fit_view_clicked() (mouse) and the Home-key handlers in
+ * on_main_window_key_press_event()/on_rdpattern_window_key_press_event(),
+ * so both input paths go through one implementation.
+ */
+  static void
+Fit_View( view_t *target, GCallback zoom_handler )
+{
+  view_fit_t fit = {0};
+
+  if( target == NULL || !render_fit_view(target, &fit) )
+    return;
+
+  if( target->zoom_spin != NULL )
+    SIGNAL_BLOCK(target->zoom_spin, zoom_handler);
+
+  view_apply_fit(target, &fit);
+
+  if( target->zoom_spin != NULL )
+    SIGNAL_UNBLOCK(target->zoom_spin, zoom_handler);
+}
+
+
+/**
  * on_fit_view_clicked() - Fit the clicked window's active rendered content
  * @button:     fit-view button identifying the target window
  * @_user_data: unused Glade callback data
@@ -5501,7 +5631,6 @@ on_fit_view_clicked(
 {
   view_t *target = NULL;
   GCallback zoom_handler = NULL;
-  view_fit_t fit = {0};
 
   (void)_user_data;
 
@@ -5516,16 +5645,7 @@ on_fit_view_clicked(
     zoom_handler = G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed);
   }
 
-  if( target == NULL || !render_fit_view(target, &fit) )
-    return;
-
-  if( target->zoom_spin != NULL )
-    SIGNAL_BLOCK(target->zoom_spin, zoom_handler);
-
-  view_apply_fit(target, &fit);
-
-  if( target->zoom_spin != NULL )
-    SIGNAL_UNBLOCK(target->zoom_spin, zoom_handler);
+  Fit_View( target, zoom_handler );
 }
 
 
