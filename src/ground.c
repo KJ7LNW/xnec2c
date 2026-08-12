@@ -80,7 +80,7 @@ rom2( double a, double b,
     complex double *sum, double dmin )
 {
   int i, ns, nt, flag = TRUE;
-  int nts = 4, nx = 1, n = 9;
+  int nts = 4, nx = 1, n = 9, nma = 65536;
   double ze, ep, zend, dz=0.0, dzot=0.0, tmag1, tmag2, tr, ti;
   double z, s; /***also global***/
   double rx = 1.0e-4;
@@ -110,7 +110,7 @@ rom2( double a, double b,
     Stop( ERR_STOP, _("b less than a") );
   }
 
-  ep= s/(1.0e4* data.npm);
+  ep= s/(1.0e4* nma);
   zend= ze- ep;
 
   for( i = 0; i < n; i++ )
@@ -215,7 +215,7 @@ rom2( double a, double b,
     if( tr > rx)
     {
       nt=0;
-      if( ns < data.npm )
+      if( ns < nma )
       {
         ns= ns*2;
         dz= s/ ns;
@@ -230,7 +230,7 @@ rom2( double a, double b,
         flag=FALSE;
         continue;
 
-      } /* if( ns < npm) */
+      } /* if( ns < nma) */
 
       pr_err("step size limited at z = %12.5E\n", z);
 
