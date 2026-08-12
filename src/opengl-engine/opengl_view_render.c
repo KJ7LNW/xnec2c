@@ -22,11 +22,11 @@
 #include "opengl_view_msaa.h"
 #include "opengl_view_notice.h"
 #include "opengl_gradient_overlay.h"
+#include "opengl_view_fit.h"
+#include "../render/render_dispatch.h"
 #include "../shared.h"
 
 #ifdef HAVE_OPENGL
-
-/*-----------------------------------------------------------------------*/
 
 /** gl_view_setup_attribs() - Configure vertex attribute pointers in VAO
  */
@@ -67,6 +67,113 @@ gl_view_setup_attribs(
 
 /*-----------------------------------------------------------------------*/
 
+/** gl_view_notice_once() - Present a capability notice the first time offered
+ * @area:   GL area the notice appears on
+ * @notice: text advertising the capability, or NULL when none is offered
+ * @shown:  guard the caller holds for the session
+ */
+  static void
+gl_view_notice_once(GtkWidget *area, const char *notice, gboolean *shown)
+{
+  if( *shown || notice == NULL )
+    return;
+
+  gl_view_show_notice(area, notice, GL_VIEW_NOTICE_HOLD_MS,
+      GL_NOTICE_BOTTOM_LEFT);
+
+  *shown = TRUE;
+
+} /* gl_view_notice_once() */
+
+/*-----------------------------------------------------------------------*/
+
+/** gl_view_show_ctrl_notice() - Advertise the ctrl+scroll capability
+ * @area:  GL area the notice appears on
+ * @state: view state naming the input operations of the presenting domain
+ *
+ * One guard serves every view, so the notice appears on the first frame of
+ * the session offering the capability.  The capability stands on the view
+ * itself, so this precedes the frame body.
+ */
+  static void
+gl_view_show_ctrl_notice(GtkWidget *area, const gl_view_state_t *state)
+{
+  static gboolean ctrl_shown = FALSE;
+  const gl_view_input_ops_t *input = state->config->input;
+
+  if( input == NULL )
+    return;
+
+  gl_view_notice_once(area, input->ctrl_scroll_notice, &ctrl_shown);
+
+} /* gl_view_show_ctrl_notice() */
+
+/*-----------------------------------------------------------------------*/
+
+/** gl_view_show_scale_notice() - Advertise the shift+scroll capability
+ * @area:  GL area the notice appears on
+ * @state: view state holding the content this frame deposited
+ *
+ * Structure scaling acts on the overlay geometry, so this follows the frame
+ * body and presents only while the frame carries that geometry.
+ */
+  static void
+gl_view_show_scale_notice(GtkWidget *area, const gl_view_state_t *state)
+{
+  static gboolean scale_shown = FALSE;
+  const gl_view_input_ops_t *input = state->config->input;
+  const gl_view_content_t *overlay = state->overlay_content;
+
+  if( input == NULL || overlay == NULL || overlay->batch_count <= 0 )
+    return;
+
+  gl_view_notice_once(area, input->shift_scroll_notice, &scale_shown);
+
+} /* gl_view_show_scale_notice() */
+
+/*-----------------------------------------------------------------------*/
+
+/** gl_view_gradient_overlay_create() - Build the gradient legend HUD
+ * @state: view state receiving the overlay
+ *
+ * Deferred to the first frame carrying legend content, where the GL context
+ * of the presenting area is current.
+ */
+  static void
+gl_view_gradient_overlay_create(gl_view_state_t *state)
+{
+  state->overlay = gradient_overlay_new();
+
+  if( state->overlay == NULL )
+    return;
+
+  gradient_overlay_set_viewport(state->overlay,
+      state->view->width, state->view->height);
+
+} /* gl_view_gradient_overlay_create() */
+
+/*-----------------------------------------------------------------------*/
+
+/** gl_view_frame_content_reset() - Clear the content each frame rebuilds
+ * @state: view state whose frame content resets
+ *
+ * The parent render protocol deposits the domain content of every frame,
+ * including the colors its leaves paint with.
+ */
+  static void
+gl_view_frame_content_reset(gl_view_state_t *state)
+{
+  state->content.axes = (gl_axes_content_t){0};
+  state->content.status_message = NULL;
+  state->content.gradient = (gradient_result_t){NULL, 0};
+
+  if( state->overlay_content != NULL )
+    state->overlay_content->batch_count = 0;
+
+} /* gl_view_frame_content_reset() */
+
+/*-----------------------------------------------------------------------*/
+
 /** on_render() - GtkGLArea render signal handler
  * @area: GL area widget being rendered
  * @context: GL context
@@ -89,9 +196,14 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
   if( !state || !state->initialized )
     return( FALSE );
 
-  /* Data acquisition preamble: scene writes directly into state->content */
-  if( !state->scene->generate(state) )
+  gl_view_frame_content_reset(state);
+
+  gl_view_show_ctrl_notice(GTK_WIDGET(area), state);
+
+  if( !render((void *)state, gl_engine.render, state->view) )
     return( FALSE );
+
+  gl_view_show_scale_notice(GTK_WIDGET(area), state);
 
   camera_distance = state->content.r_max * GL_VIEW_BASE_DISTANCE_FACTOR /
                     state->view->zoom;
@@ -300,17 +412,19 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
     }
   }
 
-  /* Post-3D callbacks */
-  if( state->scene->post_render )
-    state->scene->post_render();
-
   /* 2D HUD — gradient legend overlay (set by render() via set_gradient) */
-  if( state->overlay && state->content.gradient.surface != NULL )
+  if( state->content.gradient.surface != NULL )
   {
-    gradient_overlay_upload_surface(state->overlay,
-        state->content.gradient.surface,
-        state->content.gradient.version);
-    gradient_overlay_render(state->overlay);
+    if( state->overlay == NULL )
+      gl_view_gradient_overlay_create(state);
+
+    if( state->overlay != NULL )
+    {
+      gradient_overlay_upload_surface(state->overlay,
+          state->content.gradient.surface,
+          state->content.gradient.version);
+      gradient_overlay_render(state->overlay);
+    }
   }
 
   /* Surface dimensions for 2D notice overlay */

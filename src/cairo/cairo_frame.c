@@ -23,6 +23,7 @@
 
 #include "cairo_frame.h"
 #include "cairo_draw.h"
+#include "cairo_fit.h"
 #include "cairo_scenebuffer.h"
 #include "../shared.h"
 #include "../render/render_dispatch.h"
@@ -86,26 +87,27 @@ const render_ops_t cairo_ops =
 {
   .draw_farfield        = cairo_draw_farfield,
   .draw_nearfield       = cairo_draw_nearfield,
-  .draw_structure       = cairo_draw_structure,
-  .draw_axes            = cairo_draw_axes,
+  .draw_structure         = cairo_draw_structure,
+  .draw_structure_overlay = cairo_draw_structure,
+  .draw_axes              = cairo_draw_axes,
   .init_empty           = NULL,
   .set_status           = cairo_set_status,
   .set_gradient         = cairo_set_gradient,
+  .set_colors           = cairo_set_colors,
 };
 
 /*-----------------------------------------------------------------------*/
 
 /**
- * render_cairo() - Cairo draw path shared by both glade draw handlers
+ * render_cairo() - Produce one Cairo frame
  * @ctx: caller-built rendering context with frame resources and resolved colors
- * @ops: Cairo backend vtable resolved by the calling glade handler
  *
- * Applies Cairo settings from rc_config, calls the presentation-layer
- * render() which deposits segments into the scenebuffer, flushes with
- * depth sorting and color batching, then paints deferred axis labels.
+ * Applies Cairo settings from rc_config, calls the presentation layer through
+ * the Cairo engine's domain protocol, flushes the scenebuffer, and paints
+ * deferred axis labels.
  */
   gboolean
-render_cairo(cairo_render_ctx_t *ctx, const render_ops_t *ops)
+render_cairo(cairo_render_ctx_t *ctx)
 {
   cairo_t *cr = ctx->cr;
   view_t  *v  = ctx->view;
@@ -116,11 +118,6 @@ render_cairo(cairo_render_ctx_t *ctx, const render_ops_t *ops)
   cairo_set_antialias(cr, rc_config.cairo_antialias);
   cairo_set_line_cap(cr, rc_config.cairo_line_cap);
 
-  /* Clear drawing surface */
-  cairo_set_source_rgb_f(cr, ctx->background);
-  cairo_rectangle(cr, 0.0, 0.0, (double)v->width, (double)v->height);
-  cairo_fill(cr);
-
   /* Reset scenebuffer; leaf renderer callbacks will deposit segments */
   scenebuffer_reset(ctx->sb);
 
@@ -130,10 +127,15 @@ render_cairo(cairo_render_ctx_t *ctx, const render_ops_t *ops)
   stats = &_stats_buf;
   gint64 t_frame_start   = g_get_monotonic_time();
 #endif
-  render((void *)ctx, ops, v);
+  render((void *)ctx, cairo_engine.render, v);
 #if CAIRO_FLUSH_STATS
   gint64 t_deposit_end   = g_get_monotonic_time();
 #endif
+
+  /* Clear the surface after render() deposits the active theme colors. */
+  cairo_set_source_rgb_f(cr, ctx->background);
+  cairo_rectangle(cr, 0.0, 0.0, (double)v->width, (double)v->height);
+  cairo_fill(cr);
 
   /* Flush all accumulated segments in depth-sorted batches */
   scenebuffer_flush(ctx->sb, cr, stats);
@@ -144,8 +146,7 @@ render_cairo(cairo_render_ctx_t *ctx, const render_ops_t *ops)
   /* Draw deferred axis labels on top of flushed segments */
   if( ctx->n_axis_labels > 0 )
   {
-    GtkWidget *da = canvas_widget( canvas_of_view(v->type) );
-    PangoLayout *layout = gtk_widget_create_pango_layout(da, NULL);
+    PangoLayout *layout = canvas_pango_layout( canvas_of_view(v->type), NULL );
     int k;
 
     cairo_set_source_rgb_f(cr, ctx->view_axis_label);

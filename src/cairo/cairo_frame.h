@@ -33,6 +33,6 @@ cairo_scenebuffer_t *cairo_frame_get_scenebuffer(view_type_t type);
 void cairo_frame_destroy(void);
 
 /** render_cairo() - Per-frame Cairo draw path; clear, deposit, flush, overlay */
-gboolean render_cairo(cairo_render_ctx_t *ctx, const render_ops_t *ops);
+gboolean render_cairo(cairo_render_ctx_t *ctx);
 
 #endif /* CAIRO_FRAME_H */

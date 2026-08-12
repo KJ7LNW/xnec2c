@@ -1621,20 +1621,13 @@ freq_loop_finalize( freq_loop_state_t *state )
   static void
 batch_force_render(canvas_id_t id, int width, int height)
 {
-  GtkWidget *widget = canvas_widget(id);
-  GtkAllocation allocation = {0};
   cairo_surface_t *surface;
   cairo_t *context;
 
-  allocation.width = width;
-  allocation.height = height;
-  gtk_widget_size_allocate(widget, &allocation);
-
-  canvas_invalidate(id);
-
   surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
   context = cairo_create(surface);
-  gtk_widget_draw(widget, context);
+  if( !canvas_draw_sync(id, width, height, context) )
+    pr_err("batch canvas %d drew no frame at %dx%d\n", (int)id, width, height);
   cairo_destroy(context);
   cairo_surface_destroy(surface);
 

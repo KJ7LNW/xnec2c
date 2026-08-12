@@ -55,6 +55,7 @@ void opengl_structure_invalidate(void);
 
 #ifdef HAVE_OPENGL
 #include "../opengl-engine/opengl_renderer.h"
+#include "../opengl-engine/opengl_view.h"
 #include "../view/view_core.h"
 
 /* Extended vertex with UV and flow data for chevron shader.
@@ -87,8 +88,10 @@ extern const gl_vertex_attrib_t opengl_chevron_attribs[7];
 
 GtkWidget* opengl_structure_get_widget(void);
 
-/* GL structure leaf renderer; exported for unified gl_ops vtable */
+/* GL structure leaf renderers; exported for unified gl_ops vtable */
 gboolean gl_draw_structure(void *ctx, float extent, const struct_draw_params_t *params);
+gboolean gl_draw_structure_overlay(void *ctx, float extent,
+    const struct_draw_params_t *params);
 
 /* Unified GL backend vtable (defined in opengl_ops.c) */
 extern const render_ops_t gl_ops;
@@ -98,13 +101,12 @@ double opengl_structure_get_radius_scale(void);
 void opengl_structure_set_radius_scale(double scale);
 
 /* Ctrl+scroll handler for adjusting cylinder radius scale.
- * Usable by any scene provider that renders structure geometry. */
+ * Usable by any view that presents structure geometry. */
 gboolean opengl_structure_on_ctrl_scroll(
-    GtkWidget *widget, GdkEventScroll *event, gpointer view_state);
+    GtkWidget *widget, GdkEventScroll *event, gl_view_state_t *state);
 
-/* Show ctrl+scroll notice once per session.
- * Called from scene_generate; shared guard across all views. */
-void opengl_structure_show_ctrl_notice(GtkWidget *widget);
+/* Notice advertising the ctrl+scroll radius capability */
+extern const char opengl_structure_ctrl_scroll_notice[];
 
 /* Update shared geometry buffer using dispatch-resolved draw parameters. */
 void opengl_structure_update_shared_geometry_with_params(const struct_draw_params_t *params);

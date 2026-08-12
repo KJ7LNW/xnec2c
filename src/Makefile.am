@@ -116,6 +116,8 @@ xnec2c_SOURCES = \
     render/render_message.c         render/render_message.h \
     render/render_fit.c             render/render_fit.h \
     render/render_canvas.c          render/render_canvas.h \
+    render/render_canvas_lifetime.c render/render_canvas_lifetime.h \
+    render/render_canvas_surface.c  render/render_canvas_surface.h \
     render/render_redraw.c          render/render_redraw.h \
     render/render_engine.h \
     render/gradient_cache.c         render/gradient_cache.h \

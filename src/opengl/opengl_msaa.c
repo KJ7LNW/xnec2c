@@ -30,17 +30,15 @@
 /*-----------------------------------------------------------------------*/
 
 /** msaa_update_view() - Recreate MSAA framebuffer resources for one GL view and queue redraw
- * @get_widget: function returning the GtkWidget for the target view
+ * @w: widget of the target view, or NULL when that view has none
  * @samples: new MSAA sample count
  */
   static void
-msaa_update_view(GtkWidget *(*get_widget)(void), int samples)
+msaa_update_view(GtkWidget *w, int samples)
 {
-  GtkWidget *w;
   GtkWidget *gl_area;
   gl_view_state_t *state;
 
-  w = get_widget();
   if( !w )
     return;
 
@@ -75,8 +73,8 @@ Set_MSAA_Samples(int samples)
 {
   rc_config.opengl_msaa_samples = samples;
 
-  msaa_update_view(opengl_structure_get_widget, samples);
-  msaa_update_view(opengl_rdpattern_get_widget, samples);
+  msaa_update_view(opengl_structure_get_widget(), samples);
+  msaa_update_view(opengl_rdpattern_get_widget(), samples);
 
 } /* Set_MSAA_Samples() */
 

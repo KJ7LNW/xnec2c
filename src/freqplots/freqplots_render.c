@@ -290,15 +290,15 @@ fp_render_flush(fp_render_t *fp)
 /*-----------------------------------------------------------------------*/
 
 /**
- * pango_text_size() - Measure a string in the rendering widget's font
- * @widget: drawing area whose font supplies the text metric source
+ * pango_text_size() - Measure a string in the rendering canvas font
+ * @canvas: canvas whose presented surface supplies the text metric source
  */
   void
-pango_text_size(GtkWidget *widget, int *width, int *height, char *s)
+pango_text_size(canvas_id_t canvas, int *width, int *height, char *s)
 {
   PangoLayout *layout;
 
-  layout = gtk_widget_create_pango_layout(widget, s);
+  layout = canvas_pango_layout(canvas, s);
   pango_layout_get_pixel_size(layout, width, height);
   g_object_unref(layout);
 }

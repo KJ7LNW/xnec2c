@@ -46,7 +46,7 @@ typedef struct
   /* Caller-provided frame resources */
   cairo_t                *cr;
 
-  /* Carries colors resolved by the frame constructor. */
+  /* Frame colors deposited by render() through set_colors. */
   rgb_f_t                 background;
   rgb_f_t                 view_axis;
   rgb_f_t                 view_axis_label;
@@ -98,5 +98,6 @@ gboolean cairo_draw_nearfield(void *ctx,
     double dr, double r_max);
 void     cairo_set_status(void *ctx, const char *msg);
 void     cairo_set_gradient(void *ctx, const gradient_result_t *result);
+void     cairo_set_colors(void *ctx, const render_frame_colors_t *colors);
 
 #endif

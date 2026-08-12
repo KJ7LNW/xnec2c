@@ -25,6 +25,9 @@
 #ifdef HAVE_OPENGL
 #include "opengl_view.h"
 
+/* Milliseconds a transient notice holds before it fades */
+#define GL_VIEW_NOTICE_HOLD_MS 2500
+
 /* gl_view_show_notice()
  *
  * Display a notice message at the given position.
@@ -42,7 +45,7 @@ void gl_view_hide_notice(GtkWidget *widget);
 
 /* gl_view_sync_status_notice()
  *
- * Synchronize notice state with the scene provider's status_message.
+ * Synchronize notice state with the frame's status_message.
  * Persistent notices track status_message; transient notices are not
  * interrupted.  Called from the render loop before gl_view_render_notice.
  */

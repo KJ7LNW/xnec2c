@@ -28,13 +28,14 @@
  * A canvas is a place in the layout that shows rendered frames.  Every engine
  * able to draw there registers the surface it draws into, and selecting an
  * engine presents that surface while hiding the others, so a renderer swap
- * names an engine and never a widget.  Consumers ask the canvas for its
- * surface, its fit, its capture and its frames; none infers the producing
+ * names an engine and never a widget.  Consumers ask the canvas for its fit,
+ * its capture, its text layout and its frames; none infers the producing
  * engine from a widget's GTK class or from the renderer setting.
  *
  * Two canvases carry a view_t scene; the frequency plots carry none and are
- * registered for capture and frame requests alone.  Windows built at runtime
- * take a handle from canvas_create() and carry it for their lifetime.
+ * registered for text layout, capture and frame requests alone.  Windows
+ * built at runtime take a handle from canvas_create() and carry it for their
+ * lifetime.
  */
 
 /* canvas_id_t - handle naming one drawing surface set.  The windows present
@@ -59,19 +60,19 @@ typedef enum
  * canvas_add_surface() - Register the surface an engine draws into
  * @id:     canvas the surface occupies
  * @widget: surface taking part in layout and capture
- * @engine: control-op vtable of the engine drawing into @widget
+ * @engine: engine drawing into @widget
  *
  * Called by the code creating the widget, once per engine able to back the
  * canvas.  Registration alone presents nothing; canvas_set_engine() selects
  * which registered surface the canvas shows.
  */
 void canvas_add_surface(canvas_id_t id, GtkWidget *widget,
-                        const render_engine_ops_t *engine);
+                        const render_engine_t *engine);
 
 /**
  * canvas_create() - Register a surface under a handle from the pool
  * @widget: surface taking part in layout and capture
- * @engine: control-op vtable of the engine drawing into @widget
+ * @engine: engine drawing into @widget
  *
  * Called by a window built at runtime, which holds the returned handle for
  * its lifetime and hands it back through canvas_clear() at teardown.  The
@@ -79,7 +80,7 @@ void canvas_add_surface(canvas_id_t id, GtkWidget *widget,
  * Returns CANVAS_NONE when the pool is exhausted.
  */
 canvas_id_t canvas_create(GtkWidget *widget,
-                          const render_engine_ops_t *engine);
+                          const render_engine_t *engine);
 
 /**
  * canvas_set_engine() - Present the surface of the named engine
@@ -91,7 +92,7 @@ canvas_id_t canvas_create(GtkWidget *widget,
  * when the engine registered no surface for this canvas, which is the state
  * of a canvas whose window is closed.
  */
-gboolean canvas_set_engine(canvas_id_t id, const render_engine_ops_t *engine);
+gboolean canvas_set_engine(canvas_id_t id, const render_engine_t *engine);
 
 /**
  * canvas_clear() - Drop every surface registered for a canvas
@@ -119,14 +120,24 @@ gboolean canvas_bound(canvas_id_t id);
 canvas_id_t canvas_of_view(view_type_t type);
 
 /**
- * canvas_widget() - Return the surface a canvas presents
- * @id: canvas to resolve
+ * canvas_pango_layout() - Lay out text in the font of a canvas
+ * @id: canvas whose presented surface supplies the font and resolution
+ * @text: string to lay out, or NULL for an empty layout the caller fills
  *
- * The canvas must be bound; an unbound canvas is a producer error and is
- * reported as a bug.  Sites reached while a window may be closed test
- * canvas_bound() first.
+ * Serves drawing code measuring or painting text on a canvas, so a producer
+ * of text names its canvas instead of resolving a surface.  Returns a layout
+ * the caller owns and releases with g_object_unref().
  */
-GtkWidget *canvas_widget(canvas_id_t id);
+PangoLayout *canvas_pango_layout(canvas_id_t id, const char *text);
+
+/**
+ * canvas_sync_viewport() - Record the presented surface allocation in a view
+ * @id:   canvas presenting the view
+ * @view: renderer-neutral view state receiving the allocation
+ *
+ * Returns FALSE while the canvas is unbound or when @view is NULL.
+ */
+gboolean canvas_sync_viewport(canvas_id_t id, view_t *view);
 
 /**
  * canvas_invalidate() - Request a frame from a canvas immediately
@@ -137,6 +148,18 @@ GtkWidget *canvas_widget(canvas_id_t id);
  * while the canvas is unbound.
  */
 void canvas_invalidate(canvas_id_t id);
+
+/**
+ * canvas_draw_sync() - Allocate, invalidate, and draw a canvas synchronously
+ * @id: canvas to draw
+ * @width: requested allocation width
+ * @height: requested allocation height
+ * @cr: destination Cairo context
+ *
+ * Runs on the GTK main thread and returns FALSE while the canvas is unbound
+ * or the requested draw inputs are invalid.
+ */
+gboolean canvas_draw_sync(canvas_id_t id, int width, int height, cairo_t *cr);
 
 /**
  * canvas_queue_redraw() - Schedule a canvas frame through the optimizer gate

@@ -98,12 +98,10 @@ GtkWidget
 /* Canvas whose surface the pending save-as image captures */
 canvas_id_t saveas_canvas = CANVAS_STRUCTURE;
 
-/* Sizes of the structure and radiation pattern canvases */
+/* Size of the structure canvas */
 int
   structure_width,
-  structure_height,
-  rdpattern_width,
-  rdpattern_height;
+  structure_height;
 
 GtkBuilder
   *main_window_builder       = NULL,

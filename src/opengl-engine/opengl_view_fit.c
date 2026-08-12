@@ -33,6 +33,7 @@
 #ifdef HAVE_OPENGL
 
 #include "opengl_view.h"
+#include "../opengl/opengl_structure.h"
 #include "../render/render_fit.h"
 #include "../view/view_core.h"
 #include "../shared.h"
@@ -41,27 +42,17 @@
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_fit_state_for_view() - Resolve the GL engine state driving a view */
-  static gl_view_state_t *
-gl_fit_state_for_view(view_t *view)
-{
-  GtkWidget *widget = canvas_widget( canvas_of_view(view->type) );
-
-  if( widget == NULL )
-    return( NULL );
-
-  return( gl_view_get_state(widget) );
-
-} /* gl_fit_state_for_view() */
-
-/*-----------------------------------------------------------------------*/
-
 /** gl_view_fit_view() - Fit a GL view to its drawn geometry
+ * @surface: presented surface carrying the GL engine state
  * @view: structure or radiation-pattern view
  * @fit:  receives fitted zoom and screen-space pan
+ *
+ * Folds the GL content batches this view drew (radius scaling and model_scale
+ * baked in) into the generic reducer, then inverts the framing into the view's
+ * zoom and pan.  Returns FALSE when no geometry is present.
  */
-  gboolean
-gl_view_fit_view(view_t *view, view_fit_t *fit)
+  static gboolean
+gl_view_fit_view(GtkWidget *surface, view_t *view, view_fit_t *fit)
 {
   gl_view_state_t *state;
   render_fit_acc_t acc = {0};
@@ -77,7 +68,7 @@ gl_view_fit_view(view_t *view, view_fit_t *fit)
   if( view == NULL || fit == NULL )
     return FALSE;
 
-  state = gl_fit_state_for_view(view);
+  state = gl_view_get_state(surface);
   if( state == NULL || view->width <= 2 * RENDER_FIT_BORDER_PX
       || view->height <= 2 * RENDER_FIT_BORDER_PX
       || !fl_fgt(state->aspect, 0.0f)
@@ -210,9 +201,10 @@ gl_view_fit_view(view_t *view, view_fit_t *fit)
 
 /*-----------------------------------------------------------------------*/
 
-/* GL engine control-op vtable. */
-const render_engine_ops_t gl_engine_ops =
+/* Compose the OpenGL domain protocol and active-surface operations. */
+const render_engine_t gl_engine =
 {
+  .render = &gl_ops,
   .fit_view = gl_view_fit_view,
   .capture = gl_view_capture_pixbuf,
   .queue_redraw = gl_view_queue_render,

@@ -405,3 +405,20 @@ cairo_set_gradient(void *ctx, const gradient_result_t *result)
 }
 
 /*-----------------------------------------------------------------------*/
+
+/**
+ * cairo_set_colors() - Store the frame colors render() resolved
+ * @ctx:    cairo_render_ctx_t*
+ * @colors: frame colors of the active theme
+ */
+  void
+cairo_set_colors(void *ctx, const render_frame_colors_t *colors)
+{
+  cairo_render_ctx_t *cc = (cairo_render_ctx_t *)ctx;
+
+  cc->background = colors->background;
+  cc->view_axis = colors->view_axis;
+  cc->view_axis_label = colors->view_axis_label;
+}
+
+/*-----------------------------------------------------------------------*/

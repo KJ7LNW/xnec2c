@@ -25,19 +25,10 @@
 #ifdef HAVE_OPENGL
 #include "../render/render_engine.h"
 
-/**
- * gl_view_fit_view() - Fit a GL view to its drawn geometry
- * @view: structure or radiation-pattern view
- * @fit:  receives fitted zoom and screen-space pan
- *
- * Folds the GL content batches this view drew (radius scaling and model_scale
- * baked in) into the generic reducer, then inverts the framing into the view's
- * zoom and pan.  Returns FALSE when no geometry is present.
- */
-gboolean gl_view_fit_view(view_t *view, view_fit_t *fit);
-
-/* GL engine control-op vtable. */
-extern const render_engine_ops_t gl_engine_ops;
+/* The OpenGL engine: its domain protocol and its active-surface operations.
+ * Consumers reach the fit through canvas_fit_view(), which names the engine
+ * from the canvas binding. */
+extern const render_engine_t gl_engine;
 
 #endif /* HAVE_OPENGL */
 #endif /* __OPENGL_VIEW_FIT_H */

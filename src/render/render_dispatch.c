@@ -36,6 +36,7 @@
 #include "../chroma/chroma_nearfield.h"
 #include "../prerender/prerender_farfield.h"
 #include "../structure_ui.h"
+#include "../themes/theme.h"
 
 /* Last render_check result for the rdpattern view; updated by render() on every call */
 static render_check_result_t last_rdpat_check;
@@ -259,13 +260,14 @@ render_check(view_type_t view_type)
 
 /** build_struct_draw_params() - Resolve structure draw colors from current flags
  * @fstep: frequency step index
+ * @model_scale: structure-to-presentation scale resolved by the caller
  *
  * Selects wire_colors and patch_colors from precomputed struct_colors
  * per the current structure view (currents or charges), or falls back to
  * geometry-mode seg_rgb / patch_rgb.
  */
   static struct_draw_params_t
-build_struct_draw_params(int fstep)
+build_struct_draw_params(int fstep, float model_scale)
 {
   struct_draw_params_t params;
   int fs = fstep;
@@ -313,10 +315,34 @@ build_struct_draw_params(int fstep)
     params.color_generation = 0;
   }
 
+  params.geometry_extent = (float)geom_pre.scene_radius;
+  params.model_scale = model_scale;
   params.fstep = fs;
   params.freq_mhz = calc_data.freq_mhz;
   return params;
 }
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * render_deposit_colors() - Resolve and deposit the colors of the active theme
+ * @ctx: backend context
+ * @ops: backend vtable
+ */
+  static void
+render_deposit_colors(void *ctx, const render_ops_t *ops)
+{
+  const theme_t *theme = theme_active();
+  render_frame_colors_t colors =
+  {
+    .background      = theme->colors[THEME_ROLE_BACKGROUND],
+    .view_axis       = theme->colors[THEME_ROLE_VIEW_AXIS],
+    .view_axis_label = theme->colors[THEME_ROLE_VIEW_AXIS_LABEL],
+  };
+
+  ops->set_colors(ctx, &colors);
+
+} /* render_deposit_colors() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -328,6 +354,8 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
 
   if( view == NULL )
     return FALSE;
+
+  render_deposit_colors(ctx, ops);
 
   if( isFlagSet(ERROR_CONDX) )
     return FALSE;
@@ -350,8 +378,7 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
   {
     if( ops->init_empty != NULL )
       ops->init_empty(ctx);
-    if( ops->draw_axes != NULL )
-      ops->draw_axes(ctx, RENDER_EMPTY_AXIS_EXTENT);
+    ops->draw_axes(ctx, RENDER_EMPTY_AXIS_EXTENT);
     ops->set_status(ctx, r.message);
     g_rec_mutex_unlock(&freq_data_lock);
     return TRUE;
@@ -380,15 +407,14 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
       float overlay_extent = (model_scale > 0.001f)
           ? ff.pattern_radius / model_scale
           : (float)geom_pre.scene_radius;
+      ops->draw_axes(ctx, ff.pattern_radius);
 
-      if( ops->draw_axes != NULL )
-        ops->draw_axes(ctx, ff.pattern_radius);
-
-      /* Overlay draws behind pattern; pattern lines on top */
-      if( r.overlay_active && ops->draw_structure != NULL )
+      /* Deposit secondary structure before the primary pattern. */
+      if( r.overlay_active )
       {
-        struct_draw_params_t sparams = build_struct_draw_params(r.fstep);
-        ops->draw_structure(ctx, overlay_extent, &sparams);
+        struct_draw_params_t sparams =
+            build_struct_draw_params(r.fstep, model_scale);
+        ops->draw_structure_overlay(ctx, overlay_extent, &sparams);
       }
 
       ok = ops->draw_farfield(ctx, r.fstep, &ff);
@@ -416,14 +442,13 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
 
       /* Near-field overlay: structure in meters, same space as field vectors */
       float nf_overlay_extent = (float)nf->r_max;
+      ops->draw_axes(ctx, nf_overlay_extent);
 
-      if( ops->draw_axes != NULL )
-        ops->draw_axes(ctx, (float)nf->r_max);
-
-      if( r.overlay_active && ops->draw_structure != NULL )
+      if( r.overlay_active )
       {
-        struct_draw_params_t sparams = build_struct_draw_params(r.fstep);
-        ops->draw_structure(ctx, nf_overlay_extent, &sparams);
+        struct_draw_params_t sparams =
+            build_struct_draw_params(r.fstep, 1.0f);
+        ops->draw_structure_overlay(ctx, nf_overlay_extent, &sparams);
       }
 
       if( n_fields > 0 )
@@ -439,10 +464,9 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
 
     case RENDER_MODE_STRUCTURE:
     {
-      struct_draw_params_t params = build_struct_draw_params(r.fstep);
-      if( ops->draw_axes != NULL )
-        ops->draw_axes(ctx, (float)geom_pre.scene_radius);
-      ok = ops->draw_structure(ctx, (float)geom_pre.scene_radius, &params);
+      struct_draw_params_t params = build_struct_draw_params(r.fstep, 1.0f);
+      ops->draw_axes(ctx, params.geometry_extent);
+      ok = ops->draw_structure(ctx, params.geometry_extent, &params);
       break;
     }
 

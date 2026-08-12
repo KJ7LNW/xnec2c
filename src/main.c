@@ -311,7 +311,7 @@ main (int argc, char *argv[])
   /* Get the structure drawing area and allocation */
   GtkWidget *structure_cairo_da =
     Builder_Get_Object( main_window_builder, "structure_drawingarea" );
-  canvas_add_surface( CANVAS_STRUCTURE, structure_cairo_da, &cairo_engine_ops );
+  canvas_add_surface( CANVAS_STRUCTURE, structure_cairo_da, &cairo_engine );
 
   GtkAllocation allocation;
   gtk_widget_get_allocation( structure_cairo_da, &allocation );
@@ -359,12 +359,12 @@ main (int argc, char *argv[])
 
     GtkWidget *structure_gl_area = opengl_structure_create_widget();
     gtk_box_pack_start(GTK_BOX(box), structure_gl_area, TRUE, TRUE, 0);
-    canvas_add_surface( CANVAS_STRUCTURE, structure_gl_area, &gl_engine_ops );
+    canvas_add_surface( CANVAS_STRUCTURE, structure_gl_area, &gl_engine );
 
     opengl_set_renderer(rc_config.use_opengl_renderer);
   }
 #else
-  canvas_set_engine( CANVAS_STRUCTURE, &cairo_engine_ops );
+  canvas_set_engine( CANVAS_STRUCTURE, &cairo_engine );
 
   hide_widget_by_id(main_window_builder, "main_ortho_button");
 #endif
@@ -687,7 +687,6 @@ Open_Input_File( gpointer arg )
   gtk_widget_show( Builder_Get_Object(main_window_builder, "structure_frame") );
 
   gtk_widget_show( Builder_Get_Object(main_window_builder, "main_view_menuitem") );
-  gtk_widget_show( canvas_widget(CANVAS_STRUCTURE) );
 
   /* Set input file to NEC2 editor. It will only
    * happen if the NEC2 editor window is open */

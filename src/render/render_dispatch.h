@@ -61,6 +61,8 @@ typedef struct
   const float   *wire_widths;   /* seg_width [data.n] per-segment line widths */
   const rgb_f_t *patch_colors;  /* patch_rgb | composed projection colors */
   const unsigned char *wire_glyphs; /* per-segment GLYPH_* code [data.n], or NULL */
+  float          geometry_extent; /* unscaled structure-space half-extent */
+  float          model_scale;   /* resolved structure-to-presentation scale */
   double         cmax;          /* fmax(wire_crnt_cmax, patch_crnt_cmax) or 0.0 */
   double         freq_mhz;      /* frequency for staleness detection */
   gboolean       show_flow;     /* TRUE only in currents view */
@@ -98,8 +100,17 @@ typedef struct
   gboolean         overlay_active; /* resolved from overlay_struct_active() */
 } render_check_result_t;
 
-/* Backend operations vtable — dispatch decides what to draw; backends draw it */
+/* Frame-level colors resolved once per render() from the active theme. */
 typedef struct
+{
+  rgb_f_t background;
+  rgb_f_t view_axis;
+  rgb_f_t view_axis_label;
+
+} render_frame_colors_t;
+
+/* Backend operations vtable — dispatch decides what to draw; backends draw it */
+typedef struct render_ops_s
 {
   /* Draw far-field gain pattern; returns TRUE on success, FALSE on data miss */
   gboolean (*draw_farfield)(void *ctx, int fstep, const ff_draw_params_t *ff);
@@ -115,7 +126,12 @@ typedef struct
    * extent: content half-extent for projection scaling. */
   gboolean (*draw_structure)(void *ctx, float extent, const struct_draw_params_t *params);
 
-  /* Initialize an empty scene (no geometry) */
+  /* Draw structure geometry as secondary content behind a field view. */
+  gboolean (*draw_structure_overlay)(void *ctx, float extent,
+      const struct_draw_params_t *params);
+
+  /* Initialize an empty scene (no geometry).  Optional entry: render()
+   * tests presence, as the Cairo backend supplies none. */
   void (*init_empty)(void *ctx);
 
   /* Set the status message on the scene */
@@ -125,6 +141,9 @@ typedef struct
    * Called by render() when gradient_cache yields a valid surface;
    * never called otherwise — backends paint unconditionally. */
   void (*set_gradient)(void *ctx, const gradient_result_t *result);
+
+  /* Deposit the frame colors render() resolved from the active theme */
+  void (*set_colors)(void *ctx, const render_frame_colors_t *colors);
 
   /* Draw xyz axes for the primary content extent */
   void (*draw_axes)(void *ctx, float extent);

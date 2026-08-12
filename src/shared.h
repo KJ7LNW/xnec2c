@@ -183,12 +183,10 @@ extern GtkBuilder
   *sy_overrides_builder,
   *render_settings_builder;
 
-/* Sizes of the structure and radiation pattern canvases */
+/* Size of the structure canvas */
 extern int
   structure_width,
-  structure_height,
-  rdpattern_width,
-  rdpattern_height;
+  structure_height;
 
 /* Motion event handler id */
 extern gulong rdpattern_motion_handler;

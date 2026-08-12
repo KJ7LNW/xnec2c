@@ -539,7 +539,6 @@ on_main_rdpattern_activate(
   /* Open radiation pattern rendering window */
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
   {
-    GtkAllocation alloc;
     GtkWidget *widget;
 
     if (rc_config.rdpattern_x < 0 || rc_config.rdpattern_y < 0)
@@ -589,7 +588,7 @@ on_main_rdpattern_activate(
 
     canvas_add_surface( CANVAS_RDPATTERN, Builder_Get_Object(
           rdpattern_window_builder, "rdpattern_drawingarea" ),
-        &cairo_engine_ops );
+        &cairo_engine );
 
 #ifdef HAVE_OPENGL
     {
@@ -598,20 +597,16 @@ on_main_rdpattern_activate(
 
       GtkWidget *gl_area = opengl_rdpattern_create_widget();
       gtk_box_pack_start(GTK_BOX(box), gl_area, TRUE, TRUE, 0);
-      canvas_add_surface( CANVAS_RDPATTERN, gl_area, &gl_engine_ops );
+      canvas_add_surface( CANVAS_RDPATTERN, gl_area, &gl_engine );
 
       opengl_set_renderer(rc_config.use_opengl_renderer);
     }
 #else
-    canvas_set_engine( CANVAS_RDPATTERN, &cairo_engine_ops );
+    canvas_set_engine( CANVAS_RDPATTERN, &cairo_engine );
 
     hide_widget_by_id(rdpattern_window_builder, "rdpattern_ortho_button");
 #endif
-    gtk_widget_get_allocation( canvas_widget(CANVAS_RDPATTERN), &alloc );
-    rdpattern_width  = alloc.width;
-    rdpattern_height = alloc.height;
-
-    view_set_viewport( rdpattern_view, rdpattern_width, rdpattern_height );
+    canvas_sync_viewport( CANVAS_RDPATTERN, rdpattern_view );
 
     /* Restore radiation pattern window widget state from the bound config
      * fields, then run each tree's hook to refresh the derived draw flags. */
@@ -716,8 +711,8 @@ on_main_freqplots_activate(
           freqplots_window_builder, "freqplots_drawingarea" );
       freqplots_main_view()->window      = freqplots_window;
       freqplots_main_view()->canvas      = CANVAS_FREQPLOTS;
-      canvas_add_surface( CANVAS_FREQPLOTS, fp_da, &cairo_engine_ops );
-      canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine_ops );
+      canvas_add_surface( CANVAS_FREQPLOTS, fp_da, &cairo_engine );
+      canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine );
       freqplots_main_view()->filter      = FP_PANEL_ALL;
       g_object_set_data( G_OBJECT(fp_da), "fp_view", freqplots_main_view() );
       freqplots_connect_panel_buttons( freqplots_window_builder );
@@ -1013,17 +1008,13 @@ on_structure_drawingarea_draw(
   (void)widget;
   (void)user_data;
 
-  const theme_t *active_theme = theme_active();
   cairo_render_ctx_t ctx =
   {
-    .cr              = cr,
-    .background      = active_theme->colors[THEME_ROLE_BACKGROUND],
-    .view_axis       = active_theme->colors[THEME_ROLE_VIEW_AXIS],
-    .view_axis_label = active_theme->colors[THEME_ROLE_VIEW_AXIS_LABEL],
+    .cr      = cr,
     .view    = structure_view,
     .sb      = cairo_frame_get_scenebuffer(VIEW_STRUCTURE),
   };
-  return render_cairo(&ctx, &cairo_ops);
+  return render_cairo(&ctx);
 }
 
 
@@ -1403,8 +1394,8 @@ on_rdpattern_save_activate(
   if( strlen(rc_config.input_file) == 0 ) return;
 
   saveas_canvas = CANVAS_RDPATTERN;
-  saveas_width  = rdpattern_width;
-  saveas_height = rdpattern_height;
+  saveas_width  = rdpattern_view->width;
+  saveas_height = rdpattern_view->height;
 
   /* Make the rad pattern save
    * file name from input name */
@@ -1430,8 +1421,8 @@ on_rdpattern_save_as_activate(
 {
   char newfn[PATH_MAX];
   saveas_canvas = CANVAS_RDPATTERN;
-  saveas_width  = rdpattern_width;
-  saveas_height = rdpattern_height;
+  saveas_width  = rdpattern_view->width;
+  saveas_height = rdpattern_view->height;
 
   /* Open file chooser to save frequency plots */
   SetFlag( IMAGE_SAVE );
@@ -1914,7 +1905,7 @@ opengl_set_renderer(gboolean enable)
     view_end_drag( rdpattern_view );
   ClearFlag( BLOCK_MOTION_EV );
 
-  const render_engine_ops_t *engine = enable ? &gl_engine_ops : &cairo_engine_ops;
+  const render_engine_t *engine = enable ? &gl_engine : &cairo_engine;
 
   /* Swap renderer if radiation pattern window is open */
   if( canvas_set_engine( CANVAS_RDPATTERN, engine ) )
@@ -2006,11 +1997,8 @@ on_rdpattern_drawingarea_configure_event(
     GdkEventConfigure *event,
     gpointer         user_data)
 {
-  rdpattern_width  = event->width;
-  rdpattern_height = event->height;
   if( rdpattern_view != NULL )
-    view_set_viewport( rdpattern_view,
-        rdpattern_width, rdpattern_height );
+    view_set_viewport( rdpattern_view, event->width, event->height );
 
   return( TRUE );
 }
@@ -2030,17 +2018,13 @@ on_rdpattern_drawingarea_draw(
   (void)widget;
   (void)user_data;
 
-  const theme_t *active_theme = theme_active();
   cairo_render_ctx_t ctx =
   {
-    .cr              = cr,
-    .background      = active_theme->colors[THEME_ROLE_BACKGROUND],
-    .view_axis       = active_theme->colors[THEME_ROLE_VIEW_AXIS],
-    .view_axis_label = active_theme->colors[THEME_ROLE_VIEW_AXIS_LABEL],
+    .cr      = cr,
     .view    = rdpattern_view,
     .sb      = cairo_frame_get_scenebuffer(VIEW_RDPATTERN),
   };
-  return render_cairo(&ctx, &cairo_ops);
+  return render_cairo(&ctx);
 }
 
 

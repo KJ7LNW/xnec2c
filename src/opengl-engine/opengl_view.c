@@ -162,7 +162,7 @@ on_realize(GtkGLArea *area, gpointer user_data)
   {
     g_array_append_val(state->renderables, r);
   }
-  else if( state->scene->overlay_config )
+  else if( state->config->overlay )
   {
     /* Overlay was configured but shader load failed */
     pr_err("Disabling OpenGL: overlay shader failed\n");
@@ -174,7 +174,7 @@ on_realize(GtkGLArea *area, gpointer user_data)
   {
     opengl_axes_t *axes;
 
-    axes = opengl_axes_new();
+    axes = opengl_axes_new(&state->content.axes);
     if( !axes )
     {
       pr_err("Disabling OpenGL: axes renderer failed\n");
@@ -194,16 +194,12 @@ on_realize(GtkGLArea *area, gpointer user_data)
       .transparent_sort_order = 0
     };
 
-    /* Scene provider may supply a domain-specific axes predicate */
-    if( state->scene->axes_is_active )
-      r.is_active = state->scene->axes_is_active;
-
     g_array_append_val(state->renderables, r);
   }
 
-  /* Create ground plane renderer — only when the scene provides an
-   * is_active predicate, since visibility is domain-specific */
-  if( state->scene->ground_plane_is_active )
+  /* Create the ground plane only when the presenting domain supplies its
+   * visibility predicate. */
+  if( state->config->ground_plane_is_active != NULL )
   {
     opengl_ground_plane_t *ground_plane;
 
@@ -219,7 +215,7 @@ on_realize(GtkGLArea *area, gpointer user_data)
       .render               = opengl_ground_plane_render,
       .prepare              = opengl_ground_plane_prepare,
       .destroy              = opengl_ground_plane_free,
-      .is_active            = state->scene->ground_plane_is_active,
+      .is_active            = state->config->ground_plane_is_active,
       .far_extent           = opengl_ground_plane_far_extent,
       .ctx                  = ground_plane,
       .get_alpha            = opengl_ground_plane_get_alpha,
@@ -439,7 +435,6 @@ on_isolator_realize(GtkWidget *wrapper, gpointer user_data)
 
 /** gl_view_create_widget() - Create GL area widget with engine wired
  * @config: view configuration
- * @scene: scene provider
  * @view: per-view rotation/pan/zoom/drag owner (borrowed, non-NULL)
  *
  * On the X11 backend, returns a GtkEventBox isolator carrying a native
@@ -453,7 +448,6 @@ on_isolator_realize(GtkWidget *wrapper, gpointer user_data)
   GtkWidget*
 gl_view_create_widget(
     gl_view_config_t *config,
-    gl_scene_provider_t *scene,
     view_t *view)
 {
   GtkWidget *gl_area;
@@ -461,13 +455,12 @@ gl_view_create_widget(
   GdkDisplay *display;
   gl_view_state_t *state;
 
-  if( !config || !scene || !view )
+  if( !config || !view )
     return( NULL );
 
   state = g_new0(gl_view_state_t, 1);
 
   state->config = config;
-  state->scene = scene;
   state->view = view;
   state->last_generation = (unsigned int)-1;
   state->fov_rad = glm_rad(60.0f);

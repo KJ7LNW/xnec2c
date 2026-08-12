@@ -82,7 +82,7 @@ void fp_add_filled_circle(fp_render_t *fp, int cx, int cy, int radius,
 void fp_add_text(fp_render_t *fp, int x, int y, float scale,
     const char *text, int justify, rgb_f_t c);
 
-/* Pixel size of a string laid out in the freqplots drawing area font. */
-void pango_text_size(GtkWidget *widget, int *width, int *height, char *s);
+/* Pixel size of a string laid out in the font of a plot canvas. */
+void pango_text_size(canvas_id_t canvas, int *width, int *height, char *s);
 
 #endif /* FREQPLOTS_RENDER_H */

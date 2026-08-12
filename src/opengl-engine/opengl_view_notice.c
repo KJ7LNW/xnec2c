@@ -300,7 +300,7 @@ gl_view_hide_notice(GtkWidget *widget)
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_sync_status_notice() - Synchronize notice with scene provider status_message
+/** gl_view_sync_status_notice() - Synchronize notice with the frame status_message
  * @widget: GL area widget
  * @state: view state
  *

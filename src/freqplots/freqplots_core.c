@@ -1227,7 +1227,7 @@ _Plot_Frequency_Data( freqplots_view_t *v, cairo_t *cr )
    * deferred text, flushed together after all panels are drawn. */
   /* Bind this view's own base font; created once, freed at view teardown. */
   if( v->text_layout == NULL )
-    v->text_layout = gtk_widget_create_pango_layout(canvas_widget(v->canvas), NULL);
+    v->text_layout = canvas_pango_layout(v->canvas, NULL);
   fp_render_reset( &fp, cr, v->text_layout );
 
   /* Build compact index list; out-of-order arrivals appear immediately.

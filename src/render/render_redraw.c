@@ -70,16 +70,24 @@ queue_draw_cb(gpointer w)
  * redraw_schedule() - Schedule repaint work through the optimizer gate
  * @callback: repaint work, run once on the GTK main thread
  * @data:     argument handed to @callback, which must outlive the marshal
+ * @destroy:  releases owned @data once the request retires, or NULL for
+ *            borrowed data
  * @force:    bypass the intermediate-redraw suppression gate
  */
   void
-redraw_schedule(GSourceFunc callback, gpointer data, gboolean force)
+redraw_schedule(GSourceFunc callback, gpointer data,
+    GDestroyNotify destroy, gboolean force)
 {
   if( redraw_suppressed(force) )
+  {
+    if( destroy != NULL )
+      destroy( data );
+
     return;
+  }
 
   g_main_context_invoke_full( NULL, GDK_PRIORITY_REDRAW,
-      callback, data, NULL );
+      callback, data, destroy );
 
 } /* redraw_schedule() */
 
@@ -99,7 +107,7 @@ redraw_schedule(GSourceFunc callback, gpointer data, gboolean force)
   void
 xnec2_widget_queue_draw(GtkWidget *w, gboolean force)
 {
-  redraw_schedule( queue_draw_cb, w, force );
+  redraw_schedule( queue_draw_cb, w, NULL, force );
 
 } /* xnec2_widget_queue_draw() */
 

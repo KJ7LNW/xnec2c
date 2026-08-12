@@ -74,7 +74,7 @@ Plot_Graph(
 	fp_style_t        style = { .theme = th, .width = w, .density = density };
 
 	// Get the pixel size of the scale text on left and right of the graph.
-	pango_text_size(canvas_widget(v->canvas),
+	pango_text_size(v->canvas,
 		&pad_x_scale_text,
 		&pad_y_bottom_scale_text, "1234.5");
 

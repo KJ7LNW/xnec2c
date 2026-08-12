@@ -55,12 +55,13 @@ typedef struct
   GLint label_pos_loc;
   GLint label_uv_loc;
 
+  const gl_axes_content_t *content;
   axes_build_key_t built;
   gboolean initialized;
 
 } opengl_axes_t;
 
-opengl_axes_t* opengl_axes_new(void);
+opengl_axes_t* opengl_axes_new(const gl_axes_content_t *content);
 void opengl_axes_free(void *ctx);
 void opengl_axes_prepare(void *ctx, const gl_render_params_t *params);
 void opengl_axes_render(void *ctx, const gl_render_params_t *params);

@@ -53,7 +53,6 @@ typedef struct
 static void gl_overlay_prepare(void *ctx, const gl_render_params_t *_params);
 static void gl_overlay_render(void *ctx, const gl_render_params_t *params);
 static gboolean gl_overlay_is_active(void *ctx);
-static void gl_overlay_generate(void *ctx);
 static float gl_overlay_far_extent(void *ctx, float r_max);
 static void gl_overlay_free(void *ctx);
 
@@ -90,8 +89,7 @@ gl_overlay_get_content(void *ctx)
  * @ctx: overlay context
  * @_params: unused uniform render parameters
  *
- * ovl_content is pre-populated by gl_overlay_generate_and_extent during
- * the active survey — no overlay_generate call here.
+ * The parent render protocol deposits ovl_content before the frame survey.
  */
   static void
 gl_overlay_prepare(void *ctx, const gl_render_params_t *_params)
@@ -110,7 +108,7 @@ gl_overlay_prepare(void *ctx, const gl_render_params_t *_params)
   /* Upload overlay vertices on generation change */
   if( ovl->ovl_content.generation != ovl->last_generation )
   {
-    const gl_overlay_config_t *ocfg = view->scene->overlay_config;
+    const gl_overlay_config_t *ocfg = view->config->overlay;
     int i;
 
     for( i = 0; i < ovl->ovl_content.batch_count; i++ )
@@ -229,7 +227,7 @@ gl_overlay_render(void *ctx, const gl_render_params_t *params)
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_overlay_is_active() - Returns TRUE when overlay is initialized and provider exists
+/** gl_overlay_is_active() - Report whether prepared overlay batches exist
  * @ctx: overlay context
  */
   static gboolean
@@ -237,38 +235,9 @@ gl_overlay_is_active(void *ctx)
 {
   gl_overlay_ctx_t *ovl = ctx;
 
-  return( ovl->initialized &&
-          ovl->view->scene->overlay_generate != NULL );
+  return( ovl->initialized && ovl->ovl_content.batch_count > 0 );
 
 } /* gl_overlay_is_active() */
-
-/*-----------------------------------------------------------------------*/
-
-/** gl_overlay_generate() - Regenerate overlay content via overlay_generate, storing the result in ovl_content
- * @ctx: overlay context
- *
- * Resets vertex_count first so stale data does not persist when overlay_generate
- * declines (e.g. the structure overlay toggle unchecked).
- * Called during the active survey before far_extent is queried.
- */
-  static void
-gl_overlay_generate(void *ctx)
-{
-  gl_overlay_ctx_t *ovl = ctx;
-  gl_view_state_t *view = ovl->view;
-
-  /* Reset before generation attempt */
-  ovl->ovl_content.batch_count = 0;
-
-  if( !ovl->initialized )
-    return;
-
-  if( !view->scene->overlay_generate )
-    return;
-
-  view->scene->overlay_generate(&view->content, &ovl->ovl_content);
-
-} /* gl_overlay_generate() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -276,7 +245,7 @@ gl_overlay_generate(void *ctx)
  * @ctx: overlay context
  * @r_max: current maximum scene extent
  *
- * Reads ovl_content populated by gl_overlay_generate during the same survey pass.
+ * Reads the ovl_content the parent render protocol deposited this frame.
  */
   static float
 gl_overlay_far_extent(void *ctx, float r_max)
@@ -311,8 +280,8 @@ gl_overlay_free(void *ctx)
   if( !ovl )
     return;
 
-  if( ovl->view->scene && ovl->view->scene->overlay_cleanup )
-    ovl->view->scene->overlay_cleanup();
+  if( ovl->view->overlay_content == &ovl->ovl_content )
+    ovl->view->overlay_content = NULL;
 
   glDeleteBuffers(GL_VIEW_MAX_BATCHES, ovl->vbo);
   glDeleteVertexArrays(GL_VIEW_MAX_BATCHES, ovl->vao);
@@ -338,12 +307,12 @@ gl_view_overlay_renderable_new(gl_view_state_t *state)
   gboolean ok;
   int i;
 
-  if( !state->scene->overlay_config )
+  if( !state->config->overlay )
   {
     return( (gl_renderable_t){0} );
   }
 
-  ocfg = state->scene->overlay_config;
+  ocfg = state->config->overlay;
 
   ovl = g_new0(gl_overlay_ctx_t, 1);
   ovl->view = state;
@@ -402,13 +371,13 @@ gl_view_overlay_renderable_new(gl_view_state_t *state)
 
   ovl->last_generation = (unsigned int)-1;
   ovl->initialized = TRUE;
+  state->overlay_content = &ovl->ovl_content;
 
   r = (gl_renderable_t){
     .render               = gl_overlay_render,
     .prepare              = gl_overlay_prepare,
     .destroy              = gl_overlay_free,
     .is_active            = gl_overlay_is_active,
-    .generate             = gl_overlay_generate,
     .far_extent           = gl_overlay_far_extent,
     .get_content          = gl_overlay_get_content,
     .ctx                  = ovl,

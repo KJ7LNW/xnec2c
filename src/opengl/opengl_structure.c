@@ -28,8 +28,6 @@
 #include "opengl_state.h"
 #include "../settings/render_settings.h"
 #include "../opengl-engine/opengl_view.h"
-#include "../themes/theme.h"
-#include "../opengl-engine/opengl_view_notice.h"
 #include "../render/render_dispatch.h"
 #include "../rdpattern_ui.h"
 #include "../structure_ui.h"
@@ -102,24 +100,21 @@ opengl_structure_set_radius_scale(double scale)
 
 /** opengl_structure_on_ctrl_scroll() - Ctrl+scroll handler for adjusting cylinder radius scale
  * @_widget: source scroll widget; unused because the radius-scale config
- *           hook repaints both windows through their drawing-area globals
+ *           hook repaints both windows through their canvases
  * @event: scroll event
- * @view_state: pointer to gl_view_state_t
+ * @state: view state of the scrolled view
  *
- * Shared by structure and rdpattern scene providers.
+ * Shared by the structure and rdpattern input rows.
  */
   gboolean
 opengl_structure_on_ctrl_scroll(
-    GtkWidget *_widget, GdkEventScroll *event, gpointer view_state)
+    GtkWidget *_widget, GdkEventScroll *event, gl_view_state_t *state)
 {
-  gl_view_state_t *state;
   double scale, new_scale;
 
   scroll_step_t s;
 
   (void)_widget;
-
-  state = (gl_view_state_t *)view_state;
 
   if( !state )
     return( FALSE );
@@ -174,40 +169,19 @@ opengl_structure_on_ctrl_scroll(
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_structure_show_ctrl_notice() - Show ctrl+scroll notice once per session
- * @widget: GL area widget to display notice on
- *
- * Shared guard across all views so the message appears only once
- * regardless of which view renders first.
- */
-  void
-opengl_structure_show_ctrl_notice(GtkWidget *widget)
-{
-  static gboolean shown = FALSE;
-
-  if( shown || !widget )
-    return;
-
-  gl_view_show_notice(widget, "Ctrl+Scroll: Wire Radius",
-      2500, GL_NOTICE_BOTTOM_LEFT);
-  shown = TRUE;
-
-} /* opengl_structure_show_ctrl_notice() */
+const char opengl_structure_ctrl_scroll_notice[] = "Ctrl+Scroll: Wire Radius";
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_draw_structure() - Structure leaf: update shared geometry and populate batches
- * @ctx:    gl_view_state_s (passed as void* through render_ops_t)
- * @extent: content half-extent for projection scaling
- * @params: dispatch-resolved draw parameters (precomputed colors)
- *
- * Always returns TRUE; sets status_message when no geometry is loaded.
+/**
+ * gl_store_structure_content() - Populate one prepared GL content owner
+ * @out: primary or overlay content owner
+ * @params: parent-resolved structure presentation parameters
  */
-  gboolean
-gl_draw_structure(void *ctx, float extent, const struct_draw_params_t *params)
+  static void
+gl_store_structure_content(gl_view_content_t *out,
+    const struct_draw_params_t *params)
 {
-  gl_view_state_t *state = (gl_view_state_t *)ctx;
-  gl_view_content_t *out = &state->content;
   const structure_overlay_data_t *geom;
 
   opengl_structure_update_shared_geometry_with_params(params);
@@ -217,13 +191,54 @@ gl_draw_structure(void *ctx, float extent, const struct_draw_params_t *params)
       (size_t)geom->batch_count * sizeof(geom->batches[0]));
   out->batch_count = geom->batch_count;
   out->vertex_stride = geom->vertex_stride;
-  out->r_max = (geom->batch_count > 0) ? extent : 1.5f;
+  out->r_max = (geom->batch_count > 0) ? params->geometry_extent : 1.5f;
   out->clip_extent = out->r_max;
-  out->model_scale = 1.0f;
+  out->model_scale = params->model_scale;
   out->generation = geom->generation;
 
+} /* gl_store_structure_content() */
+
+/**
+ * gl_draw_structure() - Populate primary structure content
+ * @ctx: GL view state passed through render_ops_t
+ * @_extent: Cairo projection extent unused by OpenGL
+ * @params: parent-resolved structure presentation parameters
+ */
+  gboolean
+gl_draw_structure(void *ctx, float _extent,
+    const struct_draw_params_t *params)
+{
+  gl_view_state_t *state = ctx;
+
+  gl_store_structure_content(&state->content, params);
+
   return TRUE;
-}
+
+} /* gl_draw_structure() */
+
+/**
+ * gl_draw_structure_overlay() - Populate secondary structure content
+ * @ctx: GL view state passed through render_ops_t
+ * @_extent: Cairo projection extent unused by OpenGL
+ * @params: parent-resolved overlay presentation parameters
+ */
+  gboolean
+gl_draw_structure_overlay(void *ctx, float _extent,
+    const struct_draw_params_t *params)
+{
+  gl_view_state_t *state = ctx;
+
+  if( state->overlay_content == NULL )
+  {
+    BUG("OpenGL structure overlay has no content owner\n");
+    return FALSE;
+  }
+
+  gl_store_structure_content(state->overlay_content, params);
+
+  return TRUE;
+
+} /* gl_draw_structure_overlay() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -231,62 +246,18 @@ gl_draw_structure(void *ctx, float extent, const struct_draw_params_t *params)
 
 /*-----------------------------------------------------------------------*/
 
-/** structure_scene_generate() - Scene provider generate callback
- * @state: view state; scene writes into state->content
- *
- * Delegates to unified render() dispatch with state as ctx.
- */
-  static gboolean
-structure_scene_generate(gl_view_state_t *state)
-{
-  const theme_t *active_theme = theme_active();
-
-  state->content.status_message = NULL;
-  state->content.gradient = (gradient_result_t){NULL, 0};
-  state->content.background = active_theme->colors[THEME_ROLE_BACKGROUND];
-  state->content.view_axis = active_theme->colors[THEME_ROLE_VIEW_AXIS];
-  state->content.view_axis_label =
-      active_theme->colors[THEME_ROLE_VIEW_AXIS_LABEL];
-
-  opengl_structure_show_ctrl_notice(structure_gl_widget);
-
-  return render((void *)state, &gl_ops, structure_view);
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** structure_scene_cleanup() - Scene provider cleanup callback
+/** structure_content_cleanup() - Release the structure geometry caches
  */
   static void
-structure_scene_cleanup(void)
+structure_content_cleanup(void)
 {
   opengl_structure_geometry_cleanup();
 }
 
 /*-----------------------------------------------------------------------*/
 
-/** structure_scene_post_render() - Scene provider post-render callback */
-  static void
-structure_scene_post_render(void)
-{
-}
-
-/*-----------------------------------------------------------------------*/
-
-/* Static scene configuration and provider */
-static gl_view_config_t structure_view_config = {
-  .vertex_shader_path = "/gl/lit-color-vertex.glsl",
-  .fragment_shader_path = "/gl/lit-color-fragment.glsl",
-  .attribs = opengl_chevron_attribs,
-  .attrib_count = 7,
-  .vertex_stride = (int)sizeof(structure_vertex_t),
-  .on_gl_init_failed = opengl_gl_init_failed
-};
-
-/** opengl_structure_ground_plane_is_active() - Report whether ground plane renderable is visible
- * @_ctx: unused context pointer
- *
- * Delegates to gnd_has_real_ground() — parse-time immutable predicate.
+/** opengl_structure_ground_plane_is_active() - Report model ground visibility
+ * @_ctx: unused renderable context
  */
   static gboolean
 opengl_structure_ground_plane_is_active(void *_ctx)
@@ -299,15 +270,24 @@ opengl_structure_ground_plane_is_active(void *_ctx)
 
 /*-----------------------------------------------------------------------*/
 
-static gl_scene_provider_t structure_scene_provider = {
-  .generate                 = structure_scene_generate,
-  .post_render              = structure_scene_post_render,
-  .cleanup                  = structure_scene_cleanup,
-  .overlay_config           = NULL,
-  .overlay_generate         = NULL,
-  .overlay_cleanup          = NULL,
-  .on_ctrl_scroll           = opengl_structure_on_ctrl_scroll,
-  .ground_plane_is_active   = opengl_structure_ground_plane_is_active
+/* Static view configuration */
+static const gl_view_input_ops_t structure_input_ops = {
+  .on_shift_scroll     = NULL,
+  .on_ctrl_scroll      = opengl_structure_on_ctrl_scroll,
+  .ctrl_scroll_notice  = opengl_structure_ctrl_scroll_notice
+};
+
+static gl_view_config_t structure_view_config = {
+  .vertex_shader_path = "/gl/lit-color-vertex.glsl",
+  .fragment_shader_path = "/gl/lit-color-fragment.glsl",
+  .attribs = opengl_chevron_attribs,
+  .attrib_count = 7,
+  .vertex_stride = (int)sizeof(structure_vertex_t),
+  .input = &structure_input_ops,
+  .overlay = NULL,
+  .ground_plane_is_active = opengl_structure_ground_plane_is_active,
+  .on_gl_init_failed = opengl_gl_init_failed,
+  .content_cleanup = structure_content_cleanup
 };
 
 /*-----------------------------------------------------------------------*/
@@ -331,7 +311,6 @@ opengl_structure_create_widget_impl(void)
 
   structure_gl_widget = gl_view_create_widget(
       &structure_view_config,
-      &structure_scene_provider,
       structure_view );
 
   return( structure_gl_widget );
@@ -354,7 +333,7 @@ opengl_structure_get_widget(void)
   static void
 opengl_structure_cleanup_impl(void)
 {
-  structure_scene_cleanup();
+  structure_content_cleanup();
   structure_gl_widget = NULL;
 }
 

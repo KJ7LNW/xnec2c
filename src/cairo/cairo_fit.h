@@ -10,15 +10,9 @@
 
 #include "../render/render_engine.h"
 
-/** cairo_fit_view() - Fit a Cairo view to its drawn geometry
- * @view: structure or radiation-pattern view
- * @fit:  receives fitted zoom and screen-space pan
- *
- * Returns FALSE when no geometry is available or the viewport is degenerate.
- */
-gboolean cairo_fit_view(view_t *view, view_fit_t *fit);
-
-/* Cairo engine control-operation vtable. */
-extern const render_engine_ops_t cairo_engine_ops;
+/* The Cairo engine: its domain protocol and its active-surface operations.
+ * Consumers reach the fit through canvas_fit_view(), which names the engine
+ * from the canvas binding. */
+extern const render_engine_t cairo_engine;
 
 #endif /* __CAIRO_FIT_H */

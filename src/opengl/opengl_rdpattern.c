@@ -32,9 +32,6 @@
 #ifdef HAVE_OPENGL
 
 #include "../opengl-engine/opengl_view.h"
-#include "../themes/theme.h"
-#include "../opengl-engine/opengl_gradient_overlay.h"
-#include "../opengl-engine/opengl_view_notice.h"
 #include "../render/render_dispatch.h"
 
 /* Surface color dim values in rc_config.brightness_rdpat_surface
@@ -366,55 +363,14 @@ gl_rdpat_draw_farfield(void *ctx, int fstep, const ff_draw_params_t *ff)
 
 /*-----------------------------------------------------------------------*/
 
-/* gl_ops defined in opengl_structure.c; declared in opengl_structure.h */
+/* gl_ops defined in opengl_ops.c; declared in opengl_structure.h */
 
 /*-----------------------------------------------------------------------*/
 
-/** rdpattern_scene_generate() - Scene provider generate callback
- * @state: view state; scene writes into state->content
- *
- * Delegates to unified render() dispatch with state as ctx.
- */
-  static gboolean
-rdpattern_scene_generate(gl_view_state_t *state)
-{
-  const theme_t *active_theme = theme_active();
-
-  state->content.status_message = NULL;
-  state->content.gradient = (gradient_result_t){NULL, 0};
-  state->content.background = active_theme->colors[THEME_ROLE_BACKGROUND];
-  state->content.view_axis = active_theme->colors[THEME_ROLE_VIEW_AXIS];
-  state->content.view_axis_label =
-      active_theme->colors[THEME_ROLE_VIEW_AXIS_LABEL];
-
-  /* Lazy-create gradient overlay on first frame (GL context is active) */
-  if( state->overlay == NULL )
-  {
-    state->overlay = gradient_overlay_new();
-    if( state->overlay )
-      gradient_overlay_set_viewport(state->overlay,
-          state->view->width, state->view->height);
-  }
-
-  opengl_structure_show_ctrl_notice(rdpattern_gl_widget);
-
-  return render((void *)state, &gl_ops, rdpattern_view);
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** rdpattern_scene_post_render() - Scene provider post-render callback */
-  static void
-rdpattern_scene_post_render(void)
-{
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** rdpattern_scene_cleanup() - Scene provider cleanup callback
+/** rdpattern_content_cleanup() - Release the radiation geometry caches
  */
   static void
-rdpattern_scene_cleanup(void)
+rdpattern_content_cleanup(void)
 {
   opengl_rdpattern_geometry_cleanup();
 
@@ -424,16 +380,16 @@ rdpattern_scene_cleanup(void)
 /*-----------------------------------------------------------------------*/
 
 /** rdpattern_on_shift_scroll() - Shift+scroll handler for adjusting overlay structure scale
- * @widget: source scroll widget
+ * @_widget: source scroll widget; unused because gl_view_input_ops_t
+ *           mandates the parameter while the shared handler queues the
+ *           radiation canvas instead
  * @event: scroll event
- * @view_state: pointer to gl_view_state_t
+ * @state: view state of the scrolled view
  */
   static gboolean
-rdpattern_on_shift_scroll(GtkWidget *_widget, GdkEventScroll *event, gpointer view_state)
+rdpattern_on_shift_scroll(GtkWidget *_widget, GdkEventScroll *event,
+    gl_view_state_t *state)
 {
-  /* _widget unused: gl_scene_provider_t.on_shift_scroll interface mandates the parameter;
-   * the shared handler queues the radiation canvas instead. */
-  gl_view_state_t *state = (gl_view_state_t *)view_state;
   scroll_step_t s;
 
   if( !state )
@@ -453,101 +409,24 @@ rdpattern_on_shift_scroll(GtkWidget *_widget, GdkEventScroll *event, gpointer vi
 
 /*-----------------------------------------------------------------------*/
 
-/**
- * rdpattern_overlay_generate() - Overlay provider generate callback
- * @primary: primary scene content (rdpattern geometry)
- * @out: overlay scene content to populate
- *
- * Returns structure geometry for overlay when overlay_struct_active().
- * Derives model_scale from ratio of pattern extent to structure extent.
- */
-  static gboolean
-rdpattern_overlay_generate(const gl_view_content_t *primary, gl_view_content_t *out)
-{
-  const structure_overlay_data_t *geom;
-  const render_check_result_t *rc = render_check_rdpat();
-  static gboolean notice_shown = FALSE;
+/* Static view configuration */
+static const gl_view_input_ops_t rdpattern_input_ops = {
+  .on_shift_scroll     = rdpattern_on_shift_scroll,
+  .shift_scroll_notice = "Shift+Scroll to Scale Structure",
+  .on_ctrl_scroll      = opengl_structure_on_ctrl_scroll,
+  .ctrl_scroll_notice  = opengl_structure_ctrl_scroll_notice
+};
 
-  if( !rc->overlay_active ||
-      (data.n <= 0 && data.m <= 0) || !primary )
-    return( FALSE );
-
-  /* Show notice on first activation */
-  if( !notice_shown && rdpattern_gl_widget )
-  {
-    gl_view_show_notice(rdpattern_gl_widget, "Shift+Scroll to Scale Structure",
-        2500, GL_NOTICE_BOTTOM_LEFT);
-    notice_shown = TRUE;
-  }
-
-  geom = opengl_structure_get_shared_geometry();
-
-  if( !geom || geom->batch_count <= 0 )
-    return( FALSE );
-
-  memcpy(out->batches, geom->batches,
-      (size_t)geom->batch_count * sizeof(geom->batches[0]));
-  out->batch_count = geom->batch_count;
-  out->vertex_stride = geom->vertex_stride;
-
-  /* Far-field: render_overlay_model_scale folds the prerender base scale and
-   * the interactive scale_adj into one resolved value.
-   * Near-field: structure and field vectors share the same space (scale 1.0). */
-  float structure_extent = (float)geom_pre.scene_radius;
-  int fstep = rc->fstep;
-  if( rc->mode == RENDER_MODE_FARFIELD && structure_extent > 0.0f )
-  {
-    out->model_scale = render_overlay_model_scale(fstep);
-  }
-  else
-  {
-    out->model_scale = 1.0f;
-  }
-
-  out->r_max = structure_extent;
-  out->clip_extent = structure_extent;
-  out->generation = geom->generation;
-
-  return( TRUE );
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** rdpattern_axes_is_active() - Report whether axes renderable is drawn
- * @ctx: unused context pointer
- *
- * Axes provide spatial orientation regardless of pattern availability;
- * always active, matching the structure view default.
- */
-  static gboolean
-rdpattern_axes_is_active(void *ctx)
-{
-  (void)ctx;
-  return( TRUE );
-}
-
-/*-----------------------------------------------------------------------*/
-
-/* Static scene configuration and provider */
 static gl_view_config_t rdpattern_view_config = {
   .vertex_shader_path = "/gl/lit-color-vertex.glsl",
   .fragment_shader_path = "/gl/lit-color-fragment.glsl",
   .attribs = opengl_structure_attribs,
   .attrib_count = 3,
   .vertex_stride = (int)sizeof(lit_color_point_t),
+  .input = &rdpattern_input_ops,
+  .overlay = &rdpattern_overlay_config,
   .on_gl_init_failed = opengl_gl_init_failed,
-};
-
-static gl_scene_provider_t rdpattern_scene_provider = {
-  .generate = rdpattern_scene_generate,
-  .post_render = rdpattern_scene_post_render,
-  .cleanup = rdpattern_scene_cleanup,
-  .overlay_config = &rdpattern_overlay_config,
-  .overlay_generate = rdpattern_overlay_generate,
-  .overlay_cleanup = NULL,
-  .on_shift_scroll = rdpattern_on_shift_scroll,
-  .on_ctrl_scroll = opengl_structure_on_ctrl_scroll,
-  .axes_is_active = rdpattern_axes_is_active
+  .content_cleanup = rdpattern_content_cleanup
 };
 
 /*-----------------------------------------------------------------------*/
@@ -562,7 +441,6 @@ opengl_rdpattern_create_widget_impl(void)
 
   rdpattern_gl_widget = gl_view_create_widget(
       &rdpattern_view_config,
-      &rdpattern_scene_provider,
       rdpattern_view );
 
   gtk_widget_show(rdpattern_gl_widget);
@@ -575,7 +453,7 @@ opengl_rdpattern_create_widget_impl(void)
 /** opengl_rdpattern_cleanup_impl() - Destroy the rdpattern GL widget
  *
  * Unrealizing the widget drives gl_view_state_free(), which releases the
- * view state and invokes the scene provider's cleanup callback.
+ * view state and invokes the configured content cleanup.
  */
   static void
 opengl_rdpattern_cleanup_impl(void)

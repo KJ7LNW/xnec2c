@@ -127,12 +127,14 @@ on_motion(GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
  * @event: scroll event
  * @user_data: view state
  *
- * Shift+scroll invokes scene-specific handler if provided. Normal scroll adjusts primary zoom via spinbutton.
+ * Modified scroll invokes the configured input operation of the presenting
+ * domain. Normal scroll adjusts primary zoom via spinbutton.
  */
   static gboolean
 on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer user_data)
 {
   gl_view_state_t *state;
+  const gl_view_input_ops_t *input;
   GtkSpinButton *spinbutton;
   double value, scale, zoom_percent;
   int viewport_width, viewport_height;
@@ -146,16 +148,20 @@ on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer user_data)
 
   s = scroll_step_from_deltas((GdkEvent *)event);
 
+  input = state->config->input;
+
   /* Ctrl+scroll: invoke segment radius scaling handler */
-  if( (event->state & GDK_CONTROL_MASK) && state->scene->on_ctrl_scroll )
+  if( input != NULL && (event->state & GDK_CONTROL_MASK) &&
+      input->on_ctrl_scroll )
   {
-    return( state->scene->on_ctrl_scroll(widget, event, state) );
+    return( input->on_ctrl_scroll(widget, event, state) );
   }
 
-  /* Shift+scroll: invoke scene-specific handler */
-  if( (event->state & GDK_SHIFT_MASK) && state->scene->on_shift_scroll )
+  /* Shift+scroll: invoke the domain's shift handler */
+  if( input != NULL && (event->state & GDK_SHIFT_MASK) &&
+      input->on_shift_scroll )
   {
-    return( state->scene->on_shift_scroll(widget, event, state) );
+    return( input->on_shift_scroll(widget, event, state) );
   }
 
   if( !s.active ||

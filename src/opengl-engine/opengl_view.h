@@ -75,10 +75,18 @@ gl_batch_min_alpha(const gl_draw_batch_t *batches, int count)
   return min_alpha;
 }
 
-/* Forward declaration so gl_scene_provider_t can reference gl_view_state_t */
+/* Forward declaration so gl_view_input_ops_t can reference gl_view_state_t */
 typedef struct gl_view_state_s gl_view_state_t;
 
-/* View content provided by scene generator */
+/* Parent-prepared axes state consumed by the axes renderable. */
+typedef struct
+{
+  gboolean active;
+  float extent;
+
+} gl_axes_content_t;
+
+/* View content populated through the parent render protocol. */
 typedef struct
 {
   gl_draw_batch_t batches[GL_VIEW_MAX_BATCHES];
@@ -88,11 +96,12 @@ typedef struct
   float clip_extent;
   float model_scale;
   unsigned int generation;
+  gl_axes_content_t axes;
 
-  /* Frame clear color supplied by the scene generator */
+  /* Frame clear color resolved from the active theme */
   rgb_f_t background;
 
-  /* Supplies 3D axis colors resolved by the scene generator. */
+  /* 3D axis colors resolved from the active theme. */
   rgb_f_t view_axis;
   rgb_f_t view_axis_label;
 
@@ -211,33 +220,25 @@ typedef struct
 
 } gl_renderable_t;
 
-/* Scene provider interface */
+/* Pointer input operations the presenting domain supplies.  A NULL member
+ * declines that modifier, which the generic handler then treats as an
+ * unmodified event. */
 typedef struct
 {
-  gboolean (*generate)(gl_view_state_t *state);
-  void (*post_render)(void);
-  void (*cleanup)(void);
+  gboolean (*on_shift_scroll)(GtkWidget *widget, GdkEventScroll *event,
+      gl_view_state_t *state);
+  gboolean (*on_ctrl_scroll)(GtkWidget *widget, GdkEventScroll *event,
+      gl_view_state_t *state);
 
-  /* Optional overlay (second shader pass) */
-  const gl_overlay_config_t *overlay_config;
-  gboolean (*overlay_generate)(const gl_view_content_t *primary, gl_view_content_t *out);
-  void (*overlay_cleanup)(void);
+  /* Notice advertising the ctrl+scroll capability, presented on the first
+   * frame of the session that offers it */
+  const char *ctrl_scroll_notice;
 
-  /* Optional shift+scroll handler for custom behavior */
-  gboolean (*on_shift_scroll)(GtkWidget *widget, GdkEventScroll *event, gpointer view_state);
+  /* Notice advertising the shift+scroll capability, presented on the first
+   * frame of the session carrying the overlay geometry it scales */
+  const char *shift_scroll_notice;
 
-  /* Optional ctrl+scroll handler for segment radius scaling */
-  gboolean (*on_ctrl_scroll)(GtkWidget *widget, GdkEventScroll *event, gpointer view_state);
-
-  /* Optional predicate controlling ground plane visibility.
-   * When NULL, ground plane renderable is not created for this view. */
-  gl_active_fn ground_plane_is_active;
-
-  /* Optional predicate controlling axes visibility.
-   * When NULL, the default opengl_axes_is_active predicate applies. */
-  gl_active_fn axes_is_active;
-
-} gl_scene_provider_t;
+} gl_view_input_ops_t;
 
 /* Static view configuration */
 typedef struct
@@ -247,9 +248,24 @@ typedef struct
   const gl_vertex_attrib_t *attribs;
   int attrib_count;
   int vertex_stride;
+
+  /* Pointer input operations of the presenting domain */
+  const gl_view_input_ops_t *input;
+
+  /* Second shader pass presenting overlay content; NULL when the view
+   * presents primary content alone */
+  const gl_overlay_config_t *overlay;
+
+  /* Optional predicate controlling model ground-plane visibility */
+  gl_active_fn ground_plane_is_active;
+
   /* Called via g_idle_add_once when GL context creation fails at realize time.
    * Implementations disable the OpenGL renderer and switch to Cairo fallback. */
   GSourceOnceFunc on_gl_init_failed;
+
+  /* Releases the content caches the presenting domain owns; called as the
+   * view state tears down */
+  void (*content_cleanup)(void);
 
 } gl_view_config_t;
 
@@ -259,8 +275,12 @@ typedef struct gl_view_state_s
   GArray *renderables;
   gradient_overlay_t *overlay;
   gl_view_config_t *config;
-  gl_scene_provider_t *scene;
   gl_view_content_t content;
+
+  /* Secondary content owned by the overlay renderable; NULL while the view
+   * presents primary content alone */
+  gl_view_content_t *overlay_content;
+
   unsigned int last_generation;
 
   /* Borrowed per-view state owner (rotation, pan, zoom, drag session).
@@ -395,7 +415,6 @@ typedef struct
 /* Public API */
 GtkWidget* gl_view_create_widget(
     gl_view_config_t *config,
-    gl_scene_provider_t *scene,
     view_t *view);
 
 gl_view_state_t* gl_view_get_state(GtkWidget *widget);

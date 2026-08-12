@@ -21,8 +21,8 @@
  * opengl_ops: Unified GL backend vtable for render_ops_t dispatch.
  *
  * Assembles leaf renderers from opengl_structure.c and opengl_rdpattern.c
- * into the single vtable consumed by render().  GL axes are handled via
- * separate renderables, not through the render_ops_t dispatch.
+ * into the single vtable consumed by render().  The axes leaf records the
+ * extent render() prepared; the axes renderable draws from that record.
  */
 
 #include "../shared.h"
@@ -33,16 +33,49 @@
 #include "opengl_rdpattern.h"
 #include "../opengl-engine/opengl_view.h"
 
+/**
+ * gl_draw_axes() - Store parent-prepared axes state
+ * @ctx: GL view state passed through render_ops_t
+ * @extent: primary content extent
+ */
+  static void
+gl_draw_axes(void *ctx, float extent)
+{
+  gl_view_state_t *state = ctx;
+
+  state->content.axes.active = TRUE;
+  state->content.axes.extent = extent;
+
+} /* gl_draw_axes() */
+
+/**
+ * gl_set_colors() - Store the frame colors render() resolved
+ * @ctx: GL view state passed through render_ops_t
+ * @colors: frame colors of the active theme
+ */
+  static void
+gl_set_colors(void *ctx, const render_frame_colors_t *colors)
+{
+  gl_view_state_t *state = ctx;
+
+  state->content.background = colors->background;
+  state->content.view_axis = colors->view_axis;
+  state->content.view_axis_label = colors->view_axis_label;
+
+} /* gl_set_colors() */
+
 /* Unified GL backend vtable; render() gates slot calls by mode */
 const render_ops_t gl_ops =
 {
-  .draw_farfield  = gl_rdpat_draw_farfield,
-  .draw_nearfield = gl_rdpat_draw_nearfield,
-  .draw_structure = gl_draw_structure,
-  .draw_axes      = NULL,
+  .draw_farfield          = gl_rdpat_draw_farfield,
+  .draw_nearfield         = gl_rdpat_draw_nearfield,
+  .draw_structure         = gl_draw_structure,
+  .draw_structure_overlay = gl_draw_structure_overlay,
+  .draw_axes              = gl_draw_axes,
   .init_empty     = gl_view_init_empty,
   .set_status     = gl_view_set_status,
   .set_gradient   = gl_view_set_gradient,
+  .set_colors     = gl_set_colors,
 };
 
 #endif /* HAVE_OPENGL */

@@ -23,17 +23,22 @@
 #include "../view/view_core.h"
 
 /*
- * render_engine: engine control-op vtable, distinct from the per-frame
- * render_ops_t drawing vtable.  Control ops are one-shot capabilities outside
- * the draw path: fit-to-view, frame capture, and the frame request.  This
- * header declares the contract alone; each canvas names the vtable of the
- * engine producing its frames, so nothing here selects between engines.
+ * render_engine: one concrete renderer identity.
+ *
+ * The nested render protocol receives parent-prepared domain arguments.  The
+ * remaining operations act on the active physical surface selected by canvas.
+ * Canvas code dispatches only the surface operations and never invokes or
+ * inspects the domain protocol.
  */
 
-/* Engine control-op vtable: capabilities outside the per-frame draw path. */
+/* Named by reference alone; render_dispatch.h defines the domain protocol
+ * and the argument types its operations carry. */
+typedef struct render_ops_s render_ops_t;
+
 typedef struct
 {
-  gboolean (*fit_view)(view_t *view, view_fit_t *fit);
+  const render_ops_t *render;
+  gboolean (*fit_view)(GtkWidget *surface, view_t *view, view_fit_t *fit);
   GdkPixbuf *(*capture)(GtkWidget *widget, int width, int height);
 
   /* Request a new frame from the engine's drawing widget.  A Cairo area
@@ -42,6 +47,6 @@ typedef struct
    * frame stale, so each engine names the primitive that suits it. */
   void (*queue_redraw)(GtkWidget *widget);
 
-} render_engine_ops_t;
+} render_engine_t;
 
 #endif /* __RENDER_ENGINE_H */

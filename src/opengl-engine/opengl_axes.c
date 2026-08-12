@@ -136,14 +136,16 @@ generate_label_texture(void)
 /*-----------------------------------------------------------------------*/
 
 /** opengl_axes_new() - Allocate and initialize axes renderer with own shaders
+ * @content: parent-prepared axes state borrowed for the renderer lifetime
  */
   opengl_axes_t*
-opengl_axes_new(void)
+opengl_axes_new(const gl_axes_content_t *content)
 {
   opengl_axes_t *axes;
   gboolean line_ok, label_ok;
 
   axes = g_new0(opengl_axes_t, 1);
+  axes->content = content;
 
   line_ok = gl_shader_load(&axes->line_shader,
     "/gl/color-vertex.glsl",
@@ -261,7 +263,7 @@ opengl_axes_prepare(void *ctx, const gl_render_params_t *params)
     return;
 
   key = (axes_build_key_t){
-    .r_max = params->r_max,
+    .r_max = axes->content->extent,
     .axis = params->view_axis,
   };
 
@@ -346,30 +348,31 @@ opengl_axes_prepare(void *ctx, const gl_render_params_t *params)
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_axes_is_active() - Returns whether axes are active for rendering
- * @_ctx: unused
+/** opengl_axes_is_active() - Report parent-prepared axes activity
+ * @ctx: axes context
  */
   gboolean
 opengl_axes_is_active(void *ctx)
 {
-  (void)ctx;
+  opengl_axes_t *axes = ctx;
 
-  return( TRUE );
+  return( axes->content->active );
 
 } /* opengl_axes_is_active() */
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_axes_far_extent() - Returns the spatial extent contribution for clip plane calculation
- * @_ctx: unused
- * @r_max: maximum radius
+/** opengl_axes_far_extent() - Report how far the prepared axes reach
+ * @ctx: axes context
+ * @_r_max: scene extent, unread here: the axes span the extent the parent
+ *          prepared for them
  */
   float
-opengl_axes_far_extent(void *ctx, float r_max)
+opengl_axes_far_extent(void *ctx, float _r_max)
 {
-  (void)ctx;
+  opengl_axes_t *axes = ctx;
 
-  return( r_max * AXIS_LENGTH_SCALE );
+  return( axes->content->extent * AXIS_LENGTH_SCALE );
 
 } /* opengl_axes_far_extent() */
 
