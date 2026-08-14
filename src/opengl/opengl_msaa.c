@@ -21,8 +21,10 @@
 #include "opengl_rdpattern.h"
 #include "opengl_structure.h"
 #include "../opengl-engine/opengl_view.h"
+#include "../opengl-engine/opengl_view_fit.h"
 #include "../opengl-engine/opengl_view_msaa.h"
 #include "../opengl-engine/opengl_view_peel.h"
+#include "../render/render_canvas.h"
 #include "../shared.h"
 
 #ifdef HAVE_OPENGL
@@ -30,27 +32,20 @@
 /*-----------------------------------------------------------------------*/
 
 /** msaa_update_view() - Recreate MSAA framebuffer resources for one GL view and queue redraw
- * @w: widget of the target view, or NULL when that view has none
+ * @surface: GL surface of the target view, or NULL when that canvas has none
  * @samples: new MSAA sample count
  */
   static void
-msaa_update_view(GtkWidget *w, int samples)
+msaa_update_view(render_surface_t *surface, int samples)
 {
-  GtkWidget *gl_area;
   gl_view_state_t *state;
 
-  if( !w )
+  if( !surface )
     return;
 
-  state = gl_view_get_state(w);
-  if( !state )
-    return;
+  state = gl_view_state(surface);
 
-  gl_area = gl_view_get_gl_area(w);
-  if( !gl_area )
-    return;
-
-  gtk_gl_area_make_current(GTK_GL_AREA(gl_area));
+  gtk_gl_area_make_current(GTK_GL_AREA(state->gl_area));
   gl_view_recreate_msaa(state, samples);
 
   /* Rebuild peel FBOs with matching MSAA sample count so
@@ -59,7 +54,7 @@ msaa_update_view(GtkWidget *w, int samples)
     gl_view_peel_recreate(state, state->msaa_width, state->msaa_height,
         state->msaa_samples);
 
-  gl_view_queue_render(gl_area);
+  gl_view_queue_render(state);
 
 } /* msaa_update_view() */
 
@@ -73,8 +68,8 @@ Set_MSAA_Samples(int samples)
 {
   rc_config.opengl_msaa_samples = samples;
 
-  msaa_update_view(opengl_structure_get_widget(), samples);
-  msaa_update_view(opengl_rdpattern_get_widget(), samples);
+  msaa_update_view(canvas_surface_of(CANVAS_STRUCTURE, &gl_engine), samples);
+  msaa_update_view(canvas_surface_of(CANVAS_RDPATTERN, &gl_engine), samples);
 
 } /* Set_MSAA_Samples() */
 

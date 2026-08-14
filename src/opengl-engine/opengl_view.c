@@ -25,6 +25,7 @@
 #include "opengl_view_msaa.h"
 #include "opengl_view_peel.h"
 #include "opengl_view_notice.h"
+#include "opengl_view_fit.h"
 #include "opengl_axes.h"
 #include "opengl_cairo_overlay.h"
 #include "opengl_ground_plane.h"
@@ -35,28 +36,28 @@
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_state_free() - Free view state resources
- * @state: view state
+/** gl_view_gpu_release() - Release every GPU resource the context owns
+ * @state: view state whose GL context is going away
  */
-  static void
-gl_view_state_free(gl_view_state_t *state)
+  void
+gl_view_gpu_release(gl_view_state_t *state)
 {
-  if( !state )
+  if( state == NULL )
     return;
 
-  if( state->notice_timeout_id )
+  if( state->notice_surface )
   {
-    g_source_remove(state->notice_timeout_id);
-    state->notice_timeout_id = 0;
+    cairo_surface_destroy(state->notice_surface);
+    state->notice_surface = NULL;
   }
 
-  g_free(state->notice_text);
-
-  if( state->notice_surface )
-    cairo_surface_destroy(state->notice_surface);
+  state->notice_surface_valid = FALSE;
 
   if( state->notice_overlay )
+  {
     cairo_gl_overlay_free(state->notice_overlay);
+    state->notice_overlay = NULL;
+  }
 
   /* Release shared noise texture before renderables */
   if( state->noise_tex )
@@ -84,7 +85,10 @@ gl_view_state_free(gl_view_state_t *state)
   }
 
   if( state->overlay )
+  {
     gradient_overlay_free(state->overlay);
+    state->overlay = NULL;
+  }
 
   /* Release depth-peel FBO resources (per-resize lifecycle) */
   gl_view_peel_free(state);
@@ -98,9 +102,47 @@ gl_view_state_free(gl_view_state_t *state)
 
   gl_view_msaa_free(state);
 
-  g_free(state);
+  /* A later realize rebuilds the framebuffers, so the recorded dimensions
+   * must not match the resize that follows it. */
+  state->msaa_width = 0;
+  state->msaa_height = 0;
 
-} /* gl_view_state_free() */
+  /* Mark the notice inactive so a fade still armed becomes a no-op that
+   * removes itself instead of requesting frames from the released context;
+   * gl_view_surface_free() releases the timer with the state it carries. */
+  state->notice_active = FALSE;
+  state->initialized = FALSE;
+
+} /* gl_view_gpu_release() */
+
+/*-----------------------------------------------------------------------*/
+
+/** gl_view_surface_free() - Release the view state a canvas held
+ * @surface: surface leaving its canvas
+ *
+ * Reaches no widget: every teardown path finalizes the drawing widget, and
+ * with it the GPU resources, before the canvas drops its surfaces.
+ */
+  void
+gl_view_surface_free(render_surface_t *surface)
+{
+  gl_view_state_t *state = gl_view_state(surface);
+
+  if( state == NULL )
+    return;
+
+  /* Stop the fade before releasing its callback payload. */
+  if( state->notice_timeout_id )
+  {
+    g_source_remove(state->notice_timeout_id);
+    state->notice_timeout_id = 0;
+  }
+
+  g_free(state->notice_text);
+
+  mem_free(&state);
+
+} /* gl_view_surface_free() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -315,7 +357,7 @@ on_realize(GtkGLArea *area, gpointer user_data)
 
   /* Auto-render is disabled, so the first frame of a realized context
    * comes from this request. */
-  gl_view_queue_render(GTK_WIDGET(area));
+  gl_view_queue_render(state);
 
 } /* on_realize() */
 
@@ -334,7 +376,7 @@ on_unrealize(GtkGLArea *area, gpointer user_data)
 
   gtk_gl_area_make_current(area);
 
-  gl_view_state_free(state);
+  gl_view_gpu_release(state);
 
 } /* on_unrealize() */
 
@@ -350,28 +392,22 @@ on_unrealize(GtkGLArea *area, gpointer user_data)
 on_resize(GtkGLArea *area, int width, int height, gpointer user_data)
 {
   gl_view_state_t *state;
-  float aspect;
 
   state = (gl_view_state_t *)user_data;
 
   if( !state )
     return;
 
-  aspect = (float)width / (float)height;
-
-  state->aspect = aspect;
-  state->viewport_height = (float)height;
-
   /* Propagate dimensions to the view so render paths (gradient cache
    * in particular) receive valid width/height values. */
-  view_set_viewport(state->view, width, height);
+  view_set_viewport(state->base.view, width, height);
 
-  /* Dimensions unchanged — skip FBO resize.
-   * Update aspect/viewport in case GTK fires redundantly. */
+  /* Dimensions unchanged — skip FBO resize; the viewport write above
+   * already recorded them for a redundant GTK notification. */
   if( width == state->msaa_width && height == state->msaa_height )
   {
     glViewport(0, 0, width, height);
-    gl_view_queue_render(GTK_WIDGET(area));
+    gl_view_queue_render(state);
     return;
   }
 
@@ -394,7 +430,7 @@ on_resize(GtkGLArea *area, int width, int height, gpointer user_data)
   glViewport(0, 0, width, height);
 
   /* Force redraw so the window does not remain black after resize */
-  gl_view_queue_render(GTK_WIDGET(area));
+  gl_view_queue_render(state);
 
 } /* on_resize() */
 
@@ -433,66 +469,21 @@ on_isolator_realize(GtkWidget *wrapper, gpointer user_data)
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_create_widget() - Create GL area widget with engine wired
- * @config: view configuration
- * @view: per-view rotation/pan/zoom/drag owner (borrowed, non-NULL)
+/** gl_view_present_widget() - Resolve the widget the layout presents
+ * @state: view state whose area produces frames
  *
- * On the X11 backend, returns a GtkEventBox isolator carrying a native
- * X window that separates the GL surface from the toplevel drawable (see
- * on_isolator_realize()).  On every other backend (e.g. Wayland) the
- * native child window breaks GtkGLArea offscreen compositing, so the
- * bare GtkGLArea is returned instead.  External callers treat the
- * returned widget as opaque; sites that need the inner GtkGLArea must
- * call gl_view_get_gl_area().
+ * On the X11 backend, wraps the state's area in a GtkEventBox isolator
+ * carrying a native X window that separates the GL surface from the toplevel
+ * drawable (see on_isolator_realize()).  On every other backend (e.g.
+ * Wayland) the native child window breaks GtkGLArea offscreen compositing,
+ * so the area itself is presented.
  */
-  GtkWidget*
-gl_view_create_widget(
-    gl_view_config_t *config,
-    view_t *view)
+  static GtkWidget *
+gl_view_present_widget(gl_view_state_t *state)
 {
-  GtkWidget *gl_area;
+  GtkWidget *gl_area = state->gl_area;
   GtkWidget *isolator;
   GdkDisplay *display;
-  gl_view_state_t *state;
-
-  if( !config || !view )
-    return( NULL );
-
-  state = g_new0(gl_view_state_t, 1);
-
-  state->config = config;
-  state->view = view;
-  state->last_generation = (unsigned int)-1;
-  state->fov_rad = glm_rad(60.0f);
-  state->aspect = 1.0f;
-  state->viewport_height = 1.0f;
-  state->cached_camera_distance = 1.0f;
-
-  /* Initialize notice state */
-  state->notice_active = FALSE;
-  state->notice_text = NULL;
-  state->notice_alpha = 0.0;
-  state->notice_start_time = 0;
-  state->notice_timeout_id = 0;
-
-  gl_area = gtk_gl_area_new();
-
-  gtk_gl_area_set_has_depth_buffer(GTK_GL_AREA(gl_area), TRUE);
-  /* Frames are produced only on explicit request; unrelated exposes
-   * present the cached frame instead of re-running the scene pass. */
-  gtk_gl_area_set_auto_render(GTK_GL_AREA(gl_area), FALSE);
-
-  gtk_widget_set_hexpand(gl_area, TRUE);
-  gtk_widget_set_vexpand(gl_area, TRUE);
-
-  g_signal_connect(gl_area, "realize", G_CALLBACK(on_realize), state);
-  g_signal_connect(gl_area, "unrealize", G_CALLBACK(on_unrealize), state);
-  gl_view_render_connect(gl_area, state);
-  g_signal_connect(gl_area, "resize", G_CALLBACK(on_resize), state);
-
-  gl_view_input_connect(gl_area, state);
-
-  g_object_set_data(G_OBJECT(gl_area), "gl_state", state);
 
   /* The native-window isolation below is an X11/Compiz/NVIDIA-GLX
    * remedy (commit f77930c).  On other backends, notably Wayland, the
@@ -501,6 +492,7 @@ gl_view_create_widget(
    * X11 backend, detected by the default display's type name so this
    * carries no build-time dependency on the X11 headers (gdkx.h). */
   display = gdk_display_get_default();
+
   if( display &&
       g_strcmp0(G_OBJECT_TYPE_NAME(display), "GdkX11Display") == 0 )
   {
@@ -527,86 +519,90 @@ gl_view_create_widget(
   gtk_widget_set_size_request(gl_area, 400, 400);
   return( gl_area );
 
-} /* gl_view_create_widget() */
+} /* gl_view_present_widget() */
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_get_gl_area() - Resolve a view widget handle to its GtkGLArea
- * @widget: either the wrapper returned by gl_view_create_widget() or the
- *          inner GtkGLArea itself
+/** gl_view_surface_new() - Build a GL surface and pack it into a container
+ * @config: view configuration
+ * @view: per-view rotation/pan/zoom/drag owner (borrowed, non-NULL)
+ * @parent: container the presented widget joins
  *
- * Returns the inner GtkGLArea, or NULL if @widget is neither.  Sites that
- * must issue GtkGLArea-specific calls (gtk_gl_area_make_current,
- * gtk_gl_area_queue_render, etc.) must route through this accessor.
+ * Connects every handler before the widget is shown, so the realize and
+ * resize this packing triggers reach a fully wired surface.
  */
-  GtkWidget*
-gl_view_get_gl_area(GtkWidget *widget)
+  render_surface_t *
+gl_view_surface_new(gl_view_config_t *config, view_t *view,
+    GtkContainer *parent)
 {
-  GtkWidget *child;
+  GtkWidget *gl_area;
+  gl_view_state_t *state = NULL;
 
-  if( !widget )
+  if( !config || !view || !parent )
     return( NULL );
 
-  if( GTK_IS_GL_AREA(widget) )
-    return( widget );
+  mem_new(&state);
 
-  if( GTK_IS_BIN(widget) )
+  state->config = config;
+  state->last_generation = (unsigned int)-1;
+  state->fov_rad = glm_rad(60.0f);
+  state->cached_camera_distance = 1.0f;
+
+  gl_area = gtk_gl_area_new();
+  state->gl_area = gl_area;
+
+  gtk_gl_area_set_has_depth_buffer(GTK_GL_AREA(gl_area), TRUE);
+  /* Frames are produced only on explicit request; unrelated exposes
+   * present the cached frame instead of re-running the scene pass. */
+  gtk_gl_area_set_auto_render(GTK_GL_AREA(gl_area), FALSE);
+
+  gtk_widget_set_hexpand(gl_area, TRUE);
+  gtk_widget_set_vexpand(gl_area, TRUE);
+
+  g_signal_connect(gl_area, "realize", G_CALLBACK(on_realize), state);
+  g_signal_connect(gl_area, "unrealize", G_CALLBACK(on_unrealize), state);
+  gl_view_render_connect(state);
+  g_signal_connect(gl_area, "resize", G_CALLBACK(on_resize), state);
+
+  gl_view_input_connect(state);
+
+  if( !render_surface_init(&state->base, gl_view_present_widget(state),
+      &gl_engine, view) )
   {
-    child = gtk_bin_get_child(GTK_BIN(widget));
-    if( child && GTK_IS_GL_AREA(child) )
-      return( child );
+    gtk_widget_destroy(gl_area);
+    mem_free(&state);
+    return( NULL );
   }
 
-  return( NULL );
+  gtk_container_add(parent, state->base.widget);
 
-} /* gl_view_get_gl_area() */
+  return( &state->base );
+
+} /* gl_view_surface_new() */
 
 /*-----------------------------------------------------------------------*/
 
 /** gl_view_queue_render() - Request a frame from a view's GtkGLArea
- * @widget: either the wrapper returned by gl_view_create_widget() or the
- *          inner GtkGLArea itself
+ * @state: view state whose area produces the frame
  *
  * The GL areas run with auto-render disabled, so a frame is produced only
- * on request.  Widgets that carry no GtkGLArea have no render signal to
- * request and are left untouched.
+ * on request.
  */
   void
-gl_view_queue_render(GtkWidget *widget)
+gl_view_queue_render(gl_view_state_t *state)
 {
-  GtkWidget *area;
-
-  area = gl_view_get_gl_area(widget);
-  if( !area )
+  if( state == NULL )
     return;
 
-  gtk_gl_area_queue_render(GTK_GL_AREA(area));
+  gtk_gl_area_queue_render(GTK_GL_AREA(state->gl_area));
 
 } /* gl_view_queue_render() */
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_get_state() - Get view state from widget
- * @widget: wrapper or inner GtkGLArea
- */
-  gl_view_state_t*
-gl_view_get_state(GtkWidget *widget)
-{
-  GtkWidget *gl_area;
-
-  gl_area = gl_view_get_gl_area(widget);
-  if( !gl_area )
-    return( NULL );
-
-  return( g_object_get_data(G_OBJECT(gl_area), "gl_state") );
-
-} /* gl_view_get_state() */
-
-/*-----------------------------------------------------------------------*/
-
 /**
  * gl_view_capture_pixbuf() - Capture the resolved OpenGL frame
- * @widget: OpenGL view wrapper or inner area
+ * @surface: surface holding the presented frame
  * @width: capture width in pixels
  * @height: capture height in pixels
  *
@@ -614,10 +610,9 @@ gl_view_get_state(GtkWidget *widget)
  * default framebuffer has no stable format or sample-count contract.
  */
   GdkPixbuf *
-gl_view_capture_pixbuf(GtkWidget *widget, int width, int height)
+gl_view_capture_pixbuf(render_surface_t *surface, int width, int height)
 {
-  gl_view_state_t *state;
-  GtkWidget *gl_area;
+  gl_view_state_t *state = gl_view_state(surface);
   GdkPixbuf *pixbuf;
   GLint read_fbo;
   guchar *pixels = NULL;
@@ -625,16 +620,11 @@ gl_view_capture_pixbuf(GtkWidget *widget, int width, int height)
   size_t row_bytes;
   int row;
 
-  if( widget == NULL || width <= 0 || height <= 0 )
+  if( state == NULL || width <= 0 || height <= 0 || state->resolve_fbo == 0 )
     return NULL;
 
-  state = gl_view_get_state(widget);
-  gl_area = gl_view_get_gl_area(widget);
-  if( state == NULL || gl_area == NULL || state->resolve_fbo == 0 )
-    return NULL;
-
-  gtk_gl_area_make_current(GTK_GL_AREA(gl_area));
-  if( gtk_gl_area_get_error(GTK_GL_AREA(gl_area)) != NULL )
+  gtk_gl_area_make_current(GTK_GL_AREA(state->gl_area));
+  if( gtk_gl_area_get_error(GTK_GL_AREA(state->gl_area)) != NULL )
     return NULL;
 
   pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
@@ -668,10 +658,9 @@ gl_view_capture_pixbuf(GtkWidget *widget, int width, int height)
  * @mvp:         receives projection * view * model
  * @mv_dest:     receives view * model (no projection)
  *
- * Consumes view_R(state->view) for rotation, state->view->pan_offset
- * converted from screen pixels to world units via camera distance,
- * fov and viewport height.  Projection mode and planes come from
- * state.
+ * Consumes view_R(view) for rotation, view->pan_offset converted from
+ * screen pixels to world units via camera distance, fov and the view's
+ * viewport height.  Projection planes come from state.
  */
   void
 gl_view_build_mvp(gl_view_state_t *state, float model_scale,
@@ -679,14 +668,15 @@ gl_view_build_mvp(gl_view_state_t *state, float model_scale,
 {
   mat4 view_mat, proj, model, trans;
   vec3 eye_pos, center_pos, up;
+  view_t *view = state->base.view;
   float distance = state->cached_camera_distance;
-  float aspect = state->aspect;
+  float aspect = (float)view->width / (float)view->height;
   float fov_rad = state->fov_rad;
   float near_plane = state->cached_near_plane;
   float far_plane = state->cached_far_plane;
   float pan_scale;
   float pan_x, pan_y;
-  float (*R)[4] = view_R(state->view);
+  float (*R)[4] = view_R(view);
 
   glm_mat4_identity(model);
   glm_mat4_copy(R, model);
@@ -695,9 +685,9 @@ gl_view_build_mvp(gl_view_state_t *state, float model_scale,
   /* Convert pan from screen pixels (as Cairo stores them) to world
    * units at the model plane.  Pan enters the MVP chain post-scale. */
   pan_scale = 2.0f * distance * tanf(fov_rad / 2.0f) /
-              state->viewport_height;
-  pan_x = state->view->pan_offset[0] * pan_scale;
-  pan_y = state->view->pan_offset[1] * pan_scale;
+              (float)view->height;
+  pan_x = view->pan_offset[0] * pan_scale;
+  pan_y = view->pan_offset[1] * pan_scale;
 
   glm_mat4_identity(trans);
   glm_translate(trans, (vec3){pan_x, pan_y, 0.0f});

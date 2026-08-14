@@ -39,6 +39,7 @@
 
 #include "freqplots_internal.h"
 #include "freqplots_locus.h"
+#include "../cairo/cairo_fit.h"
 #include "../shared.h"
 #include "../opt_ui.h"
 
@@ -1228,7 +1229,12 @@ _Plot_Frequency_Data( freqplots_view_t *v, cairo_t *cr )
   /* Bind this view's own base font; created once, freed at view teardown. */
   if( v->text_layout == NULL )
     v->text_layout = canvas_pango_layout(v->canvas, NULL);
-  fp_render_reset( &fp, cr, v->text_layout );
+  if( !fp_render_reset(&fp,
+      canvas_surface_of(v->canvas, &cairo_engine), cr, v->text_layout) )
+  {
+    BUG("freqplots canvas %d has incomplete frame resources\n", (int)v->canvas);
+    return;
+  }
 
   /* Build compact index list; out-of-order arrivals appear immediately.
    * Capacity holds every sweep step plus the green-line extra slot. */

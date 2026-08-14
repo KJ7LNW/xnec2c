@@ -33,7 +33,7 @@
 
 /**
  * cairo_draw_nearfield() - Draw near-field vectors via Cairo
- * @ctx:      cairo_render_ctx_t* with cr and rdpattern_view
+ * @surface:  Cairo surface presenting the radiation pattern view
  * @origins:  near-field sample point coordinates [npts]
  * @npts:     number of sample points
  * @fields:   dispatch-assembled field vector sets
@@ -46,13 +46,13 @@
  * Returns TRUE on success.
  */
   gboolean
-cairo_draw_nearfield(void *ctx,
+cairo_draw_nearfield(render_surface_t *surface,
     const near_field_point_t *origins, int npts,
     const nf_field_set_t *fields, int n_fields,
     double dr, double r_max)
 {
-  cairo_render_ctx_t *cc = (cairo_render_ctx_t *)ctx;
-  view_t *v = cc->view;
+  cairo_engine_surface_t *cs = cairo_engine_surface(surface);
+  view_t *v = surface->view;
   Segment_t segm;
   int f, idx;
 
@@ -83,7 +83,7 @@ cairo_draw_nearfield(void *ctx,
       segm.g     = fields[f].colors[idx].g;
       segm.b     = fields[f].colors[idx].b;
       segm.width = 2.0f;
-      scenebuffer_add(cc->sb, &segm);
+      scenebuffer_add(&cs->scenebuffer, &segm);
     }
   }
 

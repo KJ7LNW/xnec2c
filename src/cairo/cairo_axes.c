@@ -40,18 +40,19 @@ static const struct
 
 /**
  * cairo_draw_axes() - Deposit axis segments and defer label rendering
- * @ctx:    cairo_render_ctx_t cast to void*
- * @extent: half-extent of primary content for axis length
+ * @surface: Cairo surface receiving the deposit
+ * @extent:  half-extent of primary content for axis length
  *
  * Projects each axis from origin to tip via Set_Gdk_Segment, deposits
  * the line into the scenebuffer with real camera-axis depth, and stores
  * label positions on the render context for post-flush Pango rendering.
  */
   void
-cairo_draw_axes(void *ctx, float extent)
+cairo_draw_axes(render_surface_t *surface, float extent)
 {
-  cairo_render_ctx_t *cc = (cairo_render_ctx_t *)ctx;
-  view_t *v = cc->view;
+  cairo_engine_surface_t *cs = cairo_engine_surface(surface);
+  cairo_render_ctx_t *cc = &cs->frame;
+  view_t *v = surface->view;
   double scale = view_projection_scale(v, extent, v->zoom);
   Segment_t seg;
   int idx;
@@ -67,7 +68,7 @@ cairo_draw_axes(void *ctx, float extent)
 
     seg_set_color(&seg, cc->view_axis);
     seg.width = 1.0f;
-    scenebuffer_add(cc->sb, &seg);
+    scenebuffer_add(&cs->scenebuffer, &seg);
 
     cc->axis_labels[idx].x    = seg.x2;
     cc->axis_labels[idx].y    = seg.y2;

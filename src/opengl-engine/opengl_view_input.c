@@ -32,28 +32,28 @@ static gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer use
 /*-----------------------------------------------------------------------*/
 
 /** on_button_press() - Mouse button press handler
- * @widget: GL area widget
+ * @_widget: signal source, unread: the state carries the area and the view
  * @event: button press event
  * @user_data: view state
  */
   static gboolean
-on_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+on_button_press(GtkWidget *_widget, GdkEventButton *event, gpointer user_data)
 {
   gl_view_state_t *state;
 
   state = (gl_view_state_t *)user_data;
 
-  if( !state )
+  if( state == NULL || state->base.view == NULL )
     return( FALSE );
 
   if( event->button == 1 || event->button == 2 )
   {
     drag_button_t button = (event->button == 1) ? VIEW_DRAG_ROTATE : VIEW_DRAG_PAN;
 
-    view_begin_drag(state->view, button, (float)event->x, (float)event->y);
+    view_begin_drag(state->base.view, button, (float)event->x, (float)event->y);
 
     state->drag_active = TRUE;
-    gl_view_queue_render(widget);
+    gl_view_queue_render(state);
 
     return( TRUE );
   }
@@ -65,24 +65,24 @@ on_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 /*-----------------------------------------------------------------------*/
 
 /** on_button_release() - Mouse button release handler
- * @widget: GL area widget
+ * @_widget: signal source, unread: the state carries the area and the view
  * @event: button release event
  * @user_data: view state
  */
   static gboolean
-on_button_release(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+on_button_release(GtkWidget *_widget, GdkEventButton *event, gpointer user_data)
 {
   gl_view_state_t *state;
 
   state = (gl_view_state_t *)user_data;
 
-  if( !state )
+  if( state == NULL || state->base.view == NULL )
     return( FALSE );
 
-  view_end_drag(state->view);
+  view_end_drag(state->base.view);
 
   state->drag_active = FALSE;
-  gl_view_queue_render(widget);
+  gl_view_queue_render(state);
 
   return( TRUE );
 
@@ -91,7 +91,7 @@ on_button_release(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 /*-----------------------------------------------------------------------*/
 
 /** on_motion() - Mouse motion handler
- * @widget: GL area widget
+ * @_widget: signal source, unread: the state carries the area and the view
  * @event: motion event
  * @user_data: view state
  *
@@ -101,20 +101,20 @@ on_button_release(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
  * matches the Cairo renderer.
  */
   static gboolean
-on_motion(GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
+on_motion(GtkWidget *_widget, GdkEventMotion *event, gpointer user_data)
 {
   gl_view_state_t *state;
 
   state = (gl_view_state_t *)user_data;
 
-  if( !state || !state->view )
+  if( !state || !state->base.view )
     return( FALSE );
 
-  if( state->view->drag_button == VIEW_DRAG_NONE )
+  if( state->base.view->drag_button == VIEW_DRAG_NONE )
     return( FALSE );
 
-  view_update_drag(state->view, (float)event->x, (float)event->y);
-  gl_view_queue_render(widget);
+  view_update_drag(state->base.view, (float)event->x, (float)event->y);
+  gl_view_queue_render(state);
 
   return( TRUE );
 
@@ -123,7 +123,7 @@ on_motion(GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
 /*-----------------------------------------------------------------------*/
 
 /** on_scroll() - Mouse scroll handler
- * @widget: GL area widget
+ * @_widget: signal source, unread: the state carries the area and the view
  * @event: scroll event
  * @user_data: view state
  *
@@ -131,20 +131,22 @@ on_motion(GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
  * domain. Normal scroll adjusts primary zoom via spinbutton.
  */
   static gboolean
-on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer user_data)
+on_scroll(GtkWidget *_widget, GdkEventScroll *event, gpointer user_data)
 {
   gl_view_state_t *state;
   const gl_view_input_ops_t *input;
+  const view_t *view;
   GtkSpinButton *spinbutton;
   double value, scale, zoom_percent;
-  int viewport_width, viewport_height;
 
   scroll_step_t s;
 
   state = (gl_view_state_t *)user_data;
 
-  if( !state )
+  if( state == NULL || state->base.view == NULL )
     return( FALSE );
+
+  view = state->base.view;
 
   s = scroll_step_from_deltas((GdkEvent *)event);
 
@@ -154,14 +156,14 @@ on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer user_data)
   if( input != NULL && (event->state & GDK_CONTROL_MASK) &&
       input->on_ctrl_scroll )
   {
-    return( input->on_ctrl_scroll(widget, event, state) );
+    return( input->on_ctrl_scroll(event, state) );
   }
 
   /* Shift+scroll: invoke the domain's shift handler */
   if( input != NULL && (event->state & GDK_SHIFT_MASK) &&
       input->on_shift_scroll )
   {
-    return( input->on_shift_scroll(widget, event, state) );
+    return( input->on_shift_scroll(event, state) );
   }
 
   if( !s.active ||
@@ -169,17 +171,15 @@ on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer user_data)
     return( FALSE );
 
   /* Normal scroll: adjust primary zoom via the view's bound spin */
-  if( !state->view->zoom_spin )
+  if( !view->zoom_spin )
     return( FALSE );
 
-  spinbutton = state->view->zoom_spin;
+  spinbutton = view->zoom_spin;
   value = gtk_spin_button_get_value(spinbutton);
 
-  viewport_width = (int)(state->viewport_height * state->aspect);
-  viewport_height = (int)state->viewport_height;
   zoom_percent = value;
 
-  scale = compute_zoom_scale(viewport_width, viewport_height, zoom_percent);
+  scale = compute_zoom_scale(view->width, view->height, zoom_percent);
 
   if( s.direction == GDK_SCROLL_UP )
     value *= (1.0 + 0.1 * s.step * scale);
@@ -194,24 +194,23 @@ on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer user_data)
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_input_connect() - Wire input signal handlers to GL area widget
- * @gl_area: GL area widget
- * @state: view state
+/** gl_view_input_connect() - Wire input signal handlers to a view's GL area
+ * @state: view state whose area receives the pointer and scroll events
  */
   void
-gl_view_input_connect(GtkWidget *gl_area, gl_view_state_t *state)
+gl_view_input_connect(gl_view_state_t *state)
 {
-  gtk_widget_add_events(gl_area,
+  gtk_widget_add_events(state->gl_area,
     GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
     GDK_POINTER_MOTION_MASK | GDK_SCROLL_MASK | GDK_SMOOTH_SCROLL_MASK);
 
-  g_signal_connect(gl_area, "button-press-event",
+  g_signal_connect(state->gl_area, "button-press-event",
     G_CALLBACK(on_button_press), state);
-  g_signal_connect(gl_area, "button-release-event",
+  g_signal_connect(state->gl_area, "button-release-event",
     G_CALLBACK(on_button_release), state);
-  g_signal_connect(gl_area, "motion-notify-event",
+  g_signal_connect(state->gl_area, "motion-notify-event",
     G_CALLBACK(on_motion), state);
-  g_signal_connect(gl_area, "scroll-event",
+  g_signal_connect(state->gl_area, "scroll-event",
     G_CALLBACK(on_scroll), state);
 
 } /* gl_view_input_connect() */

@@ -46,8 +46,6 @@ typedef struct
 } structure_overlay_data_t;
 
 /* Public API - always available, stubs when no OpenGL */
-GtkWidget* opengl_structure_create_widget(void);
-void opengl_structure_cleanup(void);
 void opengl_structure_invalidate(void);
 
 /* Scale below which segments render as lines instead of cylinders with 0.001 epsilon for slider */
@@ -86,11 +84,13 @@ extern const gl_vertex_attrib_t opengl_structure_attribs[3];
 /* Vertex attribute layout for chevron shader (structure_vertex_t: 7 attribs) */
 extern const gl_vertex_attrib_t opengl_chevron_attribs[7];
 
-GtkWidget* opengl_structure_get_widget(void);
+/* Build the structure GL surface and pack it into @parent */
+render_surface_t *opengl_structure_surface_new(GtkContainer *parent);
 
 /* GL structure leaf renderers; exported for unified gl_ops vtable */
-gboolean gl_draw_structure(void *ctx, float extent, const struct_draw_params_t *params);
-gboolean gl_draw_structure_overlay(void *ctx, float extent,
+gboolean gl_draw_structure(render_surface_t *surface, float extent,
+    const struct_draw_params_t *params);
+gboolean gl_draw_structure_overlay(render_surface_t *surface, float extent,
     const struct_draw_params_t *params);
 
 /* Unified GL backend vtable (defined in opengl_ops.c) */
@@ -103,7 +103,7 @@ void opengl_structure_set_radius_scale(double scale);
 /* Ctrl+scroll handler for adjusting cylinder radius scale.
  * Usable by any view that presents structure geometry. */
 gboolean opengl_structure_on_ctrl_scroll(
-    GtkWidget *widget, GdkEventScroll *event, gl_view_state_t *state);
+    GdkEventScroll *event, gl_view_state_t *state);
 
 /* Notice advertising the ctrl+scroll radius capability */
 extern const char opengl_structure_ctrl_scroll_notice[];

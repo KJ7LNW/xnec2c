@@ -22,17 +22,32 @@
 extern const render_ops_t cairo_ops;
 
 /** cairo_capture_pixbuf() - Capture a Cairo drawing window into a pixbuf */
-GdkPixbuf *cairo_capture_pixbuf(GtkWidget *widget, int width, int height);
+GdkPixbuf *cairo_capture_pixbuf(render_surface_t *surface,
+    int width, int height);
 
-/** cairo_frame_get_scenebuffer() - Return per-view scenebuffer
- * @type: VIEW_STRUCTURE or VIEW_RDPATTERN
+/** cairo_surface_adopt() - Build a Cairo surface presenting a drawing area
+ * @area: drawing area the surface presents through
+ * @view: view the surface shows, or NULL for a surface showing none
+ *
+ * Returns a surface the caller hands to a canvas, which owns it from then on.
  */
-cairo_scenebuffer_t *cairo_frame_get_scenebuffer(view_type_t type);
+render_surface_t *cairo_surface_adopt(GtkWidget *area, view_t *view);
 
-/** cairo_frame_destroy() - Release scenebuffer allocations at shutdown */
-void cairo_frame_destroy(void);
+/** cairo_surface_free() - Release a Cairo surface and its retained scene */
+void cairo_surface_free(render_surface_t *surface);
+
+/** cairo_surface_of_widget() - Resolve the surface a drawing area presents
+ * @widget: drawing area a signal handler received
+ *
+ * Serves the draw handlers glade wires with no user data, so only a surface
+ * backing a view records itself here.  Returns NULL for any other widget.
+ */
+render_surface_t *cairo_surface_of_widget(GtkWidget *widget);
+
+/** cairo_queue_redraw() - Request a frame from a Cairo surface */
+void cairo_queue_redraw(render_surface_t *surface);
 
 /** render_cairo() - Per-frame Cairo draw path; clear, deposit, flush, overlay */
-gboolean render_cairo(cairo_render_ctx_t *ctx);
+gboolean render_cairo(render_surface_t *surface, cairo_t *cr);
 
 #endif /* CAIRO_FRAME_H */

@@ -68,17 +68,18 @@ gl_view_setup_attribs(
 /*-----------------------------------------------------------------------*/
 
 /** gl_view_notice_once() - Present a capability notice the first time offered
- * @area:   GL area the notice appears on
+ * @state:  view state the notice appears on
  * @notice: text advertising the capability, or NULL when none is offered
  * @shown:  guard the caller holds for the session
  */
   static void
-gl_view_notice_once(GtkWidget *area, const char *notice, gboolean *shown)
+gl_view_notice_once(gl_view_state_t *state, const char *notice,
+    gboolean *shown)
 {
   if( *shown || notice == NULL )
     return;
 
-  gl_view_show_notice(area, notice, GL_VIEW_NOTICE_HOLD_MS,
+  gl_view_show_notice(state, notice, GL_VIEW_NOTICE_HOLD_MS,
       GL_NOTICE_BOTTOM_LEFT);
 
   *shown = TRUE;
@@ -88,7 +89,6 @@ gl_view_notice_once(GtkWidget *area, const char *notice, gboolean *shown)
 /*-----------------------------------------------------------------------*/
 
 /** gl_view_show_ctrl_notice() - Advertise the ctrl+scroll capability
- * @area:  GL area the notice appears on
  * @state: view state naming the input operations of the presenting domain
  *
  * One guard serves every view, so the notice appears on the first frame of
@@ -96,7 +96,7 @@ gl_view_notice_once(GtkWidget *area, const char *notice, gboolean *shown)
  * itself, so this precedes the frame body.
  */
   static void
-gl_view_show_ctrl_notice(GtkWidget *area, const gl_view_state_t *state)
+gl_view_show_ctrl_notice(gl_view_state_t *state)
 {
   static gboolean ctrl_shown = FALSE;
   const gl_view_input_ops_t *input = state->config->input;
@@ -104,21 +104,20 @@ gl_view_show_ctrl_notice(GtkWidget *area, const gl_view_state_t *state)
   if( input == NULL )
     return;
 
-  gl_view_notice_once(area, input->ctrl_scroll_notice, &ctrl_shown);
+  gl_view_notice_once(state, input->ctrl_scroll_notice, &ctrl_shown);
 
 } /* gl_view_show_ctrl_notice() */
 
 /*-----------------------------------------------------------------------*/
 
 /** gl_view_show_scale_notice() - Advertise the shift+scroll capability
- * @area:  GL area the notice appears on
  * @state: view state holding the content this frame deposited
  *
  * Structure scaling acts on the overlay geometry, so this follows the frame
  * body and presents only while the frame carries that geometry.
  */
   static void
-gl_view_show_scale_notice(GtkWidget *area, const gl_view_state_t *state)
+gl_view_show_scale_notice(gl_view_state_t *state)
 {
   static gboolean scale_shown = FALSE;
   const gl_view_input_ops_t *input = state->config->input;
@@ -127,7 +126,7 @@ gl_view_show_scale_notice(GtkWidget *area, const gl_view_state_t *state)
   if( input == NULL || overlay == NULL || overlay->batch_count <= 0 )
     return;
 
-  gl_view_notice_once(area, input->shift_scroll_notice, &scale_shown);
+  gl_view_notice_once(state, input->shift_scroll_notice, &scale_shown);
 
 } /* gl_view_show_scale_notice() */
 
@@ -148,7 +147,7 @@ gl_view_gradient_overlay_create(gl_view_state_t *state)
     return;
 
   gradient_overlay_set_viewport(state->overlay,
-      state->view->width, state->view->height);
+      state->base.view->width, state->base.view->height);
 
 } /* gl_view_gradient_overlay_create() */
 
@@ -198,15 +197,15 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
 
   gl_view_frame_content_reset(state);
 
-  gl_view_show_ctrl_notice(GTK_WIDGET(area), state);
+  gl_view_show_ctrl_notice(state);
 
-  if( !render((void *)state, gl_engine.render, state->view) )
+  if( !render(&state->base) )
     return( FALSE );
 
-  gl_view_show_scale_notice(GTK_WIDGET(area), state);
+  gl_view_show_scale_notice(state);
 
   camera_distance = state->content.r_max * GL_VIEW_BASE_DISTANCE_FACTOR /
-                    state->view->zoom;
+                    state->base.view->zoom;
   state->cached_camera_distance = camera_distance;
 
   /* Active survey — build mask and compute far extent in one pass */
@@ -431,11 +430,11 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
   {
     int surf_width, surf_height;
 
-    surf_width = (int)(state->viewport_height * state->aspect);
-    surf_height = (int)state->viewport_height;
+    surf_width = state->base.view->width;
+    surf_height = state->base.view->height;
 
     /* Synchronize persistent notice with scene status_message */
-    gl_view_sync_status_notice(GTK_WIDGET(area), state);
+    gl_view_sync_status_notice(state);
 
     /* Render notice if active */
     if( state->notice_active && state->notice_text )
@@ -454,14 +453,13 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_render_connect() - Wire the render signal handler to a GL area widget
- * @gl_area: GtkGLArea widget to attach handler to
- * @state: view state passed as user_data to on_render()
+/** gl_view_render_connect() - Wire the render signal handler to a view's area
+ * @state: view state whose area produces frames and receives on_render()
  */
   void
-gl_view_render_connect(GtkWidget *gl_area, gl_view_state_t *state)
+gl_view_render_connect(gl_view_state_t *state)
 {
-  g_signal_connect(gl_area, "render", G_CALLBACK(on_render), state);
+  g_signal_connect(state->gl_area, "render", G_CALLBACK(on_render), state);
 
 } /* gl_view_render_connect() */
 

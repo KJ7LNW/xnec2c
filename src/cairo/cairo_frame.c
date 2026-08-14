@@ -13,12 +13,12 @@
  */
 
 /*
- * cairo_frame: Cairo backend frame orchestration.
+ * cairo_frame: Cairo backend surface construction and frame orchestration.
  *
- * Owns the Cairo vtables and the per-frame render_cairo() entry point.
- * render_cairo() applies Cairo settings, dispatches through the
- * backend-agnostic render(), flushes the scenebuffer, and paints
- * deferred axis labels.
+ * Owns the Cairo vtables, the surface object each drawing area presents
+ * through, and the per-frame render_cairo() entry point.  render_cairo()
+ * applies Cairo settings, dispatches through the backend-agnostic render(),
+ * flushes the surface scenebuffer, and paints deferred axis labels.
  */
 
 #include "cairo_frame.h"
@@ -26,29 +26,82 @@
 #include "cairo_fit.h"
 #include "cairo_scenebuffer.h"
 #include "../shared.h"
+#include "../mem/mem.h"
+#include "../render/render_canvas.h"
 #include "../render/render_dispatch.h"
 
-/* Per-view scenebuffers for Cairo rendering */
-static cairo_scenebuffer_t structure_scenebuffer;
-static cairo_scenebuffer_t rdpattern_scenebuffer;
+/* Object-data key carrying the surface a drawing area presents, read by the
+ * draw handlers glade wires with no user data. */
+#define CAIRO_SURFACE_KEY "cairo_surface"
+
+  render_surface_t *
+cairo_surface_adopt(GtkWidget *area, view_t *view)
+{
+  cairo_engine_surface_t *cs = NULL;
+
+  if( area == NULL )
+    return( NULL );
+
+  mem_new(&cs);
+  if( !render_surface_init(&cs->base, area, &cairo_engine, view) )
+  {
+    mem_free(&cs);
+    return( NULL );
+  }
+
+  g_object_set_data(G_OBJECT(area), CAIRO_SURFACE_KEY,
+      (view != NULL) ? &cs->base : NULL);
+
+  return( &cs->base );
+
+} /* cairo_surface_adopt() */
+
+/*-----------------------------------------------------------------------*/
+
+  void
+cairo_surface_free(render_surface_t *surface)
+{
+  cairo_engine_surface_t *cs = cairo_engine_surface(surface);
+
+  if( cs == NULL )
+    return;
+
+  scenebuffer_destroy(&cs->scenebuffer);
+  mem_free(&cs);
+
+} /* cairo_surface_free() */
+
+/*-----------------------------------------------------------------------*/
+
+  render_surface_t *
+cairo_surface_of_widget(GtkWidget *widget)
+{
+  if( widget == NULL )
+    return( NULL );
+
+  return( g_object_get_data(G_OBJECT(widget), CAIRO_SURFACE_KEY) );
+
+} /* cairo_surface_of_widget() */
+
+/*-----------------------------------------------------------------------*/
 
 /**
  * cairo_capture_pixbuf() - Capture a Cairo drawing window into a pixbuf
- * @widget: Cairo drawing widget
+ * @surface: surface whose window holds the presented frame
  * @width: capture width in pixels
  * @height: capture height in pixels
  *
- * Returns a newly allocated pixbuf, or NULL when the widget lacks a window.
+ * Returns a newly allocated pixbuf, or NULL when the surface lacks a window.
  */
   GdkPixbuf *
-cairo_capture_pixbuf(GtkWidget *widget, int width, int height)
+cairo_capture_pixbuf(render_surface_t *surface, int width, int height)
 {
   GdkWindow *window;
 
-  if( widget == NULL || width <= 0 || height <= 0 )
+  if( surface == NULL || width <= 0 || height <= 0 )
     return NULL;
 
-  window = gtk_widget_get_window(widget);
+  window = gtk_widget_get_window(surface->widget);
   if( window == NULL )
     return NULL;
 
@@ -58,29 +111,24 @@ cairo_capture_pixbuf(GtkWidget *widget, int width, int height)
 
 /*-----------------------------------------------------------------------*/
 
-cairo_scenebuffer_t *
-cairo_frame_get_scenebuffer(view_type_t type)
+/**
+ * cairo_queue_redraw() - Request a frame from a Cairo surface
+ * @surface: surface to repaint
+ *
+ * Adapts the engine frame request to the GTK primitive a Cairo area
+ * produces its frame from, which is this engine's queue_redraw contract.
+ */
+  void
+cairo_queue_redraw(render_surface_t *surface)
 {
-  switch( type )
-  {
-    case VIEW_STRUCTURE:
-      return &structure_scenebuffer;
+  if( surface == NULL )
+    return;
 
-    case VIEW_RDPATTERN:
-      return &rdpattern_scenebuffer;
+  gtk_widget_queue_draw( surface->widget );
 
-    default:
-      BUG("cairo_frame_get_scenebuffer: unknown view_type %d\n", type);
-      return &structure_scenebuffer;
-  }
-}
+} /* cairo_queue_redraw() */
 
-void
-cairo_frame_destroy(void)
-{
-  scenebuffer_destroy(&structure_scenebuffer);
-  scenebuffer_destroy(&rdpattern_scenebuffer);
-}
+/*-----------------------------------------------------------------------*/
 
 /* Cairo backend operations vtable; render() gates slot calls by mode */
 const render_ops_t cairo_ops =
@@ -100,26 +148,34 @@ const render_ops_t cairo_ops =
 
 /**
  * render_cairo() - Produce one Cairo frame
- * @ctx: caller-built rendering context with frame resources and resolved colors
+ * @surface: surface producing the frame, holding its retained scene
+ * @cr:      frame resource the draw signal supplied
  *
  * Applies Cairo settings from rc_config, calls the presentation layer through
  * the Cairo engine's domain protocol, flushes the scenebuffer, and paints
  * deferred axis labels.
  */
   gboolean
-render_cairo(cairo_render_ctx_t *ctx)
+render_cairo(render_surface_t *surface, cairo_t *cr)
 {
-  cairo_t *cr = ctx->cr;
-  view_t  *v  = ctx->view;
+  cairo_engine_surface_t *cs;
+  cairo_render_ctx_t *ctx;
+  view_t  *v;
 
-  if( v == NULL )
+  if( surface == NULL || surface->view == NULL || cr == NULL )
     return FALSE;
+
+  cs  = cairo_engine_surface(surface);
+  ctx = &cs->frame;
+  v   = surface->view;
+
+  *ctx = (cairo_render_ctx_t){ .cr = cr };
 
   cairo_set_antialias(cr, rc_config.cairo_antialias);
   cairo_set_line_cap(cr, rc_config.cairo_line_cap);
 
   /* Reset scenebuffer; leaf renderer callbacks will deposit segments */
-  scenebuffer_reset(ctx->sb);
+  scenebuffer_reset(&cs->scenebuffer);
 
   cairo_flush_stats_t *stats = NULL;
 #if CAIRO_FLUSH_STATS
@@ -127,7 +183,7 @@ render_cairo(cairo_render_ctx_t *ctx)
   stats = &_stats_buf;
   gint64 t_frame_start   = g_get_monotonic_time();
 #endif
-  render((void *)ctx, cairo_engine.render, v);
+  render(surface);
 #if CAIRO_FLUSH_STATS
   gint64 t_deposit_end   = g_get_monotonic_time();
 #endif
@@ -138,7 +194,7 @@ render_cairo(cairo_render_ctx_t *ctx)
   cairo_fill(cr);
 
   /* Flush all accumulated segments in depth-sorted batches */
-  scenebuffer_flush(ctx->sb, cr, stats);
+  scenebuffer_flush(&cs->scenebuffer, cr, stats);
 #if CAIRO_FLUSH_STATS
   gint64 t_flush_end     = g_get_monotonic_time();
 #endif
@@ -146,7 +202,7 @@ render_cairo(cairo_render_ctx_t *ctx)
   /* Draw deferred axis labels on top of flushed segments */
   if( ctx->n_axis_labels > 0 )
   {
-    PangoLayout *layout = canvas_pango_layout( canvas_of_view(v->type), NULL );
+    PangoLayout *layout = canvas_pango_layout( canvas_of_view(v), NULL );
     int k;
 
     cairo_set_source_rgb_f(cr, ctx->view_axis_label);

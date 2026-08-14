@@ -27,9 +27,9 @@
 
 /* gl_view_render_connect()
  *
- * Wire the render signal handler to a GL area widget.
+ * Wire the render signal handler to the area a view state owns.
  */
-void gl_view_render_connect(GtkWidget *gl_area, gl_view_state_t *state);
+void gl_view_render_connect(gl_view_state_t *state);
 
 #endif /* HAVE_OPENGL */
 #endif /* OPENGL_VIEW_RENDER_H */

@@ -1259,11 +1259,6 @@ Restore_Windows( gpointer dat )
     gtk_menu_item_activate( GTK_MENU_ITEM(widget) );
   }
 
-  /* Open structure view unconditionally */
-#ifdef HAVE_OPENGL
-  opengl_structure_create_widget();
-#endif
-
   return( FALSE );
 }
 

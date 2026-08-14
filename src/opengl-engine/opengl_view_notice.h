@@ -34,14 +34,14 @@
  * duration_ms > 0: hold then fade over 500ms.
  * duration_ms == 0: persistent (no fade), replaced by next call.
  */
-void gl_view_show_notice(GtkWidget *widget, const char *text,
+void gl_view_show_notice(gl_view_state_t *state, const char *text,
     int duration_ms, gl_notice_position_t position);
 
 /* gl_view_hide_notice()
  *
  * Deactivate the current notice and cancel any fade timer.
  */
-void gl_view_hide_notice(GtkWidget *widget);
+void gl_view_hide_notice(gl_view_state_t *state);
 
 /* gl_view_sync_status_notice()
  *
@@ -49,7 +49,7 @@ void gl_view_hide_notice(GtkWidget *widget);
  * Persistent notices track status_message; transient notices are not
  * interrupted.  Called from the render loop before gl_view_render_notice.
  */
-void gl_view_sync_status_notice(GtkWidget *widget, gl_view_state_t *state);
+void gl_view_sync_status_notice(gl_view_state_t *state);
 
 /* gl_view_render_notice()
  *

@@ -26,16 +26,17 @@
  * render_canvas: the drawing surfaces and the engines producing their frames.
  *
  * A canvas is a place in the layout that shows rendered frames.  Every engine
- * able to draw there registers the surface it draws into, and selecting an
- * engine presents that surface while hiding the others, so a renderer swap
+ * able to draw there builds the surface object it draws into and hands it to
+ * the canvas, which owns it until the binding drops.  Selecting an engine
+ * presents that engine's surface while hiding the others, so a renderer swap
  * names an engine and never a widget.  Consumers ask the canvas for its fit,
  * its capture, its text layout and its frames; none infers the producing
  * engine from a widget's GTK class or from the renderer setting.
  *
- * Two canvases carry a view_t scene; the frequency plots carry none and are
- * registered for text layout, capture and frame requests alone.  Windows
- * built at runtime take a handle from canvas_create() and carry it for their
- * lifetime.
+ * A surface carries the view it shows, or NULL when it shows none: the
+ * frequency plots register such a surface and take part in text layout,
+ * capture and frame requests alone.  Windows built at runtime take a handle
+ * from canvas_create() and carry it for their lifetime.
  */
 
 /* canvas_id_t - handle naming one drawing surface set.  The windows present
@@ -58,29 +59,25 @@ typedef enum
 
 /**
  * canvas_add_surface() - Register the surface an engine draws into
- * @id:     canvas the surface occupies
- * @widget: surface taking part in layout and capture
- * @engine: engine drawing into @widget
+ * @id:      canvas the surface occupies
+ * @surface: engine-built surface the canvas takes ownership of
  *
- * Called by the code creating the widget, once per engine able to back the
+ * Called by the code creating the surface, once per engine able to back the
  * canvas.  Registration alone presents nothing; canvas_set_engine() selects
  * which registered surface the canvas shows.
  */
-void canvas_add_surface(canvas_id_t id, GtkWidget *widget,
-                        const render_engine_t *engine);
+void canvas_add_surface(canvas_id_t id, render_surface_t *surface);
 
 /**
  * canvas_create() - Register a surface under a handle from the pool
- * @widget: surface taking part in layout and capture
- * @engine: engine drawing into @widget
+ * @surface: engine-built surface the canvas takes ownership of
  *
  * Called by a window built at runtime, which holds the returned handle for
  * its lifetime and hands it back through canvas_clear() at teardown.  The
  * surface is presented at once, so the window draws without a further call.
- * Returns CANVAS_NONE when the pool is exhausted.
+ * Returns CANVAS_NONE when the pool is exhausted, having released @surface.
  */
-canvas_id_t canvas_create(GtkWidget *widget,
-                          const render_engine_t *engine);
+canvas_id_t canvas_create(render_surface_t *surface);
 
 /**
  * canvas_set_engine() - Present the surface of the named engine
@@ -95,7 +92,7 @@ canvas_id_t canvas_create(GtkWidget *widget,
 gboolean canvas_set_engine(canvas_id_t id, const render_engine_t *engine);
 
 /**
- * canvas_clear() - Drop every surface registered for a canvas
+ * canvas_clear() - Release every surface registered for a canvas
  * @id: canvas whose window is being destroyed
  *
  * Leaves the canvas unbound, so frame requests and captures against it are
@@ -112,12 +109,23 @@ void canvas_clear(canvas_id_t id);
 gboolean canvas_bound(canvas_id_t id);
 
 /**
- * canvas_of_view() - Project a view identity onto its canvas identity
- * @type: view whose scene the canvas presents
+ * canvas_surface_of() - Return the surface an engine registered
+ * @id:     canvas holding the surface
+ * @engine: engine that built the surface
  *
- * Returns the canvas driven by the named view.
+ * Serves a domain reaching its own engine's surface whether or not the
+ * canvas presents it.  Returns NULL when that engine registered none.
  */
-canvas_id_t canvas_of_view(view_type_t type);
+render_surface_t *canvas_surface_of(canvas_id_t id,
+                                    const render_engine_t *engine);
+
+/**
+ * canvas_of_view() - Find the canvas registering a surface for a view
+ * @view: view whose scene the canvas presents
+ *
+ * Returns CANVAS_NONE when no canvas registers a surface showing @view.
+ */
+canvas_id_t canvas_of_view(const view_t *view);
 
 /**
  * canvas_pango_layout() - Lay out text in the font of a canvas
@@ -131,13 +139,12 @@ canvas_id_t canvas_of_view(view_type_t type);
 PangoLayout *canvas_pango_layout(canvas_id_t id, const char *text);
 
 /**
- * canvas_sync_viewport() - Record the presented surface allocation in a view
- * @id:   canvas presenting the view
- * @view: renderer-neutral view state receiving the allocation
+ * canvas_sync_viewport() - Record the presented surface allocation in its view
+ * @id: canvas presenting the view
  *
- * Returns FALSE while the canvas is unbound or when @view is NULL.
+ * Returns FALSE while the canvas is unbound or presents no view.
  */
-gboolean canvas_sync_viewport(canvas_id_t id, view_t *view);
+gboolean canvas_sync_viewport(canvas_id_t id);
 
 /**
  * canvas_invalidate() - Request a frame from a canvas immediately

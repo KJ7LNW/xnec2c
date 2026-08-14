@@ -351,18 +351,18 @@ draw_surface_patches(cairo_scenebuffer_t *sb, view_t *v, double scale, Segment_t
 
 /**
  * cairo_draw_structure() - Cairo renderer entry for structure window
- * @ctx:    cairo_render_ctx_t* with cr and structure_view
+ * @surface: Cairo surface presenting the structure view
  * @params: dispatch-resolved draw parameters
  *
  * Projects geometry, draws axes, segments, and patches.
  * Returns TRUE.
  */
   gboolean
-cairo_draw_structure(void *ctx, float extent,
+cairo_draw_structure(render_surface_t *surface, float extent,
     const struct_draw_params_t *params)
 {
-  cairo_render_ctx_t *cc = (cairo_render_ctx_t *)ctx;
-  view_t *v = cc->view;
+  cairo_engine_surface_t *cs = cairo_engine_surface(surface);
+  view_t *v = surface->view;
   double scale = view_projection_scale(v, extent, v->zoom);
 
   /* Project geometry to screen coordinates */
@@ -370,8 +370,9 @@ cairo_draw_structure(void *ctx, float extent,
   Process_Surface_Patches(v, scale);
 
   /* Deposit patches below wires (painter's order handled by scenebuffer z_mid) */
-  draw_surface_patches(cc->sb, v, scale, structure_segs + data.n, data.m, params);
-  draw_wire_segments(cc->sb, v, structure_segs, data.n, params);
+  draw_surface_patches(&cs->scenebuffer, v, scale, structure_segs + data.n,
+      data.m, params);
+  draw_wire_segments(&cs->scenebuffer, v, structure_segs, data.n, params);
 
   return TRUE;
 }
@@ -380,41 +381,40 @@ cairo_draw_structure(void *ctx, float extent,
 
 /**
  * cairo_set_status() - Store status message for deferred rendering
- * @ctx: cairo_render_ctx_t*
+ * @surface: Cairo surface holding the frame state
  * @msg: UTF-8 status message (painted by render_cairo after flush)
  */
   void
-cairo_set_status(void *ctx, const char *msg)
+cairo_set_status(render_surface_t *surface, const char *msg)
 {
-  cairo_render_ctx_t *cc = (cairo_render_ctx_t *)ctx;
-  cc->status_message = msg;
+  cairo_engine_surface(surface)->frame.status_message = msg;
 }
 
 /*-----------------------------------------------------------------------*/
 
 /**
  * cairo_set_gradient() - Store pre-resolved gradient legend surface
- * @ctx:     cairo_render_ctx_t*
+ * @surface: Cairo surface holding the frame state
  * @result:  gradient legend result from gradient_cache; version unused by cairo
  */
   void
-cairo_set_gradient(void *ctx, const gradient_result_t *result)
+cairo_set_gradient(render_surface_t *surface, const gradient_result_t *result)
 {
-  cairo_render_ctx_t *cc = (cairo_render_ctx_t *)ctx;
-  cc->gradient = result->surface;
+  cairo_engine_surface(surface)->frame.gradient = result->surface;
 }
 
 /*-----------------------------------------------------------------------*/
 
 /**
  * cairo_set_colors() - Store the frame colors render() resolved
- * @ctx:    cairo_render_ctx_t*
+ * @surface: Cairo surface holding the frame state
  * @colors: frame colors of the active theme
  */
   void
-cairo_set_colors(void *ctx, const render_frame_colors_t *colors)
+cairo_set_colors(render_surface_t *surface,
+    const render_frame_colors_t *colors)
 {
-  cairo_render_ctx_t *cc = (cairo_render_ctx_t *)ctx;
+  cairo_render_ctx_t *cc = &cairo_engine_surface(surface)->frame;
 
   cc->background = colors->background;
   cc->view_axis = colors->view_axis;

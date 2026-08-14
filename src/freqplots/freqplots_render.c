@@ -17,56 +17,52 @@
  * drawing area.
  *
  * Leaf plot renderers deposit line, arc, polygon, and text primitives via the
- * fp_add_* helpers during a frame.  fp_render_flush() hands the shared
+ * fp_add_* helpers during a frame.  fp_render_flush() hands the surface's
  * cairo_scenebuffer to the depth-sorted painter's pipeline, which emits every
  * primitive back-to-front; text deposits at FP_Z_TEXT, above the grid but
  * below the data traces, so labels never hide the measurement geometry.
  */
 
 #include "freqplots_render.h"
+#include "../cairo/cairo_draw.h"
 #include "../shared.h"
 
 #include <math.h>
-
-/* Per-frame accumulator, reused across frames; persists until destroy. */
-static cairo_scenebuffer_t fp_sb;
 
 /*-----------------------------------------------------------------------*/
 
 /**
  * fp_render_reset() - Begin a new frame
- * @fp: render handle to bind to @cr
+ * @fp: render handle to bind to this frame's resources
+ * @surface: plot surface owning the retained scenebuffer
  * @cr: active Cairo context for this frame
  * @layout: caller-owned base font layout for this frame's text
  *
  * Binds @layout to the scenebuffer so text primitives have a base font; the
  * view owns the layout's lifetime, so this neither creates nor frees it.
+ * Returns FALSE when a required frame resource is missing.
  */
-  void
-fp_render_reset(fp_render_t *fp, cairo_t *cr, PangoLayout *layout)
+  gboolean
+fp_render_reset(fp_render_t *fp, render_surface_t *surface, cairo_t *cr,
+    PangoLayout *layout)
 {
+  if( fp == NULL || surface == NULL || cr == NULL || layout == NULL )
+    return FALSE;
+
   fp->cr = cr;
+  fp->sb = &cairo_engine_surface(surface)->scenebuffer;
 
-  scenebuffer_reset(&fp_sb);
-  scenebuffer_set_text_layout(&fp_sb, layout);
-}
+  scenebuffer_reset(fp->sb);
+  scenebuffer_set_text_layout(fp->sb, layout);
 
-/*-----------------------------------------------------------------------*/
-
-/**
- * fp_render_destroy() - Release the scenebuffer
- */
-  void
-fp_render_destroy(void)
-{
-  scenebuffer_destroy(&fp_sb);
+  return TRUE;
 }
 
 /*-----------------------------------------------------------------------*/
 
 /* Append one line segment carrying the stroke style to the scenebuffer. */
   static void
-fp_add_seg(fp_stroke_t s, int x1, int y1, int x2, int y2)
+fp_add_seg(fp_render_t *fp, fp_stroke_t s, int x1, int y1, int x2, int y2)
 {
   Segment_t seg;
 
@@ -78,7 +74,7 @@ fp_add_seg(fp_stroke_t s, int x1, int y1, int x2, int y2)
   seg.width = s.width;
   seg_set_color(&seg, s.color);
 
-  scenebuffer_add(&fp_sb, &seg);
+  scenebuffer_add(fp->sb, &seg);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -86,8 +82,7 @@ fp_add_seg(fp_stroke_t s, int x1, int y1, int x2, int y2)
   void
 fp_add_line(fp_render_t *fp, int x1, int y1, int x2, int y2, fp_stroke_t s)
 {
-  (void)fp;
-  fp_add_seg(s, x1, y1, x2, y2);
+  fp_add_seg(fp, s, x1, y1, x2, y2);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -97,9 +92,8 @@ fp_add_polyline(fp_render_t *fp, const GdkPoint *pts, int n, fp_stroke_t s)
 {
   int i;
 
-  (void)fp;
   for( i = 1; i < n; i++ )
-    fp_add_seg(s, pts[i-1].x, pts[i-1].y, pts[i].x, pts[i].y);
+    fp_add_seg(fp, s, pts[i-1].x, pts[i-1].y, pts[i].x, pts[i].y);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -110,7 +104,6 @@ fp_add_quad(fp_render_t *fp, const GdkPoint pts[4], fp_stroke_t s)
   Segment_t tmpl;
   int xs[4], ys[4], k;
 
-  (void)fp;
   tmpl.z_mid = s.z_mid;
   tmpl.width = s.width;
   seg_set_color(&tmpl, s.color);
@@ -121,7 +114,7 @@ fp_add_quad(fp_render_t *fp, const GdkPoint pts[4], fp_stroke_t s)
     ys[k] = pts[k].y;
   }
 
-  scenebuffer_add_polygon_outline(&fp_sb, &tmpl, xs, ys);
+  scenebuffer_add_polygon_outline(fp->sb, &tmpl, xs, ys);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -154,7 +147,6 @@ fp_add_arc(fp_render_t *fp, double cx, double cy, double r,
 {
   Arc_t a;
 
-  (void)fp;
   a.cx     = cx;
   a.cy     = cy;
   a.radius = r;
@@ -167,14 +159,14 @@ fp_add_arc(fp_render_t *fp, double cx, double cy, double r,
   a.width  = s.width;
   a.mode   = SCENE_STROKE;
 
-  scenebuffer_add_arc(&fp_sb, &a);
+  scenebuffer_add_arc(fp->sb, &a);
 }
 
 /*-----------------------------------------------------------------------*/
 
 /* Deposit one filled convex polygon from four screen-space vertices. */
   static void
-fp_add_filled_poly(float z, rgb_f_t c, const GdkPoint pts[4])
+fp_add_filled_poly(fp_render_t *fp, float z, rgb_f_t c, const GdkPoint pts[4])
 {
   Polygon_t p;
   int k;
@@ -187,7 +179,7 @@ fp_add_filled_poly(float z, rgb_f_t c, const GdkPoint pts[4])
   p.g     = c.g;
   p.b     = c.b;
 
-  scenebuffer_add_polygon(&fp_sb, &p);
+  scenebuffer_add_polygon(fp->sb, &p);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -205,8 +197,7 @@ fp_add_filled_square(fp_render_t *fp, int cx, int cy, int size,
     { x0,        y0 + size }
   };
 
-  (void)fp;
-  fp_add_filled_poly(z, c, pts);
+  fp_add_filled_poly(fp, z, c, pts);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -225,8 +216,7 @@ fp_add_filled_diamond(fp_render_t *fp, int cx, int cy, int size,
     { cx,        cy - half - 1 }
   };
 
-  (void)fp;
-  fp_add_filled_poly(z, c, pts);
+  fp_add_filled_poly(fp, z, c, pts);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -237,7 +227,6 @@ fp_add_filled_circle(fp_render_t *fp, int cx, int cy, int radius,
 {
   Arc_t a;
 
-  (void)fp;
   a.cx     = (double)cx;
   a.cy     = (double)cy;
   a.radius = (double)radius;
@@ -250,7 +239,7 @@ fp_add_filled_circle(fp_render_t *fp, int cx, int cy, int radius,
   a.width  = 0.0f;
   a.mode   = SCENE_FILL;
 
-  scenebuffer_add_arc(&fp_sb, &a);
+  scenebuffer_add_arc(fp->sb, &a);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -261,7 +250,6 @@ fp_add_text(fp_render_t *fp, int x, int y, float scale,
 {
   Text_t t;
 
-  (void)fp;
   t.x       = x;
   t.y       = y;
   t.z_mid   = FP_Z_TEXT;
@@ -272,7 +260,7 @@ fp_add_text(fp_render_t *fp, int x, int y, float scale,
   t.justify = justify;
   g_strlcpy(t.text, text, SCENE_TEXT_LEN);
 
-  scenebuffer_add_text(&fp_sb, &t);
+  scenebuffer_add_text(fp->sb, &t);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -284,7 +272,7 @@ fp_add_text(fp_render_t *fp, int x, int y, float scale,
   void
 fp_render_flush(fp_render_t *fp)
 {
-  scenebuffer_flush(&fp_sb, fp->cr, NULL);
+  scenebuffer_flush(fp->sb, fp->cr, NULL);
 }
 
 /*-----------------------------------------------------------------------*/

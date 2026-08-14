@@ -175,7 +175,7 @@ gl_view_render_notice(gl_view_state_t *state, int surf_width, int surf_height)
 /*-----------------------------------------------------------------------*/
 
 /** notice_update_callback() - Timer callback for notice fade animation
- * @user_data: GtkWidget pointer
+ * @user_data: view state the timer was armed with
  *
  * duration_ms == 0: persistent, no fade — holds at alpha 1.0.
  * duration_ms > 0: holds for notice_hold_ms, then fades over 500ms.
@@ -183,16 +183,21 @@ gl_view_render_notice(gl_view_state_t *state, int surf_width, int surf_height)
   static gboolean
 notice_update_callback(gpointer user_data)
 {
-  GtkWidget *widget;
   gl_view_state_t *state;
   gint64 current_time, elapsed_ms;
   double progress;
 
-  widget = GTK_WIDGET(user_data);
-  state = gl_view_get_state(widget);
+  state = (gl_view_state_t *)user_data;
 
-  if( !state || !state->notice_active )
+  if( state == NULL )
     return( FALSE );
+
+  if( !state->notice_active )
+  {
+    /* Returning FALSE removes the source, so drop the id the state holds. */
+    state->notice_timeout_id = 0;
+    return( FALSE );
+  }
 
   current_time = g_get_monotonic_time();
   elapsed_ms = (current_time - state->notice_start_time) / 1000;
@@ -201,7 +206,7 @@ notice_update_callback(gpointer user_data)
   if( elapsed_ms < state->notice_hold_ms )
   {
     state->notice_alpha = 1.0;
-    gl_view_queue_render(widget);
+    gl_view_queue_render(state);
     return( TRUE );
   }
 
@@ -213,14 +218,14 @@ notice_update_callback(gpointer user_data)
     state->notice_active = FALSE;
     state->notice_alpha = 0.0;
     state->notice_timeout_id = 0;
-    gl_view_queue_render(widget);
+    gl_view_queue_render(state);
     return( FALSE );
   }
 
   /* Linear fade from 1.0 to 0.0 */
   state->notice_alpha = 1.0 - progress;
 
-  gl_view_queue_render(widget);
+  gl_view_queue_render(state);
 
   return( TRUE );
 }
@@ -228,20 +233,16 @@ notice_update_callback(gpointer user_data)
 /*-----------------------------------------------------------------------*/
 
 /** gl_view_show_notice() - Display a notice at the given position
- * @widget: GL area widget
+ * @state: view state presenting the notice
  * @text: notice text
  * @duration_ms: hold duration before fade; 0 = persistent (no fade)
  * @position: GL_NOTICE_CENTER or GL_NOTICE_BOTTOM_LEFT
  */
   void
-gl_view_show_notice(GtkWidget *widget, const char *text,
+gl_view_show_notice(gl_view_state_t *state, const char *text,
     int duration_ms, gl_notice_position_t position)
 {
-  gl_view_state_t *state;
-
-  state = gl_view_get_state(widget);
-
-  if( !state || !text )
+  if( state == NULL || text == NULL )
     return;
 
   /* Remove existing notice timer */
@@ -264,25 +265,21 @@ gl_view_show_notice(GtkWidget *widget, const char *text,
    * Persistent notices (duration_ms == 0) need no timer; they
    * remain at alpha 1.0 until explicitly hidden or replaced. */
   if( duration_ms > 0 )
-    state->notice_timeout_id = g_timeout_add(16, notice_update_callback, widget);
+    state->notice_timeout_id = g_timeout_add(16, notice_update_callback, state);
 
-  gl_view_queue_render(widget);
+  gl_view_queue_render(state);
 
 } /* gl_view_show_notice() */
 
 /*-----------------------------------------------------------------------*/
 
 /** gl_view_hide_notice() - Deactivate the current notice and cancel any fade timer
- * @widget: GL area widget
+ * @state: view state whose notice ends
  */
   void
-gl_view_hide_notice(GtkWidget *widget)
+gl_view_hide_notice(gl_view_state_t *state)
 {
-  gl_view_state_t *state;
-
-  state = gl_view_get_state(widget);
-
-  if( !state )
+  if( state == NULL )
     return;
 
   if( state->notice_timeout_id )
@@ -294,22 +291,21 @@ gl_view_hide_notice(GtkWidget *widget)
   state->notice_active = FALSE;
   state->notice_alpha = 0.0;
 
-  gl_view_queue_render(widget);
+  gl_view_queue_render(state);
 
 } /* gl_view_hide_notice() */
 
 /*-----------------------------------------------------------------------*/
 
 /** gl_view_sync_status_notice() - Synchronize notice with the frame status_message
- * @widget: GL area widget
- * @state: view state
+ * @state: view state carrying the frame content
  *
  * Persistent notices track status_message changes.  Transient notices
  * (notice_hold_ms > 0) are not interrupted; the status message takes
  * over after the transient notice fades.
  */
   void
-gl_view_sync_status_notice(GtkWidget *widget, gl_view_state_t *state)
+gl_view_sync_status_notice(gl_view_state_t *state)
 {
   if( state->content.status_message )
   {
@@ -318,14 +314,14 @@ gl_view_sync_status_notice(GtkWidget *widget, gl_view_state_t *state)
         (state->notice_hold_ms == 0 &&
          g_strcmp0(state->notice_text, state->content.status_message) != 0) )
     {
-      gl_view_show_notice(widget, state->content.status_message,
+      gl_view_show_notice(state, state->content.status_message,
           0, GL_NOTICE_CENTER);
     }
   }
   else if( state->notice_active && state->notice_hold_ms == 0 )
   {
     /* Status message cleared; deactivate persistent notice */
-    gl_view_hide_notice(widget);
+    gl_view_hide_notice(state);
   }
 
 } /* gl_view_sync_status_notice() */

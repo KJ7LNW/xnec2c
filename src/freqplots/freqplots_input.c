@@ -67,8 +67,6 @@ Plots_Window_Killed( void )
     g_object_unref(v->text_layout);
   memset(v, 0, sizeof(*v));
 
-  fp_render_destroy();
-
 } /* Plots_Window_Killed() */
 
 /*-----------------------------------------------------------------------*/

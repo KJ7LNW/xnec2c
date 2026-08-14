@@ -43,16 +43,15 @@ cairo_fit_sink(void *user, double x, double y, double z, float scale)
 } /* cairo_fit_sink() */
 
 /** cairo_fit_view() - Fit a Cairo view to its drawn geometry
- * @_surface: presented surface, unread here: the Cairo framing folds world
- *            geometry through the view's own projection and viewport
- * @view: structure or radiation-pattern view
+ * @surface: surface presenting the structure or radiation-pattern view
  * @fit:  receives fitted zoom and screen-space pan
  *
  * Returns FALSE when no geometry is available or the viewport is degenerate.
  */
   static gboolean
-cairo_fit_view(GtkWidget *_surface, view_t *view, view_fit_t *fit)
+cairo_fit_view(render_surface_t *surface, view_fit_t *fit)
 {
+  view_t *view = (surface != NULL) ? surface->view : NULL;
   render_fit_acc_t acc = {0};
   render_fit_frame_t frame;
   const render_proj_t projection =
@@ -135,7 +134,8 @@ cairo_fit_view(GtkWidget *_surface, view_t *view, view_fit_t *fit)
 const render_engine_t cairo_engine =
 {
   .render = &cairo_ops,
+  .surface_free = cairo_surface_free,
   .fit_view = cairo_fit_view,
   .capture = cairo_capture_pixbuf,
-  .queue_redraw = gtk_widget_queue_draw,
+  .queue_redraw = cairo_queue_redraw,
 };

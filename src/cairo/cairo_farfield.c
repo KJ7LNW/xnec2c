@@ -30,7 +30,7 @@
 
 /**
  * cairo_draw_farfield() - Draw far-field gain pattern via Cairo
- * @ctx:   cairo_render_ctx_t* with cr and rdpattern_view
+ * @surface: Cairo surface presenting the radiation pattern view
  * @fstep: frequency step index
  * @ff:    far-field draw parameters from dispatch
  *
@@ -39,10 +39,11 @@
  * Returns TRUE on success, FALSE if data not ready.
  */
   gboolean
-cairo_draw_farfield(void *ctx, int fstep, const ff_draw_params_t *ff)
+cairo_draw_farfield(render_surface_t *surface, int fstep,
+    const ff_draw_params_t *ff)
 {
-  cairo_render_ctx_t *cc = (cairo_render_ctx_t *)ctx;
-  view_t *v = cc->view;
+  cairo_engine_surface_t *cs = cairo_engine_surface(surface);
+  view_t *v = surface->view;
   Segment_t segm;
   int idx;
 
@@ -71,7 +72,7 @@ cairo_draw_farfield(void *ctx, int fstep, const ff_draw_params_t *ff)
     segm.g     = fp->theta_rgb[idx].g;
     segm.b     = fp->theta_rgb[idx].b;
     segm.width = 2.0f;
-    scenebuffer_add(cc->sb, &segm);
+    scenebuffer_add(&cs->scenebuffer, &segm);
   }
 
   /* Deposit phi-direction edges into scenebuffer */
@@ -89,7 +90,7 @@ cairo_draw_farfield(void *ctx, int fstep, const ff_draw_params_t *ff)
     segm.g     = fp->phi_rgb[idx].g;
     segm.b     = fp->phi_rgb[idx].b;
     segm.width = 2.0f;
-    scenebuffer_add(cc->sb, &segm);
+    scenebuffer_add(&cs->scenebuffer, &segm);
   }
 
   return TRUE;

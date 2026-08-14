@@ -711,6 +711,12 @@ parent_cleanup( void )
    * chain; the SY window's chain frees its renderer. */
   main_windows_destroy();
 
+  /* Release the structure surfaces, whose widgets lived inside the main
+   * window and so reached no canvas-clearing destroy chain of their own.
+   * Every widget is finalized by now, so each engine releases what its
+   * unrealize left behind. */
+  canvas_clear( CANVAS_STRUCTURE );
+
   /* Free the views and prerendered colors that no widget can reach now. */
   view_free( &structure_view );
   view_free( &rdpattern_view );

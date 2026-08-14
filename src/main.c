@@ -27,6 +27,7 @@
 #include "opengl/opengl_structure.h"
 #include "cairo/cairo_draw.h"
 #include "cairo/cairo_fit.h"
+#include "cairo/cairo_frame.h"
 #ifdef HAVE_OPENGL
 #include "opengl-engine/opengl_view_fit.h"
 #endif
@@ -110,7 +111,7 @@ main (int argc, char *argv[])
   if( !Create_Default_Config() ) exit( -1 );
 
   /* Report the GDK windowing backend; the GL view gates its
-   * native-window isolation on X11 (see gl_view_create_widget()). */
+   * native-window isolation on X11 (see gl_view_surface_new()). */
   {
     GdkDisplay *display = gdk_display_get_default();
     const char *type = display ? G_OBJECT_TYPE_NAME(display) : NULL;
@@ -311,7 +312,6 @@ main (int argc, char *argv[])
   /* Get the structure drawing area and allocation */
   GtkWidget *structure_cairo_da =
     Builder_Get_Object( main_window_builder, "structure_drawingarea" );
-  canvas_add_surface( CANVAS_STRUCTURE, structure_cairo_da, &cairo_engine );
 
   GtkAllocation allocation;
   gtk_widget_get_allocation( structure_cairo_da, &allocation );
@@ -331,7 +331,7 @@ main (int argc, char *argv[])
       Builder_Get_Object(main_window_builder, "structure_fstep_entry") );
 
   /* Create the structure view before the GL widget; observers are
-   * installed inside opengl_structure_create_widget and fire during
+   * installed inside opengl_structure_surface_new and fire during
    * subsequent viewport/angle assignments. */
   structure_view = view_new( VIEW_STRUCTURE,
       rotate_structure, incline_structure, structure_zoom,
@@ -352,14 +352,17 @@ main (int argc, char *argv[])
    * created so it can reset the viewer to its default orientation. */
   validation_dump_force_config();
 
-  /* Create GL widget after the view is initialized */
+  /* Register the Cairo surface once the view it presents exists. */
+  canvas_add_surface( CANVAS_STRUCTURE,
+      cairo_surface_adopt(structure_cairo_da, structure_view) );
+
+  /* Create the GL surface after the view is initialized */
 #ifdef HAVE_OPENGL
   {
     GtkWidget *box = Builder_Get_Object(main_window_builder, "structure_box");
 
-    GtkWidget *structure_gl_area = opengl_structure_create_widget();
-    gtk_box_pack_start(GTK_BOX(box), structure_gl_area, TRUE, TRUE, 0);
-    canvas_add_surface( CANVAS_STRUCTURE, structure_gl_area, &gl_engine );
+    canvas_add_surface( CANVAS_STRUCTURE,
+        opengl_structure_surface_new(GTK_CONTAINER(box)) );
 
     opengl_set_renderer(rc_config.use_opengl_renderer);
   }

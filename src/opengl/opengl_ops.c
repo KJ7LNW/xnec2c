@@ -35,13 +35,13 @@
 
 /**
  * gl_draw_axes() - Store parent-prepared axes state
- * @ctx: GL view state passed through render_ops_t
+ * @surface: GL surface holding the frame content
  * @extent: primary content extent
  */
   static void
-gl_draw_axes(void *ctx, float extent)
+gl_draw_axes(render_surface_t *surface, float extent)
 {
-  gl_view_state_t *state = ctx;
+  gl_view_state_t *state = gl_view_state(surface);
 
   state->content.axes.active = TRUE;
   state->content.axes.extent = extent;
@@ -50,13 +50,13 @@ gl_draw_axes(void *ctx, float extent)
 
 /**
  * gl_set_colors() - Store the frame colors render() resolved
- * @ctx: GL view state passed through render_ops_t
+ * @surface: GL surface holding the frame content
  * @colors: frame colors of the active theme
  */
   static void
-gl_set_colors(void *ctx, const render_frame_colors_t *colors)
+gl_set_colors(render_surface_t *surface, const render_frame_colors_t *colors)
 {
-  gl_view_state_t *state = ctx;
+  gl_view_state_t *state = gl_view_state(surface);
 
   state->content.background = colors->background;
   state->content.view_axis = colors->view_axis;

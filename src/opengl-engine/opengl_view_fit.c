@@ -43,8 +43,7 @@
 /*-----------------------------------------------------------------------*/
 
 /** gl_view_fit_view() - Fit a GL view to its drawn geometry
- * @surface: presented surface carrying the GL engine state
- * @view: structure or radiation-pattern view
+ * @surface: surface presenting the structure or radiation-pattern view
  * @fit:  receives fitted zoom and screen-space pan
  *
  * Folds the GL content batches this view drew (radius scaling and model_scale
@@ -52,12 +51,14 @@
  * zoom and pan.  Returns FALSE when no geometry is present.
  */
   static gboolean
-gl_view_fit_view(GtkWidget *surface, view_t *view, view_fit_t *fit)
+gl_view_fit_view(render_surface_t *surface, view_fit_t *fit)
 {
   gl_view_state_t *state;
+  view_t *view;
   render_fit_acc_t acc = {0};
   render_fit_frame_t frame;
   render_proj_t projection;
+  float viewport_height;
   float r_max = 0.0f;
   float distance = 0.0f;
   float zoom = 0.0f;
@@ -65,21 +66,24 @@ gl_view_fit_view(GtkWidget *surface, view_t *view, view_fit_t *fit)
   float pan_y = 0.0f;
   gboolean solved = FALSE;
 
-  if( view == NULL || fit == NULL )
+  if( surface == NULL || fit == NULL )
     return FALSE;
 
-  state = gl_view_get_state(surface);
-  if( state == NULL || view->width <= 2 * RENDER_FIT_BORDER_PX
+  state = gl_view_state(surface);
+  view = surface->view;
+
+  if( view == NULL
+      || view->width <= 2 * RENDER_FIT_BORDER_PX
       || view->height <= 2 * RENDER_FIT_BORDER_PX
-      || !fl_fgt(state->aspect, 0.0f)
-      || !fl_fgt(state->viewport_height, 0.0f)
       || !fl_fgt(state->fov_rad, 0.0f) )
     return FALSE;
+
+  viewport_height = (float)view->height;
 
   projection.kind = rc_config.opengl_orthographic
       ? RENDER_PROJ_PARALLEL : RENDER_PROJ_PERSPECTIVE;
   projection.fov_rad = state->fov_rad;
-  projection.aspect = state->aspect;
+  projection.aspect = (float)view->width / viewport_height;
 
   g_rec_mutex_lock(&freq_data_lock);
   r_max = state->content.r_max;
@@ -136,7 +140,7 @@ gl_view_fit_view(GtkWidget *surface, view_t *view, view_fit_t *fit)
       case RENDER_PROJ_PARALLEL:
       {
         float pan_scale = 2.0f * distance
-            * tanf(projection.fov_rad * 0.5f) / state->viewport_height;
+            * tanf(projection.fov_rad * 0.5f) / viewport_height;
 
         if( fl_fgt(pan_scale, 0.0f) )
         {
@@ -158,9 +162,9 @@ gl_view_fit_view(GtkWidget *surface, view_t *view, view_fit_t *fit)
             && ndc.any )
         {
           pan_x = -0.5f * (ndc.minx + ndc.maxx)
-              * state->viewport_height * projection.aspect * 0.5f;
+              * viewport_height * projection.aspect * 0.5f;
           pan_y = -0.5f * (ndc.miny + ndc.maxy)
-              * state->viewport_height * 0.5f;
+              * viewport_height * 0.5f;
         }
         else
         {
@@ -201,13 +205,29 @@ gl_view_fit_view(GtkWidget *surface, view_t *view, view_fit_t *fit)
 
 /*-----------------------------------------------------------------------*/
 
+/** gl_view_surface_queue_redraw() - Request a frame through the engine contract
+ * @surface: surface to repaint
+ *
+ * Adapts the generic frame request, which names a surface, to the engine's
+ * own request, which names the state producing its frames.
+ */
+  static void
+gl_view_surface_queue_redraw(render_surface_t *surface)
+{
+  gl_view_queue_render( gl_view_state(surface) );
+
+} /* gl_view_surface_queue_redraw() */
+
+/*-----------------------------------------------------------------------*/
+
 /* Compose the OpenGL domain protocol and active-surface operations. */
 const render_engine_t gl_engine =
 {
   .render = &gl_ops,
+  .surface_free = gl_view_surface_free,
   .fit_view = gl_view_fit_view,
   .capture = gl_view_capture_pixbuf,
-  .queue_redraw = gl_view_queue_render,
+  .queue_redraw = gl_view_surface_queue_redraw,
 };
 
 #endif /* HAVE_OPENGL */

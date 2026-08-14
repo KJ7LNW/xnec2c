@@ -26,6 +26,7 @@
 #include "opengl_renderer.h"
 #include "opengl_gradient_overlay.h"
 #include "../render/gradient_cache.h"
+#include "../render/render_surface.h"
 
 /* Maximum renderables per view (constrained by guint32 active_mask in render loop) */
 #define MAX_RENDERABLES 32
@@ -225,10 +226,8 @@ typedef struct
  * unmodified event. */
 typedef struct
 {
-  gboolean (*on_shift_scroll)(GtkWidget *widget, GdkEventScroll *event,
-      gl_view_state_t *state);
-  gboolean (*on_ctrl_scroll)(GtkWidget *widget, GdkEventScroll *event,
-      gl_view_state_t *state);
+  gboolean (*on_shift_scroll)(GdkEventScroll *event, gl_view_state_t *state);
+  gboolean (*on_ctrl_scroll)(GdkEventScroll *event, gl_view_state_t *state);
 
   /* Notice advertising the ctrl+scroll capability, presented on the first
    * frame of the session that offers it */
@@ -269,9 +268,17 @@ typedef struct
 
 } gl_view_config_t;
 
-/* View state (engine-internal) */
+/* View state (engine-internal): the GL engine's own drawing surface */
 typedef struct gl_view_state_s
 {
+  /* The generic surface, which every engine extends through its first
+   * member; it carries the presented widget and the borrowed view. */
+  render_surface_t base;
+
+  /* Inner GtkGLArea, resolved once at construction.  The base presents the
+   * isolator wrapping it on X11 and this same area elsewhere. */
+  GtkWidget *gl_area;
+
   GArray *renderables;
   gradient_overlay_t *overlay;
   gl_view_config_t *config;
@@ -283,14 +290,7 @@ typedef struct gl_view_state_s
 
   unsigned int last_generation;
 
-  /* Borrowed per-view state owner (rotation, pan, zoom, drag session).
-   * See src/view/view_core.h.  GL renderer reads view_R(view),
-   * view->pan_offset, view->zoom on every frame. */
-  view_t *view;
-
-  /* GL-only projection inputs */
-  float aspect;
-  float viewport_height;
+  /* GL-only projection input; the viewport comes from the borrowed view */
   float fov_rad;
 
   /* Camera distance cached for pan pixel-to-world conversion */
@@ -363,14 +363,22 @@ typedef struct gl_view_state_s
 
 } gl_view_state_t;
 
+/** gl_view_state() - Reach the GL view state from its surface base
+ * @surface: surface a GL engine produces frames for
+ */
+static inline gl_view_state_t *
+gl_view_state(render_surface_t *surface)
+{
+  return( (gl_view_state_t *)surface );
+}
+
 /** gl_view_init_empty() - Initialize content for an empty scene
- * @ctx: gl_view_state_t (passed as void* through render_ops_t)
+ * @surface: GL surface receiving the empty scene
  */
 static inline void
-gl_view_init_empty(void *ctx)
+gl_view_init_empty(render_surface_t *surface)
 {
-  gl_view_state_t *state = (gl_view_state_t *)ctx;
-  gl_view_content_t *out = &state->content;
+  gl_view_content_t *out = &gl_view_state(surface)->content;
 
   out->batch_count = 0;
   out->r_max = 1.5f;
@@ -379,27 +387,24 @@ gl_view_init_empty(void *ctx)
 }
 
 /** gl_view_set_status() - Set the status message on content
- * @ctx: gl_view_state_t (passed as void* through render_ops_t)
+ * @surface: GL surface holding the frame content
  * @msg: STATUS_MSG_* string constant, or NULL
  */
 static inline void
-gl_view_set_status(void *ctx, const char *msg)
+gl_view_set_status(render_surface_t *surface, const char *msg)
 {
-  gl_view_state_t *state = (gl_view_state_t *)ctx;
-
-  state->content.status_message = msg;
+  gl_view_state(surface)->content.status_message = msg;
 }
 
 /** gl_view_set_gradient() - Store pre-resolved gradient legend result
- * @ctx:     gl_view_state_t (passed as void* through render_ops_t)
+ * @surface: GL surface holding the frame content
  * @result:  gradient legend result from gradient_cache
  */
 static inline void
-gl_view_set_gradient(void *ctx, const gradient_result_t *result)
+gl_view_set_gradient(render_surface_t *surface,
+    const gradient_result_t *result)
 {
-  gl_view_state_t *state = (gl_view_state_t *)ctx;
-
-  state->content.gradient = *result;
+  gl_view_state(surface)->content.gradient = *result;
 }
 
 /* Sorting entry for the transparent render pass */
@@ -413,39 +418,51 @@ typedef struct
 } gl_trans_item_t;
 
 /* Public API */
-GtkWidget* gl_view_create_widget(
-    gl_view_config_t *config,
-    view_t *view);
 
-gl_view_state_t* gl_view_get_state(GtkWidget *widget);
+/** gl_view_surface_new() - Build a GL surface and pack it into a container
+ * @config: view configuration
+ * @view:   per-view rotation/pan/zoom/drag owner (borrowed, non-NULL)
+ * @parent: container the presented widget joins
+ *
+ * Returns a surface the caller hands to a canvas, which owns it from then on.
+ */
+render_surface_t *gl_view_surface_new(gl_view_config_t *config, view_t *view,
+    GtkContainer *parent);
+
+/** gl_view_surface_free() - Release the view state a canvas held */
+void gl_view_surface_free(render_surface_t *surface);
+
+/** gl_view_gpu_release() - Release every GPU resource the context owns
+ * @state: view state whose GL context is going away
+ *
+ * Runs at unrealize with the context current, and leaves the state ready to
+ * rebuild its resources should the widget realize again.
+ */
+void gl_view_gpu_release(gl_view_state_t *state);
 
 /**
  * gl_view_capture_pixbuf() - Capture the resolved OpenGL frame
- * @widget: OpenGL view wrapper or inner area
+ * @surface: surface holding the presented frame
  * @width: capture width in pixels
  * @height: capture height in pixels
  *
  * Returns a newly allocated top-down RGBA pixbuf, or NULL on failure.
  */
-GdkPixbuf *gl_view_capture_pixbuf(GtkWidget *widget, int width, int height);
-
-/* gl_view_get_gl_area() - Resolve a view widget handle to its GtkGLArea.
- * Accepts either the wrapper returned by gl_view_create_widget() or the
- * inner GtkGLArea.  Returns NULL for any other widget. */
-GtkWidget* gl_view_get_gl_area(GtkWidget *widget);
+GdkPixbuf *gl_view_capture_pixbuf(render_surface_t *surface,
+    int width, int height);
 
 /* gl_view_queue_render() - Request a frame from a view's GtkGLArea.
- * Accepts either the wrapper returned by gl_view_create_widget() or the
- * inner GtkGLArea.  No-op for any other widget. */
-void gl_view_queue_render(GtkWidget *widget);
+ * The GL areas run with auto-render disabled, so a frame is produced only
+ * on request. */
+void gl_view_queue_render(gl_view_state_t *state);
 
 /* gl_view_build_mvp() - Compose model/view/projection matrix for a frame.
  *
- * Reads rotation from view_R(state->view), pan from view->pan_offset
- * (converted from screen pixels to world units via camera distance and
- * fov), projection from state->aspect and state->fov_rad plus
- * cached_near_plane / cached_far_plane.  Model scale is passed
- * explicitly so the overlay pass can select a different scale from
+ * Reads rotation from view_R(state->base.view), pan from view->pan_offset
+ * (converted from screen pixels to world units via camera distance, fov
+ * and the view's viewport height), projection from the view's aspect and
+ * state->fov_rad plus cached_near_plane / cached_far_plane.  Model scale is
+ * passed explicitly so the overlay pass can select a different scale from
  * the main-content scale without temporarily mutating shared state. */
 void gl_view_build_mvp(gl_view_state_t *state, float model_scale,
                        mat4 mvp, mat4 mv);

@@ -23,17 +23,19 @@
 #include "common.h"
 
 /* Public API - always available, stubs when no OpenGL */
-GtkWidget* opengl_rdpattern_create_widget(void);
 void opengl_rdpattern_cleanup(void);
-GtkWidget* opengl_rdpattern_get_widget(void);
 #ifdef HAVE_OPENGL
 #include "../opengl-engine/opengl_renderer.h"
 #include "../render/render_dispatch.h"
 #include "../view/view_core.h"
 
+/* Build the radiation-pattern GL surface and pack it into @parent */
+render_surface_t *opengl_rdpattern_surface_new(GtkContainer *parent);
+
 /* GL rdpattern leaf renderers; exported for unified gl_ops vtable */
-gboolean gl_rdpat_draw_farfield(void *ctx, int fstep, const ff_draw_params_t *ff);
-gboolean gl_rdpat_draw_nearfield(void *ctx,
+gboolean gl_rdpat_draw_farfield(render_surface_t *surface, int fstep,
+    const ff_draw_params_t *ff);
+gboolean gl_rdpat_draw_nearfield(render_surface_t *surface,
     const near_field_point_t *origins, int npts,
     const nf_field_set_t *fields, int n_fields,
     double dr, double r_max);

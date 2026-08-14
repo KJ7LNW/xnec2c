@@ -326,12 +326,12 @@ build_struct_draw_params(int fstep, float model_scale)
 
 /**
  * render_deposit_colors() - Resolve and deposit the colors of the active theme
- * @ctx: backend context
- * @ops: backend vtable
+ * @surface: engine surface receiving the colors
  */
   static void
-render_deposit_colors(void *ctx, const render_ops_t *ops)
+render_deposit_colors(render_surface_t *surface)
 {
+  const render_ops_t *ops = surface->engine->render;
   const theme_t *theme = theme_active();
   render_frame_colors_t colors =
   {
@@ -340,22 +340,28 @@ render_deposit_colors(void *ctx, const render_ops_t *ops)
     .view_axis_label = theme->colors[THEME_ROLE_VIEW_AXIS_LABEL],
   };
 
-  ops->set_colors(ctx, &colors);
+  ops->set_colors(surface, &colors);
 
 } /* render_deposit_colors() */
 
 /*-----------------------------------------------------------------------*/
 
   gboolean
-render(void *ctx, const render_ops_t *ops, view_t *view)
+render(render_surface_t *surface)
 {
+  const render_ops_t *ops;
+  view_t *view;
   render_check_result_t r;
   gboolean ok = FALSE;
 
-  if( view == NULL )
+  if( surface == NULL || surface->view == NULL || surface->engine == NULL
+      || surface->engine->render == NULL )
     return FALSE;
 
-  render_deposit_colors(ctx, ops);
+  ops = surface->engine->render;
+  view = surface->view;
+
+  render_deposit_colors(surface);
 
   if( isFlagSet(ERROR_CONDX) )
     return FALSE;
@@ -377,9 +383,9 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
   if( r.status != RENDER_OK )
   {
     if( ops->init_empty != NULL )
-      ops->init_empty(ctx);
-    ops->draw_axes(ctx, RENDER_EMPTY_AXIS_EXTENT);
-    ops->set_status(ctx, r.message);
+      ops->init_empty(surface);
+    ops->draw_axes(surface, RENDER_EMPTY_AXIS_EXTENT);
+    ops->set_status(surface, r.message);
     g_rec_mutex_unlock(&freq_data_lock);
     return TRUE;
   }
@@ -407,17 +413,17 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
       float overlay_extent = (model_scale > 0.001f)
           ? ff.pattern_radius / model_scale
           : (float)geom_pre.scene_radius;
-      ops->draw_axes(ctx, ff.pattern_radius);
+      ops->draw_axes(surface, ff.pattern_radius);
 
       /* Deposit secondary structure before the primary pattern. */
       if( r.overlay_active )
       {
         struct_draw_params_t sparams =
             build_struct_draw_params(r.fstep, model_scale);
-        ops->draw_structure_overlay(ctx, overlay_extent, &sparams);
+        ops->draw_structure_overlay(surface, overlay_extent, &sparams);
       }
 
-      ok = ops->draw_farfield(ctx, r.fstep, &ff);
+      ok = ops->draw_farfield(surface, r.fstep, &ff);
 
       /* Resolve gradient legend for farfield mode; surface and version
        * travel as a cohesive result through the vtable to backends. */
@@ -426,7 +432,7 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
         gradient_result_t gr = gradient_cache_get_overlay(
             view->width, view->height);
         if( gr.surface != NULL )
-          ops->set_gradient(ctx, &gr);
+          ops->set_gradient(surface, &gr);
       }
 
       break;
@@ -442,18 +448,18 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
 
       /* Near-field overlay: structure in meters, same space as field vectors */
       float nf_overlay_extent = (float)nf->r_max;
-      ops->draw_axes(ctx, nf_overlay_extent);
+      ops->draw_axes(surface, nf_overlay_extent);
 
       if( r.overlay_active )
       {
         struct_draw_params_t sparams =
             build_struct_draw_params(r.fstep, 1.0f);
-        ops->draw_structure_overlay(ctx, nf_overlay_extent, &sparams);
+        ops->draw_structure_overlay(surface, nf_overlay_extent, &sparams);
       }
 
       if( n_fields > 0 )
       {
-        ok = ops->draw_nearfield(ctx, nf->points, npts,
+        ok = ops->draw_nearfield(surface, nf->points, npts,
             fields, n_fields, dr, nf->r_max);
       }
       else
@@ -465,8 +471,8 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
     case RENDER_MODE_STRUCTURE:
     {
       struct_draw_params_t params = build_struct_draw_params(r.fstep, 1.0f);
-      ops->draw_axes(ctx, params.geometry_extent);
-      ok = ops->draw_structure(ctx, params.geometry_extent, &params);
+      ops->draw_axes(surface, params.geometry_extent);
+      ok = ops->draw_structure(surface, params.geometry_extent, &params);
       break;
     }
 
@@ -495,8 +501,8 @@ render(void *ctx, const render_ops_t *ops, view_t *view)
      * Returning FALSE would skip the clear and freeze the last valid
      * frame on screen (desirable only during optimization above). */
     if( ops->init_empty != NULL )
-      ops->init_empty(ctx);
-    ops->set_status(ctx,
+      ops->init_empty(surface);
+    ops->set_status(surface,
         isFlagSet(FREQ_LOOP_DONE)
         ? STATUS_MSG_NOT_READY
         : STATUS_MSG_START_FREQLOOP);

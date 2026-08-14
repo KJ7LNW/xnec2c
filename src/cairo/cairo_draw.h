@@ -25,11 +25,12 @@
 #include "../prerender/prerender_state.h"
 #include "../prerender/prerender_color.h"
 #include "../render/render_dispatch.h"
+#include "../render/render_surface.h"
 
 #include "cairo_scenebuffer.h"
 
 /*-----------------------------------------------------------------------
- * Cairo rendering context — void *ctx in render_ops_t callbacks
+ * Cairo per-frame state, held by the surface producing the frame
  *----------------------------------------------------------------------*/
 
 /* Deferred axis label for post-flush Pango rendering */
@@ -43,7 +44,7 @@ typedef struct
 
 typedef struct
 {
-  /* Caller-provided frame resources */
+  /* Frame resources, written at draw entry */
   cairo_t                *cr;
 
   /* Frame colors deposited by render() through set_colors. */
@@ -51,15 +52,32 @@ typedef struct
   rgb_f_t                 view_axis;
   rgb_f_t                 view_axis_label;
 
-  view_t                 *view;
-  cairo_scenebuffer_t    *sb;       /* caller-owned scenebuffer */
-
   /* Render-internal fields (set during render(), consumed by render_cairo) */
   axis_label_t     axis_labels[AXIS_COUNT];
   int              n_axis_labels;
   const char      *status_message; /* deferred status text; painted after flush */
   cairo_surface_t *gradient;       /* resolved gradient legend; NULL = skip */
 } cairo_render_ctx_t;
+
+/* One Cairo drawing surface: the generic base extended with the retained
+ * scene the frame deposits into and the frame state itself. */
+typedef struct
+{
+  render_surface_t     base;
+  cairo_scenebuffer_t  scenebuffer;  /* retained allocation, reset per frame */
+  cairo_render_ctx_t   frame;        /* per-draw; cr written at draw entry */
+
+} cairo_engine_surface_t;
+
+/**
+ * cairo_engine_surface() - Reach the Cairo surface object from its base
+ * @surface: surface a Cairo engine produced frames for
+ */
+static inline cairo_engine_surface_t *
+cairo_engine_surface(render_surface_t *surface)
+{
+  return( (cairo_engine_surface_t *)surface );
+}
 
 /*-----------------------------------------------------------------------
  * Cairo drawing primitives (cairo_project.c)
@@ -82,22 +100,24 @@ void Process_Surface_Patches(view_t *v, double scale);
  * Axes (cairo_axes.c)
  *----------------------------------------------------------------------*/
 
-void cairo_draw_axes(void *ctx, float extent);
+void cairo_draw_axes(render_surface_t *surface, float extent);
 
 /*-----------------------------------------------------------------------
  * Cairo renderer leaf functions (for render_ops_t vtable)
  *----------------------------------------------------------------------*/
 
-gboolean cairo_draw_structure(void *ctx, float extent,
+gboolean cairo_draw_structure(render_surface_t *surface, float extent,
     const struct_draw_params_t *params);
-gboolean cairo_draw_farfield(void *ctx, int fstep,
+gboolean cairo_draw_farfield(render_surface_t *surface, int fstep,
     const ff_draw_params_t *ff);
-gboolean cairo_draw_nearfield(void *ctx,
+gboolean cairo_draw_nearfield(render_surface_t *surface,
     const near_field_point_t *origins, int npts,
     const nf_field_set_t *fields, int n_fields,
     double dr, double r_max);
-void     cairo_set_status(void *ctx, const char *msg);
-void     cairo_set_gradient(void *ctx, const gradient_result_t *result);
-void     cairo_set_colors(void *ctx, const render_frame_colors_t *colors);
+void     cairo_set_status(render_surface_t *surface, const char *msg);
+void     cairo_set_gradient(render_surface_t *surface,
+    const gradient_result_t *result);
+void     cairo_set_colors(render_surface_t *surface,
+    const render_frame_colors_t *colors);
 
 #endif

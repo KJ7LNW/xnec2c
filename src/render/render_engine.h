@@ -26,26 +26,32 @@
  * render_engine: one concrete renderer identity.
  *
  * The nested render protocol receives parent-prepared domain arguments.  The
- * remaining operations act on the active physical surface selected by canvas.
- * Canvas code dispatches only the surface operations and never invokes or
- * inspects the domain protocol.
+ * remaining operations act on the surface object the engine owns.  Canvas
+ * code dispatches only the surface operations and never invokes or inspects
+ * the domain protocol.
  */
 
 /* Named by reference alone; render_dispatch.h defines the domain protocol
  * and the argument types its operations carry. */
 typedef struct render_ops_s render_ops_t;
+typedef struct render_surface_s render_surface_t;
 
-typedef struct
+typedef struct render_engine_s
 {
   const render_ops_t *render;
-  gboolean (*fit_view)(GtkWidget *surface, view_t *view, view_fit_t *fit);
-  GdkPixbuf *(*capture)(GtkWidget *widget, int width, int height);
 
-  /* Request a new frame from the engine's drawing widget.  A Cairo area
-   * produces its frame during ::draw, while a GtkGLArea under manual render
-   * mode re-presents its cached frame until a render request marks that
-   * frame stale, so each engine names the primitive that suits it. */
-  void (*queue_redraw)(GtkWidget *widget);
+  /* Release the engine's own surface object, which the canvas owns from
+   * registration until it drops the binding. */
+  void (*surface_free)(render_surface_t *surface);
+
+  gboolean (*fit_view)(render_surface_t *surface, view_fit_t *fit);
+  GdkPixbuf *(*capture)(render_surface_t *surface, int width, int height);
+
+  /* Request a new frame from the engine's surface.  A Cairo area produces
+   * its frame during ::draw, while a GtkGLArea under manual render mode
+   * re-presents its cached frame until a render request marks that frame
+   * stale, so each engine names the primitive that suits it. */
+  void (*queue_redraw)(render_surface_t *surface);
 
 } render_engine_t;
 

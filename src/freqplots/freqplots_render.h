@@ -17,6 +17,7 @@
 
 #include "../common.h"
 #include "../cairo/cairo_scenebuffer.h"
+#include "../render/render_surface.h"
 
 /* Painter's-algorithm depth layers for the frequency plots.  Ascending
  * z_mid is drawn back-to-front by scenebuffer_flush(), so a larger value
@@ -40,19 +41,20 @@ typedef struct
   float   z_mid;
 } fp_stroke_t;
 
-/* Per-frame render handle carrying the active Cairo context.  All primitive
- * storage is owned by the shared cairo_scenebuffer in freqplots_render.c. */
+/* Per-frame render handle carrying the active Cairo context and the retained
+ * scenebuffer of the surface producing the frame. */
 typedef struct
 {
   cairo_t *cr;
+  cairo_scenebuffer_t *sb;
 } fp_render_t;
 
 /* Lifecycle: reset binds the frame context, the caller-owned text layout, and
- * clears the scenebuffer; flush depth-sorts and emits every primitive; destroy
- * releases the backing allocations. */
-void fp_render_reset(fp_render_t *fp, cairo_t *cr, PangoLayout *layout);
+ * the surface scenebuffer it clears; flush depth-sorts and emits every
+ * primitive.  The canvas releases the scenebuffer with its surface. */
+gboolean fp_render_reset(fp_render_t *fp, render_surface_t *surface,
+    cairo_t *cr, PangoLayout *layout);
 void fp_render_flush(fp_render_t *fp);
-void fp_render_destroy(void);
 
 /* Stroked geometry deposit helpers.  The stroke style carries colour, width,
  * and depth; each helper appends line or arc geometry to the scenebuffer. */

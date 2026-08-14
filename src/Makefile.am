@@ -120,6 +120,7 @@ xnec2c_SOURCES = \
     render/render_canvas_surface.c  render/render_canvas_surface.h \
     render/render_redraw.c          render/render_redraw.h \
     render/render_engine.h \
+    render/render_surface.h \
     render/gradient_cache.c         render/gradient_cache.h \
     cairo/cairo_draw.h \
     cairo/cairo_axes.c \

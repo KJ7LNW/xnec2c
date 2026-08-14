@@ -24,6 +24,7 @@
 #include "../prerender/prerender_color.h"
 #include "../prerender/prerender_state.h"
 #include "render_message.h"
+#include "render_surface.h"
 #include "gradient_cache.h"
 
 /* Axis half-extent used for empty-scene placeholders (no geometry loaded) */
@@ -113,40 +114,44 @@ typedef struct
 typedef struct render_ops_s
 {
   /* Draw far-field gain pattern; returns TRUE on success, FALSE on data miss */
-  gboolean (*draw_farfield)(void *ctx, int fstep, const ff_draw_params_t *ff);
+  gboolean (*draw_farfield)(render_surface_t *surface, int fstep,
+      const ff_draw_params_t *ff);
 
   /* Draw near E/H/Poynting field vectors; returns TRUE on success.
    * Backend iterates fields[0..n_fields-1], one batch per entry. */
-  gboolean (*draw_nearfield)(void *ctx,
+  gboolean (*draw_nearfield)(render_surface_t *surface,
       const near_field_point_t *origins, int npts,
       const nf_field_set_t *fields, int n_fields,
       double dr, double r_max);
 
   /* Draw structure geometry; returns TRUE always.
    * extent: content half-extent for projection scaling. */
-  gboolean (*draw_structure)(void *ctx, float extent, const struct_draw_params_t *params);
+  gboolean (*draw_structure)(render_surface_t *surface, float extent,
+      const struct_draw_params_t *params);
 
   /* Draw structure geometry as secondary content behind a field view. */
-  gboolean (*draw_structure_overlay)(void *ctx, float extent,
+  gboolean (*draw_structure_overlay)(render_surface_t *surface, float extent,
       const struct_draw_params_t *params);
 
   /* Initialize an empty scene (no geometry).  Optional entry: render()
    * tests presence, as the Cairo backend supplies none. */
-  void (*init_empty)(void *ctx);
+  void (*init_empty)(render_surface_t *surface);
 
   /* Set the status message on the scene */
-  void (*set_status)(void *ctx, const char *msg);
+  void (*set_status)(render_surface_t *surface, const char *msg);
 
   /* Composite a pre-resolved gradient legend surface.
    * Called by render() when gradient_cache yields a valid surface;
    * never called otherwise — backends paint unconditionally. */
-  void (*set_gradient)(void *ctx, const gradient_result_t *result);
+  void (*set_gradient)(render_surface_t *surface,
+      const gradient_result_t *result);
 
   /* Deposit the frame colors render() resolved from the active theme */
-  void (*set_colors)(void *ctx, const render_frame_colors_t *colors);
+  void (*set_colors)(render_surface_t *surface,
+      const render_frame_colors_t *colors);
 
   /* Draw xyz axes for the primary content extent */
-  void (*draw_axes)(void *ctx, float extent);
+  void (*draw_axes)(render_surface_t *surface, float extent);
 
 } render_ops_t;
 
@@ -194,16 +199,15 @@ void render_overlay_excitation_offset(float model_scale, gboolean overlay_active
 
 /**
  * render() - Unified render entry point for all backends
- * @ctx:  backend context (cast to gl_view_content_t* for GL, cairo context for Cairo)
- * @ops:  backend vtable
- * @view: view_t* for the window being rendered; view->type selects mode,
- *        view->zoom provides the zoom factor
+ * @surface: engine surface producing the frame; it carries the backend
+ *           vtable through its engine and the view through its own field,
+ *           whose type selects the mode and whose zoom scales the frame
  *
  * Acquires freq_data_lock, evaluates preconditions via render_check(), dispatches
  * through the ops vtable, and releases the lock.  Reads overlay scale from
  * rc_config.rdpattern_overlay_scale_adj.
  * Returns TRUE when a frame was produced, FALSE for freeze-frame.
  */
-gboolean render(void *ctx, const render_ops_t *ops, view_t *view);
+gboolean render(render_surface_t *surface);
 
 #endif

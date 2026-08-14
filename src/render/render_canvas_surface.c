@@ -18,110 +18,141 @@
  */
 
 /*
- * canvas_surface: physical widget and concrete engine binding operations.
+ * canvas_surface: operations on one engine-owned drawing surface.
  *
- * Receives only a selected binding and operation-specific arguments.  Canvas
+ * Receives only a selected surface and operation-specific arguments.  Canvas
  * identity, candidate inventory, active selection, and pooled handles remain
- * private to render_canvas.c.  Every operation reaches the widget and the
- * engine through the binding, so no consumer dereferences either.
+ * private to render_canvas.c.  Every operation reaches the widget, the view
+ * and the engine through the surface, so no consumer dereferences any of them.
  */
 
 #include "render_canvas_surface.h"
+#include "render_surface.h"
 
   gboolean
 canvas_surface_engine_complete(const render_engine_t *engine)
 {
-  return( engine != NULL && engine->fit_view != NULL &&
+  return( engine != NULL && engine->render != NULL &&
+      engine->surface_free != NULL && engine->fit_view != NULL &&
       engine->capture != NULL && engine->queue_redraw != NULL );
 
 } /* canvas_surface_engine_complete() */
 
   gboolean
-canvas_surface_has_engine(const canvas_surface_t *surface,
+canvas_surface_has_engine(const render_surface_t *surface,
     const render_engine_t *engine)
 {
-  return( surface->engine == engine );
+  return( surface != NULL && surface->engine == engine );
 
 } /* canvas_surface_has_engine() */
 
   void
-canvas_surface_bind(canvas_surface_t *surface, GtkWidget *widget,
-    const render_engine_t *engine)
+canvas_surface_free(render_surface_t *surface)
 {
-  surface->widget = widget;
-  surface->engine = engine;
+  if( surface == NULL )
+    return;
 
-} /* canvas_surface_bind() */
+  if( surface->engine == NULL || surface->engine->surface_free == NULL )
+    return;
+
+  surface->engine->surface_free( surface );
+
+} /* canvas_surface_free() */
 
   void
-canvas_surface_hide(const canvas_surface_t *surface)
+canvas_surface_hide(const render_surface_t *surface)
 {
+  if( surface == NULL || surface->widget == NULL )
+    return;
+
   gtk_widget_hide( surface->widget );
 
 } /* canvas_surface_hide() */
 
   void
-canvas_surface_show(const canvas_surface_t *surface)
+canvas_surface_show(const render_surface_t *surface)
 {
+  if( surface == NULL || surface->widget == NULL )
+    return;
+
   gtk_widget_show( surface->widget );
   gtk_widget_queue_resize( surface->widget );
 
 } /* canvas_surface_show() */
 
   void
-canvas_surface_queue_redraw(const canvas_surface_t *surface)
+canvas_surface_queue_redraw(render_surface_t *surface)
 {
-  surface->engine->queue_redraw( surface->widget );
+  if( surface == NULL || surface->engine == NULL
+      || surface->engine->queue_redraw == NULL )
+    return;
+
+  surface->engine->queue_redraw( surface );
 
 } /* canvas_surface_queue_redraw() */
 
 /**
  * canvas_surface_sync_viewport() - Record the current surface allocation
- * @surface: active view-backed surface
- * @view:    renderer-neutral view state receiving the allocation
+ * @surface: active view-backed surface, which receives the allocation
  */
   void
-canvas_surface_sync_viewport(const canvas_surface_t *surface, view_t *view)
+canvas_surface_sync_viewport(render_surface_t *surface)
 {
   GtkAllocation allocation;
 
+  if( surface == NULL || surface->widget == NULL || surface->view == NULL )
+    return;
+
   gtk_widget_get_allocation(surface->widget, &allocation);
-  view_set_viewport(view, allocation.width, allocation.height);
+  view_set_viewport(surface->view, allocation.width, allocation.height);
 
 } /* canvas_surface_sync_viewport() */
 
   gboolean
-canvas_surface_fit(const canvas_surface_t *surface, view_t *view,
-    view_fit_t *fit)
+canvas_surface_fit(render_surface_t *surface, view_fit_t *fit)
 {
-  return( surface->engine->fit_view(surface->widget, view, fit) );
+  if( surface == NULL || fit == NULL || surface->engine == NULL
+      || surface->engine->fit_view == NULL )
+    return FALSE;
+
+  return( surface->engine->fit_view(surface, fit) );
 
 } /* canvas_surface_fit() */
 
   GdkPixbuf *
-canvas_surface_capture(const canvas_surface_t *surface, int width, int height)
+canvas_surface_capture(render_surface_t *surface, int width, int height)
 {
   if( width <= 0 || height <= 0 )
     return NULL;
 
-  return( surface->engine->capture(surface->widget, width, height) );
+  if( surface == NULL || surface->engine == NULL
+      || surface->engine->capture == NULL )
+    return NULL;
+
+  return( surface->engine->capture(surface, width, height) );
 
 } /* canvas_surface_capture() */
 
   PangoLayout *
-canvas_surface_pango_layout(const canvas_surface_t *surface, const char *text)
+canvas_surface_pango_layout(const render_surface_t *surface, const char *text)
 {
+  if( surface == NULL || surface->widget == NULL )
+    return NULL;
+
   return( gtk_widget_create_pango_layout(surface->widget, text) );
 
 } /* canvas_surface_pango_layout() */
 
   gboolean
-canvas_surface_draw_sync(const canvas_surface_t *surface,
+canvas_surface_draw_sync(render_surface_t *surface,
     int width, int height, cairo_t *cr)
 {
   GtkAllocation allocation = {0};
 
   if( width <= 0 || height <= 0 || cr == NULL )
+    return FALSE;
+
+  if( surface == NULL || surface->widget == NULL )
     return FALSE;
 
   allocation.width = width;

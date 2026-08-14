@@ -28,7 +28,6 @@
 #include "structure_ui.h"
 #include "config_hooks.h"
 #include "rc_config.h"
-#include "cairo/cairo_draw.h"
 #include "cairo/cairo_frame.h"
 #include "cairo/cairo_fit.h"
 #include <pthread.h>
@@ -156,10 +155,6 @@ on_main_window_destroy(
     GObject     *object,
     gpointer    user_data)
 {
-  /* Release Cairo scenebuffer allocations before tearing down the
-   * GTK main loop; segment arrays survive until process exit otherwise. */
-  cairo_frame_destroy();
-
   Gtk_Quit();
 }
 
@@ -551,7 +546,7 @@ on_main_rdpattern_activate(
     rdpattern_window = create_rdpattern_window( &rdpattern_window_builder );
 
     /* Spin widgets must be resolved before creating the GL widget:
-     * opengl_rdpattern_create_widget() dereferences rdpattern_view,
+     * opengl_rdpattern_surface_new() dereferences rdpattern_view,
      * which in turn borrows the spin-button pointers. */
     rotate_rdpattern  = GTK_SPIN_BUTTON( Builder_Get_Object(
           rdpattern_window_builder, "rdpattern_rotate_spinbutton") );
@@ -586,18 +581,18 @@ on_main_rdpattern_activate(
               ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
     }
 
-    canvas_add_surface( CANVAS_RDPATTERN, Builder_Get_Object(
-          rdpattern_window_builder, "rdpattern_drawingarea" ),
-        &cairo_engine );
+    canvas_add_surface( CANVAS_RDPATTERN,
+        cairo_surface_adopt(Builder_Get_Object(
+            rdpattern_window_builder, "rdpattern_drawingarea" ),
+          rdpattern_view) );
 
 #ifdef HAVE_OPENGL
     {
       GtkWidget *box = Builder_Get_Object(
         rdpattern_window_builder, "rdpattern_box");
 
-      GtkWidget *gl_area = opengl_rdpattern_create_widget();
-      gtk_box_pack_start(GTK_BOX(box), gl_area, TRUE, TRUE, 0);
-      canvas_add_surface( CANVAS_RDPATTERN, gl_area, &gl_engine );
+      canvas_add_surface( CANVAS_RDPATTERN,
+          opengl_rdpattern_surface_new(GTK_CONTAINER(box)) );
 
       opengl_set_renderer(rc_config.use_opengl_renderer);
     }
@@ -606,7 +601,7 @@ on_main_rdpattern_activate(
 
     hide_widget_by_id(rdpattern_window_builder, "rdpattern_ortho_button");
 #endif
-    canvas_sync_viewport( CANVAS_RDPATTERN, rdpattern_view );
+    canvas_sync_viewport( CANVAS_RDPATTERN );
 
     /* Restore radiation pattern window widget state from the bound config
      * fields, then run each tree's hook to refresh the derived draw flags. */
@@ -711,7 +706,8 @@ on_main_freqplots_activate(
           freqplots_window_builder, "freqplots_drawingarea" );
       freqplots_main_view()->window      = freqplots_window;
       freqplots_main_view()->canvas      = CANVAS_FREQPLOTS;
-      canvas_add_surface( CANVAS_FREQPLOTS, fp_da, &cairo_engine );
+      canvas_add_surface( CANVAS_FREQPLOTS,
+          cairo_surface_adopt(fp_da, NULL) );
       canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine );
       freqplots_main_view()->filter      = FP_PANEL_ALL;
       g_object_set_data( G_OBJECT(fp_da), "fp_view", freqplots_main_view() );
@@ -995,7 +991,7 @@ on_structure_drawingarea_motion_notify_event(
 
 
 /** on_structure_drawingarea_draw() - Render the structure view with active theme colors
- * @widget: structure drawing area
+ * @widget: structure drawing area, which owns the surface it presents
  * @cr: Cairo context for the current frame
  * @user_data: unused callback data
  */
@@ -1005,16 +1001,9 @@ on_structure_drawingarea_draw(
     cairo_t         *cr,
     gpointer         user_data)
 {
-  (void)widget;
   (void)user_data;
 
-  cairo_render_ctx_t ctx =
-  {
-    .cr      = cr,
-    .view    = structure_view,
-    .sb      = cairo_frame_get_scenebuffer(VIEW_STRUCTURE),
-  };
-  return render_cairo(&ctx);
+  return render_cairo( cairo_surface_of_widget(widget), cr );
 }
 
 
@@ -2005,7 +1994,7 @@ on_rdpattern_drawingarea_configure_event(
 
 
 /** on_rdpattern_drawingarea_draw() - Render the radiation-pattern view with active theme colors
- * @widget: radiation-pattern drawing area
+ * @widget: radiation-pattern drawing area, which owns the surface it presents
  * @cr: Cairo context for the current frame
  * @user_data: unused callback data
  */
@@ -2015,16 +2004,9 @@ on_rdpattern_drawingarea_draw(
     cairo_t         *cr,
     gpointer         user_data)
 {
-  (void)widget;
   (void)user_data;
 
-  cairo_render_ctx_t ctx =
-  {
-    .cr      = cr,
-    .view    = rdpattern_view,
-    .sb      = cairo_frame_get_scenebuffer(VIEW_RDPATTERN),
-  };
-  return render_cairo(&ctx);
+  return render_cairo( cairo_surface_of_widget(widget), cr );
 }
 
 

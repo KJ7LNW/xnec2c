@@ -26,6 +26,7 @@
 #include "themes/theme.h"
 #include "color/color_palette.h"
 #include "cairo/cairo_fit.h"
+#include "cairo/cairo_frame.h"
 
 /*------------------------------------------------------------------*/
 
@@ -322,7 +323,7 @@ create_freqplots_popup_window( freqplots_view_t *view, const char *graph_name )
 
   /* Present the surface once its handlers are attached, so the show and
    * resize this triggers reach the draw and configure callbacks. */
-  view->canvas = canvas_create( da, &cairo_engine );
+  view->canvas = canvas_create( cairo_surface_adopt(da, NULL) );
 
   return( win );
 }

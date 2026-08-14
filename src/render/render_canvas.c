@@ -20,14 +20,15 @@
 /*
  * render_canvas: the canvas registry and canvas-scoped control-op dispatch.
  *
- * Holds the surfaces registered for each canvas, which of them the canvas
- * presents, and the engine producing its frames.  Control operations reach
- * the engine leaf through that record, so this layer names no engine and
- * reads no renderer setting.  Each leaf owns its geometry reduction and
- * zoom/pan inversion.
+ * Owns the surface objects registered for each canvas, holds which of them
+ * the canvas presents, and releases them when the binding drops.  Control
+ * operations reach the engine leaf through the surface, so this layer names
+ * no engine and reads no renderer setting.  Each leaf owns its geometry
+ * reduction and zoom/pan inversion.
  */
 
 #include "render_canvas.h"
+#include "render_surface.h"
 #include "render_canvas_lifetime.h"
 #include "render_redraw.h"
 #include "render_canvas_surface.h"
@@ -39,8 +40,8 @@
 /* canvas_t - the surfaces registered for one canvas and the presented one. */
 typedef struct
 {
-  canvas_surface_t surfaces[CANVAS_SURFACES_MAX];
-  const canvas_surface_t *active;     /* NULL while the canvas is unbound */
+  render_surface_t *surfaces[CANVAS_SURFACES_MAX];  /* NULL names a free slot */
+  render_surface_t *active;           /* NULL while the canvas is unbound */
   canvas_lifetime_t *lifetime;        /* token of the current binding */
 
 } canvas_t;
@@ -48,14 +49,6 @@ typedef struct
 /* The canvases.  Static for the process lifetime, so a marshaled frame
  * request names its canvas through the token of the binding that queued it. */
 static canvas_t canvases[CANVAS_COUNT];
-
-/* Projection of view identity onto canvas identity.  Read only through
- * canvas_of_view(); CANVAS_FREQPLOTS drives no view and appears nowhere. */
-static const canvas_id_t view_canvas[] =
-{
-  [VIEW_STRUCTURE] = CANVAS_STRUCTURE,
-  [VIEW_RDPATTERN] = CANVAS_RDPATTERN,
-};
 
 /* GSourceFunc wrapper for a canvas frame request, scheduled by
  * canvas_queue_redraw().  A canvas holding a token other than the one the
@@ -74,22 +67,21 @@ canvas_invalidate_cb(gpointer data)
 } /* canvas_invalidate_cb() */
 
 /**
- * canvas_surface_of_engine() - Find the surface an engine registered
+ * canvas_slot_of_engine() - Find the slot an engine registered its surface in
  * @canvas: canvas holding the surfaces
- * @engine: engine to match, or NULL to take a free slot
+ * @engine: engine to match
  *
- * Returns NULL when the engine registered no surface, or when no slot is
- * free for a NULL @engine.
+ * Returns NULL when the engine registered no surface.
  */
-  static canvas_surface_t *
-canvas_surface_of_engine(canvas_t *canvas, const render_engine_t *engine)
+  static render_surface_t **
+canvas_slot_of_engine(canvas_t *canvas, const render_engine_t *engine)
 {
-  canvas_surface_t *found = NULL;
+  render_surface_t **found = NULL;
   int idx = 0;
 
   while( found == NULL && idx < CANVAS_SURFACES_MAX )
   {
-    if( canvas_surface_has_engine(&canvas->surfaces[idx], engine) )
+    if( canvas_surface_has_engine(canvas->surfaces[idx], engine) )
       found = &canvas->surfaces[idx];
 
     idx++;
@@ -97,35 +89,91 @@ canvas_surface_of_engine(canvas_t *canvas, const render_engine_t *engine)
 
   return( found );
 
-} /* canvas_surface_of_engine() */
+} /* canvas_slot_of_engine() */
+
+/**
+ * canvas_slot_free() - Find a slot holding no surface
+ * @canvas: canvas holding the surfaces
+ *
+ * Returns NULL when every slot is occupied.
+ */
+  static render_surface_t **
+canvas_slot_free(canvas_t *canvas)
+{
+  render_surface_t **found = NULL;
+  int idx = 0;
+
+  while( found == NULL && idx < CANVAS_SURFACES_MAX )
+  {
+    if( canvas->surfaces[idx] == NULL )
+      found = &canvas->surfaces[idx];
+
+    idx++;
+  }
+
+  return( found );
+
+} /* canvas_slot_free() */
+
+/**
+ * canvas_holds_view() - Report whether a canvas registered a surface for a view
+ * @canvas: canvas holding the surfaces
+ * @view:   view to match
+ */
+  static gboolean
+canvas_holds_view(const canvas_t *canvas, const view_t *view)
+{
+  gboolean found = FALSE;
+  int idx = 0;
+
+  while( !found && idx < CANVAS_SURFACES_MAX )
+  {
+    if( canvas->surfaces[idx] != NULL && canvas->surfaces[idx]->view == view )
+      found = TRUE;
+
+    idx++;
+  }
+
+  return( found );
+
+} /* canvas_holds_view() */
 
   void
-canvas_add_surface(canvas_id_t id, GtkWidget *widget,
-    const render_engine_t *engine)
+canvas_add_surface(canvas_id_t id, render_surface_t *surface)
 {
   canvas_t *canvas = &canvases[id];
-  canvas_surface_t *surface;
+  render_surface_t **slot;
 
-  if( widget == NULL || !canvas_surface_engine_complete(engine) )
+  if( surface == NULL || !canvas_surface_engine_complete(surface->engine) )
   {
-    BUG("canvas %d needs a widget and an engine that fits, captures and"
-        " redraws: widget %p engine %p\n", (int)id, (void *)widget,
-        (const void *)engine);
+    BUG("canvas %d needs a surface whose engine renders, frees, fits,"
+        " captures and redraws: surface %p\n", (int)id, (void *)surface);
     return;
   }
 
-  surface = canvas_surface_of_engine( canvas, engine );
+  slot = canvas_slot_of_engine( canvas, surface->engine );
 
-  if( surface == NULL )
-    surface = canvas_surface_of_engine( canvas, NULL );
+  /* The engine rebinding its slot releases the surface it registered
+   * before, which the canvas has owned since that registration; a
+   * presented surface hands its presentation to the replacement. */
+  if( slot != NULL )
+  {
+    if( canvas->active == *slot )
+      canvas->active = surface;
 
-  if( surface == NULL )
+    canvas_surface_free( *slot );
+  }
+  else
+    slot = canvas_slot_free( canvas );
+
+  if( slot == NULL )
   {
     BUG("canvas %d holds %d surfaces already\n", (int)id, CANVAS_SURFACES_MAX);
+    canvas_surface_free( surface );
     return;
   }
 
-  canvas_surface_bind(surface, widget, engine);
+  *slot = surface;
 
   if( canvas->lifetime == NULL )
     canvas->lifetime = canvas_lifetime_new( id );
@@ -133,10 +181,17 @@ canvas_add_surface(canvas_id_t id, GtkWidget *widget,
 } /* canvas_add_surface() */
 
   canvas_id_t
-canvas_create(GtkWidget *widget, const render_engine_t *engine)
+canvas_create(render_surface_t *surface)
 {
   canvas_id_t found = CANVAS_NONE;
   canvas_id_t id = CANVAS_RESERVED_COUNT;
+  const render_engine_t *engine;
+
+  if( surface == NULL )
+  {
+    BUG("canvas pool needs a surface to present\n");
+    return CANVAS_NONE;
+  }
 
   /* A pooled handle is free while it presents nothing: canvas_create()
    * presents at once and canvas_clear() drops the surfaces together. */
@@ -151,10 +206,15 @@ canvas_create(GtkWidget *widget, const render_engine_t *engine)
   if( found == CANVAS_NONE )
   {
     BUG("canvas pool holds %d created canvases already\n", CANVAS_CREATED_MAX);
+    canvas_surface_free( surface );
     return CANVAS_NONE;
   }
 
-  canvas_add_surface( found, widget, engine );
+  /* Registration takes ownership, so name the engine before handing the
+   * surface over and select through that name. */
+  engine = surface->engine;
+
+  canvas_add_surface( found, surface );
   canvas_set_engine( found, engine );
 
   return( found );
@@ -165,7 +225,7 @@ canvas_create(GtkWidget *widget, const render_engine_t *engine)
 canvas_set_engine(canvas_id_t id, const render_engine_t *engine)
 {
   canvas_t *canvas = &canvases[id];
-  canvas_surface_t *target;
+  render_surface_t *target;
   int idx;
 
   if( engine == NULL )
@@ -174,7 +234,7 @@ canvas_set_engine(canvas_id_t id, const render_engine_t *engine)
     return FALSE;
   }
 
-  target = canvas_surface_of_engine( canvas, engine );
+  target = canvas_surface_of( id, engine );
 
   if( target == NULL )
     return FALSE;
@@ -182,12 +242,9 @@ canvas_set_engine(canvas_id_t id, const render_engine_t *engine)
   /* Present exactly the surface whose engine produces canvas frames. */
   for( idx = 0; idx < CANVAS_SURFACES_MAX; idx++ )
   {
-    canvas_surface_t *surface = &canvas->surfaces[idx];
+    render_surface_t *surface = canvas->surfaces[idx];
 
-    if( surface == target )
-      continue;
-
-    if( canvas_surface_has_engine(surface, NULL) )
+    if( surface == NULL || surface == target )
       continue;
 
     canvas_surface_hide(surface);
@@ -203,9 +260,14 @@ canvas_set_engine(canvas_id_t id, const render_engine_t *engine)
   void
 canvas_clear(canvas_id_t id)
 {
-  canvas_lifetime_t *lifetime = canvases[id].lifetime;
+  canvas_t *canvas = &canvases[id];
+  canvas_lifetime_t *lifetime = canvas->lifetime;
+  int idx;
 
-  canvases[id] = (canvas_t){ 0 };
+  for( idx = 0; idx < CANVAS_SURFACES_MAX; idx++ )
+    canvas_surface_free( canvas->surfaces[idx] );
+
+  *canvas = (canvas_t){ 0 };
 
   /* Requests queued under the closing binding hold their own references */
   canvas_lifetime_release( lifetime );
@@ -219,17 +281,40 @@ canvas_bound(canvas_id_t id)
 
 } /* canvas_bound() */
 
-  canvas_id_t
-canvas_of_view(view_type_t type)
+  render_surface_t *
+canvas_surface_of(canvas_id_t id, const render_engine_t *engine)
 {
-  return( view_canvas[type] );
+  render_surface_t **slot = canvas_slot_of_engine( &canvases[id], engine );
+
+  return( (slot != NULL) ? *slot : NULL );
+
+} /* canvas_surface_of() */
+
+  canvas_id_t
+canvas_of_view(const view_t *view)
+{
+  canvas_id_t found = CANVAS_NONE;
+  canvas_id_t id = CANVAS_STRUCTURE;
+
+  if( view == NULL )
+    return CANVAS_NONE;
+
+  while( found == CANVAS_NONE && id < CANVAS_COUNT )
+  {
+    if( canvas_holds_view(&canvases[id], view) )
+      found = id;
+
+    id++;
+  }
+
+  return( found );
 
 } /* canvas_of_view() */
 
   PangoLayout *
 canvas_pango_layout(canvas_id_t id, const char *text)
 {
-  const canvas_surface_t *active = canvases[id].active;
+  const render_surface_t *active = canvases[id].active;
 
   if( active == NULL )
   {
@@ -242,21 +327,20 @@ canvas_pango_layout(canvas_id_t id, const char *text)
 } /* canvas_pango_layout() */
 
 /**
- * canvas_sync_viewport() - Record the presented surface allocation in a view
- * @id:   canvas presenting the view
- * @view: renderer-neutral view state receiving the allocation
+ * canvas_sync_viewport() - Record the presented surface allocation in its view
+ * @id: canvas presenting the view
  *
- * Returns FALSE while the canvas is unbound or when @view is NULL.
+ * Returns FALSE while the canvas is unbound or presents no view.
  */
   gboolean
-canvas_sync_viewport(canvas_id_t id, view_t *view)
+canvas_sync_viewport(canvas_id_t id)
 {
-  const canvas_surface_t *active = canvases[id].active;
+  render_surface_t *active = canvases[id].active;
 
-  if( active == NULL || view == NULL )
+  if( active == NULL || active->view == NULL )
     return FALSE;
 
-  canvas_surface_sync_viewport(active, view);
+  canvas_surface_sync_viewport(active);
 
   return TRUE;
 
@@ -265,7 +349,7 @@ canvas_sync_viewport(canvas_id_t id, view_t *view)
   void
 canvas_invalidate(canvas_id_t id)
 {
-  const canvas_surface_t *active = canvases[id].active;
+  render_surface_t *active = canvases[id].active;
 
   if( active == NULL )
     return;
@@ -289,7 +373,7 @@ canvas_queue_redraw(canvas_id_t id, gboolean force)
   gboolean
 canvas_draw_sync(canvas_id_t id, int width, int height, cairo_t *cr)
 {
-  const canvas_surface_t *active = canvases[id].active;
+  render_surface_t *active = canvases[id].active;
 
   if( active == NULL )
     return FALSE;
@@ -301,24 +385,30 @@ canvas_draw_sync(canvas_id_t id, int width, int height, cairo_t *cr)
   gboolean
 canvas_fit_view(view_t *view, view_fit_t *fit)
 {
-  const canvas_surface_t *active;
+  canvas_id_t id;
+  render_surface_t *active;
 
   if( view == NULL || fit == NULL )
     return FALSE;
 
-  active = canvases[ canvas_of_view(view->type) ].active;
+  id = canvas_of_view( view );
+
+  if( id == CANVAS_NONE )
+    return FALSE;
+
+  active = canvases[id].active;
 
   if( active == NULL )
     return FALSE;
 
-  return( canvas_surface_fit(active, view, fit) );
+  return( canvas_surface_fit(active, fit) );
 
 } /* canvas_fit_view() */
 
   GdkPixbuf *
 canvas_capture(canvas_id_t id, int width, int height)
 {
-  const canvas_surface_t *active = canvases[id].active;
+  render_surface_t *active = canvases[id].active;
 
   if( active == NULL )
     return NULL;

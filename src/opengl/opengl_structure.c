@@ -38,10 +38,6 @@
 /* Mutable cylinder radius scale factor (user-adjustable via Ctrl+scroll) */
 static double cylinder_radius_scale = 1.0;
 
-
-/* Widget pointer for queue_redraw */
-static GtkWidget *structure_gl_widget = NULL;
-
 /* Vertex attribute layout for lit-color shader (shared with overlay consumers) */
 const gl_vertex_attrib_t opengl_structure_attribs[3] = {
   { "position", 3, 0 },
@@ -99,8 +95,6 @@ opengl_structure_set_radius_scale(double scale)
 /*-----------------------------------------------------------------------*/
 
 /** opengl_structure_on_ctrl_scroll() - Ctrl+scroll handler for adjusting cylinder radius scale
- * @_widget: source scroll widget; unused because the radius-scale config
- *           hook repaints both windows through their canvases
  * @event: scroll event
  * @state: view state of the scrolled view
  *
@@ -108,13 +102,11 @@ opengl_structure_set_radius_scale(double scale)
  */
   gboolean
 opengl_structure_on_ctrl_scroll(
-    GtkWidget *_widget, GdkEventScroll *event, gl_view_state_t *state)
+    GdkEventScroll *event, gl_view_state_t *state)
 {
   double scale, new_scale;
 
   scroll_step_t s;
-
-  (void)_widget;
 
   if( !state )
     return( FALSE );
@@ -127,8 +119,8 @@ opengl_structure_on_ctrl_scroll(
 
   /* Compute increment matching zoom scroll feel */
   scale = compute_zoom_scale(
-      (int)(state->viewport_height * state->aspect),
-      (int)state->viewport_height,
+      state->base.view->width,
+      state->base.view->height,
       (cylinder_radius_scale > 0.1 ? cylinder_radius_scale : 0.1) * 100.0);
 
   new_scale = cylinder_radius_scale;
@@ -200,15 +192,15 @@ gl_store_structure_content(gl_view_content_t *out,
 
 /**
  * gl_draw_structure() - Populate primary structure content
- * @ctx: GL view state passed through render_ops_t
+ * @surface: GL surface holding the frame content
  * @_extent: Cairo projection extent unused by OpenGL
  * @params: parent-resolved structure presentation parameters
  */
   gboolean
-gl_draw_structure(void *ctx, float _extent,
+gl_draw_structure(render_surface_t *surface, float _extent,
     const struct_draw_params_t *params)
 {
-  gl_view_state_t *state = ctx;
+  gl_view_state_t *state = gl_view_state(surface);
 
   gl_store_structure_content(&state->content, params);
 
@@ -218,15 +210,15 @@ gl_draw_structure(void *ctx, float _extent,
 
 /**
  * gl_draw_structure_overlay() - Populate secondary structure content
- * @ctx: GL view state passed through render_ops_t
+ * @surface: GL surface holding the frame content
  * @_extent: Cairo projection extent unused by OpenGL
  * @params: parent-resolved overlay presentation parameters
  */
   gboolean
-gl_draw_structure_overlay(void *ctx, float _extent,
+gl_draw_structure_overlay(render_surface_t *surface, float _extent,
     const struct_draw_params_t *params)
 {
-  gl_view_state_t *state = ctx;
+  gl_view_state_t *state = gl_view_state(surface);
 
   if( state->overlay_content == NULL )
   {
@@ -292,78 +284,20 @@ static gl_view_config_t structure_view_config = {
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_structure_create_widget_impl() - Create the OpenGL structure widget using the generic view engine
- *
- * Returns existing widget if already created.
+/** opengl_structure_surface_new() - Build the structure GL surface
+ * @parent: container the presented widget joins
  */
-  static GtkWidget*
-opengl_structure_create_widget_impl(void)
+  render_surface_t *
+opengl_structure_surface_new(GtkContainer *parent)
 {
-  /* Return existing widget if already created */
-  if( structure_gl_widget )
-    return( structure_gl_widget );
-
   /* Load persisted radius scale from config; zero means line mode */
   cylinder_radius_scale = rc_config.opengl_cylinder_radius_scale;
 
-  if( structure_view == NULL )
-    return( NULL );
-
-  structure_gl_widget = gl_view_create_widget(
-      &structure_view_config,
-      structure_view );
-
-  return( structure_gl_widget );
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** opengl_structure_get_widget() - Return the structure GL widget
- */
-  GtkWidget*
-opengl_structure_get_widget(void)
-{
-  return( structure_gl_widget );
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** opengl_structure_cleanup_impl() - Cleanup structure GL resources
- */
-  static void
-opengl_structure_cleanup_impl(void)
-{
-  structure_content_cleanup();
-  structure_gl_widget = NULL;
+  return( gl_view_surface_new(&structure_view_config, structure_view,
+        parent) );
 }
 
 #endif /* HAVE_OPENGL */
-
-/*-----------------------------------------------------------------------*/
-
-/** opengl_structure_create_widget() - Public API: create structure GL widget
- */
-  GtkWidget*
-opengl_structure_create_widget(void)
-{
-#ifdef HAVE_OPENGL
-  return( opengl_structure_create_widget_impl() );
-#else
-  return( NULL );
-#endif
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** opengl_structure_cleanup() - Public API: cleanup structure resources
- */
-  void
-opengl_structure_cleanup(void)
-{
-#ifdef HAVE_OPENGL
-  opengl_structure_cleanup_impl();
-#endif
-}
 
 /*-----------------------------------------------------------------------*/
 

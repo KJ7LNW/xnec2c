@@ -32,6 +32,8 @@
 #ifdef HAVE_OPENGL
 
 #include "../opengl-engine/opengl_view.h"
+#include "../opengl-engine/opengl_view_fit.h"
+#include "../render/render_canvas.h"
 #include "../render/render_dispatch.h"
 
 /* Surface color dim values in rc_config.brightness_rdpat_surface
@@ -46,9 +48,6 @@
 
 /* Translated far-field points buffer for excitation center offset */
 static point_3d_t *rdpat_translated_points = NULL;
-
-/* Widget pointer for external access */
-static GtkWidget *rdpattern_gl_widget = NULL;
 
 
 /* Overlay configuration for structure rendering in rdpattern */
@@ -110,7 +109,7 @@ rdpat_mesh_cache_match(const rdpat_mesh_cache_t *a,
 /*-----------------------------------------------------------------------*/
 
 /** gl_rdpat_draw_nearfield() - Near-field leaf: convert prerendered vectors to GL batches
- * @ctx:      gl_view_state_s (passed as void* through render_ops_t)
+ * @surface:  GL surface holding the frame content
  * @origins:  sample point positions [npts]
  * @npts:     number of near-field sample points
  * @fields:   dispatch-resolved vector sets (0-3 active field types)
@@ -121,13 +120,12 @@ rdpat_mesh_cache_match(const rdpat_mesh_cache_t *a,
  * One GL batch per field set. Backend iterates — zero field-type branching.
  */
   gboolean
-gl_rdpat_draw_nearfield(void *ctx,
+gl_rdpat_draw_nearfield(render_surface_t *surface,
     const near_field_point_t *origins, int npts,
     const nf_field_set_t *fields, int n_fields,
     double dr, double r_max)
 {
-  gl_view_state_t *state = (gl_view_state_t *)ctx;
-  gl_view_content_t *out = &state->content;
+  gl_view_content_t *out = &gl_view_state(surface)->content;
   int total_lines;
 
   total_lines = opengl_rdpattern_generate_nf_field_lines(
@@ -162,19 +160,19 @@ gl_rdpat_draw_nearfield(void *ctx,
 /*-----------------------------------------------------------------------*/
 
 /** gl_rdpat_draw_farfield() - Far-field leaf: tessellate gain pattern and populate batches
- * @ctx:   gl_view_state_s (passed as void* through render_ops_t)
+ * @surface: GL surface holding the frame content
  * @fstep: current frequency step, indexes ff_pre[] for vertex data
  * @ff:    dispatch-resolved far-field draw parameters
  *
  * Returns TRUE when batches are populated, FALSE on data dependency failure.
  */
   gboolean
-gl_rdpat_draw_farfield(void *ctx, int fstep, const ff_draw_params_t *ff)
+gl_rdpat_draw_farfield(render_surface_t *surface, int fstep,
+    const ff_draw_params_t *ff)
 {
   static rdpat_mesh_cache_t mesh_cache = {
     .fstep = -1, .generation = 0, .draw_style = -1, .off_len = NAN };
-  gl_view_state_t *state = (gl_view_state_t *)ctx;
-  gl_view_content_t *out = &state->content;
+  gl_view_content_t *out = &gl_view_state(surface)->content;
   uint32_t current_gen;
   int nth, nph, npts;
   point_3d_t *verts;
@@ -380,15 +378,11 @@ rdpattern_content_cleanup(void)
 /*-----------------------------------------------------------------------*/
 
 /** rdpattern_on_shift_scroll() - Shift+scroll handler for adjusting overlay structure scale
- * @_widget: source scroll widget; unused because gl_view_input_ops_t
- *           mandates the parameter while the shared handler queues the
- *           radiation canvas instead
  * @event: scroll event
  * @state: view state of the scrolled view
  */
   static gboolean
-rdpattern_on_shift_scroll(GtkWidget *_widget, GdkEventScroll *event,
-    gl_view_state_t *state)
+rdpattern_on_shift_scroll(GdkEventScroll *event, gl_view_state_t *state)
 {
   scroll_step_t s;
 
@@ -402,8 +396,8 @@ rdpattern_on_shift_scroll(GtkWidget *_widget, GdkEventScroll *event,
     return FALSE;
 
   return rdpattern_overlay_shift_scroll(s.direction,
-      (int)(state->viewport_height * state->aspect),
-      (int)state->viewport_height,
+      state->base.view->width,
+      state->base.view->height,
       rc_config.rdpattern_overlay_scale_adj * 100.0);
 }
 
@@ -431,53 +425,46 @@ static gl_view_config_t rdpattern_view_config = {
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_rdpattern_create_widget_impl() - Create the OpenGL radiation pattern widget using the generic view engine
+/** opengl_rdpattern_surface_new() - Build the radiation-pattern GL surface
+ * @parent: container the presented widget joins
  */
-  static GtkWidget*
-opengl_rdpattern_create_widget_impl(void)
+  render_surface_t *
+opengl_rdpattern_surface_new(GtkContainer *parent)
 {
-  if( rdpattern_view == NULL )
-    return( NULL );
+  render_surface_t *surface;
 
-  rdpattern_gl_widget = gl_view_create_widget(
-      &rdpattern_view_config,
-      rdpattern_view );
+  surface = gl_view_surface_new( &rdpattern_view_config, rdpattern_view,
+      parent );
 
-  gtk_widget_show(rdpattern_gl_widget);
+  if( surface != NULL )
+    gtk_widget_show( surface->widget );
 
-  return( rdpattern_gl_widget );
+  return( surface );
 }
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_rdpattern_cleanup_impl() - Destroy the rdpattern GL widget
+/** opengl_rdpattern_cleanup_impl() - Destroy the rdpattern GL area
  *
- * Unrealizing the widget drives gl_view_state_free(), which releases the
- * view state and invokes the configured content cleanup.
+ * Unrealizing the widget drives gl_view_gpu_release(), which releases the
+ * GPU resources and invokes the configured content cleanup; the canvas
+ * releases the surface itself.
  */
   static void
 opengl_rdpattern_cleanup_impl(void)
 {
-  Gtk_Widget_Destroy( &rdpattern_gl_widget );
+  render_surface_t *surface = canvas_surface_of( CANVAS_RDPATTERN,
+      &gl_engine );
+
+  if( surface == NULL )
+    return;
+
+  gtk_widget_destroy( surface->widget );
 }
 
 /*-----------------------------------------------------------------------*/
 
 #endif /* HAVE_OPENGL */
-
-/*-----------------------------------------------------------------------*/
-
-/** opengl_rdpattern_create_widget() - Public API: create radiation pattern GL widget
- */
-  GtkWidget*
-opengl_rdpattern_create_widget(void)
-{
-#ifdef HAVE_OPENGL
-  return( opengl_rdpattern_create_widget_impl() );
-#else
-  return( NULL );
-#endif
-}
 
 /*-----------------------------------------------------------------------*/
 
@@ -488,20 +475,6 @@ opengl_rdpattern_cleanup(void)
 {
 #ifdef HAVE_OPENGL
   opengl_rdpattern_cleanup_impl();
-#endif
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** opengl_rdpattern_get_widget() - Public API: return rdpattern GL widget
- */
-  GtkWidget*
-opengl_rdpattern_get_widget(void)
-{
-#ifdef HAVE_OPENGL
-  return( rdpattern_gl_widget );
-#else
-  return( NULL );
 #endif
 }
 
