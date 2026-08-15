@@ -12,6 +12,9 @@
 #      line number of its msgid.
 #   3. zero untranslated entries (skipped with --review); each remaining
 #      one reported with the po-file line number of its msgid.
+#   4. zero entries whose msgstr repeats their own msgid, except those
+#      carrying an "xnec2c-exempt:" translator comment; each remaining one
+#      reported with the po-file line number of its msgstr.
 #
 # Exit status: 0 all gates pass, 1 any gate fails, 2 usage error.
 
@@ -43,37 +46,45 @@ if ! msgfmt -c --check-format -o /dev/null "$l"; then
 fi
 
 # Classify entries once through the shared awk classifier; it emits one
-# tab-separated "state<TAB>line<TAB>key" record per fuzzy or untranslated
-# entry. Fuzzy records carry the "#, fuzzy" flag line and untranslated records
-# the msgid line, matching the per-gate reporting below.
+# tab-separated "state<TAB>line<TAB>key" record per flagged entry. Fuzzy
+# records carry the "#, fuzzy" flag line, untranslated records the msgid line,
+# and identical records the msgstr line, matching the per-gate reporting below.
 records=$(awk -f "$(dirname "$0")/po-classify.awk" "$l")
 
-# Gate 2: fuzzy entries, reported at the "#, fuzzy" flag line of each entry.
-fuzzy_lines=$(printf '%s\n' "$records" | awk -F'\t' '$1 == "fuzzy" { print $2 }')
+# Report every entry one classifier state names, summarizing the state and then
+# naming each entry at its own line. Returns non-zero when the state holds any.
+report_state() (
+	state=$1
+	summary=$2
+	detail=$3
+	state_lines=$(printf '%s\n' "$records" | awk -F'\t' -v state="$state" '$1 == state { print $2 }')
 
-if [ -n "$fuzzy_lines" ]; then
-	fuzzy_count=$(printf '%s\n' "$fuzzy_lines" | wc -l)
-	echo "$l: FAIL $fuzzy_count fuzzy entries remain"
-	printf '%s\n' "$fuzzy_lines" | while IFS= read -r n; do
-		echo "$l: FAIL fuzzy entry at line $n"
+	if [ -z "$state_lines" ]; then
+		return 0
+	fi
+
+	state_count=$(printf '%s\n' "$state_lines" | wc -l)
+	echo "$l: FAIL $state_count $summary"
+	printf '%s\n' "$state_lines" | while IFS= read -r n; do
+		echo "$l: FAIL $detail at line $n"
 	done
-	rc=1
-fi
+
+	return 1
+)
+
+# Gate 2: fuzzy entries, reported at the "#, fuzzy" flag line of each entry.
+report_state fuzzy 'fuzzy entries remain' 'fuzzy entry' || rc=1
 
 # Gate 3: untranslated entries, reported at each entry's msgid line and
 # skipped under --review for staged partial catalogs.
 if [ "$review" = false ]; then
-	untranslated_lines=$(printf '%s\n' "$records" | awk -F'\t' '$1 == "untranslated" { print $2 }')
-
-	if [ -n "$untranslated_lines" ]; then
-		untranslated_count=$(printf '%s\n' "$untranslated_lines" | wc -l)
-		echo "$l: FAIL $untranslated_count untranslated entries remain"
-		printf '%s\n' "$untranslated_lines" | while IFS= read -r n; do
-			echo "$l: FAIL untranslated entry at line $n"
-		done
-		rc=1
-	fi
+	report_state untranslated 'untranslated entries remain' 'untranslated entry' || rc=1
 fi
+
+# Gate 4: entries whose translation repeats their own source, reported at each
+# entry's msgstr line; such an entry claims a translation gettext would
+# otherwise fall back to, so it is rejected in review mode too.
+report_state identical 'entries translate to their own source' 'identical translation' || rc=1
 
 if [ "$rc" -eq 0 ]; then
 	echo "$l: mechanical checks pass; language accuracy still requires review"

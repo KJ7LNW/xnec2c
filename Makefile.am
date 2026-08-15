@@ -337,7 +337,7 @@ nobase_dist_pkgdata_DATA += examples/satellite.nec
 CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
 # PO catalog maintenance gate
-check-local: check-potfiles-list check-po-catalogs
+check-local: check-potfiles-list check-po-exemptions
 check-potfiles-list:
 	@$(srcdir)/scripts/po/po-update.sh --check
 # Review the catalogs after the refresh sweep so the gate reads final tree
@@ -348,6 +348,12 @@ check-po-catalogs: po-refresh
 	  $(srcdir)/scripts/po/po-check.sh --review $(srcdir)/po/$$lang.po || exit 1; \
 	done
 .PHONY: check-po-catalogs
+# Compare source-based exemptions after the per-catalog sweep so both gates
+# read the same refreshed catalogs. Run from the source tree because the audit
+# derives every catalog path from po/.
+check-po-exemptions: check-po-catalogs
+	@cd "$(srcdir)" && scripts/po/po-exempt-check.pl
+.PHONY: check-po-exemptions
 # Regenerate the template alone, then discard the creation-date churn xgettext
 # writes when no message changed.
 po-template:

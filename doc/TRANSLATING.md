@@ -186,7 +186,7 @@ Leverage flexibility to position specifiers naturally while preserving argument 
 - Confirmation dialogs
 - File type descriptions
 
-**LOW (keep English):**
+**LOW (translate last):**
 - Debug output (pr_debug)
 - NEC2 geometry errors
 - Developer messages
