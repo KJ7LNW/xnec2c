@@ -33,6 +33,50 @@ xnec2c is electromagnetic simulation software for antenna and radio frequency (R
 
 ---
 
+## Exemption Reasons
+
+A source that carries no distinct target form stays untranslated: its `msgstr`
+is empty and an `xnec2c-exempt:` translator comment records why. Nothing copies
+the source into `msgstr`; gettext already displays the source when a catalog
+holds no translation. The reasons read in precedence order; write the first one
+that fits the source.
+
+| Reason | Use for | Examples |
+|----------|-----------------------------------------|---------------------|
+| name | a product, person, algorithm, declared identifier, or source composed only of identifiers and nonlinguistic syntax | `Asinh`, `ipsym = 0` |
+| notation | a unit, axis or field label, Greek letter, card mnemonic, impedance token, or program-written record format | `dB`, `Z₀`, `DX` |
+| loanword | a source form this language adopts as written | varies by language |
+| symbol | a source holding no word at all | `%s`, `<b>` |
+
+Every reason but `loanword` rests on the source alone, so it holds in every
+language and every catalog names that same reason for that source. A `loanword`
+rests on this language's own vocabulary and answers for this language alone.
+
+A unit is `notation` and never `symbol`. A declared identifier is a `name` and
+never `symbol`. A source composed only of declared identifiers, constants,
+format specifiers, and nonlinguistic syntax is also a `name`. Field labels in a
+program-written record format are `notation`. Write no exemption comment on an
+entry holding a translation.
+
+A reason describes the whole of the source. A sentence containing ordinary
+prose is translated even when it also contains a unit, identifier, or format
+specifier. A source composed entirely of fixed tokens takes the first reason
+that covers those tokens.
+
+Decide a `loanword` from that language's own usage and its rules in
+`po/rules/<lang>.md`. Another catalog translating the same source calls for
+that decision to be reviewed; only this language's usage settles it. A
+`loanword` never carries to another catalog, and no sweep writes, rewrites, or
+drops one.
+
+`scripts/po/po-exempt-check.pl` reads every catalog together and reports each
+source two catalogs describe differently. A `loanword` carries to no other
+catalog and contradicts a `loanword` in none. It does contradict a propagating
+reason on the same source: one of the two describes that source wrongly, so the
+report names both and that source takes review in every catalog claiming it.
+
+---
+
 ## Common Translation Errors
 
 ### Electrical vs Common Meanings

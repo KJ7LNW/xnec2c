@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-06 02:12-0700\n"
+"POT-Creation-Date: 2026-08-13 18:29-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,9 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+# xnec2c-exempt: name
 #: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1784
 msgid "xnec2c"
-msgstr "xnec2c"
+msgstr ""
 
 #: files/xnec2c.desktop.in:4
 msgid "NEC2 Simulator"
@@ -193,10 +194,11 @@ msgstr ""
 "Az R határozza meg a látható dinamikatartományt; a 10^(−R/20) padlóérték "
 "alatti részletek az alsó színre korlátozódnak."
 
-#: resources/animate.glade:192 resources/xnec2c.glade:11704
-#: resources/xnec2c.glade:13103
+# xnec2c-exempt: notation
+#: resources/animate.glade:192 resources/xnec2c.glade:11718
+#: resources/xnec2c.glade:13128
 msgid "dB"
-msgstr "dB"
+msgstr ""
 
 #: resources/animate.glade:202
 msgid ""
@@ -211,9 +213,10 @@ msgstr ""
 "Láthatóvá teszi a nullához közeli áramokat, miközben összenyomja az erős "
 "csúcsokat, egy lin-log műszerskálához hasonlóan."
 
+# xnec2c-exempt: name
 #: resources/animate.glade:203
 msgid "Asinh"
-msgstr "Asinh"
+msgstr ""
 
 #: resources/animate.glade:213
 msgid ""
@@ -228,9 +231,10 @@ msgstr ""
 "Kiemeli a gyenge részleteket éles alsó határ nélkül; a klasszikus μ = 255 "
 "érték 48,16 dB kompressziónak felel meg."
 
+# xnec2c-exempt: name
 #: resources/animate.glade:214
 msgid "μ-law"
-msgstr "μ-law"
+msgstr ""
 
 #: resources/animate.glade:224
 msgid ""
@@ -244,9 +248,10 @@ msgstr ""
 "Megőrzi a középtónusokat, miközben simán tompítja a fényes csúcsokat; a k "
 "paraméter állítja be a térdpontot."
 
+# xnec2c-exempt: name
 #: resources/animate.glade:225
 msgid "Reinhard"
-msgstr "Reinhard"
+msgstr ""
 
 #: resources/animate.glade:235
 msgid ""
@@ -279,8 +284,8 @@ msgstr ""
 msgid "None"
 msgstr "Nincs"
 
-#: resources/animate.glade:259 src/rdpattern_ui.c:329 src/rdpattern_ui.c:337
-#: src/rdpattern_ui.c:344
+#: resources/animate.glade:259 src/rdpattern_ui.c:364 src/rdpattern_ui.c:372
+#: src/rdpattern_ui.c:379
 msgid "Near Field Animation"
 msgstr "Közeltér animáció"
 
@@ -294,9 +299,10 @@ msgstr ""
 "\n"
 "Letiltva, amíg az animáció fut."
 
+# xnec2c-exempt: notation
 #: resources/animate.glade:368
 msgid "φ 0°"
-msgstr "φ 0°"
+msgstr ""
 
 #: resources/animate.glade:382
 msgid "Phase"
@@ -352,9 +358,10 @@ msgstr ""
 "\n"
 "Ha az egérrel egy elemre mutat, élő előnézetet kap."
 
+# xnec2c-exempt: notation
 #: resources/animate.glade:585
 msgid "Gamma:"
-msgstr "Gamma:"
+msgstr ""
 
 #: resources/animate.glade:602
 msgid ""
@@ -506,7 +513,7 @@ msgid "Show the bare structure geometry with no quantity coloring."
 msgstr ""
 "A puszta szerkezeti geometria megjelenítése mennyiségi színezés nélkül."
 
-#: resources/animate.glade:1042 resources/xnec2c.glade:11234
+#: resources/animate.glade:1042 resources/xnec2c.glade:11245
 msgid "Currents"
 msgstr "Áramok"
 
@@ -514,7 +521,7 @@ msgstr "Áramok"
 msgid "Animate current magnitude and direction along the wires."
 msgstr "Az áram nagyságának és irányának animálása a huzalokon."
 
-#: resources/animate.glade:1059 resources/xnec2c.glade:11249
+#: resources/animate.glade:1059 resources/xnec2c.glade:11260
 msgid "Charges"
 msgstr "Töltések"
 
@@ -620,21 +627,25 @@ msgstr "Színkvantálás"
 msgid "Off"
 msgstr "Ki"
 
+# xnec2c-exempt: symbol
 #: resources/settings/cairo_settings.glade:84 resources/xnec2c.glade:3690
 msgid "8"
-msgstr "8"
+msgstr ""
 
+# xnec2c-exempt: symbol
 #: resources/settings/cairo_settings.glade:91
 msgid "64"
-msgstr "64"
+msgstr ""
 
+# xnec2c-exempt: symbol
 #: resources/settings/cairo_settings.glade:98
 msgid "128"
-msgstr "128"
+msgstr ""
 
+# xnec2c-exempt: symbol
 #: resources/settings/cairo_settings.glade:105
 msgid "256"
-msgstr "256"
+msgstr ""
 
 #: resources/settings/cairo_settings.glade:117
 msgid "Line Cap"
@@ -697,9 +708,10 @@ msgstr "_Alkalmaz"
 msgid "_Cancel"
 msgstr "_Mégse"
 
+# xnec2c-exempt: name
 #: resources/xnec2c.glade:14
 msgid "(C) 2007-2022 Neoklis Kyriazis"
-msgstr "(C) 2007-2022 Neoklis Kyriazis"
+msgstr ""
 
 #: resources/xnec2c.glade:15
 msgid ""
@@ -734,31 +746,32 @@ msgstr ""
 "KÉRJÜK, olvassa el a dokumentációt a doc/ alkönyvtárban, mivel az xnec2c nem "
 "teljesen kompatibilis a NEC2 bemeneti fájlokkal és különböző módon működik!"
 
+# xnec2c-exempt: name
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: resources/xnec2c.glade:27
 msgid "translator-credits"
-msgstr "translator-credits"
+msgstr ""
 
 #: resources/xnec2c.glade:106
 msgid "Arc Element (GA card)"
 msgstr "Ív elem (GA kártya)"
 
 #: resources/xnec2c.glade:134 resources/xnec2c.glade:1169
-#: resources/xnec2c.glade:3596 resources/xnec2c.glade:14821 src/cmnd_edit.c:489
+#: resources/xnec2c.glade:3596 resources/xnec2c.glade:14846 src/cmnd_edit.c:489
 msgid "Tag Number"
 msgstr "Címkeszám"
 
-#: resources/xnec2c.glade:147 resources/xnec2c.glade:14916
+#: resources/xnec2c.glade:147 resources/xnec2c.glade:14941
 msgid "No. Segments"
 msgstr "Szegmensek száma"
 
 #: resources/xnec2c.glade:160 resources/xnec2c.glade:3622
-#: resources/xnec2c.glade:15012
+#: resources/xnec2c.glade:15037
 msgid "Segs % lambda"
 msgstr "Szegmensek % lambda"
 
 #: resources/xnec2c.glade:173 resources/xnec2c.glade:3635
-#: resources/xnec2c.glade:15108
+#: resources/xnec2c.glade:15133
 msgid "Wire Diameter"
 msgstr "Huzalátmérő"
 
@@ -775,7 +788,7 @@ msgid "End 2 Angle"
 msgstr "2. végpontszög"
 
 #: resources/xnec2c.glade:300 resources/xnec2c.glade:3832
-#: resources/xnec2c.glade:15173 src/cmnd_edit.c:2025
+#: resources/xnec2c.glade:15198 src/cmnd_edit.c:2025
 msgid "Conductivity S/m"
 msgstr "Vezetőképesség S/m"
 
@@ -791,9 +804,9 @@ msgstr "Huzalív-adatok"
 #: resources/xnec2c.glade:4526 resources/xnec2c.glade:5058
 #: resources/xnec2c.glade:5694 resources/xnec2c.glade:7138
 #: resources/xnec2c.glade:8045 resources/xnec2c.glade:9051
-#: resources/xnec2c.glade:9331 resources/xnec2c.glade:13514
-#: resources/xnec2c.glade:14027 resources/xnec2c.glade:14626
-#: resources/xnec2c.glade:15462 resources/xnec2c.glade:15662
+#: resources/xnec2c.glade:9331 resources/xnec2c.glade:13539
+#: resources/xnec2c.glade:14052 resources/xnec2c.glade:14651
+#: resources/xnec2c.glade:15487 resources/xnec2c.glade:15687
 msgid "Delete Card"
 msgstr "Kártya törlése"
 
@@ -877,17 +890,20 @@ msgstr "Feszültség - valós rész"
 msgid "Voltage - Imaginary Part"
 msgstr "Feszültség - képzetes rész"
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:1257
 msgid "Eta"
-msgstr "Eta"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:1327
 msgid "Theta"
-msgstr "Theta"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:1340
 msgid "Phi"
-msgstr "Phi"
+msgstr ""
 
 #: resources/xnec2c.glade:1353
 msgid "Ratio"
@@ -1011,9 +1027,10 @@ msgstr "Föld paraméterek (GN és GD kártyák)"
 msgid "Perfect Ground"
 msgstr "Tökéletes föld"
 
+# xnec2c-exempt: name
 #: resources/xnec2c.glade:2843
 msgid "Sommerfeld/Norton"
-msgstr "Sommerfeld/Norton"
+msgstr ""
 
 #: resources/xnec2c.glade:2859
 msgid "Radial Ground Screen"
@@ -1035,9 +1052,10 @@ msgstr "Második közeg (szirt)"
 msgid "Ground Type"
 msgstr "Föld típusa"
 
+# xnec2c-exempt: symbol
 #: resources/xnec2c.glade:3055
 msgid "0.00000"
-msgstr "0.00000"
+msgstr ""
 
 #: resources/xnec2c.glade:3206
 msgid "Number of Radials"
@@ -1079,48 +1097,55 @@ msgstr "Balmenetes spirál"
 msgid "Segments/Turn"
 msgstr "Szegmensek/menet"
 
+# xnec2c-exempt: symbol
 #: resources/xnec2c.glade:3648
 msgid "0.0100"
-msgstr "0.0100"
+msgstr ""
 
+# xnec2c-exempt: symbol
 #: resources/xnec2c.glade:3669
 msgid "5.00"
-msgstr "5.00"
+msgstr ""
 
-#: resources/xnec2c.glade:3710 resources/xnec2c.glade:11737
-#: resources/xnec2c.glade:12979
+# xnec2c-exempt: symbol
+#: resources/xnec2c.glade:3710 resources/xnec2c.glade:11751
+#: resources/xnec2c.glade:13004
 msgid "1"
-msgstr "1"
+msgstr ""
 
 #: resources/xnec2c.glade:3730
 msgid "Number of Turns"
 msgstr "Menetek száma"
 
+# xnec2c-exempt: symbol
 #: resources/xnec2c.glade:3743
 msgid "8.0000"
-msgstr "8.0000"
+msgstr ""
 
 #: resources/xnec2c.glade:3764
 msgid "Helix Length (HL)"
 msgstr "Hélix hossza (HL)"
 
+# xnec2c-exempt: symbol
 #: resources/xnec2c.glade:3777
 msgid "5.0000"
-msgstr "5.0000"
+msgstr ""
 
 #: resources/xnec2c.glade:3798
 msgid "Turns Spacing"
 msgstr "Menettávolság"
 
+# xnec2c-exempt: symbol
 #: resources/xnec2c.glade:3811 resources/xnec2c.glade:3923
 #: resources/xnec2c.glade:3976 resources/xnec2c.glade:4029
 #: resources/xnec2c.glade:4077
 msgid "1.0000"
-msgstr "1.0000"
+msgstr ""
 
+# xnec2c-exempt: symbol
 #: resources/xnec2c.glade:3845
 msgid "0.0000"
-msgstr "0.0000"
+msgstr ""
 
 #: resources/xnec2c.glade:3865
 msgid "Radius in X (A1)"
@@ -1142,7 +1167,7 @@ msgstr "Sugár Y-ban (B2)"
 msgid "GH Card"
 msgstr "GH kártya"
 
-#: resources/xnec2c.glade:4239 resources/xnec2c.glade:15536
+#: resources/xnec2c.glade:4239 resources/xnec2c.glade:15561
 msgid "Interaction Approx Range (KH Card)"
 msgstr "Kölcsönhatás közelítési tartomány (KH kártya)"
 
@@ -1254,44 +1279,53 @@ msgstr "Gömbi koordináták"
 msgid "Field Type & Co-ordinates"
 msgstr "Mezőtípus és koordináták"
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:5343
 msgid "NX"
-msgstr "NX"
+msgstr ""
 
-#: resources/xnec2c.glade:5374 resources/xnec2c.glade:11264
-#: resources/xnec2c.glade:12491
+# xnec2c-exempt: notation
+#: resources/xnec2c.glade:5374 resources/xnec2c.glade:11275
+#: resources/xnec2c.glade:12516
 msgid "X"
-msgstr "X"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:5406
 msgid "DX"
-msgstr "DX"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:5438
 msgid "NY"
-msgstr "NY"
+msgstr ""
 
-#: resources/xnec2c.glade:5469 resources/xnec2c.glade:11279
-#: resources/xnec2c.glade:12506
+# xnec2c-exempt: notation
+#: resources/xnec2c.glade:5469 resources/xnec2c.glade:11290
+#: resources/xnec2c.glade:12531
 msgid "Y"
-msgstr "Y"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:5501
 msgid "DY"
-msgstr "DY"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:5533
 msgid "NZ"
-msgstr "NZ"
+msgstr ""
 
-#: resources/xnec2c.glade:5564 resources/xnec2c.glade:11294
-#: resources/xnec2c.glade:12521
+# xnec2c-exempt: notation
+#: resources/xnec2c.glade:5564 resources/xnec2c.glade:11305
+#: resources/xnec2c.glade:12546
 msgid "Z"
-msgstr "Z"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:5596
 msgid "DZ"
-msgstr "DZ"
+msgstr ""
 
 #: resources/xnec2c.glade:5632
 msgid "Field Pattern Parameters"
@@ -1325,9 +1359,10 @@ msgstr "Ív"
 msgid "Helix"
 msgstr "Hélix"
 
+# xnec2c-exempt: loanword
 #: resources/xnec2c.glade:6072
 msgid "Patch"
-msgstr "Patch"
+msgstr ""
 
 #: resources/xnec2c.glade:6086
 msgid "Cylinder"
@@ -1387,7 +1422,7 @@ msgstr "Terhelés"
 
 #: resources/xnec2c.glade:6341
 msgid "Kernel"
-msgstr "Kernel"
+msgstr "Magfüggvény"
 
 #: resources/xnec2c.glade:6355
 msgid "Network"
@@ -1405,9 +1440,10 @@ msgstr "Tápvonal"
 msgid "Execute"
 msgstr "Végrehajtás"
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:6412
 msgid "Z₀"
-msgstr "Z₀"
+msgstr ""
 
 #: resources/xnec2c.glade:6446
 msgid "Edit Control Commands"
@@ -1449,7 +1485,7 @@ msgstr "Szegmensszám, 1. port"
 msgid "Segment Num, Port 2"
 msgstr "Szegmensszám, 2. port"
 
-#: resources/xnec2c.glade:6851 resources/xnec2c.glade:14322
+#: resources/xnec2c.glade:6851 resources/xnec2c.glade:14347
 msgid "Segment Identity"
 msgstr "Szegmensazonosító"
 
@@ -1742,16 +1778,16 @@ msgid "Xnec2c: Frequency Data Plots"
 msgstr "Xnec2c: Frekvencia adatábrák"
 
 #: resources/xnec2c.glade:9426 resources/xnec2c.glade:10421
-#: resources/xnec2c.glade:11991
+#: resources/xnec2c.glade:12005
 msgid "_File"
 msgstr "_Fájl"
 
 #: resources/xnec2c.glade:9488 resources/xnec2c.glade:10483
-#: resources/xnec2c.glade:12053
+#: resources/xnec2c.glade:12067
 msgid "Save as _gnuplot"
 msgstr "Mentés _gnuplot-ként"
 
-#: resources/xnec2c.glade:9499 resources/xnec2c.glade:12063
+#: resources/xnec2c.glade:9499 resources/xnec2c.glade:12077
 msgid "Save as _CSV"
 msgstr "Mentés _CSV-ként"
 
@@ -1772,37 +1808,37 @@ msgid "Save as S2P: _Viewer Gain (S21)"
 msgstr "Mentés S2P: _Nézőpont nyereség (S21)"
 
 #: resources/xnec2c.glade:9575 resources/xnec2c.glade:10858
-#: resources/xnec2c.glade:12097
+#: resources/xnec2c.glade:12111
 msgid "_View"
 msgstr "_Nézet"
 
 #: resources/xnec2c.glade:9584 resources/xnec2c.glade:10886
-#: resources/xnec2c.glade:12105
+#: resources/xnec2c.glade:12119
 msgid "_Polarization"
 msgstr "_Polarizáció"
 
 #: resources/xnec2c.glade:9598 resources/xnec2c.glade:10900
-#: resources/xnec2c.glade:12119
+#: resources/xnec2c.glade:12133
 msgid "_Total"
 msgstr "_Teljes"
 
 #: resources/xnec2c.glade:9609 resources/xnec2c.glade:10911
-#: resources/xnec2c.glade:12130
+#: resources/xnec2c.glade:12144
 msgid "_Horizontal"
 msgstr "_Vízszintes"
 
 #: resources/xnec2c.glade:9620 resources/xnec2c.glade:10922
-#: resources/xnec2c.glade:12141
+#: resources/xnec2c.glade:12155
 msgid "_Vertical"
 msgstr "_Függőleges"
 
 #: resources/xnec2c.glade:9631 resources/xnec2c.glade:10933
-#: resources/xnec2c.glade:12152
+#: resources/xnec2c.glade:12166
 msgid "_Right Hand"
 msgstr "_Jobbkezes"
 
 #: resources/xnec2c.glade:9642 resources/xnec2c.glade:10944
-#: resources/xnec2c.glade:12163
+#: resources/xnec2c.glade:12177
 msgid "_Left Hand"
 msgstr "_Balkezes"
 
@@ -1850,33 +1886,39 @@ msgstr "Irány"
 msgid "Viewer"
 msgstr "Nézőpont"
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:9799 resources/xnec2c.glade:10023
-#: src/freqplots/freqplots_core.c:57 src/freqplots/graphs/vswr_graph.c:55
+#: src/freqplots/freqplots_core.c:58 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
-msgstr "VSWR"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:9814
 msgid "Zr/Zi"
-msgstr "Zr/Zi"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:9829
 msgid "Zm/Zph"
-msgstr "Zm/Zph"
+msgstr ""
 
+# xnec2c-exempt: name
 #: resources/xnec2c.glade:9844
 msgid "Smith"
-msgstr "Smith"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:9859
 msgid "G/Ta"
-msgstr "G/Ta"
+msgstr ""
 
+# xnec2c-exempt: symbol
 #: resources/xnec2c.glade:9902 resources/xnec2c.glade:9937
 #: resources/xnec2c.glade:9972 resources/xnec2c.glade:10007
 #: resources/xnec2c.glade:10252 resources/xnec2c.glade:10287
-#: resources/xnec2c.glade:10322 resources/xnec2c.glade:13238
+#: resources/xnec2c.glade:10322 resources/xnec2c.glade:13263
 msgid " - - -"
-msgstr " - - -"
+msgstr ""
 
 #: resources/xnec2c.glade:9953 src/freqplots/graphs/impedance_graph.c:76
 msgid "Z-imag"
@@ -1886,38 +1928,43 @@ msgstr "Z-képzetes"
 msgid "Z-real"
 msgstr "Z-valós"
 
+# xnec2c-exempt: symbol
 #: resources/xnec2c.glade:10043
 msgid " - - - - "
-msgstr " - - - - "
+msgstr ""
 
 #: resources/xnec2c.glade:10059
 msgid "Freq MHz"
 msgstr "Frekv MHz"
 
+# xnec2c-exempt: loanword
 #: resources/xnec2c.glade:10098 resources/xnec2c.glade:10111
 msgid "Port"
-msgstr "Port"
+msgstr ""
 
 #: resources/xnec2c.glade:10123
 msgid "Tx Line Z<sub>0</sub>"
 msgstr "Tx vonal Z<sub>0</sub>"
 
-#: resources/xnec2c.glade:10138 resources/xnec2c.glade:11752
-#: resources/xnec2c.glade:13010
+#: resources/xnec2c.glade:10138 resources/xnec2c.glade:11766
+#: resources/xnec2c.glade:13035
 msgid "Freq Loop"
 msgstr "Frekv hurok"
 
-#: resources/xnec2c.glade:10233 resources/xnec2c.glade:13116
+# xnec2c-exempt: notation
+#: resources/xnec2c.glade:10233 resources/xnec2c.glade:13141
 msgid "T<sub>A</sub>(Elev.°)"
-msgstr "T<sub>A</sub>(Elev.°)"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:10268
 msgid "T<sub>a</sub>"
-msgstr "T<sub>a</sub>"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:10303
 msgid "G/T<sub>a</sub>"
-msgstr "G/T<sub>a</sub>"
+msgstr ""
 
 #: resources/xnec2c.glade:10377
 msgid "Frequency Data Plots"
@@ -2080,9 +2127,10 @@ msgstr ""
 "Feltárja a gyenge részleteket, amelyeket a lineáris megjelenítés elrejt; "
 "állítsa be az R értékét az animációs párbeszédablakban."
 
+# xnec2c-exempt: notation
 #: resources/xnec2c.glade:10995
 msgid "_dB"
-msgstr "_dB"
+msgstr ""
 
 #: resources/xnec2c.glade:11006
 msgid ""
@@ -2094,9 +2142,10 @@ msgstr ""
 "felette logaritmikus.\n"
 "Állítsa be a k értékét az animációs párbeszédablakban."
 
+# xnec2c-exempt: name
 #: resources/xnec2c.glade:11007
 msgid "_Asinh"
-msgstr "_Asinh"
+msgstr ""
 
 #: resources/xnec2c.glade:11018
 msgid ""
@@ -2107,9 +2156,10 @@ msgstr ""
 "részleteket.\n"
 "Állítsa be a kompressziót az animációs párbeszédablakban."
 
+# xnec2c-exempt: name
 #: resources/xnec2c.glade:11019
 msgid "μ-_law"
-msgstr "μ-_law"
+msgstr ""
 
 #: resources/xnec2c.glade:11030
 msgid ""
@@ -2119,9 +2169,10 @@ msgstr ""
 "Reinhard racionális lágykompresszor k térdponttal.\n"
 "Állítsa be a k értékét az animációs párbeszédablakban."
 
+# xnec2c-exempt: name
 #: resources/xnec2c.glade:11031
 msgid "_Reinhard"
-msgstr "_Reinhard"
+msgstr ""
 
 #: resources/xnec2c.glade:11042
 msgid ""
@@ -2159,7 +2210,7 @@ msgstr "_Referenciafázis"
 msgid "_LIC Texture"
 msgstr "_LIC textúra"
 
-#: resources/xnec2c.glade:11102 resources/xnec2c.glade:12310
+#: resources/xnec2c.glade:11102 resources/xnec2c.glade:12324
 msgid "_Wireframe"
 msgstr "_Drótváz"
 
@@ -2179,374 +2230,392 @@ msgstr "Csúcs _amplitúdó"
 msgid "A_nimate"
 msgstr "A_nimálás"
 
-#: resources/xnec2c.glade:11162 resources/xnec2c.glade:12427
+#: resources/xnec2c.glade:11162 resources/xnec2c.glade:12441
 msgid "Common _Projection"
 msgstr "Közös _vetület"
 
-#: resources/xnec2c.glade:11178
+#: resources/xnec2c.glade:11172 resources/xnec2c.glade:12451
+msgid "Common _Pan"
+msgstr "Közös _Pásztázás"
+
+#: resources/xnec2c.glade:11189
 msgid "_Symbol Overrides"
 msgstr "_Szimbólum-felülbírálások"
 
-#: resources/xnec2c.glade:11187
+#: resources/xnec2c.glade:11198
 msgid "Rendering _Settings..."
 msgstr "Megjelenítési _beállítások..."
 
-#: resources/xnec2c.glade:11198
+#: resources/xnec2c.glade:11209
 msgid "_Help"
 msgstr "_Súgó"
 
-#: resources/xnec2c.glade:11207
+#: resources/xnec2c.glade:11218
 msgid "_About"
 msgstr "_Névjegy"
 
-#: resources/xnec2c.glade:11430
+#: resources/xnec2c.glade:11441
 msgid " Zoom"
 msgstr " Nagyítás"
 
-#: resources/xnec2c.glade:11597 resources/xnec2c.glade:12946
-#: src/freqplots/freqplots_core.c:54
+#: resources/xnec2c.glade:11608 resources/xnec2c.glade:11669
+#: resources/xnec2c.glade:11717
+msgid ""
+"Gain in the direction of the structure viewer, for the current view angles."
+msgstr "Nyereség a szerkezet nézőjének irányában, a jelenlegi nézetszögeknél."
+
+#: resources/xnec2c.glade:11609 resources/xnec2c.glade:12971
+#: src/freqplots/freqplots_core.c:55
 msgid "Gain"
 msgstr "Nyereség"
 
-#: resources/xnec2c.glade:11612 resources/xnec2c.glade:11628
-#: resources/xnec2c.glade:12959 resources/xnec2c.glade:13220
+# xnec2c-exempt: symbol
+#: resources/xnec2c.glade:11624 resources/xnec2c.glade:11640
+#: resources/xnec2c.glade:12984 resources/xnec2c.glade:13245
 msgid "0.0"
-msgstr "0.0"
+msgstr ""
 
-#: resources/xnec2c.glade:11662
+# xnec2c-exempt: symbol
+#: resources/xnec2c.glade:11675
 msgid "- - - "
-msgstr "- - - "
+msgstr ""
 
-#: resources/xnec2c.glade:11718 resources/xnec2c.glade:12995
+#: resources/xnec2c.glade:11732 resources/xnec2c.glade:13020
 msgid "Step"
 msgstr "Lépés"
 
-#: resources/xnec2c.glade:11865 resources/xnec2c.glade:13043
+#: resources/xnec2c.glade:11879 resources/xnec2c.glade:13068
 msgid "Apply Freq"
 msgstr "Freq alkalmazása"
 
-#: resources/xnec2c.glade:11885
+#: resources/xnec2c.glade:11899
 msgid "Frequency Mhz"
 msgstr "Frekvencia MHz"
 
-#: resources/xnec2c.glade:11946
+#: resources/xnec2c.glade:11960
 msgid "Structure Geometry"
 msgstr "Struktúrageometria"
 
-#: resources/xnec2c.glade:11965
+#: resources/xnec2c.glade:11979
 msgid "Xnec2c: Radiation Patterns"
 msgstr "Xnec2c: Sugárzási diagramok"
 
-#: resources/xnec2c.glade:12178
+#: resources/xnec2c.glade:12192
 msgid "_Gain Scaling"
 msgstr "_Nyereség skálázás"
 
-#: resources/xnec2c.glade:12193
+#: resources/xnec2c.glade:12207
 msgid "Linear _Power"
 msgstr "Lineáris _teljesítmény"
 
-#: resources/xnec2c.glade:12204
+#: resources/xnec2c.glade:12218
 msgid "Linear _Voltage"
 msgstr "Lineáris _feszültség"
 
-#: resources/xnec2c.glade:12215
+#: resources/xnec2c.glade:12229
 msgid "_ARRL Style"
 msgstr "_ARRL stílus"
 
-#: resources/xnec2c.glade:12226
+#: resources/xnec2c.glade:12240
 msgid "_Logarithmic"
 msgstr "_Logaritmikus"
 
-#: resources/xnec2c.glade:12237
+#: resources/xnec2c.glade:12251
 msgid "_Noise Temperature"
 msgstr "_Zajhőmérséklet"
 
-#: resources/xnec2c.glade:12248
+#: resources/xnec2c.glade:12262
 msgid "Noise Temp (_log scale)"
 msgstr "Zajhőm. (_log skála)"
 
-#: resources/xnec2c.glade:12263
+#: resources/xnec2c.glade:12277
 msgid "Noise _Models"
 msgstr "Zaj_modellek"
 
-#: resources/xnec2c.glade:12282
+#: resources/xnec2c.glade:12296
 msgid "_Gradient Key"
 msgstr "_Gradiens kulcs"
 
-#: resources/xnec2c.glade:12292
+#: resources/xnec2c.glade:12306
 msgid "Draw St_yle"
 msgstr "Rajz_stílus"
 
-#: resources/xnec2c.glade:12301
+#: resources/xnec2c.glade:12315
 msgid "S_urface"
 msgstr "F_elület"
 
-#: resources/xnec2c.glade:12320
+#: resources/xnec2c.glade:12334
 msgid "_Both"
 msgstr "_Mindkettő"
 
-#: resources/xnec2c.glade:12335
+#: resources/xnec2c.glade:12349
 msgid "_Near Field"
 msgstr "_Közeltér"
 
-#: resources/xnec2c.glade:12350
+#: resources/xnec2c.glade:12364
 msgid "Near _E Field"
 msgstr "Közel _E mező"
 
-#: resources/xnec2c.glade:12360
+#: resources/xnec2c.glade:12374
 msgid "Near _H Field"
 msgstr "Közel _H mező"
 
-#: resources/xnec2c.glade:12370
+#: resources/xnec2c.glade:12384
 msgid "_Poynting Vector"
 msgstr "_Poynting-vektor"
 
-#: resources/xnec2c.glade:12379
+#: resources/xnec2c.glade:12393
 msgid "_Animate Dialog"
 msgstr "_Animáció párbeszédablak"
 
-#: resources/xnec2c.glade:12388
+#: resources/xnec2c.glade:12402
 msgid "_Total Field"
 msgstr "_Teljes mező"
 
-#: resources/xnec2c.glade:12397
+#: resources/xnec2c.glade:12411
 msgid "_Peak Value"
 msgstr "_Csúcsérték"
 
-#: resources/xnec2c.glade:12408
+#: resources/xnec2c.glade:12422
 msgid "_Instantaneous (φ=0)"
 msgstr "A_zonnali (φ=0)"
 
-#: resources/xnec2c.glade:12437
+#: resources/xnec2c.glade:12462
 msgid "_Overlay Structure"
 msgstr "_Struktúra átfedés"
 
-#: resources/xnec2c.glade:12461
+#: resources/xnec2c.glade:12486
 msgid "Gain Pattern"
 msgstr "Nyereség diagram"
 
-#: resources/xnec2c.glade:12476
+#: resources/xnec2c.glade:12501
 msgid "E/H Fields"
 msgstr "E/H mezők"
 
-#: resources/xnec2c.glade:12659
+#: resources/xnec2c.glade:12684
 msgid "Zoom % "
 msgstr "Nagyítás % "
 
-#: resources/xnec2c.glade:12698
+# xnec2c-exempt: notation
+#: resources/xnec2c.glade:12723
 msgid "Elev.°"
-msgstr "Elev.°"
+msgstr ""
 
-#: resources/xnec2c.glade:13063
+#: resources/xnec2c.glade:13088
 msgid "Frequency MHz"
 msgstr "Frekvencia MHz"
 
-#: resources/xnec2c.glade:13080
+# xnec2c-exempt: symbol
+#: resources/xnec2c.glade:13105
 msgid "0.010"
-msgstr "0.010"
+msgstr ""
 
-#: resources/xnec2c.glade:13134 resources/xnec2c.glade:13167
-#: resources/xnec2c.glade:13202
+# xnec2c-exempt: notation
+#: resources/xnec2c.glade:13159 resources/xnec2c.glade:13192
+#: resources/xnec2c.glade:13227
 msgid "— K"
-msgstr "— K"
+msgstr ""
 
-#: resources/xnec2c.glade:13149
+# xnec2c-exempt: notation
+#: resources/xnec2c.glade:13174
 msgid "T<sub>earth</sub>"
-msgstr "T<sub>earth</sub>"
+msgstr ""
 
-#: resources/xnec2c.glade:13184
+# xnec2c-exempt: notation
+#: resources/xnec2c.glade:13209
 msgid "T<sub>sky</sub>"
-msgstr "T<sub>sky</sub>"
+msgstr ""
 
-#: resources/xnec2c.glade:13305 src/rdpattern_ui.c:783
+#: resources/xnec2c.glade:13330 src/rdpattern_ui.c:830
 msgid "Radiation Patterns"
 msgstr "Sugárzási diagramok"
 
-#: resources/xnec2c.glade:13340
+#: resources/xnec2c.glade:13365
 msgid "Scale Structure (GS card)"
 msgstr "Struktúra méretezés (GS kártya)"
 
-#: resources/xnec2c.glade:13371
+#: resources/xnec2c.glade:13396
 msgid "Structure Scale Factor"
 msgstr "Struktúra méretarány"
 
-#: resources/xnec2c.glade:13384
+#: resources/xnec2c.glade:13409
 msgid "From Tag No."
 msgstr "Kezdő címke sz."
 
-#: resources/xnec2c.glade:13434
+#: resources/xnec2c.glade:13459
 msgid "To Tag No."
 msgstr "Záró címke sz."
 
-#: resources/xnec2c.glade:13469
+#: resources/xnec2c.glade:13494
 msgid "Scale Structure"
 msgstr "Struktúra méretezés"
 
-#: resources/xnec2c.glade:13646
+#: resources/xnec2c.glade:13671
 msgid "Co-ordinate Transformation (GM card)"
 msgstr "Koordináta-transzformáció (GM kártya)"
 
-#: resources/xnec2c.glade:13676
+#: resources/xnec2c.glade:13701
 msgid "Tag Increment"
 msgstr "Címke növekmény"
 
-#: resources/xnec2c.glade:13707
+#: resources/xnec2c.glade:13732
 msgid "Rotate about X"
 msgstr "Forgatás X körül"
 
-#: resources/xnec2c.glade:13739
+#: resources/xnec2c.glade:13764
 msgid "Move along X"
 msgstr "Eltolás X mentén"
 
-#: resources/xnec2c.glade:13771
+#: resources/xnec2c.glade:13796
 msgid "New Structures"
 msgstr "Új struktúrák"
 
-#: resources/xnec2c.glade:13802
+#: resources/xnec2c.glade:13827
 msgid "Rotate about Y"
 msgstr "Forgatás Y körül"
 
-#: resources/xnec2c.glade:13834
+#: resources/xnec2c.glade:13859
 msgid "Move along Y"
 msgstr "Eltolás Y mentén"
 
-#: resources/xnec2c.glade:13866
+#: resources/xnec2c.glade:13891
 msgid "Start From Tag"
 msgstr "Kezdő címke"
 
-#: resources/xnec2c.glade:13898
+#: resources/xnec2c.glade:13923
 msgid "Rotate about Z"
 msgstr "Forgatás Z körül"
 
-#: resources/xnec2c.glade:13930
+#: resources/xnec2c.glade:13955
 msgid "Move along Z"
 msgstr "Eltolás Z mentén"
 
-#: resources/xnec2c.glade:13966
+#: resources/xnec2c.glade:13991
 msgid "Co-ordinate Transformation Data"
 msgstr "Koordináta-transzformáció adatok"
 
-#: resources/xnec2c.glade:14162
+#: resources/xnec2c.glade:14187
 msgid "Trans. Line Command (TL Card)"
 msgstr "Tápvonal parancs (TL kártya)"
 
-#: resources/xnec2c.glade:14192
+#: resources/xnec2c.glade:14217
 msgid "Tag Number, End 1  "
 msgstr "Címkeszám, 1. vég  "
 
-#: resources/xnec2c.glade:14224
+#: resources/xnec2c.glade:14249
 msgid "Tag Number, End 2  "
 msgstr "Címkeszám, 2. vég  "
 
-#: resources/xnec2c.glade:14255
+#: resources/xnec2c.glade:14280
 msgid "Segment Num, End 1"
 msgstr "Szegmens sz., 1. vég"
 
-#: resources/xnec2c.glade:14287
+#: resources/xnec2c.glade:14312
 msgid "Segment Num, End 2"
 msgstr "Szegmens sz., 2. vég"
 
-#: resources/xnec2c.glade:14351
+#: resources/xnec2c.glade:14376
 msgid "Crossed Transmission Line"
 msgstr "Keresztezett tápvonal"
 
-#: resources/xnec2c.glade:14369
+#: resources/xnec2c.glade:14394
 msgid "Characteristic Impedance"
 msgstr "Karakterisztikus impedancia"
 
-#: resources/xnec2c.glade:14401
+#: resources/xnec2c.glade:14426
 msgid "End 1 Y Real Part (S)"
 msgstr "1. vég Y valós rész (S)"
 
-#: resources/xnec2c.glade:14433
+#: resources/xnec2c.glade:14458
 msgid "End 2 Y Real Part (S)"
 msgstr "2. vég Y valós rész (S)"
 
-#: resources/xnec2c.glade:14465
+#: resources/xnec2c.glade:14490
 msgid "Length of Tx Line (m)"
 msgstr "Tápvonal hossza (m)"
 
-#: resources/xnec2c.glade:14497
+#: resources/xnec2c.glade:14522
 msgid "End 1 Y Imag Part (S)"
 msgstr "1. vég Y képzetes rész (S)"
 
-#: resources/xnec2c.glade:14529
+#: resources/xnec2c.glade:14554
 msgid "End 2 Y Imag Part (S)"
 msgstr "2. vég Y képzetes rész (S)"
 
-#: resources/xnec2c.glade:14565
+#: resources/xnec2c.glade:14590
 msgid "Transmission Line"
 msgstr "Tápvonal"
 
-#: resources/xnec2c.glade:14792
+#: resources/xnec2c.glade:14817
 msgid "Wire Element (GW & GC cards)"
 msgstr "Huzalelem (GW és GC kártyák)"
 
-#: resources/xnec2c.glade:14852
+#: resources/xnec2c.glade:14877
 msgid "Wire X1"
 msgstr "Huzal X1"
 
-#: resources/xnec2c.glade:14884
+#: resources/xnec2c.glade:14909
 msgid "Wire X2"
 msgstr "Huzal X2"
 
-#: resources/xnec2c.glade:14947
+#: resources/xnec2c.glade:14972
 msgid "Wire Y1"
 msgstr "Huzal Y1"
 
-#: resources/xnec2c.glade:14980
+#: resources/xnec2c.glade:15005
 msgid "Wire Y2"
 msgstr "Huzal Y2"
 
-#: resources/xnec2c.glade:15044
+#: resources/xnec2c.glade:15069
 msgid "Wire Z1"
 msgstr "Huzal Z1"
 
-#: resources/xnec2c.glade:15076
+#: resources/xnec2c.glade:15101
 msgid "Wire Z2"
 msgstr "Huzal Z2"
 
-#: resources/xnec2c.glade:15141
+#: resources/xnec2c.glade:15166
 msgid "Wire Length"
 msgstr "Huzalhossz"
 
-#: resources/xnec2c.glade:15212
+#: resources/xnec2c.glade:15237
 msgid "Wire Data"
 msgstr "Huzaladatok"
 
-#: resources/xnec2c.glade:15224
+#: resources/xnec2c.glade:15249
 msgid "Tapered Wire"
 msgstr "Kúpos huzal"
 
-#: resources/xnec2c.glade:15266
+#: resources/xnec2c.glade:15291
 msgid "Length Taper"
 msgstr "Hossz kúposság"
 
-#: resources/xnec2c.glade:15298
+#: resources/xnec2c.glade:15323
 msgid "Diameter Seg 1"
 msgstr "Átmérő 1. szegm."
 
-#: resources/xnec2c.glade:15330
+#: resources/xnec2c.glade:15355
 msgid "Diameter Seg N"
 msgstr "Átmérő N. szegm."
 
-#: resources/xnec2c.glade:15362
+#: resources/xnec2c.glade:15387
 msgid "Diam. Taper"
 msgstr "Átm. kúposság"
 
-#: resources/xnec2c.glade:15398
+#: resources/xnec2c.glade:15423
 msgid "Wire Taper Data"
 msgstr "Huzal kúposság adatok"
 
-#: resources/xnec2c.glade:15563
+#: resources/xnec2c.glade:15588
 msgid "Impedance (Zo) Ohm"
 msgstr "Impedancia (Zo) Ohm"
 
-#: resources/xnec2c.glade:15578
+# xnec2c-exempt: symbol
+#: resources/xnec2c.glade:15603
 msgid "50.00"
-msgstr "50.00"
+msgstr ""
 
-#: resources/xnec2c.glade:15601
+#: resources/xnec2c.glade:15626
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Tápvonal impedancia (Zo)"
 
@@ -2773,13 +2842,14 @@ msgstr "a --%s argumentuma túl hosszú ( > %d karakter )\n"
 msgid "config file does not exist or is not readable: %s\n"
 msgstr "konfigurációs fájl nem létezik vagy nem olvasható: %s\n"
 
+# xnec2c-exempt: symbol
 #: src/args.c:869 src/geometry.c:771 src/input.c:1793 src/input.c:1794
-#: src/mathlib.c:822 src/mathlib.c:1128 src/rdpattern_ui.c:329
-#: src/rdpattern_ui.c:337 src/rdpattern_ui.c:344 src/sy_expr.c:142
+#: src/mathlib.c:822 src/mathlib.c:1128 src/rdpattern_ui.c:364
+#: src/rdpattern_ui.c:372 src/rdpattern_ui.c:379 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
-msgstr "%s"
+msgstr ""
 
 #: src/args.c:891
 #, c-format
@@ -2796,7 +2866,7 @@ msgstr "Folyamat elágaztatás kikapcsolva!\n"
 msgid "invalid radiation pattern PNG format: %s\n"
 msgstr "érvénytelen sugárzási diagram PNG-formátum: %s\n"
 
-#: src/cairo/cairo_fit.c:117
+#: src/cairo/cairo_fit.c:118
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
@@ -2804,33 +2874,29 @@ msgstr ""
 "cairo_fit_view: nem sikerült keretet megoldani: extent=%g box=[%g,%g,%g,%g] "
 "view=%dx%d\n"
 
-#: src/cairo/cairo_frame.c:73
-#, c-format
-msgid "cairo_frame_get_scenebuffer: unknown view_type %d\n"
-msgstr "cairo_frame_get_scenebuffer: ismeretlen view_type %d\n"
-
-#: src/cairo/cairo_frame.c:182
+# xnec2c-exempt: notation
+#: src/cairo/cairo_frame.c:235
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
 "stroke=%.2fms flush=%.2fms total=%.2fms cap=%d\n"
 msgstr ""
-"cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
-"stroke=%.2fms flush=%.2fms total=%.2fms cap=%d\n"
 
+# xnec2c-exempt: name
 #: src/cairo/cairo_scenebuffer.c:195
 #, c-format
 msgid "scenebuffer_add_polygon: n=%d > SCENE_POLY_MAX\n"
-msgstr "scenebuffer_add_polygon: n=%d > SCENE_POLY_MAX\n"
+msgstr ""
 
 #: src/cairo/cairo_scenebuffer.c:220
 msgid "scenebuffer_add_text: no base layout set\n"
 msgstr "scenebuffer_add_text: nincs alap elrendezés beállítva\n"
 
+# xnec2c-exempt: name
 #: src/cairo/cairo_scenebuffer_flush.c:540
 #, c-format
 msgid "scenebuffer_flush: depth_bins=%d\n"
-msgstr "scenebuffer_flush: depth_bins=%d\n"
+msgstr ""
 
 #: src/cairo/cairo_scenebuffer_flush.c:606
 msgid "scenebuffer_flush: layout has no base font description\n"
@@ -2872,17 +2938,17 @@ msgstr "Szegmenscsatlakozási hiba az sbf()-ben"
 msgid "Segment connection error in trio()"
 msgstr "Szegmenscsatlakozási hiba a trio()-ban"
 
-#: src/callback_func.c:50
+#: src/callback_func.c:49
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "nem sikerült képet rögzíteni ehhez: %s\n"
 
-#: src/callback_func.c:56
+#: src/callback_func.c:55
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "nem sikerült elmenteni a képet: %s: %s\n"
 
-#: src/callback_func.c:125
+#: src/callback_func.c:124
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -2890,7 +2956,7 @@ msgstr ""
 "A frekvenciahurok fut\n"
 "Biztos benne, hogy befejezi a számítást?"
 
-#: src/callback_func.c:129
+#: src/callback_func.c:128
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -2898,7 +2964,7 @@ msgstr ""
 "A frekvenciahurok fut\n"
 "Biztos benne, hogy bezárja ezt az ablakot?"
 
-#: src/callback_func.c:290
+#: src/callback_func.c:289
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
@@ -2906,48 +2972,48 @@ msgstr ""
 "A(z) %d gerjesztéstípusnak nincs táppontja: a VSWR és impedancia grafikonok "
 "el vannak rejtve.\n"
 
-#: src/callback_func.c:330
+#: src/callback_func.c:320
 #, c-format
 msgid "rdpattern_mode_apply: invalid rdpattern_mode=%d\n"
 msgstr "rdpattern_mode_apply: érvénytelen rdpattern_mode=%d\n"
 
-#: src/callback_func.c:362
+#: src/callback_func.c:351
 msgid "View Currents"
 msgstr "Áramok megtekintése"
 
-#: src/callback_func.c:364
+#: src/callback_func.c:353
 msgid "View Charges"
 msgstr "Töltések megtekintése"
 
-#: src/callback_func.c:366
+#: src/callback_func.c:355
 msgid "View Geometry"
 msgstr "Geometria megtekintése"
 
-#: src/callback_func.c:417
+#: src/callback_func.c:405
 msgid "PNG images (*.png)"
 msgstr "PNG képek (*.png)"
 
-#: src/callback_func.c:419
+#: src/callback_func.c:407
 msgid "GNUplot files (*.gplot)"
 msgstr "GNUplot fájlok (*.gplot)"
 
-#: src/callback_func.c:421
+#: src/callback_func.c:409
 msgid "NEC2 files (*.nec)"
 msgstr "NEC2 fájlok (*.nec)"
 
-#: src/callback_func.c:423
+#: src/callback_func.c:411
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Touchstone 1-portos fájlok (*.s1p)"
 
-#: src/callback_func.c:425
+#: src/callback_func.c:413
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Touchstone 2-portos fájlok (*.s2p)"
 
-#: src/callback_func.c:427
+#: src/callback_func.c:415
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Vesszővel elválasztott CSV fájlok (*.csv)"
 
-#: src/callbacks.c:102 src/callbacks.c:118 src/freqplots/freqplots_core.c:61
+#: src/callbacks.c:102 src/callbacks.c:118 src/freqplots/freqplots_core.c:62
 msgid "Antenna Temperature"
 msgstr "Antennahőmérséklet"
 
@@ -2969,12 +3035,12 @@ msgstr ""
 "síkban lévő nyalábot feltételezi, a megfigyelési emelkedési szöget a "
 "léptetőgomb állítja."
 
-#: src/callbacks.c:191 src/callbacks.c:468 src/callbacks.c:2020
-#: src/callbacks.c:2834
+#: src/callbacks.c:187 src/callbacks.c:525 src/callbacks.c:2069
+#: src/callbacks.c:2893
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Biztos benne, hogy kilép az xnec2c-ből?"
 
-#: src/callbacks.c:234
+#: src/callbacks.c:291
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -2982,7 +3048,7 @@ msgstr ""
 "Új NEC2 bemeneti fájl nem hozható létre,\n"
 "amíg a frekvenciahurok fut"
 
-#: src/callbacks.c:271
+#: src/callbacks.c:328
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -2990,22 +3056,22 @@ msgstr ""
 "Új NEC2 bemeneti fájl nem nyitható meg,\n"
 "amíg a frekvenciahurok fut"
 
-#: src/callbacks.c:390
+#: src/callbacks.c:447
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c geometria optimalizáló"
 
-#: src/callbacks.c:391
+#: src/callbacks.c:448
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "Az xnec2c inotify támogatás nélkül lett fordítva: az optimalizáló nem "
 "engedélyezhető."
 
-#: src/callbacks.c:412
+#: src/callbacks.c:469
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c optimalizáló"
 
-#: src/callbacks.c:412
+#: src/callbacks.c:469
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3015,16 +3081,16 @@ msgstr ""
 "és újraszámítja a bemeneti fájlt módosításkor, ha az inotify aktiválja. "
 "Válasszon fájlokat írásra a \"Fájl->Optimalizálási beállítások\" menüben."
 
-#: src/callbacks.c:968 src/callbacks.c:1283 src/callbacks.c:2860
+#: src/callbacks.c:1049 src/callbacks.c:1369 src/callbacks.c:2919
 msgid "Are you sure you wish to close this window?"
 msgstr "Biztos benne, hogy bezárja ezt az ablakot?"
 
-#: src/callbacks.c:1791
+#: src/callbacks.c:1877
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "Az OpenGL nem érhető el ezen a kijelzőn; a megjelenítő nem engedélyezhető.\n"
 
-#: src/callbacks.c:2119
+#: src/callbacks.c:2178
 msgid ""
 "Select how the animated patch current flow is rendered.\n"
 "Mirrors the Visualization menu setting in the main window."
@@ -3032,14 +3098,14 @@ msgstr ""
 "Az animált patch-áramlás megjelenítési módjának kiválasztása.\n"
 "Tükrözi a Vizualizáció menü beállítását a főablakban."
 
-#: src/callbacks.c:2121
+#: src/callbacks.c:2180
 msgid ""
 "Patch flow animation requires surface patches (SP/SM cards) in the model."
 msgstr ""
 "A patch-áramlás animációjához felületi patchek (SP/SM kártyák) szükségesek a "
 "modellben."
 
-#: src/callbacks.c:2136
+#: src/callbacks.c:2195
 msgid ""
 "The animation window drives the near-field vectors from the phase slider; "
 "close it to choose the static peak or instantaneous baseline."
@@ -3047,11 +3113,11 @@ msgstr ""
 "Az animációs ablak a közeltér-vektorokat a fáziscsúszkából vezérli; zárja be "
 "a statikus csúcsérték vagy az azonnali alapvonal kiválasztásához."
 
-#: src/callbacks.c:2666
+#: src/callbacks.c:2725
 msgid "Animation"
 msgstr "Animáció"
 
-#: src/callbacks.c:2667
+#: src/callbacks.c:2726
 msgid ""
 "Animation requires wire currents or charges, surface patches (SP/SM NEC "
 "cards), or near-field data (NE/NH NEC cards)"
@@ -3059,11 +3125,11 @@ msgstr ""
 "Az animációhoz huzaláramok vagy -töltések, felületi patchek (SP/SM NEC "
 "kártyák), vagy közeltér-adatok (NE/NH NEC kártyák) szükségesek"
 
-#: src/callbacks.c:2796
+#: src/callbacks.c:2855
 msgid "No open NEC2 input file"
 msgstr "Nincs megnyitott NEC2 bemeneti fájl"
 
-#: src/callbacks.c:2891 src/callbacks.c:2921
+#: src/callbacks.c:2950 src/callbacks.c:2980
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3071,11 +3137,11 @@ msgstr ""
 "A NEC2 szerkesztő adatai nem menthetők,\n"
 "amíg a frekvenciahurok fut"
 
-#: src/callbacks.c:2903 src/callbacks.c:2929
+#: src/callbacks.c:2962 src/callbacks.c:2988
 msgid "untitled.nec"
 msgstr "névtelen.nec"
 
-#: src/callbacks.c:3394 src/callbacks.c:3414 src/callbacks.c:3434
+#: src/callbacks.c:3453 src/callbacks.c:3473 src/callbacks.c:3493
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3383,17 +3449,17 @@ msgstr "config_widget_sync_field: a mező nincs regisztrálva\n"
 msgid "config_widget_field_changed: field is not registered\n"
 msgstr "config_widget_field_changed: a mező nincs regisztrálva\n"
 
-#: src/config_hooks.c:79
+#: src/config_hooks.c:87
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr ""
 "Ez a rárajzolás a huzal-áram szegmensekből származik; ez a modell nem "
 "tartalmaz ilyet."
 
-#: src/config_hooks.c:104
+#: src/config_hooks.c:112
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr "A mozgó hullámcsúcs kiemelése fényes üstökösfejként."
 
-#: src/config_hooks.c:105
+#: src/config_hooks.c:113
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3401,7 +3467,7 @@ msgstr ""
 "Az üstökös az animált hullámcsúcsot követi; ez a vetület egy statikus "
 "leolvasás mozgó fázis nélkül."
 
-#: src/config_hooks.c:108
+#: src/config_hooks.c:116
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr ""
 "Az áram csomópontjainak (cián) és anticsomópontjainak (piros) megjelölése a "
@@ -3435,50 +3501,48 @@ msgstr "Ismeretlen parancs \"%s\" a szülőfolyamattól\n"
 msgid "early EOF?, child %d  length %d  return %d\n"
 msgstr "korai EOF?, gyermek %d  hossz %d  visszatér %d\n"
 
-#: src/freqplots/freqplots_core.c:55
+#: src/freqplots/freqplots_core.c:56
 msgid "Gain Direction"
 msgstr "Nyereség iránya"
 
-#: src/freqplots/freqplots_core.c:56
+#: src/freqplots/freqplots_core.c:57
 msgid "Viewer Gain"
 msgstr "Nézőponti nyereség"
 
-#: src/freqplots/freqplots_core.c:58
+#: src/freqplots/freqplots_core.c:59
 msgid "Impedance (real/imag)"
 msgstr "Impedancia (valós/képzetes)"
 
-#: src/freqplots/freqplots_core.c:59
+#: src/freqplots/freqplots_core.c:60
 msgid "Impedance (mag/phase)"
 msgstr "Impedancia (magnitúdó/fázis)"
 
-#: src/freqplots/freqplots_core.c:60 src/freqplots/graphs/smith_graph.c:476
+#: src/freqplots/freqplots_core.c:61 src/freqplots/graphs/smith_graph.c:476
 msgid "Smith Chart"
 msgstr "Smith-diagram"
 
-#: src/freqplots/freqplots_core.c:231
+#: src/freqplots/freqplots_core.c:232
 #, c-format
 msgid "fp_field_cond_active: unhandled cond %d\n"
 msgstr "fp_field_cond_active: kezeletlen feltétel %d\n"
 
-#: src/freqplots/freqplots_core.c:441
+# xnec2c-exempt: name
+#: src/freqplots/freqplots_core.c:442
 #, c-format
 msgid ""
 "fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
 "%d posn=%d valid=%d\n"
 msgstr ""
-"fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr="
-"%d posn=%d valid=%d\n"
 
-#: src/freqplots/freqplots_core.c:457
+# xnec2c-exempt: name
+#: src/freqplots/freqplots_core.c:458
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
-"fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
-"%d]\n"
 
-#: src/freqplots/freqplots_core.c:755
+#: src/freqplots/freqplots_core.c:756
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3520,7 +3584,7 @@ msgstr ""
 "    • nyers Max nyereség, Nyereség iránya, F/B\n"
 "    • Antennahőmérséklet, G/T"
 
-#: src/freqplots/freqplots_core.c:788
+#: src/freqplots/freqplots_core.c:789
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3528,7 +3592,7 @@ msgstr ""
 "Csak egy tápponti port van definiálva. Definiáljon további EX gerjesztési "
 "kártyákat a modellben, hogy itt több port közül választhasson."
 
-#: src/freqplots/freqplots_core.c:791
+#: src/freqplots/freqplots_core.c:792
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3536,9 +3600,14 @@ msgstr ""
 "Engedélyezze a Nettó nyereség grafikon beállítást port kiválasztásához; "
 "enélkül ez a grafikon nem követi a portot."
 
-#: src/freqplots/freqplots_core.c:907
+#: src/freqplots/freqplots_core.c:908
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Nem elérhető: a gerjesztés nem definiál táppontot"
+
+#: src/freqplots/freqplots_core.c:1235
+#, c-format
+msgid "freqplots canvas %d has incomplete frame resources\n"
+msgstr "a freqplots %d. vászna hiányos képkocka-erőforrásokkal rendelkezik\n"
 
 #: src/freqplots/freqplots_graph.c:137 src/freqplots/graphs/smith_graph.c:529
 msgid "memory allocation for points failed\n"
@@ -3556,21 +3625,24 @@ msgstr "Ennek a témának nincs invertált változata"
 msgid "_Invert"
 msgstr "_Invertálás"
 
+# xnec2c-exempt: notation
 #: src/freqplots/graphs/anttemp_graph.c:68
 msgid "G/Ta (dB)"
-msgstr "G/Ta (dB)"
+msgstr ""
 
 #: src/freqplots/graphs/anttemp_graph.c:69
 msgid "G/Ta & TA - Antenna noise temperature"
 msgstr "G/Ta és TA – Antennahőmérséklet"
 
+# xnec2c-exempt: notation
 #: src/freqplots/graphs/anttemp_graph.c:71
 msgid "Ta (K)"
-msgstr "Ta (K)"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: src/freqplots/graphs/anttemp_graph.c:73
 msgid "TA (K)"
-msgstr "TA (K)"
+msgstr ""
 
 #: src/freqplots/graphs/gain_graph.c:86 src/freqplots/graphs/viewer_graph.c:53
 msgid "Raw Gain dBi"
@@ -3617,14 +3689,16 @@ msgstr "Z-magnitúdó"
 msgid "Z-phase"
 msgstr "Z-fázis"
 
+# xnec2c-exempt: notation
 #: src/freqplots/graphs/smith_graph.c:384
 msgid "0 Ω"
-msgstr "0 Ω"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: src/freqplots/graphs/smith_graph.c:387
 #: src/freqplots/graphs/smith_graph.c:462
 msgid "∞ Ω"
-msgstr "∞ Ω"
+msgstr ""
 
 #: src/freqplots/graphs/smith_graph.c:407
 msgid "constant R"
@@ -3658,10 +3732,11 @@ msgstr "visszaverési szög (°)"
 msgid "wavelengths → gen"
 msgstr "hullámhossz → gen"
 
+# xnec2c-exempt: notation
 #: src/freqplots/graphs/smith_graph.c:507
 #, c-format
 msgid "Z₀ = %g Ω"
-msgstr "Z₀ = %g Ω"
+msgstr ""
 
 #: src/freqplots/graphs/smith_graph.c:514
 msgid "INDUCTIVE (+jX)"
@@ -3683,9 +3758,10 @@ msgstr "Nettó nyereség dBi"
 msgid "VSWR & S11 vs Frequency"
 msgstr "VSWR és S11 a frekvencia függvényében"
 
+# xnec2c-exempt: notation
 #: src/freqplots/graphs/vswr_graph.c:59
 msgid "S11 dB"
-msgstr "S11 dB"
+msgstr ""
 
 #: src/freqplots/graphs/vswr_graph.c:63
 msgid "VSWR vs Frequency"
@@ -3842,9 +3918,10 @@ msgstr ""
 "Geometriai adathiba\n"
 "Szegmens a földsíkban van"
 
+# xnec2c-exempt: name
 #: src/geometry.c:453
 msgid "ipsym = 0\n"
-msgstr "ipsym = 0\n"
+msgstr ""
 
 #: src/geometry.c:454
 msgid "Error: ipsym = 0"
@@ -4142,14 +4219,13 @@ msgstr ""
 "# Gnuplotban való ábrázoláshoz módosíthatja ezt a parancsot. Jelenleg MHz vs "
 "zreal és zimag értékeket ábrázol:\n"
 
+# xnec2c-exempt: notation
 #: src/gnuplot.c:65
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
-"#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
-"title columnhead(i);\n"
 
 #: src/gnuplot.c:92 src/gnuplot.c:180
 msgid "Touchstone Data"
@@ -4411,10 +4487,11 @@ msgstr "CM kártya figyelmen kívül hagyva a geometriában"
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "geometriai adatkártya hiba (nwire=%d)\n"
 
+# xnec2c-exempt: symbol
 #: src/input.c:993
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
-msgstr "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
+msgstr ""
 
 #: src/input.c:999
 msgid "Command card in geometry section"
@@ -4680,47 +4757,48 @@ msgstr ""
 "Geometriai adatkártya hiba\n"
 "A kártya mnemonikus kódja túl rövid vagy hiányzik"
 
-#: src/interface.c:136
+#: src/interface.c:138
 #, c-format
 msgid "xnec2c Main: %s"
 msgstr "xnec2c Fő: %s"
 
-#: src/interface.c:142
+#: src/interface.c:144
 #, c-format
 msgid "xnec2c Editor: %s"
 msgstr "xnec2c szerkesztő: %s"
 
-#: src/interface.c:148
+#: src/interface.c:150
 #, c-format
 msgid "xnec2c Frequency Plots: %s"
 msgstr "xnec2c Frekvenciaábrák: %s"
 
-#: src/interface.c:154
+#: src/interface.c:156
 #, c-format
 msgid "xnec2c Radiation Pattern: %s"
 msgstr "xnec2c Sugárzási diagram: %s"
 
-#: src/interface.c:169
+#: src/interface.c:171
 #, c-format
 msgid "Fatal Error: builder could not find object '%s'"
 msgstr "Végzetes hiba: a szerkesztő nem találja a(z) '%s' objektumot"
 
-#: src/interface.c:194
+#: src/interface.c:196
 #, c-format
 msgid "failed to add objects to builder: %s\n"
 msgstr "nem sikerült objektumokat hozzáadni a szerkesztőhöz: %s\n"
 
-#: src/interface.c:196
+#: src/interface.c:198
 msgid "Listing Object Ids:\n"
 msgstr "Objektumazonosítók listája:\n"
 
-#: src/interface.c:200 src/utils.c:424 src/utils.c:428 src/utils.c:438
+# xnec2c-exempt: symbol
+#: src/interface.c:202 src/utils.c:424 src/utils.c:428 src/utils.c:438
 #: src/utils.c:440
 #, c-format
 msgid "%s\n"
-msgstr "%s\n"
+msgstr ""
 
-#: src/interface.c:211 src/interface.c:214
+#: src/interface.c:213 src/interface.c:216
 msgid ""
 "libgmodule not supported: xnec2c may not function properly on this "
 "platform.\n"
@@ -4728,99 +4806,100 @@ msgstr ""
 "a libgmodule nem támogatott: az xnec2c nem biztos, hogy megfelelően működik "
 "ezen a platformon.\n"
 
-#: src/interface.c:278
+# xnec2c-exempt: name
+#: src/interface.c:280
 #, c-format
 msgid "xnec2c %s: %s"
-msgstr "xnec2c %s: %s"
+msgstr ""
 
-#: src/interface.c:368
+#: src/interface.c:373
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr ""
 "create_animate_dialog: nem sikerült betölteni az animate.glade fájlt: %s\n"
 
-#: src/main.c:122
+#: src/main.c:127
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s ablakozó háttérrendszer észlelve\n"
 
-#: src/main.c:130
+#: src/main.c:135
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch és --optimize kölcsönösen kizárják egymást.\n"
 
-#: src/main.c:139
+#: src/main.c:144
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "a --write-rdpat-png kapcsolóhoz --batch szükséges\n"
 
-#: src/main.c:155
+#: src/main.c:160
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "bemeneti fájl elérési útja túl hosszú ( > %d karakter )\n"
 
-#: src/main.c:162
+#: src/main.c:167
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "váratlan argumentum '%s' nem tűnik .nec fájlnak\n"
 
-#: src/main.c:169
+#: src/main.c:174
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "váratlan argumentum: %s\n"
 
-#: src/main.c:175
+#: src/main.c:180
 msgid "batch mode requires an input file\n"
 msgstr "kötegelt mód bemeneti fájlt igényel\n"
 
-#: src/main.c:185
+#: src/main.c:190
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "nem sikerült megnyitni a kijelzőt: futó X11 vagy Wayland munkamenet "
 "szükséges\n"
 
-#: src/main.c:204
+#: src/main.c:209
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d feladat forkja %d processzoron.\n"
 
-#: src/main.c:217 src/main.c:225
+#: src/main.c:222 src/main.c:230
 msgid "exiting after fatal error: pipe() failed"
 msgstr "kilépés végzetes hiba után: pipe() sikertelen"
 
-#: src/main.c:234
+#: src/main.c:239
 msgid "exiting after fatal error: fork() failed"
 msgstr "kilépés végzetes hiba után: fork() sikertelen"
 
-#: src/main.c:811
+#: src/main.c:825
 msgid "exiting via user interrupt\n"
 msgstr "kilépés felhasználói megszakítás miatt\n"
 
-#: src/main.c:815
+#: src/main.c:829
 msgid "segmentation fault, exiting\n"
 msgstr "szegmentálási hiba, kilépés\n"
 
-#: src/main.c:819
+#: src/main.c:833
 msgid "floating point exception, exiting\n"
 msgstr "lebegőpontos kivétel, kilépés\n"
 
-#: src/main.c:823
+#: src/main.c:837
 msgid "abort signal received, exiting\n"
 msgstr "megszakítási jel érkezett, kilépés\n"
 
-#: src/main.c:827
+#: src/main.c:841
 msgid "termination request received, exiting\n"
 msgstr "leállítási kérés érkezett, kilépés\n"
 
-#: src/main.c:837
+#: src/main.c:851
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "nem elágaztatott, SIGCHLD figyelmen kívül hagyása a(z) %d pid-től\n"
 
-#: src/main.c:845
+#: src/main.c:859
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "a(z) %d pid gyermekfolyamat kilépett\n"
 
-#: src/main.c:854
+#: src/main.c:868
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "alapértelmezett kilépés jelzéssel: %d\n"
@@ -4849,10 +4928,11 @@ msgstr "A régi leképezés %zu bejegyzést tartalmaz, a várt érték 12\n"
 msgid "open_mathlib: lib is NULL\n"
 msgstr "open_mathlib: lib == NULL\n"
 
+# xnec2c-exempt: symbol
 #: src/mathlib.c:360 src/utils.c:729
 #, c-format
 msgid "%s: %s\n"
-msgstr "%s: %s\n"
+msgstr ""
 
 #: src/mathlib.c:365
 #, c-format
@@ -4911,18 +4991,20 @@ msgstr "A(z) '%s' mathlib nem elérhető.\n"
 msgid "Selected first available mathlib: %s\n"
 msgstr "Az első elérhető mathlib kiválasztva: %s\n"
 
+# xnec2c-exempt: name
 #: src/mathlib.c:652
 msgid "mathlib_load: lib == NULL\n"
-msgstr "mathlib_load: lib == NULL\n"
+msgstr ""
 
 #: src/mathlib.c:661
 #, c-format
 msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
 msgstr "mathlib_load[%d]: mathlib.available=0, kihagyva: %s\n"
 
+# xnec2c-exempt: name
 #: src/mathlib.c:706
 msgid "set_mathlib_batch: lib == NULL\n"
-msgstr "set_mathlib_batch: lib == NULL\n"
+msgstr ""
 
 #: src/mathlib.c:711
 msgid "Batch Math Library"
@@ -5234,15 +5316,17 @@ msgstr "%s: a szálszám nem korlátozható, dlsym(%s): %s\n"
 msgid "%s: thread count is %d\n"
 msgstr "%s: a szálszám %d\n"
 
+# xnec2c-exempt: name
 #: src/mathlib.c:1460
 #, c-format
 msgid "dlsym(mkl_set_threading_layer): %s\n"
-msgstr "dlsym(mkl_set_threading_layer): %s\n"
+msgstr ""
 
+# xnec2c-exempt: notation
 #: src/matrix.c:1223
 #, c-format
 msgid "pivot(%d)= %16.8E\n"
-msgstr "pivot(%d)= %16.8E\n"
+msgstr ""
 
 #: src/matrix.c:1257
 #, c-format
@@ -5282,20 +5366,22 @@ msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 msgstr ""
 "BUG: mgidx=%d tartományon kívül [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 
+# xnec2c-exempt: name
 #: src/measurements.c:628
 #, c-format
 msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
-msgstr "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
+msgstr ""
 
 #: src/measurements.c:631
 #, c-format
 msgid "BUG: rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n"
 msgstr "BUG: rad_pattern[%d]: hatásfok=%.6e gtot=%p max_gain_idx=%p\n"
 
+# xnec2c-exempt: name
 #: src/measurements.c:635
 #, c-format
 msgid "BUG: max_gain_idx[0]=%d [1]=%d [2]=%d\n"
-msgstr "BUG: max_gain_idx[0]=%d [1]=%d [2]=%d\n"
+msgstr ""
 
 #: src/measurements.c:790
 #, c-format
@@ -5328,10 +5414,11 @@ msgstr ""
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t itt: %p: méret=%lu használt=%lu cím=%p\n"
 
+# xnec2c-exempt: name
 #: src/mem/mem.c:259
 #, c-format
 msgid "mem_backtrace(%p):\n"
-msgstr "mem_backtrace(%p):\n"
+msgstr ""
 
 #: src/mem/mem.c:262
 msgid "  m->backtrace is null, no backtrace data\n"
@@ -5452,7 +5539,7 @@ msgstr ""
 msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Felirat textúra atlasz generálva (ID=%u)\n"
 
-#: src/opengl-engine/opengl_axes.c:154
+#: src/opengl-engine/opengl_axes.c:156
 msgid "Failed to load axes line shader\n"
 msgstr "Nem sikerült betölteni a tengelyvonal-shadert\n"
 
@@ -5491,45 +5578,45 @@ msgstr "Shader fordítási hiba: %s: %s\n"
 msgid "Shader link failed: %s + %s\n"
 msgstr "Shader linkelés sikertelen: %s + %s\n"
 
-#: src/opengl-engine/opengl_view.c:140
+#: src/opengl-engine/opengl_view.c:182
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "OpenGL kontexthiba – ezen a kijelzőn nem érhető el OpenGL-megvalósítás\n"
 
-#: src/opengl-engine/opengl_view.c:153
+#: src/opengl-engine/opengl_view.c:195
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL letiltva: scene shader meghibásodott\n"
 
-#: src/opengl-engine/opengl_view.c:168
+#: src/opengl-engine/opengl_view.c:210
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL letiltva: overlay shader meghibásodott\n"
 
-#: src/opengl-engine/opengl_view.c:180
+#: src/opengl-engine/opengl_view.c:222
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL letiltva: tengelyek megjelenítője meghibásodott\n"
 
-#: src/opengl-engine/opengl_view.c:213
+#: src/opengl-engine/opengl_view.c:251
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL letiltva: földsík shader meghibásodott\n"
 
-#: src/opengl-engine/opengl_view.c:235
+#: src/opengl-engine/opengl_view.c:273
 #, c-format
 msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr ""
 "A renderelhető elemek száma (%u) meghaladja a MAX_RENDERABLES (%d) értéket\n"
 
-#: src/opengl-engine/opengl_view.c:314
+#: src/opengl-engine/opengl_view.c:352
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL letiltva: peel composite shader meghibásodott\n"
 
-#: src/opengl-engine/opengl_view_fit.c:134
-#: src/opengl-engine/opengl_view_fit.c:183
+#: src/opengl-engine/opengl_view_fit.c:128
+#: src/opengl-engine/opengl_view_fit.c:177
 #, c-format
 msgid "gl_view_fit_view: invalid projection kind %d\n"
 msgstr "gl_view_fit_view: érvénytelen vetülettípus: %d\n"
 
-#: src/opengl-engine/opengl_view_fit.c:196
+#: src/opengl-engine/opengl_view_fit.c:190
 #, c-format
 msgid ""
 "gl_view_fit_view: no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,"
@@ -5546,7 +5633,7 @@ msgstr "MSAA framebuffer hiányos\n"
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA resolve framebuffer hiányos\n"
 
-#: src/opengl-engine/opengl_view_overlay.c:355
+#: src/opengl-engine/opengl_view_overlay.c:326
 msgid "Failed to load overlay shaders\n"
 msgstr "Nem sikerült betölteni az overlay shadereket\n"
 
@@ -5568,7 +5655,7 @@ msgstr "Peel akkumulációs FBO hiányos\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "Layer depth FBO hiányos\n"
 
-#: src/opengl-engine/opengl_view_render.c:296
+#: src/opengl-engine/opengl_view_render.c:410
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Áttetsző renderelhetők kihagyva: peel FBO-k nem elérhetők\n"
 
@@ -5576,7 +5663,7 @@ msgstr "Áttetsző renderelhetők kihagyva: peel FBO-k nem elérhetők\n"
 msgid "Failed to load shaders\n"
 msgstr "Nem sikerült betölteni a shadereket\n"
 
-#: src/opengl/opengl_rdpattern.c:338
+#: src/opengl/opengl_rdpattern.c:343
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: érvénytelen rajzstílus %d, felület használva\n"
@@ -5589,15 +5676,20 @@ msgstr ""
 "Az OpenGL nem érhető el ezen a kijelzőn; átváltás Cairo megjelenítőre. Lásd: "
 "„OpenGL megjelenítő” a Nézet > Megjelenítési beállítások menüpontban.\n"
 
+#: src/opengl/opengl_structure.c:225
+msgid "OpenGL structure overlay has no content owner\n"
+msgstr "az OpenGL szerkezet-rárajzolásnak nincs tartalomgazdája\n"
+
 #: src/opengl/opengl_structure_geometry.c:244
 #, c-format
 msgid "generate_network_lines: unknown ntyp=%d\n"
 msgstr "generate_network_lines: ismeretlen ntyp=%d\n"
 
+# xnec2c-exempt: name
 #: src/opt_file.c:342
 #, c-format
 msgid "opt_file_save: %s\n"
-msgstr "opt_file_save: %s\n"
+msgstr ""
 
 #: src/opt_file.c:533
 #, c-format
@@ -5609,10 +5701,11 @@ msgstr "opt_file_load: ismeretlen metrika: [%s]\n"
 msgid "Loaded %d optimizer goals\n"
 msgstr "%d optimalizálási cél betöltve\n"
 
+# xnec2c-exempt: name
 #: src/opt_file.c:651
 #, c-format
 msgid "opt_file_load: %s\n"
-msgstr "opt_file_load: %s\n"
+msgstr ""
 
 #: src/optimize.c:83
 #, c-format
@@ -5895,53 +5988,53 @@ msgid ""
 msgstr ""
 "Átlagos nyereség: %.4f (%.2f dBi), hatásfok: %.1f%%, térszög: %.4f * pi sr\n"
 
-#: src/rc_config.c:837
+#: src/rc_config.c:849
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() sikertelen: %s\n"
 
-#: src/rc_config.c:841
+#: src/rc_config.c:853
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "a HOME környezeti változó nincs definiálva, használt: %s\n"
 
-#: src/rc_config.c:926
+#: src/rc_config.c:938
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
 msgstr ""
 "%s (locale=%s): csak %d/%lu karakter egyezett, másik locale próbálva: %s\n"
 
-#: src/rc_config.c:1006
+#: src/rc_config.c:1018
 msgid "rc_config_default_int: no integer default for field\n"
 msgstr "rc_config_default_int: nincs egész szám alapértelmezés a mezőhöz\n"
 
-#: src/rc_config.c:1099
+#: src/rc_config.c:1111
 #, c-format
 msgid "rc_config_field_size: %s: unsupported format %s\n"
 msgstr "rc_config_field_size: %s: nem támogatott formátum: %s\n"
 
-#: src/rc_config.c:1145
+#: src/rc_config.c:1157
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "ablak: x=%-5d y=%-5d sz=%-5d m=%-5d  cím: \"%s\"\n"
 
-#: src/rc_config.c:1179
+#: src/rc_config.c:1191
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: EOF az alkalmazásverzió olvasásakor.\n"
 
-#: src/rc_config.c:1185
+#: src/rc_config.c:1197
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "a meglévő konfigurációs fájl verziója eltér: %s != %s\n"
 
-#: src/rc_config.c:1324
+#: src/rc_config.c:1331
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "stat sikertelen: %s: %s\n"
 
-#: src/rc_config.c:1330
+#: src/rc_config.c:1337
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5950,47 +6043,47 @@ msgstr ""
 "A(z) %s könyvtár engedélyei javítva: 0%o-ról 0%o-ra (a 4e62893b hibája "
 "miatt).\n"
 
-#: src/rc_config.c:1361
+#: src/rc_config.c:1368
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: nem értelmezett sor: %s\n"
 
-#: src/rc_config.c:1367
+#: src/rc_config.c:1374
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: korai fájlvég %s esetén: %s \n"
 
-#: src/rc_config.c:1392
+#: src/rc_config.c:1399
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: elemzési hiba (%s): %s \n"
 
-#: src/rc_config.c:1406
+#: src/rc_config.c:1413
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr ""
 "Érvénytelen égbolt-modell index %d a konfigurációban, visszaállítás "
 "alapértelmezettre\n"
 
-#: src/rc_config.c:1412
+#: src/rc_config.c:1419
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Érvénytelen Föld-modell index %d a konfigurációban, visszaállítás "
 "alapértelmezettre\n"
 
-#: src/rc_config.c:1418
+#: src/rc_config.c:1425
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Érvénytelen interpolációs módszer %d a konfigurációban, visszaállítás "
 "alapértelmezettre\n"
 
-#: src/rc_config.c:1593
+#: src/rc_config.c:1600
 msgid "batch mode: skipping configuration save\n"
 msgstr "kötegelt mód: konfiguráció mentésének kihagyása\n"
 
-#: src/rc_config.c:1600
+#: src/rc_config.c:1607
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "nem lehet megnyitni az xnec2c konfigurációs fájlját: %s: %s\n"
@@ -6018,7 +6111,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d tartományon kívül [0..%d], "
 "alapértelmezett: GS_LINP\n"
 
-#: src/rdpattern_ui.c:484 src/rdpattern_ui.c:490
+#: src/rdpattern_ui.c:514
+msgid "Gain in the direction of the viewer, for the current view angles."
+msgstr "Nyereség a néző irányában, a jelenlegi nézetszögeknél."
+
+#: src/rdpattern_ui.c:516
+msgid ""
+"Brightness temperature in the direction of the viewer, for the current view "
+"angles."
+msgstr "Fényerő-hőmérséklet a néző irányában, a jelenlegi nézetszögeknél."
+
+#: src/rdpattern_ui.c:536 src/rdpattern_ui.c:542
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6026,7 +6129,7 @@ msgstr ""
 "Megfigyelési emelkedési szög. Az ég/föld határt tolja el az "
 "antennahőmérséklet kiértékeléséhez. 0° = horizont."
 
-#: src/rdpattern_ui.c:487 src/rdpattern_ui.c:493
+#: src/rdpattern_ui.c:539 src/rdpattern_ui.c:545
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6034,14 +6137,14 @@ msgstr ""
 "Megfigyelési emelkedési szög az antennahőmérséklethez.\n"
 "Válassza a Nyereség stílus → Zajhőmérséklet lehetőséget az engedélyezéshez."
 
-#: src/rdpattern_ui.c:496
+#: src/rdpattern_ui.c:548
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr ""
 "Független ég, föld és interpolációs választók a zajhőmérséklet-modellekhez."
 
-#: src/rdpattern_ui.c:498
+#: src/rdpattern_ui.c:550
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6049,85 +6152,118 @@ msgstr ""
 "Ég és Föld zajhőmérséklet-modellek.\n"
 "Válassza a Nyereség stílus → Zajhőmérséklet lehetőséget az engedélyezéshez."
 
-#: src/rdpattern_ui.c:760
+#: src/rdpattern_ui.c:807
 msgid "Total Gain"
 msgstr "Teljes nyereség"
 
-#: src/rdpattern_ui.c:761
+#: src/rdpattern_ui.c:808
 msgid "Horizontal Polarization"
 msgstr "Vízszintes polarizáció"
 
-#: src/rdpattern_ui.c:762
+#: src/rdpattern_ui.c:809
 msgid "Vertical Polarization"
 msgstr "Függőleges polarizáció"
 
-#: src/rdpattern_ui.c:763
+#: src/rdpattern_ui.c:810
 msgid "RH Circular Polarization"
 msgstr "Jobbkezes körkörös polarizáció"
 
-#: src/rdpattern_ui.c:764
+#: src/rdpattern_ui.c:811
 msgid "LH Circular Polarization"
 msgstr "Balkezes körkörös polarizáció"
 
-#: src/rdpattern_ui.c:769
+#: src/rdpattern_ui.c:816
 msgid "Linear Power"
 msgstr "Lineáris teljesítmény"
 
-#: src/rdpattern_ui.c:770
+#: src/rdpattern_ui.c:817
 msgid "Linear Voltage"
 msgstr "Lineáris feszültség"
 
-#: src/rdpattern_ui.c:771
+#: src/rdpattern_ui.c:818
 msgid "ARRL Scale"
 msgstr "ARRL skála"
 
-#: src/rdpattern_ui.c:772
+#: src/rdpattern_ui.c:819
 msgid "Logarithmic Scale"
 msgstr "Logaritmikus skála"
 
-#: src/rdpattern_ui.c:773
+#: src/rdpattern_ui.c:820
 msgid "Noise Temperature"
 msgstr "Zajhőmérséklet"
 
-#: src/rdpattern_ui.c:774
+#: src/rdpattern_ui.c:821
 msgid "Noise Temp (log scale)"
 msgstr "Zajhőm. (log skála)"
 
-#: src/rdpattern_ui.c:786
+#: src/rdpattern_ui.c:833
 msgid "Radiation Pattern: - "
 msgstr "Sugárzási diagram: - "
 
-#: src/rdpattern_ui.c:806
+#: src/rdpattern_ui.c:853
 msgid "Near Fields:"
 msgstr "Közeli mezők:"
 
-#: src/rdpattern_ui.c:808
+#: src/rdpattern_ui.c:855
 msgid " - E Field"
 msgstr " - E mező"
 
-#: src/rdpattern_ui.c:810
+#: src/rdpattern_ui.c:857
 msgid " - H Field"
 msgstr " - H mező"
 
-#: src/rdpattern_ui.c:812
+#: src/rdpattern_ui.c:859
 msgid " - Poynting Vector"
 msgstr " - Poynting-vektor"
 
-#: src/rdpattern_ui.c:822
+#: src/rdpattern_ui.c:869
 msgid "Frequency Data Plots - "
 msgstr "Frekvenciaadatok ábrázolása - "
 
-#: src/render/gradient_cache.c:79
+#: src/render/gradient_cache.c:80
 #, c-format
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d határon kívül esik. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:313
+#: src/render/gradient_cache.c:311
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: felület létrehozása sikertelen (%dx%d)\n"
 
-#: src/render/render_dispatch.c:452
+#: src/render/render_canvas.c:149
+#, c-format
+msgid ""
+"canvas %d needs a surface whose engine renders, frees, fits, captures and "
+"redraws: surface %p\n"
+msgstr ""
+"a(z) %d. vászonnak felület kell, amelynek motorja renderel, felszabadít, "
+"illeszt, rögzít és újrarajzol: felület %p\n"
+
+#: src/render/render_canvas.c:171
+#, c-format
+msgid "canvas %d holds %d surfaces already\n"
+msgstr "a(z) %d. vászon már %d felületet tartalmaz\n"
+
+#: src/render/render_canvas.c:192
+msgid "canvas pool needs a surface to present\n"
+msgstr "a vászonkészletnek felület kell a megjelenítéshez\n"
+
+#: src/render/render_canvas.c:208
+#, c-format
+msgid "canvas pool holds %d created canvases already\n"
+msgstr "a vászonkészlet már %d létrehozott vásznat tartalmaz\n"
+
+#: src/render/render_canvas.c:233
+#, c-format
+msgid "canvas %d selected with no engine\n"
+msgstr "a(z) %d. vászon motor nélkül lett kiválasztva\n"
+
+#: src/render/render_canvas.c:321
+#, c-format
+msgid "canvas %d presents no surface\n"
+msgstr "a(z) %d. vászon nem jelenít meg felületet\n"
+
+#: src/render/render_dispatch.c:481
 #, c-format
 msgid "render: unhandled mode %d\n"
 msgstr "render: kezeletlen mód %d\n"
@@ -6149,6 +6285,10 @@ msgstr "render_fit_solve: érvénytelen vetülettípus: %d\n"
 #, c-format
 msgid "render_geom_walk: unresolved render mode %d\n"
 msgstr "render_geom_walk: feloldatlan renderelési mód: %d\n"
+
+#: src/render/render_redraw.c:48
+msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
+msgstr "Optimalizáló ciklus befejezetlen, közbülső újrarajzolás kihagyása.\n"
 
 #: src/settings/render_settings_common.c:86
 msgid "config_reset_tab_user: field has no rc_config_vars row\n"
@@ -6183,7 +6323,7 @@ msgstr "Hankel nem érvényes Z = 0 esetén"
 msgid "No convergence"
 msgstr "Nincs konvergencia"
 
-#: src/structure_ui.c:110
+#: src/structure_ui.c:128
 msgid "unreachable palette kind sentinel\n"
 msgstr "elérhetetlen palettatípus-őrérték\n"
 
@@ -6282,39 +6422,39 @@ msgstr ""
 "Meghatározza, hogy ez a paraméter felülbírálja-e a NEC modell értékét.\n"
 "Szüntesse meg az Opt jelölőnégyzet bejelölését a független vezérléshez."
 
-#: src/themes/theme.c:138
+#: src/themes/theme.c:140
 #, c-format
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr ""
 "'%s' téma '%s' szerepe érvénytelen szín, örökölt alapértelmezés használva\n"
 
-#: src/themes/theme.c:221
+#: src/themes/theme.c:223
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "theme: nem sikerült betölteni az erőforrást: %s: %s\n"
 
-#: src/themes/theme.c:231
+#: src/themes/theme.c:233
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "theme: nem sikerült feldolgozni az erőforrást: %s: %s\n"
 
-#: src/themes/theme.c:257
+#: src/themes/theme.c:259
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "theme: nem sikerült feldolgozni: %s, beépített alapértelmezések használva\n"
 
-#: src/themes/theme.c:386
+#: src/themes/theme.c:388
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "'%s' témának nincs invertált változata, alap használva\n"
 
-#: src/themes/theme.c:394
+#: src/themes/theme.c:396
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "'%s' téma nem található, örökölt használva\n"
 
-#: src/themes/theme.c:466
+#: src/themes/theme.c:468
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "'%s' szélesség érvénytelen, jelenlegi érték megtartva\n"
@@ -6367,23 +6507,21 @@ msgstr "%s[%d]: %f másodperc\n"
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Fájl megnyitása sikertelen: %s\n"
 
-#: src/utils.c:1118
-msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
-msgstr "Optimalizáló ciklus befejezetlen, közbülső újrarajzolás kihagyása.\n"
-
-#: src/utils.c:1134
+#: src/utils.c:1090
 msgid "  Backtrace:\n"
 msgstr "  Visszakövetés:\n"
 
-#: src/utils.c:1136
+# xnec2c-exempt: symbol
+#: src/utils.c:1092
 #, c-format
 msgid "    %d. %s\n"
-msgstr "    %d. %s\n"
+msgstr ""
 
-#: src/utils.c:1163
+# xnec2c-exempt: symbol
+#: src/utils.c:1119
 #, c-format
 msgid "%s:\n"
-msgstr "%s:\n"
+msgstr ""
 
 #: src/validation_dump.c:34
 msgid ""
@@ -6459,12 +6597,12 @@ msgstr "New_Frequency: nincs célhely (freq_step=%d)\n"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f másodperc. (%s)\n"
 
-#: src/xnec2c.c:992 src/xnec2c.c:1471
+#: src/xnec2c.c:1019 src/xnec2c.c:1498
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval ismeretlen osztályt adott vissza: %d\n"
 
-#: src/xnec2c.c:1057
+#: src/xnec2c.c:1084
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
@@ -6472,78 +6610,83 @@ msgstr ""
 "%d. lépés versenyhelyzet: elküldött %.6f MHz, aktuális %.6f MHz; "
 "újraszámítás\n"
 
-#: src/xnec2c.c:1188
+#: src/xnec2c.c:1215
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr ""
 "a(z) %d. gyermekfolyamat érvénytelen cső-fájlleírót tartalmaz az "
 "elágaztatott gyűjtés során\n"
 
-#: src/xnec2c.c:1241
+#: src/xnec2c.c:1268
 msgid "Failed to read data from forked child\n"
 msgstr "Nem sikerült adatot olvasni az elágaztatott gyermekfolyamatból\n"
 
-#: src/xnec2c.c:1500
+#: src/xnec2c.c:1527
 #, c-format
 msgid "invalid frequency selection mode %d\n"
 msgstr "érvénytelen frekvenciaválasztási mód: %d\n"
 
-#: src/xnec2c.c:1518
+#: src/xnec2c.c:1545
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "a legközelebbi %g MHz-es lépés eltér a kért %g MHz-től\n"
 
-#: src/xnec2c.c:1522
+#: src/xnec2c.c:1549
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "a frekvenciasöprés utáni frekvencia %.4f MHz-re állítva (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1551
+#: src/xnec2c.c:1578
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Frekvencia ciklus eltelt idő: %f másodperc. (%s)\n"
 
-#: src/xnec2c.c:1770
+#: src/xnec2c.c:1630
+#, c-format
+msgid "batch canvas %d drew no frame at %dx%d\n"
+msgstr "a kötegelt %d. vászon nem rajzolt képkockát %dx%d méretben\n"
+
+#: src/xnec2c.c:1795
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "sugárzási diagram PNG-rögzítés: nincs kiszámított lépés ehhez: %s\n"
 
-#: src/xnec2c.c:1842
+#: src/xnec2c.c:1867
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "a sugárzási diagram PNG-rögzítése sikertelen ehhez: %s\n"
 
-#: src/xnec2c.c:1848
+#: src/xnec2c.c:1873
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "a sugárzási diagram PNG-mentése sikertelen ehhez: %s: %s\n"
 
-#: src/xnec2c.c:1853
+#: src/xnec2c.c:1878
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "sugárzási diagram PNG kiírva: %s\n"
 
-#: src/xnec2c.c:1890
+#: src/xnec2c.c:1915
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "több sugárzási diagram PNG-formátum esetén .png fájlnév szükséges: %s\n"
 
-#: src/xnec2c.c:1995
+#: src/xnec2c.c:2020
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "A söprés %d munkaszálat futtat, egyenként %d szállal\n"
 
-#: src/xnec2c.c:2170
+#: src/xnec2c.c:2195
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: érvénytelen batch_mode=%d\n"
 
-#: src/xnec2c.c:2176
+#: src/xnec2c.c:2201
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: érvénytelen stopped=%d\n"
 
-#: src/xnec2c.c:2289
+#: src/xnec2c.c:2314
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "nem sikerült elindítani a Frequency_Loop_Thread szálat\n"
