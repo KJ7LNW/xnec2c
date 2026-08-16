@@ -199,17 +199,19 @@ Read_Comments( void )
 
 /* Tag_Seg_Error()
  *
- * Checks tag and segments number are valid (>1)
+ * Checks that a geometry card states a usable tag and segment count. A zero
+ * tag leaves the wire untagged, which NEC permits: a card referencing an
+ * untagged segment selects it by absolute position in the whole structure.
  */
   static gboolean
 Tag_Seg_Error( int tag, int segs )
 {
   gboolean retv = FALSE;
 
-  if( tag <= 0 )
+  if( tag < 0 )
   {
     Stop( ERR_OK, _("Geometry data error\n"
-          "Tag number is less than 1") );
+          "Tag number is negative") );
     retv = TRUE;
   }
 
@@ -227,6 +229,28 @@ Tag_Seg_Error( int tag, int segs )
   }
 
   return( retv );
+}
+
+/*-----------------------------------------------------------------------*/
+
+/* zero_tag_notice()
+ *
+ * Reports a control card that selects a segment through a zero tag. A zero tag
+ * selects no tag at all: the segment field is then an absolute position in the
+ * assembled structure, so geometry inserted ahead of it moves the reference
+ * onto a different conductor. Tagging the wire and selecting the segment
+ * within that tag binds the reference to the intended conductor. The card is
+ * accepted either way, since absolute positioning is legal NEC input.
+ */
+  static void
+zero_tag_notice( const char *card, int tag, int seg )
+{
+  if( (tag != 0) || (seg <= 0) ) return;
+
+  pr_warn("%s card: tag 0 selects segment %d by absolute position in the"
+      " structure, not within a tagged wire; give the wire a tag number and"
+      " reference the segment within that tag unless absolute positioning is"
+      " intended\n", card, seg);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -1216,6 +1240,8 @@ Read_Commands( void )
        * solution, impedance, gain, or radiation pattern. Ignoring it
        * omits that report alone and leaves every solved quantity intact. */
       case CP: /* "cp" card ignored, maximum coupling between antennas */
+        zero_tag_notice( ain, itmp1, itmp2 );
+        zero_tag_notice( ain, itmp3, itmp4 );
         pr_warn("CP card is ignored: coupling calculation not implemented\n");
         continue; /* continue card input loop */
 
@@ -1249,6 +1275,7 @@ Read_Commands( void )
             {
               int indx = vsorc.nvqd-1;
 
+              zero_tag_notice( "EX", itmp2, itmp3 );
               if( (vsorc.ivqd[indx] = isegno(itmp2, itmp3)) < 0 )
                 return( FALSE ); /* my addition, error */
               vsorc.vqd[indx]= cmplx( tmp1, tmp2);
@@ -1269,6 +1296,7 @@ Read_Commands( void )
             {
               int indx = vsorc.nsant-1;
 
+              zero_tag_notice( "EX", itmp2, itmp3 );
               if( (vsorc.isant[indx] = isegno(itmp2, itmp3)) < 0 )
                   return( FALSE ); /* my addition, error condition */
               vsorc.vsant[indx]= cmplx( tmp1, tmp2);
@@ -1520,6 +1548,7 @@ Read_Commands( void )
             }
             else /* Absolute seg num specified */
             {
+              zero_tag_notice( "LD", itmp2, itmp3 );
               nseg = itmp4 - itmp3 + 1;
               if( nseg <= 0 ) nseg = 1;
               int nrec = (nseg + zload.nldseg);
@@ -1626,6 +1655,8 @@ Read_Commands( void )
             }
           }
 
+          zero_tag_notice( ain, itmp1, itmp2 );
+          zero_tag_notice( ain, itmp3, itmp4 );
           if( ((netcx.iseg1[idx] = isegno(itmp1, itmp2)) < 0) ||
               ((netcx.iseg2[idx] = isegno(itmp3, itmp4)) < 0) )
           {
@@ -1651,6 +1682,7 @@ Read_Commands( void )
         } /* case 12: case 17: */
 
       case PQ: case PT: /* "pq" and "pt" cards ignored, no printing */
+        zero_tag_notice( ain, itmp2, itmp3 );
         pr_warn("PQ and PT cards are ignored: printing to file not implemented\n");
         continue; /* continue card input loop */
 
