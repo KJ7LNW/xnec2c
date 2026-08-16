@@ -9,12 +9,12 @@ use Exporter qw(import);
 use Xnec2c::PO::CatalogState qw(catalog_identity);
 use Xnec2c::PO::MapFile qw(
 	decode_map_value encode_map_value read_manifest_records read_map_records
-	serialize_records write_utf8_file
+	record_line serialize_records write_utf8_file
 );
-use Xnec2c::PO::TranslationRules qw(propagating_exemptions resolved_target);
+use Xnec2c::PO::TranslationRules qw(exemption_propagates);
 
 our @EXPORT_OK = qw(
-	AI_DIR join_output_records manifest_records map_path output_path
+	AI_DIR manifest_identity manifest_records map_path output_path
 	prompt_path rebase_output_records
 );
 
@@ -42,21 +42,26 @@ sub prompt_path
 }
 
 # Build the tagged manifest records answering one catalog's current changes,
-# keying them by their position in that catalog.
+# keying them by their position in that catalog. A source a preceding catalog
+# already exempted carries that reason here, so the program owns the inherited
+# answer and every later reader compares against this one baseline.
 sub manifest_records
 {
-	my ($lang, $changes) = @_;
+	my ($lang, $changes, $exemptions) = @_;
+	my $inherited = propagated_answers($exemptions);
 	my @records;
 
 	for my $change (@{$changes})
 	{
+		my $identity = catalog_identity($change->{context},
+			$change->{source});
 		push @records, {
 			K => scalar(@records) + 1,
 			L => $lang,
 			C => encode_map_value($change->{context}),
 			S => encode_map_value($change->{source}),
 			T => '',
-			X => '',
+			X => $inherited->{$identity} // '',
 		};
 	}
 
@@ -68,9 +73,9 @@ sub manifest_identity
 {
 	my ($path, $record) = @_;
 	my $context = decode_map_value($path, $record->{K},
-		$record->{lines}{C} // $record->{lines}{K}, $record->{C} // '');
+		record_line($record, 'C'), $record->{C} // '');
 	my $source = decode_map_value($path, $record->{K},
-		$record->{lines}{S}, $record->{S});
+		record_line($record, 'S'), $record->{S});
 
 	die join("\n", @{$context->{faults}}, @{$source->{faults}}) . "\n"
 		if @{$context->{faults}} || @{$source->{faults}};
@@ -91,9 +96,9 @@ sub index_answers_by_identity
 	for my $record (@{$records})
 	{
 		my $context_result = decode_map_value($path, $record->{K},
-			$record->{lines}{C} // $record->{lines}{K}, $record->{C} // '');
+			record_line($record, 'C'), $record->{C} // '');
 		my $source_result = decode_map_value($path, $record->{K},
-			$record->{lines}{S} // $record->{lines}{K}, $record->{S} // '');
+			record_line($record, 'S'), $record->{S} // '');
 		push @faults, @{$context_result->{faults}}, @{$source_result->{faults}};
 		next if @{$context_result->{faults}} || @{$source_result->{faults}};
 
@@ -101,8 +106,7 @@ sub index_answers_by_identity
 			$source_result->{value});
 		if (exists $answers{$identity})
 		{
-			push @faults, "$path:"
-				. ($record->{lines}{S} // $record->{lines}{K})
+			push @faults, "$path:" . record_line($record, 'S')
 				. ": K $record->{K} repeats the S of K $answers{$identity}{K};"
 				. ' keep one record per entry';
 			next;
@@ -120,12 +124,11 @@ sub index_answers_by_identity
 sub propagated_answers
 {
 	my ($exemptions) = @_;
-	my %carries_forward = map { $_ => 1 } propagating_exemptions();
 	my %answers;
 
 	for my $exemption (@{$exemptions})
 	{
-		next if !exists $carries_forward{$exemption->{exempt}};
+		next if !exemption_propagates($exemption->{exempt});
 		my $identity = catalog_identity($exemption->{context},
 			$exemption->{source});
 		$answers{$identity} = $exemption->{exempt};
@@ -161,13 +164,13 @@ sub retired_answers
 # carrying every answer across by the identity its C and S name. The program
 # owns the K, C, S, and L structure; the model owns only T and X, so record
 # drift costs no model session. An identity the manifest no longer holds is
-# reported and dropped. An unanswered record takes the exemption a preceding
-# catalog accepted for the same source, and arrives empty where none did. A
-# language holding no output map yet takes the whole manifest, so every
-# answer the program owns stands in the file before any session opens it.
+# reported and dropped. An unanswered record takes the inherited exemption its
+# manifest record carries, and arrives empty where none did. A language holding
+# no output map yet takes the whole manifest, so every answer the program owns
+# stands in the file before any session opens it.
 sub rebase_output_records
 {
-	my ($lang, $exemptions) = @_;
+	my ($lang) = @_;
 	my $map_path = map_path($lang);
 	my $out_path = output_path($lang);
 	my $manifest = read_manifest_records($map_path);
@@ -185,7 +188,6 @@ sub rebase_output_records
 	return rebase_result(faults => $index->{faults}) if @{$index->{faults}};
 
 	my %answers = %{$index->{answers}};
-	my $prior = propagated_answers($exemptions);
 	my @records;
 	my $carried = 0;
 	my $open = 0;
@@ -205,9 +207,9 @@ sub rebase_output_records
 		};
 		my $unanswered = $record->{T} eq '' && $record->{X} eq '';
 		$carried++ if defined $output;
-		if ($unanswered && exists $prior->{$identity})
+		if ($unanswered && ($entry->{X} // '') ne '')
 		{
-			$record->{X} = $prior->{$identity};
+			$record->{X} = $entry->{X};
 			$propagated++;
 		}
 		else
@@ -227,73 +229,6 @@ sub rebase_output_records
 
 	return rebase_result(warnings => \@warnings, carried => $carried,
 		open => $open, propagated => $propagated, changed => $changed);
-}
-
-# Join an output map to its authoritative manifest by catalog identity. An
-# answer stays usable wherever the manifest now places it, so records never
-# join by their position.
-sub join_output_records
-{
-	my ($lang) = @_;
-	my $map_path = map_path($lang);
-	my $out_path = output_path($lang);
-	my $manifest = read_manifest_records($map_path);
-	my $output_result = read_map_records($out_path);
-	my $index = index_answers_by_identity($out_path, $output_result->{records});
-	my %answers = %{$index->{answers}};
-	my @faults = (@{$output_result->{faults}}, @{$index->{faults}});
-	my @warnings;
-	my %translations;
-
-	for my $entry (@{$manifest})
-	{
-		my $key = $entry->{K};
-		my $named = manifest_identity($map_path, $entry);
-		die "$map_path: duplicate catalog identity at K $key\n"
-			if exists $translations{$named->{identity}};
-
-		my $output = delete $answers{$named->{identity}};
-		if (!defined $output)
-		{
-			push @faults, "$out_path: K $key of $map_path has no answering"
-				. ' record; add one';
-			next;
-		}
-
-		my $target_line = $output->{lines}{T} // $output->{lines}{K};
-		my $target_result = decode_map_value($out_path, $output->{K},
-			$target_line, $output->{T} // '');
-		push @faults, @{$target_result->{faults}};
-		next if @{$target_result->{faults}};
-
-		my $resolution = resolved_target($named->{source},
-			$target_result->{value}, $output->{X} // '');
-		my $line = ($output->{X} // '') ne ''
-			? $output->{lines}{X}
-			: $target_line;
-		push @faults, "$out_path:$line: K $output->{K}: $resolution->{error}"
-			if exists $resolution->{error};
-		push @warnings, "$out_path:$line: K $output->{K}:"
-			. " WARN $resolution->{warning}"
-			if exists $resolution->{warning};
-		$translations{$named->{identity}} = {
-			key => $output->{K},
-			line => $target_line,
-			%{$resolution},
-		} if !exists $resolution->{error};
-	}
-
-	# An answer the current manifest no longer asks for costs nothing to keep.
-	push @warnings, map {
-		"$out_path:$_->{lines}{K}: K $_->{K}: WARN answers no current"
-			. ' manifest entry; ignored'
-	} retired_answers(\%answers);
-
-	return {
-		translations => \%translations,
-		faults => \@faults,
-		warnings => \@warnings,
-	};
 }
 
 1;

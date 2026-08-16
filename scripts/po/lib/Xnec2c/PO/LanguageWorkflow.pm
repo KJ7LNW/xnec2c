@@ -82,7 +82,7 @@ sub prepare_language_manifest
 
 	my $changes = catalog_change_records($lang);
 
-	return (manifest_records($lang, $changes),
+	return (manifest_records($lang, $changes, preceding_exemptions($lang)),
 		scalar grep { $_->{copied} } @{$changes});
 }
 
@@ -122,7 +122,7 @@ sub apply_output_state
 {
 	my ($work) = @_;
 	my $lang = $work->{lang};
-	my $rebase = rebase_output_records($lang, preceding_exemptions($lang));
+	my $rebase = rebase_output_records($lang);
 
 	print "$_\n" for @{$rebase->{warnings}};
 	if (@{$rebase->{faults}})

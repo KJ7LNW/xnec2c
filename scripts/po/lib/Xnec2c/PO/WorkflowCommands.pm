@@ -19,9 +19,8 @@ use Xnec2c::PO::LanguageWorkspace qw(
 	catalog_languages clear_language_manifest validate_language
 );
 use Xnec2c::PO::ManifestWriter qw(write_language_manifest);
-use Xnec2c::PO::TranslationMap qw(
-	AI_DIR join_output_records output_path
-);
+use Xnec2c::PO::OutputJoin qw(join_output_records);
+use Xnec2c::PO::TranslationMap qw(AI_DIR output_path);
 
 our @EXPORT_OK = qw(cmd_apply cmd_generate cmd_inject cmd_lint cmd_verify);
 

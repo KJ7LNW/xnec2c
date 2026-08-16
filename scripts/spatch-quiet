@@ -1,0 +1,3 @@
+#!/bin/sh
+
+spatch --very-quiet -j`nproc` "$@" > /dev/null

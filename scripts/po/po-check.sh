@@ -11,10 +11,14 @@
 #   2. zero fuzzy entries; each remaining one reported with the po-file
 #      line number of its msgid.
 #   3. zero untranslated entries (skipped with --review); each remaining
-#      one reported with the po-file line number of its msgid.
-#   4. zero entries whose msgstr repeats their own msgid, except those
-#      carrying an "xnec2c-exempt:" translator comment; each remaining one
-#      reported with the po-file line number of its msgstr.
+#      one reported with the po-file line number of its msgid. An entry
+#      carrying an "xnec2c-exempt:" translator comment records that this
+#      catalog writes no translation, so its empty msgstr is the recorded
+#      outcome rather than a missing one.
+#   4. zero entries whose msgstr repeats their own msgid; an exemption
+#      comment grants no exception, because an exemption records an absent
+#      translation rather than a copied one. Each remaining one is reported
+#      with the po-file line number of its msgstr.
 #
 # Exit status: 0 all gates pass, 1 any gate fails, 2 usage error.
 

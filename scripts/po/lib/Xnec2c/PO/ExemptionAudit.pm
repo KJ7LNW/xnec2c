@@ -6,112 +6,17 @@ use utf8;
 
 use Exporter qw(import);
 
-use Xnec2c::PO::CatalogState qw(
-	catalog_annotation_records catalog_path exempt_marker
-);
+use Xnec2c::PO::CatalogState qw(catalog_annotation_records catalog_path);
+use Xnec2c::PO::ExemptionEntryAudit qw(accepted_exemption entry_faults);
 use Xnec2c::PO::LanguageWorkspace qw(catalog_languages);
 use Xnec2c::PO::MapFile qw(source_excerpt);
-use Xnec2c::PO::TranslationRules qw(exemption_names propagating_exemptions);
+use Xnec2c::PO::TranslationRules qw(exemption_conflict exemption_propagates);
 
 our @EXPORT_OK = qw(audit_exemptions);
 
 # Bound the catalogs one cross-catalog report names before it summarizes the
 # rest, so a fault every catalog holds still reads on one line.
 use constant LANGUAGE_SAMPLE_MAX => 8;
-
-my %DOCUMENTED_NAME_MAP = map { $_ => 1 } exemption_names();
-my %PROPAGATING_NAME_MAP = map { $_ => 1 } propagating_exemptions();
-
-sub accepted_exemption;
-sub documented_names;
-sub undocumented_names;
-
-# Each row names one fault a single catalog entry holds: the condition raising
-# it and the report it writes. Adding a rule adds a row.
-my @ENTRY_RULE_ROWS = (
-	{
-		holds => sub {
-			return scalar(@{$_[0]{markers}}) > scalar(@{$_[0]{names}});
-		},
-		report => sub {
-			return 'malformed exemption comment; write "' . exempt_marker()
-				. ': <name>" naming one of ' . documented_names();
-		},
-	},
-	{
-		holds => sub { return scalar(@{$_[0]{markers}}) > 1; },
-		report => sub {
-			return scalar(@{$_[0]{markers}})
-				. ' exemption comments on one entry; write one';
-		},
-	},
-	{
-		holds => sub { return scalar(undocumented_names($_[0])) != 0; },
-		report => sub {
-			return 'undocumented exemption '
-				. join(', ', undocumented_names($_[0])) . '; write one of '
-				. documented_names();
-		},
-	},
-	{
-		holds => sub {
-			return defined accepted_exemption($_[0])
-				&& $_[0]{translation} eq '';
-		},
-		report => sub {
-			return 'exemption ' . accepted_exemption($_[0])
-				. ' stands on an untranslated entry; write the source form in'
-				. ' msgstr or drop the comment';
-		},
-	},
-	{
-		holds => sub {
-			return defined accepted_exemption($_[0])
-				&& $_[0]{translation} ne ''
-				&& $_[0]{translation} ne $_[0]{source};
-		},
-		report => sub {
-			return 'exemption ' . accepted_exemption($_[0])
-				. ' stands on a translated entry; drop the comment or restore'
-				. ' the source form';
-		},
-	},
-);
-
-# Return the documented exemption one structurally valid comment claims.
-sub accepted_exemption
-{
-	my ($record) = @_;
-	my $result;
-
-	if ((@{$record->{markers}} == 1) && (@{$record->{names}} == 1)
-		&& exists $DOCUMENTED_NAME_MAP{$record->{names}[0]})
-	{
-		$result = $record->{names}[0];
-	}
-	else
-	{
-		# Leave malformed, repeated, and undocumented comments unresolved
-		# after their entry rules report them.
-		$result = undef;
-	}
-
-	return $result;
-}
-
-# Return every syntactically valid name outside the documented vocabulary.
-sub undocumented_names
-{
-	my ($record) = @_;
-
-	return grep { !exists $DOCUMENTED_NAME_MAP{$_} } @{$record->{names}};
-}
-
-# Name the documented exemptions one message offers as its correction.
-sub documented_names
-{
-	return join(', ', exemption_names());
-}
 
 # Pluralize one counted noun for compact report text.
 sub counted
@@ -214,9 +119,9 @@ sub source_states
 		my $path = catalog_path($lang);
 		for my $record (@{catalog_annotation_records($lang)})
 		{
-			push @faults, "$path:$record->{line}: FAIL "
-				. $_->{report}->($record) . ' on ' . entry_subject($record)
-				for grep { $_->{holds}->($record) } @ENTRY_RULE_ROWS;
+			push @faults, map {
+				"$path:$record->{line}: FAIL $_ on " . entry_subject($record)
+			} entry_faults($record);
 			record_claim(\%states, $record, $lang);
 		}
 	}
@@ -224,26 +129,70 @@ sub source_states
 	return { states => \%states, faults => \@faults };
 }
 
+# Name the fault two source-level reasons on one source raise, and nothing
+# where at most one of them stands.
+sub propagating_divergence
+{
+	my ($propagating) = @_;
+
+	return () if scalar(@{$propagating}) <= 1;
+
+	return ('carries ' . scalar(@{$propagating}) . ' deviating exemptions;'
+		. ' one source holds one reason');
+}
+
+# Name the fault a source-level reason standing beside a language-local one
+# raises, and nothing where the two never meet.
+sub local_divergence
+{
+	my ($propagating, $local) = @_;
+
+	return () if scalar(@{$propagating}) != 1 || scalar(@{$local}) == 0;
+
+	return ("carries $propagating->[0], which rests on the source"
+		. ' alone, beside ' . join(', ', @{$local}) . ', which rests on'
+		. " one language's own vocabulary; one of them describes this"
+		. ' source wrongly');
+}
+
 # Judge one source identity against the reasons every catalog records for it. A
 # reason resting on the source alone holds in every language, so two catalogs
 # naming different such reasons describe one source two ways and one of them is
-# wrong. A loanword rests on the adopting language's own vocabulary, so it
-# enters no comparison.
+# wrong, and a language-local reason standing beside one contradicts it the
+# same way. Each reason also states the content it covers, so a source its own
+# reason excludes reports here once beside the catalogs claiming it.
 sub cross_catalog_faults
 {
 	my ($state) = @_;
-	my @reasons = grep { exists $PROPAGATING_NAME_MAP{$_} }
-		sort keys %{$state->{claims}};
-	my @faults;
+	my @claimed = sort keys %{$state->{claims}};
+	my (@propagating, @local, @reports);
 
-	return @faults if @reasons < 2;
+	for my $reason (@claimed)
+	{
+		if (exemption_propagates($reason))
+		{
+			push @propagating, $reason;
+		}
+		else
+		{
+			push @local, $reason;
+		}
 
-	push @faults, cross_fault($state, 'carries ' . scalar(@reasons)
-		. ' deviating exemptions; one source holds one reason');
-	push @faults, cross_fault($state,
-		"is $_ in " . language_list($state->{claims}{$_})) for @reasons;
+		my $conflict = exemption_conflict($reason, $state->{source});
+		next if !defined $conflict;
 
-	return @faults;
+		push @reports, "is $reason in "
+			. language_list($state->{claims}{$reason})
+			. " yet $conflict; write the reason its content takes";
+	}
+
+	my @divergence = propagating_divergence(\@propagating);
+	push @divergence, local_divergence(\@propagating, \@local);
+	push @divergence, map {
+		"is $_ in " . language_list($state->{claims}{$_})
+	} (scalar(@divergence) != 0 ? @claimed : ());
+
+	return map { cross_fault($state, $_) } @reports, @divergence;
 }
 
 # Audit every catalog for exemption agreement, reporting each fault and

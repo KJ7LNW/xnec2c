@@ -9,22 +9,28 @@ use File::Basename qw(basename dirname);
 use File::Temp;
 
 our @EXPORT_OK = qw(
-	decode_map_value encode_map_value read_manifest_records read_map_records
-	read_utf8_file record_tag_order serialize_records source_excerpt
+	OWNER_MODEL OWNER_PROGRAM decode_map_value encode_map_value
+	read_manifest_records read_map_records read_utf8_file record_line
+	record_owner_tags record_tag_order serialize_records source_excerpt
 	write_utf8_file
 );
+
+# Enumerate the parties writing one record.
+use constant OWNER_PROGRAM => 'program';
+use constant OWNER_MODEL => 'model';
 
 # One record reads as one tag per line: an uppercase tag, a tab, then its
 # value. K names the record, C and S name the catalog entry it answers, L names
 # the language, T holds the translation, and X holds the exemption a source
-# with no distinct target form carries.
+# with no distinct target form carries. Each tag also names the party writing
+# it.
 my @RECORD_FORMAT = (
-	{ tag => 'K', optional => 0 },
-	{ tag => 'C', optional => 1 },
-	{ tag => 'S', optional => 0 },
-	{ tag => 'L', optional => 0 },
-	{ tag => 'T', optional => 0 },
-	{ tag => 'X', optional => 1 },
+	{ tag => 'K', optional => 0, owner => OWNER_PROGRAM },
+	{ tag => 'C', optional => 1, owner => OWNER_PROGRAM },
+	{ tag => 'S', optional => 0, owner => OWNER_PROGRAM },
+	{ tag => 'L', optional => 0, owner => OWNER_PROGRAM },
+	{ tag => 'T', optional => 0, owner => OWNER_MODEL },
+	{ tag => 'X', optional => 1, owner => OWNER_MODEL },
 );
 my %RECORD_TAG_MAP = map { $_->{tag} => $_ } @RECORD_FORMAT;
 
@@ -120,11 +126,29 @@ sub source_excerpt
 	return encode_map_value(substr($source, 0, 60));
 }
 
+# Read one parsed tag's source line, using the required key line when an
+# optional tag is absent.
+sub record_line
+{
+	my ($record, $tag) = @_;
+
+	return $record->{lines}{$tag} // $record->{lines}{K};
+}
+
 # Name the record tags in the sole authoritative order, the order every
 # message and prompt cites rather than restating.
 sub record_tag_order
 {
 	return join(' ', map { $_->{tag} } @RECORD_FORMAT);
+}
+
+# Name the tags written by one record owner.
+sub record_owner_tags
+{
+	my ($owner) = @_;
+
+	return map { $_->{tag} }
+		grep { $_->{owner} eq $owner } @RECORD_FORMAT;
 }
 
 # Serialize records in the sole authoritative tag order.

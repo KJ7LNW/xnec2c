@@ -340,12 +340,15 @@ CLEANFILES += examples-srcdir.lst
 check-local: check-potfiles-list check-po-exemptions
 check-potfiles-list:
 	@$(srcdir)/scripts/po/po-update.sh --check
-# Review the catalogs after the refresh sweep so the gate reads final tree
-# state rather than a pre-strip transient.
+# Check the catalogs after the refresh sweep so the gate reads final tree
+# state rather than a pre-strip transient. The complete gate runs here: an
+# authoritative catalog answers every entry with a translation or with an
+# exemption comment recording why it holds none, so an entry carrying neither
+# fails rather than passing as work in progress.
 check-po-catalogs: po-refresh
 	@lc=$$(grep -v '^[[:space:]]*#' $(srcdir)/po/LINGUAS | grep -v '^[[:space:]]*$$'); \
 	for lang in $$lc; do \
-	  $(srcdir)/scripts/po/po-check.sh --review $(srcdir)/po/$$lang.po || exit 1; \
+	  $(srcdir)/scripts/po/po-check.sh $(srcdir)/po/$$lang.po || exit 1; \
 	done
 .PHONY: check-po-catalogs
 # Compare source-based exemptions after the per-catalog sweep so both gates

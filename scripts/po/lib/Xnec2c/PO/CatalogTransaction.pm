@@ -9,14 +9,17 @@ use File::Temp;
 use Locale::PO;
 
 use Xnec2c::PO::CatalogState qw(
-	apply_translation_records catalog_line_index catalog_path load_catalog
-	mapped_catalog_projection
+	apply_translation_records catalog_path load_catalog
+);
+use Xnec2c::PO::GateProjection qw(
+	catalog_line_index mapped_catalog_projection
 );
 use Xnec2c::PO::MapFile qw(read_utf8_file source_excerpt);
 use Xnec2c::PO::Outcome qw(
 	OUTCOME_FATAL OUTCOME_OK OUTCOME_REPAIR command_outcome new_outcome
 );
-use Xnec2c::PO::TranslationMap qw(join_output_records output_path);
+use Xnec2c::PO::OutputJoin qw(join_output_records);
+use Xnec2c::PO::TranslationMap qw(output_path);
 
 our @EXPORT_OK = qw(
 	commit_language_output refresh_language_catalog run_full_catalog_gate

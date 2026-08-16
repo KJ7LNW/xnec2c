@@ -5,20 +5,23 @@
 # Usage: scripts/po/po-exempt-check.pl [--help]
 #
 # An "xnec2c-exempt:" translator comment records that a source holds no
-# distinct target form, which suppresses the identical-translation gate
-# scripts/po/po-check.sh applies to one catalog at a time. That suppression
-# rests on a claim no single catalog can validate, so the gates below read
-# every catalog together:
+# distinct target form, so the catalog writes no translation for it and its
+# msgstr stays empty. That claim rests on grounds no single catalog can
+# validate, so the gates below read every catalog together:
 #
 #   1. every exemption comment reads the recorded form and names one
 #      documented exemption
 #   2. one exemption comment per entry
-#   3. an exempted entry repeats its own source, the form its exemption claims
+#   3. an exempted entry holds no translation of its own, the state its
+#      exemption records
 #   4. one source carries one reason across every catalog claiming it, except
 #      loanword, which rests on the adopting language's own vocabulary and so
 #      reaches no other catalog
 #
 # Run from the repository root; catalog paths resolve against po/.
+#
+# This command reports and never writes. A fault names the entry and the
+# correction it takes, which a translator applies to that catalog directly.
 #
 # Exit status: 0 all gates pass, 1 any gate fails, 2 usage error.
 

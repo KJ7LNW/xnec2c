@@ -9,8 +9,8 @@ use Locale::PO;
 
 our @EXPORT_OK = qw(
 	apply_translation_records catalog_annotation_records catalog_change_records
-	catalog_exemption_records catalog_identity catalog_line_index catalog_path
-	exempt_marker load_catalog mapped_catalog_projection
+	catalog_exemption_records catalog_identity catalog_path exempt_marker
+	load_catalog po_identity
 );
 
 my $EXEMPT_MARKER = 'xnec2c-exempt';
@@ -174,8 +174,8 @@ sub catalog_by_identity
 	return \%entries;
 }
 
-# Select every fuzzy, untranslated, and self-translated entry from current
-# catalog state, in catalog order.
+# Select every fuzzy, unexempted untranslated, and self-translated entry from
+# current catalog state, in catalog order.
 sub catalog_change_records
 {
 	my ($lang) = @_;
@@ -188,10 +188,10 @@ sub catalog_change_records
 	{
 		my $translation = Locale::PO->dequote($po->msgstr);
 		my $identity = po_identity($po);
-		my $copy = defined $translation && $translation eq $identity->{source}
-			&& !defined catalog_exemption($po);
-		my $selected = $po->fuzzy || !defined $translation
-			|| $translation eq '' || $copy;
+		my $exempt = defined catalog_exemption($po);
+		my $empty = !defined $translation || $translation eq '';
+		my $copy = !$empty && $translation eq $identity->{source};
+		my $selected = $po->fuzzy || ($empty && !$exempt) || $copy;
 		next if !$selected;
 
 		record_unique_identity($path, \%seen, $identity);
@@ -254,75 +254,6 @@ sub apply_translation_records
 	}
 
 	return { applied => $applied, retired => \@retired };
-}
-
-# Derive the gate projection: the catalog header plus only the entries the
-# current output map answers.
-sub mapped_catalog_projection
-{
-	my ($catalog, $translations) = @_;
-	my @projection;
-
-	for my $po (@{$catalog})
-	{
-		my $identity = po_identity($po);
-		push @projection, $po
-			if $identity->{source} eq ''
-				|| exists $translations->{$identity->{identity}};
-	}
-
-	return \@projection;
-}
-
-# Index every projected catalog entry by its starting line and map record. Each
-# quoted line passes through the catalog's own dequoting, so a parsed identity
-# matches the identity Locale::PO derives for the same entry.
-sub catalog_line_index
-{
-	my ($content, $translations) = @_;
-	my @entries;
-	my %entry;
-	my $line_number = 0;
-
-	for my $line (split /\n/, $content, -1)
-	{
-		$line_number++;
-		if ($line =~ /\A\s*\z/)
-		{
-			push @entries, { %entry } if exists $entry{start};
-			%entry = ();
-			next;
-		}
-
-		$entry{start} = $line_number if !exists $entry{start};
-		if ($line =~ /\Amsgctxt[ \t]+(".*")[ \t]*\z/)
-		{
-			$entry{field} = 'C';
-			$entry{C} = Locale::PO->dequote($1);
-		}
-		elsif ($line =~ /\Amsgid[ \t]+(".*")[ \t]*\z/)
-		{
-			$entry{field} = 'S';
-			$entry{S} = Locale::PO->dequote($1);
-		}
-		elsif ($line =~ /\A(".*")[ \t]*\z/ && defined $entry{field})
-		{
-			$entry{$entry{field}} .= Locale::PO->dequote($1);
-		}
-		else
-		{
-			delete $entry{field};
-		}
-	}
-	push @entries, { %entry } if exists $entry{start};
-
-	for my $found (@entries)
-	{
-		my $identity = catalog_identity($found->{C} // '', $found->{S} // '');
-		$found->{record} = $translations->{$identity};
-	}
-
-	return [sort { $a->{start} <=> $b->{start} } @entries];
 }
 
 1;

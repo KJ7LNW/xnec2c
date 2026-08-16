@@ -9,7 +9,8 @@
 # the 1-based catalog line reported for that state: the "#, fuzzy" flag line for
 # a fuzzy record, the msgid line for an untranslated record, the msgstr line for
 # an identical record. An entry carrying an "xnec2c-exempt:" translator comment
-# holds a reviewed identity translation and emits no identical record. key is
+# records that this catalog writes no translation, so its empty msgstr emits no
+# untranslated record and a repeated msgid stays identical. key is
 # the entry identity used for delta set difference: msgctxt content, a U+0004
 # separator, then the msgid content concatenated across continuation lines. The
 # header entry (empty msgid with no msgctxt) is excluded.
@@ -30,9 +31,9 @@ function emit(   key) {
 		key = msgctxt "\004" msgid
 		if (fuzzy)
 			print "fuzzy\t" fuzzy_line "\t" key
-		if (have_msgstr && msgstr == "")
+		if (have_msgstr && msgstr == "" && !exempt)
 			print "untranslated\t" msgid_line "\t" key
-		if (have_msgstr && msgstr != "" && msgstr == msgid && !exempt)
+		if (have_msgstr && msgstr != "" && msgstr == msgid)
 			print "identical\t" msgstr_line "\t" key
 	}
 	fuzzy = 0; fuzzy_line = 0
@@ -49,8 +50,8 @@ function emit(   key) {
 # Fuzzy flag; report this line for the entry's fuzzy state.
 /^#, *fuzzy/ { fuzzy = 1; fuzzy_line = NR; next }
 
-# Exemption marker; the entry records that its source form is its target form,
-# so repeating the source is the reviewed outcome rather than a missing one.
+# Exemption marker; the entry records that this catalog writes no translation,
+# so its empty msgstr is the recorded outcome rather than a missing one.
 /^#[ \t]*xnec2c-exempt:[ \t]*[a-z]+[ \t]*$/ { exempt = 1; next }
 
 # Remaining comments, including obsolete "#~" entries, carry no state.
