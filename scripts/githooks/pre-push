@@ -1,12 +1,8 @@
 #!/bin/bash
 #
-# Block a push that introduces a new fuzzy or new untranslated catalog entry
-# relative to the shared-history base. Delta-scoped: pre-existing fuzzy or
-# untranslated entries on already-pushed history never block, and po-refresh
-# line-number churn is ignored because entries are keyed by identity.
-#
-# Read-only: inspects catalog blobs at the pushed commit and at the base;
-# never runs po-refresh and never mutates the tree.
+# Block a push whose tree fails the test suite. Runs make check once for the
+# whole push; a push carrying only ref deletions publishes no tree and runs
+# nothing. Catalog validation lives in the pre-commit hook.
 #
 # Bypass:  FORCE_PUSH=true git push ...
 #
@@ -18,57 +14,42 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
-remote=${1:-}
-
-# Resolve the commit a pushed ref is diffed against: the remote-tracked commit
-# when git reports one, else the merge-base with the remote HEAD for a new
-# branch, else the empty tree so every catalog entry counts as introduced.
-resolve_base() {
-	local remote_sha=$1 local_sha=$2 mb
-	if [ -n "${remote_sha//0/}" ]; then
-		printf '%s\n' "$remote_sha"
-		return 0
-	fi
-	if mb=$(git merge-base "$local_sha" "refs/remotes/$remote/HEAD" 2>/dev/null); then
-		printf '%s\n' "$mb"
-		return 0
-	fi
-	printf '%s\n' 4b825dc642cb6eb9a060e54bf8d69288fbee4904
-	return 0
-}
-
-# Emit the authoritative language codes, dropping comment and blank lines.
-linguas() {
-	grep -v '^[[:space:]]*#' po/LINGUAS | grep -v '^[[:space:]]*$'
-	return 0
-}
-
-rc=0
+pushes_tree=false
 
 while read -r local_ref local_sha remote_ref remote_sha; do
-	# Skip ref deletions: no pushed commit to inspect.
+	# Skip ref deletions: no pushed commit to test.
 	[ -z "${local_sha//0/}" ] && continue
-
-	base=$(resolve_base "$remote_sha" "$local_sha")
-
-	while read -r lang; do
-		po="po/$lang.po"
-		# Skip languages whose catalog is absent at the pushed commit.
-		git cat-file -e "$local_sha:$po" 2>/dev/null || continue
-		if ! out=$(scripts/po/po-delta.sh "$base" --tip "$local_sha" "$po"); then
-			printf '%s\n' "$out"
-			rc=1
-		fi
-	done < <(linguas)
+	pushes_tree=true
 done
 
-if [ "$rc" -ne 0 ]; then
+if ! $pushes_tree; then
+	exit 0
+fi
+
+# make check needs a configured tree; report rather than pass untested work.
+if [ ! -f Makefile ]; then
 	echo ""
-	echo "❌ Pre-push validation failed"
+	echo "❌ Pre-push validation failed: tree not configured"
 	echo ""
-	echo "This push introduces new fuzzy or untranslated catalog entries."
-	echo "Translate or resolve the entries listed above, commit the updated"
-	echo "po/ catalogs, and push again."
+	echo "make check cannot run without a configured tree."
+	echo ""
+	echo "Fix with:"
+	echo ""
+	echo "  ./configure"
+	echo ""
+	echo "If you have determined this push must proceed anyway:"
+	echo ""
+	echo "  FORCE_PUSH=true git push"
+	echo ""
+	exit 1
+fi
+
+# Detach make from the ref list on stdin and stream progress to the terminal.
+if ! make check </dev/null; then
+	echo ""
+	echo "❌ Pre-push validation failed: make check"
+	echo ""
+	echo "Fix the failing tests, commit, and push again."
 	echo ""
 	echo "If you have determined this push must proceed anyway:"
 	echo ""

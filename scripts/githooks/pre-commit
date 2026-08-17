@@ -1,7 +1,8 @@
 #!/bin/bash
 #
-# Reject commits while po/POTFILES.in drifts from git-tracked sources
-# or the po/ tree carries modifications not staged for this commit.
+# Reject commits while po/POTFILES.in drifts from git-tracked sources,
+# the po/ tree carries modifications not staged for this commit, or a
+# catalog entry turns newly fuzzy or newly untranslated.
 # Runs make po-refresh first (idempotent: the merge strips obsolete entries
 # and discards its own reference-line churn) so string-only drift surfaces.
 #
@@ -71,7 +72,38 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 		exit 1
 	fi
 
-	# Gate 4: examples/ tree must match the Makefile.am distribution list.
+	# Gate 4: no commit introduces a new fuzzy or untranslated entry.
+	# Work-tree catalogs are compared against HEAD, so entries already fuzzy
+	# on committed history never block and po-refresh line churn never
+	# registers; an unborn HEAD compares against the empty tree.
+	delta_base=$(git rev-parse --verify --quiet HEAD || echo 4b825dc642cb6eb9a060e54bf8d69288fbee4904)
+	delta_rc=0
+
+	while read -r lang; do
+		po="po/$lang.po"
+		# Skip languages whose catalog is absent from the work tree.
+		[ -f "$po" ] || continue
+		if ! delta_output=$(scripts/po/po-delta.sh "$delta_base" "$po"); then
+			printf '%s\n' "$delta_output"
+			delta_rc=1
+		fi
+	done < <(grep -v '^[[:space:]]*#' po/LINGUAS | grep -v '^[[:space:]]*$')
+
+	if [ "$delta_rc" -ne 0 ]; then
+		echo ""
+		echo "❌ Pre-commit validation failed"
+		echo ""
+		echo "This commit introduces new fuzzy or untranslated catalog entries."
+		echo "Translate or resolve the entries listed above and stage po/."
+		echo ""
+		echo "If you have determined this commit must proceed anyway:"
+		echo ""
+		echo "  FORCE_COMMIT=true git commit"
+		echo ""
+		exit 1
+	fi
+
+	# Gate 5: examples/ tree must match the Makefile.am distribution list.
 	if [ -f Makefile ]; then
 		if ! check_output=$(make -s check-deck 2>&1); then
 			echo "$check_output"
