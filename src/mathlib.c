@@ -1065,7 +1065,6 @@ void mathlib_benchmark(int slow)
 			pr_info("Starting %s benchmark (%s %d)\n",
 				active_mathlib->name, varied->label, count);
 
-			New_Frequency_Reset_Prev();
 			calc_data.fmhz_save = 0;
 
 			clock_gettime(CLOCK_MONOTONIC, &start);

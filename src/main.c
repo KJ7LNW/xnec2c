@@ -647,8 +647,6 @@ Open_Input_File( gpointer arg )
   if( isFlagSet(PLOT_ENABLED) ) SetFlag( FREQ_LOOP_INIT );
   floop_tag = 0;
 
-  New_Frequency_Reset_Prev();
-
   /* Scale geometry for current frequency before potential loop start.
    * During forked frequency loop, children scale geometry independently,
    * but parent's data.segments[].bi must be wavelength-normalized for any

@@ -646,22 +646,6 @@ Near_Field_Pattern( void )
 
 /*-----------------------------------------------------------------------*/
 
-/* New_Frequency_Reset_Prev()
- *
- * Resets the previous frequency state to force New_Frequency() to recalculate if the
- * same frequency is called.
- *
- * save.last_freq variable stores the previous MHz value that was used when
- * calling New_Frequency() so it can exit early if that frequency
- * has already been calculated.  Reset_Prev_New_Frequency() needs
- * to be called to reset this when a file is opened or when a benchmark
- * is being run.
- */
-void New_Frequency_Reset_Prev(void)
-{
-	save.last_freq = 0;
-}
-
 /* New_Frequency()
  *
  * (Re)calculates all frequency-dependent parameters
@@ -672,10 +656,9 @@ New_Frequency( void )
   struct timespec start, end;
   double elapsed;
 
-  /* Abort if freq has not really changed, as when changing
-   * between current or charge density structure coloring */
-  if( (save.last_freq == calc_data.freq_mhz) ||
-      isFlagClear(ENABLE_EXCITN) )
+  /* Excitation drives every solve below; an absent EX card leaves nothing
+   * to solve for */
+  if( isFlagClear(ENABLE_EXCITN) )
     return;
 
   /* Every producer below writes crnt_fstep[freq_step], and under ENABLE_NEAREH
@@ -687,8 +670,6 @@ New_Frequency( void )
   }
 
   g_rec_mutex_lock(&freq_data_lock);
-
-  save.last_freq = calc_data.freq_mhz;
 
   // Only show this if you manually change frequencies:
   clock_gettime(CLOCK_MONOTONIC, &start);
@@ -1169,11 +1150,6 @@ freq_loop_dispatch( freq_loop_state_t *state, child_proc_t *child,
    * where a child would have applied the relayed one. */
   mathlib_set_num_threads( current_mathlib, state->frq.threads );
 
-  /* Dedup cache persists across dispatches in this address space; reset it
-   * so a step repeating an already-solved frequency still solves into its
-   * own slot, as the child does per FRQDATA in Child_Process(). */
-  New_Frequency_Reset_Prev();
-
   /* Non-forked: write freq_mhz and freq_step for the NEC engine here;
    * freq_step_update_ui overwrites both on the GTK thread for display.
    * New_Frequency acquires freq_data_lock internally. */
@@ -1270,9 +1246,6 @@ freq_loop_collect_pending( freq_loop_state_t *state )
       g_rec_mutex_unlock(&freq_data_lock);
       return FALSE;
     }
-
-    /* Invalidate parent dedup cache; Get_Freq_Data overwrote local EM arrays */
-    New_Frequency_Reset_Prev();
 
     if( !freq_loop_validate_result( state, child_procs[idx] ) )
       continue;
@@ -2021,10 +1994,7 @@ Frequency_Loop( gpointer udata )
     pr_info("sweep runs %d workers of %d threads each\n", workers, state->frq.threads);
 
     /* Per-step validity is managed by Start_Frequency_Loop;
-     * INIT resets the dedup cache and loop infrastructure. */
-
-    /* Reset parent dedup cache so every sweep recomputes */
-    New_Frequency_Reset_Prev();
+     * INIT resets the loop infrastructure. */
 
     /* Push all children onto the idle stack; mark each as idle */
     for( idx = 0; idx < calc_data.num_jobs; idx++ )

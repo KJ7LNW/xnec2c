@@ -155,9 +155,6 @@ Child_Input_File( void )
   Read_Commands();
   ClearFlag( INPUT_PENDING );
 
-  /* Initialize xnec2c child */
-  New_Frequency_Reset_Prev();
-
 } /* Child_Input_FIle() */
 
 /*------------------------------------------------------------------------*/
@@ -506,10 +503,6 @@ Child_Process( int num_child )
          * before this frequency is solved. */
         mathlib_load( get_mathlib_by_id(frq.mathlib_id) );
         mathlib_set_num_threads( current_mathlib, frq.threads );
-
-        /* Dedup cache persists across sweeps in child address space;
-         * reset ensures every dispatched frequency is recomputed */
-        New_Frequency_Reset_Prev();
 
         calc_data.freq_mhz = frq.freq_mhz;
 

@@ -1012,8 +1012,7 @@ typedef struct
     sig,        /* Conductivity of ground */
     scrwlt,     /* Length of radials in ground screen approximation */
     scrwrt,     /* Radius of wires in ground screen approximation */
-    fmhz,       /* Saved frequency of operation */
-    last_freq;  /* My addition, Last frequency used in calculations */
+    fmhz;       /* Saved frequency of operation */
 
   /* My addition, replace xtemp, ytemp etc in freq. loop */
   double
@@ -1975,7 +1974,6 @@ void freq_step_update_ui(int new_step, gboolean force);
 void Near_Field_Pattern(void);
 void Frequency_Scale_Geometry(void);
 void New_Frequency(void);
-void New_Frequency_Reset_Prev(void);
 
 gboolean Frequency_Loop(gpointer udata);
 void batch_finish_no_steps(void);

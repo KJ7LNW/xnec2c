@@ -172,12 +172,6 @@ xnec2c_set_omp_threads(int threads)
 {
 }
 
-/* Stub for frequency reset */
-void
-New_Frequency_Reset_Prev(void)
-{
-}
-
 /* Stub for structure drawing initialization */
 void
 Init_Struct_Drawing(void)
