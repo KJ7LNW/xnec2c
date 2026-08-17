@@ -2747,6 +2747,47 @@ the same. Right propagation is controlled by clicking on the "chain
 link" icons - if the icon displays a linked chain, right
 propagation is enabled. Otherwise if a broken link, right
 propagation is disabled.</p>
+
+<h4 id="ScaleEditor">Scale (GS) Editor and Tag Selection</h4>
+<p>The Scale editor writes a <code class="nec-card">GS</code> "card" and opens from the
+"Scale" button in the "Edit Geometry Data" frame or with a right-click on a
+selected <code class="nec-card">GS</code> row. In stock NEC2 the card carries only a scale
+factor and multiplies the whole structure by it. xnec2c extends the card with a
+tag range, entered in the "From Tag No." and "To Tag No." spin buttons, which
+restricts scaling to a part of the structure.</p>
+<p>The card fields are read as follows:</p>
+<ul>
+<li><var>I1</var> — first tag number of the range ("From Tag No.")</li>
+<li><var>I2</var> — last tag number of the range, inclusive ("To Tag No.")</li>
+<li><var>F1</var> — scale factor applied to the selected geometry
+("Structure Scale Factor")</li>
+</ul>
+<p>Tag selection takes effect when <var>I1</var> and <var>I2</var> are both
+greater than zero and <var>I2</var> is not below <var>I1</var>. Every segment
+whose tag number falls inside the range is then scaled, both endpoint
+coordinates and wire radius, and the rest of the structure keeps its dimensions.
+Leaving either spin button at zero, or entering a reversed range, scales all
+segments and reproduces the original NEC2 behavior. This makes it possible to
+resize one element of a Yagi, or one arm of a driven pair, without splitting the
+model into separate files.</p>
+<aside class="notice" role="note">
+<h4>Note</h4>
+<p>Surface patches are always scaled, whether or not a tag range is given, since
+patches carry no tag number. Patch centers are multiplied by <var>F1</var> and
+patch areas by <var>F1</var>&sup2;. A model that mixes wires and patches will
+therefore see its patches resized by a <code class="nec-card">GS</code> card that was
+meant for a few wire tags only.</p>
+</aside>
+<aside class="notice" role="note">
+<h4>Note</h4>
+<p>A <code class="nec-card">GS</code> card carrying a tag range discards the structure
+symmetry produced by a preceding <code class="nec-card">GX</code> or
+<code class="nec-card">GR</code> card, because scaling one tag range breaks the
+symmetry that those cards rely on. The structure is expanded into ordinary
+segments and the solution remains correct, but the run loses the speed advantage
+of the symmetric treatment.</p>
+</aside>
+
 <h4>Sample Dedicated Control Editor</h4>
 <figure>
 <img src="images/excitation.png" class="float-left" alt="Excitation command editor dialog" loading="lazy">
