@@ -34,13 +34,21 @@ esac
 # All git-tracked C source, header, glade, and desktop entry files.
 # xgettext keywords in po/Makevars control which strings are extracted;
 # listing files without translatable strings is harmless.
+# git ls-files already emits byte order, so this holds that order rather than
+# imposing another.
+sort_bytes() {
+    LC_ALL=C sort
+    return $?
+}
+
 scan_source_files() {
     git ls-files \
         'src/*.c' 'src/**/*.c' \
         'src/*.h' 'src/**/*.h' \
         'resources/*.glade' 'resources/**/*.glade' \
         'files/*.desktop.in' \
-        | sort
+        | sort_bytes
+    return $?
 }
 
 # Compare scanned files against current POTFILES.in
@@ -49,8 +57,9 @@ check_potfiles() {
     scanned=$(scan_source_files)
     current=$(grep -v '^#' "$POTFILES_IN" | grep -v '^[[:space:]]*$')
 
-    stale=$(comm -23 <(echo "$current" | sort) <(echo "$scanned"))
-    missing=$(comm -13 <(echo "$current" | sort) <(echo "$scanned"))
+    # comm requires both sides in one collation; scan_source_files supplies the other.
+    stale=$(comm -23 <(echo "$current" | sort_bytes) <(echo "$scanned"))
+    missing=$(comm -13 <(echo "$current" | sort_bytes) <(echo "$scanned"))
 
     local rc=0
 

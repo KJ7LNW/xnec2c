@@ -337,7 +337,7 @@ nobase_dist_pkgdata_DATA += examples/satellite.nec
 CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
 # PO catalog maintenance gate
-check-local: check-potfiles-list check-po-exemptions
+check-local: check-potfiles-list check-po-exemptions check-po-clean
 check-potfiles-list:
 	@$(srcdir)/scripts/po/po-update.sh --check
 # Check the catalogs after the refresh sweep so the gate reads final tree
@@ -357,6 +357,23 @@ check-po-catalogs: po-refresh
 check-po-exemptions: check-po-catalogs
 	@cd "$(srcdir)" && scripts/po/po-exempt-check.pl
 .PHONY: check-po-exemptions
+# Prove the refresh sweep left no residue. po-revert-churn.sh restores every
+# catalog whose only change was reference-line or header-date churn, so a file
+# still modified here carries a change that belongs in a commit. Depends on
+# both po/ gates so the recipe reads the tree after every sweep finishes, including
+# under parallel make. Tarball builds carry no .git and skip.
+check-po-clean: check-potfiles-list check-po-exemptions
+	@if test -d $(top_srcdir)/.git; then \
+	  residue=`cd $(srcdir) && git status --porcelain -- po`; \
+	  if test -n "$$residue"; then \
+	    echo "Error: po/ carries uncommitted changes after the refresh sweep:"; \
+	    echo "$$residue"; \
+	    echo "Commit the refreshed po/ tree, or investigate why the refresh"; \
+	    echo "produced a change that po-revert-churn.sh did not revert."; \
+	    exit 1; \
+	  fi; \
+	fi
+.PHONY: check-po-clean
 # Regenerate the template alone, then discard the creation-date churn xgettext
 # writes when no message changed.
 po-template:

@@ -1,8 +1,9 @@
 #!/bin/bash
 #
 # Restore one catalog or template from the git index when its sole working-tree
-# change is reference-line or header-date churn. Single point of truth for that
-# comparison; msgmerge and xgettext each call this on the file they just wrote.
+# change is entry-order, reference-line, or header-date churn. Single point of
+# truth for that comparison; msgmerge and xgettext each call this on the file
+# they just wrote.
 #
 # Usage: scripts/po/po-revert-churn.sh <po-or-pot-path>
 #
@@ -15,14 +16,17 @@ file=$1
 dir=$(dirname "$file")
 base=$(basename "$file")
 
-# Collapse the line number in every "#:" source-reference token to a fixed
-# placeholder and blank the generated POT-Creation-Date, so two catalogs
-# compare equal when they differ only by where a string now sits in the
-# sources. Referenced filenames, fuzzy flags, and all msgid/msgstr content
-# stay intact, so a genuine reference, flag, or translation change still shows.
+# Fold the three generated axes so two catalogs compare equal when they differ
+# only in how a regeneration arranged them: msgcat --sort-output imposes one
+# entry order, so a template reordering never registers; the line number in
+# every "#:" source-reference token collapses to a fixed placeholder; and the
+# generated POT-Creation-Date blanks. Referenced filenames, fuzzy flags, and
+# all msgid/msgstr content stay intact, so a genuine reference, flag, or
+# translation change still shows.
 normalize_po_refs() {
-    sed -e '/^#:/ s/:[0-9][0-9]*/:LINE/g' \
-        -e '/^"POT-Creation-Date:/ s/.*/"POT-Creation-Date: DATE"/' "$1"
+    msgcat --sort-output --no-wrap "$1" \
+        | sed -e '/^#:/ s/:[0-9][0-9]*/:LINE/g' \
+              -e '/^"POT-Creation-Date:/ s/.*/"POT-Creation-Date: DATE"/'
     return $?
 }
 
@@ -32,11 +36,15 @@ normalize_po_refs() {
 root=$(git -C "$dir" rev-parse --show-toplevel 2> /dev/null) || exit 0
 rel=$(git -C "$dir" ls-files --full-name --error-unmatch "$base" 2> /dev/null) || exit 0
 
-if diff -q \
-    <(git -C "$root" show ":$rel" | normalize_po_refs /dev/stdin) \
-    <(normalize_po_refs "$file") > /dev/null; then
+# Capture both normalizations before comparing. A msgcat failure aborts here
+# under set -o pipefail, rather than yielding an empty form on both sides that
+# would compare equal and check out a file holding real work.
+index_form=$(git -C "$root" show ":$rel" | normalize_po_refs /dev/stdin)
+tree_form=$(normalize_po_refs "$file")
+
+if [ "$index_form" = "$tree_form" ]; then
     git -C "$root" checkout -- "$rel"
-    echo "  reverted (line-only): $rel"
+    echo "  reverted (churn-only): $rel"
 fi
 
 exit 0
