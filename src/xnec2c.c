@@ -451,7 +451,7 @@ Set_Network_Data( void )
 	return;
 
   if( ((calc_data.steps_total > 1) &&
-        isFlagSet(FREQ_LOOP_RUNNING)) ||
+        freq_sweep_active()) ||
 		CHILD ||
 		fstep == calc_data.steps_total)
   {
@@ -1560,7 +1560,7 @@ fmhz_save_apply_selection(void)
  * freq_loop_finalize - complete a finished sweep
  * @state: loop state (for elapsed-time calculation)
  *
- * Sets FREQ_LOOP_DONE, logs elapsed time, wakes the optimizer, and
+ * Publishes the result set, logs elapsed time, wakes the optimizer, and
  * queues final UI updates.  No locks held on entry.
  */
 static void
@@ -1568,7 +1568,7 @@ freq_loop_finalize( freq_loop_state_t *state )
 {
   struct timespec end;
 
-  SetFlag( FREQ_LOOP_DONE );
+  freq_sweep_results_publish();
 
   /* Dump the validation data tree when --write-validation-dir is set;
    * no-op otherwise.  All per-fstep arrays are populated at this point. */
@@ -1975,7 +1975,7 @@ void
 batch_finish_no_steps( void )
 {
   /* Sweep is trivially complete; gates Save_Validation_Tree's dump. */
-  SetFlag( FREQ_LOOP_DONE );
+  freq_sweep_results_publish();
 
   Save_Validation_Tree();
 
@@ -2004,7 +2004,8 @@ Frequency_Loop( gpointer udata )
   /* INIT: reset all iteration state for a new sweep */
   if( isFlagSet(FREQ_LOOP_INIT) )
   {
-    ClearFlag( FREQ_LOOP_INIT | FREQ_LOOP_DONE );
+    ClearFlag( FREQ_LOOP_INIT );
+    freq_sweep_results_clear();
 
     state->idle_top     = -1;
     state->next_scan    = 0;
@@ -2160,7 +2161,7 @@ freq_loop_begin( void )
   freqplots_update_fscale_extents();
 
   SetFlag( FREQ_LOOP_INIT );
-  SetFlag( FREQ_LOOP_RUNNING );
+  freq_sweep_run_begin();
 
   return state;
 }
@@ -2202,7 +2203,7 @@ freq_loop_complete( void )
       break;
   }
 
-  ClearFlag( FREQ_LOOP_RUNNING );
+  freq_sweep_run_end();
 }
 
 /*-----------------------------------------------------------------------*/
@@ -2287,7 +2288,7 @@ freq_loop_deck_ready( void )
 static gboolean
 freq_loop_start_internal( void )
 {
-  if( !freq_loop_deck_ready() || isFlagSet(FREQ_LOOP_RUNNING) )
+  if( !freq_loop_deck_ready() || freq_sweep_active())
     return FALSE;
 
   /* Join previous thread if it exited naturally but was never joined.
@@ -2296,7 +2297,7 @@ freq_loop_start_internal( void )
 
   /* Re-check: the GTK event flush inside Stop_Frequency_Loop may have
    * re-entrantly started a new sweep via eval_apply_and_reload. */
-  if( isFlagSet(FREQ_LOOP_RUNNING) )
+  if(freq_sweep_active())
     return FALSE;
 
   floop_state = freq_loop_begin();
@@ -2377,7 +2378,7 @@ freq_loop_run_sync( void )
   /* Retire a driver-owned sweep so this call owns the only sweep state; the
    * GTK flush inside Stop_Frequency_Loop stays out of the sync sweep's own
    * start and end transitions. */
-  if( isFlagSet(FREQ_LOOP_RUNNING) )
+  if(freq_sweep_active())
     Stop_Frequency_Loop();
 
   state = freq_loop_begin();
@@ -2419,7 +2420,7 @@ Start_Frequency_Loop_Greenline( void )
 static void
 freq_loop_cancel_complete( void )
 {
-  ClearFlag( FREQ_LOOP_RUNNING );
+  freq_sweep_run_end();
   ClearFlag( FREQ_LOOP_STOP );
 }
 

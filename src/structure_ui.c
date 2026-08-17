@@ -155,7 +155,7 @@ Show_Viewer_Gain(
   if(struct_view_currents() ||
       struct_view_charges()  ||
       rdpat_gain_active()     ||
-      isFlagSet(FREQ_LOOP_RUNNING) )
+      freq_sweep_active())
   {
     char txt[16];
     if( isFlagSet(ENABLE_RDPAT) && RDPAT_FSTEP_AVAILABLE(calc_data.freq_step) )

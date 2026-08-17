@@ -23,6 +23,7 @@
 #include <complex.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <stdatomic.h>
 #include <signal.h>
 #include <math.h>
 #include <stdlib.h>
@@ -185,8 +186,6 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 
 /*** Flow control flags ***/
 /* Freq Loop Control flags */
-#define FREQ_LOOP_RUNNING   0x0000000000000001ll
-#define FREQ_LOOP_DONE      0x0000000000000002ll
 #define FREQ_LOOP_INIT      0x0000000000000004ll
 #define FREQ_LOOP_STOP      0x0000000000000008ll
 
@@ -263,6 +262,30 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 
 /* Maximum length for mathlib ID strings (including null terminator) */
 #define MATHLIB_ID_LEN 32
+
+/* Frequency-sweep lifecycle.  One value per reachable combination of the two
+ * axes: a driver is iterating, and the result set is valid.  IDLE holds
+ * neither, ACTIVE holds a driver only, FINISHING holds both while the driver
+ * retires, COMPLETE holds a valid result set only.  Read the axes through
+ * freq_sweep_active() and freq_sweep_complete(); write only through the four
+ * transition verbs. */
+typedef enum {
+  FREQ_SWEEP_IDLE = 0,
+  FREQ_SWEEP_ACTIVE,
+  FREQ_SWEEP_FINISHING,
+  FREQ_SWEEP_COMPLETE,
+  FREQ_SWEEP_STATE_COUNT,
+} freq_sweep_state_t;
+
+extern _Atomic freq_sweep_state_t sweep_state;
+
+/* A driver owns the sweep and is iterating it. */
+#define freq_sweep_active() \
+  (sweep_state == FREQ_SWEEP_ACTIVE || sweep_state == FREQ_SWEEP_FINISHING)
+
+/* The result set is valid and may be read, plotted or saved. */
+#define freq_sweep_complete() \
+  (sweep_state == FREQ_SWEEP_FINISHING || sweep_state == FREQ_SWEEP_COMPLETE)
 
 typedef enum {
   RDPAT_PNG_FORMAT_ISO,
@@ -1928,6 +1951,11 @@ void SetFlag(unsigned long long int flag);
 void ClearFlag(unsigned long long int flag);
 void ToggleFlag(unsigned long long int flag);
 void SaveFlag(unsigned long long int *flag, unsigned long long int mask);
+void freq_sweep_run_begin(void);
+void freq_sweep_run_end(void);
+void freq_sweep_results_publish(void);
+void freq_sweep_results_clear(void);
+const char *freq_sweep_state_name(void);
 void Strlcpy(char *dest, const char *src, size_t n);
 void Strlcat(char *dest, const char *src, size_t n);
 double Strtod(char *nptr, char **endptr);

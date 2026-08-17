@@ -26,7 +26,7 @@ void validation_dump_force_config(void);
  *
  * Writes one CSV file per structure type under the directory set by
  * validation_dump_set_dir().  No-ops if the directory was not set or
- * FREQ_LOOP_DONE is not set.  Gated by freq_data_lock.
+ * the result set is not published.  Gated by freq_data_lock.
  */
 void Save_Validation_Tree(void);
 

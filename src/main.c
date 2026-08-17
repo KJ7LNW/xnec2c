@@ -559,8 +559,8 @@ Open_Input_File( gpointer arg )
   calc_data.steps_total = 0;
   g_rec_mutex_unlock(&freq_data_lock);
 
-  /* Always call Stop_Frequency_Loop: the thread clears FREQ_LOOP_RUNNING
-   * on normal exit, so checking the flag alone would skip cleanup,
+  /* Always call Stop_Frequency_Loop: the thread retires the sweep state
+   * on normal exit, so checking that state alone would skip cleanup,
    * leaking pth_freq_loop and floop_state.  Stop_Frequency_Loop is
    * idempotent — it checks pth_freq_loop internally and no-ops safely. */
   Stop_Frequency_Loop();
@@ -587,11 +587,11 @@ Open_Input_File( gpointer arg )
   /* Read input file, record failures */
   ok = Read_Comments() && Read_Geometry() && Read_Commands();
 
-  /* Zero validity flags and clear FREQ_LOOP_DONE under lock so draw
+  /* Zero validity flags and invalidate the result set under lock so draw
    * and save handlers cannot observe stale fstep=1 paired with
    * freshly-allocated garbage rad_pattern from Alloc_Rdpattern_Buffers
    * inside Read_Commands. */
-  ClearFlag( FREQ_LOOP_DONE );
+  freq_sweep_results_clear();
   if( ok && save.fstep != NULL )
     for( int i = 0; i <= calc_data.steps_total; i++ )
       save.fstep[i] = 0;

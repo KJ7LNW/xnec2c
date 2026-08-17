@@ -216,7 +216,7 @@ int nec2_eval_run(const simple_var_t *vars, int num_vars,
 	g_mutex_lock(&eval_mutex);
 
 	/* Wait for frequency loop completion signal */
-	while (isFlagClear(FREQ_LOOP_DONE))
+	while (!freq_sweep_complete())
 	{
 		/* Timed wait: 100ms to allow periodic flag checks */
 		gint64 end_time = g_get_monotonic_time() + 100 * G_TIME_SPAN_MILLISECOND;

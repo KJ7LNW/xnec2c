@@ -457,11 +457,11 @@ on_optimizer_output_toggled(
 
     if (!gtk_check_menu_item_get_active( GTK_CHECK_MENU_ITEM(w)))
         gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(w), TRUE);
-    else if(isFlagClear(FREQ_LOOP_DONE))
+    else if(!freq_sweep_complete())
       Start_Frequency_Loop();
 
     // Do an initial write in case the optimizer is waiting for the .csv:
-    if (isFlagSet(FREQ_LOOP_DONE))
+    if (freq_sweep_complete())
         Write_Optimizer_Data();
 
     if (!opt_have_files_to_save())
@@ -745,7 +745,7 @@ on_main_freqplots_activate(
       gtk_widget_show( freqplots_window );
       Update_Window_Titles();
 
-      if( (rc_config.main_loop_start || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS)) && isFlagClear(FREQ_LOOP_DONE))
+      if( (rc_config.main_loop_start || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS)) && !freq_sweep_complete())
         Start_Frequency_Loop();
 
     } /* if( Main_Freqplots_Activate() */
@@ -942,7 +942,7 @@ on_new_freq_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  if( isFlagClear(FREQ_LOOP_RUNNING) )
+  if(!freq_sweep_active())
   {
     GtkSpinButton *sb = (window_type_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW)
       ? mainwin_frequency : rdpattern_frequency;
@@ -2059,7 +2059,7 @@ on_quit_okbutton_clicked(
     return;
   }
 
-  if( isFlagSet(FREQ_LOOP_RUNNING) )
+  if(freq_sweep_active())
   {
     if( isFlagSet(MAIN_QUIT) )
     {
@@ -2077,7 +2077,7 @@ on_quit_okbutton_clicked(
         (isFlagClear(DRAW_ENABLED) && isFlagSet(PLOT_ENABLED)) )
       Stop_Frequency_Loop();
 
-  } /* if( isFlagSet(FREQ_LOOP_RUNNING) ) */
+  } /* if( freq_sweep_active() ) */
 
   Gtk_Widget_Destroy( &quit_dialog );
   Gtk_Widget_Destroy( &kill_window );
@@ -5315,7 +5315,7 @@ on_loop_reset_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  if( isFlagClear(FREQ_LOOP_RUNNING) )
+  if(!freq_sweep_active())
     SetFlag( FREQ_LOOP_INIT );
 }
 

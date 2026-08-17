@@ -42,7 +42,7 @@ redraw_suppressed(gboolean force)
 
   suppressed = !force &&
       isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS) &&
-      isFlagSet(FREQ_LOOP_RUNNING);
+      freq_sweep_active();
 
   if( suppressed )
     pr_debug("Optimizer loop incomplete, suppressing intermediate redraw.\n");

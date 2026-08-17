@@ -1289,7 +1289,7 @@ _Plot_Frequency_Data( freqplots_view_t *v, cairo_t *cr )
 
   /* Abort if plotting is not possible FIXME */
   if( (num_fsteps <= 0) || isFlagClear(FREQ_LOOP_READY) ||
-      (isFlagClear(FREQ_LOOP_RUNNING) && isFlagClear(FREQ_LOOP_DONE)) ||
+      (!freq_sweep_active() && !freq_sweep_complete()) ||
       !fp_view_any_selected(v) )
   {
     return;

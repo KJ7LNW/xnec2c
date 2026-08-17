@@ -596,7 +596,7 @@ void Save_Validation_Tree(void)
 	if (validation_dir == NULL)
 		return;
 
-	if (isFlagClear(FREQ_LOOP_DONE))
+	if (!freq_sweep_complete())
 	{
 		Notice(GTK_BUTTONS_OK, _("Validation Tree"), "Cannot save: frequency loop not done");
 		return;

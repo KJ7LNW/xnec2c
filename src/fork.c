@@ -517,7 +517,7 @@ Child_Process( int num_child )
         calc_data.freq_step = 0;
 
         /* Set flags */
-        SetFlag( FREQ_LOOP_RUNNING );
+        freq_sweep_run_begin();
 
         /* Calculate freq data */
         New_Frequency();

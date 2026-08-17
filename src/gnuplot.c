@@ -43,7 +43,7 @@ void Save_FreqPlots_Gnuplot_Data(char *filename)
 	char buffer[80];
 
 	// Abort if plot data not available
-	if (isFlagClear(FREQ_LOOP_DONE))
+	if (!freq_sweep_complete())
 	{
 		Notice(GTK_BUTTONS_OK, _("Gnuplot Data"), _("Cannot save data while frequency loop is running"));
 		return;
@@ -87,7 +87,7 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 	measurement_t meas;
 
 	// Abort if plot data not available
-	if (isFlagClear(FREQ_LOOP_DONE))
+	if (!freq_sweep_complete())
 	{
 		Notice(GTK_BUTTONS_OK, _("Touchstone Data"), _("Cannot save data while frequency loop is running"));
 		return;
@@ -175,7 +175,7 @@ void Save_FreqPlots_CSV(char *filename)
 	FILE *fp = NULL;
 
 	// Abort if plot data not available
-	if (isFlagClear(FREQ_LOOP_DONE))
+	if (!freq_sweep_complete())
 	{
 		Notice(GTK_BUTTONS_OK, _("Touchstone Data"), _("Cannot save data while frequency loop is running"));
 		return;

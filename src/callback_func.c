@@ -116,7 +116,7 @@ Delete_Event( gchar *mesg )
   quit_dialog = create_quit_dialog( &quit_dialog_builder );
   gtk_widget_show( quit_dialog );
 
-  if( isFlagSet(FREQ_LOOP_RUNNING) )
+  if(freq_sweep_active())
   {
     if( isFlagSet(MAIN_QUIT) )
       gtk_label_set_text( GTK_LABEL(
@@ -324,7 +324,7 @@ rdpattern_mode_apply( void )
 
   if( have_data )
   {
-    if( isFlagSet(DRAW_ENABLED) && isFlagClear(FREQ_LOOP_RUNNING) )
+    if( isFlagSet(DRAW_ENABLED) && !freq_sweep_active())
       fetch_freq_data();
   }
   else
@@ -361,7 +361,7 @@ structure_view_apply( void )
   {
     /* Geometry view: redraw the structure if a frequency loop is not
      * running */
-    if( isFlagClear(FREQ_LOOP_RUNNING) )
+    if(!freq_sweep_active())
       Queue_Structure_Rebuild( TRUE );
   }
   else

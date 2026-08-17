@@ -462,8 +462,8 @@ compute_override_hash(void)
 static gboolean
 is_calculation_busy(void)
 {
-  if( isFlagSet(FREQ_LOOP_RUNNING | FREQ_LOOP_INIT | INPUT_PENDING) ||
-      isFlagClear(FREQ_LOOP_DONE) )
+  if( isFlagSet(FREQ_LOOP_INIT | INPUT_PENDING) ||
+      sweep_state != FREQ_SWEEP_COMPLETE )
   {
     return TRUE;
   }

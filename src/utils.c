@@ -450,7 +450,7 @@ Stop( int err, const char *format, ... )
   }
 
   /* During freq loop, allow loop to complete with error state */
-  if (isFlagSet(FREQ_LOOP_RUNNING))
+  if (freq_sweep_active())
   {
     if( err )
       pr_crit("Stop during freq loop, deadlock prevented: %s\n", mesg);
@@ -505,7 +505,7 @@ Stop( int err, const char *format, ... )
   gboolean
 Nec2_Save_Warn( const gchar *mesg )
 {
-  if( isFlagSet(FREQ_LOOP_RUNNING) )
+  if(freq_sweep_active())
   {
     GtkBuilder *builder;
     if( !error_dialog )

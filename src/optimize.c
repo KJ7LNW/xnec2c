@@ -276,7 +276,7 @@ wait_for_nonempty_file( struct stat *st )
  * Pluma/Gedit (atomic write via temp file + rename):
  *   1. CLOSE_WRITE on target (old inode closing - STALE DATA)
  *   2. MOVED_TO on target (rename complete - FRESH DATA)
- *   3. CLOSE_WRITE on target (spurious, skipped by FREQ_LOOP_RUNNING)
+ *   3. CLOSE_WRITE on target (spurious, skipped by an active sweep)
  *
  * Vi (atomic write via backup + in-place modification):
  *   1. MODIFY on target (content changing)
@@ -401,13 +401,12 @@ Optimizer_Output( void *arg )
 
 		pr_debug("inotify: read %zd bytes from inotify fd\n", len);
 
-		if ( isFlagSet(FREQ_LOOP_RUNNING | FREQ_LOOP_INIT | INPUT_PENDING | SY_OPTIMIZER_ACTIVE) || isFlagClear(FREQ_LOOP_DONE))
+		if ( isFlagSet(FREQ_LOOP_INIT | INPUT_PENDING | SY_OPTIMIZER_ACTIVE) || sweep_state != FREQ_SWEEP_COMPLETE)
 		{
-			pr_debug("inotify: SKIP all events (flags) - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT=%d INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n",
-				isFlagSet(FREQ_LOOP_RUNNING) ? 1 : 0,
+			pr_debug("inotify: SKIP all events (flags) - FREQ_LOOP_INIT=%d INPUT_PENDING=%d sweep_state=%s\n",
 				isFlagSet(FREQ_LOOP_INIT) ? 1 : 0,
 				isFlagSet(INPUT_PENDING) ? 1 : 0,
-				isFlagSet(FREQ_LOOP_DONE) ? 1 : 0);
+				freq_sweep_state_name());
 			continue;
 		}
 

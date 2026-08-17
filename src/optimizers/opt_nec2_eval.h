@@ -3,7 +3,7 @@
  *
  *  Provides a blocking interface for the optimizer thread to trigger
  *  a full frequency loop and collect measurement_t results.  Uses a
- *  GCond signaled when the frequency loop sets FREQ_LOOP_DONE.
+ *  GCond signaled when the frequency loop publishes its result set.
  *
  *  Copyright (C) 2025 eWheeler, Inc. <https://www.linuxglobal.com/>
  *
@@ -36,7 +36,7 @@ void nec2_eval_cleanup(void);
 /**
  * nec2_eval_signal - signal that the frequency loop has completed
  *
- * Called from Frequency_Loop() when FREQ_LOOP_DONE is set.
+ * Called from Frequency_Loop() when the result set is published.
  * Wakes the optimizer thread blocked in nec2_eval_run().
  */
 void nec2_eval_signal(void);

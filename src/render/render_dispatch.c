@@ -503,7 +503,7 @@ render(render_surface_t *surface)
     if( ops->init_empty != NULL )
       ops->init_empty(surface);
     ops->set_status(surface,
-        isFlagSet(FREQ_LOOP_DONE)
+        freq_sweep_complete()
         ? STATUS_MSG_NOT_READY
         : STATUS_MSG_START_FREQLOOP);
     g_rec_mutex_unlock(&freq_data_lock);
