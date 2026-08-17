@@ -397,8 +397,9 @@ simple_t *simple_new(const simple_config_t *cfg)
 				s->algo_opts.simplex.num_ssize = cfg->opts.simplex.num_ssize;
 				mem_array_alloc(&s->algo_opts.simplex.ssize,
 					s->algo_opts.simplex.num_ssize);
-				memcpy(s->algo_opts.simplex.ssize, cfg->opts.simplex.ssize,
-					s->algo_opts.simplex.num_ssize * sizeof(double));
+				mem_array_cpy(s->algo_opts.simplex.ssize,
+					      cfg->opts.simplex.ssize,
+					      s->algo_opts.simplex.num_ssize);
 			}
 			else
 			{

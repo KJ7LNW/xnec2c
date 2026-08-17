@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 #include "common.h"
 #include "console.h"
 #include "utils.h"
@@ -329,23 +331,110 @@ void mem_set(void *ptr, int c)
 }
 
 /**
+ * mem_obj_copy_in() - copy into a managed block within its live span
+ * @m: header of the destination block
+ * @src: readable source buffer, managed or caller-owned
+ * @n: number of bytes to copy
+ *
+ * Single bound-and-overlap point behind the managed copy verbs. The live
+ * used span supplies the write bound. Comparing the unsigned address
+ * distance against @n detects an overlapping source without forming an
+ * overflow-prone range endpoint, preserving the memcpy non-overlap
+ * contract; a zero-length copy touches nothing and so is always disjoint.
+ * BUG does not unwind, so a rejected request leaves the destination
+ * unwritten. The caller establishes source readability.
+ */
+static void mem_obj_copy_in(mem_obj_t *m, const void *src, size_t n)
+{
+	uintptr_t dest_addr = (uintptr_t)m->ptr;
+	uintptr_t src_addr = (uintptr_t)src;
+	uintptr_t distance = (dest_addr > src_addr)
+		? dest_addr - src_addr
+		: src_addr - dest_addr;
+
+	if (likely(n <= m->used && (n == 0 || distance >= n)))
+		memcpy(m->ptr, src, n);
+	else if (n > m->used)
+		BUG("managed copy: %lu bytes exceed destination used %lu\n",
+			(unsigned long)n, (unsigned long)m->used);
+	else
+		BUG("managed copy: source overlaps destination at distance %lu over %lu bytes\n",
+			(unsigned long)distance, (unsigned long)n);
+}
+
+/**
+ * _mem_strdup() - duplicate a string into a fresh managed byte buffer
+ * @src: null-terminated source string
+ * @site: caller location from __LOCATION__, recorded as the birth site
+ *
+ * A string carries its length in its data rather than in its type, so the
+ * length is measured once here and the allocation sized to hold the
+ * terminator. The copy is born a byte buffer rather than a stamped array,
+ * so the array verbs reject it and mem_free releases it.
+ *
+ * Return: managed copy of @src
+ */
+char *_mem_strdup(const char *src, char *site)
+{
+	size_t size = strlen(src) + 1;
+	char *dest = NULL;
+
+	_mem_realloc((void **)&dest, size, site);
+	mem_obj_copy_in(mem_obj_from_ptr(dest), src, size);
+
+	return dest;
+}
+
+/**
  * mem_array_guard() - reject an array verb on a non-array or mismatched block
  * @m: header recovered from an existing managed block
  * @elem_size: element size derived from the caller's typed pointer
  *
  * A live array block carries a non-zero array_elem_size equal to its
  * element size. A zero marker (scalar or byte block) or a size mismatch is
- * a programmer error, surfaced like the header-corruption path rather than
- * tolerated.
+ * a programmer error, reported here and refused by the caller so the
+ * mistyped block is left intact and surfaces in the report.
+ *
+ * Return: true when the block is an array of @elem_size, false otherwise
  */
-static void mem_array_guard(const mem_obj_t *m, size_t elem_size)
+static bool mem_array_guard(const mem_obj_t *m, size_t elem_size)
 {
 	if (unlikely(m->array_elem_size == 0 || m->array_elem_size != elem_size))
 	{
 		BUG("mem_array verb: element size %lu does not match header %lu\n",
 			(unsigned long)elem_size, (unsigned long)m->array_elem_size);
-		abort();
+		return false;
 	}
+
+	return true;
+}
+
+/**
+ * _mem_array_cpy() - copy a bounded prefix of elements into a managed array
+ * @dest: user-facing pointer to a managed array
+ * @src: readable source holding at least @n elements of the same type
+ * @elem_size: element size folded from the typed pointer at the macro
+ * @n: element count to copy
+ *
+ * The array type guard rejects a scalar or byte block and a width
+ * mismatch, so an element count cannot reach a buffer of a different
+ * element width. Bounding the count against the destination's element
+ * capacity before widening it keeps the byte product from wrapping, and
+ * reports the overrun in the elements the caller counts rather than in
+ * bytes.
+ */
+void _mem_array_cpy(void *dest, const void *src, size_t elem_size, size_t n)
+{
+	mem_obj_t *m = mem_obj_from_ptr(dest);
+
+	if (unlikely(!mem_array_guard(m, elem_size)))
+		return;
+
+	if (unlikely(n > m->used / elem_size))
+		BUG("mem_array_cpy: %lu elements exceed destination count %lu\n",
+			(unsigned long)n, (unsigned long)(m->used / elem_size));
+	else
+		mem_obj_copy_in(m, src, n * elem_size);
 }
 
 /**
@@ -358,12 +447,16 @@ static void mem_array_guard(const mem_obj_t *m, size_t elem_size)
  * Sizes the request at n * elem_size and stamps the element size into the
  * header so later array verbs can validate and derive count and capacity.
  *
- * Return: the user-data pointer (also stored in *pp)
+ * Return: the user-data pointer (also stored in *pp), or NULL when an
+ * existing block fails the array type guard and *pp is left untouched
  */
 void *_mem_array_alloc(void **pp, size_t elem_size, size_t n, char *site)
 {
 	if (unlikely(*pp != NULL))
-		mem_array_guard(mem_obj_from_ptr(*pp), elem_size);
+	{
+		if (unlikely(!mem_array_guard(mem_obj_from_ptr(*pp), elem_size)))
+			return NULL;
+	}
 
 	void *p = _mem_realloc_fast(pp, n * elem_size, site);
 
@@ -384,12 +477,16 @@ void *_mem_array_alloc(void **pp, size_t elem_size, size_t n, char *site)
  * array is born from a NULL pointer; persistence across a grow-beyond
  * relocation is handled by the allocator's carry-forward point.
  *
- * Return: the user-data pointer (also stored in *pp)
+ * Return: the user-data pointer (also stored in *pp), or NULL when an
+ * existing block fails the array type guard and *pp is left untouched
  */
 void *_mem_array_realloc(void **pp, size_t elem_size, size_t n, char *site)
 {
 	if (likely(*pp != NULL))
-		mem_array_guard(mem_obj_from_ptr(*pp), elem_size);
+	{
+		if (unlikely(!mem_array_guard(mem_obj_from_ptr(*pp), elem_size)))
+			return NULL;
+	}
 
 	void *p = _mem_realloc_fast(pp, n * elem_size, site);
 
@@ -413,7 +510,8 @@ void _mem_array_free(void **pp, size_t elem_size)
 	{
 		mem_obj_t *m = mem_obj_from_ptr(*pp);
 
-		mem_array_guard(m, elem_size);
+		if (unlikely(!mem_array_guard(m, elem_size)))
+			return;
 		mem_obj_free(m);
 	}
 
@@ -454,7 +552,8 @@ void _mem_array_zero(void *ptr, size_t elem_size)
 {
 	mem_obj_t *m = mem_obj_from_ptr(ptr);
 
-	mem_array_guard(m, elem_size);
+	if (unlikely(!mem_array_guard(m, elem_size)))
+		return;
 	mem_set(ptr, 0);
 }
 

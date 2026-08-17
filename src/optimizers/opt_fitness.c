@@ -398,8 +398,7 @@ void fitness_config_copy(fitness_config_t *dst, const fitness_config_t *src)
 	if (src->num_obj > 0)
 	{
 		mem_array_alloc(&dst->obj, src->num_obj);
-		memcpy(dst->obj, src->obj,
-			src->num_obj * sizeof(fitness_objective_t));
+		mem_array_cpy(dst->obj, src->obj, src->num_obj);
 	}
 }
 

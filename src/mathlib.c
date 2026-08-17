@@ -349,8 +349,7 @@ int open_mathlib(mathlib_t *lib)
 	dlerror();
 
 	// Open the .so library, split on a comma (,):
-	mem_alloc(&libfn0, strlen(lib->lib) + 1);
-	strcpy(libfn0, lib->lib);
+	libfn0 = mem_strdup(lib->lib);
 	libfn = libfn0;
 	while ((token = strtok_r(libfn, ",", &libfn)) != NULL)
 	{

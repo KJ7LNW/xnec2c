@@ -215,8 +215,7 @@ static const size_t _vec_field_offsets[] =
  */
 void simple_var_deep_copy(simple_var_t *dst, const simple_var_t *src)
 {
-	mem_alloc(&dst->name, strlen(src->name) + 1);
-	memcpy((char *)dst->name, src->name, strlen(src->name) + 1);
+	dst->name = mem_strdup(src->name);
 
 	for (size_t i = 0; i < NUM_VEC_FIELDS; i++)
 	{

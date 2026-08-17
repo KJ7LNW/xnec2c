@@ -76,7 +76,7 @@ void save_click_event(freqplots_view_t *v, GdkEvent *e)
 	if (v->prev_click_event == NULL)
 		mem_new(&v->prev_click_event);
 
-	memcpy(v->prev_click_event, e, sizeof(GdkEvent));
+	*v->prev_click_event = *e;
 }
 
 GdkEvent *freqplots_pending_click(freqplots_view_t *v)

@@ -156,8 +156,8 @@ locus_copy( GdkPoint **dst_pts, double **dst_freq,
 {
   mem_array_realloc( dst_pts,  n );
   mem_array_realloc( dst_freq, n );
-  memcpy( *dst_pts,  src_pts,  (size_t)n * sizeof(GdkPoint) );
-  memcpy( *dst_freq, src_freq, (size_t)n * sizeof(double) );
+  mem_array_cpy(*dst_pts, src_pts, n);
+  mem_array_cpy(*dst_freq, src_freq, n);
 }
 
 /*-----------------------------------------------------------------------*/

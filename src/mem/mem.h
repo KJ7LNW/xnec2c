@@ -211,6 +211,34 @@ void *_mem_clone(void *ptr, char *site);
 #define mem_clone(p) _mem_clone((p), __LOCATION__)
 int mem_bcmp(void *p1, void *p2);
 void mem_set(void *ptr, int c);
+void _mem_array_cpy(void *dest, const void *src, size_t elem_size, size_t n);
+char *_mem_strdup(const char *src, char *site);
+
+/**
+ * mem_strdup() - duplicate a string into a fresh managed byte buffer
+ * @src: null-terminated source string
+ *
+ * A string carries its length in its data rather than in its type, so the
+ * allocator measures it and sizes the copy to hold the terminator.
+ * Ownership passes to the caller, who releases the copy with mem_free.
+ *
+ * Return: managed copy of @src
+ */
+#define mem_strdup(src) _mem_strdup((src), __LOCATION__)
+
+/**
+ * mem_array_cpy() - copy a bounded prefix of elements into a managed array
+ * @dest: managed array pointer
+ * @src: readable source holding at least @n elements of the same type
+ * @n: element count to copy
+ *
+ * Folds the element width from @dest so callers pass a quantity rather than
+ * a byte size. A destination that is not a stamped array of that width is
+ * reported through BUG and left unwritten. The caller supplies a source of
+ * the same element type, which may carry different qualifiers.
+ */
+#define mem_array_cpy(dest, src, n) \
+	((void)MEM_ARRAY_TYPED(&(dest)), _mem_array_cpy((dest), (src), sizeof(*(dest)), (n)))
 
 void _mem_zero(void *ptr);
 void _mem_array_zero(void *ptr, size_t elem_size);
@@ -219,9 +247,9 @@ void _mem_array_zero(void *ptr, size_t elem_size);
  * mem_array_zero() - zero the entire used region of a managed array
  * @p: managed array pointer
  *
- * Aborts when @p is not a stamped array block or its element width differs
- * from sizeof(*@p); no partial-range managed zero exists, so the whole live
- * region is cleared.
+ * Reports through BUG and returns when @p is not a stamped array block or
+ * its element width differs from sizeof(*@p); no partial-range managed zero
+ * exists, so the whole live region is cleared.
  */
 #define mem_array_zero(p) _mem_array_zero((p), sizeof(*(p)))
 
@@ -229,7 +257,8 @@ void _mem_array_zero(void *ptr, size_t elem_size);
  * mem_zero() - zero the entire used region of a non-array managed buffer
  * @p: managed scalar or byte-buffer pointer
  *
- * Aborts when @p is a stamped array block; use mem_array_zero for arrays.
+ * Reports through BUG and returns when @p is a stamped array block; use
+ * mem_array_zero for arrays.
  */
 #define mem_zero(p) _mem_zero((p))
 

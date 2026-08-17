@@ -83,8 +83,7 @@ main (int argc, char *argv[])
   // so make a copy of it for later:
   setlocale(LC_ALL, "");
   char *l = setlocale(LC_NUMERIC, NULL);
-  mem_alloc(&orig_numeric_locale, strlen(l) + 1);
-  strcpy(orig_numeric_locale, l);
+  orig_numeric_locale = mem_strdup(l);
 
   // Initialize gettext for internationalization
   const char *localedir = getenv("XNEC2C_LOCALEDIR");

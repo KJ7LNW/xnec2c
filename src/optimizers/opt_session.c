@@ -240,8 +240,8 @@ int opt_start(simple_var_t *vars, int num_vars,
 
 			mem_array_alloc(&ssize_copy,
 					algo_params->simplex.num_ssize);
-			memcpy(ssize_copy, algo_params->simplex.ssize,
-				algo_params->simplex.num_ssize * sizeof(double));
+			mem_array_cpy(ssize_copy, algo_params->simplex.ssize,
+				      algo_params->simplex.num_ssize);
 			session->simple_cfg.opts.simplex.ssize = ssize_copy;
 			session->simple_cfg.opts.simplex.num_ssize =
 				algo_params->simplex.num_ssize;
