@@ -291,3 +291,5 @@
 - Translate informational notices and reports into Bosnian in a concise professional register.
 - Translate developer-facing assertions, parser diagnostics, allocation reports, and debug messages into Bosnian in a terse technical register unless a source family has an explicit established Bosnian precedent, which governs that family.
 - Keep identifiers, function names, format specifiers, units, and other topic-4 tokens verbatim in every family regardless of review priority.
+- Render the `BUG:` diagnostic prefix as "DEFEKT:", held distinct from the "GREŠKA:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

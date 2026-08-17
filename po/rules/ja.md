@@ -504,3 +504,9 @@ disambiguation (topic 11), then locale numeral form (topic 2).
   format specifier, unit, and retained token verbatim in all three families.
 - A subsystem's established sibling wording may fix terminology, but it does
   not override the family register or token-preservation rules.
+- Render the `BUG:` diagnostic prefix as "バグ:", held distinct from the
+  "エラー:" prefix that carries ordinary failures; the two severities never
+  share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg
+  `sweep_state=%d`); a qualifier precedes the whole pair and never stands
+  between the identifier and its `=`.

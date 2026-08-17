@@ -366,3 +366,5 @@ Use one locked term per concept; unify outlier spellings to topic 10 and keep ev
 - Classify assertions, allocator reports, parser traces, and internal subsystem diagnostics as developer-facing; translate their prose in terse technical form.
 - Use priority only to order review; never leave applicable user-facing or informational text untranslated.
 - Preserve embedded format and retained tokens in every translated family regardless of review priority.
+- Render the `BUG:` diagnostic prefix as "缺陷：", held distinct from the "错误：" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

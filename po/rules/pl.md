@@ -347,3 +347,5 @@ Use one locked term per concept throughout the catalog; do not introduce synonym
 - Translate developer-facing and low-priority debug strings into Polish in the same terse, technical register; no subsystem family overrides this policy.
 - Keep identifiers, function names, format specifiers, units, and topic-4 retained tokens verbatim in every string family.
 - Use priority only to order review; never leave an applicable user-facing, informational, or developer-facing literal untranslated because of its priority.
+- Render the `BUG:` diagnostic prefix as "USTERKA:", held distinct from the "BŁĄD:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

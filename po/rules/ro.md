@@ -454,3 +454,9 @@ Apply a zero-failure invariant to Romanian prose.
   implementation-state traces are developer-facing.
 - use priority only to order review; never use it to leave a user-facing or
   informational string untranslated.
+- render the `BUG:` diagnostic prefix as "DEFECT:", held distinct from the
+  "EROARE:" prefix that carries ordinary failures; the two severities never
+  share a word.
+- keep an identifier-plus-value diagnostic pair contiguous (eg
+  `sweep_state=%d`); a qualifier precedes the whole pair and never stands
+  between the identifier and its `=`.

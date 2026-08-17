@@ -330,3 +330,5 @@ Locked term table; every Appendix A concept resolves to one French term, held co
 - Translate informational diagnostics intended for operators into concise technical French.
 - Translate developer-facing diagnostics, including `mem_track`, `config_widget`, `themes`, `validation_dump`, and `prerender` families, into terse neutral technical French; no subsystem family overrides this rule.
 - Preserve every embedded identifier, function name, configuration key, format specifier, and topic-4 token in all three families regardless of review priority.
+- Render the `BUG:` diagnostic prefix as "BOGUE :", held distinct from the "ERREUR :" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

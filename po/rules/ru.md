@@ -298,3 +298,5 @@ Metrics and miscellaneous:
 - Keep developer-facing debug and low-level internal diagnostics in source form unless one subsystem has an established translated sibling family; follow that family consistently.
 - Preserve identifiers, function names, format specifiers, and all topic-4 tokens verbatim in every string family.
 - Keep translated diagnostics terse, impersonal, and technical; review priority changes ordering only, never token-preservation rules.
+- Render the `BUG:` diagnostic prefix as "ДЕФЕКТ:", held distinct from the "ОШИБКА:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

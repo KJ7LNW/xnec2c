@@ -378,3 +378,5 @@ Topic 1 governs script mechanics, topic 7 governs phrasing and structure by inte
 - Review priority changes order only; it never permits an applicable user-facing or informational string to remain untranslated.
 - Retain identifiers, function names, format specifiers, units, and other topic-4 tokens verbatim in every string family.
 - Use the terse technical status/error register from topic 7 for developer-facing strings; no subsystem-specific sibling family overrides this rule.
+- Render the `BUG:` diagnostic prefix as "PROGRAMFOUT:", held distinct from the "FOUT:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

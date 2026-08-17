@@ -302,4 +302,5 @@
 - Translate developer-facing diagnostics, parser messages, allocator reports, assertions, and debug text into terse impersonal technical Pashto.
 - Keep identifiers, functions, variables, configuration keys, format specifiers, and all topic-4 retained tokens verbatim in every family.
 - Apply the same token-preservation rules regardless of family or review priority; no subsystem family overrides this policy.
-</content>
+- Render the `BUG:` diagnostic prefix as "بګ:", held distinct from the "تېروتنه:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

@@ -356,3 +356,5 @@ Established/preferred terms; one target term per concept, reused consistently ac
 - Use terse technical register in translated diagnostics.
 - Preserve every embedded identifier, function name, format specifier, and retained token verbatim in every string family.
 - Keep linguistic priority separate from token preservation: translated user-facing and informational families obey the same token invariants as developer-facing strings.
+- Render the `BUG:` diagnostic prefix as "PROGRAMMIVIGA:", held distinct from the "VIGA:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

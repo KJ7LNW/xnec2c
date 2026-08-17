@@ -319,3 +319,5 @@
 - Developer-facing strings: translate debug and low-priority diagnostics into terse technical Indonesian; no subsystem family retains source prose.
 - Preserve every embedded identifier, function name, format specifier, unit, symbol, and topic 4 retained token verbatim in every family.
 - Review priority changes ordering only; it never permits an applicable user-facing, informational, or developer-facing literal to remain untranslated.
+- Render the `BUG:` diagnostic prefix as "CACAT:", held distinct from the "GALAT:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

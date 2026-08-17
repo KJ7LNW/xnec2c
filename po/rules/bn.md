@@ -264,3 +264,5 @@ No concept from Appendix A is absent from this table; none require not-applicabl
 - Translate developer-facing and low-priority debug strings as terse technical statements; sibling strings within one subsystem retain one established phrasing pattern.
 - Preserve every embedded identifier, function name, format specifier, and topic-4 retained token verbatim in every string family, independent of translation priority.
 - Use priority only to order review; never leave an applicable user-facing, informational, or developer-facing literal untranslated because of priority.
+- Render the `BUG:` diagnostic prefix as "বাগ:", held distinct from the "ত্রুটি:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

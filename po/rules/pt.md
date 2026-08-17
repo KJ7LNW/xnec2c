@@ -334,3 +334,5 @@
 - Developer-facing and debug strings translate in the same terse technical register; no subsystem-specific sibling family overrides this rule.
 - Preserve identifiers, function names, format specifiers, and retained tokens inside every translated family under topics 4 and 5.
 - Treat linguistic translation priority and token preservation as separate decisions: every translated family preserves embedded tokens regardless of review priority.
+- Render the `BUG:` diagnostic prefix as "DEFEITO:", held distinct from the "ERRO:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`; the identifier itself is never translated.

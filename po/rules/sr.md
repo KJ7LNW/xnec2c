@@ -334,3 +334,5 @@
 - Translate informational diagnostics and developer-facing debug strings into terse technical Serbian; no subsystem family overrides this policy.
 - Preserve every embedded identifier, function name, config key, format specifier, unit, mnemonic, and retained technical token verbatim in every translated family.
 - Keep linguistic priority separate from token preservation: all translated families obey topics 4 and 5 regardless of review order.
+- Render the `BUG:` diagnostic prefix as "ДЕФЕКТ:", held distinct from the "ГРЕШКА:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

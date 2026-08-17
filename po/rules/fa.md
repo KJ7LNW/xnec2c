@@ -328,3 +328,5 @@ Treat script hygiene as a zero-failure invariant across translated prose.
 - Keep developer-only debug and internal diagnostic strings in the source language unless an established sibling family in the same subsystem is user-visible and translated.
 - Preserve every identifier, function name, format specifier, unit, and retained token under topics 4-5 regardless of string family.
 - Use review priority only to order linguistic attention; never leave an applicable user-facing or informational string untranslated because of its priority.
+- Render the `BUG:` diagnostic prefix as "اشکال:", held distinct from the "خطا:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

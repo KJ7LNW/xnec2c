@@ -344,3 +344,5 @@ Locked terms, applied everywhere in po/ar.po; correct technical sense per doc/TR
 - Translate developer-facing and debug strings into terse technical Modern Standard Arabic unless an established sibling message family in the same subsystem retains source prose; apply that family decision consistently.
 - Retain embedded identifiers, function names, format specifiers, and topic-4 tokens in every string family regardless of translation priority.
 - Classify commands, labels, dialogs, confirmations, tooltips, user errors, and results as user-facing; classify status and progress messages as informational; classify assertions, parser internals, and low-level diagnostics as developer-facing.
+- Render the `BUG:` diagnostic prefix as "خلل:", held distinct from the "خطأ:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

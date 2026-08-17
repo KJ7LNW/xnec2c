@@ -279,3 +279,5 @@
 - Translate informational diagnostics intended for users in terse technical Slovenian.
 - Keep developer-only debug and trace strings in their source form; no subsystem-specific precedent overrides this rule.
 - Preserve every identifier, function name, format specifier, and topic-4 token inside any string family regardless of translation policy or review priority.
+- Render the `BUG:` diagnostic prefix as "DEFEKT:", held distinct from the "NAPAKA:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

@@ -336,3 +336,5 @@ Swedish has no productive sound-conditioned preposition alternation, mandatory s
 - Translate developer-facing `BUG()` and assertion-style diagnostics in terse technical Swedish; no subsystem family overrides this policy.
 - Preserve every identifier, function name, configuration key, physical symbol, retained token, and format specifier inside all three families exactly as topics 4 and 5 require.
 - Keep linguistic priority separate from token preservation: every translated family follows the same immutable-token boundaries.
+- Render the `BUG:` diagnostic prefix as "PROGRAMFEL:", held distinct from the "FEL:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

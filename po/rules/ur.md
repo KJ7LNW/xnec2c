@@ -352,3 +352,5 @@ Treat interface text as concise professional Urdu with subject-object-verb order
 - Translate developer-facing diagnostics into terse technical Urdu without politeness marking.
 - Keep identifiers, function names, format specifiers, and topic 4 retained tokens verbatim in every string family.
 - Apply the same policy to every subsystem; no sibling-family override exists.
+- Render the `BUG:` diagnostic prefix as "بگ:", held distinct from the "خرابی:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

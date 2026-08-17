@@ -357,3 +357,5 @@ Concept keys are source-domain vocabulary; the Korean column contains the locked
 - Translate developer-facing debug and trace strings in terse technical Korean; omit conversational address and retain a subsystem's established sibling-string terminology.
 - Keep identifiers, function names, variable names, configuration keys, format specifiers, and topic 4 tokens verbatim in every family.
 - Preserve embedded format and retained tokens independently of string-family priority.
+- Render the `BUG:` diagnostic prefix as "버그:", held distinct from the "오류:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

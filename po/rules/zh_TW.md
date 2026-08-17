@@ -295,3 +295,5 @@ Traditional Chinese for Taiwan, written in Taiwan-standard Traditional Han chara
 - Keep developer-facing debug and internal diagnostic strings in their source language; no subsystem family overrides this decision.
 - Preserve every embedded identifier, function name, format specifier, and topic 4 retained token verbatim in every string family.
 - Keep linguistic priority separate from token preservation: every translated family applies topics 4 and 5 regardless of review order.
+- Render the `BUG:` diagnostic prefix as "缺陷：", held distinct from the "錯誤：" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

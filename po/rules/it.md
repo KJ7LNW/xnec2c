@@ -301,3 +301,5 @@ normalize / normalization | normalizzare / normalizzazione | numerical scaling v
 - Preserve every embedded identifier, function name, configuration key, format specifier, unit, and retained token verbatim in every translated family under topics 4 and 5.
 - Use impersonal declarative wording without direct user address for informational and developer-facing families.
 - Review priority affects ordering only; it never permits an applicable string family to remain untranslated.
+- Render the `BUG:` diagnostic prefix as "DIFETTO:", held distinct from the "ERRORE:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

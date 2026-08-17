@@ -347,3 +347,5 @@ Locked term table, one row per Appendix A concept: concept, chosen Malay term, i
 - Keep developer-facing diagnostics and low-level debug strings in source form unless an established sibling family in the same subsystem is already translated.
 - Use terse technical Malay for any translated diagnostic family.
 - Preserve every embedded identifier, function name, format specifier, unit, and retained token in all string families, independent of translation priority.
+- Render the `BUG:` diagnostic prefix as "PEPIJAT:", held distinct from the "RALAT:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

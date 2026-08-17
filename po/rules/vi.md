@@ -485,3 +485,7 @@ user-facing string to remain untranslated.
   retained tokens verbatim in every family.
 - Any translated diagnostic uses terse technical Vietnamese and preserves the complete source
   meaning; token retention is independent of family priority.
+- Render the `BUG:` diagnostic prefix as "KHIẾM KHUYẾT:", held distinct from the "LỖI:" prefix
+  that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier
+  precedes the whole pair and never stands between the identifier and its `=`.

@@ -20,7 +20,8 @@ use constant OWNER_PROGRAM => 'program';
 use constant OWNER_MODEL => 'model';
 
 # One record reads as one tag per line: an uppercase tag, a tab, then its
-# value. K names the record, C and S name the catalog entry it answers, L names
+# value; bare T carries an empty translation. K names the record, C and S name
+# the catalog entry it answers, L names
 # the language, T holds the translation, and X holds the exemption a source
 # with no distinct target form carries. Each tag also names the party writing
 # it.
@@ -201,10 +202,12 @@ sub read_map_records
 		for my $line (split(/\n/, $block, -1))
 		{
 			$line_number++;
-			my ($tag, $value) = $line =~ /\A([A-Z])\t(.*)\z/s;
+			my ($tag, $value) = $line eq 'T'
+				? ('T', '')
+				: $line =~ /\A([A-Z])\t(.*)\z/s;
 			if (!defined $tag)
 			{
-				push @faults, "$path:$line_number: malformed line; write one uppercase tag, a tab, then its value";
+				push @faults, "$path:$line_number: malformed line; write bare T for an empty translation or one uppercase tag, a tab, then its value";
 				next;
 			}
 			$tag_lines{$tag} = $line_number;

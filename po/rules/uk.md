@@ -372,3 +372,5 @@ Add no qualifier absent from the current source literal; use program context for
 - Translate developer-facing assertions, diagnostics, parser messages, and unreachable-case reports into terse technical Ukrainian.
 - A subsystem-wide established diagnostic family can fix wording for its sibling strings; apply that wording consistently without changing the translation policy.
 - Preserve every embedded identifier, function name, format specifier, unit, symbol, and retained token under topics 4 and 5 in every string family.
+- Render the `BUG:` diagnostic prefix as "ДЕФЕКТ:", held distinct from the "ПОМИЛКА:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

@@ -310,3 +310,5 @@ Treat script hygiene as a zero-failure invariant.
 - Keep developer-facing and low-priority debug strings in the source language unless an established sibling family in the same subsystem is already translated; then follow that family consistently.
 - Preserve every identifier, function name, format specifier, unit, and retained token inside every string family regardless of translation policy.
 - Classify commands, labels, dialogs, tooltips, status messages, and user errors as user-facing; explanatory diagnostics as informational; internal traces, assertions, and code-oriented diagnostics as developer-facing.
+- Render the `BUG:` diagnostic prefix as "DEFEKT:", held distinct from the "GREŠKA:" prefix that carries ordinary failures; use one spelling catalog-wide and never alternate with "POGREŠKA:".
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

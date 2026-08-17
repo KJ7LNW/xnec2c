@@ -333,3 +333,5 @@ Treat interface text as concise professional Bokmål; preserve all source meanin
 - Translate developer-facing diagnostics into terse technical Bokmål; no subsystem family retains source-language prose.
 - Preserve every embedded identifier, function name, format specifier, and topic-4 retained token verbatim in every family.
 - Keep linguistic translation policy separate from token preservation; every translated family obeys topics 4 and 5.
+- Render the `BUG:` diagnostic prefix as "PROGRAMFEIL:", held distinct from the "FEIL:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

@@ -314,3 +314,5 @@ Metrics and miscellaneous
 - Translate informational diagnostics and developer-facing debug strings into terse, impersonal, technical Lithuanian; no subsystem family overrides this policy.
 - Keep identifiers, function names, configuration keys, format specifiers, and all topic-4 retained tokens verbatim inside every translated string family.
 - Treat user-facing, informational, and developer-facing families as distinct review priorities only; apply the same format-token and retained-token invariants to all three.
+- Render the `BUG:` diagnostic prefix as "DEFEKTAS:", held distinct from the "KLAIDA:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

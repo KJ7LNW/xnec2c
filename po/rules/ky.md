@@ -383,3 +383,5 @@ Add any further domain concept directly to this table with one target term, sens
 - Retain developer-only debug and internal tracing prose in its source form; use this category only when the string is not presented as user information.
 - Preserve every embedded identifier, function name, format specifier, and retained token from topics 4 and 5 in all three families.
 - No subsystem-specific sibling family overrides these classifications.
+- Render the `BUG:` diagnostic prefix as "МҮЧҮЛҮШТҮК:", held distinct from the "КАТА:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

@@ -311,3 +311,5 @@
 - Use terse technical declaratives for developer-facing diagnostics; use topic-7 grammar for user-facing and informational families.
 - Preserve every embedded identifier, function name, format specifier, unit, and retained token in every string family.
 - Apply the same policy throughout each subsystem; no sibling-family exception overrides it.
+- Render the `BUG:` diagnostic prefix as "NUQSON:", held distinct from the "XATO:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

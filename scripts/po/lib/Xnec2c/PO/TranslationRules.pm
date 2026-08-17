@@ -23,17 +23,18 @@ my %EXEMPTION_MAP = (
 	1 => {
 		name => 'name',
 		propagates => 1,
-		use => 'a product, a person, an algorithm, a declared identifier,'
-			. ' or a source composed only of declared identifiers, constants,'
-			. ' format specifiers, and nonlinguistic syntax',
+		use => 'a product, a person, an algorithm, or a source composed only'
+			. ' of names, declared identifiers, constants, format specifiers,'
+			. ' and nonlinguistic syntax',
 	},
 	2 => {
 		name => 'notation',
 		propagates => 1,
-		use => 'a token fixed by the NEC deck, engineering convention, or a'
-			. ' program-written file or diagnostic record format: a unit, an'
-			. ' axis or field label, a Greek letter, a card mnemonic, an'
-			. ' impedance token, or an S-parameter token',
+		use => 'a source composed only of tokens fixed by the NEC deck,'
+			. ' engineering convention, or a program-written file or diagnostic'
+			. ' record format, plus nonlinguistic syntax: units, axis or field'
+			. ' labels, Greek letters, card mnemonics, impedance tokens, or'
+			. ' S-parameter tokens',
 	},
 	3 => {
 		name => 'loanword',
@@ -47,8 +48,9 @@ my %EXEMPTION_MAP = (
 		use => 'a source holding no word at all: punctuation, digits, format'
 			. ' specifiers, and markup',
 		excludes => \&source_has_word_token,
-		fault => 'contains a word-bearing token; a unit takes notation, a'
-			. ' declared identifier takes name, and ordinary prose is translated',
+		fault => 'contains a word-bearing token; a unit takes notation, an'
+			. ' identifier naming a program entity takes name, and ordinary prose'
+			. ' is translated',
 	},
 );
 
@@ -193,11 +195,15 @@ sub record_rules
 	return join("\n",
 		'- A record reads ' . record_tag_order() . ', one tag per line,'
 			. ' omitting C and X when they hold nothing.',
+		'- Write an empty T as bare T. Write each nonempty field as its tag,'
+			. ' one tab, then its value.',
 		'- Leave every ' . join(', ', record_owner_tags(OWNER_PROGRAM))
 			. ' line as written.',
 		'- Change only ' . join(' and ', record_owner_tags(OWNER_MODEL))
 			. ' values.',
 		'- Preserve every PO escape and printf placeholder from S exactly.',
+		'- Keep an identifier S binds to a placeholder through = joined to it,'
+			. ' as in name=%d; word every qualifier outside that pair.',
 		'- Copy every \\s in S as written; write \\s in T wherever the target'
 			. ' needs an edge space.');
 }
@@ -227,26 +233,24 @@ sub exemption_rules
 
 $guide
 
-- The reasons read in precedence order. Write the first reason whose
-  description fits S.
-- A reason describes the whole of S. A sentence containing ordinary prose is
-  translated even when it also contains a unit, identifier, or format
-  specifier. A source composed entirely of fixed tokens takes the first reason
-  that covers those tokens.
-- Write X beside an empty T. An X records that this language writes no
-  translation for S, so the catalog stores none and never repeats S.
-- Every reason but loanword rests on S alone and so holds in every language,
-  and every catalog names that one reason for S. A loanword rests on this
-  language's own vocabulary and answers for this language alone; another
-  catalog translating S calls for that reading, and this language's own usage
-  settles it.
-- An X already standing in a record names the reason every catalog holds for
-  that source. Keep it beside an empty T where this language also holds no
-  distinct form; replace it with a translation in T, dropping the X line, where
-  this language does. Write no other reason in its place.
-- Lint warns on every accepted X. Read every warning, translate each record
-  that has a distinct target form, then run lint again.
-- Write no X on a translated record.
+- Apply the first fitting reason in the listed precedence.
+- Classify each word-bearing token by its role in S; use name only where the
+  token names a program entity. Treat matching identifier spelling as
+  role-neutral.
+- Translate diagnostic labels, eg BUG, ERROR, and WARNING, even when uppercase.
+- Use X only where one reason describes the whole of S. Ignore punctuation,
+  digits, format specifiers, and markup when deciding whether its word-bearing
+  tokens fit that reason.
+- Translate S when any word-bearing token is ordinary prose; retain embedded
+  names, identifiers, notation, constants, format specifiers, and syntax as
+  required by the language rules.
+- For no distinct target form, write bare T and an X reason.
+- Apply name, notation, and symbol across every language and catalog; apply
+  loanword only to the language whose vocabulary adopts S.
+- Preserve an existing X reason where this language has no distinct form;
+  otherwise replace it with a translation in T and drop X.
+- Review every lint exemption warning; translate each record with a distinct
+  target form, then run lint again.
 RULES
 }
 

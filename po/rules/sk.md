@@ -306,3 +306,5 @@
 - Translate informational status, progress, and result strings into Slovak in a concise neutral register.
 - Translate developer-facing and low-priority internal diagnostics into Slovak in a terse, technical, impersonal register; no subsystem family overrides this rule.
 - Preserve identifiers, function names, configuration keys, format specifiers, and all topic-4 retained tokens verbatim in every string family, independent of translation priority.
+- Render the `BUG:` diagnostic prefix as "DEFEKT:", held distinct from the "CHYBA:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

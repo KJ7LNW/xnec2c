@@ -334,3 +334,5 @@ Locked concept → term mapping. Each entry: concept → término (sentido) — 
 - Translate developer-facing diagnostics in terse technical Spanish; no subsystem family overrides this rule.
 - Preserve every embedded identifier, function name, format specifier, and retained token under §§4-5 in every translated family.
 - Keep token preservation independent of family and review priority.
+- Render the `BUG:` diagnostic prefix as "DEFECTO:", held distinct from the "ERROR:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

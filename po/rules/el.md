@@ -502,3 +502,9 @@ axis.
   format specifier in every translated family under topics 4 and 5.
 - No subsystem-specific sibling family overrides this diagnostic register;
   this sub-concept is not applicable.
+- Render the `BUG:` diagnostic prefix as "ΕΛΑΤΤΩΜΑ:", held distinct from the
+  "ΣΦΑΛΜΑ:" prefix that carries ordinary failures; the two severities never
+  share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg
+  `sweep_state=%d`); a qualifier precedes the whole pair and never stands
+  between the identifier and its `=`.

@@ -301,3 +301,5 @@
 - Keep embedded identifiers, function names, variable names, configuration keys, format specifiers, and topic 4 retained tokens verbatim in every string family.
 - Treat priority as review order only; translate every applicable user-facing string.
 - Preserve embedded format and retained tokens independently of each family's register or review priority.
+- Render the `BUG:` diagnostic prefix as "ข้อบกพร่อง:", held distinct from the "ข้อผิดพลาด:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

@@ -305,3 +305,5 @@ Treat each interface family as fixed Hungarian grammar; preserve all source mean
 - Review priority changes review order only; it never permits an applicable user-facing, informational, or developer-facing string to remain untranslated.
 - Keep identifiers, function names, config keys, format specifiers, and topic-4 retained tokens verbatim in every family; token preservation is independent of linguistic priority.
 - Apply no subsystem-specific sibling-family override; use the family registers above throughout this file.
+- Render the `BUG:` diagnostic prefix as "PROGRAMHIBA:", held distinct from the "HIBA:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

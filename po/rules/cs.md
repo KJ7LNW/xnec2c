@@ -306,3 +306,5 @@
 - Keep developer-only debug diagnostics in source form unless an established sibling family in the same subsystem translates its prose; then follow that family consistently.
 - Preserve every embedded identifier, function name, format specifier, unit, and retained token verbatim in every family, independent of translation priority.
 - Classify a literal by its audience and purpose, not merely by an identifier-like prefix: user-facing requests action, informational reports operator-relevant state, and developer-facing diagnoses implementation state.
+- Render the `BUG:` diagnostic prefix as "DEFEKT:", held distinct from the "CHYBA:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

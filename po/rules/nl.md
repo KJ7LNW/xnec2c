@@ -330,3 +330,5 @@ Locked concept → term (sense); purpose/hazard.
 - Translate developer-facing diagnostics, including `pr_*` families, in terse impersonal technical Dutch unless an established sibling family within the same subsystem retains source-language prose.
 - Keep identifiers, function names, variables, configuration keys, format specifiers, and topic-4 tokens verbatim inside every translated family (eg `config_widget_lookup`, `mem-report`, `rc_config_field_size`).
 - Use priority only to order review; preserve embedded format and retained tokens in every family regardless of priority.
+- Render the `BUG:` diagnostic prefix as "PROGRAMMAFOUT:", held distinct from the "FOUT:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

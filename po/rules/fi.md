@@ -315,3 +315,5 @@ Metrics and miscellaneous:
 - Apply an established sibling-string term within the same subsystem where it is more specific than the general register rule.
 - Keep identifiers, function names, format specifiers, and all topic 4 tokens verbatim in every string family regardless of translation or review priority.
 - Use family classification only to set linguistic register and review order; preserve format and retained tokens in every translated family.
+- Render the `BUG:` diagnostic prefix as "OHJELMAVIRHE:", held distinct from the "VIRHE:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

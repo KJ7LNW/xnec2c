@@ -468,3 +468,9 @@
 - Review priority changes ordering only; it never permits an applicable
   user-facing, informational, or developer-facing literal to remain
   untranslated.
+- Render the `BUG:` diagnostic prefix as "ДЕФЕКТ:", held distinct from the
+  "ГРЕШКА:" prefix that carries ordinary failures; the two severities never
+  share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg
+  `sweep_state=%d`); a qualifier precedes the whole pair and never stands
+  between the identifier and its `=`.

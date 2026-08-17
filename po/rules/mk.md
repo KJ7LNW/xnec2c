@@ -373,3 +373,5 @@ Concept key, chosen Macedonian term, intended sense, and the hazard the mapping 
 - Keep developer-only debug and low-level internal diagnostic families in the source language unless an established sibling family in the same subsystem is already translated; that sibling-family decision governs the whole family.
 - Preserve identifiers, function names, retained tokens, and format specifiers verbatim in every family, whether its prose translates or remains in the source language.
 - Use priority only to order review; never leave an applicable user-facing or informational literal untranslated because of priority.
+- Render the `BUG:` diagnostic prefix as "ДЕФЕКТ:", held distinct from the "ГРЕШКА:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

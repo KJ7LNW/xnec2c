@@ -348,3 +348,5 @@ Treat each source concept as one fixed Latvian term; reuse topic 10 throughout t
 - Translate developer-facing and low-priority debug strings in terse technical Latvian; no subsystem family overrides this rule.
 - Preserve every embedded identifier, function name, format specifier, mnemonic, unit, and topic-4 retained token in all three families.
 - Keep linguistic priority separate from token preservation: every translated family follows topics 4 and 5.
+- Render the `BUG:` diagnostic prefix as "DEFEKTS:", held distinct from the "KĻŪDA:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

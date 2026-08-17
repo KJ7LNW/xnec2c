@@ -298,3 +298,5 @@ Concept keys are English source terms; the German term is the only language-spec
 - Translate all user-facing controls, dialogs, tooltips, statuses, errors, and informational diagnostics into German; review priority never permits an applicable user-facing literal to remain untranslated.
 - Keep developer-only debug diagnostics in source form unless their subsystem already presents that family to users; translated diagnostics use terse technical German.
 - Preserve every identifier, function name, format specifier, mnemonic, unit, and retained token inside every string family under §§4-5, independent of translation priority.
+- Render the source `BUG:` diagnostic prefix as "PROGRAMMFEHLER:", held distinct from the "FEHLER:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg "sweep_state=%d"); a qualifier precedes the whole pair and never stands between the identifier and its "=".

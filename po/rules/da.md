@@ -320,3 +320,5 @@ Treat interface strings as concise technical Danish; preserve all source meaning
 - Translate developer-facing debug and low-priority diagnostic strings in terse technical Danish; no subsystem family uses a source-language exception.
 - Preserve embedded identifiers, function names, format specifiers, units, and topic-4 retained tokens in every string family.
 - Use priority only to order review; it never permits an applicable user-facing, informational, or developer-facing literal to remain untranslated.
+- Render the `BUG:` diagnostic prefix as "PROGRAMFEJL:", held distinct from the "FEJL:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

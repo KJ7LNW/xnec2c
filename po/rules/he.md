@@ -350,3 +350,5 @@ Use each source concept's single Hebrew term; the sense and guard state why the 
 - Treat priority as review order only; never leave an applicable user-facing or informational literal untranslated because of priority.
 - Preserve every embedded identifier, function name, format specifier, and topic-4 retained token verbatim in every string family.
 - Keep token preservation independent of linguistic priority and surrounding-string translation policy.
+- Render the `BUG:` diagnostic prefix as "תקלה:", held distinct from the "שגיאה:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.

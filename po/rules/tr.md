@@ -486,3 +486,9 @@ engineers, antenna designers, and amateur-radio operators.
   developer-facing literal to remain untranslated.
 - Every translated family preserves embedded format specifiers and topic-4
   tokens regardless of its review priority.
+- Render the `BUG:` diagnostic prefix as "KUSUR:", held distinct from the
+  "HATA:" prefix that carries ordinary failures; the two severities never
+  share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg
+  `sweep_state=%d`); a qualifier precedes the whole pair and never stands
+  between the identifier and its `=`.

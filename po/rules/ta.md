@@ -347,3 +347,5 @@ Locked target term per Appendix A concept; columns are concept, term, sense, pur
 - Leave strings explicitly classified as developer-only diagnostics or debug traces in the source language; subsystem siblings follow the same classification.
 - Retain identifiers, function names, config keys, format specifiers, units, and other topic-4 tokens verbatim inside every translated or untranslated family.
 - Keep linguistic priority separate from token preservation: all translated families obey topics 4-5 regardless of review order.
+- Render the `BUG:` diagnostic prefix as "வழு:", held distinct from the "பிழை:" prefix that carries ordinary failures; the two severities never share a word.
+- Keep an identifier-plus-value diagnostic pair contiguous (eg `sweep_state=%d`); a qualifier precedes the whole pair and never stands between the identifier and its `=`.
