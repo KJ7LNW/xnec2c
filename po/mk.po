@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-13 18:29-0700\n"
+"POT-Creation-Date: 2026-08-17 01:20-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2831,8 +2831,8 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "конфигурациската датотека не постои или не е читлива: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:869 src/geometry.c:771 src/input.c:1793 src/input.c:1794
-#: src/mathlib.c:822 src/mathlib.c:1128 src/rdpattern_ui.c:364
+#: src/args.c:869 src/geometry.c:771 src/input.c:1825 src/input.c:1826
+#: src/mathlib.c:821 src/mathlib.c:1127 src/rdpattern_ui.c:364
 #: src/rdpattern_ui.c:372 src/rdpattern_ui.c:379 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
@@ -3749,6 +3749,11 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR наспроти фреквенција"
 
+#: src/freq_sweep_state.c:54
+#, c-format
+msgid "freq_sweep_row: invalid sweep_state=%d\n"
+msgstr "freq_sweep_row: неважечка sweep_state=%d\n"
+
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
 msgid ""
@@ -4344,15 +4349,15 @@ msgstr ""
 " Грешка при читање на влезна датотека\n"
 "Мнемоникот на коментар е неточен"
 
-#: src/input.c:211
+#: src/input.c:213
 msgid ""
 "Geometry data error\n"
-"Tag number is less than 1"
+"Tag number is negative"
 msgstr ""
-"Грешка во геометриски податоци\n"
-"Бројот на ознаката е помал од 1"
+"Грешка во геометриските податоци\n"
+"Бројот на ознаката е негативен"
 
-#: src/input.c:218
+#: src/input.c:220
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4360,16 +4365,28 @@ msgstr ""
 "Грешка во геометриски податоци\n"
 "Бројот на сегменти е помал од 1"
 
-#: src/input.c:225
+#: src/input.c:227
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "предупредување - бројот на сегменти е поголем од 1000000\n"
 
-#: src/input.c:273
+#: src/input.c:250
+#, c-format
+msgid ""
+"%s card: tag 0 selects segment %d by absolute position in the structure, not "
+"within a tagged wire; give the wire a tag number and reference the segment "
+"within that tag unless absolute positioning is intended\n"
+msgstr ""
+"%s-картичка: ознаката 0 избира сегмент %d според апсолутната положба во "
+"структурата, а не во означена жица; доделете ѝ на жицата број на ознака и "
+"повикајте се на сегментот во таа ознака, освен ако е наменето апсолутно "
+"позиционирање\n"
+
+#: src/input.c:297
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s грешка во картичка за податоци: Невалиден знак '%c' на колона %d\n"
 
-#: src/input.c:275
+#: src/input.c:299
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4377,33 +4394,33 @@ msgstr ""
 "Грешка во картичка за податоци\n"
 "Невалиден знак во картичката"
 
-#: src/input.c:346
+#: src/input.c:370
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: евалуацијата на изразот не успеа за \"%s\"\n"
 
-#: src/input.c:387
+#: src/input.c:411
 msgid "SY card: no line content available\n"
 msgstr "SY картичка: нема достапна содржина на линијата\n"
 
-#: src/input.c:388
+#: src/input.c:412
 msgid "SY card: no line content available"
 msgstr "SY картичка: нема достапна содржина на линијата"
 
-#: src/input.c:405
+#: src/input.c:429
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY картичка: недостасува '=' во дефиницијата\n"
 
-#: src/input.c:406
+#: src/input.c:430
 msgid "SY card: missing '=' in definition"
 msgstr "SY картичка: недостасува '=' во дефиницијата"
 
-#: src/input.c:439
+#: src/input.c:463
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY картичка: дефиницијата на симболот не успеа за %s=%s\n"
 
-#: src/input.c:626
+#: src/input.c:650
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4411,27 +4428,27 @@ msgstr ""
 "Грешка во геометриски податоци\n"
 "Нема GC картичка за конусна жица"
 
-#: src/input.c:633
+#: src/input.c:657
 msgid "Geometry GC data card error"
 msgstr "Грешка во геометриска GC картичка за податоци"
 
-#: src/input.c:649
+#: src/input.c:673
 msgid "Geometry GX data card error"
 msgstr "Грешка во геометриска GX картичка за податоци"
 
-#: src/input.c:672
+#: src/input.c:696
 msgid "Geometry GR data card error"
 msgstr "Грешка во геометриска GR картичка за податоци"
 
-#: src/input.c:726
+#: src/input.c:750
 msgid "No geometry data cards"
 msgstr "Нема картички за геометриски податоци"
 
-#: src/input.c:737
+#: src/input.c:761
 msgid "Probable invalid segment geometry.\n"
 msgstr "Веројатна невалидна геометрија на сегмент.\n"
 
-#: src/input.c:738
+#: src/input.c:762
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4441,39 +4458,39 @@ msgstr ""
 "Погледнете ги предупредувањата во конзолата за детали.\n"
 "Се обидува да продолжи..."
 
-#: src/input.c:744
+#: src/input.c:768
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Веројатна невалидна геометрија на сегмент (видете погоре)\n"
 
-#: src/input.c:748
+#: src/input.c:772
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() помина\n"
 
-#: src/input.c:785
+#: src/input.c:809
 #, c-format
 msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
 msgstr "грешка во податоци за сегмент: tag=%d si=%lf, bi=%lf\n"
 
-#: src/input.c:787
+#: src/input.c:811
 msgid "Segment data error, zero-length line?  See console."
 msgstr ""
 "Грешка во податоци за сегмент, линија со нулта должина?  Погледнете ја "
 "конзолата."
 
-#: src/input.c:827
+#: src/input.c:851
 msgid "Move GM data card error"
 msgstr "Грешка во картичка за поместување GM"
 
-#: src/input.c:843 src/input.c:884 src/input.c:901 src/input.c:919
-#: src/input.c:927
+#: src/input.c:867 src/input.c:908 src/input.c:925 src/input.c:943
+#: src/input.c:951
 msgid "Patch data card error"
 msgstr "Грешка во картичка за податоци за плочка"
 
-#: src/input.c:865
+#: src/input.c:889
 msgid "Patch data error"
 msgstr "Грешка во податоци за плочка"
 
-#: src/input.c:974
+#: src/input.c:998
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4481,60 +4498,60 @@ msgstr ""
 "\"GF\" картичка (NGF решение)\n"
 "не е поддржана"
 
-#: src/input.c:979
+#: src/input.c:1003
 msgid "Ignoring CM card in geometry"
 msgstr "Се игнорира CM картичка во геометријата"
 
-#: src/input.c:992
+#: src/input.c:1016
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "грешка во картичка за геометриски податоци (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:993
+#: src/input.c:1017
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:999
+#: src/input.c:1023
 msgid "Command card in geometry section"
 msgstr "Командна картичка во делот за геометрија"
 
-#: src/input.c:1001
+#: src/input.c:1025
 msgid "Unrecognized geometry card"
 msgstr "Непрепознаена картичка за геометрија"
 
-#: src/input.c:1025
+#: src/input.c:1049
 msgid "Failed to initialize symbol table\n"
 msgstr "Неуспешна иницијализација на табелата со симболи\n"
 
-#: src/input.c:1026
+#: src/input.c:1050
 msgid "Failed to initialize symbol table"
 msgstr "Неуспешна иницијализација на табелата со симболи"
 
-#: src/input.c:1208
+#: src/input.c:1232
 msgid "ignoring CM card in commands\n"
 msgstr "се игнорира CM картичка во командите\n"
 
-#: src/input.c:1209
+#: src/input.c:1233
 msgid "Ignoring CM card in commands"
 msgstr "Се игнорира CM картичка во командите"
 
-#: src/input.c:1219
+#: src/input.c:1245
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr ""
 "CP-картичката се игнорира: пресметката на спрегата не е имплементирана\n"
 
-#: src/input.c:1313
+#: src/input.c:1341
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "Се прескокнува дуплирана FR картичка на %g MHz\n"
 
-#: src/input.c:1395
+#: src/input.c:1423
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "Максимална фреквенција <= Минимална фреквенција во FR картичка\n"
 
-#: src/input.c:1396
+#: src/input.c:1424
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4542,7 +4559,7 @@ msgstr ""
 "Максимална фреквенција <= Минимална фреквенција во FR картичка\n"
 "Проверете ги податоците на FR картичката и поправете"
 
-#: src/input.c:1419
+#: src/input.c:1447
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4551,11 +4568,11 @@ msgstr ""
 "Поправете ги GE/GN картичките:\n"
 "GE картичката специфицира дека има заземјување, но GN покажува поинаку."
 
-#: src/input.c:1433
+#: src/input.c:1461
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "тета > 90 степени со специфицирано заземјување\n"
 
-#: src/input.c:1434 src/radiation.c:703
+#: src/input.c:1462 src/radiation.c:703
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4563,7 +4580,7 @@ msgstr ""
 "Тета > 90 степени со специфицирано заземјување\n"
 "Проверете ги податоците на RP картичката и поправете"
 
-#: src/input.c:1443
+#: src/input.c:1471
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
@@ -4571,7 +4588,7 @@ msgstr ""
 "апроксимација на радијална жица g.s.: не може да се користи со Sommerfeld "
 "опцијата за заземјување\n"
 
-#: src/input.c:1444
+#: src/input.c:1472
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4579,7 +4596,7 @@ msgstr ""
 "апроксимација на радијална жица g.s.\n"
 "не може да се користи со Sommerfeld опцијата за заземјување"
 
-#: src/input.c:1492
+#: src/input.c:1520
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -4588,7 +4605,7 @@ msgstr ""
 "грешка во податоци на картичка за оптоварување бр. %d: itag step1 %d е "
 "поголем од itag step2 %d\n"
 
-#: src/input.c:1494
+#: src/input.c:1522
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4596,14 +4613,14 @@ msgstr ""
 "Грешка во податоци на картичка за оптоварување\n"
 "itag step1 е поголем од itag step2"
 
-#: src/input.c:1622
+#: src/input.c:1651
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "Импеданса на преносна линија = 0: не е валидно. Поправете ја NT или TL "
 "картичката\n"
 
-#: src/input.c:1623
+#: src/input.c:1652
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4611,11 +4628,11 @@ msgstr ""
 "Импеданса на преносна линија = 0\n"
 "не е валидно. Поправете ја NT или TL картичката"
 
-#: src/input.c:1632
+#: src/input.c:1663
 msgid "Segment number error in TL or NT card\n"
 msgstr "Грешка во број на сегмент во TL или NT картичка\n"
 
-#: src/input.c:1633
+#: src/input.c:1664
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4623,22 +4640,22 @@ msgstr ""
 "Грешка во број на сегмент\n"
 "во NT или TL картичка"
 
-#: src/input.c:1654
+#: src/input.c:1686
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr ""
 "PQ и PT картичките се игнорираат: печатењето во датотека не е "
 "имплементирано\n"
 
-#: src/input.c:1658
+#: src/input.c:1690
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PL-картичката се игнорира: исцртувањето во датотека не е поддржано\n"
 
-#: src/input.c:1664
+#: src/input.c:1696
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr ""
 "Опција за површински бран (I1=1): од RP командата не е имплементирана\n"
 
-#: src/input.c:1665
+#: src/input.c:1697
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4646,25 +4663,25 @@ msgstr ""
 "Опција за површински бран (I1=1)\n"
 "од RP командата не е имплементирана"
 
-#: src/input.c:1690
+#: src/input.c:1722
 msgid "Average gain diagnostic enabled (use --skip-verify to disable)\n"
 msgstr ""
 "Дијагностиката на просечен добиток е овозможена (користете --skip-verify за "
 "оневозможување)\n"
 
-#: src/input.c:1699
+#: src/input.c:1731
 #, c-format
 msgid "Average power gain disabled: nth=%d nph=%d (both must be >= 2)\n"
 msgstr ""
 "Просечен добиток на моќност е оневозможен: nth=%d nph=%d (и двете мора да "
 "бидат >= 2)\n"
 
-#: src/input.c:1704
+#: src/input.c:1736
 #, c-format
 msgid "Average power gain calculation enabled (XNDA A=%d)\n"
 msgstr "Пресметката на просечен добиток на моќност е овозможена (XNDA A=%d)\n"
 
-#: src/input.c:1720
+#: src/input.c:1752
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4672,7 +4689,7 @@ msgstr ""
 "Тета > 90 степени со специфицирано заземјување: Проверете ги податоците на "
 "RP картичката и поправете\n"
 
-#: src/input.c:1721
+#: src/input.c:1753
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4680,15 +4697,15 @@ msgstr ""
 "Тета > 90 степени со специфицирано заземјување\n"
 "Проверете ги податоците на RP картичката и поправете"
 
-#: src/input.c:1789
+#: src/input.c:1821
 msgid "Geometry card in command section"
 msgstr "Картичка за геометрија во делот за команди"
 
-#: src/input.c:1792
+#: src/input.c:1824
 msgid "Unrecognized command card"
 msgstr "Непрепознаена командна картичка"
 
-#: src/input.c:1827
+#: src/input.c:1859
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4696,11 +4713,11 @@ msgstr ""
 "Недостасува или површинско-бранова RP картичка: Пресметките на дијаграм на "
 "зрачење и добиток се оневозможени\n"
 
-#: src/input.c:1854
+#: src/input.c:1886
 msgid "Unexpected exit from while loop"
 msgstr "Неочекуван излез од while циклус"
 
-#: src/input.c:1945
+#: src/input.c:1977
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4708,7 +4725,7 @@ msgstr ""
 "грешка во командна картичка за податоци: Неочекуван EOF при читање на влезна "
 "датотека - се додава EN картичка\n"
 
-#: src/input.c:1946
+#: src/input.c:1978
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4718,13 +4735,13 @@ msgstr ""
 "Неочекуван EOF при читање на влезна датотека\n"
 "Се додава стандардна EN картичка"
 
-#: src/input.c:1963
+#: src/input.c:1995
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "грешка во командна картичка за податоци: мнемоничкиот код на картичката е "
 "прекраток или недостасува\n"
 
-#: src/input.c:1964
+#: src/input.c:1996
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4732,7 +4749,7 @@ msgstr ""
 "Грешка во командна картичка за податоци\n"
 "Мнемоничкиот код е прекраток или недостасува"
 
-#: src/input.c:2165
+#: src/input.c:2197
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4740,7 +4757,7 @@ msgstr ""
 "грешка во картичка за геометриски податоци: Неочекуван EOF при читање на "
 "влезна датотека - се додава GE картичка\n"
 
-#: src/input.c:2166
+#: src/input.c:2198
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4750,13 +4767,13 @@ msgstr ""
 "Неочекуван EOF при читање на влезна датотека\n"
 "Се додава стандардна GE картичка"
 
-#: src/input.c:2183
+#: src/input.c:2215
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "грешка во картичка за геометриски податоци: мнемоничкиот код на картичката е "
 "прекраток или недостасува\n"
 
-#: src/input.c:2184
+#: src/input.c:2216
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4824,87 +4841,87 @@ msgstr ""
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: неуспешно вчитување на animate.glade: %s\n"
 
-#: src/main.c:127
+#: src/main.c:126
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Детектиран %s прозорски backend\n"
 
-#: src/main.c:135
+#: src/main.c:134
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch и --optimize се меѓусебно исклучиви.\n"
 
-#: src/main.c:144
+#: src/main.c:143
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png бара --batch\n"
 
-#: src/main.c:160
+#: src/main.c:159
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "патеката на влезната датотека е предолга ( > %d знаци )\n"
 
-#: src/main.c:167
+#: src/main.c:166
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "неочекуван аргумент '%s' не изгледа како .nec датотека\n"
 
-#: src/main.c:174
+#: src/main.c:173
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "неочекуван аргумент: %s\n"
 
-#: src/main.c:180
+#: src/main.c:179
 msgid "batch mode requires an input file\n"
 msgstr "batch режимот бара влезна датотека\n"
 
-#: src/main.c:190
+#: src/main.c:189
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "не може да се отвори приказот: потребна е активна X11 или Wayland сесија\n"
 
-#: src/main.c:209
+#: src/main.c:208
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Се форкаат %d задачи на %d процесори.\n"
 
-#: src/main.c:222 src/main.c:230
+#: src/main.c:221 src/main.c:229
 msgid "exiting after fatal error: pipe() failed"
 msgstr "излегување по фатална грешка: pipe() не успеа"
 
-#: src/main.c:239
+#: src/main.c:238
 msgid "exiting after fatal error: fork() failed"
 msgstr "излегување по фатална грешка: fork() не успеа"
 
-#: src/main.c:825
+#: src/main.c:824
 msgid "exiting via user interrupt\n"
 msgstr "излегување по прекин од корисникот\n"
 
-#: src/main.c:829
+#: src/main.c:828
 msgid "segmentation fault, exiting\n"
 msgstr "грешка во сегментација, излегување\n"
 
-#: src/main.c:833
+#: src/main.c:832
 msgid "floating point exception, exiting\n"
 msgstr "исклучок со подвижна запирка, излегување\n"
 
-#: src/main.c:837
+#: src/main.c:836
 msgid "abort signal received, exiting\n"
 msgstr "примен сигнал за прекин, излегување\n"
 
-#: src/main.c:841
+#: src/main.c:840
 msgid "termination request received, exiting\n"
 msgstr "примено барање за завршување, излегување\n"
 
-#: src/main.c:851
+#: src/main.c:850
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "не е разгранет, се игнорира SIGCHLD од pid %d\n"
 
-#: src/main.c:859
+#: src/main.c:858
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "детскиот процес pid %d заврши\n"
 
-#: src/main.c:868
+#: src/main.c:867
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "стандардно излегување со сигнал: %d\n"
@@ -4934,28 +4951,28 @@ msgid "open_mathlib: lib is NULL\n"
 msgstr "open_mathlib: lib е NULL\n"
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:360 src/utils.c:729
+#: src/mathlib.c:359 src/utils.c:729
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
 
-#: src/mathlib.c:365
+#: src/mathlib.c:364
 #, c-format
 msgid "%s: opened %s\n"
 msgstr "%s: отворено %s\n"
 
-#: src/mathlib.c:373
+#: src/mathlib.c:372
 #, c-format
 msgid "%s: library not found or nonfunctional, skipping: %s\n"
 msgstr ""
 "%s: библиотеката не е пронајдена или не функционира, се прескокнува: %s\n"
 
-#: src/mathlib.c:398
+#: src/mathlib.c:397
 #, c-format
 msgid "  %s: unable to bind %s: %s\n"
 msgstr "  %s: неможно поврзување на %s: %s\n"
 
-#: src/mathlib.c:426
+#: src/mathlib.c:425
 #, c-format
 msgid ""
 "%s=%s is set, so thread counts are not chosen per job, which affects "
@@ -4964,17 +4981,17 @@ msgstr ""
 "%s=%s е поставено, па бројот на нишки не се избира по задача, што влијае врз "
 "перформансите\n"
 
-#: src/mathlib.c:446
+#: src/mathlib.c:445
 #, c-format
 msgid "%s: loaded\n"
 msgstr "%s: вчитано\n"
 
-#: src/mathlib.c:516
+#: src/mathlib.c:515
 #, c-format
 msgid "Migrated legacy mathlib index %d to ID '%s'\n"
 msgstr "Мигриран застарен индекс на mathlib %d кон ID '%s'\n"
 
-#: src/mathlib.c:521
+#: src/mathlib.c:520
 #, c-format
 msgid ""
 "Legacy mathlib index %d out of range [0-%d], triggering first-run scan\n"
@@ -4982,41 +4999,41 @@ msgstr ""
 "Застарен индекс на mathlib %d е надвор од опсег [0-%d], се активира "
 "скенирање при прв старт\n"
 
-#: src/mathlib.c:550
+#: src/mathlib.c:549
 #, c-format
 msgid "Mathlib ID '%s' not found in available libraries.\n"
 msgstr "ID на Mathlib '%s' не е пронајден во достапните библиотеки.\n"
 
-#: src/mathlib.c:552
+#: src/mathlib.c:551
 #, c-format
 msgid "Mathlib '%s' is not available.\n"
 msgstr "Mathlib '%s' не е достапна.\n"
 
-#: src/mathlib.c:557
+#: src/mathlib.c:556
 #, c-format
 msgid "Selected first available mathlib: %s\n"
 msgstr "Избрана прва достапна mathlib: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:652
+#: src/mathlib.c:651
 msgid "mathlib_load: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:661
+#: src/mathlib.c:660
 #, c-format
 msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
 msgstr "mathlib_load[%d]: mathlib.available=0, се прескокнува: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:706
+#: src/mathlib.c:705
 msgid "set_mathlib_batch: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:711
+#: src/mathlib.c:710
 msgid "Batch Math Library"
 msgstr "Групна математичка библиотека"
 
-#: src/mathlib.c:712
+#: src/mathlib.c:711
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5026,20 +5043,20 @@ msgstr ""
 "j на командната линија. (Меѓутоа, овој избор ќе биде зачуван за следниот пат "
 "кога ќе се отвори xnec2c.)\n"
 
-#: src/mathlib.c:751
+#: src/mathlib.c:750
 #, c-format
 msgid "%s: benchmark=%d\n"
 msgstr "%s: бенчмарк=%d\n"
 
-#: src/mathlib.c:822
+#: src/mathlib.c:821
 msgid "Mathlib Help"
 msgstr "Mathlib помош"
 
-#: src/mathlib.c:858
+#: src/mathlib.c:857
 msgid "Mathlib Benchmark Help"
 msgstr "Mathlib помош за бенчмарк"
 
-#: src/mathlib.c:860
+#: src/mathlib.c:859
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5137,22 +5154,22 @@ msgstr ""
 "важен кога во едно скенирање остануваат помалку фреквенции за пресметување "
 "отколку што имате процесори.\n"
 
-#: src/mathlib.c:922
+#: src/mathlib.c:921
 #, c-format
 msgid "bench_append: vsnprintf failed for \"%s\"\n"
 msgstr "bench_append: vsnprintf не успеа за \"%s\"\n"
 
-#: src/mathlib.c:949
+#: src/mathlib.c:948
 #, c-format
 msgid "mathlib_benchmark: invalid mode=%d\n"
 msgstr "mathlib_benchmark: неважечки mode=%d\n"
 
-#: src/mathlib.c:959 src/mathlib.c:969 src/mathlib.c:976 src/mathlib.c:982
-#: src/mathlib.c:999 src/mathlib.c:1004 src/mathlib.c:1128
+#: src/mathlib.c:958 src/mathlib.c:968 src/mathlib.c:975 src/mathlib.c:981
+#: src/mathlib.c:998 src/mathlib.c:1003 src/mathlib.c:1127
 msgid "Mathlib Benchmark"
 msgstr "Mathlib бенчмарк"
 
-#: src/mathlib.c:960
+#: src/mathlib.c:959
 #, c-format
 msgid ""
 "%s=%s states the thread count of every library that honors it, so a thread "
@@ -5163,15 +5180,15 @@ msgstr ""
 "реперот за нишки го мери истиот број при секое поминување.  Поништете го и "
 "рестартирајте за да направите репер на броевите на нишки."
 
-#: src/mathlib.c:970
+#: src/mathlib.c:969
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "Бенчмарковите се исклучени додека оптимизацијата е активирана."
 
-#: src/mathlib.c:977
+#: src/mathlib.c:976
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "Мора да вчитате NEC2 влезна датотека пред да извршите бенчмаркови."
 
-#: src/mathlib.c:983
+#: src/mathlib.c:982
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5179,15 +5196,15 @@ msgstr ""
 "Изборот на бенчмарк различен од \"Единечна задача\" нема ефект освен ако не "
 "е наведено -j на командната линија."
 
-#: src/mathlib.c:1000
+#: src/mathlib.c:999
 msgid "You must select at least one math library to benchmark"
 msgstr "Мора да изберете барем една математичка библиотека за бенчмарк"
 
-#: src/mathlib.c:1005
+#: src/mathlib.c:1004
 msgid "Run the benchmark now?"
 msgstr "Дали сакате да го извршите реперот сега?"
 
-#: src/mathlib.c:1006
+#: src/mathlib.c:1005
 #, c-format
 msgid ""
 "This will run a frequency loop benchmark for each detected linear algebra "
@@ -5238,29 +5255,29 @@ msgstr ""
 "\n"
 "Овој дијалог ќе се затвори кога ќе заврши реперот."
 
-#: src/mathlib.c:1066
+#: src/mathlib.c:1065
 #, c-format
 msgid "Starting %s benchmark (%s %d)\n"
 msgstr "Се започнува реперот %s (%s %d)\n"
 
-#: src/mathlib.c:1077
+#: src/mathlib.c:1076
 #, c-format
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Скенирањето за репер не се изврши: FR_cards=%d steps_total=%d\n"
 
-#: src/mathlib.c:1111
+#: src/mathlib.c:1110
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "измерено еднаш: оваа библиотека го задржува бројот на нишки со кој е "
 "изградена"
 
-#: src/mathlib.c:1168
+#: src/mathlib.c:1167
 #, c-format
 msgid "mathlib_lock_intel: Cannot find library for mathlib ID='%s'\n"
 msgstr ""
 "mathlib_lock_intel: Не може да се пронајде библиотека за mathlib ID='%s'\n"
 
-#: src/mathlib.c:1179
+#: src/mathlib.c:1178
 #, c-format
 msgid ""
 "\n"
@@ -5288,66 +5305,66 @@ msgstr ""
 "* Видете ја документацијата на Intel за mkl_set_threading_layer() за повеќе "
 "детали.\n"
 
-#: src/mathlib.c:1254
+#: src/mathlib.c:1253
 msgid "zgetrf: current_mathlib is NULL, this should never happen.\n"
 msgstr "zgetrf: current_mathlib е NULL, ова никогаш не треба да се случи.\n"
 
-#: src/mathlib.c:1278 src/mathlib.c:1323
+#: src/mathlib.c:1277 src/mathlib.c:1322
 #, c-format
 msgid "%s: unsupported mathlib type %d\n"
 msgstr "%s: неподдржан тип на mathlib %d\n"
 
-#: src/mathlib.c:1291
+#: src/mathlib.c:1290
 msgid "zgetrs: current_mathlib is NULL, this should never happen.\n"
 msgstr "zgetrs: current_mathlib е NULL, ова никогаш не треба да се случи.\n"
 
-#: src/mathlib.c:1316
+#: src/mathlib.c:1315
 #, c-format
 msgid "zgetrs warning: lda(%d) != ldb(%d)\n"
 msgstr "zgetrs предупредување: lda(%d) != ldb(%d)\n"
 
-#: src/mathlib.c:1367 src/mathlib.c:1430
+#: src/mathlib.c:1366 src/mathlib.c:1429
 #, c-format
 msgid "%s: lib is NULL\n"
 msgstr "%s: lib е NULL\n"
 
-#: src/mathlib.c:1412
+#: src/mathlib.c:1411
 #, c-format
 msgid "%s: thread count cannot be bounded, dlsym(%s): %s\n"
 msgstr "%s: бројот на нишки не може да се ограничи, dlsym(%s): %s\n"
 
-#: src/mathlib.c:1436
+#: src/mathlib.c:1435
 #, c-format
 msgid "%s: thread count is %d\n"
 msgstr "%s: бројот на нишки е %d\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:1460
+#: src/mathlib.c:1459
 #, c-format
 msgid "dlsym(mkl_set_threading_layer): %s\n"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: src/matrix.c:1223
+#: src/matrix.c:1236
 #, c-format
 msgid "pivot(%d)= %16.8E\n"
 msgstr ""
 
-#: src/matrix.c:1257
+#: src/matrix.c:1270
 #, c-format
 msgid "LU Decomposition Failed: %d\n"
 msgstr "LU декомпозицијата не успеа: %d\n"
 
-#: src/matrix.c:1313
+#: src/matrix.c:1326
 #, c-format
 msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "грешка во симетрија - nrow:%d ncol:%d\n"
 
-#: src/matrix.c:1314
+#: src/matrix.c:1327
 msgid "Symmetry error"
 msgstr "Грешка во симетрија"
 
-#: src/matrix.c:1418
+#: src/matrix.c:1431
 #, c-format
 msgid "Solving Failed: %d\n"
 msgstr "Решавањето не успеа: %d\n"
@@ -5373,8 +5390,8 @@ msgstr ""
 
 #: src/measurements.c:628
 #, c-format
-msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
-msgstr "ГРЕШКА: save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
+msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
+msgstr "ГРЕШКА: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
 
 #: src/measurements.c:631
 #, c-format
@@ -5395,50 +5412,72 @@ msgstr "meas_name_idx: Невалидно ime со должина=%d: %s\n"
 msgid "meas_format: output overflow\n"
 msgstr "meas_format: прелив на излез\n"
 
-#: src/mem/mem.c:22
+#: src/mem/mem.c:24
 #, c-format
 msgid "mem_obj_from_ptr: ptr %p does not match m->ptr %p (base %p)\n"
 msgstr "mem_obj_from_ptr: ptr %p не совпаѓа со m->ptr %p (база %p)\n"
 
-#: src/mem/mem.c:194
+#: src/mem/mem.c:196
 #, c-format
 msgid "Memory allocation denied %s: requested %lu bytes\n"
 msgstr "Алокацијата на меморија е одбиена %s: побарани %lu бајти\n"
 
-#: src/mem/mem.c:219
+#: src/mem/mem.c:221
 #, c-format
 msgid "mem_free at %s: array block element size %lu; use mem_array_free\n"
 msgstr ""
 "mem_free во %s: големина на елемент во блок-низа %lu; користете "
 "mem_array_free\n"
 
-#: src/mem/mem.c:238
+#: src/mem/mem.c:240
 #, c-format
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t на %p: големина=%lu искористено=%lu адреса=%p\n"
 
 # xnec2c-exempt: name
-#: src/mem/mem.c:259
+#: src/mem/mem.c:261
 #, c-format
 msgid "mem_backtrace(%p):\n"
 msgstr ""
 
-#: src/mem/mem.c:262
+#: src/mem/mem.c:264
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace е null, нема податоци за следење\n"
 
-#: src/mem/mem.c:288
+#: src/mem/mem.c:290
 #, c-format
 msgid "mem_clone: allocation failed for %lu bytes\n"
 msgstr "mem_clone: алокацијата не успеа за %lu бајти\n"
 
-#: src/mem/mem.c:345
+#: src/mem/mem.c:358
+#, c-format
+msgid "managed copy: %lu bytes exceed destination used %lu\n"
+msgstr ""
+"управувано копирање: %lu бајти ги надминуваат искористените %lu бајти на "
+"одредиштето\n"
+
+#: src/mem/mem.c:361
+#, c-format
+msgid ""
+"managed copy: source overlaps destination at distance %lu over %lu bytes\n"
+msgstr ""
+"управувано копирање: изворот се преклопува со одредиштето на растојание од "
+"%lu преку %lu бајти\n"
+
+#: src/mem/mem.c:404
 #, c-format
 msgid "mem_array verb: element size %lu does not match header %lu\n"
 msgstr ""
 "mem_array verb: големина на елемент %lu не се совпаѓа со заглавје %lu\n"
 
-#: src/mem/mem.c:437
+#: src/mem/mem.c:434
+#, c-format
+msgid "mem_array_cpy: %lu elements exceed destination count %lu\n"
+msgstr ""
+"mem_array_cpy: %lu елементи го надминуваат бројот на елементи на одредиштето "
+"%lu\n"
+
+#: src/mem/mem.c:535
 #, c-format
 msgid "mem_zero: array block element size %lu; use mem_array_zero\n"
 msgstr ""
@@ -5762,18 +5801,18 @@ msgstr "inotify: прочитани %zd бајти од inotify fd\n"
 #: src/optimize.c:406
 #, c-format
 msgid ""
-"inotify: SKIP all events (flags) - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT=%d "
-"INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: SKIP all events (flags) - FREQ_LOOP_INIT=%d INPUT_PENDING=%d "
+"sweep_state=%s\n"
 msgstr ""
-"inotify: ПРЕСКОКНИ ги сите настани (знамиња) - FREQ_LOOP_RUNNING=%d "
-"FREQ_LOOP_INIT=%d INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: ПРЕСКОКНИ ги сите настани (знамиња) - FREQ_LOOP_INIT=%d "
+"INPUT_PENDING=%d sweep_state=%s\n"
 
-#: src/optimize.c:424
+#: src/optimize.c:423
 #, c-format
 msgid "inotify: EVENT @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 msgstr "inotify: НАСТАН @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 
-#: src/optimize.c:428
+#: src/optimize.c:427
 #, c-format
 msgid ""
 "inotify: EVENT flags: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
@@ -5782,27 +5821,27 @@ msgstr ""
 "inotify: ЗНАМИЊА НА НАСТАН: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM="
 "%d IN_CREATE=%d IN_DELETE=%d IN_MODIFY=%d\n"
 
-#: src/optimize.c:436
+#: src/optimize.c:435
 #, c-format
 msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify: ФИЛТЕР: target='%s' event_name='%s' match=%d\n"
 
-#: src/optimize.c:443
+#: src/optimize.c:442
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: ПРЕСКОКНИ настан (несогласување на имиња на датотеки)\n"
 
-#: src/optimize.c:450
+#: src/optimize.c:449
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: IN_MODIFY на цел, modify_seen=TRUE\n"
 
-#: src/optimize.c:458
+#: src/optimize.c:457
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
 "inotify: IN_MOVED_TO на цел (атомско запишување завршено), се активира "
 "повторно вчитување\n"
 
-#: src/optimize.c:475
+#: src/optimize.c:474
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5810,7 +5849,7 @@ msgstr ""
 "inotify: IN_CLOSE_WRITE по modify_seen=TRUE (директно запишување завршено), "
 "се активира повторно вчитување\n"
 
-#: src/optimize.c:487
+#: src/optimize.c:486
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5818,17 +5857,17 @@ msgstr ""
 "inotify: IN_CLOSE_WRITE без modify_seen (случајно затворање, стар јазол), се "
 "прескокнува\n"
 
-#: src/optimize.c:494
+#: src/optimize.c:493
 #, c-format
 msgid "inotify: SKIP event (not MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 msgstr ""
 "inotify: ПРЕСКОКНИ настан (не е MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 
-#: src/optimize.c:527
+#: src/optimize.c:526
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "не успеа да се создаде eventfd за будење на оптимизаторот\n"
 
-#: src/optimize.c:538
+#: src/optimize.c:537
 msgid "failed to create Optimizer Output thread\n"
 msgstr "не успеа да се креира нишка за излез на Оптимизаторот\n"
 
@@ -5837,12 +5876,12 @@ msgstr "не успеа да се креира нишка за излез на �
 msgid "fitness_config_add: invalid meas_index %d\n"
 msgstr "fitness_config_add: невалиден meas_index %d\n"
 
-#: src/optimizers/opt_fitness.c:472
+#: src/optimizers/opt_fitness.c:471
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: непозната насока %d\n"
 
-#: src/optimizers/opt_fitness.c:545
+#: src/optimizers/opt_fitness.c:544
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: непознат метод на редукција %d\n"
@@ -6574,19 +6613,19 @@ msgstr ""
 "валидација: прегледувачот на структура е ресетиран на стандардна ориентација "
 "заради репродуцибилност\n"
 
-#: src/validation_dump.c:593 src/validation_dump.c:599
+#: src/validation_dump.c:601 src/validation_dump.c:607
 msgid "Validation Tree"
 msgstr "Дрво за валидација"
 
-#: src/validation_dump.c:593
+#: src/validation_dump.c:601
 msgid "Cannot save: frequency loop not done"
 msgstr "Не можат да се зачуваат податоци додека работи фреквенцискиот циклус"
 
-#: src/validation_dump.c:599
+#: src/validation_dump.c:607
 msgid "Cannot create output directory"
 msgstr "Не може да се создаде излезен директориум"
 
-#: src/validation_dump.c:631
+#: src/validation_dump.c:639
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "дрвото за валидација е запишано во: %s\n"
@@ -6687,21 +6726,21 @@ msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "повеќе PNG формати на дијаграмот на зрачење бараат име на датотека .png: %s\n"
 
-#: src/xnec2c.c:2020
+#: src/xnec2c.c:2021
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "скенирањето извршува %d работници со по %d нишки\n"
 
-#: src/xnec2c.c:2195
+#: src/xnec2c.c:2196
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: неважечки batch_mode=%d\n"
 
-#: src/xnec2c.c:2201
+#: src/xnec2c.c:2202
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: неважечки stopped=%d\n"
 
-#: src/xnec2c.c:2314
+#: src/xnec2c.c:2315
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "не успеа да се стартува Frequency_Loop_Thread\n"

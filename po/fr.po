@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-13 18:29-0700\n"
+"POT-Creation-Date: 2026-08-17 01:20-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2865,8 +2865,8 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "le fichier de configuration n'existe pas ou n'est pas lisible : %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:869 src/geometry.c:771 src/input.c:1793 src/input.c:1794
-#: src/mathlib.c:822 src/mathlib.c:1128 src/rdpattern_ui.c:364
+#: src/args.c:869 src/geometry.c:771 src/input.c:1825 src/input.c:1826
+#: src/mathlib.c:821 src/mathlib.c:1127 src/rdpattern_ui.c:364
 #: src/rdpattern_ui.c:372 src/rdpattern_ui.c:379 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
@@ -3803,6 +3803,11 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR vs Fréquence"
 
+#: src/freq_sweep_state.c:54
+#, c-format
+msgid "freq_sweep_row: invalid sweep_state=%d\n"
+msgstr "freq_sweep_row: sweep_state non valide=%d\n"
+
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
 msgid ""
@@ -4405,15 +4410,15 @@ msgstr ""
 " Erreur de lecture du fichier d'entrée\n"
 "Mnémonique de commentaire incorrect"
 
-#: src/input.c:211
+#: src/input.c:213
 msgid ""
 "Geometry data error\n"
-"Tag number is less than 1"
+"Tag number is negative"
 msgstr ""
-"Erreur de données géométriques\n"
-"Le numéro de tag est inférieur à 1"
+"Erreur de données de géométrie\n"
+"Le numéro de tag est négatif"
 
-#: src/input.c:218
+#: src/input.c:220
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4421,17 +4426,29 @@ msgstr ""
 "Erreur de données géométriques\n"
 "Le nombre de segments est inférieur à 1"
 
-#: src/input.c:225
+#: src/input.c:227
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "avertissement - le nombre de segments est supérieur à 1000000\n"
 
-#: src/input.c:273
+#: src/input.c:250
+#, c-format
+msgid ""
+"%s card: tag 0 selects segment %d by absolute position in the structure, not "
+"within a tagged wire; give the wire a tag number and reference the segment "
+"within that tag unless absolute positioning is intended\n"
+msgstr ""
+"%s carte : le tag 0 sélectionne le segment %d par position absolue dans la "
+"structure, et non dans un fil marqué ; attribuez un numéro de tag au fil et "
+"référencez le segment dans ce tag, sauf si le positionnement absolu est "
+"voulu\n"
+
+#: src/input.c:297
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr ""
 "erreur de carte de données %s : Caractère parasite '%c' à la colonne %d\n"
 
-#: src/input.c:275
+#: src/input.c:299
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4439,33 +4456,33 @@ msgstr ""
 "Erreur de carte de données\n"
 "Caractère parasite dans la carte"
 
-#: src/input.c:346
+#: src/input.c:370
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s : échec de l'évaluation de l'expression pour \"%s\"\n"
 
-#: src/input.c:387
+#: src/input.c:411
 msgid "SY card: no line content available\n"
 msgstr "Carte SY : aucun contenu de ligne disponible\n"
 
-#: src/input.c:388
+#: src/input.c:412
 msgid "SY card: no line content available"
 msgstr "Carte SY : aucun contenu de ligne disponible"
 
-#: src/input.c:405
+#: src/input.c:429
 msgid "SY card: missing '=' in definition\n"
 msgstr "Carte SY : '=' manquant dans la définition\n"
 
-#: src/input.c:406
+#: src/input.c:430
 msgid "SY card: missing '=' in definition"
 msgstr "Carte SY : '=' manquant dans la définition"
 
-#: src/input.c:439
+#: src/input.c:463
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "Carte SY : échec de la définition du symbole pour %s=%s\n"
 
-#: src/input.c:626
+#: src/input.c:650
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4473,27 +4490,27 @@ msgstr ""
 "Erreur de données géométriques\n"
 "Pas de carte GC pour le fil effilé"
 
-#: src/input.c:633
+#: src/input.c:657
 msgid "Geometry GC data card error"
 msgstr "Erreur de carte de données géométriques GC"
 
-#: src/input.c:649
+#: src/input.c:673
 msgid "Geometry GX data card error"
 msgstr "Erreur de carte de données géométriques GX"
 
-#: src/input.c:672
+#: src/input.c:696
 msgid "Geometry GR data card error"
 msgstr "Erreur de carte de données géométriques GR"
 
-#: src/input.c:726
+#: src/input.c:750
 msgid "No geometry data cards"
 msgstr "Aucune carte de données géométriques"
 
-#: src/input.c:737
+#: src/input.c:761
 msgid "Probable invalid segment geometry.\n"
 msgstr "Géométrie de segment probablement invalide.\n"
 
-#: src/input.c:738
+#: src/input.c:762
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4503,38 +4520,38 @@ msgstr ""
 "Voir les avertissements dans la console pour plus de détails.\n"
 "Tentative de continuer..."
 
-#: src/input.c:744
+#: src/input.c:768
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Géométrie de segment probablement invalide (voir ci-dessus)\n"
 
-#: src/input.c:748
+#: src/input.c:772
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry : verify_segments() réussi\n"
 
-#: src/input.c:785
+#: src/input.c:809
 #, c-format
 msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
 msgstr "erreur de données de segment : tag=%d si=%lf, bi=%lf\n"
 
-#: src/input.c:787
+#: src/input.c:811
 msgid "Segment data error, zero-length line?  See console."
 msgstr ""
 "Erreur de données de segment, ligne de longueur nulle ? Voir la console."
 
-#: src/input.c:827
+#: src/input.c:851
 msgid "Move GM data card error"
 msgstr "Erreur de carte de données de déplacement GM"
 
-#: src/input.c:843 src/input.c:884 src/input.c:901 src/input.c:919
-#: src/input.c:927
+#: src/input.c:867 src/input.c:908 src/input.c:925 src/input.c:943
+#: src/input.c:951
 msgid "Patch data card error"
 msgstr "Erreur de carte de données patch"
 
-#: src/input.c:865
+#: src/input.c:889
 msgid "Patch data error"
 msgstr "Erreur de données patch"
 
-#: src/input.c:974
+#: src/input.c:998
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4542,59 +4559,59 @@ msgstr ""
 "La carte \"GF\" (solution NGF)\n"
 "n'est pas prise en charge"
 
-#: src/input.c:979
+#: src/input.c:1003
 msgid "Ignoring CM card in geometry"
 msgstr "Carte CM ignorée dans la géométrie"
 
-#: src/input.c:992
+#: src/input.c:1016
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "erreur de carte de données géométriques (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:993
+#: src/input.c:1017
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:999
+#: src/input.c:1023
 msgid "Command card in geometry section"
 msgstr "Carte de commande dans la section géométrie"
 
-#: src/input.c:1001
+#: src/input.c:1025
 msgid "Unrecognized geometry card"
 msgstr "Carte de géométrie non reconnue"
 
-#: src/input.c:1025
+#: src/input.c:1049
 msgid "Failed to initialize symbol table\n"
 msgstr "Échec de l'initialisation de la table des symboles\n"
 
-#: src/input.c:1026
+#: src/input.c:1050
 msgid "Failed to initialize symbol table"
 msgstr "Échec de l'initialisation de la table des symboles"
 
-#: src/input.c:1208
+#: src/input.c:1232
 msgid "ignoring CM card in commands\n"
 msgstr "carte CM ignorée dans les commandes\n"
 
-#: src/input.c:1209
+#: src/input.c:1233
 msgid "Ignoring CM card in commands"
 msgstr "Carte CM ignorée dans les commandes"
 
-#: src/input.c:1219
+#: src/input.c:1245
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "La carte CP est ignorée : le calcul de couplage n'est pas implémenté\n"
 
-#: src/input.c:1313
+#: src/input.c:1341
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "Carte FR dupliquée ignorée à %g MHz\n"
 
-#: src/input.c:1395
+#: src/input.c:1423
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "Fréquence max <= Fréquence min dans la carte FR\n"
 
-#: src/input.c:1396
+#: src/input.c:1424
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4602,7 +4619,7 @@ msgstr ""
 "Fréquence max <= Fréquence min dans la carte FR\n"
 "Veuillez vérifier les données de la carte FR et corriger"
 
-#: src/input.c:1419
+#: src/input.c:1447
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4612,11 +4629,11 @@ msgstr ""
 "La carte GE spécifie qu'un plan de masse est présent, mais la carte GN "
 "indique le contraire."
 
-#: src/input.c:1433
+#: src/input.c:1461
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 deg. avec plan de masse spécifié\n"
 
-#: src/input.c:1434 src/radiation.c:703
+#: src/input.c:1462 src/radiation.c:703
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4624,7 +4641,7 @@ msgstr ""
 "Theta > 90 deg avec plan de masse spécifié\n"
 "Veuillez vérifier les données de la carte RP et corriger"
 
-#: src/input.c:1443
+#: src/input.c:1471
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
@@ -4632,7 +4649,7 @@ msgstr ""
 "approximation g.s. des fils radiaux : ne peut pas être utilisée avec "
 "l'option de sol Sommerfeld\n"
 
-#: src/input.c:1444
+#: src/input.c:1472
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4640,7 +4657,7 @@ msgstr ""
 "approximation g.s. des fils radiaux\n"
 "ne peut pas être utilisée avec l'option de sol Sommerfeld"
 
-#: src/input.c:1492
+#: src/input.c:1520
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -4649,7 +4666,7 @@ msgstr ""
 "erreur de données sur la carte de charge n° %d : itag step1 %d est supérieur "
 "à itag step2 %d\n"
 
-#: src/input.c:1494
+#: src/input.c:1522
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4657,14 +4674,14 @@ msgstr ""
 "Erreur de données sur la carte de charge\n"
 "itag step1 est supérieur à itag step2"
 
-#: src/input.c:1622
+#: src/input.c:1651
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "Impédance de ligne de transmission = 0 : non valide. Veuillez corriger la "
 "carte NT ou TL\n"
 
-#: src/input.c:1623
+#: src/input.c:1652
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4672,11 +4689,11 @@ msgstr ""
 "Impédance de ligne de transmission = 0\n"
 "n'est pas valide. Veuillez corriger la carte NT ou TL"
 
-#: src/input.c:1632
+#: src/input.c:1663
 msgid "Segment number error in TL or NT card\n"
 msgstr "Erreur de numéro de segment dans la carte TL ou NT\n"
 
-#: src/input.c:1633
+#: src/input.c:1664
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4684,22 +4701,22 @@ msgstr ""
 "Erreur de numéro de segment\n"
 "dans la carte NT ou TL"
 
-#: src/input.c:1654
+#: src/input.c:1686
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr ""
 "Les cartes PQ et PT sont ignorées : l'impression dans un fichier n'est pas "
 "implémentée\n"
 
-#: src/input.c:1658
+#: src/input.c:1690
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr ""
 "La carte PL est ignorée : le tracé dans un fichier n'est pas pris en charge\n"
 
-#: src/input.c:1664
+#: src/input.c:1696
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "Option onde de surface (I1=1) : de la commande RP non implémentée\n"
 
-#: src/input.c:1665
+#: src/input.c:1697
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4707,24 +4724,24 @@ msgstr ""
 "Option onde de surface (I1=1)\n"
 "de la commande RP non implémentée"
 
-#: src/input.c:1690
+#: src/input.c:1722
 msgid "Average gain diagnostic enabled (use --skip-verify to disable)\n"
 msgstr ""
 "Diagnostic de gain moyen activé (utiliser --skip-verify pour désactiver)\n"
 
-#: src/input.c:1699
+#: src/input.c:1731
 #, c-format
 msgid "Average power gain disabled: nth=%d nph=%d (both must be >= 2)\n"
 msgstr ""
 "Gain de puissance moyen désactivé : nth=%d nph=%d (les deux doivent être >= "
 "2)\n"
 
-#: src/input.c:1704
+#: src/input.c:1736
 #, c-format
 msgid "Average power gain calculation enabled (XNDA A=%d)\n"
 msgstr "Calcul du gain de puissance moyen activé (XNDA A=%d)\n"
 
-#: src/input.c:1720
+#: src/input.c:1752
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4732,7 +4749,7 @@ msgstr ""
 "Theta > 90 deg. avec plan de masse spécifié : Veuillez vérifier les données "
 "de la carte RP et corriger\n"
 
-#: src/input.c:1721
+#: src/input.c:1753
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4740,15 +4757,15 @@ msgstr ""
 "Theta > 90 deg. avec plan de masse spécifié\n"
 "Veuillez vérifier les données de la carte RP et corriger"
 
-#: src/input.c:1789
+#: src/input.c:1821
 msgid "Geometry card in command section"
 msgstr "Carte de géométrie dans la section commandes"
 
-#: src/input.c:1792
+#: src/input.c:1824
 msgid "Unrecognized command card"
 msgstr "Carte de commande non reconnue"
 
-#: src/input.c:1827
+#: src/input.c:1859
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4756,11 +4773,11 @@ msgstr ""
 "Carte RP manquante ou onde de surface : Calculs du diagramme de rayonnement "
 "et du gain désactivés\n"
 
-#: src/input.c:1854
+#: src/input.c:1886
 msgid "Unexpected exit from while loop"
 msgstr "Sortie inattendue de la boucle while"
 
-#: src/input.c:1945
+#: src/input.c:1977
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4768,7 +4785,7 @@ msgstr ""
 "erreur de carte de données de commande : EOF inattendu lors de la lecture du "
 "fichier d'entrée - ajout de la carte EN\n"
 
-#: src/input.c:1946
+#: src/input.c:1978
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4778,13 +4795,13 @@ msgstr ""
 "EOF inattendu lors de la lecture du fichier d'entrée\n"
 "Ajout d'une carte EN par défaut"
 
-#: src/input.c:1963
+#: src/input.c:1995
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "erreur de carte de données de commande : code mnémonique de la carte trop "
 "court ou manquant\n"
 
-#: src/input.c:1964
+#: src/input.c:1996
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4792,7 +4809,7 @@ msgstr ""
 "Erreur de carte de données de commande\n"
 "Code mnémonique trop court ou manquant"
 
-#: src/input.c:2165
+#: src/input.c:2197
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4800,7 +4817,7 @@ msgstr ""
 "erreur de carte de données géométriques : EOF inattendu lors de la lecture "
 "du fichier d'entrée - ajout de la carte GE\n"
 
-#: src/input.c:2166
+#: src/input.c:2198
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4810,13 +4827,13 @@ msgstr ""
 "EOF inattendu lors de la lecture du fichier d'entrée\n"
 "Ajout d'une carte GE par défaut"
 
-#: src/input.c:2183
+#: src/input.c:2215
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "erreur de carte de données géométriques : code mnémonique de la carte trop "
 "court ou manquant\n"
 
-#: src/input.c:2184
+#: src/input.c:2216
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4883,88 +4900,88 @@ msgstr "xnec2c %s : %s"
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog : échec du chargement de animate.glade : %s\n"
 
-#: src/main.c:127
+#: src/main.c:126
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Interface graphique %s détectée\n"
 
-#: src/main.c:135
+#: src/main.c:134
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch et --optimize sont mutuellement exclusifs.\n"
 
-#: src/main.c:144
+#: src/main.c:143
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png requiert --batch\n"
 
-#: src/main.c:160
+#: src/main.c:159
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "chemin du fichier d'entrée trop long ( > %d car. )\n"
 
-#: src/main.c:167
+#: src/main.c:166
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "l'argument inattendu '%s' ne semble pas être un fichier .nec\n"
 
-#: src/main.c:174
+#: src/main.c:173
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "argument inattendu : %s\n"
 
-#: src/main.c:180
+#: src/main.c:179
 msgid "batch mode requires an input file\n"
 msgstr "le mode batch nécessite un fichier d'entrée\n"
 
-#: src/main.c:190
+#: src/main.c:189
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "impossible d'ouvrir l'affichage : une session X11 ou Wayland en cours "
 "d'exécution est requise\n"
 
-#: src/main.c:209
+#: src/main.c:208
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Fork de %d tâches sur %d processeurs.\n"
 
-#: src/main.c:222 src/main.c:230
+#: src/main.c:221 src/main.c:229
 msgid "exiting after fatal error: pipe() failed"
 msgstr "sortie après erreur fatale : échec de pipe()"
 
-#: src/main.c:239
+#: src/main.c:238
 msgid "exiting after fatal error: fork() failed"
 msgstr "sortie après erreur fatale : échec de fork()"
 
-#: src/main.c:825
+#: src/main.c:824
 msgid "exiting via user interrupt\n"
 msgstr "sortie via interruption utilisateur\n"
 
-#: src/main.c:829
+#: src/main.c:828
 msgid "segmentation fault, exiting\n"
 msgstr "erreur de segmentation, sortie\n"
 
-#: src/main.c:833
+#: src/main.c:832
 msgid "floating point exception, exiting\n"
 msgstr "exception de virgule flottante, sortie\n"
 
-#: src/main.c:837
+#: src/main.c:836
 msgid "abort signal received, exiting\n"
 msgstr "signal d'abandon reçu, sortie\n"
 
-#: src/main.c:841
+#: src/main.c:840
 msgid "termination request received, exiting\n"
 msgstr "demande de terminaison reçue, sortie\n"
 
-#: src/main.c:851
+#: src/main.c:850
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "non dupliqué, SIGCHLD du pid %d ignoré\n"
 
-#: src/main.c:859
+#: src/main.c:858
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "processus enfant pid %d terminé\n"
 
-#: src/main.c:868
+#: src/main.c:867
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "sortie par défaut avec le signal : %d\n"
@@ -4993,27 +5010,27 @@ msgstr "Le mappage historique comporte %zu entrées, 12 attendues\n"
 msgid "open_mathlib: lib is NULL\n"
 msgstr "open_mathlib : lib est NULL\n"
 
-#: src/mathlib.c:360 src/utils.c:729
+#: src/mathlib.c:359 src/utils.c:729
 #, c-format
 msgid "%s: %s\n"
 msgstr "%s : %s\n"
 
-#: src/mathlib.c:365
+#: src/mathlib.c:364
 #, c-format
 msgid "%s: opened %s\n"
 msgstr "%s : ouvert %s\n"
 
-#: src/mathlib.c:373
+#: src/mathlib.c:372
 #, c-format
 msgid "%s: library not found or nonfunctional, skipping: %s\n"
 msgstr "%s : bibliothèque introuvable ou non fonctionnelle, ignorée : %s\n"
 
-#: src/mathlib.c:398
+#: src/mathlib.c:397
 #, c-format
 msgid "  %s: unable to bind %s: %s\n"
 msgstr "  %s : impossible de lier %s : %s\n"
 
-#: src/mathlib.c:426
+#: src/mathlib.c:425
 #, c-format
 msgid ""
 "%s=%s is set, so thread counts are not chosen per job, which affects "
@@ -5022,17 +5039,17 @@ msgstr ""
 "%s=%s est défini, les nombres de threads ne sont donc pas choisis par tâche, "
 "ce qui affecte les performances\n"
 
-#: src/mathlib.c:446
+#: src/mathlib.c:445
 #, c-format
 msgid "%s: loaded\n"
 msgstr "%s : chargé\n"
 
-#: src/mathlib.c:516
+#: src/mathlib.c:515
 #, c-format
 msgid "Migrated legacy mathlib index %d to ID '%s'\n"
 msgstr "Index mathlib hérité %d migré vers l'ID « %s »\n"
 
-#: src/mathlib.c:521
+#: src/mathlib.c:520
 #, c-format
 msgid ""
 "Legacy mathlib index %d out of range [0-%d], triggering first-run scan\n"
@@ -5040,39 +5057,39 @@ msgstr ""
 "Index mathlib hérité %d hors plage [0-%d], déclenchement de l'analyse "
 "initiale\n"
 
-#: src/mathlib.c:550
+#: src/mathlib.c:549
 #, c-format
 msgid "Mathlib ID '%s' not found in available libraries.\n"
 msgstr "ID Mathlib « %s » introuvable dans les bibliothèques disponibles.\n"
 
-#: src/mathlib.c:552
+#: src/mathlib.c:551
 #, c-format
 msgid "Mathlib '%s' is not available.\n"
 msgstr "Mathlib « %s » n'est pas disponible.\n"
 
-#: src/mathlib.c:557
+#: src/mathlib.c:556
 #, c-format
 msgid "Selected first available mathlib: %s\n"
 msgstr "Première mathlib disponible sélectionnée : %s\n"
 
-#: src/mathlib.c:652
+#: src/mathlib.c:651
 msgid "mathlib_load: lib == NULL\n"
 msgstr "mathlib_load : lib == NULL\n"
 
-#: src/mathlib.c:661
+#: src/mathlib.c:660
 #, c-format
 msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
 msgstr "mathlib_load[%d] : mathlib.available=0, ignorée : %s\n"
 
-#: src/mathlib.c:706
+#: src/mathlib.c:705
 msgid "set_mathlib_batch: lib == NULL\n"
 msgstr "set_mathlib_batch : lib == NULL\n"
 
-#: src/mathlib.c:711
+#: src/mathlib.c:710
 msgid "Batch Math Library"
 msgstr "Bibliothèque mathématique par lots"
 
-#: src/mathlib.c:712
+#: src/mathlib.c:711
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5082,20 +5099,20 @@ msgstr ""
 "si -j est spécifié sur la ligne de commande. (Cependant, cette sélection "
 "sera sauvegardée pour la prochaine ouverture de xnec2c.)\n"
 
-#: src/mathlib.c:751
+#: src/mathlib.c:750
 #, c-format
 msgid "%s: benchmark=%d\n"
 msgstr "%s : benchmark=%d\n"
 
-#: src/mathlib.c:822
+#: src/mathlib.c:821
 msgid "Mathlib Help"
 msgstr "Aide Mathlib"
 
-#: src/mathlib.c:858
+#: src/mathlib.c:857
 msgid "Mathlib Benchmark Help"
 msgstr "Aide benchmarks Mathlib"
 
-#: src/mathlib.c:860
+#: src/mathlib.c:859
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5196,22 +5213,22 @@ msgstr ""
 "continue plus à gagner, nombre qui importe lorsqu'il reste à calculer moins "
 "de fréquences dans un balayage que vous n'avez de processeurs.\n"
 
-#: src/mathlib.c:922
+#: src/mathlib.c:921
 #, c-format
 msgid "bench_append: vsnprintf failed for \"%s\"\n"
 msgstr "bench_append : échec de vsnprintf pour \"%s\"\n"
 
-#: src/mathlib.c:949
+#: src/mathlib.c:948
 #, c-format
 msgid "mathlib_benchmark: invalid mode=%d\n"
 msgstr "mathlib_benchmark : mode=%d non valide\n"
 
-#: src/mathlib.c:959 src/mathlib.c:969 src/mathlib.c:976 src/mathlib.c:982
-#: src/mathlib.c:999 src/mathlib.c:1004 src/mathlib.c:1128
+#: src/mathlib.c:958 src/mathlib.c:968 src/mathlib.c:975 src/mathlib.c:981
+#: src/mathlib.c:998 src/mathlib.c:1003 src/mathlib.c:1127
 msgid "Mathlib Benchmark"
 msgstr "Benchmark Mathlib"
 
-#: src/mathlib.c:960
+#: src/mathlib.c:959
 #, c-format
 msgid ""
 "%s=%s states the thread count of every library that honors it, so a thread "
@@ -5222,16 +5239,16 @@ msgstr ""
 "un benchmark de threads mesure donc le même nombre à chaque passage. "
 "Désactivez-le et redémarrez pour benchmarker les nombres de threads."
 
-#: src/mathlib.c:970
+#: src/mathlib.c:969
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "Les benchmarks sont désactivés lorsque l'optimisation est activée."
 
-#: src/mathlib.c:977
+#: src/mathlib.c:976
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr ""
 "Vous devez charger un fichier d'entrée NEC2 avant d'exécuter les benchmarks."
 
-#: src/mathlib.c:983
+#: src/mathlib.c:982
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5239,16 +5256,16 @@ msgstr ""
 "Choisir un benchmark autre que « Tâche unique » n'a aucun effet sauf si -j "
 "est spécifié sur la ligne de commande."
 
-#: src/mathlib.c:1000
+#: src/mathlib.c:999
 msgid "You must select at least one math library to benchmark"
 msgstr ""
 "Vous devez sélectionner au moins une bibliothèque mathématique à benchmarker"
 
-#: src/mathlib.c:1005
+#: src/mathlib.c:1004
 msgid "Run the benchmark now?"
 msgstr "Exécuter le benchmark maintenant ?"
 
-#: src/mathlib.c:1006
+#: src/mathlib.c:1005
 #, c-format
 msgid ""
 "This will run a frequency loop benchmark for each detected linear algebra "
@@ -5302,29 +5319,29 @@ msgstr ""
 "\n"
 "Cette boîte de dialogue se fermera lorsque le benchmark sera terminé."
 
-#: src/mathlib.c:1066
+#: src/mathlib.c:1065
 #, c-format
 msgid "Starting %s benchmark (%s %d)\n"
 msgstr "Démarrage du benchmark %s (%s %d)\n"
 
-#: src/mathlib.c:1077
+#: src/mathlib.c:1076
 #, c-format
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr ""
 "Le balayage de benchmark n'a pas été exécuté : FR_cards=%d steps_total=%d\n"
 
-#: src/mathlib.c:1111
+#: src/mathlib.c:1110
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "mesurée une fois : cette bibliothèque conserve le nombre de threads avec "
 "lequel elle a été compilée"
 
-#: src/mathlib.c:1168
+#: src/mathlib.c:1167
 #, c-format
 msgid "mathlib_lock_intel: Cannot find library for mathlib ID='%s'\n"
 msgstr "mathlib_lock_intel : bibliothèque introuvable pour l'ID mathlib='%s'\n"
 
-#: src/mathlib.c:1179
+#: src/mathlib.c:1178
 #, c-format
 msgid ""
 "\n"
@@ -5355,66 +5372,66 @@ msgstr ""
 "* Voir la documentation Intel sur mkl_set_threading_layer() pour plus de "
 "détails.\n"
 
-#: src/mathlib.c:1254
+#: src/mathlib.c:1253
 msgid "zgetrf: current_mathlib is NULL, this should never happen.\n"
 msgstr ""
 "zgetrf : current_mathlib est NULL, cela ne devrait jamais se produire.\n"
 
-#: src/mathlib.c:1278 src/mathlib.c:1323
+#: src/mathlib.c:1277 src/mathlib.c:1322
 #, c-format
 msgid "%s: unsupported mathlib type %d\n"
 msgstr "%s : type mathlib non pris en charge %d\n"
 
-#: src/mathlib.c:1291
+#: src/mathlib.c:1290
 msgid "zgetrs: current_mathlib is NULL, this should never happen.\n"
 msgstr ""
 "zgetrs : current_mathlib est NULL, cela ne devrait jamais se produire.\n"
 
-#: src/mathlib.c:1316
+#: src/mathlib.c:1315
 #, c-format
 msgid "zgetrs warning: lda(%d) != ldb(%d)\n"
 msgstr "zgetrs avertissement : lda(%d) != ldb(%d)\n"
 
-#: src/mathlib.c:1367 src/mathlib.c:1430
+#: src/mathlib.c:1366 src/mathlib.c:1429
 #, c-format
 msgid "%s: lib is NULL\n"
 msgstr "%s : lib est NULL\n"
 
-#: src/mathlib.c:1412
+#: src/mathlib.c:1411
 #, c-format
 msgid "%s: thread count cannot be bounded, dlsym(%s): %s\n"
 msgstr "%s : le nombre de threads ne peut pas être borné, dlsym(%s) : %s\n"
 
-#: src/mathlib.c:1436
+#: src/mathlib.c:1435
 #, c-format
 msgid "%s: thread count is %d\n"
 msgstr "%s : le nombre de threads est %d\n"
 
-#: src/mathlib.c:1460
+#: src/mathlib.c:1459
 #, c-format
 msgid "dlsym(mkl_set_threading_layer): %s\n"
 msgstr "dlsym(mkl_set_threading_layer) : %s\n"
 
-#: src/matrix.c:1223
+#: src/matrix.c:1236
 #, c-format
 msgid "pivot(%d)= %16.8E\n"
 msgstr "élément pivot(%d)= %16.8E\n"
 
-#: src/matrix.c:1257
+#: src/matrix.c:1270
 #, c-format
 msgid "LU Decomposition Failed: %d\n"
 msgstr "Échec de la décomposition LU : %d\n"
 
-#: src/matrix.c:1313
+#: src/matrix.c:1326
 #, c-format
 msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "erreur de symétrie - nrow:%d ncol:%d\n"
 
-#: src/matrix.c:1314
+#: src/matrix.c:1327
 msgid "Symmetry error"
 msgstr "Erreur de symétrie"
 
-#: src/matrix.c:1418
+#: src/matrix.c:1431
 #, c-format
 msgid "Solving Failed: %d\n"
 msgstr "Échec de la résolution : %d\n"
@@ -5430,28 +5447,28 @@ msgstr ""
 #: src/measurements.c:611
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
-msgstr "BUG : pol=%d hors plage [0,%d) : idx=%d freq_step=%d thr=%lu\n"
+msgstr "BOGUE : pol=%d hors plage [0,%d) : idx=%d freq_step=%d thr=%lu\n"
 
 #: src/measurements.c:625
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 msgstr ""
-"BUG : mgidx=%d hors plage [0,%d) : idx=%d pol=%d freq_step=%d thr=%lu\n"
+"BOGUE : mgidx=%d hors plage [0,%d) : idx=%d pol=%d freq_step=%d thr=%lu\n"
 
 #: src/measurements.c:628
 #, c-format
-msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
-msgstr "BUG : save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
+msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
+msgstr "BOGUE : save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
 
 #: src/measurements.c:631
 #, c-format
 msgid "BUG: rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n"
-msgstr "BUG : rad_pattern[%d] : efficiency=%.6e gtot=%p max_gain_idx=%p\n"
+msgstr "BOGUE : rad_pattern[%d] : efficiency=%.6e gtot=%p max_gain_idx=%p\n"
 
 #: src/measurements.c:635
 #, c-format
 msgid "BUG: max_gain_idx[0]=%d [1]=%d [2]=%d\n"
-msgstr "BUG : max_gain_idx[0]=%d [1]=%d [2]=%d\n"
+msgstr "BOGUE : max_gain_idx[0]=%d [1]=%d [2]=%d\n"
 
 #: src/measurements.c:790
 #, c-format
@@ -5462,49 +5479,71 @@ msgstr "meas_name_idx : nom invalide de longueur=%d : %s\n"
 msgid "meas_format: output overflow\n"
 msgstr "meas_format : dépassement de la sortie\n"
 
-#: src/mem/mem.c:22
+#: src/mem/mem.c:24
 #, c-format
 msgid "mem_obj_from_ptr: ptr %p does not match m->ptr %p (base %p)\n"
 msgstr "mem_obj_from_ptr : ptr %p ne correspond pas à m->ptr %p (base %p)\n"
 
-#: src/mem/mem.c:194
+#: src/mem/mem.c:196
 #, c-format
 msgid "Memory allocation denied %s: requested %lu bytes\n"
 msgstr "Allocation mémoire refusée %s : %lu octets demandés\n"
 
-#: src/mem/mem.c:219
+#: src/mem/mem.c:221
 #, c-format
 msgid "mem_free at %s: array block element size %lu; use mem_array_free\n"
 msgstr ""
 "mem_free à %s : taille d'élément de bloc de tableau %lu ; utilisez "
 "mem_array_free\n"
 
-#: src/mem/mem.c:238
+#: src/mem/mem.c:240
 #, c-format
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t à %p : taille=%lu utilisé=%lu addr=%p\n"
 
-#: src/mem/mem.c:259
+#: src/mem/mem.c:261
 #, c-format
 msgid "mem_backtrace(%p):\n"
 msgstr "mem_backtrace(%p) :\n"
 
-#: src/mem/mem.c:262
+#: src/mem/mem.c:264
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace est null, pas de données de trace\n"
 
-#: src/mem/mem.c:288
+#: src/mem/mem.c:290
 #, c-format
 msgid "mem_clone: allocation failed for %lu bytes\n"
 msgstr "mem_clone : échec d'allocation pour %lu octets\n"
 
-#: src/mem/mem.c:345
+#: src/mem/mem.c:358
+#, c-format
+msgid "managed copy: %lu bytes exceed destination used %lu\n"
+msgstr ""
+"copie gérée : %lu octets dépassent les %lu octets utilisés de la "
+"destination\n"
+
+#: src/mem/mem.c:361
+#, c-format
+msgid ""
+"managed copy: source overlaps destination at distance %lu over %lu bytes\n"
+msgstr ""
+"copie gérée : la source chevauche la destination à une distance de %lu sur "
+"%lu octets\n"
+
+#: src/mem/mem.c:404
 #, c-format
 msgid "mem_array verb: element size %lu does not match header %lu\n"
 msgstr ""
 "mem_array verb : la taille d'élément %lu ne correspond pas à l'en-tête %lu\n"
 
-#: src/mem/mem.c:437
+#: src/mem/mem.c:434
+#, c-format
+msgid "mem_array_cpy: %lu elements exceed destination count %lu\n"
+msgstr ""
+"mem_array_cpy : %lu éléments dépassent le nombre d'éléments de destination "
+"%lu\n"
+
+#: src/mem/mem.c:535
 #, c-format
 msgid "mem_zero: array block element size %lu; use mem_array_zero\n"
 msgstr ""
@@ -5827,19 +5866,19 @@ msgstr "inotify : %zd octets lus depuis le descripteur inotify\n"
 #: src/optimize.c:406
 #, c-format
 msgid ""
-"inotify: SKIP all events (flags) - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT=%d "
-"INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: SKIP all events (flags) - FREQ_LOOP_INIT=%d INPUT_PENDING=%d "
+"sweep_state=%s\n"
 msgstr ""
-"inotify : IGNORER tous les événements (flags) - FREQ_LOOP_RUNNING=%d "
-"FREQ_LOOP_INIT=%d INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify : IGNORER tous les événements (drapeaux) - FREQ_LOOP_INIT=%d "
+"INPUT_PENDING=%d sweep_state=%s\n"
 
-#: src/optimize.c:424
+#: src/optimize.c:423
 #, c-format
 msgid "inotify: EVENT @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 msgstr ""
 "inotify : ÉVÉNEMENT @offset=%ld : mask=0x%08x cookie=%u len=%u name='%s'\n"
 
-#: src/optimize.c:428
+#: src/optimize.c:427
 #, c-format
 msgid ""
 "inotify: EVENT flags: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
@@ -5848,27 +5887,27 @@ msgstr ""
 "inotify : flags ÉVÉNEMENT : IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM="
 "%d IN_CREATE=%d IN_DELETE=%d IN_MODIFY=%d\n"
 
-#: src/optimize.c:436
+#: src/optimize.c:435
 #, c-format
 msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify : FILTRE : target='%s' event_name='%s' match=%d\n"
 
-#: src/optimize.c:443
+#: src/optimize.c:442
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify : IGNORER événement (nom de fichier ne correspond pas)\n"
 
-#: src/optimize.c:450
+#: src/optimize.c:449
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify : IN_MODIFY sur la cible, définition de modify_seen=TRUE\n"
 
-#: src/optimize.c:458
+#: src/optimize.c:457
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
 "inotify : IN_MOVED_TO sur la cible (écriture atomique terminée), "
 "déclenchement du rechargement\n"
 
-#: src/optimize.c:475
+#: src/optimize.c:474
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5876,7 +5915,7 @@ msgstr ""
 "inotify : IN_CLOSE_WRITE après modify_seen=TRUE (écriture directe terminée), "
 "déclenchement du rechargement\n"
 
-#: src/optimize.c:487
+#: src/optimize.c:486
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5884,17 +5923,17 @@ msgstr ""
 "inotify : IN_CLOSE_WRITE sans modify_seen (fermeture parasite, ancien "
 "inode), ignoré\n"
 
-#: src/optimize.c:494
+#: src/optimize.c:493
 #, c-format
 msgid "inotify: SKIP event (not MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 msgstr ""
 "inotify : IGNORER événement (pas MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 
-#: src/optimize.c:527
+#: src/optimize.c:526
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "échec de la création de l'eventfd de réveil de l'optimiseur\n"
 
-#: src/optimize.c:538
+#: src/optimize.c:537
 msgid "failed to create Optimizer Output thread\n"
 msgstr "échec de la création du thread de sortie de l'optimiseur\n"
 
@@ -5903,12 +5942,12 @@ msgstr "échec de la création du thread de sortie de l'optimiseur\n"
 msgid "fitness_config_add: invalid meas_index %d\n"
 msgstr "fitness_config_add : meas_index invalide %d\n"
 
-#: src/optimizers/opt_fitness.c:472
+#: src/optimizers/opt_fitness.c:471
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform : direction inconnue %d\n"
 
-#: src/optimizers/opt_fitness.c:545
+#: src/optimizers/opt_fitness.c:544
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values : méthode de réduction inconnue %d\n"
@@ -6641,19 +6680,19 @@ msgstr ""
 "validation : visualiseur de structure réinitialisé à l'orientation par "
 "défaut pour la reproductibilité\n"
 
-#: src/validation_dump.c:593 src/validation_dump.c:599
+#: src/validation_dump.c:601 src/validation_dump.c:607
 msgid "Validation Tree"
 msgstr "Arborescence de validation"
 
-#: src/validation_dump.c:593
+#: src/validation_dump.c:601
 msgid "Cannot save: frequency loop not done"
 msgstr "Impossible d'enregistrer : la boucle de fréquence n'est pas terminée"
 
-#: src/validation_dump.c:599
+#: src/validation_dump.c:607
 msgid "Cannot create output directory"
 msgstr "Impossible de créer le répertoire de sortie"
 
-#: src/validation_dump.c:631
+#: src/validation_dump.c:639
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "arborescence de validation écrite dans : %s\n"
@@ -6758,21 +6797,21 @@ msgstr ""
 "plusieurs formats PNG de diagramme de rayonnement nécessitent un nom de "
 "fichier .png : %s\n"
 
-#: src/xnec2c.c:2020
+#: src/xnec2c.c:2021
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "le balayage exécute %d workers de %d threads chacun\n"
 
-#: src/xnec2c.c:2195
+#: src/xnec2c.c:2196
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete : batch_mode=%d non valide\n"
 
-#: src/xnec2c.c:2201
+#: src/xnec2c.c:2202
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete : stopped=%d non valide\n"
 
-#: src/xnec2c.c:2314
+#: src/xnec2c.c:2315
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "échec du démarrage de Frequency_Loop_Thread\n"

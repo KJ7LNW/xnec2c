@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-13 18:29-0700\n"
+"POT-Creation-Date: 2026-08-17 01:20-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2854,8 +2854,8 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "fișierul de configurare nu există sau nu poate fi citit: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:869 src/geometry.c:771 src/input.c:1793 src/input.c:1794
-#: src/mathlib.c:822 src/mathlib.c:1128 src/rdpattern_ui.c:364
+#: src/args.c:869 src/geometry.c:771 src/input.c:1825 src/input.c:1826
+#: src/mathlib.c:821 src/mathlib.c:1127 src/rdpattern_ui.c:364
 #: src/rdpattern_ui.c:372 src/rdpattern_ui.c:379 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
@@ -3778,6 +3778,11 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR vs frecvență"
 
+#: src/freq_sweep_state.c:54
+#, c-format
+msgid "freq_sweep_row: invalid sweep_state=%d\n"
+msgstr "freq_sweep_row: sweep_state nevalidă=%d\n"
+
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
 msgid ""
@@ -4364,15 +4369,15 @@ msgstr ""
 " Eroare la citirea fișierului de intrare\n"
 "Mnemonic comentariu incorect"
 
-#: src/input.c:211
+#: src/input.c:213
 msgid ""
 "Geometry data error\n"
-"Tag number is less than 1"
+"Tag number is negative"
 msgstr ""
-"Eroare date geometrie\n"
-"Numărul de tag este mai mic decât 1"
+"Eroare de date de geometrie\n"
+"Numărul tag este negativ"
 
-#: src/input.c:218
+#: src/input.c:220
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4380,16 +4385,28 @@ msgstr ""
 "Eroare date geometrie\n"
 "Numărul de segmente este mai mic decât 1"
 
-#: src/input.c:225
+#: src/input.c:227
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "avertisment - numărul de segmente este mai mare decât 1000000\n"
 
-#: src/input.c:273
+#: src/input.c:250
+#, c-format
+msgid ""
+"%s card: tag 0 selects segment %d by absolute position in the structure, not "
+"within a tagged wire; give the wire a tag number and reference the segment "
+"within that tag unless absolute positioning is intended\n"
+msgstr ""
+"%s card: tag 0 selectează segmentul %d după poziția absolută în structură, "
+"nu în cadrul unui fir etichetat; atribuiți firului un număr tag și faceți "
+"referire la segment în cadrul acelui tag, cu excepția cazului în care se "
+"intenționează poziționarea absolută\n"
+
+#: src/input.c:297
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "eroare card date %s: caracter neașteptat '%c' la coloana %d\n"
 
-#: src/input.c:275
+#: src/input.c:299
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4397,33 +4414,33 @@ msgstr ""
 "Eroare card date\n"
 "Caracter neașteptat în card"
 
-#: src/input.c:346
+#: src/input.c:370
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: evaluarea expresiei a eșuat pentru \"%s\"\n"
 
-#: src/input.c:387
+#: src/input.c:411
 msgid "SY card: no line content available\n"
 msgstr "Card SY: conținut linie indisponibil\n"
 
-#: src/input.c:388
+#: src/input.c:412
 msgid "SY card: no line content available"
 msgstr "Card SY: conținut linie indisponibil"
 
-#: src/input.c:405
+#: src/input.c:429
 msgid "SY card: missing '=' in definition\n"
 msgstr "Card SY: lipsește '=' în definiție\n"
 
-#: src/input.c:406
+#: src/input.c:430
 msgid "SY card: missing '=' in definition"
 msgstr "Card SY: lipsește '=' în definiție"
 
-#: src/input.c:439
+#: src/input.c:463
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "Card SY: definirea simbolului a eșuat pentru %s=%s\n"
 
-#: src/input.c:626
+#: src/input.c:650
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4431,27 +4448,27 @@ msgstr ""
 "Eroare date geometrie\n"
 "Lipsește cardul GC pentru fir conic"
 
-#: src/input.c:633
+#: src/input.c:657
 msgid "Geometry GC data card error"
 msgstr "Eroare card date geometrie GC"
 
-#: src/input.c:649
+#: src/input.c:673
 msgid "Geometry GX data card error"
 msgstr "Eroare card date geometrie GX"
 
-#: src/input.c:672
+#: src/input.c:696
 msgid "Geometry GR data card error"
 msgstr "Eroare card date geometrie GR"
 
-#: src/input.c:726
+#: src/input.c:750
 msgid "No geometry data cards"
 msgstr "Nu există carduri de date geometrie"
 
-#: src/input.c:737
+#: src/input.c:761
 msgid "Probable invalid segment geometry.\n"
 msgstr "Geometrie segment probabil invalidă.\n"
 
-#: src/input.c:738
+#: src/input.c:762
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4461,37 +4478,37 @@ msgstr ""
 "Vedeți avertismentele din consolă pentru detalii.\n"
 "Se încearcă continuarea..."
 
-#: src/input.c:744
+#: src/input.c:768
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Geometrie segment probabil invalidă (vedeți mai sus)\n"
 
-#: src/input.c:748
+#: src/input.c:772
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() a trecut\n"
 
-#: src/input.c:785
+#: src/input.c:809
 #, c-format
 msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
 msgstr "eroare date segment: tag=%d si=%lf, bi=%lf\n"
 
-#: src/input.c:787
+#: src/input.c:811
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Eroare date segment, linie de lungime zero? Vedeți consola."
 
-#: src/input.c:827
+#: src/input.c:851
 msgid "Move GM data card error"
 msgstr "Eroare card date mutare GM"
 
-#: src/input.c:843 src/input.c:884 src/input.c:901 src/input.c:919
-#: src/input.c:927
+#: src/input.c:867 src/input.c:908 src/input.c:925 src/input.c:943
+#: src/input.c:951
 msgid "Patch data card error"
 msgstr "Eroare card date patch"
 
-#: src/input.c:865
+#: src/input.c:889
 msgid "Patch data error"
 msgstr "Eroare date patch"
 
-#: src/input.c:974
+#: src/input.c:998
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4499,59 +4516,59 @@ msgstr ""
 "Cardul \"GF\" (soluție NGF)\n"
 "nu este suportat"
 
-#: src/input.c:979
+#: src/input.c:1003
 msgid "Ignoring CM card in geometry"
 msgstr "Se ignoră cardul CM din geometrie"
 
-#: src/input.c:992
+#: src/input.c:1016
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "eroare card date geometrie (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:993
+#: src/input.c:1017
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:999
+#: src/input.c:1023
 msgid "Command card in geometry section"
 msgstr "Card de comandă în secțiunea de geometrie"
 
-#: src/input.c:1001
+#: src/input.c:1025
 msgid "Unrecognized geometry card"
 msgstr "Card de geometrie nerecunoscut"
 
-#: src/input.c:1025
+#: src/input.c:1049
 msgid "Failed to initialize symbol table\n"
 msgstr "Inițializarea tabelei de simboluri a eșuat\n"
 
-#: src/input.c:1026
+#: src/input.c:1050
 msgid "Failed to initialize symbol table"
 msgstr "Inițializarea tabelei de simboluri a eșuat"
 
-#: src/input.c:1208
+#: src/input.c:1232
 msgid "ignoring CM card in commands\n"
 msgstr "se ignoră cardul CM din comenzi\n"
 
-#: src/input.c:1209
+#: src/input.c:1233
 msgid "Ignoring CM card in commands"
 msgstr "Se ignoră cardul CM din comenzi"
 
-#: src/input.c:1219
+#: src/input.c:1245
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "Cardul CP este ignorat: calculul cuplajului nu este implementat\n"
 
-#: src/input.c:1313
+#: src/input.c:1341
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "Se omite cardul FR duplicat la %g MHz\n"
 
-#: src/input.c:1395
+#: src/input.c:1423
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "Frecvența maximă <= Frecvența minimă în cardul FR\n"
 
-#: src/input.c:1396
+#: src/input.c:1424
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4559,7 +4576,7 @@ msgstr ""
 "Frecvența maximă <= Frecvența minimă în cardul FR\n"
 "Verificați datele cardului FR și corectați"
 
-#: src/input.c:1419
+#: src/input.c:1447
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4568,11 +4585,11 @@ msgstr ""
 "Corectați cardurile GE/GN:\n"
 "Cardul GE specifică prezența unui plan de masă, dar cardul GN indică altfel."
 
-#: src/input.c:1433
+#: src/input.c:1461
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 grade cu plan de masă specificat\n"
 
-#: src/input.c:1434 src/radiation.c:703
+#: src/input.c:1462 src/radiation.c:703
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4580,7 +4597,7 @@ msgstr ""
 "Theta > 90 grade cu plan de masă specificat\n"
 "Verificați datele cardului RP și corectați"
 
-#: src/input.c:1443
+#: src/input.c:1471
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
@@ -4588,7 +4605,7 @@ msgstr ""
 "aproximarea g.s. cu fire radiale: nu poate fi utilizată cu opțiunea de sol "
 "Sommerfeld\n"
 
-#: src/input.c:1444
+#: src/input.c:1472
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4596,7 +4613,7 @@ msgstr ""
 "aproximarea g.s. cu fire radiale\n"
 "nu poate fi utilizată cu opțiunea de sol Sommerfeld"
 
-#: src/input.c:1492
+#: src/input.c:1520
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -4605,7 +4622,7 @@ msgstr ""
 "eroare date pe cardul de încărcare nr. %d: itag step1 %d este mai mare decât "
 "itag step2 %d\n"
 
-#: src/input.c:1494
+#: src/input.c:1522
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4613,14 +4630,14 @@ msgstr ""
 "Eroare date pe cardul de încărcare\n"
 "itag step1 este mai mare decât itag step2"
 
-#: src/input.c:1622
+#: src/input.c:1651
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "Impedanța liniei de transmisie = 0: nu este validă. Corectați cardul NT sau "
 "TL\n"
 
-#: src/input.c:1623
+#: src/input.c:1652
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4628,11 +4645,11 @@ msgstr ""
 "Impedanța liniei de transmisie = 0\n"
 "nu este validă. Corectați cardul NT sau TL"
 
-#: src/input.c:1632
+#: src/input.c:1663
 msgid "Segment number error in TL or NT card\n"
 msgstr "Eroare număr segment în cardul TL sau NT\n"
 
-#: src/input.c:1633
+#: src/input.c:1664
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4640,21 +4657,21 @@ msgstr ""
 "Eroare număr segment\n"
 "în cardul NT sau TL"
 
-#: src/input.c:1654
+#: src/input.c:1686
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr ""
 "Cardurile PQ și PT sunt ignorate: tipărirea în fișier nu este implementată\n"
 
-#: src/input.c:1658
+#: src/input.c:1690
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "Cardul PL este ignorat: trasarea în fișier nu este acceptată\n"
 
-#: src/input.c:1664
+#: src/input.c:1696
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr ""
 "Opțiunea undă de suprafață (I1=1): din comanda RP nu este implementată\n"
 
-#: src/input.c:1665
+#: src/input.c:1697
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4662,25 +4679,25 @@ msgstr ""
 "Opțiunea undă de suprafață (I1=1)\n"
 "din comanda RP nu este implementată"
 
-#: src/input.c:1690
+#: src/input.c:1722
 msgid "Average gain diagnostic enabled (use --skip-verify to disable)\n"
 msgstr ""
 "Diagnosticul câștigului mediu activat (utilizați --skip-verify pentru "
 "dezactivare)\n"
 
-#: src/input.c:1699
+#: src/input.c:1731
 #, c-format
 msgid "Average power gain disabled: nth=%d nph=%d (both must be >= 2)\n"
 msgstr ""
 "Câștigul mediu de putere dezactivat: nth=%d nph=%d (ambele trebuie să fie >= "
 "2)\n"
 
-#: src/input.c:1704
+#: src/input.c:1736
 #, c-format
 msgid "Average power gain calculation enabled (XNDA A=%d)\n"
 msgstr "Calculul câștigului mediu de putere activat (XNDA A=%d)\n"
 
-#: src/input.c:1720
+#: src/input.c:1752
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4688,7 +4705,7 @@ msgstr ""
 "Theta > 90 grade cu plan de masă specificat: Verificați datele cardului RP "
 "și corectați\n"
 
-#: src/input.c:1721
+#: src/input.c:1753
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4696,15 +4713,15 @@ msgstr ""
 "Theta > 90 grade cu plan de masă specificat\n"
 "Verificați datele cardului RP și corectați"
 
-#: src/input.c:1789
+#: src/input.c:1821
 msgid "Geometry card in command section"
 msgstr "Card de geometrie în secțiunea de comenzi"
 
-#: src/input.c:1792
+#: src/input.c:1824
 msgid "Unrecognized command card"
 msgstr "Card de comandă nerecunoscut"
 
-#: src/input.c:1827
+#: src/input.c:1859
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4712,11 +4729,11 @@ msgstr ""
 "Card RP lipsă sau pentru undă de suprafață: Calculele diagramei de radiație "
 "și câștigului sunt dezactivate\n"
 
-#: src/input.c:1854
+#: src/input.c:1886
 msgid "Unexpected exit from while loop"
 msgstr "Ieșire neașteptată din bucla while"
 
-#: src/input.c:1945
+#: src/input.c:1977
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4724,7 +4741,7 @@ msgstr ""
 "eroare card date comandă: EOF neașteptat la citirea fișierului de intrare - "
 "se adaugă cardul EN\n"
 
-#: src/input.c:1946
+#: src/input.c:1978
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4734,13 +4751,13 @@ msgstr ""
 "EOF neașteptat la citirea fișierului de intrare\n"
 "Se adaugă un card EN implicit"
 
-#: src/input.c:1963
+#: src/input.c:1995
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "eroare card date comandă: codul mnemonic al cardului este prea scurt sau "
 "lipsește\n"
 
-#: src/input.c:1964
+#: src/input.c:1996
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4748,7 +4765,7 @@ msgstr ""
 "Eroare card date comandă\n"
 "Codul mnemonic este prea scurt sau lipsește"
 
-#: src/input.c:2165
+#: src/input.c:2197
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4756,7 +4773,7 @@ msgstr ""
 "eroare card date geometrie: EOF neașteptat la citirea fișierului de intrare "
 "- se adaugă cardul GE\n"
 
-#: src/input.c:2166
+#: src/input.c:2198
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4766,13 +4783,13 @@ msgstr ""
 "EOF neașteptat la citirea fișierului de intrare\n"
 "Se adaugă un card GE implicit"
 
-#: src/input.c:2183
+#: src/input.c:2215
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "eroare card date geometrie: codul mnemonic al cardului este prea scurt sau "
 "lipsește\n"
 
-#: src/input.c:2184
+#: src/input.c:2216
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4840,88 +4857,88 @@ msgstr ""
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: eșec la încărcarea animate.glade: %s\n"
 
-#: src/main.c:127
+#: src/main.c:126
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Backend de fereastră detectat: %s\n"
 
-#: src/main.c:135
+#: src/main.c:134
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch și --optimize sunt mutual exclusive.\n"
 
-#: src/main.c:144
+#: src/main.c:143
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png necesită --batch\n"
 
-#: src/main.c:160
+#: src/main.c:159
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "calea fișierului de intrare este prea lungă ( > %d caractere )\n"
 
-#: src/main.c:167
+#: src/main.c:166
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "argumentul neașteptat '%s' nu pare a fi un fișier .nec\n"
 
-#: src/main.c:174
+#: src/main.c:173
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "argument neașteptat: %s\n"
 
-#: src/main.c:180
+#: src/main.c:179
 msgid "batch mode requires an input file\n"
 msgstr "modul lot necesită un fișier de intrare\n"
 
-#: src/main.c:190
+#: src/main.c:189
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "nu se poate deschide display-ul: este necesară o sesiune X11 sau Wayland "
 "activă\n"
 
-#: src/main.c:209
+#: src/main.c:208
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Se creează fork pentru %d lucrări pe %d procesoare.\n"
 
-#: src/main.c:222 src/main.c:230
+#: src/main.c:221 src/main.c:229
 msgid "exiting after fatal error: pipe() failed"
 msgstr "se iese după eroare fatală: pipe() a eșuat"
 
-#: src/main.c:239
+#: src/main.c:238
 msgid "exiting after fatal error: fork() failed"
 msgstr "se iese după eroare fatală: fork() a eșuat"
 
-#: src/main.c:825
+#: src/main.c:824
 msgid "exiting via user interrupt\n"
 msgstr "se iese prin întrerupere utilizator\n"
 
-#: src/main.c:829
+#: src/main.c:828
 msgid "segmentation fault, exiting\n"
 msgstr "eroare de segmentare, se iese\n"
 
-#: src/main.c:833
+#: src/main.c:832
 msgid "floating point exception, exiting\n"
 msgstr "excepție în virgulă mobilă, se iese\n"
 
-#: src/main.c:837
+#: src/main.c:836
 msgid "abort signal received, exiting\n"
 msgstr "semnal de întrerupere primit, se iese\n"
 
-#: src/main.c:841
+#: src/main.c:840
 msgid "termination request received, exiting\n"
 msgstr "cerere de terminare primită, se iese\n"
 
-#: src/main.c:851
+#: src/main.c:850
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "neramificat, se ignoră SIGCHLD de la pid %d\n"
 
-#: src/main.c:859
+#: src/main.c:858
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "procesul copil pid %d s-a terminat\n"
 
-#: src/main.c:868
+#: src/main.c:867
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "ieșire implicită cu semnalul: %d\n"
@@ -4950,27 +4967,27 @@ msgid "open_mathlib: lib is NULL\n"
 msgstr "open_mathlib: lib este NULL\n"
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:360 src/utils.c:729
+#: src/mathlib.c:359 src/utils.c:729
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
 
-#: src/mathlib.c:365
+#: src/mathlib.c:364
 #, c-format
 msgid "%s: opened %s\n"
 msgstr "%s: deschis %s\n"
 
-#: src/mathlib.c:373
+#: src/mathlib.c:372
 #, c-format
 msgid "%s: library not found or nonfunctional, skipping: %s\n"
 msgstr "%s: bibliotecă negăsită sau nefuncțională, se omite: %s\n"
 
-#: src/mathlib.c:398
+#: src/mathlib.c:397
 #, c-format
 msgid "  %s: unable to bind %s: %s\n"
 msgstr "  %s: imposibil de legat %s: %s\n"
 
-#: src/mathlib.c:426
+#: src/mathlib.c:425
 #, c-format
 msgid ""
 "%s=%s is set, so thread counts are not chosen per job, which affects "
@@ -4979,17 +4996,17 @@ msgstr ""
 "%s=%s este definită, astfel numărul de fire de execuție nu este ales per "
 "lucrare, ceea ce afectează performanța\n"
 
-#: src/mathlib.c:446
+#: src/mathlib.c:445
 #, c-format
 msgid "%s: loaded\n"
 msgstr "%s: încărcat\n"
 
-#: src/mathlib.c:516
+#: src/mathlib.c:515
 #, c-format
 msgid "Migrated legacy mathlib index %d to ID '%s'\n"
 msgstr "Index mathlib moștenire %d migrat la ID '%s'\n"
 
-#: src/mathlib.c:521
+#: src/mathlib.c:520
 #, c-format
 msgid ""
 "Legacy mathlib index %d out of range [0-%d], triggering first-run scan\n"
@@ -4997,41 +5014,41 @@ msgstr ""
 "Index mathlib moștenire %d în afara intervalului [0-%d], declanșare scanare "
 "la prima rulare\n"
 
-#: src/mathlib.c:550
+#: src/mathlib.c:549
 #, c-format
 msgid "Mathlib ID '%s' not found in available libraries.\n"
 msgstr "ID Mathlib '%s' negăsit în bibliotecile disponibile.\n"
 
-#: src/mathlib.c:552
+#: src/mathlib.c:551
 #, c-format
 msgid "Mathlib '%s' is not available.\n"
 msgstr "Mathlib '%s' nu este disponibil.\n"
 
-#: src/mathlib.c:557
+#: src/mathlib.c:556
 #, c-format
 msgid "Selected first available mathlib: %s\n"
 msgstr "Selectat primul mathlib disponibil: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:652
+#: src/mathlib.c:651
 msgid "mathlib_load: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:661
+#: src/mathlib.c:660
 #, c-format
 msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
 msgstr "mathlib_load[%d]: mathlib.available=0, se omite: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:706
+#: src/mathlib.c:705
 msgid "set_mathlib_batch: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:711
+#: src/mathlib.c:710
 msgid "Batch Math Library"
 msgstr "Bibliotecă Matematică Lot"
 
-#: src/mathlib.c:712
+#: src/mathlib.c:711
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5042,20 +5059,20 @@ msgstr ""
 "pentru data viitoare când xnec2c este deschis.)\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:751
+#: src/mathlib.c:750
 #, c-format
 msgid "%s: benchmark=%d\n"
 msgstr ""
 
-#: src/mathlib.c:822
+#: src/mathlib.c:821
 msgid "Mathlib Help"
 msgstr "Ajutor Mathlib"
 
-#: src/mathlib.c:858
+#: src/mathlib.c:857
 msgid "Mathlib Benchmark Help"
 msgstr "Ajutor Benchmark Mathlib"
 
-#: src/mathlib.c:860
+#: src/mathlib.c:859
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5156,22 +5173,22 @@ msgstr ""
 "baleiere are mai puține frecvențe rămase de calculat decât procesoare "
 "disponibile.\n"
 
-#: src/mathlib.c:922
+#: src/mathlib.c:921
 #, c-format
 msgid "bench_append: vsnprintf failed for \"%s\"\n"
 msgstr "bench_append: vsnprintf a eșuat pentru \"%s\"\n"
 
-#: src/mathlib.c:949
+#: src/mathlib.c:948
 #, c-format
 msgid "mathlib_benchmark: invalid mode=%d\n"
 msgstr "mathlib_benchmark: mode=%d nevalid\n"
 
-#: src/mathlib.c:959 src/mathlib.c:969 src/mathlib.c:976 src/mathlib.c:982
-#: src/mathlib.c:999 src/mathlib.c:1004 src/mathlib.c:1128
+#: src/mathlib.c:958 src/mathlib.c:968 src/mathlib.c:975 src/mathlib.c:981
+#: src/mathlib.c:998 src/mathlib.c:1003 src/mathlib.c:1127
 msgid "Mathlib Benchmark"
 msgstr "Benchmark Mathlib"
 
-#: src/mathlib.c:960
+#: src/mathlib.c:959
 #, c-format
 msgid ""
 "%s=%s states the thread count of every library that honors it, so a thread "
@@ -5183,17 +5200,17 @@ msgstr ""
 "fiecare trecere. Dezactivați-o și reporniți pentru a etalona numărul de fire "
 "de execuție."
 
-#: src/mathlib.c:970
+#: src/mathlib.c:969
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "Benchmark-urile sunt dezactivate cât timp optimizarea este activată."
 
-#: src/mathlib.c:977
+#: src/mathlib.c:976
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr ""
 "Trebuie să încărcați un fișier de intrare NEC2 înainte de a rula benchmark-"
 "uri."
 
-#: src/mathlib.c:983
+#: src/mathlib.c:982
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5201,16 +5218,16 @@ msgstr ""
 "Alegerea unui benchmark altul decât \"Single Job\" nu are efect dacă -j nu "
 "este specificat pe linia de comandă."
 
-#: src/mathlib.c:1000
+#: src/mathlib.c:999
 msgid "You must select at least one math library to benchmark"
 msgstr ""
 "Trebuie să selectați cel puțin o bibliotecă matematică pentru benchmark"
 
-#: src/mathlib.c:1005
+#: src/mathlib.c:1004
 msgid "Run the benchmark now?"
 msgstr "Rulați etalonul acum?"
 
-#: src/mathlib.c:1006
+#: src/mathlib.c:1005
 #, c-format
 msgid ""
 "This will run a frequency loop benchmark for each detected linear algebra "
@@ -5263,28 +5280,28 @@ msgstr ""
 "\n"
 "Acest dialog se va închide când etalonul se finalizează."
 
-#: src/mathlib.c:1066
+#: src/mathlib.c:1065
 #, c-format
 msgid "Starting %s benchmark (%s %d)\n"
 msgstr "Se pornește etalonul %s (%s %d)\n"
 
-#: src/mathlib.c:1077
+#: src/mathlib.c:1076
 #, c-format
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Baleierea de etalonare nu a rulat: FR_cards=%d steps_total=%d\n"
 
-#: src/mathlib.c:1111
+#: src/mathlib.c:1110
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "măsurată o dată: această bibliotecă păstrează numărul de fire de execuție cu "
 "care a fost construită"
 
-#: src/mathlib.c:1168
+#: src/mathlib.c:1167
 #, c-format
 msgid "mathlib_lock_intel: Cannot find library for mathlib ID='%s'\n"
 msgstr "mathlib_lock_intel: Nu s-a găsit biblioteca pentru mathlib ID='%s'\n"
 
-#: src/mathlib.c:1179
+#: src/mathlib.c:1178
 #, c-format
 msgid ""
 "\n"
@@ -5314,70 +5331,70 @@ msgstr ""
 "* Consultați documentația Intel pentru mkl_set_threading_layer() pentru "
 "detalii.\n"
 
-#: src/mathlib.c:1254
+#: src/mathlib.c:1253
 msgid "zgetrf: current_mathlib is NULL, this should never happen.\n"
 msgstr ""
 "zgetrf: current_mathlib este NULL, aceasta nu ar trebui să se întâmple "
 "niciodată.\n"
 
-#: src/mathlib.c:1278 src/mathlib.c:1323
+#: src/mathlib.c:1277 src/mathlib.c:1322
 #, c-format
 msgid "%s: unsupported mathlib type %d\n"
 msgstr "%s: tip mathlib nesuportat %d\n"
 
-#: src/mathlib.c:1291
+#: src/mathlib.c:1290
 msgid "zgetrs: current_mathlib is NULL, this should never happen.\n"
 msgstr ""
 "zgetrs: current_mathlib este NULL, aceasta nu ar trebui să se întâmple "
 "niciodată.\n"
 
-#: src/mathlib.c:1316
+#: src/mathlib.c:1315
 #, c-format
 msgid "zgetrs warning: lda(%d) != ldb(%d)\n"
 msgstr "zgetrs avertisment: lda(%d) != ldb(%d)\n"
 
-#: src/mathlib.c:1367 src/mathlib.c:1430
+#: src/mathlib.c:1366 src/mathlib.c:1429
 #, c-format
 msgid "%s: lib is NULL\n"
 msgstr "%s: lib este NULL\n"
 
-#: src/mathlib.c:1412
+#: src/mathlib.c:1411
 #, c-format
 msgid "%s: thread count cannot be bounded, dlsym(%s): %s\n"
 msgstr "%s: numărul de fire de execuție nu poate fi limitat, dlsym(%s): %s\n"
 
-#: src/mathlib.c:1436
+#: src/mathlib.c:1435
 #, c-format
 msgid "%s: thread count is %d\n"
 msgstr "%s: numărul de fire de execuție este %d\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:1460
+#: src/mathlib.c:1459
 #, c-format
 msgid "dlsym(mkl_set_threading_layer): %s\n"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: src/matrix.c:1223
+#: src/matrix.c:1236
 #, c-format
 msgid "pivot(%d)= %16.8E\n"
 msgstr ""
 
-#: src/matrix.c:1257
+#: src/matrix.c:1270
 #, c-format
 msgid "LU Decomposition Failed: %d\n"
 msgstr "Descompunerea LU a eșuat: %d\n"
 
-#: src/matrix.c:1313
+#: src/matrix.c:1326
 #, c-format
 msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "eroare de simetrie - nrow:%d ncol:%d\n"
 
-#: src/matrix.c:1314
+#: src/matrix.c:1327
 msgid "Symmetry error"
 msgstr "Eroare de simetrie"
 
-#: src/matrix.c:1418
+#: src/matrix.c:1431
 #, c-format
 msgid "Solving Failed: %d\n"
 msgstr "Rezolvarea a eșuat: %d\n"
@@ -5394,25 +5411,24 @@ msgstr ""
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
 msgstr ""
-"BUG: pol=%d în afara intervalului [0,%d): idx=%d freq_step=%d thr=%lu\n"
+"DEFECT: pol=%d în afara intervalului [0,%d): idx=%d freq_step=%d thr=%lu\n"
 
 #: src/measurements.c:625
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 msgstr ""
-"BUG: mgidx=%d în afara intervalului [0,%d): idx=%d pol=%d freq_step=%d thr="
-"%lu\n"
+"DEFECT: mgidx=%d în afara intervalului [0,%d): idx=%d pol=%d freq_step=%d "
+"thr=%lu\n"
 
-# xnec2c-exempt: name
 #: src/measurements.c:628
 #, c-format
-msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
-msgstr ""
+msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
+msgstr "DEFECT: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
 
 #: src/measurements.c:631
 #, c-format
 msgid "BUG: rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n"
-msgstr "BUG: rad_pattern[%d]: eficiență=%.6e gtot=%p max_gain_idx=%p\n"
+msgstr "DEFECT: rad_pattern[%d]: eficiență=%.6e gtot=%p max_gain_idx=%p\n"
 
 # xnec2c-exempt: name
 #: src/measurements.c:635
@@ -5429,50 +5445,71 @@ msgstr "meas_name_idx: Nume invalid cu lungime=%d: %s\n"
 msgid "meas_format: output overflow\n"
 msgstr "meas_format: depășire ieșire\n"
 
-#: src/mem/mem.c:22
+#: src/mem/mem.c:24
 #, c-format
 msgid "mem_obj_from_ptr: ptr %p does not match m->ptr %p (base %p)\n"
 msgstr "mem_obj_from_ptr: ptr %p nu corespunde cu m->ptr %p (baza %p)\n"
 
-#: src/mem/mem.c:194
+#: src/mem/mem.c:196
 #, c-format
 msgid "Memory allocation denied %s: requested %lu bytes\n"
 msgstr "Alocare memorie refuzată %s: solicitate %lu octeți\n"
 
-#: src/mem/mem.c:219
+#: src/mem/mem.c:221
 #, c-format
 msgid "mem_free at %s: array block element size %lu; use mem_array_free\n"
 msgstr ""
 "mem_free la %s: dimensiunea elementului blocului array %lu; utilizați "
 "mem_array_free\n"
 
-#: src/mem/mem.c:238
+#: src/mem/mem.c:240
 #, c-format
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t la %p: dimensiune=%lu utilizat=%lu adresă=%p\n"
 
 # xnec2c-exempt: name
-#: src/mem/mem.c:259
+#: src/mem/mem.c:261
 #, c-format
 msgid "mem_backtrace(%p):\n"
 msgstr ""
 
-#: src/mem/mem.c:262
+#: src/mem/mem.c:264
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace este nul, fără date de backtrace\n"
 
-#: src/mem/mem.c:288
+#: src/mem/mem.c:290
 #, c-format
 msgid "mem_clone: allocation failed for %lu bytes\n"
 msgstr "mem_clone: alocare eșuată pentru %lu octeți\n"
 
-#: src/mem/mem.c:345
+#: src/mem/mem.c:358
+#, c-format
+msgid "managed copy: %lu bytes exceed destination used %lu\n"
+msgstr ""
+"copiere gestionată: %lu octeți depășesc numărul de octeți utilizați la "
+"destinație %lu\n"
+
+#: src/mem/mem.c:361
+#, c-format
+msgid ""
+"managed copy: source overlaps destination at distance %lu over %lu bytes\n"
+msgstr ""
+"copiere gestionată: sursa se suprapune peste destinație la distanța de %lu "
+"pe parcursul a %lu octeți\n"
+
+#: src/mem/mem.c:404
 #, c-format
 msgid "mem_array verb: element size %lu does not match header %lu\n"
 msgstr ""
 "mem_array verb: dimensiunea elementului %lu nu corespunde antetului %lu\n"
 
-#: src/mem/mem.c:437
+#: src/mem/mem.c:434
+#, c-format
+msgid "mem_array_cpy: %lu elements exceed destination count %lu\n"
+msgstr ""
+"mem_array_cpy: %lu elemente depășesc numărul de elemente la destinație %lu\n"
+
+#: src/mem/mem.c:535
 #, c-format
 msgid "mem_zero: array block element size %lu; use mem_array_zero\n"
 msgstr ""
@@ -5794,19 +5831,19 @@ msgstr "inotify: citit %zd octeți din inotify fd\n"
 #: src/optimize.c:406
 #, c-format
 msgid ""
-"inotify: SKIP all events (flags) - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT=%d "
-"INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: SKIP all events (flags) - FREQ_LOOP_INIT=%d INPUT_PENDING=%d "
+"sweep_state=%s\n"
 msgstr ""
-"inotify: OMITERE toate evenimentele (flags) - FREQ_LOOP_RUNNING=%d "
-"FREQ_LOOP_INIT=%d INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: SE IGNORĂ toate evenimentele (indicatori) - FREQ_LOOP_INIT=%d "
+"INPUT_PENDING=%d sweep_state=%s\n"
 
-#: src/optimize.c:424
+#: src/optimize.c:423
 #, c-format
 msgid "inotify: EVENT @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 msgstr ""
 "inotify: EVENIMENT @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 
-#: src/optimize.c:428
+#: src/optimize.c:427
 #, c-format
 msgid ""
 "inotify: EVENT flags: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
@@ -5815,27 +5852,27 @@ msgstr ""
 "inotify: EVENIMENT flags: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
 "IN_CREATE=%d IN_DELETE=%d IN_MODIFY=%d\n"
 
-#: src/optimize.c:436
+#: src/optimize.c:435
 #, c-format
 msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify: FILTRU: target='%s' event_name='%s' match=%d\n"
 
-#: src/optimize.c:443
+#: src/optimize.c:442
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: OMITERE eveniment (nepotrivire nume fișier)\n"
 
-#: src/optimize.c:450
+#: src/optimize.c:449
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: IN_MODIFY pe țintă, setare modify_seen=TRUE\n"
 
-#: src/optimize.c:458
+#: src/optimize.c:457
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
 "inotify: IN_MOVED_TO pe țintă (scriere atomică completă), declanșare "
 "reîncărcare\n"
 
-#: src/optimize.c:475
+#: src/optimize.c:474
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5843,7 +5880,7 @@ msgstr ""
 "inotify: IN_CLOSE_WRITE după modify_seen=TRUE (scriere directă completă), "
 "declanșare reîncărcare\n"
 
-#: src/optimize.c:487
+#: src/optimize.c:486
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5851,17 +5888,17 @@ msgstr ""
 "inotify: IN_CLOSE_WRITE fără modify_seen (închidere parazită, inode vechi), "
 "omitere\n"
 
-#: src/optimize.c:494
+#: src/optimize.c:493
 #, c-format
 msgid "inotify: SKIP event (not MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 msgstr ""
 "inotify: OMITERE eveniment (nu MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 
-#: src/optimize.c:527
+#: src/optimize.c:526
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "nu s-a putut crea eventfd de trezire a optimizatorului\n"
 
-#: src/optimize.c:538
+#: src/optimize.c:537
 msgid "failed to create Optimizer Output thread\n"
 msgstr "nu s-a putut crea firul de execuție pentru Ieșire Optimizator\n"
 
@@ -5870,12 +5907,12 @@ msgstr "nu s-a putut crea firul de execuție pentru Ieșire Optimizator\n"
 msgid "fitness_config_add: invalid meas_index %d\n"
 msgstr "fitness_config_add: meas_index %d invalid\n"
 
-#: src/optimizers/opt_fitness.c:472
+#: src/optimizers/opt_fitness.c:471
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: direcție necunoscută %d\n"
 
-#: src/optimizers/opt_fitness.c:545
+#: src/optimizers/opt_fitness.c:544
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: metodă de reducere necunoscută %d\n"
@@ -6596,19 +6633,19 @@ msgstr ""
 "validare: vizualizatorul de structură resetat la orientarea implicită pentru "
 "reproductibilitate\n"
 
-#: src/validation_dump.c:593 src/validation_dump.c:599
+#: src/validation_dump.c:601 src/validation_dump.c:607
 msgid "Validation Tree"
 msgstr "Arbore de validare"
 
-#: src/validation_dump.c:593
+#: src/validation_dump.c:601
 msgid "Cannot save: frequency loop not done"
 msgstr "Nu se poate salva: bucla de frecvență nu este finalizată"
 
-#: src/validation_dump.c:599
+#: src/validation_dump.c:607
 msgid "Cannot create output directory"
 msgstr "Nu se poate crea directorul de ieșire"
 
-#: src/validation_dump.c:631
+#: src/validation_dump.c:639
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "arbore de validare scris în: %s\n"
@@ -6710,21 +6747,21 @@ msgstr ""
 "formatele PNG multiple pentru diagrama de radiație necesită un nume de "
 "fișier .png: %s\n"
 
-#: src/xnec2c.c:2020
+#: src/xnec2c.c:2021
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "baleiajul rulează %d lucrători cu câte %d fire de execuție fiecare\n"
 
-#: src/xnec2c.c:2195
+#: src/xnec2c.c:2196
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: batch_mode=%d nevalid\n"
 
-#: src/xnec2c.c:2201
+#: src/xnec2c.c:2202
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: stopped=%d nevalid\n"
 
-#: src/xnec2c.c:2314
+#: src/xnec2c.c:2315
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "pornirea Frequency_Loop_Thread a eșuat\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-13 18:29-0700\n"
+"POT-Creation-Date: 2026-08-17 01:20-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2801,8 +2801,8 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "کنفیگ فائل موجود نہیں ہے یا پڑھنے کے قابل نہیں ہے: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:869 src/geometry.c:771 src/input.c:1793 src/input.c:1794
-#: src/mathlib.c:822 src/mathlib.c:1128 src/rdpattern_ui.c:364
+#: src/args.c:869 src/geometry.c:771 src/input.c:1825 src/input.c:1826
+#: src/mathlib.c:821 src/mathlib.c:1127 src/rdpattern_ui.c:364
 #: src/rdpattern_ui.c:372 src/rdpattern_ui.c:379 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
@@ -3711,6 +3711,11 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR بمقابلہ فریکوئنسی"
 
+#: src/freq_sweep_state.c:54
+#, c-format
+msgid "freq_sweep_row: invalid sweep_state=%d\n"
+msgstr "freq_sweep_row: غلط sweep_state=%d\n"
+
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
 msgid ""
@@ -4283,15 +4288,15 @@ msgstr ""
 " ان پٹ فائل پڑھنے میں خرابی\n"
 "تبصرہ نیمونک غلط ہے"
 
-#: src/input.c:211
+#: src/input.c:213
 msgid ""
 "Geometry data error\n"
-"Tag number is less than 1"
+"Tag number is negative"
 msgstr ""
 "جیومیٹری ڈیٹا کی خرابی\n"
-"ٹیگ نمبر 1 سے کم ہے"
+"ٹیگ نمبر منفی ہے"
 
-#: src/input.c:218
+#: src/input.c:220
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4299,16 +4304,27 @@ msgstr ""
 "جیومیٹری ڈیٹا کی خرابی\n"
 "سیگمنٹس کی تعداد 1 سے کم ہے"
 
-#: src/input.c:225
+#: src/input.c:227
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "انتباہ - سیگمنٹس کی تعداد 1000000 سے زیادہ ہے\n"
 
-#: src/input.c:273
+#: src/input.c:250
+#, c-format
+msgid ""
+"%s card: tag 0 selects segment %d by absolute position in the structure, not "
+"within a tagged wire; give the wire a tag number and reference the segment "
+"within that tag unless absolute positioning is intended\n"
+msgstr ""
+"%s کارڈ: ٹیگ 0 ساخت میں مطلق مقام کے ذریعے سیگمنٹ %d منتخب کرتا ہے، ٹیگ شدہ "
+"تار کے اندر نہیں؛ تار کو ٹیگ نمبر دیں اور اس ٹیگ کے اندر سیگمنٹ کا حوالہ "
+"دیں، جب تک کہ مطلق مقام مقصود نہ ہو\n"
+
+#: src/input.c:297
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s ڈیٹا کارڈ کی خرابی: فالتو حرف '%c' کالم %d پر\n"
 
-#: src/input.c:275
+#: src/input.c:299
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4316,33 +4332,33 @@ msgstr ""
 "ڈیٹا کارڈ کی خرابی\n"
 "کارڈ میں فالتو حرف"
 
-#: src/input.c:346
+#: src/input.c:370
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: \"%s\" کے لیے ایکسپریشن کی تشخیص ناکام ہوئی\n"
 
-#: src/input.c:387
+#: src/input.c:411
 msgid "SY card: no line content available\n"
 msgstr "SY کارڈ: لائن کا مواد دستیاب نہیں ہے\n"
 
-#: src/input.c:388
+#: src/input.c:412
 msgid "SY card: no line content available"
 msgstr "SY کارڈ: لائن کا مواد دستیاب نہیں ہے"
 
-#: src/input.c:405
+#: src/input.c:429
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY کارڈ: تعریف میں '=' غائب ہے\n"
 
-#: src/input.c:406
+#: src/input.c:430
 msgid "SY card: missing '=' in definition"
 msgstr "SY کارڈ: تعریف میں '=' غائب ہے"
 
-#: src/input.c:439
+#: src/input.c:463
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY کارڈ: %s=%s کے لیے علامت کی تعریف ناکام ہوئی\n"
 
-#: src/input.c:626
+#: src/input.c:650
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4350,27 +4366,27 @@ msgstr ""
 "جیومیٹری ڈیٹا کی خرابی\n"
 "ٹیپرڈ وائر کے لیے GC کارڈ نہیں ہے"
 
-#: src/input.c:633
+#: src/input.c:657
 msgid "Geometry GC data card error"
 msgstr "جیومیٹری GC ڈیٹا کارڈ کی خرابی"
 
-#: src/input.c:649
+#: src/input.c:673
 msgid "Geometry GX data card error"
 msgstr "جیومیٹری GX ڈیٹا کارڈ کی خرابی"
 
-#: src/input.c:672
+#: src/input.c:696
 msgid "Geometry GR data card error"
 msgstr "جیومیٹری GR ڈیٹا کارڈ کی خرابی"
 
-#: src/input.c:726
+#: src/input.c:750
 msgid "No geometry data cards"
 msgstr "کوئی جیومیٹری ڈیٹا کارڈ نہیں ہے"
 
-#: src/input.c:737
+#: src/input.c:761
 msgid "Probable invalid segment geometry.\n"
 msgstr "ممکنہ طور پر غلط سیگمنٹ جیومیٹری۔\n"
 
-#: src/input.c:738
+#: src/input.c:762
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4380,37 +4396,37 @@ msgstr ""
 "تفصیلات کے لیے کنسول میں انتباہات دیکھیں۔\n"
 "جاری رکھنے کی کوشش..."
 
-#: src/input.c:744
+#: src/input.c:768
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "ممکنہ طور پر غلط سیگمنٹ جیومیٹری (اوپر دیکھیں)\n"
 
-#: src/input.c:748
+#: src/input.c:772
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() کامیاب ہوا\n"
 
-#: src/input.c:785
+#: src/input.c:809
 #, c-format
 msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
 msgstr "سیگمنٹ ڈیٹا کی خرابی: tag=%d si=%lf, bi=%lf\n"
 
-#: src/input.c:787
+#: src/input.c:811
 msgid "Segment data error, zero-length line?  See console."
 msgstr "سیگمنٹ ڈیٹا کی خرابی، صفر لمبائی والی لائن؟ کنسول دیکھیں۔"
 
-#: src/input.c:827
+#: src/input.c:851
 msgid "Move GM data card error"
 msgstr "Move GM ڈیٹا کارڈ کی خرابی"
 
-#: src/input.c:843 src/input.c:884 src/input.c:901 src/input.c:919
-#: src/input.c:927
+#: src/input.c:867 src/input.c:908 src/input.c:925 src/input.c:943
+#: src/input.c:951
 msgid "Patch data card error"
 msgstr "Patch ڈیٹا کارڈ کی خرابی"
 
-#: src/input.c:865
+#: src/input.c:889
 msgid "Patch data error"
 msgstr "Patch ڈیٹا کی خرابی"
 
-#: src/input.c:974
+#: src/input.c:998
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4418,59 +4434,59 @@ msgstr ""
 "\"GF\" کارڈ (NGF حل)\n"
 "معاون نہیں ہے"
 
-#: src/input.c:979
+#: src/input.c:1003
 msgid "Ignoring CM card in geometry"
 msgstr "جیومیٹری میں CM کارڈ نظرانداز کیا جا رہا ہے"
 
-#: src/input.c:992
+#: src/input.c:1016
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "جیومیٹری ڈیٹا کارڈ کی خرابی (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:993
+#: src/input.c:1017
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:999
+#: src/input.c:1023
 msgid "Command card in geometry section"
 msgstr "جیومیٹری سیکشن میں کمانڈ کارڈ"
 
-#: src/input.c:1001
+#: src/input.c:1025
 msgid "Unrecognized geometry card"
 msgstr "غیر تسلیم شدہ جیومیٹری کارڈ"
 
-#: src/input.c:1025
+#: src/input.c:1049
 msgid "Failed to initialize symbol table\n"
 msgstr "علامت ٹیبل کی ابتدا ناکام ہوئی\n"
 
-#: src/input.c:1026
+#: src/input.c:1050
 msgid "Failed to initialize symbol table"
 msgstr "علامت ٹیبل کی ابتدا ناکام ہوئی"
 
-#: src/input.c:1208
+#: src/input.c:1232
 msgid "ignoring CM card in commands\n"
 msgstr "کمانڈز میں CM کارڈ نظرانداز کیا جا رہا ہے\n"
 
-#: src/input.c:1209
+#: src/input.c:1233
 msgid "Ignoring CM card in commands"
 msgstr "کمانڈز میں CM کارڈ نظرانداز کیا جا رہا ہے"
 
-#: src/input.c:1219
+#: src/input.c:1245
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "CP کارڈ نظرانداز کیا گیا ہے: کپلنگ کیلکولیشن نافذ نہیں ہے\n"
 
-#: src/input.c:1313
+#: src/input.c:1341
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "%g MHz پر ڈپلیکیٹ FR کارڈ نظرانداز کیا جا رہا ہے\n"
 
-#: src/input.c:1395
+#: src/input.c:1423
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FR کارڈ میں زیادہ سے زیادہ فریکوئنسی <= کم سے کم فریکوئنسی\n"
 
-#: src/input.c:1396
+#: src/input.c:1424
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4478,7 +4494,7 @@ msgstr ""
 "FR کارڈ میں زیادہ سے زیادہ فریکوئنسی <= کم سے کم فریکوئنسی\n"
 "براہ کرم FR کارڈ ڈیٹا چیک کریں اور درست کریں"
 
-#: src/input.c:1419
+#: src/input.c:1447
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4487,11 +4503,11 @@ msgstr ""
 "GE/GN کارڈز کو درست کریں:\n"
 "GE کارڈ بتاتا ہے کہ گراؤنڈ موجود ہے، لیکن GN اس کے برعکس بتاتا ہے۔"
 
-#: src/input.c:1433
+#: src/input.c:1461
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "گراؤنڈ متعین ہونے کے ساتھ theta > 90 ڈگری\n"
 
-#: src/input.c:1434 src/radiation.c:703
+#: src/input.c:1462 src/radiation.c:703
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4499,14 +4515,14 @@ msgstr ""
 "گراؤنڈ متعین ہونے کے ساتھ Theta > 90 ڈگری\n"
 "براہ کرم RP کارڈ ڈیٹا چیک کریں اور درست کریں"
 
-#: src/input.c:1443
+#: src/input.c:1471
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
 msgstr ""
 "ریڈیل وائر g.s. تقریب: Sommerfeld گراؤنڈ آپشن کے ساتھ استعمال نہیں ہو سکتی\n"
 
-#: src/input.c:1444
+#: src/input.c:1472
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4514,7 +4530,7 @@ msgstr ""
 "ریڈیل وائر g.s. تقریب\n"
 "Sommerfeld گراؤنڈ آپشن کے ساتھ استعمال نہیں ہو سکتی"
 
-#: src/input.c:1492
+#: src/input.c:1520
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -4522,7 +4538,7 @@ msgid ""
 msgstr ""
 "لوڈنگ کارڈ نمبر %d پر ڈیٹا کی خرابی: itag step1 %d itag step2 %d سے بڑا ہے\n"
 
-#: src/input.c:1494
+#: src/input.c:1522
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4530,13 +4546,13 @@ msgstr ""
 "لوڈنگ کارڈ پر ڈیٹا کی خرابی\n"
 "itag step1 itag step2 سے بڑا ہے"
 
-#: src/input.c:1622
+#: src/input.c:1651
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "ٹرانسمیشن لائن امپیڈینس = 0: درست نہیں ہے۔ براہ کرم NT یا TL کارڈ درست کریں\n"
 
-#: src/input.c:1623
+#: src/input.c:1652
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4544,11 +4560,11 @@ msgstr ""
 "ٹرانسمیشن لائن امپیڈینس = 0\n"
 "درست نہیں ہے۔ براہ کرم NT یا TL کارڈ درست کریں"
 
-#: src/input.c:1632
+#: src/input.c:1663
 msgid "Segment number error in TL or NT card\n"
 msgstr "TL یا NT کارڈ میں سیگمنٹ نمبر کی خرابی\n"
 
-#: src/input.c:1633
+#: src/input.c:1664
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4556,19 +4572,19 @@ msgstr ""
 "NT یا TL کارڈ میں\n"
 "سیگمنٹ نمبر کی خرابی"
 
-#: src/input.c:1654
+#: src/input.c:1686
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "PQ اور PT کارڈز نظرانداز کیے گئے ہیں: فائل پر پرنٹنگ نافذ نہیں ہے\n"
 
-#: src/input.c:1658
+#: src/input.c:1690
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PL کارڈ نظرانداز کیا گیا ہے: فائل پر پلاٹنگ معاون نہیں ہے\n"
 
-#: src/input.c:1664
+#: src/input.c:1696
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "سرفیس ویو آپشن (I1=1): RP کمانڈ کا نافذ نہیں ہے\n"
 
-#: src/input.c:1665
+#: src/input.c:1697
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4576,22 +4592,22 @@ msgstr ""
 "سرفیس ویو آپشن (I1=1)\n"
 "RP کمانڈ کا نافذ نہیں ہے"
 
-#: src/input.c:1690
+#: src/input.c:1722
 msgid "Average gain diagnostic enabled (use --skip-verify to disable)\n"
 msgstr ""
 "اوسط گین تشخیص فعال (غیر فعال کرنے کے لیے --skip-verify استعمال کریں)\n"
 
-#: src/input.c:1699
+#: src/input.c:1731
 #, c-format
 msgid "Average power gain disabled: nth=%d nph=%d (both must be >= 2)\n"
 msgstr "اوسط پاور گین غیر فعال: nth=%d nph=%d (دونوں >= 2 ہونے چاہئیں)\n"
 
-#: src/input.c:1704
+#: src/input.c:1736
 #, c-format
 msgid "Average power gain calculation enabled (XNDA A=%d)\n"
 msgstr "اوسط پاور گین حساب فعال (XNDA A=%d)\n"
 
-#: src/input.c:1720
+#: src/input.c:1752
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4599,7 +4615,7 @@ msgstr ""
 "گراؤنڈ متعین ہونے کے ساتھ Theta > 90 ڈگری: براہ کرم RP کارڈ ڈیٹا چیک کریں "
 "اور درست کریں\n"
 
-#: src/input.c:1721
+#: src/input.c:1753
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4607,26 +4623,26 @@ msgstr ""
 "گراؤنڈ متعین ہونے کے ساتھ Theta > 90 ڈگری\n"
 "براہ کرم RP کارڈ ڈیٹا چیک کریں اور درست کریں"
 
-#: src/input.c:1789
+#: src/input.c:1821
 msgid "Geometry card in command section"
 msgstr "کمانڈ سیکشن میں جیومیٹری کارڈ"
 
-#: src/input.c:1792
+#: src/input.c:1824
 msgid "Unrecognized command card"
 msgstr "غیر تسلیم شدہ کمانڈ کارڈ"
 
-#: src/input.c:1827
+#: src/input.c:1859
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
 msgstr ""
 "غائب یا سرفیس ویو RP کارڈ: ریڈی ایشن پیٹرن اور گین کیلکولیشنز غیر فعال ہیں\n"
 
-#: src/input.c:1854
+#: src/input.c:1886
 msgid "Unexpected exit from while loop"
 msgstr "while لوپ سے غیر متوقع اخراج"
 
-#: src/input.c:1945
+#: src/input.c:1977
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4634,7 +4650,7 @@ msgstr ""
 "کمانڈ ڈیٹا کارڈ کی خرابی: ان پٹ فائل پڑھتے وقت غیر متوقع EOF - EN کارڈ شامل "
 "کیا جا رہا ہے\n"
 
-#: src/input.c:1946
+#: src/input.c:1978
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4644,11 +4660,11 @@ msgstr ""
 "ان پٹ فائل پڑھتے وقت غیر متوقع EOF\n"
 "ڈیفالٹ EN کارڈ شامل کیا جا رہا ہے"
 
-#: src/input.c:1963
+#: src/input.c:1995
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "کمانڈ ڈیٹا کارڈ کی خرابی: کارڈ کا نیمونک کوڈ بہت چھوٹا یا غائب ہے\n"
 
-#: src/input.c:1964
+#: src/input.c:1996
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4656,7 +4672,7 @@ msgstr ""
 "کمانڈ ڈیٹا کارڈ کی خرابی\n"
 "نیمونک کوڈ بہت چھوٹا یا غائب ہے"
 
-#: src/input.c:2165
+#: src/input.c:2197
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4664,7 +4680,7 @@ msgstr ""
 "جیومیٹری ڈیٹا کارڈ کی خرابی: ان پٹ فائل پڑھتے وقت غیر متوقع EOF - GE کارڈ "
 "شامل کیا جا رہا ہے\n"
 
-#: src/input.c:2166
+#: src/input.c:2198
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4674,11 +4690,11 @@ msgstr ""
 "ان پٹ فائل پڑھتے وقت غیر متوقع EOF\n"
 "ڈیفالٹ GE کارڈ شامل کیا جا رہا ہے"
 
-#: src/input.c:2183
+#: src/input.c:2215
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "جیومیٹری ڈیٹا کارڈ کی خرابی: کارڈ کا نیمونک کوڈ بہت چھوٹا یا غائب ہے\n"
 
-#: src/input.c:2184
+#: src/input.c:2216
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4745,86 +4761,86 @@ msgstr ""
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade لوڈ کرنے میں ناکام: %s\n"
 
-#: src/main.c:127
+#: src/main.c:126
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s ونڈونگ بیک اینڈ کا پتہ چلا\n"
 
-#: src/main.c:135
+#: src/main.c:134
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch اور --optimize باہمی طور پر خارج ہیں۔\n"
 
-#: src/main.c:144
+#: src/main.c:143
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png کو --batch درکار ہے\n"
 
-#: src/main.c:160
+#: src/main.c:159
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "ان پٹ فائل کا راستہ بہت لمبا ہے ( > %d حروف )\n"
 
-#: src/main.c:167
+#: src/main.c:166
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "غیر متوقع آرگومنٹ '%s' ایک .nec فائل نہیں لگتی\n"
 
-#: src/main.c:174
+#: src/main.c:173
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "غیر متوقع آرگومنٹ: %s\n"
 
-#: src/main.c:180
+#: src/main.c:179
 msgid "batch mode requires an input file\n"
 msgstr "بیچ موڈ کے لیے ان پٹ فائل درکار ہے\n"
 
-#: src/main.c:190
+#: src/main.c:189
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "ڈسپلے نہیں کھول سکتے: X11 یا Wayland سیشن چل رہا ہونا ضروری ہے\n"
 
-#: src/main.c:209
+#: src/main.c:208
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d کاموں کو %d پروسیسرز پر فورک کیا جا رہا ہے۔\n"
 
-#: src/main.c:222 src/main.c:230
+#: src/main.c:221 src/main.c:229
 msgid "exiting after fatal error: pipe() failed"
 msgstr "مہلک خرابی کے بعد باہر نکل رہا ہے: pipe() ناکام ہوا"
 
-#: src/main.c:239
+#: src/main.c:238
 msgid "exiting after fatal error: fork() failed"
 msgstr "مہلک خرابی کے بعد باہر نکل رہا ہے: fork() ناکام ہوا"
 
-#: src/main.c:825
+#: src/main.c:824
 msgid "exiting via user interrupt\n"
 msgstr "صارف کی مداخلت کے ذریعے باہر نکل رہا ہے\n"
 
-#: src/main.c:829
+#: src/main.c:828
 msgid "segmentation fault, exiting\n"
 msgstr "سیگمنٹیشن فالٹ، باہر نکل رہا ہے\n"
 
-#: src/main.c:833
+#: src/main.c:832
 msgid "floating point exception, exiting\n"
 msgstr "فلوٹنگ پوائنٹ ایکسیپشن، باہر نکل رہا ہے\n"
 
-#: src/main.c:837
+#: src/main.c:836
 msgid "abort signal received, exiting\n"
 msgstr "ابارٹ سگنل موصول، باہر نکل رہا ہے\n"
 
-#: src/main.c:841
+#: src/main.c:840
 msgid "termination request received, exiting\n"
 msgstr "ختم کرنے کی درخواست موصول، باہر نکل رہا ہے\n"
 
-#: src/main.c:851
+#: src/main.c:850
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "فورک نہیں ہوا، pid %d سے SIGCHLD نظرانداز کر رہا ہے\n"
 
-#: src/main.c:859
+#: src/main.c:858
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "چائلڈ پروسیس pid %d باہر نکلا\n"
 
-#: src/main.c:868
+#: src/main.c:867
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "سگنل کے ساتھ ڈیفالٹ ایگزٹ: %d\n"
@@ -4853,27 +4869,27 @@ msgid "open_mathlib: lib is NULL\n"
 msgstr "open_mathlib: lib NULL ہے\n"
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:360 src/utils.c:729
+#: src/mathlib.c:359 src/utils.c:729
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
 
-#: src/mathlib.c:365
+#: src/mathlib.c:364
 #, c-format
 msgid "%s: opened %s\n"
 msgstr "%s: کھولا %s\n"
 
-#: src/mathlib.c:373
+#: src/mathlib.c:372
 #, c-format
 msgid "%s: library not found or nonfunctional, skipping: %s\n"
 msgstr "%s: لائبریری نہیں ملی یا غیر فعال، چھوڑ رہا ہے: %s\n"
 
-#: src/mathlib.c:398
+#: src/mathlib.c:397
 #, c-format
 msgid "  %s: unable to bind %s: %s\n"
 msgstr "  %s: %s باندھنے سے قاصر: %s\n"
 
-#: src/mathlib.c:426
+#: src/mathlib.c:425
 #, c-format
 msgid ""
 "%s=%s is set, so thread counts are not chosen per job, which affects "
@@ -4882,57 +4898,57 @@ msgstr ""
 "%s=%s سیٹ ہے، اس لیے ہر کام کے لیے تھریڈ گنتی منتخب نہیں کی جاتی، جس سے "
 "کارکردگی متاثر ہوتی ہے\n"
 
-#: src/mathlib.c:446
+#: src/mathlib.c:445
 #, c-format
 msgid "%s: loaded\n"
 msgstr "%s: لوڈ ہو گیا\n"
 
-#: src/mathlib.c:516
+#: src/mathlib.c:515
 #, c-format
 msgid "Migrated legacy mathlib index %d to ID '%s'\n"
 msgstr "پرانا mathlib انڈیکس %d آئی ڈی '%s' میں منتقل کر دیا\n"
 
-#: src/mathlib.c:521
+#: src/mathlib.c:520
 #, c-format
 msgid ""
 "Legacy mathlib index %d out of range [0-%d], triggering first-run scan\n"
 msgstr "پرانا mathlib انڈیکس %d حد سے باہر [0-%d]، پہلی اسکین شروع کر رہا ہے\n"
 
-#: src/mathlib.c:550
+#: src/mathlib.c:549
 #, c-format
 msgid "Mathlib ID '%s' not found in available libraries.\n"
 msgstr "Mathlib ID '%s' دستیاب لائبریریوں میں نہیں ملا۔\n"
 
-#: src/mathlib.c:552
+#: src/mathlib.c:551
 #, c-format
 msgid "Mathlib '%s' is not available.\n"
 msgstr "Mathlib '%s' دستیاب نہیں ہے۔\n"
 
-#: src/mathlib.c:557
+#: src/mathlib.c:556
 #, c-format
 msgid "Selected first available mathlib: %s\n"
 msgstr "پہلی دستیاب mathlib منتخب کی: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:652
+#: src/mathlib.c:651
 msgid "mathlib_load: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:661
+#: src/mathlib.c:660
 #, c-format
 msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
 msgstr "mathlib_load[%d]: mathlib.available=0، نظرانداز کیا جا رہا ہے: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:706
+#: src/mathlib.c:705
 msgid "set_mathlib_batch: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:711
+#: src/mathlib.c:710
 msgid "Batch Math Library"
 msgstr "بیچ میتھ لائبریری"
 
-#: src/mathlib.c:712
+#: src/mathlib.c:711
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -4942,20 +4958,20 @@ msgstr ""
 "نہ ہو۔ (تاہم، یہ انتخاب اگلی بار xnec2c کھولنے کے لیے محفوظ ہو جائے گا۔)\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:751
+#: src/mathlib.c:750
 #, c-format
 msgid "%s: benchmark=%d\n"
 msgstr ""
 
-#: src/mathlib.c:822
+#: src/mathlib.c:821
 msgid "Mathlib Help"
 msgstr "Mathlib مدد"
 
-#: src/mathlib.c:858
+#: src/mathlib.c:857
 msgid "Mathlib Benchmark Help"
 msgstr "Mathlib بینچ مارک مدد"
 
-#: src/mathlib.c:860
+#: src/mathlib.c:859
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5047,22 +5063,22 @@ msgstr ""
 "ملتا، اور یہی گنتی اس وقت اہم ہے جب سویپ میں حساب کے لیے باقی فریکوئنسیز آپ "
 "کے پروسیسرز سے کم ہوں۔\n"
 
-#: src/mathlib.c:922
+#: src/mathlib.c:921
 #, c-format
 msgid "bench_append: vsnprintf failed for \"%s\"\n"
 msgstr "bench_append: \"%s\" کے لیے vsnprintf ناکام ہوا\n"
 
-#: src/mathlib.c:949
+#: src/mathlib.c:948
 #, c-format
 msgid "mathlib_benchmark: invalid mode=%d\n"
 msgstr "mathlib_benchmark: غلط mode=%d\n"
 
-#: src/mathlib.c:959 src/mathlib.c:969 src/mathlib.c:976 src/mathlib.c:982
-#: src/mathlib.c:999 src/mathlib.c:1004 src/mathlib.c:1128
+#: src/mathlib.c:958 src/mathlib.c:968 src/mathlib.c:975 src/mathlib.c:981
+#: src/mathlib.c:998 src/mathlib.c:1003 src/mathlib.c:1127
 msgid "Mathlib Benchmark"
 msgstr "Mathlib بینچ مارک"
 
-#: src/mathlib.c:960
+#: src/mathlib.c:959
 #, c-format
 msgid ""
 "%s=%s states the thread count of every library that honors it, so a thread "
@@ -5073,15 +5089,15 @@ msgstr ""
 "بینچ مارک ہر مرحلے میں یکساں گنتی ناپتا ہے۔ تھریڈ گنتیوں کا بینچ مارک کرنے "
 "کے لیے اسے اَن سیٹ کریں اور دوبارہ شروع کریں۔"
 
-#: src/mathlib.c:970
+#: src/mathlib.c:969
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "آپٹیمائزیشن فعال ہونے کے دوران بینچ مارکس غیر فعال ہیں۔"
 
-#: src/mathlib.c:977
+#: src/mathlib.c:976
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "بینچ مارکس چلانے سے پہلے NEC2 ان پٹ فائل لوڈ کریں۔"
 
-#: src/mathlib.c:983
+#: src/mathlib.c:982
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5089,15 +5105,15 @@ msgstr ""
 "\"Single Job\" کے علاوہ بینچ مارک منتخب کرنے کا کوئی اثر نہیں جب تک کمانڈ "
 "لائن پر -j متعین نہ ہو۔"
 
-#: src/mathlib.c:1000
+#: src/mathlib.c:999
 msgid "You must select at least one math library to benchmark"
 msgstr "بینچ مارک کے لیے کم از کم ایک میتھ لائبریری منتخب کریں"
 
-#: src/mathlib.c:1005
+#: src/mathlib.c:1004
 msgid "Run the benchmark now?"
 msgstr "کیا بینچ مارک اب چلایا جائے؟"
 
-#: src/mathlib.c:1006
+#: src/mathlib.c:1005
 #, c-format
 msgid ""
 "This will run a frequency loop benchmark for each detected linear algebra "
@@ -5148,28 +5164,28 @@ msgstr ""
 "\n"
 "بینچ مارک مکمل ہونے پر یہ ڈائیلاگ بند ہو جائے گا۔"
 
-#: src/mathlib.c:1066
+#: src/mathlib.c:1065
 #, c-format
 msgid "Starting %s benchmark (%s %d)\n"
 msgstr "%s بینچ مارک شروع ہو رہا ہے (%s %d)\n"
 
-#: src/mathlib.c:1077
+#: src/mathlib.c:1076
 #, c-format
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "بینچ مارک سویپ نہیں چلا: FR_cards=%d steps_total=%d\n"
 
-#: src/mathlib.c:1111
+#: src/mathlib.c:1110
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "ایک بار ناپا گیا: یہ لائبریری اسی تھریڈ گنتی کو رکھتی ہے جس کے ساتھ بنائی "
 "گئی تھی"
 
-#: src/mathlib.c:1168
+#: src/mathlib.c:1167
 #, c-format
 msgid "mathlib_lock_intel: Cannot find library for mathlib ID='%s'\n"
 msgstr "mathlib_lock_intel: mathlib ID='%s' کے لیے لائبریری نہیں ملی\n"
 
-#: src/mathlib.c:1179
+#: src/mathlib.c:1178
 #, c-format
 msgid ""
 "\n"
@@ -5198,66 +5214,66 @@ msgstr ""
 "* \n"
 "* مزید تفصیل کے لیے mkl_set_threading_layer() پر Intel کی دستاویزات دیکھیں۔\n"
 
-#: src/mathlib.c:1254
+#: src/mathlib.c:1253
 msgid "zgetrf: current_mathlib is NULL, this should never happen.\n"
 msgstr "zgetrf: current_mathlib NULL ہے، یہ کبھی نہیں ہونا چاہیے۔\n"
 
-#: src/mathlib.c:1278 src/mathlib.c:1323
+#: src/mathlib.c:1277 src/mathlib.c:1322
 #, c-format
 msgid "%s: unsupported mathlib type %d\n"
 msgstr "%s: غیر تعاون یافتہ mathlib قسم %d\n"
 
-#: src/mathlib.c:1291
+#: src/mathlib.c:1290
 msgid "zgetrs: current_mathlib is NULL, this should never happen.\n"
 msgstr "zgetrs: current_mathlib NULL ہے، یہ کبھی نہیں ہونا چاہیے۔\n"
 
-#: src/mathlib.c:1316
+#: src/mathlib.c:1315
 #, c-format
 msgid "zgetrs warning: lda(%d) != ldb(%d)\n"
 msgstr "zgetrs انتباہ: lda(%d) != ldb(%d)\n"
 
-#: src/mathlib.c:1367 src/mathlib.c:1430
+#: src/mathlib.c:1366 src/mathlib.c:1429
 #, c-format
 msgid "%s: lib is NULL\n"
 msgstr "%s: lib NULL ہے\n"
 
-#: src/mathlib.c:1412
+#: src/mathlib.c:1411
 #, c-format
 msgid "%s: thread count cannot be bounded, dlsym(%s): %s\n"
 msgstr "%s: تھریڈ گنتی محدود نہیں کی جا سکتی، dlsym(%s): %s\n"
 
-#: src/mathlib.c:1436
+#: src/mathlib.c:1435
 #, c-format
 msgid "%s: thread count is %d\n"
 msgstr "%s: تھریڈ گنتی %d ہے\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:1460
+#: src/mathlib.c:1459
 #, c-format
 msgid "dlsym(mkl_set_threading_layer): %s\n"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: src/matrix.c:1223
+#: src/matrix.c:1236
 #, c-format
 msgid "pivot(%d)= %16.8E\n"
 msgstr ""
 
-#: src/matrix.c:1257
+#: src/matrix.c:1270
 #, c-format
 msgid "LU Decomposition Failed: %d\n"
 msgstr "LU ڈیکمپوزیشن ناکام: %d\n"
 
-#: src/matrix.c:1313
+#: src/matrix.c:1326
 #, c-format
 msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "ہم آہنگی کی خرابی - nrow:%d ncol:%d\n"
 
-#: src/matrix.c:1314
+#: src/matrix.c:1327
 msgid "Symmetry error"
 msgstr "ہم آہنگی کی خرابی"
 
-#: src/matrix.c:1418
+#: src/matrix.c:1431
 #, c-format
 msgid "Solving Failed: %d\n"
 msgstr "حل ناکام: %d\n"
@@ -5272,18 +5288,18 @@ msgstr ""
 #: src/measurements.c:611
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
-msgstr "BUG: pol=%d حد سے باہر [0,%d): idx=%d freq_step=%d thr=%lu\n"
+msgstr "خرابی: pol=%d حد سے باہر [0,%d): idx=%d freq_step=%d thr=%lu\n"
 
 #: src/measurements.c:625
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
-msgstr "BUG: mgidx=%d حد سے باہر [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
+msgstr ""
+"خرابی: mgidx=%d حد سے باہر [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 
-# xnec2c-exempt: name
 #: src/measurements.c:628
 #, c-format
-msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
-msgstr ""
+msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
+msgstr "خرابی: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
 
 # xnec2c-exempt: name
 #: src/measurements.c:631
@@ -5306,49 +5322,65 @@ msgstr "meas_name_idx: غلط نام طول=%d کے ساتھ: %s\n"
 msgid "meas_format: output overflow\n"
 msgstr "meas_format: آؤٹ پٹ اوور فلو\n"
 
-#: src/mem/mem.c:22
+#: src/mem/mem.c:24
 #, c-format
 msgid "mem_obj_from_ptr: ptr %p does not match m->ptr %p (base %p)\n"
 msgstr "mem_obj_from_ptr: ptr %p ،m->ptr %p سے میل نہیں کھاتا (base %p)\n"
 
-#: src/mem/mem.c:194
+#: src/mem/mem.c:196
 #, c-format
 msgid "Memory allocation denied %s: requested %lu bytes\n"
 msgstr "میموری ایلوکیشن مسترد %s: %lu بائٹس درخواست کردہ\n"
 
-#: src/mem/mem.c:219
+#: src/mem/mem.c:221
 #, c-format
 msgid "mem_free at %s: array block element size %lu; use mem_array_free\n"
 msgstr ""
 "mem_free بمقام %s: array block عنصر کا سائز %lu؛ mem_array_free استعمال "
 "کریں\n"
 
-#: src/mem/mem.c:238
+#: src/mem/mem.c:240
 #, c-format
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t بمقام %p: size=%lu used=%lu addr=%p\n"
 
 # xnec2c-exempt: name
-#: src/mem/mem.c:259
+#: src/mem/mem.c:261
 #, c-format
 msgid "mem_backtrace(%p):\n"
 msgstr ""
 
-#: src/mem/mem.c:262
+#: src/mem/mem.c:264
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace null ہے، کوئی بیک ٹریس ڈیٹا نہیں\n"
 
-#: src/mem/mem.c:288
+#: src/mem/mem.c:290
 #, c-format
 msgid "mem_clone: allocation failed for %lu bytes\n"
 msgstr "mem_clone: %lu بائٹس کے لیے ایلوکیشن ناکام\n"
 
-#: src/mem/mem.c:345
+#: src/mem/mem.c:358
+#, c-format
+msgid "managed copy: %lu bytes exceed destination used %lu\n"
+msgstr "منظم نقل: %lu بائٹس منزل کے استعمال شدہ %lu سے تجاوز کرتے ہیں\n"
+
+#: src/mem/mem.c:361
+#, c-format
+msgid ""
+"managed copy: source overlaps destination at distance %lu over %lu bytes\n"
+msgstr "منظم نقل: ماخذ %lu فاصلے پر %lu بائٹس تک منزل سے متجاوز ہے\n"
+
+#: src/mem/mem.c:404
 #, c-format
 msgid "mem_array verb: element size %lu does not match header %lu\n"
 msgstr "mem_array verb: عنصر کا سائز %lu ہیڈر %lu سے مطابقت نہیں رکھتا\n"
 
-#: src/mem/mem.c:437
+#: src/mem/mem.c:434
+#, c-format
+msgid "mem_array_cpy: %lu elements exceed destination count %lu\n"
+msgstr "mem_array_cpy: %lu عناصر منزل کی گنتی %lu سے تجاوز کرتے ہیں\n"
+
+#: src/mem/mem.c:535
 #, c-format
 msgid "mem_zero: array block element size %lu; use mem_array_zero\n"
 msgstr "mem_zero: array block عنصر کا سائز %lu؛ mem_array_zero استعمال کریں\n"
@@ -5668,18 +5700,18 @@ msgstr "inotify: inotify fd سے %zd بائٹس پڑھے\n"
 #: src/optimize.c:406
 #, c-format
 msgid ""
-"inotify: SKIP all events (flags) - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT=%d "
-"INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: SKIP all events (flags) - FREQ_LOOP_INIT=%d INPUT_PENDING=%d "
+"sweep_state=%s\n"
 msgstr ""
-"inotify: تمام واقعات (flags) چھوڑیں - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT=%d "
-"INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: تمام واقعات چھوڑیں (flags) - FREQ_LOOP_INIT=%d INPUT_PENDING=%d "
+"sweep_state=%s\n"
 
-#: src/optimize.c:424
+#: src/optimize.c:423
 #, c-format
 msgid "inotify: EVENT @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 msgstr "inotify: واقعہ @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 
-#: src/optimize.c:428
+#: src/optimize.c:427
 #, c-format
 msgid ""
 "inotify: EVENT flags: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
@@ -5688,26 +5720,26 @@ msgstr ""
 "inotify: واقعہ flags: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
 "IN_CREATE=%d IN_DELETE=%d IN_MODIFY=%d\n"
 
-#: src/optimize.c:436
+#: src/optimize.c:435
 #, c-format
 msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify: فلٹر: target='%s' event_name='%s' match=%d\n"
 
-#: src/optimize.c:443
+#: src/optimize.c:442
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: واقعہ چھوڑیں (فائل نام مماثل نہیں)\n"
 
-#: src/optimize.c:450
+#: src/optimize.c:449
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: ہدف پر IN_MODIFY، modify_seen=TRUE ترتیب دے رہا ہے\n"
 
-#: src/optimize.c:458
+#: src/optimize.c:457
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
 "inotify: ہدف پر IN_MOVED_TO (ایٹمک رائٹ مکمل)، دوبارہ لوڈ شروع کر رہا ہے\n"
 
-#: src/optimize.c:475
+#: src/optimize.c:474
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5715,7 +5747,7 @@ msgstr ""
 "inotify: modify_seen=TRUE کے بعد IN_CLOSE_WRITE (براہ راست رائٹ مکمل)، "
 "دوبارہ لوڈ شروع\n"
 
-#: src/optimize.c:487
+#: src/optimize.c:486
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5723,17 +5755,17 @@ msgstr ""
 "inotify: modify_seen کے بغیر IN_CLOSE_WRITE (جھوٹا بند، پرانا inode)، چھوڑ "
 "رہا ہے\n"
 
-#: src/optimize.c:494
+#: src/optimize.c:493
 #, c-format
 msgid "inotify: SKIP event (not MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 msgstr ""
 "inotify: واقعہ چھوڑیں (MODIFY/CLOSE_WRITE/MOVED_TO نہیں، mask=0x%08x)\n"
 
-#: src/optimize.c:527
+#: src/optimize.c:526
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "آپٹیمائزر ویک eventfd بنانے میں ناکام\n"
 
-#: src/optimize.c:538
+#: src/optimize.c:537
 msgid "failed to create Optimizer Output thread\n"
 msgstr "آپٹیمائزر آؤٹ پٹ تھریڈ بنانے میں ناکام\n"
 
@@ -5742,12 +5774,12 @@ msgstr "آپٹیمائزر آؤٹ پٹ تھریڈ بنانے میں ناکام\n
 msgid "fitness_config_add: invalid meas_index %d\n"
 msgstr "fitness_config_add: غلط meas_index %d\n"
 
-#: src/optimizers/opt_fitness.c:472
+#: src/optimizers/opt_fitness.c:471
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: نامعلوم سمت %d\n"
 
-#: src/optimizers/opt_fitness.c:545
+#: src/optimizers/opt_fitness.c:544
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: نامعلوم تخفیف طریقہ %d\n"
@@ -6457,19 +6489,19 @@ msgstr ""
 "ویلیڈیشن: دوبارہ پیدا کرنے کی صلاحیت کے لیے سٹرکچر ویور کو ڈیفالٹ اورینٹیشن "
 "پر ری سیٹ کیا گیا\n"
 
-#: src/validation_dump.c:593 src/validation_dump.c:599
+#: src/validation_dump.c:601 src/validation_dump.c:607
 msgid "Validation Tree"
 msgstr "ویلیڈیشن ٹری"
 
-#: src/validation_dump.c:593
+#: src/validation_dump.c:601
 msgid "Cannot save: frequency loop not done"
 msgstr "محفوظ نہیں کیا جا سکتا: فریکوئنسی لوپ مکمل نہیں ہوا"
 
-#: src/validation_dump.c:599
+#: src/validation_dump.c:607
 msgid "Cannot create output directory"
 msgstr "آؤٹ پٹ ڈائریکٹری نہیں بنائی جا سکتی"
 
-#: src/validation_dump.c:631
+#: src/validation_dump.c:639
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "ویلیڈیشن ٹری یہاں لکھی گئی: %s\n"
@@ -6567,21 +6599,21 @@ msgstr "ریڈی ایشن پیٹرن PNG لکھا گیا: %s\n"
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "متعدد ریڈی ایشن پیٹرن PNG فارمیٹس کے لیے .png فائل نام درکار ہے: %s\n"
 
-#: src/xnec2c.c:2020
+#: src/xnec2c.c:2021
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "سویپ %d ورکرز چلاتا ہے، ہر ایک کے %d تھریڈز ہیں\n"
 
-#: src/xnec2c.c:2195
+#: src/xnec2c.c:2196
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: غلط batch_mode=%d\n"
 
-#: src/xnec2c.c:2201
+#: src/xnec2c.c:2202
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: غلط stopped=%d\n"
 
-#: src/xnec2c.c:2314
+#: src/xnec2c.c:2315
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread شروع کرنے میں ناکام\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-13 18:29-0700\n"
+"POT-Creation-Date: 2026-08-17 01:20-0700\n"
 "PO-Revision-Date: 2026-05-25 01:51-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2837,8 +2837,8 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "konfiguratsiya fayli mavjud emas yoki oʻqib boʻlmaydi: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:869 src/geometry.c:771 src/input.c:1793 src/input.c:1794
-#: src/mathlib.c:822 src/mathlib.c:1128 src/rdpattern_ui.c:364
+#: src/args.c:869 src/geometry.c:771 src/input.c:1825 src/input.c:1826
+#: src/mathlib.c:821 src/mathlib.c:1127 src/rdpattern_ui.c:364
 #: src/rdpattern_ui.c:372 src/rdpattern_ui.c:379 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
@@ -3758,6 +3758,11 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR / chastota"
 
+#: src/freq_sweep_state.c:54
+#, c-format
+msgid "freq_sweep_row: invalid sweep_state=%d\n"
+msgstr "freq_sweep_row: sweep_state=%d notoʻgʻri\n"
+
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
 msgid ""
@@ -4343,15 +4348,15 @@ msgstr ""
 " Kirish faylini oʻqishda xato\n"
 "Izoh mnemonik kodi notoʻgʻri"
 
-#: src/input.c:211
+#: src/input.c:213
 msgid ""
 "Geometry data error\n"
-"Tag number is less than 1"
+"Tag number is negative"
 msgstr ""
-"Geometriya maʼlumot xatosi\n"
-"Teg raqami 1 dan kichik"
+"Geometriya maʼlumotlari xatosi\n"
+"Tag raqami manfiy"
 
-#: src/input.c:218
+#: src/input.c:220
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4359,16 +4364,28 @@ msgstr ""
 "Geometriya maʼlumot xatosi\n"
 "Segmentlar soni 1 dan kichik"
 
-#: src/input.c:225
+#: src/input.c:227
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "ogohlantirish - segmentlar soni 1000000 dan katta\n"
 
-#: src/input.c:273
+#: src/input.c:250
+#, c-format
+msgid ""
+"%s card: tag 0 selects segment %d by absolute position in the structure, not "
+"within a tagged wire; give the wire a tag number and reference the segment "
+"within that tag unless absolute positioning is intended\n"
+msgstr ""
+"%s kartasi: tag 0 strukturadagi segment %d ni taglangan sim ichida emas, "
+"mutlaq joylashuvi boʻyicha tanlaydi; mutlaq joylashtirish nazarda tutilmagan "
+"boʻlsa, simga tag raqamini bering va segmentga shu tag ichida murojaat "
+"qiling\n"
+
+#: src/input.c:297
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s maʼlumot kartasi xatosi: '%c' notoʻgʻri belgi %d-ustunda\n"
 
-#: src/input.c:275
+#: src/input.c:299
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4376,33 +4393,33 @@ msgstr ""
 "Maʼlumot kartasi xatosi\n"
 "Kartada notoʻgʻri belgi"
 
-#: src/input.c:346
+#: src/input.c:370
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: \"%s\" uchun ifodani baholash muvaffaqiyatsiz boʻldi\n"
 
-#: src/input.c:387
+#: src/input.c:411
 msgid "SY card: no line content available\n"
 msgstr "SY kartasi: satr mazmuni mavjud emas\n"
 
-#: src/input.c:388
+#: src/input.c:412
 msgid "SY card: no line content available"
 msgstr "SY kartasi: satr mazmuni mavjud emas"
 
-#: src/input.c:405
+#: src/input.c:429
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY kartasi: taʼrifda '=' belgisi yoʻq\n"
 
-#: src/input.c:406
+#: src/input.c:430
 msgid "SY card: missing '=' in definition"
 msgstr "SY kartasi: taʼrifda '=' belgisi yoʻq"
 
-#: src/input.c:439
+#: src/input.c:463
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY kartasi: %s=%s uchun ramz taʼrifi muvaffaqiyatsiz boʻldi\n"
 
-#: src/input.c:626
+#: src/input.c:650
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4410,27 +4427,27 @@ msgstr ""
 "Geometriya maʼlumot xatosi\n"
 "Torayuvchi sim uchun GC kartasi yoʻq"
 
-#: src/input.c:633
+#: src/input.c:657
 msgid "Geometry GC data card error"
 msgstr "Geometriya GC maʼlumot kartasi xatosi"
 
-#: src/input.c:649
+#: src/input.c:673
 msgid "Geometry GX data card error"
 msgstr "Geometriya GX maʼlumot kartasi xatosi"
 
-#: src/input.c:672
+#: src/input.c:696
 msgid "Geometry GR data card error"
 msgstr "Geometriya GR maʼlumot kartasi xatosi"
 
-#: src/input.c:726
+#: src/input.c:750
 msgid "No geometry data cards"
 msgstr "Geometriya maʼlumot kartalari yoʻq"
 
-#: src/input.c:737
+#: src/input.c:761
 msgid "Probable invalid segment geometry.\n"
 msgstr "Ehtimol, notoʻgʻri segment geometriyasi.\n"
 
-#: src/input.c:738
+#: src/input.c:762
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4440,37 +4457,37 @@ msgstr ""
 "Tafsilot uchun konsoldagi ogohlantirishlarni koʻring.\n"
 "Davom etishga urinilmoqda..."
 
-#: src/input.c:744
+#: src/input.c:768
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Ehtimol, notoʻgʻri segment geometriyasi (yuqoriga qarang)\n"
 
-#: src/input.c:748
+#: src/input.c:772
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() muvaffaqiyatli oʻtdi\n"
 
-#: src/input.c:785
+#: src/input.c:809
 #, c-format
 msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
 msgstr "segment maʼlumot xatosi: teg=%d si=%lf, bi=%lf\n"
 
-#: src/input.c:787
+#: src/input.c:811
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Segment maʼlumot xatosi, nol uzunlikli chiziq?  Konsolga qarang."
 
-#: src/input.c:827
+#: src/input.c:851
 msgid "Move GM data card error"
 msgstr "GM koʻchirish maʼlumot kartasi xatosi"
 
-#: src/input.c:843 src/input.c:884 src/input.c:901 src/input.c:919
-#: src/input.c:927
+#: src/input.c:867 src/input.c:908 src/input.c:925 src/input.c:943
+#: src/input.c:951
 msgid "Patch data card error"
 msgstr "Patch maʼlumot kartasi xatosi"
 
-#: src/input.c:865
+#: src/input.c:889
 msgid "Patch data error"
 msgstr "Patch maʼlumot xatosi"
 
-#: src/input.c:974
+#: src/input.c:998
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4478,60 +4495,60 @@ msgstr ""
 "\"GF\" kartasi (NGF yechimi)\n"
 "qoʻllab-quvvatlanmaydi"
 
-#: src/input.c:979
+#: src/input.c:1003
 msgid "Ignoring CM card in geometry"
 msgstr "Geometriyadagi CM kartasi eʼtiborga olinmaydi"
 
-#: src/input.c:992
+#: src/input.c:1016
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "geometriya maʼlumot kartasi xatosi (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:993
+#: src/input.c:1017
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:999
+#: src/input.c:1023
 msgid "Command card in geometry section"
 msgstr "Geometriya boʻlimida buyruq kartasi"
 
-#: src/input.c:1001
+#: src/input.c:1025
 msgid "Unrecognized geometry card"
 msgstr "Tanib boʻlmaydigan geometriya kartasi"
 
-#: src/input.c:1025
+#: src/input.c:1049
 msgid "Failed to initialize symbol table\n"
 msgstr "Ramzlar jadvalini ishga tushirishda muvaffaqiyatsizlik\n"
 
-#: src/input.c:1026
+#: src/input.c:1050
 msgid "Failed to initialize symbol table"
 msgstr "Ramzlar jadvalini ishga tushirishda muvaffaqiyatsizlik"
 
-#: src/input.c:1208
+#: src/input.c:1232
 msgid "ignoring CM card in commands\n"
 msgstr "buyruqlardagi CM kartasi eʼtiborga olinmaydi\n"
 
-#: src/input.c:1209
+#: src/input.c:1233
 msgid "Ignoring CM card in commands"
 msgstr "Buyruqlardagi CM kartasi eʼtiborga olinmaydi"
 
-#: src/input.c:1219
+#: src/input.c:1245
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr ""
 "CP kartasi eʼtiborga olinmaydi: bogʻlanish hisobi amalga oshirilmagan\n"
 
-#: src/input.c:1313
+#: src/input.c:1341
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "%g MHz da takroriy FR kartasi oʻtkazib yuborilmoqda\n"
 
-#: src/input.c:1395
+#: src/input.c:1423
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FR kartasida maksimal chastota <= minimal chastota\n"
 
-#: src/input.c:1396
+#: src/input.c:1424
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4539,7 +4556,7 @@ msgstr ""
 "FR kartasida maksimal chastota <= minimal chastota\n"
 "Iltimos, FR kartasi maʼlumotlarini tekshiring va toʻgʻirlang"
 
-#: src/input.c:1419
+#: src/input.c:1447
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4548,11 +4565,11 @@ msgstr ""
 "GE/GN kartalarini tuzating:\n"
 "GE kartasi zaminning mavjudligini koʻrsatadi, lekin GN boshqacha koʻrsatadi."
 
-#: src/input.c:1433
+#: src/input.c:1461
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "yer belgilanganda theta > 90 daraja.\n"
 
-#: src/input.c:1434 src/radiation.c:703
+#: src/input.c:1462 src/radiation.c:703
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4560,7 +4577,7 @@ msgstr ""
 "Zamin belgilanganda Theta > 90 daraja\n"
 "Iltimos, RP kartasi maʼlumotlarini tekshiring va toʻgʻirlang"
 
-#: src/input.c:1443
+#: src/input.c:1471
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
@@ -4568,7 +4585,7 @@ msgstr ""
 "radial sim z.s. taxminiylik: Sommerfeld zamin opsiyasi bilan ishlatib "
 "boʻlmaydi\n"
 
-#: src/input.c:1444
+#: src/input.c:1472
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4576,7 +4593,7 @@ msgstr ""
 "radial sim z.s. taxminiylik\n"
 "Sommerfeld zamin opsiyasi bilan ishlatib boʻlmaydi"
 
-#: src/input.c:1492
+#: src/input.c:1520
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -4585,7 +4602,7 @@ msgstr ""
 "karta yuklanishida maʼlumot xatosi %d: itag qadam1 %d itag qadam2 %d dan "
 "katta\n"
 
-#: src/input.c:1494
+#: src/input.c:1522
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4593,14 +4610,14 @@ msgstr ""
 "Karta yuklanishida maʼlumot xatosi\n"
 "itag qadam1 itag qadam2 dan katta"
 
-#: src/input.c:1622
+#: src/input.c:1651
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "Uzatish liniyasi impedansi = 0: yaroqsiz. Iltimos, NT yoki TL kartasini "
 "toʻgʻirlang\n"
 
-#: src/input.c:1623
+#: src/input.c:1652
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4608,11 +4625,11 @@ msgstr ""
 "Uzatish liniyasi impedansi = 0\n"
 "yaroqsiz. Iltimos, NT yoki TL kartasini toʻgʻirlang"
 
-#: src/input.c:1632
+#: src/input.c:1663
 msgid "Segment number error in TL or NT card\n"
 msgstr "TL yoki NT kartasida segment raqam xatosi\n"
 
-#: src/input.c:1633
+#: src/input.c:1664
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4620,23 +4637,23 @@ msgstr ""
 "Segment raqami\n"
 "NT yoki TL kartasida xato"
 
-#: src/input.c:1654
+#: src/input.c:1686
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr ""
 "PQ va PT kartalari eʼtiborga olinmaydi: faylga chop etish amalga "
 "oshirilmagan\n"
 
-#: src/input.c:1658
+#: src/input.c:1690
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr ""
 "PL kartasi eʼtiborga olinmaydi: faylga chizma chiqarish qoʻllab-"
 "quvvatlanmaydi\n"
 
-#: src/input.c:1664
+#: src/input.c:1696
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "Sirt toʻlqini opsiyasi (I1=1): RP buyrugʻi amalga oshirilmagan\n"
 
-#: src/input.c:1665
+#: src/input.c:1697
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4644,25 +4661,25 @@ msgstr ""
 "Sirt toʻlqini opsiyasi (I1=1)\n"
 "RP buyrugʻi amalga oshirilmagan"
 
-#: src/input.c:1690
+#: src/input.c:1722
 msgid "Average gain diagnostic enabled (use --skip-verify to disable)\n"
 msgstr ""
 "Oʻrtacha kuchaytirish diagnostikasi yoqildi (oʻchirish uchun --skip-verify "
 "dan foydalaning)\n"
 
-#: src/input.c:1699
+#: src/input.c:1731
 #, c-format
 msgid "Average power gain disabled: nth=%d nph=%d (both must be >= 2)\n"
 msgstr ""
 "Oʻrtacha quvvat kuchayishi oʻchirildi: nth=%d nph=%d (ikkalasi ham >= 2 "
 "boʻlishi kerak)\n"
 
-#: src/input.c:1704
+#: src/input.c:1736
 #, c-format
 msgid "Average power gain calculation enabled (XNDA A=%d)\n"
 msgstr "Oʻrtacha quvvat kuchayishi hisobi yoqildi (XNDA A=%d)\n"
 
-#: src/input.c:1720
+#: src/input.c:1752
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4670,7 +4687,7 @@ msgstr ""
 "Zamin belgilanganda Theta > 90 daraja.: Iltimos, RP kartasi maʼlumotlarini "
 "tekshiring va toʻgʻirlang\n"
 
-#: src/input.c:1721
+#: src/input.c:1753
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4678,15 +4695,15 @@ msgstr ""
 "Zamin belgilanganda Theta > 90 daraja.\n"
 "Iltimos, RP kartasi maʼlumotlarini tekshiring va toʻgʻirlang"
 
-#: src/input.c:1789
+#: src/input.c:1821
 msgid "Geometry card in command section"
 msgstr "Buyruq boʻlimida geometriya kartasi"
 
-#: src/input.c:1792
+#: src/input.c:1824
 msgid "Unrecognized command card"
 msgstr "Tanib boʻlmaydigan buyruq kartasi"
 
-#: src/input.c:1827
+#: src/input.c:1859
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4694,11 +4711,11 @@ msgstr ""
 "RP kartasi yoʻq yoki sirt-toʻlqin RP kartasi: Nurlanish diagrammasi va "
 "kuchaytirish hisob-kitoblari oʻchirildi\n"
 
-#: src/input.c:1854
+#: src/input.c:1886
 msgid "Unexpected exit from while loop"
 msgstr "While siklidan kutilmagan chiqish"
 
-#: src/input.c:1945
+#: src/input.c:1977
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4706,7 +4723,7 @@ msgstr ""
 "buyruq maʼlumot kartasi xatosi: Kirish faylini oʻqishda kutilmagan EOF - EN "
 "kartasi qoʻshilmoqda\n"
 
-#: src/input.c:1946
+#: src/input.c:1978
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4716,13 +4733,13 @@ msgstr ""
 "Kirish faylini oʻqishda kutilmagan EOF\n"
 "Birlamchi EN kartasi qoʻshilmoqda"
 
-#: src/input.c:1963
+#: src/input.c:1995
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "buyruq maʼlumot kartasi xatosi: kartaning mnemonik kodi juda qisqa yoki "
 "yoʻq\n"
 
-#: src/input.c:1964
+#: src/input.c:1996
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4730,7 +4747,7 @@ msgstr ""
 "Buyruq maʼlumot kartasi xatosi\n"
 "Mnemonik kod juda qisqa yoki yoʻq"
 
-#: src/input.c:2165
+#: src/input.c:2197
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4738,7 +4755,7 @@ msgstr ""
 "geometriya maʼlumot kartasi xatosi: Kirish faylini oʻqishda kutilmagan EOF - "
 "GE kartasi qoʻshilmoqda\n"
 
-#: src/input.c:2166
+#: src/input.c:2198
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4748,13 +4765,13 @@ msgstr ""
 "Kirish faylini oʻqishda kutilmagan EOF\n"
 "Birlamchi GE kartasi qoʻshilmoqda"
 
-#: src/input.c:2183
+#: src/input.c:2215
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "geometriya maʼlumot kartasi xatosi: kartaning mnemonik kodi juda qisqa yoki "
 "yoʻq\n"
 
-#: src/input.c:2184
+#: src/input.c:2216
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4822,88 +4839,88 @@ msgstr ""
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade yuklab boʻlmadi: %s\n"
 
-#: src/main.c:127
+#: src/main.c:126
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s oyna tizimi aniqlandi\n"
 
-#: src/main.c:135
+#: src/main.c:134
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch va --optimize oʻzaro mos kelmaydi.\n"
 
-#: src/main.c:144
+#: src/main.c:143
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png uchun --batch talab qilinadi\n"
 
-#: src/main.c:160
+#: src/main.c:159
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "kirish fayl yoʻl nomi juda uzun ( > %d belgi )\n"
 
-#: src/main.c:167
+#: src/main.c:166
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "kutilmagan argument '%s' .nec fayli emas\n"
 
-#: src/main.c:174
+#: src/main.c:173
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "kutilmagan argument: %s\n"
 
-#: src/main.c:180
+#: src/main.c:179
 msgid "batch mode requires an input file\n"
 msgstr "paketli rejim kirish faylini talab qiladi\n"
 
-#: src/main.c:190
+#: src/main.c:189
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "displeyni ochib boʻlmaydi: ishlaydigan X11 yoki Wayland sessiyasi talab "
 "qilinadi\n"
 
-#: src/main.c:209
+#: src/main.c:208
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d ta ish %d ta protsessorga fork qilinmoqda.\n"
 
-#: src/main.c:222 src/main.c:230
+#: src/main.c:221 src/main.c:229
 msgid "exiting after fatal error: pipe() failed"
 msgstr "jiddiy xatodan keyin chiqilmoqda: pipe() muvaffaqiyatsiz boʻldi"
 
-#: src/main.c:239
+#: src/main.c:238
 msgid "exiting after fatal error: fork() failed"
 msgstr "jiddiy xatodan keyin chiqilmoqda: fork() muvaffaqiyatsiz boʻldi"
 
-#: src/main.c:825
+#: src/main.c:824
 msgid "exiting via user interrupt\n"
 msgstr "foydalanuvchi uzilishi orqali chiqilmoqda\n"
 
-#: src/main.c:829
+#: src/main.c:828
 msgid "segmentation fault, exiting\n"
 msgstr "segmentatsiya xatosi, chiqilmoqda\n"
 
-#: src/main.c:833
+#: src/main.c:832
 msgid "floating point exception, exiting\n"
 msgstr "suzuvchi nuqta istisnosi, chiqilmoqda\n"
 
-#: src/main.c:837
+#: src/main.c:836
 msgid "abort signal received, exiting\n"
 msgstr "toʻxtatish signali qabul qilindi, chiqilmoqda\n"
 
-#: src/main.c:841
+#: src/main.c:840
 msgid "termination request received, exiting\n"
 msgstr "tugatish soʻrovi qabul qilindi, chiqilmoqda\n"
 
-#: src/main.c:851
+#: src/main.c:850
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "tarmoqlanmagan, pid %d dan SIGCHLD eʼtiborga olinmaydi\n"
 
-#: src/main.c:859
+#: src/main.c:858
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "bola jarayoni pid %d chiqdi\n"
 
-#: src/main.c:868
+#: src/main.c:867
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "signal bilan standart chiqish: %d\n"
@@ -4933,27 +4950,27 @@ msgid "open_mathlib: lib is NULL\n"
 msgstr "open_mathlib: lib NULL\n"
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:360 src/utils.c:729
+#: src/mathlib.c:359 src/utils.c:729
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
 
-#: src/mathlib.c:365
+#: src/mathlib.c:364
 #, c-format
 msgid "%s: opened %s\n"
 msgstr "%s: %s ochildi\n"
 
-#: src/mathlib.c:373
+#: src/mathlib.c:372
 #, c-format
 msgid "%s: library not found or nonfunctional, skipping: %s\n"
 msgstr "%s: kutubxona topilmadi yoki ishlamaydi, oʻtkazib yuborilmoqda: %s\n"
 
-#: src/mathlib.c:398
+#: src/mathlib.c:397
 #, c-format
 msgid "  %s: unable to bind %s: %s\n"
 msgstr "  %s: %s ga bogʻlab boʻlmaydi: %s\n"
 
-#: src/mathlib.c:426
+#: src/mathlib.c:425
 #, c-format
 msgid ""
 "%s=%s is set, so thread counts are not chosen per job, which affects "
@@ -4962,17 +4979,17 @@ msgstr ""
 "%s=%s oʻrnatilgan, shuning uchun tola sonlari har bir ish uchun tanlanmaydi, "
 "bu samaradorlikka taʼsir qiladi\n"
 
-#: src/mathlib.c:446
+#: src/mathlib.c:445
 #, c-format
 msgid "%s: loaded\n"
 msgstr "%s: yuklandi\n"
 
-#: src/mathlib.c:516
+#: src/mathlib.c:515
 #, c-format
 msgid "Migrated legacy mathlib index %d to ID '%s'\n"
 msgstr "Eski mathlib indeksi %d '%s' ID ga koʻchirildi\n"
 
-#: src/mathlib.c:521
+#: src/mathlib.c:520
 #, c-format
 msgid ""
 "Legacy mathlib index %d out of range [0-%d], triggering first-run scan\n"
@@ -4980,41 +4997,41 @@ msgstr ""
 "Eski mathlib indeksi %d [0-%d] oraligʻidan tashqarida, birinchi ishga "
 "tushirish skaneri ishga tushirilmoqda\n"
 
-#: src/mathlib.c:550
+#: src/mathlib.c:549
 #, c-format
 msgid "Mathlib ID '%s' not found in available libraries.\n"
 msgstr "Mathlib ID '%s' mavjud kutubxonalarda topilmadi.\n"
 
-#: src/mathlib.c:552
+#: src/mathlib.c:551
 #, c-format
 msgid "Mathlib '%s' is not available.\n"
 msgstr "Mathlib '%s' mavjud emas.\n"
 
-#: src/mathlib.c:557
+#: src/mathlib.c:556
 #, c-format
 msgid "Selected first available mathlib: %s\n"
 msgstr "Birinchi mavjud mathlib tanlandi: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:652
+#: src/mathlib.c:651
 msgid "mathlib_load: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:661
+#: src/mathlib.c:660
 #, c-format
 msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
 msgstr "mathlib_load[%d]: mathlib.available=0, oʻtkazib yuborilmoqda: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:706
+#: src/mathlib.c:705
 msgid "set_mathlib_batch: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:711
+#: src/mathlib.c:710
 msgid "Batch Math Library"
 msgstr "Paketli matematik kutubxona"
 
-#: src/mathlib.c:712
+#: src/mathlib.c:711
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5023,20 +5040,20 @@ msgstr ""
 "Paketli matematik kutubxonani tanlash buyruq satriga -j belgilanmasa taʼsir "
 "qilmaydi. (Biroq, bu tanlov keyingi xnec2c ochilganda saqlanadi.)\n"
 
-#: src/mathlib.c:751
+#: src/mathlib.c:750
 #, c-format
 msgid "%s: benchmark=%d\n"
 msgstr "%s: sinov=%d\n"
 
-#: src/mathlib.c:822
+#: src/mathlib.c:821
 msgid "Mathlib Help"
 msgstr "Mathlib yordami"
 
-#: src/mathlib.c:858
+#: src/mathlib.c:857
 msgid "Mathlib Benchmark Help"
 msgstr "Mathlib sinov yordami"
 
-#: src/mathlib.c:860
+#: src/mathlib.c:859
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5133,22 +5150,22 @@ msgstr ""
 "kuchaytirishni toʻxtatadigan tola sonini topadi, bu esa tarashda hisoblash "
 "uchun protsessorlaringiz sonidan kam chastota qolganda ahamiyatli sondir.\n"
 
-#: src/mathlib.c:922
+#: src/mathlib.c:921
 #, c-format
 msgid "bench_append: vsnprintf failed for \"%s\"\n"
 msgstr "bench_append: \"%s\" uchun vsnprintf bajarilmadi\n"
 
-#: src/mathlib.c:949
+#: src/mathlib.c:948
 #, c-format
 msgid "mathlib_benchmark: invalid mode=%d\n"
 msgstr "mathlib_benchmark: yaroqsiz mode=%d\n"
 
-#: src/mathlib.c:959 src/mathlib.c:969 src/mathlib.c:976 src/mathlib.c:982
-#: src/mathlib.c:999 src/mathlib.c:1004 src/mathlib.c:1128
+#: src/mathlib.c:958 src/mathlib.c:968 src/mathlib.c:975 src/mathlib.c:981
+#: src/mathlib.c:998 src/mathlib.c:1003 src/mathlib.c:1127
 msgid "Mathlib Benchmark"
 msgstr "Mathlib sinovi"
 
-#: src/mathlib.c:960
+#: src/mathlib.c:959
 #, c-format
 msgid ""
 "%s=%s states the thread count of every library that honors it, so a thread "
@@ -5159,15 +5176,15 @@ msgstr ""
 "uchun tola sinovi har bir oʻtishda bir xil sonni oʻlchaydi.  Tola sonlarini "
 "sinash uchun uni bekor qiling va qayta ishga tushiring."
 
-#: src/mathlib.c:970
+#: src/mathlib.c:969
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "Optimallashtirish faol boʻlganda sinovlar oʻchirilgan."
 
-#: src/mathlib.c:977
+#: src/mathlib.c:976
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "Sinovlarni bajarishdan oldin NEC2 kirish faylini yuklashingiz kerak."
 
-#: src/mathlib.c:983
+#: src/mathlib.c:982
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5175,15 +5192,15 @@ msgstr ""
 "\"Bitta ish\" dan boshqa sinov tanlash buyruq satriga -j belgilanmasa taʼsir "
 "qilmaydi."
 
-#: src/mathlib.c:1000
+#: src/mathlib.c:999
 msgid "You must select at least one math library to benchmark"
 msgstr "Sinov uchun kamida bitta matematik kutubxona tanlashingiz kerak"
 
-#: src/mathlib.c:1005
+#: src/mathlib.c:1004
 msgid "Run the benchmark now?"
 msgstr "Sinovni hozir ishga tushirasizmi?"
 
-#: src/mathlib.c:1006
+#: src/mathlib.c:1005
 #, c-format
 msgid ""
 "This will run a frequency loop benchmark for each detected linear algebra "
@@ -5237,26 +5254,26 @@ msgstr ""
 "\n"
 "Sinov yakunlanganda bu dialog yopiladi."
 
-#: src/mathlib.c:1066
+#: src/mathlib.c:1065
 #, c-format
 msgid "Starting %s benchmark (%s %d)\n"
 msgstr "%s sinovi boshlanmoqda (%s %d)\n"
 
-#: src/mathlib.c:1077
+#: src/mathlib.c:1076
 #, c-format
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Sinov tarashi bajarilmadi: FR_cards=%d steps_total=%d\n"
 
-#: src/mathlib.c:1111
+#: src/mathlib.c:1110
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr "bir marta oʻlchandi: bu kutubxona oʻzi yigʻilgan tola sonini saqlaydi"
 
-#: src/mathlib.c:1168
+#: src/mathlib.c:1167
 #, c-format
 msgid "mathlib_lock_intel: Cannot find library for mathlib ID='%s'\n"
 msgstr "mathlib_lock_intel: mathlib ID='%s' uchun kutubxona topilmadi\n"
 
-#: src/mathlib.c:1179
+#: src/mathlib.c:1178
 #, c-format
 msgid ""
 "\n"
@@ -5284,66 +5301,66 @@ msgstr ""
 "* Batafsil maʼlumot uchun Intel ning mkl_set_threading_layer() hujjatiga "
 "qarang.\n"
 
-#: src/mathlib.c:1254
+#: src/mathlib.c:1253
 msgid "zgetrf: current_mathlib is NULL, this should never happen.\n"
 msgstr "zgetrf: current_mathlib NULL, bu hech qachon boʻlmasligi kerak.\n"
 
-#: src/mathlib.c:1278 src/mathlib.c:1323
+#: src/mathlib.c:1277 src/mathlib.c:1322
 #, c-format
 msgid "%s: unsupported mathlib type %d\n"
 msgstr "%s: qoʻllab-quvvatlanmaydigan mathlib turi %d\n"
 
-#: src/mathlib.c:1291
+#: src/mathlib.c:1290
 msgid "zgetrs: current_mathlib is NULL, this should never happen.\n"
 msgstr "zgetrs: current_mathlib NULL, bu hech qachon boʻlmasligi kerak.\n"
 
-#: src/mathlib.c:1316
+#: src/mathlib.c:1315
 #, c-format
 msgid "zgetrs warning: lda(%d) != ldb(%d)\n"
 msgstr "zgetrs ogohlantirishi: lda(%d) != ldb(%d)\n"
 
-#: src/mathlib.c:1367 src/mathlib.c:1430
+#: src/mathlib.c:1366 src/mathlib.c:1429
 #, c-format
 msgid "%s: lib is NULL\n"
 msgstr "%s: lib NULL\n"
 
-#: src/mathlib.c:1412
+#: src/mathlib.c:1411
 #, c-format
 msgid "%s: thread count cannot be bounded, dlsym(%s): %s\n"
 msgstr "%s: tola sonini chegaralab boʻlmaydi, dlsym(%s): %s\n"
 
-#: src/mathlib.c:1436
+#: src/mathlib.c:1435
 #, c-format
 msgid "%s: thread count is %d\n"
 msgstr "%s: tola soni %d\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:1460
+#: src/mathlib.c:1459
 #, c-format
 msgid "dlsym(mkl_set_threading_layer): %s\n"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: src/matrix.c:1223
+#: src/matrix.c:1236
 #, c-format
 msgid "pivot(%d)= %16.8E\n"
 msgstr ""
 
-#: src/matrix.c:1257
+#: src/matrix.c:1270
 #, c-format
 msgid "LU Decomposition Failed: %d\n"
 msgstr "LU dekompozitsiyasi muvaffaqiyatsiz boʻldi: %d\n"
 
-#: src/matrix.c:1313
+#: src/matrix.c:1326
 #, c-format
 msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "simmetriya xatosi - nrow:%d ncol:%d\n"
 
-#: src/matrix.c:1314
+#: src/matrix.c:1327
 msgid "Symmetry error"
 msgstr "Simmetriya xatosi"
 
-#: src/matrix.c:1418
+#: src/matrix.c:1431
 #, c-format
 msgid "Solving Failed: %d\n"
 msgstr "Yechish muvaffaqiyatsiz boʻldi: %d\n"
@@ -5360,20 +5377,19 @@ msgstr ""
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
 msgstr ""
-"BUG: pol=%d [0,%d) oraligʻidan tashqarida: idx=%d freq_step=%d thr=%lu\n"
+"XATO: pol=%d [0,%d) oraligʻidan tashqarida: idx=%d freq_step=%d thr=%lu\n"
 
 #: src/measurements.c:625
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 msgstr ""
-"BUG: mgidx=%d [0,%d) oraligʻidan tashqarida: idx=%d pol=%d freq_step=%d thr="
+"XATO: mgidx=%d [0,%d) oraligʻidan tashqarida: idx=%d pol=%d freq_step=%d thr="
 "%lu\n"
 
-# xnec2c-exempt: name
 #: src/measurements.c:628
 #, c-format
-msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
-msgstr ""
+msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
+msgstr "XATO: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
 
 # xnec2c-exempt: name
 #: src/measurements.c:631
@@ -5396,49 +5412,69 @@ msgstr "meas_name_idx: Uzunlik=%d bilan yaroqsiz nom: %s\n"
 msgid "meas_format: output overflow\n"
 msgstr "meas_format: chiqish toʻlib toshdi\n"
 
-#: src/mem/mem.c:22
+#: src/mem/mem.c:24
 #, c-format
 msgid "mem_obj_from_ptr: ptr %p does not match m->ptr %p (base %p)\n"
 msgstr "mem_obj_from_ptr: ptr %p m->ptr %p ga mos kelmaydi (asos %p)\n"
 
-#: src/mem/mem.c:194
+#: src/mem/mem.c:196
 #, c-format
 msgid "Memory allocation denied %s: requested %lu bytes\n"
 msgstr "Xotira ajratish rad etildi %s: %lu bayt soʻraldi\n"
 
-#: src/mem/mem.c:219
+#: src/mem/mem.c:221
 #, c-format
 msgid "mem_free at %s: array block element size %lu; use mem_array_free\n"
 msgstr ""
 "mem_free %s da: massiv blok element hajmi %lu; mem_array_free dan "
 "foydalaning\n"
 
-#: src/mem/mem.c:238
+#: src/mem/mem.c:240
 #, c-format
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t %p da: size=%lu used=%lu addr=%p\n"
 
 # xnec2c-exempt: name
-#: src/mem/mem.c:259
+#: src/mem/mem.c:261
 #, c-format
 msgid "mem_backtrace(%p):\n"
 msgstr ""
 
-#: src/mem/mem.c:262
+#: src/mem/mem.c:264
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace null, orqaga iz maʼlumotlari yoʻq\n"
 
-#: src/mem/mem.c:288
+#: src/mem/mem.c:290
 #, c-format
 msgid "mem_clone: allocation failed for %lu bytes\n"
 msgstr "mem_clone: %lu bayt uchun ajratish muvaffaqiyatsiz boʻldi\n"
 
-#: src/mem/mem.c:345
+#: src/mem/mem.c:358
+#, c-format
+msgid "managed copy: %lu bytes exceed destination used %lu\n"
+msgstr ""
+"boshqariladigan nusxa: %lu bayt qabul qiluvchining ishlatilgan %lu baytidan "
+"oshadi\n"
+
+#: src/mem/mem.c:361
+#, c-format
+msgid ""
+"managed copy: source overlaps destination at distance %lu over %lu bytes\n"
+msgstr ""
+"boshqariladigan nusxa: manba %lu bayt oraligʻida %lu masofada qabul qiluvchi "
+"bilan ustma-ust tushadi\n"
+
+#: src/mem/mem.c:404
 #, c-format
 msgid "mem_array verb: element size %lu does not match header %lu\n"
 msgstr "mem_array amali: element hajmi %lu sarlavha %lu ga mos kelmaydi\n"
 
-#: src/mem/mem.c:437
+#: src/mem/mem.c:434
+#, c-format
+msgid "mem_array_cpy: %lu elements exceed destination count %lu\n"
+msgstr "mem_array_cpy: %lu element qabul qiluvchi soni %lu dan oshadi\n"
+
+#: src/mem/mem.c:535
 #, c-format
 msgid "mem_zero: array block element size %lu; use mem_array_zero\n"
 msgstr ""
@@ -5763,18 +5799,18 @@ msgstr "inotify: inotify fd dan %zd bayt oʻqildi\n"
 #: src/optimize.c:406
 #, c-format
 msgid ""
-"inotify: SKIP all events (flags) - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT=%d "
-"INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: SKIP all events (flags) - FREQ_LOOP_INIT=%d INPUT_PENDING=%d "
+"sweep_state=%s\n"
 msgstr ""
-"inotify: barcha voqealar oʻtkazib yuborildi (bayroqlar) - FREQ_LOOP_RUNNING="
-"%d FREQ_LOOP_INIT=%d INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: barcha hodisalarni oʻtkazib yuborish (bayroqlar) - FREQ_LOOP_INIT="
+"%d INPUT_PENDING=%d sweep_state=%s\n"
 
-#: src/optimize.c:424
+#: src/optimize.c:423
 #, c-format
 msgid "inotify: EVENT @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 msgstr "inotify: VOQEA @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 
-#: src/optimize.c:428
+#: src/optimize.c:427
 #, c-format
 msgid ""
 "inotify: EVENT flags: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
@@ -5783,27 +5819,27 @@ msgstr ""
 "inotify: VOQEA bayroqlari: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
 "IN_CREATE=%d IN_DELETE=%d IN_MODIFY=%d\n"
 
-#: src/optimize.c:436
+#: src/optimize.c:435
 #, c-format
 msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify: FILTR: target='%s' event_name='%s' match=%d\n"
 
-#: src/optimize.c:443
+#: src/optimize.c:442
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: voqea oʻtkazib yuborildi (fayl nomi mos kelmaydi)\n"
 
-#: src/optimize.c:450
+#: src/optimize.c:449
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: maqsadda IN_MODIFY, modify_seen=TRUE oʻrnatilmoqda\n"
 
-#: src/optimize.c:458
+#: src/optimize.c:457
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
 "inotify: maqsadda IN_MOVED_TO (atomik yozish tugadi), qayta yuklash ishga "
 "tushirilmoqda\n"
 
-#: src/optimize.c:475
+#: src/optimize.c:474
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5811,7 +5847,7 @@ msgstr ""
 "inotify: modify_seen=TRUE dan keyin IN_CLOSE_WRITE (toʻgʻridan-toʻgʻri "
 "yozish tugadi), qayta yuklash ishga tushirilmoqda\n"
 
-#: src/optimize.c:487
+#: src/optimize.c:486
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5819,18 +5855,18 @@ msgstr ""
 "inotify: modify_seen siz IN_CLOSE_WRITE (soxta yopilish, eski inode), "
 "oʻtkazib yuborilmoqda\n"
 
-#: src/optimize.c:494
+#: src/optimize.c:493
 #, c-format
 msgid "inotify: SKIP event (not MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 msgstr ""
 "inotify: voqea oʻtkazib yuborildi (MODIFY/CLOSE_WRITE/MOVED_TO emas, mask=0x"
 "%08x)\n"
 
-#: src/optimize.c:527
+#: src/optimize.c:526
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "Optimallashtiruvchi uygʻotish eventfd yaratib boʻlmadi\n"
 
-#: src/optimize.c:538
+#: src/optimize.c:537
 msgid "failed to create Optimizer Output thread\n"
 msgstr "Optimallashtiruvchi chiqish iplini yaratib boʻlmadi\n"
 
@@ -5839,12 +5875,12 @@ msgstr "Optimallashtiruvchi chiqish iplini yaratib boʻlmadi\n"
 msgid "fitness_config_add: invalid meas_index %d\n"
 msgstr "fitness_config_add: yaroqsiz meas_index %d\n"
 
-#: src/optimizers/opt_fitness.c:472
+#: src/optimizers/opt_fitness.c:471
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: nomaʼlum yoʻnalish %d\n"
 
-#: src/optimizers/opt_fitness.c:545
+#: src/optimizers/opt_fitness.c:544
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: nomaʼlum kamaytirish usuli %d\n"
@@ -6571,19 +6607,19 @@ msgstr ""
 "validation: takrorlanuvchanlik uchun tuzilma koʻruvchi standart yoʻnalishga "
 "tiklandi\n"
 
-#: src/validation_dump.c:593 src/validation_dump.c:599
+#: src/validation_dump.c:601 src/validation_dump.c:607
 msgid "Validation Tree"
 msgstr "Tekshiruv daraxti"
 
-#: src/validation_dump.c:593
+#: src/validation_dump.c:601
 msgid "Cannot save: frequency loop not done"
 msgstr "Saqlab boʻlmaydi: chastota sikli tugallanmagan"
 
-#: src/validation_dump.c:599
+#: src/validation_dump.c:607
 msgid "Cannot create output directory"
 msgstr "Chiqish katalogini yaratib boʻlmadi"
 
-#: src/validation_dump.c:631
+#: src/validation_dump.c:639
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "tekshiruv daraxti yozildi: %s\n"
@@ -6684,21 +6720,21 @@ msgstr ""
 "bir nechta nurlanish diagrammasi PNG formatlari .png fayl nomini talab "
 "qiladi: %s\n"
 
-#: src/xnec2c.c:2020
+#: src/xnec2c.c:2021
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "tarash har biri %d ta tolali %d ta ishchini bajaradi\n"
 
-#: src/xnec2c.c:2195
+#: src/xnec2c.c:2196
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: yaroqsiz batch_mode=%d\n"
 
-#: src/xnec2c.c:2201
+#: src/xnec2c.c:2202
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: yaroqsiz stopped=%d\n"
 
-#: src/xnec2c.c:2314
+#: src/xnec2c.c:2315
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread ni ishga tushirib boʻlmadi\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-13 18:29-0700\n"
+"POT-Creation-Date: 2026-08-17 01:20-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2794,8 +2794,8 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "설정 파일이 존재하지 않거나 읽을 수 없습니다: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:869 src/geometry.c:771 src/input.c:1793 src/input.c:1794
-#: src/mathlib.c:822 src/mathlib.c:1128 src/rdpattern_ui.c:364
+#: src/args.c:869 src/geometry.c:771 src/input.c:1825 src/input.c:1826
+#: src/mathlib.c:821 src/mathlib.c:1127 src/rdpattern_ui.c:364
 #: src/rdpattern_ui.c:372 src/rdpattern_ui.c:379 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
@@ -3706,6 +3706,11 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR vs 주파수"
 
+#: src/freq_sweep_state.c:54
+#, c-format
+msgid "freq_sweep_row: invalid sweep_state=%d\n"
+msgstr "freq_sweep_row: 잘못된 sweep_state=%d\n"
+
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
 msgid ""
@@ -4273,15 +4278,15 @@ msgstr ""
 " 입력 파일 읽기 오류\n"
 "주석 니모닉이 올바르지 않습니다"
 
-#: src/input.c:211
+#: src/input.c:213
 msgid ""
 "Geometry data error\n"
-"Tag number is less than 1"
+"Tag number is negative"
 msgstr ""
-"기하 데이터 오류\n"
-"태그 번호가 1 미만입니다"
+"형상 데이터 오류\n"
+"태그 번호가 음수입니다"
 
-#: src/input.c:218
+#: src/input.c:220
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4289,16 +4294,27 @@ msgstr ""
 "기하 데이터 오류\n"
 "세그먼트 수가 1 미만입니다"
 
-#: src/input.c:225
+#: src/input.c:227
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "경고 - 세그먼트 수가 1000000을 초과합니다\n"
 
-#: src/input.c:273
+#: src/input.c:250
+#, c-format
+msgid ""
+"%s card: tag 0 selects segment %d by absolute position in the structure, not "
+"within a tagged wire; give the wire a tag number and reference the segment "
+"within that tag unless absolute positioning is intended\n"
+msgstr ""
+"%s 카드: 태그 0은 태그가 지정된 도선 내부가 아닌 구조체에서 절대 위치로 세그"
+"먼트 %d을 선택합니다. 절대 위치 지정을 의도한 것이 아니라면 도선에 태그 번호"
+"를 부여하고 해당 태그 내의 세그먼트를 참조하십시오\n"
+
+#: src/input.c:297
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s 데이터 카드 오류: 잘못된 문자 '%c', 열 %d\n"
 
-#: src/input.c:275
+#: src/input.c:299
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4306,33 +4322,33 @@ msgstr ""
 "데이터 카드 오류\n"
 "카드에 잘못된 문자"
 
-#: src/input.c:346
+#: src/input.c:370
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: \"%s\"에 대한 표현식 평가 실패\n"
 
-#: src/input.c:387
+#: src/input.c:411
 msgid "SY card: no line content available\n"
 msgstr "SY 카드: 사용 가능한 라인 내용이 없습니다\n"
 
-#: src/input.c:388
+#: src/input.c:412
 msgid "SY card: no line content available"
 msgstr "SY 카드: 사용 가능한 라인 내용이 없습니다"
 
-#: src/input.c:405
+#: src/input.c:429
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY 카드: 정의에서 '='가 누락되었습니다\n"
 
-#: src/input.c:406
+#: src/input.c:430
 msgid "SY card: missing '=' in definition"
 msgstr "SY 카드: 정의에서 '='가 누락되었습니다"
 
-#: src/input.c:439
+#: src/input.c:463
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY 카드: %s=%s에 대한 심볼 정의 실패\n"
 
-#: src/input.c:626
+#: src/input.c:650
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4340,27 +4356,27 @@ msgstr ""
 "기하 데이터 오류\n"
 "테이퍼 도선에 대한 GC 카드가 없습니다"
 
-#: src/input.c:633
+#: src/input.c:657
 msgid "Geometry GC data card error"
 msgstr "기하 GC 데이터 카드 오류"
 
-#: src/input.c:649
+#: src/input.c:673
 msgid "Geometry GX data card error"
 msgstr "기하 GX 데이터 카드 오류"
 
-#: src/input.c:672
+#: src/input.c:696
 msgid "Geometry GR data card error"
 msgstr "기하 GR 데이터 카드 오류"
 
-#: src/input.c:726
+#: src/input.c:750
 msgid "No geometry data cards"
 msgstr "기하 데이터 카드가 없습니다"
 
-#: src/input.c:737
+#: src/input.c:761
 msgid "Probable invalid segment geometry.\n"
 msgstr "세그먼트 기하가 유효하지 않을 수 있습니다.\n"
 
-#: src/input.c:738
+#: src/input.c:762
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4370,37 +4386,37 @@ msgstr ""
 "자세한 내용은 콘솔의 경고를 확인하십시오.\n"
 "계속 시도 중..."
 
-#: src/input.c:744
+#: src/input.c:768
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "세그먼트 기하가 유효하지 않을 수 있습니다 (위 참조)\n"
 
-#: src/input.c:748
+#: src/input.c:772
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() 통과\n"
 
-#: src/input.c:785
+#: src/input.c:809
 #, c-format
 msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
 msgstr "세그먼트 데이터 오류: tag=%d si=%lf, bi=%lf\n"
 
-#: src/input.c:787
+#: src/input.c:811
 msgid "Segment data error, zero-length line?  See console."
 msgstr "세그먼트 데이터 오류, 길이가 0인 라인?  콘솔을 확인하십시오."
 
-#: src/input.c:827
+#: src/input.c:851
 msgid "Move GM data card error"
 msgstr "이동 GM 데이터 카드 오류"
 
-#: src/input.c:843 src/input.c:884 src/input.c:901 src/input.c:919
-#: src/input.c:927
+#: src/input.c:867 src/input.c:908 src/input.c:925 src/input.c:943
+#: src/input.c:951
 msgid "Patch data card error"
 msgstr "패치 데이터 카드 오류"
 
-#: src/input.c:865
+#: src/input.c:889
 msgid "Patch data error"
 msgstr "패치 데이터 오류"
 
-#: src/input.c:974
+#: src/input.c:998
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4408,59 +4424,59 @@ msgstr ""
 "\"GF\" 카드 (NGF 솔루션)는\n"
 "지원되지 않습니다"
 
-#: src/input.c:979
+#: src/input.c:1003
 msgid "Ignoring CM card in geometry"
 msgstr "기하에서 CM 카드 무시"
 
-#: src/input.c:992
+#: src/input.c:1016
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "기하 데이터 카드 오류 (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:993
+#: src/input.c:1017
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:999
+#: src/input.c:1023
 msgid "Command card in geometry section"
 msgstr "기하 섹션 내 명령 카드"
 
-#: src/input.c:1001
+#: src/input.c:1025
 msgid "Unrecognized geometry card"
 msgstr "인식할 수 없는 기하 카드"
 
-#: src/input.c:1025
+#: src/input.c:1049
 msgid "Failed to initialize symbol table\n"
 msgstr "심볼 테이블 초기화 실패\n"
 
-#: src/input.c:1026
+#: src/input.c:1050
 msgid "Failed to initialize symbol table"
 msgstr "심볼 테이블 초기화 실패"
 
-#: src/input.c:1208
+#: src/input.c:1232
 msgid "ignoring CM card in commands\n"
 msgstr "명령에서 CM 카드 무시\n"
 
-#: src/input.c:1209
+#: src/input.c:1233
 msgid "Ignoring CM card in commands"
 msgstr "명령에서 CM 카드 무시"
 
-#: src/input.c:1219
+#: src/input.c:1245
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "CP 카드를 무시합니다: 결합 계산이 구현되지 않았습니다\n"
 
-#: src/input.c:1313
+#: src/input.c:1341
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "%g MHz에서 중복 FR 카드를 건너뜀\n"
 
-#: src/input.c:1395
+#: src/input.c:1423
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FR 카드에서 최대 주파수 <= 최소 주파수\n"
 
-#: src/input.c:1396
+#: src/input.c:1424
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4468,7 +4484,7 @@ msgstr ""
 "FR 카드에서 최대 주파수 <= 최소 주파수\n"
 "FR 카드 데이터를 확인하고 수정하십시오"
 
-#: src/input.c:1419
+#: src/input.c:1447
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4477,11 +4493,11 @@ msgstr ""
 "GE/GN 카드를 수정하십시오:\n"
 "GE 카드는 접지가 있다고 지정하지만 GN은 그렇지 않습니다."
 
-#: src/input.c:1433
+#: src/input.c:1461
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "접지가 지정된 상태에서 theta > 90도\n"
 
-#: src/input.c:1434 src/radiation.c:703
+#: src/input.c:1462 src/radiation.c:703
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4489,14 +4505,14 @@ msgstr ""
 "접지가 지정된 상태에서 Theta > 90도\n"
 "RP 카드 데이터를 확인하고 수정하십시오"
 
-#: src/input.c:1443
+#: src/input.c:1471
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
 msgstr ""
 "래디얼 도선 g.s. 근사: Sommerfeld 접지 옵션과 함께 사용할 수 없습니다\n"
 
-#: src/input.c:1444
+#: src/input.c:1472
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4504,7 +4520,7 @@ msgstr ""
 "래디얼 도선 g.s. 근사는\n"
 "Sommerfeld 접지 옵션과 함께 사용할 수 없습니다"
 
-#: src/input.c:1492
+#: src/input.c:1520
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -4512,7 +4528,7 @@ msgid ""
 msgstr ""
 "로딩 카드 번호 %d의 데이터 오류: itag step1 %d가 itag step2 %d보다 큽니다\n"
 
-#: src/input.c:1494
+#: src/input.c:1522
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4520,13 +4536,13 @@ msgstr ""
 "로딩 카드의 데이터 오류\n"
 "itag step1이 itag step2보다 큽니다"
 
-#: src/input.c:1622
+#: src/input.c:1651
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "전송선 임피던스 = 0: 유효하지 않습니다. NT 또는 TL 카드를 수정하십시오\n"
 
-#: src/input.c:1623
+#: src/input.c:1652
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4534,11 +4550,11 @@ msgstr ""
 "전송선 임피던스 = 0:\n"
 "유효하지 않습니다. NT 또는 TL 카드를 수정하십시오"
 
-#: src/input.c:1632
+#: src/input.c:1663
 msgid "Segment number error in TL or NT card\n"
 msgstr "TL 또는 NT 카드에서 세그먼트 번호 오류\n"
 
-#: src/input.c:1633
+#: src/input.c:1664
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4546,19 +4562,19 @@ msgstr ""
 "NT 또는 TL 카드에서\n"
 "세그먼트 번호 오류"
 
-#: src/input.c:1654
+#: src/input.c:1686
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "PQ 및 PT 카드를 무시합니다: 파일 출력이 구현되지 않았습니다\n"
 
-#: src/input.c:1658
+#: src/input.c:1690
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PL 카드를 무시합니다: 파일 플로팅이 지원되지 않습니다\n"
 
-#: src/input.c:1664
+#: src/input.c:1696
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "표면파 옵션 (I1=1): RP 명령이 구현되지 않았습니다\n"
 
-#: src/input.c:1665
+#: src/input.c:1697
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4566,28 +4582,28 @@ msgstr ""
 "표면파 옵션 (I1=1)\n"
 "RP 명령이 구현되지 않았습니다"
 
-#: src/input.c:1690
+#: src/input.c:1722
 msgid "Average gain diagnostic enabled (use --skip-verify to disable)\n"
 msgstr "평균 이득 진단 활성화됨 (비활성화하려면 --skip-verify 사용)\n"
 
-#: src/input.c:1699
+#: src/input.c:1731
 #, c-format
 msgid "Average power gain disabled: nth=%d nph=%d (both must be >= 2)\n"
 msgstr "평균 전력 이득 비활성화됨: nth=%d nph=%d (둘 다 >= 2여야 함)\n"
 
-#: src/input.c:1704
+#: src/input.c:1736
 #, c-format
 msgid "Average power gain calculation enabled (XNDA A=%d)\n"
 msgstr "평균 전력 이득 계산 활성화됨 (XNDA A=%d)\n"
 
-#: src/input.c:1720
+#: src/input.c:1752
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
 msgstr ""
 "접지가 지정된 상태에서 Theta > 90도: RP 카드 데이터를 확인하고 수정하십시오\n"
 
-#: src/input.c:1721
+#: src/input.c:1753
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4595,32 +4611,32 @@ msgstr ""
 "접지가 지정된 상태에서 Theta > 90도\n"
 "RP 카드 데이터를 확인하고 수정하십시오"
 
-#: src/input.c:1789
+#: src/input.c:1821
 msgid "Geometry card in command section"
 msgstr "명령 섹션 내 기하 카드"
 
-#: src/input.c:1792
+#: src/input.c:1824
 msgid "Unrecognized command card"
 msgstr "인식할 수 없는 명령 카드"
 
-#: src/input.c:1827
+#: src/input.c:1859
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
 msgstr "RP 카드 누락 또는 표면파: 방사 패턴 및 이득 계산이 비활성화됨\n"
 
-#: src/input.c:1854
+#: src/input.c:1886
 msgid "Unexpected exit from while loop"
 msgstr "while 루프에서 예기치 않은 종료"
 
-#: src/input.c:1945
+#: src/input.c:1977
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
 msgstr ""
 "명령 데이터 카드 오류: 입력 파일을 읽는 중 예기치 않은 EOF - EN 카드 추가\n"
 
-#: src/input.c:1946
+#: src/input.c:1978
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4630,11 +4646,11 @@ msgstr ""
 "입력 파일을 읽는 중 예기치 않은 EOF\n"
 "기본 EN 카드 추가"
 
-#: src/input.c:1963
+#: src/input.c:1995
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "명령 데이터 카드 오류: 카드의 니모닉 코드가 너무 짧거나 누락됨\n"
 
-#: src/input.c:1964
+#: src/input.c:1996
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4642,14 +4658,14 @@ msgstr ""
 "명령 데이터 카드 오류\n"
 "니모닉 코드가 너무 짧거나 누락됨"
 
-#: src/input.c:2165
+#: src/input.c:2197
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
 msgstr ""
 "기하 데이터 카드 오류: 입력 파일을 읽는 중 예기치 않은 EOF - GE 카드 추가\n"
 
-#: src/input.c:2166
+#: src/input.c:2198
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4659,11 +4675,11 @@ msgstr ""
 "입력 파일을 읽는 중 예기치 않은 EOF\n"
 "기본 GE 카드 추가"
 
-#: src/input.c:2183
+#: src/input.c:2215
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "기하 데이터 카드 오류: 카드의 니모닉 코드가 너무 짧거나 누락됨\n"
 
-#: src/input.c:2184
+#: src/input.c:2216
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4731,87 +4747,87 @@ msgstr ""
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade 로드 실패: %s\n"
 
-#: src/main.c:127
+#: src/main.c:126
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s 윈도잉 백엔드 감지됨\n"
 
-#: src/main.c:135
+#: src/main.c:134
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch와 --optimize는 함께 사용할 수 없습니다.\n"
 
-#: src/main.c:144
+#: src/main.c:143
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png에는 --batch가 필요합니다\n"
 
-#: src/main.c:160
+#: src/main.c:159
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "입력 파일 경로 이름이 너무 깁니다 ( > %d자 )\n"
 
-#: src/main.c:167
+#: src/main.c:166
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "예기치 않은 인수 '%s'는 .nec 파일이 아닌 것 같습니다\n"
 
-#: src/main.c:174
+#: src/main.c:173
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "예기치 않은 인수: %s\n"
 
-#: src/main.c:180
+#: src/main.c:179
 msgid "batch mode requires an input file\n"
 msgstr "배치 모드에는 입력 파일이 필요합니다\n"
 
-#: src/main.c:190
+#: src/main.c:189
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "디스플레이를 열 수 없습니다: 실행 중인 X11 또는 Wayland 세션이 필요합니다\n"
 
-#: src/main.c:209
+#: src/main.c:208
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d개 프로세서에 걸쳐 %d개 작업을 포크합니다.\n"
 
-#: src/main.c:222 src/main.c:230
+#: src/main.c:221 src/main.c:229
 msgid "exiting after fatal error: pipe() failed"
 msgstr "치명적 오류 후 종료: pipe() 실패"
 
-#: src/main.c:239
+#: src/main.c:238
 msgid "exiting after fatal error: fork() failed"
 msgstr "치명적 오류 후 종료: fork() 실패"
 
-#: src/main.c:825
+#: src/main.c:824
 msgid "exiting via user interrupt\n"
 msgstr "사용자 인터럽트로 종료 중\n"
 
-#: src/main.c:829
+#: src/main.c:828
 msgid "segmentation fault, exiting\n"
 msgstr "세그멘테이션 오류, 종료 중\n"
 
-#: src/main.c:833
+#: src/main.c:832
 msgid "floating point exception, exiting\n"
 msgstr "부동 소수점 예외, 종료 중\n"
 
-#: src/main.c:837
+#: src/main.c:836
 msgid "abort signal received, exiting\n"
 msgstr "중단 신호 수신, 종료 중\n"
 
-#: src/main.c:841
+#: src/main.c:840
 msgid "termination request received, exiting\n"
 msgstr "종료 요청 수신, 종료 중\n"
 
-#: src/main.c:851
+#: src/main.c:850
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "포크되지 않음, pid %d의 SIGCHLD 무시\n"
 
-#: src/main.c:859
+#: src/main.c:858
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "자식 프로세스 pid %d 종료됨\n"
 
-#: src/main.c:868
+#: src/main.c:867
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "기본 종료 신호: %d\n"
@@ -4840,27 +4856,27 @@ msgid "open_mathlib: lib is NULL\n"
 msgstr "open_mathlib: lib이 NULL\n"
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:360 src/utils.c:729
+#: src/mathlib.c:359 src/utils.c:729
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
 
-#: src/mathlib.c:365
+#: src/mathlib.c:364
 #, c-format
 msgid "%s: opened %s\n"
 msgstr "%s: %s 열림\n"
 
-#: src/mathlib.c:373
+#: src/mathlib.c:372
 #, c-format
 msgid "%s: library not found or nonfunctional, skipping: %s\n"
 msgstr "%s: 라이브러리를 찾을 수 없거나 비기능적, 건너뜀: %s\n"
 
-#: src/mathlib.c:398
+#: src/mathlib.c:397
 #, c-format
 msgid "  %s: unable to bind %s: %s\n"
 msgstr "  %s: %s 바인딩 실패: %s\n"
 
-#: src/mathlib.c:426
+#: src/mathlib.c:425
 #, c-format
 msgid ""
 "%s=%s is set, so thread counts are not chosen per job, which affects "
@@ -4869,57 +4885,57 @@ msgstr ""
 "%s=%s이(가) 설정되어 작업별 스레드 수를 선택하지 않으므로 성능에 영향을 줍니"
 "다\n"
 
-#: src/mathlib.c:446
+#: src/mathlib.c:445
 #, c-format
 msgid "%s: loaded\n"
 msgstr "%s: 로드됨\n"
 
-#: src/mathlib.c:516
+#: src/mathlib.c:515
 #, c-format
 msgid "Migrated legacy mathlib index %d to ID '%s'\n"
 msgstr "레거시 mathlib 인덱스 %d을(를) ID '%s'(으)로 마이그레이션\n"
 
-#: src/mathlib.c:521
+#: src/mathlib.c:520
 #, c-format
 msgid ""
 "Legacy mathlib index %d out of range [0-%d], triggering first-run scan\n"
 msgstr "레거시 mathlib 인덱스 %d이(가) 범위 [0-%d]를 벗어남, 초기 스캔 시작\n"
 
-#: src/mathlib.c:550
+#: src/mathlib.c:549
 #, c-format
 msgid "Mathlib ID '%s' not found in available libraries.\n"
 msgstr "Mathlib ID '%s'을(를) 사용 가능한 라이브러리에서 찾을 수 없습니다.\n"
 
-#: src/mathlib.c:552
+#: src/mathlib.c:551
 #, c-format
 msgid "Mathlib '%s' is not available.\n"
 msgstr "Mathlib '%s'을(를) 사용할 수 없습니다.\n"
 
-#: src/mathlib.c:557
+#: src/mathlib.c:556
 #, c-format
 msgid "Selected first available mathlib: %s\n"
 msgstr "사용 가능한 첫 번째 mathlib 선택됨: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:652
+#: src/mathlib.c:651
 msgid "mathlib_load: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:661
+#: src/mathlib.c:660
 #, c-format
 msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
 msgstr "mathlib_load[%d]: mathlib.available=0이므로 건너뜁니다: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:706
+#: src/mathlib.c:705
 msgid "set_mathlib_batch: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:711
+#: src/mathlib.c:710
 msgid "Batch Math Library"
 msgstr "배치 수학 라이브러리"
 
-#: src/mathlib.c:712
+#: src/mathlib.c:711
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -4929,20 +4945,20 @@ msgstr ""
 "(그러나 이 선택은 다음에 xnec2c를 열 때를 위해 저장됩니다.)\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:751
+#: src/mathlib.c:750
 #, c-format
 msgid "%s: benchmark=%d\n"
 msgstr ""
 
-#: src/mathlib.c:822
+#: src/mathlib.c:821
 msgid "Mathlib Help"
 msgstr "Mathlib 도움말"
 
-#: src/mathlib.c:858
+#: src/mathlib.c:857
 msgid "Mathlib Benchmark Help"
 msgstr "Mathlib 벤치마크 도움말"
 
-#: src/mathlib.c:860
+#: src/mathlib.c:859
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5031,22 +5047,22 @@ msgstr ""
 "이는 하나의 행렬 풀이가 더 이상 이득을 얻지 못하는 스레드 수를 찾으며, 스윕에"
 "서 계산할 남은 주파수가 프로세서 수보다 적을 때 중요한 수입니다.\n"
 
-#: src/mathlib.c:922
+#: src/mathlib.c:921
 #, c-format
 msgid "bench_append: vsnprintf failed for \"%s\"\n"
 msgstr "bench_append: \"%s\"에 대한 vsnprintf가 실패했습니다\n"
 
-#: src/mathlib.c:949
+#: src/mathlib.c:948
 #, c-format
 msgid "mathlib_benchmark: invalid mode=%d\n"
 msgstr "mathlib_benchmark: 잘못된 mode=%d\n"
 
-#: src/mathlib.c:959 src/mathlib.c:969 src/mathlib.c:976 src/mathlib.c:982
-#: src/mathlib.c:999 src/mathlib.c:1004 src/mathlib.c:1128
+#: src/mathlib.c:958 src/mathlib.c:968 src/mathlib.c:975 src/mathlib.c:981
+#: src/mathlib.c:998 src/mathlib.c:1003 src/mathlib.c:1127
 msgid "Mathlib Benchmark"
 msgstr "Mathlib 벤치마크"
 
-#: src/mathlib.c:960
+#: src/mathlib.c:959
 #, c-format
 msgid ""
 "%s=%s states the thread count of every library that honors it, so a thread "
@@ -5057,15 +5073,15 @@ msgstr ""
 "마크는 매번 같은 수를 측정합니다. 스레드 수를 벤치마크하려면 이를 해제하고 다"
 "시 시작합니다."
 
-#: src/mathlib.c:970
+#: src/mathlib.c:969
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "최적화가 활성화된 동안에는 벤치마크가 비활성화됩니다."
 
-#: src/mathlib.c:977
+#: src/mathlib.c:976
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "벤치마크를 실행하기 전에 NEC2 입력 파일을 로드해야 합니다."
 
-#: src/mathlib.c:983
+#: src/mathlib.c:982
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5073,15 +5089,15 @@ msgstr ""
 "명령줄에서 -j를 지정하지 않으면 \"Single Job\" 이외의 벤치마크를 선택해도 효"
 "과가 없습니다."
 
-#: src/mathlib.c:1000
+#: src/mathlib.c:999
 msgid "You must select at least one math library to benchmark"
 msgstr "벤치마크할 수학 라이브러리를 하나 이상 선택해야 합니다"
 
-#: src/mathlib.c:1005
+#: src/mathlib.c:1004
 msgid "Run the benchmark now?"
 msgstr "지금 벤치마크를 실행합니까?"
 
-#: src/mathlib.c:1006
+#: src/mathlib.c:1005
 #, c-format
 msgid ""
 "This will run a frequency loop benchmark for each detected linear algebra "
@@ -5130,27 +5146,27 @@ msgstr ""
 "\n"
 "벤치마크가 완료되면 이 대화 상자가 닫힙니다."
 
-#: src/mathlib.c:1066
+#: src/mathlib.c:1065
 #, c-format
 msgid "Starting %s benchmark (%s %d)\n"
 msgstr "%s 벤치마크를 시작합니다(%s %d)\n"
 
-#: src/mathlib.c:1077
+#: src/mathlib.c:1076
 #, c-format
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "벤치마크 스윕을 실행하지 않았습니다: FR_cards=%d steps_total=%d\n"
 
-#: src/mathlib.c:1111
+#: src/mathlib.c:1110
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr "한 번 측정했습니다: 이 라이브러리는 빌드된 스레드 수를 유지합니다"
 
-#: src/mathlib.c:1168
+#: src/mathlib.c:1167
 #, c-format
 msgid "mathlib_lock_intel: Cannot find library for mathlib ID='%s'\n"
 msgstr ""
 "mathlib_lock_intel: mathlib ID='%s'에 대한 라이브러리를 찾을 수 없습니다\n"
 
-#: src/mathlib.c:1179
+#: src/mathlib.c:1178
 #, c-format
 msgid ""
 "\n"
@@ -5177,66 +5193,66 @@ msgstr ""
 "* \n"
 "* 자세한 내용은 Intel의 mkl_set_threading_layer() 문서를 참조하십시오.\n"
 
-#: src/mathlib.c:1254
+#: src/mathlib.c:1253
 msgid "zgetrf: current_mathlib is NULL, this should never happen.\n"
 msgstr "zgetrf: current_mathlib이 NULL입니다. 이 상황은 발생할 수 없습니다.\n"
 
-#: src/mathlib.c:1278 src/mathlib.c:1323
+#: src/mathlib.c:1277 src/mathlib.c:1322
 #, c-format
 msgid "%s: unsupported mathlib type %d\n"
 msgstr "%s: 지원하지 않는 mathlib 유형 %d\n"
 
-#: src/mathlib.c:1291
+#: src/mathlib.c:1290
 msgid "zgetrs: current_mathlib is NULL, this should never happen.\n"
 msgstr "zgetrs: current_mathlib이 NULL입니다. 이 상황은 발생할 수 없습니다.\n"
 
-#: src/mathlib.c:1316
+#: src/mathlib.c:1315
 #, c-format
 msgid "zgetrs warning: lda(%d) != ldb(%d)\n"
 msgstr "zgetrs 경고: lda(%d) != ldb(%d)\n"
 
-#: src/mathlib.c:1367 src/mathlib.c:1430
+#: src/mathlib.c:1366 src/mathlib.c:1429
 #, c-format
 msgid "%s: lib is NULL\n"
 msgstr "%s: lib == NULL\n"
 
-#: src/mathlib.c:1412
+#: src/mathlib.c:1411
 #, c-format
 msgid "%s: thread count cannot be bounded, dlsym(%s): %s\n"
 msgstr "%s: 스레드 수를 제한할 수 없습니다, dlsym(%s): %s\n"
 
-#: src/mathlib.c:1436
+#: src/mathlib.c:1435
 #, c-format
 msgid "%s: thread count is %d\n"
 msgstr "%s: 스레드 수는 %d입니다\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:1460
+#: src/mathlib.c:1459
 #, c-format
 msgid "dlsym(mkl_set_threading_layer): %s\n"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: src/matrix.c:1223
+#: src/matrix.c:1236
 #, c-format
 msgid "pivot(%d)= %16.8E\n"
 msgstr ""
 
-#: src/matrix.c:1257
+#: src/matrix.c:1270
 #, c-format
 msgid "LU Decomposition Failed: %d\n"
 msgstr "LU 분해 실패: %d\n"
 
-#: src/matrix.c:1313
+#: src/matrix.c:1326
 #, c-format
 msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "대칭 오류 - nrow:%d ncol:%d\n"
 
-#: src/matrix.c:1314
+#: src/matrix.c:1327
 msgid "Symmetry error"
 msgstr "대칭 오류"
 
-#: src/matrix.c:1418
+#: src/matrix.c:1431
 #, c-format
 msgid "Solving Failed: %d\n"
 msgstr "계산 실패: %d\n"
@@ -5250,18 +5266,17 @@ msgstr "noise_temp_resolve: noise_temp 테이블 미할당; t_sky/t_earth 기본
 #: src/measurements.c:611
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
-msgstr "BUG: pol=%d 범위 [0,%d) 초과: idx=%d freq_step=%d thr=%lu\n"
+msgstr "버그: pol=%d 범위 [0,%d) 초과: idx=%d freq_step=%d thr=%lu\n"
 
 #: src/measurements.c:625
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
-msgstr "BUG: mgidx=%d 범위 [0,%d) 초과: idx=%d pol=%d freq_step=%d thr=%lu\n"
+msgstr "버그: mgidx=%d 범위 [0,%d) 초과: idx=%d pol=%d freq_step=%d thr=%lu\n"
 
-# xnec2c-exempt: name
 #: src/measurements.c:628
 #, c-format
-msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
-msgstr ""
+msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
+msgstr "버그: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
 
 # xnec2c-exempt: name
 #: src/measurements.c:631
@@ -5284,48 +5299,64 @@ msgstr "meas_name_idx: 길이=%d인 잘못된 이름: %s\n"
 msgid "meas_format: output overflow\n"
 msgstr "meas_format: 출력 오버플로\n"
 
-#: src/mem/mem.c:22
+#: src/mem/mem.c:24
 #, c-format
 msgid "mem_obj_from_ptr: ptr %p does not match m->ptr %p (base %p)\n"
 msgstr "mem_obj_from_ptr: ptr %p가 m->ptr %p (기본 %p)와 일치하지 않음\n"
 
-#: src/mem/mem.c:194
+#: src/mem/mem.c:196
 #, c-format
 msgid "Memory allocation denied %s: requested %lu bytes\n"
 msgstr "메모리 할당 거부됨 %s: %lu 바이트 요청됨\n"
 
-#: src/mem/mem.c:219
+#: src/mem/mem.c:221
 #, c-format
 msgid "mem_free at %s: array block element size %lu; use mem_array_free\n"
 msgstr ""
 "mem_free at %s: 배열 블록 요소 크기 %lu; mem_array_free를 사용하십시오\n"
 
-#: src/mem/mem.c:238
+#: src/mem/mem.c:240
 #, c-format
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t 위치 %p: size=%lu used=%lu addr=%p\n"
 
 # xnec2c-exempt: name
-#: src/mem/mem.c:259
+#: src/mem/mem.c:261
 #, c-format
 msgid "mem_backtrace(%p):\n"
 msgstr ""
 
-#: src/mem/mem.c:262
+#: src/mem/mem.c:264
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace가 null, 역추적 데이터 없음\n"
 
-#: src/mem/mem.c:288
+#: src/mem/mem.c:290
 #, c-format
 msgid "mem_clone: allocation failed for %lu bytes\n"
 msgstr "mem_clone: %lu 바이트 할당 실패\n"
 
-#: src/mem/mem.c:345
+#: src/mem/mem.c:358
+#, c-format
+msgid "managed copy: %lu bytes exceed destination used %lu\n"
+msgstr "관리형 복사: %lu 바이트가 대상 사용량 %lu을 초과합니다\n"
+
+#: src/mem/mem.c:361
+#, c-format
+msgid ""
+"managed copy: source overlaps destination at distance %lu over %lu bytes\n"
+msgstr "관리형 복사: 소스가 거리 %lu에서 %lu 바이트에 걸쳐 대상과 겹칩니다\n"
+
+#: src/mem/mem.c:404
 #, c-format
 msgid "mem_array verb: element size %lu does not match header %lu\n"
 msgstr "mem_array verb: 요소 크기 %lu가 헤더 %lu와 일치하지 않습니다\n"
 
-#: src/mem/mem.c:437
+#: src/mem/mem.c:434
+#, c-format
+msgid "mem_array_cpy: %lu elements exceed destination count %lu\n"
+msgstr "mem_array_cpy: %lu개 요소가 대상 개수 %lu을 초과합니다\n"
+
+#: src/mem/mem.c:535
 #, c-format
 msgid "mem_zero: array block element size %lu; use mem_array_zero\n"
 msgstr "mem_zero: 배열 블록 요소 크기 %lu; mem_array_zero를 사용하십시오\n"
@@ -5643,18 +5674,18 @@ msgstr "inotify: inotify fd에서 %zd바이트 읽음\n"
 #: src/optimize.c:406
 #, c-format
 msgid ""
-"inotify: SKIP all events (flags) - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT=%d "
-"INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: SKIP all events (flags) - FREQ_LOOP_INIT=%d INPUT_PENDING=%d "
+"sweep_state=%s\n"
 msgstr ""
-"inotify: 모든 이벤트 건너뜀 (플래그) - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT="
-"%d INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: 모든 이벤트를 건너뜁니다 (플래그) - FREQ_LOOP_INIT=%d INPUT_PENDING="
+"%d sweep_state=%s\n"
 
-#: src/optimize.c:424
+#: src/optimize.c:423
 #, c-format
 msgid "inotify: EVENT @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 msgstr "inotify: 이벤트 @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 
-#: src/optimize.c:428
+#: src/optimize.c:427
 #, c-format
 msgid ""
 "inotify: EVENT flags: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
@@ -5663,25 +5694,25 @@ msgstr ""
 "inotify: 이벤트 플래그: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
 "IN_CREATE=%d IN_DELETE=%d IN_MODIFY=%d\n"
 
-#: src/optimize.c:436
+#: src/optimize.c:435
 #, c-format
 msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify: 필터: target='%s' event_name='%s' match=%d\n"
 
-#: src/optimize.c:443
+#: src/optimize.c:442
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: 이벤트 건너뜀 (파일명 불일치)\n"
 
-#: src/optimize.c:450
+#: src/optimize.c:449
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: 대상에서 IN_MODIFY, modify_seen=TRUE 설정\n"
 
-#: src/optimize.c:458
+#: src/optimize.c:457
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr "inotify: 대상에서 IN_MOVED_TO (원자적 쓰기 완료), 다시 로드 시작\n"
 
-#: src/optimize.c:475
+#: src/optimize.c:474
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5689,24 +5720,24 @@ msgstr ""
 "inotify: modify_seen=TRUE 후 IN_CLOSE_WRITE (직접 쓰기 완료), 다시 로드 시"
 "작\n"
 
-#: src/optimize.c:487
+#: src/optimize.c:486
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
 msgstr ""
 "inotify: modify_seen 없이 IN_CLOSE_WRITE (잘못된 닫기, 이전 inode), 건너뜀\n"
 
-#: src/optimize.c:494
+#: src/optimize.c:493
 #, c-format
 msgid "inotify: SKIP event (not MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 msgstr ""
 "inotify: 이벤트 건너뜀 (MODIFY/CLOSE_WRITE/MOVED_TO 아님, mask=0x%08x)\n"
 
-#: src/optimize.c:527
+#: src/optimize.c:526
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "최적화기 웨이크 eventfd 생성 실패\n"
 
-#: src/optimize.c:538
+#: src/optimize.c:537
 msgid "failed to create Optimizer Output thread\n"
 msgstr "최적화기 출력 스레드 생성 실패\n"
 
@@ -5715,12 +5746,12 @@ msgstr "최적화기 출력 스레드 생성 실패\n"
 msgid "fitness_config_add: invalid meas_index %d\n"
 msgstr "fitness_config_add: 잘못된 meas_index %d\n"
 
-#: src/optimizers/opt_fitness.c:472
+#: src/optimizers/opt_fitness.c:471
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: 알 수 없는 방향 %d\n"
 
-#: src/optimizers/opt_fitness.c:545
+#: src/optimizers/opt_fitness.c:544
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: 알 수 없는 축소 방법 %d\n"
@@ -6422,19 +6453,19 @@ msgid ""
 "reproducibility\n"
 msgstr "validation: 재현성을 위해 구조 뷰어를 기본 방향으로 재설정함\n"
 
-#: src/validation_dump.c:593 src/validation_dump.c:599
+#: src/validation_dump.c:601 src/validation_dump.c:607
 msgid "Validation Tree"
 msgstr "검증 트리"
 
-#: src/validation_dump.c:593
+#: src/validation_dump.c:601
 msgid "Cannot save: frequency loop not done"
 msgstr "저장할 수 없음: 주파수 루프가 완료되지 않았습니다"
 
-#: src/validation_dump.c:599
+#: src/validation_dump.c:607
 msgid "Cannot create output directory"
 msgstr "출력 디렉터리를 생성할 수 없습니다"
 
-#: src/validation_dump.c:631
+#: src/validation_dump.c:639
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "검증 트리를 다음 위치에 기록함: %s\n"
@@ -6530,21 +6561,21 @@ msgstr "방사 패턴 PNG를 기록했습니다: %s\n"
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "여러 방사 패턴 PNG 형식은 .png 파일 이름이 필요합니다: %s\n"
 
-#: src/xnec2c.c:2020
+#: src/xnec2c.c:2021
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "스윕은 각각 %d개 스레드인 %d개 워커를 실행합니다\n"
 
-#: src/xnec2c.c:2195
+#: src/xnec2c.c:2196
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: 잘못된 batch_mode=%d\n"
 
-#: src/xnec2c.c:2201
+#: src/xnec2c.c:2202
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: 잘못된 stopped=%d\n"
 
-#: src/xnec2c.c:2314
+#: src/xnec2c.c:2315
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread 시작 실패\n"

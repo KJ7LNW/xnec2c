@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-13 18:29-0700\n"
+"POT-Creation-Date: 2026-08-17 01:20-0700\n"
 "PO-Revision-Date: 2026-07-11 10:31-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2802,8 +2802,8 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "கட்டமைப்புக் கோப்பு இல்லை அல்லது படிக்க முடியாதது: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:869 src/geometry.c:771 src/input.c:1793 src/input.c:1794
-#: src/mathlib.c:822 src/mathlib.c:1128 src/rdpattern_ui.c:364
+#: src/args.c:869 src/geometry.c:771 src/input.c:1825 src/input.c:1826
+#: src/mathlib.c:821 src/mathlib.c:1127 src/rdpattern_ui.c:364
 #: src/rdpattern_ui.c:372 src/rdpattern_ui.c:379 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
@@ -3717,6 +3717,11 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR vs அதிர்வெண்"
 
+#: src/freq_sweep_state.c:54
+#, c-format
+msgid "freq_sweep_row: invalid sweep_state=%d\n"
+msgstr "freq_sweep_row: செல்லாத sweep_state=%d\n"
+
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
 msgid ""
@@ -4291,15 +4296,15 @@ msgstr ""
 " உள்ளீட்டுக் கோப்பைப் படிப்பதில் பிழை\n"
 "குறிப்பு மினிமானிக் தவறானது"
 
-#: src/input.c:211
+#: src/input.c:213
 msgid ""
 "Geometry data error\n"
-"Tag number is less than 1"
+"Tag number is negative"
 msgstr ""
 "வடிவியல் தரவுப் பிழை\n"
-"குறிச்சொல் எண் 1 ஐ விட குறைவு"
+"குறிச்சொல் எண் எதிர்மறையாக உள்ளது"
 
-#: src/input.c:218
+#: src/input.c:220
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4307,16 +4312,27 @@ msgstr ""
 "வடிவியல் தரவுப் பிழை\n"
 "பிரிவுகளின் எண்ணிக்கை 1 ஐ விட குறைவு"
 
-#: src/input.c:225
+#: src/input.c:227
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "எச்சரிக்கை - பிரிவுகளின் எண்ணிக்கை 1000000 ஐ விட அதிகம்\n"
 
-#: src/input.c:273
+#: src/input.c:250
+#, c-format
+msgid ""
+"%s card: tag 0 selects segment %d by absolute position in the structure, not "
+"within a tagged wire; give the wire a tag number and reference the segment "
+"within that tag unless absolute positioning is intended\n"
+msgstr ""
+"%s அட்டை: குறிச்சொல் 0, குறியிடப்பட்ட கம்பிக்குள் அல்லாமல், கட்டமைப்பில் முழுநிலை இடத்தால் "
+"பிரிவு %d-ஐத் தேர்ந்தெடுக்கிறது; முழுநிலை இடமிடல் நோக்கமாக இல்லையெனில் கம்பிக்கு ஒரு "
+"குறிச்சொல் எண்ணைக் கொடுத்து, அந்தக் குறிச்சொல்லுக்குள் பிரிவைக் குறிப்பிடவும்\n"
+
+#: src/input.c:297
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%1$s தரவு அட்டைப் பிழை: நெடுவரிசை %3$d இல் தவறான எழுத்து '%2$c'\n"
 
-#: src/input.c:275
+#: src/input.c:299
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4324,33 +4340,33 @@ msgstr ""
 "தரவு அட்டைப் பிழை\n"
 "அட்டையில் தவறான எழுத்து"
 
-#: src/input.c:346
+#: src/input.c:370
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: \"%s\" க்கான கோவை மதிப்பீடு தோல்வியடைந்தது\n"
 
-#: src/input.c:387
+#: src/input.c:411
 msgid "SY card: no line content available\n"
 msgstr "SY அட்டை: வரி உள்ளடக்கம் கிடைக்கவில்லை\n"
 
-#: src/input.c:388
+#: src/input.c:412
 msgid "SY card: no line content available"
 msgstr "SY அட்டை: வரி உள்ளடக்கம் கிடைக்கவில்லை"
 
-#: src/input.c:405
+#: src/input.c:429
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY அட்டை: வரையறையில் '=' காணவில்லை\n"
 
-#: src/input.c:406
+#: src/input.c:430
 msgid "SY card: missing '=' in definition"
 msgstr "SY அட்டை: வரையறையில் '=' காணவில்லை"
 
-#: src/input.c:439
+#: src/input.c:463
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY அட்டை: %s=%s க்கான குறியீட்டு வரையறை தோல்வியடைந்தது\n"
 
-#: src/input.c:626
+#: src/input.c:650
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4358,27 +4374,27 @@ msgstr ""
 "வடிவியல் தரவுப் பிழை\n"
 "விட்டம் மாறும் கம்பிக்கு GC அட்டை இல்லை"
 
-#: src/input.c:633
+#: src/input.c:657
 msgid "Geometry GC data card error"
 msgstr "வடிவியல் GC தரவு அட்டைப் பிழை"
 
-#: src/input.c:649
+#: src/input.c:673
 msgid "Geometry GX data card error"
 msgstr "வடிவியல் GX தரவு அட்டைப் பிழை"
 
-#: src/input.c:672
+#: src/input.c:696
 msgid "Geometry GR data card error"
 msgstr "வடிவியல் GR தரவு அட்டைப் பிழை"
 
-#: src/input.c:726
+#: src/input.c:750
 msgid "No geometry data cards"
 msgstr "வடிவியல் தரவு அட்டைகள் இல்லை"
 
-#: src/input.c:737
+#: src/input.c:761
 msgid "Probable invalid segment geometry.\n"
 msgstr "பிரிவு வடிவியல் தவறாக இருக்கக்கூடும்.\n"
 
-#: src/input.c:738
+#: src/input.c:762
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4388,37 +4404,37 @@ msgstr ""
 "விவரங்களுக்கு பணியகத்தில் உள்ள எச்சரிக்கைகளைப் பார்க்கவும்.\n"
 "தொடர முயற்சிக்கிறது..."
 
-#: src/input.c:744
+#: src/input.c:768
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "பிரிவு வடிவியல் தவறாக இருக்கக்கூடும் (மேலே பார்க்கவும்)\n"
 
-#: src/input.c:748
+#: src/input.c:772
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() தேர்ச்சியடைந்தது\n"
 
-#: src/input.c:785
+#: src/input.c:809
 #, c-format
 msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
 msgstr "பிரிவுத் தரவுப் பிழை: tag=%d si=%lf, bi=%lf\n"
 
-#: src/input.c:787
+#: src/input.c:811
 msgid "Segment data error, zero-length line?  See console."
 msgstr "பிரிவுத் தரவுப் பிழை, பூஜ்ஜிய-நீள வரியா?  பணியகத்தைப் பார்க்கவும்."
 
-#: src/input.c:827
+#: src/input.c:851
 msgid "Move GM data card error"
 msgstr "நகர்த்து GM தரவு அட்டைப் பிழை"
 
-#: src/input.c:843 src/input.c:884 src/input.c:901 src/input.c:919
-#: src/input.c:927
+#: src/input.c:867 src/input.c:908 src/input.c:925 src/input.c:943
+#: src/input.c:951
 msgid "Patch data card error"
 msgstr "தொகுதி தரவு அட்டைப் பிழை"
 
-#: src/input.c:865
+#: src/input.c:889
 msgid "Patch data error"
 msgstr "தொகுதி தரவுப் பிழை"
 
-#: src/input.c:974
+#: src/input.c:998
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4426,59 +4442,59 @@ msgstr ""
 "\"GF\" அட்டை (NGF தீர்வு)\n"
 "ஆதரிக்கப்படவில்லை"
 
-#: src/input.c:979
+#: src/input.c:1003
 msgid "Ignoring CM card in geometry"
 msgstr "வடிவியலில் CM அட்டையைப் புறக்கணிக்கிறது"
 
-#: src/input.c:992
+#: src/input.c:1016
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "வடிவியல் தரவு அட்டைப் பிழை (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:993
+#: src/input.c:1017
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:999
+#: src/input.c:1023
 msgid "Command card in geometry section"
 msgstr "வடிவியல் பிரிவில் கட்டளை அட்டை"
 
-#: src/input.c:1001
+#: src/input.c:1025
 msgid "Unrecognized geometry card"
 msgstr "அடையாளம் தெரியாத வடிவியல் அட்டை"
 
-#: src/input.c:1025
+#: src/input.c:1049
 msgid "Failed to initialize symbol table\n"
 msgstr "குறியீட்டு அட்டவணையைத் துவக்குவதில் தோல்வி\n"
 
-#: src/input.c:1026
+#: src/input.c:1050
 msgid "Failed to initialize symbol table"
 msgstr "குறியீட்டு அட்டவணையைத் துவக்குவதில் தோல்வி"
 
-#: src/input.c:1208
+#: src/input.c:1232
 msgid "ignoring CM card in commands\n"
 msgstr "கட்டளைகளில் CM அட்டையைப் புறக்கணிக்கிறது\n"
 
-#: src/input.c:1209
+#: src/input.c:1233
 msgid "Ignoring CM card in commands"
 msgstr "கட்டளைகளில் CM அட்டையைப் புறக்கணிக்கிறது"
 
-#: src/input.c:1219
+#: src/input.c:1245
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "CP அட்டை புறக்கணிக்கப்படுகிறது: இணைப்பு கணக்கீடு செயல்படுத்தப்படவில்லை\n"
 
-#: src/input.c:1313
+#: src/input.c:1341
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "%g MHz இல் நகல் FR அட்டையைத் தவிர்க்கிறது\n"
 
-#: src/input.c:1395
+#: src/input.c:1423
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FR அட்டையில் அதிகபட்ச அதிர்வெண் <= குறைந்தபட்ச அதிர்வெண்\n"
 
-#: src/input.c:1396
+#: src/input.c:1424
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4486,7 +4502,7 @@ msgstr ""
 "FR அட்டையில் அதிகபட்ச அதிர்வெண் <= குறைந்தபட்ச அதிர்வெண்\n"
 "தயவுசெய்து FR அட்டைத் தரவைச் சரிபார்த்துச் சரிசெய்யவும்"
 
-#: src/input.c:1419
+#: src/input.c:1447
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4495,11 +4511,11 @@ msgstr ""
 "GE/GN அட்டைகளைச் சரிசெய்யவும்:\n"
 "GE அட்டை தரை உள்ளது எனக் குறிப்பிடுகிறது, ஆனால் GN வேறுவிதமாகக் குறிப்பிடுகிறது."
 
-#: src/input.c:1433
+#: src/input.c:1461
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "தரை குறிப்பிடப்பட்டதுடன் theta > 90 deg.\n"
 
-#: src/input.c:1434 src/radiation.c:703
+#: src/input.c:1462 src/radiation.c:703
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4507,13 +4523,13 @@ msgstr ""
 "தரை குறிப்பிடப்பட்டதுடன் Theta > 90 deg\n"
 "தயவுசெய்து RP அட்டைத் தரவைச் சரிபார்த்துச் சரிசெய்யவும்"
 
-#: src/input.c:1443
+#: src/input.c:1471
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
 msgstr "ஆரக்கம்பி g.s. தோராயம்: Sommerfeld தரை விருப்பத்துடன் பயன்படுத்த முடியாது\n"
 
-#: src/input.c:1444
+#: src/input.c:1472
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4521,7 +4537,7 @@ msgstr ""
 "ஆரக்கம்பி g.s. தோராயம்\n"
 "Sommerfeld தரை விருப்பத்துடன் பயன்படுத்த முடியாது"
 
-#: src/input.c:1492
+#: src/input.c:1520
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -4529,7 +4545,7 @@ msgid ""
 msgstr ""
 "சுமை அட்டை எண் %d இல் தரவுப் பிழை: itag step1 %d, itag step2 %d ஐ விட அதிகம்\n"
 
-#: src/input.c:1494
+#: src/input.c:1522
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4537,13 +4553,13 @@ msgstr ""
 "சுமை அட்டையில் தரவுப் பிழை\n"
 "itag step1, itag step2 ஐ விட அதிகம்"
 
-#: src/input.c:1622
+#: src/input.c:1651
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "பரப்புக் கோடு இம்பீடன்ஸ் = 0: செல்லுபடியாகாது. NT அல்லது TL அட்டையைச் சரிசெய்யவும்\n"
 
-#: src/input.c:1623
+#: src/input.c:1652
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4551,11 +4567,11 @@ msgstr ""
 "பரப்புக் கோடு இம்பீடன்ஸ் = 0\n"
 "செல்லுபடியாகாது. NT அல்லது TL அட்டையைச் சரிசெய்யவும்"
 
-#: src/input.c:1632
+#: src/input.c:1663
 msgid "Segment number error in TL or NT card\n"
 msgstr "TL அல்லது NT அட்டையில் பிரிவு எண் பிழை\n"
 
-#: src/input.c:1633
+#: src/input.c:1664
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4563,20 +4579,20 @@ msgstr ""
 "பிரிவு எண்\n"
 "NT அல்லது TL அட்டையில் பிழை"
 
-#: src/input.c:1654
+#: src/input.c:1686
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr ""
 "PQ மற்றும் PT அட்டைகள் புறக்கணிக்கப்படுகின்றன: கோப்பில் அச்சிடுதல் செயல்படுத்தப்படவில்லை\n"
 
-#: src/input.c:1658
+#: src/input.c:1690
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PL அட்டை புறக்கணிக்கப்படுகிறது: கோப்பில் வரைதல் ஆதரிக்கப்படவில்லை\n"
 
-#: src/input.c:1664
+#: src/input.c:1696
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "மேற்பரப்பு அலை விருப்பம் (I1=1): RP கட்டளையின் இது செயல்படுத்தப்படவில்லை\n"
 
-#: src/input.c:1665
+#: src/input.c:1697
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4584,22 +4600,22 @@ msgstr ""
 "மேற்பரப்பு அலை விருப்பம் (I1=1)\n"
 "RP கட்டளையின் இது செயல்படுத்தப்படவில்லை"
 
-#: src/input.c:1690
+#: src/input.c:1722
 msgid "Average gain diagnostic enabled (use --skip-verify to disable)\n"
 msgstr "சராசரி ஆதாய கண்டறிதல் இயக்கப்பட்டது (முடக்க --skip-verify ஐப் பயன்படுத்தவும்)\n"
 
-#: src/input.c:1699
+#: src/input.c:1731
 #, c-format
 msgid "Average power gain disabled: nth=%d nph=%d (both must be >= 2)\n"
 msgstr ""
 "சராசரி திறன் ஆதாயம் முடக்கப்பட்டது: nth=%d nph=%d (இரண்டும் >= 2 ஆக இருக்க வேண்டும்)\n"
 
-#: src/input.c:1704
+#: src/input.c:1736
 #, c-format
 msgid "Average power gain calculation enabled (XNDA A=%d)\n"
 msgstr "சராசரி திறன் ஆதாயக் கணக்கீடு இயக்கப்பட்டது (XNDA A=%d)\n"
 
-#: src/input.c:1720
+#: src/input.c:1752
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4607,7 +4623,7 @@ msgstr ""
 "தரை குறிப்பிடப்பட்டதுடன் Theta > 90 deg.: தயவுசெய்து RP அட்டைத் தரவைச் சரிபார்த்துச் "
 "சரிசெய்யவும்\n"
 
-#: src/input.c:1721
+#: src/input.c:1753
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4615,15 +4631,15 @@ msgstr ""
 "தரை குறிப்பிடப்பட்டதுடன் Theta > 90 deg.\n"
 "தயவுசெய்து RP அட்டைத் தரவைச் சரிபார்த்துச் சரிசெய்யவும்"
 
-#: src/input.c:1789
+#: src/input.c:1821
 msgid "Geometry card in command section"
 msgstr "கட்டளைப் பிரிவில் வடிவியல் அட்டை"
 
-#: src/input.c:1792
+#: src/input.c:1824
 msgid "Unrecognized command card"
 msgstr "அடையாளம் தெரியாத கட்டளை அட்டை"
 
-#: src/input.c:1827
+#: src/input.c:1859
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4631,11 +4647,11 @@ msgstr ""
 "காணாமல் போன அல்லது மேற்பரப்பு-அலை RP அட்டை: கதிர்வீச்சு வடிவம் மற்றும் ஆதாயக் கணக்கீடுகள் "
 "முடக்கப்பட்டன\n"
 
-#: src/input.c:1854
+#: src/input.c:1886
 msgid "Unexpected exit from while loop"
 msgstr "while சுழற்சியிலிருந்து எதிர்பாராத வெளியேற்றம்"
 
-#: src/input.c:1945
+#: src/input.c:1977
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4643,7 +4659,7 @@ msgstr ""
 "கட்டளை தரவு அட்டைப் பிழை: உள்ளீட்டுக் கோப்பைப் படிக்கும்போது எதிர்பாராத EOF - EN அட்டையைச் "
 "சேர்க்கிறது\n"
 
-#: src/input.c:1946
+#: src/input.c:1978
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4653,13 +4669,13 @@ msgstr ""
 "உள்ளீட்டுக் கோப்பைப் படிக்கும்போது எதிர்பாராத EOF\n"
 "இயல்பிருப்பு EN அட்டையைச் சேர்க்கிறது"
 
-#: src/input.c:1963
+#: src/input.c:1995
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "கட்டளை தரவு அட்டைப் பிழை: அட்டையின் மினிமானிக் குறியீடு மிகக் குறுகியது அல்லது "
 "காணவில்லை\n"
 
-#: src/input.c:1964
+#: src/input.c:1996
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4667,7 +4683,7 @@ msgstr ""
 "கட்டளை தரவு அட்டைப் பிழை\n"
 "மினிமானிக் குறியீடு மிகக் குறுகியது அல்லது காணவில்லை"
 
-#: src/input.c:2165
+#: src/input.c:2197
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4675,7 +4691,7 @@ msgstr ""
 "வடிவியல் தரவு அட்டைப் பிழை: உள்ளீட்டுக் கோப்பைப் படிக்கும்போது எதிர்பாராத EOF - GE "
 "அட்டையைச் சேர்க்கிறது\n"
 
-#: src/input.c:2166
+#: src/input.c:2198
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4685,13 +4701,13 @@ msgstr ""
 "உள்ளீட்டுக் கோப்பைப் படிக்கும்போது எதிர்பாராத EOF\n"
 "இயல்பிருப்பு GE அட்டையைச் சேர்க்கிறது"
 
-#: src/input.c:2183
+#: src/input.c:2215
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "வடிவியல் தரவு அட்டைப் பிழை: அட்டையின் மினிமானிக் குறியீடு மிகக் குறுகியது அல்லது "
 "காணவில்லை\n"
 
-#: src/input.c:2184
+#: src/input.c:2216
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4758,86 +4774,86 @@ msgstr ""
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade ஐ ஏற்ற முடியவில்லை: %s\n"
 
-#: src/main.c:127
+#: src/main.c:126
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s விண்டோயிங் பின்தளம் கண்டறியப்பட்டது\n"
 
-#: src/main.c:135
+#: src/main.c:134
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch மற்றும் --optimize ஒன்றையொன்று விலக்குபவை.\n"
 
-#: src/main.c:144
+#: src/main.c:143
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png க்கு --batch தேவை\n"
 
-#: src/main.c:160
+#: src/main.c:159
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "உள்ளீட்டுக் கோப்புப் பாதைப் பெயர் மிக நீளமானது ( > %d char )\n"
 
-#: src/main.c:167
+#: src/main.c:166
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "எதிர்பாராத argument '%s' .nec கோப்பாகத் தெரியவில்லை\n"
 
-#: src/main.c:174
+#: src/main.c:173
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "எதிர்பாராத argument: %s\n"
 
-#: src/main.c:180
+#: src/main.c:179
 msgid "batch mode requires an input file\n"
 msgstr "தொகுதி பயன்முறைக்கு உள்ளீட்டுக் கோப்பு தேவை\n"
 
-#: src/main.c:190
+#: src/main.c:189
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "காட்சியைத் திறக்க முடியவில்லை: இயங்கும் X11 அல்லது Wayland அமர்வு தேவை\n"
 
-#: src/main.c:209
+#: src/main.c:208
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d செயலிகளில் %d பணிகள் fork செய்யப்படுகின்றன.\n"
 
-#: src/main.c:222 src/main.c:230
+#: src/main.c:221 src/main.c:229
 msgid "exiting after fatal error: pipe() failed"
 msgstr "பேரழிவுப் பிழைக்குப் பின் வெளியேறுகிறது: pipe() தோல்வியடைந்தது"
 
-#: src/main.c:239
+#: src/main.c:238
 msgid "exiting after fatal error: fork() failed"
 msgstr "பேரழிவுப் பிழைக்குப் பின் வெளியேறுகிறது: fork() தோல்வியடைந்தது"
 
-#: src/main.c:825
+#: src/main.c:824
 msgid "exiting via user interrupt\n"
 msgstr "பயனர் குறுக்கீடு வழியாக வெளியேறுகிறது\n"
 
-#: src/main.c:829
+#: src/main.c:828
 msgid "segmentation fault, exiting\n"
 msgstr "segmentation fault, வெளியேறுகிறது\n"
 
-#: src/main.c:833
+#: src/main.c:832
 msgid "floating point exception, exiting\n"
 msgstr "floating point exception, வெளியேறுகிறது\n"
 
-#: src/main.c:837
+#: src/main.c:836
 msgid "abort signal received, exiting\n"
 msgstr "abort சிக்னல் பெறப்பட்டது, வெளியேறுகிறது\n"
 
-#: src/main.c:841
+#: src/main.c:840
 msgid "termination request received, exiting\n"
 msgstr "நிறுத்தக் கோரிக்கை பெறப்பட்டது, வெளியேறுகிறது\n"
 
-#: src/main.c:851
+#: src/main.c:850
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "fork செய்யப்படவில்லை, pid %d இலிருந்து SIGCHLD ஐப் புறக்கணிக்கிறது\n"
 
-#: src/main.c:859
+#: src/main.c:858
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "சேய் செயல்முறை pid %d வெளியேறியது\n"
 
-#: src/main.c:868
+#: src/main.c:867
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "சிக்னலுடன் இயல்பிருப்பு வெளியேற்றம்: %d\n"
@@ -4866,27 +4882,27 @@ msgid "open_mathlib: lib is NULL\n"
 msgstr "open_mathlib: lib NULL ஆக உள்ளது\n"
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:360 src/utils.c:729
+#: src/mathlib.c:359 src/utils.c:729
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
 
-#: src/mathlib.c:365
+#: src/mathlib.c:364
 #, c-format
 msgid "%s: opened %s\n"
 msgstr "%s: %s திறக்கப்பட்டது\n"
 
-#: src/mathlib.c:373
+#: src/mathlib.c:372
 #, c-format
 msgid "%s: library not found or nonfunctional, skipping: %s\n"
 msgstr "%s: நூலகம் காணப்படவில்லை அல்லது செயல்படவில்லை, தவிர்க்கிறது: %s\n"
 
-#: src/mathlib.c:398
+#: src/mathlib.c:397
 #, c-format
 msgid "  %s: unable to bind %s: %s\n"
 msgstr "  %s: %s ஐப் பிணைக்க முடியவில்லை: %s\n"
 
-#: src/mathlib.c:426
+#: src/mathlib.c:425
 #, c-format
 msgid ""
 "%s=%s is set, so thread counts are not chosen per job, which affects "
@@ -4895,17 +4911,17 @@ msgstr ""
 "%s=%s அமைக்கப்பட்டுள்ளது, எனவே ஒவ்வொரு பணிக்கும் த்ரெட் எண்ணிக்கைகள் தேர்ந்தெடுக்கப்படாது; "
 "இது செயல்திறனைப் பாதிக்கிறது\n"
 
-#: src/mathlib.c:446
+#: src/mathlib.c:445
 #, c-format
 msgid "%s: loaded\n"
 msgstr "%s: ஏற்றப்பட்டது\n"
 
-#: src/mathlib.c:516
+#: src/mathlib.c:515
 #, c-format
 msgid "Migrated legacy mathlib index %d to ID '%s'\n"
 msgstr "பழைய mathlib குறியீடு %d ஐ ID '%s' க்கு இடம்பெயர்த்தது\n"
 
-#: src/mathlib.c:521
+#: src/mathlib.c:520
 #, c-format
 msgid ""
 "Legacy mathlib index %d out of range [0-%d], triggering first-run scan\n"
@@ -4913,41 +4929,41 @@ msgstr ""
 "பழைய mathlib குறியீடு %d வரம்பிற்கு [0-%d] வெளியே உள்ளது, முதல்-இயக்க வருடலைத் "
 "தூண்டுகிறது\n"
 
-#: src/mathlib.c:550
+#: src/mathlib.c:549
 #, c-format
 msgid "Mathlib ID '%s' not found in available libraries.\n"
 msgstr "கிடைக்கும் நூலகங்களில் Mathlib ID '%s' காணப்படவில்லை.\n"
 
-#: src/mathlib.c:552
+#: src/mathlib.c:551
 #, c-format
 msgid "Mathlib '%s' is not available.\n"
 msgstr "Mathlib '%s' கிடைக்கவில்லை.\n"
 
-#: src/mathlib.c:557
+#: src/mathlib.c:556
 #, c-format
 msgid "Selected first available mathlib: %s\n"
 msgstr "கிடைக்கும் முதல் mathlib தேர்ந்தெடுக்கப்பட்டது: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:652
+#: src/mathlib.c:651
 msgid "mathlib_load: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:661
+#: src/mathlib.c:660
 #, c-format
 msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
 msgstr "mathlib_load[%d]: mathlib.available=0, தவிர்க்கப்படுகிறது: %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:706
+#: src/mathlib.c:705
 msgid "set_mathlib_batch: lib == NULL\n"
 msgstr ""
 
-#: src/mathlib.c:711
+#: src/mathlib.c:710
 msgid "Batch Math Library"
 msgstr "தொகுதி கணித நூலகம்"
 
-#: src/mathlib.c:712
+#: src/mathlib.c:711
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -4957,20 +4973,20 @@ msgstr ""
 "இல்லை. (எனினும், அடுத்த முறை xnec2c திறக்கப்படும்போது இந்தத் தேர்வு சேமிக்கப்படும்.)\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:751
+#: src/mathlib.c:750
 #, c-format
 msgid "%s: benchmark=%d\n"
 msgstr ""
 
-#: src/mathlib.c:822
+#: src/mathlib.c:821
 msgid "Mathlib Help"
 msgstr "Mathlib உதவி"
 
-#: src/mathlib.c:858
+#: src/mathlib.c:857
 msgid "Mathlib Benchmark Help"
 msgstr "Mathlib பெஞ்ச்மார்க் உதவி"
 
-#: src/mathlib.c:860
+#: src/mathlib.c:859
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5062,22 +5078,22 @@ msgstr ""
 "எண்ணிக்கையை இது கண்டறியும்; கணக்கிட மீதமுள்ள அதிர்வெண்களைவிட உங்களிடம் செயலிகள் அதிகமாக "
 "இருக்கும்போது இது பொருந்தும்.\n"
 
-#: src/mathlib.c:922
+#: src/mathlib.c:921
 #, c-format
 msgid "bench_append: vsnprintf failed for \"%s\"\n"
 msgstr "bench_append: \"%s\" க்கான vsnprintf தோல்வியடைந்தது\n"
 
-#: src/mathlib.c:949
+#: src/mathlib.c:948
 #, c-format
 msgid "mathlib_benchmark: invalid mode=%d\n"
 msgstr "mathlib_benchmark: செல்லாத mode=%d\n"
 
-#: src/mathlib.c:959 src/mathlib.c:969 src/mathlib.c:976 src/mathlib.c:982
-#: src/mathlib.c:999 src/mathlib.c:1004 src/mathlib.c:1128
+#: src/mathlib.c:958 src/mathlib.c:968 src/mathlib.c:975 src/mathlib.c:981
+#: src/mathlib.c:998 src/mathlib.c:1003 src/mathlib.c:1127
 msgid "Mathlib Benchmark"
 msgstr "Mathlib பெஞ்ச்மார்க்"
 
-#: src/mathlib.c:960
+#: src/mathlib.c:959
 #, c-format
 msgid ""
 "%s=%s states the thread count of every library that honors it, so a thread "
@@ -5088,15 +5104,15 @@ msgstr ""
 "த்ரெட் அளவுகோல் ஒவ்வொரு சுற்றிலும் அதே எண்ணிக்கையை அளவிடுகிறது. த்ரெட் எண்ணிக்கைகளை "
 "அளவிட, இதை அமைக்காமல் வைத்து மீண்டும் தொடங்கவும்."
 
-#: src/mathlib.c:970
+#: src/mathlib.c:969
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "உகப்பாக்கம் செயல்படுத்தப்பட்டிருக்கும்போது பெஞ்ச்மார்க்குகள் முடக்கப்படும்."
 
-#: src/mathlib.c:977
+#: src/mathlib.c:976
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "பெஞ்ச்மார்க்குகளை இயக்குவதற்கு முன் NEC2 உள்ளீட்டுக் கோப்பை ஏற்ற வேண்டும்."
 
-#: src/mathlib.c:983
+#: src/mathlib.c:982
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5104,15 +5120,15 @@ msgstr ""
 "கட்டளை வரியில் -j குறிப்பிடப்படாவிட்டால் \"ஒற்றை பணி\" அல்லாத பெஞ்ச்மார்க்கைத் தேர்வு "
 "செய்வதால் விளைவு இல்லை."
 
-#: src/mathlib.c:1000
+#: src/mathlib.c:999
 msgid "You must select at least one math library to benchmark"
 msgstr "பெஞ்ச்மார்க் செய்ய குறைந்தது ஒரு கணித நூலகத்தையாவது தேர்ந்தெடுக்க வேண்டும்"
 
-#: src/mathlib.c:1005
+#: src/mathlib.c:1004
 msgid "Run the benchmark now?"
 msgstr "அளவுகோலை இப்போது இயக்க விரும்புகிறீர்களா?"
 
-#: src/mathlib.c:1006
+#: src/mathlib.c:1005
 #, c-format
 msgid ""
 "This will run a frequency loop benchmark for each detected linear algebra "
@@ -5163,27 +5179,27 @@ msgstr ""
 "\n"
 "அளவுகோல் முடிவடையும்போது இந்த உரையாடல் மூடப்படும்."
 
-#: src/mathlib.c:1066
+#: src/mathlib.c:1065
 #, c-format
 msgid "Starting %s benchmark (%s %d)\n"
 msgstr "%s அளவுகோல் தொடங்குகிறது (%s %d)\n"
 
-#: src/mathlib.c:1077
+#: src/mathlib.c:1076
 #, c-format
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "அளவுகோல் ஸ்வீப் இயங்கவில்லை: FR_cards=%d steps_total=%d\n"
 
-#: src/mathlib.c:1111
+#: src/mathlib.c:1110
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "ஒருமுறை அளவிடப்பட்டது: இந்த நூலகம் உருவாக்கப்பட்ட த்ரெட் எண்ணிக்கையைத் தக்கவைத்துக்கொள்கிறது"
 
-#: src/mathlib.c:1168
+#: src/mathlib.c:1167
 #, c-format
 msgid "mathlib_lock_intel: Cannot find library for mathlib ID='%s'\n"
 msgstr "mathlib_lock_intel: mathlib ID='%s' க்கான நூலகத்தைக் கண்டறிய முடியவில்லை\n"
 
-#: src/mathlib.c:1179
+#: src/mathlib.c:1178
 #, c-format
 msgid ""
 "\n"
@@ -5211,66 +5227,66 @@ msgstr ""
 "* மேலும் விவரங்களுக்கு mkl_set_threading_layer() பற்றிய Intel இன் ஆவணத்தைப் "
 "பார்க்கவும்.\n"
 
-#: src/mathlib.c:1254
+#: src/mathlib.c:1253
 msgid "zgetrf: current_mathlib is NULL, this should never happen.\n"
 msgstr "zgetrf: current_mathlib NULL ஆக உள்ளது, இது ஒருபோதும் நிகழக்கூடாது.\n"
 
-#: src/mathlib.c:1278 src/mathlib.c:1323
+#: src/mathlib.c:1277 src/mathlib.c:1322
 #, c-format
 msgid "%s: unsupported mathlib type %d\n"
 msgstr "%s: ஆதரிக்கப்படாத mathlib வகை %d\n"
 
-#: src/mathlib.c:1291
+#: src/mathlib.c:1290
 msgid "zgetrs: current_mathlib is NULL, this should never happen.\n"
 msgstr "zgetrs: current_mathlib NULL ஆக உள்ளது, இது ஒருபோதும் நிகழக்கூடாது.\n"
 
-#: src/mathlib.c:1316
+#: src/mathlib.c:1315
 #, c-format
 msgid "zgetrs warning: lda(%d) != ldb(%d)\n"
 msgstr "zgetrs எச்சரிக்கை: lda(%d) != ldb(%d)\n"
 
-#: src/mathlib.c:1367 src/mathlib.c:1430
+#: src/mathlib.c:1366 src/mathlib.c:1429
 #, c-format
 msgid "%s: lib is NULL\n"
 msgstr "%s: lib என்பது NULL\n"
 
-#: src/mathlib.c:1412
+#: src/mathlib.c:1411
 #, c-format
 msgid "%s: thread count cannot be bounded, dlsym(%s): %s\n"
 msgstr "%s: த்ரெட் எண்ணிக்கையைக் கட்டுப்படுத்த முடியாது, dlsym(%s): %s\n"
 
-#: src/mathlib.c:1436
+#: src/mathlib.c:1435
 #, c-format
 msgid "%s: thread count is %d\n"
 msgstr "%s: த்ரெட் எண்ணிக்கை %d\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:1460
+#: src/mathlib.c:1459
 #, c-format
 msgid "dlsym(mkl_set_threading_layer): %s\n"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: src/matrix.c:1223
+#: src/matrix.c:1236
 #, c-format
 msgid "pivot(%d)= %16.8E\n"
 msgstr ""
 
-#: src/matrix.c:1257
+#: src/matrix.c:1270
 #, c-format
 msgid "LU Decomposition Failed: %d\n"
 msgstr "LU Decomposition தோல்வியடைந்தது: %d\n"
 
-#: src/matrix.c:1313
+#: src/matrix.c:1326
 #, c-format
 msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "சமச்சீர்மைப் பிழை - nrow:%d ncol:%d\n"
 
-#: src/matrix.c:1314
+#: src/matrix.c:1327
 msgid "Symmetry error"
 msgstr "சமச்சீர்மைப் பிழை"
 
-#: src/matrix.c:1418
+#: src/matrix.c:1431
 #, c-format
 msgid "Solving Failed: %d\n"
 msgstr "தீர்வு தோல்வியடைந்தது: %d\n"
@@ -5287,20 +5303,19 @@ msgstr ""
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
 msgstr ""
-"BUG: pol=%d வரம்பிற்கு [0,%d) வெளியே உள்ளது: idx=%d freq_step=%d thr=%lu\n"
+"பிழை: pol=%d வரம்பிற்கு [0,%d) வெளியே உள்ளது: idx=%d freq_step=%d thr=%lu\n"
 
 #: src/measurements.c:625
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 msgstr ""
-"BUG: mgidx=%d வரம்பிற்கு [0,%d) வெளியே உள்ளது: idx=%d pol=%d freq_step=%d thr="
+"பிழை: mgidx=%d வரம்பிற்கு [0,%d) வெளியே உள்ளது: idx=%d pol=%d freq_step=%d thr="
 "%lu\n"
 
-# xnec2c-exempt: name
 #: src/measurements.c:628
 #, c-format
-msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d FREQ_LOOP_DONE=%d\n"
-msgstr ""
+msgid "BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
+msgstr "பிழை: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n"
 
 # xnec2c-exempt: name
 #: src/measurements.c:631
@@ -5323,48 +5338,66 @@ msgstr "meas_name_idx: தவறான பெயர் நீளம்=%d: %s\n"
 msgid "meas_format: output overflow\n"
 msgstr "meas_format: வெளியீடு வழிதல்\n"
 
-#: src/mem/mem.c:22
+#: src/mem/mem.c:24
 #, c-format
 msgid "mem_obj_from_ptr: ptr %p does not match m->ptr %p (base %p)\n"
 msgstr "mem_obj_from_ptr: ptr %p ஆனது m->ptr %p உடன் பொருந்தவில்லை (base %p)\n"
 
-#: src/mem/mem.c:194
+#: src/mem/mem.c:196
 #, c-format
 msgid "Memory allocation denied %s: requested %lu bytes\n"
 msgstr "நினைவக ஒதுக்கீடு மறுக்கப்பட்டது %s: %lu பைட்டுகள் கோரப்பட்டன\n"
 
-#: src/mem/mem.c:219
+#: src/mem/mem.c:221
 #, c-format
 msgid "mem_free at %s: array block element size %lu; use mem_array_free\n"
 msgstr ""
 "mem_free %s இல்: அணித் தொகுதி உறுப்பு அளவு %lu; mem_array_free ஐப் பயன்படுத்தவும்\n"
 
-#: src/mem/mem.c:238
+#: src/mem/mem.c:240
 #, c-format
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t %p இல்: அளவு=%lu பயன்பாடு=%lu முகவரி=%p\n"
 
 # xnec2c-exempt: name
-#: src/mem/mem.c:259
+#: src/mem/mem.c:261
 #, c-format
 msgid "mem_backtrace(%p):\n"
 msgstr ""
 
-#: src/mem/mem.c:262
+#: src/mem/mem.c:264
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace வெறுமையாக உள்ளது, பின்தடத் தரவு இல்லை\n"
 
-#: src/mem/mem.c:288
+#: src/mem/mem.c:290
 #, c-format
 msgid "mem_clone: allocation failed for %lu bytes\n"
 msgstr "mem_clone: %lu பைட்டுகளுக்கான ஒதுக்கீடு தோல்வியடைந்தது\n"
 
-#: src/mem/mem.c:345
+#: src/mem/mem.c:358
+#, c-format
+msgid "managed copy: %lu bytes exceed destination used %lu\n"
+msgstr "நிர்வகிக்கப்பட்ட நகல்: %lu பைட்டுகள் இலக்கு பயன்படுத்திய %lu-ஐ மீறுகின்றன\n"
+
+#: src/mem/mem.c:361
+#, c-format
+msgid ""
+"managed copy: source overlaps destination at distance %lu over %lu bytes\n"
+msgstr ""
+"நிர்வகிக்கப்பட்ட நகல்: மூலமானது %lu பைட்டுகள் தொலைவில் இலக்குடன் %lu பைட்டுகள் அளவுக்கு "
+"மேலெழுகிறது\n"
+
+#: src/mem/mem.c:404
 #, c-format
 msgid "mem_array verb: element size %lu does not match header %lu\n"
 msgstr "mem_array verb: உறுப்பு அளவு %lu தலைப்பு %lu உடன் பொருந்தவில்லை\n"
 
-#: src/mem/mem.c:437
+#: src/mem/mem.c:434
+#, c-format
+msgid "mem_array_cpy: %lu elements exceed destination count %lu\n"
+msgstr "mem_array_cpy: %lu உறுப்புகள் இலக்கு எண்ணிக்கை %lu-ஐ மீறுகின்றன\n"
+
+#: src/mem/mem.c:535
 #, c-format
 msgid "mem_zero: array block element size %lu; use mem_array_zero\n"
 msgstr "mem_zero: அணித் தொகுதி உறுப்பு அளவு %lu; mem_array_zero ஐப் பயன்படுத்தவும்\n"
@@ -5683,18 +5716,18 @@ msgstr "inotify: inotify fd இலிருந்து %zd பைட்டு�
 #: src/optimize.c:406
 #, c-format
 msgid ""
-"inotify: SKIP all events (flags) - FREQ_LOOP_RUNNING=%d FREQ_LOOP_INIT=%d "
-"INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: SKIP all events (flags) - FREQ_LOOP_INIT=%d INPUT_PENDING=%d "
+"sweep_state=%s\n"
 msgstr ""
-"inotify: அனைத்து நிகழ்வுகளும் தவிர்க்கப்படுகின்றன (flags) - FREQ_LOOP_RUNNING=%d "
-"FREQ_LOOP_INIT=%d INPUT_PENDING=%d FREQ_LOOP_DONE=%d\n"
+"inotify: அனைத்து நிகழ்வுகளையும் தவிர்க்கவும் (கொடிகள்) - FREQ_LOOP_INIT=%d "
+"INPUT_PENDING=%d sweep_state=%s\n"
 
-#: src/optimize.c:424
+#: src/optimize.c:423
 #, c-format
 msgid "inotify: EVENT @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 msgstr "inotify: நிகழ்வு @offset=%ld: mask=0x%08x cookie=%u len=%u name='%s'\n"
 
-#: src/optimize.c:428
+#: src/optimize.c:427
 #, c-format
 msgid ""
 "inotify: EVENT flags: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
@@ -5703,26 +5736,26 @@ msgstr ""
 "inotify: நிகழ்வுக் கொடிகள்: IN_CLOSE_WRITE=%d IN_MOVED_TO=%d IN_MOVED_FROM=%d "
 "IN_CREATE=%d IN_DELETE=%d IN_MODIFY=%d\n"
 
-#: src/optimize.c:436
+#: src/optimize.c:435
 #, c-format
 msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify: வடிகட்டி: target='%s' event_name='%s' match=%d\n"
 
-#: src/optimize.c:443
+#: src/optimize.c:442
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: நிகழ்வு தவிர்க்கப்படுகிறது (கோப்புப் பெயர் பொருந்தவில்லை)\n"
 
-#: src/optimize.c:450
+#: src/optimize.c:449
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: இலக்கில் IN_MODIFY, modify_seen=TRUE எனக் குறிக்கிறது\n"
 
-#: src/optimize.c:458
+#: src/optimize.c:457
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
 "inotify: இலக்கில் IN_MOVED_TO (atomic எழுதல் முடிந்தது), மறுஏற்றத்தைத் தூண்டுகிறது\n"
 
-#: src/optimize.c:475
+#: src/optimize.c:474
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5730,7 +5763,7 @@ msgstr ""
 "inotify: modify_seen=TRUE க்குப் பின் IN_CLOSE_WRITE (நேரடி எழுதல் முடிந்தது), "
 "மறுஏற்றத்தைத் தூண்டுகிறது\n"
 
-#: src/optimize.c:487
+#: src/optimize.c:486
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5738,18 +5771,18 @@ msgstr ""
 "inotify: modify_seen இல்லாமல் IN_CLOSE_WRITE (தவறான மூடல், பழைய inode), "
 "தவிர்க்கிறது\n"
 
-#: src/optimize.c:494
+#: src/optimize.c:493
 #, c-format
 msgid "inotify: SKIP event (not MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 msgstr ""
 "inotify: நிகழ்வு தவிர்க்கப்படுகிறது (MODIFY/CLOSE_WRITE/MOVED_TO அல்ல, mask=0x"
 "%08x)\n"
 
-#: src/optimize.c:527
+#: src/optimize.c:526
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "மேம்படுத்தி எழுப்பும் eventfd ஐ உருவாக்க முடியவில்லை\n"
 
-#: src/optimize.c:538
+#: src/optimize.c:537
 msgid "failed to create Optimizer Output thread\n"
 msgstr "மேம்படுத்தி வெளியீடு த்ரெட்டை உருவாக்க முடியவில்லை\n"
 
@@ -5758,12 +5791,12 @@ msgstr "மேம்படுத்தி வெளியீடு த்ரெ�
 msgid "fitness_config_add: invalid meas_index %d\n"
 msgstr "fitness_config_add: தவறான meas_index %d\n"
 
-#: src/optimizers/opt_fitness.c:472
+#: src/optimizers/opt_fitness.c:471
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: தெரியாத திசை %d\n"
 
-#: src/optimizers/opt_fitness.c:545
+#: src/optimizers/opt_fitness.c:544
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: தெரியாத குறைப்பு முறை %d\n"
@@ -6481,19 +6514,19 @@ msgstr ""
 "validation: மறுஉருவாக்கத் தன்மைக்காக அமைப்புக் காட்சியை இயல்புநிலை திசைநோக்கிற்கு "
 "மீட்டமைத்தது\n"
 
-#: src/validation_dump.c:593 src/validation_dump.c:599
+#: src/validation_dump.c:601 src/validation_dump.c:607
 msgid "Validation Tree"
 msgstr "சரிபார்ப்பு மரம்"
 
-#: src/validation_dump.c:593
+#: src/validation_dump.c:601
 msgid "Cannot save: frequency loop not done"
 msgstr "சேமிக்க முடியாது: அதிர்வெண் சுழற்சி முடியவில்லை"
 
-#: src/validation_dump.c:599
+#: src/validation_dump.c:607
 msgid "Cannot create output directory"
 msgstr "வெளியீட்டு அடைவை உருவாக்க முடியவில்லை"
 
-#: src/validation_dump.c:631
+#: src/validation_dump.c:639
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "சரிபார்ப்பு மரம் எழுதப்பட்டது: %s\n"
@@ -6592,21 +6625,21 @@ msgstr "கதிர்வீச்சு வடிவம் PNG எழுதப
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "பல கதிர்வீச்சு வடிவம் PNG வடிவூட்டங்களுக்கு .png கோப்புப்பெயர் தேவை: %s\n"
 
-#: src/xnec2c.c:2020
+#: src/xnec2c.c:2021
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "ஸ்வீப் தலா %d த்ரெட்களுடன் %d பணியாளர்களை இயக்குகிறது\n"
 
-#: src/xnec2c.c:2195
+#: src/xnec2c.c:2196
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: செல்லாத batch_mode=%d\n"
 
-#: src/xnec2c.c:2201
+#: src/xnec2c.c:2202
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: செல்லாத stopped=%d\n"
 
-#: src/xnec2c.c:2314
+#: src/xnec2c.c:2315
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread ஐத் தொடங்க முடியவில்லை\n"
