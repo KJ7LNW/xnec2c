@@ -555,10 +555,7 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 	 * and the mismatch adjustment stays unset. */
 	double net_gain_adjust = NAN;
 
-	/* The per-port impedance buffers are NULL for feedpoint-less
-	 * excitations; their allocation, not the excitation type alone,
-	 * authorizes reading impedance-derived fields. */
-	int have_impedance = fpat_has_feedpoint() && impedance_data[idx].zreal != NULL;
+	int have_impedance = meas_has_impedance(idx);
 
 	if (have_impedance)
 	{
@@ -773,7 +770,7 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 }
 
 // Return the index into meas_names if name matches.
-int meas_name_idx(char *name, int len)
+int meas_name_idx(const char *name, int len)
 {
 	int i;
 	for (i = 0; meas_names[i] != NULL; i++)
@@ -820,6 +817,19 @@ const char *ant_temp_earth_name(int idx)
 	return earth_models[idx].name;
 }
 
+/**
+ * meas_has_impedance() - report whether a step carries feedpoint impedance
+ * @idx: index into the calculated data structures
+ *
+ * The per-port impedance buffers are NULL for feedpoint-less
+ * excitations; their allocation, not the excitation type alone,
+ * authorizes reading impedance-derived fields.
+ */
+int meas_has_impedance(int idx)
+{
+	return fpat_has_feedpoint() && impedance_data[idx].zreal != NULL;
+}
+
 void meas_calc(measurement_t *m, int idx, int port)
 {
 	g_rec_mutex_lock(&freq_data_lock);
@@ -835,9 +845,10 @@ void meas_calc(measurement_t *m, int idx, int port)
 //
 //        out: The output buffer, eg: char out[MEAS_COUNT*25];
 //     outlen: The length of the output buffer. 
-void meas_format(measurement_t *m, char *format, char *out, int outlen)
+void meas_format(measurement_t *m, const char *format, char *out, int outlen)
 {
-	char *o, *p, *name;
+	char *o;
+	const char *p, *name;
 	setlocale(LC_NUMERIC, "C");
 
 	o = out;
@@ -880,7 +891,7 @@ void meas_format(measurement_t *m, char *format, char *out, int outlen)
 	setlocale(LC_NUMERIC, orig_numeric_locale);
 }
 
-int meas_write_format(measurement_t *m, char *format, FILE *fp)
+int meas_write_format(measurement_t *m, const char *format, FILE *fp)
 {
 	char *s = NULL;
 	int ret;

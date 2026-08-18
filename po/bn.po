@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-17 20:01-0700\n"
+"POT-Creation-Date: 2026-08-18 13:33-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -4162,20 +4162,20 @@ msgstr ""
 "verify_segments() ফ্রিকোয়েন্সি-নির্ভর পরীক্ষা এড়িয়ে যাচ্ছে - কোনো ফ্রিকোয়েন্সি ডেটা "
 "নেই\n"
 
-#: src/gnuplot.c:48
+#: src/gnuplot.c:42
 msgid "Gnuplot Data"
 msgstr "Gnuplot ডেটা"
 
-#: src/gnuplot.c:48 src/gnuplot.c:92 src/gnuplot.c:180
+#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "সংরক্ষণ করা যাচ্ছে না: ফ্রিকোয়েন্সি সুইপ অসম্পূর্ণ"
 
-#: src/gnuplot.c:62
+#: src/gnuplot.c:56
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# রেফারেন্স ইম্পিড্যান্স Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:64
+#: src/gnuplot.c:58
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4185,62 +4185,70 @@ msgstr ""
 "বনাম zreal এবং zimag প্লট করে:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:65
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92
-msgid "Touchstone Data"
-msgstr "Touchstone ডেটা"
-
-#: src/gnuplot.c:106
-#, c-format
-msgid "! Reference impedance Z0 = %.2f Ohm\n"
-msgstr "! রেফারেন্স ইম্পিড্যান্স Z0 = %.2f Ohm\n"
-
-#: src/gnuplot.c:139
+#: src/gnuplot.c:85
 #, c-format
 msgid "This should never happen. touchstone type=%d\n"
 msgstr "এটি কখনই ঘটা উচিত নয়। touchstone type=%d\n"
 
-#: src/gnuplot.c:180
+#: src/gnuplot.c:92 src/gnuplot.c:102
+msgid "Touchstone Data"
+msgstr "Touchstone ডেটা"
+
+#: src/gnuplot.c:103
+msgid ""
+"Cannot save: S-parameters need a feedpoint impedance, which this excitation "
+"does not provide"
+msgstr ""
+"সংরক্ষণ করা যাবে না: S-parameters-এর একটি ফিড পয়েন্ট ইম্পিড্যান্স প্রয়োজন, যা  এই "
+"এক্সাইটেশন সরবরাহ করে না"
+
+#: src/gnuplot.c:119
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! রেফারেন্স ইম্পিড্যান্স Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:161
 msgid "CSV Data"
 msgstr "সিএসভি ডেটা"
 
-#: src/gnuplot.c:263
+#: src/gnuplot.c:244
 #, c-format
 msgid "# Near E field\n"
 msgstr "# নিকট E ক্ষেত্র\n"
 
-#: src/gnuplot.c:290
+#: src/gnuplot.c:271
 #, c-format
 msgid "# Near H field\n"
 msgstr "# নিকট H ক্ষেত্র\n"
 
-#: src/gnuplot.c:330
+#: src/gnuplot.c:311
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# পয়েন্টিং ভেক্টর\n"
 
-#: src/gnuplot.c:389
+#: src/gnuplot.c:370
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# বিকিরণ প্যাটার্ন\n"
 
-#: src/gnuplot.c:527
+#: src/gnuplot.c:508
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# স্ট্রাকচার প্যাচ সেগমেন্ট\n"
 
-#: src/gnuplot.c:562
+#: src/gnuplot.c:543
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# স্ট্রাকচার তার সেগমেন্ট\n"
 
-#: src/gnuplot.c:592
+#: src/gnuplot.c:573
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4249,11 +4257,11 @@ msgstr ""
 "এটি দিয়ে দেখুন: gnuplot -e \"set terminal qt; splot '%s' with lines; pause "
 "mouse close\"\n"
 
-#: src/gnuplot.c:604
+#: src/gnuplot.c:585
 msgid "Save Currents and Charges to CSV"
 msgstr "কারেন্ট এবং চার্জ CSV-তে সংরক্ষণ করুন"
 
-#: src/gnuplot.c:605
+#: src/gnuplot.c:586
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4261,11 +4269,11 @@ msgstr ""
 "আপনাকে প্রধান xnec2c উইন্ডোতে \"Currents\" বা \"Charges\" ক্লিক করে কারেন্ট ডেটা "
 "সক্রিয় করতে হবে।"
 
-#: src/gnuplot.c:670 src/gnuplot.c:680
+#: src/gnuplot.c:651 src/gnuplot.c:661
 msgid "Save Patch Currents to CSV"
 msgstr "প্যাচ কারেন্ট CSV-তে সংরক্ষণ করুন"
 
-#: src/gnuplot.c:671
+#: src/gnuplot.c:652
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4273,7 +4281,7 @@ msgstr ""
 "আপনাকে প্রধান xnec2c উইন্ডোতে \"Currents\" বা \"Charges\" ক্লিক করে কারেন্ট ডেটা "
 "সক্রিয় করতে হবে।"
 
-#: src/gnuplot.c:681
+#: src/gnuplot.c:662
 msgid "No surface patches in this model."
 msgstr "এই মডেলে কোনো সারফেস প্যাচ নেই।"
 
@@ -5304,40 +5312,40 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: noise_temp টেবিল বরাদ্দ করা হয়নি; t_sky/t_earth ডিফল্ট 0\n"
 
-#: src/measurements.c:611
+#: src/measurements.c:608
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
 msgstr "ত্রুটি: pol=%d পরিসরের বাইরে [0,%d): idx=%d freq_step=%d thr=%lu\n"
 
-#: src/measurements.c:625
+#: src/measurements.c:622
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 msgstr ""
 "ত্রুটি: mgidx=%d পরিসরের বাইরে [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 
-#: src/measurements.c:628
+#: src/measurements.c:625
 #, c-format
 msgid "BUG: save.fstep[%d]=%d sweep_state=%s\n"
 msgstr "ত্রুটি: save.fstep[%d]=%d sweep_state=%s\n"
 
 # xnec2c-exempt: name
-#: src/measurements.c:630
+#: src/measurements.c:627
 #, c-format
 msgid "BUG: rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n"
 msgstr ""
 
 # xnec2c-exempt: name
-#: src/measurements.c:634
+#: src/measurements.c:631
 #, c-format
 msgid "BUG: max_gain_idx[0]=%d [1]=%d [2]=%d\n"
 msgstr ""
 
-#: src/measurements.c:789
+#: src/measurements.c:786
 #, c-format
 msgid "meas_name_idx: Invalid name with length=%d: %s\n"
 msgstr "meas_name_idx: অবৈধ নাম, দৈর্ঘ্য=%d: %s\n"
 
-#: src/measurements.c:850
+#: src/measurements.c:861
 msgid "meas_format: output overflow\n"
 msgstr "meas_format: আউটপুট ওভারফ্লো\n"
 
@@ -6536,12 +6544,12 @@ msgstr "New_Frequency: কোনো গন্তব্য স্লট নেই
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f সেকেন্ড। (%s)\n"
 
-#: src/xnec2c.c:1004 src/xnec2c.c:1475
+#: src/xnec2c.c:1003 src/xnec2c.c:1474
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval: অজানা শ্রেণী %d ফেরত দিয়েছে\n"
 
-#: src/xnec2c.c:1069
+#: src/xnec2c.c:1068
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
@@ -6549,93 +6557,93 @@ msgstr ""
 "ধাপ %d রেস করেছে: প্রেরণ করা হয়েছে %.6f MHz, বর্তমান %.6f MHz; পুনরায় গণনা করা "
 "হবে\n"
 
-#: src/xnec2c.c:1195
+#: src/xnec2c.c:1194
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "চাইল্ড %d ফর্কড কালেক্টের সময় অবৈধ পাইপ fd আছে\n"
 
-#: src/xnec2c.c:1248
+#: src/xnec2c.c:1247
 msgid "Failed to read data from forked child\n"
 msgstr "ফর্ক করা চাইল্ড থেকে ডেটা পড়তে ব্যর্থ\n"
 
-#: src/xnec2c.c:1504
+#: src/xnec2c.c:1503
 #, c-format
 msgid "invalid frequency selection mode %d\n"
 msgstr "অবৈধ ফ্রিকোয়েন্সি নির্বাচন মোড %d\n"
 
-#: src/xnec2c.c:1522
+#: src/xnec2c.c:1521
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "নিকটতম ধাপ %g MHz অনুরোধকৃত %g MHz থেকে ভিন্ন\n"
 
-#: src/xnec2c.c:1526
+#: src/xnec2c.c:1525
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "সুইপ-পরবর্তী ফ্রিকোয়েন্সি %.4f MHz-এ নির্ধারিত (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1564
+#: src/xnec2c.c:1563
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "ফ্রিকোয়েন্সি লুপ অতিবাহিত সময়: %f সেকেন্ড। (%s)\n"
 
-#: src/xnec2c.c:1616
+#: src/xnec2c.c:1615
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "ব্যাচ ক্যানভাস %d %dx%d-এ কোনো ফ্রেম আঁকেনি\n"
 
-#: src/xnec2c.c:1781
+#: src/xnec2c.c:1780
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "বিকিরণ প্যাটার্ন PNG ক্যাপচার: %s-এর জন্য কোনো গণিতকৃত ধাপ নেই\n"
 
-#: src/xnec2c.c:1853
+#: src/xnec2c.c:1852
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s-এর জন্য বিকিরণ প্যাটার্ন PNG ক্যাপচার ব্যর্থ হয়েছে\n"
 
-#: src/xnec2c.c:1859
+#: src/xnec2c.c:1858
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s-এর জন্য বিকিরণ প্যাটার্ন PNG সংরক্ষণ ব্যর্থ হয়েছে: %s\n"
 
-#: src/xnec2c.c:1864
+#: src/xnec2c.c:1863
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "বিকিরণ প্যাটার্ন PNG লেখা হয়েছে: %s\n"
 
-#: src/xnec2c.c:1901
+#: src/xnec2c.c:1900
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "একাধিক বিকিরণ প্যাটার্ন PNG বিন্যাসের জন্য একটি .png ফাইলনাম প্রয়োজন: %s\n"
 
-#: src/xnec2c.c:2006
+#: src/xnec2c.c:2005
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "সুইপ প্রতিটিতে %d থ্রেডের %d কর্মী চালায়\n"
 
-#: src/xnec2c.c:2179
+#: src/xnec2c.c:2175
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: অবৈধ batch_mode=%d\n"
 
-#: src/xnec2c.c:2185
+#: src/xnec2c.c:2181
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: অবৈধ stopped=%d\n"
 
-#: src/xnec2c.c:2301
+#: src/xnec2c.c:2297
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread শুরু করতে ব্যর্থ\n"
 
-#: src/xnec2c.c:2480
+#: src/xnec2c.c:2476
 msgid "Frequency Sweep"
 msgstr "ফ্রিকোয়েন্সি সুইপ"
 
-#: src/xnec2c.c:2481
+#: src/xnec2c.c:2477
 msgid "Recalculate the frequency sweep?"
 msgstr "ফ্রিকোয়েন্সি সুইপ কি পুনরায় গণনা করা হবে?"
 
-#: src/xnec2c.c:2482
+#: src/xnec2c.c:2478
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

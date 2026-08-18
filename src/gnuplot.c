@@ -21,13 +21,7 @@
 #include "shared.h"
 #include "prerender/prerender_state.h"
 #include "chroma/chroma_nearfield.h"
-
-// Touchstone save types:
-enum {
-	TOUCHSTONE_S1P,
-	TOUCHSTONE_S2P_MAXGAIN,
-	TOUCHSTONE_S2P_VIEWERGAIN,
-};
+#include "touchstone.h"
 
 /*-----------------------------------------------------------------------*/
 
@@ -76,7 +70,7 @@ void Save_FreqPlots_Gnuplot_Data(char *filename)
 }
 
 
-void Save_FreqPlots_Touchstone(char *filename, int type)
+static void Save_FreqPlots_Touchstone(char *filename, touchstone_type_t type)
 {
 	FILE *fp = NULL;
 	time_t rawtime;
@@ -86,12 +80,31 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 
 	measurement_t meas;
 
+	if (type < 0 || type >= TOUCHSTONE_COUNT)
+	{
+		BUG("This should never happen. touchstone type=%d\n", type);
+		return;
+	}
+
 	// Abort if plot data not available
 	if (!freq_sweep_complete())
 	{
 		Notice(GTK_BUTTONS_OK, _("Touchstone Data"), _("Cannot save: the frequency sweep is incomplete"));
 		return;
 	}
+
+	/* Every layout writes S11 from the feedpoint impedance, and the
+	 * two-port layouts reference S21 to it through the mismatch factor.
+	 * The completed sweep above computes every step, so step zero reports
+	 * impedance availability for the whole file. */
+	if (!meas_has_impedance(0))
+	{
+		Notice(GTK_BUTTONS_OK, _("Touchstone Data"),
+			_("Cannot save: S-parameters need a feedpoint impedance, which this excitation does not provide"));
+		return;
+	}
+
+	const touchstone_layout_t *layout = &touchstone_layouts[type];
 
 	// Open gplot file, abort on error
 	if (!Open_File(&fp, filename, "w"))
@@ -106,46 +119,14 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 	fprintf(fp, _("! Reference impedance Z0 = %.2f Ohm\n"), calc_data.zo);
 	fprintf(fp, "!\n");
 
-	char *format = "{mhz}\t{s11_real}\t{s11_ang}\n";
-	switch (type)
-	{
-		case TOUCHSTONE_S1P:
-			fprintf(fp, "!MHz\tS11(dB)\tS11(Ang)\n");
-			format = "{mhz}\t{s11_real}\t{s11_ang}\n";
-			break;
-
-
-		// For .s2p files gain is used as S21 and S12.  We assume they
-		// are passive so S21==S12.  S22 is a bit of a mystery, so we
-		// assume that all S22 behavior is normalized into S11 and thus
-		// S22 is deminimus and set it to -100 dB.
-		//
-		// The option line declares "DB" format, so each column pair is
-		// (20*log10|S|, angle).  The dBi gain lands in the S21 dB-magnitude
-		// column, making |S21|^2 the power gain; S21 thus carries the
-		// field-amplitude term.  See github issue #80.
-		//
-		case TOUCHSTONE_S2P_MAXGAIN:
-			format = "{mhz}\t{s11_real}\t{s11_ang}\t{gain_max}\t0\t{gain_max}\t0\t-100\t0\n";
-			fprintf(fp, "!MHz\tS11(dB)\tS11(Ang)\tS21(dB)\tS21(Ang)\tS12(dB)\tS12(Ang)\tS22(dB)\tS22(Ang)\n");
-			break;
-
-		case TOUCHSTONE_S2P_VIEWERGAIN:
-			format = "{mhz}\t{s11_real}\t{s11_ang}\t{gain_viewer}\t0\t{gain_viewer}\t0\t-100\t0\n";
-			fprintf(fp, "!MHz\tS11(dB)\tS11(Ang)\tS21(dB)\tS21(Ang)\tS12(dB)\tS12(Ang)\tS22(dB)\tS22(Ang)\n");
-			break;
-
-		default:
-			BUG("This should never happen. touchstone type=%d\n", type);
-	}
-
+	fprintf(fp, "%s", layout->comment);
 	fprintf(fp, "# MHz S DB R %g\n", calc_data.zo);
 
 	g_rec_mutex_lock(&freq_data_lock);
 	for (idx = 0; idx < calc_data.steps_total; idx++)
 	{
 		meas_calc(&meas, idx, calc_data.ex_port);
-		meas_write_format(&meas, format, fp);
+		meas_write_format(&meas, layout->format, fp);
 	}
 	g_rec_mutex_unlock(&freq_data_lock);
 

@@ -1,8 +1,8 @@
 # Test suite for xnec2c
 # Defines unit tests for symbol expression evaluation
 
-check_PROGRAMS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test
-TESTS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test mem_array_void_test.sh
+check_PROGRAMS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test bin/touchstone_test
+TESTS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test bin/touchstone_test mem_array_void_test.sh
 
 bin_sy_expr_test_SOURCES = src/sy_expr_test.c \
 	src/test_stubs.c \
@@ -112,6 +112,24 @@ bin_opt_fitness_test_SOURCES = src/opt_fitness_test.c \
 	$(top_srcdir)/src/mem/mem_track.c
 bin_opt_fitness_test_CPPFLAGS = -I$(top_srcdir)/src -I$(top_srcdir)/src/optimizers $(GTK_CFLAGS)
 bin_opt_fitness_test_LDADD = $(GTK_LIBS) -lm
+
+# Touchstone export test drives meas_calc() and meas_write_format() against
+# synthetic NEC results, then decodes the emitted columns per the Touchstone
+# spec.  Links the real measurement and layout sources so the test and the
+# export share one definition of every column.
+bin_touchstone_test_SOURCES = src/touchstone_test.c \
+	src/touchstone_test_stubs.c \
+	src/touchstone_test_stubs.h \
+	$(top_srcdir)/src/touchstone.c \
+	$(top_srcdir)/src/touchstone.h \
+	$(top_srcdir)/src/measurements.c \
+	$(top_srcdir)/src/measurements.h \
+	$(top_srcdir)/src/shared.c \
+	$(top_srcdir)/src/console.c \
+	$(top_srcdir)/src/mem/mem.c \
+	$(top_srcdir)/src/mem/mem_track.c
+bin_touchstone_test_CPPFLAGS = -I$(top_srcdir)/src $(GTK_CFLAGS) $(GMODULE_CFLAGS)
+bin_touchstone_test_LDADD = $(GTK_LIBS) $(GMODULE_LIBS) -lm
 
 AM_TESTS_ENVIRONMENT = CC='$(CC)'; export CC;
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-17 20:01-0700\n"
+"POT-Creation-Date: 2026-08-18 13:33-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -4250,20 +4250,20 @@ msgstr ""
 "verify_segments() omite verificările dependente de frecvență - nu există "
 "date de frecvență\n"
 
-#: src/gnuplot.c:48
+#: src/gnuplot.c:42
 msgid "Gnuplot Data"
 msgstr "Date Gnuplot"
 
-#: src/gnuplot.c:48 src/gnuplot.c:92 src/gnuplot.c:180
+#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Nu se poate salva: baleiajul de frecvență este incomplet"
 
-#: src/gnuplot.c:62
+#: src/gnuplot.c:56
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# Impedanță de referință Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:64
+#: src/gnuplot.c:58
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4273,62 +4273,70 @@ msgstr ""
 "prezent reprezintă MHz vs zreal și zimag:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:65
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92
-msgid "Touchstone Data"
-msgstr "Date Touchstone"
-
-#: src/gnuplot.c:106
-#, c-format
-msgid "! Reference impedance Z0 = %.2f Ohm\n"
-msgstr "! Impedanță de referință Z0 = %.2f Ohm\n"
-
-#: src/gnuplot.c:139
+#: src/gnuplot.c:85
 #, c-format
 msgid "This should never happen. touchstone type=%d\n"
 msgstr "Aceasta nu ar trebui să se întâmple niciodată. touchstone type=%d\n"
 
-#: src/gnuplot.c:180
+#: src/gnuplot.c:92 src/gnuplot.c:102
+msgid "Touchstone Data"
+msgstr "Date Touchstone"
+
+#: src/gnuplot.c:103
+msgid ""
+"Cannot save: S-parameters need a feedpoint impedance, which this excitation "
+"does not provide"
+msgstr ""
+"Nu se poate salva: parametrii S necesită o impedanță de punct de alimentare, "
+"pe care această excitație nu o furnizează"
+
+#: src/gnuplot.c:119
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! Impedanță de referință Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:161
 msgid "CSV Data"
 msgstr "Date CSV"
 
-#: src/gnuplot.c:263
+#: src/gnuplot.c:244
 #, c-format
 msgid "# Near E field\n"
 msgstr "# Câmp E apropiat\n"
 
-#: src/gnuplot.c:290
+#: src/gnuplot.c:271
 #, c-format
 msgid "# Near H field\n"
 msgstr "# Câmp H apropiat\n"
 
-#: src/gnuplot.c:330
+#: src/gnuplot.c:311
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# Vector Poynting\n"
 
-#: src/gnuplot.c:389
+#: src/gnuplot.c:370
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# Diagramă de radiație\n"
 
-#: src/gnuplot.c:527
+#: src/gnuplot.c:508
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# segmente patch structură\n"
 
-#: src/gnuplot.c:562
+#: src/gnuplot.c:543
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# segmente fir structură\n"
 
-#: src/gnuplot.c:592
+#: src/gnuplot.c:573
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4337,11 +4345,11 @@ msgstr ""
 "Vizualizați cu: gnuplot -e \"set terminal qt; splot '%s' with lines; pause "
 "mouse close\"\n"
 
-#: src/gnuplot.c:604
+#: src/gnuplot.c:585
 msgid "Save Currents and Charges to CSV"
 msgstr "Salvează curenții și sarcinile în CSV"
 
-#: src/gnuplot.c:605
+#: src/gnuplot.c:586
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4349,11 +4357,11 @@ msgstr ""
 "Trebuie să activați datele de curent făcând clic pe \"Curenți\" sau \"Sarcini"
 "\" în fereastra principală xnec2c."
 
-#: src/gnuplot.c:670 src/gnuplot.c:680
+#: src/gnuplot.c:651 src/gnuplot.c:661
 msgid "Save Patch Currents to CSV"
 msgstr "Salvează curenții patch în CSV"
 
-#: src/gnuplot.c:671
+#: src/gnuplot.c:652
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4361,7 +4369,7 @@ msgstr ""
 "Trebuie să activați datele de curent făcând clic pe \"Curenți\" sau \"Sarcini"
 "\" în fereastra principală xnec2c."
 
-#: src/gnuplot.c:681
+#: src/gnuplot.c:662
 msgid "No surface patches in this model."
 msgstr "Nu există suprafețe patch în acest model."
 
@@ -5438,41 +5446,41 @@ msgstr ""
 "noise_temp_resolve: tabelul noise_temp nu este alocat; t_sky/t_earth "
 "implicit la 0\n"
 
-#: src/measurements.c:611
+#: src/measurements.c:608
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
 msgstr ""
 "DEFECT: pol=%d în afara intervalului [0,%d): idx=%d freq_step=%d thr=%lu\n"
 
-#: src/measurements.c:625
+#: src/measurements.c:622
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 msgstr ""
 "DEFECT: mgidx=%d în afara intervalului [0,%d): idx=%d pol=%d freq_step=%d "
 "thr=%lu\n"
 
-#: src/measurements.c:628
+#: src/measurements.c:625
 #, c-format
 msgid "BUG: save.fstep[%d]=%d sweep_state=%s\n"
 msgstr "DEFECT: save.fstep[%d]=%d sweep_state=%s\n"
 
-#: src/measurements.c:630
+#: src/measurements.c:627
 #, c-format
 msgid "BUG: rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n"
 msgstr "DEFECT: rad_pattern[%d]: eficiență=%.6e gtot=%p max_gain_idx=%p\n"
 
 # xnec2c-exempt: name
-#: src/measurements.c:634
+#: src/measurements.c:631
 #, c-format
 msgid "BUG: max_gain_idx[0]=%d [1]=%d [2]=%d\n"
 msgstr ""
 
-#: src/measurements.c:789
+#: src/measurements.c:786
 #, c-format
 msgid "meas_name_idx: Invalid name with length=%d: %s\n"
 msgstr "meas_name_idx: Nume invalid cu lungime=%d: %s\n"
 
-#: src/measurements.c:850
+#: src/measurements.c:861
 msgid "meas_format: output overflow\n"
 msgstr "meas_format: depășire ieșire\n"
 
@@ -6702,108 +6710,108 @@ msgstr "New_Frequency: niciun slot de destinație (freq_step=%d)\n"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f secunde. (%s)\n"
 
-#: src/xnec2c.c:1004 src/xnec2c.c:1475
+#: src/xnec2c.c:1003 src/xnec2c.c:1474
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval a returnat clasa necunoscută %d\n"
 
-#: src/xnec2c.c:1069
+#: src/xnec2c.c:1068
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
 msgstr ""
 "pasul %d în competiție: expediat %.6f MHz, curent %.6f MHz; se va recalcula\n"
 
-#: src/xnec2c.c:1195
+#: src/xnec2c.c:1194
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr ""
 "procesul copil %d are un fd de pipe invalid în timpul colectării ramificate\n"
 
-#: src/xnec2c.c:1248
+#: src/xnec2c.c:1247
 msgid "Failed to read data from forked child\n"
 msgstr "Citirea datelor de la procesul copil ramificat a eșuat\n"
 
-#: src/xnec2c.c:1504
+#: src/xnec2c.c:1503
 #, c-format
 msgid "invalid frequency selection mode %d\n"
 msgstr "mod nevalid de selectare a frecvenței %d\n"
 
-#: src/xnec2c.c:1522
+#: src/xnec2c.c:1521
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "pasul cel mai apropiat %g MHz diferă de cel solicitat %g MHz\n"
 
-#: src/xnec2c.c:1526
+#: src/xnec2c.c:1525
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "frecvența după baleiere este stabilită la %.4f MHz (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1564
+#: src/xnec2c.c:1563
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Timp scurs buclă de frecvență: %f secunde. (%s)\n"
 
-#: src/xnec2c.c:1616
+#: src/xnec2c.c:1615
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "canvasul de lot %d nu a desenat niciun cadru la %dx%d\n"
 
-#: src/xnec2c.c:1781
+#: src/xnec2c.c:1780
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "captură PNG diagramă de radiație: niciun pas calculat pentru %s\n"
 
-#: src/xnec2c.c:1853
+#: src/xnec2c.c:1852
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "captura PNG a diagramei de radiație a eșuat pentru %s\n"
 
-#: src/xnec2c.c:1859
+#: src/xnec2c.c:1858
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "salvarea PNG a diagramei de radiație a eșuat pentru %s: %s\n"
 
-#: src/xnec2c.c:1864
+#: src/xnec2c.c:1863
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "PNG diagramă de radiație scris: %s\n"
 
-#: src/xnec2c.c:1901
+#: src/xnec2c.c:1900
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "formatele PNG multiple pentru diagrama de radiație necesită un nume de "
 "fișier .png: %s\n"
 
-#: src/xnec2c.c:2006
+#: src/xnec2c.c:2005
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "baleiajul rulează %d lucrători cu câte %d fire de execuție fiecare\n"
 
-#: src/xnec2c.c:2179
+#: src/xnec2c.c:2175
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: batch_mode=%d nevalid\n"
 
-#: src/xnec2c.c:2185
+#: src/xnec2c.c:2181
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: stopped=%d nevalid\n"
 
-#: src/xnec2c.c:2301
+#: src/xnec2c.c:2297
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "pornirea Frequency_Loop_Thread a eșuat\n"
 
-#: src/xnec2c.c:2480
+#: src/xnec2c.c:2476
 msgid "Frequency Sweep"
 msgstr "Baleiaj de frecvență"
 
-#: src/xnec2c.c:2481
+#: src/xnec2c.c:2477
 msgid "Recalculate the frequency sweep?"
 msgstr "Recalculați baleiajul de frecvență?"
 
-#: src/xnec2c.c:2482
+#: src/xnec2c.c:2478
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

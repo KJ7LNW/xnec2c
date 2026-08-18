@@ -1329,14 +1329,6 @@ trio( int j )
 
 /*-----------------------------------------------------------------------*/
 
-/* cang returns the phase angle of a complex number in degrees. */
-double cang( complex double z )
-{
-  return( carg(z)*TODEG );
-}
-
-/*-----------------------------------------------------------------------*/
-
 /* zint computes the internal impedance of a circular wire */
   void
 zint( double sigl, double rolam, complex double *zint )

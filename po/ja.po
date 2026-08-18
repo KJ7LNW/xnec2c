@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-17 20:01-0700\n"
+"POT-Creation-Date: 2026-08-18 13:33-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -4174,20 +4174,20 @@ msgid ""
 msgstr ""
 "verify_segments() 周波数依存チェックをスキップ - 周波数データがありません\n"
 
-#: src/gnuplot.c:48
+#: src/gnuplot.c:42
 msgid "Gnuplot Data"
 msgstr "Gnuplotデータ"
 
-#: src/gnuplot.c:48 src/gnuplot.c:92 src/gnuplot.c:180
+#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "保存できません: 周波数スイープが完了していません"
 
-#: src/gnuplot.c:62
+#: src/gnuplot.c:56
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# 基準インピーダンス Z0 = %.2f Ω\n"
 
-#: src/gnuplot.c:64
+#: src/gnuplot.c:58
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4197,62 +4197,70 @@ msgstr ""
 "zimagをプロットします:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:65
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92
-msgid "Touchstone Data"
-msgstr "Touchstoneデータ"
-
-#: src/gnuplot.c:106
-#, c-format
-msgid "! Reference impedance Z0 = %.2f Ohm\n"
-msgstr "! 基準インピーダンス Z0 = %.2f Ω\n"
-
-#: src/gnuplot.c:139
+#: src/gnuplot.c:85
 #, c-format
 msgid "This should never happen. touchstone type=%d\n"
 msgstr "これは発生してはいけません。touchstone type=%d\n"
 
-#: src/gnuplot.c:180
+#: src/gnuplot.c:92 src/gnuplot.c:102
+msgid "Touchstone Data"
+msgstr "Touchstoneデータ"
+
+#: src/gnuplot.c:103
+msgid ""
+"Cannot save: S-parameters need a feedpoint impedance, which this excitation "
+"does not provide"
+msgstr ""
+"保存できません: Sパラメータには給電点インピーダンスが必要ですが、この励振はそ"
+"れを提供しません。"
+
+#: src/gnuplot.c:119
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! 基準インピーダンス Z0 = %.2f Ω\n"
+
+#: src/gnuplot.c:161
 msgid "CSV Data"
 msgstr "CSVデータ"
 
-#: src/gnuplot.c:263
+#: src/gnuplot.c:244
 #, c-format
 msgid "# Near E field\n"
 msgstr "# 近傍E界\n"
 
-#: src/gnuplot.c:290
+#: src/gnuplot.c:271
 #, c-format
 msgid "# Near H field\n"
 msgstr "# 近傍H界\n"
 
-#: src/gnuplot.c:330
+#: src/gnuplot.c:311
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# ポインティングベクトル\n"
 
-#: src/gnuplot.c:389
+#: src/gnuplot.c:370
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# 放射パターン\n"
 
-#: src/gnuplot.c:527
+#: src/gnuplot.c:508
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# 構造パッチセグメント\n"
 
-#: src/gnuplot.c:562
+#: src/gnuplot.c:543
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# 構造ワイヤセグメント\n"
 
-#: src/gnuplot.c:592
+#: src/gnuplot.c:573
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4261,11 +4269,11 @@ msgstr ""
 "次のコマンドで表示: gnuplot -e \"set terminal qt; splot '%s' with lines; "
 "pause mouse close\"\n"
 
-#: src/gnuplot.c:604
+#: src/gnuplot.c:585
 msgid "Save Currents and Charges to CSV"
 msgstr "電流と電荷をCSVに保存"
 
-#: src/gnuplot.c:605
+#: src/gnuplot.c:586
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4273,11 +4281,11 @@ msgstr ""
 "メインのxnec2cウィンドウで「電流」または「電荷」をクリックして電流データを有"
 "効にしてください。"
 
-#: src/gnuplot.c:670 src/gnuplot.c:680
+#: src/gnuplot.c:651 src/gnuplot.c:661
 msgid "Save Patch Currents to CSV"
 msgstr "パッチ電流をCSVに保存"
 
-#: src/gnuplot.c:671
+#: src/gnuplot.c:652
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4285,7 +4293,7 @@ msgstr ""
 "メインのxnec2cウィンドウで「電流」または「電荷」をクリックして電流データを有"
 "効にしてください。"
 
-#: src/gnuplot.c:681
+#: src/gnuplot.c:662
 msgid "No surface patches in this model."
 msgstr "このモデルにはサーフェスパッチがありません。"
 
@@ -5325,39 +5333,39 @@ msgstr ""
 "noise_temp_resolve: noise_temp テーブルが割り当てられていません; t_sky/"
 "t_earth のデフォルトは 0 です\n"
 
-#: src/measurements.c:611
+#: src/measurements.c:608
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
 msgstr "バグ: pol=%d が範囲外 [0,%d): idx=%d freq_step=%d thr=%lu\n"
 
-#: src/measurements.c:625
+#: src/measurements.c:622
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 msgstr "バグ: mgidx=%d が範囲外 [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 
-#: src/measurements.c:628
+#: src/measurements.c:625
 #, c-format
 msgid "BUG: save.fstep[%d]=%d sweep_state=%s\n"
 msgstr "バグ: save.fstep[%d]=%d sweep_state=%s\n"
 
 # xnec2c-exempt: name
-#: src/measurements.c:630
+#: src/measurements.c:627
 #, c-format
 msgid "BUG: rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n"
 msgstr ""
 
 # xnec2c-exempt: name
-#: src/measurements.c:634
+#: src/measurements.c:631
 #, c-format
 msgid "BUG: max_gain_idx[0]=%d [1]=%d [2]=%d\n"
 msgstr ""
 
-#: src/measurements.c:789
+#: src/measurements.c:786
 #, c-format
 msgid "meas_name_idx: Invalid name with length=%d: %s\n"
 msgstr "meas_name_idx: 長さ=%d の無効な名前: %s\n"
 
-#: src/measurements.c:850
+#: src/measurements.c:861
 msgid "meas_format: output overflow\n"
 msgstr "meas_format: 出力オーバーフロー\n"
 
@@ -6564,105 +6572,105 @@ msgstr "New_Frequency: 宛先スロットがありません (freq_step=%d)\n"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f 秒 (%s)\n"
 
-#: src/xnec2c.c:1004 src/xnec2c.c:1475
+#: src/xnec2c.c:1003 src/xnec2c.c:1474
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval: 不明なクラス %d が返されました\n"
 
-#: src/xnec2c.c:1069
+#: src/xnec2c.c:1068
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
 msgstr ""
 "ステップ %d が競合: ディスパッチ %.6f MHz、現在 %.6f MHz; 再計算します\n"
 
-#: src/xnec2c.c:1195
+#: src/xnec2c.c:1194
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "子プロセス %d はフォーク収集中に無効なパイプ fd を持っています\n"
 
-#: src/xnec2c.c:1248
+#: src/xnec2c.c:1247
 msgid "Failed to read data from forked child\n"
 msgstr "フォークされた子プロセスからのデータ読み取りに失敗しました\n"
 
-#: src/xnec2c.c:1504
+#: src/xnec2c.c:1503
 #, c-format
 msgid "invalid frequency selection mode %d\n"
 msgstr "無効な周波数選択モード%d\n"
 
-#: src/xnec2c.c:1522
+#: src/xnec2c.c:1521
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "最寄りのステップ%g MHzは要求された%g MHzと異なります\n"
 
-#: src/xnec2c.c:1526
+#: src/xnec2c.c:1525
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "スイープ後の周波数を%.4f MHz（VSWR %.2f）に設定しました\n"
 
-#: src/xnec2c.c:1564
+#: src/xnec2c.c:1563
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "周波数ループ経過時間: %f 秒 (%s)\n"
 
-#: src/xnec2c.c:1616
+#: src/xnec2c.c:1615
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "バッチキャンバス %d は %dx%d でフレームを描画しませんでした\n"
 
-#: src/xnec2c.c:1781
+#: src/xnec2c.c:1780
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "放射パターンPNGキャプチャ: %s の計算済みステップがありません\n"
 
-#: src/xnec2c.c:1853
+#: src/xnec2c.c:1852
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s の放射パターンPNGキャプチャに失敗しました\n"
 
-#: src/xnec2c.c:1859
+#: src/xnec2c.c:1858
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s の放射パターンPNG保存に失敗しました: %s\n"
 
-#: src/xnec2c.c:1864
+#: src/xnec2c.c:1863
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "放射パターンPNGを書き込みました: %s\n"
 
-#: src/xnec2c.c:1901
+#: src/xnec2c.c:1900
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "複数の放射パターンPNG形式には.pngファイル名が必要です: %s\n"
 
-#: src/xnec2c.c:2006
+#: src/xnec2c.c:2005
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "スイープは各%dスレッドの%dワーカーで実行します\n"
 
-#: src/xnec2c.c:2179
+#: src/xnec2c.c:2175
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: 無効なbatch_mode=%d\n"
 
-#: src/xnec2c.c:2185
+#: src/xnec2c.c:2181
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: 無効なstopped=%d\n"
 
-#: src/xnec2c.c:2301
+#: src/xnec2c.c:2297
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread の開始に失敗しました\n"
 
-#: src/xnec2c.c:2480
+#: src/xnec2c.c:2476
 msgid "Frequency Sweep"
 msgstr "周波数掃引"
 
-#: src/xnec2c.c:2481
+#: src/xnec2c.c:2477
 msgid "Recalculate the frequency sweep?"
 msgstr "周波数掃引を再計算しますか?"
 
-#: src/xnec2c.c:2482
+#: src/xnec2c.c:2478
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

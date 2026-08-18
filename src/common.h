@@ -1334,7 +1334,11 @@ void intx(double el1, double el2, double b, int ij, double *sgr, double *sgi);
 int min(int a, int b);
 void test(double f1r, double f2r, double *tr, double f1i, double f2i, double *ti, double dmin);
 void trio(int j);
-double cang(complex double z);
+/* cang returns the phase angle of a complex number in degrees. */
+static inline double cang( complex double z )
+{
+  return( carg(z)*TODEG );
+}
 void zint(double sigl, double rolam, complex double *zint);
 /* callback_func.c */
 gboolean Save_Pixbuf(gpointer save_data);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-17 20:01-0700\n"
+"POT-Creation-Date: 2026-08-18 13:33-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -4177,20 +4177,20 @@ msgstr ""
 "verify_segments() bỏ qua kiểm tra phụ thuộc tần số - không có dữ liệu tần "
 "số\n"
 
-#: src/gnuplot.c:48
+#: src/gnuplot.c:42
 msgid "Gnuplot Data"
 msgstr "Dữ liệu Gnuplot"
 
-#: src/gnuplot.c:48 src/gnuplot.c:92 src/gnuplot.c:180
+#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Không thể lưu: quét tần số chưa hoàn tất"
 
-#: src/gnuplot.c:62
+#: src/gnuplot.c:56
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# Trở kháng tham chiếu Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:64
+#: src/gnuplot.c:58
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4200,62 +4200,70 @@ msgstr ""
 "so với zreal và zimag:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:65
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92
-msgid "Touchstone Data"
-msgstr "Dữ liệu Touchstone"
-
-#: src/gnuplot.c:106
-#, c-format
-msgid "! Reference impedance Z0 = %.2f Ohm\n"
-msgstr "! Trở kháng tham chiếu Z0 = %.2f Ohm\n"
-
-#: src/gnuplot.c:139
+#: src/gnuplot.c:85
 #, c-format
 msgid "This should never happen. touchstone type=%d\n"
 msgstr "Điều này không bao giờ nên xảy ra. touchstone type=%d\n"
 
-#: src/gnuplot.c:180
+#: src/gnuplot.c:92 src/gnuplot.c:102
+msgid "Touchstone Data"
+msgstr "Dữ liệu Touchstone"
+
+#: src/gnuplot.c:103
+msgid ""
+"Cannot save: S-parameters need a feedpoint impedance, which this excitation "
+"does not provide"
+msgstr ""
+"Không thể lưu: tham số S cần trở kháng điểm cấp điện, mà kích thích này "
+"không cung cấp"
+
+#: src/gnuplot.c:119
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! Trở kháng tham chiếu Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:161
 msgid "CSV Data"
 msgstr "Dữ liệu CSV"
 
-#: src/gnuplot.c:263
+#: src/gnuplot.c:244
 #, c-format
 msgid "# Near E field\n"
 msgstr "# Trường E gần\n"
 
-#: src/gnuplot.c:290
+#: src/gnuplot.c:271
 #, c-format
 msgid "# Near H field\n"
 msgstr "# Trường H gần\n"
 
-#: src/gnuplot.c:330
+#: src/gnuplot.c:311
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# Vectơ Poynting\n"
 
-#: src/gnuplot.c:389
+#: src/gnuplot.c:370
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# Giản đồ bức xạ\n"
 
-#: src/gnuplot.c:527
+#: src/gnuplot.c:508
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# các đoạn mảnh cấu trúc\n"
 
-#: src/gnuplot.c:562
+#: src/gnuplot.c:543
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# các đoạn dây cấu trúc\n"
 
-#: src/gnuplot.c:592
+#: src/gnuplot.c:573
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4264,11 +4272,11 @@ msgstr ""
 "Xem bằng: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
 "close\"\n"
 
-#: src/gnuplot.c:604
+#: src/gnuplot.c:585
 msgid "Save Currents and Charges to CSV"
 msgstr "Lưu dòng điện và điện tích ra CSV"
 
-#: src/gnuplot.c:605
+#: src/gnuplot.c:586
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4276,11 +4284,11 @@ msgstr ""
 "Bạn phải bật dữ liệu dòng điện bằng cách nhấp vào \"Dòng điện\" hoặc \"Điện "
 "tích\" trong cửa sổ chính của xnec2c."
 
-#: src/gnuplot.c:670 src/gnuplot.c:680
+#: src/gnuplot.c:651 src/gnuplot.c:661
 msgid "Save Patch Currents to CSV"
 msgstr "Lưu dòng điện mảnh ra CSV"
 
-#: src/gnuplot.c:671
+#: src/gnuplot.c:652
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4288,7 +4296,7 @@ msgstr ""
 "Bạn phải bật dữ liệu dòng điện bằng cách nhấp vào \"Dòng điện\" hoặc \"Điện "
 "tích\" trong cửa sổ chính của xnec2c."
 
-#: src/gnuplot.c:681
+#: src/gnuplot.c:662
 msgid "No surface patches in this model."
 msgstr "Không có mảnh bề mặt nào trong mô hình này."
 
@@ -5322,40 +5330,40 @@ msgstr ""
 "noise_temp_resolve: bảng noise_temp chưa được cấp phát; t_sky/t_earth mặc "
 "định về 0\n"
 
-#: src/measurements.c:611
+#: src/measurements.c:608
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
 msgstr "LỖI: pol=%d nằm ngoài phạm vi [0,%d): idx=%d freq_step=%d thr=%lu\n"
 
-#: src/measurements.c:625
+#: src/measurements.c:622
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 msgstr ""
 "LỖI: mgidx=%d nằm ngoài phạm vi [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 
-#: src/measurements.c:628
+#: src/measurements.c:625
 #, c-format
 msgid "BUG: save.fstep[%d]=%d sweep_state=%s\n"
 msgstr "LỖI: save.fstep[%d]=%d sweep_state=%s\n"
 
 # xnec2c-exempt: name
-#: src/measurements.c:630
+#: src/measurements.c:627
 #, c-format
 msgid "BUG: rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n"
 msgstr ""
 
 # xnec2c-exempt: name
-#: src/measurements.c:634
+#: src/measurements.c:631
 #, c-format
 msgid "BUG: max_gain_idx[0]=%d [1]=%d [2]=%d\n"
 msgstr ""
 
-#: src/measurements.c:789
+#: src/measurements.c:786
 #, c-format
 msgid "meas_name_idx: Invalid name with length=%d: %s\n"
 msgstr "meas_name_idx: Tên không hợp lệ với length=%d: %s\n"
 
-#: src/measurements.c:850
+#: src/measurements.c:861
 msgid "meas_format: output overflow\n"
 msgstr "meas_format: tràn đầu ra\n"
 
@@ -6565,105 +6573,105 @@ msgstr "New_Frequency: không có ô đích (freq_step=%d)\n"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f giây. (%s)\n"
 
-#: src/xnec2c.c:1004 src/xnec2c.c:1475
+#: src/xnec2c.c:1003 src/xnec2c.c:1474
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval trả về lớp không xác định %d\n"
 
-#: src/xnec2c.c:1069
+#: src/xnec2c.c:1068
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
 msgstr "bước %d bị đua: đã gửi %.6f MHz, hiện tại %.6f MHz; sẽ tính lại\n"
 
-#: src/xnec2c.c:1195
+#: src/xnec2c.c:1194
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr ""
 "tiến trình con %d có pipe fd không hợp lệ trong quá trình thu thập từ fork\n"
 
-#: src/xnec2c.c:1248
+#: src/xnec2c.c:1247
 msgid "Failed to read data from forked child\n"
 msgstr "Không thể đọc dữ liệu từ tiến trình con đã fork\n"
 
-#: src/xnec2c.c:1504
+#: src/xnec2c.c:1503
 #, c-format
 msgid "invalid frequency selection mode %d\n"
 msgstr "chế độ chọn tần số không hợp lệ %d\n"
 
-#: src/xnec2c.c:1522
+#: src/xnec2c.c:1521
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "bước gần nhất %g MHz khác với %g MHz được yêu cầu\n"
 
-#: src/xnec2c.c:1526
+#: src/xnec2c.c:1525
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "đặt tần số sau quét thành %.4f MHz (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1564
+#: src/xnec2c.c:1563
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Thời gian vòng lặp tần số: %f giây. (%s)\n"
 
-#: src/xnec2c.c:1616
+#: src/xnec2c.c:1615
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "canvas hàng loạt %d không vẽ được khung hình nào ở kích thước %dx%d\n"
 
-#: src/xnec2c.c:1781
+#: src/xnec2c.c:1780
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "chụp PNG giản đồ bức xạ: không có bước đã tính cho %s\n"
 
-#: src/xnec2c.c:1853
+#: src/xnec2c.c:1852
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "chụp PNG giản đồ bức xạ thất bại cho %s\n"
 
-#: src/xnec2c.c:1859
+#: src/xnec2c.c:1858
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "lưu PNG giản đồ bức xạ thất bại cho %s: %s\n"
 
-#: src/xnec2c.c:1864
+#: src/xnec2c.c:1863
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "đã ghi PNG giản đồ bức xạ: %s\n"
 
-#: src/xnec2c.c:1901
+#: src/xnec2c.c:1900
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "nhiều định dạng PNG giản đồ bức xạ yêu cầu tên tệp .png: %s\n"
 
-#: src/xnec2c.c:2006
+#: src/xnec2c.c:2005
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "Lượt quét chạy %d worker, mỗi worker có %d luồng\n"
 
-#: src/xnec2c.c:2179
+#: src/xnec2c.c:2175
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete: batch_mode=%d không hợp lệ\n"
 
-#: src/xnec2c.c:2185
+#: src/xnec2c.c:2181
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete: stopped=%d không hợp lệ\n"
 
-#: src/xnec2c.c:2301
+#: src/xnec2c.c:2297
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "không thể khởi động Frequency_Loop_Thread\n"
 
-#: src/xnec2c.c:2480
+#: src/xnec2c.c:2476
 msgid "Frequency Sweep"
 msgstr "Quét tần số"
 
-#: src/xnec2c.c:2481
+#: src/xnec2c.c:2477
 msgid "Recalculate the frequency sweep?"
 msgstr "Bạn có muốn tính lại quét tần số không?"
 
-#: src/xnec2c.c:2482
+#: src/xnec2c.c:2478
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

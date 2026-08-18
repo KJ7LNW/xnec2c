@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-17 20:01-0700\n"
+"POT-Creation-Date: 2026-08-18 13:33-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -4069,20 +4069,20 @@ msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() 跳过频率相关检查 - 无频率数据\n"
 
-#: src/gnuplot.c:48
+#: src/gnuplot.c:42
 msgid "Gnuplot Data"
 msgstr "Gnuplot 数据"
 
-#: src/gnuplot.c:48 src/gnuplot.c:92 src/gnuplot.c:180
+#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "无法保存：频率扫描未完成"
 
-#: src/gnuplot.c:62
+#: src/gnuplot.c:56
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# 参考阻抗 Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:64
+#: src/gnuplot.c:58
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4091,62 +4091,68 @@ msgstr ""
 "# 在 gnuplot 中绘图可修改此命令。当前绘制 MHz 与 zreal 和 zimag 的关系：\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:65
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92
-msgid "Touchstone Data"
-msgstr "Touchstone 数据"
-
-#: src/gnuplot.c:106
-#, c-format
-msgid "! Reference impedance Z0 = %.2f Ohm\n"
-msgstr "! 参考阻抗 Z0 = %.2f Ohm\n"
-
-#: src/gnuplot.c:139
+#: src/gnuplot.c:85
 #, c-format
 msgid "This should never happen. touchstone type=%d\n"
 msgstr "这不应该发生。touchstone type=%d\n"
 
-#: src/gnuplot.c:180
+#: src/gnuplot.c:92 src/gnuplot.c:102
+msgid "Touchstone Data"
+msgstr "Touchstone 数据"
+
+#: src/gnuplot.c:103
+msgid ""
+"Cannot save: S-parameters need a feedpoint impedance, which this excitation "
+"does not provide"
+msgstr "无法保存：S 参数需要 馈电点阻抗，而此激励未提供该值"
+
+#: src/gnuplot.c:119
+#, c-format
+msgid "! Reference impedance Z0 = %.2f Ohm\n"
+msgstr "! 参考阻抗 Z0 = %.2f Ohm\n"
+
+#: src/gnuplot.c:161
 msgid "CSV Data"
 msgstr "CSV 数据"
 
-#: src/gnuplot.c:263
+#: src/gnuplot.c:244
 #, c-format
 msgid "# Near E field\n"
 msgstr "# 近场 E 场\n"
 
-#: src/gnuplot.c:290
+#: src/gnuplot.c:271
 #, c-format
 msgid "# Near H field\n"
 msgstr "# 近场 H 场\n"
 
-#: src/gnuplot.c:330
+#: src/gnuplot.c:311
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# 坡印廷矢量\n"
 
-#: src/gnuplot.c:389
+#: src/gnuplot.c:370
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# 辐射方向图\n"
 
-#: src/gnuplot.c:527
+#: src/gnuplot.c:508
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# 结构面片分段\n"
 
-#: src/gnuplot.c:562
+#: src/gnuplot.c:543
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# 结构导线分段\n"
 
-#: src/gnuplot.c:592
+#: src/gnuplot.c:573
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4155,27 +4161,27 @@ msgstr ""
 "查看方式：gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
 "close\"\n"
 
-#: src/gnuplot.c:604
+#: src/gnuplot.c:585
 msgid "Save Currents and Charges to CSV"
 msgstr "保存电流和电荷到 CSV"
 
-#: src/gnuplot.c:605
+#: src/gnuplot.c:586
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
 msgstr "您必须在 xnec2c 主窗口中点击\"电流\"或\"电荷\"来启用电流数据。"
 
-#: src/gnuplot.c:670 src/gnuplot.c:680
+#: src/gnuplot.c:651 src/gnuplot.c:661
 msgid "Save Patch Currents to CSV"
 msgstr "保存面片电流到 CSV"
 
-#: src/gnuplot.c:671
+#: src/gnuplot.c:652
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
 msgstr "您必须在 xnec2c 主窗口中点击\"电流\"或\"电荷\"来启用电流数据。"
 
-#: src/gnuplot.c:681
+#: src/gnuplot.c:662
 msgid "No surface patches in this model."
 msgstr "此模型中没有表面面片。"
 
@@ -5163,37 +5169,37 @@ msgid ""
 "to 0\n"
 msgstr "noise_temp_resolve：噪声温度表未分配；t_sky/t_earth 默认为 0\n"
 
-#: src/measurements.c:611
+#: src/measurements.c:608
 #, c-format
 msgid "BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n"
 msgstr "错误：pol=%d 超出范围 [0,%d)：idx=%d freq_step=%d thr=%lu\n"
 
-#: src/measurements.c:625
+#: src/measurements.c:622
 #, c-format
 msgid "BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n"
 msgstr "错误：mgidx=%d 超出范围 [0,%d)：idx=%d pol=%d freq_step=%d thr=%lu\n"
 
-#: src/measurements.c:628
+#: src/measurements.c:625
 #, c-format
 msgid "BUG: save.fstep[%d]=%d sweep_state=%s\n"
 msgstr "错误：save.fstep[%d]=%d sweep_state=%s\n"
 
-#: src/measurements.c:630
+#: src/measurements.c:627
 #, c-format
 msgid "BUG: rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n"
 msgstr "错误：rad_pattern[%d]：efficiency=%.6e gtot=%p max_gain_idx=%p\n"
 
-#: src/measurements.c:634
+#: src/measurements.c:631
 #, c-format
 msgid "BUG: max_gain_idx[0]=%d [1]=%d [2]=%d\n"
 msgstr "错误：max_gain_idx[0]=%d [1]=%d [2]=%d\n"
 
-#: src/measurements.c:789
+#: src/measurements.c:786
 #, c-format
 msgid "meas_name_idx: Invalid name with length=%d: %s\n"
 msgstr "meas_name_idx：无效名称，长度=%d：%s\n"
 
-#: src/measurements.c:850
+#: src/measurements.c:861
 msgid "meas_format: output overflow\n"
 msgstr "meas_format：输出溢出\n"
 
@@ -6367,104 +6373,104 @@ msgstr "New_Frequency：没有目标槽位（freq_step=%d）\n"
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz：%f 秒。（%s）\n"
 
-#: src/xnec2c.c:1004 src/xnec2c.c:1475
+#: src/xnec2c.c:1003 src/xnec2c.c:1474
 #, c-format
 msgid "green_line_eval returned unknown class %d\n"
 msgstr "green_line_eval 返回未知类别 %d\n"
 
-#: src/xnec2c.c:1069
+#: src/xnec2c.c:1068
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
 msgstr "步骤 %d 产生竞争：已分派 %.6f MHz，当前 %.6f MHz；将重新计算\n"
 
-#: src/xnec2c.c:1195
+#: src/xnec2c.c:1194
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "子进程 %d 在分叉收集期间管道文件描述符无效\n"
 
-#: src/xnec2c.c:1248
+#: src/xnec2c.c:1247
 msgid "Failed to read data from forked child\n"
 msgstr "从分叉子进程读取数据失败\n"
 
-#: src/xnec2c.c:1504
+#: src/xnec2c.c:1503
 #, c-format
 msgid "invalid frequency selection mode %d\n"
 msgstr "无效的频率选择模式 %d\n"
 
-#: src/xnec2c.c:1522
+#: src/xnec2c.c:1521
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "最近步长 %g MHz 与请求的 %g MHz 不同\n"
 
-#: src/xnec2c.c:1526
+#: src/xnec2c.c:1525
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "扫描后频率设为 %.4f MHz（VSWR %.2f）\n"
 
-#: src/xnec2c.c:1564
+#: src/xnec2c.c:1563
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "频率循环耗时：%f 秒。（%s）\n"
 
-#: src/xnec2c.c:1616
+#: src/xnec2c.c:1615
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "批处理画布 %d 在 %dx%d 下未绘制任何帧\n"
 
-#: src/xnec2c.c:1781
+#: src/xnec2c.c:1780
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "辐射方向图 PNG 捕获：%s 无已计算的步进\n"
 
-#: src/xnec2c.c:1853
+#: src/xnec2c.c:1852
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s 的辐射方向图 PNG 捕获失败\n"
 
-#: src/xnec2c.c:1859
+#: src/xnec2c.c:1858
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s 的辐射方向图 PNG 保存失败：%s\n"
 
-#: src/xnec2c.c:1864
+#: src/xnec2c.c:1863
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "已写入辐射方向图 PNG：%s\n"
 
-#: src/xnec2c.c:1901
+#: src/xnec2c.c:1900
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "多种辐射方向图 PNG 格式需要 .png 文件名：%s\n"
 
-#: src/xnec2c.c:2006
+#: src/xnec2c.c:2005
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "扫描运行 %d 个工作线程，每个使用 %d 个线程\n"
 
-#: src/xnec2c.c:2179
+#: src/xnec2c.c:2175
 #, c-format
 msgid "freq_loop_complete: invalid batch_mode=%d\n"
 msgstr "freq_loop_complete：无效的 batch_mode=%d\n"
 
-#: src/xnec2c.c:2185
+#: src/xnec2c.c:2181
 #, c-format
 msgid "freq_loop_complete: invalid stopped=%d\n"
 msgstr "freq_loop_complete：无效的 stopped=%d\n"
 
-#: src/xnec2c.c:2301
+#: src/xnec2c.c:2297
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "启动 Frequency_Loop_Thread 失败\n"
 
-#: src/xnec2c.c:2480
+#: src/xnec2c.c:2476
 msgid "Frequency Sweep"
 msgstr "频率扫描"
 
-#: src/xnec2c.c:2481
+#: src/xnec2c.c:2477
 msgid "Recalculate the frequency sweep?"
 msgstr "您要重新计算频率扫描吗？"
 
-#: src/xnec2c.c:2482
+#: src/xnec2c.c:2478
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."
