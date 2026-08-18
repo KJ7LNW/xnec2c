@@ -91,7 +91,7 @@ Use concise professional Modern Standard Arabic; preserve every source meaning w
 
 ## 10. Domain lexicon
 
-Locked terms, applied everywhere in po/ar.po; correct technical sense per doc/TRANSLATING.md disambiguation table. Concept key — Arabic term — sense/hazard guarded.
+Locked terms, applied everywhere in po/ar.po; correct technical sense per topic 11. Concept key — Arabic term — sense/hazard guarded.
 
 ### Electrical primitives
 
