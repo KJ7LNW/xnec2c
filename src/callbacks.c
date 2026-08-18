@@ -1079,7 +1079,7 @@ on_freqplots_save_activate(
   static int cnt = 0;
 
   if( (strlen(rc_config.input_file) == 0) ||
-      isFlagClear(PLOT_SELECT) )
+      (freqplots_count_selected() < 1) )
     return;
 
   saveas_canvas = CANVAS_FREQPLOTS;

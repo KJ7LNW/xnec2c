@@ -905,7 +905,6 @@ freq_step_update_ui( int new_step, gboolean force )
 
   calc_data.freq_step = new_step;
   calc_data.freq_mhz  = save.freq[new_step];
-  SetFlag( FREQ_LOOP_READY );
 
   /* Block value-changed callbacks during programmatic spinbutton updates;
    * only user interaction sets fmhz_save via those callbacks. */
@@ -2080,9 +2079,6 @@ Frequency_Loop( gpointer udata )
     }
     return FALSE;
   }
-
-  /* PUBLISH: expose highest completed step to all UI consumers */
-  SetFlag( FREQ_LOOP_READY );
 
   /* Dispatch found nothing and all children have returned */
   if( !found_work && idle_stack_full(state) )

@@ -189,19 +189,15 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 #define MAIN_QUIT           0x0000000000000200ll
 
 /* Freq Plot Control flags */
-#define PLOT_SELECT         0x0000000000040000ll
 #define PLOT_ENABLED        0x0000000000080000ll
-#define PLOT_QUIT           0x0000000000100000ll
 
 /* Radiation Pattern Control flags */
 #define DRAW_ENABLED        0x0000000008000000ll
-#define DRAW_QUIT           0x0000000010000000ll
 #define ANIMATE             0x0000000200000000ll
 #define ENABLE_RDPAT        0x0000000400000000ll
 #define ENABLE_NEAREH       0x0000000800000000ll
 #define DRAW_FLAGS ( \
   DRAW_ENABLED      | \
-  DRAW_QUIT         | \
   ANIMATE )
 
 /*** Filechooser response related flags ***/
@@ -230,9 +226,6 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 
 /* Force editors to quit */
 #define EDITOR_QUIT         0x0004000000000000ll
-
-/* Frequency loop results ready */
-#define FREQ_LOOP_READY     0x0008000000000000ll
 
 /* Block motion events till ready */
 #define BLOCK_MOTION_EV     0x0010000000000000ll

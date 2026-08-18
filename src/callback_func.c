@@ -489,8 +489,6 @@ Filechooser_Response(
     }
     else if( isFlagSet(OPEN_INPUT) )
     {
-      ClearFlag( FREQ_LOOP_READY );
-
       /* Save any changes to an open file */
       Strlcpy( rc_config.input_file, fname, sizeof(rc_config.input_file) );
 

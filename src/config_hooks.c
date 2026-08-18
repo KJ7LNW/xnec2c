@@ -336,18 +336,12 @@ freqplots_recount_ngraph(void)
 }
 
 /* freqplots_select_changed - refresh derived plot state after a select toggle
- * @field_active: current rc_config toggle-button field value
  *
  * Shared body for the eight freqplots select-toggle hooks.
  */
 static void
-freqplots_select_changed(int field_active)
+freqplots_select_changed(void)
 {
-  /* PLOT_SELECT latches on the first panel ever selected and gates the
-   * plot-save action; deselecting leaves it set, so no clear pairs here. */
-  if( field_active )
-    SetFlag( PLOT_SELECT );
-
   freqplots_recount_ngraph();
 
   if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
@@ -356,42 +350,42 @@ freqplots_select_changed(int field_active)
 
 void hook_freqplots_gmax(void)
 {
-  freqplots_select_changed(rc_config.freqplots_gmax_togglebutton);
+  freqplots_select_changed();
 }
 
 void hook_freqplots_gdir(void)
 {
-  freqplots_select_changed(rc_config.freqplots_gdir_togglebutton);
+  freqplots_select_changed();
 }
 
 void hook_freqplots_gviewer(void)
 {
-  freqplots_select_changed(rc_config.freqplots_gviewer_togglebutton);
+  freqplots_select_changed();
 }
 
 void hook_freqplots_vswr(void)
 {
-  freqplots_select_changed(rc_config.freqplots_vswr_togglebutton);
+  freqplots_select_changed();
 }
 
 void hook_freqplots_zrlzim(void)
 {
-  freqplots_select_changed(rc_config.freqplots_zrlzim_togglebutton);
+  freqplots_select_changed();
 }
 
 void hook_freqplots_zmgzph(void)
 {
-  freqplots_select_changed(rc_config.freqplots_zmgzph_togglebutton);
+  freqplots_select_changed();
 }
 
 void hook_freqplots_smith(void)
 {
-  freqplots_select_changed(rc_config.freqplots_smith_togglebutton);
+  freqplots_select_changed();
 }
 
 void hook_freqplots_ant_temp(void)
 {
-  freqplots_select_changed(rc_config.freqplots_ant_temp_togglebutton);
+  freqplots_select_changed();
 }
 
 void
