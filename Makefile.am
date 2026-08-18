@@ -375,8 +375,10 @@ check-po-clean: check-potfiles-list check-po-exemptions
 	fi
 .PHONY: check-po-clean
 # Regenerate the template alone, then discard the creation-date churn xgettext
-# writes when no message changed.
-po-template:
+# writes when no message changed. The list check completes first, so a
+# POTFILES.in that no longer names a source file cannot drive a template
+# regeneration that obsoletes the translations that file contributed.
+po-template: check-potfiles-list
 	@$(MAKE) -C po $(PACKAGE).pot-update
 	@$(srcdir)/scripts/po/po-revert-churn.sh $(srcdir)/po/$(PACKAGE).pot
 .PHONY: po-template

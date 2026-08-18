@@ -3,8 +3,9 @@
 # Reject commits while po/POTFILES.in drifts from git-tracked sources,
 # the po/ tree carries modifications not staged for this commit, or a
 # catalog entry turns newly fuzzy or newly untranslated.
-# Runs make po-refresh first (idempotent: the merge strips obsolete entries
-# and discards its own reference-line churn) so string-only drift surfaces.
+# Runs make po-refresh between the POTFILES.in check and the staging check
+# (idempotent: the merge strips obsolete entries and discards its own
+# reference-line churn) so string-only drift surfaces.
 #
 # Bypass:  FORCE_COMMIT=true git commit ...
 #

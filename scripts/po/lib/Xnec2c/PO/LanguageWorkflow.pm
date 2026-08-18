@@ -17,7 +17,7 @@ use Xnec2c::PO::LanguageWorkspace qw(
 use Xnec2c::PO::ManifestWriter qw(write_language_manifest);
 use Xnec2c::PO::ModelSession qw(new_model_session run_model_session);
 use Xnec2c::PO::TranslationMap qw(
-	manifest_records map_path output_path rebase_output_records
+	manifest_records output_path rebase_output_records
 );
 
 our @EXPORT_OK = qw(
@@ -86,7 +86,10 @@ sub prepare_language_manifest
 		scalar grep { $_->{copied} } @{$changes});
 }
 
-# Resolve one language's initial workflow state from workspace state alone.
+# Open every language at regeneration. The work set follows from current
+# catalog content, and rebase carries each existing answer onto that set by
+# identity, so an entry the catalog answered between runs leaves the set and
+# its stale answer is reported as dropped rather than written back over it.
 sub new_language_work
 {
 	my ($lang) = @_;
@@ -95,9 +98,7 @@ sub new_language_work
 
 	return {
 		lang => $lang,
-		state => -e output_path($lang) && -e map_path($lang)
-			? STATE_APPLY_OUTPUT
-			: STATE_PREPARE_WORK,
+		state => STATE_PREPARE_WORK,
 		attempts => 0,
 		feedback => [],
 		signature => undef,
