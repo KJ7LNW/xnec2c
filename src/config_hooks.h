@@ -42,27 +42,12 @@ void hook_theme_change(void);
 void hook_orthographic(void);
 void hook_frequency(void);
 
-void hook_rdpat_e_field(void);
-void hook_rdpat_h_field(void);
-void hook_rdpat_poynting(void);
-void hook_rdpat_overlay(void);
-void hook_rdpat_gradient_key(void);
-void hook_rdpat_draw_style(void);
+void hook_rdpat_ehfield(void);
+void hook_rdpat_redraw(void);
 
-void hook_freqplots_gmax(void);
-void hook_freqplots_gdir(void);
-void hook_freqplots_gviewer(void);
-void hook_freqplots_vswr(void);
-void hook_freqplots_zrlzim(void);
-void hook_freqplots_zmgzph(void);
-void hook_freqplots_smith(void);
-void hook_freqplots_ant_temp(void);
+void hook_freqplots_panel_select(void);
+void hook_freqplots_redraw(void);
 void hook_freqplots_net_gain(void);
-void hook_freqplots_min_max(void);
-void hook_freqplots_clamp_vswr(void);
-void hook_freqplots_show_ant_temp(void);
-void hook_freqplots_round_x_axis(void);
 void hook_freqplots_swap_click(void);
-void hook_freqplots_s11(void);
 
 #endif /* CONFIG_HOOKS_H */

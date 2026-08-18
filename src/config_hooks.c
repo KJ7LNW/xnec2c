@@ -278,7 +278,7 @@ hook_frequency(void)
 /*------------------------------------------------------------------------*/
 
 void
-hook_rdpat_e_field(void)
+hook_rdpat_ehfield(void)
 {
   Set_Window_Labels();
   if( rdpat_ehfield_active() )
@@ -286,35 +286,7 @@ hook_rdpat_e_field(void)
 }
 
 void
-hook_rdpat_h_field(void)
-{
-  Set_Window_Labels();
-  if( rdpat_ehfield_active() )
-    Queue_Radiation_Redraw(TRUE);
-}
-
-void
-hook_rdpat_poynting(void)
-{
-  Set_Window_Labels();
-  if( rdpat_ehfield_active() )
-    Queue_Radiation_Redraw(TRUE);
-}
-
-void
-hook_rdpat_overlay(void)
-{
-  Queue_Radiation_Redraw(TRUE);
-}
-
-void
-hook_rdpat_gradient_key(void)
-{
-  Queue_Radiation_Redraw(TRUE);
-}
-
-void
-hook_rdpat_draw_style(void)
+hook_rdpat_redraw(void)
 {
   Queue_Radiation_Redraw(TRUE);
 }
@@ -335,57 +307,28 @@ freqplots_recount_ngraph(void)
   calc_data.ngraph = freqplots_count_selected();
 }
 
-/* freqplots_select_changed - refresh derived plot state after a select toggle
+/* hook_freqplots_redraw - request a plot frame when the plots hold results
  *
- * Shared body for the eight freqplots select-toggle hooks.
+ * Shared body for every freqplots hook whose whole effect is a redraw.
  */
-static void
-freqplots_select_changed(void)
+void
+hook_freqplots_redraw(void)
 {
-  freqplots_recount_ngraph();
-
   if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
     freqplots_redraw_all(TRUE);
 }
 
-void hook_freqplots_gmax(void)
+/* hook_freqplots_panel_select - refresh derived plot state after a select
+ * toggle.
+ *
+ * Shared body for the eight freqplots panel select toggles.
+ */
+void
+hook_freqplots_panel_select(void)
 {
-  freqplots_select_changed();
-}
+  freqplots_recount_ngraph();
 
-void hook_freqplots_gdir(void)
-{
-  freqplots_select_changed();
-}
-
-void hook_freqplots_gviewer(void)
-{
-  freqplots_select_changed();
-}
-
-void hook_freqplots_vswr(void)
-{
-  freqplots_select_changed();
-}
-
-void hook_freqplots_zrlzim(void)
-{
-  freqplots_select_changed();
-}
-
-void hook_freqplots_zmgzph(void)
-{
-  freqplots_select_changed();
-}
-
-void hook_freqplots_smith(void)
-{
-  freqplots_select_changed();
-}
-
-void hook_freqplots_ant_temp(void)
-{
-  freqplots_select_changed();
+  hook_freqplots_redraw();
 }
 
 void
@@ -395,49 +338,13 @@ hook_freqplots_net_gain(void)
    * every open port-aware combo when the setting flips. */
   freqplots_refresh_port_combos();
 
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
-    freqplots_redraw_all(TRUE);
-}
-
-void
-hook_freqplots_min_max(void)
-{
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
-    freqplots_redraw_all(TRUE);
-}
-
-void
-hook_freqplots_clamp_vswr(void)
-{
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
-    freqplots_redraw_all(TRUE);
-}
-
-void
-hook_freqplots_show_ant_temp(void)
-{
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
-    freqplots_redraw_all(TRUE);
-}
-
-void
-hook_freqplots_round_x_axis(void)
-{
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
-    freqplots_redraw_all(TRUE);
+  hook_freqplots_redraw();
 }
 
 void
 hook_freqplots_swap_click(void)
 {
   /* Affects only the interpretation of future clicks; no redraw. */
-}
-
-void
-hook_freqplots_s11(void)
-{
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
-    freqplots_redraw_all(TRUE);
 }
 
 /*------------------------------------------------------------------------*/

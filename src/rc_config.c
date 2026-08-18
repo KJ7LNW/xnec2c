@@ -193,7 +193,7 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Radiation Pattern Window Menu E-field state", .format = "%d",
 		.vars = { &rc_config.rdpattern_e_field }, .def = { { .i = 1 } },
-		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_e_field,
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_ehfield,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &rdpattern_window_builder,
 					.elements = CONFIG_WIDGETS(
@@ -205,7 +205,7 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Radiation Pattern Window Menu H-field state", .format = "%d",
 		.vars = { &rc_config.rdpattern_h_field }, .def = { { .i = 1 } },
-		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_h_field,
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_ehfield,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &rdpattern_window_builder,
 					.elements = CONFIG_WIDGETS(
@@ -217,7 +217,7 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Radiation Pattern Window Menu Poynting vector state", .format = "%d",
 		.vars = { &rc_config.rdpattern_poynting_vector },
-		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_poynting,
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_ehfield,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &rdpattern_window_builder,
 					.elements = CONFIG_WIDGETS(
@@ -243,7 +243,7 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Radiation Pattern Window Gradient Key", .format = "%d",
 		.vars = { &rc_config.rdpattern_gradient_key }, .def = { { .i = 1 } },
 		.widgets = CONFIG_WIDGET_SINGLE( &rdpattern_window_builder,
-			"rdpattern_gradient_key", hook_rdpat_gradient_key ) },
+			"rdpattern_gradient_key", hook_rdpat_redraw ) },
 
 	{ .desc = "Radiation Pattern Window Zoom spinbutton state", .format = "%d",
 		.vars = { &rc_config.rdpattern_zoom_spinbutton }, .def = { { .i = 100 } } },
@@ -286,12 +286,12 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Radiation Pattern Window Overlay Structure", .format = "%d",
 		.vars = { &rc_config.rdpattern_overlay_structure },
 		.widgets = CONFIG_WIDGET_SINGLE( &rdpattern_window_builder,
-			"rdpattern_overlay_structure", hook_rdpat_overlay ) },
+			"rdpattern_overlay_structure", hook_rdpat_redraw ) },
 
 	{ .desc = "Radiation Pattern Draw Style", .format = "%d",
 		.vars = { &rc_config.rdpattern_draw_style },
 		.def = { { .i = RDPAT_STYLE_BOTH } },
-		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_draw_style,
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_redraw,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &rdpattern_window_builder,
 					.elements = CONFIG_WIDGETS(
@@ -637,47 +637,47 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Frequency Plots Window Max Gain toggle button state", .format = "%d",
 		.vars = { &rc_config.freqplots_gmax_togglebutton }, .def = { { .i = 1 } },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_gmax_togglebutton", hook_freqplots_gmax ) },
+			"freqplots_gmax_togglebutton", hook_freqplots_panel_select ) },
 
 	{ .desc = "Frequency Plots Window Gain Direction toggle button state", .format = "%d",
 		.vars = { &rc_config.freqplots_gdir_togglebutton },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_gdir_togglebutton", hook_freqplots_gdir ) },
+			"freqplots_gdir_togglebutton", hook_freqplots_panel_select ) },
 
 	{ .desc = "Frequency Plots Window Viewer Direction Gain toggle button state", .format = "%d",
 		.vars = { &rc_config.freqplots_gviewer_togglebutton },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_gviewer_togglebutton", hook_freqplots_gviewer ) },
+			"freqplots_gviewer_togglebutton", hook_freqplots_panel_select ) },
 
 	{ .desc = "Frequency Plots Window VSWR toggle button state", .format = "%d",
 		.vars = { &rc_config.freqplots_vswr_togglebutton }, .def = { { .i = 1 } },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_vswr_togglebutton", hook_freqplots_vswr ) },
+			"freqplots_vswr_togglebutton", hook_freqplots_panel_select ) },
 
 	{ .desc = "Frequency Plots Window Z-real/Z-imag toggle button state", .format = "%d",
 		.vars = { &rc_config.freqplots_zrlzim_togglebutton },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_zrlzim_togglebutton", hook_freqplots_zrlzim ) },
+			"freqplots_zrlzim_togglebutton", hook_freqplots_panel_select ) },
 
 	{ .desc = "Frequency Plots Window Z-mag/Z-phase toggle button state", .format = "%d",
 		.vars = { &rc_config.freqplots_zmgzph_togglebutton },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_zmgzph_togglebutton", hook_freqplots_zmgzph ) },
+			"freqplots_zmgzph_togglebutton", hook_freqplots_panel_select ) },
 
 	{ .desc = "Frequency Plots Window Smith toggle button state", .format = "%d",
 		.vars = { &rc_config.freqplots_smith_togglebutton },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_smith_togglebutton", hook_freqplots_smith ) },
+			"freqplots_smith_togglebutton", hook_freqplots_panel_select ) },
 
 	{ .desc = "Freqplots Ant Temp Toggle", .format = "%d",
 		.vars = { &rc_config.freqplots_ant_temp_togglebutton },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_ant_temp_togglebutton", hook_freqplots_ant_temp ) },
+			"freqplots_ant_temp_togglebutton", hook_freqplots_panel_select ) },
 
 	{ .desc = "Freqplots Show Ant Temp (Ta instead of TA)", .format = "%d",
 		.vars = { &rc_config.freqplots_show_ant_temp },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_show_ant_temp", hook_freqplots_show_ant_temp ) },
+			"freqplots_show_ant_temp", hook_freqplots_redraw ) },
 
 	{ .desc = "Frequency Plots Window Net Gain checkbutton state", .format = "%d",
 		.vars = { &rc_config.freqplots_net_gain },
@@ -687,7 +687,7 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Frequency Plots Window Min/Max checkbutton state", .format = "%d",
 		.vars = { &rc_config.freqplots_min_max },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_min_max", hook_freqplots_min_max ) },
+			"freqplots_min_max", hook_freqplots_redraw ) },
 
 	{ .desc = "NEC2 Editor Window Size, in pixels", .format = "%d,%d",
 		.vars = { &rc_config.nec2_edit_width, &rc_config.nec2_edit_height } },
@@ -724,12 +724,12 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Frequency Plots Show S11 checkbutton state", .format = "%d",
 		.vars = { &rc_config.freqplots_s11 },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_s11", hook_freqplots_s11 ) },
+			"freqplots_s11", hook_freqplots_redraw ) },
 
 	{ .desc = "Frequency Plots Show Clamp VSWR checkbutton state", .format = "%d",
 		.vars = { &rc_config.freqplots_clamp_vswr }, .def = { { .i = 1 } },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_clamp_vswr", hook_freqplots_clamp_vswr ) },
+			"freqplots_clamp_vswr", hook_freqplots_redraw ) },
 
 	{ .desc = "Radiation Plots Gain Style", .format = "%d",
 		.vars = { &rc_config.gain_style }, .def = { { .i = GS_LINP } } },
@@ -737,7 +737,7 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Round X Axis", .format = "%d",
 		.vars = { &rc_config.freqplots_round_x_axis },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_round_x_axis", hook_freqplots_round_x_axis ) },
+			"freqplots_round_x_axis", hook_freqplots_redraw ) },
 
 	{ .desc = "Frequency Plots Swap Click", .format = "%d",
 		.vars = { &rc_config.freqplots_swap_click }, .def = { { .i = 1 } },

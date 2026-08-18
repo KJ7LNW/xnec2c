@@ -43,8 +43,7 @@ void
 hook_set_renderer(void)
 {
   opengl_set_renderer(rc_config.use_opengl_renderer);
-  Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw(TRUE);
+  hook_render_redraw();
 }
 
 /** hook_set_constrained - Apply constrained-rotation mode, then redraw */
@@ -52,8 +51,7 @@ void
 hook_set_constrained(void)
 {
   opengl_set_constrained_rotation(rc_config.view_drag_constrained);
-  Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw(TRUE);
+  hook_render_redraw();
 }
 
 /*------------------------------------------------------------------------*/

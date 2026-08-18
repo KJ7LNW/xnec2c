@@ -59,8 +59,7 @@ void
 hook_set_msaa(void)
 {
   Set_MSAA_Samples(rc_config.opengl_msaa_samples);
-  Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw(TRUE);
+  hook_render_redraw();
 }
 
 /** hook_set_radius_scale - Apply the cylinder radius scale, then redraw */
@@ -68,8 +67,7 @@ void
 hook_set_radius_scale(void)
 {
   opengl_structure_set_radius_scale(rc_config.opengl_cylinder_radius_scale);
-  Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw(TRUE);
+  hook_render_redraw();
 }
 
 /*------------------------------------------------------------------------*/
