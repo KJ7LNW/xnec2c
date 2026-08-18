@@ -32,6 +32,7 @@ xnec2c_SOURCES = \
     geometry.c      geometry.h \
     ground.c        ground.h \
     xnec2c.c        xnec2c.h \
+    freq_sweep_controls.c \
     freq_sweep_state.c \
     input.c         input.h \
     matrix.c        matrix.h \

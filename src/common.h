@@ -185,10 +185,6 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 #define FREQ_EQ(a, b)     (fabs((a) - (b)) <= FREQ_EPSILON_MHZ)
 
 /*** Flow control flags ***/
-/* Freq Loop Control flags */
-#define FREQ_LOOP_INIT      0x0000000000000004ll
-#define FREQ_LOOP_STOP      0x0000000000000008ll
-
 /* Main Window Control flags */
 #define MAIN_QUIT           0x0000000000000200ll
 
@@ -263,29 +259,24 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 /* Maximum length for mathlib ID strings (including null terminator) */
 #define MATHLIB_ID_LEN 32
 
-/* Frequency-sweep lifecycle.  One value per reachable combination of the two
- * axes: a driver is iterating, and the result set is valid.  IDLE holds
- * neither, ACTIVE holds a driver only, FINISHING holds both while the driver
- * retires, COMPLETE holds a valid result set only.  Read the axes through
- * freq_sweep_active() and freq_sweep_complete(); write only through the four
- * transition verbs. */
+/* Frequency-sweep lifecycle, ordered by the sweep's own progression.  Every
+ * reachable combination of three cross-cutting bits holds a value: a driver
+ * owns the sweep, the result set is full, any results are retained.  ARMED
+ * announces a pending start and STOPPING announces that the owning driver
+ * must retire; both are identities rather than bits.  Read through the
+ * freq_sweep_*() accessors; write only through the six transition verbs. */
 typedef enum {
   FREQ_SWEEP_IDLE = 0,
+  FREQ_SWEEP_ARMED,
   FREQ_SWEEP_ACTIVE,
+  FREQ_SWEEP_STOPPING,
   FREQ_SWEEP_FINISHING,
+  FREQ_SWEEP_PAUSED,
   FREQ_SWEEP_COMPLETE,
   FREQ_SWEEP_STATE_COUNT,
 } freq_sweep_state_t;
 
 extern _Atomic freq_sweep_state_t sweep_state;
-
-/* A driver owns the sweep and is iterating it. */
-#define freq_sweep_active() \
-  (sweep_state == FREQ_SWEEP_ACTIVE || sweep_state == FREQ_SWEEP_FINISHING)
-
-/* The result set is valid and may be read, plotted or saved. */
-#define freq_sweep_complete() \
-  (sweep_state == FREQ_SWEEP_FINISHING || sweep_state == FREQ_SWEEP_COMPLETE)
 
 typedef enum {
   RDPAT_PNG_FORMAT_ISO,
@@ -1702,7 +1693,6 @@ void on_ground2_cancel_button_clicked(GtkButton *button, gpointer user_data);
 void on_ground2_apply_button_clicked(GtkButton *button, gpointer user_data);
 void on_ground2_ok_button_clicked(GtkButton *button, gpointer user_data);
 void on_loop_start_clicked(GtkButton *button, gpointer user_data);
-void on_loop_pause_clicked(GtkButton *button, gpointer user_data);
 void on_loop_reset_clicked(GtkButton *button, gpointer user_data);
 void on_about_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_aboutdialog_close(GtkDialog *dialog, gpointer user_data);
@@ -1950,11 +1940,22 @@ void SetFlag(unsigned long long int flag);
 void ClearFlag(unsigned long long int flag);
 void ToggleFlag(unsigned long long int flag);
 void SaveFlag(unsigned long long int *flag, unsigned long long int mask);
+void freq_sweep_arm(void);
 void freq_sweep_run_begin(void);
 void freq_sweep_run_end(void);
 void freq_sweep_results_publish(void);
 void freq_sweep_results_clear(void);
+void freq_sweep_stop_request(void);
+gboolean freq_sweep_active(void);
+gboolean freq_sweep_complete(void);
+gboolean freq_sweep_has_results(void);
+gboolean freq_sweep_paused(void);
+gboolean freq_sweep_armed(void);
+gboolean freq_sweep_stopping(void);
 const char *freq_sweep_state_name(void);
+
+/* freq_sweep_controls.c */
+void freq_sweep_controls_refresh(void);
 void Strlcpy(char *dest, const char *src, size_t n);
 void Strlcat(char *dest, const char *src, size_t n);
 double Strtod(char *nptr, char **endptr);
@@ -1981,6 +1982,8 @@ gboolean freq_loop_run_sync(void);
 gboolean Start_Frequency_Loop(void);
 gboolean Start_Frequency_Loop_Greenline(void);
 void Stop_Frequency_Loop(void);
+void freq_loop_toggle(void);
+void freq_loop_rewind(void);
 void Incident_Field_Loop(void);
 int set_freq_step(void);
 gboolean fetch_freq_data(void);

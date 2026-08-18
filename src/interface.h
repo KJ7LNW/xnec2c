@@ -572,7 +572,6 @@ NULL
 "rdpattern_gain_togglebutton", \
 "rdpattern_eh_togglebutton", \
 "rdpatttern_loop_start", \
-"rdpattern_loop_pause", \
 "rdpattern_loop_reset", \
 "rdpattern_fstep_entry", \
 "rdpattern_colorcode_minlabel", \
@@ -661,7 +660,6 @@ NULL
 "main_currents_togglebutton", \
 "main_charges_togglebutton", \
 "main_loop_start", \
-"main_loop_pause", \
 "main_loop_reset", \
 "structure_fstep_entry", \
 "main_hbox2", \

@@ -733,6 +733,10 @@ typedef struct
   int              max_step;     /* Highest dispatchable index (steps_total or steps_total-1) */
   fork_frqdata_t   frq;          /* FRQDATA payload; threads is sweep-constant */
   int              next_scan;    /* Resume point for dispatch step scan */
+  int              scan_lo;      /* Lowest step index this sweep may dispatch */
+  /* Zeroed by the allocation in freq_loop_begin(); the first Frequency_Loop()
+   * call performs the sweep reset and sets it. */
+  gboolean         initialized;
   struct timespec  t0;           /* Wall-clock start time */
   child_proc_t   **idle_stack;   /* LIFO stack of idle child pointers */
   int              idle_top;     /* Index of top entry; -1 = empty */
@@ -1170,7 +1174,7 @@ freq_loop_dispatch( freq_loop_state_t *state, child_proc_t *child,
  * processes all ready children.  Forked path acquires freq_data_lock
  * internally; non-forked path is lock-free (saves done in New_Frequency).
  *
- * Returns FALSE and sets FREQ_LOOP_STOP if a pipe read fails; TRUE otherwise.
+ * Returns FALSE and requests a sweep stop if a pipe read fails; TRUE otherwise.
  */
 static gboolean
 freq_loop_collect_pending( freq_loop_state_t *state )
@@ -1242,7 +1246,7 @@ freq_loop_collect_pending( freq_loop_state_t *state )
     if( !Get_Freq_Data( idx, child_fstep ) )
     {
       pr_err("Failed to read data from forked child\n");
-      SetFlag(FREQ_LOOP_STOP);
+      freq_sweep_stop_request();
       g_rec_mutex_unlock(&freq_data_lock);
       return FALSE;
     }
@@ -1533,15 +1537,24 @@ fmhz_save_apply_selection(void)
  * freq_loop_finalize - complete a finished sweep
  * @state: loop state (for elapsed-time calculation)
  *
- * Publishes the result set, logs elapsed time, wakes the optimizer, and
- * queues final UI updates.  No locks held on entry.
+ * Publishes the result set when the sweep covered every step, logs elapsed
+ * time, wakes the optimizer, and queues final UI updates.  No locks held on
+ * entry.
  */
 static void
 freq_loop_finalize( freq_loop_state_t *state )
 {
   struct timespec end;
 
-  freq_sweep_results_publish();
+  /* Only a sweep free to dispatch the whole range may claim a full result
+   * set; a green-line start covers its own slot alone. */
+  if( state->scan_lo == 0 )
+    freq_sweep_results_publish();
+  else
+  {
+    /* A narrowed sweep leaves the result condition it inherited, so a paused
+     * sweep stays resumable across a green-line selection. */
+  }
 
   /* Dump the validation data tree when --write-validation-dir is set;
    * no-op otherwise.  All per-fstep arrays are populated at this point. */
@@ -1975,13 +1988,12 @@ Frequency_Loop( gpointer udata )
   int idx;
 
   /* INIT: reset all iteration state for a new sweep */
-  if( isFlagSet(FREQ_LOOP_INIT) )
+  if( !state->initialized )
   {
-    ClearFlag( FREQ_LOOP_INIT );
-    freq_sweep_results_clear();
+    state->initialized  = TRUE;
 
     state->idle_top     = -1;
-    state->next_scan    = 0;
+    state->next_scan    = state->scan_lo;
     state->max_step     = freq_populate_steps();
 
     /* Steps are marked valid or invalid before the sweep starts, so the work
@@ -2017,14 +2029,14 @@ Frequency_Loop( gpointer udata )
    *
    * Dispatch to all idle children, then block for one collect round when
    * all workers are busy.  Repeat until every step is dispatched and every
-   * result collected, or until FREQ_LOOP_STOP is set.
+   * result collected, or until a stop request reaches the sweep.
    *
    * Non-forked path: dispatch() is synchronous; one step per Frequency_Loop()
    * call so async redraws can reach the GTK main thread between steps.
    */
   /* Dispatch phase: scan for invalid steps and dispatch to idle children */
   gboolean found_work = FALSE;
-  while( !idle_stack_empty(state) && !isFlagSet(FREQ_LOOP_STOP) )
+  while( !idle_stack_empty(state) && !freq_sweep_stopping() )
   {
     int next = -1;
     for( idx = state->next_scan; idx <= state->max_step; idx++ )
@@ -2036,9 +2048,9 @@ Frequency_Loop( gpointer udata )
     }
 
     /* Wrap to catch externally invalidated steps behind next_scan */
-    if( next == -1 && state->next_scan > 0 )
+    if( next == -1 && state->next_scan > state->scan_lo )
     {
-      state->next_scan = 0;
+      state->next_scan = state->scan_lo;
       continue;
     }
 
@@ -2059,7 +2071,7 @@ Frequency_Loop( gpointer udata )
     return FALSE;
 
   /* STOP: drain remaining children before exiting */
-  if( isFlagSet(FREQ_LOOP_STOP) )
+  if( freq_sweep_stopping() )
   {
     while( children_dispatched() )
     {
@@ -2111,6 +2123,7 @@ freq_loop_state_free( freq_loop_state_t **state )
 
 /**
  * freq_loop_begin - construct per-sweep state and publish sweep start
+ * @scan_lo: lowest step index this sweep may dispatch
  *
  * Sizes the idle stack for the current job count and populates the display
  * extent on the GTK thread before the sweep worker runs freq_populate_steps;
@@ -2120,17 +2133,17 @@ freq_loop_state_free( freq_loop_state_t **state )
  * Return: the new sweep state, owned by the caller
  */
 static freq_loop_state_t *
-freq_loop_begin( void )
+freq_loop_begin( int scan_lo )
 {
   freq_loop_state_t *state = NULL;
 
   mem_new(&state);
   state->idle_top = -1;
+  state->scan_lo  = scan_lo;
   mem_array_alloc(&state->idle_stack, calc_data.num_jobs);
 
   freqplots_update_fscale_extents();
 
-  SetFlag( FREQ_LOOP_INIT );
   freq_sweep_run_begin();
 
   return state;
@@ -2145,7 +2158,7 @@ freq_loop_begin( void )
 static void
 freq_loop_complete( void )
 {
-  int stopped = isFlagSet(FREQ_LOOP_STOP);
+  gboolean stopped = freq_sweep_stopping();
 
   switch( stopped )
   {
@@ -2174,6 +2187,8 @@ freq_loop_complete( void )
   }
 
   freq_sweep_run_end();
+
+  freq_sweep_controls_refresh();
 }
 
 /*-----------------------------------------------------------------------*/
@@ -2251,12 +2266,13 @@ freq_loop_deck_ready( void )
 
 /**
  * freq_loop_start_internal - allocate state and launch the loop driver
+ * @scan_lo: lowest step index this sweep may dispatch
  *
  * Caller has already invalidated the desired save.fstep[] entries.
  * Returns TRUE on success, FALSE if preconditions are not met.
  */
 static gboolean
-freq_loop_start_internal( void )
+freq_loop_start_internal( int scan_lo )
 {
   if( !freq_loop_deck_ready() || freq_sweep_active())
     return FALSE;
@@ -2270,7 +2286,7 @@ freq_loop_start_internal( void )
   if(freq_sweep_active())
     return FALSE;
 
-  floop_state = freq_loop_begin();
+  floop_state = freq_loop_begin( scan_lo );
 
   /* Intermediate-step draws use force=FALSE and are gated by
    * SUPPRESS_INTERMEDIATE_REDRAWS inside redraw_schedule(). */
@@ -2292,11 +2308,16 @@ freq_loop_start_internal( void )
     floop_tag = g_idle_add( freq_loop_idle, &floop_state );
   }
 
+  freq_sweep_controls_refresh();
+
   return TRUE;
 }
 
 /**
  * freq_steps_invalidate_all - mark every sweep step for recomputation
+ *
+ * Emptying the step array is the one event that leaves no result retained,
+ * so the sweep state is announced here rather than at each caller.
  *
  * Return: TRUE when the step array is present and carries steps
  */
@@ -2311,6 +2332,8 @@ freq_steps_invalidate_all( void )
     save.fstep[i] = 0;
   g_rec_mutex_unlock(&freq_data_lock);
 
+  freq_sweep_results_clear();
+
   return TRUE;
 }
 
@@ -2323,7 +2346,7 @@ Start_Frequency_Loop( void )
   if( !freq_steps_invalidate_all() )
     return FALSE;
 
-  return freq_loop_start_internal();
+  return freq_loop_start_internal( 0 );
 }
 
 /**
@@ -2351,7 +2374,7 @@ freq_loop_run_sync( void )
   if(freq_sweep_active())
     Stop_Frequency_Loop();
 
-  state = freq_loop_begin();
+  state = freq_loop_begin( 0 );
 
   freq_loop_drive( state );
   freq_loop_state_free( &state );
@@ -2375,24 +2398,10 @@ Start_Frequency_Loop_Greenline( void )
   save.fstep[calc_data.steps_total] = 0;
   g_rec_mutex_unlock(&freq_data_lock);
 
-  return freq_loop_start_internal();
+  return freq_loop_start_internal( calc_data.steps_total );
 }
 
 /*-----------------------------------------------------------------------*/
-
-/**
- * freq_loop_cancel_complete - publish canceled sweep completion
- *
- * Clear loop state after driver resources are released.  Threaded teardown
- * commits this transition before flushing GTK work so a sweep started during
- * that flush retains its state.
- */
-static void
-freq_loop_cancel_complete( void )
-{
-  freq_sweep_run_end();
-  ClearFlag( FREQ_LOOP_STOP );
-}
 
 /* Stop_Frequency_Loop()
  *
@@ -2401,7 +2410,7 @@ freq_loop_cancel_complete( void )
   void
 Stop_Frequency_Loop( void )
 {
-  SetFlag(FREQ_LOOP_STOP);
+  freq_sweep_stop_request();
 
   if( !rc_config.disable_pthread_freqloop )
   {
@@ -2412,10 +2421,11 @@ Stop_Frequency_Loop( void )
     }
 
     freq_loop_state_free(&floop_state);
-    freq_loop_cancel_complete();
 
-    /* Flush pending GTK work after publishing cancellation so a sweep
-     * started re-entrantly during the flush retains its state. */
+    /* Commit the retirement before flushing pending GTK work so a sweep
+     * started re-entrantly during that flush retains its state. */
+    freq_sweep_run_end();
+
     while( g_main_context_iteration(NULL, FALSE) ) {}
   }
   else
@@ -2426,10 +2436,101 @@ Stop_Frequency_Loop( void )
       floop_tag = 0;
     }
 
+    /* The idle driver stops between iterations, so the drain the threaded
+     * driver runs inside Frequency_Loop() happens here instead; a child left
+     * dispatched holds an unread FRQDATA that the next sweep would collect
+     * against a different step. */
+    gboolean draining = (floop_state != NULL);
+    while( draining && children_dispatched() )
+      draining = freq_loop_collect_pending( floop_state );
+
     freq_loop_state_free(&floop_state);
-    freq_loop_cancel_complete();
+    freq_sweep_run_end();
   }
+
+  freq_sweep_controls_refresh();
 } /* Stop_Frequency_Loop() */
+
+/**
+ * freq_loop_pause - retire the sweep and present the steps it computed
+ *
+ * Closes the pause on the work freq_loop_begin() performs at a start: the
+ * display extent that green-line classification and the plot axes read is
+ * repopulated from the finished steps, so the next frequency selection
+ * redraws against that extent.
+ */
+static void
+freq_loop_pause( void )
+{
+  Stop_Frequency_Loop();
+  freqplots_update_fscale_extents();
+  freq_step_refresh_ui( TRUE );
+}
+
+/**
+ * freq_loop_recalculate - run a sweep whose results are already complete
+ *
+ * The restart drops every calculated step, so the press carries a question
+ * before the sweep begins.
+ */
+static void
+freq_loop_recalculate( void )
+{
+  int response = Notice_Question( GTK_BUTTONS_YES_NO,
+      _("Frequency Sweep"),
+      _("Recalculate the frequency sweep?"),
+      _("The sweep is calculated in full.  Running it again discards every "
+        "calculated step and computes the sweep from its first step.") );
+
+  if( response == GTK_RESPONSE_YES )
+    Start_Frequency_Loop();
+  else
+  {
+    /* The sweep keeps the results it holds. */
+  }
+}
+
+/**
+ * freq_loop_toggle - run, pause or resume the frequency sweep
+ *
+ * The transport's single decision point: a sweep under way retires and keeps
+ * the steps it computed, a paused sweep resumes the steps it has left, a
+ * calculated sweep asks before it is recomputed, and any other state starts
+ * a full sweep.
+ */
+void
+freq_loop_toggle( void )
+{
+  if( freq_sweep_active() )
+    freq_loop_pause();
+  else if( freq_sweep_paused() )
+    freq_loop_start_internal( 0 );
+  else if( freq_sweep_complete() )
+    freq_loop_recalculate();
+  else
+    Start_Frequency_Loop();
+}
+
+/**
+ * freq_loop_rewind - return the frequency sweep to its first step
+ *
+ * Retires any driver, drops every computed step and refreshes the windows so
+ * the session presents an uncalculated sweep.
+ */
+void
+freq_loop_rewind( void )
+{
+  if( freq_sweep_active() )
+    Stop_Frequency_Loop();
+  else
+  {
+    /* No driver owns the sweep. */
+  }
+
+  freq_steps_invalidate_all();
+  freq_step_refresh_ui( TRUE );
+  freq_sweep_controls_refresh();
+}
 
 /*-----------------------------------------------------------------------*/
 

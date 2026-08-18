@@ -266,7 +266,7 @@ hook_frequency(void)
   if(freq_sweep_active())
     return;
 
-  if( isFlagSet(FREQ_LOOP_INIT) )
+  if( freq_sweep_armed() )
     return;
 
   if( rc_config.freq_apply )
@@ -350,7 +350,7 @@ freqplots_select_changed(int field_active)
 
   freqplots_recount_ngraph();
 
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_complete())
+  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
     freqplots_redraw_all(TRUE);
 }
 
@@ -401,35 +401,35 @@ hook_freqplots_net_gain(void)
    * every open port-aware combo when the setting flips. */
   freqplots_refresh_port_combos();
 
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_complete())
+  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
     freqplots_redraw_all(TRUE);
 }
 
 void
 hook_freqplots_min_max(void)
 {
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_complete())
+  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
     freqplots_redraw_all(TRUE);
 }
 
 void
 hook_freqplots_clamp_vswr(void)
 {
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_complete())
+  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
     freqplots_redraw_all(TRUE);
 }
 
 void
 hook_freqplots_show_ant_temp(void)
 {
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_complete())
+  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
     freqplots_redraw_all(TRUE);
 }
 
 void
 hook_freqplots_round_x_axis(void)
 {
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_complete())
+  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
     freqplots_redraw_all(TRUE);
 }
 
@@ -442,7 +442,7 @@ hook_freqplots_swap_click(void)
 void
 hook_freqplots_s11(void)
 {
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_complete())
+  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
     freqplots_redraw_all(TRUE);
 }
 

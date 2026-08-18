@@ -45,7 +45,7 @@ void Save_FreqPlots_Gnuplot_Data(char *filename)
 	// Abort if plot data not available
 	if (!freq_sweep_complete())
 	{
-		Notice(GTK_BUTTONS_OK, _("Gnuplot Data"), _("Cannot save data while frequency loop is running"));
+		Notice(GTK_BUTTONS_OK, _("Gnuplot Data"), _("Cannot save: the frequency sweep is incomplete"));
 		return;
 	}
 
@@ -89,7 +89,7 @@ void Save_FreqPlots_Touchstone(char *filename, int type)
 	// Abort if plot data not available
 	if (!freq_sweep_complete())
 	{
-		Notice(GTK_BUTTONS_OK, _("Touchstone Data"), _("Cannot save data while frequency loop is running"));
+		Notice(GTK_BUTTONS_OK, _("Touchstone Data"), _("Cannot save: the frequency sweep is incomplete"));
 		return;
 	}
 
@@ -177,7 +177,7 @@ void Save_FreqPlots_CSV(char *filename)
 	// Abort if plot data not available
 	if (!freq_sweep_complete())
 	{
-		Notice(GTK_BUTTONS_OK, _("Touchstone Data"), _("Cannot save data while frequency loop is running"));
+		Notice(GTK_BUTTONS_OK, _("CSV Data"), _("Cannot save: the frequency sweep is incomplete"));
 		return;
 	}
 

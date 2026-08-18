@@ -280,6 +280,10 @@ main (int argc, char *argv[])
   main_window = create_main_window( &main_window_builder );
   gtk_window_set_title( GTK_WINDOW(main_window), PACKAGE_STRING );
 
+  /* The transport buttons carry the sweep state, so a freshly built window
+   * takes its face and its tooltips from the readout. */
+  freq_sweep_controls_refresh();
+
   calc_data.zo = 50.0;
   calc_data.freq_loop_data = NULL;
 
@@ -644,7 +648,7 @@ Open_Input_File( gpointer arg )
 
   /* Initialize xnec2c */
   rc_config.freq_apply = 1;
-  if( isFlagSet(PLOT_ENABLED) ) SetFlag( FREQ_LOOP_INIT );
+  if( isFlagSet(PLOT_ENABLED) ) freq_sweep_arm();
   floop_tag = 0;
 
   /* Scale geometry for current frequency before potential loop start.
@@ -780,6 +784,16 @@ Open_Input_File( gpointer arg )
        * The session stays interactive, matching a FALSE return from
        * Start_Frequency_Loop for a deck carrying no FR card. */
     }
+  }
+
+  /* Release the pending-start announcement raised for the plots window: a
+   * sweep that started has already consumed it, and one that never started
+   * would otherwise leave it announced for the rest of the session. */
+  if( !freq_sweep_active() )
+    freq_sweep_results_clear();
+  else
+  {
+    /* The sweep's own start consumed the announcement. */
   }
 
   /* Open NEC2 editor if there is a saved geometry state */

@@ -545,6 +545,10 @@ on_main_rdpattern_activate(
 
     rdpattern_window = create_rdpattern_window( &rdpattern_window_builder );
 
+    /* The transport buttons carry the sweep state, so a freshly built window
+     * takes its face and its tooltips from the readout. */
+    freq_sweep_controls_refresh();
+
     /* Spin widgets must be resolved before creating the GL widget:
      * opengl_rdpattern_surface_new() dereferences rdpattern_view,
      * which in turn borrows the spin-button pointers. */
@@ -702,6 +706,11 @@ on_main_freqplots_activate(
       }
 
       freqplots_window = create_freqplots_window( &freqplots_window_builder );
+
+      /* The transport buttons carry the sweep state, so a freshly built
+       * window takes its face and its tooltips from the readout. */
+      freq_sweep_controls_refresh();
+
       GtkWidget *fp_da = Builder_Get_Object(
           freqplots_window_builder, "freqplots_drawingarea" );
       freqplots_main_view()->window      = freqplots_window;
@@ -745,7 +754,7 @@ on_main_freqplots_activate(
       gtk_widget_show( freqplots_window );
       Update_Window_Titles();
 
-      if( (rc_config.main_loop_start || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS)) && !freq_sweep_complete())
+      if( (rc_config.main_loop_start || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS)) && !freq_sweep_has_results())
         Start_Frequency_Loop();
 
     } /* if( Main_Freqplots_Activate() */
@@ -5297,16 +5306,7 @@ on_loop_start_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  Start_Frequency_Loop();
-}
-
-
-  void
-on_loop_pause_clicked(
-    GtkButton       *button,
-    gpointer         user_data)
-{
-  Stop_Frequency_Loop();
+  freq_loop_toggle();
 }
 
 
@@ -5315,8 +5315,7 @@ on_loop_reset_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  if(!freq_sweep_active())
-    SetFlag( FREQ_LOOP_INIT );
+  freq_loop_rewind();
 }
 
 static GtkWidget *aboutdialog = NULL;

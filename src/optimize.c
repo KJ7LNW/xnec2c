@@ -401,10 +401,9 @@ Optimizer_Output( void *arg )
 
 		pr_debug("inotify: read %zd bytes from inotify fd\n", len);
 
-		if ( isFlagSet(FREQ_LOOP_INIT | INPUT_PENDING | SY_OPTIMIZER_ACTIVE) || sweep_state != FREQ_SWEEP_COMPLETE)
+		if ( isFlagSet(INPUT_PENDING | SY_OPTIMIZER_ACTIVE) || sweep_state != FREQ_SWEEP_COMPLETE)
 		{
-			pr_debug("inotify: SKIP all events (flags) - FREQ_LOOP_INIT=%d INPUT_PENDING=%d sweep_state=%s\n",
-				isFlagSet(FREQ_LOOP_INIT) ? 1 : 0,
+			pr_debug("inotify: SKIP all events (flags) - INPUT_PENDING=%d sweep_state=%s\n",
 				isFlagSet(INPUT_PENDING) ? 1 : 0,
 				freq_sweep_state_name());
 			continue;

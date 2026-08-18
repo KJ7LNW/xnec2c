@@ -625,9 +625,8 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 		BUG("BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n",
 			mgidx, nthph, idx, pol, calc_data.freq_step,
 			(unsigned long)pthread_self());
-		BUG("BUG: save.fstep[%d]=%d FREQ_LOOP_STOP=%d sweep_state=%s\n",
-			idx, save.fstep[idx],
-			isFlagSet(FREQ_LOOP_STOP), freq_sweep_state_name());
+		BUG("BUG: save.fstep[%d]=%d sweep_state=%s\n",
+			idx, save.fstep[idx], freq_sweep_state_name());
 		BUG("BUG: rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n",
 			idx, rad_pattern[idx].efficiency,
 			(void *)rad_pattern[idx].gtot,

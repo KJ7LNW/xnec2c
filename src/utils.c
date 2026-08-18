@@ -439,7 +439,7 @@ Stop( int err, const char *format, ... )
     else
       pr_err("%s\n", mesg);
 
-    SetFlag(FREQ_LOOP_STOP);
+    freq_sweep_stop_request();
     if (!locked)
       Stop_Frequency_Loop();
     /* Marshal the completion primitive onto the main thread; runs on the
@@ -457,13 +457,13 @@ Stop( int err, const char *format, ... )
     else
       pr_err("Stop during freq loop, deadlock prevented: %s\n", mesg);
 
-    SetFlag(FREQ_LOOP_STOP);
+    freq_sweep_stop_request();
     if (!locked)
       Stop_Frequency_Loop();
     return( err );
   }
 
-  SetFlag(FREQ_LOOP_STOP);
+  freq_sweep_stop_request();
 
   if (!locked)
     /* Stop operation */

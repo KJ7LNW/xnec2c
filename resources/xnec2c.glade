@@ -10158,10 +10158,10 @@ Save NEC2 Editor data first?
                     <property name="hexpand">True</property>
                     <signal name="clicked" handler="on_loop_start_clicked" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="plot_loop_play_image">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="stock">gtk-media-play</property>
+                        <property name="icon-name">media-playback-start</property>
                         <property name="icon_size">3</property>
                       </object>
                     </child>
@@ -10171,29 +10171,6 @@ Save NEC2 Editor data first?
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="plot_loop_pause">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">False</property>
-                    <property name="hexpand">True</property>
-                    <signal name="clicked" handler="on_loop_pause_clicked" swapped="no"/>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="stock">gtk-media-pause</property>
-                        <property name="icon_size">3</property>
-                      </object>
-                    </child>
-                    <accelerator key="h" signal="clicked"/>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -10216,7 +10193,7 @@ Save NEC2 Editor data first?
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>
@@ -11786,10 +11763,10 @@ Save NEC2 Editor data first?
                     <property name="hexpand">True</property>
                     <signal name="clicked" handler="on_loop_start_clicked" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="main_loop_play_image">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="stock">gtk-media-play</property>
+                        <property name="icon-name">media-playback-start</property>
                         <property name="icon_size">3</property>
                       </object>
                     </child>
@@ -11799,29 +11776,6 @@ Save NEC2 Editor data first?
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="main_loop_pause">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">False</property>
-                    <property name="hexpand">True</property>
-                    <signal name="clicked" handler="on_loop_pause_clicked" swapped="no"/>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="stock">gtk-media-pause</property>
-                        <property name="icon_size">3</property>
-                      </object>
-                    </child>
-                    <accelerator key="h" signal="clicked"/>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -11844,7 +11798,7 @@ Save NEC2 Editor data first?
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>
@@ -12895,10 +12849,10 @@ Save NEC2 Editor data first?
                     <property name="hexpand">True</property>
                     <signal name="clicked" handler="on_loop_start_clicked" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="rdpattern_loop_play_image">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="stock">gtk-media-play</property>
+                        <property name="icon-name">media-playback-start</property>
                         <property name="icon_size">3</property>
                       </object>
                     </child>
@@ -12908,29 +12862,6 @@ Save NEC2 Editor data first?
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="rdpattern_loop_pause">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">False</property>
-                    <property name="hexpand">True</property>
-                    <signal name="clicked" handler="on_loop_pause_clicked" swapped="no"/>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="stock">gtk-media-pause</property>
-                        <property name="icon_size">3</property>
-                      </object>
-                    </child>
-                    <accelerator key="h" signal="clicked"/>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -12953,7 +12884,7 @@ Save NEC2 Editor data first?
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>
