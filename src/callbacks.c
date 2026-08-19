@@ -1199,7 +1199,7 @@ on_freqplots_drawingarea_button_press_event(
     return( FALSE );
 
   /* Double-click detaches the clicked graph into its own popup window. */
-  if( event->type == GDK_2BUTTON_PRESS )
+  if( event->type == GDK_2BUTTON_PRESS && event->button == 1 )
   {
     fp_panel_t panel = freqplots_panel_at( view, event->x, event->y );
 
@@ -1210,7 +1210,7 @@ on_freqplots_drawingarea_button_press_event(
     }
   }
 
-  Set_Frequency_On_Click( view, (GdkEvent*)event );
+  freqplots_pointer_input( view, (GdkEvent*)event );
   return( TRUE );
 }
 
@@ -1225,7 +1225,7 @@ on_freqplots_drawingarea_scroll_event(
   if( view == NULL )
     return( FALSE );
 
-  Set_Frequency_On_Click( view, event );
+  freqplots_pointer_input( view, event );
   return TRUE;
 }
 
@@ -1240,7 +1240,7 @@ on_freqplots_drawingarea_motion_notify_event(
   if( view == NULL )
     return( FALSE );
 
-  Set_Frequency_On_Click( view, (GdkEvent*)event );
+  freqplots_pointer_input( view, (GdkEvent*)event );
   return( TRUE );
 }
 

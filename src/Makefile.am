@@ -55,6 +55,7 @@ xnec2c_SOURCES = \
     freqplots/graphs/vswr_graph.c \
     freqplots/graphs/impedance_graph.c \
     freqplots/graphs/anttemp_graph.c \
+    freqplots/freqplots_action.c \
     freqplots/freqplots_core.c \
     freqplots/freqplots_input.c \
     freqplots/freqplots_theme_menu.c \

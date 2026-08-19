@@ -1294,11 +1294,9 @@ _Plot_Frequency_Data( freqplots_view_t *v, cairo_t *cr )
     return;
   }
 
-  // Call the underscore version because freq_data_lock is already held.
-  // This makes the plot choppy during optimize, so skip that then.
-  GdkEvent *prev_click_event = freqplots_pending_click(v);
-  if (prev_click_event != NULL)
-	  Set_Frequency_On_Click(v, prev_click_event);
+  // Apply the gesture parked before this view carried geometry; the idle slot
+  // is recognised inside the replay entry.
+  freqplots_pointer_replay(v);
 
   /* Compute every per-frequency measurement once per frame; meas_calc is
    * costly (antenna-temperature spherical integration) and was previously
@@ -1460,7 +1458,6 @@ void freqplots_close_panel(fp_panel_t panel)
 	mem_array_free(&v->readout_field);
 	mem_array_free(&v->readout_value);
 	fp_locus_free(v);
-	mem_free(&v->prev_click_event);
 	if (v->text_layout != NULL)
 		g_object_unref(v->text_layout);
 	mem_free(&v);

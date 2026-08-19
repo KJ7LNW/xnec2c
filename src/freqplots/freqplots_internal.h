@@ -172,9 +172,22 @@ void fp_vswr_free(void);
 void fp_impedance_free(void);
 void fp_ant_temp_free(void);
 
-/* Click-event state shared between the data and input modules
+/* Pointer boundary decode and the router carrying a gesture to its leaf
  * (freqplots_input.c) */
-void      save_click_event(freqplots_view_t *v, GdkEvent *e);
-GdkEvent *freqplots_pending_click(freqplots_view_t *v);
+fp_pointer_t fp_pointer_from_event(GdkEvent *e);
+gboolean     fp_act_apply(freqplots_view_t *v, const fp_pointer_t *p);
+
+/* Outcome a leaf action reports to the router dispatching it.  A gesture
+ * landing on no geometry parks for replay, whereas one that lands and is
+ * refused by a bound is discarded, so the two stay distinct. */
+typedef enum {
+	FP_LEAF_IDLE = 0,	/* landed, nothing to change, no frame owed */
+	FP_LEAF_DIRTY,		/* state changed, surface owes a frame */
+	FP_LEAF_DEFER		/* no geometry yet, park for replay */
+} fp_leaf_t;
+
+/* Leaf actions a decoded gesture reaches (freqplots_action.c) */
+fp_leaf_t    fp_freq_place(freqplots_view_t *v, const fp_pointer_t *p);
+fp_leaf_t    fp_panel_resize(freqplots_view_t *v, const fp_pointer_t *p);
 
 #endif /* FREQPLOTS_INTERNAL_H */

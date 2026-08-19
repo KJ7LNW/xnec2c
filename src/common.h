@@ -1114,6 +1114,28 @@ typedef enum {
 /* Per-view click-resolution registry record; defined in freqplots_locus.h. */
 typedef struct fp_locus_s fp_locus_t;
 
+/* Pointer gesture resolved to the action it performs on the plots surface.
+ * The frequency acts group ahead of the panel acts so the dispatch arms stay
+ * contiguous; FP_ACT_COUNT closes the enum. */
+typedef enum {
+	FP_ACT_NONE = 0,	/* bare hover, stop frame, unhandled button */
+	FP_ACT_FREQ_LERP,	/* interpolate between bracketing samples */
+	FP_ACT_FREQ_SNAP,	/* jump to nearest computed sample */
+	FP_ACT_FREQ_CLEAR,	/* drop the marker */
+	FP_ACT_PANEL_GROW,	/* widen hovered FR panel, narrow its neighbour */
+	FP_ACT_PANEL_SHRINK,	/* narrow hovered FR panel, widen its neighbour */
+	FP_ACT_COUNT
+} fp_act_t;
+
+/* Decoded pointer frame.  Carries no GDK pointer, so the view stores it by
+ * value across the frames that elapse before the plots gain geometry. */
+typedef struct {
+	fp_act_t	act;
+	double		x;
+	double		y;
+	double		step;	/* scroll magnitude; 1.0 for a button frame */
+} fp_pointer_t;
+
 /*
  * fr_plot_t structure and related defines used in plot_freqdata.c
  */
@@ -1171,9 +1193,9 @@ typedef struct {
 	// fp_panel_t shown, or FP_PANEL_ALL
 	fp_panel_t filter;
 
-	// Click deferred until this view has a layout table; replayed from the
-	// draw path against this view's own geometry.
-	GdkEvent  *prev_click_event;
+	// Gesture deferred until this view has a layout table; replayed from the
+	// draw path against this view's own geometry.  FP_ACT_NONE when idle.
+	fp_pointer_t pending;
 
 	// Per-frame click-resolution registry, rebuilt each draw by every plot
 	// producer and consulted on click; per-view so each window resolves
@@ -1872,7 +1894,8 @@ int opt_have_files_to_save(void);
 /* freqplots */
 void Plot_Frequency_Data(freqplots_view_t *view, cairo_t *cr);
 void Plots_Window_Killed(void);
-void Set_Frequency_On_Click(freqplots_view_t *view, GdkEvent *event);
+void freqplots_pointer_input(freqplots_view_t *view, GdkEvent *event);
+void freqplots_pointer_replay(freqplots_view_t *view);
 fp_panel_t freqplots_panel_at(freqplots_view_t *view, double px, double py);
 freqplots_view_t *freqplots_main_view(void);
 void freqplots_redraw_all(gboolean force);
