@@ -34,8 +34,7 @@ struct mem_report_rec
  * mem_track_register() - link a managed block into the live registry
  * @m: header of the freshly allocated block
  *
- * Head-inserts under mem_track_mutex; paired with mem_track_unregister in
- * mem_obj_free.
+ * Link under mem_track_mutex and mark the header as registered.
  */
 void mem_track_register(mem_obj_t *m)
 {
@@ -46,6 +45,7 @@ void mem_track_register(mem_obj_t *m)
 	if (mem_reg_head != NULL)
 		mem_reg_head->reg_prev = m;
 	mem_reg_head = m;
+	m->registered = true;
 
 	pthread_mutex_unlock(&mem_track_mutex);
 }
@@ -54,11 +54,14 @@ void mem_track_register(mem_obj_t *m)
  * mem_track_unregister() - splice a managed block out of the live registry
  * @m: header of the block being freed
  *
- * Splices under mem_track_mutex; paired with mem_track_register in
- * mem_obj_alloc.
+ * Ignore blocks that never joined the registry; otherwise splice under
+ * mem_track_mutex and clear their membership.
  */
 void mem_track_unregister(mem_obj_t *m)
 {
+	if (likely(!m->registered))
+		return;
+
 	pthread_mutex_lock(&mem_track_mutex);
 
 	if (m->reg_prev != NULL)
@@ -69,6 +72,7 @@ void mem_track_unregister(mem_obj_t *m)
 	if (m->reg_next != NULL)
 		m->reg_next->reg_prev = m->reg_prev;
 
+	m->registered = false;
 	pthread_mutex_unlock(&mem_track_mutex);
 }
 

@@ -1,6 +1,7 @@
 #ifndef MEM_H
 #define MEM_H
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
@@ -13,12 +14,12 @@
 /* MEM_HEADER_SIZE must remain a multiple of MEM_ALIGNMENT (64). */
 #define MEM_HEADER_SIZE 128
 
-/* mem_obj_t occupies the first cache line of each allocation.
+/* Store mem_obj_t at the front of each allocation's fixed header.
  * User data begins at base + MEM_HEADER_SIZE, also 64-byte aligned.
  *
  * Layout:
  *   |<-- MEM_HEADER_SIZE (128B) -->|<-- req bytes user data -->|
- *   [ mem_obj_t (72B) | pad 56B   ][ user ptr (64-byte aligned)]
+ *   [ mem_obj_t (80B) | pad 48B   ][ user ptr (64-byte aligned)]
  *   ^                              ^
  *   base (64-aligned)              m->ptr = base + MEM_HEADER_SIZE
  *
@@ -42,6 +43,8 @@
  *   serial: monotonic identity stamped at birth and carried across
  *     relocation, naming a block independent of its reuse-prone address
  *   reg_prev, reg_next: live-registry links threaded through the header
+ *   registered: live-registry membership, initialized false at allocation,
+ *     set after linking, and cleared after unlinking
  */
 typedef struct mem_obj_t
 {
@@ -56,6 +59,7 @@ typedef struct mem_obj_t
 	uint64_t serial;
 	struct mem_obj_t *reg_prev;
 	struct mem_obj_t *reg_next;
+	bool registered;
 } mem_obj_t;
 
 void *_mem_realloc(void **ptr, size_t req, char *str);

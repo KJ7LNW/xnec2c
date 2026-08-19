@@ -44,6 +44,7 @@ typedef struct usage_entry_t usage_entry_t;
  * @target: configuration datum the applier writes
  * @apply: writes one resolved argument into the configuration
  * @notice: message announcing the applied option
+ * @min_verbose: console level the option's own output requires
  *
  * A row with a @name projects into both getopt views and the option help
  * formatter.  A row without one is inline usage content, printing @text as
@@ -59,6 +60,7 @@ struct usage_entry_t {
 	void *target;
 	void (*apply)(const usage_entry_t *entry, char *arg);
 	const char *notice;
+	int min_verbose;
 };
 
 enum XNEC2C_OPTS {
@@ -174,7 +176,9 @@ static const usage_entry_t usage_entries[] = {
 	{ .name = "mem-report",                             .id = OPT_MEM_REPORT,
 	  .text = N_("report managed allocator live bytes per call site"),
 	  .target = &rc_config.mem_report_enabled,          .apply = apply_flag,
-	  .notice = N_("managed allocator leak report enabled\n") },
+	  .notice = N_("managed allocator leak report enabled\n"),
+	  // Match the floor to the pr_info level used by mem_report().
+	  .min_verbose = PR_INFO },
 	{ 0 },
 
 	{ .text = N_("The following arguments write to an output file after the frequency "
@@ -1031,6 +1035,10 @@ static void apply_option(int id, char *arg)
 		usage(stderr);
 		exit(1);
 	}
+
+	// Raise the floor for option-owned output; a later -q resets it.
+	rc_config.verbose = (rc_config.verbose < entry->min_verbose)
+		? entry->min_verbose : rc_config.verbose;
 
 	entry->apply(entry, arg);
 }

@@ -93,11 +93,8 @@ static inline mem_obj_t *mem_obj_alloc(const mem_obj_t *data_src,
 	if (req > prev_used)
 		memset((char *)m->ptr + prev_used, 0, req - prev_used);
 
-	/* Fast-path accounting gate: the live-registry link is consumed only by
-	 * the leak report, whose enablement is fixed at startup and never toggles
-	 * at runtime. When disabled the block never touches the registry mutex,
-	 * leaving the bare aligned allocation. Counterpart to the matching guard
-	 * in mem_obj_free. */
+	// Initialize membership before the registry links reported blocks.
+	m->registered = false;
 	if (unlikely(rc_config.mem_report_enabled))
 		mem_track_register(m);
 
@@ -108,21 +105,13 @@ static inline mem_obj_t *mem_obj_alloc(const mem_obj_t *data_src,
  * mem_obj_free() - release a managed block and its backtrace
  * @m: header to release
  *
- * Single release point: unlinks the block from the live registry when
- * reporting is enabled, then frees the optional backtrace and the aligned
- * base block.
+ * Unlink registered blocks from the live registry, then release the optional
+ * backtrace and aligned base block.
  */
 static inline void mem_obj_free(mem_obj_t *m)
 {
-	/* Fast path: a block is linked into the registry only when reporting
-	 * is enabled, a startup-fixed decision, so unlink it under the same
-	 * guard. Counterpart to the registry link in mem_obj_alloc. */
-	if (unlikely(rc_config.mem_report_enabled))
-		mem_track_unregister(m);
-
-	if (m->backtrace != NULL)
-		free(m->backtrace);
-
+	mem_track_unregister(m);
+	free(m->backtrace);
 	free(m);
 }
 
