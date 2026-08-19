@@ -76,9 +76,6 @@ gl_batch_min_alpha(const gl_draw_batch_t *batches, int count)
   return min_alpha;
 }
 
-/* Forward declaration so gl_view_input_ops_t can reference gl_view_state_t */
-typedef struct gl_view_state_s gl_view_state_t;
-
 /* Parent-prepared axes state consumed by the axes renderable. */
 typedef struct
 {
@@ -221,24 +218,6 @@ typedef struct
 
 } gl_renderable_t;
 
-/* Pointer input operations the presenting domain supplies.  A NULL member
- * declines that modifier, which the generic handler then treats as an
- * unmodified event. */
-typedef struct
-{
-  gboolean (*on_shift_scroll)(GdkEventScroll *event, gl_view_state_t *state);
-  gboolean (*on_ctrl_scroll)(GdkEventScroll *event, gl_view_state_t *state);
-
-  /* Notice advertising the ctrl+scroll capability, presented on the first
-   * frame of the session that offers it */
-  const char *ctrl_scroll_notice;
-
-  /* Notice advertising the shift+scroll capability, presented on the first
-   * frame of the session carrying the overlay geometry it scales */
-  const char *shift_scroll_notice;
-
-} gl_view_input_ops_t;
-
 /* Static view configuration */
 typedef struct
 {
@@ -247,9 +226,6 @@ typedef struct
   const gl_vertex_attrib_t *attribs;
   int attrib_count;
   int vertex_stride;
-
-  /* Pointer input operations of the presenting domain */
-  const gl_view_input_ops_t *input;
 
   /* Second shader pass presenting overlay content; NULL when the view
    * presents primary content alone */
@@ -317,9 +293,6 @@ typedef struct gl_view_state_s
 
   /* LIC noise texture (256x256 grayscale, shared by all renderables) */
   GLuint noise_tex;
-
-  /* Drag interaction state (transparency active during drag when on-click enabled) */
-  gboolean drag_active;
 
   /* Per-frame: TRUE when per-type transparency is in effect.
    * Set in on_render before renderable iteration. */
@@ -421,13 +394,14 @@ typedef struct
 
 /** gl_view_surface_new() - Build a GL surface and pack it into a container
  * @config: view configuration
+ * @input:  modifier scroll operations of the presenting domain, or NULL
  * @view:   per-view rotation/pan/zoom/drag owner (borrowed, non-NULL)
  * @parent: container the presented widget joins
  *
  * Returns a surface the caller hands to a canvas, which owns it from then on.
  */
-render_surface_t *gl_view_surface_new(gl_view_config_t *config, view_t *view,
-    GtkContainer *parent);
+render_surface_t *gl_view_surface_new(gl_view_config_t *config,
+    const surface_input_ops_t *input, view_t *view, GtkContainer *parent);
 
 /** gl_view_surface_free() - Release the view state a canvas held */
 void gl_view_surface_free(render_surface_t *surface);

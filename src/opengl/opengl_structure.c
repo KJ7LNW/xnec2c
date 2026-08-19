@@ -96,21 +96,22 @@ opengl_structure_set_radius_scale(double scale)
 
 /** opengl_structure_on_ctrl_scroll() - Ctrl+scroll handler for adjusting cylinder radius scale
  * @event: scroll event
- * @state: view state of the scrolled view
+ * @surface: surface of the scrolled view
  *
  * Shared by the structure and rdpattern input rows.
  */
   gboolean
 opengl_structure_on_ctrl_scroll(
-    GdkEventScroll *event, gl_view_state_t *state)
+    GdkEventScroll *event, render_surface_t *surface)
 {
+  const view_t *view;
   double scale, new_scale;
-
   scroll_step_t s;
 
-  if( !state )
+  if( surface == NULL )
     return( FALSE );
 
+  view = surface->view;
   s = scroll_step_from_deltas((GdkEvent *)event);
 
   if( !s.active ||
@@ -118,17 +119,16 @@ opengl_structure_on_ctrl_scroll(
     return( FALSE );
 
   /* Compute increment matching zoom scroll feel */
-  scale = compute_zoom_scale(
-      state->base.view->width,
-      state->base.view->height,
-      (cylinder_radius_scale > 0.1 ? cylinder_radius_scale : 0.1) * 100.0);
+  scale = compute_zoom_scale(view->width, view->height,
+      (dl_fgt(cylinder_radius_scale, 0.1) ?
+        cylinder_radius_scale : 0.1) * 100.0);
 
   new_scale = cylinder_radius_scale;
 
   if( s.direction == GDK_SCROLL_UP )
   {
     /* Scroll up: thicker. If at zero, jump to threshold. */
-    if( new_scale < CYLINDER_SCALE_LINE_THRESHOLD )
+    if( dl_flt(new_scale, CYLINDER_SCALE_LINE_THRESHOLD) )
     {
       new_scale = CYLINDER_SCALE_LINE_THRESHOLD;
     }
@@ -142,7 +142,7 @@ opengl_structure_on_ctrl_scroll(
     /* Scroll down: thinner. Below threshold snaps to zero (line mode). */
     new_scale /= (1.0 + 0.1 * s.step * scale);
 
-    if( new_scale < CYLINDER_SCALE_LINE_THRESHOLD )
+    if( dl_flt(new_scale, CYLINDER_SCALE_LINE_THRESHOLD) )
     {
       new_scale = 0.0;
     }
@@ -262,20 +262,20 @@ opengl_structure_ground_plane_is_active(void *_ctx)
 
 /*-----------------------------------------------------------------------*/
 
-/* Static view configuration */
-static const gl_view_input_ops_t structure_input_ops = {
+/* Modifier scroll operations of the structure domain */
+static const surface_input_ops_t structure_input_ops = {
   .on_shift_scroll     = NULL,
   .on_ctrl_scroll      = opengl_structure_on_ctrl_scroll,
   .ctrl_scroll_notice  = opengl_structure_ctrl_scroll_notice
 };
 
+/* Static view configuration */
 static gl_view_config_t structure_view_config = {
   .vertex_shader_path = "/gl/lit-color-vertex.glsl",
   .fragment_shader_path = "/gl/lit-color-fragment.glsl",
   .attribs = opengl_chevron_attribs,
   .attrib_count = 7,
   .vertex_stride = (int)sizeof(structure_vertex_t),
-  .input = &structure_input_ops,
   .overlay = NULL,
   .ground_plane_is_active = opengl_structure_ground_plane_is_active,
   .on_gl_init_failed = opengl_gl_init_failed,
@@ -293,8 +293,8 @@ opengl_structure_surface_new(GtkContainer *parent)
   /* Load persisted radius scale from config; zero means line mode */
   cylinder_radius_scale = rc_config.opengl_cylinder_radius_scale;
 
-  return( gl_view_surface_new(&structure_view_config, structure_view,
-        parent) );
+  return( gl_view_surface_new(&structure_view_config, &structure_input_ops,
+        structure_view, parent) );
 }
 
 #endif /* HAVE_OPENGL */

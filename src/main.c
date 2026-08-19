@@ -318,8 +318,6 @@ main (int argc, char *argv[])
 
   GtkAllocation allocation;
   gtk_widget_get_allocation( structure_cairo_da, &allocation );
-  structure_width  = allocation.width;
-  structure_height = allocation.height;
 
   /* Spin buttons and entry backing the structure view */
   rotate_structure  = GTK_SPIN_BUTTON(
@@ -342,7 +340,7 @@ main (int argc, char *argv[])
   view_set_spin_handlers( structure_view,
       G_CALLBACK(on_main_rotate_spinbutton_value_changed),
       G_CALLBACK(on_main_incline_spinbutton_value_changed) );
-  view_set_viewport( structure_view, structure_width, structure_height );
+  view_set_viewport( structure_view, allocation.width, allocation.height );
   view_set_angles( structure_view,
       gtk_spin_button_get_value( rotate_structure ),
       gtk_spin_button_get_value( incline_structure ) );
@@ -357,7 +355,7 @@ main (int argc, char *argv[])
 
   /* Register the Cairo surface once the view it presents exists. */
   canvas_add_surface( CANVAS_STRUCTURE,
-      cairo_surface_adopt(structure_cairo_da, structure_view) );
+      cairo_surface_adopt(structure_cairo_da, structure_view, NULL) );
 
   /* Create the GL surface after the view is initialized */
 #ifdef HAVE_OPENGL

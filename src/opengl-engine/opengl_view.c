@@ -20,7 +20,6 @@
 #include "opengl_view.h"
 #include "opengl_view_scene.h"
 #include "opengl_view_overlay.h"
-#include "opengl_view_input.h"
 #include "opengl_view_render.h"
 #include "opengl_view_msaa.h"
 #include "opengl_view_peel.h"
@@ -383,27 +382,23 @@ on_unrealize(GtkGLArea *area, gpointer user_data)
 /*-----------------------------------------------------------------------*/
 
 /** on_resize() - GtkGLArea resize signal handler
- * @area: GL area widget
+ * @_area: signal source, unread: the view state carries the GL area
  * @width: new width in pixels
  * @height: new height in pixels
  * @user_data: view state
  */
   static void
-on_resize(GtkGLArea *area, int width, int height, gpointer user_data)
+on_resize(GtkGLArea *_area, int width, int height, gpointer user_data)
 {
   gl_view_state_t *state;
 
   state = (gl_view_state_t *)user_data;
 
-  if( !state )
+  if( state == NULL )
     return;
 
-  /* Propagate dimensions to the view so render paths (gradient cache
-   * in particular) receive valid width/height values. */
-  view_set_viewport(state->base.view, width, height);
-
-  /* Dimensions unchanged — skip FBO resize; the viewport write above
-   * already recorded them for a redundant GTK notification. */
+  /* Dimensions unchanged — skip FBO resize; the allocation handler already
+   * recorded them for a redundant GTK notification. */
   if( width == state->msaa_width && height == state->msaa_height )
   {
     glViewport(0, 0, width, height);
@@ -525,20 +520,23 @@ gl_view_present_widget(gl_view_state_t *state)
 
 /** gl_view_surface_new() - Build a GL surface and pack it into a container
  * @config: view configuration
+ * @input: modifier scroll operations of the presenting domain, or NULL
  * @view: per-view rotation/pan/zoom/drag owner (borrowed, non-NULL)
  * @parent: container the presented widget joins
  *
  * Connects every handler before the widget is shown, so the realize and
- * resize this packing triggers reach a fully wired surface.
+ * resize this packing triggers reach a fully wired surface.  Pointer and
+ * allocation events reach the presented widget, which carries the window
+ * they are delivered to.
  */
   render_surface_t *
-gl_view_surface_new(gl_view_config_t *config, view_t *view,
-    GtkContainer *parent)
+gl_view_surface_new(gl_view_config_t *config, const surface_input_ops_t *input,
+    view_t *view, GtkContainer *parent)
 {
   GtkWidget *gl_area;
   gl_view_state_t *state = NULL;
 
-  if( !config || !view || !parent )
+  if( config == NULL || view == NULL || parent == NULL )
     return( NULL );
 
   mem_new(&state);
@@ -564,10 +562,8 @@ gl_view_surface_new(gl_view_config_t *config, view_t *view,
   gl_view_render_connect(state);
   g_signal_connect(gl_area, "resize", G_CALLBACK(on_resize), state);
 
-  gl_view_input_connect(state);
-
   if( !render_surface_init(&state->base, gl_view_present_widget(state),
-      &gl_engine, view) )
+      &gl_engine, view, input) )
   {
     gtk_widget_destroy(gl_area);
     mem_free(&state);

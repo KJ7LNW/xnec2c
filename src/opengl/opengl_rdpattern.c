@@ -22,7 +22,6 @@
 #include "opengl_rdpattern.h"
 #include "opengl_rdpattern_geometry.h"
 #include "../settings/render_settings.h"
-#include "../gdk_scroll.h"
 #include "opengl_state.h"
 #include "opengl_structure.h"
 #include "opengl_structure_geometry.h"
@@ -377,47 +376,21 @@ rdpattern_content_cleanup(void)
 
 /*-----------------------------------------------------------------------*/
 
-/** rdpattern_on_shift_scroll() - Shift+scroll handler for adjusting overlay structure scale
- * @event: scroll event
- * @state: view state of the scrolled view
- */
-  static gboolean
-rdpattern_on_shift_scroll(GdkEventScroll *event, gl_view_state_t *state)
-{
-  scroll_step_t s;
-
-  if( !state )
-    return FALSE;
-
-  s = scroll_step_from_deltas((GdkEvent *)event);
-
-  if( !s.active ||
-      (s.direction != GDK_SCROLL_UP && s.direction != GDK_SCROLL_DOWN) )
-    return FALSE;
-
-  return rdpattern_overlay_shift_scroll(s.direction,
-      state->base.view->width,
-      state->base.view->height,
-      rc_config.rdpattern_overlay_scale_adj * 100.0);
-}
-
-/*-----------------------------------------------------------------------*/
-
-/* Static view configuration */
-static const gl_view_input_ops_t rdpattern_input_ops = {
-  .on_shift_scroll     = rdpattern_on_shift_scroll,
-  .shift_scroll_notice = "Shift+Scroll to Scale Structure",
+/* Modifier scroll operations of the radiation-pattern domain */
+static const surface_input_ops_t rdpattern_input_ops = {
+  .on_shift_scroll     = rdpattern_shift_scroll,
+  .shift_scroll_notice = rdpattern_shift_scroll_notice,
   .on_ctrl_scroll      = opengl_structure_on_ctrl_scroll,
   .ctrl_scroll_notice  = opengl_structure_ctrl_scroll_notice
 };
 
+/* Static view configuration */
 static gl_view_config_t rdpattern_view_config = {
   .vertex_shader_path = "/gl/lit-color-vertex.glsl",
   .fragment_shader_path = "/gl/lit-color-fragment.glsl",
   .attribs = opengl_structure_attribs,
   .attrib_count = 3,
   .vertex_stride = (int)sizeof(lit_color_point_t),
-  .input = &rdpattern_input_ops,
   .overlay = &rdpattern_overlay_config,
   .on_gl_init_failed = opengl_gl_init_failed,
   .content_cleanup = rdpattern_content_cleanup
@@ -433,8 +406,8 @@ opengl_rdpattern_surface_new(GtkContainer *parent)
 {
   render_surface_t *surface;
 
-  surface = gl_view_surface_new( &rdpattern_view_config, rdpattern_view,
-      parent );
+  surface = gl_view_surface_new( &rdpattern_view_config,
+      &rdpattern_input_ops, rdpattern_view, parent );
 
   if( surface != NULL )
     gtk_widget_show( surface->widget );

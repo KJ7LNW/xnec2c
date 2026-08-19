@@ -183,11 +183,6 @@ extern GtkBuilder
   *sy_overrides_builder,
   *render_settings_builder;
 
-/* Size of the structure canvas */
-extern int
-  structure_width,
-  structure_height;
-
 /* Motion event handler id */
 extern gulong rdpattern_motion_handler;
 

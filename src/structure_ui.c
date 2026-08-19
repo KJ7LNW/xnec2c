@@ -434,7 +434,7 @@ Init_Struct_Drawing( void )
   /* Viewport only exists in the UI process; children skip this harmlessly.
    * Guard: skip if no geometry loaded (segments or patches required). */
   if( (data.n > 0 || data.m > 0) && structure_view != NULL )
-    view_set_viewport( structure_view, structure_width, structure_height );
+    canvas_sync_viewport( CANVAS_STRUCTURE );
 }
 
 /*-----------------------------------------------------------------------*/

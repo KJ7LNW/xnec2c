@@ -124,6 +124,7 @@ xnec2c_SOURCES = \
     render/render_redraw.c          render/render_redraw.h \
     render/render_engine.h \
     render/render_surface.h \
+    render/render_surface_input.c   render/render_surface_input.h \
     render/gradient_cache.c         render/gradient_cache.h \
     cairo/cairo_draw.h \
     cairo/cairo_axes.c \
@@ -192,7 +193,6 @@ xnec2c_SOURCES += \
   opengl-engine/opengl_view_fit_geometry.c opengl-engine/opengl_view_fit_geometry.h \
   opengl-engine/opengl_view_scene.c opengl-engine/opengl_view_scene.h \
   opengl-engine/opengl_view_overlay.c opengl-engine/opengl_view_overlay.h \
-  opengl-engine/opengl_view_input.c opengl-engine/opengl_view_input.h \
   opengl-engine/opengl_view_notice.c opengl-engine/opengl_view_notice.h \
   opengl-engine/opengl_view_msaa.c opengl-engine/opengl_view_msaa.h \
   opengl-engine/opengl_view_peel.c opengl-engine/opengl_view_peel.h \

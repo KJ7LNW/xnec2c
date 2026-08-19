@@ -11893,12 +11893,6 @@ Save NEC2 Editor data first?
                     <property name="margin-bottom">2</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
-                    <signal name="button-press-event" handler="on_structure_drawingarea_button_press_event" swapped="no"/>
-                    <signal name="button-release-event" handler="on_structure_drawingarea_button_release_event" swapped="no"/>
-                    <signal name="configure-event" handler="on_structure_drawingarea_configure_event" swapped="no"/>
-                    <signal name="draw" handler="on_structure_drawingarea_draw" swapped="no"/>
-                    <signal name="motion-notify-event" handler="on_structure_drawingarea_motion_notify_event" swapped="no"/>
-                    <signal name="scroll-event" handler="on_structure_drawingarea_scroll_event" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -13242,12 +13236,6 @@ Save NEC2 Editor data first?
                     <property name="margin-bottom">2</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
-                    <signal name="button-press-event" handler="on_rdpattern_drawingarea_button_press_event" swapped="no"/>
-                    <signal name="button-release-event" handler="on_rdpattern_drawingarea_button_release_event" swapped="no"/>
-                    <signal name="configure-event" handler="on_rdpattern_drawingarea_configure_event" swapped="no"/>
-                    <signal name="draw" handler="on_rdpattern_drawingarea_draw" swapped="no"/>
-                    <signal name="motion-notify-event" handler="on_rdpattern_drawingarea_motion_notify_event" swapped="no"/>
-                    <signal name="scroll-event" handler="on_rdpattern_drawingarea_scroll_event" swapped="no"/>
                   </object>
                 </child>
               </object>

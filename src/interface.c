@@ -323,7 +323,7 @@ create_freqplots_popup_window( freqplots_view_t *view, const char *graph_name )
 
   /* Present the surface once its handlers are attached, so the show and
    * resize this triggers reach the draw and configure callbacks. */
-  view->canvas = canvas_create( cairo_surface_adopt(da, NULL) );
+  view->canvas = canvas_create( cairo_surface_adopt(da, NULL, NULL) );
 
   return( win );
 }

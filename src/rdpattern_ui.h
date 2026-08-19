@@ -22,6 +22,7 @@
 
 #include "common.h"
 #include "prerender/prerender_state.h"
+#include "render/render_surface_input.h"
 
 void ant_temp_entry_set_kelvin(GtkWidget *entry, double kelvin);
 void ant_temp_entry_set_unresolved(GtkWidget *entry);
@@ -44,6 +45,22 @@ void rdpattern_view_changed_cb(view_t *v, gpointer user_data);
 
 gboolean rdpattern_overlay_shift_scroll(GdkScrollDirection dir,
     int vp_w, int vp_h, double zoom_pct);
+
+/**
+ * rdpattern_shift_scroll() - Scale the overlay structure from a scroll event
+ * @event: scroll event carrying the shift modifier
+ * @surface: surface of the scrolled view, naming the viewport the scale reads
+ *
+ * Serves the shift+scroll row of every engine presenting the pattern view.
+ */
+gboolean rdpattern_shift_scroll(GdkEventScroll *event,
+    render_surface_t *surface);
+
+/* Notice advertising the shift+scroll overlay-scale capability */
+extern const char rdpattern_shift_scroll_notice[];
+
+/* Modifier scroll operations the Cairo radiation-pattern surface offers */
+extern const surface_input_ops_t rdpattern_cairo_input;
 
 #endif
 

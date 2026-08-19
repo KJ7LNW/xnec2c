@@ -15,6 +15,7 @@
 
 #include "../view/view_core.h"
 #include "render_engine.h"
+#include "render_surface_input.h"
 
 /* One drawing surface.  Every engine extends this through its own first
  * member, so a render_surface_t pointer converts exactly to and from the
@@ -29,6 +30,9 @@ struct render_surface_s
 
   /* Borrowed view the surface shows; NULL on a surface showing none */
   view_t *view;
+
+  /* Modifier scroll operations of this engine and domain; NULL declines both */
+  const surface_input_ops_t *input;
 };
 
 /**
@@ -37,12 +41,17 @@ struct render_surface_s
  * @widget:  GTK-owned widget presented by the surface
  * @engine:  engine producing frames for the surface
  * @view:    borrowed view shown by the surface, or NULL
+ * @input:   modifier scroll operations of the presenting domain, or NULL
+ *
+ * Wires the pointer and allocation handlers once every member is assigned and
+ * before the widget is packed, so the first allocation reaches a live surface.
  *
  * Returns FALSE when a required dependency is missing.
  */
 static inline gboolean
 render_surface_init(render_surface_t *surface, GtkWidget *widget,
-    const render_engine_t *engine, view_t *view)
+    const render_engine_t *engine, view_t *view,
+    const surface_input_ops_t *input)
 {
   if( surface == NULL || widget == NULL || engine == NULL )
     return FALSE;
@@ -50,6 +59,9 @@ render_surface_init(render_surface_t *surface, GtkWidget *widget,
   surface->widget = widget;
   surface->engine = engine;
   surface->view = view;
+  surface->input = input;
+
+  surface_input_connect(surface);
 
   return TRUE;
 }

@@ -227,10 +227,6 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 /* Force editors to quit */
 #define EDITOR_QUIT         0x0004000000000000ll
 
-/* Block motion events till ready */
-#define BLOCK_MOTION_EV     0x0010000000000000ll
-
-
 /* Signal start of xnec2c */
 #define XNEC2C_START        0x0040000000000000ll
 
@@ -1342,7 +1338,6 @@ static inline double cang( complex double z )
 void zint(double sigl, double rolam, complex double *zint);
 /* callback_func.c */
 gboolean Save_Pixbuf(gpointer save_data);
-void Motion_Event(GdkEventMotion *event, view_t *v);
 gboolean Nec2_Edit_Save(void);
 void Delete_Event(gchar *mesg);
 gboolean Open_Editor(GtkTreeView *view);
@@ -1401,9 +1396,6 @@ void on_main_incline_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointe
 gboolean on_colorcode_drawingarea_draw(GtkWidget *widget, cairo_t *cr, gpointer user_data);
 void on_anim_color_reset_clicked(GtkButton *button, gpointer user_data);
 void on_new_freq_clicked(GtkButton *button, gpointer user_data);
-gboolean on_structure_drawingarea_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer user_data);
-gboolean on_structure_drawingarea_motion_notify_event(GtkWidget *widget, GdkEventMotion *event, gpointer user_data);
-gboolean on_structure_drawingarea_draw(GtkWidget *widget, cairo_t *cr, gpointer user_data);
 void on_filechooserdialog_response(GtkDialog *dialog, gint response_id, gpointer user_data);
 void on_filechooserdialog_destroy(GObject *object, gpointer user_data);
 gboolean on_freqplots_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
@@ -1458,9 +1450,6 @@ void on_zoom_minus_clicked(GtkButton *button, gpointer user_data);
 void on_zoom_reset_clicked(GtkButton *button, gpointer user_data);
 void freq_display_update(double fmhz);
 void user_set_frequency(double fmhz);
-gboolean on_rdpattern_drawingarea_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer user_data);
-gboolean on_rdpattern_drawingarea_draw(GtkWidget *widget, cairo_t *cr, gpointer user_data);
-gboolean on_rdpattern_drawingarea_motion_notify_event(GtkWidget *widget, GdkEventMotion *event, gpointer user_data);
 void on_quit_cancelbutton_clicked(GtkButton *button, gpointer user_data);
 void on_quit_okbutton_clicked(GtkButton *button, gpointer user_data);
 gboolean on_rdpattern_window_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
@@ -1702,13 +1691,9 @@ void freqplots_theme_menu_build(GtkBuilder *builder);
 void color_family_menu_attach(GtkBuilder *builder);
 void on_freqplots_theme_select(GtkMenuItem *menuitem, gpointer user_data);
 void on_freqplots_theme_menu_hide(GtkWidget *menu, gpointer user_data);
-gboolean on_structure_drawingarea_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
 void on_main_zoom_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
-gboolean on_rdpattern_drawingarea_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
 void on_rdpattern_zoom_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
-gboolean on_structure_drawingarea_scroll_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 gboolean on_freqplots_drawingarea_scroll_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
-gboolean on_rdpattern_drawingarea_scroll_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 gboolean on_escape_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 /* cmnd_edit.c */
 void Excitation_Command(int action);

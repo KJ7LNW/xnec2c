@@ -30,12 +30,24 @@
 #include "../render/render_canvas.h"
 #include "../render/render_dispatch.h"
 
-/* Object-data key carrying the surface a drawing area presents, read by the
- * draw handlers glade wires with no user data. */
-#define CAIRO_SURFACE_KEY "cairo_surface"
+/**
+ * cairo_surface_draw() - Produce the frame the draw signal requested
+ * @_widget: signal source, unread: the surface carries the widget
+ * @cr: frame resource the draw signal supplied
+ * @user_data: surface presenting the drawing area
+ */
+  static gboolean
+cairo_surface_draw(GtkWidget *_widget, cairo_t *cr, gpointer user_data)
+{
+  return( render_cairo((render_surface_t *)user_data, cr) );
+
+} /* cairo_surface_draw() */
+
+/*-----------------------------------------------------------------------*/
 
   render_surface_t *
-cairo_surface_adopt(GtkWidget *area, view_t *view)
+cairo_surface_adopt(GtkWidget *area, view_t *view,
+    const surface_input_ops_t *input)
 {
   cairo_engine_surface_t *cs = NULL;
 
@@ -43,14 +55,16 @@ cairo_surface_adopt(GtkWidget *area, view_t *view)
     return( NULL );
 
   mem_new(&cs);
-  if( !render_surface_init(&cs->base, area, &cairo_engine, view) )
+  if( !render_surface_init(&cs->base, area, &cairo_engine, view, input) )
   {
     mem_free(&cs);
     return( NULL );
   }
 
-  g_object_set_data(G_OBJECT(area), CAIRO_SURFACE_KEY,
-      (view != NULL) ? &cs->base : NULL);
+  /* A surface showing no view produces no frame from this path; the
+   * frequency-plot domain draws the areas it owns through its own handler. */
+  if( view != NULL )
+    g_signal_connect(area, "draw", G_CALLBACK(cairo_surface_draw), &cs->base);
 
   return( &cs->base );
 
@@ -70,18 +84,6 @@ cairo_surface_free(render_surface_t *surface)
   mem_free(&cs);
 
 } /* cairo_surface_free() */
-
-/*-----------------------------------------------------------------------*/
-
-  render_surface_t *
-cairo_surface_of_widget(GtkWidget *widget)
-{
-  if( widget == NULL )
-    return( NULL );
-
-  return( g_object_get_data(G_OBJECT(widget), CAIRO_SURFACE_KEY) );
-
-} /* cairo_surface_of_widget() */
 
 /*-----------------------------------------------------------------------*/
 

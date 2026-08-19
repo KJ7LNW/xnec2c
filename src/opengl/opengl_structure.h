@@ -103,7 +103,7 @@ void opengl_structure_set_radius_scale(double scale);
 /* Ctrl+scroll handler for adjusting cylinder radius scale.
  * Usable by any view that presents structure geometry. */
 gboolean opengl_structure_on_ctrl_scroll(
-    GdkEventScroll *event, gl_view_state_t *state);
+    GdkEventScroll *event, render_surface_t *surface);
 
 /* Notice advertising the ctrl+scroll radius capability */
 extern const char opengl_structure_ctrl_scroll_notice[];

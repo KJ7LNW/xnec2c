@@ -63,27 +63,6 @@ Save_Pixbuf( gpointer save_data )
 
 /*-----------------------------------------------------------------------*/
 
-/* Motion_Event()
- *
- * Handles pointer motion event on drawingareas.
- *
- * Drag state is set by on_*_drawingarea_button_press_event and cleared
- * by on_*_drawingarea_button_release_event.  This handler only
- * accumulates pointer deltas; observers handle redraw and spin display.
- */
-  void
-Motion_Event(
-    GdkEventMotion *event,
-    view_t *v )
-{
-  SetFlag( BLOCK_MOTION_EV );
-  view_update_drag( v, (float)event->x, (float)event->y );
-  ClearFlag( BLOCK_MOTION_EV );
-
-} /* Motion_Event() */
-
-/*-----------------------------------------------------------------------*/
-
 /* Nec2_Edit_Save()
  *
  * Prompts user to save NEC2 data if edited

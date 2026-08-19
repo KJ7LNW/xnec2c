@@ -18,9 +18,11 @@
  */
 
 #include "rdpattern_ui.h"
+#include "gdk_scroll.h"
 #include "measurements.h"
 #include "rc_config.h"
 #include "render/render_dispatch.h"
+#include "render/render_surface.h"
 #include "shared.h"
 #include "structure_ui.h"
 
@@ -661,6 +663,47 @@ rdpattern_overlay_shift_scroll(GdkScrollDirection dir,
 
   return TRUE;
 }
+
+/*-----------------------------------------------------------------------*/
+
+/* Notice advertising the shift+scroll overlay-scale capability */
+const char rdpattern_shift_scroll_notice[] = "Shift+Scroll to Scale Structure";
+
+/**
+ * rdpattern_shift_scroll() - Scale the overlay structure from a scroll event
+ * @event: scroll event carrying the shift modifier
+ * @surface: surface of the scrolled view, naming the viewport the scale reads
+ */
+  gboolean
+rdpattern_shift_scroll(GdkEventScroll *event, render_surface_t *surface)
+{
+  const view_t *view;
+  scroll_step_t s;
+
+  if( surface == NULL )
+    return( FALSE );
+
+  view = surface->view;
+  s = scroll_step_from_deltas((GdkEvent *)event);
+
+  if( !s.active ||
+      (s.direction != GDK_SCROLL_UP && s.direction != GDK_SCROLL_DOWN) )
+    return( FALSE );
+
+  return( rdpattern_overlay_shift_scroll(s.direction,
+        view->width, view->height,
+        rc_config.rdpattern_overlay_scale_adj * 100.0) );
+
+} /* rdpattern_shift_scroll() */
+
+/*-----------------------------------------------------------------------*/
+
+/* Modifier scroll operations the Cairo radiation-pattern surface offers;
+ * cylinder geometry belongs to the OpenGL engine, so ctrl+scroll is declined */
+const surface_input_ops_t rdpattern_cairo_input = {
+  .on_shift_scroll     = rdpattern_shift_scroll,
+  .shift_scroll_notice = rdpattern_shift_scroll_notice
+};
 
 /*-----------------------------------------------------------------------*/
 

@@ -99,7 +99,7 @@ gl_view_notice_once(gl_view_state_t *state, const char *notice,
 gl_view_show_ctrl_notice(gl_view_state_t *state)
 {
   static gboolean ctrl_shown = FALSE;
-  const gl_view_input_ops_t *input = state->config->input;
+  const surface_input_ops_t *input = state->base.input;
 
   if( input == NULL )
     return;
@@ -120,7 +120,7 @@ gl_view_show_ctrl_notice(gl_view_state_t *state)
 gl_view_show_scale_notice(gl_view_state_t *state)
 {
   static gboolean scale_shown = FALSE;
-  const gl_view_input_ops_t *input = state->config->input;
+  const surface_input_ops_t *input = state->base.input;
   const gl_view_content_t *overlay = state->overlay_content;
 
   if( input == NULL || overlay == NULL || overlay->batch_count <= 0 )
@@ -174,14 +174,15 @@ gl_view_frame_content_reset(gl_view_state_t *state)
 /*-----------------------------------------------------------------------*/
 
 /** on_render() - GtkGLArea render signal handler
- * @area: GL area widget being rendered
- * @context: GL context
+ * @_area: signal source, unread: the view state carries the GL area
+ * @_context: current context, unread: GtkGLArea made it current
  * @user_data: pointer to gl_view_state_t
  */
   static gboolean
-on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
+on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
 {
   gl_view_state_t *state;
+  const view_t *view;
   gl_render_params_t render_params = {0};
   mat4 mvp, mv;
   float camera_distance;
@@ -192,9 +193,10 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
 
   state = (gl_view_state_t *)user_data;
 
-  if( !state || !state->initialized )
+  if( state == NULL || !state->initialized )
     return( FALSE );
 
+  view = state->base.view;
   gl_view_frame_content_reset(state);
 
   gl_view_show_ctrl_notice(state);
@@ -205,7 +207,7 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
   gl_view_show_scale_notice(state);
 
   camera_distance = state->content.r_max * GL_VIEW_BASE_DISTANCE_FACTOR /
-                    state->base.view->zoom;
+                    view->zoom;
   state->cached_camera_distance = camera_distance;
 
   /* Active survey — build mask and compute far extent in one pass */
@@ -215,7 +217,8 @@ on_render(GtkGLArea *area, GdkGLContext *context, gpointer user_data)
     active_mask = 0;
     effective_far = 0.0f;
     state->transparency_active =
-        !rc_config.opengl_transparent_on_click || state->drag_active;
+        !rc_config.opengl_transparent_on_click ||
+        view->drag_button != VIEW_DRAG_NONE;
 
     for( i = 0; i < state->renderables->len; i++ )
     {

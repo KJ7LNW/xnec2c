@@ -65,11 +65,6 @@ static void noise_interp_auto_switch(int fallback);
 static int editor_action = EDITOR_NEW;
 
 
-/* Motion-event decimation: accept 1 in MOTION_EVENTS_COUNT events.
- * Distinct from VIEW_DRAG_DIVISOR; this controls callback frequency,
- * not drag angular sensitivity. */
-#define MOTION_EVENTS_COUNT 8
-
 /*-----------------------------------------------------------------------*/
 
 static int saveas_width;
@@ -378,8 +373,8 @@ on_main_save_activate(
         rc_config.input_file, "geometry", ++cgm, "png" );
 
   saveas_canvas = CANVAS_STRUCTURE;
-  saveas_width  = structure_width;
-  saveas_height = structure_height;
+  saveas_width  = structure_view->width;
+  saveas_height = structure_view->height;
 
   /* Open file chooser to save structure image */
   SetFlag( IMAGE_SAVE );
@@ -395,8 +390,8 @@ on_main_save_as_activate(
 {
   char newfn[PATH_MAX];
   saveas_canvas = CANVAS_STRUCTURE;
-  saveas_width  = structure_width;
-  saveas_height = structure_height;
+  saveas_width  = structure_view->width;
+  saveas_height = structure_view->height;
 
   /* Open file chooser to save structure image */
   SetFlag( IMAGE_SAVE );
@@ -588,7 +583,7 @@ on_main_rdpattern_activate(
     canvas_add_surface( CANVAS_RDPATTERN,
         cairo_surface_adopt(Builder_Get_Object(
             rdpattern_window_builder, "rdpattern_drawingarea" ),
-          rdpattern_view) );
+          rdpattern_view, &rdpattern_cairo_input) );
 
 #ifdef HAVE_OPENGL
     {
@@ -716,7 +711,7 @@ on_main_freqplots_activate(
       freqplots_main_view()->window      = freqplots_window;
       freqplots_main_view()->canvas      = CANVAS_FREQPLOTS;
       canvas_add_surface( CANVAS_FREQPLOTS,
-          cairo_surface_adopt(fp_da, NULL) );
+          cairo_surface_adopt(fp_da, NULL, NULL) );
       canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine );
       freqplots_main_view()->filter      = FP_PANEL_ALL;
       g_object_set_data( G_OBJECT(fp_da), "fp_view", freqplots_main_view() );
@@ -957,62 +952,6 @@ on_new_freq_clicked(
       ? mainwin_frequency : rdpattern_frequency;
     user_set_frequency((double)gtk_spin_button_get_value(sb));
   }
-}
-
-
-  gboolean
-on_structure_drawingarea_configure_event(
-    GtkWidget       *widget,
-    GdkEventConfigure *event,
-    gpointer         user_data)
-{
-  structure_width  = event->width;
-  structure_height = event->height;
-  if( structure_view != NULL )
-    view_set_viewport( structure_view,
-        structure_width, structure_height );
-
-  return( TRUE );
-}
-
-
-  gboolean
-on_structure_drawingarea_motion_notify_event(
-    GtkWidget       *widget,
-    GdkEventMotion  *event,
-    gpointer         user_data)
-{
-  static int cnt = 0;
-
-  /* Use only 1 in MOTION_EVENTS_COUNT event */
-  if( (cnt++ < MOTION_EVENTS_COUNT) ||
-      isFlagSet(BLOCK_MOTION_EV) )
-    return( FALSE );
-
-  cnt = 0;
-
-  /* Handle motion events */
-  if( structure_view != NULL )
-    Motion_Event( event, structure_view );
-
-  return( TRUE );
-}
-
-
-/** on_structure_drawingarea_draw() - Render the structure view with active theme colors
- * @widget: structure drawing area, which owns the surface it presents
- * @cr: Cairo context for the current frame
- * @user_data: unused callback data
- */
-  gboolean
-on_structure_drawingarea_draw(
-    GtkWidget       *widget,
-    cairo_t         *cr,
-    gpointer         user_data)
-{
-  (void)user_data;
-
-  return render_cairo( cairo_surface_of_widget(widget), cr );
 }
 
 
@@ -1889,20 +1828,6 @@ opengl_set_renderer(gboolean enable)
 
   rc_config.use_opengl_renderer = enable ? 1 : 0;
 
-  /* Renderer toggle is the authoritative drag-neutral point.  Cairo
-   * Motion_Event writes drag_button as a side effect of every processed
-   * motion sample based on event->state; throttling via MOTION_EVENTS_COUNT
-   * can leave drag_button non-NONE after a release.  The GL on_motion
-   * handler trusts drag_button alone, so a stale Cairo drag_button would
-   * make the first mouse move over the freshly-shown GL widget look like
-   * an ongoing drag.  Clear both views unconditionally, and clear
-   * BLOCK_MOTION_EV in case a Cairo motion handler was interrupted. */
-  if( structure_view != NULL )
-    view_end_drag( structure_view );
-  if( rdpattern_view != NULL )
-    view_end_drag( rdpattern_view );
-  ClearFlag( BLOCK_MOTION_EV );
-
   const render_engine_t *engine = enable ? &gl_engine : &cairo_engine;
 
   /* Swap renderer if radiation pattern window is open */
@@ -1987,59 +1912,6 @@ on_rdpattern_colorcode_drawingarea_draw(
 }
 
 
-
-
-  gboolean
-on_rdpattern_drawingarea_configure_event(
-    GtkWidget       *widget,
-    GdkEventConfigure *event,
-    gpointer         user_data)
-{
-  if( rdpattern_view != NULL )
-    view_set_viewport( rdpattern_view, event->width, event->height );
-
-  return( TRUE );
-}
-
-
-/** on_rdpattern_drawingarea_draw() - Render the radiation-pattern view with active theme colors
- * @widget: radiation-pattern drawing area, which owns the surface it presents
- * @cr: Cairo context for the current frame
- * @user_data: unused callback data
- */
-  gboolean
-on_rdpattern_drawingarea_draw(
-    GtkWidget       *widget,
-    cairo_t         *cr,
-    gpointer         user_data)
-{
-  (void)user_data;
-
-  return render_cairo( cairo_surface_of_widget(widget), cr );
-}
-
-
-  gboolean
-on_rdpattern_drawingarea_motion_notify_event(
-    GtkWidget       *widget,
-    GdkEventMotion  *event,
-    gpointer         user_data)
-{
-  static int cnt = 0;
-
-  /* Use only 1 in MOTION_EVENTS_COUNT event */
-  if( (cnt++ < MOTION_EVENTS_COUNT) ||
-      isFlagSet(BLOCK_MOTION_EV) )
-    return( FALSE );
-
-  cnt = 0;
-
-  /* Handle motion events */
-  if( rdpattern_view != NULL )
-    Motion_Event( event, rdpattern_view );
-
-  return( TRUE );
-}
 
 
   void
@@ -5454,34 +5326,6 @@ on_freqplots_theme_menu_hide(
 }
 
 
-  gboolean
-on_structure_drawingarea_button_press_event(
-    GtkWidget      *widget,
-    GdkEventButton  *event,
-    gpointer         user_data)
-{
-  drag_button_t button = (event->button == 1) ? VIEW_DRAG_ROTATE : VIEW_DRAG_PAN;
-
-  if( structure_view != NULL )
-    view_begin_drag( structure_view, button, (float)event->x, (float)event->y );
-
-  return( FALSE );
-}
-
-
-  gboolean
-on_structure_drawingarea_button_release_event(
-    GtkWidget      *widget,
-    GdkEventButton  *event,
-    gpointer         user_data)
-{
-  if( structure_view != NULL )
-    view_end_drag( structure_view );
-
-  return( FALSE );
-}
-
-
   void
 on_main_zoom_spinbutton_value_changed(
     GtkSpinButton   *spinbutton,
@@ -5606,34 +5450,6 @@ on_fit_view_clicked(
 }
 
 
-  gboolean
-on_rdpattern_drawingarea_button_press_event(
-    GtkWidget      *widget,
-    GdkEventButton  *event,
-    gpointer         user_data)
-{
-  drag_button_t button = (event->button == 1) ? VIEW_DRAG_ROTATE : VIEW_DRAG_PAN;
-
-  if( rdpattern_view != NULL )
-    view_begin_drag( rdpattern_view, button, (float)event->x, (float)event->y );
-
-  return( FALSE );
-}
-
-
-  gboolean
-on_rdpattern_drawingarea_button_release_event(
-    GtkWidget      *widget,
-    GdkEventButton  *event,
-    gpointer         user_data)
-{
-  if( rdpattern_view != NULL )
-    view_end_drag( rdpattern_view );
-
-  return( FALSE );
-}
-
-
   void
 on_rdpattern_zoom_spinbutton_value_changed(
     GtkSpinButton   *spinbutton,
@@ -5647,74 +5463,6 @@ on_rdpattern_zoom_spinbutton_value_changed(
 }
 
 
-
-
-  gboolean
-on_structure_drawingarea_scroll_event(
-    GtkWidget       *widget,
-    GdkEvent        *event,
-    gpointer         user_data)
-{
-  int viewport_width, viewport_height;
-  double zoom_pct, scale;
-
-  viewport_width  = gtk_widget_get_allocated_width(widget);
-  viewport_height = gtk_widget_get_allocated_height(widget);
-
-  scroll_step_t ss = scroll_step_from_deltas(event);
-
-  zoom_pct = gtk_spin_button_get_value( structure_zoom );
-  scale    = compute_zoom_scale( viewport_width, viewport_height, zoom_pct );
-
-  if( !ss.active ||
-      (ss.direction != GDK_SCROLL_UP && ss.direction != GDK_SCROLL_DOWN) )
-    return( FALSE );
-
-  if( ss.direction == GDK_SCROLL_UP )
-    zoom_pct *= (1.0 + 0.1 * ss.step * scale);
-  else if( ss.direction == GDK_SCROLL_DOWN )
-    zoom_pct /= (1.0 + 0.1 * ss.step * scale);
-
-  gtk_spin_button_set_value( structure_zoom, zoom_pct );
-  return( FALSE );
-}
-
-
-  gboolean
-on_rdpattern_drawingarea_scroll_event(
-    GtkWidget       *widget,
-    GdkEvent        *event,
-    gpointer         user_data)
-{
-  int viewport_width, viewport_height;
-  double zoom_pct, scale;
-
-  viewport_width  = gtk_widget_get_allocated_width(widget);
-  viewport_height = gtk_widget_get_allocated_height(widget);
-
-  scroll_step_t ss = scroll_step_from_deltas(event);
-
-  if( !ss.active ||
-      (ss.direction != GDK_SCROLL_UP && ss.direction != GDK_SCROLL_DOWN) )
-    return( FALSE );
-
-  /* Shift+scroll adjusts overlay structure scale; zoom is unaffected */
-  if( event->scroll.state & GDK_SHIFT_MASK )
-    return rdpattern_overlay_shift_scroll(ss.direction,
-        viewport_width, viewport_height,
-        rc_config.rdpattern_overlay_scale_adj * 100.0);
-
-  zoom_pct = gtk_spin_button_get_value( rdpattern_zoom );
-  scale    = compute_zoom_scale( viewport_width, viewport_height, zoom_pct );
-
-  if( ss.direction == GDK_SCROLL_UP )
-    zoom_pct *= (1.0 + 0.1 * ss.step * scale);
-  else if( ss.direction == GDK_SCROLL_DOWN )
-    zoom_pct /= (1.0 + 0.1 * ss.step * scale);
-
-  gtk_spin_button_set_value( rdpattern_zoom, zoom_pct );
-  return( FALSE );
-}
 
 
   gboolean
