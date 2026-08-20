@@ -754,13 +754,10 @@ Alloc_Nearfield_Fstep_Buffers( int nfrq )
   void
 Free_Nearfield_Fstep_Buffers( void )
 {
-  if( near_field_fstep == NULL )
-    return;
-
   int nfrq = mem_array_count(near_field_fstep);
+
   for( int i = 0; i < nfrq; i++ )
     free_near_step(&near_field_fstep[i]);
-
   mem_array_free(&near_field_fstep);
 
 } /* Free_Nearfield_Fstep_Buffers() */
@@ -982,6 +979,23 @@ void Alloc_Rdpattern_Buffers( int nfrq, int nth, int nph )
 	_Alloc_Rdpattern_Buffers(nfrq, nth, nph);
 	g_rec_mutex_unlock(&freq_data_lock);
 }
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * free_rdpattern_buffers() - Release per-frequency radiation-pattern storage
+ */
+  void
+free_rdpattern_buffers(void)
+{
+  int nfrq = mem_array_count(rad_pattern);
+
+  for( int i = 0; i < nfrq; i++ )
+    free_rad_pattern_step(&rad_pattern[i]);
+  mem_array_free(&rad_pattern);
+  mem_array_free(&noise_temp);
+
+} /* free_rdpattern_buffers() */
 
 /*-----------------------------------------------------------------------*/
 

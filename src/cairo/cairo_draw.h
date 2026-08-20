@@ -93,6 +93,8 @@ void Cairo_Draw_Lines(cairo_t *cr, GdkPoint *points, int npoints);
 
 extern Segment_t *structure_segs;
 
+void free_structure_segs(void);
+
 void Process_Wire_Segments(view_t *v, double scale);
 void Process_Surface_Patches(view_t *v, double scale);
 

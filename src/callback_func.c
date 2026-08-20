@@ -19,6 +19,7 @@
 
 #include "callback_func.h"
 #include "cairo/cairo_draw.h"
+#include "config/config_widget.h"
 #include "shared.h"
 #include "prerender/prerender_state.h"
 #include "prerender/prerender_color.h"
@@ -631,13 +632,21 @@ Nec2_Apply_Checkbutton( void )
 
 /* engine_buffers_free()
  *
- * Frees every mem-tracked owner shared by parent and child: engine data and
- * scratch buffers, the symbol table, child_procs (inherited across fork), and
- * the locale, then emits the report.  Both cleanup paths end here.
+ * Frees every mem-tracked owner shared by parent and child: the math library,
+ * the per-frequency model caches, engine data and scratch buffers, the symbol
+ * table, child_procs (inherited across fork), and the locale, then emits the
+ * report.  Both cleanup paths end here.
  */
   static void
 engine_buffers_free( void )
 {
+  /* Free the per-frequency model caches owned by parent and child alike. */
+  free_rdpattern_buffers();
+  Free_Nearfield_Fstep_Buffers();
+  free_crnt_fstep_buffers();
+  prerender_state_free();
+  free_struct_colors();
+
   /* Free the engine data buffers owned by parent and child alike. */
   input_data_free();
   geometry_data_free();
@@ -668,11 +677,11 @@ engine_buffers_free( void )
 
 /*-----------------------------------------------------------------------*/
 
-/* parent_cleanup()
+/**
+ * parent_cleanup() - Release parent process state after gtk_main() returns
  *
- * Parent teardown, run once after gtk_main() returns.  Stops both optimizers
- * and tears down the windows, views, and frequency-plot state the child never
- * builds, then frees the shared engine buffers.
+ * Stop asynchronous work and tear down the windows, views, and frequency-plot
+ * state the child never builds before shared engine storage.
  */
   void
 parent_cleanup( void )
@@ -684,9 +693,18 @@ parent_cleanup( void )
   opt_shutdown();
   optimizer_output_stop();
 
+  /* Join the frequency driver before the state its steps write is freed. */
+  Stop_Frequency_Loop();
+
+  /* Dispatch the transport refresh its tail posts: gtk_main() has returned,
+   * so no loop remains to run that source or release its payload.  The
+   * windows still stand, so the refresh reaches live widgets. */
+  while( g_main_context_iteration(NULL, FALSE) ) {}
+
   /* Destroy every top-level window to halt drawing and run each destroy
    * chain; the SY window's chain frees its renderer. */
   main_windows_destroy();
+  config_widget_cleanup();
 
   /* Release the structure surfaces, whose widgets lived inside the main
    * window and so reached no canvas-clearing destroy chain of their own.
@@ -694,11 +712,11 @@ parent_cleanup( void )
    * unrealize left behind. */
   canvas_clear( CANVAS_STRUCTURE );
 
-  /* Free the views and prerendered colors that no widget can reach now. */
+  free_structure_segs();
+
+  /* Free the views that no widget can reach now. */
   view_free( &structure_view );
   view_free( &rdpattern_view );
-  prerender_state_free();
-  free_struct_colors();
 
   /* Free the frequency-plot views before the freq_loop_data array their
    * entries point into. */

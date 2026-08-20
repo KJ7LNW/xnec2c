@@ -1,3 +1,6 @@
+#ifndef __MATHLIB_H
+#define __MATHLIB_H
+
 #ifdef HAVE_OPENBLAS_CBLAS_H
 	#include <openblas/cblas.h>
 	#ifdef HAVE_OPENBLAS_LAPACKE_H
@@ -157,4 +160,8 @@ typedef int32_t (zgetrs_openblas_t)(int32_t, char, int32_t, int32_t, complex dou
 int32_t zgetrf(int32_t order, int32_t m, int32_t n, complex double *a, int32_t ndim, int32_t *ip);
 int32_t zgetrs(int32_t order, int32_t trans, int32_t lda, int32_t nrhs, complex double *a, int32_t ndim, int32_t *ip, complex double *b, int32_t ldb);
 
+void mathlib_shutdown(void);
+
 extern mathlib_t *current_mathlib;
+
+#endif

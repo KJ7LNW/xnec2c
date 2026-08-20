@@ -1156,16 +1156,15 @@ freqloop_card_of_fmhz( double fmhz )
 }
 
 /* Frequency-plot scratch arrays built per redraw in _Plot_Frequency_Data():
- * the compact valid-step index, its plotted values, and per-card step counts.
- * Capacity holds every sweep step plus the green-line extra slot. */
-static int    *valid_steps_map = NULL;
-static double *fplot           = NULL;
-static int    *card_nfsteps    = NULL;
+ * the compact valid-step index, plotted values, per-card step counts, and
+ * computed measurement rows. Capacity includes the green-line extra slot. */
+static int           *valid_steps_map = NULL;
+static double        *fplot           = NULL;
+static int           *card_nfsteps    = NULL;
+static measurement_t *meas_rows       = NULL;
 
-/* freqplots_cleanup()
- *
- * Releases the frequency-plot scratch arrays and every graph type's trace
- * buffers at program exit.
+/**
+ * freqplots_cleanup() - Release frequency-plot caches at program exit
  */
   void
 freqplots_cleanup( void )
@@ -1173,6 +1172,7 @@ freqplots_cleanup( void )
   mem_array_free( &valid_steps_map );
   mem_array_free( &fplot );
   mem_array_free( &card_nfsteps );
+  mem_array_free( &meas_rows );
 
   fp_gain_free();
   fp_viewer_free();
@@ -1301,7 +1301,6 @@ _Plot_Frequency_Data( freqplots_view_t *v, cairo_t *cr )
   /* Compute every per-frequency measurement once per frame; meas_calc is
    * costly (antenna-temperature spherical integration) and was previously
    * repeated by each plot type.  All plot types now read these rows. */
-  static measurement_t *meas_rows = NULL;
   mem_array_realloc(&meas_rows, num_fsteps);
   for( idx = 0; idx < num_fsteps; idx++ )
     meas_calc( &meas_rows[idx], valid_steps_map[idx], fp_view_port(v) );

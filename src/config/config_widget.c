@@ -346,6 +346,18 @@ config_widget_register(void *field, size_t size, const config_widget_tree_t *tre
 
 /*------------------------------------------------------------------------*/
 
+/**
+ * config_widget_cleanup() - Release the configuration binding registry
+ */
+void
+config_widget_cleanup(void)
+{
+  mem_array_free(&binding_registry);
+  binding_count = 0;
+}
+
+/*------------------------------------------------------------------------*/
+
 /** config_widget_sync_group - write a binding's field into one live group
  * @b:       the binding whose field value is broadcast
  * @builder: the group's resolved, non-NULL builder

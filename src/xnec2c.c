@@ -322,13 +322,19 @@ Ground_Parameters( void )
 
 /*-----------------------------------------------------------------------*/
 
-/* calc_data_free()
- *
- * Releases the per-FR-card frequency-loop descriptor array.
+/**
+ * calc_data_free() - Release persistent calculation input and loop storage
  */
   void
 calc_data_free( void )
 {
+  mem_array_free( &calc_data.ldtyp );
+  mem_array_free( &calc_data.ldtag );
+  mem_array_free( &calc_data.ldtagf );
+  mem_array_free( &calc_data.ldtagt );
+  mem_array_free( &calc_data.zlr );
+  mem_array_free( &calc_data.zli );
+  mem_array_free( &calc_data.zlc );
   mem_array_free( &calc_data.freq_loop_data );
 
 } /* calc_data_free() */

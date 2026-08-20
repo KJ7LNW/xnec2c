@@ -1765,6 +1765,7 @@ double Viewer_Noise_Value(view_t *v, int fstep);
 void Rdpattern_Window_Killed(void);
 void Set_Window_Labels(void);
 void Alloc_Rdpattern_Buffers(int nfrq, int nth, int nph);
+void free_rdpattern_buffers(void);
 void Alloc_Nearfield_Fstep_Buffers(int nfrq);
 void Free_Nearfield_Fstep_Buffers(void);
 double Scale_Gain( double gain, int fstep, int idx );

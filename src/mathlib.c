@@ -329,6 +329,15 @@ void close_mathlib(mathlib_t *lib)
 	lib->set_threads = NULL;
 }
 
+/**
+ * mathlib_shutdown() - Release the active math-library handle and bindings
+ */
+void mathlib_shutdown(void)
+{
+	close_mathlib(current_mathlib);
+	current_mathlib = NULL;
+}
+
 int open_mathlib(mathlib_t *lib)
 {
 	char *libfn0 = NULL, *libfn, *token;

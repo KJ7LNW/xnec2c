@@ -27,6 +27,18 @@
 /* 2D projected segments for Cairo structure rendering */
 Segment_t *structure_segs = NULL;
 
+/*-----------------------------------------------------------------------*/
+
+/**
+ * free_structure_segs() - Release the projected segment buffer
+ */
+  void
+free_structure_segs(void)
+{
+  mem_array_free(&structure_segs);
+
+} /* free_structure_segs() */
+
 /*-----------------------------------------------------------------------
  * Drawing primitives
  *----------------------------------------------------------------------*/

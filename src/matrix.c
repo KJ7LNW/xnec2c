@@ -633,14 +633,17 @@ cmset( int nrow, complex double *cmx, double rkhx, int iexkx )
 /* Patch-current matrix-element scratch, reused across cmsw() calls. */
 static complex double *emel = NULL;
 
-/* matrix_data_free()
- *
- * Releases the cmsw() patch-current scratch buffer.
+/**
+ * matrix_data_free() - Release persistent matrix storage and the math library
  */
   void
 matrix_data_free( void )
 {
+  mem_array_free( &cm );
   mem_array_free( &emel );
+
+  /* Close the library the solver bound, now that computation has stopped. */
+  mathlib_shutdown();
 
 } /* matrix_data_free() */
 

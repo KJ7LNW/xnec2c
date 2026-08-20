@@ -262,9 +262,6 @@ gl_scene_free(void *ctx)
   if( !sc )
     return;
 
-  if( sc->view->config->content_cleanup )
-    sc->view->config->content_cleanup();
-
   glDeleteBuffers(GL_VIEW_MAX_BATCHES, sc->vbo);
   glDeleteVertexArrays(GL_VIEW_MAX_BATCHES, sc->vao);
 

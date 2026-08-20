@@ -221,6 +221,22 @@ Alloc_Crnt_Fstep_Buffers( int nfrq )
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * free_crnt_fstep_buffers() - Release per-frequency current storage
+ */
+  void
+free_crnt_fstep_buffers(void)
+{
+  int nfrq = mem_array_count(crnt_fstep);
+
+  for( int i = 0; i < nfrq; i++ )
+    free_crnt_step(&crnt_fstep[i]);
+  mem_array_free(&crnt_fstep);
+
+} /* free_crnt_fstep_buffers() */
+
+/*-----------------------------------------------------------------------*/
+
 /*  Queue_Structure_Rebuild()
  *  @force:  bypass the intermediate-redraw suppression gate
  *

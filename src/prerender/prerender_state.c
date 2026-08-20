@@ -61,14 +61,11 @@ prerender_state_alloc(int steps_total)
 prerender_state_free(void)
 {
   int i;
+  int n = mem_array_count(ff_pre);
 
-  if( ff_pre != NULL )
-  {
-    int n = mem_array_count(ff_pre);
-    for( i = 0; i < n; i++ )
-      free_ff_pre_step(&ff_pre[i]);
-    mem_array_free(&ff_pre);
-  }
+  for( i = 0; i < n; i++ )
+    free_ff_pre_step(&ff_pre[i]);
+  mem_array_free(&ff_pre);
 
   mem_array_free(&geom_pre.sin_theta);
   mem_array_free(&geom_pre.cos_theta);
@@ -80,9 +77,10 @@ prerender_state_free(void)
   geom_pre.n_theta_edges = 0;
   geom_pre.n_phi_edges   = 0;
 
-  /* patch_corners holds geometry computed at GE-card time. It is only
-   * freed and reallocated by New_Patch_Data() on file reload; unlike the
-   * RP/EX-card fields above, it must survive frequency-sweep restarts. */
+  /* Retain GE-card patch geometry across sweep restarts, then release both
+   * arrays at process teardown. */
+  mem_array_free(&geom_pre.patch_corners);
+  mem_array_free(&geom_pre.patch_tangent_frame);
 }
 
 /*-----------------------------------------------------------------------*/

@@ -129,6 +129,7 @@ typedef struct {
  */
 void config_widget_register(void *field, size_t size,
                             const config_widget_tree_t *tree);
+void config_widget_cleanup(void);
 
 /** config_widget_sync_field - write a field's value into every live peer widget
  * @field: address of a registered field

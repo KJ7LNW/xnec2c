@@ -120,7 +120,8 @@ gl_view_gpu_release(gl_view_state_t *state)
  * @surface: surface leaving its canvas
  *
  * Reaches no widget: every teardown path finalizes the drawing widget, and
- * with it the GPU resources, before the canvas drops its surfaces.
+ * with it the GPU resources, before the canvas drops its surfaces. Release
+ * the domain content cache at this surface-lifetime edge.
  */
   void
 gl_view_surface_free(render_surface_t *surface)
@@ -129,6 +130,8 @@ gl_view_surface_free(render_surface_t *surface)
 
   if( state == NULL )
     return;
+
+  state->config->content_cleanup();
 
   /* Stop the fade before releasing its callback payload. */
   if( state->notice_timeout_id )
