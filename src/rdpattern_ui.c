@@ -808,14 +808,6 @@ Viewer_Gain( view_t *v, int fstep )
   void
 Rdpattern_Window_Killed( void )
 {
-  if( animate_dialog != NULL )
-  {
-    Gtk_Widget_Destroy( &animate_dialog );
-    ClearFlag( ANIMATE );
-    if( anim_tag ) g_source_remove( anim_tag );
-    anim_tag = 0;
-  }
-
   if( isFlagSet(DRAW_ENABLED) )
   {
     ClearFlag( DRAW_FLAGS );
@@ -825,6 +817,13 @@ Rdpattern_Window_Killed( void )
     gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
           Builder_Get_Object( main_window_builder, "main_rdpattern")), FALSE );
   }
+
+  /* Keep the DRAW_ENABLED gate closed while destroying the dialog because
+   * its destroy handler refreshes the visualization after the caller frees
+   * the radiation-pattern view. */
+  if( animate_dialog != NULL )
+    Gtk_Widget_Destroy( &animate_dialog );
+
   rdpattern_window = NULL;
   canvas_clear( CANVAS_RDPATTERN );
   kill_window = NULL;
