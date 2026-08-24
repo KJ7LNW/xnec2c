@@ -545,6 +545,10 @@ on_main_rdpattern_activate(
      * takes its face and its tooltips from the readout. */
     freq_sweep_controls_refresh();
 
+    /* The animation panel gates its pattern-window controls on this builder,
+     * so a freshly built window re-reads those gates. */
+    anim_panel_sensitivity();
+
     /* Spin widgets must be resolved before creating the GL widget:
      * opengl_rdpattern_surface_new() dereferences rdpattern_view,
      * which in turn borrows the spin-button pointers. */
@@ -2022,41 +2026,142 @@ static const struct
   { "anim_efield",   &rdpattern_window_builder },
   { "anim_hfield",   &rdpattern_window_builder },
   { "anim_poynting", &rdpattern_window_builder },
-  { "anim_farfield_frame", &rdpattern_window_builder },
+};
+
+/* One guard over an animation panel control.  The test holds while the
+ * control is usable and its reading explains the greying when it does not;
+ * guard lists run in order and terminate on a null test. */
+typedef gboolean (*anim_gate_test_t)(void);
+
+typedef struct
+{
+  anim_gate_test_t  test;
+  const char       *reason;
+} anim_guard_t;
+
+/* A guarded animation panel control.  The first guard that fails decides both
+ * the insensitivity and the reading; a control passing every guard carries its
+ * own reading.  Controls whose tooltip states one invariant enable condition
+ * hold it in the glade file and ride anim_panel_owners instead. */
+typedef struct
+{
+  const char         *widget_id;
+  const char         *reading;
+  const anim_guard_t *guards;
+} anim_gate_t;
+
+static gboolean gate_main_window(void);
+static gboolean gate_rdpattern_window(void);
+static gboolean gate_surface_patches(void);
+static gboolean gate_farfield_overlay(void);
+static gboolean gate_linear_polarization(void);
+
+static const anim_guard_t guards_flow_dir[] =
+{
+  { gate_main_window,
+    N_("Patch flow rendering is a main window setting;"
+       " open the main window to select it.") },
+  { gate_surface_patches,
+    N_("Patch flow animation requires surface patches"
+       " (SP/SM cards) in the model.") },
+  { NULL, NULL }
+};
+
+static const anim_guard_t guards_farfield[] =
+{
+  { gate_rdpattern_window,
+    N_("The far-zone field draws on the radiation pattern gain"
+       " surface; open the radiation pattern window to use it.") },
+  { gate_farfield_overlay,
+    N_("The far-field overlay is unchecked; check it beside the"
+       " other overlays to draw the far-zone field.") },
+  { NULL, NULL }
 };
 
 /* The far-zone polarization reference turns the linear pair of gain
- * selections; each radio carries the reading it selects, held beside its
- * widget so one loop greys the pair and explains the greying. */
-static const struct
+ * selections; both radios share the one reading that explains the greying. */
+static const anim_guard_t guards_ff_frame[] =
 {
-  const char *widget_id;
-  const char *reading;
-} anim_ff_frame_radios[] =
+  { gate_linear_polarization,
+    N_("The polarization reference turns the vertical and horizontal"
+       " gain pair only.  Select vertical or horizontal polarization"
+       " in the radiation pattern window to use it; the total and"
+       " circular selections read alike under either reference.") },
+  { NULL, NULL }
+};
+
+static const anim_gate_t anim_panel_gates[] =
 {
+  { "anim_flow_dir",
+    N_("Select how the animated patch current flow is rendered.\n"
+       "Mirrors the Visualization menu setting in the main window."),
+    guards_flow_dir },
+
+  { "anim_farfield_content",
+    N_("Resolve the far-zone field into tangent vectors drawn on"
+       " the radiation pattern gain surface."),
+    guards_farfield },
+
   { "anim_ff_frame_world",
     N_("Read the vertical and horizontal gain selections against the"
        " spherical basis, so vertical is the theta direction and horizontal"
-       " is the phi direction.") },
+       " is the phi direction."),
+    guards_ff_frame },
+
   { "anim_ff_frame_ludwig3",
     N_("Read the vertical and horizontal gain selections against the"
        " Ludwig-3 co-polar and cross-polar directions, which hold one"
-       " orientation across the whole pattern.") },
+       " orientation across the whole pattern."),
+    guards_ff_frame },
 };
 
-/** anim_panel_sensitivity() - Grey animation panel controls by owner state
+  static gboolean
+gate_main_window(void)
+{
+  return( main_window_builder != NULL );
+}
+
+  static gboolean
+gate_rdpattern_window(void)
+{
+  return( rdpattern_window_builder != NULL );
+}
+
+/* Flow direction styles patch arrows only; wire color animation and the
+ * color projection/scale combos stay usable for wire-only models. */
+  static gboolean
+gate_surface_patches(void)
+{
+  return( data.m > 0 );
+}
+
+  static gboolean
+gate_farfield_overlay(void)
+{
+  return( rc_config.overlay_farfield != 0 );
+}
+
+/* Read the polarization the engine holds, not the pattern window selector
+ * that displays it; the resolver owning the far-zone operators answers
+ * whether the reference reaches the selection. */
+  static gboolean
+gate_linear_polarization(void)
+{
+  return( ff_frame_turns_pol( calc_data.pol_type ) );
+}
+
+/** anim_panel_sensitivity() - Grey animation panel controls by their gates
  *
- * Greys each panel control whose owning window is closed, greys the
- * flow-direction combo when the main window is closed or the model
- * carries no surface patches, greys the structure frame when the
- * main window is closed, and greys the far-zone polarization reference
- * under the gain selections it cannot turn.
+ * Greys each panel control whose owning window is closed, then runs the
+ * guarded gates: the first guard a control fails supplies both its
+ * insensitivity and the reading naming the reason.
  */
   void
 anim_panel_sensitivity(void)
 {
+  const anim_guard_t *guard;
+  const char *reason;
   GtkWidget *widget;
-  gboolean has_patches, linear_pol;
   size_t i;
 
   if( animate_dialog == NULL )
@@ -2070,35 +2175,20 @@ anim_panel_sensitivity(void)
         *anim_panel_owners[i].owner_builder != NULL );
   }
 
-  /* Flow direction styles patch arrows only; wire color animation and the
-   * color projection/scale combos stay usable for wire-only models. */
-  widget = Builder_Get_Object( animate_dialog_builder, "anim_flow_dir" );
-  has_patches = (data.m > 0);
-  gtk_widget_set_sensitive( widget,
-      (main_window_builder != NULL) && has_patches );
-  gtk_widget_set_tooltip_text( widget,
-      has_patches
-      ? _("Select how the animated patch current flow is rendered.\n"
-          "Mirrors the Visualization menu setting in the main window.")
-      : _("Patch flow animation requires surface patches"
-          " (SP/SM cards) in the model.") );
-
-  /* Read the polarization the engine holds, not the pattern window selector
-   * that displays it; the resolver owning the far-zone operators answers
-   * whether the reference reaches the selection. */
-  linear_pol = ff_frame_turns_pol( calc_data.pol_type );
-  for( i = 0; i < G_N_ELEMENTS(anim_ff_frame_radios); i++ )
+  for( i = 0; i < G_N_ELEMENTS(anim_panel_gates); i++ )
   {
+    reason = NULL;
+    for( guard = anim_panel_gates[i].guards;
+        (guard->test != NULL) && (reason == NULL); guard++ )
+    {
+      reason = guard->test() ? NULL : guard->reason;
+    }
+
     widget = Builder_Get_Object( animate_dialog_builder,
-        anim_ff_frame_radios[i].widget_id );
-    gtk_widget_set_sensitive( widget, linear_pol );
+        anim_panel_gates[i].widget_id );
+    gtk_widget_set_sensitive( widget, reason == NULL );
     gtk_widget_set_tooltip_text( widget,
-        linear_pol
-        ? _(anim_ff_frame_radios[i].reading)
-        : _("The polarization reference turns the vertical and horizontal"
-            " gain pair only.  Select vertical or horizontal polarization"
-            " in the radiation pattern window to use it; the total and"
-            " circular selections read alike under either reference.") );
+        (reason == NULL) ? _(anim_panel_gates[i].reading) : _(reason) );
   }
 }
 
@@ -2731,6 +2821,10 @@ on_animate_dialog_destroy(
    * selection now that it is gone. */
   if( main_window_builder != NULL )
     hook_color_vis();
+
+  /* The open dialog is the whole condition admitting the far-zone vectors,
+   * so the pattern drops them on this edge. */
+  Queue_Radiation_Redraw( TRUE );
 }
 
 

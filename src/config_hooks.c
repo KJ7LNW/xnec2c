@@ -295,6 +295,16 @@ hook_rdpat_redraw(void)
   Queue_Radiation_Redraw(TRUE);
 }
 
+/* The far-zone overlay selection admits the vectors into the pattern frame
+ * and governs whether the far-field panel accepts input, so its edge both
+ * redraws the pattern and re-greys the panel. */
+void
+hook_ff_overlay(void)
+{
+  hook_rdpat_redraw();
+  anim_panel_sensitivity();
+}
+
 /*------------------------------------------------------------------------*/
 
 /* freqplots_recount_ngraph - derive the active-plot count from the live

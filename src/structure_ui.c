@@ -338,14 +338,17 @@ Animate_Phase(gpointer _udata)
 
 /** rdpat_farfield_phase_active() - Whether the pattern draws its field at phase
  *
- * True while the pattern window shows the gain surface and the animation is
- * live, the state in which the far-zone phasors resolve into tangent vectors
- * on that surface.
+ * True while the pattern window shows the gain surface, the far-zone overlay
+ * is selected, and the animation window is open, the state in which the
+ * far-zone phasors resolve into tangent vectors on that surface.  Openness is
+ * the whole liveness condition, so the vectors stand at their phase-zero
+ * reference before playback starts.
  */
   gboolean
 rdpat_farfield_phase_active(void)
 {
-  return rdpat_gain_active() && animation_is_active();
+  return rdpat_gain_active() && (rc_config.overlay_farfield != 0)
+      && (animate_dialog != NULL);
 
 } /* rdpat_farfield_phase_active() */
 

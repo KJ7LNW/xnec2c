@@ -509,7 +509,7 @@ typedef struct
   int color_width_amp;
 
   /* Wire overlay gates: comet crest, node/antinode marks */
-  int overlay_comet, overlay_nodes;
+  int overlay_comet, overlay_nodes, overlay_farfield;
 
   /* Whether transparency is triggered by click/drag (1) or always on (0) */
   int opengl_transparent_on_click;

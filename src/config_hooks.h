@@ -44,6 +44,7 @@ void hook_frequency(void);
 
 void hook_rdpat_ehfield(void);
 void hook_rdpat_redraw(void);
+void hook_ff_overlay(void);
 
 void hook_freqplots_panel_select(void);
 void hook_freqplots_redraw(void);

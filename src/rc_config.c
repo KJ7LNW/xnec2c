@@ -588,6 +588,11 @@ rc_config_vars_t rc_config_vars[] = {
 		.widgets = CONFIG_WIDGET_SINGLE( &animate_dialog_builder,
 			"anim_overlay_comet", hook_color_vis ) },
 
+	{ .desc = "Overlay Far Field", .format = "%d",
+		.vars = { &rc_config.overlay_farfield }, .def = { { .i = 1 } },
+		.widgets = CONFIG_WIDGET_SINGLE( &animate_dialog_builder,
+			"anim_overlay_farfield", hook_ff_overlay ) },
+
 	{ .desc = "Brightness Segments", .format = "%f",
 		.vars = { &rc_config.brightness_segments }, .def = { { .f = 0.47f } },
 		.widgets = GL_CONFIG_WIDGET_SINGLE( &render_settings_builder,
