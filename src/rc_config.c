@@ -25,6 +25,7 @@
 #include "mathlib.h"
 #include "measurements.h"
 #include "config_hooks.h"
+#include "rdpattern_ui.h"
 #include "chroma/chroma.h"
 
 #include "opengl/opengl_structure.h"
@@ -149,6 +150,12 @@ rc_config_vars_t rc_config_vars[] = {
 							.values = CONFIG_WIDGET_VALUES(POL_RHCP) ),
 						CONFIG_WIDGET( .widget_id = "freqplots_left_hand",
 							.values = CONFIG_WIDGET_VALUES(POL_LHCP) ),
+						NULL ) ),
+				CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder,
+					.elements = CONFIG_WIDGETS(
+						CONFIG_WIDGET( .widget_id = "anim_polarization",
+							.values = CONFIG_WIDGET_VALUES(POL_TOTAL, POL_HORIZ,
+								POL_VERT, POL_RHCP, POL_LHCP) ),
 						NULL ) ),
 				NULL ) ) },
 
@@ -467,9 +474,16 @@ rc_config_vars_t rc_config_vars[] = {
 						NULL ) ),
 				CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder,
 					.elements = CONFIG_WIDGETS(
-						CONFIG_WIDGET( .widget_id = "anim_flow_dir",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_REFERENCE_PHASE,
-								FLOW_DIR_LIC, FLOW_DIR_WIREFRAME) ),
+						CONFIG_WIDGET( .widget_id = "anim_flow_ref_phase",
+							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_REFERENCE_PHASE) ),
+						CONFIG_WIDGET( .widget_id = "anim_flow_pol_axis",
+							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_POLARIZATION_TILT) ),
+						CONFIG_WIDGET( .widget_id = "anim_flow_peak_mag",
+							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_PEAK_MAGNITUDE) ),
+						CONFIG_WIDGET( .widget_id = "anim_flow_lic",
+							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_LIC) ),
+						CONFIG_WIDGET( .widget_id = "anim_flow_wireframe",
+							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_WIREFRAME) ),
 						NULL ) ),
 				NULL ) ) },
 
@@ -1269,6 +1283,27 @@ Set_Window_Geometry(
 
 /*------------------------------------------------------------------------*/
 
+/**
+ * notice_non_total_polarization() - Name a restored component gain selection
+ *
+ * The selection persists across sessions and scales every radiation-pattern
+ * gain readout, so startup calls attention to any restored component rather
+ * than silently presenting it as total gain.
+ */
+  static void
+notice_non_total_polarization( void )
+{
+  if( calc_data.pol_type == POL_TOTAL )
+    return;
+
+  pr_notice("gain readouts are scaled to %s, restored from the previous "
+      "session; select Total Gain to read total gain\n",
+      pol_type_name(calc_data.pol_type) );
+
+} /* notice_non_total_polarization() */
+
+/*------------------------------------------------------------------------*/
+
 /* Restore_Windows()
  *
  * Restores the rdpattern and freq plots windows
@@ -1318,6 +1353,8 @@ Restore_GUI_State( void )
    * values just loaded from the config file. */
   config_widget_sync_all();
   config_widget_run_hooks( &main_window_builder );
+
+  notice_non_total_polarization();
 
 #ifdef HAVE_OPENGL
   /* Restore MSAA menu selection */

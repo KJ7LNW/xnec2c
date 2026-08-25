@@ -27,6 +27,7 @@
 void ant_temp_entry_set_kelvin(GtkWidget *entry, double kelvin);
 void ant_temp_entry_set_unresolved(GtkWidget *entry);
 
+const char *pol_type_name(int pol);
 double Scale_Gain(double gain, int fstep, int idx);
 double Inverse_Scale_Gain(double scaled_val);
 

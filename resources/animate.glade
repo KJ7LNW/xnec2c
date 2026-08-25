@@ -74,11 +74,133 @@
     <property name="step-increment">0.05</property>
     <property name="page-increment">0.5</property>
   </object>
+  <object class="GtkSizeGroup" id="anim_flow_dir_sizegroup">
+    <property name="mode">horizontal</property>
+    <widgets>
+      <widget name="anim_flow_dir_label"/>
+      <widget name="anim_flow_heading_animated"/>
+      <widget name="anim_flow_ref_phase"/>
+      <widget name="anim_flow_lic"/>
+      <widget name="anim_flow_wireframe"/>
+      <widget name="anim_flow_pol_axis"/>
+      <widget name="anim_flow_peak_mag"/>
+      <widget name="anim_flow_heading_static"/>
+    </widgets>
+  </object>
+  <object class="GtkSizeGroup" id="anim_color_proj_sizegroup">
+    <property name="mode">horizontal</property>
+    <widgets>
+      <widget name="anim_color_proj_label"/>
+      <widget name="anim_projsel_heading_animated"/>
+      <widget name="anim_projsel_instant"/>
+      <widget name="anim_projsel_polarity"/>
+      <widget name="anim_projsel_phase"/>
+      <widget name="anim_projsel_dual"/>
+      <widget name="anim_projsel_heading_static"/>
+      <widget name="anim_projsel_amplitude"/>
+      <widget name="anim_projsel_standing"/>
+      <widget name="anim_projsel_farfield"/>
+    </widgets>
+  </object>
+  <object class="GtkSizeGroup" id="anim_color_family_sizegroup">
+    <property name="mode">horizontal</property>
+    <widgets>
+      <widget name="anim_color_family_label"/>
+      <widget name="anim_famsel_power"/>
+      <widget name="anim_famsel_db"/>
+      <widget name="anim_famsel_asinh"/>
+      <widget name="anim_famsel_mulaw"/>
+      <widget name="anim_famsel_reinhard"/>
+      <widget name="anim_famsel_sigmoid"/>
+      <widget name="anim_famsel_none"/>
+    </widgets>
+  </object>
+  <object class="GtkMenu" id="anim_flow_dir_menu">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="anim_flow_heading_animated">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="sensitive">False</property>
+        <property name="label" translatable="yes">Animated</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="anim_flow_ref_phase">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">_Reference Phase</property>
+        <property name="use-underline">True</property>
+        <property name="active">True</property>
+        <property name="draw-as-radio">True</property>
+        <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="anim_flow_lic">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">_LIC Texture</property>
+        <property name="use-underline">True</property>
+        <property name="draw-as-radio">True</property>
+        <property name="group">anim_flow_ref_phase</property>
+        <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="anim_flow_wireframe">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">_Wireframe</property>
+        <property name="use-underline">True</property>
+        <property name="draw-as-radio">True</property>
+        <property name="group">anim_flow_ref_phase</property>
+        <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="anim_flow_heading_static">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="sensitive">False</property>
+        <property name="label" translatable="yes">Static</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="anim_flow_pol_axis">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Polarization _Axis</property>
+        <property name="use-underline">True</property>
+        <property name="draw-as-radio">True</property>
+        <property name="group">anim_flow_ref_phase</property>
+        <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="anim_flow_peak_mag">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Peak _Magnitude</property>
+        <property name="use-underline">True</property>
+        <property name="draw-as-radio">True</property>
+        <property name="group">anim_flow_ref_phase</property>
+        <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+  </object>
   <object class="GtkMenu" id="anim_color_proj_menu">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <child>
-      <object class="GtkMenuItem">
+      <object class="GtkMenuItem" id="anim_projsel_heading_animated">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="sensitive">False</property>
@@ -136,7 +258,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkMenuItem">
+      <object class="GtkMenuItem" id="anim_projsel_heading_static">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="sensitive">False</property>
@@ -481,8 +603,11 @@
           <object class="GtkFrame">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label-xalign">0</property>
+            <property name="label-xalign">0.05</property>
             <property name="shadow_type">in</property>
+            <style>
+              <class name="section-cell"/>
+            </style>
             <child>
               <object class="GtkGrid">
                 <property name="visible">True</property>
@@ -506,11 +631,43 @@
                 <child>
                   <object class="GtkMenuButton" id="anim_color_proj_button">
                     <property name="valign">center</property>
+                    <property name="halign">start</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">False</property>
                     <property name="tooltip-text" translatable="yes">Select which physical quantity drives the hue and how brightness follows the excitation phase.&#10;&#10;Static projections (Amplitude, Standing/Traveling, Far-field Contribution) read without animating.&#10;&#10;Hovering an entry previews it live.</property>
                     <property name="popup">anim_color_proj_menu</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkLabel" id="anim_color_proj_label">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="icon-name">pan-down-symbolic</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -547,11 +704,43 @@
                 <child>
                   <object class="GtkMenuButton" id="anim_color_family_button">
                     <property name="valign">center</property>
+                    <property name="halign">start</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">False</property>
                     <property name="tooltip-text" translatable="yes">Select the magnitude-to-color transfer family.&#10;&#10;Adjust its slider until the contrast reveals the range your inspection needs.&#10;&#10;Hovering an entry previews it live.</property>
                     <property name="popup">anim_color_family_menu</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkLabel" id="anim_color_family_label">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="icon-name">pan-down-symbolic</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -994,11 +1183,38 @@
               </object>
             </child>
             <child type="label">
-              <object class="GtkLabel">
+              <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="use-markup">True</property>
-                <property name="label" translatable="yes">&lt;b&gt;Color&lt;/b&gt; &lt;i&gt;— currents, charges, and fields shade the wires, patches, and near-field vectors&lt;/i&gt;</property>
+                <property name="spacing">4</property>
+                <style>
+                  <class name="section-head"/>
+                </style>
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="valign">center</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="use-markup">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Color&lt;/b&gt; &lt;i&gt;— currents, charges, and fields shade the wires, patches, and near-field vectors&lt;/i&gt;</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
             </child>
           </object>
@@ -1012,13 +1228,16 @@
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="spacing">6</property>
-            <property name="homogeneous">True</property>
+            <property name="spacing">0</property>
+            <property name="homogeneous">False</property>
+            <style>
+              <class name="section-grid"/>
+            </style>
             <child>
               <object class="GtkFrame" id="anim_display_frame">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label-xalign">0</property>
+                <property name="label-xalign">0.05</property>
                 <property name="shadow_type">in</property>
                 <child>
                   <object class="GtkBox">
@@ -1078,16 +1297,91 @@
                         <property name="position">2</property>
                       </packing>
                     </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="xalign">0</property>
+                            <property name="use-underline">True</property>
+                            <property name="mnemonic-widget">anim_polarization</property>
+                            <property name="label" translatable="yes">_Polarization:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBoxText" id="anim_polarization">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="halign">start</property>
+                            <property name="tooltip-text" translatable="yes">Select the polarization component used by radiation-pattern gain and far-zone animation vectors.&#10;&#10;Mirrors the polarization selection in the main, radiation-pattern, and frequency-plot windows.</property>
+                            <items>
+                              <item translatable="yes">Total</item>
+                              <item translatable="yes">Horizontal</item>
+                              <item translatable="yes">Vertical</item>
+                              <item translatable="yes">Right Hand</item>
+                              <item translatable="yes">Left Hand</item>
+                            </items>
+                            <signal name="changed" handler="on_config_widget_changed" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
                   </object>
                 </child>
                 <child type="label">
-                  <object class="GtkLabel">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Display</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
+                    <property name="spacing">4</property>
+                    <style>
+                      <class name="section-head"/>
+                    </style>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Display</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -1101,7 +1395,7 @@
               <object class="GtkFrame" id="anim_patches_frame">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label-xalign">0</property>
+                <property name="label-xalign">0.05</property>
                 <property name="shadow_type">in</property>
                 <child>
                   <object class="GtkBox">
@@ -1124,17 +1418,43 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBoxText" id="anim_flow_dir">
+                      <object class="GtkMenuButton" id="anim_flow_dir_button">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <items>
-                          <item translatable="yes">Reference phase (animated)</item>
-                          <item translatable="yes">LIC texture (animated)</item>
-                          <item translatable="yes">Wireframe (animated)</item>
-                          <item translatable="yes">Polarization axis (static)</item>
-                          <item translatable="yes">Peak magnitude (static)</item>
-                        </items>
-                        <signal name="changed" handler="on_config_widget_changed" swapped="no"/>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="popup">anim_flow_dir_menu</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkLabel" id="anim_flow_dir_label">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="xalign">0</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="icon-name">pan-down-symbolic</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -1145,18 +1465,45 @@
                   </object>
                 </child>
                 <child type="label">
-                  <object class="GtkLabel">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Patches</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
+                    <property name="spacing">4</property>
+                    <style>
+                      <class name="section-head"/>
+                    </style>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Patches</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
                   </object>
                 </child>
               </object>
               <packing>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
@@ -1165,7 +1512,7 @@
               <object class="GtkFrame">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label-xalign">0</property>
+                <property name="label-xalign">0.05</property>
                 <property name="shadow_type">in</property>
                 <child>
                   <object class="GtkBox">
@@ -1225,18 +1572,45 @@
                   </object>
                 </child>
                 <child type="label">
-                  <object class="GtkLabel">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Near Field</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
+                    <property name="spacing">4</property>
+                    <style>
+                      <class name="section-head"/>
+                    </style>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Near Field</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
                   </object>
                 </child>
               </object>
               <packing>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">2</property>
               </packing>
@@ -1245,7 +1619,7 @@
               <object class="GtkFrame" id="anim_farfield_frame">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label-xalign">0</property>
+                <property name="label-xalign">0.05</property>
                 <property name="shadow_type">in</property>
                 <child>
                   <object class="GtkBox" id="anim_farfield_content">
@@ -1331,7 +1705,7 @@
                             <property name="can-focus">False</property>
                             <property name="xalign">0</property>
                             <property name="valign">center</property>
-                            <property name="label" translatable="yes">Arrow length:</property>
+                            <property name="label" translatable="yes">Arrow:</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1371,6 +1745,21 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="spacing">6</property>
+                    <style>
+                      <class name="section-head"/>
+                    </style>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
@@ -1383,7 +1772,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">0</property>
+                        <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
@@ -1399,7 +1788,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>

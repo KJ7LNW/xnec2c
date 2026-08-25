@@ -832,23 +832,71 @@ Rdpattern_Window_Killed( void )
 
 /*-----------------------------------------------------------------------*/
 
-/* Set_Window_Labels()
+/**
+ * pol_type_name() - Name the polarization selection gain is scaled by
+ * @pol: POL_TYPE enumerator selecting the polarization component
  *
- * Sets radiation pattern window labels
- * according to what is being drawn.
+ * Window labels and messages naming the selection read the same names,
+ * so both take them from this one table.
+ */
+  const char *
+pol_type_name( int pol )
+{
+  static const char *const name[NUM_POL] =
+  {
+    [POL_TOTAL] = N_("Total Gain"),
+    [POL_HORIZ] = N_("Horizontal Polarization"),
+    [POL_VERT]  = N_("Vertical Polarization"),
+    [POL_RHCP]  = N_("RH Circular Polarization"),
+    [POL_LHCP]  = N_("LH Circular Polarization")
+  };
+
+  if( (pol < 0) || (pol >= NUM_POL) )
+  {
+    BUG("polarization selection out of range: %d\n", pol);
+    pol = POL_TOTAL;
+  }
+
+  return( _(name[pol]) );
+
+} /* pol_type_name() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * set_pol_name_weight() - Weight the polarization name in a window label
+ * @attrs: label attribute list receiving the weight
+ * @pol:   POL_TYPE enumerator selecting normal or bold weight
+ * @start: byte offset of the name in the label text
+ * @end:   byte offset one past the name
+ *
+ * A non-total selection scales every gain the pattern and plots report, so
+ * its name carries bold weight while the total selection holds normal weight.
+ */
+  static void
+set_pol_name_weight( PangoAttrList *attrs, int pol, size_t start, size_t end )
+{
+  PangoWeight weight = (pol == POL_TOTAL) ?
+      PANGO_WEIGHT_NORMAL : PANGO_WEIGHT_BOLD;
+  PangoAttribute *attr = pango_attr_weight_new( weight );
+
+  attr->start_index = (guint)start;
+  attr->end_index   = (guint)end;
+  pango_attr_list_insert( attrs, attr );
+
+} /* set_pol_name_weight() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * Set_Window_Labels() - Set labels for active pattern and frequency views
+ *
+ * The pattern label names its content, polarization, and scale; the frequency
+ * label names the polarization shared by its plots.
  */
   void
 Set_Window_Labels( void )
 {
-  char *pol_type[NUM_POL] =
-  {
-    _("Total Gain"),
-    _("Horizontal Polarization"),
-    _("Vertical Polarization"),
-    _("RH Circular Polarization"),
-    _("LH Circular Polarization")
-  };
-
   char *scale[NUM_SCALES] =
   {
     _("Linear Power"),
@@ -864,14 +912,24 @@ Set_Window_Labels( void )
 
   if( isFlagSet(DRAW_ENABLED) )
   {
+    GtkLabel *label = GTK_LABEL( Builder_Get_Object(
+          rdpattern_window_builder, "rdpattern_label") );
+    PangoAttrList *pol_attrs = pango_attr_list_new();
+
     /* Set window labels */
     Strlcpy( txt, _("Radiation Patterns"), s );
     if(rdpat_gain_active())
     {
+      size_t pol_start, pol_end;
+
       Strlcpy( txt, _("Radiation Pattern: - "), s );
-      Strlcat( txt, pol_type[calc_data.pol_type], s );
+      pol_start = strlen( txt );
+      Strlcat( txt, pol_type_name(calc_data.pol_type), s );
+      pol_end = strlen( txt );
       Strlcat( txt, " - ", s );
       Strlcat( txt, scale[rc_config.gain_style], s );
+
+      set_pol_name_weight( pol_attrs, calc_data.pol_type, pol_start, pol_end );
 
       /* Append noise model info when in noise display mode */
       if( IS_NOISE_MODE(rc_config.gain_style) )
@@ -897,15 +955,16 @@ Set_Window_Labels( void )
         Strlcat( txt, _(" - Poynting Vector"), s );
     }
 
-    gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
-            rdpattern_window_builder, "rdpattern_label")), txt );
+    gtk_label_set_text( label, txt );
+    gtk_label_set_attributes( label, pol_attrs );
+    pango_attr_list_unref( pol_attrs );
 
   } /* if( isFlagSet(DRAW_ENABLED) ) */
 
   if( isFlagSet(PLOT_ENABLED) )
   {
     Strlcpy( txt, _("Frequency Data Plots - "), s );
-    Strlcat( txt, pol_type[calc_data.pol_type], s );
+    Strlcat( txt, pol_type_name(calc_data.pol_type), s );
     gtk_label_set_text( GTK_LABEL(Builder_Get_Object(
             freqplots_window_builder, "freqplots_label")), txt );
   }

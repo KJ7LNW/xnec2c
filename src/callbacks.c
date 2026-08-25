@@ -2092,7 +2092,7 @@ static const anim_guard_t guards_ff_frame[] =
 
 static const anim_gate_t anim_panel_gates[] =
 {
-  { "anim_flow_dir",
+  { "anim_flow_dir_button",
     N_("Select how the animated patch current flow is rendered.\n"
        "Mirrors the Visualization menu setting in the main window."),
     guards_flow_dir },
