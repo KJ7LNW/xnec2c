@@ -412,6 +412,54 @@ config_widget_sync_field(void *field)
 
 /*------------------------------------------------------------------------*/
 
+GtkWidget *
+config_widget_value_widget(void *field, GtkBuilder **builder)
+{
+  config_widget_binding_t *b = config_widget_find(field);
+  const config_widget_group_t *const *g;
+  GtkWidget *found = NULL;
+  int val;
+
+  if( b == NULL )
+  {
+    BUG("config_widget_value_widget: field is not registered\n");
+    return NULL;
+  }
+
+  if( *builder == NULL )
+    return NULL; /* dormant: window not built yet */
+
+  val = field_read_int(b->field, b->size);
+
+  for( g = b->tree->groups; (*g != NULL) && (found == NULL); g++ )
+  {
+    const config_widget_element_t *const *e;
+
+    if( (*g)->builder != builder )
+      continue;
+
+    for( e = (*g)->elements; (*e != NULL) && (found == NULL); e++ )
+    {
+      const int *v = (*e)->values;
+
+      /* One value ahead of the terminator is a selection this widget alone
+       * expresses; a longer list reaches several values through one widget */
+      if( (v == NULL) || (v[0] != val) ||
+          (v[1] != CONFIG_WIDGET_VALUES_END) )
+        continue;
+
+      found = config_widget_lookup(*builder, (*e)->widget_id);
+    }
+  }
+
+  BUG_ON(found == NULL,
+      "config_widget_value_widget: no widget expresses value %d\n", val);
+
+  return found;
+}
+
+/*------------------------------------------------------------------------*/
+
 void
 config_widget_field_changed(void *field)
 {

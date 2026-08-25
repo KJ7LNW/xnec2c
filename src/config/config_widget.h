@@ -146,6 +146,20 @@ void config_widget_sync_field(void *field);
  */
 void config_widget_field_changed(void *field);
 
+/** config_widget_value_widget - resolve the widget expressing a field's value
+ * @field:   address of a registered field
+ * @builder: address of the builder pointer whose group is searched
+ *
+ * Reads the value each element expresses, so the binding stays the one place
+ * a value and its widget are paired.  A one-entry value list marks the widget
+ * that expresses that value alone; combo and valued toggle lists reach
+ * several values through one widget and are passed over.  A live builder
+ * holding no such widget is a wiring error and raises BUG.
+ *
+ * Return: the matching widget, or NULL when the window is not built yet.
+ */
+GtkWidget *config_widget_value_widget(void *field, GtkBuilder **builder);
+
 /** config_widget_sync_builder - write every field's value into one builder's widgets
  * @builder: address of the builder pointer (eg &main_window_builder)
  *
