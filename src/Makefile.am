@@ -37,6 +37,7 @@ xnec2c_SOURCES = \
     freq_sweep_state.c \
     input.c         input.h \
     matrix.c        matrix.h \
+    ui_style.c      ui_style.h \
     utils.c         utils.h \
     validation_dump.c validation_dump.h \
     nec2_model.c    nec2_model.h \

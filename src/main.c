@@ -34,6 +34,7 @@
 #include "config_hooks.h"
 #include "themes/theme.h"
 #include "color/color_palette.h"
+#include "ui_style.h"
 
 /* Forward declaration — full sy_overrides.h conflicts with openblas via gsl */
 extern void sy_overrides_close_if_empty(void);
@@ -189,6 +190,10 @@ main (int argc, char *argv[])
     pr_crit("cannot open display: a running X11 or Wayland session is required\n");
     exit( 1 );
   }
+
+  /* Windows resolve their styling once, at construction, so the application
+   * stylesheet enters the screen ahead of the first window. */
+  ui_style_init();
 
   /* When forking is useful, e.g. if more than 1 processor is
    * available, the parent process handles the GUI and delegates

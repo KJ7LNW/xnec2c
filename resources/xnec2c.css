@@ -1,0 +1,55 @@
+/* Application stylesheet, layered over the theme at application priority.
+   Colors derive from the theme's own text color so a light theme and a dark
+   theme both keep the intended contrast. */
+
+/* One color paints every cell edge and every heading lead.  Each node
+   resolves currentColor against its own text color, which drifts between an
+   edge and a separator, so the color comes from the theme foreground once
+   and every rule below refers to it. */
+@define-color section_rule alpha(@theme_fg_color, 0.4);
+
+/* A labelled frame in a section grid, or one standing alone as its own
+   table, carries a hairline on every edge so it reads as a table cell rather
+   than a floating card. */
+.section-grid frame > border,
+frame.section-cell > border {
+	border: 1px solid @section_rule;
+}
+
+/* Neighboring cells share one rule: the right cell drops its left edge so
+   the seam stays a hairline instead of doubling into a dark band. */
+.section-grid frame + frame > border {
+	border-left-width: 0;
+}
+
+/* Cell contents stand well off the hairline, wider across than down so the
+   words of adjoining cells keep a gutter between them. */
+.section-grid frame > box,
+frame.section-cell > grid {
+	padding: 10px 14px;
+}
+
+/* A heading rides the gap cut through the top edge: nothing above or below,
+   nothing at the leading end where its own separator carries the edge in,
+   and a stop at the trailing end so the cut stays off the last word. */
+.section-grid frame > box.section-head,
+frame.section-cell > box.section-head {
+	padding: 0 6px 0 0;
+}
+
+/* The leading separator continues the cell edge from the corner up to the
+   words, which gives the heading its corner back.  Centered in the heading a
+   hairline lands one row above the edge the frame paints, so the top margin
+   lowers it onto that row. */
+.section-head separator {
+	background-color: @section_rule;
+	min-width: 10px;
+	min-height: 1px;
+	margin-top: 2px;
+}
+
+/* The color table stands clear of the controls above it, by the earlier
+   stand-off plus the height of one text line. */
+frame.section-cell {
+	margin-top: 27px;
+}
