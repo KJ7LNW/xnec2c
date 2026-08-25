@@ -62,8 +62,10 @@
 #define pr_info(...)   _xnec2c_printf(PR_INFO,   __FILE__, __func__, __LINE__, _VA_FIRST(__VA_ARGS__)  _VA_REST(__VA_ARGS__))
 #define pr_debug(...)  _xnec2c_printf(PR_DEBUG,  __FILE__, __func__, __LINE__, _VA_FIRST(__VA_ARGS__)  _VA_REST(__VA_ARGS__))
 
-// Funny {} braces are to deal with else cases that generate compiler warnings:
-#define BUG_ON(expr, ...) { if (expr) BUG(__VA_ARGS__) }
+// Evaluate as one void expression so an enclosing if/else stays intact.
+// Takes the same format and arguments as BUG.
+#define BUG_ON(expr, ...) \
+  (unlikely(expr) ? (void)BUG(__VA_ARGS__) : (void)0)
 
 enum 
 {
