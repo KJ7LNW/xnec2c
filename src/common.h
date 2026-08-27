@@ -55,6 +55,7 @@
 #include "render/render_canvas.h"
 #include "render/render_redraw.h"
 #include "color/color_tone.h"
+#include "config/config_widget_scope.h"
 
 // Define GSourceOnceFunc if compiling against an older version of GLIB:
 #if GLIB_VERSION_CUR_STABLE < G_ENCODE_VERSION(2,74)
@@ -1232,11 +1233,12 @@ typedef struct {
 
 	// Popup excitation-port selection and its menu button; the primary view
 	// resolves its port from calc_data.ex_port and leaves ex_port unused.
-	// port_saved and port_committed carry this view's hover-preview state.
 	int        ex_port;
 	GtkWidget *port_button;
-	int        port_saved;
-	gboolean   port_committed;
+
+	// Capabilities this view's port rows dispatch through: the bytes the
+	// selection owns, its refresh, its commit edge and its hover policy.
+	config_widget_scope_t port_scope;
 } freqplots_view_t;
 
 /* My addition, struct to hold data needed

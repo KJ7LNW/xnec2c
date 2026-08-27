@@ -42,6 +42,7 @@
 #include "../cairo/cairo_fit.h"
 #include "../shared.h"
 #include "../opt_ui.h"
+#include "../config/config_widget.h"
 
 #include <string.h>
 
@@ -121,12 +122,19 @@ fp_panel_available( fp_panel_t panel )
 
 } /* fp_panel_available() */
 
-/* Resolve the excitation port a view renders: the primary window follows the
- * authoritative calc_data.ex_port; a popup carries its own selection. */
+/* Resolve where a view's excitation-port selection lives: the primary window
+ * drives the authoritative calc_data.ex_port; a popup owns its own field. */
+  static int *
+fp_port_storage( freqplots_view_t *v )
+{
+  return (v->filter == FP_PANEL_ALL) ? &calc_data.ex_port : &v->ex_port;
+}
+
+/* Resolve the excitation port a view renders. */
   static int
 fp_view_port( freqplots_view_t *v )
 {
-  return (v->filter == FP_PANEL_ALL) ? calc_data.ex_port : v->ex_port;
+  return *fp_port_storage( v );
 }
 
 /* Setting that gates one selected-frequency readout column.  Each value names
@@ -671,14 +679,6 @@ fp_port_label( int p )
       p + 1, Feedpoint_Port_Tag(p), Feedpoint_Port_Seg(p) );
 }
 
-/* Recover the view a port menu belongs to from data stored on the menu. */
-  static freqplots_view_t *
-fp_menu_view( GtkWidget *item )
-{
-  GtkWidget *menu = gtk_widget_get_parent( item );
-  return g_object_get_data( G_OBJECT(menu), "fp_view" );
-}
-
 /* Show port @p's terse identity on view @v's port menu button. */
   static void
 fp_port_button_label( freqplots_view_t *v, int p )
@@ -688,17 +688,16 @@ fp_port_button_label( freqplots_view_t *v, int p )
   g_free( label );
 }
 
-/* Make port @p the live selection for view @v and refresh its output.  The
- * primary window drives the authoritative calc_data.ex_port, rescans the
- * impedance normalization, and redraws every view; a popup owns v->ex_port and
+/* Refresh view @v's output after its port selection changed.  The primary
+ * window rescans the impedance normalization and redraws every view; a popup
  * redraws only its own window. */
   static void
-fp_port_apply( freqplots_view_t *v, int p )
+fp_port_refresh( void *context )
 {
+  freqplots_view_t *v = context;
+
   if( v->filter == FP_PANEL_ALL )
   {
-    calc_data.ex_port = p;
-
     /* Impedance normalization tracks the authoritative port. */
     if( calc_data.iped == 1 )
       Rescan_Zpnorm();
@@ -706,47 +705,18 @@ fp_port_apply( freqplots_view_t *v, int p )
     freq_step_refresh_ui( TRUE );
   }
   else
-  {
-    v->ex_port = p;
     canvas_queue_redraw( v->canvas, TRUE );
-  }
 }
 
-/* Preview the hovered port without committing it. */
+/* Carry a committed port selection to view @v's output and to its collapsed
+ * button, which names the port in effect rather than the one last hovered. */
   static void
-on_fp_port_item_select( GtkMenuItem *item, gpointer user_data )
+fp_port_commit( void *context )
 {
-  fp_port_apply( fp_menu_view( GTK_WIDGET(item) ),
-      GPOINTER_TO_INT(user_data) );
-}
+  freqplots_view_t *v = context;
 
-/* Commit the clicked port and show its terse identity on the button. */
-  static void
-on_fp_port_item_activate( GtkMenuItem *item, gpointer user_data )
-{
-  freqplots_view_t *v = fp_menu_view( GTK_WIDGET(item) );
-  int p = GPOINTER_TO_INT(user_data);
-  v->port_committed = TRUE;
-  fp_port_apply( v, p );
-  fp_port_button_label( v, p );
-}
-
-/* Snapshot the committed port as the menu opens. */
-  static void
-on_fp_port_menu_show( GtkWidget *menu, gpointer user_data )
-{
-  freqplots_view_t *v = g_object_get_data( G_OBJECT(menu), "fp_view" );
-  v->port_saved = fp_view_port( v );
-  v->port_committed = FALSE;
-}
-
-/* Revert to the snapshot when the menu closes without a click. */
-  static void
-on_fp_port_menu_done( GtkMenuShell *menu, gpointer user_data )
-{
-  freqplots_view_t *v = g_object_get_data( G_OBJECT(menu), "fp_view" );
-  if( !v->port_committed )
-    fp_port_apply( v, v->port_saved );
+  fp_port_refresh( v );
+  fp_port_button_label( v, fp_view_port(v) );
 }
 
 /* Resolve whether view @v's port pull-down accepts input.  A multiport model
@@ -818,24 +788,26 @@ fp_build_port_combo( freqplots_view_t *v, GtkMenuButton *button )
   int n_ports = Num_Feedpoint_Ports();
   GtkWidget *menu = gtk_menu_new();
 
+  /* Filled before the first row binds and living as long as the view, so no
+   * row dispatches through capabilities that outlive it */
+  v->port_scope.dest.storage = fp_port_storage( v );
+  v->port_scope.dest.size    = sizeof(int);
+  v->port_scope.dest.refresh = fp_port_refresh;
+  v->port_scope.dest.context = v;
+  v->port_scope.commit       = fp_port_commit;
+  v->port_scope.preview      = TRUE;
+
   for( int p = 0; p < n_ports; p++ )
   {
     char *label = fp_port_label( p );
     GtkWidget *item = gtk_menu_item_new_with_label( label );
     g_free( label );
-    g_signal_connect( item, "select",
-        G_CALLBACK(on_fp_port_item_select), GINT_TO_POINTER(p) );
-    g_signal_connect( item, "activate",
-        G_CALLBACK(on_fp_port_item_activate), GINT_TO_POINTER(p) );
     gtk_widget_show( item );
     gtk_menu_shell_append( GTK_MENU_SHELL(menu), item );
-  }
 
-  g_object_set_data( G_OBJECT(menu), "fp_view", v );
-  g_signal_connect( menu, "show",
-      G_CALLBACK(on_fp_port_menu_show), NULL );
-  g_signal_connect( menu, "selection-done",
-      G_CALLBACK(on_fp_port_menu_done), NULL );
+    /* Appended first, so the row reaches the shell that ends its hover */
+    config_widget_bind_scoped( item, &v->port_scope, &p );
+  }
 
   /* GtkMenuButton sinks the floating menu and releases any prior popup. */
   gtk_menu_button_set_popup( button, menu );
@@ -1504,6 +1476,10 @@ void freqplots_close_panel(fp_panel_t panel)
 		return;
 
 	fpv_popups[panel] = NULL;
+
+	/* A hover staging into this view's port must not outlive the field it
+	 * restores into. */
+	config_preview_discard(fp_port_storage(v));
 
 	/* The window took its drawing area down with it, so the surface
 	 * registration goes before the view holding the handle. */
