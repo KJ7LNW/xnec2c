@@ -74,6 +74,13 @@ xnec2c_SOURCES = \
     settings/render_settings_general.c \
     settings/render_settings_cairo.c \
     config/config_widget.c config/config_widget.h \
+    config/config_preview.c config/config_preview.h \
+    config/config_preview_row.c \
+    config/config_widget_priv.h \
+    config/config_widget_element.c \
+    config/config_widget_row.c config/config_widget_row.h \
+    config/config_widget_scope.h \
+    config/config_widget_sync.c \
     config_hooks.c config_hooks.h \
     expr_edit.c     expr_edit.h \
     opt_ui.c        opt_ui.h \

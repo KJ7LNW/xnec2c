@@ -73,7 +73,6 @@ typedef struct
   chroma_channel_t  lum_src;  /* physical channel feeding brightness */
   lum_enc_t       lum_enc;  /* brightness encoding */
   const char     *formula;  /* Pango markup closed form */
-  const char     *sel_id;   /* animate-dialog projection radio-item id */
 } chroma_proj_row_t;
 
 /* Enum-indexed projection table */
@@ -132,26 +131,10 @@ void chroma_project_frame(rgb_f_t *out, const chroma_source_t *hue_cs,
 chroma_proj_t chroma_proj_sanitize(int v);
 
 /**
- * chroma_proj_preview_set() - Override the projection selection during menu hover
- * @proj: hovered projection value
- */
-void chroma_proj_preview_set(int proj);
-
-/**
- * chroma_proj_preview_clear() - Drop the hover override
- */
-void chroma_proj_preview_clear(void);
-
-/**
- * chroma_proj_preview_active() - Whether a hover preview is overriding
- */
-gboolean chroma_proj_preview_active(void);
-
-/**
  * chroma_proj_selected() - Resolve the projection selection now in effect
  *
- * A live menu-hover preview overrides the committed rc_config selection;
- * animation state does not enter (see chroma_proj_animated).
+ * Reads the committed rc_config selection; a hover stages its candidate into
+ * that field.  Animation state does not enter (see chroma_proj_animated).
  */
 chroma_proj_t chroma_proj_selected(void);
 

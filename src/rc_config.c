@@ -25,6 +25,7 @@
 #include "mathlib.h"
 #include "measurements.h"
 #include "config_hooks.h"
+#include "config/config_preview.h"
 #include "rdpattern_ui.h"
 #include "chroma/chroma.h"
 
@@ -89,6 +90,7 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Main Window Currents toggle button state", .format = "%d",
 		.vars = { &rc_config.structure_view }, .def = { { .i = STRUCT_VIEW_DISABLED } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = structure_view_apply,
+			.preview = TRUE,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &main_window_builder,
 					.elements = CONFIG_WIDGETS(
@@ -111,6 +113,7 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Polarization Type", .format = "%d",
 		.vars = { &calc_data.pol_type }, .def = { { .i = POL_TOTAL } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_polarization,
+			.preview = TRUE,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &main_window_builder,
 					.elements = CONFIG_WIDGETS(
@@ -152,10 +155,18 @@ rc_config_vars_t rc_config_vars[] = {
 							.values = CONFIG_WIDGET_VALUES(POL_LHCP) ),
 						NULL ) ),
 				CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder,
+					.value_label_id = "anim_polarization_label",
 					.elements = CONFIG_WIDGETS(
-						CONFIG_WIDGET( .widget_id = "anim_polarization",
-							.values = CONFIG_WIDGET_VALUES(POL_TOTAL, POL_HORIZ,
-								POL_VERT, POL_RHCP, POL_LHCP) ),
+						CONFIG_WIDGET( .widget_id = "anim_pol_total",
+							.values = CONFIG_WIDGET_VALUES(POL_TOTAL) ),
+						CONFIG_WIDGET( .widget_id = "anim_pol_horizontal",
+							.values = CONFIG_WIDGET_VALUES(POL_HORIZ) ),
+						CONFIG_WIDGET( .widget_id = "anim_pol_vertical",
+							.values = CONFIG_WIDGET_VALUES(POL_VERT) ),
+						CONFIG_WIDGET( .widget_id = "anim_pol_right_hand",
+							.values = CONFIG_WIDGET_VALUES(POL_RHCP) ),
+						CONFIG_WIDGET( .widget_id = "anim_pol_left_hand",
+							.values = CONFIG_WIDGET_VALUES(POL_LHCP) ),
 						NULL ) ),
 				NULL ) ) },
 
@@ -237,6 +248,7 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Near Field Static Baseline", .format = "%d",
 		.vars = { &rc_config.nf_static_mode }, .def = { { .i = NF_STATIC_PEAK } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_render_redraw,
+			.preview = TRUE,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &rdpattern_window_builder,
 					.elements = CONFIG_WIDGETS(
@@ -250,6 +262,7 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Far Field Animated Quantity", .format = "%d",
 		.vars = { &rc_config.ff_quantity }, .def = { { .i = FF_QTY_EFIELD } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_redraw,
+			.preview = TRUE,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder,
 					.elements = CONFIG_WIDGETS(
@@ -263,6 +276,7 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Far Field Polarization Reference", .format = "%d",
 		.vars = { &rc_config.ff_frame }, .def = { { .i = FF_FRAME_WORLD } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_redraw,
+			.preview = TRUE,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder,
 					.elements = CONFIG_WIDGETS(
@@ -330,6 +344,7 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.rdpattern_draw_style },
 		.def = { { .i = RDPAT_STYLE_BOTH } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_rdpat_redraw,
+			.preview = TRUE,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &rdpattern_window_builder,
 					.elements = CONFIG_WIDGETS(
@@ -458,6 +473,7 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.current_flow_visualization_mode },
 		.def = { { .i = FLOW_DIR_REFERENCE_PHASE } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_flow_direction,
+			.preview = TRUE,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &main_window_builder,
 					.elements = CONFIG_WIDGETS(
@@ -473,6 +489,7 @@ rc_config_vars_t rc_config_vars[] = {
 							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_WIREFRAME) ),
 						NULL ) ),
 				CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder,
+					.value_label_id = "anim_flow_dir_label",
 					.elements = CONFIG_WIDGETS(
 						CONFIG_WIDGET( .widget_id = "anim_flow_ref_phase",
 							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_REFERENCE_PHASE) ),
@@ -491,8 +508,10 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.anim_color_proj },
 		.def = { { .i = CHROMA_PROJ_INSTANT } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_color_vis,
+			.preview = TRUE,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder,
+					.value_label_id = "anim_color_proj_label",
 					.elements = CONFIG_WIDGETS(
 						CONFIG_WIDGET( .widget_id = "anim_projsel_instant",
 							.values = CONFIG_WIDGET_VALUES(CHROMA_PROJ_INSTANT) ),
@@ -515,6 +534,7 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.color_scale },
 		.def = { { .i = COLOR_TONE_POWER } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_color_family,
+			.preview = TRUE,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &main_window_builder,
 					.elements = CONFIG_WIDGETS(
@@ -534,6 +554,7 @@ rc_config_vars_t rc_config_vars[] = {
 							.values = CONFIG_WIDGET_VALUES(COLOR_TONE_NONE) ),
 						NULL ) ),
 				CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder,
+					.value_label_id = "anim_color_family_label",
 					.elements = CONFIG_WIDGETS(
 						CONFIG_WIDGET( .widget_id = "anim_famsel_power",
 							.values = CONFIG_WIDGET_VALUES(COLOR_TONE_POWER) ),
@@ -787,7 +808,27 @@ rc_config_vars_t rc_config_vars[] = {
 			"freqplots_clamp_vswr", hook_freqplots_redraw ) },
 
 	{ .desc = "Radiation Plots Gain Style", .format = "%d",
-		.vars = { &rc_config.gain_style }, .def = { { .i = GS_LINP } } },
+		.vars = { &rc_config.gain_style }, .def = { { .i = GS_LINP } },
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = Set_Gain_Style,
+			.on_change = gain_style_check_warnings,
+			.preview = TRUE,
+			.groups = CONFIG_WIDGET_GROUPS(
+				CONFIG_WIDGET_GROUP( .builder = &rdpattern_window_builder,
+					.elements = CONFIG_WIDGETS(
+						CONFIG_WIDGET( .widget_id = "rdpattern_linear_power",
+							.values = CONFIG_WIDGET_VALUES(GS_LINP) ),
+						CONFIG_WIDGET( .widget_id = "rdpattern_linear_voltage",
+							.values = CONFIG_WIDGET_VALUES(GS_LINV) ),
+						CONFIG_WIDGET( .widget_id = "rdpattern_arrl_style",
+							.values = CONFIG_WIDGET_VALUES(GS_ARRL) ),
+						CONFIG_WIDGET( .widget_id = "rdpattern_logarithmic",
+							.values = CONFIG_WIDGET_VALUES(GS_LOG) ),
+						CONFIG_WIDGET( .widget_id = "rdpattern_noise_temp",
+							.values = CONFIG_WIDGET_VALUES(GS_NOISE) ),
+						CONFIG_WIDGET( .widget_id = "rdpattern_noise_temp_log",
+							.values = CONFIG_WIDGET_VALUES(GS_NOISE_LOG) ),
+						NULL ) ),
+				NULL ) ) },
 
 	{ .desc = "Round X Axis", .format = "%d",
 		.vars = { &rc_config.freqplots_round_x_axis },
@@ -874,13 +915,15 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.ant_temp_custom_t_earth },
 		.def = { { .d = ANT_TEMP_CUSTOM_T_EARTH_DEFAULT } } },
 
-	/* The theme selector radios are runtime-built menu items owned by
-	 * theme.c, so these trees bind no widgets; the rows still own the
-	 * unified theme-derived refresh fired by config_widget_field_changed. */
+	/* The theme selector radios are menu items the frequency-plots window
+	 * builds from the theme registry, so these trees name no group; each row
+	 * binds itself to its field and reaches this tree's refresh and its
+	 * hover policy through that binding. */
 	{ .desc = "Frequency Plots Color Theme", .format = "%s",
 		.vars = { rc_config.freqplots_theme }, .size = sizeof(rc_config.freqplots_theme),
 		.def = { { .s = "legacy" } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_theme_change,
+			.preview = TRUE,
 			.groups = CONFIG_WIDGET_GROUPS( NULL ) ) },
 
 	{ .desc = "Frequency Plots Theme Inverted", .format = "%d",
@@ -1666,6 +1709,10 @@ Get_GUI_State( void )
 Save_Config( void )
 {
   FILE *fp = NULL;  /* File pointer to write config file */
+
+  /* A hover stages its candidate into the field it previews, so the committed
+   * value is restored here rather than persisted as the user's selection. */
+  config_preview_revert();
 
   /* Batch runs must not persist configuration: validation_dump_force_config()
    * forces a canonical mathlib, antenna-temperature models, polarization, and

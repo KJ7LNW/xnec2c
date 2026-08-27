@@ -26,13 +26,14 @@
 #include "../callbacks.h"
 #include "../i18n.h"
 #include "../themes/theme.h"
+#include "../config/config_widget.h"
 
 /* freqplots_invert_item_sync()
  *
  * Match the Inverted item's sensitivity to whether base carries an inverted
  * variant; a theme without one (legacy, smith-derived) leaves the item
  * insensitive and shows an explanatory tooltip, set only in that state. */
-  void
+  static void
 freqplots_invert_item_sync( GtkWidget *invert, const char *base )
 {
   gboolean has = theme_has_inverted( base );
@@ -42,33 +43,58 @@ freqplots_invert_item_sync( GtkWidget *invert, const char *base )
       has ? NULL : _("This theme has no inverted variant") );
 }
 
+/* freqplots_theme_invert_sync()
+ *
+ * Match the live Inverted item to the base theme the field now holds.  The
+ * theme refresh calls this on every commit, hover and revert, so the item
+ * follows the value rather than the click that produced it.  Idle while the
+ * frequency-plots window is closed and carries no menu. */
+  void
+freqplots_theme_invert_sync( void )
+{
+  GtkWidget *menu;
+  GtkWidget *invert;
+
+  if( freqplots_window_builder == NULL ) return;
+
+  menu = Builder_Get_Object( freqplots_window_builder,
+      "freqplots_color_theme_menu_menu" );
+  if( menu == NULL ) return;
+
+  invert = g_object_get_data( G_OBJECT(menu), THEME_DATA_INVERT_ITEM );
+  if( invert == NULL ) return;
+
+  freqplots_invert_item_sync( invert, rc_config.freqplots_theme );
+}
+
 /* freqplots_theme_radio_append()
  *
- * Build one base-theme radio item into the shared group, tagging it with its
- * base name and the Inverted item it governs, and syncing its active state to
- * the persisted selection without feeding the load back as user interaction. */
+ * Build one base-theme radio item into the shared group, seed its active
+ * state from the persisted selection, and bind it to the theme field so the
+ * config engine carries this row's hover and its commit. */
   static void
 freqplots_theme_radio_append( GtkWidget *menu, GSList **group,
-    GtkWidget *invert, const theme_menu_entry_t *e )
+    const theme_menu_entry_t *e )
 {
   GtkWidget *item = gtk_radio_menu_item_new_with_label( *group, e->display );
 
+  /* Zeroed over the whole field width so a shorter theme name cannot retain
+   * suffix bytes from the row staged before it. */
+  char candidate[sizeof(rc_config.freqplots_theme)] = { 0 };
+
   *group = gtk_radio_menu_item_get_group( GTK_RADIO_MENU_ITEM(item) );
 
-  g_object_set_data_full( G_OBJECT(item), THEME_DATA_BASE,
-      g_strdup(e->base_name), g_free );
-  g_object_set_data( G_OBJECT(item), THEME_DATA_INVERT_ITEM, invert );
+  Strlcpy( candidate, e->base_name, sizeof(candidate) );
 
-  SIGNAL_BLOCK( item, on_freqplots_theme_activate );
+  /* Seeded ahead of the binding, so loading the persisted selection reaches
+   * no commit edge */
   gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(item),
       g_strcmp0( e->base_name, rc_config.freqplots_theme ) == 0 );
-  SIGNAL_UNBLOCK( item, on_freqplots_theme_activate );
 
-  g_signal_connect( item, "activate",
-      G_CALLBACK(on_freqplots_theme_activate), NULL );
-  g_signal_connect( item, "select",
-      G_CALLBACK(on_freqplots_theme_select), NULL );
   gtk_menu_shell_append( GTK_MENU_SHELL(menu), item );
+
+  /* Appended first, so the row reaches the shell that ends its hover */
+  config_widget_bind_row( item, rc_config.freqplots_theme, candidate );
 }
 
 /* freqplots_theme_menu_build()
@@ -78,8 +104,8 @@ freqplots_theme_radio_append( GtkWidget *menu, GSList **group,
  * axis above one radio group of base theme names; legacy heads the list as the
  * default, user custom themes follow it, and a separator divides that top
  * group from the built-in themes in registry order.
- * Programmatic active-state sync blocks the handlers so the load does not feed
- * back as user interaction. */
+ * The Inverted item rides the menu shell, so the theme refresh reaches it
+ * without a handler of its own. */
   void
 freqplots_theme_menu_build( GtkBuilder *builder )
 {
@@ -101,6 +127,7 @@ freqplots_theme_menu_build( GtkBuilder *builder )
   g_signal_connect( invert, "toggled",
       G_CALLBACK(on_freqplots_theme_invert_toggled), NULL );
   gtk_menu_shell_append( GTK_MENU_SHELL(menu), invert );
+  g_object_set_data( G_OBJECT(menu), THEME_DATA_INVERT_ITEM, invert );
 
   /* Legacy heads the radio list; user custom themes follow it so they sit at
    * the top, adjacent to the default and easy to find, set off by a separator
@@ -112,7 +139,7 @@ freqplots_theme_menu_build( GtkBuilder *builder )
     if( g_strcmp0( e->base_name, "legacy" ) != 0 )
       continue;
 
-    freqplots_theme_radio_append( menu, &group, invert, e );
+    freqplots_theme_radio_append( menu, &group, e );
     break;
   }
 
@@ -123,7 +150,7 @@ freqplots_theme_menu_build( GtkBuilder *builder )
     if( !e->user_origin || g_strcmp0( e->base_name, "legacy" ) == 0 )
       continue;
 
-    freqplots_theme_radio_append( menu, &group, invert, e );
+    freqplots_theme_radio_append( menu, &group, e );
   }
 
   gtk_menu_shell_append( GTK_MENU_SHELL(menu), gtk_separator_menu_item_new() );
@@ -135,13 +162,8 @@ freqplots_theme_menu_build( GtkBuilder *builder )
     if( g_strcmp0( e->base_name, "legacy" ) == 0 || e->user_origin )
       continue;
 
-    freqplots_theme_radio_append( menu, &group, invert, e );
+    freqplots_theme_radio_append( menu, &group, e );
   }
-
-  /* Revert an uncommitted hover preview when the theme list collapses; a
-   * click clears the preview through activate before this hide fires. */
-  g_signal_connect( menu, "hide",
-      G_CALLBACK(on_freqplots_theme_menu_hide), NULL );
 
   gtk_widget_show_all( menu );
 }

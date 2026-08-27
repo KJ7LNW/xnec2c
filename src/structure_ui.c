@@ -26,6 +26,7 @@
  */
 #include "structure_ui.h"
 #include "shared.h"
+#include "config/config_preview.h"
 #include "config_hooks.h"
 #include "callbacks.h"
 #include "cairo/cairo_draw.h"
@@ -443,14 +444,15 @@ animation_is_active(void)
 
 /** color_proj_active() - Resolve the color projection now in effect
  *
- * A live menu-hover preview renders at once; otherwise the animated
- * projection applies while animation playback is live, else the static
- * amplitude baseline.
+ * A live hover preview renders at once; otherwise the animated projection
+ * applies while animation playback is live, else the static amplitude
+ * baseline.
  */
   chroma_proj_t
 color_proj_active(void)
 {
-  return (chroma_proj_preview_active() || animation_is_active())
+  return (config_preview_active(&rc_config.anim_color_proj) ||
+      animation_is_active())
       ? chroma_proj_selected()
       : CHROMA_PROJ_AMPLITUDE;
 }

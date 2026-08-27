@@ -17,9 +17,8 @@
 
 #include "../common.h"
 
-/* g_object_data keys binding a theme menu item to its base name and the
- * Inverted item it governs; set by the menu builder, read by the handlers. */
-#define THEME_DATA_BASE         "theme_base"
+/* g_object_data key carrying the Inverted item on the color-theme menu shell
+ * that governs it; set by the menu builder, read by the theme refresh. */
 #define THEME_DATA_INVERT_ITEM  "theme_invert_item"
 
 /* Bind every themable visual role to one immutable rendering color theme.
@@ -107,13 +106,6 @@ void theme_registry_init(void);
  * matching theme; falls back to legacy (warning once) for an absent base or
  * an absent -inverted variant. */
 const theme_t *theme_active(void);
-
-/* Transient menu-hover preview.  theme_active resolves the preview base over
- * rc_config until theme_preview_clear (a committed selection or a menu
- * collapse).  A preview never writes the committed rc_config selection. */
-void theme_preview_set(const char *base);
-void theme_preview_clear(void);
-gboolean theme_preview_active(void);
 
 /* Whether a -inverted registry entry exists for a base theme name. */
 gboolean theme_has_inverted(const char *base_name);

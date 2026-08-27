@@ -440,48 +440,41 @@ Polarization_Factor( int pol_type, int fstep, int idx )
 
 /*-----------------------------------------------------------------------*/
 
-/* Set_Polarization()
+/* polarization_refresh()
  *
- * Sets the polarization type of gain to be plotted
+ * Refreshes everything derived from the polarization type of gain plotted
  */
 
   void
-Set_Polarization( int pol )
+polarization_refresh( void )
 {
-  calc_data.pol_type = pol;
   Set_Window_Labels();
   freq_step_refresh_ui(TRUE);
 
-} /* Set_Polarization() */
+} /* polarization_refresh() */
 
 /*-----------------------------------------------------------------------*/
 
 /* Set_Gain_Style()
  *
- * Sets the radiation pattern Gain scaling style
+ * Refreshes everything derived from the radiation pattern Gain scaling style
  */
   void
-Set_Gain_Style( int gs )
+Set_Gain_Style( void )
 {
-  static char *scale_widget_names[NUM_SCALES] = {
-	  "rdpattern_linear_power",
-	  "rdpattern_linear_voltage",
-	  "rdpattern_arrl_style",
-	  "rdpattern_logarithmic",
-	  "rdpattern_noise_temp",
-	  "rdpattern_noise_temp_log",
-	  };
-
   GtkWidget *widget;
+  int gs = rc_config.gain_style;
 
-  // This should never happen:
-  if (gs >= NUM_SCALES)
-	  return;
+  if( gs < GS_LINP || gs >= NUM_SCALES )
+  {
+    BUG("gain style %d is outside supported range [%d, %d)\n",
+        gs, GS_LINP, NUM_SCALES);
+    return;
+  }
 
-  rc_config.gain_style = gs;
-
-  widget = Builder_Get_Object( rdpattern_window_builder, scale_widget_names[rc_config.gain_style] );
-  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(widget), TRUE );
+  /* Dormant: the pattern window holds every readout the refresh below writes */
+  if( rdpattern_window_builder == NULL )
+    return;
 
   gboolean noise = IS_NOISE_MODE(gs);
 
@@ -566,19 +559,30 @@ Set_Gain_Style( int gs )
     }
   }
 
-  /* Check for model compatibility warnings when entering noise mode */
-  if (noise)
-  {
-    g_rec_mutex_lock(&freq_data_lock);
-    Check_Noise_Warnings(calc_data.freq_step);
-    g_rec_mutex_unlock(&freq_data_lock);
-  }
-
   Set_Window_Labels();
 
   freq_step_refresh_ui(TRUE);
 
 } /* Set_Gain_Style() */
+
+/*-----------------------------------------------------------------------*/
+
+/** gain_style_check_warnings - report noise-mode model compatibility
+ *
+ * This is the committed transition edge alone, so crossing the noise rows on
+ * hover stays silent.
+ */
+  void
+gain_style_check_warnings( void )
+{
+  if( !IS_NOISE_MODE(rc_config.gain_style) )
+    return;
+
+  g_rec_mutex_lock(&freq_data_lock);
+  Check_Noise_Warnings(calc_data.freq_step);
+  g_rec_mutex_unlock(&freq_data_lock);
+
+} /* gain_style_check_warnings() */
 
 /*-----------------------------------------------------------------------*/
 

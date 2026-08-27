@@ -37,43 +37,32 @@ const chroma_proj_row_t chroma_proj_rows[CHROMA_PROJ_NUM] = {
   [CHROMA_PROJ_AMPLITUDE] = {
     .hue_src = CHAN_CURRENT, .hue_enc = HUE_MAG_RAMP,
     .lum_src = CHAN_CURRENT, .lum_enc = LUM_CONSTANT,
-    .formula = "c = ramp(s(n))",
-    .sel_id  = "anim_projsel_amplitude" },
+    .formula = "c = ramp(s(n))" },
   [CHROMA_PROJ_INSTANT] = {
     .hue_src = CHAN_CURRENT, .hue_enc = HUE_MAG_RAMP,
     .lum_src = CHAN_CURRENT, .lum_enc = LUM_ABS_INSTANT,
-    .formula = "c = ramp(s(n)) · (floor + (1−floor)·|cos(arg z + φ)|)",
-    .sel_id  = "anim_projsel_instant" },
+    .formula = "c = ramp(s(n)) · (floor + (1−floor)·|cos(arg z + φ)|)" },
   [CHROMA_PROJ_SIGNED] = {
     .hue_src = CHAN_CURRENT, .hue_enc = HUE_SIGN_DIVERGING,
     .lum_src = CHAN_CURRENT, .lum_enc = LUM_ENVELOPE,
-    .formula = "hue = ±cos(arg z + φ),  value = s(n)",
-    .sel_id  = "anim_projsel_polarity" },
+    .formula = "hue = ±cos(arg z + φ),  value = s(n)" },
   [CHROMA_PROJ_PHASE] = {
     .hue_src = CHAN_CURRENT, .hue_enc = HUE_PHASE_CYCLIC,
     .lum_src = CHAN_CURRENT, .lum_enc = LUM_ENVELOPE,
-    .formula = "hue = arg z + φ,  value = s(n)",
-    .sel_id  = "anim_projsel_phase" },
+    .formula = "hue = arg z + φ,  value = s(n)" },
   [CHROMA_PROJ_DUAL] = {
     .hue_src = CHAN_CHARGE,  .hue_enc = HUE_SIGN_DIVERGING,
     .lum_src = CHAN_CURRENT, .lum_enc = LUM_ENVELOPE,
-    .formula = "hue = ±q(φ),  value = s(|I|)",
-    .sel_id  = "anim_projsel_dual" },
+    .formula = "hue = ±q(φ),  value = s(|I|)" },
   [CHROMA_PROJ_STANDING] = {
     .hue_src = CHAN_SWR,     .hue_enc = HUE_MAG_RAMP,
     .lum_src = CHAN_CURRENT, .lum_enc = LUM_ENVELOPE,
-    .formula = "hue = ramp(SWR),  value = s(n)",
-    .sel_id  = "anim_projsel_standing" },
+    .formula = "hue = ramp(SWR),  value = s(n)" },
   [CHROMA_PROJ_FARFIELD] = {
     .hue_src = CHAN_FFCONTRIB, .hue_enc = HUE_MAG_RAMP,
     .lum_src = CHAN_CURRENT,   .lum_enc = LUM_ENVELOPE,
-    .formula = "hue = ramp(contribution),  value = s(n)",
-    .sel_id  = "anim_projsel_farfield" },
+    .formula = "hue = ramp(contribution),  value = s(n)" },
 };
-
-/* Transient menu-hover preview; chroma_proj_selected resolves this projection
- * in place of the committed selection while set; -1 means none. */
-static int color_proj_preview = -1;
 
 /* Hue encoding -> palette kind, the single typing of hue meaning */
 static const palette_kind_t hue_palette_kinds[HUE_ENC_NUM] = {
@@ -294,40 +283,15 @@ chroma_proj_sanitize(int v)
 
 /*-----------------------------------------------------------------------*/
 
-/** chroma_proj_preview_set() - Override the projection selection during menu hover
- * @proj: hovered projection value
- */
-  void
-chroma_proj_preview_set(int proj)
-{
-  color_proj_preview = proj;
-}
-
-/** chroma_proj_preview_clear() - Drop the hover override */
-  void
-chroma_proj_preview_clear(void)
-{
-  color_proj_preview = -1;
-}
-
-/** chroma_proj_preview_active() - Whether a hover preview is overriding */
-  gboolean
-chroma_proj_preview_active(void)
-{
-  return color_proj_preview >= 0;
-}
-
 /** chroma_proj_selected() - Resolve the projection selection now in effect
  *
- * A live menu-hover preview overrides the committed rc_config selection;
- * animation state does not enter (see chroma_proj_animated).
+ * Reads the committed rc_config selection; a hover stages its candidate into
+ * that field.  Animation state does not enter (see chroma_proj_animated).
  */
   chroma_proj_t
 chroma_proj_selected(void)
 {
-  return (color_proj_preview >= 0)
-      ? (chroma_proj_t)color_proj_preview
-      : chroma_proj_sanitize(rc_config.anim_color_proj);
+  return chroma_proj_sanitize(rc_config.anim_color_proj);
 }
 
 /*-----------------------------------------------------------------------*/

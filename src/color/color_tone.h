@@ -51,8 +51,6 @@ typedef struct
 {
   const char *row_id;     /* glade slider-row box id, visibility-swapped */
   const char *scale_id;   /* GtkScale id bound to slider_var */
-  const char *sel_id;     /* animate-dialog family radio-item id */
-  const char *main_id;    /* main-window Visualization radio-item id */
   double     *slider_var; /* &rc_config.color_fam_param[fam], slider domain */
   const char *formula;    /* Pango markup closed form of the transfer */
   const char *value_fmt;  /* printf format rendering the natural parameter */
@@ -73,25 +71,10 @@ extern const color_tone_row_t color_tones[COLOR_TONE_NUM];
 color_tone_t color_tone_sanitize(int v);
 
 /**
- * color_tone_preview_set() - Override the family selection during menu hover
- * @fam: hovered family value
- */
-void color_tone_preview_set(int fam);
-
-/**
- * color_tone_preview_clear() - Drop the hover override
- */
-void color_tone_preview_clear(void);
-
-/**
- * color_tone_preview_active() - Whether a hover preview is overriding
- */
-gboolean color_tone_preview_active(void);
-
-/**
  * color_tone_active() - Resolve the family selection now in effect
  *
- * A live menu-hover preview overrides the committed rc_config selection.
+ * Reads the committed rc_config selection; a hover stages its candidate
+ * into that field, so a preview resolves through the same read.
  */
 color_tone_t color_tone_active(void);
 

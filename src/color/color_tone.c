@@ -43,8 +43,6 @@ const color_tone_row_t color_tones[COLOR_TONE_NUM] =
 {
   [COLOR_TONE_POWER] = { .row_id = "anim_fam_row_power",
     .scale_id   = "anim_fam_power",
-    .sel_id     = "anim_famsel_power",
-    .main_id    = "main_color_fam_power",
     .slider_var = &rc_config.color_fam_param[COLOR_TONE_POWER],
     .formula    = "v = n<sup>γ</sup>",
     .value_fmt  = "γ = %.2f",
@@ -53,8 +51,6 @@ const color_tone_row_t color_tones[COLOR_TONE_NUM] =
 
   [COLOR_TONE_DB] = { .row_id = "anim_fam_row_db",
     .scale_id   = "anim_fam_db",
-    .sel_id     = "anim_famsel_db",
-    .main_id    = "main_color_fam_db",
     .slider_var = &rc_config.color_fam_param[COLOR_TONE_DB],
     .formula    = "v = 1 + (20/R)·log₁₀ max(n, 10<sup>−R/20</sup>)",
     .value_fmt  = "%.0f dB",
@@ -63,8 +59,6 @@ const color_tone_row_t color_tones[COLOR_TONE_NUM] =
 
   [COLOR_TONE_ASINH] = { .row_id = "anim_fam_row_asinh",
     .scale_id   = "anim_fam_asinh",
-    .sel_id     = "anim_famsel_asinh",
-    .main_id    = "main_color_fam_asinh",
     .slider_var = &rc_config.color_fam_param[COLOR_TONE_ASINH],
     .formula    = "v = asinh(n/k) / asinh(1/k)",
     .value_fmt  = "k = %.3g",
@@ -73,8 +67,6 @@ const color_tone_row_t color_tones[COLOR_TONE_NUM] =
 
   [COLOR_TONE_MULAW] = { .row_id = "anim_fam_row_mulaw",
     .scale_id   = "anim_fam_mulaw",
-    .sel_id     = "anim_famsel_mulaw",
-    .main_id    = "main_color_fam_mulaw",
     .slider_var = &rc_config.color_fam_param[COLOR_TONE_MULAW],
     .formula    = "v = ln(1 + μn) / ln(1 + μ)",
     .value_fmt  = "μ = %.3g",
@@ -83,8 +75,6 @@ const color_tone_row_t color_tones[COLOR_TONE_NUM] =
 
   [COLOR_TONE_REINHARD] = { .row_id = "anim_fam_row_reinhard",
     .scale_id   = "anim_fam_reinhard",
-    .sel_id     = "anim_famsel_reinhard",
-    .main_id    = "main_color_fam_reinhard",
     .slider_var = &rc_config.color_fam_param[COLOR_TONE_REINHARD],
     .formula    = "v = (1+k)·n / (n+k)",
     .value_fmt  = "k = %.3g",
@@ -93,8 +83,6 @@ const color_tone_row_t color_tones[COLOR_TONE_NUM] =
 
   [COLOR_TONE_SIGMOID] = { .row_id = "anim_fam_row_sigmoid",
     .scale_id   = "anim_fam_sigmoid",
-    .sel_id     = "anim_famsel_sigmoid",
-    .main_id    = "main_color_fam_sigmoid",
     .slider_var = &rc_config.color_fam_param[COLOR_TONE_SIGMOID],
     .formula    = "v = tanh(a·n) / tanh(a)",
     .value_fmt  = "a = %.2f",
@@ -104,16 +92,10 @@ const color_tone_row_t color_tones[COLOR_TONE_NUM] =
   /* No slider: scale_id and value_fmt stay NULL; the glade row box is
    * empty so the visibility swap shows no parameter control. */
   [COLOR_TONE_NONE] = { .row_id = "anim_fam_row_none",
-    .sel_id     = "anim_famsel_none",
-    .main_id    = "main_color_fam_none",
     .slider_var = &rc_config.color_fam_param[COLOR_TONE_NONE],
     .formula    = "v = 1",
     .param_map  = map_ident, .transfer = xfer_none },
 };
-
-/* Transient menu-hover preview; color_tone_active resolves this family in
- * place of the committed selection while set; -1 means none. */
-static int color_tone_preview = -1;
 
 /*-----------------------------------------------------------------------*/
 
@@ -131,39 +113,11 @@ color_tone_sanitize(int v)
 
 /*-----------------------------------------------------------------------*/
 
-/** color_tone_preview_set() - Override the family selection during menu hover
- * @fam: hovered family value
- */
-  void
-color_tone_preview_set(int fam)
-{
-  color_tone_preview = fam;
-}
-
-/** color_tone_preview_clear() - Drop the hover override */
-  void
-color_tone_preview_clear(void)
-{
-  color_tone_preview = -1;
-}
-
-/** color_tone_preview_active() - Whether a hover preview is overriding */
-  gboolean
-color_tone_preview_active(void)
-{
-  return color_tone_preview >= 0;
-}
-
-/** color_tone_active() - Resolve the family selection now in effect
- *
- * A live menu-hover preview overrides the committed rc_config selection.
- */
+/** color_tone_active() - Resolve the family selection now in effect */
   color_tone_t
 color_tone_active(void)
 {
-  return (color_tone_preview >= 0)
-      ? (color_tone_t)color_tone_preview
-      : color_tone_sanitize(rc_config.color_scale);
+  return color_tone_sanitize(rc_config.color_scale);
 }
 
 /*-----------------------------------------------------------------------*/

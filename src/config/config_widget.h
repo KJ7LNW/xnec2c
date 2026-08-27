@@ -22,6 +22,7 @@
 
 #include <limits.h>
 #include <gtk/gtk.h>
+#include "config_widget_scope.h"
 #include "../console.h"
 
 /*
@@ -32,6 +33,11 @@
  * groups (one per builder) -> elements (one per widget) -> values (radio
  * and combo selection lists).  Cross-widget identity is the field address;
  * peers re-sync live on any write under SIGNAL_BLOCK/SIGNAL_UNBLOCK.
+ *
+ * A selector that builds its rows at runtime declares no group and binds
+ * each row directly through config_widget_bind_row or, for state the
+ * registry does not hold, config_widget_bind_scoped.  Either kind of row
+ * reaches the same commit path and the same hover policy.
  */
 
 /*------------------------------------------------------------------------*/
@@ -43,27 +49,38 @@
 /* One bound widget: its glade id and, for radios/combos/valued toggles, the
  * field values its selection positions express.  A valued toggle carries two
  * entries: [0] written when pressed, [1] the released state.  values == NULL
- * means pass-through (plain toggle, check menu item, spin, range). */
+ * means pass-through (plain toggle, check menu item, spin, range).
+ * value_bytes expresses a selection wider than an int, such as a name, as
+ * the field bytes the row writes; a row names one or the other. */
 typedef struct {
   const char *widget_id;
   const int  *values;
+  const void *value_bytes;
 } config_widget_element_t;
 
 /* One builder's set of widgets bound to a field.  builder is dereferenced
  * at use; *builder == NULL means the window is not built yet and the
- * group is dormant. */
+ * group is dormant.  value_label_id names the label a collapsed pull-down
+ * button shows for its active row, written by the peer sync alone so the
+ * button keeps reading the committed value while a hover paints a
+ * candidate. */
 typedef struct {
   GtkBuilder **builder;
+  const char *value_label_id;
   const config_widget_element_t *const *elements;
 } config_widget_group_t;
 
 /* One field's complete binding: two optional hooks and every builder group
  * projecting the field.  post_apply is an idempotent refresh fired on every
  * change and on every bulk sync/create pass; on_change is a transition-edge
- * effect (non-idempotent or heavyweight) fired only on a real value change. */
+ * effect (non-idempotent or heavyweight) fired only on a real value change.
+ * preview declares that the tree's valued rows stage their candidate into
+ * the field on hover and repaint through post_apply alone, so a heavyweight
+ * refresh participates only where the tree states it. */
 typedef struct {
   void (*post_apply)(void);
   void (*on_change)(void);
+  gboolean preview;
   const config_widget_group_t *const *groups;
 } config_widget_tree_t;
 
@@ -131,6 +148,58 @@ void config_widget_register(void *field, size_t size,
                             const config_widget_tree_t *tree);
 void config_widget_cleanup(void);
 
+/** config_widget_field_scope - the capabilities a registered field's rows share
+ * @field: address of a registered field
+ *
+ * One scope per field, at a fixed address for the program's life, so a
+ * runtime row obeys the same preview declaration as a row the tree names and
+ * shares its destination and its commit edge.
+ *
+ * Return: the scope, or NULL when @field was never registered (BUG already
+ * raised).
+ */
+const config_widget_scope_t *config_widget_field_scope(void *field);
+
+/** config_widget_bind_row - bind a runtime row of a registered field
+ * @w:         the row widget, already appended to its parent
+ * @field:     address of a registered field
+ * @candidate: the field bytes, at the field's full width, that selecting
+ *             this row writes
+ *
+ * For a selector whose rows come from live data rather than a builder file.
+ * The engine owns the element describing the row and releases it with the
+ * widget, and connects the commit edge the row's class carries.
+ */
+void config_widget_bind_row(GtkWidget *w, void *field, const void *candidate);
+
+/** config_widget_bind_scoped - bind a runtime row of unregistered state
+ * @w:         the row widget, already appended to its parent
+ * @scope:     capabilities owned by the object holding the state, filled
+ *             before the first row attaches and outliving every row
+ * @candidate: the bytes, at @scope->dest.size, that selecting this row writes
+ *
+ * For per-object selections whose cardinality is not one, so the registry
+ * cannot hold them.
+ */
+void config_widget_bind_scoped(GtkWidget *w, const config_widget_scope_t *scope,
+                               const void *candidate);
+
+/** config_widget_post_apply - run a field's idempotent refresh alone
+ * @field: address of a registered field
+ *
+ * The refresh a hover repaints through, without the transition-edge effect
+ * or the peer sync a committed change carries.
+ */
+void config_widget_post_apply(void *field);
+
+/** config_widget_commit_field - carry a registered field's committed value out
+ * @field: address of a registered field, already holding the new value
+ *
+ * One order for every commit: the idempotent refresh, then the
+ * transition-edge effect, then the peer widgets.
+ */
+void config_widget_commit_field(void *field);
+
 /** config_widget_sync_field - write a field's value into every live peer widget
  * @field: address of a registered field
  *
@@ -145,20 +214,6 @@ void config_widget_sync_field(void *field);
  * the same side effects and peer sync as a widget-driven change.
  */
 void config_widget_field_changed(void *field);
-
-/** config_widget_value_widget - resolve the widget expressing a field's value
- * @field:   address of a registered field
- * @builder: address of the builder pointer whose group is searched
- *
- * Reads the value each element expresses, so the binding stays the one place
- * a value and its widget are paired.  A one-entry value list marks the widget
- * that expresses that value alone; combo and valued toggle lists reach
- * several values through one widget and are passed over.  A live builder
- * holding no such widget is a wiring error and raises BUG.
- *
- * Return: the matching widget, or NULL when the window is not built yet.
- */
-GtkWidget *config_widget_value_widget(void *field, GtkBuilder **builder);
 
 /** config_widget_sync_builder - write every field's value into one builder's widgets
  * @builder: address of the builder pointer (eg &main_window_builder)
@@ -182,9 +237,9 @@ void config_widget_sync_all(void);
  * @widget:    the widget that fired the signal
  * @user_data: unused
  *
- * Locates the (field, element) whose resolved widget equals @widget across
- * every registered tree, applies the widget's state into the field, and on
- * change runs the field's hook followed by a peer sync.
+ * Reads the binding row @widget carries, decodes what committing that widget
+ * writes, and on a real change runs the selection's commit edge.  A widget
+ * carrying no binding commits nothing.
  */
 void on_config_widget_changed(GtkWidget *widget, gpointer user_data);
 

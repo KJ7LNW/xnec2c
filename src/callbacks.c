@@ -614,8 +614,8 @@ on_main_rdpattern_activate(
 
     Main_Rdpattern_Activate( TRUE );
 
-    /* Restore gain style */
-    Set_Gain_Style(rc_config.gain_style);
+    /* Check the restored gain style after its tree refreshes the window */
+    gain_style_check_warnings();
 
     /* Populate and restore noise model sub-menus */
     noise_model_menus_populate();
@@ -1395,65 +1395,6 @@ on_rdpattern_save_as_csv_activate(
       rc_config.working_dir );
 }
 
-
-  void
-on_rdpattern_linear_power_activate(
-    GtkMenuItem     *menuitem,
-    gpointer         user_data)
-{
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
-    Set_Gain_Style( GS_LINP );
-}
-
-
-  void
-on_rdpattern_linear_voltage_activate(
-    GtkMenuItem     *menuitem,
-    gpointer         user_data)
-{
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
-    Set_Gain_Style( GS_LINV );
-}
-
-
-  void
-on_rdpattern_arrl_style_activate(
-    GtkMenuItem     *menuitem,
-    gpointer         user_data)
-{
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
-    Set_Gain_Style( GS_ARRL );
-}
-
-
-  void
-on_rdpattern_logarithmic_activate(
-    GtkMenuItem     *menuitem,
-    gpointer         user_data)
-{
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
-    Set_Gain_Style( GS_LOG );
-}
-
-
-  void
-on_rdpattern_noise_temp_activate(
-    GtkMenuItem     *menuitem,
-    gpointer         user_data)
-{
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
-    Set_Gain_Style( GS_NOISE );
-}
-
-
-  void
-on_rdpattern_noise_temp_log_activate(
-    GtkMenuItem     *menuitem,
-    gpointer         user_data)
-{
-  if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
-    Set_Gain_Style( GS_NOISE_LOG );
-}
 
 /**
  * noise_interp_menu_set_active() - sync interp radio to given method
@@ -2417,123 +2358,6 @@ anim_fam_marks_attach(void)
   }
 }
 
-/** on_anim_projsel_select() - Preview a hovered projection menu row
- * @menuitem: hovered radio item, unused
- * @user_data: the row's chroma_proj_t value
- *
- * Renders the hovered projection at once without committing it; leaving
- * the menu without activating reverts via on_anim_projsel_menu_hide.
- */
-  static void
-on_anim_projsel_select(GtkMenuItem *menuitem, gpointer user_data)
-{
-  (void)menuitem;
-
-  chroma_proj_preview_set( GPOINTER_TO_INT(user_data) );
-  hook_color_vis();
-}
-
-/** on_anim_projsel_menu_hide() - Revert an uncommitted projection preview
- * @menu: collapsing projection menu, unused
- * @user_data: unused
- *
- * A click commits through the config machinery while the preview equals
- * the clicked value, so the clear resolves to the committed state; a
- * collapse on a mere hover restores the prior selection.
- */
-  static void
-on_anim_projsel_menu_hide(GtkWidget *menu, gpointer user_data)
-{
-  (void)menu;
-  (void)user_data;
-
-  if( !chroma_proj_preview_active() )
-    return;
-
-  chroma_proj_preview_clear();
-  hook_color_vis();
-}
-
-/** on_color_famsel_select() - Preview a hovered scale-family menu row
- * @menuitem: hovered radio item, unused
- * @user_data: the row's color_tone_t value
- *
- * Renders the hovered family at once, including its slider row and
- * formula; leaving the menu without activating reverts on menu hide.
- */
-  static void
-on_color_famsel_select(GtkMenuItem *menuitem, gpointer user_data)
-{
-  (void)menuitem;
-
-  color_tone_preview_set( GPOINTER_TO_INT(user_data) );
-  hook_color_family();
-}
-
-/** on_color_famsel_menu_hide() - Revert an uncommitted family preview
- * @menu: collapsing family menu, unused
- * @user_data: unused
- */
-  static void
-on_color_famsel_menu_hide(GtkWidget *menu, gpointer user_data)
-{
-  (void)menu;
-  (void)user_data;
-
-  if( !color_tone_preview_active() )
-    return;
-
-  color_tone_preview_clear();
-  hook_color_family();
-}
-
-/** anim_select_preview_attach() - Wire hover preview on the dialog selectors
- *
- * Connects each projection and family radio item's select edge and each
- * menu's hide edge, with the enum value as user data.
- */
-  static void
-anim_select_preview_attach(void)
-{
-  int i;
-
-  for( i = 0; i < CHROMA_PROJ_NUM; i++ )
-    g_signal_connect( Builder_Get_Object(animate_dialog_builder,
-          chroma_proj_rows[i].sel_id), "select",
-                     G_CALLBACK(on_anim_projsel_select), GINT_TO_POINTER(i) );
-
-  for( i = 0; i < COLOR_TONE_NUM; i++ )
-    g_signal_connect( Builder_Get_Object(animate_dialog_builder,
-          color_tones[i].sel_id), "select",
-        G_CALLBACK(on_color_famsel_select), GINT_TO_POINTER(i) );
-
-  g_signal_connect( Builder_Get_Object(animate_dialog_builder,
-        "anim_color_proj_menu"), "hide",
-      G_CALLBACK(on_anim_projsel_menu_hide), NULL );
-  g_signal_connect( Builder_Get_Object(animate_dialog_builder,
-        "anim_color_family_menu"), "hide",
-      G_CALLBACK(on_color_famsel_menu_hide), NULL );
-}
-
-/** color_family_menu_attach() - Wire hover preview on the main-window family radios
- * @builder: main window builder
- *
- * Connects the Visualization menu's family radio items to the shared
- * family preview handlers and the submenu's hide edge to the revert.
- */
-  void
-color_family_menu_attach(GtkBuilder *builder)
-{
-  int i;
-
-  for( i = 0; i < COLOR_TONE_NUM; i++ )
-    g_signal_connect( Builder_Get_Object(builder, color_tones[i].main_id),
-        "select", G_CALLBACK(on_color_famsel_select), GINT_TO_POINTER(i) );
-
-  g_signal_connect( Builder_Get_Object(builder, "main_flow_dir_menu_menu"),
-      "hide", G_CALLBACK(on_color_famsel_menu_hide), NULL );
-}
-
 /** on_anim_color_reset_clicked() - Restore the color controls' defaults
  * @button: emitting button, unused
  * @user_data: unused
@@ -2587,7 +2411,6 @@ show_animate_dialog(void)
         G_CALLBACK(on_phase_slider_motion_notify), NULL );
 
     anim_fam_marks_attach();
-    anim_select_preview_attach();
   }
   gtk_widget_show( animate_dialog );
   config_widget_sync_builder( &animate_dialog_builder );
@@ -5356,40 +5179,6 @@ on_aboutdialog_response(
 }
 
 
-/* on_freqplots_theme_activate()
- *
- * Base color-theme radio selection.  Sets the active base theme name and
- * updates the Inverted item's sensitivity to match whether the chosen theme
- * carries an inverted variant, then repaints through the single orchestration
- * path. */
-  void
-on_freqplots_theme_activate(
-    GtkMenuItem     *menuitem,
-    gpointer         user_data)
-{
-  const char *base;
-  GtkWidget  *invert;
-
-  if( !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
-    return;
-
-  base = g_object_get_data( G_OBJECT(menuitem), THEME_DATA_BASE );
-  if( base == NULL )
-    return;
-
-  Strlcpy( rc_config.freqplots_theme, base, sizeof(rc_config.freqplots_theme) );
-
-  /* A committed selection supersedes any hover preview so theme_active reads
-   * the persisted rc_config value rather than the transient override. */
-  theme_preview_clear();
-
-  invert = g_object_get_data( G_OBJECT(menuitem), THEME_DATA_INVERT_ITEM );
-  if( invert != NULL )
-    freqplots_invert_item_sync( invert, base );
-
-  config_widget_field_changed( rc_config.freqplots_theme );
-}
-
 /* on_freqplots_theme_invert_toggled()
  *
  * Inverted-variant toggle, the orthogonal axis to the base theme; repaints
@@ -5404,45 +5193,6 @@ on_freqplots_theme_invert_toggled(
 
   config_widget_field_changed( &rc_config.freqplots_theme_invert );
 }
-
-/* on_freqplots_theme_select()
- *
- * Menu-hover preview.  Highlighting a base-theme item paints that theme at
- * once without committing it, so the user previews before choosing.  An
- * uncommitted preview is reverted by on_freqplots_theme_menu_hide when the
- * theme list collapses. */
-  void
-on_freqplots_theme_select(
-    GtkMenuItem     *menuitem,
-    gpointer         user_data)
-{
-  const char *base = g_object_get_data( G_OBJECT(menuitem), THEME_DATA_BASE );
-
-  if( base == NULL )
-    return;
-
-  theme_preview_set( base );
-  hook_theme_change();
-}
-
-/* on_freqplots_theme_menu_hide()
- *
- * Color Theme submenu collapse.  A click commits through
- * on_freqplots_theme_activate, which clears the preview before the menu hides;
- * a preview still active here means the list collapsed on a mere hover, so the
- * committed selection is restored. */
-  void
-on_freqplots_theme_menu_hide(
-    GtkWidget       *menu,
-    gpointer         user_data)
-{
-  if( !theme_preview_active() )
-    return;
-
-  theme_preview_clear();
-  hook_theme_change();
-}
-
 
   void
 on_main_zoom_spinbutton_value_changed(

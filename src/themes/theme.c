@@ -94,11 +94,6 @@ static theme_t legacy_defaults;
 /* The resolved global width configuration. */
 static fp_width_t fp_widths;
 
-/* Transient menu-hover preview override; theme_active resolves this base in
- * place of the committed rc_config selection while a preview is active. */
-static char     theme_preview[64];
-static gboolean theme_preview_on;
-
 /*-----------------------------------------------------------------------*/
 
 /* Parse an uppercase or lowercase "#RRGGBB" triple into normalised floats.
@@ -363,17 +358,11 @@ theme_warn_once( const char *category, const char *name )
   const theme_t *
 theme_active( void )
 {
-  const char     *base;
+  const char     *base = rc_config.freqplots_theme;
   const theme_t  *t;
 
-  if( theme_preview_on )
-    base = theme_preview;
-  else
-  {
-    base = rc_config.freqplots_theme;
-    if( base[0] == '\0' )
-      base = LEGACY_THEME;
-  }
+  if( base[0] == '\0' )
+    base = LEGACY_THEME;
 
   if( rc_config.freqplots_theme_invert )
   {
@@ -396,35 +385,6 @@ theme_active( void )
     pr_warn("theme '%s' not found, using legacy\n", base);
 
   return g_hash_table_lookup(theme_by_name, LEGACY_THEME);
-}
-
-/* Set the transient hover-preview theme; theme_active resolves it over the
- * committed selection until theme_preview_clear.  A NULL base clears it. */
-  void
-theme_preview_set( const char *base )
-{
-  if( base == NULL )
-  {
-    theme_preview_on = FALSE;
-    return;
-  }
-
-  g_strlcpy(theme_preview, base, sizeof(theme_preview));
-  theme_preview_on = TRUE;
-}
-
-/* Drop any active hover preview so theme_active resolves rc_config again. */
-  void
-theme_preview_clear( void )
-{
-  theme_preview_on = FALSE;
-}
-
-/* Whether a hover preview is currently overriding the committed selection. */
-  gboolean
-theme_preview_active( void )
-{
-  return theme_preview_on;
 }
 
   gboolean

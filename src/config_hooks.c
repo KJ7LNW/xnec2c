@@ -32,7 +32,7 @@
 void
 hook_polarization(void)
 {
-  Set_Polarization(calc_data.pol_type);
+  polarization_refresh();
 
   /* The far-zone reference radios turn the linear pair of gain selections,
    * so their availability follows this selection */
@@ -57,47 +57,6 @@ hook_common_pan(void)
 
 /*------------------------------------------------------------------------*/
 
-/** menu_button_label_sync() - Name the active row on a pull-down button
- * @label_id: glade id of the label sharing the button with its drop arrow
- * @item:     menu row the current selection resolves to
- *
- * Every pull-down button carries a label beside a drop arrow, so writing the
- * label alone leaves the arrow in place while each row name lives once in its
- * menu.  The mnemonic marker a row carries is parsed rather than displayed.
- */
-  static void
-menu_button_label_sync(const char *label_id, GtkWidget *item)
-{
-  gtk_label_set_text_with_mnemonic(
-      GTK_LABEL(Builder_Get_Object(animate_dialog_builder, label_id)),
-      gtk_menu_item_get_label( GTK_MENU_ITEM(item) ) );
-
-} /* menu_button_label_sync() */
-
-/*------------------------------------------------------------------------*/
-
-/** anim_flow_button_sync() - Carry the selected flow mode onto its menu button
- *
- * The collapsed button reads as the active mode by taking the label of the
- * radio item the binding pairs with the stored value, so each mode name lives
- * once in the menu and the pairing stays in the configuration row.
- */
-  static void
-anim_flow_button_sync(void)
-{
-  GtkWidget *active = config_widget_value_widget(
-      &rc_config.current_flow_visualization_mode, &animate_dialog_builder );
-
-  /* The dialog holds the button, so a closed dialog leaves nothing to label */
-  if( active == NULL )
-    return;
-
-  menu_button_label_sync( "anim_flow_dir_label", active );
-
-} /* anim_flow_button_sync() */
-
-/*------------------------------------------------------------------------*/
-
 void
 hook_flow_direction(void)
 {
@@ -117,8 +76,6 @@ hook_flow_direction(void)
   gtk_widget_set_sensitive(
       Builder_Get_Object(main_window_builder, "main_structure_animate"),
       animatable);
-
-  anim_flow_button_sync();
 }
 
 /*------------------------------------------------------------------------*/
@@ -186,14 +143,11 @@ hook_color_vis(void)
     xnec2_widget_queue_draw( Builder_Get_Object(rdpattern_window_builder,
         "rdpattern_colorcode_drawingarea"), TRUE );
 
-  /* Track the animate dialog's projection selector label and formula to
-   * the selected row and refresh the dialog's copy of the legend strip */
+  /* Track the animate dialog's projection formula to the selected row and
+   * refresh the dialog's copy of the legend strip */
   if( animate_dialog_builder != NULL )
   {
     chroma_proj_t sel = chroma_proj_selected();
-
-    menu_button_label_sync( "anim_color_proj_label",
-        Builder_Get_Object(animate_dialog_builder, chroma_proj_rows[sel].sel_id) );
 
     gtk_label_set_markup( GTK_LABEL(Builder_Get_Object(animate_dialog_builder,
             "anim_proj_formula")),
@@ -231,9 +185,6 @@ hook_color_family(void)
     gtk_label_set_markup( GTK_LABEL(Builder_Get_Object(animate_dialog_builder,
             "anim_scale_formula")),
         color_tones[active].formula );
-
-    menu_button_label_sync( "anim_color_family_label",
-        Builder_Get_Object(animate_dialog_builder, color_tones[active].sel_id) );
   }
 
   hook_color_vis();
@@ -255,6 +206,10 @@ hook_theme_change(void)
 {
   palette_registry_init();
   hook_color_vis();
+
+  /* The Inverted item offers itself only where the rendered base theme
+   * carries an inverted variant */
+  freqplots_theme_invert_sync();
 }
 
 /*------------------------------------------------------------------------*/

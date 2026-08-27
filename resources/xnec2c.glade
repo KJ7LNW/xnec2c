@@ -12174,7 +12174,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
                                     <property name="use-underline">True</property>
                                     <property name="active">True</property>
                                     <property name="draw-as-radio">True</property>
-                                    <signal name="activate" handler="on_rdpattern_linear_power_activate" swapped="no"/>
+                                    <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
                                   </object>
                                 </child>
                                 <child>
@@ -12185,7 +12185,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
                                     <property name="use-underline">True</property>
                                     <property name="draw-as-radio">True</property>
                                     <property name="group">rdpattern_linear_power</property>
-                                    <signal name="activate" handler="on_rdpattern_linear_voltage_activate" swapped="no"/>
+                                    <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
                                   </object>
                                 </child>
                                 <child>
@@ -12196,7 +12196,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
                                     <property name="use-underline">True</property>
                                     <property name="draw-as-radio">True</property>
                                     <property name="group">rdpattern_linear_power</property>
-                                    <signal name="activate" handler="on_rdpattern_arrl_style_activate" swapped="no"/>
+                                    <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
                                   </object>
                                 </child>
                                 <child>
@@ -12207,7 +12207,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
                                     <property name="use-underline">True</property>
                                     <property name="draw-as-radio">True</property>
                                     <property name="group">rdpattern_linear_power</property>
-                                    <signal name="activate" handler="on_rdpattern_logarithmic_activate" swapped="no"/>
+                                    <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
                                   </object>
                                 </child>
                                 <child>
@@ -12218,7 +12218,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
                                     <property name="use-underline">True</property>
                                     <property name="draw-as-radio">True</property>
                                     <property name="group">rdpattern_linear_power</property>
-                                    <signal name="activate" handler="on_rdpattern_noise_temp_activate" swapped="no"/>
+                                    <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
                                   </object>
                                 </child>
                                 <child>
@@ -12229,7 +12229,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
                                     <property name="use-underline">True</property>
                                     <property name="draw-as-radio">True</property>
                                     <property name="group">rdpattern_linear_power</property>
-                                    <signal name="activate" handler="on_rdpattern_noise_temp_log_activate" swapped="no"/>
+                                    <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
                                   </object>
                                 </child>
                               </object>

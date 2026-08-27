@@ -115,6 +115,60 @@
       <widget name="anim_famsel_none"/>
     </widgets>
   </object>
+  <object class="GtkMenu" id="anim_polarization_menu">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkRadioMenuItem" id="anim_pol_total">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Total</property>
+        <property name="active">True</property>
+        <property name="draw-as-radio">True</property>
+        <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="anim_pol_horizontal">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Horizontal</property>
+        <property name="draw-as-radio">True</property>
+        <property name="group">anim_pol_total</property>
+        <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="anim_pol_vertical">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Vertical</property>
+        <property name="draw-as-radio">True</property>
+        <property name="group">anim_pol_total</property>
+        <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="anim_pol_right_hand">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Right Hand</property>
+        <property name="draw-as-radio">True</property>
+        <property name="group">anim_pol_total</property>
+        <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="anim_pol_left_hand">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Left Hand</property>
+        <property name="draw-as-radio">True</property>
+        <property name="group">anim_pol_total</property>
+        <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+  </object>
   <object class="GtkMenu" id="anim_flow_dir_menu">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -1308,7 +1362,7 @@
                             <property name="can-focus">False</property>
                             <property name="xalign">0</property>
                             <property name="use-underline">True</property>
-                            <property name="mnemonic-widget">anim_polarization</property>
+                            <property name="mnemonic-widget">anim_polarization_button</property>
                             <property name="label" translatable="yes">_Polarization:</property>
                           </object>
                           <packing>
@@ -1318,19 +1372,45 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkComboBoxText" id="anim_polarization">
+                          <object class="GtkMenuButton" id="anim_polarization_button">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
+                            <property name="receives-default">False</property>
                             <property name="halign">start</property>
-                            <property name="tooltip-text" translatable="yes">Select the polarization component used by radiation-pattern gain and far-zone animation vectors.&#10;&#10;Mirrors the polarization selection in the main, radiation-pattern, and frequency-plot windows.</property>
-                            <items>
-                              <item translatable="yes">Total</item>
-                              <item translatable="yes">Horizontal</item>
-                              <item translatable="yes">Vertical</item>
-                              <item translatable="yes">Right Hand</item>
-                              <item translatable="yes">Left Hand</item>
-                            </items>
-                            <signal name="changed" handler="on_config_widget_changed" swapped="no"/>
+                            <property name="valign">center</property>
+                            <property name="tooltip-text" translatable="yes">Select the polarization component used by radiation-pattern gain and far-zone animation vectors.&#10;&#10;Mirrors the polarization selection in the main, radiation-pattern, and frequency-plot windows.&#10;&#10;Hovering an entry previews it live.</property>
+                            <property name="popup">anim_polarization_menu</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkLabel" id="anim_polarization_label">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="xalign">0</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkImage">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="icon-name">pan-down-symbolic</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>

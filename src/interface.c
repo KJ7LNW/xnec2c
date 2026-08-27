@@ -229,7 +229,6 @@ create_main_window( GtkBuilder **builder )
   gchar *object_ids[] = { MAIN_WINDOW_IDS };
   Gtk_Builder( builder, object_ids );
   scroll_install_all_spins( *builder );
-  color_family_menu_attach( *builder );
   ret = Builder_Get_Object( *builder, "main_window" );
   return( ret );
 }
