@@ -126,16 +126,14 @@ int set_freq_step(void)
 void freq_step_update_ui( int new_step, gboolean force );
 
 /**
- * fetch_freq_data - retrieve frequency data from cache or dispatch computation
+ * fetch_freq_data - present the cached data of the selected frequency
  *
- * Sets calc_data.freq_step to the matching sweep index when freq_mhz matches
- * a cached FR-card step.  If the extra slot already holds valid data for this
- * frequency, returns immediately.  Otherwise starts the frequency loop to
- * compute the extra slot via the child dispatch path.
+ * Resolves calc_data.freq_step to the sweep index whose cached FR-card step
+ * matches freq_mhz, or to the extra slot when that slot already holds data
+ * for this frequency, and refreshes the UI from the slot it resolved.
  *
- * Returns: TRUE when cached data is available and the caller may redraw;
- *          FALSE when computation has been dispatched (redraws follow on
- *          completion via freq_loop_finalize/redraws).
+ * Returns: TRUE when cached data was presented and the caller may redraw;
+ *          FALSE when no cached slot holds this frequency.
  */
 gboolean
 fetch_freq_data( void )

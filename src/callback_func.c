@@ -347,9 +347,10 @@ structure_view_apply( void )
   }
   else
   {
-    /* Currents or charges: fetch the step data; a cache hit rebuilds the
-     * structure through freq_step_update_ui() */
-    fetch_freq_data();
+    /* Currents or charges: fetch the step data while no sweep owns the step
+     * index; a cache hit rebuilds the structure through freq_step_update_ui() */
+    if(!freq_sweep_active())
+      fetch_freq_data();
   }
 
   /* The rad-pattern structure overlay tracks the structure view */
