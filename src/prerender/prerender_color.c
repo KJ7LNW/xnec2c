@@ -29,10 +29,20 @@
 #include "../shared.h"
 
 rgb_f_t *seg_rgb   = NULL;
-float   *seg_width = NULL;
 rgb_f_t *patch_rgb = NULL;
 
 struct_colors_t *struct_colors = NULL;
+
+/* Geometry display color per segment classification */
+static const rgb_f_t seg_type_rgb[SEG_COLOR_COUNT] = {
+  [SEG_COLOR_NORMAL]     = { 0.0f, 0.0f, 1.0f },
+  [SEG_COLOR_LOADED]     = { 1.0f, 1.0f, 0.0f },
+  [SEG_COLOR_EXCITATION] = { 1.0f, 0.0f, 0.0f },
+};
+
+/* Drawn when a classification falls outside the enum, so the fault shows
+ * on the model instead of reaching the canvas as an unwritten color */
+#define SEG_TYPE_UNKNOWN_RGB  ((rgb_f_t){ 1.0f, 0.0f, 1.0f })
 
 /*-----------------------------------------------------------------------*/
 
@@ -40,7 +50,7 @@ struct_colors_t *struct_colors = NULL;
  * get_segment_color_type() - Classify a wire segment
  * @seg_num: 1-indexed segment number (matches vsorc.isant, zload.ldsegn)
  *
- * Priority: excitation > loaded > network > normal.
+ * Priority: excitation > loaded > normal.
  */
   segment_color_type_t
 get_segment_color_type(int seg_num)
@@ -60,14 +70,10 @@ get_segment_color_type(int seg_num)
       return SEG_COLOR_EXCITATION;
   }
 
-  /* Loaded segments — resistivity (ldtype==5) gets a distinct classification
-   * so segment_type_to_width() can assign the correct line width. */
   for( idx = 0; idx < zload.nldseg; idx++ )
   {
     if( zload.ldsegn[idx] == seg_num )
-      return (zload.ldtype[idx] == 5)
-          ? SEG_COLOR_LOADED_RESISTIVITY
-          : SEG_COLOR_LOADED;
+      return SEG_COLOR_LOADED;
   }
 
   return SEG_COLOR_NORMAL;
@@ -85,58 +91,16 @@ get_segment_color_type(int seg_num)
   void
 segment_type_to_rgb(segment_color_type_t type, float *r, float *g, float *b)
 {
-  switch( type )
-  {
-    case SEG_COLOR_EXCITATION:
-      *r = 1.0f;
-      *g = 0.0f;
-      *b = 0.0f;
-      break;
+  rgb_f_t c = SEG_TYPE_UNKNOWN_RGB;
 
-    case SEG_COLOR_LOADED:
-    case SEG_COLOR_LOADED_RESISTIVITY:
-      *r = 1.0f;
-      *g = 1.0f;
-      *b = 0.0f;
-      break;
+  if( (unsigned)type < SEG_COLOR_COUNT )
+    c = seg_type_rgb[type];
+  else
+    BUG("unknown segment color classification %d\n", type);
 
-    case SEG_COLOR_NORMAL:
-      *r = 0.0f;
-      *g = 0.0f;
-      *b = 1.0f;
-      break;
-
-    default:
-      BUG("segment_type_to_rgb: unknown type %d\n", type);
-      break;
-  }
-}
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * segment_type_to_width() - Map segment classification to Cairo line width
- * @type: segment color classification
- */
-  float
-segment_type_to_width(segment_color_type_t type)
-{
-  switch( type )
-  {
-    case SEG_COLOR_EXCITATION:
-      return 5.0f;
-
-    case SEG_COLOR_LOADED:
-      return 9.0f;
-
-    case SEG_COLOR_NORMAL:
-    case SEG_COLOR_LOADED_RESISTIVITY:
-      return 2.0f;
-
-    default:
-      BUG("segment_type_to_width: unknown type %d\n", type);
-      return 2.0f;
-  }
+  *r = c.r;
+  *g = c.g;
+  *b = c.b;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -199,7 +163,6 @@ free_struct_colors(void)
   }
 
   mem_array_free(&seg_rgb);
-  mem_array_free(&seg_width);
   mem_array_free(&patch_rgb);
 
   chroma_proj_free();
@@ -222,7 +185,6 @@ init_geometry_colors(void)
   if( data.n > 0 )
   {
     mem_array_realloc(&seg_rgb, data.n);
-    mem_array_realloc(&seg_width, data.n);
 
     for( i = 0; i < data.n; i++ )
     {
@@ -231,7 +193,6 @@ init_geometry_colors(void)
       seg_rgb[i].r = r;
       seg_rgb[i].g = g;
       seg_rgb[i].b = b;
-      seg_width[i] = segment_type_to_width(ctype);
     }
   }
 

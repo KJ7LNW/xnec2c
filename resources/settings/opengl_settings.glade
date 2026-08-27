@@ -475,14 +475,14 @@
               <packing><property name="left-attach">2</property><property name="top-attach">2</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Cylinder Scale</property><property name="xalign">0</property><property name="margin-top">4</property></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Radius scale</property><property name="xalign">0</property><property name="margin-top">4</property></object>
               <packing><property name="left-attach">0</property><property name="top-attach">3</property></packing>
             </child>
             <child>
               <object class="GtkScale" id="scale_cylinder_scale">
                 <property name="visible">True</property><property name="can-focus">True</property><property name="hexpand">True</property>
                 <property name="adjustment">adj_cylinder_scale</property><property name="digits">2</property><property name="value-pos">right</property><property name="margin-top">4</property>
-                <property name="tooltip-text">Visual thickness of wire segments (does not affect NEC2 model calculations)</property>
+                <property name="tooltip-text">Multiply every OpenGL model radius uniformly for display.&#10;&#10;Use ctrl+scroll over the structure view or this slider; it does not affect NEC2 calculations or the data-derived Segment scale selector.</property>
                 <signal name="value-changed" handler="on_config_widget_changed" swapped="no"/>
               </object>
               <packing><property name="left-attach">1</property><property name="top-attach">3</property><property name="width">2</property></packing>

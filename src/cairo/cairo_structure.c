@@ -39,6 +39,10 @@
 #define GLYPH_TICK_WIDTH_K   2.5f
 #define GLYPH_TICK_LINE_PX   1.5f
 
+/* Floor for the projected model diameter, below which a wire draws too thin
+ * to read on screen */
+#define WIRE_MIN_WIDTH_PX    2.0
+
 /**
  * patch_z_mid() - Average z_mid across four patch-corner segments
  * @segm: segment array
@@ -120,24 +124,45 @@ patch_arrow_to_world(int idx, const float fd[4], float phase,
 /*-----------------------------------------------------------------------*/
 
 /**
+ * wire_model_width_px() - Screen width of one wire's modelled thickness
+ * @idx:   segment index
+ * @scale: world-to-pixel projection scale
+ *
+ * Projects the model radius to a pixel diameter and holds it at a floor, so a
+ * model whose wires draw below one pixel still carries the whole span the
+ * caller's segment scale rides, while a thick wire draws to its own radius.
+ */
+static double
+wire_model_width_px(int idx, double scale)
+{
+  return fmax(fabs(save.bitemp[idx]) * 2.0 * scale, WIRE_MIN_WIDTH_PX);
+}
+
+/*-----------------------------------------------------------------------*/
+
+/**
  * draw_wire_segments() - Draw all wire segments with dispatch-selected colors
  * @v:      view for segment coordinates
+ * @scale:  world-to-pixel projection scale
  * @segm:   projected segment array [nseg]
  * @nseg:   number of segments
- * @params: dispatch-resolved draw parameters (colors, cmax, show_flow)
+ * @params: dispatch-resolved wire colors, segment scales, and glyphs
  *
  * Single pass with precomputed per-segment colors from dispatch.
  * seg_rgb encodes type color (blue/yellow/red) in geometry mode.
  */
   static void
-draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, Segment_t *segm, gint nseg,
-    const struct_draw_params_t *params)
+draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, double scale,
+    Segment_t *segm, gint nseg, const struct_draw_params_t *params)
 {
   if( !nseg )
     return;
 
-  if( params->wire_widths == NULL )
-    BUG("draw_wire_segments: wire_widths is NULL\n");
+  if( params->wire_seg_scale == NULL )
+  {
+    BUG("Per-segment scale is missing\n");
+    return;
+  }
 
   int idx;
 
@@ -217,11 +242,13 @@ draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, Segment_t *segm, gint nse
 
   } /* for( idx = 0; idx < netcx.nonet ) */
 
-  /* Per-segment precomputed colors and widths deposited into scenebuffer */
+  /* Per-segment colors and model-radius widths, gained by the carrier
+   * scale, deposited into scenebuffer */
   for( idx = 0; idx < nseg; idx++ )
   {
     seg_set_color(&segm[idx], params->wire_colors[idx]);
-    segm[idx].width = (float)params->wire_widths[idx];
+    segm[idx].width = (float)(wire_model_width_px(idx, scale)
+        * params->wire_seg_scale[idx]);
     scenebuffer_add(sb, &segm[idx]);
 
     /* Overlay node/antinode tick marks through the screen basis, scaled
@@ -372,7 +399,7 @@ cairo_draw_structure(render_surface_t *surface, float extent,
   /* Deposit patches below wires (painter's order handled by scenebuffer z_mid) */
   draw_surface_patches(&cs->scenebuffer, v, scale, structure_segs + data.n,
       data.m, params);
-  draw_wire_segments(&cs->scenebuffer, v, structure_segs, data.n, params);
+  draw_wire_segments(&cs->scenebuffer, v, scale, structure_segs, data.n, params);
 
   return TRUE;
 }

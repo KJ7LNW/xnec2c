@@ -25,15 +25,15 @@
 /*-----------------------------------------------------------------------
  * Segment color classification
  *
- * Bare enum per wire segment: excitation source, loaded, or plain wire.
- * Precomputed O(1) lookup replacing per-frame iteration over vsorc/zload.
+ * Geometry-color initialization classifies each wire as excitation source,
+ * loaded, or normal.
  *----------------------------------------------------------------------*/
 typedef enum
 {
   SEG_COLOR_NORMAL = 0,
   SEG_COLOR_LOADED,
-  SEG_COLOR_LOADED_RESISTIVITY,   /* ldtype == 5: resistivity, drawn width 2.0 */
   SEG_COLOR_EXCITATION,
+  SEG_COLOR_COUNT
 } segment_color_type_t;
 
 /**
@@ -48,23 +48,12 @@ void segment_type_to_rgb(segment_color_type_t type,
 
 
 /**
- * get_segment_color_type() - Classify a wire segment by excitation/load/network
+ * get_segment_color_type() - Classify a wire segment by excitation or load
  * @seg_num: 1-indexed segment number (matches vsorc.isant, zload.ldsegn)
  *
  * Returns the classification for coloring in geometry display mode.
  */
 segment_color_type_t get_segment_color_type(int seg_num);
-
-/**
- * segment_type_to_width() - Map segment classification to Cairo line width
- * @type: segment color classification
- *
- * Returns the geometry-mode line width in Cairo units:
- *   NORMAL / LOADED_RESISTIVITY → 2.0
- *   LOADED                      → 9.0
- *   EXCITATION                  → 5.0
- */
-float segment_type_to_width(segment_color_type_t type);
 
 /* rgb_f_t defined in common.h */
 
@@ -93,7 +82,6 @@ typedef struct
  * Tier 1 geometry color arrays (file-load time, frequency-independent)
  *----------------------------------------------------------------------*/
 extern rgb_f_t *seg_rgb;    /* [data.n] blue/yellow/red per segment type */
-extern float   *seg_width;  /* [data.n] Cairo line width per segment type */
 extern rgb_f_t *patch_rgb;  /* [data.m] blue constant */
 
 /*-----------------------------------------------------------------------

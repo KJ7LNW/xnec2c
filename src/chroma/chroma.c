@@ -64,6 +64,20 @@ const chroma_proj_row_t chroma_proj_rows[CHROMA_PROJ_NUM] = {
     .formula = "hue = ramp(contribution),  value = s(n)" },
 };
 
+/* Segment scale encoding -> the brightness closed form its gain rides, so
+ * one definition serves both carriers */
+const seg_scale_enc_row_t seg_scale_enc_rows[SEG_SCALE_ENC_COUNT] = {
+  [SEG_SCALE_ENC_MODEL] = {
+    .lum_enc = LUM_CONSTANT,
+    .formula = "k = 1" },
+  [SEG_SCALE_ENC_ENVELOPE] = {
+    .lum_enc = LUM_ENVELOPE,
+    .formula = "k = gain(s(n))" },
+  [SEG_SCALE_ENC_INSTANT] = {
+    .lum_enc = LUM_ABS_INSTANT,
+    .formula = "k = gain(s(n) · |cos(arg z + φ)|)" },
+};
+
 /* Hue encoding -> palette kind, the single typing of hue meaning */
 static const palette_kind_t hue_palette_kinds[HUE_ENC_NUM] = {
   [HUE_MAG_RAMP]       = PALETTE_RAMP,
@@ -78,13 +92,15 @@ static const palette_kind_t hue_palette_kinds[HUE_ENC_NUM] = {
  * brightness floor raises it, and the crest gain is its complement */
 #define COMET_HEAD_FLOOR  0.25
 
-/* Width-carrier floor keeping every segment visible at its current null */
-#define WIDTH_MIN_RATIO   0.15f
+/* Map nulls below unity and peaks above it; each backend multiplies this
+ * dimensionless span into the model radius it draws */
+#define SEG_SCALE_MIN  0.4f
+#define SEG_SCALE_MAX  2.0f
 
 /* Frame scratch, sized to the model by chroma_proj_alloc() */
-static rgb_f_t *wire_proj_rgb   = NULL;  /* [data.n] composed wire colors */
-static rgb_f_t *patch_proj_rgb  = NULL;  /* [data.m] composed patch colors */
-static float   *wire_proj_width = NULL;  /* [data.n] width-carrier widths */
+static rgb_f_t *wire_proj_rgb  = NULL;  /* [data.n] composed wire colors */
+static rgb_f_t *patch_proj_rgb = NULL;  /* [data.m] composed patch colors */
+static float   *wire_seg_scale = NULL;  /* [data.n] dimensionless segment scales */
 static unsigned char *wire_glyph_flags = NULL; /* [data.n] GLYPH_* marks */
 
 /* Prepared sources; selection happens per frame entry, storage here so
@@ -100,7 +116,7 @@ static uint32_t proj_generation = 0;
 /* Producer control bits entering a frame edge's flags */
 #define FRAME_FLAG_COMET  (1u << 0)
 #define FRAME_FLAG_NODES  (1u << 1)
-#define FRAME_FLAG_WIDTH  (1u << 2)
+#define FRAME_FLAG_SEG_SCALE  (1u << 2)
 
 /* Per-output recompute gate: the last composed input edge and returned
  * pointer.  An all-zero edge is the data-off sentinel (a prepared
@@ -112,12 +128,11 @@ typedef struct
   gboolean     valid;
 } proj_gate_t;
 
-static proj_gate_t wire_gate, patch_gate, glyph_gate, width_gate;
+static proj_gate_t wire_gate, patch_gate, glyph_gate, seg_scale_gate;
 
 static const rgb_f_t       *wire_result  = NULL;
 static const rgb_f_t       *patch_result = NULL;
 static const unsigned char *glyph_result = NULL;
-static const float         *width_result = NULL;
 
 /*-----------------------------------------------------------------------*/
 
@@ -159,12 +174,11 @@ gate_reset(void)
   wire_gate  = (proj_gate_t){ 0 };
   patch_gate = (proj_gate_t){ 0 };
   glyph_gate = (proj_gate_t){ 0 };
-  width_gate = (proj_gate_t){ 0 };
+  seg_scale_gate = (proj_gate_t){ 0 };
 
   wire_result  = NULL;
   patch_result = NULL;
   glyph_result = NULL;
-  width_result = NULL;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -190,6 +204,60 @@ chroma_proj_palette_kind(hue_enc_t enc)
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * lum_value() - Magnitude of one element under a brightness encoding
+ * @cs:  prepared source carrying the envelope and its phasors
+ * @enc: brightness encoding
+ * @x:   evaluation context with the frame's cos φ / sin φ
+ * @i:   element index
+ *
+ * Holds the single definition of each closed form, read by the color
+ * composition and by the segment scale carrier that rides the same encodings.
+ */
+static double
+lum_value(const chroma_source_t *cs, lum_enc_t enc,
+    const chroma_ctx_t *x, int i)
+{
+  /* Initializer covers the BUG fall-through of the enum switch */
+  double v = 1.0;
+  double t;
+
+  switch( enc )
+  {
+    case LUM_ENVELOPE:
+      v = (double)cs->s_env[i];
+      break;
+
+    case LUM_ABS_INSTANT:
+      /* |cos(arg z + φ)| = |t| / env; envelope 0 rides the floor */
+      t = (double)cs->re_n[i] * x->c - (double)cs->im_n[i] * x->s;
+      v = fl_fgt(cs->env[i], 0.0f)
+          ? (double)cs->s_env[i] * fabs(t) / (double)cs->env[i]
+          : 0.0;
+      break;
+
+    case LUM_RAISED_COS:
+      t = (double)cs->re_n[i] * x->c - (double)cs->im_n[i] * x->s;
+      v = fl_fgt(cs->env[i], 0.0f)
+          ? (double)cs->s_env[i]
+            * (0.5 + 0.5 * t / (double)cs->env[i])
+          : 0.0;
+      break;
+
+    case LUM_CONSTANT:
+      v = 1.0;
+      break;
+
+    case LUM_ENC_NUM:
+      BUG("unhandled brightness encoding %d\n", enc);
+      break;
+  }
+
+  return v;
+}
+
+/*-----------------------------------------------------------------------*/
+
   void
 chroma_project_frame(rgb_f_t *out, const chroma_source_t *hue_cs,
     const chroma_source_t *lum_cs, const chroma_proj_row_t *row,
@@ -200,9 +268,9 @@ chroma_project_frame(rgb_f_t *out, const chroma_source_t *hue_cs,
 
   for( i = 0; i < n; i++ )
   {
-    /* Initializers cover the BUG fall-through of the enum switches */
+    /* Initializer covers the BUG fall-through of the hue enum switch */
     double coord = 0.0;
-    double v = 1.0;
+    double v = lum_value(lum_cs, row->lum_enc, x, i);
     double t;
 
     switch( row->hue_enc )
@@ -216,7 +284,7 @@ chroma_project_frame(rgb_f_t *out, const chroma_source_t *hue_cs,
          * continuous through the diverging midpoint so zero crossings
          * blend instead of snapping between the endpoint hues */
         t = (double)hue_cs->re_n[i] * x->c - (double)hue_cs->im_n[i] * x->s;
-        coord = (hue_cs->env[i] > 0.0f)
+        coord = fl_fgt(hue_cs->env[i], 0.0f)
             ? 0.5 + 0.5 * t / (double)hue_cs->env[i] : 0.5;
         break;
 
@@ -226,37 +294,6 @@ chroma_project_frame(rgb_f_t *out, const chroma_source_t *hue_cs,
 
       case HUE_ENC_NUM:
         BUG("unhandled hue encoding %d\n", row->hue_enc);
-        break;
-    }
-
-    switch( row->lum_enc )
-    {
-      case LUM_ENVELOPE:
-        v = (double)lum_cs->s_env[i];
-        break;
-
-      case LUM_ABS_INSTANT:
-        /* |cos(arg z + φ)| = |t| / env; envelope 0 rides the floor */
-        t = (double)lum_cs->re_n[i] * x->c - (double)lum_cs->im_n[i] * x->s;
-        v = (lum_cs->env[i] > 0.0f)
-            ? (double)lum_cs->s_env[i] * fabs(t) / (double)lum_cs->env[i]
-            : 0.0;
-        break;
-
-      case LUM_RAISED_COS:
-        t = (double)lum_cs->re_n[i] * x->c - (double)lum_cs->im_n[i] * x->s;
-        v = (lum_cs->env[i] > 0.0f)
-            ? (double)lum_cs->s_env[i]
-              * (0.5 + 0.5 * t / (double)lum_cs->env[i])
-            : 0.0;
-        break;
-
-      case LUM_CONSTANT:
-        v = 1.0;
-        break;
-
-      case LUM_ENC_NUM:
-        BUG("unhandled brightness encoding %d\n", row->lum_enc);
         break;
     }
 
@@ -545,47 +582,90 @@ chroma_proj_frame_patch(int fstep, double phase,
 /*-----------------------------------------------------------------------*/
 
   const float *
-chroma_proj_frame_wire_widths(int fstep,
-    chroma_proj_t proj, color_tone_t fam, chroma_channel_t base_chan)
+chroma_proj_seg_scale_identity(void)
 {
   color_edge_t want = { 0 };
-  gboolean have = FALSE;
   int i;
 
-  if( rc_config.color_width_amp != 0 && wire_proj_width != NULL
-      && data.n > 0 )
+  if( gate_hit(&seg_scale_gate, &want) )
+    return wire_seg_scale;
+
+  for( i = 0; i < data.n; i++ )
+    wire_seg_scale[i] = 1.0f;
+
+  gate_store(&seg_scale_gate, &want);
+  return wire_seg_scale;
+}
+
+/*-----------------------------------------------------------------------*/
+
+  seg_scale_enc_t
+seg_scale_enc_sanitize(int v)
+{
+  if( v < 0 || v >= SEG_SCALE_ENC_COUNT )
+  {
+    pr_err("invalid segment scale encoding %d, using model radius\n", v);
+    return SEG_SCALE_ENC_MODEL;
+  }
+
+  return (seg_scale_enc_t)v;
+}
+
+/*-----------------------------------------------------------------------*/
+
+  seg_scale_enc_t
+seg_scale_enc_selected(void)
+{
+  return seg_scale_enc_sanitize(rc_config.anim_seg_scale_enc);
+}
+
+/*-----------------------------------------------------------------------*/
+
+  const float *
+chroma_proj_frame_seg_scale(int fstep, double phase,
+    chroma_proj_t proj, seg_scale_enc_t enc, color_tone_t fam,
+    chroma_channel_t base_chan)
+{
+  const seg_scale_enc_row_t *row = &seg_scale_enc_rows[enc];
+  color_edge_t want = { 0 };
+  gboolean have = FALSE;
+  chroma_ctx_t x;
+  int i;
+
+  /* Phase leaves the edge for the phase-invariant encoding */
+  chroma_ctx_init(&x, (row->lum_enc == LUM_ENVELOPE) ? 0.0 : phase);
+
+  /* A constant transfer holds every envelope at 1, leaving no magnitude
+   * for a segment scale to state */
+  if( enc != SEG_SCALE_ENC_MODEL && fam != COLOR_TONE_NONE && data.n > 0 )
   {
     frame_sources(&chroma_proj_rows[proj], fstep, fam, base_chan);
 
     if( wire_lum_src.n > 0 )
     {
       have = TRUE;
-      want = (color_edge_t){ .flags = FRAME_FLAG_WIDTH,
-          .gen_a = wire_lum_src.gen };
+      want = (color_edge_t){ .seg_scale_enc = (int)enc,
+          .flags = FRAME_FLAG_SEG_SCALE,
+          .phase = x.phase, .gen_a = wire_lum_src.gen };
     }
   }
 
-  if( gate_hit(&width_gate, &want) )
-    return width_result;
+  if( !have )
+    return chroma_proj_seg_scale_identity();
 
-  if( have )
-  {
-    /* Width rides the brightness source's s(n); a floor keeps every
-     * segment visible at its null. */
-    for( i = 0; i < data.n; i++ )
-      wire_proj_width[i] = seg_width[i]
-          * fmaxf(wire_lum_src.s_env[i], WIDTH_MIN_RATIO);
+  if( gate_hit(&seg_scale_gate, &want) )
+    return wire_seg_scale;
 
-    width_result = wire_proj_width;
-  }
-  else
+  for( i = 0; i < data.n; i++ )
   {
-    /* Carrier off or no data bound: static geometry widths */
-    width_result = seg_width;
+    double v = lum_value(&wire_lum_src, row->lum_enc, &x, i);
+
+    wire_seg_scale[i] = SEG_SCALE_MIN
+        + (SEG_SCALE_MAX - SEG_SCALE_MIN) * (float)v;
   }
 
-  gate_store(&width_gate, &want);
-  return width_result;
+  gate_store(&seg_scale_gate, &want);
+  return wire_seg_scale;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -596,7 +676,7 @@ chroma_proj_alloc(void)
   if( data.n > 0 )
   {
     mem_array_realloc(&wire_proj_rgb, data.n);
-    mem_array_realloc(&wire_proj_width, data.n);
+    mem_array_realloc(&wire_seg_scale, data.n);
     mem_array_realloc(&wire_glyph_flags, data.n);
   }
 
@@ -616,7 +696,7 @@ chroma_proj_alloc(void)
 chroma_proj_free(void)
 {
   mem_array_free(&wire_proj_rgb);
-  mem_array_free(&wire_proj_width);
+  mem_array_free(&wire_seg_scale);
   mem_array_free(&wire_glyph_flags);
   mem_array_free(&patch_proj_rgb);
 

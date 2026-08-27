@@ -608,10 +608,22 @@ rc_config_vars_t rc_config_vars[] = {
 		.widgets = CONFIG_WIDGET_SINGLE( &animate_dialog_builder,
 			"anim_bright_floor", hook_color_vis ) },
 
-	{ .desc = "Color Width From Amplitude", .format = "%d",
-		.vars = { &rc_config.color_width_amp },
-		.widgets = CONFIG_WIDGET_SINGLE( &animate_dialog_builder,
-			"anim_width_amp", hook_color_vis ) },
+	{ .desc = "Animate Segment Scale", .format = "%d",
+		.vars = { &rc_config.anim_seg_scale_enc },
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = hook_color_vis,
+			.preview = TRUE,
+			.groups = CONFIG_WIDGET_GROUPS(
+				CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder,
+					.value_label_id = "anim_seg_scale_label",
+					.elements = CONFIG_WIDGETS(
+						CONFIG_WIDGET( .widget_id = "anim_segscalesel_instant",
+							.values = CONFIG_WIDGET_VALUES(SEG_SCALE_ENC_INSTANT) ),
+						CONFIG_WIDGET( .widget_id = "anim_segscalesel_envelope",
+							.values = CONFIG_WIDGET_VALUES(SEG_SCALE_ENC_ENVELOPE) ),
+						CONFIG_WIDGET( .widget_id = "anim_segscalesel_model",
+							.values = CONFIG_WIDGET_VALUES(SEG_SCALE_ENC_MODEL) ),
+						NULL ) ),
+				NULL ) ) },
 
 	{ .desc = "Overlay Nodes", .format = "%d",
 		.vars = { &rc_config.overlay_nodes },

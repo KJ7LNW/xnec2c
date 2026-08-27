@@ -506,8 +506,8 @@ typedef struct
   /* Brightness floor in [0,1] keeping geometry visible at wave nulls */
   double color_lum_floor;
 
-  /* Width-from-amplitude carrier gate */
-  int color_width_amp;
+  /* Geometry carrier encoding (animate dialog, seg_scale_enc_t) */
+  int anim_seg_scale_enc;
 
   /* Wire overlay gates: comet crest, node/antinode marks */
   int overlay_comet, overlay_nodes, overlay_farfield;

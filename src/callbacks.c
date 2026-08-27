@@ -2362,7 +2362,7 @@ anim_fam_marks_attach(void)
  * @button: emitting button, unused
  * @user_data: unused
  *
- * Resets the projection, scale family, brightness floor, width carrier,
+ * Resets the projection, scale family, brightness floor, segment scale,
  * and every family parameter to their compiled-in defaults, reruns the
  * color hooks, then syncs the bound widgets from the fields.  Overlay
  * gates keep their user state.
@@ -2378,7 +2378,7 @@ on_anim_color_reset_clicked(GtkButton *button, gpointer user_data)
   rc_config_set_default( rc_config_find_by_field(&rc_config.anim_color_proj) );
   rc_config_set_default( rc_config_find_by_field(&rc_config.color_scale) );
   rc_config_set_default( rc_config_find_by_field(&rc_config.color_lum_floor) );
-  rc_config_set_default( rc_config_find_by_field(&rc_config.color_width_amp) );
+  rc_config_set_default( rc_config_find_by_field(&rc_config.anim_seg_scale_enc) );
 
   for( fam = 0; fam < COLOR_TONE_NUM; fam++ )
   {

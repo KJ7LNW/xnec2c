@@ -62,6 +62,26 @@ typedef enum
   LUM_ENC_NUM
 } lum_enc_t;
 
+/* Select a geometry carrier independently from the color projection */
+typedef enum
+{
+  SEG_SCALE_ENC_MODEL = 0,  /* no carrier: the model radius alone */
+  SEG_SCALE_ENC_ENVELOPE,   /* phase-invariant s(n) */
+  SEG_SCALE_ENC_INSTANT,    /* s(n) · |cos(arg z + φ)| */
+  SEG_SCALE_ENC_COUNT
+} seg_scale_enc_t;
+
+/* One segment scale encoding: the magnitude evaluation it shares with the
+ * brightness carrier, and the closed form shown beside the selector. */
+typedef struct
+{
+  lum_enc_t   lum_enc;  /* magnitude evaluation feeding the gain span */
+  const char *formula;  /* Pango markup closed form */
+} seg_scale_enc_row_t;
+
+/* Enum-indexed segment scale encoding table */
+extern const seg_scale_enc_row_t seg_scale_enc_rows[SEG_SCALE_ENC_COUNT];
+
 /* One projection: typed (channel, encoding) carrier assignments and the
  * closed-form rendering.  A hue_src or lum_src of CHAN_CURRENT resolves
  * to the dispatch-selected base channel (current or charge display);
@@ -182,18 +202,47 @@ const unsigned char *chroma_proj_frame_wire_glyphs(int fstep,
     chroma_proj_t proj, color_tone_t fam, chroma_channel_t base_chan);
 
 /**
- * chroma_proj_frame_wire_widths() - Resolve per-segment widths for one frame
+ * chroma_proj_seg_scale_identity() - Publish unity gains for every segment
+ *
+ * Serves the display quantities that carry no amplitude envelope, so their
+ * wires render at the model radius each backend already draws.
+ */
+const float *chroma_proj_seg_scale_identity(void);
+
+/**
+ * seg_scale_enc_sanitize() - Bound a persisted segment scale encoding to the enum
+ * @v: raw persisted integer
+ *
+ * Emits pr_err and returns SEG_SCALE_ENC_MODEL when out of range.
+ */
+seg_scale_enc_t seg_scale_enc_sanitize(int v);
+
+/**
+ * seg_scale_enc_selected() - Resolve the segment scale encoding selection in effect
+ *
+ * Reads the committed rc_config selection; a hover stages its candidate
+ * into that field, so a previewed row and the row it commits to resolve
+ * alike.  Playback state does not enter: a stopped phase still names a
+ * definite instantaneous magnitude.
+ */
+seg_scale_enc_t seg_scale_enc_selected(void);
+
+/**
+ * chroma_proj_frame_seg_scale() - Resolve per-segment size gains for one frame
  * @fstep:     frequency step index
- * @proj:      projection selection
+ * @phase:     animation phase in radians
+ * @proj:      projection selection naming the brightness source
+ * @enc:       segment scale carrier encoding
  * @fam:       scale family selection
  * @base_chan: dispatch-selected display quantity
  *
- * With the width carrier enabled, scales seg_width by the brightness
- * source's s(n) envelope (phase-invariant).  Returns seg_width unchanged
- * when the carrier is off or no data bound exists.
+ * Returns dimensionless gains that each backend multiplies into the model
+ * radius it draws.  SEG_SCALE_ENC_MODEL and a constant scale family carry no
+ * magnitude and yield identity gains, as does an unbound source.
  */
-const float *chroma_proj_frame_wire_widths(int fstep,
-    chroma_proj_t proj, color_tone_t fam, chroma_channel_t base_chan);
+const float *chroma_proj_frame_seg_scale(int fstep, double phase,
+    chroma_proj_t proj, seg_scale_enc_t enc, color_tone_t fam,
+    chroma_channel_t base_chan);
 
 /**
  * chroma_proj_generation() - Read the structure-draw generation counter

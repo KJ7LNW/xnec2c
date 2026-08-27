@@ -278,13 +278,14 @@ build_struct_draw_params(int fstep, float model_scale)
 
   chroma_proj_t proj = color_proj_active();
   color_tone_t fam = color_tone_active();
+  seg_scale_enc_t seg_scale_enc = seg_scale_enc_selected();
 
   if(struct_view_currents() && CRNT_FSTEP_AVAILABLE(fs) && struct_colors )
   {
     params.wire_colors  = chroma_proj_frame_wire(fs, (double)flow_phase,
         proj, fam, CHAN_CURRENT);
-    params.wire_widths  = chroma_proj_frame_wire_widths(fs, proj, fam,
-        CHAN_CURRENT);
+    params.wire_seg_scale = chroma_proj_frame_seg_scale(fs,
+        (double)flow_phase, proj, seg_scale_enc, fam, CHAN_CURRENT);
     params.patch_colors = chroma_proj_frame_patch(fs, (double)flow_phase,
         proj, fam);
     params.wire_glyphs  = chroma_proj_frame_wire_glyphs(fs, proj, fam,
@@ -299,8 +300,8 @@ build_struct_draw_params(int fstep, float model_scale)
     /* Patches carry no charge quantity; fill stays the static geometry color */
     params.wire_colors  = chroma_proj_frame_wire(fs, (double)flow_phase,
         proj, fam, CHAN_CHARGE);
-    params.wire_widths  = chroma_proj_frame_wire_widths(fs, proj, fam,
-        CHAN_CHARGE);
+    params.wire_seg_scale = chroma_proj_frame_seg_scale(fs,
+        (double)flow_phase, proj, seg_scale_enc, fam, CHAN_CHARGE);
     params.patch_colors = patch_rgb;
     params.wire_glyphs  = chroma_proj_frame_wire_glyphs(fs, proj, fam,
         CHAN_CHARGE);
@@ -311,7 +312,7 @@ build_struct_draw_params(int fstep, float model_scale)
   else
   {
     params.wire_colors  = seg_rgb;
-    params.wire_widths  = seg_width;
+    params.wire_seg_scale = chroma_proj_seg_scale_identity();
     params.patch_colors = patch_rgb;
     params.wire_glyphs  = NULL;
     params.cmax = 0.0;

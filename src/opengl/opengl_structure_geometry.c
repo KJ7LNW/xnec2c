@@ -389,26 +389,28 @@ generate_segments_lines(gl_draw_batch_t *batch, const struct_draw_params_t *para
 /** cyl_display_radius() - Displayed physical wire radius of a segment
  * @idx:          segment index into save.bitemp
  * @radius_scale: user-adjustable radius multiplier (ctrl+scroll)
+ * @seg_scale:    dimensionless per-segment size gain
  *
  * Shared by the cylinder and glyph generators so overlay marks track the
  * rendered cylinder surface exactly.
  *
- * Clamps to a scene-proportional floor so subpixel-thin wires stay visible;
- * the floor scales with radius_scale, keeping scroll feedback continuous.
+ * Holds the model radius at a scene-proportional floor, applies the uniform
+ * ctrl+scroll radius scale, then applies the data-derived segment scale so the
+ * carrier keeps its whole span on a model whose wires are thinner than the floor.
  */
   static double
-cyl_display_radius(int idx, double radius_scale)
+cyl_display_radius(int idx, double radius_scale, float seg_scale)
 {
   double min_visible = CYLINDER_MIN_VISIBLE_FRACTION * geom_pre.scene_radius;
 
-  return fmax(fabs(save.bitemp[idx]), min_visible) * radius_scale;
+  return fmax(fabs(save.bitemp[idx]), min_visible) * radius_scale * seg_scale;
 }
 
 /*-----------------------------------------------------------------------*/
 
 /** generate_segments_glyphs() - Emit GL_LINES tick marks for node/antinode segments
  * @batch:  draw batch with pre-allocated vertices buffer
- * @params: dispatch-resolved draw parameters carrying wire_glyphs
+ * @params: dispatch-resolved draw parameters (wire_glyphs, segment scales)
  * @radius_scale: user-adjustable radius multiplier (ctrl+scroll)
  *
  * For each flagged segment, builds an orthonormal basis perpendicular to the
@@ -461,7 +463,8 @@ generate_segments_glyphs(gl_draw_batch_t *batch, const struct_draw_params_t *par
     my = 0.5f * (float)(data.segments[idx].y1 + data.segments[idx].y2);
     mz = 0.5f * (float)(data.segments[idx].z1 + data.segments[idx].z2);
     ext = STRUCTURE_GLYPH_TICK_RADIUS_K
-        * (float)cyl_display_radius(idx, radius_scale);
+        * (float)cyl_display_radius(idx, radius_scale,
+            params->wire_seg_scale[idx]);
 
     for( k = 0; k < gs->n_strokes; k++ )
     {
@@ -628,7 +631,7 @@ generate_patches_wireframe(gl_draw_batch_t *batch, const struct_draw_params_t *p
 
 /** generate_segments_cylinders() - Emit GL_TRIANGLES vertices for cylinder wire segments
  * @batch:                draw batch with pre-allocated vertices buffer
- * @params:               dispatch-resolved draw parameters (precomputed colors)
+ * @params:               dispatch-resolved wire colors and segment scales
  * @cylinder_radius_scale: user-adjustable radius multiplier
  *
  * Populates batch with cylinder vertices per segment. Sets vertex_count.
@@ -658,7 +661,8 @@ generate_segments_cylinders(gl_draw_batch_t *batch, const struct_draw_params_t *
     g = params->wire_colors[idx].g;
     b = params->wire_colors[idx].b;
 
-    radius = cyl_display_radius(idx, cylinder_radius_scale);
+    radius = cyl_display_radius(idx, cylinder_radius_scale,
+        params->wire_seg_scale[idx]);
 
     {
       point_f_3d_t seg_p1 = {(float) data.segments[idx].x1,

@@ -62,7 +62,7 @@ typedef enum
 typedef struct
 {
   const rgb_f_t *wire_colors;   /* seg_rgb | composed projection colors */
-  const float   *wire_widths;   /* seg_width [data.n] per-segment line widths */
+  const float   *wire_seg_scale;  /* [data.n] dimensionless per-segment size gain */
   const rgb_f_t *patch_colors;  /* patch_rgb | composed projection colors */
   const unsigned char *wire_glyphs; /* per-segment GLYPH_* code [data.n], or NULL */
   float          geometry_extent; /* unscaled structure-space half-extent */

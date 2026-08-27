@@ -143,8 +143,8 @@ hook_color_vis(void)
     xnec2_widget_queue_draw( Builder_Get_Object(rdpattern_window_builder,
         "rdpattern_colorcode_drawingarea"), TRUE );
 
-  /* Track the animate dialog's projection formula to the selected row and
-   * refresh the dialog's copy of the legend strip */
+  /* Track the animate dialog's projection and segment scale formulas to their
+   * selected rows and refresh the dialog's copy of the legend strip */
   if( animate_dialog_builder != NULL )
   {
     chroma_proj_t sel = chroma_proj_selected();
@@ -152,6 +152,10 @@ hook_color_vis(void)
     gtk_label_set_markup( GTK_LABEL(Builder_Get_Object(animate_dialog_builder,
             "anim_proj_formula")),
         chroma_proj_rows[sel].formula );
+
+    gtk_label_set_markup( GTK_LABEL(Builder_Get_Object(animate_dialog_builder,
+            "anim_seg_scale_formula")),
+        seg_scale_enc_rows[seg_scale_enc_selected()].formula );
 
     xnec2_widget_queue_draw( Builder_Get_Object(animate_dialog_builder,
         "anim_colorcode_drawingarea"), TRUE );
