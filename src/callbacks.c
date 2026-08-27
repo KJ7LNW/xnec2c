@@ -169,10 +169,6 @@ on_main_window_delete_event(
   /* Prompt user to save NEC2 data */
   if( Nec2_Edit_Save() ) return( TRUE );
 
-  /* Save GUI state for restoring windows */
-  Get_GUI_State();
-  Save_Config();
-
   /* Quit without confirmation dialog */
   if( !rc_config.confirm_quit )
   {
@@ -506,10 +502,6 @@ on_quit_activate(
 
   /* Prompt user to save NEC2 data */
   if( Nec2_Edit_Save() ) return;
-
-  /* Save GUI state for restoring windows */
-  Get_GUI_State();
-  Save_Config();
 
   /* Quit without confirmation dialog */
   if( !rc_config.confirm_quit )
@@ -2894,10 +2886,6 @@ on_nec2_editor_key_press_event(
     /* Prompt user to save NEC2 data */
     if( Nec2_Edit_Save() ) return( TRUE );
 
-    /* Save GUI state for restoring windows */
-    Get_GUI_State();
-    Save_Config();
-
     /* Quit without confirmation dialog */
     if( !rc_config.confirm_quit )
     {
@@ -3088,17 +3076,13 @@ on_nec2_save_dialog_response(
     }
   } /* if( response_id == GTK_RESPONSE_YES ) */
 
-  /* Save GUI state data for restoring
-   * windows if user is quitting xnec2c */
+  /* A quit that reached this prompt completes through the one quit
+   * coordinator, which persists the configuration at the exit edge */
   if( isFlagSet(MAIN_QUIT) )
-  {
-    Get_GUI_State();
-    Save_Config();
-  }
-
-  /* Kill window that initiated the save dialog.
-   * If it was the main window, xnec2c will exit */
-  Gtk_Widget_Destroy( &kill_window );
+    xnec2c_request_quit();
+  else
+    /* Kill window that initiated the save dialog */
+    Gtk_Widget_Destroy( &kill_window );
 }
 
 

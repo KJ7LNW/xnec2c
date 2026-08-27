@@ -558,16 +558,13 @@ Filechooser_Response(
       selected_treeview = cmnt_treeview;
     }
 
-    /* Save GUI state data for restoring
-     * windows if user is quitting xnec2c */
+    /* A quit that reached this prompt completes through the one quit
+     * coordinator, which persists the configuration at the exit edge */
     if( isFlagSet(MAIN_QUIT) )
-    {
-      Get_GUI_State();
-      Save_Config();
-    }
-
-    /* Kill window that initiated edited data save */
-    Gtk_Widget_Destroy( &kill_window );
+      xnec2c_request_quit();
+    else
+      /* Kill window that initiated edited data save */
+      Gtk_Widget_Destroy( &kill_window );
 
   } /* if( response_id == GTK_RESPONSE_OK ) */
   else

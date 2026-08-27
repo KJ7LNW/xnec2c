@@ -70,11 +70,16 @@
  *
  * The coordinator, optimizer completion, successful normal-batch completion,
  * and the synchronous batch-error path converge here after workers quiesce.
+ * This is the confirmed exit edge, so the configuration is captured and
+ * written here, while every window still stands to report its geometry.
  */
   void
 xnec2c_quit( gpointer user_data )
 {
   (void)user_data;
+
+  Get_GUI_State();
+  Save_Config();
 
   Gtk_Widget_Destroy( &main_window );
 
