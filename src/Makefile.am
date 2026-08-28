@@ -26,6 +26,7 @@ xnec2c_SOURCES = \
     geom_edit.c     geom_edit.h \
     gnuplot.c       gnuplot.h \
     touchstone.c    touchstone.h \
+    rdpattern_noise_menu.c rdpattern_noise_menu.h \
     rdpattern_ui.c   rdpattern_ui.h \
     structure_ui.c   structure_ui.h \
     fields.c        fields.h \

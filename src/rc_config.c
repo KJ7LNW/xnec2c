@@ -26,6 +26,7 @@
 #include "measurements.h"
 #include "config_hooks.h"
 #include "config/config_preview.h"
+#include "rdpattern_noise_menu.h"
 #include "rdpattern_ui.h"
 #include "chroma/chroma.h"
 
@@ -894,16 +895,25 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.sy_overrides_x, &rc_config.sy_overrides_y },
 		.def = { { .i = -1 }, { .i = -1 } } },
 
+	/* Bind runtime menu rows to these groupless trees. */
 	{ .desc = "Antenna Temp Sky Model", .format = "%d",
 		.vars = { &rc_config.ant_temp_sky },
-		.def = { { .i = ANT_TEMP_SKY_SYNTH_AVG } } },
+		.def = { { .i = ANT_TEMP_SKY_SYNTH_AVG } },
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_noise_env_refresh,
+			.on_change = hook_noise_sky_commit,
+			.groups = CONFIG_WIDGET_GROUPS( NULL ) ) },
 
 	{ .desc = "Antenna Temp Earth Model", .format = "%d",
 		.vars = { &rc_config.ant_temp_earth },
-		.def = { { .i = ANT_TEMP_EARTH_DG7YBN_RESIDENTIAL } } },
+		.def = { { .i = ANT_TEMP_EARTH_DG7YBN_RESIDENTIAL } },
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_noise_env_refresh,
+			.on_change = hook_noise_earth_commit,
+			.groups = CONFIG_WIDGET_GROUPS( NULL ) ) },
 
 	{ .desc = "Antenna Temp Interp Method", .format = "%d",
-		.vars = { &rc_config.ant_temp_interp }, .def = { { .i = ANT_TEMP_INTERP } } },
+		.vars = { &rc_config.ant_temp_interp }, .def = { { .i = ANT_TEMP_INTERP } },
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_noise_env_refresh,
+			.groups = CONFIG_WIDGET_GROUPS( NULL ) ) },
 
 	{ .desc = "Antenna Temp Elevation (deg, +=up)", .format = "%lf",
 		.vars = { &rc_config.ant_temp_elevation } },
