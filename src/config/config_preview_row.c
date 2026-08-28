@@ -52,8 +52,8 @@ preview_row_stage(GtkWidget *w)
   const config_widget_row_t *row = config_widget_row_get(w);
   unsigned char candidate[row->scope->dest.size];
 
-  /* A row naming no single value proposes nothing of its own */
-  if( !config_widget_element_select_value(row->elt, candidate,
+  /* Predict the widget's post-click value before staging its hover */
+  if( !config_widget_element_candidate(row->elt, w, candidate,
         row->scope->dest.size) )
     return;
 
@@ -87,6 +87,22 @@ on_preview_row_select(GtkMenuItem *item, gpointer user_data)
   (void)user_data;
 
   preview_row_stage(GTK_WIDGET(item));
+}
+
+/** on_preview_row_deselect - menu row lost the highlight
+ * @item:      the row the pointer left
+ * @user_data: unused
+ *
+ * Activation deselects a row as its menu tears down, so the restore is
+ * queued rather than run here; the commit behind it cancels that restore,
+ * leaving this edge to end a hover the pointer merely moved off.
+ */
+static void
+on_preview_row_deselect(GtkMenuItem *item, gpointer user_data)
+{
+  (void)user_data;
+
+  config_preview_queue_dismiss(preview_row_storage(GTK_WIDGET(item)));
 }
 
 /** on_preview_shell_closed - a menu shell completed or withdrew its selection
@@ -193,18 +209,19 @@ preview_shell_attach(GtkWidget *item, void *storage)
 
 /*------------------------------------------------------------------------*/
 
+gboolean
+config_preview_class_hoverable(GtkWidget *w)
+{
+  return GTK_IS_MENU_ITEM(w) || GTK_IS_TOGGLE_BUTTON(w);
+}
+
 void
 config_preview_row_attach(GtkWidget *w)
 {
-  if( GTK_IS_COMBO_BOX(w) )
-  {
-    BUG("hover preview reached a combo, which exposes no per-row hover edge\n");
-    return;
-  }
-
   if( GTK_IS_MENU_ITEM(w) )
   {
     g_signal_connect(w, "select", G_CALLBACK(on_preview_row_select), NULL);
+    g_signal_connect(w, "deselect", G_CALLBACK(on_preview_row_deselect), NULL);
     preview_shell_attach(w, preview_row_storage(w));
   }
   else if( GTK_IS_TOGGLE_BUTTON(w) )
@@ -219,6 +236,5 @@ config_preview_row_attach(GtkWidget *w)
     g_signal_connect(w, "unmap", G_CALLBACK(on_preview_row_unmap), NULL);
   }
   else
-    /* Every other class presents its value without a row-hover edge */
-    return;
+    BUG("hover preview reached a class carrying no row-hover edge\n");
 }

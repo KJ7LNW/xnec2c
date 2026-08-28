@@ -5179,21 +5179,6 @@ on_aboutdialog_response(
 }
 
 
-/* on_freqplots_theme_invert_toggled()
- *
- * Inverted-variant toggle, the orthogonal axis to the base theme; repaints
- * through the single orchestration path. */
-  void
-on_freqplots_theme_invert_toggled(
-    GtkCheckMenuItem *menuitem,
-    gpointer          user_data)
-{
-  rc_config.freqplots_theme_invert =
-      gtk_check_menu_item_get_active(menuitem) ? 1 : 0;
-
-  config_widget_field_changed( &rc_config.freqplots_theme_invert );
-}
-
   void
 on_main_zoom_spinbutton_value_changed(
     GtkSpinButton   *spinbutton,

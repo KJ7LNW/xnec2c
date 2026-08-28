@@ -565,6 +565,9 @@ Set_Gain_Style( void )
 
 } /* Set_Gain_Style() */
 
+const config_refresh_t Set_Gain_Style_refresh =
+  { .fn = Set_Gain_Style, .cls = REFRESH_HOVER_SAFE };
+
 /*-----------------------------------------------------------------------*/
 
 /** gain_style_check_warnings - report noise-mode model compatibility

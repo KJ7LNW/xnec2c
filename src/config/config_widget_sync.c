@@ -232,7 +232,7 @@ config_widget_run_hooks(GtkBuilder **builder)
     for( g = b->tree->groups; *g != NULL; g++ )
       if( (*g)->builder == builder )
       {
-        b->tree->post_apply();
+        b->tree->post_apply->fn();
         break; /* run once even if the tree has other groups on this builder */
       }
   }

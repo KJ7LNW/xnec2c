@@ -127,19 +127,17 @@ config_widget_binding_t *config_widget_find(void *field);
  */
 GtkWidget *config_widget_lookup(GtkBuilder *builder, const char *widget_id);
 
-/** config_widget_element_select_value - the value selecting a row writes
- * @elt:  element describing the row
+/** config_widget_element_candidate - predict what clicking a widget writes
+ * @elt:  element describing the widget and its selection values
+ * @w:    widget before its click edge
  * @out:  buffer of @size bytes
  * @size: the selection's field width
  *
- * The one description of what a row proposes, so a hover stages exactly the
- * bytes a click commits.
- *
- * Return: FALSE when the element names no single selection value, leaving
+ * Return: FALSE when the widget exposes no discrete click outcome, leaving
  * @out untouched.
  */
-gboolean config_widget_element_select_value(const config_widget_element_t *elt,
-    void *out, size_t size);
+gboolean config_widget_element_candidate(const config_widget_element_t *elt,
+    GtkWidget *w, void *out, size_t size);
 
 /** config_widget_element_commit_value - what committing a widget writes
  * @elt:  element describing the widget
@@ -158,13 +156,21 @@ gboolean config_widget_element_commit_value(const config_widget_element_t *elt,
 void config_widget_sync_element(const void *field, size_t size,
     const config_widget_element_t *elt, GtkWidget *w);
 
+/** config_preview_class_hoverable - test for per-row hover edges
+ * @w: widget whose class defines the available edges
+ *
+ * Return: TRUE for menu items and toggle buttons; FALSE for every class that
+ * presents no discrete row under the pointer.
+ */
+gboolean config_preview_class_hoverable(GtkWidget *w);
+
 /** config_preview_row_attach - wire the hover edges a bound row's class carries
- * @w: a widget already carrying its binding row
+ * @w: a widget already carrying its binding row, of a class the caller has
+ *     confirmed hoverable
  *
  * A menu item stages on selection and its shell reverts when that shell
  * completes a selection or withdraws; a toggle button stages on pointer
- * entry and reverts on pointer exit.  Every other class presents its value
- * without a row-hover edge.
+ * entry and reverts on pointer exit.
  */
 void config_preview_row_attach(GtkWidget *w);
 

@@ -51,10 +51,16 @@ hook_set_msaa(void)
 {
 }
 
+const config_refresh_t hook_set_msaa_refresh =
+  { .fn = hook_set_msaa, .cls = REFRESH_HOVER_SAFE };
+
 void
 hook_set_radius_scale(void)
 {
 }
+
+const config_refresh_t hook_set_radius_scale_refresh =
+  { .fn = hook_set_radius_scale, .cls = REFRESH_HOVER_SAFE };
 
 /*------------------------------------------------------------------------*/
 

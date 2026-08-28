@@ -62,6 +62,11 @@ hook_set_msaa(void)
   hook_render_redraw();
 }
 
+/* The sample-count rebuild is bounded and the previous frame returns with
+ * the previous count */
+const config_refresh_t hook_set_msaa_refresh =
+  { .fn = hook_set_msaa, .cls = REFRESH_HOVER_SAFE };
+
 /** hook_set_radius_scale - Apply the cylinder radius scale, then redraw */
 void
 hook_set_radius_scale(void)
@@ -69,6 +74,9 @@ hook_set_radius_scale(void)
   opengl_structure_set_radius_scale(rc_config.opengl_cylinder_radius_scale);
   hook_render_redraw();
 }
+
+const config_refresh_t hook_set_radius_scale_refresh =
+  { .fn = hook_set_radius_scale, .cls = REFRESH_HOVER_SAFE };
 
 /*------------------------------------------------------------------------*/
 

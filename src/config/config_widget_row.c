@@ -22,9 +22,9 @@
  *
  * Carries a scope and an element on the widget that expresses them, so the
  * commit path resolves a widget's selection directly instead of searching
- * the registry for it.  A selector building its rows at runtime names only
- * the candidate each row proposes; the element describing that candidate is
- * built and owned here.
+ * the registry for it.  A selector building its rows at runtime names the
+ * candidate a valued row proposes; a boolean row derives its outcome from
+ * widget state.  The element describing either form is built and owned here.
  */
 
 #include "config_widget_row.h"
@@ -68,14 +68,13 @@ config_widget_row_get(GtkWidget *w)
 /** config_widget_scope_usable - whether a scope can carry rows
  * @scope: the capabilities a row would dispatch through
  *
- * Return: TRUE when the scope names bytes, a width, a render and a commit.
+ * Return: TRUE when the scope names bytes, a width and a commit.
  */
 static gboolean
 config_widget_scope_usable(const config_widget_scope_t *scope)
 {
   return (scope != NULL) && (scope->dest.storage != NULL) &&
-         (scope->dest.size != 0) && (scope->dest.refresh != NULL) &&
-         (scope->commit != NULL);
+         (scope->dest.size != 0) && (scope->commit != NULL);
 }
 
 /** config_widget_row_present - carry a filled record onto its widget
@@ -90,8 +89,30 @@ config_widget_row_present(GtkWidget *w, config_widget_row_t *rec)
   g_object_set_data_full(G_OBJECT(w), CONFIG_WIDGET_DATA_ROW, rec,
       config_widget_row_free);
 
-  if( rec->scope->preview )
-    config_preview_row_attach(w);
+  /* A class carrying no row-hover edge runs nothing under the pointer */
+  if( !config_preview_class_hoverable(w) )
+    return;
+
+  switch( rec->scope->cls )
+  {
+    case REFRESH_HOVER_SAFE:
+      /* Require a scope render to paint each hover candidate */
+      if( rec->scope->dest.refresh == NULL )
+        BUG("hover preview reached row '%s' whose scope names no refresh\n",
+            rec->elt->widget_id);
+      else
+        config_preview_row_attach(w);
+      break;
+
+    case REFRESH_COMMIT_ONLY:
+      break;
+
+    case REFRESH_CLASS_UNSET:
+    case REFRESH_CLASS_COUNT:
+      BUG("hover preview reached row '%s' whose refresh names no hover"
+          " classification\n", rec->elt->widget_id);
+      break;
+  }
 }
 
 /*------------------------------------------------------------------------*/
@@ -146,10 +167,9 @@ config_widget_bind_scoped(GtkWidget *w, const config_widget_scope_t *scope,
 {
   config_widget_row_built_t *built = NULL;
 
-  if( (w == NULL) || (candidate == NULL) ||
-      !config_widget_scope_usable(scope) )
+  if( (w == NULL) || !config_widget_scope_usable(scope) )
   {
-    BUG("a runtime row named no widget, candidate, or usable selection\n");
+    BUG("a runtime row named no widget or usable selection\n");
     return;
   }
 
@@ -157,12 +177,31 @@ config_widget_bind_scoped(GtkWidget *w, const config_widget_scope_t *scope,
   if( config_widget_row_get(w) != NULL )
     return;
 
-  mem_alloc(&built, sizeof(*built) + scope->dest.size);
+  if( candidate == NULL )
+  {
+    /* A row naming no bytes leaves its outcome to the widget's own state,
+     * which only the classes answering a value-less element express */
+    const config_widget_element_t state_derived_element = { 0 };
+    unsigned char candidate_probe[scope->dest.size];
 
-  memcpy(built->bytes, candidate, scope->dest.size);
-  built->elt.value_bytes = built->bytes;
-  built->row.scope       = scope;
-  built->row.elt         = &built->elt;
+    if( !config_widget_element_candidate(&state_derived_element, w,
+          candidate_probe, scope->dest.size) )
+    {
+      BUG("a runtime row named no candidate and no state-derived outcome\n");
+      return;
+    }
+
+    mem_alloc(&built, sizeof(*built));
+  }
+  else
+  {
+    mem_alloc(&built, sizeof(*built) + scope->dest.size);
+    memcpy(built->bytes, candidate, scope->dest.size);
+    built->elt.value_bytes = built->bytes;
+  }
+
+  built->row.scope = scope;
+  built->row.elt   = &built->elt;
 
   config_widget_row_connect(w);
   config_widget_row_present(w, &built->row);

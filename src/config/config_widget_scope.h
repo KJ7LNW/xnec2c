@@ -21,15 +21,16 @@
 #define CONFIG_WIDGET_SCOPE_H 1
 
 #include "config_preview.h"
+#include "config_refresh.h"
 
 /*
  * config_widget_scope: the capabilities one selection dispatches through.
  *
  * Exactly one scope exists per selection: the bytes its value lives in, the
  * idempotent render of those bytes, the transition edge a commit adds on top
- * of that render, and whether the selection's rows stage a candidate on
- * hover.  Every row of that selection holds the scope by reference, so no
- * widget can disagree with the selection it expresses.
+ * of that render, and the classification that render carries.  Every row of
+ * that selection holds the scope by reference, so no widget can disagree
+ * with the selection it expresses.
  *
  * A scope outlives every row that dispatches through it.  A registered
  * field's scope is allocated by the registry on its own, because the binding
@@ -40,7 +41,7 @@
 typedef struct {
   preview_target_t dest;
   void           (*commit)(void *context);
-  gboolean         preview;
+  refresh_class_t  cls;
 } config_widget_scope_t;
 
 #endif /* CONFIG_WIDGET_SCOPE_H */

@@ -58,6 +58,9 @@ hook_render_redraw(void)
   Queue_Radiation_Redraw(TRUE);
 }
 
+const config_refresh_t hook_render_redraw_refresh =
+  { .fn = hook_render_redraw, .cls = REFRESH_HOVER_SAFE };
+
 /*------------------------------------------------------------------------*/
 
 /** config_reset_tab_user - Reset one tab's fields to compiled-in defaults

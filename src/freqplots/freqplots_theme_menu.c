@@ -23,7 +23,6 @@
 
 #include "../interface.h"
 #include "../shared.h"
-#include "../callbacks.h"
 #include "../i18n.h"
 #include "../themes/theme.h"
 #include "../config/config_widget.h"
@@ -119,14 +118,17 @@ freqplots_theme_menu_build( GtkBuilder *builder )
     return;
 
   invert = gtk_check_menu_item_new_with_mnemonic( _("_Invert") );
-  SIGNAL_BLOCK( invert, on_freqplots_theme_invert_toggled );
+  gtk_menu_shell_append( GTK_MENU_SHELL(menu), invert );
+
+  /* Appended first, so the row reaches the shell that ends its hover */
+  config_widget_bind_row( invert, &rc_config.freqplots_theme_invert, NULL );
+
+  SIGNAL_BLOCK( invert, on_config_widget_changed );
   gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(invert),
       rc_config.freqplots_theme_invert );
-  SIGNAL_UNBLOCK( invert, on_freqplots_theme_invert_toggled );
+  SIGNAL_UNBLOCK( invert, on_config_widget_changed );
+
   freqplots_invert_item_sync( invert, rc_config.freqplots_theme );
-  g_signal_connect( invert, "toggled",
-      G_CALLBACK(on_freqplots_theme_invert_toggled), NULL );
-  gtk_menu_shell_append( GTK_MENU_SHELL(menu), invert );
   g_object_set_data( G_OBJECT(menu), THEME_DATA_INVERT_ITEM, invert );
 
   /* Legacy heads the radio list; user custom themes follow it so they sit at

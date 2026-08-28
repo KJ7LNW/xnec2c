@@ -55,6 +55,7 @@
 #include "render/render_canvas.h"
 #include "render/render_redraw.h"
 #include "color/color_tone.h"
+#include "config/config_refresh.h"
 #include "config/config_widget_scope.h"
 
 // Define GSourceOnceFunc if compiling against an older version of GLIB:
@@ -1400,7 +1401,10 @@ Card_Clicked(GtkWidget **editor, GtkBuilder **editor_builder, GtkWidget *create_
 void Main_Rdpattern_Activate(gboolean from_menu);
 gboolean Main_Freqplots_Activate(void);
 void rdpattern_mode_apply(void);
+extern const config_refresh_t rdpattern_mode_apply_refresh;
+
 void structure_view_apply(void);
+extern const config_refresh_t structure_view_apply_refresh;
 GtkWidget *Open_Filechooser(GtkFileChooserAction action, char *pattern, char *prefix, char *filename, char *foldername);
 void Filechooser_Response(GtkDialog *dialog, gint response_id, int saveas_width, int saveas_height);
 void Open_Nec2_Editor(int action);
@@ -1732,7 +1736,6 @@ void on_about_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_aboutdialog_close(GtkDialog *dialog, gpointer user_data);
 void on_aboutdialog_destroy(GObject *object, gpointer user_data);
 void on_aboutdialog_response(GtkDialog *dialog, gint response_id, gpointer user_data);
-void on_freqplots_theme_invert_toggled(GtkCheckMenuItem *menuitem, gpointer user_data);
 void freqplots_theme_invert_sync(void);
 void freqplots_theme_menu_build(GtkBuilder *builder);
 void on_main_zoom_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
@@ -1780,6 +1783,7 @@ double Scale_Gain_Resolved(double gain, int fstep, int idx,
 double Polarization_Factor(int pol_type, int fstep, int idx);
 void polarization_refresh(void);
 void Set_Gain_Style(void);
+extern const config_refresh_t Set_Gain_Style_refresh;
 void gain_style_check_warnings(void);
 void Queue_Radiation_Redraw(gboolean force);
 void Update_Rdpattern_UI(void);

@@ -22,6 +22,7 @@
 
 #include <limits.h>
 #include <gtk/gtk.h>
+#include "config_refresh.h"
 #include "config_widget_scope.h"
 #include "../console.h"
 
@@ -74,13 +75,12 @@ typedef struct {
  * projecting the field.  post_apply is an idempotent refresh fired on every
  * change and on every bulk sync/create pass; on_change is a transition-edge
  * effect (non-idempotent or heavyweight) fired only on a real value change.
- * preview declares that the tree's valued rows stage their candidate into
- * the field on hover and repaint through post_apply alone, so a heavyweight
- * refresh participates only where the tree states it. */
+ * post_apply names a descriptor rather than a bare function, so the refresh
+ * carries its own hover classification and every tree naming that refresh
+ * reads the same answer. */
 typedef struct {
-  void (*post_apply)(void);
+  const config_refresh_t *post_apply;
   void (*on_change)(void);
-  gboolean preview;
   const config_widget_group_t *const *groups;
 } config_widget_tree_t;
 
@@ -152,8 +152,8 @@ void config_widget_cleanup(void);
  * @field: address of a registered field
  *
  * One scope per field, at a fixed address for the program's life, so a
- * runtime row obeys the same preview declaration as a row the tree names and
- * shares its destination and its commit edge.
+ * runtime row obeys the same refresh classification as a row the tree names
+ * and shares its destination and its commit edge.
  *
  * Return: the scope, or NULL when @field was never registered (BUG already
  * raised).
@@ -164,7 +164,8 @@ const config_widget_scope_t *config_widget_field_scope(void *field);
  * @w:         the row widget, already appended to its parent
  * @field:     address of a registered field
  * @candidate: the field bytes, at the field's full width, that selecting
- *             this row writes
+ *             this row writes, or NULL when the widget derives the outcome
+ *             from its active state
  *
  * For a selector whose rows come from live data rather than a builder file.
  * The engine owns the element describing the row and releases it with the
@@ -176,7 +177,8 @@ void config_widget_bind_row(GtkWidget *w, void *field, const void *candidate);
  * @w:         the row widget, already appended to its parent
  * @scope:     capabilities owned by the object holding the state, filled
  *             before the first row attaches and outliving every row
- * @candidate: the bytes, at @scope->dest.size, that selecting this row writes
+ * @candidate: the bytes, at @scope->dest.size, that selecting this row writes,
+ *             or NULL when the widget derives the outcome from its active state
  *
  * For per-object selections whose cardinality is not one, so the registry
  * cannot hold them.

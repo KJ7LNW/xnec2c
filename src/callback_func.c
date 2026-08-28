@@ -314,6 +314,9 @@ rdpattern_mode_apply( void )
   Set_Window_Labels();
 } /* rdpattern_mode_apply() */
 
+const config_refresh_t rdpattern_mode_apply_refresh =
+  { .fn = rdpattern_mode_apply, .cls = REFRESH_COMMIT_ONLY };
+
 /*-----------------------------------------------------------------------*/
 
 /** structure_view_apply() - Apply the main-window structure view
@@ -358,6 +361,9 @@ structure_view_apply( void )
     Queue_Radiation_Redraw( TRUE );
 
 } /* structure_view_apply() */
+
+const config_refresh_t structure_view_apply_refresh =
+  { .fn = structure_view_apply, .cls = REFRESH_COMMIT_ONLY };
 
 /*-----------------------------------------------------------------------*/
 

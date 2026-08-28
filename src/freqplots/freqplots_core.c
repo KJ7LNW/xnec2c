@@ -795,7 +795,7 @@ fp_build_port_combo( freqplots_view_t *v, GtkMenuButton *button )
   v->port_scope.dest.refresh = fp_port_refresh;
   v->port_scope.dest.context = v;
   v->port_scope.commit       = fp_port_commit;
-  v->port_scope.preview      = TRUE;
+  v->port_scope.cls          = REFRESH_HOVER_SAFE;
 
   for( int p = 0; p < n_ports; p++ )
   {

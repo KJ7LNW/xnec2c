@@ -41,6 +41,7 @@ src/chroma/chroma_source.c
 src/chroma/chroma_source.h
 src/cmnd_edit.c
 src/cmnd_edit.h
+src/color/color_config_hooks.c
 src/color/color_edge.h
 src/color/color_palette.c
 src/color/color_palette.h
@@ -53,9 +54,11 @@ src/common.h
 src/config/config_preview.c
 src/config/config_preview.h
 src/config/config_preview_row.c
+src/config/config_refresh.h
 src/config/config_widget.c
 src/config/config_widget.h
 src/config/config_widget_element.c
+src/config/config_widget_element_sync.c
 src/config/config_widget_priv.h
 src/config/config_widget_row.c
 src/config/config_widget_row.h
@@ -75,6 +78,7 @@ src/fork.h
 src/freq_sweep_controls.c
 src/freq_sweep_state.c
 src/freqplots/freqplots_action.c
+src/freqplots/freqplots_config_hooks.c
 src/freqplots/freqplots_core.c
 src/freqplots/freqplots_graph.c
 src/freqplots/freqplots_input.c

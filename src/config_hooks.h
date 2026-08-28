@@ -33,22 +33,64 @@
 void config_hooks_init(void);
 
 void hook_polarization(void);
+extern const config_refresh_t hook_polarization_refresh;
+
 void hook_common_projection(void);
+extern const config_refresh_t hook_common_projection_refresh;
+
 void hook_common_pan(void);
+extern const config_refresh_t hook_common_pan_refresh;
+
 void hook_flow_direction(void);
+extern const config_refresh_t hook_flow_direction_refresh;
+
 void hook_color_vis(void);
+extern const config_refresh_t hook_color_vis_refresh;
+
 void hook_color_family(void);
+extern const config_refresh_t hook_color_family_refresh;
+
 void hook_theme_change(void);
+extern const config_refresh_t hook_theme_change_refresh;
+
 void hook_orthographic(void);
+extern const config_refresh_t hook_orthographic_refresh;
+
 void hook_frequency(void);
 
 void hook_rdpat_ehfield(void);
+extern const config_refresh_t hook_rdpat_ehfield_refresh;
+
 void hook_rdpat_redraw(void);
+extern const config_refresh_t hook_rdpat_redraw_refresh;
+
 void hook_ff_overlay(void);
+extern const config_refresh_t hook_ff_overlay_refresh;
 
 void hook_freqplots_panel_select(void);
+extern const config_refresh_t hook_freqplots_panel_select_refresh;
+
 void hook_freqplots_redraw(void);
+extern const config_refresh_t hook_freqplots_redraw_refresh;
+
 void hook_freqplots_net_gain(void);
-void hook_freqplots_swap_click(void);
+extern const config_refresh_t hook_freqplots_net_gain_refresh;
+
+/* Declare render-settings hooks beside every row-bound refresh;
+ * settings/ owns their definitions. */
+void hook_render_redraw(void);
+extern const config_refresh_t hook_render_redraw_refresh;
+
+void hook_set_renderer(void);
+extern const config_refresh_t hook_set_renderer_refresh;
+
+void hook_set_constrained(void);
+extern const config_refresh_t hook_set_constrained_refresh;
+
+void hook_set_msaa(void);
+extern const config_refresh_t hook_set_msaa_refresh;
+
+void hook_set_radius_scale(void);
+extern const config_refresh_t hook_set_radius_scale_refresh;
 
 #endif /* CONFIG_HOOKS_H */

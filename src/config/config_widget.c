@@ -88,10 +88,18 @@ config_widget_register(void *field, size_t size, const config_widget_tree_t *tre
   mem_new(&scope);
   scope->dest.storage = field;
   scope->dest.size    = size;
-  scope->dest.refresh = config_widget_post_apply;
   scope->dest.context = field;
   scope->commit       = config_widget_commit_field;
-  scope->preview      = tree->preview;
+
+  /* A tree naming no refresh paints no frame, so its rows carry no staging
+   * render and reach the interface on their commit alone */
+  if( tree->post_apply == NULL )
+    scope->cls = REFRESH_COMMIT_ONLY;
+  else
+  {
+    scope->dest.refresh = config_widget_post_apply;
+    scope->cls          = tree->post_apply->cls;
+  }
 
   mem_array_reserve(&binding_registry, binding_count + 1,
       CONFIG_WIDGET_REGISTRY_INITIAL_CAP);
@@ -166,7 +174,7 @@ config_widget_post_apply(void *field)
   if( b->tree->post_apply == NULL )
     BUG("a refresh named a field whose binding declares none\n");
   else
-    b->tree->post_apply();
+    b->tree->post_apply->fn();
 }
 
 /*------------------------------------------------------------------------*/
@@ -183,7 +191,7 @@ config_widget_commit_field(void *field)
   }
 
   if( b->tree->post_apply != NULL )
-    b->tree->post_apply();
+    b->tree->post_apply->fn();
 
   if( b->tree->on_change != NULL )
     b->tree->on_change();

@@ -46,6 +46,10 @@ hook_set_renderer(void)
   hook_render_redraw();
 }
 
+/* Replaces the canvas engine presenting every surface */
+const config_refresh_t hook_set_renderer_refresh =
+  { .fn = hook_set_renderer, .cls = REFRESH_COMMIT_ONLY };
+
 /** hook_set_constrained - Apply constrained-rotation mode, then redraw */
 void
 hook_set_constrained(void)
@@ -53,6 +57,10 @@ hook_set_constrained(void)
   opengl_set_constrained_rotation(rc_config.view_drag_constrained);
   hook_render_redraw();
 }
+
+/* Changes how a drag is interpreted rather than what a frame shows */
+const config_refresh_t hook_set_constrained_refresh =
+  { .fn = hook_set_constrained, .cls = REFRESH_COMMIT_ONLY };
 
 /*------------------------------------------------------------------------*/
 
