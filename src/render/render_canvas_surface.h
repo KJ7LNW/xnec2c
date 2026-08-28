@@ -62,6 +62,14 @@ void canvas_surface_show(const render_surface_t *surface);
 void canvas_surface_queue_redraw(render_surface_t *surface);
 
 /**
+ * canvas_surface_resize() - Size engine frame resources to a new drawable
+ * @surface: active surface object
+ * @width:   new drawable width in device pixels
+ * @height:  new drawable height in device pixels
+ */
+void canvas_surface_resize(render_surface_t *surface, int width, int height);
+
+/**
  * canvas_surface_sync_viewport() - Record the current surface allocation
  * @surface: active view-backed surface, which receives the allocation
  */

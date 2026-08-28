@@ -165,6 +165,40 @@ gl_view_signal_init_failed(gl_view_state_t *state)
 
 /*-----------------------------------------------------------------------*/
 
+/** gl_view_resize_buffers() - Size every framebuffer to the recorded drawable
+ * @state: view state whose GL context is current
+ *
+ * Sizes the resources the recorded drawable governs.  The realize handler,
+ * which brings the context those resources live in into being, and the
+ * surface geometry edge, which learns of a new drawable, both arrive here.
+ */
+  static void
+gl_view_resize_buffers(gl_view_state_t *state)
+{
+  int width = state->msaa_width;
+  int height = state->msaa_height;
+
+  if( width <= 0 || height <= 0 )
+    return;
+
+  /* Recreate MSAA FBO at new dimensions */
+  if( rc_config.opengl_msaa_samples > 0 )
+    gl_view_recreate_msaa(state, rc_config.opengl_msaa_samples);
+
+  /* Recreate depth-peel FBOs at new dimensions (only when
+   * composite shader loaded successfully during realize) */
+  if( state->initialized && state->composite_program )
+    gl_view_peel_recreate(state, width, height, state->msaa_samples);
+
+  if( state->overlay )
+    gradient_overlay_set_viewport(state->overlay, width, height);
+
+  glViewport(0, 0, width, height);
+
+} /* gl_view_resize_buffers() */
+
+/*-----------------------------------------------------------------------*/
+
 /** on_realize() - GtkGLArea realize signal handler
  * @area: GL area widget
  * @user_data: view state
@@ -357,6 +391,10 @@ on_realize(GtkGLArea *area, gpointer user_data)
     }
   }
 
+  /* Size the framebuffers to the drawable the geometry edge recorded, which
+   * an allocation arriving before realize found no context to size. */
+  gl_view_resize_buffers(state);
+
   /* Auto-render is disabled, so the first frame of a realized context
    * comes from this request. */
   gl_view_queue_render(state);
@@ -384,53 +422,42 @@ on_unrealize(GtkGLArea *area, gpointer user_data)
 
 /*-----------------------------------------------------------------------*/
 
-/** on_resize() - GtkGLArea resize signal handler
- * @_area: signal source, unread: the view state carries the GL area
- * @width: new width in pixels
- * @height: new height in pixels
- * @user_data: view state
+/** gl_view_surface_resize() - Size the engine's frame resources to a drawable
+ * @surface: GL surface whose drawable changed size
+ * @width: new width in device pixels
+ * @height: new height in device pixels
+ *
+ * Reached from the surface geometry edge rather than from a draw, so the
+ * context is made current here.  The edge requests the frame presenting the
+ * new size once the sizing returns.
  */
-  static void
-on_resize(GtkGLArea *_area, int width, int height, gpointer user_data)
+  void
+gl_view_surface_resize(render_surface_t *surface, int width, int height)
 {
-  gl_view_state_t *state;
+  gl_view_state_t *state = gl_view_state(surface);
+  GtkGLArea *area = GTK_GL_AREA(state->gl_area);
 
-  state = (gl_view_state_t *)user_data;
-
-  if( state == NULL )
-    return;
-
-  /* Dimensions unchanged — skip FBO resize; the allocation handler already
-   * recorded them for a redundant GTK notification. */
+  /* Dimensions unchanged — skip FBO resize */
   if( width == state->msaa_width && height == state->msaa_height )
-  {
-    glViewport(0, 0, width, height);
-    gl_view_queue_render(state);
     return;
-  }
 
   /* Store dimensions for MSAA recreation */
   state->msaa_width = width;
   state->msaa_height = height;
 
-  /* Recreate MSAA FBO at new dimensions */
-  if( rc_config.opengl_msaa_samples > 0 )
-    gl_view_recreate_msaa(state, rc_config.opengl_msaa_samples);
+  /* Sizing needs a current context.  An area realizing later sizes its
+   * framebuffers in on_realize() from the dimensions recorded above. */
+  if( !gtk_widget_get_realized(state->gl_area) )
+    return;
 
-  /* Recreate depth-peel FBOs at new dimensions (only when
-   * composite shader loaded successfully during realize) */
-  if( state->initialized && state->composite_program )
-    gl_view_peel_recreate(state, width, height, state->msaa_samples);
+  gtk_gl_area_make_current(area);
 
-  if( state->overlay )
-    gradient_overlay_set_viewport(state->overlay, width, height);
+  if( gtk_gl_area_get_error(area) != NULL )
+    return;
 
-  glViewport(0, 0, width, height);
+  gl_view_resize_buffers(state);
 
-  /* Force redraw so the window does not remain black after resize */
-  gl_view_queue_render(state);
-
-} /* on_resize() */
+} /* gl_view_surface_resize() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -563,7 +590,6 @@ gl_view_surface_new(gl_view_config_t *config, const surface_input_ops_t *input,
   g_signal_connect(gl_area, "realize", G_CALLBACK(on_realize), state);
   g_signal_connect(gl_area, "unrealize", G_CALLBACK(on_unrealize), state);
   gl_view_render_connect(state);
-  g_signal_connect(gl_area, "resize", G_CALLBACK(on_resize), state);
 
   if( !render_surface_init(&state->base, gl_view_present_widget(state),
       &gl_engine, view, input) )

@@ -41,6 +41,9 @@ void cairo_surface_free(render_surface_t *surface);
 /** cairo_queue_redraw() - Request a frame from a Cairo surface */
 void cairo_queue_redraw(render_surface_t *surface);
 
+/** cairo_surface_resize() - Size a Cairo surface to a new drawable */
+void cairo_surface_resize(render_surface_t *surface, int width, int height);
+
 /** render_cairo() - Per-frame Cairo draw path; clear, deposit, flush, overlay */
 gboolean render_cairo(render_surface_t *surface, cairo_t *cr);
 

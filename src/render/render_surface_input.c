@@ -256,21 +256,26 @@ on_scroll(GtkWidget *_widget, GdkEventScroll *event, gpointer user_data)
 /*-----------------------------------------------------------------------*/
 
 /**
- * on_size_allocate() - Record the new drawable size in the view
+ * on_size_allocate() - Own the surface geometry edge for every engine
  * @_widget: signal source, unread: the surface carries the widget
  * @allocation: new logical allocation
  * @user_data: surface whose widget was allocated
  *
- * Logical units reach the view here for every engine; a framebuffer sized in
- * device pixels remains the concern of the engine owning it.
+ * One geometry event discharges three obligations in order: the view records
+ * the drawable in logical units, the engine sizes its own resources in device
+ * pixels, and the frame presenting the new size is requested.
  */
   static void
 on_size_allocate(GtkWidget *_widget, GtkAllocation *allocation,
     gpointer user_data)
 {
   render_surface_t *surface = (render_surface_t *)user_data;
+  int scale = gtk_widget_get_scale_factor(surface->widget);
 
   view_set_viewport(surface->view, allocation->width, allocation->height);
+  canvas_surface_resize(surface, allocation->width * scale,
+      allocation->height * scale);
+  canvas_surface_queue_redraw(surface);
 
 } /* on_size_allocate() */
 

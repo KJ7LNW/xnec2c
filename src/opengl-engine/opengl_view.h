@@ -442,6 +442,17 @@ gboolean gl_view_notice_capability(render_surface_t *surface,
  * on request. */
 void gl_view_queue_render(gl_view_state_t *state);
 
+/** gl_view_surface_resize() - Size the engine's frame resources to a drawable
+ * @surface: GL surface whose drawable changed size
+ * @width: new drawable width in device pixels
+ * @height: new drawable height in device pixels
+ *
+ * Runs from the surface geometry edge rather than from a draw, so the GL
+ * context is made current here and the frame presenting the new size is
+ * requested by the edge.
+ */
+void gl_view_surface_resize(render_surface_t *surface, int width, int height);
+
 /* gl_view_build_mvp() - Compose model/view/projection matrix for a frame.
  *
  * Reads rotation from view_R(state->base.view), pan from view->pan_offset

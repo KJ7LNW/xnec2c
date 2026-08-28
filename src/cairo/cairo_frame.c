@@ -132,6 +132,22 @@ cairo_queue_redraw(render_surface_t *surface)
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * cairo_surface_resize() - Size a Cairo surface to a new drawable
+ * @_surface: surface whose drawable changed size, unread
+ * @_width: new drawable width in device pixels, unread
+ * @_height: new drawable height in device pixels, unread
+ *
+ * A Cairo frame is composed from the view on every draw and retains no
+ * resource holding a size, so a new drawable leaves nothing to size.
+ */
+  void
+cairo_surface_resize(render_surface_t *_surface, int _width, int _height)
+{
+} /* cairo_surface_resize() */
+
+/*-----------------------------------------------------------------------*/
+
 /* Cairo backend operations vtable; render() gates slot calls by mode */
 const render_ops_t cairo_ops =
 {

@@ -35,6 +35,7 @@ canvas_surface_engine_complete(const render_engine_t *engine)
   return( engine != NULL && engine->render != NULL &&
       engine->surface_free != NULL && engine->fit_view != NULL &&
       engine->capture != NULL && engine->queue_redraw != NULL &&
+      engine->surface_resize != NULL &&
       engine->notice_capability != NULL );
 
 } /* canvas_surface_engine_complete() */
@@ -103,6 +104,17 @@ canvas_surface_queue_redraw(render_surface_t *surface)
   surface->engine->queue_redraw( surface );
 
 } /* canvas_surface_queue_redraw() */
+
+  void
+canvas_surface_resize(render_surface_t *surface, int width, int height)
+{
+  if( surface == NULL || surface->engine == NULL
+      || surface->engine->surface_resize == NULL )
+    return;
+
+  surface->engine->surface_resize( surface, width, height );
+
+} /* canvas_surface_resize() */
 
 /**
  * canvas_surface_sync_viewport() - Record the current surface allocation

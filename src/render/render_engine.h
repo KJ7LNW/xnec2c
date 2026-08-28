@@ -63,6 +63,11 @@ typedef struct render_engine_s
    * stale, so each engine names the primitive that suits it. */
   void (*queue_redraw)(render_surface_t *surface);
 
+  /* Size the engine's own frame resources to a drawable measured in device
+   * pixels.  The view carries the logical size, and an engine retaining no
+   * size-dependent resource sizes nothing. */
+  void (*surface_resize)(render_surface_t *surface, int width, int height);
+
   /* Advertise the text of an input capability acting upon a subject the
    * caller has brought into a reportable state.  An engine presenting no
    * notice, and one whose frame does not resolve the subject, returns FALSE,

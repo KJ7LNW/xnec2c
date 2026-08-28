@@ -154,5 +154,6 @@ const render_engine_t cairo_engine =
   .fit_view = cairo_fit_view,
   .capture = cairo_capture_pixbuf,
   .queue_redraw = cairo_queue_redraw,
+  .surface_resize = cairo_surface_resize,
   .notice_capability = cairo_notice_capability,
 };
