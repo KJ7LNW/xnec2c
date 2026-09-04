@@ -45,7 +45,7 @@ usage(2) if !GetOptions('help' => \$help);
 usage(0) if $help;
 usage(2) if @ARGV;
 
-exit(audit_exemptions() == 0 ? 0 : 1);
+exit(scalar(@{audit_exemptions()}) == 0 ? 0 : 1);
 
 # Report command syntax and terminate with the caller's status.
 sub usage

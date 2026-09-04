@@ -14,7 +14,9 @@ use Xnec2c::PO::TranslationRules qw(
 	exemption_rules record_rules repair_rules
 );
 
-our @EXPORT_OK = qw(new_model_session run_model_session set_model);
+our @EXPORT_OK = qw(
+	new_model_session run_injection run_model_session set_model
+);
 
 my $ROOT = abs_path("$RealBin/../..");
 
@@ -110,18 +112,40 @@ sub edit_output_instruction
 # Accept the stop-on-done exit code while propagating other launch failures.
 sub assert_session_status
 {
-	my ($lang, $status) = @_;
+	my ($subject, $status) = @_;
 
 	if (($status & 127) == 0 && ($status >> 8) == 143)
 	{
-		print "$lang: claude-inject stopped after done\n";
+		print "$subject: claude-inject stopped after done\n";
 	}
 	else
 	{
-		my $outcome = command_outcome("$lang: claude-inject", $status);
+		my $outcome = command_outcome("$subject: claude-inject", $status);
 		die join("\n", @{$outcome->{faults}}) . "\n"
 			if $outcome->{kind} ne OUTCOME_OK;
 	}
+}
+
+# Seat one model run against the repository root, injecting every context
+# reference ahead of the instruction it answers.
+sub run_injection
+{
+	my ($subject, $context, $instruction) = @_;
+	my $status;
+
+	{
+		local $ENV{CLAUDE_HOOKS_KILL_ON_STOP} = 'done';
+		$status = system(
+			'claude-inject',
+			'--claude', 'claude-raw',
+			'--cwd', $ROOT,
+			'--permission-mode', 'acceptEdits',
+			'--model', $MODEL,
+			@{$context},
+			'--', $instruction,
+		);
+	}
+	assert_session_status($subject, $status);
 }
 
 # Run one model session against one language, seating the instruction its
@@ -130,7 +154,6 @@ sub run_model_session
 {
 	my ($session) = @_;
 	my $lang = $session->{lang};
-	my $status;
 
 	# The output map injects last. Each reference ahead of it runs first, and a
 	# command touching the file after it was read leaves the first edit
@@ -144,19 +167,7 @@ sub run_model_session
 		$session->{output_path},
 	);
 
-	{
-		local $ENV{CLAUDE_HOOKS_KILL_ON_STOP} = 'done';
-		$status = system(
-			'claude-inject',
-			'--claude', 'claude-raw',
-			'--cwd', $ROOT,
-			'--permission-mode', 'acceptEdits',
-			'--model', $MODEL,
-			@context,
-			'--', edit_output_instruction($session),
-		);
-	}
-	assert_session_status($lang, $status);
+	run_injection($lang, \@context, edit_output_instruction($session));
 }
 
 1;

@@ -22,7 +22,7 @@ use Xnec2c::PO::TranslationMap qw(
 
 our @EXPORT_OK = qw(
 	apply_language assert_language_outcome prepare_language_manifest
-	report_commit report_outcome
+	refresh_language report_commit report_outcome
 );
 
 use constant STATE_APPLY_OUTPUT => 'apply_output';
@@ -70,15 +70,23 @@ sub report_commit
 		. catalog_path($lang) . "\n";
 }
 
-# Refresh one catalog against the template and derive the manifest records its
-# current state requires.
-sub prepare_language_manifest
+# Refresh one catalog against the template, terminating at a failed refresh.
+sub refresh_language
 {
 	my ($lang) = @_;
 	my $refresh = refresh_language_catalog($lang);
 
 	report_outcome($refresh);
 	assert_language_outcome($lang, $refresh, 'catalog refresh failed');
+}
+
+# Refresh one catalog against the template and derive the manifest records its
+# current state requires.
+sub prepare_language_manifest
+{
+	my ($lang) = @_;
+
+	refresh_language($lang);
 
 	my $changes = catalog_change_records($lang);
 

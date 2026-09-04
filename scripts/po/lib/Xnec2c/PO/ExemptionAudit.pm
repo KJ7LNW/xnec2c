@@ -196,7 +196,8 @@ sub cross_catalog_faults
 }
 
 # Audit every catalog for exemption agreement, reporting each fault and
-# returning their total.
+# returning them. A caller correcting the catalogs reads the same faults the
+# report names, so both surfaces derive from this one pass.
 sub audit_exemptions
 {
 	my @languages = catalog_languages();
@@ -224,7 +225,7 @@ sub audit_exemptions
 			. ' across ' . counted(scalar @languages, 'catalog') . "\n";
 	}
 
-	return $fault_count;
+	return \@faults;
 }
 
 1;

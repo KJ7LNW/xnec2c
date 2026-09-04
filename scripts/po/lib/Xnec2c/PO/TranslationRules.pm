@@ -11,8 +11,9 @@ use Xnec2c::PO::MapFile qw(
 );
 
 our @EXPORT_OK = qw(
-	exemption_conflict exemption_name exemption_names exemption_propagates
-	exemption_rules record_rules repair_rules resolved_target
+	cross_catalog_rules exemption_conflict exemption_name exemption_names
+	exemption_propagates exemption_rules record_rules repair_rules
+	resolved_target
 );
 
 # Each exemption states why a source carries no distinct target form. A reason
@@ -220,12 +221,65 @@ sub repair_rules
 		'- Write and run no program that rewrites this map.');
 }
 
+# Present every documented reason beside the content it covers, indented for
+# the rule text embedding it.
+sub exemption_guide
+{
+	return join("\n", map {
+		"    $_ $EXEMPTION_MAP{$_}{name}: $EXEMPTION_MAP{$_}{use}"
+	} sort keys %EXEMPTION_MAP);
+}
+
+# Partition every documented reason by what it rests on: a propagating reason
+# rests on the source alone, a local one on the adopting language's vocabulary.
+sub exemption_partition
+{
+	my %partition = (propagating => [], local => []);
+
+	push @{$partition{exemption_propagates($_) ? 'propagating' : 'local'}}, $_
+		for exemption_names();
+
+	return \%partition;
+}
+
+# State how one source carrying deviating reasons across catalogs is resolved.
+# The audit compares catalogs against one another, so its correction rests on
+# evidence the catalogs hold together rather than on any single entry.
+sub cross_catalog_rules
+{
+	my $guide = exemption_guide();
+	my $partition = exemption_partition();
+	my $propagating = join(', ', @{$partition->{propagating}});
+	my $local = join(', ', @{$partition->{local}});
+
+	return <<"RULES" =~ s/\n\z//r;
+# Deviating exemptions
+
+An exemption records why one catalog writes no translation for a source:
+
+$guide
+
+- $propagating rest on the source alone, so each asserts every language holds
+  the source form. One catalog answering that source with a distinct
+  translation falsifies the claim for every catalog holding it.
+- $local rests on the adopting language's own vocabulary, so it binds that
+  catalog alone and stands only where another catalog does translate the
+  source.
+- A translation standing in any catalog, named by the report or not, is the
+  evidence that a reason resting on the source alone is wrong.
+- Retire a falsified reason first, then judge what remains by the content it
+  covers. Ordinary prose is translated whatever a neighbouring catalog claims.
+- Where a catalog writes the source form exactly as written, record the
+  vocabulary reason: $local.
+- Where a catalog writes a distinct form, write that form as the translation
+  and drop the exemption comment.
+RULES
+}
+
 # State the answer every record carries, and the warning an exemption draws.
 sub exemption_rules
 {
-	my $guide = join("\n", map {
-		"    $_ $EXEMPTION_MAP{$_}{name}: $EXEMPTION_MAP{$_}{use}"
-	} sort keys %EXEMPTION_MAP);
+	my $guide = exemption_guide();
 
 	return <<"RULES" =~ s/\n\z//r;
 # The X line

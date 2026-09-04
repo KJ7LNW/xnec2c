@@ -11,6 +11,7 @@ use Xnec2c::PO::CatalogState qw(catalog_path);
 use Xnec2c::PO::CatalogTransaction qw(
 	commit_language_output verify_language_output
 );
+use Xnec2c::PO::ExemptionWorkflow qw(apply_exemptions);
 use Xnec2c::PO::LanguageWorkflow qw(
 	apply_language assert_language_outcome prepare_language_manifest
 	report_commit report_outcome
@@ -65,7 +66,8 @@ sub cmd_generate
 	}
 }
 
-# Complete one language before starting the next.
+# Complete one language before starting the next, then reconcile the reasons
+# the finished catalogs record against one another.
 sub cmd_apply
 {
 	make_path(AI_DIR);
@@ -73,6 +75,7 @@ sub cmd_apply
 	{
 		apply_language($lang);
 	}
+	apply_exemptions();
 }
 
 # Report the map faults and exemption warnings of one output map.
