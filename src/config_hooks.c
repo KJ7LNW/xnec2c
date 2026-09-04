@@ -22,9 +22,7 @@
 #include "callbacks.h"
 #include "rdpattern_ui.h"
 #include "structure_ui.h"
-
-/* flow_direction_mode_t enumerators for the animatable-mode test */
-#include "opengl/opengl_structure.h"
+#include "anim/anim_dialog.h"
 
 /*------------------------------------------------------------------------*/
 
@@ -72,22 +70,12 @@ const config_refresh_t hook_common_pan_refresh =
 void
 hook_flow_direction(void)
 {
-  gboolean animatable;
-
   Queue_Structure_Rebuild( TRUE );
   Queue_Radiation_Redraw(TRUE);
 
-  /* Wire color animates in every flow mode; patch arrows animate only in
-   * the phase-variant modes, so grey the Animate menu item only for a
-   * patch-only model in a phase-invariant mode. */
-  animatable = (data.n > 0) ||
-    (rc_config.current_flow_visualization_mode == FLOW_DIR_REFERENCE_PHASE ||
-     rc_config.current_flow_visualization_mode == FLOW_DIR_LIC ||
-     rc_config.current_flow_visualization_mode == FLOW_DIR_WIREFRAME);
-
-  gtk_widget_set_sensitive(
-      Builder_Get_Object(main_window_builder, "main_structure_animate"),
-      animatable);
+  /* The selected mark decides whether the patch class carries phase, so the
+   * Animate entries re-read their class truth on this edge. */
+  anim_panel_sensitivity();
 }
 
 const config_refresh_t hook_flow_direction_refresh =
@@ -168,6 +156,10 @@ hook_rdpat_ehfield(void)
   Set_Window_Labels();
   if( rdpat_ehfield_active() )
     Queue_Radiation_Redraw(TRUE);
+
+  /* The channel selections decide whether the near-field class presents
+   * content, so the animation controls re-read that truth here. */
+  anim_panel_sensitivity();
 }
 
 const config_refresh_t hook_rdpat_ehfield_refresh =

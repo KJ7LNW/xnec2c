@@ -18,6 +18,7 @@
  */
 
 #include "callback_func.h"
+#include "anim/anim_dialog.h"
 #include "cairo/cairo_draw.h"
 #include "config/config_widget.h"
 #include "shared.h"
@@ -312,6 +313,10 @@ rdpattern_mode_apply( void )
     Queue_Radiation_Redraw( TRUE );
 
   Set_Window_Labels();
+
+  /* The active pattern surface decides whether near- or far-field classes
+   * present content, so the animation controls re-read that truth here. */
+  anim_panel_sensitivity();
 } /* rdpattern_mode_apply() */
 
 const config_refresh_t rdpattern_mode_apply_refresh =
@@ -359,6 +364,10 @@ structure_view_apply( void )
   /* The rad-pattern structure overlay tracks the structure view */
   if( overlay_struct_active() )
     Queue_Radiation_Redraw( TRUE );
+
+  /* The displayed quantity decides whether the segment and patch classes
+   * present content, so the animation controls re-read that truth here. */
+  anim_panel_sensitivity();
 
 } /* structure_view_apply() */
 
@@ -652,8 +661,8 @@ engine_buffers_free( void )
   prerender_state_free();
   free_struct_colors();
 
-  /* Free the draw-time origin buffers the render geometry layer publishes. */
-  render_geometry_free();
+  /* Free the draw-time patch-flow scratch before its borrowed geometry. */
+  render_patch_flow_free();
 
   /* Free the engine data buffers owned by parent and child alike. */
   input_data_free();
@@ -793,7 +802,7 @@ Draw_Colorcode( cairo_t *cr )
   void
 draw_colorcode_projected( cairo_t *cr )
 {
-  chroma_proj_t proj = color_proj_active();
+  chroma_proj_t proj = chroma_proj_active();
   color_tone_t fam = color_tone_active();
   const chroma_proj_row_t *row = &chroma_proj_rows[proj];
   const palette_t *pal = palette_get(chroma_proj_palette_kind(row->hue_enc));

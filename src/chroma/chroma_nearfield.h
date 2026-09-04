@@ -55,31 +55,34 @@ nf_poynting(const double e[3], const double h[3],
 }
 
 /**
- * nf_real_vector() - Real field vector at the active phase source
+ * nf_real_vector() - Real field vector at the resolved frame
  * @p:     immutable near-field phasor point
  * @chan:  NF_CHAN_E or NF_CHAN_H (NF_CHAN_POV composes both externally)
- * @live:  animation playback active
- * @phase: animation phase in radians, applied only when live
- * @mode:  static baseline selection when not live
+ * @mode:  frame the vector resolves
+ * @phase: animation phase in radians, read by the instantaneous frame alone
  * @out:   real vector (out) [3]
  *
- * Derives from the phasor: live -> instantaneous amp·cos(phase+φ); static
- * peak -> Nf_Peak_Vector envelope; static snapshot -> amp·cos(φ).  Returns
+ * Derives from the phasor: instantaneous -> amp·cos(phase+φ); snapshot ->
+ * that same form at phase zero; peak -> Nf_Peak_Vector envelope.  Returns
  * the vector magnitude.
  */
 double nf_real_vector(const near_field_point_t *p, nf_channel_t chan,
-    gboolean live, double phase, nf_static_mode_t mode, double out[3]);
+    nf_frame_mode_t mode, double phase, double out[3]);
 
 /**
  * chroma_proj_frame_nearfield() - Parent draw-time near-field resolver
- * @fstep: frequency step index
- * @chan:  near-field channel to resolve
+ * @fstep:       frequency step index
+ * @chan:        near-field channel to resolve
+ * @mode:        resolved peak, snapshot, or instantaneous frame
+ * @frame_phase: effective class phase supplied by render dispatch
  *
- * Sibling of chroma_proj_frame_wire.  Grows the channel's geometry and color
- * buffers, gates composition on an input edge, and returns the resolved
- * frame.  Returns an empty frame when the step is unavailable.
+ * Sibling of chroma_proj_frame_wire.  Grows the channel's entry buffer,
+ * gates composition on an input edge, and returns the resolved set carrying
+ * each sample position, displacement, and color.  Returns an empty set when
+ * the step is unavailable.
  */
-field_frame_t chroma_proj_frame_nearfield(int fstep, nf_channel_t chan);
+field_vector_set_t chroma_proj_frame_nearfield(int fstep, nf_channel_t chan,
+    nf_frame_mode_t mode, double frame_phase);
 
 /**
  * chroma_nf_free() - Release every channel's resolver buffers

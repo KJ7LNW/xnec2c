@@ -18,6 +18,7 @@
  */
 
 #include "rdpattern_ui.h"
+#include "anim/anim_phase.h"
 #include "gdk_scroll.h"
 #include "measurements.h"
 #include "rc_config.h"
@@ -39,6 +40,40 @@ static const char *nearfield_animation_error_msg =
      "E-field animation: Add NE card to NEC file\n"
      "H-field animation: Add NH card to NEC file\n"
      "Poynting vector: Add both NE and NH cards");
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * nf_static_menu_sync() - Project phase liveness onto static-field controls
+ *
+ * The near-field static-baseline menu items choose the peak or instantaneous
+ * vector drawn while the animation window is closed. While it is open the
+ * phase slider drives the vectors, so the selection has no effect.
+ */
+  void
+nf_static_menu_sync(void)
+{
+  static const char *const item_id[] = { "near_peak_value", "near_snapshot" };
+  gboolean open = anim_phase_active();
+  const char *tooltip = open
+      ? _("Choose the static near-field vector presentation.\n"
+          "Close the animation window to enable this setting.")
+      : _("Choose the static near-field vector presentation.\n"
+          "Applies while the animation window is closed.");
+  size_t i;
+
+  if( rdpattern_window_builder == NULL )
+    return;
+
+  for( i = 0; i < G_N_ELEMENTS(item_id); i++ )
+  {
+    GtkWidget *w = GTK_WIDGET(
+        Builder_Get_Object(rdpattern_window_builder, item_id[i]) );
+
+    gtk_widget_set_sensitive( w, !open );
+    gtk_widget_set_tooltip_text( w, tooltip );
+  }
+}
 
 /*-----------------------------------------------------------------------*/
 

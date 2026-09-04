@@ -36,7 +36,7 @@ render_surface_t *opengl_rdpattern_surface_new(GtkContainer *parent);
 gboolean gl_rdpat_draw_farfield(render_surface_t *surface, int fstep,
     const ff_draw_params_t *ff);
 gboolean gl_rdpat_draw_field_vectors(render_surface_t *surface,
-    const field_vector_set_t *sets, int n_sets, double r_max);
+    const field_vector_set_t *sets, double r_max);
 
 #endif /* HAVE_OPENGL */
 #endif /* OPENGL_RDPATTERN_H */

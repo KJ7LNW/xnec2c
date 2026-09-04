@@ -49,15 +49,6 @@
 static point_3d_t *rdpat_translated_points = NULL;
 
 
-/* Overlay configuration for structure rendering in rdpattern */
-static const gl_overlay_config_t rdpattern_overlay_config = {
-  .vertex_shader_path = "/gl/lit-color-vertex.glsl",
-  .fragment_shader_path = "/gl/lit-color-fragment.glsl",
-  .attribs = opengl_chevron_attribs,
-  .attrib_count = 7
-};
-
-
 /* Validity snapshot for the cached far-field mesh tessellation.
  * Bundles the producer data-version with the GL presentation parameters
  * that shape the mesh; a mismatch against current state forces
@@ -109,8 +100,7 @@ rdpat_mesh_cache_match(const rdpat_mesh_cache_t *a,
 
 /** gl_rdpat_draw_field_vectors() - Vector leaf: convert resolved vectors to a GL batch
  * @surface: GL surface holding the frame content
- * @sets:    dispatch-resolved vector sets
- * @n_sets:  number of active sets
+ * @sets:    dispatch-resolved vector sets, terminated by absent entries
  * @r_max:   maximum distance from origin for view scaling
  *
  * One GL batch carries every set, appended to the batches the frame already
@@ -119,7 +109,7 @@ rdpat_mesh_cache_match(const rdpat_mesh_cache_t *a,
  */
   gboolean
 gl_rdpat_draw_field_vectors(render_surface_t *surface,
-    const field_vector_set_t *sets, int n_sets, double r_max)
+    const field_vector_set_t *sets, double r_max)
 {
   gl_view_content_t *out = &gl_view_state(surface)->content;
   lit_color_point_t *line_buf;
@@ -134,12 +124,12 @@ gl_rdpat_draw_field_vectors(render_surface_t *surface,
     return FALSE;
   }
 
-  total_lines = opengl_rdpattern_generate_field_vector_lines(sets, n_sets);
+  total_lines = opengl_rdpattern_generate_field_vector_lines(sets);
   if( total_lines <= 0 )
     return FALSE;
 
   /* The longest displacement any set draws sets the clip allowance */
-  for( idx = 0; idx < n_sets; idx++ )
+  for( idx = 0; sets[idx].entries != NULL; idx++ )
     if( sets[idx].extent > extent )
       extent = sets[idx].extent;
 
@@ -153,9 +143,11 @@ gl_rdpat_draw_field_vectors(render_surface_t *surface,
   batch->line_width = 1.0f;
   batch->color_dim = rc_config.brightness_nearfield;
   batch->alpha = TRANSPARENCY_TO_ALPHA(rc_config.transparency_nearfield);
+  batch->program_key = GL_PROGRAM_LIT;
+  batch->generation = opengl_rdpattern_get_field_vector_generation();
   out->batch_count++;
 
-  out->vertex_stride = (int)sizeof(lit_color_point_t);
+  out->layout = &opengl_lit_point_layout;
   out->r_max = (float)r_max;
   out->model_scale = 1.0f;
 
@@ -163,8 +155,6 @@ gl_rdpat_draw_field_vectors(render_surface_t *surface,
   clip = (float)(r_max + extent);
   if( clip > out->clip_extent )
     out->clip_extent = clip;
-
-  out->generation += opengl_rdpattern_get_field_vector_generation();
 
   return TRUE;
 }
@@ -186,7 +176,7 @@ gl_rdpat_draw_farfield(render_surface_t *surface, int fstep,
     .fstep = -1, .generation = 0, .draw_style = -1, .off_len = NAN };
   gl_view_content_t *out = &gl_view_state(surface)->content;
   uint32_t current_gen;
-  int nth, nph, npts;
+  int batch_idx, nth, nph, npts;
   point_3d_t *verts;
   point_3d_t *points_to_use;
   gboolean translate_to_excitation;
@@ -358,7 +348,7 @@ gl_rdpat_draw_farfield(render_surface_t *surface, int fstep,
       return FALSE;
   }
 
-  out->vertex_stride = (int)sizeof(lit_color_point_t);
+  out->layout = &opengl_lit_point_layout;
 
   /* pattern_radius from dispatch (ff_presentation_recompute result) */
   out->r_max = ff->pattern_radius;
@@ -366,7 +356,14 @@ gl_rdpat_draw_farfield(render_surface_t *surface, int fstep,
   /* Clip extent accounts for excitation center translation */
   out->clip_extent = ff->pattern_radius + ff->off_len;
   out->model_scale = 1.0f;
-  out->generation = opengl_rdpattern_get_ff_generation();
+
+  /* Every mesh batch this pass filled carries the far-field version */
+  for( batch_idx = 0; batch_idx < out->batch_count; batch_idx++ )
+  {
+    out->batches[batch_idx].program_key = GL_PROGRAM_LIT;
+    out->batches[batch_idx].generation =
+      opengl_rdpattern_get_ff_generation();
+  }
 
   return TRUE;
 }
@@ -399,12 +396,7 @@ static const surface_input_ops_t rdpattern_input_ops = {
 
 /* Static view configuration */
 static gl_view_config_t rdpattern_view_config = {
-  .vertex_shader_path = "/gl/lit-color-vertex.glsl",
-  .fragment_shader_path = "/gl/lit-color-fragment.glsl",
-  .attribs = opengl_structure_attribs,
-  .attrib_count = 3,
-  .vertex_stride = (int)sizeof(lit_color_point_t),
-  .overlay = &rdpattern_overlay_config,
+  .presents_overlay = TRUE,
   .on_gl_init_failed = opengl_gl_init_failed,
   .content_cleanup = rdpattern_content_cleanup
 };

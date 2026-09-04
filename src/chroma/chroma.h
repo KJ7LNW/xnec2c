@@ -159,6 +159,16 @@ chroma_proj_t chroma_proj_sanitize(int v);
 chroma_proj_t chroma_proj_selected(void);
 
 /**
+ * chroma_proj_active() - Resolve the projection now in effect
+ *
+ * Folds the selection against the phase context beside the selection it
+ * reads: a phase-carrying row presents its animated form while the context
+ * is open and the amplitude baseline while it is closed, and a phase-
+ * invariant row keeps its selection at both edges.
+ */
+chroma_proj_t chroma_proj_active(void);
+
+/**
  * chroma_proj_frame_wire() - Resolve wire colors for one frame
  * @fstep:     frequency step index
  * @phase:     animation phase in radians

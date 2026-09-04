@@ -6,37 +6,17 @@
  */
 
 #include "render_geometry.h"
+#include "render_structure_frame.h"
 
 #include "../chroma/chroma_farfield.h"
 #include "../chroma/chroma_nearfield.h"
+#include "../anim/anim_class.h"
+#include "../anim/near_field_anim.h"
 #include "../rdpattern_ui.h"
 #include "../shared.h"
-#include "../structure_ui.h"
 
-typedef struct
-{
-  gboolean     active;
-  nf_channel_t channel;
-
-} nearfield_field_spec_t;
-
-/* Drawn vector origins, one buffer per domain grid.  The near-field grid is
- * copied from its sample points; the far-zone grid borrows the surface
- * vertices unless an excitation translation moves them. */
-static point_3d_t *nf_origins;
-static point_3d_t *ff_origins;
-
-/** render_geometry_free() - Release the published origin buffers
- */
-  void
-render_geometry_free(void)
-{
-  mem_array_free(&nf_origins);
-  mem_array_free(&ff_origins);
-
-} /* render_geometry_free() */
-
-/** geom_walk_structure() - Emit structure endpoints and patch corners
+/**
+ * geom_walk_structure() - Emit structure endpoints and patch corners
  * @sink:  point receiver
  * @user:  opaque sink context
  * @scale: model scale applied by the renderer
@@ -69,165 +49,128 @@ geom_walk_structure(render_geom_point_fn sink, void *user, float scale)
 
 } /* geom_walk_structure() */
 
-/** render_nearfield_fields() - Resolve active near-field vector sets
- * @fstep: frequency step index
- * @sets:  receives active origin, vector, and color sets
- *
- * Returns the number of populated entries in @sets.
+/**
+ * render_nearfield_fields() - Resolve active near-field vector sets
+ * @fstep:       frequency step index
+ * @frame_phase: phase read once by the frame owner
+ * @sets:        receives active sets followed by an empty terminator
  */
-  int
-render_nearfield_fields(int fstep, field_vector_set_t sets[NF_FIELD_SETS_MAX])
+  void
+render_nearfield_fields(int fstep, double frame_phase,
+    field_vector_set_t sets[NF_CHAN_NUM + 1])
 {
-  const nearfield_field_spec_t specs[NF_FIELD_SETS_MAX] =
-  {
-    { draw_efield_active() && (fpat.nfeh & NEAR_EFIELD), NF_CHAN_E },
-    { draw_hfield_active() && (fpat.nfeh & NEAR_HFIELD), NF_CHAN_H },
-    { draw_poynting_active() && (fpat.nfeh & NEAR_EFIELD)
-        && (fpat.nfeh & NEAR_HFIELD), NF_CHAN_POV }
-  };
   const near_field_t *nf = &near_field_fstep[fstep];
+  nf_frame_mode_t mode = near_field_anim_frame_mode();
+  double phase = anim_class_phase(ANIM_CLASS_NEAR_FIELD, frame_phase);
   int npts = fpat.nrx * fpat.nry * fpat.nrz;
   int count = 0;
-  int idx;
+  nf_channel_t channel;
+
+  sets[0] = (field_vector_set_t){0};
 
   if( npts <= 0 || nf->points == NULL )
-    return 0;
+    return;
 
-  /* Publish the sample positions as drawn origins, so one point type reaches
-   * the vector capability from either domain */
-  mem_array_realloc(&nf_origins, npts);
-  for( idx = 0; idx < npts; idx++ )
+  for( channel = NF_CHAN_E; channel < NF_CHAN_NUM; channel++ )
   {
-    double px = nf->points[idx].px;
-    double py = nf->points[idx].py;
-    double pz = nf->points[idx].pz;
+    field_vector_set_t set;
 
-    nf_origins[idx].x = px;
-    nf_origins[idx].y = py;
-    nf_origins[idx].z = pz;
-    nf_origins[idx].r = sqrt(px * px + py * py + pz * pz);
-  }
-
-  for( idx = 0; idx < NF_FIELD_SETS_MAX; idx++ )
-  {
-    field_frame_t frame;
-
-    if( !specs[idx].active )
+    if( !near_field_anim_channel_active(channel) )
       continue;
 
-    frame = chroma_proj_frame_nearfield(fstep, specs[idx].channel);
-    if( frame.vecs == NULL )
+    set = chroma_proj_frame_nearfield(fstep, channel, mode, phase);
+    if( set.entries == NULL )
       continue;
 
-    sets[count].origins = nf_origins;
-    sets[count].vecs    = frame.vecs;
-    sets[count].colors  = frame.colors;
-    sets[count].npts    = npts;
-    sets[count].extent  = frame.extent;
+    sets[count] = set;
     count++;
   }
 
-  return count;
+  sets[count] = (field_vector_set_t){0};
 
 } /* render_nearfield_fields() */
 
-/** render_farfield_vectors() - Resolve the far-zone instantaneous field set
- * @fstep: frequency step index
- * @ff:    far-field draw parameters, supplying the pattern-space excitation
- *         translation the arrows attach through
- * @set:   receives the origin, vector, and color arrays
- *
- * Returns the number of populated entries in @set, zero while the pattern
- * window shows no animated gain surface.
+/**
+ * render_farfield_vectors() - Resolve the far-zone instantaneous field set
+ * @fstep:       frequency step index
+ * @frame_phase: phase read once by the frame owner
+ * @ff:          far-field draw parameters supplying excitation translation
+ * @set:         receives the resolved set or an empty set
  */
-  int
-render_farfield_vectors(int fstep, const ff_draw_params_t *ff,
-    field_vector_set_t *set)
+  void
+render_farfield_vectors(int fstep, double frame_phase,
+    const ff_draw_params_t *ff, field_vector_set_t *set)
 {
-  field_frame_t frame;
-  ff_pre_t *fp;
-  int npts, idx;
+  point_3d_t translation = {0};
+  double phase;
 
-  if( !rdpat_farfield_phase_active() || ff_pre == NULL )
-    return 0;
+  *set = (field_vector_set_t){0};
 
-  fp = &ff_pre[fstep];
-  npts = fpat.nth * fpat.nph;
-  if( npts <= 0 || fp->vertices == NULL )
-    return 0;
+  if( !anim_class_active(ANIM_CLASS_FAR_FIELD) || ff_pre == NULL )
+    return;
 
-  frame = chroma_proj_frame_farfield(fstep);
-  if( frame.vecs == NULL )
-    return 0;
+  phase = anim_class_phase(ANIM_CLASS_FAR_FIELD, frame_phase);
 
-  /* The arrows attach to the surface, so they carry its translation */
-  if( ff->off_len > FF_EXCITATION_OFFSET_MIN )
+  if( fl_fgt(ff->off_len, FF_EXCITATION_OFFSET_MIN - FL_EPS) )
   {
-    mem_array_realloc(&ff_origins, npts);
-    for( idx = 0; idx < npts; idx++ )
-    {
-      ff_origins[idx].x = fp->vertices[idx].x + (double)ff->x;
-      ff_origins[idx].y = fp->vertices[idx].y + (double)ff->y;
-      ff_origins[idx].z = fp->vertices[idx].z + (double)ff->z;
-
-      /* The translation moves the pattern bodily, so each cell keeps the
-       * pattern radius the untranslated path carries */
-      ff_origins[idx].r = fp->vertices[idx].r;
-    }
-    set->origins = ff_origins;
+    translation.x = ff->x;
+    translation.y = ff->y;
+    translation.z = ff->z;
   }
-  else
-    set->origins = fp->vertices;
 
-  set->vecs   = frame.vecs;
-  set->colors = frame.colors;
-  set->npts   = npts;
-  set->extent = frame.extent;
-
-  return 1;
+  *set = chroma_proj_frame_farfield(fstep, phase, &translation);
 
 } /* render_farfield_vectors() */
 
-/** geom_walk_nearfield() - Emit active near-field segment endpoints
- * @fstep: frequency step index
- * @sink:  point receiver
- * @user:  opaque sink context
+/**
+ * geom_walk_nearfield() - Emit active near-field segment endpoints
+ * @fstep:       frequency step index
+ * @frame_phase: phase read once by the frame owner
+ * @sink:        point receiver
+ * @user:        opaque sink context
  */
   static void
-geom_walk_nearfield(int fstep, render_geom_point_fn sink, void *user)
+geom_walk_nearfield(int fstep, double frame_phase,
+    render_geom_point_fn sink, void *user)
 {
-  field_vector_set_t sets[NF_FIELD_SETS_MAX] = {{0}};
-  int n_sets = render_nearfield_fields(fstep, sets);
+  field_vector_set_t sets[NF_CHAN_NUM + 1] = {{0}};
   int set_idx;
   int point_idx;
 
-  for( set_idx = 0; set_idx < n_sets; set_idx++ )
-  {
-    const point_3d_t *origins = sets[set_idx].origins;
-    const field_vector_t *vecs = sets[set_idx].vecs;
+  render_nearfield_fields(fstep, frame_phase, sets);
 
-    for( point_idx = 0; point_idx < sets[set_idx].npts; point_idx++ )
+  for( set_idx = 0; sets[set_idx].entries != NULL; set_idx++ )
+  {
+    const field_vector_entry_t *entries = sets[set_idx].entries;
+    int count = mem_array_count(entries);
+
+    for( point_idx = 0; point_idx < count; point_idx++ )
     {
-      sink(user, origins[point_idx].x, origins[point_idx].y,
-          origins[point_idx].z, 1.0f);
-      sink(user, origins[point_idx].x + (double)vecs[point_idx].dx,
-          origins[point_idx].y + (double)vecs[point_idx].dy,
-          origins[point_idx].z + (double)vecs[point_idx].dz, 1.0f);
+      const point_3d_t *origin = &entries[point_idx].origin;
+      const field_vector_t *vector = &entries[point_idx].vector;
+
+      sink(user, origin->x, origin->y, origin->z, 1.0f);
+      sink(user, origin->x + (double)vector->dx,
+          origin->y + (double)vector->dy,
+          origin->z + (double)vector->dz, 1.0f);
     }
   }
 
 } /* geom_walk_nearfield() */
 
-/** render_geom_walk() - Emit the active view's drawn world geometry
- * @view: view selecting structure, far-field, or near-field content
- * @sink: receives each drawn vertex and its model scale
- * @user: opaque pointer passed to @sink
+/**
+ * render_geom_walk() - Emit the active view's drawn world geometry
+ * @view:        view selecting structure, far-field, or near-field content
+ * @frame_phase: phase read once by the frame owner
+ * @sink:        receives each drawn vertex and its model scale
+ * @user:        opaque pointer passed to @sink
  *
  * Returns the active content reference extent, or zero when unavailable.
  * The caller holds freq_data_lock.
  */
   float
-render_geom_walk(view_t *view, render_geom_point_fn sink, void *user)
+render_geom_walk(view_t *view, double frame_phase,
+    render_geom_point_fn sink, void *user)
 {
   render_check_result_t result = render_check(view->type);
   float extent = 0.0f;
@@ -266,13 +209,13 @@ render_geom_walk(view_t *view, render_geom_point_fn sink, void *user)
 
     case RENDER_MODE_NEARFIELD:
     {
-      const near_field_t *nearfield = &near_field_fstep[result.fstep];
+      const near_field_t *nf = &near_field_fstep[result.fstep];
 
-      if( nearfield->points == NULL )
+      if( nf->points == NULL )
         break;
 
-      extent = (float)nearfield->r_max;
-      geom_walk_nearfield(result.fstep, sink, user);
+      extent = (float)nf->r_max;
+      geom_walk_nearfield(result.fstep, frame_phase, sink, user);
       if( result.overlay_active )
         geom_walk_structure(sink, user, 1.0f);
       break;

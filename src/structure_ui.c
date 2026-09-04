@@ -26,13 +26,13 @@
  */
 #include "structure_ui.h"
 #include "shared.h"
-#include "config/config_preview.h"
 #include "config_hooks.h"
 #include "callbacks.h"
 #include "cairo/cairo_draw.h"
 #include "opengl/opengl_structure.h"
 #include "prerender/prerender_aggregate.h"
 #include "prerender/prerender_color.h"
+#include "render/render_canvas.h"
 #include "view/view_core.h"
 
 /*-----------------------------------------------------------------------*/
@@ -99,7 +99,7 @@ Draw_Structure_UI(void)
       color_tone_t fam = color_tone_active();
 
       /* Label endpoints per the projection's hue palette */
-      switch(chroma_proj_palette_kind(chroma_proj_rows[color_proj_active()].hue_enc) )
+      switch(chroma_proj_palette_kind(chroma_proj_rows[chroma_proj_active()].hue_enc) )
       {
         case PALETTE_DIVERGING:
           snprintf( maxlabel, sizeof(maxlabel) - 1, "%8.2E", maxval );
@@ -305,157 +305,6 @@ structure_view_changed_cb(view_t *v, gpointer _user_data)
   freqplots_redraw_if_showing( view_panels );
 
 } /* structure_view_changed_cb() */
-
-/*-----------------------------------------------------------------------*/
-
-/** Animate_Phase() - Unified animation tick callback
- * @_udata: unused
- *
- * Returns G_SOURCE_REMOVE immediately when ANIMATE is cleared.
- * Otherwise advances flow_phase by one flow_phase_step, dispatches to all
- * active animation consumers, then queues redraws.  Animate_Phase owns
- * all queue decisions.
- */
-  gboolean
-Animate_Phase(gpointer _udata)
-{
-  if( isFlagClear(ANIMATE) )
-  {
-    anim_tag = 0;
-    return( G_SOURCE_REMOVE );
-  }
-
-  flow_phase += (float)flow_phase_step;
-  if( flow_phase >= (float)M_2PI )
-    flow_phase -= (float)M_2PI;
-
-  apply_animation_phase();
-
-  return( G_SOURCE_CONTINUE );
-
-} /* Animate_Phase() */
-
-/*-----------------------------------------------------------------------*/
-
-/** rdpat_farfield_phase_active() - Whether the pattern draws its field at phase
- *
- * True while the pattern window shows the gain surface, the far-zone overlay
- * is selected, and the animation window is open, the state in which the
- * far-zone phasors resolve into tangent vectors on that surface.  Openness is
- * the whole liveness condition, so the vectors stand at their phase-zero
- * reference before playback starts.
- */
-  gboolean
-rdpat_farfield_phase_active(void)
-{
-  return rdpat_gain_active() && (rc_config.overlay_farfield != 0)
-      && (animate_dialog != NULL);
-
-} /* rdpat_farfield_phase_active() */
-
-/*-----------------------------------------------------------------------*/
-
-/** apply_animation_phase() - Render structure and pattern at the current phase
- *
- * Shared by the timer tick and the manual phase slider.  Reads flow_phase
- * without modifying it: queues the structure drawing area and the
- * radiation-pattern drawing area for near-field or patch-arrow overlay.  The
- * draw-time resolver derives the near-field frame at flow_phase.
- */
-  void
-apply_animation_phase(void)
-{
-  Queue_Structure_Redraw( TRUE );
-
-  /* Queue rdpattern for near-field visualization, structure overlay, or the
-   * far-zone field the gain surface carries */
-  if(rdpat_ehfield_active() || overlay_struct_active() ||
-      rdpat_farfield_phase_active() )
-    Queue_Radiation_Redraw(TRUE);
-
-  /* Update the phase readout from flow_phase without moving the slider, whose
-   * position stays static while the timer animation runs.  The readout is
-   * decoupled from the slider thumb.  Slider reads degrees; flow_phase stores
-   * radians. */
-  if( animate_dialog != NULL )
-  {
-    GtkLabel *readout = GTK_LABEL( Builder_Get_Object(
-          animate_dialog_builder, "animate_phase_value") );
-    gchar *text = g_strdup_printf( "φ %.0f°", (gdouble)flow_phase * TODEG );
-    gtk_label_set_text( readout, text );
-    g_free( text );
-  }
-
-} /* apply_animation_phase() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Manual phase-slider interaction since the last reset; together with the
- * ANIMATE timer flag this forms the playback-live state. */
-static gboolean animation_scrubbed = FALSE;
-
-/** reset_animation_phase() - Zero the shared animation phase
- *
- * Called when animation stops to return arrows to reference direction
- * and end playback-liveness.
- */
-  void
-reset_animation_phase(void)
-{
-  flow_phase = 0.0f;
-  animation_scrubbed = FALSE;
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** animation_set_scrubbed() - Mark manual phase scrubbing as playback
- *
- * Called by the phase-slider handlers; cleared by reset_animation_phase().
- * The rising edge swaps in the animated projection, including the legend;
- * later scrubs redraw through the phase change alone.
- */
-  void
-animation_set_scrubbed(void)
-{
-  if( animation_scrubbed )
-    return;
-
-  animation_scrubbed = TRUE;
-  hook_color_vis();
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** animation_is_active() - Report whether the animated selection applies
- *
- * Playback-live boundary: the animate dialog is open and the phase is
- * advancing (ANIMATE timer running or the slider scrubbed).  Opening the
- * dialog alone leaves the static amplitude baseline in effect, so no
- * color change precedes the user starting playback.
- */
-  gboolean
-animation_is_active(void)
-{
-  return (animate_dialog != NULL)
-      && (isFlagSet(ANIMATE) || animation_scrubbed);
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** color_proj_active() - Resolve the color projection now in effect
- *
- * A live hover preview renders at once; otherwise the animated projection
- * applies while animation playback is live, else the static amplitude
- * baseline.
- */
-  chroma_proj_t
-color_proj_active(void)
-{
-  return (config_preview_active(&rc_config.anim_color_proj) ||
-      animation_is_active())
-      ? chroma_proj_selected()
-      : CHROMA_PROJ_AMPLITUDE;
-}
 
 /*-----------------------------------------------------------------------*/
 

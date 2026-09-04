@@ -21,6 +21,7 @@
 #include "shared.h"
 #include "prerender/prerender_state.h"
 #include "chroma/chroma_nearfield.h"
+#include "anim/near_field_anim.h"
 #include "touchstone.h"
 
 /*-----------------------------------------------------------------------*/
@@ -247,7 +248,7 @@ Save_RadPattern_Gnuplot_Data( char *filename )
       {
         double er[3];
         double emag = nf_real_vector(&nf->points[idx], NF_CHAN_E,
-            FALSE, 0.0, rc_config.nf_static_mode, er);
+            nf_static_frame_mode(), 0.0, er);
 
         fscale = dr / emag;
         fx = nf->points[idx].px + er[0] * fscale;
@@ -274,7 +275,7 @@ Save_RadPattern_Gnuplot_Data( char *filename )
       {
         double hr[3];
         double hmag = nf_real_vector(&nf->points[idx], NF_CHAN_H,
-            FALSE, 0.0, rc_config.nf_static_mode, hr);
+            nf_static_frame_mode(), 0.0, hr);
 
         fscale = dr / hmag;
         fx = nf->points[idx].px + hr[0] * fscale;
@@ -313,10 +314,10 @@ Save_RadPattern_Gnuplot_Data( char *filename )
       {
         double er[3], hr[3];
 
-        nf_real_vector(&nf->points[idx], NF_CHAN_E, FALSE, 0.0,
-            rc_config.nf_static_mode, er);
-        nf_real_vector(&nf->points[idx], NF_CHAN_H, FALSE, 0.0,
-            rc_config.nf_static_mode, hr);
+        nf_real_vector(&nf->points[idx], NF_CHAN_E,
+            nf_static_frame_mode(), 0.0, er);
+        nf_real_vector(&nf->points[idx], NF_CHAN_H,
+            nf_static_frame_mode(), 0.0, hr);
         pov_r[idx] = nf_poynting(er, hr, &pov_x[idx], &pov_y[idx], &pov_z[idx]);
 
         /* Scale factor for each field point, to make

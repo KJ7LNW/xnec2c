@@ -8,6 +8,7 @@
 #include "prerender/prerender_state.h"
 #include "prerender/prerender_color.h"
 #include "chroma/chroma_nearfield.h"
+#include "anim/near_field_anim.h"
 #include "shared.h"
 #include "validation_dump.h"
 
@@ -396,15 +397,19 @@ static void dump_nf_pre(FILE *fp)
 		"pov_max\n");
 
 	int npts = fpat.nrx * fpat.nry * fpat.nrz;
+	nf_frame_mode_t frame_mode = nf_static_frame_mode();
 
 	for (int fs = 0; fs < calc_data.steps_total; fs++)
 	{
 		if (!save.fstep[fs] || !NF_FSTEP_AVAILABLE(fs))
 			continue;
 
-		field_frame_t ef = chroma_proj_frame_nearfield(fs, NF_CHAN_E);
-		field_frame_t hf = chroma_proj_frame_nearfield(fs, NF_CHAN_H);
-		field_frame_t pf = chroma_proj_frame_nearfield(fs, NF_CHAN_POV);
+		field_vector_set_t ef = chroma_proj_frame_nearfield(fs, NF_CHAN_E,
+			frame_mode, 0.0);
+		field_vector_set_t hf = chroma_proj_frame_nearfield(fs, NF_CHAN_H,
+			frame_mode, 0.0);
+		field_vector_set_t pf = chroma_proj_frame_nearfield(fs, NF_CHAN_POV,
+			frame_mode, 0.0);
 
 		/* Peak Poynting magnitude over the static real vectors */
 		near_field_t *nf = &near_field_fstep[fs];
@@ -412,22 +417,24 @@ static void dump_nf_pre(FILE *fp)
 		for (int i = 0; i < npts; i++)
 		{
 			double er[3], hr[3], px, py, pz, pr;
-			nf_real_vector(&nf->points[i], NF_CHAN_E, FALSE, 0.0,
-				rc_config.nf_static_mode, er);
-			nf_real_vector(&nf->points[i], NF_CHAN_H, FALSE, 0.0,
-				rc_config.nf_static_mode, hr);
+			nf_real_vector(&nf->points[i], NF_CHAN_E,
+				frame_mode, 0.0, er);
+			nf_real_vector(&nf->points[i], NF_CHAN_H,
+				frame_mode, 0.0, hr);
 			pr = nf_poynting(er, hr, &px, &py, &pz);
 			if (pr > pov_max) pov_max = pr;
 		}
 
 		for (int i = 0; i < npts; i++)
 		{
-			field_vector_t e = ef.vecs ? ef.vecs[i] : (field_vector_t){0};
-			field_vector_t h = hf.vecs ? hf.vecs[i] : (field_vector_t){0};
-			field_vector_t p = pf.vecs ? pf.vecs[i] : (field_vector_t){0};
-			rgb_f_t ec = ef.colors ? ef.colors[i] : (rgb_f_t){0};
-			rgb_f_t hc = hf.colors ? hf.colors[i] : (rgb_f_t){0};
-			rgb_f_t pc = pf.colors ? pf.colors[i] : (rgb_f_t){0};
+			field_vector_entry_t ee = ef.entries != NULL
+				? ef.entries[i] : (field_vector_entry_t){0};
+			field_vector_entry_t he = hf.entries != NULL
+				? hf.entries[i] : (field_vector_entry_t){0};
+			field_vector_entry_t pe = pf.entries != NULL
+				? pf.entries[i] : (field_vector_entry_t){0};
+			field_vector_t e = ee.vector, h = he.vector, p = pe.vector;
+			rgb_f_t ec = ee.color, hc = he.color, pc = pe.color;
 
 			fprintf(fp, "%.6f,%d,%d,"
 				"%g,%g,%g,%g,%g,%g,"

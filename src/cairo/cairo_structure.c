@@ -25,11 +25,9 @@
  * dispatch decides currents vs charges vs geometry mode.
  */
 #include "cairo_draw.h"
+#include "cairo_patch_flow.h"
 #include "cairo_scenebuffer.h"
 #include "../shared.h"
-#include "../prerender/prerender_patch_arrow.h"
-#include "../prerender/prerender_state.h"
-#include "../prerender/prerender_color.h"
 #include "../rdpattern_ui.h"
 #include "../chroma/chroma_glyph.h"
 
@@ -65,60 +63,6 @@ static inline float
 seg_pair_z_mid(const Segment_t *segm, int i1, int i2)
 {
   return 0.5f * (segm[i1].z_mid + segm[i2].z_mid);
-}
-
-/* Cairo-local world-space arrow segment (3D endpoints, one edge per arrow line) */
-typedef struct
-{
-  double x1, y1, z1;
-  double x2, y2, z2;
-} arrow_seg_3d_t;
-
-
-/** patch_arrow_to_world() - Rotate arrow template and map to world coordinates
- * @idx:   patch index (0-based into data.m)
- * @fd:    precomputed flow data {Re(ct1),Im(ct1),Re(ct2),Im(ct2)} / cmax
- * @phase: current animation phase (radians)
- * @segs:  output array of ARROW_LINE_COUNT world-space segments
- *
- * Reads center and tangent axes from geom_pre.patch_tangent_frame[idx].
- * Computes instantaneous flow direction at phase, rotates arrow template,
- * maps each UV vertex to world via:
- *   world = center + 2*(rot_u * st1 + rot_v * st2)
- */
-static void
-patch_arrow_to_world(int idx, const float fd[4], float phase,
-    arrow_seg_3d_t segs[ARROW_LINE_COUNT])
-{
-  const patch_tangent_frame_t *tf = &geom_pre.patch_tangent_frame[idx];
-  double cp = cos((double)phase);
-  double sp = sin((double)phase);
-  double re1 = (double)fd[0] * cp - (double)fd[1] * sp;
-  double re2 = (double)fd[2] * cp - (double)fd[3] * sp;
-  double angle = atan2(re2, re1);
-  double ca = cos(angle);
-  double sa = sin(angle);
-
-  int k;
-  for( k = 0; k < ARROW_LINE_COUNT; k++ )
-  {
-    double u0 = (double)arrow_template[k].u1 - 0.5;
-    double v0 = (double)arrow_template[k].v1 - 0.5;
-    double ru0 = u0 * ca - v0 * sa;
-    double rv0 = u0 * sa + v0 * ca;
-
-    double u1 = (double)arrow_template[k].u2 - 0.5;
-    double v1 = (double)arrow_template[k].v2 - 0.5;
-    double ru1 = u1 * ca - v1 * sa;
-    double rv1 = u1 * sa + v1 * ca;
-
-    segs[k].x1 = tf->cx + 2.0 * (ru0 * tf->st1x + rv0 * tf->st2x);
-    segs[k].y1 = tf->cy + 2.0 * (ru0 * tf->st1y + rv0 * tf->st2y);
-    segs[k].z1 = tf->cz + 2.0 * (ru0 * tf->st1z + rv0 * tf->st2z);
-    segs[k].x2 = tf->cx + 2.0 * (ru1 * tf->st1x + rv1 * tf->st2x);
-    segs[k].y2 = tf->cy + 2.0 * (ru1 * tf->st1y + rv1 * tf->st2y);
-    segs[k].z2 = tf->cz + 2.0 * (ru1 * tf->st1z + rv1 * tf->st2z);
-  }
 }
 
 /*-----------------------------------------------------------------------*/
@@ -283,94 +227,39 @@ draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, double scale,
 /*-----------------------------------------------------------------------*/
 
 /**
- * draw_surface_patches() - Draw patch segments with dispatch-selected colors
- * @v:      view for segment coordinates
- * @segm:   projected patch segment array [npatch*2]
- * @npatch: number of patches (four rectangle edges each)
- * @params: dispatch-resolved draw parameters (colors)
- *
- * When params->cmax > 0 (current mode): draws each patch rectangle
- * in precomputed per-patch colors from struct_colors.
- * When params->cmax == 0 (geometry mode): draws all patches in the
- * base color from params->patch_colors[0].
+ * draw_surface_patches() - Draw patch segments with resolved presentation
+ * @sb: scenebuffer accumulating depth-sorted primitives
+ * @v: view for segment coordinates
+ * @scale: world-to-pixel projection scale
+ * @segm: projected patch segment array [npatch*4]
+ * @npatch: number of patches
+ * @params: dispatch-resolved colors and patch-flow frame
  */
   static void
-draw_surface_patches(cairo_scenebuffer_t *sb, view_t *v, double scale, Segment_t *segm,
-    gint npatch, const struct_draw_params_t *params)
+draw_surface_patches(cairo_scenebuffer_t *sb, view_t *v, double scale,
+    Segment_t *segm, gint npatch, const struct_draw_params_t *params)
 {
+  int idx;
+
   if( !npatch )
     return;
 
-  int idx;
-
-  /* Current mode: per-patch precomputed colors */
-  if( params->cmax > 0.0 )
+  for( idx = 0; idx < npatch; idx++ )
   {
-    for( idx = 0; idx < npatch; idx++ )
+    int base = 4 * idx;
+    float z_mid = patch_z_mid(segm, base);
+    int edge;
+
+    for( edge = 0; edge < 4; edge++ )
     {
-      int base = 4 * idx;
-      int k;
-      float fd[4];
-      float mag_ratio;
-      float pz = patch_z_mid(segm, base);
-
-      /* 4 rectangle edges per patch deposited into scenebuffer */
-      for( k = 0; k < 4; k++ )
-      {
-        segm[base + k].z_mid = pz;
-        seg_set_color(&segm[base + k], params->patch_colors[idx]);
-        segm[base + k].width = 1.0f;
-        scenebuffer_add(sb, &segm[base + k]);
-      }
-
-      /* Deposit flow arrow segments when current data is above threshold */
-      if( params->show_flow )
-      {
-        int fstep = params->fstep;
-        get_precomputed_flow_data(fstep, idx, fd);
-        mag_ratio = (float)sqrt(
-            fd[0] * fd[0] + fd[1] * fd[1] +
-            fd[2] * fd[2] + fd[3] * fd[3]);
-
-        if( mag_ratio > FLOW_MAG_THRESHOLD )
-        {
-          arrow_seg_3d_t arrow[ARROW_LINE_COUNT];
-          patch_arrow_to_world(idx, fd, flow_phase, arrow);
-
-          for( k = 0; k < ARROW_LINE_COUNT; k++ )
-          {
-            Segment_t s;
-            Set_Gdk_Segment(&s, v, scale,
-                arrow[k].x1, arrow[k].y1, arrow[k].z1,
-                arrow[k].x2, arrow[k].y2, arrow[k].z2,
-                &s.z_mid);
-            seg_set_color(&s, params->patch_colors[idx]);
-            s.width = 1.0f;
-            scenebuffer_add(sb, &s);
-          }
-        }
-      }
-    }
-    return;
-  }
-
-  /* Geometry mode: uniform base color for all patch edges */
-  {
-    int k;
-    for( idx = 0; idx < npatch; idx++ )
-    {
-      int   base = 4 * idx;
-      float pz   = patch_z_mid(segm, base);
-      for( k = 0; k < 4; k++ )
-      {
-        int e = base + k;
-        segm[e].z_mid = pz;
-        seg_set_color(&segm[e], params->patch_colors[0]);
-        segm[e].width = 1.0f;
-        scenebuffer_add(sb, &segm[e]);
-      }
+      segm[base + edge].z_mid = z_mid;
+      seg_set_color(&segm[base + edge], params->patch_colors[idx]);
+      segm[base + edge].width = 1.0f;
+      scenebuffer_add(sb, &segm[base + edge]);
     }
   }
+
+  cairo_patch_flow_draw(sb, v, scale, &params->patch_flow);
 
 } /* draw_surface_patches() */
 

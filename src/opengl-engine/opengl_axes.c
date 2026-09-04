@@ -147,9 +147,14 @@ opengl_axes_new(const gl_axes_content_t *content)
   axes = g_new0(opengl_axes_t, 1);
   axes->content = content;
 
-  line_ok = gl_shader_load(&axes->line_shader,
-    "/gl/color-vertex.glsl",
-    "/gl/color-fragment.glsl");
+  const gl_shader_spec_t line_spec = {
+    .vertex_path = "/gl/color-vertex.glsl",
+    .fragment_path = "/gl/color-fragment.glsl" };
+  const gl_shader_spec_t label_spec = {
+    .vertex_path = "/gl/text-vertex.glsl",
+    .fragment_path = "/gl/text-fragment.glsl" };
+
+  line_ok = gl_shader_load(&axes->line_shader, &line_spec);
 
   if( !line_ok )
   {
@@ -167,9 +172,7 @@ opengl_axes_new(const gl_axes_content_t *content)
   glGenVertexArrays(1, &axes->lines_vao);
   glGenBuffers(1, &axes->lines_vbo);
 
-  label_ok = gl_shader_load(&axes->label_shader,
-    "/gl/text-vertex.glsl",
-    "/gl/text-fragment.glsl");
+  label_ok = gl_shader_load(&axes->label_shader, &label_spec);
 
   if( label_ok )
   {

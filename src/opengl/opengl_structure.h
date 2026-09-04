@@ -24,28 +24,6 @@
 #include "../render/render_dispatch.h"
 #include "../render/render_surface_input.h"
 
-/* Flow direction visualization mode for patch currents */
-typedef enum
-{
-  FLOW_DIR_REFERENCE_PHASE = 0,
-  FLOW_DIR_POLARIZATION_TILT,
-  FLOW_DIR_PEAK_MAGNITUDE,
-  FLOW_DIR_LIC,
-  FLOW_DIR_WIREFRAME
-
-} flow_direction_mode_t;
-
-/* Shared structure geometry for overlay rendering */
-typedef struct
-{
-  gl_draw_batch_t batches[GL_VIEW_MAX_BATCHES];
-  int batch_count;
-  int vertex_stride;
-  float view_scale;
-  unsigned int generation;
-
-} structure_overlay_data_t;
-
 /* Public API - always available, stubs when no OpenGL */
 void opengl_structure_invalidate(void);
 
@@ -57,7 +35,17 @@ void opengl_structure_invalidate(void);
 #include "../opengl-engine/opengl_view.h"
 #include "../view/view_core.h"
 
-/* Extended vertex with UV and flow data for chevron shader.
+/* Shared structure geometry for overlay rendering */
+typedef struct
+{
+  gl_draw_batch_t batches[GL_VIEW_MAX_BATCHES];
+  int batch_count;
+  const gl_vertex_layout_t *layout;
+  float view_scale;
+
+} structure_overlay_data_t;
+
+/* Extended vertex with UV and resolved flow for the mark shaders.
  * First 48 bytes are layout-identical to lit_color_point_t. */
 typedef struct
 {
@@ -65,25 +53,17 @@ typedef struct
   point_f_3d_t normal;
   rgba_f_t color;
   float uv[2];
-  float flow_data[4];   /* Re(ct1), Im(ct1), Re(ct2), Im(ct2) */
 
-  /* Patch tangent frame for GPU-driven arrow rotation.
-   * When non-zero, the vertex shader interprets:
-   *   point  = patch center (not world position)
-   *   uv     = arrow template position in UV space (not texture coords)
-   * and computes world_pos = center + (2*rot_uv - 1) · tangent_frame
-   * where rot_uv is the template UV rotated by the phase-derived flow angle.
-   * When zero, point and uv retain their standard meanings. */
-  float tangent1[3];    /* s * t1 (half-side scaled tangent vector 1) */
-  float tangent2[3];    /* s * t2 (half-side scaled tangent vector 2) */
+  /* Tangent-plane flow the render layer resolved for this patch; the
+   * magnitude is zero on every vertex carrying no flow. */
+  float direction[2];
+  float magnitude;
 
 } structure_vertex_t;
 
-/* Vertex attribute layout for lit-color shader (structure rendering) */
-extern const gl_vertex_attrib_t opengl_structure_attribs[3];
-
-/* Vertex attribute layout for chevron shader (structure_vertex_t: 7 attribs) */
-extern const gl_vertex_attrib_t opengl_chevron_attribs[7];
+/* Vertex layouts shared by radiation-pattern points and structure geometry */
+extern const gl_vertex_layout_t opengl_lit_point_layout;
+extern const gl_vertex_layout_t opengl_structure_layout;
 
 /* Build the structure GL surface and pack it into @parent */
 render_surface_t *opengl_structure_surface_new(GtkContainer *parent);

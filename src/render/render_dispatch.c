@@ -30,13 +30,16 @@
 
 #include "render_dispatch.h"
 #include "render_geometry.h"
+#include "render_message.h"
+#include "render_structure_frame.h"
 #include "gradient_cache.h"
+#include "../anim/anim_phase.h"
 #include "../shared.h"
-#include "../chroma/chroma.h"
-#include "../chroma/chroma_nearfield.h"
 #include "../prerender/prerender_farfield.h"
-#include "../structure_ui.h"
 #include "../themes/theme.h"
+
+/* Smallest overlay model scale that maps structure extent to pattern space */
+#define OVERLAY_MODEL_SCALE_MIN 0.001f
 
 /* Last render_check result for the rdpattern view; render() stores it on each rdpattern call */
 static render_check_result_t last_rdpat_check;
@@ -58,276 +61,6 @@ render_last_rdpattern_check(void)
 {
   return &last_rdpat_check;
 }
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * render_overlay_model_scale() - Resolve the effective overlay model scale
- * @fstep: frequency step index
- *
- * Owns the derived product of the per-fstep prerender base scale and the
- * interactive scale_adj; every engine consumes this value rather than
- * recomputing it.
- */
-float
-render_overlay_model_scale(int fstep)
-{
-  if( ff_pre == NULL || fstep < 0 )
-    return 1.0f;
-
-  return ff_pre[fstep].overlay_base_scale
-      * (float)rc_config.rdpattern_overlay_scale_adj;
-}
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * render_overlay_excitation_offset() - Resolve the far-field excitation translation
- * @model_scale:    resolved overlay model scale for the fstep
- * @overlay_active: whether the structure overlay is shown
- * @ff:             receives the pattern-space offset in x,y,z and its length
- *                  off_len; all zeroed when no excitation translation applies
- *
- * Owns the derived excitation centroid prescale so the pattern draw and the fit
- * fold consume one authoritative translation.
- */
-void
-render_overlay_excitation_offset(float model_scale, gboolean overlay_active,
-    ff_draw_params_t *ff)
-{
-  if( !overlay_active || !isFlagSet(ENABLE_EXCITN) )
-  {
-    ff->x = 0.0f;
-    ff->y = 0.0f;
-    ff->z = 0.0f;
-    ff->off_len = 0.0f;
-    return;
-  }
-
-  ff->x = (float)geom_pre.excitation_cx * model_scale;
-  ff->y = (float)geom_pre.excitation_cy * model_scale;
-  ff->z = (float)geom_pre.excitation_cz * model_scale;
-  ff->off_len = sqrtf(ff->x * ff->x + ff->y * ff->y + ff->z * ff->z);
-}
-
-/*-----------------------------------------------------------------------*/
-
-  static const char *
-render_rdpattern_mode_message(void)
-{
-  gboolean has_rp = isFlagSet(ENABLE_RDPAT);
-  gboolean has_nf = isFlagSet(ENABLE_NEAREH);
-
-  if( !has_rp && !has_nf )
-    return STATUS_MSG_NO_RP_NO_NEAREH;
-
-  if( !has_rp )
-    return STATUS_MSG_SELECT_NEARFIELD;
-
-  if( !has_nf )
-    return STATUS_MSG_SELECT_GAINPAT;
-
-  return STATUS_MSG_SELECT_MODE;
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** render_check_nearfield() - Resolve near-field preconditions
- * @r: result struct with fstep already set; populated on return
- *
- * Near E/H field mode is already confirmed active by caller.
- */
-  static void
-render_check_nearfield(render_check_result_t *r)
-{
-  /* Near-field view needs at least one field component selected; with none
-   * selected the draw yields nothing, so direct the user to enable one. */
-  if( !draw_efield_active() && !draw_hfield_active() &&
-      !draw_poynting_active() )
-  {
-    r->status = RENDER_NO_NF_FIELD;
-    r->message = STATUS_MSG_SELECT_NF_FIELD;
-    return;
-  }
-
-  if( isFlagSet(ENABLE_NEAREH) && NF_FSTEP_AVAILABLE(r->fstep) )
-  {
-    r->mode = RENDER_MODE_NEARFIELD;
-    return;
-  }
-
-  if( isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS) )
-  {
-    r->status = RENDER_SUPPRESS;
-    return;
-  }
-
-  if( isFlagClear(ENABLE_NEAREH) )
-  {
-    r->status = RENDER_NO_NF_CARD;
-    r->message = STATUS_MSG_NO_NEAREH_CARDS;
-  }
-  else
-  {
-    r->status = RENDER_NF_NOT_READY;
-    r->message = STATUS_MSG_START_FREQLOOP;
-  }
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** render_check_farfield() - Resolve far-field preconditions
- * @r: result struct with fstep already set; populated on return
- *
- * Far-field gain mode is already confirmed active by caller.
- */
-  static void
-render_check_farfield(render_check_result_t *r)
-{
-  if( isFlagClear(ENABLE_RDPAT) )
-  {
-    r->status = RENDER_NO_RP_CARD;
-    r->message = STATUS_MSG_NO_RP_CARD;
-    return;
-  }
-
-  if( r->fstep < 0 )
-  {
-    r->status = RENDER_NO_DATA;
-    r->message = STATUS_MSG_NO_RDPAT_DATA;
-    return;
-  }
-
-  r->mode = RENDER_MODE_FARFIELD;
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** render_check_rdpattern() - Resolve radiation pattern mode and preconditions
- * @r: result struct with fstep already set; populated on return
- *
- * Near-field takes priority over far-field.
- */
-  static void
-render_check_rdpattern(render_check_result_t *r)
-{
-  if(rdpat_ehfield_active())
-    render_check_nearfield(r);
-  else if(rdpat_gain_active())
-    render_check_farfield(r);
-  else
-  {
-    r->status = RENDER_NO_MODE;
-    r->message = render_rdpattern_mode_message();
-  }
-
-  r->overlay_active = overlay_struct_active();
-}
-
-/*-----------------------------------------------------------------------*/
-
-/*-----------------------------------------------------------------------*/
-
-  render_check_result_t
-render_check(view_type_t view_type)
-{
-  render_check_result_t r = { .status = RENDER_OK, .mode = RENDER_MODE_NONE,
-    .fstep = -1, .message = NULL, .overlay_active = FALSE };
-
-  /* No content available while input file is being parsed */
-  if( isFlagSet(INPUT_PENDING) )
-  {
-    r.status = RENDER_NO_GEOMETRY;
-    r.message = STATUS_MSG_OPEN_FILE;
-    return r;
-  }
-
-  r.fstep = calc_data.freq_step;
-
-  if( view_type == VIEW_STRUCTURE )
-  {
-    if( data.n == 0 && data.m == 0 )
-    {
-      r.status = RENDER_NO_GEOMETRY;
-      r.message = STATUS_MSG_OPEN_FILE;
-      return r;
-    }
-    r.mode = RENDER_MODE_STRUCTURE;
-    return r;
-  }
-
-  render_check_rdpattern(&r);
-  return r;
-}
-
-/*-----------------------------------------------------------------------*/
-
-/** build_struct_draw_params() - Resolve structure draw colors from current flags
- * @fstep: frequency step index
- * @model_scale: structure-to-presentation scale resolved by the caller
- *
- * Selects wire_colors and patch_colors from precomputed struct_colors
- * per the current structure view (currents or charges), or falls back to
- * geometry-mode seg_rgb / patch_rgb.
- */
-  static struct_draw_params_t
-build_struct_draw_params(int fstep, float model_scale)
-{
-  struct_draw_params_t params;
-  int fs = fstep;
-
-  chroma_proj_t proj = color_proj_active();
-  color_tone_t fam = color_tone_active();
-  seg_scale_enc_t seg_scale_enc = seg_scale_enc_selected();
-
-  if(struct_view_currents() && CRNT_FSTEP_AVAILABLE(fs) && struct_colors )
-  {
-    params.wire_colors  = chroma_proj_frame_wire(fs, (double)flow_phase,
-        proj, fam, CHAN_CURRENT);
-    params.wire_seg_scale = chroma_proj_frame_seg_scale(fs,
-        (double)flow_phase, proj, seg_scale_enc, fam, CHAN_CURRENT);
-    params.patch_colors = chroma_proj_frame_patch(fs, (double)flow_phase,
-        proj, fam);
-    params.wire_glyphs  = chroma_proj_frame_wire_glyphs(fs, proj, fam,
-        CHAN_CURRENT);
-    params.cmax = fmax((double)struct_colors[fs].wire_crnt_cmax,
-                       (double)struct_colors[fs].patch_crnt_cmax);
-    params.show_flow = TRUE;
-    params.color_generation = chroma_proj_generation();
-  }
-  else if(struct_view_charges() && CRNT_FSTEP_AVAILABLE(fs) && struct_colors )
-  {
-    /* Patches carry no charge quantity; fill stays the static geometry color */
-    params.wire_colors  = chroma_proj_frame_wire(fs, (double)flow_phase,
-        proj, fam, CHAN_CHARGE);
-    params.wire_seg_scale = chroma_proj_frame_seg_scale(fs,
-        (double)flow_phase, proj, seg_scale_enc, fam, CHAN_CHARGE);
-    params.patch_colors = patch_rgb;
-    params.wire_glyphs  = chroma_proj_frame_wire_glyphs(fs, proj, fam,
-        CHAN_CHARGE);
-    params.cmax = (double)struct_colors[fs].wire_chrg_cmax;
-    params.show_flow = FALSE;
-    params.color_generation = chroma_proj_generation();
-  }
-  else
-  {
-    params.wire_colors  = seg_rgb;
-    params.wire_seg_scale = chroma_proj_seg_scale_identity();
-    params.patch_colors = patch_rgb;
-    params.wire_glyphs  = NULL;
-    params.cmax = 0.0;
-    params.show_flow = FALSE;
-    params.color_generation = 0;
-  }
-
-  params.geometry_extent = (float)geom_pre.scene_radius;
-  params.model_scale = model_scale;
-  params.fstep = fs;
-  params.freq_mhz = calc_data.freq_mhz;
-  return params;
-}
-
-/*-----------------------------------------------------------------------*/
 
 /**
  * render_deposit_colors() - Resolve and deposit the colors of the active theme
@@ -351,12 +84,20 @@ render_deposit_colors(render_surface_t *surface)
 
 /*-----------------------------------------------------------------------*/
 
-  gboolean
+/**
+ * render() - Produce one frame through the active engine
+ * @surface: engine surface carrying the view and typed render operations
+ *
+ * Returns TRUE when a frame or status presentation was produced and FALSE
+ * when the caller must retain the preceding frame.
+ */
+gboolean
 render(render_surface_t *surface)
 {
   const render_ops_t *ops;
   view_t *view;
   render_check_result_t r;
+  double phase;
   gboolean ok = FALSE;
 
   if( surface == NULL || surface->view == NULL || surface->engine == NULL
@@ -373,6 +114,7 @@ render(render_surface_t *surface)
 
   g_rec_mutex_lock(&freq_data_lock);
 
+  phase = anim_phase_get();
   r = render_check(view->type);
 
   /* r is immutable past this point; cache for external consumers */
@@ -415,7 +157,7 @@ render(render_surface_t *surface)
       /* overlay_extent: structure-space extent that maps to the same pixel
        * positions as GL's model_scale matrix transform.
        * Derivation: p/R == p*model_scale/pattern_radius -> R = pattern_radius/model_scale */
-      float overlay_extent = (model_scale > 0.001f)
+      float overlay_extent = fl_fgt(model_scale, OVERLAY_MODEL_SCALE_MIN - FL_EPS)
           ? ff.pattern_radius / model_scale
           : (float)geom_pre.scene_radius;
       ops->draw_axes(surface, ff.pattern_radius);
@@ -424,7 +166,7 @@ render(render_surface_t *surface)
       if( r.overlay_active )
       {
         struct_draw_params_t sparams =
-            build_struct_draw_params(r.fstep, model_scale);
+            render_structure_frame(r.fstep, model_scale, phase);
         ops->draw_structure_overlay(surface, overlay_extent, &sparams);
       }
 
@@ -433,10 +175,12 @@ render(render_surface_t *surface)
       /* Deposit the animated far-zone field onto the surface just drawn */
       if( ok )
       {
-        field_vector_set_t field_set = {0};
+        field_vector_set_t sets[2] = {{0}};
 
-        if( render_farfield_vectors(r.fstep, &ff, &field_set) > 0 )
-          ok = ops->draw_field_vectors(surface, &field_set, 1, ff.pattern_radius);
+        render_farfield_vectors(r.fstep, phase, &ff, &sets[0]);
+
+        if( sets[0].entries != NULL )
+          ok = ops->draw_field_vectors(surface, sets, ff.pattern_radius);
       }
 
       /* Resolve gradient legend for farfield mode; surface and version
@@ -445,6 +189,7 @@ render(render_surface_t *surface)
       {
         gradient_result_t gr = gradient_cache_get_overlay(
             view->width, view->height);
+
         if( gr.surface != NULL )
           ops->set_gradient(surface, &gr);
       }
@@ -455,22 +200,23 @@ render(render_surface_t *surface)
     case RENDER_MODE_NEARFIELD:
     {
       near_field_t *nf = &near_field_fstep[r.fstep];
-      field_vector_set_t sets[NF_FIELD_SETS_MAX] = {{0}};
-      int n_sets = render_nearfield_fields(r.fstep, sets);
+      field_vector_set_t sets[NF_CHAN_NUM + 1];
 
       /* Near-field overlay: structure in meters, same space as field vectors */
       float nf_overlay_extent = (float)nf->r_max;
+
+      render_nearfield_fields(r.fstep, phase, sets);
       ops->draw_axes(surface, nf_overlay_extent);
 
       if( r.overlay_active )
       {
         struct_draw_params_t sparams =
-            build_struct_draw_params(r.fstep, 1.0f);
+            render_structure_frame(r.fstep, 1.0f, phase);
         ops->draw_structure_overlay(surface, nf_overlay_extent, &sparams);
       }
 
-      if( n_sets > 0 )
-        ok = ops->draw_field_vectors(surface, sets, n_sets, nf->r_max);
+      if( sets[0].entries != NULL )
+        ok = ops->draw_field_vectors(surface, sets, nf->r_max);
       else
         ok = FALSE;
 
@@ -479,7 +225,9 @@ render(render_surface_t *surface)
 
     case RENDER_MODE_STRUCTURE:
     {
-      struct_draw_params_t params = build_struct_draw_params(r.fstep, 1.0f);
+      struct_draw_params_t params =
+          render_structure_frame(r.fstep, 1.0f, phase);
+
       ops->draw_axes(surface, params.geometry_extent);
       ok = ops->draw_structure(surface, params.geometry_extent, &params);
       break;

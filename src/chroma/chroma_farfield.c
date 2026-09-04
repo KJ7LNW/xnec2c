@@ -28,125 +28,60 @@
  * to the pattern sphere and the gain surface it attaches to is untouched.
  */
 #include "chroma_farfield.h"
+#include "chroma_farfield_polarization.h"
 #include "../color/color_edge.h"
 #include "../color/color_palette.h"
 #include "../color/color_tone.h"
 #include "../shared.h"
 
-/* Resolved-frame buffers and the input edge gating their rebuild.  One draw's
- * geometry, color, and scratch magnitude live here, parallel and indexed by
+/* Origin derivation inputs, compared and assigned whole: the step and
+ * presentation generation placing the pattern vertices, the cell count
+ * spanning them, and the rigid displacement carrying them to the drawn
+ * frame. */
+typedef struct
+{
+  int        fstep;
+  uint32_t   generation;
+  int        total;
+  point_3d_t translation;
+  gboolean   valid;
+} ff_origin_edge_t;
+
+/* Resolved entry buffer and the input edge gating its rebuild, indexed by
  * pattern cell. */
-static field_vector_t *ff_vec_buf;
-static rgb_f_t        *ff_col_buf;
-static double         *ff_mag_buf;
+static field_vector_entry_t *ff_entry_buf;
 
 static color_edge_t ff_edge;
 static gboolean     ff_edge_valid;
 
-/* Complex operator carrying the stored pair to the drawn component pair:
- *   drawn theta = a * E_theta + b * E_phi
- *   drawn phi   = c * E_theta + d * E_phi */
-typedef struct
-{
-  complex double a, b, c, d;
-} ff_operator_t;
+/* What the stored origins were derived from */
+static ff_origin_edge_t ff_origin_edge;
 
 /*-----------------------------------------------------------------------*/
 
 /**
- * ff_compose() - Apply one operator after another
- * @outer: operator applied second
- * @inner: operator applied first
+ * ff_origin_edge_eq() - Whether two origin snapshots carry identical inputs
+ * @a: stored snapshot
+ * @b: candidate snapshot
  */
-  static ff_operator_t
-ff_compose(ff_operator_t outer, ff_operator_t inner)
+  static gboolean
+ff_origin_edge_eq(const ff_origin_edge_t *a, const ff_origin_edge_t *b)
 {
-  return (ff_operator_t){
-    outer.a * inner.a + outer.b * inner.c,
-    outer.a * inner.b + outer.b * inner.d,
-    outer.c * inner.a + outer.d * inner.c,
-    outer.c * inner.b + outer.d * inner.d };
+  return a->valid && b->valid
+      && a->fstep == b->fstep && a->generation == b->generation
+      && a->total == b->total
+      && dl_feq(a->translation.x, b->translation.x)
+      && dl_feq(a->translation.y, b->translation.y)
+      && dl_feq(a->translation.z, b->translation.z);
 
-} /* ff_compose() */
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * ff_pol_operator() - Operator selecting the drawn polarization component
- * @pol: polarization selection the gain surface under the arrows is scaled by
- * @cs:  cosine of the angle the linear pair is turned by
- * @sn:  sine of the angle the linear pair is turned by
- *
- * The surface radius carries Polarization_Factor(), a power fraction taken
- * from the axial ratio and tilt of this same phasor pair.  These operators are
- * that fraction in vector form, so the arrow and the surface beneath it
- * describe one quantity while the arrow keeps the direction and the phase the
- * power fraction discards.
- *
- * The linear pair is turned by (cs, sn): the world basis passes (1, 0) and
- * recovers theta_hat and phi_hat, Ludwig-3 passes the cell azimuth and
- * recovers the co-polar and cross-polar directions.  The circular selections
- * take no turn, since turning their basis multiplies each cell by a phase and
- * breaks the phase relation the animation reads between lobes.
- */
-  static ff_operator_t
-ff_pol_operator(int pol, double cs, double sn)
-{
-  ff_operator_t op = { 1.0, 0.0, 0.0, 1.0 };
-
-  switch( pol )
-  {
-    case POL_TOTAL:
-      break;
-
-    case POL_VERT:
-      /* Co-polar member of the linear pair */
-      op = (ff_operator_t){ cs * cs, -cs * sn, -cs * sn, sn * sn };
-      break;
-
-    case POL_HORIZ:
-      /* Cross-polar member of the linear pair */
-      op = (ff_operator_t){ sn * sn, cs * sn, cs * sn, cs * cs };
-      break;
-
-    case POL_RHCP:
-      /* (E_theta + j E_phi) / sqrt(2), re-expanded on theta_hat and phi_hat.
-       * The solver marks right-hand sense where E_phi lags E_theta, so the
-       * right-hand direction is theta_hat - j phi_hat and this row keeps the
-       * same hand the axial-ratio sign carries to the surface. */
-      op = (ff_operator_t){ 0.5, 0.5 * I, -0.5 * I, 0.5 };
-      break;
-
-    case POL_LHCP:
-      /* (E_theta - j E_phi) / sqrt(2), re-expanded on theta_hat and phi_hat */
-      op = (ff_operator_t){ 0.5, -0.5 * I, 0.5 * I, 0.5 };
-      break;
-
-    case NUM_POL:
-    default:
-      BUG("far-zone arrows: unresolved polarization %d\n", pol);
-      break;
-  }
-
-  return op;
-
-} /* ff_pol_operator() */
-
-/*-----------------------------------------------------------------------*/
-
-  gboolean
-ff_frame_turns_pol(int pol)
-{
-  return (pol == POL_VERT) || (pol == POL_HORIZ);
-
-} /* ff_frame_turns_pol() */
+} /* ff_origin_edge_eq() */
 
 /*-----------------------------------------------------------------------*/
 
 /**
  * ff_follow_display_rotation() - Carry resolved tangents into the drawn frame
- * @rot:   display rotation the presentation applied to the pattern vertices
- * @vecs:  displacements rotated in place
+ * @rot: display rotation the presentation applied to the pattern vertices
+ * @entries: records whose displacements rotate in place
  * @total: pattern cell count
  *
  * Noise mode tilts the drawn pattern so the sky and earth boundary reads
@@ -156,8 +91,8 @@ ff_frame_turns_pol(int pol)
  * displacement.
  */
   static void
-ff_follow_display_rotation(const ff_rotation_t *rot, field_vector_t *vecs,
-    int total)
+ff_follow_display_rotation(const ff_rotation_t *rot,
+    field_vector_entry_t *entries, int total)
 {
   int idx;
 
@@ -166,30 +101,65 @@ ff_follow_display_rotation(const ff_rotation_t *rot, field_vector_t *vecs,
 
   for( idx = 0; idx < total; idx++ )
   {
+    field_vector_t *vector = &entries[idx].vector;
     double xr, yr, zr;
 
-    ant_temp_rotate_vector((double)vecs[idx].dx, (double)vecs[idx].dy,
-        (double)vecs[idx].dz, rot->axis_phi, rot->angle, &xr, &yr, &zr);
+    ant_temp_rotate_vector((double)vector->dx, (double)vector->dy,
+        (double)vector->dz, rot->axis_phi, rot->angle, &xr, &yr, &zr);
 
-    vecs[idx].dx = (float)xr;
-    vecs[idx].dy = (float)yr;
-    vecs[idx].dz = (float)zr;
+    vector->dx = (float)xr;
+    vector->dy = (float)yr;
+    vector->dz = (float)zr;
   }
 
 } /* ff_follow_display_rotation() */
 
 /*-----------------------------------------------------------------------*/
 
-  field_frame_t
-chroma_proj_frame_farfield(int fstep)
+/**
+ * ff_set_origins() - Attach entries to translated pattern vertices
+ * @entries: records receiving their drawn origins
+ * @vertices: authoritative pattern surface vertices
+ * @want: origin derivation inputs this call records
+ *
+ * An origin follows the placed vertex and the rigid displacement alone, so a
+ * frame repeating those inputs keeps the origins already stored.
+ */
+static void
+ff_set_origins(field_vector_entry_t *entries, const point_3d_t *vertices,
+    const ff_origin_edge_t *want)
 {
-  field_frame_t out = { NULL, NULL, 0.0 };
+  int idx;
+
+  if( ff_origin_edge_eq(&ff_origin_edge, want) )
+    return;
+
+  for( idx = 0; idx < want->total; idx++ )
+  {
+    entries[idx].origin.x = vertices[idx].x + want->translation.x;
+    entries[idx].origin.y = vertices[idx].y + want->translation.y;
+    entries[idx].origin.z = vertices[idx].z + want->translation.z;
+    entries[idx].origin.r = vertices[idx].r;
+  }
+
+  ff_origin_edge = *want;
+
+} /* ff_set_origins() */
+
+/*-----------------------------------------------------------------------*/
+
+  field_vector_set_t
+chroma_proj_frame_farfield(int fstep, double phase,
+    const point_3d_t *translation)
+{
+  field_vector_set_t out = { NULL, 0.0 };
   const point_3d_t *verts;
   ff_operator_t quantity;
   color_tone_t fam;
   tone_param_t tp;
   color_edge_t want;
-  double phase, cos_ph, sin_ph, env_peak, ratio;
+  ff_origin_edge_t origin_want;
+  double cos_ph, sin_ph, env_peak, ratio;
   int total, nth, nph, idx;
 
   if( rad_pattern == NULL || ff_pre == NULL || fstep < 0 || !save.fstep[fstep] )
@@ -200,13 +170,16 @@ chroma_proj_frame_farfield(int fstep)
       ff_pre[fstep].vertices == NULL )
     return out;
 
-  /* State drives the phase and the selections; the resolver never mutates
-   * the stored phasors */
-  phase = (double)flow_phase;
   ratio = rc_config.ff_vector_length_ratio;
   fam   = color_tone_active();
   tone_param_init(&tp, fam);
   verts = ff_pre[fstep].vertices;
+  origin_want = (ff_origin_edge_t){
+      .fstep = fstep,
+      .generation = ff_pre[fstep].generation,
+      .total = total,
+      .translation = *translation,
+      .valid = TRUE };
 
   /* The far-zone magnetic field is r_hat x E over the free-space impedance:
    * a quarter turn in the tangent plane, in time phase with the electric
@@ -236,14 +209,14 @@ chroma_proj_frame_farfield(int fstep)
 
   if( ff_edge_valid && color_edge_eq(&ff_edge, &want) )
   {
-    out.vecs   = ff_vec_buf;
-    out.colors = ff_col_buf;
+    /* Displacement and color stand; the origins follow their own derivation
+     * inputs, so a repeated placement keeps the stored origins. */
+    ff_set_origins(ff_entry_buf, verts, &origin_want);
+    out.entries = ff_entry_buf;
     return out;
   }
 
-  mem_array_realloc(&ff_vec_buf, total);
-  mem_array_realloc(&ff_col_buf, total);
-  mem_array_realloc(&ff_mag_buf, total);
+  mem_array_realloc(&ff_entry_buf, total);
 
   cos_ph   = cos(phase);
   sin_ph   = sin(phase);
@@ -296,13 +269,16 @@ chroma_proj_frame_farfield(int fstep)
       ph_disp = e_ph * len_scale;
       th_xy   = th_disp * geom_pre.cos_theta[nth];
 
-      ff_vec_buf[idx].dx = (float)(th_xy * geom_pre.cos_phi[nph] -
-                                   ph_disp * geom_pre.sin_phi[nph]);
-      ff_vec_buf[idx].dy = (float)(th_xy * geom_pre.sin_phi[nph] +
-                                   ph_disp * geom_pre.cos_phi[nph]);
-      ff_vec_buf[idx].dz = (float)(-th_disp * geom_pre.sin_theta[nth]);
+      ff_entry_buf[idx].vector.dx =
+        (float)(th_xy * geom_pre.cos_phi[nph] -
+                ph_disp * geom_pre.sin_phi[nph]);
+      ff_entry_buf[idx].vector.dy =
+        (float)(th_xy * geom_pre.sin_phi[nph] +
+                ph_disp * geom_pre.cos_phi[nph]);
+      ff_entry_buf[idx].vector.dz =
+        (float)(-th_disp * geom_pre.sin_theta[nth]);
 
-      ff_mag_buf[idx] = sqrt(e_th * e_th + e_ph * e_ph);
+      ff_entry_buf[idx].magnitude = sqrt(e_th * e_th + e_ph * e_ph);
       if( env > env_peak )
         env_peak = env;
 
@@ -313,16 +289,17 @@ chroma_proj_frame_farfield(int fstep)
   /* Colorize pass: amplitude ramp of the instantaneous magnitude against the
    * standing envelope peak through the active tone */
   for( idx = 0; idx < total; idx++ )
-    ff_col_buf[idx] = field_ramp_color(fam, &tp, ff_mag_buf[idx], env_peak);
+    ff_entry_buf[idx].color =
+      field_ramp_color(fam, &tp, ff_entry_buf[idx].magnitude, env_peak);
 
-  /* The vertices these arrows attach to may be tilted; follow that tilt */
-  ff_follow_display_rotation(&ff_pre[fstep].rotation, ff_vec_buf, total);
+  /* Carry each displacement and origin into the drawn pattern frame. */
+  ff_follow_display_rotation(&ff_pre[fstep].rotation, ff_entry_buf, total);
+  ff_set_origins(ff_entry_buf, verts, &origin_want);
 
   ff_edge       = want;
   ff_edge_valid = TRUE;
 
-  out.vecs   = ff_vec_buf;
-  out.colors = ff_col_buf;
+  out.entries = ff_entry_buf;
   return out;
 
 } /* chroma_proj_frame_farfield() */
@@ -332,11 +309,10 @@ chroma_proj_frame_farfield(int fstep)
   void
 chroma_ff_free(void)
 {
-  mem_array_free(&ff_vec_buf);
-  mem_array_free(&ff_col_buf);
-  mem_array_free(&ff_mag_buf);
-  ff_edge       = (color_edge_t){ 0 };
-  ff_edge_valid = FALSE;
+  mem_array_free(&ff_entry_buf);
+  ff_edge        = (color_edge_t){ 0 };
+  ff_edge_valid  = FALSE;
+  ff_origin_edge = (ff_origin_edge_t){ 0 };
 
 } /* chroma_ff_free() */
 

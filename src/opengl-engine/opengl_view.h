@@ -89,11 +89,13 @@ typedef struct
 {
   gl_draw_batch_t batches[GL_VIEW_MAX_BATCHES];
   int batch_count;
-  int vertex_stride;
+
+  /* Packing of the vertices these batches carry, owned by the producer */
+  const gl_vertex_layout_t *layout;
+
   float r_max;
   float clip_extent;
   float model_scale;
-  unsigned int generation;
   gl_axes_content_t axes;
 
   /* Frame clear color resolved from the active theme */
@@ -120,16 +122,6 @@ typedef enum
 
 } gl_notice_position_t;
 
-/* Overlay configuration for second rendering pass */
-typedef struct
-{
-  const char *vertex_shader_path;
-  const char *fragment_shader_path;
-  const gl_vertex_attrib_t *attribs;
-  int attrib_count;
-
-} gl_overlay_config_t;
-
 /* Per-frame render parameters passed to each renderable callback */
 typedef struct gl_render_params_s
 {
@@ -149,9 +141,6 @@ typedef struct gl_render_params_s
    * sub-pass B of coplanar accumulation. */
   int coplanar_pass;
 
-  /* Animation phase (radians) for flow direction shaders */
-  float flow_phase;
-
 } gl_render_params_t;
 
 /* Uniform locations for depth-peel discard logic (shared by all peel-aware shaders) */
@@ -163,6 +152,20 @@ typedef struct
   GLint coplanar_pass;
 
 } gl_peel_uniform_locs_t;
+
+/* One compiled program with every location its draw pass binds. */
+typedef struct
+{
+  gl_shader_t            shader;
+  GLint                  mvp;
+  GLint                  u_mv;
+  GLint                  u_alpha;
+  GLint                  u_color_dim;
+  GLint                  u_scroll_phase;
+  GLint                  noise_tex;
+  gl_peel_uniform_locs_t peel;
+
+} gl_program_t;
 
 /* Renderable interface callback types */
 typedef void (*gl_render_fn)(void *ctx, const gl_render_params_t *params);
@@ -221,15 +224,8 @@ typedef struct
 /* Static view configuration */
 typedef struct
 {
-  const char *vertex_shader_path;
-  const char *fragment_shader_path;
-  const gl_vertex_attrib_t *attribs;
-  int attrib_count;
-  int vertex_stride;
-
-  /* Second shader pass presenting overlay content; NULL when the view
-   * presents primary content alone */
-  const gl_overlay_config_t *overlay;
+  /* TRUE when the view runs a second pass presenting overlay content */
+  gboolean presents_overlay;
 
   /* Optional predicate controlling model ground-plane visibility */
   gl_active_fn ground_plane_is_active;
@@ -260,11 +256,12 @@ typedef struct gl_view_state_s
   gl_view_config_t *config;
   gl_view_content_t content;
 
+  /* Every program the view's passes draw with, indexed by batch program key */
+  gl_program_t programs[GL_PROGRAM_COUNT];
+
   /* Secondary content owned by the overlay renderable; NULL while the view
    * presents primary content alone */
   gl_view_content_t *overlay_content;
-
-  unsigned int last_generation;
 
   /* GL-only projection input; the viewport comes from the borrowed view */
   float fov_rad;
@@ -463,19 +460,5 @@ void gl_view_surface_resize(render_surface_t *surface, int width, int height);
  * the main-content scale without temporarily mutating shared state. */
 void gl_view_build_mvp(gl_view_state_t *state, float model_scale,
                        mat4 mvp, mat4 mv);
-/* gl_view_setup_attribs()
- *
- * Configure vertex attribute pointers in VAO. Called once during prepare
- * when VBO data changes. VAO retains this state for subsequent renders.
- */
-void gl_view_setup_attribs(
-    GLuint vao,
-    GLuint vbo,
-    const gl_vertex_attrib_t *attribs,
-    const GLint *attrib_locations,
-    int attrib_count,
-    int vertex_stride);
-
-
 #endif /* HAVE_OPENGL */
 #endif /* OPENGL_VIEW_H */

@@ -94,9 +94,11 @@ opengl_ground_plane_new(void)
   if( !gp )
     return( NULL );
 
-  ok = gl_shader_load(&gp->shader,
-      "/gl/ground-plane-vertex.glsl",
-      "/gl/ground-plane-fragment.glsl");
+  const gl_shader_spec_t spec = {
+      .vertex_path = "/gl/ground-plane-vertex.glsl",
+      .fragment_path = "/gl/ground-plane-fragment.glsl" };
+
+  ok = gl_shader_load(&gp->shader, &spec);
 
   if( !ok )
   {

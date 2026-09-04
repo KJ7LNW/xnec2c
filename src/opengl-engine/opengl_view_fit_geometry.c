@@ -108,7 +108,7 @@ gl_fit_walk_vertices(view_t *view, gl_view_state_t *state,
       for( vertex_idx = 0; vertex_idx < batch->vertex_count; vertex_idx++ )
       {
         const float *position = (const float *)(base
-            + (size_t)vertex_idx * (size_t)content->vertex_stride);
+            + (size_t)vertex_idx * (size_t)content->layout->stride);
         float x;
         float y;
         float z;

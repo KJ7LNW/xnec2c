@@ -28,9 +28,53 @@
  * @type: shader type (GL_VERTEX_SHADER or GL_FRAGMENT_SHADER)
  * @path: GResource path or filesystem path to shader source
  */
-  static GLuint
-compile_shader(GLenum type, const char *path)
+  static char *
+shader_source_with_prologue(const char *source, const char *prologue,
+    const char *path)
 {
+  GRegex *version_re;
+  GMatchInfo *match;
+  char *composed;
+  gint version_end;
+
+  /* The prologue must follow the version directive, which GLSL requires to
+   * precede every other statement. */
+  version_re = g_regex_new("^[ \\t]*#version[^\\n]*\\n", G_REGEX_MULTILINE,
+      0, NULL);
+  match = NULL;
+  version_end = -1;
+
+  if( g_regex_match(version_re, source, 0, &match) )
+    g_match_info_fetch_pos(match, 0, NULL, &version_end);
+
+  g_match_info_free(match);
+  g_regex_unref(version_re);
+
+  if( version_end < 0 )
+  {
+    pr_err("Shader declares no version directive: %s\n", path);
+    return( NULL );
+  }
+
+  composed = g_strdup_printf("%.*s%s\n%s", version_end, source, prologue,
+      source + version_end);
+
+  return( composed );
+
+} /* shader_source_with_prologue() */
+
+/*-----------------------------------------------------------------------*/
+
+/** compile_shader() - Compile one shader stage from a resource or file
+ * @type: shader stage to compile
+ * @path: resource path or filesystem path holding the source
+ * @prologue: variant definitions inserted after the version directive,
+ *            or NULL to compile the source unmodified
+ */
+  static GLuint
+compile_shader(GLenum type, const char *path, const char *prologue)
+{
+  char *composed;
   GBytes *bytes;
   const char *source;
   char *file_source;
@@ -66,9 +110,30 @@ compile_shader(GLenum type, const char *path)
     source = g_bytes_get_data(bytes, NULL);
   }
 
+  composed = NULL;
+
+  if( prologue != NULL )
+  {
+    composed = shader_source_with_prologue(source, prologue, path);
+
+    if( composed == NULL )
+    {
+      if( from_file )
+        g_free(file_source);
+      else
+        g_bytes_unref(bytes);
+
+      return( 0 );
+    }
+
+    source = composed;
+  }
+
   shader = glCreateShader(type);
   glShaderSource(shader, 1, &source, NULL);
   glCompileShader(shader);
+
+  g_free(composed);
 
   if( from_file )
     g_free(file_source);
@@ -95,20 +160,19 @@ compile_shader(GLenum type, const char *path)
 
 /** gl_shader_load() - Loads and compiles vertex and fragment shaders
  * @shader: shader structure to populate
- * @vertex_path: path to vertex shader source
- * @fragment_path: path to fragment shader source
+ * @spec: shader sources and the optional fragment variant prologue
  */
   gboolean
-gl_shader_load(gl_shader_t *shader,
-  const char *vertex_path, const char *fragment_path)
+gl_shader_load(gl_shader_t *shader, const gl_shader_spec_t *spec)
 {
   GLint status;
 
-  shader->vertex = compile_shader(GL_VERTEX_SHADER, vertex_path);
+  shader->vertex = compile_shader(GL_VERTEX_SHADER, spec->vertex_path, NULL);
   if( !shader->vertex )
     return( FALSE );
 
-  shader->fragment = compile_shader(GL_FRAGMENT_SHADER, fragment_path);
+  shader->fragment = compile_shader(GL_FRAGMENT_SHADER, spec->fragment_path,
+      spec->fragment_prologue);
   if( !shader->fragment )
   {
     glDeleteShader(shader->vertex);
@@ -123,7 +187,8 @@ gl_shader_load(gl_shader_t *shader,
   glGetProgramiv(shader->program, GL_LINK_STATUS, &status);
   if( status == GL_FALSE )
   {
-    pr_err("Shader link failed: %s + %s\n", vertex_path, fragment_path);
+    pr_err("Shader link failed: %s + %s\n", spec->vertex_path,
+        spec->fragment_path);
     glDeleteProgram(shader->program);
     glDeleteShader(shader->vertex);
     glDeleteShader(shader->fragment);

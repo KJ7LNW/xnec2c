@@ -33,6 +33,15 @@ double Inverse_Scale_Gain(double scaled_val);
 
 void rdpattern_view_changed_cb(view_t *v, gpointer user_data);
 
+/**
+ * nf_static_menu_sync() - Project phase liveness onto static-field controls
+ *
+ * The near-field static-baseline menu items choose the peak or instantaneous
+ * vector drawn while the animation window is closed. While it is open the
+ * phase slider drives the vectors, so the selection has no effect.
+ */
+void nf_static_menu_sync(void);
+
 /* Shift+scroll capability scaling the structure overlay, offered by every
  * engine presenting the radiation-pattern view */
 extern surface_capability_t rdpattern_overlay_scale_cap;

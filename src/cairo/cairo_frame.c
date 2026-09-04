@@ -29,6 +29,7 @@
 #include "../mem/mem.h"
 #include "../render/render_canvas.h"
 #include "../render/render_dispatch.h"
+#include "../render/render_message.h"
 
 /**
  * cairo_surface_draw() - Produce the frame the draw signal requested

@@ -28,10 +28,10 @@
 #include "../shared.h"
 
 /* Generate line geometry from dispatch-resolved field vector sets.
- * Iterates sets[0..n_sets-1], converting field_vector_t to lit_color_point_t pairs.
- * Returns total line count, or -1 on failure. */
+ * Walks the set list to its terminator, converting each entry to a
+ * lit_color_point_t pair.  Returns total line count, or -1 on failure. */
 int opengl_rdpattern_generate_field_vector_lines(
-    const field_vector_set_t *sets, int n_sets);
+    const field_vector_set_t *sets);
 
 /* Tessellate point_3d buffer into colored triangles.
  * Per-vertex color from precomputed vertex_rgb array.

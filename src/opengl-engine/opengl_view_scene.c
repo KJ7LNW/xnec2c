@@ -19,29 +19,17 @@
 
 #include "opengl_view_scene.h"
 #include "opengl_view_peel.h"
+#include "opengl_view_program.h"
 #include "opengl_gradient_overlay.h"
 #include "../shared.h"
 
 #ifdef HAVE_OPENGL
 
-/* Scene rendering context — owns shader and GL resources for primary geometry */
+/* Scene rendering context — owns the GL buffers for primary geometry */
 typedef struct
 {
   gl_view_state_t *view;
-  gl_shader_t shader;
-  GLuint vao[GL_VIEW_MAX_BATCHES];
-  GLuint vbo[GL_VIEW_MAX_BATCHES];
-  GLint mvp_location;
-  GLint u_mv_location;
-  GLint u_alpha_location;
-  GLint u_color_dim_location;
-  GLint flow_mode_location;
-  GLint u_phase_location;
-  GLint u_cos_phase_location;
-  GLint u_sin_phase_location;
-  GLint noise_tex_location;
-  gl_peel_uniform_locs_t peel_locs;
-  GLint *attrib_locations;
+  gl_batch_slot_t slots[GL_VIEW_MAX_BATCHES];
 
 } gl_scene_ctx_t;
 
@@ -90,32 +78,21 @@ gl_scene_prepare(void *ctx, const gl_render_params_t *_params)
 
   (void)_params;
 
-  if( c->generation == view->last_generation )
-    return;
-
-  /* Upload each batch to its own VBO and configure its VAO */
+  /* Upload each changed batch to its own VBO and configure its VAO */
   {
     int i;
 
     for( i = 0; i < c->batch_count; i++ )
     {
-      if( c->batches[i].vertex_count > 0 )
-      {
-        glBindBuffer(GL_ARRAY_BUFFER, sc->vbo[i]);
-        glBufferData(GL_ARRAY_BUFFER,
-            c->batches[i].vertex_count * c->vertex_stride,
-            c->batches[i].vertices,
-            GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+      const gl_draw_batch_t *batch = &c->batches[i];
 
-        gl_view_setup_attribs(sc->vao[i], sc->vbo[i],
-            view->config->attribs, sc->attrib_locations,
-            view->config->attrib_count, c->vertex_stride);
-      }
+      if( batch->vertex_count <= 0 )
+        continue;
+
+      gl_view_upload_batch(&sc->slots[i],
+          &view->programs[batch->program_key], c->layout, batch);
     }
   }
-
-  view->last_generation = c->generation;
 
 } /* gl_scene_prepare() */
 
@@ -131,81 +108,20 @@ gl_scene_render(void *ctx, const gl_render_params_t *params)
   gl_scene_ctx_t *sc = ctx;
   gl_view_state_t *view = sc->view;
 
-  /* Set uniforms before draw pass */
-  glUseProgram(sc->shader.program);
-  glUniformMatrix4fv(sc->u_mv_location, 1, GL_FALSE,
-      (const float *)params->mv);
+  /* Present authored batch alpha while transparency is active. On-click mode
+   * suppresses transparency when not dragging for transparent-on-drag
+   * renderables. */
+  const gl_batch_pass_t pass = {
+    .programs = view->programs,
+    .noise_tex = view->noise_tex,
+    .transparency_active = view->transparency_active,
+    .content = &view->content,
+    .slots = sc->slots,
+    .mvp = (const float *)params->mvp,
+    .mv = (const float *)params->mv
+  };
 
-  /* Flow direction mode and phase animation offset.
-   * Locations are -1 for shaders without these uniforms (no-op). */
-  glUniform1i(sc->flow_mode_location, rc_config.current_flow_visualization_mode);
-  glUniform1f(sc->u_phase_location, params->flow_phase);
-  glUniform1f(sc->u_cos_phase_location, cosf(params->flow_phase));
-  glUniform1f(sc->u_sin_phase_location, sinf(params->flow_phase));
-
-  /* Bind LIC noise texture to unit 1 */
-  if( view->noise_tex != 0 )
-  {
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, view->noise_tex);
-    glUniform1i(sc->noise_tex_location, 1);
-    glActiveTexture(GL_TEXTURE0);
-  }
-
-  gl_view_set_peel_uniforms(&sc->peel_locs, params);
-
-  glUniformMatrix4fv(sc->mvp_location, 1, GL_FALSE,
-      (const float *)params->mvp);
-
-  /* Per-batch alpha: use batch.alpha when transparency is active,
-   * otherwise 1.0 (opaque).  On-click mode suppresses transparency
-   * when not dragging for renderables with transparent_on_drag. */
-  {
-    gboolean use_batch_alpha = view->transparency_active;
-    int i;
-
-    for( i = 0; i < view->content.batch_count; i++ )
-    {
-      if( view->content.batches[i].vertex_count > 0 )
-      {
-        float batch_alpha = use_batch_alpha
-            ? view->content.batches[i].alpha : 1.0f;
-
-        glBindVertexArray(sc->vao[i]);
-
-        /* Per-batch polygon offset: pushes filled surfaces behind
-         * lines/wires at hardware level (slope-scaled + depth-step).
-         * Factor=2.0 exceeds peel epsilon dz coefficient (1.0),
-         * providing margin of dz+r at all zoom levels. */
-        if( view->content.batches[i].polygon_offset )
-        {
-          glEnable(GL_POLYGON_OFFSET_FILL);
-          glPolygonOffset(POLYGON_OFFSET_FACTOR, POLYGON_OFFSET_UNITS);
-        }
-        else
-        {
-          glDisable(GL_POLYGON_OFFSET_FILL);
-        }
-
-        glUniform1f(sc->u_alpha_location, batch_alpha);
-        glUniform1f(sc->u_color_dim_location,
-            view->content.batches[i].color_dim);
-
-        /* Apply per-batch line width unconditionally so it never inherits
-         * leftover global GL state from a prior batch or renderable.
-         * Triangle batches pin to their own width, keeping line width a
-         * per-batch single source of truth. */
-        glLineWidth(view->content.batches[i].line_width > 0.0f
-            ? view->content.batches[i].line_width : 1.0f);
-
-        glDrawArrays(view->content.batches[i].draw_mode, 0,
-            view->content.batches[i].vertex_count);
-      }
-    }
-
-    glDisable(GL_POLYGON_OFFSET_FILL);
-    glBindVertexArray(0);
-  }
+  gl_view_draw_batches(&pass, params);
 
 } /* gl_scene_render() */
 
@@ -262,12 +178,8 @@ gl_scene_free(void *ctx)
   if( !sc )
     return;
 
-  glDeleteBuffers(GL_VIEW_MAX_BATCHES, sc->vbo);
-  glDeleteVertexArrays(GL_VIEW_MAX_BATCHES, sc->vao);
+  gl_batch_slots_destroy(sc->slots, GL_VIEW_MAX_BATCHES);
 
-  gl_shader_destroy(&sc->shader);
-
-  g_free(sc->attrib_locations);
   g_free(sc);
 
 } /* gl_scene_free() */
@@ -282,58 +194,11 @@ gl_view_scene_renderable_new(gl_view_state_t *state)
 {
   gl_scene_ctx_t *sc;
   gl_renderable_t r;
-  gboolean ok;
-  int i;
 
   sc = g_new0(gl_scene_ctx_t, 1);
   sc->view = state;
 
-  ok = gl_shader_load(&sc->shader,
-      state->config->vertex_shader_path,
-      state->config->fragment_shader_path);
-
-  if( !ok )
-  {
-    pr_err("Failed to load shaders\n");
-    g_free(sc);
-
-    return( (gl_renderable_t){0} );
-  }
-
-  sc->mvp_location = glGetUniformLocation(sc->shader.program, "mvp");
-  sc->u_mv_location = glGetUniformLocation(sc->shader.program, "u_mv");
-  sc->u_alpha_location = glGetUniformLocation(sc->shader.program, "u_alpha");
-  sc->u_color_dim_location = glGetUniformLocation(sc->shader.program, "u_color_dim");
-  sc->flow_mode_location = glGetUniformLocation(sc->shader.program, "flow_mode");
-  sc->u_phase_location = glGetUniformLocation(sc->shader.program, "u_phase");
-  sc->u_cos_phase_location = glGetUniformLocation(sc->shader.program, "u_cos_phase");
-  sc->u_sin_phase_location = glGetUniformLocation(sc->shader.program, "u_sin_phase");
-  sc->noise_tex_location = glGetUniformLocation(sc->shader.program, "noise_tex");
-  gl_view_peel_locs_init(&sc->peel_locs, sc->shader.program);
-
-  glGenVertexArrays(GL_VIEW_MAX_BATCHES, sc->vao);
-  glGenBuffers(GL_VIEW_MAX_BATCHES, sc->vbo);
-
-  sc->attrib_locations = g_new(GLint, state->config->attrib_count);
-
-  for( i = 0; i < state->config->attrib_count; i++ )
-  {
-    sc->attrib_locations[i] = glGetAttribLocation(
-        sc->shader.program,
-        state->config->attribs[i].name);
-  }
-
-  /* Override default generic value for flow_data attribute.
-   * OpenGL defaults unbound vec4 attributes to (0,0,0,1); the w=1
-   * causes mag_sq=1.0 in the fragment shader, falsely activating
-   * the flow/chevron/LIC block for non-patch vertices (rdpattern
-   * shell, wire segments using 3-attrib config). */
-  {
-    GLint flow_loc = glGetAttribLocation(sc->shader.program, "flow_data");
-
-    if( flow_loc >= 0 )
-      glVertexAttrib4f(flow_loc, 0.0f, 0.0f, 0.0f, 0.0f);
-  }
+  gl_batch_slots_init(sc->slots, GL_VIEW_MAX_BATCHES);
 
   r = (gl_renderable_t){
     .render               = gl_scene_render,

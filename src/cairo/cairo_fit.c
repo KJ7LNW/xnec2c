@@ -11,6 +11,7 @@
 #include "cairo_frame.h"
 #include "../render/render_fit.h"
 #include "../render/render_geometry.h"
+#include "../anim/anim_phase.h"
 #include "../shared.h"
 #include "../view/view_core.h"
 
@@ -62,6 +63,7 @@ cairo_fit_view(render_surface_t *surface, view_fit_t *fit)
   };
   cairo_fit_ctx_t ctx = { .view = view, .acc = &acc };
   float extent = 0.0f;
+  double phase;
   double zoom = 0.0;
   double pan_x = 0.0;
   double pan_y = 0.0;
@@ -76,7 +78,8 @@ cairo_fit_view(render_surface_t *surface, view_fit_t *fit)
 
   g_rec_mutex_lock(&freq_data_lock);
 
-  extent = render_geom_walk(view, cairo_fit_sink, &ctx);
+  phase = anim_phase_get();
+  extent = render_geom_walk(view, phase, cairo_fit_sink, &ctx);
   if( acc.any )
     solved = render_fit_solve(&acc, &projection, view->height, &frame);
 

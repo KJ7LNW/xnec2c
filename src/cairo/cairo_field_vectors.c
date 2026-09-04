@@ -21,9 +21,8 @@
  * cairo_field_vectors: Cairo renderer for resolved field vectors, the near
  * E/H fields with their Poynting vector and the far-zone instantaneous field.
  *
- * Reads resolver-provided field_vector_t displacements and their parallel
- * palette colors from dispatch-assembled field_vector_set_t[]. Origin
- * coordinates come from the origins array each set carries.
+ * Reads resolver-provided entries carrying origin, displacement, and palette
+ * color from a sentinel-terminated field_vector_set_t list.
  * No field math, no Poynting cross product, no Value_to_Color.
  */
 #include "cairo_draw.h"
@@ -35,8 +34,7 @@
 /**
  * cairo_draw_field_vectors() - Draw resolved field vectors via Cairo
  * @surface: Cairo surface presenting the radiation pattern view
- * @sets:    dispatch-assembled field vector sets
- * @n_sets:  number of active sets
+ * @sets:    dispatch-assembled field vector sets, terminated by absent entries
  * @r_max:   maximum distance for view scaling
  *
  * Iterates each set and draws prerendered vectors as colored line segments
@@ -45,7 +43,7 @@
  */
   gboolean
 cairo_draw_field_vectors(render_surface_t *surface,
-    const field_vector_set_t *sets, int n_sets, double r_max)
+    const field_vector_set_t *sets, double r_max)
 {
   cairo_engine_surface_t *cs = cairo_engine_surface(surface);
   view_t *v = surface->view;
@@ -55,27 +53,26 @@ cairo_draw_field_vectors(render_surface_t *surface,
   double scale = view_projection_scale(v, (float)r_max, v->zoom);
 
   /* Deposit each dispatch-assembled field vector into the scenebuffer */
-  for( f = 0; f < n_sets; f++ )
+  for( f = 0; sets[f].entries != NULL; f++ )
   {
-    const field_vector_t *vecs = sets[f].vecs;
-    if( vecs == NULL )
-      continue;
+    const field_vector_entry_t *entries = sets[f].entries;
+    int count = mem_array_count(entries);
 
-    for( idx = 0; idx < sets[f].npts; idx++ )
+    for( idx = 0; idx < count; idx++ )
     {
-      double px = sets[f].origins[idx].x;
-      double py = sets[f].origins[idx].y;
-      double pz = sets[f].origins[idx].z;
+      double px = entries[idx].origin.x;
+      double py = entries[idx].origin.y;
+      double pz = entries[idx].origin.z;
 
       /* Tip = origin + precomputed displacement */
-      double fx = px + (double)vecs[idx].dx;
-      double fy = py + (double)vecs[idx].dy;
-      double fz = pz + (double)vecs[idx].dz;
+      double fx = px + (double)entries[idx].vector.dx;
+      double fy = py + (double)entries[idx].vector.dy;
+      double fz = pz + (double)entries[idx].vector.dz;
 
       Set_Gdk_Segment(&segm, v, scale, px, py, pz, fx, fy, fz, &segm.z_mid);
-      segm.r     = sets[f].colors[idx].r;
-      segm.g     = sets[f].colors[idx].g;
-      segm.b     = sets[f].colors[idx].b;
+      segm.r     = entries[idx].color.r;
+      segm.g     = entries[idx].color.g;
+      segm.b     = entries[idx].color.b;
       segm.width = 2.0f;
       scenebuffer_add(&cs->scenebuffer, &segm);
     }

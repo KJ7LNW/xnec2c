@@ -32,6 +32,7 @@
 
 #include "opengl/opengl_structure.h"
 #include "opengl/opengl_msaa.h"
+#include "render/render_patch_flow.h"
 #include "settings/render_settings.h"
 
 
@@ -466,35 +467,35 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Current Flow Visualization Mode", .format = "%d",
 		.vars = { &rc_config.current_flow_visualization_mode },
-		.def = { { .i = FLOW_DIR_REFERENCE_PHASE } },
+		.def = { { .i = PATCH_FLOW_MODE_REFERENCE_PHASE } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_flow_direction_refresh,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &main_window_builder,
 					.elements = CONFIG_WIDGETS(
 						CONFIG_WIDGET( .widget_id = "main_flow_dir_ref_phase",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_REFERENCE_PHASE) ),
+							.values = CONFIG_WIDGET_VALUES(PATCH_FLOW_MODE_REFERENCE_PHASE) ),
 						CONFIG_WIDGET( .widget_id = "main_flow_dir_pol_axis",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_POLARIZATION_TILT) ),
+							.values = CONFIG_WIDGET_VALUES(PATCH_FLOW_MODE_POLARIZATION_AXIS) ),
 						CONFIG_WIDGET( .widget_id = "main_flow_dir_peak_mag",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_PEAK_MAGNITUDE) ),
+							.values = CONFIG_WIDGET_VALUES(PATCH_FLOW_MODE_PEAK_MAGNITUDE) ),
 						CONFIG_WIDGET( .widget_id = "main_flow_dir_lic",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_LIC) ),
+							.values = CONFIG_WIDGET_VALUES(PATCH_FLOW_MODE_LIC) ),
 						CONFIG_WIDGET( .widget_id = "main_flow_dir_wireframe",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_WIREFRAME) ),
+							.values = CONFIG_WIDGET_VALUES(PATCH_FLOW_MODE_WIREFRAME) ),
 						NULL ) ),
 				CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder,
 					.value_label_id = "anim_flow_dir_label",
 					.elements = CONFIG_WIDGETS(
 						CONFIG_WIDGET( .widget_id = "anim_flow_ref_phase",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_REFERENCE_PHASE) ),
+							.values = CONFIG_WIDGET_VALUES(PATCH_FLOW_MODE_REFERENCE_PHASE) ),
 						CONFIG_WIDGET( .widget_id = "anim_flow_pol_axis",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_POLARIZATION_TILT) ),
+							.values = CONFIG_WIDGET_VALUES(PATCH_FLOW_MODE_POLARIZATION_AXIS) ),
 						CONFIG_WIDGET( .widget_id = "anim_flow_peak_mag",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_PEAK_MAGNITUDE) ),
+							.values = CONFIG_WIDGET_VALUES(PATCH_FLOW_MODE_PEAK_MAGNITUDE) ),
 						CONFIG_WIDGET( .widget_id = "anim_flow_lic",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_LIC) ),
+							.values = CONFIG_WIDGET_VALUES(PATCH_FLOW_MODE_LIC) ),
 						CONFIG_WIDGET( .widget_id = "anim_flow_wireframe",
-							.values = CONFIG_WIDGET_VALUES(FLOW_DIR_WIREFRAME) ),
+							.values = CONFIG_WIDGET_VALUES(PATCH_FLOW_MODE_WIREFRAME) ),
 						NULL ) ),
 				NULL ) ) },
 
@@ -1556,6 +1557,15 @@ Read_Config( void )
     pr_warn("Invalid interp method %d in config, resetting to default\n",
         rc_config.ant_temp_interp);
     rc_config_set_default(rc_config_find_by_field(&rc_config.ant_temp_interp));
+  }
+
+  if (rc_config.current_flow_visualization_mode < 0 ||
+      rc_config.current_flow_visualization_mode >= PATCH_FLOW_MODE_COUNT)
+  {
+    pr_warn("Invalid flow visualization mode %d in config, resetting to default\n",
+        rc_config.current_flow_visualization_mode);
+    rc_config_set_default(rc_config_find_by_field(
+        &rc_config.current_flow_visualization_mode));
   }
 
   /* Custom temperatures must be positive (zero collapses the pattern) */

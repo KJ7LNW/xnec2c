@@ -31,6 +31,7 @@
  */
 #include "chroma.h"
 #include "chroma_glyph.h"
+#include "../anim/anim_phase.h"
 #include "../shared.h"
 
 const chroma_proj_row_t chroma_proj_rows[CHROMA_PROJ_NUM] = {
@@ -329,6 +330,25 @@ chroma_proj_sanitize(int v)
 chroma_proj_selected(void)
 {
   return chroma_proj_sanitize(rc_config.anim_color_proj);
+}
+
+/*-----------------------------------------------------------------------*/
+
+/** chroma_proj_active() - Resolve the projection now in effect
+ *
+ * Only a projection that varies with phase has a quiescent form to fall to,
+ * so the standing-wave and far-field reads keep their selection while the
+ * context is closed.  A hover stages its candidate into the selection field
+ * this reads, and every projection widget belongs to the animation dialog,
+ * so a preview already implies an open context.
+ */
+  chroma_proj_t
+chroma_proj_active(void)
+{
+  chroma_proj_t selected = chroma_proj_selected();
+
+  return (anim_phase_active() || !chroma_proj_animated(selected))
+      ? selected : CHROMA_PROJ_AMPLITUDE;
 }
 
 /*-----------------------------------------------------------------------*/

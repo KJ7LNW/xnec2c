@@ -74,23 +74,21 @@ field_vector_line_append(
 /*-----------------------------------------------------------------------*/
 
 /** opengl_rdpattern_generate_field_vector_lines() - Convert resolved vectors to GL line geometry
- * @sets:   dispatch-resolved vector sets (origins, displacement, color)
- * @n_sets: number of active sets
+ * @sets: dispatch-resolved vector sets, terminated by absent entries
  *
  * Iterates each set, emitting one line per vector from its own origin.
  * Zero field-type branching — backend receives only data to iterate.
  * Returns total line count, or -1 on empty input.
  */
   int
-opengl_rdpattern_generate_field_vector_lines(
-    const field_vector_set_t *sets, int n_sets)
+opengl_rdpattern_generate_field_vector_lines(const field_vector_set_t *sets)
 {
   int fi, idx, line_idx;
   int total_lines;
 
   total_lines = 0;
-  for( fi = 0; fi < n_sets; fi++ )
-    total_lines += sets[fi].npts;
+  for( fi = 0; sets[fi].entries != NULL; fi++ )
+    total_lines += mem_array_count(sets[fi].entries);
 
   if( total_lines <= 0 )
     return( -1 );
@@ -99,28 +97,28 @@ opengl_rdpattern_generate_field_vector_lines(
 
   line_idx = 0;
 
-  for( fi = 0; fi < n_sets; fi++ )
+  for( fi = 0; sets[fi].entries != NULL; fi++ )
   {
-    const point_3d_t *origins = sets[fi].origins;
-    const field_vector_t *vecs = sets[fi].vecs;
-    const rgb_f_t *colors = sets[fi].colors;
+    const field_vector_entry_t *entries = sets[fi].entries;
+    int count = mem_array_count(entries);
 
-    for( idx = 0; idx < sets[fi].npts; idx++ )
+    for( idx = 0; idx < count; idx++ )
     {
       point_f_3d_t org = {
-        (float)origins[idx].x,
-        (float)origins[idx].y,
-        (float)origins[idx].z
+        (float)entries[idx].origin.x,
+        (float)entries[idx].origin.y,
+        (float)entries[idx].origin.z
       };
 
       point_f_3d_t end = {
-        org.x + vecs[idx].dx,
-        org.y + vecs[idx].dy,
-        org.z + vecs[idx].dz
+        org.x + entries[idx].vector.dx,
+        org.y + entries[idx].vector.dy,
+        org.z + entries[idx].vector.dz
       };
 
       rgba_f_t col = {
-        colors[idx].r, colors[idx].g, colors[idx].b, 1.0f
+        entries[idx].color.r, entries[idx].color.g,
+        entries[idx].color.b, 1.0f
       };
 
       line_idx = field_vector_line_append(field_vector_lines, line_idx,

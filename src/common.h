@@ -626,37 +626,6 @@ enum POL_TYPE
   NUM_POL
 };
 
-/** gl_draw_batch_t - Self-contained vertex batch for a single glDrawArrays call
- * @vertices: owned vertex allocation (caller manages lifetime)
- * @vertex_count: number of vertices to draw
- * @draw_mode: GL primitive mode (GL_TRIANGLES, GL_LINES, etc.) as unsigned int
- *             to avoid GL header dependency outside HAVE_OPENGL scope
- */
-typedef struct
-{
-  void *vertices;
-  int vertex_count;
-  unsigned int draw_mode;
-  /* When TRUE, glPolygonOffset pushes this batch behind non-offset
-   * batches (e.g. surface triangles behind wireframe lines). */
-  gboolean polygon_offset;
-
-  /* Per-batch RGB brightness multiplier (0.0=black, 1.0=full) */
-  float color_dim;
-
-  /* Per-batch transparency (0.0=invisible, 1.0=opaque) */
-  float alpha;
-
-  /* GL_LINES draw width in pixels; <=0 falls back to 1.0 */
-  float line_width;
-
-} gl_draw_batch_t;
-
-/* Maximum independent draw batches per view content
- * (structure: segments, patches, network/transmission-line outlines,
- * two-port network polygon fills, node/antinode glyph overlay) */
-#define GL_VIEW_MAX_BATCHES 5
-
 /* OpenGL types */
 #ifdef HAVE_OPENGL
 typedef struct

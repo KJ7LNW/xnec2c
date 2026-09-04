@@ -50,6 +50,15 @@ extern const config_refresh_t hook_color_vis_refresh;
 void hook_color_family(void);
 extern const config_refresh_t hook_color_family_refresh;
 
+/**
+ * color_tone_marks_attach() - Mark and wire the family sliders at creation
+ *
+ * Adds each family's snap marks labeled with the natural parameter and
+ * connects the shared snap and value-format handlers with the row as
+ * user data.
+ */
+void color_tone_marks_attach(void);
+
 void hook_theme_change(void);
 extern const config_refresh_t hook_theme_change_refresh;
 

@@ -18,11 +18,10 @@
  */
 
 #include "opengl_structure_geometry.h"
+#include "opengl_patch_flow.h"
 #include "opengl_structure.h"
 #include "../shared.h"
 #include "../prerender/prerender_state.h"
-#include "../prerender/prerender_color.h"
-#include "../prerender/prerender_patch_arrow.h"
 #include "../chroma/chroma_glyph.h"
 
 #ifdef HAVE_OPENGL
@@ -67,13 +66,29 @@
 
 
 
+/* Record what the resolved patch batch consumed at its last refill. A full
+ * geometry pass or a later patch refill advances the structure publication
+ * version; the color version enters because this batch bakes color into its
+ * vertices. */
+typedef struct
+{
+  unsigned int structure_generation;
+  unsigned int flow_generation;
+  uint32_t     color_generation;
+  gboolean     valid;
+} patch_batch_edge_t;
+
 /* Per-type draw batches: each batch owns its own vertex allocation and GL mode */
 static gl_draw_batch_t batches[GL_VIEW_MAX_BATCHES];
 static int batch_count = 0;
+/* Upload key every batch publishes under, advanced by the geometry pass and by
+ * the patch refill alike, so a reused slot never repeats the version its
+ * previous owner published */
 static unsigned int structure_geometry_generation = 1;
 static const rgb_f_t *last_wire_colors = NULL;
 /* Track previous radius scale to detect changes requiring regeneration */
 static double structure_last_radius_scale = CYLINDER_RADIUS_SCALE_DEFAULT;
+static patch_batch_edge_t patch_batch_edge;
 
 /* Batch slot indices resolved at generation; -1 when the batch is absent.
  * Read by the per-frame visual-parameter block so rc_config values apply
@@ -89,26 +104,9 @@ static structure_overlay_data_t shared_overlay_data = { 0 };
 
 /*-----------------------------------------------------------------------*/
 
-/** get_patch_normal() - Surface normal via cross product of t1 and t2
- * @idx: patch index (0-based into data.m)
- */
-  static void
-get_patch_normal(int idx, float *nx, float *ny, float *nz)
-{
-  *nx = (float)(data.patches[idx].t1y * data.patches[idx].t2z - data.patches[idx].t1z * data.patches[idx].t2y);
-  *ny = (float)(data.patches[idx].t1z * data.patches[idx].t2x - data.patches[idx].t1x * data.patches[idx].t2z);
-  *nz = (float)(data.patches[idx].t1x * data.patches[idx].t2y - data.patches[idx].t1y * data.patches[idx].t2x);
-}
-
-/*-----------------------------------------------------------------------*/
-
-/*-----------------------------------------------------------------------*/
-
-/*-----------------------------------------------------------------------*/
-
 /* Vertices are initialized via C99 compound literal assignment:
  *   verts[vidx++] = (structure_vertex_t){ .point = {…}, .normal = {…}, … };
- * Omitted fields default to zero (tangent1/tangent2 for flat vertices). */
+ * Omitted fields default to zero (uv and flow for flat vertices). */
 
 /*-----------------------------------------------------------------------*/
 
@@ -492,141 +490,6 @@ generate_segments_glyphs(gl_draw_batch_t *batch, const struct_draw_params_t *par
 
 /*-----------------------------------------------------------------------*/
 
-/** generate_patches_wireframe() - Emit GL_LINES vertices for patch outlines and arrows
- * @batch:  draw batch with pre-allocated vertices buffer
- * @params: dispatch-resolved draw parameters (precomputed colors)
- *
- * Emits box outline (8 vertices) per patch.  When params->show_flow is TRUE
- * and magnitude exceeds threshold, also emits directional arrow (up to 14 vertices).
- * Sets batch vertex_count.
- */
-  static void
-generate_patches_wireframe(gl_draw_batch_t *batch, const struct_draw_params_t *params)
-{
-  int idx, vidx = 0;
-  structure_vertex_t *verts = (structure_vertex_t *)batch->vertices;
-
-  if( geom_pre.patch_corners == NULL )
-    return;
-
-  for( idx = 0; idx < data.m; idx++ )
-  {
-    float nx, ny, nz;
-    float p_r, p_g, p_b;
-    float c0x, c0y, c0z, c1x, c1y, c1z;
-    float c2x, c2y, c2z, c3x, c3y, c3z;
-
-    get_patch_normal(idx, &nx, &ny, &nz);
-    p_r = params->patch_colors[idx].r;
-    p_g = params->patch_colors[idx].g;
-    p_b = params->patch_colors[idx].b;
-
-    /* Quad corners from precomputed geometry */
-    c0x = (float)geom_pre.patch_corners[idx].c0x;
-    c0y = (float)geom_pre.patch_corners[idx].c0y;
-    c0z = (float)geom_pre.patch_corners[idx].c0z;
-    c1x = (float)geom_pre.patch_corners[idx].c1x;
-    c1y = (float)geom_pre.patch_corners[idx].c1y;
-    c1z = (float)geom_pre.patch_corners[idx].c1z;
-    c2x = (float)geom_pre.patch_corners[idx].c2x;
-    c2y = (float)geom_pre.patch_corners[idx].c2y;
-    c2z = (float)geom_pre.patch_corners[idx].c2z;
-    c3x = (float)geom_pre.patch_corners[idx].c3x;
-    c3y = (float)geom_pre.patch_corners[idx].c3y;
-    c3z = (float)geom_pre.patch_corners[idx].c3z;
-
-    /* Box outline: 4 edges as GL_LINES pairs (8 vertices) */
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c0x, c0y, c0z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-    };
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c1x, c1y, c1z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-    };
-
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c1x, c1y, c1z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-    };
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c2x, c2y, c2z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-    };
-
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c2x, c2y, c2z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-    };
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c3x, c3y, c3z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-    };
-
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c3x, c3y, c3z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-    };
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c0x, c0y, c0z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-    };
-
-    /* GPU-driven arrow: store template UV + tangent frame + flow data.
-     * The vertex shader rotates template UVs by the phase-derived flow
-     * angle, then transforms to world space via the tangent frame.
-     * Arrow only rendered when current data is active and above threshold. */
-    {
-      gboolean emit_arrow = FALSE;
-      float fd[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-
-      if( params->show_flow )
-      {
-        float mag_ratio;
-
-        get_precomputed_flow_data(params->fstep, idx, fd);
-        mag_ratio = (float)sqrt(
-            fd[0] * fd[0] + fd[1] * fd[1] +
-            fd[2] * fd[2] + fd[3] * fd[3]);
-
-        if( mag_ratio > FLOW_MAG_THRESHOLD )
-          emit_arrow = TRUE;
-      }
-
-      if( emit_arrow )
-      {
-        const patch_tangent_frame_t *tf = &geom_pre.patch_tangent_frame[idx];
-        float acx  = (float)tf->cx;
-        float acy  = (float)tf->cy;
-        float acz  = (float)tf->cz;
-        float st1x = (float)tf->st1x;
-        float st1y = (float)tf->st1y;
-        float st1z = (float)tf->st1z;
-        float st2x = (float)tf->st2x;
-        float st2y = (float)tf->st2y;
-        float st2z = (float)tf->st2z;
-        int k;
-
-        for( k = 0; k < ARROW_VERTEX_COUNT; k++ )
-        {
-          float uv_u, uv_v;
-          arrow_template_uv(k, &uv_u, &uv_v);
-          verts[vidx++] = (structure_vertex_t){
-              .point = {acx, acy, acz}, .normal = {nx, ny, nz},
-              .color = {p_r, p_g, p_b, 1.0f},
-              .uv = {uv_u, uv_v},
-              .flow_data = {fd[0], fd[1], fd[2], fd[3]},
-              .tangent1 = {st1x, st1y, st1z},
-              .tangent2 = {st2x, st2y, st2z},
-          };
-        }
-      }
-    }
-  }
-
-  batch->vertex_count = vidx;
-}
-
 /*-----------------------------------------------------------------------*/
 
 /** generate_segments_cylinders() - Emit GL_TRIANGLES vertices for cylinder wire segments
@@ -691,102 +554,6 @@ generate_segments_cylinders(gl_draw_batch_t *batch, const struct_draw_params_t *
 
 /*-----------------------------------------------------------------------*/
 
-/** generate_patches_triangles() - Emit GL_TRIANGLES vertices for filled patch quads
- * @batch:  draw batch with pre-allocated vertices buffer
- * @params: dispatch-resolved draw parameters (precomputed colors)
- *
- * Emits 6 vertices (2 triangles) per patch with UV and flow data.
- * Sets batch vertex_count.
- */
-  static void
-generate_patches_triangles(gl_draw_batch_t *batch, const struct_draw_params_t *params)
-{
-  int idx, vidx = 0;
-  structure_vertex_t *verts = (structure_vertex_t *)batch->vertices;
-
-  if( geom_pre.patch_corners == NULL )
-    return;
-
-  for( idx = 0; idx < data.m; idx++ )
-  {
-    float nx, ny, nz;
-    float p_r, p_g, p_b;
-    float fd[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-    float c0x, c0y, c0z, c1x, c1y, c1z, c2x, c2y, c2z, c3x, c3y, c3z;
-
-    get_patch_normal(idx, &nx, &ny, &nz);
-
-    /* Quad corners from precomputed geometry */
-    c0x = (float)geom_pre.patch_corners[idx].c0x;
-    c0y = (float)geom_pre.patch_corners[idx].c0y;
-    c0z = (float)geom_pre.patch_corners[idx].c0z;
-    c1x = (float)geom_pre.patch_corners[idx].c1x;
-    c1y = (float)geom_pre.patch_corners[idx].c1y;
-    c1z = (float)geom_pre.patch_corners[idx].c1z;
-    c2x = (float)geom_pre.patch_corners[idx].c2x;
-    c2y = (float)geom_pre.patch_corners[idx].c2y;
-    c2z = (float)geom_pre.patch_corners[idx].c2z;
-    c3x = (float)geom_pre.patch_corners[idx].c3x;
-    c3y = (float)geom_pre.patch_corners[idx].c3y;
-    c3z = (float)geom_pre.patch_corners[idx].c3z;
-
-    p_r = params->patch_colors[idx].r;
-    p_g = params->patch_colors[idx].g;
-    p_b = params->patch_colors[idx].b;
-
-    /* Flow phasors require valid current data; show_flow gates the
-     * struct_colors[fstep] read because fstep is -1 until a frequency
-     * step is computed.  fd stays zeroed otherwise, matching
-     * generate_patches_wireframe(). */
-    if( params->show_flow )
-      get_precomputed_flow_data(params->fstep, idx, fd);
-
-    /* Triangle 1: c0(1,1), c1(0,1), c2(0,0) */
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c0x, c0y, c0z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-        .uv = {1.0f, 1.0f}, .flow_data = {fd[0], fd[1], fd[2], fd[3]},
-
-    };
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c1x, c1y, c1z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-        .uv = {0.0f, 1.0f}, .flow_data = {fd[0], fd[1], fd[2], fd[3]},
-
-    };
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c2x, c2y, c2z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-        .uv = {0.0f, 0.0f}, .flow_data = {fd[0], fd[1], fd[2], fd[3]},
-
-    };
-
-    /* Triangle 2: c0(1,1), c2(0,0), c3(1,0) */
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c0x, c0y, c0z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-        .uv = {1.0f, 1.0f}, .flow_data = {fd[0], fd[1], fd[2], fd[3]},
-
-    };
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c2x, c2y, c2z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-        .uv = {0.0f, 0.0f}, .flow_data = {fd[0], fd[1], fd[2], fd[3]},
-
-    };
-    verts[vidx++] = (structure_vertex_t){
-        .point = {c3x, c3y, c3z}, .normal = {nx, ny, nz},
-        .color = {p_r, p_g, p_b, 1.0f},
-        .uv = {1.0f, 0.0f}, .flow_data = {fd[0], fd[1], fd[2], fd[3]},
-
-    };
-  }
-
-  batch->vertex_count = vidx;
-}
-
-/*-----------------------------------------------------------------------*/
-
 /** opengl_structure_generate_geometry() - Generate geometry for antenna wire segments, patches, and networks
  * @params:               dispatch-resolved draw parameters (precomputed colors)
  * @cylinder_radius_scale: user-adjustable radius multiplier
@@ -801,9 +568,10 @@ opengl_structure_generate_geometry(
     const struct_draw_params_t *params,
     double cylinder_radius_scale)
 {
-  int seg_verts, patch_verts;
+  int seg_verts;
   int bc = 0;
-  gboolean seg_line_mode, patch_wireframe;
+  int idx;
+  gboolean seg_line_mode;
 
   structure_patch_batch_index = -1;
   structure_net_batch_index = -1;
@@ -816,16 +584,17 @@ opengl_structure_generate_geometry(
     return;
   }
 
-  seg_line_mode = (cylinder_radius_scale < CYLINDER_SCALE_LINE_THRESHOLD);
-  patch_wireframe = (rc_config.current_flow_visualization_mode == FLOW_DIR_WIREFRAME);
+  /* Every slot presents with the lit program unless a producer below selects
+   * another, so no slot inherits the key an earlier generation left. */
+  for( idx = 0; idx < GL_VIEW_MAX_BATCHES; idx++ )
+    batches[idx].program_key = GL_PROGRAM_LIT;
 
-  /* Per-batch vertex budgets */
+  seg_line_mode = (cylinder_radius_scale < CYLINDER_SCALE_LINE_THRESHOLD);
+
+  /* Budget the segment geometry selected by its radius presentation. */
   seg_verts = seg_line_mode
     ? data.n * 2
     : data.n * opengl_cylinder_vertex_count(STRUCTURE_CYLINDER_SEGMENTS);
-  patch_verts = patch_wireframe
-    ? data.m * 22
-    : data.m * 6;
 
   /* Segment batch: always present at slot 0 */
   mem_realloc(&batches[bc].vertices,
@@ -842,19 +611,10 @@ opengl_structure_generate_geometry(
   batches[bc].line_width = 1.0f;
   bc++;
 
-  /* Patch batch when patches exist */
+  /* Reserve the patch slot; its fill strategy owns allocation and content. */
   if( data.m > 0 )
   {
     structure_patch_batch_index = bc;
-    mem_realloc(&batches[bc].vertices,
-                (size_t)patch_verts * sizeof(structure_vertex_t));
-
-    if( patch_wireframe )
-      generate_patches_wireframe(&batches[bc], params);
-    else
-      generate_patches_triangles(&batches[bc], params);
-
-    batches[bc].draw_mode = patch_wireframe ? GL_LINES : GL_TRIANGLES;
     batches[bc].polygon_offset = TRUE;
     batches[bc].line_width = 1.0f;
     bc++;
@@ -911,12 +671,86 @@ opengl_structure_generate_geometry(
 
   structure_last_radius_scale = cylinder_radius_scale;
   structure_geometry_generation++;
+
+  /* Every batch this pass rebuilt carries the version that rebuilt it */
+  for( idx = 0; idx < batch_count; idx++ )
+    batches[idx].generation = structure_geometry_generation;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/** patch_batch_edge_make() - Capture what the patch batch consumes
+ * @generation: structure publication version this capture is taken against
+ * @params: dispatch-resolved structure frame
+ *
+ * Returns the capture built whole, so the compared capture and the stored
+ * capture cannot diverge in membership.
+ */
+  static patch_batch_edge_t
+patch_batch_edge_make(unsigned int generation,
+    const struct_draw_params_t *params)
+{
+  return (patch_batch_edge_t){
+      .structure_generation = generation,
+      .flow_generation      = params->patch_flow.generation,
+      .color_generation     = params->color_generation,
+      .valid                = TRUE };
+}
+
+/*-----------------------------------------------------------------------*/
+
+/** patch_batch_edge_eq() - Compare two patch batch captures whole
+ * @a: capture the last refill stored
+ * @b: capture describing what this frame consumes
+ *
+ * Returns TRUE when every member matches.
+ */
+  static gboolean
+patch_batch_edge_eq(const patch_batch_edge_t *a, const patch_batch_edge_t *b)
+{
+  return a->valid == b->valid
+      && a->structure_generation == b->structure_generation
+      && a->flow_generation == b->flow_generation
+      && a->color_generation == b->color_generation;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/** structure_patch_batch_refill() - Rebuild the resolved patch batch
+ * @params: dispatch-resolved structure frame
+ *
+ * Rebuilds when the geometry pass owning the slot, the resolved flow frame,
+ * or the baked patch color changes, and advances the one structure
+ * publication counter, so the next owner of this slot cannot publish a
+ * version its predecessor already held.
+ */
+  static void
+structure_patch_batch_refill(const struct_draw_params_t *params)
+{
+  patch_batch_edge_t want;
+
+  if( structure_patch_batch_index < 0 )
+    return;
+
+  want = patch_batch_edge_make(structure_geometry_generation, params);
+
+  if( patch_batch_edge_eq(&patch_batch_edge, &want) )
+    return;
+
+  opengl_patch_flow_generate(&batches[structure_patch_batch_index], params);
+  batches[structure_patch_batch_index].generation =
+    ++structure_geometry_generation;
+
+  /* Capture after publishing, so this refill does not invalidate the version
+   * it just stamped */
+  patch_batch_edge =
+    patch_batch_edge_make(structure_geometry_generation, params);
 }
 
 /*-----------------------------------------------------------------------*/
 
 /** opengl_structure_update_shared_geometry_with_params() - Check staleness and regenerate shared geometry
- * @params: dispatch-resolved draw parameters (precomputed colors, cmax, show_flow)
+ * @params: dispatch-resolved draw parameters (precomputed colors, cmax)
  *
  * Called by the structure window's render() path.  Regenerates when colors,
  * fstep, radius scale, or geometry has changed.
@@ -929,26 +763,27 @@ opengl_structure_update_shared_geometry_with_params(const struct_draw_params_t *
   /* Track freq_mhz separately: freq_step stays at steps_total for all
    * left-click (arbitrary) frequencies, so step index alone is not sufficient
    * to detect data changes in the extra slot. */
-  static double last_freq_mhz = -1.0;
+  static double last_freq_mhz = NAN;
 
   /* Baked projection colors reuse one scratch buffer, so pointer identity
    * alone misses rebakes; the generation counter signals new content. */
-  static uint32_t last_color_generation = 0;
+  static uint32_t last_color_generation;
 
   double cylinder_radius_scale;
+  gboolean extra_slot_changed;
+  gboolean current_colors;
 
   cylinder_radius_scale = opengl_structure_get_radius_scale();
-
-  gboolean extra_slot_changed =
-    (params->fstep == calc_data.steps_total &&
-     !FREQ_EQ(params->freq_mhz, last_freq_mhz));
+  extra_slot_changed = params->fstep == calc_data.steps_total
+      && !FREQ_EQ(params->freq_mhz, last_freq_mhz);
+  current_colors = dl_fgt(params->cmax, -DL_EPS);
 
   /* Regenerate on color pointer change (mode/fstep change), empty buffer, new data, or scale change */
   if( params->wire_colors != last_wire_colors ||
       params->color_generation != last_color_generation ||
       batch_count == 0 ||
-      cylinder_radius_scale != structure_last_radius_scale ||
-      (params->cmax > 0.0 && CRNT_FSTEP_AVAILABLE(params->fstep) &&
+      !dl_feq(cylinder_radius_scale, structure_last_radius_scale) ||
+      (current_colors && CRNT_FSTEP_AVAILABLE(params->fstep) &&
        (params->fstep != last_fstep || extra_slot_changed)) )
   {
     last_wire_colors = params->wire_colors;
@@ -956,21 +791,17 @@ opengl_structure_update_shared_geometry_with_params(const struct_draw_params_t *
     opengl_structure_generate_geometry(params, cylinder_radius_scale);
 
     /* Prevent redundant regeneration on subsequent expose events */
-    if( params->cmax > 0.0 )
+    if( current_colors )
     {
       last_fstep = params->fstep;
       last_freq_mhz = params->freq_mhz;
     }
 
-    /* Update shared overlay data after regeneration */
-    memcpy(shared_overlay_data.batches, batches,
-        (size_t)batch_count * sizeof(batches[0]));
-    shared_overlay_data.batch_count = batch_count;
-    shared_overlay_data.vertex_stride = (int)sizeof(structure_vertex_t);
-    shared_overlay_data.view_scale = (float)geom_pre.scene_radius;
-    shared_overlay_data.generation = structure_geometry_generation;
-    /* Excitation center lives in geom_pre (Tier 1) */
   }
+
+  /* The patch batch bakes resolved flow into its vertices, so it refills on
+   * its own edge rather than on the geometry staleness test above. */
+  structure_patch_batch_refill(params);
 
   /* Per-batch visual parameters read from rc_config every frame.
    * Set unconditionally so brightness/transparency slider changes
@@ -1004,15 +835,13 @@ opengl_structure_update_shared_geometry_with_params(const struct_draw_params_t *
     batches[structure_glyph_batch_index].alpha = 1.0f;
   }
 
-  /* Propagate visual params to overlay (cheap field copy) */
-  {
-    int i;
-    for( i = 0; i < batch_count; i++ )
-    {
-      shared_overlay_data.batches[i].color_dim = batches[i].color_dim;
-      shared_overlay_data.batches[i].alpha = batches[i].alpha;
-    }
-  }
+  /* Publish after every mutation this frame, so the overlay presents the
+   * same vertices, program keys, and visual parameters as the scene. */
+  memcpy(shared_overlay_data.batches, batches,
+      (size_t)batch_count * sizeof(batches[0]));
+  shared_overlay_data.batch_count = batch_count;
+  shared_overlay_data.layout = &opengl_structure_layout;
+  shared_overlay_data.view_scale = (float)geom_pre.scene_radius;
 }
 
 /*-----------------------------------------------------------------------*/

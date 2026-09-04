@@ -40,41 +40,6 @@ static gboolean (*const notice_subject_ready[SURFACE_CAP_SUBJECT_COUNT])(
   [SURFACE_CAP_SUBJECT_OVERLAY_GEOMETRY] = gl_view_overlay_geometry_ready
 };
 
-/** gl_view_setup_attribs() - Configure vertex attribute pointers in VAO
- */
-  void
-gl_view_setup_attribs(
-    GLuint vao,
-    GLuint vbo,
-    const gl_vertex_attrib_t *attribs,
-    const GLint *attrib_locations,
-    int attrib_count,
-    int vertex_stride)
-{
-  int i;
-
-  glBindVertexArray(vao);
-  glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
-  for( i = 0; i < attrib_count; i++ )
-  {
-    glEnableVertexAttribArray(attrib_locations[i]);
-    glVertexAttribPointer(
-        attrib_locations[i],
-        attribs[i].components,
-        GL_FLOAT,
-        GL_FALSE,
-        vertex_stride,
-        (void *)(long)attribs[i].offset);
-  }
-
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
-
-} /* gl_view_setup_attribs() */
-
-/*-----------------------------------------------------------------------*/
-
 /* gl_trans_item_t defined in opengl_view.h */
 
 /*-----------------------------------------------------------------------*/
@@ -172,11 +137,9 @@ gl_view_frame_content_reset(gl_view_state_t *state)
   state->content.status_message = NULL;
   state->content.gradient = (gradient_result_t){NULL, 0};
 
-  /* A leaf deposited after another appends its batch, folds its upload key
-   * into the frame's, and raises the clip allowance, so all three start the
-   * frame cleared */
+  /* A leaf deposited after another appends its batch and raises the clip
+   * allowance, so both start the frame cleared */
   state->content.batch_count = 0;
-  state->content.generation = 0;
   state->content.clip_extent = 0.0f;
 
   if( state->overlay_content != NULL )
@@ -314,7 +277,6 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   render_params.r_max = state->content.r_max;
   render_params.view_axis = state->content.view_axis;
   render_params.view_axis_label = state->content.view_axis_label;
-  render_params.flow_phase = flow_phase;
 
   /* Framebuffer setup */
   glGetIntegerv(GL_FRAMEBUFFER_BINDING, &default_fbo);

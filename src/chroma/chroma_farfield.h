@@ -25,26 +25,18 @@
 
 /**
  * chroma_proj_frame_farfield() - Parent draw-time far-zone field resolver
- * @fstep: frequency step index
+ * @fstep:       frequency step index
+ * @phase:       effective class phase supplied by render dispatch
+ * @translation: rigid displacement applied to every pattern vertex
  *
  * Sibling of chroma_proj_frame_nearfield.  Evaluates the stored far-zone
- * phasor pair at the shared animation phase into the instantaneous field
- * vector tangent to the pattern sphere, colors it on the ramp palette, and
- * returns the resolved frame.  Returns an empty frame when the step carries
- * no pattern.
+ * phasor pair at @phase into the instantaneous field vector tangent to the
+ * pattern sphere, attaches it at the translated pattern vertex, and colors
+ * it on the ramp palette.  Returns an empty set when the step carries no
+ * pattern.
  */
-field_frame_t chroma_proj_frame_farfield(int fstep);
-
-/**
- * ff_frame_turns_pol() - Whether the polarization reference reaches the draw
- * @pol: polarization selection the gain surface is scaled by
- *
- * Only the linear pair takes the reference turn; every other selection
- * resolves to a constant operator.  The animate panel greys its reference
- * control by this answer, so the control offers a choice only where the
- * choice reaches the drawing.
- */
-gboolean ff_frame_turns_pol(int pol);
+field_vector_set_t chroma_proj_frame_farfield(int fstep, double phase,
+    const point_3d_t *translation);
 
 /**
  * chroma_ff_free() - Release the resolver buffers

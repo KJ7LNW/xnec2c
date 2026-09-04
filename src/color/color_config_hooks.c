@@ -21,11 +21,102 @@
  * and theme selections, with the hover classification each one carries. */
 
 #include "../config_hooks.h"
+#include "../anim/anim_class.h"
+#include "../anim/anim_dialog.h"
 #include "../shared.h"
 #include "../callbacks.h"
 #include "../rdpattern_ui.h"
 #include "../structure_ui.h"
 #include "color_palette.h"
+#include "color_tone.h"
+
+/* Snap window around a slider mark as a fraction of the slider span */
+#define FAM_MARK_SNAP_FRACTION 0.025
+
+/*------------------------------------------------------------------------*/
+
+/** on_color_fam_format_value() - Render a slider value as the natural parameter
+ * @_scale: emitting family slider, unused
+ * @value: slider-domain value
+ * @user_data: the slider's color_tone_row_t
+ *
+ * Returns a heap string in the family's natural-parameter format; GTK
+ * frees it after display.
+ */
+  static gchar *
+on_color_fam_format_value(GtkScale *_scale, gdouble value,
+    gpointer user_data)
+{
+  const color_tone_row_t *row = user_data;
+
+  return g_strdup_printf(row->value_fmt, row->param_map(value));
+}
+
+/** on_color_fam_change_value() - Snap a family slider onto its marks
+ * @range: emitting family slider
+ * @_scroll: scroll type, unused
+ * @value: proposed slider-domain value
+ * @user_data: the slider's color_tone_row_t
+ *
+ * Snaps within FAM_MARK_SNAP_FRACTION of the slider span onto the row's
+ * mark; the set_value call emits the final value-changed.
+ */
+  static gboolean
+on_color_fam_change_value(GtkRange *range, GtkScrollType _scroll,
+    gdouble value, gpointer user_data)
+{
+  const color_tone_row_t *row = user_data;
+  GtkAdjustment *adj = gtk_range_get_adjustment(range);
+  double span = gtk_adjustment_get_upper(adj) - gtk_adjustment_get_lower(adj);
+  gboolean snapped = FALSE;
+  int i;
+
+  for( i = 0; !snapped && !isnan(row->marks[i]); i++ )
+    if( !dl_fgt(fabs(value - row->marks[i]),
+          span * FAM_MARK_SNAP_FRACTION - DL_EPS) )
+    {
+      gtk_range_set_value(range, row->marks[i]);
+      snapped = TRUE;
+    }
+
+  return snapped;
+}
+
+/** color_tone_marks_attach() - Mark and wire the family sliders at creation
+ *
+ * Adds each family's snap marks labeled with the natural parameter and
+ * connects the shared snap and value-format handlers with the row as
+ * user data.
+ */
+  void
+color_tone_marks_attach(void)
+{
+  int fam, i;
+  char label[32];
+
+  for( fam = 0; fam < COLOR_TONE_NUM; fam++ )
+  {
+    const color_tone_row_t *row = &color_tones[fam];
+    GtkScale *scale;
+
+    if( row->scale_id == NULL || row->marks == NULL )
+      continue;
+
+    scale = GTK_SCALE(Builder_Get_Object(animate_dialog_builder,
+          row->scale_id));
+
+    for( i = 0; !isnan(row->marks[i]); i++ )
+    {
+      snprintf(label, sizeof(label), "%g", row->param_map(row->marks[i]));
+      gtk_scale_add_mark(scale, row->marks[i], GTK_POS_BOTTOM, label);
+    }
+
+    g_signal_connect(scale, "change-value",
+        G_CALLBACK(on_color_fam_change_value), (gpointer)row);
+    g_signal_connect(scale, "format-value",
+        G_CALLBACK(on_color_fam_format_value), (gpointer)row);
+  }
+}
 
 /*------------------------------------------------------------------------*/
 
@@ -46,7 +137,7 @@ anim_overlay_sensitivity(void)
     return;
 
   animated  = chroma_proj_animated(chroma_proj_selected());
-  has_wires = (data.n > 0);
+  has_wires = anim_class_available(ANIM_CLASS_STRUCTURE_SEGMENT);
 
   comet = GTK_WIDGET(Builder_Get_Object(animate_dialog_builder, "anim_overlay_comet"));
   nodes = GTK_WIDGET(Builder_Get_Object(animate_dialog_builder, "anim_overlay_nodes"));
@@ -111,6 +202,7 @@ hook_color_vis(void)
   }
 
   anim_overlay_sensitivity();
+  anim_panel_sensitivity();
 }
 
 const config_refresh_t hook_color_vis_refresh =

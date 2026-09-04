@@ -11147,7 +11147,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
                             <property name="can-focus">False</property>
                             <property name="label" translatable="yes">A_nimate</property>
                             <property name="use-underline">True</property>
-                            <signal name="activate" handler="on_structure_animate_activate" swapped="no"/>
+                            <signal name="activate" handler="on_animate_dialog_activate" swapped="no"/>
                           </object>
                         </child>
                         <child>
@@ -12358,7 +12358,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
                                     <property name="can-focus">False</property>
                                     <property name="label" translatable="yes">_Animate Dialog</property>
                                     <property name="use-underline">True</property>
-                                    <signal name="activate" handler="on_rdpattern_animate_activate" swapped="no"/>
+                                    <signal name="activate" handler="on_animate_dialog_activate" swapped="no"/>
                                   </object>
                                 </child>
                                 <child>

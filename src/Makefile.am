@@ -124,6 +124,7 @@ xnec2c_SOURCES = \
     chroma/chroma_field.h \
     chroma/chroma_nearfield.c chroma/chroma_nearfield.h \
     chroma/chroma_farfield.c  chroma/chroma_farfield.h \
+    chroma/chroma_farfield_polarization.c chroma/chroma_farfield_polarization.h \
     prerender/prerender_state.c     prerender/prerender_state.h \
     prerender/prerender_aggregate.c prerender/prerender_aggregate.h \
     prerender/prerender_rdpattern.c prerender/prerender_rdpattern.h \
@@ -143,6 +144,18 @@ xnec2c_SOURCES = \
     render/render_surface.h \
     render/render_surface_input.c   render/render_surface_input.h \
     render/gradient_cache.c         render/gradient_cache.h \
+    render/render_check.c           render/render_check.h \
+    render/render_structure_frame.c render/render_structure_frame.h \
+    render/render_patch_flow.c      render/render_patch_flow.h \
+    render/render_patch_flow_resolve.c render/render_patch_flow_resolve.h \
+    anim/anim_phase.c        anim/anim_phase.h \
+    anim/anim_class.c        anim/anim_class.h \
+    anim/anim_dialog.c       anim/anim_dialog.h \
+    anim/anim_phase_control.c anim/anim_phase_control.h \
+    anim/structure_segment_anim.c anim/structure_segment_anim.h \
+    anim/structure_patch_anim.c   anim/structure_patch_anim.h \
+    anim/near_field_anim.c   anim/near_field_anim.h \
+    anim/far_field_anim.c    anim/far_field_anim.h \
     cairo/cairo_draw.h \
     cairo/cairo_axes.c \
     cairo/cairo_project.c \
@@ -153,6 +166,7 @@ xnec2c_SOURCES = \
     cairo/cairo_frame.c       cairo/cairo_frame.h \
     cairo/cairo_field_vectors.c \
     cairo/cairo_structure.c \
+    cairo/cairo_patch_flow.c    cairo/cairo_patch_flow.h \
     common.h        editors.h
 
 xnec2c_CPPFLAGS  =
@@ -200,6 +214,8 @@ xnec2c_CPPFLAGS += $(GSL_CFLAGS)
 xnec2c_LDADD    += $(GSL_LIBS)
 if HAVE_OPENGL
 xnec2c_SOURCES += \
+  opengl-engine/opengl_view_program.c opengl-engine/opengl_view_program.h \
+  opengl/opengl_patch_flow.c opengl/opengl_patch_flow.h \
   opengl/opengl_state.c opengl/opengl_state.h \
   opengl/opengl_ops.c \
   settings/render_settings_opengl.c \

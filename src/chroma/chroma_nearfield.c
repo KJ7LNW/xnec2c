@@ -25,21 +25,18 @@
  * real vectors, their scaled displacement, and their palette colors at draw,
  * and the render backends consume the resolved arrays.  No color and no
  * geometry cross the parent/child pipe; the palette stays a parent concern.
- * The phase source is chosen by state (animation_is_active, flow_phase,
- * nf_static_mode), never by a per-frame model mutation.
+ * The caller resolves the frame and the phase it stands at, so this resolver
+ * composes the vectors without reading state or mutating the model.
  */
 #include "chroma_nearfield.h"
 #include "../color/color_edge.h"
 #include "../color/color_palette.h"
 #include "../color/color_tone.h"
-#include "../structure_ui.h"
 #include "../shared.h"
 
-/* Per-channel resolved-frame buffers and their input-edge gates.  One draw's
- * geometry, color, and scratch magnitude live here, indexed by nf_channel_t. */
-static field_vector_t *nf_vec_buf[NF_CHAN_NUM];
-static rgb_f_t        *nf_col_buf[NF_CHAN_NUM];
-static double         *nf_mag_buf[NF_CHAN_NUM];
+/* Per-channel resolved entry buffers and their input-edge gates, indexed by
+ * nf_channel_t. */
+static field_vector_entry_t *nf_entry_buf[NF_CHAN_NUM];
 
 typedef struct
 {
@@ -51,13 +48,32 @@ static nf_gate_t nf_gate[NF_CHAN_NUM];
 
 /*-----------------------------------------------------------------------*/
 
+/** nf_frame_phase() - Resolve the phase a frame mode evaluates at
+ * @mode:  frame the vector resolves
+ * @phase: animation phase in radians
+ *
+ * The instantaneous frame alone reads phase; both static baselines stand at
+ * their zero reference.
+ */
+  static double
+nf_frame_phase(nf_frame_mode_t mode, double phase)
+{
+  return (mode == NF_FRAME_INSTANT) ? phase : 0.0;
+}
+
+/*-----------------------------------------------------------------------*/
+
   double
 nf_real_vector(const near_field_point_t *p, nf_channel_t chan,
-    gboolean live, double phase, nf_static_mode_t mode, double out[3])
+    nf_frame_mode_t mode, double phase, double out[3])
 {
-  /* Zero-init gives definite assignment on the unreachable channels below,
-   * so the post-switch use needs no default fall-through */
-  double amp[3] = { 0.0 }, ph[3] = { 0.0 }, mag, r;
+  /* Initialize output and phasor scratch because BUG() reports without aborting. */
+  double amp[3] = { 0.0 }, ph[3] = { 0.0 }, mag = 0.0, r;
+  double eval = nf_frame_phase(mode, phase);
+
+  out[0] = 0.0;
+  out[1] = 0.0;
+  out[2] = 0.0;
 
   switch( chan )
   {
@@ -78,28 +94,27 @@ nf_real_vector(const near_field_point_t *p, nf_channel_t chan,
       break;
   }
 
-  if( live )
+  switch( mode )
   {
-    /* Instantaneous real vector at the animation phase */
-    out[0] = amp[0] * cos(phase + ph[0]);
-    out[1] = amp[1] * cos(phase + ph[1]);
-    out[2] = amp[2] * cos(phase + ph[2]);
-    mag = sqrt(out[0]*out[0] + out[1]*out[1] + out[2]*out[2]);
-  }
-  else if( mode == NF_STATIC_SNAPSHOT )
-  {
-    /* Phase-zero instantaneous snapshot */
-    out[0] = amp[0] * cos(ph[0]);
-    out[1] = amp[1] * cos(ph[1]);
-    out[2] = amp[2] * cos(ph[2]);
-    mag = sqrt(out[0]*out[0] + out[1]*out[1] + out[2]*out[2]);
-  }
-  else
-  {
-    /* NF_STATIC_PEAK: optimal-phase peak envelope */
-    Nf_Peak_Vector(amp[0], amp[1], amp[2], ph[0], ph[1], ph[2],
-        &out[0], &out[1], &out[2], &r);
-    mag = r;
+    case NF_FRAME_INSTANT:
+    case NF_FRAME_SNAPSHOT:
+      /* Instantaneous real vector; the snapshot stands at phase zero */
+      out[0] = amp[0] * cos(eval + ph[0]);
+      out[1] = amp[1] * cos(eval + ph[1]);
+      out[2] = amp[2] * cos(eval + ph[2]);
+      mag = sqrt(out[0]*out[0] + out[1]*out[1] + out[2]*out[2]);
+      break;
+
+    case NF_FRAME_PEAK:
+      /* Optimal-phase peak envelope */
+      Nf_Peak_Vector(amp[0], amp[1], amp[2], ph[0], ph[1], ph[2],
+          &out[0], &out[1], &out[2], &r);
+      mag = r;
+      break;
+
+    case NF_FRAME_COUNT:
+      BUG("Near-field frame %d names no resolvable form\n", mode);
+      break;
   }
 
   return mag;
@@ -107,17 +122,16 @@ nf_real_vector(const near_field_point_t *p, nf_channel_t chan,
 
 /*-----------------------------------------------------------------------*/
 
-  field_frame_t
-chroma_proj_frame_nearfield(int fstep, nf_channel_t chan)
+  field_vector_set_t
+chroma_proj_frame_nearfield(int fstep, nf_channel_t chan,
+    nf_frame_mode_t mode, double frame_phase)
 {
-  field_frame_t out = { NULL, NULL, 0.0 };
+  field_vector_set_t out = { NULL, 0.0 };
   near_field_t *nf;
   color_tone_t fam;
   tone_param_t tp;
   color_edge_t want;
-  gboolean live;
   double phase, max;
-  nf_static_mode_t mode;
   int npts, i;
 
   if( !NF_FSTEP_AVAILABLE(fstep) )
@@ -132,41 +146,39 @@ chroma_proj_frame_nearfield(int fstep, nf_channel_t chan)
   /* Every vector is scaled into this bound, so it is the frame's extent */
   out.extent = geom_pre.nf_dr_norm;
 
-  /* State drives the phase source; the resolver never mutates points */
-  live  = animation_is_active();
-  phase = live ? (double)flow_phase : 0.0;
-  mode  = rc_config.nf_static_mode;
+  /* Resolve static snapshots at zero without deriving liveness from phase. */
+  phase = nf_frame_phase(mode, frame_phase);
   fam   = color_tone_active();
   tone_param_init(&tp, fam);
 
-  /* The live flag with flow_phase gates animation frames; nf_static_mode
-   * gates the peak/snapshot toggle; a static frame carries phase 0, so a
-   * static scrub at one step and mode hits the cache.  The tone parameter
-   * and dB floor enter the edge so a gamma-slider change invalidates the
-   * frame within the active family. */
+  /* Gate animation frames with the resolved frame mode and phase; a static
+   * frame carries phase zero, so a repeated step and mode hits the cache.
+   * Include the tone parameter and dB floor so a slider change invalidates
+   * the frame within the active family. */
   want = (color_edge_t){ .fstep = fstep, .chan = (int)chan, .fam = (int)fam,
-      .proj = (int)mode, .flags = live ? 1u : 0u, .phase = phase,
+      .proj = (int)mode, .phase = phase,
       .param = tp.param, .flr = tp.floor_ratio,
       .freq_mhz = calc_data.freq_mhz, .gen_a = nf->content_generation,
       .palette = color_palette_generation() };
 
   if( nf_gate[chan].valid && color_edge_eq(&nf_gate[chan].edge, &want) )
   {
-    out.vecs   = nf_vec_buf[chan];
-    out.colors = nf_col_buf[chan];
+    out.entries = nf_entry_buf[chan];
     return out;
   }
 
-  mem_array_realloc(&nf_vec_buf[chan], npts);
-  mem_array_realloc(&nf_col_buf[chan], npts);
-  mem_array_realloc(&nf_mag_buf[chan], npts);
+  mem_array_realloc(&nf_entry_buf[chan], npts);
 
   max = 0.0;
 
-  /* Geometry pass: real vector to direction scaled by the frame extent; scan
-   * the frame magnitude maximum for the colorize pass. */
+  /* Geometry pass: the sample position carrying its real vector scaled by the
+   * frame extent; scan the frame magnitude maximum for the colorize pass. */
   for( i = 0; i < npts; i++ )
   {
+    field_vector_entry_t *entry = &nf_entry_buf[chan][i];
+    double px = nf->points[i].px;
+    double py = nf->points[i].py;
+    double pz = nf->points[i].pz;
     double mag, fscale, pv[3];
 
     if( chan == NF_CHAN_POV )
@@ -174,32 +186,39 @@ chroma_proj_frame_nearfield(int fstep, nf_channel_t chan)
       double e[3], h[3];
 
       /* Poynting composes E-real and H-real at the same phase source */
-      nf_real_vector(&nf->points[i], NF_CHAN_E, live, phase, mode, e);
-      nf_real_vector(&nf->points[i], NF_CHAN_H, live, phase, mode, h);
+      nf_real_vector(&nf->points[i], NF_CHAN_E, mode, phase, e);
+      nf_real_vector(&nf->points[i], NF_CHAN_H, mode, phase, h);
       mag = nf_poynting(e, h, &pv[0], &pv[1], &pv[2]);
     }
     else
-      mag = nf_real_vector(&nf->points[i], chan, live, phase, mode, pv);
+      mag = nf_real_vector(&nf->points[i], chan, mode, phase, pv);
+
+    /* The sample grid is the drawn origin, so one point type reaches the
+     * vector capability from either domain */
+    entry->origin.x = px;
+    entry->origin.y = py;
+    entry->origin.z = pz;
+    entry->origin.r = sqrt(px * px + py * py + pz * pz);
 
     fscale = out.extent / mag;
-    nf_vec_buf[chan][i].dx = (float)(pv[0] * fscale);
-    nf_vec_buf[chan][i].dy = (float)(pv[1] * fscale);
-    nf_vec_buf[chan][i].dz = (float)(pv[2] * fscale);
+    entry->vector.dx = (float)(pv[0] * fscale);
+    entry->vector.dy = (float)(pv[1] * fscale);
+    entry->vector.dz = (float)(pv[2] * fscale);
+    entry->magnitude = mag;
 
-    nf_mag_buf[chan][i] = mag;
     if( mag > max )
       max = mag;
   }
 
   /* Colorize pass: amplitude ramp of mag/max through the active tone */
   for( i = 0; i < npts; i++ )
-    nf_col_buf[chan][i] = field_ramp_color(fam, &tp, nf_mag_buf[chan][i], max);
+    nf_entry_buf[chan][i].color =
+      field_ramp_color(fam, &tp, nf_entry_buf[chan][i].magnitude, max);
 
   nf_gate[chan].edge  = want;
   nf_gate[chan].valid = TRUE;
 
-  out.vecs   = nf_vec_buf[chan];
-  out.colors = nf_col_buf[chan];
+  out.entries = nf_entry_buf[chan];
   return out;
 }
 
@@ -212,9 +231,7 @@ chroma_nf_free(void)
 
   for( c = 0; c < NF_CHAN_NUM; c++ )
   {
-    mem_array_free(&nf_vec_buf[c]);
-    mem_array_free(&nf_col_buf[c]);
-    mem_array_free(&nf_mag_buf[c]);
+    mem_array_free(&nf_entry_buf[c]);
     nf_gate[c] = (nf_gate_t){ 0 };
   }
 }

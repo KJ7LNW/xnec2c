@@ -21,9 +21,11 @@
 #define RENDER_DISPATCH_H       1
 
 #include "../common.h"
+#include "../chroma/chroma_field.h"
 #include "../prerender/prerender_color.h"
 #include "../prerender/prerender_state.h"
-#include "render_message.h"
+#include "render_check.h"
+#include "render_patch_flow.h"
 #include "render_surface.h"
 #include "gradient_cache.h"
 
@@ -33,43 +35,18 @@
 /* Smallest excitation translation the pattern draw moves its content by */
 #define FF_EXCITATION_OFFSET_MIN 0.001f
 
-/* Content mode resolved by render_check() */
-typedef enum
-{
-  RENDER_MODE_NONE,
-  RENDER_MODE_FARFIELD,
-  RENDER_MODE_NEARFIELD,
-  RENDER_MODE_STRUCTURE,
-  RENDER_MODE_COUNT
-} render_mode_t;
-
-/* Precondition check outcome */
-typedef enum
-{
-  RENDER_OK,
-  RENDER_SUPPRESS,      /* freeze-frame (SUPPRESS_INTERMEDIATE_REDRAWS) */
-  RENDER_NO_RP_CARD,
-  RENDER_NO_NF_CARD,
-  RENDER_NF_NOT_READY,
-  RENDER_NO_NF_FIELD,   /* near E/H field mode but no E/H/Poynting component selected */
-  RENDER_NO_DATA,
-  RENDER_NO_GEOMETRY,   /* VIEW_STRUCTURE with no geometry loaded (data.n == data.m == 0) */
-  RENDER_NO_MODE,
-  RENDER_STATUS_COUNT
-} render_status_t;
-
 /* Dispatch-resolved structure draw parameters — passed to draw_structure backends */
 typedef struct
 {
   const rgb_f_t *wire_colors;   /* seg_rgb | composed projection colors */
   const float   *wire_seg_scale;  /* [data.n] dimensionless per-segment size gain */
   const rgb_f_t *patch_colors;  /* patch_rgb | composed projection colors */
+  patch_flow_frame_t patch_flow; /* resolved patch directions and marks */
   const unsigned char *wire_glyphs; /* per-segment GLYPH_* code [data.n], or NULL */
   float          geometry_extent; /* unscaled structure-space half-extent */
   float          model_scale;   /* resolved structure-to-presentation scale */
   double         cmax;          /* fmax(wire_crnt_cmax, patch_crnt_cmax) or 0.0 */
   double         freq_mhz;      /* frequency for staleness detection */
-  gboolean       show_flow;     /* TRUE only in currents view */
   int            fstep;         /* for crnt_fstep[] access */
   uint32_t       color_generation; /* bumped whenever dispatch rebakes wire/patch color */
 } struct_draw_params_t;
@@ -83,31 +60,6 @@ typedef struct
   float pattern_radius;    /* radiation pattern r_max (from ff_pre[fstep]) */
   float off_len;           /* sqrt(x²+y²+z²); clip extent = pattern_radius + off_len */
 } ff_draw_params_t;
-
-/* Field vector set descriptor — one per drawn vector field: the near-field
- * types (E, H, Poynting) or the far-zone instantaneous field.  Each set
- * carries its own origins, so no domain-specific point type reaches the
- * backend; the backend iterates and emits one batch per entry. */
-typedef struct
-{
-  const point_3d_t      *origins; /* vector tails, in the view's space */
-  const field_vector_t  *vecs;    /* resolver-owned geometry displacement */
-  const rgb_f_t         *colors;  /* resolver-owned palette colors, parallel to vecs */
-  int                    npts;    /* entries in origins, vecs, and colors */
-  double                 extent;  /* displacement bound, for the clip allowance */
-} field_vector_set_t;
-
-#define NF_FIELD_SETS_MAX 3
-
-/* Result of render_check(): mode, status, and display metadata */
-typedef struct
-{
-  render_status_t  status;
-  render_mode_t    mode;
-  int              fstep;
-  const char      *message;      /* STATUS_MSG_* pointer; NULL when RENDER_OK */
-  gboolean         overlay_active; /* resolved from overlay_struct_active() */
-} render_check_result_t;
 
 /* Frame-level colors resolved once per render() from the active theme. */
 typedef struct
@@ -126,10 +78,10 @@ typedef struct render_ops_s
       const ff_draw_params_t *ff);
 
   /* Draw field vectors, near E/H/Poynting or far-zone instantaneous field;
-   * returns TRUE on success.  Backend iterates sets[0..n_sets-1], one batch
-   * per entry; r_max scales the view. */
+   * returns TRUE on success.  Backend walks the set list to its terminator,
+   * one batch per set; r_max scales the view. */
   gboolean (*draw_field_vectors)(render_surface_t *surface,
-      const field_vector_set_t *sets, int n_sets, double r_max);
+      const field_vector_set_t *sets, double r_max);
 
   /* Draw structure geometry; returns TRUE always.
    * extent: content half-extent for projection scaling. */
@@ -163,16 +115,6 @@ typedef struct render_ops_s
 } render_ops_t;
 
 /**
- * render_check() - Unified precondition cascade for rdpattern and structure views
- * @view: which window is being rendered
- *
- * Returns a render_check_result_t with status RENDER_OK when all preconditions
- * pass and the mode is determined.  On failure, message points to a STATUS_MSG_*
- * constant and status describes the failure reason.
- */
-render_check_result_t render_check(view_type_t view_type);
-
-/**
  * render_last_rdpattern_check() - Return the stored rdpattern precondition result
  *
  * Returns the render_check_result_t from the most recent render() call for
@@ -182,28 +124,6 @@ render_check_result_t render_check(view_type_t view_type);
  * render() the stored mode is RENDER_MODE_NONE.
  */
 const render_check_result_t *render_last_rdpattern_check(void);
-
-/**
- * render_overlay_model_scale() - Resolve the effective overlay model scale
- * @fstep: frequency step index
- *
- * Folds the per-fstep prerender base scale and the interactive
- * rc_config.rdpattern_overlay_scale_adj into the single authoritative product
- * consumed by every engine.  Returns 1.0 when no far-field data exists.
- */
-float render_overlay_model_scale(int fstep);
-
-/**
- * render_overlay_excitation_offset() - Resolve the far-field excitation translation
- * @model_scale:    resolved overlay model scale for the fstep
- * @overlay_active: whether the structure overlay is shown
- * @ff:             receives the pattern-space offset in x,y,z and its length
- *                  off_len; all zeroed when no excitation translation applies
- *
- * The pattern draw and the fit fold share this one authoritative translation.
- */
-void render_overlay_excitation_offset(float model_scale, gboolean overlay_active,
-    ff_draw_params_t *ff);
 
 /**
  * render() - Unified render entry point for all backends

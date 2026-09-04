@@ -24,14 +24,26 @@
 #include "../color/color_palette.h"
 #include "../color/color_tone.h"
 
-/* One draw's resolved arrays for one field set, chroma-owned and parallel:
- * geometry displacement beside its palette color, both derived at draw. */
+/* One drawn vector: where it starts, how far it reaches, and the palette
+ * color of its magnitude.  The origin is in the space the set is drawn in. */
 typedef struct
 {
-  const field_vector_t *vecs;    /* [npts] pre-scaled displacement (geometry) */
-  const rgb_f_t        *colors;  /* [npts] palette colors, parallel to vecs */
-  double                extent;  /* longest displacement the frame draws */
-} field_frame_t;
+  point_3d_t     origin;
+  field_vector_t vector;
+  rgb_f_t        color;
+
+  /* Field magnitude before the displacement was scaled into the frame
+   * extent, so the scaled vector no longer carries it. */
+  double         magnitude;
+} field_vector_entry_t;
+
+/* One draw's resolved field set, chroma-owned.  The managed entry array
+ * carries its own count, and a set list terminates on absent entries. */
+typedef struct
+{
+  const field_vector_entry_t *entries;
+  double                      extent;  /* longest displacement drawn */
+} field_vector_set_t;
 
 /**
  * field_ramp_color() - Amplitude-ramp colorize leaf

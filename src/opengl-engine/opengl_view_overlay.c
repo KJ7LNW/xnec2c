@@ -18,45 +18,21 @@
  */
 
 #include "opengl_view_overlay.h"
-#include "opengl_view_peel.h"
+#include "opengl_view_program.h"
 #include "../shared.h"
 
 #ifdef HAVE_OPENGL
 
-/* Overlay rendering context — owns shader, GL resources, and cached MVP */
 typedef struct
 {
   gl_view_state_t *view;
-  gl_shader_t shader;
-  GLuint vao[GL_VIEW_MAX_BATCHES];
-  GLuint vbo[GL_VIEW_MAX_BATCHES];
-  GLint mvp_location;
-  GLint u_mv_location;
-  GLint u_alpha_location;
-  GLint u_color_dim_location;
-  GLint flow_mode_location;
-  GLint u_phase_location;
-  GLint u_cos_phase_location;
-  GLint u_sin_phase_location;
-  GLint noise_tex_location;
-  gl_peel_uniform_locs_t peel_locs;
-  GLint *attrib_locations;
-  unsigned int last_generation;
+  gl_batch_slot_t slots[GL_VIEW_MAX_BATCHES];
   gboolean initialized;
   mat4 cached_mvp;
   mat4 cached_mv;
   gl_view_content_t ovl_content;
 
 } gl_overlay_ctx_t;
-
-/* Forward declarations for callbacks */
-static void gl_overlay_prepare(void *ctx, const gl_render_params_t *_params);
-static void gl_overlay_render(void *ctx, const gl_render_params_t *params);
-static gboolean gl_overlay_is_active(void *ctx);
-static float gl_overlay_far_extent(void *ctx, float r_max);
-static void gl_overlay_free(void *ctx);
-
-/*-----------------------------------------------------------------------*/
 
 /** gl_overlay_get_alpha() - Classification alpha for overlay renderable
  *
@@ -96,6 +72,7 @@ gl_overlay_prepare(void *ctx, const gl_render_params_t *_params)
 {
   gl_overlay_ctx_t *ovl = ctx;
   gl_view_state_t *view = ovl->view;
+  int i;
 
   (void)_params;
 
@@ -105,30 +82,15 @@ gl_overlay_prepare(void *ctx, const gl_render_params_t *_params)
   if( ovl->ovl_content.batch_count <= 0 )
     return;
 
-  /* Upload overlay vertices on generation change */
-  if( ovl->ovl_content.generation != ovl->last_generation )
+  for( i = 0; i < ovl->ovl_content.batch_count; i++ )
   {
-    const gl_overlay_config_t *ocfg = view->config->overlay;
-    int i;
+    const gl_draw_batch_t *batch = &ovl->ovl_content.batches[i];
 
-    for( i = 0; i < ovl->ovl_content.batch_count; i++ )
-    {
-      if( ovl->ovl_content.batches[i].vertex_count > 0 )
-      {
-        glBindBuffer(GL_ARRAY_BUFFER, ovl->vbo[i]);
-        glBufferData(GL_ARRAY_BUFFER,
-            ovl->ovl_content.batches[i].vertex_count * ovl->ovl_content.vertex_stride,
-            ovl->ovl_content.batches[i].vertices,
-            GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    if( batch->vertex_count <= 0 )
+      continue;
 
-        gl_view_setup_attribs(ovl->vao[i], ovl->vbo[i],
-            ocfg->attribs, ovl->attrib_locations,
-            ocfg->attrib_count, ovl->ovl_content.vertex_stride);
-      }
-    }
-
-    ovl->last_generation = ovl->ovl_content.generation;
+    gl_view_upload_batch(&ovl->slots[i],
+        &view->programs[batch->program_key], ovl->ovl_content.layout, batch);
   }
 
   /* Compute and cache own MVP with user-adjusted model scale.
@@ -151,77 +113,19 @@ gl_overlay_render(void *ctx, const gl_render_params_t *params)
 {
   gl_overlay_ctx_t *ovl = ctx;
 
-  if( ovl->ovl_content.batch_count <= 0 )
-    return;
+  /* The pass presents its own cached matrices, so the scene projection this
+   * frame carries reaches only the peel state the bound program reads. */
+  const gl_batch_pass_t pass = {
+    .programs = ovl->view->programs,
+    .noise_tex = ovl->view->noise_tex,
+    .transparency_active = ovl->view->transparency_active,
+    .content = &ovl->ovl_content,
+    .slots = ovl->slots,
+    .mvp = (const float *)ovl->cached_mvp,
+    .mv = (const float *)ovl->cached_mv
+  };
 
-  /* Set uniforms before draw pass.
-   * Overlay uses its own cached MV (different model_scale). */
-  glUseProgram(ovl->shader.program);
-  glUniformMatrix4fv(ovl->u_mv_location, 1, GL_FALSE,
-      (float *)ovl->cached_mv);
-  glUniform1i(ovl->flow_mode_location, rc_config.current_flow_visualization_mode);
-  glUniform1f(ovl->u_phase_location, params->flow_phase);
-  glUniform1f(ovl->u_cos_phase_location, cosf(params->flow_phase));
-  glUniform1f(ovl->u_sin_phase_location, sinf(params->flow_phase));
-
-  /* Bind LIC noise texture to unit 1 (shared with scene via view state) */
-  if( ovl->view->noise_tex != 0 )
-  {
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, ovl->view->noise_tex);
-    glUniform1i(ovl->noise_tex_location, 1);
-    glActiveTexture(GL_TEXTURE0);
-  }
-
-  gl_view_set_peel_uniforms(&ovl->peel_locs, params);
-
-  glUniformMatrix4fv(ovl->mvp_location, 1, GL_FALSE,
-      (const float *)ovl->cached_mvp);
-
-  /* Per-batch alpha and brightness for overlay (structure on rdpattern) */
-  {
-    gboolean use_batch_alpha = ovl->view->transparency_active;
-    int i;
-
-    for( i = 0; i < ovl->ovl_content.batch_count; i++ )
-    {
-      if( ovl->ovl_content.batches[i].vertex_count > 0 )
-      {
-        float batch_alpha = use_batch_alpha
-            ? ovl->ovl_content.batches[i].alpha : 1.0f;
-
-        glBindVertexArray(ovl->vao[i]);
-
-        /* Per-batch polygon offset for overlay structure patches */
-        if( ovl->ovl_content.batches[i].polygon_offset )
-        {
-          glEnable(GL_POLYGON_OFFSET_FILL);
-          glPolygonOffset(POLYGON_OFFSET_FACTOR, POLYGON_OFFSET_UNITS);
-        }
-        else
-        {
-          glDisable(GL_POLYGON_OFFSET_FILL);
-        }
-
-        glUniform1f(ovl->u_alpha_location, batch_alpha);
-        glUniform1f(ovl->u_color_dim_location,
-            ovl->ovl_content.batches[i].color_dim);
-
-        /* Apply per-batch line width unconditionally so it never inherits
-         * leftover global GL state from a prior batch or renderable.
-         * Triangle batches pin to their own width, keeping line width a
-         * per-batch single source of truth. */
-        glLineWidth(ovl->ovl_content.batches[i].line_width > 0.0f
-            ? ovl->ovl_content.batches[i].line_width : 1.0f);
-
-        glDrawArrays(ovl->ovl_content.batches[i].draw_mode, 0,
-            ovl->ovl_content.batches[i].vertex_count);
-      }
-    }
-
-    glDisable(GL_POLYGON_OFFSET_FILL);
-    glBindVertexArray(0);
-  }
+  gl_view_draw_batches(&pass, params);
 
 } /* gl_overlay_render() */
 
@@ -283,12 +187,8 @@ gl_overlay_free(void *ctx)
   if( ovl->view->overlay_content == &ovl->ovl_content )
     ovl->view->overlay_content = NULL;
 
-  glDeleteBuffers(GL_VIEW_MAX_BATCHES, ovl->vbo);
-  glDeleteVertexArrays(GL_VIEW_MAX_BATCHES, ovl->vao);
+  gl_batch_slots_destroy(ovl->slots, GL_VIEW_MAX_BATCHES);
 
-  gl_shader_destroy(&ovl->shader);
-
-  g_free(ovl->attrib_locations);
   g_free(ovl);
 
 } /* gl_overlay_free() */
@@ -301,75 +201,17 @@ gl_overlay_free(void *ctx)
   gl_renderable_t
 gl_view_overlay_renderable_new(gl_view_state_t *state)
 {
-  const gl_overlay_config_t *ocfg;
   gl_overlay_ctx_t *ovl;
   gl_renderable_t r;
-  gboolean ok;
-  int i;
 
-  if( !state->config->overlay )
-  {
+  if( !state->config->presents_overlay )
     return( (gl_renderable_t){0} );
-  }
-
-  ocfg = state->config->overlay;
 
   ovl = g_new0(gl_overlay_ctx_t, 1);
   ovl->view = state;
 
-  ok = gl_shader_load(&ovl->shader,
-      ocfg->vertex_shader_path,
-      ocfg->fragment_shader_path);
+  gl_batch_slots_init(ovl->slots, GL_VIEW_MAX_BATCHES);
 
-  if( !ok )
-  {
-    pr_err("Failed to load overlay shaders\n");
-    g_free(ovl);
-
-    return( (gl_renderable_t){0} );
-  }
-
-  ovl->mvp_location =
-    glGetUniformLocation(ovl->shader.program, "mvp");
-  ovl->u_mv_location =
-    glGetUniformLocation(ovl->shader.program, "u_mv");
-  ovl->u_alpha_location =
-    glGetUniformLocation(ovl->shader.program, "u_alpha");
-  ovl->u_color_dim_location =
-    glGetUniformLocation(ovl->shader.program, "u_color_dim");
-  ovl->flow_mode_location =
-    glGetUniformLocation(ovl->shader.program, "flow_mode");
-  ovl->u_phase_location =
-    glGetUniformLocation(ovl->shader.program, "u_phase");
-  ovl->u_cos_phase_location =
-    glGetUniformLocation(ovl->shader.program, "u_cos_phase");
-  ovl->u_sin_phase_location =
-    glGetUniformLocation(ovl->shader.program, "u_sin_phase");
-  ovl->noise_tex_location =
-    glGetUniformLocation(ovl->shader.program, "noise_tex");
-  gl_view_peel_locs_init(&ovl->peel_locs, ovl->shader.program);
-
-  glGenVertexArrays(GL_VIEW_MAX_BATCHES, ovl->vao);
-  glGenBuffers(GL_VIEW_MAX_BATCHES, ovl->vbo);
-
-  ovl->attrib_locations = g_new(GLint, ocfg->attrib_count);
-  for( i = 0; i < ocfg->attrib_count; i++ )
-  {
-    ovl->attrib_locations[i] = glGetAttribLocation(
-        ovl->shader.program,
-        ocfg->attribs[i].name);
-  }
-
-  /* Override default generic value for flow_data attribute.
-   * See gl_view_scene_renderable_new() for rationale. */
-  {
-    GLint flow_loc = glGetAttribLocation(ovl->shader.program, "flow_data");
-
-    if( flow_loc >= 0 )
-      glVertexAttrib4f(flow_loc, 0.0f, 0.0f, 0.0f, 0.0f);
-  }
-
-  ovl->last_generation = (unsigned int)-1;
   ovl->initialized = TRUE;
   state->overlay_content = &ovl->ovl_content;
 

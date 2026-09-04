@@ -38,22 +38,33 @@
 /* Mutable cylinder radius scale factor (user-adjustable via Ctrl+scroll) */
 static double cylinder_radius_scale = 1.0;
 
-/* Vertex attribute layout for lit-color shader (shared with overlay consumers) */
-const gl_vertex_attrib_t opengl_structure_attribs[3] = {
-  { "position", 3, 0 },
-  { "normal",   3, 4 * (int)sizeof(float) },
-  { "color",    4, 8 * (int)sizeof(float) }
+/* Vertex attribute layout shared by radiation-pattern point batches */
+static const gl_vertex_attrib_t opengl_lit_point_attribs[] = {
+  { "position", 3, (int)offsetof(lit_color_point_t, point) },
+  { "normal",   3, (int)offsetof(lit_color_point_t, normal) },
+  { "color",    4, (int)offsetof(lit_color_point_t, color) },
+  { NULL, 0, 0 }
 };
 
-/* Vertex attribute layout for chevron shader (structure_vertex_t) */
-const gl_vertex_attrib_t opengl_chevron_attribs[7] = {
-  { "position",   3, 0 },
-  { "normal",     3, 4 * (int)sizeof(float) },
-  { "color",      4, 8 * (int)sizeof(float) },
-  { "uv",         2, 12 * (int)sizeof(float) },
-  { "flow_data",  4, 14 * (int)sizeof(float) },
-  { "tangent1",   3, 18 * (int)sizeof(float) },
-  { "tangent2",   3, 21 * (int)sizeof(float) }
+/* Vertex attribute layout for structure_vertex_t */
+static const gl_vertex_attrib_t opengl_structure_attribs[] = {
+  { "position",   3, (int)offsetof(structure_vertex_t, point) },
+  { "normal",     3, (int)offsetof(structure_vertex_t, normal) },
+  { "color",      4, (int)offsetof(structure_vertex_t, color) },
+  { "uv",         2, (int)offsetof(structure_vertex_t, uv) },
+  { "direction",  2, (int)offsetof(structure_vertex_t, direction) },
+  { "magnitude",  1, (int)offsetof(structure_vertex_t, magnitude) },
+  { NULL, 0, 0 }
+};
+
+const gl_vertex_layout_t opengl_lit_point_layout = {
+  .attribs = opengl_lit_point_attribs,
+  .stride = (int)sizeof(lit_color_point_t)
+};
+
+const gl_vertex_layout_t opengl_structure_layout = {
+  .attribs = opengl_structure_attribs,
+  .stride = (int)sizeof(structure_vertex_t)
 };
 
 /*-----------------------------------------------------------------------*/
@@ -189,11 +200,10 @@ gl_store_structure_content(gl_view_content_t *out,
   memcpy(out->batches, geom->batches,
       (size_t)geom->batch_count * sizeof(geom->batches[0]));
   out->batch_count = geom->batch_count;
-  out->vertex_stride = geom->vertex_stride;
+  out->layout = geom->layout;
   out->r_max = (geom->batch_count > 0) ? params->geometry_extent : 1.5f;
   out->clip_extent = out->r_max;
   out->model_scale = params->model_scale;
-  out->generation = geom->generation;
 
 } /* gl_store_structure_content() */
 
@@ -276,12 +286,6 @@ static const surface_input_ops_t structure_input_ops = {
 
 /* Static view configuration */
 static gl_view_config_t structure_view_config = {
-  .vertex_shader_path = "/gl/lit-color-vertex.glsl",
-  .fragment_shader_path = "/gl/lit-color-fragment.glsl",
-  .attribs = opengl_chevron_attribs,
-  .attrib_count = 7,
-  .vertex_stride = (int)sizeof(structure_vertex_t),
-  .overlay = NULL,
   .ground_plane_is_active = opengl_structure_ground_plane_is_active,
   .on_gl_init_failed = opengl_gl_init_failed,
   .content_cleanup = structure_content_cleanup

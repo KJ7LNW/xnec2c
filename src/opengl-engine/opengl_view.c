@@ -20,6 +20,7 @@
 #include "opengl_view.h"
 #include "opengl_view_scene.h"
 #include "opengl_view_overlay.h"
+#include "opengl_view_program.h"
 #include "opengl_view_render.h"
 #include "opengl_view_msaa.h"
 #include "opengl_view_peel.h"
@@ -82,6 +83,9 @@ gl_view_gpu_release(gl_view_state_t *state)
     g_array_free(state->renderables, TRUE);
     state->renderables = NULL;
   }
+
+  /* Released after the renderables that draw with these programs */
+  gl_program_catalog_destroy(state->programs);
 
   if( state->overlay )
   {
@@ -220,6 +224,14 @@ on_realize(GtkGLArea *area, gpointer user_data)
     return;
   }
 
+  /* Compile every program before the renderables that draw with them */
+  if( !gl_program_catalog_init(state->programs) )
+  {
+    pr_err("Disabling OpenGL: shader catalog failed\n");
+    gl_view_signal_init_failed(state);
+    return;
+  }
+
   /* Build renderables array */
   state->renderables = g_array_sized_new(FALSE, TRUE,
       sizeof(gl_renderable_t), 4);
@@ -240,7 +252,7 @@ on_realize(GtkGLArea *area, gpointer user_data)
   {
     g_array_append_val(state->renderables, r);
   }
-  else if( state->config->overlay )
+  else if( state->config->presents_overlay )
   {
     /* Overlay was configured but shader load failed */
     pr_err("Disabling OpenGL: overlay shader failed\n");
@@ -350,9 +362,11 @@ on_realize(GtkGLArea *area, gpointer user_data)
     gl_shader_t cs = {0};
     gboolean ok;
 
-    ok = gl_shader_load(&cs,
-        "/gl/peel-composite-vertex.glsl",
-        "/gl/peel-composite-fragment.glsl");
+    const gl_shader_spec_t spec = {
+        .vertex_path = "/gl/peel-composite-vertex.glsl",
+        .fragment_path = "/gl/peel-composite-fragment.glsl" };
+
+    ok = gl_shader_load(&cs, &spec);
 
     if( ok )
     {
@@ -572,7 +586,6 @@ gl_view_surface_new(gl_view_config_t *config, const surface_input_ops_t *input,
   mem_new(&state);
 
   state->config = config;
-  state->last_generation = (unsigned int)-1;
   state->fov_rad = glm_rad(60.0f);
   state->cached_camera_distance = 1.0f;
 
