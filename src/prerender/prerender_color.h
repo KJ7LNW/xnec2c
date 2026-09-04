@@ -76,6 +76,10 @@ typedef struct
   float    wire_chrg_cmax;
   float    patch_crnt_cmin;
   float    patch_crnt_cmax;
+
+  /* Publication token of the stored content; identifies one completed fill
+   * so a replacement at an unchanged step and frequency differs */
+  uint32_t generation;
 } struct_colors_t;
 
 /*-----------------------------------------------------------------------

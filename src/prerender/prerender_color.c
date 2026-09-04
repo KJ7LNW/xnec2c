@@ -33,6 +33,9 @@ rgb_f_t *patch_rgb = NULL;
 
 struct_colors_t *struct_colors = NULL;
 
+/* Monotonic publication sequence stamped onto each completed fstep slot */
+static uint32_t struct_colors_seq = 0;
+
 /* Geometry display color per segment classification */
 static const rgb_f_t seg_type_rgb[SEG_COLOR_COUNT] = {
   [SEG_COLOR_NORMAL]     = { 0.0f, 0.0f, 1.0f },
@@ -307,6 +310,10 @@ struct_colors_fill_fstep(int fstep)
       mem_array_zero(struct_colors[fstep].patch_flow_data);
     }
   }
+
+  /* Publication point: the slot now holds complete content, so stamp the
+   * token its consumers compare against */
+  struct_colors[fstep].generation = ++struct_colors_seq;
 }
 
 /*-----------------------------------------------------------------------*/
