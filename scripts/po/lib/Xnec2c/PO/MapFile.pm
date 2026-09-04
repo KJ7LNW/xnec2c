@@ -211,8 +211,14 @@ sub read_map_records
 				next;
 			}
 			$tag_lines{$tag} = $line_number;
-			push @faults, "$path:$line_number: $tag holds a raw tab or carriage return; write \\t or \\r"
-				if $value =~ /[\t\r]/;
+			if ($tag eq 'T' && $value =~ /\t\z/)
+			{
+				push @faults, "$path:$line_number: T holds a trailing raw tab; remove it unless S ends in \\t, then write \\t";
+			}
+			elsif ($value =~ /[\t\r]/)
+			{
+				push @faults, "$path:$line_number: $tag holds a raw tab or carriage return; write \\t or \\r";
+			}
 			push @faults, "$path:$line_number: $tag opens or closes with a space; write \\s at that edge"
 				if $value =~ /\A | \z/;
 			push @faults, "$path:$line_number: unsupported $tag tag; write only " . record_tag_order()

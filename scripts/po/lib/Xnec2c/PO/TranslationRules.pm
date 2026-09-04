@@ -202,6 +202,8 @@ sub record_rules
 		'- Change only ' . join(' and ', record_owner_tags(OWNER_MODEL))
 			. ' values.',
 		'- Preserve every PO escape and printf placeholder from S exactly.',
+		'- Do not append a trailing tab to T; retain one only when S ends in \\t,'
+			. ' writing it as \\t.',
 		'- Keep an identifier S binds to a placeholder through = joined to it,'
 			. ' as in name=%d; word every qualifier outside that pair.',
 		'- Copy every \\s in S as written; write \\s in T wherever the target'

@@ -42,6 +42,7 @@ usage() if !defined $command_spec;
 usage() if scalar(@ARGV) < $command_spec->{min_args};
 usage() if defined $command_spec->{max_args}
 	&& scalar(@ARGV) > $command_spec->{max_args};
+$ENV{CLAUDE_HOOKS_DISABLE_STOP} = 1;
 $command_spec->{handler}->(@ARGV);
 
 exit 0;
