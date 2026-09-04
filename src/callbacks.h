@@ -34,9 +34,6 @@
 void opengl_common_projection_sync(void);
 void Common_Pan_Sync(void);
 
-/* Animation panel greying, re-run when a field the panel reads changes */
-void anim_panel_sensitivity(void);
-
 #ifndef HAVE_OPENGL
 /* Hide a widget by builder id; removes OpenGL-only toolbar buttons */
 void hide_widget_by_id(GtkBuilder *builder, const char *widget_id);

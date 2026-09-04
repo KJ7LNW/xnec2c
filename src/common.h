@@ -205,12 +205,8 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 
 /* Radiation Pattern Control flags */
 #define DRAW_ENABLED        0x0000000008000000ll
-#define ANIMATE             0x0000000200000000ll
 #define ENABLE_RDPAT        0x0000000400000000ll
 #define ENABLE_NEAREH       0x0000000800000000ll
-#define DRAW_FLAGS ( \
-  DRAW_ENABLED      | \
-  ANIMATE )
 
 /*** Filechooser response related flags ***/
 #define NEC2_EDIT_SAVE      0x0000001000000000ll /* Save NEC2 editor data to a file */
@@ -1484,8 +1480,6 @@ void user_set_frequency(double fmhz);
 void on_quit_cancelbutton_clicked(GtkButton *button, gpointer user_data);
 void on_quit_okbutton_clicked(GtkButton *button, gpointer user_data);
 gboolean on_rdpattern_window_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
-void on_rdpattern_animate_activate(GtkMenuItem *menuitem, gpointer user_data);
-void on_structure_animate_activate(GtkMenuItem *menuitem, gpointer user_data);
 gboolean on_animate_phase_slider_change_value(GtkRange *range, GtkScrollType scroll, gdouble value, gpointer user_data);
 void on_animate_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
 gboolean on_animate_spinbutton_focus_out_event(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);

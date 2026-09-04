@@ -852,7 +852,7 @@ Rdpattern_Window_Killed( void )
 {
   if( isFlagSet(DRAW_ENABLED) )
   {
-    ClearFlag( DRAW_FLAGS );
+    ClearFlag( DRAW_ENABLED );
     g_object_unref( rdpattern_window_builder );
     rdpattern_window_builder = NULL;
 

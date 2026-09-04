@@ -31,12 +31,5 @@ void Queue_Structure_Redraw(gboolean force);
 void Queue_Structure_Rebuild(gboolean force);
 void structure_view_changed_cb(view_t *v, gpointer user_data);
 void Init_Struct_Drawing(void);
-gboolean Animate_Phase(gpointer udata);
-void apply_animation_phase(void);
-void reset_animation_phase(void);
-void animation_set_scrubbed(void);
-gboolean animation_is_active(void);
-gboolean rdpat_farfield_phase_active(void);
-chroma_proj_t color_proj_active(void);
 
 #endif
