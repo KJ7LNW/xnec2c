@@ -24,6 +24,17 @@
 #include "../prerender/prerender_state.h"
 #include "chroma_field.h"
 
+/* Select the frame one near-field channel resolves.  The two static
+ * baselines serve a closed phase context; the instantaneous frame serves an
+ * open one. */
+typedef enum
+{
+  NF_FRAME_PEAK = 0,
+  NF_FRAME_SNAPSHOT,
+  NF_FRAME_INSTANT,
+  NF_FRAME_COUNT
+} nf_frame_mode_t;
+
 /**
  * nf_poynting() - Poynting magnitude |E×H| from two real vectors
  * @e:  E real vector

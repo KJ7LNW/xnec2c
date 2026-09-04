@@ -74,13 +74,15 @@ void _mem_validate_fail(void *ptr, void *base) __attribute__((noreturn));
  *
  * Return: pointer to the mem_obj_t header
  */
-static inline mem_obj_t *mem_obj_from_ptr(void *ptr)
+static inline mem_obj_t *mem_obj_from_ptr(const void *ptr)
 {
-	mem_obj_t *m = (mem_obj_t *)((char *)ptr - MEM_HEADER_SIZE);
+	/* Recover allocator-owned metadata without relaxing the caller's
+	 * read-only user-data contract. */
+	mem_obj_t *m = (mem_obj_t *)((const char *)ptr - MEM_HEADER_SIZE);
 
 	if (unlikely(m->ptr != ptr))
 	{
-		_mem_validate_fail(ptr, m);
+		_mem_validate_fail((void *)ptr, m);
 		return NULL;
 	}
 
@@ -159,7 +161,7 @@ void _mem_array_free(void **pp, size_t elem_size);
  *
  * Return: used bytes / element width, or 0 when ptr is NULL
  */
-static inline int mem_array_count(void *ptr)
+static inline int mem_array_count(const void *ptr)
 {
 	if (ptr == NULL)
 		return 0;
@@ -175,7 +177,7 @@ static inline int mem_array_count(void *ptr)
  *
  * Return: capacity bytes / stamped element width, or 0 when ptr is NULL
  */
-static inline int mem_array_capacity(void *ptr)
+static inline int mem_array_capacity(const void *ptr)
 {
 	if (ptr == NULL)
 		return 0;

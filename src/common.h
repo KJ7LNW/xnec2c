@@ -159,11 +159,21 @@ seg_set_color(Segment_t *s, rgb_f_t c)
 }
 
 /* Float-comparison helpers with ε tolerance (1e-6 default).
- * fl_feq(a,b) = |a-b| <= ε; fl_flt: a < b-ε; fl_fgt: a > b+ε */
+ * fl_feq(a,b) = |a-b| <= ε; fl_flt: a < b-ε; fl_fgt: a > b+ε;
+ * fl_fge: a >= b-ε */
 #define FL_EPS 1e-6f
 static inline int fl_feq(float a, float b) { return fabsf(a - b) <= FL_EPS; }
 static inline int fl_flt(float a, float b) { return a < b - FL_EPS; }
 static inline int fl_fgt(float a, float b) { return a > b + FL_EPS; }
+
+/**
+ * fl_fge() - Compare two floats with epsilon-tolerant greater-or-equal order
+ * @a: left operand
+ * @b: right operand
+ *
+ * Returns TRUE when @a is no more than epsilon below @b.
+ */
+static inline int fl_fge(float a, float b) { return a >= b - FL_EPS; }
 
 /* Double-precision comparison helpers (same semantics as fl_* above) */
 #define DL_EPS 1e-9
