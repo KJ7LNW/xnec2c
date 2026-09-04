@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-23 22:47-0700\n"
+"POT-Creation-Date: 2026-08-31 13:53-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -34,11 +34,58 @@ msgstr "Numeerinen sähkömagnetiikkakoodiohjelmisto"
 msgid "nec2;em;simulator;"
 msgstr "nec2;em;simulaattori;"
 
-#: resources/animate.glade:85
+#: resources/animate.glade:136
+msgid "Total"
+msgstr "Kokonais"
+
+#: resources/animate.glade:146
+msgid "Horizontal"
+msgstr "Vaaka"
+
+#: resources/animate.glade:156
+msgid "Vertical"
+msgstr "Pysty"
+
+#: resources/animate.glade:166
+msgid "Right Hand"
+msgstr "Oikeakätinen"
+
+#: resources/animate.glade:176
+msgid "Left Hand"
+msgstr "Vasenkätinen"
+
+#: resources/animate.glade:191 resources/animate.glade:272
+#: resources/animate.glade:375
 msgid "Animated"
 msgstr "Animoitu"
 
-#: resources/animate.glade:92
+#: resources/animate.glade:198 resources/xnec2c.glade:11075
+msgid "_Reference Phase"
+msgstr "R_eferenssivaihe"
+
+#: resources/animate.glade:209 resources/xnec2c.glade:11086
+msgid "_LIC Texture"
+msgstr "_LIC-tekstuuri"
+
+#: resources/animate.glade:220 resources/xnec2c.glade:11097
+#: resources/xnec2c.glade:12290
+msgid "_Wireframe"
+msgstr "_Rautalankamalli"
+
+#: resources/animate.glade:238 resources/animate.glade:330
+#: resources/animate.glade:399
+msgid "Static"
+msgstr "Staattinen"
+
+#: resources/animate.glade:245 resources/xnec2c.glade:11122
+msgid "Polarization _Axis"
+msgstr "Polarisaatio_akseli"
+
+#: resources/animate.glade:256 resources/xnec2c.glade:11133
+msgid "Peak _Magnitude"
+msgstr "_Huippusuuruus"
+
+#: resources/animate.glade:279
 msgid ""
 "Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
 "cos(arg z + φ)|, floored so nulls stay visible.\n"
@@ -50,11 +97,11 @@ msgstr ""
 "\n"
 "Animoitu: kirkkaat alueet kulkevat rakennetta pitkin vaiheen edetessä."
 
-#: resources/animate.glade:93
+#: resources/animate.glade:280 resources/animate.glade:383
 msgid "Instantaneous"
 msgstr "Hetkellinen"
 
-#: resources/animate.glade:103
+#: resources/animate.glade:290
 msgid ""
 "Diverging hue shows the instantaneous sign of the displayed quantity: cold "
 "negative, hot positive; brightness carries the magnitude s(n).\n"
@@ -66,11 +113,11 @@ msgstr ""
 "\n"
 "Animoitu: alueet vaihtavat napaisuutta vaiheen edetessä."
 
-#: resources/animate.glade:104
+#: resources/animate.glade:291
 msgid "Polarity"
 msgstr "Napaisuus"
 
-#: resources/animate.glade:114
+#: resources/animate.glade:301
 msgid ""
 "Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
 "magnitude s(n).\n"
@@ -82,11 +129,11 @@ msgstr ""
 "\n"
 "Animoitu: koko pyörä pyörii vaiheen edetessä."
 
-#: resources/animate.glade:115
+#: resources/animate.glade:302
 msgid "Phase Hue"
 msgstr "Vaihesävy"
 
-#: resources/animate.glade:125
+#: resources/animate.glade:312
 msgid ""
 "Diverging hue shows the instantaneous charge sign; brightness carries the "
 "current envelope s(|I|).\n"
@@ -98,15 +145,11 @@ msgstr ""
 "\n"
 "Animoitu: yksi näkymä varaukseen ja virtaan neljännesjakson erotuksella."
 
-#: resources/animate.glade:126
+#: resources/animate.glade:313
 msgid "Current + Charge"
 msgstr "Virta + varaus"
 
-#: resources/animate.glade:143
-msgid "Static"
-msgstr "Staattinen"
-
-#: resources/animate.glade:150
+#: resources/animate.glade:337
 msgid ""
 "Rainbow ramp of this frequency step's peak magnitude s(n) at full "
 "brightness.\n"
@@ -119,11 +162,11 @@ msgstr ""
 "Staattinen: vaiheesta riippumaton perusnäkymä; värit pysyvät paikallaan "
 "toiston aikana."
 
-#: resources/animate.glade:151
+#: resources/animate.glade:338
 msgid "Amplitude"
 msgstr "Amplitudi"
 
-#: resources/animate.glade:161
+#: resources/animate.glade:348
 msgid ""
 "Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
 "brightness carries the magnitude s(n).\n"
@@ -136,11 +179,11 @@ msgstr ""
 "Staattinen: vaiheesta riippumaton lukema; värit pysyvät paikallaan toiston "
 "aikana."
 
-#: resources/animate.glade:162
+#: resources/animate.glade:349
 msgid "Standing/Traveling"
 msgstr "Seisova/Etenevä"
 
-#: resources/animate.glade:172
+#: resources/animate.glade:359
 msgid ""
 "Hue ramps each segment's contribution to the selected far-field direction; "
 "brightness carries the magnitude s(n).\n"
@@ -153,11 +196,52 @@ msgstr ""
 "Staattinen: vaiheesta riippumaton lukema; värit pysyvät paikallaan toiston "
 "aikana."
 
-#: resources/animate.glade:173
+#: resources/animate.glade:360
 msgid "Far-field Contribution"
 msgstr "Kaukokentän osuus"
 
-#: resources/animate.glade:187
+#: resources/animate.glade:382
+msgid ""
+"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animated: scaled regions travel through phase peaks and contract at zero "
+"crossings as the phase advances."
+msgstr ""
+"Jokainen segmentti skaalataan hetkellisestä suuruudesta s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animoitu: skaalatut alueet kulkevat vaihehuippujen läpi ja supistuvat "
+"nollakohdissa vaiheen edetessä."
+
+#: resources/animate.glade:406
+msgid ""
+"Scale each segment from the peak magnitude s(n), enlarging strong regions "
+"and contracting nulls.\n"
+"\n"
+"Static: the phase-invariant scale holds still during playback."
+msgstr ""
+"Jokainen segmentti skaalataan huippusuuruudesta s(n): vahvat alueet "
+"suurenevat ja nollakohdat supistuvat.\n"
+"\n"
+"Staattinen: vaiheesta riippumaton skaala pysyy paikallaan toiston aikana."
+
+#: resources/animate.glade:407
+msgid "Envelope magnitude"
+msgstr "Verhokäyrän suuruus"
+
+#: resources/animate.glade:417
+msgid ""
+"Keep each segment at its model radius instead of scaling it by magnitude."
+msgstr ""
+"Kukin segmentti pidetään mallisäteessään sen sijaan, että sitä "
+"skaalattaisiin suuruuden mukaan."
+
+#: resources/animate.glade:418
+msgid "Model radius"
+msgstr "Mallisäde"
+
+#: resources/animate.glade:433
 msgid ""
 "Power-law transfer n^γ of the normalized magnitude.\n"
 "\n"
@@ -173,11 +257,11 @@ msgstr ""
 "häviötehoon (ja sen säteilytehon osuuteen säteilyresistanssin kautta), |q|² "
 "varastoituneeseen sähköstaattiseen energiaan."
 
-#: resources/animate.glade:188
+#: resources/animate.glade:434
 msgid "Power"
 msgstr "Potenssi"
 
-#: resources/animate.glade:198
+#: resources/animate.glade:444
 msgid ""
 "Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
 "decibels.\n"
@@ -192,12 +276,12 @@ msgstr ""
 "yksityiskohta leikkautuu alimpaan väriin."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:199 resources/xnec2c.glade:11713
+#: resources/animate.glade:445 resources/xnec2c.glade:11713
 #: resources/xnec2c.glade:13071
 msgid "dB"
 msgstr ""
 
-#: resources/animate.glade:209
+#: resources/animate.glade:455
 msgid ""
 "Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
 "\n"
@@ -211,11 +295,11 @@ msgstr ""
 "kompressoituvat, kuten lin-log-mittarin asteikko."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:210
+#: resources/animate.glade:456
 msgid "Asinh"
 msgstr ""
 
-#: resources/animate.glade:220
+#: resources/animate.glade:466
 msgid ""
 "μ-law companding, the telephony-standard bounded log curve.\n"
 "\n"
@@ -228,11 +312,11 @@ msgstr ""
 "kompressio on klassinen μ = 255."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:221
+#: resources/animate.glade:467
 msgid "μ-law"
 msgstr ""
 
-#: resources/animate.glade:231
+#: resources/animate.glade:477
 msgid ""
 "Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
 "\n"
@@ -244,11 +328,11 @@ msgstr ""
 "Säilyttää keskisävyt ja pehmentää huippuvalot tasaisesti; k asettaa polven."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:232
+#: resources/animate.glade:478
 msgid "Reinhard"
 msgstr ""
 
-#: resources/animate.glade:242
+#: resources/animate.glade:488
 msgid ""
 "Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
 "\n"
@@ -260,11 +344,11 @@ msgstr ""
 "Nostaa keskialueen kontrastia ja kyllästyy loivasti huippua kohti, kuten "
 "vahvistimen kompressio; a asettaa jyrkkyyden."
 
-#: resources/animate.glade:243
+#: resources/animate.glade:489
 msgid "Sigmoid"
 msgstr "Sigmoidi"
 
-#: resources/animate.glade:253
+#: resources/animate.glade:499
 msgid ""
 "Identity: every magnitude renders at full brightness.\n"
 "\n"
@@ -274,16 +358,16 @@ msgstr ""
 "\n"
 "Väriprojektio yksin välittää tiedon."
 
-#: resources/animate.glade:254 resources/settings/cairo_settings.glade:56
+#: resources/animate.glade:500 resources/settings/cairo_settings.glade:56
 msgid "None"
 msgstr "Ei mitään"
 
-#: resources/animate.glade:266 src/rdpattern_ui.c:366 src/rdpattern_ui.c:374
-#: src/rdpattern_ui.c:381
+#: resources/animate.glade:512 src/rdpattern_ui.c:401 src/rdpattern_ui.c:409
+#: src/rdpattern_ui.c:416
 msgid "Near Field Animation"
 msgstr "Lähikentän animaatio"
 
-#: resources/animate.glade:358
+#: resources/animate.glade:604
 msgid ""
 "Scrub the animation phase manually.\n"
 "\n"
@@ -294,27 +378,27 @@ msgstr ""
 "Poistettu käytöstä animaation aikana."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:375
+#: resources/animate.glade:621
 msgid "φ 0°"
 msgstr ""
 
-#: resources/animate.glade:389
+#: resources/animate.glade:635
 msgid "Phase"
 msgstr "Vaihe"
 
-#: resources/animate.glade:412
+#: resources/animate.glade:658
 msgid "Frames/Sec"
 msgstr "Kuvaa/s"
 
-#: resources/animate.glade:425
+#: resources/animate.glade:671
 msgid "Animate Freq (Hz)"
 msgstr "Animaatiotaajuus (Hz)"
 
-#: resources/animate.glade:498
+#: resources/animate.glade:747
 msgid "Color projection:"
 msgstr "Väriprojektio:"
 
-#: resources/animate.glade:512
+#: resources/animate.glade:762
 msgid ""
 "Select which physical quantity drives the hue and how brightness follows the "
 "excitation phase.\n"
@@ -332,31 +416,48 @@ msgstr ""
 "\n"
 "Kohteen kohdalle vieminen esikatselee sitä reaaliaikaisesti."
 
-#: resources/animate.glade:539
+#: resources/animate.glade:820
+msgid "Segment scale:"
+msgstr "Segmenttiskaala:"
+
+#: resources/animate.glade:835
+msgid ""
+"Choose how current or charge magnitude changes segment thickness.\n"
+"\n"
+"Hover an entry to preview it."
+msgstr ""
+"Valitse, miten virran tai varauksen suuruus muuttaa segmentin paksuutta.\n"
+"\n"
+"Esikatsele vaihtoehtoa viemällä hiiri sen päälle."
+
+#: resources/animate.glade:893
 msgid "Scale family:"
 msgstr "Skaalaperhe:"
 
-#: resources/animate.glade:553
+#: resources/animate.glade:908
 msgid ""
-"Select the magnitude-to-color transfer family.\n"
+"Select the normalized-magnitude transfer shared by color brightness and "
+"segment scale.\n"
 "\n"
 "Adjust its slider until the contrast reveals the range your inspection "
 "needs.\n"
 "\n"
 "Hovering an entry previews it live."
 msgstr ""
-"Valitse suuruus-väri-muunnosperhe.\n"
+"Valitse normalisoidun suuruuden muunnos, jota värin kirkkaus ja "
+"segmenttiskaala käyttävät yhdessä.\n"
 "\n"
-"Säädä sen liukusäädintä, kunnes kontrasti paljastaa tarkastelemasi alueen.\n"
+"Säädä sen liukusäädintä, kunnes kontrasti paljastaa tarkastelun tarvitseman "
+"alueen.\n"
 "\n"
-"Kohteen kohdalle vieminen esikatselee sitä reaaliaikaisesti."
+"Vaihtoehdon esikatselu tapahtuu viemällä hiiri sen päälle."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:592
+#: resources/animate.glade:978
 msgid "Gamma:"
 msgstr ""
 
-#: resources/animate.glade:609
+#: resources/animate.glade:995
 msgid ""
 "Gamma exponent of the power transfer.\n"
 "\n"
@@ -368,11 +469,11 @@ msgstr ""
 "γ = 0,5 laajentaa heikkoja alueita, γ = 1 on lineaarinen, γ = 2 on "
 "verrannollinen virtojen häviötehoon."
 
-#: resources/animate.glade:631
+#: resources/animate.glade:1017
 msgid "Range (dB):"
 msgstr "Alue (dB):"
 
-#: resources/animate.glade:648
+#: resources/animate.glade:1034
 msgid ""
 "Dynamic range R below the step peak mapped onto the color strip.\n"
 "\n"
@@ -382,50 +483,50 @@ msgstr ""
 "\n"
 "Alaraja on 10^(−R/20) huipusta."
 
-#: resources/animate.glade:670
+#: resources/animate.glade:1056
 msgid "Softening:"
 msgstr "Pehmennys:"
 
-#: resources/animate.glade:687
+#: resources/animate.glade:1073
 msgid "Softening knee k: linear below k, logarithmic above."
 msgstr ""
 "Pehmennyksen polvi k: lineaarinen alle k:n, logaritminen sen yläpuolella."
 
-#: resources/animate.glade:709
+#: resources/animate.glade:1095
 msgid "Compression (dB):"
 msgstr "Kompressio (dB):"
 
-#: resources/animate.glade:726
+#: resources/animate.glade:1112
 msgid "Compression strength in dB; higher values lift weak detail."
 msgstr ""
 "Kompression voimakkuus desibeleinä; suuremmat arvot nostavat heikkoja "
 "yksityiskohtia esiin."
 
-#: resources/animate.glade:748
+#: resources/animate.glade:1134
 msgid "Knee:"
 msgstr "Polvi:"
 
-#: resources/animate.glade:765
+#: resources/animate.glade:1151
 msgid "Knee k of the rational soft-compressor."
 msgstr "Rationaalisen pehmokompressorin polvi k."
 
-#: resources/animate.glade:787
+#: resources/animate.glade:1173
 msgid "Contrast:"
 msgstr "Kontrasti:"
 
-#: resources/animate.glade:804
+#: resources/animate.glade:1190
 msgid "Contrast steepness a of the tanh transfer."
 msgstr "Tanh-muunnoksen kontrastin jyrkkyys a."
 
-#: resources/animate.glade:837
+#: resources/animate.glade:1223
 msgid "Color gradient of the active projection and scale family."
 msgstr "Aktiivisen väriprojektion ja skaalaperheen väriliuska."
 
-#: resources/animate.glade:855
+#: resources/animate.glade:1241
 msgid "Brightness floor:"
 msgstr "Kirkkauden alaraja:"
 
-#: resources/animate.glade:873
+#: resources/animate.glade:1259
 msgid ""
 "Minimum brightness under animation so elements cool toward this level "
 "instead of vanishing to black."
@@ -433,27 +534,15 @@ msgstr ""
 "Pienin kirkkaus animaation aikana, jotta elementit himmenevät tälle tasolle "
 "sen sijaan, että katoaisivat mustaan."
 
-#: resources/animate.glade:884
-msgid "Width from amplitude"
-msgstr "Leveys amplitudista"
-
-#: resources/animate.glade:889
-msgid ""
-"Scale wire segment width by the scaled amplitude envelope s(n), so strong "
-"regions draw thick and nulls draw thin."
-msgstr ""
-"Skaalaa johdinsegmentin leveys skaalatun amplitudiverhokäyrän s(n) mukaan, "
-"jolloin vahvat alueet piirtyvät paksuina ja nollakohdat ohuina."
-
-#: resources/animate.glade:915
+#: resources/animate.glade:1285
 msgid "Overlays:"
 msgstr "Peittokuvat:"
 
-#: resources/animate.glade:926
+#: resources/animate.glade:1296
 msgid "Nodes/antinodes"
 msgstr "Solmut/vastasolmut"
 
-#: resources/animate.glade:931
+#: resources/animate.glade:1301
 msgid ""
 "Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
 "\n"
@@ -466,11 +555,11 @@ msgstr ""
 "Merkinnät perustuvat vaiheesta riippumattomaan verhokäyrään, joten ne "
 "pysyvät paikallaan aallon animoituessa."
 
-#: resources/animate.glade:942
+#: resources/animate.glade:1312
 msgid "Comet"
 msgstr "Komeetta"
 
-#: resources/animate.glade:947
+#: resources/animate.glade:1317
 msgid ""
 "Ride a bright head on the instantaneous positive crest so wave motion reads "
 "along each wire."
@@ -478,87 +567,89 @@ msgstr ""
 "Aseta kirkas pää hetkelliselle positiiviselle harjalle, jotta aallon liike "
 "näkyy jokaista johdinta pitkin."
 
-#: resources/animate.glade:980
+#: resources/animate.glade:1350
 msgid "Reset"
 msgstr "Palauta"
 
-#: resources/animate.glade:986
+#: resources/animate.glade:1356
 msgid ""
-"Restore the color projection, scale family, and every family brightness "
-"parameter to their defaults."
+"Restore the color projection, segment scale, scale family, brightness floor, "
+"and every family parameter to their defaults."
 msgstr ""
-"Palauta väriprojektio, skaalaperhe ja jokaisen perheen kirkkausparametri "
-"oletusarvoihin."
+"Palauta väriprojektio, segmenttiskaala, skaalaperhe, kirkkauden alaraja ja "
+"jokainen perheen parametri oletusarvoihinsa."
 
-#: resources/animate.glade:1001
+#: resources/animate.glade:1391
 msgid ""
-"<b>Color</b> <i>— currents, charges, and fields shade the wires, patches, "
-"and near-field vectors</i>"
+"<b>Color and segment scale</b> <i>— currents, charges, and fields shade the "
+"model</i>"
 msgstr ""
-"<b>Väri</b> <i>— virrat, varaukset ja kentät värittävät johtimet, patchit ja "
-"lähikentän vektorit</i>"
+"<b>Väri ja segmenttiskaala</b> <i>— virrat, varaukset ja kentät sävyttävät "
+"mallia</i>"
 
-#: resources/animate.glade:1032
+#: resources/animate.glade:1432
 msgid "None (geometry)"
 msgstr "Ei mitään (geometria)"
 
-#: resources/animate.glade:1036
+#: resources/animate.glade:1436
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr "Näytä pelkkä rakenteen geometria ilman suureväritystä."
 
-#: resources/animate.glade:1049 resources/xnec2c.glade:11240
+#: resources/animate.glade:1449 resources/xnec2c.glade:11240
 msgid "Currents"
 msgstr "Virrat"
 
-#: resources/animate.glade:1053
+#: resources/animate.glade:1453
 msgid "Animate current magnitude and direction along the wires."
 msgstr "Animoi virran suuruus ja suunta johtimia pitkin."
 
-#: resources/animate.glade:1066 resources/xnec2c.glade:11255
+#: resources/animate.glade:1466 resources/xnec2c.glade:11255
 msgid "Charges"
 msgstr "Varaukset"
 
-#: resources/animate.glade:1070
+#: resources/animate.glade:1470
 msgid "Animate charge magnitude along the wires."
 msgstr "Animoi varauksen suuruus johtimia pitkin."
 
-#: resources/animate.glade:1087
+#: resources/animate.glade:1493
+msgid "_Polarization:"
+msgstr "_Polarisaatio:"
+
+#: resources/animate.glade:1508
+msgid ""
+"Select the polarization component used by radiation-pattern gain and far-"
+"zone animation vectors.\n"
+"\n"
+"Mirrors the polarization selection in the main, radiation-pattern, and "
+"frequency-plot windows.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"Valitse polarisaatiokomponentti, jota säteilykuvion vahvistus ja kaukokentän "
+"animaatiovektorit käyttävät.\n"
+"\n"
+"Seuraa polarisaation valintaa pää-, säteilykuvio- ja "
+"taajuuskuvaajaikkunassa.\n"
+"\n"
+"Vaihtoehdon esikatselu tapahtuu viemällä hiiri sen päälle."
+
+#: resources/animate.glade:1581
 msgid "Display"
 msgstr "Näyttö"
 
-#: resources/animate.glade:1118
+#: resources/animate.glade:1619
 msgid "Flow direction:"
 msgstr "Virtaussuunta:"
 
-#: resources/animate.glade:1131
-msgid "Reference phase (animated)"
-msgstr "Referenssivaihe (animoitu)"
-
-#: resources/animate.glade:1132
-msgid "LIC texture (animated)"
-msgstr "LIC-tekstuuri (animoitu)"
-
-#: resources/animate.glade:1133
-msgid "Wireframe (animated)"
-msgstr "Rautalankamalli (animoitu)"
-
-#: resources/animate.glade:1134
-msgid "Polarization axis (static)"
-msgstr "Polarisaatioakseli (staattinen)"
-
-#: resources/animate.glade:1135
-msgid "Peak magnitude (static)"
-msgstr "Huippusuuruus (staattinen)"
-
-#: resources/animate.glade:1151
+#: resources/animate.glade:1698
 msgid "Patches"
 msgstr "Patchit"
 
-#: resources/animate.glade:1179
+#: resources/animate.glade:1733
 msgid "Near E field"
 msgstr "Lähi-E-kenttä"
 
-#: resources/animate.glade:1183
+#: resources/animate.glade:1737
 msgid ""
 "Show the near electric field vectors while animating.\n"
 "\n"
@@ -568,11 +659,11 @@ msgstr ""
 "\n"
 "Ota käyttöön avaamalla säteilykuvioikkuna."
 
-#: resources/animate.glade:1195
+#: resources/animate.glade:1749
 msgid "Near H field"
 msgstr "Lähi-H-kenttä"
 
-#: resources/animate.glade:1199
+#: resources/animate.glade:1753
 msgid ""
 "Show the near magnetic field vectors while animating.\n"
 "\n"
@@ -582,11 +673,11 @@ msgstr ""
 "\n"
 "Ota käyttöön avaamalla säteilykuvioikkuna."
 
-#: resources/animate.glade:1211
+#: resources/animate.glade:1765
 msgid "Poynting vector"
 msgstr "Poyntingin vektori"
 
-#: resources/animate.glade:1215
+#: resources/animate.glade:1769
 msgid ""
 "Show the Poynting power-flow vectors while animating.\n"
 "\n"
@@ -596,15 +687,15 @@ msgstr ""
 "\n"
 "Ota käyttöön avaamalla säteilykuvioikkuna."
 
-#: resources/animate.glade:1231
+#: resources/animate.glade:1805
 msgid "Near Field"
 msgstr "Lähikenttä"
 
-#: resources/animate.glade:1259
+#: resources/animate.glade:1840
 msgid "Far E field"
 msgstr "E-kaukokenttä"
 
-#: resources/animate.glade:1263
+#: resources/animate.glade:1844
 msgid ""
 "Draw the far-zone electric field as arrows tangent to the gain surface while "
 "animating.\n"
@@ -616,11 +707,11 @@ msgstr ""
 "\n"
 "Ota käyttöön avaamalla säteilykuvioikkuna."
 
-#: resources/animate.glade:1276
+#: resources/animate.glade:1857
 msgid "Far H field"
 msgstr "H-kaukokenttä"
 
-#: resources/animate.glade:1280
+#: resources/animate.glade:1861
 msgid ""
 "Draw the far-zone magnetic field instead, a quarter turn from the electric "
 "field in the tangent plane and in step with it in time.\n"
@@ -633,19 +724,19 @@ msgstr ""
 "\n"
 "Ota käyttöön avaamalla säteilykuvioikkuna."
 
-#: resources/animate.glade:1293
+#: resources/animate.glade:1874
 msgid "World reference"
 msgstr "Maailmanreferenssi"
 
-#: resources/animate.glade:1309
+#: resources/animate.glade:1890
 msgid "Ludwig-3 reference"
 msgstr "Ludwig-3-referenssi"
 
-#: resources/animate.glade:1334
-msgid "Arrow length:"
-msgstr "Nuolen pituus:"
+#: resources/animate.glade:1915
+msgid "Arrow:"
+msgstr "Nuoli:"
 
-#: resources/animate.glade:1351
+#: resources/animate.glade:1932
 msgid ""
 "Longest arrow a cell draws, as a fraction of that cell's own pattern radius, "
 "so the arrows track whichever gain scale shapes the surface."
@@ -653,9 +744,17 @@ msgstr ""
 "Pisin nuoli, jonka solu piirtää, murto-osana solun omasta kuviosäteestä, "
 "jotta nuolet seuraavat pintaa muovaavaa vahvistusskaalaa."
 
-#: resources/animate.glade:1373
+#: resources/animate.glade:1974
 msgid "Far Field"
 msgstr "Kaukokenttä"
+
+#: resources/animate.glade:1992
+msgid ""
+"Draw the far-zone field as tangent vectors on the radiation pattern gain "
+"surface while this window is open."
+msgstr ""
+"Piirrä kaukokenttä tangenttivektoreina säteilykuvion vahvistuspinnalle, kun "
+"tämä ikkuna on auki."
 
 #: resources/settings/cairo_settings.glade:34
 msgid "Anti-aliasing"
@@ -1937,7 +2036,7 @@ msgstr "Katselija"
 
 # xnec2c-exempt: notation
 #: resources/xnec2c.glade:9799 resources/xnec2c.glade:10041
-#: src/freqplots/freqplots_core.c:62 src/freqplots/graphs/vswr_graph.c:55
+#: src/freqplots/freqplots_core.c:63 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
@@ -2277,29 +2376,9 @@ msgstr "_Ei mitään"
 msgid "Patch Flow — Animated"
 msgstr "Patch-virtaus — animoitu"
 
-#: resources/xnec2c.glade:11075
-msgid "_Reference Phase"
-msgstr "R_eferenssivaihe"
-
-#: resources/xnec2c.glade:11086
-msgid "_LIC Texture"
-msgstr "_LIC-tekstuuri"
-
-#: resources/xnec2c.glade:11097 resources/xnec2c.glade:12290
-msgid "_Wireframe"
-msgstr "_Rautalankamalli"
-
 #: resources/xnec2c.glade:11115
 msgid "Patch Flow — Static"
 msgstr "Patch-virtaus — staattinen"
-
-#: resources/xnec2c.glade:11122
-msgid "Polarization _Axis"
-msgstr "Polarisaatio_akseli"
-
-#: resources/xnec2c.glade:11133
-msgid "Peak _Magnitude"
-msgstr "_Huippusuuruus"
 
 #: resources/xnec2c.glade:11148
 msgid "A_nimate"
@@ -2340,7 +2419,7 @@ msgid ""
 msgstr "Vahvistus rakenteen katselusuuntaan, nykyisillä katselukulmilla."
 
 #: resources/xnec2c.glade:11604 resources/xnec2c.glade:12914
-#: src/freqplots/freqplots_core.c:59
+#: src/freqplots/freqplots_core.c:60
 msgid "Gain"
 msgstr "Vahvistus"
 
@@ -2500,7 +2579,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:869
+#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:962
 msgid "Radiation Patterns"
 msgstr "Säteilykuviot"
 
@@ -2693,6 +2772,128 @@ msgstr ""
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Siirtojohtoimpedanssi (Zo)"
 
+#: src/anim/anim_dialog.c:69
+msgid ""
+"Choose how current flow is marked on surface patches.\n"
+"This model has no patches: add SP, SC, or SM patch cards to the NEC input "
+"file."
+msgstr ""
+"Valitse, miten virtaus merkitään pintapatcheihin.\n"
+"Tässä mallissa ei ole patcheja: lisää SP-, SC- tai SM-patch-kortti NEC-"
+"syötetiedostoon."
+
+#: src/anim/anim_dialog.c:77
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"In the main window choose View, Radiation Pattern; if that item is disabled, "
+"add an RP card to the NEC input file."
+msgstr ""
+"Piirrä kaukokenttä nuolina vahvistuspinnalle.\n"
+"Valitse pääikkunassa Näytä, Säteilykuvio; jos kohde ei ole käytössä, lisää "
+"RP-kortti NEC-syötetiedostoon."
+
+#: src/anim/anim_dialog.c:81
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"Tick the check box in the Far Field heading just above."
+msgstr ""
+"Piirrä kaukokenttä nuolina vahvistuspinnalle.\n"
+"Valitse valintaruutu juuri yllä olevassa Kaukokenttä-otsikossa."
+
+#: src/anim/anim_dialog.c:88
+msgid ""
+"Choose the reference the vertical and horizontal gain are read against.\n"
+"Under Polarization in this window select Vertical or Horizontal; Total, "
+"Right Hand, and Left Hand do not use this setting."
+msgstr ""
+"Valitse vertailu, johon pysty- ja vaakavahvistus luetaan.\n"
+"Valitse tämän ikkunan Polarisaatio-kohdasta Pysty tai Vaaka; Kokonais, "
+"Oikeakätinen ja Vasenkätinen eivät käytä tätä asetusta."
+
+#: src/anim/anim_dialog.c:97
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Nothing drawn now changes with phase. Under Display choose Currents or "
+"Charges and an Animated colour or segment scale; for patches choose Currents "
+"and an Animated flow mode. For NE/NH cards show Near Field and tick E, H, or "
+"Poynting; for an RP card show Gain and tick Far Field."
+msgstr ""
+"Ala edistää animaation vaihetta alla asetetulla tahdilla.\n"
+"Mikään nyt piirretty ei muutu vaiheen mukana. Valitse Näytä-kohdasta Virrat "
+"tai Varaukset sekä animoitu väri tai segmenttiskaala; patcheille valitse "
+"Virrat ja animoitu virtaustila. NE/NH-korteille näytä Lähikenttä ja valitse "
+"E, H tai Poynting; RP-kortille näytä Vahvistus ja valitse Kaukokenttä."
+
+#: src/anim/anim_dialog.c:108
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Available when drawn content changes with phase."
+msgstr ""
+"Etenee animaation vaihetta alla asetetulla tahdilla.\n"
+"Käytettävissä, kun piirretty sisältö muuttuu vaiheen mukaan."
+
+#: src/anim/anim_dialog.c:112
+msgid ""
+"Select how the animated patch current flow is rendered.\n"
+"Mirrors the Visualization menu setting in the main window."
+msgstr ""
+"Valitse, miten animoitu patch-virran virtaus renderöidään.\n"
+"Peilaa pääikkunan Visualisointi-valikon asetusta."
+
+#: src/anim/anim_dialog.c:116
+msgid ""
+"Resolve the far-zone field into tangent vectors drawn on the radiation "
+"pattern gain surface.\n"
+"Available while the radiation pattern window is open and Far Field is "
+"selected."
+msgstr ""
+"Erottaa kaukokentän tangenttivektoreiksi, jotka piirretään säteilykuvion "
+"vahvistuspinnalle.\n"
+"Käytettävissä, kun säteilykuvioikkuna on auki ja kaukokenttä on valittuna."
+
+#: src/anim/anim_dialog.c:122
+msgid ""
+"Read the vertical and horizontal gain selections against the spherical "
+"basis, so vertical is the theta direction and horizontal is the phi "
+"direction.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Lukee pystysuoran ja vaakasuoran vahvistuksen valinnat pallokoordinaatiston "
+"mukaan, jolloin pystysuora on theta-suunta ja vaakasuora on phi-suunta.\n"
+"Käytettävissä pystysuoralle tai vaakasuoralle polarisaatiolle."
+
+#: src/anim/anim_dialog.c:128
+msgid ""
+"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
+"polar and cross-polar directions, which hold one orientation across the "
+"whole pattern.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Lukee pystysuoran ja vaakasuoran vahvistuksen valinnat Ludwig-3-määritelmän "
+"kopolaarista ja ristipolaarista suuntaa vasten, jotka säilyttävät yhden "
+"suunnan koko kuviossa.\n"
+"Käytettävissä pystysuoralle tai vaakasuoralle polarisaatiolle."
+
+#: src/anim/anim_dialog.c:167
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"Available when the model contains supported animation content."
+msgstr ""
+"Avaa vaihemuuttuvan sisällön animaatiosäätimet.\n"
+"Käytettävissä, kun mallissa on tuettua animaatiosisältöä."
+
+#: src/anim/anim_dialog.c:169
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"This model has nothing to animate: load a NEC input file carrying wire cards "
+"(GW, GA, GH), patch cards (SP, SC, SM), near-field cards (NE, NH), or a "
+"radiation pattern card (RP)."
+msgstr ""
+"Avaa animaation säätimet vaiheen mukaan vaihtelevalle sisällölle.\n"
+"Tässä mallissa ei ole mitään animoitavaa: lataa NEC-syötetiedosto, joka "
+"sisältää lankakortteja (GW, GA, GH), patch-kortteja (SP, SC, SM), "
+"lähikenttäkortteja (NE, NH) tai säteilykuviokortin (RP)."
+
 #: src/args.c:113
 msgid "Usage: xnec2c [options] [<input-file-name>]"
 msgstr "Käyttö: xnec2c [valinnat] [<syötetiedoston-nimi>]"
@@ -2881,8 +3082,8 @@ msgstr "asetustiedostoa ei ole tai se ei ole luettavissa: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:366
-#: src/rdpattern_ui.c:374 src/rdpattern_ui.c:381 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:401
+#: src/rdpattern_ui.c:409 src/rdpattern_ui.c:416 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -2903,7 +3104,7 @@ msgstr "Haaroitus poistettu käytöstä!\n"
 msgid "invalid radiation pattern PNG format: %s\n"
 msgstr "virheellinen säteilykuvion PNG-muoto: %s\n"
 
-#: src/cairo/cairo_fit.c:118
+#: src/cairo/cairo_fit.c:121
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
@@ -2912,7 +3113,7 @@ msgstr ""
 "%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:237
+#: src/cairo/cairo_frame.c:254
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -2946,17 +3147,17 @@ msgstr "Segmentin liitäntävirhe funktiossa sbf()"
 msgid "Segment connection error in trio()"
 msgstr "Segmentin liitäntävirhe funktiossa trio()"
 
-#: src/callback_func.c:51
+#: src/callback_func.c:52
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "kuvan kaappaus epäonnistui kohteelle %s\n"
 
-#: src/callback_func.c:57
+#: src/callback_func.c:58
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "kuvan %s tallennus epäonnistui: %s\n"
 
-#: src/callback_func.c:105
+#: src/callback_func.c:106
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -2964,7 +3165,7 @@ msgstr ""
 "Taajuussilmukka on käynnissä\n"
 "Haluatko varmasti lopettaa laskennan?"
 
-#: src/callback_func.c:109
+#: src/callback_func.c:110
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -2972,7 +3173,7 @@ msgstr ""
 "Taajuussilmukka on käynnissä\n"
 "Haluatko varmasti sulkea tämän ikkunan?"
 
-#: src/callback_func.c:270
+#: src/callback_func.c:271
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
@@ -2980,47 +3181,47 @@ msgstr ""
 "Herätetyypillä %d ei ole herätepistettä: VSWR- ja impedanssikuvaajat on "
 "piilotettu.\n"
 
-#: src/callback_func.c:332
+#: src/callback_func.c:340
 msgid "View Currents"
 msgstr "Näytä virrat"
 
-#: src/callback_func.c:334
+#: src/callback_func.c:342
 msgid "View Charges"
 msgstr "Näytä varaukset"
 
-#: src/callback_func.c:336
+#: src/callback_func.c:344
 msgid "View Geometry"
 msgstr "Näytä geometria"
 
-#: src/callback_func.c:386
+#: src/callback_func.c:402
 msgid "PNG images (*.png)"
 msgstr "PNG-kuvat (*.png)"
 
-#: src/callback_func.c:388
+#: src/callback_func.c:404
 msgid "GNUplot files (*.gplot)"
 msgstr "GNUplot-tiedostot (*.gplot)"
 
-#: src/callback_func.c:390
+#: src/callback_func.c:406
 msgid "NEC2 files (*.nec)"
 msgstr "NEC2-tiedostot (*.nec)"
 
-#: src/callback_func.c:392
+#: src/callback_func.c:408
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Touchstone 1-porttitiedostot (*.s1p)"
 
-#: src/callback_func.c:394
+#: src/callback_func.c:410
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Touchstone 2-porttitiedostot (*.s2p)"
 
-#: src/callback_func.c:396
+#: src/callback_func.c:412
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Pilkuilla erotetut CSV-tiedostot (*.csv)"
 
-#: src/callbacks.c:98 src/callbacks.c:114 src/freqplots/freqplots_core.c:66
+#: src/callbacks.c:95 src/callbacks.c:111 src/freqplots/freqplots_core.c:67
 msgid "Antenna Temperature"
 msgstr "Antennin lämpötila"
 
-#: src/callbacks.c:99
+#: src/callbacks.c:96
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3028,7 +3229,7 @@ msgstr ""
 "Maataso havaittu mallissa. Ta-tulokset yliarvioivat maavaikutuksia. "
 "Vapaatila-mallit ovat vakiomenetelmä antennin lämpötilan arviointiin."
 
-#: src/callbacks.c:115
+#: src/callbacks.c:112
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3037,12 +3238,12 @@ msgstr ""
 "Maksimivahvistus kohdassa θ=%.0f° (%.0f° XY-tasosta). Käytäntö olettaa "
 "keilan XY-tasossa havaintoelevaatiokulman asettamiseksi valintapyörällä."
 
-#: src/callbacks.c:183 src/callbacks.c:521 src/callbacks.c:1951
-#: src/callbacks.c:2814
+#: src/callbacks.c:176 src/callbacks.c:510 src/callbacks.c:1661
+#: src/callbacks.c:1832
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Haluatko varmasti lopettaa xnec2c:n?"
 
-#: src/callbacks.c:287
+#: src/callbacks.c:280
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3050,7 +3251,7 @@ msgstr ""
 "Uutta NEC2-syötetiedostoa ei voi luoda\n"
 "taajuussilmukan ollessa käynnissä"
 
-#: src/callbacks.c:324
+#: src/callbacks.c:317
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3058,21 +3259,21 @@ msgstr ""
 "Uutta NEC2-syötetiedostoa ei voi avata\n"
 "taajuussilmukan ollessa käynnissä"
 
-#: src/callbacks.c:443
+#: src/callbacks.c:436
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c-geometriaoptimoija"
 
-#: src/callbacks.c:444
+#: src/callbacks.c:437
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "xnec2c käännettiin ilman inotify-tukea: optimoijaa ei voi ottaa käyttöön."
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c-optimoija"
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3082,85 +3283,20 @@ msgstr ""
 "syötetiedoston uudelleen muutoksesta, kun inotify käynnistää sen. Valitse "
 "kirjoitettavat tiedostot kohdasta \"Tiedosto->Optimointiasetukset\"."
 
-#: src/callbacks.c:998 src/callbacks.c:1318 src/callbacks.c:2840
+#: src/callbacks.c:991 src/callbacks.c:1311 src/callbacks.c:1858
 msgid "Are you sure you wish to close this window?"
 msgstr "Haluatko varmasti sulkea tämän ikkunan?"
 
-#: src/callbacks.c:1826
+#: src/callbacks.c:1536
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "OpenGL ei ole saatavilla tällä näytöllä; renderöijää ei voi ottaa käyttöön.\n"
 
-#: src/callbacks.c:2038
-msgid ""
-"Read the vertical and horizontal gain selections against the spherical "
-"basis, so vertical is the theta direction and horizontal is the phi "
-"direction."
-msgstr ""
-"Vertikaalinen ja horisontaalinen vahvistusvalinta luetaan "
-"pallokoordinaatiston mukaan, jolloin vertikaalinen on theta-suunta ja "
-"horisontaalinen on phi-suunta."
-
-#: src/callbacks.c:2042
-msgid ""
-"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
-"polar and cross-polar directions, which hold one orientation across the "
-"whole pattern."
-msgstr ""
-"Vertikaalinen ja horisontaalinen vahvistusvalinta luetaan Ludwig-3-mallin co-"
-"polaarisen ja ristipolaarisen suunnan mukaan, jotka säilyttävät saman "
-"orientaation koko kuvion alueella."
-
-#: src/callbacks.c:2081
-msgid ""
-"Select how the animated patch current flow is rendered.\n"
-"Mirrors the Visualization menu setting in the main window."
-msgstr ""
-"Valitse, miten animoitu patch-virran virtaus renderöidään.\n"
-"Peilaa pääikkunan Visualisointi-valikon asetusta."
-
-#: src/callbacks.c:2083
-msgid ""
-"Patch flow animation requires surface patches (SP/SM cards) in the model."
-msgstr "Patch-virtauksen animaatio vaatii patcheja (SP/SM-kortit) mallissa."
-
-#: src/callbacks.c:2098
-msgid ""
-"The polarization reference turns the vertical and horizontal gain pair "
-"only.  Select vertical or horizontal polarization in the radiation pattern "
-"window to use it; the total and circular selections read alike under either "
-"reference."
-msgstr ""
-"Polarisaatioreferenssi vaikuttaa vain vertikaalisen ja horisontaalisen "
-"vahvistusparin väliseen valintaan.  Valitse vertikaalinen tai "
-"horisontaalinen polarisaatio säteilykuvion ikkunassa käyttääksesi sitä; "
-"kokonais- ja pyöreä valinta näyttävät samalta kummallakin referenssillä."
-
-#: src/callbacks.c:2116
-msgid ""
-"The animation window drives the near-field vectors from the phase slider; "
-"close it to choose the static peak or instantaneous baseline."
-msgstr ""
-"Animaatioikkuna ohjaa lähikentän vektoreita vaiheliukusäätimestä; sulje se "
-"valitaksesi staattisen huippuarvon tai hetkellisen perustason."
-
-#: src/callbacks.c:2646
-msgid "Animation"
-msgstr "Animaatio"
-
-#: src/callbacks.c:2647
-msgid ""
-"Animation requires wire currents or charges, surface patches (SP/SM NEC "
-"cards), or near-field data (NE/NH NEC cards)"
-msgstr ""
-"Animaatio vaatii johdinvirtoja tai -varauksia, patcheja (SP/SM NEC-kortit) "
-"tai lähikentän tietoja (NE/NH NEC-kortit)"
-
-#: src/callbacks.c:2776
+#: src/callbacks.c:1798
 msgid "No open NEC2 input file"
 msgstr "Ei avointa NEC2-syötetiedostoa"
 
-#: src/callbacks.c:2871 src/callbacks.c:2901
+#: src/callbacks.c:1889 src/callbacks.c:1919
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3168,11 +3304,11 @@ msgstr ""
 "NEC2-editorin tietoja ei voi tallentaa\n"
 "taajuussilmukan ollessa käynnissä"
 
-#: src/callbacks.c:2883 src/callbacks.c:2909
+#: src/callbacks.c:1901 src/callbacks.c:1927
 msgid "untitled.nec"
 msgstr "nimetön.nec"
 
-#: src/callbacks.c:3374 src/callbacks.c:3394 src/callbacks.c:3414
+#: src/callbacks.c:2388 src/callbacks.c:2408 src/callbacks.c:2428
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3181,10 +3317,15 @@ msgstr ""
 "Taajuuskortteja (FR) ei ole vielä käsitelty.\n"
 "NEC2-editorin tiedot on ehkä tallennettava ensin."
 
-#: src/chroma/chroma.c:288
+#: src/chroma/chroma.c:315
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "virheellinen väriprojektio %d, käytetään hetkellistä\n"
+
+#: src/chroma/chroma.c:627
+#, c-format
+msgid "invalid segment scale encoding %d, using model radius\n"
+msgstr "virheellinen segmenttiskaalan koodaus %d, käytetään mallisädettä\n"
 
 #: src/chroma/chroma_source.c:334
 msgid "far-field contribution needs radiation pattern data\n"
@@ -3396,22 +3537,17 @@ msgstr "Ensimmäinen piste Theta"
 msgid "Increment in R (m)"
 msgstr "R-lisäys (m)"
 
-#: src/color/color_tone.c:125
-#, c-format
-msgid "invalid color tone %d, using power\n"
-msgstr "virheellinen skaalaperhe %d, käytetään potenssia\n"
-
-#: src/config_hooks.c:91
+#: src/color/color_config_hooks.c:131
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr ""
 "Tämä peittokuva perustuu johtimen virtasegmentteihin; tässä mallissa niitä "
 "ei ole."
 
-#: src/config_hooks.c:116
+#: src/color/color_config_hooks.c:156
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr "Korosta liikkuva aaltoharja kirkkaana komeetan päänä."
 
-#: src/config_hooks.c:117
+#: src/color/color_config_hooks.c:157
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3419,10 +3555,15 @@ msgstr ""
 "Komeetta seuraa animoitua aaltoharjaa; tämä projektio on staattinen lukema "
 "ilman liikkuvaa vaihetta."
 
-#: src/config_hooks.c:120
+#: src/color/color_config_hooks.c:160
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr ""
 "Merkitse virran solmut (syaani) ja vastasolmut (punainen) johtimia pitkin."
+
+#: src/color/color_tone.c:107
+#, c-format
+msgid "invalid color tone %d, using power\n"
+msgstr "virheellinen skaalaperhe %d, käytetään potenssia\n"
 
 #: src/expr_edit.h:34
 msgid ""
@@ -3474,39 +3615,39 @@ msgstr ""
 "Nollaa taajuuspyyhkäisy ensimmäiseen askeleeseensa ja hylkää jokainen "
 "laskettu tulos"
 
-#: src/freqplots/freqplots_core.c:60
+#: src/freqplots/freqplots_core.c:61
 msgid "Gain Direction"
 msgstr "Vahvistuksen suunta"
 
-#: src/freqplots/freqplots_core.c:61
+#: src/freqplots/freqplots_core.c:62
 msgid "Viewer Gain"
 msgstr "Katselusuunnan vahvistus"
 
-#: src/freqplots/freqplots_core.c:63
+#: src/freqplots/freqplots_core.c:64
 msgid "Impedance (real/imag)"
 msgstr "Impedanssi (reaali/imag)"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:65
 msgid "Impedance (mag/phase)"
 msgstr "Impedanssi (mag/vaihe)"
 
-#: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/smith_graph.c:512
+#: src/freqplots/freqplots_core.c:66 src/freqplots/graphs/smith_graph.c:512
 msgid "Smith Chart"
 msgstr "Smith-diagrammi"
 
-#: src/freqplots/freqplots_core.c:67
+#: src/freqplots/freqplots_core.c:68
 msgid "Solver Conditioning"
 msgstr "Ratkaisijan konditiointi"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:471
+#: src/freqplots/freqplots_core.c:479
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:769
+#: src/freqplots/freqplots_core.c:739
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3548,7 +3689,7 @@ msgstr ""
 "    • raaka Maksimivahvistus, Vahvistuksen suunta, E/T\n"
 "    • Antennin lämpötila, G/T"
 
-#: src/freqplots/freqplots_core.c:802
+#: src/freqplots/freqplots_core.c:772
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3556,7 +3697,7 @@ msgstr ""
 "Vain yksi herätepisteportti on määritetty. Määritä malliin lisää EX-"
 "heräteportteja valitaksesi tässä useamman portin välillä."
 
-#: src/freqplots/freqplots_core.c:805
+#: src/freqplots/freqplots_core.c:775
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3564,7 +3705,7 @@ msgstr ""
 "Ota Nettovahvistus-kuvaajan asetus käyttöön valitaksesi portin; ilman sitä "
 "tämä kuvaaja ei seuraa porttia."
 
-#: src/freqplots/freqplots_core.c:921
+#: src/freqplots/freqplots_core.c:893
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Ei käytettävissä: herätteellä ei ole herätepistettä"
 
@@ -3580,7 +3721,7 @@ msgstr "Draw_Graph():Muistin varaus pisteille epäonnistui"
 msgid "This theme has no inverted variant"
 msgstr "Tällä teemalla ei ole käänteistä versiota"
 
-#: src/freqplots/freqplots_theme_menu.c:95
+#: src/freqplots/freqplots_theme_menu.c:120
 msgid "_Invert"
 msgstr "_Käännä"
 
@@ -4167,20 +4308,20 @@ msgstr ""
 "verify_segments() ohittaa taajuusriippuvaiset tarkistukset - ei "
 "taajuustietoja\n"
 
-#: src/gnuplot.c:42
+#: src/gnuplot.c:43
 msgid "Gnuplot Data"
 msgstr "Gnuplot-tiedot"
 
-#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
+#: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Ei voi tallentaa: taajuuspyyhkäisy on kesken"
 
-#: src/gnuplot.c:56
+#: src/gnuplot.c:57
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# Referenssi-impedanssi Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:58
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4189,7 +4330,7 @@ msgstr ""
 "# Piirtääksesi gnuplotissa voit muokata tätä komentoa. Tällä hetkellä se "
 "piirtää MHz vs zreal ja zimag:\n"
 
-#: src/gnuplot.c:59
+#: src/gnuplot.c:60
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
@@ -4198,11 +4339,11 @@ msgstr ""
 "#    plot for [i=2:3]  'tiedostonimi.gplot' using 1:i with lines smooth "
 "bezier title columnhead(i);\n"
 
-#: src/gnuplot.c:92 src/gnuplot.c:102
+#: src/gnuplot.c:93 src/gnuplot.c:103
 msgid "Touchstone Data"
 msgstr "Touchstone-tiedot"
 
-#: src/gnuplot.c:103
+#: src/gnuplot.c:104
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4210,46 +4351,46 @@ msgstr ""
 "Ei voi tallentaa: S-parametrit tarvitsevat herätepisteen impedanssin, jota "
 "tämä herätys ei tarjoa"
 
-#: src/gnuplot.c:119
+#: src/gnuplot.c:120
 #, c-format
 msgid "! Reference impedance Z0 = %.2f Ohm\n"
 msgstr "! Referenssi-impedanssi Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:161
+#: src/gnuplot.c:162
 msgid "CSV Data"
 msgstr "CSV-data"
 
-#: src/gnuplot.c:244
+#: src/gnuplot.c:245
 #, c-format
 msgid "# Near E field\n"
 msgstr "# Lähi-E-kenttä\n"
 
-#: src/gnuplot.c:271
+#: src/gnuplot.c:272
 #, c-format
 msgid "# Near H field\n"
 msgstr "# Lähi-H-kenttä\n"
 
-#: src/gnuplot.c:311
+#: src/gnuplot.c:312
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# Poyntingin vektori\n"
 
-#: src/gnuplot.c:370
+#: src/gnuplot.c:371
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# Säteilykuvio\n"
 
-#: src/gnuplot.c:508
+#: src/gnuplot.c:509
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# rakenteen patch-segmentit\n"
 
-#: src/gnuplot.c:543
+#: src/gnuplot.c:544
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# rakenteen lankasegmentit\n"
 
-#: src/gnuplot.c:573
+#: src/gnuplot.c:574
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4258,11 +4399,11 @@ msgstr ""
 "Katso komennolla: gnuplot -e \"set terminal qt; splot '%s' with lines; pause "
 "mouse close\"\n"
 
-#: src/gnuplot.c:585
+#: src/gnuplot.c:586
 msgid "Save Currents and Charges to CSV"
 msgstr "Tallenna virrat ja varaukset CSV-tiedostoon"
 
-#: src/gnuplot.c:586
+#: src/gnuplot.c:587
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4270,11 +4411,11 @@ msgstr ""
 "Sinun on otettava virtatiedot käyttöön napsauttamalla \"Virrat\" tai "
 "\"Varaukset\" xnec2c:n pääikkunassa."
 
-#: src/gnuplot.c:651 src/gnuplot.c:661
+#: src/gnuplot.c:652 src/gnuplot.c:662
 msgid "Save Patch Currents to CSV"
 msgstr "Tallenna pintavirrat CSV-tiedostoon"
 
-#: src/gnuplot.c:652
+#: src/gnuplot.c:653
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4282,7 +4423,7 @@ msgstr ""
 "Sinun on otettava virtatiedot käyttöön napsauttamalla \"Virrat\" tai "
 "\"Varaukset\" xnec2c:n pääikkunassa."
 
-#: src/gnuplot.c:662
+#: src/gnuplot.c:663
 msgid "No surface patches in this model."
 msgstr "Tässä mallissa ei ole pinta-alkioita."
 
@@ -4795,96 +4936,96 @@ msgstr ""
 "libgmodule ei tueta: xnec2c ei välttämättä toimi oikein tällä alustalla.\n"
 
 # xnec2c-exempt: name
-#: src/interface.c:280
+#: src/interface.c:279
 #, c-format
 msgid "xnec2c %s: %s"
 msgstr ""
 
-#: src/interface.c:373
+#: src/interface.c:372
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.gladen lataus epäonnistui: %s\n"
 
-#: src/main.c:126
+#: src/main.c:127
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Havaittu %s-ikkunointitausta\n"
 
-#: src/main.c:134
+#: src/main.c:135
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch ja --optimize ovat toisensa poissulkevia.\n"
 
-#: src/main.c:143
+#: src/main.c:144
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png vaatii --batch-valinnan\n"
 
-#: src/main.c:159
+#: src/main.c:160
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "syötetiedoston polun nimi liian pitkä ( > %d merkkiä )\n"
 
-#: src/main.c:166
+#: src/main.c:167
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "odottamaton argumentti '%s' ei vaikuta olevan .nec-tiedosto\n"
 
-#: src/main.c:173
+#: src/main.c:174
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "odottamaton argumentti: %s\n"
 
-#: src/main.c:179
+#: src/main.c:180
 msgid "batch mode requires an input file\n"
 msgstr "erätila vaatii syötetiedoston\n"
 
-#: src/main.c:189
+#: src/main.c:190
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "Ei voida avata näyttöä: vaaditaan toimiva X11- tai Wayland-istunto\n"
 
-#: src/main.c:208
+#: src/main.c:213
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Forkataan %d työtä %d suorittimelle.\n"
 
-#: src/main.c:221 src/main.c:229
+#: src/main.c:226 src/main.c:234
 msgid "exiting after fatal error: pipe() failed"
 msgstr "poistutaan vakavan virheen jälkeen: pipe() epäonnistui"
 
-#: src/main.c:238
+#: src/main.c:243
 msgid "exiting after fatal error: fork() failed"
 msgstr "poistutaan vakavan virheen jälkeen: fork() epäonnistui"
 
-#: src/main.c:833
+#: src/main.c:838
 msgid "exiting via user interrupt\n"
 msgstr "poistutaan käyttäjän keskeytyksen vuoksi\n"
 
-#: src/main.c:837
+#: src/main.c:842
 msgid "segmentation fault, exiting\n"
 msgstr "segmentointivirhe, poistutaan\n"
 
-#: src/main.c:841
+#: src/main.c:846
 msgid "floating point exception, exiting\n"
 msgstr "liukulukupoikkeus, poistutaan\n"
 
-#: src/main.c:845
+#: src/main.c:850
 msgid "abort signal received, exiting\n"
 msgstr "keskeytyskäsky vastaanotettu, poistutaan\n"
 
-#: src/main.c:849
+#: src/main.c:854
 msgid "termination request received, exiting\n"
 msgstr "lopetuspyyntö vastaanotettu, poistutaan\n"
 
-#: src/main.c:859
+#: src/main.c:864
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "ei haaroitettu, ohitetaan SIGCHLD prosessilta pid %d\n"
 
-#: src/main.c:867
+#: src/main.c:872
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "lapsiprosessi pid %d poistui\n"
 
-#: src/main.c:876
+#: src/main.c:881
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "oletuspoistuminen signaalilla: %d\n"
@@ -5399,19 +5540,19 @@ msgstr ""
 msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Luotu tekstuuriatlas (ID=%u)\n"
 
-#: src/opengl-engine/opengl_axes.c:156
+#: src/opengl-engine/opengl_axes.c:161
 msgid "Failed to load axes line shader\n"
 msgstr "Akseliviivan varjostimen lataus epäonnistui\n"
 
-#: src/opengl-engine/opengl_axes.c:189
+#: src/opengl-engine/opengl_axes.c:192
 msgid "Axes renderer initialized\n"
 msgstr "Akselin renderöijä alustettu\n"
 
-#: src/opengl-engine/opengl_axes.c:193
+#: src/opengl-engine/opengl_axes.c:196
 msgid "Failed to load text shaders\n"
 msgstr "Tekstivarjostimien lataus epäonnistui\n"
 
-#: src/opengl-engine/opengl_cairo_overlay.c:60
+#: src/opengl-engine/opengl_cairo_overlay.c:62
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Cairo-peitevarjostimien lataus epäonnistui\n"
 
@@ -5419,53 +5560,62 @@ msgstr "Cairo-peitevarjostimien lataus epäonnistui\n"
 msgid "Failed to create cairo overlay base\n"
 msgstr "Cairo-peitekerroksen pohjan luonti epäonnistui\n"
 
-#: src/opengl-engine/opengl_ground_plane.c:103
+#: src/opengl-engine/opengl_ground_plane.c:105
 msgid "Failed to load ground plane shaders\n"
 msgstr "Maatason varjostimien lataus epäonnistui\n"
 
 #: src/opengl-engine/opengl_renderer.c:55
 #, c-format
+msgid "Shader declares no version directive: %s\n"
+msgstr "Varjostin ei ilmoita version-direktiiviä: %s\n"
+
+#: src/opengl-engine/opengl_renderer.c:99
+#, c-format
 msgid "Failed to load shader: %s (%s)\n"
 msgstr "Varjostimen lataus epäonnistui: %s (%s)\n"
 
-#: src/opengl-engine/opengl_renderer.c:84
+#: src/opengl-engine/opengl_renderer.c:149
 #, c-format
 msgid "Shader compile error: %s: %s\n"
 msgstr "Varjostimen käännösvirhe: %s: %s\n"
 
-#: src/opengl-engine/opengl_renderer.c:126
+#: src/opengl-engine/opengl_renderer.c:190
 #, c-format
 msgid "Shader link failed: %s + %s\n"
 msgstr "Varjostimen linkitys epäonnistui: %s + %s\n"
 
-#: src/opengl-engine/opengl_view.c:184
+#: src/opengl-engine/opengl_view.c:222
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "OpenGL-kontekstivirhe — tällä näytöllä ei ole saatavilla OpenGL-toteutusta\n"
 
-#: src/opengl-engine/opengl_view.c:197
+#: src/opengl-engine/opengl_view.c:230
+msgid "Disabling OpenGL: shader catalog failed\n"
+msgstr "Poistetaan OpenGL käytöstä: varjostinluettelo epäonnistui\n"
+
+#: src/opengl-engine/opengl_view.c:243
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL poistettu käytöstä: kohtausvarjostin epäonnistui\n"
 
-#: src/opengl-engine/opengl_view.c:212
+#: src/opengl-engine/opengl_view.c:258
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL poistettu käytöstä: peitevarjostin epäonnistui\n"
 
-#: src/opengl-engine/opengl_view.c:224
+#: src/opengl-engine/opengl_view.c:270
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL poistettu käytöstä: akselirenderoija epäonnistui\n"
 
-#: src/opengl-engine/opengl_view.c:253
+#: src/opengl-engine/opengl_view.c:299
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL poistettu käytöstä: maatasovarjostin epäonnistui\n"
 
-#: src/opengl-engine/opengl_view.c:275
+#: src/opengl-engine/opengl_view.c:321
 #, c-format
 msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "Renderöitävien määrä %u ylittää MAX_RENDERABLES (%d)\n"
 
-#: src/opengl-engine/opengl_view.c:354
+#: src/opengl-engine/opengl_view.c:402
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL poistettu käytöstä: peel-yhdistelmävarjostin epäonnistui\n"
 
@@ -5486,10 +5636,6 @@ msgstr "MSAA-kuvamuisti on puutteellinen\n"
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA resolve -kuvamuisti on puutteellinen\n"
 
-#: src/opengl-engine/opengl_view_overlay.c:326
-msgid "Failed to load overlay shaders\n"
-msgstr "Peitevarjostimien lataus epäonnistui\n"
-
 #: src/opengl-engine/opengl_view_peel.c:254
 #, c-format
 msgid "Peel FBO %d incomplete\n"
@@ -5508,15 +5654,11 @@ msgstr "Peel-kertymä-FBO on puutteellinen\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "Kerroksen syvyys-FBO on puutteellinen\n"
 
-#: src/opengl-engine/opengl_view_render.c:427
+#: src/opengl-engine/opengl_view_render.c:389
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Läpinäkyvät renderöitävät ohitettu: peel-FBO:t eivät saatavilla\n"
 
-#: src/opengl-engine/opengl_view_scene.c:297
-msgid "Failed to load shaders\n"
-msgstr "Varjostimien lataus epäonnistui\n"
-
-#: src/opengl/opengl_rdpattern.c:354
+#: src/opengl/opengl_rdpattern.c:345
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: virheellinen piirtotyyli %d, käytetään pintaa\n"
@@ -5809,44 +5951,53 @@ msgstr ""
 "Keskimääräinen vahvistus: %.4f (%.2f dBi), hyötysuhde: %.1f%%, avaruuskulma: "
 "%.4f * pi sr\n"
 
-#: src/rc_config.c:885
+#: src/rc_config.c:958
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() epäonnistui: %s\n"
 
-#: src/rc_config.c:889
+#: src/rc_config.c:962
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "ympäristömuuttuja HOME on määrittelemätön, käytetään %s\n"
 
-#: src/rc_config.c:974
+#: src/rc_config.c:1047
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
 msgstr ""
 "%s (locale=%s): vain %d/%lu merkkiä täsmäsi, kokeillaan toista lokaalia: %s\n"
 
-#: src/rc_config.c:1193
+#: src/rc_config.c:1266
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "ikkuna: x=%-5d y=%-5d w=%-5d h=%-5d  otsikko: \"%s\"\n"
 
-#: src/rc_config.c:1227
+#: src/rc_config.c:1300
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: EOF luettaessa sovellusversiota.\n"
 
-#: src/rc_config.c:1233
+#: src/rc_config.c:1306
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "olemassa olevan asetustiedoston versio eroaa: %s != %s\n"
 
-#: src/rc_config.c:1367
+#: src/rc_config.c:1353
+#, c-format
+msgid ""
+"gain readouts are scaled to %s, restored from the previous session; select "
+"Total Gain to read total gain\n"
+msgstr ""
+"vahvistuslukemat on skaalattu muotoon %s, palautettu edellisestä istunnosta; "
+"valitse Kokonaisvahvistus lukeaksesi kokonaisvahvistuksen\n"
+
+#: src/rc_config.c:1463
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "stat epäonnistui kohteelle %s: %s\n"
 
-#: src/rc_config.c:1373
+#: src/rc_config.c:1469
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5855,50 +6006,94 @@ msgstr ""
 "Korjattu %s hakemiston käyttöoikeudet 0%o:sta 0%o:ksi korjauksen 4e62893b "
 "esittelemän virheen vuoksi.\n"
 
-#: src/rc_config.c:1404
+#: src/rc_config.c:1500
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: Riviä ei jäsennetty: %s\n"
 
-#: src/rc_config.c:1410
+#: src/rc_config.c:1506
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: Ennenaikainen tiedoston loppu kohteessa %s: %s \n"
 
-#: src/rc_config.c:1435
+#: src/rc_config.c:1531
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: jäsennysvirhe (%s): %s \n"
 
-#: src/rc_config.c:1449
+#: src/rc_config.c:1545
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr ""
 "Virheellinen taivasmallin indeksi %d asetuksissa, palautetaan oletusarvoon\n"
 
-#: src/rc_config.c:1455
+#: src/rc_config.c:1551
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Virheellinen maamallin indeksi %d asetuksissa, palautetaan oletusarvoon\n"
 
-#: src/rc_config.c:1461
+#: src/rc_config.c:1557
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Virheellinen interpolointimenetelmä %d asetuksissa, palautetaan "
 "oletusarvoon\n"
 
-#: src/rc_config.c:1636
+#: src/rc_config.c:1565
+#, c-format
+msgid "Invalid flow visualization mode %d in config, resetting to default\n"
+msgstr ""
+"Virheellinen virtauksen visualisointitila %d asetuksissa, palautetaan "
+"oletukseen\n"
+
+#: src/rc_config.c:1745
 msgid "batch mode: skipping configuration save\n"
 msgstr "erätila: ohitetaan asetusten tallennus\n"
 
-#: src/rc_config.c:1643
+#: src/rc_config.c:1752
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "xnec2c:n asetustiedostoa %s ei voi avata: %s\n"
 
-#: src/rdpattern_ui.c:38
+#: src/rdpattern_noise_menu.c:37
+msgid "Read the noise temperature at the nearest tabulated frequency."
+msgstr "Lue kohinalämpötila lähimmästä taulukoidusta taajuudesta."
+
+#: src/rdpattern_noise_menu.c:39
+msgid ""
+"Interpolate the noise temperature between tabulated frequencies in log-log "
+"space, clamped at the table edges."
+msgstr ""
+"Interpoloi kohinalämpötila taulukoitujen taajuuksien välillä log-log-"
+"tilassa, rajoitettuna taulukon reunoihin."
+
+#: src/rdpattern_noise_menu.c:133
+msgid "Available while a selected sky or earth model reads a frequency table."
+msgstr ""
+"Käytettävissä, kun valittu taivas- tai maaperämalli lukee taajuustaulukkoa."
+
+#: src/rdpattern_noise_menu.c:135
+msgid ""
+"The selected sky and earth models resolve by an intrinsic method; select a "
+"table-based model to enable."
+msgstr ""
+"Valitut taivas- ja maaperämallit ratkaisevat sisäisellä menetelmällä; ota "
+"käyttöön valitsemalla taulukkopohjainen malli."
+
+#: src/rdpattern_noise_menu.c:296
+msgid "Sky Model"
+msgstr "Taivasmalli"
+
+#: src/rdpattern_noise_menu.c:303
+msgid "Earth Model"
+msgstr "Maaperämalli"
+
+#: src/rdpattern_noise_menu.c:311
+msgid "Interpolation"
+msgstr "Interpolointi"
+
+#: src/rdpattern_ui.c:39
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5912,7 +6107,23 @@ msgstr ""
 "H-kenttäanimaatio: Lisää NH-kortti NEC-tiedostoon\n"
 "Poyntingin vektori: Lisää sekä NE- että NH-kortit"
 
-#: src/rdpattern_ui.c:94
+#: src/rdpattern_ui.c:59
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Close the animation window to enable this setting."
+msgstr ""
+"Valitse staattisen lähikentän vektoriesitys.\n"
+"Sulje animaatioikkuna ottaaksesi tämän asetuksen käyttöön."
+
+#: src/rdpattern_ui.c:61
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Applies while the animation window is closed."
+msgstr ""
+"Valitse staattisen lähikentän vektoriesitys.\n"
+"Voimassa, kun animaatioikkuna on suljettu."
+
+#: src/rdpattern_ui.c:129
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -5921,17 +6132,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d arvoalueen ulkopuolella [0..%d], "
 "käytetään oletusarvona GS_LINP\n"
 
-#: src/rdpattern_ui.c:516
+#: src/rdpattern_ui.c:544
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Vahvistus katselusuuntaan, nykyisillä katselukulmilla."
 
-#: src/rdpattern_ui.c:518
+#: src/rdpattern_ui.c:546
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "Kirkkauslämpötila katselusuuntaan, nykyisillä katselukulmilla."
 
-#: src/rdpattern_ui.c:538 src/rdpattern_ui.c:544
+#: src/rdpattern_ui.c:566 src/rdpattern_ui.c:572
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -5939,7 +6150,7 @@ msgstr ""
 "Havainnon elevaatiokulma. Siirtää taivas/maa-rajaa antennin lämpötilan "
 "arviointia varten. 0° = horisontti."
 
-#: src/rdpattern_ui.c:541 src/rdpattern_ui.c:547
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5947,14 +6158,14 @@ msgstr ""
 "Havainnoinnin elevaatiokulma antennin lämpötilaa varten.\n"
 "Ota käyttöön valitsemalla Vahvistustyyli → Kohinalämpötila."
 
-#: src/rdpattern_ui.c:550
+#: src/rdpattern_ui.c:578
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr ""
 "Itsenäiset taivas-, maa- ja interpolointivalitsimet kohinalämpötilamalleille."
 
-#: src/rdpattern_ui.c:552
+#: src/rdpattern_ui.c:580
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5962,71 +6173,71 @@ msgstr ""
 "Taivas- ja maakohinalämpötilamallit.\n"
 "Ota käyttöön valitsemalla Vahvistustyyli → Kohinalämpötila."
 
-#: src/rdpattern_ui.c:846
+#: src/rdpattern_ui.c:889
 msgid "Total Gain"
 msgstr "Kokonaisvahvistus"
 
-#: src/rdpattern_ui.c:847
+#: src/rdpattern_ui.c:890
 msgid "Horizontal Polarization"
 msgstr "Vaakapolarisaatio"
 
-#: src/rdpattern_ui.c:848
+#: src/rdpattern_ui.c:891
 msgid "Vertical Polarization"
 msgstr "Pystypolarisaatio"
 
-#: src/rdpattern_ui.c:849
+#: src/rdpattern_ui.c:892
 msgid "RH Circular Polarization"
 msgstr "Oikeakätinen ympyräpolarisaatio"
 
-#: src/rdpattern_ui.c:850
+#: src/rdpattern_ui.c:893
 msgid "LH Circular Polarization"
 msgstr "Vasenkätinen ympyräpolarisaatio"
 
-#: src/rdpattern_ui.c:855
+#: src/rdpattern_ui.c:944
 msgid "Linear Power"
 msgstr "Lineaarinen teho"
 
-#: src/rdpattern_ui.c:856
+#: src/rdpattern_ui.c:945
 msgid "Linear Voltage"
 msgstr "Lineaarinen jännite"
 
-#: src/rdpattern_ui.c:857
+#: src/rdpattern_ui.c:946
 msgid "ARRL Scale"
 msgstr "ARRL-asteikko"
 
-#: src/rdpattern_ui.c:858
+#: src/rdpattern_ui.c:947
 msgid "Logarithmic Scale"
 msgstr "Logaritminen asteikko"
 
-#: src/rdpattern_ui.c:859
+#: src/rdpattern_ui.c:948
 msgid "Noise Temperature"
 msgstr "Kohinalämpötila"
 
-#: src/rdpattern_ui.c:860
+#: src/rdpattern_ui.c:949
 msgid "Noise Temp (log scale)"
 msgstr "Kohinalämpötila (log-asteikko)"
 
-#: src/rdpattern_ui.c:872
+#: src/rdpattern_ui.c:967
 msgid "Radiation Pattern: - "
 msgstr "Säteilykuvio: - "
 
-#: src/rdpattern_ui.c:892
+#: src/rdpattern_ui.c:991
 msgid "Near Fields:"
 msgstr "Lähikentät:"
 
-#: src/rdpattern_ui.c:894
+#: src/rdpattern_ui.c:993
 msgid " - E Field"
 msgstr " - E-kenttä"
 
-#: src/rdpattern_ui.c:896
+#: src/rdpattern_ui.c:995
 msgid " - H Field"
 msgstr " - H-kenttä"
 
-#: src/rdpattern_ui.c:898
+#: src/rdpattern_ui.c:997
 msgid " - Poynting Vector"
 msgstr " - Poyntingin vektori"
 
-#: src/rdpattern_ui.c:908
+#: src/rdpattern_ui.c:1008
 msgid "Frequency Data Plots - "
 msgstr "Taajuustietokuvaajat - "
 
@@ -6048,22 +6259,22 @@ msgstr "render_fit_solve: ei sovitettavaa geometriaa\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Optimointisilmukka kesken, ohitetaan välivaiheen uudelleenpiirto.\n"
 
-#: src/settings/render_settings_common.c:116
+#: src/settings/render_settings_common.c:119
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: gladen lataus epäonnistui: %s\n"
 
-#: src/settings/render_settings_common.c:126
+#: src/settings/render_settings_common.c:129
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: OpenGL-gladen lataus epäonnistui: %s\n"
 
-#: src/settings/render_settings_common.c:136
+#: src/settings/render_settings_common.c:139
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: Cairo-gladen lataus epäonnistui: %s\n"
 
-#: src/settings/render_settings_common.c:149
+#: src/settings/render_settings_common.c:152
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: render_settings_window-hakeminen gladesta epäonnistui\n"
@@ -6172,39 +6383,39 @@ msgstr ""
 "Hallitsee ohittaako tämä parametri NEC-mallin arvon.\n"
 "Poista Opt-valinta hallitaksesi itsenäisesti."
 
-#: src/themes/theme.c:140
+#: src/themes/theme.c:135
 #, c-format
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr ""
 "teeman '%s' roolilla '%s' virheellinen väri, käytetään vanhaa oletusta\n"
 
-#: src/themes/theme.c:223
+#: src/themes/theme.c:218
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "teema: resurssia %s ei voi ladata: %s\n"
 
-#: src/themes/theme.c:233
+#: src/themes/theme.c:228
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "teema: resurssia %s ei voi jäsentää: %s\n"
 
-#: src/themes/theme.c:259
+#: src/themes/theme.c:254
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "teema: kohdetta %s ei voi jäsentää, käytetään sisäänrakennettuja oletuksia\n"
 
-#: src/themes/theme.c:388
+#: src/themes/theme.c:377
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "teemalla '%s' ei ole käänteistä versiota, käytetään perusversiota\n"
 
-#: src/themes/theme.c:396
+#: src/themes/theme.c:385
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "teemaa '%s' ei löytynyt, käytetään vanhaa\n"
 
-#: src/themes/theme.c:468
+#: src/themes/theme.c:428
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "leveys '%s' virheellinen, säilytetään nykyinen arvo\n"
@@ -6263,7 +6474,7 @@ msgstr ""
 msgid "%s:\n"
 msgstr ""
 
-#: src/validation_dump.c:34
+#: src/validation_dump.c:35
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6271,26 +6482,26 @@ msgstr ""
 "validointi: nec2-builtin-matematiikkakirjasto ei ole käytettävissä; "
 "numeeriset tulokset voivat poiketa vertailuarvosta\n"
 
-#: src/validation_dump.c:39
+#: src/validation_dump.c:40
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr ""
 "validointi: matematiikkakirjastoksi pakotettiin nec2-builtin toistettavuuden "
 "vuoksi\n"
 
-#: src/validation_dump.c:58
+#: src/validation_dump.c:59
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
 "validointi: antennin lämpötilamallit ja elevaatio pakotettiin "
 "toistettavuuden vuoksi\n"
 
-#: src/validation_dump.c:68
+#: src/validation_dump.c:69
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr ""
 "validointi: polarisaatio pakotettiin kokonaispolarisaatioksi toistettavuuden "
 "vuoksi\n"
 
-#: src/validation_dump.c:87
+#: src/validation_dump.c:88
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6298,24 +6509,24 @@ msgstr ""
 "validointi: rakenteen katselin palautettiin oletussuuntaukseen "
 "toistettavuuden vuoksi\n"
 
-#: src/validation_dump.c:614 src/validation_dump.c:620
+#: src/validation_dump.c:621 src/validation_dump.c:627
 msgid "Validation Tree"
 msgstr "Validointipuu"
 
-#: src/validation_dump.c:614
+#: src/validation_dump.c:621
 msgid "Cannot save: frequency loop not done"
 msgstr "Ei voi tallentaa: taajuussilmukka ei ole valmis"
 
-#: src/validation_dump.c:620
+#: src/validation_dump.c:627
 msgid "Cannot create output directory"
 msgstr "Tulostushakemistoa ei voi luoda"
 
-#: src/validation_dump.c:652
+#: src/validation_dump.c:659
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "validointipuu kirjoitettu kohteeseen: %s\n"
 
-#: src/xnec2c.c:306
+#: src/xnec2c.c:304
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
@@ -6324,16 +6535,16 @@ msgstr ""
 "kompleksinen dielektrisyysvakio tiedostosta: %12.5E%+12.5Ej, pyydetty: %12.5E"
 "%+12.5Ej\n"
 
-#: src/xnec2c.c:309
+#: src/xnec2c.c:307
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters():Virhe maaparametreissa"
 
-#: src/xnec2c.c:733
+#: src/xnec2c.c:731
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f sekuntia. (%s)\n"
 
-#: src/xnec2c.c:1077
+#: src/xnec2c.c:1075
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
@@ -6341,79 +6552,79 @@ msgstr ""
 "askel %d kilpajuoksi: lähetetty %.6f MHz, nykyinen %.6f MHz; lasketaan "
 "uudelleen\n"
 
-#: src/xnec2c.c:1203
+#: src/xnec2c.c:1201
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr ""
 "lapsiprosessilla %d on virheellinen putki-fd haaroitetussa keräyksessä\n"
 
-#: src/xnec2c.c:1256
+#: src/xnec2c.c:1254
 msgid "Failed to read data from forked child\n"
 msgstr "Tietojen luku haaroitetulta lapsiprosessilta epäonnistui\n"
 
-#: src/xnec2c.c:1530
+#: src/xnec2c.c:1528
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "lähin askel %g MHz poikkeaa pyydetystä %g MHz\n"
 
-#: src/xnec2c.c:1534
+#: src/xnec2c.c:1532
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "pyyhkäisyn jälkeiseksi taajuudeksi asetettiin %.4f MHz (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1572
+#: src/xnec2c.c:1570
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Taajuussilmukan kulunut aika: %f sekuntia. (%s)\n"
 
-#: src/xnec2c.c:1624
+#: src/xnec2c.c:1622
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "eräajon kangas %d ei piirtänyt kehystä koossa %dx%d\n"
 
-#: src/xnec2c.c:1789
+#: src/xnec2c.c:1787
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "säteilykuvion PNG-kaappaus: ei laskettua askelta kohteelle %s\n"
 
-#: src/xnec2c.c:1861
+#: src/xnec2c.c:1859
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "säteilykuvion PNG-kaappaus epäonnistui kohteelle %s\n"
 
-#: src/xnec2c.c:1867
+#: src/xnec2c.c:1865
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "säteilykuvion PNG-tallennus epäonnistui kohteelle %s: %s\n"
 
-#: src/xnec2c.c:1872
+#: src/xnec2c.c:1870
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "säteilykuvion PNG kirjoitettu: %s\n"
 
-#: src/xnec2c.c:1909
+#: src/xnec2c.c:1907
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "useat säteilykuvion PNG-muodot edellyttävät .png-tiedostonimeä: %s\n"
 
-#: src/xnec2c.c:2014
+#: src/xnec2c.c:2012
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "Pyyhkäisy suorittaa %d työsäiettä, joissa kussakin on %d säiettä\n"
 
-#: src/xnec2c.c:2306
+#: src/xnec2c.c:2304
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread-säikeen käynnistys epäonnistui\n"
 
-#: src/xnec2c.c:2485
+#: src/xnec2c.c:2483
 msgid "Frequency Sweep"
 msgstr "Taajuuspyyhkäisy"
 
-#: src/xnec2c.c:2486
+#: src/xnec2c.c:2484
 msgid "Recalculate the frequency sweep?"
 msgstr "Lasketaanko taajuuspyyhkäisy uudelleen?"
 
-#: src/xnec2c.c:2487
+#: src/xnec2c.c:2485
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

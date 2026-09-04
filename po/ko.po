@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-24 14:07-0700\n"
+"POT-Creation-Date: 2026-08-31 13:53-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -34,11 +34,58 @@ msgstr "수치 전자기학 코드 소프트웨어"
 msgid "nec2;em;simulator;"
 msgstr "nec2;em;시뮬레이터;"
 
-#: resources/animate.glade:85
+#: resources/animate.glade:136
+msgid "Total"
+msgstr "전체"
+
+#: resources/animate.glade:146
+msgid "Horizontal"
+msgstr "수평"
+
+#: resources/animate.glade:156
+msgid "Vertical"
+msgstr "수직"
+
+#: resources/animate.glade:166
+msgid "Right Hand"
+msgstr "우선회"
+
+#: resources/animate.glade:176
+msgid "Left Hand"
+msgstr "좌선회"
+
+#: resources/animate.glade:191 resources/animate.glade:272
+#: resources/animate.glade:375
 msgid "Animated"
 msgstr "애니메이션"
 
-#: resources/animate.glade:92
+#: resources/animate.glade:198 resources/xnec2c.glade:11075
+msgid "_Reference Phase"
+msgstr "기준 위상(_R)"
+
+#: resources/animate.glade:209 resources/xnec2c.glade:11086
+msgid "_LIC Texture"
+msgstr "_LIC 텍스처"
+
+#: resources/animate.glade:220 resources/xnec2c.glade:11097
+#: resources/xnec2c.glade:12290
+msgid "_Wireframe"
+msgstr "와이어프레임(_W)"
+
+#: resources/animate.glade:238 resources/animate.glade:330
+#: resources/animate.glade:399
+msgid "Static"
+msgstr "정적"
+
+#: resources/animate.glade:245 resources/xnec2c.glade:11122
+msgid "Polarization _Axis"
+msgstr "편파 축(_A)"
+
+#: resources/animate.glade:256 resources/xnec2c.glade:11133
+msgid "Peak _Magnitude"
+msgstr "피크 크기(_M)"
+
+#: resources/animate.glade:279
 msgid ""
 "Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
 "cos(arg z + φ)|, floored so nulls stay visible.\n"
@@ -50,11 +97,11 @@ msgstr ""
 "\n"
 "애니메이션: 위상이 진행되면서 밝은 영역이 구조물을 따라 이동합니다."
 
-#: resources/animate.glade:93
+#: resources/animate.glade:280 resources/animate.glade:383
 msgid "Instantaneous"
 msgstr "순시값"
 
-#: resources/animate.glade:103
+#: resources/animate.glade:290
 msgid ""
 "Diverging hue shows the instantaneous sign of the displayed quantity: cold "
 "negative, hot positive; brightness carries the magnitude s(n).\n"
@@ -66,11 +113,11 @@ msgstr ""
 "\n"
 "애니메이션: 위상이 진행되면서 영역의 극성이 바뀝니다."
 
-#: resources/animate.glade:104
+#: resources/animate.glade:291
 msgid "Polarity"
 msgstr "극성"
 
-#: resources/animate.glade:114
+#: resources/animate.glade:301
 msgid ""
 "Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
 "magnitude s(n).\n"
@@ -81,11 +128,11 @@ msgstr ""
 "\n"
 "애니메이션: 위상이 진행되면서 색상환 전체가 회전합니다."
 
-#: resources/animate.glade:115
+#: resources/animate.glade:302
 msgid "Phase Hue"
 msgstr "위상 색조"
 
-#: resources/animate.glade:125
+#: resources/animate.glade:312
 msgid ""
 "Diverging hue shows the instantaneous charge sign; brightness carries the "
 "current envelope s(|I|).\n"
@@ -97,15 +144,11 @@ msgstr ""
 "\n"
 "애니메이션: 전하와 전류를 4분의 1 주기 간격으로 함께 보여줍니다."
 
-#: resources/animate.glade:126
+#: resources/animate.glade:313
 msgid "Current + Charge"
 msgstr "전류 + 전하"
 
-#: resources/animate.glade:143
-msgid "Static"
-msgstr "정적"
-
-#: resources/animate.glade:150
+#: resources/animate.glade:337
 msgid ""
 "Rainbow ramp of this frequency step's peak magnitude s(n) at full "
 "brightness.\n"
@@ -116,11 +159,11 @@ msgstr ""
 "\n"
 "정적: 위상에 무관한 기준값이며, 재생 중에도 색상이 고정됩니다."
 
-#: resources/animate.glade:151
+#: resources/animate.glade:338
 msgid "Amplitude"
 msgstr "진폭"
 
-#: resources/animate.glade:161
+#: resources/animate.glade:348
 msgid ""
 "Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
 "brightness carries the magnitude s(n).\n"
@@ -132,11 +175,11 @@ msgstr ""
 "\n"
 "정적: 위상에 무관한 값이며, 재생 중에도 색상이 고정됩니다."
 
-#: resources/animate.glade:162
+#: resources/animate.glade:349
 msgid "Standing/Traveling"
 msgstr "정재파/진행파"
 
-#: resources/animate.glade:172
+#: resources/animate.glade:359
 msgid ""
 "Hue ramps each segment's contribution to the selected far-field direction; "
 "brightness carries the magnitude s(n).\n"
@@ -148,11 +191,49 @@ msgstr ""
 "\n"
 "정적: 위상에 무관한 값이며, 재생 중에도 색상이 고정됩니다."
 
-#: resources/animate.glade:173
+#: resources/animate.glade:360
 msgid "Far-field Contribution"
 msgstr "원거리장 기여도"
 
-#: resources/animate.glade:187
+#: resources/animate.glade:382
+msgid ""
+"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animated: scaled regions travel through phase peaks and contract at zero "
+"crossings as the phase advances."
+msgstr ""
+"각 세그먼트를 순시 크기 s(n) · |cos(arg z + φ)|로 스케일합니다.\n"
+"\n"
+"동적: 위상이 진행됨에 따라 스케일된 영역이 위상 피크를 이동하며 영점 교차에"
+"서 수축합니다."
+
+#: resources/animate.glade:406
+msgid ""
+"Scale each segment from the peak magnitude s(n), enlarging strong regions "
+"and contracting nulls.\n"
+"\n"
+"Static: the phase-invariant scale holds still during playback."
+msgstr ""
+"각 세그먼트를 피크 크기 s(n)로 스케일하여 강한 영역을 확대하고 널 지점을 축소"
+"합니다.\n"
+"\n"
+"정적: 위상에 무관한 스케일은 재생 중 고정된 상태를 유지합니다."
+
+#: resources/animate.glade:407
+msgid "Envelope magnitude"
+msgstr "엔벨로프 크기"
+
+#: resources/animate.glade:417
+msgid ""
+"Keep each segment at its model radius instead of scaling it by magnitude."
+msgstr "각 세그먼트를 크기로 스케일하는 대신 모델 반경으로 유지합니다."
+
+#: resources/animate.glade:418
+msgid "Model radius"
+msgstr "모델 반경"
+
+#: resources/animate.glade:433
 msgid ""
 "Power-law transfer n^γ of the normalized magnitude.\n"
 "\n"
@@ -167,11 +248,11 @@ msgstr ""
 "타냅니다 — |I|²는 세그먼트별 소비 전력(및 방사 저항을 통한 방사 전력 기여도)"
 "에 비례하고, |q|²는 저장된 정전 에너지에 비례합니다."
 
-#: resources/animate.glade:188
+#: resources/animate.glade:434
 msgid "Power"
 msgstr "거듭제곱"
 
-#: resources/animate.glade:198
+#: resources/animate.glade:444
 msgid ""
 "Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
 "decibels.\n"
@@ -185,12 +266,12 @@ msgstr ""
 "단 색상으로 클리핑됩니다."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:199 resources/xnec2c.glade:11713
+#: resources/animate.glade:445 resources/xnec2c.glade:11713
 #: resources/xnec2c.glade:13071
 msgid "dB"
 msgstr ""
 
-#: resources/animate.glade:209
+#: resources/animate.glade:455
 msgid ""
 "Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
 "\n"
@@ -203,11 +284,11 @@ msgstr ""
 "눈금과 같은 방식입니다."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:210
+#: resources/animate.glade:456
 msgid "Asinh"
 msgstr ""
 
-#: resources/animate.glade:220
+#: resources/animate.glade:466
 msgid ""
 "μ-law companding, the telephony-standard bounded log curve.\n"
 "\n"
@@ -220,11 +301,11 @@ msgstr ""
 "255에 해당합니다."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:221
+#: resources/animate.glade:467
 msgid "μ-law"
 msgstr ""
 
-#: resources/animate.glade:231
+#: resources/animate.glade:477
 msgid ""
 "Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
 "\n"
@@ -235,11 +316,11 @@ msgstr ""
 "중간톤은 보존하면서 하이라이트를 부드럽게 롤오프하며, k가 니를 설정합니다."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:232
+#: resources/animate.glade:478
 msgid "Reinhard"
 msgstr ""
 
-#: resources/animate.glade:242
+#: resources/animate.glade:488
 msgid ""
 "Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
 "\n"
@@ -251,11 +332,11 @@ msgstr ""
 "중간 대역의 대비를 높이고 앰프 압축처럼 피크를 향해 부드럽게 포화되며, a가 기"
 "울기를 설정합니다."
 
-#: resources/animate.glade:243
+#: resources/animate.glade:489
 msgid "Sigmoid"
 msgstr "시그모이드"
 
-#: resources/animate.glade:253
+#: resources/animate.glade:499
 msgid ""
 "Identity: every magnitude renders at full brightness.\n"
 "\n"
@@ -265,16 +346,16 @@ msgstr ""
 "\n"
 "색상 투영만으로 정보를 전달합니다."
 
-#: resources/animate.glade:254 resources/settings/cairo_settings.glade:56
+#: resources/animate.glade:500 resources/settings/cairo_settings.glade:56
 msgid "None"
 msgstr "없음"
 
-#: resources/animate.glade:266 src/rdpattern_ui.c:366 src/rdpattern_ui.c:374
-#: src/rdpattern_ui.c:381
+#: resources/animate.glade:512 src/rdpattern_ui.c:401 src/rdpattern_ui.c:409
+#: src/rdpattern_ui.c:416
 msgid "Near Field Animation"
 msgstr "근접장 애니메이션"
 
-#: resources/animate.glade:358
+#: resources/animate.glade:604
 msgid ""
 "Scrub the animation phase manually.\n"
 "\n"
@@ -285,27 +366,27 @@ msgstr ""
 "애니메이션 실행 중에는 비활성화됩니다."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:375
+#: resources/animate.glade:621
 msgid "φ 0°"
 msgstr ""
 
-#: resources/animate.glade:389
+#: resources/animate.glade:635
 msgid "Phase"
 msgstr "위상"
 
-#: resources/animate.glade:412
+#: resources/animate.glade:658
 msgid "Frames/Sec"
 msgstr "프레임/초"
 
-#: resources/animate.glade:425
+#: resources/animate.glade:671
 msgid "Animate Freq (Hz)"
 msgstr "애니메이션 주파수 (Hz)"
 
-#: resources/animate.glade:498
+#: resources/animate.glade:747
 msgid "Color projection:"
 msgstr "색상 투영:"
 
-#: resources/animate.glade:512
+#: resources/animate.glade:762
 msgid ""
 "Select which physical quantity drives the hue and how brightness follows the "
 "excitation phase.\n"
@@ -322,30 +403,45 @@ msgstr ""
 "\n"
 "항목 위에 마우스를 올리면 실시간으로 미리 볼 수 있습니다."
 
-#: resources/animate.glade:539
+#: resources/animate.glade:820
+msgid "Segment scale:"
+msgstr "세그먼트 스케일:"
+
+#: resources/animate.glade:835
+msgid ""
+"Choose how current or charge magnitude changes segment thickness.\n"
+"\n"
+"Hover an entry to preview it."
+msgstr ""
+"전류 또는 전하 크기가 세그먼트 두께를 바꾸는 방식을 선택합니다.\n"
+"\n"
+"항목 위에 마우스를 올리면 미리 봅니다."
+
+#: resources/animate.glade:893
 msgid "Scale family:"
 msgstr "스케일 계열:"
 
-#: resources/animate.glade:553
+#: resources/animate.glade:908
 msgid ""
-"Select the magnitude-to-color transfer family.\n"
+"Select the normalized-magnitude transfer shared by color brightness and "
+"segment scale.\n"
 "\n"
 "Adjust its slider until the contrast reveals the range your inspection "
 "needs.\n"
 "\n"
 "Hovering an entry previews it live."
 msgstr ""
-"크기-색상 변환 계열을 선택합니다.\n"
+"명도와 세그먼트 스케일이 공유하는 정규화된 크기 변환을 선택합니다.\n"
 "\n"
-"검사에 필요한 범위가 대비로 드러날 때까지 슬라이더를 조정하십시오.\n"
+"대비가 원하는 검사 범위를 드러낼 때까지 슬라이더를 조정합니다.\n"
 "\n"
-"항목 위에 마우스를 올리면 실시간으로 미리 볼 수 있습니다."
+"항목 위에 마우스를 올리면 실시간으로 미리 봅니다."
 
-#: resources/animate.glade:592
+#: resources/animate.glade:978
 msgid "Gamma:"
 msgstr "감마:"
 
-#: resources/animate.glade:609
+#: resources/animate.glade:995
 msgid ""
 "Gamma exponent of the power transfer.\n"
 "\n"
@@ -357,11 +453,11 @@ msgstr ""
 "γ = 0.5는 약한 영역을 확장하고, γ = 1은 선형이며, γ = 2는 전류의 소비 전력에 "
 "비례합니다."
 
-#: resources/animate.glade:631
+#: resources/animate.glade:1017
 msgid "Range (dB):"
 msgstr "범위 (dB):"
 
-#: resources/animate.glade:648
+#: resources/animate.glade:1034
 msgid ""
 "Dynamic range R below the step peak mapped onto the color strip.\n"
 "\n"
@@ -371,47 +467,47 @@ msgstr ""
 "\n"
 "바닥값은 피크의 10^(−R/20)입니다."
 
-#: resources/animate.glade:670
+#: resources/animate.glade:1056
 msgid "Softening:"
 msgstr "소프트닝:"
 
-#: resources/animate.glade:687
+#: resources/animate.glade:1073
 msgid "Softening knee k: linear below k, logarithmic above."
 msgstr "소프트닝 니 k: k 이하에서는 선형, 이상에서는 로그입니다."
 
-#: resources/animate.glade:709
+#: resources/animate.glade:1095
 msgid "Compression (dB):"
 msgstr "압축 (dB):"
 
-#: resources/animate.glade:726
+#: resources/animate.glade:1112
 msgid "Compression strength in dB; higher values lift weak detail."
 msgstr "dB 단위의 압축 강도입니다. 값이 클수록 약한 디테일을 끌어올립니다."
 
-#: resources/animate.glade:748
+#: resources/animate.glade:1134
 msgid "Knee:"
 msgstr "니:"
 
-#: resources/animate.glade:765
+#: resources/animate.glade:1151
 msgid "Knee k of the rational soft-compressor."
 msgstr "유리 소프트 컴프레서의 니 k입니다."
 
-#: resources/animate.glade:787
+#: resources/animate.glade:1173
 msgid "Contrast:"
 msgstr "대비:"
 
-#: resources/animate.glade:804
+#: resources/animate.glade:1190
 msgid "Contrast steepness a of the tanh transfer."
 msgstr "tanh 변환의 대비 기울기 a입니다."
 
-#: resources/animate.glade:837
+#: resources/animate.glade:1223
 msgid "Color gradient of the active projection and scale family."
 msgstr "현재 투영과 스케일 계열의 색상 그라디언트입니다."
 
-#: resources/animate.glade:855
+#: resources/animate.glade:1241
 msgid "Brightness floor:"
 msgstr "밝기 하한:"
 
-#: resources/animate.glade:873
+#: resources/animate.glade:1259
 msgid ""
 "Minimum brightness under animation so elements cool toward this level "
 "instead of vanishing to black."
@@ -419,27 +515,15 @@ msgstr ""
 "애니메이션 중 요소가 검은색으로 사라지지 않고 이 값까지만 낮아지도록 하는 최"
 "소 밝기입니다."
 
-#: resources/animate.glade:884
-msgid "Width from amplitude"
-msgstr "진폭에 따른 두께"
-
-#: resources/animate.glade:889
-msgid ""
-"Scale wire segment width by the scaled amplitude envelope s(n), so strong "
-"regions draw thick and nulls draw thin."
-msgstr ""
-"도선 세그먼트의 두께를 스케일된 진폭 포락선 s(n)에 따라 조정하여, 강한 영역"
-"은 굵게, 널은 가늘게 그립니다."
-
-#: resources/animate.glade:915
+#: resources/animate.glade:1285
 msgid "Overlays:"
 msgstr "오버레이:"
 
-#: resources/animate.glade:926
+#: resources/animate.glade:1296
 msgid "Nodes/antinodes"
 msgstr "마디/배"
 
-#: resources/animate.glade:931
+#: resources/animate.glade:1301
 msgid ""
 "Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
 "\n"
@@ -451,11 +535,11 @@ msgstr ""
 "표시는 위상에 무관한 포락선에서 유도되므로, 파동이 애니메이션되는 동안에도 고"
 "정되어 있습니다."
 
-#: resources/animate.glade:942
+#: resources/animate.glade:1312
 msgid "Comet"
 msgstr "코멧"
 
-#: resources/animate.glade:947
+#: resources/animate.glade:1317
 msgid ""
 "Ride a bright head on the instantaneous positive crest so wave motion reads "
 "along each wire."
@@ -463,86 +547,88 @@ msgstr ""
 "순간 양의 파고에 밝은 머리를 태워 각 도선을 따라 파동 움직임이 드러나게 합니"
 "다."
 
-#: resources/animate.glade:980
+#: resources/animate.glade:1350
 msgid "Reset"
 msgstr "재설정"
 
-#: resources/animate.glade:986
+#: resources/animate.glade:1356
 msgid ""
-"Restore the color projection, scale family, and every family brightness "
-"parameter to their defaults."
+"Restore the color projection, segment scale, scale family, brightness floor, "
+"and every family parameter to their defaults."
 msgstr ""
-"색상 투영, 스케일 계열, 모든 계열 밝기 매개변수를 기본값으로 복원합니다."
+"색상 투영, 세그먼트 스케일, 색조 계열, 명도 플로어 및 모든 계열 매개변수를 기"
+"본값으로 복원합니다."
 
-#: resources/animate.glade:1001
+#: resources/animate.glade:1391
 msgid ""
-"<b>Color</b> <i>— currents, charges, and fields shade the wires, patches, "
-"and near-field vectors</i>"
+"<b>Color and segment scale</b> <i>— currents, charges, and fields shade the "
+"model</i>"
 msgstr ""
-"<b>색상</b> <i>— 전류, 전하, 필드가 도선, 패치, 근접장 벡터에 음영으로 표시됩"
-"니다</i>"
+"<b>색상 및 세그먼트 스케일</b> <i>— 전류, 전하, 장이 모델에 음영을 입힙니다</"
+"i>"
 
-#: resources/animate.glade:1032
+#: resources/animate.glade:1432
 msgid "None (geometry)"
 msgstr "없음 (기하)"
 
-#: resources/animate.glade:1036
+#: resources/animate.glade:1436
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr "수치 색상 없이 기본 구조 기하만 표시합니다."
 
-#: resources/animate.glade:1049 resources/xnec2c.glade:11240
+#: resources/animate.glade:1449 resources/xnec2c.glade:11240
 msgid "Currents"
 msgstr "전류"
 
-#: resources/animate.glade:1053
+#: resources/animate.glade:1453
 msgid "Animate current magnitude and direction along the wires."
 msgstr "도선을 따라 전류의 크기와 방향을 애니메이션으로 표시합니다."
 
-#: resources/animate.glade:1066 resources/xnec2c.glade:11255
+#: resources/animate.glade:1466 resources/xnec2c.glade:11255
 msgid "Charges"
 msgstr "전하"
 
-#: resources/animate.glade:1070
+#: resources/animate.glade:1470
 msgid "Animate charge magnitude along the wires."
 msgstr "도선을 따라 전하 크기를 애니메이션으로 표시합니다."
 
-#: resources/animate.glade:1087
+#: resources/animate.glade:1493
+msgid "_Polarization:"
+msgstr "_편파:"
+
+#: resources/animate.glade:1508
+msgid ""
+"Select the polarization component used by radiation-pattern gain and far-"
+"zone animation vectors.\n"
+"\n"
+"Mirrors the polarization selection in the main, radiation-pattern, and "
+"frequency-plot windows.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"방사 패턴 이득과 원거리장 애니메이션 벡터에 사용되는 편파 성분을 선택합니"
+"다.\n"
+"\n"
+"메인, 방사 패턴, 주파수 플롯 창의 편파 선택을 따라 움직입니다.\n"
+"\n"
+"항목 위에 마우스를 올리면 실시간으로 미리 봅니다."
+
+#: resources/animate.glade:1581
 msgid "Display"
 msgstr "표시"
 
-#: resources/animate.glade:1118
+#: resources/animate.glade:1619
 msgid "Flow direction:"
 msgstr "흐름 방향:"
 
-#: resources/animate.glade:1131
-msgid "Reference phase (animated)"
-msgstr "기준 위상 (애니메이션)"
-
-#: resources/animate.glade:1132
-msgid "LIC texture (animated)"
-msgstr "LIC 텍스처 (애니메이션)"
-
-#: resources/animate.glade:1133
-msgid "Wireframe (animated)"
-msgstr "와이어프레임 (애니메이션)"
-
-#: resources/animate.glade:1134
-msgid "Polarization axis (static)"
-msgstr "편파 축 (정적)"
-
-#: resources/animate.glade:1135
-msgid "Peak magnitude (static)"
-msgstr "피크 크기 (정적)"
-
-#: resources/animate.glade:1151
+#: resources/animate.glade:1698
 msgid "Patches"
 msgstr "패치"
 
-#: resources/animate.glade:1179
+#: resources/animate.glade:1733
 msgid "Near E field"
 msgstr "근접 E 필드"
 
-#: resources/animate.glade:1183
+#: resources/animate.glade:1737
 msgid ""
 "Show the near electric field vectors while animating.\n"
 "\n"
@@ -552,11 +638,11 @@ msgstr ""
 "\n"
 "방사 패턴 창을 열어 활성화하십시오."
 
-#: resources/animate.glade:1195
+#: resources/animate.glade:1749
 msgid "Near H field"
 msgstr "근접 H 필드"
 
-#: resources/animate.glade:1199
+#: resources/animate.glade:1753
 msgid ""
 "Show the near magnetic field vectors while animating.\n"
 "\n"
@@ -566,11 +652,11 @@ msgstr ""
 "\n"
 "방사 패턴 창을 열어 활성화하십시오."
 
-#: resources/animate.glade:1211
+#: resources/animate.glade:1765
 msgid "Poynting vector"
 msgstr "포인팅 벡터"
 
-#: resources/animate.glade:1215
+#: resources/animate.glade:1769
 msgid ""
 "Show the Poynting power-flow vectors while animating.\n"
 "\n"
@@ -580,15 +666,15 @@ msgstr ""
 "\n"
 "방사 패턴 창을 열어 활성화하십시오."
 
-#: resources/animate.glade:1231
+#: resources/animate.glade:1805
 msgid "Near Field"
 msgstr "근접장"
 
-#: resources/animate.glade:1259
+#: resources/animate.glade:1840
 msgid "Far E field"
 msgstr "원거리 E장"
 
-#: resources/animate.glade:1263
+#: resources/animate.glade:1844
 msgid ""
 "Draw the far-zone electric field as arrows tangent to the gain surface while "
 "animating.\n"
@@ -599,11 +685,11 @@ msgstr ""
 "\n"
 "방사 패턴 창을 열어 활성화합니다."
 
-#: resources/animate.glade:1276
+#: resources/animate.glade:1857
 msgid "Far H field"
 msgstr "원거리 H장"
 
-#: resources/animate.glade:1280
+#: resources/animate.glade:1861
 msgid ""
 "Draw the far-zone magnetic field instead, a quarter turn from the electric "
 "field in the tangent plane and in step with it in time.\n"
@@ -615,19 +701,19 @@ msgstr ""
 "\n"
 "방사 패턴 창을 열어 활성화합니다."
 
-#: resources/animate.glade:1293
+#: resources/animate.glade:1874
 msgid "World reference"
 msgstr "전역 기준"
 
-#: resources/animate.glade:1309
+#: resources/animate.glade:1890
 msgid "Ludwig-3 reference"
 msgstr "Ludwig-3 기준"
 
-#: resources/animate.glade:1334
-msgid "Arrow length:"
-msgstr "화살표 길이:"
+#: resources/animate.glade:1915
+msgid "Arrow:"
+msgstr "화살표:"
 
-#: resources/animate.glade:1351
+#: resources/animate.glade:1932
 msgid ""
 "Longest arrow a cell draws, as a fraction of that cell's own pattern radius, "
 "so the arrows track whichever gain scale shapes the surface."
@@ -635,9 +721,16 @@ msgstr ""
 "각 셀이 그리는 가장 긴 화살표를 해당 셀 자신의 패턴 반지름에 대한 비율로 지정"
 "하여, 화살표가 표면을 형성하는 이득 스케일을 그대로 따르도록 합니다."
 
-#: resources/animate.glade:1373
+#: resources/animate.glade:1974
 msgid "Far Field"
 msgstr "원거리장"
+
+#: resources/animate.glade:1992
+msgid ""
+"Draw the far-zone field as tangent vectors on the radiation pattern gain "
+"surface while this window is open."
+msgstr ""
+"이 창이 열려 있는 동안 원거리장을 방사 패턴 이득 표면에 접선 벡터로 그립니다."
 
 #: resources/settings/cairo_settings.glade:34
 msgid "Anti-aliasing"
@@ -1914,7 +2007,7 @@ msgstr "뷰어"
 
 # xnec2c-exempt: notation
 #: resources/xnec2c.glade:9799 resources/xnec2c.glade:10041
-#: src/freqplots/freqplots_core.c:62 src/freqplots/graphs/vswr_graph.c:55
+#: src/freqplots/freqplots_core.c:63 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
@@ -2246,29 +2339,9 @@ msgstr "없음(_N)"
 msgid "Patch Flow — Animated"
 msgstr "패치 흐름 — 애니메이션"
 
-#: resources/xnec2c.glade:11075
-msgid "_Reference Phase"
-msgstr "기준 위상(_R)"
-
-#: resources/xnec2c.glade:11086
-msgid "_LIC Texture"
-msgstr "_LIC 텍스처"
-
-#: resources/xnec2c.glade:11097 resources/xnec2c.glade:12290
-msgid "_Wireframe"
-msgstr "와이어프레임(_W)"
-
 #: resources/xnec2c.glade:11115
 msgid "Patch Flow — Static"
 msgstr "패치 흐름 — 정적"
-
-#: resources/xnec2c.glade:11122
-msgid "Polarization _Axis"
-msgstr "편파 축(_A)"
-
-#: resources/xnec2c.glade:11133
-msgid "Peak _Magnitude"
-msgstr "피크 크기(_M)"
 
 #: resources/xnec2c.glade:11148
 msgid "A_nimate"
@@ -2309,7 +2382,7 @@ msgid ""
 msgstr "현재 보기 각도에서 구조체 뷰어 방향의 이득입니다."
 
 #: resources/xnec2c.glade:11604 resources/xnec2c.glade:12914
-#: src/freqplots/freqplots_core.c:59
+#: src/freqplots/freqplots_core.c:60
 msgid "Gain"
 msgstr "이득"
 
@@ -2467,7 +2540,7 @@ msgstr "T<sub>대지</sub>"
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>하늘</sub>"
 
-#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:869
+#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:962
 msgid "Radiation Patterns"
 msgstr "방사 패턴"
 
@@ -2660,6 +2733,126 @@ msgstr ""
 msgid "Transmission Line Impedance (Zo)"
 msgstr "전송선 임피던스 (Zo)"
 
+#: src/anim/anim_dialog.c:69
+msgid ""
+"Choose how current flow is marked on surface patches.\n"
+"This model has no patches: add SP, SC, or SM patch cards to the NEC input "
+"file."
+msgstr ""
+"표면 패치에서 전류 흐름을 표시하는 방식을 선택합니다.\n"
+"이 모델에는 패치가 없습니다: NEC 입력 파일에 SP, SC 또는 SM 패치 카드를 추가"
+"하십시오."
+
+#: src/anim/anim_dialog.c:77
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"In the main window choose View, Radiation Pattern; if that item is disabled, "
+"add an RP card to the NEC input file."
+msgstr ""
+"원거리장을 이득 표면에 화살표로 그립니다.\n"
+"메인 창에서 보기, 방사 패턴을 선택하십시오. 해당 항목이 비활성화되어 있으면 "
+"NEC 입력 파일에 RP 카드를 추가하십시오."
+
+#: src/anim/anim_dialog.c:81
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"Tick the check box in the Far Field heading just above."
+msgstr ""
+"원거리장을 이득 표면에 화살표로 그립니다.\n"
+"바로 위 원거리장 항목의 확인란을 선택하십시오."
+
+#: src/anim/anim_dialog.c:88
+msgid ""
+"Choose the reference the vertical and horizontal gain are read against.\n"
+"Under Polarization in this window select Vertical or Horizontal; Total, "
+"Right Hand, and Left Hand do not use this setting."
+msgstr ""
+"수직 및 수평 이득을 측정하는 기준을 선택합니다.\n"
+"이 창의 편파에서 수직 또는 수평을 선택하십시오. 전체, 우선회, 좌선회는 이 설"
+"정을 사용하지 않습니다."
+
+#: src/anim/anim_dialog.c:97
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Nothing drawn now changes with phase. Under Display choose Currents or "
+"Charges and an Animated colour or segment scale; for patches choose Currents "
+"and an Animated flow mode. For NE/NH cards show Near Field and tick E, H, or "
+"Poynting; for an RP card show Gain and tick Far Field."
+msgstr ""
+"아래에 설정된 주기로 애니메이션 위상 진행을 시작합니다.\n"
+"현재 그려진 내용은 위상에 따라 바뀌지 않습니다. 표시에서 전류 또는 전하와 동"
+"적 색상 또는 세그먼트 스케일을 선택하십시오. 패치의 경우 전류와 동적 흐름 모"
+"드를 선택하십시오. NE/NH 카드는 근접장을 표시하고 E, H 또는 포인팅 벡터를 선"
+"택하십시오. RP 카드는 이득을 표시하고 원거리장을 선택하십시오."
+
+#: src/anim/anim_dialog.c:108
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Available when drawn content changes with phase."
+msgstr ""
+"아래에 설정된 주기로 애니메이션 위상 진행을 시작합니다.\n"
+"표시된 내용이 위상에 따라 변할 때 사용할 수 있습니다."
+
+#: src/anim/anim_dialog.c:112
+msgid ""
+"Select how the animated patch current flow is rendered.\n"
+"Mirrors the Visualization menu setting in the main window."
+msgstr ""
+"애니메이션 패치 전류 흐름이 렌더링되는 방식을 선택합니다.\n"
+"메인 창의 시각화 메뉴 설정을 반영합니다."
+
+#: src/anim/anim_dialog.c:116
+msgid ""
+"Resolve the far-zone field into tangent vectors drawn on the radiation "
+"pattern gain surface.\n"
+"Available while the radiation pattern window is open and Far Field is "
+"selected."
+msgstr ""
+"원거리장을 방사 패턴 이득 표면에 그려지는 접선 벡터로 분해합니다.\n"
+"방사 패턴 창이 열려 있고 원거리장이 선택되어 있을 때 사용할 수 있습니다."
+
+#: src/anim/anim_dialog.c:122
+msgid ""
+"Read the vertical and horizontal gain selections against the spherical "
+"basis, so vertical is the theta direction and horizontal is the phi "
+"direction.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"수직 및 수평 이득 선택을 구면 기준계에 대해 해석하여 수직은 세타 방향, 수평"
+"은 파이 방향을 나타냅니다.\n"
+"수직 또는 수평 편파에서 사용할 수 있습니다."
+
+#: src/anim/anim_dialog.c:128
+msgid ""
+"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
+"polar and cross-polar directions, which hold one orientation across the "
+"whole pattern.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"수직 및 수평 이득 선택을 Ludwig-3 동일 편파 및 교차 편파 방향에 대해 해석하"
+"며, 이 방향은 패턴 전체에서 하나의 방향을 유지합니다.\n"
+"수직 또는 수평 편파에서 사용할 수 있습니다."
+
+#: src/anim/anim_dialog.c:167
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"Available when the model contains supported animation content."
+msgstr ""
+"위상에 따라 변하는 콘텐츠를 위한 애니메이션 컨트롤을 엽니다.\n"
+"모델에 지원되는 애니메이션 콘텐츠가 있을 때 사용할 수 있습니다."
+
+#: src/anim/anim_dialog.c:169
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"This model has nothing to animate: load a NEC input file carrying wire cards "
+"(GW, GA, GH), patch cards (SP, SC, SM), near-field cards (NE, NH), or a "
+"radiation pattern card (RP)."
+msgstr ""
+"위상에 따라 변하는 콘텐츠의 애니메이션 컨트롤을 엽니다.\n"
+"이 모델에는 애니메이션할 대상이 없습니다: 도선 카드(GW, GA, GH), 패치 카드"
+"(SP, SC, SM), 근접장 카드(NE, NH) 또는 방사 패턴 카드(RP)를 포함하는 NEC 입"
+"력 파일을 불러오십시오."
+
 #: src/args.c:113
 msgid "Usage: xnec2c [options] [<input-file-name>]"
 msgstr "사용법: xnec2c [옵션] [<입력 파일 이름>]"
@@ -2847,8 +3040,8 @@ msgstr "설정 파일이 존재하지 않거나 읽을 수 없습니다: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:366
-#: src/rdpattern_ui.c:374 src/rdpattern_ui.c:381 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:401
+#: src/rdpattern_ui.c:409 src/rdpattern_ui.c:416 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -2868,7 +3061,7 @@ msgstr "포크가 비활성화되었습니다!\n"
 msgid "invalid radiation pattern PNG format: %s\n"
 msgstr "잘못된 방사 패턴 PNG 형식입니다: %s\n"
 
-#: src/cairo/cairo_fit.c:118
+#: src/cairo/cairo_fit.c:121
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
@@ -2877,7 +3070,7 @@ msgstr ""
 "%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:237
+#: src/cairo/cairo_frame.c:254
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -2911,17 +3104,17 @@ msgstr "sbf()에서 세그먼트 연결 오류"
 msgid "Segment connection error in trio()"
 msgstr "trio()에서 세그먼트 연결 오류"
 
-#: src/callback_func.c:51
+#: src/callback_func.c:52
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "%s에 대한 이미지 캡처에 실패했습니다\n"
 
-#: src/callback_func.c:57
+#: src/callback_func.c:58
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "이미지 %s 저장에 실패했습니다: %s\n"
 
-#: src/callback_func.c:105
+#: src/callback_func.c:106
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -2929,7 +3122,7 @@ msgstr ""
 "주파수 루프가 실행 중입니다\n"
 "계산을 종료하시겠습니까?"
 
-#: src/callback_func.c:109
+#: src/callback_func.c:110
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -2937,54 +3130,54 @@ msgstr ""
 "주파수 루프가 실행 중입니다\n"
 "이 창을 닫으시겠습니까?"
 
-#: src/callback_func.c:270
+#: src/callback_func.c:271
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
 msgstr ""
 "여기 유형 %d에는 급전점이 없습니다: VSWR 및 임피던스 플롯이 숨겨집니다.\n"
 
-#: src/callback_func.c:332
+#: src/callback_func.c:340
 msgid "View Currents"
 msgstr "전류 보기"
 
-#: src/callback_func.c:334
+#: src/callback_func.c:342
 msgid "View Charges"
 msgstr "전하 보기"
 
-#: src/callback_func.c:336
+#: src/callback_func.c:344
 msgid "View Geometry"
 msgstr "기하 보기"
 
-#: src/callback_func.c:386
+#: src/callback_func.c:402
 msgid "PNG images (*.png)"
 msgstr "PNG 이미지 (*.png)"
 
-#: src/callback_func.c:388
+#: src/callback_func.c:404
 msgid "GNUplot files (*.gplot)"
 msgstr "GNUplot 파일 (*.gplot)"
 
-#: src/callback_func.c:390
+#: src/callback_func.c:406
 msgid "NEC2 files (*.nec)"
 msgstr "NEC2 파일 (*.nec)"
 
-#: src/callback_func.c:392
+#: src/callback_func.c:408
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Touchstone 1포트 파일 (*.s1p)"
 
-#: src/callback_func.c:394
+#: src/callback_func.c:410
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Touchstone 2포트 파일 (*.s2p)"
 
-#: src/callback_func.c:396
+#: src/callback_func.c:412
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "쉼표로 구분된 CSV 파일 (*.csv)"
 
-#: src/callbacks.c:98 src/callbacks.c:114 src/freqplots/freqplots_core.c:66
+#: src/callbacks.c:95 src/callbacks.c:111 src/freqplots/freqplots_core.c:67
 msgid "Antenna Temperature"
 msgstr "안테나 온도"
 
-#: src/callbacks.c:99
+#: src/callbacks.c:96
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -2992,7 +3185,7 @@ msgstr ""
 "모델에서 접지면이 감지되었습니다. Ta 결과가 접지 효과를 과다 계산합니다. 자"
 "유 공간 모델이 안테나 온도 평가의 표준입니다."
 
-#: src/callbacks.c:115
+#: src/callbacks.c:112
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3001,12 +3194,12 @@ msgstr ""
 "최대 이득: θ=%.0f° (XY 평면에서 %.0f°). 빔이 XY 평면에 있고 관측 고각이 스핀"
 "버튼으로 설정된 것을 가정합니다."
 
-#: src/callbacks.c:183 src/callbacks.c:521 src/callbacks.c:1951
-#: src/callbacks.c:2814
+#: src/callbacks.c:176 src/callbacks.c:510 src/callbacks.c:1661
+#: src/callbacks.c:1832
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "xnec2c를 종료하시겠습니까?"
 
-#: src/callbacks.c:287
+#: src/callbacks.c:280
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3014,7 +3207,7 @@ msgstr ""
 "주파수 루프가 실행 중인 동안에는\n"
 "새 NEC2 입력 파일을 생성할 수 없습니다"
 
-#: src/callbacks.c:324
+#: src/callbacks.c:317
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3022,21 +3215,21 @@ msgstr ""
 "주파수 루프가 실행 중인 동안에는\n"
 "새 NEC2 입력 파일을 열 수 없습니다"
 
-#: src/callbacks.c:443
+#: src/callbacks.c:436
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c 기하 최적화기"
 
-#: src/callbacks.c:444
+#: src/callbacks.c:437
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "xnec2c가 inotify 지원 없이 빌드되었습니다: 최적화기를 활성화할 수 없습니다."
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c 최적화기"
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3046,83 +3239,21 @@ msgstr ""
 "때 수정 시 입력 파일을 다시 로드하고 재계산합니다. \"파일->최적화 설정\"에서 "
 "쓰기용 파일을 선택하십시오."
 
-#: src/callbacks.c:998 src/callbacks.c:1318 src/callbacks.c:2840
+#: src/callbacks.c:991 src/callbacks.c:1311 src/callbacks.c:1858
 msgid "Are you sure you wish to close this window?"
 msgstr "이 창을 닫으시겠습니까?"
 
-#: src/callbacks.c:1826
+#: src/callbacks.c:1536
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "이 디스플레이에서 OpenGL을 사용할 수 없습니다. 렌더러를 활성화할 수 없습니"
 "다.\n"
 
-#: src/callbacks.c:2038
-msgid ""
-"Read the vertical and horizontal gain selections against the spherical "
-"basis, so vertical is the theta direction and horizontal is the phi "
-"direction."
-msgstr ""
-"수직과 수평 이득 선택을 구면 기준에 대해 해석하며, 수직은 θ 방향이고 수평은 "
-"φ 방향입니다."
-
-#: src/callbacks.c:2042
-msgid ""
-"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
-"polar and cross-polar directions, which hold one orientation across the "
-"whole pattern."
-msgstr ""
-"수직과 수평 이득 선택을 전체 패턴에서 하나의 방향을 유지하는 Ludwig-3 동일 편"
-"파 및 교차 편파 방향에 대해 해석합니다."
-
-#: src/callbacks.c:2081
-msgid ""
-"Select how the animated patch current flow is rendered.\n"
-"Mirrors the Visualization menu setting in the main window."
-msgstr ""
-"애니메이션 패치 전류 흐름이 렌더링되는 방식을 선택합니다.\n"
-"메인 창의 시각화 메뉴 설정을 반영합니다."
-
-#: src/callbacks.c:2083
-msgid ""
-"Patch flow animation requires surface patches (SP/SM cards) in the model."
-msgstr "패치 흐름 애니메이션에는 모델에 표면 패치(SP/SM 카드)가 필요합니다."
-
-#: src/callbacks.c:2098
-msgid ""
-"The polarization reference turns the vertical and horizontal gain pair "
-"only.  Select vertical or horizontal polarization in the radiation pattern "
-"window to use it; the total and circular selections read alike under either "
-"reference."
-msgstr ""
-"편파 기준은 수직/수평 이득 쌍에만 적용됩니다. 이를 사용하려면 방사 패턴 창에"
-"서 수직 또는 수평 편파를 선택합니다. 전체 및 원형 선택 항목은 두 기준에서 동"
-"일하게 표시됩니다."
-
-#: src/callbacks.c:2116
-msgid ""
-"The animation window drives the near-field vectors from the phase slider; "
-"close it to choose the static peak or instantaneous baseline."
-msgstr ""
-"애니메이션 창은 위상 슬라이더로 근접장 벡터를 구동합니다. 정적 피크 또는 순"
-"시 기준선을 선택하려면 창을 닫으십시오."
-
-#: src/callbacks.c:2646
-msgid "Animation"
-msgstr "애니메이션"
-
-#: src/callbacks.c:2647
-msgid ""
-"Animation requires wire currents or charges, surface patches (SP/SM NEC "
-"cards), or near-field data (NE/NH NEC cards)"
-msgstr ""
-"애니메이션에는 도선 전류 또는 전하, 표면 패치(SP/SM NEC 카드), 또는 근접장 데"
-"이터(NE/NH NEC 카드)가 필요합니다"
-
-#: src/callbacks.c:2776
+#: src/callbacks.c:1798
 msgid "No open NEC2 input file"
 msgstr "열린 NEC2 입력 파일 없음"
 
-#: src/callbacks.c:2871 src/callbacks.c:2901
+#: src/callbacks.c:1889 src/callbacks.c:1919
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3130,11 +3261,11 @@ msgstr ""
 "주파수 루프가 실행 중인 동안에는\n"
 "NEC2 편집기 데이터를 저장할 수 없습니다"
 
-#: src/callbacks.c:2883 src/callbacks.c:2909
+#: src/callbacks.c:1901 src/callbacks.c:1927
 msgid "untitled.nec"
 msgstr "제목없음.nec"
 
-#: src/callbacks.c:3374 src/callbacks.c:3394 src/callbacks.c:3414
+#: src/callbacks.c:2388 src/callbacks.c:2408 src/callbacks.c:2428
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3143,10 +3274,15 @@ msgstr ""
 "주파수(FR) 카드가 아직 처리되지 않았습니다.\n"
 "먼저 NEC2 편집기 데이터를 저장해야 할 수 있습니다."
 
-#: src/chroma/chroma.c:288
+#: src/chroma/chroma.c:315
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "잘못된 색상 투영 %d, 순시값 사용\n"
+
+#: src/chroma/chroma.c:627
+#, c-format
+msgid "invalid segment scale encoding %d, using model radius\n"
+msgstr "잘못된 세그먼트 스케일 인코딩 %d, 모델 반경 사용\n"
 
 #: src/chroma/chroma_source.c:334
 msgid "far-field contribution needs radiation pattern data\n"
@@ -3358,22 +3494,17 @@ msgstr "첫 번째 포인트 Theta"
 msgid "Increment in R (m)"
 msgstr "R 증분 (m)"
 
-#: src/color/color_tone.c:125
-#, c-format
-msgid "invalid color tone %d, using power\n"
-msgstr "잘못된 색상 계열 %d, 거듭제곱 사용\n"
-
-#: src/config_hooks.c:91
+#: src/color/color_config_hooks.c:131
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr ""
 "이 오버레이는 도선 전류 세그먼트에서 파생됩니다. 이 모델에는 세그먼트가 없습"
 "니다."
 
-#: src/config_hooks.c:116
+#: src/color/color_config_hooks.c:156
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr "이동하는 파동의 마루를 밝은 코멧 머리로 강조 표시합니다."
 
-#: src/config_hooks.c:117
+#: src/color/color_config_hooks.c:157
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3381,9 +3512,14 @@ msgstr ""
 "코멧은 애니메이션되는 파동의 마루를 따라 이동합니다. 이 투영은 위상 이동이 없"
 "는 정적 판독입니다."
 
-#: src/config_hooks.c:120
+#: src/color/color_config_hooks.c:160
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr "도선을 따라 전류의 마디(청록색)와 배(빨간색)를 표시합니다."
+
+#: src/color/color_tone.c:107
+#, c-format
+msgid "invalid color tone %d, using power\n"
+msgstr "잘못된 색상 계열 %d, 거듭제곱 사용\n"
 
 #: src/expr_edit.h:34
 msgid ""
@@ -3431,39 +3567,39 @@ msgid ""
 "result"
 msgstr "주파수 스윕을 첫 단계로 재설정하고 계산된 모든 결과를 삭제합니다"
 
-#: src/freqplots/freqplots_core.c:60
+#: src/freqplots/freqplots_core.c:61
 msgid "Gain Direction"
 msgstr "이득 방향"
 
-#: src/freqplots/freqplots_core.c:61
+#: src/freqplots/freqplots_core.c:62
 msgid "Viewer Gain"
 msgstr "뷰어 이득"
 
-#: src/freqplots/freqplots_core.c:63
+#: src/freqplots/freqplots_core.c:64
 msgid "Impedance (real/imag)"
 msgstr "임피던스 (실수/허수)"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:65
 msgid "Impedance (mag/phase)"
 msgstr "임피던스 (크기/위상)"
 
-#: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/smith_graph.c:512
+#: src/freqplots/freqplots_core.c:66 src/freqplots/graphs/smith_graph.c:512
 msgid "Smith Chart"
 msgstr "스미스 차트"
 
-#: src/freqplots/freqplots_core.c:67
+#: src/freqplots/freqplots_core.c:68
 msgid "Solver Conditioning"
 msgstr "솔버 컨디셔닝"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:471
+#: src/freqplots/freqplots_core.c:479
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:769
+#: src/freqplots/freqplots_core.c:739
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3505,7 +3641,7 @@ msgstr ""
 "    • 원시 최대 이득, 이득 방향, F/B\n"
 "    • 안테나 온도, G/T"
 
-#: src/freqplots/freqplots_core.c:802
+#: src/freqplots/freqplots_core.c:772
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3513,7 +3649,7 @@ msgstr ""
 "급전점 포트가 하나만 정의되어 있습니다. 모델에 EX 여기 카드를 추가로 정의하"
 "면 여러 포트 중에서 선택할 수 있습니다."
 
-#: src/freqplots/freqplots_core.c:805
+#: src/freqplots/freqplots_core.c:775
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3521,7 +3657,7 @@ msgstr ""
 "포트를 선택하려면 순 이득 플롯 설정을 활성화하십시오. 활성화하지 않으면 이 그"
 "래프는 포트를 따르지 않습니다."
 
-#: src/freqplots/freqplots_core.c:921
+#: src/freqplots/freqplots_core.c:893
 msgid "Not available: excitation defines no feedpoint"
 msgstr "사용할 수 없음: 여기가 급전점을 정의하지 않음"
 
@@ -3537,7 +3673,7 @@ msgstr "Draw_Graph(): 포인트 메모리 할당 실패"
 msgid "This theme has no inverted variant"
 msgstr "이 테마에는 반전 버전이 없습니다"
 
-#: src/freqplots/freqplots_theme_menu.c:95
+#: src/freqplots/freqplots_theme_menu.c:120
 msgid "_Invert"
 msgstr "반전(_I)"
 
@@ -4113,20 +4249,20 @@ msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() 주파수 의존 검사 건너뜀 - 주파수 데이터 없음\n"
 
-#: src/gnuplot.c:42
+#: src/gnuplot.c:43
 msgid "Gnuplot Data"
 msgstr "Gnuplot 데이터"
 
-#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
+#: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "저장할 수 없습니다: 주파수 스윕이 완료되지 않았습니다"
 
-#: src/gnuplot.c:56
+#: src/gnuplot.c:57
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# 기준 임피던스 Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:58
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4136,18 +4272,18 @@ msgstr ""
 "zimag를 플롯합니다:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:59
+#: src/gnuplot.c:60
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92 src/gnuplot.c:102
+#: src/gnuplot.c:93 src/gnuplot.c:103
 msgid "Touchstone Data"
 msgstr "Touchstone 데이터"
 
-#: src/gnuplot.c:103
+#: src/gnuplot.c:104
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4155,46 +4291,46 @@ msgstr ""
 "저장할 수 없습니다: S-parameter는 급전점 임피던스가 필요하지만, 이 여기는 이"
 "를 제공하지 않습니다"
 
-#: src/gnuplot.c:119
+#: src/gnuplot.c:120
 #, c-format
 msgid "! Reference impedance Z0 = %.2f Ohm\n"
 msgstr "! 기준 임피던스 Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:161
+#: src/gnuplot.c:162
 msgid "CSV Data"
 msgstr "CSV 데이터"
 
-#: src/gnuplot.c:244
+#: src/gnuplot.c:245
 #, c-format
 msgid "# Near E field\n"
 msgstr "# 근접 E 필드\n"
 
-#: src/gnuplot.c:271
+#: src/gnuplot.c:272
 #, c-format
 msgid "# Near H field\n"
 msgstr "# 근접 H 필드\n"
 
-#: src/gnuplot.c:311
+#: src/gnuplot.c:312
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# 포인팅 벡터\n"
 
-#: src/gnuplot.c:370
+#: src/gnuplot.c:371
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# 방사 패턴\n"
 
-#: src/gnuplot.c:508
+#: src/gnuplot.c:509
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# 구조 패치 세그먼트\n"
 
-#: src/gnuplot.c:543
+#: src/gnuplot.c:544
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# 구조 도선 세그먼트\n"
 
-#: src/gnuplot.c:573
+#: src/gnuplot.c:574
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4203,11 +4339,11 @@ msgstr ""
 "보기 명령: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
 "close\"\n"
 
-#: src/gnuplot.c:585
+#: src/gnuplot.c:586
 msgid "Save Currents and Charges to CSV"
 msgstr "전류 및 전하를 CSV로 저장"
 
-#: src/gnuplot.c:586
+#: src/gnuplot.c:587
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4215,11 +4351,11 @@ msgstr ""
 "메인 xnec2c 창에서 \"전류\" 또는 \"전하\"를 클릭하여 전류 데이터를 활성화해"
 "야 합니다."
 
-#: src/gnuplot.c:651 src/gnuplot.c:661
+#: src/gnuplot.c:652 src/gnuplot.c:662
 msgid "Save Patch Currents to CSV"
 msgstr "패치 전류를 CSV로 저장"
 
-#: src/gnuplot.c:652
+#: src/gnuplot.c:653
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4227,7 +4363,7 @@ msgstr ""
 "메인 xnec2c 창에서 \"전류\" 또는 \"전하\"를 클릭하여 전류 데이터를 활성화해"
 "야 합니다."
 
-#: src/gnuplot.c:662
+#: src/gnuplot.c:663
 msgid "No surface patches in this model."
 msgstr "이 모델에 표면 패치가 없습니다."
 
@@ -4730,97 +4866,97 @@ msgstr ""
 "습니다.\n"
 
 # xnec2c-exempt: name
-#: src/interface.c:280
+#: src/interface.c:279
 #, c-format
 msgid "xnec2c %s: %s"
 msgstr ""
 
-#: src/interface.c:373
+#: src/interface.c:372
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade 로드 실패: %s\n"
 
-#: src/main.c:126
+#: src/main.c:127
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s 윈도잉 백엔드 감지됨\n"
 
-#: src/main.c:134
+#: src/main.c:135
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch와 --optimize는 함께 사용할 수 없습니다.\n"
 
-#: src/main.c:143
+#: src/main.c:144
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png에는 --batch가 필요합니다\n"
 
-#: src/main.c:159
+#: src/main.c:160
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "입력 파일 경로 이름이 너무 깁니다 ( > %d자 )\n"
 
-#: src/main.c:166
+#: src/main.c:167
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "예기치 않은 인수 '%s'는 .nec 파일이 아닌 것 같습니다\n"
 
-#: src/main.c:173
+#: src/main.c:174
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "예기치 않은 인수: %s\n"
 
-#: src/main.c:179
+#: src/main.c:180
 msgid "batch mode requires an input file\n"
 msgstr "배치 모드에는 입력 파일이 필요합니다\n"
 
-#: src/main.c:189
+#: src/main.c:190
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "디스플레이를 열 수 없습니다: 실행 중인 X11 또는 Wayland 세션이 필요합니다\n"
 
-#: src/main.c:208
+#: src/main.c:213
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d개 프로세서에 걸쳐 %d개 작업을 포크합니다.\n"
 
-#: src/main.c:221 src/main.c:229
+#: src/main.c:226 src/main.c:234
 msgid "exiting after fatal error: pipe() failed"
 msgstr "치명적 오류 후 종료: pipe() 실패"
 
-#: src/main.c:238
+#: src/main.c:243
 msgid "exiting after fatal error: fork() failed"
 msgstr "치명적 오류 후 종료: fork() 실패"
 
-#: src/main.c:833
+#: src/main.c:838
 msgid "exiting via user interrupt\n"
 msgstr "사용자 인터럽트로 종료 중\n"
 
-#: src/main.c:837
+#: src/main.c:842
 msgid "segmentation fault, exiting\n"
 msgstr "세그멘테이션 오류, 종료 중\n"
 
-#: src/main.c:841
+#: src/main.c:846
 msgid "floating point exception, exiting\n"
 msgstr "부동 소수점 예외, 종료 중\n"
 
-#: src/main.c:845
+#: src/main.c:850
 msgid "abort signal received, exiting\n"
 msgstr "중단 신호 수신, 종료 중\n"
 
-#: src/main.c:849
+#: src/main.c:854
 msgid "termination request received, exiting\n"
 msgstr "종료 요청 수신, 종료 중\n"
 
-#: src/main.c:859
+#: src/main.c:864
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "포크되지 않음, pid %d의 SIGCHLD 무시\n"
 
-#: src/main.c:867
+#: src/main.c:872
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "자식 프로세스 pid %d 종료됨\n"
 
-#: src/main.c:876
+#: src/main.c:881
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "기본 종료 신호: %d\n"
@@ -5312,19 +5448,19 @@ msgstr ""
 msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "레이블 텍스처 아틀라스 생성됨 (ID=%u)\n"
 
-#: src/opengl-engine/opengl_axes.c:156
+#: src/opengl-engine/opengl_axes.c:161
 msgid "Failed to load axes line shader\n"
 msgstr "축 선 셰이더 로드 실패\n"
 
-#: src/opengl-engine/opengl_axes.c:189
+#: src/opengl-engine/opengl_axes.c:192
 msgid "Axes renderer initialized\n"
 msgstr "축 렌더러 초기화됨\n"
 
-#: src/opengl-engine/opengl_axes.c:193
+#: src/opengl-engine/opengl_axes.c:196
 msgid "Failed to load text shaders\n"
 msgstr "텍스트 셰이더 로드 실패\n"
 
-#: src/opengl-engine/opengl_cairo_overlay.c:60
+#: src/opengl-engine/opengl_cairo_overlay.c:62
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "cairo 오버레이 셰이더 로드 실패\n"
 
@@ -5332,53 +5468,62 @@ msgstr "cairo 오버레이 셰이더 로드 실패\n"
 msgid "Failed to create cairo overlay base\n"
 msgstr "cairo 오버레이 베이스 생성 실패\n"
 
-#: src/opengl-engine/opengl_ground_plane.c:103
+#: src/opengl-engine/opengl_ground_plane.c:105
 msgid "Failed to load ground plane shaders\n"
 msgstr "접지면 셰이더 로드 실패\n"
 
 #: src/opengl-engine/opengl_renderer.c:55
 #, c-format
+msgid "Shader declares no version directive: %s\n"
+msgstr "셰이더에 버전 지시문이 없습니다: %s\n"
+
+#: src/opengl-engine/opengl_renderer.c:99
+#, c-format
 msgid "Failed to load shader: %s (%s)\n"
 msgstr "셰이더 로드 실패: %s (%s)\n"
 
-#: src/opengl-engine/opengl_renderer.c:84
+#: src/opengl-engine/opengl_renderer.c:149
 #, c-format
 msgid "Shader compile error: %s: %s\n"
 msgstr "셰이더 컴파일 오류: %s: %s\n"
 
-#: src/opengl-engine/opengl_renderer.c:126
+#: src/opengl-engine/opengl_renderer.c:190
 #, c-format
 msgid "Shader link failed: %s + %s\n"
 msgstr "셰이더 링크 실패: %s + %s\n"
 
-#: src/opengl-engine/opengl_view.c:184
+#: src/opengl-engine/opengl_view.c:222
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "OpenGL 컨텍스트 오류 — 이 디스플레이에서 사용 가능한 OpenGL 구현이 없습니다\n"
 
-#: src/opengl-engine/opengl_view.c:197
+#: src/opengl-engine/opengl_view.c:230
+msgid "Disabling OpenGL: shader catalog failed\n"
+msgstr "OpenGL 비활성화: 셰이더 카탈로그 실패\n"
+
+#: src/opengl-engine/opengl_view.c:243
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL 비활성화: 씬 셰이더 실패\n"
 
-#: src/opengl-engine/opengl_view.c:212
+#: src/opengl-engine/opengl_view.c:258
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL 비활성화: 오버레이 셰이더 실패\n"
 
-#: src/opengl-engine/opengl_view.c:224
+#: src/opengl-engine/opengl_view.c:270
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL 비활성화: 축 렌더러 실패\n"
 
-#: src/opengl-engine/opengl_view.c:253
+#: src/opengl-engine/opengl_view.c:299
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL 비활성화: 접지면 셰이더 실패\n"
 
-#: src/opengl-engine/opengl_view.c:275
+#: src/opengl-engine/opengl_view.c:321
 #, c-format
 msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "렌더링 가능 개수 %u이(가) MAX_RENDERABLES (%d)를 초과\n"
 
-#: src/opengl-engine/opengl_view.c:354
+#: src/opengl-engine/opengl_view.c:402
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL 비활성화: 필 합성 셰이더 실패\n"
 
@@ -5399,10 +5544,6 @@ msgstr "MSAA 프레임버퍼 불완전\n"
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA resolve 프레임버퍼 불완전\n"
 
-#: src/opengl-engine/opengl_view_overlay.c:326
-msgid "Failed to load overlay shaders\n"
-msgstr "오버레이 셰이더 로드 실패\n"
-
 #: src/opengl-engine/opengl_view_peel.c:254
 #, c-format
 msgid "Peel FBO %d incomplete\n"
@@ -5421,15 +5562,11 @@ msgstr "필 누적 FBO 불완전\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "레이어 깊이 FBO 불완전\n"
 
-#: src/opengl-engine/opengl_view_render.c:427
+#: src/opengl-engine/opengl_view_render.c:389
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "투명 렌더링 항목 건너뜀: 필 FBO 사용 불가\n"
 
-#: src/opengl-engine/opengl_view_scene.c:297
-msgid "Failed to load shaders\n"
-msgstr "셰이더 로드 실패\n"
-
-#: src/opengl/opengl_rdpattern.c:355
+#: src/opengl/opengl_rdpattern.c:345
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: 잘못된 그리기 스타일 %d, 표면 사용\n"
@@ -5713,43 +5850,52 @@ msgid ""
 "sr\n"
 msgstr "평균 이득: %.4f (%.2f dBi), 효율: %.1f%%, 입체각: %.4f * pi sr\n"
 
-#: src/rc_config.c:885
+#: src/rc_config.c:958
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() 실패: %s\n"
 
-#: src/rc_config.c:889
+#: src/rc_config.c:962
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "환경 변수 HOME이 정의되지 않음, %s 사용\n"
 
-#: src/rc_config.c:974
+#: src/rc_config.c:1047
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
 msgstr "%s (locale=%s): %d/%lu자만 일치, 다른 로캘 시도: %s\n"
 
-#: src/rc_config.c:1193
+#: src/rc_config.c:1266
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "창: x=%-5d y=%-5d w=%-5d h=%-5d  제목: \"%s\"\n"
 
-#: src/rc_config.c:1227
+#: src/rc_config.c:1300
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: 응용 프로그램 버전 읽기 중 EOF.\n"
 
-#: src/rc_config.c:1233
+#: src/rc_config.c:1306
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "기존 설정 파일 버전이 다름: %s != %s\n"
 
-#: src/rc_config.c:1367
+#: src/rc_config.c:1353
+#, c-format
+msgid ""
+"gain readouts are scaled to %s, restored from the previous session; select "
+"Total Gain to read total gain\n"
+msgstr ""
+"이득 표시가 %s로 스케일되어 있으며 이전 세션에서 복원되었습니다. 전체 이득을 "
+"읽으려면 전체 이득을 선택하십시오\n"
+
+#: src/rc_config.c:1463
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "%s에 대한 stat 실패: %s\n"
 
-#: src/rc_config.c:1373
+#: src/rc_config.c:1469
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5758,46 +5904,88 @@ msgstr ""
 "%s 디렉터리 권한을 4e62893b에서 도입된 버그로 인해 0%o에서 0%o로 수정했습니"
 "다.\n"
 
-#: src/rc_config.c:1404
+#: src/rc_config.c:1500
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: 구문 분석되지 않은 줄: %s\n"
 
-#: src/rc_config.c:1410
+#: src/rc_config.c:1506
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: %s에 대한 조기 파일 종료: %s \n"
 
-#: src/rc_config.c:1435
+#: src/rc_config.c:1531
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: 구문 분석 오류 (%s): %s \n"
 
-#: src/rc_config.c:1449
+#: src/rc_config.c:1545
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr "설정에서 유효하지 않은 하늘 모델 인덱스 %d, 기본값으로 재설정\n"
 
-#: src/rc_config.c:1455
+#: src/rc_config.c:1551
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr "설정에서 유효하지 않은 지구 모델 인덱스 %d, 기본값으로 재설정\n"
 
-#: src/rc_config.c:1461
+#: src/rc_config.c:1557
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr "설정에서 유효하지 않은 보간 방법 %d, 기본값으로 재설정\n"
 
-#: src/rc_config.c:1636
+#: src/rc_config.c:1565
+#, c-format
+msgid "Invalid flow visualization mode %d in config, resetting to default\n"
+msgstr "설정의 흐름 시각화 모드 %d이(가) 잘못되어 기본값으로 재설정합니다\n"
+
+#: src/rc_config.c:1745
 msgid "batch mode: skipping configuration save\n"
 msgstr "배치 모드: 설정 저장을 건너뜀\n"
 
-#: src/rc_config.c:1643
+#: src/rc_config.c:1752
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "xnec2c 설정 파일 %s을(를) 열 수 없음: %s\n"
 
-#: src/rdpattern_ui.c:38
+#: src/rdpattern_noise_menu.c:37
+msgid "Read the noise temperature at the nearest tabulated frequency."
+msgstr "가장 가까운 표 주파수에서 잡음 온도를 읽습니다."
+
+#: src/rdpattern_noise_menu.c:39
+msgid ""
+"Interpolate the noise temperature between tabulated frequencies in log-log "
+"space, clamped at the table edges."
+msgstr ""
+"표의 주파수 사이에서 로그-로그 공간으로 잡음 온도를 보간하며, 표의 가장자리에"
+"서 고정됩니다."
+
+#: src/rdpattern_noise_menu.c:133
+msgid "Available while a selected sky or earth model reads a frequency table."
+msgstr ""
+"선택된 하늘 모델 또는 대지 모델이 주파수 표를 읽는 동안 사용할 수 있습니다."
+
+#: src/rdpattern_noise_menu.c:135
+msgid ""
+"The selected sky and earth models resolve by an intrinsic method; select a "
+"table-based model to enable."
+msgstr ""
+"선택된 하늘 모델과 대지 모델은 고유한 방법으로 계산됩니다. 활성화하려면 표 기"
+"반 모델을 선택하십시오."
+
+#: src/rdpattern_noise_menu.c:296
+msgid "Sky Model"
+msgstr "하늘 모델"
+
+#: src/rdpattern_noise_menu.c:303
+msgid "Earth Model"
+msgstr "대지 모델"
+
+#: src/rdpattern_noise_menu.c:311
+msgid "Interpolation"
+msgstr "보간"
+
+#: src/rdpattern_ui.c:39
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5811,7 +5999,23 @@ msgstr ""
 "H-필드 애니메이션: NEC 파일에 NH 카드 추가\n"
 "포인팅 벡터: NE 및 NH 카드 모두 추가"
 
-#: src/rdpattern_ui.c:94
+#: src/rdpattern_ui.c:59
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Close the animation window to enable this setting."
+msgstr ""
+"정적 근접장 벡터 표시 방식을 선택합니다.\n"
+"애니메이션 창을 닫으면 이 설정을 사용할 수 있습니다."
+
+#: src/rdpattern_ui.c:61
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Applies while the animation window is closed."
+msgstr ""
+"정적 근접장 벡터 표시 방식을 선택합니다.\n"
+"애니메이션 창이 닫혀 있는 동안 적용됩니다."
+
+#: src/rdpattern_ui.c:129
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -5819,24 +6023,24 @@ msgid ""
 msgstr ""
 "Scale_Gain_Resolved: gain_style %d 범위 [0..%d] 초과, GS_LINP로 기본 설정\n"
 
-#: src/rdpattern_ui.c:516
+#: src/rdpattern_ui.c:544
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "현재 보기 각도에서 뷰어 방향의 이득입니다."
 
-#: src/rdpattern_ui.c:518
+#: src/rdpattern_ui.c:546
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "현재 보기 각도에서 뷰어 방향의 밝기 온도입니다."
 
-#: src/rdpattern_ui.c:538 src/rdpattern_ui.c:544
+#: src/rdpattern_ui.c:566 src/rdpattern_ui.c:572
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
 msgstr ""
 "관측 고각. 안테나 온도 평가를 위한 하늘/지면 경계를 이동합니다. 0° = 수평선."
 
-#: src/rdpattern_ui.c:541 src/rdpattern_ui.c:547
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5844,13 +6048,13 @@ msgstr ""
 "안테나 온도에 대한 관측 고각.\n"
 "이득 스타일 → 잡음 온도를 선택하여 활성화합니다."
 
-#: src/rdpattern_ui.c:550
+#: src/rdpattern_ui.c:578
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr "잡음 온도 모델에 대한 독립적인 하늘, 지구 및 보간 선택기입니다."
 
-#: src/rdpattern_ui.c:552
+#: src/rdpattern_ui.c:580
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5858,71 +6062,71 @@ msgstr ""
 "하늘 및 지구 잡음 온도 모델.\n"
 "이득 스타일 → 잡음 온도를 선택하여 활성화합니다."
 
-#: src/rdpattern_ui.c:846
+#: src/rdpattern_ui.c:889
 msgid "Total Gain"
 msgstr "총 이득"
 
-#: src/rdpattern_ui.c:847
+#: src/rdpattern_ui.c:890
 msgid "Horizontal Polarization"
 msgstr "수평 편파"
 
-#: src/rdpattern_ui.c:848
+#: src/rdpattern_ui.c:891
 msgid "Vertical Polarization"
 msgstr "수직 편파"
 
-#: src/rdpattern_ui.c:849
+#: src/rdpattern_ui.c:892
 msgid "RH Circular Polarization"
 msgstr "우선 원형 편파"
 
-#: src/rdpattern_ui.c:850
+#: src/rdpattern_ui.c:893
 msgid "LH Circular Polarization"
 msgstr "좌선 원형 편파"
 
-#: src/rdpattern_ui.c:855
+#: src/rdpattern_ui.c:944
 msgid "Linear Power"
 msgstr "선형 전력"
 
-#: src/rdpattern_ui.c:856
+#: src/rdpattern_ui.c:945
 msgid "Linear Voltage"
 msgstr "선형 전압"
 
-#: src/rdpattern_ui.c:857
+#: src/rdpattern_ui.c:946
 msgid "ARRL Scale"
 msgstr "ARRL 스케일"
 
-#: src/rdpattern_ui.c:858
+#: src/rdpattern_ui.c:947
 msgid "Logarithmic Scale"
 msgstr "로그 스케일"
 
-#: src/rdpattern_ui.c:859
+#: src/rdpattern_ui.c:948
 msgid "Noise Temperature"
 msgstr "잡음 온도"
 
-#: src/rdpattern_ui.c:860
+#: src/rdpattern_ui.c:949
 msgid "Noise Temp (log scale)"
 msgstr "잡음 온도 (로그 스케일)"
 
-#: src/rdpattern_ui.c:872
+#: src/rdpattern_ui.c:967
 msgid "Radiation Pattern: - "
 msgstr "방사 패턴: - "
 
-#: src/rdpattern_ui.c:892
+#: src/rdpattern_ui.c:991
 msgid "Near Fields:"
 msgstr "근접장:"
 
-#: src/rdpattern_ui.c:894
+#: src/rdpattern_ui.c:993
 msgid " - E Field"
 msgstr " - E 필드"
 
-#: src/rdpattern_ui.c:896
+#: src/rdpattern_ui.c:995
 msgid " - H Field"
 msgstr " - H 필드"
 
-#: src/rdpattern_ui.c:898
+#: src/rdpattern_ui.c:997
 msgid " - Poynting Vector"
 msgstr " - 포인팅 벡터"
 
-#: src/rdpattern_ui.c:908
+#: src/rdpattern_ui.c:1008
 msgid "Frequency Data Plots - "
 msgstr "주파수 데이터 플롯 - "
 
@@ -5944,22 +6148,22 @@ msgstr "render_fit_solve: 맞출 형상이 없습니다\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "최적화 루프 미완료, 중간 다시 그리기 억제.\n"
 
-#: src/settings/render_settings_common.c:116
+#: src/settings/render_settings_common.c:119
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: glade 로드 실패: %s\n"
 
-#: src/settings/render_settings_common.c:126
+#: src/settings/render_settings_common.c:129
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: opengl glade 로드 실패: %s\n"
 
-#: src/settings/render_settings_common.c:136
+#: src/settings/render_settings_common.c:139
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: cairo glade 로드 실패: %s\n"
 
-#: src/settings/render_settings_common.c:149
+#: src/settings/render_settings_common.c:152
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init: glade에서 render_settings_window 가져오기 실패\n"
 
@@ -6066,37 +6270,37 @@ msgstr ""
 "이 매개변수가 NEC 모델 값을 재정의할지 제어합니다.\n"
 "독립적으로 제어하려면 Opt 체크를 해제하십시오."
 
-#: src/themes/theme.c:140
+#: src/themes/theme.c:135
 #, c-format
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "테마 '%s' 역할 '%s'의 색상이 잘못됨, 레거시 기본값 사용\n"
 
-#: src/themes/theme.c:223
+#: src/themes/theme.c:218
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "theme: 리소스 %s을(를) 로드할 수 없음: %s\n"
 
-#: src/themes/theme.c:233
+#: src/themes/theme.c:228
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "theme: 리소스 %s을(를) 구문 분석할 수 없음: %s\n"
 
-#: src/themes/theme.c:259
+#: src/themes/theme.c:254
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr "theme: %s을(를) 구문 분석할 수 없음, 내장 기본값 사용\n"
 
-#: src/themes/theme.c:388
+#: src/themes/theme.c:377
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "테마 '%s'에는 반전 버전이 없음, 기본값 사용\n"
 
-#: src/themes/theme.c:396
+#: src/themes/theme.c:385
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "테마 '%s'를 찾을 수 없음, 레거시 사용\n"
 
-#: src/themes/theme.c:468
+#: src/themes/theme.c:428
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "너비 '%s'이(가) 잘못됨, 현재 값 유지\n"
@@ -6155,7 +6359,7 @@ msgstr ""
 msgid "%s:\n"
 msgstr ""
 
-#: src/validation_dump.c:34
+#: src/validation_dump.c:35
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6163,136 +6367,136 @@ msgstr ""
 "validation: nec2-builtin mathlib을 사용할 수 없음; 수치 결과가 참조값과 다를 "
 "수 있음\n"
 
-#: src/validation_dump.c:39
+#: src/validation_dump.c:40
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr "validation: 재현성을 위해 mathlib을 nec2-builtin으로 강제 설정함\n"
 
-#: src/validation_dump.c:58
+#: src/validation_dump.c:59
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr "validation: 재현성을 위해 안테나 온도 모델과 고각을 강제 설정함\n"
 
-#: src/validation_dump.c:68
+#: src/validation_dump.c:69
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "validation: 재현성을 위해 편파를 전체로 강제 설정함\n"
 
-#: src/validation_dump.c:87
+#: src/validation_dump.c:88
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
 msgstr "validation: 재현성을 위해 구조 뷰어를 기본 방향으로 재설정함\n"
 
-#: src/validation_dump.c:614 src/validation_dump.c:620
+#: src/validation_dump.c:621 src/validation_dump.c:627
 msgid "Validation Tree"
 msgstr "검증 트리"
 
-#: src/validation_dump.c:614
+#: src/validation_dump.c:621
 msgid "Cannot save: frequency loop not done"
 msgstr "저장할 수 없음: 주파수 루프가 완료되지 않았습니다"
 
-#: src/validation_dump.c:620
+#: src/validation_dump.c:627
 msgid "Cannot create output directory"
 msgstr "출력 디렉터리를 생성할 수 없습니다"
 
-#: src/validation_dump.c:652
+#: src/validation_dump.c:659
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "검증 트리를 다음 위치에 기록함: %s\n"
 
-#: src/xnec2c.c:306
+#: src/xnec2c.c:304
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
 "%+12.5Ej\n"
 msgstr "파일의 복소 유전 상수: %12.5E%+12.5Ej, 요청됨: %12.5E%+12.5Ej\n"
 
-#: src/xnec2c.c:309
+#: src/xnec2c.c:307
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters(): 접지면 매개변수 오류"
 
-#: src/xnec2c.c:733
+#: src/xnec2c.c:731
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f초. (%s)\n"
 
-#: src/xnec2c.c:1077
+#: src/xnec2c.c:1075
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
 msgstr "스텝 %d 경합: 디스패치됨 %.6f MHz, 현재 %.6f MHz; 재계산 예정\n"
 
-#: src/xnec2c.c:1203
+#: src/xnec2c.c:1201
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "자식 프로세스 %d: 포크된 수집 중 파이프 fd가 유효하지 않습니다\n"
 
-#: src/xnec2c.c:1256
+#: src/xnec2c.c:1254
 msgid "Failed to read data from forked child\n"
 msgstr "포크된 자식 프로세스에서 데이터 읽기 실패\n"
 
-#: src/xnec2c.c:1530
+#: src/xnec2c.c:1528
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "가장 가까운 단계 %g MHz가 요청한 %g MHz와 다릅니다\n"
 
-#: src/xnec2c.c:1534
+#: src/xnec2c.c:1532
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "스윕 후 주파수를 %.4f MHz로 설정했습니다(VSWR %.2f)\n"
 
-#: src/xnec2c.c:1572
+#: src/xnec2c.c:1570
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "주파수 루프 경과 시간: %f초. (%s)\n"
 
-#: src/xnec2c.c:1624
+#: src/xnec2c.c:1622
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "배치 캔버스 %d이(가) %dx%d 크기에서 프레임을 그리지 않았습니다\n"
 
-#: src/xnec2c.c:1789
+#: src/xnec2c.c:1787
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "방사 패턴 PNG 캡처: %s에 대해 계산된 스텝이 없습니다\n"
 
-#: src/xnec2c.c:1861
+#: src/xnec2c.c:1859
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s에 대한 방사 패턴 PNG 캡처에 실패했습니다\n"
 
-#: src/xnec2c.c:1867
+#: src/xnec2c.c:1865
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s에 대한 방사 패턴 PNG 저장에 실패했습니다: %s\n"
 
-#: src/xnec2c.c:1872
+#: src/xnec2c.c:1870
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "방사 패턴 PNG를 기록했습니다: %s\n"
 
-#: src/xnec2c.c:1909
+#: src/xnec2c.c:1907
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "여러 방사 패턴 PNG 형식은 .png 파일 이름이 필요합니다: %s\n"
 
-#: src/xnec2c.c:2014
+#: src/xnec2c.c:2012
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "스윕은 각각 %d개 스레드인 %d개 워커를 실행합니다\n"
 
-#: src/xnec2c.c:2306
+#: src/xnec2c.c:2304
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread 시작 실패\n"
 
-#: src/xnec2c.c:2485
+#: src/xnec2c.c:2483
 msgid "Frequency Sweep"
 msgstr "주파수 스윕"
 
-#: src/xnec2c.c:2486
+#: src/xnec2c.c:2484
 msgid "Recalculate the frequency sweep?"
 msgstr "주파수 스윕을 다시 계산하시겠습니까?"
 
-#: src/xnec2c.c:2487
+#: src/xnec2c.c:2485
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

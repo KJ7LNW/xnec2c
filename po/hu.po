@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-23 22:47-0700\n"
+"POT-Creation-Date: 2026-08-31 13:53-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -34,11 +34,58 @@ msgstr "Numerikus elektromágneses kód szoftver"
 msgid "nec2;em;simulator;"
 msgstr "nec2;em;szimulátor;"
 
-#: resources/animate.glade:85
+#: resources/animate.glade:136
+msgid "Total"
+msgstr "Összesen"
+
+#: resources/animate.glade:146
+msgid "Horizontal"
+msgstr "Vízszintes"
+
+#: resources/animate.glade:156
+msgid "Vertical"
+msgstr "Függőleges"
+
+#: resources/animate.glade:166
+msgid "Right Hand"
+msgstr "Jobb kéz"
+
+#: resources/animate.glade:176
+msgid "Left Hand"
+msgstr "Bal kéz"
+
+#: resources/animate.glade:191 resources/animate.glade:272
+#: resources/animate.glade:375
 msgid "Animated"
 msgstr "Animált"
 
-#: resources/animate.glade:92
+#: resources/animate.glade:198 resources/xnec2c.glade:11075
+msgid "_Reference Phase"
+msgstr "_Referenciafázis"
+
+#: resources/animate.glade:209 resources/xnec2c.glade:11086
+msgid "_LIC Texture"
+msgstr "_LIC textúra"
+
+#: resources/animate.glade:220 resources/xnec2c.glade:11097
+#: resources/xnec2c.glade:12290
+msgid "_Wireframe"
+msgstr "_Drótváz"
+
+#: resources/animate.glade:238 resources/animate.glade:330
+#: resources/animate.glade:399
+msgid "Static"
+msgstr "Statikus"
+
+#: resources/animate.glade:245 resources/xnec2c.glade:11122
+msgid "Polarization _Axis"
+msgstr "Polarizáció _tengelye"
+
+#: resources/animate.glade:256 resources/xnec2c.glade:11133
+msgid "Peak _Magnitude"
+msgstr "Csúcs _amplitúdó"
+
+#: resources/animate.glade:279
 msgid ""
 "Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
 "cos(arg z + φ)|, floored so nulls stay visible.\n"
@@ -51,11 +98,11 @@ msgstr ""
 "\n"
 "Animált: a fényes tartományok végigfutnak a szerkezeten, ahogy a fázis halad."
 
-#: resources/animate.glade:93
+#: resources/animate.glade:280 resources/animate.glade:383
 msgid "Instantaneous"
 msgstr "Azonnali"
 
-#: resources/animate.glade:103
+#: resources/animate.glade:290
 msgid ""
 "Diverging hue shows the instantaneous sign of the displayed quantity: cold "
 "negative, hot positive; brightness carries the magnitude s(n).\n"
@@ -68,11 +115,11 @@ msgstr ""
 "\n"
 "Animált: a tartományok polaritása felcserélődik, ahogy a fázis halad."
 
-#: resources/animate.glade:104
+#: resources/animate.glade:291
 msgid "Polarity"
 msgstr "Polaritás"
 
-#: resources/animate.glade:114
+#: resources/animate.glade:301
 msgid ""
 "Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
 "magnitude s(n).\n"
@@ -84,11 +131,11 @@ msgstr ""
 "\n"
 "Animált: a teljes kerék forog, ahogy a fázis halad."
 
-#: resources/animate.glade:115
+#: resources/animate.glade:302
 msgid "Phase Hue"
 msgstr "Fázisárnyalat"
 
-#: resources/animate.glade:125
+#: resources/animate.glade:312
 msgid ""
 "Diverging hue shows the instantaneous charge sign; brightness carries the "
 "current envelope s(|I|).\n"
@@ -101,15 +148,11 @@ msgstr ""
 "Animált: a töltés és az áram egy negyed periódusnyi eltéréssel jelenik meg "
 "ugyanazon a nézeten."
 
-#: resources/animate.glade:126
+#: resources/animate.glade:313
 msgid "Current + Charge"
 msgstr "Áram + töltés"
 
-#: resources/animate.glade:143
-msgid "Static"
-msgstr "Statikus"
-
-#: resources/animate.glade:150
+#: resources/animate.glade:337
 msgid ""
 "Rainbow ramp of this frequency step's peak magnitude s(n) at full "
 "brightness.\n"
@@ -121,11 +164,11 @@ msgstr ""
 "Statikus: a fázisfüggetlen alapállapot; a színek lejátszás közben "
 "mozdulatlanok maradnak."
 
-#: resources/animate.glade:151
+#: resources/animate.glade:338
 msgid "Amplitude"
 msgstr "Amplitúdó"
 
-#: resources/animate.glade:161
+#: resources/animate.glade:348
 msgid ""
 "Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
 "brightness carries the magnitude s(n).\n"
@@ -138,11 +181,11 @@ msgstr ""
 "Statikus: fázisfüggetlen leolvasás; a színek lejátszás közben mozdulatlanok "
 "maradnak."
 
-#: resources/animate.glade:162
+#: resources/animate.glade:349
 msgid "Standing/Traveling"
 msgstr "Álló/Haladó"
 
-#: resources/animate.glade:172
+#: resources/animate.glade:359
 msgid ""
 "Hue ramps each segment's contribution to the selected far-field direction; "
 "brightness carries the magnitude s(n).\n"
@@ -155,11 +198,52 @@ msgstr ""
 "Statikus: fázisfüggetlen leolvasás; a színek lejátszás közben mozdulatlanok "
 "maradnak."
 
-#: resources/animate.glade:173
+#: resources/animate.glade:360
 msgid "Far-field Contribution"
 msgstr "Távoltér-hozzájárulás"
 
-#: resources/animate.glade:187
+#: resources/animate.glade:382
+msgid ""
+"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animated: scaled regions travel through phase peaks and contract at zero "
+"crossings as the phase advances."
+msgstr ""
+"Az egyes szegmensek méretezése az s(n) · |cos(arg z + φ)| azonnali magnitúdó "
+"alapján történik.\n"
+"\n"
+"Animált: a méretezett tartományok a fázis előrehaladtával végighaladnak a "
+"fáziscsúcsokon, és nullaátmeneteknél összehúzódnak."
+
+#: resources/animate.glade:406
+msgid ""
+"Scale each segment from the peak magnitude s(n), enlarging strong regions "
+"and contracting nulls.\n"
+"\n"
+"Static: the phase-invariant scale holds still during playback."
+msgstr ""
+"Az egyes szegmensek méretezése az s(n) csúcsmagnitúdó alapján történik, "
+"amely megnöveli az erős tartományokat és összehúzza a nullákat.\n"
+"\n"
+"Statikus: a fázisfüggetlen méretezés lejátszás közben változatlan marad."
+
+#: resources/animate.glade:407
+msgid "Envelope magnitude"
+msgstr "Burkológörbe-magnitúdó"
+
+#: resources/animate.glade:417
+msgid ""
+"Keep each segment at its model radius instead of scaling it by magnitude."
+msgstr ""
+"Minden szegmens a modellsugarán marad, ahelyett hogy a magnitúdó szerint "
+"méreteződne."
+
+#: resources/animate.glade:418
+msgid "Model radius"
+msgstr "Modellsugár"
+
+#: resources/animate.glade:433
 msgid ""
 "Power-law transfer n^γ of the normalized magnitude.\n"
 "\n"
@@ -176,11 +260,11 @@ msgstr ""
 "sugárzottteljesítmény-hozzájárulásával), |q|² a tárolt elektrosztatikus "
 "energiával."
 
-#: resources/animate.glade:188
+#: resources/animate.glade:434
 msgid "Power"
 msgstr "Teljesítmény"
 
-#: resources/animate.glade:198
+#: resources/animate.glade:444
 msgid ""
 "Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
 "decibels.\n"
@@ -195,12 +279,12 @@ msgstr ""
 "alatti részletek az alsó színre korlátozódnak."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:199 resources/xnec2c.glade:11713
+#: resources/animate.glade:445 resources/xnec2c.glade:11713
 #: resources/xnec2c.glade:13071
 msgid "dB"
 msgstr ""
 
-#: resources/animate.glade:209
+#: resources/animate.glade:455
 msgid ""
 "Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
 "\n"
@@ -214,11 +298,11 @@ msgstr ""
 "csúcsokat, egy lin-log műszerskálához hasonlóan."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:210
+#: resources/animate.glade:456
 msgid "Asinh"
 msgstr ""
 
-#: resources/animate.glade:220
+#: resources/animate.glade:466
 msgid ""
 "μ-law companding, the telephony-standard bounded log curve.\n"
 "\n"
@@ -232,11 +316,11 @@ msgstr ""
 "érték 48,16 dB kompressziónak felel meg."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:221
+#: resources/animate.glade:467
 msgid "μ-law"
 msgstr ""
 
-#: resources/animate.glade:231
+#: resources/animate.glade:477
 msgid ""
 "Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
 "\n"
@@ -249,11 +333,11 @@ msgstr ""
 "paraméter állítja be a térdpontot."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:232
+#: resources/animate.glade:478
 msgid "Reinhard"
 msgstr ""
 
-#: resources/animate.glade:242
+#: resources/animate.glade:488
 msgid ""
 "Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
 "\n"
@@ -266,11 +350,11 @@ msgstr ""
 "hasonlóan az erősítő kompresszióhoz; az a paraméter állítja be a "
 "meredekséget."
 
-#: resources/animate.glade:243
+#: resources/animate.glade:489
 msgid "Sigmoid"
 msgstr "Szigmoid"
 
-#: resources/animate.glade:253
+#: resources/animate.glade:499
 msgid ""
 "Identity: every magnitude renders at full brightness.\n"
 "\n"
@@ -280,16 +364,16 @@ msgstr ""
 "\n"
 "Kizárólag a színvetület hordozza az információt."
 
-#: resources/animate.glade:254 resources/settings/cairo_settings.glade:56
+#: resources/animate.glade:500 resources/settings/cairo_settings.glade:56
 msgid "None"
 msgstr "Nincs"
 
-#: resources/animate.glade:266 src/rdpattern_ui.c:366 src/rdpattern_ui.c:374
-#: src/rdpattern_ui.c:381
+#: resources/animate.glade:512 src/rdpattern_ui.c:401 src/rdpattern_ui.c:409
+#: src/rdpattern_ui.c:416
 msgid "Near Field Animation"
 msgstr "Közeltér animáció"
 
-#: resources/animate.glade:358
+#: resources/animate.glade:604
 msgid ""
 "Scrub the animation phase manually.\n"
 "\n"
@@ -300,27 +384,27 @@ msgstr ""
 "Letiltva, amíg az animáció fut."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:375
+#: resources/animate.glade:621
 msgid "φ 0°"
 msgstr ""
 
-#: resources/animate.glade:389
+#: resources/animate.glade:635
 msgid "Phase"
 msgstr "Fázis"
 
-#: resources/animate.glade:412
+#: resources/animate.glade:658
 msgid "Frames/Sec"
 msgstr "Képkocka/mp"
 
-#: resources/animate.glade:425
+#: resources/animate.glade:671
 msgid "Animate Freq (Hz)"
 msgstr "Animáció frekvencia (Hz)"
 
-#: resources/animate.glade:498
+#: resources/animate.glade:747
 msgid "Color projection:"
 msgstr "Színvetület:"
 
-#: resources/animate.glade:512
+#: resources/animate.glade:762
 msgid ""
 "Select which physical quantity drives the hue and how brightness follows the "
 "excitation phase.\n"
@@ -338,32 +422,49 @@ msgstr ""
 "\n"
 "Ha az egérrel egy elemre mutat, élő előnézetet kap."
 
-#: resources/animate.glade:539
+#: resources/animate.glade:820
+msgid "Segment scale:"
+msgstr "Szegmensskála:"
+
+#: resources/animate.glade:835
+msgid ""
+"Choose how current or charge magnitude changes segment thickness.\n"
+"\n"
+"Hover an entry to preview it."
+msgstr ""
+"Válassza ki, hogyan változtatja az áram vagy a töltés magnitúdója a szegmens "
+"vastagságát.\n"
+"\n"
+"Vigye az egeret egy bejegyzés fölé az előnézethez."
+
+#: resources/animate.glade:893
 msgid "Scale family:"
 msgstr "Skálacsalád:"
 
-#: resources/animate.glade:553
+#: resources/animate.glade:908
 msgid ""
-"Select the magnitude-to-color transfer family.\n"
+"Select the normalized-magnitude transfer shared by color brightness and "
+"segment scale.\n"
 "\n"
 "Adjust its slider until the contrast reveals the range your inspection "
 "needs.\n"
 "\n"
 "Hovering an entry previews it live."
 msgstr ""
-"Válassza ki a nagyság–szín átviteli családot.\n"
+"Válassza ki a szín fényerője és a szegmensskála által közösen használt "
+"normalizált magnitúdó-átviteli görbét.\n"
 "\n"
-"Állítsa be a csúszkát, amíg a kontraszt fel nem tárja a vizsgálathoz "
+"Állítsa a csúszkát addig, amíg a kontraszt fel nem tárja a vizsgálathoz "
 "szükséges tartományt.\n"
 "\n"
-"Ha az egérrel egy elemre mutat, élő előnézetet kap."
+"Egy bejegyzés fölé vitt egér élő előnézetet mutat."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:592
+#: resources/animate.glade:978
 msgid "Gamma:"
 msgstr ""
 
-#: resources/animate.glade:609
+#: resources/animate.glade:995
 msgid ""
 "Gamma exponent of the power transfer.\n"
 "\n"
@@ -375,11 +476,11 @@ msgstr ""
 "γ = 0,5 kiterjeszti a gyenge tartományokat, γ = 1 lineáris, γ = 2 arányos az "
 "áramok disszipált teljesítményével."
 
-#: resources/animate.glade:631
+#: resources/animate.glade:1017
 msgid "Range (dB):"
 msgstr "Tartomány (dB):"
 
-#: resources/animate.glade:648
+#: resources/animate.glade:1034
 msgid ""
 "Dynamic range R below the step peak mapped onto the color strip.\n"
 "\n"
@@ -389,48 +490,48 @@ msgstr ""
 "\n"
 "A padlóérték a csúcs 10^(−R/20)-szorosa."
 
-#: resources/animate.glade:670
+#: resources/animate.glade:1056
 msgid "Softening:"
 msgstr "Lágyítás:"
 
-#: resources/animate.glade:687
+#: resources/animate.glade:1073
 msgid "Softening knee k: linear below k, logarithmic above."
 msgstr "Lágyítási térdpont k: k alatt lineáris, k felett logaritmikus."
 
-#: resources/animate.glade:709
+#: resources/animate.glade:1095
 msgid "Compression (dB):"
 msgstr "Kompresszió (dB):"
 
-#: resources/animate.glade:726
+#: resources/animate.glade:1112
 msgid "Compression strength in dB; higher values lift weak detail."
 msgstr ""
 "Kompresszió erőssége dB-ben; a nagyobb értékek kiemelik a gyenge részleteket."
 
-#: resources/animate.glade:748
+#: resources/animate.glade:1134
 msgid "Knee:"
 msgstr "Térdpont:"
 
-#: resources/animate.glade:765
+#: resources/animate.glade:1151
 msgid "Knee k of the rational soft-compressor."
 msgstr "A racionális lágykompresszor k térdpontja."
 
-#: resources/animate.glade:787
+#: resources/animate.glade:1173
 msgid "Contrast:"
 msgstr "Kontraszt:"
 
-#: resources/animate.glade:804
+#: resources/animate.glade:1190
 msgid "Contrast steepness a of the tanh transfer."
 msgstr "A tanh átvitel a kontraszt-meredeksége."
 
-#: resources/animate.glade:837
+#: resources/animate.glade:1223
 msgid "Color gradient of the active projection and scale family."
 msgstr "Az aktív vetület és skálacsalád színátmenete."
 
-#: resources/animate.glade:855
+#: resources/animate.glade:1241
 msgid "Brightness floor:"
 msgstr "Fényerő-padló:"
 
-#: resources/animate.glade:873
+#: resources/animate.glade:1259
 msgid ""
 "Minimum brightness under animation so elements cool toward this level "
 "instead of vanishing to black."
@@ -438,28 +539,15 @@ msgstr ""
 "Az animáció alatti minimális fényerő, hogy az elemek e szint felé hűljenek, "
 "ahelyett hogy feketébe vesznének."
 
-#: resources/animate.glade:884
-msgid "Width from amplitude"
-msgstr "Szélesség amplitúdóból"
-
-#: resources/animate.glade:889
-msgid ""
-"Scale wire segment width by the scaled amplitude envelope s(n), so strong "
-"regions draw thick and nulls draw thin."
-msgstr ""
-"A huzalszegmens szélességének méretezése a skálázott amplitúdó-burkológörbe "
-"s(n) alapján, így az erős tartományok vastagon, a nullák vékonyan jelennek "
-"meg."
-
-#: resources/animate.glade:915
+#: resources/animate.glade:1285
 msgid "Overlays:"
 msgstr "Rárajzolások:"
 
-#: resources/animate.glade:926
+#: resources/animate.glade:1296
 msgid "Nodes/antinodes"
 msgstr "Csomópontok/anticsomópontok"
 
-#: resources/animate.glade:931
+#: resources/animate.glade:1301
 msgid ""
 "Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
 "\n"
@@ -472,11 +560,11 @@ msgstr ""
 "A jelölések a fázisfüggetlen burkológörbéből származnak, ezért mozdulatlanok "
 "maradnak, miközben a hullám animálódik."
 
-#: resources/animate.glade:942
+#: resources/animate.glade:1312
 msgid "Comet"
 msgstr "Üstökös"
 
-#: resources/animate.glade:947
+#: resources/animate.glade:1317
 msgid ""
 "Ride a bright head on the instantaneous positive crest so wave motion reads "
 "along each wire."
@@ -484,88 +572,90 @@ msgstr ""
 "Egy fényes fejpont követi a pillanatnyi pozitív hullámcsúcsot, így a hullám "
 "mozgása leolvasható minden huzalon."
 
-#: resources/animate.glade:980
+#: resources/animate.glade:1350
 msgid "Reset"
 msgstr "Visszaállítás"
 
-#: resources/animate.glade:986
+#: resources/animate.glade:1356
 msgid ""
-"Restore the color projection, scale family, and every family brightness "
-"parameter to their defaults."
+"Restore the color projection, segment scale, scale family, brightness floor, "
+"and every family parameter to their defaults."
 msgstr ""
-"Visszaállítja a színvetületet, a skálacsaládot és minden család fényerő-"
-"paraméterét az alapértelmezett értékre."
+"Állítsa vissza a színvetületet, a szegmensskálát, a skálacsaládot, a fényerő "
+"alsó határát és minden családparamétert az alapértelmezett értékére."
 
-#: resources/animate.glade:1001
+#: resources/animate.glade:1391
 msgid ""
-"<b>Color</b> <i>— currents, charges, and fields shade the wires, patches, "
-"and near-field vectors</i>"
+"<b>Color and segment scale</b> <i>— currents, charges, and fields shade the "
+"model</i>"
 msgstr ""
-"<b>Szín</b> <i>— az áramok, töltések és mezők színezik a huzalokat, a "
-"patcheket és a közeltér-vektorokat</i>"
+"<b>Szín és szegmensskála</b> <i>— az áramok, töltések és mezők árnyalják a "
+"modellt</i>"
 
-#: resources/animate.glade:1032
+#: resources/animate.glade:1432
 msgid "None (geometry)"
 msgstr "Nincs (geometria)"
 
-#: resources/animate.glade:1036
+#: resources/animate.glade:1436
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr ""
 "A puszta szerkezeti geometria megjelenítése mennyiségi színezés nélkül."
 
-#: resources/animate.glade:1049 resources/xnec2c.glade:11240
+#: resources/animate.glade:1449 resources/xnec2c.glade:11240
 msgid "Currents"
 msgstr "Áramok"
 
-#: resources/animate.glade:1053
+#: resources/animate.glade:1453
 msgid "Animate current magnitude and direction along the wires."
 msgstr "Az áram nagyságának és irányának animálása a huzalokon."
 
-#: resources/animate.glade:1066 resources/xnec2c.glade:11255
+#: resources/animate.glade:1466 resources/xnec2c.glade:11255
 msgid "Charges"
 msgstr "Töltések"
 
-#: resources/animate.glade:1070
+#: resources/animate.glade:1470
 msgid "Animate charge magnitude along the wires."
 msgstr "A töltés nagyságának animálása a huzalokon."
 
-#: resources/animate.glade:1087
+#: resources/animate.glade:1493
+msgid "_Polarization:"
+msgstr "_Polarizáció:"
+
+#: resources/animate.glade:1508
+msgid ""
+"Select the polarization component used by radiation-pattern gain and far-"
+"zone animation vectors.\n"
+"\n"
+"Mirrors the polarization selection in the main, radiation-pattern, and "
+"frequency-plot windows.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"Válassza ki a sugárzási diagram nyereségéhez és a távoltér-animáció "
+"vektoraihoz használt polarizációs komponenst.\n"
+"\n"
+"Tükrözi a fő ablakban, a sugárzási diagram ablakában és a frekvenciadiagram "
+"ablakában végzett polarizációválasztást.\n"
+"\n"
+"Egy bejegyzés fölé vitt egér élő előnézetet mutat."
+
+#: resources/animate.glade:1581
 msgid "Display"
 msgstr "Megjelenítés"
 
-#: resources/animate.glade:1118
+#: resources/animate.glade:1619
 msgid "Flow direction:"
 msgstr "Áramlás iránya:"
 
-#: resources/animate.glade:1131
-msgid "Reference phase (animated)"
-msgstr "Referenciafázis (animált)"
-
-#: resources/animate.glade:1132
-msgid "LIC texture (animated)"
-msgstr "LIC textúra (animált)"
-
-#: resources/animate.glade:1133
-msgid "Wireframe (animated)"
-msgstr "Drótváz (animált)"
-
-#: resources/animate.glade:1134
-msgid "Polarization axis (static)"
-msgstr "Polarizáció tengelye (statikus)"
-
-#: resources/animate.glade:1135
-msgid "Peak magnitude (static)"
-msgstr "Csúcsamplitúdó (statikus)"
-
-#: resources/animate.glade:1151
+#: resources/animate.glade:1698
 msgid "Patches"
 msgstr "Patchek"
 
-#: resources/animate.glade:1179
+#: resources/animate.glade:1733
 msgid "Near E field"
 msgstr "Közeli E mező"
 
-#: resources/animate.glade:1183
+#: resources/animate.glade:1737
 msgid ""
 "Show the near electric field vectors while animating.\n"
 "\n"
@@ -575,11 +665,11 @@ msgstr ""
 "\n"
 "Engedélyezés: nyissa meg a sugárzási diagram ablakát."
 
-#: resources/animate.glade:1195
+#: resources/animate.glade:1749
 msgid "Near H field"
 msgstr "Közeli H mező"
 
-#: resources/animate.glade:1199
+#: resources/animate.glade:1753
 msgid ""
 "Show the near magnetic field vectors while animating.\n"
 "\n"
@@ -589,11 +679,11 @@ msgstr ""
 "\n"
 "Engedélyezés: nyissa meg a sugárzási diagram ablakát."
 
-#: resources/animate.glade:1211
+#: resources/animate.glade:1765
 msgid "Poynting vector"
 msgstr "Poynting-vektor"
 
-#: resources/animate.glade:1215
+#: resources/animate.glade:1769
 msgid ""
 "Show the Poynting power-flow vectors while animating.\n"
 "\n"
@@ -603,15 +693,15 @@ msgstr ""
 "\n"
 "Engedélyezés: nyissa meg a sugárzási diagram ablakát."
 
-#: resources/animate.glade:1231
+#: resources/animate.glade:1805
 msgid "Near Field"
 msgstr "Közeli mező"
 
-#: resources/animate.glade:1259
+#: resources/animate.glade:1840
 msgid "Far E field"
 msgstr "Távoltér E-mező"
 
-#: resources/animate.glade:1263
+#: resources/animate.glade:1844
 msgid ""
 "Draw the far-zone electric field as arrows tangent to the gain surface while "
 "animating.\n"
@@ -623,11 +713,11 @@ msgstr ""
 "\n"
 "Engedélyezéséhez nyissa meg a sugárzási diagram ablakát."
 
-#: resources/animate.glade:1276
+#: resources/animate.glade:1857
 msgid "Far H field"
 msgstr "Távoltér H-mező"
 
-#: resources/animate.glade:1280
+#: resources/animate.glade:1861
 msgid ""
 "Draw the far-zone magnetic field instead, a quarter turn from the electric "
 "field in the tangent plane and in step with it in time.\n"
@@ -639,19 +729,19 @@ msgstr ""
 "\n"
 "Engedélyezéséhez nyissa meg a sugárzási diagram ablakát."
 
-#: resources/animate.glade:1293
+#: resources/animate.glade:1874
 msgid "World reference"
 msgstr "Világreferencia"
 
-#: resources/animate.glade:1309
+#: resources/animate.glade:1890
 msgid "Ludwig-3 reference"
 msgstr "Ludwig-3 referencia"
 
-#: resources/animate.glade:1334
-msgid "Arrow length:"
-msgstr "Nyílhossz:"
+#: resources/animate.glade:1915
+msgid "Arrow:"
+msgstr "Nyíl:"
 
-#: resources/animate.glade:1351
+#: resources/animate.glade:1932
 msgid ""
 "Longest arrow a cell draws, as a fraction of that cell's own pattern radius, "
 "so the arrows track whichever gain scale shapes the surface."
@@ -660,9 +750,17 @@ msgstr ""
 "törtrésze, így a nyilak követik a felületet alakító nyereségskálát, "
 "bármelyik legyen is az."
 
-#: resources/animate.glade:1373
+#: resources/animate.glade:1974
 msgid "Far Field"
 msgstr "Távoltér"
+
+#: resources/animate.glade:1992
+msgid ""
+"Draw the far-zone field as tangent vectors on the radiation pattern gain "
+"surface while this window is open."
+msgstr ""
+"A távoltér-mező rajzolása érintővektorokként a sugárzási diagram "
+"nyereségfelületén, amíg ez az ablak nyitva van."
 
 #: resources/settings/cairo_settings.glade:34
 msgid "Anti-aliasing"
@@ -1945,7 +2043,7 @@ msgstr "Nézőpont"
 
 # xnec2c-exempt: notation
 #: resources/xnec2c.glade:9799 resources/xnec2c.glade:10041
-#: src/freqplots/freqplots_core.c:62 src/freqplots/graphs/vswr_graph.c:55
+#: src/freqplots/freqplots_core.c:63 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
@@ -2289,29 +2387,9 @@ msgstr "_Nincs"
 msgid "Patch Flow — Animated"
 msgstr "Patch-áramlás — Animált"
 
-#: resources/xnec2c.glade:11075
-msgid "_Reference Phase"
-msgstr "_Referenciafázis"
-
-#: resources/xnec2c.glade:11086
-msgid "_LIC Texture"
-msgstr "_LIC textúra"
-
-#: resources/xnec2c.glade:11097 resources/xnec2c.glade:12290
-msgid "_Wireframe"
-msgstr "_Drótváz"
-
 #: resources/xnec2c.glade:11115
 msgid "Patch Flow — Static"
 msgstr "Patch-áramlás — Statikus"
-
-#: resources/xnec2c.glade:11122
-msgid "Polarization _Axis"
-msgstr "Polarizáció _tengelye"
-
-#: resources/xnec2c.glade:11133
-msgid "Peak _Magnitude"
-msgstr "Csúcs _amplitúdó"
 
 #: resources/xnec2c.glade:11148
 msgid "A_nimate"
@@ -2352,7 +2430,7 @@ msgid ""
 msgstr "Nyereség a szerkezet nézőjének irányában, a jelenlegi nézetszögeknél."
 
 #: resources/xnec2c.glade:11604 resources/xnec2c.glade:12914
-#: src/freqplots/freqplots_core.c:59
+#: src/freqplots/freqplots_core.c:60
 msgid "Gain"
 msgstr "Nyereség"
 
@@ -2513,7 +2591,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:869
+#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:962
 msgid "Radiation Patterns"
 msgstr "Sugárzási diagramok"
 
@@ -2706,6 +2784,135 @@ msgstr ""
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Tápvonal impedancia (Zo)"
 
+#: src/anim/anim_dialog.c:69
+msgid ""
+"Choose how current flow is marked on surface patches.\n"
+"This model has no patches: add SP, SC, or SM patch cards to the NEC input "
+"file."
+msgstr ""
+"Válassza ki, hogyan jelöljük az áramlást a felületi Patcheken.\n"
+"Ennek a modellnek nincsenek Patchei: adjon SP, SC vagy SM Patch kártyát a "
+"NEC bemeneti fájlhoz."
+
+#: src/anim/anim_dialog.c:77
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"In the main window choose View, Radiation Pattern; if that item is disabled, "
+"add an RP card to the NEC input file."
+msgstr ""
+"A távoltér-mező rajzolása nyilakként a nyereségfelületen.\n"
+"A fő ablakban válassza a Nézet, Sugárzási diagram menüpontot; ha az a tétel "
+"le van tiltva, adjon RP kártyát a NEC bemeneti fájlhoz."
+
+#: src/anim/anim_dialog.c:81
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"Tick the check box in the Far Field heading just above."
+msgstr ""
+"A távoltér-mező rajzolása nyilakként a nyereségfelületen.\n"
+"Jelölje be a jelölőnégyzetet a fent található Távoltér fejlécben."
+
+#: src/anim/anim_dialog.c:88
+msgid ""
+"Choose the reference the vertical and horizontal gain are read against.\n"
+"Under Polarization in this window select Vertical or Horizontal; Total, "
+"Right Hand, and Left Hand do not use this setting."
+msgstr ""
+"Válassza ki a viszonyítási alapot, amelyhez a függőleges és vízszintes "
+"nyereséget mérik.\n"
+"Ebben az ablakban a Polarizáció alatt válassza a Függőleges vagy Vízszintes "
+"lehetőséget; az Összesen, a Jobb kéz és a Bal kéz nem használja ezt a "
+"beállítást."
+
+#: src/anim/anim_dialog.c:97
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Nothing drawn now changes with phase. Under Display choose Currents or "
+"Charges and an Animated colour or segment scale; for patches choose Currents "
+"and an Animated flow mode. For NE/NH cards show Near Field and tick E, H, or "
+"Poynting; for an RP card show Gain and tick Far Field."
+msgstr ""
+"Az animáció fázisának előrehaladása megkezdődik az alább beállított "
+"ütemben.\n"
+"Jelenleg semmi rajzolt elem nem változik a fázissal. A Megjelenítés alatt "
+"válasszon Áramok vagy Töltések és egy Animált szín vagy szegmensskála "
+"lehetőséget; Patchek esetén válassza az Áramok és egy Animált áramlási mód "
+"lehetőséget. NE/NH kártyák esetén jelenítse meg a Közeltér lehetőséget és "
+"jelölje be az E, H vagy Poynting elemet; RP kártya esetén jelenítse meg a "
+"Nyereség lehetőséget és jelölje be a Távoltér elemet."
+
+#: src/anim/anim_dialog.c:108
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Available when drawn content changes with phase."
+msgstr ""
+"Elindítja az animációs fázis léptetését a lent megadott ütemben.\n"
+"Akkor érhető el, ha a megjelenített tartalom fázissal változik."
+
+#: src/anim/anim_dialog.c:112
+msgid ""
+"Select how the animated patch current flow is rendered.\n"
+"Mirrors the Visualization menu setting in the main window."
+msgstr ""
+"Az animált patch-áramlás megjelenítési módjának kiválasztása.\n"
+"Tükrözi a Vizualizáció menü beállítását a főablakban."
+
+#: src/anim/anim_dialog.c:116
+msgid ""
+"Resolve the far-zone field into tangent vectors drawn on the radiation "
+"pattern gain surface.\n"
+"Available while the radiation pattern window is open and Far Field is "
+"selected."
+msgstr ""
+"Felbontja a távoltér-mezőt a sugárzási diagram nyereségfelületén ábrázolt "
+"érintővektorokra.\n"
+"Akkor érhető el, ha a sugárzási diagram ablak nyitva van, és a Távoltér van "
+"kiválasztva."
+
+#: src/anim/anim_dialog.c:122
+msgid ""
+"Read the vertical and horizontal gain selections against the spherical "
+"basis, so vertical is the theta direction and horizontal is the phi "
+"direction.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"A függőleges és vízszintes nyereség-kiválasztásokat a gömbi bázishoz "
+"viszonyítva kell értelmezni, így a függőleges a theta irányt, a vízszintes "
+"pedig a phi irányt jelenti.\n"
+"Függőleges vagy vízszintes polarizáció esetén érhető el."
+
+#: src/anim/anim_dialog.c:128
+msgid ""
+"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
+"polar and cross-polar directions, which hold one orientation across the "
+"whole pattern.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"A függőleges és vízszintes nyereség-kiválasztásokat a Ludwig-3 ko-poláris és "
+"kereszt-poláris irányokhoz viszonyítva kell értelmezni, amelyek egyetlen "
+"orientációt tartanak a teljes diagramon.\n"
+"Függőleges vagy vízszintes polarizáció esetén érhető el."
+
+#: src/anim/anim_dialog.c:167
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"Available when the model contains supported animation content."
+msgstr ""
+"Megnyitja az animációvezérlőket a fázisban változó tartalomhoz.\n"
+"Akkor érhető el, ha a modell támogatott animációs tartalmat tartalmaz."
+
+#: src/anim/anim_dialog.c:169
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"This model has nothing to animate: load a NEC input file carrying wire cards "
+"(GW, GA, GH), patch cards (SP, SC, SM), near-field cards (NE, NH), or a "
+"radiation pattern card (RP)."
+msgstr ""
+"Animációvezérlők megnyitása a fázisváltozó tartalomhoz.\n"
+"Ebben a modellben nincs animálható elem: töltsön be egy huzalkártyákat (GW, "
+"GA, GH), Patch kártyákat (SP, SC, SM), közeltér-kártyákat (NE, NH) vagy "
+"sugárzásidiagram-kártyát (RP) tartalmazó NEC bemeneti fájlt."
+
 #: src/args.c:113
 msgid "Usage: xnec2c [options] [<input-file-name>]"
 msgstr "Használat: xnec2c [beállítások] [<bemeneti-fájlnév>]"
@@ -2896,8 +3103,8 @@ msgstr "konfigurációs fájl nem létezik vagy nem olvasható: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:366
-#: src/rdpattern_ui.c:374 src/rdpattern_ui.c:381 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:401
+#: src/rdpattern_ui.c:409 src/rdpattern_ui.c:416 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -2918,7 +3125,7 @@ msgstr "Folyamat elágaztatás kikapcsolva!\n"
 msgid "invalid radiation pattern PNG format: %s\n"
 msgstr "érvénytelen sugárzási diagram PNG-formátum: %s\n"
 
-#: src/cairo/cairo_fit.c:118
+#: src/cairo/cairo_fit.c:121
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
@@ -2927,7 +3134,7 @@ msgstr ""
 "view=%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:237
+#: src/cairo/cairo_frame.c:254
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -2961,17 +3168,17 @@ msgstr "Szegmenscsatlakozási hiba az sbf()-ben"
 msgid "Segment connection error in trio()"
 msgstr "Szegmenscsatlakozási hiba a trio()-ban"
 
-#: src/callback_func.c:51
+#: src/callback_func.c:52
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "nem sikerült képet rögzíteni ehhez: %s\n"
 
-#: src/callback_func.c:57
+#: src/callback_func.c:58
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "nem sikerült elmenteni a képet: %s: %s\n"
 
-#: src/callback_func.c:105
+#: src/callback_func.c:106
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -2979,7 +3186,7 @@ msgstr ""
 "A frekvenciahurok fut\n"
 "Biztos benne, hogy befejezi a számítást?"
 
-#: src/callback_func.c:109
+#: src/callback_func.c:110
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -2987,7 +3194,7 @@ msgstr ""
 "A frekvenciahurok fut\n"
 "Biztos benne, hogy bezárja ezt az ablakot?"
 
-#: src/callback_func.c:270
+#: src/callback_func.c:271
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
@@ -2995,47 +3202,47 @@ msgstr ""
 "A(z) %d gerjesztéstípusnak nincs táppontja: a VSWR és impedancia grafikonok "
 "el vannak rejtve.\n"
 
-#: src/callback_func.c:332
+#: src/callback_func.c:340
 msgid "View Currents"
 msgstr "Áramok megtekintése"
 
-#: src/callback_func.c:334
+#: src/callback_func.c:342
 msgid "View Charges"
 msgstr "Töltések megtekintése"
 
-#: src/callback_func.c:336
+#: src/callback_func.c:344
 msgid "View Geometry"
 msgstr "Geometria megtekintése"
 
-#: src/callback_func.c:386
+#: src/callback_func.c:402
 msgid "PNG images (*.png)"
 msgstr "PNG képek (*.png)"
 
-#: src/callback_func.c:388
+#: src/callback_func.c:404
 msgid "GNUplot files (*.gplot)"
 msgstr "GNUplot fájlok (*.gplot)"
 
-#: src/callback_func.c:390
+#: src/callback_func.c:406
 msgid "NEC2 files (*.nec)"
 msgstr "NEC2 fájlok (*.nec)"
 
-#: src/callback_func.c:392
+#: src/callback_func.c:408
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Touchstone 1-portos fájlok (*.s1p)"
 
-#: src/callback_func.c:394
+#: src/callback_func.c:410
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Touchstone 2-portos fájlok (*.s2p)"
 
-#: src/callback_func.c:396
+#: src/callback_func.c:412
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Vesszővel elválasztott CSV fájlok (*.csv)"
 
-#: src/callbacks.c:98 src/callbacks.c:114 src/freqplots/freqplots_core.c:66
+#: src/callbacks.c:95 src/callbacks.c:111 src/freqplots/freqplots_core.c:67
 msgid "Antenna Temperature"
 msgstr "Antennahőmérséklet"
 
-#: src/callbacks.c:99
+#: src/callbacks.c:96
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3043,7 +3250,7 @@ msgstr ""
 "Földsík észlelve a modellben. A Ta eredmények túlszámolják a földhatásokat. "
 "A szabadtéri modellek a szokványosak az antennahőmérséklet kiértékeléséhez."
 
-#: src/callbacks.c:115
+#: src/callbacks.c:112
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3053,12 +3260,12 @@ msgstr ""
 "síkban lévő nyalábot feltételezi, a megfigyelési emelkedési szöget a "
 "léptetőgomb állítja."
 
-#: src/callbacks.c:183 src/callbacks.c:521 src/callbacks.c:1951
-#: src/callbacks.c:2814
+#: src/callbacks.c:176 src/callbacks.c:510 src/callbacks.c:1661
+#: src/callbacks.c:1832
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Biztos benne, hogy kilép az xnec2c-ből?"
 
-#: src/callbacks.c:287
+#: src/callbacks.c:280
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3066,7 +3273,7 @@ msgstr ""
 "Új NEC2 bemeneti fájl nem hozható létre,\n"
 "amíg a frekvenciahurok fut"
 
-#: src/callbacks.c:324
+#: src/callbacks.c:317
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3074,22 +3281,22 @@ msgstr ""
 "Új NEC2 bemeneti fájl nem nyitható meg,\n"
 "amíg a frekvenciahurok fut"
 
-#: src/callbacks.c:443
+#: src/callbacks.c:436
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c geometria optimalizáló"
 
-#: src/callbacks.c:444
+#: src/callbacks.c:437
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "Az xnec2c inotify támogatás nélkül lett fordítva: az optimalizáló nem "
 "engedélyezhető."
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c optimalizáló"
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3099,87 +3306,20 @@ msgstr ""
 "és újraszámítja a bemeneti fájlt módosításkor, ha az inotify aktiválja. "
 "Válasszon fájlokat írásra a \"Fájl->Optimalizálási beállítások\" menüben."
 
-#: src/callbacks.c:998 src/callbacks.c:1318 src/callbacks.c:2840
+#: src/callbacks.c:991 src/callbacks.c:1311 src/callbacks.c:1858
 msgid "Are you sure you wish to close this window?"
 msgstr "Biztos benne, hogy bezárja ezt az ablakot?"
 
-#: src/callbacks.c:1826
+#: src/callbacks.c:1536
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "Az OpenGL nem érhető el ezen a kijelzőn; a megjelenítő nem engedélyezhető.\n"
 
-#: src/callbacks.c:2038
-msgid ""
-"Read the vertical and horizontal gain selections against the spherical "
-"basis, so vertical is the theta direction and horizontal is the phi "
-"direction."
-msgstr ""
-"A függőleges és vízszintes nyereség-kiválasztást a gömbi bázishoz "
-"viszonyítva értelmezze, így a függőleges a theta irány, a vízszintes pedig a "
-"phi irány."
-
-#: src/callbacks.c:2042
-msgid ""
-"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
-"polar and cross-polar directions, which hold one orientation across the "
-"whole pattern."
-msgstr ""
-"A függőleges és vízszintes nyereség-kiválasztást a Ludwig-3 ko-poláris és "
-"kereszt-poláris irányokhoz viszonyítva értelmezze, amelyek a teljes "
-"diagramban egyetlen tájolást tartanak."
-
-#: src/callbacks.c:2081
-msgid ""
-"Select how the animated patch current flow is rendered.\n"
-"Mirrors the Visualization menu setting in the main window."
-msgstr ""
-"Az animált patch-áramlás megjelenítési módjának kiválasztása.\n"
-"Tükrözi a Vizualizáció menü beállítását a főablakban."
-
-#: src/callbacks.c:2083
-msgid ""
-"Patch flow animation requires surface patches (SP/SM cards) in the model."
-msgstr ""
-"A patch-áramlás animációjához felületi patchek (SP/SM kártyák) szükségesek a "
-"modellben."
-
-#: src/callbacks.c:2098
-msgid ""
-"The polarization reference turns the vertical and horizontal gain pair "
-"only.  Select vertical or horizontal polarization in the radiation pattern "
-"window to use it; the total and circular selections read alike under either "
-"reference."
-msgstr ""
-"A polarizációs referencia csak a függőleges és vízszintes nyereségpárt "
-"forgatja el.  Használatához válassza a függőleges vagy vízszintes "
-"polarizációt a sugárzási diagram ablakában; a teljes és a körkörös "
-"kiválasztás mindkét referencia mellett azonosan olvasható."
-
-#: src/callbacks.c:2116
-msgid ""
-"The animation window drives the near-field vectors from the phase slider; "
-"close it to choose the static peak or instantaneous baseline."
-msgstr ""
-"Az animációs ablak a közeltér-vektorokat a fáziscsúszkából vezérli; zárja be "
-"a statikus csúcsérték vagy az azonnali alapvonal kiválasztásához."
-
-#: src/callbacks.c:2646
-msgid "Animation"
-msgstr "Animáció"
-
-#: src/callbacks.c:2647
-msgid ""
-"Animation requires wire currents or charges, surface patches (SP/SM NEC "
-"cards), or near-field data (NE/NH NEC cards)"
-msgstr ""
-"Az animációhoz huzaláramok vagy -töltések, felületi patchek (SP/SM NEC "
-"kártyák), vagy közeltér-adatok (NE/NH NEC kártyák) szükségesek"
-
-#: src/callbacks.c:2776
+#: src/callbacks.c:1798
 msgid "No open NEC2 input file"
 msgstr "Nincs megnyitott NEC2 bemeneti fájl"
 
-#: src/callbacks.c:2871 src/callbacks.c:2901
+#: src/callbacks.c:1889 src/callbacks.c:1919
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3187,11 +3327,11 @@ msgstr ""
 "A NEC2 szerkesztő adatai nem menthetők,\n"
 "amíg a frekvenciahurok fut"
 
-#: src/callbacks.c:2883 src/callbacks.c:2909
+#: src/callbacks.c:1901 src/callbacks.c:1927
 msgid "untitled.nec"
 msgstr "névtelen.nec"
 
-#: src/callbacks.c:3374 src/callbacks.c:3394 src/callbacks.c:3414
+#: src/callbacks.c:2388 src/callbacks.c:2408 src/callbacks.c:2428
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3200,10 +3340,15 @@ msgstr ""
 "A frekvencia (FR) kártyák még nincsenek feldolgozva.\n"
 "Először lehet, hogy mentenie kell a NEC2 szerkesztő adatait."
 
-#: src/chroma/chroma.c:288
+#: src/chroma/chroma.c:315
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "érvénytelen színvetület: %d, azonnali használva\n"
+
+#: src/chroma/chroma.c:627
+#, c-format
+msgid "invalid segment scale encoding %d, using model radius\n"
+msgstr "érvénytelen szegmensskála-kódolás: %d, modellsugár használata\n"
 
 #: src/chroma/chroma_source.c:334
 msgid "far-field contribution needs radiation pattern data\n"
@@ -3415,22 +3560,17 @@ msgstr "Első pont Theta"
 msgid "Increment in R (m)"
 msgstr "R lépésköz (m)"
 
-#: src/color/color_tone.c:125
-#, c-format
-msgid "invalid color tone %d, using power\n"
-msgstr "érvénytelen skálacsalád: %d, teljesítmény használva\n"
-
-#: src/config_hooks.c:91
+#: src/color/color_config_hooks.c:131
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr ""
 "Ez a rárajzolás a huzal-áram szegmensekből származik; ez a modell nem "
 "tartalmaz ilyet."
 
-#: src/config_hooks.c:116
+#: src/color/color_config_hooks.c:156
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr "A mozgó hullámcsúcs kiemelése fényes üstökösfejként."
 
-#: src/config_hooks.c:117
+#: src/color/color_config_hooks.c:157
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3438,11 +3578,16 @@ msgstr ""
 "Az üstökös az animált hullámcsúcsot követi; ez a vetület egy statikus "
 "leolvasás mozgó fázis nélkül."
 
-#: src/config_hooks.c:120
+#: src/color/color_config_hooks.c:160
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr ""
 "Az áram csomópontjainak (cián) és anticsomópontjainak (piros) megjelölése a "
 "huzalok mentén."
+
+#: src/color/color_tone.c:107
+#, c-format
+msgid "invalid color tone %d, using power\n"
+msgstr "érvénytelen skálacsalád: %d, teljesítmény használva\n"
 
 #: src/expr_edit.h:34
 msgid ""
@@ -3494,39 +3639,39 @@ msgstr ""
 "Visszaállítja a frekvenciapásztázást az első lépésére, és eldobja az összes "
 "kiszámított eredményt."
 
-#: src/freqplots/freqplots_core.c:60
+#: src/freqplots/freqplots_core.c:61
 msgid "Gain Direction"
 msgstr "Nyereség iránya"
 
-#: src/freqplots/freqplots_core.c:61
+#: src/freqplots/freqplots_core.c:62
 msgid "Viewer Gain"
 msgstr "Nézőponti nyereség"
 
-#: src/freqplots/freqplots_core.c:63
+#: src/freqplots/freqplots_core.c:64
 msgid "Impedance (real/imag)"
 msgstr "Impedancia (valós/képzetes)"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:65
 msgid "Impedance (mag/phase)"
 msgstr "Impedancia (magnitúdó/fázis)"
 
-#: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/smith_graph.c:512
+#: src/freqplots/freqplots_core.c:66 src/freqplots/graphs/smith_graph.c:512
 msgid "Smith Chart"
 msgstr "Smith-diagram"
 
-#: src/freqplots/freqplots_core.c:67
+#: src/freqplots/freqplots_core.c:68
 msgid "Solver Conditioning"
 msgstr "Megoldó kondicionáltsága"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:471
+#: src/freqplots/freqplots_core.c:479
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:769
+#: src/freqplots/freqplots_core.c:739
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3568,7 +3713,7 @@ msgstr ""
 "    • nyers Max nyereség, Nyereség iránya, F/B\n"
 "    • Antennahőmérséklet, G/T"
 
-#: src/freqplots/freqplots_core.c:802
+#: src/freqplots/freqplots_core.c:772
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3576,7 +3721,7 @@ msgstr ""
 "Csak egy tápponti port van definiálva. Definiáljon további EX gerjesztési "
 "kártyákat a modellben, hogy itt több port közül választhasson."
 
-#: src/freqplots/freqplots_core.c:805
+#: src/freqplots/freqplots_core.c:775
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3584,7 +3729,7 @@ msgstr ""
 "Engedélyezze a Nettó nyereség grafikon beállítást port kiválasztásához; "
 "enélkül ez a grafikon nem követi a portot."
 
-#: src/freqplots/freqplots_core.c:921
+#: src/freqplots/freqplots_core.c:893
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Nem elérhető: a gerjesztés nem definiál táppontot"
 
@@ -3600,7 +3745,7 @@ msgstr "Draw_Graph():Memóriafoglalás a pontokhoz sikertelen"
 msgid "This theme has no inverted variant"
 msgstr "Ennek a témának nincs invertált változata"
 
-#: src/freqplots/freqplots_theme_menu.c:95
+#: src/freqplots/freqplots_theme_menu.c:120
 msgid "_Invert"
 msgstr "_Invertálás"
 
@@ -4184,20 +4329,20 @@ msgstr ""
 "verify_segments() frekvenciafüggő ellenőrzések kihagyva - nincs "
 "frekvenciaadat\n"
 
-#: src/gnuplot.c:42
+#: src/gnuplot.c:43
 msgid "Gnuplot Data"
 msgstr "Gnuplot adatok"
 
-#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
+#: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Nem menthető: a frekvenciapásztázás nincs befejezve"
 
-#: src/gnuplot.c:56
+#: src/gnuplot.c:57
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# Referencia impedancia Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:58
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4207,18 +4352,18 @@ msgstr ""
 "zreal és zimag értékeket ábrázol:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:59
+#: src/gnuplot.c:60
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92 src/gnuplot.c:102
+#: src/gnuplot.c:93 src/gnuplot.c:103
 msgid "Touchstone Data"
 msgstr "Touchstone adatok"
 
-#: src/gnuplot.c:103
+#: src/gnuplot.c:104
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4226,46 +4371,46 @@ msgstr ""
 "Nem menthető: az S-paraméterekhez betáplálási pont impedanciára van szükség, "
 "amelyet ez a gerjesztés nem biztosít"
 
-#: src/gnuplot.c:119
+#: src/gnuplot.c:120
 #, c-format
 msgid "! Reference impedance Z0 = %.2f Ohm\n"
 msgstr "! Referencia impedancia Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:161
+#: src/gnuplot.c:162
 msgid "CSV Data"
 msgstr "CSV adatok"
 
-#: src/gnuplot.c:244
+#: src/gnuplot.c:245
 #, c-format
 msgid "# Near E field\n"
 msgstr "# Közeli E mező\n"
 
-#: src/gnuplot.c:271
+#: src/gnuplot.c:272
 #, c-format
 msgid "# Near H field\n"
 msgstr "# Közeli H mező\n"
 
-#: src/gnuplot.c:311
+#: src/gnuplot.c:312
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# Poynting-vektor\n"
 
-#: src/gnuplot.c:370
+#: src/gnuplot.c:371
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# Sugárzási diagram\n"
 
-#: src/gnuplot.c:508
+#: src/gnuplot.c:509
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# struktúra patch szegmensek\n"
 
-#: src/gnuplot.c:543
+#: src/gnuplot.c:544
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# struktúra huzalszegmensek\n"
 
-#: src/gnuplot.c:573
+#: src/gnuplot.c:574
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4274,11 +4419,11 @@ msgstr ""
 "Megtekintés: gnuplot -e \"set terminal qt; splot '%s' with lines; pause "
 "mouse close\"\n"
 
-#: src/gnuplot.c:585
+#: src/gnuplot.c:586
 msgid "Save Currents and Charges to CSV"
 msgstr "Áramok és töltések mentése CSV-be"
 
-#: src/gnuplot.c:586
+#: src/gnuplot.c:587
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4286,11 +4431,11 @@ msgstr ""
 "Az áramadatok engedélyezéséhez kattintson az \"Áramok\" vagy a \"Töltések\" "
 "gombra a fő xnec2c ablakban."
 
-#: src/gnuplot.c:651 src/gnuplot.c:661
+#: src/gnuplot.c:652 src/gnuplot.c:662
 msgid "Save Patch Currents to CSV"
 msgstr "Patch áramok mentése CSV-be"
 
-#: src/gnuplot.c:652
+#: src/gnuplot.c:653
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4298,7 +4443,7 @@ msgstr ""
 "Az áramadatok engedélyezéséhez kattintson az \"Áramok\" vagy a \"Töltések\" "
 "gombra a fő xnec2c ablakban."
 
-#: src/gnuplot.c:662
+#: src/gnuplot.c:663
 msgid "No surface patches in this model."
 msgstr "Nincsenek felületi patch-ek ebben a modellben."
 
@@ -4819,99 +4964,99 @@ msgstr ""
 "ezen a platformon.\n"
 
 # xnec2c-exempt: name
-#: src/interface.c:280
+#: src/interface.c:279
 #, c-format
 msgid "xnec2c %s: %s"
 msgstr ""
 
-#: src/interface.c:373
+#: src/interface.c:372
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr ""
 "create_animate_dialog: nem sikerült betölteni az animate.glade fájlt: %s\n"
 
-#: src/main.c:126
+#: src/main.c:127
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s ablakozó háttérrendszer észlelve\n"
 
-#: src/main.c:134
+#: src/main.c:135
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch és --optimize kölcsönösen kizárják egymást.\n"
 
-#: src/main.c:143
+#: src/main.c:144
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "a --write-rdpat-png kapcsolóhoz --batch szükséges\n"
 
-#: src/main.c:159
+#: src/main.c:160
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "bemeneti fájl elérési útja túl hosszú ( > %d karakter )\n"
 
-#: src/main.c:166
+#: src/main.c:167
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "váratlan argumentum '%s' nem tűnik .nec fájlnak\n"
 
-#: src/main.c:173
+#: src/main.c:174
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "váratlan argumentum: %s\n"
 
-#: src/main.c:179
+#: src/main.c:180
 msgid "batch mode requires an input file\n"
 msgstr "kötegelt mód bemeneti fájlt igényel\n"
 
-#: src/main.c:189
+#: src/main.c:190
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "nem sikerült megnyitni a kijelzőt: futó X11 vagy Wayland munkamenet "
 "szükséges\n"
 
-#: src/main.c:208
+#: src/main.c:213
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d feladat forkja %d processzoron.\n"
 
-#: src/main.c:221 src/main.c:229
+#: src/main.c:226 src/main.c:234
 msgid "exiting after fatal error: pipe() failed"
 msgstr "kilépés végzetes hiba után: pipe() sikertelen"
 
-#: src/main.c:238
+#: src/main.c:243
 msgid "exiting after fatal error: fork() failed"
 msgstr "kilépés végzetes hiba után: fork() sikertelen"
 
-#: src/main.c:833
+#: src/main.c:838
 msgid "exiting via user interrupt\n"
 msgstr "kilépés felhasználói megszakítás miatt\n"
 
-#: src/main.c:837
+#: src/main.c:842
 msgid "segmentation fault, exiting\n"
 msgstr "szegmentálási hiba, kilépés\n"
 
-#: src/main.c:841
+#: src/main.c:846
 msgid "floating point exception, exiting\n"
 msgstr "lebegőpontos kivétel, kilépés\n"
 
-#: src/main.c:845
+#: src/main.c:850
 msgid "abort signal received, exiting\n"
 msgstr "megszakítási jel érkezett, kilépés\n"
 
-#: src/main.c:849
+#: src/main.c:854
 msgid "termination request received, exiting\n"
 msgstr "leállítási kérés érkezett, kilépés\n"
 
-#: src/main.c:859
+#: src/main.c:864
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "nem elágaztatott, SIGCHLD figyelmen kívül hagyása a(z) %d pid-től\n"
 
-#: src/main.c:867
+#: src/main.c:872
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "a(z) %d pid gyermekfolyamat kilépett\n"
 
-#: src/main.c:876
+#: src/main.c:881
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "alapértelmezett kilépés jelzéssel: %d\n"
@@ -5420,19 +5565,19 @@ msgstr ""
 msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Felirat textúra atlasz generálva (ID=%u)\n"
 
-#: src/opengl-engine/opengl_axes.c:156
+#: src/opengl-engine/opengl_axes.c:161
 msgid "Failed to load axes line shader\n"
 msgstr "Nem sikerült betölteni a tengelyvonal-shadert\n"
 
-#: src/opengl-engine/opengl_axes.c:189
+#: src/opengl-engine/opengl_axes.c:192
 msgid "Axes renderer initialized\n"
 msgstr "Tengelyrenderer inicializálva\n"
 
-#: src/opengl-engine/opengl_axes.c:193
+#: src/opengl-engine/opengl_axes.c:196
 msgid "Failed to load text shaders\n"
 msgstr "Nem sikerült betölteni a szöveg shadereket\n"
 
-#: src/opengl-engine/opengl_cairo_overlay.c:60
+#: src/opengl-engine/opengl_cairo_overlay.c:62
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Nem sikerült betölteni a cairo overlay shadereket\n"
 
@@ -5440,54 +5585,63 @@ msgstr "Nem sikerült betölteni a cairo overlay shadereket\n"
 msgid "Failed to create cairo overlay base\n"
 msgstr "Nem sikerült létrehozni a cairo overlay alapot\n"
 
-#: src/opengl-engine/opengl_ground_plane.c:103
+#: src/opengl-engine/opengl_ground_plane.c:105
 msgid "Failed to load ground plane shaders\n"
 msgstr "Nem sikerült betölteni a földsík shadereket\n"
 
 #: src/opengl-engine/opengl_renderer.c:55
 #, c-format
+msgid "Shader declares no version directive: %s\n"
+msgstr "a shader nem deklarál verziódirektívát: %s\n"
+
+#: src/opengl-engine/opengl_renderer.c:99
+#, c-format
 msgid "Failed to load shader: %s (%s)\n"
 msgstr "Nem sikerült betölteni a shadert: %s (%s)\n"
 
-#: src/opengl-engine/opengl_renderer.c:84
+#: src/opengl-engine/opengl_renderer.c:149
 #, c-format
 msgid "Shader compile error: %s: %s\n"
 msgstr "Shader fordítási hiba: %s: %s\n"
 
-#: src/opengl-engine/opengl_renderer.c:126
+#: src/opengl-engine/opengl_renderer.c:190
 #, c-format
 msgid "Shader link failed: %s + %s\n"
 msgstr "Shader linkelés sikertelen: %s + %s\n"
 
-#: src/opengl-engine/opengl_view.c:184
+#: src/opengl-engine/opengl_view.c:222
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "OpenGL kontexthiba – ezen a kijelzőn nem érhető el OpenGL-megvalósítás\n"
 
-#: src/opengl-engine/opengl_view.c:197
+#: src/opengl-engine/opengl_view.c:230
+msgid "Disabling OpenGL: shader catalog failed\n"
+msgstr "OpenGL letiltása: a shaderkatalógus hibázott\n"
+
+#: src/opengl-engine/opengl_view.c:243
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL letiltva: scene shader meghibásodott\n"
 
-#: src/opengl-engine/opengl_view.c:212
+#: src/opengl-engine/opengl_view.c:258
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL letiltva: overlay shader meghibásodott\n"
 
-#: src/opengl-engine/opengl_view.c:224
+#: src/opengl-engine/opengl_view.c:270
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL letiltva: tengelyek megjelenítője meghibásodott\n"
 
-#: src/opengl-engine/opengl_view.c:253
+#: src/opengl-engine/opengl_view.c:299
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL letiltva: földsík shader meghibásodott\n"
 
-#: src/opengl-engine/opengl_view.c:275
+#: src/opengl-engine/opengl_view.c:321
 #, c-format
 msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr ""
 "A renderelhető elemek száma (%u) meghaladja a MAX_RENDERABLES (%d) értéket\n"
 
-#: src/opengl-engine/opengl_view.c:354
+#: src/opengl-engine/opengl_view.c:402
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL letiltva: peel composite shader meghibásodott\n"
 
@@ -5508,10 +5662,6 @@ msgstr "MSAA framebuffer hiányos\n"
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA resolve framebuffer hiányos\n"
 
-#: src/opengl-engine/opengl_view_overlay.c:326
-msgid "Failed to load overlay shaders\n"
-msgstr "Nem sikerült betölteni az overlay shadereket\n"
-
 #: src/opengl-engine/opengl_view_peel.c:254
 #, c-format
 msgid "Peel FBO %d incomplete\n"
@@ -5530,15 +5680,11 @@ msgstr "Peel akkumulációs FBO hiányos\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "Layer depth FBO hiányos\n"
 
-#: src/opengl-engine/opengl_view_render.c:427
+#: src/opengl-engine/opengl_view_render.c:389
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Áttetsző renderelhetők kihagyva: peel FBO-k nem elérhetők\n"
 
-#: src/opengl-engine/opengl_view_scene.c:297
-msgid "Failed to load shaders\n"
-msgstr "Nem sikerült betölteni a shadereket\n"
-
-#: src/opengl/opengl_rdpattern.c:354
+#: src/opengl/opengl_rdpattern.c:345
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: érvénytelen rajzstílus %d, felület használva\n"
@@ -5828,44 +5974,54 @@ msgid ""
 msgstr ""
 "Átlagos nyereség: %.4f (%.2f dBi), hatásfok: %.1f%%, térszög: %.4f * pi sr\n"
 
-#: src/rc_config.c:885
+#: src/rc_config.c:958
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() sikertelen: %s\n"
 
-#: src/rc_config.c:889
+#: src/rc_config.c:962
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "a HOME környezeti változó nincs definiálva, használt: %s\n"
 
-#: src/rc_config.c:974
+#: src/rc_config.c:1047
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
 msgstr ""
 "%s (locale=%s): csak %d/%lu karakter egyezett, másik locale próbálva: %s\n"
 
-#: src/rc_config.c:1193
+#: src/rc_config.c:1266
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "ablak: x=%-5d y=%-5d sz=%-5d m=%-5d  cím: \"%s\"\n"
 
-#: src/rc_config.c:1227
+#: src/rc_config.c:1300
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: EOF az alkalmazásverzió olvasásakor.\n"
 
-#: src/rc_config.c:1233
+#: src/rc_config.c:1306
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "a meglévő konfigurációs fájl verziója eltér: %s != %s\n"
 
-#: src/rc_config.c:1367
+#: src/rc_config.c:1353
+#, c-format
+msgid ""
+"gain readouts are scaled to %s, restored from the previous session; select "
+"Total Gain to read total gain\n"
+msgstr ""
+"a nyereségleolvasások %s értékre vannak méretezve, az előző munkamenetből "
+"visszaállítva; válassza az Összes nyereség lehetőséget az összesített "
+"nyereség leolvasásához\n"
+
+#: src/rc_config.c:1463
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "stat sikertelen: %s: %s\n"
 
-#: src/rc_config.c:1373
+#: src/rc_config.c:1469
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5874,52 +6030,98 @@ msgstr ""
 "A(z) %s könyvtár engedélyei javítva: 0%o-ról 0%o-ra (a 4e62893b hibája "
 "miatt).\n"
 
-#: src/rc_config.c:1404
+#: src/rc_config.c:1500
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: nem értelmezett sor: %s\n"
 
-#: src/rc_config.c:1410
+#: src/rc_config.c:1506
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: korai fájlvég %s esetén: %s \n"
 
-#: src/rc_config.c:1435
+#: src/rc_config.c:1531
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: elemzési hiba (%s): %s \n"
 
-#: src/rc_config.c:1449
+#: src/rc_config.c:1545
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr ""
 "Érvénytelen égbolt-modell index %d a konfigurációban, visszaállítás "
 "alapértelmezettre\n"
 
-#: src/rc_config.c:1455
+#: src/rc_config.c:1551
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Érvénytelen Föld-modell index %d a konfigurációban, visszaállítás "
 "alapértelmezettre\n"
 
-#: src/rc_config.c:1461
+#: src/rc_config.c:1557
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Érvénytelen interpolációs módszer %d a konfigurációban, visszaállítás "
 "alapértelmezettre\n"
 
-#: src/rc_config.c:1636
+#: src/rc_config.c:1565
+#, c-format
+msgid "Invalid flow visualization mode %d in config, resetting to default\n"
+msgstr ""
+"érvénytelen áramlás-megjelenítési mód: %d a konfigurációban, visszaállítás "
+"alapértelmezettre\n"
+
+#: src/rc_config.c:1745
 msgid "batch mode: skipping configuration save\n"
 msgstr "kötegelt mód: konfiguráció mentésének kihagyása\n"
 
-#: src/rc_config.c:1643
+#: src/rc_config.c:1752
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "nem lehet megnyitni az xnec2c konfigurációs fájlját: %s: %s\n"
 
-#: src/rdpattern_ui.c:38
+#: src/rdpattern_noise_menu.c:37
+msgid "Read the noise temperature at the nearest tabulated frequency."
+msgstr ""
+"A zajhőmérséklet olvasása a legközelebbi táblázatba foglalt frekvencián."
+
+#: src/rdpattern_noise_menu.c:39
+msgid ""
+"Interpolate the noise temperature between tabulated frequencies in log-log "
+"space, clamped at the table edges."
+msgstr ""
+"A zajhőmérséklet interpolálása a táblázatba foglalt frekvenciák között log-"
+"log térben, a táblázat szélein korlátozva."
+
+#: src/rdpattern_noise_menu.c:133
+msgid "Available while a selected sky or earth model reads a frequency table."
+msgstr ""
+"Akkor érhető el, ha a kiválasztott égi modell vagy talajmodell "
+"frekvenciatáblázatot olvas."
+
+#: src/rdpattern_noise_menu.c:135
+msgid ""
+"The selected sky and earth models resolve by an intrinsic method; select a "
+"table-based model to enable."
+msgstr ""
+"A kiválasztott égi és talajmodellek belső módszerrel oldódnak fel; a "
+"bekapcsoláshoz válasszon táblázatalapú modellt."
+
+#: src/rdpattern_noise_menu.c:296
+msgid "Sky Model"
+msgstr "Égi modell"
+
+#: src/rdpattern_noise_menu.c:303
+msgid "Earth Model"
+msgstr "Talajmodell"
+
+#: src/rdpattern_noise_menu.c:311
+msgid "Interpolation"
+msgstr "Interpoláció"
+
+#: src/rdpattern_ui.c:39
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5933,7 +6135,23 @@ msgstr ""
 "H-mező animáció: Adjon NH kártyát a NEC fájlhoz\n"
 "Poynting vektor: Adjon NE és NH kártyát is"
 
-#: src/rdpattern_ui.c:94
+#: src/rdpattern_ui.c:59
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Close the animation window to enable this setting."
+msgstr ""
+"Kiválasztja a statikus közeltér-vektor megjelenítését.\n"
+"Ennek a beállításnak az engedélyezéséhez zárja be az animáció ablakot."
+
+#: src/rdpattern_ui.c:61
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Applies while the animation window is closed."
+msgstr ""
+"Kiválasztja a statikus közeltér-vektor megjelenítését.\n"
+"Akkor érvényes, ha az animáció ablak be van zárva."
+
+#: src/rdpattern_ui.c:129
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -5942,17 +6160,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d tartományon kívül [0..%d], "
 "alapértelmezett: GS_LINP\n"
 
-#: src/rdpattern_ui.c:516
+#: src/rdpattern_ui.c:544
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Nyereség a néző irányában, a jelenlegi nézetszögeknél."
 
-#: src/rdpattern_ui.c:518
+#: src/rdpattern_ui.c:546
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "Fényerő-hőmérséklet a néző irányában, a jelenlegi nézetszögeknél."
 
-#: src/rdpattern_ui.c:538 src/rdpattern_ui.c:544
+#: src/rdpattern_ui.c:566 src/rdpattern_ui.c:572
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -5960,7 +6178,7 @@ msgstr ""
 "Megfigyelési emelkedési szög. Az ég/föld határt tolja el az "
 "antennahőmérséklet kiértékeléséhez. 0° = horizont."
 
-#: src/rdpattern_ui.c:541 src/rdpattern_ui.c:547
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5968,14 +6186,14 @@ msgstr ""
 "Megfigyelési emelkedési szög az antennahőmérséklethez.\n"
 "Válassza a Nyereség stílus → Zajhőmérséklet lehetőséget az engedélyezéshez."
 
-#: src/rdpattern_ui.c:550
+#: src/rdpattern_ui.c:578
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr ""
 "Független ég, föld és interpolációs választók a zajhőmérséklet-modellekhez."
 
-#: src/rdpattern_ui.c:552
+#: src/rdpattern_ui.c:580
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5983,71 +6201,71 @@ msgstr ""
 "Ég és Föld zajhőmérséklet-modellek.\n"
 "Válassza a Nyereség stílus → Zajhőmérséklet lehetőséget az engedélyezéshez."
 
-#: src/rdpattern_ui.c:846
+#: src/rdpattern_ui.c:889
 msgid "Total Gain"
 msgstr "Teljes nyereség"
 
-#: src/rdpattern_ui.c:847
+#: src/rdpattern_ui.c:890
 msgid "Horizontal Polarization"
 msgstr "Vízszintes polarizáció"
 
-#: src/rdpattern_ui.c:848
+#: src/rdpattern_ui.c:891
 msgid "Vertical Polarization"
 msgstr "Függőleges polarizáció"
 
-#: src/rdpattern_ui.c:849
+#: src/rdpattern_ui.c:892
 msgid "RH Circular Polarization"
 msgstr "Jobbkezes körkörös polarizáció"
 
-#: src/rdpattern_ui.c:850
+#: src/rdpattern_ui.c:893
 msgid "LH Circular Polarization"
 msgstr "Balkezes körkörös polarizáció"
 
-#: src/rdpattern_ui.c:855
+#: src/rdpattern_ui.c:944
 msgid "Linear Power"
 msgstr "Lineáris teljesítmény"
 
-#: src/rdpattern_ui.c:856
+#: src/rdpattern_ui.c:945
 msgid "Linear Voltage"
 msgstr "Lineáris feszültség"
 
-#: src/rdpattern_ui.c:857
+#: src/rdpattern_ui.c:946
 msgid "ARRL Scale"
 msgstr "ARRL skála"
 
-#: src/rdpattern_ui.c:858
+#: src/rdpattern_ui.c:947
 msgid "Logarithmic Scale"
 msgstr "Logaritmikus skála"
 
-#: src/rdpattern_ui.c:859
+#: src/rdpattern_ui.c:948
 msgid "Noise Temperature"
 msgstr "Zajhőmérséklet"
 
-#: src/rdpattern_ui.c:860
+#: src/rdpattern_ui.c:949
 msgid "Noise Temp (log scale)"
 msgstr "Zajhőm. (log skála)"
 
-#: src/rdpattern_ui.c:872
+#: src/rdpattern_ui.c:967
 msgid "Radiation Pattern: - "
 msgstr "Sugárzási diagram: - "
 
-#: src/rdpattern_ui.c:892
+#: src/rdpattern_ui.c:991
 msgid "Near Fields:"
 msgstr "Közeli mezők:"
 
-#: src/rdpattern_ui.c:894
+#: src/rdpattern_ui.c:993
 msgid " - E Field"
 msgstr " - E mező"
 
-#: src/rdpattern_ui.c:896
+#: src/rdpattern_ui.c:995
 msgid " - H Field"
 msgstr " - H mező"
 
-#: src/rdpattern_ui.c:898
+#: src/rdpattern_ui.c:997
 msgid " - Poynting Vector"
 msgstr " - Poynting-vektor"
 
-#: src/rdpattern_ui.c:908
+#: src/rdpattern_ui.c:1008
 msgid "Frequency Data Plots - "
 msgstr "Frekvenciaadatok ábrázolása - "
 
@@ -6069,22 +6287,22 @@ msgstr "render_fit_solve: nincs illeszthető geometria\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Optimalizáló ciklus befejezetlen, közbülső újrarajzolás kihagyása.\n"
 
-#: src/settings/render_settings_common.c:116
+#: src/settings/render_settings_common.c:119
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: nem sikerült betölteni a glade-t: %s\n"
 
-#: src/settings/render_settings_common.c:126
+#: src/settings/render_settings_common.c:129
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: nem sikerült betölteni az opengl glade-t: %s\n"
 
-#: src/settings/render_settings_common.c:136
+#: src/settings/render_settings_common.c:139
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: nem sikerült betölteni a cairo glade-t: %s\n"
 
-#: src/settings/render_settings_common.c:149
+#: src/settings/render_settings_common.c:152
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: nem sikerült a render_settings_window-t lekérni a "
@@ -6193,39 +6411,39 @@ msgstr ""
 "Meghatározza, hogy ez a paraméter felülbírálja-e a NEC modell értékét.\n"
 "Szüntesse meg az Opt jelölőnégyzet bejelölését a független vezérléshez."
 
-#: src/themes/theme.c:140
+#: src/themes/theme.c:135
 #, c-format
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr ""
 "'%s' téma '%s' szerepe érvénytelen szín, örökölt alapértelmezés használva\n"
 
-#: src/themes/theme.c:223
+#: src/themes/theme.c:218
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "theme: nem sikerült betölteni az erőforrást: %s: %s\n"
 
-#: src/themes/theme.c:233
+#: src/themes/theme.c:228
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "theme: nem sikerült feldolgozni az erőforrást: %s: %s\n"
 
-#: src/themes/theme.c:259
+#: src/themes/theme.c:254
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "theme: nem sikerült feldolgozni: %s, beépített alapértelmezések használva\n"
 
-#: src/themes/theme.c:388
+#: src/themes/theme.c:377
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "'%s' témának nincs invertált változata, alap használva\n"
 
-#: src/themes/theme.c:396
+#: src/themes/theme.c:385
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "'%s' téma nem található, örökölt használva\n"
 
-#: src/themes/theme.c:468
+#: src/themes/theme.c:428
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "'%s' szélesség érvénytelen, jelenlegi érték megtartva\n"
@@ -6284,7 +6502,7 @@ msgstr ""
 msgid "%s:\n"
 msgstr ""
 
-#: src/validation_dump.c:34
+#: src/validation_dump.c:35
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6292,26 +6510,26 @@ msgstr ""
 "validáció: a nec2-builtin matematikai könyvtár nem érhető el; a numerikus "
 "eredmények eltérhetnek a referenciától\n"
 
-#: src/validation_dump.c:39
+#: src/validation_dump.c:40
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr ""
 "validáció: a matematikai könyvtár nec2-builtin-ra kényszerítve a "
 "reprodukálhatóság érdekében\n"
 
-#: src/validation_dump.c:58
+#: src/validation_dump.c:59
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
 "validáció: az antennahőmérséklet-modellek és az emelkedés kényszerítve a "
 "reprodukálhatóság érdekében\n"
 
-#: src/validation_dump.c:68
+#: src/validation_dump.c:69
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr ""
 "validáció: a polarizáció kényszerítve teljesre a reprodukálhatóság "
 "érdekében\n"
 
-#: src/validation_dump.c:87
+#: src/validation_dump.c:88
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6319,24 +6537,24 @@ msgstr ""
 "validáció: a szerkezetnézet visszaállítva alapértelmezett tájolásra a "
 "reprodukálhatóság érdekében\n"
 
-#: src/validation_dump.c:614 src/validation_dump.c:620
+#: src/validation_dump.c:621 src/validation_dump.c:627
 msgid "Validation Tree"
 msgstr "Validációs fa"
 
-#: src/validation_dump.c:614
+#: src/validation_dump.c:621
 msgid "Cannot save: frequency loop not done"
 msgstr "Nem menthető: a frekvenciahurok nincs befejezve"
 
-#: src/validation_dump.c:620
+#: src/validation_dump.c:627
 msgid "Cannot create output directory"
 msgstr "Nem sikerült létrehozni a kimeneti könyvtárat"
 
-#: src/validation_dump.c:652
+#: src/validation_dump.c:659
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "validációs fa kiírva ide: %s\n"
 
-#: src/xnec2c.c:306
+#: src/xnec2c.c:304
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
@@ -6344,16 +6562,16 @@ msgid ""
 msgstr ""
 "komplex dielektromos állandó fájlból: %12.5E%+12.5Ej, kért: %12.5E%+12.5Ej\n"
 
-#: src/xnec2c.c:309
+#: src/xnec2c.c:307
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters():Hiba a földsík paraméterekben"
 
-#: src/xnec2c.c:733
+#: src/xnec2c.c:731
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f másodperc. (%s)\n"
 
-#: src/xnec2c.c:1077
+#: src/xnec2c.c:1075
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
@@ -6361,81 +6579,81 @@ msgstr ""
 "%d. lépés versenyhelyzet: elküldött %.6f MHz, aktuális %.6f MHz; "
 "újraszámítás\n"
 
-#: src/xnec2c.c:1203
+#: src/xnec2c.c:1201
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr ""
 "a(z) %d. gyermekfolyamat érvénytelen cső-fájlleírót tartalmaz az "
 "elágaztatott gyűjtés során\n"
 
-#: src/xnec2c.c:1256
+#: src/xnec2c.c:1254
 msgid "Failed to read data from forked child\n"
 msgstr "Nem sikerült adatot olvasni az elágaztatott gyermekfolyamatból\n"
 
-#: src/xnec2c.c:1530
+#: src/xnec2c.c:1528
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "a legközelebbi %g MHz-es lépés eltér a kért %g MHz-től\n"
 
-#: src/xnec2c.c:1534
+#: src/xnec2c.c:1532
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "a frekvenciasöprés utáni frekvencia %.4f MHz-re állítva (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1572
+#: src/xnec2c.c:1570
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Frekvencia ciklus eltelt idő: %f másodperc. (%s)\n"
 
-#: src/xnec2c.c:1624
+#: src/xnec2c.c:1622
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "a kötegelt %d. vászon nem rajzolt képkockát %dx%d méretben\n"
 
-#: src/xnec2c.c:1789
+#: src/xnec2c.c:1787
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "sugárzási diagram PNG-rögzítés: nincs kiszámított lépés ehhez: %s\n"
 
-#: src/xnec2c.c:1861
+#: src/xnec2c.c:1859
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "a sugárzási diagram PNG-rögzítése sikertelen ehhez: %s\n"
 
-#: src/xnec2c.c:1867
+#: src/xnec2c.c:1865
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "a sugárzási diagram PNG-mentése sikertelen ehhez: %s: %s\n"
 
-#: src/xnec2c.c:1872
+#: src/xnec2c.c:1870
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "sugárzási diagram PNG kiírva: %s\n"
 
-#: src/xnec2c.c:1909
+#: src/xnec2c.c:1907
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "több sugárzási diagram PNG-formátum esetén .png fájlnév szükséges: %s\n"
 
-#: src/xnec2c.c:2014
+#: src/xnec2c.c:2012
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "A söprés %d munkaszálat futtat, egyenként %d szállal\n"
 
-#: src/xnec2c.c:2306
+#: src/xnec2c.c:2304
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "nem sikerült elindítani a Frequency_Loop_Thread szálat\n"
 
-#: src/xnec2c.c:2485
+#: src/xnec2c.c:2483
 msgid "Frequency Sweep"
 msgstr "Frekvenciapásztázás"
 
-#: src/xnec2c.c:2486
+#: src/xnec2c.c:2484
 msgid "Recalculate the frequency sweep?"
 msgstr "Biztosan újraszámolja a frekvenciapásztázást?"
 
-#: src/xnec2c.c:2487
+#: src/xnec2c.c:2485
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

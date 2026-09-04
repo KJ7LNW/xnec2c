@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-24 14:07-0700\n"
+"POT-Creation-Date: 2026-08-31 13:53-0700\n"
 "PO-Revision-Date: 2026-05-25 01:51-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -34,11 +34,58 @@ msgstr "د عددي برقناطیسي کوډ سافټویر"
 msgid "nec2;em;simulator;"
 msgstr "nec2;em;شبیه ساز;"
 
-#: resources/animate.glade:85
+#: resources/animate.glade:136
+msgid "Total"
+msgstr "ټول"
+
+#: resources/animate.glade:146
+msgid "Horizontal"
+msgstr "افقي"
+
+#: resources/animate.glade:156
+msgid "Vertical"
+msgstr "عمودي"
+
+#: resources/animate.glade:166
+msgid "Right Hand"
+msgstr "ښی لاس"
+
+#: resources/animate.glade:176
+msgid "Left Hand"
+msgstr "کیڼ لاس"
+
+#: resources/animate.glade:191 resources/animate.glade:272
+#: resources/animate.glade:375
 msgid "Animated"
 msgstr "متحرک"
 
-#: resources/animate.glade:92
+#: resources/animate.glade:198 resources/xnec2c.glade:11075
+msgid "_Reference Phase"
+msgstr "د _حوالې فاز"
+
+#: resources/animate.glade:209 resources/xnec2c.glade:11086
+msgid "_LIC Texture"
+msgstr "د _LIC بناوت"
+
+#: resources/animate.glade:220 resources/xnec2c.glade:11097
+#: resources/xnec2c.glade:12290
+msgid "_Wireframe"
+msgstr "_تارچوکاټ"
+
+#: resources/animate.glade:238 resources/animate.glade:330
+#: resources/animate.glade:399
+msgid "Static"
+msgstr "ثابت"
+
+#: resources/animate.glade:245 resources/xnec2c.glade:11122
+msgid "Polarization _Axis"
+msgstr "د پولاریزیشن _محور"
+
+#: resources/animate.glade:256 resources/xnec2c.glade:11133
+msgid "Peak _Magnitude"
+msgstr "د چوکۍ _مقدار"
+
+#: resources/animate.glade:279
 msgid ""
 "Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
 "cos(arg z + φ)|, floored so nulls stay visible.\n"
@@ -50,11 +97,11 @@ msgstr ""
 "\n"
 "متحرک: روښانه سیمې د جوړښت په اوږدو کې خوځي لکه څنګه چې فاز مخته ځي."
 
-#: resources/animate.glade:93
+#: resources/animate.glade:280 resources/animate.glade:383
 msgid "Instantaneous"
 msgstr "سمدستي"
 
-#: resources/animate.glade:103
+#: resources/animate.glade:290
 msgid ""
 "Diverging hue shows the instantaneous sign of the displayed quantity: cold "
 "negative, hot positive; brightness carries the magnitude s(n).\n"
@@ -66,11 +113,11 @@ msgstr ""
 "\n"
 "متحرک: سیمې خپل قطبونه بدلوي لکه څنګه چې فاز مخته ځي."
 
-#: resources/animate.glade:104
+#: resources/animate.glade:291
 msgid "Polarity"
 msgstr "قطبیت"
 
-#: resources/animate.glade:114
+#: resources/animate.glade:301
 msgid ""
 "Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
 "magnitude s(n).\n"
@@ -81,11 +128,11 @@ msgstr ""
 "\n"
 "متحرک: ټول څرخ رابرابر کیږي لکه څنګه چې فاز مخته ځي."
 
-#: resources/animate.glade:115
+#: resources/animate.glade:302
 msgid "Phase Hue"
 msgstr "د فاز رنګ"
 
-#: resources/animate.glade:125
+#: resources/animate.glade:312
 msgid ""
 "Diverging hue shows the instantaneous charge sign; brightness carries the "
 "current envelope s(|I|).\n"
@@ -96,15 +143,11 @@ msgstr ""
 "\n"
 "متحرک: د چارج او جریان یو لید چې د یوې څلورمې دورې په واټن دي."
 
-#: resources/animate.glade:126
+#: resources/animate.glade:313
 msgid "Current + Charge"
 msgstr "جریان + چارج"
 
-#: resources/animate.glade:143
-msgid "Static"
-msgstr "ثابت"
-
-#: resources/animate.glade:150
+#: resources/animate.glade:337
 msgid ""
 "Rainbow ramp of this frequency step's peak magnitude s(n) at full "
 "brightness.\n"
@@ -115,11 +158,11 @@ msgstr ""
 "\n"
 "ثابت: د فاز نه‌بدلیدونکی بنسټ؛ رنګونه د پلی کیدو پرمهال ثابت پاتې کیږي."
 
-#: resources/animate.glade:151
+#: resources/animate.glade:338
 msgid "Amplitude"
 msgstr "امپلیتیوډ"
 
-#: resources/animate.glade:161
+#: resources/animate.glade:348
 msgid ""
 "Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
 "brightness carries the magnitude s(n).\n"
@@ -131,11 +174,11 @@ msgstr ""
 "\n"
 "ثابت: د فاز نه‌بدلیدونکی لوستل؛ رنګونه د پلی کیدو پرمهال ثابت پاتې کیږي."
 
-#: resources/animate.glade:162
+#: resources/animate.glade:349
 msgid "Standing/Traveling"
 msgstr "ولاړه/تلونکې"
 
-#: resources/animate.glade:172
+#: resources/animate.glade:359
 msgid ""
 "Hue ramps each segment's contribution to the selected far-field direction; "
 "brightness carries the magnitude s(n).\n"
@@ -146,11 +189,50 @@ msgstr ""
 "\n"
 "ثابت: د فاز نه‌بدلیدونکی لوستل؛ رنګونه د پلی کیدو پرمهال ثابت پاتې کیږي."
 
-#: resources/animate.glade:173
+#: resources/animate.glade:360
 msgid "Far-field Contribution"
 msgstr "د لرې ساحې ونډه"
 
-#: resources/animate.glade:187
+#: resources/animate.glade:382
+msgid ""
+"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animated: scaled regions travel through phase peaks and contract at zero "
+"crossings as the phase advances."
+msgstr ""
+"د هر سیګمنټ اندازه د سمدستي قدر s(n) · |cos(arg z + φ)| پر بنسټ ټاکل کیږي.\n"
+"\n"
+"متحرک: پیمانه شوې سیمې د فاز له وده کولو سره د فاز چوکیو له منځه تیریږي او "
+"په صفر تیریدو کې راکمیږي."
+
+#: resources/animate.glade:406
+msgid ""
+"Scale each segment from the peak magnitude s(n), enlarging strong regions "
+"and contracting nulls.\n"
+"\n"
+"Static: the phase-invariant scale holds still during playback."
+msgstr ""
+"د هر سیګمنټ اندازه د چوکۍ قدر s(n) پر بنسټ ټاکل کیږي، چې پیاوړې سیمې لویوي "
+"او خالي ځایونه راکموي.\n"
+"\n"
+"ثابت: دا فاز-نامتغیره پیمانه د انیمیشن د چلولو پر مهال ثابته پاتې کیږي."
+
+#: resources/animate.glade:407
+msgid "Envelope magnitude"
+msgstr "د پوښ قدر"
+
+#: resources/animate.glade:417
+msgid ""
+"Keep each segment at its model radius instead of scaling it by magnitude."
+msgstr ""
+"هر سیګمنټ د قدر له مخې پیمانه کولو پرځای په خپل ماډل شعاع کې ساتل کیږي."
+
+#: resources/animate.glade:418
+msgid "Model radius"
+msgstr "د ماډل شعاع"
+
+#: resources/animate.glade:433
 msgid ""
 "Power-law transfer n^γ of the normalized magnitude.\n"
 "\n"
@@ -165,11 +247,11 @@ msgstr ""
 "|I|² د هرې برخې مصرف شوي ځواک سره متناسب دی (او د وړانګې مقاومت له لارې خپل "
 "د وړانګیز-ځواک ونډه)، |q|² د ذخیره شوي برقساتیک انرژۍ سره."
 
-#: resources/animate.glade:188
+#: resources/animate.glade:434
 msgid "Power"
 msgstr "د توان قانون"
 
-#: resources/animate.glade:198
+#: resources/animate.glade:444
 msgid ""
 "Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
 "decibels.\n"
@@ -184,12 +266,12 @@ msgstr ""
 "رنګ ته پرې کیږي."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:199 resources/xnec2c.glade:11713
+#: resources/animate.glade:445 resources/xnec2c.glade:11713
 #: resources/xnec2c.glade:13071
 msgid "dB"
 msgstr ""
 
-#: resources/animate.glade:209
+#: resources/animate.glade:455
 msgid ""
 "Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
 "\n"
@@ -202,11 +284,11 @@ msgstr ""
 "فشاروي، لکه د یو خطي-لوغریتمیک وسیلې پیمانه."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:210
+#: resources/animate.glade:456
 msgid "Asinh"
 msgstr ""
 
-#: resources/animate.glade:220
+#: resources/animate.glade:466
 msgid ""
 "μ-law companding, the telephony-standard bounded log curve.\n"
 "\n"
@@ -219,11 +301,11 @@ msgstr ""
 "= 255 دی."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:221
+#: resources/animate.glade:467
 msgid "μ-law"
 msgstr ""
 
-#: resources/animate.glade:231
+#: resources/animate.glade:477
 msgid ""
 "Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
 "\n"
@@ -235,11 +317,11 @@ msgstr ""
 "ټاکي."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:232
+#: resources/animate.glade:478
 msgid "Reinhard"
 msgstr ""
 
-#: resources/animate.glade:242
+#: resources/animate.glade:488
 msgid ""
 "Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
 "\n"
@@ -252,11 +334,11 @@ msgstr ""
 "امپلیفایر کمپریشن؛ a تیزوالی ټاکي."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:243
+#: resources/animate.glade:489
 msgid "Sigmoid"
 msgstr ""
 
-#: resources/animate.glade:253
+#: resources/animate.glade:499
 msgid ""
 "Identity: every magnitude renders at full brightness.\n"
 "\n"
@@ -266,16 +348,16 @@ msgstr ""
 "\n"
 "یوازې د رنګ پروجیکشن معلومات لري."
 
-#: resources/animate.glade:254 resources/settings/cairo_settings.glade:56
+#: resources/animate.glade:500 resources/settings/cairo_settings.glade:56
 msgid "None"
 msgstr "هیڅ"
 
-#: resources/animate.glade:266 src/rdpattern_ui.c:366 src/rdpattern_ui.c:374
-#: src/rdpattern_ui.c:381
+#: resources/animate.glade:512 src/rdpattern_ui.c:401 src/rdpattern_ui.c:409
+#: src/rdpattern_ui.c:416
 msgid "Near Field Animation"
 msgstr "د نږدې ساحې انیمیشن"
 
-#: resources/animate.glade:358
+#: resources/animate.glade:604
 msgid ""
 "Scrub the animation phase manually.\n"
 "\n"
@@ -286,27 +368,27 @@ msgstr ""
 "د انیمیشن د چلیدو پرمهال غیرفعال دی."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:375
+#: resources/animate.glade:621
 msgid "φ 0°"
 msgstr ""
 
-#: resources/animate.glade:389
+#: resources/animate.glade:635
 msgid "Phase"
 msgstr "فاز"
 
-#: resources/animate.glade:412
+#: resources/animate.glade:658
 msgid "Frames/Sec"
 msgstr "فریمونه/ثانیه"
 
-#: resources/animate.glade:425
+#: resources/animate.glade:671
 msgid "Animate Freq (Hz)"
 msgstr "د فریکونسي انیمیشن (Hz)"
 
-#: resources/animate.glade:498
+#: resources/animate.glade:747
 msgid "Color projection:"
 msgstr "د رنګ پروجیکشن:"
 
-#: resources/animate.glade:512
+#: resources/animate.glade:762
 msgid ""
 "Select which physical quantity drives the hue and how brightness follows the "
 "excitation phase.\n"
@@ -324,31 +406,47 @@ msgstr ""
 "\n"
 "د یو ننوت پر مخ شاته کول یې ژوندی مخکتنه ښیي."
 
-#: resources/animate.glade:539
+#: resources/animate.glade:820
+msgid "Segment scale:"
+msgstr "د سیګمنټ پیمانه:"
+
+#: resources/animate.glade:835
+msgid ""
+"Choose how current or charge magnitude changes segment thickness.\n"
+"\n"
+"Hover an entry to preview it."
+msgstr ""
+"دا ټاکنه ښیي چې د جریان یا چارج قدر څنګه د سیګمنټ ضخامت بدلوي.\n"
+"\n"
+"د مخکتنې لپاره پر یوې ننوتنې مکورسر ونیسئ."
+
+#: resources/animate.glade:893
 msgid "Scale family:"
 msgstr "د پیمانې ډله:"
 
-#: resources/animate.glade:553
+#: resources/animate.glade:908
 msgid ""
-"Select the magnitude-to-color transfer family.\n"
+"Select the normalized-magnitude transfer shared by color brightness and "
+"segment scale.\n"
 "\n"
 "Adjust its slider until the contrast reveals the range your inspection "
 "needs.\n"
 "\n"
 "Hovering an entry previews it live."
 msgstr ""
-"د مقدار-څخه-رنګ لیږد ډله وټاکئ.\n"
+"د نورمال شوي قدر لېږد وټاکئ چې د رنګ روڼتیا او سیګمنټ پیمانه دواړه ورسره "
+"شریکوي.\n"
 "\n"
-"خپل سلایډر تنظیم کړئ تر څو کنتراست هغه لړۍ ښکاره کړي چې ستاسو معاینې ته "
-"اړتیا ده.\n"
+"د هغه سلایډر تنظیم کړئ تر څو کنټراست هغه ساحه راښکاره کړي چې ستاسو معاینې ته "
+"اړتیا لري.\n"
 "\n"
-"د یو ننوت پر مخ شاته کول یې ژوندی مخکتنه ښیي."
+"پر ننوتنه مکورسر نیول یې ژوندۍ مخکتنه ورکوي."
 
-#: resources/animate.glade:592
+#: resources/animate.glade:978
 msgid "Gamma:"
 msgstr "ګاما:"
 
-#: resources/animate.glade:609
+#: resources/animate.glade:995
 msgid ""
 "Gamma exponent of the power transfer.\n"
 "\n"
@@ -360,11 +458,11 @@ msgstr ""
 "γ = 0.5 کمزورې سیمې غځوي، γ = 1 خطي دی، γ = 2 د جریانونو لپاره مصرف شوي ځواک "
 "سره متناسب دی."
 
-#: resources/animate.glade:631
+#: resources/animate.glade:1017
 msgid "Range (dB):"
 msgstr "لړۍ (dB):"
 
-#: resources/animate.glade:648
+#: resources/animate.glade:1034
 msgid ""
 "Dynamic range R below the step peak mapped onto the color strip.\n"
 "\n"
@@ -374,47 +472,47 @@ msgstr ""
 "\n"
 "ټیټه کچه د چوکۍ 10^(−R/20) ده."
 
-#: resources/animate.glade:670
+#: resources/animate.glade:1056
 msgid "Softening:"
 msgstr "نرمول:"
 
-#: resources/animate.glade:687
+#: resources/animate.glade:1073
 msgid "Softening knee k: linear below k, logarithmic above."
 msgstr "د نرمولو زنګون k: د k نه لاندې خطي، پورته لوغریتمیک."
 
-#: resources/animate.glade:709
+#: resources/animate.glade:1095
 msgid "Compression (dB):"
 msgstr "کمپریشن (dB):"
 
-#: resources/animate.glade:726
+#: resources/animate.glade:1112
 msgid "Compression strength in dB; higher values lift weak detail."
 msgstr "د کمپریشن ځواک په dB کې؛ لوړ ارزښتونه کمزوري توضیحات پورته کوي."
 
-#: resources/animate.glade:748
+#: resources/animate.glade:1134
 msgid "Knee:"
 msgstr "زنګون:"
 
-#: resources/animate.glade:765
+#: resources/animate.glade:1151
 msgid "Knee k of the rational soft-compressor."
 msgstr "د منطقي نرم-کمپریسر زنګون k."
 
-#: resources/animate.glade:787
+#: resources/animate.glade:1173
 msgid "Contrast:"
 msgstr "کنتراست:"
 
-#: resources/animate.glade:804
+#: resources/animate.glade:1190
 msgid "Contrast steepness a of the tanh transfer."
 msgstr "د tanh لیږد د کنتراست تیزوالی a."
 
-#: resources/animate.glade:837
+#: resources/animate.glade:1223
 msgid "Color gradient of the active projection and scale family."
 msgstr "د فعالې پروجیکشن او پیمانې ډلې رنګ لړۍ."
 
-#: resources/animate.glade:855
+#: resources/animate.glade:1241
 msgid "Brightness floor:"
 msgstr "د روڼتیا ټیټه کچه:"
 
-#: resources/animate.glade:873
+#: resources/animate.glade:1259
 msgid ""
 "Minimum brightness under animation so elements cool toward this level "
 "instead of vanishing to black."
@@ -422,27 +520,15 @@ msgstr ""
 "د انیمیشن پرمهال لږترلږه روڼتیا ترڅو عناصر تر دې کچې یخ شي، پرځای د تور رنګ "
 "ته له منځه تلو نه."
 
-#: resources/animate.glade:884
-msgid "Width from amplitude"
-msgstr "د امپلیتیوډ نه پلنوالی"
-
-#: resources/animate.glade:889
-msgid ""
-"Scale wire segment width by the scaled amplitude envelope s(n), so strong "
-"regions draw thick and nulls draw thin."
-msgstr ""
-"د تار برخې پلنوالی د پیمانه شوي امپلیتیوډ پوښ s(n) پر بنسټ تنظیم کړئ، ترڅو "
-"پیاوړي سیمې ډبلې او نوډونه نری رسم شي."
-
-#: resources/animate.glade:915
+#: resources/animate.glade:1285
 msgid "Overlays:"
 msgstr "لایې:"
 
-#: resources/animate.glade:926
+#: resources/animate.glade:1296
 msgid "Nodes/antinodes"
 msgstr "نوډونه/انټي‌نوډونه"
 
-#: resources/animate.glade:931
+#: resources/animate.glade:1301
 msgid ""
 "Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
 "\n"
@@ -454,11 +540,11 @@ msgstr ""
 "نښې د فاز نه‌بدلیدونکي پوښ نه اخیستل کیږي، نو دوی د څپې د خوځیدو پرمهال ثابت "
 "پاتې کیږي."
 
-#: resources/animate.glade:942
+#: resources/animate.glade:1312
 msgid "Comet"
 msgstr "کامېټ"
 
-#: resources/animate.glade:947
+#: resources/animate.glade:1317
 msgid ""
 "Ride a bright head on the instantaneous positive crest so wave motion reads "
 "along each wire."
@@ -466,87 +552,88 @@ msgstr ""
 "د سمدستي مثبت لوړي ټکي پر یوه روښانه سر سپاره شئ ترڅو د تار په اوږدو کې د "
 "څپې خوځښت ولوستل شي."
 
-#: resources/animate.glade:980
+#: resources/animate.glade:1350
 msgid "Reset"
 msgstr "بیاکول"
 
-#: resources/animate.glade:986
+#: resources/animate.glade:1356
 msgid ""
-"Restore the color projection, scale family, and every family brightness "
-"parameter to their defaults."
+"Restore the color projection, segment scale, scale family, brightness floor, "
+"and every family parameter to their defaults."
 msgstr ""
-"د رنګ پروجیکشن، د پیمانې ډله، او د هرې ډلې د روڼتیا پیرامیټر یې ډیفالټ "
-"ارزښتونو ته بیرته راولي."
+"د رنګ پروجیکشن، سیګمنټ پیمانه، د پیمانې کورنۍ، د روڼتیا لاندنۍ حد، او د "
+"کورنۍ هر پیرامیټر خپلو ډیفالټونو ته بیرته راولئ."
 
-#: resources/animate.glade:1001
+#: resources/animate.glade:1391
 msgid ""
-"<b>Color</b> <i>— currents, charges, and fields shade the wires, patches, "
-"and near-field vectors</i>"
+"<b>Color and segment scale</b> <i>— currents, charges, and fields shade the "
+"model</i>"
 msgstr ""
-"<b>رنګ</b> <i>— جریانونه، چارجونه، او ساحې تارونه، پیچونه، او نږدې-ساحې "
-"ویکتورونه رنګوي</i>"
+"<b>رنګ او سیګمنټ پیمانه</b> <i>— جریانونه، چارجونه، او ساحې ماډل رنګه کوي</i>"
 
-#: resources/animate.glade:1032
+#: resources/animate.glade:1432
 msgid "None (geometry)"
 msgstr "هیڅ (جیومیتري)"
 
-#: resources/animate.glade:1036
+#: resources/animate.glade:1436
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr "یوازې د جوړښت جیومیتري وښایاست پرته له کومې مقدار رنګاژنې نه."
 
-#: resources/animate.glade:1049 resources/xnec2c.glade:11240
+#: resources/animate.glade:1449 resources/xnec2c.glade:11240
 msgid "Currents"
 msgstr "جریانونه"
 
-#: resources/animate.glade:1053
+#: resources/animate.glade:1453
 msgid "Animate current magnitude and direction along the wires."
 msgstr "د تارونو په اوږدو کې د جریان مقدار او لوری متحرک کړئ."
 
-#: resources/animate.glade:1066 resources/xnec2c.glade:11255
+#: resources/animate.glade:1466 resources/xnec2c.glade:11255
 msgid "Charges"
 msgstr "چارجونه"
 
-#: resources/animate.glade:1070
+#: resources/animate.glade:1470
 msgid "Animate charge magnitude along the wires."
 msgstr "د تارونو په اوږدو کې د چارج مقدار متحرک کړئ."
 
-#: resources/animate.glade:1087
+#: resources/animate.glade:1493
+msgid "_Polarization:"
+msgstr "پولاریزیشن: (_P)"
+
+#: resources/animate.glade:1508
+msgid ""
+"Select the polarization component used by radiation-pattern gain and far-"
+"zone animation vectors.\n"
+"\n"
+"Mirrors the polarization selection in the main, radiation-pattern, and "
+"frequency-plot windows.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"هغه پولاریزیشن جز وټاکئ چې د تشعشع نمونې ګټې او د لرې ساحې انیمیشن ویکتورونو "
+"لخوا کارول کیږي.\n"
+"\n"
+"دا د اصلي کړکۍ، د تشعشع نمونې کړکۍ، او د فریکونسۍ ګراف کړکۍ کې د پولاریزیشن "
+"ټاکنه منعکسوي.\n"
+"\n"
+"پر ننوتنه مکورسر نیول یې ژوندۍ مخکتنه ورکوي."
+
+#: resources/animate.glade:1581
 msgid "Display"
 msgstr "ښودنه"
 
-#: resources/animate.glade:1118
+#: resources/animate.glade:1619
 msgid "Flow direction:"
 msgstr "د جریان لوری:"
 
-#: resources/animate.glade:1131
-msgid "Reference phase (animated)"
-msgstr "د حوالې فاز (متحرک)"
-
-#: resources/animate.glade:1132
-msgid "LIC texture (animated)"
-msgstr "د LIC بناوت (متحرک)"
-
-#: resources/animate.glade:1133
-msgid "Wireframe (animated)"
-msgstr "تارچوکاټ (متحرک)"
-
-#: resources/animate.glade:1134
-msgid "Polarization axis (static)"
-msgstr "د پولاریزیشن محور (ثابت)"
-
-#: resources/animate.glade:1135
-msgid "Peak magnitude (static)"
-msgstr "د چوکۍ مقدار (ثابت)"
-
-#: resources/animate.glade:1151
+#: resources/animate.glade:1698
 msgid "Patches"
 msgstr "پیچونه"
 
-#: resources/animate.glade:1179
+#: resources/animate.glade:1733
 msgid "Near E field"
 msgstr "نږدې E ساحه"
 
-#: resources/animate.glade:1183
+#: resources/animate.glade:1737
 msgid ""
 "Show the near electric field vectors while animating.\n"
 "\n"
@@ -556,11 +643,11 @@ msgstr ""
 "\n"
 "د وړانګې نمونې کړکۍ خلاسولو سره فعال کړئ."
 
-#: resources/animate.glade:1195
+#: resources/animate.glade:1749
 msgid "Near H field"
 msgstr "نږدې H ساحه"
 
-#: resources/animate.glade:1199
+#: resources/animate.glade:1753
 msgid ""
 "Show the near magnetic field vectors while animating.\n"
 "\n"
@@ -570,11 +657,11 @@ msgstr ""
 "\n"
 "د وړانګې نمونې کړکۍ خلاسولو سره فعال کړئ."
 
-#: resources/animate.glade:1211
+#: resources/animate.glade:1765
 msgid "Poynting vector"
 msgstr "د پاینټینګ ویکتور"
 
-#: resources/animate.glade:1215
+#: resources/animate.glade:1769
 msgid ""
 "Show the Poynting power-flow vectors while animating.\n"
 "\n"
@@ -584,15 +671,15 @@ msgstr ""
 "\n"
 "د وړانګې نمونې کړکۍ خلاسولو سره فعال کړئ."
 
-#: resources/animate.glade:1231
+#: resources/animate.glade:1805
 msgid "Near Field"
 msgstr "نږدې ساحه"
 
-#: resources/animate.glade:1259
+#: resources/animate.glade:1840
 msgid "Far E field"
 msgstr "لرې E ساحه"
 
-#: resources/animate.glade:1263
+#: resources/animate.glade:1844
 msgid ""
 "Draw the far-zone electric field as arrows tangent to the gain surface while "
 "animating.\n"
@@ -603,11 +690,11 @@ msgstr ""
 "\n"
 "د تشعشع نمونې کړکۍ د پرانیستلو له لارې فعال کړئ."
 
-#: resources/animate.glade:1276
+#: resources/animate.glade:1857
 msgid "Far H field"
 msgstr "لرې H ساحه"
 
-#: resources/animate.glade:1280
+#: resources/animate.glade:1861
 msgid ""
 "Draw the far-zone magnetic field instead, a quarter turn from the electric "
 "field in the tangent plane and in step with it in time.\n"
@@ -619,19 +706,19 @@ msgstr ""
 "\n"
 "د تشعشع نمونې کړکۍ د پرانیستلو له لارې فعال کړئ."
 
-#: resources/animate.glade:1293
+#: resources/animate.glade:1874
 msgid "World reference"
 msgstr "نړیوال مرجع"
 
-#: resources/animate.glade:1309
+#: resources/animate.glade:1890
 msgid "Ludwig-3 reference"
 msgstr "Ludwig-3 مرجع"
 
-#: resources/animate.glade:1334
-msgid "Arrow length:"
-msgstr "د غشي اوږدوالی:"
+#: resources/animate.glade:1915
+msgid "Arrow:"
+msgstr "غشی:"
 
-#: resources/animate.glade:1351
+#: resources/animate.glade:1932
 msgid ""
 "Longest arrow a cell draws, as a fraction of that cell's own pattern radius, "
 "so the arrows track whichever gain scale shapes the surface."
@@ -639,9 +726,17 @@ msgstr ""
 "د یوې حجرې تر ټولو اوږد غشی، د هماغې حجرې د نمونې شعاع د یوې برخې په توګه "
 "ښودل کیږي، ترڅو غشي هغه د ګټې پیمانه تعقیب کړي چې سطح یې جوړوي."
 
-#: resources/animate.glade:1373
+#: resources/animate.glade:1974
 msgid "Far Field"
 msgstr "لرې ساحه"
+
+#: resources/animate.glade:1992
+msgid ""
+"Draw the far-zone field as tangent vectors on the radiation pattern gain "
+"surface while this window is open."
+msgstr ""
+"تر څو دا کړکۍ خلاصه وي، لرې ساحه د تشعشع نمونې ګټې سطحې پر مماس ویکتورونو "
+"رسمول کیږي."
 
 #: resources/settings/cairo_settings.glade:34
 msgid "Anti-aliasing"
@@ -1919,7 +2014,7 @@ msgstr "لیدونکی"
 
 # xnec2c-exempt: notation
 #: resources/xnec2c.glade:9799 resources/xnec2c.glade:10041
-#: src/freqplots/freqplots_core.c:62 src/freqplots/graphs/vswr_graph.c:55
+#: src/freqplots/freqplots_core.c:63 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
@@ -2254,29 +2349,9 @@ msgstr "_هیڅ"
 msgid "Patch Flow — Animated"
 msgstr "د پیچ بهیر — متحرک"
 
-#: resources/xnec2c.glade:11075
-msgid "_Reference Phase"
-msgstr "د _حوالې فاز"
-
-#: resources/xnec2c.glade:11086
-msgid "_LIC Texture"
-msgstr "د _LIC بناوت"
-
-#: resources/xnec2c.glade:11097 resources/xnec2c.glade:12290
-msgid "_Wireframe"
-msgstr "_تارچوکاټ"
-
 #: resources/xnec2c.glade:11115
 msgid "Patch Flow — Static"
 msgstr "د پیچ بهیر — ثابت"
-
-#: resources/xnec2c.glade:11122
-msgid "Polarization _Axis"
-msgstr "د پولاریزیشن _محور"
-
-#: resources/xnec2c.glade:11133
-msgid "Peak _Magnitude"
-msgstr "د چوکۍ _مقدار"
 
 #: resources/xnec2c.glade:11148
 msgid "A_nimate"
@@ -2317,7 +2392,7 @@ msgid ""
 msgstr "د جوړښت لیدونکي د لوري ګټه، د اوسنیو لید زاویو لپاره"
 
 #: resources/xnec2c.glade:11604 resources/xnec2c.glade:12914
-#: src/freqplots/freqplots_core.c:59
+#: src/freqplots/freqplots_core.c:60
 msgid "Gain"
 msgstr "ګټه"
 
@@ -2475,7 +2550,7 @@ msgstr "T<sub>ځمکه</sub>"
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>اسمان</sub>"
 
-#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:869
+#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:962
 msgid "Radiation Patterns"
 msgstr "د وړانګو نمونې"
 
@@ -2668,6 +2743,125 @@ msgstr ""
 msgid "Transmission Line Impedance (Zo)"
 msgstr "د انتقالي کرښې امپیدنس (Zo)"
 
+#: src/anim/anim_dialog.c:69
+msgid ""
+"Choose how current flow is marked on surface patches.\n"
+"This model has no patches: add SP, SC, or SM patch cards to the NEC input "
+"file."
+msgstr ""
+"دا وټاکئ چې د جریان بهیر څنګه د سطحې پیچونو پر مخ نښه کیږي.\n"
+"دا ماډل هیڅ پیچ نلري: SP، SC، یا SM پیچ کارډونه د NEC ننوت فایل ته اضافه کړئ."
+
+#: src/anim/anim_dialog.c:77
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"In the main window choose View, Radiation Pattern; if that item is disabled, "
+"add an RP card to the NEC input file."
+msgstr ""
+"لرې ساحه د ګټې سطحې پر غشو رسمول کیږي.\n"
+"په اصلي کړکۍ کې لیدنه، د تشعشع نمونه وټاکئ؛ که دا توکی غیرفعاله وي، نو یو RP "
+"کارډ د NEC ننوت فایل ته اضافه کړئ."
+
+#: src/anim/anim_dialog.c:81
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"Tick the check box in the Far Field heading just above."
+msgstr ""
+"لرې ساحه د ګټې سطحې پر غشو رسمول کیږي.\n"
+"پورته د لرې ساحې سرلیک کې چک بکس ټک کړئ."
+
+#: src/anim/anim_dialog.c:88
+msgid ""
+"Choose the reference the vertical and horizontal gain are read against.\n"
+"Under Polarization in this window select Vertical or Horizontal; Total, "
+"Right Hand, and Left Hand do not use this setting."
+msgstr ""
+"هغه مرجع وټاکئ چې عمودي او افقي ګټه ورسره لوستل کیږي.\n"
+"په دې کړکۍ کې د پولاریزیشن لاندې عمودي یا افقي وټاکئ؛ ټول، ښی لاس، او کیڼ "
+"لاس دا ترتیب نه کاروي."
+
+#: src/anim/anim_dialog.c:97
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Nothing drawn now changes with phase. Under Display choose Currents or "
+"Charges and an Animated colour or segment scale; for patches choose Currents "
+"and an Animated flow mode. For NE/NH cards show Near Field and tick E, H, or "
+"Poynting; for an RP card show Gain and tick Far Field."
+msgstr ""
+"د لاندې ټاکل شوي کچ سره د انیمیشن فاز مخته بیول پیلوي.\n"
+"اوس هیڅ رسم شوی څیز د فاز سره نه بدلیږي۔ د ښودنې لاندې جریانونه یا چارجونه "
+"او متحرک رنګ یا سیګمنټ پیمانه وټاکئ؛ د پیچونو لپاره جریانونه او متحرک بهیر "
+"حالت وټاکئ. د NE/NH کارډونو لپاره نږدې ساحه وښایاست او E، H، یا پوینټنګ ټک "
+"کړئ؛ د RP کارډ لپاره ګټه وښایاست او لرې ساحه ټک کړئ."
+
+#: src/anim/anim_dialog.c:108
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Available when drawn content changes with phase."
+msgstr ""
+"د لاندې ټاکل شوې کچې سره سم د انیمیشن فاز مخته بيايي۔\n"
+"کله چې رسم شوی منځپانګه د فاز سره بدلون مومي، شتون لري۔"
+
+#: src/anim/anim_dialog.c:112
+msgid ""
+"Select how the animated patch current flow is rendered.\n"
+"Mirrors the Visualization menu setting in the main window."
+msgstr ""
+"غوره کړئ چې د متحرک پیچ جریان بهیر څنګه رینډر کیږي.\n"
+"د اصلي کړکۍ د لیدلوري مینو ترتیب منعکسوي."
+
+#: src/anim/anim_dialog.c:116
+msgid ""
+"Resolve the far-zone field into tangent vectors drawn on the radiation "
+"pattern gain surface.\n"
+"Available while the radiation pattern window is open and Far Field is "
+"selected."
+msgstr ""
+"لرې ساحه د تشعشع نمونې ګټې پر سطحه رسم شویو مماسي ویکتورونو ته بدلوي۔\n"
+"کله چې د تشعشع نمونې کړکۍ خلاصه وي او لرې ساحه غوره شوې وي، شتون لري۔"
+
+#: src/anim/anim_dialog.c:122
+msgid ""
+"Read the vertical and horizontal gain selections against the spherical "
+"basis, so vertical is the theta direction and horizontal is the phi "
+"direction.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"عمودي او افقي ګټه انتخابونه د کروي بنسټ پر بنسټ لولي، نو عمودي د θ لوری او "
+"افقي د φ لوری دی۔\n"
+"د عمودي یا افقي پولاریزیشن لپاره شتون لري۔"
+
+#: src/anim/anim_dialog.c:128
+msgid ""
+"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
+"polar and cross-polar directions, which hold one orientation across the "
+"whole pattern.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"عمودي او افقي ګټه انتخابونه د Ludwig-3 همپولار او کراس‑پولار لوریو پر بنسټ "
+"لولي، چې د ټولې نمونې پر اوږدو یو لوری ساتي۔\n"
+"د عمودي یا افقي پولاریزیشن لپاره شتون لري۔"
+
+#: src/anim/anim_dialog.c:167
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"Available when the model contains supported animation content."
+msgstr ""
+"د فاز-بدلېدونکې منځپانګې لپاره د انیمیشن کنټرولونه خلاصوي۔\n"
+"کله چې ماډل ملاتړ شوې انیمیشن منځپانګه ولري، شتون لري۔"
+
+#: src/anim/anim_dialog.c:169
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"This model has nothing to animate: load a NEC input file carrying wire cards "
+"(GW, GA, GH), patch cards (SP, SC, SM), near-field cards (NE, NH), or a "
+"radiation pattern card (RP)."
+msgstr ""
+"د فاز-بدلیدونکي منځپانګې لپاره د انیمیشن کنټرولونه پرانیزي.\n"
+"دا ماډل د متحرک کولو لپاره هیڅ نلري: د تار کارډونه (GW، GA، GH)، د پیچ "
+"کارډونه (SP، SC، SM)، د نږدې ساحې کارډونه (NE، NH)، یا د تشعشع نمونې کارډ "
+"(RP) لرونکی NEC ننوت فایل بار کړئ."
+
 #: src/args.c:113
 msgid "Usage: xnec2c [options] [<input-file-name>]"
 msgstr "کارونه: xnec2c [غوراوي] [<د ننوت دوتنې نوم>]"
@@ -2855,8 +3049,8 @@ msgstr "د ترتیب فایل شتون نه لري یا لوستل نه کیږ�
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:366
-#: src/rdpattern_ui.c:374 src/rdpattern_ui.c:381 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:401
+#: src/rdpattern_ui.c:409 src/rdpattern_ui.c:416 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -2876,7 +3070,7 @@ msgstr "فورکینګ غیر فعال دی!\n"
 msgid "invalid radiation pattern PNG format: %s\n"
 msgstr "د تشعشع نمونې PNG بڼه ناسمه ده: %s\n"
 
-#: src/cairo/cairo_fit.c:118
+#: src/cairo/cairo_fit.c:121
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
@@ -2884,7 +3078,7 @@ msgstr ""
 "cairo_fit_view: هېڅ چوکاټ حل نشو: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:237
+#: src/cairo/cairo_frame.c:254
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -2918,17 +3112,17 @@ msgstr "د sbf() کې د برخې د اتصال تېروتنه"
 msgid "Segment connection error in trio()"
 msgstr "د trio() کې د برخې د اتصال تېروتنه"
 
-#: src/callback_func.c:51
+#: src/callback_func.c:52
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "د %s لپاره د انځور اخیستل ناکام شول\n"
 
-#: src/callback_func.c:57
+#: src/callback_func.c:58
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "د %s انځور ساتل ناکام شول: %s\n"
 
-#: src/callback_func.c:105
+#: src/callback_func.c:106
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -2936,7 +3130,7 @@ msgstr ""
 "د فریکونسۍ لوپ روان دی\n"
 "ایا تاسو د محاسبې پای ته رسول غواړئ؟"
 
-#: src/callback_func.c:109
+#: src/callback_func.c:110
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -2944,53 +3138,53 @@ msgstr ""
 "د فریکونسۍ لوپ روان دی\n"
 "ایا تاسو دا کړکۍ وتړل غواړئ؟"
 
-#: src/callback_func.c:270
+#: src/callback_func.c:271
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
 msgstr "د اکسیټیشن ډول %d فیډپاینټ نلري: د VSWR او امپیدنس نمودارونه پټ دي.\n"
 
-#: src/callback_func.c:332
+#: src/callback_func.c:340
 msgid "View Currents"
 msgstr "جریانونه وګورئ"
 
-#: src/callback_func.c:334
+#: src/callback_func.c:342
 msgid "View Charges"
 msgstr "چارجونه وګورئ"
 
-#: src/callback_func.c:336
+#: src/callback_func.c:344
 msgid "View Geometry"
 msgstr "جیومیتري وګورئ"
 
-#: src/callback_func.c:386
+#: src/callback_func.c:402
 msgid "PNG images (*.png)"
 msgstr "PNG انځورونه (*.png)"
 
-#: src/callback_func.c:388
+#: src/callback_func.c:404
 msgid "GNUplot files (*.gplot)"
 msgstr "GNUplot فایلونه (*.gplot)"
 
-#: src/callback_func.c:390
+#: src/callback_func.c:406
 msgid "NEC2 files (*.nec)"
 msgstr "NEC2 فایلونه (*.nec)"
 
-#: src/callback_func.c:392
+#: src/callback_func.c:408
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Touchstone 1-پورټ فایلونه (*.s1p)"
 
-#: src/callback_func.c:394
+#: src/callback_func.c:410
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Touchstone 2-پورټ فایلونه (*.s2p)"
 
-#: src/callback_func.c:396
+#: src/callback_func.c:412
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "د کامې سره جلا شوي CSV فایلونه (*.csv)"
 
-#: src/callbacks.c:98 src/callbacks.c:114 src/freqplots/freqplots_core.c:66
+#: src/callbacks.c:95 src/callbacks.c:111 src/freqplots/freqplots_core.c:67
 msgid "Antenna Temperature"
 msgstr "د انتن تودوخه"
 
-#: src/callbacks.c:99
+#: src/callbacks.c:96
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -2998,7 +3192,7 @@ msgstr ""
 "ماډل کې د ځمکني سطحې موندنه وشوه. Ta پایلې به د ځمکني اغیزو زیاتي شمیرنه "
 "وکړي. د انتن تودوخې د ارزونې لپاره معیاري ازاده-فضا ماډلونه دي."
 
-#: src/callbacks.c:115
+#: src/callbacks.c:112
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3007,12 +3201,12 @@ msgstr ""
 "اعظمي ګټه د θ=%.0f° کې (د XY سطحې نه %.0f°). دود فرض کوي چې بیم د XY سطحه کې "
 "دی او د لیدلو لوړوالی د سپین بټن لخوا ټاکل شوی."
 
-#: src/callbacks.c:183 src/callbacks.c:521 src/callbacks.c:1951
-#: src/callbacks.c:2814
+#: src/callbacks.c:176 src/callbacks.c:510 src/callbacks.c:1661
+#: src/callbacks.c:1832
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "ایا تاسو د xnec2c وتل غواړئ؟"
 
-#: src/callbacks.c:287
+#: src/callbacks.c:280
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3020,7 +3214,7 @@ msgstr ""
 "د فریکونسۍ لوپ د روان پر مهال\n"
 "نوی NEC2 د ننوتلو فایل نه شي جوړیدلی"
 
-#: src/callbacks.c:324
+#: src/callbacks.c:317
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3028,20 +3222,20 @@ msgstr ""
 "د فریکونسۍ لوپ د روان پر مهال\n"
 "نوی NEC2 د ننوتلو فایل نه شي خلاصیدلی"
 
-#: src/callbacks.c:443
+#: src/callbacks.c:436
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c د جیومیتري اپتیمایزر"
 
-#: src/callbacks.c:444
+#: src/callbacks.c:437
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c د inotify ملاتړ پرته جوړ شوی: اپتیمایزر فعالیدلی نه شي."
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c اپتیمایزر"
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3051,81 +3245,19 @@ msgstr ""
 "پر مهال د ننوتلو فایل بیا بار او بیا محاسبه وکړي. د لیکلو لپاره فایلونه "
 "«File->Optimization Settings» کې وټاکئ."
 
-#: src/callbacks.c:998 src/callbacks.c:1318 src/callbacks.c:2840
+#: src/callbacks.c:991 src/callbacks.c:1311 src/callbacks.c:1858
 msgid "Are you sure you wish to close this window?"
 msgstr "ایا تاسو دا کړکۍ وتړل غواړئ؟"
 
-#: src/callbacks.c:1826
+#: src/callbacks.c:1536
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "OpenGL پدې ښودنه کې شتون نه لري؛ رینډرر فعالیدلی نه شي.\n"
 
-#: src/callbacks.c:2038
-msgid ""
-"Read the vertical and horizontal gain selections against the spherical "
-"basis, so vertical is the theta direction and horizontal is the phi "
-"direction."
-msgstr ""
-"عمودي او افقي ګټې غوراوي د کروي اساس پر بنسټ ولولئ، چې عمودي د θ لوري او "
-"افقي د φ لوري وي."
-
-#: src/callbacks.c:2042
-msgid ""
-"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
-"polar and cross-polar directions, which hold one orientation across the "
-"whole pattern."
-msgstr ""
-"عمودي او افقي ګټې غوراوي د Ludwig-3 هم-پولار او کراس-پولار لورونو پر بنسټ "
-"ولولئ، چې د ټولې نمونې په اوږدو کې یو مېلان ساتي."
-
-#: src/callbacks.c:2081
-msgid ""
-"Select how the animated patch current flow is rendered.\n"
-"Mirrors the Visualization menu setting in the main window."
-msgstr ""
-"غوره کړئ چې د متحرک پیچ جریان بهیر څنګه رینډر کیږي.\n"
-"د اصلي کړکۍ د لیدلوري مینو ترتیب منعکسوي."
-
-#: src/callbacks.c:2083
-msgid ""
-"Patch flow animation requires surface patches (SP/SM cards) in the model."
-msgstr "د پیچ بهیر انیمیشن ته ماډل کې د سطحي پیچونو (SP/SM کارډونه) اړتیا لري."
-
-#: src/callbacks.c:2098
-msgid ""
-"The polarization reference turns the vertical and horizontal gain pair "
-"only.  Select vertical or horizontal polarization in the radiation pattern "
-"window to use it; the total and circular selections read alike under either "
-"reference."
-msgstr ""
-"د پولاریزیشن مرجع یوازې عمودي او افقي ګټې جوړه ګرځوي. د دې کارولو لپاره په "
-"تشعشع نمونې کړکۍ کې عمودي یا افقي پولاریزیشن وټاکئ؛ ټول او دایروي غوراوي د "
-"هرې مرجع لاندې یو شان لوستل کیږي."
-
-#: src/callbacks.c:2116
-msgid ""
-"The animation window drives the near-field vectors from the phase slider; "
-"close it to choose the static peak or instantaneous baseline."
-msgstr ""
-"د متحرک سازۍ کړکۍ د فاز سلایډر څخه د نږدې ساحې ویکټورونه چلوي؛ د ثابت اوج یا "
-"سمدستي بنسټ ټاکلو لپاره یې وتړئ."
-
-#: src/callbacks.c:2646
-msgid "Animation"
-msgstr "انیمیشن"
-
-#: src/callbacks.c:2647
-msgid ""
-"Animation requires wire currents or charges, surface patches (SP/SM NEC "
-"cards), or near-field data (NE/NH NEC cards)"
-msgstr ""
-"انیمیشن ته د تار جریانونو یا چارجونو، سطحي پیچونو (SP/SM NEC کارډونو)، یا "
-"نږدې-ساحې ډاټا (NE/NH NEC کارډونو) اړتیا ده"
-
-#: src/callbacks.c:2776
+#: src/callbacks.c:1798
 msgid "No open NEC2 input file"
 msgstr "هیڅ خلاص NEC2 د ننوتلو فایل نشته"
 
-#: src/callbacks.c:2871 src/callbacks.c:2901
+#: src/callbacks.c:1889 src/callbacks.c:1919
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3133,11 +3265,11 @@ msgstr ""
 "د فریکونسۍ لوپ د روان پر مهال\n"
 "NEC2 ایډیتر ډاټا خوندي کیدلی نه شي"
 
-#: src/callbacks.c:2883 src/callbacks.c:2909
+#: src/callbacks.c:1901 src/callbacks.c:1927
 msgid "untitled.nec"
 msgstr "بې‌نومه.nec"
 
-#: src/callbacks.c:3374 src/callbacks.c:3394 src/callbacks.c:3414
+#: src/callbacks.c:2388 src/callbacks.c:2408 src/callbacks.c:2428
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3146,10 +3278,15 @@ msgstr ""
 "د فریکونسۍ (FR) کارډونه لا نه دي پروسس شوي.\n"
 "تاسو ته اړتیا وي چې لومړی NEC2 ایډیتر ډاټا خوندي کړئ."
 
-#: src/chroma/chroma.c:288
+#: src/chroma/chroma.c:315
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "ناسم رنګ پروجیکشن %d، سمدستي کارول کیږي\n"
+
+#: src/chroma/chroma.c:627
+#, c-format
+msgid "invalid segment scale encoding %d, using model radius\n"
+msgstr "ناسم د سیګمنټ پیمانې کوډ کول %d، د ماډل شعاع کارول کیږي\n"
 
 #: src/chroma/chroma_source.c:334
 msgid "far-field contribution needs radiation pattern data\n"
@@ -3361,20 +3498,15 @@ msgstr "لومړی ټکی Theta"
 msgid "Increment in R (m)"
 msgstr "د R زیاتوالی (m)"
 
-#: src/color/color_tone.c:125
-#, c-format
-msgid "invalid color tone %d, using power\n"
-msgstr "ناسمه رنګ ډله %d، Power کارول کیږي\n"
-
-#: src/config_hooks.c:91
+#: src/color/color_config_hooks.c:131
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr "دا لایه د تار-جریان برخو نه اخیستل کیږي؛ دا ماډل هیڅ نه لري."
 
-#: src/config_hooks.c:116
+#: src/color/color_config_hooks.c:156
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr "د خوځنده څپې لوړی ټکی د یوه روښانه کامېټ سر په توګه روښانه کړئ."
 
-#: src/config_hooks.c:117
+#: src/color/color_config_hooks.c:157
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3382,10 +3514,15 @@ msgstr ""
 "کامېټ د متحرک څپې پر سر خوځي؛ دا پروجیکشن یو ثابت لوستل دی پرته له خوځنده "
 "فاز نه."
 
-#: src/config_hooks.c:120
+#: src/color/color_config_hooks.c:160
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr ""
 "د تارونو په اوږدو کې د جریان نوډونه (سیان) او انټي‌نوډونه (سور) نښه کړئ."
+
+#: src/color/color_tone.c:107
+#, c-format
+msgid "invalid color tone %d, using power\n"
+msgstr "ناسمه رنګ ډله %d، Power کارول کیږي\n"
 
 #: src/expr_edit.h:34
 msgid ""
@@ -3436,39 +3573,39 @@ msgstr ""
 "د فریکونسۍ سویپ خپل لومړي ګام ته بیا تنظیمول او هره محاسبه شوې پایله له منځه "
 "وړل"
 
-#: src/freqplots/freqplots_core.c:60
+#: src/freqplots/freqplots_core.c:61
 msgid "Gain Direction"
 msgstr "د ګټې لوری"
 
-#: src/freqplots/freqplots_core.c:61
+#: src/freqplots/freqplots_core.c:62
 msgid "Viewer Gain"
 msgstr "د لیدونکي ګټه"
 
-#: src/freqplots/freqplots_core.c:63
+#: src/freqplots/freqplots_core.c:64
 msgid "Impedance (real/imag)"
 msgstr "امپیدنس (حقیقي/خیالي)"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:65
 msgid "Impedance (mag/phase)"
 msgstr "امپیدنس (مقدار/فاز)"
 
-#: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/smith_graph.c:512
+#: src/freqplots/freqplots_core.c:66 src/freqplots/graphs/smith_graph.c:512
 msgid "Smith Chart"
 msgstr "Smith چارټ"
 
-#: src/freqplots/freqplots_core.c:67
+#: src/freqplots/freqplots_core.c:68
 msgid "Solver Conditioning"
 msgstr "د حلوونکي قوام"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:471
+#: src/freqplots/freqplots_core.c:479
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:769
+#: src/freqplots/freqplots_core.c:739
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3510,7 +3647,7 @@ msgstr ""
 "    • خام اعظمي ګټه، د ګټې لوری، F/B\n"
 "    • د انتن تودوخه، G/T"
 
-#: src/freqplots/freqplots_core.c:802
+#: src/freqplots/freqplots_core.c:772
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3518,7 +3655,7 @@ msgstr ""
 "یوازې یو فیډپاینټ پورټ ټاکل شوی دی. د دلته له ډیرو پورټونو نه د ټاکلو لپاره "
 "ماډل کې نور EX اکسیټیشن کارډونه تعریف کړئ."
 
-#: src/freqplots/freqplots_core.c:805
+#: src/freqplots/freqplots_core.c:775
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3526,7 +3663,7 @@ msgstr ""
 "د پورټ ټاکلو لپاره د خالصې ګټې نمودار ترتیب فعال کړئ؛ پرته له هغه دا ګراف "
 "پورټ تعقیب نه کوي."
 
-#: src/freqplots/freqplots_core.c:921
+#: src/freqplots/freqplots_core.c:893
 msgid "Not available: excitation defines no feedpoint"
 msgstr "شتون نلري: اکسیټیشن هیڅ فیډپاینټ نه ټاکي"
 
@@ -3542,7 +3679,7 @@ msgstr "Draw_Graph(): د ټکو لپاره د حافظې مختصول ناکام
 msgid "This theme has no inverted variant"
 msgstr "دا تیم هیڅ اپوټه بڼه نلري"
 
-#: src/freqplots/freqplots_theme_menu.c:95
+#: src/freqplots/freqplots_theme_menu.c:120
 msgid "_Invert"
 msgstr "_اپوټه"
 
@@ -4121,20 +4258,20 @@ msgstr ""
 "verify_segments() د فریکونسۍ-پورې اړه ازموینې پریږدي - هیڅ د فریکونسۍ ډاټا "
 "نشته\n"
 
-#: src/gnuplot.c:42
+#: src/gnuplot.c:43
 msgid "Gnuplot Data"
 msgstr "Gnuplot ډاټا"
 
-#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
+#: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "ساتل ناشونی: فریکونسي سویپ بشپړ نه دی"
 
-#: src/gnuplot.c:56
+#: src/gnuplot.c:57
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# د مرجع امپیدنس Z0 = %.2f اوم\n"
 
-#: src/gnuplot.c:58
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4144,18 +4281,18 @@ msgstr ""
 "او zimag رسموي:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:59
+#: src/gnuplot.c:60
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92 src/gnuplot.c:102
+#: src/gnuplot.c:93 src/gnuplot.c:103
 msgid "Touchstone Data"
 msgstr "Touchstone ډاټا"
 
-#: src/gnuplot.c:103
+#: src/gnuplot.c:104
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4163,46 +4300,46 @@ msgstr ""
 "ساتل ونشول: د S-پارامترونو لپاره فیډ پواینټ امپیدنس اړین دی، چې دا تحریک یې "
 "نه چمتو کوي۔"
 
-#: src/gnuplot.c:119
+#: src/gnuplot.c:120
 #, c-format
 msgid "! Reference impedance Z0 = %.2f Ohm\n"
 msgstr "! د مرجع امپیدنس Z0 = %.2f اوم\n"
 
-#: src/gnuplot.c:161
+#: src/gnuplot.c:162
 msgid "CSV Data"
 msgstr "د CSV ډاټا"
 
-#: src/gnuplot.c:244
+#: src/gnuplot.c:245
 #, c-format
 msgid "# Near E field\n"
 msgstr "# نږدې E ساحه\n"
 
-#: src/gnuplot.c:271
+#: src/gnuplot.c:272
 #, c-format
 msgid "# Near H field\n"
 msgstr "# نږدې H ساحه\n"
 
-#: src/gnuplot.c:311
+#: src/gnuplot.c:312
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# Poynting ویکتور\n"
 
-#: src/gnuplot.c:370
+#: src/gnuplot.c:371
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# د وړانګو نمونه\n"
 
-#: src/gnuplot.c:508
+#: src/gnuplot.c:509
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# د جوړښت د پیچ برخې\n"
 
-#: src/gnuplot.c:543
+#: src/gnuplot.c:544
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# د جوړښت د سیم برخې\n"
 
-#: src/gnuplot.c:573
+#: src/gnuplot.c:574
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4211,11 +4348,11 @@ msgstr ""
 "د دې سره وګورئ: gnuplot -e \"set terminal qt; splot '%s' with lines; pause "
 "mouse close\"\n"
 
-#: src/gnuplot.c:585
+#: src/gnuplot.c:586
 msgid "Save Currents and Charges to CSV"
 msgstr "جریانونه او بارونه CSV ته خوندي کړئ"
 
-#: src/gnuplot.c:586
+#: src/gnuplot.c:587
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4223,11 +4360,11 @@ msgstr ""
 "تاسو باید د اصلي xnec2c کړکۍ کې «جریانونه» یا «بارونه» کلیک کولو سره د جریان "
 "ډاټا فعال کړئ."
 
-#: src/gnuplot.c:651 src/gnuplot.c:661
+#: src/gnuplot.c:652 src/gnuplot.c:662
 msgid "Save Patch Currents to CSV"
 msgstr "د پیچ جریانونه CSV ته خوندي کړئ"
 
-#: src/gnuplot.c:652
+#: src/gnuplot.c:653
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4235,7 +4372,7 @@ msgstr ""
 "تاسو باید د اصلي xnec2c کړکۍ کې «جریانونه» یا «بارونه» کلیک کولو سره د جریان "
 "ډاټا فعال کړئ."
 
-#: src/gnuplot.c:662
+#: src/gnuplot.c:663
 msgid "No surface patches in this model."
 msgstr "پدې ماډل کې هیڅ سطحي پیچونه نشته."
 
@@ -4741,96 +4878,96 @@ msgstr ""
 "libgmodule ملاتړ نه کیږي: xnec2c ممکن پدې پلیټفارم کې سمه کار ونه کړي.\n"
 
 # xnec2c-exempt: name
-#: src/interface.c:280
+#: src/interface.c:279
 #, c-format
 msgid "xnec2c %s: %s"
 msgstr ""
 
-#: src/interface.c:373
+#: src/interface.c:372
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: د animate.glade بارول ناکام شو: %s\n"
 
-#: src/main.c:126
+#: src/main.c:127
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s د کړکۍ بیک-اینډ وموندل شو\n"
 
-#: src/main.c:134
+#: src/main.c:135
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch او --optimize سره بل سره ناسازګار دي.\n"
 
-#: src/main.c:143
+#: src/main.c:144
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png --batch غواړي\n"
 
-#: src/main.c:159
+#: src/main.c:160
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "د ننوتلو فایل د لارې نوم خورا اوږد دی ( > %d توري )\n"
 
-#: src/main.c:166
+#: src/main.c:167
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "بې تمه استدلال '%s' د .nec فایل ښکاره نه کیږي\n"
 
-#: src/main.c:173
+#: src/main.c:174
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "بې تمه استدلال: %s\n"
 
-#: src/main.c:179
+#: src/main.c:180
 msgid "batch mode requires an input file\n"
 msgstr "بیچ حالت د ننوتلو فایل ته اړتیا لري\n"
 
-#: src/main.c:189
+#: src/main.c:190
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "ښودنه نه شي خلاصیدلی: د X11 یا Wayland روانه غونډه اړینه ده\n"
 
-#: src/main.c:208
+#: src/main.c:213
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "په %d پروسسرونو کې %d دندې فورک کېږي۔\n"
 
-#: src/main.c:221 src/main.c:229
+#: src/main.c:226 src/main.c:234
 msgid "exiting after fatal error: pipe() failed"
 msgstr "د مهلکې تېروتنې وروسته وتل: pipe() ناکام شو"
 
-#: src/main.c:238
+#: src/main.c:243
 msgid "exiting after fatal error: fork() failed"
 msgstr "د مهلکې تېروتنې وروسته وتل: fork() ناکام شو"
 
-#: src/main.c:833
+#: src/main.c:838
 msgid "exiting via user interrupt\n"
 msgstr "د کارونکي د مداخلې له لارې وتل\n"
 
-#: src/main.c:837
+#: src/main.c:842
 msgid "segmentation fault, exiting\n"
 msgstr "د حافظې غلطي، وتل\n"
 
-#: src/main.c:841
+#: src/main.c:846
 msgid "floating point exception, exiting\n"
 msgstr "د شناور ټکي استثناء، وتل\n"
 
-#: src/main.c:845
+#: src/main.c:850
 msgid "abort signal received, exiting\n"
 msgstr "د منقطع کولو سیګنل ترلاسه شو، وتل\n"
 
-#: src/main.c:849
+#: src/main.c:854
 msgid "termination request received, exiting\n"
 msgstr "د پای کولو غوښتنه ترلاسه شوه، وتل\n"
 
-#: src/main.c:859
+#: src/main.c:864
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "فورک شوی نه دی، د pid %d نه SIGCHLD له پامه غورځول کیږي\n"
 
-#: src/main.c:867
+#: src/main.c:872
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "د ماشوم پروسس pid %d ووت\n"
 
-#: src/main.c:876
+#: src/main.c:881
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "د ډیفالټ وتل د سیګنل سره: %d\n"
@@ -5330,19 +5467,19 @@ msgstr ""
 msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "د لیبل د ټیکسچر اطلس جوړ شو (ID=%u)\n"
 
-#: src/opengl-engine/opengl_axes.c:156
+#: src/opengl-engine/opengl_axes.c:161
 msgid "Failed to load axes line shader\n"
 msgstr "د محورونو کرښې shader بارول ناکام شو\n"
 
-#: src/opengl-engine/opengl_axes.c:189
+#: src/opengl-engine/opengl_axes.c:192
 msgid "Axes renderer initialized\n"
 msgstr "د محورونو رینډرر پیل شو\n"
 
-#: src/opengl-engine/opengl_axes.c:193
+#: src/opengl-engine/opengl_axes.c:196
 msgid "Failed to load text shaders\n"
 msgstr "د متن shaderونه بارول ناکام شو\n"
 
-#: src/opengl-engine/opengl_cairo_overlay.c:60
+#: src/opengl-engine/opengl_cairo_overlay.c:62
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "د cairo overlay shaderونه بارول ناکام شو\n"
 
@@ -5350,53 +5487,62 @@ msgstr "د cairo overlay shaderونه بارول ناکام شو\n"
 msgid "Failed to create cairo overlay base\n"
 msgstr "د cairo overlay بنسټ جوړول ناکام شو\n"
 
-#: src/opengl-engine/opengl_ground_plane.c:103
+#: src/opengl-engine/opengl_ground_plane.c:105
 msgid "Failed to load ground plane shaders\n"
 msgstr "د ځمکني سطحې shaderونه بارول ناکام شو\n"
 
 #: src/opengl-engine/opengl_renderer.c:55
 #, c-format
+msgid "Shader declares no version directive: %s\n"
+msgstr "شیډر د نسخې هیڅ لارښوونه نه اعلانوي: %s\n"
+
+#: src/opengl-engine/opengl_renderer.c:99
+#, c-format
 msgid "Failed to load shader: %s (%s)\n"
 msgstr "shader بارول ناکام شو: %s (%s)\n"
 
-#: src/opengl-engine/opengl_renderer.c:84
+#: src/opengl-engine/opengl_renderer.c:149
 #, c-format
 msgid "Shader compile error: %s: %s\n"
 msgstr "د Shader کمپایل تېروتنه: %s: %s\n"
 
-#: src/opengl-engine/opengl_renderer.c:126
+#: src/opengl-engine/opengl_renderer.c:190
 #, c-format
 msgid "Shader link failed: %s + %s\n"
 msgstr "د Shader لینک ناکام شو: %s + %s\n"
 
-#: src/opengl-engine/opengl_view.c:184
+#: src/opengl-engine/opengl_view.c:222
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "د OpenGL شرایطو تېروتنه — پدې ښودنه کې هیڅ OpenGL پلي کول شتون نه لري\n"
 
-#: src/opengl-engine/opengl_view.c:197
+#: src/opengl-engine/opengl_view.c:230
+msgid "Disabling OpenGL: shader catalog failed\n"
+msgstr "OpenGL غیرفعالول: د شیډر کتلاګ پاتې راغی\n"
+
+#: src/opengl-engine/opengl_view.c:243
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL غیر فعالوي: د منظرې shader ناکام شو\n"
 
-#: src/opengl-engine/opengl_view.c:212
+#: src/opengl-engine/opengl_view.c:258
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL غیر فعالوي: د overlay shader ناکام شو\n"
 
-#: src/opengl-engine/opengl_view.c:224
+#: src/opengl-engine/opengl_view.c:270
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL غیر فعالوي: د محورونو رینډرر ناکام شو\n"
 
-#: src/opengl-engine/opengl_view.c:253
+#: src/opengl-engine/opengl_view.c:299
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL غیر فعالوي: د ځمکني سطحې shader ناکام شو\n"
 
-#: src/opengl-engine/opengl_view.c:275
+#: src/opengl-engine/opengl_view.c:321
 #, c-format
 msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "د رینډر وړ شمیر %u له MAX_RENDERABLES (%d) نه زیات دی\n"
 
-#: src/opengl-engine/opengl_view.c:354
+#: src/opengl-engine/opengl_view.c:402
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL غیر فعالوي: د peel مرکب shader ناکام شو\n"
 
@@ -5417,10 +5563,6 @@ msgstr "MSAA framebuffer نابشپړ دی\n"
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA resolve framebuffer نابشپړ دی\n"
 
-#: src/opengl-engine/opengl_view_overlay.c:326
-msgid "Failed to load overlay shaders\n"
-msgstr "د overlay shaderونه بارول ناکام شو\n"
-
 #: src/opengl-engine/opengl_view_peel.c:254
 #, c-format
 msgid "Peel FBO %d incomplete\n"
@@ -5439,15 +5581,11 @@ msgstr "Peel د ذخیرې FBO نابشپړ دی\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "د پرت ژورتیا FBO نابشپړ دی\n"
 
-#: src/opengl-engine/opengl_view_render.c:427
+#: src/opengl-engine/opengl_view_render.c:389
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "شفاف رینډر وړ پریښودل شوي: peel FBOونه شتون نه لري\n"
 
-#: src/opengl-engine/opengl_view_scene.c:297
-msgid "Failed to load shaders\n"
-msgstr "shaderونه بارول ناکام شو\n"
-
-#: src/opengl/opengl_rdpattern.c:355
+#: src/opengl/opengl_rdpattern.c:345
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: ناسم رسم سټایل %d، سطح کارول کیږي\n"
@@ -5730,17 +5868,17 @@ msgid ""
 "sr\n"
 msgstr "اوسط ګټه: %.4f (%.2f dBi)، موثریت: %.1f%%، کلک زاویه: %.4f * pi sr\n"
 
-#: src/rc_config.c:885
+#: src/rc_config.c:958
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() نه شي: %s\n"
 
-#: src/rc_config.c:889
+#: src/rc_config.c:962
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "چاپیریال متغیر HOME ناتعریف دی، %s کارول کیږي\n"
 
-#: src/rc_config.c:974
+#: src/rc_config.c:1047
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
@@ -5748,27 +5886,36 @@ msgstr ""
 "%1$s (locale=%2$s): یوازې د %4$lu توري نه %3$d سم شول، بل locale هڅه کیږي: "
 "%5$s\n"
 
-#: src/rc_config.c:1193
+#: src/rc_config.c:1266
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "کړکۍ: x=%-5d y=%-5d w=%-5d h=%-5d  سرلیک: \"%s\"\n"
 
-#: src/rc_config.c:1227
+#: src/rc_config.c:1300
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: د پلیکیشن نسخه لوستلو کې EOF.\n"
 
-#: src/rc_config.c:1233
+#: src/rc_config.c:1306
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "شته ترتیب فایل نسخه توپیر لري: %s != %s\n"
 
-#: src/rc_config.c:1367
+#: src/rc_config.c:1353
+#, c-format
+msgid ""
+"gain readouts are scaled to %s, restored from the previous session; select "
+"Total Gain to read total gain\n"
+msgstr ""
+"د ګټې لوستنې %s ته پیمانه شوي، د پخوانۍ ناستې څخه بیرته ترلاسه شوي؛ د ټولې "
+"ګټې لوستلو لپاره ټوله ګټه وټاکئ\n"
+
+#: src/rc_config.c:1463
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "د %s لپاره stat ناکام شو: %s\n"
 
-#: src/rc_config.c:1373
+#: src/rc_config.c:1469
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5776,46 +5923,87 @@ msgid ""
 msgstr ""
 "د %s لارښود اجازې د 0%o نه 0%o ته سمې شوې د 4e62893b کې داخل شوي باګ نه.\n"
 
-#: src/rc_config.c:1404
+#: src/rc_config.c:1500
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: کرښه تجزیه نه شوه: %s\n"
 
-#: src/rc_config.c:1410
+#: src/rc_config.c:1506
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: د %s لپاره د فایل وختي پای: %s \n"
 
-#: src/rc_config.c:1435
+#: src/rc_config.c:1531
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: د تجزیې تېروتنه (%s): %s \n"
 
-#: src/rc_config.c:1449
+#: src/rc_config.c:1545
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr "ترتیب کې ناسم د اسمان ماډل شاخص %d، ډیفالټ ته بیاکول\n"
 
-#: src/rc_config.c:1455
+#: src/rc_config.c:1551
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr "ترتیب کې ناسم د ځمکې ماډل شاخص %d، ډیفالټ ته بیاکول\n"
 
-#: src/rc_config.c:1461
+#: src/rc_config.c:1557
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr "ترتیب کې ناسم د انټرپولیشن طریقه %d، ډیفالټ ته بیاکول\n"
 
-#: src/rc_config.c:1636
+#: src/rc_config.c:1565
+#, c-format
+msgid "Invalid flow visualization mode %d in config, resetting to default\n"
+msgstr "په تنظیم کې ناسم د بهیر لید حالت %d، ډیفالټ ته بیرته ترتیبیږي\n"
+
+#: src/rc_config.c:1745
 msgid "batch mode: skipping configuration save\n"
 msgstr "batch حالت: د ترتیب خوندي کول پریږدل کیږي\n"
 
-#: src/rc_config.c:1643
+#: src/rc_config.c:1752
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "د xnec2c ترتیب فایل %s خلاصول نه شي: %s\n"
 
-#: src/rdpattern_ui.c:38
+#: src/rdpattern_noise_menu.c:37
+msgid "Read the noise temperature at the nearest tabulated frequency."
+msgstr "د شور تودوخه د نږدې جدول شوي فریکونسۍ پر مهال لوستل کیږي."
+
+#: src/rdpattern_noise_menu.c:39
+msgid ""
+"Interpolate the noise temperature between tabulated frequencies in log-log "
+"space, clamped at the table edges."
+msgstr ""
+"د شور تودوخه د جدول شویو فریکونسیو ترمنځ په log-log ساحه کې انټرپولیشن کیږي، "
+"چې د جدول په څنډو کې بند کیږي."
+
+#: src/rdpattern_noise_menu.c:133
+msgid "Available while a selected sky or earth model reads a frequency table."
+msgstr "شتون لري تر څو یو ټاکل شوی اسمان یا ځمکه ماډل د فریکونسۍ جدول لولي."
+
+#: src/rdpattern_noise_menu.c:135
+msgid ""
+"The selected sky and earth models resolve by an intrinsic method; select a "
+"table-based model to enable."
+msgstr ""
+"ټاکل شوي اسمان او ځمکه ماډلونه د یوې ذاتي طریقې له مخې حل کیږي؛ د فعالولو "
+"لپاره پر جدول-بنسټ ماډل وټاکئ."
+
+#: src/rdpattern_noise_menu.c:296
+msgid "Sky Model"
+msgstr "د اسمان ماډل"
+
+#: src/rdpattern_noise_menu.c:303
+msgid "Earth Model"
+msgstr "د ځمکې ماډل"
+
+#: src/rdpattern_noise_menu.c:311
+msgid "Interpolation"
+msgstr "انټرپولیشن"
+
+#: src/rdpattern_ui.c:39
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5829,7 +6017,23 @@ msgstr ""
 "د H-ساحې انیمیشن: د NEC فایل ته NH کارت اضافه کړئ\n"
 "د Poynting ویکتور: NE او NH دواړه کارتونه اضافه کړئ"
 
-#: src/rdpattern_ui.c:94
+#: src/rdpattern_ui.c:59
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Close the animation window to enable this setting."
+msgstr ""
+"د ثابت نږدې ساحې ویکتور وړاندې کوونه غوره کوي۔\n"
+"د دې ترتیب فعالولو لپاره د انیمیشن کړکۍ وتړئ۔"
+
+#: src/rdpattern_ui.c:61
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Applies while the animation window is closed."
+msgstr ""
+"د ثابت نږدې ساحې ویکتور وړاندې کوونه غوره کوي۔\n"
+"پداسې حال کې پلي کیږي چې د انیمیشن کړکۍ تړل شوې وي۔"
+
+#: src/rdpattern_ui.c:129
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -5838,17 +6042,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d د سلسلې [0..%d] بهر دی، GS_LINP ته ډیفالټ "
 "کیږي\n"
 
-#: src/rdpattern_ui.c:516
+#: src/rdpattern_ui.c:544
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "د لیدونکي د لوري ګټه، د اوسنیو لید زاویو لپاره"
 
-#: src/rdpattern_ui.c:518
+#: src/rdpattern_ui.c:546
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "د لیدونکي د لوري د روڼتیا تودوخه، د اوسنیو لید زاویو لپاره"
 
-#: src/rdpattern_ui.c:538 src/rdpattern_ui.c:544
+#: src/rdpattern_ui.c:566 src/rdpattern_ui.c:572
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -5856,7 +6060,7 @@ msgstr ""
 "د لیدلو لوړوالی زاویه. د انتن د تودوخې د ارزونې لپاره د اسمان/ځمکې پوله "
 "لیږدوي. 0° = افق."
 
-#: src/rdpattern_ui.c:541 src/rdpattern_ui.c:547
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5864,14 +6068,14 @@ msgstr ""
 "د انتن د تودوخې لپاره د لیدلو لوړوالی.\n"
 "د فعالولو لپاره د ګټې سټایل ← د شور تودوخه غوره کړئ."
 
-#: src/rdpattern_ui.c:550
+#: src/rdpattern_ui.c:578
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr ""
 "د شور تودوخې ماډلونو لپاره د اسمان، ځمکې، او انترپولیشن خپلواک انتخابګر."
 
-#: src/rdpattern_ui.c:552
+#: src/rdpattern_ui.c:580
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5879,71 +6083,71 @@ msgstr ""
 "د اسمان او ځمکې د شور تودوخې ماډلونه.\n"
 "د فعالولو لپاره د ګټې سټایل ← د شور تودوخه غوره کړئ."
 
-#: src/rdpattern_ui.c:846
+#: src/rdpattern_ui.c:889
 msgid "Total Gain"
 msgstr "ټوله ګټه"
 
-#: src/rdpattern_ui.c:847
+#: src/rdpattern_ui.c:890
 msgid "Horizontal Polarization"
 msgstr "افقي پولاریزیشن"
 
-#: src/rdpattern_ui.c:848
+#: src/rdpattern_ui.c:891
 msgid "Vertical Polarization"
 msgstr "عمودي پولاریزیشن"
 
-#: src/rdpattern_ui.c:849
+#: src/rdpattern_ui.c:892
 msgid "RH Circular Polarization"
 msgstr "ښۍ لاسیز دایروي پولاریزیشن"
 
-#: src/rdpattern_ui.c:850
+#: src/rdpattern_ui.c:893
 msgid "LH Circular Polarization"
 msgstr "کیڼ لاسیز دایروي پولاریزیشن"
 
-#: src/rdpattern_ui.c:855
+#: src/rdpattern_ui.c:944
 msgid "Linear Power"
 msgstr "خطي ځواک"
 
-#: src/rdpattern_ui.c:856
+#: src/rdpattern_ui.c:945
 msgid "Linear Voltage"
 msgstr "خطي ولټیج"
 
-#: src/rdpattern_ui.c:857
+#: src/rdpattern_ui.c:946
 msgid "ARRL Scale"
 msgstr "ARRL سکیل"
 
-#: src/rdpattern_ui.c:858
+#: src/rdpattern_ui.c:947
 msgid "Logarithmic Scale"
 msgstr "لوګاریتمي سکیل"
 
-#: src/rdpattern_ui.c:859
+#: src/rdpattern_ui.c:948
 msgid "Noise Temperature"
 msgstr "د شور تودوخه"
 
-#: src/rdpattern_ui.c:860
+#: src/rdpattern_ui.c:949
 msgid "Noise Temp (log scale)"
 msgstr "د شور تودوخه (لوګاریتمي سکیل)"
 
-#: src/rdpattern_ui.c:872
+#: src/rdpattern_ui.c:967
 msgid "Radiation Pattern: - "
 msgstr "د وړانګو نمونه: - "
 
-#: src/rdpattern_ui.c:892
+#: src/rdpattern_ui.c:991
 msgid "Near Fields:"
 msgstr "نږدې ساحې:"
 
-#: src/rdpattern_ui.c:894
+#: src/rdpattern_ui.c:993
 msgid " - E Field"
 msgstr " - E ساحه"
 
-#: src/rdpattern_ui.c:896
+#: src/rdpattern_ui.c:995
 msgid " - H Field"
 msgstr " - H ساحه"
 
-#: src/rdpattern_ui.c:898
+#: src/rdpattern_ui.c:997
 msgid " - Poynting Vector"
 msgstr " - Poynting ویکتور"
 
-#: src/rdpattern_ui.c:908
+#: src/rdpattern_ui.c:1008
 msgid "Frequency Data Plots - "
 msgstr "د فریکونسۍ ډاټا ګرافونه - "
 
@@ -5965,22 +6169,22 @@ msgstr "render_fit_solve: د برابرولو لپاره هېڅ جیومیتري
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "د اپتیمایزر حلقه نامکمله ده، منځمهاله بیا رسمول مخنیوی کیږي.\n"
 
-#: src/settings/render_settings_common.c:116
+#: src/settings/render_settings_common.c:119
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: د glade بارول ناکام شو: %s\n"
 
-#: src/settings/render_settings_common.c:126
+#: src/settings/render_settings_common.c:129
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: د opengl glade بارول ناکام شو: %s\n"
 
-#: src/settings/render_settings_common.c:136
+#: src/settings/render_settings_common.c:139
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: د cairo glade بارول ناکام شو: %s\n"
 
-#: src/settings/render_settings_common.c:149
+#: src/settings/render_settings_common.c:152
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: د glade نه د render_settings_window ترلاسه کول ناکام "
@@ -6089,37 +6293,37 @@ msgstr ""
 "کنټرولوي چې آیا دا پیرامیټر د NEC ماډل ارزښت بدلوي.\n"
 "د خپلواک کنټرول لپاره Opt غیر فعال کړئ."
 
-#: src/themes/theme.c:140
+#: src/themes/theme.c:135
 #, c-format
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "تیم '%s' رول '%s' ناسم رنګ لري، میراثي ډیفالټ کارول کیږي\n"
 
-#: src/themes/theme.c:223
+#: src/themes/theme.c:218
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "تیم: سرچینه %s نه شي بارېدلی: %s\n"
 
-#: src/themes/theme.c:233
+#: src/themes/theme.c:228
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "تیم: سرچینه %s نه شي تجزیه کیدلی: %s\n"
 
-#: src/themes/theme.c:259
+#: src/themes/theme.c:254
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr "تیم: %s نه شي تجزیه کیدلی، ننوتلي ډیفالټونه کارول کیږي\n"
 
-#: src/themes/theme.c:388
+#: src/themes/theme.c:377
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "تیم '%s' هیڅ اپوټه بڼه نلري، اساس کارول کیږي\n"
 
-#: src/themes/theme.c:396
+#: src/themes/theme.c:385
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "تیم '%s' ونه موندل شو، میراثي کارول کیږي\n"
 
-#: src/themes/theme.c:468
+#: src/themes/theme.c:428
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "پلنوالی '%s' ناسم دی، اوسنی ارزښت ساتل کیږي\n"
@@ -6178,7 +6382,7 @@ msgstr ""
 msgid "%s:\n"
 msgstr ""
 
-#: src/validation_dump.c:34
+#: src/validation_dump.c:35
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6186,45 +6390,45 @@ msgstr ""
 "تایید: nec2-builtin mathlib شتون نلري؛ عددي پایلې ممکن د حوالې نه توپیر "
 "ولري\n"
 
-#: src/validation_dump.c:39
+#: src/validation_dump.c:40
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr "تایید: د بیا تولید وړتیا لپاره mathlib nec2-builtin ته زور شو\n"
 
-#: src/validation_dump.c:58
+#: src/validation_dump.c:59
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
 "تایید: د بیا تولید وړتیا لپاره د انتن-تودوخې ماډلونه او لوړوالی زور شول\n"
 
-#: src/validation_dump.c:68
+#: src/validation_dump.c:69
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "تایید: د بیا تولید وړتیا لپاره پولاریزیشن ټولیز ته زور شو\n"
 
-#: src/validation_dump.c:87
+#: src/validation_dump.c:88
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
 msgstr ""
 "تایید: د بیا تولید وړتیا لپاره د جوړښت لیدونکی ډیفالټ لوري ته بیا ټاکل شو\n"
 
-#: src/validation_dump.c:614 src/validation_dump.c:620
+#: src/validation_dump.c:621 src/validation_dump.c:627
 msgid "Validation Tree"
 msgstr "د تایید ونه"
 
-#: src/validation_dump.c:614
+#: src/validation_dump.c:621
 msgid "Cannot save: frequency loop not done"
 msgstr "خوندي کول نشي کیدای: د فریکونسۍ لوپ لا بشپړ شوی نه دی"
 
-#: src/validation_dump.c:620
+#: src/validation_dump.c:627
 msgid "Cannot create output directory"
 msgstr "د محصول لارښود جوړول نشي کیدای"
 
-#: src/validation_dump.c:652
+#: src/validation_dump.c:659
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "د تایید ونه ولیکل شوه: %s\n"
 
-#: src/xnec2c.c:306
+#: src/xnec2c.c:304
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
@@ -6232,93 +6436,93 @@ msgid ""
 msgstr ""
 "له فایل نه مرکب ډایالیکتریک ثابت: %12.5E%+12.5Ej، غوښتنه: %12.5E%+12.5Ej\n"
 
-#: src/xnec2c.c:309
+#: src/xnec2c.c:307
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters(): د ځمکني پیرامیټرونو کې غلطي"
 
-#: src/xnec2c.c:733
+#: src/xnec2c.c:731
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f ثانیې. (%s)\n"
 
-#: src/xnec2c.c:1077
+#: src/xnec2c.c:1075
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
 msgstr "ګام %d ریس شو: لیږل شوی %.6f MHz، اوسنی %.6f MHz؛ بیا محاسبه کیږي\n"
 
-#: src/xnec2c.c:1203
+#: src/xnec2c.c:1201
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "فرعي پروسه %d د فورک شوي راټولولو پرمهال ناسم پایپ fd لري\n"
 
-#: src/xnec2c.c:1256
+#: src/xnec2c.c:1254
 msgid "Failed to read data from forked child\n"
 msgstr "د فورک شوي فرعي پروسې نه ډاټا لوستل ناکام شو\n"
 
-#: src/xnec2c.c:1530
+#: src/xnec2c.c:1528
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "تر ټولو نږدې ګام %g MHz له غوښتل شوي %g MHz سره توپیر لري\n"
 
-#: src/xnec2c.c:1534
+#: src/xnec2c.c:1532
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "له سویپ وروسته فریکونسي %.4f MHz ته وټاکل شوه (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1572
+#: src/xnec2c.c:1570
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "د فریکونسۍ حلقې تیر شوی وخت: %f ثانیې. (%s)\n"
 
-#: src/xnec2c.c:1624
+#: src/xnec2c.c:1622
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "بیچ کینوس %d په %dx%d کې هېڅ چوکاټ نه دی رسم کړی\n"
 
-#: src/xnec2c.c:1789
+#: src/xnec2c.c:1787
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "د تشعشع نمونې PNG اخیستنه: د %s لپاره هېڅ محاسبه شوی ګام نشته\n"
 
-#: src/xnec2c.c:1861
+#: src/xnec2c.c:1859
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "د %s لپاره د تشعشع نمونې PNG اخیستل ناکام شول\n"
 
-#: src/xnec2c.c:1867
+#: src/xnec2c.c:1865
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "د %s لپاره د تشعشع نمونې PNG ساتل ناکام شول: %s\n"
 
-#: src/xnec2c.c:1872
+#: src/xnec2c.c:1870
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "د تشعشع نمونې PNG ولیکل شو: %s\n"
 
-#: src/xnec2c.c:1909
+#: src/xnec2c.c:1907
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "د تشعشع نمونې ډېری PNG بڼو ته د .png فایل نوم اړین دی: %s\n"
 
-#: src/xnec2c.c:2014
+#: src/xnec2c.c:2012
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "سویپ هر یو د %d تريډونو %d کارکوونکي چلوي\n"
 
-#: src/xnec2c.c:2306
+#: src/xnec2c.c:2304
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread پیل کول ناکام شو\n"
 
-#: src/xnec2c.c:2485
+#: src/xnec2c.c:2483
 msgid "Frequency Sweep"
 msgstr "د فریکونسۍ سویپ"
 
-#: src/xnec2c.c:2486
+#: src/xnec2c.c:2484
 msgid "Recalculate the frequency sweep?"
 msgstr "آیا د فریکونسۍ سویپ بیا محاسبه شي؟"
 
-#: src/xnec2c.c:2487
+#: src/xnec2c.c:2485
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

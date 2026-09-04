@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-24 14:07-0700\n"
+"POT-Creation-Date: 2026-08-31 13:53-0700\n"
 "PO-Revision-Date: 2026-07-11 10:31-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -34,11 +34,58 @@ msgstr "Perisian Numerical Electromagnetics Code"
 msgid "nec2;em;simulator;"
 msgstr "nec2;em;penyelaku;"
 
-#: resources/animate.glade:85
+#: resources/animate.glade:136
+msgid "Total"
+msgstr "Jumlah"
+
+#: resources/animate.glade:146
+msgid "Horizontal"
+msgstr "Mendatar"
+
+#: resources/animate.glade:156
+msgid "Vertical"
+msgstr "Menegak"
+
+#: resources/animate.glade:166
+msgid "Right Hand"
+msgstr "Tangan Kanan"
+
+#: resources/animate.glade:176
+msgid "Left Hand"
+msgstr "Tangan Kiri"
+
+#: resources/animate.glade:191 resources/animate.glade:272
+#: resources/animate.glade:375
 msgid "Animated"
 msgstr "A_nimasi"
 
-#: resources/animate.glade:92
+#: resources/animate.glade:198 resources/xnec2c.glade:11075
+msgid "_Reference Phase"
+msgstr "Fasa _Rujukan"
+
+#: resources/animate.glade:209 resources/xnec2c.glade:11086
+msgid "_LIC Texture"
+msgstr "Tekstur _LIC"
+
+#: resources/animate.glade:220 resources/xnec2c.glade:11097
+#: resources/xnec2c.glade:12290
+msgid "_Wireframe"
+msgstr "Rangka _Wayar"
+
+#: resources/animate.glade:238 resources/animate.glade:330
+#: resources/animate.glade:399
+msgid "Static"
+msgstr "Statik"
+
+#: resources/animate.glade:245 resources/xnec2c.glade:11122
+msgid "Polarization _Axis"
+msgstr "Paksi _Polarisasi"
+
+#: resources/animate.glade:256 resources/xnec2c.glade:11133
+msgid "Peak _Magnitude"
+msgstr "_Magnitud Puncak"
+
+#: resources/animate.glade:279
 msgid ""
 "Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
 "cos(arg z + φ)|, floored so nulls stay visible.\n"
@@ -50,11 +97,11 @@ msgstr ""
 "\n"
 "Animasi: kawasan cerah menyapu di sepanjang struktur apabila fasa berubah."
 
-#: resources/animate.glade:93
+#: resources/animate.glade:280 resources/animate.glade:383
 msgid "Instantaneous"
 msgstr "Seketika"
 
-#: resources/animate.glade:103
+#: resources/animate.glade:290
 msgid ""
 "Diverging hue shows the instantaneous sign of the displayed quantity: cold "
 "negative, hot positive; brightness carries the magnitude s(n).\n"
@@ -66,11 +113,11 @@ msgstr ""
 "\n"
 "Animasi: kawasan bertukar kutub apabila fasa berubah."
 
-#: resources/animate.glade:104
+#: resources/animate.glade:291
 msgid "Polarity"
 msgstr "_Kekutuban"
 
-#: resources/animate.glade:114
+#: resources/animate.glade:301
 msgid ""
 "Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
 "magnitude s(n).\n"
@@ -82,11 +129,11 @@ msgstr ""
 "\n"
 "Animasi: seluruh roda berputar apabila fasa berubah."
 
-#: resources/animate.glade:115
+#: resources/animate.glade:302
 msgid "Phase Hue"
 msgstr "Rona Fasa"
 
-#: resources/animate.glade:125
+#: resources/animate.glade:312
 msgid ""
 "Diverging hue shows the instantaneous charge sign; brightness carries the "
 "current envelope s(|I|).\n"
@@ -98,15 +145,11 @@ msgstr ""
 "\n"
 "Animasi: satu paparan cas dan arus terpisah satu suku kitaran."
 
-#: resources/animate.glade:126
+#: resources/animate.glade:313
 msgid "Current + Charge"
 msgstr "Arus + Cas"
 
-#: resources/animate.glade:143
-msgid "Static"
-msgstr "Statik"
-
-#: resources/animate.glade:150
+#: resources/animate.glade:337
 msgid ""
 "Rainbow ramp of this frequency step's peak magnitude s(n) at full "
 "brightness.\n"
@@ -119,11 +162,11 @@ msgstr ""
 "Statik: garis dasar tak varian fasa; warna kekal tidak berubah semasa main "
 "balik."
 
-#: resources/animate.glade:151
+#: resources/animate.glade:338
 msgid "Amplitude"
 msgstr "Amplitud"
 
-#: resources/animate.glade:161
+#: resources/animate.glade:348
 msgid ""
 "Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
 "brightness carries the magnitude s(n).\n"
@@ -135,11 +178,11 @@ msgstr ""
 "\n"
 "Statik: bacaan tak varian fasa; warna kekal tidak berubah semasa main balik."
 
-#: resources/animate.glade:162
+#: resources/animate.glade:349
 msgid "Standing/Traveling"
 msgstr "Pegun/Merambat"
 
-#: resources/animate.glade:172
+#: resources/animate.glade:359
 msgid ""
 "Hue ramps each segment's contribution to the selected far-field direction; "
 "brightness carries the magnitude s(n).\n"
@@ -151,11 +194,53 @@ msgstr ""
 "\n"
 "Statik: bacaan tak varian fasa; warna kekal tidak berubah semasa main balik."
 
-#: resources/animate.glade:173
+#: resources/animate.glade:360
 msgid "Far-field Contribution"
 msgstr "Sumbangan Medan Jauh"
 
-#: resources/animate.glade:187
+#: resources/animate.glade:382
+msgid ""
+"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animated: scaled regions travel through phase peaks and contract at zero "
+"crossings as the phase advances."
+msgstr ""
+"Skalakan setiap segmen berdasarkan magnitud seketika s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Beranimasi: kawasan berskala bergerak melalui puncak fasa dan mengecut pada "
+"persilangan sifar apabila fasa berkembang."
+
+#: resources/animate.glade:406
+msgid ""
+"Scale each segment from the peak magnitude s(n), enlarging strong regions "
+"and contracting nulls.\n"
+"\n"
+"Static: the phase-invariant scale holds still during playback."
+msgstr ""
+"Skalakan setiap segmen berdasarkan magnitud puncak s(n), membesarkan kawasan "
+"kuat dan mengecutkan nod.\n"
+"\n"
+"Statik: skala yang tidak berubah mengikut fasa kekal statik semasa main "
+"semula."
+
+#: resources/animate.glade:407
+msgid "Envelope magnitude"
+msgstr "Magnitud sampul"
+
+#: resources/animate.glade:417
+msgid ""
+"Keep each segment at its model radius instead of scaling it by magnitude."
+msgstr ""
+"Kekalkan setiap segmen pada jejari modelnya berbanding menskalakannya "
+"mengikut magnitud."
+
+#: resources/animate.glade:418
+msgid "Model radius"
+msgstr "Jejari model"
+
+#: resources/animate.glade:433
 msgid ""
 "Power-law transfer n^γ of the normalized magnitude.\n"
 "\n"
@@ -171,11 +256,11 @@ msgstr ""
 "setiap segmen (dan sumbangan kuasa sinarannya melalui rintangan sinaran), |q|"
 "² dengan tenaga elektrostatik tersimpan."
 
-#: resources/animate.glade:188
+#: resources/animate.glade:434
 msgid "Power"
 msgstr "Kuasa"
 
-#: resources/animate.glade:198
+#: resources/animate.glade:444
 msgid ""
 "Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
 "decibels.\n"
@@ -190,12 +275,12 @@ msgstr ""
 "10^(−R/20) dipotong ke warna dasar."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:199 resources/xnec2c.glade:11713
+#: resources/animate.glade:445 resources/xnec2c.glade:11713
 #: resources/xnec2c.glade:13071
 msgid "dB"
 msgstr ""
 
-#: resources/animate.glade:209
+#: resources/animate.glade:455
 msgid ""
 "Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
 "\n"
@@ -208,11 +293,11 @@ msgstr ""
 "seperti skala instrumen lin-log."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:210
+#: resources/animate.glade:456
 msgid "Asinh"
 msgstr ""
 
-#: resources/animate.glade:220
+#: resources/animate.glade:466
 msgid ""
 "μ-law companding, the telephony-standard bounded log curve.\n"
 "\n"
@@ -225,11 +310,11 @@ msgstr ""
 "255 klasik."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:221
+#: resources/animate.glade:467
 msgid "μ-law"
 msgstr ""
 
-#: resources/animate.glade:231
+#: resources/animate.glade:477
 msgid ""
 "Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
 "\n"
@@ -241,11 +326,11 @@ msgstr ""
 "menetapkan lutut."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:232
+#: resources/animate.glade:478
 msgid "Reinhard"
 msgstr ""
 
-#: resources/animate.glade:242
+#: resources/animate.glade:488
 msgid ""
 "Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
 "\n"
@@ -258,11 +343,11 @@ msgstr ""
 "puncak, seperti mampatan penguat; a menetapkan kecuraman."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:243
+#: resources/animate.glade:489
 msgid "Sigmoid"
 msgstr ""
 
-#: resources/animate.glade:253
+#: resources/animate.glade:499
 msgid ""
 "Identity: every magnitude renders at full brightness.\n"
 "\n"
@@ -272,16 +357,16 @@ msgstr ""
 "\n"
 "Unjuran warna semata-mata membawa maklumat itu."
 
-#: resources/animate.glade:254 resources/settings/cairo_settings.glade:56
+#: resources/animate.glade:500 resources/settings/cairo_settings.glade:56
 msgid "None"
 msgstr "Tiada"
 
-#: resources/animate.glade:266 src/rdpattern_ui.c:366 src/rdpattern_ui.c:374
-#: src/rdpattern_ui.c:381
+#: resources/animate.glade:512 src/rdpattern_ui.c:401 src/rdpattern_ui.c:409
+#: src/rdpattern_ui.c:416
 msgid "Near Field Animation"
 msgstr "Animasi Medan Dekat"
 
-#: resources/animate.glade:358
+#: resources/animate.glade:604
 msgid ""
 "Scrub the animation phase manually.\n"
 "\n"
@@ -292,27 +377,27 @@ msgstr ""
 "Dilumpuhkan semasa animasi sedang berjalan."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:375
+#: resources/animate.glade:621
 msgid "φ 0°"
 msgstr ""
 
-#: resources/animate.glade:389
+#: resources/animate.glade:635
 msgid "Phase"
 msgstr "Fasa"
 
-#: resources/animate.glade:412
+#: resources/animate.glade:658
 msgid "Frames/Sec"
 msgstr "Bingkai/Saat"
 
-#: resources/animate.glade:425
+#: resources/animate.glade:671
 msgid "Animate Freq (Hz)"
 msgstr "Frekuensi Animasi (Hz)"
 
-#: resources/animate.glade:498
+#: resources/animate.glade:747
 msgid "Color projection:"
 msgstr "Unjuran Warna:"
 
-#: resources/animate.glade:512
+#: resources/animate.glade:762
 msgid ""
 "Select which physical quantity drives the hue and how brightness follows the "
 "excitation phase.\n"
@@ -330,31 +415,47 @@ msgstr ""
 "\n"
 "Mengarahkan tetikus ke atas entri memaparkan pratonton langsung."
 
-#: resources/animate.glade:539
+#: resources/animate.glade:820
+msgid "Segment scale:"
+msgstr "Skala segmen:"
+
+#: resources/animate.glade:835
+msgid ""
+"Choose how current or charge magnitude changes segment thickness.\n"
+"\n"
+"Hover an entry to preview it."
+msgstr ""
+"Pilih cara magnitud arus atau cas mengubah ketebalan segmen.\n"
+"\n"
+"Tuding pada satu entri untuk melihat pratontonnya."
+
+#: resources/animate.glade:893
 msgid "Scale family:"
 msgstr "Keluarga skala:"
 
-#: resources/animate.glade:553
+#: resources/animate.glade:908
 msgid ""
-"Select the magnitude-to-color transfer family.\n"
+"Select the normalized-magnitude transfer shared by color brightness and "
+"segment scale.\n"
 "\n"
 "Adjust its slider until the contrast reveals the range your inspection "
 "needs.\n"
 "\n"
 "Hovering an entry previews it live."
 msgstr ""
-"Pilih keluarga pemindahan magnitud-ke-warna.\n"
+"Pilih fungsi pindahan magnitud ternormal yang dikongsi oleh kecerahan warna "
+"dan skala segmen.\n"
 "\n"
-"Laraskan penggelangsernya sehingga kontras mendedahkan julat yang diperlukan "
-"pemeriksaan anda.\n"
+"Laraskan penggelongsornya sehingga kontras mendedahkan julat yang diperlukan "
+"oleh pemeriksaan anda.\n"
 "\n"
-"Mengarahkan tetikus ke atas entri memaparkan pratonton langsung."
+"Menuding pada satu entri memaparkan pratontonnya secara langsung."
 
-#: resources/animate.glade:592
+#: resources/animate.glade:978
 msgid "Gamma:"
 msgstr "Gama:"
 
-#: resources/animate.glade:609
+#: resources/animate.glade:995
 msgid ""
 "Gamma exponent of the power transfer.\n"
 "\n"
@@ -366,11 +467,11 @@ msgstr ""
 "γ = 0.5 mengembangkan kawasan lemah, γ = 1 adalah linear, γ = 2 berkadar "
 "dengan kuasa terlesap bagi arus."
 
-#: resources/animate.glade:631
+#: resources/animate.glade:1017
 msgid "Range (dB):"
 msgstr "Julat (dB):"
 
-#: resources/animate.glade:648
+#: resources/animate.glade:1034
 msgid ""
 "Dynamic range R below the step peak mapped onto the color strip.\n"
 "\n"
@@ -380,48 +481,48 @@ msgstr ""
 "\n"
 "Lantainya ialah 10^(−R/20) daripada puncak."
 
-#: resources/animate.glade:670
+#: resources/animate.glade:1056
 msgid "Softening:"
 msgstr "Pelembutan:"
 
-#: resources/animate.glade:687
+#: resources/animate.glade:1073
 msgid "Softening knee k: linear below k, logarithmic above."
 msgstr "Lutut pelembutan k: linear di bawah k, logaritma di atas."
 
-#: resources/animate.glade:709
+#: resources/animate.glade:1095
 msgid "Compression (dB):"
 msgstr "Pemampatan (dB):"
 
-#: resources/animate.glade:726
+#: resources/animate.glade:1112
 msgid "Compression strength in dB; higher values lift weak detail."
 msgstr ""
 "Kekuatan pemampatan dalam dB; nilai lebih tinggi mengangkat perincian lemah."
 
-#: resources/animate.glade:748
+#: resources/animate.glade:1134
 msgid "Knee:"
 msgstr "Lutut:"
 
-#: resources/animate.glade:765
+#: resources/animate.glade:1151
 msgid "Knee k of the rational soft-compressor."
 msgstr "Lutut k bagi pemampat lembut nisbah."
 
-#: resources/animate.glade:787
+#: resources/animate.glade:1173
 msgid "Contrast:"
 msgstr "Kontras:"
 
-#: resources/animate.glade:804
+#: resources/animate.glade:1190
 msgid "Contrast steepness a of the tanh transfer."
 msgstr "Kecuraman kontras a bagi pemindahan tanh."
 
-#: resources/animate.glade:837
+#: resources/animate.glade:1223
 msgid "Color gradient of the active projection and scale family."
 msgstr "Kecerunan warna bagi unjuran aktif dan keluarga skala."
 
-#: resources/animate.glade:855
+#: resources/animate.glade:1241
 msgid "Brightness floor:"
 msgstr "Lantai kecerahan:"
 
-#: resources/animate.glade:873
+#: resources/animate.glade:1259
 msgid ""
 "Minimum brightness under animation so elements cool toward this level "
 "instead of vanishing to black."
@@ -429,27 +530,15 @@ msgstr ""
 "Kecerahan minimum semasa animasi supaya unsur menyejuk ke arah paras ini dan "
 "bukannya lenyap menjadi hitam."
 
-#: resources/animate.glade:884
-msgid "Width from amplitude"
-msgstr "Lebar daripada amplitud"
-
-#: resources/animate.glade:889
-msgid ""
-"Scale wire segment width by the scaled amplitude envelope s(n), so strong "
-"regions draw thick and nulls draw thin."
-msgstr ""
-"Skalakan lebar segmen wayar mengikut sampul amplitud terskala s(n), supaya "
-"kawasan kuat dilukis tebal dan nod dilukis nipis."
-
-#: resources/animate.glade:915
+#: resources/animate.glade:1285
 msgid "Overlays:"
 msgstr "Tindihan:"
 
-#: resources/animate.glade:926
+#: resources/animate.glade:1296
 msgid "Nodes/antinodes"
 msgstr "Nod/Antinod"
 
-#: resources/animate.glade:931
+#: resources/animate.glade:1301
 msgid ""
 "Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
 "\n"
@@ -462,11 +551,11 @@ msgstr ""
 "Tanda diperoleh daripada sampul tak varian fasa, jadi ia kekal statik semasa "
 "gelombang beranimasi."
 
-#: resources/animate.glade:942
+#: resources/animate.glade:1312
 msgid "Comet"
 msgstr "Komet"
 
-#: resources/animate.glade:947
+#: resources/animate.glade:1317
 msgid ""
 "Ride a bright head on the instantaneous positive crest so wave motion reads "
 "along each wire."
@@ -474,87 +563,88 @@ msgstr ""
 "Tunggangi kepala terang pada puncak positif seketika supaya pergerakan "
 "gelombang dapat dibaca di sepanjang setiap wayar."
 
-#: resources/animate.glade:980
+#: resources/animate.glade:1350
 msgid "Reset"
 msgstr "Set Semula"
 
-#: resources/animate.glade:986
+#: resources/animate.glade:1356
 msgid ""
-"Restore the color projection, scale family, and every family brightness "
-"parameter to their defaults."
+"Restore the color projection, segment scale, scale family, brightness floor, "
+"and every family parameter to their defaults."
 msgstr ""
-"Pulihkan unjuran warna, keluarga skala, dan setiap parameter kecerahan "
-"keluarga kepada lalainya."
+"Pulihkan unjuran warna, skala segmen, keluarga skala, aras minimum "
+"kecerahan, dan setiap parameter keluarga kepada nilai lalainya."
 
-#: resources/animate.glade:1001
+#: resources/animate.glade:1391
 msgid ""
-"<b>Color</b> <i>— currents, charges, and fields shade the wires, patches, "
-"and near-field vectors</i>"
+"<b>Color and segment scale</b> <i>— currents, charges, and fields shade the "
+"model</i>"
 msgstr ""
-"<b>Warna</b> <i>— arus, cas, dan medan mewarnakan wayar, tampalan, dan "
-"vektor medan dekat</i>"
+"<b>Warna dan skala segmen</b> <i>— arus, cas, dan medan mewarnakan model</i>"
 
-#: resources/animate.glade:1032
+#: resources/animate.glade:1432
 msgid "None (geometry)"
 msgstr "Tiada (geometri)"
 
-#: resources/animate.glade:1036
+#: resources/animate.glade:1436
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr "Papar geometri struktur telanjang tanpa pewarnaan kuantiti."
 
-#: resources/animate.glade:1049 resources/xnec2c.glade:11240
+#: resources/animate.glade:1449 resources/xnec2c.glade:11240
 msgid "Currents"
 msgstr "Arus"
 
-#: resources/animate.glade:1053
+#: resources/animate.glade:1453
 msgid "Animate current magnitude and direction along the wires."
 msgstr "Animasikan magnitud dan arah arus di sepanjang wayar."
 
-#: resources/animate.glade:1066 resources/xnec2c.glade:11255
+#: resources/animate.glade:1466 resources/xnec2c.glade:11255
 msgid "Charges"
 msgstr "Cas"
 
-#: resources/animate.glade:1070
+#: resources/animate.glade:1470
 msgid "Animate charge magnitude along the wires."
 msgstr "Animasikan magnitud cas di sepanjang wayar."
 
-#: resources/animate.glade:1087
+#: resources/animate.glade:1493
+msgid "_Polarization:"
+msgstr "_Polarisasi:"
+
+#: resources/animate.glade:1508
+msgid ""
+"Select the polarization component used by radiation-pattern gain and far-"
+"zone animation vectors.\n"
+"\n"
+"Mirrors the polarization selection in the main, radiation-pattern, and "
+"frequency-plot windows.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"Pilih komponen polarisasi yang digunakan oleh gandaan corak sinaran dan "
+"vektor animasi zon jauh.\n"
+"\n"
+"Mencerminkan pilihan polarisasi dalam tetingkap utama, corak sinaran, dan "
+"plot frekuensi.\n"
+"\n"
+"Menuding pada satu entri memaparkan pratontonnya secara langsung."
+
+#: resources/animate.glade:1581
 msgid "Display"
 msgstr "Paparan"
 
-#: resources/animate.glade:1118
+#: resources/animate.glade:1619
 msgid "Flow direction:"
 msgstr "Arah aliran:"
 
-#: resources/animate.glade:1131
-msgid "Reference phase (animated)"
-msgstr "Fasa rujukan (animasi)"
-
-#: resources/animate.glade:1132
-msgid "LIC texture (animated)"
-msgstr "Tekstur LIC (animasi)"
-
-#: resources/animate.glade:1133
-msgid "Wireframe (animated)"
-msgstr "Rangka wayar (animasi)"
-
-#: resources/animate.glade:1134
-msgid "Polarization axis (static)"
-msgstr "Paksi polarisasi (statik)"
-
-#: resources/animate.glade:1135
-msgid "Peak magnitude (static)"
-msgstr "Magnitud puncak (statik)"
-
-#: resources/animate.glade:1151
+#: resources/animate.glade:1698
 msgid "Patches"
 msgstr "Tampalan"
 
-#: resources/animate.glade:1179
+#: resources/animate.glade:1733
 msgid "Near E field"
 msgstr "Medan E Dekat"
 
-#: resources/animate.glade:1183
+#: resources/animate.glade:1737
 msgid ""
 "Show the near electric field vectors while animating.\n"
 "\n"
@@ -564,11 +654,11 @@ msgstr ""
 "\n"
 "Dayakan dengan membuka tetingkap corak sinaran."
 
-#: resources/animate.glade:1195
+#: resources/animate.glade:1749
 msgid "Near H field"
 msgstr "Medan H Dekat"
 
-#: resources/animate.glade:1199
+#: resources/animate.glade:1753
 msgid ""
 "Show the near magnetic field vectors while animating.\n"
 "\n"
@@ -578,11 +668,11 @@ msgstr ""
 "\n"
 "Dayakan dengan membuka tetingkap corak sinaran."
 
-#: resources/animate.glade:1211
+#: resources/animate.glade:1765
 msgid "Poynting vector"
 msgstr "Vektor Poynting"
 
-#: resources/animate.glade:1215
+#: resources/animate.glade:1769
 msgid ""
 "Show the Poynting power-flow vectors while animating.\n"
 "\n"
@@ -592,15 +682,15 @@ msgstr ""
 "\n"
 "Dayakan dengan membuka tetingkap corak sinaran."
 
-#: resources/animate.glade:1231
+#: resources/animate.glade:1805
 msgid "Near Field"
 msgstr "Medan Dekat"
 
-#: resources/animate.glade:1259
+#: resources/animate.glade:1840
 msgid "Far E field"
 msgstr "Medan E jauh"
 
-#: resources/animate.glade:1263
+#: resources/animate.glade:1844
 msgid ""
 "Draw the far-zone electric field as arrows tangent to the gain surface while "
 "animating.\n"
@@ -612,11 +702,11 @@ msgstr ""
 "\n"
 "Dayakan dengan membuka tetingkap corak sinaran."
 
-#: resources/animate.glade:1276
+#: resources/animate.glade:1857
 msgid "Far H field"
 msgstr "Medan H jauh"
 
-#: resources/animate.glade:1280
+#: resources/animate.glade:1861
 msgid ""
 "Draw the far-zone magnetic field instead, a quarter turn from the electric "
 "field in the tangent plane and in step with it in time.\n"
@@ -628,19 +718,19 @@ msgstr ""
 "\n"
 "Dayakan dengan membuka tetingkap corak sinaran."
 
-#: resources/animate.glade:1293
+#: resources/animate.glade:1874
 msgid "World reference"
 msgstr "Rujukan dunia"
 
-#: resources/animate.glade:1309
+#: resources/animate.glade:1890
 msgid "Ludwig-3 reference"
 msgstr "Rujukan Ludwig-3"
 
-#: resources/animate.glade:1334
-msgid "Arrow length:"
-msgstr "Panjang anak panah:"
+#: resources/animate.glade:1915
+msgid "Arrow:"
+msgstr "Anak panah:"
 
-#: resources/animate.glade:1351
+#: resources/animate.glade:1932
 msgid ""
 "Longest arrow a cell draws, as a fraction of that cell's own pattern radius, "
 "so the arrows track whichever gain scale shapes the surface."
@@ -649,9 +739,17 @@ msgstr ""
 "corak sel itu sendiri, supaya anak panah mengikut skala gandaan yang mana "
 "sekalipun yang membentuk permukaan itu."
 
-#: resources/animate.glade:1373
+#: resources/animate.glade:1974
 msgid "Far Field"
 msgstr "Medan jauh"
+
+#: resources/animate.glade:1992
+msgid ""
+"Draw the far-zone field as tangent vectors on the radiation pattern gain "
+"surface while this window is open."
+msgstr ""
+"Lukis medan zon jauh sebagai vektor tangen pada permukaan gandaan corak "
+"sinaran semasa tetingkap ini dibuka."
 
 # xnec2c-exempt: loanword
 #: resources/settings/cairo_settings.glade:34
@@ -1934,7 +2032,7 @@ msgstr "Pemerhati"
 
 # xnec2c-exempt: notation
 #: resources/xnec2c.glade:9799 resources/xnec2c.glade:10041
-#: src/freqplots/freqplots_core.c:62 src/freqplots/graphs/vswr_graph.c:55
+#: src/freqplots/freqplots_core.c:63 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
@@ -2275,29 +2373,9 @@ msgstr "_Tiada"
 msgid "Patch Flow — Animated"
 msgstr "Aliran Tampalan — Animasi"
 
-#: resources/xnec2c.glade:11075
-msgid "_Reference Phase"
-msgstr "Fasa _Rujukan"
-
-#: resources/xnec2c.glade:11086
-msgid "_LIC Texture"
-msgstr "Tekstur _LIC"
-
-#: resources/xnec2c.glade:11097 resources/xnec2c.glade:12290
-msgid "_Wireframe"
-msgstr "Rangka _Wayar"
-
 #: resources/xnec2c.glade:11115
 msgid "Patch Flow — Static"
 msgstr "Aliran Tampalan — Statik"
-
-#: resources/xnec2c.glade:11122
-msgid "Polarization _Axis"
-msgstr "Paksi _Polarisasi"
-
-#: resources/xnec2c.glade:11133
-msgid "Peak _Magnitude"
-msgstr "_Magnitud Puncak"
 
 #: resources/xnec2c.glade:11148
 msgid "A_nimate"
@@ -2338,7 +2416,7 @@ msgid ""
 msgstr "Gandaan pada arah pemapar struktur, untuk sudut pandangan semasa."
 
 #: resources/xnec2c.glade:11604 resources/xnec2c.glade:12914
-#: src/freqplots/freqplots_core.c:59
+#: src/freqplots/freqplots_core.c:60
 msgid "Gain"
 msgstr "Gandaan"
 
@@ -2499,7 +2577,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:869
+#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:962
 msgid "Radiation Patterns"
 msgstr "Corak Sinaran"
 
@@ -2692,6 +2770,129 @@ msgstr ""
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Galangan Talian Penghantaran (Zo)"
 
+#: src/anim/anim_dialog.c:69
+msgid ""
+"Choose how current flow is marked on surface patches.\n"
+"This model has no patches: add SP, SC, or SM patch cards to the NEC input "
+"file."
+msgstr ""
+"Pilih cara aliran arus ditandakan pada tampalan permukaan.\n"
+"Model ini tiada tampalan: tambahkan kad tampalan SP, SC, atau SM ke dalam "
+"fail input NEC."
+
+#: src/anim/anim_dialog.c:77
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"In the main window choose View, Radiation Pattern; if that item is disabled, "
+"add an RP card to the NEC input file."
+msgstr ""
+"Lukis medan zon jauh sebagai anak panah pada permukaan gandaan.\n"
+"Dalam tetingkap utama pilih Lihat, Corak Sinaran; jika item itu dilumpuhkan, "
+"tambahkan kad RP ke dalam fail input NEC."
+
+#: src/anim/anim_dialog.c:81
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"Tick the check box in the Far Field heading just above."
+msgstr ""
+"Lukis medan zon jauh sebagai anak panah pada permukaan gandaan.\n"
+"Tandakan kotak semak dalam tajuk Medan Jauh tepat di atas."
+
+#: src/anim/anim_dialog.c:88
+msgid ""
+"Choose the reference the vertical and horizontal gain are read against.\n"
+"Under Polarization in this window select Vertical or Horizontal; Total, "
+"Right Hand, and Left Hand do not use this setting."
+msgstr ""
+"Pilih rujukan yang menjadi asas bacaan gandaan menegak dan mendatar.\n"
+"Di bawah Polarisasi dalam tetingkap ini pilih Menegak atau Mendatar; Jumlah, "
+"Tangan Kanan, dan Tangan Kiri tidak menggunakan tetapan ini."
+
+#: src/anim/anim_dialog.c:97
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Nothing drawn now changes with phase. Under Display choose Currents or "
+"Charges and an Animated colour or segment scale; for patches choose Currents "
+"and an Animated flow mode. For NE/NH cards show Near Field and tick E, H, or "
+"Poynting; for an RP card show Gain and tick Far Field."
+msgstr ""
+"Mula memajukan fasa animasi pada kadar yang ditetapkan di bawah.\n"
+"Tiada apa yang dilukis sekarang berubah mengikut fasa. Di bawah Paparan "
+"pilih Arus atau Cas dan warna Beranimasi atau skala segmen; untuk tampalan "
+"pilih Arus dan mod aliran Beranimasi. Untuk kad NE/NH tunjukkan Medan Dekat "
+"dan tandakan E, H, atau Poynting; untuk kad RP tunjukkan Gandaan dan "
+"tandakan Medan Jauh."
+
+#: src/anim/anim_dialog.c:108
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Available when drawn content changes with phase."
+msgstr ""
+"Mula memajukan fasa animasi pada kadar yang ditetapkan di bawah.\n"
+"Tersedia apabila kandungan yang dilukis berubah mengikut fasa."
+
+#: src/anim/anim_dialog.c:112
+msgid ""
+"Select how the animated patch current flow is rendered.\n"
+"Mirrors the Visualization menu setting in the main window."
+msgstr ""
+"Pilih cara aliran arus tampalan animasi dipaparkan.\n"
+"Mencerminkan tetapan menu Visualisasi dalam tetingkap utama."
+
+#: src/anim/anim_dialog.c:116
+msgid ""
+"Resolve the far-zone field into tangent vectors drawn on the radiation "
+"pattern gain surface.\n"
+"Available while the radiation pattern window is open and Far Field is "
+"selected."
+msgstr ""
+"Uraikan medan zon jauh kepada vektor tangen yang dilukis pada permukaan "
+"gandaan corak sinaran.\n"
+"Tersedia semasa tetingkap corak sinaran terbuka dan Medan Jauh dipilih."
+
+#: src/anim/anim_dialog.c:122
+msgid ""
+"Read the vertical and horizontal gain selections against the spherical "
+"basis, so vertical is the theta direction and horizontal is the phi "
+"direction.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Baca pilihan gandaan menegak dan mendatar berdasarkan asas sfera, supaya "
+"menegak ialah arah theta dan mendatar ialah arah phi.\n"
+"Tersedia untuk polarisasi Menegak atau Mendatar."
+
+#: src/anim/anim_dialog.c:128
+msgid ""
+"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
+"polar and cross-polar directions, which hold one orientation across the "
+"whole pattern.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Baca pilihan gandaan menegak dan mendatar berdasarkan arah co-polar dan "
+"cross-polar Ludwig-3, yang mengekalkan satu orientasi merentasi keseluruhan "
+"corak.\n"
+"Tersedia untuk polarisasi Menegak atau Mendatar."
+
+#: src/anim/anim_dialog.c:167
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"Available when the model contains supported animation content."
+msgstr ""
+"Buka kawalan animasi untuk kandungan berubah fasa.\n"
+"Tersedia apabila model mengandungi kandungan animasi yang disokong."
+
+#: src/anim/anim_dialog.c:169
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"This model has nothing to animate: load a NEC input file carrying wire cards "
+"(GW, GA, GH), patch cards (SP, SC, SM), near-field cards (NE, NH), or a "
+"radiation pattern card (RP)."
+msgstr ""
+"Buka kawalan animasi untuk kandungan berubah fasa.\n"
+"Model ini tiada apa untuk dianimasikan: muatkan fail input NEC yang membawa "
+"kad wayar (GW, GA, GH), kad tampalan (SP, SC, SM), kad medan dekat (NE, NH), "
+"atau kad corak sinaran (RP)."
+
 #: src/args.c:113
 msgid "Usage: xnec2c [options] [<input-file-name>]"
 msgstr "Penggunaan: xnec2c [pilihan] [<nama-fail-input>]"
@@ -2880,8 +3081,8 @@ msgstr "fail konfigurasi tidak wujud atau tidak boleh dibaca: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:366
-#: src/rdpattern_ui.c:374 src/rdpattern_ui.c:381 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:401
+#: src/rdpattern_ui.c:409 src/rdpattern_ui.c:416 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -2903,7 +3104,7 @@ msgstr "Forking dilumpuhkan!\n"
 msgid "invalid radiation pattern PNG format: %s\n"
 msgstr "format PNG corak sinaran tidak sah: %s\n"
 
-#: src/cairo/cairo_fit.c:118
+#: src/cairo/cairo_fit.c:121
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
@@ -2912,7 +3113,7 @@ msgstr ""
 "%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:237
+#: src/cairo/cairo_frame.c:254
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -2946,17 +3147,17 @@ msgstr "Ralat sambungan segmen dalam sbf()"
 msgid "Segment connection error in trio()"
 msgstr "Ralat sambungan segmen dalam trio()"
 
-#: src/callback_func.c:51
+#: src/callback_func.c:52
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "gagal menangkap imej untuk %s\n"
 
-#: src/callback_func.c:57
+#: src/callback_func.c:58
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "gagal menyimpan imej %s: %s\n"
 
-#: src/callback_func.c:105
+#: src/callback_func.c:106
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -2964,7 +3165,7 @@ msgstr ""
 "Gelung frekuensi sedang berjalan\n"
 "Adakah anda pasti mahu menamatkan pengiraan?"
 
-#: src/callback_func.c:109
+#: src/callback_func.c:110
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -2972,7 +3173,7 @@ msgstr ""
 "Gelung frekuensi sedang berjalan\n"
 "Adakah anda pasti mahu menutup tetingkap ini?"
 
-#: src/callback_func.c:270
+#: src/callback_func.c:271
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
@@ -2980,47 +3181,47 @@ msgstr ""
 "Jenis pengujaan %d tiada titik suapan: plot VSWR dan galangan "
 "disembunyikan.\n"
 
-#: src/callback_func.c:332
+#: src/callback_func.c:340
 msgid "View Currents"
 msgstr "Lihat Arus"
 
-#: src/callback_func.c:334
+#: src/callback_func.c:342
 msgid "View Charges"
 msgstr "Lihat Cas"
 
-#: src/callback_func.c:336
+#: src/callback_func.c:344
 msgid "View Geometry"
 msgstr "Lihat Geometri"
 
-#: src/callback_func.c:386
+#: src/callback_func.c:402
 msgid "PNG images (*.png)"
 msgstr "Imej PNG (*.png)"
 
-#: src/callback_func.c:388
+#: src/callback_func.c:404
 msgid "GNUplot files (*.gplot)"
 msgstr "Fail GNUplot (*.gplot)"
 
-#: src/callback_func.c:390
+#: src/callback_func.c:406
 msgid "NEC2 files (*.nec)"
 msgstr "Fail NEC2 (*.nec)"
 
-#: src/callback_func.c:392
+#: src/callback_func.c:408
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Fail Touchstone 1-port (*.s1p)"
 
-#: src/callback_func.c:394
+#: src/callback_func.c:410
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Fail Touchstone 2-port (*.s2p)"
 
-#: src/callback_func.c:396
+#: src/callback_func.c:412
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Fail CSV dipisah-koma (*.csv)"
 
-#: src/callbacks.c:98 src/callbacks.c:114 src/freqplots/freqplots_core.c:66
+#: src/callbacks.c:95 src/callbacks.c:111 src/freqplots/freqplots_core.c:67
 msgid "Antenna Temperature"
 msgstr "Suhu Antena"
 
-#: src/callbacks.c:99
+#: src/callbacks.c:96
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3028,7 +3229,7 @@ msgstr ""
 "Satah bumi dikesan dalam model. Keputusan Ta akan mengira kesan bumi secara "
 "berlebihan. Model ruang bebas adalah standard untuk penilaian suhu antena."
 
-#: src/callbacks.c:115
+#: src/callbacks.c:112
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3038,12 +3239,12 @@ msgstr ""
 "alur pancaran dalam satah XY dengan elevasi pemerhatian ditetapkan oleh "
 "butang putar."
 
-#: src/callbacks.c:183 src/callbacks.c:521 src/callbacks.c:1951
-#: src/callbacks.c:2814
+#: src/callbacks.c:176 src/callbacks.c:510 src/callbacks.c:1661
+#: src/callbacks.c:1832
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Adakah anda pasti mahu keluar dari xnec2c?"
 
-#: src/callbacks.c:287
+#: src/callbacks.c:280
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3051,7 +3252,7 @@ msgstr ""
 "Fail masukan NEC2 baharu tidak boleh dicipta\n"
 "semasa Gelung Frekuensi sedang berjalan"
 
-#: src/callbacks.c:324
+#: src/callbacks.c:317
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3059,21 +3260,21 @@ msgstr ""
 "Fail masukan NEC2 baharu tidak boleh dibuka\n"
 "semasa Gelung Frekuensi sedang berjalan"
 
-#: src/callbacks.c:443
+#: src/callbacks.c:436
 msgid "xnec2c geometry optimizer"
 msgstr "pengoptimum geometri xnec2c"
 
-#: src/callbacks.c:444
+#: src/callbacks.c:437
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "xnec2c dibina tanpa sokongan inotify: pengoptimum tidak dapat didayakan."
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid "Xnec2c Optimizer"
 msgstr "Pengoptimum Xnec2c"
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3084,85 +3285,20 @@ msgstr ""
 "dicetuskan oleh inotify.Pilih fail untuk ditulis dalam \"Fail->Tetapan "
 "Pengoptimuman\"."
 
-#: src/callbacks.c:998 src/callbacks.c:1318 src/callbacks.c:2840
+#: src/callbacks.c:991 src/callbacks.c:1311 src/callbacks.c:1858
 msgid "Are you sure you wish to close this window?"
 msgstr "Adakah anda pasti mahu menutup tetingkap ini?"
 
-#: src/callbacks.c:1826
+#: src/callbacks.c:1536
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "OpenGL tidak tersedia pada paparan ini; tidak dapat mendayakan pemapar.\n"
 
-#: src/callbacks.c:2038
-msgid ""
-"Read the vertical and horizontal gain selections against the spherical "
-"basis, so vertical is the theta direction and horizontal is the phi "
-"direction."
-msgstr ""
-"Baca pilihan gandaan menegak dan mendatar berdasarkan asas sfera, supaya "
-"menegak ialah arah theta dan mendatar ialah arah phi."
-
-#: src/callbacks.c:2042
-msgid ""
-"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
-"polar and cross-polar directions, which hold one orientation across the "
-"whole pattern."
-msgstr ""
-"Baca pilihan gandaan menegak dan mendatar berdasarkan arah co-polar dan "
-"cross-polar Ludwig-3, yang mengekalkan satu orientasi di seluruh corak itu."
-
-#: src/callbacks.c:2081
-msgid ""
-"Select how the animated patch current flow is rendered.\n"
-"Mirrors the Visualization menu setting in the main window."
-msgstr ""
-"Pilih cara aliran arus tampalan animasi dipaparkan.\n"
-"Mencerminkan tetapan menu Visualisasi dalam tetingkap utama."
-
-#: src/callbacks.c:2083
-msgid ""
-"Patch flow animation requires surface patches (SP/SM cards) in the model."
-msgstr ""
-"Animasi aliran tampalan memerlukan tampalan permukaan (kad SP/SM) dalam "
-"model."
-
-#: src/callbacks.c:2098
-msgid ""
-"The polarization reference turns the vertical and horizontal gain pair "
-"only.  Select vertical or horizontal polarization in the radiation pattern "
-"window to use it; the total and circular selections read alike under either "
-"reference."
-msgstr ""
-"Rujukan polarisasi hanya menukar pasangan gandaan menegak dan mendatar. "
-"Pilih polarisasi menegak atau mendatar dalam tetingkap corak sinaran untuk "
-"menggunakannya; pilihan jumlah dan bulatan terbaca sama di bawah mana-mana "
-"rujukan."
-
-#: src/callbacks.c:2116
-msgid ""
-"The animation window drives the near-field vectors from the phase slider; "
-"close it to choose the static peak or instantaneous baseline."
-msgstr ""
-"Tetingkap animasi menggerakkan vektor medan dekat daripada gelangsar fasa; "
-"tutupnya untuk memilih puncak statik atau garis dasar seketika."
-
-#: src/callbacks.c:2646
-msgid "Animation"
-msgstr "Animasi"
-
-#: src/callbacks.c:2647
-msgid ""
-"Animation requires wire currents or charges, surface patches (SP/SM NEC "
-"cards), or near-field data (NE/NH NEC cards)"
-msgstr ""
-"Animasi memerlukan arus atau cas wayar, tampalan permukaan (kad NEC SP/SM), "
-"atau data medan dekat (kad NEC NE/NH)"
-
-#: src/callbacks.c:2776
+#: src/callbacks.c:1798
 msgid "No open NEC2 input file"
 msgstr "Tiada fail masukan NEC2 terbuka"
 
-#: src/callbacks.c:2871 src/callbacks.c:2901
+#: src/callbacks.c:1889 src/callbacks.c:1919
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3170,11 +3306,11 @@ msgstr ""
 "Data Editor NEC2 tidak boleh disimpan\n"
 "semasa Gelung Frekuensi sedang berjalan"
 
-#: src/callbacks.c:2883 src/callbacks.c:2909
+#: src/callbacks.c:1901 src/callbacks.c:1927
 msgid "untitled.nec"
 msgstr "tanpa-tajuk.nec"
 
-#: src/callbacks.c:3374 src/callbacks.c:3394 src/callbacks.c:3414
+#: src/callbacks.c:2388 src/callbacks.c:2408 src/callbacks.c:2428
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3183,10 +3319,15 @@ msgstr ""
 "Kad Frekuensi (FR) belum diproses.\n"
 "Anda mungkin perlu simpan data Editor NEC2 dahulu."
 
-#: src/chroma/chroma.c:288
+#: src/chroma/chroma.c:315
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "unjuran warna tidak sah %d, menggunakan seketika\n"
+
+#: src/chroma/chroma.c:627
+#, c-format
+msgid "invalid segment scale encoding %d, using model radius\n"
+msgstr "pengekodan skala segmen tidak sah %d, menggunakan jejari model\n"
 
 #: src/chroma/chroma_source.c:334
 msgid "far-field contribution needs radiation pattern data\n"
@@ -3398,22 +3539,17 @@ msgstr "Titik Pertama Theta"
 msgid "Increment in R (m)"
 msgstr "Tokokan dalam R (m)"
 
-#: src/color/color_tone.c:125
-#, c-format
-msgid "invalid color tone %d, using power\n"
-msgstr "tona warna tidak sah %d, menggunakan kuasa\n"
-
-#: src/config_hooks.c:91
+#: src/color/color_config_hooks.c:131
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr ""
 "Tindihan ini diperoleh daripada segmen arus wayar; model ini tiada segmen "
 "sedemikian."
 
-#: src/config_hooks.c:116
+#: src/color/color_config_hooks.c:156
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr "Sorotkan puncak gelombang bergerak sebagai kepala komet terang."
 
-#: src/config_hooks.c:117
+#: src/color/color_config_hooks.c:157
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3421,9 +3557,14 @@ msgstr ""
 "Komet menunggangi puncak gelombang beranimasi; unjuran ini ialah bacaan "
 "statik tanpa fasa bergerak."
 
-#: src/config_hooks.c:120
+#: src/color/color_config_hooks.c:160
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr "Tandakan nod arus (sian) dan antinod (merah) di sepanjang wayar."
+
+#: src/color/color_tone.c:107
+#, c-format
+msgid "invalid color tone %d, using power\n"
+msgstr "tona warna tidak sah %d, menggunakan kuasa\n"
 
 #: src/expr_edit.h:34
 msgid ""
@@ -3475,39 +3616,39 @@ msgstr ""
 "Tetapkan semula imbasan frekuensi ke langkah pertamanya dan buang setiap "
 "keputusan yang telah dikira"
 
-#: src/freqplots/freqplots_core.c:60
+#: src/freqplots/freqplots_core.c:61
 msgid "Gain Direction"
 msgstr "Arah Gandaan"
 
-#: src/freqplots/freqplots_core.c:61
+#: src/freqplots/freqplots_core.c:62
 msgid "Viewer Gain"
 msgstr "Gandaan Pemerhati"
 
-#: src/freqplots/freqplots_core.c:63
+#: src/freqplots/freqplots_core.c:64
 msgid "Impedance (real/imag)"
 msgstr "Galangan (nyata/khayalan)"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:65
 msgid "Impedance (mag/phase)"
 msgstr "Galangan (magnitud/fasa)"
 
-#: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/smith_graph.c:512
+#: src/freqplots/freqplots_core.c:66 src/freqplots/graphs/smith_graph.c:512
 msgid "Smith Chart"
 msgstr "Carta Smith"
 
-#: src/freqplots/freqplots_core.c:67
+#: src/freqplots/freqplots_core.c:68
 msgid "Solver Conditioning"
 msgstr "Pengkondisian penyelesai"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:471
+#: src/freqplots/freqplots_core.c:479
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:769
+#: src/freqplots/freqplots_core.c:739
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3549,7 +3690,7 @@ msgstr ""
 "    • Gandaan Maksimum mentah, Arah gandaan, F/B\n"
 "    • Suhu antena, G/T"
 
-#: src/freqplots/freqplots_core.c:802
+#: src/freqplots/freqplots_core.c:772
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3557,7 +3698,7 @@ msgstr ""
 "Hanya satu port titik suapan ditakrifkan. Takrifkan kad pengujaan EX "
 "tambahan dalam model untuk memilih antara berbilang port di sini."
 
-#: src/freqplots/freqplots_core.c:805
+#: src/freqplots/freqplots_core.c:775
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3565,7 +3706,7 @@ msgstr ""
 "Aktifkan tetapan plot Gandaan Bersih untuk memilih port; tanpanya, graf ini "
 "tidak mengikut port."
 
-#: src/freqplots/freqplots_core.c:921
+#: src/freqplots/freqplots_core.c:893
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Tidak tersedia: pengujaan tidak mentakrifkan titik suapan"
 
@@ -3581,7 +3722,7 @@ msgstr "Draw_Graph(): Peruntukan memori untuk titik gagal"
 msgid "This theme has no inverted variant"
 msgstr "Tema ini tiada varian terbalik"
 
-#: src/freqplots/freqplots_theme_menu.c:95
+#: src/freqplots/freqplots_theme_menu.c:120
 msgid "_Invert"
 msgstr "_Songsang"
 
@@ -4165,20 +4306,20 @@ msgstr ""
 "verify_segments() melangkau semakan bergantung frekuensi - tiada data "
 "frekuensi\n"
 
-#: src/gnuplot.c:42
+#: src/gnuplot.c:43
 msgid "Gnuplot Data"
 msgstr "Data Gnuplot"
 
-#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
+#: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Tidak dapat simpan: imbasan frekuensi belum selesai"
 
-#: src/gnuplot.c:56
+#: src/gnuplot.c:57
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# Galangan rujukan Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:58
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4188,18 +4329,18 @@ msgstr ""
 "ia memplot MHz lawan zreal dan zimag:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:59
+#: src/gnuplot.c:60
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92 src/gnuplot.c:102
+#: src/gnuplot.c:93 src/gnuplot.c:103
 msgid "Touchstone Data"
 msgstr "Data Touchstone"
 
-#: src/gnuplot.c:103
+#: src/gnuplot.c:104
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4207,46 +4348,46 @@ msgstr ""
 "Tidak dapat menyimpan: S-parameter memerlukan galangan titik suapan, yang "
 "pengujaan ini tidak menyediakan"
 
-#: src/gnuplot.c:119
+#: src/gnuplot.c:120
 #, c-format
 msgid "! Reference impedance Z0 = %.2f Ohm\n"
 msgstr "! Galangan rujukan Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:161
+#: src/gnuplot.c:162
 msgid "CSV Data"
 msgstr "Data CSV"
 
-#: src/gnuplot.c:244
+#: src/gnuplot.c:245
 #, c-format
 msgid "# Near E field\n"
 msgstr "# Medan E dekat\n"
 
-#: src/gnuplot.c:271
+#: src/gnuplot.c:272
 #, c-format
 msgid "# Near H field\n"
 msgstr "# Medan H dekat\n"
 
-#: src/gnuplot.c:311
+#: src/gnuplot.c:312
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# Vektor Poynting\n"
 
-#: src/gnuplot.c:370
+#: src/gnuplot.c:371
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# Corak Sinaran\n"
 
-#: src/gnuplot.c:508
+#: src/gnuplot.c:509
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# segmen tampalan struktur\n"
 
-#: src/gnuplot.c:543
+#: src/gnuplot.c:544
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# segmen wayar struktur\n"
 
-#: src/gnuplot.c:573
+#: src/gnuplot.c:574
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4255,11 +4396,11 @@ msgstr ""
 "Papar dengan: gnuplot -e \"set terminal qt; splot '%s' with lines; pause "
 "mouse close\"\n"
 
-#: src/gnuplot.c:585
+#: src/gnuplot.c:586
 msgid "Save Currents and Charges to CSV"
 msgstr "Simpan Arus dan Cas ke CSV"
 
-#: src/gnuplot.c:586
+#: src/gnuplot.c:587
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4267,11 +4408,11 @@ msgstr ""
 "Anda perlu mengaktifkan data arus dengan mengklik \"Arus\" atau \"Cas\" "
 "dalam tetingkap utama xnec2c."
 
-#: src/gnuplot.c:651 src/gnuplot.c:661
+#: src/gnuplot.c:652 src/gnuplot.c:662
 msgid "Save Patch Currents to CSV"
 msgstr "Simpan Arus Tampalan ke CSV"
 
-#: src/gnuplot.c:652
+#: src/gnuplot.c:653
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4279,7 +4420,7 @@ msgstr ""
 "Anda perlu mengaktifkan data arus dengan mengklik \"Arus\" atau \"Cas\" "
 "dalam tetingkap utama xnec2c."
 
-#: src/gnuplot.c:662
+#: src/gnuplot.c:663
 msgid "No surface patches in this model."
 msgstr "Tiada tampalan permukaan dalam model ini."
 
@@ -4792,98 +4933,98 @@ msgstr ""
 "platform ini.\n"
 
 # xnec2c-exempt: name
-#: src/interface.c:280
+#: src/interface.c:279
 #, c-format
 msgid "xnec2c %s: %s"
 msgstr ""
 
-#: src/interface.c:373
+#: src/interface.c:372
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: gagal memuatkan animate.glade: %s\n"
 
-#: src/main.c:126
+#: src/main.c:127
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Dikesan bahagian belakang tetingkap %s\n"
 
-#: src/main.c:134
+#: src/main.c:135
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch dan --optimize saling eksklusif.\n"
 
-#: src/main.c:143
+#: src/main.c:144
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png memerlukan --batch\n"
 
-#: src/main.c:159
+#: src/main.c:160
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "laluan nama fail input terlalu panjang ( > %d aksara )\n"
 
-#: src/main.c:166
+#: src/main.c:167
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "argumen tidak dijangka '%s' tidak kelihatan seperti fail .nec\n"
 
-#: src/main.c:173
+#: src/main.c:174
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "argumen tidak dijangka: %s\n"
 
-#: src/main.c:179
+#: src/main.c:180
 msgid "batch mode requires an input file\n"
 msgstr "mod kelompok memerlukan fail input\n"
 
-#: src/main.c:189
+#: src/main.c:190
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "tidak dapat membuka paparan: sesi X11 atau Wayland yang sedang berjalan "
 "diperlukan\n"
 
-#: src/main.c:208
+#: src/main.c:213
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Memfork %d kerja merentasi %d pemproses.\n"
 
-#: src/main.c:221 src/main.c:229
+#: src/main.c:226 src/main.c:234
 msgid "exiting after fatal error: pipe() failed"
 msgstr "keluar selepas ralat maut: pipe() gagal"
 
-#: src/main.c:238
+#: src/main.c:243
 msgid "exiting after fatal error: fork() failed"
 msgstr "keluar selepas ralat maut: fork() gagal"
 
-#: src/main.c:833
+#: src/main.c:838
 msgid "exiting via user interrupt\n"
 msgstr "keluar melalui gangguan pengguna\n"
 
-#: src/main.c:837
+#: src/main.c:842
 msgid "segmentation fault, exiting\n"
 msgstr "segmentation fault, keluar\n"
 
-#: src/main.c:841
+#: src/main.c:846
 msgid "floating point exception, exiting\n"
 msgstr "floating point exception, keluar\n"
 
-#: src/main.c:845
+#: src/main.c:850
 msgid "abort signal received, exiting\n"
 msgstr "isyarat abort diterima, keluar\n"
 
-#: src/main.c:849
+#: src/main.c:854
 msgid "termination request received, exiting\n"
 msgstr "permintaan penamatan diterima, keluar\n"
 
-#: src/main.c:859
+#: src/main.c:864
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "tidak forked, mengabaikan SIGCHLD daripada pid %d\n"
 
-#: src/main.c:867
+#: src/main.c:872
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "proses anak pid %d keluar\n"
 
-#: src/main.c:876
+#: src/main.c:881
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "keluar lalai dengan isyarat: %d\n"
@@ -5404,19 +5545,19 @@ msgstr ""
 msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Atlas tekstur label dijana (ID=%u)\n"
 
-#: src/opengl-engine/opengl_axes.c:156
+#: src/opengl-engine/opengl_axes.c:161
 msgid "Failed to load axes line shader\n"
 msgstr "Gagal memuatkan shader garis paksi\n"
 
-#: src/opengl-engine/opengl_axes.c:189
+#: src/opengl-engine/opengl_axes.c:192
 msgid "Axes renderer initialized\n"
 msgstr "Penerap paksi dimulakan\n"
 
-#: src/opengl-engine/opengl_axes.c:193
+#: src/opengl-engine/opengl_axes.c:196
 msgid "Failed to load text shaders\n"
 msgstr "Gagal memuatkan shader teks\n"
 
-#: src/opengl-engine/opengl_cairo_overlay.c:60
+#: src/opengl-engine/opengl_cairo_overlay.c:62
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Gagal memuatkan shader lapisan tindanan cairo\n"
 
@@ -5424,53 +5565,62 @@ msgstr "Gagal memuatkan shader lapisan tindanan cairo\n"
 msgid "Failed to create cairo overlay base\n"
 msgstr "Gagal mencipta asas lapisan tindanan cairo\n"
 
-#: src/opengl-engine/opengl_ground_plane.c:103
+#: src/opengl-engine/opengl_ground_plane.c:105
 msgid "Failed to load ground plane shaders\n"
 msgstr "Gagal memuatkan shader satah bumi\n"
 
 #: src/opengl-engine/opengl_renderer.c:55
 #, c-format
+msgid "Shader declares no version directive: %s\n"
+msgstr "Shader tidak mengisytiharkan arahan versi: %s\n"
+
+#: src/opengl-engine/opengl_renderer.c:99
+#, c-format
 msgid "Failed to load shader: %s (%s)\n"
 msgstr "Gagal memuatkan shader: %s (%s)\n"
 
-#: src/opengl-engine/opengl_renderer.c:84
+#: src/opengl-engine/opengl_renderer.c:149
 #, c-format
 msgid "Shader compile error: %s: %s\n"
 msgstr "Ralat kompil shader: %s: %s\n"
 
-#: src/opengl-engine/opengl_renderer.c:126
+#: src/opengl-engine/opengl_renderer.c:190
 #, c-format
 msgid "Shader link failed: %s + %s\n"
 msgstr "Pautan shader gagal: %s + %s\n"
 
-#: src/opengl-engine/opengl_view.c:184
+#: src/opengl-engine/opengl_view.c:222
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "Ralat konteks OpenGL — tiada pelaksanaan OpenGL tersedia pada paparan ini\n"
 
-#: src/opengl-engine/opengl_view.c:197
+#: src/opengl-engine/opengl_view.c:230
+msgid "Disabling OpenGL: shader catalog failed\n"
+msgstr "Melumpuhkan OpenGL: katalog shader gagal\n"
+
+#: src/opengl-engine/opengl_view.c:243
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "Melumpuhkan OpenGL: shader adegan gagal\n"
 
-#: src/opengl-engine/opengl_view.c:212
+#: src/opengl-engine/opengl_view.c:258
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "Melumpuhkan OpenGL: shader lapisan tindanan gagal\n"
 
-#: src/opengl-engine/opengl_view.c:224
+#: src/opengl-engine/opengl_view.c:270
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "Melumpuhkan OpenGL: penerap paksi gagal\n"
 
-#: src/opengl-engine/opengl_view.c:253
+#: src/opengl-engine/opengl_view.c:299
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "Melumpuhkan OpenGL: shader satah bumi gagal\n"
 
-#: src/opengl-engine/opengl_view.c:275
+#: src/opengl-engine/opengl_view.c:321
 #, c-format
 msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "Bilangan renderable %u melebihi MAX_RENDERABLES (%d)\n"
 
-#: src/opengl-engine/opengl_view.c:354
+#: src/opengl-engine/opengl_view.c:402
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "Melumpuhkan OpenGL: shader komposit peel gagal\n"
 
@@ -5491,10 +5641,6 @@ msgstr "Framebuffer MSAA tidak lengkap\n"
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "Framebuffer resolusi MSAA tidak lengkap\n"
 
-#: src/opengl-engine/opengl_view_overlay.c:326
-msgid "Failed to load overlay shaders\n"
-msgstr "Gagal memuatkan shader lapisan tindanan\n"
-
 #: src/opengl-engine/opengl_view_peel.c:254
 #, c-format
 msgid "Peel FBO %d incomplete\n"
@@ -5513,15 +5659,11 @@ msgstr "FBO pengumpulan peel tidak lengkap\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "FBO kedalaman lapisan tidak lengkap\n"
 
-#: src/opengl-engine/opengl_view_render.c:427
+#: src/opengl-engine/opengl_view_render.c:389
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Renderable lutsinar dilangkau: FBO peel tidak tersedia\n"
 
-#: src/opengl-engine/opengl_view_scene.c:297
-msgid "Failed to load shaders\n"
-msgstr "Gagal memuatkan shader\n"
-
-#: src/opengl/opengl_rdpattern.c:355
+#: src/opengl/opengl_rdpattern.c:345
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: gaya lukis %d tidak sah, menggunakan surface\n"
@@ -5812,17 +5954,17 @@ msgstr ""
 "Gandaan purata: %.4f (%.2f dBi), kecekapan: %.1f%%, sudut pepejal: %.4f * pi "
 "sr\n"
 
-#: src/rc_config.c:885
+#: src/rc_config.c:958
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "tidak dapat getcwd(): %s\n"
 
-#: src/rc_config.c:889
+#: src/rc_config.c:962
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "pemboleh ubah persekitaran HOME tidak ditakrifkan, menggunakan %s\n"
 
-#: src/rc_config.c:974
+#: src/rc_config.c:1047
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
@@ -5830,27 +5972,36 @@ msgstr ""
 "%s (locale=%s): hanya %d daripada %lu aksara dipadankan, mencuba locale "
 "lain: %s\n"
 
-#: src/rc_config.c:1193
+#: src/rc_config.c:1266
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "tetingkap: x=%-5d y=%-5d w=%-5d h=%-5d  tajuk: \"%s\"\n"
 
-#: src/rc_config.c:1227
+#: src/rc_config.c:1300
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: EOF membaca versi aplikasi.\n"
 
-#: src/rc_config.c:1233
+#: src/rc_config.c:1306
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "versi fail konfigurasi sedia ada berbeza: %s != %s\n"
 
-#: src/rc_config.c:1367
+#: src/rc_config.c:1353
+#, c-format
+msgid ""
+"gain readouts are scaled to %s, restored from the previous session; select "
+"Total Gain to read total gain\n"
+msgstr ""
+"bacaan gandaan diskalakan kepada %s, dipulihkan daripada sesi sebelumnya; "
+"pilih Jumlah Gandaan untuk membaca jumlah gandaan\n"
+
+#: src/rc_config.c:1463
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "stat gagal untuk %s: %s\n"
 
-#: src/rc_config.c:1373
+#: src/rc_config.c:1469
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5859,52 +6010,97 @@ msgstr ""
 "Membetulkan kebenaran direktori %s daripada 0%o kepada 0%o daripada pepijat "
 "yang diperkenalkan dalam 4e62893b.\n"
 
-#: src/rc_config.c:1404
+#: src/rc_config.c:1500
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: Baris tidak dihurai: %s\n"
 
-#: src/rc_config.c:1410
+#: src/rc_config.c:1506
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: Penghujung fail awal untuk %s: %s \n"
 
-#: src/rc_config.c:1435
+#: src/rc_config.c:1531
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: ralat huraian (%s): %s \n"
 
-#: src/rc_config.c:1449
+#: src/rc_config.c:1545
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr ""
 "Indeks model langit %d tidak sah dalam konfigurasi, menetapkan semula kepada "
 "lalai\n"
 
-#: src/rc_config.c:1455
+#: src/rc_config.c:1551
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Indeks model bumi %d tidak sah dalam konfigurasi, menetapkan semula kepada "
 "lalai\n"
 
-#: src/rc_config.c:1461
+#: src/rc_config.c:1557
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Kaedah interp %d tidak sah dalam konfigurasi, menetapkan semula kepada "
 "lalai\n"
 
-#: src/rc_config.c:1636
+#: src/rc_config.c:1565
+#, c-format
+msgid "Invalid flow visualization mode %d in config, resetting to default\n"
+msgstr ""
+"Mod visualisasi aliran tidak sah %d dalam konfigurasi, menetapkan semula "
+"kepada lalai\n"
+
+#: src/rc_config.c:1745
 msgid "batch mode: skipping configuration save\n"
 msgstr "mod kelompok: melangkau penyimpanan konfigurasi\n"
 
-#: src/rc_config.c:1643
+#: src/rc_config.c:1752
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "tidak dapat membuka fail konfigurasi xnec2c %s: %s\n"
 
-#: src/rdpattern_ui.c:38
+#: src/rdpattern_noise_menu.c:37
+msgid "Read the noise temperature at the nearest tabulated frequency."
+msgstr "Baca suhu hingar pada frekuensi berjadual yang terdekat."
+
+#: src/rdpattern_noise_menu.c:39
+msgid ""
+"Interpolate the noise temperature between tabulated frequencies in log-log "
+"space, clamped at the table edges."
+msgstr ""
+"Interpolasikan suhu hingar antara frekuensi berjadual dalam ruang log-log, "
+"dikapit pada tepi jadual."
+
+#: src/rdpattern_noise_menu.c:133
+msgid "Available while a selected sky or earth model reads a frequency table."
+msgstr ""
+"Tersedia semasa model langit atau tanah yang dipilih membaca jadual "
+"frekuensi."
+
+#: src/rdpattern_noise_menu.c:135
+msgid ""
+"The selected sky and earth models resolve by an intrinsic method; select a "
+"table-based model to enable."
+msgstr ""
+"Model langit dan tanah yang dipilih diselesaikan melalui kaedah intrinsik; "
+"pilih model berasaskan jadual untuk mengaktifkan."
+
+#: src/rdpattern_noise_menu.c:296
+msgid "Sky Model"
+msgstr "Model langit"
+
+#: src/rdpattern_noise_menu.c:303
+msgid "Earth Model"
+msgstr "Model tanah"
+
+#: src/rdpattern_noise_menu.c:311
+msgid "Interpolation"
+msgstr "Interpolasi"
+
+#: src/rdpattern_ui.c:39
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5918,7 +6114,23 @@ msgstr ""
 "Animasi medan-H: Tambah kad NH ke fail NEC\n"
 "Vektor Poynting: Tambah kedua-dua kad NE dan NH"
 
-#: src/rdpattern_ui.c:94
+#: src/rdpattern_ui.c:59
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Close the animation window to enable this setting."
+msgstr ""
+"Pilih persembahan vektor medan dekat statik.\n"
+"Tutup tetingkap animasi untuk mendayakan tetapan ini."
+
+#: src/rdpattern_ui.c:61
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Applies while the animation window is closed."
+msgstr ""
+"Pilih persembahan vektor medan dekat statik.\n"
+"Terpakai semasa tetingkap animasi ditutup."
+
+#: src/rdpattern_ui.c:129
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -5927,17 +6139,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d di luar julat [0..%d], lalai kepada "
 "GS_LINP\n"
 
-#: src/rdpattern_ui.c:516
+#: src/rdpattern_ui.c:544
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Gandaan pada arah pemapar, untuk sudut pandangan semasa."
 
-#: src/rdpattern_ui.c:518
+#: src/rdpattern_ui.c:546
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "Suhu kecerahan pada arah pemapar, untuk sudut pandangan semasa."
 
-#: src/rdpattern_ui.c:538 src/rdpattern_ui.c:544
+#: src/rdpattern_ui.c:566 src/rdpattern_ui.c:572
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -5945,7 +6157,7 @@ msgstr ""
 "Sudut ketinggian pemerhatian. Mengalihkan sempadan langit/bumi untuk "
 "penilaian suhu antena. 0° = ufuk."
 
-#: src/rdpattern_ui.c:541 src/rdpattern_ui.c:547
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5953,7 +6165,7 @@ msgstr ""
 "Ketinggian pemerhatian untuk suhu antena.\n"
 "Pilih Gaya Gandaan → Suhu Hingar untuk mengaktifkan."
 
-#: src/rdpattern_ui.c:550
+#: src/rdpattern_ui.c:578
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
@@ -5961,7 +6173,7 @@ msgstr ""
 "Pemilih langit, bumi, dan interpolasi yang berasingan untuk model suhu "
 "hingar."
 
-#: src/rdpattern_ui.c:552
+#: src/rdpattern_ui.c:580
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5969,71 +6181,71 @@ msgstr ""
 "Model suhu hingar langit dan bumi.\n"
 "Pilih Gaya Gandaan → Suhu Hingar untuk mengaktifkan."
 
-#: src/rdpattern_ui.c:846
+#: src/rdpattern_ui.c:889
 msgid "Total Gain"
 msgstr "Jumlah Gandaan"
 
-#: src/rdpattern_ui.c:847
+#: src/rdpattern_ui.c:890
 msgid "Horizontal Polarization"
 msgstr "Polarisasi Mengufuk"
 
-#: src/rdpattern_ui.c:848
+#: src/rdpattern_ui.c:891
 msgid "Vertical Polarization"
 msgstr "Polarisasi Menegak"
 
-#: src/rdpattern_ui.c:849
+#: src/rdpattern_ui.c:892
 msgid "RH Circular Polarization"
 msgstr "Polarisasi Bulatan RH"
 
-#: src/rdpattern_ui.c:850
+#: src/rdpattern_ui.c:893
 msgid "LH Circular Polarization"
 msgstr "Polarisasi Bulatan LH"
 
-#: src/rdpattern_ui.c:855
+#: src/rdpattern_ui.c:944
 msgid "Linear Power"
 msgstr "Kuasa Linear"
 
-#: src/rdpattern_ui.c:856
+#: src/rdpattern_ui.c:945
 msgid "Linear Voltage"
 msgstr "Voltan Linear"
 
-#: src/rdpattern_ui.c:857
+#: src/rdpattern_ui.c:946
 msgid "ARRL Scale"
 msgstr "Skala ARRL"
 
-#: src/rdpattern_ui.c:858
+#: src/rdpattern_ui.c:947
 msgid "Logarithmic Scale"
 msgstr "Skala Logaritma"
 
-#: src/rdpattern_ui.c:859
+#: src/rdpattern_ui.c:948
 msgid "Noise Temperature"
 msgstr "Suhu Hingar"
 
-#: src/rdpattern_ui.c:860
+#: src/rdpattern_ui.c:949
 msgid "Noise Temp (log scale)"
 msgstr "Suhu Hingar (skala log)"
 
-#: src/rdpattern_ui.c:872
+#: src/rdpattern_ui.c:967
 msgid "Radiation Pattern: - "
 msgstr "Corak Sinaran: - "
 
-#: src/rdpattern_ui.c:892
+#: src/rdpattern_ui.c:991
 msgid "Near Fields:"
 msgstr "Medan Dekat:"
 
-#: src/rdpattern_ui.c:894
+#: src/rdpattern_ui.c:993
 msgid " - E Field"
 msgstr " - Medan E"
 
-#: src/rdpattern_ui.c:896
+#: src/rdpattern_ui.c:995
 msgid " - H Field"
 msgstr " - Medan H"
 
-#: src/rdpattern_ui.c:898
+#: src/rdpattern_ui.c:997
 msgid " - Poynting Vector"
 msgstr " - Vektor Poynting"
 
-#: src/rdpattern_ui.c:908
+#: src/rdpattern_ui.c:1008
 msgid "Frequency Data Plots - "
 msgstr "Plot Data Frekuensi - "
 
@@ -6056,22 +6268,22 @@ msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr ""
 "Gelung pengoptimum tidak lengkap, melangkau lukis semula perantaraan.\n"
 
-#: src/settings/render_settings_common.c:116
+#: src/settings/render_settings_common.c:119
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: gagal memuatkan glade: %s\n"
 
-#: src/settings/render_settings_common.c:126
+#: src/settings/render_settings_common.c:129
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: gagal memuatkan glade opengl: %s\n"
 
-#: src/settings/render_settings_common.c:136
+#: src/settings/render_settings_common.c:139
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: gagal memuatkan glade cairo: %s\n"
 
-#: src/settings/render_settings_common.c:149
+#: src/settings/render_settings_common.c:152
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: gagal mendapatkan render_settings_window daripada "
@@ -6180,37 +6392,37 @@ msgstr ""
 "Mengawal sama ada parameter ini mengatasi nilai model NEC.\n"
 "Nyahtanda Opt untuk mengawal secara berasingan."
 
-#: src/themes/theme.c:140
+#: src/themes/theme.c:135
 #, c-format
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "tema '%s' peranan '%s' warna tidak sah, menggunakan lalai legasi\n"
 
-#: src/themes/theme.c:223
+#: src/themes/theme.c:218
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "tema: tidak dapat memuatkan sumber %s: %s\n"
 
-#: src/themes/theme.c:233
+#: src/themes/theme.c:228
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "tema: tidak dapat menghurai sumber %s: %s\n"
 
-#: src/themes/theme.c:259
+#: src/themes/theme.c:254
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr "tema: tidak dapat menghurai %s, menggunakan lalai terbina dalam\n"
 
-#: src/themes/theme.c:388
+#: src/themes/theme.c:377
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "tema '%s' tiada varian songsang, menggunakan asas\n"
 
-#: src/themes/theme.c:396
+#: src/themes/theme.c:385
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "tema '%s' tidak dijumpai, menggunakan legasi\n"
 
-#: src/themes/theme.c:468
+#: src/themes/theme.c:428
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "lebar '%s' tidak sah, mengekalkan nilai semasa\n"
@@ -6269,7 +6481,7 @@ msgstr ""
 msgid "%s:\n"
 msgstr ""
 
-#: src/validation_dump.c:34
+#: src/validation_dump.c:35
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6277,21 +6489,21 @@ msgstr ""
 "pengesahan: mathlib nec2-builtin tidak tersedia; keputusan berangka mungkin "
 "berbeza daripada rujukan\n"
 
-#: src/validation_dump.c:39
+#: src/validation_dump.c:40
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr "pengesahan: memaksa mathlib kepada nec2-builtin untuk kebolehulangan\n"
 
-#: src/validation_dump.c:58
+#: src/validation_dump.c:59
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
 "pengesahan: memaksa model suhu-antena dan elevasi untuk kebolehulangan\n"
 
-#: src/validation_dump.c:68
+#: src/validation_dump.c:69
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "pengesahan: memaksa polarisasi kepada jumlah untuk kebolehulangan\n"
 
-#: src/validation_dump.c:87
+#: src/validation_dump.c:88
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6299,24 +6511,24 @@ msgstr ""
 "pengesahan: menetapkan semula pemapar struktur kepada orientasi lalai untuk "
 "kebolehulangan\n"
 
-#: src/validation_dump.c:614 src/validation_dump.c:620
+#: src/validation_dump.c:621 src/validation_dump.c:627
 msgid "Validation Tree"
 msgstr "Pepohon Pengesahan"
 
-#: src/validation_dump.c:614
+#: src/validation_dump.c:621
 msgid "Cannot save: frequency loop not done"
 msgstr "Tidak dapat menyimpan: gelung frekuensi belum selesai"
 
-#: src/validation_dump.c:620
+#: src/validation_dump.c:627
 msgid "Cannot create output directory"
 msgstr "Tidak dapat mencipta direktori output"
 
-#: src/validation_dump.c:652
+#: src/validation_dump.c:659
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "pepohon pengesahan ditulis ke: %s\n"
 
-#: src/xnec2c.c:306
+#: src/xnec2c.c:304
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
@@ -6325,16 +6537,16 @@ msgstr ""
 "pemalar dielektrik kompleks daripada fail: %12.5E%+12.5Ej, diminta: %12.5E"
 "%+12.5Ej\n"
 
-#: src/xnec2c.c:309
+#: src/xnec2c.c:307
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters(): Ralat dalam parameter bumi"
 
-#: src/xnec2c.c:733
+#: src/xnec2c.c:731
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f saat. (%s)\n"
 
-#: src/xnec2c.c:1077
+#: src/xnec2c.c:1075
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
@@ -6342,78 +6554,78 @@ msgstr ""
 "langkah %d berlumba: %.6f MHz dihantar, %.6f MHz semasa; akan mengira "
 "semula\n"
 
-#: src/xnec2c.c:1203
+#: src/xnec2c.c:1201
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "anak %d mempunyai fd paip tidak sah semasa kutipan forked\n"
 
-#: src/xnec2c.c:1256
+#: src/xnec2c.c:1254
 msgid "Failed to read data from forked child\n"
 msgstr "Gagal membaca data daripada anak yang di-fork\n"
 
-#: src/xnec2c.c:1530
+#: src/xnec2c.c:1528
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "langkah terdekat %g MHz berbeza daripada %g MHz yang diminta\n"
 
-#: src/xnec2c.c:1534
+#: src/xnec2c.c:1532
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "frekuensi selepas sapuan ditetapkan kepada %.4f MHz (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1572
+#: src/xnec2c.c:1570
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Masa berlalu gelung frekuensi: %f saat. (%s)\n"
 
-#: src/xnec2c.c:1624
+#: src/xnec2c.c:1622
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "kanvas kelompok %d tidak melukis bingkai pada %dx%d\n"
 
-#: src/xnec2c.c:1789
+#: src/xnec2c.c:1787
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "tangkapan PNG corak sinaran: tiada langkah dikira untuk %s\n"
 
-#: src/xnec2c.c:1861
+#: src/xnec2c.c:1859
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "tangkapan PNG corak sinaran gagal untuk %s\n"
 
-#: src/xnec2c.c:1867
+#: src/xnec2c.c:1865
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "penyimpanan PNG corak sinaran gagal untuk %s: %s\n"
 
-#: src/xnec2c.c:1872
+#: src/xnec2c.c:1870
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "PNG corak sinaran ditulis: %s\n"
 
-#: src/xnec2c.c:1909
+#: src/xnec2c.c:1907
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "pelbagai format PNG corak sinaran memerlukan nama fail .png: %s\n"
 
-#: src/xnec2c.c:2014
+#: src/xnec2c.c:2012
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "sapuan menjalankan %d pekerja dengan %d benang setiap satu\n"
 
-#: src/xnec2c.c:2306
+#: src/xnec2c.c:2304
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "gagal memulakan Frequency_Loop_Thread\n"
 
-#: src/xnec2c.c:2485
+#: src/xnec2c.c:2483
 msgid "Frequency Sweep"
 msgstr "Imbasan Frekuensi"
 
-#: src/xnec2c.c:2486
+#: src/xnec2c.c:2484
 msgid "Recalculate the frequency sweep?"
 msgstr "Kira semula imbasan frekuensi?"
 
-#: src/xnec2c.c:2487
+#: src/xnec2c.c:2485
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

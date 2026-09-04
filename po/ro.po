@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-24 14:07-0700\n"
+"POT-Creation-Date: 2026-08-31 13:53-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -36,11 +36,61 @@ msgstr "Software de cod electromagnetic numeric"
 msgid "nec2;em;simulator;"
 msgstr ""
 
-#: resources/animate.glade:85
+# xnec2c-exempt: loanword
+#: resources/animate.glade:136
+msgid "Total"
+msgstr ""
+
+#: resources/animate.glade:146
+msgid "Horizontal"
+msgstr "Orizontal"
+
+# xnec2c-exempt: loanword
+#: resources/animate.glade:156
+msgid "Vertical"
+msgstr ""
+
+#: resources/animate.glade:166
+msgid "Right Hand"
+msgstr "Dreapta"
+
+#: resources/animate.glade:176
+msgid "Left Hand"
+msgstr "Stânga"
+
+#: resources/animate.glade:191 resources/animate.glade:272
+#: resources/animate.glade:375
 msgid "Animated"
 msgstr "Animat"
 
-#: resources/animate.glade:92
+#: resources/animate.glade:198 resources/xnec2c.glade:11075
+msgid "_Reference Phase"
+msgstr "Faza de _referință"
+
+#: resources/animate.glade:209 resources/xnec2c.glade:11086
+msgid "_LIC Texture"
+msgstr "Textură _LIC"
+
+#: resources/animate.glade:220 resources/xnec2c.glade:11097
+#: resources/xnec2c.glade:12290
+msgid "_Wireframe"
+msgstr "_Cadru de sârmă"
+
+# xnec2c-exempt: loanword
+#: resources/animate.glade:238 resources/animate.glade:330
+#: resources/animate.glade:399
+msgid "Static"
+msgstr ""
+
+#: resources/animate.glade:245 resources/xnec2c.glade:11122
+msgid "Polarization _Axis"
+msgstr "Axă de _polarizare"
+
+#: resources/animate.glade:256 resources/xnec2c.glade:11133
+msgid "Peak _Magnitude"
+msgstr "_Magnitudine de vârf"
+
+#: resources/animate.glade:279
 msgid ""
 "Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
 "cos(arg z + φ)|, floored so nulls stay visible.\n"
@@ -54,11 +104,11 @@ msgstr ""
 "Animat: regiunile luminoase se deplasează de-a lungul structurii pe măsură "
 "ce faza avansează."
 
-#: resources/animate.glade:93
+#: resources/animate.glade:280 resources/animate.glade:383
 msgid "Instantaneous"
 msgstr "Instantaneu"
 
-#: resources/animate.glade:103
+#: resources/animate.glade:290
 msgid ""
 "Diverging hue shows the instantaneous sign of the displayed quantity: cold "
 "negative, hot positive; brightness carries the magnitude s(n).\n"
@@ -70,11 +120,11 @@ msgstr ""
 "\n"
 "Animat: regiunile își schimbă polaritatea pe măsură ce faza avansează."
 
-#: resources/animate.glade:104
+#: resources/animate.glade:291
 msgid "Polarity"
 msgstr "Polaritate"
 
-#: resources/animate.glade:114
+#: resources/animate.glade:301
 msgid ""
 "Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
 "magnitude s(n).\n"
@@ -86,11 +136,11 @@ msgstr ""
 "\n"
 "Animat: întreaga roată se rotește pe măsură ce faza avansează."
 
-#: resources/animate.glade:115
+#: resources/animate.glade:302
 msgid "Phase Hue"
 msgstr "Nuanță după fază"
 
-#: resources/animate.glade:125
+#: resources/animate.glade:312
 msgid ""
 "Diverging hue shows the instantaneous charge sign; brightness carries the "
 "current envelope s(|I|).\n"
@@ -103,16 +153,11 @@ msgstr ""
 "Animat: o singură vizualizare a sarcinii și curentului defazate cu un sfert "
 "de ciclu."
 
-#: resources/animate.glade:126
+#: resources/animate.glade:313
 msgid "Current + Charge"
 msgstr "Curent + Sarcină"
 
-# xnec2c-exempt: loanword
-#: resources/animate.glade:143
-msgid "Static"
-msgstr ""
-
-#: resources/animate.glade:150
+#: resources/animate.glade:337
 msgid ""
 "Rainbow ramp of this frequency step's peak magnitude s(n) at full "
 "brightness.\n"
@@ -125,11 +170,11 @@ msgstr ""
 "Static: referința invariantă în fază; culorile rămân neschimbate în timpul "
 "redării."
 
-#: resources/animate.glade:151
+#: resources/animate.glade:338
 msgid "Amplitude"
 msgstr "Amplitudine"
 
-#: resources/animate.glade:161
+#: resources/animate.glade:348
 msgid ""
 "Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
 "brightness carries the magnitude s(n).\n"
@@ -143,11 +188,11 @@ msgstr ""
 "Static: o citire invariantă în fază; culorile rămân neschimbate în timpul "
 "redării."
 
-#: resources/animate.glade:162
+#: resources/animate.glade:349
 msgid "Standing/Traveling"
 msgstr "Staționară/Călătoare"
 
-#: resources/animate.glade:172
+#: resources/animate.glade:359
 msgid ""
 "Hue ramps each segment's contribution to the selected far-field direction; "
 "brightness carries the magnitude s(n).\n"
@@ -161,11 +206,52 @@ msgstr ""
 "Static: o citire invariantă în fază; culorile rămân neschimbate în timpul "
 "redării."
 
-#: resources/animate.glade:173
+#: resources/animate.glade:360
 msgid "Far-field Contribution"
 msgstr "Contribuție câmp îndepărtat"
 
-#: resources/animate.glade:187
+#: resources/animate.glade:382
+msgid ""
+"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animated: scaled regions travel through phase peaks and contract at zero "
+"crossings as the phase advances."
+msgstr ""
+"Scalează fiecare segment după magnitudinea instantanee s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animat: regiunile scalate trec prin vârfurile de fază și se contractă la "
+"trecerile prin zero pe măsură ce faza avansează."
+
+#: resources/animate.glade:406
+msgid ""
+"Scale each segment from the peak magnitude s(n), enlarging strong regions "
+"and contracting nulls.\n"
+"\n"
+"Static: the phase-invariant scale holds still during playback."
+msgstr ""
+"Scalează fiecare segment după magnitudinea de vârf s(n), mărind regiunile "
+"puternice și contractând nulurile.\n"
+"\n"
+"Static: scala invariantă în fază rămâne neschimbată în timpul redării."
+
+#: resources/animate.glade:407
+msgid "Envelope magnitude"
+msgstr "Magnitudine anvelopă"
+
+#: resources/animate.glade:417
+msgid ""
+"Keep each segment at its model radius instead of scaling it by magnitude."
+msgstr ""
+"Păstrează fiecare segment la raza sa din model, în loc să îl scaleze după "
+"magnitudine."
+
+#: resources/animate.glade:418
+msgid "Model radius"
+msgstr "Raza modelului"
+
+#: resources/animate.glade:433
 msgid ""
 "Power-law transfer n^γ of the normalized magnitude.\n"
 "\n"
@@ -181,11 +267,11 @@ msgstr ""
 "segment (și contribuția sa la puterea radiată prin rezistența de radiație), |"
 "q|² cu energia electrostatică înmagazinată."
 
-#: resources/animate.glade:188
+#: resources/animate.glade:434
 msgid "Power"
 msgstr "Putere"
 
-#: resources/animate.glade:198
+#: resources/animate.glade:444
 msgid ""
 "Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
 "decibels.\n"
@@ -200,12 +286,12 @@ msgstr ""
 "sunt limitate la culoarea de bază."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:199 resources/xnec2c.glade:11713
+#: resources/animate.glade:445 resources/xnec2c.glade:11713
 #: resources/xnec2c.glade:13071
 msgid "dB"
 msgstr ""
 
-#: resources/animate.glade:209
+#: resources/animate.glade:455
 msgid ""
 "Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
 "\n"
@@ -218,11 +304,11 @@ msgstr ""
 "puternice, asemenea unei scale de instrument liniar-logaritmice."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:210
+#: resources/animate.glade:456
 msgid "Asinh"
 msgstr ""
 
-#: resources/animate.glade:220
+#: resources/animate.glade:466
 msgid ""
 "μ-law companding, the telephony-standard bounded log curve.\n"
 "\n"
@@ -235,11 +321,11 @@ msgstr ""
 "este clasicul μ = 255."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:221
+#: resources/animate.glade:467
 msgid "μ-law"
 msgstr ""
 
-#: resources/animate.glade:231
+#: resources/animate.glade:477
 msgid ""
 "Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
 "\n"
@@ -251,11 +337,11 @@ msgstr ""
 "stabilește pragul."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:232
+#: resources/animate.glade:478
 msgid "Reinhard"
 msgstr ""
 
-#: resources/animate.glade:242
+#: resources/animate.glade:488
 msgid ""
 "Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
 "\n"
@@ -268,11 +354,11 @@ msgstr ""
 "compresiei unui amplificator; a stabilește panta."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:243
+#: resources/animate.glade:489
 msgid "Sigmoid"
 msgstr ""
 
-#: resources/animate.glade:253
+#: resources/animate.glade:499
 msgid ""
 "Identity: every magnitude renders at full brightness.\n"
 "\n"
@@ -282,16 +368,16 @@ msgstr ""
 "\n"
 "Doar proiecția de culoare transmite informația."
 
-#: resources/animate.glade:254 resources/settings/cairo_settings.glade:56
+#: resources/animate.glade:500 resources/settings/cairo_settings.glade:56
 msgid "None"
 msgstr "Fără"
 
-#: resources/animate.glade:266 src/rdpattern_ui.c:366 src/rdpattern_ui.c:374
-#: src/rdpattern_ui.c:381
+#: resources/animate.glade:512 src/rdpattern_ui.c:401 src/rdpattern_ui.c:409
+#: src/rdpattern_ui.c:416
 msgid "Near Field Animation"
 msgstr "Animație câmp apropiat"
 
-#: resources/animate.glade:358
+#: resources/animate.glade:604
 msgid ""
 "Scrub the animation phase manually.\n"
 "\n"
@@ -302,27 +388,27 @@ msgstr ""
 "Dezactivat în timp ce animația rulează."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:375
+#: resources/animate.glade:621
 msgid "φ 0°"
 msgstr ""
 
-#: resources/animate.glade:389
+#: resources/animate.glade:635
 msgid "Phase"
 msgstr "Fază"
 
-#: resources/animate.glade:412
+#: resources/animate.glade:658
 msgid "Frames/Sec"
 msgstr "Cadre/Sec"
 
-#: resources/animate.glade:425
+#: resources/animate.glade:671
 msgid "Animate Freq (Hz)"
 msgstr "Animare frecvență (Hz)"
 
-#: resources/animate.glade:498
+#: resources/animate.glade:747
 msgid "Color projection:"
 msgstr "Proiecție de culoare:"
 
-#: resources/animate.glade:512
+#: resources/animate.glade:762
 msgid ""
 "Select which physical quantity drives the hue and how brightness follows the "
 "excitation phase.\n"
@@ -340,31 +426,48 @@ msgstr ""
 "\n"
 "Treceți cu cursorul peste o opțiune pentru a o previzualiza în timp real."
 
-#: resources/animate.glade:539
+#: resources/animate.glade:820
+msgid "Segment scale:"
+msgstr "Scala segmentului:"
+
+#: resources/animate.glade:835
+msgid ""
+"Choose how current or charge magnitude changes segment thickness.\n"
+"\n"
+"Hover an entry to preview it."
+msgstr ""
+"Alegeți cum magnitudinea curentului sau a sarcinii modifică grosimea "
+"segmentului.\n"
+"\n"
+"Treceți cu mouse-ul peste o intrare pentru a o previzualiza."
+
+#: resources/animate.glade:893
 msgid "Scale family:"
 msgstr "Familie de scalare:"
 
-#: resources/animate.glade:553
+#: resources/animate.glade:908
 msgid ""
-"Select the magnitude-to-color transfer family.\n"
+"Select the normalized-magnitude transfer shared by color brightness and "
+"segment scale.\n"
 "\n"
 "Adjust its slider until the contrast reveals the range your inspection "
 "needs.\n"
 "\n"
 "Hovering an entry previews it live."
 msgstr ""
-"Selectați familia de transfer magnitudine-culoare.\n"
+"Selectați transferul de magnitudine normalizată partajat de luminozitatea "
+"culorii și scala segmentului.\n"
 "\n"
-"Ajustați cursorul până când contrastul evidențiază intervalul necesar pentru "
-"inspecție.\n"
+"Ajustați cursorul până când contrastul relevă intervalul necesar inspecției "
+"dumneavoastră.\n"
 "\n"
-"Treceți cu cursorul peste o opțiune pentru a o previzualiza în timp real."
+"Trecerea cu mouse-ul peste o intrare o previzualizează în timp real."
 
-#: resources/animate.glade:592
+#: resources/animate.glade:978
 msgid "Gamma:"
 msgstr "Gama:"
 
-#: resources/animate.glade:609
+#: resources/animate.glade:995
 msgid ""
 "Gamma exponent of the power transfer.\n"
 "\n"
@@ -376,11 +479,11 @@ msgstr ""
 "γ = 0,5 extinde regiunile slabe, γ = 1 este liniar, γ = 2 este proporțional "
 "cu puterea disipată pentru curenți."
 
-#: resources/animate.glade:631
+#: resources/animate.glade:1017
 msgid "Range (dB):"
 msgstr "Interval (dB):"
 
-#: resources/animate.glade:648
+#: resources/animate.glade:1034
 msgid ""
 "Dynamic range R below the step peak mapped onto the color strip.\n"
 "\n"
@@ -390,50 +493,50 @@ msgstr ""
 "\n"
 "Pragul minim este 10^(−R/20) din vârf."
 
-#: resources/animate.glade:670
+#: resources/animate.glade:1056
 msgid "Softening:"
 msgstr "Atenuare:"
 
-#: resources/animate.glade:687
+#: resources/animate.glade:1073
 msgid "Softening knee k: linear below k, logarithmic above."
 msgstr "Pragul de atenuare k: liniar sub k, logaritmic deasupra."
 
-#: resources/animate.glade:709
+#: resources/animate.glade:1095
 msgid "Compression (dB):"
 msgstr "Compresie (dB):"
 
-#: resources/animate.glade:726
+#: resources/animate.glade:1112
 msgid "Compression strength in dB; higher values lift weak detail."
 msgstr ""
 "Intensitatea compresiei în dB; valori mai mari scot în evidență detaliile "
 "slabe."
 
-#: resources/animate.glade:748
+#: resources/animate.glade:1134
 msgid "Knee:"
 msgstr "Prag:"
 
-#: resources/animate.glade:765
+#: resources/animate.glade:1151
 msgid "Knee k of the rational soft-compressor."
 msgstr "Pragul k al compresorului rațional."
 
 # xnec2c-exempt: loanword
-#: resources/animate.glade:787
+#: resources/animate.glade:1173
 msgid "Contrast:"
 msgstr ""
 
-#: resources/animate.glade:804
+#: resources/animate.glade:1190
 msgid "Contrast steepness a of the tanh transfer."
 msgstr "Panta de contrast a a transferului tanh."
 
-#: resources/animate.glade:837
+#: resources/animate.glade:1223
 msgid "Color gradient of the active projection and scale family."
 msgstr "Gradient de culoare al proiecției și familiei de scalare active."
 
-#: resources/animate.glade:855
+#: resources/animate.glade:1241
 msgid "Brightness floor:"
 msgstr "Prag minim de luminozitate:"
 
-#: resources/animate.glade:873
+#: resources/animate.glade:1259
 msgid ""
 "Minimum brightness under animation so elements cool toward this level "
 "instead of vanishing to black."
@@ -441,28 +544,15 @@ msgstr ""
 "Luminozitatea minimă în timpul animației, astfel încât elementele să se "
 "răcească spre acest nivel în loc să dispară în negru."
 
-#: resources/animate.glade:884
-msgid "Width from amplitude"
-msgstr "Lățime din amplitudine"
-
-#: resources/animate.glade:889
-msgid ""
-"Scale wire segment width by the scaled amplitude envelope s(n), so strong "
-"regions draw thick and nulls draw thin."
-msgstr ""
-"Scalează lățimea segmentului de fir în funcție de anvelopa de amplitudine "
-"scalată s(n), astfel încât regiunile puternice se desenează groase, iar "
-"nulurile subțiri."
-
-#: resources/animate.glade:915
+#: resources/animate.glade:1285
 msgid "Overlays:"
 msgstr "Suprapuneri:"
 
-#: resources/animate.glade:926
+#: resources/animate.glade:1296
 msgid "Nodes/antinodes"
 msgstr "Noduri/antinoduri"
 
-#: resources/animate.glade:931
+#: resources/animate.glade:1301
 msgid ""
 "Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
 "\n"
@@ -475,11 +565,11 @@ msgstr ""
 "Marcajele provin din anvelopa invariantă în fază, astfel încât rămân "
 "neschimbate în timp ce unda se animă."
 
-#: resources/animate.glade:942
+#: resources/animate.glade:1312
 msgid "Comet"
 msgstr "Cometă"
 
-#: resources/animate.glade:947
+#: resources/animate.glade:1317
 msgid ""
 "Ride a bright head on the instantaneous positive crest so wave motion reads "
 "along each wire."
@@ -487,89 +577,92 @@ msgstr ""
 "Plasează un cap luminos pe creasta pozitivă instantanee, astfel încât "
 "mișcarea undei să fie vizibilă de-a lungul fiecărui fir."
 
-#: resources/animate.glade:980
+#: resources/animate.glade:1350
 msgid "Reset"
 msgstr "Resetare"
 
-#: resources/animate.glade:986
+#: resources/animate.glade:1356
 msgid ""
-"Restore the color projection, scale family, and every family brightness "
-"parameter to their defaults."
+"Restore the color projection, segment scale, scale family, brightness floor, "
+"and every family parameter to their defaults."
 msgstr ""
-"Restabilește proiecția de culoare, familia de scalare și parametrul de "
-"luminozitate al fiecărei familii la valorile implicite."
+"Restabilește proiecția de culoare, scala segmentului, familia de scalare, "
+"pragul minim de luminozitate și fiecare parametru al familiei la valorile "
+"implicite."
 
-#: resources/animate.glade:1001
+#: resources/animate.glade:1391
 msgid ""
-"<b>Color</b> <i>— currents, charges, and fields shade the wires, patches, "
-"and near-field vectors</i>"
+"<b>Color and segment scale</b> <i>— currents, charges, and fields shade the "
+"model</i>"
 msgstr ""
-"<b>Culoare</b> <i>— curenții, sarcinile și câmpurile colorează firele, patch-"
-"urile și vectorii de câmp apropiat</i>"
+"<b>Culoare și scala segmentului</b> <i>— curenții, sarcinile și câmpurile "
+"umbresc modelul</i>"
 
-#: resources/animate.glade:1032
+#: resources/animate.glade:1432
 msgid "None (geometry)"
 msgstr "Fără (geometrie)"
 
-#: resources/animate.glade:1036
+#: resources/animate.glade:1436
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr ""
 "Afișează geometria structurii simple, fără colorare în funcție de vreo "
 "mărime."
 
-#: resources/animate.glade:1049 resources/xnec2c.glade:11240
+#: resources/animate.glade:1449 resources/xnec2c.glade:11240
 msgid "Currents"
 msgstr "Curenți"
 
-#: resources/animate.glade:1053
+#: resources/animate.glade:1453
 msgid "Animate current magnitude and direction along the wires."
 msgstr "Animează magnitudinea și direcția curentului de-a lungul firelor."
 
-#: resources/animate.glade:1066 resources/xnec2c.glade:11255
+#: resources/animate.glade:1466 resources/xnec2c.glade:11255
 msgid "Charges"
 msgstr "Sarcini"
 
-#: resources/animate.glade:1070
+#: resources/animate.glade:1470
 msgid "Animate charge magnitude along the wires."
 msgstr "Animează magnitudinea sarcinii de-a lungul firelor."
 
-#: resources/animate.glade:1087
+#: resources/animate.glade:1493
+msgid "_Polarization:"
+msgstr "_Polarizare:"
+
+#: resources/animate.glade:1508
+msgid ""
+"Select the polarization component used by radiation-pattern gain and far-"
+"zone animation vectors.\n"
+"\n"
+"Mirrors the polarization selection in the main, radiation-pattern, and "
+"frequency-plot windows.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"Selectați componenta de polarizare utilizată de câștigul diagramei de "
+"radiație și de vectorii de animație în zona îndepărtată.\n"
+"\n"
+"Oglindește selecția polarizării din ferestrele principală, diagramă de "
+"radiație și grafic de frecvență.\n"
+"\n"
+"Trecerea cu mouse-ul peste o intrare o previzualizează în timp real."
+
+#: resources/animate.glade:1581
 msgid "Display"
 msgstr "Afișare"
 
-#: resources/animate.glade:1118
+#: resources/animate.glade:1619
 msgid "Flow direction:"
 msgstr "Direcție flux:"
 
-#: resources/animate.glade:1131
-msgid "Reference phase (animated)"
-msgstr "Fază de referință (animată)"
-
-#: resources/animate.glade:1132
-msgid "LIC texture (animated)"
-msgstr "Textură LIC (animată)"
-
-#: resources/animate.glade:1133
-msgid "Wireframe (animated)"
-msgstr "Cadru de sârmă (animat)"
-
-#: resources/animate.glade:1134
-msgid "Polarization axis (static)"
-msgstr "Axă de polarizare (statică)"
-
-#: resources/animate.glade:1135
-msgid "Peak magnitude (static)"
-msgstr "Magnitudine de vârf (statică)"
-
-#: resources/animate.glade:1151
+#: resources/animate.glade:1698
 msgid "Patches"
 msgstr "Patch-uri"
 
-#: resources/animate.glade:1179
+#: resources/animate.glade:1733
 msgid "Near E field"
 msgstr "Câmp E apropiat"
 
-#: resources/animate.glade:1183
+#: resources/animate.glade:1737
 msgid ""
 "Show the near electric field vectors while animating.\n"
 "\n"
@@ -579,11 +672,11 @@ msgstr ""
 "\n"
 "Activați deschizând fereastra diagramei de radiație."
 
-#: resources/animate.glade:1195
+#: resources/animate.glade:1749
 msgid "Near H field"
 msgstr "Câmp H apropiat"
 
-#: resources/animate.glade:1199
+#: resources/animate.glade:1753
 msgid ""
 "Show the near magnetic field vectors while animating.\n"
 "\n"
@@ -593,11 +686,11 @@ msgstr ""
 "\n"
 "Activați deschizând fereastra diagramei de radiație."
 
-#: resources/animate.glade:1211
+#: resources/animate.glade:1765
 msgid "Poynting vector"
 msgstr "Vector Poynting"
 
-#: resources/animate.glade:1215
+#: resources/animate.glade:1769
 msgid ""
 "Show the Poynting power-flow vectors while animating.\n"
 "\n"
@@ -607,15 +700,15 @@ msgstr ""
 "\n"
 "Activați deschizând fereastra diagramei de radiație."
 
-#: resources/animate.glade:1231
+#: resources/animate.glade:1805
 msgid "Near Field"
 msgstr "Câmp apropiat"
 
-#: resources/animate.glade:1259
+#: resources/animate.glade:1840
 msgid "Far E field"
 msgstr "Câmp E îndepărtat"
 
-#: resources/animate.glade:1263
+#: resources/animate.glade:1844
 msgid ""
 "Draw the far-zone electric field as arrows tangent to the gain surface while "
 "animating.\n"
@@ -627,11 +720,11 @@ msgstr ""
 "\n"
 "Se activează prin deschiderea ferestrei diagramei de radiație."
 
-#: resources/animate.glade:1276
+#: resources/animate.glade:1857
 msgid "Far H field"
 msgstr "Câmp H îndepărtat"
 
-#: resources/animate.glade:1280
+#: resources/animate.glade:1861
 msgid ""
 "Draw the far-zone magnetic field instead, a quarter turn from the electric "
 "field in the tangent plane and in step with it in time.\n"
@@ -644,19 +737,19 @@ msgstr ""
 "\n"
 "Se activează prin deschiderea ferestrei diagramei de radiație."
 
-#: resources/animate.glade:1293
+#: resources/animate.glade:1874
 msgid "World reference"
 msgstr "Referință globală"
 
-#: resources/animate.glade:1309
+#: resources/animate.glade:1890
 msgid "Ludwig-3 reference"
 msgstr "Referință Ludwig-3"
 
-#: resources/animate.glade:1334
-msgid "Arrow length:"
-msgstr "Lungime săgeată:"
+#: resources/animate.glade:1915
+msgid "Arrow:"
+msgstr "Săgeată:"
 
-#: resources/animate.glade:1351
+#: resources/animate.glade:1932
 msgid ""
 "Longest arrow a cell draws, as a fraction of that cell's own pattern radius, "
 "so the arrows track whichever gain scale shapes the surface."
@@ -665,9 +758,17 @@ msgstr ""
 "propriei diagrame a celulei, astfel încât săgețile urmăresc scala de câștig "
 "care modelează suprafața, indiferent care este aceasta."
 
-#: resources/animate.glade:1373
+#: resources/animate.glade:1974
 msgid "Far Field"
 msgstr "Câmp îndepărtat"
+
+#: resources/animate.glade:1992
+msgid ""
+"Draw the far-zone field as tangent vectors on the radiation pattern gain "
+"surface while this window is open."
+msgstr ""
+"Desenează câmpul din zona îndepărtată ca vectori tangenți pe suprafața de "
+"câștig a diagramei de radiație cât timp această fereastră este deschisă."
 
 # xnec2c-exempt: loanword
 #: resources/settings/cairo_settings.glade:34
@@ -1954,7 +2055,7 @@ msgstr "Observator"
 
 # xnec2c-exempt: notation
 #: resources/xnec2c.glade:9799 resources/xnec2c.glade:10041
-#: src/freqplots/freqplots_core.c:62 src/freqplots/graphs/vswr_graph.c:55
+#: src/freqplots/freqplots_core.c:63 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
@@ -2296,29 +2397,9 @@ msgstr "_Fără"
 msgid "Patch Flow — Animated"
 msgstr "Flux patch — animat"
 
-#: resources/xnec2c.glade:11075
-msgid "_Reference Phase"
-msgstr "Faza de _referință"
-
-#: resources/xnec2c.glade:11086
-msgid "_LIC Texture"
-msgstr "Textură _LIC"
-
-#: resources/xnec2c.glade:11097 resources/xnec2c.glade:12290
-msgid "_Wireframe"
-msgstr "_Cadru de sârmă"
-
 #: resources/xnec2c.glade:11115
 msgid "Patch Flow — Static"
 msgstr "Flux patch — static"
-
-#: resources/xnec2c.glade:11122
-msgid "Polarization _Axis"
-msgstr "Axă de _polarizare"
-
-#: resources/xnec2c.glade:11133
-msgid "Peak _Magnitude"
-msgstr "_Magnitudine de vârf"
 
 #: resources/xnec2c.glade:11148
 msgid "A_nimate"
@@ -2362,7 +2443,7 @@ msgstr ""
 "vizualizare curente."
 
 #: resources/xnec2c.glade:11604 resources/xnec2c.glade:12914
-#: src/freqplots/freqplots_core.c:59
+#: src/freqplots/freqplots_core.c:60
 msgid "Gain"
 msgstr "Câștig"
 
@@ -2522,7 +2603,7 @@ msgstr "T<sub>pământ</sub>"
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>cer</sub>"
 
-#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:869
+#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:962
 msgid "Radiation Patterns"
 msgstr "Diagrame de radiație"
 
@@ -2714,6 +2795,131 @@ msgstr ""
 #: resources/xnec2c.glade:15563
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Impedanță linie de transmisie (Zo)"
+
+#: src/anim/anim_dialog.c:69
+msgid ""
+"Choose how current flow is marked on surface patches.\n"
+"This model has no patches: add SP, SC, or SM patch cards to the NEC input "
+"file."
+msgstr ""
+"Alegeți cum este marcat fluxul de curent pe Patch-urile de suprafață.\n"
+"Acest model nu are Patch-uri: adăugați carduri SP, SC sau SM în fișierul de "
+"intrare NEC."
+
+#: src/anim/anim_dialog.c:77
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"In the main window choose View, Radiation Pattern; if that item is disabled, "
+"add an RP card to the NEC input file."
+msgstr ""
+"Desenează câmpul din zona îndepărtată ca săgeți pe suprafața de câștig.\n"
+"În fereastra principală alegeți Vizualizare, Diagramă de radiație; dacă acel "
+"element este dezactivat, adăugați un card RP în fișierul de intrare NEC."
+
+#: src/anim/anim_dialog.c:81
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"Tick the check box in the Far Field heading just above."
+msgstr ""
+"Desenează câmpul din zona îndepărtată ca săgeți pe suprafața de câștig.\n"
+"Bifați caseta de selectare din antetul Câmp îndepărtat de mai sus."
+
+#: src/anim/anim_dialog.c:88
+msgid ""
+"Choose the reference the vertical and horizontal gain are read against.\n"
+"Under Polarization in this window select Vertical or Horizontal; Total, "
+"Right Hand, and Left Hand do not use this setting."
+msgstr ""
+"Alegeți referința față de care se citesc câștigul vertical și orizontal.\n"
+"Sub Polarizare în această fereastră selectați Vertical sau Orizontal; Total, "
+"Dreapta și Stânga nu utilizează această setare."
+
+#: src/anim/anim_dialog.c:97
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Nothing drawn now changes with phase. Under Display choose Currents or "
+"Charges and an Animated colour or segment scale; for patches choose Currents "
+"and an Animated flow mode. For NE/NH cards show Near Field and tick E, H, or "
+"Poynting; for an RP card show Gain and tick Far Field."
+msgstr ""
+"Începe avansarea fazei animației la cadența stabilită mai jos.\n"
+"Nimic din ce este desenat acum nu se schimbă cu faza. Sub Afișare alegeți "
+"Curenți sau Sarcini și o culoare Animată sau o scală de segment; pentru "
+"Patch-uri alegeți Curenți și un mod de flux Animat. Pentru cardurile NE/NH "
+"afișați Câmp apropiat și bifați E, H sau Poynting; pentru un card RP afișați "
+"Câștig și bifați Câmp îndepărtat."
+
+#: src/anim/anim_dialog.c:108
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Available when drawn content changes with phase."
+msgstr ""
+"Începe avansarea fazei animației la ritmul stabilit mai jos.\n"
+"Disponibil când conținutul desenat se modifică odată cu faza."
+
+#: src/anim/anim_dialog.c:112
+msgid ""
+"Select how the animated patch current flow is rendered.\n"
+"Mirrors the Visualization menu setting in the main window."
+msgstr ""
+"Selectați modul de redare a fluxului de curent animat al patch-urilor.\n"
+"Oglindește setarea din meniul Vizualizare din fereastra principală."
+
+#: src/anim/anim_dialog.c:116
+msgid ""
+"Resolve the far-zone field into tangent vectors drawn on the radiation "
+"pattern gain surface.\n"
+"Available while the radiation pattern window is open and Far Field is "
+"selected."
+msgstr ""
+"Descompune câmpul din zona îndepărtată în vectori tangenți desenați pe "
+"suprafața de câștig a diagramei de radiație.\n"
+"Disponibil cât timp fereastra diagramei de radiație este deschisă și este "
+"selectat Câmp îndepărtat."
+
+#: src/anim/anim_dialog.c:122
+msgid ""
+"Read the vertical and horizontal gain selections against the spherical "
+"basis, so vertical is the theta direction and horizontal is the phi "
+"direction.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Interpretează selecțiile de câștig vertical și orizontal față de baza "
+"sferică, astfel încât vertical este direcția theta, iar orizontal este "
+"direcția phi.\n"
+"Disponibil pentru polarizare Verticală sau Orizontală."
+
+#: src/anim/anim_dialog.c:128
+msgid ""
+"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
+"polar and cross-polar directions, which hold one orientation across the "
+"whole pattern.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Interpretează selecțiile de câștig vertical și orizontal față de direcțiile "
+"co-polare și cross-polare Ludwig-3, care păstrează o singură orientare pe "
+"întreaga diagramă.\n"
+"Disponibil pentru polarizare Verticală sau Orizontală."
+
+#: src/anim/anim_dialog.c:167
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"Available when the model contains supported animation content."
+msgstr ""
+"Deschide comenzile de animație pentru conținutul care variază cu faza.\n"
+"Disponibil când modelul conține conținut de animație acceptat."
+
+#: src/anim/anim_dialog.c:169
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"This model has nothing to animate: load a NEC input file carrying wire cards "
+"(GW, GA, GH), patch cards (SP, SC, SM), near-field cards (NE, NH), or a "
+"radiation pattern card (RP)."
+msgstr ""
+"Deschide comenzile de animație pentru conținutul variabil în fază.\n"
+"Acest model nu are nimic de animat: încărcați un fișier de intrare NEC care "
+"conține carduri de fir (GW, GA, GH), carduri Patch (SP, SC, SM), carduri de "
+"câmp apropiat (NE, NH) sau un card de diagramă de radiație (RP)."
 
 #: src/args.c:113
 msgid "Usage: xnec2c [options] [<input-file-name>]"
@@ -2907,8 +3113,8 @@ msgstr "fișierul de configurare nu există sau nu poate fi citit: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:366
-#: src/rdpattern_ui.c:374 src/rdpattern_ui.c:381 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:401
+#: src/rdpattern_ui.c:409 src/rdpattern_ui.c:416 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -2930,7 +3136,7 @@ msgstr "Bifurcarea dezactivată!\n"
 msgid "invalid radiation pattern PNG format: %s\n"
 msgstr "format PNG invalid pentru diagrama de radiație: %s\n"
 
-#: src/cairo/cairo_fit.c:118
+#: src/cairo/cairo_fit.c:121
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
@@ -2939,7 +3145,7 @@ msgstr ""
 "%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:237
+#: src/cairo/cairo_frame.c:254
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -2973,17 +3179,17 @@ msgstr "Eroare de conexiune a segmentului în sbf()"
 msgid "Segment connection error in trio()"
 msgstr "Eroare de conexiune a segmentului în trio()"
 
-#: src/callback_func.c:51
+#: src/callback_func.c:52
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "capturarea imaginii pentru %s a eșuat\n"
 
-#: src/callback_func.c:57
+#: src/callback_func.c:58
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "salvarea imaginii %s a eșuat: %s\n"
 
-#: src/callback_func.c:105
+#: src/callback_func.c:106
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -2991,7 +3197,7 @@ msgstr ""
 "Bucla de frecvență rulează\n"
 "Sunteți sigur că doriți să încheiați calculul?"
 
-#: src/callback_func.c:109
+#: src/callback_func.c:110
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -2999,7 +3205,7 @@ msgstr ""
 "Bucla de frecvență rulează\n"
 "Sunteți sigur că doriți să închideți această fereastră?"
 
-#: src/callback_func.c:270
+#: src/callback_func.c:271
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
@@ -3007,47 +3213,47 @@ msgstr ""
 "Tipul de excitație %d nu are punct de alimentare: graficele VSWR și "
 "impedanță sunt ascunse.\n"
 
-#: src/callback_func.c:332
+#: src/callback_func.c:340
 msgid "View Currents"
 msgstr "Vizualizare curenți"
 
-#: src/callback_func.c:334
+#: src/callback_func.c:342
 msgid "View Charges"
 msgstr "Vizualizare sarcini"
 
-#: src/callback_func.c:336
+#: src/callback_func.c:344
 msgid "View Geometry"
 msgstr "Vizualizare geometrie"
 
-#: src/callback_func.c:386
+#: src/callback_func.c:402
 msgid "PNG images (*.png)"
 msgstr "Imagini PNG (*.png)"
 
-#: src/callback_func.c:388
+#: src/callback_func.c:404
 msgid "GNUplot files (*.gplot)"
 msgstr "Fișiere GNUplot (*.gplot)"
 
-#: src/callback_func.c:390
+#: src/callback_func.c:406
 msgid "NEC2 files (*.nec)"
 msgstr "Fișiere NEC2 (*.nec)"
 
-#: src/callback_func.c:392
+#: src/callback_func.c:408
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Fișiere Touchstone 1-port (*.s1p)"
 
-#: src/callback_func.c:394
+#: src/callback_func.c:410
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Fișiere Touchstone 2-port (*.s2p)"
 
-#: src/callback_func.c:396
+#: src/callback_func.c:412
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Fișiere CSV separate prin virgulă (*.csv)"
 
-#: src/callbacks.c:98 src/callbacks.c:114 src/freqplots/freqplots_core.c:66
+#: src/callbacks.c:95 src/callbacks.c:111 src/freqplots/freqplots_core.c:67
 msgid "Antenna Temperature"
 msgstr "Temperatură de antenă"
 
-#: src/callbacks.c:99
+#: src/callbacks.c:96
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3056,7 +3262,7 @@ msgstr ""
 "masă. Modelele în spațiu liber sunt standard pentru evaluarea temperaturii "
 "antenei."
 
-#: src/callbacks.c:115
+#: src/callbacks.c:112
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3065,12 +3271,12 @@ msgstr ""
 "Câștig maxim la θ=%.0f° (%.0f° de la planul XY). Convenția presupune "
 "fasciculul în planul XY cu elevația de observare setată prin butonul rotativ."
 
-#: src/callbacks.c:183 src/callbacks.c:521 src/callbacks.c:1951
-#: src/callbacks.c:2814
+#: src/callbacks.c:176 src/callbacks.c:510 src/callbacks.c:1661
+#: src/callbacks.c:1832
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Sunteți sigur că doriți să ieșiți din xnec2c?"
 
-#: src/callbacks.c:287
+#: src/callbacks.c:280
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3078,7 +3284,7 @@ msgstr ""
 "Nu se poate crea un fișier NEC2 de intrare nou\n"
 "cât timp bucla de frecvență rulează"
 
-#: src/callbacks.c:324
+#: src/callbacks.c:317
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3086,22 +3292,22 @@ msgstr ""
 "Nu se poate deschide un fișier NEC2 de intrare nou\n"
 "cât timp bucla de frecvență rulează"
 
-#: src/callbacks.c:443
+#: src/callbacks.c:436
 msgid "xnec2c geometry optimizer"
 msgstr "optimizator de geometrie xnec2c"
 
-#: src/callbacks.c:444
+#: src/callbacks.c:437
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "xnec2c a fost compilat fără suport inotify: optimizatorul nu poate fi "
 "activat."
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid "Xnec2c Optimizer"
 msgstr "Optimizator Xnec2c"
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3111,86 +3317,20 @@ msgstr ""
 "recalcula fișierul de intrare la modificare când este declanșat de inotify. "
 "Selectați fișierele pentru scriere în \"Fișier->Setări Optimizare\"."
 
-#: src/callbacks.c:998 src/callbacks.c:1318 src/callbacks.c:2840
+#: src/callbacks.c:991 src/callbacks.c:1311 src/callbacks.c:1858
 msgid "Are you sure you wish to close this window?"
 msgstr "Sunteți sigur că doriți să închideți această fereastră?"
 
-#: src/callbacks.c:1826
+#: src/callbacks.c:1536
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "OpenGL nu este disponibil pe acest display; nu se poate activa renderul.\n"
 
-#: src/callbacks.c:2038
-msgid ""
-"Read the vertical and horizontal gain selections against the spherical "
-"basis, so vertical is the theta direction and horizontal is the phi "
-"direction."
-msgstr ""
-"Selecțiile de câștig vertical și orizontal se citesc în raport cu baza "
-"sferică: verticala este direcția θ, iar orizontala este direcția φ."
-
-#: src/callbacks.c:2042
-msgid ""
-"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
-"polar and cross-polar directions, which hold one orientation across the "
-"whole pattern."
-msgstr ""
-"Selecțiile de câștig vertical și orizontal se citesc în raport cu direcțiile "
-"co-polară și cross-polară Ludwig-3, care păstrează o singură orientare pe "
-"întreaga diagramă."
-
-#: src/callbacks.c:2081
-msgid ""
-"Select how the animated patch current flow is rendered.\n"
-"Mirrors the Visualization menu setting in the main window."
-msgstr ""
-"Selectați modul de redare a fluxului de curent animat al patch-urilor.\n"
-"Oglindește setarea din meniul Vizualizare din fereastra principală."
-
-#: src/callbacks.c:2083
-msgid ""
-"Patch flow animation requires surface patches (SP/SM cards) in the model."
-msgstr ""
-"Animația fluxului patch necesită patch-uri de suprafață (carduri SP/SM) în "
-"model."
-
-#: src/callbacks.c:2098
-msgid ""
-"The polarization reference turns the vertical and horizontal gain pair "
-"only.  Select vertical or horizontal polarization in the radiation pattern "
-"window to use it; the total and circular selections read alike under either "
-"reference."
-msgstr ""
-"Referința de polarizare afectează numai perechea de câștig vertical și "
-"orizontal.  Selectați polarizarea verticală sau orizontală în fereastra "
-"diagramei de radiație pentru a o folosi; selecțiile totală și circulară se "
-"citesc identic sub oricare referință."
-
-#: src/callbacks.c:2116
-msgid ""
-"The animation window drives the near-field vectors from the phase slider; "
-"close it to choose the static peak or instantaneous baseline."
-msgstr ""
-"Fereastra de animație controlează vectorii câmpului apropiat din cursorul de "
-"fază; închideți-o pentru a alege vârful static sau linia de bază instantanee."
-
-#: src/callbacks.c:2646
-msgid "Animation"
-msgstr "Animație"
-
-#: src/callbacks.c:2647
-msgid ""
-"Animation requires wire currents or charges, surface patches (SP/SM NEC "
-"cards), or near-field data (NE/NH NEC cards)"
-msgstr ""
-"Animația necesită curenți sau sarcini pe fire, patch-uri de suprafață "
-"(carduri NEC SP/SM), sau date câmp apropiat (carduri NEC NE/NH)"
-
-#: src/callbacks.c:2776
+#: src/callbacks.c:1798
 msgid "No open NEC2 input file"
 msgstr "Niciun fișier NEC2 de intrare deschis"
 
-#: src/callbacks.c:2871 src/callbacks.c:2901
+#: src/callbacks.c:1889 src/callbacks.c:1919
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3199,11 +3339,11 @@ msgstr ""
 "cât timp bucla de frecvență rulează"
 
 # xnec2c-exempt: name
-#: src/callbacks.c:2883 src/callbacks.c:2909
+#: src/callbacks.c:1901 src/callbacks.c:1927
 msgid "untitled.nec"
 msgstr ""
 
-#: src/callbacks.c:3374 src/callbacks.c:3394 src/callbacks.c:3414
+#: src/callbacks.c:2388 src/callbacks.c:2408 src/callbacks.c:2428
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3212,10 +3352,15 @@ msgstr ""
 "Cardurile de frecvență (FR) nu au fost încă procesate.\n"
 "Poate fi necesar să salvați mai întâi datele Editorului NEC2."
 
-#: src/chroma/chroma.c:288
+#: src/chroma/chroma.c:315
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "proiecție de culoare invalidă %d, se folosește instantaneu\n"
+
+#: src/chroma/chroma.c:627
+#, c-format
+msgid "invalid segment scale encoding %d, using model radius\n"
+msgstr "codare scală segment nevalidă %d, se utilizează raza modelului\n"
 
 #: src/chroma/chroma_source.c:334
 msgid "far-field contribution needs radiation pattern data\n"
@@ -3428,22 +3573,17 @@ msgstr "Primul punct Theta"
 msgid "Increment in R (m)"
 msgstr "Increment în R (m)"
 
-#: src/color/color_tone.c:125
-#, c-format
-msgid "invalid color tone %d, using power\n"
-msgstr "familie de culoare invalidă %d, se folosește putere\n"
-
-#: src/config_hooks.c:91
+#: src/color/color_config_hooks.c:131
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr ""
 "Această suprapunere derivă din segmentele de curent ale firelor; acest model "
 "nu are niciunul."
 
-#: src/config_hooks.c:116
+#: src/color/color_config_hooks.c:156
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr "Evidențiază creasta undei în mișcare ca un cap luminos de cometă."
 
-#: src/config_hooks.c:117
+#: src/color/color_config_hooks.c:157
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3451,11 +3591,16 @@ msgstr ""
 "Cometa urmărește creasta undei animate; această proiecție este o citire "
 "statică, fără fază în mișcare."
 
-#: src/config_hooks.c:120
+#: src/color/color_config_hooks.c:160
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr ""
 "Marchează nodurile curentului (cyan) și antinodurile (roșu) de-a lungul "
 "firelor."
+
+#: src/color/color_tone.c:107
+#, c-format
+msgid "invalid color tone %d, using power\n"
+msgstr "familie de culoare invalidă %d, se folosește putere\n"
 
 #: src/expr_edit.h:34
 msgid ""
@@ -3507,39 +3652,39 @@ msgstr ""
 "Resetează baleiajul de frecvență la primul său pas și elimină fiecare "
 "rezultat calculat"
 
-#: src/freqplots/freqplots_core.c:60
+#: src/freqplots/freqplots_core.c:61
 msgid "Gain Direction"
 msgstr "Direcție câștig"
 
-#: src/freqplots/freqplots_core.c:61
+#: src/freqplots/freqplots_core.c:62
 msgid "Viewer Gain"
 msgstr "Câștig observator"
 
-#: src/freqplots/freqplots_core.c:63
+#: src/freqplots/freqplots_core.c:64
 msgid "Impedance (real/imag)"
 msgstr "Impedanță (real/imag)"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:65
 msgid "Impedance (mag/phase)"
 msgstr "Impedanță (mag/fază)"
 
-#: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/smith_graph.c:512
+#: src/freqplots/freqplots_core.c:66 src/freqplots/graphs/smith_graph.c:512
 msgid "Smith Chart"
 msgstr "Diagramă Smith"
 
-#: src/freqplots/freqplots_core.c:67
+#: src/freqplots/freqplots_core.c:68
 msgid "Solver Conditioning"
 msgstr "Condiționare rezolvitor"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:471
+#: src/freqplots/freqplots_core.c:479
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:769
+#: src/freqplots/freqplots_core.c:739
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3581,7 +3726,7 @@ msgstr ""
 "    • Câștig maxim brut, Direcție câștig, F/B\n"
 "    • Temperatură de antenă, G/T"
 
-#: src/freqplots/freqplots_core.c:802
+#: src/freqplots/freqplots_core.c:772
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3589,7 +3734,7 @@ msgstr ""
 "Este definit un singur port de alimentare. Definiți carduri de excitație EX "
 "suplimentare în model pentru a alege dintre mai multe porturi aici."
 
-#: src/freqplots/freqplots_core.c:805
+#: src/freqplots/freqplots_core.c:775
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3597,7 +3742,7 @@ msgstr ""
 "Activați setarea graficului Câștig net pentru a selecta un port; fără "
 "aceasta, acest grafic nu urmărește portul."
 
-#: src/freqplots/freqplots_core.c:921
+#: src/freqplots/freqplots_core.c:893
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Indisponibil: excitația nu definește niciun punct de alimentare"
 
@@ -3613,7 +3758,7 @@ msgstr "Draw_Graph():Alocarea memoriei pentru puncte a eșuat"
 msgid "This theme has no inverted variant"
 msgstr "Această temă nu are o variantă inversată"
 
-#: src/freqplots/freqplots_theme_menu.c:95
+#: src/freqplots/freqplots_theme_menu.c:120
 msgid "_Invert"
 msgstr "_Inversare"
 
@@ -4208,20 +4353,20 @@ msgstr ""
 "verify_segments() omite verificările dependente de frecvență - nu există "
 "date de frecvență\n"
 
-#: src/gnuplot.c:42
+#: src/gnuplot.c:43
 msgid "Gnuplot Data"
 msgstr "Date Gnuplot"
 
-#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
+#: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Nu se poate salva: baleiajul de frecvență este incomplet"
 
-#: src/gnuplot.c:56
+#: src/gnuplot.c:57
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# Impedanță de referință Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:58
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4231,18 +4376,18 @@ msgstr ""
 "prezent reprezintă MHz vs zreal și zimag:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:59
+#: src/gnuplot.c:60
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92 src/gnuplot.c:102
+#: src/gnuplot.c:93 src/gnuplot.c:103
 msgid "Touchstone Data"
 msgstr "Date Touchstone"
 
-#: src/gnuplot.c:103
+#: src/gnuplot.c:104
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4250,46 +4395,46 @@ msgstr ""
 "Nu se poate salva: parametrii S necesită o impedanță de punct de alimentare, "
 "pe care această excitație nu o furnizează"
 
-#: src/gnuplot.c:119
+#: src/gnuplot.c:120
 #, c-format
 msgid "! Reference impedance Z0 = %.2f Ohm\n"
 msgstr "! Impedanță de referință Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:161
+#: src/gnuplot.c:162
 msgid "CSV Data"
 msgstr "Date CSV"
 
-#: src/gnuplot.c:244
+#: src/gnuplot.c:245
 #, c-format
 msgid "# Near E field\n"
 msgstr "# Câmp E apropiat\n"
 
-#: src/gnuplot.c:271
+#: src/gnuplot.c:272
 #, c-format
 msgid "# Near H field\n"
 msgstr "# Câmp H apropiat\n"
 
-#: src/gnuplot.c:311
+#: src/gnuplot.c:312
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# Vector Poynting\n"
 
-#: src/gnuplot.c:370
+#: src/gnuplot.c:371
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# Diagramă de radiație\n"
 
-#: src/gnuplot.c:508
+#: src/gnuplot.c:509
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# segmente patch structură\n"
 
-#: src/gnuplot.c:543
+#: src/gnuplot.c:544
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# segmente fir structură\n"
 
-#: src/gnuplot.c:573
+#: src/gnuplot.c:574
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4298,11 +4443,11 @@ msgstr ""
 "Vizualizați cu: gnuplot -e \"set terminal qt; splot '%s' with lines; pause "
 "mouse close\"\n"
 
-#: src/gnuplot.c:585
+#: src/gnuplot.c:586
 msgid "Save Currents and Charges to CSV"
 msgstr "Salvează curenții și sarcinile în CSV"
 
-#: src/gnuplot.c:586
+#: src/gnuplot.c:587
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4310,11 +4455,11 @@ msgstr ""
 "Trebuie să activați datele de curent făcând clic pe \"Curenți\" sau \"Sarcini"
 "\" în fereastra principală xnec2c."
 
-#: src/gnuplot.c:651 src/gnuplot.c:661
+#: src/gnuplot.c:652 src/gnuplot.c:662
 msgid "Save Patch Currents to CSV"
 msgstr "Salvează curenții patch în CSV"
 
-#: src/gnuplot.c:652
+#: src/gnuplot.c:653
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4322,7 +4467,7 @@ msgstr ""
 "Trebuie să activați datele de curent făcând clic pe \"Curenți\" sau \"Sarcini"
 "\" în fereastra principală xnec2c."
 
-#: src/gnuplot.c:662
+#: src/gnuplot.c:663
 msgid "No surface patches in this model."
 msgstr "Nu există suprafețe patch în acest model."
 
@@ -4845,98 +4990,98 @@ msgstr ""
 "platformă.\n"
 
 # xnec2c-exempt: name
-#: src/interface.c:280
+#: src/interface.c:279
 #, c-format
 msgid "xnec2c %s: %s"
 msgstr ""
 
-#: src/interface.c:373
+#: src/interface.c:372
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: eșec la încărcarea animate.glade: %s\n"
 
-#: src/main.c:126
+#: src/main.c:127
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Backend de fereastră detectat: %s\n"
 
-#: src/main.c:134
+#: src/main.c:135
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch și --optimize sunt mutual exclusive.\n"
 
-#: src/main.c:143
+#: src/main.c:144
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png necesită --batch\n"
 
-#: src/main.c:159
+#: src/main.c:160
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "calea fișierului de intrare este prea lungă ( > %d caractere )\n"
 
-#: src/main.c:166
+#: src/main.c:167
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "argumentul neașteptat '%s' nu pare a fi un fișier .nec\n"
 
-#: src/main.c:173
+#: src/main.c:174
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "argument neașteptat: %s\n"
 
-#: src/main.c:179
+#: src/main.c:180
 msgid "batch mode requires an input file\n"
 msgstr "modul lot necesită un fișier de intrare\n"
 
-#: src/main.c:189
+#: src/main.c:190
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "nu se poate deschide display-ul: este necesară o sesiune X11 sau Wayland "
 "activă\n"
 
-#: src/main.c:208
+#: src/main.c:213
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Se creează fork pentru %d lucrări pe %d procesoare.\n"
 
-#: src/main.c:221 src/main.c:229
+#: src/main.c:226 src/main.c:234
 msgid "exiting after fatal error: pipe() failed"
 msgstr "se iese după eroare fatală: pipe() a eșuat"
 
-#: src/main.c:238
+#: src/main.c:243
 msgid "exiting after fatal error: fork() failed"
 msgstr "se iese după eroare fatală: fork() a eșuat"
 
-#: src/main.c:833
+#: src/main.c:838
 msgid "exiting via user interrupt\n"
 msgstr "se iese prin întrerupere utilizator\n"
 
-#: src/main.c:837
+#: src/main.c:842
 msgid "segmentation fault, exiting\n"
 msgstr "eroare de segmentare, se iese\n"
 
-#: src/main.c:841
+#: src/main.c:846
 msgid "floating point exception, exiting\n"
 msgstr "excepție în virgulă mobilă, se iese\n"
 
-#: src/main.c:845
+#: src/main.c:850
 msgid "abort signal received, exiting\n"
 msgstr "semnal de întrerupere primit, se iese\n"
 
-#: src/main.c:849
+#: src/main.c:854
 msgid "termination request received, exiting\n"
 msgstr "cerere de terminare primită, se iese\n"
 
-#: src/main.c:859
+#: src/main.c:864
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "neramificat, se ignoră SIGCHLD de la pid %d\n"
 
-#: src/main.c:867
+#: src/main.c:872
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "procesul copil pid %d s-a terminat\n"
 
-#: src/main.c:876
+#: src/main.c:881
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "ieșire implicită cu semnalul: %d\n"
@@ -5458,19 +5603,19 @@ msgstr ""
 msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Atlas textură etichete generat (ID=%u)\n"
 
-#: src/opengl-engine/opengl_axes.c:156
+#: src/opengl-engine/opengl_axes.c:161
 msgid "Failed to load axes line shader\n"
 msgstr "Eșec la încărcarea shaderului de linie axe\n"
 
-#: src/opengl-engine/opengl_axes.c:189
+#: src/opengl-engine/opengl_axes.c:192
 msgid "Axes renderer initialized\n"
 msgstr "Renderer axe inițializat\n"
 
-#: src/opengl-engine/opengl_axes.c:193
+#: src/opengl-engine/opengl_axes.c:196
 msgid "Failed to load text shaders\n"
 msgstr "Eșec la încărcarea shaderelor de text\n"
 
-#: src/opengl-engine/opengl_cairo_overlay.c:60
+#: src/opengl-engine/opengl_cairo_overlay.c:62
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Eșec la încărcarea shaderelor overlay cairo\n"
 
@@ -5478,54 +5623,63 @@ msgstr "Eșec la încărcarea shaderelor overlay cairo\n"
 msgid "Failed to create cairo overlay base\n"
 msgstr "Eșec la crearea bazei overlay cairo\n"
 
-#: src/opengl-engine/opengl_ground_plane.c:103
+#: src/opengl-engine/opengl_ground_plane.c:105
 msgid "Failed to load ground plane shaders\n"
 msgstr "Eșec la încărcarea shaderelor planului de masă\n"
 
 #: src/opengl-engine/opengl_renderer.c:55
 #, c-format
+msgid "Shader declares no version directive: %s\n"
+msgstr "Shader-ul nu declară nicio directivă de versiune: %s\n"
+
+#: src/opengl-engine/opengl_renderer.c:99
+#, c-format
 msgid "Failed to load shader: %s (%s)\n"
 msgstr "Eșec la încărcarea shaderului: %s (%s)\n"
 
-#: src/opengl-engine/opengl_renderer.c:84
+#: src/opengl-engine/opengl_renderer.c:149
 #, c-format
 msgid "Shader compile error: %s: %s\n"
 msgstr "Eroare de compilare shader: %s: %s\n"
 
-#: src/opengl-engine/opengl_renderer.c:126
+#: src/opengl-engine/opengl_renderer.c:190
 #, c-format
 msgid "Shader link failed: %s + %s\n"
 msgstr "Legare shader eșuată: %s + %s\n"
 
-#: src/opengl-engine/opengl_view.c:184
+#: src/opengl-engine/opengl_view.c:222
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "Eroare context OpenGL — nicio implementare OpenGL disponibilă pe acest "
 "display\n"
 
-#: src/opengl-engine/opengl_view.c:197
+#: src/opengl-engine/opengl_view.c:230
+msgid "Disabling OpenGL: shader catalog failed\n"
+msgstr "Se dezactivează OpenGL: catalogul de shadere a eșuat\n"
+
+#: src/opengl-engine/opengl_view.c:243
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "Dezactivare OpenGL: shader scenă eșuat\n"
 
-#: src/opengl-engine/opengl_view.c:212
+#: src/opengl-engine/opengl_view.c:258
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "Dezactivare OpenGL: shader overlay eșuat\n"
 
-#: src/opengl-engine/opengl_view.c:224
+#: src/opengl-engine/opengl_view.c:270
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "Dezactivare OpenGL: renderer axe eșuat\n"
 
-#: src/opengl-engine/opengl_view.c:253
+#: src/opengl-engine/opengl_view.c:299
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "Dezactivare OpenGL: shader plan de masă eșuat\n"
 
-#: src/opengl-engine/opengl_view.c:275
+#: src/opengl-engine/opengl_view.c:321
 #, c-format
 msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "Numărul de obiecte randabile %u depășește MAX_RENDERABLES (%d)\n"
 
-#: src/opengl-engine/opengl_view.c:354
+#: src/opengl-engine/opengl_view.c:402
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "Dezactivare OpenGL: shader peel compozit eșuat\n"
 
@@ -5546,10 +5700,6 @@ msgstr "Framebuffer MSAA incomplet\n"
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "Framebuffer MSAA incomplet\n"
 
-#: src/opengl-engine/opengl_view_overlay.c:326
-msgid "Failed to load overlay shaders\n"
-msgstr "Eșec la încărcarea shaderelor overlay\n"
-
 #: src/opengl-engine/opengl_view_peel.c:254
 #, c-format
 msgid "Peel FBO %d incomplete\n"
@@ -5568,15 +5718,11 @@ msgstr "FBO de acumulare peel incomplet\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "FBO adâncime strat incomplet\n"
 
-#: src/opengl-engine/opengl_view_render.c:427
+#: src/opengl-engine/opengl_view_render.c:389
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Obiecte randabile transparente omise: peel FBO-uri indisponibile\n"
 
-#: src/opengl-engine/opengl_view_scene.c:297
-msgid "Failed to load shaders\n"
-msgstr "Eșec la încărcarea shaderelor\n"
-
-#: src/opengl/opengl_rdpattern.c:355
+#: src/opengl/opengl_rdpattern.c:345
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: stil de desenare invalid %d, se folosește suprafață\n"
@@ -5868,17 +6014,17 @@ msgid ""
 msgstr ""
 "Câștig mediu: %.4f (%.2f dBi), eficiență: %.1f%%, unghi solid: %.4f * pi sr\n"
 
-#: src/rc_config.c:885
+#: src/rc_config.c:958
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "imposibil getcwd(): %s\n"
 
-#: src/rc_config.c:889
+#: src/rc_config.c:962
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "variabila de mediu HOME nu este definită, se folosește %s\n"
 
-#: src/rc_config.c:974
+#: src/rc_config.c:1047
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
@@ -5886,27 +6032,36 @@ msgstr ""
 "%s (locale=%s): s-au potrivit doar %d din %lu caractere, se încearcă alt "
 "locale: %s\n"
 
-#: src/rc_config.c:1193
+#: src/rc_config.c:1266
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "fereastră: x=%-5d y=%-5d w=%-5d h=%-5d  titlu: \"%s\"\n"
 
-#: src/rc_config.c:1227
+#: src/rc_config.c:1300
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: EOF la citirea versiunii aplicației.\n"
 
-#: src/rc_config.c:1233
+#: src/rc_config.c:1306
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "versiunea fișierului de configurare existent diferă: %s != %s\n"
 
-#: src/rc_config.c:1367
+#: src/rc_config.c:1353
+#, c-format
+msgid ""
+"gain readouts are scaled to %s, restored from the previous session; select "
+"Total Gain to read total gain\n"
+msgstr ""
+"citirile de câștig sunt scalate la %s, restaurate din sesiunea anterioară; "
+"selectați Câștig total pentru a citi câștigul total\n"
+
+#: src/rc_config.c:1463
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "stat eșuat pentru %s: %s\n"
 
-#: src/rc_config.c:1373
+#: src/rc_config.c:1469
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5915,46 +6070,91 @@ msgstr ""
 "Corectat permisiuni director %s de la 0%o la 0%o din cauza unui bug introdus "
 "în 4e62893b.\n"
 
-#: src/rc_config.c:1404
+#: src/rc_config.c:1500
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: Linie neparsată: %s\n"
 
-#: src/rc_config.c:1410
+#: src/rc_config.c:1506
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: Sfârșit de fișier prematur pentru %s: %s \n"
 
-#: src/rc_config.c:1435
+#: src/rc_config.c:1531
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: eroare de parsare (%s): %s \n"
 
-#: src/rc_config.c:1449
+#: src/rc_config.c:1545
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr "Index model cer invalid %d în configurație, resetare la implicit\n"
 
-#: src/rc_config.c:1455
+#: src/rc_config.c:1551
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr "Index model pământ invalid %d în configurație, resetare la implicit\n"
 
-#: src/rc_config.c:1461
+#: src/rc_config.c:1557
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr "Metodă interpolare invalidă %d în configurație, resetare la implicit\n"
 
-#: src/rc_config.c:1636
+#: src/rc_config.c:1565
+#, c-format
+msgid "Invalid flow visualization mode %d in config, resetting to default\n"
+msgstr ""
+"Mod de vizualizare a fluxului nevalid %d în configurație, se resetează la "
+"valoarea implicită\n"
+
+#: src/rc_config.c:1745
 msgid "batch mode: skipping configuration save\n"
 msgstr "mod batch: se omite salvarea configurației\n"
 
-#: src/rc_config.c:1643
+#: src/rc_config.c:1752
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "nu se poate deschide fișierul de configurare xnec2c %s: %s\n"
 
-#: src/rdpattern_ui.c:38
+#: src/rdpattern_noise_menu.c:37
+msgid "Read the noise temperature at the nearest tabulated frequency."
+msgstr "Citește temperatura de zgomot la cea mai apropiată frecvență tabelată."
+
+#: src/rdpattern_noise_menu.c:39
+msgid ""
+"Interpolate the noise temperature between tabulated frequencies in log-log "
+"space, clamped at the table edges."
+msgstr ""
+"Interpolează temperatura de zgomot între frecvențele tabelate în spațiu log-"
+"log, limitată la marginile tabelului."
+
+#: src/rdpattern_noise_menu.c:133
+msgid "Available while a selected sky or earth model reads a frequency table."
+msgstr ""
+"Disponibil cât timp modelul de cer sau de sol selectat citește un tabel de "
+"frecvențe."
+
+#: src/rdpattern_noise_menu.c:135
+msgid ""
+"The selected sky and earth models resolve by an intrinsic method; select a "
+"table-based model to enable."
+msgstr ""
+"Modelele de cer și de sol selectate se rezolvă printr-o metodă intrinsecă; "
+"selectați un model bazat pe tabel pentru a activa."
+
+#: src/rdpattern_noise_menu.c:296
+msgid "Sky Model"
+msgstr "Model de cer"
+
+#: src/rdpattern_noise_menu.c:303
+msgid "Earth Model"
+msgstr "Model de sol"
+
+#: src/rdpattern_noise_menu.c:311
+msgid "Interpolation"
+msgstr "Interpolare"
+
+#: src/rdpattern_ui.c:39
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5968,7 +6168,23 @@ msgstr ""
 "Animație câmp H: Adăugați cardul NH în fișierul NEC\n"
 "Vector Poynting: Adăugați ambele carduri NE și NH"
 
-#: src/rdpattern_ui.c:94
+#: src/rdpattern_ui.c:59
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Close the animation window to enable this setting."
+msgstr ""
+"Alege prezentarea vectorilor statici de câmp apropiat.\n"
+"Închide fereastra de animație pentru a activa această setare."
+
+#: src/rdpattern_ui.c:61
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Applies while the animation window is closed."
+msgstr ""
+"Alege prezentarea vectorilor statici de câmp apropiat.\n"
+"Se aplică cât timp fereastra de animație este închisă."
+
+#: src/rdpattern_ui.c:129
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -5977,13 +6193,13 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d în afara intervalului [0..%d], implicit "
 "GS_LINP\n"
 
-#: src/rdpattern_ui.c:516
+#: src/rdpattern_ui.c:544
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr ""
 "Câștigul în direcția vizualizatorului, pentru unghiurile de vizualizare "
 "curente."
 
-#: src/rdpattern_ui.c:518
+#: src/rdpattern_ui.c:546
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
@@ -5991,7 +6207,7 @@ msgstr ""
 "Temperatura de luminozitate în direcția vizualizatorului, pentru unghiurile "
 "de vizualizare curente."
 
-#: src/rdpattern_ui.c:538 src/rdpattern_ui.c:544
+#: src/rdpattern_ui.c:566 src/rdpattern_ui.c:572
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -5999,7 +6215,7 @@ msgstr ""
 "Unghiul de elevare a observației. Deplasează limita cer/pământ pentru "
 "evaluarea temperaturii antenei. 0° = orizont."
 
-#: src/rdpattern_ui.c:541 src/rdpattern_ui.c:547
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6007,7 +6223,7 @@ msgstr ""
 "Elevație de observație pentru temperatura antenei.\n"
 "Selectați Stil Câștig → Temperatură de Zgomot pentru a activa."
 
-#: src/rdpattern_ui.c:550
+#: src/rdpattern_ui.c:578
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
@@ -6015,7 +6231,7 @@ msgstr ""
 "Selectoare independente cer, pământ și interpolare pentru modelele de "
 "temperatură de zgomot."
 
-#: src/rdpattern_ui.c:552
+#: src/rdpattern_ui.c:580
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6023,71 +6239,71 @@ msgstr ""
 "Modele de temperatură de zgomot cer și pământ.\n"
 "Selectați Stil Câștig → Temperatură de Zgomot pentru a activa."
 
-#: src/rdpattern_ui.c:846
+#: src/rdpattern_ui.c:889
 msgid "Total Gain"
 msgstr "Câștig total"
 
-#: src/rdpattern_ui.c:847
+#: src/rdpattern_ui.c:890
 msgid "Horizontal Polarization"
 msgstr "Polarizare Orizontală"
 
-#: src/rdpattern_ui.c:848
+#: src/rdpattern_ui.c:891
 msgid "Vertical Polarization"
 msgstr "Polarizare Verticală"
 
-#: src/rdpattern_ui.c:849
+#: src/rdpattern_ui.c:892
 msgid "RH Circular Polarization"
 msgstr "Polarizare Circulară Dreapta"
 
-#: src/rdpattern_ui.c:850
+#: src/rdpattern_ui.c:893
 msgid "LH Circular Polarization"
 msgstr "Polarizare Circulară Stânga"
 
-#: src/rdpattern_ui.c:855
+#: src/rdpattern_ui.c:944
 msgid "Linear Power"
 msgstr "Putere Liniară"
 
-#: src/rdpattern_ui.c:856
+#: src/rdpattern_ui.c:945
 msgid "Linear Voltage"
 msgstr "Tensiune Liniară"
 
-#: src/rdpattern_ui.c:857
+#: src/rdpattern_ui.c:946
 msgid "ARRL Scale"
 msgstr "Scară ARRL"
 
-#: src/rdpattern_ui.c:858
+#: src/rdpattern_ui.c:947
 msgid "Logarithmic Scale"
 msgstr "Scară Logaritmică"
 
-#: src/rdpattern_ui.c:859
+#: src/rdpattern_ui.c:948
 msgid "Noise Temperature"
 msgstr "Temperatură de zgomot"
 
-#: src/rdpattern_ui.c:860
+#: src/rdpattern_ui.c:949
 msgid "Noise Temp (log scale)"
 msgstr "Temp. Zgomot (scară log)"
 
-#: src/rdpattern_ui.c:872
+#: src/rdpattern_ui.c:967
 msgid "Radiation Pattern: - "
 msgstr "Diagramă de radiație: - "
 
-#: src/rdpattern_ui.c:892
+#: src/rdpattern_ui.c:991
 msgid "Near Fields:"
 msgstr "Câmpuri apropiate:"
 
-#: src/rdpattern_ui.c:894
+#: src/rdpattern_ui.c:993
 msgid " - E Field"
 msgstr " - Câmp E"
 
-#: src/rdpattern_ui.c:896
+#: src/rdpattern_ui.c:995
 msgid " - H Field"
 msgstr " - Câmp H"
 
-#: src/rdpattern_ui.c:898
+#: src/rdpattern_ui.c:997
 msgid " - Poynting Vector"
 msgstr " - Vector Poynting"
 
-#: src/rdpattern_ui.c:908
+#: src/rdpattern_ui.c:1008
 msgid "Frequency Data Plots - "
 msgstr "Grafice date frecvență - "
 
@@ -6109,22 +6325,22 @@ msgstr "render_fit_solve: nicio geometrie de încadrat\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Buclă optimizer incompletă, se suprimă redesenarea intermediară.\n"
 
-#: src/settings/render_settings_common.c:116
+#: src/settings/render_settings_common.c:119
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: eșec la încărcarea glade: %s\n"
 
-#: src/settings/render_settings_common.c:126
+#: src/settings/render_settings_common.c:129
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: eșec la încărcarea glade opengl: %s\n"
 
-#: src/settings/render_settings_common.c:136
+#: src/settings/render_settings_common.c:139
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: eșec la încărcarea glade cairo: %s\n"
 
-#: src/settings/render_settings_common.c:149
+#: src/settings/render_settings_common.c:152
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: eșec la obținerea render_settings_window din glade\n"
@@ -6232,38 +6448,38 @@ msgstr ""
 "Controlează dacă acest parametru suprascrie valoarea modelului NEC.\n"
 "Debifați Opt pentru control independent."
 
-#: src/themes/theme.c:140
+#: src/themes/theme.c:135
 #, c-format
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "tema '%s' rolul '%s' culoare invalidă, se folosește implicitul vechi\n"
 
-#: src/themes/theme.c:223
+#: src/themes/theme.c:218
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "temă: nu se poate încărca resursa %s: %s\n"
 
-#: src/themes/theme.c:233
+#: src/themes/theme.c:228
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "temă: nu se poate analiza resursa %s: %s\n"
 
-#: src/themes/theme.c:259
+#: src/themes/theme.c:254
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "temă: nu se poate analiza %s, se folosesc valorile implicite integrate\n"
 
-#: src/themes/theme.c:388
+#: src/themes/theme.c:377
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "tema '%s' nu are variantă inversată, se folosește cea de bază\n"
 
-#: src/themes/theme.c:396
+#: src/themes/theme.c:385
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "tema '%s' nu a fost găsită, se folosește cea veche\n"
 
-#: src/themes/theme.c:468
+#: src/themes/theme.c:428
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "lățimea '%s' invalidă, se păstrează valoarea curentă\n"
@@ -6323,7 +6539,7 @@ msgstr ""
 msgid "%s:\n"
 msgstr ""
 
-#: src/validation_dump.c:34
+#: src/validation_dump.c:35
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6331,22 +6547,22 @@ msgstr ""
 "validare: mathlib nec2-builtin nu este disponibilă; rezultatele numerice pot "
 "diferi de referință\n"
 
-#: src/validation_dump.c:39
+#: src/validation_dump.c:40
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr "validare: mathlib forțată la nec2-builtin pentru reproductibilitate\n"
 
-#: src/validation_dump.c:58
+#: src/validation_dump.c:59
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
 "validare: modele temperatură de antenă și elevație forțate pentru "
 "reproductibilitate\n"
 
-#: src/validation_dump.c:68
+#: src/validation_dump.c:69
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "validare: polarizare forțată la total pentru reproductibilitate\n"
 
-#: src/validation_dump.c:87
+#: src/validation_dump.c:88
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6354,24 +6570,24 @@ msgstr ""
 "validare: vizualizatorul de structură resetat la orientarea implicită pentru "
 "reproductibilitate\n"
 
-#: src/validation_dump.c:614 src/validation_dump.c:620
+#: src/validation_dump.c:621 src/validation_dump.c:627
 msgid "Validation Tree"
 msgstr "Arbore de validare"
 
-#: src/validation_dump.c:614
+#: src/validation_dump.c:621
 msgid "Cannot save: frequency loop not done"
 msgstr "Nu se poate salva: bucla de frecvență nu este finalizată"
 
-#: src/validation_dump.c:620
+#: src/validation_dump.c:627
 msgid "Cannot create output directory"
 msgstr "Nu se poate crea directorul de ieșire"
 
-#: src/validation_dump.c:652
+#: src/validation_dump.c:659
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "arbore de validare scris în: %s\n"
 
-#: src/xnec2c.c:306
+#: src/xnec2c.c:304
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
@@ -6380,97 +6596,97 @@ msgstr ""
 "constantă dielectrică complexă din fișier: %12.5E%+12.5Ej, solicitată: %12.5E"
 "%+12.5Ej\n"
 
-#: src/xnec2c.c:309
+#: src/xnec2c.c:307
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters():Eroare în parametrii de sol"
 
-#: src/xnec2c.c:733
+#: src/xnec2c.c:731
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f secunde. (%s)\n"
 
-#: src/xnec2c.c:1077
+#: src/xnec2c.c:1075
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
 msgstr ""
 "pasul %d în competiție: expediat %.6f MHz, curent %.6f MHz; se va recalcula\n"
 
-#: src/xnec2c.c:1203
+#: src/xnec2c.c:1201
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr ""
 "procesul copil %d are un fd de pipe invalid în timpul colectării ramificate\n"
 
-#: src/xnec2c.c:1256
+#: src/xnec2c.c:1254
 msgid "Failed to read data from forked child\n"
 msgstr "Citirea datelor de la procesul copil ramificat a eșuat\n"
 
-#: src/xnec2c.c:1530
+#: src/xnec2c.c:1528
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "pasul cel mai apropiat %g MHz diferă de cel solicitat %g MHz\n"
 
-#: src/xnec2c.c:1534
+#: src/xnec2c.c:1532
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "frecvența după baleiere este stabilită la %.4f MHz (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1572
+#: src/xnec2c.c:1570
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Timp scurs buclă de frecvență: %f secunde. (%s)\n"
 
-#: src/xnec2c.c:1624
+#: src/xnec2c.c:1622
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "canvasul de lot %d nu a desenat niciun cadru la %dx%d\n"
 
-#: src/xnec2c.c:1789
+#: src/xnec2c.c:1787
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "captură PNG diagramă de radiație: niciun pas calculat pentru %s\n"
 
-#: src/xnec2c.c:1861
+#: src/xnec2c.c:1859
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "captura PNG a diagramei de radiație a eșuat pentru %s\n"
 
-#: src/xnec2c.c:1867
+#: src/xnec2c.c:1865
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "salvarea PNG a diagramei de radiație a eșuat pentru %s: %s\n"
 
-#: src/xnec2c.c:1872
+#: src/xnec2c.c:1870
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "PNG diagramă de radiație scris: %s\n"
 
-#: src/xnec2c.c:1909
+#: src/xnec2c.c:1907
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "formatele PNG multiple pentru diagrama de radiație necesită un nume de "
 "fișier .png: %s\n"
 
-#: src/xnec2c.c:2014
+#: src/xnec2c.c:2012
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "baleiajul rulează %d lucrători cu câte %d fire de execuție fiecare\n"
 
-#: src/xnec2c.c:2306
+#: src/xnec2c.c:2304
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "pornirea Frequency_Loop_Thread a eșuat\n"
 
-#: src/xnec2c.c:2485
+#: src/xnec2c.c:2483
 msgid "Frequency Sweep"
 msgstr "Baleiaj de frecvență"
 
-#: src/xnec2c.c:2486
+#: src/xnec2c.c:2484
 msgid "Recalculate the frequency sweep?"
 msgstr "Recalculați baleiajul de frecvență?"
 
-#: src/xnec2c.c:2487
+#: src/xnec2c.c:2485
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

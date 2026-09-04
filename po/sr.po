@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-24 14:07-0700\n"
+"POT-Creation-Date: 2026-08-31 13:53-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -35,11 +35,58 @@ msgstr "Софтвер за нумеричку електромагнетику"
 msgid "nec2;em;simulator;"
 msgstr "nec2;em;симулатор;"
 
-#: resources/animate.glade:85
+#: resources/animate.glade:136
+msgid "Total"
+msgstr "Укупна"
+
+#: resources/animate.glade:146
+msgid "Horizontal"
+msgstr "Хоризонтална"
+
+#: resources/animate.glade:156
+msgid "Vertical"
+msgstr "Вертикална"
+
+#: resources/animate.glade:166
+msgid "Right Hand"
+msgstr "Десна"
+
+#: resources/animate.glade:176
+msgid "Left Hand"
+msgstr "Лева"
+
+#: resources/animate.glade:191 resources/animate.glade:272
+#: resources/animate.glade:375
 msgid "Animated"
 msgstr "Анимирано"
 
-#: resources/animate.glade:92
+#: resources/animate.glade:198 resources/xnec2c.glade:11075
+msgid "_Reference Phase"
+msgstr "_Референтна фаза"
+
+#: resources/animate.glade:209 resources/xnec2c.glade:11086
+msgid "_LIC Texture"
+msgstr "_LIC текстура"
+
+#: resources/animate.glade:220 resources/xnec2c.glade:11097
+#: resources/xnec2c.glade:12290
+msgid "_Wireframe"
+msgstr "_Жичани приказ"
+
+#: resources/animate.glade:238 resources/animate.glade:330
+#: resources/animate.glade:399
+msgid "Static"
+msgstr "Статично"
+
+#: resources/animate.glade:245 resources/xnec2c.glade:11122
+msgid "Polarization _Axis"
+msgstr "Оса _поларизације"
+
+#: resources/animate.glade:256 resources/xnec2c.glade:11133
+msgid "Peak _Magnitude"
+msgstr "Вршна _амплитуда"
+
+#: resources/animate.glade:279
 msgid ""
 "Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
 "cos(arg z + φ)|, floored so nulls stay visible.\n"
@@ -51,11 +98,11 @@ msgstr ""
 "\n"
 "Анимирано: светле области клизе дуж структуре како фаза напредује."
 
-#: resources/animate.glade:93
+#: resources/animate.glade:280 resources/animate.glade:383
 msgid "Instantaneous"
 msgstr "Тренутно"
 
-#: resources/animate.glade:103
+#: resources/animate.glade:290
 msgid ""
 "Diverging hue shows the instantaneous sign of the displayed quantity: cold "
 "negative, hot positive; brightness carries the magnitude s(n).\n"
@@ -67,11 +114,11 @@ msgstr ""
 "\n"
 "Анимирано: области мењају полове како фаза напредује."
 
-#: resources/animate.glade:104
+#: resources/animate.glade:291
 msgid "Polarity"
 msgstr "Поларитет"
 
-#: resources/animate.glade:114
+#: resources/animate.glade:301
 msgid ""
 "Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
 "magnitude s(n).\n"
@@ -83,11 +130,11 @@ msgstr ""
 "\n"
 "Анимирано: цео точак се окреће како фаза напредује."
 
-#: resources/animate.glade:115
+#: resources/animate.glade:302
 msgid "Phase Hue"
 msgstr "Нијанса фазе"
 
-#: resources/animate.glade:125
+#: resources/animate.glade:312
 msgid ""
 "Diverging hue shows the instantaneous charge sign; brightness carries the "
 "current envelope s(|I|).\n"
@@ -100,15 +147,11 @@ msgstr ""
 "Анимирано: један приказ наелектрисања и струје размакнутих четвртином "
 "циклуса."
 
-#: resources/animate.glade:126
+#: resources/animate.glade:313
 msgid "Current + Charge"
 msgstr "Струја + наелектрисање"
 
-#: resources/animate.glade:143
-msgid "Static"
-msgstr "Статично"
-
-#: resources/animate.glade:150
+#: resources/animate.glade:337
 msgid ""
 "Rainbow ramp of this frequency step's peak magnitude s(n) at full "
 "brightness.\n"
@@ -120,11 +163,11 @@ msgstr ""
 "\n"
 "Статично: фазно-инваријантна основа; боје мирују током репродукције."
 
-#: resources/animate.glade:151
+#: resources/animate.glade:338
 msgid "Amplitude"
 msgstr "Амплитуда"
 
-#: resources/animate.glade:161
+#: resources/animate.glade:348
 msgid ""
 "Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
 "brightness carries the magnitude s(n).\n"
@@ -136,11 +179,11 @@ msgstr ""
 "\n"
 "Статично: фазно-инваријантно очитавање; боје мирују током репродукције."
 
-#: resources/animate.glade:162
+#: resources/animate.glade:349
 msgid "Standing/Traveling"
 msgstr "Стојећи/Путујући"
 
-#: resources/animate.glade:172
+#: resources/animate.glade:359
 msgid ""
 "Hue ramps each segment's contribution to the selected far-field direction; "
 "brightness carries the magnitude s(n).\n"
@@ -152,11 +195,51 @@ msgstr ""
 "\n"
 "Статично: фазно-инваријантно очитавање; боје мирују током репродукције."
 
-#: resources/animate.glade:173
+#: resources/animate.glade:360
 msgid "Far-field Contribution"
 msgstr "Допринос далеког поља"
 
-#: resources/animate.glade:187
+#: resources/animate.glade:382
+msgid ""
+"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animated: scaled regions travel through phase peaks and contract at zero "
+"crossings as the phase advances."
+msgstr ""
+"Скалирајте сваки сегмент према тренутном модулу s(n) · |cos(arg z + φ)|.\n"
+"\n"
+"Анимирано: скалирана подручја путују кроз врхове фазе и скупљају се на "
+"нултим прелазима док фаза одмиче."
+
+#: resources/animate.glade:406
+msgid ""
+"Scale each segment from the peak magnitude s(n), enlarging strong regions "
+"and contracting nulls.\n"
+"\n"
+"Static: the phase-invariant scale holds still during playback."
+msgstr ""
+"Скалирајте сваки сегмент према вршном модулу s(n), увећавајући јака подручја "
+"и скупљајући нуле.\n"
+"\n"
+"Статично: фазно-непроменљива скала остаје непокретна током репродукције."
+
+#: resources/animate.glade:407
+msgid "Envelope magnitude"
+msgstr "Модул обвојнице"
+
+#: resources/animate.glade:417
+msgid ""
+"Keep each segment at its model radius instead of scaling it by magnitude."
+msgstr ""
+"Задржите сваки сегмент на полупречнику модела уместо да га скалирате према "
+"модулу."
+
+#: resources/animate.glade:418
+msgid "Model radius"
+msgstr "Полупречник модела"
+
+#: resources/animate.glade:433
 msgid ""
 "Power-law transfer n^γ of the normalized magnitude.\n"
 "\n"
@@ -172,11 +255,11 @@ msgstr ""
 "(и његовом доприносу зрачној снази преко отпора зрачења), |q|² складиштеној "
 "електростатичкој енергији."
 
-#: resources/animate.glade:188
+#: resources/animate.glade:434
 msgid "Power"
 msgstr "Снага"
 
-#: resources/animate.glade:198
+#: resources/animate.glade:444
 msgid ""
 "Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
 "decibels.\n"
@@ -191,12 +274,12 @@ msgstr ""
 "на доњу боју."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:199 resources/xnec2c.glade:11713
+#: resources/animate.glade:445 resources/xnec2c.glade:11713
 #: resources/xnec2c.glade:13071
 msgid "dB"
 msgstr ""
 
-#: resources/animate.glade:209
+#: resources/animate.glade:455
 msgid ""
 "Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
 "\n"
@@ -209,11 +292,11 @@ msgstr ""
 "скали инструмента."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:210
+#: resources/animate.glade:456
 msgid "Asinh"
 msgstr ""
 
-#: resources/animate.glade:220
+#: resources/animate.glade:466
 msgid ""
 "μ-law companding, the telephony-standard bounded log curve.\n"
 "\n"
@@ -226,11 +309,11 @@ msgstr ""
 "255."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:221
+#: resources/animate.glade:467
 msgid "μ-law"
 msgstr ""
 
-#: resources/animate.glade:231
+#: resources/animate.glade:477
 msgid ""
 "Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
 "\n"
@@ -242,11 +325,11 @@ msgstr ""
 "Чува средње тонове док глатко ублажава светле делове; k одређује колено."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:232
+#: resources/animate.glade:478
 msgid "Reinhard"
 msgstr ""
 
-#: resources/animate.glade:242
+#: resources/animate.glade:488
 msgid ""
 "Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
 "\n"
@@ -258,11 +341,11 @@ msgstr ""
 "Подиже контраст средњег опсега и благо засићује ка врху, слично компресији "
 "појачала; a одређује нагиб."
 
-#: resources/animate.glade:243
+#: resources/animate.glade:489
 msgid "Sigmoid"
 msgstr "Сигмоид"
 
-#: resources/animate.glade:253
+#: resources/animate.glade:499
 msgid ""
 "Identity: every magnitude renders at full brightness.\n"
 "\n"
@@ -272,16 +355,16 @@ msgstr ""
 "\n"
 "Само пројекција боје носи информацију."
 
-#: resources/animate.glade:254 resources/settings/cairo_settings.glade:56
+#: resources/animate.glade:500 resources/settings/cairo_settings.glade:56
 msgid "None"
 msgstr "Нема"
 
-#: resources/animate.glade:266 src/rdpattern_ui.c:366 src/rdpattern_ui.c:374
-#: src/rdpattern_ui.c:381
+#: resources/animate.glade:512 src/rdpattern_ui.c:401 src/rdpattern_ui.c:409
+#: src/rdpattern_ui.c:416
 msgid "Near Field Animation"
 msgstr "Анимација блиског поља"
 
-#: resources/animate.glade:358
+#: resources/animate.glade:604
 msgid ""
 "Scrub the animation phase manually.\n"
 "\n"
@@ -292,27 +375,27 @@ msgstr ""
 "Онемогућено док анимација ради."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:375
+#: resources/animate.glade:621
 msgid "φ 0°"
 msgstr ""
 
-#: resources/animate.glade:389
+#: resources/animate.glade:635
 msgid "Phase"
 msgstr "Фаза"
 
-#: resources/animate.glade:412
+#: resources/animate.glade:658
 msgid "Frames/Sec"
 msgstr "Слике/сек"
 
-#: resources/animate.glade:425
+#: resources/animate.glade:671
 msgid "Animate Freq (Hz)"
 msgstr "Фреквенција анимације (Hz)"
 
-#: resources/animate.glade:498
+#: resources/animate.glade:747
 msgid "Color projection:"
 msgstr "Пројекција боје:"
 
-#: resources/animate.glade:512
+#: resources/animate.glade:762
 msgid ""
 "Select which physical quantity drives the hue and how brightness follows the "
 "excitation phase.\n"
@@ -330,30 +413,46 @@ msgstr ""
 "\n"
 "Лебдење над ставком приказује живи преглед."
 
-#: resources/animate.glade:539
+#: resources/animate.glade:820
+msgid "Segment scale:"
+msgstr "Скала сегмента:"
+
+#: resources/animate.glade:835
+msgid ""
+"Choose how current or charge magnitude changes segment thickness.\n"
+"\n"
+"Hover an entry to preview it."
+msgstr ""
+"Изаберите како модул струје или наелектрисања мења дебљину сегмента.\n"
+"\n"
+"Задржите показивач над ставком да бисте је прегледали."
+
+#: resources/animate.glade:893
 msgid "Scale family:"
 msgstr "Породица скале:"
 
-#: resources/animate.glade:553
+#: resources/animate.glade:908
 msgid ""
-"Select the magnitude-to-color transfer family.\n"
+"Select the normalized-magnitude transfer shared by color brightness and "
+"segment scale.\n"
 "\n"
 "Adjust its slider until the contrast reveals the range your inspection "
 "needs.\n"
 "\n"
 "Hovering an entry previews it live."
 msgstr ""
-"Изаберите породицу преноса амплитуде у боју.\n"
+"Изаберите пренос нормализованог модула који деле осветљеност боје и скала "
+"сегмента.\n"
 "\n"
-"Подесите њен клизач док контраст не открије опсег потребан за ваш преглед.\n"
+"Подесите клизач док контраст не открије опсег потребан за ваше испитивање.\n"
 "\n"
-"Лебдење над ставком приказује живи преглед."
+"Задржавање показивача над ставком приказује је уживо."
 
-#: resources/animate.glade:592
+#: resources/animate.glade:978
 msgid "Gamma:"
 msgstr "Гама:"
 
-#: resources/animate.glade:609
+#: resources/animate.glade:995
 msgid ""
 "Gamma exponent of the power transfer.\n"
 "\n"
@@ -365,11 +464,11 @@ msgstr ""
 "γ = 0,5 шири слабе области, γ = 1 је линеарно, γ = 2 је пропорционално "
 "дисипираној снази за струје."
 
-#: resources/animate.glade:631
+#: resources/animate.glade:1017
 msgid "Range (dB):"
 msgstr "Опсег (dB):"
 
-#: resources/animate.glade:648
+#: resources/animate.glade:1034
 msgid ""
 "Dynamic range R below the step peak mapped onto the color strip.\n"
 "\n"
@@ -379,47 +478,47 @@ msgstr ""
 "\n"
 "Под износи 10^(−R/20) врха."
 
-#: resources/animate.glade:670
+#: resources/animate.glade:1056
 msgid "Softening:"
 msgstr "Омекшавање:"
 
-#: resources/animate.glade:687
+#: resources/animate.glade:1073
 msgid "Softening knee k: linear below k, logarithmic above."
 msgstr "Колено омекшавања k: линеарно испод k, логаритамско изнад."
 
-#: resources/animate.glade:709
+#: resources/animate.glade:1095
 msgid "Compression (dB):"
 msgstr "Компресија (dB):"
 
-#: resources/animate.glade:726
+#: resources/animate.glade:1112
 msgid "Compression strength in dB; higher values lift weak detail."
 msgstr "Јачина компресије у dB; веће вредности истичу слаб детаљ."
 
-#: resources/animate.glade:748
+#: resources/animate.glade:1134
 msgid "Knee:"
 msgstr "Колено:"
 
-#: resources/animate.glade:765
+#: resources/animate.glade:1151
 msgid "Knee k of the rational soft-compressor."
 msgstr "Колено k рационалног меког компресора."
 
-#: resources/animate.glade:787
+#: resources/animate.glade:1173
 msgid "Contrast:"
 msgstr "Контраст:"
 
-#: resources/animate.glade:804
+#: resources/animate.glade:1190
 msgid "Contrast steepness a of the tanh transfer."
 msgstr "Нагиб контраста a tanh преноса."
 
-#: resources/animate.glade:837
+#: resources/animate.glade:1223
 msgid "Color gradient of the active projection and scale family."
 msgstr "Градијент боје активне пројекције и породице скале."
 
-#: resources/animate.glade:855
+#: resources/animate.glade:1241
 msgid "Brightness floor:"
 msgstr "Под осветљености:"
 
-#: resources/animate.glade:873
+#: resources/animate.glade:1259
 msgid ""
 "Minimum brightness under animation so elements cool toward this level "
 "instead of vanishing to black."
@@ -427,27 +526,15 @@ msgstr ""
 "Минимална осветљеност током анимације тако да елементи хладе ка овом нивоу "
 "уместо нестајања у црно."
 
-#: resources/animate.glade:884
-msgid "Width from amplitude"
-msgstr "Ширина из амплитуде"
-
-#: resources/animate.glade:889
-msgid ""
-"Scale wire segment width by the scaled amplitude envelope s(n), so strong "
-"regions draw thick and nulls draw thin."
-msgstr ""
-"Скалирај ширину сегмента жице обвојницом скалиране амплитуде s(n), тако да "
-"јаке области цртају дебело а нуле танко."
-
-#: resources/animate.glade:915
+#: resources/animate.glade:1285
 msgid "Overlays:"
 msgstr "Преклопи:"
 
-#: resources/animate.glade:926
+#: resources/animate.glade:1296
 msgid "Nodes/antinodes"
 msgstr "Чворови/античворови"
 
-#: resources/animate.glade:931
+#: resources/animate.glade:1301
 msgid ""
 "Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
 "\n"
@@ -459,11 +546,11 @@ msgstr ""
 "Ознаке потичу из фазно-инваријантне обвојнице, тако да мирују док се талас "
 "анимира."
 
-#: resources/animate.glade:942
+#: resources/animate.glade:1312
 msgid "Comet"
 msgstr "Комета"
 
-#: resources/animate.glade:947
+#: resources/animate.glade:1317
 msgid ""
 "Ride a bright head on the instantaneous positive crest so wave motion reads "
 "along each wire."
@@ -471,87 +558,89 @@ msgstr ""
 "Прати светлу главу на тренутном позитивном гребену тако да се кретање таласа "
 "очитава дуж сваке жице."
 
-#: resources/animate.glade:980
+#: resources/animate.glade:1350
 msgid "Reset"
 msgstr "Ресетуј"
 
-#: resources/animate.glade:986
+#: resources/animate.glade:1356
 msgid ""
-"Restore the color projection, scale family, and every family brightness "
-"parameter to their defaults."
+"Restore the color projection, segment scale, scale family, brightness floor, "
+"and every family parameter to their defaults."
 msgstr ""
-"Врати пројекцију боје, породицу скале и сваки параметар осветљености "
-"породице на подразумеване вредности."
+"Вратите пројекцију боје, скалу сегмента, породицу скале, доњу границу "
+"осветљености и сваки параметар породице на подразумеване вредности."
 
-#: resources/animate.glade:1001
+#: resources/animate.glade:1391
 msgid ""
-"<b>Color</b> <i>— currents, charges, and fields shade the wires, patches, "
-"and near-field vectors</i>"
+"<b>Color and segment scale</b> <i>— currents, charges, and fields shade the "
+"model</i>"
 msgstr ""
-"<b>Боја</b> <i>— струје, наелектрисања и поља боје жице, патчеве и векторе "
-"блиског поља</i>"
+"<b>Боја и скала сегмента</b> <i>— струје, наелектрисања и поља сенче модел</"
+"i>"
 
-#: resources/animate.glade:1032
+#: resources/animate.glade:1432
 msgid "None (geometry)"
 msgstr "Ниједна (геометрија)"
 
-#: resources/animate.glade:1036
+#: resources/animate.glade:1436
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr "Прикажи чисту геометрију структуре без бојења по величини."
 
-#: resources/animate.glade:1049 resources/xnec2c.glade:11240
+#: resources/animate.glade:1449 resources/xnec2c.glade:11240
 msgid "Currents"
 msgstr "Струје"
 
-#: resources/animate.glade:1053
+#: resources/animate.glade:1453
 msgid "Animate current magnitude and direction along the wires."
 msgstr "Анимирај амплитуду и смер струје дуж жица."
 
-#: resources/animate.glade:1066 resources/xnec2c.glade:11255
+#: resources/animate.glade:1466 resources/xnec2c.glade:11255
 msgid "Charges"
 msgstr "Наелектрисања"
 
-#: resources/animate.glade:1070
+#: resources/animate.glade:1470
 msgid "Animate charge magnitude along the wires."
 msgstr "Анимирај амплитуду наелектрисања дуж жица."
 
-#: resources/animate.glade:1087
+#: resources/animate.glade:1493
+msgid "_Polarization:"
+msgstr "_Поларизација:"
+
+#: resources/animate.glade:1508
+msgid ""
+"Select the polarization component used by radiation-pattern gain and far-"
+"zone animation vectors.\n"
+"\n"
+"Mirrors the polarization selection in the main, radiation-pattern, and "
+"frequency-plot windows.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"Изаберите компоненту поларизације коју користе добитак дијаграма зрачења и "
+"вектори анимације далеке зоне.\n"
+"\n"
+"Прати избор поларизације у главном прозору, прозору дијаграма зрачења и "
+"прозору фреквенцијских графика.\n"
+"\n"
+"Задржавање показивача над ставком приказује је уживо."
+
+#: resources/animate.glade:1581
 msgid "Display"
 msgstr "Приказ"
 
-#: resources/animate.glade:1118
+#: resources/animate.glade:1619
 msgid "Flow direction:"
 msgstr "Смер тока:"
 
-#: resources/animate.glade:1131
-msgid "Reference phase (animated)"
-msgstr "Референтна фаза (анимирано)"
-
-#: resources/animate.glade:1132
-msgid "LIC texture (animated)"
-msgstr "LIC текстура (анимирано)"
-
-#: resources/animate.glade:1133
-msgid "Wireframe (animated)"
-msgstr "Жичани приказ (анимирано)"
-
-#: resources/animate.glade:1134
-msgid "Polarization axis (static)"
-msgstr "Оса поларизације (статично)"
-
-#: resources/animate.glade:1135
-msgid "Peak magnitude (static)"
-msgstr "Вршна амплитуда (статично)"
-
-#: resources/animate.glade:1151
+#: resources/animate.glade:1698
 msgid "Patches"
 msgstr "Патчеви"
 
-#: resources/animate.glade:1179
+#: resources/animate.glade:1733
 msgid "Near E field"
 msgstr "Блиско E поље"
 
-#: resources/animate.glade:1183
+#: resources/animate.glade:1737
 msgid ""
 "Show the near electric field vectors while animating.\n"
 "\n"
@@ -561,11 +650,11 @@ msgstr ""
 "\n"
 "Омогући отварањем прозора дијаграма зрачења."
 
-#: resources/animate.glade:1195
+#: resources/animate.glade:1749
 msgid "Near H field"
 msgstr "Блиско H поље"
 
-#: resources/animate.glade:1199
+#: resources/animate.glade:1753
 msgid ""
 "Show the near magnetic field vectors while animating.\n"
 "\n"
@@ -575,11 +664,11 @@ msgstr ""
 "\n"
 "Омогући отварањем прозора дијаграма зрачења."
 
-#: resources/animate.glade:1211
+#: resources/animate.glade:1765
 msgid "Poynting vector"
 msgstr "Појнтингов вектор"
 
-#: resources/animate.glade:1215
+#: resources/animate.glade:1769
 msgid ""
 "Show the Poynting power-flow vectors while animating.\n"
 "\n"
@@ -589,15 +678,15 @@ msgstr ""
 "\n"
 "Омогући отварањем прозора дијаграма зрачења."
 
-#: resources/animate.glade:1231
+#: resources/animate.glade:1805
 msgid "Near Field"
 msgstr "Блиско поље"
 
-#: resources/animate.glade:1259
+#: resources/animate.glade:1840
 msgid "Far E field"
 msgstr "Далеко E поље"
 
-#: resources/animate.glade:1263
+#: resources/animate.glade:1844
 msgid ""
 "Draw the far-zone electric field as arrows tangent to the gain surface while "
 "animating.\n"
@@ -609,11 +698,11 @@ msgstr ""
 "\n"
 "Омогућава се отварањем прозора дијаграма зрачења."
 
-#: resources/animate.glade:1276
+#: resources/animate.glade:1857
 msgid "Far H field"
 msgstr "Далеко H поље"
 
-#: resources/animate.glade:1280
+#: resources/animate.glade:1861
 msgid ""
 "Draw the far-zone magnetic field instead, a quarter turn from the electric "
 "field in the tangent plane and in step with it in time.\n"
@@ -626,19 +715,19 @@ msgstr ""
 "\n"
 "Омогућава се отварањем прозора дијаграма зрачења."
 
-#: resources/animate.glade:1293
+#: resources/animate.glade:1874
 msgid "World reference"
 msgstr "Светска референца"
 
-#: resources/animate.glade:1309
+#: resources/animate.glade:1890
 msgid "Ludwig-3 reference"
 msgstr "Ludwig-3 референца"
 
-#: resources/animate.glade:1334
-msgid "Arrow length:"
-msgstr "Дужина стрелице:"
+#: resources/animate.glade:1915
+msgid "Arrow:"
+msgstr "Стрелица:"
 
-#: resources/animate.glade:1351
+#: resources/animate.glade:1932
 msgid ""
 "Longest arrow a cell draws, as a fraction of that cell's own pattern radius, "
 "so the arrows track whichever gain scale shapes the surface."
@@ -647,9 +736,17 @@ msgstr ""
 "дијаграма те ћелије, тако да стрелице прате скалу добитка која обликује "
 "површину."
 
-#: resources/animate.glade:1373
+#: resources/animate.glade:1974
 msgid "Far Field"
 msgstr "Далеко поље"
+
+#: resources/animate.glade:1992
+msgid ""
+"Draw the far-zone field as tangent vectors on the radiation pattern gain "
+"surface while this window is open."
+msgstr ""
+"Исцртајте поље далеке зоне као тангентне векторе на површини добитка "
+"дијаграма зрачења док је овај прозор отворен."
 
 #: resources/settings/cairo_settings.glade:34
 msgid "Anti-aliasing"
@@ -1925,7 +2022,7 @@ msgstr "Посматрач"
 
 # xnec2c-exempt: notation
 #: resources/xnec2c.glade:9799 resources/xnec2c.glade:10041
-#: src/freqplots/freqplots_core.c:62 src/freqplots/graphs/vswr_graph.c:55
+#: src/freqplots/freqplots_core.c:63 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
@@ -2262,29 +2359,9 @@ msgstr "_Нема"
 msgid "Patch Flow — Animated"
 msgstr "Ток патча — анимирано"
 
-#: resources/xnec2c.glade:11075
-msgid "_Reference Phase"
-msgstr "_Референтна фаза"
-
-#: resources/xnec2c.glade:11086
-msgid "_LIC Texture"
-msgstr "_LIC текстура"
-
-#: resources/xnec2c.glade:11097 resources/xnec2c.glade:12290
-msgid "_Wireframe"
-msgstr "_Жичани приказ"
-
 #: resources/xnec2c.glade:11115
 msgid "Patch Flow — Static"
 msgstr "Ток патча — статично"
-
-#: resources/xnec2c.glade:11122
-msgid "Polarization _Axis"
-msgstr "Оса _поларизације"
-
-#: resources/xnec2c.glade:11133
-msgid "Peak _Magnitude"
-msgstr "Вршна _амплитуда"
 
 #: resources/xnec2c.glade:11148
 msgid "A_nimate"
@@ -2325,7 +2402,7 @@ msgid ""
 msgstr "Добитак у правцу гледишта структуре, за тренутне углове приказа."
 
 #: resources/xnec2c.glade:11604 resources/xnec2c.glade:12914
-#: src/freqplots/freqplots_core.c:59
+#: src/freqplots/freqplots_core.c:60
 msgid "Gain"
 msgstr "Добитак"
 
@@ -2483,7 +2560,7 @@ msgstr "T<sub>тло</sub>"
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>небо</sub>"
 
-#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:869
+#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:962
 msgid "Radiation Patterns"
 msgstr "Дијаграми зрачења"
 
@@ -2676,6 +2753,129 @@ msgstr ""
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Импеданса преносне линије (Zo)"
 
+#: src/anim/anim_dialog.c:69
+msgid ""
+"Choose how current flow is marked on surface patches.\n"
+"This model has no patches: add SP, SC, or SM patch cards to the NEC input "
+"file."
+msgstr ""
+"Изаберите како се ток струје означава на површинским патчевима.\n"
+"Овај модел нема патчеве: додајте картице SP, SC или SM у NEC улазну датотеку."
+
+#: src/anim/anim_dialog.c:77
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"In the main window choose View, Radiation Pattern; if that item is disabled, "
+"add an RP card to the NEC input file."
+msgstr ""
+"Исцртајте поље далеке зоне као стрелице на површини добитка.\n"
+"У главном прозору изаберите Приказ, Дијаграм зрачења; ако је та ставка "
+"онемогућена, додајте картицу RP у NEC улазну датотеку."
+
+#: src/anim/anim_dialog.c:81
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"Tick the check box in the Far Field heading just above."
+msgstr ""
+"Исцртајте поље далеке зоне као стрелице на површини добитка.\n"
+"Означите поље за потврду у наслову Далеко поље непосредно изнад."
+
+#: src/anim/anim_dialog.c:88
+msgid ""
+"Choose the reference the vertical and horizontal gain are read against.\n"
+"Under Polarization in this window select Vertical or Horizontal; Total, "
+"Right Hand, and Left Hand do not use this setting."
+msgstr ""
+"Изаберите референцу према којој се читају вертикални и хоризонтални "
+"добитак.\n"
+"Под Поларизација у овом прозору изаберите Вертикална или Хоризонтална; "
+"Укупна, Десна и Лева не користе ово подешавање."
+
+#: src/anim/anim_dialog.c:97
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Nothing drawn now changes with phase. Under Display choose Currents or "
+"Charges and an Animated colour or segment scale; for patches choose Currents "
+"and an Animated flow mode. For NE/NH cards show Near Field and tick E, H, or "
+"Poynting; for an RP card show Gain and tick Far Field."
+msgstr ""
+"Покрените напредовање фазе анимације ритмом подешеним испод.\n"
+"Ништа тренутно исцртано не мења се са фазом. Под Приказ изаберите Струје или "
+"Наелектрисања и анимирану боју или скалу сегмента; за патчеве изаберите "
+"Струје и анимирани режим тока. За картице NE/NH прикажите Блиско поље и "
+"означите E, H или Појнтинг; за картицу RP прикажите Добитак и означите "
+"Далеко поље."
+
+#: src/anim/anim_dialog.c:108
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Available when drawn content changes with phase."
+msgstr ""
+"Покреће напредовање фазе анимације учестаношћу постављеном испод.\n"
+"Доступно када се приказани садржај мења са фазом."
+
+#: src/anim/anim_dialog.c:112
+msgid ""
+"Select how the animated patch current flow is rendered.\n"
+"Mirrors the Visualization menu setting in the main window."
+msgstr ""
+"Изаберите начин приказа анимираног тока струје патча.\n"
+"Одражава подешавање менија Визуелизација у главном прозору."
+
+#: src/anim/anim_dialog.c:116
+msgid ""
+"Resolve the far-zone field into tangent vectors drawn on the radiation "
+"pattern gain surface.\n"
+"Available while the radiation pattern window is open and Far Field is "
+"selected."
+msgstr ""
+"Разлаже поље далеке зоне на тангентне векторе исцртане на површини добитка "
+"дијаграма зрачења.\n"
+"Доступно док је прозор дијаграма зрачења отворен и изабрано је Далеко поље."
+
+#: src/anim/anim_dialog.c:122
+msgid ""
+"Read the vertical and horizontal gain selections against the spherical "
+"basis, so vertical is the theta direction and horizontal is the phi "
+"direction.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Тумачи изборе вертикалног и хоризонталног добитка у односу на сферну основу, "
+"тако да вертикално одговара θ смеру, а хоризонтално φ смеру.\n"
+"Доступно за вертикалну или хоризонталну поларизацију."
+
+#: src/anim/anim_dialog.c:128
+msgid ""
+"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
+"polar and cross-polar directions, which hold one orientation across the "
+"whole pattern.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Тумачи изборе вертикалног и хоризонталног добитка у односу на Ludwig-3 "
+"истополарни и унакрсно-поларни правац, који задржавају једну оријентацију "
+"дуж целог дијаграма.\n"
+"Доступно за вертикалну или хоризонталну поларизацију."
+
+#: src/anim/anim_dialog.c:167
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"Available when the model contains supported animation content."
+msgstr ""
+"Отвара контроле анимације за садржај који се мења по фази.\n"
+"Доступно када модел садржи подржани садржај за анимацију."
+
+#: src/anim/anim_dialog.c:169
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"This model has nothing to animate: load a NEC input file carrying wire cards "
+"(GW, GA, GH), patch cards (SP, SC, SM), near-field cards (NE, NH), or a "
+"radiation pattern card (RP)."
+msgstr ""
+"Отворите контроле анимације за садржај који се мења по фази.\n"
+"Овај модел нема шта да анимира: учитајте NEC улазну датотеку која садржи "
+"картице жица (GW, GA, GH), картице патча (SP, SC, SM), картице блиског поља "
+"(NE, NH) или картицу дијаграма зрачења (RP)."
+
 #: src/args.c:113
 msgid "Usage: xnec2c [options] [<input-file-name>]"
 msgstr "Употреба: xnec2c [опције] [<назив-улазне-датотеке>]"
@@ -2865,8 +3065,8 @@ msgstr "конфигурациона датотека не постоји или
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:366
-#: src/rdpattern_ui.c:374 src/rdpattern_ui.c:381 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:401
+#: src/rdpattern_ui.c:409 src/rdpattern_ui.c:416 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -2886,14 +3086,14 @@ msgstr "Форковање онемогућено\n"
 msgid "invalid radiation pattern PNG format: %s\n"
 msgstr "неисправан PNG формат дијаграма зрачења: %s\n"
 
-#: src/cairo/cairo_fit.c:118
+#: src/cairo/cairo_fit.c:121
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 msgstr ""
 "cairo_fit_view: оквир није решен: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
-#: src/cairo/cairo_frame.c:237
+#: src/cairo/cairo_frame.c:254
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -2929,17 +3129,17 @@ msgstr "Грешка повезивања сегмента у sbf()"
 msgid "Segment connection error in trio()"
 msgstr "Грешка повезивања сегмента у trio()"
 
-#: src/callback_func.c:51
+#: src/callback_func.c:52
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "неуспело снимање слике за %s\n"
 
-#: src/callback_func.c:57
+#: src/callback_func.c:58
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "неуспело чување слике %s: %s\n"
 
-#: src/callback_func.c:105
+#: src/callback_func.c:106
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -2947,7 +3147,7 @@ msgstr ""
 "Фреквенцијска петља је покренута\n"
 "Да ли сте сигурни да желите да прекинете прорачун?"
 
-#: src/callback_func.c:109
+#: src/callback_func.c:110
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -2955,7 +3155,7 @@ msgstr ""
 "Фреквенцијска петља је покренута\n"
 "Да ли сте сигурни да желите да затворите овај прозор?"
 
-#: src/callback_func.c:270
+#: src/callback_func.c:271
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
@@ -2963,47 +3163,47 @@ msgstr ""
 "Тип побуде %d нема тачку напајања: VSWR и импедансни графикони су "
 "сакривени.\n"
 
-#: src/callback_func.c:332
+#: src/callback_func.c:340
 msgid "View Currents"
 msgstr "Прикажи струје"
 
-#: src/callback_func.c:334
+#: src/callback_func.c:342
 msgid "View Charges"
 msgstr "Прикажи наелектрисања"
 
-#: src/callback_func.c:336
+#: src/callback_func.c:344
 msgid "View Geometry"
 msgstr "Прикажи геометрију"
 
-#: src/callback_func.c:386
+#: src/callback_func.c:402
 msgid "PNG images (*.png)"
 msgstr "PNG слике (*.png)"
 
-#: src/callback_func.c:388
+#: src/callback_func.c:404
 msgid "GNUplot files (*.gplot)"
 msgstr "GNUplot датотеке (*.gplot)"
 
-#: src/callback_func.c:390
+#: src/callback_func.c:406
 msgid "NEC2 files (*.nec)"
 msgstr "NEC2 датотеке (*.nec)"
 
-#: src/callback_func.c:392
+#: src/callback_func.c:408
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Touchstone 1-port датотеке (*.s1p)"
 
-#: src/callback_func.c:394
+#: src/callback_func.c:410
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Touchstone 2-port датотеке (*.s2p)"
 
-#: src/callback_func.c:396
+#: src/callback_func.c:412
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "CSV датотеке раздвојене зарезима (*.csv)"
 
-#: src/callbacks.c:98 src/callbacks.c:114 src/freqplots/freqplots_core.c:66
+#: src/callbacks.c:95 src/callbacks.c:111 src/freqplots/freqplots_core.c:67
 msgid "Antenna Temperature"
 msgstr "Температура антене"
 
-#: src/callbacks.c:99
+#: src/callbacks.c:96
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3012,7 +3212,7 @@ msgstr ""
 "ефекте уземљења. Модели слободног простора су стандардни за евалуацију "
 "температуре антене."
 
-#: src/callbacks.c:115
+#: src/callbacks.c:112
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3021,12 +3221,12 @@ msgstr ""
 "Максималан добитак при θ=%.0f° (%.0f° од XY равни). Конвенција претпоставља "
 "сноп у XY равни са елевацијом посматрања подешеном помоћу spinbutton-а."
 
-#: src/callbacks.c:183 src/callbacks.c:521 src/callbacks.c:1951
-#: src/callbacks.c:2814
+#: src/callbacks.c:176 src/callbacks.c:510 src/callbacks.c:1661
+#: src/callbacks.c:1832
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Да ли сте сигурни да желите да затворите xnec2c?"
 
-#: src/callbacks.c:287
+#: src/callbacks.c:280
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3034,7 +3234,7 @@ msgstr ""
 "Нова NEC2 улазна датотека не може бити креирана\n"
 "док је фреквенцијска петља покренута"
 
-#: src/callbacks.c:324
+#: src/callbacks.c:317
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3042,21 +3242,21 @@ msgstr ""
 "Нова NEC2 улазна датотека не може бити отворена\n"
 "док је фреквенцијска петља покренута"
 
-#: src/callbacks.c:443
+#: src/callbacks.c:436
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c оптимизатор геометрије"
 
-#: src/callbacks.c:444
+#: src/callbacks.c:437
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "xnec2c је изграђен без подршке за inotify: оптимизатор не може бити омогућен."
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c оптимизатор"
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3066,84 +3266,19 @@ msgstr ""
 "прерачунати улазну датотеку при измени када је покренуто од стране inotify."
 "Изаберите датотеке за писање у \"Датотека->Подешавања оптимизације\"."
 
-#: src/callbacks.c:998 src/callbacks.c:1318 src/callbacks.c:2840
+#: src/callbacks.c:991 src/callbacks.c:1311 src/callbacks.c:1858
 msgid "Are you sure you wish to close this window?"
 msgstr "Да ли сте сигурни да желите да затворите овај прозор?"
 
-#: src/callbacks.c:1826
+#: src/callbacks.c:1536
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "OpenGL није доступан на овом екрану; рендерер не може бити омогућен.\n"
 
-#: src/callbacks.c:2038
-msgid ""
-"Read the vertical and horizontal gain selections against the spherical "
-"basis, so vertical is the theta direction and horizontal is the phi "
-"direction."
-msgstr ""
-"Вертикални и хоризонтални избор добитка тумаче се у односу на сферну основу, "
-"тако да вертикално представља theta правац, а хоризонтално phi правац."
-
-#: src/callbacks.c:2042
-msgid ""
-"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
-"polar and cross-polar directions, which hold one orientation across the "
-"whole pattern."
-msgstr ""
-"Вертикални и хоризонтални избор добитка тумаче се у односу на Ludwig-3 ко-"
-"поларизовани и укрштено-поларизовани правац, који задржавају једну "
-"оријентацију кроз цео дијаграм."
-
-#: src/callbacks.c:2081
-msgid ""
-"Select how the animated patch current flow is rendered.\n"
-"Mirrors the Visualization menu setting in the main window."
-msgstr ""
-"Изаберите начин приказа анимираног тока струје патча.\n"
-"Одражава подешавање менија Визуелизација у главном прозору."
-
-#: src/callbacks.c:2083
-msgid ""
-"Patch flow animation requires surface patches (SP/SM cards) in the model."
-msgstr ""
-"Анимација тока патча захтева површинске закрпе (SP/SM картице) у моделу."
-
-#: src/callbacks.c:2098
-msgid ""
-"The polarization reference turns the vertical and horizontal gain pair "
-"only.  Select vertical or horizontal polarization in the radiation pattern "
-"window to use it; the total and circular selections read alike under either "
-"reference."
-msgstr ""
-"Референца поларизације мења само пар вертикалног и хоризонталног добитка. "
-"Изаберите вертикалну или хоризонталну поларизацију у прозору дијаграма "
-"зрачења да бисте је користили; укупни и кружни избор изгледају исто без "
-"обзира на референцу."
-
-#: src/callbacks.c:2116
-msgid ""
-"The animation window drives the near-field vectors from the phase slider; "
-"close it to choose the static peak or instantaneous baseline."
-msgstr ""
-"Прозор анимације управља векторима блиског поља преко клизача фазе; "
-"затворите га да бисте изабрали статички врх или тренутну основну вредност."
-
-#: src/callbacks.c:2646
-msgid "Animation"
-msgstr "Анимација"
-
-#: src/callbacks.c:2647
-msgid ""
-"Animation requires wire currents or charges, surface patches (SP/SM NEC "
-"cards), or near-field data (NE/NH NEC cards)"
-msgstr ""
-"Анимација захтева струје или наелектрисања жица, површинске закрпе (SP/SM "
-"NEC картице) или податке блиског поља (NE/NH NEC картице)"
-
-#: src/callbacks.c:2776
+#: src/callbacks.c:1798
 msgid "No open NEC2 input file"
 msgstr "Нема отворене NEC2 улазне датотеке"
 
-#: src/callbacks.c:2871 src/callbacks.c:2901
+#: src/callbacks.c:1889 src/callbacks.c:1919
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3151,11 +3286,11 @@ msgstr ""
 "Подаци NEC2 уређивача не могу бити сачувани\n"
 "док је фреквенцијска петља покренута"
 
-#: src/callbacks.c:2883 src/callbacks.c:2909
+#: src/callbacks.c:1901 src/callbacks.c:1927
 msgid "untitled.nec"
 msgstr "безимени.nec"
 
-#: src/callbacks.c:3374 src/callbacks.c:3394 src/callbacks.c:3414
+#: src/callbacks.c:2388 src/callbacks.c:2408 src/callbacks.c:2428
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3164,10 +3299,15 @@ msgstr ""
 "Картице фреквенције (FR) још нису обрађене.\n"
 "Можда ћете морати прво да сачувате податке NEC2 уређивача."
 
-#: src/chroma/chroma.c:288
+#: src/chroma/chroma.c:315
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "неважећа пројекција боје %d, користим тренутно\n"
+
+#: src/chroma/chroma.c:627
+#, c-format
+msgid "invalid segment scale encoding %d, using model radius\n"
+msgstr "неисправно кодирање скале сегмента %d, користи се полупречник модела\n"
 
 #: src/chroma/chroma_source.c:334
 msgid "far-field contribution needs radiation pattern data\n"
@@ -3379,20 +3519,15 @@ msgstr "Прва тачка Theta"
 msgid "Increment in R (m)"
 msgstr "Прираштај по R (m)"
 
-#: src/color/color_tone.c:125
-#, c-format
-msgid "invalid color tone %d, using power\n"
-msgstr "неважећа породица боје %d, користим снагу\n"
-
-#: src/config_hooks.c:91
+#: src/color/color_config_hooks.c:131
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr "Овај преклоп се заснива на сегментима струје жице; овај модел их нема."
 
-#: src/config_hooks.c:116
+#: src/color/color_config_hooks.c:156
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr "Истакни покретни гребен таласа као светлу главу комете."
 
-#: src/config_hooks.c:117
+#: src/color/color_config_hooks.c:157
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3400,9 +3535,14 @@ msgstr ""
 "Комета прати анимирани гребен таласа; ова пројекција је статично очитавање "
 "без покретне фазе."
 
-#: src/config_hooks.c:120
+#: src/color/color_config_hooks.c:160
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr "Означи чворове струје (цијан) и античворове (црвено) дуж жица."
+
+#: src/color/color_tone.c:107
+#, c-format
+msgid "invalid color tone %d, using power\n"
+msgstr "неважећа породица боје %d, користим снагу\n"
 
 #: src/expr_edit.h:34
 msgid ""
@@ -3454,39 +3594,39 @@ msgstr ""
 "Ресетујте фреквентно претраживање на први корак и одбаците сваки израчунати "
 "резултат"
 
-#: src/freqplots/freqplots_core.c:60
+#: src/freqplots/freqplots_core.c:61
 msgid "Gain Direction"
 msgstr "Смер добитка"
 
-#: src/freqplots/freqplots_core.c:61
+#: src/freqplots/freqplots_core.c:62
 msgid "Viewer Gain"
 msgstr "Добитак посматрача"
 
-#: src/freqplots/freqplots_core.c:63
+#: src/freqplots/freqplots_core.c:64
 msgid "Impedance (real/imag)"
 msgstr "Импеданса (реал/имаг)"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:65
 msgid "Impedance (mag/phase)"
 msgstr "Импеданса (маг/фаза)"
 
-#: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/smith_graph.c:512
+#: src/freqplots/freqplots_core.c:66 src/freqplots/graphs/smith_graph.c:512
 msgid "Smith Chart"
 msgstr "Смитов дијаграм"
 
-#: src/freqplots/freqplots_core.c:67
+#: src/freqplots/freqplots_core.c:68
 msgid "Solver Conditioning"
 msgstr "Условљеност решавача"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:471
+#: src/freqplots/freqplots_core.c:479
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:769
+#: src/freqplots/freqplots_core.c:739
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3528,7 +3668,7 @@ msgstr ""
 "    • сирови Max добитак, смер добитка, F/B\n"
 "    • Температура антене, G/T"
 
-#: src/freqplots/freqplots_core.c:802
+#: src/freqplots/freqplots_core.c:772
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3536,7 +3676,7 @@ msgstr ""
 "Дефинисан је само један порт напајања. Додајте још EX картица побуде у модел "
 "да бисте овде бирали између више портова."
 
-#: src/freqplots/freqplots_core.c:805
+#: src/freqplots/freqplots_core.c:775
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3544,7 +3684,7 @@ msgstr ""
 "Омогућите подешавање графикона Нето добитак да бисте изабрали порт; без тога "
 "овај графикон не прати порт."
 
-#: src/freqplots/freqplots_core.c:921
+#: src/freqplots/freqplots_core.c:893
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Није доступно: побуда не дефинише тачку напајања"
 
@@ -3560,7 +3700,7 @@ msgstr "Draw_Graph(): Алокација меморије за тачке ниј
 msgid "This theme has no inverted variant"
 msgstr "Ова тема нема инверзну варијанту"
 
-#: src/freqplots/freqplots_theme_menu.c:95
+#: src/freqplots/freqplots_theme_menu.c:120
 msgid "_Invert"
 msgstr "_Инвертуј"
 
@@ -4147,20 +4287,20 @@ msgstr ""
 "verify_segments() прескаче фреквенцијски зависне провере - нема "
 "фреквенцијских података\n"
 
-#: src/gnuplot.c:42
+#: src/gnuplot.c:43
 msgid "Gnuplot Data"
 msgstr "Gnuplot подаци"
 
-#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
+#: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Чување није могуће: фреквенцијски прелаз је недовршен"
 
-#: src/gnuplot.c:56
+#: src/gnuplot.c:57
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# Референтна импеданса Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:58
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4170,18 +4310,18 @@ msgstr ""
 "исцртава MHz наспрам zreal и zimag:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:59
+#: src/gnuplot.c:60
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92 src/gnuplot.c:102
+#: src/gnuplot.c:93 src/gnuplot.c:103
 msgid "Touchstone Data"
 msgstr "Touchstone подаци"
 
-#: src/gnuplot.c:103
+#: src/gnuplot.c:104
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4189,46 +4329,46 @@ msgstr ""
 "Није могуће сачувати: S-parameters захтевају импедансу тачке напајања, коју "
 "ова побуда не обезбеђује"
 
-#: src/gnuplot.c:119
+#: src/gnuplot.c:120
 #, c-format
 msgid "! Reference impedance Z0 = %.2f Ohm\n"
 msgstr "! Референтна импеданса Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:161
+#: src/gnuplot.c:162
 msgid "CSV Data"
 msgstr "CSV подаци"
 
-#: src/gnuplot.c:244
+#: src/gnuplot.c:245
 #, c-format
 msgid "# Near E field\n"
 msgstr "# Блиско E поље\n"
 
-#: src/gnuplot.c:271
+#: src/gnuplot.c:272
 #, c-format
 msgid "# Near H field\n"
 msgstr "# Блиско H поље\n"
 
-#: src/gnuplot.c:311
+#: src/gnuplot.c:312
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# Појнтингов вектор\n"
 
-#: src/gnuplot.c:370
+#: src/gnuplot.c:371
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# Дијаграм зрачења\n"
 
-#: src/gnuplot.c:508
+#: src/gnuplot.c:509
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# патч сегменти структуре\n"
 
-#: src/gnuplot.c:543
+#: src/gnuplot.c:544
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# сегменти жице структуре\n"
 
-#: src/gnuplot.c:573
+#: src/gnuplot.c:574
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4237,11 +4377,11 @@ msgstr ""
 "Прикажи са: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
 "close\"\n"
 
-#: src/gnuplot.c:585
+#: src/gnuplot.c:586
 msgid "Save Currents and Charges to CSV"
 msgstr "Сачувај струје и наелектрисања у CSV"
 
-#: src/gnuplot.c:586
+#: src/gnuplot.c:587
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4249,11 +4389,11 @@ msgstr ""
 "Морате омогућити податке о струјама кликом на \"Струје\" или \"Наелектрисања"
 "\" у главном xnec2c прозору."
 
-#: src/gnuplot.c:651 src/gnuplot.c:661
+#: src/gnuplot.c:652 src/gnuplot.c:662
 msgid "Save Patch Currents to CSV"
 msgstr "Сачувај патч струје у CSV"
 
-#: src/gnuplot.c:652
+#: src/gnuplot.c:653
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4261,7 +4401,7 @@ msgstr ""
 "Морате омогућити податке о струјама кликом на \"Струје\" или \"Наелектрисања"
 "\" у главном xnec2c прозору."
 
-#: src/gnuplot.c:662
+#: src/gnuplot.c:663
 msgid "No surface patches in this model."
 msgstr "Нема површинских патчева у овом моделу."
 
@@ -4782,97 +4922,97 @@ msgstr ""
 "платформи.\n"
 
 # xnec2c-exempt: name
-#: src/interface.c:280
+#: src/interface.c:279
 #, c-format
 msgid "xnec2c %s: %s"
 msgstr ""
 
-#: src/interface.c:373
+#: src/interface.c:372
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: није успело учитавање animate.glade: %s\n"
 
-#: src/main.c:126
+#: src/main.c:127
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Детектовано %s позадинско окружење прозора\n"
 
-#: src/main.c:134
+#: src/main.c:135
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch и --optimize су међусобно искључиви.\n"
 
-#: src/main.c:143
+#: src/main.c:144
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png захтева --batch\n"
 
-#: src/main.c:159
+#: src/main.c:160
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "путања улазне датотеке је предугачка ( > %d знакова )\n"
 
-#: src/main.c:166
+#: src/main.c:167
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "неочекивани аргумент '%s' не изгледа као .nec датотека\n"
 
-#: src/main.c:173
+#: src/main.c:174
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "неочекивани аргумент: %s\n"
 
-#: src/main.c:179
+#: src/main.c:180
 msgid "batch mode requires an input file\n"
 msgstr "batch режим захтева улазну датотеку\n"
 
-#: src/main.c:189
+#: src/main.c:190
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "Није могуће отворити екран: потребна је активна X11 или Wayland сесија\n"
 
-#: src/main.c:208
+#: src/main.c:213
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Покретање fork-а за %d послова на %d процесора.\n"
 
-#: src/main.c:221 src/main.c:229
+#: src/main.c:226 src/main.c:234
 msgid "exiting after fatal error: pipe() failed"
 msgstr "излазак након фаталне грешке: pipe() није успео"
 
-#: src/main.c:238
+#: src/main.c:243
 msgid "exiting after fatal error: fork() failed"
 msgstr "излазак након фаталне грешке: fork() није успео"
 
-#: src/main.c:833
+#: src/main.c:838
 msgid "exiting via user interrupt\n"
 msgstr "излазак прекидом корисника\n"
 
-#: src/main.c:837
+#: src/main.c:842
 msgid "segmentation fault, exiting\n"
 msgstr "грешка сегментације, излазак\n"
 
-#: src/main.c:841
+#: src/main.c:846
 msgid "floating point exception, exiting\n"
 msgstr "грешка са покретним зарезом, излазак\n"
 
-#: src/main.c:845
+#: src/main.c:850
 msgid "abort signal received, exiting\n"
 msgstr "примљен сигнал за прекид, излазак\n"
 
-#: src/main.c:849
+#: src/main.c:854
 msgid "termination request received, exiting\n"
 msgstr "примљен захтев за завршетак, излазак\n"
 
-#: src/main.c:859
+#: src/main.c:864
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "није форковано, игноришем SIGCHLD од pid %d\n"
 
-#: src/main.c:867
+#: src/main.c:872
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "подређени процес pid %d је завршен\n"
 
-#: src/main.c:876
+#: src/main.c:881
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "подразумевани излаз са сигналом: %d\n"
@@ -5376,19 +5516,19 @@ msgstr ""
 msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Генерисан атлас текстура ознака (ID=%u)\n"
 
-#: src/opengl-engine/opengl_axes.c:156
+#: src/opengl-engine/opengl_axes.c:161
 msgid "Failed to load axes line shader\n"
 msgstr "Није успело учитавање сенчара линија оса\n"
 
-#: src/opengl-engine/opengl_axes.c:189
+#: src/opengl-engine/opengl_axes.c:192
 msgid "Axes renderer initialized\n"
 msgstr "Рендерер оса је иницијализован\n"
 
-#: src/opengl-engine/opengl_axes.c:193
+#: src/opengl-engine/opengl_axes.c:196
 msgid "Failed to load text shaders\n"
 msgstr "Није успело учитавање сенчара текста\n"
 
-#: src/opengl-engine/opengl_cairo_overlay.c:60
+#: src/opengl-engine/opengl_cairo_overlay.c:62
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Није успело учитавање cairo преклоп сенчара\n"
 
@@ -5396,54 +5536,63 @@ msgstr "Није успело учитавање cairo преклоп сенча
 msgid "Failed to create cairo overlay base\n"
 msgstr "Није успело креирање cairo преклоп основе\n"
 
-#: src/opengl-engine/opengl_ground_plane.c:103
+#: src/opengl-engine/opengl_ground_plane.c:105
 msgid "Failed to load ground plane shaders\n"
 msgstr "Није успело учитавање сенчара равни уземљења\n"
 
 #: src/opengl-engine/opengl_renderer.c:55
 #, c-format
+msgid "Shader declares no version directive: %s\n"
+msgstr "Шејдер не наводи директиву верзије: %s\n"
+
+#: src/opengl-engine/opengl_renderer.c:99
+#, c-format
 msgid "Failed to load shader: %s (%s)\n"
 msgstr "Није успело учитавање сенчара: %s (%s)\n"
 
-#: src/opengl-engine/opengl_renderer.c:84
+#: src/opengl-engine/opengl_renderer.c:149
 #, c-format
 msgid "Shader compile error: %s: %s\n"
 msgstr "Грешка компилације сенчара: %s: %s\n"
 
-#: src/opengl-engine/opengl_renderer.c:126
+#: src/opengl-engine/opengl_renderer.c:190
 #, c-format
 msgid "Shader link failed: %s + %s\n"
 msgstr "Повезивање сенчара није успело: %s + %s\n"
 
-#: src/opengl-engine/opengl_view.c:184
+#: src/opengl-engine/opengl_view.c:222
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "Грешка OpenGL контекста — нема доступне OpenGL имплементације на овом "
 "екрану\n"
 
-#: src/opengl-engine/opengl_view.c:197
+#: src/opengl-engine/opengl_view.c:230
+msgid "Disabling OpenGL: shader catalog failed\n"
+msgstr "Онемогућавање OpenGL-а: неуспех каталога шејдера\n"
+
+#: src/opengl-engine/opengl_view.c:243
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "Онемогућавање OpenGL: сенчар сцене није успео\n"
 
-#: src/opengl-engine/opengl_view.c:212
+#: src/opengl-engine/opengl_view.c:258
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "Онемогућавање OpenGL: преклоп сенчар није успео\n"
 
-#: src/opengl-engine/opengl_view.c:224
+#: src/opengl-engine/opengl_view.c:270
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "Онемогућавање OpenGL: рендерер оса није успео\n"
 
-#: src/opengl-engine/opengl_view.c:253
+#: src/opengl-engine/opengl_view.c:299
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "Онемогућавање OpenGL: сенчар равни уземљења није успео\n"
 
-#: src/opengl-engine/opengl_view.c:275
+#: src/opengl-engine/opengl_view.c:321
 #, c-format
 msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "Број елемената за исцртавање %u превазилази MAX_RENDERABLES (%d)\n"
 
-#: src/opengl-engine/opengl_view.c:354
+#: src/opengl-engine/opengl_view.c:402
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "Онемогућавање OpenGL: peel composite сенчар није успео\n"
 
@@ -5464,10 +5613,6 @@ msgstr "MSAA framebuffer није комплетан\n"
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA resolve framebuffer није комплетан\n"
 
-#: src/opengl-engine/opengl_view_overlay.c:326
-msgid "Failed to load overlay shaders\n"
-msgstr "Није успело учитавање преклоп сенчара\n"
-
 #: src/opengl-engine/opengl_view_peel.c:254
 #, c-format
 msgid "Peel FBO %d incomplete\n"
@@ -5486,15 +5631,11 @@ msgstr "Peel акумулациони FBO није комплетан\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "Дубински FBO слоја није комплетан\n"
 
-#: src/opengl-engine/opengl_view_render.c:427
+#: src/opengl-engine/opengl_view_render.c:389
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Провидни елементи прескочени: peel FBO-ови нису доступни\n"
 
-#: src/opengl-engine/opengl_view_scene.c:297
-msgid "Failed to load shaders\n"
-msgstr "Није успело учитавање сенчара\n"
-
-#: src/opengl/opengl_rdpattern.c:355
+#: src/opengl/opengl_rdpattern.c:345
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: неважећи стил цртања %d, користим површину\n"
@@ -5787,17 +5928,17 @@ msgstr ""
 "Просечан добитак: %.4f (%.2f dBi), ефикасност: %.1f%%, просторни угао: %.4f "
 "* pi sr\n"
 
-#: src/rc_config.c:885
+#: src/rc_config.c:958
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "није могуће извршити getcwd(): %s\n"
 
-#: src/rc_config.c:889
+#: src/rc_config.c:962
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "Променљива окружења HOME није дефинисана, користим %s\n"
 
-#: src/rc_config.c:974
+#: src/rc_config.c:1047
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
@@ -5805,27 +5946,36 @@ msgstr ""
 "%s (locale=%s): поклопило се само %d од %lu знакова, пробавам другу "
 "локализацију: %s\n"
 
-#: src/rc_config.c:1193
+#: src/rc_config.c:1266
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "прозор: x=%-5d y=%-5d w=%-5d h=%-5d  наслов: \"%s\"\n"
 
-#: src/rc_config.c:1227
+#: src/rc_config.c:1300
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: EOF при читању верзије апликације.\n"
 
-#: src/rc_config.c:1233
+#: src/rc_config.c:1306
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "Верзија постојеће конфигурационе датотеке се разликује: %s != %s\n"
 
-#: src/rc_config.c:1367
+#: src/rc_config.c:1353
+#, c-format
+msgid ""
+"gain readouts are scaled to %s, restored from the previous session; select "
+"Total Gain to read total gain\n"
+msgstr ""
+"очитавања добитка скалирана су на %s, враћено из претходне сесије; изаберите "
+"Укупни добитак за читање укупног добитка\n"
+
+#: src/rc_config.c:1463
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "stat није успео за %s: %s\n"
 
-#: src/rc_config.c:1373
+#: src/rc_config.c:1469
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5834,51 +5984,94 @@ msgstr ""
 "Исправљена дозвола директоријума %s са 0%o на 0%o због грешке унесене "
 "у4e62893b.\n"
 
-#: src/rc_config.c:1404
+#: src/rc_config.c:1500
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: Линија није парсирана: %s\n"
 
-#: src/rc_config.c:1410
+#: src/rc_config.c:1506
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: Превремени крај датотеке за %s: %s \n"
 
-#: src/rc_config.c:1435
+#: src/rc_config.c:1531
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: грешка парсирања (%s): %s \n"
 
-#: src/rc_config.c:1449
+#: src/rc_config.c:1545
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr ""
 "Неважећи индекс модела неба %d у конфигурацији, ресетовање на подразумевано\n"
 
-#: src/rc_config.c:1455
+#: src/rc_config.c:1551
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Неважећи индекс модела земље %d у конфигурацији, ресетовање на "
 "подразумевано\n"
 
-#: src/rc_config.c:1461
+#: src/rc_config.c:1557
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Неважећа метода интерполације %d у конфигурацији, ресетовање на "
 "подразумевано\n"
 
-#: src/rc_config.c:1636
+#: src/rc_config.c:1565
+#, c-format
+msgid "Invalid flow visualization mode %d in config, resetting to default\n"
+msgstr ""
+"Неисправан режим визуализације тока %d у подешавањима, враћа се на "
+"подразумевани\n"
+
+#: src/rc_config.c:1745
 msgid "batch mode: skipping configuration save\n"
 msgstr "batch режим: прескачем чување конфигурације\n"
 
-#: src/rc_config.c:1643
+#: src/rc_config.c:1752
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "није могуће отворити конфигурациону датотеку xnec2c %s: %s\n"
 
-#: src/rdpattern_ui.c:38
+#: src/rdpattern_noise_menu.c:37
+msgid "Read the noise temperature at the nearest tabulated frequency."
+msgstr "Очитајте температуру шума на најближој табелираној фреквенцији."
+
+#: src/rdpattern_noise_menu.c:39
+msgid ""
+"Interpolate the noise temperature between tabulated frequencies in log-log "
+"space, clamped at the table edges."
+msgstr ""
+"Интерполишите температуру шума између табелираних фреквенција у log-log "
+"простору, ограничено на ивицама табеле."
+
+#: src/rdpattern_noise_menu.c:133
+msgid "Available while a selected sky or earth model reads a frequency table."
+msgstr "Доступно док изабрани модел неба или тла чита табелу фреквенција."
+
+#: src/rdpattern_noise_menu.c:135
+msgid ""
+"The selected sky and earth models resolve by an intrinsic method; select a "
+"table-based model to enable."
+msgstr ""
+"Изабрани модели неба и тла решавају се својственим методом; изаберите модел "
+"заснован на табели да бисте омогућили."
+
+#: src/rdpattern_noise_menu.c:296
+msgid "Sky Model"
+msgstr "Модел неба"
+
+#: src/rdpattern_noise_menu.c:303
+msgid "Earth Model"
+msgstr "Модел тла"
+
+#: src/rdpattern_noise_menu.c:311
+msgid "Interpolation"
+msgstr "Интерполација"
+
+#: src/rdpattern_ui.c:39
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5892,7 +6085,23 @@ msgstr ""
 "Анимација H-поља: Додајте NH картицу у NEC датотеку\n"
 "Појнтингов вектор: Додајте и NE и NH картице"
 
-#: src/rdpattern_ui.c:94
+#: src/rdpattern_ui.c:59
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Close the animation window to enable this setting."
+msgstr ""
+"Бира приказ вектора статичног блиског поља.\n"
+"Поставка се омогућава по затварању прозора анимације."
+
+#: src/rdpattern_ui.c:61
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Applies while the animation window is closed."
+msgstr ""
+"Бира приказ вектора статичног блиског поља.\n"
+"Примењује се док је прозор анимације затворен."
+
+#: src/rdpattern_ui.c:129
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -5901,18 +6110,18 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d ван опсега [0..%d], подразумевано "
 "GS_LINP\n"
 
-#: src/rdpattern_ui.c:516
+#: src/rdpattern_ui.c:544
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Добитак у правцу гледишта, за тренутне углове приказа."
 
-#: src/rdpattern_ui.c:518
+#: src/rdpattern_ui.c:546
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr ""
 "Температура осветљености у правцу гледишта, за тренутне углове приказа."
 
-#: src/rdpattern_ui.c:538 src/rdpattern_ui.c:544
+#: src/rdpattern_ui.c:566 src/rdpattern_ui.c:572
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -5920,7 +6129,7 @@ msgstr ""
 "Елевациони угао посматрања. Помера границу небо/земља за евалуацију "
 "температуре антене. 0° = хоризонт."
 
-#: src/rdpattern_ui.c:541 src/rdpattern_ui.c:547
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5928,7 +6137,7 @@ msgstr ""
 "Елевациони угао посматрања за температуру антене.\n"
 "Изаберите Стил добитка → Температура шума да бисте омогућили."
 
-#: src/rdpattern_ui.c:550
+#: src/rdpattern_ui.c:578
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
@@ -5936,7 +6145,7 @@ msgstr ""
 "Независни селектори модела неба, земље и интерполације за моделе температуре "
 "шума."
 
-#: src/rdpattern_ui.c:552
+#: src/rdpattern_ui.c:580
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5944,71 +6153,71 @@ msgstr ""
 "Модели температуре шума неба и земље.\n"
 "Изаберите Стил добитка → Температура шума да бисте омогућили."
 
-#: src/rdpattern_ui.c:846
+#: src/rdpattern_ui.c:889
 msgid "Total Gain"
 msgstr "Укупан добитак"
 
-#: src/rdpattern_ui.c:847
+#: src/rdpattern_ui.c:890
 msgid "Horizontal Polarization"
 msgstr "Хоризонтална поларизација"
 
-#: src/rdpattern_ui.c:848
+#: src/rdpattern_ui.c:891
 msgid "Vertical Polarization"
 msgstr "Вертикална поларизација"
 
-#: src/rdpattern_ui.c:849
+#: src/rdpattern_ui.c:892
 msgid "RH Circular Polarization"
 msgstr "Десна кружна поларизација"
 
-#: src/rdpattern_ui.c:850
+#: src/rdpattern_ui.c:893
 msgid "LH Circular Polarization"
 msgstr "Лева кружна поларизација"
 
-#: src/rdpattern_ui.c:855
+#: src/rdpattern_ui.c:944
 msgid "Linear Power"
 msgstr "Линеарна снага"
 
-#: src/rdpattern_ui.c:856
+#: src/rdpattern_ui.c:945
 msgid "Linear Voltage"
 msgstr "Линеарни напон"
 
-#: src/rdpattern_ui.c:857
+#: src/rdpattern_ui.c:946
 msgid "ARRL Scale"
 msgstr "ARRL скала"
 
-#: src/rdpattern_ui.c:858
+#: src/rdpattern_ui.c:947
 msgid "Logarithmic Scale"
 msgstr "Логаритамска скала"
 
-#: src/rdpattern_ui.c:859
+#: src/rdpattern_ui.c:948
 msgid "Noise Temperature"
 msgstr "Температура шума"
 
-#: src/rdpattern_ui.c:860
+#: src/rdpattern_ui.c:949
 msgid "Noise Temp (log scale)"
 msgstr "Темп. шума (лог. скала)"
 
-#: src/rdpattern_ui.c:872
+#: src/rdpattern_ui.c:967
 msgid "Radiation Pattern: - "
 msgstr "Дијаграм зрачења: - "
 
-#: src/rdpattern_ui.c:892
+#: src/rdpattern_ui.c:991
 msgid "Near Fields:"
 msgstr "Блиска поља:"
 
-#: src/rdpattern_ui.c:894
+#: src/rdpattern_ui.c:993
 msgid " - E Field"
 msgstr " - E поље"
 
-#: src/rdpattern_ui.c:896
+#: src/rdpattern_ui.c:995
 msgid " - H Field"
 msgstr " - H поље"
 
-#: src/rdpattern_ui.c:898
+#: src/rdpattern_ui.c:997
 msgid " - Poynting Vector"
 msgstr " - Појнтингов вектор"
 
-#: src/rdpattern_ui.c:908
+#: src/rdpattern_ui.c:1008
 msgid "Frequency Data Plots - "
 msgstr "Графици фреквенцијских података - "
 
@@ -6030,22 +6239,22 @@ msgstr "render_fit_solve: нема геометрије за уклапање\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Петља оптимизатора није завршена, прескачем привремено исцртавање.\n"
 
-#: src/settings/render_settings_common.c:116
+#: src/settings/render_settings_common.c:119
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: није успело учитавање glade: %s\n"
 
-#: src/settings/render_settings_common.c:126
+#: src/settings/render_settings_common.c:129
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: није успело учитавање opengl glade: %s\n"
 
-#: src/settings/render_settings_common.c:136
+#: src/settings/render_settings_common.c:139
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: није успело учитавање cairo glade: %s\n"
 
-#: src/settings/render_settings_common.c:149
+#: src/settings/render_settings_common.c:152
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: није успело преузимање render_settings_window из "
@@ -6154,38 +6363,38 @@ msgstr ""
 "Одређује да ли овај параметар замењује вредност NEC модела.\n"
 "Искључите Opt за независно управљање."
 
-#: src/themes/theme.c:140
+#: src/themes/theme.c:135
 #, c-format
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "тема '%s' улога '%s' неважећа боја, користим наслеђено подразумевано\n"
 
-#: src/themes/theme.c:223
+#: src/themes/theme.c:218
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "тема: није могуће учитати ресурс %s: %s\n"
 
-#: src/themes/theme.c:233
+#: src/themes/theme.c:228
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "тема: није могуће рашчланити ресурс %s: %s\n"
 
-#: src/themes/theme.c:259
+#: src/themes/theme.c:254
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "тема: није могуће рашчланити %s, користим уграђене подразумеване вредности\n"
 
-#: src/themes/theme.c:388
+#: src/themes/theme.c:377
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "тема '%s' нема инверзну варијанту, користим основну\n"
 
-#: src/themes/theme.c:396
+#: src/themes/theme.c:385
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "тема '%s' није пронађена, користим наслеђено\n"
 
-#: src/themes/theme.c:468
+#: src/themes/theme.c:428
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "ширина '%s' неважећа, задржавам тренутну вредност\n"
@@ -6244,7 +6453,7 @@ msgstr ""
 msgid "%s:\n"
 msgstr ""
 
-#: src/validation_dump.c:34
+#: src/validation_dump.c:35
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6252,22 +6461,22 @@ msgstr ""
 "верификација: nec2-builtin mathlib није доступна; нумерички резултати могу "
 "се разликовати од референце\n"
 
-#: src/validation_dump.c:39
+#: src/validation_dump.c:40
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr "верификација: mathlib приморан на nec2-builtin ради поновљивости\n"
 
-#: src/validation_dump.c:58
+#: src/validation_dump.c:59
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
 "верификација: модели температуре антене и елевација приморани ради "
 "поновљивости\n"
 
-#: src/validation_dump.c:68
+#: src/validation_dump.c:69
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "верификација: поларизација приморана на укупну ради поновљивости\n"
 
-#: src/validation_dump.c:87
+#: src/validation_dump.c:88
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6275,24 +6484,24 @@ msgstr ""
 "верификација: приказивач структуре ресетован на подразумевану оријентацију "
 "ради поновљивости\n"
 
-#: src/validation_dump.c:614 src/validation_dump.c:620
+#: src/validation_dump.c:621 src/validation_dump.c:627
 msgid "Validation Tree"
 msgstr "Дрво верификације"
 
-#: src/validation_dump.c:614
+#: src/validation_dump.c:621
 msgid "Cannot save: frequency loop not done"
 msgstr "Није могуће сачувати: фреквенцијска петља није завршена"
 
-#: src/validation_dump.c:620
+#: src/validation_dump.c:627
 msgid "Cannot create output directory"
 msgstr "Није могуће креирати излазни директоријум"
 
-#: src/validation_dump.c:652
+#: src/validation_dump.c:659
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "дрво верификације уписано у: %s\n"
 
-#: src/xnec2c.c:306
+#: src/xnec2c.c:304
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
@@ -6301,16 +6510,16 @@ msgstr ""
 "комплексна диелектрична константа из датотеке: %12.5E%+12.5Ej, захтевана: "
 "%12.5E%+12.5Ej\n"
 
-#: src/xnec2c.c:309
+#: src/xnec2c.c:307
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters(): Грешка у параметрима уземљења"
 
-#: src/xnec2c.c:733
+#: src/xnec2c.c:731
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f секунди. (%s)\n"
 
-#: src/xnec2c.c:1077
+#: src/xnec2c.c:1075
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
@@ -6318,79 +6527,79 @@ msgstr ""
 "корак %d је претекао: послато %.6f MHz, тренутно %.6f MHz; понављам "
 "прорачун\n"
 
-#: src/xnec2c.c:1203
+#: src/xnec2c.c:1201
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "подређени процес %d има неважећи pipe fd током форкованог прикупљања\n"
 
-#: src/xnec2c.c:1256
+#: src/xnec2c.c:1254
 msgid "Failed to read data from forked child\n"
 msgstr "Није успело читање података од форкованог подређеног процеса\n"
 
-#: src/xnec2c.c:1530
+#: src/xnec2c.c:1528
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "најближи корак %g MHz разликује се од захтеваног %g MHz\n"
 
-#: src/xnec2c.c:1534
+#: src/xnec2c.c:1532
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "фреквенција након пролаза постављена је на %.4f MHz (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1572
+#: src/xnec2c.c:1570
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Протекло време петље фреквенције: %f секунди. (%s)\n"
 
-#: src/xnec2c.c:1624
+#: src/xnec2c.c:1622
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "групно платно %d није исцртало кадар при %dx%d\n"
 
-#: src/xnec2c.c:1789
+#: src/xnec2c.c:1787
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "снимање PNG дијаграма зрачења: нема израчунатог корака за %s\n"
 
-#: src/xnec2c.c:1861
+#: src/xnec2c.c:1859
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "неуспело снимање PNG дијаграма зрачења за %s\n"
 
-#: src/xnec2c.c:1867
+#: src/xnec2c.c:1865
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "неуспело чување PNG дијаграма зрачења за %s: %s\n"
 
-#: src/xnec2c.c:1872
+#: src/xnec2c.c:1870
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "уписан PNG дијаграм зрачења: %s\n"
 
-#: src/xnec2c.c:1909
+#: src/xnec2c.c:1907
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "вишеструки PNG формати дијаграма зрачења захтевају назив датотеке .png: %s\n"
 
-#: src/xnec2c.c:2014
+#: src/xnec2c.c:2012
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "пролаз покреће %d радника са по %d нити\n"
 
-#: src/xnec2c.c:2306
+#: src/xnec2c.c:2304
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "није успело покретање Frequency_Loop_Thread\n"
 
-#: src/xnec2c.c:2485
+#: src/xnec2c.c:2483
 msgid "Frequency Sweep"
 msgstr "Фреквентно претраживање"
 
-#: src/xnec2c.c:2486
+#: src/xnec2c.c:2484
 msgid "Recalculate the frequency sweep?"
 msgstr "Да ли поново да израчунамо фреквентно претраживање?"
 
-#: src/xnec2c.c:2487
+#: src/xnec2c.c:2485
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

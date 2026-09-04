@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-24 14:07-0700\n"
+"POT-Creation-Date: 2026-08-31 13:53-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -34,11 +34,58 @@ msgstr "Sayısal Elektromanyetik Kod yazılımı"
 msgid "nec2;em;simulator;"
 msgstr "nec2;em;simülatör;"
 
-#: resources/animate.glade:85
+#: resources/animate.glade:136
+msgid "Total"
+msgstr "Toplam"
+
+#: resources/animate.glade:146
+msgid "Horizontal"
+msgstr "Yatay"
+
+#: resources/animate.glade:156
+msgid "Vertical"
+msgstr "Dikey"
+
+#: resources/animate.glade:166
+msgid "Right Hand"
+msgstr "Sağ El"
+
+#: resources/animate.glade:176
+msgid "Left Hand"
+msgstr "Sol El"
+
+#: resources/animate.glade:191 resources/animate.glade:272
+#: resources/animate.glade:375
 msgid "Animated"
 msgstr "Animasyonlu"
 
-#: resources/animate.glade:92
+#: resources/animate.glade:198 resources/xnec2c.glade:11075
+msgid "_Reference Phase"
+msgstr "_Referans Fazı"
+
+#: resources/animate.glade:209 resources/xnec2c.glade:11086
+msgid "_LIC Texture"
+msgstr "_LIC Dokusu"
+
+#: resources/animate.glade:220 resources/xnec2c.glade:11097
+#: resources/xnec2c.glade:12290
+msgid "_Wireframe"
+msgstr "_Tel Kafes"
+
+#: resources/animate.glade:238 resources/animate.glade:330
+#: resources/animate.glade:399
+msgid "Static"
+msgstr "Statik"
+
+#: resources/animate.glade:245 resources/xnec2c.glade:11122
+msgid "Polarization _Axis"
+msgstr "Polarizasyon _Ekseni"
+
+#: resources/animate.glade:256 resources/xnec2c.glade:11133
+msgid "Peak _Magnitude"
+msgstr "Tepe _Genliği"
+
+#: resources/animate.glade:279
 msgid ""
 "Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
 "cos(arg z + φ)|, floored so nulls stay visible.\n"
@@ -50,11 +97,11 @@ msgstr ""
 "\n"
 "Animasyonlu: faz ilerledikçe parlak bölgeler yapı boyunca kayar."
 
-#: resources/animate.glade:93
+#: resources/animate.glade:280 resources/animate.glade:383
 msgid "Instantaneous"
 msgstr "Anlık"
 
-#: resources/animate.glade:103
+#: resources/animate.glade:290
 msgid ""
 "Diverging hue shows the instantaneous sign of the displayed quantity: cold "
 "negative, hot positive; brightness carries the magnitude s(n).\n"
@@ -66,11 +113,11 @@ msgstr ""
 "\n"
 "Animasyonlu: faz ilerledikçe bölgeler kutup değiştirir."
 
-#: resources/animate.glade:104
+#: resources/animate.glade:291
 msgid "Polarity"
 msgstr "Kutupluluk"
 
-#: resources/animate.glade:114
+#: resources/animate.glade:301
 msgid ""
 "Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
 "magnitude s(n).\n"
@@ -82,11 +129,11 @@ msgstr ""
 "\n"
 "Animasyonlu: faz ilerledikçe çemberin tamamı döner."
 
-#: resources/animate.glade:115
+#: resources/animate.glade:302
 msgid "Phase Hue"
 msgstr "Faz Tonu"
 
-#: resources/animate.glade:125
+#: resources/animate.glade:312
 msgid ""
 "Diverging hue shows the instantaneous charge sign; brightness carries the "
 "current envelope s(|I|).\n"
@@ -98,15 +145,11 @@ msgstr ""
 "\n"
 "Animasyonlu: yük ve akımın çeyrek çevrim arayla tek görünümü."
 
-#: resources/animate.glade:126
+#: resources/animate.glade:313
 msgid "Current + Charge"
 msgstr "Akım + Yük"
 
-#: resources/animate.glade:143
-msgid "Static"
-msgstr "Statik"
-
-#: resources/animate.glade:150
+#: resources/animate.glade:337
 msgid ""
 "Rainbow ramp of this frequency step's peak magnitude s(n) at full "
 "brightness.\n"
@@ -118,11 +161,11 @@ msgstr ""
 "\n"
 "Statik: fazdan bağımsız taban çizgisi; oynatma sırasında renkler sabit kalır."
 
-#: resources/animate.glade:151
+#: resources/animate.glade:338
 msgid "Amplitude"
 msgstr "Genlik"
 
-#: resources/animate.glade:161
+#: resources/animate.glade:348
 msgid ""
 "Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
 "brightness carries the magnitude s(n).\n"
@@ -134,11 +177,11 @@ msgstr ""
 "\n"
 "Statik: fazdan bağımsız bir okuma; oynatma sırasında renkler sabit kalır."
 
-#: resources/animate.glade:162
+#: resources/animate.glade:349
 msgid "Standing/Traveling"
 msgstr "Duran/İlerleyen"
 
-#: resources/animate.glade:172
+#: resources/animate.glade:359
 msgid ""
 "Hue ramps each segment's contribution to the selected far-field direction; "
 "brightness carries the magnitude s(n).\n"
@@ -150,11 +193,49 @@ msgstr ""
 "\n"
 "Statik: fazdan bağımsız bir okuma; oynatma sırasında renkler sabit kalır."
 
-#: resources/animate.glade:173
+#: resources/animate.glade:360
 msgid "Far-field Contribution"
 msgstr "Uzak Alan Katkısı"
 
-#: resources/animate.glade:187
+#: resources/animate.glade:382
+msgid ""
+"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animated: scaled regions travel through phase peaks and contract at zero "
+"crossings as the phase advances."
+msgstr ""
+"Her segmenti anlık büyüklük s(n) · |cos(arg z + φ)| değerinden ölçekleyin.\n"
+"\n"
+"Canlı: ölçeklenen bölgeler faz ilerledikçe faz tepelerinden geçer ve sıfır "
+"geçişlerinde daralır."
+
+#: resources/animate.glade:406
+msgid ""
+"Scale each segment from the peak magnitude s(n), enlarging strong regions "
+"and contracting nulls.\n"
+"\n"
+"Static: the phase-invariant scale holds still during playback."
+msgstr ""
+"Her segmenti tepe büyüklüğü s(n) değerinden ölçekleyin; güçlü bölgeleri "
+"büyütün ve sıfır noktalarını daraltın.\n"
+"\n"
+"Durağan: faz değişmez ölçek, oynatma sırasında sabit kalır."
+
+#: resources/animate.glade:407
+msgid "Envelope magnitude"
+msgstr "Zarf büyüklüğü"
+
+#: resources/animate.glade:417
+msgid ""
+"Keep each segment at its model radius instead of scaling it by magnitude."
+msgstr "Her segmenti büyüklüğe göre ölçeklemek yerine model yarıçapında tutun."
+
+#: resources/animate.glade:418
+msgid "Model radius"
+msgstr "Model yarıçapı"
+
+#: resources/animate.glade:433
 msgid ""
 "Power-law transfer n^γ of the normalized magnitude.\n"
 "\n"
@@ -170,11 +251,11 @@ msgstr ""
 "üzerinden ışınım gücü katkısıyla) orantılıdır, |q|² depolanan elektrostatik "
 "enerjiyle orantılıdır."
 
-#: resources/animate.glade:188
+#: resources/animate.glade:434
 msgid "Power"
 msgstr "Güç"
 
-#: resources/animate.glade:198
+#: resources/animate.glade:444
 msgid ""
 "Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
 "decibels.\n"
@@ -189,12 +270,12 @@ msgstr ""
 "renge kırpılır."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:199 resources/xnec2c.glade:11713
+#: resources/animate.glade:445 resources/xnec2c.glade:11713
 #: resources/xnec2c.glade:13071
 msgid "dB"
 msgstr ""
 
-#: resources/animate.glade:209
+#: resources/animate.glade:455
 msgid ""
 "Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
 "\n"
@@ -207,11 +288,11 @@ msgstr ""
 "lin-log cihaz ölçeği gibi."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:210
+#: resources/animate.glade:456
 msgid "Asinh"
 msgstr ""
 
-#: resources/animate.glade:220
+#: resources/animate.glade:466
 msgid ""
 "μ-law companding, the telephony-standard bounded log curve.\n"
 "\n"
@@ -224,11 +305,11 @@ msgstr ""
 "μ = 255 değeridir."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:221
+#: resources/animate.glade:467
 msgid "μ-law"
 msgstr ""
 
-#: resources/animate.glade:231
+#: resources/animate.glade:477
 msgid ""
 "Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
 "\n"
@@ -241,11 +322,11 @@ msgstr ""
 "belirler."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:232
+#: resources/animate.glade:478
 msgid "Reinhard"
 msgstr ""
 
-#: resources/animate.glade:242
+#: resources/animate.glade:488
 msgid ""
 "Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
 "\n"
@@ -258,11 +339,11 @@ msgstr ""
 "doğru yumuşakça doyuma ulaşır; a diklik değerini belirler."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:243
+#: resources/animate.glade:489
 msgid "Sigmoid"
 msgstr ""
 
-#: resources/animate.glade:253
+#: resources/animate.glade:499
 msgid ""
 "Identity: every magnitude renders at full brightness.\n"
 "\n"
@@ -272,16 +353,16 @@ msgstr ""
 "\n"
 "Bilgiyi yalnızca renk projeksiyonu taşır."
 
-#: resources/animate.glade:254 resources/settings/cairo_settings.glade:56
+#: resources/animate.glade:500 resources/settings/cairo_settings.glade:56
 msgid "None"
 msgstr "Yok"
 
-#: resources/animate.glade:266 src/rdpattern_ui.c:366 src/rdpattern_ui.c:374
-#: src/rdpattern_ui.c:381
+#: resources/animate.glade:512 src/rdpattern_ui.c:401 src/rdpattern_ui.c:409
+#: src/rdpattern_ui.c:416
 msgid "Near Field Animation"
 msgstr "Yakın Alan Animasyonu"
 
-#: resources/animate.glade:358
+#: resources/animate.glade:604
 msgid ""
 "Scrub the animation phase manually.\n"
 "\n"
@@ -292,27 +373,27 @@ msgstr ""
 "Animasyon çalışırken devre dışıdır."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:375
+#: resources/animate.glade:621
 msgid "φ 0°"
 msgstr ""
 
-#: resources/animate.glade:389
+#: resources/animate.glade:635
 msgid "Phase"
 msgstr "Faz"
 
-#: resources/animate.glade:412
+#: resources/animate.glade:658
 msgid "Frames/Sec"
 msgstr "Kare/Sn"
 
-#: resources/animate.glade:425
+#: resources/animate.glade:671
 msgid "Animate Freq (Hz)"
 msgstr "Animasyon Frekansı (Hz)"
 
-#: resources/animate.glade:498
+#: resources/animate.glade:747
 msgid "Color projection:"
 msgstr "Renk projeksiyonu:"
 
-#: resources/animate.glade:512
+#: resources/animate.glade:762
 msgid ""
 "Select which physical quantity drives the hue and how brightness follows the "
 "excitation phase.\n"
@@ -330,31 +411,47 @@ msgstr ""
 "\n"
 "Bir girdinin üzerine gelmek onu canlı önizler."
 
-#: resources/animate.glade:539
+#: resources/animate.glade:820
+msgid "Segment scale:"
+msgstr "Segment ölçeği:"
+
+#: resources/animate.glade:835
+msgid ""
+"Choose how current or charge magnitude changes segment thickness.\n"
+"\n"
+"Hover an entry to preview it."
+msgstr ""
+"Akım veya yük büyüklüğünün segment kalınlığını nasıl değiştirdiğini seçin.\n"
+"\n"
+"Bir girdinin üzerine gelerek önizleyin."
+
+#: resources/animate.glade:893
 msgid "Scale family:"
 msgstr "Ölçek ailesi:"
 
-#: resources/animate.glade:553
+#: resources/animate.glade:908
 msgid ""
-"Select the magnitude-to-color transfer family.\n"
+"Select the normalized-magnitude transfer shared by color brightness and "
+"segment scale.\n"
 "\n"
 "Adjust its slider until the contrast reveals the range your inspection "
 "needs.\n"
 "\n"
 "Hovering an entry previews it live."
 msgstr ""
-"Büyüklükten renge aktarım ailesini seçin.\n"
+"Renk parlaklığı ve segment ölçeği tarafından paylaşılan normalleştirilmiş "
+"büyüklük aktarımını seçin.\n"
 "\n"
-"İncelemeniz için gereken aralığı kontrast ortaya çıkarana kadar "
-"kaydırıcısını ayarlayın.\n"
+"Kontrast, incelemenizin gerektirdiği aralığı gösterene kadar kaydırıcısını "
+"ayarlayın.\n"
 "\n"
 "Bir girdinin üzerine gelmek onu canlı önizler."
 
-#: resources/animate.glade:592
+#: resources/animate.glade:978
 msgid "Gamma:"
 msgstr "Gama:"
 
-#: resources/animate.glade:609
+#: resources/animate.glade:995
 msgid ""
 "Gamma exponent of the power transfer.\n"
 "\n"
@@ -366,11 +463,11 @@ msgstr ""
 "γ = 0,5 zayıf bölgeleri genişletir, γ = 1 doğrusaldır, γ = 2 akımlar için "
 "harcanan güçle orantılıdır."
 
-#: resources/animate.glade:631
+#: resources/animate.glade:1017
 msgid "Range (dB):"
 msgstr "Aralık (dB):"
 
-#: resources/animate.glade:648
+#: resources/animate.glade:1034
 msgid ""
 "Dynamic range R below the step peak mapped onto the color strip.\n"
 "\n"
@@ -380,49 +477,49 @@ msgstr ""
 "\n"
 "Taban değeri tepe değerinin 10^(−R/20) katıdır."
 
-#: resources/animate.glade:670
+#: resources/animate.glade:1056
 msgid "Softening:"
 msgstr "Yumuşatma:"
 
-#: resources/animate.glade:687
+#: resources/animate.glade:1073
 msgid "Softening knee k: linear below k, logarithmic above."
 msgstr "Yumuşatma dirseği k: k altında doğrusal, üstünde logaritmiktir."
 
-#: resources/animate.glade:709
+#: resources/animate.glade:1095
 msgid "Compression (dB):"
 msgstr "Sıkıştırma (dB):"
 
-#: resources/animate.glade:726
+#: resources/animate.glade:1112
 msgid "Compression strength in dB; higher values lift weak detail."
 msgstr ""
 "dB cinsinden sıkıştırma gücü; yüksek değerler zayıf ayrıntıyı "
 "belirginleştirir."
 
-#: resources/animate.glade:748
+#: resources/animate.glade:1134
 msgid "Knee:"
 msgstr "Dirsek:"
 
-#: resources/animate.glade:765
+#: resources/animate.glade:1151
 msgid "Knee k of the rational soft-compressor."
 msgstr "Rasyonel yumuşak sıkıştırıcının k dirseği."
 
-#: resources/animate.glade:787
+#: resources/animate.glade:1173
 msgid "Contrast:"
 msgstr "Kontrast:"
 
-#: resources/animate.glade:804
+#: resources/animate.glade:1190
 msgid "Contrast steepness a of the tanh transfer."
 msgstr "tanh aktarımının a kontrast dikliği."
 
-#: resources/animate.glade:837
+#: resources/animate.glade:1223
 msgid "Color gradient of the active projection and scale family."
 msgstr "Etkin projeksiyon ve ölçek ailesinin renk gradyanı."
 
-#: resources/animate.glade:855
+#: resources/animate.glade:1241
 msgid "Brightness floor:"
 msgstr "Parlaklık tabanı:"
 
-#: resources/animate.glade:873
+#: resources/animate.glade:1259
 msgid ""
 "Minimum brightness under animation so elements cool toward this level "
 "instead of vanishing to black."
@@ -430,27 +527,15 @@ msgstr ""
 "Canlandırma sırasında öğelerin siyaha kaybolmak yerine bu düzeye doğru "
 "soğuması için asgari parlaklık."
 
-#: resources/animate.glade:884
-msgid "Width from amplitude"
-msgstr "Genlikten genişlik"
-
-#: resources/animate.glade:889
-msgid ""
-"Scale wire segment width by the scaled amplitude envelope s(n), so strong "
-"regions draw thick and nulls draw thin."
-msgstr ""
-"Tel segment genişliğini ölçeklenmiş genlik zarfı s(n) ile ölçekleyin; güçlü "
-"bölgeler kalın, sıfırlar ince çizilir."
-
-#: resources/animate.glade:915
+#: resources/animate.glade:1285
 msgid "Overlays:"
 msgstr "Kaplamalar:"
 
-#: resources/animate.glade:926
+#: resources/animate.glade:1296
 msgid "Nodes/antinodes"
 msgstr "Düğümler/karşı düğümler"
 
-#: resources/animate.glade:931
+#: resources/animate.glade:1301
 msgid ""
 "Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
 "\n"
@@ -463,11 +548,11 @@ msgstr ""
 "İşaretler fazdan bağımsız zarftan türetilir, bu nedenle dalga "
 "canlandırılırken sabit kalır."
 
-#: resources/animate.glade:942
+#: resources/animate.glade:1312
 msgid "Comet"
 msgstr "Kuyrukluyıldız"
 
-#: resources/animate.glade:947
+#: resources/animate.glade:1317
 msgid ""
 "Ride a bright head on the instantaneous positive crest so wave motion reads "
 "along each wire."
@@ -475,88 +560,90 @@ msgstr ""
 "Dalga hareketinin her tel boyunca okunması için anlık pozitif tepede parlak "
 "bir baş sürün."
 
-#: resources/animate.glade:980
+#: resources/animate.glade:1350
 msgid "Reset"
 msgstr "Sıfırla"
 
-#: resources/animate.glade:986
+#: resources/animate.glade:1356
 msgid ""
-"Restore the color projection, scale family, and every family brightness "
-"parameter to their defaults."
+"Restore the color projection, segment scale, scale family, brightness floor, "
+"and every family parameter to their defaults."
 msgstr ""
-"Renk projeksiyonunu, ölçek ailesini ve her ailenin parlaklık parametresini "
-"varsayılanlarına geri yükler."
+"Renk projeksiyonunu, segment ölçeğini, renk tonunu, parlaklık tabanını ve "
+"her aile parametresini varsayılanlarına geri yükleyin."
 
-#: resources/animate.glade:1001
+#: resources/animate.glade:1391
 msgid ""
-"<b>Color</b> <i>— currents, charges, and fields shade the wires, patches, "
-"and near-field vectors</i>"
+"<b>Color and segment scale</b> <i>— currents, charges, and fields shade the "
+"model</i>"
 msgstr ""
-"<b>Renk</b> <i>— akımlar, yükler ve alanlar telleri, yamaları ve yakın alan "
-"vektörlerini renklendirir</i>"
+"<b>Renk ve segment ölçeği</b> <i>— akımlar, yükler ve alanlar modeli "
+"renklendirir</i>"
 
-#: resources/animate.glade:1032
+#: resources/animate.glade:1432
 msgid "None (geometry)"
 msgstr "Yok (geometri)"
 
-#: resources/animate.glade:1036
+#: resources/animate.glade:1436
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr ""
 "Hiçbir büyüklük renklendirmesi olmadan yalın yapı geometrisini gösterir."
 
-#: resources/animate.glade:1049 resources/xnec2c.glade:11240
+#: resources/animate.glade:1449 resources/xnec2c.glade:11240
 msgid "Currents"
 msgstr "Akımlar"
 
-#: resources/animate.glade:1053
+#: resources/animate.glade:1453
 msgid "Animate current magnitude and direction along the wires."
 msgstr "Teller boyunca akım büyüklüğünü ve yönünü canlandırın."
 
-#: resources/animate.glade:1066 resources/xnec2c.glade:11255
+#: resources/animate.glade:1466 resources/xnec2c.glade:11255
 msgid "Charges"
 msgstr "Yükler"
 
-#: resources/animate.glade:1070
+#: resources/animate.glade:1470
 msgid "Animate charge magnitude along the wires."
 msgstr "Teller boyunca yük büyüklüğünü canlandırın."
 
-#: resources/animate.glade:1087
+#: resources/animate.glade:1493
+msgid "_Polarization:"
+msgstr "_Polarizasyon:"
+
+#: resources/animate.glade:1508
+msgid ""
+"Select the polarization component used by radiation-pattern gain and far-"
+"zone animation vectors.\n"
+"\n"
+"Mirrors the polarization selection in the main, radiation-pattern, and "
+"frequency-plot windows.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"Işıma örüntüsü kazancı ve uzak alan canlandırma vektörleri tarafından "
+"kullanılan polarizasyon bileşenini seçin.\n"
+"\n"
+"Ana, ışıma örüntüsü ve frekans grafiği pencerelerindeki polarizasyon "
+"seçimini izler.\n"
+"\n"
+"Bir girdinin üzerine gelmek onu canlı önizler."
+
+#: resources/animate.glade:1581
 msgid "Display"
 msgstr "Görüntüleme"
 
-#: resources/animate.glade:1118
+#: resources/animate.glade:1619
 msgid "Flow direction:"
 msgstr "Akış yönü:"
 
-#: resources/animate.glade:1131
-msgid "Reference phase (animated)"
-msgstr "Referans fazı (canlandırılan)"
-
-#: resources/animate.glade:1132
-msgid "LIC texture (animated)"
-msgstr "LIC dokusu (canlandırılan)"
-
-#: resources/animate.glade:1133
-msgid "Wireframe (animated)"
-msgstr "Tel kafes (canlandırılan)"
-
-#: resources/animate.glade:1134
-msgid "Polarization axis (static)"
-msgstr "Polarizasyon ekseni (statik)"
-
-#: resources/animate.glade:1135
-msgid "Peak magnitude (static)"
-msgstr "Tepe büyüklüğü (statik)"
-
-#: resources/animate.glade:1151
+#: resources/animate.glade:1698
 msgid "Patches"
 msgstr "Yamalar"
 
-#: resources/animate.glade:1179
+#: resources/animate.glade:1733
 msgid "Near E field"
 msgstr "Yakın E Alanı"
 
-#: resources/animate.glade:1183
+#: resources/animate.glade:1737
 msgid ""
 "Show the near electric field vectors while animating.\n"
 "\n"
@@ -566,11 +653,11 @@ msgstr ""
 "\n"
 "Işınım örüntüsü penceresini açarak etkinleştirin."
 
-#: resources/animate.glade:1195
+#: resources/animate.glade:1749
 msgid "Near H field"
 msgstr "Yakın H Alanı"
 
-#: resources/animate.glade:1199
+#: resources/animate.glade:1753
 msgid ""
 "Show the near magnetic field vectors while animating.\n"
 "\n"
@@ -580,11 +667,11 @@ msgstr ""
 "\n"
 "Işınım örüntüsü penceresini açarak etkinleştirin."
 
-#: resources/animate.glade:1211
+#: resources/animate.glade:1765
 msgid "Poynting vector"
 msgstr "Poynting Vektörü"
 
-#: resources/animate.glade:1215
+#: resources/animate.glade:1769
 msgid ""
 "Show the Poynting power-flow vectors while animating.\n"
 "\n"
@@ -594,15 +681,15 @@ msgstr ""
 "\n"
 "Işınım örüntüsü penceresini açarak etkinleştirin."
 
-#: resources/animate.glade:1231
+#: resources/animate.glade:1805
 msgid "Near Field"
 msgstr "Yakın Alan"
 
-#: resources/animate.glade:1259
+#: resources/animate.glade:1840
 msgid "Far E field"
 msgstr "Uzak E alanı"
 
-#: resources/animate.glade:1263
+#: resources/animate.glade:1844
 msgid ""
 "Draw the far-zone electric field as arrows tangent to the gain surface while "
 "animating.\n"
@@ -614,11 +701,11 @@ msgstr ""
 "\n"
 "Örüntü penceresini açarak etkinleştirin."
 
-#: resources/animate.glade:1276
+#: resources/animate.glade:1857
 msgid "Far H field"
 msgstr "Uzak H alanı"
 
-#: resources/animate.glade:1280
+#: resources/animate.glade:1861
 msgid ""
 "Draw the far-zone magnetic field instead, a quarter turn from the electric "
 "field in the tangent plane and in step with it in time.\n"
@@ -630,19 +717,19 @@ msgstr ""
 "\n"
 "Örüntü penceresini açarak etkinleştirin."
 
-#: resources/animate.glade:1293
+#: resources/animate.glade:1874
 msgid "World reference"
 msgstr "Dünya referansı"
 
-#: resources/animate.glade:1309
+#: resources/animate.glade:1890
 msgid "Ludwig-3 reference"
 msgstr "Ludwig-3 referansı"
 
-#: resources/animate.glade:1334
-msgid "Arrow length:"
-msgstr "Ok uzunluğu:"
+#: resources/animate.glade:1915
+msgid "Arrow:"
+msgstr "Ok:"
 
-#: resources/animate.glade:1351
+#: resources/animate.glade:1932
 msgid ""
 "Longest arrow a cell draws, as a fraction of that cell's own pattern radius, "
 "so the arrows track whichever gain scale shapes the surface."
@@ -650,9 +737,17 @@ msgstr ""
 "Bir hücrenin çizdiği en uzun ok, o hücrenin kendi örüntü yarıçapının bir "
 "kesridir; böylece oklar yüzeyi şekillendiren kazanç ölçeğini izler."
 
-#: resources/animate.glade:1373
+#: resources/animate.glade:1974
 msgid "Far Field"
 msgstr "Uzak alan"
+
+#: resources/animate.glade:1992
+msgid ""
+"Draw the far-zone field as tangent vectors on the radiation pattern gain "
+"surface while this window is open."
+msgstr ""
+"Bu pencere açıkken uzak alanı, ışıma örüntüsü kazanç yüzeyinde teğet "
+"vektörler olarak çizin."
 
 #: resources/settings/cairo_settings.glade:34
 msgid "Anti-aliasing"
@@ -1932,7 +2027,7 @@ msgstr "Görüntüleyici"
 
 # xnec2c-exempt: notation
 #: resources/xnec2c.glade:9799 resources/xnec2c.glade:10041
-#: src/freqplots/freqplots_core.c:62 src/freqplots/graphs/vswr_graph.c:55
+#: src/freqplots/freqplots_core.c:63 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
@@ -2273,29 +2368,9 @@ msgstr "_Yok"
 msgid "Patch Flow — Animated"
 msgstr "Yama Akışı — Canlandırılan"
 
-#: resources/xnec2c.glade:11075
-msgid "_Reference Phase"
-msgstr "_Referans Fazı"
-
-#: resources/xnec2c.glade:11086
-msgid "_LIC Texture"
-msgstr "_LIC Dokusu"
-
-#: resources/xnec2c.glade:11097 resources/xnec2c.glade:12290
-msgid "_Wireframe"
-msgstr "_Tel Kafes"
-
 #: resources/xnec2c.glade:11115
 msgid "Patch Flow — Static"
 msgstr "Yama Akışı — Statik"
-
-#: resources/xnec2c.glade:11122
-msgid "Polarization _Axis"
-msgstr "Polarizasyon _Ekseni"
-
-#: resources/xnec2c.glade:11133
-msgid "Peak _Magnitude"
-msgstr "Tepe _Genliği"
 
 #: resources/xnec2c.glade:11148
 msgid "A_nimate"
@@ -2337,7 +2412,7 @@ msgstr ""
 "Geçerli görüntüleme açıları için, yapı görüntüleyicisi yönündeki kazanç."
 
 #: resources/xnec2c.glade:11604 resources/xnec2c.glade:12914
-#: src/freqplots/freqplots_core.c:59
+#: src/freqplots/freqplots_core.c:60
 msgid "Gain"
 msgstr "Kazanç"
 
@@ -2495,7 +2570,7 @@ msgstr "T<sub>zemin</sub>"
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>gökyüzü</sub>"
 
-#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:869
+#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:962
 msgid "Radiation Patterns"
 msgstr "Işınım Örüntüleri"
 
@@ -2688,6 +2763,128 @@ msgstr ""
 msgid "Transmission Line Impedance (Zo)"
 msgstr "İletim Hattı Empedansı (Zo)"
 
+#: src/anim/anim_dialog.c:69
+msgid ""
+"Choose how current flow is marked on surface patches.\n"
+"This model has no patches: add SP, SC, or SM patch cards to the NEC input "
+"file."
+msgstr ""
+"Akım akışının yüzey yamalarında nasıl işaretlendiğini seçin.\n"
+"Bu modelde yama yok: NEC girdi dosyasına SP, SC veya SM yama kartları "
+"ekleyin."
+
+#: src/anim/anim_dialog.c:77
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"In the main window choose View, Radiation Pattern; if that item is disabled, "
+"add an RP card to the NEC input file."
+msgstr ""
+"Uzak alanı kazanç yüzeyinde oklar olarak çizin.\n"
+"Ana pencerede Görünüm, Işıma Örüntüsü seçin; bu öge devre dışıysa NEC girdi "
+"dosyasına bir RP kartı ekleyin."
+
+#: src/anim/anim_dialog.c:81
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"Tick the check box in the Far Field heading just above."
+msgstr ""
+"Uzak alanı kazanç yüzeyinde oklar olarak çizin.\n"
+"Hemen yukarıdaki Uzak Alan başlığındaki onay kutusunu işaretleyin."
+
+#: src/anim/anim_dialog.c:88
+msgid ""
+"Choose the reference the vertical and horizontal gain are read against.\n"
+"Under Polarization in this window select Vertical or Horizontal; Total, "
+"Right Hand, and Left Hand do not use this setting."
+msgstr ""
+"Dikey ve yatay kazancın hangi referansa göre okunduğunu seçin.\n"
+"Bu penceredeki Polarizasyon altında Dikey veya Yatay seçin; Toplam, Sağ El "
+"ve Sol El bu ayarı kullanmaz."
+
+#: src/anim/anim_dialog.c:97
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Nothing drawn now changes with phase. Under Display choose Currents or "
+"Charges and an Animated colour or segment scale; for patches choose Currents "
+"and an Animated flow mode. For NE/NH cards show Near Field and tick E, H, or "
+"Poynting; for an RP card show Gain and tick Far Field."
+msgstr ""
+"Aşağıda ayarlanan hızda canlandırma fazını ilerletmeye başlayın.\n"
+"Şu anda çizilen hiçbir şey faza göre değişmez. Görüntüle altında Akımlar "
+"veya Yükler ile Canlı bir renk ya da segment ölçeği seçin; yamalar için "
+"Akımlar ve Canlı bir akış kipi seçin. NE/NH kartları için Yakın Alanı "
+"gösterin ve E, H veya Poynting'i işaretleyin; bir RP kartı için Kazancı "
+"gösterin ve Uzak Alanı işaretleyin."
+
+#: src/anim/anim_dialog.c:108
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Available when drawn content changes with phase."
+msgstr ""
+"Aşağıda ayarlanan hızda animasyon fazını ilerletmeye başlayın.\n"
+"Çizilen içerik faza göre değiştiğinde kullanılabilir."
+
+#: src/anim/anim_dialog.c:112
+msgid ""
+"Select how the animated patch current flow is rendered.\n"
+"Mirrors the Visualization menu setting in the main window."
+msgstr ""
+"Canlandırılan yama akımı akışının nasıl işleneceğini seçin.\n"
+"Ana penceredeki Görselleştirme menüsü ayarını yansıtır."
+
+#: src/anim/anim_dialog.c:116
+msgid ""
+"Resolve the far-zone field into tangent vectors drawn on the radiation "
+"pattern gain surface.\n"
+"Available while the radiation pattern window is open and Far Field is "
+"selected."
+msgstr ""
+"Uzak alanı, ışıma örüntüsü kazanç yüzeyi üzerinde çizilen teğet vektörlere "
+"ayrıştırın.\n"
+"Işıma örüntüsü penceresi açıkken ve Uzak Alan seçiliyken kullanılabilir."
+
+#: src/anim/anim_dialog.c:122
+msgid ""
+"Read the vertical and horizontal gain selections against the spherical "
+"basis, so vertical is the theta direction and horizontal is the phi "
+"direction.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Dikey ve yatay kazanç seçimlerini küresel taban eksenlerine göre okuyun; "
+"dikey theta yönü, yatay ise phi yönüdür.\n"
+"Dikey veya Yatay polarizasyon için kullanılabilir."
+
+#: src/anim/anim_dialog.c:128
+msgid ""
+"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
+"polar and cross-polar directions, which hold one orientation across the "
+"whole pattern.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Dikey ve yatay kazanç seçimlerini, tüm örüntü boyunca tek bir yönelim "
+"koruyan Ludwig-3 eş-polar ve çapraz-polar yönlerine göre okuyun.\n"
+"Dikey veya Yatay polarizasyon için kullanılabilir."
+
+#: src/anim/anim_dialog.c:167
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"Available when the model contains supported animation content."
+msgstr ""
+"Faza göre değişen içerik için canlandırma denetimlerini açın.\n"
+"Model, desteklenen canlandırma içeriği içerdiğinde kullanılabilir."
+
+#: src/anim/anim_dialog.c:169
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"This model has nothing to animate: load a NEC input file carrying wire cards "
+"(GW, GA, GH), patch cards (SP, SC, SM), near-field cards (NE, NH), or a "
+"radiation pattern card (RP)."
+msgstr ""
+"Faza göre değişen içerik için canlandırma denetimlerini açın.\n"
+"Bu modelde canlandırılacak bir şey yok: tel kartları (GW, GA, GH), yama "
+"kartları (SP, SC, SM), yakın alan kartları (NE, NH) veya bir ışıma örüntüsü "
+"kartı (RP) taşıyan bir NEC girdi dosyası yükleyin."
+
 #: src/args.c:113
 msgid "Usage: xnec2c [options] [<input-file-name>]"
 msgstr "Kullanım: xnec2c [seçenekler] [<girdi-dosya-adı>]"
@@ -2879,8 +3076,8 @@ msgstr "yapılandırma dosyası mevcut değil veya okunamıyor: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:366
-#: src/rdpattern_ui.c:374 src/rdpattern_ui.c:381 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:401
+#: src/rdpattern_ui.c:409 src/rdpattern_ui.c:416 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -2901,7 +3098,7 @@ msgstr "Çatallama devre dışı!\n"
 msgid "invalid radiation pattern PNG format: %s\n"
 msgstr "geçersiz ışıma örüntüsü PNG biçimi: %s\n"
 
-#: src/cairo/cairo_fit.c:118
+#: src/cairo/cairo_fit.c:121
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
@@ -2909,7 +3106,7 @@ msgstr ""
 "cairo_fit_view: çerçeve çözülemedi: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:237
+#: src/cairo/cairo_frame.c:254
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -2943,17 +3140,17 @@ msgstr "sbf() içinde segment bağlantı hatası"
 msgid "Segment connection error in trio()"
 msgstr "trio() içinde segment bağlantı hatası"
 
-#: src/callback_func.c:51
+#: src/callback_func.c:52
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "%s için görüntü yakalanamadı\n"
 
-#: src/callback_func.c:57
+#: src/callback_func.c:58
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "%s görüntüsü kaydedilemedi: %s\n"
 
-#: src/callback_func.c:105
+#: src/callback_func.c:106
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -2961,7 +3158,7 @@ msgstr ""
 "Frekans döngüsü çalışıyor\n"
 "Hesaplamayı sonlandırmak istediğinizden emin misiniz?"
 
-#: src/callback_func.c:109
+#: src/callback_func.c:110
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -2969,7 +3166,7 @@ msgstr ""
 "Frekans döngüsü çalışıyor\n"
 "Bu pencereyi kapatmak istediğinizden emin misiniz?"
 
-#: src/callback_func.c:270
+#: src/callback_func.c:271
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
@@ -2977,47 +3174,47 @@ msgstr ""
 "Uyarım türü %d besleme noktasına sahip değil: VSWR ve empedans grafikleri "
 "gizlendi.\n"
 
-#: src/callback_func.c:332
+#: src/callback_func.c:340
 msgid "View Currents"
 msgstr "Akımları Görüntüle"
 
-#: src/callback_func.c:334
+#: src/callback_func.c:342
 msgid "View Charges"
 msgstr "Yükleri Görüntüle"
 
-#: src/callback_func.c:336
+#: src/callback_func.c:344
 msgid "View Geometry"
 msgstr "Geometriyi Görüntüle"
 
-#: src/callback_func.c:386
+#: src/callback_func.c:402
 msgid "PNG images (*.png)"
 msgstr "PNG görüntüleri (*.png)"
 
-#: src/callback_func.c:388
+#: src/callback_func.c:404
 msgid "GNUplot files (*.gplot)"
 msgstr "GNUplot dosyaları (*.gplot)"
 
-#: src/callback_func.c:390
+#: src/callback_func.c:406
 msgid "NEC2 files (*.nec)"
 msgstr "NEC2 dosyaları (*.nec)"
 
-#: src/callback_func.c:392
+#: src/callback_func.c:408
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Touchstone 1-port dosyaları (*.s1p)"
 
-#: src/callback_func.c:394
+#: src/callback_func.c:410
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Touchstone 2-port dosyaları (*.s2p)"
 
-#: src/callback_func.c:396
+#: src/callback_func.c:412
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Virgülle ayrılmış CSV dosyaları (*.csv)"
 
-#: src/callbacks.c:98 src/callbacks.c:114 src/freqplots/freqplots_core.c:66
+#: src/callbacks.c:95 src/callbacks.c:111 src/freqplots/freqplots_core.c:67
 msgid "Antenna Temperature"
 msgstr "Anten Sıcaklığı"
 
-#: src/callbacks.c:99
+#: src/callbacks.c:96
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3026,7 +3223,7 @@ msgstr ""
 "sayacaktır. Serbest uzay modelleri, anten sıcaklığı değerlendirmesi için "
 "standarttır."
 
-#: src/callbacks.c:115
+#: src/callbacks.c:112
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3036,12 +3233,12 @@ msgstr ""
 "düzleminde ve gözlem yükseltisini döndürme düğmesiyle ayarlanmış olarak "
 "varsayar."
 
-#: src/callbacks.c:183 src/callbacks.c:521 src/callbacks.c:1951
-#: src/callbacks.c:2814
+#: src/callbacks.c:176 src/callbacks.c:510 src/callbacks.c:1661
+#: src/callbacks.c:1832
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "xnec2c'den çıkmak istediğinizden emin misiniz?"
 
-#: src/callbacks.c:287
+#: src/callbacks.c:280
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3049,7 +3246,7 @@ msgstr ""
 "Frekans Döngüsü çalışırken\n"
 "yeni bir NEC2 girdi dosyası oluşturulamaz"
 
-#: src/callbacks.c:324
+#: src/callbacks.c:317
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3057,21 +3254,21 @@ msgstr ""
 "Frekans Döngüsü çalışırken\n"
 "yeni bir NEC2 girdi dosyası açılamaz"
 
-#: src/callbacks.c:443
+#: src/callbacks.c:436
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c geometri optimize edici"
 
-#: src/callbacks.c:444
+#: src/callbacks.c:437
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "xnec2c inotify desteği olmadan derlendi: optimize edici etkinleştirilemez."
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c Optimize Edici"
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3081,82 +3278,19 @@ msgstr ""
 "girdi dosyasını değişiklik üzerine yeniden yükleyecek ve hesaplayacaktır. "
 "\"Dosya->Optimizasyon Ayarları\" bölümünden yazılacak dosyaları seçin."
 
-#: src/callbacks.c:998 src/callbacks.c:1318 src/callbacks.c:2840
+#: src/callbacks.c:991 src/callbacks.c:1311 src/callbacks.c:1858
 msgid "Are you sure you wish to close this window?"
 msgstr "Bu pencereyi kapatmak istediğinizden emin misiniz?"
 
-#: src/callbacks.c:1826
+#: src/callbacks.c:1536
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "Bu ekranda OpenGL kullanılamıyor; işleyici etkinleştirilemiyor.\n"
 
-#: src/callbacks.c:2038
-msgid ""
-"Read the vertical and horizontal gain selections against the spherical "
-"basis, so vertical is the theta direction and horizontal is the phi "
-"direction."
-msgstr ""
-"Dikey ve yatay kazanç seçimlerini küresel tabana göre okuyun; dikey, theta "
-"yönünü ve yatay, phi yönünü gösterir."
-
-#: src/callbacks.c:2042
-msgid ""
-"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
-"polar and cross-polar directions, which hold one orientation across the "
-"whole pattern."
-msgstr ""
-"Dikey ve yatay kazanç seçimlerini, örüntünün tamamında tek bir yönelimi "
-"koruyan Ludwig-3 eş kutuplu ve çapraz kutuplu yönlerine göre okuyun."
-
-#: src/callbacks.c:2081
-msgid ""
-"Select how the animated patch current flow is rendered.\n"
-"Mirrors the Visualization menu setting in the main window."
-msgstr ""
-"Canlandırılan yama akımı akışının nasıl işleneceğini seçin.\n"
-"Ana penceredeki Görselleştirme menüsü ayarını yansıtır."
-
-#: src/callbacks.c:2083
-msgid ""
-"Patch flow animation requires surface patches (SP/SM cards) in the model."
-msgstr ""
-"Yama akışı animasyonu modelde yüzey yamaları (SP/SM kartları) gerektirir."
-
-#: src/callbacks.c:2098
-msgid ""
-"The polarization reference turns the vertical and horizontal gain pair "
-"only.  Select vertical or horizontal polarization in the radiation pattern "
-"window to use it; the total and circular selections read alike under either "
-"reference."
-msgstr ""
-"Polarizasyon referansı yalnızca dikey ve yatay kazanç çiftini etkiler. "
-"Kullanmak için örüntü penceresinde dikey veya yatay polarizasyonu seçin; "
-"toplam ve dairesel seçimler her iki referans altında da aynı okunur."
-
-#: src/callbacks.c:2116
-msgid ""
-"The animation window drives the near-field vectors from the phase slider; "
-"close it to choose the static peak or instantaneous baseline."
-msgstr ""
-"Animasyon penceresi, yakın alan vektörlerini faz kaydırıcısından "
-"yönlendirir; statik tepe veya anlık taban çizgisini seçmek için kapatın."
-
-#: src/callbacks.c:2646
-msgid "Animation"
-msgstr "Animasyon"
-
-#: src/callbacks.c:2647
-msgid ""
-"Animation requires wire currents or charges, surface patches (SP/SM NEC "
-"cards), or near-field data (NE/NH NEC cards)"
-msgstr ""
-"Animasyon, tel akımları veya yükleri, yüzey yamaları (SP/SM NEC kartları) ya "
-"da yakın alan verisi (NE/NH NEC kartları) gerektirir"
-
-#: src/callbacks.c:2776
+#: src/callbacks.c:1798
 msgid "No open NEC2 input file"
 msgstr "Açık NEC2 girdi dosyası yok"
 
-#: src/callbacks.c:2871 src/callbacks.c:2901
+#: src/callbacks.c:1889 src/callbacks.c:1919
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3164,11 +3298,11 @@ msgstr ""
 "Frekans Döngüsü çalışırken\n"
 "NEC2 Düzenleyici verileri kaydedilemez"
 
-#: src/callbacks.c:2883 src/callbacks.c:2909
+#: src/callbacks.c:1901 src/callbacks.c:1927
 msgid "untitled.nec"
 msgstr "isimsiz.nec"
 
-#: src/callbacks.c:3374 src/callbacks.c:3394 src/callbacks.c:3414
+#: src/callbacks.c:2388 src/callbacks.c:2408 src/callbacks.c:2428
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3177,10 +3311,15 @@ msgstr ""
 "Frekans (FR) kartları henüz işlenmedi.\n"
 "Önce NEC2 Düzenleyici verilerini kaydetmeniz gerekebilir."
 
-#: src/chroma/chroma.c:288
+#: src/chroma/chroma.c:315
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "geçersiz renk projeksiyonu %d, anlık kullanılıyor\n"
+
+#: src/chroma/chroma.c:627
+#, c-format
+msgid "invalid segment scale encoding %d, using model radius\n"
+msgstr "geçersiz segment ölçeği kodlaması %d, model yarıçapı kullanılıyor\n"
 
 #: src/chroma/chroma_source.c:334
 msgid "far-field contribution needs radiation pattern data\n"
@@ -3392,22 +3531,17 @@ msgstr "İlk Nokta Theta"
 msgid "Increment in R (m)"
 msgstr "R Artışı (m)"
 
-#: src/color/color_tone.c:125
-#, c-format
-msgid "invalid color tone %d, using power\n"
-msgstr "geçersiz renk tonu %d, güç kullanılıyor\n"
-
-#: src/config_hooks.c:91
+#: src/color/color_config_hooks.c:131
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr ""
 "Bu kaplama tel akımı segmentlerinden türetilir; bu modelde hiçbiri yok."
 
-#: src/config_hooks.c:116
+#: src/color/color_config_hooks.c:156
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr ""
 "Hareket eden dalga tepesini parlak bir kuyrukluyıldız başı olarak vurgulayın."
 
-#: src/config_hooks.c:117
+#: src/color/color_config_hooks.c:157
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3415,11 +3549,16 @@ msgstr ""
 "Kuyrukluyıldız, canlandırılan dalga tepesinde sürer; bu projeksiyon "
 "hareketli fazı olmayan statik bir okumadır."
 
-#: src/config_hooks.c:120
+#: src/color/color_config_hooks.c:160
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr ""
 "Teller boyunca akım düğümlerini (camgöbeği) ve karşı düğümlerini (kırmızı) "
 "işaretleyin."
+
+#: src/color/color_tone.c:107
+#, c-format
+msgid "invalid color tone %d, using power\n"
+msgstr "geçersiz renk tonu %d, güç kullanılıyor\n"
 
 #: src/expr_edit.h:34
 msgid ""
@@ -3470,39 +3609,39 @@ msgid ""
 "result"
 msgstr "Frekans taramasını ilk adımına sıfırla ve hesaplanan tüm sonuçları at"
 
-#: src/freqplots/freqplots_core.c:60
+#: src/freqplots/freqplots_core.c:61
 msgid "Gain Direction"
 msgstr "Kazanç Yönü"
 
-#: src/freqplots/freqplots_core.c:61
+#: src/freqplots/freqplots_core.c:62
 msgid "Viewer Gain"
 msgstr "Görüntüleyici Kazancı"
 
-#: src/freqplots/freqplots_core.c:63
+#: src/freqplots/freqplots_core.c:64
 msgid "Impedance (real/imag)"
 msgstr "Empedans (gerçel/sanal)"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:65
 msgid "Impedance (mag/phase)"
 msgstr "Empedans (büyüklük/faz)"
 
-#: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/smith_graph.c:512
+#: src/freqplots/freqplots_core.c:66 src/freqplots/graphs/smith_graph.c:512
 msgid "Smith Chart"
 msgstr "Smith Diyagramı"
 
-#: src/freqplots/freqplots_core.c:67
+#: src/freqplots/freqplots_core.c:68
 msgid "Solver Conditioning"
 msgstr "Çözücü Koşullandırması"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:471
+#: src/freqplots/freqplots_core.c:479
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:769
+#: src/freqplots/freqplots_core.c:739
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3544,7 +3683,7 @@ msgstr ""
 "    • ham Maks kazanç, Kazanç yönü, F/B\n"
 "    • Anten sıcaklığı, G/T"
 
-#: src/freqplots/freqplots_core.c:802
+#: src/freqplots/freqplots_core.c:772
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3552,7 +3691,7 @@ msgstr ""
 "Yalnızca bir besleme noktası portu tanımlı. Burada birden çok port arasından "
 "seçim yapmak için modele ek EX uyarım kartları tanımlayın."
 
-#: src/freqplots/freqplots_core.c:805
+#: src/freqplots/freqplots_core.c:775
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3560,7 +3699,7 @@ msgstr ""
 "Bir port seçmek için Net Kazanç grafiği ayarını etkinleştirin; "
 "etkinleştirilmezse bu grafik portu izlemez."
 
-#: src/freqplots/freqplots_core.c:921
+#: src/freqplots/freqplots_core.c:893
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Kullanılamıyor: uyarım besleme noktası tanımlamıyor"
 
@@ -3576,7 +3715,7 @@ msgstr "Draw_Graph():Noktalar için bellek ayırma başarısız"
 msgid "This theme has no inverted variant"
 msgstr "Bu temanın ters çevrilmiş bir sürümü yok"
 
-#: src/freqplots/freqplots_theme_menu.c:95
+#: src/freqplots/freqplots_theme_menu.c:120
 msgid "_Invert"
 msgstr "_Ters Çevir"
 
@@ -4158,20 +4297,20 @@ msgid ""
 msgstr ""
 "verify_segments() frekansa bağlı kontrolleri atlıyor - frekans verisi yok\n"
 
-#: src/gnuplot.c:42
+#: src/gnuplot.c:43
 msgid "Gnuplot Data"
 msgstr "Gnuplot Verisi"
 
-#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
+#: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Kaydedilemiyor: frekans taraması tamamlanmadı"
 
-#: src/gnuplot.c:56
+#: src/gnuplot.c:57
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# Referans empedans Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:58
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4181,18 +4320,18 @@ msgstr ""
 "ve zimag çiziyor:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:59
+#: src/gnuplot.c:60
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92 src/gnuplot.c:102
+#: src/gnuplot.c:93 src/gnuplot.c:103
 msgid "Touchstone Data"
 msgstr "Touchstone Verisi"
 
-#: src/gnuplot.c:103
+#: src/gnuplot.c:104
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4200,46 +4339,46 @@ msgstr ""
 "Kaydedilemiyor: S-parametreleri bir besleme noktası empedansı gerektirir, "
 "ancak bu uyarım bunu sağlamıyor"
 
-#: src/gnuplot.c:119
+#: src/gnuplot.c:120
 #, c-format
 msgid "! Reference impedance Z0 = %.2f Ohm\n"
 msgstr "! Referans empedans Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:161
+#: src/gnuplot.c:162
 msgid "CSV Data"
 msgstr "CSV Verisi"
 
-#: src/gnuplot.c:244
+#: src/gnuplot.c:245
 #, c-format
 msgid "# Near E field\n"
 msgstr "# Yakın E alanı\n"
 
-#: src/gnuplot.c:271
+#: src/gnuplot.c:272
 #, c-format
 msgid "# Near H field\n"
 msgstr "# Yakın H alanı\n"
 
-#: src/gnuplot.c:311
+#: src/gnuplot.c:312
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# Poynting Vektörü\n"
 
-#: src/gnuplot.c:370
+#: src/gnuplot.c:371
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# Işınım Örüntüsü\n"
 
-#: src/gnuplot.c:508
+#: src/gnuplot.c:509
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# yapı yama segmentleri\n"
 
-#: src/gnuplot.c:543
+#: src/gnuplot.c:544
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# yapı tel segmentleri\n"
 
-#: src/gnuplot.c:573
+#: src/gnuplot.c:574
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4248,11 +4387,11 @@ msgstr ""
 "Şununla görüntüleyin: gnuplot -e \"set terminal qt; splot '%s' with lines; "
 "pause mouse close\"\n"
 
-#: src/gnuplot.c:585
+#: src/gnuplot.c:586
 msgid "Save Currents and Charges to CSV"
 msgstr "Akımları ve Yükleri CSV'ye Kaydet"
 
-#: src/gnuplot.c:586
+#: src/gnuplot.c:587
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4260,11 +4399,11 @@ msgstr ""
 "Ana xnec2c penceresinde \"Akımlar\" veya \"Yükler\"e tıklayarak akım "
 "verilerini etkinleştirmelisiniz."
 
-#: src/gnuplot.c:651 src/gnuplot.c:661
+#: src/gnuplot.c:652 src/gnuplot.c:662
 msgid "Save Patch Currents to CSV"
 msgstr "Yama Akımlarını CSV'ye Kaydet"
 
-#: src/gnuplot.c:652
+#: src/gnuplot.c:653
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4272,7 +4411,7 @@ msgstr ""
 "Ana xnec2c penceresinde \"Akımlar\" veya \"Yükler\"e tıklayarak akım "
 "verilerini etkinleştirmelisiniz."
 
-#: src/gnuplot.c:662
+#: src/gnuplot.c:663
 msgid "No surface patches in this model."
 msgstr "Bu modelde yüzey yaması yok."
 
@@ -4785,96 +4924,96 @@ msgstr ""
 "libgmodule desteklenmiyor: xnec2c bu platformda düzgün çalışmayabilir.\n"
 
 # xnec2c-exempt: name
-#: src/interface.c:280
+#: src/interface.c:279
 #, c-format
 msgid "xnec2c %s: %s"
 msgstr ""
 
-#: src/interface.c:373
+#: src/interface.c:372
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade yüklenemedi: %s\n"
 
-#: src/main.c:126
+#: src/main.c:127
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Algılanan %s pencereleme arka ucu\n"
 
-#: src/main.c:134
+#: src/main.c:135
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch ve --optimize birbirini dışlar.\n"
 
-#: src/main.c:143
+#: src/main.c:144
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png, --batch gerektirir\n"
 
-#: src/main.c:159
+#: src/main.c:160
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "girdi dosyası yol adı çok uzun ( > %d karakter )\n"
 
-#: src/main.c:166
+#: src/main.c:167
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "beklenmeyen argüman '%s' bir .nec dosyası gibi görünmüyor\n"
 
-#: src/main.c:173
+#: src/main.c:174
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "beklenmeyen argüman: %s\n"
 
-#: src/main.c:179
+#: src/main.c:180
 msgid "batch mode requires an input file\n"
 msgstr "toplu mod bir girdi dosyası gerektirir\n"
 
-#: src/main.c:189
+#: src/main.c:190
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "ekran açılamıyor: çalışan bir X11 veya Wayland oturumu gereklidir\n"
 
-#: src/main.c:208
+#: src/main.c:213
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d iş, %d işlemciye fork ediliyor.\n"
 
-#: src/main.c:221 src/main.c:229
+#: src/main.c:226 src/main.c:234
 msgid "exiting after fatal error: pipe() failed"
 msgstr "ölümcül hatadan sonra çıkılıyor: pipe() başarısız oldu"
 
-#: src/main.c:238
+#: src/main.c:243
 msgid "exiting after fatal error: fork() failed"
 msgstr "ölümcül hatadan sonra çıkılıyor: fork() başarısız oldu"
 
-#: src/main.c:833
+#: src/main.c:838
 msgid "exiting via user interrupt\n"
 msgstr "kullanıcı kesintisi ile çıkılıyor\n"
 
-#: src/main.c:837
+#: src/main.c:842
 msgid "segmentation fault, exiting\n"
 msgstr "segmentasyon hatası, çıkılıyor\n"
 
-#: src/main.c:841
+#: src/main.c:846
 msgid "floating point exception, exiting\n"
 msgstr "kayan nokta istisnası, çıkılıyor\n"
 
-#: src/main.c:845
+#: src/main.c:850
 msgid "abort signal received, exiting\n"
 msgstr "iptal sinyali alındı, çıkılıyor\n"
 
-#: src/main.c:849
+#: src/main.c:854
 msgid "termination request received, exiting\n"
 msgstr "sonlandırma isteği alındı, çıkılıyor\n"
 
-#: src/main.c:859
+#: src/main.c:864
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "fork edilmedi, pid %d'den gelen SIGCHLD yoksayılıyor\n"
 
-#: src/main.c:867
+#: src/main.c:872
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "alt işlem pid %d çıkış yaptı\n"
 
-#: src/main.c:876
+#: src/main.c:881
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "sinyal ile varsayılan çıkış: %d\n"
@@ -5383,19 +5522,19 @@ msgstr ""
 msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Etiket doku atlası oluşturuldu (ID=%u)\n"
 
-#: src/opengl-engine/opengl_axes.c:156
+#: src/opengl-engine/opengl_axes.c:161
 msgid "Failed to load axes line shader\n"
 msgstr "Eksen çizgisi gölgelendiricisi yüklenemedi\n"
 
-#: src/opengl-engine/opengl_axes.c:189
+#: src/opengl-engine/opengl_axes.c:192
 msgid "Axes renderer initialized\n"
 msgstr "Eksen işleyicisi başlatıldı\n"
 
-#: src/opengl-engine/opengl_axes.c:193
+#: src/opengl-engine/opengl_axes.c:196
 msgid "Failed to load text shaders\n"
 msgstr "Metin gölgelendiricileri yüklenemedi\n"
 
-#: src/opengl-engine/opengl_cairo_overlay.c:60
+#: src/opengl-engine/opengl_cairo_overlay.c:62
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Cairo kaplama gölgelendiricileri yüklenemedi\n"
 
@@ -5403,53 +5542,63 @@ msgstr "Cairo kaplama gölgelendiricileri yüklenemedi\n"
 msgid "Failed to create cairo overlay base\n"
 msgstr "Cairo kaplama tabanı oluşturulamadı\n"
 
-#: src/opengl-engine/opengl_ground_plane.c:103
+#: src/opengl-engine/opengl_ground_plane.c:105
 msgid "Failed to load ground plane shaders\n"
 msgstr "Toprak düzlemi gölgelendiricileri yüklenemedi\n"
 
 #: src/opengl-engine/opengl_renderer.c:55
 #, c-format
+msgid "Shader declares no version directive: %s\n"
+msgstr "Gölgelendirici sürüm yönergesi bildirmiyor: %s\n"
+
+#: src/opengl-engine/opengl_renderer.c:99
+#, c-format
 msgid "Failed to load shader: %s (%s)\n"
 msgstr "Gölgelendirici yüklenemedi: %s (%s)\n"
 
-#: src/opengl-engine/opengl_renderer.c:84
+#: src/opengl-engine/opengl_renderer.c:149
 #, c-format
 msgid "Shader compile error: %s: %s\n"
 msgstr "Gölgelendirici derleme hatası: %s: %s\n"
 
-#: src/opengl-engine/opengl_renderer.c:126
+#: src/opengl-engine/opengl_renderer.c:190
 #, c-format
 msgid "Shader link failed: %s + %s\n"
 msgstr "Gölgelendirici bağlantısı başarısız: %s + %s\n"
 
-#: src/opengl-engine/opengl_view.c:184
+#: src/opengl-engine/opengl_view.c:222
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "OpenGL bağlam hatası — bu ekranda kullanılabilir OpenGL uygulaması yok\n"
 
-#: src/opengl-engine/opengl_view.c:197
+#: src/opengl-engine/opengl_view.c:230
+msgid "Disabling OpenGL: shader catalog failed\n"
+msgstr ""
+"OpenGL devre dışı bırakılıyor: gölgelendirici kataloğu başarısız oldu\n"
+
+#: src/opengl-engine/opengl_view.c:243
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL devre dışı: sahne gölgelendiricisi başarısız\n"
 
-#: src/opengl-engine/opengl_view.c:212
+#: src/opengl-engine/opengl_view.c:258
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL devre dışı: kaplama gölgelendiricisi başarısız\n"
 
-#: src/opengl-engine/opengl_view.c:224
+#: src/opengl-engine/opengl_view.c:270
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL devre dışı: eksen işleyicisi başarısız\n"
 
-#: src/opengl-engine/opengl_view.c:253
+#: src/opengl-engine/opengl_view.c:299
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL devre dışı: toprak düzlemi gölgelendiricisi başarısız\n"
 
-#: src/opengl-engine/opengl_view.c:275
+#: src/opengl-engine/opengl_view.c:321
 #, c-format
 msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "İşlenebilir sayısı %u, MAX_RENDERABLES (%d) değerini aşıyor\n"
 
-#: src/opengl-engine/opengl_view.c:354
+#: src/opengl-engine/opengl_view.c:402
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL devre dışı: soyma bileşik gölgelendiricisi başarısız\n"
 
@@ -5470,10 +5619,6 @@ msgstr "MSAA çerçeve arabelleği tamamlanmadı\n"
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA çözümleme çerçeve arabelleği tamamlanmadı\n"
 
-#: src/opengl-engine/opengl_view_overlay.c:326
-msgid "Failed to load overlay shaders\n"
-msgstr "Kaplama gölgelendiricileri yüklenemedi\n"
-
 #: src/opengl-engine/opengl_view_peel.c:254
 #, c-format
 msgid "Peel FBO %d incomplete\n"
@@ -5492,15 +5637,11 @@ msgstr "Soyma birikim FBO'su tamamlanmadı\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "Katman derinliği FBO tamamlanmadı\n"
 
-#: src/opengl-engine/opengl_view_render.c:427
+#: src/opengl-engine/opengl_view_render.c:389
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Saydam işlenebilirler atlandı: soyma FBO'ları kullanılamıyor\n"
 
-#: src/opengl-engine/opengl_view_scene.c:297
-msgid "Failed to load shaders\n"
-msgstr "Gölgelendiriciler yüklenemedi\n"
-
-#: src/opengl/opengl_rdpattern.c:355
+#: src/opengl/opengl_rdpattern.c:345
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: geçersiz çizim stili %d, yüzey kullanılıyor\n"
@@ -5793,44 +5934,53 @@ msgstr ""
 "Ortalama kazanç: %.4f (%.2f dBi), verimlilik: %.1f%%, katı açı: %.4f * pi "
 "sr\n"
 
-#: src/rc_config.c:885
+#: src/rc_config.c:958
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() alınamadı: %s\n"
 
-#: src/rc_config.c:889
+#: src/rc_config.c:962
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "HOME ortam değişkeni tanımsız, %s kullanılıyor\n"
 
-#: src/rc_config.c:974
+#: src/rc_config.c:1047
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
 msgstr ""
 "%s (yerel=%s): %d / %lu karakterden eşleşti, başka bir yerel deneniyor: %s\n"
 
-#: src/rc_config.c:1193
+#: src/rc_config.c:1266
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "pencere: x=%-5d y=%-5d w=%-5d h=%-5d  başlık: \"%s\"\n"
 
-#: src/rc_config.c:1227
+#: src/rc_config.c:1300
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: uygulama sürümü okunurken EOF.\n"
 
-#: src/rc_config.c:1233
+#: src/rc_config.c:1306
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "mevcut yapılandırma dosyası sürümü farklı: %s != %s\n"
 
-#: src/rc_config.c:1367
+#: src/rc_config.c:1353
+#, c-format
+msgid ""
+"gain readouts are scaled to %s, restored from the previous session; select "
+"Total Gain to read total gain\n"
+msgstr ""
+"kazanç okumaları %s ölçeğine ayarlı, önceki oturumdan geri yüklendi; toplam "
+"kazancı okumak için Toplam Kazanç'ı seçin\n"
+
+#: src/rc_config.c:1463
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "%s için stat başarısız: %s\n"
 
-#: src/rc_config.c:1373
+#: src/rc_config.c:1469
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5839,49 +5989,94 @@ msgstr ""
 "4e62893b'de eklenen hatadan kaynaklanan %s dizin izinleri 0%o'dan 0%o'ya "
 "düzeltildi.\n"
 
-#: src/rc_config.c:1404
+#: src/rc_config.c:1500
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: Satır ayrıştırılamadı: %s\n"
 
-#: src/rc_config.c:1410
+#: src/rc_config.c:1506
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: %s için erken dosya sonu: %s \n"
 
-#: src/rc_config.c:1435
+#: src/rc_config.c:1531
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: ayrıştırma hatası (%s): %s \n"
 
-#: src/rc_config.c:1449
+#: src/rc_config.c:1545
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr ""
 "Yapılandırmada geçersiz gökyüzü modeli dizini %d, varsayılana sıfırlanıyor\n"
 
-#: src/rc_config.c:1455
+#: src/rc_config.c:1551
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Yapılandırmada geçersiz dünya modeli dizini %d, varsayılana sıfırlanıyor\n"
 
-#: src/rc_config.c:1461
+#: src/rc_config.c:1557
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Yapılandırmada geçersiz enterpolasyon yöntemi %d, varsayılana sıfırlanıyor\n"
 
-#: src/rc_config.c:1636
+#: src/rc_config.c:1565
+#, c-format
+msgid "Invalid flow visualization mode %d in config, resetting to default\n"
+msgstr ""
+"Yapılandırmada geçersiz akış görselleştirme kipi %d, varsayılana "
+"sıfırlanıyor\n"
+
+#: src/rc_config.c:1745
 msgid "batch mode: skipping configuration save\n"
 msgstr "toplu iş modu: yapılandırma kaydı atlanıyor\n"
 
-#: src/rc_config.c:1643
+#: src/rc_config.c:1752
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "xnec2c yapılandırma dosyası %s açılamıyor: %s\n"
 
-#: src/rdpattern_ui.c:38
+#: src/rdpattern_noise_menu.c:37
+msgid "Read the noise temperature at the nearest tabulated frequency."
+msgstr "Gürültü sıcaklığını en yakın tablolanmış frekansta okuyun."
+
+#: src/rdpattern_noise_menu.c:39
+msgid ""
+"Interpolate the noise temperature between tabulated frequencies in log-log "
+"space, clamped at the table edges."
+msgstr ""
+"Gürültü sıcaklığını tablolanmış frekanslar arasında log-log uzayında "
+"enterpole edin; tablo kenarlarında sınırlandırılır."
+
+#: src/rdpattern_noise_menu.c:133
+msgid "Available while a selected sky or earth model reads a frequency table."
+msgstr ""
+"Seçili bir gökyüzü veya zemin modeli bir frekans tablosu okurken "
+"kullanılabilir."
+
+#: src/rdpattern_noise_menu.c:135
+msgid ""
+"The selected sky and earth models resolve by an intrinsic method; select a "
+"table-based model to enable."
+msgstr ""
+"Seçili gökyüzü ve zemin modelleri kendine özgü bir yöntemle çözümlenir; "
+"etkinleştirmek için tabloya dayalı bir model seçin."
+
+#: src/rdpattern_noise_menu.c:296
+msgid "Sky Model"
+msgstr "Gökyüzü Modeli"
+
+#: src/rdpattern_noise_menu.c:303
+msgid "Earth Model"
+msgstr "Zemin Modeli"
+
+#: src/rdpattern_noise_menu.c:311
+msgid "Interpolation"
+msgstr "Enterpolasyon"
+
+#: src/rdpattern_ui.c:39
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5895,7 +6090,23 @@ msgstr ""
 "H-alan animasyonu: NEC dosyasına NH kartı ekleyin\n"
 "Poynting vektörü: Hem NE hem de NH kartlarını ekleyin"
 
-#: src/rdpattern_ui.c:94
+#: src/rdpattern_ui.c:59
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Close the animation window to enable this setting."
+msgstr ""
+"Durağan yakın alan vektör sunumunu seçin.\n"
+"Bu ayarı etkinleştirmek için canlandırma penceresini kapatın."
+
+#: src/rdpattern_ui.c:61
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Applies while the animation window is closed."
+msgstr ""
+"Durağan yakın alan vektör sunumunu seçin.\n"
+"Canlandırma penceresi kapalıyken uygulanır."
+
+#: src/rdpattern_ui.c:129
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -5904,11 +6115,11 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d aralık dışında [0..%d], GS_LINP "
 "varsayılanına dönülüyor\n"
 
-#: src/rdpattern_ui.c:516
+#: src/rdpattern_ui.c:544
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Geçerli görüntüleme açıları için, görüntüleyici yönündeki kazanç."
 
-#: src/rdpattern_ui.c:518
+#: src/rdpattern_ui.c:546
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
@@ -5916,7 +6127,7 @@ msgstr ""
 "Geçerli görüntüleme açıları için, görüntüleyici yönündeki parlaklık "
 "sıcaklığı."
 
-#: src/rdpattern_ui.c:538 src/rdpattern_ui.c:544
+#: src/rdpattern_ui.c:566 src/rdpattern_ui.c:572
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -5924,7 +6135,7 @@ msgstr ""
 "Gözlem yükselti açısı. Anten sıcaklığı değerlendirmesi için gökyüzü/yer "
 "sınırını kaydırır. 0° = ufuk."
 
-#: src/rdpattern_ui.c:541 src/rdpattern_ui.c:547
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5932,7 +6143,7 @@ msgstr ""
 "Anten sıcaklığı için gözlem yükseltisi.\n"
 "Etkinleştirmek için Kazanç Stili → Gürültü Sıcaklığı seçin."
 
-#: src/rdpattern_ui.c:550
+#: src/rdpattern_ui.c:578
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
@@ -5940,7 +6151,7 @@ msgstr ""
 "Gürültü sıcaklığı modelleri için bağımsız gökyüzü, dünya ve enterpolasyon "
 "seçicileri."
 
-#: src/rdpattern_ui.c:552
+#: src/rdpattern_ui.c:580
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5948,71 +6159,71 @@ msgstr ""
 "Gökyüzü ve dünya gürültü sıcaklığı modelleri.\n"
 "Etkinleştirmek için Kazanç Stili → Gürültü Sıcaklığı seçin."
 
-#: src/rdpattern_ui.c:846
+#: src/rdpattern_ui.c:889
 msgid "Total Gain"
 msgstr "Toplam Kazanç"
 
-#: src/rdpattern_ui.c:847
+#: src/rdpattern_ui.c:890
 msgid "Horizontal Polarization"
 msgstr "Yatay Polarizasyon"
 
-#: src/rdpattern_ui.c:848
+#: src/rdpattern_ui.c:891
 msgid "Vertical Polarization"
 msgstr "Dikey Polarizasyon"
 
-#: src/rdpattern_ui.c:849
+#: src/rdpattern_ui.c:892
 msgid "RH Circular Polarization"
 msgstr "Sağ El Dairesel Polarizasyon"
 
-#: src/rdpattern_ui.c:850
+#: src/rdpattern_ui.c:893
 msgid "LH Circular Polarization"
 msgstr "Sol El Dairesel Polarizasyon"
 
-#: src/rdpattern_ui.c:855
+#: src/rdpattern_ui.c:944
 msgid "Linear Power"
 msgstr "Doğrusal Güç"
 
-#: src/rdpattern_ui.c:856
+#: src/rdpattern_ui.c:945
 msgid "Linear Voltage"
 msgstr "Doğrusal Gerilim"
 
-#: src/rdpattern_ui.c:857
+#: src/rdpattern_ui.c:946
 msgid "ARRL Scale"
 msgstr "ARRL Ölçeği"
 
-#: src/rdpattern_ui.c:858
+#: src/rdpattern_ui.c:947
 msgid "Logarithmic Scale"
 msgstr "Logaritmik Ölçek"
 
-#: src/rdpattern_ui.c:859
+#: src/rdpattern_ui.c:948
 msgid "Noise Temperature"
 msgstr "Gürültü Sıcaklığı"
 
-#: src/rdpattern_ui.c:860
+#: src/rdpattern_ui.c:949
 msgid "Noise Temp (log scale)"
 msgstr "Gürültü Sıcaklığı (log ölçek)"
 
-#: src/rdpattern_ui.c:872
+#: src/rdpattern_ui.c:967
 msgid "Radiation Pattern: - "
 msgstr "Işınım Örüntüsü: - "
 
-#: src/rdpattern_ui.c:892
+#: src/rdpattern_ui.c:991
 msgid "Near Fields:"
 msgstr "Yakın Alanlar:"
 
-#: src/rdpattern_ui.c:894
+#: src/rdpattern_ui.c:993
 msgid " - E Field"
 msgstr " - E Alanı"
 
-#: src/rdpattern_ui.c:896
+#: src/rdpattern_ui.c:995
 msgid " - H Field"
 msgstr " - H Alanı"
 
-#: src/rdpattern_ui.c:898
+#: src/rdpattern_ui.c:997
 msgid " - Poynting Vector"
 msgstr " - Poynting Vektörü"
 
-#: src/rdpattern_ui.c:908
+#: src/rdpattern_ui.c:1008
 msgid "Frequency Data Plots - "
 msgstr "Frekans Veri Grafikleri - "
 
@@ -6034,22 +6245,22 @@ msgstr "render_fit_solve: sığdırılacak geometri yok\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Optimize edici döngüsü tamamlanmadı, ara yeniden çizim bastırılıyor.\n"
 
-#: src/settings/render_settings_common.c:116
+#: src/settings/render_settings_common.c:119
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: glade yüklenemedi: %s\n"
 
-#: src/settings/render_settings_common.c:126
+#: src/settings/render_settings_common.c:129
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: opengl glade yüklenemedi: %s\n"
 
-#: src/settings/render_settings_common.c:136
+#: src/settings/render_settings_common.c:139
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: cairo glade yüklenemedi: %s\n"
 
-#: src/settings/render_settings_common.c:149
+#: src/settings/render_settings_common.c:152
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init: glade'den render_settings_window alınamadı\n"
 
@@ -6157,37 +6368,37 @@ msgstr ""
 "Bu parametrenin NEC model değerini geçersiz kılıp kılmadığını kontrol eder.\n"
 "Bağımsız kontrol için Opt seçimini kaldırın."
 
-#: src/themes/theme.c:140
+#: src/themes/theme.c:135
 #, c-format
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "'%s' teması '%s' rolü geçersiz renk, eski varsayılan kullanılıyor\n"
 
-#: src/themes/theme.c:223
+#: src/themes/theme.c:218
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "tema: %s kaynağı yüklenemiyor: %s\n"
 
-#: src/themes/theme.c:233
+#: src/themes/theme.c:228
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "tema: %s kaynağı ayrıştırılamıyor: %s\n"
 
-#: src/themes/theme.c:259
+#: src/themes/theme.c:254
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr "tema: %s ayrıştırılamıyor, yerleşik varsayılanlar kullanılıyor\n"
 
-#: src/themes/theme.c:388
+#: src/themes/theme.c:377
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "'%s' temasının ters çevrilmiş sürümü yok, taban kullanılıyor\n"
 
-#: src/themes/theme.c:396
+#: src/themes/theme.c:385
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "'%s' teması bulunamadı, eski sürüm kullanılıyor\n"
 
-#: src/themes/theme.c:468
+#: src/themes/theme.c:428
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "'%s' genişliği geçersiz, geçerli değer korunuyor\n"
@@ -6246,7 +6457,7 @@ msgstr ""
 msgid "%s:\n"
 msgstr ""
 
-#: src/validation_dump.c:34
+#: src/validation_dump.c:35
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6254,25 +6465,25 @@ msgstr ""
 "doğrulama: nec2-builtin matematik kütüphanesi kullanılamıyor; sayısal "
 "sonuçlar referanstan farklı olabilir\n"
 
-#: src/validation_dump.c:39
+#: src/validation_dump.c:40
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr ""
 "doğrulama: yeniden üretilebilirlik için matematik kütüphanesi nec2-builtin "
 "olarak zorlandı\n"
 
-#: src/validation_dump.c:58
+#: src/validation_dump.c:59
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
 "doğrulama: yeniden üretilebilirlik için anten sıcaklığı modelleri ve "
 "yükselti zorlandı\n"
 
-#: src/validation_dump.c:68
+#: src/validation_dump.c:69
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr ""
 "doğrulama: yeniden üretilebilirlik için polarizasyon toplam olarak zorlandı\n"
 
-#: src/validation_dump.c:87
+#: src/validation_dump.c:88
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6280,24 +6491,24 @@ msgstr ""
 "doğrulama: yeniden üretilebilirlik için yapı görüntüleyici varsayılan "
 "yönelime sıfırlandı\n"
 
-#: src/validation_dump.c:614 src/validation_dump.c:620
+#: src/validation_dump.c:621 src/validation_dump.c:627
 msgid "Validation Tree"
 msgstr "Doğrulama Ağacı"
 
-#: src/validation_dump.c:614
+#: src/validation_dump.c:621
 msgid "Cannot save: frequency loop not done"
 msgstr "Kaydedilemiyor: frekans döngüsü tamamlanmadı"
 
-#: src/validation_dump.c:620
+#: src/validation_dump.c:627
 msgid "Cannot create output directory"
 msgstr "Çıktı dizini oluşturulamıyor"
 
-#: src/validation_dump.c:652
+#: src/validation_dump.c:659
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "doğrulama ağacı şuraya yazıldı: %s\n"
 
-#: src/xnec2c.c:306
+#: src/xnec2c.c:304
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
@@ -6306,16 +6517,16 @@ msgstr ""
 "dosyadan karmaşık dielektrik sabiti: %12.5E%+12.5Ej, istenen: %12.5E"
 "%+12.5Ej\n"
 
-#: src/xnec2c.c:309
+#: src/xnec2c.c:307
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters():Toprak parametrelerinde hata"
 
-#: src/xnec2c.c:733
+#: src/xnec2c.c:731
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f saniye. (%s)\n"
 
-#: src/xnec2c.c:1077
+#: src/xnec2c.c:1075
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
@@ -6323,81 +6534,81 @@ msgstr ""
 "adım %d yarış durumu: gönderilen %.6f MHz, geçerli %.6f MHz; yeniden "
 "hesaplanacak\n"
 
-#: src/xnec2c.c:1203
+#: src/xnec2c.c:1201
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr ""
 "%d numaralı alt süreç, fork ile toplama sırasında geçersiz kanal fd değerine "
 "sahip\n"
 
-#: src/xnec2c.c:1256
+#: src/xnec2c.c:1254
 msgid "Failed to read data from forked child\n"
 msgstr "Fork edilmiş alt işlemden veri okunamadı\n"
 
-#: src/xnec2c.c:1530
+#: src/xnec2c.c:1528
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "en yakın adım %g MHz, istenen %g MHz değerinden farklıdır\n"
 
-#: src/xnec2c.c:1534
+#: src/xnec2c.c:1532
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "tarama sonrası frekans %.4f MHz olarak ayarlandı (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1572
+#: src/xnec2c.c:1570
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Frekans döngüsü geçen süre: %f saniye. (%s)\n"
 
-#: src/xnec2c.c:1624
+#: src/xnec2c.c:1622
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "toplu kip kanvası %d, %dx%d boyutunda hiçbir çerçeve çizmedi\n"
 
-#: src/xnec2c.c:1789
+#: src/xnec2c.c:1787
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "ışıma örüntüsü PNG yakalama: %s için hesaplanmış adım yok\n"
 
-#: src/xnec2c.c:1861
+#: src/xnec2c.c:1859
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s için ışıma örüntüsü PNG yakalama başarısız oldu\n"
 
-#: src/xnec2c.c:1867
+#: src/xnec2c.c:1865
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s için ışıma örüntüsü PNG kaydetme başarısız oldu: %s\n"
 
-#: src/xnec2c.c:1872
+#: src/xnec2c.c:1870
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "ışıma örüntüsü PNG yazıldı: %s\n"
 
-#: src/xnec2c.c:1909
+#: src/xnec2c.c:1907
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "birden çok ışıma örüntüsü PNG biçimi bir .png dosya adı gerektirir: %s\n"
 
-#: src/xnec2c.c:2014
+#: src/xnec2c.c:2012
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "tarama, her biri %d iş parçacıklı %d çalışan çalıştırıyor\n"
 
-#: src/xnec2c.c:2306
+#: src/xnec2c.c:2304
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread başlatılamadı\n"
 
-#: src/xnec2c.c:2485
+#: src/xnec2c.c:2483
 msgid "Frequency Sweep"
 msgstr "Frekans Taraması"
 
-#: src/xnec2c.c:2486
+#: src/xnec2c.c:2484
 msgid "Recalculate the frequency sweep?"
 msgstr "Frekans taraması yeniden hesaplansın mı?"
 
-#: src/xnec2c.c:2487
+#: src/xnec2c.c:2485
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

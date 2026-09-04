@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-24 14:07-0700\n"
+"POT-Creation-Date: 2026-08-31 13:53-0700\n"
 "PO-Revision-Date: 2026-05-25 01:51-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -33,11 +33,58 @@ msgstr "Raqamli elektromagnitizm kodi dasturi"
 msgid "nec2;em;simulator;"
 msgstr "nec2;em;simulyator;"
 
-#: resources/animate.glade:85
+#: resources/animate.glade:136
+msgid "Total"
+msgstr "Umumiy"
+
+#: resources/animate.glade:146
+msgid "Horizontal"
+msgstr "Gorizontal"
+
+#: resources/animate.glade:156
+msgid "Vertical"
+msgstr "Vertikal"
+
+#: resources/animate.glade:166
+msgid "Right Hand"
+msgstr "Oʻng qoʻl"
+
+#: resources/animate.glade:176
+msgid "Left Hand"
+msgstr "Chap qoʻl"
+
+#: resources/animate.glade:191 resources/animate.glade:272
+#: resources/animate.glade:375
 msgid "Animated"
 msgstr "Animatsiyali"
 
-#: resources/animate.glade:92
+#: resources/animate.glade:198 resources/xnec2c.glade:11075
+msgid "_Reference Phase"
+msgstr "_Tayanch faza"
+
+#: resources/animate.glade:209 resources/xnec2c.glade:11086
+msgid "_LIC Texture"
+msgstr "_LIC toʻqimasi"
+
+#: resources/animate.glade:220 resources/xnec2c.glade:11097
+#: resources/xnec2c.glade:12290
+msgid "_Wireframe"
+msgstr "_Sim karkas"
+
+#: resources/animate.glade:238 resources/animate.glade:330
+#: resources/animate.glade:399
+msgid "Static"
+msgstr "Statik"
+
+#: resources/animate.glade:245 resources/xnec2c.glade:11122
+msgid "Polarization _Axis"
+msgstr "Qutblanish _oʻqi"
+
+#: resources/animate.glade:256 resources/xnec2c.glade:11133
+msgid "Peak _Magnitude"
+msgstr "Choʻqqi _kattaligi"
+
+#: resources/animate.glade:279
 msgid ""
 "Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
 "cos(arg z + φ)|, floored so nulls stay visible.\n"
@@ -50,11 +97,11 @@ msgstr ""
 "\n"
 "Animatsiyali: faza siljigan sari yorqin zonalar tuzilma boʻylab siljiydi."
 
-#: resources/animate.glade:93
+#: resources/animate.glade:280 resources/animate.glade:383
 msgid "Instantaneous"
 msgstr "Momentan"
 
-#: resources/animate.glade:103
+#: resources/animate.glade:290
 msgid ""
 "Diverging hue shows the instantaneous sign of the displayed quantity: cold "
 "negative, hot positive; brightness carries the magnitude s(n).\n"
@@ -66,11 +113,11 @@ msgstr ""
 "\n"
 "Animatsiyali: faza siljigan sari zonalar qutblarini almashtiradi."
 
-#: resources/animate.glade:104
+#: resources/animate.glade:291
 msgid "Polarity"
 msgstr "Qutblilik"
 
-#: resources/animate.glade:114
+#: resources/animate.glade:301
 msgid ""
 "Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
 "magnitude s(n).\n"
@@ -82,11 +129,11 @@ msgstr ""
 "\n"
 "Animatsiyali: faza siljigan sari butun gʻildirak aylanadi."
 
-#: resources/animate.glade:115
+#: resources/animate.glade:302
 msgid "Phase Hue"
 msgstr "Faza tusi"
 
-#: resources/animate.glade:125
+#: resources/animate.glade:312
 msgid ""
 "Diverging hue shows the instantaneous charge sign; brightness carries the "
 "current envelope s(|I|).\n"
@@ -98,15 +145,11 @@ msgstr ""
 "\n"
 "Animatsiyali: zaryad va tokning chorak davr farqidagi yagona koʻrinishi."
 
-#: resources/animate.glade:126
+#: resources/animate.glade:313
 msgid "Current + Charge"
 msgstr "Tok + zaryad"
 
-#: resources/animate.glade:143
-msgid "Static"
-msgstr "Statik"
-
-#: resources/animate.glade:150
+#: resources/animate.glade:337
 msgid ""
 "Rainbow ramp of this frequency step's peak magnitude s(n) at full "
 "brightness.\n"
@@ -119,11 +162,11 @@ msgstr ""
 "Statik: fazadan mustaqil asosiy chiziq; ijro paytida ranglar oʻzgarmay "
 "qoladi."
 
-#: resources/animate.glade:151
+#: resources/animate.glade:338
 msgid "Amplitude"
 msgstr "Amplituda"
 
-#: resources/animate.glade:161
+#: resources/animate.glade:348
 msgid ""
 "Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
 "brightness carries the magnitude s(n).\n"
@@ -135,11 +178,11 @@ msgstr ""
 "\n"
 "Statik: fazadan mustaqil oʻqish; ijro paytida ranglar oʻzgarmay qoladi."
 
-#: resources/animate.glade:162
+#: resources/animate.glade:349
 msgid "Standing/Traveling"
 msgstr "Turgun/Yuruvchi"
 
-#: resources/animate.glade:172
+#: resources/animate.glade:359
 msgid ""
 "Hue ramps each segment's contribution to the selected far-field direction; "
 "brightness carries the magnitude s(n).\n"
@@ -151,11 +194,52 @@ msgstr ""
 "\n"
 "Statik: fazadan mustaqil oʻqish; ijro paytida ranglar oʻzgarmay qoladi."
 
-#: resources/animate.glade:173
+#: resources/animate.glade:360
 msgid "Far-field Contribution"
 msgstr "Uzoq maydon hissasi"
 
-#: resources/animate.glade:187
+#: resources/animate.glade:382
+msgid ""
+"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animated: scaled regions travel through phase peaks and contract at zero "
+"crossings as the phase advances."
+msgstr ""
+"Har bir segmentni lahzalik kattalik s(n) · |cos(arg z + φ)| asosida "
+"masshtablang.\n"
+"\n"
+"Animatsiyali: masshtablangan hududlar faza siljishi davomida faza "
+"choʻqqilaridan oʻtadi va nol kesishmalarida qisqaradi."
+
+#: resources/animate.glade:406
+msgid ""
+"Scale each segment from the peak magnitude s(n), enlarging strong regions "
+"and contracting nulls.\n"
+"\n"
+"Static: the phase-invariant scale holds still during playback."
+msgstr ""
+"Har bir segmentni eng yuqori kattalik s(n) asosida masshtablang, kuchli "
+"hududlarni kattalashtiring va nollarni qisqartiring.\n"
+"\n"
+"Statik: faza-invariant masshtab ijro davomida oʻzgarmay qoladi."
+
+#: resources/animate.glade:407
+msgid "Envelope magnitude"
+msgstr "Qobiq kattaligi"
+
+#: resources/animate.glade:417
+msgid ""
+"Keep each segment at its model radius instead of scaling it by magnitude."
+msgstr ""
+"Har bir segmentni kattalik boʻyicha masshtablash oʻrniga oʻz model radiusida "
+"saqlang."
+
+#: resources/animate.glade:418
+msgid "Model radius"
+msgstr "Model radiusi"
+
+#: resources/animate.glade:433
 msgid ""
 "Power-law transfer n^γ of the normalized magnitude.\n"
 "\n"
@@ -171,11 +255,11 @@ msgstr ""
 "(va nurlanish qarshiligi orqali nurlanish quvvatiga qoʻshgan hissasiga) "
 "proporsional, |q|² esa toʻplangan elektrostatik energiyaga proporsional."
 
-#: resources/animate.glade:188
+#: resources/animate.glade:434
 msgid "Power"
 msgstr "Quvvat"
 
-#: resources/animate.glade:198
+#: resources/animate.glade:444
 msgid ""
 "Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
 "decibels.\n"
@@ -190,12 +274,12 @@ msgstr ""
 "past detallar eng past rangga kesiladi."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:199 resources/xnec2c.glade:11713
+#: resources/animate.glade:445 resources/xnec2c.glade:11713
 #: resources/xnec2c.glade:13071
 msgid "dB"
 msgstr ""
 
-#: resources/animate.glade:209
+#: resources/animate.glade:455
 msgid ""
 "Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
 "\n"
@@ -209,11 +293,11 @@ msgstr ""
 "koʻrinishda saqlagan holda kuchli choʻqqilarni siqadi."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:210
+#: resources/animate.glade:456
 msgid "Asinh"
 msgstr ""
 
-#: resources/animate.glade:220
+#: resources/animate.glade:466
 msgid ""
 "μ-law companding, the telephony-standard bounded log curve.\n"
 "\n"
@@ -227,11 +311,11 @@ msgstr ""
 "klassik μ = 255 qiymatiga mos keladi."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:221
+#: resources/animate.glade:467
 msgid "μ-law"
 msgstr ""
 
-#: resources/animate.glade:231
+#: resources/animate.glade:477
 msgid ""
 "Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
 "\n"
@@ -244,11 +328,11 @@ msgstr ""
 "nuqtasini belgilaydi."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:232
+#: resources/animate.glade:478
 msgid "Reinhard"
 msgstr ""
 
-#: resources/animate.glade:242
+#: resources/animate.glade:488
 msgid ""
 "Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
 "\n"
@@ -261,11 +345,11 @@ msgstr ""
 "choʻqqiga tomon silliq toʻyinadi; a qiyalikni belgilaydi."
 
 # xnec2c-exempt: name
-#: resources/animate.glade:243
+#: resources/animate.glade:489
 msgid "Sigmoid"
 msgstr ""
 
-#: resources/animate.glade:253
+#: resources/animate.glade:499
 msgid ""
 "Identity: every magnitude renders at full brightness.\n"
 "\n"
@@ -275,16 +359,16 @@ msgstr ""
 "\n"
 "Faqat rang proeksiyasi maʼlumotni tashiydi."
 
-#: resources/animate.glade:254 resources/settings/cairo_settings.glade:56
+#: resources/animate.glade:500 resources/settings/cairo_settings.glade:56
 msgid "None"
 msgstr "Yoʻq"
 
-#: resources/animate.glade:266 src/rdpattern_ui.c:366 src/rdpattern_ui.c:374
-#: src/rdpattern_ui.c:381
+#: resources/animate.glade:512 src/rdpattern_ui.c:401 src/rdpattern_ui.c:409
+#: src/rdpattern_ui.c:416
 msgid "Near Field Animation"
 msgstr "Yaqin maydon animatsiyasi"
 
-#: resources/animate.glade:358
+#: resources/animate.glade:604
 msgid ""
 "Scrub the animation phase manually.\n"
 "\n"
@@ -295,27 +379,27 @@ msgstr ""
 "Animatsiya ishlayotganda oʻchirilgan."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:375
+#: resources/animate.glade:621
 msgid "φ 0°"
 msgstr ""
 
-#: resources/animate.glade:389
+#: resources/animate.glade:635
 msgid "Phase"
 msgstr "Faza"
 
-#: resources/animate.glade:412
+#: resources/animate.glade:658
 msgid "Frames/Sec"
 msgstr "Kadr/soniya"
 
-#: resources/animate.glade:425
+#: resources/animate.glade:671
 msgid "Animate Freq (Hz)"
 msgstr "Animatsiya chastotasi (Hz)"
 
-#: resources/animate.glade:498
+#: resources/animate.glade:747
 msgid "Color projection:"
 msgstr "Rang proeksiyasi:"
 
-#: resources/animate.glade:512
+#: resources/animate.glade:762
 msgid ""
 "Select which physical quantity drives the hue and how brightness follows the "
 "excitation phase.\n"
@@ -333,32 +417,49 @@ msgstr ""
 "\n"
 "Bandning ustiga sichqonchani olib borish uni jonli koʻrsatadi."
 
-#: resources/animate.glade:539
+#: resources/animate.glade:820
+msgid "Segment scale:"
+msgstr "Segment masshtabi:"
+
+#: resources/animate.glade:835
+msgid ""
+"Choose how current or charge magnitude changes segment thickness.\n"
+"\n"
+"Hover an entry to preview it."
+msgstr ""
+"Tok yoki zaryad kattaligi segment qalinligini qanday oʻzgartirishini "
+"tanlang.\n"
+"\n"
+"Oldindan koʻrish uchun yozuv ustiga sichqonchani olib boring."
+
+#: resources/animate.glade:893
 msgid "Scale family:"
 msgstr "Masshtab oilasi:"
 
-#: resources/animate.glade:553
+#: resources/animate.glade:908
 msgid ""
-"Select the magnitude-to-color transfer family.\n"
+"Select the normalized-magnitude transfer shared by color brightness and "
+"segment scale.\n"
 "\n"
 "Adjust its slider until the contrast reveals the range your inspection "
 "needs.\n"
 "\n"
 "Hovering an entry previews it live."
 msgstr ""
-"Kattalikdan rangga transfer oilasini tanlang.\n"
+"Rang yorqinligi va segment masshtabi oʻrtasida umumiy boʻlgan "
+"meʼyorlashtirilgan kattalik transferini tanlang.\n"
 "\n"
-"Tekshiruvingiz uchun zarur diapazonni kontrast koʻrsatguncha uning sirgʻa "
-"boshqaruvini sozlang.\n"
+"Kontrast tekshiruvingiz uchun zarur diapazonni ochib bergunicha sirgʻasini "
+"sozlang.\n"
 "\n"
-"Bandning ustiga sichqonchani olib borish uni jonli koʻrsatadi."
+"Yozuv ustiga sichqonchani olib borish uni jonli koʻrsatib beradi."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:592
+#: resources/animate.glade:978
 msgid "Gamma:"
 msgstr ""
 
-#: resources/animate.glade:609
+#: resources/animate.glade:995
 msgid ""
 "Gamma exponent of the power transfer.\n"
 "\n"
@@ -370,11 +471,11 @@ msgstr ""
 "γ = 0.5 kuchsiz zonalarni kengaytiradi, γ = 1 chiziqli, γ = 2 toklar uchun "
 "sarflangan quvvatga proporsionaldir."
 
-#: resources/animate.glade:631
+#: resources/animate.glade:1017
 msgid "Range (dB):"
 msgstr "Diapazon (dB):"
 
-#: resources/animate.glade:648
+#: resources/animate.glade:1034
 msgid ""
 "Dynamic range R below the step peak mapped onto the color strip.\n"
 "\n"
@@ -384,48 +485,48 @@ msgstr ""
 "\n"
 "Pastki chegara choʻqqining 10^(−R/20) qismidir."
 
-#: resources/animate.glade:670
+#: resources/animate.glade:1056
 msgid "Softening:"
 msgstr "Yumshatish:"
 
-#: resources/animate.glade:687
+#: resources/animate.glade:1073
 msgid "Softening knee k: linear below k, logarithmic above."
 msgstr ""
 "Yumshatish tizza nuqtasi k: k dan past chiziqli, undan yuqori logarifmik."
 
-#: resources/animate.glade:709
+#: resources/animate.glade:1095
 msgid "Compression (dB):"
 msgstr "Siqish (dB):"
 
-#: resources/animate.glade:726
+#: resources/animate.glade:1112
 msgid "Compression strength in dB; higher values lift weak detail."
 msgstr "Siqish kuchi dB da; yuqori qiymatlar kuchsiz detallarni koʻtaradi."
 
-#: resources/animate.glade:748
+#: resources/animate.glade:1134
 msgid "Knee:"
 msgstr "Tizza nuqtasi:"
 
-#: resources/animate.glade:765
+#: resources/animate.glade:1151
 msgid "Knee k of the rational soft-compressor."
 msgstr "Ratsional yumshoq siquvchining k tizza nuqtasi."
 
-#: resources/animate.glade:787
+#: resources/animate.glade:1173
 msgid "Contrast:"
 msgstr "Kontrast:"
 
-#: resources/animate.glade:804
+#: resources/animate.glade:1190
 msgid "Contrast steepness a of the tanh transfer."
 msgstr "Tanh transferining a kontrast tikligi."
 
-#: resources/animate.glade:837
+#: resources/animate.glade:1223
 msgid "Color gradient of the active projection and scale family."
 msgstr "Faol proeksiya va masshtab oilasining rang gradienti."
 
-#: resources/animate.glade:855
+#: resources/animate.glade:1241
 msgid "Brightness floor:"
 msgstr "Yorqinlik pastki chegarasi:"
 
-#: resources/animate.glade:873
+#: resources/animate.glade:1259
 msgid ""
 "Minimum brightness under animation so elements cool toward this level "
 "instead of vanishing to black."
@@ -433,27 +534,15 @@ msgstr ""
 "Animatsiya paytidagi eng past yorqinlik — elementlar qora rangga toʻliq "
 "soʻnib ketmasdan shu darajaga toʻxtaydi."
 
-#: resources/animate.glade:884
-msgid "Width from amplitude"
-msgstr "Amplitudadan kenglik"
-
-#: resources/animate.glade:889
-msgid ""
-"Scale wire segment width by the scaled amplitude envelope s(n), so strong "
-"regions draw thick and nulls draw thin."
-msgstr ""
-"Sim segmenti kengligini masshtablangan amplituda konverti s(n) boʻyicha "
-"oʻzgartirish — kuchli zonalar qalin, nol nuqtalar ingichka chiziladi."
-
-#: resources/animate.glade:915
+#: resources/animate.glade:1285
 msgid "Overlays:"
 msgstr "Qoplamalar:"
 
-#: resources/animate.glade:926
+#: resources/animate.glade:1296
 msgid "Nodes/antinodes"
 msgstr "Tugunlar/antitugunlar"
 
-#: resources/animate.glade:931
+#: resources/animate.glade:1301
 msgid ""
 "Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
 "\n"
@@ -466,11 +555,11 @@ msgstr ""
 "Belgilar fazadan mustaqil konvertdan olinadi, shuning uchun toʻlqin "
 "animatsiyalanganda ular oʻzgarmay qoladi."
 
-#: resources/animate.glade:942
+#: resources/animate.glade:1312
 msgid "Comet"
 msgstr "Kometa"
 
-#: resources/animate.glade:947
+#: resources/animate.glade:1317
 msgid ""
 "Ride a bright head on the instantaneous positive crest so wave motion reads "
 "along each wire."
@@ -478,87 +567,89 @@ msgstr ""
 "Toʻlqin harakati har bir sim boʻylab koʻrinishi uchun lahzalik musbat "
 "choʻqqida yorqin bosh siljiydi."
 
-#: resources/animate.glade:980
+#: resources/animate.glade:1350
 msgid "Reset"
 msgstr "Tiklash"
 
-#: resources/animate.glade:986
+#: resources/animate.glade:1356
 msgid ""
-"Restore the color projection, scale family, and every family brightness "
-"parameter to their defaults."
+"Restore the color projection, segment scale, scale family, brightness floor, "
+"and every family parameter to their defaults."
 msgstr ""
-"Rang proeksiyasi, masshtab oilasi va har bir oilaning yorqinlik parametrini "
-"standart holatiga qaytaradi."
+"Rang proyeksiyasi, segment masshtabi, rang ohangi, yorqinlik pastki "
+"chegarasi va har bir oila parametrini standart qiymatlariga qaytaring."
 
-#: resources/animate.glade:1001
+#: resources/animate.glade:1391
 msgid ""
-"<b>Color</b> <i>— currents, charges, and fields shade the wires, patches, "
-"and near-field vectors</i>"
+"<b>Color and segment scale</b> <i>— currents, charges, and fields shade the "
+"model</i>"
 msgstr ""
-"<b>Rang</b> <i>— toklar, zaryadlar va maydonlar simlarni, patchlarni va "
-"yaqin maydon vektorlarini boʻyaydi</i>"
+"<b>Rang va segment masshtabi</b> <i>— toklar, zaryadlar va maydonlar modelni "
+"boʻyaydi</i>"
 
-#: resources/animate.glade:1032
+#: resources/animate.glade:1432
 msgid "None (geometry)"
 msgstr "Yoʻq (geometriya)"
 
-#: resources/animate.glade:1036
+#: resources/animate.glade:1436
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr "Hech qanday miqdor rangisiz sof tuzilma geometriyasini koʻrsatish."
 
-#: resources/animate.glade:1049 resources/xnec2c.glade:11240
+#: resources/animate.glade:1449 resources/xnec2c.glade:11240
 msgid "Currents"
 msgstr "Toklar"
 
-#: resources/animate.glade:1053
+#: resources/animate.glade:1453
 msgid "Animate current magnitude and direction along the wires."
 msgstr "Simlardagi tok kattaligi va yoʻnalishini animatsiya qilish."
 
-#: resources/animate.glade:1066 resources/xnec2c.glade:11255
+#: resources/animate.glade:1466 resources/xnec2c.glade:11255
 msgid "Charges"
 msgstr "Zaryadlar"
 
-#: resources/animate.glade:1070
+#: resources/animate.glade:1470
 msgid "Animate charge magnitude along the wires."
 msgstr "Simlar boʻylab zaryad kattaligini animatsiya qilish."
 
-#: resources/animate.glade:1087
+#: resources/animate.glade:1493
+msgid "_Polarization:"
+msgstr "_Qutblanish:"
+
+#: resources/animate.glade:1508
+msgid ""
+"Select the polarization component used by radiation-pattern gain and far-"
+"zone animation vectors.\n"
+"\n"
+"Mirrors the polarization selection in the main, radiation-pattern, and "
+"frequency-plot windows.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"Nurlanish diagrammasi kuchaytirishi va uzoq maydon animatsiya vektorlari "
+"tomonidan ishlatiladigan qutblanish komponentini tanlang.\n"
+"\n"
+"Asosiy, nurlanish diagrammasi va chastota grafigi oynalaridagi qutblanish "
+"tanlovini kuzatib boradi.\n"
+"\n"
+"Yozuv ustiga sichqonchani olib borish uni jonli koʻrsatib beradi."
+
+#: resources/animate.glade:1581
 msgid "Display"
 msgstr "Koʻrsatish"
 
-#: resources/animate.glade:1118
+#: resources/animate.glade:1619
 msgid "Flow direction:"
 msgstr "Oqim yoʻnalishi:"
 
-#: resources/animate.glade:1131
-msgid "Reference phase (animated)"
-msgstr "Tayanch faza (animatsiyali)"
-
-#: resources/animate.glade:1132
-msgid "LIC texture (animated)"
-msgstr "LIC toʻqimasi (animatsiyali)"
-
-#: resources/animate.glade:1133
-msgid "Wireframe (animated)"
-msgstr "Sim karkas (animatsiyali)"
-
-#: resources/animate.glade:1134
-msgid "Polarization axis (static)"
-msgstr "Qutblanish oʻqi (statik)"
-
-#: resources/animate.glade:1135
-msgid "Peak magnitude (static)"
-msgstr "Choʻqqi kattaligi (statik)"
-
-#: resources/animate.glade:1151
+#: resources/animate.glade:1698
 msgid "Patches"
 msgstr "Patchlar"
 
-#: resources/animate.glade:1179
+#: resources/animate.glade:1733
 msgid "Near E field"
 msgstr "Yaqin E maydoni"
 
-#: resources/animate.glade:1183
+#: resources/animate.glade:1737
 msgid ""
 "Show the near electric field vectors while animating.\n"
 "\n"
@@ -568,11 +659,11 @@ msgstr ""
 "\n"
 "Nurlanish diagrammasi oynasini ochib faollashtiring."
 
-#: resources/animate.glade:1195
+#: resources/animate.glade:1749
 msgid "Near H field"
 msgstr "Yaqin H maydoni"
 
-#: resources/animate.glade:1199
+#: resources/animate.glade:1753
 msgid ""
 "Show the near magnetic field vectors while animating.\n"
 "\n"
@@ -582,11 +673,11 @@ msgstr ""
 "\n"
 "Nurlanish diagrammasi oynasini ochib faollashtiring."
 
-#: resources/animate.glade:1211
+#: resources/animate.glade:1765
 msgid "Poynting vector"
 msgstr "Poyinting vektori"
 
-#: resources/animate.glade:1215
+#: resources/animate.glade:1769
 msgid ""
 "Show the Poynting power-flow vectors while animating.\n"
 "\n"
@@ -596,15 +687,15 @@ msgstr ""
 "\n"
 "Nurlanish diagrammasi oynasini ochib faollashtiring."
 
-#: resources/animate.glade:1231
+#: resources/animate.glade:1805
 msgid "Near Field"
 msgstr "Yaqin maydon"
 
-#: resources/animate.glade:1259
+#: resources/animate.glade:1840
 msgid "Far E field"
 msgstr "Uzoq E maydoni"
 
-#: resources/animate.glade:1263
+#: resources/animate.glade:1844
 msgid ""
 "Draw the far-zone electric field as arrows tangent to the gain surface while "
 "animating.\n"
@@ -616,11 +707,11 @@ msgstr ""
 "\n"
 "Uni yoqish uchun nurlanish diagrammasi oynasini oching."
 
-#: resources/animate.glade:1276
+#: resources/animate.glade:1857
 msgid "Far H field"
 msgstr "Uzoq H maydoni"
 
-#: resources/animate.glade:1280
+#: resources/animate.glade:1861
 msgid ""
 "Draw the far-zone magnetic field instead, a quarter turn from the electric "
 "field in the tangent plane and in step with it in time.\n"
@@ -632,19 +723,19 @@ msgstr ""
 "\n"
 "Uni yoqish uchun nurlanish diagrammasi oynasini oching."
 
-#: resources/animate.glade:1293
+#: resources/animate.glade:1874
 msgid "World reference"
 msgstr "Dunyoviy tayanch"
 
-#: resources/animate.glade:1309
+#: resources/animate.glade:1890
 msgid "Ludwig-3 reference"
 msgstr "Ludwig-3 tayanchi"
 
-#: resources/animate.glade:1334
-msgid "Arrow length:"
-msgstr "Koʻrsatkich uzunligi:"
+#: resources/animate.glade:1915
+msgid "Arrow:"
+msgstr "Oʻq:"
 
-#: resources/animate.glade:1351
+#: resources/animate.glade:1932
 msgid ""
 "Longest arrow a cell draws, as a fraction of that cell's own pattern radius, "
 "so the arrows track whichever gain scale shapes the surface."
@@ -653,9 +744,17 @@ msgstr ""
 "radiusiga nisbatan ulush sifatida beriladi, shunda koʻrsatkichlar sirtni "
 "shakllantiruvchi har qanday kuchaytirish masshtabiga mos keladi."
 
-#: resources/animate.glade:1373
+#: resources/animate.glade:1974
 msgid "Far Field"
 msgstr "Uzoq maydon"
+
+#: resources/animate.glade:1992
+msgid ""
+"Draw the far-zone field as tangent vectors on the radiation pattern gain "
+"surface while this window is open."
+msgstr ""
+"Ushbu oyna ochiq boʻlgan vaqtda uzoq maydonni nurlanish diagrammasi "
+"kuchaytirish yuzasida urinma vektorlar sifatida chizing."
 
 #: resources/settings/cairo_settings.glade:34
 msgid "Anti-aliasing"
@@ -1938,7 +2037,7 @@ msgstr "Koʻruvchi"
 
 # xnec2c-exempt: notation
 #: resources/xnec2c.glade:9799 resources/xnec2c.glade:10041
-#: src/freqplots/freqplots_core.c:62 src/freqplots/graphs/vswr_graph.c:55
+#: src/freqplots/freqplots_core.c:63 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
@@ -2279,29 +2378,9 @@ msgstr "_Yoʻq"
 msgid "Patch Flow — Animated"
 msgstr "Patch Oqimi — Animatsiyali"
 
-#: resources/xnec2c.glade:11075
-msgid "_Reference Phase"
-msgstr "_Tayanch faza"
-
-#: resources/xnec2c.glade:11086
-msgid "_LIC Texture"
-msgstr "_LIC toʻqimasi"
-
-#: resources/xnec2c.glade:11097 resources/xnec2c.glade:12290
-msgid "_Wireframe"
-msgstr "_Sim karkas"
-
 #: resources/xnec2c.glade:11115
 msgid "Patch Flow — Static"
 msgstr "Patch Oqimi — Statik"
-
-#: resources/xnec2c.glade:11122
-msgid "Polarization _Axis"
-msgstr "Qutblanish _oʻqi"
-
-#: resources/xnec2c.glade:11133
-msgid "Peak _Magnitude"
-msgstr "Choʻqqi _kattaligi"
 
 #: resources/xnec2c.glade:11148
 msgid "A_nimate"
@@ -2344,7 +2423,7 @@ msgstr ""
 "uchun."
 
 #: resources/xnec2c.glade:11604 resources/xnec2c.glade:12914
-#: src/freqplots/freqplots_core.c:59
+#: src/freqplots/freqplots_core.c:60
 msgid "Gain"
 msgstr "Kuchaytirish"
 
@@ -2502,7 +2581,7 @@ msgstr "T<sub>yer</sub>"
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>osmon</sub>"
 
-#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:869
+#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:962
 msgid "Radiation Patterns"
 msgstr "Nurlanish diagrammalari"
 
@@ -2694,6 +2773,129 @@ msgstr ""
 #: resources/xnec2c.glade:15563
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Uzatish liniyasi impedansi (Zo)"
+
+#: src/anim/anim_dialog.c:69
+msgid ""
+"Choose how current flow is marked on surface patches.\n"
+"This model has no patches: add SP, SC, or SM patch cards to the NEC input "
+"file."
+msgstr ""
+"Sirt patchlarida tok oqimi qanday belgilanishini tanlang.\n"
+"Bu modelda patchlar yoʻq: NEC kirish fayliga SP, SC yoki SM patch "
+"kartalarini qoʻshing."
+
+#: src/anim/anim_dialog.c:77
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"In the main window choose View, Radiation Pattern; if that item is disabled, "
+"add an RP card to the NEC input file."
+msgstr ""
+"Uzoq maydonni kuchaytirish yuzasida oʻqlar sifatida chizing.\n"
+"Asosiy oynada View, Radiation Pattern-ni tanlang; agar bu band oʻchirilgan "
+"boʻlsa, NEC kirish fayliga RP kartasini qoʻshing."
+
+#: src/anim/anim_dialog.c:81
+msgid ""
+"Draw the far-zone field as arrows on the gain surface.\n"
+"Tick the check box in the Far Field heading just above."
+msgstr ""
+"Uzoq maydonni kuchaytirish yuzasida oʻqlar sifatida chizing.\n"
+"Yuqoridagi Far Field sarlavhasidagi katakchani belgilang."
+
+#: src/anim/anim_dialog.c:88
+msgid ""
+"Choose the reference the vertical and horizontal gain are read against.\n"
+"Under Polarization in this window select Vertical or Horizontal; Total, "
+"Right Hand, and Left Hand do not use this setting."
+msgstr ""
+"Vertikal va gorizontal kuchaytirish oʻqiladigan tayanchni tanlang.\n"
+"Ushbu oynadagi Polarization ostida Vertical yoki Horizontal-ni tanlang; "
+"Total, Right Hand va Left Hand bu sozlamadan foydalanmaydi."
+
+#: src/anim/anim_dialog.c:97
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Nothing drawn now changes with phase. Under Display choose Currents or "
+"Charges and an Animated colour or segment scale; for patches choose Currents "
+"and an Animated flow mode. For NE/NH cards show Near Field and tick E, H, or "
+"Poynting; for an RP card show Gain and tick Far Field."
+msgstr ""
+"Quyida belgilangan chastotada animatsiya fazasini ilgarilashni boshlang.\n"
+"Hozir chizilgan hech narsa faza bilan oʻzgarmaydi. Display ostida Currents "
+"yoki Charges va Animatsiyali rang yoki segment masshtabini tanlang; patchlar "
+"uchun Currents va Animatsiyali oqim rejimini tanlang. NE/NH kartalari uchun "
+"Near Field-ni koʻrsating va E, H yoki Poynting-ni belgilang; RP kartasi "
+"uchun Gain-ni koʻrsating va Far Field-ni belgilang."
+
+#: src/anim/anim_dialog.c:108
+msgid ""
+"Start advancing the animation phase at the cadence set below.\n"
+"Available when drawn content changes with phase."
+msgstr ""
+"Quyida oʻrnatilgan tezlikda animatsiya fazasini siljitishni boshlaydi.\n"
+"Chizilgan tarkib faza bilan oʻzgarganda mavjud."
+
+#: src/anim/anim_dialog.c:112
+msgid ""
+"Select how the animated patch current flow is rendered.\n"
+"Mirrors the Visualization menu setting in the main window."
+msgstr ""
+"Animatsiyalangan patch tok oqimi qanday koʻrsatilishini tanlang.\n"
+"Asosiy oynadagi Vizualizatsiya menyusi sozlamasini aks ettiradi."
+
+#: src/anim/anim_dialog.c:116
+msgid ""
+"Resolve the far-zone field into tangent vectors drawn on the radiation "
+"pattern gain surface.\n"
+"Available while the radiation pattern window is open and Far Field is "
+"selected."
+msgstr ""
+"Uzoq maydonni nurlanish diagrammasi kuchaytirish yuzasida chizilgan urinma "
+"vektorlarga ajratadi.\n"
+"Nurlanish diagrammasi oynasi ochiq va Uzoq maydon tanlanganda mavjud."
+
+#: src/anim/anim_dialog.c:122
+msgid ""
+"Read the vertical and horizontal gain selections against the spherical "
+"basis, so vertical is the theta direction and horizontal is the phi "
+"direction.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Vertikal va gorizontal kuchaytirish tanlovlarini sferik bazisga nisbatan "
+"oʻqiydi, bunda vertikal — θ yoʻnalishi, gorizontal esa — φ yoʻnalishi.\n"
+"Vertikal yoki Gorizontal qutblanish uchun mavjud."
+
+#: src/anim/anim_dialog.c:128
+msgid ""
+"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
+"polar and cross-polar directions, which hold one orientation across the "
+"whole pattern.\n"
+"Available for Vertical or Horizontal polarization."
+msgstr ""
+"Vertikal va gorizontal kuchaytirish tanlovlarini butun diagramma boʻylab "
+"bitta yoʻnalishni saqlaydigan Ludwig-3 ko-polyar va kross-polyar "
+"yoʻnalishlariga nisbatan oʻqiydi.\n"
+"Vertikal yoki Gorizontal qutblanish uchun mavjud."
+
+#: src/anim/anim_dialog.c:167
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"Available when the model contains supported animation content."
+msgstr ""
+"Faza boʻyicha oʻzgaruvchi tarkib uchun animatsiya boshqaruvlarini ochadi.\n"
+"Model qoʻllab-quvvatlanadigan animatsiya tarkibini oʻz ichiga olganda mavjud."
+
+#: src/anim/anim_dialog.c:169
+msgid ""
+"Open the animation controls for phase-varying content.\n"
+"This model has nothing to animate: load a NEC input file carrying wire cards "
+"(GW, GA, GH), patch cards (SP, SC, SM), near-field cards (NE, NH), or a "
+"radiation pattern card (RP)."
+msgstr ""
+"Faza boʻyicha oʻzgaruvchi kontent uchun animatsiya boshqaruvlarini oching.\n"
+"Bu modelda animatsiya qilinadigan hech narsa yoʻq: sim kartalari (GW, GA, "
+"GH), patch kartalari (SP, SC, SM), yaqin maydon kartalari (NE, NH) yoki "
+"nurlanish diagrammasi kartasi (RP) boʻlgan NEC kirish faylini yuklang."
 
 #: src/args.c:113
 msgid "Usage: xnec2c [options] [<input-file-name>]"
@@ -2889,8 +3091,8 @@ msgstr "konfiguratsiya fayli mavjud emas yoki oʻqib boʻlmaydi: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:366
-#: src/rdpattern_ui.c:374 src/rdpattern_ui.c:381 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:401
+#: src/rdpattern_ui.c:409 src/rdpattern_ui.c:416 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -2912,7 +3114,7 @@ msgstr "Tarmoqlash oʻchirildi!\n"
 msgid "invalid radiation pattern PNG format: %s\n"
 msgstr "notoʻgʻri nurlanish diagrammasi PNG formati: %s\n"
 
-#: src/cairo/cairo_fit.c:118
+#: src/cairo/cairo_fit.c:121
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
@@ -2920,7 +3122,7 @@ msgstr ""
 "cairo_fit_view: freym yechilmadi: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:237
+#: src/cairo/cairo_frame.c:254
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -2954,17 +3156,17 @@ msgstr "sbf() da segment ulanish xatosi"
 msgid "Segment connection error in trio()"
 msgstr "trio() da segment ulanish xatosi"
 
-#: src/callback_func.c:51
+#: src/callback_func.c:52
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "%s uchun tasvirni olib boʻlmadi\n"
 
-#: src/callback_func.c:57
+#: src/callback_func.c:58
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "%s tasvirini saqlab boʻlmadi: %s\n"
 
-#: src/callback_func.c:105
+#: src/callback_func.c:106
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -2972,7 +3174,7 @@ msgstr ""
 "Chastota sikli ishlayapti.\n"
 "Hisobni tugatishni xohlaysizmi?"
 
-#: src/callback_func.c:109
+#: src/callback_func.c:110
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -2980,7 +3182,7 @@ msgstr ""
 "Chastota sikli ishlayapti.\n"
 "Bu oynani yopishni xohlaysizmi?"
 
-#: src/callback_func.c:270
+#: src/callback_func.c:271
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
@@ -2988,47 +3190,47 @@ msgstr ""
 "Qoʻzgʻatish turi %d boshlangʻich nuqtaga ega emas: VSWR va impedans "
 "grafiklari yashirilgan.\n"
 
-#: src/callback_func.c:332
+#: src/callback_func.c:340
 msgid "View Currents"
 msgstr "Tokni koʻrish"
 
-#: src/callback_func.c:334
+#: src/callback_func.c:342
 msgid "View Charges"
 msgstr "Zaryadlarni koʻrish"
 
-#: src/callback_func.c:336
+#: src/callback_func.c:344
 msgid "View Geometry"
 msgstr "Geometriyani koʻrish"
 
-#: src/callback_func.c:386
+#: src/callback_func.c:402
 msgid "PNG images (*.png)"
 msgstr "PNG rasmlari (*.png)"
 
-#: src/callback_func.c:388
+#: src/callback_func.c:404
 msgid "GNUplot files (*.gplot)"
 msgstr "GNUplot fayllari (*.gplot)"
 
-#: src/callback_func.c:390
+#: src/callback_func.c:406
 msgid "NEC2 files (*.nec)"
 msgstr "NEC2 fayllari (*.nec)"
 
-#: src/callback_func.c:392
+#: src/callback_func.c:408
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Touchstone 1-portli fayllar (*.s1p)"
 
-#: src/callback_func.c:394
+#: src/callback_func.c:410
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Touchstone 2-portli fayllar (*.s2p)"
 
-#: src/callback_func.c:396
+#: src/callback_func.c:412
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Vergul bilan ajratilgan CSV fayllar (*.csv)"
 
-#: src/callbacks.c:98 src/callbacks.c:114 src/freqplots/freqplots_core.c:66
+#: src/callbacks.c:95 src/callbacks.c:111 src/freqplots/freqplots_core.c:67
 msgid "Antenna Temperature"
 msgstr "Antenna harorati"
 
-#: src/callbacks.c:99
+#: src/callbacks.c:96
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3037,7 +3239,7 @@ msgstr ""
 "hisoblaydi. Antenna haroratini baholash uchun erkin boʻshliq modellari "
 "standart hisoblanadi."
 
-#: src/callbacks.c:115
+#: src/callbacks.c:112
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3046,12 +3248,12 @@ msgstr ""
 "θ=%.0f° da maks kuchaytirish (XY tekisligidan %.0f°). Konvensiya XY "
 "tekisligidagi nurni kuzatish balandligi bilan belgilaydi."
 
-#: src/callbacks.c:183 src/callbacks.c:521 src/callbacks.c:1951
-#: src/callbacks.c:2814
+#: src/callbacks.c:176 src/callbacks.c:510 src/callbacks.c:1661
+#: src/callbacks.c:1832
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "xnec2c dasturidan chiqishni xohlaysizmi?"
 
-#: src/callbacks.c:287
+#: src/callbacks.c:280
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3059,7 +3261,7 @@ msgstr ""
 "Chastota sikli ishlayotganda yangi NEC2\n"
 "kirish fayli yaratib boʻlmaydi"
 
-#: src/callbacks.c:324
+#: src/callbacks.c:317
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3067,22 +3269,22 @@ msgstr ""
 "Chastota sikli ishlayotganda yangi NEC2\n"
 "kirish faylini ochib boʻlmaydi"
 
-#: src/callbacks.c:443
+#: src/callbacks.c:436
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c geometriya optimallashtiruvchisi"
 
-#: src/callbacks.c:444
+#: src/callbacks.c:437
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "xnec2c inotify qoʻllab-quvvatlamasdan qurilgan: optimallashtiruvchini "
 "faollashtirish mumkin emas."
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c Optimallashtiruvchisi"
 
-#: src/callbacks.c:465
+#: src/callbacks.c:458
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3092,86 +3294,19 @@ msgstr ""
 "tushganda kirish faylini qayta yuklaydi va hisobni bajaradi. \"Fayl-"
 ">Optimallashtirish sozlamalari\" da yozish uchun fayllarni tanlang."
 
-#: src/callbacks.c:998 src/callbacks.c:1318 src/callbacks.c:2840
+#: src/callbacks.c:991 src/callbacks.c:1311 src/callbacks.c:1858
 msgid "Are you sure you wish to close this window?"
 msgstr "Bu oynani yopishni xohlaysizmi?"
 
-#: src/callbacks.c:1826
+#: src/callbacks.c:1536
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "OpenGL bu displeyda mavjud emas; renderni faollashtirib boʻlmaydi.\n"
 
-#: src/callbacks.c:2038
-msgid ""
-"Read the vertical and horizontal gain selections against the spherical "
-"basis, so vertical is the theta direction and horizontal is the phi "
-"direction."
-msgstr ""
-"Vertikal va gorizontal kuchaytirish tanlovlarini sferik asosga nisbatan "
-"oʻqing, shunda vertikal θ yoʻnalishi va gorizontal φ yoʻnalishi boʻladi."
-
-#: src/callbacks.c:2042
-msgid ""
-"Read the vertical and horizontal gain selections against the Ludwig-3 co-"
-"polar and cross-polar directions, which hold one orientation across the "
-"whole pattern."
-msgstr ""
-"Vertikal va gorizontal kuchaytirish tanlovlarini Ludwig-3 ko-polyar va kross-"
-"polyar yoʻnalishlariga nisbatan oʻqing; ular butun diagramma boʻylab bir xil "
-"yoʻnalishni saqlaydi."
-
-#: src/callbacks.c:2081
-msgid ""
-"Select how the animated patch current flow is rendered.\n"
-"Mirrors the Visualization menu setting in the main window."
-msgstr ""
-"Animatsiyalangan patch tok oqimi qanday koʻrsatilishini tanlang.\n"
-"Asosiy oynadagi Vizualizatsiya menyusi sozlamasini aks ettiradi."
-
-#: src/callbacks.c:2083
-msgid ""
-"Patch flow animation requires surface patches (SP/SM cards) in the model."
-msgstr ""
-"Patch oqimi animatsiyasi modelda sirt patchlarini (SP/SM kartalari) talab "
-"qiladi."
-
-#: src/callbacks.c:2098
-msgid ""
-"The polarization reference turns the vertical and horizontal gain pair "
-"only.  Select vertical or horizontal polarization in the radiation pattern "
-"window to use it; the total and circular selections read alike under either "
-"reference."
-msgstr ""
-"Qutblanish tayanchi faqat vertikal va gorizontal kuchaytirish juftligini "
-"oʻzgartiradi. Undan foydalanish uchun nurlanish diagrammasi oynasida "
-"vertikal yoki gorizontal qutblanishni tanlang; umumiy va aylanma tanlovlar "
-"ikkala tayanch ostida ham bir xil oʻqiladi."
-
-#: src/callbacks.c:2116
-msgid ""
-"The animation window drives the near-field vectors from the phase slider; "
-"close it to choose the static peak or instantaneous baseline."
-msgstr ""
-"Animatsiya oynasi yaqin maydon vektorlarini faza sirgʻasidan boshqaradi; "
-"statik cho'qqi yoki momentan bazani tanlash uchun uni yoping."
-
-#: src/callbacks.c:2646
-msgid "Animation"
-msgstr "Animatsiya"
-
-#: src/callbacks.c:2647
-msgid ""
-"Animation requires wire currents or charges, surface patches (SP/SM NEC "
-"cards), or near-field data (NE/NH NEC cards)"
-msgstr ""
-"Animatsiya sim toklari yoki zaryadlarini, sirt patchlarini (SP/SM NEC "
-"kartalari) yoki yaqin maydon maʼlumotlarini (NE/NH NEC kartalari) talab "
-"qiladi"
-
-#: src/callbacks.c:2776
+#: src/callbacks.c:1798
 msgid "No open NEC2 input file"
 msgstr "Ochiq NEC2 kirish fayli yoʻq"
 
-#: src/callbacks.c:2871 src/callbacks.c:2901
+#: src/callbacks.c:1889 src/callbacks.c:1919
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3179,11 +3314,11 @@ msgstr ""
 "Chastota sikli ishlayotganda NEC2 Muharriri\n"
 "maʼlumotlarini saqlab boʻlmaydi"
 
-#: src/callbacks.c:2883 src/callbacks.c:2909
+#: src/callbacks.c:1901 src/callbacks.c:1927
 msgid "untitled.nec"
 msgstr "nomsiz.nec"
 
-#: src/callbacks.c:3374 src/callbacks.c:3394 src/callbacks.c:3414
+#: src/callbacks.c:2388 src/callbacks.c:2408 src/callbacks.c:2428
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3192,10 +3327,15 @@ msgstr ""
 "Chastota (FR) kartalari hali qayta ishlanmagan.\n"
 "Avval NEC2 Muharriri maʼlumotlarini saqlashingiz kerak."
 
-#: src/chroma/chroma.c:288
+#: src/chroma/chroma.c:315
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "notoʻgʻri rang proeksiyasi %d, momentan proeksiyasi ishlatilmoqda\n"
+
+#: src/chroma/chroma.c:627
+#, c-format
+msgid "invalid segment scale encoding %d, using model radius\n"
+msgstr "notoʻgʻri segment masshtabi kodlash %d, model radiusi ishlatilmoqda\n"
 
 #: src/chroma/chroma_source.c:334
 msgid "far-field contribution needs radiation pattern data\n"
@@ -3407,22 +3547,17 @@ msgstr "Birinchi nuqta Theta"
 msgid "Increment in R (m)"
 msgstr "R orttirmasi (m)"
 
-#: src/color/color_tone.c:125
-#, c-format
-msgid "invalid color tone %d, using power\n"
-msgstr "notoʻgʻri masshtab oilasi %d, quvvat ishlatilmoqda\n"
-
-#: src/config_hooks.c:91
+#: src/color/color_config_hooks.c:131
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr "Bu qoplama sim-tok segmentlaridan olinadi; bu modelda ular yoʻq."
 
-#: src/config_hooks.c:116
+#: src/color/color_config_hooks.c:156
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr ""
 "Harakatlanuvchi toʻlqin choʻqqisini yorqin kometa boshi sifatida ajratib "
 "koʻrsatish."
 
-#: src/config_hooks.c:117
+#: src/color/color_config_hooks.c:157
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3430,11 +3565,16 @@ msgstr ""
 "Kometa animatsiyalangan toʻlqin choʻqqisida siljiydi; bu proeksiya "
 "harakatlanuvchi fazasiz statik oʻqishdir."
 
-#: src/config_hooks.c:120
+#: src/color/color_config_hooks.c:160
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr ""
 "Simlar boʻylab tok tugunlarini (moviy-yashil) va antitugunlarini (qizil) "
 "belgilash."
+
+#: src/color/color_tone.c:107
+#, c-format
+msgid "invalid color tone %d, using power\n"
+msgstr "notoʻgʻri masshtab oilasi %d, quvvat ishlatilmoqda\n"
 
 #: src/expr_edit.h:34
 msgid ""
@@ -3486,39 +3626,39 @@ msgstr ""
 "Chastota sikllashni birinchi qadamiga qayta oʻrnating va har bir hisoblangan "
 "natijani bekor qiling"
 
-#: src/freqplots/freqplots_core.c:60
+#: src/freqplots/freqplots_core.c:61
 msgid "Gain Direction"
 msgstr "Kuchaytirish yoʻnalishi"
 
-#: src/freqplots/freqplots_core.c:61
+#: src/freqplots/freqplots_core.c:62
 msgid "Viewer Gain"
 msgstr "Koʻruvchi kuchaytirish"
 
-#: src/freqplots/freqplots_core.c:63
+#: src/freqplots/freqplots_core.c:64
 msgid "Impedance (real/imag)"
 msgstr "Impedans (real/imag)"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:65
 msgid "Impedance (mag/phase)"
 msgstr "Impedans (mag/faza)"
 
-#: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/smith_graph.c:512
+#: src/freqplots/freqplots_core.c:66 src/freqplots/graphs/smith_graph.c:512
 msgid "Smith Chart"
 msgstr "Smit diagrammasi"
 
-#: src/freqplots/freqplots_core.c:67
+#: src/freqplots/freqplots_core.c:68
 msgid "Solver Conditioning"
 msgstr "Yechuvchi shartlanganligi"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:471
+#: src/freqplots/freqplots_core.c:479
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:769
+#: src/freqplots/freqplots_core.c:739
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3561,7 +3701,7 @@ msgstr ""
 "    • xom Maks kuchaytirish, Kuchaytirish yoʻnalishi, F/B\n"
 "    • Antenna harorati, G/T"
 
-#: src/freqplots/freqplots_core.c:802
+#: src/freqplots/freqplots_core.c:772
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3570,7 +3710,7 @@ msgstr ""
 "orasidan tanlash uchun modelga qoʻshimcha EX qoʻzgʻatish kartalarini "
 "kiriting."
 
-#: src/freqplots/freqplots_core.c:805
+#: src/freqplots/freqplots_core.c:775
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3578,7 +3718,7 @@ msgstr ""
 "Port tanlash uchun Sof kuchaytirish grafigi sozlamasini yoqing; u boʻlmasa "
 "bu grafik portga ergashmaydi."
 
-#: src/freqplots/freqplots_core.c:921
+#: src/freqplots/freqplots_core.c:893
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Mavjud emas: qoʻzgʻatish boshlangʻich nuqtani aniqlamaydi"
 
@@ -3594,7 +3734,7 @@ msgstr "Draw_Graph(): Nuqtalar uchun xotira ajratib boʻlmadi"
 msgid "This theme has no inverted variant"
 msgstr "Bu mavzuning teskari varianti yoʻq"
 
-#: src/freqplots/freqplots_theme_menu.c:95
+#: src/freqplots/freqplots_theme_menu.c:120
 msgid "_Invert"
 msgstr "_Teskari"
 
@@ -4187,20 +4327,20 @@ msgstr ""
 "verify_segments() chastotaga bogʻliq tekshiruvlarni oʻtkazib yubormoqda - "
 "chastota maʼlumotlari yoʻq\n"
 
-#: src/gnuplot.c:42
+#: src/gnuplot.c:43
 msgid "Gnuplot Data"
 msgstr "Gnuplot maʼlumotlari"
 
-#: src/gnuplot.c:42 src/gnuplot.c:92 src/gnuplot.c:161
+#: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Saqlab boʻlmaydi: chastota tarash tugallanmagan"
 
-#: src/gnuplot.c:56
+#: src/gnuplot.c:57
 #, c-format
 msgid "# Reference impedance Z0 = %.2f Ohm\n"
 msgstr "# Mos yozuvlar impedansi Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:58
+#: src/gnuplot.c:59
 #, c-format
 msgid ""
 "# To plot in gnuplot you can modify this command.  Presently it plots MHz vs "
@@ -4210,18 +4350,18 @@ msgstr ""
 "va zreal hamda zimag ni chizadi:\n"
 
 # xnec2c-exempt: notation
-#: src/gnuplot.c:59
+#: src/gnuplot.c:60
 #, c-format
 msgid ""
 "#    plot for [i=2:3]  'filename.gplot' using 1:i with lines smooth bezier "
 "title columnhead(i);\n"
 msgstr ""
 
-#: src/gnuplot.c:92 src/gnuplot.c:102
+#: src/gnuplot.c:93 src/gnuplot.c:103
 msgid "Touchstone Data"
 msgstr "Touchstone maʼlumotlari"
 
-#: src/gnuplot.c:103
+#: src/gnuplot.c:104
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4229,46 +4369,46 @@ msgstr ""
 "Saqlab boʻlmadi: S-parametrlar boshlangʻich nuqta impedansini talab qiladi, "
 "biroq bu qoʻzgʻatish uni taʼminlamaydi"
 
-#: src/gnuplot.c:119
+#: src/gnuplot.c:120
 #, c-format
 msgid "! Reference impedance Z0 = %.2f Ohm\n"
 msgstr "! Mos yozuvlar impedansi Z0 = %.2f Ohm\n"
 
-#: src/gnuplot.c:161
+#: src/gnuplot.c:162
 msgid "CSV Data"
 msgstr "CSV maʼlumotlari"
 
-#: src/gnuplot.c:244
+#: src/gnuplot.c:245
 #, c-format
 msgid "# Near E field\n"
 msgstr "# Yaqin E maydoni\n"
 
-#: src/gnuplot.c:271
+#: src/gnuplot.c:272
 #, c-format
 msgid "# Near H field\n"
 msgstr "# Yaqin H maydoni\n"
 
-#: src/gnuplot.c:311
+#: src/gnuplot.c:312
 #, c-format
 msgid "# Poynting Vector\n"
 msgstr "# Poyting vektori\n"
 
-#: src/gnuplot.c:370
+#: src/gnuplot.c:371
 #, c-format
 msgid "# Radiation Pattern\n"
 msgstr "# Nurlanish diagrammasi\n"
 
-#: src/gnuplot.c:508
+#: src/gnuplot.c:509
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# tuzilma patch segmentlari\n"
 
-#: src/gnuplot.c:543
+#: src/gnuplot.c:544
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# tuzilma sim segmentlari\n"
 
-#: src/gnuplot.c:573
+#: src/gnuplot.c:574
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4277,11 +4417,11 @@ msgstr ""
 "Koʻrish uchun: gnuplot -e \"set terminal qt; splot '%s' with lines; pause "
 "mouse close\"\n"
 
-#: src/gnuplot.c:585
+#: src/gnuplot.c:586
 msgid "Save Currents and Charges to CSV"
 msgstr "Toklar va zaryadlarni CSV ga saqlash"
 
-#: src/gnuplot.c:586
+#: src/gnuplot.c:587
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4289,11 +4429,11 @@ msgstr ""
 "Asosiy xnec2c oynasida \"Toklar\" yoki \"Zaryadlar\" tugmasini bosib tok "
 "maʼlumotlarini yoqishingiz kerak."
 
-#: src/gnuplot.c:651 src/gnuplot.c:661
+#: src/gnuplot.c:652 src/gnuplot.c:662
 msgid "Save Patch Currents to CSV"
 msgstr "Patch toklarini CSV ga saqlash"
 
-#: src/gnuplot.c:652
+#: src/gnuplot.c:653
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4301,7 +4441,7 @@ msgstr ""
 "Asosiy xnec2c oynasida \"Toklar\" yoki \"Zaryadlar\" tugmasini bosib tok "
 "maʼlumotlarini yoqishingiz kerak."
 
-#: src/gnuplot.c:662
+#: src/gnuplot.c:663
 msgid "No surface patches in this model."
 msgstr "Bu modelda sirt patch segmentlari yoʻq."
 
@@ -4826,98 +4966,98 @@ msgstr ""
 "ishlamasligi mumkin.\n"
 
 # xnec2c-exempt: name
-#: src/interface.c:280
+#: src/interface.c:279
 #, c-format
 msgid "xnec2c %s: %s"
 msgstr ""
 
-#: src/interface.c:373
+#: src/interface.c:372
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade yuklab boʻlmadi: %s\n"
 
-#: src/main.c:126
+#: src/main.c:127
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s oyna tizimi aniqlandi\n"
 
-#: src/main.c:134
+#: src/main.c:135
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch va --optimize oʻzaro mos kelmaydi.\n"
 
-#: src/main.c:143
+#: src/main.c:144
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png uchun --batch talab qilinadi\n"
 
-#: src/main.c:159
+#: src/main.c:160
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "kirish fayl yoʻl nomi juda uzun ( > %d belgi )\n"
 
-#: src/main.c:166
+#: src/main.c:167
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "kutilmagan argument '%s' .nec fayli emas\n"
 
-#: src/main.c:173
+#: src/main.c:174
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "kutilmagan argument: %s\n"
 
-#: src/main.c:179
+#: src/main.c:180
 msgid "batch mode requires an input file\n"
 msgstr "paketli rejim kirish faylini talab qiladi\n"
 
-#: src/main.c:189
+#: src/main.c:190
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "displeyni ochib boʻlmaydi: ishlaydigan X11 yoki Wayland sessiyasi talab "
 "qilinadi\n"
 
-#: src/main.c:208
+#: src/main.c:213
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d ta ish %d ta protsessorga fork qilinmoqda.\n"
 
-#: src/main.c:221 src/main.c:229
+#: src/main.c:226 src/main.c:234
 msgid "exiting after fatal error: pipe() failed"
 msgstr "jiddiy xatodan keyin chiqilmoqda: pipe() muvaffaqiyatsiz boʻldi"
 
-#: src/main.c:238
+#: src/main.c:243
 msgid "exiting after fatal error: fork() failed"
 msgstr "jiddiy xatodan keyin chiqilmoqda: fork() muvaffaqiyatsiz boʻldi"
 
-#: src/main.c:833
+#: src/main.c:838
 msgid "exiting via user interrupt\n"
 msgstr "foydalanuvchi uzilishi orqali chiqilmoqda\n"
 
-#: src/main.c:837
+#: src/main.c:842
 msgid "segmentation fault, exiting\n"
 msgstr "segmentatsiya xatosi, chiqilmoqda\n"
 
-#: src/main.c:841
+#: src/main.c:846
 msgid "floating point exception, exiting\n"
 msgstr "suzuvchi nuqta istisnosi, chiqilmoqda\n"
 
-#: src/main.c:845
+#: src/main.c:850
 msgid "abort signal received, exiting\n"
 msgstr "toʻxtatish signali qabul qilindi, chiqilmoqda\n"
 
-#: src/main.c:849
+#: src/main.c:854
 msgid "termination request received, exiting\n"
 msgstr "tugatish soʻrovi qabul qilindi, chiqilmoqda\n"
 
-#: src/main.c:859
+#: src/main.c:864
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "tarmoqlanmagan, pid %d dan SIGCHLD eʼtiborga olinmaydi\n"
 
-#: src/main.c:867
+#: src/main.c:872
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "bola jarayoni pid %d chiqdi\n"
 
-#: src/main.c:876
+#: src/main.c:881
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "signal bilan standart chiqish: %d\n"
@@ -5426,19 +5566,19 @@ msgstr ""
 msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Yorliq tekstura atlasi yaratildi (ID=%u)\n"
 
-#: src/opengl-engine/opengl_axes.c:156
+#: src/opengl-engine/opengl_axes.c:161
 msgid "Failed to load axes line shader\n"
 msgstr "Oʻq chiziq shaderini yuklashda muvaffaqiyatsizlik\n"
 
-#: src/opengl-engine/opengl_axes.c:189
+#: src/opengl-engine/opengl_axes.c:192
 msgid "Axes renderer initialized\n"
 msgstr "Oʻq renderlash tizimi ishga tushirildi\n"
 
-#: src/opengl-engine/opengl_axes.c:193
+#: src/opengl-engine/opengl_axes.c:196
 msgid "Failed to load text shaders\n"
 msgstr "Matn shaderlarini yuklashda muvaffaqiyatsizlik\n"
 
-#: src/opengl-engine/opengl_cairo_overlay.c:60
+#: src/opengl-engine/opengl_cairo_overlay.c:62
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Cairo ustki qatlam shaderlarini yuklashda muvaffaqiyatsizlik\n"
 
@@ -5446,54 +5586,63 @@ msgstr "Cairo ustki qatlam shaderlarini yuklashda muvaffaqiyatsizlik\n"
 msgid "Failed to create cairo overlay base\n"
 msgstr "Cairo ustki qatlam asosini yaratishda muvaffaqiyatsizlik\n"
 
-#: src/opengl-engine/opengl_ground_plane.c:103
+#: src/opengl-engine/opengl_ground_plane.c:105
 msgid "Failed to load ground plane shaders\n"
 msgstr "Yer tekisligi shaderlarini yuklashda muvaffaqiyatsizlik\n"
 
 #: src/opengl-engine/opengl_renderer.c:55
 #, c-format
+msgid "Shader declares no version directive: %s\n"
+msgstr "Shader versiya direktivasini eʼlon qilmagan: %s\n"
+
+#: src/opengl-engine/opengl_renderer.c:99
+#, c-format
 msgid "Failed to load shader: %s (%s)\n"
 msgstr "Shaderni yuklashda muvaffaqiyatsizlik: %s (%s)\n"
 
-#: src/opengl-engine/opengl_renderer.c:84
+#: src/opengl-engine/opengl_renderer.c:149
 #, c-format
 msgid "Shader compile error: %s: %s\n"
 msgstr "Shader kompilyatsiya xatosi: %s: %s\n"
 
-#: src/opengl-engine/opengl_renderer.c:126
+#: src/opengl-engine/opengl_renderer.c:190
 #, c-format
 msgid "Shader link failed: %s + %s\n"
 msgstr "Shader bogʻlash muvaffaqiyatsiz boʻldi: %s + %s\n"
 
-#: src/opengl-engine/opengl_view.c:184
+#: src/opengl-engine/opengl_view.c:222
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "OpenGL kontekst xatosi — ushbu displeyda OpenGL amalga oshirilishi mavjud "
 "emas\n"
 
-#: src/opengl-engine/opengl_view.c:197
+#: src/opengl-engine/opengl_view.c:230
+msgid "Disabling OpenGL: shader catalog failed\n"
+msgstr "OpenGL oʻchirilmoqda: shader katalogi ishlamadi\n"
+
+#: src/opengl-engine/opengl_view.c:243
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL oʻchirilmoqda: sahna shaderi muvaffaqiyatsiz boʻldi\n"
 
-#: src/opengl-engine/opengl_view.c:212
+#: src/opengl-engine/opengl_view.c:258
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL oʻchirilmoqda: ustki qatlam shaderi muvaffaqiyatsiz boʻldi\n"
 
-#: src/opengl-engine/opengl_view.c:224
+#: src/opengl-engine/opengl_view.c:270
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL oʻchirilmoqda: oʻq renderlash tizimi muvaffaqiyatsiz boʻldi\n"
 
-#: src/opengl-engine/opengl_view.c:253
+#: src/opengl-engine/opengl_view.c:299
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL oʻchirilmoqda: yer tekisligi shaderi muvaffaqiyatsiz boʻldi\n"
 
-#: src/opengl-engine/opengl_view.c:275
+#: src/opengl-engine/opengl_view.c:321
 #, c-format
 msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "Renderlash obʼektlari soni %u MAX_RENDERABLES (%d) dan oshib ketdi\n"
 
-#: src/opengl-engine/opengl_view.c:354
+#: src/opengl-engine/opengl_view.c:402
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL oʻchirilmoqda: qatlam kompozit shaderi muvaffaqiyatsiz boʻldi\n"
 
@@ -5514,10 +5663,6 @@ msgstr "MSAA freymbufer toʻliq emas\n"
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA yechim freymbufer toʻliq emas\n"
 
-#: src/opengl-engine/opengl_view_overlay.c:326
-msgid "Failed to load overlay shaders\n"
-msgstr "Ustki qatlam shaderlarini yuklashda muvaffaqiyatsizlik\n"
-
 #: src/opengl-engine/opengl_view_peel.c:254
 #, c-format
 msgid "Peel FBO %d incomplete\n"
@@ -5536,16 +5681,12 @@ msgstr "Peel toʻplash FBO toʻliq emas\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "Qatlam chuqurligi FBO toʻliq emas\n"
 
-#: src/opengl-engine/opengl_view_render.c:427
+#: src/opengl-engine/opengl_view_render.c:389
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr ""
 "Shaffof renderlash obʼektlari oʻtkazib yuborildi: peel FBO lar mavjud emas\n"
 
-#: src/opengl-engine/opengl_view_scene.c:297
-msgid "Failed to load shaders\n"
-msgstr "Shaderlarni yuklashda muvaffaqiyatsizlik\n"
-
-#: src/opengl/opengl_rdpattern.c:355
+#: src/opengl/opengl_rdpattern.c:345
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: yaroqsiz chizish uslubi %d, sirtdan foydalanilmoqda\n"
@@ -5841,17 +5982,17 @@ msgstr ""
 "Oʻrtacha kuchaytirish: %.4f (%.2f dBi), FIK: %.1f%%, qattiq burchak: %.4f * "
 "pi sr\n"
 
-#: src/rc_config.c:885
+#: src/rc_config.c:958
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() bajarib boʻlmadi: %s\n"
 
-#: src/rc_config.c:889
+#: src/rc_config.c:962
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "HOME muhit oʻzgaruvchisi aniqlanmagan, %s ishlatilmoqda\n"
 
-#: src/rc_config.c:974
+#: src/rc_config.c:1047
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
@@ -5859,27 +6000,36 @@ msgstr ""
 "%s (locale=%s): faqat %d / %lu belgi mos keldi, boshqa locale sinab "
 "koʻrilmoqda: %s\n"
 
-#: src/rc_config.c:1193
+#: src/rc_config.c:1266
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "oyna: x=%-5d y=%-5d w=%-5d h=%-5d  sarlavha: \"%s\"\n"
 
-#: src/rc_config.c:1227
+#: src/rc_config.c:1300
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: dastur versiyasini oʻqishda EOF.\n"
 
-#: src/rc_config.c:1233
+#: src/rc_config.c:1306
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "mavjud konfiguratsiya fayli versiyasi farq qiladi: %s != %s\n"
 
-#: src/rc_config.c:1367
+#: src/rc_config.c:1353
+#, c-format
+msgid ""
+"gain readouts are scaled to %s, restored from the previous session; select "
+"Total Gain to read total gain\n"
+msgstr ""
+"kuchaytirish koʻrsatkichlari %s ga masshtablangan, oldingi seansdan "
+"tiklandi; umumiy kuchaytirishni oʻqish uchun Total Gain-ni tanlang\n"
+
+#: src/rc_config.c:1463
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "%s uchun stat muvaffaqiyatsiz: %s\n"
 
-#: src/rc_config.c:1373
+#: src/rc_config.c:1469
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5888,51 +6038,95 @@ msgstr ""
 "4e62893b xatosidan kelib chiqqan %s katalog ruxsatnomalari 0%o dan 0%o ga "
 "tuzatildi.\n"
 
-#: src/rc_config.c:1404
+#: src/rc_config.c:1500
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: Qator tahlil qilinmadi: %s\n"
 
-#: src/rc_config.c:1410
+#: src/rc_config.c:1506
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: %s uchun fayl erta tugadi: %s \n"
 
-#: src/rc_config.c:1435
+#: src/rc_config.c:1531
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: tahlil xatosi (%s): %s \n"
 
-#: src/rc_config.c:1449
+#: src/rc_config.c:1545
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr ""
 "Konfiguratsiyada notoʻgʻri osmon modeli indeksi %d, standartga "
 "qaytarilmoqda\n"
 
-#: src/rc_config.c:1455
+#: src/rc_config.c:1551
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Konfiguratsiyada notoʻgʻri yer modeli indeksi %d, standartga qaytarilmoqda\n"
 
-#: src/rc_config.c:1461
+#: src/rc_config.c:1557
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Konfiguratsiyada notoʻgʻri interpolyatsiya usuli %d, standartga "
 "qaytarilmoqda\n"
 
-#: src/rc_config.c:1636
+#: src/rc_config.c:1565
+#, c-format
+msgid "Invalid flow visualization mode %d in config, resetting to default\n"
+msgstr ""
+"Konfiguratsiyada notoʻgʻri oqim vizualizatsiyasi rejimi %d, standart "
+"qiymatga qaytarilmoqda\n"
+
+#: src/rc_config.c:1745
 msgid "batch mode: skipping configuration save\n"
 msgstr "paketli rejim: konfiguratsiyani saqlash oʻtkazib yuborilmoqda\n"
 
-#: src/rc_config.c:1643
+#: src/rc_config.c:1752
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "xnec2c konfiguratsiya faylini ochib boʻlmadi %s: %s\n"
 
-#: src/rdpattern_ui.c:38
+#: src/rdpattern_noise_menu.c:37
+msgid "Read the noise temperature at the nearest tabulated frequency."
+msgstr "Shovqin haroratini eng yaqin jadval chastotasida oʻqing."
+
+#: src/rdpattern_noise_menu.c:39
+msgid ""
+"Interpolate the noise temperature between tabulated frequencies in log-log "
+"space, clamped at the table edges."
+msgstr ""
+"Shovqin haroratini jadval chastotalari orasida log-log fazoda interpolatsiya "
+"qiling, jadval chetlarida cheklangan."
+
+#: src/rdpattern_noise_menu.c:133
+msgid "Available while a selected sky or earth model reads a frequency table."
+msgstr ""
+"Tanlangan osmon yoki yer modeli chastota jadvalini oʻqiganda mavjud boʻladi."
+
+#: src/rdpattern_noise_menu.c:135
+msgid ""
+"The selected sky and earth models resolve by an intrinsic method; select a "
+"table-based model to enable."
+msgstr ""
+"Tanlangan osmon va yer modellari ichki usul bilan hal qilinadi; yoqish uchun "
+"jadvalga asoslangan modelni tanlang."
+
+#: src/rdpattern_noise_menu.c:296
+msgid "Sky Model"
+msgstr "Osmon modeli"
+
+#: src/rdpattern_noise_menu.c:303
+msgid "Earth Model"
+msgstr "Yer modeli"
+
+#: src/rdpattern_noise_menu.c:311
+msgid "Interpolation"
+msgstr "Interpolatsiya"
+
+#: src/rdpattern_ui.c:39
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5946,7 +6140,23 @@ msgstr ""
 "H-maydoni animatsiyasi: NEC fayliga NH kartasini qoʻshing\n"
 "Poyinting vektori: NE va NH kartalarini ikkalasini ham qoʻshing"
 
-#: src/rdpattern_ui.c:94
+#: src/rdpattern_ui.c:59
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Close the animation window to enable this setting."
+msgstr ""
+"Statik yaqin maydon vektor koʻrinishini tanlaydi.\n"
+"Ushbu sozlamani yoqish uchun animatsiya oynasini yoping."
+
+#: src/rdpattern_ui.c:61
+msgid ""
+"Choose the static near-field vector presentation.\n"
+"Applies while the animation window is closed."
+msgstr ""
+"Statik yaqin maydon vektor koʻrinishini tanlaydi.\n"
+"Animatsiya oynasi yopiq boʻlganda qoʻllaniladi."
+
+#: src/rdpattern_ui.c:129
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -5955,12 +6165,12 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d [0..%d] diapazonidan tashqari, GS_LINP ga "
 "qaytarilmoqda\n"
 
-#: src/rdpattern_ui.c:516
+#: src/rdpattern_ui.c:544
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr ""
 "Koʻruvchi yoʻnalishidagi kuchaytirish, joriy koʻrinish burchaklari uchun."
 
-#: src/rdpattern_ui.c:518
+#: src/rdpattern_ui.c:546
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
@@ -5968,7 +6178,7 @@ msgstr ""
 "Koʻruvchi yoʻnalishidagi yorqinlik harorati, joriy koʻrinish burchaklari "
 "uchun."
 
-#: src/rdpattern_ui.c:538 src/rdpattern_ui.c:544
+#: src/rdpattern_ui.c:566 src/rdpattern_ui.c:572
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -5976,7 +6186,7 @@ msgstr ""
 "Kuzatish balandlik burchagi. Antenna haroratini baholash uchun osmon/yer "
 "chegarasini siljitadi. 0° = gorizont."
 
-#: src/rdpattern_ui.c:541 src/rdpattern_ui.c:547
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5984,7 +6194,7 @@ msgstr ""
 "Antenna harorati uchun kuzatish balandligi.\n"
 "Yoqish uchun Kuchaytirish uslubi → Shovqin harorati ni tanlang."
 
-#: src/rdpattern_ui.c:550
+#: src/rdpattern_ui.c:578
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
@@ -5992,7 +6202,7 @@ msgstr ""
 "Shovqin harorati modellari uchun mustaqil osmon, yer va interpolyatsiya "
 "tanlovlari."
 
-#: src/rdpattern_ui.c:552
+#: src/rdpattern_ui.c:580
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6000,71 +6210,71 @@ msgstr ""
 "Osmon va yer shovqin harorati modellari.\n"
 "Yoqish uchun Kuchaytirish uslubi → Shovqin harorati ni tanlang."
 
-#: src/rdpattern_ui.c:846
+#: src/rdpattern_ui.c:889
 msgid "Total Gain"
 msgstr "Jami kuchaytirish"
 
-#: src/rdpattern_ui.c:847
+#: src/rdpattern_ui.c:890
 msgid "Horizontal Polarization"
 msgstr "Gorizontal qutblanish"
 
-#: src/rdpattern_ui.c:848
+#: src/rdpattern_ui.c:891
 msgid "Vertical Polarization"
 msgstr "Vertikal qutblanish"
 
-#: src/rdpattern_ui.c:849
+#: src/rdpattern_ui.c:892
 msgid "RH Circular Polarization"
 msgstr "Oʻng qoʻllik doiraviy qutblanish"
 
-#: src/rdpattern_ui.c:850
+#: src/rdpattern_ui.c:893
 msgid "LH Circular Polarization"
 msgstr "Chap qoʻllik doiraviy qutblanish"
 
-#: src/rdpattern_ui.c:855
+#: src/rdpattern_ui.c:944
 msgid "Linear Power"
 msgstr "Chiziqli quvvat"
 
-#: src/rdpattern_ui.c:856
+#: src/rdpattern_ui.c:945
 msgid "Linear Voltage"
 msgstr "Chiziqli kuchlanish"
 
-#: src/rdpattern_ui.c:857
+#: src/rdpattern_ui.c:946
 msgid "ARRL Scale"
 msgstr "ARRL masshtabi"
 
-#: src/rdpattern_ui.c:858
+#: src/rdpattern_ui.c:947
 msgid "Logarithmic Scale"
 msgstr "Logarifmik masshtab"
 
-#: src/rdpattern_ui.c:859
+#: src/rdpattern_ui.c:948
 msgid "Noise Temperature"
 msgstr "Shovqin harorati"
 
-#: src/rdpattern_ui.c:860
+#: src/rdpattern_ui.c:949
 msgid "Noise Temp (log scale)"
 msgstr "Shovqin harorati (log masshtab)"
 
-#: src/rdpattern_ui.c:872
+#: src/rdpattern_ui.c:967
 msgid "Radiation Pattern: - "
 msgstr "Nurlanish diagrammasi: - "
 
-#: src/rdpattern_ui.c:892
+#: src/rdpattern_ui.c:991
 msgid "Near Fields:"
 msgstr "Yaqin maydonlar:"
 
-#: src/rdpattern_ui.c:894
+#: src/rdpattern_ui.c:993
 msgid " - E Field"
 msgstr " - E maydoni"
 
-#: src/rdpattern_ui.c:896
+#: src/rdpattern_ui.c:995
 msgid " - H Field"
 msgstr " - H maydoni"
 
-#: src/rdpattern_ui.c:898
+#: src/rdpattern_ui.c:997
 msgid " - Poynting Vector"
 msgstr " - Poyinting vektori"
 
-#: src/rdpattern_ui.c:908
+#: src/rdpattern_ui.c:1008
 msgid "Frequency Data Plots - "
 msgstr "Chastota maʼlumotlari grafiklari - "
 
@@ -6087,22 +6297,22 @@ msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr ""
 "Optimallashtiruvchi sikli tugallanmadi, oraliq qayta chizish yashirildi.\n"
 
-#: src/settings/render_settings_common.c:116
+#: src/settings/render_settings_common.c:119
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: glade yuklab boʻlmadi: %s\n"
 
-#: src/settings/render_settings_common.c:126
+#: src/settings/render_settings_common.c:129
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: opengl glade yuklab boʻlmadi: %s\n"
 
-#: src/settings/render_settings_common.c:136
+#: src/settings/render_settings_common.c:139
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: cairo glade yuklab boʻlmadi: %s\n"
 
-#: src/settings/render_settings_common.c:149
+#: src/settings/render_settings_common.c:152
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init: glade dan render_settings_window olib boʻlmadi\n"
 
@@ -6209,38 +6419,38 @@ msgstr ""
 "Ushbu parametr NEC modeli qiymatini bekor qilib qoʻyishini boshqaradi.\n"
 "Mustaqil boshqarish uchun Opt belgisini olib tashlang."
 
-#: src/themes/theme.c:140
+#: src/themes/theme.c:135
 #, c-format
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "mavzu '%s' roli '%s' notoʻgʻri rang, eski standart ishlatilmoqda\n"
 
-#: src/themes/theme.c:223
+#: src/themes/theme.c:218
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "mavzu: %s resursini yuklab boʻlmadi: %s\n"
 
-#: src/themes/theme.c:233
+#: src/themes/theme.c:228
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "mavzu: %s resursini tahlil qilib boʻlmadi: %s\n"
 
-#: src/themes/theme.c:259
+#: src/themes/theme.c:254
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "mavzu: %s tahlil qilib boʻlmadi, oʻrnatilgan standartlar ishlatilmoqda\n"
 
-#: src/themes/theme.c:388
+#: src/themes/theme.c:377
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "mavzu '%s' teskari variantga ega emas, asosiysi ishlatilmoqda\n"
 
-#: src/themes/theme.c:396
+#: src/themes/theme.c:385
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "mavzu '%s' topilmadi, eskisi ishlatilmoqda\n"
 
-#: src/themes/theme.c:468
+#: src/themes/theme.c:428
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "kenglik '%s' notoʻgʻri, joriy qiymat saqlanmoqda\n"
@@ -6299,7 +6509,7 @@ msgstr ""
 msgid "%s:\n"
 msgstr ""
 
-#: src/validation_dump.c:34
+#: src/validation_dump.c:35
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6307,23 +6517,23 @@ msgstr ""
 "validation: nec2-builtin mathlib mavjud emas; sonli natijalar etalondan farq "
 "qilishi mumkin\n"
 
-#: src/validation_dump.c:39
+#: src/validation_dump.c:40
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr ""
 "validation: takrorlanuvchanlik uchun mathlib nec2-builtin ga majburlandi\n"
 
-#: src/validation_dump.c:58
+#: src/validation_dump.c:59
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
 "validation: takrorlanuvchanlik uchun antenna-harorat modellari va balandlik "
 "majburlandi\n"
 
-#: src/validation_dump.c:68
+#: src/validation_dump.c:69
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "validation: takrorlanuvchanlik uchun qutblanish umumiyga majburlandi\n"
 
-#: src/validation_dump.c:87
+#: src/validation_dump.c:88
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6331,24 +6541,24 @@ msgstr ""
 "validation: takrorlanuvchanlik uchun tuzilma koʻruvchi standart yoʻnalishga "
 "tiklandi\n"
 
-#: src/validation_dump.c:614 src/validation_dump.c:620
+#: src/validation_dump.c:621 src/validation_dump.c:627
 msgid "Validation Tree"
 msgstr "Tekshiruv daraxti"
 
-#: src/validation_dump.c:614
+#: src/validation_dump.c:621
 msgid "Cannot save: frequency loop not done"
 msgstr "Saqlab boʻlmaydi: chastota sikli tugallanmagan"
 
-#: src/validation_dump.c:620
+#: src/validation_dump.c:627
 msgid "Cannot create output directory"
 msgstr "Chiqish katalogini yaratib boʻlmadi"
 
-#: src/validation_dump.c:652
+#: src/validation_dump.c:659
 #, c-format
 msgid "validation tree written to: %s\n"
 msgstr "tekshiruv daraxti yozildi: %s\n"
 
-#: src/xnec2c.c:306
+#: src/xnec2c.c:304
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
@@ -6357,96 +6567,96 @@ msgstr ""
 "fayldan murakkab dielektrik doimiy: %12.5E%+12.5Ej, soʻralgan: %12.5E"
 "%+12.5Ej\n"
 
-#: src/xnec2c.c:309
+#: src/xnec2c.c:307
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters(): Yer parametrlarida xato"
 
-#: src/xnec2c.c:733
+#: src/xnec2c.c:731
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f soniya. (%s)\n"
 
-#: src/xnec2c.c:1077
+#: src/xnec2c.c:1075
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
 msgstr ""
 "%d qadam poyga: yuborilgan %.6f MHz, joriy %.6f MHz; qayta hisoblanadi\n"
 
-#: src/xnec2c.c:1203
+#: src/xnec2c.c:1201
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "fork yigʻish paytida %d bola notoʻgʻri pipe fd ga ega\n"
 
-#: src/xnec2c.c:1256
+#: src/xnec2c.c:1254
 msgid "Failed to read data from forked child\n"
 msgstr "Fork qilingan boladan maʼlumot oʻqib boʻlmadi\n"
 
-#: src/xnec2c.c:1530
+#: src/xnec2c.c:1528
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "eng yaqin qadam %g MHz soʻralgan %g MHz dan farq qiladi\n"
 
-#: src/xnec2c.c:1534
+#: src/xnec2c.c:1532
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "skanerlashdan keyingi chastota %.4f MHz ga oʻrnatildi (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1572
+#: src/xnec2c.c:1570
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Chastota sikli vaqti: %f soniya. (%s)\n"
 
-#: src/xnec2c.c:1624
+#: src/xnec2c.c:1622
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "paket rejimidagi kanvas %d %dx%d oʻlchamda kadr chizmadi\n"
 
-#: src/xnec2c.c:1789
+#: src/xnec2c.c:1787
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "nurlanish diagrammasi PNG olish: %s uchun hisoblangan qadam yoʻq\n"
 
-#: src/xnec2c.c:1861
+#: src/xnec2c.c:1859
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s uchun nurlanish diagrammasi PNG olinmadi\n"
 
-#: src/xnec2c.c:1867
+#: src/xnec2c.c:1865
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s uchun nurlanish diagrammasi PNG saqlanmadi: %s\n"
 
-#: src/xnec2c.c:1872
+#: src/xnec2c.c:1870
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "nurlanish diagrammasi PNG yozildi: %s\n"
 
-#: src/xnec2c.c:1909
+#: src/xnec2c.c:1907
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "bir nechta nurlanish diagrammasi PNG formatlari .png fayl nomini talab "
 "qiladi: %s\n"
 
-#: src/xnec2c.c:2014
+#: src/xnec2c.c:2012
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "tarash har biri %d ta tolali %d ta ishchini bajaradi\n"
 
-#: src/xnec2c.c:2306
+#: src/xnec2c.c:2304
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread ni ishga tushirib boʻlmadi\n"
 
-#: src/xnec2c.c:2485
+#: src/xnec2c.c:2483
 msgid "Frequency Sweep"
 msgstr "Chastota sikllash"
 
-#: src/xnec2c.c:2486
+#: src/xnec2c.c:2484
 msgid "Recalculate the frequency sweep?"
 msgstr "Chastota sikllash qayta hisoblansinmi?"
 
-#: src/xnec2c.c:2487
+#: src/xnec2c.c:2485
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."
