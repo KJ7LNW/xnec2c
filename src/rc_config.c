@@ -451,7 +451,7 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Cairo Line Cap Style", .format = "%d",
 		.vars = { &rc_config.cairo_line_cap },
-		.def = { { .i = CAIRO_LINE_CAP_BUTT } },
+		.def = { { .i = CAIRO_LINE_CAP_ROUND } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_render_redraw_refresh,
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &render_settings_builder,
