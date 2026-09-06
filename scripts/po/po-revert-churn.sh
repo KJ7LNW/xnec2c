@@ -18,14 +18,19 @@ base=$(basename "$file")
 
 # Fold the three generated axes so two catalogs compare equal when they differ
 # only in how a regeneration arranged them: msgcat --sort-output imposes one
-# entry order, so a template reordering never registers; the line number in
-# every "#:" source-reference token collapses to a fixed placeholder; and the
-# generated POT-Creation-Date blanks. Referenced filenames, fuzzy flags, and
-# all msgid/msgstr content stay intact, so a genuine reference, flag, or
-# translation change still shows.
+# entry order, so a template reordering never registers; every "#:" source
+# reference drops, so moving a string between source files or shifting the
+# lines around it never registers; and the generated POT-Creation-Date blanks.
+# Translator comments, exemption comments, fuzzy flags, and all msgid/msgstr
+# content stay intact, so a genuine flag or translation change still shows.
+#
+# Dropping a reference line whole, rather than collapsing the line number it
+# carries, keeps the comparison independent of how msgcat wrapped it: a
+# reference set gaining or losing a member rewraps, and a retained "#:" line
+# count would register that rewrap as work.
 normalize_po_refs() {
     msgcat --sort-output --no-wrap "$1" \
-        | sed -e '/^#:/ s/:[0-9][0-9]*/:LINE/g' \
+        | sed -e '/^#:/d' \
               -e '/^"POT-Creation-Date:/ s/.*/"POT-Creation-Date: DATE"/'
     return $?
 }
