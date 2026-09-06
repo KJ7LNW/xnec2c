@@ -28,12 +28,12 @@ GdkPixbuf *cairo_capture_pixbuf(render_surface_t *surface,
 /** cairo_surface_adopt() - Build a Cairo surface presenting a drawing area
  * @area: drawing area the surface presents through
  * @view: view the surface shows, or NULL for a surface showing none
- * @input: modifier scroll operations of the presenting domain, or NULL
+ * @input: scroll capability row of the presenting domain, or NULL
  *
  * Returns a surface the caller hands to a canvas, which owns it from then on.
  */
 render_surface_t *cairo_surface_adopt(GtkWidget *area, view_t *view,
-    const surface_input_ops_t *input);
+    surface_capability_t *const *input);
 
 /** cairo_surface_free() - Release a Cairo surface and its retained scene */
 void cairo_surface_free(render_surface_t *surface);

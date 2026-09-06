@@ -31,12 +31,17 @@ typedef enum
   SURFACE_MOD_COUNT
 } surface_modifier_t;
 
-/* One scroll capability: the handler applying it bound to the notice
- * advertising it.  The capability owns the guard retiring its notice, so
- * rows borrowing one capability advertise it once between them. */
+/* One scroll capability: the handler applying it bound to the modifier
+ * requesting it and the notice advertising it.  The capability owns the
+ * guard retiring its notice, so rows borrowing one capability advertise it
+ * once between them. */
 typedef struct
 {
   gboolean (*handler)(GdkEventScroll *event, render_surface_t *surface);
+
+  /* Modifier the capability answers, stated once here so every row offering
+   * the capability agrees with the chord its notice advertises */
+  surface_modifier_t modifier;
 
   /* Text advertising the capability, presented on the first frame of the
    * session whose engine resolves the subject the capability acts upon */
@@ -49,15 +54,6 @@ typedef struct
   gboolean notice_shown;
 
 } surface_capability_t;
-
-/* Modifier scroll capabilities the constructing site supplies.  A NULL slot
- * declines that modifier, which the generic handler then treats as an
- * unmodified event. */
-typedef struct
-{
-  surface_capability_t *by_modifier[SURFACE_MOD_COUNT];
-
-} surface_input_ops_t;
 
 /**
  * surface_notice_capabilities() - Advertise capabilities acting on a subject

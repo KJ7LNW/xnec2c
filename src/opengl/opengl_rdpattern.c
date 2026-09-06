@@ -386,12 +386,11 @@ rdpattern_content_cleanup(void)
 
 /*-----------------------------------------------------------------------*/
 
-/* Modifier scroll capabilities of the radiation-pattern domain */
-static const surface_input_ops_t rdpattern_input_ops = {
-  .by_modifier = {
-    [SURFACE_MOD_CTRL]  = &opengl_structure_wire_radius_cap,
-    [SURFACE_MOD_SHIFT] = &rdpattern_overlay_scale_cap
-  }
+/* Scroll capabilities of the radiation-pattern domain */
+static surface_capability_t *const rdpattern_input_caps[] = {
+  &opengl_structure_wire_radius_cap,
+  &rdpattern_overlay_scale_cap,
+  NULL
 };
 
 /* Static view configuration */
@@ -412,7 +411,7 @@ opengl_rdpattern_surface_new(GtkContainer *parent)
   render_surface_t *surface;
 
   surface = gl_view_surface_new( &rdpattern_view_config,
-      &rdpattern_input_ops, rdpattern_view, parent );
+      rdpattern_input_caps, rdpattern_view, parent );
 
   if( surface != NULL )
     gtk_widget_show( surface->widget );

@@ -46,8 +46,8 @@ void nf_static_menu_sync(void);
  * engine presenting the radiation-pattern view */
 extern surface_capability_t rdpattern_overlay_scale_cap;
 
-/* Modifier scroll operations the Cairo radiation-pattern surface offers */
-extern const surface_input_ops_t rdpattern_cairo_input;
+/* Scroll capability row the Cairo radiation-pattern surface offers */
+extern surface_capability_t *const rdpattern_cairo_input[];
 
 #endif
 

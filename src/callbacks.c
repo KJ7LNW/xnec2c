@@ -577,7 +577,7 @@ on_main_rdpattern_activate(
     canvas_add_surface( CANVAS_RDPATTERN,
         cairo_surface_adopt(Builder_Get_Object(
             rdpattern_window_builder, "rdpattern_drawingarea" ),
-          rdpattern_view, &rdpattern_cairo_input) );
+          rdpattern_view, rdpattern_cairo_input) );
 
 #ifdef HAVE_OPENGL
     {

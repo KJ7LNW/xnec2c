@@ -48,7 +48,7 @@ cairo_surface_draw(GtkWidget *_widget, cairo_t *cr, gpointer user_data)
 
   render_surface_t *
 cairo_surface_adopt(GtkWidget *area, view_t *view,
-    const surface_input_ops_t *input)
+    surface_capability_t *const *input)
 {
   cairo_engine_surface_t *cs = NULL;
 

@@ -391,14 +391,14 @@ typedef struct
 
 /** gl_view_surface_new() - Build a GL surface and pack it into a container
  * @config: view configuration
- * @input:  modifier scroll operations of the presenting domain, or NULL
+ * @input:  scroll capability row of the presenting domain, or NULL
  * @view:   per-view rotation/pan/zoom/drag owner (borrowed, non-NULL)
  * @parent: container the presented widget joins
  *
  * Returns a surface the caller hands to a canvas, which owns it from then on.
  */
 render_surface_t *gl_view_surface_new(gl_view_config_t *config,
-    const surface_input_ops_t *input, view_t *view, GtkContainer *parent);
+    surface_capability_t *const *input, view_t *view, GtkContainer *parent);
 
 /** gl_view_surface_free() - Release the view state a canvas held */
 void gl_view_surface_free(render_surface_t *surface);

@@ -564,7 +564,7 @@ gl_view_present_widget(gl_view_state_t *state)
 
 /** gl_view_surface_new() - Build a GL surface and pack it into a container
  * @config: view configuration
- * @input: modifier scroll operations of the presenting domain, or NULL
+ * @input: scroll capability row of the presenting domain, or NULL
  * @view: per-view rotation/pan/zoom/drag owner (borrowed, non-NULL)
  * @parent: container the presented widget joins
  *
@@ -574,7 +574,7 @@ gl_view_present_widget(gl_view_state_t *state)
  * they are delivered to.
  */
   render_surface_t *
-gl_view_surface_new(gl_view_config_t *config, const surface_input_ops_t *input,
+gl_view_surface_new(gl_view_config_t *config, surface_capability_t *const *input,
     view_t *view, GtkContainer *parent)
 {
   GtkWidget *gl_area;

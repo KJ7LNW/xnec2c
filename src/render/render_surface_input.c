@@ -127,8 +127,36 @@ on_motion(GtkWidget *_widget, GdkEventMotion *event, gpointer user_data)
 /*-----------------------------------------------------------------------*/
 
 /**
+ * capability_for_modifier() - Answer the row entry claiming one modifier
+ * @caps: NULL-terminated capability row of the surface
+ * @modifier: member of the modifier axis being resolved
+ *
+ * Returns NULL where the row offers nothing for the modifier.
+ */
+  static const surface_capability_t *
+capability_for_modifier(surface_capability_t *const *caps,
+    surface_modifier_t modifier)
+{
+  const surface_capability_t *cap = NULL;
+  int i;
+
+  for( i = 0; caps[i] != NULL && cap == NULL; i++ )
+  {
+    if( caps[i]->modifier != modifier )
+      continue;
+
+    cap = caps[i];
+  }
+
+  return( cap );
+
+} /* capability_for_modifier() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
  * scroll_capability() - Select the capability a modifier state requests
- * @input: modifier capabilities of the scrolled surface, or NULL when none
+ * @caps: capability row of the scrolled surface, or NULL when none
  * @state: modifier mask carried by the scroll event
  *
  * Walks the axis in ordinal order and answers the first capability the row
@@ -138,12 +166,12 @@ on_motion(GtkWidget *_widget, GdkEventMotion *event, gpointer user_data)
  * the zoom path.
  */
   static const surface_capability_t *
-scroll_capability(const surface_input_ops_t *input, guint state)
+scroll_capability(surface_capability_t *const *caps, guint state)
 {
   const surface_capability_t *cap = NULL;
   surface_modifier_t m;
 
-  if( input == NULL )
+  if( caps == NULL )
     return( NULL );
 
   for( m = 0; m < SURFACE_MOD_COUNT && cap == NULL; m++ )
@@ -151,7 +179,7 @@ scroll_capability(const surface_input_ops_t *input, guint state)
     if( (state & modifier_masks[m]) == 0 )
       continue;
 
-    cap = input->by_modifier[m];
+    cap = capability_for_modifier(caps, m);
   }
 
   return( cap );
@@ -174,16 +202,16 @@ surface_notice_capabilities(render_surface_t *surface,
     surface_cap_subject_t subject)
 {
   surface_capability_t *cap;
-  surface_modifier_t m;
+  int i;
 
   if( surface == NULL || surface->input == NULL )
     return;
 
-  for( m = 0; m < SURFACE_MOD_COUNT; m++ )
+  for( i = 0; surface->input[i] != NULL; i++ )
   {
-    cap = surface->input->by_modifier[m];
+    cap = surface->input[i];
 
-    if( cap == NULL || cap->notice_shown || cap->subject != subject )
+    if( cap->notice_shown || cap->subject != subject )
       continue;
 
     cap->notice_shown =
@@ -191,6 +219,43 @@ surface_notice_capabilities(render_surface_t *surface,
   }
 
 } /* surface_notice_capabilities() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * capability_row_validate() - Report a row dispatch cannot resolve whole
+ * @caps: NULL-terminated capability row of the surface, or NULL when the
+ *        surface offers none
+ *
+ * Dispatch reaches a capability by matching its modifier against the axis,
+ * so a modifier off the axis leaves the capability unreachable.  Dispatch
+ * then resolves a modifier to the first entry claiming it, so a later claim
+ * on that modifier is unreachable while its notice still advertises the
+ * chord.
+ */
+  static void
+capability_row_validate(surface_capability_t *const *caps)
+{
+  int i, j;
+
+  if( caps == NULL )
+    return;
+
+  for( i = 0; caps[i] != NULL; i++ )
+  {
+    BUG_ON(caps[i]->modifier >= SURFACE_MOD_COUNT,
+        "scroll capability names a modifier outside the axis: %s\n",
+        caps[i]->notice);
+
+    for( j = i + 1; caps[j] != NULL; j++ )
+    {
+      BUG_ON(caps[j]->modifier == caps[i]->modifier,
+          "scroll capability row claims one modifier twice: %s\n",
+          caps[j]->notice);
+    }
+  }
+
+} /* capability_row_validate() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -284,12 +349,16 @@ on_size_allocate(GtkWidget *_widget, GtkAllocation *allocation,
 /**
  * surface_input_connect() - Wire input and allocation signals to a surface
  * @surface: initialized surface whose widget receives the signals
+ *
+ * Validates the capability row before wiring the scroll handler walking it.
  */
   void
 surface_input_connect(render_surface_t *surface)
 {
   if( surface == NULL || surface->widget == NULL || surface->view == NULL )
     return;
+
+  capability_row_validate(surface->input);
 
   gtk_widget_add_events(surface->widget,
     GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |

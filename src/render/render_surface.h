@@ -31,8 +31,9 @@ struct render_surface_s
   /* Borrowed view the surface shows; NULL on a surface showing none */
   view_t *view;
 
-  /* Modifier scroll operations of this engine and domain; NULL declines both */
-  const surface_input_ops_t *input;
+  /* NULL-terminated scroll capability row of this engine and domain, or
+   * NULL on a surface offering none */
+  surface_capability_t *const *input;
 };
 
 /**
@@ -41,7 +42,7 @@ struct render_surface_s
  * @widget:  GTK-owned widget presented by the surface
  * @engine:  engine producing frames for the surface
  * @view:    borrowed view shown by the surface, or NULL
- * @input:   modifier scroll operations of the presenting domain, or NULL
+ * @input:   scroll capability row of the presenting domain, or NULL
  *
  * Wires the pointer and allocation handlers once every member is assigned and
  * before the widget is packed, so the first allocation reaches a live surface.
@@ -51,7 +52,7 @@ struct render_surface_s
 static inline gboolean
 render_surface_init(render_surface_t *surface, GtkWidget *widget,
     const render_engine_t *engine, view_t *view,
-    const surface_input_ops_t *input)
+    surface_capability_t *const *input)
 {
   if( surface == NULL || widget == NULL || engine == NULL )
     return FALSE;
