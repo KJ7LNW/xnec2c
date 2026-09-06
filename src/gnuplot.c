@@ -427,7 +427,7 @@ void Save_RadPattern_CSV(char *filename)
 	// Distance of rdpattern point nearest to xyz origin
 	// Convert radiation pattern values to points in 3 d space in x, y, z axis
 
-	double theta, phi, r;
+	double theta, phi;
 
     /* theta and phi step in rads */
     double dth = (double)fpat.dth * (double)TORAD;
@@ -451,9 +451,6 @@ void Save_RadPattern_CSV(char *filename)
 				// Step theta angle
 				for (nth = 0; nth < fpat.nth; nth++)
 				{
-					// Distance of pattern point from the xyz origin
-					r = rad_pattern[calc_idx].gtot[idx];
-
 					// mhz,phi,theta
 					fprintf(fp, "%.6f,%.17g,%.17g,",
 						save.freq[calc_idx],
@@ -463,7 +460,7 @@ void Save_RadPattern_CSV(char *filename)
 					// POL_TOTAL, POL_HORIZ, POL_VERT, POL_RHCP, POL_LHCP
 					for (pol = 0; pol < NUM_POL; pol++)
 						fprintf(fp, "%.17g%s", 
-							r + Polarization_Factor(pol, calc_idx, idx),
+							Polarized_Gain(pol, calc_idx, idx),
 							(pol == NUM_POL-1 ? "\n" : ",")
 							);
 

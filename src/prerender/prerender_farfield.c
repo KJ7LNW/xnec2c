@@ -105,15 +105,13 @@ ff_presentation_recompute(int fstep)
 
   /* Compute r_max and r_min from gain extremes */
   int idx = rad_pattern[fstep].max_gain_idx[pol];
-  double g = rad_pattern[fstep].gtot[idx] +
-             Polarization_Factor(pol, fstep, idx);
+  double g = Polarized_Gain(pol, fstep, idx);
   r_max = Scale_Gain_Resolved(g, fstep, idx, t_sky, t_earth);
   if( r_max < FF_PATTERN_MIN_RADIUS )
     r_max = 1.0;
 
   idx = rad_pattern[fstep].min_gain_idx[pol];
-  double actual_gain = rad_pattern[fstep].gtot[idx] +
-                       Polarization_Factor(pol, fstep, idx);
+  double actual_gain = Polarized_Gain(pol, fstep, idx);
   double color_gain = (actual_gain < COLOR_MIN_GAIN) ? COLOR_MIN_GAIN : actual_gain;
   r_min = Scale_Gain_Resolved(color_gain, fstep, idx, t_sky, t_earth);
 
@@ -132,8 +130,7 @@ ff_presentation_recompute(int fstep)
   {
     for( nth = 0; nth < fpat.nth; nth++ )
     {
-      double gain_v = rad_pattern[fstep].gtot[pts_idx] +
-                      Polarization_Factor(pol, fstep, pts_idx);
+      double gain_v = Polarized_Gain(pol, fstep, pts_idx);
       r = Scale_Gain_Resolved(gain_v, fstep, pts_idx, t_sky, t_earth);
 
       fp->vertices[pts_idx].r = r;

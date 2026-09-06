@@ -611,6 +611,10 @@ enum OPENGL_MSAA
 /* Minimum gain value used for color mapping */
 #define COLOR_MIN_GAIN -60.0
 
+/* Decibel value db10() and db20() return for a vanishing field: the floor of
+ * the decibel domain every gain consumer reads */
+#define DB_SATURATION_FLOOR -999.99
+
 /* Polarization type */
 enum POL_TYPE
 {
@@ -1910,6 +1914,7 @@ void on_freqplots_popup_destroy(GtkWidget *widget, gpointer user_data);
 gboolean on_freqplots_popup_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 void freqplots_marker_show(void);
 /* radiation.c */
+double Polarized_Gain(int pol_type, int fstep, int idx);
 void rdpat(void);
 /* rc_config.c */
 gboolean Create_Default_Config(void);

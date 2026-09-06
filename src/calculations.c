@@ -564,7 +564,7 @@ void cabc( complex double *curx)
 double db10( double x )
 {
   if( x < 1.0e-20 )
-    return( -999.99 );
+    return( DB_SATURATION_FLOOR );
 
   return( 10.0 * log10(x) );
 }
@@ -575,7 +575,7 @@ double db10( double x )
 double db20( double x )
 {
   if( x < 1.0e-20 )
-    return( -999.99 );
+    return( DB_SATURATION_FLOOR );
 
   return( 20.0 * log10(x) );
 }

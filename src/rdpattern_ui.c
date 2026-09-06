@@ -833,9 +833,7 @@ Viewer_Gain( view_t *v, int fstep )
   nth = fpat_theta_cell( theta );
   nph = fpat_phi_cell( phi );
   idx = nth + nph * fpat.nth;
-  gain = rad_pattern[fstep].gtot[idx] +
-    Polarization_Factor(calc_data.pol_type, fstep, idx);
-  if( gain < -999.99 ) gain = -999.99;
+  gain = Polarized_Gain(calc_data.pol_type, fstep, idx);
 
   return( gain );
 
@@ -1227,8 +1225,7 @@ Viewer_Noise_Value(view_t *v, int fstep)
 	nth = fpat_theta_cell(theta_deg);
 	nph = fpat_phi_cell(phi_deg);
 	idx = nth + nph * fpat.nth;
-	double gain = rad_pattern[fstep].gtot[idx]
-		+ Polarization_Factor(pol, fstep, idx);
+	double gain = Polarized_Gain(pol, fstep, idx);
 
 	return Inverse_Scale_Gain(Scale_Gain(gain, fstep, idx));
 }

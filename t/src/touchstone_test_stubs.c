@@ -56,12 +56,10 @@ fpat_phi_cell(double phi_deg)
 /* Total polarization applies no correction to the stored gain, so the
  * test controls gain entirely through rad_pattern gtot. */
 double
-Polarization_Factor(int pol_type, int fstep, int idx)
+Polarized_Gain(int pol_type, int fstep, int idx)
 {
 	(void)pol_type;
-	(void)fstep;
-	(void)idx;
-	return 0.0;
+	return rad_pattern[fstep].gtot[idx];
 }
 
 double

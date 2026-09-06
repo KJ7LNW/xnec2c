@@ -606,6 +606,34 @@ gfld( double rho, double phi, double rz,
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * Polarized_Gain() - Gain of one polarization at one radiation pattern cell
+ * @pol_type: polarization selecting the factor applied to the cell
+ * @fstep: frequency step holding the pattern
+ * @idx: theta-phi cell within that step's grid
+ *
+ * Sums the cell's total gain with its polarization factor and saturates the
+ * sum at the decibel floor db10() returns for a vanishing field. A
+ * polarization carrying no field drives the factor to its own floor, placing
+ * the unsaturated sum below every decibel value the field conversion produces.
+ *
+ * Return: the polarized gain in decibels, at or above the saturation floor.
+ */
+  double
+Polarized_Gain( int pol_type, int fstep, int idx )
+{
+  double gain = rad_pattern[fstep].gtot[idx] +
+    Polarization_Factor( pol_type, fstep, idx);
+
+  if( gain < DB_SATURATION_FLOOR )
+    gain = DB_SATURATION_FLOOR;
+
+  return( gain );
+
+} /* Polarized_Gain() */
+
+/*-----------------------------------------------------------------------*/
+
 /* compute radiation pattern, gain, normalized gain */
   void
 rdpat( void )
@@ -820,9 +848,7 @@ rdpat( void )
         /* Find and save max value of gain and direction */
         for( pol = 0; pol < NUM_POL; pol++ )
         {
-          gain = rad_pattern[fstep].gtot[idx] +
-            Polarization_Factor( pol, fstep, idx);
-          if( gain < -999.99 ) gain = -999.99;
+          gain = Polarized_Gain( pol, fstep, idx);
 
           /* Find and save max value of gain and direction */
           if( rad_pattern[fstep].max_gain[pol] < gain )

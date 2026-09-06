@@ -643,7 +643,7 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 		mem_backtrace(rad_pattern[idx].max_gain_idx);
 		return;
 	}
-	m->gain_max = rad_pattern[idx].gtot[mgidx] + Polarization_Factor(pol, idx, mgidx);
+	m->gain_max = Polarized_Gain(pol, idx, mgidx);
 	if (have_impedance)
 		m->gain_net = m->gain_max + net_gain_adjust;
 
@@ -719,8 +719,7 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 					double tht_rad = (fpat.thets + ith * fpat.dth) * M_PI / 180.0;
 					double z_w = ant_temp_z_world(tht_rad, phi_rad,
 							tht_mg, phi_mg, elev_rad);
-					double g_dbi = rad_pattern[idx].gtot[cell]
-							+ Polarization_Factor(pol, idx, cell);
+					double g_dbi = Polarized_Gain(pol, idx, cell);
 					double g_lin = pow(10.0, g_dbi / 10.0);
 					double t_bright = (z_w > ANT_TEMP_Z_EPSILON) ? t_sky : t_earth;
 
@@ -741,8 +740,7 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 			if (m->ant_temp > 0.0)
 			{
 				int mg_cell = rad_pattern[idx].max_gain_idx[pol];
-				double gmax_dbi = rad_pattern[idx].gtot[mg_cell]
-						+ Polarization_Factor(pol, idx, mg_cell);
+				double gmax_dbi = Polarized_Gain(pol, idx, mg_cell);
 				m->gt = gmax_dbi - 10.0 * log10(m->ant_temp);
 			}
 		}
@@ -770,8 +768,7 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 		fbidx = nth + nph * fpat.nth;
 
 		m->fb_ratio = pow(10.0, m->gain_max / 10.0);
-		m->fb_ratio /= pow(10.0, (rad_pattern[idx].gtot[fbidx]
-						+ Polarization_Factor(pol, idx, fbidx)) / 10.0);
+		m->fb_ratio /= pow(10.0, Polarized_Gain(pol, idx, fbidx) / 10.0);
 		m->fb_ratio = 10.0 * log10(m->fb_ratio);
 	}
 
