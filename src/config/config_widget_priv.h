@@ -139,6 +139,25 @@ GtkWidget *config_widget_lookup(GtkBuilder *builder, const char *widget_id);
 gboolean config_widget_element_candidate(const config_widget_element_t *elt,
     GtkWidget *w, void *out, size_t size);
 
+/** config_widget_element_selects - whether an element names a selection value
+ * @elt: element describing the row
+ *
+ * Return: TRUE when the row expresses one value, in either width; FALSE when
+ * the row expresses its own widget state instead.
+ */
+gboolean config_widget_element_selects(const config_widget_element_t *elt);
+
+/** config_widget_element_holds - whether a field holds a row's selection
+ * @field: field address
+ * @size:  the selection's field width
+ * @elt:   element naming a selection in either width
+ *
+ * Return: TRUE when the stored value equals the value @elt names; FALSE for
+ * a row naming no selection, which expresses its own state instead.
+ */
+gboolean config_widget_element_holds(const void *field, size_t size,
+    const config_widget_element_t *elt);
+
 /** config_widget_element_commit_value - what committing a widget writes
  * @elt:  element describing the widget
  * @w:    the resolved widget

@@ -927,20 +927,30 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.ant_temp_custom_t_earth },
 		.def = { { .d = ANT_TEMP_CUSTOM_T_EARTH_DEFAULT } } },
 
-	/* The theme selector radios are menu items the frequency-plots window
-	 * builds from the theme registry, so these trees name no group; each row
-	 * binds itself to its field and reaches this tree's refresh and its
-	 * hover policy through that binding. */
+	/* The theme selector rows are menu items the render settings window
+	 * builds from the theme registry, so these trees name the shell holding
+	 * them instead of a declared element list; each row binds itself to its
+	 * field and reaches this tree's refresh and its hover policy through that
+	 * binding. */
 	{ .desc = "Frequency Plots Color Theme", .format = "%s",
 		.vars = { rc_config.freqplots_theme }, .size = sizeof(rc_config.freqplots_theme),
 		.def = { { .s = "legacy" } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_theme_change_refresh,
-			.groups = CONFIG_WIDGET_GROUPS( NULL ) ) },
+			.groups = CONFIG_WIDGET_GROUPS(
+				CONFIG_WIDGET_GROUP( .builder = &render_settings_builder,
+					.value_label_id = "render_theme_value",
+					.value_menu_id = "render_theme_menu",
+					.elements = CONFIG_WIDGETS( NULL ) ),
+				NULL ) ) },
 
 	{ .desc = "Frequency Plots Theme Inverted", .format = "%d",
 		.vars = { &rc_config.freqplots_theme_invert },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_theme_change_refresh,
-			.groups = CONFIG_WIDGET_GROUPS( NULL ) ) },
+			.groups = CONFIG_WIDGET_GROUPS(
+				CONFIG_WIDGET_GROUP( .builder = &render_settings_builder,
+					.value_menu_id = "render_theme_menu",
+					.elements = CONFIG_WIDGETS( NULL ) ),
+				NULL ) ) },
 
 };
 

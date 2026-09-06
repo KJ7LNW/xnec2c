@@ -64,10 +64,14 @@ typedef struct {
  * group is dormant.  value_label_id names the label a collapsed pull-down
  * button shows for its active row, written by the peer sync alone so the
  * button keeps reading the committed value while a hover paints a
- * candidate. */
+ * candidate.  value_menu_id names the menu shell a selector fills with rows
+ * at runtime; such a group names an empty element list and reaches its rows
+ * through that shell, so a selection wider than an int projects like any
+ * other. */
 typedef struct {
   GtkBuilder **builder;
   const char *value_label_id;
+  const char *value_menu_id;
   const config_widget_element_t *const *elements;
 } config_widget_group_t;
 

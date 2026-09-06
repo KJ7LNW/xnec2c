@@ -1496,10 +1496,11 @@ drawing area. The background color is black and the structure is
 rendered in blue. The excitation points (segments) are rendered in
 red, the x, y, z axis in white, loaded segments in yellow,
 transmission lines in cyan and two-port networks in magenta. These
-default colors are supplied by the active color theme; the current color
+default colors are supplied by the active <a href="#ColorTheme">color
+theme</a>; the current color
 projection controls (see <a href="#ColorProjection">Current Color
 Projection and Tone Mapping</a>) determine how current and charge map to
-color, and the frequency plots carry their own selectable themes.
+color.
 <p>Once an input file is opened, the structure display can be
 rotated around the Z axis and tilted about a horizontal axis
 through the origin. This can be done either by pressing button #1
@@ -2625,25 +2626,6 @@ Once you have your <span class="fileext">.s2p</span> or <span class="fileext">.s
 or other RF behavior in your favorite RF design software.
 </p>
 
-<h4 id="ColorTheme">Color Themes</h4>
-<p>The <span class="menu-path">View → Color Theme</span> menu offers
-built-in themes, each with an <span class="ui-button">Invert</span> toggle.
-Place a <span class="fileext">~/.xnec2c/themes.ini</span> file to override the
-built-in palettes with your own. The shipped
-<span class="filepath">resources/themes.ini</span> holds the built-in
-definitions to copy from.</p>
-
-<p>A theme restyles the structure display, the radiation pattern and
-the plots together, under both the Cairo and the
-<a href="#OpenGL">OpenGL</a> renderer.</p>
-
-<aside class="notice" role="note">
-<strong>Note:</strong> When authoring a
-<code>gradient_0..5</code> ladder, move lightness monotonically across the six
-stops and carry the distinction in hue, so the ramp still reads as an ordered
-scale in greyscale.
-</aside>
-
 <h4 id="GraphPopups">Detachable Graph Popups</h4>
 <p>Double-click a graph, or right-click a plot-select button, to open a
 single-graph window that carries its own readout bar. Press
@@ -2756,6 +2738,26 @@ The <span class="ui-button">Reset to Defaults</span> button restores all
 sliders, MSAA, draw style, and transparency settings to factory
 values. The renderer toggle and constrained rotation state are
 preserved across a reset.</p>
+
+<h4 id="ColorTheme">Color Themes</h4>
+<p>The <span class="ui-button">Color Theme</span> pull-down on the
+dialog's General page offers built-in themes, each with an
+<span class="ui-button">Invert</span> toggle.
+Place a <span class="fileext">~/.xnec2c/themes.ini</span> file to override the
+built-in palettes with your own. The shipped
+<span class="filepath">resources/themes.ini</span> holds the built-in
+definitions to copy from.</p>
+
+<p>A theme restyles the structure display, the radiation pattern and
+the plots together, under both the Cairo and the
+<a href="#OpenGL">OpenGL</a> renderer.</p>
+
+<aside class="notice" role="note">
+<strong>Note:</strong> When authoring a
+<code>gradient_0..5</code> ladder, move lightness monotonically across the six
+stops and carry the distinction in hue, so the ramp still reads as an ordered
+scale in greyscale.
+</aside>
 
 <h4 id="Projection">Orthographic Projection</h4>
 <p>
@@ -4007,6 +4009,10 @@ visualization, and internationalization support.</p>
 			surfaces, labelled axes, and ground plane</li>
 			<li>OpenGL Settings dialog: brightness, transparency, MSAA
 			anti-aliasing, cylinder scale, and draw style</li>
+			<li>Built-in color themes on the OpenGL Settings dialog with an
+			Invert toggle and user override via
+			<span class="fileext">~/.xnec2c/themes.ini</span>
+			(<a href="#ColorTheme">documentation</a>)</li>
 			<li>Orthographic projection toggle in the Main and Radiation
 			Pattern toolbars (<a href="#Projection">documentation</a>)</li>
 			<li>Radiation pattern draw style: Surface, Wireframe, or Both
@@ -4047,10 +4053,6 @@ visualization, and internationalization support.</p>
 	<li>Frequency-plot enhancements
 	(<a href="#FrequencyWindow">documentation</a>):
 		<ul>
-			<li>Built-in color themes under
-			<span class="menu-path">View → Color Theme</span> with an Invert
-			toggle and user override via
-			<span class="fileext">~/.xnec2c/themes.ini</span></li>
 			<li>Detachable single-graph popups carrying their own readout bar,
 			closed with <kbd class="shortcut">Ctrl+W</kbd></li>
 			<li>Per-feedpoint excitation-port selector choosing which

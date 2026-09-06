@@ -58,7 +58,7 @@ config_widget_values_at(const int *values, int index)
  *
  * Return: TRUE when the row expresses one value, in either width.
  */
-static gboolean
+gboolean
 config_widget_element_selects(const config_widget_element_t *elt)
 {
   return (elt->values != NULL) || (elt->value_bytes != NULL);
@@ -79,6 +79,34 @@ config_widget_element_named_value(const config_widget_element_t *elt,
     memcpy(out, elt->value_bytes, size);
   else
     field_write_int(out, size, elt->values[0]);
+}
+
+/*------------------------------------------------------------------------*/
+
+/** config_widget_element_holds - whether a field holds a row's selection
+ * @field: field address
+ * @size:  the selection's field width
+ * @elt:   element describing the row
+ *
+ * Compares the field against the value the row names, at the field's full
+ * width, so a name-valued row is matched over the whole field rather than
+ * through an int window and a match equals the commit that row would write.
+ *
+ * Return: TRUE when the stored value equals the value @elt names.
+ */
+gboolean
+config_widget_element_holds(const void *field, size_t size,
+    const config_widget_element_t *elt)
+{
+  /* A row naming no selection expresses its own state, not a value */
+  if( !config_widget_element_selects(elt) )
+    return FALSE;
+
+  unsigned char named[size];
+
+  config_widget_element_named_value(elt, named, size);
+
+  return memcmp(field, named, size) == 0;
 }
 
 /*------------------------------------------------------------------------*/

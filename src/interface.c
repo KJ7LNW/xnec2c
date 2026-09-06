@@ -251,10 +251,8 @@ create_freqplots_window( GtkBuilder **builder )
   Gtk_Builder( builder, object_ids );
   ret = Builder_Get_Object( *builder, "freqplots_window" );
 
-  /* Per-purpose plot widths load once with the window; the Color Theme
-   * submenu is generated from the startup-initialized theme registry. */
+  /* Per-purpose plot widths load once with the window */
   fp_width_init();
-  freqplots_theme_menu_build( *builder );
 
   return( ret );
 }

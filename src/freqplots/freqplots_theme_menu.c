@@ -13,12 +13,11 @@
  */
 
 /*
- * freqplots_theme_menu: builds the frequency-plots View > Color Theme submenu
- * from the core theme registry (src/themes/theme.c).  The submenu lives on the
- * freqplots window, so its construction is freqplot-specific UI and stays in
- * the freqplots tree; the theme model and registry are core and stay under
- * themes/.  The "Inverted" check item is an orthogonal axis above one radio
- * group of base theme names.
+ * freqplots_theme_menu: builds the rendering-settings Color Theme pull-down
+ * from the core theme registry (src/themes/theme.c).  The rows live on the
+ * render settings window, so their construction is settings UI; the theme
+ * model and registry are core and stay under themes/.  The "Inverted" check
+ * item is an orthogonal axis above one radio group of base theme names.
  */
 
 #include "../interface.h"
@@ -47,17 +46,17 @@ freqplots_invert_item_sync( GtkWidget *invert, const char *base )
  * Match the live Inverted item to the base theme the field now holds.  The
  * theme refresh calls this on every commit, hover and revert, so the item
  * follows the value rather than the click that produced it.  Idle while the
- * frequency-plots window is closed and carries no menu. */
+ * render settings window is unbuilt and carries no menu. */
   void
 freqplots_theme_invert_sync( void )
 {
   GtkWidget *menu;
   GtkWidget *invert;
 
-  if( freqplots_window_builder == NULL ) return;
+  if( render_settings_builder == NULL ) return;
 
-  menu = Builder_Get_Object( freqplots_window_builder,
-      "freqplots_color_theme_menu_menu" );
+  menu = Builder_Get_Object( render_settings_builder,
+      "render_theme_menu" );
   if( menu == NULL ) return;
 
   invert = g_object_get_data( G_OBJECT(menu), THEME_DATA_INVERT_ITEM );
@@ -90,6 +89,7 @@ freqplots_theme_radio_append( GtkWidget *menu, GSList **group,
   gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(item),
       g_strcmp0( e->base_name, rc_config.freqplots_theme ) == 0 );
 
+  gtk_widget_show( item );
   gtk_menu_shell_append( GTK_MENU_SHELL(menu), item );
 
   /* Appended first, so the row reaches the shell that ends its hover */
@@ -98,18 +98,20 @@ freqplots_theme_radio_append( GtkWidget *menu, GSList **group,
 
 /* freqplots_theme_menu_build()
  *
- * Generates the View menu's Color Theme submenu from the theme registry into
- * the glade-supplied container.  The "Inverted" check item is an orthogonal
+ * Generates the Color Theme pull-down from the theme registry into the
+ * glade-supplied menu.  The "Inverted" check item is an orthogonal
  * axis above one radio group of base theme names; legacy heads the list as the
  * default, user custom themes follow it, and a separator divides that top
  * group from the built-in themes in registry order.
  * The Inverted item rides the menu shell, so the theme refresh reaches it
- * without a handler of its own. */
+ * without a handler of its own.  Each row shows itself, leaving the shell
+ * unmapped until the button pops it up. */
   void
 freqplots_theme_menu_build( GtkBuilder *builder )
 {
-  GtkWidget       *menu = Builder_Get_Object( builder, "freqplots_color_theme_menu_menu" );
+  GtkWidget       *menu = Builder_Get_Object( builder, "render_theme_menu" );
   GtkWidget       *invert;
+  GtkWidget       *separator;
   const GPtrArray *entries = theme_menu_entries();
   GSList          *group = NULL;
   guint            i;
@@ -118,6 +120,7 @@ freqplots_theme_menu_build( GtkBuilder *builder )
     return;
 
   invert = gtk_check_menu_item_new_with_mnemonic( _("_Invert") );
+  gtk_widget_show( invert );
   gtk_menu_shell_append( GTK_MENU_SHELL(menu), invert );
 
   /* Appended first, so the row reaches the shell that ends its hover */
@@ -155,7 +158,9 @@ freqplots_theme_menu_build( GtkBuilder *builder )
     freqplots_theme_radio_append( menu, &group, e );
   }
 
-  gtk_menu_shell_append( GTK_MENU_SHELL(menu), gtk_separator_menu_item_new() );
+  separator = gtk_separator_menu_item_new();
+  gtk_widget_show( separator );
+  gtk_menu_shell_append( GTK_MENU_SHELL(menu), separator );
 
   for( i = 0; i < entries->len; i++ )
   {
@@ -166,6 +171,4 @@ freqplots_theme_menu_build( GtkBuilder *builder )
 
     freqplots_theme_radio_append( menu, &group, e );
   }
-
-  gtk_widget_show_all( menu );
 }

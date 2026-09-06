@@ -7,6 +7,12 @@
 <interface>
   <requires lib="gtk+" version="3.20"/>
 
+  <!-- Color theme rows, appended from the theme registry once this file
+       loads; the collapsed button reads render_theme_value. -->
+  <object class="GtkMenu" id="render_theme_menu">
+    <property name="can-focus">False</property>
+  </object>
+
   <!-- General tab content: renderer and view toggles shared by all backends -->
   <object class="GtkBox" id="general_tab_content">
     <property name="visible">True</property>
@@ -35,6 +41,76 @@
         <property name="label">Constrained Rotation</property>
         <property name="tooltip-text">Constrain view drag rotation to horizontal and vertical axes</property>
         <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkBox" id="render_theme_row">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkLabel" id="render_theme_caption">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="xalign">0</property>
+            <property name="valign">center</property>
+            <property name="label" translatable="yes">_Color Theme</property>
+            <property name="use-underline">True</property>
+            <property name="mnemonic-widget">render_theme_button</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkMenuButton" id="render_theme_button">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="valign">center</property>
+            <property name="halign">start</property>
+            <property name="popup">render_theme_menu</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel" id="render_theme_value">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="icon-name">pan-down-symbolic</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
       </object>
     </child>
 

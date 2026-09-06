@@ -36,7 +36,8 @@
  * @w:     the resolved widget
  *
  * Combo sync scans .values for the field's current value; a miss clears
- * the selection (index -1) rather than leaving a stale row active.
+ * the selection (index -1) rather than leaving a stale row active.  A radio
+ * menu row names its selection in either width.
  */
 void
 config_widget_sync_element(const void *field, size_t size,
@@ -44,10 +45,10 @@ config_widget_sync_element(const void *field, size_t size,
 {
   if( GTK_IS_RADIO_MENU_ITEM(w) )
   {
-    if( elt->values == NULL )
+    if( !config_widget_element_selects(elt) )
       BUG("config_widget_sync_element: radio menu item '%s' has no values\n",
           elt->widget_id);
-    else if( field_read_int(field, size) == elt->values[0] )
+    else if( config_widget_element_holds(field, size, elt) )
       gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(w), TRUE);
   }
   else if( GTK_IS_CHECK_MENU_ITEM(w) )

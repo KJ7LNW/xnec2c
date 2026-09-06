@@ -104,6 +104,10 @@ render_settings_init(void)
   if( !render_settings_load_glade() )
     return FALSE;
 
+  /* Theme rows come from the startup-initialized registry, so the pull-down
+   * fills before the first sync resolves its collapsed label */
+  freqplots_theme_menu_build( render_settings_builder );
+
   /* Append tab pages: General (from render_settings.glade),
    * OpenGL (from opengl_settings.glade), Cairo (from cairo_settings.glade) */
   {
