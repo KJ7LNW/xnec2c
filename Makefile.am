@@ -154,6 +154,14 @@ dist_docjs_DATA += doc/js/gallery-warm.js
 dist_docjs_DATA += doc/js/gallery-warm-queue.js
 dist_docjs_DATA += doc/js/mobile-menu.js
 
+# Mark the manual's working-tree changes against a git revision, write the
+# resulting page beside the manual so its image references resolve, and open it
+# through the desktop handler. The launcher builds the environment its renderer
+# needs when that dependency is absent.
+doc-diff:
+	@cd "$(srcdir)" && scripts/doc/doc_diff_preview.py doc/xnec2c.html
+.PHONY: doc-diff
+
 
 ########################################################################
 # dist and install examples/ files
