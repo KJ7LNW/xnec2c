@@ -470,7 +470,8 @@ pre code {
 
 /* File Paths and Extensions
  * filepath: auto-linked to GitHub repository
- * fileext: same styling, not auto-linked (for extension-only references)
+ * fileext: same styling, not auto-linked; for extensions, placeholders, and
+ * paths the repository does not contain
  */
 .filepath,
 .fileext {
@@ -1018,16 +1019,16 @@ many more features:
 
 <h4>Linux via Flathub</h4>
 <pre><code>flatpak install flathub org.xnec2c.Xnec2c</code></pre>
-<p>See <a target="_blank" rel="noopener noreferrer" href="https://flathub.org/en/apps/org.xnec2c.Xnec2c">Flathub xnec2c</a> for details. Thanks to <span class="contact" data-github="AsciiWolf">AsciiWolf</span> for providing this package in <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues/29">issue #29</a>.</p>
+<p>See <a target="_blank" rel="noopener noreferrer" href="https://flathub.org/en/apps/org.xnec2c.Xnec2c">Flathub xnec2c</a> for details. Thanks to <span class="contact" data-github="AsciiWolf">AsciiWolf</span> for providing this package in issue <span class="issue-ref">#29</span>.</p>
 
 <h4>macOS via MacPorts</h4>
 <pre><code>sudo port install xnec2c</code></pre>
-<p>See <a target="_blank" rel="noopener noreferrer" href="https://ports.macports.org/port/xnec2c/">MacPorts xnec2c</a> for details. Thanks to <span class="contact" data-callsign="VK1KCM" data-github="vk1kcm">Carl Makin</span> for providing this package in <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues/66">issue #66</a>.</p>
+<p>See <a target="_blank" rel="noopener noreferrer" href="https://ports.macports.org/port/xnec2c/">MacPorts xnec2c</a> for details. Thanks to <span class="contact" data-callsign="VK1KCM" data-github="vk1kcm">Carl Makin</span> for providing this package in issue <span class="issue-ref">#66</span>.</p>
 
 <p>The MacPorts port installs a Cairo-rendered build. To build from source
 on macOS, follow the compilation steps below: the Cairo renderer works and
 <code>--disable-opengl</code> builds cleanly. Quartz OpenGL support awaits a
-Mac tester (<a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues/87">issue #87</a>).</p>
+Mac tester (issue <span class="issue-ref">#87</span>).</p>
 
 <h4>Compilation</h4>
 <ul>
@@ -1232,6 +1233,18 @@ Generally speaking, if you can install the requisite libraries,
 it will be detected.  If libraries are not detected on your OS then
 please open a bug report.</p>
 
+<p>The <span class="menu-path">File → Math Libraries</span> menu also runs a
+benchmark that times the detected libraries against the open model, so the
+fastest one for a given deck is chosen by measurement. The benchmark varies one
+count per pass: either the number of forked jobs, or the number of math-library
+threads per job. The thread sweep starts from a single job
+using every processor and halves the thread count each pass, which is the useful
+measurement when a sweep has fewer frequency steps than the machine has
+processors. Library families that offer no thread setter compute at a fixed
+thread count and are skipped by that sweep, and the thread sweep refuses to run
+while an environment variable already pins the thread count, since every pass
+would then measure the same number.</p>
+
 <h3 id="Interactive">Interactive Operation</h3>
 <p>
 Xnec2c is interactive in its operation, e.g.&nbsp;when started it just
@@ -1303,8 +1316,8 @@ strip is shown in the <a href="#MainWindow">Main</a> and <a href=
 "#RadiationWindow">Radiation Pattern</a> windows.</p>
 <h2 id="Compilation">Compilation and Installation</h2>
 <p>
-Binary packages are available via <a target="_blank" rel="noopener noreferrer" href="https://flathub.org/en/apps/org.xnec2c.Xnec2c">Flathub</a> for Linux (thanks to <span class="contact" data-github="AsciiWolf">AsciiWolf</span> in <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues/29">issue #29</a>),
-<a target="_blank" rel="noopener noreferrer" href="https://ports.macports.org/port/xnec2c/">MacPorts</a> for macOS (thanks to <span class="contact" data-callsign="VK1KCM" data-github="vk1kcm">Carl Makin</span> in <a target="_blank" rel="noopener noreferrer" href="https://github.com/KJ7LNW/xnec2c/issues/66">issue #66</a>), and
+Binary packages are available via <a target="_blank" rel="noopener noreferrer" href="https://flathub.org/en/apps/org.xnec2c.Xnec2c">Flathub</a> for Linux (thanks to <span class="contact" data-github="AsciiWolf">AsciiWolf</span> in issue <span class="issue-ref">#29</span>),
+<a target="_blank" rel="noopener noreferrer" href="https://ports.macports.org/port/xnec2c/">MacPorts</a> for macOS (thanks to <span class="contact" data-callsign="VK1KCM" data-github="vk1kcm">Carl Makin</span> in issue <span class="issue-ref">#66</span>), and
 <a target="_blank" rel="noopener noreferrer" href="https://www.freshports.org/comms/xnec2c/">FreeBSD FRESH ports</a>.
 Xnec2c is known to build from source on many different platforms including Linux.
 If you have trouble building on your OS then please open a bug report.
@@ -1314,11 +1327,11 @@ included <span class="filepath">autogen.sh</span> script in the package's top di
 produce a fresh build environment. Then the <code>configure</code> script can
 be run with optional parameters to override the default settings
 and compiler flags, e.g: <code>./configure --prefix=/usr CFLAGS="-g -O2"</code>
-will override the default <span class="filepath">/usr/local</span> installation prefix and the
+will override the default <span class="fileext">/usr/local</span> installation prefix and the
 <code>-Wall -O2</code> compiler flags.</p>
 <p>Running <code>make</code> in the package's top directory should produce the
 executable binary in <span class="filepath">src/</span>. Running <code>make install</code> will install the
-binary into <span class="filepath">/usr/local/bin</span> by default or under the specified
+binary into <span class="fileext">/usr/local/bin</span> by default or under the specified
 prefix. It will also install the default configuration file into
 the user's home directory. This will have to be edited by the user
 as required. There is also this hypertext documentation file which
@@ -1454,13 +1467,13 @@ debug or testing then specify <code>-j0</code>.</p>
 
 <h4 id="Internationalization">Internationalization</h4>
 <p>
-Xnec2c supports 42 languages via GNU gettext. The language is
+Xnec2c supports 47 languages via GNU gettext. The language is
 selected automatically from the system locale. To override, set the
 <code>LANGUAGE</code> environment variable before launching — for
 example, <code>LANGUAGE=de xnec2c</code> for German. If the compiled-in
 locale directory is not correct for your installation, set
 <code>XNEC2C_LOCALEDIR</code> to point to the directory containing the
-<span class="filepath">LC_MESSAGES</span> trees.</p>
+<span class="fileext">LC_MESSAGES</span> trees.</p>
 
 <h3 id="MainWindow">The Main Window</h3>
 <figure>
@@ -1475,7 +1488,7 @@ text.
 </aside>
 When starting xnec2c from a terminal or from a file manager (by
 OLE), the <code>-i</code> option can be used to specify a NEC2 input file:
-<code>xnec2c -i <span class="filepath">~/nec2/turnstile.nec</span></code>. Otherwise an input file can
+<code>xnec2c -i <span class="filepath">examples/137MHz_turnstile.nec</span></code>. Otherwise an input file can
 be opened from the Main window's <span class="menu-path">File → Open</span> menu <kbd class="shortcut">o</kbd>
 item. If the input file is valid, xnec2c will render the structure
 specified in the Geometry section of the file in the Main window's
@@ -1497,12 +1510,14 @@ rotation and tilt is shown in two spin button widgets which can
 also be used to change the viewing angle.</p>
 <p>Starting with <span class="version-tag">v2.1</span>, the structure display can be zoomed
 in or out by using the mouse wheel or the Zoom controls: <span class="ui-button">Zoom %</span> spin wheel and the <span class="ui-button">Zoom In</span> (<kbd class="shortcut">Ctrl+Plus</kbd>), <span class="ui-button">Zoom Out</span> (<kbd class="shortcut">Ctrl+Minus</kbd>), and <span class="ui-button">Zoom 100%</span> (<kbd class="shortcut">Ctrl+1</kbd>) buttons and it can also be moved around by dragging
-with the right mouse button #2.</p>
+with the right mouse button #2 or with the arrow keys; see
+<a href="#FitView">Fit to View and Panning</a>.</p>
 <p>The current distribution or charge density in the structure can
 be displayed by clicking the <span class="ui-button">Currents</span> (<kbd class="shortcut">i</kbd>) or <span class="ui-button">Charges</span> (<kbd class="shortcut">v</kbd>) toggle buttons at the top right of the Main window. The
 distribution of current or charges is rendered by a color code, red
-for the maximum value and magenta for zero. The Frequency Loop
-control buttons can be used to Start, Pause or Reset the loop.
+for the maximum value and magenta for zero. The
+<a href="#SweepTransport">frequency sweep transport buttons</a> run, pause,
+resume and rewind the loop.
 There is a <span class="ui-button">Color Code</span> bar at the left of the second row of
 widgets in the Main window, indicating the color coding and the
 maximum value of the displayed quantity (at its right).</p>
@@ -1552,11 +1567,14 @@ angle) parameters of the Structure display in the Main window and
 the Gain or E/H field display in the <a href=
 "#RadiationWindow">Radiation pattern</a> window so that both move
 in step.
+The <span class="menu-path">Common Pan</span> item couples arrow-key
+panning between the same two windows; see
+<a href="#FitView">Fit to View and Panning</a>.
 The <span class="menu-path">Current Visualization</span> submenu selects how current
 flow is depicted on the structure; see
 <a href="#CurrentVisualization">Current Flow Visualization</a>.
 The <span class="menu-path">Animate</span> item opens the
-<a href="#ColorProjection">Near Field Animation panel</a>.
+<a href="#ColorProjection">Animation panel</a>.
 The <span class="menu-path">Symbol Overrides</span> item opens the
 <a href="#SymbolicVariables">SY parameter tuning window</a>.
 The <span class="menu-path">OpenGL Settings…</span> item opens the
@@ -1578,6 +1596,52 @@ Scrolling down past the minimum snaps to line rendering mode, where
 segments draw as thin lines instead of 3D cylinders; scrolling back
 up returns to cylinder mode. This does not affect NEC2 model
 calculations.</p>
+
+<h4 id="FitView">Fit to View and Panning</h4>
+<p>The <span class="ui-button">Fit View</span> toolbar button scales and centers
+the drawn content so that it fills the window. The same button and the same
+accelerators appear in the
+<a href="#RadiationWindow">Radiation Pattern window</a>.</p>
+<p>Arrow keys pan the focused window, each window panning independently.
+<span class="menu-path">View → Common Pan</span>, off by default, couples them:
+arrow-key panning in either window then moves both. Both windows carry the
+item, mirroring
+<span class="menu-path">View → Common Projection</span>. The
+<a href="#KeyboardShortcuts">Keyboard Shortcuts</a> tables list the bindings.</p>
+
+<h4 id="SweepTransport">Frequency Sweep Transport</h4>
+<p>The Main, Radiation Pattern and Frequency Data windows each carry the same
+pair of frequency-loop transport buttons. All three control the same sweep.</p>
+<table>
+<thead>
+<tr>
+<th>Sweep state</th>
+<th>Transport behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Idle</td>
+<td>The play button runs the sweep from its first step.</td>
+</tr>
+<tr>
+<td>Running</td>
+<td>The button shows a pause icon; pressing it suspends the sweep and keeps
+every step computed so far.</td>
+</tr>
+<tr>
+<td>Paused</td>
+<td>The button shows a play icon; pressing it resumes from the step the sweep
+stopped on.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Rewind</span></td>
+<td>Stops any running sweep, returns it to its first step and discards every
+calculated result.</td>
+</tr>
+</tbody>
+</table>
+
 <h3 id="RadiationWindow">The Radiation Pattern window</h3>
 <figure>
 <img src="images/radiation.png" class="float-left" alt="Radiation pattern window showing 3D gain visualization" loading="lazy">
@@ -1585,7 +1649,8 @@ calculations.</p>
 </figure>
 On
 the top row of widgets, this window has the same Viewer angle
-selection buttons, spin button displays, and
+selection buttons, spin button displays,
+<a href="#FitView">Fit View</a> button and
 <a href="#Projection">orthographic toggle</a> as the <a href=
 "#MainWindow">Main window</a>.
 A <span class="ui-button">T Elev&deg;</span> spin button (&minus;90&deg;
@@ -1602,8 +1667,8 @@ are at least two steps in the <var>θ</var> and one in the <var>φ</var> angle a
 specified in the Radiation Pattern (<code class="nec-card">RP</code>) command, the Gain pattern
 will be calculated and drawn. The E/H field will be properly drawn
 if there are at least two points specified in the <code class="nec-card">NE</code> or <code class="nec-card">NH</code>
-commands. The Frequency Loop control buttons at the far right can
-be used to Start, Pause and Reset the loop.</p>
+commands. The <a href="#SweepTransport">frequency sweep transport
+buttons</a> at the far right run, pause, resume and rewind the loop.</p>
 <p>The <span class="ui-button">View</span> menu, in addition to the <span class="menu-path">Common
 Projection</span> check button, provides
 submenus for selecting <span class="ui-button">Polarization</span> type,
@@ -1645,15 +1710,15 @@ menu items.</p>
 <img src="images/satellite-nearfield.png" alt="Radiation Pattern window in E/H Fields mode showing near-field E vectors around the satellite example structure" loading="lazy">
 <figcaption>The <span class="filepath">examples/satellite.nec</span> model rendered in
 <span class="ui-button">E/H Fields</span> mode: near-field E vectors surround the
-structure, colored by field strength. The Near Field Animation panel animates the
+structure, colored by field strength. The Animation panel animates the
 phase of this display.</figcaption>
 </figure>
 <p>The <span class="menu-path">Near Field → Animate Dialog</span> menu item (also
 available from <span class="menu-path">View → Animate</span> in the
-<a href="#MainWindow">Main window</a>) opens the Near Field Animation panel,
-which drives the phase animation and the current, charge, and near-field
-color mapping. See <a href="#ColorProjection">Near Field Animation and Color
-Mapping</a> for its controls.</p>
+<a href="#MainWindow">Main window</a>) opens the Animation panel, which drives
+the phase animation and the current, charge, near-field and far-field color
+mapping. See <a href="#ColorProjection">Animation and Color Mapping</a> for its
+controls.</p>
 <p>The <span class="ui-button">Total Field</span> sub-menu allows the selection of drawing
 either the <span class="ui-button">Peak</span> value or a "time-frozen" <span class="ui-button">Instantaneous (φ=0)</span> snapshot of
 the instantaneous value of the total Near Field E/H vectors. The
@@ -2119,76 +2184,223 @@ and G/T</a> reference by
 <span class="contact" data-callsign="DG7YBN">Hartmut
 Kl&uuml;ver</span>, DG7YBN.</p>
 
-<h4 id="ColorProjection">Near Field Animation and Color Mapping</h4>
+<h4 id="ColorProjection">Animation and Color Mapping</h4>
 <p>The <span class="menu-path">Near Field → Animate Dialog</span> (also
 <span class="menu-path">View → Animate</span> in the
-<a href="#MainWindow">Main window</a>) opens the Near Field Animation panel.
-Its controls drive the phase animation and the color mapping, and the color
-settings apply uniformly to segments, patches, and near-field vectors, in
-both animated playback and the ordinary static render.</p>
+<a href="#MainWindow">Main window</a>) opens the Animation panel. Its controls
+drive the phase animation and the color mapping across four animated subjects
+&mdash; wire segments, surface patches, near-field vectors, and the far-zone
+field on the gain surface &mdash; and those settings apply uniformly to all of
+them, in both animated playback and the ordinary static render.</p>
 
-<dl>
-<dt>Playback</dt>
-<dd>
-<span class="ui-button">Phase</span> &mdash; scrub the display phase across
-0&ndash;720&deg;.
-<span class="ui-button">Frames/Sec</span> &mdash; target frame rate
-(1&ndash;120, default 30).
-<span class="ui-button">Animate Freq</span> &mdash; fictitious slowed-down
-excitation frequency at which the animation runs.
-<span class="ui-button">Start</span>, <span class="ui-button">Stop</span>,
-and <span class="ui-button">Close</span> run and dismiss playback; changing a
-value auto-applies after a brief pause.
-</dd>
+<p>The panel groups its controls into framed sections. Each selector menu
+separates the choices that vary with the animation phase from those that hold
+still.</p>
 
-<dt>Display</dt>
-<dd>
-A radio group draws <span class="ui-button">None (geometry)</span>,
-<span class="ui-button">Currents</span>, or
-<span class="ui-button">Charges</span>. The
-<span class="ui-button">Near Field</span> checkboxes overlay the
-<em>E field</em>, <em>H field</em>, and <em>Poynting vector</em>. The
-<span class="ui-button">Flow direction</span> menu selects the patch shading
-style.
-</dd>
+<h5>Playback</h5>
 
-<dt>Color mapping</dt>
-<dd>
-<span class="ui-button">Color projection</span> &mdash; the axis the color
-encodes, such as <em>Amplitude</em>, <em>Instantaneous</em>, <em>Dual current
-and charge</em>, <em>Standing wave</em>, or <em>Far-field contribution</em>.
-<span class="ui-button">Scale family</span> &mdash; the tone-transfer curve:
-<em>Power</em>, <em>dB</em>, <em>Asinh</em>, <em>mu-law</em>,
-<em>Reinhard</em>, <em>Sigmoid</em>, or <em>None</em>.
-The family slider &mdash; <span class="ui-button">Gamma</span> for the default
-Power curve (v = n<sup>&gamma;</sup>) &mdash; shapes the curve's contrast.
-<span class="ui-button">Brightness floor</span> &mdash; lifts the darkest
-values off black. Adjust the family slider and the brightness floor for the
-best contrast on whatever you are viewing: a low floor with higher gamma
-sharpens peaks, while a higher floor keeps weak regions visible.
-</dd>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="ui-button">Phase</span></td>
+<td>Scrubs the display phase across 0&ndash;720&deg;. The reading beside it
+shows the current phase angle.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Frames/Sec</span></td>
+<td>Target frame rate, 1&ndash;120, default 30.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Animate Freq (Hz)</span></td>
+<td>Fictitious slowed-down excitation frequency at which the animation
+runs.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Start</span>, <span class="ui-button">Stop</span>,
+<span class="ui-button">Close</span></td>
+<td>Run and dismiss playback. Changing any value auto-applies after a brief
+pause.</td>
+</tr>
+</tbody>
+</table>
 
-<dt>Overlays</dt>
-<dd>
-<span class="ui-button">Nodes/antinodes</span> marks the current extrema, and
-<span class="ui-button">Comet</span> adds a travelling brightness head along
-each wire.
-</dd>
-</dl>
+<h5>Color and Segment Scale</h5>
 
-<p>The scale family and brightness floor are not limited to animation. The
-static color projections (<span class="ui-button">Amplitude</span>,
-<span class="ui-button">Standing wave</span>, and
-<span class="ui-button">Far-field contribution</span>) render without phase
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="ui-button">Color projection</span></td>
+<td>The axis the color encodes. <em>Instantaneous</em>, <em>Polarity</em>,
+<em>Phase Hue</em> and <em>Current + Charge</em> vary with the phase;
+<em>Amplitude</em>, <em>Standing/Traveling</em> and <em>Far-field
+Contribution</em> hold still. The formula for the active choice is printed
+under the button.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Segment scale</span></td>
+<td>The magnitude that sets wire segment thickness, chosen independently of the
+color axis. <em>Model radius</em> holds each segment at its modeled radius,
+<em>Envelope magnitude</em> widens strong regions and narrows nulls, and
+<em>Instantaneous</em> makes that widening travel with the phase. It gains
+whatever radius the renderer already draws, so it composes with the
+<a href="#OpenGLSettings">Radius scale</a> slider and
+<kbd class="shortcut">Ctrl+Scroll</kbd>.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Scale family</span></td>
+<td>The tone-transfer curve: <em>Power</em>, <em>dB</em>, <em>Asinh</em>,
+<em>&mu;-law</em>, <em>Reinhard</em>, <em>Sigmoid</em>, or <em>None</em>.</td>
+</tr>
+<tr>
+<td>Family slider</td>
+<td>Shapes the selected curve's contrast. One row appears per family:
+<span class="ui-button">Gamma</span> for Power (v = n<sup>&gamma;</sup>),
+<span class="ui-button">Range (dB)</span>,
+<span class="ui-button">Softening</span>,
+<span class="ui-button">Compression (dB)</span>,
+<span class="ui-button">Knee</span> and
+<span class="ui-button">Contrast</span> for the others.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Brightness floor</span></td>
+<td>Lifts the darkest values off black. A low floor with higher gamma sharpens
+peaks; a higher floor keeps weak regions visible. The color bar above the
+slider previews the resulting ramp.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Nodes/antinodes</span></td>
+<td>Marks the current extrema along each wire.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Comet</span></td>
+<td>Adds a travelling brightness head along each wire.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Reset</span></td>
+<td>Returns the color and segment scale controls to their defaults.</td>
+</tr>
+</tbody>
+</table>
+
+<h5>Display</h5>
+
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="ui-button">None (geometry)</span>,
+<span class="ui-button">Currents</span>,
+<span class="ui-button">Charges</span></td>
+<td>Radio group selecting the quantity drawn on the structure.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Polarization</span></td>
+<td>Selects <em>Total</em>, <em>Horizontal</em>, <em>Vertical</em>,
+<em>Right Hand</em> or <em>Left Hand</em>. This is the same global selection the
+<a href="#RadiationWindow">Radiation Pattern window</a> carries. Whenever it is
+not <em>Total</em> the polarization name is drawn bold in the window labels,
+because it scales every reported gain, and a non-Total selection restored from
+the configuration file announces itself at start-up.</td>
+</tr>
+</tbody>
+</table>
+
+<h5>Patches and Near Field</h5>
+
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="ui-button">Flow direction</span></td>
+<td>Selects the patch surface-current style. <em>Reference Phase</em>,
+<em>LIC Texture</em> and <em>Wireframe</em> travel with the phase;
+<em>Polarization Axis</em> and <em>Peak Magnitude</em> hold still. See
+<a href="#CurrentVisualization">Current Flow Visualization</a>.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Near E field</span>,
+<span class="ui-button">Near H field</span>,
+<span class="ui-button">Poynting vector</span></td>
+<td>Overlay the near-zone vectors. Available once the Radiation Pattern window
+is open.</td>
+</tr>
+</tbody>
+</table>
+
+<h5>Far Field</h5>
+
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="ui-button">Far Field</span> checkbox</td>
+<td>Sits in the frame heading and gates the whole group: draws the far-zone
+field as arrows tangent to the radiation pattern gain surface while the
+Animation panel is open. Closing the panel drops the arrows. Available once the
+Radiation Pattern window is open.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Far E field</span> /
+<span class="ui-button">Far H field</span></td>
+<td>Selects which far-zone quantity the arrows carry. The magnetic field lies a
+quarter turn from the electric field in the tangent plane and moves in step with
+it in time.</td>
+</tr>
+<tr>
+<td><span class="ui-button">World reference</span> /
+<span class="ui-button">Ludwig-3 reference</span></td>
+<td>The polarization reference the tangent vectors turn against. These grey out
+unless the selected polarization is the linear pair they turn.</td>
+</tr>
+<tr>
+<td><span class="ui-button">Arrow</span></td>
+<td>Longest arrow a cell draws, as a fraction of that cell's own pattern radius,
+so the arrows track whichever gain scale shapes the surface.</td>
+</tr>
+</tbody>
+</table>
+
+<p>The color mapping controls are not limited to animation. The static color
+projections (<span class="ui-button">Amplitude</span>,
+<span class="ui-button">Standing/Traveling</span>, and
+<span class="ui-button">Far-field Contribution</span>) render without phase
 motion, yet still map current, charge, and near-field magnitude through the
-same scale family and brightness floor. Changing these controls therefore
-also re-shades the non-animated structure and near-field displays.</p>
+same scale family and brightness floor, and the static segment scale choices
+size the wires the same way. Changing these controls therefore also re-shades
+and re-sizes the non-animated structure and near-field displays.</p>
 
 <figure>
-<img src="images/animation.png" alt="Near Field Animation panel with phase, color projection, scale family, gamma, and brightness floor controls" loading="lazy">
-<figcaption>The Near Field Animation panel. The color projection, scale
-family, gamma, and brightness floor shade the wires, patches, and near-field
-vectors in both animated and static views.</figcaption>
+<img src="images/animation.png" alt="Animation panel with phase, color projection, segment scale, scale family, gamma, and brightness floor controls" loading="lazy">
+<figcaption>The Animation panel. The color projection, segment scale, scale
+family, gamma, and brightness floor shade and size the wires, patches, and
+near-field vectors in both animated and static views.</figcaption>
 </figure>
 
 <h3 id="FrequencyWindow">Frequency Data Plots window</h3>
@@ -2226,7 +2438,9 @@ to the nearest frequency loop step value, as marked by the little
 boxes or diamonds on the graphs. However, all the displayed
 frequency-related data are still recalculated and refreshed e.g.
 buffered values are not used. Clicking with button 2 (middle
-button) cancels the green frequency-marking line.</p>
+button) hides the green frequency-marking line. Only the marker is hidden: the
+selected frequency itself is retained, so the readouts and the optimizer goal
+values keep reporting it.</p>
 <p>The top row of widgets in this window has at its right buttons
 to select data to be plotted against frequency. These are:</p>
 <table class="button-table">
@@ -2273,6 +2487,11 @@ to select data to be plotted against frequency. These are:</p>
 <td></td>
 <td>G/T<sub>ant</sub> (right axis) with T<sub>ant</sub> or T<sub>total</sub> as the secondary curve, selectable via <span class="menu-path">View &rarr; Show T_ant instead of T_total</span>. Requires a <a href="#NoiseEnvModels">noise environment</a> and radiation pattern data.</td>
 </tr>
+<tr>
+<td><span class="ui-button">Cond</span></td>
+<td></td>
+<td>Decimal digits of precision lost while solving the antenna at each frequency; see <a href="#SolverConditioning">Solver Conditioning</a>.</td>
+</tr>
 </tbody>
 </table>
 <p>The <span class="menu-path">View → Net Gain</span> menu item changes the second plotted
@@ -2280,8 +2499,8 @@ quantity to the Net Gain of the array. Net Gain is the effective
 gain after subtracting the effects of reflection caused by
 impedance mismatch (return loss); Net Gain is equal to Raw Gain
 when VSWR&nbsp;≈&nbsp;1.0 (S<sub>11</sub>&nbsp;≈&nbsp;−∞).</p>
-<p>The Frequency Loop control buttons at the top right can be use
-to Start, Pause or Reset the loop. As the loop progresses, more
+<p>The <a href="#SweepTransport">frequency sweep transport buttons</a> at the
+top right run, pause, resume and rewind the loop. As the loop progresses, more
 data will be presented in the graphs and in the text entry widgets
 above the graph drawing area. These widgets display the current
 frequency in&nbsp;MHz, the maximum gain in the radiation pattern for
@@ -2351,6 +2570,28 @@ cross-section.</p>
 <p>
 Both display settings are persisted in the configuration file.</p>
 
+<h4 id="SolverConditioning">Solver Conditioning</h4>
+<p>The <span class="ui-button">Cond</span> toggle plots the precision lost while
+solving the antenna at each frequency, in decimal digits. Xnec2c factors the
+segment interaction matrix by Gauss elimination, and the ratio between the
+smallest and largest pivot magnitudes measures how much of the working precision
+that factorization consumed. A double carries about 15 significant digits, so a
+reading of 3 leaves 12 sound ones and a reading near 15 leaves none. Values
+appear once a frequency sweep has produced results.</p>
+
+<p>Read the trace against the impedance and VSWR curves. A flat, low curve means
+those curves are sound. A peak marks a frequency where the solve degraded, so a
+sharp impedance excursion at that same frequency is a numerical artefact rather
+than a resonance. Segments that are very short relative to their radius, or
+otherwise near-degenerate against their neighbors, drive the curve up: shorten or
+thicken the offending segments and run the sweep again to bring it down.</p>
+
+<aside class="notice" role="note">
+<strong>Note:</strong> Precision loss is a diagnostic, not an optimization
+target; neither it nor frequency can serve as an
+<a href="#Optimization">optimizer</a> fitness goal.
+</aside>
+
 <h4>Touchstone Files</h4>
 <p>
 Touchstone files (or SnP files) are used by professional RF software
@@ -2366,7 +2607,7 @@ For <span class="fileext">.s2p</span> files gain is used as S<sub>21</sub> and S
 passive so <code>S<sub>21</sub>&nbsp;==&nbsp;S<sub>12</sub></code>.  The gain is stored in the S<sub>21</sub>
 dB-magnitude column as the field-amplitude term, so the antenna power gain is
 <code>|S<sub>21</sub>|<sup>2</sup></code> and the stored dB value equals the gain in dBi
-(see <a href="https://github.com/KJ7LNW/xnec2c/issues/80">issue&nbsp;#80</a>).  S<sub>22</sub> is a bit of a mystery, so we assume
+(see issue&nbsp;<span class="issue-ref">#80</span>).  S<sub>22</sub> is a bit of a mystery, so we assume
 that all S<sub>22</sub> behavior is normalized into S<sub>11</sub> and thus S<sub>22</sub> is deminimus
 and set it to −100&nbsp;dB.  This may not be a correct assumption, so please
 provide a suggestion here if you know a better way.
@@ -2385,11 +2626,23 @@ or other RF behavior in your favorite RF design software.
 </p>
 
 <h4 id="ColorTheme">Color Themes</h4>
-<p>The <span class="menu-path">View → Color Theme</span> menu offers six
-built-in themes for the frequency plots, each with an
-<span class="ui-button">Invert</span> toggle. Place a
-<span class="filepath">~/.xnec2c/themes.ini</span> file to override the
-built-in palettes with your own.</p>
+<p>The <span class="menu-path">View → Color Theme</span> menu offers
+built-in themes, each with an <span class="ui-button">Invert</span> toggle.
+Place a <span class="fileext">~/.xnec2c/themes.ini</span> file to override the
+built-in palettes with your own. The shipped
+<span class="filepath">resources/themes.ini</span> holds the built-in
+definitions to copy from.</p>
+
+<p>A theme restyles the structure display, the radiation pattern and
+the plots together, under both the Cairo and the
+<a href="#OpenGL">OpenGL</a> renderer.</p>
+
+<aside class="notice" role="note">
+<strong>Note:</strong> When authoring a
+<code>gradient_0..5</code> ladder, move lightness monotonically across the six
+stops and carry the distinction in hue, so the ramp still reads as an ordered
+scale in greyscale.
+</aside>
 
 <h4 id="GraphPopups">Detachable Graph Popups</h4>
 <p>Double-click a graph, or right-click a plot-select button, to open a
@@ -2405,7 +2658,7 @@ extraction. No N-port Touchstone (SnP) export exists, and the second port
 of a <span class="fileext">.s2p</span> file carries synthetic antenna gain
 rather than a network parameter. When an excitation defines no feedpoint
 (<code class="nec-card">EX</code> types 1&ndash;4), the impedance-derived
-panels grey out with explanatory tooltips.</p>
+panels grey out.</p>
 
 <h4 id="SmithChart">Interactive Smith Chart</h4>
 <p>The Smith chart draws a full resistance and reactance grid with a
@@ -3479,12 +3732,12 @@ Xnec2c will monitor the currently open <span class="fileext">.NEC</span> file wh
 changes".  Additionally, you need to tell xnec2c where to write its output
 file.  You can do that with one of the <code>--write-*</code> command-line options
 or by checking one of the boxes in <span class="menu-path">File → Optimization Settings</span> such as
-"After calculation, write <span class="filepath">&lt;file&gt;.csv</span>".
+"After calculation, write <span class="fileext">&lt;file&gt;.csv</span>".
 The checkbox
-"After calculation, write <span class="filepath">&lt;file&gt;-structure.gplot</span>"
+"After calculation, write <span class="fileext">&lt;file&gt;-structure.gplot</span>"
 exports a gnuplot-compatible 3D structure file after each evaluation.
 The checkbox
-"After calculation, write <span class="filepath">&lt;file&gt;-patch-currents.csv</span>"
+"After calculation, write <span class="fileext">&lt;file&gt;-patch-currents.csv</span>"
 exports surface patch current data in CSV format.
 All output settings are persisted in the configuration file.</p>
 
@@ -3563,8 +3816,8 @@ Here is a list of commands or command options not supported by xnec2c:
 <dt><code class="nec-card">NX</code></dt>
 <dd>Next Structure Data: Relevant code has been removed since xnec2c cannot operate in batch mode.</dd>
 
-<dt><code class="nec-card">PQ</code>, <code class="nec-card">PT</code>, <code class="nec-card">CP</code></dt>
-<dd>These commands affect printed output and have no effect on data presented by xnec2c in graphical form. Since <span class="version-tag">v1.0</span> xnec2c does not print results to file.</dd>
+<dt><code class="nec-card">PQ</code>, <code class="nec-card">PT</code>, <code class="nec-card">CP</code>, <code class="nec-card">PL</code></dt>
+<dd>These commands select printed or plotted output and have no effect on data presented by xnec2c in graphical form. Since <span class="version-tag">v1.0</span> xnec2c does not print results to file. Each one warns and is skipped, and the rest of the deck continues to parse.</dd>
 
 <dt><code class="nec-card">SOMNEC</code></dt>
 <dd>The separate SOMNEC code has been incorporated in nec2c and hence in xnec2c also.</dd>
@@ -3594,6 +3847,32 @@ active kernel's validity conditions.</dd>
 <dt><code class="nec-card">Z0</code></dt>
 <dd>Specifies the transmission-line reference impedance Z<sub>0</sub> in the NEC2 antenna description file. The mnemonic is canonically <code class="nec-card">Z0</code> (digit zero); legacy decks written with <code class="nec-card">ZO</code> (letter O) still parse.</dd>
 </dl>
+
+<h4 id="TagZero">Tag 0 Segment Selection</h4>
+<p>A tag number of 0 selects no tag. The segment field of such a card then
+indexes an absolute position across the whole assembled structure, so geometry
+inserted ahead of the card silently shifts the reference onto a different
+conductor. The card remains legal NEC input either way, so xnec2c warns
+whenever a
+<code class="nec-card">GW</code>, <code class="nec-card">GC</code>,
+<code class="nec-card">EX</code>, <code class="nec-card">LD</code> or similar
+card reaches a segment through a zero tag, naming the card and the segment so
+the reference can be checked.</p>
+
+<h4 id="DefaultSweep">Default Frequency Sweep</h4>
+<p>A deck carrying no <code class="nec-card">FR</code> card follows the NEC
+default rather than leaving the sweep empty: one step at 299.8&nbsp;MHz, the
+value the upstream FORTRAN initializes before it reads any card. Xnec2c
+registers that step through the same path an explicit
+<code class="nec-card">FR</code> card takes, so the frequency loop, the plots and
+the optimizer all see one ordinary sweep step, and it reports the substitution
+on load.</p>
+
+<aside class="notice" role="note">
+<strong>Note:</strong> The 299.8&nbsp;MHz default exists to match NEC, not to
+guess at the design frequency; a model meant for a particular band needs an
+explicit <code class="nec-card">FR</code> card.
+</aside>
 <h2 id="OutputFile">Output File Considerations</h2>
 <p>
 Printing of results to an output file has been removed starting
@@ -3629,6 +3908,10 @@ Modifier combinations work regardless of widget focus within the window.</p>
 <tr><td><kbd class="shortcut">Ctrl+Minus</kbd></td><td>Zoom out</td></tr>
 <tr><td><kbd class="shortcut">Ctrl+1</kbd></td><td>Zoom 100%</td></tr>
 <tr><td><kbd class="shortcut">Ctrl+Scroll</kbd></td><td>Adjust wire cylinder scale (OpenGL)</td></tr>
+<tr><td><kbd class="shortcut">Ctrl+0</kbd></td><td>Fit view</td></tr>
+<tr><td><kbd class="shortcut">Ctrl+KP_0</kbd></td><td>Fit view</td></tr>
+<tr><td><kbd class="shortcut">Home</kbd></td><td>Fit view</td></tr>
+<tr><td><kbd class="shortcut">Arrow keys</kbd></td><td>Pan this window's view (both views with <span class="menu-path">View &rarr; Common Pan</span>)</td></tr>
 </tbody>
 </table>
 
@@ -3654,6 +3937,10 @@ Modifier combinations work regardless of widget focus within the window.</p>
 <tr><td><kbd class="shortcut">Ctrl+1</kbd></td><td>Zoom 100%</td></tr>
 <tr><td><kbd class="shortcut">Ctrl+Scroll</kbd></td><td>Adjust wire cylinder scale (OpenGL)</td></tr>
 <tr><td><kbd class="shortcut">Shift+Scroll</kbd></td><td>Scale structure overlay (OpenGL, gain view only)</td></tr>
+<tr><td><kbd class="shortcut">Ctrl+0</kbd></td><td>Fit view</td></tr>
+<tr><td><kbd class="shortcut">Ctrl+KP_0</kbd></td><td>Fit view</td></tr>
+<tr><td><kbd class="shortcut">Home</kbd></td><td>Fit view</td></tr>
+<tr><td><kbd class="shortcut">Arrow keys</kbd></td><td>Pan this window's view (both views with <span class="menu-path">View &rarr; Common Pan</span>)</td></tr>
 </tbody>
 </table>
 
@@ -3676,6 +3963,7 @@ Modifier combinations work regardless of widget focus within the window.</p>
 <tr><td><kbd class="shortcut">l</kbd></td><td>Linear frequency scale</td></tr>
 <tr><td><kbd class="shortcut">h</kbd></td><td>Logarithmic frequency scale</td></tr>
 <tr><td><kbd class="shortcut">b</kbd></td><td>Both (linear + log) frequency scale</td></tr>
+<tr><td><kbd class="shortcut">Ctrl+w</kbd></td><td>Close a <a href="#GraphPopups">detached graph popup</a></td></tr>
 </tbody>
 </table>
 
@@ -3702,81 +3990,79 @@ visualization, and internationalization support.</p>
 <ul>
 	<li>Contributors:
 		<ul>
-			<li><span class="contact" data-github="frazij">frazij</span> &mdash; suggested displaying model filename in window titles (<a href="https://github.com/KJ7LNW/xnec2c/issues/77" target="_blank" rel="noopener noreferrer">#77</a>)</li>
-			<li><span class="contact" data-callsign="G1OGY" data-github="g1ogy">G1OGY</span> &mdash; reported WSL2/Debian compile failure (<a href="https://github.com/KJ7LNW/xnec2c/issues/78" target="_blank" rel="noopener noreferrer">#78</a>)</li>
-			<li><span class="contact" data-github="malcolmboyd">malcolmboyd</span> &mdash; reported optimizer single-frequency issue (<a href="https://github.com/KJ7LNW/xnec2c/issues/62" target="_blank" rel="noopener noreferrer">#62</a>)</li>
-			<li><span class="contact" data-github="Peter3579">Peter3579</span> &mdash; tested and validated the Touchstone format for antenna gain in the virtual two-port model (<a href="https://github.com/KJ7LNW/xnec2c/issues/80" target="_blank" rel="noopener noreferrer">#80</a>), and reported the frequency-plot readout defect (<a href="https://github.com/KJ7LNW/xnec2c/issues/82" target="_blank" rel="noopener noreferrer">#82</a>)</li>
-			<li><span class="contact" data-callsign="G4IXT" data-github="g4ixt">Ian</span> &mdash; reproduced and tested the <code class="nec-card">Z0</code>-card value corruption (<a href="https://github.com/KJ7LNW/xnec2c/issues/86" target="_blank" rel="noopener noreferrer">#86</a>)</li>
-			<li><span class="contact" data-github="peteasa">peteasa</span> &mdash; drove the <code>--write-patch-currents</code> option and the gnuplot patch-line fix (<a href="https://github.com/KJ7LNW/xnec2c/issues/75" target="_blank" rel="noopener noreferrer">#75</a>, <a href="https://github.com/KJ7LNW/xnec2c/issues/76" target="_blank" rel="noopener noreferrer">#76</a>)</li>
-			<li><span class="contact" data-callsign="9M2PJU" data-github="9M2PJU">9M2PJU</span> &mdash; reported a build break and submitted a pull request (<a href="https://github.com/KJ7LNW/xnec2c/issues/84" target="_blank" rel="noopener noreferrer">#84</a>, <a href="https://github.com/KJ7LNW/xnec2c/issues/85" target="_blank" rel="noopener noreferrer">#85</a>)</li>
+			<li><span class="contact" data-github="frazij">frazij</span> &mdash; suggested displaying model filename in window titles (<span class="issue-ref">#77</span>)</li>
+			<li><span class="contact" data-callsign="G1OGY" data-github="g1ogy">G1OGY</span> &mdash; reported WSL2/Debian compile failure (<span class="issue-ref">#78</span>)</li>
+			<li><span class="contact" data-github="malcolmboyd">malcolmboyd</span> &mdash; reported optimizer single-frequency issue (<span class="issue-ref">#62</span>)</li>
+			<li><span class="contact" data-github="Peter3579">Peter3579</span> &mdash; tested and validated the Touchstone format for antenna gain in the virtual two-port model (<span class="issue-ref">#80</span>), reported the frequency-plot readout defect (<span class="issue-ref">#82</span>), and reported the S<sub>21</sub>/S<sub>12</sub> reference-power error in Touchstone export (<span class="issue-ref">#93</span>)</li>
+			<li><span class="contact" data-callsign="G4IXT" data-github="g4ixt">Ian</span> &mdash; reproduced and tested the <code class="nec-card">Z0</code>-card value corruption (<span class="issue-ref">#86</span>)</li>
+			<li><span class="contact" data-github="peteasa">peteasa</span> &mdash; drove the <code>--write-patch-currents</code> option and the gnuplot patch-line fix (<span class="issue-ref">#75</span>, <span class="issue-ref">#76</span>)</li>
+			<li><span class="contact" data-callsign="9M2PJU" data-github="9M2PJU">9M2PJU</span> &mdash; reported a build break and submitted a pull request (<span class="issue-ref">#84</span>, <span class="issue-ref">#85</span>), and synchronized the <code class="nec-card">Z0</code> string changes across all 47 translation catalogs (<span class="issue-ref">#88</span>)</li>
+			<li><span class="contact" data-github="mahswrn">Maheswaran</span> &mdash; contributed per-window arrow-key panning, the <kbd class="shortcut">Home</kbd> fit-to-view binding, and the <span class="menu-path">Common Pan</span> toggle (<span class="issue-ref">#92</span>)</li>
 		</ul>
 	</li>
 
 	<li>OpenGL rendering (<a href="#OpenGL">documentation</a>):
 		<ul>
-			<li>Hardware-accelerated 3D renderer with lit cylinder geometry,
-			triangulated patch surfaces, smooth vertex normals, coordinate
-			axes with labels, and ground plane visualization</li>
-			<li>OpenGL Settings dialog: per-element brightness and transparency
-			sliders, MSAA anti-aliasing (Off/2&times;/4&times;/8&times;/16&times;),
-			cylinder scale, and draw style selection</li>
-			<li>Orthographic projection toggle in both Main and Radiation Pattern
-			window toolbars (<a href="#Projection">documentation</a>)</li>
+			<li>Hardware-accelerated 3D renderer with lit geometry, patch
+			surfaces, labelled axes, and ground plane</li>
+			<li>OpenGL Settings dialog: brightness, transparency, MSAA
+			anti-aliasing, cylinder scale, and draw style</li>
+			<li>Orthographic projection toggle in the Main and Radiation
+			Pattern toolbars (<a href="#Projection">documentation</a>)</li>
 			<li>Radiation pattern draw style: Surface, Wireframe, or Both
 			(<a href="#DrawStyle">documentation</a>)</li>
-			<li>Gradient key (color legend) visibility toggle</li>
-			<li>Structure overlay in radiation pattern view with
-			<kbd class="shortcut">Shift+Scroll</kbd> scaling</li>
-			<li>Interactive wire cylinder radius via
-			<kbd class="shortcut">Ctrl+Scroll</kbd> with line-mode snap
-			at minimum</li>
-			<li>Patch current visualization with five modes: Reference Phase,
-			LIC Texture, Wireframe, Polarization Axis, and Peak Magnitude
+			<li>Gradient key visibility toggle</li>
+			<li>Structure overlay in the radiation pattern view, scaled with
+			<kbd class="shortcut">Shift+Scroll</kbd></li>
+			<li>Interactive wire radius via
+			<kbd class="shortcut">Ctrl+Scroll</kbd></li>
+			<li>Patch current visualization with five modes
 			(<a href="#CurrentVisualization">documentation</a>)</li>
-			<li>Automatic Cairo software renderer fallback when OpenGL is
+			<li>Automatic Cairo renderer fallback where OpenGL is
 			unavailable</li>
-			<li>Network and transmission-line
-			(<code class="nec-card">NT</code>/<code class="nec-card">TL</code>)
-			connections drawn in 3D, reaching parity with the Cairo
-			renderer</li>
+			<li><code class="nec-card">NT</code> and
+			<code class="nec-card">TL</code> connections drawn in 3D</li>
 		</ul>
 	</li>
 
 	<li>Color projection and tone mapping
 	(<a href="#ColorProjection">documentation</a>):
 		<ul>
-			<li>Current color projection axes: Dual current and charge,
-			Standing and Traveling wave, and Far-field contribution</li>
+			<li>Current color projection axes: dual current and charge,
+			standing and traveling wave, and far-field contribution</li>
 			<li>Tone-transfer families for the color scale: dB, Asinh,
 			mu-law, Reinhard, Sigmoid, and None</li>
-			<li>Animate dialog rebuilt as a standalone panel with a manual
-			phase-scrub slider (0&ndash;720&deg;), mirror checkboxes, a
-			flow-direction selector, and node/antinode and comet wire
-			overlays</li>
+			<li>Animation rebuilt as a standalone panel with a phase-scrub
+			slider, mirror checkboxes, a flow-direction selector, and
+			node/antinode and comet overlays</li>
+			<li>Segment scale selector setting wire thickness from model
+			radius, envelope magnitude, or instantaneous magnitude</li>
+			<li>Far-field animation drawing the instantaneous E or H field as
+			arrows on the gain surface, in world or Ludwig-3 polarization</li>
+			<li>Color themes drive axis labels, legend and message text,
+			canvas background, and the shared magnitude ramp</li>
 		</ul>
 	</li>
 
 	<li>Frequency-plot enhancements
 	(<a href="#FrequencyWindow">documentation</a>):
 		<ul>
-			<li>Six built-in color themes under
+			<li>Built-in color themes under
 			<span class="menu-path">View → Color Theme</span> with an Invert
 			toggle and user override via
-			<span class="filepath">~/.xnec2c/themes.ini</span></li>
-			<li>Detachable single-graph popups opened by double-clicking a
-			graph or right-clicking a plot-select button, each carrying its
-			own readout bar and closed with <kbd class="shortcut">Ctrl+W</kbd></li>
+			<span class="fileext">~/.xnec2c/themes.ini</span></li>
+			<li>Detachable single-graph popups carrying their own readout bar,
+			closed with <kbd class="shortcut">Ctrl+W</kbd></li>
 			<li>Per-feedpoint excitation-port selector choosing which
 			<code class="nec-card">EX</code> feedpoint drives the impedance,
 			VSWR, and Smith data of a view</li>
-			<li>Feedpoint-dependent panels grey with explanatory tooltips and
-			em-dash readouts when the excitation defines no feedpoint</li>
-			<li>Interactive Smith chart with a full resistance and reactance
-			grid, wavelengths-toward-generator scale, and click-to-select
-			frequency</li>
-			<li>Swap-click frequency selection, a persisted
-			<span class="menu-path">View</span> toggle that inverts the
-			left and right mouse frequency-pick actions</li>
+			<li>Interactive Smith chart with click-to-select frequency</li>
+			<li>Swap-click frequency selection toggle</li>
+			<li>Solver Conditioning panel plotting the decimal digits of
+			precision lost at each frequency step</li>
+			<li>Optimizer goal list limited to measurements that can be
+			scored</li>
+			<li>Clearing the plot marker keeps the selected frequency</li>
 		</ul>
 	</li>
 
@@ -3824,39 +4110,60 @@ visualization, and internationalization support.</p>
 			<li>Average power gain diagnostic with efficiency percentage,
 			auto-enabled with RP card
 			(<a href="#AveragePowerGain">documentation</a>)</li>
-			<li>Radiation efficiency transmitted in frequency analysis for
-			accurate G/T computation</li>
 		</ul>
 	</li>
 
 	<li>User interface:
 		<ul>
-			<li>First <code class="nec-card">CM</code> card text displayed
-			in Main and Radiation Pattern window title bars</li>
-			<li>Animation dialog reworked: Frames/Sec (1&ndash;120) replaces
-			Steps/Cycle with auto-apply on value change</li>
-			<li>Extended rotation range (0&ndash;720&deg;) and incline range
-			(&plusmn;360&deg;) with mouse-wheel scrolling on spin buttons</li>
+			<li>First <code class="nec-card">CM</code> card text in the Main
+			and Radiation Pattern title bars</li>
+			<li>Animation dialog: Frames/Sec replaces Steps/Cycle, applied on
+			change</li>
+			<li>Rotation range 0&ndash;720&deg; and incline range
+			&plusmn;360&deg;, with wheel scrolling on spin buttons</li>
 			<li>Configuration file selection via
-			<code>--config</code> and <code>--new-config</code> CLI options</li>
+			<code>--config</code> and <code>--new-config</code></li>
 			<li><code>--skip-verify</code> option to improve load time on
 			large models</li>
 			<li>Batch mode (<code>--batch</code>) with
 			<code>--optimize</code> for headless optimization runs</li>
-			<li>All checkbox menu item states persisted in configuration
-			file across sessions</li>
+			<li>Checkbox menu item states persist across sessions</li>
 			<li>Transmission-line reference-impedance card is canonically
 			<code class="nec-card">Z0</code> (digit zero); legacy
 			<code class="nec-card">ZO</code> decks still parse</li>
 			<li><code>--write-validation-dir</code> option to write the full
 			validation data tree</li>
+			<li><span class="ui-button">Fit View</span> button in the Main and
+			Radiation Pattern toolbars (<kbd class="shortcut">Ctrl+0</kbd>,
+			<kbd class="shortcut">Ctrl+KP_0</kbd>, or
+			<kbd class="shortcut">Home</kbd>)</li>
+			<li>Per-window arrow-key panning with an opt-in
+			<span class="menu-path">View → Common Pan</span> toggle</li>
+			<li>Frequency sweep transport unified into a play/pause toggle and
+			a rewind button across all three windows</li>
+			<li>Hovering a menu or toggle row previews its setting</li>
+			<li>Notice dialogs render a monospace, scrollable body</li>
+			<li>Window geometry and GUI state persist at exit</li>
+			<li>Application stylesheet keeping contrast under light and dark
+			desktop themes</li>
+			<li>A non-Total polarization restored at start-up announces itself
+			and is drawn bold in the window labels</li>
+			<li>A deck with no <code class="nec-card">FR</code> card follows the
+			NEC default of one step at 299.8&nbsp;MHz</li>
+			<li><code class="nec-card">CP</code>, <code class="nec-card">PQ</code>,
+			<code class="nec-card">PT</code> and <code class="nec-card">PL</code>
+			cards warn and are skipped instead of halting the parse</li>
+			<li>Cards selecting a segment through tag 0 warn</li>
+			<li><code>--threads</code> replaces the per-library thread
+			environment variables</li>
+			<li>Math library benchmark gains a thread-count sweep</li>
 		</ul>
 	</li>
 
 	<li>Internationalization
 	(<a href="#Internationalization">documentation</a>):
 		<ul>
-			<li>42 languages via GNU gettext, selected automatically from
+			<li>47 languages via GNU gettext, selected automatically from
 			system locale</li>
 			<li><code>LANGUAGE</code> environment variable override</li>
 		</ul>
@@ -3865,45 +4172,59 @@ visualization, and internationalization support.</p>
 	<li>Examples:
 		<ul>
 			<li>ISS communication antenna designs
-			(<span class="filepath">2m-5el-rhcp-ARISS-KJ7NLL.nec</span> and
-			<span class="filepath">70cm-5el-rhcp-KJ7NLL.nec</span>, 5-element
+			(<span class="filepath">examples/2m-5el-rhcp-ARISS-KJ7NLL.nec</span> and
+			<span class="filepath">examples/70cm-5el-rhcp-KJ7NLL.nec</span>, 5-element
 			RHCP Yagis by
 			<span class="contact" data-callsign="KJ7NLL">Zeke</span>)</li>
 			<li>Parametric Yagis with optimizer configuration
-			(<span class="filepath">2m_yagi_SY_parametric.nec</span>,
-			<span class="filepath">5el_yagi_SY_parametric.nec</span>)</li>
+			(<span class="filepath">examples/2m_yagi_SY_parametric.nec</span>,
+			<span class="filepath">examples/5el_yagi_SY_parametric.nec</span>)</li>
 			<li>Current-slope and current-source excitation demonstrations
-			(<span class="filepath">ex2_current_slope_disc_dipole.nec</span>,
-			<span class="filepath">ex4_current_source_sq_loop.nec</span>)</li>
+			(<span class="filepath">examples/ex2_current_slope_disc_dipole.nec</span>,
+			<span class="filepath">examples/ex4_current_source_sq_loop.nec</span>)</li>
 			<li>Network transmission-line example
-			(<span class="filepath">20m_dipole_NT_50ohm.nec</span>)</li>
+			(<span class="filepath">examples/20m_dipole_NT_50ohm.nec</span>)</li>
 		</ul>
 	</li>
 
 	<li>Bug fixes:
 		<ul>
-			<li>Fix frequency loop re-entrancy and SY optimizer inotify
-			reload races</li>
-			<li>Fix fmhz_save clobbered by programmatic spinbutton
-			updates</li>
-			<li>Fix double unlock of global_lock mutex</li>
+			<li>Fix crashes and hangs from frequency loop re-entrancy, SY
+			reload races, recursive lock deadlocks, and radiation pattern
+			window teardown</li>
 			<li>Fix single frequency step not running frequency loop
-			(<a href="https://github.com/KJ7LNW/xnec2c/issues/62" target="_blank" rel="noopener noreferrer">#62</a>)</li>
+			(<span class="issue-ref">#62</span>)</li>
+			<li>Fix the selected frequency lost to programmatic spin button
+			updates</li>
 			<li>Fix gradient legend invisible in Cairo renderer</li>
 			<li>Fix compiler warnings on stricter build systems
-			(<a href="https://github.com/KJ7LNW/xnec2c/issues/78" target="_blank" rel="noopener noreferrer">#78</a>)</li>
-			<li>Replace GMutex with GRecMutex to prevent recursive lock
-			deadlocks</li>
-			<li>Fix sky/earth boundary calculation using Rodrigues
-			rotation</li>
-			<li>Fix inotify watch for atomic editor writes</li>
-			<li>Fix stale geometry after SY variable apply</li>
-			<li>Correct Sommerfeld ground accuracy (gshank L1-norm, evlua
-			contour completion) so feed-point impedance over
+			(<span class="issue-ref">#78</span>)</li>
+			<li>Fix sky/earth boundary calculation</li>
+			<li>Fix stale geometry after SY variable apply, and reloads missed
+			on atomic editor writes</li>
+			<li>Correct Sommerfeld ground accuracy so feed-point impedance over
 			<code class="nec-card">GN 2</code> ground converges to the
 			FORTRAN reference</li>
+			<li>Correct feedpoint impedance to match the FORTRAN reference</li>
 			<li>Fix <code class="nec-card">Z0</code>-card value corruption
-			(<a href="https://github.com/KJ7LNW/xnec2c/issues/86" target="_blank" rel="noopener noreferrer">#86</a>)</li>
+			(<span class="issue-ref">#86</span>)</li>
+			<li>Reference Touchstone S<sub>21</sub> and S<sub>12</sub> to the
+			power available from the source, so a mismatched feedpoint no
+			longer overstates delivered power
+			(<span class="issue-ref">#93</span>)</li>
+			<li>Refuse a Touchstone export when the excitation defines no
+			feedpoint impedance</li>
+			<li>Honor a literal <var>B1</var>&nbsp;=&nbsp;0 helix taper as a
+			degenerate cone tip</li>
+			<li>Fix crash on impedance reads with no feedpoint, and on
+			over-long input lines</li>
+			<li>Reset the near-field Z dimension on each model load</li>
+			<li>Fix stale near-field and far-field frames after a model
+			change</li>
+			<li>Fix frequency loop completion under
+			<code>--no-pthreads</code></li>
+			<li>Batch runs exit on a parse failure instead of reopening the
+			NEC2 editor</li>
 		</ul>
 	</li>
 
@@ -3922,8 +4243,8 @@ visualization, and internationalization support.</p>
 <ul>
 	<li>Contributors:
 		<ul>
-			<li><span class="contact" data-callsign="VK1KCM" data-github="vk1kcm">Carl Makin</span> - MacOS testing, reported <a href="https://github.com/KJ7LNW/xnec2c/issues/73" target="_blank" rel="noopener noreferrer">#73</a>, tested MacOS build (<a href="https://github.com/KJ7LNW/xnec2c/issues/66" target="_blank" rel="noopener noreferrer">#66</a>)</li>
-			<li><span class="contact" data-github="likecabezon">likecabezon</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/70" target="_blank" rel="noopener noreferrer">#70</a></li>
+			<li><span class="contact" data-callsign="VK1KCM" data-github="vk1kcm">Carl Makin</span> - MacOS testing, reported <span class="issue-ref">#73</span>, tested MacOS build (<span class="issue-ref">#66</span>)</li>
+			<li><span class="contact" data-github="likecabezon">likecabezon</span> - reported <span class="issue-ref">#70</span></li>
 			<li><span class="contact" data-callsign="KF5OIM">Richard Shaw</span> - reported Fedora OpenMP build issue</li>
 		</ul>
 	</li>
@@ -3937,10 +4258,10 @@ visualization, and internationalization support.</p>
 	</li>
 	<li>Bug Fixes:
 		<ul>
-			<li>Fix mathlib benchmark crash without loaded NEC2 file (<a href="https://github.com/KJ7LNW/xnec2c/issues/73" target="_blank" rel="noopener noreferrer">#73</a>)</li>
+			<li>Fix mathlib benchmark crash without loaded NEC2 file (<span class="issue-ref">#73</span>)</li>
 			<li>Fix OpenMP linking in Fedora RPM builds</li>
-			<li>Fix strict-prototypes warning on macOS builds (<a href="https://github.com/KJ7LNW/xnec2c/issues/66" target="_blank" rel="noopener noreferrer">#66</a>)</li>
-			<li>Fix nearfield animation crash with missing NE/NH cards (<a href="https://github.com/KJ7LNW/xnec2c/issues/70" target="_blank" rel="noopener noreferrer">#70</a>)</li>
+			<li>Fix strict-prototypes warning on macOS builds (<span class="issue-ref">#66</span>)</li>
+			<li>Fix nearfield animation crash with missing NE/NH cards (<span class="issue-ref">#70</span>)</li>
 		</ul>
 	</li>
 	<li>Documentation:
@@ -3962,15 +4283,15 @@ visualization, and internationalization support.</p>
 <ul>
 	<li>Contributors:
 		<ul>
-			<li><span class="contact" data-callsign="G4IXT" data-github="g4ixt">Ian</span> - color legend suggestions, reported <a href="https://github.com/KJ7LNW/xnec2c/issues/61" target="_blank" rel="noopener noreferrer">#61</a></li>
-			<li><span class="contact" data-callsign="5B4AZ" data-github="neoklis" data-role="author">Neoklis Kyriazis</span> - technical guidance on current scaling (<a href="https://github.com/KJ7LNW/xnec2c/issues/61" target="_blank" rel="noopener noreferrer">#61</a>)</li>
-			<li><span class="contact" data-github="akvadrako">Devin Bayer</span> - fixed double-free crash in geometry editor (<a href="https://github.com/KJ7LNW/xnec2c/pull/67" target="_blank" rel="noopener noreferrer">#67</a>)</li>
-			<li><span class="contact" data-github="hamarituc">hamarituc</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/59" target="_blank" rel="noopener noreferrer">#59</a></li>
-			<li><span class="contact" data-github="ProtonTheFox">ProtonTheFox</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/44" target="_blank" rel="noopener noreferrer">#44</a>, <a href="https://github.com/KJ7LNW/xnec2c/issues/45" target="_blank" rel="noopener noreferrer">#45</a></li>
-			<li><span class="contact" data-github="likecabezon">likecabezon</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/68" target="_blank" rel="noopener noreferrer">#68</a></li>
-			<li><span class="contact" data-callsign="KF7RCC" data-github="jerryd">Jerry</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/52" target="_blank" rel="noopener noreferrer">#52</a></li>
-			<li><span class="contact" data-github="polprog">polprog</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/50" target="_blank" rel="noopener noreferrer">#50</a></li>
-			<li><span class="contact" data-github="roberthadow">roberthadow</span> - reported <a href="https://github.com/KJ7LNW/xnec2c/issues/47" target="_blank" rel="noopener noreferrer">#47</a></li>
+			<li><span class="contact" data-callsign="G4IXT" data-github="g4ixt">Ian</span> - color legend suggestions, reported <span class="issue-ref">#61</span></li>
+			<li><span class="contact" data-callsign="5B4AZ" data-github="neoklis" data-role="author">Neoklis Kyriazis</span> - technical guidance on current scaling (<span class="issue-ref">#61</span>)</li>
+			<li><span class="contact" data-github="akvadrako">Devin Bayer</span> - fixed double-free crash in geometry editor (<span class="issue-ref">#67</span>)</li>
+			<li><span class="contact" data-github="hamarituc">hamarituc</span> - reported <span class="issue-ref">#59</span></li>
+			<li><span class="contact" data-github="ProtonTheFox">ProtonTheFox</span> - reported <span class="issue-ref">#44</span>, <span class="issue-ref">#45</span></li>
+			<li><span class="contact" data-github="likecabezon">likecabezon</span> - reported <span class="issue-ref">#68</span></li>
+			<li><span class="contact" data-callsign="KF7RCC" data-github="jerryd">Jerry</span> - reported <span class="issue-ref">#52</span></li>
+			<li><span class="contact" data-github="polprog">polprog</span> - reported <span class="issue-ref">#50</span></li>
+			<li><span class="contact" data-github="roberthadow">roberthadow</span> - reported <span class="issue-ref">#47</span></li>
 		</ul>
 	</li>
 
@@ -3980,39 +4301,39 @@ visualization, and internationalization support.</p>
 			<li>Color legend with dynamic spacing and proper gain scaling</li>
 			<li>Increased 3D zoom limit to 999999x</li>
 			<li>GTK menu tear-offs for frequently used menus</li>
-			<li>"Begin Frequency Loop at Startup" config checkbox (<a href="https://github.com/KJ7LNW/xnec2c/issues/45" target="_blank" rel="noopener noreferrer">#45</a>)</li>
+			<li>"Begin Frequency Loop at Startup" config checkbox (<span class="issue-ref">#45</span>)</li>
 			<li>Smooth pan/tilt/zoom during optimization</li>
 			<li>Responsive mobile support for HTML documentation</li>
 		</ul>
 	</li>
 	<li>Bug Fixes:
 		<ul>
-			<li>Fix NEC file format to use decimal points regardless of locale (<a href="https://github.com/KJ7LNW/xnec2c/issues/59" target="_blank" rel="noopener noreferrer">#59</a>)</li>
-			<li>Fix CSV output scaling for currents/charges magnitude (<a href="https://github.com/KJ7LNW/xnec2c/issues/61" target="_blank" rel="noopener noreferrer">#61</a>)</li>
-			<li>Fix double-free crash when editing geometry (<a href="https://github.com/KJ7LNW/xnec2c/pull/67" target="_blank" rel="noopener noreferrer">#67</a>)</li>
+			<li>Fix NEC file format to use decimal points regardless of locale (<span class="issue-ref">#59</span>)</li>
+			<li>Fix CSV output scaling for currents/charges magnitude (<span class="issue-ref">#61</span>)</li>
+			<li>Fix double-free crash when editing geometry (<span class="issue-ref">#67</span>)</li>
 			<li>Prevent deadlocks in <code class="language-c">Notice()</code>, <code class="language-c">Open_Input_File()</code>, and dialog scenarios</li>
 			<li>Fix endless loop with overlapping segments</li>
 			<li>Fix gain value display and color mapping</li>
-			<li>Improve error messages for segment tag lookup failures (<a href="https://github.com/KJ7LNW/xnec2c/issues/68" target="_blank" rel="noopener noreferrer">#68</a>, <a href="https://github.com/KJ7LNW/xnec2c/issues/47" target="_blank" rel="noopener noreferrer">#47</a>)</li>
+			<li>Improve error messages for segment tag lookup failures (<span class="issue-ref">#68</span>, <span class="issue-ref">#47</span>)</li>
 			<li>Fix custom frequency step in color legend</li>
 			<li>Fix radiation pattern color legend to match gain scaling styles</li>
-			<li>Prevent GTK beeps (<a href="https://github.com/KJ7LNW/xnec2c/issues/50" target="_blank" rel="noopener noreferrer">#50</a>)</li>
-			<li>Fix batch mode auto-start (<a href="https://github.com/KJ7LNW/xnec2c/issues/44" target="_blank" rel="noopener noreferrer">#44</a>)</li>
+			<li>Prevent GTK beeps (<span class="issue-ref">#50</span>)</li>
+			<li>Fix batch mode auto-start (<span class="issue-ref">#44</span>)</li>
 			<li>Graceful child process exit handling</li>
 			<li>Reduce severity of math library detection failures to warnings</li>
 		</ul>
 	</li>
 	<li>Documentation:
 		<ul>
-			<li>Add nec2.org user manual reference (<a href="https://github.com/KJ7LNW/xnec2c/issues/52" target="_blank" rel="noopener noreferrer">#52</a>)</li>
-			<li>Update Ubuntu/Debian package suggestions (<a href="https://github.com/KJ7LNW/xnec2c/issues/46" target="_blank" rel="noopener noreferrer">#46</a>)</li>
+			<li>Add nec2.org user manual reference (<span class="issue-ref">#52</span>)</li>
+			<li>Update Ubuntu/Debian package suggestions (<span class="issue-ref">#46</span>)</li>
 			<li>Modernize HTML documentation with improved styling</li>
 		</ul>
 	</li>
 	<li>Build system:
 		<ul>
 			<li>Add VSCode integration with debug configs and auto-configure</li>
-			<li>Generate <span class="filepath">c_cpp_properties.json</span> from configure</li>
+			<li>Generate <span class="fileext">c_cpp_properties.json</span> from configure</li>
 			<li>Parallel build tasks support</li>
 		</ul>
 	</li>
@@ -4144,7 +4465,7 @@ maintenance items, with a few new features as well:
 	<ul>
 	<li>Added <span class="menu-path">File → Save-as CSV</span> in the Frequency Plots window</li>
 	<li>Added optimizer output config checkboxes for csv, s1p, and/or s2p.  Now you can auto-generate <span class="fileext">.csv</span>, <span class="fileext">.s1p</span>, or <span class="fileext">.s2p</span> files when the input <span class="fileext">.nec</span> file is modified by an external program.</li>
-	<li>Pre-processed CSV data for each example <span class="fileext">.nec</span> file and placed them in <span class="filepath">examples/data/</span>.  You can view these with any spreadsheet program and graph columns as you like; the data is useful for regression testing, too.</li>
+	<li>Pre-processed CSV data for each example <span class="fileext">.nec</span> file and placed them in <span class="fileext">examples/data/</span>.  You can view these with any spreadsheet program and graph columns as you like; the data is useful for regression testing, too.</li>
 	<li>Updated optimization documentation.</li>
 	</ul>
 </li>
@@ -4159,7 +4480,7 @@ maintenance items, with a few new features as well:
 </li>
 <li>Bugfixes:
 	<ul>
-	<li>Fixed octal representation of <code>0755</code> when creating <span class="filepath">~/.xnec2c/</span></li>
+	<li>Fixed octal representation of <code>0755</code> when creating <span class="fileext">~/.xnec2c/</span></li>
 	<li>Added directory permission hotfix for users affected by <span class="commit-hash">4e62893b</span></li>
 	<li>Do not invalidate current data when radiation pattern is enabled; Thanks to <span class="contact">Gian Luigi</span> for reporting this bug and providing <span class="fileext">.nec</span> file samples to reproduce the problem.</li>
 	<li>Check if radiation pattern was calculated before using the <code class="nec-card">RP</code> data,  Thanks to <span class="contact">Gian Luigi</span> for reporting this bug, too.</li>
@@ -4202,7 +4523,7 @@ the <code>-devel</code> package is not installed.</li>
 <li>Added the <span class="filepath">debian/upstream/metadata</span> file as recommended by Debian
 for package info.</li>
 <li>Added <span class="filepath">xnec2c.spec</span> for RPM-based builds!  Just <code>rpmbuild -bb xnec2c.spec</code> to create an RPM.  You will need to place the latest
-<span class="fileext">.tar.gz</span> file in <span class="filepath">~/rpmbuild/SOURCES</span> or run <code>spectool -g -R xnec2c.spec</code>
+<span class="fileext">.tar.gz</span> file in <span class="fileext">~/rpmbuild/SOURCES</span> or run <code>spectool -g -R xnec2c.spec</code>
 to download them for you. Thanks to <span class="contact" data-callsign="KF5OIM">Richard Shaw</span> for reviewing
 the <span class="fileext">.spec</span> file!</li>
 <li>Added include of <code>locale.h</code> to fix building under <code>musl-libc</code>. Thanks
@@ -4275,13 +4596,13 @@ Detailed descriptions are available in the git log.
 <ul>
 <li>Removed C++ compiler dependency, xnec2c is written in C</li>
 <li>Fixed default mathlib handling when no accelerated library is installed</li>
-<li>Fixed error on first run when <span class="filepath">~/.xnec2c/</span> does not exist</li>
+<li>Fixed error on first run when <span class="fileext">~/.xnec2c/</span> does not exist</li>
 <li>Added libtool dependency to documentation for CentOS</li>
 <li>Fixed segment fault when <code>HOME</code> environment variable is undefined.</li>
 <li>Fix off-by-one error in memory allocation for frequency plot arrays.</li>
 <li>Fixed deadlocks when running without pthreads and without forking.</li>
 <li>Refactored common measurements into <span class="filepath">src/measurements.c</span></li>
-<li>Refactored <span class="filepath">src/plot_freqdata.c</span> to use <code class="language-c">meas_calc()</code></li>
+<li>Refactored <span class="fileext">src/plot_freqdata.c</span> to use <code class="language-c">meas_calc()</code></li>
 <li>Added function use comments to <span class="filepath">src/measurements.c</span></li>
 <li>Suppress <code>max_freq&nbsp;==&nbsp;min_freq</code> when <code>freq_steps&nbsp;==&nbsp;1</code></li>
 <li>Fixed gcc warning about the return value of <code class="language-c">getcwd()</code> not being checked.</li>
@@ -4406,7 +4727,7 @@ xnec2c has always clamped to 10 so this option defaults enabled.  If you want to
 entire VSWR curve no matter how big VSWR is, then see <span class="menu-path">Frequency Plots → View → Clamp VSWR to 10</span>.
 </li>
 <li>Fixed deadlock while optimizing when inotify receives a <span class="fileext">.nec</span> change before xnec2c
-is done writing the <span class="filepath">.nec.csv</span> file.</li>
+is done writing the <span class="fileext">.nec.csv</span> file.</li>
 </ul>
 
 
@@ -4582,7 +4903,7 @@ exceptions.</p>
 a NEC2 file is saved, the Center x and y offsets (the change of
 position) of the structure and radiation pattern are not changed. I
 also arranged for the offset values to be saved in
-<span class="filepath">~/.config/xnec2c.config</span> when closing xnec2c, and to be read back
+<span class="fileext">~/.config/xnec2c.config</span> when closing xnec2c, and to be read back
 and restored when starting.</p>
 
 
@@ -4597,8 +4918,8 @@ This was due to specifying a minimum value of 0.01 in the
 <p>After some feature requests by users of
 xnec2c, I implemented a number of changes to xnec2c so that it can
 save the state of the GUI at exit and restore it on start up. To
-this effect xnec2c now produces a configuration file <span class="filepath">xnec2c.config</span>
-in the user's <span class="filepath">~/.config</span> directory. In this file xnec2c saves the
+this effect xnec2c now produces a configuration file <span class="fileext">xnec2c.config</span>
+in the user's <span class="fileext">~/.config</span> directory. In this file xnec2c saves the
 state (position, size, active toggle buttons, projection parameters
 for structure and radiation pattern displays, the state of the
 frequency loop etc) of the main windows, e.g.&nbsp;structure, radiation
@@ -4730,7 +5051,7 @@ conductivity for <code class="nec-card">GW</code>, <code class="nec-card">GA</co
 <code class="nec-card">LD</code> card and shown in the Conductivity (S/m) spin button.</p>
 <p>After all these changes I checked the xnec2c source code using
 the Coverity Scan service and I fixed an out-of-bounds read error
-that was reported by the scanner, in the <span class="filepath">src/plot_freqdata.c</span> file.</p>
+that was reported by the scanner, in the <span class="fileext">src/plot_freqdata.c</span> file.</p>
 
 
 <h3>Version <span class="version-tag">2.6</span></h3>
@@ -5018,9 +5339,9 @@ Current or Charge distribution.</p>
 <a target="_blank" rel="noopener noreferrer" href="https://www.xnec2c.org/">xnec2c.org</a>
 is generated from the decks in the <span class="filepath">examples</span> directory
 rather than stored in the source tree. The rendered images and the browser data
-bundles (<span class="filepath">decks.js</span>, <span class="filepath">manifest.js</span>,
-and <span class="filepath">manifest.json</span>) are written under
-<span class="filepath">doc/images/gallery/</span>, which is excluded from git and ships
+bundles (<span class="fileext">decks.js</span>, <span class="fileext">manifest.js</span>,
+and <span class="fileext">manifest.json</span>) are written under
+<span class="fileext">doc/images/gallery/</span>, which is excluded from git and ships
 with the website instead of the source tarball. Ordinary users and packagers need
 none of this; only a maintainer publishing the website does.</p>
 <p>The maintainer tooling lives in <span class="filepath">scripts/gallery/</span>:</p>
