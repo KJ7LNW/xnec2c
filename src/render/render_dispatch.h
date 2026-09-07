@@ -41,15 +41,33 @@ typedef struct
   const rgb_f_t *wire_colors;   /* seg_rgb | composed projection colors */
   const float   *wire_seg_scale;  /* [data.n] dimensionless per-segment size gain */
   const rgb_f_t *patch_colors;  /* patch_rgb | composed projection colors */
-  patch_flow_frame_t patch_flow; /* resolved patch directions and marks */
   const unsigned char *wire_glyphs; /* per-segment GLYPH_* code [data.n], or NULL */
-  float          geometry_extent; /* unscaled structure-space half-extent */
-  float          model_scale;   /* resolved structure-to-presentation scale */
+  patch_flow_frame_t patch_flow; /* resolved patch directions and marks */
   double         cmax;          /* fmax(wire_crnt_cmax, patch_crnt_cmax) or 0.0 */
   double         freq_mhz;      /* frequency for staleness detection */
+  float          geometry_extent; /* unscaled structure-space half-extent */
+  float          model_scale;   /* resolved structure-to-presentation scale */
   int            fstep;         /* for crnt_fstep[] access */
   uint32_t       color_generation; /* bumped whenever dispatch rebakes wire/patch color */
 } struct_draw_params_t;
+
+/* Members run in descending alignment order, so no gap separates them and an
+ * added member cannot hide inside padding.  The OpenGL freshness caches store
+ * this frame whole and compare selected members, so the size equality below
+ * fails on any addition until both comparisons classify it. */
+_Static_assert(sizeof(struct_draw_params_t) ==
+    sizeof(((struct_draw_params_t *)0)->wire_colors) +
+    sizeof(((struct_draw_params_t *)0)->wire_seg_scale) +
+    sizeof(((struct_draw_params_t *)0)->patch_colors) +
+    sizeof(((struct_draw_params_t *)0)->wire_glyphs) +
+    sizeof(((struct_draw_params_t *)0)->patch_flow) +
+    sizeof(((struct_draw_params_t *)0)->cmax) +
+    sizeof(((struct_draw_params_t *)0)->freq_mhz) +
+    sizeof(((struct_draw_params_t *)0)->geometry_extent) +
+    sizeof(((struct_draw_params_t *)0)->model_scale) +
+    sizeof(((struct_draw_params_t *)0)->fstep) +
+    sizeof(((struct_draw_params_t *)0)->color_generation),
+    "struct_draw_params_t gained a member; classify it in patch_batch_edge_eq() and geom_pass_edge_eq()");
 
 /* Dispatch-resolved far-field draw parameters — passed to draw_farfield backends.
  * Excitation centroid coordinates are pre-scaled to pattern space by dispatch.

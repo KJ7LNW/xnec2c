@@ -72,10 +72,9 @@
  * vertices. */
 typedef struct
 {
-  unsigned int structure_generation;
-  unsigned int flow_generation;
-  uint32_t     color_generation;
-  gboolean     valid;
+  unsigned int         structure_generation;
+  struct_draw_params_t params;
+  gboolean             valid;
 } patch_batch_edge_t;
 
 /* Per-type draw batches: each batch owns its own vertex allocation and GL mode */
@@ -692,26 +691,26 @@ patch_batch_edge_make(unsigned int generation,
 {
   return (patch_batch_edge_t){
       .structure_generation = generation,
-      .flow_generation      = params->patch_flow.generation,
-      .color_generation     = params->color_generation,
+      .params               = *params,
       .valid                = TRUE };
 }
 
 /*-----------------------------------------------------------------------*/
 
-/** patch_batch_edge_eq() - Compare two patch batch captures whole
+/** patch_batch_edge_eq() - Compare what two patch batch captures consumed
  * @a: capture the last refill stored
  * @b: capture describing what this frame consumes
  *
- * Returns TRUE when every member matches.
+ * Returns TRUE when both captures carry the same structure publication
+ * version, resolved flow version, and baked color version.
  */
   static gboolean
 patch_batch_edge_eq(const patch_batch_edge_t *a, const patch_batch_edge_t *b)
 {
   return a->valid == b->valid
       && a->structure_generation == b->structure_generation
-      && a->flow_generation == b->flow_generation
-      && a->color_generation == b->color_generation;
+      && a->params.patch_flow.generation == b->params.patch_flow.generation
+      && a->params.color_generation == b->params.color_generation;
 }
 
 /*-----------------------------------------------------------------------*/
