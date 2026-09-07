@@ -77,6 +77,15 @@ typedef struct
   gboolean             valid;
 } patch_batch_edge_t;
 
+/* Record what the shared geometry pass consumed at its last run.  The pass
+ * bakes wire color, current-data identity, and cylinder radius into every
+ * batch it builds, so a frame differing in any of them rebuilds them all. */
+typedef struct
+{
+  struct_draw_params_t params;
+  double               radius_scale;
+} geom_pass_edge_t;
+
 /* Per-type draw batches: each batch owns its own vertex allocation and GL mode */
 static gl_draw_batch_t batches[GL_VIEW_MAX_BATCHES];
 static int batch_count = 0;
@@ -84,10 +93,10 @@ static int batch_count = 0;
  * the patch refill alike, so a reused slot never repeats the version its
  * previous owner published */
 static unsigned int structure_geometry_generation = 1;
-static const rgb_f_t *last_wire_colors = NULL;
-/* Track previous radius scale to detect changes requiring regeneration */
-static double structure_last_radius_scale = CYLINDER_RADIUS_SCALE_DEFAULT;
 static patch_batch_edge_t patch_batch_edge;
+static geom_pass_edge_t geom_pass_edge = {
+  .params = { .fstep = -1, .freq_mhz = NAN },
+  .radius_scale = CYLINDER_RADIUS_SCALE_DEFAULT };
 
 /* Batch slot indices resolved at generation; -1 when the batch is absent.
  * Read by the per-frame visual-parameter block so rc_config values apply
@@ -668,7 +677,6 @@ opengl_structure_generate_geometry(
 
   batch_count = bc;
 
-  structure_last_radius_scale = cylinder_radius_scale;
   structure_geometry_generation++;
 
   /* Every batch this pass rebuilt carries the version that rebuilt it */
@@ -748,6 +756,107 @@ structure_patch_batch_refill(const struct_draw_params_t *params)
 
 /*-----------------------------------------------------------------------*/
 
+/** geom_pass_current_colors() - Report whether @params presents current color
+ * @params: dispatch-resolved structure frame
+ *
+ * Returns TRUE when the frame carries a current maximum, so the colors the
+ * pass bakes follow the current-data identity.
+ */
+  static gboolean
+geom_pass_current_colors(const struct_draw_params_t *params)
+{
+  return dl_fgt(params->cmax, -DL_EPS);
+}
+
+/*-----------------------------------------------------------------------*/
+
+/** geom_pass_edge_make() - Capture what the shared geometry pass consumes
+ * @last: capture the previous pass stored
+ * @params: dispatch-resolved structure frame
+ * @radius_scale: cylinder radius multiplier this frame reads
+ *
+ * Returns the capture built whole, so the compared capture and the stored
+ * capture cannot diverge in membership.
+ */
+  static geom_pass_edge_t
+geom_pass_edge_make(const geom_pass_edge_t *last,
+    const struct_draw_params_t *params, double radius_scale)
+{
+  gboolean current_colors = geom_pass_current_colors(params);
+  geom_pass_edge_t edge = { .params = *params, .radius_scale = radius_scale };
+
+  /* Current-data identity advances only while a current color is presented,
+   * so a frame carrying none holds the identity of the last presented frame */
+  edge.params.fstep = current_colors ? params->fstep : last->params.fstep;
+  edge.params.freq_mhz =
+    current_colors ? params->freq_mhz : last->params.freq_mhz;
+
+  return edge;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/** geom_pass_edge_eq() - Compare what two geometry passes consumed
+ * @a: capture the last pass stored
+ * @b: capture describing what this frame consumes
+ *
+ * Returns TRUE when the batches @a built already present what @b resolves.
+ */
+  static gboolean
+geom_pass_edge_eq(const geom_pass_edge_t *a, const geom_pass_edge_t *b)
+{
+  gboolean current_data_eq;
+
+  /* The current-data identity selects vertices only while the frame presents
+   * current color over a step holding current data.  Comparing the step index
+   * alone is not sufficient there: freq_step stays at steps_total for all
+   * left-click (arbitrary) frequencies, so the extra slot compares its
+   * frequency as well. */
+  if( !geom_pass_current_colors(&b->params)
+      || !CRNT_FSTEP_AVAILABLE(b->params.fstep) )
+    current_data_eq = TRUE;
+  else
+    current_data_eq = (a->params.fstep == b->params.fstep)
+        && (b->params.fstep != calc_data.steps_total
+            || FREQ_EQ(a->params.freq_mhz, b->params.freq_mhz));
+
+  /* Baked projection colors reuse one scratch buffer, so pointer identity
+   * alone misses rebakes; the color version signals new content. */
+  return a->params.wire_colors == b->params.wire_colors
+      && a->params.color_generation == b->params.color_generation
+      && dl_feq(a->radius_scale, b->radius_scale)
+      && current_data_eq;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/** structure_geometry_refresh() - Regenerate the shared batches when their inputs move
+ * @params: dispatch-resolved structure frame
+ *
+ * Regenerates on a rebaked wire color, a radius scale change, new current
+ * data, or an emptied batch set, then captures what the pass consumed.
+ */
+  static void
+structure_geometry_refresh(const struct_draw_params_t *params)
+{
+  geom_pass_edge_t want = geom_pass_edge_make(&geom_pass_edge, params,
+      opengl_structure_get_radius_scale());
+
+  if( likely(batch_count > 0 && geom_pass_edge_eq(&geom_pass_edge, &want)) )
+    return;
+
+  opengl_structure_generate_geometry(params, want.radius_scale);
+
+  /* The generator returns before presenting a radius when the model holds
+   * neither segments nor patches, so an empty pass keeps the stored radius */
+  want.radius_scale =
+    (batch_count > 0) ? want.radius_scale : geom_pass_edge.radius_scale;
+
+  geom_pass_edge = want;
+}
+
+/*-----------------------------------------------------------------------*/
+
 /** opengl_structure_update_shared_geometry_with_params() - Check staleness and regenerate shared geometry
  * @params: dispatch-resolved draw parameters (precomputed colors, cmax)
  *
@@ -757,46 +866,7 @@ structure_patch_batch_refill(const struct_draw_params_t *params)
   void
 opengl_structure_update_shared_geometry_with_params(const struct_draw_params_t *params)
 {
-  static int last_fstep = -1;
-
-  /* Track freq_mhz separately: freq_step stays at steps_total for all
-   * left-click (arbitrary) frequencies, so step index alone is not sufficient
-   * to detect data changes in the extra slot. */
-  static double last_freq_mhz = NAN;
-
-  /* Baked projection colors reuse one scratch buffer, so pointer identity
-   * alone misses rebakes; the generation counter signals new content. */
-  static uint32_t last_color_generation;
-
-  double cylinder_radius_scale;
-  gboolean extra_slot_changed;
-  gboolean current_colors;
-
-  cylinder_radius_scale = opengl_structure_get_radius_scale();
-  extra_slot_changed = params->fstep == calc_data.steps_total
-      && !FREQ_EQ(params->freq_mhz, last_freq_mhz);
-  current_colors = dl_fgt(params->cmax, -DL_EPS);
-
-  /* Regenerate on color pointer change (mode/fstep change), empty buffer, new data, or scale change */
-  if( params->wire_colors != last_wire_colors ||
-      params->color_generation != last_color_generation ||
-      batch_count == 0 ||
-      !dl_feq(cylinder_radius_scale, structure_last_radius_scale) ||
-      (current_colors && CRNT_FSTEP_AVAILABLE(params->fstep) &&
-       (params->fstep != last_fstep || extra_slot_changed)) )
-  {
-    last_wire_colors = params->wire_colors;
-    last_color_generation = params->color_generation;
-    opengl_structure_generate_geometry(params, cylinder_radius_scale);
-
-    /* Prevent redundant regeneration on subsequent expose events */
-    if( current_colors )
-    {
-      last_fstep = params->fstep;
-      last_freq_mhz = params->freq_mhz;
-    }
-
-  }
+  structure_geometry_refresh(params);
 
   /* The patch batch bakes resolved flow into its vertices, so it refills on
    * its own edge rather than on the geometry staleness test above. */
