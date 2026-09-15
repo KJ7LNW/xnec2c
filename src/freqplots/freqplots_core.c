@@ -69,8 +69,8 @@ static const char *fp_panel_names[FP_PANEL_COUNT] = {
 };
 
 /* Per-panel selection and data-availability descriptor.  select_field points
- * to the rc_config toggle that chooses the panel and select_id names its
- * plot-select button widget; require_flag is a data precondition that must
+ * to the rc_config toggle that chooses the panel, the key its plot-select
+ * button resolves through; require_flag is a data precondition that must
  * hold for the panel to carry meaningful values, or 0 when the panel has
  * none.  port_aware marks a panel whose values ever track the excitation
  * port; port_gate_field points to an rc_config toggle that must also be set
@@ -79,8 +79,7 @@ static const char *fp_panel_names[FP_PANEL_COUNT] = {
  * net-gain trace, so they gate on the net-gain field.  needs_feedpoint marks
  * a panel whose values are undefined for feedpoint-less excitations. */
 typedef struct {
-  const int         *select_field;
-  const char        *select_id;
+  int               *select_field;
   unsigned long long require_flag;
   gboolean           port_aware;
   gboolean           needs_feedpoint;
@@ -88,27 +87,28 @@ typedef struct {
 } fp_panel_desc_t;
 
 static const fp_panel_desc_t fp_panel_desc[FP_PANEL_COUNT] = {
-  [FP_PANEL_GAIN]     = { &rc_config.freqplots_gmax_togglebutton,     "freqplots_gmax_togglebutton",     ENABLE_RDPAT, TRUE,  FALSE, &rc_config.freqplots_net_gain },
-  [FP_PANEL_GAIN_DIR] = { &rc_config.freqplots_gdir_togglebutton,     "freqplots_gdir_togglebutton",     ENABLE_RDPAT, FALSE, FALSE, NULL                         },
-  [FP_PANEL_VIEWER]   = { &rc_config.freqplots_gviewer_togglebutton,  "freqplots_gviewer_togglebutton",  ENABLE_RDPAT, TRUE,  FALSE, &rc_config.freqplots_net_gain },
-  [FP_PANEL_VSWR]     = { &rc_config.freqplots_vswr_togglebutton,     "freqplots_vswr_togglebutton",     0,            TRUE,  TRUE,  NULL                         },
-  [FP_PANEL_ZRLZIM]   = { &rc_config.freqplots_zrlzim_togglebutton,   "freqplots_zrlzim_togglebutton",   0,            TRUE,  TRUE,  NULL                         },
-  [FP_PANEL_ZMGZPH]   = { &rc_config.freqplots_zmgzph_togglebutton,   "freqplots_zmgzph_togglebutton",   0,            TRUE,  TRUE,  NULL                         },
-  [FP_PANEL_SMITH]    = { &rc_config.freqplots_smith_togglebutton,    "freqplots_smith_togglebutton",    0,            TRUE,  TRUE,  NULL                         },
-  [FP_PANEL_ANT_TEMP] = { &rc_config.freqplots_ant_temp_togglebutton, "freqplots_ant_temp_togglebutton", ENABLE_RDPAT, FALSE, FALSE, NULL                         },
-  [FP_PANEL_COND]     = { &rc_config.freqplots_cond_togglebutton,     "freqplots_cond_togglebutton",     0,            FALSE, FALSE, NULL                         },
+  [FP_PANEL_GAIN]     = { &rc_config.freqplots_gmax_togglebutton,     ENABLE_RDPAT, TRUE,  FALSE, &rc_config.freqplots_net_gain },
+  [FP_PANEL_GAIN_DIR] = { &rc_config.freqplots_gdir_togglebutton,     ENABLE_RDPAT, FALSE, FALSE, NULL                         },
+  [FP_PANEL_VIEWER]   = { &rc_config.freqplots_gviewer_togglebutton,  ENABLE_RDPAT, TRUE,  FALSE, &rc_config.freqplots_net_gain },
+  [FP_PANEL_VSWR]     = { &rc_config.freqplots_vswr_togglebutton,     0,            TRUE,  TRUE,  NULL                         },
+  [FP_PANEL_ZRLZIM]   = { &rc_config.freqplots_zrlzim_togglebutton,   0,            TRUE,  TRUE,  NULL                         },
+  [FP_PANEL_ZMGZPH]   = { &rc_config.freqplots_zmgzph_togglebutton,   0,            TRUE,  TRUE,  NULL                         },
+  [FP_PANEL_SMITH]    = { &rc_config.freqplots_smith_togglebutton,    0,            TRUE,  TRUE,  NULL                         },
+  [FP_PANEL_ANT_TEMP] = { &rc_config.freqplots_ant_temp_togglebutton, ENABLE_RDPAT, FALSE, FALSE, NULL                         },
+  [FP_PANEL_COND]     = { &rc_config.freqplots_cond_togglebutton,     0,            FALSE, FALSE, NULL                         },
 };
 
-/* freqplots_panel_select_id()
+/* freqplots_panel_select_field()
  *
- * Glade widget id of @panel's plot-select toggle button.
+ * Address of @panel's plot-select configuration field, the key its bound
+ * button resolves through.
  */
-  const char *
-freqplots_panel_select_id( fp_panel_t panel )
+  int *
+freqplots_panel_select_field( fp_panel_t panel )
 {
-  return fp_panel_desc[panel].select_id;
+  return fp_panel_desc[panel].select_field;
 
-} /* freqplots_panel_select_id() */
+} /* freqplots_panel_select_field() */
 
 /* fp_panel_available()
  *
@@ -892,8 +892,8 @@ freqplots_gate_feedpoint_widgets( void )
   const char *reason = fpat_has_feedpoint() ? NULL :
     _("Not available: excitation defines no feedpoint");
 
-  GtkWidget *item = Builder_Get_Object(
-      freqplots_window_builder, "freqplots_net_gain" );
+  GtkWidget *item = config_widget_field_widget(
+      &rc_config.freqplots_net_gain, &freqplots_window_builder );
   gtk_widget_set_sensitive( item, fpat_has_feedpoint() );
   gtk_widget_set_tooltip_text( item, reason );
 
@@ -902,8 +902,8 @@ freqplots_gate_feedpoint_widgets( void )
     if( !fp_panel_desc[p].needs_feedpoint )
       continue;
 
-    GtkWidget *btn = Builder_Get_Object(
-        freqplots_window_builder, fp_panel_desc[p].select_id );
+    GtkWidget *btn = config_widget_field_widget(
+        fp_panel_desc[p].select_field, &freqplots_window_builder );
     gtk_widget_set_sensitive( btn, fp_panel_available( p ) );
     gtk_widget_set_tooltip_text( btn, reason );
   }

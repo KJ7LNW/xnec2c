@@ -82,6 +82,7 @@ view_new(view_type_t type,
 
   v->rotate_spin_handler  = NULL;
   v->incline_spin_handler = NULL;
+  v->zoom_spin_handler    = NULL;
 
   Build_View_Rotation_Matrix(v->R, VIEW_DEFAULT_WR, VIEW_DEFAULT_WI);
 

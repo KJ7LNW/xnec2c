@@ -1664,15 +1664,7 @@ batch_apply_rdpattern_fit(void)
   if( !canvas_fit_view(rdpattern_view, &fit) )
     return;
 
-  if( rdpattern_view->zoom_spin != NULL )
-    SIGNAL_BLOCK(rdpattern_view->zoom_spin,
-        G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed));
-
   view_apply_fit(rdpattern_view, &fit);
-
-  if( rdpattern_view->zoom_spin != NULL )
-    SIGNAL_UNBLOCK(rdpattern_view->zoom_spin,
-        G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed));
 
 } /* batch_apply_rdpattern_fit() */
 

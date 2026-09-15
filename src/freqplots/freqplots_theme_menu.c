@@ -84,11 +84,6 @@ freqplots_theme_radio_append( GtkWidget *menu, GSList **group,
 
   Strlcpy( candidate, e->base_name, sizeof(candidate) );
 
-  /* Seeded ahead of the binding, so loading the persisted selection reaches
-   * no commit edge */
-  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(item),
-      g_strcmp0( e->base_name, rc_config.freqplots_theme ) == 0 );
-
   gtk_widget_show( item );
   gtk_menu_shell_append( GTK_MENU_SHELL(menu), item );
 
@@ -125,11 +120,6 @@ freqplots_theme_menu_build( GtkBuilder *builder )
 
   /* Appended first, so the row reaches the shell that ends its hover */
   config_widget_bind_row( invert, &rc_config.freqplots_theme_invert, NULL );
-
-  SIGNAL_BLOCK( invert, on_config_widget_changed );
-  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(invert),
-      rc_config.freqplots_theme_invert );
-  SIGNAL_UNBLOCK( invert, on_config_widget_changed );
 
   freqplots_invert_item_sync( invert, rc_config.freqplots_theme );
   g_object_set_data( G_OBJECT(menu), THEME_DATA_INVERT_ITEM, invert );

@@ -1446,7 +1446,7 @@ GtkWidget *freqplots_port_combo_new(freqplots_view_t *view);
 void freqplots_refresh_port_combos(void);
 void freqplots_reload_port_combos(void);
 void freqplots_gate_feedpoint_widgets(void);
-const char *freqplots_panel_select_id(fp_panel_t panel);
+int *freqplots_panel_select_field(fp_panel_t panel);
 void Alloc_Impedance_Buffers(int nfrq, int n_ports);
 void Free_Impedance_Buffers(void);
 void Rescan_Zpnorm(void);
@@ -1459,7 +1459,6 @@ gboolean on_rdpattern_window_delete_event(GtkWidget *widget, GdkEvent *event, gp
 void on_rdpattern_save_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_rdpattern_save_as_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_rdpattern_save_as_gnuplot_activate(GtkMenuItem *menuitem, gpointer user_data);
-void on_rdpattern_elevation_spinbutton_value_changed(GtkSpinButton *spinbutton, gpointer user_data);
 void Check_Noise_Warnings(int fstep);
 void opengl_set_renderer(gboolean enable);
 void opengl_set_constrained_rotation(gboolean constrained);

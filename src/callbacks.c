@@ -45,20 +45,6 @@
 #include "opengl/opengl_msaa.h"
 #endif
 
-#ifndef HAVE_OPENGL
-
-/* Hide a widget by builder id; used to remove OpenGL-only toolbar
- * buttons (eg orthographic projection) in Cairo-only builds. */
-void
-hide_widget_by_id(GtkBuilder *builder, const char *widget_id)
-{
-  GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, widget_id));
-  if( w != NULL )
-    gtk_widget_hide(w);
-}
-
-#endif /* !HAVE_OPENGL */
-
 /* Action flag for NEC2 "card" editors */
 static int editor_action = EDITOR_NEW;
 
@@ -182,7 +168,7 @@ on_main_window_delete_event(
  * later in this file, shared by that mouse handler and the Home-key
  * handling in on_main_window_key_press_event()/
  * on_rdpattern_window_key_press_event() below. */
-static void Fit_View( view_t *target, GCallback zoom_handler );
+static void Fit_View( view_t *target );
 
 /* Pan_View_On_Arrow_Key()
  *
@@ -259,7 +245,7 @@ on_main_window_key_press_event(
 
   if( event->keyval == GDK_KEY_Home )
   {
-    Fit_View( structure_view, G_CALLBACK(on_main_zoom_spinbutton_value_changed) );
+    Fit_View( structure_view );
     return( TRUE );
   }
 
@@ -519,8 +505,6 @@ on_main_rdpattern_activate(
   /* Open radiation pattern rendering window */
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
   {
-    GtkWidget *widget;
-
     if (rc_config.rdpattern_x < 0 || rc_config.rdpattern_y < 0)
     {
         Get_GUI_State();
@@ -545,8 +529,8 @@ on_main_rdpattern_activate(
           rdpattern_window_builder, "rdpattern_rotate_spinbutton") );
     incline_rdpattern = GTK_SPIN_BUTTON(Builder_Get_Object(
           rdpattern_window_builder, "rdpattern_incline_spinbutton") );
-    rdpattern_frequency = GTK_SPIN_BUTTON(Builder_Get_Object(
-          rdpattern_window_builder, "rdpattern_freq_spinbutton") );
+    rdpattern_frequency = GTK_SPIN_BUTTON( config_widget_field_widget(
+          &calc_data.fmhz_save, &rdpattern_window_builder ) );
     rdpattern_zoom = GTK_SPIN_BUTTON(Builder_Get_Object(
           rdpattern_window_builder, "rdpattern_zoom_spinbutton") );
     rdpattern_fstep_entry = GTK_ENTRY(Builder_Get_Object(
@@ -568,7 +552,8 @@ on_main_rdpattern_activate(
           rdpattern_view_changed_cb, NULL );
       view_set_spin_handlers( rdpattern_view,
           G_CALLBACK(on_rdpattern_rotate_spinbutton_value_changed),
-          G_CALLBACK(on_rdpattern_incline_spinbutton_value_changed) );
+          G_CALLBACK(on_rdpattern_incline_spinbutton_value_changed),
+          G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed) );
       view_set_drag_mode( rdpattern_view,
           rc_config.view_drag_constrained
               ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
@@ -592,7 +577,8 @@ on_main_rdpattern_activate(
 #else
     canvas_set_engine( CANVAS_RDPATTERN, &cairo_engine );
 
-    hide_widget_by_id(rdpattern_window_builder, "rdpattern_ortho_button");
+    gtk_widget_hide( config_widget_field_widget( &rc_config.opengl_orthographic,
+          &rdpattern_window_builder ) );
 #endif
     canvas_sync_viewport( CANVAS_RDPATTERN );
 
@@ -616,12 +602,6 @@ on_main_rdpattern_activate(
 
     /* Populate and restore noise model sub-menus */
     noise_model_menus_populate();
-
-    /* Restore elevation spinbutton */
-    widget = Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_elevation_spinbutton");
-    gtk_spin_button_set_value(
-        GTK_SPIN_BUTTON(widget), rc_config.ant_temp_elevation);
 
 #ifdef HAVE_OPENGL
     /* Establish view sharing after all initialization completes.
@@ -657,17 +637,17 @@ freqplots_panel_button_press_cb( GtkWidget *widget, GdkEventButton *event,
   return TRUE;
 }
 
-/* Wire each plot-select button's right-click to its popup opener; the panel
- * descriptor table names each panel's button widget. */
+/* Wire each plot-select button's right-click to its popup opener; each panel
+ * resolves its button through the configuration field its descriptor names. */
   static void
-freqplots_connect_panel_buttons( GtkBuilder *builder )
+freqplots_connect_panel_buttons( void )
 {
   int p;
 
   for( p = 0; p < FP_PANEL_COUNT; p++ )
   {
-    GtkWidget *btn = Builder_Get_Object( builder,
-        freqplots_panel_select_id( p ) );
+    GtkWidget *btn = config_widget_field_widget(
+        freqplots_panel_select_field( p ), &freqplots_window_builder );
 
     g_signal_connect( btn, "button-press-event",
         G_CALLBACK(freqplots_panel_button_press_cb),
@@ -709,7 +689,7 @@ on_main_freqplots_activate(
       canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine );
       freqplots_main_view()->filter      = FP_PANEL_ALL;
       g_object_set_data( G_OBJECT(fp_da), "fp_view", freqplots_main_view() );
-      freqplots_connect_panel_buttons( freqplots_window_builder );
+      freqplots_connect_panel_buttons();
       Set_Window_Labels();
       calc_data.ngraph = 0;
 
@@ -1513,17 +1493,6 @@ on_rdpattern_ant_temp_activate(GtkEntry *entry, gpointer _user_data)
 }
 
 
-/* Elevation spin button callback */
-
-  void
-on_rdpattern_elevation_spinbutton_value_changed(
-    GtkSpinButton *spinbutton, gpointer user_data)
-{
-  rc_config.ant_temp_elevation = gtk_spin_button_get_value(spinbutton);
-  freq_step_refresh_ui(TRUE);
-}
-
-
   void
 opengl_set_renderer(gboolean enable)
 {
@@ -1706,7 +1675,7 @@ on_rdpattern_window_key_press_event(
 
   if( event->keyval == GDK_KEY_Home )
   {
-    Fit_View( rdpattern_view, G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed) );
+    Fit_View( rdpattern_view );
     return( TRUE );
   }
 
@@ -4358,31 +4327,22 @@ on_zoom_reset_clicked(
 
 
 /**
- * Fit_View() - Fit a view's active rendered content, syncing its zoom spinbutton
- * @target:       the view_t to fit (structure_view or rdpattern_view)
- * @zoom_handler: that view's zoom spinbutton value-changed callback, blocked
- *                during the fit so it doesn't re-trigger on the resulting
- *                zoom change
+ * Fit_View() - Fit a view's active rendered content
+ * @target: the view_t to fit (structure_view or rdpattern_view)
  *
  * Shared by on_fit_view_clicked() (mouse) and the Home-key handlers in
  * on_main_window_key_press_event()/on_rdpattern_window_key_press_event(),
  * so both input paths go through one implementation.
  */
   static void
-Fit_View( view_t *target, GCallback zoom_handler )
+Fit_View( view_t *target )
 {
   view_fit_t fit = {0};
 
   if( target == NULL || !canvas_fit_view(target, &fit) )
     return;
 
-  if( target->zoom_spin != NULL )
-    SIGNAL_BLOCK(target->zoom_spin, zoom_handler);
-
   view_apply_fit(target, &fit);
-
-  if( target->zoom_spin != NULL )
-    SIGNAL_UNBLOCK(target->zoom_spin, zoom_handler);
 }
 
 
@@ -4397,22 +4357,15 @@ on_fit_view_clicked(
     gpointer         _user_data)
 {
   view_t *target = NULL;
-  GCallback zoom_handler = NULL;
 
   (void)_user_data;
 
   if( window_type_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW )
-  {
     target = structure_view;
-    zoom_handler = G_CALLBACK(on_main_zoom_spinbutton_value_changed);
-  }
   else
-  {
     target = rdpattern_view;
-    zoom_handler = G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed);
-  }
 
-  Fit_View( target, zoom_handler );
+  Fit_View( target );
 }
 
 

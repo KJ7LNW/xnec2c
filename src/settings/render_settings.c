@@ -42,31 +42,28 @@
 static void
 general_tab_apply_gl_sensitivity(void)
 {
-  GtkWidget *w;
+  GtkWidget *w = config_widget_field_widget(&rc_config.use_opengl_renderer,
+      &render_settings_builder);
 
-  w = Builder_Get_Object(render_settings_builder, "chk_opengl_renderer");
-  if( w != NULL )
-  {
 #ifdef HAVE_OPENGL
-    if( opengl_gl_context_failed() )
-    {
-      gtk_widget_set_sensitive(w, FALSE);
-      gtk_widget_set_tooltip_text(w,
-          "OpenGL is not available on this display.\n"
-          "Cairo rendering is active.");
-    }
-    else
-    {
-      gtk_widget_set_sensitive(w, TRUE);
-      gtk_widget_set_tooltip_text(w, NULL);
-    }
-#else
+  if( opengl_gl_context_failed() )
+  {
     gtk_widget_set_sensitive(w, FALSE);
     gtk_widget_set_tooltip_text(w,
-        "Built without OpenGL support.\n"
+        "OpenGL is not available on this display.\n"
         "Cairo rendering is active.");
-#endif
   }
+  else
+  {
+    gtk_widget_set_sensitive(w, TRUE);
+    gtk_widget_set_tooltip_text(w, NULL);
+  }
+#else
+  gtk_widget_set_sensitive(w, FALSE);
+  gtk_widget_set_tooltip_text(w,
+      "Built without OpenGL support.\n"
+      "Cairo rendering is active.");
+#endif
 }
 
 /*------------------------------------------------------------------------*/

@@ -382,6 +382,68 @@ config_widget_sync_field(void *field)
 
 /*------------------------------------------------------------------------*/
 
+/** config_widget_first_id - a bound id naming a field in a diagnostic
+ * @b: the binding whose groups are searched
+ *
+ * Return: the first element id any group declares, or a placeholder when
+ * every group reaches its rows through a runtime-filled menu shell.
+ */
+static const char *
+config_widget_first_id(const config_widget_binding_t *b)
+{
+  const config_widget_group_t *const *g;
+  const char *id = NULL;
+
+  for( g = b->tree->groups; *g != NULL && id == NULL; g++ )
+  {
+    if( (*g)->elements[0] != NULL )
+      id = (*g)->elements[0]->widget_id;
+  }
+
+  return id != NULL ? id : "(no declared element)";
+}
+
+/*------------------------------------------------------------------------*/
+
+GtkWidget *
+config_widget_field_widget(void *field, GtkBuilder **builder)
+{
+  config_widget_binding_t *b = config_widget_find(field);
+  const config_widget_group_t *const *g;
+  const config_widget_group_t *found = NULL;
+  GtkWidget *w = NULL;
+  const char *id;
+
+  if( b == NULL )
+  {
+    BUG("config_widget_field_widget: field is not registered\n");
+    return NULL;
+  }
+
+  id = config_widget_first_id(b);
+
+  for( g = b->tree->groups; *g != NULL && found == NULL; g++ )
+  {
+    if( (*g)->builder == builder )
+      found = *g;
+  }
+
+  /* A dormant group is a caller error here rather than the no-op a bulk
+   * sync takes: a window that is not built holds no widget to return. */
+  if( found == NULL )
+    BUG("config_widget_field_widget: %s names no group on this builder\n", id);
+  else if( *builder == NULL )
+    BUG("config_widget_field_widget: %s names a window not built\n", id);
+  else if( found->elements[0] == NULL || found->elements[1] != NULL )
+    BUG("config_widget_field_widget: %s does not name one widget\n", id);
+  else
+    w = config_widget_lookup(*builder, found->elements[0]->widget_id);
+
+  return w;
+}
+
+/*------------------------------------------------------------------------*/
+
 void
 config_widget_sync_builder(GtkBuilder **builder)
 {

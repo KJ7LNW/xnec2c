@@ -124,6 +124,7 @@ struct view_s
    * value writes do not feed back as a value-changed signal. */
   GCallback rotate_spin_handler;
   GCallback incline_spin_handler;
+  GCallback zoom_spin_handler;
 };
 
 typedef struct
@@ -180,6 +181,11 @@ void view_set_angles(view_t *v, double wr_deg, double wi_deg);
 
 /** view_get_angles() - Decompose rotation to (WR, WI); writes NAN to wr at pole */
 void view_get_angles(view_t *v, double *wr_deg, double *wi_deg);
+
+/** view_display_angles() - Canonical (WR, WI) for display
+ * WR folds into [0, 360) or NAN at the pole; WI folds into [-180, 180).
+ */
+void view_display_angles(view_t *v, double *wr_deg, double *wi_deg);
 
 /** view_get_theta_phi() - Spherical direction of the viewing axis
  * @v:     view
@@ -243,17 +249,24 @@ void view_notify_change(view_t *v);
 /** view_update_spin_display() - Write WR/WI values into bound spin widgets */
 void view_update_spin_display(view_t *v);
 
+/** view_flush_spin_edits() - Commit pending text in the view's spin entries
+ * @v: view whose borrowed spin buttons are flushed
+ */
+void view_flush_spin_edits(view_t *v);
+
 /** view_set_spin_handlers() - Bind spin-handler callback pointers
  * @v:          view
  * @rotate_cb:  handler connected to rotate_spin's value-changed signal
  * @incline_cb: handler connected to incline_spin's value-changed signal
+ * @zoom_cb:    handler connected to zoom_spin's value-changed signal
  *
  * Handlers are blocked around programmatic spin value writes.  Pass
  * NULL to clear.
  */
 void view_set_spin_handlers(view_t *v,
                             GCallback rotate_cb,
-                            GCallback incline_cb);
+                            GCallback incline_cb,
+                            GCallback zoom_cb);
 
 /** view_apply_fit() - Apply fitted zoom and pan as one view transition
  * @v:   view receiving the fitted state

@@ -20,9 +20,10 @@
 /*
  * view_gtk: GTK spin-widget readout and Cairo screen-projection for view_t.
  *
- * view_update_spin_display() writes WR/WI back to the bound GtkSpinButton
- * widgets with signal blocking to prevent feedback.  Project_on_Screen()
- * and Set_Gdk_Segment() are the Cairo rendering consumers.
+ * view_update_spin_display() writes the orientation and the zoom back to
+ * the bound GtkSpinButton widgets with signal blocking to prevent
+ * feedback.  Project_on_Screen() and Set_Gdk_Segment() are the Cairo
+ * rendering consumers.
  */
 #include <string.h>
 
@@ -61,20 +62,58 @@ spin_write_blocked(GtkSpinButton *spin, GCallback handler, double value)
  *----------------------------------------------------------------------*/
 
 /**
- * view_update_spin_display() - Write WR/WI values into bound spin widgets
+ * view_display_angles() - Canonical azimuth and elevation for display
+ * @v:  view whose rotation is read
+ * @wr: azimuth in [0, 360), or NAN at the pole
+ * @wi: elevation in [-180, 180)
+ *
+ * In constrained drag mode the drag-session accumulators (drag_wr_deg,
+ * drag_wi_deg) are used directly so a readout tracks continuously
+ * through the full circle without the asin() fold-back at ±90°.  In
+ * free drag mode Extract_View_Angles() is used since the accumulators
+ * are not updated during axis-angle pre-multiply.
+ */
+  void
+view_display_angles(view_t *v, double *wr, double *wi)
+{
+  if( v->drag_mode == VIEW_DRAG_CONSTRAINED )
+  {
+    *wr = v->drag_wr_deg;
+    *wi = v->drag_wi_deg;
+  }
+  else
+  {
+    view_get_angles(v, wr, wi);
+  }
+
+  /* Normalize to canonical display ranges: WR in [0, 360), WI in [-180, 180).
+   * Both accumulators and matrix decomposition produce unbounded values;
+   * fmod brings them into one period before the sign adjustment. */
+  if( !isnan(*wr) )
+  {
+    *wr = fmod(*wr, 360.0);
+    if( *wr < 0.0 )
+      *wr += 360.0;
+  }
+
+  *wi = fmod(*wi, 360.0);
+  if( *wi < -180.0 )
+    *wi += 360.0;
+  else if( *wi >= 180.0 )
+    *wi -= 360.0;
+
+} /* view_display_angles() */
+
+/**
+ * view_update_spin_display() - Write view state into bound spin widgets
  *
  * Uses gtk_spin_button_set_value() so the widget's numeric value and
  * displayed text stay synchronised.  The bound value-changed handlers
  * (registered via view_set_spin_handlers()) are blocked across the
  * write so the programmatic update does not feed back as a
  * value-changed callback.  At the pole (wr==NAN) the azimuth entry is
- * left untouched so the last valid value stays visible.
- *
- * In constrained drag mode the drag-session accumulators (drag_wr_deg,
- * drag_wi_deg) are used directly so the spinner tracks continuously
- * through the full circle without the asin() fold-back at ±90°.  In
- * free drag mode Extract_View_Angles() is used since the accumulators
- * are not updated during axis-angle pre-multiply.
+ * left untouched so the last valid value stays visible.  The zoom spin
+ * carries a percentage, so the unit-scale factor scales by a hundred.
  */
   void
 view_update_spin_display(view_t *v)
@@ -84,37 +123,17 @@ view_update_spin_display(view_t *v)
   if( v == NULL )
     return;
 
-  if( v->drag_mode == VIEW_DRAG_CONSTRAINED )
-  {
-    wr = v->drag_wr_deg;
-    wi = v->drag_wi_deg;
-  }
-  else
-  {
-    view_get_angles(v, &wr, &wi);
-  }
-
-  /* Normalize to canonical display ranges: WR in [0, 360), WI in [-180, 180).
-   * Both accumulators and matrix decomposition produce unbounded values;
-   * fmod brings them into one period before the sign adjustment. */
-  if( !isnan(wr) )
-  {
-    wr = fmod(wr, 360.0);
-    if( wr < 0.0 )
-      wr += 360.0;
-  }
-
-  wi = fmod(wi, 360.0);
-  if( wi < -180.0 )
-    wi += 360.0;
-  else if( wi >= 180.0 )
-    wi -= 360.0;
+  view_display_angles(v, &wr, &wi);
 
   if( v->rotate_spin != NULL && !isnan(wr) )
     spin_write_blocked(v->rotate_spin, v->rotate_spin_handler, wr);
 
   if( v->incline_spin != NULL )
     spin_write_blocked(v->incline_spin, v->incline_spin_handler, wi);
+
+  if( v->zoom_spin != NULL )
+    spin_write_blocked(v->zoom_spin, v->zoom_spin_handler,
+        (double)v->zoom * 100.0);
 
 } /* view_update_spin_display() */
 
@@ -123,28 +142,58 @@ view_update_spin_display(view_t *v)
  * @v:          view receiving the borrowed handlers
  * @rotate_cb:  azimuth value-changed handler
  * @incline_cb: elevation value-changed handler
+ * @zoom_cb:    zoom value-changed handler
  *
  * Pointers are borrowed; view_t does not take ownership.  Handlers
  * may be set independently; NULL entries skip signal blocking.
  */
   void
-view_set_spin_handlers(view_t *v, GCallback rotate_cb, GCallback incline_cb)
+view_set_spin_handlers(view_t *v, GCallback rotate_cb, GCallback incline_cb,
+    GCallback zoom_cb)
 {
   if( v == NULL )
     return;
 
   v->rotate_spin_handler  = rotate_cb;
   v->incline_spin_handler = incline_cb;
+  v->zoom_spin_handler    = zoom_cb;
 
 } /* view_set_spin_handlers() */
+
+/**
+ * view_flush_spin_edits() - Commit pending text in the view's spin entries
+ * @v: view whose borrowed spin buttons are flushed
+ *
+ * Text typed into a spin entry and never activated sits in the entry
+ * until the widget parses it.  Flushing parses each entry into the
+ * widget value, so the value-changed handler each spin carries brings
+ * the typed number into the view before a reader consults it.
+ */
+  void
+view_flush_spin_edits(view_t *v)
+{
+  if( v == NULL )
+    return;
+
+  if( v->rotate_spin != NULL )
+    gtk_spin_button_update(v->rotate_spin);
+
+  if( v->incline_spin != NULL )
+    gtk_spin_button_update(v->incline_spin);
+
+  if( v->zoom_spin != NULL )
+    gtk_spin_button_update(v->zoom_spin);
+
+} /* view_flush_spin_edits() */
 
 /**
  * view_apply_fit() - Apply fitted zoom and pan as one view transition
  * @v:   view receiving the fitted state
  * @fit: fitted zoom and screen-space pan
  *
- * Synchronizes the zoom widget, then notifies observers once when the
- * authoritative view state changes.
+ * Notifies observers once when the authoritative view state changes; the
+ * observer mirrors the fitted zoom into the bound spin widget through
+ * view_update_spin_display().
  */
   void
 view_apply_fit(view_t *v, const view_fit_t *fit)
@@ -160,9 +209,6 @@ view_apply_fit(view_t *v, const view_fit_t *fit)
 
   v->zoom = fit->zoom;
   memcpy(v->pan_offset, fit->pan_offset, sizeof(v->pan_offset));
-
-  if( v->zoom_spin != NULL )
-    gtk_spin_button_set_value(v->zoom_spin, (double)fit->zoom * 100.0);
 
   if( changed )
     view_notify_change(v);

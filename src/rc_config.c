@@ -917,7 +917,9 @@ rc_config_vars_t rc_config_vars[] = {
 			.groups = CONFIG_WIDGET_GROUPS( NULL ) ) },
 
 	{ .desc = "Antenna Temp Elevation (deg, +=up)", .format = "%lf",
-		.vars = { &rc_config.ant_temp_elevation } },
+		.vars = { &rc_config.ant_temp_elevation },
+		.widgets = CONFIG_WIDGET_SINGLE( &rdpattern_window_builder,
+			"rdpattern_elevation_spinbutton", &hook_ant_temp_refresh ) },
 
 	{ .desc = "Antenna Temp Custom Sky (K)", .format = "%lf",
 		.vars = { &rc_config.ant_temp_custom_t_sky },
@@ -1599,27 +1601,25 @@ Read_Config( void )
   void
 get_main_window_state( void )
 {
-  GtkWidget *widget;
+  double wr, wi;
 
   /* Get geometry of main (structure) window */
   Get_Window_Geometry( main_window,
       &(rc_config.main_x), &(rc_config.main_y),
       &(rc_config.main_width), &(rc_config.main_height) );
 
-  widget = Builder_Get_Object( main_window_builder, "main_rotate_spinbutton" );
-  gtk_spin_button_update( GTK_SPIN_BUTTON(widget) );
-  rc_config.main_rotate_spinbutton =
-    gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget) );
+  /* Spin entry text typed without activation reaches the view only when
+   * the widget parses it, so flush before reading */
+  view_flush_spin_edits( structure_view );
+  view_display_angles( structure_view, &wr, &wi );
 
-  widget = Builder_Get_Object( main_window_builder, "main_incline_spinbutton" );
-  gtk_spin_button_update( GTK_SPIN_BUTTON(widget) );
-  rc_config.main_incline_spinbutton =
-    gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget) );
+  /* Azimuth is undefined at the pole, where the stored value stands */
+  if( !isnan(wr) )
+    rc_config.main_rotate_spinbutton = (int)lround( wr );
 
-  widget = Builder_Get_Object( main_window_builder, "main_zoom_spinbutton" );
-  gtk_spin_button_update( GTK_SPIN_BUTTON(widget) );
+  rc_config.main_incline_spinbutton = (int)lround( wi );
   rc_config.main_zoom_spinbutton =
-    gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget) );
+    (int)lround( (double)structure_view->zoom * 100.0 );
 }
 
 /*------------------------------------------------------------------------*/
@@ -1642,18 +1642,17 @@ get_rdpattern_window_state( void )
   /* Get state of widgets in radiation patterns window */
   if( rdpattern_window )
   {
-    widget = Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_zoom_spinbutton" );
-    gtk_spin_button_update( GTK_SPIN_BUTTON(widget) );
+    /* Spin entry text typed without activation reaches the view only when
+     * the widget parses it, so flush before reading */
+    view_flush_spin_edits( rdpattern_view );
     rc_config.rdpattern_zoom_spinbutton =
-      gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget) );
+      (int)lround( (double)rdpattern_view->zoom * 100.0 );
 
-    /* Antenna temperature elevation */
-    widget = Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_elevation_spinbutton" );
+    /* Antenna temperature elevation: commit entry text typed without
+     * activation so the bound field holds the number on screen */
+    widget = config_widget_field_widget( &rc_config.ant_temp_elevation,
+        &rdpattern_window_builder );
     gtk_spin_button_update( GTK_SPIN_BUTTON(widget) );
-    rc_config.ant_temp_elevation =
-      gtk_spin_button_get_value(GTK_SPIN_BUTTON(widget) );
 
     /* Noise models — values are maintained by signal handlers;
      * no widget query needed here since rc_config fields are

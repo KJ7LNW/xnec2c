@@ -76,6 +76,9 @@ extern const config_refresh_t hook_rdpat_redraw_refresh;
 void hook_ff_overlay(void);
 extern const config_refresh_t hook_ff_overlay_refresh;
 
+void hook_ant_temp(void);
+extern const config_refresh_t hook_ant_temp_refresh;
+
 void hook_freqplots_panel_select(void);
 extern const config_refresh_t hook_freqplots_panel_select_refresh;
 

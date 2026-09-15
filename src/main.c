@@ -314,8 +314,8 @@ main (int argc, char *argv[])
     Get_Dirname( rc_config.input_file, rc_config.working_dir, NULL );
 
   /* Main window freq spinbutton */
-  mainwin_frequency = GTK_SPIN_BUTTON(
-      Builder_Get_Object(main_window_builder, "main_freq_spinbutton") );
+  mainwin_frequency = GTK_SPIN_BUTTON( config_widget_field_widget(
+        &calc_data.fmhz_save, &main_window_builder ) );
 
   /* Get the structure drawing area and allocation */
   GtkWidget *structure_cairo_da =
@@ -344,7 +344,8 @@ main (int argc, char *argv[])
       structure_view_changed_cb, NULL );
   view_set_spin_handlers( structure_view,
       G_CALLBACK(on_main_rotate_spinbutton_value_changed),
-      G_CALLBACK(on_main_incline_spinbutton_value_changed) );
+      G_CALLBACK(on_main_incline_spinbutton_value_changed),
+      G_CALLBACK(on_main_zoom_spinbutton_value_changed) );
   view_set_viewport( structure_view, allocation.width, allocation.height );
   view_set_angles( structure_view,
       gtk_spin_button_get_value( rotate_structure ),
@@ -375,7 +376,8 @@ main (int argc, char *argv[])
 #else
   canvas_set_engine( CANVAS_STRUCTURE, &cairo_engine );
 
-  hide_widget_by_id(main_window_builder, "main_ortho_button");
+  gtk_widget_hide( config_widget_field_widget( &rc_config.opengl_orthographic,
+        &main_window_builder ) );
 #endif
 
   /* Signal start of xnec2c */
@@ -542,7 +544,6 @@ Open_Input_File( gpointer arg )
 {
   static char prev_input_file[PATH_MAX] = "";
   gboolean ok, new;
-  GtkWidget *widget;
 
   /* Reject reentry while a load holds input_fp, so the Close_File below
    * cannot null the handle mid-parse in a nested Stop() event loop. */
@@ -708,13 +709,8 @@ Open_Input_File( gpointer arg )
   {
     // Don't reset the zoom during optimization:
     if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
-    {
-      widget = Builder_Get_Object(
-          rdpattern_window_builder, "rdpattern_zoom_spinbutton" );
-
-      gtk_spin_button_set_value(
-        GTK_SPIN_BUTTON(widget), (gdouble)rc_config.rdpattern_zoom_spinbutton );
-    }
+      view_set_zoom( rdpattern_view,
+          (float)(rc_config.rdpattern_zoom_spinbutton / 100.0) );
 
     /* Simulate activation of main rdpattern button */
     if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) && !rc_config.main_loop_start)
@@ -756,20 +752,12 @@ Open_Input_File( gpointer arg )
   /* Restore main window projection settings */
   if( isFlagSet(XNEC2C_START) )
   {
-    widget = Builder_Get_Object(
-        main_window_builder, "main_rotate_spinbutton" );
-    gtk_spin_button_set_value(
-        GTK_SPIN_BUTTON(widget), (gdouble)rc_config.main_rotate_spinbutton );
+    view_set_angles( structure_view,
+        (double)rc_config.main_rotate_spinbutton,
+        (double)rc_config.main_incline_spinbutton );
 
-    widget = Builder_Get_Object(
-        main_window_builder, "main_incline_spinbutton" );
-    gtk_spin_button_set_value(
-        GTK_SPIN_BUTTON(widget), (gdouble)rc_config.main_incline_spinbutton );
-
-    widget = Builder_Get_Object(
-        main_window_builder, "main_zoom_spinbutton" );
-    gtk_spin_button_set_value(
-        GTK_SPIN_BUTTON(widget), (gdouble)rc_config.main_zoom_spinbutton );
+    view_set_zoom( structure_view,
+        (float)(rc_config.main_zoom_spinbutton / 100.0) );
 
     ClearFlag( XNEC2C_START );
   }

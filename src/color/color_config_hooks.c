@@ -139,8 +139,10 @@ anim_overlay_sensitivity(void)
   animated  = chroma_proj_animated(chroma_proj_selected());
   has_wires = anim_class_available(ANIM_CLASS_STRUCTURE_SEGMENT);
 
-  comet = GTK_WIDGET(Builder_Get_Object(animate_dialog_builder, "anim_overlay_comet"));
-  nodes = GTK_WIDGET(Builder_Get_Object(animate_dialog_builder, "anim_overlay_nodes"));
+  comet = config_widget_field_widget( &rc_config.overlay_comet,
+      &animate_dialog_builder );
+  nodes = config_widget_field_widget( &rc_config.overlay_nodes,
+      &animate_dialog_builder );
 
   gtk_widget_set_sensitive( comet, animated && has_wires );
   gtk_widget_set_sensitive( nodes, has_wires );

@@ -34,10 +34,5 @@
 void opengl_common_projection_sync(void);
 void Common_Pan_Sync(void);
 
-#ifndef HAVE_OPENGL
-/* Hide a widget by builder id; removes OpenGL-only toolbar buttons */
-void hide_widget_by_id(GtkBuilder *builder, const char *widget_id);
-#endif /* !HAVE_OPENGL */
-
 #endif
 

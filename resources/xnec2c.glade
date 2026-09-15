@@ -12690,7 +12690,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
                 <property name="climb-rate">1</property>
                 <property name="numeric">True</property>
                 <property name="update-policy">if-valid</property>
-                <signal name="value-changed" handler="on_rdpattern_elevation_spinbutton_value_changed" swapped="no"/>
+                <signal name="value-changed" handler="on_config_widget_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>

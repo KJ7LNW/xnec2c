@@ -187,6 +187,18 @@ hook_ff_overlay(void)
 const config_refresh_t hook_ff_overlay_refresh =
   { .fn = hook_ff_overlay, .cls = REFRESH_HOVER_SAFE };
 
+/* Antenna elevation tilts the structure against the sky and earth noise
+ * models and turns the pattern in the viewer, so every consumer derived
+ * from the active step re-reads it. */
+void
+hook_ant_temp(void)
+{
+  freq_step_refresh_ui(TRUE);
+}
+
+const config_refresh_t hook_ant_temp_refresh =
+  { .fn = hook_ant_temp, .cls = REFRESH_HOVER_SAFE };
+
 /*------------------------------------------------------------------------*/
 
 
