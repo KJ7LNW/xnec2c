@@ -26,7 +26,7 @@
 #include "xnec2c.h"
 #include "editors.h"
 #include "nec2_model.h"
-#include "config/config_widget.h"
+#include "config/widget/config_widget.h"
 
 #include <gdk/gdkkeysyms.h>
 

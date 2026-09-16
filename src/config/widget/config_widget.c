@@ -28,8 +28,8 @@
 #include <string.h>
 #include "config_widget_priv.h"
 #include "config_widget_row.h"
-#include "config_preview.h"
-#include "../mem/mem.h"
+#include "../config_preview.h"
+#include "../../mem/mem.h"
 
 /* Initial capacity for the amortized-growth binding registry. */
 #define CONFIG_WIDGET_REGISTRY_INITIAL_CAP 64

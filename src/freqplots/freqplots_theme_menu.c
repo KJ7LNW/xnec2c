@@ -24,7 +24,7 @@
 #include "../shared.h"
 #include "../i18n.h"
 #include "../themes/theme.h"
-#include "../config/config_widget.h"
+#include "../config/widget/config_widget.h"
 
 /* freqplots_invert_item_sync()
  *

@@ -42,7 +42,7 @@
 #include "../cairo/cairo_fit.h"
 #include "../shared.h"
 #include "../opt_ui.h"
-#include "../config/config_widget.h"
+#include "../config/widget/config_widget.h"
 
 #include <string.h>
 

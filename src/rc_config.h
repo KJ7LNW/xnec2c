@@ -23,7 +23,7 @@
 #include "common.h"
 #include "utils.h"
 #include "shared.h"
-#include "config/config_widget.h"
+#include "config/widget/config_widget.h"
 #include <sys/stat.h>
 
 #define DEFAULT_CONFIG_FILE     ".xnec2c/xnec2c.conf"

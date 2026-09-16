@@ -21,7 +21,7 @@
 #define RENDER_SETTINGS_COMMON_H 1
 
 #include "../common.h"
-#include "../config/config_widget.h"
+#include "../config/widget/config_widget.h"
 
 /*------------------------------------------------------------------------*/
 

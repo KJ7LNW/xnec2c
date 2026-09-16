@@ -20,7 +20,7 @@
 #include "callback_func.h"
 #include "anim/anim_dialog.h"
 #include "cairo/cairo_draw.h"
-#include "config/config_widget.h"
+#include "config/widget/config_widget.h"
 #include "shared.h"
 #include "prerender/prerender_state.h"
 #include "prerender/prerender_color.h"

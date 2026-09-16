@@ -20,8 +20,8 @@
 #ifndef CONFIG_WIDGET_SCOPE_H
 #define CONFIG_WIDGET_SCOPE_H 1
 
-#include "config_preview.h"
-#include "config_refresh.h"
+#include "../config_preview.h"
+#include "../config_refresh.h"
 
 /*
  * config_widget_scope: the capabilities one selection dispatches through.

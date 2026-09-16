@@ -56,7 +56,7 @@
 #include "render/render_redraw.h"
 #include "color/color_tone.h"
 #include "config/config_refresh.h"
-#include "config/config_widget_scope.h"
+#include "config/widget/config_widget_scope.h"
 
 // Define GSourceOnceFunc if compiling against an older version of GLIB:
 #if GLIB_VERSION_CUR_STABLE < G_ENCODE_VERSION(2,74)

@@ -25,7 +25,7 @@
 #include "shared.h"
 #include "measurements.h"
 #include "i18n.h"
-#include "config/config_widget.h"
+#include "config/widget/config_widget.h"
 
 #define NOISE_SKY_IDX_KEY     "sky-idx"
 #define NOISE_EARTH_IDX_KEY   "earth-idx"

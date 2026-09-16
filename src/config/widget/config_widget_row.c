@@ -29,7 +29,7 @@
 
 #include "config_widget_row.h"
 #include "config_widget_priv.h"
-#include "../mem/mem.h"
+#include "../../mem/mem.h"
 
 /* Object-data key carrying a widget's binding row. */
 #define CONFIG_WIDGET_DATA_ROW  "config-widget-row"

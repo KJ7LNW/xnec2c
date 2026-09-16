@@ -22,9 +22,9 @@
 
 #include <limits.h>
 #include <gtk/gtk.h>
-#include "config_refresh.h"
+#include "../config_refresh.h"
 #include "config_widget_scope.h"
-#include "../console.h"
+#include "../../console.h"
 
 /*
  * config_widget: row-rooted config-widget binding engine.

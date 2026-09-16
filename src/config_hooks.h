@@ -20,7 +20,7 @@
 #ifndef CONFIG_HOOKS_H
 #define CONFIG_HOOKS_H 1
 
-#include "config/config_widget.h"
+#include "config/widget/config_widget.h"
 
 /* config_hooks: xnec2c-specific change-edge hooks bound to rc_config_vars
  * rows, plus session-only field registrations that have no persistence row. */
