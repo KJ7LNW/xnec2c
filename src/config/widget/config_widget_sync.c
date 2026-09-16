@@ -106,7 +106,7 @@ config_widget_menu_element(const config_widget_binding_t *b, GtkWidget *child)
 {
   const config_widget_row_t *rec = config_widget_row_get(child);
 
-  if( (rec == NULL) || (rec->scope != b->scope) )
+  if( (rec == NULL) || (rec->scope != &b->scope) )
     return NULL;
 
   return rec->elt;
@@ -179,8 +179,9 @@ config_widget_sync_elements(const config_widget_binding_t *b,
     if( w == NULL )
       continue;
 
-    config_widget_sync_element(b->field, b->size, *e, w);
-    config_widget_row_attach(w, b->scope, *e);
+    config_widget_sync_element(b->scope.dest.storage, b->scope.dest.size,
+        *e, w);
+    config_widget_row_attach(w, &b->scope, *e);
   }
 }
 
@@ -210,7 +211,8 @@ config_widget_sync_menu(const config_widget_binding_t *b, GtkWidget *menu)
     if( elt == NULL )
       continue;
 
-    config_widget_sync_element(b->field, b->size, elt, w);
+    config_widget_sync_element(b->scope.dest.storage, b->scope.dest.size,
+        elt, w);
   }
 
   g_list_free(rows);
@@ -232,7 +234,7 @@ config_widget_label_row_declared(const config_widget_binding_t *b,
 {
   const config_widget_element_t *const *e;
   GtkWidget *row = NULL;
-  int val = field_read_int(b->field, b->size);
+  int val = field_read_int(b->scope.dest.storage, b->scope.dest.size);
 
   for( e = g->elements; (*e != NULL) && (row == NULL); e++ )
   {
@@ -272,7 +274,8 @@ config_widget_label_row_built(const config_widget_binding_t *b, GtkWidget *menu)
     GtkWidget *w = GTK_WIDGET(r->data);
     const config_widget_element_t *elt = config_widget_menu_element(b, w);
 
-    if( (elt == NULL) || !config_widget_element_holds(b->field, b->size, elt) )
+    if( (elt == NULL) || !config_widget_element_holds(b->scope.dest.storage,
+          b->scope.dest.size, elt) )
       continue;
 
     row = w;
@@ -502,5 +505,5 @@ config_widget_sync_all(void)
   int i;
 
   for( i = 0; i < config_widget_binding_count(); i++ )
-    config_widget_sync_field(config_widget_binding_at(i)->field);
+    config_widget_sync_field(config_widget_binding_at(i)->scope.dest.storage);
 }

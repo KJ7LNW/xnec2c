@@ -31,15 +31,15 @@
 
 /*------------------------------------------------------------------------*/
 
-/* Engine-private registry entry.  field is the identity key for peer
- * broadcast; tree is the row's complete widget binding; scope is the
- * capability record every row of the field dispatches through, allocated
- * apart from this entry because the registry array relocates as it grows. */
+/* Engine-private registry entry.  tree is the row's complete widget
+ * binding; the embedded scope carries the field address peer broadcast keys
+ * on, that field's width, and the capability record every row of the field
+ * dispatches through.  The registry owns each entry by pointer, so the
+ * scope address a widget retains survives the array relocating as it
+ * grows. */
 typedef struct {
-  void *field;
-  size_t size;
   const config_widget_tree_t *tree;
-  config_widget_scope_t *scope;
+  config_widget_scope_t scope;
 } config_widget_binding_t;
 
 /** config_widget_binding_count - how many bindings the registry holds

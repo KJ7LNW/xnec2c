@@ -31,11 +31,10 @@
 #include "../config_preview.h"
 #include "../../mem/mem.h"
 
-/* Initial capacity for the amortized-growth binding registry. */
-#define CONFIG_WIDGET_REGISTRY_INITIAL_CAP 64
-
-static config_widget_binding_t *binding_registry = NULL;
-static int binding_count = 0;
+/* Each binding is owned on its own and the registry holds it by pointer, so
+ * the capabilities a widget retains by reference keep their address while
+ * the array relocates; the array header carries the fill count. */
+static config_widget_binding_t **binding_registry = NULL;
 
 /*------------------------------------------------------------------------*/
 
@@ -48,10 +47,11 @@ config_widget_binding_t *
 config_widget_find(void *field)
 {
   int i;
+  int count = mem_array_count(binding_registry);
 
-  for( i = 0; i < binding_count; i++ )
-    if( binding_registry[i].field == field )
-      return &binding_registry[i];
+  for( i = 0; i < count; i++ )
+    if( binding_registry[i]->scope.dest.storage == field )
+      return binding_registry[i];
 
   return NULL;
 }
@@ -81,34 +81,28 @@ config_widget_lookup(GtkBuilder *builder, const char *widget_id)
 void
 config_widget_register(void *field, size_t size, const config_widget_tree_t *tree)
 {
-  config_widget_scope_t *scope = NULL;
+  config_widget_binding_t *binding = NULL;
+  int count = mem_array_count(binding_registry);
 
-  /* The registry array relocates as it grows, so the capabilities a widget
-   * retains by reference live in their own allocation */
-  mem_new(&scope);
-  scope->dest.storage = field;
-  scope->dest.size    = size;
-  scope->dest.context = field;
-  scope->commit       = config_widget_commit_field;
+  mem_new(&binding);
+  binding->tree               = tree;
+  binding->scope.dest.storage = field;
+  binding->scope.dest.size    = size;
+  binding->scope.dest.context = field;
+  binding->scope.commit       = config_widget_commit_field;
 
   /* A tree naming no refresh paints no frame, so its rows carry no staging
    * render and reach the interface on their commit alone */
   if( tree->post_apply == NULL )
-    scope->cls = REFRESH_COMMIT_ONLY;
+    binding->scope.cls = REFRESH_COMMIT_ONLY;
   else
   {
-    scope->dest.refresh = config_widget_post_apply;
-    scope->cls          = tree->post_apply->cls;
+    binding->scope.dest.refresh = config_widget_post_apply;
+    binding->scope.cls          = tree->post_apply->cls;
   }
 
-  mem_array_reserve(&binding_registry, binding_count + 1,
-      CONFIG_WIDGET_REGISTRY_INITIAL_CAP);
-
-  binding_registry[binding_count].field = field;
-  binding_registry[binding_count].size  = size;
-  binding_registry[binding_count].tree  = tree;
-  binding_registry[binding_count].scope = scope;
-  binding_count++;
+  mem_array_resize(&binding_registry, count + 1, NULL);
+  binding_registry[count] = binding;
 }
 
 /*------------------------------------------------------------------------*/
@@ -120,12 +114,12 @@ void
 config_widget_cleanup(void)
 {
   int i;
+  int count = mem_array_count(binding_registry);
 
-  for( i = 0; i < binding_count; i++ )
-    mem_free(&binding_registry[i].scope);
+  for( i = 0; i < count; i++ )
+    mem_free(&binding_registry[i]);
 
   mem_array_free(&binding_registry);
-  binding_count = 0;
 }
 
 /*------------------------------------------------------------------------*/
@@ -133,13 +127,13 @@ config_widget_cleanup(void)
 int
 config_widget_binding_count(void)
 {
-  return binding_count;
+  return mem_array_count(binding_registry);
 }
 
 config_widget_binding_t *
 config_widget_binding_at(int index)
 {
-  return &binding_registry[index];
+  return binding_registry[index];
 }
 
 /*------------------------------------------------------------------------*/
@@ -155,7 +149,7 @@ config_widget_field_scope(void *field)
     return NULL;
   }
 
-  return b->scope;
+  return &b->scope;
 }
 
 /*------------------------------------------------------------------------*/

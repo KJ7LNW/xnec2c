@@ -33,10 +33,11 @@
  * with the selection it expresses.
  *
  * A scope outlives every row that dispatches through it.  A registered
- * field's scope is allocated by the registry on its own, because the binding
- * array relocates as it grows and a widget retains the pointer.  A scoped
- * selection embeds its scope in the object owning the state, such as one
- * frequency-plots view, and the scope dies with that object.
+ * field's scope is embedded in its binding, which the registry owns by
+ * pointer, because that array relocates as it grows and a widget retains
+ * the scope address.  A scoped selection embeds its scope in the object
+ * owning the state, such as one frequency-plots view, and the scope dies
+ * with that object.
  */
 typedef struct {
   preview_target_t dest;
