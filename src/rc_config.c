@@ -793,13 +793,19 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Selected fmhz_save Frequency", .format = "%lf",
 		.vars = { &calc_data.fmhz_save },
 		.widgets = CONFIG_WIDGET_TREE( .on_change = hook_frequency,
+			.readout = CONFIG_WIDGET_SOURCE( calc_data.freq_mhz ),
 			.groups = CONFIG_WIDGET_GROUPS(
 				CONFIG_WIDGET_GROUP( .builder = &main_window_builder,
 					.elements = CONFIG_WIDGETS(
-						CONFIG_WIDGET( .widget_id = "main_freq_spinbutton" ), NULL ) ),
+						CONFIG_WIDGET( .widget_id = "main_freq_spinbutton",
+							.capture = config_frequency_capture_main ), NULL ) ),
 				CONFIG_WIDGET_GROUP( .builder = &rdpattern_window_builder,
+					.participation = CONFIG_WIDGET_PARTICIPATION(
+						&config_frequency_readout_rule,
+						&config_frequency_sensitive_rule, NULL ),
 					.elements = CONFIG_WIDGETS(
-						CONFIG_WIDGET( .widget_id = "rdpattern_freq_spinbutton" ), NULL ) ),
+						CONFIG_WIDGET( .widget_id = "rdpattern_freq_spinbutton",
+							.capture = config_frequency_capture_pattern ), NULL ) ),
 				NULL ) ) },
 
 	{ .desc = "Frequency Plots Show S11 checkbutton state", .format = "%d",

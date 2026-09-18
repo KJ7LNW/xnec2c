@@ -44,7 +44,7 @@ static config_widget_binding_t **binding_registry = NULL;
  * Return: the binding, or NULL when @field was never registered.
  */
 config_widget_binding_t *
-config_widget_find(void *field)
+config_widget_find(const void *field)
 {
   int i;
   int count = mem_array_count(binding_registry);
@@ -83,6 +83,12 @@ config_widget_register(void *field, size_t size, const config_widget_tree_t *tre
 {
   config_widget_binding_t *binding = NULL;
   int count = mem_array_count(binding_registry);
+
+  /* A readout projects through the same arm as a commit, so its bytes span
+   * the destination exactly */
+  if( (tree->readout != NULL) && (tree->readout->size != size) )
+    BUG("a readout source spans %zu bytes against a field of %zu\n",
+        tree->readout->size, size);
 
   mem_new(&binding);
   binding->tree               = tree;

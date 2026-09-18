@@ -42,6 +42,33 @@ typedef struct {
   config_widget_scope_t scope;
 } config_widget_binding_t;
 
+/* One binding presented on one live builder.  The builder comes from the
+ * declaration at use, so a view stays good across a window that closes and
+ * opens again. */
+typedef struct {
+  const config_widget_binding_t *binding;
+  const config_widget_group_t   *declaration;
+} config_widget_group_view_t;
+
+/* One widget an operation reaches, normalized across a row the tree
+ * declares and a row a selector built, so a single presentation and a
+ * shell full of them read alike. */
+typedef struct {
+  GtkWidget                     *widget;
+  const config_widget_element_t *element;
+  const config_widget_scope_t   *scope;
+} config_widget_target_t;
+
+/* What an operation does at one normalized target. */
+typedef void (*config_widget_visit_fn)(const config_widget_target_t *t,
+    const void *operand);
+
+/* What an operation does at one live group.  Every operation body reads
+ * this one signature, so nothing chooses an implementation by inspecting
+ * its operand. */
+typedef void (*config_widget_group_fn)(const config_widget_group_view_t *gv,
+    const void *operand);
+
 /** config_widget_binding_count - how many bindings the registry holds
  *
  * Return: the bound every binding walk stops below.
@@ -117,7 +144,53 @@ field_write_double(void *field, double val)
  *
  * Return: the binding, or NULL when @field was never registered.
  */
-config_widget_binding_t *config_widget_find(void *field);
+config_widget_binding_t *config_widget_find(const void *field);
+
+/** config_widget_scope_source - the bytes a binding's commit writes
+ * @b: any registered binding
+ *
+ * Return: the destination read as a projection source, so a committed sync
+ * and a passive readout differ only by which source they name.
+ */
+static inline config_widget_source_t
+config_widget_scope_source(const config_widget_binding_t *b)
+{
+  return (config_widget_source_t){ .storage = b->scope.dest.storage,
+                                   .size    = b->scope.dest.size };
+}
+
+/** config_widget_walk_groups - visit every live group one binding presents
+ * @b:       any registered binding
+ * @visit:   what the operation does at each group
+ * @operand: carried through to @visit unread
+ */
+void config_widget_walk_groups(const config_widget_binding_t *b,
+    config_widget_group_fn visit, const void *operand);
+
+/** config_widget_walk_members - visit every widget one group presents a field on
+ * @gv:      a binding and one of its groups, whose builder is live
+ * @visit:   what the operation does at each widget
+ * @operand: carried through to @visit unread
+ *
+ * Declared rows resolve from the builder and receive their binding as they
+ * resolve; rows a selector built carry their own element and are told from
+ * the rows of other fields sharing their shell.  Both reach @visit as the
+ * same target, so one presentation and a shell full of them read alike.
+ */
+void config_widget_walk_members(const config_widget_group_view_t *gv,
+    config_widget_visit_fn visit, const void *operand);
+
+/** config_widget_group_project - write one source's bytes into one live group
+ * @gv:      a binding and one of its groups, whose builder is live
+ * @operand: the config_widget_source_t naming the bytes and their extent
+ *
+ * The group is silenced across the whole write, so a radio deactivation the
+ * write raises reaches no live handler.  The collapsed label then names the
+ * committed selection.  A committed sync and a passive readout reach this
+ * one body and differ only by the source they name.
+ */
+void config_widget_group_project(const config_widget_group_view_t *gv,
+    const void *operand);
 
 /** config_widget_lookup - resolve a widget id on a live builder
  * @builder:   dereferenced, non-NULL builder

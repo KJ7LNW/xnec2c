@@ -35,4 +35,20 @@ void config_frequency_init(void);
 
 void hook_frequency(void);
 
+/** config_frequency_capture_main - hold the main window's frequency control
+ * @widget: the spin button the binding resolved
+ */
+void config_frequency_capture_main(GtkWidget *widget);
+
+/** config_frequency_capture_pattern - hold the radiation window's frequency control
+ * @widget: the spin button the binding resolved
+ */
+void config_frequency_capture_pattern(GtkWidget *widget);
+
+/* What the radiation window's frequency control requires before an
+ * operation reaches it: it shows a frequency and accepts one only while
+ * that window draws. */
+extern const config_widget_participation_t config_frequency_readout_rule;
+extern const config_widget_participation_t config_frequency_sensitive_rule;
+
 #endif /* CONFIG_FREQUENCY_H */

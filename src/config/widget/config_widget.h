@@ -47,16 +47,40 @@
  * terminates a selection-value list instead of NULL. */
 #define CONFIG_WIDGET_VALUES_END INT_MIN
 
+/* One operation a datum's presentations carry out.  Only the identity is
+ * public, so a binding names the operation its participation requirement
+ * governs while the engine keeps what that operation does. */
+typedef struct config_widget_operation_s config_widget_operation_t;
+
+/* The bytes one projection reads and how many of them.  A tree names a
+ * readout source when the value its widgets show is not the value its
+ * widgets commit. */
+typedef struct {
+  const void *storage;
+  size_t      size;
+} config_widget_source_t;
+
+/* One further requirement a group places on one operation.  allowed is
+ * always named; a group listing no requirement for an operation admits
+ * that operation. */
+typedef struct {
+  const config_widget_operation_t *operation;
+  gboolean (*allowed)(void);
+} config_widget_participation_t;
+
 /* One bound widget: its glade id and, for radios/combos/valued toggles, the
  * field values its selection positions express.  A valued toggle carries two
  * entries: [0] written when pressed, [1] the released state.  values == NULL
  * means pass-through (plain toggle, check menu item, spin, range).
  * value_bytes expresses a selection wider than an int, such as a name, as
- * the field bytes the row writes; a row names one or the other. */
+ * the field bytes the row writes; a row names one or the other.  capture
+ * hands the resolved widget to the declaration's owner, for an interaction
+ * reference that owner holds by borrow. */
 typedef struct {
   const char *widget_id;
   const int  *values;
   const void *value_bytes;
+  void      (*capture)(GtkWidget *widget);
 } config_widget_element_t;
 
 /* One builder's set of widgets bound to a field.  builder is dereferenced
@@ -67,12 +91,14 @@ typedef struct {
  * candidate.  value_menu_id names the menu shell a selector fills with rows
  * at runtime; such a group names an empty element list and reaches its rows
  * through that shell, so a selection wider than an int projects like any
- * other. */
+ * other.  participation names, sentinel-terminated, the operations this
+ * group takes part in only while its own requirement answers TRUE. */
 typedef struct {
   GtkBuilder **builder;
   const char *value_label_id;
   const char *value_menu_id;
   const config_widget_element_t *const *elements;
+  const config_widget_participation_t *const *participation;
 } config_widget_group_t;
 
 /* One field's complete binding: two optional hooks and every builder group
@@ -81,11 +107,13 @@ typedef struct {
  * effect (non-idempotent or heavyweight) fired only on a real value change.
  * post_apply names a descriptor rather than a bare function, so the refresh
  * carries its own hover classification and every tree naming that refresh
- * reads the same answer. */
+ * reads the same answer.  readout names the bytes a passive display reads
+ * when they differ from the bytes a commit writes. */
 typedef struct {
   const config_refresh_t *post_apply;
   void (*on_change)(void);
   const config_widget_group_t *const *groups;
+  const config_widget_source_t *readout;
 } config_widget_tree_t;
 
 /*------------------------------------------------------------------------*/
@@ -100,6 +128,10 @@ typedef struct {
 #define CONFIG_WIDGETS(...)       (const config_widget_element_t *const[]){ __VA_ARGS__ }
 #define CONFIG_WIDGET(...)        &(const config_widget_element_t){ __VA_ARGS__ }
 #define CONFIG_WIDGET_VALUES(...) (const int[]){ __VA_ARGS__, CONFIG_WIDGET_VALUES_END }
+#define CONFIG_WIDGET_SOURCE(lval) \
+  &(const config_widget_source_t){ .storage = &(lval), .size = sizeof(lval) }
+#define CONFIG_WIDGET_PARTICIPATION(...) \
+  (const config_widget_participation_t *const[]){ __VA_ARGS__ }
 
 /* Degenerate tree: one builder, one widget, pass-through value. */
 #define CONFIG_WIDGET_SINGLE(bldr, id, hook) \

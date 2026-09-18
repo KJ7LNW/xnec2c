@@ -26,7 +26,13 @@
  */
 
 #include "config_frequency.h"
+#include "widget/config_widget_ops.h"
 #include "../shared.h"
+
+/* The committed frequency and the frequency the display reads are both
+ * double-width, so one projection arm carries either of them. */
+CONFIG_FIELD_DBL_ASSERT(calc_data.fmhz_save);
+CONFIG_FIELD_DBL_ASSERT(calc_data.freq_mhz);
 
 /*------------------------------------------------------------------------*/
 
@@ -50,6 +56,48 @@ hook_frequency(void)
   else
     freq_display_update(calc_data.fmhz_save);
 }
+
+/*------------------------------------------------------------------------*/
+
+/** config_frequency_capture_main - hold the main window's frequency control
+ * @widget: the spin button the binding resolved
+ */
+void
+config_frequency_capture_main(GtkWidget *widget)
+{
+  mainwin_frequency = GTK_SPIN_BUTTON(widget);
+}
+
+/** config_frequency_capture_pattern - hold the radiation window's frequency control
+ * @widget: the spin button the binding resolved
+ */
+void
+config_frequency_capture_pattern(GtkWidget *widget)
+{
+  rdpattern_frequency = GTK_SPIN_BUTTON(widget);
+}
+
+/** config_frequency_pattern_ready - whether the radiation window takes frequency
+ *
+ * Drawing is what makes the radiation window's frequency control a live
+ * participant; a window already built but not yet drawing holds a control
+ * the frequency path leaves alone.
+ *
+ * Return: TRUE while the radiation window draws and holds its control.
+ */
+static gboolean
+config_frequency_pattern_ready(void)
+{
+  return isFlagSet(DRAW_ENABLED) && (rdpattern_frequency != NULL);
+}
+
+const config_widget_participation_t config_frequency_readout_rule =
+  { .operation = &config_widget_readout_operation,
+    .allowed   = config_frequency_pattern_ready };
+
+const config_widget_participation_t config_frequency_sensitive_rule =
+  { .operation = &config_widget_sensitive_operation,
+    .allowed   = config_frequency_pattern_ready };
 
 /*------------------------------------------------------------------------*/
 

@@ -156,3 +156,118 @@ config_widget_menu_unblock(GtkWidget *menu)
 
   g_list_free(rows);
 }
+
+/*------------------------------------------------------------------------*/
+
+/** config_widget_walk_groups - visit every live group one binding presents
+ * @b:       any registered binding
+ * @visit:   what the operation does at each group
+ * @operand: carried through to @visit unread
+ *
+ * Groups arrive in declaration order.  A group whose window is not built
+ * holds no widget and is passed over, so a datum reaching one window and a
+ * datum reaching several are the same walk.
+ */
+void
+config_widget_walk_groups(const config_widget_binding_t *b,
+    config_widget_group_fn visit, const void *operand)
+{
+  const config_widget_group_t *const *g;
+
+  for( g = b->tree->groups; *g != NULL; g++ )
+  {
+    if( (*g)->builder == NULL || *(*g)->builder == NULL )
+      continue; /* dormant: window not built yet */
+
+    config_widget_group_view_t gv = { .binding = b, .declaration = *g };
+
+    visit(&gv, operand);
+  }
+}
+
+/** config_widget_walk_declared - visit the rows a group's tree names
+ * @gv:      a binding and one of its groups, whose builder is live
+ * @visit:   what the operation does at each widget
+ * @operand: carried through to @visit unread
+ */
+static void
+config_widget_walk_declared(const config_widget_group_view_t *gv,
+    config_widget_visit_fn visit, const void *operand)
+{
+  GtkBuilder *builder = *gv->declaration->builder;
+  const config_widget_element_t *const *e;
+
+  for( e = gv->declaration->elements; *e != NULL; e++ )
+  {
+    GtkWidget *w = config_widget_lookup(builder, (*e)->widget_id);
+
+    if( w == NULL )
+      continue;
+
+    /* Resolving a declared row is also where it receives its binding, so
+     * hover and commit coverage follow the tree with no per-selector call
+     * site */
+    config_widget_row_attach(w, &gv->binding->scope, *e);
+
+    config_widget_target_t t =
+      { .widget = w, .element = *e, .scope = &gv->binding->scope };
+
+    visit(&t, operand);
+  }
+}
+
+/** config_widget_walk_runtime - visit the rows a selector built on a group's shell
+ * @gv:      a binding and one of its groups, whose builder is live
+ * @visit:   what the operation does at each widget
+ * @operand: carried through to @visit unread
+ */
+static void
+config_widget_walk_runtime(const config_widget_group_view_t *gv,
+    config_widget_visit_fn visit, const void *operand)
+{
+  GtkWidget *menu;
+  GList *rows;
+  GList *r;
+
+  menu = config_widget_menu_shell(*gv->declaration->builder, gv->declaration);
+
+  if( menu == NULL ) return;
+
+  rows = gtk_container_get_children(GTK_CONTAINER(menu));
+
+  for( r = rows; r != NULL; r = r->next )
+  {
+    GtkWidget *w = GTK_WIDGET(r->data);
+    const config_widget_element_t *elt =
+      config_widget_menu_element(gv->binding, w);
+
+    /* A child dispatching through other capabilities belongs to another
+     * field, and a separator carries no row at all */
+    if( elt == NULL )
+      continue;
+
+    config_widget_target_t t =
+      { .widget = w, .element = elt, .scope = &gv->binding->scope };
+
+    visit(&t, operand);
+  }
+
+  g_list_free(rows);
+}
+
+/** config_widget_walk_members - visit every widget one group presents a field on
+ * @gv:      a binding and one of its groups, whose builder is live
+ * @visit:   what the operation does at each widget
+ * @operand: carried through to @visit unread
+ *
+ * Declared rows first, then the rows a selector built on the group's shell,
+ * which is the order a write needs so a collapsed label reads a settled
+ * group.
+ */
+void
+config_widget_walk_members(const config_widget_group_view_t *gv,
+    config_widget_visit_fn visit, const void *operand)
+{
+  config_widget_walk_declared(gv, visit, operand);
+  config_widget_walk_runtime(gv, visit, operand);
+}

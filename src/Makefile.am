@@ -88,6 +88,7 @@ xnec2c_SOURCES = \
     config/widget/config_widget_label.c \
     config/widget/config_widget_sync.c \
     config/widget/config_widget_walk.c \
+    config/widget/config_widget_ops.c config/widget/config_widget_ops.h \
     config_hooks.c config_hooks.h \
     expr_edit.c     expr_edit.h \
     opt_ui.c        opt_ui.h \
