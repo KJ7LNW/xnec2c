@@ -25,6 +25,7 @@
 #include "mathlib.h"
 #include "measurements.h"
 #include "config_hooks.h"
+#include "config/config_frequency.h"
 #include "config/config_preview.h"
 #include "rdpattern_noise_menu.h"
 #include "rdpattern_ui.h"

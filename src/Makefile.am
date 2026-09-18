@@ -77,6 +77,7 @@ xnec2c_SOURCES = \
     settings/render_settings_cairo.c \
     config/widget/config_widget.c config/widget/config_widget.h \
     config/config_refresh.h \
+    config/config_frequency.c config/config_frequency.h \
     config/config_preview.c config/config_preview.h \
     config/config_preview_row.c \
     config/widget/config_widget_priv.h \
@@ -84,7 +85,9 @@ xnec2c_SOURCES = \
     config/widget/config_widget_element_sync.c \
     config/widget/config_widget_row.c config/widget/config_widget_row.h \
     config/widget/config_widget_scope.h \
+    config/widget/config_widget_label.c \
     config/widget/config_widget_sync.c \
+    config/widget/config_widget_walk.c \
     config_hooks.c config_hooks.h \
     expr_edit.c     expr_edit.h \
     opt_ui.c        opt_ui.h \

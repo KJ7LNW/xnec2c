@@ -32,6 +32,7 @@
 #include "opengl-engine/opengl_view_fit.h"
 #endif
 #include "config_hooks.h"
+#include "config/config_frequency.h"
 #include "themes/theme.h"
 #include "color/color_palette.h"
 #include "ui_style.h"
@@ -294,7 +295,7 @@ main (int argc, char *argv[])
 
   /* Register session-only and rc_config_vars-rooted widget bindings
    * before any config value is loaded or restored. */
-  config_hooks_init();
+  config_frequency_init();
   rc_config_register_widgets();
 
   /* Theme registry and palette LUTs precede every theme_active() consumer;

@@ -127,6 +127,49 @@ config_widget_binding_t *config_widget_find(void *field);
  */
 GtkWidget *config_widget_lookup(GtkBuilder *builder, const char *widget_id);
 
+/** config_widget_group_block - silence the commit handler across a group */
+void config_widget_group_block(GtkBuilder *builder,
+    const config_widget_group_t *g);
+
+/** config_widget_group_unblock - restore the commit handler across a group */
+void config_widget_group_unblock(GtkBuilder *builder,
+    const config_widget_group_t *g);
+
+/** config_widget_menu_shell - the runtime row container a group names
+ * @builder: the group's resolved, non-NULL builder
+ * @g:       the group, which names a menu only when a selector fills it
+ *
+ * Return: the menu holding rows built at runtime, or NULL when the group
+ * declares every row it presents.
+ */
+GtkWidget *config_widget_menu_shell(GtkBuilder *builder,
+    const config_widget_group_t *g);
+
+/** config_widget_menu_element - the element a menu child carries for one binding
+ * @b:     the binding whose rows are wanted
+ * @child: one child of a group's runtime menu
+ *
+ * Return: the child's element, or NULL when the child is not a row of @b.
+ */
+const config_widget_element_t *config_widget_menu_element(
+    const config_widget_binding_t *b, GtkWidget *child);
+
+/** config_widget_menu_block - silence the commit handler across a runtime menu */
+void config_widget_menu_block(GtkWidget *menu);
+
+/** config_widget_menu_unblock - restore the commit handler across a runtime menu */
+void config_widget_menu_unblock(GtkWidget *menu);
+
+/** config_widget_label_sync - name the active row on a collapsed pull-down
+ * @b:       the binding whose value selects the row
+ * @builder: the group's resolved, non-NULL builder
+ * @g:       a group of @b optionally naming a value label
+ * @menu:    the group's resolved runtime row container, or NULL for a group
+ *           declaring its rows
+ */
+void config_widget_label_sync(const config_widget_binding_t *b,
+    GtkBuilder *builder, const config_widget_group_t *g, GtkWidget *menu);
+
 /** config_widget_element_candidate - predict what clicking a widget writes
  * @elt:  element describing the widget and its selection values
  * @w:    widget before its click edge

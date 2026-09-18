@@ -23,14 +23,7 @@
 #include "config/widget/config_widget.h"
 
 /* config_hooks: xnec2c-specific change-edge hooks bound to rc_config_vars
- * rows, plus session-only field registrations that have no persistence row. */
-
-/** config_hooks_init - Register session-only config_widget fields
- *
- * Called once from main.c startup, before Read_Config(); rc_config_vars
- * rows register themselves separately via rc_config_register_widgets().
- */
-void config_hooks_init(void);
+ * rows. */
 
 void hook_polarization(void);
 extern const config_refresh_t hook_polarization_refresh;
@@ -64,8 +57,6 @@ extern const config_refresh_t hook_theme_change_refresh;
 
 void hook_orthographic(void);
 extern const config_refresh_t hook_orthographic_refresh;
-
-void hook_frequency(void);
 
 void hook_rdpat_ehfield(void);
 extern const config_refresh_t hook_rdpat_ehfield_refresh;

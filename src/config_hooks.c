@@ -128,29 +128,6 @@ const config_refresh_t hook_orthographic_refresh =
 /*------------------------------------------------------------------------*/
 
 void
-hook_frequency(void)
-{
-  /* No frequency data loaded yet (eg config_widget_run_hooks() called from
-   * Restore_GUI_State() before any NEC2 file is read); mirrors the guard
-   * in freq_step_update_ui(). */
-  if( save.freq == NULL )
-    return;
-
-  if(freq_sweep_active())
-    return;
-
-  if( freq_sweep_armed() )
-    return;
-
-  if( rc_config.freq_apply )
-    user_set_frequency(calc_data.fmhz_save);
-  else
-    freq_display_update(calc_data.fmhz_save);
-}
-
-/*------------------------------------------------------------------------*/
-
-void
 hook_rdpat_ehfield(void)
 {
   Set_Window_Labels();
@@ -198,27 +175,3 @@ hook_ant_temp(void)
 
 const config_refresh_t hook_ant_temp_refresh =
   { .fn = hook_ant_temp, .cls = REFRESH_HOVER_SAFE };
-
-/*------------------------------------------------------------------------*/
-
-
-/* Apply-frequency checkbutton tree: session-only, no persistence row.
- * File-scope storage so the binding registry holds a pointer with static
- * lifetime; an inline compound literal would die when config_hooks_init()
- * returns. */
-static const config_widget_tree_t *const freq_apply_tree =
-  CONFIG_WIDGET_TREE( .groups = CONFIG_WIDGET_GROUPS(
-    CONFIG_WIDGET_GROUP( .builder = &main_window_builder,
-      .elements = CONFIG_WIDGETS(
-        CONFIG_WIDGET( .widget_id = "main_freq_checkbutton" ), NULL ) ),
-    CONFIG_WIDGET_GROUP( .builder = &rdpattern_window_builder,
-      .elements = CONFIG_WIDGETS(
-        CONFIG_WIDGET( .widget_id = "rdpattern_freq_checkbutton" ), NULL ) ),
-    NULL ) );
-
-void
-config_hooks_init(void)
-{
-  config_widget_register( &rc_config.freq_apply, sizeof(rc_config.freq_apply),
-    freq_apply_tree );
-}
