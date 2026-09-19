@@ -321,9 +321,35 @@ include ./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc
 
 xnec2c_SOURCES += xnec2c-resources.c
 CLEANFILES     += xnec2c-resources.c
+# Validate every XML member before it becomes resource bytes. The resource
+# compiler copies each member verbatim, so a malformed member survives the
+# build and fails inside gtk_builder_add_from_resource() at runtime. The
+# manifest owns membership, so --generate-dependencies supplies the member
+# list and the manifest heads it, being XML that ships as a member too. A
+# member whose first line opens a tag is XML; the ini, css and glsl members
+# open with their own comment or section syntax.
+XNEC2C_RESOURCE_XML_LINT = \
+	if test "x$(XMLLINT)" = xno; then \
+	  echo "warning: xmllint not found, resource XML not validated"; \
+	else \
+	  for f in $(top_srcdir)/resources/xnec2c.gresource.xml \
+	      `$(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/resources --generate-dependencies $(top_srcdir)/resources/xnec2c.gresource.xml`; do \
+	    if $(SED) 1q $$f | grep -q '^[[:space:]]*<'; then \
+	      $(XMLLINT) --noout $$f || exit 1; \
+	    fi; \
+	  done; \
+	fi
+
+# Reach the same validation from make check, which compiles no resources.
+check-local: check-resource-xml
+check-resource-xml:
+	@$(XNEC2C_RESOURCE_XML_LINT)
+.PHONY: check-resource-xml
+
 # --generate-phony-targets: emit phony Make targets for each resource file so
 # deleting a resource file triggers a rebuild instead of a stale-dep error.
 xnec2c-resources.c: $(top_srcdir)/resources/xnec2c.gresource.xml $(top_srcdir)/resources/xnec2c.glade $(top_srcdir)/resources/animate.glade $(top_srcdir)/resources/settings/render_settings.glade $(top_srcdir)/resources/settings/opengl_settings.glade $(top_srcdir)/resources/settings/cairo_settings.glade $(top_srcdir)/resources/settings/color_settings.glade $(top_srcdir)/resources/themes.ini $(top_srcdir)/resources/freqplots_widths.ini
+	@$(XNEC2C_RESOURCE_XML_LINT)
 	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/resources --dependency-file=./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc --generate-phony-targets --target=xnec2c-resources.c --generate-source $(top_srcdir)/resources/xnec2c.gresource.xml
 
 # Do not dist the generated source file so that building from tarball

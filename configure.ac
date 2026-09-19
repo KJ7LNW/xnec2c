@@ -99,6 +99,14 @@ AS_CASE([$GLIB_COMPILE_RESOURCES], [false|no], [dnl
   AC_MSG_ERROR([glib-compile-resources tool required])
 ])
 
+dnl Validate the XML members of the resource manifest at build time. The build
+dnl proceeds without the tool, leaving malformed members to surface when GTK
+dnl parses them at runtime.
+AC_PATH_PROG([XMLLINT], [xmllint], [no])
+AS_VAR_IF([XMLLINT], [no], [dnl
+  AC_MSG_WARN([xmllint not found; GResource XML members will not be validated])
+])
+
 
 m4_pattern_forbid([PKG_CHECK_MODULES])dnl
 PKG_CHECK_MODULES([GIO], [gio-2.0])
