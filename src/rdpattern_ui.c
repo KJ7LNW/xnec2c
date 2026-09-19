@@ -26,6 +26,7 @@
 #include "render/render_surface.h"
 #include "shared.h"
 #include "structure_ui.h"
+#include "window_lifecycle.h"
 
 #ifdef HAVE_OPENGL
 #include "opengl/opengl_rdpattern.h"
@@ -258,7 +259,7 @@ rdpattern_viewer_readout(void)
   /* The view outlives its window: under shared projection a structure
    * rotation reaches this callback after Rdpattern_Window_Killed()
    * released the builder these entries resolve through. */
-  if( isFlagClear(DRAW_ENABLED) || !RDPAT_FSTEP_AVAILABLE(fstep) )
+  if( !window_is_open(RDPATTERN_WINDOW) || !RDPAT_FSTEP_AVAILABLE(fstep) )
   {
     g_rec_mutex_unlock(&freq_data_lock);
     return;
@@ -300,7 +301,7 @@ Update_Rdpattern_UI(void)
   g_rec_mutex_lock(&freq_data_lock);
 
   fstep = calc_data.freq_step;
-  if( isFlagClear(DRAW_ENABLED) || !RDPAT_FSTEP_AVAILABLE(fstep) )
+  if( !window_is_open(RDPATTERN_WINDOW) || !RDPAT_FSTEP_AVAILABLE(fstep) )
   {
     g_rec_mutex_unlock(&freq_data_lock);
     return;
@@ -624,22 +625,6 @@ gain_style_check_warnings( void )
 
 /*-----------------------------------------------------------------------*/
 
-/*  Queue_Radiation_Redraw()
- *  @force:  bypass the intermediate-redraw suppression gate
- *
- *  Queues a redraw of the radiation drawingarea.  Callers that also change
- *  a frequency-plot input repaint the plots at their own edge.
- */
-  void
-Queue_Radiation_Redraw(gboolean force)
-{
-  if( isFlagSet(DRAW_ENABLED) )
-    canvas_queue_redraw( CANVAS_RDPATTERN, force );
-
-} /* Queue_Radiation_Redraw() */
-
-/*-----------------------------------------------------------------------*/
-
 /** rdpattern_view_changed_cb() - view_t change callback for rdpattern view
  * @v:           view that changed
  * @_user_data:  unused
@@ -664,7 +649,7 @@ rdpattern_view_changed_cb(view_t *v, gpointer _user_data)
 
   view_update_spin_display( v );
   rdpattern_viewer_readout();
-  Queue_Radiation_Redraw( TRUE );
+  canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
   freqplots_redraw_if_showing( view_panels );
 
 } /* rdpattern_view_changed_cb() */
@@ -699,7 +684,7 @@ rdpattern_overlay_shift_scroll(GdkScrollDirection dir, const view_t *view)
   else
     rc_config.rdpattern_overlay_scale_adj /= (1.0 + 0.1 * scale);
 
-  Queue_Radiation_Redraw(TRUE);
+  canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
 
   return TRUE;
 }
@@ -850,25 +835,16 @@ Viewer_Gain( view_t *v, int fstep )
   void
 Rdpattern_Window_Killed( void )
 {
-  if( isFlagSet(DRAW_ENABLED) )
-  {
-    ClearFlag( DRAW_ENABLED );
-    g_object_unref( rdpattern_window_builder );
-    rdpattern_window_builder = NULL;
+  /* The frequency path reaches this control after the window closes, so it
+   * reports absent before the builder owning it is released. */
+  rdpattern_frequency = NULL;
 
-    gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-          Builder_Get_Object( main_window_builder, "main_rdpattern")), FALSE );
-  }
+  window_release( RDPATTERN_WINDOW );
 
-  /* Keep the DRAW_ENABLED gate closed while destroying the dialog because
-   * its destroy handler refreshes the visualization after the caller frees
-   * the radiation-pattern view. */
-  if( animate_dialog != NULL )
-    Gtk_Widget_Destroy( &animate_dialog );
-
-  rdpattern_window = NULL;
-  canvas_clear( CANVAS_RDPATTERN );
-  kill_window = NULL;
+  /* The dialog's destroy handler refreshes the visualization, so it falls
+   * after the window reports closed and after the caller frees the
+   * radiation-pattern view. */
+  Gtk_Widget_Destroy( &animate_dialog );
 
 } /* Rdpattern_Window_Killed() */
 
@@ -952,7 +928,7 @@ Set_Window_Labels( void )
   char txt[256];
   size_t s = sizeof( txt );
 
-  if( isFlagSet(DRAW_ENABLED) )
+  if( window_is_open(RDPATTERN_WINDOW) )
   {
     GtkLabel *label = GTK_LABEL( Builder_Get_Object(
           rdpattern_window_builder, "rdpattern_label") );
@@ -1001,9 +977,9 @@ Set_Window_Labels( void )
     gtk_label_set_attributes( label, pol_attrs );
     pango_attr_list_unref( pol_attrs );
 
-  } /* if( isFlagSet(DRAW_ENABLED) ) */
+  } /* if( window_is_open(RDPATTERN_WINDOW) ) */
 
-  if( isFlagSet(PLOT_ENABLED) )
+  if( window_is_open(FREQPLOTS_WINDOW) )
   {
     Strlcpy( txt, _("Frequency Data Plots - "), s );
     Strlcat( txt, pol_type_name(calc_data.pol_type), s );

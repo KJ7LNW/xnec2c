@@ -54,8 +54,8 @@ void *const *render_tab_fields[SETTINGS_TAB_COUNT] = {
 void
 hook_render_redraw(void)
 {
-  Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw(TRUE);
+  canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
+  canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
 }
 
 const config_refresh_t hook_render_redraw_refresh =

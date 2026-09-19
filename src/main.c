@@ -24,6 +24,7 @@
 #include "gdk_scroll.h"
 #include "mathlib.h"
 #include "structure_ui.h"
+#include "window_lifecycle.h"
 #include "opengl/opengl_structure.h"
 #include "cairo/cairo_draw.h"
 #include "cairo/cairo_fit.h"
@@ -652,7 +653,7 @@ Open_Input_File( gpointer arg )
 
   /* Initialize xnec2c */
   rc_config.freq_apply = 1;
-  if( isFlagSet(PLOT_ENABLED) ) freq_sweep_arm();
+  if( window_is_open(FREQPLOTS_WINDOW) ) freq_sweep_arm();
   floop_tag = 0;
 
   /* Scale geometry for current frequency before potential loop start.
@@ -705,7 +706,7 @@ Open_Input_File( gpointer arg )
     Nec2_Input_File_Treeview( NEC2_EDITOR_RELOAD );
 
   /* Re-initialize Rad Pattern drawing if window open */
-  if( rdpattern_window != NULL )
+  if( window_is_open(RDPATTERN_WINDOW) )
   {
     // Don't reset the zoom during optimization:
     if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
@@ -741,7 +742,7 @@ Open_Input_File( gpointer arg )
   }
 
   /* Re-initiate frequency plots if window open */
-  if( isFlagSet(PLOT_ENABLED) )
+  if( window_is_open(FREQPLOTS_WINDOW) )
   {
     GtkWidget *box = Builder_Get_Object( freqplots_window_builder, "freqplots_box" );
     gtk_widget_show( box );

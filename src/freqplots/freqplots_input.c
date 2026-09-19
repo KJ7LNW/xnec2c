@@ -24,6 +24,7 @@
 #include "freqplots_locus.h"
 #include "../shared.h"
 #include "../gdk_scroll.h"
+#include "../window_lifecycle.h"
 
 #include <string.h>
 
@@ -40,18 +41,7 @@ Plots_Window_Killed( void )
   // references freed primary state.
   freqplots_destroy_all_popups();
 
-  if( isFlagSet(PLOT_ENABLED) )
-  {
-    ClearFlag( PLOT_ENABLED );
-    g_object_unref( freqplots_window_builder );
-    freqplots_window_builder = NULL;
-
-    gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(
-          Builder_Get_Object(main_window_builder, "main_freqplots")), FALSE );
-  }
-  freqplots_window = NULL;
-  canvas_clear( CANVAS_FREQPLOTS );
-  kill_window = NULL;
+  window_release( FREQPLOTS_WINDOW );
 
   // Release heap tables, then zero the whole view so the resize caches
   // (prev_*) restart and width_available rescales on the next open.

@@ -46,7 +46,7 @@ freqplots_recount_ngraph(void)
 void
 hook_freqplots_redraw(void)
 {
-  if( isFlagSet(PLOT_ENABLED) && freq_sweep_has_results())
+  if( freq_sweep_has_results())
     freqplots_redraw_all(TRUE);
 }
 

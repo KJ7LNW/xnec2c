@@ -79,16 +79,12 @@ config_frequency_capture_pattern(GtkWidget *widget)
 
 /** config_frequency_pattern_ready - whether the radiation window takes frequency
  *
- * Drawing is what makes the radiation window's frequency control a live
- * participant; a window already built but not yet drawing holds a control
- * the frequency path leaves alone.
- *
- * Return: TRUE while the radiation window draws and holds its control.
+ * Return: TRUE while the radiation window holds its frequency control.
  */
 static gboolean
 config_frequency_pattern_ready(void)
 {
-  return isFlagSet(DRAW_ENABLED) && (rdpattern_frequency != NULL);
+  return( rdpattern_frequency != NULL );
 }
 
 const config_widget_participation_t config_frequency_readout_rule =

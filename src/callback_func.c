@@ -28,6 +28,7 @@
 #include "chroma/chroma.h"
 #include "render/render_geometry.h"
 #include "structure_ui.h"
+#include "window_lifecycle.h"
 #include "mem/mem_track.h"
 
 #include "sy_expr.h"
@@ -251,9 +252,6 @@ Main_Rdpattern_Activate( gboolean from_menu )
   if( from_menu && calc_data.FR_cards )
     gtk_spin_button_set_value( GTK_SPIN_BUTTON(rdpattern_frequency), calc_data.freq_mhz );
 
-  /* Enable Gain or E/H field drawing */
-  SetFlag( DRAW_ENABLED );
-
 } /* Main_Rdpattern_Activate() */
 
 /*-----------------------------------------------------------------------*/
@@ -262,7 +260,7 @@ Main_Rdpattern_Activate( gboolean from_menu )
  *
  * Callback function for for the main Frequency Plots button
  */
-  gboolean
+  void
 Main_Freqplots_Activate( void )
 {
   /* Feedpoint-undefined excitations still plot the radiation-derived panels;
@@ -270,11 +268,6 @@ Main_Freqplots_Activate( void )
   if( !fpat_has_feedpoint() )
     pr_notice(_("Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"), fpat.ixtyp);
 
-  /* Enable freq data graph plotting; per-series predicates suppress the
-   * feedpoint-undefined panels while the radiation-derived panels render. */
-  SetFlag( PLOT_ENABLED );
-
-  return( TRUE );
 } /* Main_Freqplots_Activate() */
 
 /*-----------------------------------------------------------------------*/
@@ -306,11 +299,11 @@ rdpattern_mode_apply( void )
 
   if( have_data )
   {
-    if( isFlagSet(DRAW_ENABLED) && !freq_sweep_active())
+    if( window_is_open(RDPATTERN_WINDOW) && !freq_sweep_active())
       fetch_freq_data();
   }
   else
-    Queue_Radiation_Redraw( TRUE );
+    canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
 
   Set_Window_Labels();
 
@@ -363,7 +356,7 @@ structure_view_apply( void )
 
   /* The rad-pattern structure overlay tracks the structure view */
   if( overlay_struct_active() )
-    Queue_Radiation_Redraw( TRUE );
+    canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
 
   /* The displayed quantity decides whether the segment and patch classes
    * present content, so the animation controls re-read that truth here. */

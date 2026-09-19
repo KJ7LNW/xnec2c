@@ -46,8 +46,8 @@ void config_frequency_capture_main(GtkWidget *widget);
 void config_frequency_capture_pattern(GtkWidget *widget);
 
 /* What the radiation window's frequency control requires before an
- * operation reaches it: it shows a frequency and accepts one only while
- * that window draws. */
+ * operation reaches it: the window holds that control, which it does from
+ * the moment the binding resolves it until the window closes. */
 extern const config_widget_participation_t config_frequency_readout_rule;
 extern const config_widget_participation_t config_frequency_sensitive_rule;
 

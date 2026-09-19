@@ -71,7 +71,7 @@ void
 hook_flow_direction(void)
 {
   Queue_Structure_Rebuild( TRUE );
-  Queue_Radiation_Redraw(TRUE);
+  canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
 
   /* The selected mark decides whether the patch class carries phase, so the
    * Animate entries re-read their class truth on this edge. */
@@ -116,8 +116,8 @@ hook_orthographic(void)
       gtk_image_set_from_resource(GTK_IMAGE(img), icon);
   }
 
-  Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw(TRUE);
+  canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
+  canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
 }
 
 /* Swapping the projection re-frames the structure and the pattern together,
@@ -132,7 +132,7 @@ hook_rdpat_ehfield(void)
 {
   Set_Window_Labels();
   if( rdpat_ehfield_active() )
-    Queue_Radiation_Redraw(TRUE);
+    canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
 
   /* The channel selections decide whether the near-field class presents
    * content, so the animation controls re-read that truth here. */
@@ -145,7 +145,7 @@ const config_refresh_t hook_rdpat_ehfield_refresh =
 void
 hook_rdpat_redraw(void)
 {
-  Queue_Radiation_Redraw(TRUE);
+  canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
 }
 
 const config_refresh_t hook_rdpat_redraw_refresh =

@@ -41,6 +41,7 @@
 #include "freqplots_locus.h"
 #include "../cairo/cairo_fit.h"
 #include "../shared.h"
+#include "../window_lifecycle.h"
 #include "../opt_ui.h"
 #include "../config/widget/config_widget.h"
 #include "../config/widget/config_widget_ops.h"
@@ -585,7 +586,7 @@ Display_Frequency_Data( void )
 
   measurement_t meas;
 
-  if( isFlagClear(PLOT_ENABLED) ) return;
+  if( !window_is_open(FREQPLOTS_WINDOW) ) return;
 
   fstep = fp_selected_fstep();
 
@@ -1175,9 +1176,9 @@ freqplots_cleanup( void )
   void
 _Plot_Frequency_Data( freqplots_view_t *v, cairo_t *cr )
 {
-  /* Abort plotting if main window is to be closed
-   * or when plots drawing area not available */
-  if( isFlagClear(PLOT_ENABLED) ||
+  /* Abort plotting while this view presents no surface
+   * or while the excitation is undefined */
+  if( !canvas_bound(v->canvas) ||
       isFlagClear(ENABLE_EXCITN) )
     return;
 
@@ -1402,14 +1403,14 @@ static gboolean freqplots_panel_showing(fp_panel_t panel)
 
 /* Repaint every frequency-plot view when at least one panel of @panels is on
  * screen, so an observer names only the panels whose traces its change moves.
- * @panels ends at FP_PANEL_COUNT.  Stays quiet while the plots are disabled,
- * while intermediate redraws are suppressed, and while no named panel shows. */
+ * @panels ends at FP_PANEL_COUNT.  Stays quiet while intermediate redraws
+ * are suppressed and while no named panel shows. */
 void freqplots_redraw_if_showing(const fp_panel_t *panels)
 {
 	gboolean showing = FALSE;
 	int i;
 
-	if (isFlagClear(PLOT_ENABLED) || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS))
+	if (isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS))
 		return;
 
 	for (i = 0; !showing && panels[i] != FP_PANEL_COUNT; i++)

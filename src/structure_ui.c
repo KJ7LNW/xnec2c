@@ -251,29 +251,9 @@ free_crnt_fstep_buffers(void)
 Queue_Structure_Rebuild(gboolean force)
 {
   opengl_structure_invalidate();
-  Queue_Structure_Redraw( force );
+  canvas_queue_redraw(CANVAS_STRUCTURE, force);
 
 } /* Queue_Structure_Rebuild() */
-
-/*-----------------------------------------------------------------------*/
-
-/*  Queue_Structure_Redraw()
- *  @force:  bypass the intermediate-redraw suppression gate
- *
- *  Queues a redraw of the structure drawingarea.  Callers that also change
- *  a frequency-plot input repaint the plots at their own edge.
- *
- *  Called wherever a view-only change needs a repaint; a change of the
- *  source data behind the baked buffers uses Queue_Structure_Rebuild().
- *  No projection-cache state is maintained here: view_R(), the
- *  pan_offset and the zoom are read directly at draw time.
- */
-  void
-Queue_Structure_Redraw(gboolean force)
-{
-  canvas_queue_redraw( CANVAS_STRUCTURE, force );
-
-} /* Queue_Structure_Redraw() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -301,7 +281,7 @@ structure_view_changed_cb(view_t *v, gpointer _user_data)
 
   view_update_spin_display( v );
   structure_viewer_readout();
-  Queue_Structure_Redraw( TRUE );
+  canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
   freqplots_redraw_if_showing( view_panels );
 
 } /* structure_view_changed_cb() */

@@ -29,6 +29,7 @@ xnec2c_SOURCES = \
     rdpattern_noise_menu.c rdpattern_noise_menu.h \
     rdpattern_ui.c   rdpattern_ui.h \
     structure_ui.c   structure_ui.h \
+    window_lifecycle.c window_lifecycle.h \
     fields.c        fields.h \
     fork.c          fork.h \
     geometry.c      geometry.h \

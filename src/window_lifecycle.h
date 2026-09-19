@@ -17,18 +17,13 @@
  *    https://www.xnec2c.org/
  */
 
-#ifndef STRUCTURE_UI_H
-#define STRUCTURE_UI_H  1
+#ifndef WINDOW_LIFECYCLE_H
+#define WINDOW_LIFECYCLE_H  1
 
 #include "common.h"
-#include "chroma/chroma.h"
 
-void Draw_Structure_UI(void);
-void Show_Viewer_Gain(GtkBuilder *builder, gchar *widget, view_t *v);
-void Alloc_Crnt_Fstep_Buffers(int nfrq);
-void free_crnt_fstep_buffers(void);
-void Queue_Structure_Rebuild(gboolean force);
-void structure_view_changed_cb(view_t *v, gpointer user_data);
-void Init_Struct_Drawing(void);
+gboolean window_is_open(window_t type);
+window_t window_from_widget(GtkWidget *widget);
+void window_release(window_t type);
 
 #endif

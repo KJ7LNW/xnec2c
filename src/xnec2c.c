@@ -33,6 +33,7 @@
 #include "plot_freqdata.h"
 #include "rdpattern_ui.h"
 #include "structure_ui.h"
+#include "window_lifecycle.h"
 
 #define BATCH_RDPAT_DEFAULT_PX 800
 
@@ -869,19 +870,15 @@ freq_step_refresh_ui( gboolean force )
 {
   g_rec_mutex_lock(&freq_data_lock);
 
-  if( isFlagSet(PLOT_ENABLED) )
-    freqplots_redraw_all(force);
+  freqplots_redraw_all(force);
 
   Draw_Structure_UI();
 
   /* Vertex colors are baked per freq_step, so rebuild against crnt_fstep[]. */
   Queue_Structure_Rebuild( force );
 
-  if( isFlagSet(DRAW_ENABLED) )
-  {
-    Update_Rdpattern_UI();
-    Queue_Radiation_Redraw( force );
-  }
+  Update_Rdpattern_UI();
+  canvas_queue_redraw(CANVAS_RDPATTERN, force);
 
   opt_ui_update_values();
 
@@ -918,7 +915,7 @@ freq_step_update_ui( int new_step, gboolean force )
    * the frequency the user asked for */
   config_widget_readout( &calc_data.fmhz_save );
 
-  if( isFlagSet(PLOT_ENABLED) )
+  if( window_is_open(FREQPLOTS_WINDOW) )
   {
     snprintf( txt, sizeof(txt), "%.3f", calc_data.freq_mhz );
     gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(

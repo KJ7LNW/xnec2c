@@ -26,6 +26,7 @@
 #include "themes/theme.h"
 #include "rdpattern_ui.h"
 #include "structure_ui.h"
+#include "window_lifecycle.h"
 #include "anim/anim_dialog.h"
 #include "config_hooks.h"
 #include "rdpattern_noise_menu.h"
@@ -613,7 +614,7 @@ on_main_rdpattern_activate(
 #endif
 
   } /* if( gtk_check_menu_item_get_active(...) ) */
-  else if( isFlagSet(DRAW_ENABLED) )
+  else
     Gtk_Widget_Destroy( &rdpattern_window );
 }
 
@@ -664,72 +665,67 @@ on_main_freqplots_activate(
    * related data (gain, vswr etc) */
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
   {
-    if( Main_Freqplots_Activate() )
+    Main_Freqplots_Activate();
+
+    if (rc_config.freqplots_x < 0 || rc_config.rdpattern_y < 0)
     {
-      if (rc_config.freqplots_x < 0 || rc_config.rdpattern_y < 0)
-      {
-          Get_GUI_State();
-          rc_config.freqplots_x = rc_config.main_x + rc_config.main_width;
-          rc_config.freqplots_y = rc_config.main_y;
-      }
+        Get_GUI_State();
+        rc_config.freqplots_x = rc_config.main_x + rc_config.main_width;
+        rc_config.freqplots_y = rc_config.main_y;
+    }
 
-      freqplots_window = create_freqplots_window( &freqplots_window_builder );
+    freqplots_window = create_freqplots_window( &freqplots_window_builder );
 
-      /* The transport buttons carry the sweep state, so a freshly built
-       * window takes its face and its tooltips from the readout. */
-      freq_sweep_controls_refresh();
+    /* The transport buttons carry the sweep state, so a freshly built
+     * window takes its face and its tooltips from the readout. */
+    freq_sweep_controls_refresh();
 
-      GtkWidget *fp_da = Builder_Get_Object(
-          freqplots_window_builder, "freqplots_drawingarea" );
-      freqplots_main_view()->window      = freqplots_window;
-      freqplots_main_view()->canvas      = CANVAS_FREQPLOTS;
-      canvas_add_surface( CANVAS_FREQPLOTS,
-          cairo_surface_adopt(fp_da, NULL, NULL) );
-      canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine );
-      freqplots_main_view()->filter      = FP_PANEL_ALL;
-      g_object_set_data( G_OBJECT(fp_da), "fp_view", freqplots_main_view() );
-      freqplots_connect_panel_buttons();
-      Set_Window_Labels();
-      calc_data.ngraph = 0;
+    GtkWidget *fp_da = Builder_Get_Object(
+        freqplots_window_builder, "freqplots_drawingarea" );
+    freqplots_main_view()->canvas      = CANVAS_FREQPLOTS;
+    canvas_add_surface( CANVAS_FREQPLOTS,
+        cairo_surface_adopt(fp_da, NULL, NULL) );
+    canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine );
+    freqplots_main_view()->filter      = FP_PANEL_ALL;
+    g_object_set_data( G_OBJECT(fp_da), "fp_view", freqplots_main_view() );
+    freqplots_connect_panel_buttons();
+    Set_Window_Labels();
+    calc_data.ngraph = 0;
 
-      /* Set the Zo spinbutton value */
-      GtkWidget *spin = Builder_Get_Object(
-          freqplots_window_builder, "freqplots_zo_spinbutton" );
-      gtk_spin_button_set_value( GTK_SPIN_BUTTON(spin), (gdouble)calc_data.zo );
+    /* Set the Zo spinbutton value */
+    GtkWidget *spin = Builder_Get_Object(
+        freqplots_window_builder, "freqplots_zo_spinbutton" );
+    gtk_spin_button_set_value( GTK_SPIN_BUTTON(spin), (gdouble)calc_data.zo );
 
-      /* Populate the excitation-port selector for the current model. */
-      freqplots_populate_port_combo();
+    /* Populate the excitation-port selector for the current model. */
+    freqplots_populate_port_combo();
 
-      GtkAllocation alloc;
-      gtk_widget_get_allocation( fp_da, &alloc );
-      freqplots_main_view()->width  = alloc.width;
-      freqplots_main_view()->height = alloc.height;
+    GtkAllocation alloc;
+    gtk_widget_get_allocation( fp_da, &alloc );
+    freqplots_main_view()->width  = alloc.width;
+    freqplots_main_view()->height = alloc.height;
 
-      /* Restore frequency plots window widget state from the bound config
-       * fields, then run each tree's hook to set the derived plot-select
-       * flags and recompute the active-plot count. */
-      config_widget_sync_builder( &freqplots_window_builder );
-      config_widget_run_hooks( &freqplots_window_builder );
+    /* Restore frequency plots window widget state from the bound config
+     * fields, then run each tree's hook to set the derived plot-select
+     * flags and recompute the active-plot count. */
+    config_widget_sync_builder( &freqplots_window_builder );
+    config_widget_run_hooks( &freqplots_window_builder );
 
-      /* Gray feedpoint-dependent widgets for feedpoint-less excitations. */
-      freqplots_gate_feedpoint_widgets();
+    /* Gray feedpoint-dependent widgets for feedpoint-less excitations. */
+    freqplots_gate_feedpoint_widgets();
 
-      /* Request geometry and show after all widget state restorations
-       * so sizing is the last layout operation */
-      Set_Window_Geometry( freqplots_window,
-          rc_config.freqplots_x, rc_config.freqplots_y,
-          rc_config.freqplots_width, rc_config.freqplots_height );
-      gtk_widget_show( freqplots_window );
-      Update_Window_Titles();
+    /* Request geometry and show after all widget state restorations
+     * so sizing is the last layout operation */
+    Set_Window_Geometry( freqplots_window,
+        rc_config.freqplots_x, rc_config.freqplots_y,
+        rc_config.freqplots_width, rc_config.freqplots_height );
+    gtk_widget_show( freqplots_window );
+    Update_Window_Titles();
 
-      if( (rc_config.main_loop_start || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS)) && !freq_sweep_has_results())
-        Start_Frequency_Loop();
-
-    } /* if( Main_Freqplots_Activate() */
-    else gtk_check_menu_item_set_active(
-        GTK_CHECK_MENU_ITEM(menuitem), FALSE );
+    if( (rc_config.main_loop_start || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS)) && !freq_sweep_has_results())
+      Start_Frequency_Loop();
   }
-  else if( isFlagSet(PLOT_ENABLED) )
+  else
     Gtk_Widget_Destroy( &freqplots_window );
 }
 
@@ -800,20 +796,6 @@ static const char *preset_ids[2][4] = {
 };
 
 /**
- * window_type_from_widget - determine origin window from widget hierarchy
- * @widget: any widget belonging to the main or rdpattern window
- *
- * Compares the widget's toplevel against stored window globals.
- * Returns MAIN_WINDOW for the structure window, RDPATTERN_WINDOW otherwise.
- */
-  static window_t
-window_type_from_widget(GtkWidget *widget)
-{
-  GtkWidget *top = gtk_widget_get_toplevel(widget);
-  return (top == rdpattern_window) ? RDPATTERN_WINDOW : MAIN_WINDOW;
-}
-
-/**
  * set_view_preset - apply preset viewing angle to the target window
  * @wr:          rotate angle in degrees
  * @wi:          incline angle in degrees
@@ -844,7 +826,7 @@ on_view_preset_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  window_t wt = window_type_from_widget(GTK_WIDGET(button));
+  window_t wt = window_from_widget(GTK_WIDGET(button));
   GtkBuilder *builder = (wt == MAIN_WINDOW)
     ? main_window_builder : rdpattern_window_builder;
   int win_idx = (wt == MAIN_WINDOW) ? 0 : 1;
@@ -921,7 +903,7 @@ on_new_freq_clicked(
 {
   if(!freq_sweep_active())
   {
-    GtkSpinButton *sb = (window_type_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW)
+    GtkSpinButton *sb = (window_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW)
       ? mainwin_frequency : rdpattern_frequency;
     user_set_frequency((double)gtk_spin_button_get_value(sb));
   }
@@ -1112,10 +1094,7 @@ on_freqplots_zo_spinbutton_value_changed(
 {
   /* Set the value of Z0 used for VSWR calculations */
   calc_data.zo = gtk_spin_button_get_value(spinbutton);
-  if( isFlagSet(PLOT_ENABLED) )
-  {
-    freqplots_redraw_all(TRUE);
-  }
+  freqplots_redraw_all(TRUE);
 
   gtk_spin_button_update( spinbutton );
 }
@@ -1512,8 +1491,7 @@ opengl_set_renderer(gboolean enable)
   /* Swap renderer if radiation pattern window is open */
   if( canvas_set_engine( CANVAS_RDPATTERN, engine ) )
   {
-    /* Paint the freshly swapped widget during setup, before DRAW_ENABLED
-     * gates Queue_Radiation_Redraw() */
+    /* Paint the freshly swapped widget during setup */
     canvas_queue_redraw( CANVAS_RDPATTERN, TRUE );
   }
 
@@ -1631,10 +1609,9 @@ on_quit_okbutton_clicked(
       return;
     }
 
-    /* Stop freq loop if only one of plots
-     * or radiation pattern windows is open */
-    if( (isFlagSet(DRAW_ENABLED) && isFlagClear(PLOT_ENABLED)) ||
-        (isFlagClear(DRAW_ENABLED) && isFlagSet(PLOT_ENABLED)) )
+    /* The plots and rad-pattern windows are the sweep's consumers; stop it
+     * when the window being closed is the only one open */
+    if( window_is_open(RDPATTERN_WINDOW) != window_is_open(FREQPLOTS_WINDOW) )
       Stop_Frequency_Loop();
 
   } /* if( freq_sweep_active() ) */
@@ -4279,7 +4256,7 @@ on_zoom_plus_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  GtkSpinButton *z = (window_type_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW)
+  GtkSpinButton *z = (window_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW)
       ? structure_zoom : rdpattern_zoom;
 
   gtk_spin_button_set_value( z, gtk_spin_button_get_value( z ) * 1.1 );
@@ -4291,7 +4268,7 @@ on_zoom_minus_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  GtkSpinButton *z = (window_type_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW)
+  GtkSpinButton *z = (window_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW)
       ? structure_zoom : rdpattern_zoom;
 
   gtk_spin_button_set_value( z, gtk_spin_button_get_value( z ) / 1.1 );
@@ -4306,7 +4283,7 @@ on_zoom_reset_clicked(
   view_t *target;
   GtkSpinButton *z;
 
-  if( window_type_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW )
+  if( window_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW )
   {
     target = structure_view;
     z = structure_zoom;
@@ -4359,7 +4336,7 @@ on_fit_view_clicked(
 
   (void)_user_data;
 
-  if( window_type_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW )
+  if( window_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW )
     target = structure_view;
   else
     target = rdpattern_view;

@@ -88,6 +88,6 @@ on_general_reset_clicked(GtkButton *button, gpointer user_data)
   (void)user_data;
 
   config_reset_tab_user(SETTINGS_TAB_GENERAL);
-  Queue_Structure_Redraw( TRUE );
-  Queue_Radiation_Redraw(TRUE);
+  canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
+  canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
 }

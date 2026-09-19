@@ -200,11 +200,7 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 /* Main Window Control flags */
 #define MAIN_QUIT           0x0000000000000200ll
 
-/* Freq Plot Control flags */
-#define PLOT_ENABLED        0x0000000000080000ll
-
 /* Radiation Pattern Control flags */
-#define DRAW_ENABLED        0x0000000008000000ll
 #define ENABLE_RDPAT        0x0000000400000000ll
 #define ENABLE_NEAREH       0x0000000800000000ll
 
@@ -1350,7 +1346,8 @@ typedef enum
 {
   MAIN_WINDOW = 1,
   FREQPLOTS_WINDOW,
-  RDPATTERN_WINDOW
+  RDPATTERN_WINDOW,
+  WINDOW_COUNT
 } window_t;
 
 /* Function prototypes produced by cproto */
@@ -1378,7 +1375,7 @@ gboolean Open_Editor(GtkTreeView *view);
 void
 Card_Clicked(GtkWidget **editor, GtkBuilder **editor_builder, GtkWidget *create_fun(GtkBuilder **), void editor_fun(int), int *editor_action);
 void Main_Rdpattern_Activate(gboolean from_menu);
-gboolean Main_Freqplots_Activate(void);
+void Main_Freqplots_Activate(void);
 void rdpattern_mode_apply(void);
 extern const config_refresh_t rdpattern_mode_apply_refresh;
 
@@ -1761,7 +1758,6 @@ void polarization_refresh(void);
 void Set_Gain_Style(void);
 extern const config_refresh_t Set_Gain_Style_refresh;
 void gain_style_check_warnings(void);
-void Queue_Radiation_Redraw(gboolean force);
 void Update_Rdpattern_UI(void);
 double Viewer_Gain(view_t *v, int fstep);
 double Viewer_Noise_Value(view_t *v, int fstep);
