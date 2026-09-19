@@ -27,8 +27,11 @@
  * widget state.  The element describing either form is built and owned here.
  */
 
+#include <string.h>
 #include "config_widget_row.h"
+#include "config_widget_element.h"
 #include "config_widget_priv.h"
+#include "../config_preview_row.h"
 #include "../../mem/mem.h"
 
 /* Object-data key carrying a widget's binding row. */

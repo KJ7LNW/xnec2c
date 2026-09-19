@@ -24,6 +24,7 @@
  * names, and runs the builder-scoped bulk sync and hook passes.
  */
 
+#include "config_widget_element.h"
 #include "config_widget_priv.h"
 
 /*------------------------------------------------------------------------*/

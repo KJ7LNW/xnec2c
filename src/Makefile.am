@@ -79,9 +79,10 @@ xnec2c_SOURCES = \
     config/config_refresh.h \
     config/config_frequency.c config/config_frequency.h \
     config/config_preview.c config/config_preview.h \
-    config/config_preview_row.c \
+    config/config_preview_row.c config/config_preview_row.h \
+    config/widget/config_widget_field.h \
     config/widget/config_widget_priv.h \
-    config/widget/config_widget_element.c \
+    config/widget/config_widget_element.c config/widget/config_widget_element.h \
     config/widget/config_widget_element_sync.c \
     config/widget/config_widget_row.c config/widget/config_widget_row.h \
     config/widget/config_widget_scope.h \
@@ -89,6 +90,7 @@ xnec2c_SOURCES = \
     config/widget/config_widget_sync.c \
     config/widget/config_widget_walk.c \
     config/widget/config_widget_ops.c config/widget/config_widget_ops.h \
+    config/widget/config_widget_ops_target.c config/widget/config_widget_ops_target.h \
     config_hooks.c config_hooks.h \
     expr_edit.c     expr_edit.h \
     opt_ui.c        opt_ui.h \

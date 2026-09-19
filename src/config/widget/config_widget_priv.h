@@ -20,7 +20,6 @@
 #ifndef CONFIG_WIDGET_PRIV_H
 #define CONFIG_WIDGET_PRIV_H 1
 
-#include <string.h>
 #include "config_widget.h"
 
 /*
@@ -81,61 +80,6 @@ int config_widget_binding_count(void);
  * Return: the binding, which the registry continues to own.
  */
 config_widget_binding_t *config_widget_binding_at(int index);
-
-/*------------------------------------------------------------------------*/
-
-/* Size-aware field accessors.  Fields may be typed as enums whose storage
- * width is implementation-defined; these helpers read/write through the
- * field's actual width via memcpy, avoiding aliasing and width mismatches
- * from direct pointer casts. */
-
-/** field_read_int - read an int-compatible field at its actual width */
-static inline int
-field_read_int(const void *field, size_t size)
-{
-  int val = 0;
-  memcpy(&val, field, size);
-  return val;
-}
-
-/** field_write_int - write an int-compatible field at its actual width */
-static inline void
-field_write_int(void *field, size_t size, int val)
-{
-  memcpy(field, &val, size);
-}
-
-/** field_read_float - read a float field without aliasing */
-static inline float
-field_read_float(const void *field)
-{
-  float val;
-  memcpy(&val, field, sizeof(float));
-  return val;
-}
-
-/** field_write_float - write a float field without aliasing */
-static inline void
-field_write_float(void *field, float val)
-{
-  memcpy(field, &val, sizeof(float));
-}
-
-/** field_read_double - read a double field without aliasing */
-static inline double
-field_read_double(const void *field)
-{
-  double val;
-  memcpy(&val, field, sizeof(double));
-  return val;
-}
-
-/** field_write_double - write a double field without aliasing */
-static inline void
-field_write_double(void *field, double val)
-{
-  memcpy(field, &val, sizeof(double));
-}
 
 /*------------------------------------------------------------------------*/
 
@@ -242,71 +186,5 @@ void config_widget_menu_unblock(GtkWidget *menu);
  */
 void config_widget_label_sync(const config_widget_binding_t *b,
     GtkBuilder *builder, const config_widget_group_t *g, GtkWidget *menu);
-
-/** config_widget_element_candidate - predict what clicking a widget writes
- * @elt:  element describing the widget and its selection values
- * @w:    widget before its click edge
- * @out:  buffer of @size bytes
- * @size: the selection's field width
- *
- * Return: FALSE when the widget exposes no discrete click outcome, leaving
- * @out untouched.
- */
-gboolean config_widget_element_candidate(const config_widget_element_t *elt,
-    GtkWidget *w, void *out, size_t size);
-
-/** config_widget_element_selects - whether an element names a selection value
- * @elt: element describing the row
- *
- * Return: TRUE when the row expresses one value, in either width; FALSE when
- * the row expresses its own widget state instead.
- */
-gboolean config_widget_element_selects(const config_widget_element_t *elt);
-
-/** config_widget_element_holds - whether a field holds a row's selection
- * @field: field address
- * @size:  the selection's field width
- * @elt:   element naming a selection in either width
- *
- * Return: TRUE when the stored value equals the value @elt names; FALSE for
- * a row naming no selection, which expresses its own state instead.
- */
-gboolean config_widget_element_holds(const void *field, size_t size,
-    const config_widget_element_t *elt);
-
-/** config_widget_element_commit_value - what committing a widget writes
- * @elt:  element describing the widget
- * @w:    the resolved widget
- * @out:  buffer of @size bytes
- * @size: the selection's field width
- *
- * Return: FALSE when the widget contributes no value, which is the inactive
- * valued radio whose active peer carries the selection, and an unselected
- * combo.
- */
-gboolean config_widget_element_commit_value(const config_widget_element_t *elt,
-    GtkWidget *w, void *out, size_t size);
-
-/** config_widget_sync_element - write the field's value into one widget */
-void config_widget_sync_element(const void *field, size_t size,
-    const config_widget_element_t *elt, GtkWidget *w);
-
-/** config_preview_class_hoverable - test for per-row hover edges
- * @w: widget whose class defines the available edges
- *
- * Return: TRUE for menu items and toggle buttons; FALSE for every class that
- * presents no discrete row under the pointer.
- */
-gboolean config_preview_class_hoverable(GtkWidget *w);
-
-/** config_preview_row_attach - wire the hover edges a bound row's class carries
- * @w: a widget already carrying its binding row, of a class the caller has
- *     confirmed hoverable
- *
- * A menu item stages on selection and its shell reverts when that shell
- * completes a selection or withdraws; a toggle button stages on pointer
- * entry and reverts on pointer exit.
- */
-void config_preview_row_attach(GtkWidget *w);
 
 #endif /* CONFIG_WIDGET_PRIV_H */

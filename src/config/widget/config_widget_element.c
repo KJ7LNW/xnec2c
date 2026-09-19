@@ -25,7 +25,8 @@
  * back onto its widget lives in config_widget_element_sync.c.
  */
 
-#include "config_widget_priv.h"
+#include "config_widget_element.h"
+#include "config_widget_field.h"
 
 /*------------------------------------------------------------------------*/
 

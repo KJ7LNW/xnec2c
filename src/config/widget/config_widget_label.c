@@ -24,6 +24,8 @@
  * or the rows a selector built, and lends that row's name to the button.
  */
 
+#include "config_widget_element.h"
+#include "config_widget_field.h"
 #include "config_widget_priv.h"
 
 /*------------------------------------------------------------------------*/

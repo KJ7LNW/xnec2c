@@ -26,6 +26,7 @@
  */
 
 #include <string.h>
+#include "config_widget_element.h"
 #include "config_widget_priv.h"
 #include "config_widget_row.h"
 #include "../config_preview.h"

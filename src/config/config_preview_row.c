@@ -25,9 +25,10 @@
  * row already carries, so a hover stages exactly what a click commits.
  */
 
-#include "widget/config_widget_priv.h"
+#include "widget/config_widget_element.h"
 #include "widget/config_widget_row.h"
 #include "config_preview.h"
+#include "config_preview_row.h"
 #include "../console.h"
 
 /*------------------------------------------------------------------------*/
