@@ -48,6 +48,9 @@ typedef struct
 
 static const window_desc_t window_desc[WINDOW_COUNT] =
 {
+  /* window_row() rejects WINDOW_NONE, so its row holds no resources. */
+  [WINDOW_NONE] = { 0 },
+
   [MAIN_WINDOW] =
     { .window = &main_window, .builder = &main_window_builder,
       .canvas = CANVAS_STRUCTURE },
@@ -143,18 +146,15 @@ window_t
 window_from_widget(GtkWidget *widget)
 {
   GtkWidget *top   = gtk_widget_get_toplevel( widget );
-  window_t   match = MAIN_WINDOW;
-  gboolean   found = FALSE;
+  window_t   match = WINDOW_NONE;
 
   /* The scan stops at the row holding this toplevel; a row holding another
    * leaves the search running to the next. */
-  for( window_t type = MAIN_WINDOW; !found && (type < WINDOW_COUNT); type++ )
-  {
-    found = ( *window_desc[type].window == top );
-    match = found ? type : match;
-  }
+  for( window_t type = MAIN_WINDOW;
+       (match == WINDOW_NONE) && (type < WINDOW_COUNT); type++ )
+    match = ( *window_desc[type].window == top ) ? type : WINDOW_NONE;
 
-  return( match );
+  return( (match == WINDOW_NONE) ? MAIN_WINDOW : match );
 
 } /* window_from_widget() */
 

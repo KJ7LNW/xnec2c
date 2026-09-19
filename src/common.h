@@ -1344,7 +1344,8 @@ typedef struct
 
 typedef enum
 {
-  MAIN_WINDOW = 1,
+  WINDOW_NONE = 0,                    /* a zeroed record names no window */
+  MAIN_WINDOW,
   FREQPLOTS_WINDOW,
   RDPATTERN_WINDOW,
   WINDOW_COUNT
