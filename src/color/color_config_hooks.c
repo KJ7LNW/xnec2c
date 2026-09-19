@@ -25,6 +25,7 @@
 #include "../anim/anim_dialog.h"
 #include "../shared.h"
 #include "../callbacks.h"
+#include "../config/widget/config_widget_ops.h"
 #include "../rdpattern_ui.h"
 #include "../structure_ui.h"
 #include "color_palette.h"
@@ -131,7 +132,6 @@ anim_overlay_sensitivity(void)
   const char *no_wire = _("This overlay derives from wire-current segments;"
       " this model has none.");
   gboolean animated, has_wires;
-  GtkWidget *comet, *nodes;
 
   if( animate_dialog_builder == NULL )
     return;
@@ -139,26 +139,22 @@ anim_overlay_sensitivity(void)
   animated  = chroma_proj_animated(chroma_proj_selected());
   has_wires = anim_class_available(ANIM_CLASS_STRUCTURE_SEGMENT);
 
-  comet = config_widget_field_widget( &rc_config.overlay_comet,
-      &animate_dialog_builder );
-  nodes = config_widget_field_widget( &rc_config.overlay_nodes,
-      &animate_dialog_builder );
-
-  gtk_widget_set_sensitive( comet, animated && has_wires );
-  gtk_widget_set_sensitive( nodes, has_wires );
+  config_widget_set_sensitive( &rc_config.overlay_comet,
+      animated && has_wires );
+  config_widget_set_sensitive( &rc_config.overlay_nodes, has_wires );
 
   if( !has_wires )
   {
-    gtk_widget_set_tooltip_text( comet, no_wire );
-    gtk_widget_set_tooltip_text( nodes, no_wire );
+    config_widget_set_tooltip( &rc_config.overlay_comet, no_wire );
+    config_widget_set_tooltip( &rc_config.overlay_nodes, no_wire );
   }
   else
   {
-    gtk_widget_set_tooltip_text( comet, animated
+    config_widget_set_tooltip( &rc_config.overlay_comet, animated
         ? _("Highlight the moving wave crest as a bright comet head.")
         : _("Comet rides the animated wave crest; this projection is a static"
             " read with no moving phase.") );
-    gtk_widget_set_tooltip_text( nodes,
+    config_widget_set_tooltip( &rc_config.overlay_nodes,
         _("Mark current nodes (cyan) and antinodes (red) along the wires.") );
   }
 }

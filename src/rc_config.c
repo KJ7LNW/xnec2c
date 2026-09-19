@@ -27,6 +27,7 @@
 #include "config_hooks.h"
 #include "config/config_frequency.h"
 #include "config/config_preview.h"
+#include "config/widget/config_widget_ops.h"
 #include "rdpattern_noise_menu.h"
 #include "rdpattern_ui.h"
 #include "chroma/chroma.h"
@@ -59,6 +60,14 @@
 #define GL_CONFIG_WIDGET_SINGLE(...) NULL
 #define GL_CONFIG_WIDGET_GROUP(...)
 #endif
+
+/* The one shell three noise selectors share.  A selector fills it at
+ * runtime, so each group declares no element and every field reaches its own
+ * rows through the binding those rows carry. */
+#define NOISE_ENV_MENU_GROUP \
+	CONFIG_WIDGET_GROUP( .builder = &rdpattern_window_builder, \
+		.value_menu_id = "rdpattern_noise_env_menu_menu", \
+		.elements = CONFIG_WIDGETS( NULL ) )
 
 /* polarization stores an int; the "%d"/sizeof(int) row accessor requires it */
 CONFIG_FIELD_INT_ASSERT(calc_data.pol_type);
@@ -903,25 +912,24 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { &rc_config.sy_overrides_x, &rc_config.sy_overrides_y },
 		.def = { { .i = -1 }, { .i = -1 } } },
 
-	/* Bind runtime menu rows to these groupless trees. */
 	{ .desc = "Antenna Temp Sky Model", .format = "%d",
 		.vars = { &rc_config.ant_temp_sky },
 		.def = { { .i = ANT_TEMP_SKY_SYNTH_AVG } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_noise_env_refresh,
 			.on_change = hook_noise_sky_commit,
-			.groups = CONFIG_WIDGET_GROUPS( NULL ) ) },
+			.groups = CONFIG_WIDGET_GROUPS( NOISE_ENV_MENU_GROUP, NULL ) ) },
 
 	{ .desc = "Antenna Temp Earth Model", .format = "%d",
 		.vars = { &rc_config.ant_temp_earth },
 		.def = { { .i = ANT_TEMP_EARTH_DG7YBN_RESIDENTIAL } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_noise_env_refresh,
 			.on_change = hook_noise_earth_commit,
-			.groups = CONFIG_WIDGET_GROUPS( NULL ) ) },
+			.groups = CONFIG_WIDGET_GROUPS( NOISE_ENV_MENU_GROUP, NULL ) ) },
 
 	{ .desc = "Antenna Temp Interp Method", .format = "%d",
 		.vars = { &rc_config.ant_temp_interp }, .def = { { .i = ANT_TEMP_INTERP } },
 		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_noise_env_refresh,
-			.groups = CONFIG_WIDGET_GROUPS( NULL ) ) },
+			.groups = CONFIG_WIDGET_GROUPS( NOISE_ENV_MENU_GROUP, NULL ) ) },
 
 	{ .desc = "Antenna Temp Elevation (deg, +=up)", .format = "%lf",
 		.vars = { &rc_config.ant_temp_elevation },
@@ -1639,8 +1647,6 @@ get_main_window_state( void )
   void
 get_rdpattern_window_state( void )
 {
-  GtkWidget *widget;
-
   /* Get geometry of radiation patterns window */
   rc_config.rdpattern_is_open = Get_Window_Geometry( rdpattern_window,
       &(rc_config.rdpattern_x), &(rc_config.rdpattern_y),
@@ -1657,9 +1663,7 @@ get_rdpattern_window_state( void )
 
     /* Antenna temperature elevation: commit entry text typed without
      * activation so the bound field holds the number on screen */
-    widget = config_widget_field_widget( &rc_config.ant_temp_elevation,
-        &rdpattern_window_builder );
-    gtk_spin_button_update( GTK_SPIN_BUTTON(widget) );
+    config_widget_flush( &rc_config.ant_temp_elevation );
 
     /* Noise models — values are maintained by signal handlers;
      * no widget query needed here since rc_config fields are

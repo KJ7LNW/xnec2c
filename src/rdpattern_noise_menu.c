@@ -26,10 +26,7 @@
 #include "measurements.h"
 #include "i18n.h"
 #include "config/widget/config_widget.h"
-
-#define NOISE_SKY_IDX_KEY     "sky-idx"
-#define NOISE_EARTH_IDX_KEY   "earth-idx"
-#define NOISE_INTERP_IDX_KEY  "interp-idx"
+#include "config/widget/config_widget_row.h"
 
 /* Names what each selectable method does with the model's frequency table.
  * A named method carries a menu row; the intrinsic methods name none. */
@@ -59,40 +56,6 @@ noise_menu_shell(void)
 }
 
 /**
- * noise_menu_group_set_active() - re-present one generated selector group
- * @key:   object-data key naming the group
- * @value: value the group must show
- */
-static void
-noise_menu_group_set_active(const char *key, int value)
-{
-  GtkWidget *menu = noise_menu_shell();
-  GList *children;
-  gboolean found = FALSE;
-
-  if (menu == NULL)
-    return;
-
-  children = gtk_container_get_children(GTK_CONTAINER(menu));
-  for (GList *l = children; (l != NULL) && !found; l = l->next)
-  {
-    gpointer data = g_object_get_data(G_OBJECT(l->data), key);
-    if (data == NULL)
-      continue;
-
-    /* Store the index plus one so index zero remains distinct from NULL */
-    if ((GPOINTER_TO_INT(data) - 1) != value)
-      continue;
-
-    SIGNAL_BLOCK(l->data, on_config_widget_changed);
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(l->data), TRUE);
-    SIGNAL_UNBLOCK(l->data, on_config_widget_changed);
-    found = TRUE;
-  }
-  g_list_free(children);
-}
-
-/**
  * noise_interp_update_sensitivity() - enable/disable interp menu items
  *
  * Computes the union of valid_interp bitmasks from the currently
@@ -107,17 +70,22 @@ noise_interp_update_sensitivity(void)
   if (menu == NULL)
     return;
 
+  const config_widget_scope_t *interp =
+      config_widget_field_scope(&rc_config.ant_temp_interp);
   uint8_t allowed = sky_models[rc_config.ant_temp_sky].valid_interp
       | earth_models[rc_config.ant_temp_earth].valid_interp;
   GList *children = gtk_container_get_children(GTK_CONTAINER(menu));
 
   for (GList *l = children; l != NULL; l = l->next)
   {
-    gpointer data = g_object_get_data(G_OBJECT(l->data), NOISE_INTERP_IDX_KEY);
-    if (data == NULL)
+    const config_widget_row_t *row = config_widget_row_get(GTK_WIDGET(l->data));
+
+    /* One shell carries the rows of all three noise fields, and a heading
+     * or a separator carries none */
+    if ((row == NULL) || (row->scope != interp))
       continue;
 
-    int idx = GPOINTER_TO_INT(data) - 1;
+    int idx = *(const int *)row->elt->value_bytes;
     gboolean usable = (allowed & ANT_TEMP_METHOD_BIT(idx)) != 0;
     const char *purpose = noise_interp_purpose[idx];
 
@@ -179,36 +147,33 @@ noise_interp_auto_switch(ant_temp_method_t fallback)
   rc_config.ant_temp_interp =
       ((fallback == ANT_TEMP_SNAP) || (fallback == ANT_TEMP_INTERP))
       ? fallback : ANT_TEMP_INTERP;
-  noise_menu_group_set_active(NOISE_INTERP_IDX_KEY, rc_config.ant_temp_interp);
 
   /* Repaint the fallback after the earlier refresh painted the old method */
   config_widget_field_changed(&rc_config.ant_temp_interp);
 }
 
 /**
- * hook_noise_sky_commit() - reassign interp and re-present the sky group
+ * hook_noise_sky_commit() - reassign interp on a sky model commit
  *
- * Move the radio when a typed custom temperature selects its model instead
- * of a menu row activation.
+ * A sky model narrows the interpolation methods its rows admit, so the
+ * interpolation field moves with it.
  */
 void
 hook_noise_sky_commit(void)
 {
   noise_interp_auto_switch(sky_models[rc_config.ant_temp_sky].method);
-  noise_menu_group_set_active(NOISE_SKY_IDX_KEY, rc_config.ant_temp_sky);
 }
 
 /**
- * hook_noise_earth_commit() - reassign interp and re-present the earth group
+ * hook_noise_earth_commit() - reassign interp on an earth model commit
  *
- * Move the radio when a typed custom temperature selects its model instead
- * of a menu row activation.
+ * An earth model narrows the interpolation methods its rows admit, so the
+ * interpolation field moves with it.
  */
 void
 hook_noise_earth_commit(void)
 {
   noise_interp_auto_switch(earth_models[rc_config.ant_temp_earth].method);
-  noise_menu_group_set_active(NOISE_EARTH_IDX_KEY, rc_config.ant_temp_earth);
 }
 
 /**
@@ -242,28 +207,21 @@ noise_menu_append_heading(GtkWidget *menu, const char *label)
  * @menu:  target GtkMenuShell
  * @group: radio group the row joins, extended to include it
  * @label: row text
- * @key:   object-data key naming the row's selector group
  * @field: registered field the row writes
  * @idx:   value selecting this row
  *
- * Seed the active state before binding so loading the persisted selection
- * reaches no commit edge.  Append the row before binding so it reaches the
- * shell that ends its hover.
+ * Append the row before binding so it reaches the shell that ends its hover.
+ * The stored selection reaches the finished shell through its field, so no
+ * row carries an active state of its own here.
  */
 static void
 noise_menu_radio_append(GtkWidget *menu, GSList **group, const char *label,
-    const char *key, int *field, int idx)
+    int *field, int idx)
 {
   GtkWidget *item = gtk_radio_menu_item_new_with_label(*group, label);
 
   *group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(item));
 
-  /* Store the index plus one so index zero remains distinct from NULL */
-  g_object_set_data(G_OBJECT(item), key, GINT_TO_POINTER(idx + 1));
-
-  SIGNAL_BLOCK(item, on_config_widget_changed);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), idx == *field);
-  SIGNAL_UNBLOCK(item, on_config_widget_changed);
   gtk_widget_show(item);
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
   config_widget_bind_row(item, field, &idx);
@@ -277,8 +235,8 @@ noise_menu_radio_append(GtkWidget *menu, GSList **group, const char *label,
  * Sets active items from rc_config.  Called once when the
  * rdpattern window opens.
  *
- * Derive the initial interpolation sensitivity here because groupless trees
- * receive no hook pass.
+ * Derive the initial interpolation sensitivity here because the hook pass
+ * runs before this shell holds a row.
  */
 void
 noise_model_menus_populate(void)
@@ -296,14 +254,14 @@ noise_model_menus_populate(void)
   noise_menu_append_heading(menu, _("Sky Model"));
   for (int i = 0; i < ANT_TEMP_SKY_COUNT; i++)
     noise_menu_radio_append(menu, &sky_group, sky_models[i].name,
-        NOISE_SKY_IDX_KEY, &rc_config.ant_temp_sky, i);
+        &rc_config.ant_temp_sky, i);
 
   /* Add earth models */
   noise_menu_append_separator(menu);
   noise_menu_append_heading(menu, _("Earth Model"));
   for (int i = 0; i < ANT_TEMP_EARTH_COUNT; i++)
     noise_menu_radio_append(menu, &earth_group, earth_models[i].name,
-        NOISE_EARTH_IDX_KEY, &rc_config.ant_temp_earth, i);
+        &rc_config.ant_temp_earth, i);
 
   /* Add user-selectable interpolation methods for table models; the purpose
    * table names them, keeping the intrinsic methods with their models */
@@ -315,8 +273,14 @@ noise_model_menus_populate(void)
       continue;
 
     noise_menu_radio_append(menu, &interp_group, ant_temp_method_names[i],
-        NOISE_INTERP_IDX_KEY, &rc_config.ant_temp_interp, i);
+        &rc_config.ant_temp_interp, i);
   }
+
+  /* The shell holds every row now, so each field reaches the one row
+   * carrying its stored selection */
+  config_widget_sync_field(&rc_config.ant_temp_sky);
+  config_widget_sync_field(&rc_config.ant_temp_earth);
+  config_widget_sync_field(&rc_config.ant_temp_interp);
 
   noise_interp_update_sensitivity();
 }

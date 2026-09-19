@@ -33,6 +33,7 @@
 #endif
 #include "config_hooks.h"
 #include "config/config_frequency.h"
+#include "config/widget/config_widget_ops.h"
 #include "themes/theme.h"
 #include "color/color_palette.h"
 #include "ui_style.h"
@@ -315,8 +316,7 @@ main (int argc, char *argv[])
     Get_Dirname( rc_config.input_file, rc_config.working_dir, NULL );
 
   /* Main window freq spinbutton */
-  mainwin_frequency = GTK_SPIN_BUTTON( config_widget_field_widget(
-        &calc_data.fmhz_save, &main_window_builder ) );
+  config_widget_capture( &calc_data.fmhz_save );
 
   /* Get the structure drawing area and allocation */
   GtkWidget *structure_cairo_da =
@@ -377,8 +377,7 @@ main (int argc, char *argv[])
 #else
   canvas_set_engine( CANVAS_STRUCTURE, &cairo_engine );
 
-  gtk_widget_hide( config_widget_field_widget( &rc_config.opengl_orthographic,
-        &main_window_builder ) );
+  config_widget_set_visible( &rc_config.opengl_orthographic, FALSE );
 #endif
 
   /* Signal start of xnec2c */

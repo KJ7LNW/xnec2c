@@ -43,6 +43,7 @@
 #include "../shared.h"
 #include "../opt_ui.h"
 #include "../config/widget/config_widget.h"
+#include "../config/widget/config_widget_ops.h"
 
 #include <string.h>
 
@@ -892,20 +893,18 @@ freqplots_gate_feedpoint_widgets( void )
   const char *reason = fpat_has_feedpoint() ? NULL :
     _("Not available: excitation defines no feedpoint");
 
-  GtkWidget *item = config_widget_field_widget(
-      &rc_config.freqplots_net_gain, &freqplots_window_builder );
-  gtk_widget_set_sensitive( item, fpat_has_feedpoint() );
-  gtk_widget_set_tooltip_text( item, reason );
+  config_widget_set_sensitive( &rc_config.freqplots_net_gain,
+      fpat_has_feedpoint() );
+  config_widget_set_tooltip( &rc_config.freqplots_net_gain, reason );
 
   for( p = 0; p < FP_PANEL_COUNT; p++ )
   {
     if( !fp_panel_desc[p].needs_feedpoint )
       continue;
 
-    GtkWidget *btn = config_widget_field_widget(
-        fp_panel_desc[p].select_field, &freqplots_window_builder );
-    gtk_widget_set_sensitive( btn, fp_panel_available( p ) );
-    gtk_widget_set_tooltip_text( btn, reason );
+    config_widget_set_sensitive( fp_panel_desc[p].select_field,
+        fp_panel_available( p ) );
+    config_widget_set_tooltip( fp_panel_desc[p].select_field, reason );
   }
 
 } /* freqplots_gate_feedpoint_widgets() */

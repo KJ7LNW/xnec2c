@@ -30,6 +30,7 @@
 #include "config_hooks.h"
 #include "rdpattern_noise_menu.h"
 #include "rc_config.h"
+#include "config/widget/config_widget_ops.h"
 #include "cairo/cairo_frame.h"
 #include "cairo/cairo_fit.h"
 #include "chroma/chroma_farfield.h"
@@ -529,8 +530,7 @@ on_main_rdpattern_activate(
           rdpattern_window_builder, "rdpattern_rotate_spinbutton") );
     incline_rdpattern = GTK_SPIN_BUTTON(Builder_Get_Object(
           rdpattern_window_builder, "rdpattern_incline_spinbutton") );
-    rdpattern_frequency = GTK_SPIN_BUTTON( config_widget_field_widget(
-          &calc_data.fmhz_save, &rdpattern_window_builder ) );
+    config_widget_capture( &calc_data.fmhz_save );
     rdpattern_zoom = GTK_SPIN_BUTTON(Builder_Get_Object(
           rdpattern_window_builder, "rdpattern_zoom_spinbutton") );
     rdpattern_fstep_entry = GTK_ENTRY(Builder_Get_Object(
@@ -577,8 +577,7 @@ on_main_rdpattern_activate(
 #else
     canvas_set_engine( CANVAS_RDPATTERN, &cairo_engine );
 
-    gtk_widget_hide( config_widget_field_widget( &rc_config.opengl_orthographic,
-          &rdpattern_window_builder ) );
+    config_widget_set_visible( &rc_config.opengl_orthographic, FALSE );
 #endif
     canvas_sync_viewport( CANVAS_RDPATTERN );
 
@@ -646,12 +645,12 @@ freqplots_connect_panel_buttons( void )
 
   for( p = 0; p < FP_PANEL_COUNT; p++ )
   {
-    GtkWidget *btn = config_widget_field_widget(
-        freqplots_panel_select_field( p ), &freqplots_window_builder );
+    config_widget_signal_t popup = {
+      .name    = "button-press-event",
+      .handler = G_CALLBACK(freqplots_panel_button_press_cb),
+      .data    = GINT_TO_POINTER(p) };
 
-    g_signal_connect( btn, "button-press-event",
-        G_CALLBACK(freqplots_panel_button_press_cb),
-        GINT_TO_POINTER(p) );
+    config_widget_connect( freqplots_panel_select_field( p ), &popup );
   }
 }
 

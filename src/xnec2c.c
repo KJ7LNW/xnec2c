@@ -22,6 +22,7 @@
 #include "xnec2c.h"
 #include "callbacks.h"
 #include "shared.h"
+#include "config/widget/config_widget_ops.h"
 #include "render/render_canvas.h"
 #include "measurements.h"
 #include "prerender/prerender_color.h"
@@ -913,18 +914,9 @@ freq_step_update_ui( int new_step, gboolean force )
   calc_data.freq_step = new_step;
   calc_data.freq_mhz  = save.freq[new_step];
 
-  /* Block value-changed callbacks during programmatic spinbutton updates;
-   * only user interaction sets fmhz_save via those callbacks. */
-  SIGNAL_BLOCK(mainwin_frequency, on_config_widget_changed);
-  gtk_spin_button_set_value( mainwin_frequency, calc_data.freq_mhz );
-  SIGNAL_UNBLOCK(mainwin_frequency, on_config_widget_changed);
-
-  if( isFlagSet(DRAW_ENABLED) && rdpattern_frequency != NULL )
-  {
-    SIGNAL_BLOCK(rdpattern_frequency, on_config_widget_changed);
-    gtk_spin_button_set_value( rdpattern_frequency, calc_data.freq_mhz );
-    SIGNAL_UNBLOCK(rdpattern_frequency, on_config_widget_changed);
-  }
+  /* The spin buttons show the step the sweep reached, while fmhz_save keeps
+   * the frequency the user asked for */
+  config_widget_readout( &calc_data.fmhz_save );
 
   if( isFlagSet(PLOT_ENABLED) )
   {

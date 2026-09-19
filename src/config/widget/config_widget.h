@@ -271,20 +271,6 @@ void config_widget_run_hooks(GtkBuilder **builder);
 /** config_widget_sync_all - write every registered field's value into its widgets */
 void config_widget_sync_all(void);
 
-/** config_widget_field_widget - resolve a field's widget within one builder
- * @field:   address of a registered field
- * @builder: address of the builder pointer naming the group to resolve
- *
- * For a caller needing the widget object: sensitivity, tooltip, visibility,
- * or a signal connection.  A caller needing the value reads the field and
- * lets the projection carry writes out.
- *
- * Return: the widget, or NULL after a reported bug when @field is
- * unregistered, when no group names @builder, when *builder is NULL, or
- * when that group names other than exactly one element.
- */
-GtkWidget *config_widget_field_widget(void *field, GtkBuilder **builder);
-
 /** on_config_widget_changed - unified glade signal handler for bound widgets
  * @widget:    the widget that fired the signal
  * @user_data: unused

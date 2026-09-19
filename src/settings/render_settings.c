@@ -19,6 +19,7 @@
 
 #include "../shared.h"
 #include "../callbacks.h"
+#include "../config/widget/config_widget_ops.h"
 #include "render_settings.h"
 #include "render_settings_internal.h"
 #include "render_settings_common.h"
@@ -42,28 +43,20 @@
 static void
 general_tab_apply_gl_sensitivity(void)
 {
-  GtkWidget *w = config_widget_field_widget(&rc_config.use_opengl_renderer,
-      &render_settings_builder);
-
 #ifdef HAVE_OPENGL
-  if( opengl_gl_context_failed() )
-  {
-    gtk_widget_set_sensitive(w, FALSE);
-    gtk_widget_set_tooltip_text(w,
-        "OpenGL is not available on this display.\n"
-        "Cairo rendering is active.");
-  }
-  else
-  {
-    gtk_widget_set_sensitive(w, TRUE);
-    gtk_widget_set_tooltip_text(w, NULL);
-  }
+  gboolean usable = !opengl_gl_context_failed();
+  const char *reason = usable ? NULL :
+      "OpenGL is not available on this display.\n"
+      "Cairo rendering is active.";
 #else
-  gtk_widget_set_sensitive(w, FALSE);
-  gtk_widget_set_tooltip_text(w,
+  gboolean usable = FALSE;
+  const char *reason =
       "Built without OpenGL support.\n"
-      "Cairo rendering is active.");
+      "Cairo rendering is active.";
 #endif
+
+  config_widget_set_sensitive(&rc_config.use_opengl_renderer, usable);
+  config_widget_set_tooltip(&rc_config.use_opengl_renderer, reason);
 }
 
 /*------------------------------------------------------------------------*/

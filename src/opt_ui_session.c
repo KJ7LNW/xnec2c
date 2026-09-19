@@ -15,6 +15,7 @@
 #include "optimizers/particleswarm.h"
 #include "sy_overrides.h"
 #include "shared.h"
+#include "config/widget/config_widget_ops.h"
 
 static void pso_auto_populate_particles(int num_vars);
 
@@ -60,9 +61,7 @@ static void opt_finished(gpointer _u)
 	gtk_widget_set_sensitive(start_button, TRUE);
 	gtk_widget_set_sensitive(cancel_button, FALSE);
 	sy_overrides_set_apply_enabled(TRUE);
-	gtk_widget_set_sensitive(GTK_WIDGET(mainwin_frequency), TRUE);
-	if( isFlagSet(DRAW_ENABLED) && rdpattern_frequency != NULL )
-		gtk_widget_set_sensitive(GTK_WIDGET(rdpattern_frequency), TRUE);
+	config_widget_set_sensitive(&calc_data.fmhz_save, TRUE);
 
 	/* Apply results back to override entries */
 	{
@@ -281,9 +280,7 @@ void on_opt_start_clicked(GtkButton *button, gpointer user_data)
 		gtk_widget_set_sensitive(start_button, FALSE);
 		gtk_widget_set_sensitive(cancel_button, TRUE);
 		sy_overrides_set_apply_enabled(FALSE);
-		gtk_widget_set_sensitive(GTK_WIDGET(mainwin_frequency), FALSE);
-		if( isFlagSet(DRAW_ENABLED) && rdpattern_frequency != NULL )
-			gtk_widget_set_sensitive(GTK_WIDGET(rdpattern_frequency), FALSE);
+		config_widget_set_sensitive(&calc_data.fmhz_save, FALSE);
 
 		if (status_label != NULL)
 		{
