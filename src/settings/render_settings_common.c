@@ -101,10 +101,11 @@ config_reset_tab_user(settings_tab_t tab)
 
 /*------------------------------------------------------------------------*/
 
-/** render_settings_load_glade - Load all three settings glade resources
+/** render_settings_load_glade - Load every settings glade resource
  *
  * Creates the builder, loads render_settings.glade, opengl_settings.glade,
- * and cairo_settings.glade, connects signals, and extracts the window widget.
+ * cairo_settings.glade and color_settings.glade, connects signals, and
+ * extracts the window widget.
  * Returns TRUE on success; on failure, logs the error and returns FALSE.
  */
 gboolean
@@ -138,6 +139,14 @@ render_settings_load_glade(void)
   {
     pr_err("render_settings_init: failed to load cairo glade: %s\n",
         gerror->message);
+    g_error_free(gerror);
+    return FALSE;
+  }
+
+  if( !gtk_builder_add_from_resource(render_settings_builder,
+        "/settings/color_settings.glade", &gerror) )
+  {
+    BUG("failed to load color glade: %s\n", gerror->message);
     g_error_free(gerror);
     return FALSE;
   }

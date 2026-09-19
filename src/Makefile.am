@@ -323,7 +323,7 @@ xnec2c_SOURCES += xnec2c-resources.c
 CLEANFILES     += xnec2c-resources.c
 # --generate-phony-targets: emit phony Make targets for each resource file so
 # deleting a resource file triggers a rebuild instead of a stale-dep error.
-xnec2c-resources.c: $(top_srcdir)/resources/xnec2c.gresource.xml $(top_srcdir)/resources/xnec2c.glade $(top_srcdir)/resources/animate.glade $(top_srcdir)/resources/settings/render_settings.glade $(top_srcdir)/resources/settings/opengl_settings.glade $(top_srcdir)/resources/settings/cairo_settings.glade $(top_srcdir)/resources/themes.ini $(top_srcdir)/resources/freqplots_widths.ini
+xnec2c-resources.c: $(top_srcdir)/resources/xnec2c.gresource.xml $(top_srcdir)/resources/xnec2c.glade $(top_srcdir)/resources/animate.glade $(top_srcdir)/resources/settings/render_settings.glade $(top_srcdir)/resources/settings/opengl_settings.glade $(top_srcdir)/resources/settings/cairo_settings.glade $(top_srcdir)/resources/settings/color_settings.glade $(top_srcdir)/resources/themes.ini $(top_srcdir)/resources/freqplots_widths.ini
 	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/resources --dependency-file=./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc --generate-phony-targets --target=xnec2c-resources.c --generate-source $(top_srcdir)/resources/xnec2c.gresource.xml
 
 # Do not dist the generated source file so that building from tarball

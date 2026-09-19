@@ -23,7 +23,7 @@
 #include "config/widget/config_widget.h"
 
 /* config_hooks: xnec2c-specific change-edge hooks bound to rc_config_vars
- * rows. */
+ * rows, with the widget bindings a row shares across windows. */
 
 void hook_polarization(void);
 extern const config_refresh_t hook_polarization_refresh;
@@ -45,12 +45,41 @@ extern const config_refresh_t hook_color_family_refresh;
 
 /**
  * color_tone_marks_attach() - Mark and wire the family sliders at creation
+ * @builder: builder holding the family slider rows
  *
  * Adds each family's snap marks labeled with the natural parameter and
  * connects the shared snap and value-format handlers with the row as
  * user data.
  */
-void color_tone_marks_attach(void);
+void color_tone_marks_attach(GtkBuilder *builder);
+
+/* The color panel's two hosts.  The animate dialog and the render settings
+ * Color tab load one glade definition into their own builders, so one widget
+ * id addresses a widget in each and a selection made while animating stays
+ * reachable once the animate dialog closes.  color_builders[] in
+ * color/color_config_hooks.c names the same windows for panel writes. */
+#define COLOR_PANEL_WIDGET(id, hook) \
+  CONFIG_WIDGET_TREE( .post_apply = (hook), \
+    .groups = CONFIG_WIDGET_GROUPS( \
+      CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder, \
+        .elements = CONFIG_WIDGETS( \
+          CONFIG_WIDGET( .widget_id = (id) ), NULL ) ), \
+      CONFIG_WIDGET_GROUP( .builder = &render_settings_builder, \
+        .elements = CONFIG_WIDGETS( \
+          CONFIG_WIDGET( .widget_id = (id) ), NULL ) ), \
+      NULL ) )
+
+/* Both host groups of one color pull-down, naming the same rows and the same
+ * collapsed label.  Every member the field can hold appears in each group,
+ * because config_widget_label_row_declared() reports a bug for a stored value
+ * no declared row expresses. */
+#define COLOR_PANEL_MENU_GROUPS(label_id, ...) \
+  CONFIG_WIDGET_GROUP( .builder = &animate_dialog_builder, \
+    .value_label_id = (label_id), \
+    .elements = CONFIG_WIDGETS( __VA_ARGS__, NULL ) ), \
+  CONFIG_WIDGET_GROUP( .builder = &render_settings_builder, \
+    .value_label_id = (label_id), \
+    .elements = CONFIG_WIDGETS( __VA_ARGS__, NULL ) )
 
 void hook_theme_change(void);
 extern const config_refresh_t hook_theme_change_refresh;

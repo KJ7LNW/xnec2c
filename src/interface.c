@@ -370,7 +370,23 @@ create_animate_dialog( GtkBuilder **builder )
     pr_err("create_animate_dialog: failed to load animate.glade: %s\n", gerror->message);
     exit( -1 );
   }
+
+  /* The color controls carry one definition the rendering settings dialog
+   * shares; each builder instantiates its own widget tree from that file, so
+   * both windows present the controls while rc_config drives them as peers. */
+  if( !gtk_builder_add_from_resource( *builder,
+        "/settings/color_settings.glade", &gerror ) )
+  {
+    BUG("failed to load color glade: %s\n", gerror->message);
+    exit( -1 );
+  }
+
   gtk_builder_connect_signals( *builder, NULL );
+
+  gtk_container_add(
+      GTK_CONTAINER( Builder_Get_Object(*builder, "anim_color_host") ),
+      Builder_Get_Object(*builder, "color_tab_content") );
+
   ret = Builder_Get_Object( *builder, "animate_dialog" );
   return( ret );
 }

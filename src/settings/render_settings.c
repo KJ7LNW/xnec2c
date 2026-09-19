@@ -98,8 +98,12 @@ render_settings_init(void)
    * fills before the first sync resolves its collapsed label */
   freqplots_theme_menu_build( render_settings_builder );
 
+  /* Family sliders read their snap marks and value format from the tone rows */
+  color_tone_marks_attach( render_settings_builder );
+
   /* Append tab pages: General (from render_settings.glade),
-   * OpenGL (from opengl_settings.glade), Cairo (from cairo_settings.glade) */
+   * Color (from color_settings.glade), OpenGL (from opengl_settings.glade),
+   * Cairo (from cairo_settings.glade) */
   {
     GtkWidget *notebook = GTK_WIDGET(gtk_builder_get_object(
           render_settings_builder, "render_settings_notebook"));
@@ -111,10 +115,16 @@ render_settings_init(void)
 #endif
     GtkWidget *cairo_content = GTK_WIDGET(gtk_builder_get_object(
           render_settings_builder, "cairo_tab_content"));
+    GtkWidget *color_content = GTK_WIDGET(gtk_builder_get_object(
+          render_settings_builder, "color_tab_content"));
 
     if( notebook != NULL && general_content != NULL )
       gtk_notebook_append_page(GTK_NOTEBOOK(notebook),
           general_content, gtk_label_new("General"));
+
+    if( notebook != NULL && color_content != NULL )
+      gtk_notebook_append_page(GTK_NOTEBOOK(notebook),
+          color_content, gtk_label_new("Color"));
 
 #ifdef HAVE_OPENGL
     if( notebook != NULL && gl_content != NULL )
@@ -148,6 +158,12 @@ render_settings_show(void)
 
   render_settings_sync_from_config();
   gtk_widget_show_all(render_settings_window);
+
+  /* Hooks resolve the collapsed pull-down labels, the formula readouts and
+   * the single family slider row the active tone selects; they follow
+   * show_all, which reveals every row the tone hook hides */
+  config_widget_run_hooks( &render_settings_builder );
+
   gtk_window_present(GTK_WINDOW(render_settings_window));
 }
 

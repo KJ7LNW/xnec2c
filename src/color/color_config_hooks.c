@@ -84,13 +84,14 @@ on_color_fam_change_value(GtkRange *range, GtkScrollType _scroll,
 }
 
 /** color_tone_marks_attach() - Mark and wire the family sliders at creation
+ * @builder: builder holding the family slider rows
  *
  * Adds each family's snap marks labeled with the natural parameter and
  * connects the shared snap and value-format handlers with the row as
  * user data.
  */
   void
-color_tone_marks_attach(void)
+color_tone_marks_attach(GtkBuilder *builder)
 {
   int fam, i;
   char label[32];
@@ -103,8 +104,7 @@ color_tone_marks_attach(void)
     if( row->scale_id == NULL || row->marks == NULL )
       continue;
 
-    scale = GTK_SCALE(Builder_Get_Object(animate_dialog_builder,
-          row->scale_id));
+    scale = GTK_SCALE(Builder_Get_Object(builder, row->scale_id));
 
     for( i = 0; !isnan(row->marks[i]); i++ )
     {
@@ -133,9 +133,6 @@ anim_overlay_sensitivity(void)
       " this model has none.");
   gboolean animated, has_wires;
 
-  if( animate_dialog_builder == NULL )
-    return;
-
   animated  = chroma_proj_animated(chroma_proj_selected());
   has_wires = anim_class_available(ANIM_CLASS_STRUCTURE_SEGMENT);
 
@@ -157,6 +154,73 @@ anim_overlay_sensitivity(void)
     config_widget_set_tooltip( &rc_config.overlay_nodes,
         _("Mark current nodes (cyan) and antinodes (red) along the wires.") );
   }
+}
+
+/* The builders presenting the color panel.  Each resolves the same widget ids
+ * within its own namespace, so one field drives the animate dialog and the
+ * render settings Color tab alike.  COLOR_PANEL_WIDGET in config_hooks.h
+ * names the same windows for the field bindings. */
+static GtkBuilder **const color_builders[] = {
+  &animate_dialog_builder,
+  &render_settings_builder,
+};
+
+/** color_builders_foreach() - Apply one panel write to every live builder
+ * @sync: write addressing the widgets of a single builder
+ */
+static void
+color_builders_foreach(void (*sync)(GtkBuilder *))
+{
+  size_t i;
+
+  for( i = 0; i < G_N_ELEMENTS(color_builders); i++ )
+  {
+    if( *color_builders[i] == NULL )
+      continue; /* dormant: window not built yet */
+
+    sync( *color_builders[i] );
+  }
+}
+
+/** color_formula_labels_sync() - Track one panel's formulas to their rows
+ * @builder: builder holding the projection and segment scale readouts
+ *
+ * Also refreshes that panel's copy of the legend strip.
+ */
+static void
+color_formula_labels_sync(GtkBuilder *builder)
+{
+  chroma_proj_t sel = chroma_proj_selected();
+
+  gtk_label_set_markup( GTK_LABEL(Builder_Get_Object(builder,
+          "anim_proj_formula")),
+      chroma_proj_rows[sel].formula );
+
+  gtk_label_set_markup( GTK_LABEL(Builder_Get_Object(builder,
+          "anim_seg_scale_formula")),
+      seg_scale_enc_rows[seg_scale_enc_selected()].formula );
+
+  xnec2_widget_queue_draw( Builder_Get_Object(builder,
+      "anim_colorcode_drawingarea"), TRUE );
+}
+
+/** color_family_rows_sync() - Show one panel's active family slider row
+ * @builder: builder holding the family slider rows
+ */
+static void
+color_family_rows_sync(GtkBuilder *builder)
+{
+  color_tone_t active = color_tone_active();
+  int fam;
+
+  for( fam = 0; fam < COLOR_TONE_NUM; fam++ )
+    gtk_widget_set_visible(
+        GTK_WIDGET(Builder_Get_Object(builder, color_tones[fam].row_id)),
+        fam == (int)active );
+
+  gtk_label_set_markup( GTK_LABEL(Builder_Get_Object(builder,
+          "anim_scale_formula")),
+      color_tones[active].formula );
 }
 
 /** hook_color_vis() - Rebake baked colors and redraw after a
@@ -181,23 +245,7 @@ hook_color_vis(void)
     xnec2_widget_queue_draw( Builder_Get_Object(rdpattern_window_builder,
         "rdpattern_colorcode_drawingarea"), TRUE );
 
-  /* Track the animate dialog's projection and segment scale formulas to their
-   * selected rows and refresh the dialog's copy of the legend strip */
-  if( animate_dialog_builder != NULL )
-  {
-    chroma_proj_t sel = chroma_proj_selected();
-
-    gtk_label_set_markup( GTK_LABEL(Builder_Get_Object(animate_dialog_builder,
-            "anim_proj_formula")),
-        chroma_proj_rows[sel].formula );
-
-    gtk_label_set_markup( GTK_LABEL(Builder_Get_Object(animate_dialog_builder,
-            "anim_seg_scale_formula")),
-        seg_scale_enc_rows[seg_scale_enc_selected()].formula );
-
-    xnec2_widget_queue_draw( Builder_Get_Object(animate_dialog_builder,
-        "anim_colorcode_drawingarea"), TRUE );
-  }
+  color_builders_foreach( color_formula_labels_sync );
 
   anim_overlay_sensitivity();
   anim_panel_sensitivity();
@@ -210,28 +258,14 @@ const config_refresh_t hook_color_vis_refresh =
 
 /** hook_color_family() - Swap the active family's slider row and formula
  *
- * Shows only the active family's brightness-slider row in the animate
- * dialog, renders its closed-form transfer in the formula label, then
- * rebakes colors via hook_color_vis().
+ * Shows only the active family's brightness-slider row on every color panel,
+ * renders its closed-form transfer in the formula label, then rebakes colors
+ * via hook_color_vis().
  */
 void
 hook_color_family(void)
 {
-  color_tone_t active = color_tone_active();
-  int fam;
-
-  if( animate_dialog_builder != NULL )
-  {
-    for( fam = 0; fam < COLOR_TONE_NUM; fam++ )
-      gtk_widget_set_visible(
-          GTK_WIDGET(Builder_Get_Object(animate_dialog_builder,
-              color_tones[fam].row_id)),
-          fam == (int)active );
-
-    gtk_label_set_markup( GTK_LABEL(Builder_Get_Object(animate_dialog_builder,
-            "anim_scale_formula")),
-        color_tones[active].formula );
-  }
+  color_builders_foreach( color_family_rows_sync );
 
   hook_color_vis();
 }

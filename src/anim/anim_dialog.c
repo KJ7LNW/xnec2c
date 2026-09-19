@@ -267,7 +267,7 @@ show_animate_dialog(void)
     animate_dialog = create_animate_dialog( &animate_dialog_builder );
 
     anim_phase_slider_attach();
-    color_tone_marks_attach();
+    color_tone_marks_attach( animate_dialog_builder );
   }
   gtk_widget_show( animate_dialog );
   config_widget_sync_builder( &animate_dialog_builder );
