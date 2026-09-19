@@ -789,9 +789,12 @@ static const struct { double wr; double wi; } view_presets[4] = {
   { VIEW_DEFAULT_WR,  VIEW_DEFAULT_WI  },
 };
 
-/* preset_ids - widget IDs indexed by [win_idx][preset]; win_idx: 0=main, 1=rdpattern */
-static const char *preset_ids[2][4] = {
+/* preset_ids - widget IDs indexed by [window][preset]; a window carrying no
+ * preset buttons leaves its row null */
+static const char *preset_ids[WINDOW_COUNT][4] = {
+  [MAIN_WINDOW] =
   { "main_x_axis",      "main_y_axis",      "main_z_axis",      "main_default_view" },
+  [RDPATTERN_WINDOW] =
   { "rdpattern_x_axis", "rdpattern_y_axis", "rdpattern_z_axis", "rdpattern_default_view" },
 };
 
@@ -809,8 +812,7 @@ static const char *preset_ids[2][4] = {
   static void
 set_view_preset(double wr, double wi, window_t window_type)
 {
-  view_t *target =
-      (window_type == MAIN_WINDOW) ? structure_view : rdpattern_view;
+  view_t *target = window_view( window_type );
 
   if( target == NULL )
     return;
@@ -827,15 +829,17 @@ on_view_preset_clicked(
     gpointer         user_data)
 {
   window_t wt = window_from_widget(GTK_WIDGET(button));
-  GtkBuilder *builder = (wt == MAIN_WINDOW)
-    ? main_window_builder : rdpattern_window_builder;
-  int win_idx = (wt == MAIN_WINDOW) ? 0 : 1;
+  const char * const *ids = preset_ids[wt];
+  GtkBuilder *builder = window_builder( wt );
   int preset = 3;
   int i;
 
+  if( ids[0] == NULL )
+    return;
+
   for( i = 0; i < 4; i++ )
   {
-    if( GTK_WIDGET(button) == Builder_Get_Object(builder, preset_ids[win_idx][i]) )
+    if( GTK_WIDGET(button) == Builder_Get_Object(builder, ids[i]) )
     {
       preset = i;
       break;
@@ -4251,13 +4255,34 @@ on_main_zoom_spinbutton_value_changed(
 }
 
 
+/**
+ * zoom_spin_of_button() - Name the zoom spin the clicked window drives
+ * @button: zoom button belonging to one of the described windows
+ *
+ * Return: the spin button carried by the clicked window's view, or NULL
+ * when that window presents no view.
+ */
+  static GtkSpinButton *
+zoom_spin_of_button( GtkButton *button )
+{
+  view_t *target = window_view( window_from_widget(GTK_WIDGET(button)) );
+
+  if( target == NULL )
+    return NULL;
+
+  return( target->zoom_spin );
+}
+
+
   void
 on_zoom_plus_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  GtkSpinButton *z = (window_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW)
-      ? structure_zoom : rdpattern_zoom;
+  GtkSpinButton *z = zoom_spin_of_button( button );
+
+  if( z == NULL )
+    return;
 
   gtk_spin_button_set_value( z, gtk_spin_button_get_value( z ) * 1.1 );
 }
@@ -4268,8 +4293,10 @@ on_zoom_minus_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  GtkSpinButton *z = (window_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW)
-      ? structure_zoom : rdpattern_zoom;
+  GtkSpinButton *z = zoom_spin_of_button( button );
+
+  if( z == NULL )
+    return;
 
   gtk_spin_button_set_value( z, gtk_spin_button_get_value( z ) / 1.1 );
 }
@@ -4280,24 +4307,12 @@ on_zoom_reset_clicked(
     GtkButton       *button,
     gpointer         user_data)
 {
-  view_t *target;
-  GtkSpinButton *z;
+  view_t *target = window_view( window_from_widget(GTK_WIDGET(button)) );
 
-  if( window_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW )
-  {
-    target = structure_view;
-    z = structure_zoom;
-  }
-  else
-  {
-    target = rdpattern_view;
-    z = rdpattern_zoom;
-  }
-
-  if( target == NULL )
+  if( target == NULL || target->zoom_spin == NULL )
     return;
 
-  gtk_spin_button_set_value( z, 100.0 );
+  gtk_spin_button_set_value( target->zoom_spin, 100.0 );
   view_reset_pan( target );
 }
 
@@ -4332,14 +4347,9 @@ on_fit_view_clicked(
     GtkButton       *button,
     gpointer         _user_data)
 {
-  view_t *target = NULL;
+  view_t *target = window_view( window_from_widget(GTK_WIDGET(button)) );
 
   (void)_user_data;
-
-  if( window_from_widget(GTK_WIDGET(button)) == MAIN_WINDOW )
-    target = structure_view;
-  else
-    target = rdpattern_view;
 
   Fit_View( target );
 }

@@ -35,13 +35,15 @@
 typedef void (*window_menu_handler_t)(GtkMenuItem *menuitem, gpointer user_data);
 
 /* Resources one window owns.  A window carrying no main-window menu item
- * leaves both menu members null. */
+ * leaves both menu members null, and a window presenting no rotatable view
+ * leaves the view member null. */
 typedef struct
 {
-  GtkWidget  **window;
-  GtkBuilder **builder;
-  canvas_id_t  canvas;
-  const char  *menu_item;
+  GtkWidget     **window;
+  GtkBuilder    **builder;
+  canvas_id_t     canvas;
+  view_t        **view;
+  const char     *menu_item;
   window_menu_handler_t menu_handler;
 
 } window_desc_t;
@@ -53,14 +55,15 @@ static const window_desc_t window_desc[WINDOW_COUNT] =
 
   [MAIN_WINDOW] =
     { .window = &main_window, .builder = &main_window_builder,
-      .canvas = CANVAS_STRUCTURE },
+      .canvas = CANVAS_STRUCTURE, .view = &structure_view },
   [FREQPLOTS_WINDOW] =
     { .window = &freqplots_window, .builder = &freqplots_window_builder,
       .canvas = CANVAS_FREQPLOTS, .menu_item = "main_freqplots",
       .menu_handler = on_main_freqplots_activate },
   [RDPATTERN_WINDOW] =
     { .window = &rdpattern_window, .builder = &rdpattern_window_builder,
-      .canvas = CANVAS_RDPATTERN, .menu_item = "main_rdpattern",
+      .canvas = CANVAS_RDPATTERN, .view = &rdpattern_view,
+      .menu_item = "main_rdpattern",
       .menu_handler = on_main_rdpattern_activate },
 };
 
@@ -133,11 +136,77 @@ window_is_open(window_t type)
 /*-----------------------------------------------------------------------*/
 
 /**
+ * window_builder() - Name the builder owning a window's widgets
+ * @type: window whose widget lookups are resolved
+ *
+ * Return: the builder, or NULL while the window holds none.
+ */
+GtkBuilder *
+window_builder(window_t type)
+{
+  const window_desc_t *row = window_row( type );
+
+  if( row == NULL )
+    return NULL;
+
+  return( *row->builder );
+
+} /* window_builder() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * window_view() - Name the view a window rotates
+ * @type: window whose view is addressed
+ *
+ * Return: the view, or NULL when the window presents none or holds no
+ * view while closed.
+ */
+view_t *
+window_view(window_t type)
+{
+  const window_desc_t *row = window_row( type );
+
+  if( row == NULL || row->view == NULL )
+    return NULL;
+
+  return( *row->view );
+
+} /* window_view() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * window_row_of_toplevel() - Resolve the descriptor holding a toplevel
+ * @toplevel: toplevel widget matched against the descriptor table
+ *
+ * Matches by widget identity, so a window entering that table is
+ * recognized here without a further edit.
+ *
+ * Return: the descriptor whose window holds @toplevel, or NULL when no
+ * described window holds it.
+ */
+static const window_desc_t *
+window_row_of_toplevel(GtkWidget *toplevel)
+{
+  const window_desc_t *match = NULL;
+
+  /* The scan stops at the row holding this toplevel; a row holding another
+   * leaves the search running to the next. */
+  for( window_t type = MAIN_WINDOW;
+       (match == NULL) && (type < WINDOW_COUNT); type++ )
+    match = ( *window_desc[type].window == toplevel )
+      ? &window_desc[type] : NULL;
+
+  return( match );
+
+} /* window_row_of_toplevel() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
  * window_from_widget() - Name the window presenting a widget
  * @widget: widget belonging to one of the described windows
- *
- * Matches the widget's toplevel against the descriptor table, so a window
- * entering that table is recognized here without a further edit.
  *
  * Return: the window presenting @widget, or MAIN_WINDOW when its toplevel
  * matches no row, the structure window being the one always present.
@@ -145,16 +214,13 @@ window_is_open(window_t type)
 window_t
 window_from_widget(GtkWidget *widget)
 {
-  GtkWidget *top   = gtk_widget_get_toplevel( widget );
-  window_t   match = WINDOW_NONE;
+  const window_desc_t *row =
+      window_row_of_toplevel( gtk_widget_get_toplevel(widget) );
 
-  /* The scan stops at the row holding this toplevel; a row holding another
-   * leaves the search running to the next. */
-  for( window_t type = MAIN_WINDOW;
-       (match == WINDOW_NONE) && (type < WINDOW_COUNT); type++ )
-    match = ( *window_desc[type].window == top ) ? type : WINDOW_NONE;
+  if( row == NULL )
+    return MAIN_WINDOW;
 
-  return( (match == WINDOW_NONE) ? MAIN_WINDOW : match );
+  return( (window_t)(row - window_desc) );
 
 } /* window_from_widget() */
 

@@ -23,6 +23,8 @@
 #include "common.h"
 
 gboolean window_is_open(window_t type);
+GtkBuilder *window_builder(window_t type);
+view_t *window_view(window_t type);
 window_t window_from_widget(GtkWidget *widget);
 void window_release(window_t type);
 
