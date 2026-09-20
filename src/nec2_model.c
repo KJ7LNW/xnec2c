@@ -1056,7 +1056,7 @@ Save_Nec2_Input_File( GtkWidget *treeview_window, char *nec2_file )
   ClearFlag( NEC2_SAVE );
   ClearFlag( NEC2_EDIT_SAVE );
 
-  Queue_Structure_Rebuild( TRUE );
+  canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
 } /* Save_Nec2_Input_File() */
 
 /*------------------------------------------------------------------------*/

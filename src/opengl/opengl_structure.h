@@ -24,9 +24,6 @@
 #include "../render/render_dispatch.h"
 #include "../render/render_surface_input.h"
 
-/* Public API - always available, stubs when no OpenGL */
-void opengl_structure_invalidate(void);
-
 /* Scale below which segments render as lines instead of cylinders with 0.001 epsilon for slider */
 #define CYLINDER_SCALE_LINE_THRESHOLD 0.101
 

@@ -78,12 +78,16 @@ typedef struct
 } patch_batch_edge_t;
 
 /* Record what the shared geometry pass consumed at its last run.  The pass
- * bakes wire color, current-data identity, and cylinder radius into every
- * batch it builds, so a frame differing in any of them rebuilds them all. */
+ * bakes deck identity, wire color, current-data identity, and cylinder radius
+ * into every batch it builds, so a frame differing in any of them rebuilds
+ * them all. */
 typedef struct
 {
   struct_draw_params_t params;
   double               radius_scale;
+  /* geom_pre.generation the pass read; 0 stands for no deck, which
+   * Prerender_Aggregate() never publishes */
+  uint32_t             geom_generation;
 } geom_pass_edge_t;
 
 /* Per-type draw batches: each batch owns its own vertex allocation and GL mode */
@@ -783,7 +787,8 @@ geom_pass_edge_make(const geom_pass_edge_t *last,
     const struct_draw_params_t *params, double radius_scale)
 {
   gboolean current_colors = geom_pass_current_colors(params);
-  geom_pass_edge_t edge = { .params = *params, .radius_scale = radius_scale };
+  geom_pass_edge_t edge = { .params = *params, .radius_scale = radius_scale,
+    .geom_generation = geom_pre.generation };
 
   /* Current-data identity advances only while a current color is presented,
    * so a frame carrying none holds the identity of the last presented frame */
@@ -825,7 +830,8 @@ geom_pass_edge_eq(const geom_pass_edge_t *a, const geom_pass_edge_t *b)
   return a->params.wire_colors == b->params.wire_colors
       && a->params.color_generation == b->params.color_generation
       && dl_feq(a->radius_scale, b->radius_scale)
-      && current_data_eq;
+      && current_data_eq
+      && a->geom_generation == b->geom_generation;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -833,8 +839,9 @@ geom_pass_edge_eq(const geom_pass_edge_t *a, const geom_pass_edge_t *b)
 /** structure_geometry_refresh() - Regenerate the shared batches when their inputs move
  * @params: dispatch-resolved structure frame
  *
- * Regenerates on a rebaked wire color, a radius scale change, new current
- * data, or an emptied batch set, then captures what the pass consumed.
+ * Regenerates on a new deck, a rebaked wire color, a radius scale change,
+ * new current data, or an emptied batch set, then captures what the pass
+ * consumed.
  */
   static void
 structure_geometry_refresh(const struct_draw_params_t *params)
@@ -937,18 +944,6 @@ opengl_structure_geometry_cleanup(void)
 
   batch_count = 0;
 }
-
-/*-----------------------------------------------------------------------*/
-
-/** opengl_structure_geometry_invalidate() - Mark cached geometry stale so next render regenerates from NEC2 data
- */
-  void
-opengl_structure_geometry_invalidate(void)
-{
-  batch_count = 0;
-}
-
-/*-----------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------*/
 

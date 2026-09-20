@@ -875,7 +875,7 @@ freq_step_refresh_ui( gboolean force )
   Draw_Structure_UI();
 
   /* Vertex colors are baked per freq_step, so rebuild against crnt_fstep[]. */
-  Queue_Structure_Rebuild( force );
+  canvas_queue_redraw(CANVAS_STRUCTURE, force);
 
   Update_Rdpattern_UI();
   canvas_queue_redraw(CANVAS_RDPATTERN, force);

@@ -310,19 +310,3 @@ opengl_structure_surface_new(GtkContainer *parent)
 
 #endif /* HAVE_OPENGL */
 
-/*-----------------------------------------------------------------------*/
-
-/** opengl_structure_invalidate() - Public API: mark cached geometry stale
- *
- * Forces regeneration from current NEC2 data arrays on next render.
- * Call after geometry reload.
- */
-  void
-opengl_structure_invalidate(void)
-{
-#ifdef HAVE_OPENGL
-  opengl_structure_geometry_invalidate();
-#endif
-}
-
-/*-----------------------------------------------------------------------*/

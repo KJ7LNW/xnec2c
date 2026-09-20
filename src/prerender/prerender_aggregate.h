@@ -34,7 +34,8 @@ double New_Patch_Data(void);
 /**
  * Prerender_Aggregate() - Compute geometry-derived aggregate scalars
  *
- * Populates geom_pre.scene_radius and geom_pre.patch_corners. Called once
+ * Populates geom_pre.scene_radius and geom_pre.patch_corners, and advances
+ * geom_pre.generation to the version naming this deck's geometry. Called once
  * at GE-card time after geometry is established. Does not require excitation data.
  */
 void Prerender_Aggregate(void);

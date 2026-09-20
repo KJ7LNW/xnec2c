@@ -1501,7 +1501,7 @@ opengl_set_renderer(gboolean enable)
 
   /* Swap renderer for structure view in main window */
   if( canvas_set_engine( CANVAS_STRUCTURE, engine ) )
-    Queue_Structure_Rebuild( TRUE );
+    canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
 #endif
 }
 

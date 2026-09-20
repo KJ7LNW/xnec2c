@@ -344,7 +344,7 @@ structure_view_apply( void )
     /* Geometry view: redraw the structure if a frequency loop is not
      * running */
     if(!freq_sweep_active())
-      Queue_Structure_Rebuild( TRUE );
+      canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
   }
   else
   {

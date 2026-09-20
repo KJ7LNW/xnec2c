@@ -29,7 +29,6 @@
 #include "config_hooks.h"
 #include "callbacks.h"
 #include "cairo/cairo_draw.h"
-#include "opengl/opengl_structure.h"
 #include "prerender/prerender_aggregate.h"
 #include "prerender/prerender_color.h"
 #include "render/render_canvas.h"
@@ -235,25 +234,6 @@ free_crnt_fstep_buffers(void)
   mem_array_free(&crnt_fstep);
 
 } /* free_crnt_fstep_buffers() */
-
-/*-----------------------------------------------------------------------*/
-
-/*  Queue_Structure_Rebuild()
- *  @force:  bypass the intermediate-redraw suppression gate
- *
- *  Drops the baked structure geometry cache held by the OpenGL backend,
- *  then queues the redraw that rebuilds it from the current NEC2 data.
- *
- *  Called when the source data behind the baked buffers changed: a new
- *  deck, a new frequency step, or a change of visualized quantity.
- */
-  void
-Queue_Structure_Rebuild(gboolean force)
-{
-  opengl_structure_invalidate();
-  canvas_queue_redraw(CANVAS_STRUCTURE, force);
-
-} /* Queue_Structure_Rebuild() */
 
 /*-----------------------------------------------------------------------*/
 

@@ -70,7 +70,7 @@ const config_refresh_t hook_common_pan_refresh =
 void
 hook_flow_direction(void)
 {
-  Queue_Structure_Rebuild( TRUE );
+  canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
   canvas_queue_redraw(CANVAS_RDPATTERN, TRUE);
 
   /* The selected mark decides whether the patch class carries phase, so the

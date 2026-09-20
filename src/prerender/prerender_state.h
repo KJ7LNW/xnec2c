@@ -66,6 +66,9 @@ typedef struct
 /* Geometry-derived aggregate state, computed once at file load. */
 typedef struct
 {
+  /* Version of the deck this state describes, advanced by Prerender_Aggregate() */
+  uint32_t generation;
+
   double  scene_radius;
   double  excitation_cx;
   double  excitation_cy;

@@ -171,6 +171,10 @@ Prerender_Aggregate(void)
   }
 
   geom_pre.scene_radius = r_max;
+
+  /* Publish once the state it names is filled, so a consumer that read
+   * mid-fill holds a version this deck no longer matches */
+  geom_pre.generation++;
 }
 
 /*-----------------------------------------------------------------------*/

@@ -803,12 +803,12 @@ Open_Input_File( gpointer arg )
   structure_view_apply();
 
   /* Redraw structure with updated geometry regardless of overlay state.
-   * During optimization freq_step_update_ui_idle_force handles both
-   * invalidation and draws after valid data is ready, so suppress here
-   * to prevent expose-driven rebuilds seeing freq_step=-1 (gray flash). */
+   * During optimization freq_step_update_ui_idle_force draws after valid
+   * data is ready, so suppress here to prevent expose-driven rebuilds
+   * seeing freq_step=-1 (gray flash). */
   if( isFlagClear(SUPPRESS_INTERMEDIATE_REDRAWS) )
   {
-    Queue_Structure_Rebuild( TRUE );
+    canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
   }
 
   /* Close symbol overrides window if no symbols defined */
