@@ -44,6 +44,16 @@ typedef struct
 
 } window_geom_ref_t;
 
+/* Where a window sits when it opens without a stored origin.  A window
+ * placed by its own stored origin alone names no placement. */
+typedef enum
+{
+  WINDOW_PLACE_NONE = 0,
+  WINDOW_PLACE_RIGHT,
+  WINDOW_PLACE_BELOW
+
+} window_place_t;
+
 /* Resources one window owns.  A window carrying no main-window menu item
  * leaves both menu members null, and a window presenting no rotatable view
  * leaves the view member null. */
@@ -56,6 +66,7 @@ typedef struct
   const char     *menu_item;
   window_menu_handler_t menu_handler;
   window_geom_ref_t geom;
+  window_place_t  place;
 
 } window_desc_t;
 
@@ -76,7 +87,8 @@ static const window_desc_t window_desc[WINDOW_COUNT] =
       .menu_handler = on_main_freqplots_activate,
       .geom = { .x = &rc_config.freqplots_x, .y = &rc_config.freqplots_y,
                 .width = &rc_config.freqplots_width,
-                .height = &rc_config.freqplots_height } },
+                .height = &rc_config.freqplots_height },
+      .place = WINDOW_PLACE_RIGHT },
   [RDPATTERN_WINDOW] =
     { .window = &rdpattern_window, .builder = &rdpattern_window_builder,
       .canvas = CANVAS_RDPATTERN, .view = &rdpattern_view,
@@ -84,7 +96,8 @@ static const window_desc_t window_desc[WINDOW_COUNT] =
       .menu_handler = on_main_rdpattern_activate,
       .geom = { .x = &rc_config.rdpattern_x, .y = &rc_config.rdpattern_y,
                 .width = &rc_config.rdpattern_width,
-                .height = &rc_config.rdpattern_height } },
+                .height = &rc_config.rdpattern_height },
+      .place = WINDOW_PLACE_BELOW },
 };
 
 /*-----------------------------------------------------------------------*/
@@ -272,6 +285,51 @@ window_capture_geometry(GtkWidget *toplevel)
       row->geom.width, row->geom.height );
 
 } /* window_capture_geometry() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * window_default_origin() - Place a window that holds no stored origin
+ * @type: window whose placement is read
+ * @x: receives the horizontal origin
+ * @y: receives the vertical origin
+ *
+ * Reads the main window as it stands rather than as it was last persisted,
+ * so a window opening for the first time lands beside the main window the
+ * operator sees.  An absent main window anchors nothing and leaves both
+ * origins as the caller holds them.
+ */
+void
+window_default_origin(window_t type, gint *x, gint *y)
+{
+  const window_desc_t *row = window_row( type );
+  gint main_x, main_y, main_width, main_height;
+
+  if( row == NULL )
+    return;
+
+  if( !Get_Window_Geometry( main_window,
+        &main_x, &main_y, &main_width, &main_height ) )
+    return;
+
+  switch( row->place )
+  {
+    case WINDOW_PLACE_RIGHT:
+      *x = main_x + main_width;
+      *y = main_y;
+      break;
+
+    case WINDOW_PLACE_BELOW:
+      *x = main_x;
+      *y = main_y + main_height;
+      break;
+
+    case WINDOW_PLACE_NONE:
+      BUG("window type %d names no default placement\n", (int)type);
+      break;
+  }
+
+} /* window_default_origin() */
 
 /*-----------------------------------------------------------------------*/
 

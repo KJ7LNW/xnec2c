@@ -529,12 +529,9 @@ on_main_rdpattern_activate(
   /* Open radiation pattern rendering window */
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
   {
-    if (rc_config.rdpattern_x < 0 || rc_config.rdpattern_y < 0)
-    {
-        Get_GUI_State();
-        rc_config.rdpattern_x = rc_config.main_x;
-        rc_config.rdpattern_y = rc_config.main_y + rc_config.main_height;
-    }
+    if( rc_config.rdpattern_x < 0 || rc_config.rdpattern_y < 0 )
+      window_default_origin( RDPATTERN_WINDOW,
+          &rc_config.rdpattern_x, &rc_config.rdpattern_y );
 
     rdpattern_window = create_rdpattern_window( &rdpattern_window_builder );
 
@@ -689,12 +686,9 @@ on_main_freqplots_activate(
   {
     Main_Freqplots_Activate();
 
-    if (rc_config.freqplots_x < 0 || rc_config.freqplots_y < 0)
-    {
-        Get_GUI_State();
-        rc_config.freqplots_x = rc_config.main_x + rc_config.main_width;
-        rc_config.freqplots_y = rc_config.main_y;
-    }
+    if( rc_config.freqplots_x < 0 || rc_config.freqplots_y < 0 )
+      window_default_origin( FREQPLOTS_WINDOW,
+          &rc_config.freqplots_x, &rc_config.freqplots_y );
 
     freqplots_window = create_freqplots_window( &freqplots_window_builder );
 
