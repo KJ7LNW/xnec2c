@@ -689,7 +689,7 @@ on_main_freqplots_activate(
   {
     Main_Freqplots_Activate();
 
-    if (rc_config.freqplots_x < 0 || rc_config.rdpattern_y < 0)
+    if (rc_config.freqplots_x < 0 || rc_config.freqplots_y < 0)
     {
         Get_GUI_State();
         rc_config.freqplots_x = rc_config.main_x + rc_config.main_width;
@@ -721,11 +721,6 @@ on_main_freqplots_activate(
 
     /* Populate the excitation-port selector for the current model. */
     freqplots_populate_port_combo();
-
-    GtkAllocation alloc;
-    gtk_widget_get_allocation( fp_da, &alloc );
-    freqplots_main_view()->width  = alloc.width;
-    freqplots_main_view()->height = alloc.height;
 
     /* Restore frequency plots window widget state from the bound config
      * fields, then run each tree's hook to set the derived plot-select

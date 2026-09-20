@@ -1417,7 +1417,7 @@ Restore_Windows( gpointer dat )
  *
  * Restores the state of the GUI including window geometry
  */
-  static void
+  void
 Restore_GUI_State( void )
 {
   /* Write every registered field into its live widgets, then run the
@@ -1592,8 +1592,6 @@ Read_Config( void )
     rc_config_set_default(rc_config_find_by_field(&rc_config.ant_temp_custom_t_sky));
   if (rc_config.ant_temp_custom_t_earth <= ANT_TEMP_K_MIN)
     rc_config_set_default(rc_config_find_by_field(&rc_config.ant_temp_custom_t_earth));
-
-  Restore_GUI_State();
 
   return( TRUE );
 } /* Read_Config() */

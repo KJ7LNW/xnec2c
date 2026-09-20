@@ -309,6 +309,10 @@ main (int argc, char *argv[])
   /* Read GUI state config file and reset geometry */
   Read_Config();
 
+  /* Write the stored values into the widgets and present the main window at
+   * its stored geometry, reached whether or not a config file was read */
+  Restore_GUI_State();
+
   if (rc_config.batch_mode)
 	  rc_config.main_loop_start = 1;
 

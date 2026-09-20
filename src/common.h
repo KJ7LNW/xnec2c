@@ -1923,6 +1923,7 @@ void get_rdpattern_window_state(void);
 void get_freqplots_window_state(void);
 void get_nec2_edit_window_state(void);
 void get_sy_overrides_window_state(void);
+void Restore_GUI_State(void);
 void Get_GUI_State(void);
 gboolean Save_Config(void);
 /* shared.c */
