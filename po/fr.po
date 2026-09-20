@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-08-31 13:53-0700\n"
+"POT-Creation-Date: 2026-09-20 14:14-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -34,348 +34,63 @@ msgstr "Logiciel de code électromagnétique numérique"
 msgid "nec2;em;simulator;"
 msgstr "nec2;em;simulateur;"
 
-#: resources/animate.glade:136
+#: resources/animate.glade:52
 msgid "Total"
 msgstr "Totale"
 
-#: resources/animate.glade:146
+#: resources/animate.glade:62
 msgid "Horizontal"
 msgstr "Horizontale"
 
-#: resources/animate.glade:156
+#: resources/animate.glade:72
 msgid "Vertical"
 msgstr "Verticale"
 
-#: resources/animate.glade:166
+#: resources/animate.glade:82
 msgid "Right Hand"
 msgstr "Droite"
 
-#: resources/animate.glade:176
+#: resources/animate.glade:92
 msgid "Left Hand"
 msgstr "Gauche"
 
-#: resources/animate.glade:191 resources/animate.glade:272
-#: resources/animate.glade:375
+#: resources/animate.glade:107 resources/settings/color_settings.glade:110
+#: resources/settings/color_settings.glade:214
 msgid "Animated"
 msgstr "Animé"
 
-#: resources/animate.glade:198 resources/xnec2c.glade:11075
+#: resources/animate.glade:114 resources/xnec2c.glade:11058
 msgid "_Reference Phase"
 msgstr "Phase de _référence"
 
-#: resources/animate.glade:209 resources/xnec2c.glade:11086
+#: resources/animate.glade:125 resources/xnec2c.glade:11069
 msgid "_LIC Texture"
 msgstr "Texture _LIC"
 
-#: resources/animate.glade:220 resources/xnec2c.glade:11097
-#: resources/xnec2c.glade:12290
+#: resources/animate.glade:136 resources/xnec2c.glade:11080
+#: resources/xnec2c.glade:12274
 msgid "_Wireframe"
 msgstr "_Fil de fer"
 
-#: resources/animate.glade:238 resources/animate.glade:330
-#: resources/animate.glade:399
+#: resources/animate.glade:154 resources/settings/color_settings.glade:168
+#: resources/settings/color_settings.glade:238
 msgid "Static"
 msgstr "Statique"
 
-#: resources/animate.glade:245 resources/xnec2c.glade:11122
+#: resources/animate.glade:161 resources/xnec2c.glade:11105
 msgid "Polarization _Axis"
 msgstr "_Axe de polarisation"
 
-#: resources/animate.glade:256 resources/xnec2c.glade:11133
+#: resources/animate.glade:172 resources/xnec2c.glade:11116
 msgid "Peak _Magnitude"
 msgstr "_Amplitude crête"
 
-#: resources/animate.glade:279
-msgid ""
-"Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
-"cos(arg z + φ)|, floored so nulls stay visible.\n"
-"\n"
-"Animated: bright regions sweep along the structure as the phase advances."
-msgstr ""
-"La teinte indique l'amplitude crête s(n) ; la luminosité suit l'onde "
-"progressive |cos(arg z + φ)|, avec un plancher pour que les nœuds restent "
-"visibles.\n"
-"\n"
-"Animé : les régions lumineuses balaient la structure à mesure que la phase "
-"avance."
-
-#: resources/animate.glade:280 resources/animate.glade:383
-msgid "Instantaneous"
-msgstr "Instantané"
-
-#: resources/animate.glade:290
-msgid ""
-"Diverging hue shows the instantaneous sign of the displayed quantity: cold "
-"negative, hot positive; brightness carries the magnitude s(n).\n"
-"\n"
-"Animated: regions swap poles as the phase advances."
-msgstr ""
-"La teinte divergente indique le signe instantané de la grandeur affichée : "
-"froid pour négatif, chaud pour positif ; la luminosité porte l'amplitude "
-"s(n).\n"
-"\n"
-"Animé : les régions changent de polarité à mesure que la phase avance."
-
-#: resources/animate.glade:291
-msgid "Polarity"
-msgstr "Polarité"
-
-#: resources/animate.glade:301
-msgid ""
-"Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
-"magnitude s(n).\n"
-"\n"
-"Animated: the whole wheel rotates as the phase advances."
-msgstr ""
-"La roue de teintes cyclique indique l'angle de phase arg z + φ ; la "
-"luminosité porte l'amplitude s(n).\n"
-"\n"
-"Animé : toute la roue tourne à mesure que la phase avance."
-
-#: resources/animate.glade:302
-msgid "Phase Hue"
-msgstr "Teinte de phase"
-
-#: resources/animate.glade:312
-msgid ""
-"Diverging hue shows the instantaneous charge sign; brightness carries the "
-"current envelope s(|I|).\n"
-"\n"
-"Animated: one view of charge and current a quarter cycle apart."
-msgstr ""
-"La teinte divergente indique le signe instantané de la charge ; la "
-"luminosité porte l'enveloppe de courant s(|I|).\n"
-"\n"
-"Animé : une vue unique de la charge et du courant décalés d'un quart de "
-"cycle."
-
-#: resources/animate.glade:313
-msgid "Current + Charge"
-msgstr "Courant + charge"
-
-#: resources/animate.glade:337
-msgid ""
-"Rainbow ramp of this frequency step's peak magnitude s(n) at full "
-"brightness.\n"
-"\n"
-"Static: the phase-invariant baseline; colors hold still during playback."
-msgstr ""
-"Dégradé arc-en-ciel de l'amplitude crête s(n) de ce pas de fréquence, à "
-"pleine luminosité.\n"
-"\n"
-"Statique : la base invariante en phase ; les couleurs restent fixes pendant "
-"la lecture."
-
-# xnec2c-exempt: loanword
-#: resources/animate.glade:338
-msgid "Amplitude"
-msgstr ""
-
-#: resources/animate.glade:348
-msgid ""
-"Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
-"brightness carries the magnitude s(n).\n"
-"\n"
-"Static: a phase-invariant read; colors hold still during playback."
-msgstr ""
-"La teinte suit le taux d'onde stationnaire par région : froid pour "
-"progressive, chaud pour stationnaire ; la luminosité porte l'amplitude "
-"s(n).\n"
-"\n"
-"Statique : une lecture invariante en phase ; les couleurs restent fixes "
-"pendant la lecture."
-
-#: resources/animate.glade:349
-msgid "Standing/Traveling"
-msgstr "Stationnaire/Progressive"
-
-#: resources/animate.glade:359
-msgid ""
-"Hue ramps each segment's contribution to the selected far-field direction; "
-"brightness carries the magnitude s(n).\n"
-"\n"
-"Static: a phase-invariant read; colors hold still during playback."
-msgstr ""
-"La teinte suit la contribution de chaque segment à la direction de champ "
-"lointain sélectionnée ; la luminosité porte l'amplitude s(n).\n"
-"\n"
-"Statique : une lecture invariante en phase ; les couleurs restent fixes "
-"pendant la lecture."
-
-#: resources/animate.glade:360
-msgid "Far-field Contribution"
-msgstr "Contribution en champ lointain"
-
-#: resources/animate.glade:382
-msgid ""
-"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
-"φ)|.\n"
-"\n"
-"Animated: scaled regions travel through phase peaks and contract at zero "
-"crossings as the phase advances."
-msgstr ""
-"Met à l'échelle chaque segment selon le module instantané s(n) · |cos(arg z "
-"+ φ)|.\n"
-"\n"
-"Animé : les régions mises à l'échelle traversent les crêtes de phase et se "
-"contractent aux passages par zéro à mesure que la phase avance."
-
-#: resources/animate.glade:406
-msgid ""
-"Scale each segment from the peak magnitude s(n), enlarging strong regions "
-"and contracting nulls.\n"
-"\n"
-"Static: the phase-invariant scale holds still during playback."
-msgstr ""
-"Met à l'échelle chaque segment selon le module de crête s(n), en "
-"agrandissant les régions fortes et en contractant les nœuds.\n"
-"\n"
-"Statique : l'échelle invariante en phase reste fixe pendant la lecture."
-
-#: resources/animate.glade:407
-msgid "Envelope magnitude"
-msgstr "Module de l'enveloppe"
-
-#: resources/animate.glade:417
-msgid ""
-"Keep each segment at its model radius instead of scaling it by magnitude."
-msgstr ""
-"Conserve chaque segment à son rayon de modèle plutôt que de le mettre à "
-"l'échelle selon le module."
-
-#: resources/animate.glade:418
-msgid "Model radius"
-msgstr "Rayon du modèle"
-
-#: resources/animate.glade:433
-msgid ""
-"Power-law transfer n^γ of the normalized magnitude.\n"
-"\n"
-"γ = 1 is linear amplitude; γ = 0.5 expands weak regions; γ = 2 shows the "
-"squared magnitude — |I|² is proportional to per-segment dissipated power "
-"(and its radiated-power contribution via radiation resistance), |q|² to "
-"stored electrostatic energy."
-msgstr ""
-"Transfert en loi de puissance n^γ de l'amplitude normalisée.\n"
-"\n"
-"γ = 1 correspond à une amplitude linéaire ; γ = 0,5 étend les régions "
-"faibles ; γ = 2 affiche l'amplitude au carré — |I|² est proportionnel à la "
-"puissance dissipée par segment (et à sa contribution à la puissance rayonnée "
-"via la résistance de rayonnement), |q|² à l'énergie électrostatique stockée."
-
-#: resources/animate.glade:434
-msgid "Power"
-msgstr "Puissance"
-
-#: resources/animate.glade:444
-msgid ""
-"Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
-"decibels.\n"
-"\n"
-"R sets the visible dynamic range; detail below the floor 10^(−R/20) clips to "
-"the bottom color."
-msgstr ""
-"Transfert logarithmique sur une plage utilisateur R, les décibels "
-"d'amplitude 20·log₁₀ standard en RF.\n"
-"\n"
-"R définit la plage dynamique visible ; le détail sous le plancher 10^(−R/20) "
-"est écrêté à la couleur la plus basse."
-
-# xnec2c-exempt: notation
-#: resources/animate.glade:445 resources/xnec2c.glade:11713
-#: resources/xnec2c.glade:13071
-msgid "dB"
-msgstr ""
-
-#: resources/animate.glade:455
-msgid ""
-"Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
-"\n"
-"Keeps near-null currents visible while compressing strong peaks, like a lin-"
-"log instrument scale."
-msgstr ""
-"Sinus hyperbolique inverse : linéaire en dessous du genou k, logarithmique "
-"au-dessus.\n"
-"\n"
-"Maintient visibles les courants proches de zéro tout en compressant les pics "
-"forts, comme une échelle d'instrument lin-log."
-
-# xnec2c-exempt: name
-#: resources/animate.glade:456
-msgid "Asinh"
-msgstr ""
-
-#: resources/animate.glade:466
-msgid ""
-"μ-law companding, the telephony-standard bounded log curve.\n"
-"\n"
-"Lifts weak detail without a hard floor; 48.16 dB compression is the classic "
-"μ = 255."
-msgstr ""
-"Compression μ-law, la courbe logarithmique bornée standard de la "
-"téléphonie.\n"
-"\n"
-"Rehausse les détails faibles sans plancher dur ; une compression de 48,16 dB "
-"correspond au μ = 255 classique."
-
-# xnec2c-exempt: name
-#: resources/animate.glade:467
-msgid "μ-law"
-msgstr ""
-
-#: resources/animate.glade:477
-msgid ""
-"Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
-"\n"
-"Preserves midtones while rolling highlights off smoothly; k sets the knee."
-msgstr ""
-"Compresseur rationnel de Reinhard (1+k)·n/(n+k), le mappage tonal HDR "
-"photographique.\n"
-"\n"
-"Préserve les tons moyens tout en atténuant en douceur les hautes lumières ; "
-"k définit le genou."
-
-# xnec2c-exempt: name
-#: resources/animate.glade:478
-msgid "Reinhard"
-msgstr ""
-
-#: resources/animate.glade:488
-msgid ""
-"Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
-"\n"
-"Raises midrange contrast and saturates gently toward the peak, like "
-"amplifier compression; a sets the steepness."
-msgstr ""
-"Limiteur doux en tangente hyperbolique tanh(a·n)/tanh(a).\n"
-"\n"
-"Augmente le contraste des tons moyens et sature en douceur vers le pic, "
-"comme une compression d'amplificateur ; a définit la pente."
-
-#: resources/animate.glade:489
-msgid "Sigmoid"
-msgstr "Sigmoïde"
-
-#: resources/animate.glade:499
-msgid ""
-"Identity: every magnitude renders at full brightness.\n"
-"\n"
-"The color projection alone carries the information."
-msgstr ""
-"Identité : toute amplitude s'affiche à pleine luminosité.\n"
-"\n"
-"La projection de couleur seule porte l'information."
-
-#: resources/animate.glade:500 resources/settings/cairo_settings.glade:56
-msgid "None"
-msgstr "Aucun"
-
-#: resources/animate.glade:512 src/rdpattern_ui.c:401 src/rdpattern_ui.c:409
-#: src/rdpattern_ui.c:416
+#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
+#: src/rdpattern_ui.c:418
 msgid "Near Field Animation"
 msgstr "Animation du champ proche"
 
-#: resources/animate.glade:604
+#: resources/animate.glade:277
 msgid ""
 "Scrub the animation phase manually.\n"
 "\n"
@@ -386,211 +101,24 @@ msgstr ""
 "Désactivé pendant l'exécution de l'animation."
 
 # xnec2c-exempt: notation
-#: resources/animate.glade:621
+#: resources/animate.glade:294
 msgid "φ 0°"
 msgstr ""
 
 # xnec2c-exempt: loanword
-#: resources/animate.glade:635
+#: resources/animate.glade:308
 msgid "Phase"
 msgstr ""
 
-#: resources/animate.glade:658
+#: resources/animate.glade:331
 msgid "Frames/Sec"
 msgstr "Images/sec"
 
-#: resources/animate.glade:671
+#: resources/animate.glade:344
 msgid "Animate Freq (Hz)"
 msgstr "Fréq. d'animation (Hz)"
 
-#: resources/animate.glade:747
-msgid "Color projection:"
-msgstr "Projection de couleur :"
-
-#: resources/animate.glade:762
-msgid ""
-"Select which physical quantity drives the hue and how brightness follows the "
-"excitation phase.\n"
-"\n"
-"Static projections (Amplitude, Standing/Traveling, Far-field Contribution) "
-"read without animating.\n"
-"\n"
-"Hovering an entry previews it live."
-msgstr ""
-"Sélectionner la grandeur physique qui pilote la teinte et la façon dont la "
-"luminosité suit la phase d'excitation.\n"
-"\n"
-"Les projections statiques (Amplitude, Stationnaire/Progressive, Contribution "
-"en champ lointain) se lisent sans animation.\n"
-"\n"
-"Survoler une entrée en affiche un aperçu en direct."
-
-#: resources/animate.glade:820
-msgid "Segment scale:"
-msgstr "Échelle du segment :"
-
-#: resources/animate.glade:835
-msgid ""
-"Choose how current or charge magnitude changes segment thickness.\n"
-"\n"
-"Hover an entry to preview it."
-msgstr ""
-"Détermine comment le module du courant ou de la charge modifie l'épaisseur "
-"du segment.\n"
-"\n"
-"Survolez une entrée pour la prévisualiser."
-
-#: resources/animate.glade:893
-msgid "Scale family:"
-msgstr "Famille d'échelle :"
-
-#: resources/animate.glade:908
-msgid ""
-"Select the normalized-magnitude transfer shared by color brightness and "
-"segment scale.\n"
-"\n"
-"Adjust its slider until the contrast reveals the range your inspection "
-"needs.\n"
-"\n"
-"Hovering an entry previews it live."
-msgstr ""
-"Sélectionne le transfert de module normalisé partagé par la luminosité de la "
-"couleur et l'échelle du segment.\n"
-"\n"
-"Ajustez son curseur jusqu'à ce que le contraste révèle la plage dont votre "
-"inspection a besoin.\n"
-"\n"
-"Le survol d'une entrée la prévisualise en direct."
-
-#: resources/animate.glade:978
-msgid "Gamma:"
-msgstr "Gamma :"
-
-#: resources/animate.glade:995
-msgid ""
-"Gamma exponent of the power transfer.\n"
-"\n"
-"γ = 0.5 expands weak regions, γ = 1 is linear, γ = 2 is proportional to "
-"dissipated power for currents."
-msgstr ""
-"Exposant gamma du transfert de puissance.\n"
-"\n"
-"γ = 0,5 étend les régions faibles, γ = 1 est linéaire, γ = 2 est "
-"proportionnel à la puissance dissipée pour les courants."
-
-#: resources/animate.glade:1017
-msgid "Range (dB):"
-msgstr "Plage (dB) :"
-
-#: resources/animate.glade:1034
-msgid ""
-"Dynamic range R below the step peak mapped onto the color strip.\n"
-"\n"
-"The floor is 10^(−R/20) of the peak."
-msgstr ""
-"Plage dynamique R sous le pic du pas mappée sur la bande de couleur.\n"
-"\n"
-"Le plancher est 10^(−R/20) du pic."
-
-#: resources/animate.glade:1056
-msgid "Softening:"
-msgstr "Adoucissement :"
-
-#: resources/animate.glade:1073
-msgid "Softening knee k: linear below k, logarithmic above."
-msgstr ""
-"Genou d'adoucissement k : linéaire en dessous de k, logarithmique au-dessus."
-
-#: resources/animate.glade:1095
-msgid "Compression (dB):"
-msgstr "Compression (dB) :"
-
-#: resources/animate.glade:1112
-msgid "Compression strength in dB; higher values lift weak detail."
-msgstr ""
-"Force de compression en dB ; des valeurs plus élevées rehaussent les détails "
-"faibles."
-
-#: resources/animate.glade:1134
-msgid "Knee:"
-msgstr "Genou :"
-
-#: resources/animate.glade:1151
-msgid "Knee k of the rational soft-compressor."
-msgstr "Genou k du compresseur doux rationnel."
-
-#: resources/animate.glade:1173
-msgid "Contrast:"
-msgstr "Contraste :"
-
-#: resources/animate.glade:1190
-msgid "Contrast steepness a of the tanh transfer."
-msgstr "Pente de contraste a du transfert tanh."
-
-#: resources/animate.glade:1223
-msgid "Color gradient of the active projection and scale family."
-msgstr ""
-"Dégradé de couleur de la projection et de la famille d'échelle actives."
-
-#: resources/animate.glade:1241
-msgid "Brightness floor:"
-msgstr "Plancher de luminosité :"
-
-#: resources/animate.glade:1259
-msgid ""
-"Minimum brightness under animation so elements cool toward this level "
-"instead of vanishing to black."
-msgstr ""
-"Luminosité minimale pendant l'animation, pour que les éléments s'atténuent "
-"vers ce niveau au lieu de disparaître dans le noir."
-
-#: resources/animate.glade:1285
-msgid "Overlays:"
-msgstr "Superpositions :"
-
-#: resources/animate.glade:1296
-msgid "Nodes/antinodes"
-msgstr "Nœuds/ventres"
-
-#: resources/animate.glade:1301
-msgid ""
-"Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
-"\n"
-"Marks derive from the phase-invariant envelope, so they hold still while the "
-"wave animates."
-msgstr ""
-"Marquer les nœuds de courant (repère plus) et les crêtes (repère croix) sur "
-"les segments de fil.\n"
-"\n"
-"Les repères proviennent de l'enveloppe invariante en phase ; ils restent "
-"donc fixes pendant que l'onde s'anime."
-
-#: resources/animate.glade:1312
-msgid "Comet"
-msgstr "Comète"
-
-#: resources/animate.glade:1317
-msgid ""
-"Ride a bright head on the instantaneous positive crest so wave motion reads "
-"along each wire."
-msgstr ""
-"Faire courir une tête lumineuse sur la crête positive instantanée, pour que "
-"le mouvement de l'onde se lise le long de chaque fil."
-
-#: resources/animate.glade:1350
-msgid "Reset"
-msgstr "Réinitialiser"
-
-#: resources/animate.glade:1356
-msgid ""
-"Restore the color projection, segment scale, scale family, brightness floor, "
-"and every family parameter to their defaults."
-msgstr ""
-"Restaure la projection de couleur, l'échelle du segment, la famille "
-"d'échelle, le plancher de luminosité et tous les paramètres de la famille à "
-"leurs valeurs par défaut."
-
-#: resources/animate.glade:1391
+#: resources/animate.glade:440
 msgid ""
 "<b>Color and segment scale</b> <i>— currents, charges, and fields shade the "
 "model</i>"
@@ -598,37 +126,37 @@ msgstr ""
 "<b>Couleur et échelle du segment</b> <i>— les courants, les charges et les "
 "champs colorent le modèle</i>"
 
-#: resources/animate.glade:1432
+#: resources/animate.glade:481
 msgid "None (geometry)"
 msgstr "Aucun (géométrie)"
 
-#: resources/animate.glade:1436
+#: resources/animate.glade:485
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr ""
 "Afficher la géométrie brute de la structure sans coloration de grandeur."
 
-#: resources/animate.glade:1449 resources/xnec2c.glade:11240
+#: resources/animate.glade:498 resources/xnec2c.glade:11223
 msgid "Currents"
 msgstr "Courants"
 
-#: resources/animate.glade:1453
+#: resources/animate.glade:502
 msgid "Animate current magnitude and direction along the wires."
 msgstr "Animer l'amplitude et la direction des courants le long des fils."
 
 # xnec2c-exempt: loanword
-#: resources/animate.glade:1466 resources/xnec2c.glade:11255
+#: resources/animate.glade:515 resources/xnec2c.glade:11238
 msgid "Charges"
 msgstr ""
 
-#: resources/animate.glade:1470
+#: resources/animate.glade:519
 msgid "Animate charge magnitude along the wires."
 msgstr "Animer l'amplitude des charges le long des fils."
 
-#: resources/animate.glade:1493
+#: resources/animate.glade:542
 msgid "_Polarization:"
 msgstr "_Polarisation :"
 
-#: resources/animate.glade:1508
+#: resources/animate.glade:557
 msgid ""
 "Select the polarization component used by radiation-pattern gain and far-"
 "zone animation vectors.\n"
@@ -646,69 +174,39 @@ msgstr ""
 "\n"
 "Le survol d'une entrée la prévisualise en direct."
 
-#: resources/animate.glade:1581
+#: resources/animate.glade:630
 msgid "Display"
 msgstr "Affichage"
 
-#: resources/animate.glade:1619
+#: resources/animate.glade:668
 msgid "Flow direction:"
 msgstr "Direction du flux :"
 
-#: resources/animate.glade:1698
+#: resources/animate.glade:747
 msgid "Patches"
 msgstr "Patchs"
 
-#: resources/animate.glade:1733
+#: resources/animate.glade:782
 msgid "Near E field"
 msgstr "Champ E proche"
 
-#: resources/animate.glade:1737
-msgid ""
-"Show the near electric field vectors while animating.\n"
-"\n"
-"Enable by opening the radiation pattern window."
-msgstr ""
-"Afficher les vecteurs de champ électrique proche pendant l'animation.\n"
-"\n"
-"Activer en ouvrant la fenêtre du diagramme de rayonnement."
-
-#: resources/animate.glade:1749
+#: resources/animate.glade:797
 msgid "Near H field"
 msgstr "Champ H proche"
 
-#: resources/animate.glade:1753
-msgid ""
-"Show the near magnetic field vectors while animating.\n"
-"\n"
-"Enable by opening the radiation pattern window."
-msgstr ""
-"Afficher les vecteurs de champ magnétique proche pendant l'animation.\n"
-"\n"
-"Activer en ouvrant la fenêtre du diagramme de rayonnement."
-
-#: resources/animate.glade:1765
+#: resources/animate.glade:812
 msgid "Poynting vector"
 msgstr "Vecteur de Poynting"
 
-#: resources/animate.glade:1769
-msgid ""
-"Show the Poynting power-flow vectors while animating.\n"
-"\n"
-"Enable by opening the radiation pattern window."
-msgstr ""
-"Afficher les vecteurs de flux de puissance de Poynting pendant l'animation.\n"
-"\n"
-"Activer en ouvrant la fenêtre du diagramme de rayonnement."
-
-#: resources/animate.glade:1805
+#: resources/animate.glade:851
 msgid "Near Field"
 msgstr "Champ proche"
 
-#: resources/animate.glade:1840
+#: resources/animate.glade:886
 msgid "Far E field"
 msgstr "Champ E lointain"
 
-#: resources/animate.glade:1844
+#: resources/animate.glade:890
 msgid ""
 "Draw the far-zone electric field as arrows tangent to the gain surface while "
 "animating.\n"
@@ -720,11 +218,11 @@ msgstr ""
 "\n"
 "Activer en ouvrant la fenêtre du diagramme de rayonnement."
 
-#: resources/animate.glade:1857
+#: resources/animate.glade:903
 msgid "Far H field"
 msgstr "Champ H lointain"
 
-#: resources/animate.glade:1861
+#: resources/animate.glade:907
 msgid ""
 "Draw the far-zone magnetic field instead, a quarter turn from the electric "
 "field in the tangent plane and in step with it in time.\n"
@@ -737,19 +235,19 @@ msgstr ""
 "\n"
 "Activer en ouvrant la fenêtre du diagramme de rayonnement."
 
-#: resources/animate.glade:1874
+#: resources/animate.glade:920
 msgid "World reference"
 msgstr "Référence monde"
 
-#: resources/animate.glade:1890
+#: resources/animate.glade:936
 msgid "Ludwig-3 reference"
 msgstr "Référence Ludwig-3"
 
-#: resources/animate.glade:1915
+#: resources/animate.glade:961
 msgid "Arrow:"
 msgstr "Flèche :"
 
-#: resources/animate.glade:1932
+#: resources/animate.glade:978
 msgid ""
 "Longest arrow a cell draws, as a fraction of that cell's own pattern radius, "
 "so the arrows track whichever gain scale shapes the surface."
@@ -758,11 +256,11 @@ msgstr ""
 "rayon de diagramme propre à cette cellule, afin que les flèches suivent "
 "l'échelle de gain qui façonne la surface."
 
-#: resources/animate.glade:1974
+#: resources/animate.glade:1020
 msgid "Far Field"
 msgstr "Champ lointain"
 
-#: resources/animate.glade:1992
+#: resources/animate.glade:1038
 msgid ""
 "Draw the far-zone field as tangent vectors on the radiation pattern gain "
 "surface while this window is open."
@@ -781,6 +279,11 @@ msgstr "Par défaut"
 #: resources/settings/cairo_settings.glade:49
 msgid "Fast"
 msgstr "Rapide"
+
+#: resources/settings/cairo_settings.glade:56
+#: resources/settings/color_settings.glade:340
+msgid "None"
+msgstr "Aucun"
 
 #: resources/settings/cairo_settings.glade:68
 msgid "Color Quantization"
@@ -832,19 +335,492 @@ msgstr "Niveaux de profondeur"
 
 #: resources/settings/cairo_settings.glade:184
 #: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:50
+#: resources/settings/render_settings.glade:126
 msgid "Reset to _Defaults"
 msgstr "Réinitialiser aux _paramètres par défaut"
+
+#: resources/settings/color_settings.glade:117
+msgid ""
+"Hue shows the peak magnitude s(n); brightness follows the traveling wave |"
+"cos(arg z + φ)|, floored so nulls stay visible.\n"
+"\n"
+"Animated: bright regions sweep along the structure as the phase advances."
+msgstr ""
+"La teinte indique l'amplitude crête s(n) ; la luminosité suit l'onde "
+"progressive |cos(arg z + φ)|, avec un plancher pour que les nœuds restent "
+"visibles.\n"
+"\n"
+"Animé : les régions lumineuses balaient la structure à mesure que la phase "
+"avance."
+
+#: resources/settings/color_settings.glade:118
+#: resources/settings/color_settings.glade:222
+msgid "Instantaneous"
+msgstr "Instantané"
+
+#: resources/settings/color_settings.glade:128
+msgid ""
+"Diverging hue shows the instantaneous sign of the displayed quantity: cold "
+"negative, hot positive; brightness carries the magnitude s(n).\n"
+"\n"
+"Animated: regions swap poles as the phase advances."
+msgstr ""
+"La teinte divergente indique le signe instantané de la grandeur affichée : "
+"froid pour négatif, chaud pour positif ; la luminosité porte l'amplitude "
+"s(n).\n"
+"\n"
+"Animé : les régions changent de polarité à mesure que la phase avance."
+
+#: resources/settings/color_settings.glade:129
+msgid "Polarity"
+msgstr "Polarité"
+
+#: resources/settings/color_settings.glade:139
+msgid ""
+"Cyclic hue wheel shows the phase angle arg z + φ; brightness carries the "
+"magnitude s(n).\n"
+"\n"
+"Animated: the whole wheel rotates as the phase advances."
+msgstr ""
+"La roue de teintes cyclique indique l'angle de phase arg z + φ ; la "
+"luminosité porte l'amplitude s(n).\n"
+"\n"
+"Animé : toute la roue tourne à mesure que la phase avance."
+
+#: resources/settings/color_settings.glade:140
+msgid "Phase Hue"
+msgstr "Teinte de phase"
+
+#: resources/settings/color_settings.glade:150
+msgid ""
+"Diverging hue shows the instantaneous charge sign; brightness carries the "
+"current envelope s(|I|).\n"
+"\n"
+"Animated: one view of charge and current a quarter cycle apart."
+msgstr ""
+"La teinte divergente indique le signe instantané de la charge ; la "
+"luminosité porte l'enveloppe de courant s(|I|).\n"
+"\n"
+"Animé : une vue unique de la charge et du courant décalés d'un quart de "
+"cycle."
+
+#: resources/settings/color_settings.glade:151
+msgid "Current + Charge"
+msgstr "Courant + charge"
+
+#: resources/settings/color_settings.glade:175
+msgid ""
+"Rainbow ramp of this frequency step's peak magnitude s(n) at full "
+"brightness.\n"
+"\n"
+"Static: the phase-invariant baseline; colors hold still during playback."
+msgstr ""
+"Dégradé arc-en-ciel de l'amplitude crête s(n) de ce pas de fréquence, à "
+"pleine luminosité.\n"
+"\n"
+"Statique : la base invariante en phase ; les couleurs restent fixes pendant "
+"la lecture."
+
+# xnec2c-exempt: loanword
+#: resources/settings/color_settings.glade:176
+msgid "Amplitude"
+msgstr ""
+
+#: resources/settings/color_settings.glade:186
+msgid ""
+"Hue ramps the per-region standing-wave ratio: cold traveling, hot standing; "
+"brightness carries the magnitude s(n).\n"
+"\n"
+"Static: a phase-invariant read; colors hold still during playback."
+msgstr ""
+"La teinte suit le taux d'onde stationnaire par région : froid pour "
+"progressive, chaud pour stationnaire ; la luminosité porte l'amplitude "
+"s(n).\n"
+"\n"
+"Statique : une lecture invariante en phase ; les couleurs restent fixes "
+"pendant la lecture."
+
+#: resources/settings/color_settings.glade:187
+msgid "Standing/Traveling"
+msgstr "Stationnaire/Progressive"
+
+#: resources/settings/color_settings.glade:197
+msgid ""
+"Hue ramps each segment's contribution to the selected far-field direction; "
+"brightness carries the magnitude s(n).\n"
+"\n"
+"Static: a phase-invariant read; colors hold still during playback."
+msgstr ""
+"La teinte suit la contribution de chaque segment à la direction de champ "
+"lointain sélectionnée ; la luminosité porte l'amplitude s(n).\n"
+"\n"
+"Statique : une lecture invariante en phase ; les couleurs restent fixes "
+"pendant la lecture."
+
+#: resources/settings/color_settings.glade:198
+msgid "Far-field Contribution"
+msgstr "Contribution en champ lointain"
+
+#: resources/settings/color_settings.glade:221
+msgid ""
+"Scale each segment from the instantaneous magnitude s(n) · |cos(arg z + "
+"φ)|.\n"
+"\n"
+"Animated: scaled regions travel through phase peaks and contract at zero "
+"crossings as the phase advances."
+msgstr ""
+"Met à l'échelle chaque segment selon le module instantané s(n) · |cos(arg z "
+"+ φ)|.\n"
+"\n"
+"Animé : les régions mises à l'échelle traversent les crêtes de phase et se "
+"contractent aux passages par zéro à mesure que la phase avance."
+
+#: resources/settings/color_settings.glade:245
+msgid ""
+"Scale each segment from the peak magnitude s(n), enlarging strong regions "
+"and contracting nulls.\n"
+"\n"
+"Static: the phase-invariant scale holds still during playback."
+msgstr ""
+"Met à l'échelle chaque segment selon le module de crête s(n), en "
+"agrandissant les régions fortes et en contractant les nœuds.\n"
+"\n"
+"Statique : l'échelle invariante en phase reste fixe pendant la lecture."
+
+#: resources/settings/color_settings.glade:246
+msgid "Envelope magnitude"
+msgstr "Module de l'enveloppe"
+
+#: resources/settings/color_settings.glade:256
+msgid ""
+"Keep each segment at its model radius instead of scaling it by magnitude."
+msgstr ""
+"Conserve chaque segment à son rayon de modèle plutôt que de le mettre à "
+"l'échelle selon le module."
+
+#: resources/settings/color_settings.glade:257
+msgid "Model radius"
+msgstr "Rayon du modèle"
+
+#: resources/settings/color_settings.glade:273
+msgid ""
+"Power-law transfer n^γ of the normalized magnitude.\n"
+"\n"
+"γ = 1 is linear amplitude; γ = 0.5 expands weak regions; γ = 2 shows the "
+"squared magnitude — |I|² is proportional to per-segment dissipated power "
+"(and its radiated-power contribution via radiation resistance), |q|² to "
+"stored electrostatic energy."
+msgstr ""
+"Transfert en loi de puissance n^γ de l'amplitude normalisée.\n"
+"\n"
+"γ = 1 correspond à une amplitude linéaire ; γ = 0,5 étend les régions "
+"faibles ; γ = 2 affiche l'amplitude au carré — |I|² est proportionnel à la "
+"puissance dissipée par segment (et à sa contribution à la puissance rayonnée "
+"via la résistance de rayonnement), |q|² à l'énergie électrostatique stockée."
+
+#: resources/settings/color_settings.glade:274
+msgid "Power"
+msgstr "Puissance"
+
+#: resources/settings/color_settings.glade:284
+msgid ""
+"Logarithmic transfer over a user range R, the RF-standard 20·log₁₀ amplitude "
+"decibels.\n"
+"\n"
+"R sets the visible dynamic range; detail below the floor 10^(−R/20) clips to "
+"the bottom color."
+msgstr ""
+"Transfert logarithmique sur une plage utilisateur R, les décibels "
+"d'amplitude 20·log₁₀ standard en RF.\n"
+"\n"
+"R définit la plage dynamique visible ; le détail sous le plancher 10^(−R/20) "
+"est écrêté à la couleur la plus basse."
+
+# xnec2c-exempt: notation
+#: resources/settings/color_settings.glade:285 resources/xnec2c.glade:11696
+#: resources/xnec2c.glade:13055
+msgid "dB"
+msgstr ""
+
+#: resources/settings/color_settings.glade:295
+msgid ""
+"Inverse hyperbolic sine: linear below the knee k, logarithmic above.\n"
+"\n"
+"Keeps near-null currents visible while compressing strong peaks, like a lin-"
+"log instrument scale."
+msgstr ""
+"Sinus hyperbolique inverse : linéaire en dessous du genou k, logarithmique "
+"au-dessus.\n"
+"\n"
+"Maintient visibles les courants proches de zéro tout en compressant les pics "
+"forts, comme une échelle d'instrument lin-log."
+
+# xnec2c-exempt: name
+#: resources/settings/color_settings.glade:296
+msgid "Asinh"
+msgstr ""
+
+#: resources/settings/color_settings.glade:306
+msgid ""
+"μ-law companding, the telephony-standard bounded log curve.\n"
+"\n"
+"Lifts weak detail without a hard floor; 48.16 dB compression is the classic "
+"μ = 255."
+msgstr ""
+"Compression μ-law, la courbe logarithmique bornée standard de la "
+"téléphonie.\n"
+"\n"
+"Rehausse les détails faibles sans plancher dur ; une compression de 48,16 dB "
+"correspond au μ = 255 classique."
+
+# xnec2c-exempt: name
+#: resources/settings/color_settings.glade:307
+msgid "μ-law"
+msgstr ""
+
+#: resources/settings/color_settings.glade:317
+msgid ""
+"Reinhard rational compressor (1+k)·n/(n+k), the photographic HDR tone-map.\n"
+"\n"
+"Preserves midtones while rolling highlights off smoothly; k sets the knee."
+msgstr ""
+"Compresseur rationnel de Reinhard (1+k)·n/(n+k), le mappage tonal HDR "
+"photographique.\n"
+"\n"
+"Préserve les tons moyens tout en atténuant en douceur les hautes lumières ; "
+"k définit le genou."
+
+# xnec2c-exempt: name
+#: resources/settings/color_settings.glade:318
+msgid "Reinhard"
+msgstr ""
+
+#: resources/settings/color_settings.glade:328
+msgid ""
+"Hyperbolic tangent soft limiter tanh(a·n)/tanh(a).\n"
+"\n"
+"Raises midrange contrast and saturates gently toward the peak, like "
+"amplifier compression; a sets the steepness."
+msgstr ""
+"Limiteur doux en tangente hyperbolique tanh(a·n)/tanh(a).\n"
+"\n"
+"Augmente le contraste des tons moyens et sature en douceur vers le pic, "
+"comme une compression d'amplificateur ; a définit la pente."
+
+#: resources/settings/color_settings.glade:329
+msgid "Sigmoid"
+msgstr "Sigmoïde"
+
+#: resources/settings/color_settings.glade:339
+msgid ""
+"Identity: every magnitude renders at full brightness.\n"
+"\n"
+"The color projection alone carries the information."
+msgstr ""
+"Identité : toute amplitude s'affiche à pleine luminosité.\n"
+"\n"
+"La projection de couleur seule porte l'information."
+
+#: resources/settings/color_settings.glade:374
+msgid "Color projection:"
+msgstr "Projection de couleur :"
+
+#: resources/settings/color_settings.glade:389
+msgid ""
+"Select which physical quantity drives the hue and how brightness follows the "
+"excitation phase.\n"
+"\n"
+"Static projections (Amplitude, Standing/Traveling, Far-field Contribution) "
+"read without animating.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"Sélectionner la grandeur physique qui pilote la teinte et la façon dont la "
+"luminosité suit la phase d'excitation.\n"
+"\n"
+"Les projections statiques (Amplitude, Stationnaire/Progressive, Contribution "
+"en champ lointain) se lisent sans animation.\n"
+"\n"
+"Survoler une entrée en affiche un aperçu en direct."
+
+#: resources/settings/color_settings.glade:448
+msgid "Segment scale:"
+msgstr "Échelle du segment :"
+
+#: resources/settings/color_settings.glade:463
+msgid ""
+"Choose how current or charge magnitude changes segment thickness.\n"
+"\n"
+"Hover an entry to preview it."
+msgstr ""
+"Détermine comment le module du courant ou de la charge modifie l'épaisseur "
+"du segment.\n"
+"\n"
+"Survolez une entrée pour la prévisualiser."
+
+#: resources/settings/color_settings.glade:522
+msgid "Scale family:"
+msgstr "Famille d'échelle :"
+
+#: resources/settings/color_settings.glade:537
+msgid ""
+"Select the normalized-magnitude transfer shared by color brightness and "
+"segment scale.\n"
+"\n"
+"Adjust its slider until the contrast reveals the range your inspection "
+"needs.\n"
+"\n"
+"Hovering an entry previews it live."
+msgstr ""
+"Sélectionne le transfert de module normalisé partagé par la luminosité de la "
+"couleur et l'échelle du segment.\n"
+"\n"
+"Ajustez son curseur jusqu'à ce que le contraste révèle la plage dont votre "
+"inspection a besoin.\n"
+"\n"
+"Le survol d'une entrée la prévisualise en direct."
+
+#: resources/settings/color_settings.glade:608
+msgid "Gamma:"
+msgstr "Gamma :"
+
+#: resources/settings/color_settings.glade:625
+msgid ""
+"Gamma exponent of the power transfer.\n"
+"\n"
+"γ = 0.5 expands weak regions, γ = 1 is linear, γ = 2 is proportional to "
+"dissipated power for currents."
+msgstr ""
+"Exposant gamma du transfert de puissance.\n"
+"\n"
+"γ = 0,5 étend les régions faibles, γ = 1 est linéaire, γ = 2 est "
+"proportionnel à la puissance dissipée pour les courants."
+
+#: resources/settings/color_settings.glade:647
+msgid "Range (dB):"
+msgstr "Plage (dB) :"
+
+#: resources/settings/color_settings.glade:664
+msgid ""
+"Dynamic range R below the step peak mapped onto the color strip.\n"
+"\n"
+"The floor is 10^(−R/20) of the peak."
+msgstr ""
+"Plage dynamique R sous le pic du pas mappée sur la bande de couleur.\n"
+"\n"
+"Le plancher est 10^(−R/20) du pic."
+
+#: resources/settings/color_settings.glade:686
+msgid "Softening:"
+msgstr "Adoucissement :"
+
+#: resources/settings/color_settings.glade:703
+msgid "Softening knee k: linear below k, logarithmic above."
+msgstr ""
+"Genou d'adoucissement k : linéaire en dessous de k, logarithmique au-dessus."
+
+#: resources/settings/color_settings.glade:725
+msgid "Compression (dB):"
+msgstr "Compression (dB) :"
+
+#: resources/settings/color_settings.glade:742
+msgid "Compression strength in dB; higher values lift weak detail."
+msgstr ""
+"Force de compression en dB ; des valeurs plus élevées rehaussent les détails "
+"faibles."
+
+#: resources/settings/color_settings.glade:764
+msgid "Knee:"
+msgstr "Genou :"
+
+#: resources/settings/color_settings.glade:781
+msgid "Knee k of the rational soft-compressor."
+msgstr "Genou k du compresseur doux rationnel."
+
+#: resources/settings/color_settings.glade:803
+msgid "Contrast:"
+msgstr "Contraste :"
+
+#: resources/settings/color_settings.glade:820
+msgid "Contrast steepness a of the tanh transfer."
+msgstr "Pente de contraste a du transfert tanh."
+
+#: resources/settings/color_settings.glade:853
+msgid "Color gradient of the active projection and scale family."
+msgstr ""
+"Dégradé de couleur de la projection et de la famille d'échelle actives."
+
+#: resources/settings/color_settings.glade:872
+msgid "Brightness floor:"
+msgstr "Plancher de luminosité :"
+
+#: resources/settings/color_settings.glade:890
+msgid ""
+"Minimum brightness under animation so elements cool toward this level "
+"instead of vanishing to black."
+msgstr ""
+"Luminosité minimale pendant l'animation, pour que les éléments s'atténuent "
+"vers ce niveau au lieu de disparaître dans le noir."
+
+#: resources/settings/color_settings.glade:917
+msgid "Overlays:"
+msgstr "Superpositions :"
+
+#: resources/settings/color_settings.glade:928
+msgid "Nodes/antinodes"
+msgstr "Nœuds/ventres"
+
+#: resources/settings/color_settings.glade:933
+msgid ""
+"Mark current nulls (plus tick) and peaks (cross tick) on wire segments.\n"
+"\n"
+"Marks derive from the phase-invariant envelope, so they hold still while the "
+"wave animates."
+msgstr ""
+"Marquer les nœuds de courant (repère plus) et les crêtes (repère croix) sur "
+"les segments de fil.\n"
+"\n"
+"Les repères proviennent de l'enveloppe invariante en phase ; ils restent "
+"donc fixes pendant que l'onde s'anime."
+
+#: resources/settings/color_settings.glade:944
+msgid "Comet"
+msgstr "Comète"
+
+#: resources/settings/color_settings.glade:949
+msgid ""
+"Ride a bright head on the instantaneous positive crest so wave motion reads "
+"along each wire."
+msgstr ""
+"Faire courir une tête lumineuse sur la crête positive instantanée, pour que "
+"le mouvement de l'onde se lise le long de chaque fil."
+
+#: resources/settings/color_settings.glade:997
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: resources/settings/color_settings.glade:1003
+msgid ""
+"Restore the color projection, segment scale, scale family, brightness floor, "
+"and every family parameter to their defaults."
+msgstr ""
+"Restaure la projection de couleur, l'échelle du segment, la famille "
+"d'échelle, le plancher de luminosité et tous les paramètres de la famille à "
+"leurs valeurs par défaut."
 
 #: resources/settings/opengl_settings.glade:493
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Visuel uniquement — n'affecte pas les calculs du modèle NEC2."
 
-#: resources/settings/render_settings.glade:72
+#: resources/settings/render_settings.glade:58
+msgid "_Color Theme"
+msgstr "Thème de _couleur"
+
+#: resources/settings/render_settings.glade:148
 msgid "Rendering Settings"
 msgstr "Paramètres de rendu"
 
-#: resources/settings/render_settings.glade:116
+#: resources/settings/render_settings.glade:192
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Fermer"
@@ -922,22 +898,22 @@ msgid "Arc Element (GA card)"
 msgstr "Élément d'arc (carte GA)"
 
 #: resources/xnec2c.glade:134 resources/xnec2c.glade:1169
-#: resources/xnec2c.glade:3596 resources/xnec2c.glade:14783 src/cmnd_edit.c:489
+#: resources/xnec2c.glade:3596 resources/xnec2c.glade:14767 src/cmnd_edit.c:489
 msgid "Tag Number"
 msgstr "Numéro de tag"
 
-#: resources/xnec2c.glade:147 resources/xnec2c.glade:14878
+#: resources/xnec2c.glade:147 resources/xnec2c.glade:14862
 msgid "No. Segments"
 msgstr "Nb. segments"
 
 # xnec2c-exempt: notation
 #: resources/xnec2c.glade:160 resources/xnec2c.glade:3622
-#: resources/xnec2c.glade:14974
+#: resources/xnec2c.glade:14958
 msgid "Segs % lambda"
 msgstr ""
 
 #: resources/xnec2c.glade:173 resources/xnec2c.glade:3635
-#: resources/xnec2c.glade:15070
+#: resources/xnec2c.glade:15054
 msgid "Wire Diameter"
 msgstr "Diamètre du fil"
 
@@ -954,7 +930,7 @@ msgid "End 2 Angle"
 msgstr "Angle extrémité 2"
 
 #: resources/xnec2c.glade:300 resources/xnec2c.glade:3832
-#: resources/xnec2c.glade:15135 src/cmnd_edit.c:2025
+#: resources/xnec2c.glade:15119 src/cmnd_edit.c:2025
 msgid "Conductivity S/m"
 msgstr "Conductivité S/m"
 
@@ -970,9 +946,9 @@ msgstr "Données d'arc de fil"
 #: resources/xnec2c.glade:4526 resources/xnec2c.glade:5058
 #: resources/xnec2c.glade:5694 resources/xnec2c.glade:7138
 #: resources/xnec2c.glade:8045 resources/xnec2c.glade:9051
-#: resources/xnec2c.glade:9331 resources/xnec2c.glade:13476
-#: resources/xnec2c.glade:13989 resources/xnec2c.glade:14588
-#: resources/xnec2c.glade:15424 resources/xnec2c.glade:15624
+#: resources/xnec2c.glade:9331 resources/xnec2c.glade:13460
+#: resources/xnec2c.glade:13973 resources/xnec2c.glade:14572
+#: resources/xnec2c.glade:15408 resources/xnec2c.glade:15608
 msgid "Delete Card"
 msgstr "Supprimer la carte"
 
@@ -1272,8 +1248,8 @@ msgid "5.00"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:3710 resources/xnec2c.glade:11746
-#: resources/xnec2c.glade:12947
+#: resources/xnec2c.glade:3710 resources/xnec2c.glade:11729
+#: resources/xnec2c.glade:12931
 msgid "1"
 msgstr ""
 
@@ -1331,7 +1307,7 @@ msgstr "Rayon en Y (B2)"
 msgid "GH Card"
 msgstr "Carte GH"
 
-#: resources/xnec2c.glade:4239 resources/xnec2c.glade:15498
+#: resources/xnec2c.glade:4239 resources/xnec2c.glade:15482
 msgid "Interaction Approx Range (KH Card)"
 msgstr "Plage d'approximation d'interaction (carte KH)"
 
@@ -1451,8 +1427,8 @@ msgid "NX"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5374 resources/xnec2c.glade:11270
-#: resources/xnec2c.glade:12482
+#: resources/xnec2c.glade:5374 resources/xnec2c.glade:11253
+#: resources/xnec2c.glade:12466
 msgid "X"
 msgstr ""
 
@@ -1467,8 +1443,8 @@ msgid "NY"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5469 resources/xnec2c.glade:11285
-#: resources/xnec2c.glade:12497
+#: resources/xnec2c.glade:5469 resources/xnec2c.glade:11268
+#: resources/xnec2c.glade:12481
 msgid "Y"
 msgstr ""
 
@@ -1483,8 +1459,8 @@ msgid "NZ"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5564 resources/xnec2c.glade:11300
-#: resources/xnec2c.glade:12512
+#: resources/xnec2c.glade:5564 resources/xnec2c.glade:11283
+#: resources/xnec2c.glade:12496
 msgid "Z"
 msgstr ""
 
@@ -1654,7 +1630,7 @@ msgstr "N° de segment, Port 1"
 msgid "Segment Num, Port 2"
 msgstr "N° de segment, Port 2"
 
-#: resources/xnec2c.glade:6851 resources/xnec2c.glade:14284
+#: resources/xnec2c.glade:6851 resources/xnec2c.glade:14268
 msgid "Segment Identity"
 msgstr "Identité du segment"
 
@@ -1949,150 +1925,146 @@ msgstr "Options de réflexion"
 msgid "Xnec2c: Frequency Data Plots"
 msgstr "Xnec2c : Graphiques des données de fréquence"
 
-#: resources/xnec2c.glade:9426 resources/xnec2c.glade:10416
-#: resources/xnec2c.glade:11971
+#: resources/xnec2c.glade:9427 resources/xnec2c.glade:10399
+#: resources/xnec2c.glade:11955
 msgid "_File"
 msgstr "_Fichier"
 
-#: resources/xnec2c.glade:9488 resources/xnec2c.glade:10478
-#: resources/xnec2c.glade:12033
+#: resources/xnec2c.glade:9489 resources/xnec2c.glade:10461
+#: resources/xnec2c.glade:12017
 msgid "Save as _gnuplot"
 msgstr "Enregistrer comme _gnuplot"
 
-#: resources/xnec2c.glade:9499 resources/xnec2c.glade:12043
+#: resources/xnec2c.glade:9500 resources/xnec2c.glade:12027
 msgid "Save as _CSV"
 msgstr "Enregistrer comme _CSV"
 
-#: resources/xnec2c.glade:9511
+#: resources/xnec2c.glade:9512
 msgid "Save as _Touchstone (.SnP)"
 msgstr "Enregistrer comme _Touchstone (.SnP)"
 
-#: resources/xnec2c.glade:9518
+#: resources/xnec2c.glade:9519
 msgid "Save as S_1P: Reflection Only"
 msgstr "Enregistrer comme S_1P : Réflexion uniquement"
 
-#: resources/xnec2c.glade:9528
+#: resources/xnec2c.glade:9529
 msgid "Save as S2P: _Max Gain (S21)"
 msgstr "Enregistrer comme S2P : Gain _max (S21)"
 
-#: resources/xnec2c.glade:9538
+#: resources/xnec2c.glade:9539
 msgid "Save as S2P: _Viewer Gain (S21)"
 msgstr "Enregistrer comme S2P : Gain _observateur (S21)"
 
-#: resources/xnec2c.glade:9575 resources/xnec2c.glade:10853
-#: resources/xnec2c.glade:12077
+#: resources/xnec2c.glade:9576 resources/xnec2c.glade:10836
+#: resources/xnec2c.glade:12061
 msgid "_View"
 msgstr "_Affichage"
 
-#: resources/xnec2c.glade:9584 resources/xnec2c.glade:10881
-#: resources/xnec2c.glade:12085
+#: resources/xnec2c.glade:9585 resources/xnec2c.glade:10864
+#: resources/xnec2c.glade:12069
 msgid "_Polarization"
 msgstr "_Polarisation"
 
 # xnec2c-exempt: loanword
-#: resources/xnec2c.glade:9598 resources/xnec2c.glade:10895
-#: resources/xnec2c.glade:12099
+#: resources/xnec2c.glade:9599 resources/xnec2c.glade:10878
+#: resources/xnec2c.glade:12083
 msgid "_Total"
 msgstr ""
 
 # xnec2c-exempt: loanword
-#: resources/xnec2c.glade:9609 resources/xnec2c.glade:10906
-#: resources/xnec2c.glade:12110
+#: resources/xnec2c.glade:9610 resources/xnec2c.glade:10889
+#: resources/xnec2c.glade:12094
 msgid "_Horizontal"
 msgstr ""
 
 # xnec2c-exempt: loanword
-#: resources/xnec2c.glade:9620 resources/xnec2c.glade:10917
-#: resources/xnec2c.glade:12121
+#: resources/xnec2c.glade:9621 resources/xnec2c.glade:10900
+#: resources/xnec2c.glade:12105
 msgid "_Vertical"
 msgstr ""
 
-#: resources/xnec2c.glade:9631 resources/xnec2c.glade:10928
-#: resources/xnec2c.glade:12132
+#: resources/xnec2c.glade:9632 resources/xnec2c.glade:10911
+#: resources/xnec2c.glade:12116
 msgid "_Right Hand"
 msgstr "Main _droite"
 
-#: resources/xnec2c.glade:9642 resources/xnec2c.glade:10939
-#: resources/xnec2c.glade:12143
+#: resources/xnec2c.glade:9643 resources/xnec2c.glade:10922
+#: resources/xnec2c.glade:12127
 msgid "_Left Hand"
 msgstr "Main _gauche"
 
-#: resources/xnec2c.glade:9657
-msgid "_Color Theme"
-msgstr "Thème de _couleur"
-
-#: resources/xnec2c.glade:9676
+#: resources/xnec2c.glade:9658
 msgid "_Net Gain"
 msgstr "Gain _net"
 
-#: resources/xnec2c.glade:9685
+#: resources/xnec2c.glade:9667
 msgid "Show _Min/Max Values"
 msgstr "Afficher les valeurs _min/max"
 
-#: resources/xnec2c.glade:9694
+#: resources/xnec2c.glade:9676
 msgid "Show _S11 (dB) Values"
 msgstr "Afficher les valeurs _S11 (dB)"
 
-#: resources/xnec2c.glade:9703
+#: resources/xnec2c.glade:9685
 msgid "Clamp _VSWR Graph to 10"
 msgstr "Limiter le graphique _VSWR à 10"
 
-#: resources/xnec2c.glade:9712
+#: resources/xnec2c.glade:9694
 msgid "Show Ta instead of TA"
 msgstr "Afficher Ta au lieu de TA"
 
-#: resources/xnec2c.glade:9721
+#: resources/xnec2c.glade:9703
 msgid "Round _X Axis Frequency Values"
 msgstr "Arrondir les valeurs de fréquence sur l'axe _X"
 
-#: resources/xnec2c.glade:9730
+#: resources/xnec2c.glade:9712
 msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "_Intervertir la sélection de fréquence clic gauche/droit"
 
-#: resources/xnec2c.glade:9754 resources/xnec2c.glade:9936
+#: resources/xnec2c.glade:9736 resources/xnec2c.glade:9918
 msgid "Max Gain"
 msgstr "Gain max"
 
 # xnec2c-exempt: loanword
-#: resources/xnec2c.glade:9769
+#: resources/xnec2c.glade:9751
 msgid "Direction"
 msgstr ""
 
-#: resources/xnec2c.glade:9784
+#: resources/xnec2c.glade:9766
 msgid "Viewer"
 msgstr "Visualiseur"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9799 resources/xnec2c.glade:10041
-#: src/freqplots/freqplots_core.c:63 src/freqplots/graphs/vswr_graph.c:55
+#: resources/xnec2c.glade:9781 resources/xnec2c.glade:10023
+#: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9814
+#: resources/xnec2c.glade:9796
 msgid "Zr/Zi"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9829
+#: resources/xnec2c.glade:9811
 msgid "Zm/Zph"
 msgstr ""
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:9844
+#: resources/xnec2c.glade:9826
 msgid "Smith"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9859
+#: resources/xnec2c.glade:9841
 msgid "G/Ta"
 msgstr ""
 
-#: resources/xnec2c.glade:9873
+#: resources/xnec2c.glade:9855
 msgid "Cond"
 msgstr "Cond."
 
-#: resources/xnec2c.glade:9877
+#: resources/xnec2c.glade:9859
 msgid ""
 "Plots the precision lost solving the antenna at each frequency, in decimal "
 "digits.\n"
@@ -2120,188 +2092,188 @@ msgstr ""
 "redescendre la courbe."
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:9920 resources/xnec2c.glade:9955
-#: resources/xnec2c.glade:9990 resources/xnec2c.glade:10025
-#: resources/xnec2c.glade:10247 resources/xnec2c.glade:10282
-#: resources/xnec2c.glade:10317 resources/xnec2c.glade:13206
+#: resources/xnec2c.glade:9902 resources/xnec2c.glade:9937
+#: resources/xnec2c.glade:9972 resources/xnec2c.glade:10007
+#: resources/xnec2c.glade:10229 resources/xnec2c.glade:10264
+#: resources/xnec2c.glade:10299 resources/xnec2c.glade:13190
 msgid " - - -"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9971 src/freqplots/graphs/impedance_graph.c:76
+#: resources/xnec2c.glade:9953 src/freqplots/graphs/impedance_graph.c:76
 msgid "Z-imag"
 msgstr ""
 
-#: resources/xnec2c.glade:10006 src/freqplots/graphs/impedance_graph.c:74
+#: resources/xnec2c.glade:9988 src/freqplots/graphs/impedance_graph.c:74
 msgid "Z-real"
 msgstr "Z-réel"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:10061
+#: resources/xnec2c.glade:10043
 msgid " - - - - "
 msgstr ""
 
-#: resources/xnec2c.glade:10077
+#: resources/xnec2c.glade:10059
 msgid "Freq MHz"
 msgstr "Fréq MHz"
 
 # xnec2c-exempt: loanword
-#: resources/xnec2c.glade:10116 resources/xnec2c.glade:10129
+#: resources/xnec2c.glade:10098 resources/xnec2c.glade:10111
 msgid "Port"
 msgstr ""
 
-#: resources/xnec2c.glade:10141
+#: resources/xnec2c.glade:10123
 msgid "Tx Line Z<sub>0</sub>"
 msgstr "Z<sub>0</sub> ligne Tx"
 
-#: resources/xnec2c.glade:10156 resources/xnec2c.glade:11761
-#: resources/xnec2c.glade:12978
+#: resources/xnec2c.glade:10138 resources/xnec2c.glade:11744
+#: resources/xnec2c.glade:12962
 msgid "Freq Loop"
 msgstr "Boucle de fréquence"
 
-#: resources/xnec2c.glade:10228 resources/xnec2c.glade:13084
+#: resources/xnec2c.glade:10210 resources/xnec2c.glade:13068
 msgid "T<sub>A</sub>(Elev.°)"
 msgstr "T<sub>A</sub>(Élév.°)"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10263
+#: resources/xnec2c.glade:10245
 msgid "T<sub>a</sub>"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10298
+#: resources/xnec2c.glade:10280
 msgid "G/T<sub>a</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:10372
+#: resources/xnec2c.glade:10354
 msgid "Frequency Data Plots"
 msgstr "Graphiques des données de fréquence"
 
-#: resources/xnec2c.glade:10489
+#: resources/xnec2c.glade:10472
 msgid "Save _Currents/Charges as CSV"
 msgstr "Enregistrer _courants/charges en CSV"
 
-#: resources/xnec2c.glade:10508
+#: resources/xnec2c.glade:10491
 msgid "Optimization Settings"
 msgstr "Paramètres d'optimisation"
 
-#: resources/xnec2c.glade:10523
+#: resources/xnec2c.glade:10506
 msgid "Reload and write data on .NEC file changes"
 msgstr "Recharger et écrire les données lors de modifications du fichier .NEC"
 
-#: resources/xnec2c.glade:10530
+#: resources/xnec2c.glade:10513
 msgid "_Write files selected below, now."
 msgstr "_Écrire les fichiers sélectionnés ci-dessous, maintenant."
 
-#: resources/xnec2c.glade:10545
+#: resources/xnec2c.glade:10528
 msgid "After calculation, write <file>.csv"
 msgstr "Après calcul, écrire <file>.csv"
 
-#: resources/xnec2c.glade:10554
+#: resources/xnec2c.glade:10537
 msgid "After calculation, write <file>.s_1p"
 msgstr "Après calcul, écrire <file>.s_1p"
 
-#: resources/xnec2c.glade:10563
+#: resources/xnec2c.glade:10546
 msgid "After calculation, write <file>-_maxgain.s2p"
 msgstr "Après calcul, écrire <file>-_maxgain.s2p"
 
-#: resources/xnec2c.glade:10572
+#: resources/xnec2c.glade:10555
 msgid "After calculation, write <file>-_viewergain.s2p"
 msgstr "Après calcul, écrire <file>-_viewergain.s2p"
 
-#: resources/xnec2c.glade:10581
+#: resources/xnec2c.glade:10564
 msgid "After calculation, write <file>-_radpattern.csv"
 msgstr "Après calcul, écrire <file>-_radpattern.csv"
 
-#: resources/xnec2c.glade:10590
+#: resources/xnec2c.glade:10573
 msgid "After calculation, write <file>-_currents.csv"
 msgstr "Après calcul, écrire <file>-_currents.csv"
 
-#: resources/xnec2c.glade:10599
+#: resources/xnec2c.glade:10582
 msgid "After calculation, write <file>-_structure.gplot"
 msgstr "Après calcul, écrire <file>-_structure.gplot"
 
-#: resources/xnec2c.glade:10608
+#: resources/xnec2c.glade:10591
 msgid "After calculation, write <file>-_patch-currents.csv"
 msgstr "Après calcul, écrire <file>-_patch-currents.csv"
 
-#: resources/xnec2c.glade:10623
+#: resources/xnec2c.glade:10606
 msgid "_Math Libraries"
 msgstr "Bibliothèques _mathématiques"
 
-#: resources/xnec2c.glade:10632
+#: resources/xnec2c.glade:10615
 msgid "_Interactive"
 msgstr "_Interactif"
 
-#: resources/xnec2c.glade:10652
+#: resources/xnec2c.glade:10635
 msgid "_Batch"
 msgstr "_Lot"
 
-#: resources/xnec2c.glade:10678
+#: resources/xnec2c.glade:10661
 msgid "Mathlib _Help"
 msgstr "_Aide Mathlib"
 
-#: resources/xnec2c.glade:10691
+#: resources/xnec2c.glade:10674
 msgid "Mathlib _Benchmarks"
 msgstr "_Benchmarks Mathlib"
 
-#: resources/xnec2c.glade:10702
+#: resources/xnec2c.glade:10685
 msgid "_Selected Mathlibs"
 msgstr "Mathlibs _sélectionnées"
 
-#: resources/xnec2c.glade:10716
+#: resources/xnec2c.glade:10699
 msgid "Select All/None"
 msgstr "Sélectionner tout/aucun"
 
-#: resources/xnec2c.glade:10741
+#: resources/xnec2c.glade:10724
 msgid "_Parallel (-j N):\t\tO(N/J)"
 msgstr "_Parallèle (-j N) :\t\tO(N/J)"
 
-#: resources/xnec2c.glade:10750
+#: resources/xnec2c.glade:10733
 msgid "_Single Job (-j 1):\tO(N)"
 msgstr "Tâche _unique (-j 1) :\tO(N)"
 
-#: resources/xnec2c.glade:10759
+#: resources/xnec2c.glade:10742
 msgid "_Iterate -j N/=2:\tO(N*log2(J))"
 msgstr "_Itérer -j N/=2 :\tO(N*log2(J))"
 
-#: resources/xnec2c.glade:10768
+#: resources/xnec2c.glade:10751
 msgid "_Iterate -j N-=1:\tO(N*J)"
 msgstr "_Itérer -j N-=1 :\tO(N*J)"
 
-#: resources/xnec2c.glade:10777
+#: resources/xnec2c.glade:10760
 msgid "_Threads (-j 1, --threads N/=2):\tO(N*log2(T))"
 msgstr "_Threads (-j 1, --threads N/=2) :\\\tO(N*log2(T))"
 
-#: resources/xnec2c.glade:10792
+#: resources/xnec2c.glade:10775
 msgid "Benchmark _Help"
 msgstr "_Aide benchmark"
 
-#: resources/xnec2c.glade:10811
+#: resources/xnec2c.glade:10794
 msgid "Begin Frequency Loop at Startup"
 msgstr "Démarrer la boucle de fréquence au lancement"
 
-#: resources/xnec2c.glade:10822
+#: resources/xnec2c.glade:10805
 msgid "Confirm Quit"
 msgstr "Confirmer la sortie"
 
-#: resources/xnec2c.glade:10861
+#: resources/xnec2c.glade:10844
 msgid "_Radiation Pattern"
 msgstr "Diagramme de _rayonnement"
 
-#: resources/xnec2c.glade:10871
+#: resources/xnec2c.glade:10854
 msgid "_Frequency Plots"
 msgstr "Graphiques de _fréquence"
 
-#: resources/xnec2c.glade:10954
+#: resources/xnec2c.glade:10937
 msgid "_Visualization"
 msgstr "_Visualisation"
 
-#: resources/xnec2c.glade:10970
+#: resources/xnec2c.glade:10953
 msgid "Color Scale"
 msgstr "Échelle de couleur"
 
-#: resources/xnec2c.glade:10977
+#: resources/xnec2c.glade:10960
 msgid ""
 "Power transfer n^γ relative to this frequency step's peak.\n"
 "γ = 0.5 expands weak regions, γ = 1 is linear amplitude, γ = 2 shows the "
@@ -2317,11 +2289,11 @@ msgstr ""
 "résistance de rayonnement), |q|² à l'énergie électrostatique stockée.\n"
 "Ajuster γ dans la boîte de dialogue d'animation."
 
-#: resources/xnec2c.glade:10978
+#: resources/xnec2c.glade:10961
 msgid "_Power"
 msgstr "_Puissance"
 
-#: resources/xnec2c.glade:10989
+#: resources/xnec2c.glade:10972
 msgid ""
 "Logarithmic scale over a user-set range R below the peak.\n"
 "Reveals weak detail that linear display hides; adjust R in the animate "
@@ -2333,11 +2305,11 @@ msgstr ""
 "la boîte de dialogue d'animation."
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10990
+#: resources/xnec2c.glade:10973
 msgid "_dB"
 msgstr ""
 
-#: resources/xnec2c.glade:11001
+#: resources/xnec2c.glade:10984
 msgid ""
 "Inverse hyperbolic sine transfer: linear below the softening knee k, "
 "logarithmic above.\n"
@@ -2348,11 +2320,11 @@ msgstr ""
 "Ajuster k dans la boîte de dialogue d'animation."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11002
+#: resources/xnec2c.glade:10985
 msgid "_Asinh"
 msgstr ""
 
-#: resources/xnec2c.glade:11013
+#: resources/xnec2c.glade:10996
 msgid ""
 "μ-law companding transfer: lifts weak detail with bounded compression.\n"
 "Adjust the compression in the animate dialog."
@@ -2362,11 +2334,11 @@ msgstr ""
 "Ajuster la compression dans la boîte de dialogue d'animation."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11014
+#: resources/xnec2c.glade:10997
 msgid "μ-_law"
 msgstr ""
 
-#: resources/xnec2c.glade:11025
+#: resources/xnec2c.glade:11008
 msgid ""
 "Reinhard rational soft-compressor with knee k.\n"
 "Adjust k in the animate dialog."
@@ -2375,11 +2347,11 @@ msgstr ""
 "Ajuster k dans la boîte de dialogue d'animation."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11026
+#: resources/xnec2c.glade:11009
 msgid "_Reinhard"
 msgstr ""
 
-#: resources/xnec2c.glade:11037
+#: resources/xnec2c.glade:11020
 msgid ""
 "Hyperbolic tangent transfer with contrast steepness a.\n"
 "Adjust a in the animate dialog."
@@ -2387,11 +2359,11 @@ msgstr ""
 "Transfert tangente hyperbolique avec pente de contraste a.\n"
 "Ajuster a dans la boîte de dialogue d'animation."
 
-#: resources/xnec2c.glade:11038
+#: resources/xnec2c.glade:11021
 msgid "_Sigmoid"
 msgstr "_Sigmoïde"
 
-#: resources/xnec2c.glade:11049
+#: resources/xnec2c.glade:11032
 msgid ""
 "Full brightness for every magnitude; the color projection alone sets the "
 "rendering."
@@ -2399,53 +2371,53 @@ msgstr ""
 "Luminosité maximale pour toute amplitude ; la projection de couleur seule "
 "définit le rendu."
 
-#: resources/xnec2c.glade:11050
+#: resources/xnec2c.glade:11033
 msgid "_None"
 msgstr "_Aucun"
 
-#: resources/xnec2c.glade:11068
+#: resources/xnec2c.glade:11051
 msgid "Patch Flow — Animated"
 msgstr "Flux de patchs — Animé"
 
-#: resources/xnec2c.glade:11115
+#: resources/xnec2c.glade:11098
 msgid "Patch Flow — Static"
 msgstr "Flux de patchs — Statique"
 
-#: resources/xnec2c.glade:11148
+#: resources/xnec2c.glade:11131
 msgid "A_nimate"
 msgstr "A_nimer"
 
-#: resources/xnec2c.glade:11157 resources/xnec2c.glade:12407
+#: resources/xnec2c.glade:11140 resources/xnec2c.glade:12391
 msgid "Common _Projection"
 msgstr "_Projection commune"
 
-#: resources/xnec2c.glade:11167 resources/xnec2c.glade:12417
+#: resources/xnec2c.glade:11150 resources/xnec2c.glade:12401
 msgid "Common _Pan"
 msgstr "_Panoramique commun"
 
-#: resources/xnec2c.glade:11184
+#: resources/xnec2c.glade:11167
 msgid "_Symbol Overrides"
 msgstr "_Surcharges de symboles"
 
-#: resources/xnec2c.glade:11193
+#: resources/xnec2c.glade:11176
 msgid "Rendering _Settings..."
 msgstr "Paramètres de _rendu..."
 
-#: resources/xnec2c.glade:11204
+#: resources/xnec2c.glade:11187
 msgid "_Help"
 msgstr "_Aide"
 
-#: resources/xnec2c.glade:11213
+#: resources/xnec2c.glade:11196
 msgid "_About"
 msgstr "À _propos"
 
 # xnec2c-exempt: loanword
-#: resources/xnec2c.glade:11436
+#: resources/xnec2c.glade:11419
 msgid " Zoom"
 msgstr ""
 
-#: resources/xnec2c.glade:11603 resources/xnec2c.glade:11664
-#: resources/xnec2c.glade:11712
+#: resources/xnec2c.glade:11586 resources/xnec2c.glade:11647
+#: resources/xnec2c.glade:11695
 msgid ""
 "Gain in the direction of the structure viewer, for the current view angles."
 msgstr ""
@@ -2453,361 +2425,361 @@ msgstr ""
 "actuels."
 
 # xnec2c-exempt: loanword
-#: resources/xnec2c.glade:11604 resources/xnec2c.glade:12914
-#: src/freqplots/freqplots_core.c:60
+#: resources/xnec2c.glade:11587 resources/xnec2c.glade:12898
+#: src/freqplots/freqplots_core.c:62
 msgid "Gain"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:11619 resources/xnec2c.glade:11635
-#: resources/xnec2c.glade:12927 resources/xnec2c.glade:13188
+#: resources/xnec2c.glade:11602 resources/xnec2c.glade:11618
+#: resources/xnec2c.glade:12911 resources/xnec2c.glade:13172
 msgid "0.0"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:11670
+#: resources/xnec2c.glade:11653
 msgid "- - - "
 msgstr ""
 
-#: resources/xnec2c.glade:11727 resources/xnec2c.glade:12963
+#: resources/xnec2c.glade:11710 resources/xnec2c.glade:12947
 msgid "Step"
 msgstr "Pas"
 
-#: resources/xnec2c.glade:11851 resources/xnec2c.glade:13011
+#: resources/xnec2c.glade:11834 resources/xnec2c.glade:12995
 msgid "Apply Freq"
 msgstr "Appliquer Fréq"
 
-#: resources/xnec2c.glade:11871
+#: resources/xnec2c.glade:11854
 msgid "Frequency Mhz"
 msgstr "Fréquence MHz"
 
-#: resources/xnec2c.glade:11926
+#: resources/xnec2c.glade:11909
 msgid "Structure Geometry"
 msgstr "Géométrie de la structure"
 
-#: resources/xnec2c.glade:11945
+#: resources/xnec2c.glade:11928
 msgid "Xnec2c: Radiation Patterns"
 msgstr "Xnec2c : Diagrammes de rayonnement"
 
-#: resources/xnec2c.glade:12158
+#: resources/xnec2c.glade:12142
 msgid "_Gain Scaling"
 msgstr "Échelle de _gain"
 
-#: resources/xnec2c.glade:12173
+#: resources/xnec2c.glade:12157
 msgid "Linear _Power"
 msgstr "_Puissance linéaire"
 
-#: resources/xnec2c.glade:12184
+#: resources/xnec2c.glade:12168
 msgid "Linear _Voltage"
 msgstr "_Tension linéaire"
 
-#: resources/xnec2c.glade:12195
+#: resources/xnec2c.glade:12179
 msgid "_ARRL Style"
 msgstr "Style _ARRL"
 
-#: resources/xnec2c.glade:12206
+#: resources/xnec2c.glade:12190
 msgid "_Logarithmic"
 msgstr "_Logarithmique"
 
-#: resources/xnec2c.glade:12217
+#: resources/xnec2c.glade:12201
 msgid "_Noise Temperature"
 msgstr "Température de _bruit"
 
-#: resources/xnec2c.glade:12228
+#: resources/xnec2c.glade:12212
 msgid "Noise Temp (_log scale)"
 msgstr "Temp. de bruit (échelle _log)"
 
-#: resources/xnec2c.glade:12243
+#: resources/xnec2c.glade:12227
 msgid "Noise _Models"
 msgstr "_Modèles de bruit"
 
-#: resources/xnec2c.glade:12262
+#: resources/xnec2c.glade:12246
 msgid "_Gradient Key"
 msgstr "Légende de _dégradé"
 
-#: resources/xnec2c.glade:12272
+#: resources/xnec2c.glade:12256
 msgid "Draw St_yle"
 msgstr "St_yle de dessin"
 
 # xnec2c-exempt: loanword
-#: resources/xnec2c.glade:12281
+#: resources/xnec2c.glade:12265
 msgid "S_urface"
 msgstr ""
 
-#: resources/xnec2c.glade:12300
+#: resources/xnec2c.glade:12284
 msgid "_Both"
 msgstr "_Les deux"
 
-#: resources/xnec2c.glade:12315
+#: resources/xnec2c.glade:12299
 msgid "_Near Field"
 msgstr "Champ _proche"
 
-#: resources/xnec2c.glade:12330
+#: resources/xnec2c.glade:12314
 msgid "Near _E Field"
 msgstr "Champ _E proche"
 
-#: resources/xnec2c.glade:12340
+#: resources/xnec2c.glade:12324
 msgid "Near _H Field"
 msgstr "Champ _H proche"
 
-#: resources/xnec2c.glade:12350
+#: resources/xnec2c.glade:12334
 msgid "_Poynting Vector"
 msgstr "Vecteur de _Poynting"
 
-#: resources/xnec2c.glade:12359
+#: resources/xnec2c.glade:12343
 msgid "_Animate Dialog"
 msgstr "Boîte de dialogue d'_animation"
 
-#: resources/xnec2c.glade:12368
+#: resources/xnec2c.glade:12352
 msgid "_Total Field"
 msgstr "Champ _total"
 
-#: resources/xnec2c.glade:12377
+#: resources/xnec2c.glade:12361
 msgid "_Peak Value"
 msgstr "Valeur _crête"
 
-#: resources/xnec2c.glade:12388
+#: resources/xnec2c.glade:12372
 msgid "_Instantaneous (φ=0)"
 msgstr "_Instantané (φ=0)"
 
-#: resources/xnec2c.glade:12428
+#: resources/xnec2c.glade:12412
 msgid "_Overlay Structure"
 msgstr "_Superposer la structure"
 
-#: resources/xnec2c.glade:12452
+#: resources/xnec2c.glade:12436
 msgid "Gain Pattern"
 msgstr "Diagramme de gain"
 
-#: resources/xnec2c.glade:12467
+#: resources/xnec2c.glade:12451
 msgid "E/H Fields"
 msgstr "Champs E/H"
 
 # xnec2c-exempt: loanword
-#: resources/xnec2c.glade:12650
+#: resources/xnec2c.glade:12634
 msgid "Zoom % "
 msgstr ""
 
-#: resources/xnec2c.glade:12689
+#: resources/xnec2c.glade:12673
 msgid "Elev.°"
 msgstr "Élév.°"
 
-#: resources/xnec2c.glade:13031
+#: resources/xnec2c.glade:13015
 msgid "Frequency MHz"
 msgstr "Fréquence MHz"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:13048
+#: resources/xnec2c.glade:13032
 msgid "0.010"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:13102 resources/xnec2c.glade:13135
-#: resources/xnec2c.glade:13170
+#: resources/xnec2c.glade:13086 resources/xnec2c.glade:13119
+#: resources/xnec2c.glade:13154
 msgid "— K"
 msgstr ""
 
-#: resources/xnec2c.glade:13117
+#: resources/xnec2c.glade:13101
 msgid "T<sub>earth</sub>"
 msgstr "T<sub>sol</sub>"
 
-#: resources/xnec2c.glade:13152
+#: resources/xnec2c.glade:13136
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>ciel</sub>"
 
-#: resources/xnec2c.glade:13267 src/rdpattern_ui.c:962
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
 msgid "Radiation Patterns"
 msgstr "Diagrammes de rayonnement"
 
-#: resources/xnec2c.glade:13302
+#: resources/xnec2c.glade:13286
 msgid "Scale Structure (GS card)"
 msgstr "Échelle de structure (carte GS)"
 
-#: resources/xnec2c.glade:13333
+#: resources/xnec2c.glade:13317
 msgid "Structure Scale Factor"
 msgstr "Facteur d'échelle de structure"
 
-#: resources/xnec2c.glade:13346
+#: resources/xnec2c.glade:13330
 msgid "From Tag No."
 msgstr "Du n° de tag"
 
-#: resources/xnec2c.glade:13396
+#: resources/xnec2c.glade:13380
 msgid "To Tag No."
 msgstr "Au n° de tag"
 
-#: resources/xnec2c.glade:13431
+#: resources/xnec2c.glade:13415
 msgid "Scale Structure"
 msgstr "Échelle de structure"
 
-#: resources/xnec2c.glade:13608
+#: resources/xnec2c.glade:13592
 msgid "Co-ordinate Transformation (GM card)"
 msgstr "Transformation de coordonnées (carte GM)"
 
-#: resources/xnec2c.glade:13638
+#: resources/xnec2c.glade:13622
 msgid "Tag Increment"
 msgstr "Incrément de tag"
 
-#: resources/xnec2c.glade:13669
+#: resources/xnec2c.glade:13653
 msgid "Rotate about X"
 msgstr "Rotation autour de X"
 
-#: resources/xnec2c.glade:13701
+#: resources/xnec2c.glade:13685
 msgid "Move along X"
 msgstr "Déplacement selon X"
 
-#: resources/xnec2c.glade:13733
+#: resources/xnec2c.glade:13717
 msgid "New Structures"
 msgstr "Nouvelles structures"
 
-#: resources/xnec2c.glade:13764
+#: resources/xnec2c.glade:13748
 msgid "Rotate about Y"
 msgstr "Rotation autour de Y"
 
-#: resources/xnec2c.glade:13796
+#: resources/xnec2c.glade:13780
 msgid "Move along Y"
 msgstr "Déplacement selon Y"
 
-#: resources/xnec2c.glade:13828
+#: resources/xnec2c.glade:13812
 msgid "Start From Tag"
 msgstr "Commencer au tag"
 
-#: resources/xnec2c.glade:13860
+#: resources/xnec2c.glade:13844
 msgid "Rotate about Z"
 msgstr "Rotation autour de Z"
 
-#: resources/xnec2c.glade:13892
+#: resources/xnec2c.glade:13876
 msgid "Move along Z"
 msgstr "Déplacement selon Z"
 
-#: resources/xnec2c.glade:13928
+#: resources/xnec2c.glade:13912
 msgid "Co-ordinate Transformation Data"
 msgstr "Données de transformation de coordonnées"
 
-#: resources/xnec2c.glade:14124
+#: resources/xnec2c.glade:14108
 msgid "Trans. Line Command (TL Card)"
 msgstr "Commande de ligne de transmission (carte TL)"
 
-#: resources/xnec2c.glade:14154
+#: resources/xnec2c.glade:14138
 msgid "Tag Number, End 1  "
 msgstr "N° de tag, extrémité 1  "
 
-#: resources/xnec2c.glade:14186
+#: resources/xnec2c.glade:14170
 msgid "Tag Number, End 2  "
 msgstr "N° de tag, extrémité 2  "
 
-#: resources/xnec2c.glade:14217
+#: resources/xnec2c.glade:14201
 msgid "Segment Num, End 1"
 msgstr "N° de segment, extrémité 1"
 
-#: resources/xnec2c.glade:14249
+#: resources/xnec2c.glade:14233
 msgid "Segment Num, End 2"
 msgstr "N° de segment, extrémité 2"
 
-#: resources/xnec2c.glade:14313
+#: resources/xnec2c.glade:14297
 msgid "Crossed Transmission Line"
 msgstr "Ligne de transmission croisée"
 
-#: resources/xnec2c.glade:14331
+#: resources/xnec2c.glade:14315
 msgid "Characteristic Impedance"
 msgstr "Impédance caractéristique"
 
-#: resources/xnec2c.glade:14363
+#: resources/xnec2c.glade:14347
 msgid "End 1 Y Real Part (S)"
 msgstr "Partie réelle Y extrémité 1 (S)"
 
-#: resources/xnec2c.glade:14395
+#: resources/xnec2c.glade:14379
 msgid "End 2 Y Real Part (S)"
 msgstr "Partie réelle Y extrémité 2 (S)"
 
-#: resources/xnec2c.glade:14427
+#: resources/xnec2c.glade:14411
 msgid "Length of Tx Line (m)"
 msgstr "Longueur de la ligne Tx (m)"
 
-#: resources/xnec2c.glade:14459
+#: resources/xnec2c.glade:14443
 msgid "End 1 Y Imag Part (S)"
 msgstr "Partie imaginaire Y extrémité 1 (S)"
 
-#: resources/xnec2c.glade:14491
+#: resources/xnec2c.glade:14475
 msgid "End 2 Y Imag Part (S)"
 msgstr "Partie imaginaire Y extrémité 2 (S)"
 
-#: resources/xnec2c.glade:14527
+#: resources/xnec2c.glade:14511
 msgid "Transmission Line"
 msgstr "Ligne de transmission"
 
-#: resources/xnec2c.glade:14754
+#: resources/xnec2c.glade:14738
 msgid "Wire Element (GW & GC cards)"
 msgstr "Élément filaire (cartes GW et GC)"
 
-#: resources/xnec2c.glade:14814
+#: resources/xnec2c.glade:14798
 msgid "Wire X1"
 msgstr "Fil X1"
 
-#: resources/xnec2c.glade:14846
+#: resources/xnec2c.glade:14830
 msgid "Wire X2"
 msgstr "Fil X2"
 
-#: resources/xnec2c.glade:14909
+#: resources/xnec2c.glade:14893
 msgid "Wire Y1"
 msgstr "Fil Y1"
 
-#: resources/xnec2c.glade:14942
+#: resources/xnec2c.glade:14926
 msgid "Wire Y2"
 msgstr "Fil Y2"
 
-#: resources/xnec2c.glade:15006
+#: resources/xnec2c.glade:14990
 msgid "Wire Z1"
 msgstr "Fil Z1"
 
-#: resources/xnec2c.glade:15038
+#: resources/xnec2c.glade:15022
 msgid "Wire Z2"
 msgstr "Fil Z2"
 
-#: resources/xnec2c.glade:15103
+#: resources/xnec2c.glade:15087
 msgid "Wire Length"
 msgstr "Longueur du fil"
 
-#: resources/xnec2c.glade:15174
+#: resources/xnec2c.glade:15158
 msgid "Wire Data"
 msgstr "Données du fil"
 
-#: resources/xnec2c.glade:15186
+#: resources/xnec2c.glade:15170
 msgid "Tapered Wire"
 msgstr "Fil conique"
 
-#: resources/xnec2c.glade:15228
+#: resources/xnec2c.glade:15212
 msgid "Length Taper"
 msgstr "Conicité en longueur"
 
-#: resources/xnec2c.glade:15260
+#: resources/xnec2c.glade:15244
 msgid "Diameter Seg 1"
 msgstr "Diamètre seg 1"
 
-#: resources/xnec2c.glade:15292
+#: resources/xnec2c.glade:15276
 msgid "Diameter Seg N"
 msgstr "Diamètre seg N"
 
-#: resources/xnec2c.glade:15324
+#: resources/xnec2c.glade:15308
 msgid "Diam. Taper"
 msgstr "Conicité diam."
 
-#: resources/xnec2c.glade:15360
+#: resources/xnec2c.glade:15344
 msgid "Wire Taper Data"
 msgstr "Données de conicité du fil"
 
-#: resources/xnec2c.glade:15525
+#: resources/xnec2c.glade:15509
 msgid "Impedance (Zo) Ohm"
 msgstr "Impédance (Zo) Ohm"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:15540
+#: resources/xnec2c.glade:15524
 msgid "50.00"
 msgstr ""
 
-#: resources/xnec2c.glade:15563
+#: resources/xnec2c.glade:15547
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Impédance de ligne de transmission (Zo)"
 
-#: src/anim/anim_dialog.c:69
+#: src/anim/anim_dialog.c:64
 msgid ""
 "Choose how current flow is marked on surface patches.\n"
 "This model has no patches: add SP, SC, or SM patch cards to the NEC input "
@@ -2817,7 +2789,26 @@ msgstr ""
 "Ce modèle n'a pas de patch : ajoutez des cartes patch SP, SC ou SM au "
 "fichier d'entrée NEC."
 
-#: src/anim/anim_dialog.c:77
+#: src/anim/anim_dialog.c:72
+msgid ""
+"Choose which near-field quantity is drawn as animated vectors.\n"
+"This model carries no near field: add NE or NH cards to the NEC input file."
+msgstr ""
+"Choisir la quantité de champ proche dessinée sous forme de vecteurs animés.\n"
+"Ce modèle ne porte aucun champ proche : ajouter des cartes NE ou NH au "
+"fichier d'entrée NEC."
+
+#: src/anim/anim_dialog.c:76
+msgid ""
+"Choose which near-field quantity is drawn as animated vectors.\n"
+"In the main window choose View, Radiation Pattern, then in that window "
+"select E/H Fields."
+msgstr ""
+"Choisir la quantité de champ proche dessinée sous forme de vecteurs animés.\n"
+"Dans la fenêtre principale, choisir Affichage, Diagramme de rayonnement, "
+"puis dans cette fenêtre sélectionner Champs E/H."
+
+#: src/anim/anim_dialog.c:84
 msgid ""
 "Draw the far-zone field as arrows on the gain surface.\n"
 "In the main window choose View, Radiation Pattern; if that item is disabled, "
@@ -2827,7 +2818,7 @@ msgstr ""
 "Dans la fenêtre principale, choisissez Affichage, Diagramme de rayonnement ; "
 "si cet élément est désactivé, ajoutez une carte RP au fichier d'entrée NEC."
 
-#: src/anim/anim_dialog.c:81
+#: src/anim/anim_dialog.c:88
 msgid ""
 "Draw the far-zone field as arrows on the gain surface.\n"
 "Tick the check box in the Far Field heading just above."
@@ -2835,7 +2826,7 @@ msgstr ""
 "Dessine le champ lointain sous forme de flèches sur la surface de gain.\n"
 "Cochez la case dans l'en-tête Champ lointain juste au-dessus."
 
-#: src/anim/anim_dialog.c:88
+#: src/anim/anim_dialog.c:95
 msgid ""
 "Choose the reference the vertical and horizontal gain are read against.\n"
 "Under Polarization in this window select Vertical or Horizontal; Total, "
@@ -2846,7 +2837,7 @@ msgstr ""
 "Sous Polarisation dans cette fenêtre, sélectionnez Verticale ou "
 "Horizontale ; Totale, Droite et Gauche n'utilisent pas ce réglage."
 
-#: src/anim/anim_dialog.c:97
+#: src/anim/anim_dialog.c:104
 msgid ""
 "Start advancing the animation phase at the cadence set below.\n"
 "Nothing drawn now changes with phase. Under Display choose Currents or "
@@ -2862,7 +2853,7 @@ msgstr ""
 "animé. Pour les cartes NE/NH, affichez Champ proche et cochez E, H ou "
 "Poynting ; pour une carte RP, affichez Gain et cochez Champ lointain."
 
-#: src/anim/anim_dialog.c:108
+#: src/anim/anim_dialog.c:115
 msgid ""
 "Start advancing the animation phase at the cadence set below.\n"
 "Available when drawn content changes with phase."
@@ -2870,7 +2861,7 @@ msgstr ""
 "Fait avancer la phase d'animation à la cadence définie ci-dessous.\n"
 "Disponible lorsque le contenu affiché change avec la phase."
 
-#: src/anim/anim_dialog.c:112
+#: src/anim/anim_dialog.c:119
 msgid ""
 "Select how the animated patch current flow is rendered.\n"
 "Mirrors the Visualization menu setting in the main window."
@@ -2878,7 +2869,7 @@ msgstr ""
 "Sélectionner le mode de rendu du flux de courant animé des patchs.\n"
 "Miroir du paramètre Visualisation dans la fenêtre principale."
 
-#: src/anim/anim_dialog.c:116
+#: src/anim/anim_dialog.c:123
 msgid ""
 "Resolve the far-zone field into tangent vectors drawn on the radiation "
 "pattern gain surface.\n"
@@ -2890,7 +2881,7 @@ msgstr ""
 "Disponible lorsque la fenêtre du diagramme de rayonnement est ouverte et que "
 "Champ lointain est sélectionné."
 
-#: src/anim/anim_dialog.c:122
+#: src/anim/anim_dialog.c:129
 msgid ""
 "Read the vertical and horizontal gain selections against the spherical "
 "basis, so vertical is the theta direction and horizontal is the phi "
@@ -2902,7 +2893,7 @@ msgstr ""
 "la direction phi.\n"
 "Disponible pour la polarisation Verticale ou Horizontale."
 
-#: src/anim/anim_dialog.c:128
+#: src/anim/anim_dialog.c:135
 msgid ""
 "Read the vertical and horizontal gain selections against the Ludwig-3 co-"
 "polar and cross-polar directions, which hold one orientation across the "
@@ -2914,15 +2905,41 @@ msgstr ""
 "une orientation unique sur l'ensemble du diagramme.\n"
 "Disponible pour la polarisation Verticale ou Horizontale."
 
-#: src/anim/anim_dialog.c:167
+#: src/anim/anim_dialog.c:141
 msgid ""
-"Open the animation controls for phase-varying content.\n"
-"Available when the model contains supported animation content."
+"Draw the near electric field as vectors advancing with the animation phase.\n"
+"Mirrors the Near E Field selection in the radiation pattern window."
 msgstr ""
-"Ouvre les commandes d'animation pour le contenu variant en phase.\n"
-"Disponible lorsque le modèle contient du contenu d'animation pris en charge."
+"Dessiner le champ électrique proche sous forme de vecteurs progressant avec "
+"la phase d'animation.\n"
+"Reflète la sélection Champ E proche dans la fenêtre du diagramme de "
+"rayonnement."
 
-#: src/anim/anim_dialog.c:169
+#: src/anim/anim_dialog.c:147
+msgid ""
+"Draw the near magnetic field as vectors advancing with the animation phase.\n"
+"Mirrors the Near H Field selection in the radiation pattern window."
+msgstr ""
+"Dessiner le champ magnétique proche sous forme de vecteurs progressant avec "
+"la phase d'animation.\n"
+"Reflète la sélection Champ H proche dans la fenêtre du diagramme de "
+"rayonnement."
+
+#: src/anim/anim_dialog.c:153
+msgid ""
+"Draw the Poynting power flow as vectors advancing with the animation phase.\n"
+"Mirrors the Poynting Vector selection in the radiation pattern window."
+msgstr ""
+"Dessiner le flux de puissance de Poynting sous forme de vecteurs progressant "
+"avec la phase d'animation.\n"
+"Reflète la sélection Vecteur de Poynting dans la fenêtre du diagramme de "
+"rayonnement."
+
+#: src/anim/anim_dialog.c:205
+msgid "Open the animation controls for phase-varying content."
+msgstr "Ouvrir les commandes d'animation pour le contenu variant en phase."
+
+#: src/anim/anim_dialog.c:206
 msgid ""
 "Open the animation controls for phase-varying content.\n"
 "This model has nothing to animate: load a NEC input file carrying wire cards "
@@ -3127,8 +3144,8 @@ msgstr "le fichier de configuration n'existe pas ou n'est pas lisible : %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:401
-#: src/rdpattern_ui.c:409 src/rdpattern_ui.c:416 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
+#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3194,17 +3211,17 @@ msgstr "Erreur de connexion de segment dans sbf()"
 msgid "Segment connection error in trio()"
 msgstr "Erreur de connexion de segment dans trio()"
 
-#: src/callback_func.c:52
+#: src/callback_func.c:53
 #, c-format
 msgid "failed to capture image for %s\n"
 msgstr "échec de la capture d'image pour %s\n"
 
-#: src/callback_func.c:58
+#: src/callback_func.c:59
 #, c-format
 msgid "failed to save image %s: %s\n"
 msgstr "échec de l'enregistrement de l'image %s : %s\n"
 
-#: src/callback_func.c:106
+#: src/callback_func.c:107
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to end the calculation?"
@@ -3212,7 +3229,7 @@ msgstr ""
 "La boucle de fréquence est en cours d'exécution\n"
 "Êtes-vous sûr de vouloir arrêter le calcul ?"
 
-#: src/callback_func.c:110
+#: src/callback_func.c:111
 msgid ""
 "The frequency loop is running\n"
 "Are you sure you wish to close this window?"
@@ -3220,7 +3237,7 @@ msgstr ""
 "La boucle de fréquence est en cours d'exécution\n"
 "Êtes-vous sûr de vouloir fermer cette fenêtre ?"
 
-#: src/callback_func.c:271
+#: src/callback_func.c:269
 #, c-format
 msgid ""
 "Excitation type %d has no feedpoint: VSWR and impedance plots are hidden.\n"
@@ -3228,47 +3245,47 @@ msgstr ""
 "Le type d'excitation %d n'a pas de point d'alimentation : les graphiques "
 "VSWR et d'impédance sont masqués.\n"
 
-#: src/callback_func.c:340
+#: src/callback_func.c:333
 msgid "View Currents"
 msgstr "Afficher les courants"
 
-#: src/callback_func.c:342
+#: src/callback_func.c:335
 msgid "View Charges"
 msgstr "Afficher les charges"
 
-#: src/callback_func.c:344
+#: src/callback_func.c:337
 msgid "View Geometry"
 msgstr "Afficher la géométrie"
 
-#: src/callback_func.c:402
+#: src/callback_func.c:395
 msgid "PNG images (*.png)"
 msgstr "Images PNG (*.png)"
 
-#: src/callback_func.c:404
+#: src/callback_func.c:397
 msgid "GNUplot files (*.gplot)"
 msgstr "Fichiers GNUplot (*.gplot)"
 
-#: src/callback_func.c:406
+#: src/callback_func.c:399
 msgid "NEC2 files (*.nec)"
 msgstr "Fichiers NEC2 (*.nec)"
 
-#: src/callback_func.c:408
+#: src/callback_func.c:401
 msgid "Touchstone 1-port files (*.s1p)"
 msgstr "Fichiers Touchstone 1 port (*.s1p)"
 
-#: src/callback_func.c:410
+#: src/callback_func.c:403
 msgid "Touchstone 2-port files (*.s2p)"
 msgstr "Fichiers Touchstone 2 ports (*.s2p)"
 
-#: src/callback_func.c:412
+#: src/callback_func.c:405
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Fichiers CSV séparés par des virgules (*.csv)"
 
-#: src/callbacks.c:95 src/callbacks.c:111 src/freqplots/freqplots_core.c:67
+#: src/callbacks.c:83 src/callbacks.c:99 src/freqplots/freqplots_core.c:69
 msgid "Antenna Temperature"
 msgstr "Température d'antenne"
 
-#: src/callbacks.c:96
+#: src/callbacks.c:84
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3277,7 +3294,7 @@ msgstr ""
 "effets de masse. Les modèles en espace libre sont la référence pour "
 "l'évaluation de la température d'antenne."
 
-#: src/callbacks.c:112
+#: src/callbacks.c:100
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3287,12 +3304,12 @@ msgstr ""
 "dans le plan XY avec l'angle d'élévation d'observation défini par le bouton "
 "rotatif."
 
-#: src/callbacks.c:176 src/callbacks.c:510 src/callbacks.c:1661
-#: src/callbacks.c:1832
+#: src/callbacks.c:186 src/callbacks.c:520 src/callbacks.c:1622
+#: src/callbacks.c:1792
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Êtes-vous sûr de vouloir quitter xnec2c ?"
 
-#: src/callbacks.c:280
+#: src/callbacks.c:290
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3300,7 +3317,7 @@ msgstr ""
 "Un nouveau fichier d'entrée NEC2 ne peut pas être créé\n"
 "pendant l'exécution de la boucle de fréquence"
 
-#: src/callbacks.c:317
+#: src/callbacks.c:327
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3308,22 +3325,22 @@ msgstr ""
 "Un nouveau fichier d'entrée NEC2 ne peut pas être ouvert\n"
 "pendant l'exécution de la boucle de fréquence"
 
-#: src/callbacks.c:436
+#: src/callbacks.c:446
 msgid "xnec2c geometry optimizer"
 msgstr "Optimiseur de géométrie xnec2c"
 
-#: src/callbacks.c:437
+#: src/callbacks.c:447
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "xnec2c a été compilé sans le support inotify : l'optimiseur ne peut pas être "
 "activé."
 
-#: src/callbacks.c:458
+#: src/callbacks.c:468
 msgid "Xnec2c Optimizer"
 msgstr "Optimiseur Xnec2c"
 
-#: src/callbacks.c:458
+#: src/callbacks.c:468
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3334,21 +3351,21 @@ msgstr ""
 "déclenchées par inotify. Sélectionnez les fichiers pour l'écriture dans « "
 "Fichier->Paramètres d'optimisation »."
 
-#: src/callbacks.c:991 src/callbacks.c:1311 src/callbacks.c:1858
+#: src/callbacks.c:967 src/callbacks.c:1284 src/callbacks.c:1818
 msgid "Are you sure you wish to close this window?"
 msgstr "Êtes-vous sûr de vouloir fermer cette fenêtre ?"
 
-#: src/callbacks.c:1536
+#: src/callbacks.c:1498
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "OpenGL n'est pas disponible sur cet écran ; le moteur de rendu ne peut pas "
 "être activé.\n"
 
-#: src/callbacks.c:1798
+#: src/callbacks.c:1758
 msgid "No open NEC2 input file"
 msgstr "Aucun fichier d'entrée NEC2 ouvert"
 
-#: src/callbacks.c:1889 src/callbacks.c:1919
+#: src/callbacks.c:1849 src/callbacks.c:1879
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3356,11 +3373,11 @@ msgstr ""
 "Les données de l'éditeur NEC2 ne peuvent pas être enregistrées\n"
 "pendant l'exécution de la boucle de fréquence"
 
-#: src/callbacks.c:1901 src/callbacks.c:1927
+#: src/callbacks.c:1861 src/callbacks.c:1887
 msgid "untitled.nec"
 msgstr "sans_titre.nec"
 
-#: src/callbacks.c:2388 src/callbacks.c:2408 src/callbacks.c:2428
+#: src/callbacks.c:2348 src/callbacks.c:2368 src/callbacks.c:2388
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
@@ -3594,19 +3611,19 @@ msgstr "Premier point Theta"
 msgid "Increment in R (m)"
 msgstr "Incrément en R (m)"
 
-#: src/color/color_config_hooks.c:131
+#: src/color/color_config_hooks.c:132
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr ""
 "Cette superposition provient des segments de courant du fil ; ce modèle n'en "
 "possède aucun."
 
-#: src/color/color_config_hooks.c:156
+#: src/color/color_config_hooks.c:151
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr ""
 "Mettre en évidence la crête de l'onde mobile sous la forme d'une tête de "
 "comète lumineuse."
 
-#: src/color/color_config_hooks.c:157
+#: src/color/color_config_hooks.c:152
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3614,7 +3631,7 @@ msgstr ""
 "La comète suit la crête de l'onde animée ; cette projection est une lecture "
 "statique sans phase mobile."
 
-#: src/color/color_config_hooks.c:160
+#: src/color/color_config_hooks.c:155
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr ""
 "Marquer les nœuds (cyan) et ventres (rouge) de courant le long des fils."
@@ -3674,39 +3691,39 @@ msgstr ""
 "Réinitialiser le balayage de fréquence à sa première étape et abandonner "
 "chaque résultat calculé"
 
-#: src/freqplots/freqplots_core.c:61
+#: src/freqplots/freqplots_core.c:63
 msgid "Gain Direction"
 msgstr "Direction du gain"
 
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:64
 msgid "Viewer Gain"
 msgstr "Gain de l'observateur"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:66
 msgid "Impedance (real/imag)"
 msgstr "Impédance (réel/imag)"
 
-#: src/freqplots/freqplots_core.c:65
+#: src/freqplots/freqplots_core.c:67
 msgid "Impedance (mag/phase)"
 msgstr "Impédance (mag/phase)"
 
-#: src/freqplots/freqplots_core.c:66 src/freqplots/graphs/smith_graph.c:512
+#: src/freqplots/freqplots_core.c:68 src/freqplots/graphs/smith_graph.c:512
 msgid "Smith Chart"
 msgstr "Diagramme de Smith"
 
-#: src/freqplots/freqplots_core.c:68
+#: src/freqplots/freqplots_core.c:70
 msgid "Solver Conditioning"
 msgstr "Conditionnement du solveur"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:479
+#: src/freqplots/freqplots_core.c:481
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:739
+#: src/freqplots/freqplots_core.c:741
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3748,7 +3765,7 @@ msgstr ""
 "    • Gain max brut, Direction du gain, F/B\n"
 "    • Température d'antenne, G/T"
 
-#: src/freqplots/freqplots_core.c:772
+#: src/freqplots/freqplots_core.c:774
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3756,7 +3773,7 @@ msgstr ""
 "Un seul port d'alimentation est défini. Définir des cartes d'excitation EX "
 "supplémentaires dans le modèle pour sélectionner parmi plusieurs ports ici."
 
-#: src/freqplots/freqplots_core.c:775
+#: src/freqplots/freqplots_core.c:777
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3764,7 +3781,7 @@ msgstr ""
 "Activer le paramètre du graphique Gain net pour sélectionner un port ; sans "
 "cela, ce graphique ne suit pas le port."
 
-#: src/freqplots/freqplots_core.c:893
+#: src/freqplots/freqplots_core.c:895
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Non disponible : l'excitation ne définit aucun point d'alimentation"
 
@@ -3776,11 +3793,11 @@ msgstr "échec de l'allocation mémoire pour les points\n"
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Échec de l'allocation mémoire pour les points"
 
-#: src/freqplots/freqplots_theme_menu.c:42
+#: src/freqplots/freqplots_theme_menu.c:41
 msgid "This theme has no inverted variant"
 msgstr "Ce thème n'a pas de variante inversée"
 
-#: src/freqplots/freqplots_theme_menu.c:120
+#: src/freqplots/freqplots_theme_menu.c:117
 msgid "_Invert"
 msgstr "_Inverser"
 
@@ -4462,17 +4479,17 @@ msgstr "# Vecteur de Poynting\n"
 msgid "# Radiation Pattern\n"
 msgstr "# Diagramme de rayonnement\n"
 
-#: src/gnuplot.c:509
+#: src/gnuplot.c:506
 #, c-format
 msgid "# structure patch segments\n"
 msgstr "# segments de patch de structure\n"
 
-#: src/gnuplot.c:544
+#: src/gnuplot.c:541
 #, c-format
 msgid "# structure wire segments\n"
 msgstr "# segments de fil de structure\n"
 
-#: src/gnuplot.c:574
+#: src/gnuplot.c:571
 #, c-format
 msgid ""
 "View with: gnuplot -e \"set terminal qt; splot '%s' with lines; pause mouse "
@@ -4481,11 +4498,11 @@ msgstr ""
 "Visualiser avec : gnuplot -e \"set terminal qt; splot '%s' with lines; pause "
 "mouse close\"\n"
 
-#: src/gnuplot.c:586
+#: src/gnuplot.c:583
 msgid "Save Currents and Charges to CSV"
 msgstr "Enregistrer les courants et les charges en CSV"
 
-#: src/gnuplot.c:587
+#: src/gnuplot.c:584
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4493,11 +4510,11 @@ msgstr ""
 "Vous devez activer les données de courant en cliquant sur « Courants » ou « "
 "Charges » dans la fenêtre principale de xnec2c."
 
-#: src/gnuplot.c:652 src/gnuplot.c:662
+#: src/gnuplot.c:649 src/gnuplot.c:659
 msgid "Save Patch Currents to CSV"
 msgstr "Enregistrer les courants de patch en CSV"
 
-#: src/gnuplot.c:653
+#: src/gnuplot.c:650
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4505,7 +4522,7 @@ msgstr ""
 "Vous devez activer les données de courant en cliquant sur « Courants » ou « "
 "Charges » dans la fenêtre principale de xnec2c."
 
-#: src/gnuplot.c:663
+#: src/gnuplot.c:660
 msgid "No surface patches in this model."
 msgstr "Aucun patch de surface dans ce modèle."
 
@@ -4773,7 +4790,7 @@ msgstr ""
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 deg. avec plan de masse spécifié\n"
 
-#: src/input.c:1496 src/radiation.c:703
+#: src/input.c:1496 src/radiation.c:731
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -5030,98 +5047,98 @@ msgstr ""
 "libgmodule non pris en charge : xnec2c peut ne pas fonctionner correctement "
 "sur cette plateforme.\n"
 
-#: src/interface.c:279
+#: src/interface.c:277
 #, c-format
 msgid "xnec2c %s: %s"
 msgstr "xnec2c %s : %s"
 
-#: src/interface.c:372
+#: src/interface.c:370
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog : échec du chargement de animate.glade : %s\n"
 
-#: src/main.c:127
+#: src/main.c:130
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Interface graphique %s détectée\n"
 
-#: src/main.c:135
+#: src/main.c:138
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch et --optimize sont mutuellement exclusifs.\n"
 
-#: src/main.c:144
+#: src/main.c:147
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png requiert --batch\n"
 
-#: src/main.c:160
+#: src/main.c:163
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "chemin du fichier d'entrée trop long ( > %d car. )\n"
 
-#: src/main.c:167
+#: src/main.c:170
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "l'argument inattendu '%s' ne semble pas être un fichier .nec\n"
 
-#: src/main.c:174
+#: src/main.c:177
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "argument inattendu : %s\n"
 
-#: src/main.c:180
+#: src/main.c:183
 msgid "batch mode requires an input file\n"
 msgstr "le mode batch nécessite un fichier d'entrée\n"
 
-#: src/main.c:190
+#: src/main.c:193
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "impossible d'ouvrir l'affichage : une session X11 ou Wayland en cours "
 "d'exécution est requise\n"
 
-#: src/main.c:213
+#: src/main.c:216
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Fork de %d tâches sur %d processeurs.\n"
 
-#: src/main.c:226 src/main.c:234
+#: src/main.c:229 src/main.c:237
 msgid "exiting after fatal error: pipe() failed"
 msgstr "sortie après erreur fatale : échec de pipe()"
 
-#: src/main.c:243
+#: src/main.c:246
 msgid "exiting after fatal error: fork() failed"
 msgstr "sortie après erreur fatale : échec de fork()"
 
-#: src/main.c:838
+#: src/main.c:831
 msgid "exiting via user interrupt\n"
 msgstr "sortie via interruption utilisateur\n"
 
-#: src/main.c:842
+#: src/main.c:835
 msgid "segmentation fault, exiting\n"
 msgstr "erreur de segmentation, sortie\n"
 
-#: src/main.c:846
+#: src/main.c:839
 msgid "floating point exception, exiting\n"
 msgstr "exception de virgule flottante, sortie\n"
 
-#: src/main.c:850
+#: src/main.c:843
 msgid "abort signal received, exiting\n"
 msgstr "signal d'abandon reçu, sortie\n"
 
-#: src/main.c:854
+#: src/main.c:847
 msgid "termination request received, exiting\n"
 msgstr "demande de terminaison reçue, sortie\n"
 
-#: src/main.c:864
+#: src/main.c:857
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "non dupliqué, SIGCHLD du pid %d ignoré\n"
 
-#: src/main.c:872
+#: src/main.c:865
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "processus enfant pid %d terminé\n"
 
-#: src/main.c:881
+#: src/main.c:874
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "sortie par défaut avec le signal : %d\n"
@@ -5784,13 +5801,13 @@ msgstr "%d objectifs d'optimisation chargés\n"
 msgid "opt_file_load: %s\n"
 msgstr "opt_file_load : %s\n"
 
-#: src/opt_ui_session.c:99
+#: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui : optimisation terminée, meilleure fitness : %.6g\n"
 
-#: src/opt_ui_session.c:133 src/opt_ui_session.c:166 src/opt_ui_session.c:196
-#: src/opt_ui_session.c:299
+#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
+#: src/opt_ui_session.c:296
 msgid "Optimization"
 msgstr "Optimisation"
 
@@ -6034,14 +6051,14 @@ msgstr "var '%s' taille round_result ne correspond pas\n"
 msgid "var '%s' round_result has element <= 0\n"
 msgstr "var '%s' round_result contient un élément <= 0\n"
 
-#: src/radiation.c:885
+#: src/radiation.c:911
 #, c-format
 msgid "Average gain %.4f exceeds expected %.4f; check RP theta/phi ranges\n"
 msgstr ""
 "Gain moyen %.4f dépasse la valeur attendue %.4f ; vérifier les plages theta/"
 "phi de la carte RP\n"
 
-#: src/radiation.c:889
+#: src/radiation.c:915
 #, c-format
 msgid ""
 "Average gain: %.4f (%.2f dBi), efficiency: %.1f%%, solid angle: %.4f * pi "
@@ -6050,17 +6067,17 @@ msgstr ""
 "Gain moyen : %.4f (%.2f dBi), rendement : %.1f%%, angle solide : %.4f * pi "
 "sr\n"
 
-#: src/rc_config.c:958
+#: src/rc_config.c:977
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "impossible d'exécuter getcwd() : %s\n"
 
-#: src/rc_config.c:962
+#: src/rc_config.c:981
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "la variable d'environnement HOME est indéfinie, utilisation de %s\n"
 
-#: src/rc_config.c:1047
+#: src/rc_config.c:1066
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
@@ -6068,22 +6085,22 @@ msgstr ""
 "%s (locale=%s) : seulement %d sur %lu caractères trouvés, essai d'une autre "
 "locale : %s\n"
 
-#: src/rc_config.c:1266
+#: src/rc_config.c:1285
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "fenêtre : x=%-5d y=%-5d w=%-5d h=%-5d  titre : \"%s\"\n"
 
-#: src/rc_config.c:1300
+#: src/rc_config.c:1319
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s : EOF lors de la lecture de la version de l'application.\n"
 
-#: src/rc_config.c:1306
+#: src/rc_config.c:1325
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "la version du fichier de configuration existant diffère : %s != %s\n"
 
-#: src/rc_config.c:1353
+#: src/rc_config.c:1372
 #, c-format
 msgid ""
 "gain readouts are scaled to %s, restored from the previous session; select "
@@ -6092,12 +6109,12 @@ msgstr ""
 "les lectures de gain sont mises à l'échelle sur %s, restaurées depuis la "
 "session précédente ; sélectionnez Gain total pour lire le gain total\n"
 
-#: src/rc_config.c:1463
+#: src/rc_config.c:1482
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "échec de stat pour %s : %s\n"
 
-#: src/rc_config.c:1469
+#: src/rc_config.c:1488
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -6106,63 +6123,63 @@ msgstr ""
 "Permissions du répertoire %s corrigées de 0%o à 0%o suite au bogue introduit "
 "dans 4e62893b.\n"
 
-#: src/rc_config.c:1500
+#: src/rc_config.c:1519
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d : ligne non analysée : %s\n"
 
-#: src/rc_config.c:1506
+#: src/rc_config.c:1525
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d : fin de fichier prématurée pour %s : %s \n"
 
-#: src/rc_config.c:1531
+#: src/rc_config.c:1550
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d : erreur d'analyse (%s) : %s \n"
 
-#: src/rc_config.c:1545
+#: src/rc_config.c:1564
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr ""
 "Indice de modèle de ciel invalide %d dans la configuration, réinitialisation "
 "par défaut\n"
 
-#: src/rc_config.c:1551
+#: src/rc_config.c:1570
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Indice de modèle de sol invalide %d dans la configuration, réinitialisation "
 "par défaut\n"
 
-#: src/rc_config.c:1557
+#: src/rc_config.c:1576
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Méthode d'interpolation invalide %d dans la configuration, réinitialisation "
 "par défaut\n"
 
-#: src/rc_config.c:1565
+#: src/rc_config.c:1584
 #, c-format
 msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr ""
 "Mode de visualisation du flux %d invalide dans la configuration, "
 "réinitialisation à la valeur par défaut\n"
 
-#: src/rc_config.c:1745
+#: src/rc_config.c:1751
 msgid "batch mode: skipping configuration save\n"
 msgstr "mode batch : sauvegarde de la configuration ignorée\n"
 
-#: src/rc_config.c:1752
+#: src/rc_config.c:1758
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "impossible d'ouvrir le fichier de configuration de xnec2c %s : %s\n"
 
-#: src/rdpattern_noise_menu.c:37
+#: src/rdpattern_noise_menu.c:34
 msgid "Read the noise temperature at the nearest tabulated frequency."
 msgstr "Lit la température de bruit à la fréquence tabulée la plus proche."
 
-#: src/rdpattern_noise_menu.c:39
+#: src/rdpattern_noise_menu.c:36
 msgid ""
 "Interpolate the noise temperature between tabulated frequencies in log-log "
 "space, clamped at the table edges."
@@ -6170,13 +6187,13 @@ msgstr ""
 "Interpole la température de bruit entre les fréquences tabulées dans un "
 "espace log-log, limitée aux bords de la table."
 
-#: src/rdpattern_noise_menu.c:133
+#: src/rdpattern_noise_menu.c:101
 msgid "Available while a selected sky or earth model reads a frequency table."
 msgstr ""
 "Disponible lorsqu'un modèle de ciel ou de sol sélectionné lit une table de "
 "fréquences."
 
-#: src/rdpattern_noise_menu.c:135
+#: src/rdpattern_noise_menu.c:103
 msgid ""
 "The selected sky and earth models resolve by an intrinsic method; select a "
 "table-based model to enable."
@@ -6184,20 +6201,20 @@ msgstr ""
 "Les modèles de ciel et de sol sélectionnés se résolvent par une méthode "
 "intrinsèque ; sélectionnez un modèle basé sur une table pour l'activer."
 
-#: src/rdpattern_noise_menu.c:296
+#: src/rdpattern_noise_menu.c:254
 msgid "Sky Model"
 msgstr "Modèle de ciel"
 
-#: src/rdpattern_noise_menu.c:303
+#: src/rdpattern_noise_menu.c:261
 msgid "Earth Model"
 msgstr "Modèle de sol"
 
 # xnec2c-exempt: loanword
-#: src/rdpattern_noise_menu.c:311
+#: src/rdpattern_noise_menu.c:269
 msgid "Interpolation"
 msgstr ""
 
-#: src/rdpattern_ui.c:39
+#: src/rdpattern_ui.c:41
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6211,7 +6228,7 @@ msgstr ""
 "Animation du champ H : Ajoutez une carte NH au fichier NEC\n"
 "Vecteur de Poynting : Ajoutez les cartes NE et NH"
 
-#: src/rdpattern_ui.c:59
+#: src/rdpattern_ui.c:61
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6219,7 +6236,7 @@ msgstr ""
 "Choisit la présentation vectorielle du champ proche statique.\n"
 "Fermez la fenêtre d'animation pour activer ce réglage."
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:63
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6227,7 +6244,7 @@ msgstr ""
 "Choisit la présentation vectorielle du champ proche statique.\n"
 "S'applique tant que la fenêtre d'animation est fermée."
 
-#: src/rdpattern_ui.c:129
+#: src/rdpattern_ui.c:131
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6236,11 +6253,11 @@ msgstr ""
 "Scale_Gain_Resolved : gain_style %d hors plage [0..%d], utilisation de "
 "GS_LINP par défaut\n"
 
-#: src/rdpattern_ui.c:544
+#: src/rdpattern_ui.c:546
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Gain dans la direction du visualiseur, pour les angles de vue actuels."
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:548
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
@@ -6248,7 +6265,7 @@ msgstr ""
 "Température de brillance dans la direction du visualiseur, pour les angles "
 "de vue actuels."
 
-#: src/rdpattern_ui.c:566 src/rdpattern_ui.c:572
+#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6256,7 +6273,7 @@ msgstr ""
 "Angle d'élévation d'observation. Déplace la frontière ciel/terre pour "
 "l'évaluation de la température d'antenne. 0° = horizon."
 
-#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
+#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6264,7 +6281,7 @@ msgstr ""
 "Angle d'élévation d'observation pour la température d'antenne.\n"
 "Sélectionner Style de gain → Température de bruit pour activer."
 
-#: src/rdpattern_ui.c:578
+#: src/rdpattern_ui.c:580
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
@@ -6272,7 +6289,7 @@ msgstr ""
 "Sélecteurs indépendants de ciel, sol et interpolation pour les modèles de "
 "température de bruit."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:582
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6280,71 +6297,71 @@ msgstr ""
 "Modèles de température de bruit du ciel et du sol.\n"
 "Sélectionner Style de gain → Température de bruit pour activer."
 
-#: src/rdpattern_ui.c:889
+#: src/rdpattern_ui.c:865
 msgid "Total Gain"
 msgstr "Gain total"
 
-#: src/rdpattern_ui.c:890
+#: src/rdpattern_ui.c:866
 msgid "Horizontal Polarization"
 msgstr "Polarisation horizontale"
 
-#: src/rdpattern_ui.c:891
+#: src/rdpattern_ui.c:867
 msgid "Vertical Polarization"
 msgstr "Polarisation verticale"
 
-#: src/rdpattern_ui.c:892
+#: src/rdpattern_ui.c:868
 msgid "RH Circular Polarization"
 msgstr "Polarisation circulaire droite"
 
-#: src/rdpattern_ui.c:893
+#: src/rdpattern_ui.c:869
 msgid "LH Circular Polarization"
 msgstr "Polarisation circulaire gauche"
 
-#: src/rdpattern_ui.c:944
+#: src/rdpattern_ui.c:920
 msgid "Linear Power"
 msgstr "Puissance linéaire"
 
-#: src/rdpattern_ui.c:945
+#: src/rdpattern_ui.c:921
 msgid "Linear Voltage"
 msgstr "Tension linéaire"
 
-#: src/rdpattern_ui.c:946
+#: src/rdpattern_ui.c:922
 msgid "ARRL Scale"
 msgstr "Échelle ARRL"
 
-#: src/rdpattern_ui.c:947
+#: src/rdpattern_ui.c:923
 msgid "Logarithmic Scale"
 msgstr "Échelle logarithmique"
 
-#: src/rdpattern_ui.c:948
+#: src/rdpattern_ui.c:924
 msgid "Noise Temperature"
 msgstr "Température de bruit"
 
-#: src/rdpattern_ui.c:949
+#: src/rdpattern_ui.c:925
 msgid "Noise Temp (log scale)"
 msgstr "Temp. de bruit (échelle log)"
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:943
 msgid "Radiation Pattern: - "
 msgstr "Diagramme de rayonnement : - "
 
-#: src/rdpattern_ui.c:991
+#: src/rdpattern_ui.c:967
 msgid "Near Fields:"
 msgstr "Champs proches :"
 
-#: src/rdpattern_ui.c:993
+#: src/rdpattern_ui.c:969
 msgid " - E Field"
 msgstr " - Champ E"
 
-#: src/rdpattern_ui.c:995
+#: src/rdpattern_ui.c:971
 msgid " - H Field"
 msgstr " - Champ H"
 
-#: src/rdpattern_ui.c:997
+#: src/rdpattern_ui.c:973
 msgid " - Poynting Vector"
 msgstr " - Vecteur de Poynting"
 
-#: src/rdpattern_ui.c:1008
+#: src/rdpattern_ui.c:984
 msgid "Frequency Data Plots - "
 msgstr "Graphiques des données de fréquence - "
 
@@ -6367,22 +6384,22 @@ msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr ""
 "Boucle d'optimisation incomplète, suppression du redessin intermédiaire.\n"
 
-#: src/settings/render_settings_common.c:119
+#: src/settings/render_settings_common.c:120
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init : échec du chargement de glade : %s\n"
 
-#: src/settings/render_settings_common.c:129
+#: src/settings/render_settings_common.c:130
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init : échec du chargement de glade opengl : %s\n"
 
-#: src/settings/render_settings_common.c:139
+#: src/settings/render_settings_common.c:140
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init : échec du chargement de glade cairo : %s\n"
 
-#: src/settings/render_settings_common.c:152
+#: src/settings/render_settings_common.c:161
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init : échec de la récupération de render_settings_window "
@@ -6634,7 +6651,7 @@ msgstr "Impossible de créer le répertoire de sortie"
 msgid "validation tree written to: %s\n"
 msgstr "arborescence de validation écrite dans : %s\n"
 
-#: src/xnec2c.c:304
+#: src/xnec2c.c:306
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
@@ -6643,16 +6660,16 @@ msgstr ""
 "constante diélectrique complexe du fichier : %12.5E%+12.5Ej, demandée : "
 "%12.5E%+12.5Ej\n"
 
-#: src/xnec2c.c:307
+#: src/xnec2c.c:309
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters():Erreur dans les paramètres du sol"
 
-#: src/xnec2c.c:731
+#: src/xnec2c.c:733
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz : %f secondes. (%s)\n"
 
-#: src/xnec2c.c:1075
+#: src/xnec2c.c:1064
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
@@ -6660,83 +6677,83 @@ msgstr ""
 "étape %d en course : distribuée %.6f MHz, actuelle %.6f MHz ; recalcul en "
 "cours\n"
 
-#: src/xnec2c.c:1201
+#: src/xnec2c.c:1190
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr ""
 "processus enfant %d a un descripteur de tube invalide lors de la collecte "
 "forkée\n"
 
-#: src/xnec2c.c:1254
+#: src/xnec2c.c:1243
 msgid "Failed to read data from forked child\n"
 msgstr "Échec de lecture des données du processus enfant\n"
 
-#: src/xnec2c.c:1528
+#: src/xnec2c.c:1517
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "le pas le plus proche, %g MHz, diffère des %g MHz demandés\n"
 
-#: src/xnec2c.c:1532
+#: src/xnec2c.c:1521
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "fréquence après balayage réglée à %.4f MHz (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1570
+#: src/xnec2c.c:1559
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "Temps écoulé de la boucle de fréquence : %f secondes. (%s)\n"
 
-#: src/xnec2c.c:1622
+#: src/xnec2c.c:1611
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "Le canevas en mode batch %d n'a dessiné aucune trame à %dx%d\n"
 
-#: src/xnec2c.c:1787
+#: src/xnec2c.c:1768
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "capture PNG du diagramme de rayonnement : aucun pas calculé pour %s\n"
 
-#: src/xnec2c.c:1859
+#: src/xnec2c.c:1840
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "échec de la capture PNG du diagramme de rayonnement pour %s\n"
 
-#: src/xnec2c.c:1865
+#: src/xnec2c.c:1846
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr ""
 "échec de l'enregistrement PNG du diagramme de rayonnement pour %s : %s\n"
 
-#: src/xnec2c.c:1870
+#: src/xnec2c.c:1851
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "PNG du diagramme de rayonnement écrit : %s\n"
 
-#: src/xnec2c.c:1907
+#: src/xnec2c.c:1888
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr ""
 "plusieurs formats PNG de diagramme de rayonnement nécessitent un nom de "
 "fichier .png : %s\n"
 
-#: src/xnec2c.c:2012
+#: src/xnec2c.c:1993
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "le balayage exécute %d workers de %d threads chacun\n"
 
-#: src/xnec2c.c:2304
+#: src/xnec2c.c:2285
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "échec du démarrage de Frequency_Loop_Thread\n"
 
-#: src/xnec2c.c:2483
+#: src/xnec2c.c:2464
 msgid "Frequency Sweep"
 msgstr "Balayage de fréquence"
 
-#: src/xnec2c.c:2484
+#: src/xnec2c.c:2465
 msgid "Recalculate the frequency sweep?"
 msgstr "Recalculer le balayage de fréquence ?"
 
-#: src/xnec2c.c:2485
+#: src/xnec2c.c:2466
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

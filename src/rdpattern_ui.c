@@ -18,6 +18,7 @@
  */
 
 #include "rdpattern_ui.h"
+#include "anim/anim_dialog.h"
 #include "anim/anim_phase.h"
 #include "gdk_scroll.h"
 #include "measurements.h"
@@ -841,10 +842,9 @@ Rdpattern_Window_Killed( void )
 
   window_release( RDPATTERN_WINDOW );
 
-  /* The dialog's destroy handler refreshes the visualization, so it falls
-   * after the window reports closed and after the caller frees the
-   * radiation-pattern view. */
-  Gtk_Widget_Destroy( &animate_dialog );
+  /* The animation dialog outlives this window, so its pattern-dependent
+   * controls regate once the window reports closed. */
+  anim_panel_sensitivity();
 
 } /* Rdpattern_Window_Killed() */
 

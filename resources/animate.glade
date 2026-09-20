@@ -783,7 +783,6 @@
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
-                        <property name="tooltip-text" translatable="yes">Show the near electric field vectors while animating.&#10;&#10;Enable by opening the radiation pattern window.</property>
                         <property name="draw-indicator">True</property>
                         <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
                       </object>
@@ -799,7 +798,6 @@
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
-                        <property name="tooltip-text" translatable="yes">Show the near magnetic field vectors while animating.&#10;&#10;Enable by opening the radiation pattern window.</property>
                         <property name="draw-indicator">True</property>
                         <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
                       </object>
@@ -815,7 +813,6 @@
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
-                        <property name="tooltip-text" translatable="yes">Show the Poynting power-flow vectors while animating.&#10;&#10;Enable by opening the radiation pattern window.</property>
                         <property name="draw-indicator">True</property>
                         <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
                       </object>

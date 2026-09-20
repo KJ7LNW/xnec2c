@@ -48,16 +48,11 @@ typedef struct
   const anim_guard_t *guards;
 } anim_gate_t;
 
+static gboolean gate_nearfield_content(void);
 static gboolean gate_rdpattern_window(void);
 static gboolean gate_surface_patches(void);
 static gboolean gate_farfield_overlay(void);
 static gboolean gate_linear_polarization(void);
-
-static const anim_panel_owner_t anim_panel_owners[] = {
-  { "anim_efield",   &rdpattern_window_builder },
-  { "anim_hfield",   &rdpattern_window_builder },
-  { "anim_poynting", &rdpattern_window_builder },
-};
 
 static const anim_panel_owner_t anim_menu_items[] = {
   { "main_structure_animate", &main_window_builder },
@@ -69,6 +64,18 @@ static const anim_guard_t guards_flow_dir[] = {
     N_("Choose how current flow is marked on surface patches.\n"
        "This model has no patches: add SP, SC, or SM patch cards to the"
        " NEC input file.") },
+  { NULL, NULL }
+};
+
+static const anim_guard_t guards_nearfield[] = {
+  { gate_nearfield_content,
+    N_("Choose which near-field quantity is drawn as animated vectors.\n"
+       "This model carries no near field: add NE or NH cards to the NEC"
+       " input file.") },
+  { rdpat_ehfield_active,
+    N_("Choose which near-field quantity is drawn as animated vectors.\n"
+       "In the main window choose View, Radiation Pattern, then in that"
+       " window select E/H Fields.") },
   { NULL, NULL }
 };
 
@@ -130,7 +137,32 @@ static const anim_gate_t anim_panel_gates[] = {
        " orientation across the whole pattern.\n"
        "Available for Vertical or Horizontal polarization."),
     guards_ff_frame },
+  { "anim_efield",
+    N_("Draw the near electric field as vectors advancing with the"
+       " animation phase.\n"
+       "Mirrors the Near E Field selection in the radiation pattern"
+       " window."),
+    guards_nearfield },
+  { "anim_hfield",
+    N_("Draw the near magnetic field as vectors advancing with the"
+       " animation phase.\n"
+       "Mirrors the Near H Field selection in the radiation pattern"
+       " window."),
+    guards_nearfield },
+  { "anim_poynting",
+    N_("Draw the Poynting power flow as vectors advancing with the"
+       " animation phase.\n"
+       "Mirrors the Poynting Vector selection in the radiation pattern"
+       " window."),
+    guards_nearfield },
 };
+
+/** gate_nearfield_content() - Report near-field-class model content */
+static gboolean
+gate_nearfield_content(void)
+{
+  return anim_class_available(ANIM_CLASS_NEAR_FIELD);
+}
 
 /** gate_rdpattern_window() - Report an open radiation-pattern window */
 static gboolean
@@ -160,17 +192,22 @@ gate_linear_polarization(void)
   return ff_frame_turns_pol(calc_data.pol_type);
 }
 
-/** anim_menu_sensitivity() - Project class capability onto menu items */
+/**
+ * anim_menu_sensitivity() - Read the model's animation content onto the menu
+ *
+ * The items reach the dialog for every model, whose controls each report
+ * the content they need, so model content reaches the menu as a reading
+ * rather than as a closed door.
+ */
 static void
 anim_menu_sensitivity(void)
 {
-  const char *reading = _("Open the animation controls for phase-varying content.\n"
-      "Available when the model contains supported animation content.");
+  const char *reading = _("Open the animation controls for phase-varying content.");
   const char *reason = _("Open the animation controls for phase-varying content.\n"
       "This model has nothing to animate: load a NEC input file carrying"
       " wire cards (GW, GA, GH), patch cards (SP, SC, SM), near-field cards"
       " (NE, NH), or a radiation pattern card (RP).");
-  gboolean sensitive = anim_any_available();
+  gboolean available = anim_any_available();
   size_t i;
 
   for( i = 0; i < G_N_ELEMENTS(anim_menu_items); i++ )
@@ -182,8 +219,7 @@ anim_menu_sensitivity(void)
 
     widget = Builder_Get_Object(*anim_menu_items[i].owner_builder,
         anim_menu_items[i].panel_id);
-    gtk_widget_set_sensitive(widget, sensitive);
-    gtk_widget_set_tooltip_text(widget, sensitive ? reading : reason);
+    gtk_widget_set_tooltip_text(widget, available ? reading : reason);
   }
 }
 
@@ -195,15 +231,6 @@ anim_dialog_sensitivity(void)
 
   if( animate_dialog == NULL )
     return;
-
-  for( i = 0; i < G_N_ELEMENTS(anim_panel_owners); i++ )
-  {
-    GtkWidget *widget = Builder_Get_Object(animate_dialog_builder,
-        anim_panel_owners[i].panel_id);
-
-    gtk_widget_set_sensitive(widget,
-        *anim_panel_owners[i].owner_builder != NULL);
-  }
 
   for( i = 0; i < G_N_ELEMENTS(anim_panel_gates); i++ )
   {
