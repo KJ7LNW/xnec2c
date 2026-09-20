@@ -30,6 +30,7 @@
 #include "config/widget/config_widget_ops.h"
 #include "rdpattern_noise_menu.h"
 #include "rdpattern_ui.h"
+#include "window_lifecycle.h"
 #include "chroma/chroma.h"
 
 #include "opengl/opengl_structure.h"
@@ -1610,9 +1611,7 @@ get_main_window_state( void )
   double wr, wi;
 
   /* Get geometry of main (structure) window */
-  Get_Window_Geometry( main_window,
-      &(rc_config.main_x), &(rc_config.main_y),
-      &(rc_config.main_width), &(rc_config.main_height) );
+  window_capture_geometry( main_window );
 
   /* Spin entry text typed without activation reaches the view only when
    * the widget parses it, so flush before reading */
@@ -1638,10 +1637,9 @@ get_main_window_state( void )
   void
 get_rdpattern_window_state( void )
 {
-  /* Get geometry of radiation patterns window */
-  rc_config.rdpattern_is_open = Get_Window_Geometry( rdpattern_window,
-      &(rc_config.rdpattern_x), &(rc_config.rdpattern_y),
-      &(rc_config.rdpattern_width), &(rc_config.rdpattern_height) );
+  /* Get open state and geometry of radiation patterns window */
+  rc_config.rdpattern_is_open = window_is_open( RDPATTERN_WINDOW );
+  window_capture_geometry( rdpattern_window );
 
   /* Get state of widgets in radiation patterns window */
   if( rdpattern_window )
@@ -1672,10 +1670,9 @@ get_rdpattern_window_state( void )
   void
 get_freqplots_window_state( void )
 {
-  /* Get geometry of frequency plots window */
-  rc_config.freqplots_is_open = Get_Window_Geometry( freqplots_window,
-      &(rc_config.freqplots_x), &(rc_config.freqplots_y),
-      &(rc_config.freqplots_width), &(rc_config.freqplots_height) );
+  /* Get open state and geometry of frequency plots window */
+  rc_config.freqplots_is_open = window_is_open( FREQPLOTS_WINDOW );
+  window_capture_geometry( freqplots_window );
 }
 
 /*------------------------------------------------------------------------*/

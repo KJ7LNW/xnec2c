@@ -34,6 +34,16 @@
  * by, held so the programmatic deactivation blocks that exact handler. */
 typedef void (*window_menu_handler_t)(GtkMenuItem *menuitem, gpointer user_data);
 
+/* The rc_config fields persisting one window's placement and size. */
+typedef struct
+{
+  int *x;
+  int *y;
+  int *width;
+  int *height;
+
+} window_geom_ref_t;
+
 /* Resources one window owns.  A window carrying no main-window menu item
  * leaves both menu members null, and a window presenting no rotatable view
  * leaves the view member null. */
@@ -45,6 +55,7 @@ typedef struct
   view_t        **view;
   const char     *menu_item;
   window_menu_handler_t menu_handler;
+  window_geom_ref_t geom;
 
 } window_desc_t;
 
@@ -55,16 +66,25 @@ static const window_desc_t window_desc[WINDOW_COUNT] =
 
   [MAIN_WINDOW] =
     { .window = &main_window, .builder = &main_window_builder,
-      .canvas = CANVAS_STRUCTURE, .view = &structure_view },
+      .canvas = CANVAS_STRUCTURE, .view = &structure_view,
+      .geom = { .x = &rc_config.main_x, .y = &rc_config.main_y,
+                .width = &rc_config.main_width,
+                .height = &rc_config.main_height } },
   [FREQPLOTS_WINDOW] =
     { .window = &freqplots_window, .builder = &freqplots_window_builder,
       .canvas = CANVAS_FREQPLOTS, .menu_item = "main_freqplots",
-      .menu_handler = on_main_freqplots_activate },
+      .menu_handler = on_main_freqplots_activate,
+      .geom = { .x = &rc_config.freqplots_x, .y = &rc_config.freqplots_y,
+                .width = &rc_config.freqplots_width,
+                .height = &rc_config.freqplots_height } },
   [RDPATTERN_WINDOW] =
     { .window = &rdpattern_window, .builder = &rdpattern_window_builder,
       .canvas = CANVAS_RDPATTERN, .view = &rdpattern_view,
       .menu_item = "main_rdpattern",
-      .menu_handler = on_main_rdpattern_activate },
+      .menu_handler = on_main_rdpattern_activate,
+      .geom = { .x = &rc_config.rdpattern_x, .y = &rc_config.rdpattern_y,
+                .width = &rc_config.rdpattern_width,
+                .height = &rc_config.rdpattern_height } },
 };
 
 /*-----------------------------------------------------------------------*/
@@ -191,6 +211,11 @@ window_row_of_toplevel(GtkWidget *toplevel)
 {
   const window_desc_t *match = NULL;
 
+  /* A released window holds a null toplevel, as does every row of a closed
+   * window, so only a live widget is matched against the table. */
+  if( toplevel == NULL )
+    return NULL;
+
   /* The scan stops at the row holding this toplevel; a row holding another
    * leaves the search running to the next. */
   for( window_t type = MAIN_WINDOW;
@@ -223,6 +248,30 @@ window_from_widget(GtkWidget *widget)
   return( (window_t)(row - window_desc) );
 
 } /* window_from_widget() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * window_capture_geometry() - Commit a window's placement and size
+ * @toplevel: toplevel whose geometry is persisted
+ *
+ * Resolves the row by widget identity, so geometry arriving before the
+ * window global is assigned, or from a window holding no row, writes no
+ * other window's fields.  A closed window matches no row and keeps the
+ * geometry it last reported.
+ */
+void
+window_capture_geometry(GtkWidget *toplevel)
+{
+  const window_desc_t *row = window_row_of_toplevel( toplevel );
+
+  if( row == NULL )
+    return;
+
+  Get_Window_Geometry( toplevel, row->geom.x, row->geom.y,
+      row->geom.width, row->geom.height );
+
+} /* window_capture_geometry() */
 
 /*-----------------------------------------------------------------------*/
 

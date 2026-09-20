@@ -1413,6 +1413,7 @@ void Draw_Colorcode(cairo_t *cr);
 void draw_colorcode_projected(cairo_t *cr);
 void Gtk_Widget_Destroy(GtkWidget **widget);
 /* callbacks.c */
+gboolean on_window_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer user_data);
 void on_main_window_destroy(GObject *object, gpointer user_data);
 gboolean on_main_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 gboolean on_main_window_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
@@ -1914,6 +1915,7 @@ double Polarized_Gain(int pol_type, int fstep, int idx);
 void rdpat(void);
 /* rc_config.c */
 gboolean Create_Default_Config(void);
+int Get_Window_Geometry(GtkWidget *window, gint *x, gint *y, gint *width, gint *height);
 void Set_Window_Geometry(GtkWidget *window, gint x, gint y, gint width, gint height);
 gboolean Read_Config(void);
 void get_main_window_state(void);

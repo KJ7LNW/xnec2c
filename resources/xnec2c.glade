@@ -9401,6 +9401,7 @@ Save NEC2 Editor data first?
     <property name="title" translatable="yes">Xnec2c: Frequency Data Plots</property>
     <property name="icon">xnec2c.svg</property>
     <property name="gravity">static</property>
+    <signal name="configure-event" handler="on_window_configure_event" swapped="no"/>
     <signal name="delete-event" handler="on_freqplots_window_delete_event" swapped="no"/>
     <signal name="destroy" handler="on_freqplots_window_destroy" swapped="no"/>
     <child>
@@ -10371,6 +10372,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
     <property name="border-width">2</property>
     <property name="icon">xnec2c.svg</property>
     <property name="gravity">static</property>
+    <signal name="configure-event" handler="on_window_configure_event" swapped="no"/>
     <signal name="delete-event" handler="on_main_window_delete_event" swapped="no"/>
     <signal name="destroy" handler="on_main_window_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_main_window_key_press_event" swapped="no"/>
@@ -11926,6 +11928,7 @@ A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a r
     <property name="title" translatable="yes">Xnec2c: Radiation Patterns</property>
     <property name="icon">xnec2c.svg</property>
     <property name="gravity">static</property>
+    <signal name="configure-event" handler="on_window_configure_event" swapped="no"/>
     <signal name="delete-event" handler="on_rdpattern_window_delete_event" swapped="no"/>
     <signal name="destroy" handler="on_rdpattern_window_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_rdpattern_window_key_press_event" swapped="no"/>

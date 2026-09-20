@@ -131,6 +131,28 @@ char *get_nec_filename_stem(char *dst, char *newext, size_t maxlen)
 	return dst;
 }
 
+/**
+ * on_window_configure_event() - Persist the geometry a window now holds
+ * @widget: toplevel reporting its placement and size
+ * @event: configure event, read through the widget instead
+ * @user_data: unused handler data
+ *
+ * Every move and resize passes here, so the configuration carries what the
+ * window last showed rather than what it showed when it opened.
+ *
+ * Return: FALSE, leaving the toplevel to handle the event as well.
+ */
+  gboolean
+on_window_configure_event(
+    GtkWidget         *widget,
+    GdkEventConfigure *event,
+    gpointer           user_data)
+{
+  window_capture_geometry( widget );
+  return( FALSE );
+}
+
+
   void
 on_main_window_destroy(
     GObject     *object,
