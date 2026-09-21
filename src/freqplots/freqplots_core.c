@@ -1495,7 +1495,9 @@ void freqplots_close_panel(fp_panel_t panel)
 }
 
 /* Destroy every open popup window; each window's destroy handler frees its
- * view through freqplots_close_panel.  Called during primary-window teardown. */
+ * view through freqplots_close_panel.  A popup holds its own view and canvas
+ * and so outlives the primary window; the application exit path and the failed
+ * model reload each call this. */
 void freqplots_destroy_all_popups(void)
 {
 	int p;

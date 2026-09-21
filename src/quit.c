@@ -158,15 +158,17 @@ Gtk_Quit( void )
 
 /* main_windows_destroy()
  *
- * Destroys every top-level window, the SY overrides window included, to
- * halt drawing and run each window's destroy chain before engine and view
- * data are freed.  The SY window's chain frees its renderer.
+ * Destroys every top-level window, the SY overrides window and the detached
+ * frequency-plot popups included, to halt drawing and run each window's
+ * destroy chain before engine and view data are freed.  The SY window's
+ * chain frees its renderer.
  */
   void
 main_windows_destroy( void )
 {
   Gtk_Widget_Destroy( &sy_overrides_window );
   Gtk_Widget_Destroy( &nec2_edit_window );
+  freqplots_destroy_all_popups();
   Gtk_Widget_Destroy( &freqplots_window );
   Gtk_Widget_Destroy( &rdpattern_window );
   Gtk_Widget_Destroy( &main_window );

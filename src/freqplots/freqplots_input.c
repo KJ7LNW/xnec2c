@@ -37,10 +37,6 @@ Plots_Window_Killed( void )
 {
   freqplots_view_t *v = freqplots_main_view();
 
-  // Close every popup before tearing down the primary view so no popup
-  // references freed primary state.
-  freqplots_destroy_all_popups();
-
   window_release( FREQPLOTS_WINDOW );
 
   // Release heap tables, then zero the whole view so the resize caches

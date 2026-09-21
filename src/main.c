@@ -616,6 +616,10 @@ Open_Input_File( gpointer arg )
     Gtk_Widget_Destroy( &rdpattern_window );
     Gtk_Widget_Destroy( &freqplots_window );
 
+    /* A model that failed to load leaves every detached plot window
+     * pinned to ports and cards the read never established. */
+    freqplots_destroy_all_popups();
+
     /* Batch mode has no operator to dismiss the editor; Stop() already
      * scheduled the quit, so opening it here only loops the read/allocate
      * path headlessly. Restrict the editor to interactive sessions. */
