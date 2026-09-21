@@ -85,7 +85,7 @@ void          print_fr_plot(fr_plot_t *p);
 double Fit_to_Scale(double *max, double *min, int *nval);
 void   Fit_to_Scale2(double *max1, double *min1,
     double *max2, double *min2, int *nval);
-void   fscale_extent_fit(freq_loop_data_t *fld, int round_x_axis,
+void   fscale_extent_fit(const freq_loop_data_t *fld, int round_x_axis,
     double *min, double *max, int *nval);
 void   Plot_Horizontal_Scale(fp_render_t *fp,
     rgb_f_t c,

@@ -123,7 +123,7 @@ double Fit_to_Scale( double *max, double *min, int *nval )
  * stored in fr_plot->min_fscale/max_fscale.
  */
 void
-fscale_extent_fit( freq_loop_data_t *fld, int round_x_axis,
+fscale_extent_fit( const freq_loop_data_t *fld, int round_x_axis,
     double *min, double *max, int *nval )
 {
   *min = fld->min_freq;
