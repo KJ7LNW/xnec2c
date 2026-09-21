@@ -30,8 +30,9 @@
  * fp_draw_freq_marker() - draw the selected frequency down one FR-card panel
  *
  * Draws nothing while the marker is hidden or the selected frequency falls
- * outside the panel's span; the +/- 1e-6 absorbs floating-point error at the
- * panel edges, for example: freq_mhz=148.000000 !<= max_fscale=147.999996
+ * outside the panel's span; the FREQ_LT and FREQ_GT tolerance absorbs
+ * floating-point error at the panel edges, for example:
+ * freq_mhz=148.000000 !<= max_fscale=147.999996
  */
   static void
 fp_draw_freq_marker( fp_render_t *fp, const fp_width_t *w, const theme_t *th,
@@ -41,8 +42,8 @@ fp_draw_freq_marker( fp_render_t *fp, const fp_width_t *w, const theme_t *th,
 
   if( !freqplots_marker_is_visible()
       || calc_data.fmhz_save <= 0.0
-      || calc_data.fmhz_save < min_fscale - 1e-6
-      || calc_data.fmhz_save > max_fscale + 1e-6 )
+      || FREQ_LT(calc_data.fmhz_save, min_fscale)
+      || FREQ_GT(calc_data.fmhz_save, max_fscale) )
     return;
 
   freq_x = (calc_data.fmhz_save - min_fscale) / (max_fscale - min_fscale);

@@ -1086,8 +1086,7 @@ freqloop_card_of_fmhz( double fmhz )
   for( fr = 0; fr < calc_data.FR_cards; fr++ )
   {
     freq_loop_data_t *fld = &calc_data.freq_loop_data[fr];
-    if( fmhz >= fld->min_freq - FREQ_EPSILON_MHZ &&
-        fmhz <= fld->max_freq + FREQ_EPSILON_MHZ )
+    if( FREQ_GE(fmhz, fld->min_freq) && FREQ_LE(fmhz, fld->max_freq) )
       return fr;
   }
 
@@ -1098,8 +1097,7 @@ freqloop_card_of_fmhz( double fmhz )
   {
     fr_plot_t *p = &fr_plots[fr];
     if( FR_PLOT_T_IS_VALID(p) &&
-        fmhz >= p->min_fscale - FREQ_EPSILON_MHZ &&
-        fmhz <= p->max_fscale + FREQ_EPSILON_MHZ )
+        FREQ_GE(fmhz, p->min_fscale) && FREQ_LE(fmhz, p->max_fscale) )
       return fr;
   }
 

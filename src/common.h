@@ -194,7 +194,15 @@ static inline int dl_feq_eps(double a, double b, double eps) { return fabs(a - b
 
 /* Frequency comparison tolerance: 1 Hz expressed in MHz */
 #define FREQ_EPSILON_MHZ  1e-6
+
+/* Frequency comparators, tolerant to within FREQ_EPSILON_MHZ: FREQ_LT and
+ * FREQ_GT read strictly, FREQ_LE and FREQ_GE admit the boundary itself, the
+ * same semantics the dl_ and fl_ comparators carry for plain doubles */
 #define FREQ_EQ(a, b)     (fabs((a) - (b)) <= FREQ_EPSILON_MHZ)
+#define FREQ_LT(a, b)     ((a) < (b) - FREQ_EPSILON_MHZ)
+#define FREQ_GT(a, b)     ((a) > (b) + FREQ_EPSILON_MHZ)
+#define FREQ_LE(a, b)     ((a) <= (b) + FREQ_EPSILON_MHZ)
+#define FREQ_GE(a, b)     ((a) >= (b) - FREQ_EPSILON_MHZ)
 
 /*** Flow control flags ***/
 /* Main Window Control flags */
