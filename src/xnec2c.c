@@ -2111,7 +2111,7 @@ freq_loop_state_free( freq_loop_state_t **state )
  *
  * Sizes the idle stack for the current job count and populates the display
  * extent on the GTK thread before the sweep worker runs freq_populate_steps;
- * green-line classification reads the extent via fmhz_within_display_range
+ * green-line classification reads the extent via freqloop_card_of_fmhz
  * and the worker must only read these fields.
  *
  * Return: the new sweep state, owned by the caller

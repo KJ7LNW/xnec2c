@@ -485,40 +485,6 @@ void print_fr_plot(fr_plot_t *p)
 		p->freq_loop_data->freq_steps);
 }
 
-/**
- * fmhz_within_display_range - test whether a frequency lies within any visible plot panel
- * @fmhz: frequency in MHz to test
- *
- * Iterates the fr_plots array and returns TRUE when @fmhz falls within the
- * display scale range (min_fscale..max_fscale) of any valid panel.  The display
- * range can be wider than the underlying FR card data range (e.g. when a single-
- * frequency card is expanded by Fit_to_Scale for visualization).
- *
- * Returns FALSE when fr_plots is not yet initialized or no panel covers @fmhz.
- */
-gboolean
-fmhz_within_display_range( double fmhz )
-{
-  int i, n;
-  fr_plot_t *fr_plots = freqplots_main_view()->fr_plots;
-
-  if (fr_plots == NULL || calc_data.ngraph < 1 || calc_data.FR_cards < 1)
-    return FALSE;
-
-  n = calc_data.ngraph * calc_data.FR_cards;
-  for (i = 0; i < n; i++)
-  {
-    if (!FR_PLOT_T_IS_VALID(&fr_plots[i]))
-      continue;
-
-    if (fmhz >= fr_plots[i].min_fscale - 1e-6
-        && fmhz <= fr_plots[i].max_fscale + 1e-6)
-      return TRUE;
-  }
-
-  return FALSE;
-}
-
 /*
  * freqplots_update_fscale_extents - populate main-view panel display extents
  *
@@ -1106,9 +1072,9 @@ fp_run_dispatch(fp_plot_ctx_t *ctx)
  * it, or failing that the card whose display extent contains it.  Single
  * authority for that judgment; green_line_eval marks the green line
  * GREEN_LINE_EXTRA exactly when this returns a card.  The display-extent
- * fallback reads the main view, the single authority for panel extents (see
- * fmhz_within_display_range), so every view resolves a frequency to the same
- * card regardless of whether its own panels have painted.
+ * fallback reads the main view, the single authority for panel extents, so
+ * every view resolves a frequency to the same card regardless of whether its
+ * own panels have painted.
  * Returns -1 when no card covers the frequency.
  */
 int
