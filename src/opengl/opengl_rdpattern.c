@@ -388,7 +388,7 @@ rdpattern_content_cleanup(void)
 
 /* Scroll capabilities of the radiation-pattern domain */
 static surface_capability_t *const rdpattern_input_caps[] = {
-  &opengl_structure_wire_radius_cap,
+  &wire_radius_cap,
   &rdpattern_overlay_scale_cap,
   NULL
 };

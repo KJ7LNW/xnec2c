@@ -33,7 +33,7 @@
 #include "../structure_ui.h"
 
 /* Maximum allowed radius scale */
-#define CYLINDER_RADIUS_SCALE_MAX 100.0
+#define WIRE_RADIUS_SCALE_MAX 100.0
 
 /* Mutable cylinder radius scale factor (user-adjustable via Ctrl+scroll) */
 static double cylinder_radius_scale = 1.0;
@@ -81,7 +81,7 @@ opengl_structure_get_radius_scale(void)
 /*-----------------------------------------------------------------------*/
 
 /** opengl_structure_set_radius_scale() - Set cylinder radius display scale factor
- * @scale: new scale value, clamped to [0, CYLINDER_RADIUS_SCALE_MAX]
+ * @scale: new scale value, clamped to [0, WIRE_RADIUS_SCALE_MAX]
  *
  * Syncs to rc_config; geometry regenerates on next render.
  */
@@ -93,19 +93,19 @@ opengl_structure_set_radius_scale(double scale)
     scale = 0.0;
   }
 
-  if( scale > CYLINDER_RADIUS_SCALE_MAX )
+  if( scale > WIRE_RADIUS_SCALE_MAX )
   {
-    scale = CYLINDER_RADIUS_SCALE_MAX;
+    scale = WIRE_RADIUS_SCALE_MAX;
   }
 
   cylinder_radius_scale = scale;
-  rc_config.opengl_cylinder_radius_scale = scale;
+  rc_config.wire_radius_scale = scale;
 
 } /* opengl_structure_set_radius_scale() */
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_structure_on_ctrl_scroll() - Ctrl+scroll handler for adjusting cylinder radius scale
+/** wire_radius_scroll() - Ctrl+scroll handler for adjusting cylinder radius scale
  * @event: scroll event
  * @surface: surface of the scrolled view
  *
@@ -113,7 +113,7 @@ opengl_structure_set_radius_scale(double scale)
  * rdpattern input rows both offer.
  */
   static gboolean
-opengl_structure_on_ctrl_scroll(
+wire_radius_scroll(
     GdkEventScroll *event, render_surface_t *surface)
 {
   const view_t *view;
@@ -140,9 +140,9 @@ opengl_structure_on_ctrl_scroll(
   if( s.direction == GDK_SCROLL_UP )
   {
     /* Scroll up: thicker. If at zero, jump to threshold. */
-    if( dl_flt(new_scale, CYLINDER_SCALE_LINE_THRESHOLD) )
+    if( dl_flt(new_scale, WIRE_FORM_LINE_THRESHOLD) )
     {
-      new_scale = CYLINDER_SCALE_LINE_THRESHOLD;
+      new_scale = WIRE_FORM_LINE_THRESHOLD;
     }
     else
     {
@@ -154,7 +154,7 @@ opengl_structure_on_ctrl_scroll(
     /* Scroll down: thinner. Below threshold snaps to zero (line mode). */
     new_scale /= (1.0 + 0.1 * s.step * scale);
 
-    if( dl_flt(new_scale, CYLINDER_SCALE_LINE_THRESHOLD) )
+    if( dl_flt(new_scale, WIRE_FORM_LINE_THRESHOLD) )
     {
       new_scale = 0.0;
     }
@@ -162,21 +162,21 @@ opengl_structure_on_ctrl_scroll(
 
   /* The registered post_apply hook owns the clamp, the backend apply, and
    * the repaint of both windows */
-  rc_config.opengl_cylinder_radius_scale = new_scale;
+  rc_config.wire_radius_scale = new_scale;
   hook_set_radius_scale();
 
   render_settings_sync_from_config();
 
   return( TRUE );
 
-} /* opengl_structure_on_ctrl_scroll() */
+} /* wire_radius_scroll() */
 
 /*-----------------------------------------------------------------------*/
 
 /* Ctrl+scroll adjusts the wire radius of structure geometry, which the
  * radiation-pattern overlay presents alongside its own content */
-surface_capability_t opengl_structure_wire_radius_cap = {
-  .handler  = opengl_structure_on_ctrl_scroll,
+surface_capability_t wire_radius_cap = {
+  .handler  = wire_radius_scroll,
   .modifier = SURFACE_MOD_CTRL,
   .notice   = "Ctrl+Scroll: Wire Radius",
   .subject  = SURFACE_CAP_SUBJECT_VIEW
@@ -282,7 +282,7 @@ opengl_structure_ground_plane_is_active(void *_ctx)
 
 /* Scroll capabilities of the structure domain */
 static surface_capability_t *const structure_input_caps[] = {
-  &opengl_structure_wire_radius_cap,
+  &wire_radius_cap,
   NULL
 };
 
@@ -302,7 +302,7 @@ static gl_view_config_t structure_view_config = {
 opengl_structure_surface_new(GtkContainer *parent)
 {
   /* Load persisted radius scale from config; zero means line mode */
-  cylinder_radius_scale = rc_config.opengl_cylinder_radius_scale;
+  cylinder_radius_scale = rc_config.wire_radius_scale;
 
   return( gl_view_surface_new(&structure_view_config, structure_input_caps,
         structure_view, parent) );

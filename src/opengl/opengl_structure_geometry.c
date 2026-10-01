@@ -601,7 +601,7 @@ opengl_structure_generate_geometry(
   for( idx = 0; idx < GL_VIEW_MAX_BATCHES; idx++ )
     batches[idx].program_key = GL_PROGRAM_LIT;
 
-  seg_line_mode = (cylinder_radius_scale < CYLINDER_SCALE_LINE_THRESHOLD);
+  seg_line_mode = (cylinder_radius_scale < WIRE_FORM_LINE_THRESHOLD);
 
   /* Budget the segment geometry selected by its radius presentation. */
   seg_verts = seg_line_mode

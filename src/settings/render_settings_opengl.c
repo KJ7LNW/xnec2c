@@ -35,7 +35,7 @@ CONFIG_FIELD_INT_ASSERT(rc_config.opengl_msaa_samples);
 CONFIG_FIELD_INT_ASSERT(rc_config.opengl_transparent_on_click);
 CONFIG_FIELD_INT_ASSERT(rc_config.rdpattern_draw_style);
 CONFIG_FIELD_INT_ASSERT(rc_config.opengl_orthographic);
-CONFIG_FIELD_DBL_ASSERT(rc_config.opengl_cylinder_radius_scale);
+CONFIG_FIELD_DBL_ASSERT(rc_config.wire_radius_scale);
 
 CONFIG_FIELD_FLT_ASSERT(rc_config.brightness_segments);
 CONFIG_FIELD_FLT_ASSERT(rc_config.brightness_patches);
@@ -71,7 +71,7 @@ const config_refresh_t hook_set_msaa_refresh =
 void
 hook_set_radius_scale(void)
 {
-  opengl_structure_set_radius_scale(rc_config.opengl_cylinder_radius_scale);
+  opengl_structure_set_radius_scale(rc_config.wire_radius_scale);
   hook_render_redraw();
 }
 
@@ -98,7 +98,7 @@ void *const opengl_tab_fields[] = {
   &rc_config.transparency_nearfield,
   &rc_config.transparency_ground_plane,
   &rc_config.transparency_axes,
-  &rc_config.opengl_cylinder_radius_scale,
+  &rc_config.wire_radius_scale,
   &rc_config.opengl_transparent_on_click,
   &rc_config.opengl_msaa_samples,
   &rc_config.rdpattern_draw_style,

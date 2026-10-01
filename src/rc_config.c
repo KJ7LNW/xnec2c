@@ -413,7 +413,7 @@ rc_config_vars_t rc_config_vars[] = {
 				NULL ) ) },
 
 	{ .desc = "OpenGL Cylinder Radius Scale", .format = "%lf",
-		.vars = { &rc_config.opengl_cylinder_radius_scale }, .def = { { .d = 1.0 } },
+		.vars = { &rc_config.wire_radius_scale }, .def = { { .d = 1.0 } },
 		.widgets = GL_CONFIG_WIDGET_SINGLE( &render_settings_builder,
 			"scale_cylinder_scale", &hook_set_radius_scale_refresh ) },
 
