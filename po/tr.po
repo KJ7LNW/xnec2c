@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -85,8 +85,8 @@ msgstr "Polarizasyon _Ekseni"
 msgid "Peak _Magnitude"
 msgstr "Tepe _Genliği"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Yakın Alan Animasyonu"
 
@@ -330,8 +330,8 @@ msgid "Depth Bins"
 msgstr "Derinlik Bölmeleri"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "_Varsayılanlara Sıfırla"
 
@@ -787,19 +787,23 @@ msgstr ""
 "Renk projeksiyonunu, segment ölçeğini, renk tonunu, parlaklık tabanını ve "
 "her aile parametresini varsayılanlarına geri yükleyin."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Yalnızca görsel — NEC2 model hesaplamalarını etkilemez."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "_Renk Teması"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "_Tel yarıçapı ölçeği"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "İşleme Ayarları"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Kapat"
@@ -2542,7 +2546,7 @@ msgstr "T<sub>zemin</sub>"
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>gökyüzü</sub>"
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "Işınım Örüntüleri"
 
@@ -3088,8 +3092,8 @@ msgstr "yapılandırma dosyası mevcut değil veya okunamıyor: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3118,7 +3122,7 @@ msgstr ""
 "cairo_fit_view: çerçeve çözülemedi: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3653,7 +3657,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3695,7 +3699,7 @@ msgstr ""
 "    • ham Maks kazanç, Kazanç yönü, F/B\n"
 "    • Anten sıcaklığı, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3703,7 +3707,7 @@ msgstr ""
 "Yalnızca bir besleme noktası portu tanımlı. Burada birden çok port arasından "
 "seçim yapmak için modele ek EX uyarım kartları tanımlayın."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3711,7 +3715,7 @@ msgstr ""
 "Bir port seçmek için Net Kazanç grafiği ayarını etkinleştirin; "
 "etkinleştirilmezse bu grafik portu izlemez."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Kullanılamıyor: uyarım besleme noktası tanımlamıyor"
 
@@ -4995,37 +4999,37 @@ msgstr "ölümcül hatadan sonra çıkılıyor: pipe() başarısız oldu"
 msgid "exiting after fatal error: fork() failed"
 msgstr "ölümcül hatadan sonra çıkılıyor: fork() başarısız oldu"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "kullanıcı kesintisi ile çıkılıyor\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "segmentasyon hatası, çıkılıyor\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "kayan nokta istisnası, çıkılıyor\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "iptal sinyali alındı, çıkılıyor\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "sonlandırma isteği alındı, çıkılıyor\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "fork edilmedi, pid %d'den gelen SIGCHLD yoksayılıyor\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "alt işlem pid %d çıkış yaptı\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "sinyal ile varsayılan çıkış: %d\n"
@@ -5653,7 +5657,7 @@ msgstr "Katman derinliği FBO tamamlanmadı\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Saydam işlenebilirler atlandı: soyma FBO'ları kullanılamıyor\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: geçersiz çizim stili %d, yüzey kullanılıyor\n"
@@ -6088,7 +6092,7 @@ msgstr "Zemin Modeli"
 msgid "Interpolation"
 msgstr "Enterpolasyon"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6102,7 +6106,7 @@ msgstr ""
 "H-alan animasyonu: NEC dosyasına NH kartı ekleyin\n"
 "Poynting vektörü: Hem NE hem de NH kartlarını ekleyin"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6110,7 +6114,7 @@ msgstr ""
 "Durağan yakın alan vektör sunumunu seçin.\n"
 "Bu ayarı etkinleştirmek için canlandırma penceresini kapatın."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6118,7 +6122,7 @@ msgstr ""
 "Durağan yakın alan vektör sunumunu seçin.\n"
 "Canlandırma penceresi kapalıyken uygulanır."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6127,11 +6131,11 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d aralık dışında [0..%d], GS_LINP "
 "varsayılanına dönülüyor\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Geçerli görüntüleme açıları için, görüntüleyici yönündeki kazanç."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
@@ -6139,7 +6143,7 @@ msgstr ""
 "Geçerli görüntüleme açıları için, görüntüleyici yönündeki parlaklık "
 "sıcaklığı."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6147,7 +6151,7 @@ msgstr ""
 "Gözlem yükselti açısı. Anten sıcaklığı değerlendirmesi için gökyüzü/yer "
 "sınırını kaydırır. 0° = ufuk."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6155,7 +6159,7 @@ msgstr ""
 "Anten sıcaklığı için gözlem yükseltisi.\n"
 "Etkinleştirmek için Kazanç Stili → Gürültü Sıcaklığı seçin."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
@@ -6163,7 +6167,7 @@ msgstr ""
 "Gürültü sıcaklığı modelleri için bağımsız gökyüzü, dünya ve enterpolasyon "
 "seçicileri."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6171,71 +6175,71 @@ msgstr ""
 "Gökyüzü ve dünya gürültü sıcaklığı modelleri.\n"
 "Etkinleştirmek için Kazanç Stili → Gürültü Sıcaklığı seçin."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "Toplam Kazanç"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "Yatay Polarizasyon"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "Dikey Polarizasyon"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "Sağ El Dairesel Polarizasyon"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "Sol El Dairesel Polarizasyon"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "Doğrusal Güç"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "Doğrusal Gerilim"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "ARRL Ölçeği"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "Logaritmik Ölçek"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "Gürültü Sıcaklığı"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "Gürültü Sıcaklığı (log ölçek)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "Işınım Örüntüsü: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Yakın Alanlar:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - E Alanı"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - H Alanı"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - Poynting Vektörü"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "Frekans Veri Grafikleri - "
 
@@ -6257,22 +6261,22 @@ msgstr "render_fit_solve: sığdırılacak geometri yok\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Optimize edici döngüsü tamamlanmadı, ara yeniden çizim bastırılıyor.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: glade yüklenemedi: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: opengl glade yüklenemedi: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: cairo glade yüklenemedi: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init: glade'den render_settings_window alınamadı\n"
 

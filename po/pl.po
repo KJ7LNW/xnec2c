@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -86,8 +86,8 @@ msgstr "Oś _polaryzacji"
 msgid "Peak _Magnitude"
 msgstr "_Amplituda szczytowa"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Animacja pola bliskiego"
 
@@ -331,8 +331,8 @@ msgid "Depth Bins"
 msgstr "Przedziały głębokości"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "Przywróć _domyślne"
 
@@ -794,19 +794,23 @@ msgstr ""
 "Przywróć projekcję koloru, skalę segmentu, rodzinę skali, dolny próg "
 "jasności i każdy parametr rodziny do wartości domyślnych."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Tylko wizualne — nie wpływa na obliczenia modelu NEC2."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "_Motyw kolorystyczny"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "_Skala promienia drutu"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "Ustawienia renderowania"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Zamknij"
@@ -2547,7 +2551,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "Charakterystyki promieniowania"
 
@@ -3097,8 +3101,8 @@ msgstr "plik konfiguracyjny nie istnieje lub nie jest czytelny: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3129,7 +3133,7 @@ msgstr ""
 "%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3662,7 +3666,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3704,7 +3708,7 @@ msgstr ""
 "    • surowy Maks. zysk, Kierunek zysku, F/B\n"
 "    • Temperatura anteny, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3712,7 +3716,7 @@ msgstr ""
 "Zdefiniowano tylko jeden port zasilania. Zdefiniuj dodatkowe karty "
 "wzbudzenia EX w modelu, aby wybierać spośród wielu portów tutaj."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3720,7 +3724,7 @@ msgstr ""
 "Włącz ustawienie wykresu Zysk netto, aby wybrać port; bez tego ten wykres "
 "nie podąża za portem."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Niedostępne: wzbudzenie nie definiuje punktu zasilania"
 
@@ -5023,37 +5027,37 @@ msgstr "wyjście po błędzie krytycznym: pipe() nie powiodło się"
 msgid "exiting after fatal error: fork() failed"
 msgstr "wyjście po błędzie krytycznym: fork() nie powiodło się"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "wyjście przez przerwanie użytkownika\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "błąd segmentacji, wyjście\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "wyjątek zmiennoprzecinkowy, zamykanie\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "otrzymano sygnał przerwania, zamykanie\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "otrzymano żądanie zakończenia, zamykanie\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "nie rozwidlono, ignorowanie SIGCHLD z pid %d\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "proces potomny pid %d zakończył się\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "domyślne wyjście z sygnałem: %d\n"
@@ -5689,7 +5693,7 @@ msgstr "FBO głębokości warstwy niekompletny\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Pominięto przezroczyste obiekty: FBO peelingu niedostępne\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: nieprawidłowy styl rysowania %d, użycie powierzchni\n"
@@ -6129,7 +6133,7 @@ msgstr "Model gruntu"
 msgid "Interpolation"
 msgstr "Interpolacja"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6143,7 +6147,7 @@ msgstr ""
 "Animacja pola H: Dodaj kartę NH do pliku NEC\n"
 "Wektor Poyntinga: Dodaj obie karty NE i NH"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6151,7 +6155,7 @@ msgstr ""
 "Wybiera statyczną prezentację wektorów pola bliskiego.\n"
 "Zamknij okno animacji, aby włączyć to ustawienie."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6159,7 +6163,7 @@ msgstr ""
 "Wybiera statyczną prezentację wektorów pola bliskiego.\n"
 "Obowiązuje, gdy okno animacji jest zamknięte."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6167,17 +6171,17 @@ msgid ""
 msgstr ""
 "Scale_Gain_Resolved: gain_style %d poza zakresem [0..%d], domyślnie GS_LINP\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Zysk w kierunku obserwacji dla bieżących kątów widoku."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "Temperatura jasności w kierunku obserwacji dla bieżących kątów widoku."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6185,7 +6189,7 @@ msgstr ""
 "Kąt elewacji obserwacji. Przesuwa granicę niebo/ziemia do oceny temperatury "
 "anteny. 0° = horyzont."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6193,13 +6197,13 @@ msgstr ""
 "Elewacja obserwacji dla temperatury anteny.\n"
 "Wybierz Styl zysku → Temperatura szumowa, aby włączyć."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr "Niezależne selektory modeli szumowych nieba, ziemi i interpolacji."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6207,71 +6211,71 @@ msgstr ""
 "Modele temperatury szumowej nieba i ziemi.\n"
 "Wybierz Styl zysku → Temperatura szumowa, aby włączyć."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "Zysk całkowity"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "Polaryzacja pozioma"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "Polaryzacja pionowa"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "Polaryzacja kołowa prawoskrętna"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "Polaryzacja kołowa lewoskrętna"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "Moc liniowa"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "Napięcie liniowe"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "Skala ARRL"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "Skala logarytmiczna"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "Temperatura szumowa"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "Temp. szumowa (skala log.)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "Charakterystyka promieniowania: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Pola bliskie:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - Pole E"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - Pole H"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - Wektor Poyntinga"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "Wykresy danych częstotliwości - "
 
@@ -6295,22 +6299,22 @@ msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr ""
 "Pętla optymalizatora niekompletna, pomijanie pośredniego przerysowania.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: nie udało się załadować pliku glade: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: nie udało się załadować pliku glade opengl: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: nie udało się załadować pliku glade cairo: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: nie udało się pobrać render_settings_window z glade\n"

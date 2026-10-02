@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -85,8 +85,8 @@ msgstr "极化轴(_A)"
 msgid "Peak _Magnitude"
 msgstr "峰值幅度(_M)"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "近场动画"
 
@@ -321,8 +321,8 @@ msgid "Depth Bins"
 msgstr "深度分箱"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "恢复默认(_D)"
 
@@ -726,19 +726,23 @@ msgid ""
 "and every family parameter to their defaults."
 msgstr "将色彩投影、分段缩放、色阶族、亮度下限及每个族参数恢复为默认值。"
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "仅视觉效果——不影响 NEC2 模型计算。"
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "颜色主题(_C)"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "导线半径缩放(_D)"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "渲染设置"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "关闭(_C)"
@@ -2459,7 +2463,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "辐射方向图"
 
@@ -2990,8 +2994,8 @@ msgstr "配置文件不存在或不可读：%s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3017,7 +3021,7 @@ msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 msgstr "cairo_fit_view：未求出画面：extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3539,7 +3543,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3580,20 +3584,20 @@ msgstr ""
 "    • 原始最大增益、增益方向、前后比\n"
 "    • 天线温度、G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
 msgstr ""
 "仅定义了一个馈电点端口。请在模型中定义更多 EX 激励卡，以便在此选择多个端口。"
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
 msgstr "启用净增益图设置以选择端口；未启用时此图表不随端口变化。"
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "不可用：激励未定义馈电点"
 
@@ -4830,37 +4834,37 @@ msgstr "发生致命错误后退出：pipe() 失败"
 msgid "exiting after fatal error: fork() failed"
 msgstr "发生致命错误后退出：fork() 失败"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "通过用户中断退出\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "段错误，正在退出\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "浮点异常，正在退出\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "收到中止信号，正在退出\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "收到终止请求，正在退出\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "未分叉，忽略来自 pid %d 的 SIGCHLD\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "子进程 pid %d 已退出\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "默认退出，信号：%d\n"
@@ -5447,7 +5451,7 @@ msgstr "图层深度 FBO 不完整\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "跳过透明可渲染对象：剥离 FBO 不可用\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern：无效的绘制样式 %d，使用曲面\n"
@@ -5849,7 +5853,7 @@ msgstr "大地模型"
 msgid "Interpolation"
 msgstr "插值"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5863,7 +5867,7 @@ msgstr ""
 "磁场动画：在 NEC 文件中添加 NH 卡\n"
 "坡印廷矢量：同时添加 NE 和 NH 卡"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -5871,7 +5875,7 @@ msgstr ""
 "选择静态近场矢量呈现方式。\n"
 "关闭动画窗口以启用此设置。"
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -5879,30 +5883,30 @@ msgstr ""
 "选择静态近场矢量呈现方式。\n"
 "当动画窗口关闭时适用。"
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
 "GS_LINP\n"
 msgstr "Scale_Gain_Resolved：增益模式 %d 超出范围 [0..%d]，默认使用 GS_LINP\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "沿视角方向的增益，基于当前视角角度。"
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "沿视角方向的亮度温度，基于当前视角角度。"
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
 msgstr "观测仰角。移动天空/地面边界用于天线温度评估。0° = 地平线。"
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5910,13 +5914,13 @@ msgstr ""
 "天线温度的观测仰角。\n"
 "选择增益模式 → 噪声温度以启用。"
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr "噪声温度模型的独立天空、地面及插值选择器。"
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -5924,71 +5928,71 @@ msgstr ""
 "天空和地面噪声温度模型。\n"
 "选择增益模式 → 噪声温度以启用。"
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "总增益"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "水平极化"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "垂直极化"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "右旋圆极化"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "左旋圆极化"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "线性功率"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "线性电压"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "ARRL 刻度"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "对数刻度"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "噪声温度"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "噪声温度（对数刻度）"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "辐射方向图： - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "近场："
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - E 场"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - H 场"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - 坡印廷矢量"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "频率数据图 - "
 
@@ -6010,22 +6014,22 @@ msgstr "render_fit_solve：无可适配的几何\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "优化器循环未完成，抑制中间重绘。\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init：加载 glade 失败：%s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init：加载 opengl glade 失败：%s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init：加载 cairo glade 失败：%s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init：从 glade 获取 render_settings_window 失败\n"
 

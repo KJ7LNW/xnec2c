@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -86,8 +86,8 @@ msgstr "Оса _поларизације"
 msgid "Peak _Magnitude"
 msgstr "Вршна _амплитуда"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Анимација блиског поља"
 
@@ -332,8 +332,8 @@ msgid "Depth Bins"
 msgstr "Бинови дубине"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "Врати на _подразумевано"
 
@@ -786,19 +786,23 @@ msgstr ""
 "Вратите пројекцију боје, скалу сегмента, породицу скале, доњу границу "
 "осветљености и сваки параметар породице на подразумеване вредности."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Само визуелно — не утиче на прорачуне NEC2 модела."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "_Боје теме"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "Скала полупречника жице (_W)"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "Подешавања рендеровања"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Затвори"
@@ -2532,7 +2536,7 @@ msgstr "T<sub>тло</sub>"
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>небо</sub>"
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "Дијаграми зрачења"
 
@@ -3078,8 +3082,8 @@ msgstr "конфигурациона датотека не постоји или
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3106,7 +3110,7 @@ msgid ""
 msgstr ""
 "cairo_fit_view: оквир није решен: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3639,7 +3643,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3681,7 +3685,7 @@ msgstr ""
 "    • сирови Max добитак, смер добитка, F/B\n"
 "    • Температура антене, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3689,7 +3693,7 @@ msgstr ""
 "Дефинисан је само један порт напајања. Додајте још EX картица побуде у модел "
 "да бисте овде бирали између више портова."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3697,7 +3701,7 @@ msgstr ""
 "Омогућите подешавање графикона Нето добитак да бисте изабрали порт; без тога "
 "овај графикон не прати порт."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Није доступно: побуда не дефинише тачку напајања"
 
@@ -4995,37 +4999,37 @@ msgstr "излазак након фаталне грешке: pipe() није �
 msgid "exiting after fatal error: fork() failed"
 msgstr "излазак након фаталне грешке: fork() није успео"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "излазак прекидом корисника\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "грешка сегментације, излазак\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "грешка са покретним зарезом, излазак\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "примљен сигнал за прекид, излазак\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "примљен захтев за завршетак, излазак\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "није форковано, игноришем SIGCHLD од pid %d\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "подређени процес pid %d је завршен\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "подразумевани излаз са сигналом: %d\n"
@@ -5648,7 +5652,7 @@ msgstr "Дубински FBO слоја није комплетан\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Провидни елементи прескочени: peel FBO-ови нису доступни\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: неважећи стил цртања %d, користим површину\n"
@@ -6084,7 +6088,7 @@ msgstr "Модел тла"
 msgid "Interpolation"
 msgstr "Интерполација"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6098,7 +6102,7 @@ msgstr ""
 "Анимација H-поља: Додајте NH картицу у NEC датотеку\n"
 "Појнтингов вектор: Додајте и NE и NH картице"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6106,7 +6110,7 @@ msgstr ""
 "Бира приказ вектора статичног блиског поља.\n"
 "Поставка се омогућава по затварању прозора анимације."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6114,7 +6118,7 @@ msgstr ""
 "Бира приказ вектора статичног блиског поља.\n"
 "Примењује се док је прозор анимације затворен."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6123,18 +6127,18 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d ван опсега [0..%d], подразумевано "
 "GS_LINP\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Добитак у правцу гледишта, за тренутне углове приказа."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr ""
 "Температура осветљености у правцу гледишта, за тренутне углове приказа."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6142,7 +6146,7 @@ msgstr ""
 "Елевациони угао посматрања. Помера границу небо/земља за евалуацију "
 "температуре антене. 0° = хоризонт."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6150,7 +6154,7 @@ msgstr ""
 "Елевациони угао посматрања за температуру антене.\n"
 "Изаберите Стил добитка → Температура шума да бисте омогућили."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
@@ -6158,7 +6162,7 @@ msgstr ""
 "Независни селектори модела неба, земље и интерполације за моделе температуре "
 "шума."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6166,71 +6170,71 @@ msgstr ""
 "Модели температуре шума неба и земље.\n"
 "Изаберите Стил добитка → Температура шума да бисте омогућили."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "Укупан добитак"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "Хоризонтална поларизација"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "Вертикална поларизација"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "Десна кружна поларизација"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "Лева кружна поларизација"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "Линеарна снага"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "Линеарни напон"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "ARRL скала"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "Логаритамска скала"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "Температура шума"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "Темп. шума (лог. скала)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "Дијаграм зрачења: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Блиска поља:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - E поље"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - H поље"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - Појнтингов вектор"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "Графици фреквенцијских података - "
 
@@ -6252,22 +6256,22 @@ msgstr "render_fit_solve: нема геометрије за уклапање\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Петља оптимизатора није завршена, прескачем привремено исцртавање.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: није успело учитавање glade: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: није успело учитавање opengl glade: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: није успело учитавање cairo glade: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: није успело преузимање render_settings_window из "

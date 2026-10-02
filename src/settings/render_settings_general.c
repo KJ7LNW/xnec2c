@@ -64,12 +64,14 @@ const config_refresh_t hook_set_constrained_refresh =
 
 /*------------------------------------------------------------------------*/
 
-/* General tab reset-field list: renderer toggle and constrained rotation.
+/* General tab reset-field list: renderer toggle, constrained rotation, and
+ * wire radius scale.
  * Overlay scale is programmatic session state (shift+scroll) with no widget,
  * so it is excluded from the settings reset. */
 void *const general_tab_fields[] = {
   &rc_config.use_opengl_renderer,
   &rc_config.view_drag_constrained,
+  &rc_config.wire_radius_scale,
   NULL,
 };
 
@@ -77,9 +79,9 @@ void *const general_tab_fields[] = {
 
 /** on_general_reset_clicked - Per-tab Reset button handler for General tab
  *
- * Resets the renderer toggle and constrained rotation to compiled-in
- * defaults; config_reset_tab_user syncs peer widgets and runs each changed
- * field's hook.
+ * Resets the renderer toggle, constrained rotation, and wire radius scale
+ * to compiled-in defaults; config_reset_tab_user syncs peer widgets and runs
+ * each changed field's hook.
  */
 void
 on_general_reset_clicked(GtkButton *button, gpointer user_data)

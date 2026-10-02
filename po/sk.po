@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -85,8 +85,8 @@ msgstr "Os _polarizácie"
 msgid "Peak _Magnitude"
 msgstr "Špičková v_eľkosť"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Animácia blízkeho poľa"
 
@@ -329,8 +329,8 @@ msgid "Depth Bins"
 msgstr "Hĺbkové priehradky"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "Obnoviť _predvolené"
 
@@ -787,19 +787,23 @@ msgstr ""
 "Obnoviť predvolené hodnoty farebnej projekcie, mierky segmentu, rodiny "
 "mierky, spodnej hranice jasu a všetkých parametrov rodiny."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Len vizuálne — neovplyvňuje výpočty modelu NEC2."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "_Farebná téma"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "_Mierka polomeru drôtu"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "Nastavenia vykresľovania"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Zavrieť"
@@ -2528,7 +2532,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "Vyžarovacie diagramy"
 
@@ -3070,8 +3074,8 @@ msgstr "konfiguračný súbor neexistuje alebo nie je čitateľný: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3099,7 +3103,7 @@ msgstr ""
 "cairo_fit_view: rámec nevyriešený: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3629,7 +3633,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3671,7 +3675,7 @@ msgstr ""
 "    • surový Max zisk, Smer zisku, F/B\n"
 "    • Teplota antény, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3679,7 +3683,7 @@ msgstr ""
 "Je definovaný iba jeden napájací port. Ak chcete vyberať spomedzi viacerých "
 "portov, pridajte do modelu ďalšie karty budenia EX."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3687,7 +3691,7 @@ msgstr ""
 "Ak chcete vyberať port, zapnite nastavenie grafu Čistý zisk; bez neho tento "
 "graf port nesleduje."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Nedostupné: budenie nedefinuje napájací bod"
 
@@ -4977,37 +4981,37 @@ msgstr "ukončenie po fatálnej chybe: pipe() zlyhalo"
 msgid "exiting after fatal error: fork() failed"
 msgstr "ukončenie po fatálnej chybe: fork() zlyhalo"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "ukončenie prerušením používateľa\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "segmentation fault, ukončujem\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "výnimka pohyblivej rádovej čiarky, ukončujem\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "prijatý signál prerušenia, ukončujem\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "prijatá požiadavka na ukončenie, ukončujem\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "nie je forknuté, ignorujem SIGCHLD z pid %d\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "podradený proces pid %d ukončený\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "predvolené ukončenie so signálom: %d\n"
@@ -5629,7 +5633,7 @@ msgstr "Hĺbkové FBO vrstvy neúplné\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Priesvitné renderovateľné objekty preskočené: peel FBO nedostupné\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: neplatný štýl kreslenia %d, použijem povrch\n"
@@ -6057,7 +6061,7 @@ msgstr "Model terénu"
 msgid "Interpolation"
 msgstr "Interpolácia"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6071,7 +6075,7 @@ msgstr ""
 "Animácia H-poľa: Pridajte kartu NH do súboru NEC\n"
 "Poyntingov vektor: Pridajte karty NE aj NH"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6079,7 +6083,7 @@ msgstr ""
 "Zvoliť statické zobrazenie vektorov blízkeho poľa.\n"
 "Zatvoriť okno animácie na povolenie tohto nastavenia."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6087,7 +6091,7 @@ msgstr ""
 "Zvoliť statické zobrazenie vektorov blízkeho poľa.\n"
 "Platí, keď je okno animácie zatvorené."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6096,17 +6100,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d mimo rozsahu [0..%d], nastavujem "
 "predvolené GS_LINP\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Zisk v smere zobrazovača, pre aktuálne uhly pohľadu."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "Teplota jasu v smere zobrazovača, pre aktuálne uhly pohľadu."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6114,7 +6118,7 @@ msgstr ""
 "Elevačný uhol pozorovania. Posúva hranicu obloha/zem pre vyhodnotenie "
 "teploty antény. 0° = horizont."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6122,14 +6126,14 @@ msgstr ""
 "Elevačný uhol pozorovania pre teplotu antény.\n"
 "Vyberte Štýl zisku → Teplota šumu pre aktiváciu."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr ""
 "Nezávislé selektory oblohy, zeme a interpolácie pre modely šumovej teploty."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6137,71 +6141,71 @@ msgstr ""
 "Modely šumovej teploty oblohy a zeme.\n"
 "Vyberte Štýl zisku → Teplota šumu pre aktiváciu."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "Celkový zisk"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "Horizontálna polarizácia"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "Vertikálna polarizácia"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "Pravotočivá kruhová polarizácia"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "Ľavotočivá kruhová polarizácia"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "Lineárny výkon"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "Lineárne napätie"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "Stupnica ARRL"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "Logaritmická stupnica"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "Šumová teplota"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "Šumová teplota (log. mierka)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "Vyžarovací diagram: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Blízke polia:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - Pole E"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - Pole H"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - Poyntingov vektor"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "Grafy frekvenčných údajov - "
 
@@ -6223,22 +6227,22 @@ msgstr "render_fit_solve: žiadna geometria na prispôsobenie\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Slučka optimalizátora neukončená, potláča sa priebežné prekreslenie.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: nepodarilo sa načítať glade: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: nepodarilo sa načítať opengl glade: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: nepodarilo sa načítať cairo glade: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: nepodarilo sa získať render_settings_window z glade\n"

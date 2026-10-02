@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -85,8 +85,8 @@ msgstr "Polarisaatio_akseli"
 msgid "Peak _Magnitude"
 msgstr "_Huippusuuruus"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Lähikentän animaatio"
 
@@ -330,8 +330,8 @@ msgid "Depth Bins"
 msgstr "Syvyysjako"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "Palauta _oletusasetukset"
 
@@ -794,19 +794,23 @@ msgstr ""
 "Palauta väriprojektio, segmenttiskaala, skaalaperhe, kirkkauden alaraja ja "
 "jokainen perheen parametri oletusarvoihinsa."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Vain visuaalinen — ei vaikuta NEC2-mallin laskelmiin."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "Vä_riteema"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "_Langan säteen skaala"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "Renderöintiasetukset"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Sulje"
@@ -2551,7 +2555,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "Säteilykuviot"
 
@@ -3096,8 +3100,8 @@ msgstr "asetustiedostoa ei ole tai se ei ole luettavissa: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3127,7 +3131,7 @@ msgstr ""
 "%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3661,7 +3665,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3703,7 +3707,7 @@ msgstr ""
 "    • raaka Maksimivahvistus, Vahvistuksen suunta, E/T\n"
 "    • Antennin lämpötila, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3711,7 +3715,7 @@ msgstr ""
 "Vain yksi herätepisteportti on määritetty. Määritä malliin lisää EX-"
 "heräteportteja valitaksesi tässä useamman portin välillä."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3719,7 +3723,7 @@ msgstr ""
 "Ota Nettovahvistus-kuvaajan asetus käyttöön valitaksesi portin; ilman sitä "
 "tämä kuvaaja ei seuraa porttia."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Ei käytettävissä: herätteellä ei ole herätepistettä"
 
@@ -5009,37 +5013,37 @@ msgstr "poistutaan vakavan virheen jälkeen: pipe() epäonnistui"
 msgid "exiting after fatal error: fork() failed"
 msgstr "poistutaan vakavan virheen jälkeen: fork() epäonnistui"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "poistutaan käyttäjän keskeytyksen vuoksi\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "segmentointivirhe, poistutaan\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "liukulukupoikkeus, poistutaan\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "keskeytyskäsky vastaanotettu, poistutaan\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "lopetuspyyntö vastaanotettu, poistutaan\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "ei haaroitettu, ohitetaan SIGCHLD prosessilta pid %d\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "lapsiprosessi pid %d poistui\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "oletuspoistuminen signaalilla: %d\n"
@@ -5672,7 +5676,7 @@ msgstr "Kerroksen syvyys-FBO on puutteellinen\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Läpinäkyvät renderöitävät ohitettu: peel-FBO:t eivät saatavilla\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: virheellinen piirtotyyli %d, käytetään pintaa\n"
@@ -6107,7 +6111,7 @@ msgstr "Maaperämalli"
 msgid "Interpolation"
 msgstr "Interpolointi"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6121,7 +6125,7 @@ msgstr ""
 "H-kenttäanimaatio: Lisää NH-kortti NEC-tiedostoon\n"
 "Poyntingin vektori: Lisää sekä NE- että NH-kortit"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6129,7 +6133,7 @@ msgstr ""
 "Valitse staattisen lähikentän vektoriesitys.\n"
 "Sulje animaatioikkuna ottaaksesi tämän asetuksen käyttöön."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6137,7 +6141,7 @@ msgstr ""
 "Valitse staattisen lähikentän vektoriesitys.\n"
 "Voimassa, kun animaatioikkuna on suljettu."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6146,17 +6150,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d arvoalueen ulkopuolella [0..%d], "
 "käytetään oletusarvona GS_LINP\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Vahvistus katselusuuntaan, nykyisillä katselukulmilla."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "Kirkkauslämpötila katselusuuntaan, nykyisillä katselukulmilla."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6164,7 +6168,7 @@ msgstr ""
 "Havainnon elevaatiokulma. Siirtää taivas/maa-rajaa antennin lämpötilan "
 "arviointia varten. 0° = horisontti."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6172,14 +6176,14 @@ msgstr ""
 "Havainnoinnin elevaatiokulma antennin lämpötilaa varten.\n"
 "Ota käyttöön valitsemalla Vahvistustyyli → Kohinalämpötila."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr ""
 "Itsenäiset taivas-, maa- ja interpolointivalitsimet kohinalämpötilamalleille."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6187,71 +6191,71 @@ msgstr ""
 "Taivas- ja maakohinalämpötilamallit.\n"
 "Ota käyttöön valitsemalla Vahvistustyyli → Kohinalämpötila."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "Kokonaisvahvistus"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "Vaakapolarisaatio"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "Pystypolarisaatio"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "Oikeakätinen ympyräpolarisaatio"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "Vasenkätinen ympyräpolarisaatio"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "Lineaarinen teho"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "Lineaarinen jännite"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "ARRL-asteikko"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "Logaritminen asteikko"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "Kohinalämpötila"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "Kohinalämpötila (log-asteikko)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "Säteilykuvio: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Lähikentät:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - E-kenttä"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - H-kenttä"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - Poyntingin vektori"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "Taajuustietokuvaajat - "
 
@@ -6273,22 +6277,22 @@ msgstr "render_fit_solve: ei sovitettavaa geometriaa\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Optimointisilmukka kesken, ohitetaan välivaiheen uudelleenpiirto.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: gladen lataus epäonnistui: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: OpenGL-gladen lataus epäonnistui: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: Cairo-gladen lataus epäonnistui: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: render_settings_window-hakeminen gladesta epäonnistui\n"

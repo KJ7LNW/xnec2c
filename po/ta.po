@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2026-07-11 10:31-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -84,8 +84,8 @@ msgstr "முனைவு அச்சு (_A)"
 msgid "Peak _Magnitude"
 msgstr "உச்ச அளவு (_M)"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "அண்மைப் புலம் அசைவூட்டம்"
 
@@ -328,8 +328,8 @@ msgid "Depth Bins"
 msgstr "ஆழக் கூடுகள்"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "இயல்பிருப்புகளுக்கு மீட்டமை (_D)"
 
@@ -782,19 +782,23 @@ msgstr ""
 "நிற ப்ரொஜெக்ஷன், பிரிவு அளவீடு, அளவீட்டுக் குடும்பம், ஒளிர்வு அடிமட்டம், மற்றும் ஒவ்வொரு "
 "குடும்ப அளவுருவையும் அவற்றின் இயல்புநிலைகளுக்கு மீட்டமைக்கவும்."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "காட்சிக்கு மட்டும் — NEC2 மாதிரி கணக்கீடுகளை பாதிக்காது."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "நிற தீம் (_C)"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "கம்பி ஆரம் அளவீடு (_K)"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "வரைதல் அமைவுகள்"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "மூடு (_O)"
@@ -2523,7 +2527,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "கதிர்வீச்சு வடிவங்கள்"
 
@@ -3070,8 +3074,8 @@ msgstr "கட்டமைப்புக் கோப்பு இல்லை 
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3102,7 +3106,7 @@ msgstr ""
 "%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3632,7 +3636,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3674,7 +3678,7 @@ msgstr ""
 "    • மூல அதிகபட்ச ஆதாயம், ஆதாயத் திசை, F/B\n"
 "    • ஆண்டெனா வெப்பநிலை, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3682,7 +3686,7 @@ msgstr ""
 "ஒரே ஒரு உணவு-புள்ளிப் போர்ட் மட்டுமே வரையறுக்கப்பட்டுள்ளது. இங்கே பல போர்ட்களுக்கு இடையே "
 "தேர்வு செய்ய மாதிரியில் கூடுதல் EX தூண்டல் அட்டைகளை வரையறுக்கவும்."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3690,7 +3694,7 @@ msgstr ""
 "போர்ட்டைத் தேர்ந்தெடுக்க நிகர ஆதாய வரைபட அமைப்பை இயக்கவும்; இல்லையேல் இந்த விளக்கப்படம் "
 "போர்ட்டைப் பின்பற்றாது."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "கிடைக்கவில்லை: தூண்டல் எந்த உணவு-புள்ளியையும் வரையறுக்கவில்லை"
 
@@ -4973,37 +4977,37 @@ msgstr "பேரழிவுப் பிழைக்குப் பின் 
 msgid "exiting after fatal error: fork() failed"
 msgstr "பேரழிவுப் பிழைக்குப் பின் வெளியேறுகிறது: fork() தோல்வியடைந்தது"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "பயனர் குறுக்கீடு வழியாக வெளியேறுகிறது\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "segmentation fault, வெளியேறுகிறது\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "floating point exception, வெளியேறுகிறது\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "abort சிக்னல் பெறப்பட்டது, வெளியேறுகிறது\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "நிறுத்தக் கோரிக்கை பெறப்பட்டது, வெளியேறுகிறது\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "fork செய்யப்படவில்லை, pid %d இலிருந்து SIGCHLD ஐப் புறக்கணிக்கிறது\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "சேய் செயல்முறை pid %d வெளியேறியது\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "சிக்னலுடன் இயல்பிருப்பு வெளியேற்றம்: %d\n"
@@ -5623,7 +5627,7 @@ msgstr "லேயர் ஆழம் FBO முழுமையடையவில
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "ஒளிஊடுருவும் பொருட்கள் தவிர்க்கப்பட்டன: பீல் FBO-கள் கிடைக்கவில்லை\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: தவறான வரைதல் பாணி %d, மேற்பரப்பைப் பயன்படுத்துகிறது\n"
@@ -6056,7 +6060,7 @@ msgstr "பூமி மாதிரி"
 msgid "Interpolation"
 msgstr "இடைச்செருகல்"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6070,7 +6074,7 @@ msgstr ""
 "காந்தப்புல அசைவூட்டம்: NEC கோப்பில் NH அட்டையைச் சேர்க்கவும்\n"
 "பாய்ண்டிங் வெக்டர்: NE மற்றும் NH இரண்டு அட்டைகளையும் சேர்க்கவும்"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6078,7 +6082,7 @@ msgstr ""
 "நிலையான அண்மைப்புல வெக்டர் காட்சியைத் தேர்ந்தெடுக்கிறது.\n"
 "இந்த அமைப்பை இயக்க அசைவூட்டச் சாளரத்தை மூடவும்."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6086,7 +6090,7 @@ msgstr ""
 "நிலையான அண்மைப்புல வெக்டர் காட்சியைத் தேர்ந்தெடுக்கிறது.\n"
 "அசைவூட்டச் சாளரம் மூடப்பட்டிருக்கும்போது பொருந்தும்."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6095,17 +6099,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d வரம்புக்கு வெளியே [0..%d], GS_LINP க்கு "
 "இயல்புநிலைப்படுத்துகிறது\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "தற்போதைய பார்வைக் கோணங்களுக்கு, பார்வையாளர் திசையிலான ஆதாயம்."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "தற்போதைய பார்வைக் கோணங்களுக்கு, பார்வையாளர் திசையிலான ஒளிர்வு வெப்பநிலை."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6113,7 +6117,7 @@ msgstr ""
 "கண்காணிப்பு உயர்வுக் கோணம். ஆண்டெனா வெப்பநிலை மதிப்பீட்டிற்கான வான்/பூமி எல்லையை "
 "மாற்றுகிறது. 0° = அடிவானம்."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6121,14 +6125,14 @@ msgstr ""
 "ஆண்டெனா வெப்பநிலைக்கான கண்காணிப்பு உயர்வு.\n"
 "இயக்குவதற்கு ஆதாய பாணி → இரைச்சல் வெப்பநிலையைத் தேர்ந்தெடுக்கவும்."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr ""
 "இரைச்சல் வெப்பநிலை மாதிரிகளுக்கான தனித்த வான், பூமி, மற்றும் இடைச்செருகல் தேர்வுகள்."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6136,71 +6140,71 @@ msgstr ""
 "வான் மற்றும் பூமி இரைச்சல் வெப்பநிலை மாதிரிகள்.\n"
 "இயக்குவதற்கு ஆதாய பாணி → இரைச்சல் வெப்பநிலையைத் தேர்ந்தெடுக்கவும்."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "மொத்த ஆதாயம்"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "கிடைமட்ட முனைவு"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "செங்குத்து முனைவு"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "வலது கை வட்ட முனைவு"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "இடது கை வட்ட முனைவு"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "நேரியல் திறன்"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "நேரியல் மின்னழுத்தம்"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "ARRL பாணி"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "மடக்கை"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "இரைச்சல் வெப்பநிலை"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "இரைச்சல் வெப்பநிலை (மடக்கை அளவீடு)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "கதிர்வீச்சு வடிவம்: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "அண்மைப் புலங்கள்:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - மின்புலம்"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - காந்தப்புலம்"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - பாய்ண்டிங் வெக்டர்"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "அதிர்வெண் தரவு வரைபடங்கள் - "
 
@@ -6222,22 +6226,22 @@ msgstr "render_fit_solve: பொருத்த வடிவியல் இல�
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "மேம்படுத்தி சுழற்சி முழுமையடையவில்லை, இடைநிலை மறுவரைவை அடக்குகிறது.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: glade ஐ ஏற்ற முடியவில்லை: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: opengl glade ஐ ஏற்ற முடியவில்லை: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: cairo glade ஐ ஏற்ற முடியவில்லை: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: glade இலிருந்து render_settings_window ஐப் பெற "

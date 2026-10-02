@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2026-05-25 01:51-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -85,8 +85,8 @@ msgstr "د پولاریزیشن _محور"
 msgid "Peak _Magnitude"
 msgstr "د چوکۍ _مقدار"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "د نږدې ساحې انیمیشن"
 
@@ -327,8 +327,8 @@ msgid "Depth Bins"
 msgstr "د ژورتیا ډبې"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "_ډیفالټونو ته بیرته"
 
@@ -776,19 +776,23 @@ msgstr ""
 "د رنګ پروجیکشن، سیګمنټ پیمانه، د پیمانې کورنۍ، د روڼتیا لاندنۍ حد، او د "
 "کورنۍ هر پیرامیټر خپلو ډیفالټونو ته بیرته راولئ."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "یوازې لیدلوری — د NEC2 ماډل محاسبو اغیز نه کوي."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "د _رنګ تیم"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "د تار د شعاع پیمانه (_W)"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "د ریندرینګ ترتیبات"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_بندول"
@@ -2522,7 +2526,7 @@ msgstr "T<sub>ځمکه</sub>"
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>اسمان</sub>"
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "د وړانګو نمونې"
 
@@ -3059,8 +3063,8 @@ msgstr "د ترتیب فایل شتون نه لري یا لوستل نه کیږ�
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3088,7 +3092,7 @@ msgstr ""
 "cairo_fit_view: هېڅ چوکاټ حل نشو: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3615,7 +3619,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3657,7 +3661,7 @@ msgstr ""
 "    • خام اعظمي ګټه، د ګټې لوری، F/B\n"
 "    • د انتن تودوخه، G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3665,7 +3669,7 @@ msgstr ""
 "یوازې یو فیډپاینټ پورټ ټاکل شوی دی. د دلته له ډیرو پورټونو نه د ټاکلو لپاره "
 "ماډل کې نور EX اکسیټیشن کارډونه تعریف کړئ."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3673,7 +3677,7 @@ msgstr ""
 "د پورټ ټاکلو لپاره د خالصې ګټې نمودار ترتیب فعال کړئ؛ پرته له هغه دا ګراف "
 "پورټ تعقیب نه کوي."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "شتون نلري: اکسیټیشن هیڅ فیډپاینټ نه ټاکي"
 
@@ -4947,37 +4951,37 @@ msgstr "د مهلکې تېروتنې وروسته وتل: pipe() ناکام شو
 msgid "exiting after fatal error: fork() failed"
 msgstr "د مهلکې تېروتنې وروسته وتل: fork() ناکام شو"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "د کارونکي د مداخلې له لارې وتل\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "د حافظې غلطي، وتل\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "د شناور ټکي استثناء، وتل\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "د منقطع کولو سیګنل ترلاسه شو، وتل\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "د پای کولو غوښتنه ترلاسه شوه، وتل\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "فورک شوی نه دی، د pid %d نه SIGCHLD له پامه غورځول کیږي\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "د ماشوم پروسس pid %d ووت\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "د ډیفالټ وتل د سیګنل سره: %d\n"
@@ -5595,7 +5599,7 @@ msgstr "د پرت ژورتیا FBO نابشپړ دی\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "شفاف رینډر وړ پریښودل شوي: peel FBOونه شتون نه لري\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: ناسم رسم سټایل %d، سطح کارول کیږي\n"
@@ -6013,7 +6017,7 @@ msgstr "د ځمکې ماډل"
 msgid "Interpolation"
 msgstr "انټرپولیشن"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6027,7 +6031,7 @@ msgstr ""
 "د H-ساحې انیمیشن: د NEC فایل ته NH کارت اضافه کړئ\n"
 "د Poynting ویکتور: NE او NH دواړه کارتونه اضافه کړئ"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6035,7 +6039,7 @@ msgstr ""
 "د ثابت نږدې ساحې ویکتور وړاندې کوونه غوره کوي۔\n"
 "د دې ترتیب فعالولو لپاره د انیمیشن کړکۍ وتړئ۔"
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6043,7 +6047,7 @@ msgstr ""
 "د ثابت نږدې ساحې ویکتور وړاندې کوونه غوره کوي۔\n"
 "پداسې حال کې پلي کیږي چې د انیمیشن کړکۍ تړل شوې وي۔"
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6052,17 +6056,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d د سلسلې [0..%d] بهر دی، GS_LINP ته ډیفالټ "
 "کیږي\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "د لیدونکي د لوري ګټه، د اوسنیو لید زاویو لپاره"
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "د لیدونکي د لوري د روڼتیا تودوخه، د اوسنیو لید زاویو لپاره"
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6070,7 +6074,7 @@ msgstr ""
 "د لیدلو لوړوالی زاویه. د انتن د تودوخې د ارزونې لپاره د اسمان/ځمکې پوله "
 "لیږدوي. 0° = افق."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6078,14 +6082,14 @@ msgstr ""
 "د انتن د تودوخې لپاره د لیدلو لوړوالی.\n"
 "د فعالولو لپاره د ګټې سټایل ← د شور تودوخه غوره کړئ."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr ""
 "د شور تودوخې ماډلونو لپاره د اسمان، ځمکې، او انترپولیشن خپلواک انتخابګر."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6093,71 +6097,71 @@ msgstr ""
 "د اسمان او ځمکې د شور تودوخې ماډلونه.\n"
 "د فعالولو لپاره د ګټې سټایل ← د شور تودوخه غوره کړئ."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "ټوله ګټه"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "افقي پولاریزیشن"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "عمودي پولاریزیشن"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "ښۍ لاسیز دایروي پولاریزیشن"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "کیڼ لاسیز دایروي پولاریزیشن"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "خطي ځواک"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "خطي ولټیج"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "ARRL سکیل"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "لوګاریتمي سکیل"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "د شور تودوخه"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "د شور تودوخه (لوګاریتمي سکیل)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "د وړانګو نمونه: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "نږدې ساحې:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - E ساحه"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - H ساحه"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - Poynting ویکتور"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "د فریکونسۍ ډاټا ګرافونه - "
 
@@ -6179,22 +6183,22 @@ msgstr "render_fit_solve: د برابرولو لپاره هېڅ جیومیتري
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "د اپتیمایزر حلقه نامکمله ده، منځمهاله بیا رسمول مخنیوی کیږي.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: د glade بارول ناکام شو: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: د opengl glade بارول ناکام شو: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: د cairo glade بارول ناکام شو: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: د glade نه د render_settings_window ترلاسه کول ناکام "

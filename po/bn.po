@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -85,8 +85,8 @@ msgstr "পোলারাইজেশন _অক্ষ"
 msgid "Peak _Magnitude"
 msgstr "শীর্ষ _মান"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "নিকট ক্ষেত্র অ্যানিমেশন"
 
@@ -328,8 +328,8 @@ msgid "Depth Bins"
 msgstr "গভীরতা বিন"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "ডিফল্টে _পুনরায় সেট করুন"
 
@@ -777,19 +777,23 @@ msgstr ""
 "রঙের প্রক্ষেপণ, সেগমেন্ট স্কেল, স্কেল ফ্যামিলি, ব্রাইটনেস ফ্লোর এবং প্রতিটি ফ্যামিলি "
 "প্যারামিটার তাদের ডিফল্টে পুনরুদ্ধার করুন।"
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "শুধু দৃশ্যমান — NEC2 মডেল গণনায় প্রভাব ফেলে না।"
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "_রঙের থিম"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "তার ব্যাসার্ধ স্কেল (_W)"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "রেন্ডারিং সেটিংস"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_বন্ধ করুন"
@@ -2521,7 +2525,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "বিকিরণ প্যাটার্ন"
 
@@ -3059,8 +3063,8 @@ msgstr "কনফিগ ফাইল বিদ্যমান নেই বা �
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3089,7 +3093,7 @@ msgstr ""
 "%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3616,7 +3620,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3658,7 +3662,7 @@ msgstr ""
 "    • raw Max gain, Gain direction, F/B\n"
 "    • অ্যান্টেনা তাপমাত্রা, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3666,7 +3670,7 @@ msgstr ""
 "শুধুমাত্র একটি ফিডপয়েন্ট পোর্ট নির্ধারিত। এখানে একাধিক পোর্টের মধ্যে নির্বাচন করতে "
 "মডেলে অতিরিক্ত EX এক্সাইটেশন কার্ড নির্ধারণ করুন।"
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3674,7 +3678,7 @@ msgstr ""
 "একটি পোর্ট নির্বাচন করতে Net Gain প্লট সেটিং সক্রিয় করুন; ছাড়া এই গ্রাফ পোর্ট অনুসরণ "
 "করে না।"
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "উপলব্ধ নয়: এক্সাইটেশন কোনো ফিডপয়েন্ট নির্ধারণ করে না"
 
@@ -4946,37 +4950,37 @@ msgstr "মারাত্মক ত্রুটির পর প্রস্থ
 msgid "exiting after fatal error: fork() failed"
 msgstr "মারাত্মক ত্রুটির পর প্রস্থান: fork() ব্যর্থ"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "ব্যবহারকারীর বাধার মাধ্যমে প্রস্থান করা হচ্ছে\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "সেগমেন্টেশন ফল্ট, প্রস্থান করা হচ্ছে\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "ফ্লোটিং পয়েন্ট এক্সেপশন, প্রস্থান করা হচ্ছে\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "অ্যাবর্ট সিগন্যাল পাওয়া গেছে, প্রস্থান করা হচ্ছে\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "সমাপ্তির অনুরোধ পাওয়া গেছে, প্রস্থান করা হচ্ছে\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "ফর্ক করা হয়নি, pid %d থেকে SIGCHLD উপেক্ষা করা হচ্ছে\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "চাইল্ড প্রসেস pid %d প্রস্থান করেছে\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "সিগন্যাল দিয়ে ডিফল্ট প্রস্থান: %d\n"
@@ -5593,7 +5597,7 @@ msgstr "Layer depth FBO অসম্পূর্ণ\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "স্বচ্ছ renderable এড়ানো হয়েছে: peel FBO অনুপলব্ধ\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: অবৈধ ড্র স্টাইল %d, surface ব্যবহার করা হচ্ছে\n"
@@ -6012,7 +6016,7 @@ msgstr "মাটি মডেল"
 msgid "Interpolation"
 msgstr "ইন্টারপোলেশন"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6026,7 +6030,7 @@ msgstr ""
 "H-ফিল্ড অ্যানিমেশন: NEC ফাইলে NH কার্ড যোগ করুন\n"
 "পয়েন্টিং ভেক্টর: NE এবং NH উভয় কার্ড যোগ করুন"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6034,7 +6038,7 @@ msgstr ""
 "স্ট্যাটিক নিকট ক্ষেত্র ভেক্টর উপস্থাপনা নির্বাচন করুন।\n"
 "এই সেটিং সক্রিয় করতে অ্যানিমেশন উইন্ডো বন্ধ করুন।"
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6042,7 +6046,7 @@ msgstr ""
 "স্ট্যাটিক নিকট ক্ষেত্র ভেক্টর উপস্থাপনা নির্বাচন করুন।\n"
 "অ্যানিমেশন উইন্ডো বন্ধ থাকলে প্রযোজ্য।"
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6051,17 +6055,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d পরিসরের বাইরে [0..%d], GS_LINP-এ ডিফল্ট "
 "করা হচ্ছে\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "বর্তমান ভিউ কোণের জন্য ভিউয়ারের দিকে গেইন।"
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "বর্তমান ভিউ কোণের জন্য ভিউয়ারের দিকে ব্রাইটনেস তাপমাত্রা।"
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6069,7 +6073,7 @@ msgstr ""
 "পর্যবেক্ষণ উন্নতি কোণ। অ্যান্টেনা তাপমাত্রা মূল্যায়নের জন্য আকাশ/পৃথিবী সীমানা "
 "স্থানান্তর করে। 0° = দিগন্ত।"
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6077,13 +6081,13 @@ msgstr ""
 "অ্যান্টেনা তাপমাত্রার জন্য পর্যবেক্ষণ উন্নতি কোণ।\n"
 "সক্রিয় করতে Gain Style → Noise Temperature নির্বাচন করুন।"
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr "নয়েজ তাপমাত্রা মডেলের জন্য স্বাধীন sky, earth এবং ইন্টারপোলেশন নির্বাচক।"
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6091,71 +6095,71 @@ msgstr ""
 "Sky এবং earth নয়েজ তাপমাত্রা মডেল।\n"
 "সক্রিয় করতে Gain Style → Noise Temperature নির্বাচন করুন।"
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "মোট গেইন"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "অনুভূমিক পোলারাইজেশন"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "উল্লম্ব পোলারাইজেশন"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "RH বৃত্তাকার পোলারাইজেশন"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "LH বৃত্তাকার পোলারাইজেশন"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "রৈখিক পাওয়ার"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "রৈখিক ভোল্টেজ"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "ARRL স্কেল"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "লগারিদমিক স্কেল"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "নয়েজ তাপমাত্রা"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "নয়েজ তাপমাত্রা (লগ স্কেল)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "বিকিরণ প্যাটার্ন: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "নিকট ক্ষেত্রসমূহ:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - E ক্ষেত্র"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - H ক্ষেত্র"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - পয়েন্টিং ভেক্টর"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "ফ্রিকোয়েন্সি ডেটা প্লট - "
 
@@ -6177,22 +6181,22 @@ msgstr "render_fit_solve: ফিট করার জন্য কোনো জ�
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "অপ্টিমাইজার লুপ অসম্পূর্ণ, মধ্যবর্তী রিড্র দমন করা হচ্ছে।\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: glade লোড করতে ব্যর্থ: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: opengl glade লোড করতে ব্যর্থ: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: cairo glade লোড করতে ব্যর্থ: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init: glade থেকে render_settings_window পেতে ব্যর্থ\n"
 

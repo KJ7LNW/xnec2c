@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -85,8 +85,8 @@ msgstr "ציר _קיטוב"
 msgid "Peak _Magnitude"
 msgstr "_גודל שיא"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "הנפשת שדה קרוב"
 
@@ -326,8 +326,8 @@ msgid "Depth Bins"
 msgstr "סלי עומק"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "איפוס ל_ברירות מחדל"
 
@@ -768,19 +768,23 @@ msgstr ""
 "שחזור הטלת הצבע, קנה מידת המקטע, משפחת קנה המידה, סף הבהירות התחתון וכל "
 "פרמטר של המשפחה לברירת המחדל."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "חזותי בלבד — אינו משפיע על חישובי מודל NEC2."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "_ערכת צבעים"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "_קנה מידת רדיוס תיל"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "הגדרות רינדור"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_סגור"
@@ -2506,7 +2510,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "תבניות קרינה"
 
@@ -3042,8 +3046,8 @@ msgstr "קובץ תצורה לא קיים או לא ניתן לקריאה: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3072,7 +3076,7 @@ msgstr ""
 "cairo_fit_view: לא נפתרה מסגרת: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3593,7 +3597,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3634,7 +3638,7 @@ msgstr ""
 "    • הגבר מרבי גולמי, כיוון הגבר, F/B\n"
 "    • טמפרטורת אנטנה, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3642,7 +3646,7 @@ msgstr ""
 "מוגדרת רק יציאת הזנה אחת. הגדר כרטיסי עירור EX נוספים במודל כדי לבחור בין "
 "מספר יציאות כאן."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3650,7 +3654,7 @@ msgstr ""
 "הפעל את הגדרת גרף ההגבר נטו כדי לבחור יציאה; בלעדיה גרף זה אינו עוקב אחר "
 "היציאה."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "לא זמין: העירור אינו מגדיר נקודת הזנה"
 
@@ -4906,37 +4910,37 @@ msgstr "יוצא לאחר שגיאה חמורה: pipe() נכשל"
 msgid "exiting after fatal error: fork() failed"
 msgstr "יוצא לאחר שגיאה חמורה: fork() נכשל"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "יציאה באמצעות הפסקת משתמש\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "שגיאת סגמנטציה, יוצא\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "חריגת נקודה צפה, יוצא\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "התקבל אות ביטול, יוצא\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "התקבלה בקשת סיום, יוצא\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "לא בוצע fork, מתעלם מ-SIGCHLD מ-pid %d\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "תהליך בן pid %d יצא\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "יציאת ברירת מחדל עם אות: %d\n"
@@ -5542,7 +5546,7 @@ msgstr "FBO עומק שכבה לא שלם\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "אובייקטים שקופים דולגו: peel FBOs לא זמינים\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: סגנון ציור לא חוקי %d, משתמש במשטח\n"
@@ -5958,7 +5962,7 @@ msgstr "מודל קרקע"
 msgid "Interpolation"
 msgstr "אינטרפולציה"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -5972,7 +5976,7 @@ msgstr ""
 "הנפשת שדה H: הוסף כרטיס NH לקובץ NEC\n"
 "וקטור פוינטינג: הוסף כרטיסי NE ו-NH"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -5980,7 +5984,7 @@ msgstr ""
 "בחר את הצגת וקטורי השדה הקרוב הסטטי.\n"
 "סגור את חלון ההנפשה כדי לאפשר הגדרה זו."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -5988,7 +5992,7 @@ msgstr ""
 "בחר את הצגת וקטורי השדה הקרוב הסטטי.\n"
 "חל כאשר חלון ההנפשה סגור."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -5996,24 +6000,24 @@ msgid ""
 msgstr ""
 "Scale_Gain_Resolved: gain_style %d מחוץ לטווח [0..%d], ברירת מחדל GS_LINP\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "הגבר בכיוון הצופה, עבור זוויות התצוגה הנוכחיות."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "טמפרטורת בהירות בכיוון הצופה, עבור זוויות התצוגה הנוכחיות."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
 msgstr ""
 "זווית הגבהת תצפית. מזיזה את גבול שמיים/ארץ להערכת טמפרטורת אנטנה. 0° = אופק."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6021,13 +6025,13 @@ msgstr ""
 "גובה תצפית לטמפרטורת אנטנה.\n"
 "בחר סגנון הגבר ← טמפרטורת רעש כדי להפעיל."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr "בוררי שמיים, קרקע ואינטרפולציה עצמאיים עבור מודלי טמפרטורת רעש."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6035,71 +6039,71 @@ msgstr ""
 "מודלי טמפרטורת רעש של שמיים וקרקע.\n"
 "בחר סגנון הגבר ← טמפרטורת רעש כדי להפעיל."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "הגבר כולל"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "קיטוב אופקי"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "קיטוב אנכי"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "קיטוב מעגלי ימני"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "קיטוב מעגלי שמאלי"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "הספק לינארי"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "מתח לינארי"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "סולם ARRL"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "סולם לוגריתמי"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "טמפרטורת רעש"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "טמפ' רעש (סולם לוגריתמי)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "תבנית קרינה: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "שדות קרובים:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - שדה E"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - שדה H"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - וקטור פוינטינג"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "גרפי נתוני תדר - "
 
@@ -6121,22 +6125,22 @@ msgstr "render_fit_solve: אין גאומטריה להתאמה\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "לולאת האופטימיזציה לא הושלמה, מונע ציור מחדש ביניים.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: נכשלה טעינת glade: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: נכשלה טעינת opengl glade: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: נכשלה טעינת cairo glade: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init: נכשלה השגת render_settings_window מ-glade\n"
 

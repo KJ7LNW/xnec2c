@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -85,8 +85,8 @@ msgstr "_Άξονας Πόλωσης"
 msgid "Peak _Magnitude"
 msgstr "_Μέγιστη Τιμή"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Κίνηση Κοντινού Πεδίου"
 
@@ -332,8 +332,8 @@ msgid "Depth Bins"
 msgstr "Κατηγορίες Βάθους"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "Επαναφορά σε _Προεπιλογές"
 
@@ -799,19 +799,23 @@ msgstr ""
 "Επαναφέρετε την προβολή χρώματος, την κλίμακα τμήματος, τον τόνο χρώματος, "
 "το κατώφλι φωτεινότητας και κάθε παράμετρο οικογένειας στις προεπιλογές τους."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Μόνο οπτικό — δεν επηρεάζει τους υπολογισμούς μοντέλου NEC2."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "_Θέμα χρωμάτων"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "_Κλίμακα ακτίνας αγωγού"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "Ρυθμίσεις Απόδοσης"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Κλείσιμο"
@@ -2559,7 +2563,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "Διαγράμματα Ακτινοβολίας"
 
@@ -3118,8 +3122,8 @@ msgstr "το αρχείο ρυθμίσεων δεν υπάρχει ή δεν ε�
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3149,7 +3153,7 @@ msgstr ""
 "cairo_fit_view: δεν επιλύθηκε πλαίσιο: extent=%g box=[%g,%g,%g,%g] view=%dx"
 "%d\n"
 
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3692,7 +3696,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3735,7 +3739,7 @@ msgstr ""
 "    • ακατέργαστο Μέγιστο κέρδος, Κατεύθυνση κέρδους, F/B\n"
 "    • Θερμοκρασία κεραίας, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3743,7 +3747,7 @@ msgstr ""
 "Έχει οριστεί μόνο μία θύρα σημείου τροφοδοσίας. Ορίστε επιπλέον κάρτες "
 "διέγερσης EX στο μοντέλο για να επιλέξετε ανάμεσα σε πολλαπλές θύρες εδώ."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3751,7 +3755,7 @@ msgstr ""
 "Ενεργοποιήστε τη ρύθμιση γραφήματος Καθαρού Κέρδους για να επιλέξετε θύρα· "
 "χωρίς αυτήν, αυτό το γράφημα δεν ακολουθεί τη θύρα."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Μη διαθέσιμο: η διέγερση δεν ορίζει σημείο τροφοδοσίας"
 
@@ -5060,37 +5064,37 @@ msgstr "έξοδος μετά από κρίσιμο σφάλμα: η pipe() απ
 msgid "exiting after fatal error: fork() failed"
 msgstr "έξοδος μετά από κρίσιμο σφάλμα: η fork() απέτυχε"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "έξοδος μέσω διακοπής χρήστη\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "σφάλμα κατάτμησης, έξοδος\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "εξαίρεση κινητής υποδιαστολής, έξοδος\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "ελήφθη σήμα ματαίωσης, έξοδος\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "ελήφθη αίτημα τερματισμού, έξοδος\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "χωρίς διακλάδωση, αγνόηση SIGCHLD από pid %d\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "η θυγατρική διεργασία pid %d τερματίστηκε\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "προεπιλεγμένη έξοδος με σήμα: %d\n"
@@ -5730,7 +5734,7 @@ msgstr "Ατελές FBO βάθους στρώματος\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Διαφανή renderables παραλείφθηκαν: FBO peel μη διαθέσιμα\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: άκυρο στυλ σχεδίασης %d, χρήση επιφάνειας\n"
@@ -6168,7 +6172,7 @@ msgstr "Μοντέλο εδάφους"
 msgid "Interpolation"
 msgstr "Παρεμβολή"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6182,7 +6186,7 @@ msgstr ""
 "Κίνηση πεδίου H: Προσθέστε κάρτα NH στο αρχείο NEC\n"
 "Διάνυσμα Poynting: Προσθέστε και τις δύο κάρτες NE και NH"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6190,7 +6194,7 @@ msgstr ""
 "Επιλογή της στατικής παρουσίασης διανυσμάτων εγγύς πεδίου.\n"
 "Κλείστε το παράθυρο κίνησης για να ενεργοποιήσετε αυτήν τη ρύθμιση."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6198,7 +6202,7 @@ msgstr ""
 "Επιλογή της στατικής παρουσίασης διανυσμάτων εγγύς πεδίου.\n"
 "Ισχύει όσο το παράθυρο κίνησης είναι κλειστό."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6206,12 +6210,12 @@ msgid ""
 msgstr ""
 "Scale_Gain_Resolved: gain_style %d εκτός εύρους [0..%d], προεπιλογή GS_LINP\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr ""
 "Κέρδος στην κατεύθυνση του σημείου θέασης, για τις τρέχουσες γωνίες προβολής."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
@@ -6219,7 +6223,7 @@ msgstr ""
 "Θερμοκρασία φωτεινότητας στην κατεύθυνση του σημείου θέασης, για τις "
 "τρέχουσες γωνίες προβολής."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6227,7 +6231,7 @@ msgstr ""
 "Γωνία ανύψωσης παρατήρησης. Μετατοπίζει το όριο ουρανού/γης για αξιολόγηση "
 "θερμοκρασίας κεραίας. 0° = ορίζοντας."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6235,7 +6239,7 @@ msgstr ""
 "Γωνία ανύψωσης παρατήρησης για θερμοκρασία κεραίας.\n"
 "Επιλέξτε Στυλ Κέρδους → Θερμοκρασία Θορύβου για ενεργοποίηση."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
@@ -6243,7 +6247,7 @@ msgstr ""
 "Ανεξάρτητοι επιλογείς ουρανού, γης και παρεμβολής για μοντέλα θερμοκρασίας "
 "θορύβου."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6251,71 +6255,71 @@ msgstr ""
 "Μοντέλα θερμοκρασίας θορύβου ουρανού και γης.\n"
 "Επιλέξτε Στυλ Κέρδους → Θερμοκρασία Θορύβου για ενεργοποίηση."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "Συνολικό Κέρδος"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "Οριζόντια Πόλωση"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "Κατακόρυφη Πόλωση"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "Δεξιόστροφη Κυκλική Πόλωση"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "Αριστερόστροφη Κυκλική Πόλωση"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "Γραμμική Ισχύς"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "Γραμμική Τάση"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "Κλίμακα ARRL"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "Λογαριθμική Κλίμακα"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "Θερμοκρασία Θορύβου"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "Θερμ. Θορύβου (λογ. κλίμακα)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "Διάγραμμα Ακτινοβολίας: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Κοντινά Πεδία:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - Πεδίο E"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - Πεδίο H"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - Διάνυσμα Poynting"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "Γραφήματα Δεδομένων Συχνότητας - "
 
@@ -6339,22 +6343,22 @@ msgstr ""
 "Ο βρόχος βελτιστοποίησης είναι ημιτελής, παράλειψη ενδιάμεσης "
 "επανασχεδίασης.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: αποτυχία φόρτωσης glade: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: αποτυχία φόρτωσης opengl glade: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: αποτυχία φόρτωσης cairo glade: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: αποτυχία λήψης render_settings_window από glade\n"

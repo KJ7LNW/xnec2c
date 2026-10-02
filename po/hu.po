@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -85,8 +85,8 @@ msgstr "Polarizáció _tengelye"
 msgid "Peak _Magnitude"
 msgstr "Csúcs _amplitúdó"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Közeltér animáció"
 
@@ -331,8 +331,8 @@ msgid "Depth Bins"
 msgstr "Mélységi rekeszek"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "_Alapértelmezések visszaállítása"
 
@@ -800,19 +800,23 @@ msgstr ""
 "Állítsa vissza a színvetületet, a szegmensskálát, a skálacsaládot, a fényerő "
 "alsó határát és minden családparamétert az alapértelmezett értékére."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Csak vizuális — nem hat a NEC2 modell számításaira."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "Szín_téma"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "_Huzalsugár-skála"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "Megjelenítési beállítások"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Bezárás"
@@ -2563,7 +2567,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "Sugárzási diagramok"
 
@@ -3119,8 +3123,8 @@ msgstr "konfigurációs fájl nem létezik vagy nem olvasható: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3150,7 +3154,7 @@ msgstr ""
 "view=%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3687,7 +3691,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3729,7 +3733,7 @@ msgstr ""
 "    • nyers Max nyereség, Nyereség iránya, F/B\n"
 "    • Antennahőmérséklet, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3737,7 +3741,7 @@ msgstr ""
 "Csak egy tápponti port van definiálva. Definiáljon további EX gerjesztési "
 "kártyákat a modellben, hogy itt több port közül választhasson."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3745,7 +3749,7 @@ msgstr ""
 "Engedélyezze a Nettó nyereség grafikon beállítást port kiválasztásához; "
 "enélkül ez a grafikon nem követi a portot."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Nem elérhető: a gerjesztés nem definiál táppontot"
 
@@ -5042,37 +5046,37 @@ msgstr "kilépés végzetes hiba után: pipe() sikertelen"
 msgid "exiting after fatal error: fork() failed"
 msgstr "kilépés végzetes hiba után: fork() sikertelen"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "kilépés felhasználói megszakítás miatt\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "szegmentálási hiba, kilépés\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "lebegőpontos kivétel, kilépés\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "megszakítási jel érkezett, kilépés\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "leállítási kérés érkezett, kilépés\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "nem elágaztatott, SIGCHLD figyelmen kívül hagyása a(z) %d pid-től\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "a(z) %d pid gyermekfolyamat kilépett\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "alapértelmezett kilépés jelzéssel: %d\n"
@@ -5700,7 +5704,7 @@ msgstr "Layer depth FBO hiányos\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Áttetsző renderelhetők kihagyva: peel FBO-k nem elérhetők\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: érvénytelen rajzstílus %d, felület használva\n"
@@ -6137,7 +6141,7 @@ msgstr "Talajmodell"
 msgid "Interpolation"
 msgstr "Interpoláció"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6151,7 +6155,7 @@ msgstr ""
 "H-mező animáció: Adjon NH kártyát a NEC fájlhoz\n"
 "Poynting vektor: Adjon NE és NH kártyát is"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6159,7 +6163,7 @@ msgstr ""
 "Kiválasztja a statikus közeltér-vektor megjelenítését.\n"
 "Ennek a beállításnak az engedélyezéséhez zárja be az animáció ablakot."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6167,7 +6171,7 @@ msgstr ""
 "Kiválasztja a statikus közeltér-vektor megjelenítését.\n"
 "Akkor érvényes, ha az animáció ablak be van zárva."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6176,17 +6180,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d tartományon kívül [0..%d], "
 "alapértelmezett: GS_LINP\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Nyereség a néző irányában, a jelenlegi nézetszögeknél."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "Fényerő-hőmérséklet a néző irányában, a jelenlegi nézetszögeknél."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6194,7 +6198,7 @@ msgstr ""
 "Megfigyelési emelkedési szög. Az ég/föld határt tolja el az "
 "antennahőmérséklet kiértékeléséhez. 0° = horizont."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6202,14 +6206,14 @@ msgstr ""
 "Megfigyelési emelkedési szög az antennahőmérséklethez.\n"
 "Válassza a Nyereség stílus → Zajhőmérséklet lehetőséget az engedélyezéshez."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr ""
 "Független ég, föld és interpolációs választók a zajhőmérséklet-modellekhez."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6217,71 +6221,71 @@ msgstr ""
 "Ég és Föld zajhőmérséklet-modellek.\n"
 "Válassza a Nyereség stílus → Zajhőmérséklet lehetőséget az engedélyezéshez."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "Teljes nyereség"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "Vízszintes polarizáció"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "Függőleges polarizáció"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "Jobbkezes körkörös polarizáció"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "Balkezes körkörös polarizáció"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "Lineáris teljesítmény"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "Lineáris feszültség"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "ARRL skála"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "Logaritmikus skála"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "Zajhőmérséklet"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "Zajhőm. (log skála)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "Sugárzási diagram: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Közeli mezők:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - E mező"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - H mező"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - Poynting-vektor"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "Frekvenciaadatok ábrázolása - "
 
@@ -6303,22 +6307,22 @@ msgstr "render_fit_solve: nincs illeszthető geometria\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Optimalizáló ciklus befejezetlen, közbülső újrarajzolás kihagyása.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: nem sikerült betölteni a glade-t: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: nem sikerült betölteni az opengl glade-t: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: nem sikerült betölteni a cairo glade-t: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: nem sikerült a render_settings_window-t lekérni a "

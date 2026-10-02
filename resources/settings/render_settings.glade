@@ -13,7 +13,15 @@
     <property name="can-focus">False</property>
   </object>
 
-  <!-- General tab content: renderer and view toggles shared by all backends -->
+  <!-- Wire radius scale range for the General tab slider -->
+  <object class="GtkAdjustment" id="adj_cylinder_scale">
+    <property name="lower">0.1</property><property name="upper">10</property>
+    <property name="step-increment">0.1</property>
+    <property name="page-increment">1</property>
+  </object>
+
+  <!-- General tab content: renderer, view, and wire display settings shared
+       by all backends -->
   <object class="GtkBox" id="general_tab_content">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -114,6 +122,47 @@
       </object>
     </child>
 
+    <child>
+      <object class="GtkBox" id="wire_radius_row">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkLabel" id="wire_radius_caption">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="xalign">0</property>
+            <property name="valign">center</property>
+            <property name="label" translatable="yes">_Wire Radius Scale</property>
+            <property name="use-underline">True</property>
+            <property name="mnemonic-widget">scale_cylinder_scale</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScale" id="scale_cylinder_scale">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="adjustment">adj_cylinder_scale</property>
+            <property name="digits">2</property>
+            <property name="value-pos">right</property>
+            <property name="tooltip-text">Multiply every displayed wire radius uniformly; the lowest setting draws wires as thin lines.&#10;&#10;Use ctrl+scroll over the structure or radiation pattern view, or this slider; it does not affect NEC2 calculations or the data-derived Segment scale selector.</property>
+            <signal name="value-changed" handler="on_config_widget_changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+
     <!-- Per-tab Reset button -->
     <child>
       <object class="GtkButtonBox" id="general_tab_buttonbox">
@@ -128,7 +177,7 @@
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="use-underline">True</property>
-            <property name="tooltip-text">Reset renderer toggle and constrained rotation to defaults</property>
+            <property name="tooltip-text">Reset renderer toggle, constrained rotation, and wire radius scale to defaults</property>
             <signal name="clicked" handler="on_general_reset_clicked" swapped="no"/>
           </object>
           <packing>

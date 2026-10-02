@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -86,8 +86,8 @@ msgstr "Polarisatie-_as"
 msgid "Peak _Magnitude"
 msgstr "Piek_amplitude"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Nabije-veldanimatie"
 
@@ -333,8 +333,8 @@ msgid "Depth Bins"
 msgstr "Dieptebins"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "Terugzetten naar _standaard"
 
@@ -795,19 +795,23 @@ msgstr ""
 "Herstel de kleurprojectie, segmentschaal, schaalfamilie, "
 "helderheidsondergrens en elke familieparameter naar hun standaardwaarden."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Alleen visueel — heeft geen invloed op NEC2-modelberekeningen."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "_Kleurthema"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "_Draadstraalschaal"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "Renderinstellingen"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Sluiten"
@@ -2560,7 +2564,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "Stralingspatronen"
 
@@ -3114,8 +3118,8 @@ msgstr "configuratiebestand bestaat niet of is niet leesbaar: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3144,7 +3148,7 @@ msgstr ""
 "cairo_fit_view: geen kader opgelost: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3679,7 +3683,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3721,7 +3725,7 @@ msgstr ""
 "    • ruwe max. versterking, versterkingsrichting, V/A\n"
 "    • Antennetemperatuur, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3729,7 +3733,7 @@ msgstr ""
 "Er is slechts één voedingspoort gedefinieerd. Definieer extra EX-"
 "excitatiekaarten in het model om hier tussen meerdere poorten te kiezen."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3737,7 +3741,7 @@ msgstr ""
 "Schakel de instelling Netto-versterkingsgrafiek in om een poort te "
 "selecteren; zonder deze volgt deze grafiek de poort niet."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Niet beschikbaar: excitatie definieert geen voedingspunt"
 
@@ -5039,37 +5043,37 @@ msgstr "afsluiten na fatale fout: pipe() mislukt"
 msgid "exiting after fatal error: fork() failed"
 msgstr "afsluiten na fatale fout: fork() mislukt"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "afsluiten via gebruikersonderbreking\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "segmentatiefout, afsluiten\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "drijvende-komma-uitzondering, afsluiten\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "afbreeksignaal ontvangen, afsluiten\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "beëindigingsverzoek ontvangen, afsluiten\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "niet geforkt, SIGCHLD van pid %d wordt genegeerd\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "kindproces pid %d beëindigd\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "standaard afsluiten met signaal: %d\n"
@@ -5703,7 +5707,7 @@ msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr ""
 "Transparante renderbare objecten overgeslagen: peel-FBO's niet beschikbaar\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: ongeldige tekenstijl %d, oppervlak wordt gebruikt\n"
@@ -6139,7 +6143,7 @@ msgstr "Aardbodemmodel"
 msgid "Interpolation"
 msgstr "Interpolatie"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6153,7 +6157,7 @@ msgstr ""
 "H-veldanimatie: voeg NH-kaart toe aan NEC-bestand\n"
 "Poynting-vector: voeg zowel NE- als NH-kaarten toe"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6161,7 +6165,7 @@ msgstr ""
 "Kies de statische vectorweergave van het nabije veld.\n"
 "Sluit het animatievenster om deze instelling in te schakelen."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6169,7 +6173,7 @@ msgstr ""
 "Kies de statische vectorweergave van het nabije veld.\n"
 "Van toepassing terwijl het animatievenster gesloten is."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6178,12 +6182,12 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d buiten bereik [0..%d], standaard naar "
 "GS_LINP\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr ""
 "Versterking in de richting van de viewer, voor de huidige weergavehoeken."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
@@ -6191,7 +6195,7 @@ msgstr ""
 "Helderheidstemperatuur in de richting van de viewer, voor de huidige "
 "weergavehoeken."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6199,7 +6203,7 @@ msgstr ""
 "Observatie-elevatiehoek. Verschuift de lucht-/aardgrens voor "
 "antennetemperatuurevaluatie. 0° = horizon."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6207,7 +6211,7 @@ msgstr ""
 "Observatie-elevatiehoek voor antennetemperatuur.\n"
 "Selecteer Versterkingsstijl → Ruistemperatuur om in te schakelen."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
@@ -6215,7 +6219,7 @@ msgstr ""
 "Onafhankelijke lucht-, aard- en interpolatieselectors voor "
 "ruistemperatuurmodellen."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6223,71 +6227,71 @@ msgstr ""
 "Lucht- en aardruistemperatuurmodellen.\n"
 "Selecteer Versterkingsstijl → Ruistemperatuur om in te schakelen."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "Totale versterking"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "Horizontale polarisatie"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "Verticale polarisatie"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "Rechtsdraaiende circulaire polarisatie"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "Linksdraaiende circulaire polarisatie"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "Lineair vermogen"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "Lineaire spanning"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "ARRL-schaal"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "Logaritmische schaal"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "Ruistemperatuur"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "Ruistemp. (log. schaal)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "Stralingspatroon: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Nabije velden:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - E-veld"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - H-veld"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - Poynting-vector"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "Frequentiegegevensgrafieken - "
 
@@ -6309,22 +6313,22 @@ msgstr "render_fit_solve: geen geometrie om aan te passen\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Optimalisatielus onvolledig, tussentijds hertekenen onderdrukt.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: laden van glade mislukt: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: laden van opengl glade mislukt: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: laden van cairo glade mislukt: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: ophalen van render_settings_window uit glade mislukt\n"

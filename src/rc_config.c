@@ -414,7 +414,7 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Wire Radius Scale", .format = "%lf",
 		.vars = { &rc_config.wire_radius_scale }, .def = { { .d = 1.0 } },
-		.widgets = GL_CONFIG_WIDGET_SINGLE( &render_settings_builder,
+		.widgets = CONFIG_WIDGET_SINGLE( &render_settings_builder,
 			"scale_cylinder_scale", &hook_set_radius_scale_refresh ) },
 
 	{ .desc = "Rdpattern Overlay Scale Adjustment", .format = "%lf",

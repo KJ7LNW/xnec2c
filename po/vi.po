@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-09-20 14:14-0700\n"
+"POT-Creation-Date: 2026-10-01 19:39-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -85,8 +85,8 @@ msgstr "_Trục phân cực"
 msgid "Peak _Magnitude"
 msgstr "_Giá trị đỉnh"
 
-#: resources/animate.glade:185 src/rdpattern_ui.c:403 src/rdpattern_ui.c:411
-#: src/rdpattern_ui.c:418
+#: resources/animate.glade:185 src/rdpattern_ui.c:404 src/rdpattern_ui.c:412
+#: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Hoạt ảnh trường gần"
 
@@ -329,8 +329,8 @@ msgid "Depth Bins"
 msgstr "Nhóm độ sâu"
 
 #: resources/settings/cairo_settings.glade:184
-#: resources/settings/opengl_settings.glade:533
-#: resources/settings/render_settings.glade:126
+#: resources/settings/opengl_settings.glade:515
+#: resources/settings/render_settings.glade:175
 msgid "Reset to _Defaults"
 msgstr "Đặt lại _mặc định"
 
@@ -783,19 +783,23 @@ msgstr ""
 "Khôi phục phép chiếu màu, tỷ lệ đoạn, họ thang chuyển đổi, mức sàn độ sáng, "
 "và mọi tham số của họ về giá trị mặc định."
 
-#: resources/settings/opengl_settings.glade:493
+#: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Chỉ hiển thị — không ảnh hưởng đến tính toán mô hình NEC2."
 
-#: resources/settings/render_settings.glade:58
+#: resources/settings/render_settings.glade:66
 msgid "_Color Theme"
 msgstr "_Chủ đề màu"
 
-#: resources/settings/render_settings.glade:148
+#: resources/settings/render_settings.glade:136
+msgid "_Wire Radius Scale"
+msgstr "Tỷ lệ _bán kính dây"
+
+#: resources/settings/render_settings.glade:197
 msgid "Rendering Settings"
 msgstr "Cài đặt kết xuất"
 
-#: resources/settings/render_settings.glade:192
+#: resources/settings/render_settings.glade:241
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Đóng"
@@ -2528,7 +2532,7 @@ msgstr ""
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:938
+#: resources/xnec2c.glade:13251 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "Giản đồ bức xạ"
 
@@ -3068,8 +3072,8 @@ msgstr "tệp cấu hình không tồn tại hoặc không thể đọc: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:873 src/geometry.c:771 src/input.c:1859 src/input.c:1860
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:403
-#: src/rdpattern_ui.c:411 src/rdpattern_ui.c:418 src/sy_expr.c:142
+#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
 #, c-format
 msgid "%s"
@@ -3098,7 +3102,7 @@ msgstr ""
 "%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:254
+#: src/cairo/cairo_frame.c:256
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3626,7 +3630,7 @@ msgid ""
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:741
+#: src/freqplots/freqplots_core.c:707
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3668,7 +3672,7 @@ msgstr ""
 "    • Độ lợi cực đại thô, Hướng độ lợi, F/B\n"
 "    • Nhiệt độ ăng-ten, G/T"
 
-#: src/freqplots/freqplots_core.c:774
+#: src/freqplots/freqplots_core.c:740
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3676,7 +3680,7 @@ msgstr ""
 "Chỉ có một cổng điểm cấp điện được định nghĩa. Hãy định nghĩa thêm các thẻ "
 "kích thích EX trong mô hình để chọn giữa nhiều cổng ở đây."
 
-#: src/freqplots/freqplots_core.c:777
+#: src/freqplots/freqplots_core.c:743
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3684,7 +3688,7 @@ msgstr ""
 "Bật cài đặt đồ thị Độ lợi ròng để chọn cổng; nếu không, đồ thị này sẽ không "
 "theo cổng."
 
-#: src/freqplots/freqplots_core.c:895
+#: src/freqplots/freqplots_core.c:861
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Không khả dụng: kích thích không định nghĩa điểm cấp điện"
 
@@ -4963,37 +4967,37 @@ msgstr "thoát sau lỗi nghiêm trọng: pipe() thất bại"
 msgid "exiting after fatal error: fork() failed"
 msgstr "thoát sau lỗi nghiêm trọng: fork() thất bại"
 
-#: src/main.c:831
+#: src/main.c:836
 msgid "exiting via user interrupt\n"
 msgstr "thoát do ngắt người dùng\n"
 
-#: src/main.c:835
+#: src/main.c:840
 msgid "segmentation fault, exiting\n"
 msgstr "lỗi phân đoạn bộ nhớ, đang thoát\n"
 
-#: src/main.c:839
+#: src/main.c:844
 msgid "floating point exception, exiting\n"
 msgstr "lỗi ngoại lệ dấu phẩy động, đang thoát\n"
 
-#: src/main.c:843
+#: src/main.c:848
 msgid "abort signal received, exiting\n"
 msgstr "đã nhận tín hiệu hủy bỏ, đang thoát\n"
 
-#: src/main.c:847
+#: src/main.c:852
 msgid "termination request received, exiting\n"
 msgstr "đã nhận yêu cầu kết thúc, đang thoát\n"
 
-#: src/main.c:857
+#: src/main.c:862
 #, c-format
 msgid "not forked, ignoring SIGCHLD from pid %d\n"
 msgstr "không fork, bỏ qua SIGCHLD từ pid %d\n"
 
-#: src/main.c:865
+#: src/main.c:870
 #, c-format
 msgid "child process pid %d exited\n"
 msgstr "tiến trình con pid %d đã thoát\n"
 
-#: src/main.c:874
+#: src/main.c:879
 #, c-format
 msgid "default exit with signal: %d\n"
 msgstr "thoát mặc định với tín hiệu: %d\n"
@@ -5613,7 +5617,7 @@ msgstr "Lớp độ sâu FBO không hoàn chỉnh\n"
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Các đối tượng kết xuất trong suốt bị bỏ qua: peel FBO không khả dụng\n"
 
-#: src/opengl/opengl_rdpattern.c:345
+#: src/opengl/opengl_rdpattern.c:344
 #, c-format
 msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: kiểu vẽ không hợp lệ %d, sử dụng bề mặt\n"
@@ -6042,7 +6046,7 @@ msgstr "Mô hình nền đất"
 msgid "Interpolation"
 msgstr "Nội suy"
 
-#: src/rdpattern_ui.c:41
+#: src/rdpattern_ui.c:42
 msgid ""
 "Animation requires near field data.\n"
 "\n"
@@ -6056,7 +6060,7 @@ msgstr ""
 "Hoạt ảnh trường H: Thêm thẻ NH vào tệp NEC\n"
 "Vectơ Poynting: Thêm cả thẻ NE và NH"
 
-#: src/rdpattern_ui.c:61
+#: src/rdpattern_ui.c:62
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Close the animation window to enable this setting."
@@ -6064,7 +6068,7 @@ msgstr ""
 "Chọn cách trình bày vector trường gần tĩnh.\n"
 "Đóng cửa sổ hoạt ảnh để bật cài đặt này."
 
-#: src/rdpattern_ui.c:63
+#: src/rdpattern_ui.c:64
 msgid ""
 "Choose the static near-field vector presentation.\n"
 "Applies while the animation window is closed."
@@ -6072,7 +6076,7 @@ msgstr ""
 "Chọn cách trình bày vector trường gần tĩnh.\n"
 "Áp dụng khi cửa sổ hoạt ảnh đang đóng."
 
-#: src/rdpattern_ui.c:131
+#: src/rdpattern_ui.c:132
 #, c-format
 msgid ""
 "Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
@@ -6081,17 +6085,17 @@ msgstr ""
 "Scale_Gain_Resolved: gain_style %d nằm ngoài phạm vi [0..%d], mặc định "
 "GS_LINP\n"
 
-#: src/rdpattern_ui.c:546
+#: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
 msgstr "Độ lợi theo hướng quan sát, ứng với các góc xem hiện tại."
 
-#: src/rdpattern_ui.c:548
+#: src/rdpattern_ui.c:549
 msgid ""
 "Brightness temperature in the direction of the viewer, for the current view "
 "angles."
 msgstr "Nhiệt độ chói theo hướng quan sát, ứng với các góc xem hiện tại."
 
-#: src/rdpattern_ui.c:568 src/rdpattern_ui.c:574
+#: src/rdpattern_ui.c:569 src/rdpattern_ui.c:575
 msgid ""
 "Observation elevation angle. Shifts sky/earth boundary for antenna "
 "temperature evaluation. 0° = horizon."
@@ -6099,7 +6103,7 @@ msgstr ""
 "Góc ngẩng quan sát. Dịch chuyển ranh giới trời/đất để đánh giá nhiệt độ ăng-"
 "ten. 0° = đường chân trời."
 
-#: src/rdpattern_ui.c:571 src/rdpattern_ui.c:577
+#: src/rdpattern_ui.c:572 src/rdpattern_ui.c:578
 msgid ""
 "Observation elevation for antenna temperature.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6107,14 +6111,14 @@ msgstr ""
 "Góc ngẩng quan sát cho nhiệt độ ăng-ten.\n"
 "Chọn Kiểu Độ lợi → Nhiệt độ tạp âm để bật."
 
-#: src/rdpattern_ui.c:580
+#: src/rdpattern_ui.c:581
 msgid ""
 "Independent sky, earth, and interpolation selectors for noise temperature "
 "models."
 msgstr ""
 "Bộ chọn bầu trời, mặt đất và nội suy độc lập cho các mô hình nhiệt độ tạp âm."
 
-#: src/rdpattern_ui.c:582
+#: src/rdpattern_ui.c:583
 msgid ""
 "Sky and earth noise temperature models.\n"
 "Select Gain Style → Noise Temperature to enable."
@@ -6122,71 +6126,71 @@ msgstr ""
 "Mô hình nhiệt độ tạp âm bầu trời và mặt đất.\n"
 "Chọn Kiểu Độ lợi → Nhiệt độ tạp âm để bật."
 
-#: src/rdpattern_ui.c:865
+#: src/rdpattern_ui.c:866
 msgid "Total Gain"
 msgstr "Độ lợi tổng"
 
-#: src/rdpattern_ui.c:866
+#: src/rdpattern_ui.c:867
 msgid "Horizontal Polarization"
 msgstr "Phân cực ngang"
 
-#: src/rdpattern_ui.c:867
+#: src/rdpattern_ui.c:868
 msgid "Vertical Polarization"
 msgstr "Phân cực đứng"
 
-#: src/rdpattern_ui.c:868
+#: src/rdpattern_ui.c:869
 msgid "RH Circular Polarization"
 msgstr "Phân cực tròn phải"
 
-#: src/rdpattern_ui.c:869
+#: src/rdpattern_ui.c:870
 msgid "LH Circular Polarization"
 msgstr "Phân cực tròn trái"
 
-#: src/rdpattern_ui.c:920
+#: src/rdpattern_ui.c:921
 msgid "Linear Power"
 msgstr "Công suất tuyến tính"
 
-#: src/rdpattern_ui.c:921
+#: src/rdpattern_ui.c:922
 msgid "Linear Voltage"
 msgstr "Điện áp tuyến tính"
 
-#: src/rdpattern_ui.c:922
+#: src/rdpattern_ui.c:923
 msgid "ARRL Scale"
 msgstr "Thang ARRL"
 
-#: src/rdpattern_ui.c:923
+#: src/rdpattern_ui.c:924
 msgid "Logarithmic Scale"
 msgstr "Thang logarit"
 
-#: src/rdpattern_ui.c:924
+#: src/rdpattern_ui.c:925
 msgid "Noise Temperature"
 msgstr "Nhiệt độ tạp âm"
 
-#: src/rdpattern_ui.c:925
+#: src/rdpattern_ui.c:926
 msgid "Noise Temp (log scale)"
 msgstr "Nhiệt độ tạp âm (thang logarit)"
 
-#: src/rdpattern_ui.c:943
+#: src/rdpattern_ui.c:944
 msgid "Radiation Pattern: - "
 msgstr "Giản đồ bức xạ: - "
 
-#: src/rdpattern_ui.c:967
+#: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Trường gần:"
 
-#: src/rdpattern_ui.c:969
+#: src/rdpattern_ui.c:970
 msgid " - E Field"
 msgstr " - Trường E"
 
-#: src/rdpattern_ui.c:971
+#: src/rdpattern_ui.c:972
 msgid " - H Field"
 msgstr " - Trường H"
 
-#: src/rdpattern_ui.c:973
+#: src/rdpattern_ui.c:974
 msgid " - Poynting Vector"
 msgstr " - Vectơ Poynting"
 
-#: src/rdpattern_ui.c:984
+#: src/rdpattern_ui.c:985
 msgid "Frequency Data Plots - "
 msgstr "Đồ thị dữ liệu tần số - "
 
@@ -6208,22 +6212,22 @@ msgstr "render_fit_solve: không có hình học để khớp\n"
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Vòng lặp tối ưu hóa chưa hoàn tất, bỏ qua vẽ lại trung gian.\n"
 
-#: src/settings/render_settings_common.c:120
+#: src/settings/render_settings_common.c:141
 #, c-format
 msgid "render_settings_init: failed to load glade: %s\n"
 msgstr "render_settings_init: tải glade thất bại: %s\n"
 
-#: src/settings/render_settings_common.c:130
+#: src/settings/render_settings_common.c:151
 #, c-format
 msgid "render_settings_init: failed to load opengl glade: %s\n"
 msgstr "render_settings_init: tải opengl glade thất bại: %s\n"
 
-#: src/settings/render_settings_common.c:140
+#: src/settings/render_settings_common.c:161
 #, c-format
 msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: tải cairo glade thất bại: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:182
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init: lấy render_settings_window từ glade thất bại\n"
 

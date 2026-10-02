@@ -76,11 +76,6 @@
     <property name="value">0</property><property name="step-increment">0.01</property>
     <property name="page-increment">0.1</property>
   </object>
-  <object class="GtkAdjustment" id="adj_cylinder_scale">
-    <property name="lower">0.1</property><property name="upper">10</property>
-    <property name="step-increment">0.1</property>
-    <property name="page-increment">1</property>
-  </object>
 
   <object class="GtkBox" id="opengl_tab_content">
     <property name="visible">True</property>
@@ -475,26 +470,13 @@
               <packing><property name="left-attach">2</property><property name="top-attach">2</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Radius scale</property><property name="xalign">0</property><property name="margin-top">4</property></object>
-              <packing><property name="left-attach">0</property><property name="top-attach">3</property></packing>
-            </child>
-            <child>
-              <object class="GtkScale" id="scale_cylinder_scale">
-                <property name="visible">True</property><property name="can-focus">True</property><property name="hexpand">True</property>
-                <property name="adjustment">adj_cylinder_scale</property><property name="digits">2</property><property name="value-pos">right</property><property name="margin-top">4</property>
-                <property name="tooltip-text">Multiply every OpenGL model radius uniformly for display.&#10;&#10;Use ctrl+scroll over the structure view or this slider; it does not affect NEC2 calculations or the data-derived Segment scale selector.</property>
-                <signal name="value-changed" handler="on_config_widget_changed" swapped="no"/>
-              </object>
-              <packing><property name="left-attach">1</property><property name="top-attach">3</property><property name="width">2</property></packing>
-            </child>
-            <child>
               <object class="GtkLabel">
                 <property name="visible">True</property><property name="can-focus">False</property>
                 <property name="label" translatable="yes">Visual only — does not affect NEC2 model calculations.</property>
                 <property name="xalign">0</property><property name="margin-start">4</property>
                 <attributes><attribute name="style" value="italic"/><attribute name="scale" value="0.85"/></attributes>
               </object>
-              <packing><property name="left-attach">0</property><property name="top-attach">4</property><property name="width">3</property></packing>
+              <packing><property name="left-attach">0</property><property name="top-attach">3</property><property name="width">3</property></packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="chk_only_on_click">
@@ -503,7 +485,7 @@
                 <property name="tooltip-text">Apply per-type transparency only while dragging; otherwise always active</property>
                 <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
               </object>
-              <packing><property name="left-attach">0</property><property name="top-attach">5</property><property name="width">3</property></packing>
+              <packing><property name="left-attach">0</property><property name="top-attach">4</property><property name="width">3</property></packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="chk_orthographic">
@@ -513,7 +495,7 @@
 Enable for precise angular measurements or flat pattern inspection.</property>
                 <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
               </object>
-              <packing><property name="left-attach">0</property><property name="top-attach">6</property><property name="width">3</property></packing>
+              <packing><property name="left-attach">0</property><property name="top-attach">5</property><property name="width">3</property></packing>
             </child>
           </object>
         </child>

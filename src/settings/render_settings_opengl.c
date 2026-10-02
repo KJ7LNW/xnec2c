@@ -68,7 +68,7 @@ const config_refresh_t hook_set_msaa_refresh =
 /*------------------------------------------------------------------------*/
 
 /* OpenGL tab reset-field list: orthographic projection, per-type brightness
- * and transparency, cylinder scale, transparent-on-click, MSAA, draw style. */
+ * and transparency, transparent-on-click, MSAA, draw style. */
 void *const opengl_tab_fields[] = {
   &rc_config.opengl_orthographic,
   &rc_config.brightness_segments,
@@ -85,7 +85,6 @@ void *const opengl_tab_fields[] = {
   &rc_config.transparency_nearfield,
   &rc_config.transparency_ground_plane,
   &rc_config.transparency_axes,
-  &rc_config.wire_radius_scale,
   &rc_config.opengl_transparent_on_click,
   &rc_config.opengl_msaa_samples,
   &rc_config.rdpattern_draw_style,
@@ -96,8 +95,8 @@ void *const opengl_tab_fields[] = {
 
 /** on_opengl_tab_reset_clicked - Per-tab Reset button handler for OpenGL tab
  *
- * Restores orthographic projection, brightness, transparency, cylinder scale,
- * MSAA, and draw style to compiled-in defaults.  config_reset_tab_user syncs
+ * Restores orthographic projection, brightness, transparency, MSAA, and draw
+ * style to compiled-in defaults.  config_reset_tab_user syncs
  * peer widgets and runs each changed field's hook; the invalidate and redraws
  * refresh the OpenGL views.
  */
