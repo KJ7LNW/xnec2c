@@ -31,7 +31,7 @@ void free_crnt_fstep_buffers(void);
 void structure_view_changed_cb(view_t *v, gpointer user_data);
 void Init_Struct_Drawing(void);
 
-/* Scroll capability row the OpenGL structure surface borrows */
+/* Scroll capability row every engine's structure surface borrows */
 extern surface_capability_t *const structure_input_caps[];
 
 #endif

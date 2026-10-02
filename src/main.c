@@ -367,7 +367,8 @@ main (int argc, char *argv[])
 
   /* Register the Cairo surface once the view it presents exists. */
   canvas_add_surface( CANVAS_STRUCTURE,
-      cairo_surface_adopt(structure_cairo_da, structure_view, NULL) );
+      cairo_surface_adopt(structure_cairo_da, structure_view,
+        structure_input_caps) );
 
   /* Create the GL surface after the view is initialized */
 #ifdef HAVE_OPENGL

@@ -737,15 +737,6 @@ surface_capability_t *const rdpattern_input_caps[] = {
 
 /*-----------------------------------------------------------------------*/
 
-/* Scroll capabilities the Cairo radiation-pattern surface offers; cylinder
- * geometry belongs to the OpenGL engine, so ctrl+scroll is declined */
-surface_capability_t *const rdpattern_cairo_input[] = {
-  &rdpattern_overlay_scale_cap,
-  NULL
-};
-
-/*-----------------------------------------------------------------------*/
-
 /**
  * free_near_step() - Release one fstep's near-field point buffer
  * @elem: pointer to one near_field_t element

@@ -46,11 +46,8 @@ void nf_static_menu_sync(void);
  * engine presenting the radiation-pattern view */
 extern surface_capability_t rdpattern_overlay_scale_cap;
 
-/* Scroll capability row the OpenGL radiation-pattern surface borrows */
+/* Scroll capability row every engine's radiation-pattern surface borrows */
 extern surface_capability_t *const rdpattern_input_caps[];
-
-/* Scroll capability row the Cairo radiation-pattern surface offers */
-extern surface_capability_t *const rdpattern_cairo_input[];
 
 #endif
 
