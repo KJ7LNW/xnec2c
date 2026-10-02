@@ -27,6 +27,7 @@
 #include "render_check.h"
 #include "render_patch_flow.h"
 #include "render_surface.h"
+#include "render_wire_radius.h"
 #include "gradient_cache.h"
 
 /* Axis half-extent used for empty-scene placeholders (no geometry loaded) */
@@ -34,9 +35,6 @@
 
 /* Smallest excitation translation the pattern draw moves its content by */
 #define FF_EXCITATION_OFFSET_MIN 0.001f
-
-/* Scale below which segments render as lines instead of solids with 0.001 epsilon for slider */
-#define WIRE_FORM_LINE_THRESHOLD 0.101
 
 /* Dispatch-resolved structure draw parameters — passed to draw_structure backends */
 typedef struct
@@ -53,26 +51,53 @@ typedef struct
   float          model_scale;   /* resolved structure-to-presentation scale */
   int            fstep;         /* for crnt_fstep[] access */
   uint32_t       color_generation; /* bumped whenever dispatch rebakes wire/patch color */
+  wire_form_t    wire_form;     /* line or solid presentation resolved from wire_radius_scale */
 } struct_draw_params_t;
 
-/* Members run in descending alignment order, so no gap separates them and an
- * added member cannot hide inside padding.  The OpenGL freshness caches store
- * this frame whole and compare selected members, so the size equality below
- * fails on any addition until both comparisons classify it. */
+/* End offset of one struct_draw_params_t member */
+#define STRUCT_DRAW_PARAMS_END(member) \
+  (offsetof(struct_draw_params_t, member) + \
+   sizeof(((struct_draw_params_t *)0)->member))
+
+#define STRUCT_DRAW_PARAMS_LAYOUT_MSG \
+  "struct_draw_params_t gained a member; classify it in patch_batch_edge_eq() and geom_pass_edge_eq()"
+
+/* The OpenGL freshness caches store this frame whole and compare selected
+ * members.  Members run in descending alignment order, and each check pins a
+ * member to the end of its predecessor, so a member inserted between two
+ * listed members fails the build until both comparisons classify it.  The
+ * size check admits only the tail padding the frame alignment requires, four
+ * bytes after wire_form on LP64.  A member of four bytes or fewer appended
+ * after wire_form occupies that padding and passes every check, so an append
+ * extends this chain by hand. */
+_Static_assert(offsetof(struct_draw_params_t, wire_seg_scale) ==
+    STRUCT_DRAW_PARAMS_END(wire_colors), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, patch_colors) ==
+    STRUCT_DRAW_PARAMS_END(wire_seg_scale), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, wire_glyphs) ==
+    STRUCT_DRAW_PARAMS_END(patch_colors), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, patch_flow) ==
+    STRUCT_DRAW_PARAMS_END(wire_glyphs), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, cmax) ==
+    STRUCT_DRAW_PARAMS_END(patch_flow), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, freq_mhz) ==
+    STRUCT_DRAW_PARAMS_END(cmax), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, wire_radius_scale) ==
+    STRUCT_DRAW_PARAMS_END(freq_mhz), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, geometry_extent) ==
+    STRUCT_DRAW_PARAMS_END(wire_radius_scale), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, model_scale) ==
+    STRUCT_DRAW_PARAMS_END(geometry_extent), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, fstep) ==
+    STRUCT_DRAW_PARAMS_END(model_scale), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, color_generation) ==
+    STRUCT_DRAW_PARAMS_END(fstep), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, wire_form) ==
+    STRUCT_DRAW_PARAMS_END(color_generation), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
 _Static_assert(sizeof(struct_draw_params_t) ==
-    sizeof(((struct_draw_params_t *)0)->wire_colors) +
-    sizeof(((struct_draw_params_t *)0)->wire_seg_scale) +
-    sizeof(((struct_draw_params_t *)0)->patch_colors) +
-    sizeof(((struct_draw_params_t *)0)->wire_glyphs) +
-    sizeof(((struct_draw_params_t *)0)->patch_flow) +
-    sizeof(((struct_draw_params_t *)0)->cmax) +
-    sizeof(((struct_draw_params_t *)0)->freq_mhz) +
-    sizeof(((struct_draw_params_t *)0)->wire_radius_scale) +
-    sizeof(((struct_draw_params_t *)0)->geometry_extent) +
-    sizeof(((struct_draw_params_t *)0)->model_scale) +
-    sizeof(((struct_draw_params_t *)0)->fstep) +
-    sizeof(((struct_draw_params_t *)0)->color_generation),
-    "struct_draw_params_t gained a member; classify it in patch_batch_edge_eq() and geom_pass_edge_eq()");
+    (STRUCT_DRAW_PARAMS_END(wire_form) + _Alignof(struct_draw_params_t) - 1)
+    / _Alignof(struct_draw_params_t) * _Alignof(struct_draw_params_t),
+    STRUCT_DRAW_PARAMS_LAYOUT_MSG);
 
 /* Dispatch-resolved far-field draw parameters — passed to draw_farfield backends.
  * Excitation centroid coordinates are pre-scaled to pattern space by dispatch.
@@ -99,7 +124,7 @@ typedef gboolean (*structure_draw_fn_t)(render_surface_t *surface,
     float extent, const struct_draw_params_t *params);
 
 /* Structure draw leaves, one per wire form; render() selects the leaf
- * struct_draw_params_t.wire_radius_scale names */
+ * struct_draw_params_t.wire_form names */
 typedef struct
 {
   structure_draw_fn_t line;

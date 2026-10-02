@@ -32,6 +32,7 @@
 #include "render_geometry.h"
 #include "render_message.h"
 #include "render_structure_frame.h"
+#include "render_wire_radius.h"
 #include "gradient_cache.h"
 #include "../anim/anim_phase.h"
 #include "../shared.h"
@@ -67,22 +68,32 @@ render_last_rdpattern_check(void)
  * @draw:    structure draw leaves of one role, one per wire form
  * @surface: engine surface receiving the structure
  * @extent:  content half-extent for projection scaling
- * @params:  resolved structure frame carrying the wire radius scale
+ * @params:  resolved structure frame carrying the wire form
  *
- * A scale under the line threshold presents wires as lines, any other scale
- * as solids.  Returns the selected leaf's result.
+ * Selects the leaf the frame's wire form names.  Returns the selected leaf's
+ * result, or FALSE after reporting a frame that carries no wire form.
  */
   static gboolean
 render_draw_structure(const structure_draw_ops_t *draw,
     render_surface_t *surface, float extent,
     const struct_draw_params_t *params)
 {
-  gboolean ok;
+  gboolean ok = FALSE;
 
-  if( dl_flt(params->wire_radius_scale, WIRE_FORM_LINE_THRESHOLD) )
-    ok = draw->line(surface, extent, params);
-  else
-    ok = draw->solid(surface, extent, params);
+  switch( params->wire_form )
+  {
+    case WIRE_FORM_LINE:
+      ok = draw->line(surface, extent, params);
+      break;
+
+    case WIRE_FORM_SOLID:
+      ok = draw->solid(surface, extent, params);
+      break;
+
+    case WIRE_FORM_COUNT:
+      BUG("Structure frame carries no wire form\n");
+      break;
+  }
 
   return ok;
 }

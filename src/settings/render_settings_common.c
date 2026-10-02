@@ -26,13 +26,11 @@
 #include "../shared.h"
 #include "../callbacks.h"
 #include "../rc_config.h"
+#include "../render/render_wire_radius.h"
 #include "../structure_ui.h"
 #include "render_settings.h"
 #include "render_settings_common.h"
 #include "render_settings_internal.h"
-
-/* Maximum allowed radius scale */
-#define WIRE_RADIUS_SCALE_MAX 100.0
 
 /* Compile-time width check for the wire radius scale field */
 CONFIG_FIELD_DBL_ASSERT(rc_config.wire_radius_scale);

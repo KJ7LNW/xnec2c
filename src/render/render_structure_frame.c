@@ -18,6 +18,7 @@
  */
 
 #include "render_structure_frame.h"
+#include "render_wire_radius.h"
 #include "../anim/anim_class.h"
 #include "../chroma/chroma.h"
 #include "../prerender/prerender_farfield.h"
@@ -77,7 +78,7 @@ render_overlay_excitation_offset(float model_scale, gboolean overlay_active,
  * @model_scale: structure-to-presentation scale
  * @frame_phase: phase read once by the frame owner
  *
- * Returns the typed wire, patch, glyph, scale, and patch-flow inputs consumed
+ * Returns the typed wire, patch, glyph, scale, wire form, and patch-flow inputs consumed
  * by either structure backend.
  */
   struct_draw_params_t
@@ -144,6 +145,12 @@ render_structure_frame(int fstep, float model_scale, double frame_phase)
   params.fstep = fstep;
   params.freq_mhz = calc_data.freq_mhz;
   params.wire_radius_scale = rc_config.wire_radius_scale;
+
+  /* Present wires as lines below the threshold, as radius-scaled solids otherwise */
+  if( dl_flt(params.wire_radius_scale, WIRE_FORM_LINE_THRESHOLD) )
+    params.wire_form = WIRE_FORM_LINE;
+  else
+    params.wire_form = WIRE_FORM_SOLID;
 
   return params;
 }

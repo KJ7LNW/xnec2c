@@ -22,6 +22,22 @@
 
 #include "render_surface_input.h"
 
+/* Scale below which segments render as lines instead of solids with 0.001 epsilon for slider */
+#define WIRE_FORM_LINE_THRESHOLD 0.101
+
+/* Maximum allowed radius scale */
+#define WIRE_RADIUS_SCALE_MAX 100.0
+
+/* Wire presentation the radius scale selects: fixed-width lines below
+ * WIRE_FORM_LINE_THRESHOLD, radius-scaled solids otherwise */
+typedef enum
+{
+  WIRE_FORM_LINE = 0,
+  WIRE_FORM_SOLID,
+  WIRE_FORM_COUNT
+
+} wire_form_t;
+
 /* Ctrl+scroll capability adjusting wire radius scale.
  * Offered by any view that presents structure geometry. */
 extern surface_capability_t wire_radius_cap;

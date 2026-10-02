@@ -24,7 +24,6 @@
  */
 
 #include "render_wire_radius.h"
-#include "render_dispatch.h"
 #include "render_surface.h"
 #include "../shared.h"
 #include "../config_hooks.h"
