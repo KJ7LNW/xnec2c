@@ -22,7 +22,6 @@
 
 #include "common.h"
 #include "../render/render_dispatch.h"
-#include "../render/render_surface_input.h"
 
 #ifdef HAVE_OPENGL
 #include "../opengl-engine/opengl_renderer.h"
@@ -74,10 +73,6 @@ gboolean gl_draw_structure_overlay_solid(render_surface_t *surface,
 
 /* Unified GL backend vtable (defined in opengl_ops.c) */
 extern const render_ops_t gl_ops;
-
-/* Ctrl+scroll capability adjusting cylinder radius scale.
- * Offered by any view that presents structure geometry. */
-extern surface_capability_t wire_radius_cap;
 
 /* Return read-only pointer to shared geometry data */
 const structure_overlay_data_t* opengl_structure_get_shared_geometry(void);

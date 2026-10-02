@@ -20,16 +20,14 @@
 #include "opengl_structure.h"
 #include "opengl_rdpattern.h"
 #include "../shared.h"
-#include "../gdk_scroll.h"
 
 #ifdef HAVE_OPENGL
 
 #include "opengl_structure_geometry.h"
 #include "opengl_state.h"
-#include "../settings/render_settings.h"
 #include "../opengl-engine/opengl_view.h"
 #include "../render/render_dispatch.h"
-#include "../rdpattern_ui.h"
+#include "../render/render_wire_radius.h"
 #include "../structure_ui.h"
 
 /* Vertex attribute layout shared by radiation-pattern point batches */
@@ -59,85 +57,6 @@ const gl_vertex_layout_t opengl_lit_point_layout = {
 const gl_vertex_layout_t opengl_structure_layout = {
   .attribs = opengl_structure_attribs,
   .stride = (int)sizeof(structure_vertex_t)
-};
-
-/*-----------------------------------------------------------------------*/
-
-/** wire_radius_scroll() - Ctrl+scroll handler for adjusting wire radius scale
- * @event: scroll event
- * @surface: surface of the scrolled view
- *
- * Reached through the wire-radius capability, which the structure and
- * rdpattern input rows both offer.
- */
-  static gboolean
-wire_radius_scroll(
-    GdkEventScroll *event, render_surface_t *surface)
-{
-  const view_t *view;
-  double scale, new_scale;
-  scroll_step_t s;
-
-  if( surface == NULL )
-    return( FALSE );
-
-  view = surface->view;
-  s = scroll_step_from_deltas((GdkEvent *)event);
-
-  if( !s.active ||
-      (s.direction != GDK_SCROLL_UP && s.direction != GDK_SCROLL_DOWN) )
-    return( FALSE );
-
-  /* Compute increment matching zoom scroll feel */
-  scale = compute_zoom_scale(view->width, view->height,
-      (dl_fgt(rc_config.wire_radius_scale, 0.1) ?
-        rc_config.wire_radius_scale : 0.1) * 100.0);
-
-  new_scale = rc_config.wire_radius_scale;
-
-  if( s.direction == GDK_SCROLL_UP )
-  {
-    /* Scroll up: thicker. If at zero, jump to threshold. */
-    if( dl_flt(new_scale, WIRE_FORM_LINE_THRESHOLD) )
-    {
-      new_scale = WIRE_FORM_LINE_THRESHOLD;
-    }
-    else
-    {
-      new_scale *= (1.0 + 0.1 * s.step * scale);
-    }
-  }
-  else if( s.direction == GDK_SCROLL_DOWN )
-  {
-    /* Scroll down: thinner. Below threshold snaps to zero (line mode). */
-    new_scale /= (1.0 + 0.1 * s.step * scale);
-
-    if( dl_flt(new_scale, WIRE_FORM_LINE_THRESHOLD) )
-    {
-      new_scale = 0.0;
-    }
-  }
-
-  /* The registered post_apply hook owns the clamp and the repaint of both
-   * windows */
-  rc_config.wire_radius_scale = new_scale;
-  hook_set_radius_scale();
-
-  render_settings_sync_from_config();
-
-  return( TRUE );
-
-} /* wire_radius_scroll() */
-
-/*-----------------------------------------------------------------------*/
-
-/* Ctrl+scroll adjusts the wire radius of structure geometry, which the
- * radiation-pattern overlay presents alongside its own content */
-surface_capability_t wire_radius_cap = {
-  .handler  = wire_radius_scroll,
-  .modifier = SURFACE_MOD_CTRL,
-  .notice   = "Ctrl+Scroll: Wire Radius",
-  .subject  = SURFACE_CAP_SUBJECT_VIEW
 };
 
 /*-----------------------------------------------------------------------*/

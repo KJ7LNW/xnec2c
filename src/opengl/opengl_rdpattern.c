@@ -25,6 +25,7 @@
 #include "opengl_state.h"
 #include "opengl_structure.h"
 #include "opengl_structure_geometry.h"
+#include "../render/render_wire_radius.h"
 #include "../shared.h"
 #include "../rdpattern_ui.h"
 

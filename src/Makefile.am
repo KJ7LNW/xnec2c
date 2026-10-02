@@ -153,6 +153,7 @@ xnec2c_SOURCES = \
     render/gradient_cache.c         render/gradient_cache.h \
     render/render_check.c           render/render_check.h \
     render/render_structure_frame.c render/render_structure_frame.h \
+    render/render_wire_radius.c     render/render_wire_radius.h \
     render/render_patch_flow.c      render/render_patch_flow.h \
     render/render_patch_flow_resolve.c render/render_patch_flow_resolve.h \
     anim/anim_phase.c        anim/anim_phase.h \
