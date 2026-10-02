@@ -25,6 +25,7 @@
 #include "rc_config.h"
 #include "render/render_dispatch.h"
 #include "render/render_surface.h"
+#include "render/render_wire_radius.h"
 #include "shared.h"
 #include "structure_ui.h"
 #include "window_lifecycle.h"
@@ -723,6 +724,15 @@ surface_capability_t rdpattern_overlay_scale_cap = {
   .modifier = SURFACE_MOD_SHIFT,
   .notice   = "Shift+Scroll to Scale Structure",
   .subject  = SURFACE_CAP_SUBJECT_OVERLAY_GEOMETRY
+};
+
+/*-----------------------------------------------------------------------*/
+
+/* Scroll capabilities of the radiation-pattern domain */
+surface_capability_t *const rdpattern_input_caps[] = {
+  &wire_radius_cap,
+  &rdpattern_overlay_scale_cap,
+  NULL
 };
 
 /*-----------------------------------------------------------------------*/

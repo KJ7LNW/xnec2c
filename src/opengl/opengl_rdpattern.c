@@ -21,11 +21,9 @@
 
 #include "opengl_rdpattern.h"
 #include "opengl_rdpattern_geometry.h"
-#include "../settings/render_settings.h"
 #include "opengl_state.h"
 #include "opengl_structure.h"
 #include "opengl_structure_geometry.h"
-#include "../render/render_wire_radius.h"
 #include "../shared.h"
 #include "../rdpattern_ui.h"
 
@@ -386,13 +384,6 @@ rdpattern_content_cleanup(void)
 }
 
 /*-----------------------------------------------------------------------*/
-
-/* Scroll capabilities of the radiation-pattern domain */
-static surface_capability_t *const rdpattern_input_caps[] = {
-  &wire_radius_cap,
-  &rdpattern_overlay_scale_cap,
-  NULL
-};
 
 /* Static view configuration */
 static gl_view_config_t rdpattern_view_config = {

@@ -27,7 +27,6 @@
 #include "opengl_state.h"
 #include "../opengl-engine/opengl_view.h"
 #include "../render/render_dispatch.h"
-#include "../render/render_wire_radius.h"
 #include "../structure_ui.h"
 
 /* Vertex attribute layout shared by radiation-pattern point batches */
@@ -216,12 +215,6 @@ opengl_structure_ground_plane_is_active(void *_ctx)
 } /* opengl_structure_ground_plane_is_active() */
 
 /*-----------------------------------------------------------------------*/
-
-/* Scroll capabilities of the structure domain */
-static surface_capability_t *const structure_input_caps[] = {
-  &wire_radius_cap,
-  NULL
-};
 
 /* Static view configuration */
 static gl_view_config_t structure_view_config = {

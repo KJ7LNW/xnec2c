@@ -32,7 +32,14 @@
 #include "prerender/prerender_aggregate.h"
 #include "prerender/prerender_color.h"
 #include "render/render_canvas.h"
+#include "render/render_wire_radius.h"
 #include "view/view_core.h"
+
+/* Scroll capabilities of the structure domain */
+surface_capability_t *const structure_input_caps[] = {
+  &wire_radius_cap,
+  NULL
+};
 
 /*-----------------------------------------------------------------------*/
 
