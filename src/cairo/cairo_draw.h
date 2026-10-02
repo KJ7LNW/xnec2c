@@ -108,7 +108,9 @@ void cairo_draw_axes(render_surface_t *surface, float extent);
  * Cairo renderer leaf functions (for render_ops_t vtable)
  *----------------------------------------------------------------------*/
 
-gboolean cairo_draw_structure(render_surface_t *surface, float extent,
+gboolean cairo_draw_structure_line(render_surface_t *surface, float extent,
+    const struct_draw_params_t *params);
+gboolean cairo_draw_structure_solid(render_surface_t *surface, float extent,
     const struct_draw_params_t *params);
 gboolean cairo_draw_farfield(render_surface_t *surface, int fstep,
     const ff_draw_params_t *ff);

@@ -37,9 +37,18 @@
 #define GLYPH_TICK_WIDTH_K   2.5f
 #define GLYPH_TICK_LINE_PX   1.5f
 
-/* Floor for the projected model diameter, below which a wire draws too thin
- * to read on screen */
+/* Narrowest readable wire width: the line form draws every wire at it, and
+ * the solid form floors the projected model diameter at it */
 #define WIRE_MIN_WIDTH_PX    2.0
+
+/* Pixel width coefficients of one wire form: each segment draws
+ * fixed_width_px plus its projected model width times model_gain and its
+ * per-segment scale */
+typedef struct
+{
+  double model_gain;
+  double fixed_width_px;
+} cairo_wire_width_t;
 
 /**
  * patch_z_mid() - Average z_mid across four patch-corner segments
@@ -91,13 +100,15 @@ wire_model_width_px(int idx, double scale)
  * @segm:   projected segment array [nseg]
  * @nseg:   number of segments
  * @params: dispatch-resolved wire colors, segment scales, and glyphs
+ * @width:  pixel width coefficients of the presented wire form
  *
  * Single pass with precomputed per-segment colors from dispatch.
  * seg_rgb encodes type color (blue/yellow/red) in geometry mode.
  */
   static void
 draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, double scale,
-    Segment_t *segm, gint nseg, const struct_draw_params_t *params)
+    Segment_t *segm, gint nseg, const struct_draw_params_t *params,
+    const cairo_wire_width_t *width)
 {
   if( !nseg )
     return;
@@ -186,12 +197,13 @@ draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, double scale,
 
   } /* for( idx = 0; idx < netcx.nonet ) */
 
-  /* Per-segment colors and model-radius widths, gained by the carrier
-   * scale, deposited into scenebuffer */
+  /* Per-segment colors and wire-form widths, the model-radius term gained by
+   * the carrier scale, deposited into scenebuffer */
   for( idx = 0; idx < nseg; idx++ )
   {
     seg_set_color(&segm[idx], params->wire_colors[idx]);
-    segm[idx].width = (float)(wire_model_width_px(idx, scale)
+    segm[idx].width = (float)(width->fixed_width_px
+        + wire_model_width_px(idx, scale) * width->model_gain
         * params->wire_seg_scale[idx]);
     scenebuffer_add(sb, &segm[idx]);
 
@@ -266,16 +278,18 @@ draw_surface_patches(cairo_scenebuffer_t *sb, view_t *v, double scale,
 /*-----------------------------------------------------------------------*/
 
 /**
- * cairo_draw_structure() - Cairo renderer entry for structure window
+ * cairo_draw_structure() - Draw structure geometry with one wire width form
  * @surface: Cairo surface presenting the structure view
+ * @extent: content half-extent for projection scaling
  * @params: dispatch-resolved draw parameters
+ * @width: pixel width coefficients of the presented wire form
  *
  * Projects geometry, draws axes, segments, and patches.
  * Returns TRUE.
  */
-  gboolean
+  static gboolean
 cairo_draw_structure(render_surface_t *surface, float extent,
-    const struct_draw_params_t *params)
+    const struct_draw_params_t *params, const cairo_wire_width_t *width)
 {
   cairo_engine_surface_t *cs = cairo_engine_surface(surface);
   view_t *v = surface->view;
@@ -288,9 +302,48 @@ cairo_draw_structure(render_surface_t *surface, float extent,
   /* Deposit patches below wires (painter's order handled by scenebuffer z_mid) */
   draw_surface_patches(&cs->scenebuffer, v, scale, structure_segs + data.n,
       data.m, params);
-  draw_wire_segments(&cs->scenebuffer, v, scale, structure_segs, data.n, params);
+  draw_wire_segments(&cs->scenebuffer, v, scale, structure_segs, data.n,
+      params, width);
 
   return TRUE;
+}
+
+/**
+ * cairo_draw_structure_line() - Draw structure wires as fixed-width lines
+ * @surface: Cairo surface presenting the structure view
+ * @extent: content half-extent for projection scaling
+ * @params: dispatch-resolved draw parameters
+ *
+ * Every wire draws WIRE_MIN_WIDTH_PX wide; the initializer zeroes the model
+ * gain, so neither model radius nor per-segment scale contributes.
+ * Returns TRUE.
+ */
+  gboolean
+cairo_draw_structure_line(render_surface_t *surface, float extent,
+    const struct_draw_params_t *params)
+{
+  const cairo_wire_width_t width = { .fixed_width_px = WIRE_MIN_WIDTH_PX };
+
+  return( cairo_draw_structure(surface, extent, params, &width) );
+}
+
+/**
+ * cairo_draw_structure_solid() - Draw structure wires at their scaled model width
+ * @surface: Cairo surface presenting the structure view
+ * @extent: content half-extent for projection scaling
+ * @params: dispatch-resolved draw parameters
+ *
+ * Every wire draws its projected model width times the user wire radius
+ * scale and its per-segment scale; the initializer zeroes the fixed width.
+ * Returns TRUE.
+ */
+  gboolean
+cairo_draw_structure_solid(render_surface_t *surface, float extent,
+    const struct_draw_params_t *params)
+{
+  const cairo_wire_width_t width = { .model_gain = params->wire_radius_scale };
+
+  return( cairo_draw_structure(surface, extent, params, &width) );
 }
 
 /*-----------------------------------------------------------------------*/
