@@ -24,9 +24,6 @@
 #include "../render/render_dispatch.h"
 #include "../render/render_surface_input.h"
 
-/* Scale below which segments render as lines instead of cylinders with 0.001 epsilon for slider */
-#define WIRE_FORM_LINE_THRESHOLD 0.101
-
 #ifdef HAVE_OPENGL
 #include "../opengl-engine/opengl_renderer.h"
 #include "../opengl-engine/opengl_view.h"
@@ -66,24 +63,21 @@ extern const gl_vertex_layout_t opengl_structure_layout;
 render_surface_t *opengl_structure_surface_new(GtkContainer *parent);
 
 /* GL structure leaf renderers; exported for unified gl_ops vtable */
-gboolean gl_draw_structure(render_surface_t *surface, float extent,
+gboolean gl_draw_structure_line(render_surface_t *surface, float extent,
     const struct_draw_params_t *params);
-gboolean gl_draw_structure_overlay(render_surface_t *surface, float extent,
+gboolean gl_draw_structure_solid(render_surface_t *surface, float extent,
     const struct_draw_params_t *params);
+gboolean gl_draw_structure_overlay_line(render_surface_t *surface,
+    float extent, const struct_draw_params_t *params);
+gboolean gl_draw_structure_overlay_solid(render_surface_t *surface,
+    float extent, const struct_draw_params_t *params);
 
 /* Unified GL backend vtable (defined in opengl_ops.c) */
 extern const render_ops_t gl_ops;
 
-/* Get/set cylinder radius display scale factor */
-double opengl_structure_get_radius_scale(void);
-void opengl_structure_set_radius_scale(double scale);
-
 /* Ctrl+scroll capability adjusting cylinder radius scale.
  * Offered by any view that presents structure geometry. */
 extern surface_capability_t wire_radius_cap;
-
-/* Update shared geometry buffer using dispatch-resolved draw parameters. */
-void opengl_structure_update_shared_geometry_with_params(const struct_draw_params_t *params);
 
 /* Return read-only pointer to shared geometry data */
 const structure_overlay_data_t* opengl_structure_get_shared_geometry(void);

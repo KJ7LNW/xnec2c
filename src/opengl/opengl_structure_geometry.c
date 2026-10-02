@@ -32,9 +32,6 @@
 /* Minimum radius as fraction of model extent for visible cylinders */
 #define CYLINDER_MIN_VISIBLE_FRACTION 0.0015
 
-/* Default scale factor for cylinder radius display */
-#define CYLINDER_RADIUS_SCALE_DEFAULT 1.0
-
 /* Number of sides for cylinder rendering */
 #define STRUCTURE_CYLINDER_SEGMENTS 24
 
@@ -78,13 +75,14 @@ typedef struct
 } patch_batch_edge_t;
 
 /* Record what the shared geometry pass consumed at its last run.  The pass
- * bakes deck identity, wire color, current-data identity, and cylinder radius
- * into every batch it builds, so a frame differing in any of them rebuilds
- * them all. */
+ * bakes deck identity, wire color, current-data identity, wire radius scale,
+ * and segment geometry into every batch it builds, so a frame differing in
+ * any of them rebuilds them all. */
 typedef struct
 {
   struct_draw_params_t params;
-  double               radius_scale;
+  /* Segment geometry of the wire form the pass presented */
+  const gl_wire_geometry_t *wire_geometry;
   /* geom_pre.generation the pass read; 0 stands for no deck, which
    * Prerender_Aggregate() never publishes */
   uint32_t             geom_generation;
@@ -99,8 +97,7 @@ static int batch_count = 0;
 static unsigned int structure_geometry_generation = 1;
 static patch_batch_edge_t patch_batch_edge;
 static geom_pass_edge_t geom_pass_edge = {
-  .params = { .fstep = -1, .freq_mhz = NAN },
-  .radius_scale = CYLINDER_RADIUS_SCALE_DEFAULT };
+  .params = { .fstep = -1, .freq_mhz = NAN, .wire_radius_scale = NAN } };
 
 /* Batch slot indices resolved at generation; -1 when the batch is absent.
  * Read by the per-frame visual-parameter block so rc_config values apply
@@ -420,8 +417,8 @@ cyl_display_radius(int idx, double radius_scale, float seg_scale)
 
 /** generate_segments_glyphs() - Emit GL_LINES tick marks for node/antinode segments
  * @batch:  draw batch with pre-allocated vertices buffer
- * @params: dispatch-resolved draw parameters (wire_glyphs, segment scales)
- * @radius_scale: user-adjustable radius multiplier (ctrl+scroll)
+ * @params: dispatch-resolved draw parameters (wire_glyphs, segment scales,
+ *          radius scale)
  *
  * For each flagged segment, builds an orthonormal basis perpendicular to the
  * segment axis and maps the shape's unit strokes into world space, scaled to
@@ -430,8 +427,7 @@ cyl_display_radius(int idx, double radius_scale, float seg_scale)
  * glyph_shapes[] geometry and color, never the mark meaning.  Sets vertex_count.
  */
   static void
-generate_segments_glyphs(gl_draw_batch_t *batch, const struct_draw_params_t *params,
-    double radius_scale)
+generate_segments_glyphs(gl_draw_batch_t *batch, const struct_draw_params_t *params)
 {
   int idx, vidx = 0;
   structure_vertex_t *verts = (structure_vertex_t *)batch->vertices;
@@ -473,7 +469,7 @@ generate_segments_glyphs(gl_draw_batch_t *batch, const struct_draw_params_t *par
     my = 0.5f * (float)(data.segments[idx].y1 + data.segments[idx].y2);
     mz = 0.5f * (float)(data.segments[idx].z1 + data.segments[idx].z2);
     ext = STRUCTURE_GLYPH_TICK_RADIUS_K
-        * (float)cyl_display_radius(idx, radius_scale,
+        * (float)cyl_display_radius(idx, params->wire_radius_scale,
             params->wire_seg_scale[idx]);
 
     for( k = 0; k < gs->n_strokes; k++ )
@@ -506,14 +502,12 @@ generate_segments_glyphs(gl_draw_batch_t *batch, const struct_draw_params_t *par
 
 /** generate_segments_cylinders() - Emit GL_TRIANGLES vertices for cylinder wire segments
  * @batch:                draw batch with pre-allocated vertices buffer
- * @params:               dispatch-resolved wire colors and segment scales
- * @cylinder_radius_scale: user-adjustable radius multiplier
+ * @params:               dispatch-resolved wire colors, segment scales, and radius scale
  *
  * Populates batch with cylinder vertices per segment. Sets vertex_count.
  */
   static void
-generate_segments_cylinders(gl_draw_batch_t *batch, const struct_draw_params_t *params,
-    double cylinder_radius_scale)
+generate_segments_cylinders(gl_draw_batch_t *batch, const struct_draw_params_t *params)
 {
   int idx, vidx = 0;
   float r, g, b;
@@ -536,7 +530,7 @@ generate_segments_cylinders(gl_draw_batch_t *batch, const struct_draw_params_t *
     g = params->wire_colors[idx].g;
     b = params->wire_colors[idx].b;
 
-    radius = cyl_display_radius(idx, cylinder_radius_scale,
+    radius = cyl_display_radius(idx, params->wire_radius_scale,
         params->wire_seg_scale[idx]);
 
     {
@@ -566,9 +560,41 @@ generate_segments_cylinders(gl_draw_batch_t *batch, const struct_draw_params_t *
 
 /*-----------------------------------------------------------------------*/
 
+/** segments_vertex_count_lines() - Return GL_LINES vertices per wire segment
+ */
+  static int
+segments_vertex_count_lines(void)
+{
+  return( 2 );
+}
+
+/** segments_vertex_count_cylinders() - Return GL_TRIANGLES vertices per cylinder wire segment
+ */
+  static int
+segments_vertex_count_cylinders(void)
+{
+  return( opengl_cylinder_vertex_count(STRUCTURE_CYLINDER_SEGMENTS) );
+}
+
+/* Line form: one GL_LINES pair per segment */
+const gl_wire_geometry_t gl_wire_geometry_line = {
+  .segment_vertex_count = segments_vertex_count_lines,
+  .generate_segments    = generate_segments_lines,
+  .draw_mode            = GL_LINES
+};
+
+/* Solid form: one tessellated GL_TRIANGLES cylinder per segment */
+const gl_wire_geometry_t gl_wire_geometry_solid = {
+  .segment_vertex_count = segments_vertex_count_cylinders,
+  .generate_segments    = generate_segments_cylinders,
+  .draw_mode            = GL_TRIANGLES
+};
+
+/*-----------------------------------------------------------------------*/
+
 /** opengl_structure_generate_geometry() - Generate geometry for antenna wire segments, patches, and networks
- * @params:               dispatch-resolved draw parameters (precomputed colors)
- * @cylinder_radius_scale: user-adjustable radius multiplier
+ * @params:        dispatch-resolved draw parameters (precomputed colors)
+ * @wire_geometry: segment geometry of the selected wire form
  *
  * Packs batches by a running index: segments always at slot 0, patches and
  * networks/transmission lines in following slots when present.  Each batch
@@ -578,12 +604,11 @@ generate_segments_cylinders(gl_draw_batch_t *batch, const struct_draw_params_t *
   static void
 opengl_structure_generate_geometry(
     const struct_draw_params_t *params,
-    double cylinder_radius_scale)
+    const gl_wire_geometry_t *wire_geometry)
 {
   int seg_verts;
   int bc = 0;
   int idx;
-  gboolean seg_line_mode;
 
   structure_patch_batch_index = -1;
   structure_net_batch_index = -1;
@@ -601,24 +626,16 @@ opengl_structure_generate_geometry(
   for( idx = 0; idx < GL_VIEW_MAX_BATCHES; idx++ )
     batches[idx].program_key = GL_PROGRAM_LIT;
 
-  seg_line_mode = (cylinder_radius_scale < WIRE_FORM_LINE_THRESHOLD);
-
   /* Budget the segment geometry selected by its radius presentation. */
-  seg_verts = seg_line_mode
-    ? data.n * 2
-    : data.n * opengl_cylinder_vertex_count(STRUCTURE_CYLINDER_SEGMENTS);
+  seg_verts = data.n * wire_geometry->segment_vertex_count();
 
   /* Segment batch: always present at slot 0 */
   mem_realloc(&batches[bc].vertices,
               (size_t)seg_verts * sizeof(structure_vertex_t));
 
-  if( seg_line_mode )
-    generate_segments_lines(&batches[bc], params);
-  else
-    generate_segments_cylinders(&batches[bc], params,
-        cylinder_radius_scale);
+  wire_geometry->generate_segments(&batches[bc], params);
 
-  batches[bc].draw_mode = seg_line_mode ? GL_LINES : GL_TRIANGLES;
+  batches[bc].draw_mode = wire_geometry->draw_mode;
   batches[bc].polygon_offset = FALSE;
   batches[bc].line_width = 1.0f;
   bc++;
@@ -670,8 +687,7 @@ opengl_structure_generate_geometry(
                 (size_t)(data.n * STRUCTURE_GLYPH_MAX_STROKE_VERTS)
                 * sizeof(structure_vertex_t));
 
-    generate_segments_glyphs(&batches[bc], params,
-        cylinder_radius_scale);
+    generate_segments_glyphs(&batches[bc], params);
 
     batches[bc].draw_mode = GL_LINES;
     batches[bc].polygon_offset = FALSE;
@@ -777,17 +793,19 @@ geom_pass_current_colors(const struct_draw_params_t *params)
 /** geom_pass_edge_make() - Capture what the shared geometry pass consumes
  * @last: capture the previous pass stored
  * @params: dispatch-resolved structure frame
- * @radius_scale: cylinder radius multiplier this frame reads
+ * @wire_geometry: segment geometry of the wire form this frame selects
  *
  * Returns the capture built whole, so the compared capture and the stored
  * capture cannot diverge in membership.
  */
   static geom_pass_edge_t
 geom_pass_edge_make(const geom_pass_edge_t *last,
-    const struct_draw_params_t *params, double radius_scale)
+    const struct_draw_params_t *params,
+    const gl_wire_geometry_t *wire_geometry)
 {
   gboolean current_colors = geom_pass_current_colors(params);
-  geom_pass_edge_t edge = { .params = *params, .radius_scale = radius_scale,
+  geom_pass_edge_t edge = { .params = *params,
+    .wire_geometry = wire_geometry,
     .geom_generation = geom_pre.generation };
 
   /* Current-data identity advances only while a current color is presented,
@@ -829,7 +847,8 @@ geom_pass_edge_eq(const geom_pass_edge_t *a, const geom_pass_edge_t *b)
    * alone misses rebakes; the color version signals new content. */
   return a->params.wire_colors == b->params.wire_colors
       && a->params.color_generation == b->params.color_generation
-      && dl_feq(a->radius_scale, b->radius_scale)
+      && dl_feq(a->params.wire_radius_scale, b->params.wire_radius_scale)
+      && a->wire_geometry == b->wire_geometry
       && current_data_eq
       && a->geom_generation == b->geom_generation;
 }
@@ -838,26 +857,31 @@ geom_pass_edge_eq(const geom_pass_edge_t *a, const geom_pass_edge_t *b)
 
 /** structure_geometry_refresh() - Regenerate the shared batches when their inputs move
  * @params: dispatch-resolved structure frame
+ * @wire_geometry: segment geometry of the selected wire form
  *
- * Regenerates on a new deck, a rebaked wire color, a radius scale change,
- * new current data, or an emptied batch set, then captures what the pass
- * consumed.
+ * Regenerates on a new deck, a rebaked wire color, a radius scale or wire
+ * form change, new current data, or an emptied batch set, then captures
+ * what the pass consumed.
  */
   static void
-structure_geometry_refresh(const struct_draw_params_t *params)
+structure_geometry_refresh(const struct_draw_params_t *params,
+    const gl_wire_geometry_t *wire_geometry)
 {
   geom_pass_edge_t want = geom_pass_edge_make(&geom_pass_edge, params,
-      opengl_structure_get_radius_scale());
+      wire_geometry);
 
   if( likely(batch_count > 0 && geom_pass_edge_eq(&geom_pass_edge, &want)) )
     return;
 
-  opengl_structure_generate_geometry(params, want.radius_scale);
+  opengl_structure_generate_geometry(params, want.wire_geometry);
 
-  /* The generator returns before presenting a radius when the model holds
-   * neither segments nor patches, so an empty pass keeps the stored radius */
-  want.radius_scale =
-    (batch_count > 0) ? want.radius_scale : geom_pass_edge.radius_scale;
+  /* The generator returns before presenting a wire when the model holds
+   * neither segments nor patches, so an empty pass keeps the stored radius
+   * scale and segment geometry */
+  want.params.wire_radius_scale = (batch_count > 0)
+    ? want.params.wire_radius_scale : geom_pass_edge.params.wire_radius_scale;
+  want.wire_geometry =
+    (batch_count > 0) ? want.wire_geometry : geom_pass_edge.wire_geometry;
 
   geom_pass_edge = want;
 }
@@ -866,14 +890,17 @@ structure_geometry_refresh(const struct_draw_params_t *params)
 
 /** opengl_structure_update_shared_geometry_with_params() - Check staleness and regenerate shared geometry
  * @params: dispatch-resolved draw parameters (precomputed colors, cmax)
+ * @wire_geometry: segment geometry of the selected wire form
  *
  * Called by the structure window's render() path.  Regenerates when colors,
- * fstep, radius scale, or geometry has changed.
+ * fstep, radius scale, wire form, or geometry has changed.
  */
   void
-opengl_structure_update_shared_geometry_with_params(const struct_draw_params_t *params)
+opengl_structure_update_shared_geometry_with_params(
+    const struct_draw_params_t *params,
+    const gl_wire_geometry_t *wire_geometry)
 {
-  structure_geometry_refresh(params);
+  structure_geometry_refresh(params, wire_geometry);
 
   /* The patch batch bakes resolved flow into its vertices, so it refills on
    * its own edge rather than on the geometry staleness test above. */

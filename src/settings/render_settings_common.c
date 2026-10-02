@@ -31,6 +31,12 @@
 #include "render_settings_common.h"
 #include "render_settings_internal.h"
 
+/* Maximum allowed radius scale */
+#define WIRE_RADIUS_SCALE_MAX 100.0
+
+/* Compile-time width check for the wire radius scale field */
+CONFIG_FIELD_DBL_ASSERT(rc_config.wire_radius_scale);
+
 /* Authoritative storage for the settings window widget; extern-declared in
  * render_settings_internal.h.  Defined here because render_settings_load_glade
  * is the sole write site. */
@@ -60,6 +66,23 @@ hook_render_redraw(void)
 
 const config_refresh_t hook_render_redraw_refresh =
   { .fn = hook_render_redraw, .cls = REFRESH_HOVER_SAFE };
+
+/** hook_set_radius_scale - Clamp the wire radius scale, then redraw
+ *
+ * Change-edge hook for the wire radius scale.  The clamp holds the stored
+ * value inside the range every structure engine presents; both engines read
+ * it from the next structure frame.
+ */
+void
+hook_set_radius_scale(void)
+{
+  rc_config.wire_radius_scale =
+    CLAMP(rc_config.wire_radius_scale, 0.0, WIRE_RADIUS_SCALE_MAX);
+  hook_render_redraw();
+}
+
+const config_refresh_t hook_set_radius_scale_refresh =
+  { .fn = hook_set_radius_scale, .cls = REFRESH_HOVER_SAFE };
 
 /*------------------------------------------------------------------------*/
 

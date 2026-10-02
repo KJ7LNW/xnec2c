@@ -69,8 +69,10 @@ const render_ops_t gl_ops =
 {
   .draw_farfield          = gl_rdpat_draw_farfield,
   .draw_field_vectors     = gl_rdpat_draw_field_vectors,
-  .draw_structure         = gl_draw_structure,
-  .draw_structure_overlay = gl_draw_structure_overlay,
+  .draw_structure         = { .line  = gl_draw_structure_line,
+                              .solid = gl_draw_structure_solid },
+  .draw_structure_overlay = { .line  = gl_draw_structure_overlay_line,
+                              .solid = gl_draw_structure_overlay_solid },
   .draw_axes              = gl_draw_axes,
   .init_empty     = gl_view_init_empty,
   .set_status     = gl_view_set_status,

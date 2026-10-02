@@ -63,6 +63,31 @@ render_last_rdpattern_check(void)
 }
 
 /**
+ * render_draw_structure() - Draw structure geometry in the frame's wire form
+ * @draw:    structure draw leaves of one role, one per wire form
+ * @surface: engine surface receiving the structure
+ * @extent:  content half-extent for projection scaling
+ * @params:  resolved structure frame carrying the wire radius scale
+ *
+ * A scale under the line threshold presents wires as lines, any other scale
+ * as solids.  Returns the selected leaf's result.
+ */
+  static gboolean
+render_draw_structure(const structure_draw_ops_t *draw,
+    render_surface_t *surface, float extent,
+    const struct_draw_params_t *params)
+{
+  gboolean ok;
+
+  if( dl_flt(params->wire_radius_scale, WIRE_FORM_LINE_THRESHOLD) )
+    ok = draw->line(surface, extent, params);
+  else
+    ok = draw->solid(surface, extent, params);
+
+  return ok;
+}
+
+/**
  * render_deposit_colors() - Resolve and deposit the colors of the active theme
  * @surface: engine surface receiving the colors
  */
@@ -167,7 +192,8 @@ render(render_surface_t *surface)
       {
         struct_draw_params_t sparams =
             render_structure_frame(r.fstep, model_scale, phase);
-        ops->draw_structure_overlay(surface, overlay_extent, &sparams);
+        render_draw_structure(&ops->draw_structure_overlay, surface,
+            overlay_extent, &sparams);
       }
 
       ok = ops->draw_farfield(surface, r.fstep, &ff);
@@ -212,7 +238,8 @@ render(render_surface_t *surface)
       {
         struct_draw_params_t sparams =
             render_structure_frame(r.fstep, 1.0f, phase);
-        ops->draw_structure_overlay(surface, nf_overlay_extent, &sparams);
+        render_draw_structure(&ops->draw_structure_overlay, surface,
+            nf_overlay_extent, &sparams);
       }
 
       if( sets[0].entries != NULL )
@@ -229,7 +256,8 @@ render(render_surface_t *surface)
           render_structure_frame(r.fstep, 1.0f, phase);
 
       ops->draw_axes(surface, params.geometry_extent);
-      ok = ops->draw_structure(surface, params.geometry_extent, &params);
+      ok = render_draw_structure(&ops->draw_structure, surface,
+          params.geometry_extent, &params);
       break;
     }
 

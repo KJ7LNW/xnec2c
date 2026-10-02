@@ -143,6 +143,7 @@ render_structure_frame(int fstep, float model_scale, double frame_phase)
   params.model_scale = model_scale;
   params.fstep = fstep;
   params.freq_mhz = calc_data.freq_mhz;
+  params.wire_radius_scale = rc_config.wire_radius_scale;
 
   return params;
 }

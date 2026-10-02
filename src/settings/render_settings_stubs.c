@@ -43,8 +43,8 @@ void *const opengl_tab_fields[] = {
 
 /*------------------------------------------------------------------------*/
 
-/* OpenGL change-edge hooks bound by rc_config_vars rows: no-ops without
- * OpenGL, so the rows link in a Cairo-only build. */
+/* OpenGL change-edge hook bound by its rc_config_vars row: a no-op without
+ * OpenGL, so the row links in a Cairo-only build. */
 
 void
 hook_set_msaa(void)
@@ -53,14 +53,6 @@ hook_set_msaa(void)
 
 const config_refresh_t hook_set_msaa_refresh =
   { .fn = hook_set_msaa, .cls = REFRESH_HOVER_SAFE };
-
-void
-hook_set_radius_scale(void)
-{
-}
-
-const config_refresh_t hook_set_radius_scale_refresh =
-  { .fn = hook_set_radius_scale, .cls = REFRESH_HOVER_SAFE };
 
 /*------------------------------------------------------------------------*/
 

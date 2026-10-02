@@ -35,6 +35,9 @@
 /* Smallest excitation translation the pattern draw moves its content by */
 #define FF_EXCITATION_OFFSET_MIN 0.001f
 
+/* Scale below which segments render as lines instead of solids with 0.001 epsilon for slider */
+#define WIRE_FORM_LINE_THRESHOLD 0.101
+
 /* Dispatch-resolved structure draw parameters — passed to draw_structure backends */
 typedef struct
 {
@@ -45,6 +48,7 @@ typedef struct
   patch_flow_frame_t patch_flow; /* resolved patch directions and marks */
   double         cmax;          /* fmax(wire_crnt_cmax, patch_crnt_cmax) or 0.0 */
   double         freq_mhz;      /* frequency for staleness detection */
+  double         wire_radius_scale; /* uniform user wire radius gain */
   float          geometry_extent; /* unscaled structure-space half-extent */
   float          model_scale;   /* resolved structure-to-presentation scale */
   int            fstep;         /* for crnt_fstep[] access */
@@ -63,6 +67,7 @@ _Static_assert(sizeof(struct_draw_params_t) ==
     sizeof(((struct_draw_params_t *)0)->patch_flow) +
     sizeof(((struct_draw_params_t *)0)->cmax) +
     sizeof(((struct_draw_params_t *)0)->freq_mhz) +
+    sizeof(((struct_draw_params_t *)0)->wire_radius_scale) +
     sizeof(((struct_draw_params_t *)0)->geometry_extent) +
     sizeof(((struct_draw_params_t *)0)->model_scale) +
     sizeof(((struct_draw_params_t *)0)->fstep) +
@@ -88,6 +93,19 @@ typedef struct
 
 } render_frame_colors_t;
 
+/* Draw structure geometry; returns TRUE always.
+ * extent: content half-extent for projection scaling. */
+typedef gboolean (*structure_draw_fn_t)(render_surface_t *surface,
+    float extent, const struct_draw_params_t *params);
+
+/* Structure draw leaves, one per wire form; render() selects the leaf
+ * struct_draw_params_t.wire_radius_scale names */
+typedef struct
+{
+  structure_draw_fn_t line;
+  structure_draw_fn_t solid;
+} structure_draw_ops_t;
+
 /* Backend operations vtable — dispatch decides what to draw; backends draw it */
 typedef struct render_ops_s
 {
@@ -101,14 +119,11 @@ typedef struct render_ops_s
   gboolean (*draw_field_vectors)(render_surface_t *surface,
       const field_vector_set_t *sets, double r_max);
 
-  /* Draw structure geometry; returns TRUE always.
-   * extent: content half-extent for projection scaling. */
-  gboolean (*draw_structure)(render_surface_t *surface, float extent,
-      const struct_draw_params_t *params);
+  /* Draw structure geometry as primary content */
+  structure_draw_ops_t draw_structure;
 
   /* Draw structure geometry as secondary content behind a field view. */
-  gboolean (*draw_structure_overlay)(render_surface_t *surface, float extent,
-      const struct_draw_params_t *params);
+  structure_draw_ops_t draw_structure_overlay;
 
   /* Initialize an empty scene (no geometry).  Optional entry: render()
    * tests presence, as the Cairo backend supplies none. */

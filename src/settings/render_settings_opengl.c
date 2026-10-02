@@ -23,7 +23,6 @@
 #include "render_settings.h"
 #include "render_settings_common.h"
 #include "render_settings_internal.h"
-#include "../opengl/opengl_structure.h"
 #include "../opengl/opengl_msaa.h"
 #include "../structure_ui.h"
 #include "../rdpattern_ui.h"
@@ -35,7 +34,6 @@ CONFIG_FIELD_INT_ASSERT(rc_config.opengl_msaa_samples);
 CONFIG_FIELD_INT_ASSERT(rc_config.opengl_transparent_on_click);
 CONFIG_FIELD_INT_ASSERT(rc_config.rdpattern_draw_style);
 CONFIG_FIELD_INT_ASSERT(rc_config.opengl_orthographic);
-CONFIG_FIELD_DBL_ASSERT(rc_config.wire_radius_scale);
 
 CONFIG_FIELD_FLT_ASSERT(rc_config.brightness_segments);
 CONFIG_FIELD_FLT_ASSERT(rc_config.brightness_patches);
@@ -66,17 +64,6 @@ hook_set_msaa(void)
  * the previous count */
 const config_refresh_t hook_set_msaa_refresh =
   { .fn = hook_set_msaa, .cls = REFRESH_HOVER_SAFE };
-
-/** hook_set_radius_scale - Apply the cylinder radius scale, then redraw */
-void
-hook_set_radius_scale(void)
-{
-  opengl_structure_set_radius_scale(rc_config.wire_radius_scale);
-  hook_render_redraw();
-}
-
-const config_refresh_t hook_set_radius_scale_refresh =
-  { .fn = hook_set_radius_scale, .cls = REFRESH_HOVER_SAFE };
 
 /*------------------------------------------------------------------------*/
 

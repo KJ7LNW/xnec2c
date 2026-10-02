@@ -25,11 +25,27 @@
 
 #ifdef HAVE_OPENGL
 
+/* Segment geometry of one wire form: vertex budget per segment, vertex
+ * generator, and the GL primitive the generated vertices form */
+typedef struct
+{
+  int (*segment_vertex_count)(void);
+  void (*generate_segments)(gl_draw_batch_t *batch,
+      const struct_draw_params_t *params);
+  unsigned int draw_mode;
+} gl_wire_geometry_t;
+
+/* Line and solid segment geometry */
+extern const gl_wire_geometry_t gl_wire_geometry_line;
+extern const gl_wire_geometry_t gl_wire_geometry_solid;
+
 /* Free vertex buffer and reset geometry state */
 void opengl_structure_geometry_cleanup(void);
 
 /* Check staleness and regenerate shared geometry using dispatch-resolved params */
-void opengl_structure_update_shared_geometry_with_params(const struct_draw_params_t *params);
+void opengl_structure_update_shared_geometry_with_params(
+    const struct_draw_params_t *params,
+    const gl_wire_geometry_t *wire_geometry);
 
 
 #endif /* HAVE_OPENGL */

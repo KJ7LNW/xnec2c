@@ -32,12 +32,6 @@
 #include "../rdpattern_ui.h"
 #include "../structure_ui.h"
 
-/* Maximum allowed radius scale */
-#define WIRE_RADIUS_SCALE_MAX 100.0
-
-/* Mutable cylinder radius scale factor (user-adjustable via Ctrl+scroll) */
-static double cylinder_radius_scale = 1.0;
-
 /* Vertex attribute layout shared by radiation-pattern point batches */
 static const gl_vertex_attrib_t opengl_lit_point_attribs[] = {
   { "position", 3, (int)offsetof(lit_color_point_t, point) },
@@ -69,43 +63,7 @@ const gl_vertex_layout_t opengl_structure_layout = {
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_structure_get_radius_scale() - Return current cylinder radius display scale factor
- */
-  double
-opengl_structure_get_radius_scale(void)
-{
-  return( cylinder_radius_scale );
-
-} /* opengl_structure_get_radius_scale() */
-
-/*-----------------------------------------------------------------------*/
-
-/** opengl_structure_set_radius_scale() - Set cylinder radius display scale factor
- * @scale: new scale value, clamped to [0, WIRE_RADIUS_SCALE_MAX]
- *
- * Syncs to rc_config; geometry regenerates on next render.
- */
-  void
-opengl_structure_set_radius_scale(double scale)
-{
-  if( scale < 0.0 )
-  {
-    scale = 0.0;
-  }
-
-  if( scale > WIRE_RADIUS_SCALE_MAX )
-  {
-    scale = WIRE_RADIUS_SCALE_MAX;
-  }
-
-  cylinder_radius_scale = scale;
-  rc_config.wire_radius_scale = scale;
-
-} /* opengl_structure_set_radius_scale() */
-
-/*-----------------------------------------------------------------------*/
-
-/** wire_radius_scroll() - Ctrl+scroll handler for adjusting cylinder radius scale
+/** wire_radius_scroll() - Ctrl+scroll handler for adjusting wire radius scale
  * @event: scroll event
  * @surface: surface of the scrolled view
  *
@@ -132,10 +90,10 @@ wire_radius_scroll(
 
   /* Compute increment matching zoom scroll feel */
   scale = compute_zoom_scale(view->width, view->height,
-      (dl_fgt(cylinder_radius_scale, 0.1) ?
-        cylinder_radius_scale : 0.1) * 100.0);
+      (dl_fgt(rc_config.wire_radius_scale, 0.1) ?
+        rc_config.wire_radius_scale : 0.1) * 100.0);
 
-  new_scale = cylinder_radius_scale;
+  new_scale = rc_config.wire_radius_scale;
 
   if( s.direction == GDK_SCROLL_UP )
   {
@@ -160,8 +118,8 @@ wire_radius_scroll(
     }
   }
 
-  /* The registered post_apply hook owns the clamp, the backend apply, and
-   * the repaint of both windows */
+  /* The registered post_apply hook owns the clamp and the repaint of both
+   * windows */
   rc_config.wire_radius_scale = new_scale;
   hook_set_radius_scale();
 
@@ -188,14 +146,16 @@ surface_capability_t wire_radius_cap = {
  * gl_store_structure_content() - Populate one prepared GL content owner
  * @out: primary or overlay content owner
  * @params: parent-resolved structure presentation parameters
+ * @wire_geometry: segment geometry of the selected wire form
  */
   static void
 gl_store_structure_content(gl_view_content_t *out,
-    const struct_draw_params_t *params)
+    const struct_draw_params_t *params,
+    const gl_wire_geometry_t *wire_geometry)
 {
   const structure_overlay_data_t *geom;
 
-  opengl_structure_update_shared_geometry_with_params(params);
+  opengl_structure_update_shared_geometry_with_params(params, wire_geometry);
   geom = opengl_structure_get_shared_geometry();
 
   memcpy(out->batches, geom->batches,
@@ -211,16 +171,17 @@ gl_store_structure_content(gl_view_content_t *out,
 /**
  * gl_draw_structure() - Populate primary structure content
  * @surface: GL surface holding the frame content
- * @_extent: Cairo projection extent unused by OpenGL
  * @params: parent-resolved structure presentation parameters
+ * @wire_geometry: segment geometry of the selected wire form
  */
-  gboolean
-gl_draw_structure(render_surface_t *surface, float _extent,
-    const struct_draw_params_t *params)
+  static gboolean
+gl_draw_structure(render_surface_t *surface,
+    const struct_draw_params_t *params,
+    const gl_wire_geometry_t *wire_geometry)
 {
   gl_view_state_t *state = gl_view_state(surface);
 
-  gl_store_structure_content(&state->content, params);
+  gl_store_structure_content(&state->content, params, wire_geometry);
 
   return TRUE;
 
@@ -229,12 +190,13 @@ gl_draw_structure(render_surface_t *surface, float _extent,
 /**
  * gl_draw_structure_overlay() - Populate secondary structure content
  * @surface: GL surface holding the frame content
- * @_extent: Cairo projection extent unused by OpenGL
  * @params: parent-resolved overlay presentation parameters
+ * @wire_geometry: segment geometry of the selected wire form
  */
-  gboolean
-gl_draw_structure_overlay(render_surface_t *surface, float _extent,
-    const struct_draw_params_t *params)
+  static gboolean
+gl_draw_structure_overlay(render_surface_t *surface,
+    const struct_draw_params_t *params,
+    const gl_wire_geometry_t *wire_geometry)
 {
   gl_view_state_t *state = gl_view_state(surface);
 
@@ -244,11 +206,67 @@ gl_draw_structure_overlay(render_surface_t *surface, float _extent,
     return FALSE;
   }
 
-  gl_store_structure_content(state->overlay_content, params);
+  gl_store_structure_content(state->overlay_content, params, wire_geometry);
 
   return TRUE;
 
 } /* gl_draw_structure_overlay() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * gl_draw_structure_line() - Populate primary structure content as lines
+ * @surface: GL surface holding the frame content
+ * @_extent: Cairo projection extent unused by OpenGL
+ * @params: parent-resolved structure presentation parameters
+ */
+  gboolean
+gl_draw_structure_line(render_surface_t *surface, float _extent,
+    const struct_draw_params_t *params)
+{
+  return( gl_draw_structure(surface, params, &gl_wire_geometry_line) );
+}
+
+/**
+ * gl_draw_structure_solid() - Populate primary structure content as cylinders
+ * @surface: GL surface holding the frame content
+ * @_extent: Cairo projection extent unused by OpenGL
+ * @params: parent-resolved structure presentation parameters
+ */
+  gboolean
+gl_draw_structure_solid(render_surface_t *surface, float _extent,
+    const struct_draw_params_t *params)
+{
+  return( gl_draw_structure(surface, params, &gl_wire_geometry_solid) );
+}
+
+/**
+ * gl_draw_structure_overlay_line() - Populate secondary structure content as lines
+ * @surface: GL surface holding the frame content
+ * @_extent: Cairo projection extent unused by OpenGL
+ * @params: parent-resolved overlay presentation parameters
+ */
+  gboolean
+gl_draw_structure_overlay_line(render_surface_t *surface, float _extent,
+    const struct_draw_params_t *params)
+{
+  return( gl_draw_structure_overlay(surface, params,
+        &gl_wire_geometry_line) );
+}
+
+/**
+ * gl_draw_structure_overlay_solid() - Populate secondary structure content as cylinders
+ * @surface: GL surface holding the frame content
+ * @_extent: Cairo projection extent unused by OpenGL
+ * @params: parent-resolved overlay presentation parameters
+ */
+  gboolean
+gl_draw_structure_overlay_solid(render_surface_t *surface, float _extent,
+    const struct_draw_params_t *params)
+{
+  return( gl_draw_structure_overlay(surface, params,
+        &gl_wire_geometry_solid) );
+}
 
 /*-----------------------------------------------------------------------*/
 
@@ -301,9 +319,6 @@ static gl_view_config_t structure_view_config = {
   render_surface_t *
 opengl_structure_surface_new(GtkContainer *parent)
 {
-  /* Load persisted radius scale from config; zero means line mode */
-  cylinder_radius_scale = rc_config.wire_radius_scale;
-
   return( gl_view_surface_new(&structure_view_config, structure_input_caps,
         structure_view, parent) );
 }

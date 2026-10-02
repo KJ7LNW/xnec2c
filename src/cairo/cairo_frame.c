@@ -154,8 +154,10 @@ const render_ops_t cairo_ops =
 {
   .draw_farfield        = cairo_draw_farfield,
   .draw_field_vectors   = cairo_draw_field_vectors,
-  .draw_structure         = cairo_draw_structure,
-  .draw_structure_overlay = cairo_draw_structure,
+  .draw_structure         = { .line  = cairo_draw_structure,
+                              .solid = cairo_draw_structure },
+  .draw_structure_overlay = { .line  = cairo_draw_structure,
+                              .solid = cairo_draw_structure },
   .draw_axes              = cairo_draw_axes,
   .init_empty           = NULL,
   .set_status           = cairo_set_status,
