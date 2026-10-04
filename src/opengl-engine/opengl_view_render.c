@@ -50,24 +50,32 @@ gl_view_notice_capability(render_surface_t *surface, const char *notice)
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_gradient_overlay_create() - Build the gradient legend HUD
- * @state: view state receiving the overlay
+/** gl_view_composite_image() - Composite a painted image as a HUD
+ * @state: view state presenting the image
+ * @overlay: compositor slot, built on the first frame carrying an image
+ * @image: painted image and its version; surface NULL = skip
  *
- * Deferred to the first frame carrying legend content, where the GL context
- * of the presenting area is current.
+ * The compositor is built where the GL context of the presenting area is
+ * current.  The texture uploads only when the image version changes.
  */
   static void
-gl_view_gradient_overlay_create(gl_view_state_t *state)
+gl_view_composite_image(gl_view_state_t *state, gradient_overlay_t **overlay,
+    const gradient_result_t *image)
 {
-  state->overlay = gradient_overlay_new();
-
-  if( state->overlay == NULL )
+  if( image->surface == NULL )
     return;
 
-  gradient_overlay_set_viewport(state->overlay,
-      state->base.view->width, state->base.view->height);
+  if( *overlay == NULL )
+  {
+    *overlay = gradient_overlay_new();
+    gradient_overlay_set_viewport(*overlay,
+        state->base.view->width, state->base.view->height);
+  }
 
-} /* gl_view_gradient_overlay_create() */
+  gradient_overlay_upload_surface(*overlay, image->surface, image->version);
+  gradient_overlay_render(*overlay);
+
+} /* gl_view_composite_image() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -333,19 +341,7 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   }
 
   /* 2D HUD — gradient legend overlay (set by render() via set_gradient) */
-  if( state->content.gradient.surface != NULL )
-  {
-    if( state->overlay == NULL )
-      gl_view_gradient_overlay_create(state);
-
-    if( state->overlay != NULL )
-    {
-      gradient_overlay_upload_surface(state->overlay,
-          state->content.gradient.surface,
-          state->content.gradient.version);
-      gradient_overlay_render(state->overlay);
-    }
-  }
+  gl_view_composite_image(state, &state->overlay, &state->content.gradient);
 
   /* Surface dimensions for 2D notice overlay */
   {

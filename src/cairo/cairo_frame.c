@@ -168,6 +168,24 @@ const render_ops_t cairo_ops =
 /*-----------------------------------------------------------------------*/
 
 /**
+ * cairo_composite_image() - Paint a rendered image over the frame
+ * @cr:    frame resource the image paints onto
+ * @image: painted image at drawable size; NULL = skip
+ */
+  static void
+cairo_composite_image(cairo_t *cr, cairo_surface_t *image)
+{
+  if( image == NULL )
+    return;
+
+  cairo_set_source_surface(cr, image, 0.0, 0.0);
+  cairo_paint(cr);
+
+} /* cairo_composite_image() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
  * render_cairo() - Produce one Cairo frame
  * @surface: surface producing the frame, holding its retained scene
  * @cr:      frame resource the draw signal supplied
@@ -239,11 +257,7 @@ render_cairo(render_surface_t *surface, cairo_t *cr)
 
   /* Gradient legend surface resolved by render() via set_gradient callback;
    * non-NULL only when farfield mode is active on the rdpattern view. */
-  if( ctx->gradient != NULL )
-  {
-    cairo_set_source_surface(cr, ctx->gradient, 0.0, 0.0);
-    cairo_paint(cr);
-  }
+  cairo_composite_image(cr, ctx->gradient);
 
   /* Paint deferred status message on top of all rendered content */
   if( ctx->status_message != NULL )
