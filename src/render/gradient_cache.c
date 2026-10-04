@@ -346,10 +346,10 @@ gradient_cache_update(gradient_cache_t *cache, int w, int h)
  * Otherwise updates the module-internal singleton and returns the surface
  * coupled with its version for downstream staleness detection.
  */
-  gradient_result_t
+  render_image_t
 gradient_cache_get_overlay(int w, int h)
 {
-  gradient_result_t none = {NULL, 0};
+  render_image_t none = {NULL, 0};
 
   if( !rc_config.rdpattern_gradient_key )
     return none;
@@ -359,7 +359,7 @@ gradient_cache_get_overlay(int w, int h)
 
   gradient_cache_update(&rdpat_cache, w, h);
 
-  return (gradient_result_t){rdpat_cache.surface, rdpat_cache.version};
+  return (render_image_t){rdpat_cache.surface, rdpat_cache.version};
 
 } /* gradient_cache_get_overlay() */
 

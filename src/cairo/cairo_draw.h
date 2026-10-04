@@ -117,9 +117,9 @@ gboolean cairo_draw_farfield(render_surface_t *surface, int fstep,
 gboolean cairo_draw_field_vectors(render_surface_t *surface,
     const field_vector_set_t *sets, double r_max);
 void     cairo_set_overlay_text(render_surface_t *surface,
-    const gradient_result_t *image);
+    const render_image_t *image);
 void     cairo_set_gradient(render_surface_t *surface,
-    const gradient_result_t *result);
+    const render_image_t *result);
 void     cairo_set_colors(render_surface_t *surface,
     const render_frame_colors_t *colors);
 

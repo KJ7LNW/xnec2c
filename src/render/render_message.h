@@ -128,7 +128,7 @@ void overlay_text_post(render_surface_t *surface, const overlay_text_t *instance
  *
  * Returns the image and its version; the image is NULL while no line shows.
  */
-gradient_result_t overlay_text_frame(render_surface_t *surface,
+render_image_t overlay_text_frame(render_surface_t *surface,
     int width, int height);
 
 /**

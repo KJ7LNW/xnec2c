@@ -107,11 +107,11 @@ typedef struct
 
   /* Painted overlay text from render(); surface NULL = skip.
    * GL upload compares version to avoid redundant texture transfers. */
-  gradient_result_t overlay_text;
+  render_image_t overlay_text;
 
   /* Pre-resolved gradient legend from render(); surface NULL = skip.
    * GL upload compares version to avoid redundant texture transfers. */
-  gradient_result_t gradient;
+  render_image_t gradient;
 
 } gl_view_content_t;
 
@@ -245,8 +245,8 @@ typedef struct gl_view_state_s
   GtkWidget *gl_area;
 
   GArray *renderables;
-  gradient_overlay_t *overlay;
-  gradient_overlay_t *text_overlay;
+  gl_image_overlay_t *legend_overlay;
+  gl_image_overlay_t *text_overlay;
   gl_view_config_t *config;
   gl_view_content_t content;
 
@@ -342,7 +342,7 @@ gl_view_init_empty(render_surface_t *surface)
  */
 static inline void
 gl_view_set_overlay_text(render_surface_t *surface,
-    const gradient_result_t *image)
+    const render_image_t *image)
 {
   gl_view_state(surface)->content.overlay_text = *image;
 }
@@ -353,7 +353,7 @@ gl_view_set_overlay_text(render_surface_t *surface,
  */
 static inline void
 gl_view_set_gradient(render_surface_t *surface,
-    const gradient_result_t *result)
+    const render_image_t *result)
 {
   gl_view_state(surface)->content.gradient = *result;
 }

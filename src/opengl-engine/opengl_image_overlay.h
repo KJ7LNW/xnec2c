@@ -17,8 +17,8 @@
  *    https://www.xnec2c.org/
  */
 
-#ifndef OPENGL_GRADIENT_OVERLAY_H
-#define OPENGL_GRADIENT_OVERLAY_H 1
+#ifndef OPENGL_IMAGE_OVERLAY_H
+#define OPENGL_IMAGE_OVERLAY_H 1
 
 #include "common.h"
 #include <stdint.h>
@@ -30,14 +30,14 @@ typedef struct
 {
   cairo_gl_overlay_t  *base;
   uint64_t             last_version; /* version at last texture upload */
-} gradient_overlay_t;
+} gl_image_overlay_t;
 
-gradient_overlay_t* gradient_overlay_new(void);
-void gradient_overlay_free(gradient_overlay_t *overlay);
-void gradient_overlay_set_viewport(gradient_overlay_t *overlay, int width, int height);
-void gradient_overlay_upload_surface(gradient_overlay_t *overlay,
+gl_image_overlay_t* gl_image_overlay_new(void);
+void gl_image_overlay_free(gl_image_overlay_t *overlay);
+void gl_image_overlay_set_viewport(gl_image_overlay_t *overlay, int width, int height);
+void gl_image_overlay_upload_surface(gl_image_overlay_t *overlay,
     cairo_surface_t *surface, uint64_t version);
-void gradient_overlay_render(gradient_overlay_t *overlay);
+void gl_image_overlay_render(gl_image_overlay_t *overlay);
 
 #endif /* HAVE_OPENGL */
-#endif /* OPENGL_GRADIENT_OVERLAY_H */
+#endif /* OPENGL_IMAGE_OVERLAY_H */

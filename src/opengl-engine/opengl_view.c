@@ -71,13 +71,13 @@ gl_view_gpu_release(gl_view_state_t *state)
   /* Released after the renderables that draw with these programs */
   gl_program_catalog_destroy(state->programs);
 
-  if( state->overlay )
+  if( state->legend_overlay )
   {
-    gradient_overlay_free(state->overlay);
-    state->overlay = NULL;
+    gl_image_overlay_free(state->legend_overlay);
+    state->legend_overlay = NULL;
   }
 
-  gradient_overlay_free(state->text_overlay);
+  gl_image_overlay_free(state->text_overlay);
   state->text_overlay = NULL;
 
   /* Release depth-peel FBO resources (per-resize lifecycle) */
@@ -168,10 +168,10 @@ gl_view_resize_buffers(gl_view_state_t *state)
   if( state->initialized && state->composite_program )
     gl_view_peel_recreate(state, width, height, state->msaa_samples);
 
-  if( state->overlay )
-    gradient_overlay_set_viewport(state->overlay, width, height);
+  if( state->legend_overlay )
+    gl_image_overlay_set_viewport(state->legend_overlay, width, height);
 
-  gradient_overlay_set_viewport(state->text_overlay, width, height);
+  gl_image_overlay_set_viewport(state->text_overlay, width, height);
 
   glViewport(0, 0, width, height);
 

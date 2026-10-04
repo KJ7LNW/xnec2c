@@ -256,7 +256,7 @@ render_scene(render_surface_t *surface)
        * travel as a cohesive result through the vtable to backends. */
       if( ok )
       {
-        gradient_result_t gr = gradient_cache_get_overlay(
+        render_image_t gr = gradient_cache_get_overlay(
             view->width, view->height);
 
         if( gr.surface != NULL )
@@ -357,7 +357,7 @@ render_scene(render_surface_t *surface)
   static void
 render_overlay_text(render_surface_t *surface)
 {
-  gradient_result_t image = overlay_text_frame(surface,
+  render_image_t image = overlay_text_frame(surface,
       surface->view->width, surface->view->height);
 
   if( image.surface == NULL )

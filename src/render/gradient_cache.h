@@ -43,8 +43,8 @@ typedef struct
  *----------------------------------------------------------------------*/
 
 /**
- * gradient_result_t - Cohesive gradient legend result
- * @surface: ARGB32 legend surface; NULL when disabled or invalid
+ * render_image_t - Painted image an engine composites
+ * @surface: ARGB32 image; NULL when no image shows
  * @version: monotonic counter; increments on surface rebuild
  *
  * Couples surface with its version so consumers can gate re-upload
@@ -54,7 +54,7 @@ typedef struct
 {
   cairo_surface_t *surface;
   uint64_t         version;
-} gradient_result_t;
+} render_image_t;
 
 /**
  * gradient_cache_get_overlay() - Presentation entry point for gradient legend
@@ -65,6 +65,6 @@ typedef struct
  * or dimensions are invalid.  Otherwise updates the module-internal singleton
  * cache and returns the rendered surface with its version.
  */
-gradient_result_t gradient_cache_get_overlay(int w, int h);
+render_image_t gradient_cache_get_overlay(int w, int h);
 
 #endif /* GRADIENT_CACHE_H */

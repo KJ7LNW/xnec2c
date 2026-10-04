@@ -157,13 +157,13 @@ typedef struct render_ops_s
   /* Composite the painted overlay text image; render() calls it only while
    * overlay text shows */
   void (*set_overlay_text)(render_surface_t *surface,
-      const gradient_result_t *image);
+      const render_image_t *image);
 
   /* Composite a pre-resolved gradient legend surface.
    * Called by render() when gradient_cache yields a valid surface;
    * never called otherwise — backends paint unconditionally. */
   void (*set_gradient)(render_surface_t *surface,
-      const gradient_result_t *result);
+      const render_image_t *result);
 
   /* Deposit the frame colors render() resolved from the active theme */
   void (*set_colors)(render_surface_t *surface,

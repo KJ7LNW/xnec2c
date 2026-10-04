@@ -355,7 +355,7 @@ cairo_draw_structure_solid(render_surface_t *surface, float extent,
  */
   void
 cairo_set_overlay_text(render_surface_t *surface,
-    const gradient_result_t *image)
+    const render_image_t *image)
 {
   cairo_engine_surface(surface)->frame.overlay_text = image->surface;
 }
@@ -368,7 +368,7 @@ cairo_set_overlay_text(render_surface_t *surface,
  * @result:  gradient legend result from gradient_cache; version unused by cairo
  */
   void
-cairo_set_gradient(render_surface_t *surface, const gradient_result_t *result)
+cairo_set_gradient(render_surface_t *surface, const render_image_t *result)
 {
   cairo_engine_surface(surface)->frame.gradient = result->surface;
 }

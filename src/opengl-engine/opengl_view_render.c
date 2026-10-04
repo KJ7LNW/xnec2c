@@ -40,21 +40,21 @@
  * current.  The texture uploads only when the image version changes.
  */
   static void
-gl_view_composite_image(gl_view_state_t *state, gradient_overlay_t **overlay,
-    const gradient_result_t *image)
+gl_view_composite_image(gl_view_state_t *state, gl_image_overlay_t **overlay,
+    const render_image_t *image)
 {
   if( image->surface == NULL )
     return;
 
   if( *overlay == NULL )
   {
-    *overlay = gradient_overlay_new();
-    gradient_overlay_set_viewport(*overlay,
+    *overlay = gl_image_overlay_new();
+    gl_image_overlay_set_viewport(*overlay,
         state->base.view->width, state->base.view->height);
   }
 
-  gradient_overlay_upload_surface(*overlay, image->surface, image->version);
-  gradient_overlay_render(*overlay);
+  gl_image_overlay_upload_surface(*overlay, image->surface, image->version);
+  gl_image_overlay_render(*overlay);
 
 } /* gl_view_composite_image() */
 
@@ -70,8 +70,8 @@ gl_view_composite_image(gl_view_state_t *state, gradient_overlay_t **overlay,
 gl_view_frame_content_reset(gl_view_state_t *state)
 {
   state->content.axes = (gl_axes_content_t){0};
-  state->content.overlay_text = (gradient_result_t){NULL, 0};
-  state->content.gradient = (gradient_result_t){NULL, 0};
+  state->content.overlay_text = (render_image_t){NULL, 0};
+  state->content.gradient = (render_image_t){NULL, 0};
 
   /* A leaf deposited after another appends its batch and raises the clip
    * allowance, so both start the frame cleared */
@@ -322,7 +322,8 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   }
 
   /* 2D HUD — gradient legend overlay (set by render() via set_gradient) */
-  gl_view_composite_image(state, &state->overlay, &state->content.gradient);
+  gl_view_composite_image(state, &state->legend_overlay,
+      &state->content.gradient);
 
   /* 2D HUD — overlay text above the gradient legend */
   gl_view_composite_image(state, &state->text_overlay,

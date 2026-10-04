@@ -24,14 +24,14 @@
 
 /*-----------------------------------------------------------------------*/
 
-/** gradient_overlay_new() - Allocate and initialize gradient overlay renderer
+/** gl_image_overlay_new() - Allocate and initialize an image overlay renderer
  */
-  gradient_overlay_t*
-gradient_overlay_new(void)
+  gl_image_overlay_t*
+gl_image_overlay_new(void)
 {
-  gradient_overlay_t *overlay;
+  gl_image_overlay_t *overlay;
 
-  overlay = g_new0(gradient_overlay_t, 1);
+  overlay = g_new0(gl_image_overlay_t, 1);
 
   overlay->base = cairo_gl_overlay_new();
   if( !overlay->base )
@@ -43,15 +43,15 @@ gradient_overlay_new(void)
 
   return( overlay );
 
-} /* gradient_overlay_new() */
+} /* gl_image_overlay_new() */
 
 /*-----------------------------------------------------------------------*/
 
-/** gradient_overlay_free() - Free gradient overlay resources
+/** gl_image_overlay_free() - Free image overlay resources
  * @overlay: overlay instance to free
  */
   void
-gradient_overlay_free(gradient_overlay_t *overlay)
+gl_image_overlay_free(gl_image_overlay_t *overlay)
 {
   if( !overlay )
     return;
@@ -59,17 +59,17 @@ gradient_overlay_free(gradient_overlay_t *overlay)
   cairo_gl_overlay_free(overlay->base);
   g_free(overlay);
 
-} /* gradient_overlay_free() */
+} /* gl_image_overlay_free() */
 
 /*-----------------------------------------------------------------------*/
 
-/** gradient_overlay_set_viewport() - Update viewport dimensions and mark texture for regeneration
+/** gl_image_overlay_set_viewport() - Update viewport dimensions and mark texture for regeneration
  * @overlay: overlay instance
  * @width: viewport width in pixels
  * @height: viewport height in pixels
  */
   void
-gradient_overlay_set_viewport(gradient_overlay_t *overlay, int width, int height)
+gl_image_overlay_set_viewport(gl_image_overlay_t *overlay, int width, int height)
 {
   if( !overlay || !overlay->base )
     return;
@@ -79,20 +79,20 @@ gradient_overlay_set_viewport(gradient_overlay_t *overlay, int width, int height
     cairo_gl_overlay_set_size(overlay->base, width, height);
   }
 
-} /* gradient_overlay_set_viewport() */
+} /* gl_image_overlay_set_viewport() */
 
 /*-----------------------------------------------------------------------*/
 
-/** gradient_overlay_upload_surface() - Upload pre-rendered surface to GL texture
+/** gl_image_overlay_upload_surface() - Upload pre-rendered surface to GL texture
  * @overlay: overlay instance
- * @surface: ARGB32 surface from gradient_cache
- * @version: cache version for staleness detection; skips upload when unchanged
+ * @surface: ARGB32 painted image
+ * @version: image version for staleness detection; skips upload when unchanged
  *
  * Compares version against last upload to detect staleness.  Re-uploads
- * only when the cache version has advanced since the last texture transfer.
+ * only when the image version has advanced since the last texture transfer.
  */
   void
-gradient_overlay_upload_surface(gradient_overlay_t *overlay,
+gl_image_overlay_upload_surface(gl_image_overlay_t *overlay,
     cairo_surface_t *surface, uint64_t version)
 {
   if( !overlay || !overlay->base || surface == NULL )
@@ -104,15 +104,15 @@ gradient_overlay_upload_surface(gradient_overlay_t *overlay,
   cairo_gl_overlay_upload(overlay->base, surface);
   overlay->last_version = version;
 
-} /* gradient_overlay_upload_surface() */
+} /* gl_image_overlay_upload_surface() */
 
 /*-----------------------------------------------------------------------*/
 
-/** gradient_overlay_render() - Render gradient overlay in screen space
+/** gl_image_overlay_render() - Render the image overlay in screen space
  * @overlay: overlay instance
  */
   void
-gradient_overlay_render(gradient_overlay_t *overlay)
+gl_image_overlay_render(gl_image_overlay_t *overlay)
 {
   if( !overlay || !overlay->base )
     return;
@@ -129,7 +129,7 @@ gradient_overlay_render(gradient_overlay_t *overlay)
   glDisable(GL_BLEND);
   glEnable(GL_DEPTH_TEST);
 
-} /* gradient_overlay_render() */
+} /* gl_image_overlay_render() */
 
 /*-----------------------------------------------------------------------*/
 

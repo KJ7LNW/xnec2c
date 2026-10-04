@@ -612,7 +612,7 @@ overlay_text_retire(overlay_text_store_t *store, gint64 now_us)
 
 /*-----------------------------------------------------------------------*/
 
-  gradient_result_t
+  render_image_t
 overlay_text_frame(render_surface_t *surface, int width, int height)
 {
   gint64 now_us;
@@ -620,7 +620,7 @@ overlay_text_frame(render_surface_t *surface, int width, int height)
   if( surface == NULL )
   {
     BUG("overlay text frame names no surface\n");
-    return( (gradient_result_t){ .surface = NULL } );
+    return( (render_image_t){ .surface = NULL } );
   }
 
   now_us = g_get_monotonic_time();
@@ -628,7 +628,7 @@ overlay_text_frame(render_surface_t *surface, int width, int height)
   overlay_text_refresh(surface, width, height);
   overlay_text_retire(&surface->overlay_text, now_us);
 
-  return( (gradient_result_t){ .surface = surface->overlay_text.image,
+  return( (render_image_t){ .surface = surface->overlay_text.image,
       .version = surface->overlay_text.version } );
 
 } /* overlay_text_frame() */
