@@ -378,6 +378,9 @@ main (int argc, char *argv[])
     canvas_add_surface( CANVAS_STRUCTURE,
         opengl_structure_surface_new(GTK_CONTAINER(box)) );
 
+    /* A command-line engine replaces the renderer choice Read_Config() stored */
+    render_engine_request_apply();
+
     opengl_set_renderer(rc_config.use_opengl_renderer);
   }
 #else

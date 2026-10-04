@@ -86,6 +86,7 @@ enum XNEC2C_OPTS {
 	OPT_WRITE_RDPAT_PNG,
 	OPT_RDPAT_PNG_FORMAT,
 	OPT_FREQ_SELECT,
+	OPT_RENDER_ENGINE,
 
 	OPT_MAX_OPTS
 };
@@ -108,6 +109,7 @@ static void apply_optimize(const usage_entry_t *entry, char *arg);
 static void apply_validation_dir(const usage_entry_t *entry, char *arg);
 static void apply_rdpat_png_format(const usage_entry_t *entry, char *arg);
 static void apply_freq_select(const usage_entry_t *entry, char *arg);
+static void apply_render_engine(const usage_entry_t *entry, char *arg);
 
 static const usage_entry_t usage_entries[] = {
 	{ .text = N_("Usage: xnec2c [options] [<input-file-name>]") },
@@ -179,6 +181,13 @@ static const usage_entry_t usage_entries[] = {
 	  .notice = N_("managed allocator leak report enabled\n"),
 	  // Match the floor to the pr_info level used by mem_report().
 	  .min_verbose = PR_INFO },
+	{ 0 },
+
+	{ .name = "render-engine",                          .id = OPT_RENDER_ENGINE,
+	  .metavar = "<name>",
+	  .text = N_("render with the named engine: cairo, or opengl when the build "
+	  "provides it"),
+	  .target = &rc_config.render_engine,               .apply = apply_render_engine },
 	{ 0 },
 
 	{ .text = N_("The following arguments write to an output file after the frequency "
@@ -1018,6 +1027,25 @@ static void apply_freq_select(const usage_entry_t *_entry, char *arg)
 	if( !freq_select_keyword(arg, &rc_config.freq_select_mode) )
 		rc_config.freq_select_mode = freq_select_number(arg,
 		    &rc_config.freq_select_mhz);
+}
+
+/**
+ * apply_render_engine() - Select the engine that presents the canvases
+ * @entry: option row whose target holds the engine selection
+ * @arg: name an engine row declares for itself
+ *
+ * Exits when this build provides no engine under @arg.
+ */
+static void apply_render_engine(const usage_entry_t *entry, char *arg)
+{
+	const struct render_engine_s **target = entry->target;
+
+	*target = render_engine_by_name(arg);
+	if( *target == NULL )
+	{
+		pr_crit("unknown render engine: %s\n", arg);
+		exit(1);
+	}
 }
 
 /**

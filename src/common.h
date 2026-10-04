@@ -454,6 +454,7 @@ typedef struct
   rdpat_png_format_spec_t *rdpat_png_formats;
   freq_select_mode_t freq_select_mode;   /* zero = FREQ_SELECT_NONE */
   double freq_select_mhz;                /* set iff mode == FREQ_SELECT_MHZ */
+  const struct render_engine_s *render_engine;  /* command-line engine, NULL when absent */
 
   /* Symbol overrides window */
   int sy_overrides_is_open;
@@ -1468,6 +1469,8 @@ void on_rdpattern_save_as_activate(GtkMenuItem *menuitem, gpointer user_data);
 void on_rdpattern_save_as_gnuplot_activate(GtkMenuItem *menuitem, gpointer user_data);
 void Check_Noise_Warnings(int fstep);
 void opengl_set_renderer(gboolean enable);
+const struct render_engine_s *render_engine_by_name(const char *name);
+void render_engine_request_apply(void);
 void opengl_set_constrained_rotation(gboolean constrained);
 
 /* render_settings.c — Rendering Settings window */

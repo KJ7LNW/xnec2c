@@ -224,6 +224,7 @@ gl_view_surface_queue_redraw(render_surface_t *surface)
 const render_engine_t gl_engine =
 {
   .render = &gl_ops,
+  .name = "opengl",
   .surface_free = gl_view_surface_free,
   .fit_view = gl_view_fit_view,
   .capture = gl_view_capture_pixbuf,

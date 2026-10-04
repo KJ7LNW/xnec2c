@@ -137,6 +137,7 @@ cairo_fit_view(render_surface_t *surface, view_fit_t *fit)
 const render_engine_t cairo_engine =
 {
   .render = &cairo_ops,
+  .name = "cairo",
   .surface_free = cairo_surface_free,
   .fit_view = cairo_fit_view,
   .capture = cairo_capture_pixbuf,

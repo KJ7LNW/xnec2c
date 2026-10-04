@@ -40,6 +40,9 @@ typedef struct render_engine_s
 {
   const render_ops_t *render;
 
+  /* Token naming this engine on the command line and in selection state */
+  const char *name;
+
   /* Release the engine's own surface object, which the canvas owns from
    * registration until it drops the binding. */
   void (*surface_free)(render_surface_t *surface);

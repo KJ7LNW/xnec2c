@@ -1513,6 +1513,54 @@ opengl_set_renderer(gboolean enable)
   /* Swap renderer for structure view in main window */
   if( canvas_set_engine( CANVAS_STRUCTURE, engine ) )
     canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
+
+  /* Project the resolved renderer onto the settings checkbox and its
+   * sensitivity, so a request resolved to Cairo clears the tick */
+  render_settings_sync_from_config();
+#endif
+}
+
+
+/** render_engine_by_name() - Resolve an engine from its command-line name
+ * @name: token an engine row names itself with
+ *
+ * Returns the engine this build provides under @name, or NULL when none does.
+ */
+  const render_engine_t *
+render_engine_by_name(const char *name)
+{
+  const render_engine_t *engines[] = {
+    &cairo_engine,
+#ifdef HAVE_OPENGL
+    &gl_engine,
+#endif
+    NULL
+  };
+  const render_engine_t *match = NULL;
+  int idx;
+
+  /* Walk the sentinel-terminated table until an engine names itself @name */
+  for( idx = 0; engines[idx] != NULL && match == NULL; idx++ )
+    match = (strcmp(engines[idx]->name, name) == 0) ? engines[idx] : NULL;
+
+  return( match );
+}
+
+
+/** render_engine_request_apply() - Replace the stored renderer choice
+ *
+ * A command-line engine overrides the choice Read_Config() restored.  The
+ * field it writes is the one every renderer caller reads.
+ */
+  void
+render_engine_request_apply(void)
+{
+#ifdef HAVE_OPENGL
+  /* Without a command-line engine the restored choice stands */
+  if( rc_config.render_engine == NULL )
+    return;
+
+  rc_config.use_opengl_renderer = (rc_config.render_engine == &gl_engine);
 #endif
 }
 
