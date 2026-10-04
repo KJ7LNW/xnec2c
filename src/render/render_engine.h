@@ -36,15 +36,6 @@
 typedef struct render_ops_s render_ops_t;
 typedef struct render_surface_s render_surface_t;
 
-/* What an input capability acts upon; render() offers the capability on each
- * frame drawing its subject. */
-typedef enum
-{
-  SURFACE_CAP_SUBJECT_VIEW = 0,
-  SURFACE_CAP_SUBJECT_OVERLAY_GEOMETRY,
-  SURFACE_CAP_SUBJECT_COUNT
-} surface_cap_subject_t;
-
 typedef struct render_engine_s
 {
   const render_ops_t *render;

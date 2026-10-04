@@ -31,6 +31,15 @@ typedef enum
   SURFACE_MOD_COUNT
 } surface_modifier_t;
 
+/* What an input capability acts upon; render() offers the capability on each
+ * frame drawing its subject. */
+typedef enum
+{
+  SURFACE_CAP_SUBJECT_VIEW = 0,
+  SURFACE_CAP_SUBJECT_OVERLAY_GEOMETRY,
+  SURFACE_CAP_SUBJECT_COUNT
+} surface_cap_subject_t;
+
 /* One scroll capability: the handler applying it bound to the modifier
  * requesting it and the notice advertising it.  The capability owns the
  * guard retiring its notice, so rows borrowing one capability advertise it
