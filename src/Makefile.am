@@ -239,7 +239,7 @@ xnec2c_SOURCES += \
   opengl-engine/opengl_axes.c opengl-engine/opengl_axes.h \
   opengl-engine/opengl_ground_plane.c opengl-engine/opengl_ground_plane.h \
   opengl-engine/opengl_cairo_overlay.c opengl-engine/opengl_cairo_overlay.h \
-  opengl-engine/opengl_gradient_overlay.c opengl-engine/opengl_gradient_overlay.h \
+  opengl-engine/opengl_image_overlay.c opengl-engine/opengl_image_overlay.h \
   opengl-engine/opengl_cylinder.c opengl-engine/opengl_cylinder.h \
   opengl/opengl_rdpattern.c opengl/opengl_rdpattern.h \
   opengl/opengl_rdpattern_geometry.c opengl/opengl_rdpattern_geometry.h \

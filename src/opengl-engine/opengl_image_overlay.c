@@ -17,7 +17,7 @@
  *    https://www.xnec2c.org/
  */
 
-#include "opengl_gradient_overlay.h"
+#include "opengl_image_overlay.h"
 #include "../shared.h"
 
 #ifdef HAVE_OPENGL

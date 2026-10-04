@@ -20,7 +20,7 @@
 #include "opengl_view_render.h"
 #include "opengl_view_peel.h"
 #include "opengl_view_msaa.h"
-#include "opengl_gradient_overlay.h"
+#include "opengl_image_overlay.h"
 #include "opengl_view_fit.h"
 #include "../render/render_dispatch.h"
 #include "../shared.h"

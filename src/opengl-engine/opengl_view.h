@@ -24,7 +24,7 @@
 
 #ifdef HAVE_OPENGL
 #include "opengl_renderer.h"
-#include "opengl_gradient_overlay.h"
+#include "opengl_image_overlay.h"
 #include "../render/gradient_cache.h"
 #include "../render/render_surface.h"
 

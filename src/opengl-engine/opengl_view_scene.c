@@ -20,7 +20,7 @@
 #include "opengl_view_scene.h"
 #include "opengl_view_peel.h"
 #include "opengl_view_program.h"
-#include "opengl_gradient_overlay.h"
+#include "opengl_image_overlay.h"
 #include "../shared.h"
 
 #ifdef HAVE_OPENGL
