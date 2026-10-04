@@ -151,6 +151,7 @@ xnec2c_SOURCES = \
     render/render_surface.h \
     render/render_surface_input.c   render/render_surface_input.h \
     render/gradient_cache.c         render/gradient_cache.h \
+    render/render_image.h \
     render/render_check.c           render/render_check.h \
     render/render_structure_frame.c render/render_structure_frame.h \
     render/render_wire_radius.c     render/render_wire_radius.h \

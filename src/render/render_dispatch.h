@@ -28,7 +28,7 @@
 #include "render_patch_flow.h"
 #include "render_surface.h"
 #include "render_wire_radius.h"
-#include "gradient_cache.h"
+#include "render_image.h"
 
 /* Axis half-extent used for empty-scene placeholders (no geometry loaded) */
 #define RENDER_EMPTY_AXIS_EXTENT 1.5f

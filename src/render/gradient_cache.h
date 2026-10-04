@@ -18,6 +18,7 @@
 #include <cairo.h>
 #include <stdint.h>
 #include "../prerender/presentation_cache_key.h"
+#include "render_image.h"
 
 /*
  * gradient_cache: Self-validating gradient legend surface cache.
@@ -41,20 +42,6 @@ typedef struct
 /*-----------------------------------------------------------------------
  * API
  *----------------------------------------------------------------------*/
-
-/**
- * render_image_t - Painted image an engine composites
- * @surface: ARGB32 image; NULL when no image shows
- * @version: monotonic counter; increments on surface rebuild
- *
- * Couples surface with its version so consumers can gate re-upload
- * without inspecting cache internals or relying on pointer identity.
- */
-typedef struct
-{
-  cairo_surface_t *surface;
-  uint64_t         version;
-} render_image_t;
 
 /**
  * gradient_cache_get_overlay() - Presentation entry point for gradient legend

@@ -25,7 +25,7 @@
 #ifdef HAVE_OPENGL
 #include "opengl_renderer.h"
 #include "opengl_image_overlay.h"
-#include "../render/gradient_cache.h"
+#include "../render/render_image.h"
 #include "../render/render_surface.h"
 
 /* Maximum renderables per view (constrained by guint32 active_mask in render loop) */

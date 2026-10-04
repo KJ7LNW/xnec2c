@@ -22,7 +22,7 @@
 
 #include "../common.h"
 #include "render_engine.h"
-#include "gradient_cache.h"
+#include "render_image.h"
 
 /* Status messages emitted when rendering preconditions are not met.
  * Single source of truth: both Cairo and OpenGL use these constants. */
