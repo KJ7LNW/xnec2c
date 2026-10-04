@@ -159,9 +159,8 @@ gl_view_resize_buffers(gl_view_state_t *state)
   if( width <= 0 || height <= 0 )
     return;
 
-  /* Recreate MSAA FBO at new dimensions */
-  if( rc_config.opengl_msaa_samples > 0 )
-    gl_view_scene_recreate(state, rc_config.opengl_msaa_samples);
+  /* Recreate scene FBO at new dimensions */
+  gl_view_scene_recreate(state, rc_config.opengl_msaa_samples);
 
   /* Recreate depth-peel FBOs at new dimensions (only when
    * composite shader loaded successfully during realize) */
@@ -568,7 +567,6 @@ gl_view_surface_new(gl_view_config_t *config, surface_capability_t *const *input
   gl_area = gtk_gl_area_new();
   state->gl_area = gl_area;
 
-  gtk_gl_area_set_has_depth_buffer(GTK_GL_AREA(gl_area), TRUE);
   /* Frames are produced only on explicit request; unrelated exposes
    * present the cached frame instead of re-running the scene pass. */
   gtk_gl_area_set_auto_render(GTK_GL_AREA(gl_area), FALSE);

@@ -105,7 +105,7 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
 
   state = (gl_view_state_t *)user_data;
 
-  if( state == NULL || !state->initialized )
+  if( state == NULL || !state->initialized || state->scene_fbo == 0 )
     return( FALSE );
 
   view = state->base.view;
@@ -212,8 +212,7 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   /* Framebuffer setup */
   glGetIntegerv(GL_FRAMEBUFFER_BINDING, &default_fbo);
 
-  if( state->scene_fbo )
-    glBindFramebuffer(GL_FRAMEBUFFER, state->scene_fbo);
+  glBindFramebuffer(GL_FRAMEBUFFER, state->scene_fbo);
 
   glClearColor(state->content.background.r, state->content.background.g,
       state->content.background.b, 1.0f);
@@ -307,12 +306,7 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
 
     if( trans_count > 0 && state->peel_fbo[0] )
     {
-      GLuint active_fbo;
-
-      active_fbo = state->scene_fbo
-        ? state->scene_fbo : (GLuint)default_fbo;
-
-      gl_view_peel_render(state, active_fbo, render_params,
+      gl_view_peel_render(state, state->scene_fbo, render_params,
           items, trans_count);
     }
     else if( trans_count > 0 )
@@ -329,11 +323,11 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   gl_view_composite_image(state, &state->text_overlay,
       &state->content.overlay_text);
 
-  /* Resolve MSAA into the default FBO through a single-sample texture copy.
-   * A direct multisample blit into GTK's framebuffer is rejected under
-   * Wayland/EGL, so the resolve and the default-FBO write are split. */
-  if( state->scene_fbo )
-    gl_view_scene_present(state, default_fbo);
+  /* Every frame renders into the scene framebuffer and reaches the default
+   * FBO through a single-sample texture copy.  A direct multisample blit
+   * into GTK's framebuffer is rejected under Wayland/EGL, so the resolve
+   * and the default-FBO write are split. */
+  gl_view_scene_present(state, default_fbo);
 
   return( TRUE );
 

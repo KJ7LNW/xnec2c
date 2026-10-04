@@ -24,8 +24,8 @@
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_scene_free() - Release MSAA framebuffer, color, and depth renderbuffer resources
- * @state: view state containing MSAA resources to free
+/** gl_view_scene_free() - Release scene framebuffer, color, and depth renderbuffer resources
+ * @state: view state containing scene resources to free
  */
   void
 gl_view_scene_free(gl_view_state_t *state)
@@ -69,9 +69,10 @@ gl_view_scene_free(gl_view_state_t *state)
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_scene_recreate() - Resize MSAA resources, creating handles only on first call
- * @state: view state to update with new MSAA resources
- * @requested_samples: number of MSAA samples to use (clamped to hardware limit)
+/** gl_view_scene_recreate() - Resize scene resources, creating handles only on first call
+ * @state: view state to update with new scene resources
+ * @requested_samples: number of MSAA samples to use (clamped to hardware limit);
+ *   a request below 2 allocates single-sample scene storage
  *
  * Separates handle lifecycle from storage allocation: glGen + FBO attach
  * run once, glRenderbufferStorageMultisample runs on every resize.
@@ -86,21 +87,12 @@ gl_view_scene_recreate(gl_view_state_t *state, int requested_samples)
   if( !state || !state->initialized )
     return;
 
-  if( requested_samples == 0 )
-  {
-    gl_view_scene_free(state);
-    return;
-  }
-
   /* Query hardware limit and clamp */
   glGetIntegerv(GL_MAX_SAMPLES, &max_samples);
   samples = (requested_samples > max_samples) ? max_samples : requested_samples;
 
-  if( samples < 2 )
-  {
-    gl_view_scene_free(state);
-    return;
-  }
+  /* Allocate single-sample storage for requests below 2 samples */
+  samples = (samples < 2) ? 0 : samples;
 
   width = state->msaa_width;
   height = state->msaa_height;
@@ -189,8 +181,8 @@ gl_view_scene_recreate(gl_view_state_t *state, int requested_samples)
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_scene_present() - Resolve MSAA color to a texture, then draw it into default_fbo
- * @state: view state holding the MSAA and resolve resources
+/** gl_view_scene_present() - Resolve scene color to a texture, then draw it into default_fbo
+ * @state: view state holding the scene and resolve resources
  * @default_fbo: GTK-provided framebuffer that receives the resolved image
  *
  * A direct multisample blit into GTK's framebuffer is rejected under
