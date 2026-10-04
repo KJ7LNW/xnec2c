@@ -203,7 +203,8 @@ scroll_capability(surface_capability_t *const *caps, guint state)
  * @subject: subject the frame drew
  *
  * The guard lives on the capability, so rows borrowing one capability
- * advertise it once between them.
+ * advertise it once between them.  A batch run posts none, since nobody
+ * scrolls the image it writes.
  */
   void
 surface_notice_capabilities(render_surface_t *surface,
@@ -212,7 +213,7 @@ surface_notice_capabilities(render_surface_t *surface,
   surface_capability_t *cap;
   int i;
 
-  if( surface == NULL || surface->input == NULL )
+  if( surface == NULL || surface->input == NULL || rc_config.batch_mode )
     return;
 
   for( i = 0; surface->input[i] != NULL; i++ )
