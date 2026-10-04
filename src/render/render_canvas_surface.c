@@ -35,21 +35,9 @@ canvas_surface_engine_complete(const render_engine_t *engine)
   return( engine != NULL && engine->render != NULL &&
       engine->surface_free != NULL && engine->fit_view != NULL &&
       engine->capture != NULL && engine->queue_redraw != NULL &&
-      engine->surface_resize != NULL &&
-      engine->notice_capability != NULL );
+      engine->surface_resize != NULL );
 
 } /* canvas_surface_engine_complete() */
-
-  gboolean
-canvas_surface_notice_capability(render_surface_t *surface, const char *notice)
-{
-  if( surface == NULL || notice == NULL || surface->engine == NULL
-      || surface->engine->notice_capability == NULL )
-    return FALSE;
-
-  return( surface->engine->notice_capability(surface, notice) );
-
-} /* canvas_surface_notice_capability() */
 
   gboolean
 canvas_surface_has_engine(const render_surface_t *surface,

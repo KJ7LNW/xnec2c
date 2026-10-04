@@ -55,7 +55,7 @@ typedef struct
   /* Render-internal fields (set during render(), consumed by render_cairo) */
   axis_label_t     axis_labels[AXIS_COUNT];
   int              n_axis_labels;
-  const char      *status_message; /* deferred status text; painted after flush */
+  cairo_surface_t *overlay_text;   /* painted overlay text; NULL = skip */
   cairo_surface_t *gradient;       /* resolved gradient legend; NULL = skip */
 } cairo_render_ctx_t;
 
@@ -116,7 +116,8 @@ gboolean cairo_draw_farfield(render_surface_t *surface, int fstep,
     const ff_draw_params_t *ff);
 gboolean cairo_draw_field_vectors(render_surface_t *surface,
     const field_vector_set_t *sets, double r_max);
-void     cairo_set_status(render_surface_t *surface, const char *msg);
+void     cairo_set_overlay_text(render_surface_t *surface,
+    const gradient_result_t *image);
 void     cairo_set_gradient(render_surface_t *surface,
     const gradient_result_t *result);
 void     cairo_set_colors(render_surface_t *surface,

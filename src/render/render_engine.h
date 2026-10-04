@@ -67,11 +67,6 @@ typedef struct render_engine_s
    * size-dependent resource sizes nothing. */
   void (*surface_resize)(render_surface_t *surface, int width, int height);
 
-  /* Advertise the text of an input capability.  An engine presenting no
-   * notice returns FALSE, which leaves the capability unadvertised until a
-   * later frame. */
-  gboolean (*notice_capability)(render_surface_t *surface, const char *notice);
-
 } render_engine_t;
 
 #endif /* __RENDER_ENGINE_H */

@@ -154,8 +154,10 @@ typedef struct render_ops_s
    * tests presence, as the Cairo backend supplies none. */
   void (*init_empty)(render_surface_t *surface);
 
-  /* Set the status message on the scene */
-  void (*set_status)(render_surface_t *surface, const char *msg);
+  /* Composite the painted overlay text image; render() calls it only while
+   * overlay text shows */
+  void (*set_overlay_text)(render_surface_t *surface,
+      const gradient_result_t *image);
 
   /* Composite a pre-resolved gradient legend surface.
    * Called by render() when gradient_cache yields a valid surface;

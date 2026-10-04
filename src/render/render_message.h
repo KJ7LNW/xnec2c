@@ -106,15 +106,6 @@ typedef struct
 } overlay_text_store_t;
 
 /**
- * Draw_Centered_Message() - Render a centered status message on a Cairo surface
- * @cr:     Cairo context
- * @width:  drawable width in pixels
- * @height: drawable height in pixels
- * @msg:    UTF-8 message string
- */
-void Draw_Centered_Message(cairo_t *cr, int width, int height, const char *msg);
-
-/**
  * overlay_text_post() - Add an overlay text instance to a surface
  * @surface:  surface presenting the instance
  * @instance: text and style row, both of static lifetime

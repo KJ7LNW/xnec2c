@@ -33,6 +33,15 @@
 #include "../gdk_scroll.h"
 #include "../shared.h"
 
+/* Capability notices stack at the bottom-left corner, hold, then fade out */
+static const overlay_text_style_t capability_text_style =
+{
+  .anchor   = OVERLAY_TEXT_BOTTOM_LEFT,
+  .lifetime = OVERLAY_TEXT_TIMED,
+  .hold_ms  = 2500,
+  .fade_ms  = 500,
+};
+
 /* GDK modifier bit carried by each member of the modifier axis, so dispatch
  * reads an ordinal rather than naming a modifier */
 static const guint modifier_masks[SURFACE_MOD_COUNT] = {
@@ -194,8 +203,7 @@ scroll_capability(surface_capability_t *const *caps, guint state)
  * @subject: subject the frame drew
  *
  * The guard lives on the capability, so rows borrowing one capability
- * advertise it once between them.  An engine declining the notice leaves the
- * guard down, which offers the capability again on a later frame.
+ * advertise it once between them.
  */
   void
 surface_notice_capabilities(render_surface_t *surface,
@@ -214,8 +222,9 @@ surface_notice_capabilities(render_surface_t *surface,
     if( cap->notice_shown || cap->subject != subject )
       continue;
 
-    cap->notice_shown =
-      canvas_surface_notice_capability(surface, cap->notice);
+    overlay_text_post(surface, &(overlay_text_t){ .text = cap->notice,
+        .style = &capability_text_style });
+    cap->notice_shown = TRUE;
   }
 
 } /* surface_notice_capabilities() */

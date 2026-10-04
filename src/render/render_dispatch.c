@@ -45,6 +45,13 @@
 /* Last render_check result for the rdpattern view; render() stores it on each rdpattern call */
 static render_check_result_t last_rdpat_check;
 
+/* Status text centers on the drawable and lasts the frame posting it */
+static const overlay_text_style_t status_text_style =
+{
+  .anchor   = OVERLAY_TEXT_CENTER,
+  .lifetime = OVERLAY_TEXT_PER_FRAME,
+};
+
 /**
  * render_last_rdpattern_check() - Return the stored rdpattern precondition result
  *
@@ -142,14 +149,14 @@ render_offer_overlay_geometry(render_surface_t *surface,
 /*-----------------------------------------------------------------------*/
 
 /**
- * render() - Produce one frame through the active engine
+ * render_scene() - Draw the scene and post its status text
  * @surface: engine surface carrying the view and typed render operations
  *
- * Returns TRUE when a frame or status presentation was produced and FALSE
+ * Returns TRUE when the frame drew a scene or posted status text and FALSE
  * when the caller must retain the preceding frame.
  */
-gboolean
-render(render_surface_t *surface)
+  static gboolean
+render_scene(render_surface_t *surface)
 {
   const render_ops_t *ops;
   view_t *view;
@@ -192,7 +199,8 @@ render(render_surface_t *surface)
     if( ops->init_empty != NULL )
       ops->init_empty(surface);
     ops->draw_axes(surface, RENDER_EMPTY_AXIS_EXTENT);
-    ops->set_status(surface, r.message);
+    overlay_text_post(surface,
+        &(overlay_text_t){ .text = r.message, .style = &status_text_style });
     g_rec_mutex_unlock(&freq_data_lock);
     return TRUE;
   }
@@ -322,10 +330,11 @@ render(render_surface_t *surface)
      * frame on screen (desirable only during optimization above). */
     if( ops->init_empty != NULL )
       ops->init_empty(surface);
-    ops->set_status(surface,
-        freq_sweep_complete()
-        ? STATUS_MSG_NOT_READY
-        : STATUS_MSG_START_FREQLOOP);
+    overlay_text_post(surface, &(overlay_text_t){
+        .text = freq_sweep_complete()
+          ? STATUS_MSG_NOT_READY
+          : STATUS_MSG_START_FREQLOOP,
+        .style = &status_text_style });
     render_offer_overlay_geometry(surface, &r);
     g_rec_mutex_unlock(&freq_data_lock);
     return TRUE;
@@ -335,5 +344,48 @@ render(render_surface_t *surface)
   g_rec_mutex_unlock(&freq_data_lock);
   return TRUE;
 }
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * render_overlay_text() - Hand the overlay text image of a frame to the engine
+ * @surface: surface whose frame presents the image
+ *
+ * Resolves the image on every produced frame, so the store retires the
+ * instances the frame ends even while no line shows.
+ */
+  static void
+render_overlay_text(render_surface_t *surface)
+{
+  gradient_result_t image = overlay_text_frame(surface,
+      surface->view->width, surface->view->height);
+
+  if( image.surface == NULL )
+    return;
+
+  surface->engine->render->set_overlay_text(surface, &image);
+
+} /* render_overlay_text() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * render() - Produce one frame through the active engine
+ * @surface: engine surface carrying the view and typed render operations
+ *
+ * Returns TRUE when a frame or status presentation was produced and FALSE
+ * when the caller must retain the preceding frame.
+ */
+gboolean
+render(render_surface_t *surface)
+{
+  if( !render_scene(surface) )
+    return FALSE;
+
+  render_overlay_text(surface);
+
+  return TRUE;
+
+} /* render() */
 
 /*-----------------------------------------------------------------------*/

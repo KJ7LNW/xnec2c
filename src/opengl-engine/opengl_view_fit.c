@@ -229,7 +229,6 @@ const render_engine_t gl_engine =
   .capture = gl_view_capture_pixbuf,
   .queue_redraw = gl_view_surface_queue_redraw,
   .surface_resize = gl_view_surface_resize,
-  .notice_capability = gl_view_notice_capability,
 };
 
 #endif /* HAVE_OPENGL */

@@ -29,7 +29,6 @@
 #include "../mem/mem.h"
 #include "../render/render_canvas.h"
 #include "../render/render_dispatch.h"
-#include "../render/render_message.h"
 
 /**
  * cairo_surface_draw() - Produce the frame the draw signal requested
@@ -160,7 +159,7 @@ const render_ops_t cairo_ops =
                               .solid = cairo_draw_structure_solid },
   .draw_axes              = cairo_draw_axes,
   .init_empty           = NULL,
-  .set_status           = cairo_set_status,
+  .set_overlay_text     = cairo_set_overlay_text,
   .set_gradient         = cairo_set_gradient,
   .set_colors           = cairo_set_colors,
 };
@@ -259,9 +258,8 @@ render_cairo(render_surface_t *surface, cairo_t *cr)
    * non-NULL only when farfield mode is active on the rdpattern view. */
   cairo_composite_image(cr, ctx->gradient);
 
-  /* Paint deferred status message on top of all rendered content */
-  if( ctx->status_message != NULL )
-    Draw_Centered_Message(cr, v->width, v->height, ctx->status_message);
+  /* Composite overlay text over all rendered content */
+  cairo_composite_image(cr, ctx->overlay_text);
 
 #if CAIRO_FLUSH_STATS
   gint64 t_frame_end = g_get_monotonic_time();

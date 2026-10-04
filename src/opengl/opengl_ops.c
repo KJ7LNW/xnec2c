@@ -75,7 +75,7 @@ const render_ops_t gl_ops =
                               .solid = gl_draw_structure_overlay_solid },
   .draw_axes              = gl_draw_axes,
   .init_empty     = gl_view_init_empty,
-  .set_status     = gl_view_set_status,
+  .set_overlay_text = gl_view_set_overlay_text,
   .set_gradient   = gl_view_set_gradient,
   .set_colors     = gl_set_colors,
 };

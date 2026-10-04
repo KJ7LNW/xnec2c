@@ -85,17 +85,6 @@ void canvas_surface_sync_viewport(render_surface_t *surface);
 gboolean canvas_surface_fit(render_surface_t *surface, view_fit_t *fit);
 
 /**
- * canvas_surface_notice_capability() - Advertise capability text through the
- * surface engine
- * @surface: active surface object
- * @notice:  text advertising the capability
- *
- * Returns FALSE when the engine presents no notice.
- */
-gboolean canvas_surface_notice_capability(render_surface_t *surface,
-    const char *notice);
-
-/**
  * canvas_surface_capture() - Capture pixels through the surface engine
  * @surface: active surface object
  * @width:   capture width in pixels

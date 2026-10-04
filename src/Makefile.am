@@ -234,7 +234,6 @@ xnec2c_SOURCES += \
   opengl-engine/opengl_view_fit_geometry.c opengl-engine/opengl_view_fit_geometry.h \
   opengl-engine/opengl_view_scene.c opengl-engine/opengl_view_scene.h \
   opengl-engine/opengl_view_overlay.c opengl-engine/opengl_view_overlay.h \
-  opengl-engine/opengl_view_notice.c opengl-engine/opengl_view_notice.h \
   opengl-engine/opengl_view_msaa.c opengl-engine/opengl_view_msaa.h \
   opengl-engine/opengl_view_peel.c opengl-engine/opengl_view_peel.h \
   opengl-engine/opengl_axes.c opengl-engine/opengl_axes.h \

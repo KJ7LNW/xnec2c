@@ -349,14 +349,15 @@ cairo_draw_structure_solid(render_surface_t *surface, float extent,
 /*-----------------------------------------------------------------------*/
 
 /**
- * cairo_set_status() - Store status message for deferred rendering
+ * cairo_set_overlay_text() - Store the painted overlay text image
  * @surface: Cairo surface holding the frame state
- * @msg: UTF-8 status message (painted by render_cairo after flush)
+ * @image:   painted overlay text and its version; version unused by cairo
  */
   void
-cairo_set_status(render_surface_t *surface, const char *msg)
+cairo_set_overlay_text(render_surface_t *surface,
+    const gradient_result_t *image)
 {
-  cairo_engine_surface(surface)->frame.status_message = msg;
+  cairo_engine_surface(surface)->frame.overlay_text = image->surface;
 }
 
 /*-----------------------------------------------------------------------*/

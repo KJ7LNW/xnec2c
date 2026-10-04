@@ -105,22 +105,15 @@ typedef struct
   rgb_f_t view_axis;
   rgb_f_t view_axis_label;
 
-  /* Centered text overlay rendered when no data to display; NULL = none */
-  const char *status_message;
+  /* Painted overlay text from render(); surface NULL = skip.
+   * GL upload compares version to avoid redundant texture transfers. */
+  gradient_result_t overlay_text;
 
   /* Pre-resolved gradient legend from render(); surface NULL = skip.
    * GL upload compares version to avoid redundant texture transfers. */
   gradient_result_t gradient;
 
 } gl_view_content_t;
-
-/* Notice position within the GL viewport */
-typedef enum
-{
-  GL_NOTICE_CENTER,
-  GL_NOTICE_BOTTOM_LEFT
-
-} gl_notice_position_t;
 
 /* Per-frame render parameters passed to each renderable callback */
 typedef struct gl_render_params_s
@@ -253,6 +246,7 @@ typedef struct gl_view_state_s
 
   GArray *renderables;
   gradient_overlay_t *overlay;
+  gradient_overlay_t *text_overlay;
   gl_view_config_t *config;
   gl_view_content_t content;
 
@@ -273,20 +267,6 @@ typedef struct gl_view_state_s
    * so depth values are in the same projection space */
   float cached_near_plane;
   float cached_far_plane;
-
-  /* Notice overlay state (unified transient + persistent) */
-  gboolean notice_active;
-  char *notice_text;
-  double notice_alpha;
-  gint64 notice_start_time;
-  guint notice_timeout_id;
-  int notice_hold_ms;
-  gl_notice_position_t notice_position;
-  cairo_gl_overlay_t *notice_overlay;
-  cairo_surface_t *notice_surface;
-  int notice_surf_width;
-  int notice_surf_height;
-  gboolean notice_surface_valid;
 
   /* LIC noise texture (256x256 grayscale, shared by all renderables) */
   GLuint noise_tex;
@@ -356,14 +336,15 @@ gl_view_init_empty(render_surface_t *surface)
   out->model_scale = 1.0f;
 }
 
-/** gl_view_set_status() - Set the status message on content
+/** gl_view_set_overlay_text() - Store the painted overlay text image
  * @surface: GL surface holding the frame content
- * @msg: STATUS_MSG_* string constant, or NULL
+ * @image: painted overlay text and its version
  */
 static inline void
-gl_view_set_status(render_surface_t *surface, const char *msg)
+gl_view_set_overlay_text(render_surface_t *surface,
+    const gradient_result_t *image)
 {
-  gl_view_state(surface)->content.status_message = msg;
+  gl_view_state(surface)->content.overlay_text = *image;
 }
 
 /** gl_view_set_gradient() - Store pre-resolved gradient legend result
@@ -421,16 +402,6 @@ void gl_view_gpu_release(gl_view_state_t *state);
  */
 GdkPixbuf *gl_view_capture_pixbuf(render_surface_t *surface,
     int width, int height);
-
-/**
- * gl_view_notice_capability() - Advertise an input capability on the view
- * @surface: surface offering the capability
- * @notice:  text advertising the capability
- *
- * Returns TRUE once the notice is presented.
- */
-gboolean gl_view_notice_capability(render_surface_t *surface,
-    const char *notice);
 
 /* gl_view_queue_render() - Request a frame from a view's GtkGLArea.
  * The GL areas run with auto-render disabled, so a frame is produced only

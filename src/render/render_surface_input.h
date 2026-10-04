@@ -61,8 +61,7 @@ typedef struct
  * @subject: subject the frame drew
  *
  * Presents the notice of every capability the surface offers for @subject,
- * at most once per capability for the session, through the engine the
- * surface binds.
+ * at most once per capability for the session.
  */
 void surface_notice_capabilities(render_surface_t *surface,
     surface_cap_subject_t subject);

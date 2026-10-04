@@ -133,20 +133,6 @@ cairo_fit_view(render_surface_t *surface, view_fit_t *fit)
 
 } /* cairo_fit_view() */
 
-/** cairo_notice_capability() - Decline to advertise an input capability
- * @_surface: surface offering the capability, unread below
- * @_notice: text advertising the capability, unread below
- *
- * A Cairo frame carries no notice layer, so the capability stays unadvertised
- * and the render layer offers it again through whichever engine draws one.
- */
-  static gboolean
-cairo_notice_capability(render_surface_t *_surface, const char *_notice)
-{
-  return FALSE;
-
-} /* cairo_notice_capability() */
-
 /* Compose the Cairo domain protocol and active-surface operations. */
 const render_engine_t cairo_engine =
 {
@@ -156,5 +142,4 @@ const render_engine_t cairo_engine =
   .capture = cairo_capture_pixbuf,
   .queue_redraw = cairo_queue_redraw,
   .surface_resize = cairo_surface_resize,
-  .notice_capability = cairo_notice_capability,
 };

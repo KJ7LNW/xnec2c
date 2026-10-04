@@ -24,10 +24,8 @@
 #include "opengl_view_render.h"
 #include "opengl_view_msaa.h"
 #include "opengl_view_peel.h"
-#include "opengl_view_notice.h"
 #include "opengl_view_fit.h"
 #include "opengl_axes.h"
-#include "opengl_cairo_overlay.h"
 #include "opengl_ground_plane.h"
 #include "../shared.h"
 #include "../mem/mem.h"
@@ -44,20 +42,6 @@ gl_view_gpu_release(gl_view_state_t *state)
 {
   if( state == NULL )
     return;
-
-  if( state->notice_surface )
-  {
-    cairo_surface_destroy(state->notice_surface);
-    state->notice_surface = NULL;
-  }
-
-  state->notice_surface_valid = FALSE;
-
-  if( state->notice_overlay )
-  {
-    cairo_gl_overlay_free(state->notice_overlay);
-    state->notice_overlay = NULL;
-  }
 
   /* Release shared noise texture before renderables */
   if( state->noise_tex )
@@ -93,6 +77,9 @@ gl_view_gpu_release(gl_view_state_t *state)
     state->overlay = NULL;
   }
 
+  gradient_overlay_free(state->text_overlay);
+  state->text_overlay = NULL;
+
   /* Release depth-peel FBO resources (per-resize lifecycle) */
   gl_view_peel_free(state);
 
@@ -110,10 +97,6 @@ gl_view_gpu_release(gl_view_state_t *state)
   state->msaa_width = 0;
   state->msaa_height = 0;
 
-  /* Mark the notice inactive so a fade still armed becomes a no-op that
-   * removes itself instead of requesting frames from the released context;
-   * gl_view_surface_free() releases the timer with the state it carries. */
-  state->notice_active = FALSE;
   state->initialized = FALSE;
 
 } /* gl_view_gpu_release() */
@@ -136,15 +119,6 @@ gl_view_surface_free(render_surface_t *surface)
     return;
 
   state->config->content_cleanup();
-
-  /* Stop the fade before releasing its callback payload. */
-  if( state->notice_timeout_id )
-  {
-    g_source_remove(state->notice_timeout_id);
-    state->notice_timeout_id = 0;
-  }
-
-  g_free(state->notice_text);
 
   mem_free(&state);
 
@@ -196,6 +170,8 @@ gl_view_resize_buffers(gl_view_state_t *state)
 
   if( state->overlay )
     gradient_overlay_set_viewport(state->overlay, width, height);
+
+  gradient_overlay_set_viewport(state->text_overlay, width, height);
 
   glViewport(0, 0, width, height);
 

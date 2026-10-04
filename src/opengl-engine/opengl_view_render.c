@@ -20,7 +20,6 @@
 #include "opengl_view_render.h"
 #include "opengl_view_peel.h"
 #include "opengl_view_msaa.h"
-#include "opengl_view_notice.h"
 #include "opengl_gradient_overlay.h"
 #include "opengl_view_fit.h"
 #include "../render/render_dispatch.h"
@@ -29,24 +28,6 @@
 #ifdef HAVE_OPENGL
 
 /* gl_trans_item_t defined in opengl_view.h */
-
-/*-----------------------------------------------------------------------*/
-
-/** gl_view_notice_capability() - Present the notice of an input capability
- * @surface: surface this engine produces frames for
- * @notice:  text advertising the capability
- */
-  gboolean
-gl_view_notice_capability(render_surface_t *surface, const char *notice)
-{
-  gl_view_state_t *state = gl_view_state(surface);
-
-  gl_view_show_notice(state, notice, GL_VIEW_NOTICE_HOLD_MS,
-      GL_NOTICE_BOTTOM_LEFT);
-
-  return( TRUE );
-
-} /* gl_view_notice_capability() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -89,7 +70,7 @@ gl_view_composite_image(gl_view_state_t *state, gradient_overlay_t **overlay,
 gl_view_frame_content_reset(gl_view_state_t *state)
 {
   state->content.axes = (gl_axes_content_t){0};
-  state->content.status_message = NULL;
+  state->content.overlay_text = (gradient_result_t){NULL, 0};
   state->content.gradient = (gradient_result_t){NULL, 0};
 
   /* A leaf deposited after another appends its batch and raises the clip
@@ -343,20 +324,9 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   /* 2D HUD — gradient legend overlay (set by render() via set_gradient) */
   gl_view_composite_image(state, &state->overlay, &state->content.gradient);
 
-  /* Surface dimensions for 2D notice overlay */
-  {
-    int surf_width, surf_height;
-
-    surf_width = state->base.view->width;
-    surf_height = state->base.view->height;
-
-    /* Synchronize persistent notice with scene status_message */
-    gl_view_sync_status_notice(state);
-
-    /* Render notice if active */
-    if( state->notice_active && state->notice_text )
-      gl_view_render_notice(state, surf_width, surf_height);
-  }
+  /* 2D HUD — overlay text above the gradient legend */
+  gl_view_composite_image(state, &state->text_overlay,
+      &state->content.overlay_text);
 
   /* Resolve MSAA into the default FBO through a single-sample texture copy.
    * A direct multisample blit into GTK's framebuffer is rejected under
