@@ -119,12 +119,13 @@ gradient_overlay_render(gradient_overlay_t *overlay)
 
   glDisable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+
+  /* Cairo surfaces carry premultiplied alpha, anti-aliased edges included,
+   * which the overlay shader passes through to the blend */
+  glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
   cairo_gl_overlay_render(overlay->base);
 
-  glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
   glDisable(GL_BLEND);
   glEnable(GL_DEPTH_TEST);
 
