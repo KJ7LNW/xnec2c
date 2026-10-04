@@ -21,7 +21,10 @@
 /* Cairo backend vtable; render() gates slot calls by mode */
 extern const render_ops_t cairo_ops;
 
-/** cairo_capture_pixbuf() - Capture a Cairo drawing window into a pixbuf */
+/** cairo_capture_pixbuf() - Draw a Cairo surface's widget offscreen into a pixbuf
+ *
+ * Returns NULL when the widget is not drawable.
+ */
 GdkPixbuf *cairo_capture_pixbuf(render_surface_t *surface,
     int width, int height);
 

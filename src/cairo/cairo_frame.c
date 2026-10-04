@@ -88,26 +88,40 @@ cairo_surface_free(render_surface_t *surface)
 /*-----------------------------------------------------------------------*/
 
 /**
- * cairo_capture_pixbuf() - Capture a Cairo drawing window into a pixbuf
- * @surface: surface whose window holds the presented frame
+ * cairo_capture_pixbuf() - Draw a Cairo surface's widget offscreen into a pixbuf
+ * @surface: surface whose widget produces the frame
  * @width: capture width in pixels
  * @height: capture height in pixels
  *
- * Returns a newly allocated pixbuf, or NULL when the surface lacks a window.
+ * Runs the widget's draw handler into an image, so window stacking and
+ * visibility leave the capture unchanged.  Returns a newly allocated
+ * pixbuf, or NULL when the widget is not drawable.
  */
   GdkPixbuf *
 cairo_capture_pixbuf(render_surface_t *surface, int width, int height)
 {
-  GdkWindow *window;
+  cairo_surface_t *image;
+  cairo_t *cr;
+  GdkPixbuf *pixbuf;
 
   if( surface == NULL || width <= 0 || height <= 0 )
     return NULL;
 
-  window = gtk_widget_get_window(surface->widget);
-  if( window == NULL )
+  if( !gtk_widget_is_drawable(surface->widget) )
     return NULL;
 
-  return gdk_pixbuf_get_from_window(window, 0, 0, width, height);
+  /* Draw the widget into an image without an alpha channel */
+  image = cairo_image_surface_create(CAIRO_FORMAT_RGB24, width, height);
+  cr = cairo_create(image);
+
+  cairo_queue_redraw(surface);
+  gtk_widget_draw(surface->widget, cr);
+  cairo_destroy(cr);
+
+  pixbuf = gdk_pixbuf_get_from_surface(image, 0, 0, width, height);
+  cairo_surface_destroy(image);
+
+  return pixbuf;
 
 } /* cairo_capture_pixbuf() */
 
