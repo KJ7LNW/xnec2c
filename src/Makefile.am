@@ -142,6 +142,7 @@ xnec2c_SOURCES = \
     render/render_dispatch.c        render/render_dispatch.h \
     render/render_geometry.c        render/render_geometry.h \
     render/render_message.c         render/render_message.h \
+    render/render_message_paint.c   render/render_message_paint.h \
     render/render_fit.c             render/render_fit.h \
     render/render_canvas.c          render/render_canvas.h \
     render/render_canvas_lifetime.c render/render_canvas_lifetime.h \
