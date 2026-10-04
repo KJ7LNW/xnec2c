@@ -16,6 +16,7 @@
 #include "../view/view_core.h"
 #include "render_engine.h"
 #include "render_surface_input.h"
+#include "render_message.h"
 
 /* One drawing surface.  Every engine extends this through its own first
  * member, so a render_surface_t pointer converts exactly to and from the
@@ -34,6 +35,10 @@ struct render_surface_s
   /* NULL-terminated scroll capability row of this engine and domain, or
    * NULL on a surface offering none */
   surface_capability_t *const *input;
+
+  /* Overlay text the surface presents.  Each engine allocates its surface
+   * object through mem_new(), which zeroes it, so the store starts empty. */
+  overlay_text_store_t overlay_text;
 };
 
 /**

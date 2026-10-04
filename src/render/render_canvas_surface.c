@@ -68,6 +68,9 @@ canvas_surface_free(render_surface_t *surface)
   if( surface->engine == NULL || surface->engine->surface_free == NULL )
     return;
 
+  /* Remove the frame request carrying the surface before the engine frees it */
+  overlay_text_release(surface);
+
   surface->engine->surface_free( surface );
 
 } /* canvas_surface_free() */
