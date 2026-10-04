@@ -212,8 +212,8 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   /* Framebuffer setup */
   glGetIntegerv(GL_FRAMEBUFFER_BINDING, &default_fbo);
 
-  if( state->msaa_fbo )
-    glBindFramebuffer(GL_FRAMEBUFFER, state->msaa_fbo);
+  if( state->scene_fbo )
+    glBindFramebuffer(GL_FRAMEBUFFER, state->scene_fbo);
 
   glClearColor(state->content.background.r, state->content.background.g,
       state->content.background.b, 1.0f);
@@ -309,8 +309,8 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
     {
       GLuint active_fbo;
 
-      active_fbo = state->msaa_fbo
-        ? state->msaa_fbo : (GLuint)default_fbo;
+      active_fbo = state->scene_fbo
+        ? state->scene_fbo : (GLuint)default_fbo;
 
       gl_view_peel_render(state, active_fbo, render_params,
           items, trans_count);
@@ -332,8 +332,8 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   /* Resolve MSAA into the default FBO through a single-sample texture copy.
    * A direct multisample blit into GTK's framebuffer is rejected under
    * Wayland/EGL, so the resolve and the default-FBO write are split. */
-  if( state->msaa_fbo )
-    gl_view_msaa_resolve(state, default_fbo);
+  if( state->scene_fbo )
+    gl_view_scene_present(state, default_fbo);
 
   return( TRUE );
 

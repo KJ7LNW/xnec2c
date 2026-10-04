@@ -46,7 +46,7 @@ msaa_update_view(render_surface_t *surface, int samples)
   state = gl_view_state(surface);
 
   gtk_gl_area_make_current(GTK_GL_AREA(state->gl_area));
-  gl_view_recreate_msaa(state, samples);
+  gl_view_scene_recreate(state, samples);
 
   /* Rebuild peel FBOs with matching MSAA sample count so
    * transparent geometry rasterizes with multisampling */

@@ -24,28 +24,28 @@
 
 #ifdef HAVE_OPENGL
 
-/* gl_view_recreate_msaa()
+/* gl_view_scene_recreate()
  *
  * Recreate MSAA resources without destroying GL widget.
  * Pass requested_samples=0 to disable MSAA.
  */
-void gl_view_recreate_msaa(gl_view_state_t *state, int requested_samples);
+void gl_view_scene_recreate(gl_view_state_t *state, int requested_samples);
 
-/* gl_view_msaa_free()
+/* gl_view_scene_free()
  *
  * Release MSAA framebuffer, color, and depth renderbuffer resources.
  * Zeroes the corresponding fields in state.
  */
-void gl_view_msaa_free(gl_view_state_t *state);
+void gl_view_scene_free(gl_view_state_t *state);
 
-/* gl_view_msaa_resolve()
+/* gl_view_scene_present()
  *
  * Resolve the multisample color buffer to a single-sample texture, then
  * draw that texture into default_fbo.  Splits the multisample resolve from
  * the write into GTK's framebuffer because a direct multisample blit into
  * default_fbo is rejected under Wayland/EGL.
  */
-void gl_view_msaa_resolve(gl_view_state_t *state, GLint default_fbo);
+void gl_view_scene_present(gl_view_state_t *state, GLint default_fbo);
 
 #endif /* HAVE_OPENGL */
 #endif /* OPENGL_VIEW_MSAA_H */

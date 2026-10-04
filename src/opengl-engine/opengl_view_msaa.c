@@ -24,31 +24,31 @@
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_msaa_free() - Release MSAA framebuffer, color, and depth renderbuffer resources
+/** gl_view_scene_free() - Release MSAA framebuffer, color, and depth renderbuffer resources
  * @state: view state containing MSAA resources to free
  */
   void
-gl_view_msaa_free(gl_view_state_t *state)
+gl_view_scene_free(gl_view_state_t *state)
 {
   if( !state )
     return;
 
-  if( state->msaa_fbo )
+  if( state->scene_fbo )
   {
-    glDeleteFramebuffers(1, &state->msaa_fbo);
-    state->msaa_fbo = 0;
+    glDeleteFramebuffers(1, &state->scene_fbo);
+    state->scene_fbo = 0;
   }
 
-  if( state->msaa_color_rbo )
+  if( state->scene_color_rbo )
   {
-    glDeleteRenderbuffers(1, &state->msaa_color_rbo);
-    state->msaa_color_rbo = 0;
+    glDeleteRenderbuffers(1, &state->scene_color_rbo);
+    state->scene_color_rbo = 0;
   }
 
-  if( state->msaa_depth_rbo )
+  if( state->scene_depth_rbo )
   {
-    glDeleteRenderbuffers(1, &state->msaa_depth_rbo);
-    state->msaa_depth_rbo = 0;
+    glDeleteRenderbuffers(1, &state->scene_depth_rbo);
+    state->scene_depth_rbo = 0;
   }
 
   if( state->resolve_fbo )
@@ -65,11 +65,11 @@ gl_view_msaa_free(gl_view_state_t *state)
 
   state->msaa_samples = 0;
 
-} /* gl_view_msaa_free() */
+} /* gl_view_scene_free() */
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_recreate_msaa() - Resize MSAA resources, creating handles only on first call
+/** gl_view_scene_recreate() - Resize MSAA resources, creating handles only on first call
  * @state: view state to update with new MSAA resources
  * @requested_samples: number of MSAA samples to use (clamped to hardware limit)
  *
@@ -77,7 +77,7 @@ gl_view_msaa_free(gl_view_state_t *state)
  * run once, glRenderbufferStorageMultisample runs on every resize.
  */
   void
-gl_view_recreate_msaa(gl_view_state_t *state, int requested_samples)
+gl_view_scene_recreate(gl_view_state_t *state, int requested_samples)
 {
   GLint max_samples;
   int width, height;
@@ -88,7 +88,7 @@ gl_view_recreate_msaa(gl_view_state_t *state, int requested_samples)
 
   if( requested_samples == 0 )
   {
-    gl_view_msaa_free(state);
+    gl_view_scene_free(state);
     return;
   }
 
@@ -98,7 +98,7 @@ gl_view_recreate_msaa(gl_view_state_t *state, int requested_samples)
 
   if( samples < 2 )
   {
-    gl_view_msaa_free(state);
+    gl_view_scene_free(state);
     return;
   }
 
@@ -111,49 +111,49 @@ gl_view_recreate_msaa(gl_view_state_t *state, int requested_samples)
   /* Sample count changed — delete stale handles.
    * Some drivers reject in-place glRenderbufferStorageMultisample
    * at a different sample count on an attached RBO. */
-  if( state->msaa_fbo && state->msaa_samples != samples )
-    gl_view_msaa_free(state);
+  if( state->scene_fbo && state->msaa_samples != samples )
+    gl_view_scene_free(state);
 
   /* Create handles and FBO attachments (first call or after free) */
-  if( !state->msaa_fbo )
+  if( !state->scene_fbo )
   {
-    glGenRenderbuffers(1, &state->msaa_color_rbo);
-    glBindRenderbuffer(GL_RENDERBUFFER, state->msaa_color_rbo);
-    glGenRenderbuffers(1, &state->msaa_depth_rbo);
-    glBindRenderbuffer(GL_RENDERBUFFER, state->msaa_depth_rbo);
-    glGenFramebuffers(1, &state->msaa_fbo);
+    glGenRenderbuffers(1, &state->scene_color_rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, state->scene_color_rbo);
+    glGenRenderbuffers(1, &state->scene_depth_rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, state->scene_depth_rbo);
+    glGenFramebuffers(1, &state->scene_fbo);
 
-    glBindFramebuffer(GL_FRAMEBUFFER, state->msaa_fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, state->scene_fbo);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-        GL_RENDERBUFFER, state->msaa_color_rbo);
+        GL_RENDERBUFFER, state->scene_color_rbo);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
-        GL_RENDERBUFFER, state->msaa_depth_rbo);
+        GL_RENDERBUFFER, state->scene_depth_rbo);
   }
 
   /* Resize storage in place (valid on both fresh and existing RBOs) */
-  glBindRenderbuffer(GL_RENDERBUFFER, state->msaa_color_rbo);
+  glBindRenderbuffer(GL_RENDERBUFFER, state->scene_color_rbo);
   glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples,
       GL_RGBA8, width, height);
 
-  glBindRenderbuffer(GL_RENDERBUFFER, state->msaa_depth_rbo);
+  glBindRenderbuffer(GL_RENDERBUFFER, state->scene_depth_rbo);
   glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples,
       GL_DEPTH_COMPONENT24, width, height);
 
   state->msaa_samples = samples;
 
   /* Verify completeness after resize */
-  glBindFramebuffer(GL_FRAMEBUFFER, state->msaa_fbo);
+  glBindFramebuffer(GL_FRAMEBUFFER, state->scene_fbo);
 
   if( glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE )
   {
     pr_err("MSAA framebuffer incomplete\n");
-    gl_view_msaa_free(state);
+    gl_view_scene_free(state);
   }
 
   /* Create and size the single-sample resolve target.  Guarded by
-   * msaa_fbo: a failed completeness check above already freed it, and
+   * scene_fbo: a failed completeness check above already freed it, and
    * allocating here would orphan the resolve resources. */
-  if( state->msaa_fbo )
+  if( state->scene_fbo )
   {
     if( !state->resolve_color_tex )
     {
@@ -179,17 +179,17 @@ gl_view_recreate_msaa(gl_view_state_t *state, int requested_samples)
     if( glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE )
     {
       pr_err("MSAA resolve framebuffer incomplete\n");
-      gl_view_msaa_free(state);
+      gl_view_scene_free(state);
     }
   }
 
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-} /* gl_view_recreate_msaa() */
+} /* gl_view_scene_recreate() */
 
 /*-----------------------------------------------------------------------*/
 
-/** gl_view_msaa_resolve() - Resolve MSAA color to a texture, then draw it into default_fbo
+/** gl_view_scene_present() - Resolve MSAA color to a texture, then draw it into default_fbo
  * @state: view state holding the MSAA and resolve resources
  * @default_fbo: GTK-provided framebuffer that receives the resolved image
  *
@@ -198,13 +198,13 @@ gl_view_recreate_msaa(gl_view_state_t *state, int requested_samples)
  * and a fullscreen textured draw writes that texture into default_fbo.
  */
   void
-gl_view_msaa_resolve(gl_view_state_t *state, GLint default_fbo)
+gl_view_scene_present(gl_view_state_t *state, GLint default_fbo)
 {
   int w = state->msaa_width;
   int h = state->msaa_height;
 
   /* Hardware resolve: multisample color → single-sample texture */
-  glBindFramebuffer(GL_READ_FRAMEBUFFER, state->msaa_fbo);
+  glBindFramebuffer(GL_READ_FRAMEBUFFER, state->scene_fbo);
   glBindFramebuffer(GL_DRAW_FRAMEBUFFER, state->resolve_fbo);
   glBlitFramebuffer(0, 0, w, h, 0, 0, w, h,
       GL_COLOR_BUFFER_BIT, GL_NEAREST);
@@ -231,7 +231,7 @@ gl_view_msaa_resolve(gl_view_state_t *state, GLint default_fbo)
   glEnable(GL_DEPTH_TEST);
   glDepthMask(GL_TRUE);
 
-} /* gl_view_msaa_resolve() */
+} /* gl_view_scene_present() */
 
 /*-----------------------------------------------------------------------*/
 

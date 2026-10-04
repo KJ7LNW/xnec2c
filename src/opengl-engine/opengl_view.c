@@ -90,7 +90,7 @@ gl_view_gpu_release(gl_view_state_t *state)
   GL_DELETE_OBJ(glDeleteShader, state->composite_vs);
   GL_DELETE_OBJ(glDeleteShader, state->composite_fs);
 
-  gl_view_msaa_free(state);
+  gl_view_scene_free(state);
 
   /* A later realize rebuilds the framebuffers, so the recorded dimensions
    * must not match the resize that follows it. */
@@ -161,7 +161,7 @@ gl_view_resize_buffers(gl_view_state_t *state)
 
   /* Recreate MSAA FBO at new dimensions */
   if( rc_config.opengl_msaa_samples > 0 )
-    gl_view_recreate_msaa(state, rc_config.opengl_msaa_samples);
+    gl_view_scene_recreate(state, rc_config.opengl_msaa_samples);
 
   /* Recreate depth-peel FBOs at new dimensions (only when
    * composite shader loaded successfully during realize) */

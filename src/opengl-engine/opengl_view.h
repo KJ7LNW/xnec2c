@@ -275,10 +275,10 @@ typedef struct gl_view_state_s
    * Set in on_render before renderable iteration. */
   gboolean transparency_active;
 
-  /* MSAA state */
-  GLuint msaa_fbo;
-  GLuint msaa_color_rbo;
-  GLuint msaa_depth_rbo;
+  /* Scene framebuffer state */
+  GLuint scene_fbo;
+  GLuint scene_color_rbo;
+  GLuint scene_depth_rbo;
   int msaa_samples;
   int msaa_width;
   int msaa_height;
