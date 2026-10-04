@@ -28,71 +28,18 @@
 
 #ifdef HAVE_OPENGL
 
-static gboolean gl_view_subject_view_ready(const gl_view_state_t *state);
-static gboolean gl_view_overlay_geometry_ready(const gl_view_state_t *state);
-
-/* Readiness of each capability subject against the frame state this engine
- * holds.  A subject the render layer names without a row here leaves a NULL
- * entry, which the presenter reports rather than dereferences. */
-static gboolean (*const notice_subject_ready[SURFACE_CAP_SUBJECT_COUNT])(
-    const gl_view_state_t *state) = {
-  [SURFACE_CAP_SUBJECT_VIEW]             = gl_view_subject_view_ready,
-  [SURFACE_CAP_SUBJECT_OVERLAY_GEOMETRY] = gl_view_overlay_geometry_ready
-};
-
 /* gl_trans_item_t defined in opengl_view.h */
-
-/*-----------------------------------------------------------------------*/
-
-/** gl_view_subject_view_ready() - Report the view itself as resolved
- * @_state: frame state, unread: the view stands before the frame body runs
- */
-  static gboolean
-gl_view_subject_view_ready(const gl_view_state_t *_state)
-{
-  return( TRUE );
-
-} /* gl_view_subject_view_ready() */
-
-/*-----------------------------------------------------------------------*/
-
-/** gl_view_overlay_geometry_ready() - Report overlay geometry as deposited
- * @state: frame state holding the content this frame deposited
- */
-  static gboolean
-gl_view_overlay_geometry_ready(const gl_view_state_t *state)
-{
-  const gl_view_content_t *overlay = state->overlay_content;
-
-  return( overlay != NULL && overlay->batch_count > 0 );
-
-} /* gl_view_overlay_geometry_ready() */
 
 /*-----------------------------------------------------------------------*/
 
 /** gl_view_notice_capability() - Present the notice of an input capability
  * @surface: surface this engine produces frames for
- * @subject: subject the capability acts upon
  * @notice:  text advertising the capability
- *
- * The readiness row of the subject reads the frame state, so a frame not yet
- * carrying the subject leaves the notice for a later one.
  */
   gboolean
-gl_view_notice_capability(render_surface_t *surface,
-    surface_cap_subject_t subject, const char *notice)
+gl_view_notice_capability(render_surface_t *surface, const char *notice)
 {
   gl_view_state_t *state = gl_view_state(surface);
-
-  if( subject >= SURFACE_CAP_SUBJECT_COUNT ||
-      notice_subject_ready[subject] == NULL )
-  {
-    BUG("capability subject %d carries no readiness rule\n", (int)subject);
-    return( FALSE );
-  }
-
-  if( !notice_subject_ready[subject](state) )
-    return( FALSE );
 
   gl_view_show_notice(state, notice, GL_VIEW_NOTICE_HOLD_MS,
       GL_NOTICE_BOTTOM_LEFT);
@@ -175,13 +122,8 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   view = state->base.view;
   gl_view_frame_content_reset(state);
 
-  surface_notice_capabilities(&state->base, SURFACE_CAP_SUBJECT_VIEW);
-
   if( !render(&state->base) )
     return( FALSE );
-
-  surface_notice_capabilities(&state->base,
-      SURFACE_CAP_SUBJECT_OVERLAY_GEOMETRY);
 
   camera_distance = state->content.r_max * GL_VIEW_BASE_DISTANCE_FACTOR /
                     view->zoom;

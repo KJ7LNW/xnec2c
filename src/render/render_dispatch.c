@@ -121,6 +121,27 @@ render_deposit_colors(render_surface_t *surface)
 /*-----------------------------------------------------------------------*/
 
 /**
+ * render_offer_overlay_geometry() - Offer capabilities acting on overlay geometry
+ * @surface: surface whose frame drew the overlay
+ * @check: frame check the frame was drawn from
+ *
+ * The overlay deposits batches exactly when it is active over a model holding
+ * wires or patches, so the geometry subject stands only then.
+ */
+  static void
+render_offer_overlay_geometry(render_surface_t *surface,
+    const render_check_result_t *check)
+{
+  if( !check->overlay_active || (data.n <= 0 && data.m <= 0) )
+    return;
+
+  surface_notice_capabilities(surface, SURFACE_CAP_SUBJECT_OVERLAY_GEOMETRY);
+
+} /* render_offer_overlay_geometry() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
  * render() - Produce one frame through the active engine
  * @surface: engine surface carrying the view and typed render operations
  *
@@ -142,6 +163,9 @@ render(render_surface_t *surface)
 
   ops = surface->engine->render;
   view = surface->view;
+
+  /* The view stands before the frame body runs */
+  surface_notice_capabilities(surface, SURFACE_CAP_SUBJECT_VIEW);
 
   render_deposit_colors(surface);
 
@@ -302,10 +326,12 @@ render(render_surface_t *surface)
         freq_sweep_complete()
         ? STATUS_MSG_NOT_READY
         : STATUS_MSG_START_FREQLOOP);
+    render_offer_overlay_geometry(surface, &r);
     g_rec_mutex_unlock(&freq_data_lock);
     return TRUE;
   }
 
+  render_offer_overlay_geometry(surface, &r);
   g_rec_mutex_unlock(&freq_data_lock);
   return TRUE;
 }

@@ -190,8 +190,8 @@ scroll_capability(surface_capability_t *const *caps, guint state)
 
 /**
  * surface_notice_capabilities() - Advertise capabilities acting on a subject
- * @surface: surface whose engine has resolved the subject
- * @subject: subject the calling engine brought into a reportable state
+ * @surface: surface whose frame drew the subject
+ * @subject: subject the frame drew
  *
  * The guard lives on the capability, so rows borrowing one capability
  * advertise it once between them.  An engine declining the notice leaves the
@@ -215,7 +215,7 @@ surface_notice_capabilities(render_surface_t *surface,
       continue;
 
     cap->notice_shown =
-      canvas_surface_notice_capability(surface, subject, cap->notice);
+      canvas_surface_notice_capability(surface, cap->notice);
   }
 
 } /* surface_notice_capabilities() */

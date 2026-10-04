@@ -44,10 +44,10 @@ typedef struct
   surface_modifier_t modifier;
 
   /* Text advertising the capability, presented on the first frame of the
-   * session whose engine resolves the subject the capability acts upon */
+   * session drawing the subject the capability acts upon */
   const char *notice;
 
-  /* Subject the capability acts upon, which the presenting engine gates on */
+  /* Subject the capability acts upon, which the frame drawing it gates on */
   surface_cap_subject_t subject;
 
   /* Raised once the notice has been advertised for this session */
@@ -57,8 +57,8 @@ typedef struct
 
 /**
  * surface_notice_capabilities() - Advertise capabilities acting on a subject
- * @surface: surface whose engine has resolved the subject
- * @subject: subject the calling engine brought into a reportable state
+ * @surface: surface whose frame drew the subject
+ * @subject: subject the frame drew
  *
  * Presents the notice of every capability the surface offers for @subject,
  * at most once per capability for the session, through the engine the

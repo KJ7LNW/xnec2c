@@ -41,14 +41,13 @@ canvas_surface_engine_complete(const render_engine_t *engine)
 } /* canvas_surface_engine_complete() */
 
   gboolean
-canvas_surface_notice_capability(render_surface_t *surface,
-    surface_cap_subject_t subject, const char *notice)
+canvas_surface_notice_capability(render_surface_t *surface, const char *notice)
 {
   if( surface == NULL || notice == NULL || surface->engine == NULL
       || surface->engine->notice_capability == NULL )
     return FALSE;
 
-  return( surface->engine->notice_capability(surface, subject, notice) );
+  return( surface->engine->notice_capability(surface, notice) );
 
 } /* canvas_surface_notice_capability() */
 

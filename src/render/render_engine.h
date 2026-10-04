@@ -36,9 +36,8 @@
 typedef struct render_ops_s render_ops_t;
 typedef struct render_surface_s render_surface_t;
 
-/* What an input capability acts upon.  The render layer names the subject a
- * capability stands on and the engine decides whether its own frame state
- * resolves that subject, so no frame vocabulary crosses the boundary. */
+/* What an input capability acts upon; render() offers the capability on each
+ * frame drawing its subject. */
 typedef enum
 {
   SURFACE_CAP_SUBJECT_VIEW = 0,
@@ -68,12 +67,10 @@ typedef struct render_engine_s
    * size-dependent resource sizes nothing. */
   void (*surface_resize)(render_surface_t *surface, int width, int height);
 
-  /* Advertise the text of an input capability acting upon a subject the
-   * caller has brought into a reportable state.  An engine presenting no
-   * notice, and one whose frame does not resolve the subject, returns FALSE,
-   * which leaves the capability unadvertised until a later frame. */
-  gboolean (*notice_capability)(render_surface_t *surface,
-      surface_cap_subject_t subject, const char *notice);
+  /* Advertise the text of an input capability.  An engine presenting no
+   * notice returns FALSE, which leaves the capability unadvertised until a
+   * later frame. */
+  gboolean (*notice_capability)(render_surface_t *surface, const char *notice);
 
 } render_engine_t;
 

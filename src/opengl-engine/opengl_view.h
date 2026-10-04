@@ -425,14 +425,12 @@ GdkPixbuf *gl_view_capture_pixbuf(render_surface_t *surface,
 /**
  * gl_view_notice_capability() - Advertise an input capability on the view
  * @surface: surface offering the capability
- * @subject: subject the capability acts upon
  * @notice:  text advertising the capability
  *
- * Returns FALSE while the frame has not resolved the subject, which leaves
- * the capability to be offered again on a later frame.
+ * Returns TRUE once the notice is presented.
  */
 gboolean gl_view_notice_capability(render_surface_t *surface,
-    surface_cap_subject_t subject, const char *notice);
+    const char *notice);
 
 /* gl_view_queue_render() - Request a frame from a view's GtkGLArea.
  * The GL areas run with auto-render disabled, so a frame is produced only

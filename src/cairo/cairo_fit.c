@@ -135,15 +135,13 @@ cairo_fit_view(render_surface_t *surface, view_fit_t *fit)
 
 /** cairo_notice_capability() - Decline to advertise an input capability
  * @_surface: surface offering the capability, unread below
- * @_subject: subject the capability acts upon, unread below
  * @_notice: text advertising the capability, unread below
  *
  * A Cairo frame carries no notice layer, so the capability stays unadvertised
  * and the render layer offers it again through whichever engine draws one.
  */
   static gboolean
-cairo_notice_capability(render_surface_t *_surface,
-    surface_cap_subject_t _subject, const char *_notice)
+cairo_notice_capability(render_surface_t *_surface, const char *_notice)
 {
   return FALSE;
 
