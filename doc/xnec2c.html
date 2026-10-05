@@ -1393,6 +1393,11 @@ xnec2c.</p>
 
   <dt><code>--mem-report</code></dt>
   <dd>Report managed-allocator live bytes per call site after each optimizer evaluation.</dd>
+
+  <dt><code>--render-engine &lt;name&gt;</code></dt>
+  <dd>Render with the named engine: <code>cairo</code>, or <code>opengl</code>
+  when xnec2c is built with OpenGL.  The named engine overrides the renderer
+  saved in the configuration.</dd>
 </dl>
 
 <p>The following arguments write to an output file after the frequency loop
@@ -1429,14 +1434,27 @@ filenames to write without <code>--batch</code> mode then enable the <span class
 
   <dt><code>--write-rdpat-png &lt;filename&gt;</code></dt>
   <dd>Write a PNG image of the radiation pattern at the configured saved
-  frequency, captured from the active renderer at the current window
-  resolution.  Use <code>--freq-select</code> to capture a different step.</dd>
+  frequency, captured from the active renderer at the saved window size or
+  the size <code>--png-size</code> gives.  Use <code>--freq-select</code> to
+  capture a different step.</dd>
+
+  <dt><code>--write-structure-png &lt;filename&gt;</code></dt>
+  <dd>Write a PNG image of the structure view, fitted to the image.  Requires
+  <code>--batch</code>.</dd>
+
+  <dt><code>--write-freqplots-png &lt;filename&gt;</code></dt>
+  <dd>Write a PNG image of the frequency plots.  Requires
+  <code>--batch</code>.</dd>
 
   <dt><code>--rdpat-png-format &lt;format[,format...]&gt;</code></dt>
   <dd>Select radiation-pattern PNG views: <code>x</code>, <code>y</code>,
   <code>z</code>, <code>iso</code>, or <code>quad</code>. The default is
   <code>iso</code>. One format preserves <code>&lt;filename&gt;</code>; multiple
   formats write <code>&lt;filename&gt;-&lt;format&gt;.png</code>.</dd>
+
+  <dt><code>--png-size &lt;width&gt;x&lt;height&gt;</code></dt>
+  <dd>Set the pixel size of every PNG image written, eg <code>1920x1080</code>.
+  When absent, each image takes the saved size of its window.</dd>
 
   <dt><code>--freq-select &lt;min-vswr|center|max-gain|MHz&gt;</code></dt>
   <dd>Select the frequency positioned after each frequency sweep: the

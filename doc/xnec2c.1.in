@@ -41,6 +41,8 @@ a translation to C of the FORTRAN application NEC2
 \-\-force\-verify     force overlap check on large models (models with more than 1000 segments)
 .IP
 \-\-mem\-report       report managed allocator live bytes per call site after each optimizer evaluation
+.IP
+\-\-render\-engine <name>   render with the named engine: cairo, or opengl when built with OpenGL; overrides the renderer saved in the configuration
 .PP
 .sp 2
 
@@ -71,7 +73,13 @@ specify on the command line will not be written.
 .IP
 \-\-write\-rdpat\-png       <filename>  \- write PNG of the radiation pattern at the configured saved frequency (see \-\-freq\-select)
 .IP
+\-\-write\-structure\-png   <filename>  \- write PNG of the fitted structure view; requires \-\-batch
+.IP
+\-\-write\-freqplots\-png   <filename>  \- write PNG of the frequency plots; requires \-\-batch
+.IP
 \-\-rdpat\-png\-format     <format[,format...]>  \- select x, y, z, iso, or quad views; defaults to iso. One format preserves <filename>; multiple formats write <filename>\-<format>.png
+.IP
+\-\-png\-size <width>x<height>  \- pixel size of every PNG image written; absent, each image takes the saved size of its window
 .IP
 \-\-freq\-select <min\-vswr|center|max\-gain|MHz>  \- select the frequency positioned after each sweep: minimum SWR, sweep center, maximum gain, or the computed step nearest the given MHz; absent, the previous saved frequency is kept, or the sweep center when none is available. This selection also drives the \-\-write\-rdpat\-png capture step
 .IP
