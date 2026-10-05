@@ -21,5 +21,6 @@
 #define ARGS_H      1
 
 void args_parse(int argc, char **argv);
+const char *args_option_name(const void *target);
 
 #endif

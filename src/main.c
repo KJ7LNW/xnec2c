@@ -139,14 +139,9 @@ main (int argc, char *argv[])
 	  exit(1);
   }
 
-  /* The radiation-pattern PNG is written only on batch teardown; a target set
-   * without --batch is a false contract, so abort once all arguments are
-   * parsed, honoring --batch regardless of its position. */
-  if( rc_config.filename_rdpat_png != NULL && !rc_config.batch_mode )
-  {
-    pr_crit("--write-rdpat-png requires --batch\n");
-    exit(1);
-  }
+  /* Check the PNG targets once all arguments are parsed, honoring --batch
+   * regardless of its position */
+  batch_png_require_batch();
 
   /* Initialize the external math libraries */
   init_mathlib();

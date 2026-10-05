@@ -88,6 +88,7 @@ enum XNEC2C_OPTS {
 	OPT_FREQ_SELECT,
 	OPT_RENDER_ENGINE,
 	OPT_PNG_SIZE,
+	OPT_WRITE_STRUCTURE_PNG,
 
 	OPT_MAX_OPTS
 };
@@ -238,6 +239,10 @@ static const usage_entry_t usage_entries[] = {
 	  .metavar = "<filename>",
 	  .text = N_("write PNG of the radiation pattern"),
 	  .target = &rc_config.filename_rdpat_png,          .apply = apply_string_ref },
+	{ .name = "write-structure-png",                    .id = OPT_WRITE_STRUCTURE_PNG,
+	  .metavar = "<filename>",
+	  .text = N_("write PNG of the structure view"),
+	  .target = &rc_config.filename_structure_png,      .apply = apply_string_ref },
 	{ .name = "rdpat-png-format",                       .id = OPT_RDPAT_PNG_FORMAT,
 	  .metavar = "<format[,format...]>",
 	  .text = N_("x, y, z, iso, or quad views"),
@@ -245,8 +250,7 @@ static const usage_entry_t usage_entries[] = {
 	  .target = &rc_config.rdpat_png_formats,           .apply = apply_rdpat_png_format },
 	{ .name = "png-size",                               .id = OPT_PNG_SIZE,
 	  .metavar = "<width>x<height>",
-	  .text = N_("pixel size of PNG images; absent, the radiation pattern window "
-	  "size"),
+	  .text = N_("pixel size of PNG images; absent, each window's size"),
 	  .target = &rc_config.png_size,                    .apply = apply_png_size },
 	{ 0 },
 
@@ -1154,4 +1158,31 @@ void args_parse(int argc, char **argv)
 	while( (option = getopt_long(argc, argv, usage_model.optstring,
 	    usage_model.long_options, NULL)) != -1 )
 		apply_option(option, optarg);
+}
+
+/**
+ * args_option_name() - Name the long option that writes a configuration datum
+ * @target: configuration datum one usage row writes
+ *
+ * Return: the long option spelling, or NULL after reporting a bug when no
+ * usage row writes @target.
+ */
+const char *args_option_name(const void *target)
+{
+	const char *name = NULL;
+	size_t idx;
+
+	for( idx = 0; idx < G_N_ELEMENTS(usage_entries) && name == NULL; idx++ )
+	{
+		const usage_entry_t *entry = &usage_entries[idx];
+
+		if( entry->name == NULL || entry->target != target )
+			continue;
+
+		name = entry->name;
+	}
+
+	BUG_ON(name == NULL, "no usage entry writes target %p\n", target);
+
+	return name;
 }

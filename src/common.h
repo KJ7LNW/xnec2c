@@ -457,6 +457,7 @@ typedef struct
   char *filename_gnuplot_structure;
   char *filename_patch_currents;
   char *filename_rdpat_png;
+  char *filename_structure_png;
   rdpat_png_format_spec_t *rdpat_png_formats;
   freq_select_mode_t freq_select_mode;   /* zero = FREQ_SELECT_NONE */
   double freq_select_mhz;                /* set iff mode == FREQ_SELECT_MHZ */
@@ -2008,6 +2009,7 @@ void New_Frequency(void);
 
 gboolean Frequency_Loop(gpointer udata);
 void batch_finish_no_steps(void);
+void batch_png_require_batch(void);
 gboolean freq_loop_run_sync(void);
 gboolean Start_Frequency_Loop(void);
 gboolean Start_Frequency_Loop_Greenline(void);

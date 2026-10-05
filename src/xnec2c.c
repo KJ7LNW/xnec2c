@@ -34,6 +34,7 @@
 #include "rdpattern_ui.h"
 #include "structure_ui.h"
 #include "window_lifecycle.h"
+#include "args.h"
 
 #define BATCH_PNG_DEFAULT_PX 800
 
@@ -43,6 +44,13 @@ typedef struct {
   int column;
   int row;
 } batch_rdpattern_pane_t;
+
+/* One single-image batch capture: the window whose canvas is drawn and the
+ * rc_config field its command-line option sets. */
+typedef struct {
+  window_t window;
+  char **filename;
+} batch_png_target_t;
 
 static const batch_rdpattern_pane_t batch_rdpattern_panes[] = {
   { .button_id = "rdpattern_x_axis", .format = RDPAT_PNG_FORMAT_X,
@@ -57,6 +65,10 @@ static const batch_rdpattern_pane_t batch_rdpattern_panes[] = {
 
 _Static_assert(G_N_ELEMENTS(batch_rdpattern_panes) + 1 == RDPAT_PNG_FORMAT_COUNT,
     "quad is the only radiation-pattern PNG format without a single pane");
+
+static const batch_png_target_t batch_png_targets[] = {
+  { .window = MAIN_WINDOW, .filename = &rc_config.filename_structure_png },
+};
 
 /* Only nec2_eval_signal() is called from xnec2c.c; avoid pulling
  * gsl headers (via opt_simple.h) which conflict with openblas cblas. */
@@ -1879,7 +1891,98 @@ batch_write_rdpat_pngs(void)
 /*-----------------------------------------------------------------------*/
 
 /**
- * batch_capture_and_quit() - Capture an optional batch PNG before teardown
+ * batch_write_png_target() - Write the PNG one batch target requests
+ * @target: row naming the captured window and its filename field
+ *
+ * Builds the window without presenting it and captures its fitted canvas at
+ * the batch capture size.  A target whose option is absent writes nothing.
+ */
+  static void
+batch_write_png_target(const batch_png_target_t *target)
+{
+  const char *filename = *target->filename;
+  batch_capture_size_t size;
+  GdkPixbuf *pixbuf;
+  GError *error = NULL;
+
+  if( filename == NULL )
+    return;
+
+  size = batch_capture_size(target->window);
+  pixbuf = window_build(target->window)
+      ? batch_capture_pane(target->window, &size) : NULL;
+
+  if( pixbuf == NULL )
+    pr_err("--%s capture failed for %s\n",
+        args_option_name(target->filename), filename);
+  else if( !gdk_pixbuf_save(pixbuf, filename, "png", &error, NULL) )
+  {
+    pr_err("--%s save failed for %s: %s\n",
+        args_option_name(target->filename), filename, error->message);
+    g_error_free(error);
+  }
+  else
+    pr_notice("--%s wrote %s\n", args_option_name(target->filename), filename);
+
+  g_clear_object(&pixbuf);
+
+} /* batch_write_png_target() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_write_pngs() - Write every PNG the batch command line requests
+ */
+  static void
+batch_write_pngs(void)
+{
+  gsize idx;
+
+  batch_write_rdpat_pngs();
+
+  for( idx = 0; idx < G_N_ELEMENTS(batch_png_targets); idx++ )
+    batch_write_png_target(&batch_png_targets[idx]);
+
+} /* batch_write_pngs() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_png_require_batch() - Reject PNG options given without --batch
+ *
+ * PNG targets are written only on batch teardown, so a target set without
+ * --batch is a false contract; exits with status 1 naming the option.
+ */
+void
+batch_png_require_batch(void)
+{
+  gsize idx;
+
+  if( rc_config.batch_mode == TRUE )
+    return;
+
+  if( rc_config.filename_rdpat_png != NULL )
+  {
+    pr_crit("--write-rdpat-png requires --batch\n");
+    exit(1);
+  }
+
+  for( idx = 0; idx < G_N_ELEMENTS(batch_png_targets); idx++ )
+  {
+    if( *batch_png_targets[idx].filename == NULL )
+      continue;
+
+    pr_crit("--%s requires --batch\n",
+        args_option_name(batch_png_targets[idx].filename));
+    exit(1);
+  }
+
+} /* batch_png_require_batch() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * batch_capture_and_quit() - Write the requested batch PNGs before teardown
  * @user_data: unused idle source data
  */
   static void
@@ -1887,7 +1990,7 @@ batch_capture_and_quit(gpointer user_data)
 {
   (void)user_data;
 
-  batch_write_rdpat_pngs();
+  batch_write_pngs();
   xnec2c_quit(NULL);
 
 } /* batch_capture_and_quit() */
@@ -1914,7 +2017,7 @@ batch_finish_no_steps( void )
   if( opt_have_files_to_save() )
     Write_Optimizer_Data();
 
-  batch_write_rdpat_pngs();
+  batch_write_pngs();
   xnec2c_quit( NULL );
 }
 
