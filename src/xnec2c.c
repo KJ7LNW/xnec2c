@@ -38,11 +38,6 @@
 #define BATCH_RDPAT_DEFAULT_PX 800
 
 typedef struct {
-  int width;
-  int height;
-} batch_capture_size_t;
-
-typedef struct {
   const char *button_id;
   rdpat_png_format_t format;
   int column;
@@ -1619,22 +1614,23 @@ batch_force_render(canvas_id_t id, int width, int height)
 /**
  * batch_rdpattern_capture_size() - Resolve native dimensions for batch panes
  *
- * Returns configured radiation-pattern dimensions, falling back to the
- * established batch default when the configuration has no usable size.
+ * Returns the --png-size dimensions when given, else the configured
+ * radiation-pattern dimensions, falling back to the established batch
+ * default when the configuration has no usable size.
  */
   static batch_capture_size_t
 batch_rdpattern_capture_size(void)
 {
-  batch_capture_size_t size = {
-    .width = rc_config.rdpattern_width,
-    .height = rc_config.rdpattern_height,
-  };
+  batch_capture_size_t size;
 
-  if( size.width <= 1 || size.height <= 1 )
-  {
-    size.width = BATCH_RDPAT_DEFAULT_PX;
-    size.height = BATCH_RDPAT_DEFAULT_PX;
-  }
+  if( rc_config.png_size.width > 0 )
+    size = rc_config.png_size;
+  else if( rc_config.rdpattern_width > 1 && rc_config.rdpattern_height > 1 )
+    size = (batch_capture_size_t){ .width = rc_config.rdpattern_width,
+      .height = rc_config.rdpattern_height };
+  else
+    size = (batch_capture_size_t){ .width = BATCH_RDPAT_DEFAULT_PX,
+      .height = BATCH_RDPAT_DEFAULT_PX };
 
   return size;
 
@@ -1661,13 +1657,13 @@ batch_apply_rdpattern_fit(void)
 
 /**
  * batch_prepare_rdpattern_window() - Realize the radiation-pattern capture view
- * @width: capture width in pixels
- * @height: capture height in pixels
  *
- * Returns TRUE when the radiation-pattern view is available at capture size.
+ * The window keeps its own size; each capture sizes the canvas through
+ * canvas_draw_sync().  Returns TRUE when the radiation-pattern view is
+ * available.
  */
   static gboolean
-batch_prepare_rdpattern_window(int width, int height)
+batch_prepare_rdpattern_window(void)
 {
   GtkWidget *menu_item;
 
@@ -1684,7 +1680,6 @@ batch_prepare_rdpattern_window(int width, int height)
       || rdpattern_view == NULL || rdpattern_window_builder == NULL )
     return FALSE;
 
-  gtk_window_resize(GTK_WINDOW(rdpattern_window), width, height);
   gtk_widget_show_now(rdpattern_window);
 
   return TRUE;
@@ -1728,7 +1723,7 @@ batch_capture_rdpattern_preset_pane(const char *button_id, int width, int height
 {
   GtkWidget *button;
 
-  if( !batch_prepare_rdpattern_window(width, height) )
+  if( !batch_prepare_rdpattern_window() )
     return NULL;
 
   button = Builder_Get_Object(rdpattern_window_builder, button_id);

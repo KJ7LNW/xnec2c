@@ -293,6 +293,12 @@ typedef struct {
   rdpat_png_format_t format;
 } rdpat_png_format_spec_t;
 
+/* Pixel dimensions of a batch image capture */
+typedef struct {
+  int width;
+  int height;
+} batch_capture_size_t;
+
 /* Batch radiation-pattern capture frequency selector */
 typedef enum {
   FREQ_SELECT_NONE = 0,   /* keep configured fmhz_save step */
@@ -455,6 +461,7 @@ typedef struct
   freq_select_mode_t freq_select_mode;   /* zero = FREQ_SELECT_NONE */
   double freq_select_mhz;                /* set iff mode == FREQ_SELECT_MHZ */
   const struct render_engine_s *render_engine;  /* command-line engine, NULL when absent */
+  batch_capture_size_t png_size;         /* command-line capture size, zero when absent */
 
   /* Symbol overrides window */
   int sy_overrides_is_open;

@@ -87,6 +87,7 @@ enum XNEC2C_OPTS {
 	OPT_RDPAT_PNG_FORMAT,
 	OPT_FREQ_SELECT,
 	OPT_RENDER_ENGINE,
+	OPT_PNG_SIZE,
 
 	OPT_MAX_OPTS
 };
@@ -110,6 +111,7 @@ static void apply_validation_dir(const usage_entry_t *entry, char *arg);
 static void apply_rdpat_png_format(const usage_entry_t *entry, char *arg);
 static void apply_freq_select(const usage_entry_t *entry, char *arg);
 static void apply_render_engine(const usage_entry_t *entry, char *arg);
+static void apply_png_size(const usage_entry_t *entry, char *arg);
 
 static const usage_entry_t usage_entries[] = {
 	{ .text = N_("Usage: xnec2c [options] [<input-file-name>]") },
@@ -241,6 +243,11 @@ static const usage_entry_t usage_entries[] = {
 	  .text = N_("x, y, z, iso, or quad views"),
 	  .default_arg = "iso",
 	  .target = &rc_config.rdpat_png_formats,           .apply = apply_rdpat_png_format },
+	{ .name = "png-size",                               .id = OPT_PNG_SIZE,
+	  .metavar = "<width>x<height>",
+	  .text = N_("pixel size of PNG images; absent, the radiation pattern window "
+	  "size"),
+	  .target = &rc_config.png_size,                    .apply = apply_png_size },
 	{ 0 },
 
 	{ .name = "freq-select",                            .id = OPT_FREQ_SELECT,
@@ -1046,6 +1053,39 @@ static void apply_render_engine(const usage_entry_t *entry, char *arg)
 		pr_crit("unknown render engine: %s\n", arg);
 		exit(1);
 	}
+}
+
+/**
+ * apply_png_size() - Set the pixel size of batch PNG captures
+ * @entry: option row whose target holds the capture size
+ * @arg: width and height joined by 'x', eg 1920x1080
+ *
+ * Exits when @arg is not two positive integers joined by 'x'.
+ */
+static void apply_png_size(const usage_entry_t *entry, char *arg)
+{
+	batch_capture_size_t *size = entry->target;
+	GRegex *size_re;
+	GMatchInfo *match;
+	char *width;
+	char *height;
+
+	size_re = g_regex_new("^([0-9]+)x([0-9]+)$", 0, 0, NULL);
+	if( !g_regex_match(size_re, arg, 0, &match) )
+	{
+		pr_crit("--%s requires <width>x<height>: %s\n", entry->name, arg);
+		exit(1);
+	}
+
+	width = g_match_info_fetch(match, 1);
+	height = g_match_info_fetch(match, 2);
+	size->width = parse_count(entry, width, 1);
+	size->height = parse_count(entry, height, 1);
+
+	g_free(width);
+	g_free(height);
+	g_match_info_free(match);
+	g_regex_unref(size_re);
 }
 
 /**
