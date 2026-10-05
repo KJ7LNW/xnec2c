@@ -34,11 +34,11 @@
 
 /*------------------------------------------------------------------------*/
 
-/** general_tab_apply_gl_sensitivity - Disable renderer toggle when GL unavailable
+/** general_tab_apply_gl_sensitivity - Disable renderer radios when GL unavailable
  *
  * Called by render_settings_sync_from_config() after the builder's widgets
- * are populated, to apply hardware-availability constraints to the OpenGL
- * renderer checkbox.
+ * are populated, to apply hardware-availability constraints to the Cairo and
+ * OpenGL renderer radio buttons.
  */
 static void
 general_tab_apply_gl_sensitivity(void)

@@ -33,12 +33,38 @@
     <property name="margin-bottom">8</property>
 
     <child>
-      <object class="GtkCheckButton" id="chk_opengl_renderer">
+      <object class="GtkBox" id="render_engine_row">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="label">Use OpenGL Renderer</property>
-        <property name="tooltip-text">Enable OpenGL hardware rendering; uncheck to use Cairo software rendering</property>
-        <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
+        <property name="can-focus">False</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label">Renderer:</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="radio_renderer_cairo">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="label">Cairo</property>
+            <property name="tooltip-text">Render views with Cairo software rendering</property>
+            <property name="draw-indicator">True</property>
+            <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="radio_renderer_opengl">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="label">OpenGL</property>
+            <property name="tooltip-text">Render views with OpenGL hardware rendering</property>
+            <property name="draw-indicator">True</property>
+            <property name="group">radio_renderer_cairo</property>
+            <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
+          </object>
+        </child>
       </object>
     </child>
 
@@ -177,7 +203,7 @@
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="use-underline">True</property>
-            <property name="tooltip-text">Reset renderer toggle, constrained rotation, and wire radius scale to defaults</property>
+            <property name="tooltip-text">Reset renderer selection, constrained rotation, and wire radius scale to defaults</property>
             <signal name="clicked" handler="on_general_reset_clicked" swapped="no"/>
           </object>
           <packing>

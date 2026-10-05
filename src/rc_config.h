@@ -28,7 +28,7 @@
 
 #define DEFAULT_CONFIG_FILE     ".xnec2c/xnec2c.conf"
 
-// Compiled-in reset default for the OpenGL renderer toggle; enabled only in
+// Compiled-in reset default for the renderer selection; OpenGL only in
 // OpenGL builds.  Consumed by the rc_config_vars row for use_opengl_renderer.
 #ifdef HAVE_OPENGL
 # define RENDERER_RESET_DEFAULT 1

@@ -311,8 +311,16 @@ rc_config_vars_t rc_config_vars[] = {
 	{ .desc = "Use OpenGL Renderer for Radiation Patterns", .format = "%d",
 		.vars = { &rc_config.use_opengl_renderer },
 		.def = { { .i = RENDERER_RESET_DEFAULT } },
-		.widgets = CONFIG_WIDGET_SINGLE( &render_settings_builder,
-			"chk_opengl_renderer", &hook_set_renderer_refresh ) },
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_set_renderer_refresh,
+			.groups = CONFIG_WIDGET_GROUPS(
+				CONFIG_WIDGET_GROUP( .builder = &render_settings_builder,
+					.elements = CONFIG_WIDGETS(
+						CONFIG_WIDGET( .widget_id = "radio_renderer_cairo",
+							.values = CONFIG_WIDGET_VALUES(FALSE) ),
+						CONFIG_WIDGET( .widget_id = "radio_renderer_opengl",
+							.values = CONFIG_WIDGET_VALUES(TRUE) ),
+						NULL ) ),
+				NULL ) ) },
 
 	{ .desc = "Use Constrained View Drag Rotation", .format = "%d",
 		.vars = { &rc_config.view_drag_constrained }, .def = { { .i = 1 } },

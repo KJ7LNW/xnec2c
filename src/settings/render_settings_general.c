@@ -37,7 +37,7 @@ CONFIG_FIELD_INT_ASSERT(rc_config.view_drag_constrained);
 
 /** hook_set_renderer - Switch the active renderer, then redraw
  *
- * Change-edge hook for the OpenGL-renderer toggle.
+ * Change-edge hook for the Cairo and OpenGL renderer radio buttons.
  */
 void
 hook_set_renderer(void)
@@ -64,7 +64,7 @@ const config_refresh_t hook_set_constrained_refresh =
 
 /*------------------------------------------------------------------------*/
 
-/* General tab reset-field list: renderer toggle, constrained rotation, and
+/* General tab reset-field list: renderer selection, constrained rotation, and
  * wire radius scale.
  * Overlay scale is programmatic session state (shift+scroll) with no widget,
  * so it is excluded from the settings reset. */
@@ -79,7 +79,7 @@ void *const general_tab_fields[] = {
 
 /** on_general_reset_clicked - Per-tab Reset button handler for General tab
  *
- * Resets the renderer toggle, constrained rotation, and wire radius scale
+ * Resets the renderer selection, constrained rotation, and wire radius scale
  * to compiled-in defaults; config_reset_tab_user syncs peer widgets and runs
  * each changed field's hook.
  */
