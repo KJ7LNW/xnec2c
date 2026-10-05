@@ -373,17 +373,14 @@ main (int argc, char *argv[])
 
   /* Create the GL surface after the view is initialized */
 #ifdef HAVE_OPENGL
-  {
-    GtkWidget *box = Builder_Get_Object(main_window_builder, "structure_box");
+  canvas_add_surface( CANVAS_STRUCTURE,
+      opengl_structure_surface_new(GTK_CONTAINER(
+          gtk_widget_get_parent(structure_cairo_da))) );
 
-    canvas_add_surface( CANVAS_STRUCTURE,
-        opengl_structure_surface_new(GTK_CONTAINER(box)) );
+  /* A command-line engine replaces the renderer choice Read_Config() stored */
+  render_engine_request_apply();
 
-    /* A command-line engine replaces the renderer choice Read_Config() stored */
-    render_engine_request_apply();
-
-    opengl_set_renderer(rc_config.use_opengl_renderer);
-  }
+  opengl_set_renderer(rc_config.use_opengl_renderer);
 #else
   canvas_set_engine( CANVAS_STRUCTURE, &cairo_engine );
 

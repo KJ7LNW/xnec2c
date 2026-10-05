@@ -579,21 +579,19 @@ on_main_rdpattern_activate(
               ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
     }
 
+    GtkWidget *rdpattern_cairo_da = Builder_Get_Object(
+        rdpattern_window_builder, "rdpattern_drawingarea" );
+
     canvas_add_surface( CANVAS_RDPATTERN,
-        cairo_surface_adopt(Builder_Get_Object(
-            rdpattern_window_builder, "rdpattern_drawingarea" ),
+        cairo_surface_adopt(rdpattern_cairo_da,
           rdpattern_view, rdpattern_input_caps) );
 
 #ifdef HAVE_OPENGL
-    {
-      GtkWidget *box = Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_canvas_box");
+    canvas_add_surface( CANVAS_RDPATTERN,
+        opengl_rdpattern_surface_new(GTK_CONTAINER(
+            gtk_widget_get_parent(rdpattern_cairo_da))) );
 
-      canvas_add_surface( CANVAS_RDPATTERN,
-          opengl_rdpattern_surface_new(GTK_CONTAINER(box)) );
-
-      opengl_set_renderer(rc_config.use_opengl_renderer);
-    }
+    opengl_set_renderer(rc_config.use_opengl_renderer);
 #else
     canvas_set_engine( CANVAS_RDPATTERN, &cairo_engine );
 

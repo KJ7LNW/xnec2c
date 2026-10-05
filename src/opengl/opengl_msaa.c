@@ -45,6 +45,11 @@ msaa_update_view(render_surface_t *surface, int samples)
 
   state = gl_view_state(surface);
 
+  /* Recreation needs a current context.  An area realizing later sizes its
+   * framebuffers in on_realize() at rc_config.opengl_msaa_samples. */
+  if( !gtk_widget_get_realized(state->gl_area) )
+    return;
+
   gtk_gl_area_make_current(GTK_GL_AREA(state->gl_area));
   gl_view_scene_recreate(state, samples);
 
