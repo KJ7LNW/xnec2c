@@ -403,6 +403,15 @@ void gl_view_gpu_release(gl_view_state_t *state);
 GdkPixbuf *gl_view_capture_pixbuf(render_surface_t *surface,
     int width, int height);
 
+/**
+ * gl_view_frame() - Render one frame into the engine-owned resolve framebuffer
+ * @surface: GL surface whose view the frame shows
+ *
+ * Returns FALSE when the context reports an error or the view produces no
+ * frame.
+ */
+gboolean gl_view_frame(render_surface_t *surface);
+
 /* gl_view_queue_render() - Request a frame from a view's GtkGLArea.
  * The GL areas run with auto-render disabled, so a frame is produced only
  * on request. */

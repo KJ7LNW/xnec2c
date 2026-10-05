@@ -21,9 +21,15 @@
 /* Cairo backend vtable; render() gates slot calls by mode */
 extern const render_ops_t cairo_ops;
 
-/** cairo_capture_pixbuf() - Draw a Cairo surface's widget offscreen into a pixbuf
+/** cairo_frame_produce() - Draw one frame of a Cairo surface into its capture image
  *
- * Returns NULL when the widget is not drawable.
+ * Returns FALSE when the image cannot be allocated.
+ */
+gboolean cairo_frame_produce(render_surface_t *surface);
+
+/** cairo_capture_pixbuf() - Read the latest frame of a Cairo surface into a pixbuf
+ *
+ * Returns NULL when the latest frame was not produced at the requested size.
  */
 GdkPixbuf *cairo_capture_pixbuf(render_surface_t *surface,
     int width, int height);

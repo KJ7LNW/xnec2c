@@ -157,16 +157,15 @@ gboolean canvas_sync_viewport(canvas_id_t id);
 void canvas_invalidate(canvas_id_t id);
 
 /**
- * canvas_draw_sync() - Allocate, invalidate, and draw a canvas synchronously
+ * canvas_draw_sync() - Allocate a canvas and produce its frame synchronously
  * @id: canvas to draw
  * @width: requested allocation width
  * @height: requested allocation height
- * @cr: destination Cairo context
  *
- * Runs on the GTK main thread and returns FALSE while the canvas is unbound
- * or the requested draw inputs are invalid.
+ * Runs on the GTK main thread and returns FALSE while the canvas is unbound,
+ * the requested draw inputs are invalid, or the engine produces no frame.
  */
-gboolean canvas_draw_sync(canvas_id_t id, int width, int height, cairo_t *cr);
+gboolean canvas_draw_sync(canvas_id_t id, int width, int height);
 
 /**
  * canvas_queue_redraw() - Schedule a canvas frame through the optimizer gate
@@ -192,13 +191,13 @@ void canvas_queue_redraw(canvas_id_t id, gboolean force);
 gboolean canvas_fit_view(view_t *view, view_fit_t *fit);
 
 /**
- * canvas_capture() - Capture a canvas frame through the bound engine
+ * canvas_capture() - Produce and capture a canvas frame through the bound engine
  * @id:     canvas to capture
  * @width:  capture width in pixels
  * @height: capture height in pixels
  *
  * Returns a newly allocated pixbuf, or NULL when the canvas is unbound or
- * its engine cannot capture the rendered frame.
+ * its engine produces or captures no frame.
  */
 GdkPixbuf *canvas_capture(canvas_id_t id, int width, int height);
 

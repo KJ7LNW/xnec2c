@@ -227,6 +227,7 @@ const render_engine_t gl_engine =
   .name = "opengl",
   .surface_free = gl_view_surface_free,
   .fit_view = gl_view_fit_view,
+  .frame = gl_view_frame,
   .capture = gl_view_capture_pixbuf,
   .queue_redraw = gl_view_surface_queue_redraw,
   .surface_resize = gl_view_surface_resize,

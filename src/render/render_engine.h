@@ -48,6 +48,13 @@ typedef struct render_engine_s
   void (*surface_free)(render_surface_t *surface);
 
   gboolean (*fit_view)(render_surface_t *surface, view_fit_t *fit);
+
+  /* Produce one frame at the surface's allocated size into the engine-owned
+   * capture target without presenting it, so a surface whose window is
+   * unmapped produces the frame too.  Runs on the GTK main thread. */
+  gboolean (*frame)(render_surface_t *surface);
+
+  /* Read the capture target the latest frame wrote. */
   GdkPixbuf *(*capture)(render_surface_t *surface, int width, int height);
 
   /* Request a new frame from the engine's surface.  A Cairo area produces

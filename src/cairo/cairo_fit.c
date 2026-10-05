@@ -140,6 +140,7 @@ const render_engine_t cairo_engine =
   .name = "cairo",
   .surface_free = cairo_surface_free,
   .fit_view = cairo_fit_view,
+  .frame = cairo_frame_produce,
   .capture = cairo_capture_pixbuf,
   .queue_redraw = cairo_queue_redraw,
   .surface_resize = cairo_surface_resize,

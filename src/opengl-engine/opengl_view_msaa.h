@@ -38,6 +38,13 @@ void gl_view_scene_recreate(gl_view_state_t *state, int requested_samples);
  */
 void gl_view_scene_free(gl_view_state_t *state);
 
+/* gl_view_scene_resolve()
+ *
+ * Resolve the scene color buffer into the single-sample resolve framebuffer
+ * that capture reads and presentation copies.
+ */
+void gl_view_scene_resolve(gl_view_state_t *state);
+
 /* gl_view_scene_present()
  *
  * Resolve the scene color buffer to a single-sample texture, then

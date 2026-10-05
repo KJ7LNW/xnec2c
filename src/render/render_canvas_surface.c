@@ -141,7 +141,10 @@ canvas_surface_capture(render_surface_t *surface, int width, int height)
     return NULL;
 
   if( surface == NULL || surface->engine == NULL
-      || surface->engine->capture == NULL )
+      || surface->engine->frame == NULL || surface->engine->capture == NULL )
+    return NULL;
+
+  if( !surface->engine->frame(surface) )
     return NULL;
 
   return( surface->engine->capture(surface, width, height) );
@@ -159,24 +162,22 @@ canvas_surface_pango_layout(const render_surface_t *surface, const char *text)
 } /* canvas_surface_pango_layout() */
 
   gboolean
-canvas_surface_draw_sync(render_surface_t *surface,
-    int width, int height, cairo_t *cr)
+canvas_surface_draw_sync(render_surface_t *surface, int width, int height)
 {
   GtkAllocation allocation = {0};
 
-  if( width <= 0 || height <= 0 || cr == NULL )
+  if( width <= 0 || height <= 0 )
     return FALSE;
 
-  if( surface == NULL || surface->widget == NULL )
+  if( surface == NULL || surface->widget == NULL || surface->engine == NULL
+      || surface->engine->frame == NULL )
     return FALSE;
 
   allocation.width = width;
   allocation.height = height;
   gtk_widget_size_allocate(surface->widget, &allocation);
-  canvas_surface_queue_redraw(surface);
-  gtk_widget_draw(surface->widget, cr);
 
-  return TRUE;
+  return( surface->engine->frame(surface) );
 
 } /* canvas_surface_draw_sync() */
 

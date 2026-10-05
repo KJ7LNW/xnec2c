@@ -181,6 +181,28 @@ gl_view_scene_recreate(gl_view_state_t *state, int requested_samples)
 
 /*-----------------------------------------------------------------------*/
 
+/** gl_view_scene_resolve() - Resolve scene color into the single-sample texture
+ * @state: view state holding the scene and resolve resources
+ *
+ * Blits the scene framebuffer, multisampled or not, into resolve_fbo, the
+ * engine-owned frame that capture reads and presentation copies.
+ */
+  void
+gl_view_scene_resolve(gl_view_state_t *state)
+{
+  int w = state->msaa_width;
+  int h = state->msaa_height;
+
+  /* Hardware resolve: multisample color → single-sample texture */
+  glBindFramebuffer(GL_READ_FRAMEBUFFER, state->scene_fbo);
+  glBindFramebuffer(GL_DRAW_FRAMEBUFFER, state->resolve_fbo);
+  glBlitFramebuffer(0, 0, w, h, 0, 0, w, h,
+      GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
+} /* gl_view_scene_resolve() */
+
+/*-----------------------------------------------------------------------*/
+
 /** gl_view_scene_present() - Resolve scene color to a texture, then draw it into default_fbo
  * @state: view state holding the scene and resolve resources
  * @default_fbo: GTK-provided framebuffer that receives the resolved image
@@ -195,11 +217,7 @@ gl_view_scene_present(gl_view_state_t *state, GLint default_fbo)
   int w = state->msaa_width;
   int h = state->msaa_height;
 
-  /* Hardware resolve: multisample color → single-sample texture */
-  glBindFramebuffer(GL_READ_FRAMEBUFFER, state->scene_fbo);
-  glBindFramebuffer(GL_DRAW_FRAMEBUFFER, state->resolve_fbo);
-  glBlitFramebuffer(0, 0, w, h, 0, 0, w, h,
-      GL_COLOR_BUFFER_BIT, GL_NEAREST);
+  gl_view_scene_resolve(state);
 
   /* Fullscreen textured copy of the resolved color into default_fbo */
   glBindFramebuffer(GL_FRAMEBUFFER, default_fbo);

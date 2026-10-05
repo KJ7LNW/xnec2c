@@ -31,5 +31,12 @@
  */
 void gl_view_render_connect(gl_view_state_t *state);
 
+/* gl_view_scene_render()
+ *
+ * Render one frame of a view into its scene framebuffer with the view's
+ * context current.  Returns FALSE when no frame was produced.
+ */
+gboolean gl_view_scene_render(gl_view_state_t *state);
+
 #endif /* HAVE_OPENGL */
 #endif /* OPENGL_VIEW_RENDER_H */

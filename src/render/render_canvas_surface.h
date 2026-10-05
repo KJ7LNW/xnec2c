@@ -104,15 +104,15 @@ PangoLayout *canvas_surface_pango_layout(const render_surface_t *surface,
     const char *text);
 
 /**
- * canvas_surface_draw_sync() - Allocate, invalidate, and draw one surface
+ * canvas_surface_draw_sync() - Allocate one surface and produce its frame
  * @surface: active surface object
  * @width:   requested allocation width
  * @height:  requested allocation height
- * @cr:      destination Cairo context
  *
- * Returns FALSE for degenerate draw inputs.
+ * Returns FALSE for degenerate draw inputs or when the engine produces no
+ * frame.
  */
 gboolean canvas_surface_draw_sync(render_surface_t *surface,
-    int width, int height, cairo_t *cr);
+    int width, int height);
 
 #endif /* __RENDER_CANVAS_SURFACE_H */

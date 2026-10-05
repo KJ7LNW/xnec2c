@@ -65,6 +65,7 @@ typedef struct
 {
   render_surface_t     base;
   cairo_scenebuffer_t  scenebuffer;  /* retained allocation, reset per frame */
+  cairo_surface_t     *capture_image; /* latest frame() target, RGB24 */
   cairo_render_ctx_t   frame;        /* per-draw; cr written at draw entry */
 
 } cairo_engine_surface_t;

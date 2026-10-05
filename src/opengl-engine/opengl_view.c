@@ -608,6 +608,45 @@ gl_view_queue_render(gl_view_state_t *state)
 /*-----------------------------------------------------------------------*/
 
 /**
+ * gl_view_frame() - Render one frame into the engine-owned resolve framebuffer
+ * @surface: GL surface whose view the frame shows
+ *
+ * Realizes an unrealized area, which needs no mapping, then renders the scene
+ * pass and resolves it with the view's context current, at the drawable size
+ * the geometry edge recorded.  GTK's default framebuffer is never written.
+ * Returns FALSE when the context reports an error or the view produces no
+ * frame.
+ */
+  gboolean
+gl_view_frame(render_surface_t *surface)
+{
+  gl_view_state_t *state = gl_view_state(surface);
+  GtkGLArea *area = GTK_GL_AREA(state->gl_area);
+  gboolean rendered;
+
+  /* A realized area returns at once; a first realization sizes the
+   * framebuffers in on_realize() */
+  gtk_widget_realize(state->gl_area);
+  gtk_gl_area_make_current(area);
+
+  if( gtk_gl_area_get_error(area) == NULL && gl_view_scene_render(state) )
+  {
+    gl_view_scene_resolve(state);
+    rendered = TRUE;
+  }
+  else
+  {
+    /* An errored context or a view holding no content produces no frame */
+    rendered = FALSE;
+  }
+
+  return( rendered );
+
+} /* gl_view_frame() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
  * gl_view_capture_pixbuf() - Capture the resolved OpenGL frame
  * @surface: surface holding the presented frame
  * @width: capture width in pixels

@@ -85,25 +85,23 @@ gl_view_frame_content_reset(gl_view_state_t *state)
 
 /*-----------------------------------------------------------------------*/
 
-/** on_render() - GtkGLArea render signal handler
- * @_area: signal source, unread: the view state carries the GL area
- * @_context: current context, unread: GtkGLArea made it current
- * @user_data: pointer to gl_view_state_t
+/** gl_view_scene_render() - Render one frame of a view into its scene framebuffer
+ * @state: view state whose scene framebuffer receives the frame
+ *
+ * Runs the content survey, the opaque and depth-peeled passes, and the HUD
+ * composites with the view's context current.  Returns FALSE when the state
+ * holds no scene framebuffer or the view has no content to render.
  */
-  static gboolean
-on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
+  gboolean
+gl_view_scene_render(gl_view_state_t *state)
 {
-  gl_view_state_t *state;
   const view_t *view;
   gl_render_params_t render_params = {0};
   mat4 mvp, mv;
   float camera_distance;
-  GLint default_fbo = 0;
   guint32 active_mask;
   float eff_alphas[MAX_RENDERABLES];
   guint i;
-
-  state = (gl_view_state_t *)user_data;
 
   if( state == NULL || !state->initialized || state->scene_fbo == 0 )
     return( FALSE );
@@ -210,8 +208,6 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   render_params.view_axis_label = state->content.view_axis_label;
 
   /* Framebuffer setup */
-  glGetIntegerv(GL_FRAMEBUFFER_BINDING, &default_fbo);
-
   glBindFramebuffer(GL_FRAMEBUFFER, state->scene_fbo);
 
   glClearColor(state->content.background.r, state->content.background.g,
@@ -322,6 +318,29 @@ on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
   /* 2D HUD — overlay text above the gradient legend */
   gl_view_composite_image(state, &state->text_overlay,
       &state->content.overlay_text);
+
+  return( TRUE );
+
+} /* gl_view_scene_render() */
+
+/*-----------------------------------------------------------------------*/
+
+/** on_render() - GtkGLArea render signal handler
+ * @_area: signal source, unread: the view state carries the GL area
+ * @_context: current context, unread: GtkGLArea made it current
+ * @user_data: pointer to gl_view_state_t
+ */
+  static gboolean
+on_render(GtkGLArea *_area, GdkGLContext *_context, gpointer user_data)
+{
+  gl_view_state_t *state = (gl_view_state_t *)user_data;
+  GLint default_fbo = 0;
+
+  /* GtkGLArea binds the framebuffer it presents before emitting render */
+  glGetIntegerv(GL_FRAMEBUFFER_BINDING, &default_fbo);
+
+  if( !gl_view_scene_render(state) )
+    return( FALSE );
 
   /* Every frame renders into the scene framebuffer and reaches the default
    * FBO through a single-sample texture copy.  A direct multisample blit

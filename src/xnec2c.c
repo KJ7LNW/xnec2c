@@ -1589,23 +1589,15 @@ freq_loop_finalize( freq_loop_state_t *state )
  * @width: drawing width in pixels
  * @height: drawing height in pixels
  *
- * Batch completion has no frame-clock iteration before teardown.  Drawing to
- * an image surface fills the bound engine's capture source synchronously.
- * The frame request precedes the draw at capture size, so a GL area produces
- * a frame from current geometry instead of presenting the one it holds.
+ * Batch completion has no frame-clock iteration before teardown, so the bound
+ * engine produces its capture frame synchronously at capture size, from
+ * current geometry.
  */
   static void
 batch_force_render(canvas_id_t id, int width, int height)
 {
-  cairo_surface_t *surface;
-  cairo_t *context;
-
-  surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
-  context = cairo_create(surface);
-  if( !canvas_draw_sync(id, width, height, context) )
+  if( !canvas_draw_sync(id, width, height) )
     pr_err("batch canvas %d drew no frame at %dx%d\n", (int)id, width, height);
-  cairo_destroy(context);
-  cairo_surface_destroy(surface);
 
 } /* batch_force_render() */
 

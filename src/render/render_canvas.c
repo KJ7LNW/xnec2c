@@ -371,14 +371,14 @@ canvas_queue_redraw(canvas_id_t id, gboolean force)
 } /* canvas_queue_redraw() */
 
   gboolean
-canvas_draw_sync(canvas_id_t id, int width, int height, cairo_t *cr)
+canvas_draw_sync(canvas_id_t id, int width, int height)
 {
   render_surface_t *active = canvases[id].active;
 
   if( active == NULL )
     return FALSE;
 
-  return( canvas_surface_draw_sync(active, width, height, cr) );
+  return( canvas_surface_draw_sync(active, width, height) );
 
 } /* canvas_draw_sync() */
 
