@@ -71,11 +71,8 @@ gl_view_gpu_release(gl_view_state_t *state)
   /* Released after the renderables that draw with these programs */
   gl_program_catalog_destroy(state->programs);
 
-  if( state->legend_overlay )
-  {
-    gl_image_overlay_free(state->legend_overlay);
-    state->legend_overlay = NULL;
-  }
+  gl_image_overlay_free(state->legend_overlay);
+  state->legend_overlay = NULL;
 
   gl_image_overlay_free(state->text_overlay);
   state->text_overlay = NULL;
@@ -167,9 +164,7 @@ gl_view_resize_buffers(gl_view_state_t *state)
   if( state->initialized && state->composite_program )
     gl_view_peel_recreate(state, width, height, state->msaa_samples);
 
-  if( state->legend_overlay )
-    gl_image_overlay_set_viewport(state->legend_overlay, width, height);
-
+  gl_image_overlay_set_viewport(state->legend_overlay, width, height);
   gl_image_overlay_set_viewport(state->text_overlay, width, height);
 
   glViewport(0, 0, width, height);
