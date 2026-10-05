@@ -551,18 +551,26 @@ void _mem_array_zero(void *ptr, size_t elem_size)
  * @arr: address of the caller's array pointer
  * @elem_size: size of one array element
  * @new_count: new element count (caller guarantees >= 1)
- * @free_elem: per-element teardown for the shrink tail
+ * @free_elem: per-element teardown for the shrink tail; NULL when the array
+ *             never shrinks through this call
  * @site: caller location from __LOCATION__, forwarded to the allocator
  *
  * Reads the prior element count from the allocator header, releases
  * sub-buffers of the dropped tail [new_count, old_count), then reallocates
  * the outer array in place. Surviving entries [0, new_count) keep their
  * pointers for reuse; any grown region is zeroed by the allocator.
+ * A shrink without @free_elem calls BUG() and leaves the array intact.
  */
 void _mem_array_resize(void **arr, size_t elem_size, int new_count,
 		      mem_elem_free_fn free_elem, char *site)
 {
 	int old_count = mem_array_count(*arr);
+
+	if (free_elem == NULL && new_count < old_count) {
+		BUG("array resize at %s: element teardown is NULL on a shrink from %d to %d elements; the dropped tail needs it\n",
+			site, old_count, new_count);
+		return;
+	}
 
 	for (int i = new_count; i < old_count; i++)
 		free_elem((char *)*arr + (size_t)i * elem_size);
