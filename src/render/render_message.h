@@ -111,8 +111,8 @@ typedef struct
  * @instance: text and style row, both of static lifetime
  *
  * The instance shows from the frame posting it until its lifetime retires it.
- * Posting re-arms the frame request pacing timed instances; it queues no
- * redraw, since the posting frame hands the image off itself.
+ * Posting a timed instance re-arms the frame request pacing fades; it queues
+ * no redraw, since the posting frame hands the image off itself.
  */
 void overlay_text_post(render_surface_t *surface, const overlay_text_t *instance);
 

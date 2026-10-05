@@ -228,7 +228,21 @@ overlay_text_post(render_surface_t *surface, const overlay_text_t *instance)
     .posted_us = g_get_monotonic_time() };
 
   /* Only timed instances contribute a delay, so other posts arm none */
-  overlay_text_schedule(surface);
+  switch( style->lifetime )
+  {
+    case OVERLAY_TEXT_PER_FRAME:
+      /* Shown by the posting frame alone, leaving no change to pace */
+      break;
+
+    case OVERLAY_TEXT_TIMED:
+      overlay_text_schedule(surface);
+      break;
+
+    case OVERLAY_TEXT_LIFETIME_COUNT:
+      BUG("overlay text lifetime %d names no scheduling rule\n",
+          (int)style->lifetime);
+      break;
+  }
 
 } /* overlay_text_post() */
 
