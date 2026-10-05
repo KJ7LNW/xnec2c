@@ -248,7 +248,10 @@ overlay_text_paint(const render_surface_t *surface)
     return( NULL );
 
   image = cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
-      key->width, key->height);
+      key->width * key->scale, key->height * key->scale);
+
+  /* Map logical units onto scale times as many pixels, keeping text sharp */
+  cairo_surface_set_device_scale(image, key->scale, key->scale);
   cr = cairo_create(image);
 
   for( anchor = 0; anchor < OVERLAY_TEXT_ANCHOR_COUNT; anchor++ )

@@ -89,6 +89,7 @@ typedef struct
 {
   int                  width;
   int                  height;
+  int                  scale;         /* widget scale factor of the image */
   uint32_t             palette_gen;   /* color_palette_generation() */
   overlay_text_line_t *lines;         /* mem_array, paint order */
 } overlay_text_key_t;
@@ -122,9 +123,10 @@ void overlay_text_post(render_surface_t *surface, const overlay_text_t *instance
  * @width:   drawable width in pixels
  * @height:  drawable height in pixels
  *
- * Repaints the image only when its lines, size or palette change, then drops
- * every instance the frame retires.  The image stays valid until the next
- * call on @surface.
+ * Repaints the image only when its lines, size, scale or palette change, then
+ * drops every instance the frame retires.  The image holds @width by @height
+ * logical units over the surface widget's scale factor times as many pixels,
+ * and stays valid until the next call on @surface.
  *
  * Returns the image and its version; the image is NULL while no line shows.
  */

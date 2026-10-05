@@ -263,6 +263,7 @@ overlay_text_key_equal(const overlay_text_key_t *painted,
   int count = mem_array_count(frame->lines);
   gboolean equal = (painted->width == frame->width)
     && (painted->height == frame->height)
+    && (painted->scale == frame->scale)
     && (painted->palette_gen == frame->palette_gen)
     && (mem_array_count(painted->lines) == count);
   int i;
@@ -336,6 +337,7 @@ overlay_text_refresh(render_surface_t *surface, int width, int height)
 {
   overlay_text_store_t *store = &surface->overlay_text;
   overlay_text_key_t frame_key = { .width = width, .height = height,
+    .scale = gtk_widget_get_scale_factor(surface->widget),
     .palette_gen = color_palette_generation(), .lines = store->scratch };
 
   if( overlay_text_key_equal(&store->key, &frame_key) )
