@@ -1648,39 +1648,6 @@ batch_apply_rdpattern_fit(void)
 /*-----------------------------------------------------------------------*/
 
 /**
- * batch_prepare_rdpattern_window() - Realize the radiation-pattern capture view
- *
- * The window keeps its own size; each capture sizes the canvas through
- * canvas_draw_sync().  Returns TRUE when the radiation-pattern view is
- * available.
- */
-  static gboolean
-batch_prepare_rdpattern_window(void)
-{
-  GtkWidget *menu_item;
-
-  if( rdpattern_window == NULL )
-  {
-    menu_item = Builder_Get_Object(main_window_builder, "main_rdpattern");
-    if( menu_item == NULL )
-      return FALSE;
-
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item), TRUE);
-  }
-
-  if( rdpattern_window == NULL || !canvas_bound(CANVAS_RDPATTERN)
-      || rdpattern_view == NULL || rdpattern_window_builder == NULL )
-    return FALSE;
-
-  gtk_widget_show_now(rdpattern_window);
-
-  return TRUE;
-
-} /* batch_prepare_rdpattern_window() */
-
-/*-----------------------------------------------------------------------*/
-
-/**
  * batch_capture_fitted_rdpattern_pane() - Capture the fitted radiation pattern
  * @width: capture width in pixels
  * @height: capture height in pixels
@@ -1715,7 +1682,7 @@ batch_capture_rdpattern_preset_pane(const char *button_id, int width, int height
 {
   GtkWidget *button;
 
-  if( !batch_prepare_rdpattern_window() )
+  if( !window_build(RDPATTERN_WINDOW) )
     return NULL;
 
   button = Builder_Get_Object(rdpattern_window_builder, button_id);

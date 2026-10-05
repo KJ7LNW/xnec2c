@@ -310,13 +310,18 @@ main (int argc, char *argv[])
   /* Read GUI state config file and reset geometry */
   Read_Config();
 
-  /* Write the stored values into the widgets and present the main window at
-   * its stored geometry, reached whether or not a config file was read */
+  /* Write the stored values into the widgets, reached whether or not a
+   * config file was read */
   Restore_GUI_State();
-  gui_present();
 
-  if (rc_config.batch_mode)
+  /* Batch captures render off-screen from built windows, so a batch run
+   * presents no window and starts its sweep once the input file loads */
+  if (rc_config.batch_mode == TRUE)
 	  rc_config.main_loop_start = 1;
+  else if (rc_config.batch_mode == FALSE)
+	  gui_present();
+  else
+	  BUG("batch_mode=%d is neither TRUE nor FALSE\n", rc_config.batch_mode);
 
   /* If input file is specified, get the working directory */
   if( strlen(rc_config.input_file) )
@@ -664,7 +669,9 @@ Open_Input_File( gpointer arg )
 
   /* Initialize xnec2c */
   rc_config.freq_apply = 1;
-  if( window_is_open(FREQPLOTS_WINDOW) ) freq_sweep_arm();
+  /* A batch run builds no frequency plots window yet always starts the
+   * load's sweep, so it arms the sweep as an open window does */
+  if( window_is_open(FREQPLOTS_WINDOW) || rc_config.batch_mode ) freq_sweep_arm();
   floop_tag = 0;
 
   /* Scale geometry for current frequency before potential loop start.

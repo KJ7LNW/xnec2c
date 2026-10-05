@@ -26,6 +26,7 @@
  * from creation until release, and every widget lookup resolves through it.
  */
 #include "window_lifecycle.h"
+#include "callbacks.h"
 #include "shared.h"
 #include "config/widget/config_widget.h"
 #include "render/render_canvas.h"
@@ -56,7 +57,8 @@ typedef enum
 
 /* Resources one window owns.  A window carrying no main-window menu item
  * leaves both menu members null, and a window presenting no rotatable view
- * leaves the view member null. */
+ * leaves the view member null.  The main window, which main() constructs,
+ * leaves the build member null. */
 typedef struct
 {
   GtkWidget     **window;
@@ -65,6 +67,7 @@ typedef struct
   view_t        **view;
   const char     *menu_item;
   window_menu_handler_t menu_handler;
+  void          (*build)(void);
   window_geom_ref_t geom;
   window_place_t  place;
 
@@ -85,6 +88,7 @@ static const window_desc_t window_desc[WINDOW_COUNT] =
     { .window = &freqplots_window, .builder = &freqplots_window_builder,
       .canvas = CANVAS_FREQPLOTS, .menu_item = "main_freqplots",
       .menu_handler = on_main_freqplots_activate,
+      .build = freqplots_window_build,
       .geom = { .x = &rc_config.freqplots_x, .y = &rc_config.freqplots_y,
                 .width = &rc_config.freqplots_width,
                 .height = &rc_config.freqplots_height },
@@ -94,6 +98,7 @@ static const window_desc_t window_desc[WINDOW_COUNT] =
       .canvas = CANVAS_RDPATTERN, .view = &rdpattern_view,
       .menu_item = "main_rdpattern",
       .menu_handler = on_main_rdpattern_activate,
+      .build = rdpattern_window_build,
       .geom = { .x = &rc_config.rdpattern_x, .y = &rc_config.rdpattern_y,
                 .width = &rc_config.rdpattern_width,
                 .height = &rc_config.rdpattern_height },
@@ -165,6 +170,43 @@ window_is_open(window_t type)
   return( *row->builder != NULL );
 
 } /* window_is_open() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * window_build() - Construct a window without presenting it
+ * @type: window to construct
+ *
+ * Runs the build function of a window holding no widgets and leaves the
+ * window unmapped.  main() constructs the main window, whose row carries no
+ * build function.
+ *
+ * Return: TRUE when the window holds its widgets and its canvas presents a
+ * surface.
+ */
+gboolean
+window_build(window_t type)
+{
+  const window_desc_t *row = window_row( type );
+
+  if( row == NULL )
+    return FALSE;
+
+  /* An open window already holds its widgets */
+  if( window_is_open(type) )
+    return( canvas_bound(row->canvas) );
+
+  if( unlikely(row->build == NULL) )
+  {
+    BUG("window %d holds no widgets and names no build function\n", (int)type);
+    return FALSE;
+  }
+
+  row->build();
+
+  return( window_is_open(type) && canvas_bound(row->canvas) );
+
+} /* window_build() */
 
 /*-----------------------------------------------------------------------*/
 

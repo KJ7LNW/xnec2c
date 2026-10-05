@@ -173,6 +173,11 @@ canvas_surface_draw_sync(render_surface_t *surface, int width, int height)
       || surface->engine->frame == NULL )
     return FALSE;
 
+  /* Realizing a widget realizes its toplevel, which lays out a window never
+   * presented at its default size; realize first so the capture allocation
+   * is the last the widget receives */
+  gtk_widget_realize(surface->widget);
+
   allocation.width = width;
   allocation.height = height;
   gtk_widget_size_allocate(surface->widget, &allocation);
