@@ -14,7 +14,7 @@ use Xnec2c::PO::CatalogTransaction qw(
 use Xnec2c::PO::ExemptionWorkflow qw(apply_exemptions);
 use Xnec2c::PO::LanguageWorkflow qw(
 	apply_language assert_language_outcome prepare_language_manifest
-	report_commit report_outcome
+	refresh_template report_commit report_outcome
 );
 use Xnec2c::PO::LanguageWorkspace qw(
 	catalog_languages clear_language_manifest validate_language
@@ -46,10 +46,12 @@ sub argument_language
 	return $lang;
 }
 
-# Refresh every catalog and generate the manifest its current state requires.
+# Refresh the template and every catalog, then generate the manifest each
+# catalog's current state requires.
 sub cmd_generate
 {
 	make_path(AI_DIR);
+	refresh_template();
 	for my $lang (catalog_languages())
 	{
 		my ($records, $copied) = prepare_language_manifest($lang);
@@ -66,11 +68,13 @@ sub cmd_generate
 	}
 }
 
-# Complete one language before starting the next, then reconcile the reasons
-# the finished catalogs record against one another.
+# Refresh the template and every catalog, complete one language before
+# starting the next, then reconcile the reasons the finished catalogs record
+# against one another.
 sub cmd_apply
 {
 	make_path(AI_DIR);
+	refresh_template();
 	for my $lang (catalog_languages())
 	{
 		apply_language($lang);

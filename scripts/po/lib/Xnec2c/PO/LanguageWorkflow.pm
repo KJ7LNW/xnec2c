@@ -9,6 +9,7 @@ use Exporter qw(import);
 use Xnec2c::PO::CatalogState qw(catalog_change_records catalog_path);
 use Xnec2c::PO::CatalogTransaction qw(
 	commit_language_output refresh_language_catalog run_full_catalog_gate
+	update_template_catalogs
 );
 use Xnec2c::PO::Outcome qw(OUTCOME_FATAL OUTCOME_OK OUTCOME_REPAIR);
 use Xnec2c::PO::LanguageWorkspace qw(
@@ -22,7 +23,7 @@ use Xnec2c::PO::TranslationMap qw(
 
 our @EXPORT_OK = qw(
 	apply_language assert_language_outcome prepare_language_manifest
-	refresh_language report_commit report_outcome
+	refresh_language refresh_template report_commit report_outcome
 );
 
 use constant STATE_APPLY_OUTPUT => 'apply_output';
@@ -78,6 +79,16 @@ sub refresh_language
 
 	report_outcome($refresh);
 	assert_language_outcome($lang, $refresh, 'catalog refresh failed');
+}
+
+# Regenerate the template and refresh every catalog, terminating at a failed
+# update.
+sub refresh_template
+{
+	my $update = update_template_catalogs();
+
+	report_outcome($update);
+	assert_language_outcome('po', $update, 'template update failed');
 }
 
 # Refresh one catalog against the template and derive the manifest records its

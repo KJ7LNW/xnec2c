@@ -23,7 +23,7 @@ use Xnec2c::PO::TranslationMap qw(output_path);
 
 our @EXPORT_OK = qw(
 	commit_language_output refresh_language_catalog run_full_catalog_gate
-	verify_language_output
+	update_template_catalogs verify_language_output
 );
 
 # Construct one staged candidate, requiring every field its release needs.
@@ -268,6 +268,15 @@ sub refresh_language_catalog
 	my $status = system('scripts/po/po-refresh.sh', $path);
 
 	return command_outcome("$path: scripts/po/po-refresh.sh", $status);
+}
+
+# Regenerate the template from current source and refresh every catalog through
+# the update script.
+sub update_template_catalogs
+{
+	my $status = system('scripts/po/po-update.sh');
+
+	return command_outcome('scripts/po/po-update.sh', $status);
 }
 
 # Run the complete release gate against one authoritative catalog.

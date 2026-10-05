@@ -10,7 +10,7 @@ use lib "$RealBin/lib";
 
 use Xnec2c::PO::ModelSession qw(set_model);
 use Xnec2c::PO::WorkflowCommands qw(
-	cmd_apply cmd_generate cmd_inject cmd_lint cmd_verify
+	cmd_apply cmd_inject cmd_lint cmd_verify
 );
 
 binmode STDOUT, ':encoding(UTF-8)';
@@ -22,7 +22,6 @@ $| = 1;
 
 my $model;
 my %command_map = (
-	generate => { min_args => 0, max_args => 0, handler => \&cmd_generate },
 	apply => { min_args => 0, max_args => 0, handler => \&cmd_apply },
 	lint => { min_args => 1, max_args => undef, handler => \&cmd_lint },
 	verify => { min_args => 1, max_args => 1, handler => \&cmd_verify },
@@ -50,7 +49,7 @@ exit 0;
 # Report command syntax and terminate with a usage failure.
 sub usage
 {
-	die "usage: $0 [--model NAME] generate|apply\n"
+	die "usage: $0 [--model NAME] apply\n"
 		. "       $0 [--model NAME] lint <lang|map-path> [<lang|map-path>...]\n"
 		. "       $0 [--model NAME] verify|inject <lang|map-path>\n";
 }

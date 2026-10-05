@@ -22,7 +22,7 @@ my $ROOT = abs_path("$RealBin/../..");
 
 # The model every session seats. This module holds the sole default; the entry
 # point names one only when a caller asks for it.
-my $MODEL = 'gpt-5.6-terra(low)[1m]';
+my $MODEL = 'claude-sonnet-5-5(medium)';
 
 # Seat the model every later session runs against, once, at the composition
 # boundary.
@@ -72,6 +72,9 @@ sub session_contract
 
 	return join("\n",
 		'# Procedure',
+		'',
+		'Perform all of the following in a single response and iterate until it is complete without stopping.',
+		'OMIT task management tool calls.',
 		'',
 		"1. Before any Edit, you must read $session->{output_path} with offset"
 			. ' 1 and limit 1.',
