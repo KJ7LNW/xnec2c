@@ -35,7 +35,7 @@
 #include "structure_ui.h"
 #include "window_lifecycle.h"
 
-#define BATCH_RDPAT_DEFAULT_PX 800
+#define BATCH_PNG_DEFAULT_PX 800
 
 typedef struct {
   const char *button_id;
@@ -1586,99 +1586,105 @@ freq_loop_finalize( freq_loop_state_t *state )
 /**
  * batch_force_render() - Render a batch canvas synchronously
  * @id: canvas to render
- * @width: drawing width in pixels
- * @height: drawing height in pixels
+ * @size: drawing dimensions in pixels
  *
  * Batch completion has no frame-clock iteration before teardown, so the bound
  * engine produces its capture frame synchronously at capture size, from
  * current geometry.
  */
   static void
-batch_force_render(canvas_id_t id, int width, int height)
+batch_force_render(canvas_id_t id, const batch_capture_size_t *size)
 {
-  if( !canvas_draw_sync(id, width, height) )
-    pr_err("batch canvas %d drew no frame at %dx%d\n", (int)id, width, height);
+  if( !canvas_draw_sync(id, size->width, size->height) )
+    pr_err("batch canvas %d drew no frame at %dx%d\n", (int)id,
+        size->width, size->height);
 
 } /* batch_force_render() */
 
 /*-----------------------------------------------------------------------*/
 
 /**
- * batch_rdpattern_capture_size() - Resolve native dimensions for batch panes
+ * batch_capture_size() - Resolve native dimensions for a window capture
+ * @type: window whose stored size serves when --png-size is absent
  *
- * Returns the --png-size dimensions when given, else the configured
- * radiation-pattern dimensions, falling back to the established batch
- * default when the configuration has no usable size.
+ * Returns the --png-size dimensions when given, else the stored dimensions
+ * of the window, falling back to the established batch default when the
+ * configuration has no usable size.
  */
   static batch_capture_size_t
-batch_rdpattern_capture_size(void)
+batch_capture_size(window_t type)
 {
   batch_capture_size_t size;
 
   if( rc_config.png_size.width > 0 )
     size = rc_config.png_size;
-  else if( rc_config.rdpattern_width > 1 && rc_config.rdpattern_height > 1 )
-    size = (batch_capture_size_t){ .width = rc_config.rdpattern_width,
-      .height = rc_config.rdpattern_height };
+  else if( window_geom_size(type).width > 1
+      && window_geom_size(type).height > 1 )
+    size = (batch_capture_size_t){ .width = window_geom_size(type).width,
+      .height = window_geom_size(type).height };
   else
-    size = (batch_capture_size_t){ .width = BATCH_RDPAT_DEFAULT_PX,
-      .height = BATCH_RDPAT_DEFAULT_PX };
+    size = (batch_capture_size_t){ .width = BATCH_PNG_DEFAULT_PX,
+      .height = BATCH_PNG_DEFAULT_PX };
 
   return size;
 
-} /* batch_rdpattern_capture_size() */
+} /* batch_capture_size() */
 
 /*-----------------------------------------------------------------------*/
 
 /**
- * batch_apply_rdpattern_fit() - Apply the fitted radiation-pattern view
+ * batch_apply_view_fit() - Apply the fitted state of a view
+ * @view: view to fit, or NULL for a window presenting none
+ *
+ * canvas_fit_view() declines a NULL view, so no fit applies to it.
  */
   static void
-batch_apply_rdpattern_fit(void)
+batch_apply_view_fit(view_t *view)
 {
   view_fit_t fit = {0};
 
-  if( !canvas_fit_view(rdpattern_view, &fit) )
+  if( !canvas_fit_view(view, &fit) )
     return;
 
-  view_apply_fit(rdpattern_view, &fit);
+  view_apply_fit(view, &fit);
 
-} /* batch_apply_rdpattern_fit() */
+} /* batch_apply_view_fit() */
 
 /*-----------------------------------------------------------------------*/
 
 /**
- * batch_capture_fitted_rdpattern_pane() - Capture the fitted radiation pattern
- * @width: capture width in pixels
- * @height: capture height in pixels
+ * batch_capture_pane() - Capture the fitted view of a window canvas
+ * @type: window whose canvas is captured
+ * @size: capture image dimensions
  *
- * Returns an owned pixbuf from the prepared radiation-pattern view, or NULL
- * when the active renderer cannot capture it.
+ * Fits the view of the window between two frames so the fit reads geometry
+ * drawn at capture size; a window presenting no view captures unfitted.
+ * Returns an owned pixbuf, or NULL when the active renderer cannot capture it.
  */
   static GdkPixbuf *
-batch_capture_fitted_rdpattern_pane(int width, int height)
+batch_capture_pane(window_t type, const batch_capture_size_t *size)
 {
-  batch_force_render(CANVAS_RDPATTERN, width, height);
-  batch_apply_rdpattern_fit();
-  batch_force_render(CANVAS_RDPATTERN, width, height);
+  batch_force_render(window_canvas(type), size);
+  batch_apply_view_fit(window_view(type));
+  batch_force_render(window_canvas(type), size);
 
-  return canvas_capture(CANVAS_RDPATTERN, width, height);
+  return canvas_capture(window_canvas(type), size->width, size->height);
 
-} /* batch_capture_fitted_rdpattern_pane() */
+} /* batch_capture_pane() */
 
 /*-----------------------------------------------------------------------*/
 
 /**
  * batch_capture_rdpattern_preset_pane() - Capture a fitted preset view
  * @button_id: builder ID for the required radiation-pattern preset button
- * @width: capture width in pixels
- * @height: capture height in pixels
+ * @size: capture image dimensions
  *
  * Returns an owned pixbuf, or NULL when the radiation-pattern view or active
  * renderer cannot capture the selected preset.
  */
   static GdkPixbuf *
-batch_capture_rdpattern_preset_pane(const char *button_id, int width, int height)
+batch_capture_rdpattern_preset_pane(const char *button_id,
+    const batch_capture_size_t *size)
 {
   GtkWidget *button;
 
@@ -1691,7 +1697,7 @@ batch_capture_rdpattern_preset_pane(const char *button_id, int width, int height
 
   gtk_button_clicked(GTK_BUTTON(button));
 
-  return batch_capture_fitted_rdpattern_pane(width, height);
+  return batch_capture_pane(RDPATTERN_WINDOW, size);
 
 } /* batch_capture_rdpattern_preset_pane() */
 
@@ -1724,7 +1730,7 @@ batch_prepare_rdpattern_capture(const char *filename, batch_capture_size_t *size
     return FALSE;
   }
 
-  *size = batch_rdpattern_capture_size();
+  *size = batch_capture_size(RDPATTERN_WINDOW);
 
   return TRUE;
 
@@ -1757,7 +1763,7 @@ batch_write_rdpat_png(rdpat_png_format_t format, const char *filename,
       const batch_rdpattern_pane_t *pane = &batch_rdpattern_panes[idx];
 
       captures[idx] = batch_capture_rdpattern_preset_pane(pane->button_id,
-          size->width, size->height);
+          size);
       if( captures[idx] == NULL )
         goto out_unref;
     }
@@ -1783,8 +1789,7 @@ batch_write_rdpat_png(rdpat_png_format_t format, const char *filename,
 
       if( pane->format == format )
       {
-        pixbuf = batch_capture_rdpattern_preset_pane(pane->button_id,
-            size->width, size->height);
+        pixbuf = batch_capture_rdpattern_preset_pane(pane->button_id, size);
       }
     }
   }

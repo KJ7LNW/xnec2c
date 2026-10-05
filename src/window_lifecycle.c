@@ -252,6 +252,51 @@ window_view(window_t type)
 /*-----------------------------------------------------------------------*/
 
 /**
+ * window_canvas() - Name the canvas a window presents
+ * @type: window whose canvas is named
+ *
+ * Return: the canvas, or CANVAS_NONE when @type names no window.
+ */
+canvas_id_t
+window_canvas(window_t type)
+{
+  const window_desc_t *row = window_row( type );
+
+  if( row == NULL )
+    return CANVAS_NONE;
+
+  return( row->canvas );
+
+} /* window_canvas() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * window_geom_size() - Read the stored size of a window
+ * @type: window whose persisted size is read
+ *
+ * Return: the size the config fields hold, or zero dimensions when @type
+ * names no window.
+ */
+GtkRequisition
+window_geom_size(window_t type)
+{
+  const window_desc_t *row = window_row( type );
+  GtkRequisition size = {0};
+
+  if( row == NULL )
+    return size;
+
+  size.width = *row->geom.width;
+  size.height = *row->geom.height;
+
+  return( size );
+
+} /* window_geom_size() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
  * window_row_of_toplevel() - Resolve the descriptor holding a toplevel
  * @toplevel: toplevel widget matched against the descriptor table
  *
