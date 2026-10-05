@@ -89,6 +89,7 @@ enum XNEC2C_OPTS {
 	OPT_RENDER_ENGINE,
 	OPT_PNG_SIZE,
 	OPT_WRITE_STRUCTURE_PNG,
+	OPT_WRITE_FREQPLOTS_PNG,
 
 	OPT_MAX_OPTS
 };
@@ -243,6 +244,10 @@ static const usage_entry_t usage_entries[] = {
 	  .metavar = "<filename>",
 	  .text = N_("write PNG of the structure view"),
 	  .target = &rc_config.filename_structure_png,      .apply = apply_string_ref },
+	{ .name = "write-freqplots-png",                    .id = OPT_WRITE_FREQPLOTS_PNG,
+	  .metavar = "<filename>",
+	  .text = N_("write PNG of the frequency plots"),
+	  .target = &rc_config.filename_freqplots_png,      .apply = apply_string_ref },
 	{ .name = "rdpat-png-format",                       .id = OPT_RDPAT_PNG_FORMAT,
 	  .metavar = "<format[,format...]>",
 	  .text = N_("x, y, z, iso, or quad views"),

@@ -68,6 +68,7 @@ _Static_assert(G_N_ELEMENTS(batch_rdpattern_panes) + 1 == RDPAT_PNG_FORMAT_COUNT
 
 static const batch_png_target_t batch_png_targets[] = {
   { .window = MAIN_WINDOW, .filename = &rc_config.filename_structure_png },
+  { .window = FREQPLOTS_WINDOW, .filename = &rc_config.filename_freqplots_png },
 };
 
 /* Only nec2_eval_signal() is called from xnec2c.c; avoid pulling

@@ -458,6 +458,7 @@ typedef struct
   char *filename_patch_currents;
   char *filename_rdpat_png;
   char *filename_structure_png;
+  char *filename_freqplots_png;
   rdpat_png_format_spec_t *rdpat_png_formats;
   freq_select_mode_t freq_select_mode;   /* zero = FREQ_SELECT_NONE */
   double freq_select_mhz;                /* set iff mode == FREQ_SELECT_MHZ */
