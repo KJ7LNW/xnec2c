@@ -105,6 +105,6 @@ wire_radius_scroll(
 surface_capability_t wire_radius_cap = {
   .handler  = wire_radius_scroll,
   .modifier = SURFACE_MOD_CTRL,
-  .notice   = "Ctrl+Scroll: Wire Radius",
+  .notice   = N_("Ctrl+Scroll: Wire Radius"),
   .subject  = SURFACE_CAP_SUBJECT_VIEW
 };

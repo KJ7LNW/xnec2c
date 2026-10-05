@@ -26,17 +26,17 @@
 
 /* Status messages emitted when rendering preconditions are not met.
  * Single source of truth: both Cairo and OpenGL use these constants. */
-#define STATUS_MSG_OPEN_FILE        "File ▸ Open to load an NEC file"
-#define STATUS_MSG_NO_RP_CARD       "Gain pattern requires an RP card in the NEC file"
-#define STATUS_MSG_NO_NEAREH_CARDS  "Near field requires NE or NH cards in the NEC file"
-#define STATUS_MSG_NO_RP_NO_NEAREH  "No RP or NE/NH cards in the NEC file"
-#define STATUS_MSG_SELECT_NEARFIELD "Select Near Field (no RP card for gain pattern)"
-#define STATUS_MSG_SELECT_GAINPAT   "Select Gain Pattern (no NE/NH cards for near field)"
-#define STATUS_MSG_SELECT_MODE      "Select Gain Pattern or Near Field"
-#define STATUS_MSG_SELECT_NF_FIELD  "Enable E field, H field, or Poynting vector"
-#define STATUS_MSG_START_FREQLOOP   "Press ▶ to start the frequency loop"
-#define STATUS_MSG_NOT_READY        "Radiation pattern data not ready"
-#define STATUS_MSG_NO_RDPAT_DATA    "Waiting for frequency data"
+#define STATUS_MSG_OPEN_FILE        N_("File ▸ Open to load an NEC file")
+#define STATUS_MSG_NO_RP_CARD       N_("Gain pattern requires an RP card in the NEC file")
+#define STATUS_MSG_NO_NEAREH_CARDS  N_("Near field requires NE or NH cards in the NEC file")
+#define STATUS_MSG_NO_RP_NO_NEAREH  N_("No RP or NE/NH cards in the NEC file")
+#define STATUS_MSG_SELECT_NEARFIELD N_("Select Near Field (no RP card for gain pattern)")
+#define STATUS_MSG_SELECT_GAINPAT   N_("Select Gain Pattern (no NE/NH cards for near field)")
+#define STATUS_MSG_SELECT_MODE      N_("Select Gain Pattern or Near Field")
+#define STATUS_MSG_SELECT_NF_FIELD  N_("Enable E field, H field, or Poynting vector")
+#define STATUS_MSG_START_FREQLOOP   N_("Press ▶ to start the frequency loop")
+#define STATUS_MSG_NOT_READY        N_("Radiation pattern data not ready")
+#define STATUS_MSG_NO_RDPAT_DATA    N_("Waiting for frequency data")
 
 /* Where a block of overlay text lines sits on the drawable */
 typedef enum

@@ -95,7 +95,7 @@ overlay_text_box_measure(PangoLayout *layout, const overlay_text_line_t *line)
 {
   int text_w, text_h;
 
-  pango_layout_set_text(layout, line->instance.text, -1);
+  pango_layout_set_text(layout, _(line->instance.text), -1);
   pango_layout_get_pixel_size(layout, &text_w, &text_h);
 
   return( (cairo_rectangle_t){

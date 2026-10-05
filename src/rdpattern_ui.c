@@ -722,7 +722,7 @@ rdpattern_shift_scroll(GdkEventScroll *event, render_surface_t *surface)
 surface_capability_t rdpattern_overlay_scale_cap = {
   .handler  = rdpattern_shift_scroll,
   .modifier = SURFACE_MOD_SHIFT,
-  .notice   = "Shift+Scroll to Scale Structure",
+  .notice   = N_("Shift+Scroll to Scale Structure"),
   .subject  = SURFACE_CAP_SUBJECT_OVERLAY_GEOMETRY
 };
 
