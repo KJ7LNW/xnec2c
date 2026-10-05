@@ -334,6 +334,36 @@ window_default_origin(window_t type, gint *x, gint *y)
 /*-----------------------------------------------------------------------*/
 
 /**
+ * window_present() - Map a built window at its stored geometry
+ * @type: window to present
+ *
+ * Takes the default origin from the main window placement when the window
+ * holds no stored origin, then shows the window and refreshes the window
+ * titles.
+ */
+void
+window_present(window_t type)
+{
+  const window_desc_t *row = window_row( type );
+
+  if( row == NULL )
+    return;
+
+  if( *row->geom.x < 0 || *row->geom.y < 0 )
+    window_default_origin( type, row->geom.x, row->geom.y );
+
+  /* Request geometry and show after all structural mutations and
+   * widget state restorations so sizing is the last layout operation */
+  Set_Window_Geometry( *row->window,
+      *row->geom.x, *row->geom.y, *row->geom.width, *row->geom.height );
+  gtk_widget_show( *row->window );
+  Update_Window_Titles();
+
+} /* window_present() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
  * window_release() - Release the resources a destroyed window owned
  * @type: window whose toplevel is being destroyed
  *

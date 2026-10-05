@@ -33,6 +33,8 @@
 /* OpenGL common projection sync */
 void opengl_common_projection_sync(void);
 void Common_Pan_Sync(void);
+void rdpattern_window_build(void);
+void freqplots_window_build(void);
 
 #endif
 

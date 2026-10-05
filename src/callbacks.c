@@ -521,6 +521,108 @@ on_quit_activate(
 }
 
 
+/**
+ * rdpattern_window_build() - Construct the radiation pattern window
+ *
+ * Creates the window from its builder, resolves its view and spin widgets,
+ * registers its engine surfaces on CANVAS_RDPATTERN and restores its widget
+ * state from the bound config fields.  The window stays unmapped until
+ * window_present(RDPATTERN_WINDOW).
+ */
+  void
+rdpattern_window_build( void )
+{
+  rdpattern_window = create_rdpattern_window( &rdpattern_window_builder );
+
+  /* The transport buttons carry the sweep state, so a freshly built window
+   * takes its face and its tooltips from the readout. */
+  freq_sweep_controls_refresh();
+
+  /* The animation panel gates its pattern-window controls on this builder,
+   * so a freshly built window re-reads those gates. */
+  anim_panel_sensitivity();
+
+  /* Spin widgets must be resolved before creating the GL widget:
+   * opengl_rdpattern_surface_new() dereferences rdpattern_view,
+   * which in turn borrows the spin-button pointers. */
+  rotate_rdpattern  = GTK_SPIN_BUTTON( Builder_Get_Object(
+        rdpattern_window_builder, "rdpattern_rotate_spinbutton") );
+  incline_rdpattern = GTK_SPIN_BUTTON(Builder_Get_Object(
+        rdpattern_window_builder, "rdpattern_incline_spinbutton") );
+  config_widget_capture( &calc_data.fmhz_save );
+  rdpattern_zoom = GTK_SPIN_BUTTON(Builder_Get_Object(
+        rdpattern_window_builder, "rdpattern_zoom_spinbutton") );
+  rdpattern_fstep_entry = GTK_ENTRY(Builder_Get_Object(
+        rdpattern_window_builder, "rdpattern_fstep_entry") ) ;
+
+  /* Override the swept controllers on the rotation and incline spins so a
+   * wheel notch moves five degrees while a trackpad frame still floors at
+   * the one-degree quantum. */
+  scroll_install_spin_notches( rotate_rdpattern,  SCROLL_ANGLE_INCREMENT );
+  scroll_install_spin_notches( incline_rdpattern, SCROLL_ANGLE_INCREMENT );
+
+  /* Create the rdpattern view before the GL widget; the GL widget
+   * constructor installs observers on rdpattern_view and returns
+   * NULL otherwise. */
+  if( rdpattern_view == NULL )
+  {
+    rdpattern_view = view_new( VIEW_RDPATTERN,
+        rotate_rdpattern, incline_rdpattern, rdpattern_zoom,
+        rdpattern_view_changed_cb, NULL );
+    view_set_spin_handlers( rdpattern_view,
+        G_CALLBACK(on_rdpattern_rotate_spinbutton_value_changed),
+        G_CALLBACK(on_rdpattern_incline_spinbutton_value_changed),
+        G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed) );
+    view_set_drag_mode( rdpattern_view,
+        rc_config.view_drag_constrained
+            ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
+  }
+
+  GtkWidget *rdpattern_cairo_da = Builder_Get_Object(
+      rdpattern_window_builder, "rdpattern_drawingarea" );
+
+  canvas_add_surface( CANVAS_RDPATTERN,
+      cairo_surface_adopt(rdpattern_cairo_da,
+        rdpattern_view, rdpattern_input_caps) );
+
+#ifdef HAVE_OPENGL
+  canvas_add_surface( CANVAS_RDPATTERN,
+      opengl_rdpattern_surface_new(GTK_CONTAINER(
+          gtk_widget_get_parent(rdpattern_cairo_da))) );
+
+  opengl_set_renderer(rc_config.use_opengl_renderer);
+#else
+  canvas_set_engine( CANVAS_RDPATTERN, &cairo_engine );
+
+  config_widget_set_visible( &rc_config.opengl_orthographic, FALSE );
+#endif
+  canvas_sync_viewport( CANVAS_RDPATTERN );
+
+  /* Restore radiation pattern window widget state from the bound config
+   * fields, then run each tree's hook to refresh the derived draw flags. */
+  config_widget_sync_builder( &rdpattern_window_builder );
+  config_widget_run_hooks( &rdpattern_window_builder );
+
+  Main_Rdpattern_Activate( TRUE );
+
+  /* Check the restored gain style after its tree refreshes the window */
+  gain_style_check_warnings();
+
+  /* Populate and restore noise model sub-menus */
+  noise_model_menus_populate();
+
+#ifdef HAVE_OPENGL
+  /* Establish view sharing after all initialization completes.
+   * Single entry point so persistence-to-runtime mapping lives in
+   * opengl_common_projection_sync(). */
+  opengl_common_projection_sync();
+
+  /* Sync ortho toolbar button now that rdpattern window builder is ready */
+  render_settings_sync_from_config();
+#endif
+}
+
+
   void
 on_main_rdpattern_activate(
     GtkMenuItem     *menuitem,
@@ -529,108 +631,9 @@ on_main_rdpattern_activate(
   /* Open radiation pattern rendering window */
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
   {
-    if( rc_config.rdpattern_x < 0 || rc_config.rdpattern_y < 0 )
-      window_default_origin( RDPATTERN_WINDOW,
-          &rc_config.rdpattern_x, &rc_config.rdpattern_y );
-
-    rdpattern_window = create_rdpattern_window( &rdpattern_window_builder );
-
-    /* The transport buttons carry the sweep state, so a freshly built window
-     * takes its face and its tooltips from the readout. */
-    freq_sweep_controls_refresh();
-
-    /* The animation panel gates its pattern-window controls on this builder,
-     * so a freshly built window re-reads those gates. */
-    anim_panel_sensitivity();
-
-    /* Spin widgets must be resolved before creating the GL widget:
-     * opengl_rdpattern_surface_new() dereferences rdpattern_view,
-     * which in turn borrows the spin-button pointers. */
-    rotate_rdpattern  = GTK_SPIN_BUTTON( Builder_Get_Object(
-          rdpattern_window_builder, "rdpattern_rotate_spinbutton") );
-    incline_rdpattern = GTK_SPIN_BUTTON(Builder_Get_Object(
-          rdpattern_window_builder, "rdpattern_incline_spinbutton") );
-    config_widget_capture( &calc_data.fmhz_save );
-    rdpattern_zoom = GTK_SPIN_BUTTON(Builder_Get_Object(
-          rdpattern_window_builder, "rdpattern_zoom_spinbutton") );
-    rdpattern_fstep_entry = GTK_ENTRY(Builder_Get_Object(
-          rdpattern_window_builder, "rdpattern_fstep_entry") ) ;
-
-    /* Override the swept controllers on the rotation and incline spins so a
-     * wheel notch moves five degrees while a trackpad frame still floors at
-     * the one-degree quantum. */
-    scroll_install_spin_notches( rotate_rdpattern,  SCROLL_ANGLE_INCREMENT );
-    scroll_install_spin_notches( incline_rdpattern, SCROLL_ANGLE_INCREMENT );
-
-    /* Create the rdpattern view before the GL widget; the GL widget
-     * constructor installs observers on rdpattern_view and returns
-     * NULL otherwise. */
-    if( rdpattern_view == NULL )
-    {
-      rdpattern_view = view_new( VIEW_RDPATTERN,
-          rotate_rdpattern, incline_rdpattern, rdpattern_zoom,
-          rdpattern_view_changed_cb, NULL );
-      view_set_spin_handlers( rdpattern_view,
-          G_CALLBACK(on_rdpattern_rotate_spinbutton_value_changed),
-          G_CALLBACK(on_rdpattern_incline_spinbutton_value_changed),
-          G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed) );
-      view_set_drag_mode( rdpattern_view,
-          rc_config.view_drag_constrained
-              ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
-    }
-
-    GtkWidget *rdpattern_cairo_da = Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_drawingarea" );
-
-    canvas_add_surface( CANVAS_RDPATTERN,
-        cairo_surface_adopt(rdpattern_cairo_da,
-          rdpattern_view, rdpattern_input_caps) );
-
-#ifdef HAVE_OPENGL
-    canvas_add_surface( CANVAS_RDPATTERN,
-        opengl_rdpattern_surface_new(GTK_CONTAINER(
-            gtk_widget_get_parent(rdpattern_cairo_da))) );
-
-    opengl_set_renderer(rc_config.use_opengl_renderer);
-#else
-    canvas_set_engine( CANVAS_RDPATTERN, &cairo_engine );
-
-    config_widget_set_visible( &rc_config.opengl_orthographic, FALSE );
-#endif
-    canvas_sync_viewport( CANVAS_RDPATTERN );
-
-    /* Restore radiation pattern window widget state from the bound config
-     * fields, then run each tree's hook to refresh the derived draw flags. */
-    config_widget_sync_builder( &rdpattern_window_builder );
-    config_widget_run_hooks( &rdpattern_window_builder );
-
-    /* Request geometry and show after all structural mutations and
-     * widget state restorations so sizing is the last layout operation */
-    Set_Window_Geometry( rdpattern_window,
-        rc_config.rdpattern_x, rc_config.rdpattern_y,
-        rc_config.rdpattern_width, rc_config.rdpattern_height );
-    gtk_widget_show( rdpattern_window );
-    Update_Window_Titles();
-
-    Main_Rdpattern_Activate( TRUE );
-
-    /* Check the restored gain style after its tree refreshes the window */
-    gain_style_check_warnings();
-
-    /* Populate and restore noise model sub-menus */
-    noise_model_menus_populate();
-
-#ifdef HAVE_OPENGL
-    /* Establish view sharing after all initialization completes.
-     * Single entry point so persistence-to-runtime mapping lives in
-     * opengl_common_projection_sync(). */
-    opengl_common_projection_sync();
-
-    /* Sync ortho toolbar button now that rdpattern window builder is ready */
-    render_settings_sync_from_config();
-#endif
-
-  } /* if( gtk_check_menu_item_get_active(...) ) */
+    rdpattern_window_build();
+    window_present( RDPATTERN_WINDOW );
+  }
   else
     Gtk_Widget_Destroy( &rdpattern_window );
 }
@@ -673,6 +676,56 @@ freqplots_connect_panel_buttons( void )
 }
 
 
+/**
+ * freqplots_window_build() - Construct the frequency plots window
+ *
+ * Creates the window from its builder, registers its drawing area on
+ * CANVAS_FREQPLOTS, wires the plot-select popups and restores its widget
+ * state from the bound config fields.  The window stays unmapped until
+ * window_present(FREQPLOTS_WINDOW).
+ */
+  void
+freqplots_window_build( void )
+{
+  Main_Freqplots_Activate();
+
+  freqplots_window = create_freqplots_window( &freqplots_window_builder );
+
+  /* The transport buttons carry the sweep state, so a freshly built
+   * window takes its face and its tooltips from the readout. */
+  freq_sweep_controls_refresh();
+
+  GtkWidget *fp_da = Builder_Get_Object(
+      freqplots_window_builder, "freqplots_drawingarea" );
+  freqplots_main_view()->canvas      = CANVAS_FREQPLOTS;
+  canvas_add_surface( CANVAS_FREQPLOTS,
+      cairo_surface_adopt(fp_da, NULL, NULL) );
+  canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine );
+  freqplots_main_view()->filter      = FP_PANEL_ALL;
+  g_object_set_data( G_OBJECT(fp_da), "fp_view", freqplots_main_view() );
+  freqplots_connect_panel_buttons();
+  Set_Window_Labels();
+  calc_data.ngraph = 0;
+
+  /* Set the Zo spinbutton value */
+  GtkWidget *spin = Builder_Get_Object(
+      freqplots_window_builder, "freqplots_zo_spinbutton" );
+  gtk_spin_button_set_value( GTK_SPIN_BUTTON(spin), (gdouble)calc_data.zo );
+
+  /* Populate the excitation-port selector for the current model. */
+  freqplots_populate_port_combo();
+
+  /* Restore frequency plots window widget state from the bound config
+   * fields, then run each tree's hook to set the derived plot-select
+   * flags and recompute the active-plot count. */
+  config_widget_sync_builder( &freqplots_window_builder );
+  config_widget_run_hooks( &freqplots_window_builder );
+
+  /* Gray feedpoint-dependent widgets for feedpoint-less excitations. */
+  freqplots_gate_feedpoint_widgets();
+}
+
+
   void
 on_main_freqplots_activate(
     GtkMenuItem     *menuitem,
@@ -682,54 +735,8 @@ on_main_freqplots_activate(
    * related data (gain, vswr etc) */
   if( gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) )
   {
-    Main_Freqplots_Activate();
-
-    if( rc_config.freqplots_x < 0 || rc_config.freqplots_y < 0 )
-      window_default_origin( FREQPLOTS_WINDOW,
-          &rc_config.freqplots_x, &rc_config.freqplots_y );
-
-    freqplots_window = create_freqplots_window( &freqplots_window_builder );
-
-    /* The transport buttons carry the sweep state, so a freshly built
-     * window takes its face and its tooltips from the readout. */
-    freq_sweep_controls_refresh();
-
-    GtkWidget *fp_da = Builder_Get_Object(
-        freqplots_window_builder, "freqplots_drawingarea" );
-    freqplots_main_view()->canvas      = CANVAS_FREQPLOTS;
-    canvas_add_surface( CANVAS_FREQPLOTS,
-        cairo_surface_adopt(fp_da, NULL, NULL) );
-    canvas_set_engine( CANVAS_FREQPLOTS, &cairo_engine );
-    freqplots_main_view()->filter      = FP_PANEL_ALL;
-    g_object_set_data( G_OBJECT(fp_da), "fp_view", freqplots_main_view() );
-    freqplots_connect_panel_buttons();
-    Set_Window_Labels();
-    calc_data.ngraph = 0;
-
-    /* Set the Zo spinbutton value */
-    GtkWidget *spin = Builder_Get_Object(
-        freqplots_window_builder, "freqplots_zo_spinbutton" );
-    gtk_spin_button_set_value( GTK_SPIN_BUTTON(spin), (gdouble)calc_data.zo );
-
-    /* Populate the excitation-port selector for the current model. */
-    freqplots_populate_port_combo();
-
-    /* Restore frequency plots window widget state from the bound config
-     * fields, then run each tree's hook to set the derived plot-select
-     * flags and recompute the active-plot count. */
-    config_widget_sync_builder( &freqplots_window_builder );
-    config_widget_run_hooks( &freqplots_window_builder );
-
-    /* Gray feedpoint-dependent widgets for feedpoint-less excitations. */
-    freqplots_gate_feedpoint_widgets();
-
-    /* Request geometry and show after all widget state restorations
-     * so sizing is the last layout operation */
-    Set_Window_Geometry( freqplots_window,
-        rc_config.freqplots_x, rc_config.freqplots_y,
-        rc_config.freqplots_width, rc_config.freqplots_height );
-    gtk_widget_show( freqplots_window );
-    Update_Window_Titles();
+    freqplots_window_build();
+    window_present( FREQPLOTS_WINDOW );
 
     if( (rc_config.main_loop_start || isFlagSet(SUPPRESS_INTERMEDIATE_REDRAWS)) && !freq_sweep_has_results())
       Start_Frequency_Loop();

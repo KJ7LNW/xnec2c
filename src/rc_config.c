@@ -1423,7 +1423,7 @@ Restore_Windows( gpointer dat )
 
 /* Restore_GUI_State()
  *
- * Restores the state of the GUI including window geometry
+ * Restores the state of the GUI widgets from the config fields
  */
   void
 Restore_GUI_State( void )
@@ -1445,6 +1445,19 @@ Restore_GUI_State( void )
   render_settings_sync_from_config();
 #endif
 
+} /* Restore_GUI_State() */
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * gui_present() - Present the main window and restore the other windows
+ *
+ * Maps the main (structure) window at its stored geometry, then schedules
+ * Restore_Windows() to reopen the windows the config file records as open.
+ */
+  void
+gui_present( void )
+{
   /* Restore main (structure) window geometry after all widget state
    * restorations so layout-affecting changes precede sizing */
   Set_Window_Geometry( main_window,
@@ -1454,7 +1467,7 @@ Restore_GUI_State( void )
 
   g_idle_add( Restore_Windows, NULL );
 
-} /* Restore_GUI_State() */
+} /* gui_present() */
 
 /*------------------------------------------------------------------------*/
 
