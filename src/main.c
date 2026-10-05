@@ -305,6 +305,7 @@ main (int argc, char *argv[])
    * persisted theme selection. */
   theme_registry_init();
   palette_registry_init();
+  ui_style_sync_canvas_background();
 
   /* Read GUI state config file and reset geometry */
   Read_Config();

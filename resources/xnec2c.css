@@ -53,3 +53,10 @@ frame.section-cell > box.section-head {
 frame.section-cell {
 	margin-top: 27px;
 }
+
+/* A canvas edge sits halfway between the window color and the canvas
+   background, so it reads as an edge against both and every renderer shares
+   it.  The canvas background is defined at runtime from the active theme. */
+frame.canvas-border > border {
+	border: 1px solid mix(@theme_bg_color, @canvas_background, 0.5);
+}

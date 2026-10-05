@@ -587,7 +587,7 @@ on_main_rdpattern_activate(
 #ifdef HAVE_OPENGL
     {
       GtkWidget *box = Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_box");
+        rdpattern_window_builder, "rdpattern_canvas_box");
 
       canvas_add_surface( CANVAS_RDPATTERN,
           opengl_rdpattern_surface_new(GTK_CONTAINER(box)) );

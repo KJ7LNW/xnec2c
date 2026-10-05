@@ -28,6 +28,7 @@
 #include "../config/widget/config_widget_ops.h"
 #include "../rdpattern_ui.h"
 #include "../structure_ui.h"
+#include "../ui_style.h"
 #include "color_palette.h"
 #include "color_tone.h"
 
@@ -289,6 +290,9 @@ hook_theme_change(void)
 {
   palette_registry_init();
   hook_color_vis();
+
+  /* The canvas border mixes the window color with the theme background */
+  ui_style_sync_canvas_background();
 
   /* The Inverted item offers itself only where the rendered base theme
    * carries an inverted variant */
