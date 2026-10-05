@@ -74,6 +74,7 @@
 CONFIG_FIELD_INT_ASSERT(calc_data.pol_type);
 
 static void working_dir_set_default(rc_config_vars_t *v);
+static gboolean config_file_write(void);
 
 rc_config_vars_t rc_config_vars[] = {
 	// Historical typo "Vesrsion", but it cannot changed for backwards
@@ -1511,11 +1512,13 @@ Read_Config( void )
 	  chmod(fpath, newmode);
   }
 
-  /* Create the file if missing */
+  /* Create the file if missing.  rc_config holds only compiled defaults
+   * here, ahead of every batch override, so the file is created in batch
+   * runs too. */
   if (access(rc_config.config_file, R_OK) < 0 && errno == ENOENT)
   {
 	  rc_config.first_run = 1;
-	  Save_Config();
+	  config_file_write();
   }
   else
 	  rc_config.first_run = 0;
@@ -1755,8 +1758,6 @@ Get_GUI_State( void )
   gboolean
 Save_Config( void )
 {
-  FILE *fp = NULL;  /* File pointer to write config file */
-
   /* A hover stages its candidate into the field it previews, so the committed
    * value is restored here rather than persisted as the user's selection. */
   config_preview_revert();
@@ -1772,6 +1773,21 @@ Save_Config( void )
     pr_notice("batch mode: skipping configuration save\n");
     return( TRUE );
   }
+
+  return( config_file_write() );
+} /* Save_Config() */
+
+/*------------------------------------------------------------------------*/
+
+/* config_file_write()
+ *
+ * Writes the current values in rc_config to the config file in the format
+ * Save_Config() describes.  Returns FALSE when the file cannot be opened.
+ */
+  static gboolean
+config_file_write( void )
+{
+  FILE *fp = NULL;  /* File pointer to write config file */
 
   /* Open config file for writing */
   if (!Open_File(&fp, rc_config.config_file, "w"))
@@ -1791,6 +1807,6 @@ Save_Config( void )
   Close_File( &fp );
 
   return( TRUE );
-} /* Save_Config() */
+} /* config_file_write() */
 
 /*------------------------------------------------------------------------*/
