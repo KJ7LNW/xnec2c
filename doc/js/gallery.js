@@ -18,11 +18,15 @@ const GALLERY_AXES = Object.freeze([
   { key: "y", label: "Y", shortcut: "y" },
   { key: "z", label: "Z", shortcut: "z" },
   { key: "iso", label: "ISO", shortcut: "i" },
-].map(function create_gallery_axis(axis) {
+].map(function create_radiation_pattern_view(axis) {
+  return { ...axis, subject: axis.label + "-axis radiation pattern" };
+}).concat([
+  { key: "freqplots", label: "Plots", shortcut: "p", subject: "frequency plots" },
+]).map(function create_gallery_axis(axis) {
   return Object.freeze({
     ...axis,
     get purpose() {
-      return "Show the " + axis.label + "-axis radiation pattern";
+      return "Show the " + axis.subject;
     },
   });
 }));
@@ -30,6 +34,7 @@ const GALLERY_AXES = Object.freeze([
 const GALLERY_DATA = Object.freeze({
   find_gallery_image,
   gallery_image_source,
+  gallery_image_subject,
 });
 
 /** Resolve the requested image or the example's first available image. */
@@ -38,6 +43,22 @@ function find_gallery_image(entry, requested_axis) {
     return record.format === requested_axis;
   });
   return image === undefined ? entry.images[0] : image;
+}
+
+/** Describe what a manifest image record shows. */
+function gallery_image_subject(image) {
+  const view = GALLERY_AXES.find(function find_view(axis) {
+    return axis.key === image.format;
+  });
+  let subject;
+  if (view !== undefined) {
+    subject = view.subject;
+  } else {
+
+    // Describe radiation-pattern formats holding no view row, eg quad.
+    subject = image.format + " radiation pattern";
+  }
+  return subject;
 }
 
 /** Derive a gallery image source from its manifest record. */

@@ -85,7 +85,7 @@ function create_gallery_renderer(manifest, state, view, gallery_data) {
     const image = gallery_data.find_gallery_image(entry, requested_axis);
     const axis = image.format;
     const source = gallery_data.gallery_image_source(image);
-    const description = entry.name + " " + axis + " radiation pattern";
+    const description = entry.name + " " + gallery_data.gallery_image_subject(image);
 
     render_axes(entry, axis);
     view.title.textContent = entry.name;

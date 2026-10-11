@@ -105,7 +105,7 @@ sub check_manifest_bundle
 
 sub main
 {
-	my $repo_root = dirname(dirname(abs_path($0)));
+	my $repo_root = dirname(dirname(dirname(abs_path($0))));
 	my $base_url  = DEFAULT_BASE_URL;
 	my $help      = 0;
 

@@ -27,6 +27,11 @@ use GalleryBundle qw(
 my @SUPPORTED_FORMATS = qw(x y z iso quad);
 my %SUPPORTED_FORMATS = map { $_ => 1 } @SUPPORTED_FORMATS;
 
+use constant FREQPLOTS_FORMAT   => 'freqplots';
+use constant RDPAT_PNG_SIZE     => '1920x1080';
+use constant FREQPLOTS_PNG_SIZE => '1080x1920';
+use constant RENDER_ENGINE      => 'opengl';
+
 use constant RECOMPRESS_QUALITY => '90-100';
 use constant RECOMPRESS_NICE    => 10;
 
@@ -80,7 +85,16 @@ sub image_path
 	return "$name/$filename";
 }
 
-# Derive one relative gallery image record per requested format.
+# Derive the relative gallery path of one deck's frequency plots image.
+sub freqplots_image_path
+{
+	my ($name) = @_;
+
+	return "$name/$name-" . FREQPLOTS_FORMAT . '.png';
+}
+
+# Derive one relative gallery image record per requested format, followed by
+# the frequency plots record.
 sub image_records
 {
 	my ($name, $formats_ref) = @_;
@@ -93,6 +107,7 @@ sub image_records
 			path   => image_path($name, $format, scalar @{$formats_ref}),
 			};
 	}
+	push @images, { format => FREQPLOTS_FORMAT, path => freqplots_image_path($name) };
 
 	return \@images;
 }
@@ -218,6 +233,11 @@ sub validate_manifest_records
 		}
 
 		my %seen_formats;
+
+		# Name radiation-pattern paths from the radiation-pattern record count.
+		my $rdpat_count = grep {
+			!(ref($_) eq 'HASH' && defined($_->{format}) && ($_->{format} eq FREQPLOTS_FORMAT))
+		} @{ $entry->{images} };
 		for my $image (@{ $entry->{images} }) {
 			if (       ref($image) ne 'HASH'
 				|| !defined($image->{format})
@@ -235,7 +255,7 @@ sub validate_manifest_records
 			}
 
 			my $format = $image->{format};
-			if (!exists $SUPPORTED_FORMATS{$format}) {
+			if ((!exists $SUPPORTED_FORMATS{$format}) && ($format ne FREQPLOTS_FORMAT)) {
 				push @{$defects_ref},
 					{
 					artifact => $artifact,
@@ -254,8 +274,13 @@ sub validate_manifest_records
 				next;
 			}
 
-			my $expected_path =
-				image_path($expected_name, $format, scalar @{ $entry->{images} });
+			my $expected_path;
+			if ($format eq FREQPLOTS_FORMAT) {
+				$expected_path = freqplots_image_path($expected_name);
+			}
+			else {
+				$expected_path = image_path($expected_name, $format, $rdpat_count);
+			}
 			if ($image->{path} ne $expected_path) {
 				push @{$defects_ref},
 					{
@@ -540,25 +565,34 @@ sub render_gallery
 		my $output_base = File::Spec->catfile($deck_dir, "$item->{name}.png");
 		my @outputs = @{ $item->{outputs} };
 
-		my $status = system($context->{binary},
-			'--batch',
-			'-c',
-			$context->{config},
-			'--rdpat-png-format',
-			$context->{format_text},
-			'--freq-select',
-			'center',
-			'--write-rdpat-png',
-			$output_base,
-			'--',
-			File::Spec->catfile($context->{repo_root}, split m{/}, $item->{deck}));
-		my $exit = (($status == -1) || (($status & 127) != 0)) ? -1 : ($status >> 8);
+		my $freqplots_output = File::Spec->catfile($context->{output_dir},
+			split m{/}, freqplots_image_path($item->{name}));
+		my $deck_path =
+			File::Spec->catfile($context->{repo_root}, split m{/}, $item->{deck});
+
+		# Capture each window in its own run so each takes its own PNG size.
+		my @run_args = (
+			[
+				'--png-size',         RDPAT_PNG_SIZE,
+				'--rdpat-png-format', $context->{format_text},
+				'--freq-select',      'center',
+				'--write-rdpat-png',  $output_base,
+			],
+			[ '--png-size', FREQPLOTS_PNG_SIZE, '--write-freqplots-png', $freqplots_output, ],
+		);
+		my @exits;
+		for my $args (@run_args) {
+			my $status = system($context->{binary},
+				'--batch', '-c', $context->{config}, '--render-engine', RENDER_ENGINE,
+				@{$args}, '--', $deck_path);
+			push @exits, (($status == -1) || (($status & 127) != 0)) ? -1 : ($status >> 8);
+		}
 
 		# Success is a complete, non-empty output set; a nonzero xnec2c exit on a
 		# fully rendered deck is a diagnostic, not a failure.
 		if (!grep { !-s $_ } @outputs) {
-			if ($exit != 0) {
-				print "ok (xnec2c exit $exit)\n";
+			if (grep { $_ != 0 } @exits) {
+				print 'ok (xnec2c exit ' . join(',', @exits) . ")\n";
 			}
 			else {
 				print "ok\n";
