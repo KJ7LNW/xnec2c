@@ -8,6 +8,7 @@ const GALLERY_INITIAL_STATE = Object.freeze({
   preview_index: null,
   preview_axis: null,
   zoom_open: false,
+  zoom_magnified: false,
 });
 
 /** Collapse the example pane by default at or below this viewport width. */
@@ -203,12 +204,28 @@ function build_gallery(manifest) {
   /** Close the zoom surface and restore its controls and trigger focus. */
   function close_zoom() {
     state.zoom_open = false;
+    state.zoom_magnified = false;
     view.stage.insertBefore(view.previous_chevron, view.image_button);
     view.stage.insertBefore(view.next_chevron, view.source_panel);
     view.source_button.before(view.axis_bar);
     renderer.render_gallery();
     warm.refresh();
     view.image_button.focus();
+  }
+
+  /** Switch the zoom image between its fitted view and native-pixel magnification. */
+  function toggle_zoom_magnify() {
+    state.zoom_magnified = !state.zoom_magnified;
+    renderer.render_gallery();
+  }
+
+  /** Return the zoom image to its fitted view. */
+  function restore_zoom_fit() {
+    if (!state.zoom_magnified) {
+      return;
+    }
+    state.zoom_magnified = false;
+    renderer.render_gallery();
   }
 
   /** Close the deepest open gallery surface. */
@@ -262,6 +279,7 @@ function build_gallery(manifest) {
     process_wheel,
     toggle_source, toggle_pane,
     open_zoom, close_zoom,
+    toggle_zoom_magnify, restore_zoom_fit,
     close_deepest_surface, close_gallery,
     get_focus_surface,
   });

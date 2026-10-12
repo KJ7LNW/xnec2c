@@ -126,6 +126,7 @@ function create_gallery_renderer(manifest, state, view, gallery_data) {
     view.browse_button.setAttribute("aria-expanded", String(state.pane_open));
     view.zoom.classList.toggle("gallery-zoom-open", state.zoom_open);
     view.zoom.setAttribute("aria-hidden", String(!state.zoom_open));
+    view.zoom_image.classList.toggle("gallery-zoom-magnified", state.zoom_magnified);
   }
 
   return { render_gallery, request_decks };

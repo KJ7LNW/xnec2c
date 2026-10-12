@@ -128,6 +128,39 @@ function bind_hotkey_tooltips(bindings, tooltip) {
   window.addEventListener("resize", render_hotkey_tooltip);
 }
 
+/** Toggle native-pixel magnification of the zoom image on click and pan it with the mouse. */
+function bind_zoom_magnify(image, controller) {
+
+  /** Aim the magnification at a pointer position at native pixel scale. */
+  function aim_magnifier(event) {
+    const fit = Math.min(
+      image.clientWidth / image.naturalWidth,
+      image.clientHeight / image.naturalHeight,
+    );
+    const origin_x = ((event.clientX - image.offsetLeft) / image.offsetWidth) * 100;
+    const origin_y = ((event.clientY - image.offsetTop) / image.offsetHeight) * 100;
+    image.style.setProperty("--gallery-zoom-scale", String(Math.max(1, 1 / fit)));
+    image.style.transformOrigin = String(origin_x) + "% " + String(origin_y) + "%";
+  }
+
+  image.addEventListener("pointermove", function pan(event) {
+
+    // Leave touch and pen input to swipe navigation; wait for a decoded image.
+    if (event.pointerType !== "mouse" || image.naturalWidth === 0) {
+      return;
+    }
+    aim_magnifier(event);
+  });
+  image.addEventListener("click", function toggle_magnify(event) {
+    if (image.naturalWidth === 0) {
+      return;
+    }
+    aim_magnifier(event);
+    controller.toggle_zoom_magnify();
+  });
+  image.addEventListener("load", controller.restore_zoom_fit);
+}
+
 /** Bind gallery controls to controller operations. */
 function bind_gallery_events(view, controller) {
   const key_bindings = resolve_gallery_key_bindings(view);
@@ -166,6 +199,7 @@ function bind_gallery_events(view, controller) {
   view.close_button.addEventListener("click", controller.close_gallery);
   view.image_button.addEventListener("click", controller.open_zoom);
   view.zoom_close.addEventListener("click", controller.close_zoom);
+  bind_zoom_magnify(view.zoom_image, controller);
   view.modal.addEventListener("click", function close_backdrop(event) {
     if (event.target !== view.modal) {
       return;

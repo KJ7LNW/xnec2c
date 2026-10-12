@@ -5,6 +5,7 @@
   z-index: 1100;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   background: rgba(0, 0, 0, 0.9);
 }
 
@@ -15,12 +16,20 @@
 .gallery-zoom-image {
   width: 95vw;
   height: 95vh;
+  cursor: zoom-in;
+  transition: transform 0.1s ease;
+}
+
+.gallery-zoom-image.gallery-zoom-magnified {
+  cursor: zoom-out;
+  transform: scale(var(--gallery-zoom-scale));
 }
 
 .gallery-zoom-close {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  z-index: 2;
   padding: 0.25rem 0.6rem;
   font-size: 1.5rem;
   line-height: 1;
