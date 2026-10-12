@@ -361,8 +361,16 @@ main(int argc, char *argv[])
   char exe_path[PATH_MAX];
   char *exe_dir;
   ssize_t len;
+  const char *display_env;
 
-  gtk_init(&argc, &argv);
+  /* Fail hard without a display, naming the DISPLAY value and the remedy */
+  display_env = g_getenv("DISPLAY");
+  if( !gtk_init_check(&argc, &argv) )
+  {
+    fprintf(stderr, "GTK cannot open a display (DISPLAY=\"%s\"); run under an X11 session or xvfb-run\n",
+      display_env != NULL ? display_env : "(unset)");
+    return 1;
+  }
 
   len = readlink("/proc/self/exe", exe_path, sizeof(exe_path) - 1);
   if( len != -1 )
