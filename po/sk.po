@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-04 22:38-0700\n"
+"POT-Creation-Date: 2026-10-12 01:09-0700\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -59,16 +59,16 @@ msgstr "Ľavotočivá"
 msgid "Animated"
 msgstr "Animované"
 
-#: resources/animate.glade:114 resources/xnec2c.glade:11056
+#: resources/animate.glade:114 resources/xnec2c.glade:11114
 msgid "_Reference Phase"
 msgstr "_Referenčná fáza"
 
-#: resources/animate.glade:125 resources/xnec2c.glade:11067
+#: resources/animate.glade:125 resources/xnec2c.glade:11125
 msgid "_LIC Texture"
 msgstr "_Textúra LIC"
 
-#: resources/animate.glade:136 resources/xnec2c.glade:11078
-#: resources/xnec2c.glade:12270
+#: resources/animate.glade:136 resources/xnec2c.glade:11136
+#: resources/xnec2c.glade:12328
 msgid "_Wireframe"
 msgstr "_Drôtený model"
 
@@ -77,11 +77,11 @@ msgstr "_Drôtený model"
 msgid "Static"
 msgstr "Statické"
 
-#: resources/animate.glade:161 resources/xnec2c.glade:11103
+#: resources/animate.glade:161 resources/xnec2c.glade:11161
 msgid "Polarization _Axis"
 msgstr "Os _polarizácie"
 
-#: resources/animate.glade:172 resources/xnec2c.glade:11114
+#: resources/animate.glade:172 resources/xnec2c.glade:11172
 msgid "Peak _Magnitude"
 msgstr "Špičková v_eľkosť"
 
@@ -132,7 +132,7 @@ msgstr "Žiadna (geometria)"
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr "Zobrazí holú geometriu štruktúry bez farebného zobrazenia veličiny."
 
-#: resources/animate.glade:498 resources/xnec2c.glade:11221
+#: resources/animate.glade:498 resources/xnec2c.glade:11279
 msgid "Currents"
 msgstr "Prúdy"
 
@@ -140,7 +140,7 @@ msgstr "Prúdy"
 msgid "Animate current magnitude and direction along the wires."
 msgstr "Animovať veľkosť a smer prúdu pozdĺž drôtov."
 
-#: resources/animate.glade:515 resources/xnec2c.glade:11236
+#: resources/animate.glade:515 resources/xnec2c.glade:11294
 msgid "Charges"
 msgstr "Náboje"
 
@@ -523,8 +523,8 @@ msgstr ""
 "sa orežú na spodnú farbu."
 
 # xnec2c-exempt: notation
-#: resources/settings/color_settings.glade:285 resources/xnec2c.glade:11694
-#: resources/xnec2c.glade:13051
+#: resources/settings/color_settings.glade:285 resources/xnec2c.glade:11752
+#: resources/xnec2c.glade:13109
 msgid "dB"
 msgstr ""
 
@@ -876,21 +876,21 @@ msgid "Arc Element (GA card)"
 msgstr "Oblúkový prvok (karta GA)"
 
 #: resources/xnec2c.glade:134 resources/xnec2c.glade:1169
-#: resources/xnec2c.glade:3596 resources/xnec2c.glade:14768 src/cmnd_edit.c:489
+#: resources/xnec2c.glade:3596 resources/xnec2c.glade:14826 src/cmnd_edit.c:489
 msgid "Tag Number"
 msgstr "Číslo značky"
 
-#: resources/xnec2c.glade:147 resources/xnec2c.glade:14863
+#: resources/xnec2c.glade:147 resources/xnec2c.glade:14921
 msgid "No. Segments"
 msgstr "Počet segmentov"
 
 #: resources/xnec2c.glade:160 resources/xnec2c.glade:3622
-#: resources/xnec2c.glade:14959
+#: resources/xnec2c.glade:15017
 msgid "Segs % lambda"
 msgstr "Segmenty % lambda"
 
 #: resources/xnec2c.glade:173 resources/xnec2c.glade:3635
-#: resources/xnec2c.glade:15055
+#: resources/xnec2c.glade:15113
 msgid "Wire Diameter"
 msgstr "Priemer drôtu"
 
@@ -907,7 +907,7 @@ msgid "End 2 Angle"
 msgstr "Uhol konca 2"
 
 #: resources/xnec2c.glade:300 resources/xnec2c.glade:3832
-#: resources/xnec2c.glade:15120 src/cmnd_edit.c:2025
+#: resources/xnec2c.glade:15178 src/cmnd_edit.c:2025
 msgid "Conductivity S/m"
 msgstr "Vodivosť S/m"
 
@@ -923,9 +923,9 @@ msgstr "Údaje oblúka drôtu"
 #: resources/xnec2c.glade:4526 resources/xnec2c.glade:5058
 #: resources/xnec2c.glade:5694 resources/xnec2c.glade:7138
 #: resources/xnec2c.glade:8045 resources/xnec2c.glade:9051
-#: resources/xnec2c.glade:9331 resources/xnec2c.glade:13461
-#: resources/xnec2c.glade:13974 resources/xnec2c.glade:14573
-#: resources/xnec2c.glade:15409 resources/xnec2c.glade:15609
+#: resources/xnec2c.glade:9331 resources/xnec2c.glade:13519
+#: resources/xnec2c.glade:14032 resources/xnec2c.glade:14631
+#: resources/xnec2c.glade:15467 resources/xnec2c.glade:15667
 msgid "Delete Card"
 msgstr "Odstrániť kartu"
 
@@ -1221,8 +1221,8 @@ msgid "5.00"
 msgstr "5,00"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:3710 resources/xnec2c.glade:11727
-#: resources/xnec2c.glade:12927
+#: resources/xnec2c.glade:3710 resources/xnec2c.glade:11785
+#: resources/xnec2c.glade:12985
 msgid "1"
 msgstr ""
 
@@ -1276,7 +1276,7 @@ msgstr "Polomer v Y (B2)"
 msgid "GH Card"
 msgstr "Karta GH"
 
-#: resources/xnec2c.glade:4239 resources/xnec2c.glade:15483
+#: resources/xnec2c.glade:4239 resources/xnec2c.glade:15541
 msgid "Interaction Approx Range (KH Card)"
 msgstr "Rozsah aproximácie interakcie (karta KH)"
 
@@ -1394,8 +1394,8 @@ msgid "NX"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5374 resources/xnec2c.glade:11251
-#: resources/xnec2c.glade:12462
+#: resources/xnec2c.glade:5374 resources/xnec2c.glade:11309
+#: resources/xnec2c.glade:12520
 msgid "X"
 msgstr ""
 
@@ -1410,8 +1410,8 @@ msgid "NY"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5469 resources/xnec2c.glade:11266
-#: resources/xnec2c.glade:12477
+#: resources/xnec2c.glade:5469 resources/xnec2c.glade:11324
+#: resources/xnec2c.glade:12535
 msgid "Y"
 msgstr ""
 
@@ -1426,8 +1426,8 @@ msgid "NZ"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5564 resources/xnec2c.glade:11281
-#: resources/xnec2c.glade:12492
+#: resources/xnec2c.glade:5564 resources/xnec2c.glade:11339
+#: resources/xnec2c.glade:12550
 msgid "Z"
 msgstr ""
 
@@ -1593,7 +1593,7 @@ msgstr "Číslo segmentu, port 1"
 msgid "Segment Num, Port 2"
 msgstr "Číslo segmentu, port 2"
 
-#: resources/xnec2c.glade:6851 resources/xnec2c.glade:14269
+#: resources/xnec2c.glade:6851 resources/xnec2c.glade:14327
 msgid "Segment Identity"
 msgstr "Identita segmentu"
 
@@ -1885,17 +1885,17 @@ msgstr "Možnosti zrkadlenia"
 msgid "Xnec2c: Frequency Data Plots"
 msgstr "Xnec2c: Grafy frekvenčných údajov"
 
-#: resources/xnec2c.glade:9427 resources/xnec2c.glade:10397
-#: resources/xnec2c.glade:11951
+#: resources/xnec2c.glade:9427 resources/xnec2c.glade:10455
+#: resources/xnec2c.glade:12009
 msgid "_File"
 msgstr "_Súbor"
 
-#: resources/xnec2c.glade:9489 resources/xnec2c.glade:10459
-#: resources/xnec2c.glade:12013
+#: resources/xnec2c.glade:9489 resources/xnec2c.glade:10517
+#: resources/xnec2c.glade:12071
 msgid "Save as _gnuplot"
 msgstr "Uložiť ako _gnuplot"
 
-#: resources/xnec2c.glade:9500 resources/xnec2c.glade:12023
+#: resources/xnec2c.glade:9500 resources/xnec2c.glade:12081
 msgid "Save as _CSV"
 msgstr "Uložiť ako _CSV"
 
@@ -1915,112 +1915,176 @@ msgstr "Uložiť ako S2P: _Maximálny zisk (S21)"
 msgid "Save as S2P: _Viewer Gain (S21)"
 msgstr "Uložiť ako S2P: Zisk _zobrazovača (S21)"
 
-#: resources/xnec2c.glade:9576 resources/xnec2c.glade:10834
-#: resources/xnec2c.glade:12057
+#: resources/xnec2c.glade:9576 resources/xnec2c.glade:10892
+#: resources/xnec2c.glade:12115
 msgid "_View"
 msgstr "_Zobrazenie"
 
-#: resources/xnec2c.glade:9585 resources/xnec2c.glade:10862
-#: resources/xnec2c.glade:12065
+#: resources/xnec2c.glade:9585 resources/xnec2c.glade:10920
+#: resources/xnec2c.glade:12123
 msgid "_Polarization"
 msgstr "_Polarizácia"
 
-#: resources/xnec2c.glade:9599 resources/xnec2c.glade:10876
-#: resources/xnec2c.glade:12079
+#: resources/xnec2c.glade:9599 resources/xnec2c.glade:10934
+#: resources/xnec2c.glade:12137
 msgid "_Total"
 msgstr "_Celková"
 
-#: resources/xnec2c.glade:9610 resources/xnec2c.glade:10887
-#: resources/xnec2c.glade:12090
+#: resources/xnec2c.glade:9610 resources/xnec2c.glade:10945
+#: resources/xnec2c.glade:12148
 msgid "_Horizontal"
 msgstr "_Horizontálna"
 
-#: resources/xnec2c.glade:9621 resources/xnec2c.glade:10898
-#: resources/xnec2c.glade:12101
+#: resources/xnec2c.glade:9621 resources/xnec2c.glade:10956
+#: resources/xnec2c.glade:12159
 msgid "_Vertical"
 msgstr "_Vertikálna"
 
-#: resources/xnec2c.glade:9632 resources/xnec2c.glade:10909
-#: resources/xnec2c.glade:12112
+#: resources/xnec2c.glade:9632 resources/xnec2c.glade:10967
+#: resources/xnec2c.glade:12170
 msgid "_Right Hand"
 msgstr "_Pravotočivá"
 
-#: resources/xnec2c.glade:9643 resources/xnec2c.glade:10920
-#: resources/xnec2c.glade:12123
+#: resources/xnec2c.glade:9643 resources/xnec2c.glade:10978
+#: resources/xnec2c.glade:12181
 msgid "_Left Hand"
 msgstr "_Ľavotočivá"
 
 #: resources/xnec2c.glade:9658
+msgid "Max Gain _Second Trace"
+msgstr "Maximálny zisk, _druhá stopa"
+
+#: resources/xnec2c.glade:9667
+msgid ""
+"Plot the front-to-back ratio beside Max Gain: peak gain over the gain in the "
+"opposite direction."
+msgstr ""
+"Vykreslí predozadný pomer vedľa maximálneho zisku: špičkový zisk voči zisku "
+"v opačnom smere."
+
+#: resources/xnec2c.glade:9668
+msgid "F/_B Ratio"
+msgstr "Pomer F/_B"
+
+#: resources/xnec2c.glade:9678
+msgid ""
+"Plot the front-to-rear ratio beside Max Gain: peak gain over the strongest "
+"gain at the same elevation more than 90° away in azimuth."
+msgstr ""
+"Vykreslí pomer predného a zadného zisku vedľa maximálneho zisku: špičkový "
+"zisk voči najsilnejšiemu zisku v rovnakej elevácii, ktorý leží v azimute "
+"viac ako 90° od neho."
+
+#: resources/xnec2c.glade:9679
+msgid "F/_R Ratio"
+msgstr "Pomer F/_R"
+
+#: resources/xnec2c.glade:9690
 msgid "_Net Gain"
 msgstr "_Čistý zisk"
 
-#: resources/xnec2c.glade:9667
+#: resources/xnec2c.glade:9705
 msgid "Show _Min/Max Values"
 msgstr "Zobraziť _Min/Max hodnoty"
 
-#: resources/xnec2c.glade:9676
+#: resources/xnec2c.glade:9714
 msgid "Show _S11 (dB) Values"
 msgstr "Zobraziť hodnoty _S11 (dB)"
 
-#: resources/xnec2c.glade:9685
+#: resources/xnec2c.glade:9723
 msgid "Clamp _VSWR Graph to 10"
 msgstr "Obmedziť graf _VSWR na 10"
 
-#: resources/xnec2c.glade:9694
+#: resources/xnec2c.glade:9732
 msgid "Show Ta instead of TA"
 msgstr "Zobraziť Ta namiesto TA"
 
-#: resources/xnec2c.glade:9703
+#: resources/xnec2c.glade:9741
 msgid "Round _X Axis Frequency Values"
 msgstr "Zaokrúhliť hodnoty frekvencie osi _X"
 
-#: resources/xnec2c.glade:9712
+#: resources/xnec2c.glade:9750
 msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "Z_ameniť výber frekvencie ľavým/pravým kliknutím"
 
-#: resources/xnec2c.glade:9736 resources/xnec2c.glade:9918
+#: resources/xnec2c.glade:9774 resources/xnec2c.glade:9976
 msgid "Max Gain"
 msgstr "Max. zisk"
 
-#: resources/xnec2c.glade:9751
+#: resources/xnec2c.glade:9789
 msgid "Direction"
 msgstr "Smer"
 
-#: resources/xnec2c.glade:9766
+#: resources/xnec2c.glade:9804
 msgid "Viewer"
 msgstr "Zobrazovač"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9781 resources/xnec2c.glade:10023
+#: resources/xnec2c.glade:9819 resources/xnec2c.glade:10081
 #: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9796
+#: resources/xnec2c.glade:9834
 msgid "Zr/Zi"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9811
+#: resources/xnec2c.glade:9849
 msgid "Zm/Zph"
 msgstr ""
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:9826
+#: resources/xnec2c.glade:9864
 msgid "Smith"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9841
+#: resources/xnec2c.glade:9879
 msgid "G/Ta"
 msgstr ""
 
-#: resources/xnec2c.glade:9855
+# xnec2c-exempt: name
+#: resources/xnec2c.glade:9893
+msgid "AGT"
+msgstr ""
+
+#: resources/xnec2c.glade:9897
+msgid ""
+"Plots the average power gain over the directions the radiation pattern "
+"samples, at each frequency.\n"
+"Values appear once a frequency sweep with a radiation pattern has produced "
+"results.\n"
+"A sound lossless model averages 1.0 over the full sphere in free space and "
+"2.0 over the upper hemisphere above perfect ground; a departure on such a "
+"model points to inaccurate geometry, such as segments too long or wires too "
+"close.\n"
+"The readout adds the sampled fraction of the sphere and the average scaled "
+"by that fraction, in percent, which reads 100 for a sound lossless model "
+"whose pattern covers every direction it radiates into.\n"
+"See the \"Validating a Model\" section of the manual for how to run and read "
+"the test."
+msgstr ""
+"Vykreslí priemerný výkonový zisk cez smery, ktoré vyžarovací diagram "
+"vzorkuje, pri každej frekvencii.\n"
+"Hodnoty sa zobrazia, keď frekvenčný prechod s vyžarovacím diagramom vytvorí "
+"výsledky.\n"
+"Správny bezstratový model má v voľnom priestore priemer 1,0 cez celú guľu a "
+"2,0 cez hornú pologuľu nad dokonalou zemou; odchýlka na takom modeli "
+"poukazuje na nepresnú geometriu, napríklad príliš dlhé segmenty alebo príliš "
+"blízke drôty.\n"
+"Odčítaná hodnota dopĺňa vzorkovaný podiel gule a priemer prepočítaný týmto "
+"podielom, v percentách, ktorá pre správny bezstratový model, ktorého diagram "
+"pokrýva všetky smery jeho vyžarovania, udáva 100.\n"
+"Postup spustenia a čítania testu nájdete v časti „Validating a Model“ "
+"príručky."
+
+#: resources/xnec2c.glade:9912
 msgid "Cond"
 msgstr "Pod."
 
-#: resources/xnec2c.glade:9859
+#: resources/xnec2c.glade:9916
 msgid ""
 "Plots the precision lost solving the antenna at each frequency, in decimal "
 "digits.\n"
@@ -2031,202 +2095,205 @@ msgid ""
 "artefact rather than a resonance.\n"
 "A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and "
 "a reading near 15 leaves none; shorten or thicken the offending segments and "
-"run the sweep again to bring the curve down."
+"run the sweep again to bring the curve down.\n"
+"See the \"Validating a Model\" section of the manual to read it beside the "
+"AGT trace."
 msgstr ""
-"Zobrazuje stratenú presnosť pri riešení antény pri každej frekvencii, v "
-"desiatkových čísliciach.\n"
-"Hodnoty sa zobrazia po tom, čo frekvenčné zametanie vytvorí výsledky.\n"
-"Čítajte ju spolu s priebehmi impedancie a VSWR: plochá nízka krivka znamená, "
-"že tieto priebehy sú spoľahlivé, zatiaľ čo vrchol označuje frekvenciu, pri "
-"ktorej sa riešenie zhoršilo, takže prudký výkyv impedancie pri tej istej "
-"frekvencii je numerický artefakt, nie rezonancia.\n"
-"Double nesie približne 15 číslic, takže hodnota 3 ponecháva 12 spoľahlivých "
-"a hodnota blízka 15 neponecháva žiadnu; skráťte alebo zhrubnite postihnuté "
-"segmenty a spustite zametanie znova, aby ste krivku znížili."
+"Vykreslí stratu presnosti pri riešení antény pri každej frekvencii v "
+"desatinných číslicach.\n"
+"Hodnoty sa zobrazia, keď frekvenčný prechod vytvorí výsledky.\n"
+"Čítajte ju spolu so stopami impedancie a VSWR: plochá nízka krivka znamená, "
+"že tieto stopy sú spoľahlivé, kým vrchol označuje frekvenciu, na ktorej sa "
+"riešenie zhoršilo, takže prudká odchýlka impedancie na tej istej frekvencii "
+"je numerický artefakt, nie rezonancia.\n"
+"Typ double nesie približne 15 číslic, takže hodnota 3 necháva 12 "
+"spoľahlivých a hodnota blízka 15 žiadnu; skráťte alebo zhrubnite problémové "
+"segmenty a prechod zopakujte, aby krivka klesla.\n"
+"Spolu so stopou AGT ju čítajte podľa časti „Validating a Model“ príručky."
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:9902 resources/xnec2c.glade:9937
-#: resources/xnec2c.glade:9972 resources/xnec2c.glade:10007
-#: resources/xnec2c.glade:10229 resources/xnec2c.glade:10264
-#: resources/xnec2c.glade:10299 resources/xnec2c.glade:13186
+#: resources/xnec2c.glade:9960 resources/xnec2c.glade:9995
+#: resources/xnec2c.glade:10030 resources/xnec2c.glade:10065
+#: resources/xnec2c.glade:10287 resources/xnec2c.glade:10322
+#: resources/xnec2c.glade:10357 resources/xnec2c.glade:13244
 msgid " - - -"
 msgstr ""
 
-#: resources/xnec2c.glade:9953 src/freqplots/graphs/impedance_graph.c:76
+#: resources/xnec2c.glade:10011 src/freqplots/graphs/impedance_graph.c:76
 msgid "Z-imag"
 msgstr "Z-imaginárna"
 
-#: resources/xnec2c.glade:9988 src/freqplots/graphs/impedance_graph.c:74
+#: resources/xnec2c.glade:10046 src/freqplots/graphs/impedance_graph.c:74
 msgid "Z-real"
 msgstr "Z-reálna"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:10043
+#: resources/xnec2c.glade:10101
 msgid " - - - - "
 msgstr ""
 
-#: resources/xnec2c.glade:10059
+#: resources/xnec2c.glade:10117
 msgid "Freq MHz"
 msgstr "Frekv. MHz"
 
 # xnec2c-exempt: loanword
-#: resources/xnec2c.glade:10098 resources/xnec2c.glade:10111
+#: resources/xnec2c.glade:10156 resources/xnec2c.glade:10169
 msgid "Port"
 msgstr ""
 
-#: resources/xnec2c.glade:10123
+#: resources/xnec2c.glade:10181
 msgid "Tx Line Z<sub>0</sub>"
 msgstr "Z<sub>0</sub> vedenia Tx"
 
-#: resources/xnec2c.glade:10138 resources/xnec2c.glade:11742
-#: resources/xnec2c.glade:12958
+#: resources/xnec2c.glade:10196 resources/xnec2c.glade:11800
+#: resources/xnec2c.glade:13016
 msgid "Freq Loop"
 msgstr "Frekvenčná slučka"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10210 resources/xnec2c.glade:13064
+#: resources/xnec2c.glade:10268 resources/xnec2c.glade:13122
 msgid "T<sub>A</sub>(Elev.°)"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10245
+#: resources/xnec2c.glade:10303
 msgid "T<sub>a</sub>"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10280
+#: resources/xnec2c.glade:10338
 msgid "G/T<sub>a</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:10352
+#: resources/xnec2c.glade:10410
 msgid "Frequency Data Plots"
 msgstr "Grafy frekvenčných údajov"
 
-#: resources/xnec2c.glade:10470
+#: resources/xnec2c.glade:10528
 msgid "Save _Currents/Charges as CSV"
 msgstr "Uložiť _prúdy/náboje ako CSV"
 
-#: resources/xnec2c.glade:10489
+#: resources/xnec2c.glade:10547
 msgid "Optimization Settings"
 msgstr "Nastavenia optimalizácie"
 
-#: resources/xnec2c.glade:10504
+#: resources/xnec2c.glade:10562
 msgid "Reload and write data on .NEC file changes"
 msgstr "Znovu načítať a zapísať údaje pri zmene súboru .NEC"
 
-#: resources/xnec2c.glade:10511
+#: resources/xnec2c.glade:10569
 msgid "_Write files selected below, now."
 msgstr "_Zapísať nižšie vybrané súbory teraz."
 
-#: resources/xnec2c.glade:10526
+#: resources/xnec2c.glade:10584
 msgid "After calculation, write <file>.csv"
 msgstr "Po výpočte zapísať <file>.csv"
 
-#: resources/xnec2c.glade:10535
+#: resources/xnec2c.glade:10593
 msgid "After calculation, write <file>.s_1p"
 msgstr "Po výpočte zapísať <file>.s_1p"
 
-#: resources/xnec2c.glade:10544
+#: resources/xnec2c.glade:10602
 msgid "After calculation, write <file>-_maxgain.s2p"
 msgstr "Po výpočte zapísať <file>-_maxgain.s2p"
 
-#: resources/xnec2c.glade:10553
+#: resources/xnec2c.glade:10611
 msgid "After calculation, write <file>-_viewergain.s2p"
 msgstr "Po výpočte zapísať <file>-_viewergain.s2p"
 
-#: resources/xnec2c.glade:10562
+#: resources/xnec2c.glade:10620
 msgid "After calculation, write <file>-_radpattern.csv"
 msgstr "Po výpočte zapísať <file>-_radpattern.csv"
 
-#: resources/xnec2c.glade:10571
+#: resources/xnec2c.glade:10629
 msgid "After calculation, write <file>-_currents.csv"
 msgstr "Po výpočte zapísať <file>-_currents.csv"
 
-#: resources/xnec2c.glade:10580
+#: resources/xnec2c.glade:10638
 msgid "After calculation, write <file>-_structure.gplot"
 msgstr "Po výpočte zapísať <file>-_structure.gplot"
 
-#: resources/xnec2c.glade:10589
+#: resources/xnec2c.glade:10647
 msgid "After calculation, write <file>-_patch-currents.csv"
 msgstr "Po výpočte zapísať <file>-_patch-currents.csv"
 
-#: resources/xnec2c.glade:10604
+#: resources/xnec2c.glade:10662
 msgid "_Math Libraries"
 msgstr "_Matematické knižnice"
 
-#: resources/xnec2c.glade:10613
+#: resources/xnec2c.glade:10671
 msgid "_Interactive"
 msgstr "_Interaktívne"
 
-#: resources/xnec2c.glade:10633
+#: resources/xnec2c.glade:10691
 msgid "_Batch"
 msgstr "_Dávkovo"
 
-#: resources/xnec2c.glade:10659
+#: resources/xnec2c.glade:10717
 msgid "Mathlib _Help"
 msgstr "_Pomoc Mathlib"
 
-#: resources/xnec2c.glade:10672
+#: resources/xnec2c.glade:10730
 msgid "Mathlib _Benchmarks"
 msgstr "_Benchmarky Mathlib"
 
-#: resources/xnec2c.glade:10683
+#: resources/xnec2c.glade:10741
 msgid "_Selected Mathlibs"
 msgstr "_Vybrané Mathlibs"
 
-#: resources/xnec2c.glade:10697
+#: resources/xnec2c.glade:10755
 msgid "Select All/None"
 msgstr "Vybrať všetko/nič"
 
-#: resources/xnec2c.glade:10722
+#: resources/xnec2c.glade:10780
 msgid "_Parallel (-j N):\t\tO(N/J)"
 msgstr "_Paralelne (-j N):\t\tO(N/J)"
 
-#: resources/xnec2c.glade:10731
+#: resources/xnec2c.glade:10789
 msgid "_Single Job (-j 1):\tO(N)"
 msgstr "_Jedna úloha (-j 1):\tO(N)"
 
-#: resources/xnec2c.glade:10740
+#: resources/xnec2c.glade:10798
 msgid "_Iterate -j N/=2:\tO(N*log2(J))"
 msgstr "_Iterovať -j N/=2:\tO(N*log2(J))"
 
-#: resources/xnec2c.glade:10749
+#: resources/xnec2c.glade:10807
 msgid "_Iterate -j N-=1:\tO(N*J)"
 msgstr "_Iterovať -j N-=1:\tO(N*J)"
 
-#: resources/xnec2c.glade:10758
+#: resources/xnec2c.glade:10816
 msgid "_Threads (-j 1, --threads N/=2):\tO(N*log2(T))"
 msgstr "_Vlákna (-j 1, --threads N/=2):\\\tO(N*log2(T))"
 
-#: resources/xnec2c.glade:10773
+#: resources/xnec2c.glade:10831
 msgid "Benchmark _Help"
 msgstr "_Pomoc benchmark"
 
-#: resources/xnec2c.glade:10792
+#: resources/xnec2c.glade:10850
 msgid "Begin Frequency Loop at Startup"
 msgstr "Spustiť frekvenčnú slučku pri štarte"
 
-#: resources/xnec2c.glade:10803
+#: resources/xnec2c.glade:10861
 msgid "Confirm Quit"
 msgstr "Potvrdiť ukončenie"
 
-#: resources/xnec2c.glade:10842
+#: resources/xnec2c.glade:10900
 msgid "_Radiation Pattern"
 msgstr "_Vyžarovací diagram"
 
-#: resources/xnec2c.glade:10852
+#: resources/xnec2c.glade:10910
 msgid "_Frequency Plots"
 msgstr "_Frekvenčné grafy"
 
-#: resources/xnec2c.glade:10935
+#: resources/xnec2c.glade:10993
 msgid "_Visualization"
 msgstr "_Vizualizácia"
 
-#: resources/xnec2c.glade:10951
+#: resources/xnec2c.glade:11009
 msgid "Color Scale"
 msgstr "Farebná mierka"
 
-#: resources/xnec2c.glade:10958
+#: resources/xnec2c.glade:11016
 msgid ""
 "Power transfer n^γ relative to this frequency step's peak.\n"
 "γ = 0.5 expands weak regions, γ = 1 is linear amplitude, γ = 2 shows the "
@@ -2242,11 +2309,11 @@ msgstr ""
 "uloženej elektrostatickej energie.\n"
 "Upravte γ v dialógu animácie."
 
-#: resources/xnec2c.glade:10959
+#: resources/xnec2c.glade:11017
 msgid "_Power"
 msgstr "_Mocninová"
 
-#: resources/xnec2c.glade:10970
+#: resources/xnec2c.glade:11028
 msgid ""
 "Logarithmic scale over a user-set range R below the peak.\n"
 "Reveals weak detail that linear display hides; adjust R in the animate "
@@ -2257,11 +2324,11 @@ msgstr ""
 "dialógu animácie."
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10971
+#: resources/xnec2c.glade:11029
 msgid "_dB"
 msgstr ""
 
-#: resources/xnec2c.glade:10982
+#: resources/xnec2c.glade:11040
 msgid ""
 "Inverse hyperbolic sine transfer: linear below the softening knee k, "
 "logarithmic above.\n"
@@ -2272,11 +2339,11 @@ msgstr ""
 "Upravte k v dialógu animácie."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:10983
+#: resources/xnec2c.glade:11041
 msgid "_Asinh"
 msgstr ""
 
-#: resources/xnec2c.glade:10994
+#: resources/xnec2c.glade:11052
 msgid ""
 "μ-law companding transfer: lifts weak detail with bounded compression.\n"
 "Adjust the compression in the animate dialog."
@@ -2285,11 +2352,11 @@ msgstr ""
 "Upravte kompresiu v dialógu animácie."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:10995
+#: resources/xnec2c.glade:11053
 msgid "μ-_law"
 msgstr ""
 
-#: resources/xnec2c.glade:11006
+#: resources/xnec2c.glade:11064
 msgid ""
 "Reinhard rational soft-compressor with knee k.\n"
 "Adjust k in the animate dialog."
@@ -2298,11 +2365,11 @@ msgstr ""
 "Upravte k v dialógu animácie."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11007
+#: resources/xnec2c.glade:11065
 msgid "_Reinhard"
 msgstr ""
 
-#: resources/xnec2c.glade:11018
+#: resources/xnec2c.glade:11076
 msgid ""
 "Hyperbolic tangent transfer with contrast steepness a.\n"
 "Adjust a in the animate dialog."
@@ -2311,416 +2378,416 @@ msgstr ""
 "Upravte a v dialógu animácie."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11019
+#: resources/xnec2c.glade:11077
 msgid "_Sigmoid"
 msgstr ""
 
-#: resources/xnec2c.glade:11030
+#: resources/xnec2c.glade:11088
 msgid ""
 "Full brightness for every magnitude; the color projection alone sets the "
 "rendering."
 msgstr ""
 "Plný jas pre každú veľkosť; vykresľovanie určuje jedine farebná projekcia."
 
-#: resources/xnec2c.glade:11031
+#: resources/xnec2c.glade:11089
 msgid "_None"
 msgstr "_Žiadna"
 
-#: resources/xnec2c.glade:11049
+#: resources/xnec2c.glade:11107
 msgid "Patch Flow — Animated"
 msgstr "Tok plôšok — animovaný"
 
-#: resources/xnec2c.glade:11096
+#: resources/xnec2c.glade:11154
 msgid "Patch Flow — Static"
 msgstr "Tok plôšok — statický"
 
-#: resources/xnec2c.glade:11129
+#: resources/xnec2c.glade:11187
 msgid "A_nimate"
 msgstr "A_nimovať"
 
-#: resources/xnec2c.glade:11138 resources/xnec2c.glade:12387
+#: resources/xnec2c.glade:11196 resources/xnec2c.glade:12445
 msgid "Common _Projection"
 msgstr "Spoločná pro_jekcia"
 
-#: resources/xnec2c.glade:11148 resources/xnec2c.glade:12397
+#: resources/xnec2c.glade:11206 resources/xnec2c.glade:12455
 msgid "Common _Pan"
 msgstr "Spoločné _posunutie"
 
-#: resources/xnec2c.glade:11165
+#: resources/xnec2c.glade:11223
 msgid "_Symbol Overrides"
 msgstr "Prepísanie _symbolov"
 
-#: resources/xnec2c.glade:11174
+#: resources/xnec2c.glade:11232
 msgid "Rendering _Settings..."
 msgstr "Nastavenia _vykresľovania..."
 
-#: resources/xnec2c.glade:11185
+#: resources/xnec2c.glade:11243
 msgid "_Help"
 msgstr "_Pomoc"
 
-#: resources/xnec2c.glade:11194
+#: resources/xnec2c.glade:11252
 msgid "_About"
 msgstr "_O programe"
 
-#: resources/xnec2c.glade:11417
+#: resources/xnec2c.glade:11475
 msgid " Zoom"
 msgstr " Priblíženie"
 
-#: resources/xnec2c.glade:11584 resources/xnec2c.glade:11645
-#: resources/xnec2c.glade:11693
+#: resources/xnec2c.glade:11642 resources/xnec2c.glade:11703
+#: resources/xnec2c.glade:11751
 msgid ""
 "Gain in the direction of the structure viewer, for the current view angles."
 msgstr "Zisk v smere zobrazovača štruktúry, pre aktuálne uhly pohľadu."
 
-#: resources/xnec2c.glade:11585 resources/xnec2c.glade:12894
+#: resources/xnec2c.glade:11643 resources/xnec2c.glade:12952
 #: src/freqplots/freqplots_core.c:62
 msgid "Gain"
 msgstr "Zisk"
 
-#: resources/xnec2c.glade:11600 resources/xnec2c.glade:11616
-#: resources/xnec2c.glade:12907 resources/xnec2c.glade:13168
+#: resources/xnec2c.glade:11658 resources/xnec2c.glade:11674
+#: resources/xnec2c.glade:12965 resources/xnec2c.glade:13226
 msgid "0.0"
 msgstr "0,0"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:11651
+#: resources/xnec2c.glade:11709
 msgid "- - - "
 msgstr ""
 
-#: resources/xnec2c.glade:11708 resources/xnec2c.glade:12943
+#: resources/xnec2c.glade:11766 resources/xnec2c.glade:13001
 msgid "Step"
 msgstr "Krok"
 
-#: resources/xnec2c.glade:11832 resources/xnec2c.glade:12991
+#: resources/xnec2c.glade:11890 resources/xnec2c.glade:13049
 msgid "Apply Freq"
 msgstr "Použiť frekv."
 
-#: resources/xnec2c.glade:11852
+#: resources/xnec2c.glade:11910
 msgid "Frequency Mhz"
 msgstr "Frekvencia MHz"
 
-#: resources/xnec2c.glade:11905
+#: resources/xnec2c.glade:11963
 msgid "Structure Geometry"
 msgstr "Geometria štruktúry"
 
-#: resources/xnec2c.glade:11924
+#: resources/xnec2c.glade:11982
 msgid "Xnec2c: Radiation Patterns"
 msgstr "Xnec2c: Vyžarovacie diagramy"
 
-#: resources/xnec2c.glade:12138
+#: resources/xnec2c.glade:12196
 msgid "_Gain Scaling"
 msgstr "Škálovanie _zisku"
 
-#: resources/xnec2c.glade:12153
+#: resources/xnec2c.glade:12211
 msgid "Linear _Power"
 msgstr "Lineárny _výkon"
 
-#: resources/xnec2c.glade:12164
+#: resources/xnec2c.glade:12222
 msgid "Linear _Voltage"
 msgstr "Lineárne _napätie"
 
-#: resources/xnec2c.glade:12175
+#: resources/xnec2c.glade:12233
 msgid "_ARRL Style"
 msgstr "Štýl _ARRL"
 
-#: resources/xnec2c.glade:12186
+#: resources/xnec2c.glade:12244
 msgid "_Logarithmic"
 msgstr "_Logaritmické"
 
-#: resources/xnec2c.glade:12197
+#: resources/xnec2c.glade:12255
 msgid "_Noise Temperature"
 msgstr "Šumová _teplota"
 
-#: resources/xnec2c.glade:12208
+#: resources/xnec2c.glade:12266
 msgid "Noise Temp (_log scale)"
 msgstr "Šumová teplota (_log. mierka)"
 
-#: resources/xnec2c.glade:12223
+#: resources/xnec2c.glade:12281
 msgid "Noise _Models"
 msgstr "_Modely šumu"
 
-#: resources/xnec2c.glade:12242
+#: resources/xnec2c.glade:12300
 msgid "_Gradient Key"
 msgstr "_Kľúč gradientu"
 
-#: resources/xnec2c.glade:12252
+#: resources/xnec2c.glade:12310
 msgid "Draw St_yle"
 msgstr "Štýl k_reslenia"
 
-#: resources/xnec2c.glade:12261
+#: resources/xnec2c.glade:12319
 msgid "S_urface"
 msgstr "_Povrch"
 
-#: resources/xnec2c.glade:12280
+#: resources/xnec2c.glade:12338
 msgid "_Both"
 msgstr "_Oboje"
 
-#: resources/xnec2c.glade:12295
+#: resources/xnec2c.glade:12353
 msgid "_Near Field"
 msgstr "_Blízke pole"
 
-#: resources/xnec2c.glade:12310
+#: resources/xnec2c.glade:12368
 msgid "Near _E Field"
 msgstr "Blízke pole _E"
 
-#: resources/xnec2c.glade:12320
+#: resources/xnec2c.glade:12378
 msgid "Near _H Field"
 msgstr "Blízke pole _H"
 
-#: resources/xnec2c.glade:12330
+#: resources/xnec2c.glade:12388
 msgid "_Poynting Vector"
 msgstr "_Poyntingov vektor"
 
-#: resources/xnec2c.glade:12339
+#: resources/xnec2c.glade:12397
 msgid "_Animate Dialog"
 msgstr "_Dialóg animácie"
 
-#: resources/xnec2c.glade:12348
+#: resources/xnec2c.glade:12406
 msgid "_Total Field"
 msgstr "_Celkové pole"
 
-#: resources/xnec2c.glade:12357
+#: resources/xnec2c.glade:12415
 msgid "_Peak Value"
 msgstr "_Špičková hodnota"
 
-#: resources/xnec2c.glade:12368
+#: resources/xnec2c.glade:12426
 msgid "_Instantaneous (φ=0)"
 msgstr "_Okamžitá (φ=0)"
 
-#: resources/xnec2c.glade:12408
+#: resources/xnec2c.glade:12466
 msgid "_Overlay Structure"
 msgstr "_Prekryť štruktúru"
 
-#: resources/xnec2c.glade:12432
+#: resources/xnec2c.glade:12490
 msgid "Gain Pattern"
 msgstr "Diagram zisku"
 
-#: resources/xnec2c.glade:12447
+#: resources/xnec2c.glade:12505
 msgid "E/H Fields"
 msgstr "E/H polia"
 
-#: resources/xnec2c.glade:12630
+#: resources/xnec2c.glade:12688
 msgid "Zoom % "
 msgstr "Priblíženie % "
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:12669
+#: resources/xnec2c.glade:12727
 msgid "Elev.°"
 msgstr ""
 
-#: resources/xnec2c.glade:13011
+#: resources/xnec2c.glade:13069
 msgid "Frequency MHz"
 msgstr "Frekvencia MHz"
 
-#: resources/xnec2c.glade:13028
+#: resources/xnec2c.glade:13086
 msgid "0.010"
 msgstr "0,010"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:13082 resources/xnec2c.glade:13115
-#: resources/xnec2c.glade:13150
+#: resources/xnec2c.glade:13140 resources/xnec2c.glade:13173
+#: resources/xnec2c.glade:13208
 msgid "— K"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:13097
+#: resources/xnec2c.glade:13155
 msgid "T<sub>earth</sub>"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:13132
+#: resources/xnec2c.glade:13190
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13252 src/rdpattern_ui.c:939
+#: resources/xnec2c.glade:13310 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "Vyžarovacie diagramy"
 
-#: resources/xnec2c.glade:13287
+#: resources/xnec2c.glade:13345
 msgid "Scale Structure (GS card)"
 msgstr "Škálovanie štruktúry (GS karta)"
 
-#: resources/xnec2c.glade:13318
+#: resources/xnec2c.glade:13376
 msgid "Structure Scale Factor"
 msgstr "Faktor mierky štruktúry"
 
-#: resources/xnec2c.glade:13331
+#: resources/xnec2c.glade:13389
 msgid "From Tag No."
 msgstr "Od značky č."
 
-#: resources/xnec2c.glade:13381
+#: resources/xnec2c.glade:13439
 msgid "To Tag No."
 msgstr "Po značku č."
 
-#: resources/xnec2c.glade:13416
+#: resources/xnec2c.glade:13474
 msgid "Scale Structure"
 msgstr "Škálovať štruktúru"
 
-#: resources/xnec2c.glade:13593
+#: resources/xnec2c.glade:13651
 msgid "Co-ordinate Transformation (GM card)"
 msgstr "Transformácia súradníc (GM karta)"
 
-#: resources/xnec2c.glade:13623
+#: resources/xnec2c.glade:13681
 msgid "Tag Increment"
 msgstr "Prírastok značky"
 
-#: resources/xnec2c.glade:13654
+#: resources/xnec2c.glade:13712
 msgid "Rotate about X"
 msgstr "Rotácia okolo X"
 
-#: resources/xnec2c.glade:13686
+#: resources/xnec2c.glade:13744
 msgid "Move along X"
 msgstr "Posun pozdĺž X"
 
-#: resources/xnec2c.glade:13718
+#: resources/xnec2c.glade:13776
 msgid "New Structures"
 msgstr "Nové štruktúry"
 
-#: resources/xnec2c.glade:13749
+#: resources/xnec2c.glade:13807
 msgid "Rotate about Y"
 msgstr "Rotácia okolo Y"
 
-#: resources/xnec2c.glade:13781
+#: resources/xnec2c.glade:13839
 msgid "Move along Y"
 msgstr "Posun pozdĺž Y"
 
-#: resources/xnec2c.glade:13813
+#: resources/xnec2c.glade:13871
 msgid "Start From Tag"
 msgstr "Začať od značky"
 
-#: resources/xnec2c.glade:13845
+#: resources/xnec2c.glade:13903
 msgid "Rotate about Z"
 msgstr "Rotácia okolo Z"
 
-#: resources/xnec2c.glade:13877
+#: resources/xnec2c.glade:13935
 msgid "Move along Z"
 msgstr "Posun pozdĺž Z"
 
-#: resources/xnec2c.glade:13913
+#: resources/xnec2c.glade:13971
 msgid "Co-ordinate Transformation Data"
 msgstr "Údaje transformácie súradníc"
 
-#: resources/xnec2c.glade:14109
+#: resources/xnec2c.glade:14167
 msgid "Trans. Line Command (TL Card)"
 msgstr "Príkaz prenosového vedenia (TL karta)"
 
-#: resources/xnec2c.glade:14139
+#: resources/xnec2c.glade:14197
 msgid "Tag Number, End 1  "
 msgstr "Číslo značky, koniec 1  "
 
-#: resources/xnec2c.glade:14171
+#: resources/xnec2c.glade:14229
 msgid "Tag Number, End 2  "
 msgstr "Číslo značky, koniec 2  "
 
-#: resources/xnec2c.glade:14202
+#: resources/xnec2c.glade:14260
 msgid "Segment Num, End 1"
 msgstr "Číslo segmentu, koniec 1"
 
-#: resources/xnec2c.glade:14234
+#: resources/xnec2c.glade:14292
 msgid "Segment Num, End 2"
 msgstr "Číslo segmentu, koniec 2"
 
-#: resources/xnec2c.glade:14298
+#: resources/xnec2c.glade:14356
 msgid "Crossed Transmission Line"
 msgstr "Skrížené prenosové vedenie"
 
-#: resources/xnec2c.glade:14316
+#: resources/xnec2c.glade:14374
 msgid "Characteristic Impedance"
 msgstr "Charakteristická impedancia"
 
-#: resources/xnec2c.glade:14348
+#: resources/xnec2c.glade:14406
 msgid "End 1 Y Real Part (S)"
 msgstr "Koniec 1 Y reálna časť (S)"
 
-#: resources/xnec2c.glade:14380
+#: resources/xnec2c.glade:14438
 msgid "End 2 Y Real Part (S)"
 msgstr "Koniec 2 Y reálna časť (S)"
 
-#: resources/xnec2c.glade:14412
+#: resources/xnec2c.glade:14470
 msgid "Length of Tx Line (m)"
 msgstr "Dĺžka Tx vedenia (m)"
 
-#: resources/xnec2c.glade:14444
+#: resources/xnec2c.glade:14502
 msgid "End 1 Y Imag Part (S)"
 msgstr "Koniec 1 Y imaginárna časť (S)"
 
-#: resources/xnec2c.glade:14476
+#: resources/xnec2c.glade:14534
 msgid "End 2 Y Imag Part (S)"
 msgstr "Koniec 2 Y imaginárna časť (S)"
 
-#: resources/xnec2c.glade:14512
+#: resources/xnec2c.glade:14570
 msgid "Transmission Line"
 msgstr "Prenosové vedenie"
 
-#: resources/xnec2c.glade:14739
+#: resources/xnec2c.glade:14797
 msgid "Wire Element (GW & GC cards)"
 msgstr "Drôtový prvok (GW a GC karty)"
 
-#: resources/xnec2c.glade:14799
+#: resources/xnec2c.glade:14857
 msgid "Wire X1"
 msgstr "Drôt X1"
 
-#: resources/xnec2c.glade:14831
+#: resources/xnec2c.glade:14889
 msgid "Wire X2"
 msgstr "Drôt X2"
 
-#: resources/xnec2c.glade:14894
+#: resources/xnec2c.glade:14952
 msgid "Wire Y1"
 msgstr "Drôt Y1"
 
-#: resources/xnec2c.glade:14927
+#: resources/xnec2c.glade:14985
 msgid "Wire Y2"
 msgstr "Drôt Y2"
 
-#: resources/xnec2c.glade:14991
+#: resources/xnec2c.glade:15049
 msgid "Wire Z1"
 msgstr "Drôt Z1"
 
-#: resources/xnec2c.glade:15023
+#: resources/xnec2c.glade:15081
 msgid "Wire Z2"
 msgstr "Drôt Z2"
 
-#: resources/xnec2c.glade:15088
+#: resources/xnec2c.glade:15146
 msgid "Wire Length"
 msgstr "Dĺžka drôtu"
 
-#: resources/xnec2c.glade:15159
+#: resources/xnec2c.glade:15217
 msgid "Wire Data"
 msgstr "Údaje drôtu"
 
-#: resources/xnec2c.glade:15171
+#: resources/xnec2c.glade:15229
 msgid "Tapered Wire"
 msgstr "Zúžený drôt"
 
-#: resources/xnec2c.glade:15213
+#: resources/xnec2c.glade:15271
 msgid "Length Taper"
 msgstr "Zúženie dĺžky"
 
-#: resources/xnec2c.glade:15245
+#: resources/xnec2c.glade:15303
 msgid "Diameter Seg 1"
 msgstr "Priemer seg. 1"
 
-#: resources/xnec2c.glade:15277
+#: resources/xnec2c.glade:15335
 msgid "Diameter Seg N"
 msgstr "Priemer seg. N"
 
-#: resources/xnec2c.glade:15309
+#: resources/xnec2c.glade:15367
 msgid "Diam. Taper"
 msgstr "Zúženie priem."
 
-#: resources/xnec2c.glade:15345
+#: resources/xnec2c.glade:15403
 msgid "Wire Taper Data"
 msgstr "Údaje zúženia drôtu"
 
-#: resources/xnec2c.glade:15510
+#: resources/xnec2c.glade:15568
 msgid "Impedance (Zo) Ohm"
 msgstr "Impedancia (Zo) Ohm"
 
-#: resources/xnec2c.glade:15525
+#: resources/xnec2c.glade:15583
 msgid "50.00"
 msgstr "50,00"
 
-#: resources/xnec2c.glade:15548
+#: resources/xnec2c.glade:15606
 msgid "Transmission Line Impedance (Zo)"
 msgstr "Impedancia prenosového vedenia (Zo)"
 
@@ -3092,7 +3159,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "konfiguračný súbor neexistuje alebo nie je čitateľný: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:771 src/input.c:1859 src/input.c:1860
+#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3594,12 +3661,12 @@ msgstr ""
 msgid "step size limited at z= %10.5f"
 msgstr "veľkosť kroku obmedzená pri z= %10.5f"
 
-#: src/fork.c:334 src/fork.c:591
+#: src/fork.c:334 src/fork.c:593
 #, c-format
 msgid "child %d  length %d  return %d\n"
 msgstr "podproces %d  dĺžka %d  návrat %d\n"
 
-#: src/fork.c:597
+#: src/fork.c:599
 #, c-format
 msgid "early EOF?, child %d  length %d  return %d\n"
 msgstr "predčasný EOF?, podproces %d  dĺžka %d  návrat %d\n"
@@ -3650,19 +3717,23 @@ msgstr "Impedancia (magn./fáza)"
 msgid "Smith Chart"
 msgstr "Smithov diagram"
 
-#: src/freqplots/freqplots_core.c:70
+#: src/freqplots/freqplots_core.c:70 src/measurements.c:509
+msgid "Average Gain"
+msgstr "Priemerný zisk"
+
+#: src/freqplots/freqplots_core.c:71
 msgid "Solver Conditioning"
 msgstr "Podmienenosť riešiča"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:481
+#: src/freqplots/freqplots_core.c:496
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:707
+#: src/freqplots/freqplots_core.c:722
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3704,7 +3775,7 @@ msgstr ""
 "    • surový Max zisk, Smer zisku, F/B\n"
 "    • Teplota antény, G/T"
 
-#: src/freqplots/freqplots_core.c:740
+#: src/freqplots/freqplots_core.c:755
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3712,7 +3783,7 @@ msgstr ""
 "Je definovaný iba jeden napájací port. Ak chcete vyberať spomedzi viacerých "
 "portov, pridajte do modelu ďalšie karty budenia EX."
 
-#: src/freqplots/freqplots_core.c:743
+#: src/freqplots/freqplots_core.c:758
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3720,7 +3791,7 @@ msgstr ""
 "Ak chcete vyberať port, zapnite nastavenie grafu Čistý zisk; bez neho tento "
 "graf port nesleduje."
 
-#: src/freqplots/freqplots_core.c:861
+#: src/freqplots/freqplots_core.c:876
 msgid "Not available: excitation defines no feedpoint"
 msgstr "Nedostupné: budenie nedefinuje napájací bod"
 
@@ -3739,6 +3810,14 @@ msgstr "Táto téma nemá invertovaný variant"
 #: src/freqplots/freqplots_theme_menu.c:117
 msgid "_Invert"
 msgstr "_Invertovať"
+
+#: src/freqplots/graphs/agt_graph.c:67
+msgid "Average gain"
+msgstr "Priemerný zisk"
+
+#: src/freqplots/graphs/agt_graph.c:68
+msgid "Average power gain over the sampled solid angle"
+msgstr "Priemerný výkonový zisk cez vzorkovaný priestorový uhol"
 
 # xnec2c-exempt: notation
 #: src/freqplots/graphs/anttemp_graph.c:68
@@ -3767,35 +3846,43 @@ msgstr "Stratená presnosť"
 msgid "Solver conditioning - precision lost in decimal digits"
 msgstr "Podmienenosť riešiča – stratená presnosť v desiatkových čísliciach"
 
-#: src/freqplots/graphs/gain_graph.c:86 src/freqplots/graphs/viewer_graph.c:53
-msgid "Raw Gain dBi"
-msgstr "Hrubý zisk dBi"
-
-#: src/freqplots/graphs/gain_graph.c:91
-msgid "Max Gain & Net Gain vs Frequency"
-msgstr "Max. zisk a čistý zisk vs frekvencia"
-
-#: src/freqplots/graphs/gain_graph.c:92
-msgid "Net Gain dBi"
-msgstr "Čistý zisk dBi"
-
-#: src/freqplots/graphs/gain_graph.c:97 src/freqplots/graphs/gain_graph.c:104
-msgid "Max Gain & F/B Ratio vs Frequency"
-msgstr "Max. zisk a pomer F/B vs frekvencia"
-
-#: src/freqplots/graphs/gain_graph.c:105
+#: src/freqplots/graphs/gain_graph.c:37
 msgid "F/B Ratio dB"
 msgstr "Pomer F/B dB"
 
-#: src/freqplots/graphs/gain_graph.c:111
+#: src/freqplots/graphs/gain_graph.c:38
+msgid "Max Gain & F/B Ratio vs Frequency"
+msgstr "Max. zisk a pomer F/B vs frekvencia"
+
+#: src/freqplots/graphs/gain_graph.c:39
+msgid "F/R Ratio dB"
+msgstr "Pomer F/R dB"
+
+#: src/freqplots/graphs/gain_graph.c:40
+msgid "Max Gain & F/R Ratio vs Frequency"
+msgstr "Maximálny zisk a pomer F/R v závislosti od frekvencie"
+
+#: src/freqplots/graphs/gain_graph.c:41
+msgid "Net Gain dBi"
+msgstr "Čistý zisk dBi"
+
+#: src/freqplots/graphs/gain_graph.c:42
+msgid "Max Gain & Net Gain vs Frequency"
+msgstr "Max. zisk a čistý zisk vs frekvencia"
+
+#: src/freqplots/graphs/gain_graph.c:136 src/freqplots/graphs/viewer_graph.c:53
+msgid "Raw Gain dBi"
+msgstr "Hrubý zisk dBi"
+
+#: src/freqplots/graphs/gain_graph.c:153
 msgid "Rad Angle - deg"
 msgstr "Uhol žiarenia - deg"
 
-#: src/freqplots/graphs/gain_graph.c:112
+#: src/freqplots/graphs/gain_graph.c:154
 msgid "Max Gain Direction vs Frequency"
 msgstr "Smer max. zisku vs frekvencia"
 
-#: src/freqplots/graphs/gain_graph.c:113
+#: src/freqplots/graphs/gain_graph.c:155
 msgid "Phi - deg"
 msgstr "Fí - deg"
 
@@ -4003,24 +4090,24 @@ msgstr "Definícia SY (napr. FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "Okno editora NEC2 nie je otvorené"
 
-#: src/geometry.c:97
+#: src/geometry.c:111
 msgid "Number of segments < 1"
 msgstr "Počet segmentov < 1"
 
-#: src/geometry.c:134
+#: src/geometry.c:148
 msgid "Arc angle exceeds 360 degrees"
 msgstr "Uhol oblúka presahuje 360 stupňov"
 
-#: src/geometry.c:273
+#: src/geometry.c:287
 msgid "Error in conect(): np > n"
 msgstr "Chyba v conect(): np > n"
 
-#: src/geometry.c:304 src/geometry.c:352
+#: src/geometry.c:318 src/geometry.c:366
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr "chyba geometrických údajov: segment %d zasahuje pod zem\n"
 
-#: src/geometry.c:305 src/geometry.c:353
+#: src/geometry.c:319 src/geometry.c:367
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4028,12 +4115,12 @@ msgstr ""
 "Chyba geometrických údajov\n"
 "Segment zasahuje pod zem"
 
-#: src/geometry.c:362
+#: src/geometry.c:376
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "chyba geometrických údajov: segment %d leží v rovine zeme\n"
 
-#: src/geometry.c:363
+#: src/geometry.c:377
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4042,15 +4129,15 @@ msgstr ""
 "Segment leží v rovine zeme"
 
 # xnec2c-exempt: name
-#: src/geometry.c:453
+#: src/geometry.c:467
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:454
+#: src/geometry.c:468
 msgid "Error: ipsym = 0"
 msgstr "Chyba: ipsym = 0"
 
-#: src/geometry.c:507
+#: src/geometry.c:521
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4059,7 +4146,7 @@ msgstr ""
 "Počet pripojení segmentu presahuje plnú sieť, čo je nepravdepodobné: data.n="
 "%ld segj.maxcon=%lu\n"
 
-#: src/geometry.c:509
+#: src/geometry.c:523
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4067,7 +4154,7 @@ msgstr ""
 "Počet pripojení segmentu presahuje plnú sieť, čo je nepravdepodobné!\n"
 "Skontrolujte prekrývajúce sa alebo takmer spojené segmenty\n"
 
-#: src/geometry.c:723
+#: src/geometry.c:737
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4075,7 +4162,7 @@ msgstr ""
 "skontrolujte údaje, parameter určujúci segment: pozícia v skupine rovnakých "
 "tagov nesmie byť nula\n"
 
-#: src/geometry.c:724
+#: src/geometry.c:738
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4083,12 +4170,12 @@ msgstr ""
 "Parameter určujúci segment\n"
 "pozícia v skupine rovnakých tagov je nula"
 
-#: src/geometry.c:756
+#: src/geometry.c:770
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "žiadny segment nemá itag %d\n"
 
-#: src/geometry.c:760
+#: src/geometry.c:774
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4101,7 +4188,7 @@ msgstr ""
 "Pre karty GM: overte, že 'začať od tagu' a 'prírastok tagu' nevytvárajú tag "
 "0."
 
-#: src/geometry.c:768
+#: src/geometry.c:782
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4112,11 +4199,11 @@ msgstr ""
 "Odkazujete na neznámy tag alebo segment v riadiacej karte.\n"
 "Platné tagy vo vašej geometrii sú tie priradené kartám GW/GA/GH/SP."
 
-#: src/geometry.c:1043
+#: src/geometry.c:1057
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "rohy štvoruholníkového patchu neležia v rovine\n"
 
-#: src/geometry.c:1044
+#: src/geometry.c:1058
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4124,12 +4211,12 @@ msgstr ""
 "Rohy štvoruholníkového\n"
 "patchu neležia v rovine"
 
-#: src/geometry.c:1149 src/geometry.c:1226 src/geometry.c:1304
+#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "chyba geometrických údajov: segment %d leží v rovine symetrie\n"
 
-#: src/geometry.c:1150 src/geometry.c:1227 src/geometry.c:1305
+#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4137,12 +4224,12 @@ msgstr ""
 "Chyba geometrických údajov\n"
 "Segment leží v rovine symetrie"
 
-#: src/geometry.c:1186 src/geometry.c:1263 src/geometry.c:1338
+#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "chyba geometrických údajov: patch %d leží v rovine symetrie\n"
 
-#: src/geometry.c:1187 src/geometry.c:1264 src/geometry.c:1339
+#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4150,7 +4237,7 @@ msgstr ""
 "Chyba geometrických údajov\n"
 "Patch leží v rovine symetrie"
 
-#: src/geometry.c:1459
+#: src/geometry.c:1473
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4159,26 +4246,41 @@ msgstr ""
 "tag=%d/seg=%d: vzdialenosť koncového bodu=%.3e je príliš blízko (pod prahom "
 "pripojenia=%.3e); segment sa pripojí sám k sebe\n"
 
-#: src/geometry.c:1464
+#: src/geometry.c:1478
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr "tag=%d: potláčanie ďalších varovaní o samo-pripojení\n"
 
-#: src/geometry.c:1514
+#: src/geometry.c:1523
 #, c-format
 msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
+"tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
+"currents of coincident segments\n"
 msgstr ""
-"tag=%d/seg=%d: vzdialenosť=%.3e k tag=%d/seg=%d bližšie ako 2x prah "
-"pripojenia %.3e; možné neúmyselné pripojenia\n"
+"tag=%d/seg=%d: zhoduje sa s tag=%d/seg=%d; NEC2 nedokáže oddeliť prúdy "
+"zhodných segmentov\n"
 
-#: src/geometry.c:1520
+#: src/geometry.c:1528
 #, c-format
-msgid "tag=%d: suppressing additional overlap warnings\n"
-msgstr "tag=%d: potláčanie ďalších varovaní o prekrývaní\n"
+msgid "tag=%d: suppressing additional coincident segment warnings\n"
+msgstr "tag=%d: ďalšie upozornenia na zhodné segmenty sa potláčajú\n"
 
-#: src/geometry.c:1589
+#: src/geometry.c:1573
+#, c-format
+msgid ""
+"tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
+"threshold=%.3e but within %gx of it; NEC2 leaves these ends unconnected\n"
+msgstr ""
+"tag=%d/seg=%d: koniec s gap=%.3e voči tag=%d/seg=%d leží za prahom "
+"pripojenia threshold=%.3e, ale do %gx jeho hodnoty; NEC2 tieto konce nechá "
+"nepripojené\n"
+
+#: src/geometry.c:1579
+#, c-format
+msgid "tag=%d: suppressing additional near-miss junction warnings\n"
+msgstr "tag=%d: ďalšie upozornenia na takmer pripojené spoje sa potláčajú\n"
+
+#: src/geometry.c:1646
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4187,7 +4289,7 @@ msgstr ""
 "tag=%d/seg=%d: dĺžka=%.3e je príliš krátka (a dostatočne blízko) k tag=%d/"
 "seg=%d dĺžka=%.3e, detekcia pripojenia môže zlyhať alebo skratovať\n"
 
-#: src/geometry.c:1595
+#: src/geometry.c:1652
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
@@ -4196,7 +4298,7 @@ msgstr ""
 "tag=%d: potláčanie ďalších varovaní o možnom zlyhaní detekcie pripojenia "
 "alebo skrate\n"
 
-#: src/geometry.c:1628
+#: src/geometry.c:1685
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4207,12 +4309,12 @@ msgstr ""
 "zložiek vedie k numerickým nepresnostiam (min=0.001, v poriadku=0.05, "
 "odporúčané <= 0.1)\n"
 
-#: src/geometry.c:1633
+#: src/geometry.c:1690
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr "tag=%d: potláčanie ďalších chýb o krátkom pomere vlnovej dĺžky\n"
 
-#: src/geometry.c:1647
+#: src/geometry.c:1704
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4223,12 +4325,12 @@ msgstr ""
 "prúdu obmedzené rozstupom segmentov (min=0.001, v poriadku=0.05, odporúčané "
 "<= 0.1)\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1709
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr "tag=%d: potláčanie ďalších varovaní o dlhom pomere vlnovej dĺžky\n"
 
-#: src/geometry.c:1666
+#: src/geometry.c:1723
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4239,12 +4341,12 @@ msgstr ""
 "zvyšujú presnosť v oblastiach rýchlych zmien prúdu (min=0.001, v "
 "poriadku=0.05, odporúčané <=0.1)\n"
 
-#: src/geometry.c:1671
+#: src/geometry.c:1728
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr "tag=%d: potláčanie ďalších návrhov na zlepšenie presnosti\n"
 
-#: src/geometry.c:1702
+#: src/geometry.c:1759
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4253,12 +4355,12 @@ msgstr ""
 "tag=%d/seg=%d: pomer dĺžka/polomer %.1f < 2.0; chyba poľa štandardného jadra "
 "tenkého vodiča presahuje 1%% s veľkým rozdielom (min=2.0, 1%% presnosť=8.0)\n"
 
-#: src/geometry.c:1707
+#: src/geometry.c:1764
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr "tag=%d: potláčanie ďalších chýb pomeru štandardného jadra\n"
 
-#: src/geometry.c:1721
+#: src/geometry.c:1778
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4267,12 +4369,12 @@ msgstr ""
 "tag=%d/seg=%d: pomer dĺžka/polomer %.1f < 8.0; chyba poľa štandardného jadra "
 "tenkého vodiča presahuje 1%% (min=2.0, 1%% presnosť=8.0)\n"
 
-#: src/geometry.c:1726
+#: src/geometry.c:1783
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr "tag=%d: potláčanie ďalších varovaní pomeru štandardného jadra\n"
 
-#: src/geometry.c:1742
+#: src/geometry.c:1799
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4281,12 +4383,12 @@ msgstr ""
 "tag=%d/seg=%d: pomer dĺžka/polomer %.1f < 0.5; chyba poľa rozšíreného jadra "
 "tenkého vodiča presahuje 1%% s veľkým rozdielom (min=0.5, 1%% presnosť=2.0)\n"
 
-#: src/geometry.c:1747
+#: src/geometry.c:1804
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr "tag=%d: potláčanie ďalších chýb pomeru rozšíreného jadra\n"
 
-#: src/geometry.c:1761
+#: src/geometry.c:1818
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4295,24 +4397,24 @@ msgstr ""
 "tag=%d/seg=%d: pomer dĺžka/polomer %.1f < 2.0; chyba poľa rozšíreného jadra "
 "tenkého vodiča presahuje 1%% (min=0.5, 1%% presnosť=2.0)\n"
 
-#: src/geometry.c:1766
+#: src/geometry.c:1823
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr "tag=%d: potláčanie ďalších varovaní pomeru rozšíreného jadra\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1840
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr ""
 "Preskočená kontrola prekrývania pre %d segmentov (použite --force-verify na "
 "povolenie)\n"
 
-#: src/geometry.c:1787
+#: src/geometry.c:1844
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "Vynútená kontrola prekrývania pre %d segmentov\n"
 
-#: src/geometry.c:1798
+#: src/geometry.c:1856
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -4698,7 +4800,7 @@ msgstr ""
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 stupňov so špecifikovanou zemou\n"
 
-#: src/input.c:1496 src/radiation.c:731
+#: src/input.c:1496 src/radiation.c:911
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4786,22 +4888,7 @@ msgstr ""
 "Možnosť povrchovej vlny (I1=1)\n"
 "príkazu RP nie je implementovaná"
 
-#: src/input.c:1756
-msgid "Average gain diagnostic enabled (use --skip-verify to disable)\n"
-msgstr ""
-"Diagnostika priemerného zisku povolená (na zakázanie použite --skip-verify)\n"
-
-#: src/input.c:1765
-#, c-format
-msgid "Average power gain disabled: nth=%d nph=%d (both must be >= 2)\n"
-msgstr "Priemerný výkonový zisk zakázaný: nth=%d nph=%d (oba musia byť >= 2)\n"
-
-#: src/input.c:1770
-#, c-format
-msgid "Average power gain calculation enabled (XNDA A=%d)\n"
-msgstr "Výpočet priemerného výkonového zisku povolený (XNDA A=%d)\n"
-
-#: src/input.c:1786
+#: src/input.c:1763
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4809,7 +4896,7 @@ msgstr ""
 "Theta > 90 stupňov so špecifikovanou zemou: Skontrolujte údaje RP karty a "
 "opravte\n"
 
-#: src/input.c:1787
+#: src/input.c:1764
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4817,15 +4904,15 @@ msgstr ""
 "Theta > 90 stupňov so špecifikovanou zemou\n"
 "Skontrolujte údaje RP karty a opravte"
 
-#: src/input.c:1855
+#: src/input.c:1831
 msgid "Geometry card in command section"
 msgstr "Karta geometrie v sekcii príkazov"
 
-#: src/input.c:1858
+#: src/input.c:1834
 msgid "Unrecognized command card"
 msgstr "Nerozpoznaná príkazová karta"
 
-#: src/input.c:1903
+#: src/input.c:1879
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4833,11 +4920,11 @@ msgstr ""
 "Chýbajúca alebo RP karta povrchovej vlny: Výpočty vyžarovacieho diagramu a "
 "zisku sú zakázané\n"
 
-#: src/input.c:1930
+#: src/input.c:1906
 msgid "Unexpected exit from while loop"
 msgstr "Neočakávané ukončenie while cyklu"
 
-#: src/input.c:2021
+#: src/input.c:1997
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4845,7 +4932,7 @@ msgstr ""
 "chyba dátovej karty príkazu: Neočakávaný EOF pri čítaní vstupného súboru - "
 "pridávam EN kartu\n"
 
-#: src/input.c:2022
+#: src/input.c:1998
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4855,12 +4942,12 @@ msgstr ""
 "Neočakávaný EOF pri čítaní vstupného súboru\n"
 "Pridávam predvolenú EN kartu"
 
-#: src/input.c:2039
+#: src/input.c:2015
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "chyba dátovej karty príkazu: mnemonický kód karty príliš krátky alebo chýba\n"
 
-#: src/input.c:2040
+#: src/input.c:2016
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4868,7 +4955,7 @@ msgstr ""
 "Chyba dátovej karty príkazu\n"
 "Mnemonický kód príliš krátky alebo chýba"
 
-#: src/input.c:2241
+#: src/input.c:2217
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4876,7 +4963,7 @@ msgstr ""
 "chyba karty geometrických údajov: Neočakávaný EOF pri čítaní vstupného "
 "súboru - pridávam GE kartu\n"
 
-#: src/input.c:2242
+#: src/input.c:2218
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4886,13 +4973,13 @@ msgstr ""
 "Neočakávaný EOF pri čítaní vstupného súboru\n"
 "Pridávam predvolenú GE kartu"
 
-#: src/input.c:2259
+#: src/input.c:2235
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "chyba karty geometrických údajov: mnemonický kód karty príliš krátky alebo "
 "chýba\n"
 
-#: src/input.c:2260
+#: src/input.c:2236
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -5417,9 +5504,25 @@ msgstr ""
 "noise_temp_resolve: tabuľka noise_temp nie je alokovaná; t_sky/t_earth "
 "predvolené na 0\n"
 
-#: src/measurements.c:501
+#: src/measurements.c:506
 msgid "Precision Lost"
 msgstr "Stratená presnosť"
+
+#: src/measurements.c:507
+msgid "F/R Ratio Azimuth"
+msgstr "Pomer F/R, azimut"
+
+#: src/measurements.c:508
+msgid "F/R Ratio 3D"
+msgstr "Pomer F/R 3D"
+
+#: src/measurements.c:510
+msgid "Average Gain Efficiency"
+msgstr "Účinnosť priemerného zisku"
+
+#: src/measurements.c:511
+msgid "Average Gain Coverage"
+msgstr "Pokrytie priemerného zisku"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5813,12 +5916,12 @@ msgstr "nepodarilo sa vytvoriť eventfd pre prebudenie optimalizátora\n"
 msgid "failed to create Optimizer Output thread\n"
 msgstr "nepodarilo sa vytvoriť vlákno výstupu optimalizátora\n"
 
-#: src/optimizers/opt_fitness.c:484
+#: src/optimizers/opt_fitness.c:494
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: neznámy smer %d\n"
 
-#: src/optimizers/opt_fitness.c:557
+#: src/optimizers/opt_fitness.c:567
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: neznáma metóda redukcie %d\n"
@@ -5935,14 +6038,16 @@ msgstr "var '%s' nesúlad veľkosti round_result\n"
 msgid "var '%s' round_result has element <= 0\n"
 msgstr "var '%s' round_result má prvok <= 0\n"
 
-#: src/radiation.c:911
+#: src/radiation.c:1094
 #, c-format
-msgid "Average gain %.4f exceeds expected %.4f; check RP theta/phi ranges\n"
+msgid ""
+"Average gain %.4f exceeds expected %.4f; check RP theta/phi ranges or model "
+"geometry\n"
 msgstr ""
-"Priemerný zisk %.4f prekračuje očakávaný %.4f; skontrolujte rozsahy theta/"
-"phi RP\n"
+"Priemerný zisk %.4f presahuje očakávaný %.4f; skontrolujte rozsahy theta/phi "
+"v RP alebo geometriu modelu\n"
 
-#: src/radiation.c:915
+#: src/radiation.c:1098
 #, c-format
 msgid ""
 "Average gain: %.4f (%.2f dBi), efficiency: %.1f%%, solid angle: %.4f * pi "
@@ -5951,38 +6056,38 @@ msgstr ""
 "Priemerný zisk: %.4f (%.2f dBi), účinnosť: %.1f%%, priestorový uhol: %.4f * "
 "pi sr\n"
 
-#: src/rc_config.c:986
+#: src/rc_config.c:1003
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() zlyhalo: %s\n"
 
-#: src/rc_config.c:990
+#: src/rc_config.c:1007
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "premenná prostredia HOME nie je definovaná, používam %s\n"
 
-#: src/rc_config.c:1075
+#: src/rc_config.c:1092
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
 msgstr "%s (locale=%s): zhoda len %d z %lu znakov, skúšam iné locale: %s\n"
 
-#: src/rc_config.c:1294
+#: src/rc_config.c:1311
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "okno: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 
-#: src/rc_config.c:1328
+#: src/rc_config.c:1345
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: EOF pri čítaní verzie aplikácie.\n"
 
-#: src/rc_config.c:1334
+#: src/rc_config.c:1351
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "verzia existujúceho konfiguračného súboru sa líši: %s != %s\n"
 
-#: src/rc_config.c:1381
+#: src/rc_config.c:1398
 #, c-format
 msgid ""
 "gain readouts are scaled to %s, restored from the previous session; select "
@@ -5991,12 +6096,12 @@ msgstr ""
 "hodnoty zisku sú škálované na %s, obnovené z predchádzajúcej relácie; pre "
 "čítanie celkového zisku zvoľte Celkový zisk\n"
 
-#: src/rc_config.c:1504
+#: src/rc_config.c:1521
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "stat zlyhalo pre %s: %s\n"
 
-#: src/rc_config.c:1510
+#: src/rc_config.c:1527
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -6004,47 +6109,47 @@ msgid ""
 msgstr ""
 "Opravené oprávnenia adresára %s z 0%o na 0%o z chyby zavedenej v 4e62893b.\n"
 
-#: src/rc_config.c:1543
+#: src/rc_config.c:1560
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: Riadok nebol spracovaný: %s\n"
 
-#: src/rc_config.c:1549
+#: src/rc_config.c:1566
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: Predčasný koniec súboru pre %s: %s \n"
 
-#: src/rc_config.c:1574
+#: src/rc_config.c:1591
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: chyba analýzy (%s): %s \n"
 
-#: src/rc_config.c:1588
+#: src/rc_config.c:1605
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr "Neplatný index modelu oblohy %d v konfigurácii, obnovujem predvolené\n"
 
-#: src/rc_config.c:1594
+#: src/rc_config.c:1611
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr "Neplatný index modelu zeme %d v konfigurácii, obnovujem predvolené\n"
 
-#: src/rc_config.c:1600
+#: src/rc_config.c:1617
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr "Neplatná metóda interpolácie %d v konfigurácii, obnovujem predvolené\n"
 
-#: src/rc_config.c:1608
+#: src/rc_config.c:1625
 #, c-format
 msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr ""
 "Neplatný režim vizualizácie toku %d v konfigurácii, obnovuje sa predvolený\n"
 
-#: src/rc_config.c:1773
+#: src/rc_config.c:1790
 msgid "batch mode: skipping configuration save\n"
 msgstr "dávkový režim: preskakujem uloženie konfigurácie\n"
 
-#: src/rc_config.c:1795
+#: src/rc_config.c:1812
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "nepodarilo sa otvoriť konfiguračný súbor xnec2c %s: %s\n"

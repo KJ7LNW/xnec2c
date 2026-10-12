@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-04 22:38-0700\n"
+"POT-Creation-Date: 2026-10-12 01:09-0700\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -59,16 +59,16 @@ msgstr "좌선회"
 msgid "Animated"
 msgstr "애니메이션"
 
-#: resources/animate.glade:114 resources/xnec2c.glade:11056
+#: resources/animate.glade:114 resources/xnec2c.glade:11114
 msgid "_Reference Phase"
 msgstr "기준 위상(_R)"
 
-#: resources/animate.glade:125 resources/xnec2c.glade:11067
+#: resources/animate.glade:125 resources/xnec2c.glade:11125
 msgid "_LIC Texture"
 msgstr "_LIC 텍스처"
 
-#: resources/animate.glade:136 resources/xnec2c.glade:11078
-#: resources/xnec2c.glade:12270
+#: resources/animate.glade:136 resources/xnec2c.glade:11136
+#: resources/xnec2c.glade:12328
 msgid "_Wireframe"
 msgstr "와이어프레임(_W)"
 
@@ -77,11 +77,11 @@ msgstr "와이어프레임(_W)"
 msgid "Static"
 msgstr "정적"
 
-#: resources/animate.glade:161 resources/xnec2c.glade:11103
+#: resources/animate.glade:161 resources/xnec2c.glade:11161
 msgid "Polarization _Axis"
 msgstr "편파 축(_A)"
 
-#: resources/animate.glade:172 resources/xnec2c.glade:11114
+#: resources/animate.glade:172 resources/xnec2c.glade:11172
 msgid "Peak _Magnitude"
 msgstr "피크 크기(_M)"
 
@@ -133,7 +133,7 @@ msgstr "없음 (기하)"
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr "수치 색상 없이 기본 구조 기하만 표시합니다."
 
-#: resources/animate.glade:498 resources/xnec2c.glade:11221
+#: resources/animate.glade:498 resources/xnec2c.glade:11279
 msgid "Currents"
 msgstr "전류"
 
@@ -141,7 +141,7 @@ msgstr "전류"
 msgid "Animate current magnitude and direction along the wires."
 msgstr "도선을 따라 전류의 크기와 방향을 애니메이션으로 표시합니다."
 
-#: resources/animate.glade:515 resources/xnec2c.glade:11236
+#: resources/animate.glade:515 resources/xnec2c.glade:11294
 msgid "Charges"
 msgstr "전하"
 
@@ -513,8 +513,8 @@ msgstr ""
 "단 색상으로 클리핑됩니다."
 
 # xnec2c-exempt: notation
-#: resources/settings/color_settings.glade:285 resources/xnec2c.glade:11694
-#: resources/xnec2c.glade:13051
+#: resources/settings/color_settings.glade:285 resources/xnec2c.glade:11752
+#: resources/xnec2c.glade:13109
 msgid "dB"
 msgstr ""
 
@@ -857,21 +857,21 @@ msgid "Arc Element (GA card)"
 msgstr "아크 요소 (GA 카드)"
 
 #: resources/xnec2c.glade:134 resources/xnec2c.glade:1169
-#: resources/xnec2c.glade:3596 resources/xnec2c.glade:14768 src/cmnd_edit.c:489
+#: resources/xnec2c.glade:3596 resources/xnec2c.glade:14826 src/cmnd_edit.c:489
 msgid "Tag Number"
 msgstr "태그 번호"
 
-#: resources/xnec2c.glade:147 resources/xnec2c.glade:14863
+#: resources/xnec2c.glade:147 resources/xnec2c.glade:14921
 msgid "No. Segments"
 msgstr "세그먼트 수"
 
 #: resources/xnec2c.glade:160 resources/xnec2c.glade:3622
-#: resources/xnec2c.glade:14959
+#: resources/xnec2c.glade:15017
 msgid "Segs % lambda"
 msgstr "세그먼트 % 파장"
 
 #: resources/xnec2c.glade:173 resources/xnec2c.glade:3635
-#: resources/xnec2c.glade:15055
+#: resources/xnec2c.glade:15113
 msgid "Wire Diameter"
 msgstr "도선 직경"
 
@@ -888,7 +888,7 @@ msgid "End 2 Angle"
 msgstr "끝점 2 각도"
 
 #: resources/xnec2c.glade:300 resources/xnec2c.glade:3832
-#: resources/xnec2c.glade:15120 src/cmnd_edit.c:2025
+#: resources/xnec2c.glade:15178 src/cmnd_edit.c:2025
 msgid "Conductivity S/m"
 msgstr "전도도 S/m"
 
@@ -904,9 +904,9 @@ msgstr "도선 아크 데이터"
 #: resources/xnec2c.glade:4526 resources/xnec2c.glade:5058
 #: resources/xnec2c.glade:5694 resources/xnec2c.glade:7138
 #: resources/xnec2c.glade:8045 resources/xnec2c.glade:9051
-#: resources/xnec2c.glade:9331 resources/xnec2c.glade:13461
-#: resources/xnec2c.glade:13974 resources/xnec2c.glade:14573
-#: resources/xnec2c.glade:15409 resources/xnec2c.glade:15609
+#: resources/xnec2c.glade:9331 resources/xnec2c.glade:13519
+#: resources/xnec2c.glade:14032 resources/xnec2c.glade:14631
+#: resources/xnec2c.glade:15467 resources/xnec2c.glade:15667
 msgid "Delete Card"
 msgstr "카드 삭제"
 
@@ -1208,8 +1208,8 @@ msgid "5.00"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:3710 resources/xnec2c.glade:11727
-#: resources/xnec2c.glade:12927
+#: resources/xnec2c.glade:3710 resources/xnec2c.glade:11785
+#: resources/xnec2c.glade:12985
 msgid "1"
 msgstr ""
 
@@ -1267,7 +1267,7 @@ msgstr "Y 방향 반경 (B2)"
 msgid "GH Card"
 msgstr "GH 카드"
 
-#: resources/xnec2c.glade:4239 resources/xnec2c.glade:15483
+#: resources/xnec2c.glade:4239 resources/xnec2c.glade:15541
 msgid "Interaction Approx Range (KH Card)"
 msgstr "상호작용 근사 범위 (KH 카드)"
 
@@ -1385,8 +1385,8 @@ msgid "NX"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5374 resources/xnec2c.glade:11251
-#: resources/xnec2c.glade:12462
+#: resources/xnec2c.glade:5374 resources/xnec2c.glade:11309
+#: resources/xnec2c.glade:12520
 msgid "X"
 msgstr ""
 
@@ -1401,8 +1401,8 @@ msgid "NY"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5469 resources/xnec2c.glade:11266
-#: resources/xnec2c.glade:12477
+#: resources/xnec2c.glade:5469 resources/xnec2c.glade:11324
+#: resources/xnec2c.glade:12535
 msgid "Y"
 msgstr ""
 
@@ -1417,8 +1417,8 @@ msgid "NZ"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5564 resources/xnec2c.glade:11281
-#: resources/xnec2c.glade:12492
+#: resources/xnec2c.glade:5564 resources/xnec2c.glade:11339
+#: resources/xnec2c.glade:12550
 msgid "Z"
 msgstr ""
 
@@ -1584,7 +1584,7 @@ msgstr "세그먼트 번호, 포트 1"
 msgid "Segment Num, Port 2"
 msgstr "세그먼트 번호, 포트 2"
 
-#: resources/xnec2c.glade:6851 resources/xnec2c.glade:14269
+#: resources/xnec2c.glade:6851 resources/xnec2c.glade:14327
 msgid "Segment Identity"
 msgstr "세그먼트 식별"
 
@@ -1876,17 +1876,17 @@ msgstr "반사 옵션"
 msgid "Xnec2c: Frequency Data Plots"
 msgstr "Xnec2c: 주파수 데이터 플롯"
 
-#: resources/xnec2c.glade:9427 resources/xnec2c.glade:10397
-#: resources/xnec2c.glade:11951
+#: resources/xnec2c.glade:9427 resources/xnec2c.glade:10455
+#: resources/xnec2c.glade:12009
 msgid "_File"
 msgstr "파일(_F)"
 
-#: resources/xnec2c.glade:9489 resources/xnec2c.glade:10459
-#: resources/xnec2c.glade:12013
+#: resources/xnec2c.glade:9489 resources/xnec2c.glade:10517
+#: resources/xnec2c.glade:12071
 msgid "Save as _gnuplot"
 msgstr "_gnuplot으로 저장"
 
-#: resources/xnec2c.glade:9500 resources/xnec2c.glade:12023
+#: resources/xnec2c.glade:9500 resources/xnec2c.glade:12081
 msgid "Save as _CSV"
 msgstr "_CSV로 저장"
 
@@ -1906,111 +1906,169 @@ msgstr "S2P로 저장: 최대 이득(_M) (S21)"
 msgid "Save as S2P: _Viewer Gain (S21)"
 msgstr "S2P로 저장: 뷰어 이득(_V) (S21)"
 
-#: resources/xnec2c.glade:9576 resources/xnec2c.glade:10834
-#: resources/xnec2c.glade:12057
+#: resources/xnec2c.glade:9576 resources/xnec2c.glade:10892
+#: resources/xnec2c.glade:12115
 msgid "_View"
 msgstr "보기(_V)"
 
-#: resources/xnec2c.glade:9585 resources/xnec2c.glade:10862
-#: resources/xnec2c.glade:12065
+#: resources/xnec2c.glade:9585 resources/xnec2c.glade:10920
+#: resources/xnec2c.glade:12123
 msgid "_Polarization"
 msgstr "편파(_P)"
 
-#: resources/xnec2c.glade:9599 resources/xnec2c.glade:10876
-#: resources/xnec2c.glade:12079
+#: resources/xnec2c.glade:9599 resources/xnec2c.glade:10934
+#: resources/xnec2c.glade:12137
 msgid "_Total"
 msgstr "전체(_T)"
 
-#: resources/xnec2c.glade:9610 resources/xnec2c.glade:10887
-#: resources/xnec2c.glade:12090
+#: resources/xnec2c.glade:9610 resources/xnec2c.glade:10945
+#: resources/xnec2c.glade:12148
 msgid "_Horizontal"
 msgstr "수평(_H)"
 
-#: resources/xnec2c.glade:9621 resources/xnec2c.glade:10898
-#: resources/xnec2c.glade:12101
+#: resources/xnec2c.glade:9621 resources/xnec2c.glade:10956
+#: resources/xnec2c.glade:12159
 msgid "_Vertical"
 msgstr "수직(_V)"
 
-#: resources/xnec2c.glade:9632 resources/xnec2c.glade:10909
-#: resources/xnec2c.glade:12112
+#: resources/xnec2c.glade:9632 resources/xnec2c.glade:10967
+#: resources/xnec2c.glade:12170
 msgid "_Right Hand"
 msgstr "우원편파(_R)"
 
-#: resources/xnec2c.glade:9643 resources/xnec2c.glade:10920
-#: resources/xnec2c.glade:12123
+#: resources/xnec2c.glade:9643 resources/xnec2c.glade:10978
+#: resources/xnec2c.glade:12181
 msgid "_Left Hand"
 msgstr "좌원편파(_L)"
 
 #: resources/xnec2c.glade:9658
+msgid "Max Gain _Second Trace"
+msgstr "최대 이득 _두 번째 트레이스"
+
+#: resources/xnec2c.glade:9667
+msgid ""
+"Plot the front-to-back ratio beside Max Gain: peak gain over the gain in the "
+"opposite direction."
+msgstr ""
+"최대 이득과 함께 F/B 비를 그립니다: 피크 이득 대 반대 방향 이득의 비율입니다."
+
+#: resources/xnec2c.glade:9668
+msgid "F/_B Ratio"
+msgstr "F/_B 비"
+
+#: resources/xnec2c.glade:9678
+msgid ""
+"Plot the front-to-rear ratio beside Max Gain: peak gain over the strongest "
+"gain at the same elevation more than 90° away in azimuth."
+msgstr ""
+"최대 이득과 함께 F/R 비를 그립니다: 피크 이득 대 같은 고도에서 방위각으로 "
+"90° 넘게 떨어진 방향 중 가장 강한 이득의 비율입니다."
+
+#: resources/xnec2c.glade:9679
+msgid "F/_R Ratio"
+msgstr "F/_R 비"
+
+#: resources/xnec2c.glade:9690
 msgid "_Net Gain"
 msgstr "순 이득(_N)"
 
-#: resources/xnec2c.glade:9667
+#: resources/xnec2c.glade:9705
 msgid "Show _Min/Max Values"
 msgstr "최소/최대 값 표시(_M)"
 
-#: resources/xnec2c.glade:9676
+#: resources/xnec2c.glade:9714
 msgid "Show _S11 (dB) Values"
 msgstr "_S11 (dB) 값 표시"
 
-#: resources/xnec2c.glade:9685
+#: resources/xnec2c.glade:9723
 msgid "Clamp _VSWR Graph to 10"
 msgstr "_VSWR 그래프를 10으로 제한"
 
-#: resources/xnec2c.glade:9694
+#: resources/xnec2c.glade:9732
 msgid "Show Ta instead of TA"
 msgstr "TA 대신 Ta 표시"
 
-#: resources/xnec2c.glade:9703
+#: resources/xnec2c.glade:9741
 msgid "Round _X Axis Frequency Values"
 msgstr "_X축 주파수 값 반올림"
 
-#: resources/xnec2c.glade:9712
+#: resources/xnec2c.glade:9750
 msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "왼쪽/오른쪽 클릭 주파수 선택 교체(_W)"
 
-#: resources/xnec2c.glade:9736 resources/xnec2c.glade:9918
+#: resources/xnec2c.glade:9774 resources/xnec2c.glade:9976
 msgid "Max Gain"
 msgstr "최대 이득"
 
-#: resources/xnec2c.glade:9751
+#: resources/xnec2c.glade:9789
 msgid "Direction"
 msgstr "방향"
 
-#: resources/xnec2c.glade:9766
+#: resources/xnec2c.glade:9804
 msgid "Viewer"
 msgstr "뷰어"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9781 resources/xnec2c.glade:10023
+#: resources/xnec2c.glade:9819 resources/xnec2c.glade:10081
 #: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9796
+#: resources/xnec2c.glade:9834
 msgid "Zr/Zi"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9811
+#: resources/xnec2c.glade:9849
 msgid "Zm/Zph"
 msgstr ""
 
-#: resources/xnec2c.glade:9826
+#: resources/xnec2c.glade:9864
 msgid "Smith"
 msgstr "스미스"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9841
+#: resources/xnec2c.glade:9879
 msgid "G/Ta"
 msgstr ""
 
-#: resources/xnec2c.glade:9855
+# xnec2c-exempt: name
+#: resources/xnec2c.glade:9893
+msgid "AGT"
+msgstr ""
+
+#: resources/xnec2c.glade:9897
+msgid ""
+"Plots the average power gain over the directions the radiation pattern "
+"samples, at each frequency.\n"
+"Values appear once a frequency sweep with a radiation pattern has produced "
+"results.\n"
+"A sound lossless model averages 1.0 over the full sphere in free space and "
+"2.0 over the upper hemisphere above perfect ground; a departure on such a "
+"model points to inaccurate geometry, such as segments too long or wires too "
+"close.\n"
+"The readout adds the sampled fraction of the sphere and the average scaled "
+"by that fraction, in percent, which reads 100 for a sound lossless model "
+"whose pattern covers every direction it radiates into.\n"
+"See the \"Validating a Model\" section of the manual for how to run and read "
+"the test."
+msgstr ""
+"각 주파수에서 방사 패턴이 샘플링하는 방향에 대한 평균 전력 이득을 그립니다.\n"
+"방사 패턴을 포함한 주파수 스윕이 결과를 산출한 뒤에 값이 나타납니다.\n"
+"손실 없는 정상 모델의 평균은 자유 공간의 전체 구에서 1.0, 완전 접지 위의 상반"
+"구에서 2.0이며, 이런 모델에서 벗어나면 세그먼트가 너무 길거나 도선이 너무 가"
+"까운 것과 같은 부정확한 형상을 의미합니다.\n"
+"판독값에는 구에서 샘플링된 비율과 그 비율로 스케일한 평균이 백분율로 더해지"
+"며, 방사 패턴이 방사하는 모든 방향을 포함하는 손실 없는 정상 모델에서는 100"
+"을 나타냅니다.\n"
+"실행 및 해석 방법은 설명서의 \"Validating a Model\" 절을 참조하십시오."
+
+#: resources/xnec2c.glade:9912
 msgid "Cond"
 msgstr "컨디셔닝"
 
-#: resources/xnec2c.glade:9859
+#: resources/xnec2c.glade:9916
 msgid ""
 "Plots the precision lost solving the antenna at each frequency, in decimal "
 "digits.\n"
@@ -2021,199 +2079,202 @@ msgid ""
 "artefact rather than a resonance.\n"
 "A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and "
 "a reading near 15 leaves none; shorten or thicken the offending segments and "
-"run the sweep again to bring the curve down."
+"run the sweep again to bring the curve down.\n"
+"See the \"Validating a Model\" section of the manual to read it beside the "
+"AGT trace."
 msgstr ""
-"각 주파수에서 안테나를 해석할 때 손실된 정밀도를 십진 자릿수로 표시합니다.\n"
-"주파수 스윕이 결과를 생성하면 값이 나타납니다.\n"
-"이 값은 임피던스 및 VSWR 트레이스와 대조하여 확인합니다: 낮고 평평한 곡선은 "
-"해당 트레이스가 정상임을 의미하고, 피크는 해석이 저하된 주파수를 나타내므로 "
-"같은 주파수에서 나타나는 급격한 임피던스 변화는 공진이 아니라 수치적 인공물입"
-"니다.\n"
-"배정밀도 부동소수점 수는 약 15자리를 가지므로, 값이 3이면 12자리가 남고 값이 "
-"15에 가까우면 남는 자리가 없습니다. 문제가 되는 세그먼트를 짧게 하거나 굵게 "
-"한 뒤 스윕을 다시 실행하면 곡선이 낮아집니다."
+"각 주파수에서 안테나를 푸는 동안 손실된 정밀도를 십진 자릿수로 그립니다.\n"
+"주파수 스윕이 결과를 산출한 뒤에 값이 나타납니다.\n"
+"임피던스 및 VSWR 트레이스와 대조하여 읽습니다. 평평하고 낮은 곡선은 해당 트레"
+"이스가 건전함을 뜻하고, 피크는 풀이가 저하된 주파수를 나타내므로 같은 주파수"
+"에서의 급격한 임피던스 변동은 공진이 아니라 수치적 인공 현상입니다.\n"
+"double은 약 15자리를 표현하므로 판독값 3은 유효 자릿수 12개를 남기고 15에 가"
+"까운 판독값은 하나도 남기지 않습니다. 문제의 세그먼트를 짧게 하거나 굵게 한 "
+"뒤 스윕을 다시 실행하면 곡선이 내려갑니다.\n"
+"AGT 트레이스와 나란히 읽는 방법은 설명서의 \"Validating a Model\" 절을 참조하"
+"십시오."
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:9902 resources/xnec2c.glade:9937
-#: resources/xnec2c.glade:9972 resources/xnec2c.glade:10007
-#: resources/xnec2c.glade:10229 resources/xnec2c.glade:10264
-#: resources/xnec2c.glade:10299 resources/xnec2c.glade:13186
+#: resources/xnec2c.glade:9960 resources/xnec2c.glade:9995
+#: resources/xnec2c.glade:10030 resources/xnec2c.glade:10065
+#: resources/xnec2c.glade:10287 resources/xnec2c.glade:10322
+#: resources/xnec2c.glade:10357 resources/xnec2c.glade:13244
 msgid " - - -"
 msgstr ""
 
-#: resources/xnec2c.glade:9953 src/freqplots/graphs/impedance_graph.c:76
+#: resources/xnec2c.glade:10011 src/freqplots/graphs/impedance_graph.c:76
 msgid "Z-imag"
 msgstr "Z-허수부"
 
-#: resources/xnec2c.glade:9988 src/freqplots/graphs/impedance_graph.c:74
+#: resources/xnec2c.glade:10046 src/freqplots/graphs/impedance_graph.c:74
 msgid "Z-real"
 msgstr "Z-실수부"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:10043
+#: resources/xnec2c.glade:10101
 msgid " - - - - "
 msgstr ""
 
-#: resources/xnec2c.glade:10059
+#: resources/xnec2c.glade:10117
 msgid "Freq MHz"
 msgstr "주파수 MHz"
 
-#: resources/xnec2c.glade:10098 resources/xnec2c.glade:10111
+#: resources/xnec2c.glade:10156 resources/xnec2c.glade:10169
 msgid "Port"
 msgstr "포트"
 
-#: resources/xnec2c.glade:10123
+#: resources/xnec2c.glade:10181
 msgid "Tx Line Z<sub>0</sub>"
 msgstr "전송선 Z<sub>0</sub>"
 
-#: resources/xnec2c.glade:10138 resources/xnec2c.glade:11742
-#: resources/xnec2c.glade:12958
+#: resources/xnec2c.glade:10196 resources/xnec2c.glade:11800
+#: resources/xnec2c.glade:13016
 msgid "Freq Loop"
 msgstr "주파수 루프"
 
-#: resources/xnec2c.glade:10210 resources/xnec2c.glade:13064
+#: resources/xnec2c.glade:10268 resources/xnec2c.glade:13122
 msgid "T<sub>A</sub>(Elev.°)"
 msgstr "T<sub>A</sub>(고각°)"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10245
+#: resources/xnec2c.glade:10303
 msgid "T<sub>a</sub>"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10280
+#: resources/xnec2c.glade:10338
 msgid "G/T<sub>a</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:10352
+#: resources/xnec2c.glade:10410
 msgid "Frequency Data Plots"
 msgstr "주파수 데이터 플롯"
 
-#: resources/xnec2c.glade:10470
+#: resources/xnec2c.glade:10528
 msgid "Save _Currents/Charges as CSV"
 msgstr "전류/전하를 CSV로 저장(_C)"
 
-#: resources/xnec2c.glade:10489
+#: resources/xnec2c.glade:10547
 msgid "Optimization Settings"
 msgstr "최적화 설정"
 
-#: resources/xnec2c.glade:10504
+#: resources/xnec2c.glade:10562
 msgid "Reload and write data on .NEC file changes"
 msgstr ".NEC 파일 변경 시 다시 로드 및 데이터 쓰기"
 
-#: resources/xnec2c.glade:10511
+#: resources/xnec2c.glade:10569
 msgid "_Write files selected below, now."
 msgstr "아래에서 선택한 파일을 지금 쓰기(_W)"
 
-#: resources/xnec2c.glade:10526
+#: resources/xnec2c.glade:10584
 msgid "After calculation, write <file>.csv"
 msgstr "계산 후 <file>.csv 쓰기"
 
-#: resources/xnec2c.glade:10535
+#: resources/xnec2c.glade:10593
 msgid "After calculation, write <file>.s_1p"
 msgstr "계산 후 <file>.s_1p 쓰기"
 
-#: resources/xnec2c.glade:10544
+#: resources/xnec2c.glade:10602
 msgid "After calculation, write <file>-_maxgain.s2p"
 msgstr "계산 후 <file>-_maxgain.s2p 쓰기"
 
-#: resources/xnec2c.glade:10553
+#: resources/xnec2c.glade:10611
 msgid "After calculation, write <file>-_viewergain.s2p"
 msgstr "계산 후 <file>-_viewergain.s2p 쓰기"
 
-#: resources/xnec2c.glade:10562
+#: resources/xnec2c.glade:10620
 msgid "After calculation, write <file>-_radpattern.csv"
 msgstr "계산 후 <file>-_radpattern.csv 쓰기"
 
-#: resources/xnec2c.glade:10571
+#: resources/xnec2c.glade:10629
 msgid "After calculation, write <file>-_currents.csv"
 msgstr "계산 후 <file>-_currents.csv 쓰기"
 
-#: resources/xnec2c.glade:10580
+#: resources/xnec2c.glade:10638
 msgid "After calculation, write <file>-_structure.gplot"
 msgstr "계산 후 <file>-_structure.gplot 쓰기"
 
-#: resources/xnec2c.glade:10589
+#: resources/xnec2c.glade:10647
 msgid "After calculation, write <file>-_patch-currents.csv"
 msgstr "계산 후 <file>-_patch-currents.csv 쓰기"
 
-#: resources/xnec2c.glade:10604
+#: resources/xnec2c.glade:10662
 msgid "_Math Libraries"
 msgstr "수학 라이브러리(_M)"
 
-#: resources/xnec2c.glade:10613
+#: resources/xnec2c.glade:10671
 msgid "_Interactive"
 msgstr "대화형(_I)"
 
-#: resources/xnec2c.glade:10633
+#: resources/xnec2c.glade:10691
 msgid "_Batch"
 msgstr "배치(_B)"
 
-#: resources/xnec2c.glade:10659
+#: resources/xnec2c.glade:10717
 msgid "Mathlib _Help"
 msgstr "Mathlib 도움말(_H)"
 
-#: resources/xnec2c.glade:10672
+#: resources/xnec2c.glade:10730
 msgid "Mathlib _Benchmarks"
 msgstr "Mathlib 벤치마크(_B)"
 
-#: resources/xnec2c.glade:10683
+#: resources/xnec2c.glade:10741
 msgid "_Selected Mathlibs"
 msgstr "선택된 Mathlib(_S)"
 
-#: resources/xnec2c.glade:10697
+#: resources/xnec2c.glade:10755
 msgid "Select All/None"
 msgstr "전체 선택/해제"
 
-#: resources/xnec2c.glade:10722
+#: resources/xnec2c.glade:10780
 msgid "_Parallel (-j N):\t\tO(N/J)"
 msgstr "병렬(_P) (-j N):\t\tO(N/J)"
 
-#: resources/xnec2c.glade:10731
+#: resources/xnec2c.glade:10789
 msgid "_Single Job (-j 1):\tO(N)"
 msgstr "단일 작업(_S) (-j 1):\tO(N)"
 
-#: resources/xnec2c.glade:10740
+#: resources/xnec2c.glade:10798
 msgid "_Iterate -j N/=2:\tO(N*log2(J))"
 msgstr "반복(_I) -j N/=2:\tO(N*log2(J))"
 
-#: resources/xnec2c.glade:10749
+#: resources/xnec2c.glade:10807
 msgid "_Iterate -j N-=1:\tO(N*J)"
 msgstr "반복(_I) -j N-=1:\tO(N*J)"
 
-#: resources/xnec2c.glade:10758
+#: resources/xnec2c.glade:10816
 msgid "_Threads (-j 1, --threads N/=2):\tO(N*log2(T))"
 msgstr "_스레드 (-j 1, --threads N/=2):\\\tO(N*log2(T))"
 
-#: resources/xnec2c.glade:10773
+#: resources/xnec2c.glade:10831
 msgid "Benchmark _Help"
 msgstr "벤치마크 도움말(_H)"
 
-#: resources/xnec2c.glade:10792
+#: resources/xnec2c.glade:10850
 msgid "Begin Frequency Loop at Startup"
 msgstr "시작 시 주파수 루프 시작"
 
-#: resources/xnec2c.glade:10803
+#: resources/xnec2c.glade:10861
 msgid "Confirm Quit"
 msgstr "종료 확인"
 
-#: resources/xnec2c.glade:10842
+#: resources/xnec2c.glade:10900
 msgid "_Radiation Pattern"
 msgstr "방사 패턴(_R)"
 
-#: resources/xnec2c.glade:10852
+#: resources/xnec2c.glade:10910
 msgid "_Frequency Plots"
 msgstr "주파수 플롯(_F)"
 
-#: resources/xnec2c.glade:10935
+#: resources/xnec2c.glade:10993
 msgid "_Visualization"
 msgstr "시각화(_V)"
 
-#: resources/xnec2c.glade:10951
+#: resources/xnec2c.glade:11009
 msgid "Color Scale"
 msgstr "색상 스케일"
 
-#: resources/xnec2c.glade:10958
+#: resources/xnec2c.glade:11016
 msgid ""
 "Power transfer n^γ relative to this frequency step's peak.\n"
 "γ = 0.5 expands weak regions, γ = 1 is linear amplitude, γ = 2 shows the "
@@ -2228,11 +2289,11 @@ msgstr ""
 "에 비례하고, |q|²는 저장된 정전 에너지에 비례합니다.\n"
 "애니메이션 대화상자에서 γ를 조정하십시오."
 
-#: resources/xnec2c.glade:10959
+#: resources/xnec2c.glade:11017
 msgid "_Power"
 msgstr "거듭제곱(_P)"
 
-#: resources/xnec2c.glade:10970
+#: resources/xnec2c.glade:11028
 msgid ""
 "Logarithmic scale over a user-set range R below the peak.\n"
 "Reveals weak detail that linear display hides; adjust R in the animate "
@@ -2243,11 +2304,11 @@ msgstr ""
 "조정하십시오."
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10971
+#: resources/xnec2c.glade:11029
 msgid "_dB"
 msgstr ""
 
-#: resources/xnec2c.glade:10982
+#: resources/xnec2c.glade:11040
 msgid ""
 "Inverse hyperbolic sine transfer: linear below the softening knee k, "
 "logarithmic above.\n"
@@ -2257,11 +2318,11 @@ msgstr ""
 "애니메이션 대화상자에서 k를 조정하십시오."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:10983
+#: resources/xnec2c.glade:11041
 msgid "_Asinh"
 msgstr ""
 
-#: resources/xnec2c.glade:10994
+#: resources/xnec2c.glade:11052
 msgid ""
 "μ-law companding transfer: lifts weak detail with bounded compression.\n"
 "Adjust the compression in the animate dialog."
@@ -2270,11 +2331,11 @@ msgstr ""
 "애니메이션 대화상자에서 압축을 조정하십시오."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:10995
+#: resources/xnec2c.glade:11053
 msgid "μ-_law"
 msgstr ""
 
-#: resources/xnec2c.glade:11006
+#: resources/xnec2c.glade:11064
 msgid ""
 "Reinhard rational soft-compressor with knee k.\n"
 "Adjust k in the animate dialog."
@@ -2283,11 +2344,11 @@ msgstr ""
 "애니메이션 대화상자에서 k를 조정하십시오."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11007
+#: resources/xnec2c.glade:11065
 msgid "_Reinhard"
 msgstr ""
 
-#: resources/xnec2c.glade:11018
+#: resources/xnec2c.glade:11076
 msgid ""
 "Hyperbolic tangent transfer with contrast steepness a.\n"
 "Adjust a in the animate dialog."
@@ -2296,416 +2357,416 @@ msgstr ""
 "애니메이션 대화상자에서 a를 조정하십시오."
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11019
+#: resources/xnec2c.glade:11077
 msgid "_Sigmoid"
 msgstr ""
 
-#: resources/xnec2c.glade:11030
+#: resources/xnec2c.glade:11088
 msgid ""
 "Full brightness for every magnitude; the color projection alone sets the "
 "rendering."
 msgstr ""
 "모든 크기에 대해 최대 밝기를 사용합니다. 색상 투영만으로 렌더링이 결정됩니다."
 
-#: resources/xnec2c.glade:11031
+#: resources/xnec2c.glade:11089
 msgid "_None"
 msgstr "없음(_N)"
 
-#: resources/xnec2c.glade:11049
+#: resources/xnec2c.glade:11107
 msgid "Patch Flow — Animated"
 msgstr "패치 흐름 — 애니메이션"
 
-#: resources/xnec2c.glade:11096
+#: resources/xnec2c.glade:11154
 msgid "Patch Flow — Static"
 msgstr "패치 흐름 — 정적"
 
-#: resources/xnec2c.glade:11129
+#: resources/xnec2c.glade:11187
 msgid "A_nimate"
 msgstr "애니메이션(_n)"
 
-#: resources/xnec2c.glade:11138 resources/xnec2c.glade:12387
+#: resources/xnec2c.glade:11196 resources/xnec2c.glade:12445
 msgid "Common _Projection"
 msgstr "공통 투영(_P)"
 
-#: resources/xnec2c.glade:11148 resources/xnec2c.glade:12397
+#: resources/xnec2c.glade:11206 resources/xnec2c.glade:12455
 msgid "Common _Pan"
 msgstr "공통 이동(_P)"
 
-#: resources/xnec2c.glade:11165
+#: resources/xnec2c.glade:11223
 msgid "_Symbol Overrides"
 msgstr "심볼 재정의(_S)"
 
-#: resources/xnec2c.glade:11174
+#: resources/xnec2c.glade:11232
 msgid "Rendering _Settings..."
 msgstr "렌더링 설정(_S)..."
 
-#: resources/xnec2c.glade:11185
+#: resources/xnec2c.glade:11243
 msgid "_Help"
 msgstr "도움말(_H)"
 
-#: resources/xnec2c.glade:11194
+#: resources/xnec2c.glade:11252
 msgid "_About"
 msgstr "정보(_A)"
 
-#: resources/xnec2c.glade:11417
+#: resources/xnec2c.glade:11475
 msgid " Zoom"
 msgstr " 줌"
 
-#: resources/xnec2c.glade:11584 resources/xnec2c.glade:11645
-#: resources/xnec2c.glade:11693
+#: resources/xnec2c.glade:11642 resources/xnec2c.glade:11703
+#: resources/xnec2c.glade:11751
 msgid ""
 "Gain in the direction of the structure viewer, for the current view angles."
 msgstr "현재 보기 각도에서 구조체 뷰어 방향의 이득입니다."
 
-#: resources/xnec2c.glade:11585 resources/xnec2c.glade:12894
+#: resources/xnec2c.glade:11643 resources/xnec2c.glade:12952
 #: src/freqplots/freqplots_core.c:62
 msgid "Gain"
 msgstr "이득"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:11600 resources/xnec2c.glade:11616
-#: resources/xnec2c.glade:12907 resources/xnec2c.glade:13168
+#: resources/xnec2c.glade:11658 resources/xnec2c.glade:11674
+#: resources/xnec2c.glade:12965 resources/xnec2c.glade:13226
 msgid "0.0"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:11651
+#: resources/xnec2c.glade:11709
 msgid "- - - "
 msgstr ""
 
-#: resources/xnec2c.glade:11708 resources/xnec2c.glade:12943
+#: resources/xnec2c.glade:11766 resources/xnec2c.glade:13001
 msgid "Step"
 msgstr "단계"
 
-#: resources/xnec2c.glade:11832 resources/xnec2c.glade:12991
+#: resources/xnec2c.glade:11890 resources/xnec2c.glade:13049
 msgid "Apply Freq"
 msgstr "주파수 적용"
 
-#: resources/xnec2c.glade:11852
+#: resources/xnec2c.glade:11910
 msgid "Frequency Mhz"
 msgstr "주파수 MHz"
 
-#: resources/xnec2c.glade:11905
+#: resources/xnec2c.glade:11963
 msgid "Structure Geometry"
 msgstr "구조 기하"
 
-#: resources/xnec2c.glade:11924
+#: resources/xnec2c.glade:11982
 msgid "Xnec2c: Radiation Patterns"
 msgstr "Xnec2c: 방사 패턴"
 
-#: resources/xnec2c.glade:12138
+#: resources/xnec2c.glade:12196
 msgid "_Gain Scaling"
 msgstr "이득 스케일링(_G)"
 
-#: resources/xnec2c.glade:12153
+#: resources/xnec2c.glade:12211
 msgid "Linear _Power"
 msgstr "선형 전력(_P)"
 
-#: resources/xnec2c.glade:12164
+#: resources/xnec2c.glade:12222
 msgid "Linear _Voltage"
 msgstr "선형 전압(_V)"
 
-#: resources/xnec2c.glade:12175
+#: resources/xnec2c.glade:12233
 msgid "_ARRL Style"
 msgstr "_ARRL 스타일"
 
-#: resources/xnec2c.glade:12186
+#: resources/xnec2c.glade:12244
 msgid "_Logarithmic"
 msgstr "로그(_L)"
 
-#: resources/xnec2c.glade:12197
+#: resources/xnec2c.glade:12255
 msgid "_Noise Temperature"
 msgstr "잡음 온도(_N)"
 
-#: resources/xnec2c.glade:12208
+#: resources/xnec2c.glade:12266
 msgid "Noise Temp (_log scale)"
 msgstr "잡음 온도 (로그 스케일(_l))"
 
-#: resources/xnec2c.glade:12223
+#: resources/xnec2c.glade:12281
 msgid "Noise _Models"
 msgstr "잡음 모델(_M)"
 
-#: resources/xnec2c.glade:12242
+#: resources/xnec2c.glade:12300
 msgid "_Gradient Key"
 msgstr "그라디언트 범례(_G)"
 
-#: resources/xnec2c.glade:12252
+#: resources/xnec2c.glade:12310
 msgid "Draw St_yle"
 msgstr "그리기 스타일(_y)"
 
-#: resources/xnec2c.glade:12261
+#: resources/xnec2c.glade:12319
 msgid "S_urface"
 msgstr "표면(_u)"
 
-#: resources/xnec2c.glade:12280
+#: resources/xnec2c.glade:12338
 msgid "_Both"
 msgstr "둘 다(_B)"
 
-#: resources/xnec2c.glade:12295
+#: resources/xnec2c.glade:12353
 msgid "_Near Field"
 msgstr "근접장(_N)"
 
-#: resources/xnec2c.glade:12310
+#: resources/xnec2c.glade:12368
 msgid "Near _E Field"
 msgstr "근접 _E 필드"
 
-#: resources/xnec2c.glade:12320
+#: resources/xnec2c.glade:12378
 msgid "Near _H Field"
 msgstr "근접 _H 필드"
 
-#: resources/xnec2c.glade:12330
+#: resources/xnec2c.glade:12388
 msgid "_Poynting Vector"
 msgstr "_포인팅 벡터"
 
-#: resources/xnec2c.glade:12339
+#: resources/xnec2c.glade:12397
 msgid "_Animate Dialog"
 msgstr "_애니메이션 대화 상자"
 
-#: resources/xnec2c.glade:12348
+#: resources/xnec2c.glade:12406
 msgid "_Total Field"
 msgstr "_전체 필드"
 
-#: resources/xnec2c.glade:12357
+#: resources/xnec2c.glade:12415
 msgid "_Peak Value"
 msgstr "_피크값"
 
-#: resources/xnec2c.glade:12368
+#: resources/xnec2c.glade:12426
 msgid "_Instantaneous (φ=0)"
 msgstr "순시값(_I) (φ=0)"
 
-#: resources/xnec2c.glade:12408
+#: resources/xnec2c.glade:12466
 msgid "_Overlay Structure"
 msgstr "_구조 오버레이"
 
-#: resources/xnec2c.glade:12432
+#: resources/xnec2c.glade:12490
 msgid "Gain Pattern"
 msgstr "이득 패턴"
 
-#: resources/xnec2c.glade:12447
+#: resources/xnec2c.glade:12505
 msgid "E/H Fields"
 msgstr "E/H 필드"
 
-#: resources/xnec2c.glade:12630
+#: resources/xnec2c.glade:12688
 msgid "Zoom % "
 msgstr "확대 % "
 
-#: resources/xnec2c.glade:12669
+#: resources/xnec2c.glade:12727
 msgid "Elev.°"
 msgstr "고각°"
 
-#: resources/xnec2c.glade:13011
+#: resources/xnec2c.glade:13069
 msgid "Frequency MHz"
 msgstr "주파수 MHz"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:13028
+#: resources/xnec2c.glade:13086
 msgid "0.010"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:13082 resources/xnec2c.glade:13115
-#: resources/xnec2c.glade:13150
+#: resources/xnec2c.glade:13140 resources/xnec2c.glade:13173
+#: resources/xnec2c.glade:13208
 msgid "— K"
 msgstr ""
 
-#: resources/xnec2c.glade:13097
+#: resources/xnec2c.glade:13155
 msgid "T<sub>earth</sub>"
 msgstr "T<sub>대지</sub>"
 
-#: resources/xnec2c.glade:13132
+#: resources/xnec2c.glade:13190
 msgid "T<sub>sky</sub>"
 msgstr "T<sub>하늘</sub>"
 
-#: resources/xnec2c.glade:13252 src/rdpattern_ui.c:939
+#: resources/xnec2c.glade:13310 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "방사 패턴"
 
-#: resources/xnec2c.glade:13287
+#: resources/xnec2c.glade:13345
 msgid "Scale Structure (GS card)"
 msgstr "구조 스케일 (GS 카드)"
 
-#: resources/xnec2c.glade:13318
+#: resources/xnec2c.glade:13376
 msgid "Structure Scale Factor"
 msgstr "구조 스케일 계수"
 
-#: resources/xnec2c.glade:13331
+#: resources/xnec2c.glade:13389
 msgid "From Tag No."
 msgstr "시작 태그 번호"
 
-#: resources/xnec2c.glade:13381
+#: resources/xnec2c.glade:13439
 msgid "To Tag No."
 msgstr "종료 태그 번호"
 
-#: resources/xnec2c.glade:13416
+#: resources/xnec2c.glade:13474
 msgid "Scale Structure"
 msgstr "구조 스케일"
 
-#: resources/xnec2c.glade:13593
+#: resources/xnec2c.glade:13651
 msgid "Co-ordinate Transformation (GM card)"
 msgstr "좌표 변환 (GM 카드)"
 
-#: resources/xnec2c.glade:13623
+#: resources/xnec2c.glade:13681
 msgid "Tag Increment"
 msgstr "태그 증가값"
 
-#: resources/xnec2c.glade:13654
+#: resources/xnec2c.glade:13712
 msgid "Rotate about X"
 msgstr "X축 회전"
 
-#: resources/xnec2c.glade:13686
+#: resources/xnec2c.glade:13744
 msgid "Move along X"
 msgstr "X축 이동"
 
-#: resources/xnec2c.glade:13718
+#: resources/xnec2c.glade:13776
 msgid "New Structures"
 msgstr "새 구조"
 
-#: resources/xnec2c.glade:13749
+#: resources/xnec2c.glade:13807
 msgid "Rotate about Y"
 msgstr "Y축 회전"
 
-#: resources/xnec2c.glade:13781
+#: resources/xnec2c.glade:13839
 msgid "Move along Y"
 msgstr "Y축 이동"
 
-#: resources/xnec2c.glade:13813
+#: resources/xnec2c.glade:13871
 msgid "Start From Tag"
 msgstr "시작 태그"
 
-#: resources/xnec2c.glade:13845
+#: resources/xnec2c.glade:13903
 msgid "Rotate about Z"
 msgstr "Z축 회전"
 
-#: resources/xnec2c.glade:13877
+#: resources/xnec2c.glade:13935
 msgid "Move along Z"
 msgstr "Z축 이동"
 
-#: resources/xnec2c.glade:13913
+#: resources/xnec2c.glade:13971
 msgid "Co-ordinate Transformation Data"
 msgstr "좌표 변환 데이터"
 
-#: resources/xnec2c.glade:14109
+#: resources/xnec2c.glade:14167
 msgid "Trans. Line Command (TL Card)"
 msgstr "전송선 명령 (TL 카드)"
 
-#: resources/xnec2c.glade:14139
+#: resources/xnec2c.glade:14197
 msgid "Tag Number, End 1  "
 msgstr "태그 번호, 끝 1  "
 
-#: resources/xnec2c.glade:14171
+#: resources/xnec2c.glade:14229
 msgid "Tag Number, End 2  "
 msgstr "태그 번호, 끝 2  "
 
-#: resources/xnec2c.glade:14202
+#: resources/xnec2c.glade:14260
 msgid "Segment Num, End 1"
 msgstr "세그먼트 번호, 끝 1"
 
-#: resources/xnec2c.glade:14234
+#: resources/xnec2c.glade:14292
 msgid "Segment Num, End 2"
 msgstr "세그먼트 번호, 끝 2"
 
-#: resources/xnec2c.glade:14298
+#: resources/xnec2c.glade:14356
 msgid "Crossed Transmission Line"
 msgstr "교차 전송선"
 
-#: resources/xnec2c.glade:14316
+#: resources/xnec2c.glade:14374
 msgid "Characteristic Impedance"
 msgstr "특성 임피던스"
 
-#: resources/xnec2c.glade:14348
+#: resources/xnec2c.glade:14406
 msgid "End 1 Y Real Part (S)"
 msgstr "끝 1 Y 실수부 (S)"
 
-#: resources/xnec2c.glade:14380
+#: resources/xnec2c.glade:14438
 msgid "End 2 Y Real Part (S)"
 msgstr "끝 2 Y 실수부 (S)"
 
-#: resources/xnec2c.glade:14412
+#: resources/xnec2c.glade:14470
 msgid "Length of Tx Line (m)"
 msgstr "전송선 길이 (m)"
 
-#: resources/xnec2c.glade:14444
+#: resources/xnec2c.glade:14502
 msgid "End 1 Y Imag Part (S)"
 msgstr "끝 1 Y 허수부 (S)"
 
-#: resources/xnec2c.glade:14476
+#: resources/xnec2c.glade:14534
 msgid "End 2 Y Imag Part (S)"
 msgstr "끝 2 Y 허수부 (S)"
 
-#: resources/xnec2c.glade:14512
+#: resources/xnec2c.glade:14570
 msgid "Transmission Line"
 msgstr "전송선"
 
-#: resources/xnec2c.glade:14739
+#: resources/xnec2c.glade:14797
 msgid "Wire Element (GW & GC cards)"
 msgstr "도선 요소 (GW & GC 카드)"
 
-#: resources/xnec2c.glade:14799
+#: resources/xnec2c.glade:14857
 msgid "Wire X1"
 msgstr "도선 X1"
 
-#: resources/xnec2c.glade:14831
+#: resources/xnec2c.glade:14889
 msgid "Wire X2"
 msgstr "도선 X2"
 
-#: resources/xnec2c.glade:14894
+#: resources/xnec2c.glade:14952
 msgid "Wire Y1"
 msgstr "도선 Y1"
 
-#: resources/xnec2c.glade:14927
+#: resources/xnec2c.glade:14985
 msgid "Wire Y2"
 msgstr "도선 Y2"
 
-#: resources/xnec2c.glade:14991
+#: resources/xnec2c.glade:15049
 msgid "Wire Z1"
 msgstr "도선 Z1"
 
-#: resources/xnec2c.glade:15023
+#: resources/xnec2c.glade:15081
 msgid "Wire Z2"
 msgstr "도선 Z2"
 
-#: resources/xnec2c.glade:15088
+#: resources/xnec2c.glade:15146
 msgid "Wire Length"
 msgstr "도선 길이"
 
-#: resources/xnec2c.glade:15159
+#: resources/xnec2c.glade:15217
 msgid "Wire Data"
 msgstr "도선 데이터"
 
-#: resources/xnec2c.glade:15171
+#: resources/xnec2c.glade:15229
 msgid "Tapered Wire"
 msgstr "테이퍼 도선"
 
-#: resources/xnec2c.glade:15213
+#: resources/xnec2c.glade:15271
 msgid "Length Taper"
 msgstr "길이 테이퍼"
 
-#: resources/xnec2c.glade:15245
+#: resources/xnec2c.glade:15303
 msgid "Diameter Seg 1"
 msgstr "직경 세그먼트 1"
 
-#: resources/xnec2c.glade:15277
+#: resources/xnec2c.glade:15335
 msgid "Diameter Seg N"
 msgstr "직경 세그먼트 N"
 
-#: resources/xnec2c.glade:15309
+#: resources/xnec2c.glade:15367
 msgid "Diam. Taper"
 msgstr "직경 테이퍼"
 
-#: resources/xnec2c.glade:15345
+#: resources/xnec2c.glade:15403
 msgid "Wire Taper Data"
 msgstr "도선 테이퍼 데이터"
 
-#: resources/xnec2c.glade:15510
+#: resources/xnec2c.glade:15568
 msgid "Impedance (Zo) Ohm"
 msgstr "임피던스 (Zo) Ohm"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:15525
+#: resources/xnec2c.glade:15583
 msgid "50.00"
 msgstr ""
 
-#: resources/xnec2c.glade:15548
+#: resources/xnec2c.glade:15606
 msgid "Transmission Line Impedance (Zo)"
 msgstr "전송선 임피던스 (Zo)"
 
@@ -3070,7 +3131,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "설정 파일이 존재하지 않거나 읽을 수 없습니다: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:771 src/input.c:1859 src/input.c:1860
+#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3575,12 +3636,12 @@ msgstr ""
 msgid "step size limited at z= %10.5f"
 msgstr "z= %10.5f에서 스텝 크기 제한됨"
 
-#: src/fork.c:334 src/fork.c:591
+#: src/fork.c:334 src/fork.c:593
 #, c-format
 msgid "child %d  length %d  return %d\n"
 msgstr "자식 %d  길이 %d  반환 %d\n"
 
-#: src/fork.c:597
+#: src/fork.c:599
 #, c-format
 msgid "early EOF?, child %d  length %d  return %d\n"
 msgstr "조기 EOF?, 자식 %d  길이 %d  반환 %d\n"
@@ -3628,19 +3689,23 @@ msgstr "임피던스 (크기/위상)"
 msgid "Smith Chart"
 msgstr "스미스 차트"
 
-#: src/freqplots/freqplots_core.c:70
+#: src/freqplots/freqplots_core.c:70 src/measurements.c:509
+msgid "Average Gain"
+msgstr "평균 이득"
+
+#: src/freqplots/freqplots_core.c:71
 msgid "Solver Conditioning"
 msgstr "솔버 컨디셔닝"
 
 # xnec2c-exempt: name
-#: src/freqplots/freqplots_core.c:481
+#: src/freqplots/freqplots_core.c:496
 #, c-format
 msgid ""
 "fr_plot[posn=%d fr=%d] rect[x=%d y=%d, w=%d h=%d] freq[min=%4.2f max=%4.2f n="
 "%d]\n"
 msgstr ""
 
-#: src/freqplots/freqplots_core.c:707
+#: src/freqplots/freqplots_core.c:722
 msgid ""
 "Excitation-port selector: models with more than one EX excitation list every "
 "port here.\n"
@@ -3682,7 +3747,7 @@ msgstr ""
 "    • 원시 최대 이득, 이득 방향, F/B\n"
 "    • 안테나 온도, G/T"
 
-#: src/freqplots/freqplots_core.c:740
+#: src/freqplots/freqplots_core.c:755
 msgid ""
 "Only one feedpoint port is defined. Define additional EX excitation cards in "
 "the model to select among multiple ports here."
@@ -3690,7 +3755,7 @@ msgstr ""
 "급전점 포트가 하나만 정의되어 있습니다. 모델에 EX 여기 카드를 추가로 정의하"
 "면 여러 포트 중에서 선택할 수 있습니다."
 
-#: src/freqplots/freqplots_core.c:743
+#: src/freqplots/freqplots_core.c:758
 msgid ""
 "Enable the Net Gain plot setting to select a port; without it this graph "
 "does not follow the port."
@@ -3698,7 +3763,7 @@ msgstr ""
 "포트를 선택하려면 순 이득 플롯 설정을 활성화하십시오. 활성화하지 않으면 이 그"
 "래프는 포트를 따르지 않습니다."
 
-#: src/freqplots/freqplots_core.c:861
+#: src/freqplots/freqplots_core.c:876
 msgid "Not available: excitation defines no feedpoint"
 msgstr "사용할 수 없음: 여기가 급전점을 정의하지 않음"
 
@@ -3717,6 +3782,14 @@ msgstr "이 테마에는 반전 버전이 없습니다"
 #: src/freqplots/freqplots_theme_menu.c:117
 msgid "_Invert"
 msgstr "반전(_I)"
+
+#: src/freqplots/graphs/agt_graph.c:67
+msgid "Average gain"
+msgstr "평균 이득"
+
+#: src/freqplots/graphs/agt_graph.c:68
+msgid "Average power gain over the sampled solid angle"
+msgstr "샘플링된 입체각에 대한 평균 전력 이득"
 
 # xnec2c-exempt: notation
 #: src/freqplots/graphs/anttemp_graph.c:68
@@ -3745,36 +3818,44 @@ msgstr "정밀도 손실"
 msgid "Solver conditioning - precision lost in decimal digits"
 msgstr "솔버 컨디셔닝 - 십진 자릿수 기준 정밀도 손실"
 
-#: src/freqplots/graphs/gain_graph.c:86 src/freqplots/graphs/viewer_graph.c:53
-msgid "Raw Gain dBi"
-msgstr "원시 이득 dBi"
-
-#: src/freqplots/graphs/gain_graph.c:91
-msgid "Max Gain & Net Gain vs Frequency"
-msgstr "최대 이득 & 순 이득 vs 주파수"
-
-#: src/freqplots/graphs/gain_graph.c:92
-msgid "Net Gain dBi"
-msgstr "순 이득 dBi"
-
-#: src/freqplots/graphs/gain_graph.c:97 src/freqplots/graphs/gain_graph.c:104
-msgid "Max Gain & F/B Ratio vs Frequency"
-msgstr "최대 이득 & 전후방비 vs 주파수"
-
-#: src/freqplots/graphs/gain_graph.c:105
+#: src/freqplots/graphs/gain_graph.c:37
 msgid "F/B Ratio dB"
 msgstr "전후방비 dB"
 
-#: src/freqplots/graphs/gain_graph.c:111
+#: src/freqplots/graphs/gain_graph.c:38
+msgid "Max Gain & F/B Ratio vs Frequency"
+msgstr "최대 이득 & 전후방비 vs 주파수"
+
+#: src/freqplots/graphs/gain_graph.c:39
+msgid "F/R Ratio dB"
+msgstr "F/R 비 dB"
+
+#: src/freqplots/graphs/gain_graph.c:40
+msgid "Max Gain & F/R Ratio vs Frequency"
+msgstr "최대 이득 및 F/R 비 대 주파수"
+
+#: src/freqplots/graphs/gain_graph.c:41
+msgid "Net Gain dBi"
+msgstr "순 이득 dBi"
+
+#: src/freqplots/graphs/gain_graph.c:42
+msgid "Max Gain & Net Gain vs Frequency"
+msgstr "최대 이득 & 순 이득 vs 주파수"
+
+#: src/freqplots/graphs/gain_graph.c:136 src/freqplots/graphs/viewer_graph.c:53
+msgid "Raw Gain dBi"
+msgstr "원시 이득 dBi"
+
+#: src/freqplots/graphs/gain_graph.c:153
 msgid "Rad Angle - deg"
 msgstr "방사 각도 - deg"
 
-#: src/freqplots/graphs/gain_graph.c:112
+#: src/freqplots/graphs/gain_graph.c:154
 msgid "Max Gain Direction vs Frequency"
 msgstr "최대 이득 방향 vs 주파수"
 
 # xnec2c-exempt: notation
-#: src/freqplots/graphs/gain_graph.c:113
+#: src/freqplots/graphs/gain_graph.c:155
 msgid "Phi - deg"
 msgstr ""
 
@@ -3982,24 +4063,24 @@ msgstr "SY 정의 (예: FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "NEC2 편집기 창이 열려 있지 않습니다"
 
-#: src/geometry.c:97
+#: src/geometry.c:111
 msgid "Number of segments < 1"
 msgstr "세그먼트 수 < 1"
 
-#: src/geometry.c:134
+#: src/geometry.c:148
 msgid "Arc angle exceeds 360 degrees"
 msgstr "호 각도가 360도를 초과합니다"
 
-#: src/geometry.c:273
+#: src/geometry.c:287
 msgid "Error in conect(): np > n"
 msgstr "conect() 오류: np > n"
 
-#: src/geometry.c:304 src/geometry.c:352
+#: src/geometry.c:318 src/geometry.c:366
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr "기하 데이터 오류: 세그먼트 %d이(가) 접지면 아래로 확장됩니다\n"
 
-#: src/geometry.c:305 src/geometry.c:353
+#: src/geometry.c:319 src/geometry.c:367
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4007,12 +4088,12 @@ msgstr ""
 "기하 데이터 오류\n"
 "세그먼트가 접지면 아래로 확장됩니다"
 
-#: src/geometry.c:362
+#: src/geometry.c:376
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "기하 데이터 오류: 세그먼트 %d이(가) 접지면에 위치합니다\n"
 
-#: src/geometry.c:363
+#: src/geometry.c:377
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4021,15 +4102,15 @@ msgstr ""
 "세그먼트가 접지면에 위치합니다"
 
 # xnec2c-exempt: name
-#: src/geometry.c:453
+#: src/geometry.c:467
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:454
+#: src/geometry.c:468
 msgid "Error: ipsym = 0"
 msgstr "오류: ipsym = 0"
 
-#: src/geometry.c:507
+#: src/geometry.c:521
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4038,7 +4119,7 @@ msgstr ""
 "세그먼트 연결 수가 전체 메시를 초과하여 가능성이 낮습니다: data.n=%ld segj."
 "maxcon=%lu\n"
 
-#: src/geometry.c:509
+#: src/geometry.c:523
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4046,7 +4127,7 @@ msgstr ""
 "세그먼트 연결 수가 전체 메시를 초과하여 가능성이 낮습니다!\n"
 "중첩되거나 거의 연결된 세그먼트를 확인하십시오\n"
 
-#: src/geometry.c:723
+#: src/geometry.c:737
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4054,7 +4135,7 @@ msgstr ""
 "데이터 확인, 세그먼트 지정 매개변수: 동일 태그 그룹 내 위치는 0이 될 수 없습"
 "니다\n"
 
-#: src/geometry.c:724
+#: src/geometry.c:738
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4062,12 +4143,12 @@ msgstr ""
 "세그먼트 지정 매개변수\n"
 "동일 태그 그룹 내 위치가 0입니다"
 
-#: src/geometry.c:756
+#: src/geometry.c:770
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "itag가 %d인 세그먼트가 없습니다\n"
 
-#: src/geometry.c:760
+#: src/geometry.c:774
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4079,7 +4160,7 @@ msgstr ""
 "GM 카드의 경우: '시작 태그'와 '태그 증분'이 태그 0을 생성하지 않는지 확인하십"
 "시오."
 
-#: src/geometry.c:768
+#: src/geometry.c:782
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4090,11 +4171,11 @@ msgstr ""
 "제어 카드에서 알 수 없는 태그 또는 세그먼트를 참조하고 있습니다.\n"
 "기하에서 유효한 태그는 GW/GA/GH/SP 카드에 할당된 것들입니다."
 
-#: src/geometry.c:1043
+#: src/geometry.c:1057
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "사변형 패치의 모서리가 동일 평면에 있지 않습니다\n"
 
-#: src/geometry.c:1044
+#: src/geometry.c:1058
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4102,12 +4183,12 @@ msgstr ""
 "사변형 패치의 모서리가\n"
 "동일 평면에 있지 않습니다"
 
-#: src/geometry.c:1149 src/geometry.c:1226 src/geometry.c:1304
+#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "기하 데이터 오류: 세그먼트 %d이(가) 대칭면에 위치합니다\n"
 
-#: src/geometry.c:1150 src/geometry.c:1227 src/geometry.c:1305
+#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4115,12 +4196,12 @@ msgstr ""
 "기하 데이터 오류\n"
 "세그먼트가 대칭면에 위치합니다"
 
-#: src/geometry.c:1186 src/geometry.c:1263 src/geometry.c:1338
+#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "기하 데이터 오류: 패치 %d이(가) 대칭면에 위치합니다\n"
 
-#: src/geometry.c:1187 src/geometry.c:1264 src/geometry.c:1339
+#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4128,7 +4209,7 @@ msgstr ""
 "기하 데이터 오류\n"
 "패치가 대칭면에 위치합니다"
 
-#: src/geometry.c:1459
+#: src/geometry.c:1473
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4137,26 +4218,40 @@ msgstr ""
 "tag=%d/seg=%d: 끝점 거리=%.3e이(가) 너무 가깝습니다 (연결 임계값=%.3e 미만); "
 "세그먼트가 자기 자신에 연결됩니다\n"
 
-#: src/geometry.c:1464
+#: src/geometry.c:1478
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr "tag=%d: 추가 자기 연결 경고를 표시하지 않습니다\n"
 
-#: src/geometry.c:1514
+#: src/geometry.c:1523
 #, c-format
 msgid ""
-"tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection "
-"threshold %.3e; unintended connections possible\n"
+"tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
+"currents of coincident segments\n"
 msgstr ""
-"tag=%d/seg=%d: 거리=%.3e에서 tag=%d/seg=%d까지가 연결 임계값 %.3e의 2배보다 "
-"가깝습니다; 의도하지 않은 연결이 발생할 수 있습니다\n"
+"tag=%d/seg=%d: 일치 대상 tag=%d/seg=%d; NEC2는 일치하는 세그먼트의 전류를 분"
+"리할 수 없습니다\n"
 
-#: src/geometry.c:1520
+#: src/geometry.c:1528
 #, c-format
-msgid "tag=%d: suppressing additional overlap warnings\n"
-msgstr "tag=%d: 추가 중첩 경고를 표시하지 않습니다\n"
+msgid "tag=%d: suppressing additional coincident segment warnings\n"
+msgstr "tag=%d: 일치하는 세그먼트 경고를 추가로 억제합니다\n"
 
-#: src/geometry.c:1589
+#: src/geometry.c:1573
+#, c-format
+msgid ""
+"tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
+"threshold=%.3e but within %gx of it; NEC2 leaves these ends unconnected\n"
+msgstr ""
+"tag=%d/seg=%d: 끝단 gap=%.3e, 대상 tag=%d/seg=%d, 연결 임계값 threshold=%.3e "
+"초과 및 임계값의 %gx 이내; NEC2는 이 끝단들을 연결하지 않습니다\n"
+
+#: src/geometry.c:1579
+#, c-format
+msgid "tag=%d: suppressing additional near-miss junction warnings\n"
+msgstr "tag=%d: 근접 미연결 접합부 경고를 추가로 억제합니다\n"
+
+#: src/geometry.c:1646
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4165,14 +4260,14 @@ msgstr ""
 "tag=%d/seg=%d: 길이=%.3e이(가) 너무 짧고 tag=%d/seg=%d 길이=%.3e에 충분히 가"
 "까워 연결 감지가 실패하거나 단락될 수 있습니다\n"
 
-#: src/geometry.c:1595
+#: src/geometry.c:1652
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
 "warnings\n"
 msgstr "tag=%d: 추가 연결 감지 실패 또는 단락 경고를 표시하지 않습니다\n"
 
-#: src/geometry.c:1628
+#: src/geometry.c:1685
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4182,12 +4277,12 @@ msgstr ""
 "tag=%d/seg=%d: 길이/파장 비율 %.3f < 0.001; 전류 성분의 유사성으로 수치 부정"
 "확성이 발생합니다 (최소=0.001, 양호=0.05, 권장 <= 0.1)\n"
 
-#: src/geometry.c:1633
+#: src/geometry.c:1690
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr "tag=%d: 추가 짧은 파장 비율 오류를 표시하지 않습니다\n"
 
-#: src/geometry.c:1647
+#: src/geometry.c:1704
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4197,12 +4292,12 @@ msgstr ""
 "tag=%d/seg=%d: 길이/파장 비율 %.3f > 0.1; 전류 샘플링 해상도가 세그먼트 간격"
 "에 의해 제한됩니다 (최소=0.001, 양호=0.05, 권장 <= 0.1)\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1709
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr "tag=%d: 추가 긴 파장 비율 경고를 표시하지 않습니다\n"
 
-#: src/geometry.c:1666
+#: src/geometry.c:1723
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4212,12 +4307,12 @@ msgstr ""
 "tag=%d/seg=%d: 길이/파장 비율 %.3f > 0.05; 전류 변화가 빠른 영역에서는 짧은 "
 "세그먼트가 정확도를 높입니다 (최소=0.001, 양호=0.05, 권장 <=0.1)\n"
 
-#: src/geometry.c:1671
+#: src/geometry.c:1728
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr "tag=%d: 추가 정확도 개선 제안을 표시하지 않습니다\n"
 
-#: src/geometry.c:1702
+#: src/geometry.c:1759
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4226,12 +4321,12 @@ msgstr ""
 "tag=%d/seg=%d: 길이/반경 비율 %.1f < 2.0; 표준 세선 커널 필드 오차가 1%%를 크"
 "게 초과합니다 (최소=2.0, 1%% 정확=8.0)\n"
 
-#: src/geometry.c:1707
+#: src/geometry.c:1764
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr "tag=%d: 추가 표준 커널 비율 오류를 표시하지 않습니다\n"
 
-#: src/geometry.c:1721
+#: src/geometry.c:1778
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4240,12 +4335,12 @@ msgstr ""
 "tag=%d/seg=%d: 길이/반경 비율 %.1f < 8.0; 표준 세선 커널 필드 오차가 1%%를 초"
 "과합니다 (최소=2.0, 1%% 정확=8.0)\n"
 
-#: src/geometry.c:1726
+#: src/geometry.c:1783
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr "tag=%d: 추가 표준 커널 비율 경고를 표시하지 않습니다\n"
 
-#: src/geometry.c:1742
+#: src/geometry.c:1799
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4254,12 +4349,12 @@ msgstr ""
 "tag=%d/seg=%d: 길이/반경 비율 %.1f < 0.5; 확장 세선 커널 필드 오차가 1%%를 크"
 "게 초과합니다 (최소=0.5, 1%% 정확=2.0)\n"
 
-#: src/geometry.c:1747
+#: src/geometry.c:1804
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr "tag=%d: 추가 확장 커널 비율 오류를 표시하지 않습니다\n"
 
-#: src/geometry.c:1761
+#: src/geometry.c:1818
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4268,24 +4363,24 @@ msgstr ""
 "tag=%d/seg=%d: 길이/반경 비율 %.1f < 2.0; 확장 세선 커널 필드 오차가 1%%를 초"
 "과합니다 (최소=0.5, 1%% 정확=2.0)\n"
 
-#: src/geometry.c:1766
+#: src/geometry.c:1823
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr "tag=%d: 추가 확장 커널 비율 경고를 표시하지 않습니다\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1840
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr ""
 "%d개 세그먼트에 대한 중첩 검사를 건너뜁니다 (활성화하려면 --force-verify 사"
 "용)\n"
 
-#: src/geometry.c:1787
+#: src/geometry.c:1844
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "%d개 세그먼트에 대한 중첩 검사를 강제 실행합니다\n"
 
-#: src/geometry.c:1798
+#: src/geometry.c:1856
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() 주파수 의존 검사 건너뜀 - 주파수 데이터 없음\n"
@@ -4667,7 +4762,7 @@ msgstr ""
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "접지가 지정된 상태에서 theta > 90도\n"
 
-#: src/input.c:1496 src/radiation.c:731
+#: src/input.c:1496 src/radiation.c:911
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4752,28 +4847,14 @@ msgstr ""
 "표면파 옵션 (I1=1)\n"
 "RP 명령이 구현되지 않았습니다"
 
-#: src/input.c:1756
-msgid "Average gain diagnostic enabled (use --skip-verify to disable)\n"
-msgstr "평균 이득 진단 활성화됨 (비활성화하려면 --skip-verify 사용)\n"
-
-#: src/input.c:1765
-#, c-format
-msgid "Average power gain disabled: nth=%d nph=%d (both must be >= 2)\n"
-msgstr "평균 전력 이득 비활성화됨: nth=%d nph=%d (둘 다 >= 2여야 함)\n"
-
-#: src/input.c:1770
-#, c-format
-msgid "Average power gain calculation enabled (XNDA A=%d)\n"
-msgstr "평균 전력 이득 계산 활성화됨 (XNDA A=%d)\n"
-
-#: src/input.c:1786
+#: src/input.c:1763
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
 msgstr ""
 "접지가 지정된 상태에서 Theta > 90도: RP 카드 데이터를 확인하고 수정하십시오\n"
 
-#: src/input.c:1787
+#: src/input.c:1764
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4781,32 +4862,32 @@ msgstr ""
 "접지가 지정된 상태에서 Theta > 90도\n"
 "RP 카드 데이터를 확인하고 수정하십시오"
 
-#: src/input.c:1855
+#: src/input.c:1831
 msgid "Geometry card in command section"
 msgstr "명령 섹션 내 기하 카드"
 
-#: src/input.c:1858
+#: src/input.c:1834
 msgid "Unrecognized command card"
 msgstr "인식할 수 없는 명령 카드"
 
-#: src/input.c:1903
+#: src/input.c:1879
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
 msgstr "RP 카드 누락 또는 표면파: 방사 패턴 및 이득 계산이 비활성화됨\n"
 
-#: src/input.c:1930
+#: src/input.c:1906
 msgid "Unexpected exit from while loop"
 msgstr "while 루프에서 예기치 않은 종료"
 
-#: src/input.c:2021
+#: src/input.c:1997
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
 msgstr ""
 "명령 데이터 카드 오류: 입력 파일을 읽는 중 예기치 않은 EOF - EN 카드 추가\n"
 
-#: src/input.c:2022
+#: src/input.c:1998
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4816,11 +4897,11 @@ msgstr ""
 "입력 파일을 읽는 중 예기치 않은 EOF\n"
 "기본 EN 카드 추가"
 
-#: src/input.c:2039
+#: src/input.c:2015
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "명령 데이터 카드 오류: 카드의 니모닉 코드가 너무 짧거나 누락됨\n"
 
-#: src/input.c:2040
+#: src/input.c:2016
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4828,14 +4909,14 @@ msgstr ""
 "명령 데이터 카드 오류\n"
 "니모닉 코드가 너무 짧거나 누락됨"
 
-#: src/input.c:2241
+#: src/input.c:2217
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
 msgstr ""
 "기하 데이터 카드 오류: 입력 파일을 읽는 중 예기치 않은 EOF - GE 카드 추가\n"
 
-#: src/input.c:2242
+#: src/input.c:2218
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4845,11 +4926,11 @@ msgstr ""
 "입력 파일을 읽는 중 예기치 않은 EOF\n"
 "기본 GE 카드 추가"
 
-#: src/input.c:2259
+#: src/input.c:2235
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "기하 데이터 카드 오류: 카드의 니모닉 코드가 너무 짧거나 누락됨\n"
 
-#: src/input.c:2260
+#: src/input.c:2236
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -5360,9 +5441,25 @@ msgid ""
 "to 0\n"
 msgstr "noise_temp_resolve: noise_temp 테이블 미할당; t_sky/t_earth 기본값 0\n"
 
-#: src/measurements.c:501
+#: src/measurements.c:506
 msgid "Precision Lost"
 msgstr "정밀도 손실"
+
+#: src/measurements.c:507
+msgid "F/R Ratio Azimuth"
+msgstr "F/R 비 방위각"
+
+#: src/measurements.c:508
+msgid "F/R Ratio 3D"
+msgstr "F/R 비 3D"
+
+#: src/measurements.c:510
+msgid "Average Gain Efficiency"
+msgstr "평균 이득 효율"
+
+#: src/measurements.c:511
+msgid "Average Gain Coverage"
+msgstr "평균 이득 커버리지"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5752,12 +5849,12 @@ msgstr "최적화기 웨이크 eventfd 생성 실패\n"
 msgid "failed to create Optimizer Output thread\n"
 msgstr "최적화기 출력 스레드 생성 실패\n"
 
-#: src/optimizers/opt_fitness.c:484
+#: src/optimizers/opt_fitness.c:494
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: 알 수 없는 방향 %d\n"
 
-#: src/optimizers/opt_fitness.c:557
+#: src/optimizers/opt_fitness.c:567
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: 알 수 없는 축소 방법 %d\n"
@@ -5873,52 +5970,54 @@ msgstr "var '%s' round_result 크기 불일치\n"
 msgid "var '%s' round_result has element <= 0\n"
 msgstr "var '%s' round_result에 0 이하 요소 있음\n"
 
-#: src/radiation.c:911
+#: src/radiation.c:1094
 #, c-format
-msgid "Average gain %.4f exceeds expected %.4f; check RP theta/phi ranges\n"
+msgid ""
+"Average gain %.4f exceeds expected %.4f; check RP theta/phi ranges or model "
+"geometry\n"
 msgstr ""
-"평균 이득 %.4f이(가) 예상값 %.4f을(를) 초과합니다; RP theta/phi 범위를 확인하"
-"십시오\n"
+"평균 이득 %.4f, 기대값 %.4f 초과; RP theta/phi 범위 또는 모델 형상을 확인하십"
+"시오\n"
 
-#: src/radiation.c:915
+#: src/radiation.c:1098
 #, c-format
 msgid ""
 "Average gain: %.4f (%.2f dBi), efficiency: %.1f%%, solid angle: %.4f * pi "
 "sr\n"
 msgstr "평균 이득: %.4f (%.2f dBi), 효율: %.1f%%, 입체각: %.4f * pi sr\n"
 
-#: src/rc_config.c:986
+#: src/rc_config.c:1003
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() 실패: %s\n"
 
-#: src/rc_config.c:990
+#: src/rc_config.c:1007
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "환경 변수 HOME이 정의되지 않음, %s 사용\n"
 
-#: src/rc_config.c:1075
+#: src/rc_config.c:1092
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
 msgstr "%s (locale=%s): %d/%lu자만 일치, 다른 로캘 시도: %s\n"
 
-#: src/rc_config.c:1294
+#: src/rc_config.c:1311
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "창: x=%-5d y=%-5d w=%-5d h=%-5d  제목: \"%s\"\n"
 
-#: src/rc_config.c:1328
+#: src/rc_config.c:1345
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: 응용 프로그램 버전 읽기 중 EOF.\n"
 
-#: src/rc_config.c:1334
+#: src/rc_config.c:1351
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "기존 설정 파일 버전이 다름: %s != %s\n"
 
-#: src/rc_config.c:1381
+#: src/rc_config.c:1398
 #, c-format
 msgid ""
 "gain readouts are scaled to %s, restored from the previous session; select "
@@ -5927,12 +6026,12 @@ msgstr ""
 "이득 표시가 %s로 스케일되어 있으며 이전 세션에서 복원되었습니다. 전체 이득을 "
 "읽으려면 전체 이득을 선택하십시오\n"
 
-#: src/rc_config.c:1504
+#: src/rc_config.c:1521
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "%s에 대한 stat 실패: %s\n"
 
-#: src/rc_config.c:1510
+#: src/rc_config.c:1527
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -5941,46 +6040,46 @@ msgstr ""
 "%s 디렉터리 권한을 4e62893b에서 도입된 버그로 인해 0%o에서 0%o로 수정했습니"
 "다.\n"
 
-#: src/rc_config.c:1543
+#: src/rc_config.c:1560
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: 구문 분석되지 않은 줄: %s\n"
 
-#: src/rc_config.c:1549
+#: src/rc_config.c:1566
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: %s에 대한 조기 파일 종료: %s \n"
 
-#: src/rc_config.c:1574
+#: src/rc_config.c:1591
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: 구문 분석 오류 (%s): %s \n"
 
-#: src/rc_config.c:1588
+#: src/rc_config.c:1605
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr "설정에서 유효하지 않은 하늘 모델 인덱스 %d, 기본값으로 재설정\n"
 
-#: src/rc_config.c:1594
+#: src/rc_config.c:1611
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr "설정에서 유효하지 않은 지구 모델 인덱스 %d, 기본값으로 재설정\n"
 
-#: src/rc_config.c:1600
+#: src/rc_config.c:1617
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr "설정에서 유효하지 않은 보간 방법 %d, 기본값으로 재설정\n"
 
-#: src/rc_config.c:1608
+#: src/rc_config.c:1625
 #, c-format
 msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr "설정의 흐름 시각화 모드 %d이(가) 잘못되어 기본값으로 재설정합니다\n"
 
-#: src/rc_config.c:1773
+#: src/rc_config.c:1790
 msgid "batch mode: skipping configuration save\n"
 msgstr "배치 모드: 설정 저장을 건너뜀\n"
 
-#: src/rc_config.c:1795
+#: src/rc_config.c:1812
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "xnec2c 설정 파일 %s을(를) 열 수 없음: %s\n"
