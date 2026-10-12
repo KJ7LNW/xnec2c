@@ -54,24 +54,41 @@ fp_gain_enabled(void)
 /**
  * fp_gain_second_trace() - Resolve the Gain panel's second trace
  *
- * Net gain takes precedence when selected and a feedpoint defines mismatch
- * loss; otherwise the F/R selector chooses F/R over F/B.
+ * Reads the radio-group selection.  Net gain needs a feedpoint defining
+ * mismatch loss, so a Net Gain selection on a feedpoint-less model resolves
+ * to F/B.
  *
- * Return: the selected second trace.
+ * Return: the second trace the Gain panel draws.
  */
   fp_gain_trace_t
 fp_gain_second_trace(void)
 {
+  int selected = rc_config.freqplots_gain_trace;
   fp_gain_trace_t trace;
 
-  if( rc_config.freqplots_net_gain && fpat_has_feedpoint() )
-    trace = FP_GAIN_TRACE_NET;
-  else if( rc_config.freqplots_fr_ratio )
-    trace = FP_GAIN_TRACE_FR;
-  else
+  if( (selected < 0) || (selected >= FP_GAIN_TRACE_COUNT) )
+  {
+    BUG("Gain panel second-trace selection %d outside [0, %d)\n",
+        selected, FP_GAIN_TRACE_COUNT);
     trace = FP_GAIN_TRACE_FB;
+  }
+  else if( (selected == FP_GAIN_TRACE_NET) && !fpat_has_feedpoint() )
+    trace = FP_GAIN_TRACE_FB;
+  else
+    trace = (fp_gain_trace_t)selected;
 
   return trace;
+}
+
+/**
+ * fp_net_gain_shown() - Report whether the gain panels draw net gain
+ *
+ * Return: TRUE when the Gain and viewer panels pair their gain with net gain.
+ */
+  gboolean
+fp_net_gain_shown(void)
+{
+  return fp_gain_second_trace() == FP_GAIN_TRACE_NET;
 }
 
 /* Max-gain plot trace buffers, reused across fp_gain_render() calls. */

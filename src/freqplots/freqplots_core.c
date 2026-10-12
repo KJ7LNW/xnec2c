@@ -75,23 +75,23 @@ static const char *fp_panel_names[FP_PANEL_COUNT] = {
  * button resolves through; require_flag is a data precondition that must
  * hold for the panel to carry meaningful values, or 0 when the panel has
  * none.  port_aware marks a panel whose values ever track the excitation
- * port; port_gate_field points to an rc_config toggle that must also be set
- * for the port pull-down to accept input, or NULL when the panel follows the
- * port unconditionally.  Gain and viewer follow the port only through their
- * net-gain trace, so they gate on the net-gain field.  needs_feedpoint marks
+ * port; port_gate names a predicate that must also hold for the port
+ * pull-down to accept input, or NULL when the panel follows the port
+ * unconditionally.  Gain and viewer follow the port only through their
+ * net-gain trace, so they gate on fp_net_gain_shown().  needs_feedpoint marks
  * a panel whose values are undefined for feedpoint-less excitations. */
 typedef struct {
   int               *select_field;
   unsigned long long require_flag;
   gboolean           port_aware;
   gboolean           needs_feedpoint;
-  const int         *port_gate_field;
+  gboolean         (*port_gate)(void);
 } fp_panel_desc_t;
 
 static const fp_panel_desc_t fp_panel_desc[FP_PANEL_COUNT] = {
-  [FP_PANEL_GAIN]     = { &rc_config.freqplots_gmax_togglebutton,     ENABLE_RDPAT, TRUE,  FALSE, &rc_config.freqplots_net_gain },
+  [FP_PANEL_GAIN]     = { &rc_config.freqplots_gmax_togglebutton,     ENABLE_RDPAT, TRUE,  FALSE, fp_net_gain_shown            },
   [FP_PANEL_GAIN_DIR] = { &rc_config.freqplots_gdir_togglebutton,     ENABLE_RDPAT, FALSE, FALSE, NULL                         },
-  [FP_PANEL_VIEWER]   = { &rc_config.freqplots_gviewer_togglebutton,  ENABLE_RDPAT, TRUE,  FALSE, &rc_config.freqplots_net_gain },
+  [FP_PANEL_VIEWER]   = { &rc_config.freqplots_gviewer_togglebutton,  ENABLE_RDPAT, TRUE,  FALSE, fp_net_gain_shown            },
   [FP_PANEL_VSWR]     = { &rc_config.freqplots_vswr_togglebutton,     0,            TRUE,  TRUE,  NULL                         },
   [FP_PANEL_ZRLZIM]   = { &rc_config.freqplots_zrlzim_togglebutton,   0,            TRUE,  TRUE,  NULL                         },
   [FP_PANEL_ZMGZPH]   = { &rc_config.freqplots_zmgzph_togglebutton,   0,            TRUE,  TRUE,  NULL                         },
@@ -247,7 +247,7 @@ fp_field_cond_active(fp_field_cond_t cond)
   switch( cond )
   {
     case FP_FIELD_ALWAYS:              return TRUE;
-    case FP_FIELD_IF_NETGAIN:          return rc_config.freqplots_net_gain != 0;
+    case FP_FIELD_IF_NETGAIN:          return fp_net_gain_shown();
     case FP_FIELD_IF_FB_TRACE:         return fp_gain_second_trace() == FP_GAIN_TRACE_FB;
     case FP_FIELD_IF_FR_TRACE:         return fp_gain_second_trace() == FP_GAIN_TRACE_FR;
     case FP_FIELD_IF_S11:              return rc_config.freqplots_s11 != 0;
@@ -693,17 +693,17 @@ fp_port_commit( void *context )
 
 /* Resolve whether view @v's port pull-down accepts input.  A multiport model
  * is required; a panel that follows the port only through its net-gain trace
- * additionally requires that gate flag to be set. */
+ * additionally requires its gate predicate to hold. */
   static gboolean
 fp_port_combo_sensitive( freqplots_view_t *v )
 {
-  const int *gate =
-    (v->filter == FP_PANEL_ALL) ? NULL : fp_panel_desc[v->filter].port_gate_field;
+  gboolean (*gate)(void) =
+    (v->filter == FP_PANEL_ALL) ? NULL : fp_panel_desc[v->filter].port_gate;
 
   if( Num_Feedpoint_Ports() <= 1 )
     return FALSE;
 
-  return (gate == NULL) || (*gate != 0);
+  return (gate == NULL) || gate();
 }
 
 /* Descriptive help shown on an enabled port pull-down. */
@@ -864,9 +864,11 @@ freqplots_gate_feedpoint_widgets( void )
   const char *reason = fpat_has_feedpoint() ? NULL :
     _("Not available: excitation defines no feedpoint");
 
-  config_widget_set_sensitive( &rc_config.freqplots_net_gain,
-      fpat_has_feedpoint() );
-  config_widget_set_tooltip( &rc_config.freqplots_net_gain, reason );
+  /* Only the Net Gain item of the second-trace radio group needs a feedpoint */
+  GtkWidget *net_gain_item =
+    Builder_Get_Object( freqplots_window_builder, "freqplots_net_gain" );
+  gtk_widget_set_sensitive( net_gain_item, fpat_has_feedpoint() );
+  gtk_widget_set_tooltip_text( net_gain_item, reason );
 
   for( p = 0; p < FP_PANEL_COUNT; p++ )
   {

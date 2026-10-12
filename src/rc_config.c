@@ -770,15 +770,22 @@ rc_config_vars_t rc_config_vars[] = {
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
 			"freqplots_show_ant_temp", &hook_freqplots_redraw_refresh ) },
 
+	// Reuses the historical Net Gain checkbutton key as an fp_gain_trace_t
+	// holder: value 1 keeps its old Net Gain meaning and 0 its F/B meaning.
 	{ .desc = "Frequency Plots Window Net Gain checkbutton state", .format = "%d",
-		.vars = { &rc_config.freqplots_net_gain },
-		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_net_gain", &hook_freqplots_net_gain_refresh ) },
-
-	{ .desc = "Frequency Plots Window F/R Ratio checkbutton state", .format = "%d",
-		.vars = { &rc_config.freqplots_fr_ratio },
-		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
-			"freqplots_fr_ratio", &hook_freqplots_redraw_refresh ) },
+		.vars = { &rc_config.freqplots_gain_trace },
+		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_freqplots_net_gain_refresh,
+			.groups = CONFIG_WIDGET_GROUPS(
+				CONFIG_WIDGET_GROUP( .builder = &freqplots_window_builder,
+					.elements = CONFIG_WIDGETS(
+						CONFIG_WIDGET( .widget_id = "freqplots_fb_ratio",
+							.values = CONFIG_WIDGET_VALUES(FP_GAIN_TRACE_FB) ),
+						CONFIG_WIDGET( .widget_id = "freqplots_fr_ratio",
+							.values = CONFIG_WIDGET_VALUES(FP_GAIN_TRACE_FR) ),
+						CONFIG_WIDGET( .widget_id = "freqplots_net_gain",
+							.values = CONFIG_WIDGET_VALUES(FP_GAIN_TRACE_NET) ),
+						NULL ) ),
+				NULL ) ) },
 
 	{ .desc = "Frequency Plots Window Min/Max checkbutton state", .format = "%d",
 		.vars = { &rc_config.freqplots_min_max },

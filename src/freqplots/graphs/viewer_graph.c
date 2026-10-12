@@ -60,7 +60,7 @@ fp_viewer_render(fp_plot_ctx_t *ctx)
   fp_fill_meas_columns( ctx, &vcol, 1 );
 
   /* Plot net gain if selected and a feedpoint defines mismatch loss */
-  if( rc_config.freqplots_net_gain && fpat_has_feedpoint() )
+  if( fp_net_gain_shown() )
   {
     mem_array_realloc(&netgain, ctx->num_fsteps);
 

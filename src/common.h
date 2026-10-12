@@ -384,8 +384,7 @@ typedef struct
     freqplots_min_max,
     freqplots_s11,
     freqplots_clamp_vswr,
-    freqplots_net_gain,
-    freqplots_fr_ratio,
+    freqplots_gain_trace,
     freqplots_swap_click;
 
   /* Frequency plots color theme base name and inversion toggle; the composed
@@ -1134,6 +1133,16 @@ typedef enum {
 	FP_PANEL_COND,
 	FP_PANEL_COUNT
 } fp_panel_t;
+
+/* Second trace of the Gain panel, chosen by the frequency-plots radio group.
+ * Values 0 and 1 hold the historical Net Gain checkbutton meaning. */
+typedef enum
+{
+  FP_GAIN_TRACE_FB,
+  FP_GAIN_TRACE_NET,
+  FP_GAIN_TRACE_FR,
+  FP_GAIN_TRACE_COUNT,
+} fp_gain_trace_t;
 
 /* Per-view click-resolution registry record; defined in freqplots_locus.h. */
 typedef struct fp_locus_s fp_locus_t;

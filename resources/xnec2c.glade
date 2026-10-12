@@ -9652,22 +9652,50 @@ Save NEC2 Editor data first?
                           </object>
                         </child>
                         <child>
-                          <object class="GtkCheckMenuItem" id="freqplots_net_gain">
+                          <object class="GtkMenuItem" id="freqplots_gain_trace_menu">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="label" translatable="yes">_Net Gain</property>
+                            <property name="label" translatable="yes">Max Gain _Second Trace</property>
                             <property name="use-underline">True</property>
-                            <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkCheckMenuItem" id="freqplots_fr_ratio">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="tooltip-text" translatable="yes">Plot the front-to-rear ratio in place of F/B: peak gain over the strongest gain at the same elevation more than 90° away in azimuth. Net Gain, when shown, takes the place of both.</property>
-                            <property name="label" translatable="yes">F/_R Ratio</property>
-                            <property name="use-underline">True</property>
-                            <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+                            <child type="submenu">
+                              <object class="GtkMenu" id="freqplots_gain_trace_menu_menu">
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkRadioMenuItem" id="freqplots_fb_ratio">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="tooltip-text" translatable="yes">Plot the front-to-back ratio beside Max Gain: peak gain over the gain in the opposite direction.</property>
+                                    <property name="label" translatable="yes">F/_B Ratio</property>
+                                    <property name="use-underline">True</property>
+                                    <property name="draw-as-radio">True</property>
+                                    <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkRadioMenuItem" id="freqplots_fr_ratio">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="tooltip-text" translatable="yes">Plot the front-to-rear ratio beside Max Gain: peak gain over the strongest gain at the same elevation more than 90° away in azimuth.</property>
+                                    <property name="label" translatable="yes">F/_R Ratio</property>
+                                    <property name="use-underline">True</property>
+                                    <property name="draw-as-radio">True</property>
+                                    <property name="group">freqplots_fb_ratio</property>
+                                    <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkRadioMenuItem" id="freqplots_net_gain">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">_Net Gain</property>
+                                    <property name="use-underline">True</property>
+                                    <property name="draw-as-radio">True</property>
+                                    <property name="group">freqplots_fb_ratio</property>
+                                    <signal name="activate" handler="on_config_widget_changed" swapped="no"/>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
                           </object>
                         </child>
                         <child>
