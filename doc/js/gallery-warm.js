@@ -44,32 +44,19 @@ function create_gallery_warm(config) {
   const in_flight = new Map();
   const visible_indexes = new Set();
 
-  /** Derive an image's source at the size the visible gallery surface shows. */
-  function image_source(image) {
-    let source;
-    if (state.zoom_open) {
-      source = gallery_data.gallery_image_source(image);
-    } else {
-
-      // Serve the stage, which shows thumbnails.
-      source = gallery_data.gallery_thumb_source(image);
-    }
-    return source;
+  /** Derive one example's source for a single axis at the size a source function serves. */
+  function axis_source(entry, axis, source_of) {
+    return source_of(gallery_data.find_gallery_image(entry, axis));
   }
 
-  /** Derive one example's source for a single axis. */
-  function axis_source(entry, axis) {
-    return image_source(gallery_data.find_gallery_image(entry, axis));
-  }
-
-  /** Derive one example's sources for every axis except the active one. */
-  function other_axis_sources(entry, axis) {
+  /** Derive one example's sources for every axis except the active one at the size a source function serves. */
+  function other_axis_sources(entry, axis, source_of) {
     const active = gallery_data.find_gallery_image(entry, axis);
     return entry.images
       .filter(function skip_active(image) {
         return image !== active;
       })
-      .map(image_source);
+      .map(source_of);
   }
 
   /** Create a task that loads one image source into the browser cache. */
@@ -114,26 +101,73 @@ function create_gallery_warm(config) {
     };
   }
 
-  /** Rebuild warming around the current selection and visible rows. */
-  function refresh() {
+  /** Derive the example at an offset from the selection, wrapping around the manifest. */
+  function example_at(offset) {
     const count = manifest.examples.length;
-    const entry = manifest.examples[state.index];
-    const axis_tasks = other_axis_sources(entry, state.axis).map(image_task);
-    axis_tasks.push(deck_task());
-    queue.mark_warmed(axis_source(entry, state.axis));
-    queue.set_plan({
-      selected: [],
-      neighbor: [state.index - 1, state.index + 1]
-        .map(function create_neighbor_task(neighbor_index) {
-          const neighbor = manifest.examples[(neighbor_index + count) % count];
-          return image_task(axis_source(neighbor, state.axis));
-        }),
-      axis: axis_tasks,
-      visible: Array.from(visible_indexes)
-        .map(function create_visible_task(row_index) {
-          return image_task(axis_source(manifest.examples[row_index], state.axis));
-        }),
+    return manifest.examples[(((state.index + offset) % count) + count) % count];
+  }
+
+  /** Create tasks warming the examples at offsets from the selection on the current axis. */
+  function offset_tasks(offsets, source_of) {
+    return offsets.map(function create_offset_task(offset) {
+      return image_task(axis_source(example_at(offset), state.axis, source_of));
     });
+  }
+
+  /** Create tasks warming both neighbors, the one in the reader's direction first. */
+  function neighbor_tasks(source_of) {
+    return offset_tasks([state.direction, -state.direction], source_of);
+  }
+
+  /** Plan zoom warming at full size: other views, neighbors, then the example two ahead. */
+  function zoom_plan(entry) {
+    return [
+      {
+        name: queue.band.axis,
+        tasks: other_axis_sources(entry, state.axis, gallery_data.gallery_image_source).map(image_task),
+      },
+      { name: queue.band.neighbor, tasks: neighbor_tasks(gallery_data.gallery_image_source) },
+      {
+        name: queue.band.ahead,
+        tasks: offset_tasks([2 * state.direction], gallery_data.gallery_image_source),
+      },
+    ];
+  }
+
+  /** Plan stage warming at thumbnail size, ending with the selection's full image. */
+  function stage_plan(entry) {
+    const axis_tasks = other_axis_sources(entry, state.axis, gallery_data.gallery_thumb_source)
+      .map(image_task);
+    axis_tasks.push(deck_task());
+    return [
+      { name: queue.band.neighbor, tasks: neighbor_tasks(gallery_data.gallery_thumb_source) },
+      { name: queue.band.axis, tasks: axis_tasks },
+      {
+        name: queue.band.visible,
+        tasks: Array.from(visible_indexes)
+          .map(function create_visible_task(row_index) {
+            return image_task(axis_source(
+              manifest.examples[row_index], state.axis, gallery_data.gallery_thumb_source,
+            ));
+          }),
+      },
+      {
+        name: queue.band.full,
+        tasks: [image_task(axis_source(entry, state.axis, gallery_data.gallery_image_source))],
+      },
+    ];
+  }
+
+  /** Pair each gallery surface with the image size it shows and the plan warming around it. */
+  const zoom_warm_surface = { shown_source: gallery_data.gallery_image_source, plan: zoom_plan };
+  const stage_warm_surface = { shown_source: gallery_data.gallery_thumb_source, plan: stage_plan };
+
+  /** Rebuild warming around the selection on the surface on screen. */
+  function refresh() {
+    const entry = manifest.examples[state.index];
+    const surface = state.zoom_open ? zoom_warm_surface : stage_warm_surface;
+    queue.mark_warmed(axis_source(entry, state.axis, surface.shown_source));
+    queue.set_plan(surface.plan(entry));
   }
 
   /** Track which browse rows are on screen and requeue their images. */
@@ -167,7 +201,9 @@ function create_gallery_warm(config) {
 
   /** Warm an unopened example's current-axis image before its first open. */
   function warm_example(index) {
-    queue.append_selected(image_task(axis_source(manifest.examples[index], state.axis)));
+    queue.append_selected(image_task(axis_source(
+      manifest.examples[index], state.axis, gallery_data.gallery_thumb_source,
+    )));
   }
 
   return {

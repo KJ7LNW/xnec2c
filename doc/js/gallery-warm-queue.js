@@ -6,15 +6,15 @@ const GALLERY_WARM_DELAY_MS = 300;
 /** Bound automatic recovery from a failed background task. */
 const GALLERY_WARM_RETRY_LIMIT = 1;
 
+/** Name each warm band in prefetch diagnostics; plans order the bands. */
 const GALLERY_WARM_BAND = Object.freeze({
   selected: "selected",
   neighbor: "neighbor",
   axis: "axis",
   visible: "visible",
+  ahead: "ahead",
+  full: "full",
 });
-
-/** Order the warm bands from highest to lowest priority. */
-const GALLERY_WARM_BANDS = Object.freeze(Object.values(GALLERY_WARM_BAND));
 
 const GALLERY_WARM_RESULT = Object.freeze({
   loaded: Symbol(),
@@ -23,9 +23,8 @@ const GALLERY_WARM_RESULT = Object.freeze({
 
 /** Create the paced queue that owns background task state. */
 function create_gallery_warm_queue() {
-  const bands = new Map(GALLERY_WARM_BANDS.map(function create_band(band) {
-    return [band, []];
-  }));
+  const selected = { name: GALLERY_WARM_BAND.selected, tasks: [] };
+  let planned = [];
   const warmed_keys = new Set();
   const attempts = new Map();
   let delay_timer = null;
@@ -35,14 +34,14 @@ function create_gallery_warm_queue() {
   /** Take the highest-priority task that has not already been warmed. */
   function take_task() {
     let taken = null;
-    GALLERY_WARM_BANDS.some(function take_from_band(band) {
-      const tasks = bands.get(band);
+    [selected, ...planned].some(function take_from_band(band) {
+      const tasks = band.tasks;
       while (taken === null && tasks.length > 0) {
         const candidate = tasks.shift();
         if (warmed_keys.has(candidate.key)) {
           continue;
         }
-        console.debug("Gallery prefetch dequeued " + band + ":", candidate.key);
+        console.debug("Gallery prefetch dequeued " + band.name + ":", candidate.key);
         taken = { task: candidate, band };
       }
       return taken !== null;
@@ -74,7 +73,7 @@ function create_gallery_warm_queue() {
     } else {
       warmed_keys.delete(key);
       if (issued_generation === plan_generation) {
-        bands.get(taken.band).push(taken.task);
+        taken.band.tasks.push(taken.task);
       } else {
         console.debug("Gallery prefetch deferred to next plan:", key);
       }
@@ -110,22 +109,17 @@ function create_gallery_warm_queue() {
     warmed_keys.add(key);
   }
 
-  /** Replace every band with a new plan and pace its first task. */
+  /** Replace the selected band and the planned bands, highest priority first, and pace the first task. */
   function set_plan(plan_bands) {
     plan_generation += 1;
-    GALLERY_WARM_BANDS.forEach(function fill_band(band) {
-      const tasks = plan_bands[band];
-      if (tasks === undefined) {
-        throw new Error("Gallery warm plan omits band: " + band);
-      }
-      bands.set(band, tasks);
-    });
+    selected.tasks = [];
+    planned = plan_bands;
     schedule();
   }
 
   /** Append one unopened-selection task and pace it behind the delay. */
   function append_selected(task) {
-    bands.get(GALLERY_WARM_BAND.selected).push(task);
+    selected.tasks.push(task);
     schedule();
   }
 
@@ -133,12 +127,12 @@ function create_gallery_warm_queue() {
   function stop() {
     cancel_delay();
     plan_generation += 1;
-    GALLERY_WARM_BANDS.forEach(function clear_band(band) {
-      bands.set(band, []);
-    });
+    selected.tasks = [];
+    planned = [];
   }
 
   return {
+    band: GALLERY_WARM_BAND,
     result: GALLERY_WARM_RESULT,
     mark_warmed,
     set_plan,

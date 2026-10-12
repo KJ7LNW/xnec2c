@@ -9,6 +9,7 @@ const GALLERY_INITIAL_STATE = Object.freeze({
   preview_axis: null,
   zoom_open: false,
   zoom_magnified: false,
+  direction: 1,
 });
 
 /** Collapse the example pane by default at or below this viewport width. */
@@ -110,6 +111,7 @@ function build_gallery(manifest) {
   function navigate(delta) {
     const count = manifest.examples.length;
     state.index = (state.index + delta + count) % count;
+    state.direction = delta;
     state.preview_index = null;
     state.zoom_magnified = false;
     state.preview_axis = null;

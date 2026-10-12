@@ -19,6 +19,14 @@ function create_gallery_renderer(manifest, state, view, gallery_data) {
     surface.element.src = source;
   }
 
+  /** Load the stage thumbnail only while zoom is closed. */
+  function render_stage_source(image) {
+    if (state.zoom_open) {
+      return;
+    }
+    render_surface_source(stage_surface, gallery_data.gallery_thumb_source(image));
+  }
+
   /** Load the full-size zoom source only while zoom is open. */
   function render_zoom_source(image) {
     if (!state.zoom_open) {
@@ -111,7 +119,7 @@ function create_gallery_renderer(manifest, state, view, gallery_data) {
 
     render_axes(entry, axis);
     view.title.textContent = entry.name;
-    render_surface_source(stage_surface, gallery_data.gallery_thumb_source(image));
+    render_stage_source(image);
     render_zoom_source(image);
     view.image.alt = description;
     view.zoom_image.alt = description;
