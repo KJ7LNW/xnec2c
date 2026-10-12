@@ -7,7 +7,25 @@ const GALLERY_DECK_REQUEST_FAILED = Symbol();
 /** Create the gallery renderer and lazy deck-source loader. */
 function create_gallery_renderer(manifest, state, view, gallery_data) {
   let deck_request = GALLERY_DECK_REQUEST_IDLE;
-  let rendered_source = null;
+  const stage_surface = { element: view.image, source: null };
+  const zoom_surface = { element: view.zoom_image, source: null };
+
+  /** Point a surface's image at a source when that source changes. */
+  function render_surface_source(surface, source) {
+    if (surface.source === source) {
+      return;
+    }
+    surface.source = source;
+    surface.element.src = source;
+  }
+
+  /** Load the full-size zoom source only while zoom is open. */
+  function render_zoom_source(image) {
+    if (!state.zoom_open) {
+      return;
+    }
+    render_surface_source(zoom_surface, gallery_data.gallery_image_source(image));
+  }
 
   /** Repaint after the deck bundle loads. */
   function handle_deck_load() {
@@ -84,16 +102,12 @@ function create_gallery_renderer(manifest, state, view, gallery_data) {
     const requested_axis = state.preview_axis === null ? state.axis : state.preview_axis;
     const image = gallery_data.find_gallery_image(entry, requested_axis);
     const axis = image.format;
-    const source = gallery_data.gallery_image_source(image);
     const description = entry.name + " " + gallery_data.gallery_image_subject(image);
 
     render_axes(entry, axis);
     view.title.textContent = entry.name;
-    if (rendered_source !== source) {
-      rendered_source = source;
-      view.image.src = source;
-      view.zoom_image.src = source;
-    }
+    render_surface_source(stage_surface, gallery_data.gallery_thumb_source(image));
+    render_zoom_source(image);
     view.image.alt = description;
     view.zoom_image.alt = description;
     view.zoom_caption.textContent = entry.deck;

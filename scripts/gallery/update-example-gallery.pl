@@ -31,6 +31,7 @@ use constant FREQPLOTS_FORMAT   => 'freqplots';
 use constant RDPAT_PNG_SIZE     => '1920x1080';
 use constant FREQPLOTS_PNG_SIZE => '1080x1920';
 use constant RENDER_ENGINE      => 'opengl';
+use constant THUMB_SCALE        => '50%';
 
 use constant RECOMPRESS_QUALITY => '90-100';
 use constant RECOMPRESS_NICE    => 10;
@@ -93,6 +94,15 @@ sub freqplots_image_path
 	return "$name/$name-" . FREQPLOTS_FORMAT . '.png';
 }
 
+# Derive a thumbnail path beside its full-size image path.
+sub thumb_image_path
+{
+	my ($path) = @_;
+	(my $thumb = $path) =~ s/\.png\z/-thumb.png/;
+
+	return $thumb;
+}
+
 # Derive one relative gallery image record per requested format, followed by
 # the frequency plots record.
 sub image_records
@@ -101,13 +111,21 @@ sub image_records
 	my @images;
 
 	for my $format (@{$formats_ref}) {
+		my $path = image_path($name, $format, scalar @{$formats_ref});
 		push @images,
 			{
 			format => $format,
-			path   => image_path($name, $format, scalar @{$formats_ref}),
+			path   => $path,
+			thumb  => thumb_image_path($path),
 			};
 	}
-	push @images, { format => FREQPLOTS_FORMAT, path => freqplots_image_path($name) };
+	my $freqplots_path = freqplots_image_path($name);
+	push @images,
+		{
+		format => FREQPLOTS_FORMAT,
+		path   => $freqplots_path,
+		thumb  => thumb_image_path($freqplots_path),
+		};
 
 	return \@images;
 }
@@ -243,7 +261,9 @@ sub validate_manifest_records
 				|| !defined($image->{format})
 				|| ref($image->{format})
 				|| !defined($image->{path})
-				|| ref($image->{path}))
+				|| ref($image->{path})
+				|| !defined($image->{thumb})
+				|| ref($image->{thumb}))
 			{
 				push @{$defects_ref},
 					{
@@ -287,6 +307,14 @@ sub validate_manifest_records
 					artifact => $artifact,
 					deck     => $deck,
 					defect   => "image path differs from $expected_path",
+					};
+			}
+			if ($image->{thumb} ne thumb_image_path($expected_path)) {
+				push @{$defects_ref},
+					{
+					artifact => $artifact,
+					deck     => $deck,
+					defect   => 'thumbnail path differs from ' . thumb_image_path($expected_path),
 					};
 			}
 		}
@@ -499,9 +527,20 @@ sub spawn_recompressor
 	}
 }
 
+# Write one downscaled thumbnail; return true when convert succeeds and the
+# thumbnail is non-empty.
+sub write_thumbnail
+{
+	my ($convert, $full_path, $thumb_path) = @_;
+	my $status = system($convert, $full_path, '-resize', THUMB_SCALE, $thumb_path);
+
+	return (($status == 0) && (-s $thumb_path)) ? 1 : 0;
+}
+
 # Publish the supplied decks' gallery data atomically. A deck renders only when
 # an image output is missing or force is set, so existing sets are reused and a
 # complete tree rewrites the data files without invoking the xnec2c binary.
+# Thumbnails derive from each fresh full-size render before recompression.
 # Each freshly rendered deck is recompressed by a niced background worker while
 # the next deck renders, capped by a CPU-count semaphore.
 sub render_gallery
@@ -516,22 +555,28 @@ sub render_gallery
 	my @plan;
 	my %recompress_pids;
 	my $pngquant  = can_run('pngquant');
+	my $convert   = can_run('convert');
 	my $cpu_limit = cpu_count();
 
 	for my $deck (@{$decks_ref}) {
 		my $name = basename($deck);
 		$name =~ s/\.nec\z//;
-		my $images  = image_records($name, \@formats);
-		my @outputs =
-			map { File::Spec->catfile($context->{output_dir}, split m{/}, $_->{path}); }
-			@{$images};
+		my $images      = image_records($name, \@formats);
+		my @image_files = map {
+			+{
+				full  => File::Spec->catfile($context->{output_dir}, split m{/}, $_->{path}),
+				thumb => File::Spec->catfile($context->{output_dir}, split m{/}, $_->{thumb}),
+			}
+		} @{$images};
 		push @plan,
 			{
-			deck    => $deck,
-			images  => $images,
-			name    => $name,
-			outputs => \@outputs,
-			needs   => ($context->{force} || grep { !-s $_ } @outputs) ? 1 : 0,
+			deck        => $deck,
+			images      => $images,
+			image_files => \@image_files,
+			name        => $name,
+			needs       => ($context->{force} || grep { !-s $_ } map { values %{$_} } @image_files)
+			? 1
+			: 0,
 			};
 	}
 
@@ -542,6 +587,9 @@ sub render_gallery
 	}
 	if (($to_render != 0) && (!-r $context->{config})) {
 		die "error: render configuration not readable: $context->{config}\n";
+	}
+	if (($to_render != 0) && !defined($convert)) {
+		die "error: ImageMagick convert not found; install the ImageMagick package\n";
 	}
 	if (($to_render != 0) && !defined($pngquant)) {
 		warn "warning: pngquant not found; rendering without background recompression\n";
@@ -563,7 +611,6 @@ sub render_gallery
 		my $deck_dir = File::Spec->catdir($context->{output_dir}, $item->{name});
 		make_path($deck_dir);
 		my $output_base = File::Spec->catfile($deck_dir, "$item->{name}.png");
-		my @outputs = @{ $item->{outputs} };
 
 		my $freqplots_output = File::Spec->catfile($context->{output_dir},
 			split m{/}, freqplots_image_path($item->{name}));
@@ -589,8 +636,19 @@ sub render_gallery
 		}
 
 		# Success is a complete, non-empty output set; a nonzero xnec2c exit on a
-		# fully rendered deck is a diagnostic, not a failure.
-		if (!grep { !-s $_ } @outputs) {
+		# fully rendered deck is a diagnostic, not a failure. Thumbnails are written
+		# only from a complete full-size set.
+		if (grep { !-s $_->{full} } @{ $item->{image_files} }) {
+			print "FAILED\n";
+			$fail++;
+		}
+		elsif (grep { !write_thumbnail($convert, $_->{full}, $_->{thumb}) }
+			@{ $item->{image_files} })
+		{
+			print "FAILED (thumbnail)\n";
+			$fail++;
+		}
+		else {
 			if (grep { $_ != 0 } @exits) {
 				print 'ok (xnec2c exit ' . join(',', @exits) . ")\n";
 			}
@@ -600,11 +658,8 @@ sub render_gallery
 			$rendered++;
 			push @entries,
 				{ deck => $item->{deck}, images => $item->{images}, name => $item->{name} };
-			spawn_recompressor(\%recompress_pids, $cpu_limit, $pngquant, \@outputs);
-		}
-		else {
-			print "FAILED\n";
-			$fail++;
+			spawn_recompressor(\%recompress_pids, $cpu_limit, $pngquant,
+				[ map { values %{$_} } @{ $item->{image_files} } ]);
 		}
 	}
 

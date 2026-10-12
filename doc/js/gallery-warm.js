@@ -44,9 +44,22 @@ function create_gallery_warm(config) {
   const in_flight = new Map();
   const visible_indexes = new Set();
 
+  /** Derive an image's source at the size the visible gallery surface shows. */
+  function image_source(image) {
+    let source;
+    if (state.zoom_open) {
+      source = gallery_data.gallery_image_source(image);
+    } else {
+
+      // Serve the stage, which shows thumbnails.
+      source = gallery_data.gallery_thumb_source(image);
+    }
+    return source;
+  }
+
   /** Derive one example's source for a single axis. */
   function axis_source(entry, axis) {
-    return gallery_data.gallery_image_source(gallery_data.find_gallery_image(entry, axis));
+    return image_source(gallery_data.find_gallery_image(entry, axis));
   }
 
   /** Derive one example's sources for every axis except the active one. */
@@ -56,7 +69,7 @@ function create_gallery_warm(config) {
       .filter(function skip_active(image) {
         return image !== active;
       })
-      .map(gallery_data.gallery_image_source);
+      .map(image_source);
   }
 
   /** Create a task that loads one image source into the browser cache. */

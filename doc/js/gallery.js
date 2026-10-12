@@ -31,9 +31,13 @@ const GALLERY_AXES = Object.freeze([
   });
 }));
 
+/** Locate manifest image paths relative to the gallery page. */
+const GALLERY_IMAGE_ROOT = "images/gallery/";
+
 const GALLERY_DATA = Object.freeze({
   find_gallery_image,
   gallery_image_source,
+  gallery_thumb_source,
   gallery_image_subject,
 });
 
@@ -63,7 +67,12 @@ function gallery_image_subject(image) {
 
 /** Derive a gallery image source from its manifest record. */
 function gallery_image_source(image) {
-  return "images/gallery/" + image.path;
+  return GALLERY_IMAGE_ROOT + image.path;
+}
+
+/** Derive a gallery thumbnail source from its manifest record. */
+function gallery_thumb_source(image) {
+  return GALLERY_IMAGE_ROOT + image.thumb;
 }
 
 /** Report whether the viewport is narrow enough to default the example pane collapsed. */
@@ -180,6 +189,7 @@ function build_gallery(manifest) {
     view.zoom.insertBefore(view.previous_chevron, view.zoom_image);
     view.zoom.appendChild(view.next_chevron);
     renderer.render_gallery();
+    warm.refresh();
     view.zoom_close.focus();
   }
 
@@ -189,6 +199,7 @@ function build_gallery(manifest) {
     view.stage.insertBefore(view.previous_chevron, view.image_button);
     view.stage.insertBefore(view.next_chevron, view.source_panel);
     renderer.render_gallery();
+    warm.refresh();
     view.image_button.focus();
   }
 
