@@ -165,7 +165,8 @@ sub serialize_records
 		{
 			my $tag = $field->{tag};
 			next if $field->{optional} && $record->{$tag} eq '';
-			push @lines, "$tag\t$record->{$tag}";
+			push @lines, $tag eq 'T' && $record->{$tag} eq ''
+				? $tag : "$tag\t$record->{$tag}";
 		}
 		push @blocks, join("\n", @lines);
 	}
