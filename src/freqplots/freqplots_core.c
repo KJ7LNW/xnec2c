@@ -67,6 +67,7 @@ static const char *fp_panel_names[FP_PANEL_COUNT] = {
   [FP_PANEL_ZMGZPH]   = N_("Impedance (mag/phase)"),
   [FP_PANEL_SMITH]    = N_("Smith Chart"),
   [FP_PANEL_ANT_TEMP] = N_("Antenna Temperature"),
+  [FP_PANEL_AGT]      = N_("Average Gain"),
   [FP_PANEL_COND]     = N_("Solver Conditioning"),
 };
 
@@ -97,6 +98,7 @@ static const fp_panel_desc_t fp_panel_desc[FP_PANEL_COUNT] = {
   [FP_PANEL_ZMGZPH]   = { &rc_config.freqplots_zmgzph_togglebutton,   0,            TRUE,  TRUE,  NULL                         },
   [FP_PANEL_SMITH]    = { &rc_config.freqplots_smith_togglebutton,    0,            TRUE,  TRUE,  NULL                         },
   [FP_PANEL_ANT_TEMP] = { &rc_config.freqplots_ant_temp_togglebutton, ENABLE_RDPAT, FALSE, FALSE, NULL                         },
+  [FP_PANEL_AGT]      = { &rc_config.freqplots_agt_togglebutton,      ENABLE_RDPAT, FALSE, FALSE, NULL                         },
   [FP_PANEL_COND]     = { &rc_config.freqplots_cond_togglebutton,     0,            FALSE, FALSE, NULL                         },
 };
 
@@ -220,6 +222,13 @@ static const fp_readout_field_t fp_rf_ant_temp[] = {
   { -1, FP_FIELD_ALWAYS, NULL, NULL, 0.0 },
 };
 
+static const fp_readout_field_t fp_rf_agt[] = {
+  { MEAS_AGT,            FP_FIELD_ALWAYS, "%.3f", "",   -1e30 },
+  { MEAS_AGT_EFFICIENCY, FP_FIELD_ALWAYS, "%.1f", " %", -1e30 },
+  { MEAS_AGT_COVERAGE,   FP_FIELD_ALWAYS, "%.3f", "",   -1e30 },
+  { -1, FP_FIELD_ALWAYS, NULL, NULL, 0.0 },
+};
+
 static const fp_readout_field_t fp_rf_cond[] = {
   { MEAS_PRECISION_LOST, FP_FIELD_ALWAYS, "%.1f", "", -1e30 },
   { -1, FP_FIELD_ALWAYS, NULL, NULL, 0.0 },
@@ -236,6 +245,7 @@ static const fp_readout_field_t *const fp_panel_readout[FP_PANEL_COUNT] = {
   [FP_PANEL_ZMGZPH]   = fp_rf_zmgzph,
   [FP_PANEL_SMITH]    = fp_rf_smith,
   [FP_PANEL_ANT_TEMP] = fp_rf_ant_temp,
+  [FP_PANEL_AGT]      = fp_rf_agt,
   [FP_PANEL_COND]     = fp_rf_cond,
 };
 
@@ -348,6 +358,7 @@ static const fp_plot_dispatch_t fp_plot_dispatch[] = {
   { fp_gain_enabled,      fp_gain_render      },
   { fp_viewer_enabled,    fp_viewer_render    },
   { fp_vswr_enabled,      fp_vswr_render      },
+  { fp_agt_enabled,       fp_agt_render       },
   { fp_cond_enabled,      fp_cond_render      },
   { fp_impedance_enabled, fp_impedance_render },
   { fp_ant_temp_enabled,  fp_ant_temp_render  },
@@ -917,6 +928,19 @@ fp_value_unavailable(double val, double invalid_min)
   return isnan(val) || (val < invalid_min);
 }
 
+/* True when any of @count samples in @trace encodes an unavailable result. */
+  gboolean
+fp_trace_unavailable(const double *trace, int count, double invalid_min)
+{
+  gboolean unavailable = FALSE;
+  int idx;
+
+  for( idx = 0; (idx < count) && !unavailable; idx++ )
+    unavailable = fp_value_unavailable( trace[idx], invalid_min );
+
+  return unavailable;
+}
+
 /* Format readout column @f from measurement @m into @out.  An unavailable
  * value renders as an em dash with the unit so sentinel results read as
  * unavailable. */
@@ -1141,6 +1165,7 @@ freqplots_cleanup( void )
   fp_vswr_free();
   fp_impedance_free();
   fp_ant_temp_free();
+  fp_agt_free();
   fp_cond_free();
 
 } /* freqplots_cleanup() */

@@ -1743,33 +1743,10 @@ Read_Commands( void )
           fpat.nph=1;
 
         fpat.ipd  = itmp4 / 10;
-        fpat.iavp = itmp4 - fpat.ipd*10;
         fpat.inor = fpat.ipd / 10;
         fpat.ipd  = fpat.ipd - fpat.inor*10;
         fpat.iax  = fpat.inor / 10;
         fpat.inor = fpat.inor - fpat.iax*10;
-
-        /* Enable averaging by default for diagnostic unless skip-verify active */
-        if( !rc_config.skip_verify_segments && fpat.iavp == 0 )
-        {
-          fpat.iavp = 1;
-          pr_info(_("Average gain diagnostic enabled (use --skip-verify to disable)\n"));
-        }
-
-        /* Disable averaging when solid angle vanishes */
-        if( fpat.iavp )
-        {
-          if( fpat.nth < 2 || fpat.nph < 2 )
-          {
-            fpat.iavp = 0;
-            pr_info(_("Average power gain disabled: nth=%d nph=%d (both must be >= 2)\n"),
-                fpat.nth, fpat.nph);
-          }
-          else
-          {
-            pr_info(_("Average power gain calculation enabled (XNDA A=%d)\n"), fpat.iavp);
-          }
-        }
         if( fpat.iax != 0) fpat.iax = 1;
         if( fpat.ipd != 0) fpat.ipd = 1;
         fpat.thets = tmp1;
@@ -1810,7 +1787,6 @@ Read_Commands( void )
         gnd.ifar  = 0;
         fpat.rfld = 0.0;
         fpat.ipd  = 0;
-        fpat.iavp = 0;
         fpat.inor = 0;
         fpat.iax  = 0;
         fpat.nth  = 91;

@@ -379,6 +379,7 @@ typedef struct
     freqplots_zmgzph_togglebutton,
     freqplots_smith_togglebutton,
     freqplots_ant_temp_togglebutton,
+    freqplots_agt_togglebutton,
     freqplots_cond_togglebutton,
     freqplots_show_ant_temp,
     freqplots_min_max,
@@ -839,7 +840,6 @@ typedef struct
     nth,
     nph,
     ipd,
-    iavp,
     inor,
     iax,
     ixtyp;
@@ -1130,7 +1130,7 @@ typedef enum {
 	FP_PANEL_ALL = -1,
 	FP_PANEL_GAIN = 0, FP_PANEL_GAIN_DIR, FP_PANEL_VIEWER, FP_PANEL_VSWR,
 	FP_PANEL_ZRLZIM, FP_PANEL_ZMGZPH, FP_PANEL_SMITH, FP_PANEL_ANT_TEMP,
-	FP_PANEL_COND,
+	FP_PANEL_AGT, FP_PANEL_COND,
 	FP_PANEL_COUNT
 } fp_panel_t;
 
@@ -1333,6 +1333,16 @@ typedef struct
   double sphere_db;
 } fr_ratio_t;
 
+/* Average power gain accumulated over the covered pattern grid.  avg_gain is
+ * the solid-angle-weighted mean of linear total gain; solid_angle is the
+ * covered measure in steradians.  Both NAN when the grid covers no solid
+ * angle. */
+typedef struct
+{
+  double avg_gain;
+  double solid_angle;
+} agt_result_t;
+
 /* Radiation pattern data */
 typedef struct
 {
@@ -1350,6 +1360,9 @@ typedef struct
 
   double
     efficiency;     /* Radiation efficiency = prad / pinr, per freq step */
+
+  agt_result_t
+    agt;            /* Average power gain over the covered solid angle */
 
   fr_ratio_t
     fr_ratio[NUM_POL]; /* Front-to-rear ratios for each polarization type */
@@ -1964,6 +1977,8 @@ gboolean on_freqplots_popup_key_press_event(GtkWidget *widget, GdkEventKey *even
 void freqplots_marker_show(void);
 /* radiation.c */
 double Polarized_Gain(int pol_type, int fstep, int idx);
+double agt_coverage(const agt_result_t *agt);
+double agt_efficiency(const agt_result_t *agt);
 void rdpat(void);
 /* rc_config.c */
 gboolean Create_Default_Config(void);

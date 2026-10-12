@@ -760,6 +760,11 @@ rc_config_vars_t rc_config_vars[] = {
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
 			"freqplots_ant_temp_togglebutton", &hook_freqplots_panel_select_refresh ) },
 
+	{ .desc = "Freqplots Average Gain Toggle", .format = "%d",
+		.vars = { &rc_config.freqplots_agt_togglebutton },
+		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
+			"freqplots_agt_togglebutton", &hook_freqplots_panel_select_refresh ) },
+
 	{ .desc = "Freqplots Solver Conditioning Toggle", .format = "%d",
 		.vars = { &rc_config.freqplots_cond_togglebutton },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,

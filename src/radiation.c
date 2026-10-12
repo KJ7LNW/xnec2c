@@ -780,6 +780,38 @@ rdpat_fr_ratios( int fstep )
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * agt_coverage() - Measure the sphere fraction an average-gain grid covers
+ * @agt: average power gain accumulated over one pattern grid
+ *
+ * Return: the covered solid angle over the 4π steradians of the full sphere;
+ * NAN when the grid covers no solid angle.
+ */
+  double
+agt_coverage( const agt_result_t *agt )
+{
+  return agt->solid_angle / (4.0 * M_PI);
+
+} /* agt_coverage() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * agt_efficiency() - Scale the average gain by the covered sphere fraction
+ * @agt: average power gain accumulated over one pattern grid
+ *
+ * Return: the share of input power radiated into the covered directions, in
+ * percent; NAN when the grid covers no solid angle.
+ */
+  double
+agt_efficiency( const agt_result_t *agt )
+{
+  return agt->avg_gain * agt_coverage( agt ) * 100.0;
+
+} /* agt_efficiency() */
+
+/*-----------------------------------------------------------------------*/
+
 /* compute radiation pattern, gain, normalized gain */
   void
 rdpat( void )
@@ -1017,24 +1049,22 @@ rdpat( void )
         } /* for( pol = 0; pol < NUM_POL; pol++ ) */
 
         /* Accumulate for average power gain: weight by solid angle element */
-        if( fpat.iavp )
-        {
-          double linear_gain = gcop * (ethm2 + ephm2);
+        double linear_gain = gcop * (ethm2 + ephm2);
 
-          th_lo = tha - dth_half;
-          th_hi = tha + dth_half;
-          if( kth == 1 )
-            th_lo = tha;
-          if( kth == fpat.nth )
-            th_hi = tha;
+        th_lo = tha - dth_half;
+        th_hi = tha + dth_half;
+        if( kth == 1 )
+          th_lo = tha;
+        if( kth == fpat.nth )
+          th_hi = tha;
 
-          da = fabs( dph_rad * (cos(th_lo) - cos(th_hi)) );
-          if( kph == 1 || kph == fpat.nph )
-            da *= 0.5;
+        /* Weight phi by the half intervals on each side of the sample, so a
+         * lone phi sample spans no solid angle */
+        da = fabs( dph_rad * (cos(th_lo) - cos(th_hi)) );
+        da *= 0.5 * (double)( (kph > 1) + (kph < fpat.nph) );
 
-          pint += linear_gain * da;
-          total_omega += da;
-        }
+        pint += linear_gain * da;
+        total_omega += da;
 
         idx++;
         continue;
@@ -1046,14 +1076,16 @@ rdpat( void )
   rdpat_fr_ratios( fstep );
 
   /* Output average gain ratio: normalize by accumulated solid angle */
-  if( fpat.iavp && total_omega > 1.0e-20 )
+  if( total_omega > 1.0e-20 )
   {
     pint = pint / total_omega;
+    rad_pattern[fstep].agt =
+      (agt_result_t){ .avg_gain = pint, .solid_angle = total_omega };
     double avg_gain_dbi = 10.0 * log10(pint);
 
     /* Efficiency: ratio of actual gain to theoretical maximum */
     double expected_gain = (4.0 * M_PI) / total_omega;
-    double efficiency_pct = (pint / expected_gain) * 100.0;
+    double efficiency_pct = agt_efficiency( &rad_pattern[fstep].agt );
 
     /* Warn if gain exceeds expected: indicates RP theta/phi range issue */
     if( pint > expected_gain * 1.01 )
@@ -1064,6 +1096,12 @@ rdpat( void )
 
     pr_notice(_("Average gain: %.4f (%.2f dBi), efficiency: %.1f%%, solid angle: %.4f * pi sr\n"),
         pint, avg_gain_dbi, efficiency_pct, total_omega / M_PI);
+  }
+  else
+  {
+    /* Mark the average gain unavailable when the grid covers no solid angle */
+    rad_pattern[fstep].agt =
+      (agt_result_t){ .avg_gain = NAN, .solid_angle = NAN };
   }
 
   return;

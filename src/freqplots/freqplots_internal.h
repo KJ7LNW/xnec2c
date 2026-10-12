@@ -142,6 +142,7 @@ typedef struct
 
 /* Dispatch-core helpers shared by every plot type (freqplots_core.c) */
 gboolean fp_value_unavailable(double val, double invalid_min);
+gboolean fp_trace_unavailable(const double *trace, int count, double invalid_min);
 void fp_fill_meas_columns(fp_plot_ctx_t *ctx,
     const fp_meas_column_t *cols, int ncols);
 void fp_plot_panel(fp_plot_ctx_t *ctx,
@@ -166,6 +167,8 @@ int      fp_impedance_enabled(void);
 gboolean fp_impedance_render(fp_plot_ctx_t *ctx);
 int      fp_ant_temp_enabled(void);
 gboolean fp_ant_temp_render(fp_plot_ctx_t *ctx);
+int      fp_agt_enabled(void);
+gboolean fp_agt_render(fp_plot_ctx_t *ctx);
 int      fp_cond_enabled(void);
 gboolean fp_cond_render(fp_plot_ctx_t *ctx);
 
@@ -176,6 +179,7 @@ void fp_viewer_free(void);
 void fp_vswr_free(void);
 void fp_impedance_free(void);
 void fp_ant_temp_free(void);
+void fp_agt_free(void);
 void fp_cond_free(void);
 
 /* Pointer boundary decode and the router carrying a gesture to its leaf

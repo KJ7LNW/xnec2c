@@ -470,6 +470,9 @@ const char *meas_names[] = {
 	[MEAS_PRECISION_LOST]  =  "precision_lost",
 	[MEAS_FR_RATIO_AZ]     =  "fr_ratio_az",
 	[MEAS_FR_RATIO_SPHERE] =  "fr_ratio_sphere",
+	[MEAS_AGT]             =  "agt",
+	[MEAS_AGT_EFFICIENCY]  =  "agt_efficiency",
+	[MEAS_AGT_COVERAGE]    =  "agt_coverage",
 	[MEAS_COUNT]            =  NULL
 };
 
@@ -503,6 +506,9 @@ const char *meas_display_names[] = {
 	[MEAS_PRECISION_LOST]  =  N_("Precision Lost"),
 	[MEAS_FR_RATIO_AZ]     =  N_("F/R Ratio Azimuth"),
 	[MEAS_FR_RATIO_SPHERE] =  N_("F/R Ratio 3D"),
+	[MEAS_AGT]             =  N_("Average Gain"),
+	[MEAS_AGT_EFFICIENCY]  =  N_("Average Gain Efficiency"),
+	[MEAS_AGT_COVERAGE]    =  N_("Average Gain Coverage"),
 	[MEAS_COUNT]            =  NULL
 };
 
@@ -536,6 +542,9 @@ const char *meas_descriptions[] = {
 	[MEAS_PRECISION_LOST]  =  "Decimal digits of precision lost solving the antenna",
 	[MEAS_FR_RATIO_AZ]     =  "Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees azimuth",
 	[MEAS_FR_RATIO_SPHERE] =  "Front-to-rear ratio in dB over every direction behind the peak-gain direction",
+	[MEAS_AGT]             =  "Average power gain as a linear ratio over the solid angle the pattern grid samples",
+	[MEAS_AGT_EFFICIENCY]  =  "Average power gain times the sampled fraction of the sphere, in percent",
+	[MEAS_AGT_COVERAGE]    =  "Fraction of the full sphere the pattern grid samples",
 	[MEAS_COUNT]            =  NULL
 };
 
@@ -559,6 +568,9 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 
 	/* Ratios span every dB value, so an unsampled rear region reads NAN */
 	m->fr_ratio_az = m->fr_ratio_sphere = NAN;
+
+	/* Average gain reads NAN until a covered pattern grid supplies it */
+	m->agt = m->agt_efficiency = m->agt_coverage = NAN;
 
 	m->mhz = save.freq[idx];
 
@@ -784,6 +796,12 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 	/* Front-to-rear ratios, scanned in the child after the grid completes */
 	m->fr_ratio_az     = rad_pattern[idx].fr_ratio[pol].az_db;
 	m->fr_ratio_sphere = rad_pattern[idx].fr_ratio[pol].sphere_db;
+
+	/* Average gain over the sampled solid angle; coverage is the sampled
+	 * fraction of the sphere and efficiency scales the average by it */
+	m->agt            = rad_pattern[idx].agt.avg_gain;
+	m->agt_coverage   = agt_coverage(&rad_pattern[idx].agt);
+	m->agt_efficiency = agt_efficiency(&rad_pattern[idx].agt);
 
 }
 

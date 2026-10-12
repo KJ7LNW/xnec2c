@@ -9889,6 +9889,25 @@ Save NEC2 Editor data first?
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkToggleButton" id="freqplots_agt_togglebutton">
+                    <property name="label" translatable="yes">AGT</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">False</property>
+                    <property name="tooltip-text" translatable="yes">Plots the average power gain over the directions the radiation pattern samples, at each frequency.
+Values appear once a frequency sweep with a radiation pattern has produced results.
+A sound lossless model averages 1.0 over the full sphere in free space and 2.0 over the upper hemisphere above perfect ground; a departure on such a model points to inaccurate geometry, such as segments too long or wires too close.
+The readout adds the sampled fraction of the sphere and the average scaled by that fraction, in percent, which reads 100 for a sound lossless model whose pattern covers every direction it radiates into.
+See the "Validating a Model" section of the manual for how to run and read the test.</property>
+                    <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">8</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkToggleButton" id="freqplots_cond_togglebutton">
                     <property name="label" translatable="yes">Cond</property>
                     <property name="visible">True</property>
@@ -9897,13 +9916,14 @@ Save NEC2 Editor data first?
                     <property name="tooltip-text" translatable="yes">Plots the precision lost solving the antenna at each frequency, in decimal digits.
 Values appear once a frequency sweep has produced results.
 Read it against the impedance and VSWR traces: a flat low curve means those traces are sound, while a peak marks a frequency where the solve degraded, so a sharp impedance excursion at that same frequency is a numerical artefact rather than a resonance.
-A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a reading near 15 leaves none; shorten or thicken the offending segments and run the sweep again to bring the curve down.</property>
+A double carries about 15 digits, so a reading of 3 leaves 12 sound ones and a reading near 15 leaves none; shorten or thicken the offending segments and run the sweep again to bring the curve down.
+See the "Validating a Model" section of the manual to read it beside the AGT trace.</property>
                     <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">8</property>
+                    <property name="position">9</property>
                   </packing>
                 </child>
               </object>

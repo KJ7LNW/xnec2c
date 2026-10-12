@@ -423,6 +423,7 @@ freq_fields_xfer(int fstep, int pipe_idx, pipe_fn_t pipe_fn)
     { rad_pattern[fstep].phasor,       size_nphth_phasor, 0,                     FREQ_COND_RDPAT  },
     { &rad_pattern[fstep].efficiency,  NULL,           sizeof(double),           FREQ_COND_RDPAT  },
     { rad_pattern[fstep].fr_ratio,     NULL,           sizeof(rad_pattern[fstep].fr_ratio), FREQ_COND_RDPAT },
+    { &rad_pattern[fstep].agt,         NULL,           sizeof(rad_pattern[fstep].agt),      FREQ_COND_RDPAT },
     /* Per-fstep noise temperature table (allocated alongside rad_pattern[]) */
     { &noise_temp[fstep],              NULL,              sizeof(noise_temp_t),  FREQ_COND_RDPAT  },
     /* Per-fstep structure colors (patch flow + cmin/cmax range scalars) */

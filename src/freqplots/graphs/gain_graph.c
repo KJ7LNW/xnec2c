@@ -113,9 +113,7 @@ fp_gain_free( void )
 fp_gain_render(fp_plot_ctx_t *ctx)
 {
   char *titles[3];
-  gboolean second_unavailable;
   double *right;
-  int idx;
 
   const fp_gain_trace_row_t *trace = &fp_gain_trace_rows[fp_gain_second_trace()];
 
@@ -134,15 +132,10 @@ fp_gain_render(fp_plot_ctx_t *ctx)
   };
   fp_fill_meas_columns( ctx, cols, (int)G_N_ELEMENTS(cols) );
 
-  /* The second trace is unavailable when any step reports it unavailable */
-  second_unavailable = FALSE;
-  for( idx = 0; idx < ctx->num_fsteps && !second_unavailable; idx++ )
-    second_unavailable = fp_value_unavailable( second_trace[idx], trace->invalid_min );
-
   /* Plot gain and the second trace when every step carries it */
   titles[0] = _("Raw Gain dBi");
   titles[1] = _(trace->panel_title);
-  if( second_unavailable )
+  if( fp_trace_unavailable( second_trace, ctx->num_fsteps, trace->invalid_min ) )
   {
     /* Blank right-axis title keeps the panel layout without a trace */
     right = NULL;

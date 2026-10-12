@@ -275,6 +275,21 @@ const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 	{
 		.goal_ineligible = true,
 	},
+
+	[MEAS_AGT] =
+	{
+		.goal_ineligible = true,
+	},
+
+	[MEAS_AGT_EFFICIENCY] =
+	{
+		.goal_ineligible = true,
+	},
+
+	[MEAS_AGT_COVERAGE] =
+	{
+		.goal_ineligible = true,
+	},
 };
 
 /*------------------------------------------------------------------------*/

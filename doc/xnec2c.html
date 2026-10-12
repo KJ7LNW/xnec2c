@@ -1298,13 +1298,152 @@ G/T<sub>ant</sub> across the operating band.</p>
 <h3 id="AveragePowerGain">Average Power Gain</h3>
 <p>
 When the RP card specifies at least two theta and two phi steps,
-xnec2c computes the average power gain over the radiation sphere
-after each frequency step. The result is printed to the console as a
-linear ratio, in dBi, and as a radiation efficiency percentage. An
-ideal lossless antenna with complete sphere coverage produces an
-average gain of 1.0 (0.0 dBi, 100% efficiency); lower values
-indicate resistive or ground losses. This diagnostic is enabled
-automatically unless <code>--skip-verify</code> is active.</p>
+xnec2c computes the average power gain over the directions the card
+samples after each frequency step. The result is printed to the console as a
+linear ratio, in dBi, and as a radiation efficiency percentage. This
+average gain test (AGT) is the primary check of a model's accuracy;
+<a href="#ModelValidation">Validating a Model</a> explains how to run it
+and what its result means.</p>
+<p>The <span class="ui-button">AGT</span> toggle in the
+<a href="#FrequencyWindow">Frequency Plots window</a> graphs the
+average power gain across the band; its readout adds the efficiency and
+the covered fraction of the sphere. The <code>--write-csv</code> output
+carries the same three values as <code>agt</code>,
+<code>agt_efficiency</code>, and <code>agt_coverage</code>. An
+unavailable value is shown as a dash in the readout and written as
+<code>nan</code>.</p>
+
+<h3 id="ModelValidation">Validating a Model</h3>
+<p>NEC2 solves a model exactly as written. A model that breaks the rules of
+the method still produces gain, impedance, and pattern values, and nothing in
+those values marks them as wrong. Validating a model checks it against two
+conditions it cannot escape: the solve must keep enough numerical precision,
+and the antenna must radiate no more power than it is fed. A model passing both
+is consistent with the method. Whether it describes the antenna you build
+depends on how faithfully its geometry, loading, and ground represent that
+antenna.</p>
+
+<h4 id="PowerConservation">Power Conservation</h4>
+<p>Gain G(θ,&nbsp;φ) is the power radiated toward a direction relative to an
+isotropic radiator fed the same input power. An antenna radiates its input
+power less its losses, so integrating gain over the full sphere of 4π
+steradians gives</p>
+<p><code>∫<sub>4π</sub> G dΩ = 4π·η</code></p>
+<p>where η is the radiation efficiency, 1 for a lossless model. The
+average gain over the solid angle Ω an <code class="nec-card">RP</code> card
+samples is <code>∫<sub>Ω</sub> G dΩ / Ω</code>. That integral cannot exceed
+the integral over the full sphere, so the average obeys</p>
+<p><code>average ≤ 4π·η / Ω</code></p>
+<p>Coverage is complete when the card samples every direction the antenna
+radiates into. Over perfect ground the antenna radiates into the upper
+hemisphere alone, so the hemisphere is complete coverage there.</p>
+<table>
+<thead>
+<tr><th>Environment</th><th>Complete coverage</th><th>Lossless average</th></tr>
+</thead>
+<tbody>
+<tr><td>Free space</td><td>full sphere, 4π sr</td><td>1.0</td></tr>
+<tr><td>Perfect ground, <code class="nec-card">GN</code> 1</td><td>upper hemisphere, 2π sr</td><td>2.0</td></tr>
+<tr><td>Partial coverage</td><td>Ω below the above</td><td>up to 4π / Ω</td></tr>
+</tbody>
+</table>
+<p>The efficiency reading multiplies the average by the covered fraction of the
+sphere, giving the share of input power radiated into the covered directions.
+It reads 100% for a lossless model with complete coverage in every
+environment:</p>
+<ul>
+<li>Above 100%: a model error, always. The model radiates more power than it
+receives.</li>
+<li>At 100%: the model conserves power.</li>
+<li>Below 100%: loss from <code class="nec-card">LD</code> cards or ground,
+coverage missing directions the antenna radiates into, or a model error.</li>
+</ul>
+<p>A partial card can legitimately average well above its complete-coverage
+value: a card sampling only the main lobe of a beam antenna averages more than
+2. Judge a partial card by its efficiency, not its average.</p>
+<p>On a lossless model with complete coverage, a departure from the lossless
+average carries into every reported gain. The gain error in dB is
+<code>10·log<sub>10</sub>(average / lossless average)</code>: an average of 1.10
+in free space reads every gain 0.41&nbsp;dB high.</p>
+
+<h4 id="ValidationProcedure">Running the Test</h4>
+<ol>
+<li>Save a test copy of the model and remove every
+<code class="nec-card">LD</code> card, so the model is lossless.</li>
+<li>Delete the <code class="nec-card">GN</code> card for free space, or use
+<code class="nec-card">GN</code> 1 for perfect ground. Real ground absorbs
+power, so its average falls below the lossless value for physical reasons and
+cannot reveal a model error.</li>
+<li>Set the <code class="nec-card">RP</code> card to complete coverage:
+<code>RP 0 37 73 0 0 0 5 5</code> samples θ 0–180° and φ 0–360° for free
+space, and <code>RP 0 19 73 0 0 0 5 5</code> samples θ 0–90° for perfect
+ground. The coverage readout then shows 1.0 and 0.5.</li>
+<li>Sweep the band with an <code class="nec-card">FR</code> card and enable
+<span class="ui-button">AGT</span> and <span class="ui-button">Cond</span> in
+the <a href="#FrequencyWindow">Frequency Plots window</a>.</li>
+<li>Read the efficiency across the band against 100%, and convert any
+departure to a gain error with the formula above.</li>
+<li>Once the test copy passes, restore losses and ground in the working model;
+its results then rest on a validated geometry.</li>
+</ol>
+
+<h4 id="CondVsAGT">Solver Conditioning and the Average Gain Test</h4>
+<p>The <span class="ui-button">Cond</span> and <span class="ui-button">AGT</span>
+toggles check different things. <a href="#SolverConditioning">Solver
+conditioning</a> reports whether the arithmetic solved the model accurately.
+The average gain test reports whether the model itself is accurate. A model can
+pass one and fail the other: a well-conditioned solve of a coarsely segmented
+antenna returns precise answers to an inaccurate model, so its efficiency
+departs from 100% while its precision loss stays low.</p>
+<table>
+<thead>
+<tr><th>Precision loss</th><th>Efficiency</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td>peaks</td><td>departs from 100% at the same frequency</td><td>the solve degraded; every result there is suspect</td></tr>
+<tr><td>low and flat</td><td>departs from 100%</td><td>the geometry is at fault; see <a href="#CommonDefects">Common Defects</a></td></tr>
+<tr><td>low and flat</td><td>holds at 100%</td><td>gain, impedance, and pattern results are consistent</td></tr>
+</tbody>
+</table>
+
+<h4 id="CommonDefects">Common Defects</h4>
+<p>Xnec2c checks the geometry when it loads a file and reports each violation
+on the console. <code>--skip-verify</code> turns these checks off, and models
+over 1000 segments omit the overlap check unless <code>--force-verify</code> is
+given.</p>
+<table>
+<thead>
+<tr><th>Defect</th><th>Reported when</th><th>Remedy</th></tr>
+</thead>
+<tbody>
+<tr><td>Long segment</td><td>length above 0.1&nbsp;λ at the highest frequency; noted above 0.05&nbsp;λ</td><td>divide the wire into more segments</td></tr>
+<tr><td>Short segment for the wavelength</td><td>length below 0.001&nbsp;λ</td><td>merge segments</td></tr>
+<tr><td>Short segment for the radius</td><td>length/radius below 8, error below 2; with the extended kernel below 2, error below 0.5</td><td>longer segments, thinner wire, or the extended kernel</td></tr>
+<tr><td>Abrupt length change</td><td>a segment shorter than 1% of a segment it touches</td><td>grade segment lengths toward the junction</td></tr>
+</tbody>
+</table>
+<p>Two defects pass these checks and need inspection by eye:</p>
+<ul>
+<li>Coincident wires: the same wire entered twice, in either direction. NEC2
+cannot separate the currents of two wires occupying the same place.</li>
+<li>A feed at a crowded junction: an <code class="nec-card">EX</code> segment
+touching a junction of many wires. Move the feed one segment along its
+wire.</li>
+</ul>
+
+<h4 id="ValidationExample">Example</h4>
+<p><span class="filepath">examples/airplane.nec</span> models a jet with a
+trailing-wire antenna in free space, lossless, with an
+<code class="nec-card">RP</code> card sampling θ 0–180° and φ 0–360° in 10°
+steps: complete coverage. Its average gain near 1.3 is an efficiency near
+130%, which no lossless antenna produces, so the model is in error and its
+gains read about 1.1&nbsp;dB high. The file shows three defects from the list
+above: <code class="nec-card">GW</code> 116 and 117 are the same wire with its
+ends reversed; the feed on tag 256, segment 1, touches a junction of 11 wires;
+and <code class="nec-card">GW</code> 3 is 4.05&nbsp;m long, above
+0.1&nbsp;λ&nbsp;=&nbsp;3&nbsp;m at the 10&nbsp;MHz top of its sweep. Correct one
+defect at a time and sweep again to see which moves the efficiency toward
+100%.</p>
 
 <h3 id="Color">Color Coding</h3>
 <p>
@@ -2507,6 +2646,11 @@ to select data to be plotted against frequency. These are:</p>
 <td>G/T<sub>ant</sub> (right axis) with T<sub>ant</sub> or T<sub>total</sub> as the secondary curve, selectable via <span class="menu-path">View &rarr; Show T_ant instead of T_total</span>. Requires a <a href="#NoiseEnvModels">noise environment</a> and radiation pattern data.</td>
 </tr>
 <tr>
+<td><span class="ui-button">AGT</span></td>
+<td></td>
+<td>The average power gain over the directions the <code class="nec-card">RP</code> card samples; see <a href="#AveragePowerGain">Average Power Gain</a>.</td>
+</tr>
+<tr>
 <td><span class="ui-button">Cond</span></td>
 <td></td>
 <td>Decimal digits of precision lost while solving the antenna at each frequency; see <a href="#SolverConditioning">Solver Conditioning</a>.</td>
@@ -2611,7 +2755,9 @@ segment interaction matrix by Gauss elimination, and the ratio between the
 smallest and largest pivot magnitudes measures how much of the working precision
 that factorization consumed. A double carries about 15 significant digits, so a
 reading of 3 leaves 12 sound ones and a reading near 15 leaves none. Values
-appear once a frequency sweep has produced results.</p>
+appear once a frequency sweep has produced results.
+<a href="#CondVsAGT">Solver Conditioning and the Average Gain Test</a> reads
+this trace beside the average gain test.</p>
 
 <p>Read the trace against the impedance and VSWR curves. A flat, low curve means
 those curves are sound. A peak marks a frequency where the solve degraded, so a
@@ -4032,7 +4178,7 @@ visualization, and internationalization support.</p>
 			<li><span class="contact" data-callsign="G4IXT" data-github="g4ixt">Ian</span> &mdash; reproduced and tested the <code class="nec-card">Z0</code>-card value corruption (<span class="issue-ref">#86</span>)</li>
 			<li><span class="contact" data-github="peteasa">peteasa</span> &mdash; drove the <code>--write-patch-currents</code> option and the gnuplot patch-line fix (<span class="issue-ref">#75</span>, <span class="issue-ref">#76</span>)</li>
 			<li><span class="contact" data-callsign="9M2PJU" data-github="9M2PJU">9M2PJU</span> &mdash; reported a build break and submitted a pull request (<span class="issue-ref">#84</span>, <span class="issue-ref">#85</span>), and synchronized the <code class="nec-card">Z0</code> string changes across all 47 translation catalogs (<span class="issue-ref">#88</span>)</li>
-			<li><span class="contact" data-github="mahswrn">Maheswaran</span> &mdash; contributed per-window arrow-key panning, the <kbd class="shortcut">Home</kbd> fit-to-view binding, and the <span class="menu-path">Common Pan</span> toggle (<span class="issue-ref">#92</span>), and the front-to-rear ratio (<span class="issue-ref">#89</span>)</li>
+			<li><span class="contact" data-github="mahswrn">Maheswaran</span> &mdash; contributed per-window arrow-key panning, the <kbd class="shortcut">Home</kbd> fit-to-view binding, and the <span class="menu-path">Common Pan</span> toggle (<span class="issue-ref">#92</span>), and the front-to-rear ratio and average gain test (<span class="issue-ref">#89</span>)</li>
 		</ul>
 	</li>
 
@@ -4103,6 +4249,12 @@ visualization, and internationalization support.</p>
 			ratio, or Net Gain, with azimuth and 3D front-to-rear columns in
 			CSV output
 			(<a href="#FRRatio">documentation</a>,
+			<span class="issue-ref">#89</span>)</li>
+			<li>Average gain test panel graphing the average power gain
+			across the band for every <code class="nec-card">RP</code>
+			card, with efficiency and sphere coverage in the readout and in
+			CSV output
+			(<a href="#AveragePowerGain">documentation</a>,
 			<span class="issue-ref">#89</span>)</li>
 		</ul>
 	</li>

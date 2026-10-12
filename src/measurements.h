@@ -42,6 +42,9 @@ enum MEASUREMENT_INDEXES
 	MEAS_PRECISION_LOST,
 	MEAS_FR_RATIO_AZ,
 	MEAS_FR_RATIO_SPHERE,
+	MEAS_AGT,
+	MEAS_AGT_EFFICIENCY,
+	MEAS_AGT_COVERAGE,
 
 	MEAS_COUNT
 };
@@ -298,6 +301,7 @@ typedef struct
 			double gt;
 			double precision_lost;
 			double fr_ratio_az, fr_ratio_sphere;
+			double agt, agt_efficiency, agt_coverage;
 		};
 
 		double a[MEAS_COUNT];
