@@ -40,6 +40,8 @@ enum MEASUREMENT_INDEXES
 	MEAS_ANT_TEMP_TOT,
 	MEAS_GT,
 	MEAS_PRECISION_LOST,
+	MEAS_FR_RATIO_AZ,
+	MEAS_FR_RATIO_SPHERE,
 
 	MEAS_COUNT
 };
@@ -295,6 +297,7 @@ typedef struct
 			double ant_temp, ant_temp_tot;
 			double gt;
 			double precision_lost;
+			double fr_ratio_az, fr_ratio_sphere;
 		};
 
 		double a[MEAS_COUNT];

@@ -145,15 +145,17 @@ fp_view_port( freqplots_view_t *v )
 typedef enum {
   FP_FIELD_ALWAYS,
   FP_FIELD_IF_NETGAIN,
-  FP_FIELD_IF_NO_NETGAIN,
+  FP_FIELD_IF_FB_TRACE,
+  FP_FIELD_IF_FR_TRACE,
   FP_FIELD_IF_S11,
   FP_FIELD_IF_ANT_TEMP_VIEW,
   FP_FIELD_IF_NO_ANT_TEMP_VIEW,
 } fp_field_cond_t;
 
 /* One readout column: a measurement field, its display gate, its numeric
- * format, and a trailing unit.  A value below invalid_min renders as an em
- * dash so sentinel results (-1, -999) read as unavailable, not as numbers. */
+ * format, and a trailing unit.  A value below invalid_min, or NAN, renders as
+ * an em dash so sentinel results (-1, -999, NAN) read as unavailable, not as
+ * numbers. */
 typedef struct {
   int             meas_idx;
   fp_field_cond_t cond;
@@ -167,9 +169,10 @@ static const fp_readout_field_t fp_readout_freq =
   { MEAS_MHZ, FP_FIELD_ALWAYS, "%.3f", "", -1e30 };
 
 static const fp_readout_field_t fp_rf_gain[] = {
-  { MEAS_GAIN_MAX, FP_FIELD_ALWAYS,        "%.2f", " dBi", -1e30 },
-  { MEAS_GAIN_NET, FP_FIELD_IF_NETGAIN,    "%.2f", " dBi", -1e30 },
-  { MEAS_FB_RATIO, FP_FIELD_IF_NO_NETGAIN, "%.2f", " dB",  0.0   },
+  { MEAS_GAIN_MAX,    FP_FIELD_ALWAYS,      "%.2f", " dBi", -1e30 },
+  { MEAS_GAIN_NET,    FP_FIELD_IF_NETGAIN,  "%.2f", " dBi", -1e30 },
+  { MEAS_FB_RATIO,    FP_FIELD_IF_FB_TRACE, "%.2f", " dB",  0.0   },
+  { MEAS_FR_RATIO_AZ, FP_FIELD_IF_FR_TRACE, "%.2f", " dB",  -1e30 },
   { -1, FP_FIELD_ALWAYS, NULL, NULL, 0.0 },
 };
 
@@ -245,7 +248,8 @@ fp_field_cond_active(fp_field_cond_t cond)
   {
     case FP_FIELD_ALWAYS:              return TRUE;
     case FP_FIELD_IF_NETGAIN:          return rc_config.freqplots_net_gain != 0;
-    case FP_FIELD_IF_NO_NETGAIN:       return rc_config.freqplots_net_gain == 0;
+    case FP_FIELD_IF_FB_TRACE:         return fp_gain_second_trace() == FP_GAIN_TRACE_FB;
+    case FP_FIELD_IF_FR_TRACE:         return fp_gain_second_trace() == FP_GAIN_TRACE_FR;
     case FP_FIELD_IF_S11:              return rc_config.freqplots_s11 != 0;
     case FP_FIELD_IF_ANT_TEMP_VIEW:    return rc_config.freqplots_show_ant_temp != 0;
     case FP_FIELD_IF_NO_ANT_TEMP_VIEW: return rc_config.freqplots_show_ant_temp == 0;
@@ -904,16 +908,23 @@ freqplots_reload_port_combos( void )
 
 /*-----------------------------------------------------------------------*/
 
-/* Format readout column @f from measurement @m into @out.  A value below the
- * field's invalid_min renders as an em dash with the unit so sentinel results
- * read as unavailable. */
+/* True when @val encodes an unavailable result: NAN, or below @invalid_min. */
+  gboolean
+fp_value_unavailable(double val, double invalid_min)
+{
+  return isnan(val) || (val < invalid_min);
+}
+
+/* Format readout column @f from measurement @m into @out.  An unavailable
+ * value renders as an em dash with the unit so sentinel results read as
+ * unavailable. */
   static void
 fp_readout_format(const fp_readout_field_t *f, measurement_t *m,
     char *out, int outlen)
 {
   double val = m->a[f->meas_idx];
 
-  if( val < f->invalid_min )
+  if( fp_value_unavailable(val, f->invalid_min) )
   {
     snprintf( out, outlen, "—%s", f->unit );
     return;

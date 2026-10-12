@@ -2518,6 +2518,21 @@ quantity to the Net Gain of the array. Net Gain is the effective
 gain after subtracting the effects of reflection caused by
 impedance mismatch (return loss); Net Gain is equal to Raw Gain
 when VSWR&nbsp;≈&nbsp;1.0 (S<sub>11</sub>&nbsp;≈&nbsp;−∞).</p>
+<p id="FRRatio">The front-to-rear (F/R) ratio is the peak gain over the
+strongest gain at the peak's elevation more than 90° away from it in
+azimuth. F/B compares the peak against the single direction opposite it,
+so a rear lobe beside that direction escapes it; F/R reports the worst
+rear direction. The <strong>View</strong> menu selects it as the Gain
+graph's second plotted quantity. F/R is unavailable, shown as a dash in the
+readout, when the peak points straight up or down, where no azimuth
+separates front from rear, and when the <code class="nec-card">RP</code>
+card samples no azimuth more than 90° from the peak. The trace is
+omitted when any frequency step lacks a value.</p>
+<p>The <code>--write-csv</code> output carries two front-to-rear
+columns: <code>fr_ratio_az</code> holds the value above, and
+<code>fr_ratio_sphere</code> takes the strongest gain in any direction
+more than 90° from the peak, so it stays defined when the peak points
+straight up. An unavailable value is written as <code>nan</code>.</p>
 <p>The <a href="#SweepTransport">frequency sweep transport buttons</a> at the
 top right run, pause, resume and rewind the loop. As the loop progresses, more
 data will be presented in the graphs and in the text entry widgets
@@ -4017,7 +4032,7 @@ visualization, and internationalization support.</p>
 			<li><span class="contact" data-callsign="G4IXT" data-github="g4ixt">Ian</span> &mdash; reproduced and tested the <code class="nec-card">Z0</code>-card value corruption (<span class="issue-ref">#86</span>)</li>
 			<li><span class="contact" data-github="peteasa">peteasa</span> &mdash; drove the <code>--write-patch-currents</code> option and the gnuplot patch-line fix (<span class="issue-ref">#75</span>, <span class="issue-ref">#76</span>)</li>
 			<li><span class="contact" data-callsign="9M2PJU" data-github="9M2PJU">9M2PJU</span> &mdash; reported a build break and submitted a pull request (<span class="issue-ref">#84</span>, <span class="issue-ref">#85</span>), and synchronized the <code class="nec-card">Z0</code> string changes across all 47 translation catalogs (<span class="issue-ref">#88</span>)</li>
-			<li><span class="contact" data-github="mahswrn">Maheswaran</span> &mdash; contributed per-window arrow-key panning, the <kbd class="shortcut">Home</kbd> fit-to-view binding, and the <span class="menu-path">Common Pan</span> toggle (<span class="issue-ref">#92</span>)</li>
+			<li><span class="contact" data-github="mahswrn">Maheswaran</span> &mdash; contributed per-window arrow-key panning, the <kbd class="shortcut">Home</kbd> fit-to-view binding, and the <span class="menu-path">Common Pan</span> toggle (<span class="issue-ref">#92</span>), and the front-to-rear ratio (<span class="issue-ref">#89</span>)</li>
 		</ul>
 	</li>
 
@@ -4083,6 +4098,12 @@ visualization, and internationalization support.</p>
 			<li>Optimizer goal list limited to measurements that can be
 			scored</li>
 			<li>Clearing the plot marker keeps the selected frequency</li>
+			<li>The Gain graph's second trace selectable from the
+			<strong>View</strong> menu as the F/B ratio, the front-to-rear
+			ratio, or Net Gain, with azimuth and 3D front-to-rear columns in
+			CSV output
+			(<a href="#FRRatio">documentation</a>,
+			<span class="issue-ref">#89</span>)</li>
 		</ul>
 	</li>
 

@@ -45,6 +45,25 @@
 #include "radiation.h"
 #include "shared.h"
 
+/* Below this |sin(theta)| the maximum sits on the polar axis, whose theta
+ * row collapses to one direction and holds no azimuth ring */
+#define FR_POLE_EPSILON 1.0e-6
+
+/* Direction-cosine margin placing a sample strictly behind the maximum */
+#define FR_REAR_EPSILON 1.0e-6
+
+/* Rear-lobe scan state for one polarization in rdpat_fr_ratios() */
+typedef struct
+{
+  double front_dir[3];      /* unit vector toward the maximum-gain cell */
+  double front_cos_phi;     /* cos(phi) of the maximum-gain cell */
+  double front_sin_phi;     /* sin(phi) of the maximum-gain cell */
+  int front_ith;            /* theta row holding the maximum */
+  gboolean ring_defined;    /* the maximum's theta row spans an azimuth ring */
+  double best_az_db;        /* strongest azimuth-rear gain, NAN until found */
+  double best_sphere_db;    /* strongest hemisphere-rear gain, NAN until found */
+} fr_scan_t;
+
 /* Radiation pattern data */
 
 /*-----------------------------------------------------------------------*/
@@ -677,6 +696,90 @@ Polarized_Gain( int pol_type, int fstep, int idx )
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * rdpat_fr_ratios() - Store the front-to-rear ratios of one frequency step
+ * @fstep: frequency step whose pattern grid and maxima are complete
+ *
+ * Walks the grid once, visiting every polarization per cell, and keeps the
+ * strongest gain in each rear region of that polarization's maximum.  A
+ * region holding no sample leaves its ratio NAN.
+ */
+  static void
+rdpat_fr_ratios( int fstep )
+{
+  fr_scan_t scan[NUM_POL];
+  int pol, ith, iph;
+
+  /* Ground-wave fields store no pattern grid; the ratios keep their NAN reset */
+  if( gnd.ifar == 1 )
+    return;
+
+  /* Resolve each polarization's front direction from its stored maximum */
+  for( pol = 0; pol < NUM_POL; pol++ )
+  {
+    double tht = rad_pattern[fstep].max_gain_tht[pol] * TORAD;
+    double phi = rad_pattern[fstep].max_gain_phi[pol] * TORAD;
+    double sin_tht = sin( tht );
+
+    scan[pol].front_ith      = fpat_theta_cell( rad_pattern[fstep].max_gain_tht[pol] );
+    scan[pol].front_cos_phi  = cos( phi );
+    scan[pol].front_sin_phi  = sin( phi );
+    scan[pol].front_dir[0]   = sin_tht * scan[pol].front_cos_phi;
+    scan[pol].front_dir[1]   = sin_tht * scan[pol].front_sin_phi;
+    scan[pol].front_dir[2]   = cos( tht );
+    scan[pol].ring_defined   = fabs( sin_tht ) >= FR_POLE_EPSILON;
+    scan[pol].best_az_db     = NAN;
+    scan[pol].best_sphere_db = NAN;
+  }
+
+  /* Keep the strongest gain inside each rear region */
+  for( iph = 0; iph < fpat.nph; iph++ )
+  {
+    double phi = fpat_cell_phi( iph ) * TORAD;
+    double cos_phi = cos( phi );
+    double sin_phi = sin( phi );
+
+    for( ith = 0; ith < fpat.nth; ith++ )
+    {
+      double tht = fpat_cell_theta( ith ) * TORAD;
+      double sin_tht = sin( tht );
+      double dir[3] = { sin_tht * cos_phi, sin_tht * sin_phi, cos(tht) };
+
+      for( pol = 0; pol < NUM_POL; pol++ )
+      {
+        double gain = Polarized_Gain( pol, fstep, fpat_cell_index(ith, iph) );
+        double az_cos = (cos_phi * scan[pol].front_cos_phi) +
+          (sin_phi * scan[pol].front_sin_phi);
+        double sphere_cos = (dir[0] * scan[pol].front_dir[0]) +
+          (dir[1] * scan[pol].front_dir[1]) + (dir[2] * scan[pol].front_dir[2]);
+
+        /* Azimuth rear: the maximum's theta row, beyond 90 degrees of phi;
+         * fmax() takes the first sample over the NAN start */
+        if( scan[pol].ring_defined && (ith == scan[pol].front_ith) &&
+            (az_cos < -FR_REAR_EPSILON) )
+          scan[pol].best_az_db = fmax( scan[pol].best_az_db, gain );
+
+        /* Hemisphere rear: every direction on the far side of the maximum */
+        if( sphere_cos < -FR_REAR_EPSILON )
+          scan[pol].best_sphere_db = fmax( scan[pol].best_sphere_db, gain );
+
+      } /* for( pol = 0; pol < NUM_POL; pol++ ) */
+    } /* for( ith = 0; ith < fpat.nth; ith++ ) */
+  } /* for( iph = 0; iph < fpat.nph; iph++ ) */
+
+  /* Express each ratio in dB; an unfound rear sample propagates NAN */
+  for( pol = 0; pol < NUM_POL; pol++ )
+  {
+    rad_pattern[fstep].fr_ratio[pol].az_db =
+      rad_pattern[fstep].max_gain[pol] - scan[pol].best_az_db;
+    rad_pattern[fstep].fr_ratio[pol].sphere_db =
+      rad_pattern[fstep].max_gain[pol] - scan[pol].best_sphere_db;
+  }
+
+} /* rdpat_fr_ratios() */
+
+/*-----------------------------------------------------------------------*/
+
 /* compute radiation pattern, gain, normalized gain */
   void
 rdpat( void )
@@ -750,6 +853,8 @@ rdpat( void )
     rad_pattern[fstep].min_gain_idx[pol] = 0;
     rad_pattern[fstep].max_gain_tht[pol] = 0;
     rad_pattern[fstep].max_gain_phi[pol] = 0;
+    rad_pattern[fstep].fr_ratio[pol] =
+      (fr_ratio_t){ .az_db = NAN, .sphere_db = NAN };
   }
 
   /* Initialize for average power gain calculation */
@@ -937,6 +1042,8 @@ rdpat( void )
 
     } /* for( kth = 1; kth <= fpat.nth; kth++ ) */
   } /* for( kph = 1; kph <= fpat.nph; kph++ ) */
+
+  rdpat_fr_ratios( fstep );
 
   /* Output average gain ratio: normalize by accumulated solid angle */
   if( fpat.iavp && total_omega > 1.0e-20 )

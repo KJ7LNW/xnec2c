@@ -140,7 +140,17 @@ typedef struct
   int     meas_idx; /* index into measurement_t.a[] */
 } fp_meas_column_t;
 
+/* Second trace of the Gain panel, resolved from the trace selectors. */
+typedef enum
+{
+  FP_GAIN_TRACE_FB,
+  FP_GAIN_TRACE_FR,
+  FP_GAIN_TRACE_NET,
+  FP_GAIN_TRACE_COUNT,
+} fp_gain_trace_t;
+
 /* Dispatch-core helpers shared by every plot type (freqplots_core.c) */
+gboolean fp_value_unavailable(double val, double invalid_min);
 void fp_fill_meas_columns(fp_plot_ctx_t *ctx,
     const fp_meas_column_t *cols, int ncols);
 void fp_plot_panel(fp_plot_ctx_t *ctx,
@@ -155,6 +165,7 @@ int fp_panel_available(fp_panel_t panel);
  * render pass.  Defined one type per file (freqplots_<type>.c). */
 int      fp_gain_enabled(void);
 gboolean fp_gain_render(fp_plot_ctx_t *ctx);
+fp_gain_trace_t fp_gain_second_trace(void);
 int      fp_viewer_enabled(void);
 gboolean fp_viewer_render(fp_plot_ctx_t *ctx);
 int      fp_vswr_enabled(void);

@@ -468,6 +468,8 @@ const char *meas_names[] = {
 	[MEAS_ANT_TEMP_TOT]   =  "ant_temp_tot",
 	[MEAS_GT]              =  "gt",
 	[MEAS_PRECISION_LOST]  =  "precision_lost",
+	[MEAS_FR_RATIO_AZ]     =  "fr_ratio_az",
+	[MEAS_FR_RATIO_SPHERE] =  "fr_ratio_sphere",
 	[MEAS_COUNT]            =  NULL
 };
 
@@ -499,6 +501,8 @@ const char *meas_display_names[] = {
 	[MEAS_ANT_TEMP_TOT]   =  "TA",
 	[MEAS_GT]              =  "G/Ta",
 	[MEAS_PRECISION_LOST]  =  N_("Precision Lost"),
+	[MEAS_FR_RATIO_AZ]     =  N_("F/R Ratio Azimuth"),
+	[MEAS_FR_RATIO_SPHERE] =  N_("F/R Ratio 3D"),
 	[MEAS_COUNT]            =  NULL
 };
 
@@ -530,6 +534,8 @@ const char *meas_descriptions[] = {
 	[MEAS_ANT_TEMP_TOT]   =  "Total system noise temperature TA including ohmic loss (K)",
 	[MEAS_GT]              =  "Gain-to-antenna-temperature ratio (dB), excludes loss",
 	[MEAS_PRECISION_LOST]  =  "Decimal digits of precision lost solving the antenna",
+	[MEAS_FR_RATIO_AZ]     =  "Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees azimuth",
+	[MEAS_FR_RATIO_SPHERE] =  "Front-to-rear ratio in dB over every direction behind the peak-gain direction",
 	[MEAS_COUNT]            =  NULL
 };
 
@@ -550,6 +556,9 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 	// calculated due to NEC state or card configuration:
 	for (i = 0; i < MEAS_COUNT; i++)
 		m->a[i] = -1;
+
+	/* Ratios span every dB value, so an unsampled rear region reads NAN */
+	m->fr_ratio_az = m->fr_ratio_sphere = NAN;
 
 	m->mhz = save.freq[idx];
 
@@ -771,6 +780,10 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 		m->fb_ratio /= pow(10.0, Polarized_Gain(pol, idx, fbidx) / 10.0);
 		m->fb_ratio = 10.0 * log10(m->fb_ratio);
 	}
+
+	/* Front-to-rear ratios, scanned in the child after the grid completes */
+	m->fr_ratio_az     = rad_pattern[idx].fr_ratio[pol].az_db;
+	m->fr_ratio_sphere = rad_pattern[idx].fr_ratio[pol].sphere_db;
 
 }
 

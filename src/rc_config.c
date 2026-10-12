@@ -775,6 +775,11 @@ rc_config_vars_t rc_config_vars[] = {
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
 			"freqplots_net_gain", &hook_freqplots_net_gain_refresh ) },
 
+	{ .desc = "Frequency Plots Window F/R Ratio checkbutton state", .format = "%d",
+		.vars = { &rc_config.freqplots_fr_ratio },
+		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,
+			"freqplots_fr_ratio", &hook_freqplots_redraw_refresh ) },
+
 	{ .desc = "Frequency Plots Window Min/Max checkbutton state", .format = "%d",
 		.vars = { &rc_config.freqplots_min_max },
 		.widgets = CONFIG_WIDGET_SINGLE( &freqplots_window_builder,

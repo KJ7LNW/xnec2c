@@ -385,6 +385,7 @@ typedef struct
     freqplots_s11,
     freqplots_clamp_vswr,
     freqplots_net_gain,
+    freqplots_fr_ratio,
     freqplots_swap_click;
 
   /* Frequency plots color theme base name and inversion toggle; the composed
@@ -1313,6 +1314,16 @@ typedef struct
   complex double eph;   /* E(phi)   */
 } ff_phasor_t;
 
+/* Front-to-rear ratios for one polarization, dB above the strongest rear
+ * sample; NAN when the pattern grid samples no direction in the region.
+ * az_db scans the maximum-gain theta row beyond 90 degrees of azimuth;
+ * sphere_db scans every direction on the far side of the maximum. */
+typedef struct
+{
+  double az_db;
+  double sphere_db;
+} fr_ratio_t;
+
 /* Radiation pattern data */
 typedef struct
 {
@@ -1330,6 +1341,9 @@ typedef struct
 
   double
     efficiency;     /* Radiation efficiency = prad / pinr, per freq step */
+
+  fr_ratio_t
+    fr_ratio[NUM_POL]; /* Front-to-rear ratios for each polarization type */
 
   double
     noise_scaled_max,  /* True max of Scale_Gain in noise mode (K/sr) */

@@ -265,6 +265,16 @@ const meas_fitness_default_t meas_fitness_defaults[MEAS_COUNT] =
 	{
 		.goal_ineligible = true,
 	},
+
+	[MEAS_FR_RATIO_AZ] =
+	{
+		.goal_ineligible = true,
+	},
+
+	[MEAS_FR_RATIO_SPHERE] =
+	{
+		.goal_ineligible = true,
+	},
 };
 
 /*------------------------------------------------------------------------*/
