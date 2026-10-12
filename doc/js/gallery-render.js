@@ -46,7 +46,7 @@ function create_gallery_renderer(manifest, state, view, gallery_data) {
     }
     deck_request = GALLERY_DECK_REQUESTED;
     const script = document.createElement("script");
-    script.src = "images/gallery/decks.js";
+    script.src = gallery_data.gallery_deck_bundle_source();
     script.addEventListener("load", handle_deck_load);
     script.addEventListener("error", handle_deck_error);
     document.head.appendChild(script);

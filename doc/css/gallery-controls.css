@@ -28,6 +28,7 @@
 }
 
 .gallery-header button,
+.gallery-axis-bar button,
 .gallery-nav button {
   color: inherit;
   background: var(--color-base-200);
@@ -39,7 +40,8 @@
   color: inherit;
 }
 
-.gallery-header button {
+.gallery-header button,
+.gallery-axis-bar button {
   padding: 0.3rem 0.7rem;
 }
 
@@ -53,7 +55,7 @@
   line-height: 1;
 }
 
-.gallery-header .gallery-axis-active,
+.gallery-axis-bar .gallery-axis-active,
 .gallery-header .gallery-toggle-active,
 .gallery-pane .gallery-pane-current {
   color: var(--color-primary-content);
@@ -61,7 +63,7 @@
   background: var(--color-primary);
 }
 
-.gallery-header .gallery-axis-active,
+.gallery-axis-bar .gallery-axis-active,
 .gallery-header .gallery-toggle-active {
   border-color: var(--color-primary);
 }

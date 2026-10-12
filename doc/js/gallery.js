@@ -38,6 +38,7 @@ const GALLERY_DATA = Object.freeze({
   find_gallery_image,
   gallery_image_source,
   gallery_thumb_source,
+  gallery_deck_bundle_source,
   gallery_image_subject,
 });
 
@@ -73,6 +74,11 @@ function gallery_image_source(image) {
 /** Derive a gallery thumbnail source from its manifest record. */
 function gallery_thumb_source(image) {
   return GALLERY_IMAGE_ROOT + image.thumb;
+}
+
+/** Derive the source of the bundled deck texts beside the gallery images. */
+function gallery_deck_bundle_source() {
+  return GALLERY_IMAGE_ROOT + "decks.js";
 }
 
 /** Report whether the viewport is narrow enough to default the example pane collapsed. */
@@ -183,11 +189,12 @@ function build_gallery(manifest) {
     renderer.render_gallery();
   }
 
-  /** Open the zoom surface around the shared navigation controls. */
+  /** Open the zoom surface around the shared navigation and view controls. */
   function open_zoom() {
     state.zoom_open = true;
     view.zoom.insertBefore(view.previous_chevron, view.zoom_image);
     view.zoom.appendChild(view.next_chevron);
+    view.zoom.prepend(view.axis_bar);
     renderer.render_gallery();
     warm.refresh();
     view.zoom_close.focus();
@@ -198,6 +205,7 @@ function build_gallery(manifest) {
     state.zoom_open = false;
     view.stage.insertBefore(view.previous_chevron, view.image_button);
     view.stage.insertBefore(view.next_chevron, view.source_panel);
+    view.source_button.before(view.axis_bar);
     renderer.render_gallery();
     warm.refresh();
     view.image_button.focus();

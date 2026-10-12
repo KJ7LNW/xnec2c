@@ -37,6 +37,21 @@
   opacity: 1;
 }
 
+.gallery-zoom .gallery-axis-bar {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  z-index: 2;
+  padding: 0.25rem 0.5rem;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0.25rem;
+  transform: translateX(-50%);
+}
+
+.gallery-zoom .gallery-axis-label {
+  color: var(--color-primary-content);
+}
+
 .gallery-zoom-caption {
   position: absolute;
   bottom: 1rem;
