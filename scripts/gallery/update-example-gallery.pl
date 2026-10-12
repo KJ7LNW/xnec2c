@@ -447,6 +447,9 @@ sub cpu_count
 sub recompress_png
 {
 	my ($pngquant, $png_path) = @_;
+	if (!defined $pngquant) {
+		return;
+	}
 	my @stat = stat $png_path;
 	if (!@stat) {
 		return;
@@ -527,13 +530,26 @@ sub spawn_recompressor
 	}
 }
 
-# Write one downscaled lossless WebP thumbnail; return true when convert
-# succeeds and the thumbnail is non-empty.
+# Write one downscaled thumbnail: scale into a temporary PNG, recompress it with
+# pngquant, then encode it as lossless WebP. Return true when both conversions
+# succeed and the thumbnail is non-empty.
 sub write_thumbnail
 {
-	my ($convert, $full_path, $thumb_path) = @_;
-	my $status = system($convert, $full_path, '-resize', THUMB_SCALE,
-		'-define', 'webp:lossless=true', '-define', 'webp:method=6', $thumb_path);
+	my ($convert, $pngquant, $full_path, $thumb_path) = @_;
+	my ($scaled_fh, $scaled_path) = tempfile('.thumbnail-XXXXXX',
+		DIR => dirname($thumb_path), SUFFIX => '.png', UNLINK => 1);
+	close $scaled_fh;
+
+	my $status = system($convert, $full_path, '-resize', THUMB_SCALE, $scaled_path);
+	if ($status == 0) {
+		recompress_png($pngquant, $scaled_path);
+		$status = system($convert, $scaled_path,
+			'-define', 'webp:lossless=true', '-define', 'webp:method=6', $thumb_path);
+	}
+	else {
+		warn "warning: convert could not scale $full_path\n";
+	}
+	unlink $scaled_path;
 
 	return (($status == 0) && (-s $thumb_path)) ? 1 : 0;
 }
@@ -643,7 +659,7 @@ sub render_gallery
 			print "FAILED\n";
 			$fail++;
 		}
-		elsif (grep { !write_thumbnail($convert, $_->{full}, $_->{thumb}) }
+		elsif (grep { !write_thumbnail($convert, $pngquant, $_->{full}, $_->{thumb}) }
 			@{ $item->{image_files} })
 		{
 			print "FAILED (thumbnail)\n";
