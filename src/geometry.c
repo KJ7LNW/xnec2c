@@ -1471,59 +1471,51 @@ verify_self_connections(void)
   return retval;
 }
 
-/* Check for segments that are too close or overlapping */
+/* Check for segment pairs sharing both endpoints, in either orientation */
 static gboolean
-verify_segment_overlaps(void)
+verify_coincident_segments(void)
 {
   gboolean retval = TRUE;
   for (int i = 0; i < data.n; i++) {
-    for (int j = 0; j < data.n; j++) {
-      if (i == j) continue;
-      
-      /* Check if segments connect at endpoints */
-      double slen = calc_connection_threshold(data.segments[i].x1,
-                                              data.segments[i].y1,
-                                              data.segments[i].z1,
-                                              data.segments[i].x2,
-                                              data.segments[i].y2,
-                                              data.segments[i].z2);
-      if (points_would_connect(data.segments[i].x1, data.segments[i].y1, data.segments[i].z1,
-                               data.segments[j].x1, data.segments[j].y1, data.segments[j].z1, slen) ||
-          points_would_connect(data.segments[i].x1, data.segments[i].y1, data.segments[i].z1,
-                               data.segments[j].x2, data.segments[j].y2, data.segments[j].z2, slen) ||
-          points_would_connect(data.segments[i].x2, data.segments[i].y2, data.segments[i].z2,
-                               data.segments[j].x1, data.segments[j].y1, data.segments[j].z1, slen) ||
-          points_would_connect(data.segments[i].x2, data.segments[i].y2, data.segments[i].z2,
-                               data.segments[j].x2, data.segments[j].y2, data.segments[j].z2, slen)) {
-        continue;
-      }
+    double slen = calc_connection_threshold(data.segments[i].x1,
+                                            data.segments[i].y1,
+                                            data.segments[i].z1,
+                                            data.segments[i].x2,
+                                            data.segments[i].y2,
+                                            data.segments[i].z2);
 
-      /* Check if segments are too close along their length */
-      double dx = data.segments[j].x1 - data.segments[i].x1;
-      double dy = data.segments[j].y1 - data.segments[i].y1;
-      double dz = data.segments[j].z1 - data.segments[i].z1;
-      double mid_dist = sqrt(dx*dx + dy*dy + dz*dz);
-      if (mid_dist <= SMIN * mid_dist * 2) {
-        static int last_tag = -1;
-        static int msg_count = 0;
-        if (data.segments[i].itag != last_tag) {
-          last_tag = data.segments[i].itag;
-          msg_count = 0;
-        }
-          if (msg_count < 3) {
-            pr_warn("tag=%d/seg=%d: distance=%.3e to tag=%d/seg=%d closer than 2x connection threshold %.3e; unintended connections possible\n",
-              data.segments[i].itag, i+1, mid_dist, data.segments[j].itag,
-              j+1, SMIN * mid_dist * 2);
-            msg_count++;
-          }
-          else if (msg_count == 3) {
-            pr_warn("tag=%d: suppressing additional overlap warnings\n",
-                    data.segments[i].itag);
-            msg_count++;
-          }
-        retval = FALSE;
-        break;
+    /* Visit each pair once, from its lower segment */
+    for (int j = i + 1; j < data.n; j++) {
+      gboolean same_ends =
+        points_would_connect(data.segments[i].x1, data.segments[i].y1, data.segments[i].z1,
+                             data.segments[j].x1, data.segments[j].y1, data.segments[j].z1, slen) &&
+        points_would_connect(data.segments[i].x2, data.segments[i].y2, data.segments[i].z2,
+                             data.segments[j].x2, data.segments[j].y2, data.segments[j].z2, slen);
+      gboolean reversed_ends =
+        points_would_connect(data.segments[i].x1, data.segments[i].y1, data.segments[i].z1,
+                             data.segments[j].x2, data.segments[j].y2, data.segments[j].z2, slen) &&
+        points_would_connect(data.segments[i].x2, data.segments[i].y2, data.segments[i].z2,
+                             data.segments[j].x1, data.segments[j].y1, data.segments[j].z1, slen);
+      if (!same_ends && !reversed_ends)
+        continue;
+
+      static int last_tag = -1;
+      static int msg_count = 0;
+      if (data.segments[i].itag != last_tag) {
+        last_tag = data.segments[i].itag;
+        msg_count = 0;
       }
+      if (msg_count < 3) {
+        pr_warn("tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the currents of coincident segments\n",
+          data.segments[i].itag, i+1, data.segments[j].itag, j+1);
+        msg_count++;
+      }
+      else if (msg_count == 3) {
+        pr_warn("tag=%d: suppressing additional coincident segment warnings\n",
+                data.segments[i].itag);
+        msg_count++;
+      }
+      retval = FALSE;
     }
   }
   return retval;
@@ -1786,7 +1778,7 @@ verify_kernel_limits(void)
     if (data.n > SEGMENT_OVERLAP_THRESHOLD && rc_config.force_verify_segments) {
       pr_info("Forcing overlap check for %d segments\n", data.n);
     }
-    retval &= verify_segment_overlaps();
+    retval &= verify_coincident_segments();
   }
 
   retval &= verify_relative_lengths();

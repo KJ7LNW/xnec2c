@@ -1352,8 +1352,10 @@ sphere, giving the share of input power radiated into the covered directions.
 It reads 100% for a lossless model with complete coverage in every
 environment:</p>
 <ul>
-<li>Above 100%: a model error, always. The model radiates more power than it
-receives.</li>
+<li>Above 100%: a model error, or an <code class="nec-card">RP</code> card
+sampling some directions twice, with θ spanning more than 180° or φ more than
+360°. With neither overlap, the model radiates more power than it receives.
+Xnec2c prints a console warning for this case.</li>
 <li>At 100%: the model conserves power.</li>
 <li>Below 100%: loss from <code class="nec-card">LD</code> cards or ground,
 coverage missing directions the antenna radiates into, or a model error.</li>
@@ -1409,7 +1411,7 @@ departs from 100% while its precision loss stays low.</p>
 <h4 id="CommonDefects">Common Defects</h4>
 <p>Xnec2c checks the geometry when it loads a file and reports each violation
 on the console. <code>--skip-verify</code> turns these checks off, and models
-over 1000 segments omit the overlap check unless <code>--force-verify</code> is
+over 1000 segments omit the coincident-wire check unless <code>--force-verify</code> is
 given.</p>
 <table>
 <thead>
@@ -1420,16 +1422,14 @@ given.</p>
 <tr><td>Short segment for the wavelength</td><td>length below 0.001&nbsp;λ</td><td>merge segments</td></tr>
 <tr><td>Short segment for the radius</td><td>length/radius below 8, error below 2; with the extended kernel below 2, error below 0.5</td><td>longer segments, thinner wire, or the extended kernel</td></tr>
 <tr><td>Abrupt length change</td><td>a segment shorter than 1% of a segment it touches</td><td>grade segment lengths toward the junction</td></tr>
+<tr><td>Coincident wires</td><td>two segments share both endpoints, in either order</td><td>delete the duplicate wire</td></tr>
 </tbody>
 </table>
-<p>Two defects pass these checks and need inspection by eye:</p>
-<ul>
-<li>Coincident wires: the same wire entered twice, in either direction. NEC2
-cannot separate the currents of two wires occupying the same place.</li>
-<li>A feed at a crowded junction: an <code class="nec-card">EX</code> segment
-touching a junction of many wires. Move the feed one segment along its
-wire.</li>
-</ul>
+<p>NEC2 cannot separate the currents of two wires occupying the same place,
+which is why coincident wires corrupt every result.</p>
+<p>A feed at a crowded junction passes these checks and needs inspection by
+eye: an <code class="nec-card">EX</code> segment touching a junction of many
+wires. Move the feed one segment along its wire.</p>
 
 <h4 id="ValidationExample">Example</h4>
 <p><span class="filepath">examples/airplane.nec</span> models a jet with a
@@ -1528,7 +1528,7 @@ xnec2c.</p>
   <dd>Skip geometry verification checks.</dd>
 
   <dt><code>--force-verify</code></dt>
-  <dd>Force overlap check on large models (models with more than 1000 segments).</dd>
+  <dd>Force the coincident-wire check on large models (models with more than 1000 segments).</dd>
 
   <dt><code>--mem-report</code></dt>
   <dd>Report managed-allocator live bytes per call site after each optimizer evaluation.</dd>

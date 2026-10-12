@@ -1087,10 +1087,11 @@ rdpat( void )
     double expected_gain = (4.0 * M_PI) / total_omega;
     double efficiency_pct = agt_efficiency( &rad_pattern[fstep].agt );
 
-    /* Warn if gain exceeds expected: indicates RP theta/phi range issue */
+    /* Warn if gain exceeds expected: indicates RP theta/phi ranges sampling
+     * directions twice, or a geometry modeling error */
     if( pint > expected_gain * 1.01 )
     {
-      pr_warn(_("Average gain %.4f exceeds expected %.4f; check RP theta/phi ranges\n"),
+      pr_warn(_("Average gain %.4f exceeds expected %.4f; check RP theta/phi ranges or model geometry\n"),
           pint, expected_gain);
     }
 
