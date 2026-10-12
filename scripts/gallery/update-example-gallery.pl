@@ -94,11 +94,11 @@ sub freqplots_image_path
 	return "$name/$name-" . FREQPLOTS_FORMAT . '.png';
 }
 
-# Derive a thumbnail path beside its full-size image path.
+# Derive a WebP thumbnail path beside its full-size PNG image path.
 sub thumb_image_path
 {
 	my ($path) = @_;
-	(my $thumb = $path) =~ s/\.png\z/-thumb.png/;
+	(my $thumb = $path) =~ s/\.png\z/-thumb.webp/;
 
 	return $thumb;
 }
@@ -527,12 +527,13 @@ sub spawn_recompressor
 	}
 }
 
-# Write one downscaled thumbnail; return true when convert succeeds and the
-# thumbnail is non-empty.
+# Write one downscaled lossless WebP thumbnail; return true when convert
+# succeeds and the thumbnail is non-empty.
 sub write_thumbnail
 {
 	my ($convert, $full_path, $thumb_path) = @_;
-	my $status = system($convert, $full_path, '-resize', THUMB_SCALE, $thumb_path);
+	my $status = system($convert, $full_path, '-resize', THUMB_SCALE,
+		'-define', 'webp:lossless=true', '-define', 'webp:method=6', $thumb_path);
 
 	return (($status == 0) && (-s $thumb_path)) ? 1 : 0;
 }
@@ -659,7 +660,7 @@ sub render_gallery
 			push @entries,
 				{ deck => $item->{deck}, images => $item->{images}, name => $item->{name} };
 			spawn_recompressor(\%recompress_pids, $cpu_limit, $pngquant,
-				[ map { values %{$_} } @{ $item->{image_files} } ]);
+				[ map { $_->{full} } @{ $item->{image_files} } ]);
 		}
 	}
 
