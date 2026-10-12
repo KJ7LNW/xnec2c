@@ -27,6 +27,11 @@ function create_gallery_renderer(manifest, state, view, gallery_data) {
     render_surface_source(zoom_surface, gallery_data.gallery_image_source(image));
   }
 
+  /** Mark the zoom surface loading while its full-size image is in flight. */
+  function render_zoom_loading() {
+    view.zoom.classList.toggle("gallery-zoom-loading", !view.zoom_image.complete);
+  }
+
   /** Repaint after the deck bundle loads. */
   function handle_deck_load() {
     deck_request = GALLERY_DECK_REQUESTED;
@@ -127,8 +132,11 @@ function create_gallery_renderer(manifest, state, view, gallery_data) {
     view.zoom.classList.toggle("gallery-zoom-open", state.zoom_open);
     view.zoom.setAttribute("aria-hidden", String(!state.zoom_open));
     view.zoom_image.classList.toggle("gallery-zoom-magnified", state.zoom_magnified);
+    render_zoom_loading();
   }
 
+  view.zoom_image.addEventListener("load", render_zoom_loading);
+  view.zoom_image.addEventListener("error", render_zoom_loading);
   return { render_gallery, request_decks };
 }
 
