@@ -138,8 +138,8 @@ ff_presentation_recompute(int fstep)
       if( ff_rotation_tilted(&fp->rotation) )
       {
         /* Reconstruct angles from integer step to avoid accumulation drift */
-        double theta_r = (fpat.thets + nth * fpat.dth) * (double)TORAD;
-        double phi_r   = (fpat.phis  + nph * fpat.dph) * (double)TORAD;
+        double theta_r = fpat_cell_theta(nth) * (double)TORAD;
+        double phi_r   = fpat_cell_phi(nph) * (double)TORAD;
         double xr, yr, zr;
         ant_temp_rotate_point(theta_r, phi_r,
             fp->rotation.axis_phi, fp->rotation.angle,

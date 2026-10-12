@@ -163,8 +163,8 @@ Scale_Gain_Resolved(double gain, int fstep, int idx,
       {
         int ith = idx % fpat.nth;
         int iph = idx / fpat.nth;
-        double tht = (fpat.thets + ith * fpat.dth) * M_PI / 180.0;
-        double phi = (fpat.phis  + iph * fpat.dph) * M_PI / 180.0;
+        double tht = fpat_cell_theta(ith) * M_PI / 180.0;
+        double phi = fpat_cell_phi(iph) * M_PI / 180.0;
 
         int pol = calc_data.pol_type;
         double tht_mg  = rad_pattern[fstep].max_gain_tht[pol] * M_PI / 180.0;
@@ -821,7 +821,7 @@ Viewer_Gain( view_t *v, int fstep )
 
   nth = fpat_theta_cell( theta );
   nph = fpat_phi_cell( phi );
-  idx = nth + nph * fpat.nth;
+  idx = fpat_cell_index( nth, nph );
   gain = Polarized_Gain(calc_data.pol_type, fstep, idx);
 
   return( gain );
@@ -1203,7 +1203,7 @@ Viewer_Noise_Value(view_t *v, int fstep)
 	/* Snap to pattern grid */
 	nth = fpat_theta_cell(theta_deg);
 	nph = fpat_phi_cell(phi_deg);
-	idx = nth + nph * fpat.nth;
+	idx = fpat_cell_index(nth, nph);
 	double gain = Polarized_Gain(pol, fstep, idx);
 
 	return Inverse_Scale_Gain(Scale_Gain(gain, fstep, idx));

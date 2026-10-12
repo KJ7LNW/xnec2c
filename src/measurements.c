@@ -712,11 +712,11 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 
 			for (int iph = 0; iph < fpat.nph; iph++)
 			{
-				double phi_rad = (fpat.phis + iph * fpat.dph) * M_PI / 180.0;
+				double phi_rad = fpat_cell_phi(iph) * M_PI / 180.0;
 				for (int ith = 0; ith < fpat.nth; ith++)
 				{
-					int cell = ith + iph * fpat.nth;
-					double tht_rad = (fpat.thets + ith * fpat.dth) * M_PI / 180.0;
+					int cell = fpat_cell_index(ith, iph);
+					double tht_rad = fpat_cell_theta(ith) * M_PI / 180.0;
 					double z_w = ant_temp_z_world(tht_rad, phi_rad,
 							tht_mg, phi_mg, elev_rad);
 					double g_dbi = Polarized_Gain(pol, idx, cell);
@@ -765,7 +765,7 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 
 		nth = fpat_theta_cell(back_tht);
 		nph = fpat_phi_cell(m->gain_max_phi + 180.0);
-		fbidx = nth + nph * fpat.nth;
+		fbidx = fpat_cell_index(nth, nph);
 
 		m->fb_ratio = pow(10.0, m->gain_max / 10.0);
 		m->fb_ratio /= pow(10.0, Polarized_Gain(pol, idx, fbidx) / 10.0);

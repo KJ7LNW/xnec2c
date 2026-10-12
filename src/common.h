@@ -876,6 +876,15 @@ int fpat_theta_cell(double theta_deg);
    dph == 0 selects the single sample, cell 0. Rounds, clamps to [0, nph). */
 int fpat_phi_cell(double phi_deg);
 
+/* Flat pattern-grid index of theta cell ith and phi cell iph, theta fastest. */
+int fpat_cell_index(int ith, int iph);
+
+/* Theta angle in degrees of theta cell ith. */
+double fpat_cell_theta(int ith);
+
+/* Phi angle in degrees of phi cell iph. */
+double fpat_cell_phi(int iph);
+
 /*common  /ggrid/ */
 typedef struct
 {

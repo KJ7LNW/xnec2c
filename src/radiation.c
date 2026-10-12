@@ -90,6 +90,49 @@ fpat_phi_cell( double phi_deg )
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * fpat_cell_index() - Flat pattern-grid index of a theta-phi cell
+ * @ith: theta cell, 0 to fpat.nth - 1
+ * @iph: phi cell, 0 to fpat.nph - 1
+ *
+ * Return: the index into per-cell pattern arrays, theta varying fastest.
+ */
+  int
+fpat_cell_index( int ith, int iph )
+{
+  return( ith + iph * fpat.nth );
+}
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * fpat_cell_theta() - Theta angle of a pattern-grid row
+ * @ith: theta cell, 0 to fpat.nth - 1
+ *
+ * Return: the theta angle in degrees.
+ */
+  double
+fpat_cell_theta( int ith )
+{
+  return( fpat.thets + ith * fpat.dth );
+}
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * fpat_cell_phi() - Phi angle of a pattern-grid column
+ * @iph: phi cell, 0 to fpat.nph - 1
+ *
+ * Return: the phi angle in degrees.
+ */
+  double
+fpat_cell_phi( int iph )
+{
+  return( fpat.phis + iph * fpat.dph );
+}
+
+/*-----------------------------------------------------------------------*/
+
 /* calculates the xyz components of the electric */
 /* field due to surface currents */
 static void

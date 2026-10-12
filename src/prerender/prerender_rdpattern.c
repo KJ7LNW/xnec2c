@@ -141,7 +141,7 @@ compute_trig_tables(void)
 
   for( i = 0; i < fpat.nth; i++ )
   {
-    double tht = ((double)fpat.thets + (double)i * (double)fpat.dth) * (double)TORAD;
+    double tht = fpat_cell_theta(i) * (double)TORAD;
     geom_pre.sin_theta[i] = sin(tht);
     geom_pre.cos_theta[i] = cos(tht);
     geom_pre.solid_angle[i] = fabs(sin(tht)) * dth_rad * dph_rad;
@@ -149,7 +149,7 @@ compute_trig_tables(void)
 
   for( i = 0; i < fpat.nph; i++ )
   {
-    double phi = ((double)fpat.phis + (double)i * (double)fpat.dph) * (double)TORAD;
+    double phi = fpat_cell_phi(i) * (double)TORAD;
     geom_pre.sin_phi[i] = sin(phi);
     geom_pre.cos_phi[i] = cos(phi);
   }
