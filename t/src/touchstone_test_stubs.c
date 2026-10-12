@@ -53,6 +53,41 @@ fpat_phi_cell(double phi_deg)
 	return 0;
 }
 
+/* Grid accessors return the cells of the synthetic grid setup_globals()
+ * lays out, matching the radiation.c accessors they stand in for. */
+int
+fpat_cell_index(int ith, int iph)
+{
+	return ith + iph * fpat.nth;
+}
+
+double
+fpat_cell_theta(int ith)
+{
+	return fpat.thets + ith * fpat.dth;
+}
+
+double
+fpat_cell_phi(int iph)
+{
+	return fpat.phis + iph * fpat.dph;
+}
+
+/* No Touchstone column reads average gain, so the test leaves it unmeasured. */
+double
+agt_coverage(const agt_result_t *agt)
+{
+	(void)agt;
+	return NAN;
+}
+
+double
+agt_efficiency(const agt_result_t *agt)
+{
+	(void)agt;
+	return NAN;
+}
+
 /* Total polarization applies no correction to the stored gain, so the
  * test controls gain entirely through rad_pattern gtot. */
 double

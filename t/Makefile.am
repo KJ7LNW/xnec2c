@@ -1,8 +1,8 @@
 # Test suite for xnec2c
 # Defines unit tests for symbol expression evaluation
 
-check_PROGRAMS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test bin/touchstone_test
-TESTS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test bin/touchstone_test mem_array_void_test.sh
+check_PROGRAMS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test bin/touchstone_test bin/geometry_verify_test
+TESTS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test bin/touchstone_test bin/geometry_verify_test mem_array_void_test.sh
 
 bin_sy_expr_test_SOURCES = src/sy_expr_test.c \
 	src/test_stubs.c \
@@ -130,6 +130,21 @@ bin_touchstone_test_SOURCES = src/touchstone_test.c \
 	$(top_srcdir)/src/mem/mem_track.c
 bin_touchstone_test_CPPFLAGS = -I$(top_srcdir)/src $(GTK_CFLAGS) $(GMODULE_CFLAGS)
 bin_touchstone_test_LDADD = $(GTK_LIBS) $(GMODULE_LIBS) -lm
+
+# Geometry verification test drives verify_segments() over two-wire layouts
+# whose end gap straddles the connection threshold and the near-miss window.
+# Links geometry.c with only the globals, console, and memory sources it
+# uses; the integration stubs supply Stop() and the backtrace hooks.
+bin_geometry_verify_test_SOURCES = src/geometry_verify_test.c \
+	src/integration_test_stubs.c \
+	$(top_srcdir)/src/geometry.c \
+	$(top_srcdir)/src/geometry.h \
+	$(top_srcdir)/src/shared.c \
+	$(top_srcdir)/src/console.c \
+	$(top_srcdir)/src/mem/mem.c \
+	$(top_srcdir)/src/mem/mem_track.c
+bin_geometry_verify_test_CPPFLAGS = -I$(top_srcdir)/src $(GTK_CFLAGS) $(GMODULE_CFLAGS)
+bin_geometry_verify_test_LDADD = $(GTK_LIBS) $(GMODULE_LIBS) -lm
 
 AM_TESTS_ENVIRONMENT = CC='$(CC)'; export CC;
 

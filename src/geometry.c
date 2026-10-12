@@ -68,13 +68,34 @@ calc_connection_threshold(double x1, double y1, double z1,
   return sqrt(dx*dx + dy*dy + dz*dz) * SMIN;
 }
 
+/* Check if a gap between two segment ends is small enough to connect */
+static inline gboolean
+gap_would_connect(double gap, double threshold)
+{
+  return gap <= threshold;
+}
+
 /* Check if two points are close enough to connect */
 static inline gboolean
 points_would_connect(double x1, double y1, double z1,
                     double x2, double y2, double z2,
                     double threshold)
 {
-  return calc_manhattan_distance(x1, y1, z1, x2, y2, z2) <= threshold;
+  return gap_would_connect(calc_manhattan_distance(x1, y1, z1, x2, y2, z2), threshold);
+}
+
+/* Calculate the smallest Manhattan distance between an end of one segment and an end of another */
+static inline double
+calc_closest_end_gap(const wire_segment_t *seg_a, const wire_segment_t *seg_b)
+{
+  return fmin(fmin(calc_manhattan_distance(seg_a->x1, seg_a->y1, seg_a->z1,
+                                           seg_b->x1, seg_b->y1, seg_b->z1),
+                   calc_manhattan_distance(seg_a->x1, seg_a->y1, seg_a->z1,
+                                           seg_b->x2, seg_b->y2, seg_b->z2)),
+              fmin(calc_manhattan_distance(seg_a->x2, seg_a->y2, seg_a->z2,
+                                           seg_b->x1, seg_b->y1, seg_b->z1),
+                   calc_manhattan_distance(seg_a->x2, seg_a->y2, seg_a->z2,
+                                           seg_b->x2, seg_b->y2, seg_b->z2)));
 }
 
 /*-------------------------------------------------------------------*/
@@ -1521,6 +1542,57 @@ verify_coincident_segments(void)
   return retval;
 }
 
+/* Check for segment pairs whose closest ends lie beyond the connection threshold, inside the near-miss window */
+static gboolean
+verify_near_miss_junctions(void)
+{
+  gboolean retval = TRUE;
+  for (int i = 0; i < data.n; i++) {
+    double slen_i = calc_connection_threshold(data.segments[i].x1,
+                                              data.segments[i].y1,
+                                              data.segments[i].z1,
+                                              data.segments[i].x2,
+                                              data.segments[i].y2,
+                                              data.segments[i].z2);
+
+    /* Visit each pair once, from its lower segment */
+    for (int j = i + 1; j < data.n; j++) {
+      double slen_j = calc_connection_threshold(data.segments[j].x1,
+                                                data.segments[j].y1,
+                                                data.segments[j].z1,
+                                                data.segments[j].x2,
+                                                data.segments[j].y2,
+                                                data.segments[j].z2);
+
+      /* Take the larger threshold, since conect() links an end from each segment whose own threshold reaches it */
+      double threshold = fmax(slen_i, slen_j);
+      double gap = calc_closest_end_gap(&data.segments[i], &data.segments[j]);
+      if (gap_would_connect(gap, threshold) || (gap > NEAR_MISS_JUNCTION_MULTIPLE * threshold))
+        continue;
+
+      static int last_tag = -1;
+      static int msg_count = 0;
+      if (data.segments[i].itag != last_tag) {
+        last_tag = data.segments[i].itag;
+        msg_count = 0;
+      }
+      if (msg_count < 3) {
+        pr_warn("tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection threshold=%.3e but within %gx of it; NEC2 leaves these ends unconnected\n",
+          data.segments[i].itag, i+1, gap, data.segments[j].itag, j+1,
+          threshold, NEAR_MISS_JUNCTION_MULTIPLE);
+        msg_count++;
+      }
+      else if (msg_count == 3) {
+        pr_warn("tag=%d: suppressing additional near-miss junction warnings\n",
+                data.segments[i].itag);
+        msg_count++;
+      }
+      retval = FALSE;
+    }
+  }
+  return retval;
+}
+
 /* Check for segments with very different lengths that could cause connection issues */
 static gboolean
 verify_relative_lengths(void)
@@ -1554,22 +1626,8 @@ verify_relative_lengths(void)
                                                   data.segments[j].z2);
         
         /* Check if any endpoint of segment i is within either threshold of any endpoint of segment j */
-        if ((calc_manhattan_distance(data.segments[i].x1, data.segments[i].y1, data.segments[i].z1,
-                                     data.segments[j].x1, data.segments[j].y1, data.segments[j].z1) <= slen_i) ||
-            (calc_manhattan_distance(data.segments[i].x1, data.segments[i].y1, data.segments[i].z1,
-                                     data.segments[j].x2, data.segments[j].y2, data.segments[j].z2) <= slen_i) ||
-            (calc_manhattan_distance(data.segments[i].x2, data.segments[i].y2, data.segments[i].z2,
-                                     data.segments[j].x1, data.segments[j].y1, data.segments[j].z1) <= slen_i) ||
-            (calc_manhattan_distance(data.segments[i].x2, data.segments[i].y2, data.segments[i].z2,
-                                     data.segments[j].x2, data.segments[j].y2, data.segments[j].z2) <= slen_i) ||
-            (calc_manhattan_distance(data.segments[i].x1, data.segments[i].y1, data.segments[i].z1,
-                                     data.segments[j].x1, data.segments[j].y1, data.segments[j].z1) <= slen_j) ||
-            (calc_manhattan_distance(data.segments[i].x1, data.segments[i].y1, data.segments[i].z1,
-                                     data.segments[j].x2, data.segments[j].y2, data.segments[j].z2) <= slen_j) ||
-            (calc_manhattan_distance(data.segments[i].x2, data.segments[i].y2, data.segments[i].z2,
-                                     data.segments[j].x1, data.segments[j].y1, data.segments[j].z1) <= slen_j) ||
-            (calc_manhattan_distance(data.segments[i].x2, data.segments[i].y2, data.segments[i].z2,
-                                     data.segments[j].x2, data.segments[j].y2, data.segments[j].z2) <= slen_j)) {
+        if (gap_would_connect(calc_closest_end_gap(&data.segments[i], &data.segments[j]),
+                              fmax(slen_i, slen_j))) {
           
           static int last_tag = -1;
           static int msg_count = 0;
@@ -1779,6 +1837,7 @@ verify_kernel_limits(void)
       pr_info("Forcing overlap check for %d segments\n", data.n);
     }
     retval &= verify_coincident_segments();
+    retval &= verify_near_miss_junctions();
   }
 
   retval &= verify_relative_lengths();

@@ -22,6 +22,9 @@
 
 #include "common.h"
 
+/* Multiple of the connection threshold bounding the near-miss junction window */
+#define NEAR_MISS_JUNCTION_MULTIPLE 10.0
+
 /* Function prototypes */
 gboolean verify_segments(void);
 

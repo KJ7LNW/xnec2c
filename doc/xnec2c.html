@@ -1411,8 +1411,8 @@ departs from 100% while its precision loss stays low.</p>
 <h4 id="CommonDefects">Common Defects</h4>
 <p>Xnec2c checks the geometry when it loads a file and reports each violation
 on the console. <code>--skip-verify</code> turns these checks off, and models
-over 1000 segments omit the coincident-wire check unless <code>--force-verify</code> is
-given.</p>
+over 1000 segments omit the coincident-wire and missed-junction checks unless
+<code>--force-verify</code> is given.</p>
 <table>
 <thead>
 <tr><th>Defect</th><th>Reported when</th><th>Remedy</th></tr>
@@ -1423,10 +1423,14 @@ given.</p>
 <tr><td>Short segment for the radius</td><td>length/radius below 8, error below 2; with the extended kernel below 2, error below 0.5</td><td>longer segments, thinner wire, or the extended kernel</td></tr>
 <tr><td>Abrupt length change</td><td>a segment shorter than 1% of a segment it touches</td><td>grade segment lengths toward the junction</td></tr>
 <tr><td>Coincident wires</td><td>two segments share both endpoints, in either order</td><td>delete the duplicate wire</td></tr>
+<tr><td>Missed junction</td><td>two wire ends lie beyond the distance at which NEC2 joins them, but within 10 times that distance</td><td>give both ends the same coordinates</td></tr>
 </tbody>
 </table>
 <p>NEC2 cannot separate the currents of two wires occupying the same place,
 which is why coincident wires corrupt every result.</p>
+<p>NEC2 joins two wire ends only when the sum of their x, y, and z offsets is
+within 0.001 times the length of either segment. Ends slightly farther apart
+stay unconnected, leaving an open circuit where the wires meet.</p>
 <p>A feed at a crowded junction passes these checks and needs inspection by
 eye: an <code class="nec-card">EX</code> segment touching a junction of many
 wires. Move the feed one segment along its wire.</p>
@@ -1528,7 +1532,7 @@ xnec2c.</p>
   <dd>Skip geometry verification checks.</dd>
 
   <dt><code>--force-verify</code></dt>
-  <dd>Force the coincident-wire check on large models (models with more than 1000 segments).</dd>
+  <dd>Force the coincident-wire and missed-junction checks on large models (models with more than 1000 segments).</dd>
 
   <dt><code>--mem-report</code></dt>
   <dd>Report managed-allocator live bytes per call site after each optimizer evaluation.</dd>
@@ -4350,6 +4354,9 @@ visualization, and internationalization support.</p>
 			<li><code>--threads</code> replaces the per-library thread
 			environment variables</li>
 			<li>Math library benchmark gains a thread-count sweep</li>
+			<li>Geometry checks report coincident wires and wire ends that
+			miss a junction by a small gap
+			(<a href="#CommonDefects">documentation</a>)</li>
 		</ul>
 	</li>
 
