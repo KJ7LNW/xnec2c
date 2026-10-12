@@ -131,15 +131,20 @@ function bind_hotkey_tooltips(bindings, tooltip) {
 /** Toggle native-pixel magnification of the zoom image on click and pan it with the mouse. */
 function bind_zoom_magnify(image, controller) {
 
-  /** Aim the magnification at a pointer position at native pixel scale. */
-  function aim_magnifier(event) {
+  /** Scale the magnification so one image pixel covers one screen pixel. */
+  function scale_to_native() {
     const fit = Math.min(
       image.clientWidth / image.naturalWidth,
       image.clientHeight / image.naturalHeight,
     );
+    image.style.setProperty("--gallery-zoom-scale", String(Math.max(1, 1 / fit)));
+  }
+
+  /** Aim the magnification at a pointer position at native pixel scale. */
+  function aim_magnifier(event) {
     const origin_x = ((event.clientX - image.offsetLeft) / image.offsetWidth) * 100;
     const origin_y = ((event.clientY - image.offsetTop) / image.offsetHeight) * 100;
-    image.style.setProperty("--gallery-zoom-scale", String(Math.max(1, 1 / fit)));
+    scale_to_native();
     image.style.transformOrigin = String(origin_x) + "% " + String(origin_y) + "%";
   }
 
@@ -158,7 +163,7 @@ function bind_zoom_magnify(image, controller) {
     aim_magnifier(event);
     controller.toggle_zoom_magnify();
   });
-  image.addEventListener("load", controller.restore_zoom_fit);
+  image.addEventListener("load", scale_to_native);
 }
 
 /** Bind gallery controls to controller operations. */

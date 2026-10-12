@@ -111,6 +111,7 @@ function build_gallery(manifest) {
     const count = manifest.examples.length;
     state.index = (state.index + delta + count) % count;
     state.preview_index = null;
+    state.zoom_magnified = false;
     state.preview_axis = null;
     renderer.render_gallery();
     warm.refresh();
@@ -129,6 +130,7 @@ function build_gallery(manifest) {
   function select_example(index) {
     state.index = index;
     state.preview_index = null;
+    state.zoom_magnified = false;
     state.preview_axis = null;
     renderer.render_gallery();
     warm.refresh();
@@ -219,15 +221,6 @@ function build_gallery(manifest) {
     renderer.render_gallery();
   }
 
-  /** Return the zoom image to its fitted view. */
-  function restore_zoom_fit() {
-    if (!state.zoom_magnified) {
-      return;
-    }
-    state.zoom_magnified = false;
-    renderer.render_gallery();
-  }
-
   /** Close the deepest open gallery surface. */
   function close_deepest_surface() {
     if (state.zoom_open) {
@@ -279,7 +272,7 @@ function build_gallery(manifest) {
     process_wheel,
     toggle_source, toggle_pane,
     open_zoom, close_zoom,
-    toggle_zoom_magnify, restore_zoom_fit,
+    toggle_zoom_magnify,
     close_deepest_surface, close_gallery,
     get_focus_surface,
   });
