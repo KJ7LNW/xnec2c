@@ -29,8 +29,9 @@
 /* freqplots_invert_item_sync()
  *
  * Match the Inverted item's sensitivity to whether base carries an inverted
- * variant; a theme without one (legacy, smith-derived) leaves the item
- * insensitive and shows an explanatory tooltip, set only in that state. */
+ * variant; a theme without one (a user theme defining no -inverted group)
+ * leaves the item insensitive and shows an explanatory tooltip, set only in
+ * that state. */
   static void
 freqplots_invert_item_sync( GtkWidget *invert, const char *base )
 {
@@ -82,6 +83,14 @@ freqplots_theme_radio_append( GtkWidget *menu, GSList **group,
 
   *group = gtk_radio_menu_item_get_group( GTK_RADIO_MENU_ITEM(item) );
 
+  /* Translate the description through the catalog po-template fills from
+   * resources/themes.ini; a user theme's own text has no catalog entry and
+   * shows as written, and a theme without one keeps no tooltip. */
+  if( e->description != NULL )
+    gtk_widget_set_tooltip_text( item, _(e->description) );
+  else
+    gtk_widget_set_tooltip_text( item, NULL );
+
   Strlcpy( candidate, e->base_name, sizeof(candidate) );
 
   gtk_widget_show( item );
@@ -97,7 +106,8 @@ freqplots_theme_radio_append( GtkWidget *menu, GSList **group,
  * glade-supplied menu.  The "Inverted" check item is an orthogonal
  * axis above one radio group of base theme names; legacy heads the list as the
  * default, user custom themes follow it, and a separator divides that top
- * group from the built-in themes in registry order.
+ * group from the built-in themes; the registry orders each partition by
+ * display name, and each row's tooltip shows its theme description.
  * The Inverted item rides the menu shell, so the theme refresh reaches it
  * without a handler of its own.  Each row shows itself, leaving the shell
  * unmapped until the button pops it up. */

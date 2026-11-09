@@ -47,30 +47,30 @@
 static const char *const theme_role_key[THEME_ROLE_N] = {
   [THEME_ROLE_BACKGROUND]       = "background",
   [THEME_ROLE_GRID]             = "grid",
-  [THEME_ROLE_GRID_PRIMARY]     = "grid_primary",
-  [THEME_ROLE_GRID_SECONDARY]   = "grid_secondary",
-  [THEME_ROLE_GRID_EMPHASIS]    = "grid_emphasis",
-  [THEME_ROLE_GRID_PERIMETER]   = "grid_perimeter",
-  [THEME_ROLE_GRID_SCALE]       = "grid_scale",
-  [THEME_ROLE_SERIES_PRIMARY]   = "series_primary",
-  [THEME_ROLE_SERIES_SECONDARY] = "series_secondary",
+  [THEME_ROLE_GRID_PRIMARY]     = "grid-primary",
+  [THEME_ROLE_GRID_SECONDARY]   = "grid-secondary",
+  [THEME_ROLE_GRID_EMPHASIS]    = "grid-emphasis",
+  [THEME_ROLE_GRID_PERIMETER]   = "grid-perimeter",
+  [THEME_ROLE_GRID_SCALE]       = "grid-scale",
+  [THEME_ROLE_SERIES_PRIMARY]   = "series-primary",
+  [THEME_ROLE_SERIES_SECONDARY] = "series-secondary",
   [THEME_ROLE_AXIS]             = "axis",
-  [THEME_ROLE_LABEL_PRIMARY]    = "label_primary",
-  [THEME_ROLE_LABEL_SECONDARY]  = "label_secondary",
-  [THEME_ROLE_LABEL_AXIS]       = "label_axis",
-  [THEME_ROLE_TEXT_PRIMARY]     = "text_primary",
-  [THEME_ROLE_TEXT_MUTED]       = "text_muted",
-  [THEME_ROLE_VIEW_AXIS]        = "view_axis",
-  [THEME_ROLE_VIEW_AXIS_LABEL]  = "view_axis_label",
-  [THEME_ROLE_MARKER_EXTREME]   = "marker_extreme",
+  [THEME_ROLE_LABEL_PRIMARY]    = "label-primary",
+  [THEME_ROLE_LABEL_SECONDARY]  = "label-secondary",
+  [THEME_ROLE_LABEL_AXIS]       = "label-axis",
+  [THEME_ROLE_TEXT_PRIMARY]     = "text-primary",
+  [THEME_ROLE_TEXT_MUTED]       = "text-muted",
+  [THEME_ROLE_VIEW_AXIS]        = "view-axis",
+  [THEME_ROLE_VIEW_AXIS_LABEL]  = "view-axis-label",
+  [THEME_ROLE_MARKER_EXTREME]   = "marker-extreme",
   [THEME_ROLE_CURSOR]           = "cursor",
-  [THEME_ROLE_GRAD_0]           = "gradient_0",
-  [THEME_ROLE_GRAD_1]           = "gradient_1",
-  [THEME_ROLE_GRAD_2]           = "gradient_2",
-  [THEME_ROLE_GRAD_3]           = "gradient_3",
-  [THEME_ROLE_GRAD_4]           = "gradient_4",
-  [THEME_ROLE_GRAD_5]           = "gradient_5",
-  [THEME_ROLE_GRAD_MID]         = "gradient_mid",
+  [THEME_ROLE_GRAD_0]           = "gradient-0",
+  [THEME_ROLE_GRAD_1]           = "gradient-1",
+  [THEME_ROLE_GRAD_2]           = "gradient-2",
+  [THEME_ROLE_GRAD_3]           = "gradient-3",
+  [THEME_ROLE_GRAD_4]           = "gradient-4",
+  [THEME_ROLE_GRAD_5]           = "gradient-5",
+  [THEME_ROLE_GRAD_MID]         = "gradient-mid",
 };
 
 /* Width purpose -> INI key string, indexed by fp_width_e. */
@@ -149,7 +149,8 @@ theme_fill_roles( GKeyFile *kf, const char *group, const theme_t *def,
  * redefinition of a built-in base marks the entry user-origin so it sorts
  * into the user partition. */
   static void
-menu_record( const char *group, const char *display, gboolean user_origin )
+menu_record( const char *group, const char *display, const char *description,
+    gboolean user_origin )
 {
   theme_menu_entry_t *e;
 
@@ -167,6 +168,7 @@ menu_record( const char *group, const char *display, gboolean user_origin )
   e = g_new0(theme_menu_entry_t, 1);
   e->base_name   = g_strdup(group);
   e->display     = g_strdup(display);
+  e->description = g_strdup(description);
   e->user_origin = user_origin;
 
   g_ptr_array_add(menu_entries, e);
@@ -178,15 +180,17 @@ menu_record( const char *group, const char *display, gboolean user_origin )
   static void
 theme_add( GKeyFile *kf, const char *group, gboolean user_origin )
 {
-  theme_t *t       = g_new0(theme_t, 1);
-  char    *display = g_key_file_get_string(kf, group, "display", NULL);
+  theme_t *t           = g_new0(theme_t, 1);
+  char    *display     = g_key_file_get_string(kf, group, "display", NULL);
+  char    *description = g_key_file_get_string(kf, group, "description", NULL);
 
   t->name    = g_strdup(group);
   t->display = ( display != NULL ) ? display : g_strdup(group);
   theme_fill_roles(kf, group, &legacy_defaults, t);
 
   g_hash_table_insert(theme_by_name, g_strdup(group), t);
-  menu_record(group, t->display, user_origin);
+  menu_record(group, t->display, description, user_origin);
+  g_free(description);
 }
 
 /* Parse every group of one loaded key file into the registry. */
@@ -287,7 +291,23 @@ menu_entry_free( gpointer data )
 
   g_free((char *)e->base_name);
   g_free((char *)e->display);
+  g_free((char *)e->description);
   g_free(e);
+}
+
+/* Order two menu axis records by display name in the user's locale, breaking
+ * a tie by base name so the order is total. */
+  static gint
+menu_entry_compare( gconstpointer a, gconstpointer b )
+{
+  const theme_menu_entry_t *ea = *(theme_menu_entry_t * const *)a;
+  const theme_menu_entry_t *eb = *(theme_menu_entry_t * const *)b;
+  gint                      order = g_utf8_collate(ea->display, eb->display);
+
+  if( order == 0 )
+    order = g_strcmp0(ea->base_name, eb->base_name);
+
+  return order;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -332,6 +352,10 @@ theme_registry_init( void )
     g_key_file_free(user);
   }
   g_free(user_path);
+
+  /* Sort once both files have loaded, so user and built-in themes share one
+   * name order and the menu partitions each without sorting of its own. */
+  g_ptr_array_sort(menu_entries, menu_entry_compare);
 }
 
 /* Warn once per (category, name): a theme lacking an inverted variant or a

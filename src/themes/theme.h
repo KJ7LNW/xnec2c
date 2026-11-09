@@ -86,11 +86,13 @@ typedef struct
 
 /* One menu axis record: a base theme name with its origin.  The -inverted
  * variant is a separate orthogonal toggle, so it never appears here; user
- * origin marks the menu separator boundary. */
+ * origin marks the menu separator boundary.  description is the group's
+ * optional tooltip text, NULL when the group carries none. */
 typedef struct
 {
   const char *base_name;
   const char *display;
+  const char *description;
   gboolean    user_origin;
 } theme_menu_entry_t;
 
@@ -110,8 +112,8 @@ const theme_t *theme_active(void);
 /* Whether a -inverted registry entry exists for a base theme name. */
 gboolean theme_has_inverted(const char *base_name);
 
-/* Ordered menu axis: base theme names (no -inverted), deduped, in load
- * order with origin tags.  The menu builder partitions user before built-in
+/* Ordered menu axis: base theme names (no -inverted), deduped, sorted by
+ * display name with origin tags.  The menu builder partitions user before built-in
  * and draws the separator at the boundary. */
 const GPtrArray *theme_menu_entries(void);
 

@@ -386,8 +386,14 @@ check-po-clean: check-potfiles-list check-po-exemptions
 # writes when no message changed. The list check completes first, so a
 # POTFILES.in that no longer names a source file cannot drive a template
 # regeneration that obsoletes the translations that file contributed.
+# The theme palette joins the template in a second pass: xgettext
+# picks a parser by extension and reads .ini as C, so the pass names the
+# desktop-entry key-file parser and extracts each theme description key.
 po-template: check-potfiles-list
 	@$(MAKE) -C po $(PACKAGE).pot-update
+	@$(XGETTEXT) --from-code=UTF-8 --language=Desktop --keyword= \
+	  --keyword=description --join-existing --directory=$(srcdir) \
+	  --output=$(srcdir)/po/$(PACKAGE).pot resources/themes.ini
 	@$(srcdir)/scripts/po/po-revert-churn.sh $(srcdir)/po/$(PACKAGE).pot
 .PHONY: po-template
 # Refresh every catalog through the single merge-and-strip point so no
