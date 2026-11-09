@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
-"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-12 01:09-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 20:33-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -330,7 +330,7 @@ msgstr "گہرائی بِن"
 
 #: resources/settings/cairo_settings.glade:184
 #: resources/settings/opengl_settings.glade:515
-#: resources/settings/render_settings.glade:201
+#: resources/settings/render_settings.glade:216
 msgid "Reset to _Defaults"
 msgstr "ڈیفالٹ پر _ری سیٹ کریں"
 
@@ -790,15 +790,19 @@ msgstr "صرف بصری — NEC2 ماڈل حسابات پر اثر نہیں ڈا
 msgid "_Color Theme"
 msgstr "_رنگ تھیم"
 
-#: resources/settings/render_settings.glade:162
+#: resources/settings/render_settings.glade:153
+msgid "_Invert"
+msgstr "_انورٹ"
+
+#: resources/settings/render_settings.glade:177
 msgid "_Wire Radius Scale"
 msgstr "تار کے رداس کا پیمانہ (_T)"
 
-#: resources/settings/render_settings.glade:223
+#: resources/settings/render_settings.glade:238
 msgid "Rendering Settings"
 msgstr "رینڈرنگ ترتیبات"
 
-#: resources/settings/render_settings.glade:267
+#: resources/settings/render_settings.glade:282
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_بند کریں"
@@ -3154,7 +3158,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "کنفیگ فائل موجود نہیں ہے یا پڑھنے کے قابل نہیں ہے: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3799,13 +3803,9 @@ msgstr "پوائنٹس کے لیے میموری ایلوکیشن ناکام\n"
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): پوائنٹس کے لیے میموری ایلوکیشن ناکام"
 
-#: src/freqplots/freqplots_theme_menu.c:41
+#: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
 msgstr "اس تھیم کا کوئی الٹا ورژن نہیں ہے"
-
-#: src/freqplots/freqplots_theme_menu.c:117
-msgid "_Invert"
-msgstr "_انورٹ"
 
 #: src/freqplots/graphs/agt_graph.c:67
 msgid "Average gain"
@@ -4086,24 +4086,24 @@ msgstr "SY تعریف (مثلاً FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "NEC2 ایڈیٹر ونڈو نہیں کھلی"
 
-#: src/geometry.c:111
+#: src/geometry.c:118
 msgid "Number of segments < 1"
 msgstr "سیگمنٹس کی تعداد < 1"
 
-#: src/geometry.c:148
+#: src/geometry.c:155
 msgid "Arc angle exceeds 360 degrees"
 msgstr "آرک زاویہ 360 ڈگری سے زیادہ ہے"
 
-#: src/geometry.c:287
+#: src/geometry.c:294
 msgid "Error in conect(): np > n"
 msgstr "conect() میں خرابی: np > n"
 
-#: src/geometry.c:318 src/geometry.c:366
+#: src/geometry.c:325 src/geometry.c:373
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr "جیومیٹری ڈیٹا خرابی: سیگمنٹ %d گراؤنڈ سے نیچے پھیلا ہوا ہے\n"
 
-#: src/geometry.c:319 src/geometry.c:367
+#: src/geometry.c:326 src/geometry.c:374
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4111,12 +4111,12 @@ msgstr ""
 "جیومیٹری ڈیٹا خرابی\n"
 "سیگمنٹ گراؤنڈ سے نیچے پھیلا ہوا ہے"
 
-#: src/geometry.c:376
+#: src/geometry.c:383
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "جیومیٹری ڈیٹا خرابی: سیگمنٹ %d گراؤنڈ پلین میں ہے\n"
 
-#: src/geometry.c:377
+#: src/geometry.c:384
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4125,15 +4125,15 @@ msgstr ""
 "سیگمنٹ گراؤنڈ پلین میں ہے"
 
 # xnec2c-exempt: name
-#: src/geometry.c:467
+#: src/geometry.c:474
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:468
+#: src/geometry.c:475
 msgid "Error: ipsym = 0"
 msgstr "خرابی: ipsym = 0"
 
-#: src/geometry.c:521
+#: src/geometry.c:528
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4142,7 +4142,7 @@ msgstr ""
 "سیگمنٹ کنکشن کی گنتی مکمل میش سے زیادہ ہے، جو غیر متوقع ہے: data.n=%ld segj."
 "maxcon=%lu\n"
 
-#: src/geometry.c:523
+#: src/geometry.c:530
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4150,7 +4150,7 @@ msgstr ""
 "سیگمنٹ کنکشن کی گنتی مکمل میش سے زیادہ ہے، جو غیر متوقع ہے!\n"
 "اوورلیپنگ یا قریب قریب جڑے سیگمنٹس کی جانچ کریں\n"
 
-#: src/geometry.c:737
+#: src/geometry.c:744
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4158,7 +4158,7 @@ msgstr ""
 "ڈیٹا چیک کریں، سیگمنٹ کی وضاحت کرنے والا پیرامیٹر: برابر ٹیگز کے گروپ میں "
 "پوزیشن صفر نہیں ہونی چاہیے\n"
 
-#: src/geometry.c:738
+#: src/geometry.c:745
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4166,12 +4166,12 @@ msgstr ""
 "سیگمنٹ کی وضاحت کرنے والا پیرامیٹر\n"
 "برابر ٹیگز کے گروپ میں پوزیشن صفر ہے"
 
-#: src/geometry.c:770
+#: src/geometry.c:777
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "کسی سیگمنٹ کا itag %d نہیں ہے\n"
 
-#: src/geometry.c:774
+#: src/geometry.c:781
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4184,7 +4184,7 @@ msgstr ""
 "GM کارڈز کے لیے: تصدیق کریں کہ 'start from tag' اور 'tag increment' ٹیگ 0 "
 "نہیں بناتے۔"
 
-#: src/geometry.c:782
+#: src/geometry.c:789
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4196,11 +4196,11 @@ msgstr ""
 "آپ کی جیومیٹری میں درست ٹیگز وہ ہیں جو GW/GA/GH/SP کارڈز کو تفویض کیے گئے "
 "ہیں۔"
 
-#: src/geometry.c:1057
+#: src/geometry.c:1064
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "چوکور پیچ کے کونے ایک سطح میں نہیں ہیں\n"
 
-#: src/geometry.c:1058
+#: src/geometry.c:1065
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4208,12 +4208,12 @@ msgstr ""
 "چوکور پیچ کے کونے\n"
 "ایک سطح میں نہیں ہیں"
 
-#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
+#: src/geometry.c:1170 src/geometry.c:1247 src/geometry.c:1325
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "جیومیٹری ڈیٹا خرابی: سیگمنٹ %d ہم آہنگی کی سطح میں ہے\n"
 
-#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
+#: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4221,12 +4221,12 @@ msgstr ""
 "جیومیٹری ڈیٹا خرابی\n"
 "سیگمنٹ ہم آہنگی کی سطح میں ہے"
 
-#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
+#: src/geometry.c:1207 src/geometry.c:1284 src/geometry.c:1359
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "جیومیٹری ڈیٹا خرابی: پیچ %d ہم آہنگی کی سطح میں ہے\n"
 
-#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
+#: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4234,7 +4234,7 @@ msgstr ""
 "جیومیٹری ڈیٹا خرابی\n"
 "پیچ ہم آہنگی کی سطح میں ہے"
 
-#: src/geometry.c:1473
+#: src/geometry.c:1480
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4243,12 +4243,12 @@ msgstr ""
 "tag=%d/seg=%d: اینڈ پوائنٹ فاصلہ=%.3e بہت قریب ہے (کنکشن حد=%.3e سے کم)؛ "
 "سیگمنٹ خود سے جڑ جائے گا\n"
 
-#: src/geometry.c:1478
+#: src/geometry.c:1485
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr "tag=%d: اضافی خود کنکشن وارننگز دبا دی گئیں\n"
 
-#: src/geometry.c:1523
+#: src/geometry.c:1530
 #, c-format
 msgid ""
 "tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
@@ -4257,12 +4257,12 @@ msgstr ""
 "tag=%d/seg=%d: tag=%d/seg=%d کے ساتھ منطبق ہے؛ NEC2 منطبق سیگمنٹس کے کرنٹس "
 "کو الگ نہیں کر سکتا\n"
 
-#: src/geometry.c:1528
+#: src/geometry.c:1535
 #, c-format
 msgid "tag=%d: suppressing additional coincident segment warnings\n"
 msgstr "tag=%d: اضافی منطبق سیگمنٹ انتباہات دبائے جا رہے ہیں\n"
 
-#: src/geometry.c:1573
+#: src/geometry.c:1580
 #, c-format
 msgid ""
 "tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
@@ -4271,12 +4271,12 @@ msgstr ""
 "tag=%d/seg=%d: سرے کا gap=%.3e، tag=%d/seg=%d تک، کنکشن threshold=%.3e سے "
 "آگے ہے مگر اس کے %gx کے اندر ہے؛ NEC2 ان سروں کو غیر منسلک چھوڑتا ہے\n"
 
-#: src/geometry.c:1579
+#: src/geometry.c:1586
 #, c-format
 msgid "tag=%d: suppressing additional near-miss junction warnings\n"
 msgstr "tag=%d: قریبی مگر غیر منسلک جنکشن کے اضافی انتباہات دبائے جا رہے ہیں\n"
 
-#: src/geometry.c:1646
+#: src/geometry.c:1639
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4285,14 +4285,14 @@ msgstr ""
 "tag=%d/seg=%d: لمبائی=%.3e بہت چھوٹی ہے (اور کافی قریب) tag=%d/seg=%d لمبائی="
 "%.3e سے کہ کنکشن ڈٹیکشن ناکام یا شارٹ ہو سکتی ہے\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1645
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
 "warnings\n"
 msgstr "tag=%d: اضافی کنکشن ڈٹیکشن ناکام یا شارٹ وارننگز دبا دی گئیں\n"
 
-#: src/geometry.c:1685
+#: src/geometry.c:1678
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4302,12 +4302,12 @@ msgstr ""
 "tag=%d/seg=%d: لمبائی/ویولینتھ تناسب %.3f < 0.001؛ کرنٹ اجزاء کی مماثلت عددی "
 "غلطیوں کا سبب بنتی ہے (کم از کم=0.001، ٹھیک=0.05، تجویز کردہ <= 0.1)\n"
 
-#: src/geometry.c:1690
+#: src/geometry.c:1683
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr "tag=%d: اضافی چھوٹے ویولینتھ تناسب خرابیاں دبا دی گئیں\n"
 
-#: src/geometry.c:1704
+#: src/geometry.c:1697
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4317,12 +4317,12 @@ msgstr ""
 "tag=%d/seg=%d: لمبائی/ویولینتھ تناسب %.3f > 0.1؛ کرنٹ سیمپلنگ ریزولوشن "
 "سیگمنٹ فاصلے سے محدود ہے (کم از کم=0.001، ٹھیک=0.05، تجویز کردہ <= 0.1)\n"
 
-#: src/geometry.c:1709
+#: src/geometry.c:1702
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr "tag=%d: اضافی لمبے ویولینتھ تناسب وارننگز دبا دی گئیں\n"
 
-#: src/geometry.c:1723
+#: src/geometry.c:1716
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4333,12 +4333,12 @@ msgstr ""
 "تبدیلی والے علاقوں میں درستگی بڑھاتے ہیں (کم از کم=0.001، ٹھیک=0.05، تجویز "
 "کردہ <=0.1)\n"
 
-#: src/geometry.c:1728
+#: src/geometry.c:1721
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr "tag=%d: اضافی درستگی بہتری تجاویز دبا دی گئیں\n"
 
-#: src/geometry.c:1759
+#: src/geometry.c:1752
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4347,12 +4347,12 @@ msgstr ""
 "tag=%d/seg=%d: لمبائی/ریڈیئس تناسب %.1f < 2.0؛ سٹینڈرڈ تھن-وائر کرنل فیلڈ "
 "خرابی 1%% سے کافی زیادہ ہے (کم از کم=2.0، 1%%درست=8.0)\n"
 
-#: src/geometry.c:1764
+#: src/geometry.c:1757
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr "tag=%d: اضافی سٹینڈرڈ کرنل تناسب خرابیاں دبا دی گئیں\n"
 
-#: src/geometry.c:1778
+#: src/geometry.c:1771
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4361,12 +4361,12 @@ msgstr ""
 "tag=%d/seg=%d: لمبائی/ریڈیئس تناسب %.1f < 8.0؛ سٹینڈرڈ تھن-وائر کرنل فیلڈ "
 "خرابی 1%% سے زیادہ ہے (کم از کم=2.0، 1%%درست=8.0)\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1776
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr "tag=%d: اضافی سٹینڈرڈ کرنل تناسب وارننگز دبا دی گئیں\n"
 
-#: src/geometry.c:1799
+#: src/geometry.c:1792
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4375,12 +4375,12 @@ msgstr ""
 "tag=%d/seg=%d: لمبائی/ریڈیئس تناسب %.1f < 0.5؛ ایکسٹینڈڈ تھن-وائر کرنل فیلڈ "
 "خرابی 1%% سے کافی زیادہ ہے (کم از کم=0.5، 1%%درست=2.0)\n"
 
-#: src/geometry.c:1804
+#: src/geometry.c:1797
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr "tag=%d: اضافی ایکسٹینڈڈ کرنل تناسب خرابیاں دبا دی گئیں\n"
 
-#: src/geometry.c:1818
+#: src/geometry.c:1811
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4389,24 +4389,24 @@ msgstr ""
 "tag=%d/seg=%d: لمبائی/ریڈیئس تناسب %.1f < 2.0؛ ایکسٹینڈڈ تھن-وائر کرنل فیلڈ "
 "خرابی 1%% سے زیادہ ہے (کم از کم=0.5، 1%%درست=2.0)\n"
 
-#: src/geometry.c:1823
+#: src/geometry.c:1816
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr "tag=%d: اضافی ایکسٹینڈڈ کرنل تناسب وارننگز دبا دی گئیں\n"
 
-#: src/geometry.c:1840
+#: src/geometry.c:1833
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr ""
 "%d سیگمنٹس کے لیے اوورلیپ چیک چھوڑ دیا گیا (فعال کرنے کے لیے --force-verify "
 "استعمال کریں)\n"
 
-#: src/geometry.c:1844
+#: src/geometry.c:1837
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "%d سیگمنٹس کے لیے اوورلیپ چیک زبردستی کیا جا رہا ہے\n"
 
-#: src/geometry.c:1856
+#: src/geometry.c:1849
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -5893,12 +5893,12 @@ msgstr "آپٹیمائزر ویک eventfd بنانے میں ناکام\n"
 msgid "failed to create Optimizer Output thread\n"
 msgstr "آپٹیمائزر آؤٹ پٹ تھریڈ بنانے میں ناکام\n"
 
-#: src/optimizers/opt_fitness.c:494
+#: src/optimizers/opt_fitness.c:509
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: نامعلوم سمت %d\n"
 
-#: src/optimizers/opt_fitness.c:567
+#: src/optimizers/opt_fitness.c:582
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: نامعلوم تخفیف طریقہ %d\n"
@@ -6031,39 +6031,39 @@ msgid ""
 msgstr ""
 "اوسط گین: %.4f (%.2f dBi)، کارکردگی: %.1f%%، ٹھوس زاویہ: %.4f * pi sr\n"
 
-#: src/rc_config.c:1003
+#: src/rc_config.c:999
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() کا استعمال ممکن نہیں: %s\n"
 
-#: src/rc_config.c:1007
+#: src/rc_config.c:1003
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "ماحولیاتی متغیر HOME غیر متعین ہے، %s استعمال کر رہا ہے\n"
 
-#: src/rc_config.c:1092
+#: src/rc_config.c:1088
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
 msgstr ""
 "%s (locale=%s): صرف %d حروف ملے %lu میں سے، دوسرا locale آزما رہا ہے: %s\n"
 
-#: src/rc_config.c:1311
+#: src/rc_config.c:1307
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "ونڈو: x=%-5d y=%-5d w=%-5d h=%-5d  عنوان: \"%s\"\n"
 
-#: src/rc_config.c:1345
+#: src/rc_config.c:1341
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: ایپلیکیشن ورژن پڑھنے میں EOF۔\n"
 
-#: src/rc_config.c:1351
+#: src/rc_config.c:1347
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "موجودہ کنفیگ فائل ورژن مختلف ہے: %s != %s\n"
 
-#: src/rc_config.c:1398
+#: src/rc_config.c:1394
 #, c-format
 msgid ""
 "gain readouts are scaled to %s, restored from the previous session; select "
@@ -6072,58 +6072,58 @@ msgstr ""
 "گین ریڈ آؤٹس کو %s پر پیمانہ دیا گیا ہے، پچھلے سیشن سے بحال کیا گیا؛ کل گین "
 "پڑھنے کے لیے Total Gain منتخب کریں\n"
 
-#: src/rc_config.c:1521
+#: src/rc_config.c:1517
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "%s کے لیے stat ناکام: %s\n"
 
-#: src/rc_config.c:1527
+#: src/rc_config.c:1523
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
 "4e62893b.\n"
 msgstr "%s ڈائریکٹری اجازتیں 4e62893b خرابی سے 0%o سے 0%o تک درست کیں۔\n"
 
-#: src/rc_config.c:1560
+#: src/rc_config.c:1556
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: لائن تجزیہ نہیں ہوئی: %s\n"
 
-#: src/rc_config.c:1566
+#: src/rc_config.c:1562
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: %s کے لیے فائل کا قبل از وقت اختتام: %s \n"
 
-#: src/rc_config.c:1591
+#: src/rc_config.c:1587
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: تجزیہ خرابی (%s): %s \n"
 
-#: src/rc_config.c:1605
+#: src/rc_config.c:1601
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr "ترتیب میں غلط sky ماڈل انڈیکس %d، ڈیفالٹ پر ری سیٹ\n"
 
-#: src/rc_config.c:1611
+#: src/rc_config.c:1607
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr "ترتیب میں غلط earth ماڈل انڈیکس %d، ڈیفالٹ پر ری سیٹ\n"
 
-#: src/rc_config.c:1617
+#: src/rc_config.c:1613
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr "ترتیب میں غلط interp طریقہ %d، ڈیفالٹ پر ری سیٹ\n"
 
-#: src/rc_config.c:1625
+#: src/rc_config.c:1621
 #, c-format
 msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr "کنفیگ میں غلط فلو ویژولائزیشن موڈ %d، ڈیفالٹ پر ری سیٹ ہو رہا ہے\n"
 
-#: src/rc_config.c:1790
+#: src/rc_config.c:1786
 msgid "batch mode: skipping configuration save\n"
 msgstr "بیچ موڈ: کنفیگریشن محفوظ کرنا نظرانداز کیا جا رہا ہے\n"
 
-#: src/rc_config.c:1812
+#: src/rc_config.c:1808
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "xnec2c کی کنفیگ فائل %s نہیں کھول سکتا: %s\n"
@@ -6508,32 +6508,32 @@ msgstr ""
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "تھیم '%s' کا رول '%s' غلط رنگ ہے، لیگیسی ڈیفالٹ استعمال کر رہا ہے\n"
 
-#: src/themes/theme.c:218
+#: src/themes/theme.c:222
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "تھیم: وسیلہ %s لوڈ نہیں کر سکتا: %s\n"
 
-#: src/themes/theme.c:228
+#: src/themes/theme.c:232
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "تھیم: وسیلہ %s پارس نہیں کر سکتا: %s\n"
 
-#: src/themes/theme.c:254
+#: src/themes/theme.c:258
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr "تھیم: %s پارس نہیں کر سکتا، بلٹ-ان ڈیفالٹس استعمال کر رہا ہے\n"
 
-#: src/themes/theme.c:377
+#: src/themes/theme.c:401
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "تھیم '%s' کا کوئی الٹا ورژن نہیں، بیس استعمال کر رہا ہے\n"
 
-#: src/themes/theme.c:385
+#: src/themes/theme.c:409
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "تھیم '%s' نہیں ملا، لیگیسی استعمال کر رہا ہے\n"
 
-#: src/themes/theme.c:428
+#: src/themes/theme.c:452
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "چوڑائی '%s' غلط ہے، موجودہ قدر برقرار رکھی جا رہی ہے\n"
@@ -6770,3 +6770,223 @@ msgid ""
 msgstr ""
 "سویپ مکمل طور پر شمار ہو چکا ہے۔ اسے دوبارہ چلانے سے ہر شمار کردہ مرحلہ ضائع "
 "ہو جاتا ہے اور سویپ کا حساب اس کے پہلے مرحلے سے کیا جاتا ہے۔"
+
+#: resources/themes.ini:11 resources/themes.ini:41
+msgid "Abyss color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Abyss کلر پیلیٹ"
+
+#: resources/themes.ini:71 resources/themes.ini:101
+msgid "Acid color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Acid کلر پیلیٹ"
+
+#: resources/themes.ini:131 resources/themes.ini:161
+msgid "Aqua color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Aqua کلر پیلیٹ"
+
+#: resources/themes.ini:191 resources/themes.ini:221
+msgid "Autumn color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Autumn کلر پیلیٹ"
+
+#: resources/themes.ini:251 resources/themes.ini:281
+msgid "Black color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Black کلر پیلیٹ"
+
+#: resources/themes.ini:311 resources/themes.ini:341
+msgid "Bumblebee color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Bumblebee کلر پیلیٹ"
+
+#: resources/themes.ini:371 resources/themes.ini:401
+msgid "Business color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Business کلر پیلیٹ"
+
+#: resources/themes.ini:431 resources/themes.ini:461
+msgid "Caramellatte color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Caramellatte کلر پیلیٹ"
+
+#: resources/themes.ini:491 resources/themes.ini:521
+msgid "Cmyk color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Cmyk کلر پیلیٹ"
+
+#: resources/themes.ini:551 resources/themes.ini:581
+msgid "Coffee color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Coffee کلر پیلیٹ"
+
+#: resources/themes.ini:611 resources/themes.ini:641
+msgid "Corporate color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Corporate کلر پیلیٹ"
+
+#: resources/themes.ini:671 resources/themes.ini:701
+msgid "P3 amber as used in IBM PC XT and Hercules displays"
+msgstr "IBM PC XT اور Hercules ڈسپلے میں استعمال ہونے والا P3 ایمبر"
+
+#: resources/themes.ini:731 resources/themes.ini:761
+msgid "P31 bright green as used in Apple IIe monitors and oscilloscopes"
+msgstr "Apple IIe مانیٹرز اور اوسیلوسکوپس میں استعمال ہونے والا P31 روشن سبز"
+
+#: resources/themes.ini:791 resources/themes.ini:821
+msgid "P39 saturated green as used in Apple III and IBM 5151 terminals"
+msgstr "Apple III اور IBM 5151 ٹرمینلز میں استعمال ہونے والا P39 گہرا سبز"
+
+#: resources/themes.ini:851 resources/themes.ini:881
+msgid "P45 cool white for monochrome camcorder viewfinders"
+msgstr "یک رنگی کیم کارڈر ویو فائنڈرز کے لیے P45 ٹھنڈا سفید"
+
+#: resources/themes.ini:911 resources/themes.ini:941
+msgid "Classic cyan/magenta gaming aesthetic from early IBM PC era"
+msgstr "ابتدائی IBM PC دور کی کلاسک سیان/میجنٹا گیمنگ جمالیات"
+
+#: resources/themes.ini:971 resources/themes.ini:1001
+msgid "Warm creative light palette with magenta foundation"
+msgstr "میجنٹا بنیاد رکھنے والا گرم تخلیقی ہلکا کلر پیلیٹ"
+
+#: resources/themes.ini:1031 resources/themes.ini:1061
+msgid "Green-accented CRT aesthetic for extended viewing"
+msgstr "طویل دیکھنے کے لیے سبز لہجے والی CRT جمالیات"
+
+#: resources/themes.ini:1091 resources/themes.ini:1121
+msgid "Cool professional light palette with blue foundation"
+msgstr "نیلی بنیاد رکھنے والا ٹھنڈا پیشہ ورانہ ہلکا کلر پیلیٹ"
+
+#: resources/themes.ini:1151 resources/themes.ini:1181
+msgid "Professional amber/green phosphor aesthetic from IBM business era"
+msgstr "IBM کاروباری دور کی پیشہ ورانہ ایمبر/سبز فاسفر جمالیات"
+
+#: resources/themes.ini:1211 resources/themes.ini:1241
+msgid "CRT Clarity: Split-complementary harmony with warm/cool tension"
+msgstr "CRT Clarity: گرم/ٹھنڈے تناؤ کے ساتھ اسپلٹ-کمپلیمنٹری ہم آہنگی"
+
+#: resources/themes.ini:1271 resources/themes.ini:1301
+msgid "Cool analogous professional light palette"
+msgstr "ٹھنڈا ملتا جلتا پیشہ ورانہ ہلکا کلر پیلیٹ"
+
+#: resources/themes.ini:1331 resources/themes.ini:1361
+msgid "Warm content dark palette for reduced eye strain"
+msgstr "آنکھوں کا دباؤ کم کرنے کے لیے گرم اور پرسکون ڈارک کلر پیلیٹ"
+
+#: resources/themes.ini:1391 resources/themes.ini:1421
+msgid ""
+"CRT Phosphor Glow: Triadic harmony with cool/warm balance and CRT aesthetic"
+msgstr ""
+"CRT Phosphor Glow: ٹھنڈے/گرم توازن اور CRT جمالیات کے ساتھ ٹرائیڈک ہم آہنگی"
+
+#: resources/themes.ini:1451 resources/themes.ini:1481
+msgid "P1 medium-persistence green as used in early oscilloscope tubes"
+msgstr ""
+"ابتدائی اوسیلوسکوپ ٹیوبز میں استعمال ہونے والا P1 درمیانی دیرپائی والا سبز"
+
+#: resources/themes.ini:1511 resources/themes.ini:1541
+msgid "P4 white as used in IBM 8503 VGA and broadcast television"
+msgstr "IBM 8503 VGA اور براڈکاسٹ ٹیلی ویژن میں استعمال ہونے والا P4 سفید"
+
+#: resources/themes.ini:1571 resources/themes.ini:1601
+msgid "P7 cascade phosphor as used in military radar and air traffic control"
+msgstr ""
+"فوجی ریڈار اور ہوائی ٹریفک کنٹرول میں استعمال ہونے والا P7 کیسکیڈ فاسفر"
+
+#: resources/themes.ini:1631 resources/themes.ini:1661
+msgid "Cupcake color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Cupcake کلر پیلیٹ"
+
+#: resources/themes.ini:1691 resources/themes.ini:1721
+msgid "Cyberpunk color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Cyberpunk کلر پیلیٹ"
+
+#: resources/themes.ini:1751 resources/themes.ini:1781
+msgid "Dark color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Dark کلر پیلیٹ"
+
+#: resources/themes.ini:1811 resources/themes.ini:1841
+msgid "Dim color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Dim کلر پیلیٹ"
+
+#: resources/themes.ini:1871 resources/themes.ini:1901
+msgid "Dracula color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Dracula کلر پیلیٹ"
+
+#: resources/themes.ini:1931 resources/themes.ini:1961
+msgid "Emerald color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Emerald کلر پیلیٹ"
+
+#: resources/themes.ini:1991 resources/themes.ini:2021
+msgid "Fantasy color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Fantasy کلر پیلیٹ"
+
+#: resources/themes.ini:2051 resources/themes.ini:2081
+msgid "Forest color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Forest کلر پیلیٹ"
+
+#: resources/themes.ini:2111 resources/themes.ini:2141
+msgid "Garden color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Garden کلر پیلیٹ"
+
+#: resources/themes.ini:2171 resources/themes.ini:2201
+msgid "Halloween color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Halloween کلر پیلیٹ"
+
+#: resources/themes.ini:2231 resources/themes.ini:2261
+msgid "Lemonade color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Lemonade کلر پیلیٹ"
+
+#: resources/themes.ini:2291 resources/themes.ini:2321
+msgid "Light color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Light کلر پیلیٹ"
+
+#: resources/themes.ini:2351 resources/themes.ini:2381
+msgid "Lofi color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Lofi کلر پیلیٹ"
+
+#: resources/themes.ini:2411 resources/themes.ini:2441
+msgid "Luxury color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Luxury کلر پیلیٹ"
+
+#: resources/themes.ini:2471 resources/themes.ini:2501
+msgid "Night color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Night کلر پیلیٹ"
+
+#: resources/themes.ini:2531 resources/themes.ini:2561
+msgid "Nord color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Nord کلر پیلیٹ"
+
+#: resources/themes.ini:2591 resources/themes.ini:2621
+msgid "Pastel color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Pastel کلر پیلیٹ"
+
+#: resources/themes.ini:2651 resources/themes.ini:2681
+msgid "Retro color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Retro کلر پیلیٹ"
+
+#: resources/themes.ini:2711 resources/themes.ini:2741
+msgid "Silk color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Silk کلر پیلیٹ"
+
+#: resources/themes.ini:2771 resources/themes.ini:2801
+msgid "Sunset color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Sunset کلر پیلیٹ"
+
+#: resources/themes.ini:2831 resources/themes.ini:2861
+msgid "Synthwave color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Synthwave کلر پیلیٹ"
+
+#: resources/themes.ini:2891 resources/themes.ini:2921
+msgid "Valentine color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Valentine کلر پیلیٹ"
+
+#: resources/themes.ini:2951 resources/themes.ini:2981
+msgid "Winter color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Winter کلر پیلیٹ"
+
+#: resources/themes.ini:3011 resources/themes.ini:3041
+msgid "Wireframe color palette from DaisyUI theme collection"
+msgstr "DaisyUI تھیم کلیکشن کا Wireframe کلر پیلیٹ"
+
+#: resources/themes.ini:3071 resources/themes.ini:3101
+msgid "Classic xnec2c plot colors"
+msgstr "کلاسک xnec2c پلاٹ کلرز"
+
+#: resources/themes.ini:3131 resources/themes.ini:3161
+msgid "Hand-tuned cool palette"
+msgstr "ہاتھ سے ترتیب دیا گیا ٹھنڈا کلر پیلیٹ"
+
+#: resources/themes.ini:3191 resources/themes.ini:3221
+msgid "Hand-tuned warm palette"
+msgstr "ہاتھ سے ترتیب دیا گیا گرم کلر پیلیٹ"

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
-"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-12 01:09-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 20:33-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -334,7 +334,7 @@ msgstr "Dieptebins"
 
 #: resources/settings/cairo_settings.glade:184
 #: resources/settings/opengl_settings.glade:515
-#: resources/settings/render_settings.glade:201
+#: resources/settings/render_settings.glade:216
 msgid "Reset to _Defaults"
 msgstr "Terugzetten naar _standaard"
 
@@ -803,15 +803,19 @@ msgstr "Alleen visueel — heeft geen invloed op NEC2-modelberekeningen."
 msgid "_Color Theme"
 msgstr "_Kleurthema"
 
-#: resources/settings/render_settings.glade:162
+#: resources/settings/render_settings.glade:153
+msgid "_Invert"
+msgstr "_Omkeren"
+
+#: resources/settings/render_settings.glade:177
 msgid "_Wire Radius Scale"
 msgstr "_Draadstraalschaal"
 
-#: resources/settings/render_settings.glade:223
+#: resources/settings/render_settings.glade:238
 msgid "Rendering Settings"
 msgstr "Renderinstellingen"
 
-#: resources/settings/render_settings.glade:267
+#: resources/settings/render_settings.glade:282
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Sluiten"
@@ -3205,7 +3209,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "configuratiebestand bestaat niet of is niet leesbaar: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3855,13 +3859,9 @@ msgstr "geheugentoewijzing voor punten mislukt\n"
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Geheugentoewijzing voor punten mislukt"
 
-#: src/freqplots/freqplots_theme_menu.c:41
+#: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
 msgstr "Dit thema heeft geen omgekeerde variant"
-
-#: src/freqplots/freqplots_theme_menu.c:117
-msgid "_Invert"
-msgstr "_Omkeren"
 
 #: src/freqplots/graphs/agt_graph.c:67
 msgid "Average gain"
@@ -4142,25 +4142,25 @@ msgstr "SY-definitie (bijv. FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "NEC2-editorvenster niet geopend"
 
-#: src/geometry.c:111
+#: src/geometry.c:118
 msgid "Number of segments < 1"
 msgstr "Aantal segmenten < 1"
 
-#: src/geometry.c:148
+#: src/geometry.c:155
 msgid "Arc angle exceeds 360 degrees"
 msgstr "Booghoek overschrijdt 360 graden"
 
-#: src/geometry.c:287
+#: src/geometry.c:294
 msgid "Error in conect(): np > n"
 msgstr "Fout in conect(): np > n"
 
-#: src/geometry.c:318 src/geometry.c:366
+#: src/geometry.c:325 src/geometry.c:373
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr ""
 "geometriegegevensfout: segment %d strekt zich uit onder het grondvlak\n"
 
-#: src/geometry.c:319 src/geometry.c:367
+#: src/geometry.c:326 src/geometry.c:374
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4168,12 +4168,12 @@ msgstr ""
 "Geometriegegevensfout\n"
 "Segment strekt zich uit onder het grondvlak"
 
-#: src/geometry.c:376
+#: src/geometry.c:383
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "geometriegegevensfout: segment %d ligt in het grondvlak\n"
 
-#: src/geometry.c:377
+#: src/geometry.c:384
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4182,15 +4182,15 @@ msgstr ""
 "Segment ligt in het grondvlak"
 
 # xnec2c-exempt: name
-#: src/geometry.c:467
+#: src/geometry.c:474
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:468
+#: src/geometry.c:475
 msgid "Error: ipsym = 0"
 msgstr "Fout: ipsym = 0"
 
-#: src/geometry.c:521
+#: src/geometry.c:528
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4199,7 +4199,7 @@ msgstr ""
 "Segmentverbindingstelling overschrijdt een volledig raster, wat "
 "onwaarschijnlijk is: data.n=%ld segj.maxcon=%lu\n"
 
-#: src/geometry.c:523
+#: src/geometry.c:530
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4208,7 +4208,7 @@ msgstr ""
 "onwaarschijnlijk is!\n"
 "Controleer op overlappende of bijna-verbonden segmenten\n"
 
-#: src/geometry.c:737
+#: src/geometry.c:744
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4216,7 +4216,7 @@ msgstr ""
 "controleer gegevens, parameter die segment specificeert: positie in een "
 "groep van gelijke tags mag niet nul zijn\n"
 
-#: src/geometry.c:738
+#: src/geometry.c:745
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4224,12 +4224,12 @@ msgstr ""
 "Parameter die segment specificeert:\n"
 "positie in een groep van gelijke tags is nul"
 
-#: src/geometry.c:770
+#: src/geometry.c:777
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "geen segment heeft een itag van %d\n"
 
-#: src/geometry.c:774
+#: src/geometry.c:781
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4242,7 +4242,7 @@ msgstr ""
 "Voor GM-kaarten: controleer of 'start vanaf tag' en 'tagverhoging' geen tag "
 "0 creëren."
 
-#: src/geometry.c:782
+#: src/geometry.c:789
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4253,11 +4253,11 @@ msgstr ""
 "U verwijst naar een onbekende tag of segment in een controlekaart.\n"
 "Geldige tags in uw geometrie zijn die toegewezen aan GW/GA/GH/SP-kaarten."
 
-#: src/geometry.c:1057
+#: src/geometry.c:1064
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "hoeken van vierhoekige patch liggen niet in een vlak\n"
 
-#: src/geometry.c:1058
+#: src/geometry.c:1065
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4265,12 +4265,12 @@ msgstr ""
 "Hoeken van vierhoekige\n"
 "patch liggen niet in een vlak"
 
-#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
+#: src/geometry.c:1170 src/geometry.c:1247 src/geometry.c:1325
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "geometriegegevensfout: segment %d ligt in het symmetrievlak\n"
 
-#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
+#: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4278,12 +4278,12 @@ msgstr ""
 "Geometriegegevensfout\n"
 "Segment ligt in het symmetrievlak"
 
-#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
+#: src/geometry.c:1207 src/geometry.c:1284 src/geometry.c:1359
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "geometriegegevensfout: patch %d ligt in het symmetrievlak\n"
 
-#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
+#: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4291,7 +4291,7 @@ msgstr ""
 "Geometriegegevensfout\n"
 "Patch ligt in het symmetrievlak"
 
-#: src/geometry.c:1473
+#: src/geometry.c:1480
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4300,12 +4300,12 @@ msgstr ""
 "tag=%d/seg=%d: eindpuntafstand=%.3e is te dicht (onder verbindingsdrempel="
 "%.3e); segment zal met zichzelf verbinden\n"
 
-#: src/geometry.c:1478
+#: src/geometry.c:1485
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr "tag=%d: onderdrukken van extra zelfverbindingswaarschuwingen\n"
 
-#: src/geometry.c:1523
+#: src/geometry.c:1530
 #, c-format
 msgid ""
 "tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
@@ -4314,14 +4314,14 @@ msgstr ""
 "tag=%d/seg=%d: valt samen met tag=%d/seg=%d; NEC2 kan de stromen van "
 "samenvallende segmenten niet scheiden\n"
 
-#: src/geometry.c:1528
+#: src/geometry.c:1535
 #, c-format
 msgid "tag=%d: suppressing additional coincident segment warnings\n"
 msgstr ""
 "tag=%d: aanvullende waarschuwingen over samenvallende segmenten worden "
 "onderdrukt\n"
 
-#: src/geometry.c:1573
+#: src/geometry.c:1580
 #, c-format
 msgid ""
 "tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
@@ -4331,13 +4331,13 @@ msgstr ""
 "verbindingsdrempel threshold=%.3e maar binnen %gx daarvan; NEC2 laat deze "
 "uiteinden onverbonden\n"
 
-#: src/geometry.c:1579
+#: src/geometry.c:1586
 #, c-format
 msgid "tag=%d: suppressing additional near-miss junction warnings\n"
 msgstr ""
 "tag=%d: aanvullende waarschuwingen over bijna-juncties worden onderdrukt\n"
 
-#: src/geometry.c:1646
+#: src/geometry.c:1639
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4346,7 +4346,7 @@ msgstr ""
 "tag=%d/seg=%d: lengte=%.3e is te kort (en dicht genoeg) bij tag=%d/seg=%d "
 "lengte=%.3e dat verbindingsdetectie kan falen of kortsluiten\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1645
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
@@ -4355,7 +4355,7 @@ msgstr ""
 "tag=%d: onderdrukken van extra waarschuwingen over verbindingsdetectie kan "
 "falen of kortsluiten\n"
 
-#: src/geometry.c:1685
+#: src/geometry.c:1678
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4366,12 +4366,12 @@ msgstr ""
 "stroomcomponenten leidt tot numerieke onnauwkeurigheden (min=0.001, "
 "goed=0.05, aanbevolen <= 0.1)\n"
 
-#: src/geometry.c:1690
+#: src/geometry.c:1683
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr "tag=%d: onderdrukken van extra korte golflengteverhoudingsfouten\n"
 
-#: src/geometry.c:1704
+#: src/geometry.c:1697
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4382,13 +4382,13 @@ msgstr ""
 "stroombemonsteringsresolutie beperkt door segmentafstand (min=0.001, "
 "goed=0.05, aanbevolen <= 0.1)\n"
 
-#: src/geometry.c:1709
+#: src/geometry.c:1702
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr ""
 "tag=%d: onderdrukken van extra lange golflengteverhoudingswaarschuwingen\n"
 
-#: src/geometry.c:1723
+#: src/geometry.c:1716
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4399,13 +4399,13 @@ msgstr ""
 "segmenten verhogen nauwkeurigheid in gebieden met snelle stroomverandering "
 "(min=0.001, goed=0.05, aanbevolen <=0.1)\n"
 
-#: src/geometry.c:1728
+#: src/geometry.c:1721
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr ""
 "tag=%d: onderdrukken van extra suggesties voor nauwkeurigheidsverbetering\n"
 
-#: src/geometry.c:1759
+#: src/geometry.c:1752
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4415,12 +4415,12 @@ msgstr ""
 "kernel veldfout overschrijdt 1%% met grote marge (min=2.0, 1%% "
 "nauwkeurig=8.0)\n"
 
-#: src/geometry.c:1764
+#: src/geometry.c:1757
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr "tag=%d: onderdrukken van extra standaard kernel verhoudingsfouten\n"
 
-#: src/geometry.c:1778
+#: src/geometry.c:1771
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4429,13 +4429,13 @@ msgstr ""
 "tag=%d/seg=%d: lengte/straalverhouding van %.1f < 8.0; standaard dunne-draad "
 "kernel veldfout overschrijdt 1%% (min=2.0, 1%% nauwkeurig=8.0)\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1776
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr ""
 "tag=%d: onderdrukken van extra standaard kernel verhoudingswaarschuwingen\n"
 
-#: src/geometry.c:1799
+#: src/geometry.c:1792
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4445,12 +4445,12 @@ msgstr ""
 "draad kernel veldfout overschrijdt 1%% met grote marge (min=0.5, 1%% "
 "nauwkeurig=2.0)\n"
 
-#: src/geometry.c:1804
+#: src/geometry.c:1797
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr "tag=%d: onderdrukken van extra uitgebreide kernel verhoudingsfouten\n"
 
-#: src/geometry.c:1818
+#: src/geometry.c:1811
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4459,25 +4459,25 @@ msgstr ""
 "tag=%d/seg=%d: lengte/straalverhouding van %.1f < 2.0; uitgebreide dunne-"
 "draad kernel veldfout overschrijdt 1%% (min=0.5, 1%% nauwkeurig=2.0)\n"
 
-#: src/geometry.c:1823
+#: src/geometry.c:1816
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr ""
 "tag=%d: onderdrukken van extra uitgebreide kernel verhoudingswaarschuwingen\n"
 
-#: src/geometry.c:1840
+#: src/geometry.c:1833
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr ""
 "Overlapcontrole overslaan voor %d segmenten (gebruik --force-verify om in te "
 "schakelen)\n"
 
-#: src/geometry.c:1844
+#: src/geometry.c:1837
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "Overlapcontrole forceren voor %d segmenten\n"
 
-#: src/geometry.c:1856
+#: src/geometry.c:1849
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -5993,12 +5993,12 @@ msgstr "Kan optimizer wake-eventfd niet aanmaken\n"
 msgid "failed to create Optimizer Output thread\n"
 msgstr "Kan Optimizer Output-thread niet aanmaken\n"
 
-#: src/optimizers/opt_fitness.c:494
+#: src/optimizers/opt_fitness.c:509
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: onbekende richting %d\n"
 
-#: src/optimizers/opt_fitness.c:567
+#: src/optimizers/opt_fitness.c:582
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: onbekende reductiemethode %d\n"
@@ -6132,17 +6132,17 @@ msgstr ""
 "Gemiddelde versterking: %.4f (%.2f dBi), efficiëntie: %.1f%%, ruimtehoek: "
 "%.4f * pi sr\n"
 
-#: src/rc_config.c:1003
+#: src/rc_config.c:999
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() mislukt: %s\n"
 
-#: src/rc_config.c:1007
+#: src/rc_config.c:1003
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "omgevingsvariabele HOME is niet gedefinieerd, %s wordt gebruikt\n"
 
-#: src/rc_config.c:1092
+#: src/rc_config.c:1088
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
@@ -6150,22 +6150,22 @@ msgstr ""
 "%s (locale=%s): slechts %d van %lu tekens overeengekomen, andere locale "
 "geprobeerd: %s\n"
 
-#: src/rc_config.c:1311
+#: src/rc_config.c:1307
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "venster: x=%-5d y=%-5d b=%-5d h=%-5d  titel: \"%s\"\n"
 
-#: src/rc_config.c:1345
+#: src/rc_config.c:1341
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: EOF bij lezen van toepassingsversie.\n"
 
-#: src/rc_config.c:1351
+#: src/rc_config.c:1347
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "versie van bestaand configuratiebestand verschilt: %s != %s\n"
 
-#: src/rc_config.c:1398
+#: src/rc_config.c:1394
 #, c-format
 msgid ""
 "gain readouts are scaled to %s, restored from the previous session; select "
@@ -6174,12 +6174,12 @@ msgstr ""
 "versterkingswaarden zijn geschaald naar %s, hersteld uit de vorige sessie; "
 "selecteer Totale versterking om totale versterking af te lezen\n"
 
-#: src/rc_config.c:1521
+#: src/rc_config.c:1517
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "stat mislukt voor %s: %s\n"
 
-#: src/rc_config.c:1527
+#: src/rc_config.c:1523
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -6188,49 +6188,49 @@ msgstr ""
 "Rechten van map %s gecorrigeerd van 0%o naar 0%o wegens bug geïntroduceerd "
 "in 4e62893b.\n"
 
-#: src/rc_config.c:1560
+#: src/rc_config.c:1556
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: Regel niet verwerkt: %s\n"
 
-#: src/rc_config.c:1566
+#: src/rc_config.c:1562
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: Vroegtijdig einde van bestand voor %s: %s \n"
 
-#: src/rc_config.c:1591
+#: src/rc_config.c:1587
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: parsefout (%s): %s \n"
 
-#: src/rc_config.c:1605
+#: src/rc_config.c:1601
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr "Ongeldig luchtmodel-index %d in config, teruggezet naar standaard\n"
 
-#: src/rc_config.c:1611
+#: src/rc_config.c:1607
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr "Ongeldig aardmodel-index %d in config, teruggezet naar standaard\n"
 
-#: src/rc_config.c:1617
+#: src/rc_config.c:1613
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Ongeldige interpolatiemethode %d in config, teruggezet naar standaard\n"
 
-#: src/rc_config.c:1625
+#: src/rc_config.c:1621
 #, c-format
 msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr ""
 "Ongeldige stroomvisualisatiemodus %d in configuratie, wordt teruggezet naar "
 "standaardwaarde\n"
 
-#: src/rc_config.c:1790
+#: src/rc_config.c:1786
 msgid "batch mode: skipping configuration save\n"
 msgstr "batchmodus: configuratie opslaan wordt overgeslagen\n"
 
-#: src/rc_config.c:1812
+#: src/rc_config.c:1808
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "Kan configuratiebestand %s van xnec2c niet openen: %s\n"
@@ -6627,34 +6627,34 @@ msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr ""
 "thema '%s' rol '%s' ongeldige kleur, verouderde standaard wordt gebruikt\n"
 
-#: src/themes/theme.c:218
+#: src/themes/theme.c:222
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "thema: kan bron %s niet laden: %s\n"
 
-#: src/themes/theme.c:228
+#: src/themes/theme.c:232
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "thema: kan bron %s niet verwerken: %s\n"
 
-#: src/themes/theme.c:254
+#: src/themes/theme.c:258
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "thema: kan %s niet verwerken, ingebouwde standaardinstellingen worden "
 "gebruikt\n"
 
-#: src/themes/theme.c:377
+#: src/themes/theme.c:401
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "thema '%s' heeft geen omgekeerde variant, basis wordt gebruikt\n"
 
-#: src/themes/theme.c:385
+#: src/themes/theme.c:409
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "thema '%s' niet gevonden, verouderd thema wordt gebruikt\n"
 
-#: src/themes/theme.c:428
+#: src/themes/theme.c:452
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "breedte '%s' ongeldig, huidige waarde blijft behouden\n"
@@ -6894,3 +6894,228 @@ msgid ""
 msgstr ""
 "De sweep is volledig berekend. Deze opnieuw uitvoeren verwerpt elke "
 "berekende stap en berekent de sweep vanaf de eerste stap."
+
+#: resources/themes.ini:11 resources/themes.ini:41
+msgid "Abyss color palette from DaisyUI theme collection"
+msgstr "Abyss-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:71 resources/themes.ini:101
+msgid "Acid color palette from DaisyUI theme collection"
+msgstr "Acid-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:131 resources/themes.ini:161
+msgid "Aqua color palette from DaisyUI theme collection"
+msgstr "Aqua-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:191 resources/themes.ini:221
+msgid "Autumn color palette from DaisyUI theme collection"
+msgstr "Autumn-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:251 resources/themes.ini:281
+msgid "Black color palette from DaisyUI theme collection"
+msgstr "Black-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:311 resources/themes.ini:341
+msgid "Bumblebee color palette from DaisyUI theme collection"
+msgstr "Bumblebee-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:371 resources/themes.ini:401
+msgid "Business color palette from DaisyUI theme collection"
+msgstr "Business-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:431 resources/themes.ini:461
+msgid "Caramellatte color palette from DaisyUI theme collection"
+msgstr "Caramellatte-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:491 resources/themes.ini:521
+msgid "Cmyk color palette from DaisyUI theme collection"
+msgstr "Cmyk-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:551 resources/themes.ini:581
+msgid "Coffee color palette from DaisyUI theme collection"
+msgstr "Coffee-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:611 resources/themes.ini:641
+msgid "Corporate color palette from DaisyUI theme collection"
+msgstr "Corporate-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:671 resources/themes.ini:701
+msgid "P3 amber as used in IBM PC XT and Hercules displays"
+msgstr "P3-amber zoals gebruikt in IBM PC XT- en Hercules-beeldschermen"
+
+#: resources/themes.ini:731 resources/themes.ini:761
+msgid "P31 bright green as used in Apple IIe monitors and oscilloscopes"
+msgstr ""
+"P31-helder groen zoals gebruikt in Apple IIe-monitoren en oscilloscopen"
+
+#: resources/themes.ini:791 resources/themes.ini:821
+msgid "P39 saturated green as used in Apple III and IBM 5151 terminals"
+msgstr "P39-verzadigd groen zoals gebruikt in Apple III- en IBM 5151-terminals"
+
+#: resources/themes.ini:851 resources/themes.ini:881
+msgid "P45 cool white for monochrome camcorder viewfinders"
+msgstr "P45-koelwit voor monochrome camcorderviziers"
+
+#: resources/themes.ini:911 resources/themes.ini:941
+msgid "Classic cyan/magenta gaming aesthetic from early IBM PC era"
+msgstr "Klassieke cyaan/magenta-gameesthetiek uit het vroege IBM PC-tijdperk"
+
+#: resources/themes.ini:971 resources/themes.ini:1001
+msgid "Warm creative light palette with magenta foundation"
+msgstr "Warm creatief lichtpalet met magentabasis"
+
+#: resources/themes.ini:1031 resources/themes.ini:1061
+msgid "Green-accented CRT aesthetic for extended viewing"
+msgstr "Groen geaccentueerde CRT-esthetiek voor langdurig kijken"
+
+#: resources/themes.ini:1091 resources/themes.ini:1121
+msgid "Cool professional light palette with blue foundation"
+msgstr "Koel professioneel lichtpalet met blauwe basis"
+
+#: resources/themes.ini:1151 resources/themes.ini:1181
+msgid "Professional amber/green phosphor aesthetic from IBM business era"
+msgstr ""
+"Professionele amber/groene fosforesthetiek uit het IBM-zakelijke tijdperk"
+
+#: resources/themes.ini:1211 resources/themes.ini:1241
+msgid "CRT Clarity: Split-complementary harmony with warm/cool tension"
+msgstr ""
+"CRT Clarity: gesplitst-complementaire harmonie met spanning tussen warm en "
+"koel"
+
+#: resources/themes.ini:1271 resources/themes.ini:1301
+msgid "Cool analogous professional light palette"
+msgstr "Koel analoog professioneel lichtpalet"
+
+#: resources/themes.ini:1331 resources/themes.ini:1361
+msgid "Warm content dark palette for reduced eye strain"
+msgstr "Warm inhoudelijk donkerpalet voor verminderde oogvermoeidheid"
+
+#: resources/themes.ini:1391 resources/themes.ini:1421
+msgid ""
+"CRT Phosphor Glow: Triadic harmony with cool/warm balance and CRT aesthetic"
+msgstr ""
+"CRT Phosphor Glow: triadische harmonie met balans tussen koel en warm en CRT-"
+"esthetiek"
+
+#: resources/themes.ini:1451 resources/themes.ini:1481
+msgid "P1 medium-persistence green as used in early oscilloscope tubes"
+msgstr ""
+"P1-groen met middellange nagloei zoals gebruikt in vroege oscilloscoopbuizen"
+
+#: resources/themes.ini:1511 resources/themes.ini:1541
+msgid "P4 white as used in IBM 8503 VGA and broadcast television"
+msgstr "P4-wit zoals gebruikt in IBM 8503 VGA- en omroeptelevisie"
+
+#: resources/themes.ini:1571 resources/themes.ini:1601
+msgid "P7 cascade phosphor as used in military radar and air traffic control"
+msgstr ""
+"P7-cascadefosfor zoals gebruikt in militaire radar en luchtverkeersleiding"
+
+#: resources/themes.ini:1631 resources/themes.ini:1661
+msgid "Cupcake color palette from DaisyUI theme collection"
+msgstr "Cupcake-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:1691 resources/themes.ini:1721
+msgid "Cyberpunk color palette from DaisyUI theme collection"
+msgstr "Cyberpunk-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:1751 resources/themes.ini:1781
+msgid "Dark color palette from DaisyUI theme collection"
+msgstr "Dark-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:1811 resources/themes.ini:1841
+msgid "Dim color palette from DaisyUI theme collection"
+msgstr "Dim-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:1871 resources/themes.ini:1901
+msgid "Dracula color palette from DaisyUI theme collection"
+msgstr "Dracula-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:1931 resources/themes.ini:1961
+msgid "Emerald color palette from DaisyUI theme collection"
+msgstr "Emerald-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:1991 resources/themes.ini:2021
+msgid "Fantasy color palette from DaisyUI theme collection"
+msgstr "Fantasy-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2051 resources/themes.ini:2081
+msgid "Forest color palette from DaisyUI theme collection"
+msgstr "Forest-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2111 resources/themes.ini:2141
+msgid "Garden color palette from DaisyUI theme collection"
+msgstr "Garden-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2171 resources/themes.ini:2201
+msgid "Halloween color palette from DaisyUI theme collection"
+msgstr "Halloween-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2231 resources/themes.ini:2261
+msgid "Lemonade color palette from DaisyUI theme collection"
+msgstr "Lemonade-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2291 resources/themes.ini:2321
+msgid "Light color palette from DaisyUI theme collection"
+msgstr "Light-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2351 resources/themes.ini:2381
+msgid "Lofi color palette from DaisyUI theme collection"
+msgstr "Lofi-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2411 resources/themes.ini:2441
+msgid "Luxury color palette from DaisyUI theme collection"
+msgstr "Luxury-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2471 resources/themes.ini:2501
+msgid "Night color palette from DaisyUI theme collection"
+msgstr "Night-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2531 resources/themes.ini:2561
+msgid "Nord color palette from DaisyUI theme collection"
+msgstr "Nord-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2591 resources/themes.ini:2621
+msgid "Pastel color palette from DaisyUI theme collection"
+msgstr "Pastel-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2651 resources/themes.ini:2681
+msgid "Retro color palette from DaisyUI theme collection"
+msgstr "Retro-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2711 resources/themes.ini:2741
+msgid "Silk color palette from DaisyUI theme collection"
+msgstr "Silk-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2771 resources/themes.ini:2801
+msgid "Sunset color palette from DaisyUI theme collection"
+msgstr "Sunset-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2831 resources/themes.ini:2861
+msgid "Synthwave color palette from DaisyUI theme collection"
+msgstr "Synthwave-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2891 resources/themes.ini:2921
+msgid "Valentine color palette from DaisyUI theme collection"
+msgstr "Valentine-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:2951 resources/themes.ini:2981
+msgid "Winter color palette from DaisyUI theme collection"
+msgstr "Winter-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:3011 resources/themes.ini:3041
+msgid "Wireframe color palette from DaisyUI theme collection"
+msgstr "Wireframe-kleurpalet uit de DaisyUI-themaverzameling"
+
+#: resources/themes.ini:3071 resources/themes.ini:3101
+msgid "Classic xnec2c plot colors"
+msgstr "Klassieke xnec2c-plotkleuren"
+
+#: resources/themes.ini:3131 resources/themes.ini:3161
+msgid "Hand-tuned cool palette"
+msgstr "Handmatig afgestemd koelpalet"
+
+#: resources/themes.ini:3191 resources/themes.ini:3221
+msgid "Hand-tuned warm palette"
+msgstr "Handmatig afgestemd warmpalet"

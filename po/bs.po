@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
-"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-12 01:09-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 16:21-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3174,7 +3174,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "konfiguracijska datoteka ne postoji ili nije čitljiva: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3821,11 +3821,11 @@ msgstr "dodjela memorije za tačke nije uspjela\n"
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Dodjela memorije za tačke nije uspjela"
 
-#: src/freqplots/freqplots_theme_menu.c:41
+#: src/freqplots/freqplots_theme_menu.c:42
 msgid "This theme has no inverted variant"
 msgstr "Ova tema nema invertovanu varijantu"
 
-#: src/freqplots/freqplots_theme_menu.c:117
+#: src/freqplots/freqplots_theme_menu.c:127
 msgid "_Invert"
 msgstr "_Invertuj"
 
@@ -4108,25 +4108,25 @@ msgstr "SY definicija (npr. FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "NEC2 prozor uređivača nije otvoren"
 
-#: src/geometry.c:111
+#: src/geometry.c:118
 msgid "Number of segments < 1"
 msgstr "Broj segmenata < 1"
 
-#: src/geometry.c:148
+#: src/geometry.c:155
 msgid "Arc angle exceeds 360 degrees"
 msgstr "Ugao luka prelazi 360 stepeni"
 
-#: src/geometry.c:287
+#: src/geometry.c:294
 msgid "Error in conect(): np > n"
 msgstr "Greška u conect(): np > n"
 
-#: src/geometry.c:318 src/geometry.c:366
+#: src/geometry.c:325 src/geometry.c:373
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr ""
 "greška geometrijskih podataka: segment %d se proteže ispod uzemljenja\n"
 
-#: src/geometry.c:319 src/geometry.c:367
+#: src/geometry.c:326 src/geometry.c:374
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4134,12 +4134,12 @@ msgstr ""
 "Greška geometrijskih podataka\n"
 "Segment se proteže ispod uzemljenja"
 
-#: src/geometry.c:376
+#: src/geometry.c:383
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "greška geometrijskih podataka: segment %d leži u ravni uzemljenja\n"
 
-#: src/geometry.c:377
+#: src/geometry.c:384
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4148,15 +4148,15 @@ msgstr ""
 "Segment leži u ravni uzemljenja"
 
 # xnec2c-exempt: name
-#: src/geometry.c:467
+#: src/geometry.c:474
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:468
+#: src/geometry.c:475
 msgid "Error: ipsym = 0"
 msgstr "Greška: ipsym = 0"
 
-#: src/geometry.c:521
+#: src/geometry.c:528
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4165,7 +4165,7 @@ msgstr ""
 "Broj veza segmenata prelazi punu mrežu, što je malo vjerovatno: data.n=%ld "
 "segj.maxcon=%lu\n"
 
-#: src/geometry.c:523
+#: src/geometry.c:530
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4173,7 +4173,7 @@ msgstr ""
 "Broj veza segmenata prelazi punu mrežu, što je malo vjerovatno!\n"
 "Provjerite preklapajuće ili skoro povezane segmente\n"
 
-#: src/geometry.c:737
+#: src/geometry.c:744
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4181,7 +4181,7 @@ msgstr ""
 "provjerite podatke, parametar koji specificira segment: pozicija u grupi "
 "jednakih oznaka ne smije biti nula\n"
 
-#: src/geometry.c:738
+#: src/geometry.c:745
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4189,12 +4189,12 @@ msgstr ""
 "Parametar koji specificira poziciju\n"
 "segmenta u grupi jednakih oznaka je nula"
 
-#: src/geometry.c:770
+#: src/geometry.c:777
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "nijedan segment nema itag od %d\n"
 
-#: src/geometry.c:774
+#: src/geometry.c:781
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4208,7 +4208,7 @@ msgstr ""
 "Za GM kartice: provjerite da 'počni od oznake' i 'inkrement oznake' ne "
 "stvaraju oznaku 0."
 
-#: src/geometry.c:782
+#: src/geometry.c:789
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4219,11 +4219,11 @@ msgstr ""
 "Referencirate nepoznatu oznaku ili segment u kontrolnoj kartici.\n"
 "Važeće oznake u vašoj geometriji su one dodijeljene GW/GA/GH/SP karticama."
 
-#: src/geometry.c:1057
+#: src/geometry.c:1064
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "uglovi četverokuta: zakrpa ne leži u ravni\n"
 
-#: src/geometry.c:1058
+#: src/geometry.c:1065
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4231,12 +4231,12 @@ msgstr ""
 "Uglovi četverokutne\n"
 "zakrpe ne leže u ravni"
 
-#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
+#: src/geometry.c:1170 src/geometry.c:1247 src/geometry.c:1325
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "greška geometrijskih podataka: segment %d leži u ravni simetrije\n"
 
-#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
+#: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4244,12 +4244,12 @@ msgstr ""
 "Greška geometrijskih podataka\n"
 "Segment leži u ravni simetrije"
 
-#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
+#: src/geometry.c:1207 src/geometry.c:1284 src/geometry.c:1359
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "greška geometrijskih podataka: zakrpa %d leži u ravni simetrije\n"
 
-#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
+#: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4257,7 +4257,7 @@ msgstr ""
 "Greška geometrijskih podataka\n"
 "Zakrpa leži u ravni simetrije"
 
-#: src/geometry.c:1473
+#: src/geometry.c:1480
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4266,12 +4266,12 @@ msgstr ""
 "tag=%d/seg=%d: udaljenost krajnje tačke=%.3e je preblizu (ispod praga "
 "povezivanja=%.3e); segment će se povezati sam sa sobom\n"
 
-#: src/geometry.c:1478
+#: src/geometry.c:1485
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr "tag=%d: potiskivanje dodatnih upozorenja o samo-povezivanju\n"
 
-#: src/geometry.c:1523
+#: src/geometry.c:1530
 #, c-format
 msgid ""
 "tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
@@ -4280,13 +4280,13 @@ msgstr ""
 "tag=%d/seg=%d: poklapa se s tag=%d/seg=%d; NEC2 ne može razdvojiti struje "
 "segmenata koji se poklapaju\n"
 
-#: src/geometry.c:1528
+#: src/geometry.c:1535
 #, c-format
 msgid "tag=%d: suppressing additional coincident segment warnings\n"
 msgstr ""
 "tag=%d: potiskuju se dodatna upozorenja o segmentima koji se poklapaju\n"
 
-#: src/geometry.c:1573
+#: src/geometry.c:1580
 #, c-format
 msgid ""
 "tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
@@ -4296,13 +4296,13 @@ msgstr ""
 "povezivanja threshold=%.3e, ali unutar %gx tog praga; NEC2 ostavlja ove "
 "krajeve nepovezanim\n"
 
-#: src/geometry.c:1579
+#: src/geometry.c:1586
 #, c-format
 msgid "tag=%d: suppressing additional near-miss junction warnings\n"
 msgstr ""
 "tag=%d: potiskuju se dodatna upozorenja o spojevima s malim promašajem\n"
 
-#: src/geometry.c:1646
+#: src/geometry.c:1639
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4311,7 +4311,7 @@ msgstr ""
 "tag=%d/seg=%d: dužina=%.3e je prekratka (i dovoljno blizu) do tag=%d/seg=%d "
 "dužine=%.3e da detekcija veze može otkazati ili kratko spojiti\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1645
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
@@ -4320,7 +4320,7 @@ msgstr ""
 "tag=%d: potiskivanje dodatnih upozorenja o mogućem otkazu detekcije veze ili "
 "kratkom spoju\n"
 
-#: src/geometry.c:1685
+#: src/geometry.c:1678
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4331,12 +4331,12 @@ msgstr ""
 "komponenti struje dovodi do numeričkih netačnosti (min=0.001, fino=0.05, "
 "preporučeno <= 0.1)\n"
 
-#: src/geometry.c:1690
+#: src/geometry.c:1683
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr "tag=%d: potiskivanje dodatnih grešaka kratkog odnosa talasne dužine\n"
 
-#: src/geometry.c:1704
+#: src/geometry.c:1697
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4347,12 +4347,12 @@ msgstr ""
 "uzorkovanja struje ograničena razmakom segmenata (min=0.001, fino=0.05, "
 "preporučeno <= 0.1)\n"
 
-#: src/geometry.c:1709
+#: src/geometry.c:1702
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr "tag=%d: potiskivanje dodatnih upozorenja dugog odnosa talasne dužine\n"
 
-#: src/geometry.c:1723
+#: src/geometry.c:1716
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4363,12 +4363,12 @@ msgstr ""
 "povećavaju tačnost u područjima brze promjene struje (min=0.001, fino=0.05, "
 "preporučeno <=0.1)\n"
 
-#: src/geometry.c:1728
+#: src/geometry.c:1721
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr "tag=%d: potiskivanje dodatnih prijedloga za poboljšanje tačnosti\n"
 
-#: src/geometry.c:1759
+#: src/geometry.c:1752
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4377,12 +4377,12 @@ msgstr ""
 "tag=%d/seg=%d: odnos dužina/radijus od %.1f < 2.0; greška polja standardnog "
 "jezgra tanke žice prelazi 1%% za veliku marginu (min=2.0, 1%%-tačno=8.0)\n"
 
-#: src/geometry.c:1764
+#: src/geometry.c:1757
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr "tag=%d: potiskivanje dodatnih grešaka odnosa standardnog jezgra\n"
 
-#: src/geometry.c:1778
+#: src/geometry.c:1771
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4391,12 +4391,12 @@ msgstr ""
 "tag=%d/seg=%d: odnos dužina/radijus od %.1f < 8.0; greška polja standardnog "
 "jezgra tanke žice prelazi 1%% (min=2.0, 1%%-tačno=8.0)\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1776
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr "tag=%d: potiskivanje dodatnih upozorenja odnosa standardnog jezgra\n"
 
-#: src/geometry.c:1799
+#: src/geometry.c:1792
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4405,12 +4405,12 @@ msgstr ""
 "tag=%d/seg=%d: odnos dužina/radijus od %.1f < 0.5; greška polja proširenog "
 "jezgra tanke žice prelazi 1%% za veliku marginu (min=0.5, 1%%-tačno=2.0)\n"
 
-#: src/geometry.c:1804
+#: src/geometry.c:1797
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr "tag=%d: potiskivanje dodatnih grešaka odnosa proširenog jezgra\n"
 
-#: src/geometry.c:1818
+#: src/geometry.c:1811
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4419,24 +4419,24 @@ msgstr ""
 "tag=%d/seg=%d: odnos dužina/radijus od %.1f < 2.0; greška polja proširenog "
 "jezgra tanke žice prelazi 1%% (min=0.5, 1%%-tačno=2.0)\n"
 
-#: src/geometry.c:1823
+#: src/geometry.c:1816
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr "tag=%d: potiskivanje dodatnih upozorenja odnosa proširenog jezgra\n"
 
-#: src/geometry.c:1840
+#: src/geometry.c:1833
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr ""
 "Preskakanje provjere preklapanja za %d segmenata (koristite --force-verify "
 "za omogućavanje)\n"
 
-#: src/geometry.c:1844
+#: src/geometry.c:1837
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "Prisilna provjera preklapanja za %d segmenata\n"
 
-#: src/geometry.c:1856
+#: src/geometry.c:1849
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -5945,12 +5945,12 @@ msgstr "kreiranje eventfd-a za buđenje optimizatora nije uspjelo\n"
 msgid "failed to create Optimizer Output thread\n"
 msgstr "kreiranje niti izlaza optimizatora nije uspjelo\n"
 
-#: src/optimizers/opt_fitness.c:494
+#: src/optimizers/opt_fitness.c:509
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: nepoznati smjer %d\n"
 
-#: src/optimizers/opt_fitness.c:567
+#: src/optimizers/opt_fitness.c:582
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: nepoznata metoda redukcije %d\n"
@@ -6577,34 +6577,34 @@ msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr ""
 "tema '%s' uloga '%s' nevažeća boja, koristim naslijeđeni podrazumijevani\n"
 
-#: src/themes/theme.c:218
+#: src/themes/theme.c:222
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "tema: nije moguće učitati resurs %s: %s\n"
 
-#: src/themes/theme.c:228
+#: src/themes/theme.c:232
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "tema: nije moguće parsirati resurs %s: %s\n"
 
-#: src/themes/theme.c:254
+#: src/themes/theme.c:258
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "tema: nije moguće parsirati %s, koristim ugrađene podrazumijevane "
 "vrijednosti\n"
 
-#: src/themes/theme.c:377
+#: src/themes/theme.c:401
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "tema '%s' nema invertovanu varijantu, koristim osnovnu\n"
 
-#: src/themes/theme.c:385
+#: src/themes/theme.c:409
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "tema '%s' nije pronađena, koristim naslijeđenu\n"
 
-#: src/themes/theme.c:428
+#: src/themes/theme.c:452
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "širina '%s' nevažeća, zadržavam trenutnu vrijednost\n"
@@ -6842,3 +6842,230 @@ msgid ""
 msgstr ""
 "Sweep je u potpunosti izračunat.  Ponovno pokretanje odbacuje svaki "
 "izračunati korak i izračunava sweep od prvog koraka."
+
+#: resources/themes.ini:11 resources/themes.ini:41
+msgid "Abyss color palette from DaisyUI theme collection"
+msgstr "Paleta boja Abyss iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:71 resources/themes.ini:101
+msgid "Acid color palette from DaisyUI theme collection"
+msgstr "Paleta boja Acid iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:131 resources/themes.ini:161
+msgid "Aqua color palette from DaisyUI theme collection"
+msgstr "Paleta boja Aqua iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:191 resources/themes.ini:221
+msgid "Autumn color palette from DaisyUI theme collection"
+msgstr "Paleta boja Autumn iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:251 resources/themes.ini:281
+msgid "Black color palette from DaisyUI theme collection"
+msgstr "Paleta boja Black iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:311 resources/themes.ini:341
+msgid "Bumblebee color palette from DaisyUI theme collection"
+msgstr "Paleta boja Bumblebee iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:371 resources/themes.ini:401
+msgid "Business color palette from DaisyUI theme collection"
+msgstr "Paleta boja Business iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:431 resources/themes.ini:461
+msgid "Caramellatte color palette from DaisyUI theme collection"
+msgstr "Paleta boja Caramellatte iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:491 resources/themes.ini:521
+msgid "Cmyk color palette from DaisyUI theme collection"
+msgstr "Paleta boja Cmyk iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:551 resources/themes.ini:581
+msgid "Coffee color palette from DaisyUI theme collection"
+msgstr "Paleta boja Coffee iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:611 resources/themes.ini:641
+msgid "Corporate color palette from DaisyUI theme collection"
+msgstr "Paleta boja Corporate iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:671 resources/themes.ini:701
+msgid "P3 amber as used in IBM PC XT and Hercules displays"
+msgstr "P3 jantarna boja kakva se koristi u ekranima IBM PC XT i Hercules"
+
+#: resources/themes.ini:731 resources/themes.ini:761
+msgid "P31 bright green as used in Apple IIe monitors and oscilloscopes"
+msgstr ""
+"P31 svijetlozelena boja kakva se koristi u monitorima Apple IIe i "
+"osciloskopima"
+
+#: resources/themes.ini:791 resources/themes.ini:821
+msgid "P39 saturated green as used in Apple III and IBM 5151 terminals"
+msgstr ""
+"P39 zasićena zelena boja kakva se koristi u terminalima Apple III i IBM 5151"
+
+#: resources/themes.ini:851 resources/themes.ini:881
+msgid "P45 cool white for monochrome camcorder viewfinders"
+msgstr "P45 hladno bijela boja za monohromatska tražila kamkordera"
+
+#: resources/themes.ini:911 resources/themes.ini:941
+msgid "Classic cyan/magenta gaming aesthetic from early IBM PC era"
+msgstr "Klasična cijan/magenta estetika igara iz ranog doba IBM PC-a"
+
+#: resources/themes.ini:971 resources/themes.ini:1001
+msgid "Warm creative light palette with magenta foundation"
+msgstr "Topla kreativna svijetla paleta s magenta osnovom"
+
+#: resources/themes.ini:1031 resources/themes.ini:1061
+msgid "Green-accented CRT aesthetic for extended viewing"
+msgstr "Estetika CRT-a sa zelenim akcentom za produženo gledanje"
+
+#: resources/themes.ini:1091 resources/themes.ini:1121
+msgid "Cool professional light palette with blue foundation"
+msgstr "Hladna profesionalna svijetla paleta s plavom osnovom"
+
+#: resources/themes.ini:1151 resources/themes.ini:1181
+msgid "Professional amber/green phosphor aesthetic from IBM business era"
+msgstr "Profesionalna jantarna/zelena fosforna estetika iz IBM poslovnog doba"
+
+#: resources/themes.ini:1211 resources/themes.ini:1241
+msgid "CRT Clarity: Split-complementary harmony with warm/cool tension"
+msgstr "CRT jasnoća: Split-komplementarna harmonija s toplom/hladnom napetošću"
+
+#: resources/themes.ini:1271 resources/themes.ini:1301
+msgid "Cool analogous professional light palette"
+msgstr "Hladna analogna profesionalna svijetla paleta"
+
+#: resources/themes.ini:1331 resources/themes.ini:1361
+msgid "Warm content dark palette for reduced eye strain"
+msgstr "Topla, smirena tamna paleta za smanjen zamor očiju"
+
+#: resources/themes.ini:1391 resources/themes.ini:1421
+msgid ""
+"CRT Phosphor Glow: Triadic harmony with cool/warm balance and CRT aesthetic"
+msgstr ""
+"CRT sjaj fosfora: Trijadna harmonija s hladno/toplom ravnotežom i CRT "
+"estetikom"
+
+#: resources/themes.ini:1451 resources/themes.ini:1481
+msgid "P1 medium-persistence green as used in early oscilloscope tubes"
+msgstr ""
+"P1 zelena boja srednje postojanosti kakva se koristi u ranim osciloskopskim "
+"cijevima"
+
+#: resources/themes.ini:1511 resources/themes.ini:1541
+msgid "P4 white as used in IBM 8503 VGA and broadcast television"
+msgstr ""
+"P4 bijela boja kakva se koristi u IBM 8503 VGA i u televizijskom emitiranju"
+
+#: resources/themes.ini:1571 resources/themes.ini:1601
+msgid "P7 cascade phosphor as used in military radar and air traffic control"
+msgstr ""
+"P7 kaskadni fosfor kakav se koristi u vojnim radarima i kontroli zračnog "
+"saobraćaja"
+
+#: resources/themes.ini:1631 resources/themes.ini:1661
+msgid "Cupcake color palette from DaisyUI theme collection"
+msgstr "Paleta boja Cupcake iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:1691 resources/themes.ini:1721
+msgid "Cyberpunk color palette from DaisyUI theme collection"
+msgstr "Paleta boja Cyberpunk iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:1751 resources/themes.ini:1781
+msgid "Dark color palette from DaisyUI theme collection"
+msgstr "Paleta boja Dark iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:1811 resources/themes.ini:1841
+msgid "Dim color palette from DaisyUI theme collection"
+msgstr "Paleta boja Dim iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:1871 resources/themes.ini:1901
+msgid "Dracula color palette from DaisyUI theme collection"
+msgstr "Paleta boja Dracula iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:1931 resources/themes.ini:1961
+msgid "Emerald color palette from DaisyUI theme collection"
+msgstr "Paleta boja Emerald iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:1991 resources/themes.ini:2021
+msgid "Fantasy color palette from DaisyUI theme collection"
+msgstr "Paleta boja Fantasy iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2051 resources/themes.ini:2081
+msgid "Forest color palette from DaisyUI theme collection"
+msgstr "Paleta boja Forest iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2111 resources/themes.ini:2141
+msgid "Garden color palette from DaisyUI theme collection"
+msgstr "Paleta boja Garden iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2171 resources/themes.ini:2201
+msgid "Halloween color palette from DaisyUI theme collection"
+msgstr "Paleta boja Halloween iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2231 resources/themes.ini:2261
+msgid "Lemonade color palette from DaisyUI theme collection"
+msgstr "Paleta boja Lemonade iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2291 resources/themes.ini:2321
+msgid "Light color palette from DaisyUI theme collection"
+msgstr "Paleta boja Light iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2351 resources/themes.ini:2381
+msgid "Lofi color palette from DaisyUI theme collection"
+msgstr "Paleta boja Lofi iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2411 resources/themes.ini:2441
+msgid "Luxury color palette from DaisyUI theme collection"
+msgstr "Paleta boja Luxury iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2471 resources/themes.ini:2501
+msgid "Night color palette from DaisyUI theme collection"
+msgstr "Paleta boja Night iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2531 resources/themes.ini:2561
+msgid "Nord color palette from DaisyUI theme collection"
+msgstr "Paleta boja Nord iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2591 resources/themes.ini:2621
+msgid "Pastel color palette from DaisyUI theme collection"
+msgstr "Paleta boja Pastel iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2651 resources/themes.ini:2681
+msgid "Retro color palette from DaisyUI theme collection"
+msgstr "Paleta boja Retro iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2711 resources/themes.ini:2741
+msgid "Silk color palette from DaisyUI theme collection"
+msgstr "Paleta boja Silk iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2771 resources/themes.ini:2801
+msgid "Sunset color palette from DaisyUI theme collection"
+msgstr "Paleta boja Sunset iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2831 resources/themes.ini:2861
+msgid "Synthwave color palette from DaisyUI theme collection"
+msgstr "Paleta boja Synthwave iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2891 resources/themes.ini:2921
+msgid "Valentine color palette from DaisyUI theme collection"
+msgstr "Paleta boja Valentine iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:2951 resources/themes.ini:2981
+msgid "Winter color palette from DaisyUI theme collection"
+msgstr "Paleta boja Winter iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:3011 resources/themes.ini:3041
+msgid "Wireframe color palette from DaisyUI theme collection"
+msgstr "Paleta boja Wireframe iz DaisyUI kolekcije tema"
+
+#: resources/themes.ini:3071 resources/themes.ini:3101
+msgid "Classic xnec2c plot colors"
+msgstr "Klasične xnec2c boje grafikona"
+
+#: resources/themes.ini:3131 resources/themes.ini:3161
+msgid "Hand-tuned cool palette"
+msgstr "Ručno podešena hladna paleta"
+
+#: resources/themes.ini:3191 resources/themes.ini:3221
+msgid "Hand-tuned warm palette"
+msgstr "Ručno podešena topla paleta"

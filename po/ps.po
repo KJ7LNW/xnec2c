@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
-"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-12 01:09-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 20:33-0800\n"
 "PO-Revision-Date: 2026-05-25 01:51-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -328,7 +328,7 @@ msgstr "د ژورتیا ډبې"
 
 #: resources/settings/cairo_settings.glade:184
 #: resources/settings/opengl_settings.glade:515
-#: resources/settings/render_settings.glade:201
+#: resources/settings/render_settings.glade:216
 msgid "Reset to _Defaults"
 msgstr "_ډیفالټونو ته بیرته"
 
@@ -784,15 +784,19 @@ msgstr "یوازې لیدلوری — د NEC2 ماډل محاسبو اغیز ن�
 msgid "_Color Theme"
 msgstr "د _رنګ تیم"
 
-#: resources/settings/render_settings.glade:162
+#: resources/settings/render_settings.glade:153
+msgid "_Invert"
+msgstr "_اپوټه"
+
+#: resources/settings/render_settings.glade:177
 msgid "_Wire Radius Scale"
 msgstr "د تار د شعاع پیمانه (_W)"
 
-#: resources/settings/render_settings.glade:223
+#: resources/settings/render_settings.glade:238
 msgid "Rendering Settings"
 msgstr "د ریندرینګ ترتیبات"
 
-#: resources/settings/render_settings.glade:267
+#: resources/settings/render_settings.glade:282
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_بندول"
@@ -3144,7 +3148,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "د ترتیب فایل شتون نه لري یا لوستل نه کیږي: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3785,13 +3789,9 @@ msgstr "د ټکو لپاره د حافظې مختصول ناکام شو\n"
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): د ټکو لپاره د حافظې مختصول ناکام شو"
 
-#: src/freqplots/freqplots_theme_menu.c:41
+#: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
 msgstr "دا تیم هیڅ اپوټه بڼه نلري"
-
-#: src/freqplots/freqplots_theme_menu.c:117
-msgid "_Invert"
-msgstr "_اپوټه"
 
 #: src/freqplots/graphs/agt_graph.c:67
 msgid "Average gain"
@@ -4072,24 +4072,24 @@ msgstr "SY تعریف (لکه FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "NEC2 ایډیتر کړکۍ خلاصه نه ده"
 
-#: src/geometry.c:111
+#: src/geometry.c:118
 msgid "Number of segments < 1"
 msgstr "د برخو شمیر < 1"
 
-#: src/geometry.c:148
+#: src/geometry.c:155
 msgid "Arc angle exceeds 360 degrees"
 msgstr "د کمان زاویه له 360 درجو زیاتیږي"
 
-#: src/geometry.c:287
+#: src/geometry.c:294
 msgid "Error in conect(): np > n"
 msgstr "د conect() کې تېروتنه: np > n"
 
-#: src/geometry.c:318 src/geometry.c:366
+#: src/geometry.c:325 src/geometry.c:373
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr "د جیومیتري ډاټا تېروتنه: %d برخه د ځمکې لاندې غزیږي\n"
 
-#: src/geometry.c:319 src/geometry.c:367
+#: src/geometry.c:326 src/geometry.c:374
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4097,12 +4097,12 @@ msgstr ""
 "د جیومیتري ډاټا تېروتنه\n"
 "برخه د ځمکې لاندې غزیږي"
 
-#: src/geometry.c:376
+#: src/geometry.c:383
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "د جیومیتري ډاټا تېروتنه: %d برخه د ځمکني سطحې کې ده\n"
 
-#: src/geometry.c:377
+#: src/geometry.c:384
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4111,15 +4111,15 @@ msgstr ""
 "برخه د ځمکني سطحې کې ده"
 
 # xnec2c-exempt: name
-#: src/geometry.c:467
+#: src/geometry.c:474
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:468
+#: src/geometry.c:475
 msgid "Error: ipsym = 0"
 msgstr "تېروتنه: ipsym = 0"
 
-#: src/geometry.c:521
+#: src/geometry.c:528
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4128,7 +4128,7 @@ msgstr ""
 "د برخو د اتصال شمیر د بشپړ شبکې نه زیات دی، چې ناممکنه ده: data.n=%ld segj."
 "maxcon=%lu\n"
 
-#: src/geometry.c:523
+#: src/geometry.c:530
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4136,7 +4136,7 @@ msgstr ""
 "د برخو د اتصال شمیر د بشپړ شبکې نه زیات دی، چې ناممکنه ده!\n"
 "د سره پوښنه شوو یا نږدې-وصل برخو لپاره وګورئ\n"
 
-#: src/geometry.c:737
+#: src/geometry.c:744
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4144,7 +4144,7 @@ msgstr ""
 "ډاټا وګورئ، د برخې ټاکونکی پارامیتر: د مساوي ټاګونو ګروپ کې موقعیت باید صفر "
 "نه وي\n"
 
-#: src/geometry.c:738
+#: src/geometry.c:745
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4152,12 +4152,12 @@ msgstr ""
 "د برخې ټاکونکی پارامیتر\n"
 "د مساوي ټاګونو ګروپ کې موقعیت صفر دی"
 
-#: src/geometry.c:770
+#: src/geometry.c:777
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "هیڅ برخه د %d itag نه لري\n"
 
-#: src/geometry.c:774
+#: src/geometry.c:781
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4170,7 +4170,7 @@ msgstr ""
 "د GM کارډونو لپاره: تصدیق کړئ چې 'له ټاګه پیل' او 'د ټاګ زیاتوالی' ټاګ 0 نه "
 "جوړوي."
 
-#: src/geometry.c:782
+#: src/geometry.c:789
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4181,11 +4181,11 @@ msgstr ""
 "تاسو د کنټرول کارډ کې یو نامعلوم ټاګ یا برخه ته اشاره کوئ.\n"
 "ستاسو د جیومیتري کې سم ټاګونه هغه دي چې GW/GA/GH/SP کارډونو ته ټاکل شوي."
 
-#: src/geometry.c:1057
+#: src/geometry.c:1064
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "د چهارضلعي کنجونه: پیچ یوه سطحه کې نه دي\n"
 
-#: src/geometry.c:1058
+#: src/geometry.c:1065
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4193,12 +4193,12 @@ msgstr ""
 "د چهارضلعي کنجونه\n"
 "پیچ یوه سطحه کې نه دي"
 
-#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
+#: src/geometry.c:1170 src/geometry.c:1247 src/geometry.c:1325
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "د جیومیتري ډاټا تېروتنه: %d برخه د تقارن سطحه کې ده\n"
 
-#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
+#: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4206,12 +4206,12 @@ msgstr ""
 "د جیومیتري ډاټا تېروتنه\n"
 "برخه د تقارن سطحه کې ده"
 
-#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
+#: src/geometry.c:1207 src/geometry.c:1284 src/geometry.c:1359
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "د جیومیتري ډاټا تېروتنه: %d پیچ د تقارن سطحه کې دی\n"
 
-#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
+#: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4219,7 +4219,7 @@ msgstr ""
 "د جیومیتري ډاټا تېروتنه\n"
 "پیچ د تقارن سطحه کې دی"
 
-#: src/geometry.c:1473
+#: src/geometry.c:1480
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4228,12 +4228,12 @@ msgstr ""
 "tag=%d/seg=%d: د پای ټکي فاصله=%.3e خورا نږدې ده (د اتصال حد=%.3e لاندې)؛ "
 "برخه به ځان سره وصل شي\n"
 
-#: src/geometry.c:1478
+#: src/geometry.c:1485
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr "tag=%d: اضافي ځان-اتصال خبرداریونه ټاکل کیږي\n"
 
-#: src/geometry.c:1523
+#: src/geometry.c:1530
 #, c-format
 msgid ""
 "tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
@@ -4242,12 +4242,12 @@ msgstr ""
 "tag=%d/seg=%d: له tag=%d/seg=%d سره منطبق دی؛ NEC2 نشي کولای د منطبقو "
 "سیګمنټونو جریانونه جلا کړي\n"
 
-#: src/geometry.c:1528
+#: src/geometry.c:1535
 #, c-format
 msgid "tag=%d: suppressing additional coincident segment warnings\n"
 msgstr "tag=%d: د نورو منطبقو سیګمنټ خبرداریو ښودل بندیږي\n"
 
-#: src/geometry.c:1573
+#: src/geometry.c:1580
 #, c-format
 msgid ""
 "tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
@@ -4256,12 +4256,12 @@ msgstr ""
 "tag=%d/seg=%d: د پای gap=%.3e تر tag=%d/seg=%d پورې د اتصال له threshold="
 "%.3e هاخوا دی خو د هغه د %gx دننه؛ NEC2 دا پایونه نه نښلوي\n"
 
-#: src/geometry.c:1579
+#: src/geometry.c:1586
 #, c-format
 msgid "tag=%d: suppressing additional near-miss junction warnings\n"
 msgstr "tag=%d: د نورو نږدې-نه‌نښتلو جنکشن خبرداریو ښودل بندیږي\n"
 
-#: src/geometry.c:1646
+#: src/geometry.c:1639
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4270,14 +4270,14 @@ msgstr ""
 "tag=%d/seg=%d: اوږدوالی=%.3e د tag=%d/seg=%d اوږدوالی=%.3e سره خورا لنډ (او "
 "نږدې) دی چې د اتصال کشف ناکام یا کوتاه کیدلی شي\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1645
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
 "warnings\n"
 msgstr "tag=%d: اضافي د اتصال د کشف ناکام یا کوتاه خبرداریونه ټاکل کیږي\n"
 
-#: src/geometry.c:1685
+#: src/geometry.c:1678
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4287,12 +4287,12 @@ msgstr ""
 "tag=%d/seg=%d: د اوږدوالي/موج اوږدوالي نسبت %.3f < 0.001؛ د جریان مؤلفو ورته "
 "والی عددي ناسموالي لري (لږترلږه=0.001, ښه=0.05, سپارښتنه <= 0.1)\n"
 
-#: src/geometry.c:1690
+#: src/geometry.c:1683
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr "tag=%d: اضافي لنډ موج اوږدوالي نسبت تېروتنې ټاکل کیږي\n"
 
-#: src/geometry.c:1704
+#: src/geometry.c:1697
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4303,12 +4303,12 @@ msgstr ""
 "اخیستلو ریزوليشن د برخو واټن لخوا محدوده ده (لږترلږه=0.001, ښه=0.05, "
 "سپارښتنه <= 0.1)\n"
 
-#: src/geometry.c:1709
+#: src/geometry.c:1702
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr "tag=%d: اضافي اوږد موج اوږدوالي نسبت خبرداریونه ټاکل کیږي\n"
 
-#: src/geometry.c:1723
+#: src/geometry.c:1716
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4318,12 +4318,12 @@ msgstr ""
 "tag=%d/seg=%d: د اوږدوالي/موج اوږدوالي نسبت %.3f > 0.05؛ لنډې برخې د جریان د "
 "ګړندي بدلون ساحو کې دقت زیاتوي (لږترلږه=0.001, ښه=0.05, سپارښتنه <=0.1)\n"
 
-#: src/geometry.c:1728
+#: src/geometry.c:1721
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr "tag=%d: اضافي د دقت د ښه کولو وړاندیزونه ټاکل کیږي\n"
 
-#: src/geometry.c:1759
+#: src/geometry.c:1752
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4332,12 +4332,12 @@ msgstr ""
 "tag=%d/seg=%d: د اوږدوالي/رادیوس نسبت %.1f < 2.0؛ د معیاري نرۍ سیم کرنل د "
 "ساحې تېروتنه د لوی حاشیې لخوا له 1%% زیاتیږي (لږترلږه=2.0, 1%%دقیق=8.0)\n"
 
-#: src/geometry.c:1764
+#: src/geometry.c:1757
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr "tag=%d: اضافي معیاري کرنل نسبت تېروتنې ټاکل کیږي\n"
 
-#: src/geometry.c:1778
+#: src/geometry.c:1771
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4346,12 +4346,12 @@ msgstr ""
 "tag=%d/seg=%d: د اوږدوالي/رادیوس نسبت %.1f < 8.0؛ د معیاري نرۍ سیم کرنل د "
 "ساحې تېروتنه له 1%% زیاتیږي (لږترلږه=2.0, 1%%دقیق=8.0)\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1776
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr "tag=%d: اضافي معیاري کرنل نسبت خبرداریونه ټاکل کیږي\n"
 
-#: src/geometry.c:1799
+#: src/geometry.c:1792
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4360,12 +4360,12 @@ msgstr ""
 "tag=%d/seg=%d: د اوږدوالي/رادیوس نسبت %.1f < 0.5؛ د غزیدلي نرۍ سیم کرنل د "
 "ساحې تېروتنه د لوی حاشیې لخوا له 1%% زیاتیږي (لږترلږه=0.5, 1%%دقیق=2.0)\n"
 
-#: src/geometry.c:1804
+#: src/geometry.c:1797
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr "tag=%d: اضافي غزیدلي کرنل نسبت تېروتنې ټاکل کیږي\n"
 
-#: src/geometry.c:1818
+#: src/geometry.c:1811
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4374,24 +4374,24 @@ msgstr ""
 "tag=%d/seg=%d: د اوږدوالي/رادیوس نسبت %.1f < 2.0؛ د غزیدلي نرۍ سیم کرنل د "
 "ساحې تېروتنه له 1%% زیاتیږي (لږترلږه=0.5, 1%%دقیق=2.0)\n"
 
-#: src/geometry.c:1823
+#: src/geometry.c:1816
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr "tag=%d: اضافي غزیدلي کرنل نسبت خبرداریونه ټاکل کیږي\n"
 
-#: src/geometry.c:1840
+#: src/geometry.c:1833
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr ""
 "د %d برخو لپاره د پوښنې ازموینه پریښودل کیږي (د فعالولو لپاره --force-verify "
 "وکاروئ)\n"
 
-#: src/geometry.c:1844
+#: src/geometry.c:1837
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "د %d برخو لپاره د پوښنې ازموینه مجبوروي\n"
 
-#: src/geometry.c:1856
+#: src/geometry.c:1849
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -5873,12 +5873,12 @@ msgstr "د اپتیمایزر د ویښولو eventfd جوړول ناکام شو
 msgid "failed to create Optimizer Output thread\n"
 msgstr "د اپتیمایزر د وتلو تار جوړول ناکام شو\n"
 
-#: src/optimizers/opt_fitness.c:494
+#: src/optimizers/opt_fitness.c:509
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: نامعلوم لوری %d\n"
 
-#: src/optimizers/opt_fitness.c:567
+#: src/optimizers/opt_fitness.c:582
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: نامعلوم کمولو طریقه %d\n"
@@ -6010,17 +6010,17 @@ msgid ""
 "sr\n"
 msgstr "اوسط ګټه: %.4f (%.2f dBi)، موثریت: %.1f%%، کلک زاویه: %.4f * pi sr\n"
 
-#: src/rc_config.c:1003
+#: src/rc_config.c:999
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() نه شي: %s\n"
 
-#: src/rc_config.c:1007
+#: src/rc_config.c:1003
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "چاپیریال متغیر HOME ناتعریف دی، %s کارول کیږي\n"
 
-#: src/rc_config.c:1092
+#: src/rc_config.c:1088
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
@@ -6028,22 +6028,22 @@ msgstr ""
 "%1$s (locale=%2$s): یوازې د %4$lu توري نه %3$d سم شول، بل locale هڅه کیږي: "
 "%5$s\n"
 
-#: src/rc_config.c:1311
+#: src/rc_config.c:1307
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "کړکۍ: x=%-5d y=%-5d w=%-5d h=%-5d  سرلیک: \"%s\"\n"
 
-#: src/rc_config.c:1345
+#: src/rc_config.c:1341
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: د پلیکیشن نسخه لوستلو کې EOF.\n"
 
-#: src/rc_config.c:1351
+#: src/rc_config.c:1347
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "شته ترتیب فایل نسخه توپیر لري: %s != %s\n"
 
-#: src/rc_config.c:1398
+#: src/rc_config.c:1394
 #, c-format
 msgid ""
 "gain readouts are scaled to %s, restored from the previous session; select "
@@ -6052,12 +6052,12 @@ msgstr ""
 "د ګټې لوستنې %s ته پیمانه شوي، د پخوانۍ ناستې څخه بیرته ترلاسه شوي؛ د ټولې "
 "ګټې لوستلو لپاره ټوله ګټه وټاکئ\n"
 
-#: src/rc_config.c:1521
+#: src/rc_config.c:1517
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "د %s لپاره stat ناکام شو: %s\n"
 
-#: src/rc_config.c:1527
+#: src/rc_config.c:1523
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -6065,46 +6065,46 @@ msgid ""
 msgstr ""
 "د %s لارښود اجازې د 0%o نه 0%o ته سمې شوې د 4e62893b کې داخل شوي باګ نه.\n"
 
-#: src/rc_config.c:1560
+#: src/rc_config.c:1556
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: کرښه تجزیه نه شوه: %s\n"
 
-#: src/rc_config.c:1566
+#: src/rc_config.c:1562
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: د %s لپاره د فایل وختي پای: %s \n"
 
-#: src/rc_config.c:1591
+#: src/rc_config.c:1587
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: د تجزیې تېروتنه (%s): %s \n"
 
-#: src/rc_config.c:1605
+#: src/rc_config.c:1601
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr "ترتیب کې ناسم د اسمان ماډل شاخص %d، ډیفالټ ته بیاکول\n"
 
-#: src/rc_config.c:1611
+#: src/rc_config.c:1607
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr "ترتیب کې ناسم د ځمکې ماډل شاخص %d، ډیفالټ ته بیاکول\n"
 
-#: src/rc_config.c:1617
+#: src/rc_config.c:1613
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr "ترتیب کې ناسم د انټرپولیشن طریقه %d، ډیفالټ ته بیاکول\n"
 
-#: src/rc_config.c:1625
+#: src/rc_config.c:1621
 #, c-format
 msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr "په تنظیم کې ناسم د بهیر لید حالت %d، ډیفالټ ته بیرته ترتیبیږي\n"
 
-#: src/rc_config.c:1790
+#: src/rc_config.c:1786
 msgid "batch mode: skipping configuration save\n"
 msgstr "batch حالت: د ترتیب خوندي کول پریږدل کیږي\n"
 
-#: src/rc_config.c:1812
+#: src/rc_config.c:1808
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "د xnec2c ترتیب فایل %s خلاصول نه شي: %s\n"
@@ -6492,32 +6492,32 @@ msgstr ""
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "تیم '%s' رول '%s' ناسم رنګ لري، میراثي ډیفالټ کارول کیږي\n"
 
-#: src/themes/theme.c:218
+#: src/themes/theme.c:222
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "تیم: سرچینه %s نه شي بارېدلی: %s\n"
 
-#: src/themes/theme.c:228
+#: src/themes/theme.c:232
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "تیم: سرچینه %s نه شي تجزیه کیدلی: %s\n"
 
-#: src/themes/theme.c:254
+#: src/themes/theme.c:258
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr "تیم: %s نه شي تجزیه کیدلی، ننوتلي ډیفالټونه کارول کیږي\n"
 
-#: src/themes/theme.c:377
+#: src/themes/theme.c:401
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "تیم '%s' هیڅ اپوټه بڼه نلري، اساس کارول کیږي\n"
 
-#: src/themes/theme.c:385
+#: src/themes/theme.c:409
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "تیم '%s' ونه موندل شو، میراثي کارول کیږي\n"
 
-#: src/themes/theme.c:428
+#: src/themes/theme.c:452
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "پلنوالی '%s' ناسم دی، اوسنی ارزښت ساتل کیږي\n"
@@ -6747,3 +6747,230 @@ msgid ""
 msgstr ""
 "سویپ په بشپړ ډول محاسبه شوی دی. د هغه بیا چلول هر محاسبه شوی ګام له منځه وړي "
 "او سویپ له خپل لومړي ګام څخه محاسبه کوي."
+
+#: resources/themes.ini:11 resources/themes.ini:41
+msgid "Abyss color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Abyss رنګي پالیټ"
+
+#: resources/themes.ini:71 resources/themes.ini:101
+msgid "Acid color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Acid رنګي پالیټ"
+
+#: resources/themes.ini:131 resources/themes.ini:161
+msgid "Aqua color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Aqua رنګي پالیټ"
+
+#: resources/themes.ini:191 resources/themes.ini:221
+msgid "Autumn color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Autumn رنګي پالیټ"
+
+#: resources/themes.ini:251 resources/themes.ini:281
+msgid "Black color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Black رنګي پالیټ"
+
+#: resources/themes.ini:311 resources/themes.ini:341
+msgid "Bumblebee color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Bumblebee رنګي پالیټ"
+
+#: resources/themes.ini:371 resources/themes.ini:401
+msgid "Business color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Business رنګي پالیټ"
+
+#: resources/themes.ini:431 resources/themes.ini:461
+msgid "Caramellatte color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Caramellatte رنګي پالیټ"
+
+#: resources/themes.ini:491 resources/themes.ini:521
+msgid "Cmyk color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Cmyk رنګي پالیټ"
+
+#: resources/themes.ini:551 resources/themes.ini:581
+msgid "Coffee color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Coffee رنګي پالیټ"
+
+#: resources/themes.ini:611 resources/themes.ini:641
+msgid "Corporate color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Corporate رنګي پالیټ"
+
+#: resources/themes.ini:671 resources/themes.ini:701
+msgid "P3 amber as used in IBM PC XT and Hercules displays"
+msgstr ""
+"د P3 کهربایی رنګ، لکه څنګه چې د IBM PC XT او Hercules ښودنو کې کارول کېږي"
+
+#: resources/themes.ini:731 resources/themes.ini:761
+msgid "P31 bright green as used in Apple IIe monitors and oscilloscopes"
+msgstr ""
+"د P31 روښانه شنه رنګ، لکه څنګه چې د Apple IIe مانیټرونو او اوسیلوسکوپونو کې "
+"کارول کېږي"
+
+#: resources/themes.ini:791 resources/themes.ini:821
+msgid "P39 saturated green as used in Apple III and IBM 5151 terminals"
+msgstr ""
+"د P39 پیاوړی شنه رنګ، لکه څنګه چې د Apple III او IBM 5151 ترمینالونو کې "
+"کارول کېږي"
+
+#: resources/themes.ini:851 resources/themes.ini:881
+msgid "P45 cool white for monochrome camcorder viewfinders"
+msgstr "د P45 سړه سپین رنګ، د یو رنګه کامکوډر ویوفایندرونو لپاره"
+
+#: resources/themes.ini:911 resources/themes.ini:941
+msgid "Classic cyan/magenta gaming aesthetic from early IBM PC era"
+msgstr "د IBM PC لومړني دور څخه کلاسیک فیروزه/ارغواني لوبیز سبک"
+
+#: resources/themes.ini:971 resources/themes.ini:1001
+msgid "Warm creative light palette with magenta foundation"
+msgstr "د ارغواني بنسټ سره ګرم خلاقه روښانه پالیټ"
+
+#: resources/themes.ini:1031 resources/themes.ini:1061
+msgid "Green-accented CRT aesthetic for extended viewing"
+msgstr "د اوږدمهاله کتنې لپاره شنه تاکید لرونکی CRT سبک"
+
+#: resources/themes.ini:1091 resources/themes.ini:1121
+msgid "Cool professional light palette with blue foundation"
+msgstr "د نیلي بنسټ سره سړه مسلکي روښانه پالیټ"
+
+#: resources/themes.ini:1151 resources/themes.ini:1181
+msgid "Professional amber/green phosphor aesthetic from IBM business era"
+msgstr "د IBM سوداګریز دور څخه مسلکي کهربایی/شنه فاسفوري سبک"
+
+#: resources/themes.ini:1211 resources/themes.ini:1241
+msgid "CRT Clarity: Split-complementary harmony with warm/cool tension"
+msgstr "CRT وضاحت: ویشل شوې تکمیلي هماهنګي د ګرم/سړه تناو سره"
+
+#: resources/themes.ini:1271 resources/themes.ini:1301
+msgid "Cool analogous professional light palette"
+msgstr "سړه مشابه مسلکي روښانه پالیټ"
+
+#: resources/themes.ini:1331 resources/themes.ini:1361
+msgid "Warm content dark palette for reduced eye strain"
+msgstr "د سترګو د ستړیا د کمولو لپاره ګرم آرامه تیاره پالیټ"
+
+#: resources/themes.ini:1391 resources/themes.ini:1421
+msgid ""
+"CRT Phosphor Glow: Triadic harmony with cool/warm balance and CRT aesthetic"
+msgstr "CRT فاسفوري ځلا: درې اړخیزه هماهنګي د سړه/ګرم توازن او CRT سبک سره"
+
+#: resources/themes.ini:1451 resources/themes.ini:1481
+msgid "P1 medium-persistence green as used in early oscilloscope tubes"
+msgstr ""
+"د P1 منځنی دوام لرونکی شنه رنګ، لکه څنګه چې د لومړنیو اوسیلوسکوپ تیوبونو کې "
+"کارول کېږي"
+
+#: resources/themes.ini:1511 resources/themes.ini:1541
+msgid "P4 white as used in IBM 8503 VGA and broadcast television"
+msgstr ""
+"د P4 سپین رنګ، لکه څنګه چې د IBM 8503 VGA او خپرونیز ټلویزیون کې کارول کېږي"
+
+#: resources/themes.ini:1571 resources/themes.ini:1601
+msgid "P7 cascade phosphor as used in military radar and air traffic control"
+msgstr ""
+"د P7 آبشاري فاسفور، لکه څنګه چې د پوځي رادار او هوایی ترافیک کنټرول کې کارول "
+"کېږي"
+
+#: resources/themes.ini:1631 resources/themes.ini:1661
+msgid "Cupcake color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Cupcake رنګي پالیټ"
+
+#: resources/themes.ini:1691 resources/themes.ini:1721
+msgid "Cyberpunk color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Cyberpunk رنګي پالیټ"
+
+#: resources/themes.ini:1751 resources/themes.ini:1781
+msgid "Dark color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Dark رنګي پالیټ"
+
+#: resources/themes.ini:1811 resources/themes.ini:1841
+msgid "Dim color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Dim رنګي پالیټ"
+
+#: resources/themes.ini:1871 resources/themes.ini:1901
+msgid "Dracula color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Dracula رنګي پالیټ"
+
+#: resources/themes.ini:1931 resources/themes.ini:1961
+msgid "Emerald color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Emerald رنګي پالیټ"
+
+#: resources/themes.ini:1991 resources/themes.ini:2021
+msgid "Fantasy color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Fantasy رنګي پالیټ"
+
+#: resources/themes.ini:2051 resources/themes.ini:2081
+msgid "Forest color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Forest رنګي پالیټ"
+
+#: resources/themes.ini:2111 resources/themes.ini:2141
+msgid "Garden color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Garden رنګي پالیټ"
+
+#: resources/themes.ini:2171 resources/themes.ini:2201
+msgid "Halloween color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Halloween رنګي پالیټ"
+
+#: resources/themes.ini:2231 resources/themes.ini:2261
+msgid "Lemonade color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Lemonade رنګي پالیټ"
+
+#: resources/themes.ini:2291 resources/themes.ini:2321
+msgid "Light color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Light رنګي پالیټ"
+
+#: resources/themes.ini:2351 resources/themes.ini:2381
+msgid "Lofi color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Lofi رنګي پالیټ"
+
+#: resources/themes.ini:2411 resources/themes.ini:2441
+msgid "Luxury color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Luxury رنګي پالیټ"
+
+#: resources/themes.ini:2471 resources/themes.ini:2501
+msgid "Night color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Night رنګي پالیټ"
+
+#: resources/themes.ini:2531 resources/themes.ini:2561
+msgid "Nord color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Nord رنګي پالیټ"
+
+#: resources/themes.ini:2591 resources/themes.ini:2621
+msgid "Pastel color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Pastel رنګي پالیټ"
+
+#: resources/themes.ini:2651 resources/themes.ini:2681
+msgid "Retro color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Retro رنګي پالیټ"
+
+#: resources/themes.ini:2711 resources/themes.ini:2741
+msgid "Silk color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Silk رنګي پالیټ"
+
+#: resources/themes.ini:2771 resources/themes.ini:2801
+msgid "Sunset color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Sunset رنګي پالیټ"
+
+#: resources/themes.ini:2831 resources/themes.ini:2861
+msgid "Synthwave color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Synthwave رنګي پالیټ"
+
+#: resources/themes.ini:2891 resources/themes.ini:2921
+msgid "Valentine color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Valentine رنګي پالیټ"
+
+#: resources/themes.ini:2951 resources/themes.ini:2981
+msgid "Winter color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Winter رنګي پالیټ"
+
+#: resources/themes.ini:3011 resources/themes.ini:3041
+msgid "Wireframe color palette from DaisyUI theme collection"
+msgstr "د DaisyUI د بڼو ټولګې څخه د Wireframe رنګي پالیټ"
+
+#: resources/themes.ini:3071 resources/themes.ini:3101
+msgid "Classic xnec2c plot colors"
+msgstr "د xnec2c کلاسیک ترسیمي رنګونه"
+
+#: resources/themes.ini:3131 resources/themes.ini:3161
+msgid "Hand-tuned cool palette"
+msgstr "لاسی تنظیم شوی سړه پالیټ"
+
+#: resources/themes.ini:3191 resources/themes.ini:3221
+msgid "Hand-tuned warm palette"
+msgstr "لاسی تنظیم شوی ګرم پالیټ"

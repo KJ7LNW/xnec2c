@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
-"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-12 01:09-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 20:33-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -332,7 +332,7 @@ msgstr "Слои глубины"
 
 #: resources/settings/cairo_settings.glade:184
 #: resources/settings/opengl_settings.glade:515
-#: resources/settings/render_settings.glade:201
+#: resources/settings/render_settings.glade:216
 msgid "Reset to _Defaults"
 msgstr "Сбросить к _умолчаниям"
 
@@ -803,15 +803,19 @@ msgstr "Только визуально — не влияет на вычисл�
 msgid "_Color Theme"
 msgstr "_Цветовая тема"
 
-#: resources/settings/render_settings.glade:162
+#: resources/settings/render_settings.glade:153
+msgid "_Invert"
+msgstr "_Инвертировать"
+
+#: resources/settings/render_settings.glade:177
 msgid "_Wire Radius Scale"
 msgstr "_Масштаб радиуса провода"
 
-#: resources/settings/render_settings.glade:223
+#: resources/settings/render_settings.glade:238
 msgid "Rendering Settings"
 msgstr "Настройки отображения"
 
-#: resources/settings/render_settings.glade:267
+#: resources/settings/render_settings.glade:282
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Закрыть"
@@ -3194,7 +3198,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "файл конфигурации не существует или недоступен для чтения: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3841,13 +3845,9 @@ msgstr "не удалось выделить память для точек\n"
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Не удалось выделить память для точек"
 
-#: src/freqplots/freqplots_theme_menu.c:41
+#: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
 msgstr "У этой темы нет инвертированного варианта"
-
-#: src/freqplots/freqplots_theme_menu.c:117
-msgid "_Invert"
-msgstr "_Инвертировать"
 
 #: src/freqplots/graphs/agt_graph.c:67
 msgid "Average gain"
@@ -4128,24 +4128,24 @@ msgstr "Определение SY (напр. FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "Окно редактора NEC2 не открыто"
 
-#: src/geometry.c:111
+#: src/geometry.c:118
 msgid "Number of segments < 1"
 msgstr "Количество сегментов < 1"
 
-#: src/geometry.c:148
+#: src/geometry.c:155
 msgid "Arc angle exceeds 360 degrees"
 msgstr "Угол дуги превышает 360 градусов"
 
-#: src/geometry.c:287
+#: src/geometry.c:294
 msgid "Error in conect(): np > n"
 msgstr "Ошибка в conect(): np > n"
 
-#: src/geometry.c:318 src/geometry.c:366
+#: src/geometry.c:325 src/geometry.c:373
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr "ошибка геометрических данных: сегмент %d выходит ниже уровня земли\n"
 
-#: src/geometry.c:319 src/geometry.c:367
+#: src/geometry.c:326 src/geometry.c:374
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4153,12 +4153,12 @@ msgstr ""
 "Ошибка геометрических данных\n"
 "Сегмент выходит ниже уровня земли"
 
-#: src/geometry.c:376
+#: src/geometry.c:383
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "ошибка геометрических данных: сегмент %d лежит в плоскости земли\n"
 
-#: src/geometry.c:377
+#: src/geometry.c:384
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4167,15 +4167,15 @@ msgstr ""
 "Сегмент лежит в плоскости земли"
 
 # xnec2c-exempt: name
-#: src/geometry.c:467
+#: src/geometry.c:474
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:468
+#: src/geometry.c:475
 msgid "Error: ipsym = 0"
 msgstr "Ошибка: ipsym = 0"
 
-#: src/geometry.c:521
+#: src/geometry.c:528
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4184,7 +4184,7 @@ msgstr ""
 "Количество соединений сегментов превышает полную сетку, что маловероятно: "
 "data.n=%ld segj.maxcon=%lu\n"
 
-#: src/geometry.c:523
+#: src/geometry.c:530
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4192,7 +4192,7 @@ msgstr ""
 "Количество соединений сегментов превышает полную сетку, что маловероятно!\n"
 "Проверьте наличие перекрывающихся или почти соединённых сегментов\n"
 
-#: src/geometry.c:737
+#: src/geometry.c:744
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4200,7 +4200,7 @@ msgstr ""
 "проверьте данные, параметр, указывающий сегмент: позиция в группе одинаковых "
 "тегов не должна быть нулевой\n"
 
-#: src/geometry.c:738
+#: src/geometry.c:745
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4208,12 +4208,12 @@ msgstr ""
 "Параметр, указывающий сегмент:\n"
 "позиция в группе одинаковых тегов равна нулю"
 
-#: src/geometry.c:770
+#: src/geometry.c:777
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "нет сегмента с itag %d\n"
 
-#: src/geometry.c:774
+#: src/geometry.c:781
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4227,7 +4227,7 @@ msgstr ""
 "Для карт GM: убедитесь, что 'начальный тег' и 'приращение тега' не создают "
 "тег 0."
 
-#: src/geometry.c:782
+#: src/geometry.c:789
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4238,11 +4238,11 @@ msgstr ""
 "Вы ссылаетесь на неизвестный тег или сегмент в управляющей карте.\n"
 "Допустимые теги в Вашей геометрии — те, что назначены картам GW/GA/GH/SP."
 
-#: src/geometry.c:1057
+#: src/geometry.c:1064
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "углы четырёхугольного патча не лежат в одной плоскости\n"
 
-#: src/geometry.c:1058
+#: src/geometry.c:1065
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4250,12 +4250,12 @@ msgstr ""
 "Углы четырёхугольного патча\n"
 "не лежат в одной плоскости"
 
-#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
+#: src/geometry.c:1170 src/geometry.c:1247 src/geometry.c:1325
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "ошибка геометрических данных: сегмент %d лежит в плоскости симметрии\n"
 
-#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
+#: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4263,12 +4263,12 @@ msgstr ""
 "Ошибка геометрических данных\n"
 "Сегмент лежит в плоскости симметрии"
 
-#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
+#: src/geometry.c:1207 src/geometry.c:1284 src/geometry.c:1359
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "ошибка геометрических данных: патч %d лежит в плоскости симметрии\n"
 
-#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
+#: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4276,7 +4276,7 @@ msgstr ""
 "Ошибка геометрических данных\n"
 "Патч лежит в плоскости симметрии"
 
-#: src/geometry.c:1473
+#: src/geometry.c:1480
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4285,12 +4285,12 @@ msgstr ""
 "tag=%d/seg=%d: расстояние между концами=%.3e слишком мало (ниже порога "
 "соединения=%.3e); сегмент соединится сам с собой\n"
 
-#: src/geometry.c:1478
+#: src/geometry.c:1485
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr "tag=%d: подавление дополнительных предупреждений о самосоединении\n"
 
-#: src/geometry.c:1523
+#: src/geometry.c:1530
 #, c-format
 msgid ""
 "tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
@@ -4299,12 +4299,12 @@ msgstr ""
 "tag=%d/seg=%d: совпадает с tag=%d/seg=%d; NEC2 не может разделить токи "
 "совпадающих сегментов\n"
 
-#: src/geometry.c:1528
+#: src/geometry.c:1535
 #, c-format
 msgid "tag=%d: suppressing additional coincident segment warnings\n"
 msgstr "tag=%d: подавление дальнейших предупреждений о совпадающих сегментах\n"
 
-#: src/geometry.c:1573
+#: src/geometry.c:1580
 #, c-format
 msgid ""
 "tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
@@ -4314,13 +4314,13 @@ msgstr ""
 "соединения threshold=%.3e, но укладывается в %gx от него; NEC2 оставляет эти "
 "концы несоединёнными\n"
 
-#: src/geometry.c:1579
+#: src/geometry.c:1586
 #, c-format
 msgid "tag=%d: suppressing additional near-miss junction warnings\n"
 msgstr ""
 "tag=%d: подавление дальнейших предупреждений о соединениях с малым зазором\n"
 
-#: src/geometry.c:1646
+#: src/geometry.c:1639
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4329,7 +4329,7 @@ msgstr ""
 "tag=%d/seg=%d: длина=%.3e слишком мала (и достаточно близка) к tag=%d/seg=%d "
 "длиной=%.3e, что обнаружение соединения может не сработать или замкнуть\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1645
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
@@ -4338,7 +4338,7 @@ msgstr ""
 "tag=%d: подавление дополнительных предупреждений о возможном сбое "
 "обнаружения соединения или замыкании\n"
 
-#: src/geometry.c:1685
+#: src/geometry.c:1678
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4349,13 +4349,13 @@ msgstr ""
 "компонентов тока приводит к численным неточностям (мин=0.001, норма=0.05, "
 "рекомендуется <= 0.1)\n"
 
-#: src/geometry.c:1690
+#: src/geometry.c:1683
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr ""
 "tag=%d: подавление дополнительных ошибок малого отношения к длине волны\n"
 
-#: src/geometry.c:1704
+#: src/geometry.c:1697
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4366,14 +4366,14 @@ msgstr ""
 "дискретизации тока ограничено шагом сегментов (мин=0.001, норма=0.05, "
 "рекомендуется <= 0.1)\n"
 
-#: src/geometry.c:1709
+#: src/geometry.c:1702
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr ""
 "tag=%d: подавление дополнительных предупреждений о большом отношении к длине "
 "волны\n"
 
-#: src/geometry.c:1723
+#: src/geometry.c:1716
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4384,12 +4384,12 @@ msgstr ""
 "сегменты повышают точность в областях быстрого изменения тока (мин=0.001, "
 "норма=0.05, рекомендуется <=0.1)\n"
 
-#: src/geometry.c:1728
+#: src/geometry.c:1721
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr "tag=%d: подавление дополнительных рекомендаций по повышению точности\n"
 
-#: src/geometry.c:1759
+#: src/geometry.c:1752
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4399,13 +4399,13 @@ msgstr ""
 "стандартного ядра тонкого провода значительно превышает 1%% (мин=2.0, 1%% "
 "точность=8.0)\n"
 
-#: src/geometry.c:1764
+#: src/geometry.c:1757
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr ""
 "tag=%d: подавление дополнительных ошибок отношения для стандартного ядра\n"
 
-#: src/geometry.c:1778
+#: src/geometry.c:1771
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4414,14 +4414,14 @@ msgstr ""
 "tag=%d/seg=%d: отношение длины к радиусу %.1f < 8.0; ошибка поля "
 "стандартного ядра тонкого провода превышает 1%% (мин=2.0, 1%% точность=8.0)\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1776
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr ""
 "tag=%d: подавление дополнительных предупреждений отношения для стандартного "
 "ядра\n"
 
-#: src/geometry.c:1799
+#: src/geometry.c:1792
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4431,13 +4431,13 @@ msgstr ""
 "расширенного ядра тонкого провода значительно превышает 1%% (мин=0.5, 1%% "
 "точность=2.0)\n"
 
-#: src/geometry.c:1804
+#: src/geometry.c:1797
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr ""
 "tag=%d: подавление дополнительных ошибок отношения для расширенного ядра\n"
 
-#: src/geometry.c:1818
+#: src/geometry.c:1811
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4446,26 +4446,26 @@ msgstr ""
 "tag=%d/seg=%d: отношение длины к радиусу %.1f < 2.0; ошибка поля "
 "расширенного ядра тонкого провода превышает 1%% (мин=0.5, 1%% точность=2.0)\n"
 
-#: src/geometry.c:1823
+#: src/geometry.c:1816
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr ""
 "tag=%d: подавление дополнительных предупреждений отношения для расширенного "
 "ядра\n"
 
-#: src/geometry.c:1840
+#: src/geometry.c:1833
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr ""
 "Пропуск проверки перекрытия для %d сегментов (используйте --force-verify для "
 "включения)\n"
 
-#: src/geometry.c:1844
+#: src/geometry.c:1837
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "Принудительная проверка перекрытия для %d сегментов\n"
 
-#: src/geometry.c:1856
+#: src/geometry.c:1849
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -5973,12 +5973,12 @@ msgstr "не удалось создать eventfd пробуждения опт
 msgid "failed to create Optimizer Output thread\n"
 msgstr "не удалось создать поток вывода оптимизатора\n"
 
-#: src/optimizers/opt_fitness.c:494
+#: src/optimizers/opt_fitness.c:509
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: неизвестное направление %d\n"
 
-#: src/optimizers/opt_fitness.c:567
+#: src/optimizers/opt_fitness.c:582
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: неизвестный метод свёртки %d\n"
@@ -6113,17 +6113,17 @@ msgid ""
 msgstr ""
 "Среднее усиление: %.4f (%.2f dBi), КПД: %.1f%%, телесный угол: %.4f * pi ср\n"
 
-#: src/rc_config.c:1003
+#: src/rc_config.c:999
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "не удалось получить текущий каталог getcwd(): %s\n"
 
-#: src/rc_config.c:1007
+#: src/rc_config.c:1003
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "переменная среды HOME не определена, используется %s\n"
 
-#: src/rc_config.c:1092
+#: src/rc_config.c:1088
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
@@ -6131,22 +6131,22 @@ msgstr ""
 "%s (locale=%s): совпало только %d из %lu символов, попытка с другой локалью: "
 "%s\n"
 
-#: src/rc_config.c:1311
+#: src/rc_config.c:1307
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "окно: x=%-5d y=%-5d w=%-5d h=%-5d  заголовок: \"%s\"\n"
 
-#: src/rc_config.c:1345
+#: src/rc_config.c:1341
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: EOF при чтении версии приложения.\n"
 
-#: src/rc_config.c:1351
+#: src/rc_config.c:1347
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "версия существующего файла конфигурации отличается: %s != %s\n"
 
-#: src/rc_config.c:1398
+#: src/rc_config.c:1394
 #, c-format
 msgid ""
 "gain readouts are scaled to %s, restored from the previous session; select "
@@ -6155,12 +6155,12 @@ msgstr ""
 "показания усиления масштабированы к %s, восстановлено из предыдущего сеанса; "
 "выберите «Суммарное усиление» для чтения суммарного усиления\n"
 
-#: src/rc_config.c:1521
+#: src/rc_config.c:1517
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "ошибка stat для %s: %s\n"
 
-#: src/rc_config.c:1527
+#: src/rc_config.c:1523
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -6169,49 +6169,49 @@ msgstr ""
 "Исправлены права доступа каталога %s с 0%o до 0%o (ошибка, введённая в "
 "4e62893b).\n"
 
-#: src/rc_config.c:1560
+#: src/rc_config.c:1556
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: строка не разобрана: %s\n"
 
-#: src/rc_config.c:1566
+#: src/rc_config.c:1562
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: преждевременный конец файла для %s: %s \n"
 
-#: src/rc_config.c:1591
+#: src/rc_config.c:1587
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: ошибка разбора (%s): %s \n"
 
-#: src/rc_config.c:1605
+#: src/rc_config.c:1601
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr "Недопустимый индекс модели неба %d в конфигурации, сброс к умолчанию\n"
 
-#: src/rc_config.c:1611
+#: src/rc_config.c:1607
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Недопустимый индекс модели земли %d в конфигурации, сброс к умолчанию\n"
 
-#: src/rc_config.c:1617
+#: src/rc_config.c:1613
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr "Недопустимый метод интерполяции %d в конфигурации, сброс к умолчанию\n"
 
-#: src/rc_config.c:1625
+#: src/rc_config.c:1621
 #, c-format
 msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr ""
 "Недопустимый режим визуализации потока %d в конфигурации, сброс к значению "
 "по умолчанию\n"
 
-#: src/rc_config.c:1790
+#: src/rc_config.c:1786
 msgid "batch mode: skipping configuration save\n"
 msgstr "пакетный режим: сохранение конфигурации пропущено\n"
 
-#: src/rc_config.c:1812
+#: src/rc_config.c:1808
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "не удалось открыть файл конфигурации xnec2c %s: %s\n"
@@ -6606,34 +6606,34 @@ msgstr ""
 "тема '%s' роль '%s': недопустимый цвет, используется устаревшее значение по "
 "умолчанию\n"
 
-#: src/themes/theme.c:218
+#: src/themes/theme.c:222
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "theme: не удалось загрузить ресурс %s: %s\n"
 
-#: src/themes/theme.c:228
+#: src/themes/theme.c:232
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "theme: не удалось разобрать ресурс %s: %s\n"
 
-#: src/themes/theme.c:254
+#: src/themes/theme.c:258
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "theme: не удалось разобрать %s, используются встроенные значения по "
 "умолчанию\n"
 
-#: src/themes/theme.c:377
+#: src/themes/theme.c:401
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "тема '%s' не имеет инвертированного варианта, используется базовая\n"
 
-#: src/themes/theme.c:385
+#: src/themes/theme.c:409
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "тема '%s' не найдена, используется устаревшая\n"
 
-#: src/themes/theme.c:428
+#: src/themes/theme.c:452
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "ширина '%s' недопустима, сохраняется текущее значение\n"
@@ -6873,3 +6873,230 @@ msgid ""
 msgstr ""
 "Развёртка вычислена полностью. Повторный запуск отбрасывает все вычисленные "
 "шаги и вычисляет развёртку заново с первого шага."
+
+#: resources/themes.ini:11 resources/themes.ini:41
+msgid "Abyss color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Abyss из коллекции тем DaisyUI"
+
+#: resources/themes.ini:71 resources/themes.ini:101
+msgid "Acid color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Acid из коллекции тем DaisyUI"
+
+#: resources/themes.ini:131 resources/themes.ini:161
+msgid "Aqua color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Aqua из коллекции тем DaisyUI"
+
+#: resources/themes.ini:191 resources/themes.ini:221
+msgid "Autumn color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Autumn из коллекции тем DaisyUI"
+
+#: resources/themes.ini:251 resources/themes.ini:281
+msgid "Black color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Black из коллекции тем DaisyUI"
+
+#: resources/themes.ini:311 resources/themes.ini:341
+msgid "Bumblebee color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Bumblebee из коллекции тем DaisyUI"
+
+#: resources/themes.ini:371 resources/themes.ini:401
+msgid "Business color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Business из коллекции тем DaisyUI"
+
+#: resources/themes.ini:431 resources/themes.ini:461
+msgid "Caramellatte color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Caramellatte из коллекции тем DaisyUI"
+
+#: resources/themes.ini:491 resources/themes.ini:521
+msgid "Cmyk color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Cmyk из коллекции тем DaisyUI"
+
+#: resources/themes.ini:551 resources/themes.ini:581
+msgid "Coffee color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Coffee из коллекции тем DaisyUI"
+
+#: resources/themes.ini:611 resources/themes.ini:641
+msgid "Corporate color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Corporate из коллекции тем DaisyUI"
+
+#: resources/themes.ini:671 resources/themes.ini:701
+msgid "P3 amber as used in IBM PC XT and Hercules displays"
+msgstr "Янтарный P3, как в дисплеях IBM PC XT и Hercules"
+
+#: resources/themes.ini:731 resources/themes.ini:761
+msgid "P31 bright green as used in Apple IIe monitors and oscilloscopes"
+msgstr "Яркий зелёный P31, как в мониторах Apple IIe и осциллографах"
+
+#: resources/themes.ini:791 resources/themes.ini:821
+msgid "P39 saturated green as used in Apple III and IBM 5151 terminals"
+msgstr "Насыщенный зелёный P39, как в терминалах Apple III и IBM 5151"
+
+#: resources/themes.ini:851 resources/themes.ini:881
+msgid "P45 cool white for monochrome camcorder viewfinders"
+msgstr "Холодный белый P45 для монохромных видоискателей видеокамер"
+
+#: resources/themes.ini:911 resources/themes.ini:941
+msgid "Classic cyan/magenta gaming aesthetic from early IBM PC era"
+msgstr ""
+"Классическая игровая эстетика голубого и пурпурного цветов из эпохи ранних "
+"IBM PC"
+
+#: resources/themes.ini:971 resources/themes.ini:1001
+msgid "Warm creative light palette with magenta foundation"
+msgstr "Тёплая творческая светлая палитра на пурпурной основе"
+
+#: resources/themes.ini:1031 resources/themes.ini:1061
+msgid "Green-accented CRT aesthetic for extended viewing"
+msgstr "Эстетика ЭЛТ с зелёным акцентом для длительного просмотра"
+
+#: resources/themes.ini:1091 resources/themes.ini:1121
+msgid "Cool professional light palette with blue foundation"
+msgstr "Холодная профессиональная светлая палитра на синей основе"
+
+#: resources/themes.ini:1151 resources/themes.ini:1181
+msgid "Professional amber/green phosphor aesthetic from IBM business era"
+msgstr ""
+"Профессиональная эстетика янтарного/зелёного люминофора из деловой эпохи IBM"
+
+#: resources/themes.ini:1211 resources/themes.ini:1241
+msgid "CRT Clarity: Split-complementary harmony with warm/cool tension"
+msgstr ""
+"CRT Clarity: гармония расщеплённых дополнительных цветов с контрастом "
+"тёплого и холодного"
+
+#: resources/themes.ini:1271 resources/themes.ini:1301
+msgid "Cool analogous professional light palette"
+msgstr "Холодная профессиональная светлая палитра смежных цветов"
+
+#: resources/themes.ini:1331 resources/themes.ini:1361
+msgid "Warm content dark palette for reduced eye strain"
+msgstr "Тёплая тёмная палитра для снижения утомления глаз"
+
+#: resources/themes.ini:1391 resources/themes.ini:1421
+msgid ""
+"CRT Phosphor Glow: Triadic harmony with cool/warm balance and CRT aesthetic"
+msgstr ""
+"CRT Phosphor Glow: триадная гармония с балансом холодного и тёплого и "
+"эстетикой ЭЛТ"
+
+#: resources/themes.ini:1451 resources/themes.ini:1481
+msgid "P1 medium-persistence green as used in early oscilloscope tubes"
+msgstr ""
+"Зелёный P1 среднего послесвечения, как в ранних осциллографических трубках"
+
+#: resources/themes.ini:1511 resources/themes.ini:1541
+msgid "P4 white as used in IBM 8503 VGA and broadcast television"
+msgstr "Белый P4, как в мониторе IBM 8503 VGA и в телевещании"
+
+#: resources/themes.ini:1571 resources/themes.ini:1601
+msgid "P7 cascade phosphor as used in military radar and air traffic control"
+msgstr ""
+"Каскадный люминофор P7, как в военных радарах и системах управления "
+"воздушным движением"
+
+#: resources/themes.ini:1631 resources/themes.ini:1661
+msgid "Cupcake color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Cupcake из коллекции тем DaisyUI"
+
+#: resources/themes.ini:1691 resources/themes.ini:1721
+msgid "Cyberpunk color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Cyberpunk из коллекции тем DaisyUI"
+
+#: resources/themes.ini:1751 resources/themes.ini:1781
+msgid "Dark color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Dark из коллекции тем DaisyUI"
+
+#: resources/themes.ini:1811 resources/themes.ini:1841
+msgid "Dim color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Dim из коллекции тем DaisyUI"
+
+#: resources/themes.ini:1871 resources/themes.ini:1901
+msgid "Dracula color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Dracula из коллекции тем DaisyUI"
+
+#: resources/themes.ini:1931 resources/themes.ini:1961
+msgid "Emerald color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Emerald из коллекции тем DaisyUI"
+
+#: resources/themes.ini:1991 resources/themes.ini:2021
+msgid "Fantasy color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Fantasy из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2051 resources/themes.ini:2081
+msgid "Forest color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Forest из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2111 resources/themes.ini:2141
+msgid "Garden color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Garden из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2171 resources/themes.ini:2201
+msgid "Halloween color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Halloween из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2231 resources/themes.ini:2261
+msgid "Lemonade color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Lemonade из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2291 resources/themes.ini:2321
+msgid "Light color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Light из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2351 resources/themes.ini:2381
+msgid "Lofi color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Lofi из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2411 resources/themes.ini:2441
+msgid "Luxury color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Luxury из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2471 resources/themes.ini:2501
+msgid "Night color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Night из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2531 resources/themes.ini:2561
+msgid "Nord color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Nord из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2591 resources/themes.ini:2621
+msgid "Pastel color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Pastel из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2651 resources/themes.ini:2681
+msgid "Retro color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Retro из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2711 resources/themes.ini:2741
+msgid "Silk color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Silk из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2771 resources/themes.ini:2801
+msgid "Sunset color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Sunset из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2831 resources/themes.ini:2861
+msgid "Synthwave color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Synthwave из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2891 resources/themes.ini:2921
+msgid "Valentine color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Valentine из коллекции тем DaisyUI"
+
+#: resources/themes.ini:2951 resources/themes.ini:2981
+msgid "Winter color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Winter из коллекции тем DaisyUI"
+
+#: resources/themes.ini:3011 resources/themes.ini:3041
+msgid "Wireframe color palette from DaisyUI theme collection"
+msgstr "Цветовая палитра Wireframe из коллекции тем DaisyUI"
+
+#: resources/themes.ini:3071 resources/themes.ini:3101
+msgid "Classic xnec2c plot colors"
+msgstr "Классические цвета графиков xnec2c"
+
+#: resources/themes.ini:3131 resources/themes.ini:3161
+msgid "Hand-tuned cool palette"
+msgstr "Вручную настроенная холодная палитра"
+
+#: resources/themes.ini:3191 resources/themes.ini:3221
+msgid "Hand-tuned warm palette"
+msgstr "Вручную настроенная тёплая палитра"

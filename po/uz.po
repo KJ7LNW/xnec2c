@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
-"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-12 01:09-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 20:33-0800\n"
 "PO-Revision-Date: 2026-05-25 01:51-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -330,7 +330,7 @@ msgstr "Chuqurlik qutilari"
 
 #: resources/settings/cairo_settings.glade:184
 #: resources/settings/opengl_settings.glade:515
-#: resources/settings/render_settings.glade:201
+#: resources/settings/render_settings.glade:216
 msgid "Reset to _Defaults"
 msgstr "_Standartga qaytarish"
 
@@ -802,15 +802,19 @@ msgstr "Faqat vizual — NEC2 model hisoblariga taʼsir qilmaydi."
 msgid "_Color Theme"
 msgstr "_Rang mavzusi"
 
-#: resources/settings/render_settings.glade:162
+#: resources/settings/render_settings.glade:153
+msgid "_Invert"
+msgstr "_Teskari"
+
+#: resources/settings/render_settings.glade:177
 msgid "_Wire Radius Scale"
 msgstr "_Sim radiusi masshtabi"
 
-#: resources/settings/render_settings.glade:223
+#: resources/settings/render_settings.glade:238
 msgid "Rendering Settings"
 msgstr "Rendering sozlamalari"
 
-#: resources/settings/render_settings.glade:267
+#: resources/settings/render_settings.glade:282
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Yopish"
@@ -3199,7 +3203,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "konfiguratsiya fayli mavjud emas yoki oʻqib boʻlmaydi: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3853,13 +3857,9 @@ msgstr "nuqtalar uchun xotira ajratib boʻlmadi\n"
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): Nuqtalar uchun xotira ajratib boʻlmadi"
 
-#: src/freqplots/freqplots_theme_menu.c:41
+#: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
 msgstr "Bu mavzuning teskari varianti yoʻq"
-
-#: src/freqplots/freqplots_theme_menu.c:117
-msgid "_Invert"
-msgstr "_Teskari"
 
 #: src/freqplots/graphs/agt_graph.c:67
 msgid "Average gain"
@@ -4140,24 +4140,24 @@ msgstr "SY taʼrifi (masalan FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "NEC2 muharriri oynasi ochiq emas"
 
-#: src/geometry.c:111
+#: src/geometry.c:118
 msgid "Number of segments < 1"
 msgstr "Segmentlar soni < 1"
 
-#: src/geometry.c:148
+#: src/geometry.c:155
 msgid "Arc angle exceeds 360 degrees"
 msgstr "Yoy burchagi 360 darajadan oshib ketdi"
 
-#: src/geometry.c:287
+#: src/geometry.c:294
 msgid "Error in conect(): np > n"
 msgstr "conect() da xato: np > n"
 
-#: src/geometry.c:318 src/geometry.c:366
+#: src/geometry.c:325 src/geometry.c:373
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr "geometriya maʼlumot xatosi: segment %d yerdan pastga oʻtadi\n"
 
-#: src/geometry.c:319 src/geometry.c:367
+#: src/geometry.c:326 src/geometry.c:374
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4165,12 +4165,12 @@ msgstr ""
 "Geometriya maʼlumot xatosi\n"
 "Segment yerdan pastga oʻtadi"
 
-#: src/geometry.c:376
+#: src/geometry.c:383
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "geometriya maʼlumot xatosi: segment %d yer tekisligida yotadi\n"
 
-#: src/geometry.c:377
+#: src/geometry.c:384
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4179,15 +4179,15 @@ msgstr ""
 "Segment yer tekisligida yotadi"
 
 # xnec2c-exempt: name
-#: src/geometry.c:467
+#: src/geometry.c:474
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:468
+#: src/geometry.c:475
 msgid "Error: ipsym = 0"
 msgstr "Xato: ipsym = 0"
 
-#: src/geometry.c:521
+#: src/geometry.c:528
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4196,7 +4196,7 @@ msgstr ""
 "Segment ulanish soni toʻliq toʻrdan oshib ketdi, bu ehtimolsiz: data.n=%ld "
 "segj.maxcon=%lu\n"
 
-#: src/geometry.c:523
+#: src/geometry.c:530
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4204,7 +4204,7 @@ msgstr ""
 "Segment ulanish soni toʻliq toʻrdan oshib ketdi, bu ehtimolsiz!\n"
 "Bir-biriga oʻchib ketgan yoki yaqin ulangan segmentlarni tekshiring\n"
 
-#: src/geometry.c:737
+#: src/geometry.c:744
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4212,7 +4212,7 @@ msgstr ""
 "maʼlumotni tekshiring, segment parametri: teng teglar guruhidagi\n"
 "pozitsiya nol boʻlmasligi kerak\n"
 
-#: src/geometry.c:738
+#: src/geometry.c:745
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4220,12 +4220,12 @@ msgstr ""
 "Teng teglar guruhidagi segment pozitsiyasini\n"
 "belgilovchi parametr nolga teng"
 
-#: src/geometry.c:770
+#: src/geometry.c:777
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "hech bir segmentning itag qiymati %d emas\n"
 
-#: src/geometry.c:774
+#: src/geometry.c:781
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4238,7 +4238,7 @@ msgstr ""
 "GM uchun: 'tegdan boshlash' va 'teg orttirmasi' teg 0 yaratmasligini "
 "tekshiring."
 
-#: src/geometry.c:782
+#: src/geometry.c:789
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4249,11 +4249,11 @@ msgstr ""
 "Siz boshqaruv kartasida nomaʼlum teg yoki segmentga murojaat qilyapsiz.\n"
 "Geometriyangizdagi toʻgʻri teglar GW/GA/GH/SP kartalariga tayinlanganlardir."
 
-#: src/geometry.c:1057
+#: src/geometry.c:1064
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "toʻrtburchak burchaklari: patch bir tekislikda yotmaydi\n"
 
-#: src/geometry.c:1058
+#: src/geometry.c:1065
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4261,12 +4261,12 @@ msgstr ""
 "Toʻrtburchak burchaklari\n"
 "patch bir tekislikda yotmaydi"
 
-#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
+#: src/geometry.c:1170 src/geometry.c:1247 src/geometry.c:1325
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "geometriya maʼlumot xatosi: segment %d simmetriya tekisligida yotadi\n"
 
-#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
+#: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4274,12 +4274,12 @@ msgstr ""
 "Geometriya maʼlumot xatosi\n"
 "Segment simmetriya tekisligida yotadi"
 
-#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
+#: src/geometry.c:1207 src/geometry.c:1284 src/geometry.c:1359
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "geometriya maʼlumot xatosi: patch %d simmetriya tekisligida yotadi\n"
 
-#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
+#: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4287,7 +4287,7 @@ msgstr ""
 "Geometriya maʼlumot xatosi\n"
 "Patch simmetriya tekisligida yotadi"
 
-#: src/geometry.c:1473
+#: src/geometry.c:1480
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4296,13 +4296,13 @@ msgstr ""
 "teg=%d/seg=%d: oxirgi nuqta masofasi=%.3e juda yaqin (ulash chegarasidan "
 "past=%.3e); segment oʻziga ulanadi\n"
 
-#: src/geometry.c:1478
+#: src/geometry.c:1485
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr ""
 "teg=%d: qoʻshimcha oʻz-oʻziga ulanish ogohlantirishlari bostirilyapti\n"
 
-#: src/geometry.c:1523
+#: src/geometry.c:1530
 #, c-format
 msgid ""
 "tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
@@ -4311,14 +4311,14 @@ msgstr ""
 "tag=%d/seg=%d: tag=%d/seg=%d bilan ustma-ust tushadi; NEC2 ustma-ust tushgan "
 "segmentlarning tokini ajrata olmaydi\n"
 
-#: src/geometry.c:1528
+#: src/geometry.c:1535
 #, c-format
 msgid "tag=%d: suppressing additional coincident segment warnings\n"
 msgstr ""
 "tag=%d: ustma-ust tushgan segmentlar haqidagi qoʻshimcha ogohlantirishlar "
 "bostirilmoqda\n"
 
-#: src/geometry.c:1573
+#: src/geometry.c:1580
 #, c-format
 msgid ""
 "tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
@@ -4328,14 +4328,14 @@ msgstr ""
 "qiymatidan katta, ammo uning %gx doirasida; NEC2 bu uchlarni ulanmagan holda "
 "qoldiradi\n"
 
-#: src/geometry.c:1579
+#: src/geometry.c:1586
 #, c-format
 msgid "tag=%d: suppressing additional near-miss junction warnings\n"
 msgstr ""
 "tag=%d: deyarli tutashgan ulanishlar haqidagi qoʻshimcha ogohlantirishlar "
 "bostirilmoqda\n"
 
-#: src/geometry.c:1646
+#: src/geometry.c:1639
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4345,7 +4345,7 @@ msgstr ""
 "%.3e ga, ulanishni aniqlash muvaffaqiyatsiz boʻlishi yoki qisqa tutashuv "
 "mumkin\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1645
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
@@ -4354,7 +4354,7 @@ msgstr ""
 "teg=%d: qoʻshimcha ulanish aniqlash muvaffaqiyatsizligi yoki qisqa tutashuv "
 "ogohlantirishlari bostirilyapti\n"
 
-#: src/geometry.c:1685
+#: src/geometry.c:1678
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4365,13 +4365,13 @@ msgstr ""
 "komponentlarining oʻxshashligi raqamli noaniqliqlarga olib keladi "
 "(min=0.001, yaxshi=0.05, tavsiya <=0.1)\n"
 
-#: src/geometry.c:1690
+#: src/geometry.c:1683
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr ""
 "teg=%d: qoʻshimcha qisqa toʻlqin uzunligi nisbati xatolari bostirilyapti\n"
 
-#: src/geometry.c:1704
+#: src/geometry.c:1697
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4382,14 +4382,14 @@ msgstr ""
 "ruxsati segment oraligʻi bilan cheklangan (min=0.001, yaxshi=0.05, tavsiya "
 "<=0.1)\n"
 
-#: src/geometry.c:1709
+#: src/geometry.c:1702
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr ""
 "teg=%d: qoʻshimcha uzun toʻlqin uzunligi nisbati ogohlantirishlari "
 "bostirilyapti\n"
 
-#: src/geometry.c:1723
+#: src/geometry.c:1716
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4400,12 +4400,12 @@ msgstr ""
 "segmentlar tez tok oʻzgarishi hududlarida aniqlikni oshiradi (min=0.001, "
 "yaxshi=0.05, tavsiya <=0.1)\n"
 
-#: src/geometry.c:1728
+#: src/geometry.c:1721
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr "teg=%d: qoʻshimcha aniqlikni yaxshilash tavsiyalari bostirilyapti\n"
 
-#: src/geometry.c:1759
+#: src/geometry.c:1752
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4414,12 +4414,12 @@ msgstr ""
 "teg=%d/seg=%d: uzunlik/radius nisbati %.1f < 2.0; standart yupqa sim yadrosi "
 "maydon xatosi 1%% dan katta farqda oshib ketadi (min=2.0, 1%%aniq=8.0)\n"
 
-#: src/geometry.c:1764
+#: src/geometry.c:1757
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr "teg=%d: qoʻshimcha standart yadro nisbati xatolari bostirilyapti\n"
 
-#: src/geometry.c:1778
+#: src/geometry.c:1771
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4428,13 +4428,13 @@ msgstr ""
 "teg=%d/seg=%d: uzunlik/radius nisbati %.1f < 8.0; standart yupqa sim yadrosi "
 "maydon xatosi 1%% dan oshib ketadi (min=2.0, 1%%aniq=8.0)\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1776
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr ""
 "teg=%d: qoʻshimcha standart yadro nisbati ogohlantirishlari bostirilyapti\n"
 
-#: src/geometry.c:1799
+#: src/geometry.c:1792
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4444,13 +4444,13 @@ msgstr ""
 "yadrosi maydon xatosi 1%% dan katta farqda oshib ketadi (min=0.5, "
 "1%%aniq=2.0)\n"
 
-#: src/geometry.c:1804
+#: src/geometry.c:1797
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr ""
 "teg=%d: qoʻshimcha kengaytirilgan yadro nisbati xatolari bostirilyapti\n"
 
-#: src/geometry.c:1818
+#: src/geometry.c:1811
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4459,26 +4459,26 @@ msgstr ""
 "teg=%d/seg=%d: uzunlik/radius nisbati %.1f < 2.0; kengaytirilgan yupqa sim "
 "yadrosi maydon xatosi 1%% dan oshib ketadi (min=0.5, 1%%aniq=2.0)\n"
 
-#: src/geometry.c:1823
+#: src/geometry.c:1816
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr ""
 "teg=%d: qoʻshimcha kengaytirilgan yadro nisbati ogohlantirishlari "
 "bostirilyapti\n"
 
-#: src/geometry.c:1840
+#: src/geometry.c:1833
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr ""
 "%d segment uchun qoplashish tekshiruvi oʻtkazib yuborilmoqda (yoqish uchun --"
 "force-verify dan foydalaning)\n"
 
-#: src/geometry.c:1844
+#: src/geometry.c:1837
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "%d segment uchun qoplashish tekshiruvi majburlab bajarilmoqda\n"
 
-#: src/geometry.c:1856
+#: src/geometry.c:1849
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -5995,12 +5995,12 @@ msgstr "Optimallashtiruvchi uygʻotish eventfd yaratib boʻlmadi\n"
 msgid "failed to create Optimizer Output thread\n"
 msgstr "Optimallashtiruvchi chiqish iplini yaratib boʻlmadi\n"
 
-#: src/optimizers/opt_fitness.c:494
+#: src/optimizers/opt_fitness.c:509
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: nomaʼlum yoʻnalish %d\n"
 
-#: src/optimizers/opt_fitness.c:567
+#: src/optimizers/opt_fitness.c:582
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: nomaʼlum kamaytirish usuli %d\n"
@@ -6136,17 +6136,17 @@ msgstr ""
 "Oʻrtacha kuchaytirish: %.4f (%.2f dBi), FIK: %.1f%%, qattiq burchak: %.4f * "
 "pi sr\n"
 
-#: src/rc_config.c:1003
+#: src/rc_config.c:999
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() bajarib boʻlmadi: %s\n"
 
-#: src/rc_config.c:1007
+#: src/rc_config.c:1003
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "HOME muhit oʻzgaruvchisi aniqlanmagan, %s ishlatilmoqda\n"
 
-#: src/rc_config.c:1092
+#: src/rc_config.c:1088
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
@@ -6154,22 +6154,22 @@ msgstr ""
 "%s (locale=%s): faqat %d / %lu belgi mos keldi, boshqa locale sinab "
 "koʻrilmoqda: %s\n"
 
-#: src/rc_config.c:1311
+#: src/rc_config.c:1307
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "oyna: x=%-5d y=%-5d w=%-5d h=%-5d  sarlavha: \"%s\"\n"
 
-#: src/rc_config.c:1345
+#: src/rc_config.c:1341
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: dastur versiyasini oʻqishda EOF.\n"
 
-#: src/rc_config.c:1351
+#: src/rc_config.c:1347
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "mavjud konfiguratsiya fayli versiyasi farq qiladi: %s != %s\n"
 
-#: src/rc_config.c:1398
+#: src/rc_config.c:1394
 #, c-format
 msgid ""
 "gain readouts are scaled to %s, restored from the previous session; select "
@@ -6178,12 +6178,12 @@ msgstr ""
 "kuchaytirish koʻrsatkichlari %s ga masshtablangan, oldingi seansdan "
 "tiklandi; umumiy kuchaytirishni oʻqish uchun Total Gain-ni tanlang\n"
 
-#: src/rc_config.c:1521
+#: src/rc_config.c:1517
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "%s uchun stat muvaffaqiyatsiz: %s\n"
 
-#: src/rc_config.c:1527
+#: src/rc_config.c:1523
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -6192,53 +6192,53 @@ msgstr ""
 "4e62893b xatosidan kelib chiqqan %s katalog ruxsatnomalari 0%o dan 0%o ga "
 "tuzatildi.\n"
 
-#: src/rc_config.c:1560
+#: src/rc_config.c:1556
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: Qator tahlil qilinmadi: %s\n"
 
-#: src/rc_config.c:1566
+#: src/rc_config.c:1562
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: %s uchun fayl erta tugadi: %s \n"
 
-#: src/rc_config.c:1591
+#: src/rc_config.c:1587
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: tahlil xatosi (%s): %s \n"
 
-#: src/rc_config.c:1605
+#: src/rc_config.c:1601
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr ""
 "Konfiguratsiyada notoʻgʻri osmon modeli indeksi %d, standartga "
 "qaytarilmoqda\n"
 
-#: src/rc_config.c:1611
+#: src/rc_config.c:1607
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Konfiguratsiyada notoʻgʻri yer modeli indeksi %d, standartga qaytarilmoqda\n"
 
-#: src/rc_config.c:1617
+#: src/rc_config.c:1613
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Konfiguratsiyada notoʻgʻri interpolyatsiya usuli %d, standartga "
 "qaytarilmoqda\n"
 
-#: src/rc_config.c:1625
+#: src/rc_config.c:1621
 #, c-format
 msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr ""
 "Konfiguratsiyada notoʻgʻri oqim vizualizatsiyasi rejimi %d, standart "
 "qiymatga qaytarilmoqda\n"
 
-#: src/rc_config.c:1790
+#: src/rc_config.c:1786
 msgid "batch mode: skipping configuration save\n"
 msgstr "paketli rejim: konfiguratsiyani saqlash oʻtkazib yuborilmoqda\n"
 
-#: src/rc_config.c:1812
+#: src/rc_config.c:1808
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "xnec2c konfiguratsiya faylini ochib boʻlmadi %s: %s\n"
@@ -6632,33 +6632,33 @@ msgstr ""
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "mavzu '%s' roli '%s' notoʻgʻri rang, eski standart ishlatilmoqda\n"
 
-#: src/themes/theme.c:218
+#: src/themes/theme.c:222
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "mavzu: %s resursini yuklab boʻlmadi: %s\n"
 
-#: src/themes/theme.c:228
+#: src/themes/theme.c:232
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "mavzu: %s resursini tahlil qilib boʻlmadi: %s\n"
 
-#: src/themes/theme.c:254
+#: src/themes/theme.c:258
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "mavzu: %s tahlil qilib boʻlmadi, oʻrnatilgan standartlar ishlatilmoqda\n"
 
-#: src/themes/theme.c:377
+#: src/themes/theme.c:401
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "mavzu '%s' teskari variantga ega emas, asosiysi ishlatilmoqda\n"
 
-#: src/themes/theme.c:385
+#: src/themes/theme.c:409
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "mavzu '%s' topilmadi, eskisi ishlatilmoqda\n"
 
-#: src/themes/theme.c:428
+#: src/themes/theme.c:452
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "kenglik '%s' notoʻgʻri, joriy qiymat saqlanmoqda\n"
@@ -6895,3 +6895,231 @@ msgid ""
 msgstr ""
 "Sikllash toʻliq hisoblangan. Uni qayta ishga tushirish har bir hisoblangan "
 "qadamni bekor qiladi va sikllashni birinchi qadamidan hisoblaydi."
+
+#: resources/themes.ini:11 resources/themes.ini:41
+msgid "Abyss color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Abyss rang palitrasi"
+
+#: resources/themes.ini:71 resources/themes.ini:101
+msgid "Acid color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Acid rang palitrasi"
+
+#: resources/themes.ini:131 resources/themes.ini:161
+msgid "Aqua color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Aqua rang palitrasi"
+
+#: resources/themes.ini:191 resources/themes.ini:221
+msgid "Autumn color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Autumn rang palitrasi"
+
+#: resources/themes.ini:251 resources/themes.ini:281
+msgid "Black color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Black rang palitrasi"
+
+#: resources/themes.ini:311 resources/themes.ini:341
+msgid "Bumblebee color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Bumblebee rang palitrasi"
+
+#: resources/themes.ini:371 resources/themes.ini:401
+msgid "Business color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Business rang palitrasi"
+
+#: resources/themes.ini:431 resources/themes.ini:461
+msgid "Caramellatte color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Caramellatte rang palitrasi"
+
+#: resources/themes.ini:491 resources/themes.ini:521
+msgid "Cmyk color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Cmyk rang palitrasi"
+
+#: resources/themes.ini:551 resources/themes.ini:581
+msgid "Coffee color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Coffee rang palitrasi"
+
+#: resources/themes.ini:611 resources/themes.ini:641
+msgid "Corporate color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Corporate rang palitrasi"
+
+#: resources/themes.ini:671 resources/themes.ini:701
+msgid "P3 amber as used in IBM PC XT and Hercules displays"
+msgstr "IBM PC XT va Hercules displeylarida ishlatilgan P3 kahrabo rangi"
+
+#: resources/themes.ini:731 resources/themes.ini:761
+msgid "P31 bright green as used in Apple IIe monitors and oscilloscopes"
+msgstr ""
+"Apple IIe monitorlarida va ossilograflarda ishlatilgan P31 yorqin yashil rang"
+
+#: resources/themes.ini:791 resources/themes.ini:821
+msgid "P39 saturated green as used in Apple III and IBM 5151 terminals"
+msgstr ""
+"Apple III va IBM 5151 terminallarida ishlatilgan P39 toʻyingan yashil rang"
+
+#: resources/themes.ini:851 resources/themes.ini:881
+msgid "P45 cool white for monochrome camcorder viewfinders"
+msgstr "Monoxrom kamkorder koʻrgichlari uchun P45 sovuq oq rang"
+
+#: resources/themes.ini:911 resources/themes.ini:941
+msgid "Classic cyan/magenta gaming aesthetic from early IBM PC era"
+msgstr ""
+"IBM PC davrining dastlabki yillaridan olingan klassik cyan/magenta oʻyin "
+"estetikasi"
+
+#: resources/themes.ini:971 resources/themes.ini:1001
+msgid "Warm creative light palette with magenta foundation"
+msgstr "Magenta asosli iliq ijodiy yorugʻ palitra"
+
+#: resources/themes.ini:1031 resources/themes.ini:1061
+msgid "Green-accented CRT aesthetic for extended viewing"
+msgstr "Uzoq koʻrish uchun moʻljallangan yashil urgʻuli CRT estetikasi"
+
+#: resources/themes.ini:1091 resources/themes.ini:1121
+msgid "Cool professional light palette with blue foundation"
+msgstr "Koʻk asosli sovuq professional yorugʻ palitra"
+
+#: resources/themes.ini:1151 resources/themes.ini:1181
+msgid "Professional amber/green phosphor aesthetic from IBM business era"
+msgstr "IBM biznes davrining professional kahrabo/yashil fosfor estetikasi"
+
+#: resources/themes.ini:1211 resources/themes.ini:1241
+msgid "CRT Clarity: Split-complementary harmony with warm/cool tension"
+msgstr ""
+"CRT Clarity: iliq/sovuq taranglik bilan ajratilgan qoʻshimcha garmoniya"
+
+#: resources/themes.ini:1271 resources/themes.ini:1301
+msgid "Cool analogous professional light palette"
+msgstr "Sovuq oʻxshash professional yorugʻ palitra"
+
+#: resources/themes.ini:1331 resources/themes.ini:1361
+msgid "Warm content dark palette for reduced eye strain"
+msgstr ""
+"Koʻz zoʻriqishini kamaytirish uchun moʻljallangan iliq qorongʻi palitra"
+
+#: resources/themes.ini:1391 resources/themes.ini:1421
+msgid ""
+"CRT Phosphor Glow: Triadic harmony with cool/warm balance and CRT aesthetic"
+msgstr ""
+"CRT Phosphor Glow: sovuq/iliq muvozanat va CRT estetikasi bilan uchlik "
+"garmoniya"
+
+#: resources/themes.ini:1451 resources/themes.ini:1481
+msgid "P1 medium-persistence green as used in early oscilloscope tubes"
+msgstr ""
+"Dastlabki ossilograf naychalarida ishlatilgan P1 oʻrtacha saqlanishli yashil "
+"rang"
+
+#: resources/themes.ini:1511 resources/themes.ini:1541
+msgid "P4 white as used in IBM 8503 VGA and broadcast television"
+msgstr "IBM 8503 VGA va eshittirish televideniyesida ishlatilgan P4 oq rang"
+
+#: resources/themes.ini:1571 resources/themes.ini:1601
+msgid "P7 cascade phosphor as used in military radar and air traffic control"
+msgstr ""
+"Harbiy radar va havo harakatini boshqarishda ishlatilgan P7 kaskad fosfor"
+
+#: resources/themes.ini:1631 resources/themes.ini:1661
+msgid "Cupcake color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Cupcake rang palitrasi"
+
+#: resources/themes.ini:1691 resources/themes.ini:1721
+msgid "Cyberpunk color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Cyberpunk rang palitrasi"
+
+#: resources/themes.ini:1751 resources/themes.ini:1781
+msgid "Dark color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Dark rang palitrasi"
+
+#: resources/themes.ini:1811 resources/themes.ini:1841
+msgid "Dim color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Dim rang palitrasi"
+
+#: resources/themes.ini:1871 resources/themes.ini:1901
+msgid "Dracula color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Dracula rang palitrasi"
+
+#: resources/themes.ini:1931 resources/themes.ini:1961
+msgid "Emerald color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Emerald rang palitrasi"
+
+#: resources/themes.ini:1991 resources/themes.ini:2021
+msgid "Fantasy color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Fantasy rang palitrasi"
+
+#: resources/themes.ini:2051 resources/themes.ini:2081
+msgid "Forest color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Forest rang palitrasi"
+
+#: resources/themes.ini:2111 resources/themes.ini:2141
+msgid "Garden color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Garden rang palitrasi"
+
+#: resources/themes.ini:2171 resources/themes.ini:2201
+msgid "Halloween color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Halloween rang palitrasi"
+
+#: resources/themes.ini:2231 resources/themes.ini:2261
+msgid "Lemonade color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Lemonade rang palitrasi"
+
+#: resources/themes.ini:2291 resources/themes.ini:2321
+msgid "Light color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Light rang palitrasi"
+
+#: resources/themes.ini:2351 resources/themes.ini:2381
+msgid "Lofi color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Lofi rang palitrasi"
+
+#: resources/themes.ini:2411 resources/themes.ini:2441
+msgid "Luxury color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Luxury rang palitrasi"
+
+#: resources/themes.ini:2471 resources/themes.ini:2501
+msgid "Night color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Night rang palitrasi"
+
+#: resources/themes.ini:2531 resources/themes.ini:2561
+msgid "Nord color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Nord rang palitrasi"
+
+#: resources/themes.ini:2591 resources/themes.ini:2621
+msgid "Pastel color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Pastel rang palitrasi"
+
+#: resources/themes.ini:2651 resources/themes.ini:2681
+msgid "Retro color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Retro rang palitrasi"
+
+#: resources/themes.ini:2711 resources/themes.ini:2741
+msgid "Silk color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Silk rang palitrasi"
+
+#: resources/themes.ini:2771 resources/themes.ini:2801
+msgid "Sunset color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Sunset rang palitrasi"
+
+#: resources/themes.ini:2831 resources/themes.ini:2861
+msgid "Synthwave color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Synthwave rang palitrasi"
+
+#: resources/themes.ini:2891 resources/themes.ini:2921
+msgid "Valentine color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Valentine rang palitrasi"
+
+#: resources/themes.ini:2951 resources/themes.ini:2981
+msgid "Winter color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Winter rang palitrasi"
+
+#: resources/themes.ini:3011 resources/themes.ini:3041
+msgid "Wireframe color palette from DaisyUI theme collection"
+msgstr "DaisyUI tema toʻplamidagi Wireframe rang palitrasi"
+
+#: resources/themes.ini:3071 resources/themes.ini:3101
+msgid "Classic xnec2c plot colors"
+msgstr "Klassik xnec2c grafik ranglari"
+
+#: resources/themes.ini:3131 resources/themes.ini:3161
+msgid "Hand-tuned cool palette"
+msgstr "Qoʻlda sozlangan sovuq palitra"
+
+#: resources/themes.ini:3191 resources/themes.ini:3221
+msgid "Hand-tuned warm palette"
+msgstr "Qoʻlda sozlangan iliq palitra"

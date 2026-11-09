@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
-"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-12 01:09-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 16:21-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3134,7 +3134,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "ملف التكوين غير موجود أو غير قابل للقراءة: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3771,11 +3771,11 @@ msgstr "فشل تخصيص الذاكرة للنقاط\n"
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): فشل تخصيص الذاكرة للنقاط"
 
-#: src/freqplots/freqplots_theme_menu.c:41
+#: src/freqplots/freqplots_theme_menu.c:42
 msgid "This theme has no inverted variant"
 msgstr "لا يوجد لهذه السمة نسخة معكوسة"
 
-#: src/freqplots/freqplots_theme_menu.c:117
+#: src/freqplots/freqplots_theme_menu.c:127
 msgid "_Invert"
 msgstr "_عكس"
 
@@ -4060,24 +4060,24 @@ msgstr "تعريف SY (مثال: FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "نافذة محرر NEC2 غير مفتوحة"
 
-#: src/geometry.c:111
+#: src/geometry.c:118
 msgid "Number of segments < 1"
 msgstr "عدد segments < 1"
 
-#: src/geometry.c:148
+#: src/geometry.c:155
 msgid "Arc angle exceeds 360 degrees"
 msgstr "زاوية القوس تتجاوز 360 درجة"
 
-#: src/geometry.c:287
+#: src/geometry.c:294
 msgid "Error in conect(): np > n"
 msgstr "خطأ في conect():‏ np > n"
 
-#: src/geometry.c:318 src/geometry.c:366
+#: src/geometry.c:325 src/geometry.c:373
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr "خطأ في بيانات الهندسة: segment %d يمتد أسفل الأرضي\n"
 
-#: src/geometry.c:319 src/geometry.c:367
+#: src/geometry.c:326 src/geometry.c:374
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4085,12 +4085,12 @@ msgstr ""
 "خطأ في بيانات الهندسة\n"
 "segment يمتد أسفل الأرضي"
 
-#: src/geometry.c:376
+#: src/geometry.c:383
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "خطأ في بيانات الهندسة: segment %d يقع في مستوى الأرضي\n"
 
-#: src/geometry.c:377
+#: src/geometry.c:384
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4099,15 +4099,15 @@ msgstr ""
 "segment يقع في مستوى الأرضي"
 
 # xnec2c-exempt: name
-#: src/geometry.c:467
+#: src/geometry.c:474
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:468
+#: src/geometry.c:475
 msgid "Error: ipsym = 0"
 msgstr "خطأ: ipsym = 0"
 
-#: src/geometry.c:521
+#: src/geometry.c:528
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4116,7 +4116,7 @@ msgstr ""
 "عدد اتصالات segment يتجاوز شبكة كاملة، وهذا غير محتمل: data.n=%ld segj."
 "maxcon=%lu\n"
 
-#: src/geometry.c:523
+#: src/geometry.c:530
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4124,7 +4124,7 @@ msgstr ""
 "عدد اتصالات segment يتجاوز شبكة كاملة، وهذا غير محتمل!\n"
 "تحقق من segments المتداخلة أو شبه المتصلة\n"
 
-#: src/geometry.c:737
+#: src/geometry.c:744
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4132,7 +4132,7 @@ msgstr ""
 "تحقق من البيانات، معامل تحديد segment: الموضع في مجموعة من tags المتساوية "
 "يجب ألا يكون صفراً\n"
 
-#: src/geometry.c:738
+#: src/geometry.c:745
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4140,12 +4140,12 @@ msgstr ""
 "معامل تحديد segment\n"
 "الموضع في مجموعة من tags المتساوية هو صفر"
 
-#: src/geometry.c:770
+#: src/geometry.c:777
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "لا يوجد segment بـ itag تساوي %d\n"
 
-#: src/geometry.c:774
+#: src/geometry.c:781
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4156,7 +4156,7 @@ msgstr ""
 "تحقق من بطاقات الهندسة (خاصة بطاقات GM) للتأكد من صحة قيم tags.\n"
 "لبطاقات GM: تحقق من أن 'البدء من tag' و'زيادة tag' لا تُنشئ tag 0."
 
-#: src/geometry.c:782
+#: src/geometry.c:789
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4167,11 +4167,11 @@ msgstr ""
 "أنت تشير إلى tag أو segment غير معروف في بطاقة تحكم.\n"
 "tags الصالحة في هندستك هي تلك المُعيَّنة لبطاقات GW/GA/GH/SP."
 
-#: src/geometry.c:1057
+#: src/geometry.c:1064
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "زوايا patch الرباعية لا تقع في مستوى واحد\n"
 
-#: src/geometry.c:1058
+#: src/geometry.c:1065
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4179,12 +4179,12 @@ msgstr ""
 "زوايا patch الرباعية\n"
 "لا تقع في مستوى واحد"
 
-#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
+#: src/geometry.c:1170 src/geometry.c:1247 src/geometry.c:1325
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "خطأ في بيانات الهندسة: segment %d يقع في مستوى التماثل\n"
 
-#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
+#: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4192,12 +4192,12 @@ msgstr ""
 "خطأ في بيانات الهندسة\n"
 "segment يقع في مستوى التماثل"
 
-#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
+#: src/geometry.c:1207 src/geometry.c:1284 src/geometry.c:1359
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "خطأ في بيانات الهندسة: patch %d تقع في مستوى التماثل\n"
 
-#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
+#: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4205,7 +4205,7 @@ msgstr ""
 "خطأ في بيانات الهندسة\n"
 "patch تقع في مستوى التماثل"
 
-#: src/geometry.c:1473
+#: src/geometry.c:1480
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4214,12 +4214,12 @@ msgstr ""
 "tag=%d/seg=%d: مسافة نقطة النهاية=%.3e قريبة جداً (أقل من عتبة الاتصال=%.3e)؛ "
 "segment سيتصل بنفسه\n"
 
-#: src/geometry.c:1478
+#: src/geometry.c:1485
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr "tag=%d: إيقاف تحذيرات الاتصال الذاتي الإضافية\n"
 
-#: src/geometry.c:1523
+#: src/geometry.c:1530
 #, c-format
 msgid ""
 "tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
@@ -4228,12 +4228,12 @@ msgstr ""
 "tag=%d/seg=%d: يتطابق مع tag=%d/seg=%d؛ لا يستطيع NEC2 فصل تيارات القطع "
 "المتطابقة.\n"
 
-#: src/geometry.c:1528
+#: src/geometry.c:1535
 #, c-format
 msgid "tag=%d: suppressing additional coincident segment warnings\n"
 msgstr "tag=%d: يجري كتم تحذيرات القطع المتطابقة الإضافية.\n"
 
-#: src/geometry.c:1573
+#: src/geometry.c:1580
 #, c-format
 msgid ""
 "tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
@@ -4242,12 +4242,12 @@ msgstr ""
 "tag=%d/seg=%d: فجوة الطرف gap=%.3e إلى tag=%d/seg=%d تتجاوز عتبة الاتصال "
 "threshold=%.3e لكنها ضمن %gx منها؛ يترك NEC2 هذين الطرفين غير متصلين\n"
 
-#: src/geometry.c:1579
+#: src/geometry.c:1586
 #, c-format
 msgid "tag=%d: suppressing additional near-miss junction warnings\n"
 msgstr "tag=%d: يُكتم مزيد من تحذيرات الوصلات القريبة من التماس\n"
 
-#: src/geometry.c:1646
+#: src/geometry.c:1639
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4256,14 +4256,14 @@ msgstr ""
 "tag=%d/seg=%d: الطول=%.3e قصير جداً (وقريب بما يكفي) من tag=%d/seg=%d الطول="
 "%.3e مما قد يؤدي إلى فشل أو قصر في كشف الاتصال\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1645
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
 "warnings\n"
 msgstr "tag=%d: إيقاف تحذيرات فشل أو قصر كشف الاتصال الإضافية\n"
 
-#: src/geometry.c:1685
+#: src/geometry.c:1678
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4273,12 +4273,12 @@ msgstr ""
 "tag=%d/seg=%d: نسبة الطول/الطول الموجي %.3f < 0.001؛ تشابه مكونات التيار "
 "يؤدي إلى عدم دقة عددية (الحد الأدنى=0.001، جيد=0.05، موصى به <= 0.1)\n"
 
-#: src/geometry.c:1690
+#: src/geometry.c:1683
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr "tag=%d: إيقاف أخطاء نسبة الطول الموجي القصير الإضافية\n"
 
-#: src/geometry.c:1704
+#: src/geometry.c:1697
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4288,12 +4288,12 @@ msgstr ""
 "tag=%d/seg=%d: نسبة الطول/الطول الموجي %.3f > 0.1؛ دقة أخذ عينات التيار "
 "محدودة بتباعد segments (الحد الأدنى=0.001، جيد=0.05، موصى به <= 0.1)\n"
 
-#: src/geometry.c:1709
+#: src/geometry.c:1702
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr "tag=%d: إيقاف تحذيرات نسبة الطول الموجي الطويل الإضافية\n"
 
-#: src/geometry.c:1723
+#: src/geometry.c:1716
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4304,12 +4304,12 @@ msgstr ""
 "الدقة في مناطق التغير السريع للتيار (الحد الأدنى=0.001، جيد=0.05، موصى به "
 "<=0.1)\n"
 
-#: src/geometry.c:1728
+#: src/geometry.c:1721
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr "tag=%d: إيقاف اقتراحات تحسين الدقة الإضافية\n"
 
-#: src/geometry.c:1759
+#: src/geometry.c:1752
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4318,12 +4318,12 @@ msgstr ""
 "tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 2.0؛ خطأ مجال نواة السلك الرفيع "
 "القياسية يتجاوز 1%% بهامش كبير (الحد الأدنى=2.0، دقة 1%%=8.0)\n"
 
-#: src/geometry.c:1764
+#: src/geometry.c:1757
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr "tag=%d: إيقاف أخطاء نسبة النواة القياسية الإضافية\n"
 
-#: src/geometry.c:1778
+#: src/geometry.c:1771
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4332,12 +4332,12 @@ msgstr ""
 "tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 8.0؛ خطأ مجال نواة السلك الرفيع "
 "القياسية يتجاوز 1%% (الحد الأدنى=2.0، دقة 1%%=8.0)\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1776
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr "tag=%d: إيقاف تحذيرات نسبة النواة القياسية الإضافية\n"
 
-#: src/geometry.c:1799
+#: src/geometry.c:1792
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4346,12 +4346,12 @@ msgstr ""
 "tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 0.5؛ خطأ مجال نواة السلك الرفيع "
 "الموسعة يتجاوز 1%% بهامش كبير (الحد الأدنى=0.5، دقة 1%%=2.0)\n"
 
-#: src/geometry.c:1804
+#: src/geometry.c:1797
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr "tag=%d: إيقاف أخطاء نسبة النواة الموسعة الإضافية\n"
 
-#: src/geometry.c:1818
+#: src/geometry.c:1811
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4360,22 +4360,22 @@ msgstr ""
 "tag=%d/seg=%d: نسبة الطول/نصف القطر %.1f < 2.0؛ خطأ مجال نواة السلك الرفيع "
 "الموسعة يتجاوز 1%% (الحد الأدنى=0.5، دقة 1%%=2.0)\n"
 
-#: src/geometry.c:1823
+#: src/geometry.c:1816
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr "tag=%d: إيقاف تحذيرات نسبة النواة الموسعة الإضافية\n"
 
-#: src/geometry.c:1840
+#: src/geometry.c:1833
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr "تخطي فحص التداخل لـ %d segment (استخدم --force-verify للتفعيل)\n"
 
-#: src/geometry.c:1844
+#: src/geometry.c:1837
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "فرض فحص التداخل لـ %d segment\n"
 
-#: src/geometry.c:1856
+#: src/geometry.c:1849
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -5841,12 +5841,12 @@ msgstr "فشل إنشاء eventfd إيقاظ المحسّن\n"
 msgid "failed to create Optimizer Output thread\n"
 msgstr "فشل إنشاء خيط إخراج المحسّن\n"
 
-#: src/optimizers/opt_fitness.c:494
+#: src/optimizers/opt_fitness.c:509
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: اتجاه غير معروف %d\n"
 
-#: src/optimizers/opt_fitness.c:567
+#: src/optimizers/opt_fitness.c:582
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: طريقة اختزال غير معروفة %d\n"
@@ -6458,32 +6458,32 @@ msgstr ""
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "السمة '%s' الدور '%s' لون غير صالح، استخدام الافتراضي القديم\n"
 
-#: src/themes/theme.c:218
+#: src/themes/theme.c:222
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "السمة: تعذّر تحميل المورد %s: %s\n"
 
-#: src/themes/theme.c:228
+#: src/themes/theme.c:232
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "السمة: تعذّر تحليل المورد %s: %s\n"
 
-#: src/themes/theme.c:254
+#: src/themes/theme.c:258
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr "السمة: تعذّر تحليل %s، استخدام الافتراضيات المدمجة\n"
 
-#: src/themes/theme.c:377
+#: src/themes/theme.c:401
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "السمة '%s' بلا نسخة معكوسة، استخدام الأساسية\n"
 
-#: src/themes/theme.c:385
+#: src/themes/theme.c:409
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "السمة '%s' غير موجودة، استخدام القديمة\n"
 
-#: src/themes/theme.c:428
+#: src/themes/theme.c:452
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "العرض '%s' غير صالح، الإبقاء على القيمة الحالية\n"
@@ -6717,3 +6717,220 @@ msgid ""
 msgstr ""
 "المسح محسوب بالكامل. تشغيله مجددًا يتجاهل كل خطوة محسوبة ويحسب المسح من خطوته "
 "الأولى."
+
+#: resources/themes.ini:11 resources/themes.ini:41
+msgid "Abyss color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Abyss من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:71 resources/themes.ini:101
+msgid "Acid color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Acid من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:131 resources/themes.ini:161
+msgid "Aqua color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Aqua من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:191 resources/themes.ini:221
+msgid "Autumn color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Autumn من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:251 resources/themes.ini:281
+msgid "Black color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Black من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:311 resources/themes.ini:341
+msgid "Bumblebee color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Bumblebee من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:371 resources/themes.ini:401
+msgid "Business color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Business من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:431 resources/themes.ini:461
+msgid "Caramellatte color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Caramellatte من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:491 resources/themes.ini:521
+msgid "Cmyk color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Cmyk من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:551 resources/themes.ini:581
+msgid "Coffee color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Coffee من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:611 resources/themes.ini:641
+msgid "Corporate color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Corporate من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:671 resources/themes.ini:701
+msgid "P3 amber as used in IBM PC XT and Hercules displays"
+msgstr "كهرماني P3 المستخدم في شاشات IBM PC XT و Hercules"
+
+#: resources/themes.ini:731 resources/themes.ini:761
+msgid "P31 bright green as used in Apple IIe monitors and oscilloscopes"
+msgstr "أخضر ساطع P31 المستخدم في شاشات Apple IIe و راسمات الذبذبات"
+
+#: resources/themes.ini:791 resources/themes.ini:821
+msgid "P39 saturated green as used in Apple III and IBM 5151 terminals"
+msgstr "أخضر مشبع P39 المستخدم في محطات Apple III و IBM 5151 الطرفية"
+
+#: resources/themes.ini:851 resources/themes.ini:881
+msgid "P45 cool white for monochrome camcorder viewfinders"
+msgstr "أبيض بارد P45 لمناظير كاميرات الفيديو أحادية اللون"
+
+#: resources/themes.ini:911 resources/themes.ini:941
+msgid "Classic cyan/magenta gaming aesthetic from early IBM PC era"
+msgstr "طابع جمالي كلاسيكي للألعاب بالسماوي/الأرجواني من عصر IBM PC المبكر"
+
+#: resources/themes.ini:971 resources/themes.ini:1001
+msgid "Warm creative light palette with magenta foundation"
+msgstr "لوحة الألوان الفاتحة الدافئة الإبداعية ذات الأساس الأرجواني"
+
+#: resources/themes.ini:1031 resources/themes.ini:1061
+msgid "Green-accented CRT aesthetic for extended viewing"
+msgstr "طابع جمالي CRT بلمسة خضراء للمشاهدة الممتدة"
+
+#: resources/themes.ini:1091 resources/themes.ini:1121
+msgid "Cool professional light palette with blue foundation"
+msgstr "لوحة الألوان الفاتحة الاحترافية الباردة ذات الأساس الأزرق"
+
+#: resources/themes.ini:1151 resources/themes.ini:1181
+msgid "Professional amber/green phosphor aesthetic from IBM business era"
+msgstr "طابع جمالي احترافي للفوسفور الكهرماني/الأخضر من عصر IBM للأعمال"
+
+#: resources/themes.ini:1211 resources/themes.ini:1241
+msgid "CRT Clarity: Split-complementary harmony with warm/cool tension"
+msgstr "CRT Clarity: تناغم متمم مُجزّأ مع توتر دافئ/بارد"
+
+#: resources/themes.ini:1271 resources/themes.ini:1301
+msgid "Cool analogous professional light palette"
+msgstr "لوحة الألوان الفاتحة الاحترافية الباردة المتجاورة"
+
+#: resources/themes.ini:1331 resources/themes.ini:1361
+msgid "Warm content dark palette for reduced eye strain"
+msgstr "لوحة الألوان الداكنة الدافئة للمحتوى لتقليل إجهاد العين"
+
+#: resources/themes.ini:1391 resources/themes.ini:1421
+msgid ""
+"CRT Phosphor Glow: Triadic harmony with cool/warm balance and CRT aesthetic"
+msgstr "CRT Phosphor Glow: تناغم ثلاثي مع توازن بارد/دافئ وطابع جمالي CRT"
+
+#: resources/themes.ini:1451 resources/themes.ini:1481
+msgid "P1 medium-persistence green as used in early oscilloscope tubes"
+msgstr "أخضر متوسط الثبات P1 المستخدم في أنابيب راسمات الذبذبات المبكرة"
+
+#: resources/themes.ini:1511 resources/themes.ini:1541
+msgid "P4 white as used in IBM 8503 VGA and broadcast television"
+msgstr "أبيض P4 المستخدم في IBM 8503 VGA و البث التلفزيوني"
+
+#: resources/themes.ini:1571 resources/themes.ini:1601
+msgid "P7 cascade phosphor as used in military radar and air traffic control"
+msgstr "فوسفور متعاقب P7 المستخدم في الرادار العسكري ومراقبة الحركة الجوية"
+
+#: resources/themes.ini:1631 resources/themes.ini:1661
+msgid "Cupcake color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Cupcake من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:1691 resources/themes.ini:1721
+msgid "Cyberpunk color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Cyberpunk من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:1751 resources/themes.ini:1781
+msgid "Dark color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Dark من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:1811 resources/themes.ini:1841
+msgid "Dim color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Dim من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:1871 resources/themes.ini:1901
+msgid "Dracula color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Dracula من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:1931 resources/themes.ini:1961
+msgid "Emerald color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Emerald من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:1991 resources/themes.ini:2021
+msgid "Fantasy color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Fantasy من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2051 resources/themes.ini:2081
+msgid "Forest color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Forest من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2111 resources/themes.ini:2141
+msgid "Garden color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Garden من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2171 resources/themes.ini:2201
+msgid "Halloween color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Halloween من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2231 resources/themes.ini:2261
+msgid "Lemonade color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Lemonade من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2291 resources/themes.ini:2321
+msgid "Light color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Light من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2351 resources/themes.ini:2381
+msgid "Lofi color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Lofi من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2411 resources/themes.ini:2441
+msgid "Luxury color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Luxury من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2471 resources/themes.ini:2501
+msgid "Night color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Night من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2531 resources/themes.ini:2561
+msgid "Nord color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Nord من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2591 resources/themes.ini:2621
+msgid "Pastel color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Pastel من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2651 resources/themes.ini:2681
+msgid "Retro color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Retro من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2711 resources/themes.ini:2741
+msgid "Silk color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Silk من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2771 resources/themes.ini:2801
+msgid "Sunset color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Sunset من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2831 resources/themes.ini:2861
+msgid "Synthwave color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Synthwave من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2891 resources/themes.ini:2921
+msgid "Valentine color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Valentine من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:2951 resources/themes.ini:2981
+msgid "Winter color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Winter من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:3011 resources/themes.ini:3041
+msgid "Wireframe color palette from DaisyUI theme collection"
+msgstr "لوحة الألوان Wireframe من مجموعة سمات DaisyUI"
+
+#: resources/themes.ini:3071 resources/themes.ini:3101
+msgid "Classic xnec2c plot colors"
+msgstr "ألوان الرسم الكلاسيكية في xnec2c"
+
+#: resources/themes.ini:3131 resources/themes.ini:3161
+msgid "Hand-tuned cool palette"
+msgstr "لوحة الألوان الباردة المضبوطة يدوياً"
+
+#: resources/themes.ini:3191 resources/themes.ini:3221
+msgid "Hand-tuned warm palette"
+msgstr "لوحة الألوان الدافئة المضبوطة يدوياً"

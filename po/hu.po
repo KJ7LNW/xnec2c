@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
-"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-12 01:09-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 20:33-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -332,7 +332,7 @@ msgstr "Mélységi rekeszek"
 
 #: resources/settings/cairo_settings.glade:184
 #: resources/settings/opengl_settings.glade:515
-#: resources/settings/render_settings.glade:201
+#: resources/settings/render_settings.glade:216
 msgid "Reset to _Defaults"
 msgstr "_Alapértelmezések visszaállítása"
 
@@ -808,15 +808,19 @@ msgstr "Csak vizuális — nem hat a NEC2 modell számításaira."
 msgid "_Color Theme"
 msgstr "Szín_téma"
 
-#: resources/settings/render_settings.glade:162
+#: resources/settings/render_settings.glade:153
+msgid "_Invert"
+msgstr "_Invertálás"
+
+#: resources/settings/render_settings.glade:177
 msgid "_Wire Radius Scale"
 msgstr "_Huzalsugár-skála"
 
-#: resources/settings/render_settings.glade:223
+#: resources/settings/render_settings.glade:238
 msgid "Rendering Settings"
 msgstr "Megjelenítési beállítások"
 
-#: resources/settings/render_settings.glade:267
+#: resources/settings/render_settings.glade:282
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_Bezárás"
@@ -3207,7 +3211,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "konfigurációs fájl nem létezik vagy nem olvasható: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3860,13 +3864,9 @@ msgstr "memóriafoglalás a pontokhoz sikertelen\n"
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Memóriafoglalás a pontokhoz sikertelen"
 
-#: src/freqplots/freqplots_theme_menu.c:41
+#: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
 msgstr "Ennek a témának nincs invertált változata"
-
-#: src/freqplots/freqplots_theme_menu.c:117
-msgid "_Invert"
-msgstr "_Invertálás"
 
 #: src/freqplots/graphs/agt_graph.c:67
 msgid "Average gain"
@@ -4147,24 +4147,24 @@ msgstr "SY definíció (pl. FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "NEC2 szerkesztőablak nincs megnyitva"
 
-#: src/geometry.c:111
+#: src/geometry.c:118
 msgid "Number of segments < 1"
 msgstr "Szegmensek száma < 1"
 
-#: src/geometry.c:148
+#: src/geometry.c:155
 msgid "Arc angle exceeds 360 degrees"
 msgstr "Ívszög meghaladja a 360 fokot"
 
-#: src/geometry.c:287
+#: src/geometry.c:294
 msgid "Error in conect(): np > n"
 msgstr "Hiba a conect()-ben: np > n"
 
-#: src/geometry.c:318 src/geometry.c:366
+#: src/geometry.c:325 src/geometry.c:373
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr "geometriai adathiba: a(z) %d szegmens a föld alá nyúlik\n"
 
-#: src/geometry.c:319 src/geometry.c:367
+#: src/geometry.c:326 src/geometry.c:374
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4172,12 +4172,12 @@ msgstr ""
 "Geometriai adathiba\n"
 "Szegmens a föld alá nyúlik"
 
-#: src/geometry.c:376
+#: src/geometry.c:383
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "geometriai adathiba: a(z) %d szegmens a földsíkban van\n"
 
-#: src/geometry.c:377
+#: src/geometry.c:384
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4186,15 +4186,15 @@ msgstr ""
 "Szegmens a földsíkban van"
 
 # xnec2c-exempt: name
-#: src/geometry.c:467
+#: src/geometry.c:474
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:468
+#: src/geometry.c:475
 msgid "Error: ipsym = 0"
 msgstr "Hiba: ipsym = 0"
 
-#: src/geometry.c:521
+#: src/geometry.c:528
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4203,7 +4203,7 @@ msgstr ""
 "Szegmens csatlakozások száma meghaladja a teljes hálót, ami valószínűtlen: "
 "data.n=%ld segj.maxcon=%lu\n"
 
-#: src/geometry.c:523
+#: src/geometry.c:530
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4211,7 +4211,7 @@ msgstr ""
 "Szegmens csatlakozások száma meghaladja a teljes hálót, ami valószínűtlen!\n"
 "Ellenőrizze az átfedő vagy majdnem csatlakozó szegmenseket\n"
 
-#: src/geometry.c:737
+#: src/geometry.c:744
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4219,7 +4219,7 @@ msgstr ""
 "ellenőrizze az adatokat, szegmenst megadó paraméter: pozíció azonos címkék "
 "csoportjában nem lehet nulla\n"
 
-#: src/geometry.c:738
+#: src/geometry.c:745
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4227,12 +4227,12 @@ msgstr ""
 "Szegmenst megadó paraméter\n"
 "pozíció azonos címkék csoportjában nulla"
 
-#: src/geometry.c:770
+#: src/geometry.c:777
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "nincs szegmens %d itag értékkel\n"
 
-#: src/geometry.c:774
+#: src/geometry.c:781
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4245,7 +4245,7 @@ msgstr ""
 "GM kártyáknál: ellenőrizze, hogy a 'kezdő címke' és 'címke növekmény' nem "
 "hoz létre 0 címkét."
 
-#: src/geometry.c:782
+#: src/geometry.c:789
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4256,11 +4256,11 @@ msgstr ""
 "Ismeretlen címkére vagy szegmensre hivatkozik egy vezérlőkártyán.\n"
 "Érvényes címkék a geometriában a GW/GA/GH/SP kártyákhoz rendelt címkék."
 
-#: src/geometry.c:1057
+#: src/geometry.c:1064
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "négyszög sarkai: a patch nem egy síkban van\n"
 
-#: src/geometry.c:1058
+#: src/geometry.c:1065
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4268,12 +4268,12 @@ msgstr ""
 "Négyszög sarkai:\n"
 "a patch nem egy síkban van"
 
-#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
+#: src/geometry.c:1170 src/geometry.c:1247 src/geometry.c:1325
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "geometriai adathiba: a(z) %d szegmens a szimmetriasíkban van\n"
 
-#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
+#: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4281,12 +4281,12 @@ msgstr ""
 "Geometriai adathiba\n"
 "Szegmens a szimmetriasíkban van"
 
-#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
+#: src/geometry.c:1207 src/geometry.c:1284 src/geometry.c:1359
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "geometriai adathiba: a(z) %d patch a szimmetriasíkban van\n"
 
-#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
+#: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4294,7 +4294,7 @@ msgstr ""
 "Geometriai adathiba\n"
 "Patch a szimmetriasíkban van"
 
-#: src/geometry.c:1473
+#: src/geometry.c:1480
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4303,12 +4303,12 @@ msgstr ""
 "tag=%d/seg=%d: végpont távolság=%.3e túl közel van (csatlakozási küszöb=%.3e "
 "alatt); a szegmens önmagához fog csatlakozni\n"
 
-#: src/geometry.c:1478
+#: src/geometry.c:1485
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr "tag=%d: további öncsatlakozási figyelmeztetések elnyomva\n"
 
-#: src/geometry.c:1523
+#: src/geometry.c:1530
 #, c-format
 msgid ""
 "tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
@@ -4317,14 +4317,14 @@ msgstr ""
 "tag=%d/seg=%d: egybeesik a tag=%d/seg=%d szegmenssel; a NEC2 nem tudja "
 "szétválasztani az egybeeső szegmensek áramait\n"
 
-#: src/geometry.c:1528
+#: src/geometry.c:1535
 #, c-format
 msgid "tag=%d: suppressing additional coincident segment warnings\n"
 msgstr ""
 "tag=%d: az egybeeső szegmensekre vonatkozó további figyelmeztetések "
 "elnyomva\n"
 
-#: src/geometry.c:1573
+#: src/geometry.c:1580
 #, c-format
 msgid ""
 "tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
@@ -4334,14 +4334,14 @@ msgstr ""
 "a csatlakozási threshold=%.3e értéket, de annak %gx-es értékén belül marad; "
 "a NEC2 ezeket a végeket nem kapcsolja össze\n"
 
-#: src/geometry.c:1579
+#: src/geometry.c:1586
 #, c-format
 msgid "tag=%d: suppressing additional near-miss junction warnings\n"
 msgstr ""
 "tag=%d: a közel eső csatlakozásokra vonatkozó további figyelmeztetések "
 "elnyomva\n"
 
-#: src/geometry.c:1646
+#: src/geometry.c:1639
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4351,7 +4351,7 @@ msgstr ""
 "%.3e-hez, a csatlakozás észlelése sikertelen lehet vagy rövidzárlatot "
 "okozhat\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1645
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
@@ -4360,7 +4360,7 @@ msgstr ""
 "tag=%d: további 'csatlakozás észlelése sikertelen vagy rövidzárlat' "
 "figyelmeztetések elnyomva\n"
 
-#: src/geometry.c:1685
+#: src/geometry.c:1678
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4371,12 +4371,12 @@ msgstr ""
 "hasonlósága numerikus pontatlanságokhoz vezet (min=0.001, megfelelő=0.05, "
 "ajánlott <= 0.1)\n"
 
-#: src/geometry.c:1690
+#: src/geometry.c:1683
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr "tag=%d: további rövid hullámhossz arány hibák elnyomva\n"
 
-#: src/geometry.c:1704
+#: src/geometry.c:1697
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4387,12 +4387,12 @@ msgstr ""
 "korlátozott a szegmenstávolság miatt (min=0.001, megfelelő=0.05, ajánlott <= "
 "0.1)\n"
 
-#: src/geometry.c:1709
+#: src/geometry.c:1702
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr "tag=%d: további hosszú hullámhossz arány figyelmeztetések elnyomva\n"
 
-#: src/geometry.c:1723
+#: src/geometry.c:1716
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4403,12 +4403,12 @@ msgstr ""
 "növelik a pontosságot a gyors áramváltozás régióiban (min=0.001, "
 "megfelelő=0.05, ajánlott <=0.1)\n"
 
-#: src/geometry.c:1728
+#: src/geometry.c:1721
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr "tag=%d: további pontosságjavítási javaslatok elnyomva\n"
 
-#: src/geometry.c:1759
+#: src/geometry.c:1752
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4417,12 +4417,12 @@ msgstr ""
 "tag=%d/seg=%d: hossz/sugár arány %.1f < 2.0; standard vékonyhuzal kernel "
 "mezőhiba jelentősen meghaladja az 1%%-ot (min=2.0, 1%% pontos=8.0)\n"
 
-#: src/geometry.c:1764
+#: src/geometry.c:1757
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr "tag=%d: további standard kernel arány hibák elnyomva\n"
 
-#: src/geometry.c:1778
+#: src/geometry.c:1771
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4431,12 +4431,12 @@ msgstr ""
 "tag=%d/seg=%d: hossz/sugár arány %.1f < 8.0; standard vékonyhuzal kernel "
 "mezőhiba meghaladja az 1%%-ot (min=2.0, 1%% pontos=8.0)\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1776
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr "tag=%d: további standard kernel arány figyelmeztetések elnyomva\n"
 
-#: src/geometry.c:1799
+#: src/geometry.c:1792
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4445,12 +4445,12 @@ msgstr ""
 "tag=%d/seg=%d: hossz/sugár arány %.1f < 0.5; kiterjesztett vékonyhuzal "
 "kernel mezőhiba jelentősen meghaladja az 1%%-ot (min=0.5, 1%% pontos=2.0)\n"
 
-#: src/geometry.c:1804
+#: src/geometry.c:1797
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr "tag=%d: további kiterjesztett kernel arány hibák elnyomva\n"
 
-#: src/geometry.c:1818
+#: src/geometry.c:1811
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4459,24 +4459,24 @@ msgstr ""
 "tag=%d/seg=%d: hossz/sugár arány %.1f < 2.0; kiterjesztett vékonyhuzal "
 "kernel mezőhiba meghaladja az 1%%-ot (min=0.5, 1%% pontos=2.0)\n"
 
-#: src/geometry.c:1823
+#: src/geometry.c:1816
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr "tag=%d: további kiterjesztett kernel arány figyelmeztetések elnyomva\n"
 
-#: src/geometry.c:1840
+#: src/geometry.c:1833
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr ""
 "Átfedés-ellenőrzés kihagyva %d szegmensnél (használja a --force-verify "
 "opciót az engedélyezéshez)\n"
 
-#: src/geometry.c:1844
+#: src/geometry.c:1837
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "Átfedés-ellenőrzés kényszerítve %d szegmensnél\n"
 
-#: src/geometry.c:1856
+#: src/geometry.c:1849
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -5984,12 +5984,12 @@ msgstr "nem sikerült létrehozni az optimalizáló ébresztő eventfd-t\n"
 msgid "failed to create Optimizer Output thread\n"
 msgstr "nem sikerült létrehozni az optimalizáló kimeneti szálat\n"
 
-#: src/optimizers/opt_fitness.c:494
+#: src/optimizers/opt_fitness.c:509
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: ismeretlen irány %d\n"
 
-#: src/optimizers/opt_fitness.c:567
+#: src/optimizers/opt_fitness.c:582
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: ismeretlen redukciós módszer %d\n"
@@ -6125,39 +6125,39 @@ msgid ""
 msgstr ""
 "Átlagos nyereség: %.4f (%.2f dBi), hatásfok: %.1f%%, térszög: %.4f * pi sr\n"
 
-#: src/rc_config.c:1003
+#: src/rc_config.c:999
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() sikertelen: %s\n"
 
-#: src/rc_config.c:1007
+#: src/rc_config.c:1003
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "a HOME környezeti változó nincs definiálva, használt: %s\n"
 
-#: src/rc_config.c:1092
+#: src/rc_config.c:1088
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
 msgstr ""
 "%s (locale=%s): csak %d/%lu karakter egyezett, másik locale próbálva: %s\n"
 
-#: src/rc_config.c:1311
+#: src/rc_config.c:1307
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "ablak: x=%-5d y=%-5d sz=%-5d m=%-5d  cím: \"%s\"\n"
 
-#: src/rc_config.c:1345
+#: src/rc_config.c:1341
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: EOF az alkalmazásverzió olvasásakor.\n"
 
-#: src/rc_config.c:1351
+#: src/rc_config.c:1347
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "a meglévő konfigurációs fájl verziója eltér: %s != %s\n"
 
-#: src/rc_config.c:1398
+#: src/rc_config.c:1394
 #, c-format
 msgid ""
 "gain readouts are scaled to %s, restored from the previous session; select "
@@ -6167,12 +6167,12 @@ msgstr ""
 "visszaállítva; válassza az Összes nyereség lehetőséget az összesített "
 "nyereség leolvasásához\n"
 
-#: src/rc_config.c:1521
+#: src/rc_config.c:1517
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "stat sikertelen: %s: %s\n"
 
-#: src/rc_config.c:1527
+#: src/rc_config.c:1523
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -6181,54 +6181,54 @@ msgstr ""
 "A(z) %s könyvtár engedélyei javítva: 0%o-ról 0%o-ra (a 4e62893b hibája "
 "miatt).\n"
 
-#: src/rc_config.c:1560
+#: src/rc_config.c:1556
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: nem értelmezett sor: %s\n"
 
-#: src/rc_config.c:1566
+#: src/rc_config.c:1562
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: korai fájlvég %s esetén: %s \n"
 
-#: src/rc_config.c:1591
+#: src/rc_config.c:1587
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: elemzési hiba (%s): %s \n"
 
-#: src/rc_config.c:1605
+#: src/rc_config.c:1601
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr ""
 "Érvénytelen égbolt-modell index %d a konfigurációban, visszaállítás "
 "alapértelmezettre\n"
 
-#: src/rc_config.c:1611
+#: src/rc_config.c:1607
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr ""
 "Érvénytelen Föld-modell index %d a konfigurációban, visszaállítás "
 "alapértelmezettre\n"
 
-#: src/rc_config.c:1617
+#: src/rc_config.c:1613
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr ""
 "Érvénytelen interpolációs módszer %d a konfigurációban, visszaállítás "
 "alapértelmezettre\n"
 
-#: src/rc_config.c:1625
+#: src/rc_config.c:1621
 #, c-format
 msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr ""
 "érvénytelen áramlás-megjelenítési mód: %d a konfigurációban, visszaállítás "
 "alapértelmezettre\n"
 
-#: src/rc_config.c:1790
+#: src/rc_config.c:1786
 msgid "batch mode: skipping configuration save\n"
 msgstr "kötegelt mód: konfiguráció mentésének kihagyása\n"
 
-#: src/rc_config.c:1812
+#: src/rc_config.c:1808
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "nem lehet megnyitni az xnec2c konfigurációs fájlját: %s: %s\n"
@@ -6620,33 +6620,33 @@ msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr ""
 "'%s' téma '%s' szerepe érvénytelen szín, örökölt alapértelmezés használva\n"
 
-#: src/themes/theme.c:218
+#: src/themes/theme.c:222
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "theme: nem sikerült betölteni az erőforrást: %s: %s\n"
 
-#: src/themes/theme.c:228
+#: src/themes/theme.c:232
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "theme: nem sikerült feldolgozni az erőforrást: %s: %s\n"
 
-#: src/themes/theme.c:254
+#: src/themes/theme.c:258
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr ""
 "theme: nem sikerült feldolgozni: %s, beépített alapértelmezések használva\n"
 
-#: src/themes/theme.c:377
+#: src/themes/theme.c:401
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "'%s' témának nincs invertált változata, alap használva\n"
 
-#: src/themes/theme.c:385
+#: src/themes/theme.c:409
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "'%s' téma nem található, örökölt használva\n"
 
-#: src/themes/theme.c:428
+#: src/themes/theme.c:452
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "'%s' szélesség érvénytelen, jelenlegi érték megtartva\n"
@@ -6887,3 +6887,234 @@ msgid ""
 msgstr ""
 "A pásztázás teljesen ki van számítva.  Az újbóli futtatás eldobja az összes "
 "kiszámított lépést, és az első lépéstől számítja ki a pásztázást."
+
+#: resources/themes.ini:11 resources/themes.ini:41
+msgid "Abyss color palette from DaisyUI theme collection"
+msgstr "Abyss színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:71 resources/themes.ini:101
+msgid "Acid color palette from DaisyUI theme collection"
+msgstr "Acid színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:131 resources/themes.ini:161
+msgid "Aqua color palette from DaisyUI theme collection"
+msgstr "Aqua színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:191 resources/themes.ini:221
+msgid "Autumn color palette from DaisyUI theme collection"
+msgstr "Autumn színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:251 resources/themes.ini:281
+msgid "Black color palette from DaisyUI theme collection"
+msgstr "Black színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:311 resources/themes.ini:341
+msgid "Bumblebee color palette from DaisyUI theme collection"
+msgstr "Bumblebee színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:371 resources/themes.ini:401
+msgid "Business color palette from DaisyUI theme collection"
+msgstr "Business színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:431 resources/themes.ini:461
+msgid "Caramellatte color palette from DaisyUI theme collection"
+msgstr "Caramellatte színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:491 resources/themes.ini:521
+msgid "Cmyk color palette from DaisyUI theme collection"
+msgstr "Cmyk színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:551 resources/themes.ini:581
+msgid "Coffee color palette from DaisyUI theme collection"
+msgstr "Coffee színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:611 resources/themes.ini:641
+msgid "Corporate color palette from DaisyUI theme collection"
+msgstr "Corporate színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:671 resources/themes.ini:701
+msgid "P3 amber as used in IBM PC XT and Hercules displays"
+msgstr ""
+"P3 borostyánsárga, amelyet az IBM PC XT és a Hercules kijelzőkön használtak"
+
+#: resources/themes.ini:731 resources/themes.ini:761
+msgid "P31 bright green as used in Apple IIe monitors and oscilloscopes"
+msgstr ""
+"P31 élénkzöld, amelyet az Apple IIe monitorokon és oszcilloszkópokon "
+"használtak"
+
+#: resources/themes.ini:791 resources/themes.ini:821
+msgid "P39 saturated green as used in Apple III and IBM 5151 terminals"
+msgstr ""
+"P39 telített zöld, amelyet az Apple III és az IBM 5151 terminálokon "
+"használtak"
+
+#: resources/themes.ini:851 resources/themes.ini:881
+msgid "P45 cool white for monochrome camcorder viewfinders"
+msgstr "P45 hűvös fehér monokróm videokamera-keresőkhöz"
+
+#: resources/themes.ini:911 resources/themes.ini:941
+msgid "Classic cyan/magenta gaming aesthetic from early IBM PC era"
+msgstr "Klasszikus cián/bíbor játékesztétika az IBM PC korai korszakából"
+
+#: resources/themes.ini:971 resources/themes.ini:1001
+msgid "Warm creative light palette with magenta foundation"
+msgstr "Meleg, kreatív, világos paletta bíbor alappal"
+
+#: resources/themes.ini:1031 resources/themes.ini:1061
+msgid "Green-accented CRT aesthetic for extended viewing"
+msgstr "Zöld hangsúlyú CRT-esztétika hosszabb nézéshez"
+
+#: resources/themes.ini:1091 resources/themes.ini:1121
+msgid "Cool professional light palette with blue foundation"
+msgstr "Hűvös, professzionális világos paletta kék alappal"
+
+#: resources/themes.ini:1151 resources/themes.ini:1181
+msgid "Professional amber/green phosphor aesthetic from IBM business era"
+msgstr ""
+"Professzionális borostyánsárga/zöld foszforesztétika az IBM üzleti "
+"korszakából"
+
+#: resources/themes.ini:1211 resources/themes.ini:1241
+msgid "CRT Clarity: Split-complementary harmony with warm/cool tension"
+msgstr "CRT Clarity: osztott komplementer harmónia meleg/hideg feszültséggel"
+
+#: resources/themes.ini:1271 resources/themes.ini:1301
+msgid "Cool analogous professional light palette"
+msgstr "Hűvös analóg professzionális világos paletta"
+
+#: resources/themes.ini:1331 resources/themes.ini:1361
+msgid "Warm content dark palette for reduced eye strain"
+msgstr "Meleg, tartalomközpontú sötét paletta csökkentett szemfáradtsághoz"
+
+#: resources/themes.ini:1391 resources/themes.ini:1421
+msgid ""
+"CRT Phosphor Glow: Triadic harmony with cool/warm balance and CRT aesthetic"
+msgstr ""
+"CRT Phosphor Glow: triádikus harmónia hűvös/meleg egyensúllyal és CRT-"
+"esztétikával"
+
+#: resources/themes.ini:1451 resources/themes.ini:1481
+msgid "P1 medium-persistence green as used in early oscilloscope tubes"
+msgstr ""
+"P1 közepes utánvilágítású zöld, amelyet a korai oszcilloszkópcsöveken "
+"használtak"
+
+#: resources/themes.ini:1511 resources/themes.ini:1541
+msgid "P4 white as used in IBM 8503 VGA and broadcast television"
+msgstr ""
+"P4 fehér, amelyet az IBM 8503 VGA-n és a műsorszóró televízión használtak"
+
+#: resources/themes.ini:1571 resources/themes.ini:1601
+msgid "P7 cascade phosphor as used in military radar and air traffic control"
+msgstr ""
+"P7 kaszkádfoszfor, amelyet katonai radarokon és légiforgalmi irányításban "
+"használtak"
+
+#: resources/themes.ini:1631 resources/themes.ini:1661
+msgid "Cupcake color palette from DaisyUI theme collection"
+msgstr "Cupcake színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:1691 resources/themes.ini:1721
+msgid "Cyberpunk color palette from DaisyUI theme collection"
+msgstr "Cyberpunk színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:1751 resources/themes.ini:1781
+msgid "Dark color palette from DaisyUI theme collection"
+msgstr "Dark színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:1811 resources/themes.ini:1841
+msgid "Dim color palette from DaisyUI theme collection"
+msgstr "Dim színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:1871 resources/themes.ini:1901
+msgid "Dracula color palette from DaisyUI theme collection"
+msgstr "Dracula színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:1931 resources/themes.ini:1961
+msgid "Emerald color palette from DaisyUI theme collection"
+msgstr "Emerald színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:1991 resources/themes.ini:2021
+msgid "Fantasy color palette from DaisyUI theme collection"
+msgstr "Fantasy színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2051 resources/themes.ini:2081
+msgid "Forest color palette from DaisyUI theme collection"
+msgstr "Forest színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2111 resources/themes.ini:2141
+msgid "Garden color palette from DaisyUI theme collection"
+msgstr "Garden színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2171 resources/themes.ini:2201
+msgid "Halloween color palette from DaisyUI theme collection"
+msgstr "Halloween színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2231 resources/themes.ini:2261
+msgid "Lemonade color palette from DaisyUI theme collection"
+msgstr "Lemonade színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2291 resources/themes.ini:2321
+msgid "Light color palette from DaisyUI theme collection"
+msgstr "Light színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2351 resources/themes.ini:2381
+msgid "Lofi color palette from DaisyUI theme collection"
+msgstr "Lofi színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2411 resources/themes.ini:2441
+msgid "Luxury color palette from DaisyUI theme collection"
+msgstr "Luxury színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2471 resources/themes.ini:2501
+msgid "Night color palette from DaisyUI theme collection"
+msgstr "Night színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2531 resources/themes.ini:2561
+msgid "Nord color palette from DaisyUI theme collection"
+msgstr "Nord színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2591 resources/themes.ini:2621
+msgid "Pastel color palette from DaisyUI theme collection"
+msgstr "Pastel színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2651 resources/themes.ini:2681
+msgid "Retro color palette from DaisyUI theme collection"
+msgstr "Retro színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2711 resources/themes.ini:2741
+msgid "Silk color palette from DaisyUI theme collection"
+msgstr "Silk színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2771 resources/themes.ini:2801
+msgid "Sunset color palette from DaisyUI theme collection"
+msgstr "Sunset színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2831 resources/themes.ini:2861
+msgid "Synthwave color palette from DaisyUI theme collection"
+msgstr "Synthwave színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2891 resources/themes.ini:2921
+msgid "Valentine color palette from DaisyUI theme collection"
+msgstr "Valentine színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:2951 resources/themes.ini:2981
+msgid "Winter color palette from DaisyUI theme collection"
+msgstr "Winter színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:3011 resources/themes.ini:3041
+msgid "Wireframe color palette from DaisyUI theme collection"
+msgstr "Wireframe színpaletta a DaisyUI színtémagyűjteményből"
+
+#: resources/themes.ini:3071 resources/themes.ini:3101
+msgid "Classic xnec2c plot colors"
+msgstr "Klasszikus xnec2c-ábrázolási színek"
+
+#: resources/themes.ini:3131 resources/themes.ini:3161
+msgid "Hand-tuned cool palette"
+msgstr "Kézzel hangolt hűvös paletta"
+
+#: resources/themes.ini:3191 resources/themes.ini:3221
+msgid "Hand-tuned warm palette"
+msgstr "Kézzel hangolt meleg paletta"

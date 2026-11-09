@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
-"Report-Msgid-Bugs-To: xnec2c-bugs@z.ewheeler.org\n"
-"POT-Creation-Date: 2026-10-12 01:09-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 16:21-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3141,7 +3141,7 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "কনফিগ ফাইল বিদ্যমান নেই বা পাঠযোগ্য নয়: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:785 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
@@ -3783,11 +3783,11 @@ msgstr "পয়েন্টগুলির জন্য মেমরি বর
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():পয়েন্টগুলির জন্য মেমরি বরাদ্দ ব্যর্থ"
 
-#: src/freqplots/freqplots_theme_menu.c:41
+#: src/freqplots/freqplots_theme_menu.c:42
 msgid "This theme has no inverted variant"
 msgstr "এই থিমের কোনো ইনভার্টেড রূপ নেই"
 
-#: src/freqplots/freqplots_theme_menu.c:117
+#: src/freqplots/freqplots_theme_menu.c:127
 msgid "_Invert"
 msgstr "_ইনভার্ট"
 
@@ -4071,24 +4071,24 @@ msgstr "SY সংজ্ঞা (যেমন FREQ=146, LAMBDA=300/FREQ):"
 msgid "NEC2 editor window not open"
 msgstr "NEC2 এডিটর উইন্ডো খোলা নেই"
 
-#: src/geometry.c:111
+#: src/geometry.c:118
 msgid "Number of segments < 1"
 msgstr "সেগমেন্ট সংখ্যা < 1"
 
-#: src/geometry.c:148
+#: src/geometry.c:155
 msgid "Arc angle exceeds 360 degrees"
 msgstr "চাপ কোণ 360 ডিগ্রি অতিক্রম করেছে"
 
-#: src/geometry.c:287
+#: src/geometry.c:294
 msgid "Error in conect(): np > n"
 msgstr "conect()-এ ত্রুটি: np > n"
 
-#: src/geometry.c:318 src/geometry.c:366
+#: src/geometry.c:325 src/geometry.c:373
 #, c-format
 msgid "geometry data error: segment %d extends below ground\n"
 msgstr "জ্যামিতি ডেটা ত্রুটি: সেগমেন্ট %d ভূমির নিচে প্রসারিত\n"
 
-#: src/geometry.c:319 src/geometry.c:367
+#: src/geometry.c:326 src/geometry.c:374
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4096,12 +4096,12 @@ msgstr ""
 "জ্যামিতি ডেটা ত্রুটি\n"
 "সেগমেন্ট ভূমির নিচে প্রসারিত"
 
-#: src/geometry.c:376
+#: src/geometry.c:383
 #, c-format
 msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "জ্যামিতি ডেটা ত্রুটি: সেগমেন্ট %d গ্রাউন্ড প্লেনে অবস্থিত\n"
 
-#: src/geometry.c:377
+#: src/geometry.c:384
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4110,15 +4110,15 @@ msgstr ""
 "সেগমেন্ট গ্রাউন্ড প্লেনে অবস্থিত"
 
 # xnec2c-exempt: name
-#: src/geometry.c:467
+#: src/geometry.c:474
 msgid "ipsym = 0\n"
 msgstr ""
 
-#: src/geometry.c:468
+#: src/geometry.c:475
 msgid "Error: ipsym = 0"
 msgstr "ত্রুটি: ipsym = 0"
 
-#: src/geometry.c:521
+#: src/geometry.c:528
 #, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld "
@@ -4127,7 +4127,7 @@ msgstr ""
 "সেগমেন্ট সংযোগ গণনা একটি সম্পূর্ণ মেশ অতিক্রম করেছে, যা অসম্ভাব্য: data.n=%ld segj."
 "maxcon=%lu\n"
 
-#: src/geometry.c:523
+#: src/geometry.c:530
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4135,7 +4135,7 @@ msgstr ""
 "সেগমেন্ট সংযোগ গণনা একটি সম্পূর্ণ মেশ অতিক্রম করেছে, যা অসম্ভাব্য!\n"
 "ওভারল্যাপিং বা প্রায়-সংযুক্ত সেগমেন্টগুলি পরীক্ষা করুন\n"
 
-#: src/geometry.c:737
+#: src/geometry.c:744
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4143,7 +4143,7 @@ msgstr ""
 "ডেটা পরীক্ষা করুন, সেগমেন্ট নির্দিষ্টকারী প্যারামিটার: সমান ট্যাগ গ্রুপে অবস্থান শূন্য "
 "হতে পারে না\n"
 
-#: src/geometry.c:738
+#: src/geometry.c:745
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4151,12 +4151,12 @@ msgstr ""
 "সেগমেন্ট নির্দিষ্টকারী প্যারামিটার\n"
 "সমান ট্যাগ গ্রুপে অবস্থান শূন্য"
 
-#: src/geometry.c:770
+#: src/geometry.c:777
 #, c-format
 msgid "no segment has an itag of %d\n"
 msgstr "%d itag সহ কোনো সেগমেন্ট নেই\n"
 
-#: src/geometry.c:774
+#: src/geometry.c:781
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4168,7 +4168,7 @@ msgstr ""
 "GM কার্ডের জন্য: যাচাই করুন 'start from tag' এবং 'tag increment' ট্যাগ 0 তৈরি "
 "করছে না।"
 
-#: src/geometry.c:782
+#: src/geometry.c:789
 #, c-format
 msgid ""
 "Segment tag number error: No segment found with tag %d.\n"
@@ -4179,11 +4179,11 @@ msgstr ""
 "আপনি একটি নিয়ন্ত্রণ কার্ডে অজানা ট্যাগ বা সেগমেন্ট উল্লেখ করছেন।\n"
 "আপনার জ্যামিতিতে বৈধ ট্যাগগুলি হল GW/GA/GH/SP কার্ডে নির্ধারিত।"
 
-#: src/geometry.c:1057
+#: src/geometry.c:1064
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "চতুর্ভুজ প্যাচের কোণগুলি একটি সমতলে অবস্থিত নয়\n"
 
-#: src/geometry.c:1058
+#: src/geometry.c:1065
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4191,12 +4191,12 @@ msgstr ""
 "চতুর্ভুজ প্যাচের কোণগুলি\n"
 "একটি সমতলে অবস্থিত নয়"
 
-#: src/geometry.c:1163 src/geometry.c:1240 src/geometry.c:1318
+#: src/geometry.c:1170 src/geometry.c:1247 src/geometry.c:1325
 #, c-format
 msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "জ্যামিতি ডেটা ত্রুটি: সেগমেন্ট %d প্রতিসাম্য সমতলে অবস্থিত\n"
 
-#: src/geometry.c:1164 src/geometry.c:1241 src/geometry.c:1319
+#: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4204,12 +4204,12 @@ msgstr ""
 "জ্যামিতি ডেটা ত্রুটি\n"
 "সেগমেন্ট প্রতিসাম্য সমতলে অবস্থিত"
 
-#: src/geometry.c:1200 src/geometry.c:1277 src/geometry.c:1352
+#: src/geometry.c:1207 src/geometry.c:1284 src/geometry.c:1359
 #, c-format
 msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "জ্যামিতি ডেটা ত্রুটি: প্যাচ %d প্রতিসাম্য সমতলে অবস্থিত\n"
 
-#: src/geometry.c:1201 src/geometry.c:1278 src/geometry.c:1353
+#: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4217,7 +4217,7 @@ msgstr ""
 "জ্যামিতি ডেটা ত্রুটি\n"
 "প্যাচ প্রতিসাম্য সমতলে অবস্থিত"
 
-#: src/geometry.c:1473
+#: src/geometry.c:1480
 #, c-format
 msgid ""
 "tag=%d/seg=%d: endpoint distance=%.3e is too close (below connection "
@@ -4226,12 +4226,12 @@ msgstr ""
 "tag=%d/seg=%d: প্রান্তবিন্দু দূরত্ব=%.3e অত্যন্ত নিকটে (সংযোগ থ্রেশহোল্ড=%.3e-এর "
 "নিচে); সেগমেন্ট নিজের সাথে সংযুক্ত হবে\n"
 
-#: src/geometry.c:1478
+#: src/geometry.c:1485
 #, c-format
 msgid "tag=%d: suppressing additional self-connection warnings\n"
 msgstr "tag=%d: অতিরিক্ত স্ব-সংযোগ সতর্কতা দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1523
+#: src/geometry.c:1530
 #, c-format
 msgid ""
 "tag=%d/seg=%d: coincides with tag=%d/seg=%d; NEC2 cannot separate the "
@@ -4240,12 +4240,12 @@ msgstr ""
 "tag=%d/seg=%d: tag=%d/seg=%d-এর সঙ্গে মিলে গেছে; NEC2 সমাপতিত সেগমেন্টের "
 "কারেন্ট আলাদা করতে পারে না\n"
 
-#: src/geometry.c:1528
+#: src/geometry.c:1535
 #, c-format
 msgid "tag=%d: suppressing additional coincident segment warnings\n"
 msgstr "tag=%d: অতিরিক্ত সমাপতিত সেগমেন্টের সতর্কতা দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1573
+#: src/geometry.c:1580
 #, c-format
 msgid ""
 "tag=%d/seg=%d: end gap=%.3e to tag=%d/seg=%d lies beyond connection "
@@ -4254,12 +4254,12 @@ msgstr ""
 "tag=%d/seg=%d: শেষ প্রান্তের gap=%.3e, tag=%d/seg=%d পর্যন্ত, সংযোগ threshold="
 "%.3e সীমার বাইরে কিন্তু তার %gx-এর মধ্যে; NEC2 এই প্রান্তগুলো অসংযুক্ত রাখে\n"
 
-#: src/geometry.c:1579
+#: src/geometry.c:1586
 #, c-format
 msgid "tag=%d: suppressing additional near-miss junction warnings\n"
 msgstr "tag=%d: প্রায়-সংযোগ জাংশনের অতিরিক্ত সতর্কতা দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1646
+#: src/geometry.c:1639
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length=%.3e is too short (and close enough) to tag=%d/seg=%d "
@@ -4268,14 +4268,14 @@ msgstr ""
 "tag=%d/seg=%d: দৈর্ঘ্য=%.3e অত্যন্ত ছোট (এবং যথেষ্ট কাছে) tag=%d/seg=%d দৈর্ঘ্য="
 "%.3e যাতে সংযোগ সনাক্তকরণ ব্যর্থ বা শর্ট হতে পারে\n"
 
-#: src/geometry.c:1652
+#: src/geometry.c:1645
 #, c-format
 msgid ""
 "tag=%d: suppressing additional connection detection may fail or short "
 "warnings\n"
 msgstr "tag=%d: অতিরিক্ত সংযোগ সনাক্তকরণ ব্যর্থ বা শর্ট সতর্কতা দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1685
+#: src/geometry.c:1678
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f < 0.001; similarity of "
@@ -4285,12 +4285,12 @@ msgstr ""
 "tag=%d/seg=%d: দৈর্ঘ্য/তরঙ্গদৈর্ঘ্য অনুপাত %.3f < 0.001; কারেন্ট উপাদানগুলির সাদৃশ্য "
 "সাংখ্যিক অনির্ভুলতার দিকে নিয়ে যায় (min=0.001, fine=0.05, recommended <= 0.1)\n"
 
-#: src/geometry.c:1690
+#: src/geometry.c:1683
 #, c-format
 msgid "tag=%d: suppressing additional short wavelength ratio errors\n"
 msgstr "tag=%d: অতিরিক্ত ছোট তরঙ্গদৈর্ঘ্য অনুপাত ত্রুটি দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1704
+#: src/geometry.c:1697
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.1; current sampling "
@@ -4300,12 +4300,12 @@ msgstr ""
 "tag=%d/seg=%d: দৈর্ঘ্য/তরঙ্গদৈর্ঘ্য অনুপাত %.3f > 0.1; কারেন্ট স্যাম্পলিং রেজোলিউশন "
 "সেগমেন্ট ব্যবধান দ্বারা সীমিত (min=0.001, fine=0.05, recommended <= 0.1)\n"
 
-#: src/geometry.c:1709
+#: src/geometry.c:1702
 #, c-format
 msgid "tag=%d: suppressing additional long wavelength ratio warnings\n"
 msgstr "tag=%d: অতিরিক্ত দীর্ঘ তরঙ্গদৈর্ঘ্য অনুপাত সতর্কতা দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1723
+#: src/geometry.c:1716
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/wavelength ratio of %.3f > 0.05; shorter segments "
@@ -4315,12 +4315,12 @@ msgstr ""
 "tag=%d/seg=%d: দৈর্ঘ্য/তরঙ্গদৈর্ঘ্য অনুপাত %.3f > 0.05; দ্রুত কারেন্ট পরিবর্তনের অঞ্চলে "
 "ছোট সেগমেন্ট নির্ভুলতা বাড়ায় (min=0.001, fine=0.05, recommended <=0.1)\n"
 
-#: src/geometry.c:1728
+#: src/geometry.c:1721
 #, c-format
 msgid "tag=%d: suppressing additional accuracy improvement suggestions\n"
 msgstr "tag=%d: অতিরিক্ত নির্ভুলতা উন্নতি পরামর্শ দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1759
+#: src/geometry.c:1752
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; standard thin-wire kernel "
@@ -4329,12 +4329,12 @@ msgstr ""
 "tag=%d/seg=%d: দৈর্ঘ্য/ব্যাসার্ধ অনুপাত %.1f < 2.0; স্ট্যান্ডার্ড পাতলা-তার কার্নেল "
 "ক্ষেত্র ত্রুটি বড় ব্যবধানে 1%% অতিক্রম করেছে (min=2.0, 1%%accurate=8.0)\n"
 
-#: src/geometry.c:1764
+#: src/geometry.c:1757
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio errors\n"
 msgstr "tag=%d: অতিরিক্ত স্ট্যান্ডার্ড কার্নেল অনুপাত ত্রুটি দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1778
+#: src/geometry.c:1771
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 8.0; standard thin-wire kernel "
@@ -4343,12 +4343,12 @@ msgstr ""
 "tag=%d/seg=%d: দৈর্ঘ্য/ব্যাসার্ধ অনুপাত %.1f < 8.0; স্ট্যান্ডার্ড পাতলা-তার কার্নেল "
 "ক্ষেত্র ত্রুটি 1%% অতিক্রম করেছে (min=2.0, 1%%accurate=8.0)\n"
 
-#: src/geometry.c:1783
+#: src/geometry.c:1776
 #, c-format
 msgid "tag=%d: suppressing additional standard kernel ratio warnings\n"
 msgstr "tag=%d: অতিরিক্ত স্ট্যান্ডার্ড কার্নেল অনুপাত সতর্কতা দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1799
+#: src/geometry.c:1792
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 0.5; extended thin-wire kernel "
@@ -4357,12 +4357,12 @@ msgstr ""
 "tag=%d/seg=%d: দৈর্ঘ্য/ব্যাসার্ধ অনুপাত %.1f < 0.5; এক্সটেন্ডেড পাতলা-তার কার্নেল "
 "ক্ষেত্র ত্রুটি বড় ব্যবধানে 1%% অতিক্রম করেছে (min=0.5, 1%%accurate=2.0)\n"
 
-#: src/geometry.c:1804
+#: src/geometry.c:1797
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio errors\n"
 msgstr "tag=%d: অতিরিক্ত এক্সটেন্ডেড কার্নেল অনুপাত ত্রুটি দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1818
+#: src/geometry.c:1811
 #, c-format
 msgid ""
 "tag=%d/seg=%d: length/radius ratio of %.1f < 2.0; extended thin-wire kernel "
@@ -4371,24 +4371,24 @@ msgstr ""
 "tag=%d/seg=%d: দৈর্ঘ্য/ব্যাসার্ধ অনুপাত %.1f < 2.0; এক্সটেন্ডেড পাতলা-তার কার্নেল "
 "ক্ষেত্র ত্রুটি 1%% অতিক্রম করেছে (min=0.5, 1%%accurate=2.0)\n"
 
-#: src/geometry.c:1823
+#: src/geometry.c:1816
 #, c-format
 msgid "tag=%d: suppressing additional extended kernel ratio warnings\n"
 msgstr "tag=%d: অতিরিক্ত এক্সটেন্ডেড কার্নেল অনুপাত সতর্কতা দমন করা হচ্ছে\n"
 
-#: src/geometry.c:1840
+#: src/geometry.c:1833
 #, c-format
 msgid "Skipping overlap check for %d segments (use --force-verify to enable)\n"
 msgstr ""
 "%d সেগমেন্টের জন্য ওভারল্যাপ পরীক্ষা এড়িয়ে যাওয়া হচ্ছে (সক্রিয় করতে --force-verify "
 "ব্যবহার করুন)\n"
 
-#: src/geometry.c:1844
+#: src/geometry.c:1837
 #, c-format
 msgid "Forcing overlap check for %d segments\n"
 msgstr "%d সেগমেন্টের জন্য ওভারল্যাপ পরীক্ষা জোরপূর্বক করা হচ্ছে\n"
 
-#: src/geometry.c:1856
+#: src/geometry.c:1849
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -5869,12 +5869,12 @@ msgstr "অপ্টিমাইজার wake eventfd তৈরি করতে
 msgid "failed to create Optimizer Output thread\n"
 msgstr "অপ্টিমাইজার আউটপুট থ্রেড তৈরি করতে ব্যর্থ\n"
 
-#: src/optimizers/opt_fitness.c:494
+#: src/optimizers/opt_fitness.c:509
 #, c-format
 msgid "fitness_transform: unknown direction %d\n"
 msgstr "fitness_transform: অজানা দিক %d\n"
 
-#: src/optimizers/opt_fitness.c:567
+#: src/optimizers/opt_fitness.c:582
 #, c-format
 msgid "reduce_values: unknown reduction method %d\n"
 msgstr "reduce_values: অজানা হ্রাস পদ্ধতি %d\n"
@@ -6484,32 +6484,32 @@ msgstr ""
 msgid "theme '%s' role '%s' invalid color, using legacy default\n"
 msgstr "theme '%s' role '%s' অবৈধ রং, লিগ্যাসি ডিফল্ট ব্যবহার করা হচ্ছে\n"
 
-#: src/themes/theme.c:218
+#: src/themes/theme.c:222
 #, c-format
 msgid "theme: cannot load resource %s: %s\n"
 msgstr "theme: রিসোর্স %s লোড করা যাচ্ছে না: %s\n"
 
-#: src/themes/theme.c:228
+#: src/themes/theme.c:232
 #, c-format
 msgid "theme: cannot parse resource %s: %s\n"
 msgstr "theme: রিসোর্স %s পার্স করা যাচ্ছে না: %s\n"
 
-#: src/themes/theme.c:254
+#: src/themes/theme.c:258
 #, c-format
 msgid "theme: cannot parse %s, using built-in defaults\n"
 msgstr "theme: %s পার্স করা যাচ্ছে না, বিল্ট-ইন ডিফল্ট ব্যবহার করা হচ্ছে\n"
 
-#: src/themes/theme.c:377
+#: src/themes/theme.c:401
 #, c-format
 msgid "theme '%s' has no inverted variant, using base\n"
 msgstr "theme '%s'-এর কোনো ইনভার্টেড রূপ নেই, base ব্যবহার করা হচ্ছে\n"
 
-#: src/themes/theme.c:385
+#: src/themes/theme.c:409
 #, c-format
 msgid "theme '%s' not found, using legacy\n"
 msgstr "theme '%s' পাওয়া যায়নি, লিগ্যাসি ব্যবহার করা হচ্ছে\n"
 
-#: src/themes/theme.c:428
+#: src/themes/theme.c:452
 #, c-format
 msgid "width '%s' invalid, keeping current value\n"
 msgstr "width '%s' অবৈধ, বর্তমান মান রাখা হচ্ছে\n"
@@ -6743,3 +6743,220 @@ msgid ""
 msgstr ""
 "সুইপটি সম্পূর্ণরূপে গণনা করা হয়েছে।  এটি পুনরায় চালালে প্রতিটি গণনাকৃত ধাপ বাতিল হয়ে "
 "যায় এবং সুইপটি তার প্রথম ধাপ থেকে গণনা করা হয়।"
+
+#: resources/themes.ini:11 resources/themes.ini:41
+msgid "Abyss color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Abyss রং প্যালেট"
+
+#: resources/themes.ini:71 resources/themes.ini:101
+msgid "Acid color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Acid রং প্যালেট"
+
+#: resources/themes.ini:131 resources/themes.ini:161
+msgid "Aqua color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Aqua রং প্যালেট"
+
+#: resources/themes.ini:191 resources/themes.ini:221
+msgid "Autumn color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Autumn রং প্যালেট"
+
+#: resources/themes.ini:251 resources/themes.ini:281
+msgid "Black color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Black রং প্যালেট"
+
+#: resources/themes.ini:311 resources/themes.ini:341
+msgid "Bumblebee color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Bumblebee রং প্যালেট"
+
+#: resources/themes.ini:371 resources/themes.ini:401
+msgid "Business color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Business রং প্যালেট"
+
+#: resources/themes.ini:431 resources/themes.ini:461
+msgid "Caramellatte color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Caramellatte রং প্যালেট"
+
+#: resources/themes.ini:491 resources/themes.ini:521
+msgid "Cmyk color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Cmyk রং প্যালেট"
+
+#: resources/themes.ini:551 resources/themes.ini:581
+msgid "Coffee color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Coffee রং প্যালেট"
+
+#: resources/themes.ini:611 resources/themes.ini:641
+msgid "Corporate color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Corporate রং প্যালেট"
+
+#: resources/themes.ini:671 resources/themes.ini:701
+msgid "P3 amber as used in IBM PC XT and Hercules displays"
+msgstr "IBM PC XT ও Hercules ডিসপ্লে ব্যবহৃত P3 অ্যাম্বার"
+
+#: resources/themes.ini:731 resources/themes.ini:761
+msgid "P31 bright green as used in Apple IIe monitors and oscilloscopes"
+msgstr "Apple IIe মনিটর ও অসিলোস্কোপ ব্যবহৃত P31 উজ্জ্বল সবুজ"
+
+#: resources/themes.ini:791 resources/themes.ini:821
+msgid "P39 saturated green as used in Apple III and IBM 5151 terminals"
+msgstr "Apple III ও IBM 5151 টার্মিনাল ব্যবহৃত P39 সম্পৃক্ত সবুজ"
+
+#: resources/themes.ini:851 resources/themes.ini:881
+msgid "P45 cool white for monochrome camcorder viewfinders"
+msgstr "P45 মনোক্রোম ক্যামকর্ডার ভিউফাইন্ডারের জন্য শীতল সাদা"
+
+#: resources/themes.ini:911 resources/themes.ini:941
+msgid "Classic cyan/magenta gaming aesthetic from early IBM PC era"
+msgstr "প্রথম IBM PC যুগের ক্লাসিক সায়ান/ম্যাজেন্টা গেমিং নান্দনিকতা"
+
+#: resources/themes.ini:971 resources/themes.ini:1001
+msgid "Warm creative light palette with magenta foundation"
+msgstr "ম্যাজেন্টা ভিত্তিসহ উষ্ণ সৃজনশীল হালকা প্যালেট"
+
+#: resources/themes.ini:1031 resources/themes.ini:1061
+msgid "Green-accented CRT aesthetic for extended viewing"
+msgstr "দীর্ঘ সময় দেখার জন্য সবুজ-জোরদার CRT নান্দনিকতা"
+
+#: resources/themes.ini:1091 resources/themes.ini:1121
+msgid "Cool professional light palette with blue foundation"
+msgstr "নীল ভিত্তিসহ শীতল পেশাদার হালকা প্যালেট"
+
+#: resources/themes.ini:1151 resources/themes.ini:1181
+msgid "Professional amber/green phosphor aesthetic from IBM business era"
+msgstr "IBM ব্যবসায়িক যুগের পেশাদার অ্যাম্বার/সবুজ ফসফর নান্দনিকতা"
+
+#: resources/themes.ini:1211 resources/themes.ini:1241
+msgid "CRT Clarity: Split-complementary harmony with warm/cool tension"
+msgstr "CRT Clarity: উষ্ণ/শীতল টানাপোড়েনসহ বিভক্ত-পরিপূরক সমন্বয়"
+
+#: resources/themes.ini:1271 resources/themes.ini:1301
+msgid "Cool analogous professional light palette"
+msgstr "শীতল সদৃশ-বর্ণ পেশাদার হালকা প্যালেট"
+
+#: resources/themes.ini:1331 resources/themes.ini:1361
+msgid "Warm content dark palette for reduced eye strain"
+msgstr "চোখের চাপ কমানোর জন্য স্বস্তিকর উষ্ণ গাঢ় প্যালেট"
+
+#: resources/themes.ini:1391 resources/themes.ini:1421
+msgid ""
+"CRT Phosphor Glow: Triadic harmony with cool/warm balance and CRT aesthetic"
+msgstr "CRT Phosphor Glow: শীতল/উষ্ণ ভারসাম্য ও CRT নান্দনিকতাসহ ত্রয়ী সমন্বয়"
+
+#: resources/themes.ini:1451 resources/themes.ini:1481
+msgid "P1 medium-persistence green as used in early oscilloscope tubes"
+msgstr "প্রাথমিক অসিলোস্কোপ টিউব ব্যবহৃত P1 মাঝারি-স্থায়িত্ব সবুজ"
+
+#: resources/themes.ini:1511 resources/themes.ini:1541
+msgid "P4 white as used in IBM 8503 VGA and broadcast television"
+msgstr "IBM 8503 VGA ও সম্প্রচার টেলিভিশন ব্যবহৃত P4 সাদা"
+
+#: resources/themes.ini:1571 resources/themes.ini:1601
+msgid "P7 cascade phosphor as used in military radar and air traffic control"
+msgstr "সামরিক রাডার ও বিমান চলাচল নিয়ন্ত্রণ ব্যবহৃত P7 ক্যাসকেড ফসফর"
+
+#: resources/themes.ini:1631 resources/themes.ini:1661
+msgid "Cupcake color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Cupcake রং প্যালেট"
+
+#: resources/themes.ini:1691 resources/themes.ini:1721
+msgid "Cyberpunk color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Cyberpunk রং প্যালেট"
+
+#: resources/themes.ini:1751 resources/themes.ini:1781
+msgid "Dark color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Dark রং প্যালেট"
+
+#: resources/themes.ini:1811 resources/themes.ini:1841
+msgid "Dim color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Dim রং প্যালেট"
+
+#: resources/themes.ini:1871 resources/themes.ini:1901
+msgid "Dracula color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Dracula রং প্যালেট"
+
+#: resources/themes.ini:1931 resources/themes.ini:1961
+msgid "Emerald color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Emerald রং প্যালেট"
+
+#: resources/themes.ini:1991 resources/themes.ini:2021
+msgid "Fantasy color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Fantasy রং প্যালেট"
+
+#: resources/themes.ini:2051 resources/themes.ini:2081
+msgid "Forest color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Forest রং প্যালেট"
+
+#: resources/themes.ini:2111 resources/themes.ini:2141
+msgid "Garden color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Garden রং প্যালেট"
+
+#: resources/themes.ini:2171 resources/themes.ini:2201
+msgid "Halloween color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Halloween রং প্যালেট"
+
+#: resources/themes.ini:2231 resources/themes.ini:2261
+msgid "Lemonade color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Lemonade রং প্যালেট"
+
+#: resources/themes.ini:2291 resources/themes.ini:2321
+msgid "Light color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Light রং প্যালেট"
+
+#: resources/themes.ini:2351 resources/themes.ini:2381
+msgid "Lofi color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Lofi রং প্যালেট"
+
+#: resources/themes.ini:2411 resources/themes.ini:2441
+msgid "Luxury color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Luxury রং প্যালেট"
+
+#: resources/themes.ini:2471 resources/themes.ini:2501
+msgid "Night color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Night রং প্যালেট"
+
+#: resources/themes.ini:2531 resources/themes.ini:2561
+msgid "Nord color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Nord রং প্যালেট"
+
+#: resources/themes.ini:2591 resources/themes.ini:2621
+msgid "Pastel color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Pastel রং প্যালেট"
+
+#: resources/themes.ini:2651 resources/themes.ini:2681
+msgid "Retro color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Retro রং প্যালেট"
+
+#: resources/themes.ini:2711 resources/themes.ini:2741
+msgid "Silk color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Silk রং প্যালেট"
+
+#: resources/themes.ini:2771 resources/themes.ini:2801
+msgid "Sunset color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Sunset রং প্যালেট"
+
+#: resources/themes.ini:2831 resources/themes.ini:2861
+msgid "Synthwave color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Synthwave রং প্যালেট"
+
+#: resources/themes.ini:2891 resources/themes.ini:2921
+msgid "Valentine color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Valentine রং প্যালেট"
+
+#: resources/themes.ini:2951 resources/themes.ini:2981
+msgid "Winter color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Winter রং প্যালেট"
+
+#: resources/themes.ini:3011 resources/themes.ini:3041
+msgid "Wireframe color palette from DaisyUI theme collection"
+msgstr "DaisyUI থিম সংগ্রহ থেকে Wireframe রং প্যালেট"
+
+#: resources/themes.ini:3071 resources/themes.ini:3101
+msgid "Classic xnec2c plot colors"
+msgstr "ক্লাসিক xnec2c প্লট রং"
+
+#: resources/themes.ini:3131 resources/themes.ini:3161
+msgid "Hand-tuned cool palette"
+msgstr "হাতে-সমন্বিত শীতল প্যালেট"
+
+#: resources/themes.ini:3191 resources/themes.ini:3221
+msgid "Hand-tuned warm palette"
+msgstr "হাতে-সমন্বিত উষ্ণ প্যালেট"
