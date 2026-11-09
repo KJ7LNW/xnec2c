@@ -963,7 +963,7 @@ rc_config_vars_t rc_config_vars[] = {
 		.def = { { .d = ANT_TEMP_CUSTOM_T_EARTH_DEFAULT } } },
 
 	/* The theme selector rows are menu items the render settings window
-	 * builds from the theme registry, so these trees name the shell holding
+	 * builds from the theme registry, so this tree names the shell holding
 	 * them instead of a declared element list; each row binds itself to its
 	 * field and reaches this tree's refresh and its hover policy through that
 	 * binding. */
@@ -980,12 +980,8 @@ rc_config_vars_t rc_config_vars[] = {
 
 	{ .desc = "Frequency Plots Theme Inverted", .format = "%d",
 		.vars = { &rc_config.freqplots_theme_invert },
-		.widgets = CONFIG_WIDGET_TREE( .post_apply = &hook_theme_change_refresh,
-			.groups = CONFIG_WIDGET_GROUPS(
-				CONFIG_WIDGET_GROUP( .builder = &render_settings_builder,
-					.value_menu_id = "render_theme_menu",
-					.elements = CONFIG_WIDGETS( NULL ) ),
-				NULL ) ) },
+		.widgets = CONFIG_WIDGET_SINGLE( &render_settings_builder,
+			"render_theme_invert", &hook_theme_change_refresh ) },
 
 };
 

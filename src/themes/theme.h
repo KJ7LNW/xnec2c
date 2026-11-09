@@ -17,10 +17,6 @@
 
 #include "../common.h"
 
-/* g_object_data key carrying the Inverted item on the color-theme menu shell
- * that governs it; set by the menu builder, read by the theme refresh. */
-#define THEME_DATA_INVERT_ITEM  "theme_invert_item"
-
 /* Bind every themable visual role to one immutable rendering color theme.
  * Define roles by visual function and resolve each through the indexed colors
  * array.  Supply backend leaf functions with plain colors from their frame

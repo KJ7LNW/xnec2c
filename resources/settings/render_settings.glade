@@ -145,6 +145,21 @@
             <property name="position">1</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkCheckButton" id="render_theme_invert">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="valign">center</property>
+            <property name="label" translatable="yes">_Invert</property>
+            <property name="use-underline">True</property>
+            <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
       </object>
     </child>
 
