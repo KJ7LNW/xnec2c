@@ -22,14 +22,26 @@ or the %post section of ./xnec2c.spec .
 
 
 === Dependencies ===
-If Gnome development packages are installed then you probably have all
-the "required" dependencies.  Notably:
-  * gtk3 / gdk3
+Required build dependencies include the development headers and libraries
+for:
+  * gtk3 / gdk3 (gtk+-3.0 >= 3.18.0)
   * pango
   * cairo
+  * GLib GIO and GModule (gio-2.0 and gmodule-2.0), plus the
+    glib-compile-resources tool
+  * GNU Scientific Library (gsl)
 
-In addition, the xnec2c package has optional linear algebra dependencies
-that you can include either as "required" to directly pull them when
+OpenGL support is enabled by default and additionally requires:
+  * libepoxy (epoxy)
+  * OpenGL headers (GL/gl.h) and libGL
+
+Pass --disable-opengl to configure to build without OpenGL support; in
+that case libepoxy and the OpenGL headers and library are not required.
+Package names for these build dependencies vary by distribution.
+
+Optional runtime BLAS/LAPACK libraries are separate from these build
+dependencies and are dynamically loaded, not required to build xnec2c.
+You can include them either as "required" to directly pull them when
 installing xnec2c from your package manager, or as "suggested" packages
 for performance enhancement.  These linear algebra packages are supported:
 
