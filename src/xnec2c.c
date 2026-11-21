@@ -204,8 +204,13 @@ void
 user_set_frequency( double fmhz )
 {
   freq_display_update( fmhz );
+
+  g_rec_mutex_lock(&freq_data_lock);
   calc_data.freq_mhz = fmhz;
-  if( !fetch_freq_data() )
+  gboolean cached = fetch_freq_data();
+  g_rec_mutex_unlock(&freq_data_lock);
+
+  if( !cached )
     Start_Frequency_Loop_Greenline();
 }
 
@@ -1160,9 +1165,11 @@ freq_loop_dispatch( freq_loop_state_t *state, child_proc_t *child,
   /* Non-forked: write freq_mhz and freq_step for the NEC engine here;
    * freq_step_update_ui overwrites both on the GTK thread for display.
    * New_Frequency acquires freq_data_lock internally. */
+  g_rec_mutex_lock(&freq_data_lock);
   calc_data.freq_mhz  = freq;
   calc_data.freq_step = fstep;
   New_Frequency();
+  g_rec_mutex_unlock(&freq_data_lock);
 
   /* Non-forked: computation is synchronous.  Child stays off the idle stack
    * with assigned_step set; freq_loop_collect_pending() handles collect
